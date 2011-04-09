@@ -158,7 +158,7 @@ void set_height_weight(creature_type *cr_ptr)
 
 	if(ave_b_ht <= 0 || ave_m_ht < 0 || ave_b_wt <= 0 || ave_m_wt < 0)
 	{
-		msg_print("[Warning: Invalid height and weight.]");
+		if(cheat_hear)msg_print("[Warning: Invalid height and weight.]");
 		ave_b_ht = 100;
 		ave_m_ht = 0;
 		ave_b_wt = 30;

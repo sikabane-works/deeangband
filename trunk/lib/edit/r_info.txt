@@ -335,12 +335,15 @@ E:Farmer Maggot
 G:h:w
 I:110:40:10:3
 W:0:3:0:0:0:0
-P:14.0:6.0:11.0:11.0:15.0:11.0
-X:97:0:21:0:97:0:21:0
+P:16.0:6.0:11.0:11.0:19.0:11.0
+X:92:0:21:0:92:0:21:0
 Y:-1
 B:MOAN
 B:MOAN
 B:HIT:HURT:1d5
+U:53:1d1
+U:54:1d1
+U:55:1d1
 F:UNIQUE | MALE | CAN_SPEAK | DROP_CORPSE | FRIENDLY
 F:FORCE_MAXHP | WILD_TOWN | WILD_ONLY
 F:ONLY_ITEM | DROP_90 | DROP_GOOD | DROP_GREAT
@@ -763,6 +766,8 @@ E:White worm mass
 G:w:w
 I:100:7:1:10
 W:1:1:0:4:5:58
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:POISON:1d5
 F:RAND_50 | RAND_25 | CAN_SWIM |
@@ -1131,6 +1136,8 @@ E:Grip, Farmer Maggot's dog
 G:C:w
 I:120:30:30:0
 W:2:2:0:40:0:0
+P:15.0:6.0:8.0:14.0:15.0:10.0
+X:83:0:31:0:83:0:31:0
 Y:-1
 B:BITE:HURT:2d4
 F:UNIQUE | CAN_SPEAK |
@@ -1148,6 +1155,8 @@ E:Wolf, Farmer Maggot's dog
 G:C:w
 I:120:30:30:0
 W:2:2:0:40:0:0
+P:16.0:6.0:8.0:13.0:14.0:10.0
+X:88:0:33:0:88:0:33:0
 Y:-1
 B:BITE:HURT:2d4
 F:UNIQUE | CAN_SPEAK |
@@ -1165,6 +1174,8 @@ E:Fang, Farmer Maggot's dog
 G:C:w
 I:120:30:30:0
 W:2:2:0:40:0:0
+P:14.0:6.0:8.0:15.0:16.0:10.0
+X:80:0:29:0:80:0:29:0
 Y:-1
 B:BITE:HURT:2d4
 F:UNIQUE | CAN_SPEAK |
@@ -1213,6 +1224,8 @@ E:Green worm mass
 G:w:g
 I:100:7:3:10
 W:2:1:0:5:8:78
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:ACID:1d6
 F:RAND_50 | RAND_25 | 
@@ -1537,6 +1550,8 @@ E:Yellow worm mass
 G:w:y
 I:100:7:4:10
 W:3:2:0:5:10:89
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:LOSE_DEX:1d5
 F:RAND_50 | RAND_25 | CAN_SWIM |
@@ -1551,6 +1566,8 @@ E:Clear worm mass
 G:w:B
 I:100:7:1:10
 W:3:2:0:5:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:POISON:1d4
 F:ATTR_CLEAR | CAN_SWIM |
@@ -1703,6 +1720,8 @@ E:Blue worm mass
 G:w:b
 I:100:7:12:10
 W:4:1:0:5:20:105
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:COLD:1d7
 F:RAND_50 | RAND_25 | 
@@ -1962,6 +1981,8 @@ E:Red worm mass
 G:w:r
 I:100:7:12:10
 W:5:1:0:6:80:876
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:FIRE:1d9
 F:RAND_50 | RAND_25 | 
@@ -3887,6 +3908,8 @@ E:Nether worm mass
 G:w:D
 I:100:10:15:3
 W:12:4:0:6:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:TOUCH:EXP_10
 F:RAND_50 | RAND_25 | CAN_SWIM |
@@ -3903,6 +3926,8 @@ E:Abyss worm mass
 G:w:D
 I:100:10:15:3
 W:12:4:0:7:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:EXP_10
 F:RAND_50 | RAND_25 | 
@@ -12255,6 +12280,8 @@ E:Disenchanter worm mass
 G:w:v
 I:100:7:5:10
 W:40:3:0:30:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:CRAWL:UN_BONUS:1d4
 F:RAND_50 | RES_DISE | ATTR_MULTI | CAN_SWIM |
@@ -19088,6 +19115,9 @@ E:Unstable worm mass
 G:w:o
 I:100:10:10:5
 W:15:4:0:7:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
+Y:-1
 B:EXPLODE:FIRE:5d5
 F:RAND_50 | RAND_25 | CAN_SWIM |
 F:STUPID | WEIRD_MIND | MULTIPLY | BASH_DOOR | 
@@ -21645,6 +21675,8 @@ E:Bomb mosquito
 G:I:D
 I:120:30:50:0
 W:1:6:0:3:0:0
+X:1:0:1:0:1:0:1:0
+P:3.0:3.0:3.0:3.0:3.0:3.0
 Y:-1
 B:EXPLODE:HURT:1d2
 F:RAND_50 | CAN_FLY |
