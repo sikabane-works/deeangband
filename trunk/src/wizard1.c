@@ -1709,6 +1709,7 @@ static void spoil_mon_desc(cptr fname)
 
 	char buf[1024];
 
+	char id[10];
 	char nam[80];
 	char lev[80];
 	char rar[80];
@@ -1749,11 +1750,11 @@ static void spoil_mon_desc(cptr fname)
 	fprintf(fff, "------------------------------------------\n\n");
 
 	/* Dump the header */
-	fprintf(fff, "    %-38.38s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
-		"Name",     "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
+	fprintf(fff, "%5s     %-38.38s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
+		"ID", "Name",     "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
 		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info");
-	fprintf(fff, "%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
-		"--------", "---", "---", "---", "---", "--", "--", "--", "--", "--", "--",
+	fprintf(fff, "%5s %-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
+		"-----","--------", "---", "---", "---", "---", "--", "--", "--", "--", "--", "--",
 		"--------------------", "--", "--", "--", "---", "-----------");
 
 
@@ -1779,8 +1780,10 @@ static void spoil_mon_desc(cptr fname)
 		monster_race *r_ptr = &r_info[who[i]];
 
 		cptr name = (r_name + r_ptr->name);
-		if (r_ptr->flags7 & (RF7_KAGE)) continue;
 
+		sprintf(id, "%5d ", who[i]);
+
+		if (r_ptr->flags7 & (RF7_KAGE)) continue;
 		/* Get the "name" */
 		/*
 		else if (r_ptr->flags1 & (RF1_QUESTOR))
@@ -1874,8 +1877,8 @@ static void spoil_mon_desc(cptr fname)
 		sprintf(exp, "%s '%c'", attr_to_text(r_ptr), r_ptr->d_char);
 
 		/* Dump the info */
-		fprintf(fff, "%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%15s%6s%7s%7s%4s  %11.11s\n",
-			nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp);
+		fprintf(fff, "%6s%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%15s%6s%7s%7s%4s  %11.11s\n",
+			id, nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp);
 	}
 
 	/* End it */

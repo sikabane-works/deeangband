@@ -4371,7 +4371,7 @@ void calc_bonuses(creature_type *cr_ptr)
 		}
 		else
 		{
-			new_speed += o_ptr->pval;
+			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
 		}
 
 
