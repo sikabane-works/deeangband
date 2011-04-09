@@ -3734,13 +3734,13 @@ D:メルコールのいかなる企みも虚しく、創造主の手の内にあった理由に他ならない。
 
 
 # 御馴染みのアレ
-N:239:イェンダーの
-E:of Yendor
+N:239:イェンダーの魔除け
+E:the Amulet of Yendor
 I:40:29:2
 W:99:100:50:60000
 P:0:0:1d1:0:0:0
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | RES_LITE | RES_DISEN |
-F:INSTA_ART | WIS | INT
+F:INSTA_ART | WIS | INT  | FULL_NAME
 D:多元宇宙の遥か昔から数多の挑戦者が求めて止まなかった伝説の魔除けだ。
 
 N:240:ウドゥンの
