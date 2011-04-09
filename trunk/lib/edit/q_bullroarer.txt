@@ -1,0 +1,21 @@
+# q_bullroaror.txt
+
+# Name
+Q:$35:N:immigrants of hobbit
+Q:35:N:ホビットの移住者達
+
+# type:num_mon:cur_num:max_num:level:r_idx:k_idx
+Q:$35:Q:1:0:0:1:13:914:0:1
+Q:35:Q:1:0:0:1:13:914:0:1
+
+# Description for quest
+?:[LEQ $QUEST35 2]
+
+Q:35:T:TODO
+?:1
+
+# Description for quest reward
+?:[EQU $QUEST35 3]
+Q:35:T:TODO
+?:1
+
