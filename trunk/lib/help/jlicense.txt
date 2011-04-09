@@ -1,66 +1,66 @@
 **********************************************************************
-                 D'angband¤ÎÃøºî¸¢¤È»ÈÍÑµöÂú¤Ë¤Ä¤¤¤Æ
+                 D'angband‚Ì’˜ìŒ ‚Æg—p‹–‘ø‚É‚Â‚¢‚Ä
 **********************************************************************
 
 
 --------------
-Ãøºî¸¢¤Ë¤Ä¤¤¤Æ
+’˜ìŒ ‚É‚Â‚¢‚Ä
 --------------
 
-    D'angband¤Î¡¢ÊÑ¶òÈÚÅÜ¤è¤ê¤ÎÊÑ¹¹ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô¤¬ÂåÉ½¤·¤Æ
-  Ãøºî¸¢¤òÍ­¤·¤Ş¤¹¡£
+    D'angband‚ÌA•Ï‹ğ”Ø“{‚æ‚è‚Ì•ÏX•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌÒ‚ª‘ã•\‚µ‚Ä
+  ’˜ìŒ ‚ğ—L‚µ‚Ü‚·B
 
-    Deskull          Email: deskull¡÷users.spamblock.sourceforge.jp
-
-
-    ÊÑ¶òÈÚÅÜ¤Î¡¢ÆüËÜ¸ìÈÇ¥¢¥ó¥°¥Ğ¥ó¥É¤ª¤è¤ÓÆüËÜ¸ìÈÇ Zangband¤è¤ê¤ÎÊÑ
-  ¹¹ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô¤¬ÂåÉ½¤·¤ÆÃøºî¸¢¤òÍ­¤·¤Ş¤¹¡£
-
-    Mr.hoge          Email: echizen¡÷users.spamblock.sourceforge.jp
+    Deskull          Email: deskull—users.spamblock.sourceforge.jp
 
 
-    ÆüËÜ¸ìÈÇ Zangband¤Î¡¢Zangband ¸ÇÍ­¤ÎÆüËÜ¸ì²½ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô
-  ¤¬ÂåÉ½¤·¤ÆÃøºî¸¢¤òÍ­¤·¤Ş¤¹¡£
+    •Ï‹ğ”Ø“{‚ÌA“ú–{Œê”ÅƒAƒ“ƒOƒoƒ“ƒh‚¨‚æ‚Ñ“ú–{Œê”Å Zangband‚æ‚è‚Ì•Ï
+  X•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌÒ‚ª‘ã•\‚µ‚Ä’˜ìŒ ‚ğ—L‚µ‚Ü‚·B
 
-    ÈÄÁÒ             Email: itakura¡÷users.spamblock.sourceforge.net
-
-
-    ÆüËÜ¸ìÈÇ¥¢¥ó¥°¥Ğ¥ó¥É 2.8.3-1.2.6 ¤Ç¤Î¥ª¥ê¥¸¥Ê¥ë angband 2.8.3 ¤è¤ê
-  ¤ÎÁ´µ¡¼ï¶¦ÄÌ¤ÎÊÑ¹¹ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô¤¬Ãøºî¸¢¤òÍ­¤·¤Ş¤¹¡£
-
-    ¤·¤È¤·¤ó(Æâ³¤À¶½¨)      iris¡÷bf.mbn.or.jp
-    ¥¨¥ë¥í¥Ã¥¯              CXK01336¡÷niftyserve.or.jp
-    £Æ£É£Ò£Ó£Ô(ÇòÊı·òÂÀÏº)  argrath¡÷yo.rim.or.jp
-    sayu(YOKOYAMA Atsushi)  sayu¡÷gol.com
-    ´ß¹¯»Ê                  kis-¡÷ca2.so-net.or.jp
-    TeO                     CXE00237¡÷niftyserve.or.jp
-    ÅÜÅó¤Î²Ë¿Í(¶â¸÷´²Ê÷)    KFF02766¡÷niftyserve.or.jp
-    VOLKO(¾ë¸Í¥¤¥µ¥à)       ÅìµşBBS: VOLKO
+    Mr.hoge          Email: echizen—users.spamblock.sourceforge.jp
 
 
-    ÆüËÜ¸ìÈÇ¥¢¥ó¥°¥Ğ¥ó¥É 2.8.3-1.2.6 ¤Ç¤Î¥ª¥ê¥¸¥Ê¥ë angband 2.8.3 ¤è¤ê
-  ¤Î³Æµ¡¼ï¤Ë¤ª¤±¤ëÊÑ¹¹ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï¤½¤ì¤¾¤ì°Ê²¼¤Î°Ü¿¢¼Ô¤¬Ãøºî¸¢¤òÍ­¤·
-  ¤Ş¤¹¡£
+    “ú–{Œê”Å Zangband‚ÌAZangband ŒÅ—L‚Ì“ú–{Œê‰»•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌÒ
+  ‚ª‘ã•\‚µ‚Ä’˜ìŒ ‚ğ—L‚µ‚Ü‚·B
 
-    PC-98x1   ¤Ø¤Î°Ü¿¢¼Ô : ¤·¤È¤·¤ó(iris¡÷bf.mbn.or.jp)
-                           ¥¨¥ë¥í¥Ã¥¯(CXK01336¡÷niftyserve.or.jp)
-    X680x0    ¤Ø¤Î°Ü¿¢¼Ô : £Æ£É£Ò£Ó£Ô(argrath¡÷yo.rim.or.jp)
-    DOS/V     ¤Ø¤Î°Ü¿¢¼Ô : sayu(sayu¡÷gol.com)
-    UNIX/X11  ¤Ø¤Î°Ü¿¢¼Ô : ´ß¹¯»Ê(kis-¡÷ca2.so-net.or.jp)
-                           Íû¹¸¿­(ri¡÷kuis.kyoto-u.ac.jp)
-    NeXTSTEP  ¤Ø¤Î°Ü¿¢¼Ô : ¹â¶¶Îá(Âç³Ø:ks7098tr¡÷ex.ecip.osaka-u.ac.jp)
-                                 (¼«Âğ:rei0¡÷osk2.3web.ne.jp)
-    FM-TOWNS  ¤Ø¤Î°Ü¿¢¼Ô : ÊÒ»³·ò°ìÏº(ken_katayama¡÷geocities.co.jp)
-    Windows95 ¤Ø¤Î°Ü¿¢¼Ô : TeO (CXE00237¡÷niftyserve.or.jp)
+    ”Â‘q             Email: itakura—users.spamblock.sourceforge.net
+
+
+    “ú–{Œê”ÅƒAƒ“ƒOƒoƒ“ƒh 2.8.3-1.2.6 ‚Å‚ÌƒIƒŠƒWƒiƒ‹ angband 2.8.3 ‚æ‚è
+  ‚Ì‘S‹@í‹¤’Ê‚Ì•ÏX•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌÒ‚ª’˜ìŒ ‚ğ—L‚µ‚Ü‚·B
+
+    ‚µ‚Æ‚µ‚ñ(“àŠC´G)      iris—bf.mbn.or.jp
+    ƒGƒ‹ƒƒbƒN              CXK01336—niftyserve.or.jp
+    ‚e‚h‚q‚r‚s(”’•ûŒ’‘¾˜Y)  argrath—yo.rim.or.jp
+    sayu(YOKOYAMA Atsushi)  sayu—gol.com
+    ŠİNi                  kis-—ca2.so-net.or.jp
+    TeO                     CXE00237—niftyserve.or.jp
+    “{““‚Ì‰Él(‹àŒõŠ°•õ)    KFF02766—niftyserve.or.jp
+    VOLKO(éŒËƒCƒTƒ€)       “Œ‹BBS: VOLKO
+
+
+    “ú–{Œê”ÅƒAƒ“ƒOƒoƒ“ƒh 2.8.3-1.2.6 ‚Å‚ÌƒIƒŠƒWƒiƒ‹ angband 2.8.3 ‚æ‚è
+  ‚ÌŠe‹@í‚É‚¨‚¯‚é•ÏX•”•ª‚É‚Â‚¢‚Ä‚Í‚»‚ê‚¼‚êˆÈ‰º‚ÌˆÚAÒ‚ª’˜ìŒ ‚ğ—L‚µ
+  ‚Ü‚·B
+
+    PC-98x1   ‚Ö‚ÌˆÚAÒ : ‚µ‚Æ‚µ‚ñ(iris—bf.mbn.or.jp)
+                           ƒGƒ‹ƒƒbƒN(CXK01336—niftyserve.or.jp)
+    X680x0    ‚Ö‚ÌˆÚAÒ : ‚e‚h‚q‚r‚s(argrath—yo.rim.or.jp)
+    DOS/V     ‚Ö‚ÌˆÚAÒ : sayu(sayu—gol.com)
+    UNIX/X11  ‚Ö‚ÌˆÚAÒ : ŠİNi(kis-—ca2.so-net.or.jp)
+                           —›WL(ri—kuis.kyoto-u.ac.jp)
+    NeXTSTEP  ‚Ö‚ÌˆÚAÒ : ‚‹´—ß(‘åŠw:ks7098tr—ex.ecip.osaka-u.ac.jp)
+                                 (©‘î:rei0—osk2.3web.ne.jp)
+    FM-TOWNS  ‚Ö‚ÌˆÚAÒ : •ĞRŒ’ˆê˜Y(ken_katayama—geocities.co.jp)
+    Windows95 ‚Ö‚ÌˆÚAÒ : TeO (CXE00237—niftyserve.or.jp)
 
 
 
 --------
-»ÈÍÑµöÂú
+g—p‹–‘ø
 --------
 
-ÊÑ¶òÈÚÅÜ¤Ï¡¢¥Ù¡¼¥¹¤Ç¤¢¤ë Angband ¤ä ZAngband ¤ÈÆ±ÍÍ¤Ë°Ê²¼¤Î 
-Moria/Angband»ÈÍÑµöÂú¤Ë½¾¤Ã¤ÆÇÛÉÛ¤µ¤ì¤Æ¤¤¤Ş¤¹¡£
+•Ï‹ğ”Ø“{‚ÍAƒx[ƒX‚Å‚ ‚é Angband ‚â ZAngband ‚Æ“¯—l‚ÉˆÈ‰º‚Ì 
+Moria/Angbandg—p‹–‘ø‚É]‚Á‚Ä”z•z‚³‚ê‚Ä‚¢‚Ü‚·B
 
 Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
 
@@ -68,45 +68,45 @@ This software may be copied and distributed for educational, research,
 and not for profit purposes provided that this copyright and statement
 are included in all such copies.  Other copyrights may also apply.
 
-¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Ï¶µ°é¤ä¸¦µæ¤Î¤¿¤á¤Ê¤é¤Ğ¡¢¤½¤·¤ÆÍø±×¤òÌÜÅª¤È¤·¤Ê¤¤¤Î¤Ê
-¤é¤ĞÊ£¼Ì¤ª¤è¤ÓÇÛÉÛ¤·¤Æ¤è¤¤¡£¤¿¤À¤·¡¢ÇÛÉÛ¤¹¤ëÁ´¤Æ¤Î¥³¥Ô¡¼¤Ë¤³¤ÎÃøºî¸¢É½
-µ­¤È»ÈÍÑµöÂúÊ¸¾Ï¤¬µ­ºÜ¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¡£¤³¤ÎÉ½µ­¤Ë²Ã¤¨¤ÆÊÌ¤ÎÃø
-ºî¸¢¤âÅ¬ÍÑ¤¹¤ë»ö¤¬¤Ç¤­¤ë¡£
-(ÌõÃí¡§ºÇ¸å¤ÎÊ¸¤Ï¡¢¾å¤Î3¿Í¤ÎÂ¾¤ËÂ¿¤¯¤Î¹×¸¥¼Ô¤¬¤¤¤ë¤¿¤á¡¢¤½¤Î¿Í¡¹¤ÎÃøºî
-¸¢¤¬ÊÌ¤ËÅ¬ÍÑ¤µ¤ì¤ë»ö¤Ë¤Ä¤¤¤ÆÊäÂ­¤·¤¿¤â¤Î¤«¤È»×¤ï¤ì¤Ş¤¹¡£)
+‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‹³ˆç‚âŒ¤‹†‚Ì‚½‚ß‚È‚ç‚ÎA‚»‚µ‚Ä—˜‰v‚ğ–Ú“I‚Æ‚µ‚È‚¢‚Ì‚È
+‚ç‚Î•¡Ê‚¨‚æ‚Ñ”z•z‚µ‚Ä‚æ‚¢B‚½‚¾‚µA”z•z‚·‚é‘S‚Ä‚ÌƒRƒs[‚É‚±‚Ì’˜ìŒ •\
+‹L‚Æg—p‹–‘ø•¶Í‚ª‹LÚ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B‚±‚Ì•\‹L‚É‰Á‚¦‚Ä•Ê‚Ì’˜
+ìŒ ‚à“K—p‚·‚é–‚ª‚Å‚«‚éB
+(–ó’FÅŒã‚Ì•¶‚ÍAã‚Ì3l‚Ì‘¼‚É‘½‚­‚ÌvŒ£Ò‚ª‚¢‚é‚½‚ßA‚»‚ÌlX‚Ì’˜ì
+Œ ‚ª•Ê‚É“K—p‚³‚ê‚é–‚É‚Â‚¢‚Ä•â‘«‚µ‚½‚à‚Ì‚©‚Æv‚í‚ê‚Ü‚·B)
 
 
-ÊÑ¶òÈÚÅÜ¤ËÊÑ¹¹¤ò²Ã¤¨¤¿¥×¥í¥°¥é¥à¤«¡¢¤Ş¤¿¤ÏÊÑ¶òÈÚÅÜ¤Î¥×¥í¥°¥é¥à¤Î°ìÉô¤ò
-´Ş¤àÊÌ¤Î¥×¥í¥°¥é¥à¤òÇÛÉÛ¤¹¤ë¾ì¹ç¤Ï¡¢Moria/Angband»ÈÍÑµöÂú¤Ë²Ã¤¨¤Æ°Ê²¼
-¤Î¾ò¹à¤òËş¤¿¤¹¾ì¹ç¤Î¤ßÇÛÉÛ¤òµö²Ä¤·¤Ş¤¹¡£¤³¤³¤ÇÊÑ¹¹¤È¤ÏÇÛÉÛ¤µ¤ì¤ë¥¢¡¼¥«
-¥¤¥Ö¤Ë´Ş¤Ş¤ì¤ë¸Ä¡¹¤Î¥Õ¥¡¥¤¥ë¤ÎÊÑ¹¹µÚ¤Ó¥Õ¥¡¥¤¥ë¤ÎÄÉ²Ã¡¦ºï½ü¤ò»Ø¤·¤Ş¤¹¡£
+•Ï‹ğ”Ø“{‚É•ÏX‚ğ‰Á‚¦‚½ƒvƒƒOƒ‰ƒ€‚©A‚Ü‚½‚Í•Ï‹ğ”Ø“{‚ÌƒvƒƒOƒ‰ƒ€‚Ìˆê•”‚ğ
+ŠÜ‚Ş•Ê‚ÌƒvƒƒOƒ‰ƒ€‚ğ”z•z‚·‚éê‡‚ÍAMoria/Angbandg—p‹–‘ø‚É‰Á‚¦‚ÄˆÈ‰º
+‚Ìğ€‚ğ–‚½‚·ê‡‚Ì‚İ”z•z‚ğ‹–‰Â‚µ‚Ü‚·B‚±‚±‚Å•ÏX‚Æ‚Í”z•z‚³‚ê‚éƒA[ƒJ
+ƒCƒu‚ÉŠÜ‚Ü‚ê‚éŒÂX‚Ìƒtƒ@ƒCƒ‹‚Ì•ÏX‹y‚Ñƒtƒ@ƒCƒ‹‚Ì’Ç‰ÁEíœ‚ğw‚µ‚Ü‚·B
 
-  (1) Á´¤Æ¤ÎÃøºî¸¢É½µ­¤ò¤½¤Î¤Ş¤Ş¤Î·Á¤Ç´Ş¤à»ö¡£
+  (1) ‘S‚Ä‚Ì’˜ìŒ •\‹L‚ğ‚»‚Ì‚Ü‚Ü‚ÌŒ`‚ÅŠÜ‚Ş–B
 
-  (2) ÊÑ¹¹¤ò²Ã¤¨¤¿»ö¼ÂµÚ¤ÓÊÑ¹¹ÆâÍÆ¤Ë¤Ä¤¤¤ÆÌÀ³Î¤Ëµ­ºÜ¤¹¤ë»ö¡£
+  (2) •ÏX‚ğ‰Á‚¦‚½–À‹y‚Ñ•ÏX“à—e‚É‚Â‚¢‚Ä–¾Šm‚É‹LÚ‚·‚é–B
 
-  (3) ÊÑ¶òÈÚÅÜ¤Î¥¹¥³¥¢¥µ¡¼¥Ğ¡¼¤Ë¥¹¥³¥¢¤òÁ÷¿®¤Ç¤­¤Ê¤¤¤è¤¦¤ËÉ¬Í×¤ÊÊÑ¹¹¤ò
-      ²Ã¤¨¤ë»ö¡£(¥¹¥³¥¢Á÷¿®µ¡Ç½¤òÌµ¸ú¤Ë¤¹¤ë¤«¡¢Á÷¿®Àè¥µ¡¼¥Ğ¡¼¤Î¾ì½ê¤ò
-      ÊÑ¤¨¤ë¡¢Åù¤ÎÊıË¡¤Ç) ¤¿¤À¤·¡¢Á´¤Æ¤ÎÊÑ¹¹¤¬ÊÑ¶òÈÚÅÜ¤Î¥²¡¼¥àÆâÍÆ¼«ÂÎ
-      ¤ËÁ´¤¯±Æ¶Á¤òÍ¿¤¨¤Ê¤¤¾ì¹ç¤Ï¤³¤Î¾ò¹à¤ÏÅ¬ÍÑ¤µ¤ì¤Ê¤¤Êª¤È¤·¤Ş¤¹¡£
+  (3) •Ï‹ğ”Ø“{‚ÌƒXƒRƒAƒT[ƒo[‚ÉƒXƒRƒA‚ğ‘—M‚Å‚«‚È‚¢‚æ‚¤‚É•K—v‚È•ÏX‚ğ
+      ‰Á‚¦‚é–B(ƒXƒRƒA‘—M‹@”\‚ğ–³Œø‚É‚·‚é‚©A‘—MæƒT[ƒo[‚ÌêŠ‚ğ
+      •Ï‚¦‚éA“™‚Ì•û–@‚Å) ‚½‚¾‚µA‘S‚Ä‚Ì•ÏX‚ª•Ï‹ğ”Ø“{‚ÌƒQ[ƒ€“à—e©‘Ì
+      ‚É‘S‚­‰e‹¿‚ğ—^‚¦‚È‚¢ê‡‚Í‚±‚Ìğ€‚Í“K—p‚³‚ê‚È‚¢•¨‚Æ‚µ‚Ü‚·B
 
 
-¾å½Ò¤Î»ÈÍÑµöÂúÉ½µ­¤Ï Angband ¤Î dual license (¸å½Ò)¤Ë¤è¤Ã¤Æ GPL ¤Î¤ß¤Ë
-½¾¤Ã¤ÆÇÛÉÛ¤µ¤ì¤ë²ÄÇ½À­¤òÇÓ½ü¤¹¤ë¤â¤Î¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó¡£¸½ºß¤Ï GPL ¤Ë½¾¤Ã
-¤ÆÊÑ¶òÈÚÅÜ¤òÇÛÉÛ¤¹¤ë»ö¤ÏÉÔ²ÄÇ½¤Ç¤¹¤¬¡¢¾­ÍèÅª¤Ë¤½¤ì¤¬²ÄÇ½¤Ë¤Ê¤Ã¤¿»ş¤Ï 
-GPL ¤Ë¤è¤Ã¤ÆÇÛÉÛ¤ò¼õ¤±¤¿¼Ô¤Ï¾å½Ò¤Î»ÈÍÑµöÂúÉ½¼¨¤Ë½¾¤¦µÁÌ³¤Ï¤¢¤ê¤Ş¤»¤ó¡£
+ãq‚Ìg—p‹–‘ø•\‹L‚Í Angband ‚Ì dual license (Œãq)‚É‚æ‚Á‚Ä GPL ‚Ì‚İ‚É
+]‚Á‚Ä”z•z‚³‚ê‚é‰Â”\«‚ğ”rœ‚·‚é‚à‚Ì‚Å‚Í‚ ‚è‚Ü‚¹‚ñBŒ»İ‚Í GPL ‚É]‚Á
+‚Ä•Ï‹ğ”Ø“{‚ğ”z•z‚·‚é–‚Í•s‰Â”\‚Å‚·‚ªA«—ˆ“I‚É‚»‚ê‚ª‰Â”\‚É‚È‚Á‚½‚Í 
+GPL ‚É‚æ‚Á‚Ä”z•z‚ğó‚¯‚½Ò‚Íãq‚Ìg—p‹–‘ø•\¦‚É]‚¤‹`–±‚Í‚ ‚è‚Ü‚¹‚ñB
 
 
 ----
-Êİ¾Ú
+•ÛØ
 ----
-    ËÜ¥×¥í¥°¥é¥à¤ò»ÈÍÑ¤·¤¿¤³¤È¤Ë¤è¤Ã¤ÆÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë¤Ä¤¤¤Æ¤âÀ½ºî
-  ¼Ô¤Ï¤½¤ÎÀÕÇ¤¤òÉé¤¤¤Ş¤»¤ó¡£
+    –{ƒvƒƒOƒ‰ƒ€‚ğg—p‚µ‚½‚±‚Æ‚É‚æ‚Á‚Ä¶‚¶‚½‚¢‚©‚È‚é‘¹ŠQ‚É‚Â‚¢‚Ä‚à»ì
+  Ò‚Í‚»‚ÌÓ”C‚ğ•‰‚¢‚Ü‚¹‚ñB
 
 
 
 -----------------------------------
-±Ñ¸ìÈÇ Angband ¤ÎÃøºî¸¢µÚ¤Ó»ÈÍÑµöÂú
+‰pŒê”Å Angband ‚Ì’˜ìŒ ‹y‚Ñg—p‹–‘ø
 -----------------------------------
 Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
 
@@ -114,13 +114,13 @@ This software may be copied and distributed for educational, research,
 and not for profit purposes provided that this copyright and statement
 are included in all such copies.  Other copyrights may also apply.
 
-¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Ï¶µ°é¤ä¸¦µæ¤Î¤¿¤á¤Ê¤é¤Ğ¡¢¤½¤·¤ÆÍø±×¤òÌÜÅª¤È¤·¤Ê¤¤¤Î¤Ê
-¤é¤ĞÊ£¼Ì¤ª¤è¤ÓÇÛÉÛ¤·¤Æ¤è¤¤¡£¤¿¤À¤·¡¢ÇÛÉÛ¤¹¤ëÁ´¤Æ¤Î¥³¥Ô¡¼¤Ë¤³¤ÎÃøºî¸¢É½
-µ­¤È»ÈÍÑµöÂúÊ¸¾Ï¤¬µ­ºÜ¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¡£¤³¤ÎÉ½µ­¤Ë²Ã¤¨¤ÆÊÌ¤ÎÃø
-ºî¸¢¤âÅ¬ÍÑ¤¹¤ë»ö¤¬¤Ç¤­¤ë(?)¡£
+‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‹³ˆç‚âŒ¤‹†‚Ì‚½‚ß‚È‚ç‚ÎA‚»‚µ‚Ä—˜‰v‚ğ–Ú“I‚Æ‚µ‚È‚¢‚Ì‚È
+‚ç‚Î•¡Ê‚¨‚æ‚Ñ”z•z‚µ‚Ä‚æ‚¢B‚½‚¾‚µA”z•z‚·‚é‘S‚Ä‚ÌƒRƒs[‚É‚±‚Ì’˜ìŒ •\
+‹L‚Æg—p‹–‘ø•¶Í‚ª‹LÚ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B‚±‚Ì•\‹L‚É‰Á‚¦‚Ä•Ê‚Ì’˜
+ìŒ ‚à“K—p‚·‚é–‚ª‚Å‚«‚é(?)B
 
-(ÌõÃí¡§ºÇ¸å¤ÎÊ¸¤Ï¡¢¾å¤Î3¿Í¤ÎÂ¾¤ËÂ¿¤¯¤Î¹×¸¥¼Ô¤¬¤¤¤ë¤¿¤á¡¢¤½¤Î¿Í¡¹¤ÎÃøºî
-¸¢¤¬ÊÌ¤ËÅ¬ÍÑ¤µ¤ì¤ë»ö¤Ë¤Ä¤¤¤ÆÊäÂ­¤·¤¿¤â¤Î¤«¤È»×¤ï¤ì¤Ş¤¹¡£)
+(–ó’FÅŒã‚Ì•¶‚ÍAã‚Ì3l‚Ì‘¼‚É‘½‚­‚ÌvŒ£Ò‚ª‚¢‚é‚½‚ßA‚»‚ÌlX‚Ì’˜ì
+Œ ‚ª•Ê‚É“K—p‚³‚ê‚é–‚É‚Â‚¢‚Ä•â‘«‚µ‚½‚à‚Ì‚©‚Æv‚í‚ê‚Ü‚·B)
 
 
 All changes made by Ben Harrison and Robert Ruehlmann are also available
@@ -130,128 +130,128 @@ available under the old Moria/Angband license.  Until all parts of
 Angband are distributed under the GPL the only valid license remains
 the original Moria/Angband license.
 
-Ben Harrison ¤È Robert Ruehlmann ¤Ë¤è¤Ã¤Æ²Ã¤¨¤é¤ì¤¿Á´¤Æ¤ÎÊÑ¹¹ÉôÊ¬¤Ï¾å
-½Ò¤Î»ÈÍÑµöÂú(Moria/Angband license)¤ÎÂå¤ê¤Ë GNU GENERAL PUBLIC LICENSE 
-¤Ë½¾¤Ã¤ÆÇÛÉÛ¤ò¼õ¤±¤ë»ö¤¬¤Ç¤­¤Ş¤¹¡£Ãí°Õ¡§¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Î°ìÉôÊ¬¤Ï°ÍÁ³
-¤È¤·¤ÆµìÍè¤Î Moria/Angband license ¤Î¤ß¤Ë¤è¤Ã¤ÆÇÛÉÛ¤µ¤ì¤Æ¤¤¤ë°Ù¡¢¤³¤Î
-¾ò¹à¤Ï¸½¹Ô¤ÎÇÛÉÛÈÇ¤Ë¤Ï±Æ¶Á¤·¤Ş¤»¤ó¡£Angband¤ÎÁ´¤Æ¤ÎÉôÊ¬¤¬ GPL ¤Ë¤è¤Ã¤Æ
-ÇÛÉÛ²ÄÇ½¤Ë¤Ê¤ë¤Ş¤Ç¤ÏÍ­¸ú¤Ê»ÈÍÑµöÂú¤Ï Moria/Angband license ¤À¤±¤Ç¤¹¡£
+Ben Harrison ‚Æ Robert Ruehlmann ‚É‚æ‚Á‚Ä‰Á‚¦‚ç‚ê‚½‘S‚Ä‚Ì•ÏX•”•ª‚Íã
+q‚Ìg—p‹–‘ø(Moria/Angband license)‚Ì‘ã‚è‚É GNU GENERAL PUBLIC LICENSE 
+‚É]‚Á‚Ä”z•z‚ğó‚¯‚é–‚ª‚Å‚«‚Ü‚·B’ˆÓF‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Ìˆê•”•ª‚ÍˆË‘R
+‚Æ‚µ‚Ä‹Œ—ˆ‚Ì Moria/Angband license ‚Ì‚İ‚É‚æ‚Á‚Ä”z•z‚³‚ê‚Ä‚¢‚éˆ×A‚±‚Ì
+ğ€‚ÍŒ»s‚Ì”z•z”Å‚É‚Í‰e‹¿‚µ‚Ü‚¹‚ñBAngband‚Ì‘S‚Ä‚Ì•”•ª‚ª GPL ‚É‚æ‚Á‚Ä
+”z•z‰Â”\‚É‚È‚é‚Ü‚Å‚Í—LŒø‚Èg—p‹–‘ø‚Í Moria/Angband license ‚¾‚¯‚Å‚·B
 
 
 ---------------------
-dual license ¤Ë¤Ä¤¤¤Æ
+dual license ‚É‚Â‚¢‚Ä
 ---------------------
-¸½ºß¡¢Robert Ru:hlmann »á¤ÎÄó°Æ¤Ë¤è¤êAngband¤È¤½¤Î¥Ğ¥ê¥¢¥ó¥È¤ò GPL ¤Ë
-¤è¤Ã¤ÆÇÛÉÛ²ÄÇ½¤Ë¤¹¤ë°Ù¤ÎÅØÎÏ¤¬¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¾Ü¤·¤¯¤ÏAngband¸ø¼°¥Û¡¼¥à
-¥Ú¡¼¥¸¤Î Angband OpenSource Initiative ¤Ë¤Ä¤¤¤Æ¤Î¥Ú¡¼¥¸¤ò»²¾È¤·¤Æ¤¯¤À
-¤µ¤¤¡£
+Œ»İARobert Ru:hlmann ‚Ì’ñˆÄ‚É‚æ‚èAngband‚Æ‚»‚ÌƒoƒŠƒAƒ“ƒg‚ğ GPL ‚É
+‚æ‚Á‚Ä”z•z‰Â”\‚É‚·‚éˆ×‚Ì“w—Í‚ª‚³‚ê‚Ä‚¢‚Ü‚·BÚ‚µ‚­‚ÍAngbandŒö®ƒz[ƒ€
+ƒy[ƒW‚Ì Angband OpenSource Initiative ‚É‚Â‚¢‚Ä‚Ìƒy[ƒW‚ğQÆ‚µ‚Ä‚­‚¾
+‚³‚¢B
 
 http://www.thangorodrim.net/development/opensource.html
 
-ËİÌõ(°ìÉô°ÕÌõ)¡§
+–|–ó(ˆê•”ˆÓ–ó)F
 
-Angband ¤È¤½¤ÎÁ°¿È¤Î Moria ¤Ï OpenSource ¤Î³µÇ°¤¬°ìÈÌ¤Ë¹­¤¯¼õ¤±Æş¤ì¤é
-¤ì¤ë°ÊÁ°¤Ëºî¤é¤ì¤Ş¤·¤¿¤¬¡¢¤½¤Îºî¼Ô¤Ï Angband ¤È Moria ¤¬¾ï¤ËÌµÎÁ¤ÇÇÛÉÛ
-¤µ¤ì¤ë»ö¤òÊİ¾Ú¤¹¤ë»ÈÍÑµöÂú¤òºî¤ê¤Ş¤·¤¿¡£
-(ÌõÃí¡§¤³¤ì¤¬¤¤¤ï¤æ¤ë Moria/Angband license ¤Ç¤¹¡£)
+Angband ‚Æ‚»‚Ì‘Og‚Ì Moria ‚Í OpenSource ‚ÌŠT”O‚ªˆê”Ê‚ÉL‚­ó‚¯“ü‚ê‚ç
+‚ê‚éˆÈ‘O‚Éì‚ç‚ê‚Ü‚µ‚½‚ªA‚»‚ÌìÒ‚Í Angband ‚Æ Moria ‚ªí‚É–³—¿‚Å”z•z
+‚³‚ê‚é–‚ğ•ÛØ‚·‚ég—p‹–‘ø‚ğì‚è‚Ü‚µ‚½B
+(–ó’F‚±‚ê‚ª‚¢‚í‚ä‚é Moria/Angband license ‚Å‚·B)
 
 Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
 
 This software may be copied and distributed for educational, research,
 and not for profit purposes provided that this copyright and statement
 are included in all such copies.  Other copyrights may also apply.
-¡Ö¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Ï¶µ°é¤ä¸¦µæ¤Î¤¿¤á¤Ê¤é¤Ğ¡¢¤½¤·¤ÆÍø±×¤òÌÜÅª¤È¤·¤Ê¤¤¤Î
-¤Ê¤é¤ĞÊ£¼Ì¤ª¤è¤ÓÇÛÉÛ¤·¤Æ¤è¤¤¡£¤¿¤À¤·¡¢ÇÛÉÛ¤¹¤ëÁ´¤Æ¤Î¥³¥Ô¡¼¤Ë¤³¤ÎÃøºî¸¢
-É½µ­¤È»ÈÍÑµöÂúÊ¸¾Ï¤¬µ­ºÜ¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ğ¤Ê¤é¤Ê¤¤¡£¤³¤ÎÉ½µ­¤Ë²Ã¤¨¤ÆÊÌ¤Î
-Ãøºî¸¢¤âÅ¬ÍÑ¤¹¤ë»ö¤¬¤Ç¤­¤ë¡£¡×
+u‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‹³ˆç‚âŒ¤‹†‚Ì‚½‚ß‚È‚ç‚ÎA‚»‚µ‚Ä—˜‰v‚ğ–Ú“I‚Æ‚µ‚È‚¢‚Ì
+‚È‚ç‚Î•¡Ê‚¨‚æ‚Ñ”z•z‚µ‚Ä‚æ‚¢B‚½‚¾‚µA”z•z‚·‚é‘S‚Ä‚ÌƒRƒs[‚É‚±‚Ì’˜ìŒ 
+•\‹L‚Æg—p‹–‘ø•¶Í‚ª‹LÚ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B‚±‚Ì•\‹L‚É‰Á‚¦‚Ä•Ê‚Ì
+’˜ìŒ ‚à“K—p‚·‚é–‚ª‚Å‚«‚éBv
 
-¤·¤«¤·¡¢¤³¤Î»ÈÍÑµöÂú¤Ï OpenSource ¤È¤·¤Æ¤Î¾ò·ï¤ÏËş¤¿¤·¤Æ¤ª¤é¤º¡¢ÊÑ¹¹¤ò
-²Ã¤¨¤ÆÇÛÉÛ¤¹¤ë¤È¤­¤Ë¥½¡¼¥¹¤ò¸ø³«¤¹¤ëµÁÌ³¤Ï¤¢¤ê¤Ş¤»¤ó¤·¡¢¤½¤ÎÂ¾¤Ë¤â´ö¤Ä
-¤«ÌäÂêÅÀ¤¬¤¢¤ê¤Ş¤·¤¿¡£¤½¤Î·ë²Ì¤È¤·¤Æ Angband ¤Ï¹çË¡Åª¤Ë Linux ¤Î¥Ç¥£¥¹
-¥È¥ê¥Ó¥å¡¼¥·¥ç¥ó¤Ë´Ş¤á¤ë»ö¤¬¤Ç¤­¤Ş¤»¤ó¤·¡¢OpenSource ¤Î¥×¥í¥¸¥§¥¯¥È¤Î
-°Ù¤ËÍÑ°Õ¤µ¤ì¤¿Â¿¤¯¤Î¥µ¡¼¥Ó¥¹(SourceForgeÅù)¤ò»ÈÍÑ¤¹¤ë»ö¤â¤Ç¤­¤Ş¤»¤ó¡£
-¤Ş¤¿ GPL ¤ÇÇÛÉÛ¤µ¤ì¤¿¥³¡¼¥É¤ò Angband ¤Î°ìÉô¤È¤·¤ÆÍøÍÑ¤¹¤ë»ö¤â¤Ç¤­¤Ş¤»
-¤ó¡£
+‚µ‚©‚µA‚±‚Ìg—p‹–‘ø‚Í OpenSource ‚Æ‚µ‚Ä‚ÌğŒ‚Í–‚½‚µ‚Ä‚¨‚ç‚¸A•ÏX‚ğ
+‰Á‚¦‚Ä”z•z‚·‚é‚Æ‚«‚Éƒ\[ƒX‚ğŒöŠJ‚·‚é‹`–±‚Í‚ ‚è‚Ü‚¹‚ñ‚µA‚»‚Ì‘¼‚É‚àŠô‚Â
+‚©–â‘è“_‚ª‚ ‚è‚Ü‚µ‚½B‚»‚ÌŒ‹‰Ê‚Æ‚µ‚Ä Angband ‚Í‡–@“I‚É Linux ‚ÌƒfƒBƒX
+ƒgƒŠƒrƒ…[ƒVƒ‡ƒ“‚ÉŠÜ‚ß‚é–‚ª‚Å‚«‚Ü‚¹‚ñ‚µAOpenSource ‚ÌƒvƒƒWƒFƒNƒg‚Ì
+ˆ×‚É—pˆÓ‚³‚ê‚½‘½‚­‚ÌƒT[ƒrƒX(SourceForge“™)‚ğg—p‚·‚é–‚à‚Å‚«‚Ü‚¹‚ñB
+‚Ü‚½ GPL ‚Å”z•z‚³‚ê‚½ƒR[ƒh‚ğ Angband ‚Ìˆê•”‚Æ‚µ‚Ä—˜—p‚·‚é–‚à‚Å‚«‚Ü‚¹
+‚ñB
 
-»ä (Robert Ru:hlmann»á) ¤Ï¤³¤ì¤é¤ÎÌäÂêÅÀ¤ò¹îÉş¤¹¤ë¤¿¤á¤Ë¡¢Angband
-OpenSource Initiative (Angband OpenSource²½±¿Æ°) ¤ò³«»Ï¤·¡¢Angband (µÚ
-¤Ó¤³¤Î»ÈÍÑµöÂú¤ÎÊÑ¹¹¤Î²¸·Ã¤ò¶¦Í­¤·¤¿¤¤¥Ğ¥ê¥¢¥ó¥È) ¤ò GNU General
-Public License ¤Ë½¾¤Ã¤ÆÇÛÉÛ¤¹¤ë»ö¤ò²ÄÇ½¤Ë¤·¤è¤¦¤ÈÅØÎÏ¤·¤Æ¤¤¤Ş¤¹¡£
+„ (Robert Ru:hlmann) ‚Í‚±‚ê‚ç‚Ì–â‘è“_‚ğ•‚·‚é‚½‚ß‚ÉAAngband
+OpenSource Initiative (Angband OpenSource‰»‰^“®) ‚ğŠJn‚µAAngband (‹y
+‚Ñ‚±‚Ìg—p‹–‘ø‚Ì•ÏX‚Ì‰¶Œb‚ğ‹¤—L‚µ‚½‚¢ƒoƒŠƒAƒ“ƒg) ‚ğ GNU General
+Public License ‚É]‚Á‚Ä”z•z‚·‚é–‚ğ‰Â”\‚É‚µ‚æ‚¤‚Æ“w—Í‚µ‚Ä‚¢‚Ü‚·B
 
-»ÈÍÑµöÂú¤ÎÊÑ¹¹¤ò¤¹¤ë°Ù¤Ë¤Ï Angband ¤Ë´Ş¤Ş¤ì¤ëÁ´¤Æ¤Î¥³¡¼¥É¤ò½ñ¤¤¤¿Á´¤Æ
-¤Î¿ÍÃ£¤«¤é¿·¤·¤¤»ÈÍÑµöÂú¤Ø¤ÎÊÑ¹¹¤ËÂĞ¤¹¤ëÆ±°Õ¤òÆÀ¤ë¤«¡¢¤µ¤â¤Ê¤±¤ì¤Ğ¿·¤·
-¤¤»ÈÍÑµöÂú¤ËÆ±°Õ¤·¤Æ¤¤¤Ê¤¤Ãø¼Ô¤Ë¤è¤Ã¤Æ½ñ¤«¤ì¤¿ÉôÊ¬¤òÁ´¤Æ´°Á´¤Ë¿·¤·¤¯½ñ
-¤­Ä¾¤¹É¬Í×¤¬¤¢¤ê¤Ş¤¹¡£
+g—p‹–‘ø‚Ì•ÏX‚ğ‚·‚éˆ×‚É‚Í Angband ‚ÉŠÜ‚Ü‚ê‚é‘S‚Ä‚ÌƒR[ƒh‚ğ‘‚¢‚½‘S‚Ä
+‚Ìl’B‚©‚çV‚µ‚¢g—p‹–‘ø‚Ö‚Ì•ÏX‚É‘Î‚·‚é“¯ˆÓ‚ğ“¾‚é‚©A‚³‚à‚È‚¯‚ê‚ÎV‚µ
+‚¢g—p‹–‘ø‚É“¯ˆÓ‚µ‚Ä‚¢‚È‚¢’˜Ò‚É‚æ‚Á‚Ä‘‚©‚ê‚½•”•ª‚ğ‘S‚ÄŠ®‘S‚ÉV‚µ‚­‘
+‚«’¼‚·•K—v‚ª‚ ‚è‚Ü‚·B
 
-Angband ¤ò GPL ¤Î¤ß¤Ë°Ü¹Ô¤·¤Æ¤·¤Ş¤¦¤È¡¢Angband ¤ò¸µ¤Ë¤·¤¿Á´¤Æ¤Î¥Ğ¥ê¥¢
-¥ó¥È¤ÎºîÀ®¼Ô¤ËÂĞ¤·¤Æ¤â»ÈÍÑµöÂú¤ò GPL ¤ËÊÑ¹¹¤¹¤ë»ö¤ò¶¯À©¤·¤Æ¤·¤Ş¤¦·ë²Ì
-¤Ë¤Ê¤ê¤Ş¤¹¡£¤½¤ì¤òÈò¤±¤ë¤¿¤á¤Ë¡¢»ä¤Ï¥³¡¼¥É¤ò GPL ¤È Angband license ¤Î
-Î¾Êı¤ÇÇÛÉÛ¤¹¤ë¡Ödual license¡×¤ÎÊıË¡¤òÍÑ¤¤¤ë»ö¤Ë·è¤á¤Ş¤·¤¿¡£¤½¤Î°Ù¥Ğ¥ê
-¥¢¥ó¥È¤ÎºîÀ®¼Ô¤ÏË¾¤à¤Ê¤é Angband license ¤ò»È¤¤Â³¤±¤ë»ö¤¬¤Ç¤­¤Ş¤¹¡¢É¬
-¤º¤·¤â¥Ğ¥ê¥¢¥ó¥È¤Î»ÈÍÑµöÂú¤ò GPL ¤ËÊÑ¹¹¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Ş¤»¤ó¡£
+Angband ‚ğ GPL ‚Ì‚İ‚ÉˆÚs‚µ‚Ä‚µ‚Ü‚¤‚ÆAAngband ‚ğŒ³‚É‚µ‚½‘S‚Ä‚ÌƒoƒŠƒA
+ƒ“ƒg‚Ìì¬Ò‚É‘Î‚µ‚Ä‚àg—p‹–‘ø‚ğ GPL ‚É•ÏX‚·‚é–‚ğ‹­§‚µ‚Ä‚µ‚Ü‚¤Œ‹‰Ê
+‚É‚È‚è‚Ü‚·B‚»‚ê‚ğ”ğ‚¯‚é‚½‚ß‚ÉA„‚ÍƒR[ƒh‚ğ GPL ‚Æ Angband license ‚Ì
+—¼•û‚Å”z•z‚·‚éudual licensev‚Ì•û–@‚ğ—p‚¢‚é–‚ÉŒˆ‚ß‚Ü‚µ‚½B‚»‚Ìˆ×ƒoƒŠ
+ƒAƒ“ƒg‚Ìì¬Ò‚Í–]‚Ş‚È‚ç Angband license ‚ğg‚¢‘±‚¯‚é–‚ª‚Å‚«‚Ü‚·A•K
+‚¸‚µ‚àƒoƒŠƒAƒ“ƒg‚Ìg—p‹–‘ø‚ğ GPL ‚É•ÏX‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB
 
-Ãí°Õ¤¹¤ë¤Ù¤­¤Ï¡¢¸½ºß¤Î½ê¤Ï dual license ¤¬Å¬ÍÑ²ÄÇ½¤Ç¤¢¤ë¤Î¤Ï Angband
-OpenSource²½±¿Æ° ¤Ë»¿Æ±¤·¤¿¿Í¡¹¤Ë¤è¤Ã¤Æ½ñ¤«¤ì¤¿°ìÉôÊ¬¤Î¥½¡¼¥¹¤À¤±¤Ç¤¢
-¤ë»ö¤Ç¤¹¡£ÊÌ¤ÎÉôÊ¬¤Ï°ÍÁ³¤È¤·¤Æ Moria/Angband license ¤Î¤ß¤Ë¤è¤Ã¤ÆÇÛÉÛ
-¤µ¤ì¤Æ¤¤¤ë¤Î¤Ç¡¢dual license ¤Ï¸½ºßÇÛÉÛ¤µ¤ì¤Æ¤¤¤ë Angband Á´ÂÎ¤Ë¤Ï±Æ¶Á
-¤·¤Ş¤»¤óAngband¤ÎÁ´¤Æ¤ÎÉôÊ¬¤¬Î¾Êı¤Î»ÈÍÑµöÂú¤ÇÇÛÉÛ¤Ç¤­¤ë¤Ş¤Ç¤Ï¥×¥í¥°¥é
-¥àÁ´ÂÎ¤ËÍ­¸ú¤Ê»ÈÍÑµöÂú¤Ï Moria/Angband license ¤À¤±¤Ç¤¹¡£
+’ˆÓ‚·‚é‚×‚«‚ÍAŒ»İ‚ÌŠ‚Í dual license ‚ª“K—p‰Â”\‚Å‚ ‚é‚Ì‚Í Angband
+OpenSource‰»‰^“® ‚É^“¯‚µ‚½lX‚É‚æ‚Á‚Ä‘‚©‚ê‚½ˆê•”•ª‚Ìƒ\[ƒX‚¾‚¯‚Å‚ 
+‚é–‚Å‚·B•Ê‚Ì•”•ª‚ÍˆË‘R‚Æ‚µ‚Ä Moria/Angband license ‚Ì‚İ‚É‚æ‚Á‚Ä”z•z
+‚³‚ê‚Ä‚¢‚é‚Ì‚ÅAdual license ‚ÍŒ»İ”z•z‚³‚ê‚Ä‚¢‚é Angband ‘S‘Ì‚É‚Í‰e‹¿
+‚µ‚Ü‚¹‚ñAngband‚Ì‘S‚Ä‚Ì•”•ª‚ª—¼•û‚Ìg—p‹–‘ø‚Å”z•z‚Å‚«‚é‚Ü‚Å‚ÍƒvƒƒOƒ‰
+ƒ€‘S‘Ì‚É—LŒø‚Èg—p‹–‘ø‚Í Moria/Angband license ‚¾‚¯‚Å‚·B
 
-¤¢¤Ê¤¿¤ÎÊÑ¹¹ÉôÊ¬¤ò dual license ¤Ë½¾¤Ã¤ÆÇÛÉÛ¤¹¤ë°Ù¤Ë¤Ï¡¢°Ê²¼¤ÎÃ»¤«¤¤Ê¸
-¾Ï¤ò»È¤¤¡¢¤³¤ì¤ò»ä¤Ë¥á¡¼¥ë¤ÇÁ÷¤ë»ö¤¬¤Ç¤­¤Ş¤¹¡£
+‚ ‚È‚½‚Ì•ÏX•”•ª‚ğ dual license ‚É]‚Á‚Ä”z•z‚·‚éˆ×‚É‚ÍAˆÈ‰º‚Ì’Z‚©‚¢•¶
+Í‚ğg‚¢A‚±‚ê‚ğ„‚Éƒ[ƒ‹‚Å‘—‚é–‚ª‚Å‚«‚Ü‚·B
 
-(ÌõÃí¡§½ñÌÌ¤Ë¤Ï¡¢¤¢¤Ê¤¿¤ÎÌ¾Á°¤¬´Ş¤Ş¤ì¤Ê¤±¤ì¤Ğ¤¤¤±¤Ş¤»¤ó(¥Ë¥Ã¥¯¥Í¡¼¥à¤Ç
-¤âÌäÂê¤Ï¤Ê¤¤¤È»×¤¦¡¢¤È¤Î»ö¤Ç¤¹)¡£¤³¤Î½ñÌÌ¤Ë¤è¤Ã¤Æ dual license ¤Îµö²Ä
-¤òÍ¿¤¨¤é¤ì¤¿ Angband¸ø¼°¤Î¥á¥ó¥Æ¥Ê¤Ï¤½¤ÎÊÑ¹¹ÉôÊ¬¤ò´Ş¤àAngband (µÚ¤Ó¥Ğ
-¥ê¥¢¥ó¥È)¤ò GPL ¤Ç¤âÇÛÉÛ¤¹¤ë»ö¤¬¤Ç¤­¡¢¤µ¤é¤ËÇÛÉÛ¤ò¼õ¤±¤¿³Æ³«È¯¼Ô¤¬¡¢
-GPL ¤Ç¤â¼«Ê¬¤Î¥Ğ¥ê¥¢¥ó¥È¤òºÆÇÛÉÛ¤¹¤ë»ö¤¬¤Ç¤­¤Ş¤¹¡£)
+(–ó’F‘–Ê‚É‚ÍA‚ ‚È‚½‚Ì–¼‘O‚ªŠÜ‚Ü‚ê‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñ(ƒjƒbƒNƒl[ƒ€‚Å
+‚à–â‘è‚Í‚È‚¢‚Æv‚¤A‚Æ‚Ì–‚Å‚·)B‚±‚Ì‘–Ê‚É‚æ‚Á‚Ä dual license ‚Ì‹–‰Â
+‚ğ—^‚¦‚ç‚ê‚½ AngbandŒö®‚Ìƒƒ“ƒeƒi‚Í‚»‚Ì•ÏX•”•ª‚ğŠÜ‚ŞAngband (‹y‚Ñƒo
+ƒŠƒAƒ“ƒg)‚ğ GPL ‚Å‚à”z•z‚·‚é–‚ª‚Å‚«A‚³‚ç‚É”z•z‚ğó‚¯‚½ŠeŠJ”­Ò‚ªA
+GPL ‚Å‚à©•ª‚ÌƒoƒŠƒAƒ“ƒg‚ğÄ”z•z‚·‚é–‚ª‚Å‚«‚Ü‚·B)
 
-I hereby release [¤³¤³¤Ë¤¢¤Ê¤¿¤Î¥Ñ¥Ã¥Á¤ÎÌ¾Á°¤Ş¤¿¤Ï'all my changes to
-the Angband code'¤È¤¤¤¦Ê¸¾Ï¤òÁŞÆş], under the terms of the GNU General
+I hereby release [‚±‚±‚É‚ ‚È‚½‚Ìƒpƒbƒ`‚Ì–¼‘O‚Ü‚½‚Í'all my changes to
+the Angband code'‚Æ‚¢‚¤•¶Í‚ğ‘}“ü], under the terms of the GNU General
 Public License (version 2), as well as under the traditional Angband
 license.  It may be redistributed under the terms of the GPL (version
 2 or any later version), or under the terms of the traditional Angband
 license.
 
-(Ä¾Ìõ) ¡Ö»ä¤Ï¤³¤³¤ËÀë¸À¤¹¤ë¡¢[Angband¥³¡¼¥É¤ËÂĞ¤¹¤ëÁ´¤Æ¤Î»ä¤ÎÊÑ¹¹ÉôÊ¬] 
-¤ò¡¢µìÍè¤Î Angband license ¤À¤±¤Ç¤Ê¤¯ GNU General Public License ¥Ğ¡¼
-¥¸¥ç¥ó2 ¤Ç¤â¸ø³«¤¹¤ë¡£¤½¤ì¤Ï GPL(¥Ğ¡¼¥¸¥ç¥ó2°Ê¹ß)¡¢¤Ş¤¿¤ÏµìÍè¤Î 
-Angband license ¤ÇºÆÇÛÉÛ¤·¤ÆÎÉ¤¤¡£¡×
+(’¼–ó) u„‚Í‚±‚±‚ÉéŒ¾‚·‚éA[AngbandƒR[ƒh‚É‘Î‚·‚é‘S‚Ä‚Ì„‚Ì•ÏX•”•ª] 
+‚ğA‹Œ—ˆ‚Ì Angband license ‚¾‚¯‚Å‚È‚­ GNU General Public License ƒo[
+ƒWƒ‡ƒ“2 ‚Å‚àŒöŠJ‚·‚éB‚»‚ê‚Í GPL(ƒo[ƒWƒ‡ƒ“2ˆÈ~)A‚Ü‚½‚Í‹Œ—ˆ‚Ì 
+Angband license ‚ÅÄ”z•z‚µ‚Ä—Ç‚¢Bv
 
 
-¤Ş¤¿¡¢¤¢¤Ê¤¿¤Ï Angband ¤Ë²Ã¤¨¤¿Á´¤Æ¤ÎÊÑ¹¹ÉôÊ¬¤ò public domain ¤È¤·¤Æ¸ø
-³«¤·¡¢Á´¤Æ¤Î¸¢Íø¤òÊü´ş¤¹¤ë»ö¤òÁªÂò¤¹¤ë»ö¤â¤Ç¤­¤Ş¤¹¡£¤½¤Î¾ì¹ç¤Ï»ä¤Ë¤½¤Î
-»İ¤òÏ¢Íí¤·¤Æ¤¯¤À¤µ¤¤¡£
+‚Ü‚½A‚ ‚È‚½‚Í Angband ‚É‰Á‚¦‚½‘S‚Ä‚Ì•ÏX•”•ª‚ğ public domain ‚Æ‚µ‚ÄŒö
+ŠJ‚µA‘S‚Ä‚ÌŒ —˜‚ğ•úŠü‚·‚é–‚ğ‘I‘ğ‚·‚é–‚à‚Å‚«‚Ü‚·B‚»‚Ìê‡‚Í„‚É‚»‚Ì
+|‚ğ˜A—‚µ‚Ä‚­‚¾‚³‚¢B
 
 
-º£¤Î½ê¡¢Angband OpenSource²½±¿Æ°¤Ë¤Ï°Ê²¼¤Î³«È¯¼ÔÃ£¤«¤é»¿Æ±¤òÆÀ¤Æ¤¤¤Ş¤¹¡£
- ¡¦ Robert Ru:hlmann
- ¡¦ Ben Harrison
- ¡¦ Greg Wooledge (Random artifact generation)
- ¡¦ Tim Baker
- ¡¦ William Tanksley
- ¡¦ Dr. Andrew White (APW Borg)
- ¡¦ Dennis van Es (BorgBand, DvEband)
- ¡¦ Julian Lighton
- ¡¦ Billy Tanksley
- ¡¦ Dean Anderson (CthAngband)
- ¡¦ Chris Weisiger (new Angband vaults)
- ¡¦ Shayne Steele
- ¡¦ Topi Ylinen
- ¡¦ Steven Fuerst
- ¡¦ Jonathan Ellis (edit files patch)
- ¡¦ Eytan Zweig (EyAngband) - public domain
- ¡¦ Matthias Kurzke (PsiAngband, ego-item patch)
- ¡¦ Sheldon Simms (random artifact names)
- ¡¦ Dave Blackston (squelch patch)
- ¡¦ Greg Flint
- ¡¦ John I'anson-Holton
- ¡¦ Aram Harrow
- ¡¦ Leon Marrick
- ¡¦ Daniel Nash
- ¡¦ Keldon Jones
- ¡¦ Jim Wilson (UMoria author)
- ¡¦ Mark Kvale (labyrinthine room patch)
+¡‚ÌŠAAngband OpenSource‰»‰^“®‚É‚ÍˆÈ‰º‚ÌŠJ”­Ò’B‚©‚ç^“¯‚ğ“¾‚Ä‚¢‚Ü‚·B
+ E Robert Ru:hlmann
+ E Ben Harrison
+ E Greg Wooledge (Random artifact generation)
+ E Tim Baker
+ E William Tanksley
+ E Dr. Andrew White (APW Borg)
+ E Dennis van Es (BorgBand, DvEband)
+ E Julian Lighton
+ E Billy Tanksley
+ E Dean Anderson (CthAngband)
+ E Chris Weisiger (new Angband vaults)
+ E Shayne Steele
+ E Topi Ylinen
+ E Steven Fuerst
+ E Jonathan Ellis (edit files patch)
+ E Eytan Zweig (EyAngband) - public domain
+ E Matthias Kurzke (PsiAngband, ego-item patch)
+ E Sheldon Simms (random artifact names)
+ E Dave Blackston (squelch patch)
+ E Greg Flint
+ E John I'anson-Holton
+ E Aram Harrow
+ E Leon Marrick
+ E Daniel Nash
+ E Keldon Jones
+ E Jim Wilson (UMoria author)
+ E Mark Kvale (labyrinthine room patch)
 
 
-:::°Ê¾å¤ÇËİÌõ½ª¤ê
+:::ˆÈã‚Å–|–óI‚è

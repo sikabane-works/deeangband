@@ -1,144 +1,144 @@
 -----------------------------------------------------------
-¥ª¥ê¥¸¥Ê¥ë¤ÎÆüËÜ¸ìÈÇ ZAngband¤ÎÃøºî¸¢É½µ­
+ƒIƒŠƒWƒiƒ‹‚Ì“ú–{Œê”Å ZAngband‚Ì’˜ìŒ •\‹L
 -----------------------------------------------------------
 
 *********************************************************************
-                          ÆüËÜ¸ìÈÇÀ½ºî¼Ô¤è¤ê
+                          “ú–{Œê”Å»ìŽÒ‚æ‚è
 *********************************************************************
 
-Ãøºî¸¢¤Ë¤Ä¤¤¤Æ
+’˜ìŒ ‚É‚Â‚¢‚Ä
 --------------
-ÆüËÜ¸ìÈÇ Zangband¤Î¡¢Zangband ¸ÇÍ­¤ÎÆüËÜ¸ì²½ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô¤¬Âå
-É½¤·¤ÆÃøºî¸¢¤òÍ­¤·¤Þ¤¹¡£³Æµ¡¼ï¤Ë¤ª¤±¤ëÊÑ¹¹ÉôÊ¬¤ÎÃøºî¸¢¤Ë¤Ä¤¤¤Æ¤Ï³Æµ¡¼ï
-¤Î¥É¥­¥å¥á¥ó¥È¤ò»²¾È¤·¤Æ²¼¤µ¤¤¡£
+“ú–{Œê”Å Zangband‚ÌAZangband ŒÅ—L‚Ì“ú–{Œê‰»•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌŽÒ‚ª‘ã
+•\‚µ‚Ä’˜ìŒ ‚ð—L‚µ‚Ü‚·BŠe‹@Ží‚É‚¨‚¯‚é•ÏX•”•ª‚Ì’˜ìŒ ‚É‚Â‚¢‚Ä‚ÍŠe‹@Ží
+‚ÌƒhƒLƒ…ƒƒ“ƒg‚ðŽQÆ‚µ‚Ä‰º‚³‚¢B
 
-    ÆüËÜ¸ì²½ÂåÉ½¼Ô¡§ÈÄÁÒ    Email: ita@zangband.org
-    ¤½¤ÎÂ¾¶¨ÎÏ¤·¤Æ²¼¤µ¤Ã¤¿Êý¡¹¤Î¶ÈÀÓ¤Ï¥Ð¡¼¥¸¥ç¥óÍúÎò¤ò¸æÍ÷²¼¤µ¤¤¡£
+    “ú–{Œê‰»‘ã•\ŽÒF”Â‘q    Email: ita@zangband.org
+    ‚»‚Ì‘¼‹¦—Í‚µ‚Ä‰º‚³‚Á‚½•ûX‚Ì‹ÆÑ‚Íƒo[ƒWƒ‡ƒ“—š—ð‚ðŒä——‰º‚³‚¢B
 
-ÆüËÜ¸ìÈÇ¥¢¥ó¥°¥Ð¥ó¥É 2.8.3-1.2.6 ¤Ç¤Î¥ª¥ê¥¸¥Ê¥ë angband 2.8.3 ¤è¤ê¤ÎÁ´
-µ¡¼ï¶¦ÄÌ¤ÎÊÑ¹¹ÉôÊ¬¤Ë¤Ä¤¤¤Æ¤Ï°Ê²¼¤Î¼Ô¤¬Ãøºî¸¢¤òÍ­¤·¤Þ¤¹¡£
+“ú–{Œê”ÅƒAƒ“ƒOƒoƒ“ƒh 2.8.3-1.2.6 ‚Å‚ÌƒIƒŠƒWƒiƒ‹ angband 2.8.3 ‚æ‚è‚Ì‘S
+‹@Ží‹¤’Ê‚Ì•ÏX•”•ª‚É‚Â‚¢‚Ä‚ÍˆÈ‰º‚ÌŽÒ‚ª’˜ìŒ ‚ð—L‚µ‚Ü‚·B
 
-    ¤·¤È¤·¤ó(Æâ³¤À¶½¨)      iris@bf.mbn.or.jp
-    ¥¨¥ë¥í¥Ã¥¯              CXK01336@niftyserve.or.jp
-    £Æ£É£Ò£Ó£Ô(ÇòÊý·òÂÀÏº)  argrath@yo.rim.or.jp
+    ‚µ‚Æ‚µ‚ñ(“àŠC´G)      iris@bf.mbn.or.jp
+    ƒGƒ‹ƒƒbƒN              CXK01336@niftyserve.or.jp
+    ‚e‚h‚q‚r‚s(”’•ûŒ’‘¾˜Y)  argrath@yo.rim.or.jp
     sayu(YOKOYAMA Atsushi)  sayu@gol.com
-    ´ß¹¯»Ê                  kis-@ca2.so-net.or.jp
+    ŠÝNŽi                  kis-@ca2.so-net.or.jp
     TeO                     CXE00237@niftyserve.or.jp
-    ÅÜÅó¤Î²Ë¿Í(¶â¸÷´²Ê÷)    KFF02766@niftyserve.or.jp
-    VOLKO(¾ë¸Í¥¤¥µ¥à)       ÅìµþBBS: VOLKO
+    “{““‚Ì‰Él(‹àŒõŠ°•õ)    KFF02766@niftyserve.or.jp
+    VOLKO(éŒËƒCƒTƒ€)       “Œ‹žBBS: VOLKO
 
 
-Ï¢ÍíÀè
+˜A—æ
 ------
-¥²¡¼¥à¤Î´¶ÁÛ¤äÉÔÊ¿¤ä°Õ¸«¤ä¥Ð¥°Êó¹ð¤ä´¶¼Õ¤Î¸ÀÍÕ:-P¤Ê¤É¤Ï¡¢¤¹¤Ù¤Æ²¼µ­¤Î
-·Ç¼¨ÈÇ¤Þ¤Ç¤ªÃÎ¤é¤»²¼¤µ¤¤¡£
+ƒQ[ƒ€‚ÌŠ´‘z‚â•s•½‚âˆÓŒ©‚âƒoƒO•ñ‚âŠ´ŽÓ‚ÌŒ¾—t:-P‚È‚Ç‚ÍA‚·‚×‚Ä‰º‹L‚Ì
+ŒfŽ¦”Å‚Ü‚Å‚¨’m‚ç‚¹‰º‚³‚¢B
 
      http://www63.tcup.com/6300/ita.html
 
 
-¥½¡¼¥¹¤ª¤è¤Ó¥Ð¥¤¥Ê¥ê¤Î¼èÆÀ
+ƒ\[ƒX‚¨‚æ‚ÑƒoƒCƒiƒŠ‚ÌŽæ“¾
 --------------------------
-ÆüËÜ¸ìÈÇ Zangband¤ÎÁ´µ¡¼ï¶¦ÄÌ¥½¡¼¥¹¥Ñ¥Ã¥Á¤Ï²¼µ­¤Î¥Û¡¼¥à¥Ú¡¼¥¸¤«¤é¼èÆÀ
-¤Ç¤­¤Þ¤¹¡£
+“ú–{Œê”Å Zangband‚Ì‘S‹@Ží‹¤’Êƒ\[ƒXƒpƒbƒ`‚Í‰º‹L‚Ìƒz[ƒ€ƒy[ƒW‚©‚çŽæ“¾
+‚Å‚«‚Ü‚·B
 
     http://www.geocities.co.jp/SiliconValley-SanJose/9606/zg/index.html
 
-    ³Æµ¡¼ïÈÇ¤Î¥Ð¥¤¥Ê¥êµÚ¤Ó¥½¡¼¥¹¤Ë¤Ä¤¤¤Æ¤Ï²¼µ­¤Î°Ü¿¢¼Ô¤Ë¤ª¿Ò¤Í²¼¤µ¤¤¡£
-    ¡úWindows ¤Ø¤Î°Ü¿¢¼Ô :   ÈÄÁÒ ½¼ÍÎ  Email: ita@zangband.org
+    Še‹@Ží”Å‚ÌƒoƒCƒiƒŠ‹y‚Ñƒ\[ƒX‚É‚Â‚¢‚Ä‚Í‰º‹L‚ÌˆÚAŽÒ‚É‚¨q‚Ë‰º‚³‚¢B
+    šWindows ‚Ö‚ÌˆÚAŽÒ :   ”Â‘q [—m  Email: ita@zangband.org
       http://www.geocities.co.jp/SiliconValley-SanJose/9606/
-    ¡úMac ¤Ø¤Î°Ü¿¢¼Ô :       °¤Éô ¿µ°ì  Email: s_abe@i.bekkoame.ne.jp
+    šMac ‚Ö‚ÌˆÚAŽÒ :       ˆ¢•” Tˆê  Email: s_abe@i.bekkoame.ne.jp
       http://www.bekkoame.ne.jp/i/s_abe/
 
 
-ÆüËÜ¸ìÈÇ Zangband ¤Î³µÍ×
+“ú–{Œê”Å Zangband ‚ÌŠT—v
 ------------------------
-»ä¡ÊÈÄÁÒ¡Ë¤Ï»Ï¤á Zangband ¤òÆüËÜ¸ì²½¤·¤è¤¦¤Ê¤É¤È¤Ï»×¤Ã¤Æ¤¤¤Þ¤»¤ó¤Ç¤·
-¤¿¡£¤¿¤Þ¤¿¤Þ»ØÎØÊª¸ì¤ä¥Û¥Ó¥Ã¥È¤ÎËÁ¸±¤Ê¤É¤òÆÉ¤ó¤Ç¤¤¤Æ¡¢¥¹¥á¥¢¥´¥ë¤ÎÃý¤ê
-Êý¤¬µ¤¤ËÆþ¤Ã¤Æ¤¤¤¿¤¿¤á¡¢¥²¡¼¥àÃæ¤Î¥¹¥á¥¢¥´¥ë¤Î¥»¥ê¥Õ¤òÆüËÜ¸ì¤ËÊÑ¤¨¤Æ¤ß
-¤¿¤Î¤¬¤­¤Ã¤«¤±¤Ç¤·¤¿¡£¤È¤³¤í¤¬¡¢lib/file/monspeak.txt ¤Ë¤¢¤ë³ºÅöÉôÊ¬¤ò
-ÆüËÜ¸ì¤ËÄ¾¤·¤Æ¤â¥²¡¼¥àÃæ¤ËÉ½¼¨¤µ¤ì¤Ê¤¤¤Î¤Ç¡¢ÆüËÜ¸ì¤òÉ½¼¨¤Ç¤­¤ë¤è¤¦¤Ë
-¥½¡¼¥¹¥³¡¼¥É¤ò¤¤¤¸¤ê»Ï¤á¡¢µ¤¤¬¤Ä¤¤¤¿¤é¥Ï¥Þ¤Ã¤Æ¤¤¤Þ¤·¤¿¡£¹¬¤¤±Ñ¸ìÈÇ¡¢Æü
-ËÜ¸ìÈÇ¤È¤â¤Ë Angband ¤Î¥½¡¼¥¹¤ÏÈó¾ï¤ËÊ¬¤«¤ê¤ä¤¹¤¯¡¢¤«¤ÄÊÑ¹¹¤·¤ä¤¹¤¤¤â
-¤Î¤Ç¤¢¤Ã¤¿¤¿¤á¡¢ÆüËÜ¸ìÈÇ¥¢¥ó¥°¥Ð¥ó¥É¤«¤éÆüËÜ¸ì²½ÉôÊ¬¤òµ¡³£Åª¤ËÃê½Ð¤·¡¢
-¤½¤ì¤òµ¡³£Åª¤Ë±Ñ¸ìÈÇ Zangband ¤ØÁÈ¤ß¹þ¤à¤È¤¤¤¦¤³¤È¤¬½ÐÍè¤Æ¡¢Ï«¤»¤º¤·¤Æ
-¤«¤Ê¤ê¤ÎÉôÊ¬¤òÆüËÜ¸ì²½¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤·¤¿¡£¤½¤¦¤Ï¸À¤Ã¤Æ¤â£ÚÆÈ¼«¤Î¥á¥Ã
-¥»¡¼¥¸¤ÇÆüËÜ¸ì²½¤¹¤Ù¤­ÉôÊ¬¤Ï¤Þ¤ÀÂçÎÌ¤Ë»Ä¤Ã¤Æ¤¤¤Þ¤·¤¿¡£
+Ž„i”Â‘qj‚ÍŽn‚ß Zangband ‚ð“ú–{Œê‰»‚µ‚æ‚¤‚È‚Ç‚Æ‚ÍŽv‚Á‚Ä‚¢‚Ü‚¹‚ñ‚Å‚µ
+‚½B‚½‚Ü‚½‚ÜŽw—Ö•¨Œê‚âƒzƒrƒbƒg‚Ì–`Œ¯‚È‚Ç‚ð“Ç‚ñ‚Å‚¢‚ÄAƒXƒƒAƒSƒ‹‚Ì’‚è
+•û‚ª‹C‚É“ü‚Á‚Ä‚¢‚½‚½‚ßAƒQ[ƒ€’†‚ÌƒXƒƒAƒSƒ‹‚ÌƒZƒŠƒt‚ð“ú–{Œê‚É•Ï‚¦‚Ä‚Ý
+‚½‚Ì‚ª‚«‚Á‚©‚¯‚Å‚µ‚½B‚Æ‚±‚ë‚ªAlib/file/monspeak.txt ‚É‚ ‚éŠY“–•”•ª‚ð
+“ú–{Œê‚É’¼‚µ‚Ä‚àƒQ[ƒ€’†‚É•\Ž¦‚³‚ê‚È‚¢‚Ì‚ÅA“ú–{Œê‚ð•\Ž¦‚Å‚«‚é‚æ‚¤‚É
+ƒ\[ƒXƒR[ƒh‚ð‚¢‚¶‚èŽn‚ßA‹C‚ª‚Â‚¢‚½‚çƒnƒ}‚Á‚Ä‚¢‚Ü‚µ‚½BK‚¢‰pŒê”ÅA“ú
+–{Œê”Å‚Æ‚à‚É Angband ‚Ìƒ\[ƒX‚Í”ñí‚É•ª‚©‚è‚â‚·‚­A‚©‚Â•ÏX‚µ‚â‚·‚¢‚à
+‚Ì‚Å‚ ‚Á‚½‚½‚ßA“ú–{Œê”ÅƒAƒ“ƒOƒoƒ“ƒh‚©‚ç“ú–{Œê‰»•”•ª‚ð‹@ŠB“I‚É’Šo‚µA
+‚»‚ê‚ð‹@ŠB“I‚É‰pŒê”Å Zangband ‚Ö‘g‚Ýž‚Þ‚Æ‚¢‚¤‚±‚Æ‚ªo—ˆ‚ÄA˜J‚¹‚¸‚µ‚Ä
+‚©‚È‚è‚Ì•”•ª‚ð“ú–{Œê‰»‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚µ‚½B‚»‚¤‚ÍŒ¾‚Á‚Ä‚à‚y“ÆŽ©‚Ìƒƒb
+ƒZ[ƒW‚Å“ú–{Œê‰»‚·‚×‚«•”•ª‚Í‚Ü‚¾‘å—Ê‚ÉŽc‚Á‚Ä‚¢‚Ü‚µ‚½B
 
-¤½¤³¤Ç»ä¤Ï¤Þ¤ÀÌ¤´°À®¤Î¥½¡¼¥¹¤ò¸ø³«¤·¡¢Zangband ¥Õ¥¡¥ó¤ÎÊý¡¹¤ËËÝÌõ¤Ë¶¨
-ÎÏ¤·¤Æ¤¤¤¿¤À¤±¤ë¤è¤¦¥Í¥Ã¥È¾å¤Ç¸Æ¤Ó¤«¤±¡¢¤µ¤é¤Ë¥¦¥£¥ó¥É¥¦¥ºÈÇ¤Î¥Ð¥¤¥Ê¥ê
-¤â¸ø³«¤·¤Æ¡¢¤è¤êÂ¿¤¯¤ÎÊý¡¹¤ò´¬¤­¹þ¤àºîÀï¤Ë½Ð¤Þ¤·¤¿¡£¤½¤·¤Æ¤Þ¤¿¥Í¥Ã¥È¾å
-¤Ç¸«¤«¤±¤¿¤¤¤í¤¤¤í¤ÊÁÇÀ²¤é¤·¤¤¥Û¡¼¥à¥Ú¡¼¥¸¤ÎºîÀ®¼Ô¤ÎÊý¡¹¤ËÌÌ¼±¤â¤Ê¤¤¤Î
-¤Ë¥á¡¼¥ë¤ò½Ð¤·¡¢ÍÍ¡¹¤ÊÍ­±×¤Ê¾ðÊó¤òÄº¤¯¤³¤È¤¬½ÐÍè¤Þ¤·¤¿¡£
+‚»‚±‚ÅŽ„‚Í‚Ü‚¾–¢Š®¬‚Ìƒ\[ƒX‚ðŒöŠJ‚µAZangband ƒtƒ@ƒ“‚Ì•ûX‚É–|–ó‚É‹¦
+—Í‚µ‚Ä‚¢‚½‚¾‚¯‚é‚æ‚¤ƒlƒbƒgã‚ÅŒÄ‚Ñ‚©‚¯A‚³‚ç‚ÉƒEƒBƒ“ƒhƒEƒY”Å‚ÌƒoƒCƒiƒŠ
+‚àŒöŠJ‚µ‚ÄA‚æ‚è‘½‚­‚Ì•ûX‚ðŠª‚«ž‚Þìí‚Éo‚Ü‚µ‚½B‚»‚µ‚Ä‚Ü‚½ƒlƒbƒgã
+‚ÅŒ©‚©‚¯‚½‚¢‚ë‚¢‚ë‚È‘f°‚ç‚µ‚¢ƒz[ƒ€ƒy[ƒW‚Ìì¬ŽÒ‚Ì•ûX‚É–ÊŽ¯‚à‚È‚¢‚Ì
+‚Éƒ[ƒ‹‚ðo‚µA—lX‚È—L‰v‚Èî•ñ‚ð’¸‚­‚±‚Æ‚ªo—ˆ‚Ü‚µ‚½B
 
-¤³¤¦¤·¤Æ½ù¡¹¤ËÂ¿¤¯¤Î¿Í¡¹¤ò´¬¤­¹þ¤ß¡¢ÆüËÜ¸ì²½¤â¿Ê¤ó¤Ç¤­¤Æ¸½ºß¤Ë»ê¤ê¤Þ
-¤¹¡£2000/04/06 ¸½ºß¡¢¥½¡¼¥¹ÉôÊ¬¤ÎÆüËÜ¸ì²½¤Ï¤Û¤Ü½ªÎ»¤·¡¢»Ä¤¹¤Ï¥â¥ó¥¹
-¥¿¡¼¤Î¥»¥ê¥Õ¤È°ìÉô¤Î²òÀâ¤È¤¤¤¦¾õ¶·¤Ë¤Þ¤Ç¤Ê¤ê¤Þ¤·¤¿¡£¶¨ÎÏ¤·¤Æ²¼¤µ¤Ã¤¿Êý
-¡¹¤Ë¤ÏÂçÊÑ´¶¼Õ¤·¤Æ¤ª¤ê¤Þ¤¹¡£
-ËÝÌõ¤Ë¶¨ÎÏ¤·¤Æ²¼¤µ¤Ã¤¿¼ç¤ÊÊý¡¹¤Î¤ªÌ¾Á°¤ò°Ê²¼¤Ëµ­¤·¤Þ¤¹¡£
+‚±‚¤‚µ‚Ä™X‚É‘½‚­‚ÌlX‚ðŠª‚«ž‚ÝA“ú–{Œê‰»‚ài‚ñ‚Å‚«‚ÄŒ»Ý‚ÉŽŠ‚è‚Ü
+‚·B2000/04/06 Œ»ÝAƒ\[ƒX•”•ª‚Ì“ú–{Œê‰»‚Í‚Ù‚ÚI—¹‚µAŽc‚·‚Íƒ‚ƒ“ƒX
+ƒ^[‚ÌƒZƒŠƒt‚Æˆê•”‚Ì‰ðà‚Æ‚¢‚¤ó‹µ‚É‚Ü‚Å‚È‚è‚Ü‚µ‚½B‹¦—Í‚µ‚Ä‰º‚³‚Á‚½•û
+X‚É‚Í‘å•ÏŠ´ŽÓ‚µ‚Ä‚¨‚è‚Ü‚·B
+–|–ó‚É‹¦—Í‚µ‚Ä‰º‚³‚Á‚½Žå‚È•ûX‚Ì‚¨–¼‘O‚ðˆÈ‰º‚É‹L‚µ‚Ü‚·B
 
-    ¼ãÎÓÍÍ¡Êbldg.c, cmd5.c¡Ë
-    Ìë¶õ¤Î×ÂÀ±ÍÍ¡Ê¥¯¥¨¥¹¥È¡Ë
-    »ç·î´×´ÝÍÍ¡Ê¥â¥ó¥¹¥¿¡¼Ì¾¡¢¥¢¥¤¥Æ¥àÌ¾¤Ê¤É¡Ë
-    TessiÍÍ¡Ê¥¹¥á¥¢¥´¥ë¸ÀÍÕ¡Ë¡¢
-    µ×Î±ÍÍ¡Ê¥¯¥È¥¥¥ë¥Õ¡¢¥¢¥ó¥Ð¡¼´Ø·¸¡Ë
-    Æ£²¬ÍÍ¡Ê¥¢¥ó¥Ð¡¼´Ø·¸¡Ë
+    Žá—Ñ—libldg.c, cmd5.cj
+    –é‹ó‚Ìœa¯—liƒNƒGƒXƒgj
+    Ž‡ŒŽŠÕŠÛ—liƒ‚ƒ“ƒXƒ^[–¼AƒAƒCƒeƒ€–¼‚È‚Çj
+    Tessi—liƒXƒƒAƒSƒ‹Œ¾—tjA
+    ‹v—¯—liƒNƒgƒDƒ‹ƒtAƒAƒ“ƒo[ŠÖŒWj
+    “¡‰ª—liƒAƒ“ƒo[ŠÖŒWj
 
-ÆÃ¤ËÂçÎÌ¤ÎÊ¸¸¥¤«¤é¥¯¥È¥¥¥ë¥Õ´Ø·¸¤ÎË®Ìõ¤òÁÜ¤·½Ð¤·¤ÆÄº¤¤¤¿µ×Î±ÍÍ¤Ë¤ÏÂçÊÑ
-¤Ë´¶¼Õ¤·¤Æ¤ª¤ê¤Þ¤¹¡£¤ª°þÍÍ¤Ç R_INFO_J.TXT ¤Ï»ñÎÁÅª²ÁÃÍ¤Î¤¢¤ë¤â¤Î¤Ë¤Þ¤Ç
-¤Ê¤ê¤Þ¤·¤¿¡£¤Þ¤¿¿§¡¹¤ÈÌõ¸ì¤ò¹Í°Æ¤·¤ÆÄº¤¤¤¿»ç·î´×´ÝÍÍ¤Ë¤â´¶¼Õ¤·¤Æ¤ª¤ê¤Þ
-¤¹¡£
+“Á‚É‘å—Ê‚Ì•¶Œ£‚©‚çƒNƒgƒDƒ‹ƒtŠÖŒW‚Ì–M–ó‚ð‘{‚µo‚µ‚Ä’¸‚¢‚½‹v—¯—l‚É‚Í‘å•Ï
+‚ÉŠ´ŽÓ‚µ‚Ä‚¨‚è‚Ü‚·B‚¨ˆü—l‚Å R_INFO_J.TXT ‚ÍŽ‘—¿“I‰¿’l‚Ì‚ ‚é‚à‚Ì‚É‚Ü‚Å
+‚È‚è‚Ü‚µ‚½B‚Ü‚½FX‚Æ–óŒê‚ðlˆÄ‚µ‚Ä’¸‚¢‚½Ž‡ŒŽŠÕŠÛ—l‚É‚àŠ´ŽÓ‚µ‚Ä‚¨‚è‚Ü
+‚·B
 
-¥¯¥È¥¥¥ë¥Õ·Ï¥â¥ó¥¹¥¿¡¼¤Ë´Ø¤·¤Æ¤Ï¡¢ °µÅÝÅª¤Ê¾ðÊóÎÌ¤Î¥¯¥È¥¥¥ë¥Õ¾ðÊó¥µ¥¤¥È
-N-SYSTEM  (http://www.geocities.com/Tokyo/Palace/8768/ ) ¤Î´ÉÍý¿Í¤Ç¤é
-¤Ã¤·¤ã¤ë NeSYS ÍÍ¤Ë¡¢¥â¥ó¥¹¥¿¡¼¤Î²òÀâ¤ò°úÍÑ¤µ¤»¤ÆÄº¤¯¤³¤È¤ò²÷¤¯¾µÂú¤·
-¤ÆÄº¤­¡¢¤«¤Ê¤ê¾Ü¤·¤¤²òÀâ¤òÄÉ²Ã¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤·¤¿¡£¤³¤Î¾ì¤ò¼Ú¤ê¤Æ¤ªÎé
-¿½¤·¾å¤²¤Þ¤¹¡£
+ƒNƒgƒDƒ‹ƒtŒnƒ‚ƒ“ƒXƒ^[‚ÉŠÖ‚µ‚Ä‚ÍA ˆ³“|“I‚Èî•ñ—Ê‚ÌƒNƒgƒDƒ‹ƒtî•ñƒTƒCƒg
+N-SYSTEM  (http://www.geocities.com/Tokyo/Palace/8768/ ) ‚ÌŠÇ—l‚Å‚ç
+‚Á‚µ‚á‚é NeSYS —l‚ÉAƒ‚ƒ“ƒXƒ^[‚Ì‰ðà‚ðˆø—p‚³‚¹‚Ä’¸‚­‚±‚Æ‚ð‰õ‚­³‘ø‚µ
+‚Ä’¸‚«A‚©‚È‚èÚ‚µ‚¢‰ðà‚ð’Ç‰Á‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚µ‚½B‚±‚Ìê‚ðŽØ‚è‚Ä‚¨—ç
+\‚µã‚°‚Ü‚·B
 
-¥Ø¥ë¥×¥Õ¥¡¥¤¥ë¤Ï¡¢ºØÆ£¤µ¤ó¤Î ZKB-Japanese Edition
-http://www.ceres.dti.ne.jp/~asaitoh/roguelike/zkb/contents/main.html¤ò
-»È¤ï¤»¤Æ¤¤¤¿¤À¤­¤Þ¤·¤¿¡£
+ƒwƒ‹ƒvƒtƒ@ƒCƒ‹‚ÍAÖ“¡‚³‚ñ‚Ì ZKB-Japanese Edition
+http://www.ceres.dti.ne.jp/~asaitoh/roguelike/zkb/contents/main.html‚ð
+Žg‚í‚¹‚Ä‚¢‚½‚¾‚«‚Ü‚µ‚½B
 
-¤Þ¤¿¡¢¤â¤Á¤í¤ó Angband, JAngband, Zangband ¤òºî¤é¤ì¤¿Êý¡¹¤Ë¤â´¶¼Õ¤·¤Æ
-¤ª¤ê¤Þ¤¹¡£¤Ê¤Ë¤·¤í NetHack ¤Ë¤¯¤é¤Ù¤ë¤È£±£°ÇÜ¤¯¤é¤¤ÆüËÜ¸ì²½¤·¤ä¤¹¤¤
-¥½¡¼¥¹¥³¡¼¥É¤Ê¤Î¤Ç¤¹¤«¤é¡£¤Þ¤¿ WINDOWS ÈÇºîÀ®¤Ë¤¢¤¿¤Ã¤Æ¤ÏJAngband
-WINDOWS ÈÇ¤òºî¤é¤ì¤¿ TeO ¤µ¤ó¤ËÂçÊÑ¤ªÀ¤ÏÃ¤Ë¤Ê¤ê¤Þ¤·¤¿¡£
+‚Ü‚½A‚à‚¿‚ë‚ñ Angband, JAngband, Zangband ‚ðì‚ç‚ê‚½•ûX‚É‚àŠ´ŽÓ‚µ‚Ä
+‚¨‚è‚Ü‚·B‚È‚É‚µ‚ë NetHack ‚É‚­‚ç‚×‚é‚Æ‚P‚O”{‚­‚ç‚¢“ú–{Œê‰»‚µ‚â‚·‚¢
+ƒ\[ƒXƒR[ƒh‚È‚Ì‚Å‚·‚©‚çB‚Ü‚½ WINDOWS ”Åì¬‚É‚ ‚½‚Á‚Ä‚ÍJAngband
+WINDOWS ”Å‚ðì‚ç‚ê‚½ TeO ‚³‚ñ‚É‘å•Ï‚¨¢˜b‚É‚È‚è‚Ü‚µ‚½B
 
-¤½¤Î¸å¤â·Ç¼¨ÈÇ¤ÎÊý¤ÇÂ¿¤¯¤ÎÊý¡¹¤«¤é¥¢¥É¥Ð¥¤¥¹¤ä¥¢¥¤¥Ç¥£¥¢¤òÄº¤¤¤Æ¤¤¤Þ
-¤¹¡£¤ªÌ¾Á°¤òÁ´¤Æ¾å¤²¤ë¤³¤È¤Ï½ÐÍè¤Þ¤»¤ó¤¬Èó¾ï¤Ë´¶¼Õ¤·¤Æ¤ª¤ê¤Þ¤¹¡£
+‚»‚ÌŒã‚àŒfŽ¦”Å‚Ì•û‚Å‘½‚­‚Ì•ûX‚©‚çƒAƒhƒoƒCƒX‚âƒAƒCƒfƒBƒA‚ð’¸‚¢‚Ä‚¢‚Ü
+‚·B‚¨–¼‘O‚ð‘S‚Äã‚°‚é‚±‚Æ‚Ío—ˆ‚Ü‚¹‚ñ‚ª”ñí‚ÉŠ´ŽÓ‚µ‚Ä‚¨‚è‚Ü‚·B
 
 
-ÇÛÉÛ¤Ë¤Ä¤¤¤Æ
+”z•z‚É‚Â‚¢‚Ä
 ------------
-ÇÛÉÛ¤Ë´Ø¤·¤Æ¤Ï¥ª¥ê¥¸¥Ê¥ë¤Ç¤¢¤ë±Ñ¸ìÈÇ ZAngband 2.X.X ¤Ë½à¤¸¤Þ¤¹¡£´ðËÜÅª
-¤ËÇÛÉÛ¤Ë´Ø¤·¤Æ¤Ï:
+”z•z‚ÉŠÖ‚µ‚Ä‚ÍƒIƒŠƒWƒiƒ‹‚Å‚ ‚é‰pŒê”Å ZAngband 2.X.X ‚É€‚¶‚Ü‚·BŠî–{“I
+‚É”z•z‚ÉŠÖ‚µ‚Ä‚Í:
 
-      (1) ÇÛÉÛ¥Õ¥¡¥¤¥ë¤ËÊÑ¹¹¤ò²Ã¤¨¤Ê¤¤¤³¤È
-      (2) ¾¦ÍøÍÑ¤ä±ÄÍøÌÜÅª¤ÎÇÛÉÛ¤ò¤·¤Ê¤¤¤³¤È(Íø±×¤òÆÀ¤Ê¤¤¤³¤È)
+      (1) ”z•zƒtƒ@ƒCƒ‹‚É•ÏX‚ð‰Á‚¦‚È‚¢‚±‚Æ
+      (2) ¤—˜—p‚â‰c—˜–Ú“I‚Ì”z•z‚ð‚µ‚È‚¢‚±‚Æ(—˜‰v‚ð“¾‚È‚¢‚±‚Æ)
 
-¤ò¼é¤Ã¤Æ²¼¤µ¤ì¤ÐÂç¾æÉ×¤Ç¤¹¡£
+‚ðŽç‚Á‚Ä‰º‚³‚ê‚Î‘åä•v‚Å‚·B
 
 
-±Ñ¸ìÈÇ Angband ¤ÎÃøºî¸¢
+‰pŒê”Å Angband ‚Ì’˜ìŒ 
 -----------------------
 Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
-¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Ï¶µ°é¤ä¸¦µæ¤Î¤¿¤á¤Ê¤é¤Ð¡¢¤½¤·¤ÆÍø±×¤òÌÜÅª¤È¤·¤Ê¤¤¤Î¤Ê¤é¤Ð
-Ê£¼Ì¤ª¤è¤ÓÇÛÉÛ¤·¤Æ¤è¤¤¡£¤¿¤À¤·¡¢¤³¤ÎÃøºî¸¢¤ÈÊ¸¾Ï¤Ïµ­ºÜ¤·¤Æ¤ª¤¯¤³¤È¡£
+‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‹³ˆç‚âŒ¤‹†‚Ì‚½‚ß‚È‚ç‚ÎA‚»‚µ‚Ä—˜‰v‚ð–Ú“I‚Æ‚µ‚È‚¢‚Ì‚È‚ç‚Î
+•¡ŽÊ‚¨‚æ‚Ñ”z•z‚µ‚Ä‚æ‚¢B‚½‚¾‚µA‚±‚Ì’˜ìŒ ‚Æ•¶Í‚Í‹LÚ‚µ‚Ä‚¨‚­‚±‚ÆB
 This software may be copied and distributed for educational, research,
 and not for profit purposes provided that this copyright and statement
 are included in all such copies.  Other copyrights may also apply.
 
 
-±Ñ¸ìÈÇ Moria (Angband ¤Î¥Ù¡¼¥¹¤Ë¤Ê¤Ã¤¿¥²¡¼¥à)¤ÎÃøºî¸¢
+‰pŒê”Å Moria (Angband ‚Ìƒx[ƒX‚É‚È‚Á‚½ƒQ[ƒ€)‚Ì’˜ìŒ 
 -----------------------------------------------------
 Copyright (c) 1989 James E. Wilson, Robert A. Keoneke
-¤³¤Î¥½¥Õ¥È¥¦¥§¥¢¤Ï¶µ°é¤ä¸¦µæ¤Î¤¿¤á¤Ê¤é¤Ð¡¢¤½¤·¤ÆÍø±×¤òÌÜÅª¤È¤·¤Ê¤¤¤Î¤Ê¤é¤Ð
-Ê£¼Ì¤ª¤è¤ÓÇÛÉÛ¤·¤Æ¤è¤¤¡£¤¿¤À¤·¡¢¤³¤ÎÃøºî¸¢¤ÈÊ¸¾Ï¤Ïµ­ºÜ¤·¤Æ¤ª¤¯¤³¤È¡£
+‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Í‹³ˆç‚âŒ¤‹†‚Ì‚½‚ß‚È‚ç‚ÎA‚»‚µ‚Ä—˜‰v‚ð–Ú“I‚Æ‚µ‚È‚¢‚Ì‚È‚ç‚Î
+•¡ŽÊ‚¨‚æ‚Ñ”z•z‚µ‚Ä‚æ‚¢B‚½‚¾‚µA‚±‚Ì’˜ìŒ ‚Æ•¶Í‚Í‹LÚ‚µ‚Ä‚¨‚­‚±‚ÆB
 This software may be copied and distributed for educational, research, and
 not for profit purposes provided that this copyright and statement are
 included in all such copies.
 
 
-ÊÝ¾Ú
+•ÛØ
 ----
-ËÜ¥×¥í¥°¥é¥à¤ò»ÈÍÑ¤·¤¿¤³¤È¤Ë¤è¤Ã¤ÆÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë¤Ä¤¤¤Æ¤âÀ½ºî¼Ô¤Ï
-¤½¤ÎÀÕÇ¤¤òÉé¤¤¤Þ¤»¤ó¡£
+–{ƒvƒƒOƒ‰ƒ€‚ðŽg—p‚µ‚½‚±‚Æ‚É‚æ‚Á‚Ä¶‚¶‚½‚¢‚©‚È‚é‘¹ŠQ‚É‚Â‚¢‚Ä‚à»ìŽÒ‚Í
+‚»‚ÌÓ”C‚ð•‰‚¢‚Ü‚¹‚ñB

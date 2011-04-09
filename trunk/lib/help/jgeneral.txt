@@ -1,115 +1,115 @@
-=== Á´ÈÌÅª¤Ê¾ðÊó ===
+=== ‘S”Ê“I‚Èî•ñ ===
 
-¤³¤ÎÊ¸¾Ï¤Ç¤Ï D'angband ¤ò¼êÃ»¤Ë¾Ò²ð¤·¤Þ¤¹¡£ËÜ³ÊÅª¤ÊËÁ¸±¤ò»Ï¤á¤ëÁ°¤Ë¡¢Á´
-¤Æ¤Î¥Ø¥ë¥×¥Õ¥¡¥¤¥ë¡¢ÆÃ¤Ë¥³¥Þ¥ó¥É´Ø·¸(jcommand.txt [b] ¤È jcommdesc.txt
-[c]¤ò»²¾È)¤ËÌÜ¤òÄÌ¤·¤Æ¤ª¤¤¤¿Êý¤¬¤¤¤¤¤Ç¤·¤ç¤¦¡£
+‚±‚Ì•¶Í‚Å‚Í D'angband ‚ðŽè’Z‚ÉÐ‰î‚µ‚Ü‚·B–{Ši“I‚È–`Œ¯‚ðŽn‚ß‚é‘O‚ÉA‘S
+‚Ä‚Ìƒwƒ‹ƒvƒtƒ@ƒCƒ‹A“Á‚ÉƒRƒ}ƒ“ƒhŠÖŒW(jcommand.txt [b] ‚Æ jcommdesc.txt
+[c]‚ðŽQÆ)‚É–Ú‚ð’Ê‚µ‚Ä‚¨‚¢‚½•û‚ª‚¢‚¢‚Å‚µ‚å‚¤B
 
-D'angband ¤È¤¤¤¦¥²¡¼¥à¤Ï°ì¿ÍÍÑ¤Î¥À¥ó¥¸¥ç¥ó¡¦¥·¥ß¥å¥ì¡¼¥¿¡¼¤Ç¤¹¡£¥×¥ì¥¤
-¥ä¡¼¤ÏÍÍ¡¹¤Ê¼ïÂ²¤ä¿¦¶È¡¢ËâË¡ÎÎ°è(jbirth.txt [d]¤ò»²¾È)¤òÁªÂò¤·¤Æ¼«
-Ê¬¤Î¥­¥ã¥é¥¯¥¿¡¼¤òºîÀ®¤·¡¢¤½¤Î¥­¥ã¥é¥¯¥¿¡¼¤òÁàºî¤·¤Æ¥À¥ó¥¸¥ç¥ó¤ÎÃæ¤ò¿ô
-Æü¡¢¤¤¤ä¿ô½µ´Ö¡¢¤¤¤ä¿ô¥«·î¤Î´ÖËÁ¸±¤ò¤¹¤ë¤³¤È¤Ë¤Ê¤ë¤Ç¤·¤ç¤¦¡£¥À¥ó¥¸¥ç¥ó
-¤Î±ü¿¼¤¯¤Ç¤Ï·Ð¸³ÃÍ¤äÂ¾¤ÎÆÃÀ­¤òÆÀ¡¢Í­ÍÑ¤Ê¥¢¥¤¥Æ¥à¤ò½¸¤á¤ë¤³¤È¤¬ÌÜÅª¤È¤Ê
-¤ê¤Þ¤¹¡£¤½¤ì¤Ï¥À¥ó¥¸¥ç¥ó±ü¿¼¤¯¤ËÀø¤ó¤Ç¤¤¤ë°ÎÂç¤Ê¤ëº®ÆÙ¤Î¥µ¡¼¥Ú¥ó¥È¤òÅÝ
-¤¹¤Î¤Ë½¼Ê¬¤ÊÎÏ¤òÆÀ¤ë¤¿¤á¤Ç¤¢¤ë¤È¸À¤¨¤Þ¤¹¡£
+D'angband ‚Æ‚¢‚¤ƒQ[ƒ€‚Íˆêl—p‚Ìƒ_ƒ“ƒWƒ‡ƒ“EƒVƒ~ƒ…ƒŒ[ƒ^[‚Å‚·BƒvƒŒƒC
+ƒ„[‚Í—lX‚ÈŽí‘°‚âE‹ÆA–‚–@—Ìˆæ(jbirth.txt [d]‚ðŽQÆ)‚ð‘I‘ð‚µ‚ÄŽ©
+•ª‚ÌƒLƒƒƒ‰ƒNƒ^[‚ðì¬‚µA‚»‚ÌƒLƒƒƒ‰ƒNƒ^[‚ð‘€ì‚µ‚Äƒ_ƒ“ƒWƒ‡ƒ“‚Ì’†‚ð”
+“úA‚¢‚â”TŠÔA‚¢‚â”ƒJŒŽ‚ÌŠÔ–`Œ¯‚ð‚·‚é‚±‚Æ‚É‚È‚é‚Å‚µ‚å‚¤Bƒ_ƒ“ƒWƒ‡ƒ“
+‚Ì‰œ[‚­‚Å‚ÍŒoŒ±’l‚â‘¼‚Ì“Á«‚ð“¾A—L—p‚ÈƒAƒCƒeƒ€‚ðW‚ß‚é‚±‚Æ‚ª–Ú“I‚Æ‚È
+‚è‚Ü‚·B‚»‚ê‚Íƒ_ƒ“ƒWƒ‡ƒ“‰œ[‚­‚Éö‚ñ‚Å‚¢‚éˆÌ‘å‚È‚é¬“×‚ÌƒT[ƒyƒ“ƒg‚ð“|
+‚·‚Ì‚É[•ª‚È—Í‚ð“¾‚é‚½‚ß‚Å‚ ‚é‚ÆŒ¾‚¦‚Ü‚·B
 
 
 ***** <First>
-=== »Ï¤á¤Ë¹Ô¤¯¤Ù¤­½ê ===
+=== Žn‚ß‚És‚­‚×‚«Š ===
 
-¥×¥ì¥¤¥ä¡¼¤ÎËÁ¸±¤ÏÄ®¤«¤é»Ï¤Þ¤ê¤Þ¤¹¡£¤½¤³¤ÇÍÍ¡¹¤ÊÅ¹¼ç¤È¤ÎÇä¤êÇã¤¤¤òÄÌ¤¸
-¤ÆÍÍ¡¹¤Ê¥¢¥¤¥Æ¥à¡¢Éð´ï¡¢ËÉ¶ñ¡¢ËâË¡¤ÎÉÊ¡¹¤Ê¤É¤òÆÀ¤Þ¤¹¡£¤½¤·¤Æ¥×¥ì¥¤¥ä¡¼
-¤ÏÁÇÀ²¤é¤·¤¤ËÁ¸±¤ÎÂÔ¤Á¼õ¤±¤ë¥À¥ó¥¸¥ç¥ó¤ËÂ­¤òÆ§¤ßÆþ¤ì¤ë¤Î¤Ç¤¹¡ª
+ƒvƒŒƒCƒ„[‚Ì–`Œ¯‚Í’¬‚©‚çŽn‚Ü‚è‚Ü‚·B‚»‚±‚Å—lX‚È“XŽå‚Æ‚Ì”„‚è”ƒ‚¢‚ð’Ê‚¶
+‚Ä—lX‚ÈƒAƒCƒeƒ€A•ŠíA–h‹ïA–‚–@‚Ì•iX‚È‚Ç‚ð“¾‚Ü‚·B‚»‚µ‚ÄƒvƒŒƒCƒ„[
+‚Í‘f°‚ç‚µ‚¢–`Œ¯‚Ì‘Ò‚¿Žó‚¯‚éƒ_ƒ“ƒWƒ‡ƒ“‚É‘«‚ð“¥‚Ý“ü‚ê‚é‚Ì‚Å‚·I
 
-ºÇ½é¤Ï¥¹¥¿¡¼¥È¤·¤¿ÅÔ»Ô¤ËÂ¸ºß¤¹¤ë¥À¥ó¥¸¥ç¥ó¤Ë¹Ô¤¯¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹¡£
-³Æ¥À¥ó¥¸¥ç¥ó¤òÀ¬ÇÆ¤Ç¤­¤ë¤¯¤é¤¤¶¯¤¯¤Ê¤Ã¤¿¤é¡¢³¹¤Î³°¤Ø½Ð¤Æ¤¤¤í¤¤¤í¤Ê
-¥À¥ó¥¸¥ç¥ó¤ØÀø¤Ã¤Æ¤ß¤ë¤È¤¤¤¤¤Ç¤·¤ç¤¦¡£³¹¤Î³°¤Ø½Ð¤ë¤È¤­¤Ï¡¢
-Â¿¤¯¤Î¿©ÎÁ¤ò»ý¤Ã¤Æ¤¤¤«¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó¡£
+Å‰‚ÍƒXƒ^[ƒg‚µ‚½“sŽs‚É‘¶Ý‚·‚éƒ_ƒ“ƒWƒ‡ƒ“‚És‚­‚±‚Æ‚ð‚¨Š©‚ß‚µ‚Ü‚·B
+Šeƒ_ƒ“ƒWƒ‡ƒ“‚ðª”e‚Å‚«‚é‚­‚ç‚¢‹­‚­‚È‚Á‚½‚çAŠX‚ÌŠO‚Öo‚Ä‚¢‚ë‚¢‚ë‚È
+ƒ_ƒ“ƒWƒ‡ƒ“‚Öö‚Á‚Ä‚Ý‚é‚Æ‚¢‚¢‚Å‚µ‚å‚¤BŠX‚ÌŠO‚Öo‚é‚Æ‚«‚ÍA
+‘½‚­‚ÌH—¿‚ðŽ‚Á‚Ä‚¢‚©‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñB
 
 
-[[[[G|--- ¹­°è¥Þ¥Ã¥× ----  ( '<' ¤ò²¡¤¹¤À¤±¤Ç¡¢¹­Âç¤ÊÀ¤³¦¤¬¸«¤¨¤ë¡ª¡ª¡ª)|
+[[[[G|--- Lˆæƒ}ƒbƒv ----  ( '<' ‚ð‰Ÿ‚·‚¾‚¯‚ÅAL‘å‚È¢ŠE‚ªŒ©‚¦‚éIII)|
 
-¤³¤ÎÀ¤³¦¤ÏÈó¾ï¤Ë¹­¤¤¤Î¤Ç¡¢³¹¤Î³°¤Ë½Ð¤ë¤È¤­¤Ï'<'¤Ç¹­°è¥Þ¥Ã¥×¤ËÆþ¤ê¡¢ÌÜ
-ÅªÃÏ¤Ë¤Ä¤¤¤¿¤È¤³¤í¤Ç'>'¤ÇÄÌ¾ï¥Þ¥Ã¥×¤ËÌá¤ë¡¢¤È¤¤¤¦°ÜÆ°¤Î»ÅÊý¤¬ÊØÍø¤Ç¤¹¡£
-¹ÓÌî¤Ç¤ÏÆ»¤äÁð¸¶¤ÏÈæ³ÓÅª°ÂÁ´¤Ç¤¹¤¬¡¢ÍÏ´äÃÏÂÓ¤ä³¤¤Î¾å¤Ï¶¯ÎÏ¤Ê¥â¥ó¥¹¥¿¡¼
-¤¬¤¤¤Æ´í¸±¤Ç¤¹¡£¤³¤¦¤¤¤Ã¤¿¤È¤³¤í¤Ø¹Ô¤¯¤¿¤á¤Ë¤Ï¤µ¤é¤Ë¶¯¤¯¤Ê¤é¤Ê¤¤¤È¤¤¤±
-¤Þ¤»¤ó¡£
+‚±‚Ì¢ŠE‚Í”ñí‚ÉL‚¢‚Ì‚ÅAŠX‚ÌŠO‚Éo‚é‚Æ‚«‚Í'<'‚ÅLˆæƒ}ƒbƒv‚É“ü‚èA–Ú
+“I’n‚É‚Â‚¢‚½‚Æ‚±‚ë‚Å'>'‚Å’Êíƒ}ƒbƒv‚É–ß‚éA‚Æ‚¢‚¤ˆÚ“®‚ÌŽd•û‚ª•Ö—˜‚Å‚·B
+r–ì‚Å‚Í“¹‚â‘Œ´‚Í”äŠr“IˆÀ‘S‚Å‚·‚ªA—nŠâ’n‘Ñ‚âŠC‚Ìã‚Í‹­—Í‚Èƒ‚ƒ“ƒXƒ^[
+‚ª‚¢‚ÄŠëŒ¯‚Å‚·B‚±‚¤‚¢‚Á‚½‚Æ‚±‚ë‚Ös‚­‚½‚ß‚É‚Í‚³‚ç‚É‹­‚­‚È‚ç‚È‚¢‚Æ‚¢‚¯
+‚Ü‚¹‚ñB
 
-ÊÕ¶­¤ÎÃÏ¤ÈÆ±¤¸Åç¤Ë¤¢¤ë²Ð»³¤Ï¶î¤±½Ð¤·¤ÎËÁ¸±¼Ô¤Ç¤Ï¤Þ¤À¤Þ¤À»õ¤¬Î©¤Á¤Þ¤»¤ó¡£
-¤â¤Ã¤È¶¯¤¯¤Ê¤Ã¤Æ¤«¤éÌá¤Ã¤Æ¤¯¤ë¤È¤¤¤¤¤Ç¤·¤ç¤¦¡£À¾¤Ë¹Ô¤¯¤ÈÊÕ¶­¤ÎÃÏ¤È¥â¥ê
-¥Ð¥ó¥È¤ÎÃæ´ÖÉÕ¶á¤Ë¥ª¡¼¥¯¤Î½»¤àÆ¶·¢¤¬¤¢¤ê¡¢¤½¤ÎÆî¤ÎÅç¤Ë¤Ï¥ß¥Î¥¿¥¦¥í¥¹¤¬
-½»¤à¤È±½¤µ¤ì¤ëËâË¡¤ÎÌÂµÜ¤¬¤¢¤ê¤Þ¤¹¡£
+•Ó‹«‚Ì’n‚Æ“¯‚¶“‡‚É‚ ‚é‰ÎŽR‚Í‹ì‚¯o‚µ‚Ì–`Œ¯ŽÒ‚Å‚Í‚Ü‚¾‚Ü‚¾Ž•‚ª—§‚¿‚Ü‚¹‚ñB
+‚à‚Á‚Æ‹­‚­‚È‚Á‚Ä‚©‚ç–ß‚Á‚Ä‚­‚é‚Æ‚¢‚¢‚Å‚µ‚å‚¤B¼‚És‚­‚Æ•Ó‹«‚Ì’n‚Æƒ‚ƒŠ
+ƒoƒ“ƒg‚Ì’†ŠÔ•t‹ß‚ÉƒI[ƒN‚ÌZ‚Þ“´ŒA‚ª‚ ‚èA‚»‚Ì“ì‚Ì“‡‚É‚Íƒ~ƒmƒ^ƒEƒƒX‚ª
+Z‚Þ‚Æ‰\‚³‚ê‚é–‚–@‚Ì–À‹{‚ª‚ ‚è‚Ü‚·B
 
-Â¾¤Ë¤âÂ¿¤¯¤Î¥À¥ó¥¸¥ç¥ó¤¬Í¦´º¤ÊËÁ¸±¼Ô¤¬Ë¬¤ì¤ë¤Î¤òÂÔ¤Ã¤Æ¤¤¤Þ¤¹¡£¤³¤Î¥²¡¼
-¥à¤Î¥á¥¤¥ó¤È¤Ê¤ë¥À¥ó¥¸¥ç¥ó¤Ç¤¢¤ê¡¢ºÇ½ªÌÜÅª¤Ç¤¢¤ë¡Öº®ÆÙ¤Î¥µ¡¼¥Ú¥ó¥È¡×¤Î
-À³¤à¡ÖÅ´¹ö¡×¤Î¥À¥ó¥¸¥ç¥ó¤Ï¥Þ¥Ã¥×¤Î¤Û¤ÜÃæ±û¡¢¥â¥ê¥Ð¥ó¥È¤ÎËÌÅì¤Ë°ÌÃÖ¤·¤Þ
-¤¹¡£
+‘¼‚É‚à‘½‚­‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚ª—EŠ¸‚È–`Œ¯ŽÒ‚ª–K‚ê‚é‚Ì‚ð‘Ò‚Á‚Ä‚¢‚Ü‚·B‚±‚ÌƒQ[
+ƒ€‚ÌƒƒCƒ“‚Æ‚È‚éƒ_ƒ“ƒWƒ‡ƒ“‚Å‚ ‚èAÅI–Ú“I‚Å‚ ‚éu¬“×‚ÌƒT[ƒyƒ“ƒgv‚Ì
+±‚Þu“S–v‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚Íƒ}ƒbƒv‚Ì‚Ù‚Ú’†‰›Aƒ‚ƒŠƒoƒ“ƒg‚Ì–k“Œ‚ÉˆÊ’u‚µ‚Ü
+‚·B
 
-ÃÏ¾å¤Î¥Þ¥Ã¥×¤Ë¤Ä¤¤¤Æ¾Ü¤·¤¤»ö¤Ï jtown.txt [f] ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£
+’nã‚Ìƒ}ƒbƒv‚É‚Â‚¢‚ÄÚ‚µ‚¢Ž–‚Í jtown.txt [f] ‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
 
 
 ***** <Winning>
 
-¢¨¤³¤Î¾ðÊó¤Ï¸Å¤¯¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£½¤Àµ¤ò¤ªÂÔ¤Á²¼¤µ¤¤¡£
+¦‚±‚Ìî•ñ‚ÍŒÃ‚­‚È‚Á‚Ä‚¢‚Ü‚·BC³‚ð‚¨‘Ò‚¿‰º‚³‚¢B
 
---- ¾¡Íø ---
+--- Ÿ—˜ ---
 
-Å´¹ö¤ÎÃÏ²¼£¹£¹³¬¤Ë¤¤¤ë¥ª¥Ù¥í¥ó¤òÅÝ¤¹¤È¡¢¤Ä¤¤¤ËÃÏ²¼£±£°£°³¬¤Ø¤ÈÄÌ¤¸¤ëËâ
-Ë¡¤Î³¬ÃÊ¤¬¸½¤ì¤Þ¤¹¡£º®ÆÙ¤Î¥µ¡¼¥Ú¥ó¥È¤Ï¥À¥ó¥¸¥ç¥ó¤Î¤³¤Î³¬ÁØ¤ËÀø¤ó¤Ç¤ª¤ê¡¢
-¤³¤ì¤òÅÝ¤µ¤Ê¤¤¸Â¤ê²¼¤Î³¬ÁØ¤Ø¹Ô¤¯¤³¤È¤Ï½ÐÍè¤Þ¤»¤ó¡£Èà¤òÅÝ¤¹½àÈ÷¤¬¤Ç¤­¤Æ
-¤¤¤Ê¤¤¤¦¤Á¤Ï¡¢¤³¤Î³¬¤Ç¤¦¤í¤Ä¤¯¤Î¤ÏÈò¤±¤Þ¤·¤ç¤¦¡£¤È¤¤¤¦¤Î¤â¡¢Èà¤Ï¥À¥ó¥¸¥ç
-¥óÁ´°è¤ËÅÏ¤Ã¤Æ¡¢¤½¤Î¿Þ¡¹¤·¤µ¤ËÂÐ¤¹¤ëÊó¤¤¤È¤·¤Æ¤¢¤Ê¤¿¤ò»¦¤¹°Ù¤Ë¤ä¤Ã¤Æ¤¯
-¤ë¤«¤é¤Ç¤¹¡£
+“S–‚Ì’n‰º‚X‚XŠK‚É‚¢‚éƒIƒxƒƒ“‚ð“|‚·‚ÆA‚Â‚¢‚É’n‰º‚P‚O‚OŠK‚Ö‚Æ’Ê‚¶‚é–‚
+–@‚ÌŠK’i‚ªŒ»‚ê‚Ü‚·B¬“×‚ÌƒT[ƒyƒ“ƒg‚Íƒ_ƒ“ƒWƒ‡ƒ“‚Ì‚±‚ÌŠK‘w‚Éö‚ñ‚Å‚¨‚èA
+‚±‚ê‚ð“|‚³‚È‚¢ŒÀ‚è‰º‚ÌŠK‘w‚Ös‚­‚±‚Æ‚Ío—ˆ‚Ü‚¹‚ñB”Þ‚ð“|‚·€”õ‚ª‚Å‚«‚Ä
+‚¢‚È‚¢‚¤‚¿‚ÍA‚±‚ÌŠK‚Å‚¤‚ë‚Â‚­‚Ì‚Í”ð‚¯‚Ü‚µ‚å‚¤B‚Æ‚¢‚¤‚Ì‚àA”Þ‚Íƒ_ƒ“ƒWƒ‡
+ƒ“‘Sˆæ‚É“n‚Á‚ÄA‚»‚Ì}X‚µ‚³‚É‘Î‚·‚é•ñ‚¢‚Æ‚µ‚Ä‚ ‚È‚½‚ðŽE‚·ˆ×‚É‚â‚Á‚Ä‚­
+‚é‚©‚ç‚Å‚·B
 
-º®ÆÙ¤Î¥µ¡¼¥Ú¥ó¥È¤ÏÄÌ¾ï¤Î²øÊª¤ËÍÑ¤¤¤Æ¤­¤¿´ÊÃ±¤ÊÊýË¡¤Ç¤ÏÅÝ¤»¤Þ¤»¤ó¡£º®ÆÙ
-¤Î¥µ¡¼¥Ú¥ó¥È¤ÏÂ¾¤Î¥¯¥¨¥¹¥È¥â¥ó¥¹¥¿¡¼Æ±ÍÍ¤Ë¡¢¤¢¤Ê¤¿¤¬¤½¤Î¥¨¥ê¥¢¤òÇË²õ¤¹
-¤ë¤è¤¦¤Ê¼öÊ¸¤ò»È¤Ã¤Æ¤â¤½¤Î³¬ÁØ¤ÎÂ¾¤ÎÎÎ°è¤Ø¥Æ¥ì¥Ý¡¼¥È¤¹¤ë¤À¤±¤Ç¤¹¡£Èà¤Ï
-ÊÑ²½¤µ¤»¤é¤ì¤Þ¤»¤ó¤·¡¢Ì²¤é¤»¤¿¤ê¡¢Ì¥Î»¤·¤¿¤ê¡¢µÔ»¦¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤»
-¤ó¡£ËâÎÏ¤ÎÍò¤äÀ»¤Ê¤ë¸÷µå¤È¤¤¤Ã¤¿¼öÊ¸¤ÏÍ­¸ú¤Ç¤¹¤·¡¢¶¯ÎÏ¤ÊÉð´ï¤Î¤¤¤¯¤Ä¤«
-¤âÍ­¸ú¤Ç¤¹¤¬¡¢Èà¤òÅÝ¤¹¤Î¤Ïº¤Æñ¤Ç¤¹¤·¡¢¤â¤·Æ¨¤¬¤·¤Æ¤·¤Þ¤¨¤ÐµÞÂ®¤Ë²óÉü¤·
-¤Æ¤·¤Þ¤¦¤Ç¤·¤ç¤¦¡£
+¬“×‚ÌƒT[ƒyƒ“ƒg‚Í’Êí‚Ì‰ö•¨‚É—p‚¢‚Ä‚«‚½ŠÈ’P‚È•û–@‚Å‚Í“|‚¹‚Ü‚¹‚ñB¬“×
+‚ÌƒT[ƒyƒ“ƒg‚Í‘¼‚ÌƒNƒGƒXƒgƒ‚ƒ“ƒXƒ^[“¯—l‚ÉA‚ ‚È‚½‚ª‚»‚ÌƒGƒŠƒA‚ð”j‰ó‚·
+‚é‚æ‚¤‚ÈŽô•¶‚ðŽg‚Á‚Ä‚à‚»‚ÌŠK‘w‚Ì‘¼‚Ì—Ìˆæ‚ÖƒeƒŒƒ|[ƒg‚·‚é‚¾‚¯‚Å‚·B”Þ‚Í
+•Ï‰»‚³‚¹‚ç‚ê‚Ü‚¹‚ñ‚µA–°‚ç‚¹‚½‚èA–£—¹‚µ‚½‚èA‹sŽE‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚¹
+‚ñB–‚—Í‚Ì—’‚â¹‚È‚éŒõ‹…‚Æ‚¢‚Á‚½Žô•¶‚Í—LŒø‚Å‚·‚µA‹­—Í‚È•Ší‚Ì‚¢‚­‚Â‚©
+‚à—LŒø‚Å‚·‚ªA”Þ‚ð“|‚·‚Ì‚Í¢“ï‚Å‚·‚µA‚à‚µ“¦‚ª‚µ‚Ä‚µ‚Ü‚¦‚Î‹}‘¬‚É‰ñ•œ‚µ
+‚Ä‚µ‚Ü‚¤‚Å‚µ‚å‚¤B
 
-¤â¤·¡¢º®ÆÙ¤Î¥µ¡¼¥Ú¥ó¥È¤È¤ÎÀï¤¤¤ËÀ¸¤­»Ä¤Ã¤¿¤é¡¢¤¢¤Ê¤¿¤Ï¾¡Íø¼Ô(Winner)¤Î
-¾Î¹æ¤ò¼ê¤ËÆþ¤ì¤ë¤³¤È¤Ç¤·¤ç¤¦¡£¤¢¤Ê¤¿¤Ï¤³¤Î¤Þ¤Þ¥²¡¼¥à¤òÂ³¤±¤ë¤³¤È¤¬¤Ç¤­
-¤Þ¤¹¤·¡¢¥»¡¼¥Ö¤·¤Æ¸å¤ÇºÆ³«¤¹¤ë¤³¤È¤À¤Ã¤Æ¤Ç¤­¤Þ¤¹¡£
+‚à‚µA¬“×‚ÌƒT[ƒyƒ“ƒg‚Æ‚Ìí‚¢‚É¶‚«Žc‚Á‚½‚çA‚ ‚È‚½‚ÍŸ—˜ŽÒ(Winner)‚Ì
+Ì†‚ðŽè‚É“ü‚ê‚é‚±‚Æ‚Å‚µ‚å‚¤B‚ ‚È‚½‚Í‚±‚Ì‚Ü‚ÜƒQ[ƒ€‚ð‘±‚¯‚é‚±‚Æ‚ª‚Å‚«
+‚Ü‚·‚µAƒZ[ƒu‚µ‚ÄŒã‚ÅÄŠJ‚·‚é‚±‚Æ‚¾‚Á‚Ä‚Å‚«‚Ü‚·B
 
-°úÂà¤¹¤ë½àÈ÷¤¬¤Ç¤­¤¿¤é¡¢Ã±½ã¤Ë¡Ö¼«»¦¡×(SHIFT-Q)¤ò¼Â¹Ô¤·¤Þ¤¹¡£¤¹¤ë¤È¡¢¤¢
-¤Ê¤¿¤Î¥­¥ã¥é¥¯¥¿¤Ï¥Ï¥¤¥¹¥³¥¢¥ê¥¹¥È¤Ë¾¡Íø¼Ô¤È¤·¤Æµ­Ï¿¤µ¤ì¡¢Ë¾¤à¤Ê¤é¥¤¥ó
-¥¿¡¼¥Í¥Ã¥È¾å¤Î¥¹¥³¥¢¥µ¡¼¥Ð¤Ë¤¢¤Ê¤¿¤Î¥¹¥³¥¢¤òÅÐÏ¿¤Ç¤­¤Þ¤¹¡£°úÂà¤¹¤ë¤Þ¤Ç
-¤Ë¤â¤¢¤Ê¤¿¤Ï¤Þ¤À»¦¤µ¤ì¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£¥µ¥¤¥Ð¡¼¥Ç¡¼¥â¥ó¤ÎÂç·²¤ËÁø¶ø¤¹
-¤ëÁ°¤Ë°úÂà¤·¤¿¤¤¤«¤â¤·¤ì¤Þ¤»¤ó¤Í¡£
+ˆø‘Þ‚·‚é€”õ‚ª‚Å‚«‚½‚çA’Pƒ‚ÉuŽ©ŽEv(SHIFT-Q)‚ðŽÀs‚µ‚Ü‚·B‚·‚é‚ÆA‚ 
+‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^‚ÍƒnƒCƒXƒRƒAƒŠƒXƒg‚ÉŸ—˜ŽÒ‚Æ‚µ‚Ä‹L˜^‚³‚êA–]‚Þ‚È‚çƒCƒ“
+ƒ^[ƒlƒbƒgã‚ÌƒXƒRƒAƒT[ƒo‚É‚ ‚È‚½‚ÌƒXƒRƒA‚ð“o˜^‚Å‚«‚Ü‚·Bˆø‘Þ‚·‚é‚Ü‚Å
+‚É‚à‚ ‚È‚½‚Í‚Ü‚¾ŽE‚³‚ê‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·BƒTƒCƒo[ƒf[ƒ‚ƒ“‚Ì‘åŒQ‚É‘˜‹ö‚·
+‚é‘O‚Éˆø‘Þ‚µ‚½‚¢‚©‚à‚µ‚ê‚Ü‚¹‚ñ‚ËB
 
 
 ***** <UponDeath>
---- »à¤Ë¤Ä¤¤¤Æ ---
+--- Ž€‚É‚Â‚¢‚Ä ---
 
-¥­¥ã¥é¥¯¥¿¤ÎHP¤¬0¤è¤ê¾®¤µ¤¯¤Ê¤Ã¤Æ¤·¤Þ¤¦¤È¡¢¥­¥ã¥é¥¯¥¿¤Ï»à¤Ë¡¢¤â¤¦Éü³è
-¤·¤Þ¤»¤ó¡£ºÇ¸å¤Ë¤¢¤Ê¤¿¤ÎÃÇËöËâ¤Î¶«¤ÓÀ¼¤Ç¤â½ñ¤­¹þ¤ó¤Ç¤ª¤­¤Þ¤·¤ç¤¦(¤½¤ì
-¤Ï¥¤¥ó¥¿¡¼¥Í¥Ã¥È¤Î¥¹¥³¥¢¥µ¡¼¥Ð¡¼¾å¤Ç¸ø³«¤µ¤ì¤Þ¤¹)¡£ ¥­¥ã¥é¥¯¥¿¤Î¾ðÊó¤¬
-¼¨¤µ¤ì¤¿ÊèÀÐ¤¬É½¼¨¤µ¤ì¤Þ¤¹¡£¤Þ¤¿¡¢¥­¥ã¥é¥¯¥¿¤Îµ­Ï¿¤ò¤È¤ë¤³¤È¤¬¤Ç¤­¡¢Á´
-¤Æ¤ÎÁõÈ÷ÉÊ¤â²èÌÌ¤ä¥Õ¥¡¥¤¥ë¤Ë½ñ¤­½Ð¤¹¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£Ë¾¤à¤Ê¤é¥¤¥ó¥¿¡¼¥Í¥Ã
-¥È¾å¤Î¥¹¥³¥¢¥µ¡¼¥Ð¤Ë¤¢¤Ê¤¿¤Î¥¹¥³¥¢¤òÅÐÏ¿¤Ç¤­¤Þ¤¹¡£
+ƒLƒƒƒ‰ƒNƒ^‚ÌHP‚ª0‚æ‚è¬‚³‚­‚È‚Á‚Ä‚µ‚Ü‚¤‚ÆAƒLƒƒƒ‰ƒNƒ^‚ÍŽ€‚ÉA‚à‚¤•œŠˆ
+‚µ‚Ü‚¹‚ñBÅŒã‚É‚ ‚È‚½‚Ì’f–––‚‚Ì‹©‚Ñº‚Å‚à‘‚«ž‚ñ‚Å‚¨‚«‚Ü‚µ‚å‚¤(‚»‚ê
+‚ÍƒCƒ“ƒ^[ƒlƒbƒg‚ÌƒXƒRƒAƒT[ƒo[ã‚ÅŒöŠJ‚³‚ê‚Ü‚·)B ƒLƒƒƒ‰ƒNƒ^‚Ìî•ñ‚ª
+Ž¦‚³‚ê‚½•æÎ‚ª•\Ž¦‚³‚ê‚Ü‚·B‚Ü‚½AƒLƒƒƒ‰ƒNƒ^‚Ì‹L˜^‚ð‚Æ‚é‚±‚Æ‚ª‚Å‚«A‘S
+‚Ä‚Ì‘•”õ•i‚à‰æ–Ê‚âƒtƒ@ƒCƒ‹‚É‘‚«o‚·‚±‚Æ‚ª‚Å‚«‚Ü‚·B–]‚Þ‚È‚çƒCƒ“ƒ^[ƒlƒb
+ƒgã‚ÌƒXƒRƒAƒT[ƒo‚É‚ ‚È‚½‚ÌƒXƒRƒA‚ð“o˜^‚Å‚«‚Ü‚·B
 
-¥­¥ã¥é¥¯¥¿¤Ï¥»¡¼¥Ö¥Õ¥¡¥¤¥ë¤«¤é¾Ãµî¤µ¤ì¡¢¤½¤³¤Ë¤Ï²øÊª¤Î»×¤¤½Ð(jattack.txt
-[e]¤ò»²¾È)¤È¥ª¥×¥·¥ç¥óÀßÄê¤À¤±¤¬µ­Ï¿¤µ¤ì¤Þ¤¹¡£¤½¤Î¥Õ¥¡¥¤¥ë¤ÇºÆ³«¤¹¤ë
-¤È¡¢¿·µ¬¥­¥ã¥é¥¯¥¿À¸À®¤«¤é»Ï¤Þ¤ê¤Þ¤¹¤¬¡¢¤½¤Î¥­¥ã¥é¥¯¥¿¤Ïº£¤Þ¤Ç¤Ëµ­Ï¿¤µ
-¤ì¤¿²øÊª¤Î»×¤¤½Ð¤òÃÎ¤Ã¤Æ¤¤¤Þ¤¹¡£
+ƒLƒƒƒ‰ƒNƒ^‚ÍƒZ[ƒuƒtƒ@ƒCƒ‹‚©‚çÁ‹Ž‚³‚êA‚»‚±‚É‚Í‰ö•¨‚ÌŽv‚¢o(jattack.txt
+[e]‚ðŽQÆ)‚ÆƒIƒvƒVƒ‡ƒ“Ý’è‚¾‚¯‚ª‹L˜^‚³‚ê‚Ü‚·B‚»‚Ìƒtƒ@ƒCƒ‹‚ÅÄŠJ‚·‚é
+‚ÆAV‹KƒLƒƒƒ‰ƒNƒ^¶¬‚©‚çŽn‚Ü‚è‚Ü‚·‚ªA‚»‚ÌƒLƒƒƒ‰ƒNƒ^‚Í¡‚Ü‚Å‚É‹L˜^‚³
+‚ê‚½‰ö•¨‚ÌŽv‚¢o‚ð’m‚Á‚Ä‚¢‚Ü‚·B
 
 
 
 ***** <Web>
-=== WEB¾å¤ÎD'angband¥µ¥¤¥È ===
+=== WEBã‚ÌD'angbandƒTƒCƒg ===
 
 --- http://deeangband.sourceforge.jp/ ---
 
-http://deeangband.sourceforge.jp/ ¤Ï D'angband¤Î¸ø¼°¥µ¥¤¥È¤Ç¤¹¡£
+http://deeangband.sourceforge.jp/ ‚Í D'angband‚ÌŒöŽ®ƒTƒCƒg‚Å‚·B
 
 
---- #¤°¤ê¤Ã¤É¤Ð¤°:*.jp IRC ¥Á¥ã¥ó¥Í¥ë ---
+--- #‚®‚è‚Á‚Ç‚Î‚®:*.jp IRC ƒ`ƒƒƒ“ƒlƒ‹ ---
 
-IRCnet ¤Î¤É¤ì¤«¤Î¥µ¡¼¥Ð¡¼¤Î #¤°¤ê¤Ã¤É¤Ð¤°:*.jp ¥Á¥ã¥ó¥Í¥ë¤Ë»²²Ã¤·¤Þ¤·¤ç
-¤¦¡£³«È¯¤Ë¤«¤«¤ï¤ë¥á¥ó¥Ð¡¼¤Ï¤³¤³¤Î¾ïÏ¢¤Ç¡¢D'angband ¤Ë¤Ä¤¤¤Æ¸ì¤ê¹ç¤Ã¤Æ¤¤
-¤ë¤³¤È¤â¤¢¤ê¤Þ¤¹¡£
-¾Ü¤·¤¯¤ÏHabu¤µ¤ó¤ÎWeb¥Ú¡¼¥¸¤ò¸æÍ÷¤¯¤À¤µ¤¤¡£
+IRCnet ‚Ì‚Ç‚ê‚©‚ÌƒT[ƒo[‚Ì #‚®‚è‚Á‚Ç‚Î‚®:*.jp ƒ`ƒƒƒ“ƒlƒ‹‚ÉŽQ‰Á‚µ‚Ü‚µ‚å
+‚¤BŠJ”­‚É‚©‚©‚í‚éƒƒ“ƒo[‚Í‚±‚±‚Ìí˜A‚ÅAD'angband ‚É‚Â‚¢‚ÄŒê‚è‡‚Á‚Ä‚¢
+‚é‚±‚Æ‚à‚ ‚è‚Ü‚·B
+Ú‚µ‚­‚ÍHabu‚³‚ñ‚ÌWebƒy[ƒW‚ðŒä——‚­‚¾‚³‚¢B
 http://www.kmc.gr.jp/~habu/gridbug.html
 
 

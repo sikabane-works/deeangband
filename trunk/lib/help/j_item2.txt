@@ -1,229 +1,229 @@
-=== ¥¢¥¤¥Æ¥à¤Î²òÀâ ===
+=== ƒAƒCƒeƒ€‚Ì‰ðà ===
 
-Zangband ¤Ç¤Ï¿§¡¹¤ÈÉð´ï¤äËÉ¶ñ¤¬ÄÉ²Ã¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤³¤Ç¤Ï¤½¤ì¤é¤Î¥¢¥¤
-¥Æ¥à¤ä¡¢Jangband ¤Ç²òÀâ¤µ¤ì¤Æ¤¤¤Ê¤¤ËÉ¶ñ¡¢¥¢¥¤¥Æ¥à¤Î¸Æ¤ÓÌ¾¤Ê¤É¤ò´ÊÃ±¤Ë
-²òÀâ¤·¤Þ¤¹¡£
-
-
---- ¥í¥Ã¥É/¥ï¥ó¥É/¥¹¥¿¥Ã¥Õ ---
-
-¤¤¤º¤ì¤âËâË¡¤Î¹þ¤á¤é¤ì¤¿ËÀ¾õ¤Î¥¢¥¤¥Æ¥à¤Ç¤¹¡£ÀßÄê¤ò¼Ú¤ê¤¿¤È»×¤ï¤ì¤ë
-£Á£Ä¡õ£Ä¤Ç¤ÎÄêµÁ¤ò¥Õ¥§¥ê¥¢¥Ê¥¹¤µ¤ó¤Î²òÀâ¤«¤é²ÃÉ®¤·¤Æ°úÍÑ¤·¤Þ¤¹¡£¥²¡¼¥à
-Ãæ¤Ç¤ÎÀ­¼Á¤Î°ã¤¤¤Ï jobjects.txt#ObjectTypes [b]¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£¡¡
-
-    ¥ï¥ó¥É(wand)¤ÏËâË¡¾¯½÷¤Î¥Ð¥È¥ó¤Î¤è¤¦¤Ê¾®¤µ¤Ê¾ó¤Ç¤¹¡£¡ÖËâË¡¤Î¾ó¡×°Ê
-    ³°¤Î°ÕÌ£¤¬¤Û¤È¤ó¤É¤Ê¤¯¡¢¤À¤¤¤¿¤¤¤ÏÁõ¾þ¤äÀèÃ¼¤Ë¥ï¥ó¥Ý¥¤¥ó¥ÈÅù¤Î¤Ä¤¤
-    ¤¿¤â¤Î¤Ç¡¢£Ä¡õ£Ä¤ÎËÝÌõ¤Ç¤Ï¡ÖËâË¡ËÀ¡×¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£
-
-    ¥¹¥¿¥Ã¥Õ(staff)¤ÏÌÚÀ½¤Ç¿Í¤Î¿ÈÄ¹¤«¡¢¤½¤ì¤è¤ê¹â¤¤¤¯¤é¤¤¤Î¤â¤Î¤Ç¡¢¤«
-    ¤Ê¤êÂç·¿¤Ç¤¹¡£¥¬¥ó¥À¥ë¥Õ¤Î¾ó¤Ï¡Ä¡Ä¤è¤¯³¨¤ËÉÁ¤«¤ì¤Æ¤¤¤ë¤Î¤Ï¡¢¥¹¥¿¥Ã
-    ¥Õ¤È¥±¥¤¥ó(cane)¤ÎÃæ´Ö¤¢¤¿¤ê¤«¤â¤·¤ì¤Ê¤¤¡£
-
-    ¥í¥Ã¥É(rod)¤Ï£³¥Õ¥£¡¼¥È¤¯¤é¤¤¤Î¾ó¤Ç¶âÂ°À½¤Ç¤¹¡£Æ±¤¸Âç¤­¤µ¤ÇÌÚÀ½¤Î¡¢
-    ¿Â»Î¥¹¥Æ¥Ã¥­¤Î¤è¤¦¤Ê¤â¤Î¤¬¥±¥¤¥ó(cane)¡¢¤«¤Ê¤êÁõ¾þÅù¤¬»Ü¤µ¤ì¤¿²¦ãô
-    ¤Î¤è¤¦¤Ê¤â¤Î¤¬¥»¥×¥¿¡¼(sceptre)¤Ç¤¹¡£¥í¥Ã¥É(rod)¤Ï¥¹¥¿¥Ã¥Õ(staff)¤è
-    ¤ê¡ÖºÙ¤¤¡×¤â¤Î¤ò»Ø¤·¡¢¡Ö¿Æ»Ø¤¯¤é¤¤¡×¤È¤¤¤¦¤«¤éÁêÅöºÙ¤¤¤Ç¤¹¡£¡Ö¤µ
-    ¤ª¡×¤È¤âÌõ¤µ¤ì¤Þ¤¹¡£
+Zangband ‚Å‚ÍFX‚Æ•Ší‚â–h‹ï‚ª’Ç‰Á‚³‚ê‚Ä‚¢‚Ü‚·B‚±‚±‚Å‚Í‚»‚ê‚ç‚ÌƒAƒC
+ƒeƒ€‚âAJangband ‚Å‰ðà‚³‚ê‚Ä‚¢‚È‚¢–h‹ïAƒAƒCƒeƒ€‚ÌŒÄ‚Ñ–¼‚È‚Ç‚ðŠÈ’P‚É
+‰ðà‚µ‚Ü‚·B
 
 
---- Zangband ¤Ç²Ã¤ï¤Ã¤¿Éð´ï ---
-¡ØÉð´ï¼­Åµ¡Ù¡Ê»ÔÀîÄê½ÕÃø¡¢¿·µª¸µ¼Ò´©¡Ë¤ò»²¹Í¤Ë²òÀâ¤·¤Þ¤¹¡£
+--- ƒƒbƒh/ƒƒ“ƒh/ƒXƒ^ƒbƒt ---
 
-¡¦»°ÀáÛþ(Three Piece Rod)
-    ±Ç²è¡Ö¾¯ÎÓ»û£³£¶Ë¼¡×¤È¤«¤Ç¸«¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£
-    ¥Ì¥ó¥Á¥ã¥¯¤Î¤è¤¦¤Ë¤Ä¤Ê¤¬¤Ã¤¿»°ËÜ¤ÎËÀ¤Ç¤¹¡£
+‚¢‚¸‚ê‚à–‚–@‚Ìž‚ß‚ç‚ê‚½–_ó‚ÌƒAƒCƒeƒ€‚Å‚·BÝ’è‚ðŽØ‚è‚½‚ÆŽv‚í‚ê‚é
+‚`‚c•‚c‚Å‚Ì’è‹`‚ðƒtƒFƒŠƒAƒiƒX‚³‚ñ‚Ì‰ðà‚©‚ç‰Á•M‚µ‚Äˆø—p‚µ‚Ü‚·BƒQ[ƒ€
+’†‚Å‚Ì«Ž¿‚Ìˆá‚¢‚Í jobjects.txt#ObjectTypes [b]‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B@
 
-¡¦¥é¥¸¥ã¥¿¥ó(Lajatang)
-    ËÀ¤ÎÎ¾Êý¤ÎÃ¼¤ËÆåÅá¾õ¤Î¿Ï¤¬ÉÕ¤¤¤Æ¤¤¤ëÉð´ï¤Ç¤¹¡£
+    ƒƒ“ƒh(wand)‚Í–‚–@­—‚Ìƒoƒgƒ“‚Ì‚æ‚¤‚È¬‚³‚Èñ‚Å‚·Bu–‚–@‚ÌñvˆÈ
+    ŠO‚ÌˆÓ–¡‚ª‚Ù‚Æ‚ñ‚Ç‚È‚­A‚¾‚¢‚½‚¢‚Í‘•ü‚âæ’[‚Éƒƒ“ƒ|ƒCƒ“ƒg“™‚Ì‚Â‚¢
+    ‚½‚à‚Ì‚ÅA‚c•‚c‚Ì–|–ó‚Å‚Íu–‚–@–_v‚Æ‚È‚Á‚Ä‚¢‚Ü‚·B
 
-¡¦¥Ï¥Á¥§¥Ã¥È(Hatchet)
-    Åê¤²¤Æ»È¤¦Éà¤Ç¤¹¤¬¡¢¥²¡¼¥àÃæ¤Ç¤ÏÅêÚ³¤Ë»È¤¨¤Þ¤»¤ó¡£
+    ƒXƒ^ƒbƒt(staff)‚Í–Ø»‚Ål‚Ìg’·‚©A‚»‚ê‚æ‚è‚‚¢‚­‚ç‚¢‚Ì‚à‚Ì‚ÅA‚©
+    ‚È‚è‘åŒ^‚Å‚·BƒKƒ“ƒ_ƒ‹ƒt‚Ìñ‚Ícc‚æ‚­ŠG‚É•`‚©‚ê‚Ä‚¢‚é‚Ì‚ÍAƒXƒ^ƒb
+    ƒt‚ÆƒPƒCƒ“(cane)‚Ì’†ŠÔ‚ ‚½‚è‚©‚à‚µ‚ê‚È‚¢B
 
-¡¦»°ºµÁä(Trifurcate Spear)
-    ¥È¥é¥¤¥Ç¥ó¥È¤È¤É¤¦°ã¤¦¤Î¤«ÎÉ¤¯Ê¬¤«¤ê¤Þ¤»¤ó¡£
+    ƒƒbƒh(rod)‚Í‚RƒtƒB[ƒg‚­‚ç‚¢‚Ìñ‚Å‹à‘®»‚Å‚·B“¯‚¶‘å‚«‚³‚Å–Ø»‚ÌA
+    aŽmƒXƒeƒbƒL‚Ì‚æ‚¤‚È‚à‚Ì‚ªƒPƒCƒ“(cane)A‚©‚È‚è‘•ü“™‚ªŽ{‚³‚ê‚½‰¤â”
+    ‚Ì‚æ‚¤‚È‚à‚Ì‚ªƒZƒvƒ^[(sceptre)‚Å‚·Bƒƒbƒh(rod)‚ÍƒXƒ^ƒbƒt(staff)‚æ
+    ‚èu×‚¢v‚à‚Ì‚ðŽw‚µAueŽw‚­‚ç‚¢v‚Æ‚¢‚¤‚©‚ç‘Š“–×‚¢‚Å‚·Bu‚³
+    ‚¨v‚Æ‚à–ó‚³‚ê‚Ü‚·B
 
-¡¦¥®¥¶¥ë¥à(Guisarme)
-    Áä¤Î¤è¤¦¤ÊÀÚÀè¤È¡¢Î¾Â¦¤ËÆÍµ¯¤¬ÉÕ¤¤¤Æ¤¤¤ëÉð´ï¤Ç¤¹¡Ê²¼¿Þ¡Ë¡£
-                       ¨®
-¢£¢£¢£¢£¢£¢£¢£¢£¢£¢£=¢¢¢¢¢¢¡ä
-                         ¡Ã
 
-¡¦¥Õ¥©¥·¥ã¡¼¥ë(Fauchard)
-    ¥Õ¥é¥ó¥¹¤Ç»È¤ï¤ì¤Æ¤¤¤¿ÆåÅá¤Î¤è¤¦¤ÊÉð´ï¤Ç¡¢¿Ï¤ÎÈ¿ÂÐÂ¦¤Ë½½¼ê¤Î¤è¤¦¤Ê
-    îì¤¬¤¢¤êÅ¨¤ÎÉð´ï¤ò°ú¤Ã¤«¤±¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡Ê²¼¿Þ¡Ë¡£
-                       ¨®¨¬
-¢£¢£¢£¢£¢£¢£¢£¢£¢£¢£=¢¢¢¢¢¢¥Õ
+--- Zangband ‚Å‰Á‚í‚Á‚½•Ší ---
+w•ŠíŽ«“TxiŽsì’èt’˜AV‹IŒ³ŽÐŠ§j‚ðŽQl‚É‰ðà‚µ‚Ü‚·B
 
-¡¦¥¨¥¹¥Ñ¥É¥ó(Espadon)
-    ¥è¡¼¥í¥Ã¥Ñ¤Ç£±£µÀ¤µª¤Ë»È¤ï¤ì¤Æ¤¤¤¿Î¾¼ê·õ¤Ç¤¹¡£
+EŽOßžž(Three Piece Rod)
+    ‰f‰æu­—ÑŽ›‚R‚U–[v‚Æ‚©‚ÅŒ©‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
+    ƒkƒ“ƒ`ƒƒƒN‚Ì‚æ‚¤‚É‚Â‚È‚ª‚Á‚½ŽO–{‚Ì–_‚Å‚·B
 
-¡¦¥Ð¥¼¥é¡¼¥É(Basillard)
-    £±£³¡Ý£±£µÀ¤µª¥è¡¼¥í¥Ã¥Ñ¤Ç»È¤ï¤ì¤Æ¤¤¤¿Ã»·õ¤Ç¤¹¡£
+Eƒ‰ƒWƒƒƒ^ƒ“(Lajatang)
+    –_‚Ì—¼•û‚Ì’[‚É“ã“ó‚Ìn‚ª•t‚¢‚Ä‚¢‚é•Ší‚Å‚·B
 
-¡¦¥¯¥©¥Ô¥¹(Khopesh)
-    ÆüËÜ¤Î³ù¤Î¤è¤¦¤Ê·Á¤Î·õ¤Ç¡¢¸ÅÂå¥¨¥¸¥×¥È¤Ç»È¤ï¤ì¤Æ¤¤¤Þ¤·¤¿¡£
+Eƒnƒ`ƒFƒbƒg(Hatchet)
+    “Š‚°‚ÄŽg‚¤•€‚Å‚·‚ªAƒQ[ƒ€’†‚Å‚Í“Š±‚ÉŽg‚¦‚Ü‚¹‚ñB
 
-¡¦¥Õ¥é¥ó¥Ù¥ë¥¸¥å(Flamberge)
-    ¥Õ¥é¥ó¥¹¤ÎÎ¾¼ê·õ¤ÇÇÈÂÇ¤Ã¤¿Î¾¿Ï¤ÎÅá¿È¤¬ÆÃÄ§¤Ç¤¹¡£
-    ¤³¤ì¤ÏÅ¨¤Î½ý¤ò¹­¤²¤Æ¼£¤ê¤Ë¤¯¤¯¤¹¤ë¤¿¤á¤Ç¤¹¡£
+EŽO³‘„(Trifurcate Spear)
+    ƒgƒ‰ƒCƒfƒ“ƒg‚Æ‚Ç‚¤ˆá‚¤‚Ì‚©—Ç‚­•ª‚©‚è‚Ü‚¹‚ñB
 
-¡¦¥¯¥ì¥¤¥â¥¢(Claymore)
-    Î¾¼ê·õ¤ÇÆÃÄ§Åª¤ÊÄ×(¥¬¡¼¥É)¤Î·Á¤ò¤·¤Æ¤¤¤Þ¤¹¡Ê²¼¿Þ¡Ë¡£
+EƒMƒUƒ‹ƒ€(Guisarme)
+    ‘„‚Ì‚æ‚¤‚ÈØæ‚ÆA—¼‘¤‚É“Ë‹N‚ª•t‚¢‚Ä‚¢‚é•Ší‚Å‚·i‰º}jB
+                       „¬
+¡¡¡¡¡¡¡¡¡¡=   „
+                         b
 
-       ÉÊ
+EƒtƒHƒVƒƒ[ƒ‹(Fauchard)
+    ƒtƒ‰ƒ“ƒX‚ÅŽg‚í‚ê‚Ä‚¢‚½“ã“‚Ì‚æ‚¤‚È•Ší‚ÅAn‚Ì”½‘Î‘¤‚É\Žè‚Ì‚æ‚¤‚È
+    çê‚ª‚ ‚è“G‚Ì•Ší‚ðˆø‚Á‚©‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·i‰º}jB
+                       „¬„ª
+¡¡¡¡¡¡¡¡¡¡=   ƒt
+
+EƒGƒXƒpƒhƒ“(Espadon)
+    ƒˆ[ƒƒbƒp‚Å‚P‚T¢‹I‚ÉŽg‚í‚ê‚Ä‚¢‚½—¼ŽèŒ•‚Å‚·B
+
+Eƒoƒ[ƒ‰[ƒh(Basillard)
+    ‚P‚R|‚P‚T¢‹Iƒˆ[ƒƒbƒp‚ÅŽg‚í‚ê‚Ä‚¢‚½’ZŒ•‚Å‚·B
+
+EƒNƒHƒsƒX(Khopesh)
+    “ú–{‚ÌŠ™‚Ì‚æ‚¤‚ÈŒ`‚ÌŒ•‚ÅAŒÃ‘ãƒGƒWƒvƒg‚ÅŽg‚í‚ê‚Ä‚¢‚Ü‚µ‚½B
+
+Eƒtƒ‰ƒ“ƒxƒ‹ƒWƒ…(Flamberge)
+    ƒtƒ‰ƒ“ƒX‚Ì—¼ŽèŒ•‚Å”g‘Å‚Á‚½—¼n‚Ì“g‚ª“Á’¥‚Å‚·B
+    ‚±‚ê‚Í“G‚Ì‚ðL‚°‚ÄŽ¡‚è‚É‚­‚­‚·‚é‚½‚ß‚Å‚·B
+
+EƒNƒŒƒCƒ‚ƒA(Claymore)
+    —¼ŽèŒ•‚Å“Á’¥“I‚È’Õ(ƒK[ƒh)‚ÌŒ`‚ð‚µ‚Ä‚¢‚Ü‚·i‰º}jB
+
+       •i
       /
-¢£¢£¢£|¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¡ä
+¡¡¡|             „
       \
-       ÉÊ
+       •i
 
-¡¦¥Ä¥ô¥¡¥¤¥Ï¥ó¥À¡¼(Zweihander)
-    ¥É¥¤¥Ä¤ÎÎ¾¼ê»ý¤Á¤ÎÂç·õ¤Ç¤¹¡£¥É¥¤¥Ä¸ì¤Ç¡ÖÎ¾¼ê»ý¤Á¡×
-    ¤È¤¤¤¦°ÕÌ£¤Ç¤¹¤¬¡¢·Á¤¬ÆÃÄ§Åª¤Ê¤Î¤Ç¤³¤ÎÌ¾¤Ç¸Æ¤Ð¤ì¤Þ¤¹¡Ê²¼¿Þ¡Ë¡£
+Eƒcƒ”ƒ@ƒCƒnƒ“ƒ_[(Zweihander)
+    ƒhƒCƒc‚Ì—¼ŽèŽ‚¿‚Ì‘åŒ•‚Å‚·BƒhƒCƒcŒê‚Åu—¼ŽèŽ‚¿v
+    ‚Æ‚¢‚¤ˆÓ–¡‚Å‚·‚ªAŒ`‚ª“Á’¥“I‚È‚Ì‚Å‚±‚Ì–¼‚ÅŒÄ‚Î‚ê‚Ü‚·i‰º}jB
 
-      ¨­
-      ¨­
-      ¨­  ¨­
-¢£¢£¢£¢£¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¡ä
-      ¨­  ¨­
-      ¨­
-      ¨­
+      „«
+      „«
+      „«  „«
+¡¡¡¡                 „
+      „«  „«
+      „«
+      „«
 
---- ÆüËÜ¤ÎÉð´ï/ËÉ¶ñ ---
-Zangband ¤Ç¤Ï¡¢¤ª¤½¤é¤¯ AppleII¤ÎÀÎ¤Î¥²¡¼¥à¡¢"Deathlord"
-http://208.167.74.218:2700/tiktok/Docs/DeathlordManual.txt ¤«¤é¼è¤Ã¤¿¤È
-»×¤ï¤ì¤ë²ø¤·¤¤ÆüËÜ¤ÎÉð´ï¡¿ËÉ¶ñ¤¬ÅÐ¾ì¤·¤Þ¤¹¡£
+--- “ú–{‚Ì•Ší/–h‹ï ---
+Zangband ‚Å‚ÍA‚¨‚»‚ç‚­ AppleII‚ÌÌ‚ÌƒQ[ƒ€A"Deathlord"
+http://208.167.74.218:2700/tiktok/Docs/DeathlordManual.txt ‚©‚çŽæ‚Á‚½‚Æ
+Žv‚í‚ê‚é‰ö‚µ‚¢“ú–{‚Ì•Ší^–h‹ï‚ª“oê‚µ‚Ü‚·B
 
-¡¦Ï»¼ÜËÀ(Bo Staff)
-¡¦Å´ËÀ(Tetsubo)
-¡¦Ã»Åá(Tanto)
-¡¦ÏÆº¹¤·(Wakizashi)
-¡¦ÆåÅá(Naginata)
+E˜ZŽÚ–_(Bo Staff)
+E“S–_(Tetsubo)
+E’Z“(Tanto)
+E˜e·‚µ(Wakizashi)
+E“ã“(Naginata)
 
-¡¦¼â¾ó(Jo Staff)
-    »³Éú¤Ê¤É¤¬»ý¤Ã¤Æ¤¤¤ë¤ä¤Ä¤ò»Ø¤·¤Æ¤¤¤ë¤È»×¤ï¤ì¤Þ¤¹¡£Diablo II¤Ç¤Ï
-    ¡Ö¥¸¥ç¡¼¤Î¥¹¥¿¥Ã¥Õ¡×¤ÈÌõ¤µ¤ì¤Æ¤Þ¤¹¤¬¡¨¡Ë
+EŽàñ(Jo Staff)
+    ŽR•š‚È‚Ç‚ªŽ‚Á‚Ä‚¢‚é‚â‚Â‚ðŽw‚µ‚Ä‚¢‚é‚ÆŽv‚í‚ê‚Ü‚·BDiablo II‚Å‚Í
+    uƒWƒ‡[‚ÌƒXƒ^ƒbƒtv‚Æ–ó‚³‚ê‚Ä‚Ü‚·‚ªGj
 
-¡¦Ç¦¼ÔÅá(Ninjato)
-    ¿ÏÅÏ¤ê¤Ï£µ£°cmÄøÅÙ¤Ç¡¢Ä×(¤Ä¤Ð)¤ÎÉôÊ¬¤¬Âç¤­¤¯¤Æ»Í³Ñ¤¤¤Î¤¬ÆÃÄ§¤Ç¤¹¡£
-    ¤³¤ì¤ÏÊÉ¤ËÎ©¤Æ¤«¤±¤ÆÂ­³Ý¤«¤ê¤Ë¤¹¤ë¤¿¤á¤Î¤â¤Î¤Ç¤¹¡£
-    (³Ø¸¦¡¢¡ØÇ¦Ë¡¡¢Ç¦½Ñ¤Î¤Ò¤ß¤Ä¡Ù¤è¤ê)
+E”EŽÒ“(Ninjato)
+    n“n‚è‚Í‚T‚Ocm’ö“x‚ÅA’Õ(‚Â‚Î)‚Ì•”•ª‚ª‘å‚«‚­‚ÄŽlŠp‚¢‚Ì‚ª“Á’¥‚Å‚·B
+    ‚±‚ê‚Í•Ç‚É—§‚Ä‚©‚¯‚Ä‘«Š|‚©‚è‚É‚·‚é‚½‚ß‚Ì‚à‚Ì‚Å‚·B
+    (ŠwŒ¤Aw”E–@A”Ep‚Ì‚Ð‚Ý‚Âx‚æ‚è)
 
-¡¦ÌîÂÀÅá(No-dachi)
-    Âç¤­¤á¤ÎÆüËÜÅá¤Ç¤¹¡£
+E–ì‘¾“(No-dachi)
+    ‘å‚«‚ß‚Ì“ú–{“‚Å‚·B
 
-¡¦Âç³»(O-yoroi) AC 24 µ»Ç½½¤Àµ-2
-¡¦Æ¹´Ý(Do-maru) AC 20 µ»Ç½½¤Àµ-2
-¡¦Ê¢´¬³»(Haramakido) AC 17 µ»Ç½½¤Àµ-2
-¡¦³õ(Kabuto) AC 7
-¡¦¿Ø³Þ(Jingasa) AC 4
-
-
---- ³»¤Î²òÀâ ---
-¥²¡¼¥àÃæ¤Î³»¤Ï¤¤¤¯¤Ä¤«¤Î¥«¥Æ¥´¥ê¤ËÊ¬Îà¤µ¤ì¤Þ¤¹¡£ËÉ¸æÎÏ¤Ï¹â¤¤¤±¤ÉÆ°¤­¤Ë
-¤¯¤¤¤È¤¤¤¦³»¤Ï¹¶·â¤ÎÌ¿ÃæÎ¨¤Ø¼ã´³¤Î¥Þ¥¤¥Ê¥¹½¤Àµ¤¬¤«¤«¤ê¤Þ¤¹¡£¤·¤«¤·¤³¤ì
-¤Ï¥²¡¼¥àÃæÈ×°Ê¹ßÌµ»ë¤Ç¤­¤ëÂç¤­¤µ¤Î¤â¤Î¤Ç¤¹¡£¤½¤ì¤è¤ê¤âËÉ¸æÎÏ¤Î¹â¤¤³»¤Ï
-½Å¤¤¤Î¤Ç¡¢ÏÓÎÏ¤¬¤Ê¤¤¤È¥¹¥Ô¡¼¥É¤ä¼öÊ¸À®¸ùÎ¨¤Ê¤É¤Ë¥Ú¥Ê¥ë¥Æ¥£¤¬²Ý¤»¤é¤ì¡¢
-¤³¤Á¤é¤Î±Æ¶Á¤Î¤Û¤¦¤¬¤Ï¤ë¤«¤ËÂç¤­¤¤¤â¤Î¤Ç¤¹¡£
+E‘åŠZ(O-yoroi) AC 24 ‹Z”\C³-2
+E“·ŠÛ(Do-maru) AC 20 ‹Z”\C³-2
+E• ŠªŠZ(Haramakido) AC 17 ‹Z”\C³-2
+EŠ•(Kabuto) AC 7
+EwŠ}(Jingasa) AC 4
 
 
-£±¡§¶âÂ°ÊÒ¤ò·Ò¤®¹ç¤ï¤»¤¿¥¿¥¤¥×
-Æ°¤­¤ä¤¹¤µ¤È¶¯ÅÙ¤Î¥Ð¥é¥ó¥¹¤ò¤È¤Ã¤¿³»¤Ç¤¹¡£Â¿¾¯Æ°¤­¤¬À©¸Â¤µ¤ì¥²¡¼¥àÃæ¤Ç
-¤Ï£²¡Á£³¤ÎÌ¿ÃæÎ¨½¤Àµ¤ò¤¦¤±¤Þ¤¹¡£
-
-¡¦¥¹¥×¥ê¥ó¥È¡¦¥á¥¤¥ë(Splint Mail) AC 19 Ì¿ÃæÎ¨½¤Àµ-2
-    ºÙÄ¹¤¤¶âÂ°¤ÎÈÄ¤ò·Ò¤®¹ç¤ï¤»¤¿¤â¤Î¤Ç¤¹¡£Diablo ¤Ç¤ÏÆüËÜ¤Î³»¤Î¥°¥é
-    ¥Õ¥£¥Ã¥¯¤Ç¤·¤¿¤¬¡¢Diablo II¤Ç¤ÏÉáÄÌ¤Î¥°¥é¥Õ¥£¥Ã¥¯¤Ë¤â¤É¤ê¤Þ¤·¤¿¡£
-    £Ä¡õ£Ä¤Ç¤Ï¶âÂ°ÈÄ¤¬½Ä¤ËÏ¢¤Ê¤Ã¤Æ¤¤¤ë¤«²£¤ËÏ¢¤Ê¤Ã¤Æ¤¤¤ë¤«¤Ç¥¹¥×¥ê¥ó¥È
-    ¥á¥¤¥ë¤È¥Ð¥ó¥Ç¥Ã¥É¥á¥¤¥ë(Banded Mail)¤È°ã¤¦¸Æ¤ÓÌ¾¤Ç¸Æ¤ó¤Ç¤¤¤Þ¤¹
-    ¤¬¡¢½Ä¤Î¤â¤Î¤Ï¼Âºß¤·¤¿¤«¤É¤¦¤«µ¿¤ï¤·¤¤¤è¤¦¤Ç¤¹¡£
-
-¡¦¶âÂ°À½¥¹¥±¥¤¥ë¡¦¥á¥¤¥ë(Metal Scale Mail)  AC 13 Ì¿ÃæÎ¨½¤Àµ-2
-¡¦¶âÂ°À½¥Ö¥ê¥¬¥ó¥À¥¤¥ó¡¦¥¢¡¼¥Þ¡¼(Metal Brigandine Armour)  AC 19 Ì¿ÃæÎ¨½¤Àµ-3
-¡¦¶âÂ°À½¥é¥á¥é¡¼¡¦¥¢¡¼¥Þ¡¼(Metal Lamellar Armour)  AC 23 Ì¿ÃæÎ¨½¤Àµ-3
-    ¤³¤ì¤é¤ÏÁ´¤Æ£µ¡Á£±£µcm¤Î¶âÂ°ÊÒ¤òµ¬Â§Àµ¤·¤¯·Ò¤®¹ç¤ï¤»¤¿¤â¤Î¤Ç¤¹¡£
+--- ŠZ‚Ì‰ðà ---
+ƒQ[ƒ€’†‚ÌŠZ‚Í‚¢‚­‚Â‚©‚ÌƒJƒeƒSƒŠ‚É•ª—Þ‚³‚ê‚Ü‚·B–hŒä—Í‚Í‚‚¢‚¯‚Ç“®‚«‚É
+‚­‚¢‚Æ‚¢‚¤ŠZ‚ÍUŒ‚‚Ì–½’†—¦‚ÖŽáŠ±‚Ìƒ}ƒCƒiƒXC³‚ª‚©‚©‚è‚Ü‚·B‚µ‚©‚µ‚±‚ê
+‚ÍƒQ[ƒ€’†”ÕˆÈ~–³Ž‹‚Å‚«‚é‘å‚«‚³‚Ì‚à‚Ì‚Å‚·B‚»‚ê‚æ‚è‚à–hŒä—Í‚Ì‚‚¢ŠZ‚Í
+d‚¢‚Ì‚ÅA˜r—Í‚ª‚È‚¢‚ÆƒXƒs[ƒh‚âŽô•¶¬Œ÷—¦‚È‚Ç‚Éƒyƒiƒ‹ƒeƒB‚ª‰Û‚¹‚ç‚êA
+‚±‚¿‚ç‚Ì‰e‹¿‚Ì‚Ù‚¤‚ª‚Í‚é‚©‚É‘å‚«‚¢‚à‚Ì‚Å‚·B
 
 
-£²:¶âÂ°¤ÎÎØ¤ò·Ò¤®¹ç¤ï¤»¤¿¥¿¥¤¥×
-º¿¤ä¶âÂ°¤ÎÎØ¤òÌÌ¾õ¤Ë·Ò¤®¹ç¤ï¤»¤¿¤â¤Î¤Ç¤¹¡£Â¿¾¯Æ°¤­¤¬À©¸Â¤µ¤ì¥²¡¼¥àÃæ¤Ç
-¤Ï£±¡Á£²¤ÎÌ¿ÃæÎ¨½¤Àµ¤ò¤¦¤±¤Þ¤¹¡£
+‚PF‹à‘®•Ð‚ðŒq‚¬‡‚í‚¹‚½ƒ^ƒCƒv
+“®‚«‚â‚·‚³‚Æ‹­“x‚Ìƒoƒ‰ƒ“ƒX‚ð‚Æ‚Á‚½ŠZ‚Å‚·B‘½­“®‚«‚ª§ŒÀ‚³‚êƒQ[ƒ€’†‚Å
+‚Í‚Q`‚R‚Ì–½’†—¦C³‚ð‚¤‚¯‚Ü‚·B
 
-¡¦¥ê¥ó¥°¡¦¥á¥¤¥ë(Ring Mail) AC 12 Ì¿ÃæÎ¨½¤Àµ-2
-    ÎØ¤¬Âç¤­¤¤¤È´ÊÃ±¤Ëºî¤ì¤Þ¤¹¤¬Áä¤ÇÆÍ¤¯¤è¤¦¤Ê¹¶·â¤ÏËÉ¤²¤Þ¤»¤ó¡£
+EƒXƒvƒŠƒ“ƒgEƒƒCƒ‹(Splint Mail) AC 19 –½’†—¦C³-2
+    ×’·‚¢‹à‘®‚Ì”Â‚ðŒq‚¬‡‚í‚¹‚½‚à‚Ì‚Å‚·BDiablo ‚Å‚Í“ú–{‚ÌŠZ‚ÌƒOƒ‰
+    ƒtƒBƒbƒN‚Å‚µ‚½‚ªADiablo II‚Å‚Í•’Ê‚ÌƒOƒ‰ƒtƒBƒbƒN‚É‚à‚Ç‚è‚Ü‚µ‚½B
+    ‚c•‚c‚Å‚Í‹à‘®”Â‚ªc‚É˜A‚È‚Á‚Ä‚¢‚é‚©‰¡‚É˜A‚È‚Á‚Ä‚¢‚é‚©‚ÅƒXƒvƒŠƒ“ƒg
+    ƒƒCƒ‹‚Æƒoƒ“ƒfƒbƒhƒƒCƒ‹(Banded Mail)‚Æˆá‚¤ŒÄ‚Ñ–¼‚ÅŒÄ‚ñ‚Å‚¢‚Ü‚·
+    ‚ªAc‚Ì‚à‚Ì‚ÍŽÀÝ‚µ‚½‚©‚Ç‚¤‚©‹^‚í‚µ‚¢‚æ‚¤‚Å‚·B
 
-¡¦Æó½Å¥ê¥ó¥°¥á¥¤¥ë(Double Ring Mail) AC 15 Ì¿ÃæÎ¨½¤Àµ-2
-    ¥ê¥ó¥°¥á¥¤¥ë¤òÆó½Å¤Ë¤·¤¿¤â¤Î¤Ç¤¹¡£
-
-¡¦º¿¤«¤¿¤Ó¤é(Chain Mail) AC 14 Ì¿ÃæÎ¨½¤Àµ-2
-    ¥ê¥ó¥°¥á¥¤¥ë¤è¤êºÙ¤«¤¤ÎØ¤Çºî¤Ã¤¿¤â¤Î¤Ç¤¹¡£ÆüËÜ¤Ç¤âÇ¦¼Ô(¥Ð¡¼¥Á¥ã¥Õ
-    ¥¡¥¤¥¿¡¼£³¤Î±Æ)¤Ê¤ó¤«¤¬Ãå¤Æ¤¤¤Þ¤·¤¿¡£
-
-¡¦½Åº¿¤«¤¿¤Ó¤é(Augmented Chain Mail) AC 16 Ì¿ÃæÎ¨½¤Àµ-2
-    ½ÅÍ×¤ÊÉôÊ¬¤òÆó½Å¤Ë¤·¤¿º¿¤«¤¿¤Ó¤é¤é¤·¤¤¤Ç¤¹¡£Angband¤ÎÁ°¿È¡¢Moria 
-    ¤Îº¢¤«¤é¤¢¤ë¥¢¥¤¥Æ¥à¤Ç¤¹¡£
-
-¡¦Æó½Åº¿¤«¤¿¤Ó¤é(Double Chain Mail)16 Ì¿ÃæÎ¨½¤Àµ-2
-    Á´¤Æ¤ÎÉôÊ¬¤òÆó½Å¤Ë¤·¤¿º¿¤«¤¿¤Ó¤é¤é¤·¤¤¤Ç¤¹¡£Angband¤ÎÁ°¿È¡¢Moria 
-    ¤Îº¢¤«¤é¤¢¤ë¥¢¥¤¥Æ¥à¤Ç¤¹¡£
-
-¡¦¶¯²½º¿¤«¤¿¤Ó¤é(Bar Chain Mail) AC 18 Ì¿ÃæÎ¨½¤Àµ-2
-    ½ÅÍ×¤ÊÉôÊ¬¤òÅ´ÈÄ¤Ç¥«¥Ð¡¼¤·¤¿º¿¤«¤¿¤Ó¤é¤Î¤è¤¦¤Ç¤¹¡£Angband¤ÎÁ°¿È¡¢
-    Moria ¤Îº¢¤«¤é¤¢¤ë¥¢¥¤¥Æ¥à¤Ç¤¹¡£
-
-¡¦¥ß¥¹¥ê¥ëÀ½º¿¤«¤¿¤Ó¤é(Mithril Chain Mail) AC 28 Ì¿ÃæÎ¨½¤Àµ-1
-    µ®½Å¤Ê¥ß¥¹¥ê¥ë¤Çºî¤é¤ì¤¿¤â¤Î¤Ç¤¹¡£¾®Àâ¡Ø¥Û¥Ó¥Ã¥È¡Ù¤ÎÃæ¤Ç¥Ó¥ë¥Ü¤¬¼ê
-    ¤Ë¤¤¤ì¤¿¤â¤Î¤¬Í­Ì¾¤Ç¤¹¡£
+E‹à‘®»ƒXƒPƒCƒ‹EƒƒCƒ‹(Metal Scale Mail)  AC 13 –½’†—¦C³-2
+E‹à‘®»ƒuƒŠƒKƒ“ƒ_ƒCƒ“EƒA[ƒ}[(Metal Brigandine Armour)  AC 19 –½’†—¦C³-3
+E‹à‘®»ƒ‰ƒƒ‰[EƒA[ƒ}[(Metal Lamellar Armour)  AC 23 –½’†—¦C³-3
+    ‚±‚ê‚ç‚Í‘S‚Ä‚T`‚P‚Tcm‚Ì‹à‘®•Ð‚ð‹K‘¥³‚µ‚­Œq‚¬‡‚í‚¹‚½‚à‚Ì‚Å‚·B
 
 
-£³¡§¶âÂ°¤ÎÈÄ¤Çºî¤Ã¤¿¥¿¥¤¥×
-¤è¤¯À¾ÍÎ²°Éß¤Ë¾þ¤Ã¤Æ¤¢¤ë¤ä¤Ä¤Ç¤¹¡£ËÉ¸æÎÏ¤Ï´°àú¤Ç¤¹¤¬Æ°¤­¤¬À©¸Â¤µ¤ì¡¢
-¥²¡¼¥àÃæ¤Ç¤Ï£³¡Á£´¤ÎÌ¿ÃæÎ¨½¤Àµ¤ò¤¦¤±¤Þ¤¹¡£
+‚Q:‹à‘®‚Ì—Ö‚ðŒq‚¬‡‚í‚¹‚½ƒ^ƒCƒv
+½‚â‹à‘®‚Ì—Ö‚ð–Êó‚ÉŒq‚¬‡‚í‚¹‚½‚à‚Ì‚Å‚·B‘½­“®‚«‚ª§ŒÀ‚³‚êƒQ[ƒ€’†‚Å
+‚Í‚P`‚Q‚Ì–½’†—¦C³‚ð‚¤‚¯‚Ü‚·B
 
-¡¦¥Ñ¡¼¥·¥ã¥ë¡¦¥×¥ì¡¼¥È¡¦¥á¥¤¥ë(Partial Plate Armour) AC 22 Ì¿ÃæÎ¨½¤Àµ-3
-    Æ¹¤Ê¤ÉÂÎ¤Î°ìÉôÊ¬¤À¤±¤òÊ¤¤¦³»¤Ç¤¹¡£
+EƒŠƒ“ƒOEƒƒCƒ‹(Ring Mail) AC 12 –½’†—¦C³-2
+    —Ö‚ª‘å‚«‚¢‚ÆŠÈ’P‚Éì‚ê‚Ü‚·‚ª‘„‚Å“Ë‚­‚æ‚¤‚ÈUŒ‚‚Í–h‚°‚Ü‚¹‚ñB
 
-¡¦¥Õ¥ë¡¦¥×¥ì¡¼¥È¡¦¥á¥¤¥ë(Full Plate Armour) AC  25 Ì¿ÃæÎ¨½¤Àµ-3
-    ¼ê¤«¤éÂ­¤Þ¤Ç¤¹¤Ù¤ÆÊ¤¤¤¡¢ÂÎ¤òÁ´¤¯Ïª½Ð¤µ¤»¤Ê¤¤³»¤Ç¤¹¡£
+E“ñdƒŠƒ“ƒOƒƒCƒ‹(Double Ring Mail) AC 15 –½’†—¦C³-2
+    ƒŠƒ“ƒOƒƒCƒ‹‚ð“ñd‚É‚µ‚½‚à‚Ì‚Å‚·B
 
-¡¦¶¯²½¥×¥ì¡¼¥È¡¦¥¢¡¼¥Þ¡¼(Ribbed Plate Armour) AC 28 Ì¿ÃæÎ¨½¤Àµ-3
-    Å´ÈÄ¤Ë¥È¥¿¥óÈÄ¤Î¤è¤¦¤Ê¤¦¤Í¤ò¤Ä¤±¤Æ¶¯ÅÙ¤òÁý¤·¤¿¥×¥ì¡¼¥È¡¦¥á¥¤¥ë¤Ç
-    ¤¹¡£
+E½‚©‚½‚Ñ‚ç(Chain Mail) AC 14 –½’†—¦C³-2
+    ƒŠƒ“ƒOƒƒCƒ‹‚æ‚è×‚©‚¢—Ö‚Åì‚Á‚½‚à‚Ì‚Å‚·B“ú–{‚Å‚à”EŽÒ(ƒo[ƒ`ƒƒƒt
+    ƒ@ƒCƒ^[‚R‚Ì‰e)‚È‚ñ‚©‚ª’…‚Ä‚¢‚Ü‚µ‚½B
 
-¡¦¥ß¥¹¥ê¥ëÀ½¥×¥ì¡¼¥È¡¦¥á¥¤¥ë(Mithril Plate Mail) AC 35 Ì¿ÃæÎ¨½¤Àµ-3
-    µ®½Å¤Ê¥ß¥¹¥ê¥ë¤Çºî¤é¤ì¤¿¥×¥ì¡¼¥È¡¦¥á¥¤¥ë¤Ç¤¹¡£
+Ed½‚©‚½‚Ñ‚ç(Augmented Chain Mail) AC 16 –½’†—¦C³-2
+    d—v‚È•”•ª‚ð“ñd‚É‚µ‚½½‚©‚½‚Ñ‚ç‚ç‚µ‚¢‚Å‚·BAngband‚Ì‘OgAMoria 
+    ‚Ì ‚©‚ç‚ ‚éƒAƒCƒeƒ€‚Å‚·B
 
-¡¦¥¢¥À¥Þ¥ó¥¿¥¤¥ÈÀ½¥×¥ì¡¼¥È¡¦¥á¥¤¥ë(Adamantite Plate Mail) AC 40 Ì¿ÃæÎ¨½¤Àµ-4
-    ¥¢¥À¥Þ¥ó¥¿¥¤¥È¤Ï¡Ø»ØÎØÊª¸ì¡Ù¤ÎÃæ¤Ç¥ª¥ë¥µ¥ó¥¯¤ÎÅã¤ÎÅÚÂæ¤Ê¤É¤Ë¤â»È¤ï
-    ¤ì¤Æ¤¤¤ë´è¾æ¤Ê¶âÂ°¤Ç¤¹¡£¥¢¥À¥Þ¥ó¥¿¥¤¥È¤È¤¤¤¦¸ì¤Ï¥À¥¤¥ä¥â¥ó¥É¤Î¸Å¸ì
-    ¤È¤·¤Æ¤â»È¤ï¤ì¤Þ¤¹¤¬¥²¡¼¥àÃæ¤Ç¤ÏÆÃ¼ì¤Ê¶âÂ°¤È¤¤¤¦ÀßÄê¤Ç¤¹¡£
+E“ñd½‚©‚½‚Ñ‚ç(Double Chain Mail)16 –½’†—¦C³-2
+    ‘S‚Ä‚Ì•”•ª‚ð“ñd‚É‚µ‚½½‚©‚½‚Ñ‚ç‚ç‚µ‚¢‚Å‚·BAngband‚Ì‘OgAMoria 
+    ‚Ì ‚©‚ç‚ ‚éƒAƒCƒeƒ€‚Å‚·B
+
+E‹­‰»½‚©‚½‚Ñ‚ç(Bar Chain Mail) AC 18 –½’†—¦C³-2
+    d—v‚È•”•ª‚ð“S”Â‚ÅƒJƒo[‚µ‚½½‚©‚½‚Ñ‚ç‚Ì‚æ‚¤‚Å‚·BAngband‚Ì‘OgA
+    Moria ‚Ì ‚©‚ç‚ ‚éƒAƒCƒeƒ€‚Å‚·B
+
+Eƒ~ƒXƒŠƒ‹»½‚©‚½‚Ñ‚ç(Mithril Chain Mail) AC 28 –½’†—¦C³-1
+    ‹Md‚Èƒ~ƒXƒŠƒ‹‚Åì‚ç‚ê‚½‚à‚Ì‚Å‚·B¬àwƒzƒrƒbƒgx‚Ì’†‚Åƒrƒ‹ƒ{‚ªŽè
+    ‚É‚¢‚ê‚½‚à‚Ì‚ª—L–¼‚Å‚·B
 
 
-£´¡§¶âÂ°°Ê³°¤Îºà¼Á
-¤Û¤È¤ó¤ÉÆ°¤­¤Ø¤ÎÀ©¸Â¤Ï¤¢¤ê¤Þ¤»¤ó¤¬ËÉ¸æÎÏ¤â¤½¤ì¤Ê¤ê¤Ç¤¹¡£
+‚RF‹à‘®‚Ì”Â‚Åì‚Á‚½ƒ^ƒCƒv
+‚æ‚­¼—m‰®•~‚Éü‚Á‚Ä‚ ‚é‚â‚Â‚Å‚·B–hŒä—Í‚ÍŠ®àø‚Å‚·‚ª“®‚«‚ª§ŒÀ‚³‚êA
+ƒQ[ƒ€’†‚Å‚Í‚R`‚S‚Ì–½’†—¦C³‚ð‚¤‚¯‚Ü‚·B
 
-¡¦Æð³×¤è¤í¤¤(Soft Leather Armour) AC 4
-¡¦ÉÆÉÕÆð³×¤è¤í¤¤(Soft Studded Leather) AC 5
-¡¦¹Å³×¤è¤í¤¤(Hard Leather Armour) AC 6 Ì¿ÃæÎ¨½¤Àµ-1
-¡¦ÉÆÉÕ¹Å³×¤è¤í¤¤(Hard Studded Leather) AC 7 Ì¿ÃæÎ¨½¤Àµ-1
-    ¹Å¤¤¤ÈËÉ¸æÎÏ¤¬¾å¤¬¤ê¤Þ¤¹¤¬¼ã´³Æ°¤­¤Ë¤¯¤¯¤Ê¤ê¤Þ¤¹¡£ÉÆÉÕ¤­¤Î¤â¤Î¤Ï¤è
-    ¤¯¥Ø¥ô¥£¥á¥¿¤Î¿Í¤¬Ãå¤Æ¤ë¤è¤¦¤Ê¤Î¤òÁÛÁü¤¹¤ì¤Ð¤¤¤¤¤Ç¤·¤ç¤¦¡£
+Eƒp[ƒVƒƒƒ‹EƒvƒŒ[ƒgEƒƒCƒ‹(Partial Plate Armour) AC 22 –½’†—¦C³-3
+    “·‚È‚Ç‘Ì‚Ìˆê•”•ª‚¾‚¯‚ð•¢‚¤ŠZ‚Å‚·B
 
-¡¦¸üÉÛ¤è¤í¤¤(Padded Armour) AC 4
-    ¥­¥ë¥È¥¢¡¼¥Þ¡¼¤È¤â¸Æ¤Ð¤ì¤Þ¤¹¡£ÉÛ¤òË¥¤¤¹ç¤ï¤»´Ö¤ËÌÊ¤Ê¤É¤òµÍ¤á¤¿¤â¤Î
-    ¤Ç¤¹¡£
+Eƒtƒ‹EƒvƒŒ[ƒgEƒƒCƒ‹(Full Plate Armour) AC  25 –½’†—¦C³-3
+    Žè‚©‚ç‘«‚Ü‚Å‚·‚×‚Ä•¢‚¢A‘Ì‚ð‘S‚­˜Io‚³‚¹‚È‚¢ŠZ‚Å‚·B
 
-¡¦Èé¥¸¥ã¥±¥Ã¥È(Leather Jacket) AC 12 Ì¿ÃæÎ¨½¤Àµ-1
-    NetHac¤Ç¤Ï¹Í¸Å³Ø¼Ô¤Î½é´üÁõÈ÷¤Ç¤¹¡£¥¤¥ó¥Ç¥£¡¦¥¸¥ç¡¼¥ó¥º¤ÎÃå¤Æ¤¤¤ë¤ä
-    ¤Ä¤Ç¤¹¡£
+E‹­‰»ƒvƒŒ[ƒgEƒA[ƒ}[(Ribbed Plate Armour) AC 28 –½’†—¦C³-3
+    “S”Â‚Éƒgƒ^ƒ“”Â‚Ì‚æ‚¤‚È‚¤‚Ë‚ð‚Â‚¯‚Ä‹­“x‚ð‘‚µ‚½ƒvƒŒ[ƒgEƒƒCƒ‹‚Å
+    ‚·B
 
-¡¦¥³¡¼¥É¥¢¡¼¥Þ¡¼(Cord Armour) AC 6
-    ³×¤è¤í¤¤¤ò¿Ë¶â¤ÇÊä¶¯¤·¤¿¤â¤Î¤é¤·¤¤¤Ç¤¹¡£
+Eƒ~ƒXƒŠƒ‹»ƒvƒŒ[ƒgEƒƒCƒ‹(Mithril Plate Mail) AC 35 –½’†—¦C³-3
+    ‹Md‚Èƒ~ƒXƒŠƒ‹‚Åì‚ç‚ê‚½ƒvƒŒ[ƒgEƒƒCƒ‹‚Å‚·B
 
-¡¦ÈéÀÐ¤è¤í¤¤(Stone and Hide Armour) AC 15 Ì¿ÃæÎ¨½¤Àµ-1
-¡¦¥µ¥¤Èé¤è¤í¤¤(Rhino Hide Armour) AC 8 Ì¿ÃæÎ¨½¤Àµ-1
-¡¦»æ¹Ã(Paper Armour) AC 4
-    ¤³¤ì¤é¤Ï¤è¤¯¤ï¤«¤ê¤Þ¤»¤ó¡£
+EƒAƒ_ƒ}ƒ“ƒ^ƒCƒg»ƒvƒŒ[ƒgEƒƒCƒ‹(Adamantite Plate Mail) AC 40 –½’†—¦C³-4
+    ƒAƒ_ƒ}ƒ“ƒ^ƒCƒg‚ÍwŽw—Ö•¨Œêx‚Ì’†‚ÅƒIƒ‹ƒTƒ“ƒN‚Ì“ƒ‚Ì“y‘ä‚È‚Ç‚É‚àŽg‚í
+    ‚ê‚Ä‚¢‚éŠæä‚È‹à‘®‚Å‚·BƒAƒ_ƒ}ƒ“ƒ^ƒCƒg‚Æ‚¢‚¤Œê‚Íƒ_ƒCƒ„ƒ‚ƒ“ƒh‚ÌŒÃŒê
+    ‚Æ‚µ‚Ä‚àŽg‚í‚ê‚Ü‚·‚ªƒQ[ƒ€’†‚Å‚Í“ÁŽê‚È‹à‘®‚Æ‚¢‚¤Ý’è‚Å‚·B
+
+
+‚SF‹à‘®ˆÈŠO‚ÌÞŽ¿
+‚Ù‚Æ‚ñ‚Ç“®‚«‚Ö‚Ì§ŒÀ‚Í‚ ‚è‚Ü‚¹‚ñ‚ª–hŒä—Í‚à‚»‚ê‚È‚è‚Å‚·B
+
+E“îŠv‚æ‚ë‚¢(Soft Leather Armour) AC 4
+E•e•t“îŠv‚æ‚ë‚¢(Soft Studded Leather) AC 5
+EdŠv‚æ‚ë‚¢(Hard Leather Armour) AC 6 –½’†—¦C³-1
+E•e•tdŠv‚æ‚ë‚¢(Hard Studded Leather) AC 7 –½’†—¦C³-1
+    d‚¢‚Æ–hŒä—Í‚ªã‚ª‚è‚Ü‚·‚ªŽáŠ±“®‚«‚É‚­‚­‚È‚è‚Ü‚·B•e•t‚«‚Ì‚à‚Ì‚Í‚æ
+    ‚­ƒwƒ”ƒBƒƒ^‚Ìl‚ª’…‚Ä‚é‚æ‚¤‚È‚Ì‚ð‘z‘œ‚·‚ê‚Î‚¢‚¢‚Å‚µ‚å‚¤B
+
+EŒú•z‚æ‚ë‚¢(Padded Armour) AC 4
+    ƒLƒ‹ƒgƒA[ƒ}[‚Æ‚àŒÄ‚Î‚ê‚Ü‚·B•z‚ð–D‚¢‡‚í‚¹ŠÔ‚É–È‚È‚Ç‚ð‹l‚ß‚½‚à‚Ì
+    ‚Å‚·B
+
+E”çƒWƒƒƒPƒbƒg(Leather Jacket) AC 12 –½’†—¦C³-1
+    NetHac‚Å‚ÍlŒÃŠwŽÒ‚Ì‰Šú‘•”õ‚Å‚·BƒCƒ“ƒfƒBEƒWƒ‡[ƒ“ƒY‚Ì’…‚Ä‚¢‚é‚â
+    ‚Â‚Å‚·B
+
+EƒR[ƒhƒA[ƒ}[(Cord Armour) AC 6
+    Šv‚æ‚ë‚¢‚ðj‹à‚Å•â‹­‚µ‚½‚à‚Ì‚ç‚µ‚¢‚Å‚·B
+
+E”çÎ‚æ‚ë‚¢(Stone and Hide Armour) AC 15 –½’†—¦C³-1
+EƒTƒC”ç‚æ‚ë‚¢(Rhino Hide Armour) AC 8 –½’†—¦C³-1
+EŽ†b(Paper Armour) AC 4
+    ‚±‚ê‚ç‚Í‚æ‚­‚í‚©‚è‚Ü‚¹‚ñB
 
 --
-¼¹É®¡§ÈÄÁÒ
+Ž·•MF”Â‘q
 ***** Begin Hyperlinks
 ***** [b] jobjects.txt#ObjectTypes

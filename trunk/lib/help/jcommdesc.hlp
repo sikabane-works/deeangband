@@ -1,26 +1,26 @@
-Hengband ¥³¥Ş¥ó¥É¾ÜÀâ
+Hengband ƒRƒ}ƒ“ƒhÚà
 
-»²¾È¤·¤¿¤¤¥ª¥ó¥é¥¤¥ó¡¦¥Ø¥ë¥×¤òÁª¤ó¤Ç²¼¤µ¤¤:
+QÆ‚µ‚½‚¢ƒIƒ“ƒ‰ƒCƒ“Eƒwƒ‹ƒv‚ğ‘I‚ñ‚Å‰º‚³‚¢:
 
-    (a) ¥³¥Ş¥ó¥É¾ÜÀâ                    (jcommdesc.txt)
-    (b) °ìÍ÷´Ø·¸¤Î¥³¥Ş¥ó¥É              (jcommdesc.txt#Inventory)
-    (c) °ÜÆ°¤Î¥³¥Ş¥ó¥É                  (jcommdesc.txt#Movement)
-    (d) µÙ·Æ¤Î¥³¥Ş¥ó¥É                  (jcommdesc.txt#Resting)
-    (e) Ãµº÷¤Î¥³¥Ş¥ó¥É                  (jcommdesc.txt#Searching)
-    (f) ÊÑ²½¤òµÚ¤Ü¤¹¥³¥Ş¥ó¥É            (jcommdesc.txt#Alter)
-    (g) ¼öÊ¸¤Èµ§¤ê¤Î¥³¥Ş¥ó¥É            (jcommdesc.txt#SpellPrayer)
-    (h) ¥¢¥¤¥Æ¥à¤òÁàºî¤¹¤ë¥³¥Ş¥ó¥É      (jcommdesc.txt#ObjectManip)
-    (i) ËâË¡¤Î¥¢¥¤¥Æ¥à¤Î¥³¥Ş¥ó¥É        (jcommdesc.txt#MagicalObject)
-    (j) Éğ´ï¤òÅê¤²¤ë¡¢·â¤Ä¥³¥Ş¥ó¥É      (jcommdesc.txt#ThrowFire)
-    (k) ¸«¤ë¥³¥Ş¥ó¥É                    (jcommdesc.txt#Looking)
-    (l) ¥á¥Ã¥»¡¼¥¸´Ø·¸¤Î¥³¥Ş¥ó¥É        (jcommdesc.txt#Message)
-    (m) ¾õÂÖ¤òÃÎ¤ë¥³¥Ş¥ó¥É              (jcommdesc.txt#GameStatus)
-    (n) ¥»¡¼¥Ö¤È¥²¡¼¥à¤ò¤ä¤á¤ë¥³¥Ş¥ó¥É  (jcommdesc.txt#SaveExit)
-    (o) ¥æ¡¼¥¶¡¼ÀßÄê¥Õ¥¡¥¤¥ë¤Î¥³¥Ş¥ó¥É  (jcommdesc.txt#UserPref)
-    (p) ¥Ø¥ë¥×                          (jcommdesc.txt#Help)
-    (r) ÆÃÊÌ¥³¥Ş¥ó¥É                    (jcommdesc.txt#Extra)
+    (a) ƒRƒ}ƒ“ƒhÚà                    (jcommdesc.txt)
+    (b) ˆê——ŠÖŒW‚ÌƒRƒ}ƒ“ƒh              (jcommdesc.txt#Inventory)
+    (c) ˆÚ“®‚ÌƒRƒ}ƒ“ƒh                  (jcommdesc.txt#Movement)
+    (d) ‹xŒe‚ÌƒRƒ}ƒ“ƒh                  (jcommdesc.txt#Resting)
+    (e) ’Tõ‚ÌƒRƒ}ƒ“ƒh                  (jcommdesc.txt#Searching)
+    (f) •Ï‰»‚ğ‹y‚Ú‚·ƒRƒ}ƒ“ƒh            (jcommdesc.txt#Alter)
+    (g) ô•¶‚Æ‹F‚è‚ÌƒRƒ}ƒ“ƒh            (jcommdesc.txt#SpellPrayer)
+    (h) ƒAƒCƒeƒ€‚ğ‘€ì‚·‚éƒRƒ}ƒ“ƒh      (jcommdesc.txt#ObjectManip)
+    (i) –‚–@‚ÌƒAƒCƒeƒ€‚ÌƒRƒ}ƒ“ƒh        (jcommdesc.txt#MagicalObject)
+    (j) •Ší‚ğ“Š‚°‚éAŒ‚‚ÂƒRƒ}ƒ“ƒh      (jcommdesc.txt#ThrowFire)
+    (k) Œ©‚éƒRƒ}ƒ“ƒh                    (jcommdesc.txt#Looking)
+    (l) ƒƒbƒZ[ƒWŠÖŒW‚ÌƒRƒ}ƒ“ƒh        (jcommdesc.txt#Message)
+    (m) ó‘Ô‚ğ’m‚éƒRƒ}ƒ“ƒh              (jcommdesc.txt#GameStatus)
+    (n) ƒZ[ƒu‚ÆƒQ[ƒ€‚ğ‚â‚ß‚éƒRƒ}ƒ“ƒh  (jcommdesc.txt#SaveExit)
+    (o) ƒ†[ƒU[İ’èƒtƒ@ƒCƒ‹‚ÌƒRƒ}ƒ“ƒh  (jcommdesc.txt#UserPref)
+    (p) ƒwƒ‹ƒv                          (jcommdesc.txt#Help)
+    (r) “Á•ÊƒRƒ}ƒ“ƒh                    (jcommdesc.txt#Extra)
 
-    (?) ¥Ø¥ë¥×¥·¥¹¥Æ¥à¤Î»ÈÍÑË¡          (jhelpinfo.txt)
+    (?) ƒwƒ‹ƒvƒVƒXƒeƒ€‚Ìg—p–@          (jhelpinfo.txt)
 
 
 ***** [a] jcommdesc.txt

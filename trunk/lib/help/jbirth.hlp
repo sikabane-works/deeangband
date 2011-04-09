@@ -1,18 +1,18 @@
-¥­¥ã¥é¥¯¥¿¡¼¤ÎºîÀ®
+ƒLƒƒƒ‰ƒNƒ^[‚Ìì¬
 
-»²¾È¤·¤¿¤¤¥ª¥ó¥é¥¤¥ó¡¦¥Ø¥ë¥×¤Îµ­¹æ¤ò²¡¤·¤Æ²¼¤µ¤¤:
+QÆ‚µ‚½‚¢ƒIƒ“ƒ‰ƒCƒ“Eƒwƒ‹ƒv‚Ì‹L†‚ğ‰Ÿ‚µ‚Ä‰º‚³‚¢:
 
-    (a) ¥­¥ã¥é¥¯¥¿¡¼¤ÎºîÀ®                (jbirth.txt)
-    (b) ¥­¥ã¥é¥¯¥¿¤Î¸ÄÀ­(´ğËÜÅª¤ÊÆÃÀ­ÃÍ)  (jbirth.txt#CharAttributes)
-    (c) ½é´ü¥ª¥×¥·¥ç¥ó                    (jbirth.txt#BirthOptions)
-    (d) ¥ª¡¼¥È¥í¡¼¥é¡¼                    (jbirth.txt#AutoRoller)
-    (e) À¸¤¤Î©¤Á¥¨¥Ç¥£¥¿                  (jbirth.txt#BackgroundEditor)
-    (f) ¥¯¥¤¥Ã¥¯¡¦¥¹¥¿¡¼¥È                (jbirth.txt#QuickStart)
-    (g) £¶¤Ä¤Î¼çÍ×Ç½ÎÏÃÍ                  (jbirth.txt#PrimaryStats)
-    (h) ¼çÍ×µ»Ç½                          (jbirth.txt#PrimarySkills)
-    (i) ½ÏÎıÅÙ(Éğ´ï¡¢ËâË¡¡¢µ»Ç½¤Î·Ğ¸³ÃÍ)  (jbirth.txt#Proficiency)
+    (a) ƒLƒƒƒ‰ƒNƒ^[‚Ìì¬                (jbirth.txt)
+    (b) ƒLƒƒƒ‰ƒNƒ^‚ÌŒÂ«(Šî–{“I‚È“Á«’l)  (jbirth.txt#CharAttributes)
+    (c) ‰ŠúƒIƒvƒVƒ‡ƒ“                    (jbirth.txt#BirthOptions)
+    (d) ƒI[ƒgƒ[ƒ‰[                    (jbirth.txt#AutoRoller)
+    (e) ¶‚¢—§‚¿ƒGƒfƒBƒ^                  (jbirth.txt#BackgroundEditor)
+    (f) ƒNƒCƒbƒNEƒXƒ^[ƒg                (jbirth.txt#QuickStart)
+    (g) ‚U‚Â‚Ìå—v”\—Í’l                  (jbirth.txt#PrimaryStats)
+    (h) å—v‹Z”\                          (jbirth.txt#PrimarySkills)
+    (i) n—û“x(•ŠíA–‚–@A‹Z”\‚ÌŒoŒ±’l)  (jbirth.txt#Proficiency)
 
-    (?) ¥Ø¥ë¥×¥·¥¹¥Æ¥à¤Î»ÈÍÑË¡            (jhelpinfo.txt)
+    (?) ƒwƒ‹ƒvƒVƒXƒeƒ€‚Ìg—p–@            (jhelpinfo.txt)
 
 
 ***** [a] jbirth.txt

@@ -1,456 +1,456 @@
-=== Éð´ï¤Î²òÀâ ===
+=== •Ší‚Ì‰ðà ===
 
-¡¡¤³¤³¤Ç¤ÏÆüËÜ¿Í¤Ë¤¢¤Þ¤êÆëÀ÷¤ß¤¬Ìµ¤¤À¾ÍÎ¤ÎÉð´ï¤Ë¤Ä¤¤¤ÆÀâÌÀ¤·¤Þ¤¹¡£¥¢¥ó¥°¥Ð¥ó
-¥É¤Î¤Ï£Ò£Ð£Ç´·¤ì¤·¤Æ¤¤¤Ê¤¤¿Í¤Ï¤È¤â¤«¤¯¡¢£Ò£Ð£Ç´·¤ì¤·¤Æ¤¤¤ë¿Í¤Ç¤¹¤é¥¤¥á¡¼¥¸¤·
-¤º¤é¤¤Éð´ï¤¬ÅÐ¾ì¤·¤Þ¤¹¡£¤Þ¤¿¡¢¸í¤Ã¤¿£Ò£Ð£Ç¤Î»ñÎÁ¤ä¥Õ¥¡¥ó¥¿¥¸¡¼¾®Àâ¤Î±Æ¶Á¤Ç¸í
-²ò¤µ¤ì¤Æ¤¤¤ëÉð´ï¤â¤¢¤ë¤è¤¦¤Ê¤Î¤Ç¡¢¥¢¥ó¥°¥Ð¥ó¥É¤ËÅÐ¾ì¤¹¤ë¤¹¤Ù¤Æ¤Î¼Âºß¤¹¤ëÉð´ï
-¤Ë¤Ä¤¤¤ÆÀâÌÀ¤òÆþ¤ì¤ë»ö¤Ë¤·¤Þ¤·¤¿¡£
-¡¡°Ê²¼¤ÎÀâÌÀÊ¸¤Ï¼¡¤Î½ñ¼°¤ò»ÈÍÑ¤·¤Æ¤¤¤Þ¤¹¡£¤Þ¤º¡¢Éð´ïÌ¾¡£¤³¤ì¤Ï¥¢¥ó¥°¥Ð¥ó¥ÉÆâ
-¤Ç¤ÏËÝÌõ¤µ¤ì¤Æ¤¤¤ëÉð´ïÌ¾¤â¥«¥¿¥«¥ÊÉ½µ­¤Ë¤·¤Æ¤¢¤ê¤Þ¤¹¡£¼¡¤ËÁ´Ä¹¤ä½ÅÎÌ¤Ê¤É¤Î¥¹
-¥Ú¥Ã¥¯¡£¤³¤ì¤Ï¼ÂºÝ¤ËÃø¼Ô¤¬·×¤Ã¤¿¤Î¤Ç¤ÏÌµ¤¯¡¢»²¹ÍÊ¸¸¥¤ò°úÍÑ¤·¤Æ¤¤¤Þ¤¹¡£¤½¤·¤Æ
-¤½¤ÎÉð´ï¤Ë·Á¾õ¤ÎÆÃÄ§¡¢»ÈÍÑË¡¡¢Îò»Ë¤Ê¤É¤¬µ­¤µ¤ì¤Æ¤¤¤Þ¤¹¡£
-¡¡¤Ê¤ª¡¢¤³¤ÎÀâÌÀ¤Ç¤Ï¥¢¥ó¥°¥Ð¥ó¥É¤Î¤è¤¦¤Ë¥À¥ó¥¸¥ç¥ó¤Ç»ÈÍÑ¤¹¤ë»ö¤è¤ê¤â¡¢Éð´ï¤È
-¤·¤Æ¤ÎÌò³ä¤Ë½ÅÅÀ¤òÃÖ¤¤¤Æ¤¤¤Þ¤¹¡£¤Ç¤¹¤Î¤Ç¡¢¥¢¥ó¥°¥Ð¥ó¥ÉÆâ¤Ç¤Î»È¤¤Êý¤Ç¤Ï¤¢¤ê¤Þ
-¤»¤ó¤Î¤Ç¸æÃí°Õ²¼¤µ¤¤¡£
-¡¡¤Þ¤¿¡¢¤ªÃÑ¤º¤«¤·¤¤¤Î¤Ç¤¹¤¬¡¢°ìÉô¤ÎÉð´ï¤Î»ñÎÁ¤¬ÉÔÂ­¤·¤Æ¤¤¤¿¤¿¤á¤Ë¾ðÊó¤¬²ø¤·
-¤¤¤â¤Î¤¬¶Ë°ìÉô¤¢¤ê¤Þ¤¹¡£¤â¤·¡¢´Ö°ã¤¤¤òÈ¯¸«¤µ¤ì¤¿Êý¤Ï¸æ°ìÊó¤¤¤¿¤À¤±¤ë¤È½õ¤«¤ê
-¤Þ¤¹¡£¤Þ¤¿¡¢ÆÉ¤ß¤Å¤é¤¤¡¢¤ï¤«¤ê¤Å¤é¤¤ÅÀ¤¬¤¢¤ê¤Þ¤·¤¿¤é²þÁ±¤¤¤¿¤·¤Þ¤¹¤Î¤Ç¸æ°ìÊó
-²¼¤µ¤¤¡£
-¡¡ºÇ¸å¤Ë»²¹ÍÊ¸¸¥¤òÊÂ¤Ù¤Þ¤¹¡£Âç¤­¤Ê½ñÅ¹¤Ç°·¤Ã¤Æ¤¤¤ë¤â¤Î¤Ð¤«¤ê¤Ê¤Î¤Ç¡¢À¾ÍÎ¤ÎÉð
-´ï¤Ë¶½Ì£¤ò»ý¤¿¤ì¤Þ¤·¤¿¤é¡¢À§Èó¤É¤¦¤¾¡£
+@‚±‚±‚Å‚Í“ú–{l‚É‚ ‚Ü‚è“éõ‚Ý‚ª–³‚¢¼—m‚Ì•Ší‚É‚Â‚¢‚Äà–¾‚µ‚Ü‚·BƒAƒ“ƒOƒoƒ“
+ƒh‚Ì‚Í‚q‚o‚fŠµ‚ê‚µ‚Ä‚¢‚È‚¢l‚Í‚Æ‚à‚©‚­A‚q‚o‚fŠµ‚ê‚µ‚Ä‚¢‚él‚Å‚·‚çƒCƒ[ƒW‚µ
+‚¸‚ç‚¢•Ší‚ª“oê‚µ‚Ü‚·B‚Ü‚½AŒë‚Á‚½‚q‚o‚f‚ÌŽ‘—¿‚âƒtƒ@ƒ“ƒ^ƒW[¬à‚Ì‰e‹¿‚ÅŒë
+‰ð‚³‚ê‚Ä‚¢‚é•Ší‚à‚ ‚é‚æ‚¤‚È‚Ì‚ÅAƒAƒ“ƒOƒoƒ“ƒh‚É“oê‚·‚é‚·‚×‚Ä‚ÌŽÀÝ‚·‚é•Ší
+‚É‚Â‚¢‚Äà–¾‚ð“ü‚ê‚éŽ–‚É‚µ‚Ü‚µ‚½B
+@ˆÈ‰º‚Ìà–¾•¶‚ÍŽŸ‚Ì‘Ž®‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B‚Ü‚¸A•Ší–¼B‚±‚ê‚ÍƒAƒ“ƒOƒoƒ“ƒh“à
+‚Å‚Í–|–ó‚³‚ê‚Ä‚¢‚é•Ší–¼‚àƒJƒ^ƒJƒi•\‹L‚É‚µ‚Ä‚ ‚è‚Ü‚·BŽŸ‚É‘S’·‚âd—Ê‚È‚Ç‚ÌƒX
+ƒyƒbƒNB‚±‚ê‚ÍŽÀÛ‚É’˜ŽÒ‚ªŒv‚Á‚½‚Ì‚Å‚Í–³‚­AŽQl•¶Œ£‚ðˆø—p‚µ‚Ä‚¢‚Ü‚·B‚»‚µ‚Ä
+‚»‚Ì•Ší‚ÉŒ`ó‚Ì“Á’¥AŽg—p–@A—ðŽj‚È‚Ç‚ª‹L‚³‚ê‚Ä‚¢‚Ü‚·B
+@‚È‚¨A‚±‚Ìà–¾‚Å‚ÍƒAƒ“ƒOƒoƒ“ƒh‚Ì‚æ‚¤‚Éƒ_ƒ“ƒWƒ‡ƒ“‚ÅŽg—p‚·‚éŽ–‚æ‚è‚àA•Ší‚Æ
+‚µ‚Ä‚Ì–ðŠ„‚Éd“_‚ð’u‚¢‚Ä‚¢‚Ü‚·B‚Å‚·‚Ì‚ÅAƒAƒ“ƒOƒoƒ“ƒh“à‚Å‚ÌŽg‚¢•û‚Å‚Í‚ ‚è‚Ü
+‚¹‚ñ‚Ì‚ÅŒä’ˆÓ‰º‚³‚¢B
+@‚Ü‚½A‚¨’p‚¸‚©‚µ‚¢‚Ì‚Å‚·‚ªAˆê•”‚Ì•Ší‚ÌŽ‘—¿‚ª•s‘«‚µ‚Ä‚¢‚½‚½‚ß‚Éî•ñ‚ª‰ö‚µ
+‚¢‚à‚Ì‚ª‹Éˆê•”‚ ‚è‚Ü‚·B‚à‚µAŠÔˆá‚¢‚ð”­Œ©‚³‚ê‚½•û‚ÍŒäˆê•ñ‚¢‚½‚¾‚¯‚é‚Æ•‚©‚è
+‚Ü‚·B‚Ü‚½A“Ç‚Ý‚Ã‚ç‚¢A‚í‚©‚è‚Ã‚ç‚¢“_‚ª‚ ‚è‚Ü‚µ‚½‚ç‰ü‘P‚¢‚½‚µ‚Ü‚·‚Ì‚ÅŒäˆê•ñ
+‰º‚³‚¢B
+@ÅŒã‚ÉŽQl•¶Œ£‚ð•À‚×‚Ü‚·B‘å‚«‚È‘“X‚Åˆµ‚Á‚Ä‚¢‚é‚à‚Ì‚Î‚©‚è‚È‚Ì‚ÅA¼—m‚Ì•
+Ší‚É‹»–¡‚ðŽ‚½‚ê‚Ü‚µ‚½‚çA¥”ñ‚Ç‚¤‚¼B
 
-¡¡¡¡Truth In Fantasy XX   Éð´ï¤ÈËÉ¶ñ À¾ÍÎÊÔ¡¡»ÔÀîÄê½ÕÃø¡¡¿·µª¸µ¼Ò´©
-¡¡¡¡Truth In Fantasy VIII Éð·®¤Î¿Ï¡¡¡¡¡¡¡¡¡¡ »ÔÀîÄê½ÕÃø¡¡¿·µª¸µ¼Ò´©
-¡¡¡¡Éð´ï²°¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ Truth In FantasyÊÔ½¸ÉôÊÔ¡¡¿·µª¸µ¼Ò´©
-¡¡¡¡¥Þ¥¤¥È¥ì¡¼¥ä£Ò£Ð£Ç´ðËÜ¥ë¡¼¥ë¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ ¿·µª¸µ¼Ò´©
-¡¡¡¡¥¬¡¼¥×¥¹¡¦¥Ù¡¼¥·¥Ã¥¯¡¡¡¡¡¡ ¥¹¥Æ¥£¡¼¥Ö¡¦¥¸¥ã¥¯¥½¥óÃø¡¡³ÑÀî½ñÅ¹´©
+@@Truth In Fantasy XX   •Ší‚Æ–h‹ï ¼—m•Ò@Žsì’èt’˜@V‹IŒ³ŽÐŠ§
+@@Truth In Fantasy VIII •ŒM‚Ìn@@@@@ Žsì’èt’˜@V‹IŒ³ŽÐŠ§
+@@•Ší‰®@@@@@@@@@@ Truth In Fantasy•ÒW•”•Ò@V‹IŒ³ŽÐŠ§
+@@ƒ}ƒCƒgƒŒ[ƒ„‚q‚o‚fŠî–{ƒ‹[ƒ‹@@@@@@@@@@@@ V‹IŒ³ŽÐŠ§
+@@ƒK[ƒvƒXEƒx[ƒVƒbƒN@@@ ƒXƒeƒB[ƒuEƒWƒƒƒNƒ\ƒ“’˜@Špì‘“XŠ§
 
-¡¡¤Ç¤Ï¤ß¤Ê¤µ¤ó¤ÎËÁ¸±¤¬¼Â¤êÂ¿¤¤¤â¤Î¤Ç¤¢¤ê¤Þ¤¹¤è¤¦¤Ë¡£
-¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¾ë¸Í ¥¤¥µ¥à
+@‚Å‚Í‚Ý‚È‚³‚ñ‚Ì–`Œ¯‚ªŽÀ‚è‘½‚¢‚à‚Ì‚Å‚ ‚è‚Ü‚·‚æ‚¤‚ÉB
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@éŒË ƒCƒTƒ€
 
-  * ¥¢¥ó¥°¥Ð¥ó¥É¤ÇÌ¾¾Î¤¬°Û¤Ê¤ë¤â¤Î¤Ë¤Ï¡¢¡ã¡äÆâ¤Ë¥¢¥ó¥°¥Ð¥ó¥É¤Ç¤ÎÌ¾¾Î¤òµ­ºÜ¤·
-    ¤Æ¤¤¤Þ¤¹¡£
+  * ƒAƒ“ƒOƒoƒ“ƒh‚Å–¼Ì‚ªˆÙ‚È‚é‚à‚Ì‚É‚ÍAƒ„“à‚ÉƒAƒ“ƒOƒoƒ“ƒh‚Å‚Ì–¼Ì‚ð‹LÚ‚µ
+    ‚Ä‚¢‚Ü‚·B
 
-Ã»·õÎà
+’ZŒ•—Þ
 
- ¥À¥¬¡¼ (dagger)
-  ¡¡¹­µÁ¤Ç¤Î¡ÈÃ»·õ¡É¤Î¤³¤È¡£Á´Ä¹¤Ï20¡Á60cm¡¢¿ÈÉý¤Ï1¡Á3cm¡¢½Å¤µ¤Ï0.25¡Á0.5kg¡£
-¡¡12À¤µª¤«¤é19À¤µª¤Þ¤Ç¤ËÍÍ¡¹¤Ê¼ïÎà¤Î¥À¥¬¡¼¤¬»È¤ï¤ì¤Þ¤·¤¿¡£¼ïÎà¤Ë¤è¤Ã¤ÆÆÃÄ§¤Ï
-¡¡Âç¤­¤¯°Û¤Ê¤ê¡¢ÀÚ¤ë¤¿¤á¤Î¥À¥¬¡¼¤âÆÍ¤­»É¤¹¤¿¤á¤Î¥À¥¬¡¼¤âÂ¸ºß¤·¤Þ¤·¤¿¡£°ìÈÌÅª
-¡¡¤Ë¤Ï¡¢¥À¥¬¡¼¤¬Éð´ï¤È¤¤¤¦¤è¤ê¤ÏÆü¾ï¤ÎÀ¸³è¤Ç»È¤¦Æ»¶ñ¤Ç¤¢¤ê¡¢¸î¿ÈÍÑ¤«·èÆ®ÍÑ¤È
-¡¡¤¤¤¦¾ì¹ç¤À¤±Éð´ï¤È¤·¤Æ»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£ºÇ¤â°ìÈÌÅª¤Ê¥À¥¬¡¼¤ÏÁ´Ä¹¤¬30cm¤ÇÆÍ¤­
-¡¡»É¤·ÍÑ¤Î¤â¤Î¤Ç¤¹¡£¥À¥¬¡¼¤ÏÅêÚ³¤¹¤ë»ö¤â²ÄÇ½¤ÊÉð´ï¤Ç¤¹¤¬¡¢Åê¤²¤ë¤Ë¤ÏÂç¤­¤¯¥Ð
-¡¡¥é¥ó¥¹¤â°­¤¤¤¿¤á¡¢Èó¾ï¤ËÃ»¤¤µ÷Î¥¤·¤«¼ÍÄø¤¬ÆÏ¤«¤Ê¤¤¾å¤ËÌ¿Ãæ¤µ¤»¤ë¤Ë¤Ï¤«¤Ê¤ê
-¡¡¤Î½ÏÎý¤¬É¬Í×¤Ç¤¹¡£
+ ƒ_ƒK[ (dagger)
+  @L‹`‚Å‚Ìg’ZŒ•h‚Ì‚±‚ÆB‘S’·‚Í20`60cmAg•‚Í1`3cmAd‚³‚Í0.25`0.5kgB
+@12¢‹I‚©‚ç19¢‹I‚Ü‚Å‚É—lX‚ÈŽí—Þ‚Ìƒ_ƒK[‚ªŽg‚í‚ê‚Ü‚µ‚½BŽí—Þ‚É‚æ‚Á‚Ä“Á’¥‚Í
+@‘å‚«‚­ˆÙ‚È‚èAØ‚é‚½‚ß‚Ìƒ_ƒK[‚à“Ë‚«Žh‚·‚½‚ß‚Ìƒ_ƒK[‚à‘¶Ý‚µ‚Ü‚µ‚½Bˆê”Ê“I
+@‚É‚ÍAƒ_ƒK[‚ª•Ší‚Æ‚¢‚¤‚æ‚è‚Í“úí‚Ì¶Šˆ‚ÅŽg‚¤“¹‹ï‚Å‚ ‚èAŒìg—p‚©Œˆ“¬—p‚Æ
+@‚¢‚¤ê‡‚¾‚¯•Ší‚Æ‚µ‚ÄŽg—p‚³‚ê‚Ü‚µ‚½BÅ‚àˆê”Ê“I‚Èƒ_ƒK[‚Í‘S’·‚ª30cm‚Å“Ë‚«
+@Žh‚µ—p‚Ì‚à‚Ì‚Å‚·Bƒ_ƒK[‚Í“Š±‚·‚éŽ–‚à‰Â”\‚È•Ší‚Å‚·‚ªA“Š‚°‚é‚É‚Í‘å‚«‚­ƒo
+@ƒ‰ƒ“ƒX‚àˆ«‚¢‚½‚ßA”ñí‚É’Z‚¢‹——£‚µ‚©ŽË’ö‚ª“Í‚©‚È‚¢ã‚É–½’†‚³‚¹‚é‚É‚Í‚©‚È‚è
+@‚Ìn—û‚ª•K—v‚Å‚·B
 
- ¥Þ¥ó¡¦¥´¡¼¥·¥å (main gauche,parrying dagger)
-    Á´Ä¹¤Ï30¡Á50cm¡¢¿ÈÉý¤Ï1¡Á3cm¡¢½Å¤µ¤Ï0.3¡Á0.5kg¡£ËÉ¸æÍÑ¤Î¥À¥¬¡¼¤È¤·¤Æ15À¤
-¡¡µªËö¤«¤é19À¤µª¤Þ¤Ç»äÆ®¤Ë¤ª¤¤¤Æ»ÈÍÑ¤µ¤ì¤¿Ã»·õ¤Ç¤¹¡£ÄÌ¾ï¥Õ¥§¥ó¥·¥ó¥°¤È¤¤¤¦·õ
-¡¡½Ñ¤Ë¤ª¤¤¤Æ»È¤ï¤ì¡¢º¸¼ê¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£¥Þ¥ó¡¦¥´¡¼¥·¥å¡Èº¸¼ê¡É¤È¤¤¤¦Ì¾¤Ï¤½
-  ¤³¤«¤éÍè¤Æ¤¤¤Þ¤¹¡£¤½¤ÎºÝ¤Ë¤Ï±¦¼ê¤Ç¤Ï¥ì¥¤¥Ô¥¢¤â¤·¤¯¤Ï¥¹¥â¡¼¥ë¡¦¥½¡¼¥É¤¬»È¤ï
-¡¡¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤Ï¹Å¤¤Åá¿È¤È¡¢Ä¹¤¯¤Æ¿¿¤ÃÄ¾¤°¤ÊÄ×Ëô¤ÏÊÁ¤«¤éÅá¿È¤Ë¸þ¤«¤Ã¤Æ·ã¤·
-¡¡¤¯ÏÑ¶Ê¤·¤¿Ä×¤Ç¤¹¡£¤½¤ÎÄ×¤ÈÅá¿È¤òÍøÍÑ¤·¤ÆÁê¼ê¤Î¹¶·â¤ò¼õ¤±Î®¤·¤¿¤ê¡¢Áê¼ê¤Î·õ
-¡¡¤ò¤«¤é¤áÊá¤Ã¤¿¤ê¤¹¤ë¤¿¤á¤ËÍÑ¤¤¤é¤ì¤Þ¤·¤¿¡£¤â¤Á¤í¤ó¡¢Áê¼ê¤Î·õ¤Ï¥ì¥¤¥Ô¥¢¤â¤·
-¡¡¤¯¤Ï¥¹¥â¡¼¥ë¡¦¥½¡¼¥É¤Ç¤·¤¿¤Î¤Ç¡¢¤½¤ì¤è¤ê¤â½Å¤¤Éð´ï¤ò¼õ¤±¤ë»ö¤Ï¤Þ¤ºÉÔ²ÄÇ½¤Ç
-¡¡¤¹¡£¤³¤ÎÃ»·õ¤Ï¥Õ¥é¥ó¥¹°Ê³°¤Ç¤Ï¥Ñ¥ê¡¼¥¤¥ó¥°¡¦¥À¥¬¡¼¡È¼õ¤±Î®¤·ÍÑÃ»·õ¡É¤È¸Æ¤Ð
-¡¡¤ì¡¢Åá¿È¤¬3ËÜ¤¢¤ë¤â¤Î¡¢Åá¿È¤¬¶û¾õ¤Î¤â¤Î¡ÊÆÃ¤Ë¥½¡¼¥É¡¦¥Ö¥ì¥¤¥«¡¼¤È¸Æ¤Ð¤ì¤Þ
-¡¡¤¹¡Ë¡¢¥«¥Ã¥×¤Î·Á¤ò¤·¤¿Ä×¤¬¤¢¤ë¤â¤Î¤Ê¤ÉÍÍ¡¹¤Ê·Á¤Î¤â¤Î¤¬¤¢¤ê¤Þ¤·¤¿¡£
-
-
-Åá·õÎà
-
- ¥·¥ç¡¼¥È¡¦¥½¡¼¥É (short sword)
-¡¡¡¡¡ÈÃ»¤¤·õ¡É¡£Á´Ä¹¤Ï70¡Á80cm¡¢¿ÈÉý¤Ï2¡Á5cm¡¢½Å¤µ¤Ï0.8¡Á1.8kg¡£14¡Á16À¤µª¤Î
-¡¡½ÅÁõÊâÊ¼¤¬ÍÑ¤¤¤¿Åá·õ¤Ç¤¹¡£ÆÃÄ§¤Ï¿ÈÉý¤¬¹­¤¤»ö¡¢ÀÚ¤ÃÀè¤¬±Ô¤¯Àí¤Ã¤Æ¤¤¤ë»ö¡¢¤½
-¡¡¤·¤ÆÌ¾Á°¤Î¸µ¤Ë¤Ê¤Ã¤¿¤è¤¦¤ËÃ»¤¤¡Ê80cm°Ê²¼¡Ë»ö¤Ç¤¹¡£¤³¤ì¤Ï¥·¥ç¡¼¥È¡¦¥½¡¼¥É¤¬
-¡¡½ÅÁõÊâÊ¼Æ±»Î¤ÎÇòÊ¼Àï¤Ç»ÈÍÑ¤µ¤ì¡¢¾æÉ×¤Ç¤¢¤ë»ö¡¢Ã¡¤­»Â¤ë¤è¤ê¤â³»¤òÃå¤¿Áê¼ê¤Ë
-¡¡Âç¤­¤Ê½ý¤òÉé¤ï¤»¤ë»ö¤¬½ÐÍè¤ëÆÍ¤­»É¤·¤¬½ÐÍè¤ë»ö¡¢¿Í¤¬Ì©½¸¤·¤Æ¤¤¤ëÃæ¤Ç¿¶¤ê²ó
-¡¡¤·¤Æ¤âÌ£Êý¤ò»Â¤é¤Ê¤¤ÄøÅÙ¤ÎÃ»¤µ¤Ç¤¢¤ë»ö¤Î3ÅÀ¤¬½Å»ë¤µ¤ì¤¿¤¿¤á¤Ç¤¹¡£ÊÒ¼ê¤Ç»È
-¡¡ÍÑ¤µ¤ì¤Þ¤·¤¿¡£
-
- ¥í¥ó¥°¡¦¥½¡¼¥É (long sword)
-¡¡¡¡¡ÈÄ¹·õ¡É¡£Á´Ä¹¤Ï80¡Á95cm¡¢¿ÈÉý¤Ï½é´ü¤Î¤â¤Î¤¬3¡Á5cm¡¢¸å´ü¤Î¤â¤Î¤¬2¡Á3cm¡¢
-¡¡½Å¤µ¤Ï1.5¡Á2kg¡£11À¤µª¤«¤é16À¤µª¤Îµ³»Î¡¦µ³Ê¼Ã£¤¬ÇÏ¾å¤Ç»ÈÍÑ¤·¤¿Åá·õ¤Ç¡¢ÆÃÄ§
-¡¡¤ÏÄ¾¿È¤Ç¤¢¤ë»ö¡¢ÀÚ¤ÃÀè¤¬±Ô¤¤»ö¡¢Î¾¿Ï¤Ç¤¢¤ë»ö¤Ç¤¹¡£ÊÒ¼ê¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£½é
-  ´ü¤Î¤â¤Î¤Ïµ»½ÑÅª¤ËÅá¿È¤òÇö¤¯¤¹¤ë»ö¤¬½ÐÍè¤Ê¤«¤Ã¤¿¤Î¤ÇÃ¡¤­»Â¤ë¤È¤¤¤¦»È¤¤Êý¤ò
-¡¡¤µ¤ì¤Þ¤·¤¿¤¬¡¢¸å´ü¤Î¤â¤Î¤Ï½½Ê¬¤ËÇö¤¯¤¹¤ë»ö¤â±Ô¤¤ÀÚ¤ÃÀè¤ò¤Ä¤±¤ë»ö¤ò²ÄÇ½¤Ç¤¢
-¡¡¤Ã¤¿¤Î¤ÇÀÚ¤ë»ö¤âÆÍ¤­»É¤¹»ö¤â²ÄÇ½¤Ç¤·¤¿¡£
-
- ¥Ö¥í¡¼¥É¡¦¥½¡¼¥É (broad sword,heavy millitary sword,schiavona,reiterpallasch)
-¡¡¡¡¡È¹­¿Ï·õ¡É¡£Á´Ä¹¤Ï70¡Á80cm¡¢¿ÈÉý¤Ï3¡Á4cm¡¢½Å¤µ¤Ï1.4¡Á1.6kg¡£17À¤µª¤«¤é18
-¡¡À¤µª¤Ëµ³Ê¼¤äÊâÊ¼¤Ë»È¤ï¤ì¤¿·³»öÍÑ½Å·õ¤Ç¤¹¡£ÆÃÄ§¤ÏÄ¾¿È¤Ç¤¢¤ë»ö¡¢Î¾¿Ï¤Ç¤¢¤ë»ö
-¡¡¤ÇÃ¡¤­»Â¤ë»ö¤òÌÜÅª¤È¤·¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢·ý¤ò¸î¤ë¤¿¤á¤ÎÍÍ¡¹¤Ë¹©É×¤µ¤ì¤¿ÊÁ¤¬¤¢
-¡¡¤ëÅÀ¤âÆÃÄ§¤Î£±¤Ä¤Ç¤¹¡£ÃæÀ¤¤Ë»È¤ï¤ì¤¿·õ¤ËÈæ¤ÙÊÌÃÊÉý¹­¤¤Åá¿È¤ò»ý¤Ã¤Æ¤¤¤ëÌõ¤Ç
-¡¡¤Ï¤¢¤ê¤Þ¤»¤ó¤¬¡¢Åö»þ¤Î¼çÎ®¤ÎÅá·õ¤Ç¤¢¤Ã¤¿¥ì¥¤¥Ô¥¢¤ÈÈæ¤Ù¤ì¤Ð¤«¤Ê¤êÉý¹­¤Ê¿Ï¤È
-¡¡¸À¤¨¤ë¤Î¤Ç¥Ö¥í¡¼¥É¡¦¥½¡¼¥É¤ÈÌ¾ÉÕ¤±¤é¤ì¤Þ¤·¤¿¡£ÊÒ¼ê¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£µ³Ê¼¤¬
-¡¡ÍÑ¤¤¤ë¾ì¹ç¤Ï¥µ¡¼¥Ù¥ë¤Î¤è¤¦¤Êµ³Ê¼ÆÍ·â¤Ë¤ÏÍÑ¤¤¤é¤ì¤º¡¢µ³Ê¼¡¦ÊâÊ¼¤ÎÆþ¤êÍð¤ì¤¿
-¡¡ÍðÀï¤Ë¤ª¤¤¤Æ»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£
-
- ¥Ð¥¹¥¿¡¼¥É¡¦¥½¡¼¥É (bastard sword,hand-and-a-half sword)
-¡¡¡¡Á´Ä¹¤Ï115¡Á140cm¡¢¿ÈÉý¤Ï2¡Á3cm¡¢½Å¤µ¤Ï2.5¡Á3kg¡£13À¤µª¤«¤é17À¤µª¤Îµ³»ÎÃ£
-¡¡¤¬»È¤Ã¤¿Âç·¿¤ÎÅá·õ¤Ç¡¢Ã¡¤­»Â¤ë»ö¤ÈÆÍ¤­»É¤¹»ö¤ÎÎ¾Êý¤òÌÜÅª¤È¤·¤Æ¤¤¤Þ¤¹¡£ÊÒ¼ê
-¡¡¤Ç¤âÎ¾¼ê¤Ç¤â»È¤¨¤ë»ö¤«¤é¥Ð¥¹¥¿¡¼¥É¡¦¥½¡¼¥É¡ÈÊÒ¼ê·õ¤Ë¤âÎ¾¼ê·õ¤Ë¤âÎà»÷¤·¤¿·õ¡É
-¡¡¤È¸Æ¤Ð¤ì¤Þ¤·¤¿¡£µ³»Î¤¿¤Á¤Ï¤³¤Î·õ¤È½â¤ò»ý¤Ã¤ÆÀï¤¤¡¢¤¤¤¶¤È¤Ê¤Ã¤¿¤é½â¤ò¼Î¤Æ¤Æ
-¡¡Î¾¼ê¤Ç¥Ð¥¹¥¿¡¼¥É¡¦¥½¡¼¥É¤ò»È¤¤ÞÕ¿È¤Î°ì·â¤òÁê¼ê¤ËÍ¿¤¨¤ë¤È¤¤¤¦ÀïË¡¤Ç»È¤¤¤Þ¤·
-¡¡¤¿¡£Î¾¼ê·õ¤È¤Îº¹¤ÏÅá¿È¤¬Ä¹¤¹¤®¤Ê¤¤¤¿¤á¤Ë¤è¤êµ¡Æ°À­¤¬ÊÝ¤Æ¤ë»ö¡¢ÊÒ¼ê·õ¤È¤Îº¹
-¡¡¤ÏÎ¾¼ê¤Ç»ý¤Ä¤¿¤á¤ËÊÁ¤¬Èó¾ï¤ËÄ¹¤¤¡Ê30¡Á40cm¡Ë»ö¤¬µó¤²¤é¤ì¤ë¤Ç¤·¤ç¤¦¡£µ³»Î¤¿
-¡¡¤Á¤Ï¤³¤Î·õ¤ò¹ø¤Ë²¼¤²¤Æ¤¤¤Þ¤·¤¿¡£
-
- ¥È¥¥¡¼¡¦¥Ï¥ó¥Ç¥Ã¥É¡¦¥½¡¼¥É (two-handed sword,zweihander) ¡ãÎ¾¼êÍÑ¥½¡¼¥É¡ä
-¡¡¡¡¡ÈÎ¾¼ê·õ¡É¡£Á´Ä¹¤Ï180¡Á200cm¡¢¿ÈÉý¤Ï4¡Á8cm¡¢½Å¤µ¤Ï2.9¡Á6.5kg¡£13À¤µª¤«¤é
-  16À¤µª¤ËÊâÊ¼¤Ë¤è¤Ã¤Æ»ÈÍÑ¤µ¤ì¤¿Âç·¿¤ÎÅá·õ¤Ç¤¹¡£Åá¿È¤Î½Å¤µ¤òÍøÍÑ¤·¤ÆÃ¡¤­»Â
-¡¡¤ë»ö¤òÌÜÅª¤Ë¤·¤Æ¤¤¤Þ¤¹¤¬¡¢°ì±þÀÚ¤ÃÀè¤¬¤¢¤êÆÍ¤­»É¤¹»ö¤â²ÄÇ½¤Ç¤¹¡£ÆÃÄ§¤Ï¤½¤Î
-¡¡Ä¹¤µ¤È½Å¤µ¡¢Ä¾¿È¤Ç¤¢¤ë»ö¡¢Î¾¼ê¤Ç»ÈÍÑ¤¹¤ë¤¿¤á¤ËÊÁ¤¬Èó¾ï¤ËÄ¹¤¤¡Ê30¡Á50cm¡Ë»ö
-¡¡¤Ç¤¹¡£¤¢¤Þ¤ê¤ËÄ¹¤¯½Å¤¤¤¿¤á»È¤¤¤³¤Ê¤¹¤Ë¤Ï¤«¤Ê¤ê¤Î½ÏÎý¤¬É¬Í×¤Ç¤·¤¿¡£¤³¤Î·õ¤ò
-¡¡»ÈÍÑ¤¹¤ëÊ¼»ÎÃ£¤Ï¤¢¤Þ¤ê¤ÎÄ¹¤µ¤Ë¡¢¹ø¤Ë²¼¤²¤ë»ö¤¬½ÐÍè¤º¡¢ÇØÉé¤¦¤«¤¿¤À»ý¤ÁÊâ¤¤
-¡¡¤Æ¤¤¤Þ¤·¤¿¡£
-
- ¥¨¥°¥¼¥­¥å¡¼¥·¥ç¥Ê¡¼¥º¡¦¥½¡¼¥É (executioner's sword) ¡ã¼óÀÚ¤ê¥½¡¼¥É¡ä
-¡¡¡¡¡È»à·º¼¹¹Ô¿Í¤Î·õ¡É¡£Á´Ä¹¤Ï100cm¡Á¡¢¿ÈÉý¤Ï6¡Á7cm¡¢½Å¤µ¤Ï2.2¡Á2.5kg¡£17À¤
-¡¡µª¤«¤é18À¤µª¤Î»à·º¼¹¹Ô¿Í¤¿¤Á¤Ë¤è¤Ã¤Æ»È¤ï¤ì¤¿½è·ºÍÑ¤ÎÎ¾¼ê·õ¤Ç¤¹¡£ÆÃÄ§¤Ï¤½¤Î
-¡¡»ÈÍÑÌÜÅª¤ËÂ§¤·¤¿¤â¤Î¤Ç¤¹¡£¤³¤Î·õ¤Ï¤¿¤Ã¤¿°ìÅÙ¤Ç¼ó¤òÍî¤È¤¹»ö¤¬ÌÜÅª¤Ç¤¹¡£¤½¤Î
-¡¡¤¿¤á¿ÈÉý¤ÏÈó¾ï¤Ë¹­¤¯¡¢ÀÚ¤ÃÀè¤ÏÌµ¤¯¤ÆÀèÃ¼¤Ï´Ý¤Þ¤Ã¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢ÎÏ¤ò¹þ¤á¤Æ
-¡¡¿¶¤ê²¼¤í¤·¤ä¤¹¤¤¤è¤¦¤ËÎ¾¼ê·õ¤è¤ê¤â¤Ï¤ë¤«¤ËÃ»¤¤ÊÁ¤·¤«»ý¤Ã¤Æ¤¤¤Þ¤»¤ó¡£Î¾¿Ï¤Ç
-¡¡¤¢¤ê¡¢Åá¿È¤ÎÉôÊ¬¤ËÍÍ¡¹¤ÊÄ¦¹ï¤¬»Ü¤µ¤ì¤Æ¤¤¤ë»ö¤¬Â¿¤¤¤è¤¦¤Ç¤¹¡£
-
- ¥µ¡¼¥Ù¥ë (sabre,saber,schweizersabel)
-¡¡¡¡¡Èµ³Ê¼Åá¡É¡£Á´Ä¹¤Ï70¡Á120cm¡¢¿ÈÉý¤Ï2¡Á4cm¡¢½Å¤µ¤Ï1.7¡Á2.4kg¡£16À¤µª¤«¤é
-¡¡20À¤µª¤Þ¤Çµ³Ê¼ÉôÂâ¤Î¼çÍ×Åá·õ¤È¤·¤Æ»È¤ï¤ì¤¿Åá·õ¤Ç¤¹¡£ÆÃÄ§¤È¤¤¤Ã¤Æ¤â»þ´ü¤ÈÃÏ
-¡¡°è¤Ç¤«¤Ê¤ê¤Îº¹¤¬¤¢¤ê°ì³µ¤Ë¤Ï¸À¤¨¤Þ¤»¤ó¡£Âç¤Þ¤«¤Ë¸À¤¨¤ë»ö¤Ï¡¢ÊÒ¼ê¤Ç»È¤¦¤â¤Î
-¡¡¤Ç¤¢¤ê¡¢ÊÒ¿Ï¤ÇÅá¿È¤¬¤·¤Ê¤ä¤«¤ËÏÑ¶Ê¤·¤Æ¤¤¤ë»ö¤Ç¤¹¡£¤È¸À¤Ã¤Æ¤âÅá¿È¤Î·Á¤Ë¤Ï3¼ï
-¡¡Îà¤¬¤¢¤ê¡¢Ä¾Åá·¿¡¢È¾¶ÊÅá·¿¡¢¶Ê¿Ï·¿¤ËÊ¬¤±¤ë»ö¤¬¤Ç¤­¤Þ¤¹¡£¤µ¤é¤ËÀÚ¤ÃÀè¤Ë¤â3
-¡¡¼ïÎà¤¬¤¢¤ê¡¢Áä¾õ¤Î¤â¤Î¡¢µ¿»÷¿Ï¡Ê¥«¥Ã¥È¥é¥¹¤ò»²¾È¡Ë¾õ¤Î¤â¤Î¡¢¼êÉà¾õ¤Î¤â¤Î¤Ë
-¡¡Ê¬¤«¤ì¤Þ¤¹¡£¤³¤Î¤¦¤Á¡¢Ä¾Åá·¿¡¦Áä¾õ¤¬ÆÍ¤­»É¤·ÍÑ¡¢¶ÊÅá·¿¡¦¼êÉà¾õ¤¬ÀÚ¤êÍÑ¡¢È¾
-¡¡¶ÊÅá·¿¡¦µ¿»÷¿Ï¾õ¤¬¤½¤ÎÎ¾Êý¤Î·óÍÑ¤È¤·¤Æºî¤é¤ì»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£¤Ê¤«¤Ç¤â¡¢Åá¿È
-¡¡¤¬È¾¶ÊÅá·¿¤Ç¡¢ÀÚ¤ÃÀè¤¬µ¿»÷¿Ï¾õ¤«¼êÉà¾õ¤Î¥µ¡¼¥Ù¥ë¤¬°ìÈÖÂ¿¤¯ºî¤é¤ì¤Þ¤·¤¿¡£Ä×
-¡¡¤äÊÁ¤Ë¤âÃÏ°èÅª¤ÊÆÃÄ§¤¬¤¢¤ê¡¢ÍÍ¡¹¤ÊÈ¯Å¸¤ò¿ë¤²¤Æ¤¤¤Þ¤¹¡£¥µ¡¼¥Ù¥ë¤Ë¤ÏÃÏ°è¤Ë¤è
-¡¡¤êÍÍ¡¹¤ÊÌ¾Á°¤¬ÉÕ¤±¤é¤ì¡¢ÊÌ¡¹¤ÎÉð´ï¤È¤·¤Æ°·¤ï¤ì¤ë»ö¤â¤¢¤ê¤Þ¤¹¡£¥µ¡¼¥Ù¥ë¤ò»È
-¡¡¤¦µ³Ê¼¤Ïµ³Ê¼ÆÍ·â¤Ë¤ª¤¤¤Æ¤³¤ÎÅá·õ¤ò»ÈÍÑ¤·¤Þ¤·¤¿¡£
-
- ¥ì¥¤¥Ô¥¢ (rapier,epee rapiere,dress sword,espada ropera)
-¡¡¡¡Á´Ä¹¤Ï80¡Á100cm¡¢¿ÈÉý¤Ï1¡Á3cm¡¢½Å¤µ¤Ï0.7¡Á0.9kg¡£16À¤µª¤«¤é18À¤µª¤Ë»È
-¡¡¤ï¤ì¤¿ÊÒ¼êÍÑ¤ÎÅá·õ¤Ç¤¹¡£ÆÃÄ§¤Ï¿¿¤ÃÄ¾¤°¤ÊÅá¿È¡¢±Ô¤¤ÀÚ¤ÃÀè¡¢Î¾¿Ï¤Ç¤¢¤ë¡¢Åá
-  ¿È¤¬Èó¾ï¤ËÇö¤¤¤È¤¤¤¦»ö¤Ç¤¹¡£ÀÚ¤ë»ö¤â²ÄÇ½¤Ç¤¹¤¬¡¢ÄÌ¾ï¤ÏÆÍ¤­»É¤·¤Æ»È¤¤¤Þ¤¹¡£
-¡¡Åö»þ¤ÎÊ¼»Î¤Ï½ÅÁõÈ÷¤Ç¤ÏÌµ¤¯¡¢Èó¾ï¤Ë·ÚÁõ¤Ç¤¢¤ê½â¤â»ý¤¿¤Ê¤¤»þÂå¤Ç¤¢¤ê¡¢¥Õ¥§
-¡¡¥ó¥·¥ó¥°¤È¤¤¤¦·õ½Ñ¤Ç»È¤ï¤ì¤Þ¤·¤¿¡£½é´ü¤Ë¤ÏÊÒ¼ê¤Ë½â¤ò»ý¤Ä»ö¤â¤¢¤ê¤Þ¤·¤¿¤¬¡¢
-¡¡16À¤µª¤Ë¤Ï±¦¼ê¤Ë¥ì¥¤¥Ô¥¢¡¢º¸¼ê¤Ë¥Þ¥ó¡¦¥´¡¼¥·¥å¤È¤¤¤¦¤Î¤¬°ìÈÌÅª¤Ê¹½¤¨¤Ç¤·¤¿¡£
-¡¡µ³»Î¤¿¤Á¤Î·èÆ®¤ä¤½¤ì¤¬ÇÑ¤ì¤¿¸å¤Ïµ®Â²¡¦¿Â»Î¤¿¤Á¤Î»äÆ®¤ÎÆ»¶ñ¤È¤·¤Æ¹­¤¯ÉáµÚ
-¡¡¤·¤Þ¤·¤¿¡£
-
- ¥«¥Ã¥È¥é¥¹ (cutlass)
-¡¡¡¡Á´Ä¹¤Ï50¡Á60cm¡¢¿ÈÉý¤Ï3¡Á5cm¡¢½Å¤µ¤Ï1.2¡Á1.4kg¡£18¡Á19À¤µª¤ÎÁ¥¾è¤ê¤¿¤Á
-¡¡¤¬»ÈÍÑ¤·¤¿Åá·õ¡£ÆÃÄ§¤Ïµ¿»÷¿Ï¤È¸Æ¤Ð¤ì¤ëÀÚ¤ÃÀè¤Ç¤¹¡£µ¿»÷¿Ï¤È¤Ï´ðËÜÅª¤Ë¤ÏÊÒ
-¡¡¿Ï¤Ç¡¢ÀÚ¤ÃÀè¤«¤éÅá¿È¤Î3Ê¬¤Î1¤°¤é¤¤¤Þ¤Ç¤¬Î¾¿Ï¤Ë¤Ê¤Ã¤Æ¤¤¤ë»ö¤ò»Ø¤·¤Þ¤¹¡£¤Þ
-¡¡¤¿¡¢¿ÈÉý¤¬Èó¾ï¤Ë¹­¤¤ÅÀ¡¢¤ï¤º¤«¤ËÏÑ¶Ê¤·¤Æ¤¤¤ëÅÀ¤âÆÃÄ§¤Ç¤¹¡£¤â¤Î¤Ë¤è¤Ã¤Æ¤Ï
-¡¡·ý¤ò¸î¤ë¤¿¤á¤ÎÂç¤­¤ÊÄ×¤¬¤¢¤ë¤â¤Î¤ä¡¢Åï¡Ê¿Ï¤ÎÌµ¤¤Â¦¡Ë¤¬¥Î¥³¥®¥ê¾õ¤Ë¤Ê¤Ã¤Æ
-¡¡¤¤¤ë¤â¤Î¤Ê¤É¤¬¤¢¤ê¤Þ¤·¤¿¡£Ã¡¤­ÀÚ¤ë»ö¤òÌÜÅª¤È¤·¤Æ¤¤¤Þ¤¹¤¬¡¢µ¿»÷¿Ï¤Ë¤è¤Ã¤Æ
-¡¡ÆÍ¤­»É¤¹»ö¤ÇÂç¤­¤Ê½ý¤òÍ¿¤¨¤ë»ö¤â½ÐÍè¤Þ¤¹¡£ÊÒ¼ê¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£
-
- ¥¹¥â¡¼¥ë¡¦¥½¡¼¥É (small sword,light sword,town sword,walking sword)
-¡¡¡¡¡È¾®·õ¡É¡£Á´Ä¹¤Ï50¡Á70cm¡¢¿ÏÅÏ¤ê40¡Á60cm¡¢¿ÈÉý¤Ï1¡Á1.5cm¡¢½Å¤µ¤Ï0.51¡Á
-¡¡0.7kg¡£16À¤µª¤«¤é18À¤µª¤Ë°ìÈÌ»ÔÌ±¤ä¿Â»Î¡¢µ®Â²¤¬Æü¾ï½êÍ­¤·¤Æ¤¤¤¿Åá·õ¤Ç¤¹¡£
-¡¡ÆÃÄ§¤Ï±Ô¤¯Àí¤Ã¤¿ÀÚ¤ÃÀè¤ÈºÙ¤¯Ä¾¿È¤ÎÅá¿È¤Ç¤¹¡£Éð´ï¤È¤¤¤¦¤è¤ê¤âÆü¾ïÉÊ¤Ç¡¢µ·
-¡¡¼°ÍÑ¤äÁõ¾þÍÑ¤Î¤â¤Î¤âÂ¿¤¯¤¢¤ê¤Þ¤·¤¿¡£»äÆ®¤Ê¤É¤Ç»È¤¦ºÝ¤Ë¤ÏÊÒ¼ê¤Ç»ÈÍÑ¤·¡¢ÆÍ
-¡¡¤­»É¤·¤Þ¤¹¡£¾®·¿¤Î¥ì¥¤¥Ô¥¢¤È¤¤¤¨¤ë¤â¤Î¤Ç¡¢¥ì¥¤¥Ô¥¢Æ±ÍÍ¤ËÍÍ¡¹¤Ê·Á¤ÎÊÁ¤äÄ×
-¡¡¤¬¤¢¤ê¤Þ¤·¤¿¤·¡¢¥ì¥¤¥Ô¥¢Æ±ÍÍ¤Ë¥Õ¥§¥ó¥·¥ó¥°¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£º¸¼ê¤Ë¥Þ¥ó¡¦
-¡¡¥´¡¼¥·¥å¤ò»ý¤Ä»ö¤¬¤¢¤Ã¤¿¤Î¤â¥ì¥¤¥Ô¥¢Æ±ÍÍ¤Ç¤¹¡£ÆÃ¤Ëµ®Â²¤¬ÍÑ¤¤¤¿¤â¤Î¤ÏÊõÀÐ
-¡¡¤Ç¾þ¤ë¤Ê¤É¤È¤Æ¤â¹â²Á¤Ç¡¢ÇÉ¼ê¤ËÁõ¾þ¤µ¤ì¤¿ÊÁ¤ò»ý¤Ã¤Æ¤¤¤Þ¤·¤¿¡£
-
- ¥·¥ß¥¿¡¼ (scimitar,shamshir,simiterra,cimeterre)
-¡¡¡¡¡È»°Æü·îÅá¡É¡£Á´Ä¹¤Ï80¡Á100cm¡¢¿ÏÅÏ¤ê75¡Á90cm¡¢¿ÈÉý¤Ï2¡Á3cm¡¢½Å¤µ¤Ï1.5
-  ¡Á2kg¡£¥Ú¥ë¥·¥¢¤ÎÂåÉ½Åª¤ÊÅá·õ¤Ç¤¹¡£ÆÃÄ§¤Ï´Ë¤ä¤«¤ËÏÑ¶Ê¤·¤¿Åá¿È¤È¡¢Åá¿È¤È
-¡¡µÕÊý¸þ¤ËÏÑ¶Ê¤·¤Æ¤¤¤ëÊÁ¡¢ÊÒ¿Ï¤Ç¤¢¤ë»ö¤Ç¤¹¡£ÊÒ¼ê¤Ç°·¤¤¡¢¿¶¤ê²¼¤í¤·¤ÆÃ¡¤­»Â
-¡¡¤ë¤è¤¦¤Ëºî¤é¤ì¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢ÊÁ¤Î¡Ö¥é¥¤¥ª¥ó¤ÎÆ¬¡×¤È¸Æ¤Ð¤ì¤ëÊÁÆ¬¤¬¤³¤ÎÅá
-¡¡¤ÎÆÃÄ§¤Ç¤â¤¢¤ê¤Þ¤¹¡£¥µ¡¼¥Ù¥ë¤Îµ¯¸»¤È¤Ê¤Ã¤¿Åá¤Ç¡¢¥Ú¥ë¥·¥¢¸ì¤Ç¤Ï¥·¥ã¥à¥·¡¼
-¡¡¥ë¡È¥é¥¤¥ª¥ó¤Î¿¬Èø¡É¤È¸Æ¤Ð¤ì¤Þ¤·¤¿¡£¥·¥ß¥¿¡¼¤Ë¤Ï¥Õ¥é¥ó¥Ü¥ï¥ä¥óÍÍ¼°¡ÊÅá¿È
-¡¡¤¬ÇÈ¤¦¤Ã¤Æ¤¤¤ë·Á¾õ¡Ë¤ÎÅá¿È¤ò»ý¤Ä¤â¤Î¤â¤¢¤ê¤Þ¤·¤¿¡£
-
- ¥¿¥ë¥ï¡¼¥ë (tulwar,tegha)
-¡¡¡¡Á´Ä¹¤Ï70¡Á100cm¡¢¿ÈÉý¤ÏÌó2cm¡¢½Å¤µ¤Ï1.4¡Á1.8kg¡£16À¤µª¤Î¥¤¥ó¥É¤ÇÃÂÀ¸¤·
-¡¡¤¿¥µ¡¼¥Ù¥ë¤Î°ì¼ï¤Ç¡¢16¡Á17À¤µª¤Î¥¤¥ó¥É¡¦¥à¥¬¡¼¥ëÄë¹ñ¡¦¥È¥ë¥³¡¦¥Ú¥ë¥·¥¢¡¦
-¡¡¥â¥ó¥´¥ë¤Ê¤É¤Îµ³Ê¼¤Ë»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤ÏÊÒ¿Ï¤ÎÏÑÅá¤Ç¤¢¤ë»ö¡¢½½»ú·¿¤ÎÄ×
-¡¡¤ò»ý¤Á¥Ê¥Ã¥¯¥ë¡¦¥¬¡¼¥É¤¬¤¢¤ë»ö¤Ç¤¹¡£Åá¿È¤ÎÏÑ¶Ê¤Ï½é´ü¤Î¤â¤Î¤Ï¶ËÃ¼¤Ê¤Î¤Ç¤¹
-¡¡¤¬¡¢¸å´ü¤Ë¤Ê¤ë¤ÈÄ¾¿È¤Ë¶á¤¯¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£
-
- ¢¨Åá·õÎà¤Î»È¤¤Êý¤Ë¤Ä¤¤¤Æ
-¡¡¡¡À¾ÍÎ¤ÎÅá·õÎà¤ÏÅìÍÎ¤ÎÅá·õÎà¤È¤Þ¤Ã¤¿¤¯°ã¤Ã¤¿³µÇ°¤Ë¤è¤Ã¤Æºî¤é¤ì¡¢»È¤ï¤ì¤Æ
-¡¡Íè¤Þ¤·¤¿¡£¤Ä¤Þ¤ê¡¢ÀÚ¤ë¤Î¤Ç¤ÏÌµ¤¯¡¢Ã¡¤­»Â¤ë¤È¤¤¤¦»ö¤Ç¤¹¡£À¾ÍÎ¤ÎÅá·õÎà¤Î¿Ï
-¡¡¤Ï¤¿¤·¤«¤Ë¿Ï¤È¤·¤Æ¤ÎÀ­Ç½¤Ï¤â¤Ã¤Æ¤Ï¤¤¤Þ¤¹¤¬¡¢¤¿¤È¤¨¤ÐÆüËÜÅá¤Ê¤É¤ËÈæ¤Ù¤ë¤È
-¡¡ÀÚ¤ìÌ£¤¬¤«¤Ê¤ê°­¤¤¤È¸À¤¨¤Þ¤¹¡£À¾ÍÎ¤ÎÀï»Î¤¿¤Á¤ÏÅìÍÎ¤Î·õ»Î¤¿¤Á¤ÎÍÍ¤ËÅá·õÎà
-¡¡¤ò¤¿¤À¿¶¤ê²¼¤í¤¹¤Î¤Ç¤ÏÌµ¤¯¡¢Á´ÂÎ½Å¤ò¤«¤±¤ÆÎÏ¤ÇÃ¡¤­»Â¤í¤¦¤È¤¹¤ë¤Î¤Ç¤¹¡£¿Ï
-¡¡¤Ï¤¢¤¯¤Þ¤Ç¤½¤Î»þ¤ËÎÏ¤Î¤«¤«¤ëÌÌÀÑ¤ò¶¹¤¯¤·¤ÆÍ¿¤¨¤ëÂÇ·â¤òÂç¤­¤¯¤·¤è¤¦¤È¤¹¤ë
-¡¡¤¿¤á¤Î¤â¤Î¤Ç¤¹¡£
-¡¡¡¡¤µ¤é¤ËÀ¾ÍÎ¤ÈÅìÍÎ¤Î·õ½Ñ¤Ë¤ÏÂç¤­¤Êº¹¤¬¤¢¤ê¤Þ¤¹¡£³»¤È½â¤ÎÂ¸ºß¤Ç¤¹¡£À¾ÍÎ¤Î
-¡¡¾ì¹ç¤ÏËÉ¸æ¤Î¤Û¤È¤ó¤É¤ò½Å¤¤³»¤ÈÂç¤­¤Ê½â¤Ë°ÍÂ¸¤·¤Æ¤¤¤Þ¤¹¡£Éð´ï¤ÏÁê¼ê¤ò¹¶·â
-¡¡¤¹¤ë¤¿¤á¤Î¤â¤Î¤Ç¡¢Áê¼ê¤Î¹¶·â¤òÉð´ï¤ÇËÉ¤¤¤À¤ê¡¢¼õ¤±Î®¤·¤¿¤ê¤·¤¿¤Î¤Ï17À¤µª
-¡¡¤Ë¤Ê¤Ã¤Æ³»¤ä½â¤¬ÇÑ¤ì¤Æ¤«¤é¤Î»ö¤Ç¤¹¡£¥Õ¥§¥ó¥·¥ó¥°¤È¸Æ¤Ð¤ì¤ë·õ½Ñ¤¬¤³¤ì¤Ç¡¢
-¡¡¤½¤ì°ÊÁ°¤ËÅá·õÎà¤ÇÁê¼ê¤Î¹¶·â¤ò¼õ¤±¤¿¤ê¤¹¤ë»ö¤Ï¤Þ¤º¤¢¤ê¤Þ¤»¤ó¤Ç¤·¤¿¡£
-
-ÉàµÚ¤ÓÄÊ
-
- ¥Ó¡¼¥¯¥É¡¦¥¢¥Ã¥¯¥¹ (beaked axe)
-¡¡¡¡¡ÈÉ¦Éà¡É¡£Á´Ä¹¤ÏÌó20cm¡£¾®·¿¤ÎÊÒ¿Ï¤ÎÉà¤Ç¡¢8¡Á11À¤µª¤Î¥ô¥¡¥¤¥­¥ó¥°¤Ë¤è¤Ã
-¡¡¤Æ»ÈÍÑ¤µ¤ì¤¿³¤ÀïÍÑ¤ÎÉð´ï¤Ç¤¹¡£Ã¡¤­»Â¤ë»ö¤òÌÜÅª¤È¤·¤Æ¤ª¤ê¡¢ÊÒ¼ê¤Ç»ÈÍÑ¤µ¤ì
-¡¡¤Þ¤·¤¿¡£ÆÃÄ§¤ÏÉàÆ¬¤Î·Á¾õ¤Ç¡¢¤½¤Î²¼Â¦¤¬»Í³Ñ¤¯ÆÍµ¯¤·¤Æ¤¤¤Þ¤·¤¿¡£¤³¤ÎÆÍµ¯¤Ï
-¡¡Á¥±ï¤Ë°ú¤Ã¤«¤±¤ë¤¿¤á¤Î¤â¤Î¤Ç¤·¤¿¡£¤Þ¤¿¡¢Ä¹¤¤ÊÁ¤â¤â¤Ã¤Æ¤ª¤ê¡¢¤³¤ÎÊÁ¤ÈÆÍµ¯
-¡¡¤ÏÁ¥¤«¤éÁ¥¤Ë¾è¤ê°Ü¤ë»þ¤ËÊØÍø¤Ê¤â¤Î¤Ç¤·¤¿¡£
-
- ¥Ð¥È¥ë¡¦¥¢¥Ã¥¯¥¹ (battle axe)
-¡¡¡¡¡ÈÀïÉà¡É¡£Á´Ä¹80¡Á120cm¡¢½Å¤µ¤Ï1¡Á1.6kg¡£¿·ÀÐ´ï»þÂå¤«¤é19À¤µª½éÆ¬¤ÎÅì²¤
-¡¡¤Þ¤Ç¹­¤¯ÍÑ¤¤¤é¤ì¤¿Ã¡¤­»Â¤ë»ö¤òÌÜÅª¤È¤·¤¿Éð´ï¡£Ä¹¤¤ÊÁ¤ÎÀè¤ËÊÒ¿Ï¤Î¼êÉà¾õ¤Î
-¡¡¿Ï¤¬¤Ä¤¤¤Æ¤¤¤ë»ö°Ê³°¤¬¥á¥¤¥¹Æ±ÍÍ°ì³µ¤ËÆÃÄ§¤ò½Ò¤Ù¤ë»ö¤Ï¤Ç¤­¤Þ¤»¤ó¡£ÊâÊ¼¤Î
-¡¡Éð´ï¤ÇÎ¾¼ê¤Ç»ÈÍÑ¤·¤Þ¤¹¡£
-
- ¥Ö¥í¡¼¥É¡¦¥¢¥Ã¥¯¥¹ (broad axe)
-¡¡¡¡¡ÈÉý¹­Éà¡É¡£Á´Ä¹¤Ï1.5¡Á2m¡¢ÉàÆ¬¤ÎÄ¹¤µ¤Ï30¡Á45cm¡£8¡Á11À¤µª¤Î¥ô¥¡¥¤¥­¥ó
-¡¡¥°¤Ë¤è¤Ã¤Æ»ÈÍÑ¤µ¤ì¤¿Î¾¼êÍÑ¤ÎÊÒ¿Ï¤ÎÉà¡£ÆÃÄ§¤Ï¤½¤ÎÌ¾¤ÎÄÌ¤ê¡¢Èó¾ï¤Ë½Å¤¯Éý¹­
-¡¡¤ÎÉàÆ¬¤Ç¡¢Ã¡¤­»Â¤ë»ö¤òÌÜÅª¤Ë¤·¤Æ¤¤¤Þ¤¹¡£Åö»þ¤Î¼ç¤Ê³»¤Ç¤¢¤ë¥Á¥§¥¤¥ó¡¦¥á¥¤
-¡¡¥ë¤ò°ì·â¤Ç»Â¤êÎö¤¯°ÒÎÏ¤ò»ý¤Ã¤Æ¤¤¤Þ¤·¤¿¡£
-
- ¥°¥ì¡¼¥È¡¦¥¢¥Ã¥¯¥¹ (great axe)
-¡¡¡¡¡ÈÂçÉà¡É¡£½Å¤µ¤ÏÌó4kg¡£Î¾¿Ï¤ÎÉà¤Ç¡¢Î¾¼ê¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£¤½¤ÎÌ¾¤ÎÄÌ¤êÈó
-¡¡¾ï¤ËÂç¤­¤¯¤Æ½Å¤¤ÉàÆ¬¤ÈÄ¹¤¤ÊÁ¤¬ÆÃÄ§¤Ç¤¹¡£
-
- ¥á¥¤¥¹ (mace)
-¡¡¡¡¡ÈÄÊÌ·¡É¡£Á´Ä¹30¡Á100cm¡¢½Å¤µ¤Ï2¡Á3kg¡£µª¸µÁ°30À¤µª¤«¤é17À¤µª¤Þ¤Ç»ÈÍÑ¤µ
-¡¡¤ì¤¿²¥ÂÇÍÑ¤ÎÉð´ï¤Ç¤¹¡£¥á¥¤¥¹¤Ë¤ÏÈó¾ï¤ËÂ¿¤¯¤Î¼ïÎà¤¬¤¢¤êÆÃÄ§¤ò°ì³µ¤Ë¸À¤¦»ö
-¡¡¤Ï½ÐÍè¤Þ¤»¤ó¤¬¡¢ÊÁ¤ÎÀè¤ËÊ£»¨¤ÊÆ¬Éô¤¬¤¢¤ëÛþËÀ¤È¤¤¤Ã¤¿½ê¤Ç¤¹¡£ÂåÉ½Åª¤Ê¤â¤Î
-¡¡¤Ë¤ÏÀèÃ¼¤¬ÂÀ¤¯¤Ê¤ê»É¤ò»ý¤Ä¤â¤Î¡¢Æ±¤¸·Á¾õ¤ÎÅ´ÈÄ¤òÊü¼Í¾õ¤Ë¤Ä¤Ê¤®¹ç¤ï¤»¤¿¤â
-¡¡¤Î¡¢À±µå¤ò¤Ä¤±¤¿¤â¤Î¡Ê¥â¡¼¥Ë¥ó¥°¡¦¥¹¥¿¡¼»²¾È¡Ë¡¢¤¿¤Þ¤Í¤®·¿¤ÎÆ¬Éô¤ò»ý¤Ä¤â¤Î
-¡¡¤Ê¤É¤¬¤¢¤ê¤Þ¤¹¡£ÃæÀ¤°Ê¹ß¤Ï½ÅÁõÈ÷¤Ç¤¢¤ëµ³»Î¤ËÂÐ¤·¤Æ¾×·â¤òÍ¿¤¨¤ëÉð´ï¤È¤·¤Æ
-¡¡Â¿¤¯ÍÑ¤¤¤é¤ì¤Þ¤·¤¿¡£·õ¤Ç¤Ï»Â¤ì¤Ê¤¤³»¤â¡¢¥á¥¤¥¹¤Ë¤è¤ë¾×·â¤ÏËÉ¤°»ö¤¬½ÐÍè¤Ê
-¡¡¤¤¤Î¤Ç¤¹¡£µ³»Î¤¿¤Á¤¬»È¤Ã¤Æ¤¤¤Þ¤·¤¿¤¬¡¢¸å¤Ë¤ÏÊâÊ¼ÍÑ¤ÎÄ¹¤¤ÊÁ¤ò»ý¤Ä¥á¥¤¥¹¤â
-¡¡ºî¤é¤ì¤Æ¤¤¤Þ¤¹¡£
-
- ¥â¡¼¥Ë¥ó¥°¡¦¥¹¥¿¡¼ (morning star,morgenstern)
-¡¡¡¡¡ÈÀ±µåÄÊ¡É¡£Á´Ä¹50¡Á80cm¡¢½Å¤µ¤Ï2¡Á2.5kg¡£13À¤µª¤«¤é17À¤µª¤Îµ³»Î¤äÊ¼»Î
-¡¡¤ËºÇ¤â¹¥¤Þ¤ì¤¿Éð´ï¤Ç¤¹¡£¥á¥¤¥¹¤Î°ì¼ï¤Ç¡¢ÆÃÄ§¤ÏÆ¬Éô¤¬À±µå¤Î·Á¤ò¤·¤Æ¤¤¤ë»ö
-¡¡¤Ç¤¹¡£¤Ä¤Þ¤ê¡¢µå·Á¡¦±ßÃì·Á¡¦ÂÊ±ß·Á¤ÎÆ¬Éô¤Ë¤¤¤¯¤Ä¤â¤Î»É¤¬Êü¼Í¾õ¤ËÆÍ¤­½Ð¤Æ
-¡¡¤¤¤Þ¤¹¡£½Å¤¤³»¤òÃå¤¿µ³»Î¤äÊ¼»Î¤ËÍ­¸úÅª¤Ç¤¢¤Ã¤¿¤¿¤á¹­¤¯ÍÑ¤¤¤é¤ì¤Þ¤·¤¿¡£
-
- ¥¦¥©¡¼¡¦¥Ï¥ó¥Þ¡¼ (war hammer)
-¡¡¡¡¡ÈÀïÄÊ¡É¡£Á´Ä¹50¡Á200cm¡¢½Å¤µ¤Ï1.5¡Á3.5kg¡£6À¤µª¤Î¥¹¥­¥¿¥¤¤Îµ³Ê¼¤¿¤Á¤ä
-¡¡14À¤µª¤«¤é16À¤µª¤ÎÊâÊ¼¤Ë¤è¤Ã¤Æ»ÈÍÑ¤µ¤ì¤¿²¥ÂÇÍÑ¤ÎÉð´ï¤Ç¤¹¡£ÆÃÄ§¤ÏÆ¬Éô¤Î·Á
-¡¡¤ÇÊÒÊý¤Ë¤ÏÀí¤Ã¤¿ÄÊÆ¬¤¬¤¢¤ê¡¢È¿ÂÐÂ¦¤Ë¤ÏÀí¤Ã¤Æ¤¤¤Ê¤¤Ê¿¤é¤ÊÄÊÆ¬¤¬¤¢¤ê¤Þ¤¹¡£
-¡¡Æ¬Éô¤ÎÀè¤¬Áä¾õ¤Ë¤Ê¤Ã¤Æ¤¤¤ë¤â¤Î¤äÀÐÆÍ¤¬±Ô¤¯Àí¤Ã¤Æ¤¤¤ë¤â¤Î¤¬Â¿¤¤¤è¤¦¤Ç¤¹¡£
-¡¡ÊâÊ¼ÍÑ¤Î¤â¤Î¤Ï2m¤Û¤É¤ÎÄ¹¤¤ÊÁ¤ò»ý¤Á¡¢µ³»Î¤Î¥È¡¼¥Ê¥á¥ó¥ÈÍÑ¤¬80cm¤Û¤É¡¢µ³»Î
-¡¡¤¬ÇÏ¾å¤Ç»È¤Ã¤Æ¤¤¤¿¤â¤Î¤¬50cm¤Û¤É¤Ç¤¹¡£Â¾¤Î²¥ÂÇÍÑÉð´ïÆ±ÍÍ¤ËÅ¨¤Î³»¤òÇË²õ¤·
-¡¡¤¿¤ê¡¢³»¤Î¾å¤«¤éÅ¨¤Ë¾×·â¤òÍ¿¤¨¤ë¤¿¤á¤Ë»È¤ï¤ì¤Þ¤·¤¿¡£¥Ï¥ó¥Þ¡¼¤È¸À¤¦¤È¹º¤ò
-¡¡ÂÇ¤Ã¤¿¤ê¤¹¤ë»þ¤ÎÂç¤­¤ÊÆ¬Éô¤ò¤â¤Ä¤â¤Î¤«¡¢¥È¥ó¥«¥Á¤ÎÂç¤­¤¤¤â¤Î¤ò¥¤¥á¡¼¥¸¤·
-¡¡¤¬¤Á¤Ç¤¹¤¬¡¢¥¦¥©¡¼¡¦¥Ï¥ó¥Þ¡¼¤Ï¾×·âÅÀ¤ò¾®¤µ¤¯¤¹¤ë¤¿¤á¤Ë¥Ô¥Ã¥±¥ë¤Ë¶á¤¤Æ¬Éô
-¡¡¤ò¤â¤Ã¤Æ¤¤¤Þ¤¹¡£
-
- ¥Õ¥ì¥¤¥ë (flail)
-¡¡¡¡Á´Ä¹30¡Á50cm¡¢ÊÁ¤ÎÄ¹¤µ¤Ï15¡Á30cm¡¢½Å¤µ¤Ï1¡Á2kg¡£11¡Á12À¤µª¤Îµ³Ê¼¤Ë»È¤ï
-¡¡¤ì¤¿ÂÐµ³Ê¼ÍÑ¤Î²¥ÂÇÉð´ï¤Ç¤¹¡£ÆÃÄ§¤ÏÃ»¤¤ËÀ¡Ê¹òÊª¡Ë¤ÈÄ¹¤¤ËÀ¡ÊÊÁ¡Ë¤òº¿¤Ç¤Ä¤Ê
-¡¡¤¤¤Ç¤¤¤ë¤È¤¤¤¦ÅÀ¤Ç¤¹¡£ÊÁ¤ò¤â¤Ã¤Æ¿¶¤ê²ó¤·¡¢¹òÊª¤Ë²ÃÂ®¤ò¤Ä¤±¤ÆÂÇ·âÎÏ¤òÁý¤¹
-¡¡¤È¤¤¤¦»È¤¤Êý¤ò¤·¤Þ¤¹¡£¹òÊª¤ÎÊý¤Ï¶âÂ°À½¤Ç¤¢¤Ã¤¿¤ê¡¢ÌÚÀ½¤Ç¤¢¤Ã¤Æ¤â»É¤¬Êü¼Í
-¡¡¾õ¤ËÆÍ¤­½Ð¤Æ¤¤¤¿¤ê¡¢¶âÂ°¤ÇÊä¶¯¤µ¤ì¤¿¤ê¤È°ÒÎÏ¤òÁý¤¹¤¿¤á¤Î¹©É×¤¬¤Ê¤µ¤ì¤Æ¤¤
-¡¡¤ë»ö¤¬Â¿¤¤¤è¤¦¤Ç¤¹¡£
-
- ¥Ü¡¼¥ë¡¦¥¢¥ó¥É¡¦¥Á¥§¥¤¥ó (ball-and-chain) ¡ãº¿¤Ä¤­Å´µå¡ä
-¡¡¡¡Á´Ä¹50¡Á80cm¡¢½Å¤µ¤Ï1¡Á1,5kg¡£¥Õ¥ì¥¤¥ë¤Î°ì¼ï¤Ç¡¢¹òÊª¤ÎÉôÊ¬¤¬¶âÂ°À½¤ÎÀ±
-¡¡µå¤Ë¤Ê¤Ã¤Æ¤ª¤ê¡¢¥Õ¥ì¥¤¥ë¤è¤ê¤âÄ¹¤¤º¿¤ÇÊÁ¤Ë¸ÇÄê¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¥â¡¼¥Ë¥ó¥°¡¦
-¡¡¥¹¥¿¡¼¤Èº®Æ±¤µ¤ì¤Æ¡¢¤½¤¦¸Æ¤Ð¤ì¤ë»ö¤â¤¢¤ê¤Þ¤¹¡£»ÈÍÑË¡¤Ê¤É¤Ï¥Õ¥ì¥¤¥ë¤È¤Û¤È
-¡¡¤ó¤ÉÊÑ¤ï¤ê¤Þ¤»¤ó¡£
-
- ¥È¥¥¡¼¡¦¥Ï¥ó¥Ç¥Ã¥É¡¦¥Õ¥ì¥¤¥ë (two-handed flail) ¡ãÎ¾¼êÍÑ¥Õ¥ì¥¤¥ë¡ä
-¡¡¡¡Á´Ä¹160¡Á200cm¡¢ÊÁ¤ÎÄ¹¤µ¤Ï120¡Á150cm¡¢½Å¤µ¤Ï2.5¡Á3,5kg¡£13À¤µª¤«¤é20À¤
-¡¡µª½éÆ¬¤Þ¤Ç¤ÎÊâÊ¼¤Ë»È¤ï¤ì¤¿ÂÐµ³Ê¼ÍÑ¤Î²¥ÂÇÉð´ï¤Ç¤¹¡£¥Õ¥ì¥¤¥ë¤È¤Î°ã¤¤¤¬ÊÁ¤Î
-¡¡Ä¹¤µ¤Ç¤¹¡£Î¾¼ê¤Ç»ÈÍÑ¤¹¤ë¤¿¤á¤ËÈó¾ï¤ËÄ¹¤¯¡¢¤è¤êÂç¤­¤Ê°ÒÎÏ¤òÀ¸¤ß½Ð¤·¤Þ¤¹¡£
-¡¡ÈóÎÏ¤ÊÊâÊ¼¤Ç¤â½½Ê¬¤Ë½ÅÁõÈ÷¤Îµ³»Î¤ËÂÇ·â¤òÍ¿¤¨¤ë»ö¤¬½ÐÍè¤ë¤¿¤á14À¤µª¤Ë¤Ï¹­
-¡¡¤¯ÍÑ¤¤¤é¤ì¤Þ¤·¤¿¡£
-
- ¥¯¥©¡¼¥¿¡¼¥¹¥¿¥Ã¥Õ (quarterstaff)
-¡¡¡¡¡ÈÏ»¼ÜËÀ¡É¡£Á´Ä¹¤Ï180cm¡¢½Å¤µ¤ÏÌó1.4kg¡£¥¤¥®¥ê¥¹¤ÎÇÀÌ±¤¿¤Á¤¬»È¤Ã¤¿²¥ÂÇ
-¡¡ÍÑ¤ÎÉð´ï¤Ç¤¹¡£¤¿¤À¤ÎÌÚÀ½¤ÎËÀ¤Ç¤¹¤¬¡¢Í£°ìÆÃÄ§¤È¸À¤¨¤ë¤Î¤Ï¡¢Î¾Ã¼¤¬¶âÂ°¤ÇÊä
-¡¡¶¯¤µ¤ì¤Æ¤¤¤ë¤È¤¤¤¦ÅÀ¤Ç¤¹¡£ÄÌ¾ï¤ÏÊÒÊý¤ÎÃ¼¤À¤±¤Ç¤ÏÌµ¤¯Î¾Ã¼¤òÍøÍÑ¤·¤Æ»È¤ï¤ì
-¡¡¤Þ¤¹¡£½ÏÎý¤·¤¿¥¯¥©¡¼¥¿¡¼¥¹¥¿¥Ã¥Õ¤Î»È¤¤¼ê¤ÏÎ¾Ã¼¤ò¤¦¤Þ¤¯ÍøÍÑ¤·¤Æ¼«Í³¼«ºß¤Ê
-¡¡¹¶·â¤¬²ÄÇ½¤Ç¤·¤¿¡£¤¿¤À¤·¡¢¤³¤ÎÉð´ï¤Î¼åÅÀ¤Ïºà¼Á¤¬ÌÚ¤Ç¤¢¤ëÅÀ¤Ç¡¢³»¤òÃå¤Æ¤¤
-¡¡¤ëÁê¼ê¤Ë¤Ï¤Þ¤Ã¤¿¤¯¸ú²Ì¤¬¤Ê¤¤¾å¡¢Å´À½¤ÎÉð´ï¤Ë¤è¤Ã¤Æ´ÊÃ±¤ËÇË²õ¤µ¤ì¤Æ¤·¤Þ¤¦
-¡¡¤Î¤Ç¤¹¡£
-
- ¥¦¥£¥Ã¥× (whip) ¡ã¥à¥Á¡ä
-¡¡¡¡¡ÈÊÜ¡É¡£Á´Ä¹¤Ï80¡Á100cm¡¢½Å¤µ¤Ï0.5¡Á1kg¡£³×¤Ç¤Ç¤­¤¿É³¾õ¤ÎÉð´ï¤Ç¤¹¡£¾¯¤·
-¡¡¹Å¤¯¤Ê¤Ã¤Æ¤¤¤ëÊÁ¤ÎÉôÊ¬¤ò»ý¤Ã¤Æ¿¶¤ê²ó¤¹»ö¤Ç¡¢ÀèÃ¼¤ËÂÇ·âÎÏ¤òÍ¿¤¨¤Þ¤¹¡£Ã¡¤¯
-¡¡¤¿¤á¤ÎÉð´ï¤Ç¤¹¤¬¡¢½ÏÎý¤·¤¿¼Ô¤¬»È¤¨¤ÐÁê¼ê¤òÍí¤á¤ë»ö¤â²ÄÇ½¤Ç¤¹¡£Éð´ï¤È¤·¤Æ
-¡¡¤Ï°ìÈÌÅª¤Ç¤ÏÌµ¤¯¡¢ËÜÍè¤ÏËÒÃÜ¤Ê¤É¤Ç»ÈÍÑ¤µ¤ì¤Æ¤¤¤¿ÇÀ¶ñ¤Ç¤¹¡£¶áÂå¤Ë¤ÏÅÛÎì¤Ë
-¡¡ÂÐ¤·¤Æ»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£
+ ƒ}ƒ“EƒS[ƒVƒ… (main gauche,parrying dagger)
+    ‘S’·‚Í30`50cmAg•‚Í1`3cmAd‚³‚Í0.3`0.5kgB–hŒä—p‚Ìƒ_ƒK[‚Æ‚µ‚Ä15¢
+@‹I––‚©‚ç19¢‹I‚Ü‚ÅŽ„“¬‚É‚¨‚¢‚ÄŽg—p‚³‚ê‚½’ZŒ•‚Å‚·B’ÊíƒtƒFƒ“ƒVƒ“ƒO‚Æ‚¢‚¤Œ•
+@p‚É‚¨‚¢‚ÄŽg‚í‚êA¶Žè‚ÅŽg—p‚³‚ê‚Ü‚µ‚½Bƒ}ƒ“EƒS[ƒVƒ…g¶Žèh‚Æ‚¢‚¤–¼‚Í‚»
+  ‚±‚©‚ç—ˆ‚Ä‚¢‚Ü‚·B‚»‚ÌÛ‚É‚Í‰EŽè‚Å‚ÍƒŒƒCƒsƒA‚à‚µ‚­‚ÍƒXƒ‚[ƒ‹Eƒ\[ƒh‚ªŽg‚í
+@‚ê‚Ü‚µ‚½B“Á’¥‚Íd‚¢“g‚ÆA’·‚­‚Ä^‚Á’¼‚®‚È’Õ–”‚Í•¿‚©‚ç“g‚ÉŒü‚©‚Á‚ÄŒƒ‚µ
+@‚­˜p‹È‚µ‚½’Õ‚Å‚·B‚»‚Ì’Õ‚Æ“g‚ð—˜—p‚µ‚Ä‘ŠŽè‚ÌUŒ‚‚ðŽó‚¯—¬‚µ‚½‚èA‘ŠŽè‚ÌŒ•
+@‚ð‚©‚ç‚ß•ß‚Á‚½‚è‚·‚é‚½‚ß‚É—p‚¢‚ç‚ê‚Ü‚µ‚½B‚à‚¿‚ë‚ñA‘ŠŽè‚ÌŒ•‚ÍƒŒƒCƒsƒA‚à‚µ
+@‚­‚ÍƒXƒ‚[ƒ‹Eƒ\[ƒh‚Å‚µ‚½‚Ì‚ÅA‚»‚ê‚æ‚è‚àd‚¢•Ší‚ðŽó‚¯‚éŽ–‚Í‚Ü‚¸•s‰Â”\‚Å
+@‚·B‚±‚Ì’ZŒ•‚Íƒtƒ‰ƒ“ƒXˆÈŠO‚Å‚ÍƒpƒŠ[ƒCƒ“ƒOEƒ_ƒK[gŽó‚¯—¬‚µ—p’ZŒ•h‚ÆŒÄ‚Î
+@‚êA“g‚ª3–{‚ ‚é‚à‚ÌA“g‚ª‹ùó‚Ì‚à‚Ìi“Á‚Éƒ\[ƒhEƒuƒŒƒCƒJ[‚ÆŒÄ‚Î‚ê‚Ü
+@‚·jAƒJƒbƒv‚ÌŒ`‚ð‚µ‚½’Õ‚ª‚ ‚é‚à‚Ì‚È‚Ç—lX‚ÈŒ`‚Ì‚à‚Ì‚ª‚ ‚è‚Ü‚µ‚½B
 
 
-ËÈÁäÎà
+“Œ•—Þ
 
- ¥¹¥Ô¥¢¡¼ (spear)
-    ºÇ¤âµ¯¸»¤Î¸Å¤¤Áä¡£Á´Ä¹¤Ï0.8¡Á3m¡¢½Å¤µ¤Ï1.2¡Á3.5kg¡£Ä¹¤µ¤Ë¤è¤Ã¤Æ¥·¥ç¡¼¥È¡¦
-¡¡¥¹¥Ô¥¢¡¼¤È¥í¥ó¥°¡¦¥¹¥Ô¥¢¡¼¤ËÊ¬Îà¤µ¤ì¡¢ÍÑÅÓ¤â°ã¤¤¤Þ¤¹¡£ÆÃÄ§¤ÏÌÚÀ½¤ÎÊÁ¤ÎÀè¤Ë
-¡¡ÀÐÀ½¤â¤·¤¯¤Ï¶âÂ°À½¤ÎÊæÀè¤¬¤¢¤ë»ö¤ÇÆÍ¤­»É¤·ÍÑ¤ÎÉð´ï¤Ç¤¹¡£¥·¥ç¡¼¥È¡¦¥¹¥Ô¥¢¡¼
-¡¡¤Ï2m°Ê²¼¤Î¥¹¥Ô¥¢¡¼¤Ç¡¢ÀÐ´ï»þÂå¤«¤é¼íÎÄ¤äÀïÆ®¤Ç»È¤ï¤ì¤Æ¤¤¤Þ¤·¤¿¡£ÊÒ¼êÍÑ¤Ç¡¢
-¡¡ÆÍ¤­»É¤·¤Æ»È¤¦°Ê³°¤ËÃ»µ÷Î¥¤Ç¤¢¤ì¤ÐÅêÚ³¤¹¤ë»ö¤ò²ÄÇ½¤Ç¤·¤¿¡£¸ÅÂå¥Ò¥Ã¥¿¥¤¥È
-¡¡¤Ç¤Ï½â¤È¥·¥ç¡¼¥È¡¦¥¹¥Ô¥¢¡¼¤ò»ý¤Ã¤¿Ê¼»Î¤Ë¤è¤ë½¸ÃÄÀï½Ñ¤¬ÃÂÀ¸¤·¤Æ¤¤¤Þ¤¹¡£°ìÊý¡¢
-¡¡¥í¥ó¥°¡¦¥¹¥Ô¥¢¡¼¤Ï2m°Ê¾å¤Î¥¹¥Ô¥¢¡¼¤Ç¡¢¥·¥ç¡¼¥È¡¦¥¹¥Ô¥¢¤ÎÀï½Ñ¤¬³ÎÎ©¤·¤¿¸å¤Ë
-¡¡À¸¤Þ¤ì¤¿Éð´ï¤Ç¤¹¡£ÀÜ¶áÀï¤ÇÁê¼ê¤è¤êÁá¤¯¹¶·â¤òÅö¤Æ¤ë¤¿¤á¤Ë¥¹¥Ô¥¢¡¼¤¬Ä¹¤¯¤Ê¤Ã
-¡¡¤¿·ë²Ì¡¢¸ÅÂå¥·¥å¥á¡¼¥ë¤ÇÃÂÀ¸¤·¤Þ¤·¤¿¡£Î¾¼ê¤Ç»È¤¤¡¢¹ø¤À¤á¤Ë¹½¤¨¤Æ»ÈÍÑ¤µ¤ì
-¡¡¤Þ¤·¤¿¡£ÃæÀ¤¤Ë¤Ï¤â¤Ã¤ÈÍ­¸úÅª¤ÊÉð´ï¤ÎÅÐ¾ì¤Ë¤è¤Ã¤Æ¥¹¥Ô¥¢¡¼¤Î»ÈÍÑ¤ÏÇÑ¤ì¤Æ¤·
-¡¡¤Þ¤¤¤Þ¤·¤¿¤¬¡¢ËÈÁäÎà¤Î´ðËÜ¤È¤Ê¤ê¶¯¤¤±Æ¶Á¤òÍ¿¤¨¤Æ¤¤¤Þ¤¹¡£
+ ƒVƒ‡[ƒgEƒ\[ƒh (short sword)
+@@g’Z‚¢Œ•hB‘S’·‚Í70`80cmAg•‚Í2`5cmAd‚³‚Í0.8`1.8kgB14`16¢‹I‚Ì
+@d‘••à•º‚ª—p‚¢‚½“Œ•‚Å‚·B“Á’¥‚Íg•‚ªL‚¢Ž–AØ‚Áæ‚ª‰s‚­ë‚Á‚Ä‚¢‚éŽ–A‚»
+@‚µ‚Ä–¼‘O‚ÌŒ³‚É‚È‚Á‚½‚æ‚¤‚É’Z‚¢i80cmˆÈ‰ºjŽ–‚Å‚·B‚±‚ê‚ÍƒVƒ‡[ƒgEƒ\[ƒh‚ª
+@d‘••à•º“¯Žm‚Ì”’•ºí‚ÅŽg—p‚³‚êAä•v‚Å‚ ‚éŽ–A’@‚«Ža‚é‚æ‚è‚àŠZ‚ð’…‚½‘ŠŽè‚É
+@‘å‚«‚È‚ð•‰‚í‚¹‚éŽ–‚ªo—ˆ‚é“Ë‚«Žh‚µ‚ªo—ˆ‚éŽ–Al‚ª–§W‚µ‚Ä‚¢‚é’†‚ÅU‚è‰ñ
+@‚µ‚Ä‚à–¡•û‚ðŽa‚ç‚È‚¢’ö“x‚Ì’Z‚³‚Å‚ ‚éŽ–‚Ì3“_‚ªdŽ‹‚³‚ê‚½‚½‚ß‚Å‚·B•ÐŽè‚ÅŽg
+@—p‚³‚ê‚Ü‚µ‚½B
 
- ¥È¥é¥¤¥Ç¥ó¥È (trident,fuscina,fucinula)
-    ¡È»°ºµÁä¡É¡£Á´Ä¹¤Ï1.5¡Á1.8m¡¢½Å¤µ¤Ï2¡Á2.5kg¡£¥¹¥Ô¥¢¡¼¤ÈÆ±»þ´ü¤ËµùÎÄÍÑ¤Î
-¡¡Æ»¶ñ¤«¤éÇÉÀ¸¤·¤¿Éð´ï¤È¸À¤ï¤ì¡¢¸ÅÂå¥í¡¼¥Þ¤Î·õÆ®»Î¤ä¥¬¥ì¡¼Á¥¤ÎÁ¥¾è¤ê¡¢¥í¡¼
-¡¡¥Þ»þÂå°Ê¹ß¤ÎÇÀÌ±Ê¼¤Ê¤É¤Ë»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤ÏÁä¾õ¤ÎÊæÀè¤¬3ËÜ¤Ê¤é¤ó¤ÇÊÁ
-¡¡¤ÎÀè¤Ë¤Ä¤¤¤Æ¤¤¤ë»ö¤Ç¤¹¡£°ìÈÌÅª¤Ê»ÈÍÑË¡¤Ï±¦¼ê¤Ë¥È¥é¥¤¥Ç¥ó¥È¤ò»ý¤Á¡¢º¸¼ê¤Ë
-¡¡ÌÖ¤ò»ý¤Ã¤Æ¡¢ÌÖ¤ÇÁê¼ê¤òÊá¤é¤¨¤ÆÆ°¤±¤Ê¤¯¤·¤Æ¤«¤é¥È¥é¥¤¥Ç¥ó¥È¤Ç»É¤·»¦¤¹¤È¤¤
-¡¡¤¦¤â¤Î¤Ç¤·¤¿¡£
+ ƒƒ“ƒOEƒ\[ƒh (long sword)
+@@g’·Œ•hB‘S’·‚Í80`95cmAg•‚Í‰Šú‚Ì‚à‚Ì‚ª3`5cmAŒãŠú‚Ì‚à‚Ì‚ª2`3cmA
+@d‚³‚Í1.5`2kgB11¢‹I‚©‚ç16¢‹I‚Ì‹RŽmE‹R•º’B‚ª”nã‚ÅŽg—p‚µ‚½“Œ•‚ÅA“Á’¥
+@‚Í’¼g‚Å‚ ‚éŽ–AØ‚Áæ‚ª‰s‚¢Ž–A—¼n‚Å‚ ‚éŽ–‚Å‚·B•ÐŽè‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B‰
+  Šú‚Ì‚à‚Ì‚Í‹Zp“I‚É“g‚ð”–‚­‚·‚éŽ–‚ªo—ˆ‚È‚©‚Á‚½‚Ì‚Å’@‚«Ža‚é‚Æ‚¢‚¤Žg‚¢•û‚ð
+@‚³‚ê‚Ü‚µ‚½‚ªAŒãŠú‚Ì‚à‚Ì‚Í\•ª‚É”–‚­‚·‚éŽ–‚à‰s‚¢Ø‚Áæ‚ð‚Â‚¯‚éŽ–‚ð‰Â”\‚Å‚ 
+@‚Á‚½‚Ì‚ÅØ‚éŽ–‚à“Ë‚«Žh‚·Ž–‚à‰Â”\‚Å‚µ‚½B
 
- ¥é¥ó¥¹ (lance,coronel)
-    Á´Ä¹¤Ï2.5¡Á4.2m¡¢½Å¤µ¤Ï3.5¡Á10kg¡£16À¤µª¤«¤é19À¤µªËö¤Þ¤Ç¤Îµ³Ê¼¤Ë¤è¤Ã¤Æ
-¡¡»ÈÍÑ¤µ¤ì¤¿ÆÍ·âÍÑ¤ÎÁä¤Ç¤¹¡£¤Þ¤¿¡¢13À¤µª¤«¤é17À¤µª¤Î¥È¡¼¥Ê¥á¥ó¥È¤Î¥¸¥ç¥¹¥È
-¡¡¤Ç¤â»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£¥é¥ó¥¹¤ÏÂç¤­¤¯Ê¬¤±¤Æ¼ÂÀïÍÑ¤È¥¸¥ç¥¹¥ÈÍÑ¡¢Åì²¤¤ÇÍÑ¤¤¤é
-¡¡¤ì¤¿¥¿¥¤¥×¤Î3¼ïÎà¤¬¤¢¤ê¤Þ¤¹¡£ÆÃÄ§¤Ï¤½¤Î¥¿¥¤¥×¤´¤È¤Ë°ã¤¤¤¬¤¢¤ë¤Î¤Ç¤¹¤¬¡¢
-¡¡¤À¤¤¤À¤¤¤Î½ê¡¢±Ô¤¤»°³Ñ¿í¤Î·Á¤ò¤·¤Æ¤ª¤ê¡¢Âç¤­¤¯¹­¤¬¤Ã¤¿¸î·ý¤ò»ý¤Á¡¢°®¤ê¤Î
-¡¡ÉôÊ¬¤¬ºÙ¤¯¡¢¤½¤·¤Æ¤½¤Î¸å¤í¤Ë¥Ð¥é¥ó¥¹¤òÀ°¤¨¤ë¤¿¤áÂÀ¤¯¤Ê¤Ã¤¿ÉôÊ¬¤¬¤¢¤ê¤Þ¤¹¡£
-¡¡¤É¤Î¥¿¥¤¥×¤âÊÒ¼ê¤ÇÊú¤¨¤ë¤è¤¦¤Ë¸ÇÄê¤·¤Æ»ÈÍÑ¤·¤Þ¤·¤¿¡£ÁäÀè¤Ï¼ÂÀïÍÑ¤ÏÁä¾õ¡¢
-¡¡¥¸¥ç¥¹¥ÈÍÑ¤¬3¤Ä¤ÎÄÞ¤ò»ý¤Ã¤¿²¦´§¾õ¤Ç¤¹¡£¥¸¥ç¥¹¥ÈÍÑ¤Î¥é¥ó¥¹¤ÏÁê¼ê¤òÇÏ¾å¤«
-¡¡¤éÍî¤È¤¹»ö¤À¤±¤¬ÌÜÅª¤Ê¤Î¤Ç¡¢¾×·â¤ò¤è¤ê¶¯¤¯Í¿¤¨¤Æ¡¢°ìÊý½ý¤òÉé¤ï¤»¤Ê¤¤¤è¤¦
-¡¡¤Ë¤¹¤ë¤¿¤á¤Ë¤³¤Î¤è¤¦¤ÊÁäÀè¤ò¤·¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢ÊÁ¤Ë½Ä¹Â¤¬¤¢¤êÀÞ¤ì¤ä¤¹¤¯¤Ê¤Ã
-¡¡¤¿¤â¤Î¤â¤¢¤ê¤Þ¤·¤¿¡£°ìÊý¡¢Åì²¤¤Î¥é¥ó¥¹¤Ï¥Ñ¥¤¥¯¤ÎÍÍ¤ËÈó¾ï¤ËÄ¹¤¤ÊÁ¤Ë±Ô¤¤Êæ
-¡¡Àè¤ò»ý¤Ä¡¢¤è¤ê¼ÂÀïÅª¤Ê¤â¤Î¤Ç¤¹¡£¤Á¤Ê¤ß¤Ë7À¤µª¤«¤é13À¤µª¤Þ¤Ç¤Îµ³»Î¤Ë»ÈÍÑ¤µ
-¡¡¤ì¤¿¥é¥ó¥¹¤Ï¥í¥ó¥°¡¦¥¹¥Ô¥¢¡¼¤ÈÊÑ¤ï¤é¤Ê¤¤¤â¤Î¤Ç¡¢µ³¾è¤·¤ÆÆÍ·â¤¹¤ë»þ¤Ë»È¤¦Ä¹
-¡¡Áä¤ò¥é¥ó¥¹¤È¸Æ¤ó¤Ç¤¤¤Þ¤·¤¿¡£
+ ƒuƒ[ƒhEƒ\[ƒh (broad sword,heavy millitary sword,schiavona,reiterpallasch)
+@@gLnŒ•hB‘S’·‚Í70`80cmAg•‚Í3`4cmAd‚³‚Í1.4`1.6kgB17¢‹I‚©‚ç18
+@¢‹I‚É‹R•º‚â•à•º‚ÉŽg‚í‚ê‚½ŒRŽ–—pdŒ•‚Å‚·B“Á’¥‚Í’¼g‚Å‚ ‚éŽ–A—¼n‚Å‚ ‚éŽ–
+@‚Å’@‚«Ža‚éŽ–‚ð–Ú“I‚Æ‚µ‚Ä‚¢‚Ü‚·B‚Ü‚½AŒ‚ðŒì‚é‚½‚ß‚Ì—lX‚ÉH•v‚³‚ê‚½•¿‚ª‚ 
+@‚é“_‚à“Á’¥‚Ì‚P‚Â‚Å‚·B’†¢‚ÉŽg‚í‚ê‚½Œ•‚É”ä‚×•Ê’i•L‚¢“g‚ðŽ‚Á‚Ä‚¢‚é–ó‚Å
+@‚Í‚ ‚è‚Ü‚¹‚ñ‚ªA“–Žž‚ÌŽå—¬‚Ì“Œ•‚Å‚ ‚Á‚½ƒŒƒCƒsƒA‚Æ”ä‚×‚ê‚Î‚©‚È‚è•L‚Èn‚Æ
+@Œ¾‚¦‚é‚Ì‚Åƒuƒ[ƒhEƒ\[ƒh‚Æ–¼•t‚¯‚ç‚ê‚Ü‚µ‚½B•ÐŽè‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B‹R•º‚ª
+@—p‚¢‚éê‡‚ÍƒT[ƒxƒ‹‚Ì‚æ‚¤‚È‹R•º“ËŒ‚‚É‚Í—p‚¢‚ç‚ê‚¸A‹R•ºE•à•º‚Ì“ü‚è—‚ê‚½
+@—í‚É‚¨‚¢‚ÄŽg—p‚³‚ê‚Ü‚µ‚½B
 
- ¥Ñ¥¤¥¯ (pike,pique)
-    Á´Ä¹¤Ï5¡Á7m¡¢ÊæÀè¤ÏÌó25cm¡¢½Å¤µ¤Ï3.5¡Á5kg¡£15À¤µª¤«¤é17À¤µªËö¤ËÊâÊ¼¤Ë
-¡¡¤è¤Ã¤Æ»È¤ï¤ì¤¿ÂÐµ³Ê¼ÍÑ¤ÎÄ¹Áä¤Ç¤¹¡£ÆÍ¤­»É¤¹¤¿¤á¤ÎÉð´ï¤Ç¤¹¤¬¡¢µ³»Î¤ËÂÐ¤¹¤ë
-¡¡°Ò³Å¤È¤·¤ÆÀäÂç¤Ê¸ú²Ì¤ò»ý¤Á¤Þ¤·¤¿¡£Î¾Â­¤ÈÎ¾¼ê¤ò»È¤Ã¤ÆÊæÀè¤¬µ³»Î¤Î¹â¤µ¤Ë¤Ê
-¡¡¤ë¤è¤¦¤Ë¸ÇÄê¤·¤Æ¹½¤¨¡¢ÆÍ·â¤·¤Æ¤¯¤ëµ³Ê¼¤Ë¸þ¤±¤Æ»ÈÍÑ¤·¤Þ¤¹¡£µ³Ê¼¤Î»ý¤Ä¥é¥ó
-¡¡¥¹¤è¤ê¤âÄ¹¤¤¥ê¡¼¥Á¤ò»ý¤Ä¤¿¤á¤Ëµ³Ê¼¤ÏÆÍ·â¤ò¤¿¤á¤é¤¤¤Þ¤¹¤·¡¢¤â¤·ÆÍ·â¤·¤ÆÍè
-¡¡¤¿¾ì¹ç¤ÏÁê¼ê¤ÎÀª¤¤¤òÍøÍÑ¤·¤ÆÂç¤­¤ÊÂÇ·â¤òÍ¿¤¨¤ë»ö¤¬²ÄÇ½¤Ç¤·¤¿¡£¸å´ü¤Ë¤Ï¥Þ
-¡¡¥¹¥±¥Ã¥È½Æ¤òÁõÈ÷¤·¤¿ÉôÂâ¤¬ÃÆ´Ý¤ò¹þ¤á¤Æ¤¤¤ë´Ö¤Ë±ç¸î¤¹¤ëÊâÊ¼ÉôÂâ¤Ë¤è¤Ã¤Æ»È
-¡¡ÍÑ¤µ¤ì¤Þ¤·¤¿¡£
+ ƒoƒXƒ^[ƒhEƒ\[ƒh (bastard sword,hand-and-a-half sword)
+@@‘S’·‚Í115`140cmAg•‚Í2`3cmAd‚³‚Í2.5`3kgB13¢‹I‚©‚ç17¢‹I‚Ì‹RŽm’B
+@‚ªŽg‚Á‚½‘åŒ^‚Ì“Œ•‚ÅA’@‚«Ža‚éŽ–‚Æ“Ë‚«Žh‚·Ž–‚Ì—¼•û‚ð–Ú“I‚Æ‚µ‚Ä‚¢‚Ü‚·B•ÐŽè
+@‚Å‚à—¼Žè‚Å‚àŽg‚¦‚éŽ–‚©‚çƒoƒXƒ^[ƒhEƒ\[ƒhg•ÐŽèŒ•‚É‚à—¼ŽèŒ•‚É‚à—ÞŽ—‚µ‚½Œ•h
+@‚ÆŒÄ‚Î‚ê‚Ü‚µ‚½B‹RŽm‚½‚¿‚Í‚±‚ÌŒ•‚Æ‚‚ðŽ‚Á‚Äí‚¢A‚¢‚´‚Æ‚È‚Á‚½‚ç‚‚ðŽÌ‚Ä‚Ä
+@—¼Žè‚ÅƒoƒXƒ^[ƒhEƒ\[ƒh‚ðŽg‚¢ŸÓg‚ÌˆêŒ‚‚ð‘ŠŽè‚É—^‚¦‚é‚Æ‚¢‚¤í–@‚ÅŽg‚¢‚Ü‚µ
+@‚½B—¼ŽèŒ•‚Æ‚Ì·‚Í“g‚ª’·‚·‚¬‚È‚¢‚½‚ß‚É‚æ‚è‹@“®«‚ª•Û‚Ä‚éŽ–A•ÐŽèŒ•‚Æ‚Ì·
+@‚Í—¼Žè‚ÅŽ‚Â‚½‚ß‚É•¿‚ª”ñí‚É’·‚¢i30`40cmjŽ–‚ª‹“‚°‚ç‚ê‚é‚Å‚µ‚å‚¤B‹RŽm‚½
+@‚¿‚Í‚±‚ÌŒ•‚ð˜‚É‰º‚°‚Ä‚¢‚Ü‚µ‚½B
 
- ¥ª¥¦¥ë¡¦¥Ñ¥¤¥¯ (awl-pike)
-    ¡ÈÆÍ¤­¿íÁä¡É¡£Á´Ä¹¤Ï2.5¡Á3m¡¢ÊæÀè¤Ï80¡Á100cm¡¢½Å¤µ¤Ï2.5¡Á3kg¡£13À¤µª¤«¤é
-¡¡16À¤µª¤ÎÊâÊ¼¤Ë¤è¤Ã¤Æ»È¤ï¤ì¤¿ÂÐµ³Ê¼ÍÑ¤ÎÄ¹Áä¤Ç¤¹¡£ÆÃÄ§¤Ï¶ËÃ¼¤ÎÄ¹¤¯¡¢¿í¤Î¤è
-¡¡¤¦¤ËºÙ¤¯±Ô¤¯Àí¤Ã¤Æ¤¤¤ëÊæÀè¤È¡¢ÊæÀè¤Îº¬ËÜ¤Ë¤¢¤ë±ß·Á¤ÎÄ×¤Ç¤¹¡£ÊæÀè¤¬Ä¹¤¯±Ô
-¡¡¤¤¤Î¤Ï¡¢13À¤µª¤Îµ³»Î¤¿¤Á¤Ï¥Û¥¦¥Ð¡¼¥¯¤È¤¤¤¦º¿Öé»Ò¤ÇÁ´¿È¤òÊ¤¤Ã¤Æ¤¤¤¿¤Î¤Ç¡¢
-¡¡¤½¤Îº¿¤Î·ä´Ö¤«¤éµ³»Î¤ò»É¤·»¦¤¹¤¿¤á¤Ç¤¹¡£±ß·Á¤ÎÄ×¤ÏÊæÀè¤¬É¬Í×°Ê¾å¤Ë»É¤µ¤ê
-¡¡¤¹¤®¤Ê¤¤¤¿¤á¡¢¤Þ¤¿Áê¼ê¤Î¹¶·â¤òÄ×¤Ç¼õ¤±¤È¤á¤ë¤¿¤á¤Î¤â¤Î¤Ç¤¹¡£¤¿¤À¤·¡¢¤¢¤Þ
-¡¡¤ê¼ÂÍÑÅª¤ÊÉð´ï¤Ç¤Ï¤Ê¤¯¡¢¥Û¥¦¥Ð¡¼¥¯¤òÃå¤Æ¤¤¤Ê¤¤Å¨¤òÁê¼ê¤Ë¤¹¤ë¾ì¹ç¤Ë¤Ï°ÕÌ£
-¡¡¤Î¤Ê¤¤Éð´ï¤È¸À¤¨¤Þ¤¹¡£
+ ƒgƒD[Eƒnƒ“ƒfƒbƒhEƒ\[ƒh (two-handed sword,zweihander) ƒ—¼Žè—pƒ\[ƒh„
+@@g—¼ŽèŒ•hB‘S’·‚Í180`200cmAg•‚Í4`8cmAd‚³‚Í2.9`6.5kgB13¢‹I‚©‚ç
+  16¢‹I‚É•à•º‚É‚æ‚Á‚ÄŽg—p‚³‚ê‚½‘åŒ^‚Ì“Œ•‚Å‚·B“g‚Ìd‚³‚ð—˜—p‚µ‚Ä’@‚«Ža
+@‚éŽ–‚ð–Ú“I‚É‚µ‚Ä‚¢‚Ü‚·‚ªAˆê‰žØ‚Áæ‚ª‚ ‚è“Ë‚«Žh‚·Ž–‚à‰Â”\‚Å‚·B“Á’¥‚Í‚»‚Ì
+@’·‚³‚Æd‚³A’¼g‚Å‚ ‚éŽ–A—¼Žè‚ÅŽg—p‚·‚é‚½‚ß‚É•¿‚ª”ñí‚É’·‚¢i30`50cmjŽ–
+@‚Å‚·B‚ ‚Ü‚è‚É’·‚­d‚¢‚½‚ßŽg‚¢‚±‚È‚·‚É‚Í‚©‚È‚è‚Ìn—û‚ª•K—v‚Å‚µ‚½B‚±‚ÌŒ•‚ð
+@Žg—p‚·‚é•ºŽm’B‚Í‚ ‚Ü‚è‚Ì’·‚³‚ÉA˜‚É‰º‚°‚éŽ–‚ªo—ˆ‚¸A”w•‰‚¤‚©‚½‚¾Ž‚¿•à‚¢
+@‚Ä‚¢‚Ü‚µ‚½B
 
- ¥ë¥Ä¥§¥ë¥ó¡¦¥Ï¥ó¥Þ¡¼ (lucerne hammer)
-¡¡¡¡Á´Ä¹¤Ï3m¡¢Æ¬Éô¤Ï40¡Á50cm¡¢½Å¤µ¤Ï3.5kg¡£15À¤µª¤«¤é16À¤µªÃæº¢¤ÎÊâÊ¼¤Ë¤è¤Ã
-¡¡¤Æ»ÈÍÑ¤µ¤ì¤¿¥¦¥©¡¼¡¦¥Ï¥ó¥Þ¡¼¤Î°ì¼ï¤Ç¤¹¡£ÆÃÄ§¤ÏÆ¬Éô¤ÎÊÒÂ¦¤Ë¤¢¤ë±Ô¤¤îìÄÞ¡¢¤½
-¡¡¤ÎÈ¿ÂÐÂ¦¤Ë¤¢¤ë4ËÜ¤ÎÆÍµ¯¡¢Áä¤ÎÍÍ¤Ë±Ô¤¯Àí¤Ã¤¿ËÈÀè¤Ç¤¹¡£¥ë¥Ä¥§¥ë¥ó¡¦¥Ï¥ó¥Þ¡¼¤Ï
-¡¡¤³¤ÎÆ¬Éô¤Ë¤è¤Ã¤Æ¡¢ÆÍ¤­»É¤¹¡¦°ú¤Ã¤«¤±¤ë¡¦îìÄÞ¤ÇÁê¼ê¤Î³õ¤ò»É¤·´Ó¤¯¡¦ÆÍµ¯¤òÁê
-¡¡¼ê¤Î°áÉþ¤ËÍí¤ß¤Ä¤«¤»¤ë¤È¤¤¤¦4¤Ä¤Îµ¡Ç½¤òÆÀ¤Æ¤¤¤Þ¤¹¡£¤³¤Î¤³¤È¤«¤é¥ë¥Ä¥§¥ë¥ó¡¦
-¡¡¥Ï¥ó¥Þ¡¼¤Ï¥¦¥©¡¼¡¦¥Ï¥ó¥Þ¡¼¤Î°ì¼ï¤È¤¤¤¦¤è¤ê¤â¥Ï¥ë¥Ù¥ë¥È¤Ë¶á¤¤Éð´ï¤Ç¤¢¤ë¤È¸À
-¡¡¤¨¤Þ¤¹¡£¥¦¥©¡¼¡¦¥Ï¥ó¥Þ¡¼¤«¤éÈ¯Å¸¤·¡¢¥Ï¥ë¥Ù¥ë¥È¤½¤Ã¤¯¤ê¤Ë¤Ê¤Ã¤¿Éð´ï¤È¤â¸À¤¨
-¡¡¤Þ¤¹¡£¥ë¥Ä¥§¥ë¥ó¤È¤¤¤¦Ì¾¤Ï¥¹¥¤¥¹ÃæÉô¤Ë¤¢¤ë¥ë¥Ä¥§¥ë¥ó½£¡Ê¥ê¥å¥»¥ë¥Ì½£¡Ë¤Ç
-¡¡¤³¤ÎÉð´ï¤¬ÃÂÀ¸¤·¤¿»ö¤«¤éÍè¤Æ¤¤¤Þ¤¹¡£
+ ƒGƒOƒ[ƒLƒ…[ƒVƒ‡ƒi[ƒYEƒ\[ƒh (executioner's sword) ƒŽñØ‚èƒ\[ƒh„
+@@gŽ€ŒYŽ·sl‚ÌŒ•hB‘S’·‚Í100cm`Ag•‚Í6`7cmAd‚³‚Í2.2`2.5kgB17¢
+@‹I‚©‚ç18¢‹I‚ÌŽ€ŒYŽ·sl‚½‚¿‚É‚æ‚Á‚ÄŽg‚í‚ê‚½ˆŒY—p‚Ì—¼ŽèŒ•‚Å‚·B“Á’¥‚Í‚»‚Ì
+@Žg—p–Ú“I‚É‘¥‚µ‚½‚à‚Ì‚Å‚·B‚±‚ÌŒ•‚Í‚½‚Á‚½ˆê“x‚ÅŽñ‚ð—Ž‚Æ‚·Ž–‚ª–Ú“I‚Å‚·B‚»‚Ì
+@‚½‚ßg•‚Í”ñí‚ÉL‚­AØ‚Áæ‚Í–³‚­‚Äæ’[‚ÍŠÛ‚Ü‚Á‚Ä‚¢‚Ü‚·B‚Ü‚½A—Í‚ðž‚ß‚Ä
+@U‚è‰º‚ë‚µ‚â‚·‚¢‚æ‚¤‚É—¼ŽèŒ•‚æ‚è‚à‚Í‚é‚©‚É’Z‚¢•¿‚µ‚©Ž‚Á‚Ä‚¢‚Ü‚¹‚ñB—¼n‚Å
+@‚ ‚èA“g‚Ì•”•ª‚É—lX‚È’¤‚ªŽ{‚³‚ê‚Ä‚¢‚éŽ–‚ª‘½‚¢‚æ‚¤‚Å‚·B
 
- ¥Ï¥ë¥Ù¥ë¥È(halberd)
-¡¡¡¡¤¤¤ï¤æ¤ë¡ÈÉàÁä¡ÉËô¤Ï¡ÈËÈÁä¡É¡£Á´Ä¹2¡Á3.5m¡¢Æ¬Éô¤Ï30¡Á50cm¡¢½Å¤µ¤Ï2.5¡Á
-¡¡3.5kg¡£13À¤µª¤«¤é16À¤µªËö¤Þ¤Ç¤ÎÊâÊ¼¤Ë»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤Ï¤½¤ÎÊ£»¨¤Ê·Á¾õ
-¡¡¤ÎÆ¬Éô¤Ë¤¢¤ê¤Þ¤¹¡£ÊÒÂ¦¤ËÉà¤ÎÍÍ¤Ê·Á¾õ¤Î¿Ï¤¬¤¢¤ê¡¢¤½¤ÎÈ¿ÂÐÂ¦¤Ë»É¤¹¤¿¤á¤Îîì
-¡¡ÄÞ¤¬¤¢¤Ã¤Æ¡¢Æ¬Éô¤ÎÀè¤Ë¤ÏÁä¤ÎÍÍ¤ÊÆÍ¤­»É¤¹¤¿¤á¤ÎÀÚ¤ÃÀè¤¬¤¢¤ê¤Þ¤¹¡£¤³¤ÎÆ¬Éô¤Ë
-¡¡¤è¤Ã¤ÆÃ¡¤­»Â¤ë¡¦ÆÍ¤­»É¤¹¡¦°ú¤Ã¤«¤±¤ë¡¦îìÄÞ¤Ç»É¤¹¤È¤¤¤¦4¤Ä¤Îµ¡Ç½¤òÆÀ¤Æ¤¤¤Þ
-¡¡¤¹¡£¥¹¥Ô¥¢¡¼¤è¤ê¤â°ÒÎÏ¤¬Âç¤­¤¯¡¢Áä¤ÎÉôÊ¬¤Çµ³Ê¼¤ò»É¤·¡¢îìÄÞ¤ÎÉôÊ¬¤ÇÁê¼ê¤Î
-¡¡³õ¤òÇË²õ¤·¡¢Éà¤ÎÉôÊ¬¤Ç¹¶·â¤·¤¿¤ê¡¢µ³Ê¼¤ò¤«¤é°ú¤­¤º¤ê¹ß¤í¤·¤¿¤ê¡¢ÊâÊ¼¤ÎÂ­
-¡¡¤òÊ§¤Ã¤¿¤ê¤¹¤ëÂ¿µ¡Ç½À­¤«¤éÊâÊ¼¤Î¼çÍ×Éð´ï¤È¤Ê¤ê¤Þ¤·¤¿¡£16À¤µªËö¤«¤é19À¤µª
-¡¡¤Þ¤Ç¤Ïµ·¼°ÍÑ¤ËÁõ¾þ¤µ¤ì¤¿¤â¤Î¤¬¡¢¶á±ÒÊ¼¤Ë¤è¤Ã¤Æ¥Ñ¥ì¡¼¥É¤ÎºÝ¤Ë»ÈÍÑ¤µ¤ì¤Þ¤·
-¡¡¤¿¡£ÂçÄñ¤Î¿ÞÈÇ¤Ï¤³¤Î»þ´ü¤Î¥Ï¥ë¥Ù¥ë¥È¤ò»²¹Í¤Ë¤·¤Æ¤¤¤Þ¤¹¡£
+ ƒT[ƒxƒ‹ (sabre,saber,schweizersabel)
+@@g‹R•º“hB‘S’·‚Í70`120cmAg•‚Í2`4cmAd‚³‚Í1.7`2.4kgB16¢‹I‚©‚ç
+@20¢‹I‚Ü‚Å‹R•º•”‘à‚ÌŽå—v“Œ•‚Æ‚µ‚ÄŽg‚í‚ê‚½“Œ•‚Å‚·B“Á’¥‚Æ‚¢‚Á‚Ä‚àŽžŠú‚Æ’n
+@ˆæ‚Å‚©‚È‚è‚Ì·‚ª‚ ‚èˆêŠT‚É‚ÍŒ¾‚¦‚Ü‚¹‚ñB‘å‚Ü‚©‚ÉŒ¾‚¦‚éŽ–‚ÍA•ÐŽè‚ÅŽg‚¤‚à‚Ì
+@‚Å‚ ‚èA•Ðn‚Å“g‚ª‚µ‚È‚â‚©‚É˜p‹È‚µ‚Ä‚¢‚éŽ–‚Å‚·B‚ÆŒ¾‚Á‚Ä‚à“g‚ÌŒ`‚É‚Í3Ží
+@—Þ‚ª‚ ‚èA’¼“Œ^A”¼‹È“Œ^A‹ÈnŒ^‚É•ª‚¯‚éŽ–‚ª‚Å‚«‚Ü‚·B‚³‚ç‚ÉØ‚Áæ‚É‚à3
+@Ží—Þ‚ª‚ ‚èA‘„ó‚Ì‚à‚ÌA‹^Ž—niƒJƒbƒgƒ‰ƒX‚ðŽQÆjó‚Ì‚à‚ÌAŽè•€ó‚Ì‚à‚Ì‚É
+@•ª‚©‚ê‚Ü‚·B‚±‚Ì‚¤‚¿A’¼“Œ^E‘„ó‚ª“Ë‚«Žh‚µ—pA‹È“Œ^EŽè•€ó‚ªØ‚è—pA”¼
+@‹È“Œ^E‹^Ž—nó‚ª‚»‚Ì—¼•û‚ÌŒ“—p‚Æ‚µ‚Äì‚ç‚êŽg—p‚³‚ê‚Ü‚µ‚½B‚È‚©‚Å‚àA“g
+@‚ª”¼‹È“Œ^‚ÅAØ‚Áæ‚ª‹^Ž—nó‚©Žè•€ó‚ÌƒT[ƒxƒ‹‚ªˆê”Ô‘½‚­ì‚ç‚ê‚Ü‚µ‚½B’Õ
+@‚â•¿‚É‚à’nˆæ“I‚È“Á’¥‚ª‚ ‚èA—lX‚È”­“W‚ð‹‚°‚Ä‚¢‚Ü‚·BƒT[ƒxƒ‹‚É‚Í’nˆæ‚É‚æ
+@‚è—lX‚È–¼‘O‚ª•t‚¯‚ç‚êA•ÊX‚Ì•Ší‚Æ‚µ‚Äˆµ‚í‚ê‚éŽ–‚à‚ ‚è‚Ü‚·BƒT[ƒxƒ‹‚ðŽg
+@‚¤‹R•º‚Í‹R•º“ËŒ‚‚É‚¨‚¢‚Ä‚±‚Ì“Œ•‚ðŽg—p‚µ‚Ü‚µ‚½B
 
- ¥°¥ì¥¤¥Ö (glaive,fauchard,cause,kuse)
-¡¡¡¡Á´Ä¹2¡Á3.5m¡¢¿Ï¤ÎÄ¹¤µ¤¬60¡Á70cm¡¢½Å¤µ¤Ï2¡Á3.5kg¡£13À¤µª¤«¤é17À¤µªËö¤Þ
-¡¡¤Ç¼ç¤Ë¶á±ÒÊ¼ÍÑ¤ÎÉð´ï¤äµ·ÅµÍÑ¤ÎÉð´ï¤È¤·¤Æ»È¤ï¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤ÏËÈÀèÁ´ÂÎ¤òÀê
-¡¡¤á¤ë¥Õ¥¡¥ë¥·¥ª¥ó¤Ë»÷¤¿·Á¾õ¤Î¿Ï¤Ç¤¹¡£¤Ä¤Þ¤ê¡¢ÊÒ¿Ï¤Ç¤¢¤ê¡¢¿Ï¤ÎÉôÊ¬¤Ï»°Æü·î
-¡¡·¿¤ËËÄ¤é¤ó¤Ç¸Ì¤òÉÁ¤¤¤Æ¤ª¤ê¡¢Åï¤ÎÉôÊ¬¤Ï¿¿¤ÃÄ¾¤°¤Ç¤¢¤ë¤È¤¤¤¦»ö¤Ç¤¹¡£ÀÚ¤ÃÀè
-¡¡¤âÀí¤Ã¤Æ¤ª¤ê¡¢ÆÍ¤­»É¤¹»ö¤ò½ÐÍè¤Þ¤¹¤¬¡¢¿¶¤ê²ó¤·¤ÆÃ¡¤­»Â¤ëÊý¤¬¸ú²ÌÅª¤Ç¤¢¤ê¡¢
-¡¡¤³¤ÎÉð´ï¤Î°ìÈÌÅª¤Ê»ÈÍÑÊý¤Ç¤¹¡£¼ÂÀï¤Ç¤Ï¤¢¤Þ¤ê»È¤ï¤ì¤º¡¢16À¤µª°Ê¹ß¤Ï´°Á´¤Ë
-¡¡µ·ÅµÍÑ¤ÎÉð´ï¤È¤Ê¤ê¤Þ¤·¤¿¡£µ·ÅµÍÑ¤Î¥°¥ì¥¤¥Ö¤ÎËÈÀè¤Ë¤ÏÍÍ¡¹¤ÊÌÏÍÍ¤äÌæ¾Ï¤¬Ä¦
-¡¡¹ï¤µ¤ì¤Æ¤¤¤Þ¤·¤¿¡£¿Ï¤ÎÈ¿ÂÐÂ¦¤ËîìÄÞ¤¬ÉÕ¤±¤é¤ì¤¿¥°¥ì¥¤¥Ö¤Ï¤É¤Á¤é¤«¤È¤¤¤¦¤È
-¡¡¼ÂÀïÍÑ¤Ç¥Õ¥©¡¼¥Á¥ã¡¼¥É¤È¸Æ¤Ð¤ì¤Þ¤·¤¿¡£
+ ƒŒƒCƒsƒA (rapier,epee rapiere,dress sword,espada ropera)
+@@‘S’·‚Í80`100cmAg•‚Í1`3cmAd‚³‚Í0.7`0.9kgB16¢‹I‚©‚ç18¢‹I‚ÉŽg
+@‚í‚ê‚½•ÐŽè—p‚Ì“Œ•‚Å‚·B“Á’¥‚Í^‚Á’¼‚®‚È“gA‰s‚¢Ø‚ÁæA—¼n‚Å‚ ‚éA“
+  g‚ª”ñí‚É”–‚¢‚Æ‚¢‚¤Ž–‚Å‚·BØ‚éŽ–‚à‰Â”\‚Å‚·‚ªA’Êí‚Í“Ë‚«Žh‚µ‚ÄŽg‚¢‚Ü‚·B
+@“–Žž‚Ì•ºŽm‚Íd‘•”õ‚Å‚Í–³‚­A”ñí‚ÉŒy‘•‚Å‚ ‚è‚‚àŽ‚½‚È‚¢Žž‘ã‚Å‚ ‚èAƒtƒF
+@ƒ“ƒVƒ“ƒO‚Æ‚¢‚¤Œ•p‚ÅŽg‚í‚ê‚Ü‚µ‚½B‰Šú‚É‚Í•ÐŽè‚É‚‚ðŽ‚ÂŽ–‚à‚ ‚è‚Ü‚µ‚½‚ªA
+@16¢‹I‚É‚Í‰EŽè‚ÉƒŒƒCƒsƒAA¶Žè‚Éƒ}ƒ“EƒS[ƒVƒ…‚Æ‚¢‚¤‚Ì‚ªˆê”Ê“I‚È\‚¦‚Å‚µ‚½B
+@‹RŽm‚½‚¿‚ÌŒˆ“¬‚â‚»‚ê‚ª”p‚ê‚½Œã‚Í‹M‘°EaŽm‚½‚¿‚ÌŽ„“¬‚Ì“¹‹ï‚Æ‚µ‚ÄL‚­•‹y
+@‚µ‚Ü‚µ‚½B
 
- ¥í¥³¥Ã¥Ð¡¼¡¦¥¢¥Ã¥¯¥¹ (lochaber axe)
-    Á´Ä¹2¡Á2.5m¡¢Éà¿Ï¤ÎÄ¹¤µ¤¬40¡Á50cm¡¢½Å¤µ¤Ï2.2¡Á2.5kg¡£16À¤µª¤«¤é18À¤µª
-¡¡¤Î¥¹¥³¥Ã¥È¥é¥ó¥É¤ÎÇÀÌ±½Ð¿È¤ÎÊ¼»Î¤¿¤Á¤Ë»È¤ï¤ì¤¿ÀïÉà¤Ç¤¹¡£ÆÃÄ§¤ÏÊÒ¿Ï¤ÇÈó¾ï
-¡¡¤ËÇö¤¤Éà¿Ï¤È¡¢ÀèÃ¼¤Ë¤Ä¤¤¤¿îìÄÞ¤Ç¤¹¡£îìÄÞ¤ÏÇÏ¾å¤ÎÅ¨¤ò°ú¤­¤º¤ê¹ß¤í¤¹¤Î¤Ë»È
-¡¡¤ï¤ì¤Þ¤·¤¿¡£Éà¿Ï¤ÏÀÚ¤ë¤¿¤á¤Î¤â¤Î¤Ç¡¢»É¤¹¤¿¤á¤ÎÀÚ¤ÃÀè¤Ï¤¢¤ê¤Þ¤»¤ó¡£¥í¥³¥Ã
-¡¡¥Ð¡¼¤È¤¤¤¦Ì¾¤Ï¥¹¥³¥Ã¥È¥é¥ó¥É¤Î°ìÃÏÊý¤ÎÌ¾Á°¤Ç¡¢¤½¤³¤Ç¤³¤ÎÉð´ï¤¬ÃÂÀ¸¤·¤¿¤¿
-¡¡¤á¤Ë¤³¤ÎÌ¾¤¬ÉÕ¤±¤é¤ì¤Þ¤·¤¿¡£Èó¾ï¤Ë»÷¤¿Éð´ï¤Ç¤¢¤ë¥¸¥ã¥Ã¥É¥Ð¥é¡¦¥¢¥Ã¥¯¥¹¤â
-¡¡Æ±ÍÍ¤Ë¥¹¥³¥Ã¥È¥é¥ó¥É¤ÎÅÔ»Ô¤ÎÌ¾¤ò´§¤·¤Æ¤¤¤Þ¤¹¡£¥í¥³¥Ã¥Ð¡¼¡¦¥¢¥Ã¥¯¥¹¤ÏÏ¢Ë®
-¡¡²¦¹ñ¤ÎÉð´ï¤Ç¤¢¤ê¡¢Ï¢Ë®²¦¹ñ°Ê³°¤Ç»ÈÍÑ¤µ¤ì¤¿µ­Ï¿¤Ï¤Þ¤Ã¤¿¤¯¤¢¤ê¤Þ¤»¤ó¡£
+ ƒJƒbƒgƒ‰ƒX (cutlass)
+@@‘S’·‚Í50`60cmAg•‚Í3`5cmAd‚³‚Í1.2`1.4kgB18`19¢‹I‚Ì‘Dæ‚è‚½‚¿
+@‚ªŽg—p‚µ‚½“Œ•B“Á’¥‚Í‹^Ž—n‚ÆŒÄ‚Î‚ê‚éØ‚Áæ‚Å‚·B‹^Ž—n‚Æ‚ÍŠî–{“I‚É‚Í•Ð
+@n‚ÅAØ‚Áæ‚©‚ç“g‚Ì3•ª‚Ì1‚®‚ç‚¢‚Ü‚Å‚ª—¼n‚É‚È‚Á‚Ä‚¢‚éŽ–‚ðŽw‚µ‚Ü‚·B‚Ü
+@‚½Ag•‚ª”ñí‚ÉL‚¢“_A‚í‚¸‚©‚É˜p‹È‚µ‚Ä‚¢‚é“_‚à“Á’¥‚Å‚·B‚à‚Ì‚É‚æ‚Á‚Ä‚Í
+@Œ‚ðŒì‚é‚½‚ß‚Ì‘å‚«‚È’Õ‚ª‚ ‚é‚à‚Ì‚âA“in‚Ì–³‚¢‘¤j‚ªƒmƒRƒMƒŠó‚É‚È‚Á‚Ä
+@‚¢‚é‚à‚Ì‚È‚Ç‚ª‚ ‚è‚Ü‚µ‚½B’@‚«Ø‚éŽ–‚ð–Ú“I‚Æ‚µ‚Ä‚¢‚Ü‚·‚ªA‹^Ž—n‚É‚æ‚Á‚Ä
+@“Ë‚«Žh‚·Ž–‚Å‘å‚«‚È‚ð—^‚¦‚éŽ–‚ào—ˆ‚Ü‚·B•ÐŽè‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B
 
- ¥·¥£¥¢¡¼(scythe) ¡ãÂç³ù¡ä
-¡¡¡¡¤¤¤ï¤æ¤ë¡ÈÂç³ù¡É¡£Á´Ä¹2¡Á2.5m¡¢¿Ï¤ÎÄ¹¤µ¤¬70¡Á90cm¡¢½Å¤µ¤Ï2.2¡Á2.5kg¡£
-¡¡ÇÀ¶ñ¤Ç¤¢¤ëÂç³ù¤«¤éÇÉÀ¸¤·¤¿Éð´ï¤Ç¡¢16À¤µª¸å´ü¤«¤é17À¤µª¤ÎÇÀÌ±Ê¼¤Ë¤è¤Ã¤Æ»È
-¡¡ÍÑ¤µ¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤ÏÏÑ¶Ê¤·¤¿ÊÒ¿Ï¤Î¿Ï¤Ç¤¹¡£¤Þ¤Ã¤¿¤¯Àï¤¤Êý¤òÃÎ¤é¤Ê¤¤¾®ºîÌ±
-¡¡¤¬È¿Íð¤Ë¤ª¤¤¤Æ»ÈÍÑ¤·¤¿¤¿¤á¡¢¹øÎ¯¤á¤Ë¹½¤¨¤Æ¤¿¤À¿¶¤ê²ó¤¹¤È¤¤¤¦»È¤ï¤ìÊý¤¬°ì
-¡¡ÈÌÅª¤Ç¤·¤¿¡£¤Þ¤¿¡¢ÀÜ¶áÀï¤Ç¤Ï¿Ï¤ÎÉôÊ¬¤ÇÃ¡¤­»Â¤Ã¤¿¤ê¡¢Á´ÂÎ¤Ç²¥¤êÅÝ¤·¤¿¤ê¤È
-¡¡¤¤¤¦»ÈÍÑË¡¤â¹­¤¯ÍÑ¤¤¤é¤ì¤Þ¤·¤¿¡£¤Á¤Ê¤ß¤Ë¡¢»à¿À¤¬»ý¤Ã¤Æ¤¤¤ë¤È¤µ¤ì¤ëÂç³ù¤Ï
-¡¡ÊÁ¤È¿Ï¤Î´Ö¤Î³ÑÅÙ¤¬90ÅÙ¤¢¤ê¤Þ¤¹¤¬¡¢¼ÂºÝ¤Ë»È¤ï¤ì¤¿Âç³ù¤ÏÊÁ¤Î±äÄ¹¾å¤ËÏÑ¶Ê¤·
-¡¡¤¿¿Ï¤¬¤¢¤ë¤È¤¤¤¦·Á¾õ¤ò¤·¤Æ¤¤¤Þ¤¹¡£
+ ƒXƒ‚[ƒ‹Eƒ\[ƒh (small sword,light sword,town sword,walking sword)
+@@g¬Œ•hB‘S’·‚Í50`70cmAn“n‚è40`60cmAg•‚Í1`1.5cmAd‚³‚Í0.51`
+@0.7kgB16¢‹I‚©‚ç18¢‹I‚Éˆê”ÊŽs–¯‚âaŽmA‹M‘°‚ª“úíŠ—L‚µ‚Ä‚¢‚½“Œ•‚Å‚·B
+@“Á’¥‚Í‰s‚­ë‚Á‚½Ø‚Áæ‚Æ×‚­’¼g‚Ì“g‚Å‚·B•Ší‚Æ‚¢‚¤‚æ‚è‚à“úí•i‚ÅA‹V
+@Ž®—p‚â‘•ü—p‚Ì‚à‚Ì‚à‘½‚­‚ ‚è‚Ü‚µ‚½BŽ„“¬‚È‚Ç‚ÅŽg‚¤Û‚É‚Í•ÐŽè‚ÅŽg—p‚µA“Ë
+@‚«Žh‚µ‚Ü‚·B¬Œ^‚ÌƒŒƒCƒsƒA‚Æ‚¢‚¦‚é‚à‚Ì‚ÅAƒŒƒCƒsƒA“¯—l‚É—lX‚ÈŒ`‚Ì•¿‚â’Õ
+@‚ª‚ ‚è‚Ü‚µ‚½‚µAƒŒƒCƒsƒA“¯—l‚ÉƒtƒFƒ“ƒVƒ“ƒO‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B¶Žè‚Éƒ}ƒ“E
+@ƒS[ƒVƒ…‚ðŽ‚ÂŽ–‚ª‚ ‚Á‚½‚Ì‚àƒŒƒCƒsƒA“¯—l‚Å‚·B“Á‚É‹M‘°‚ª—p‚¢‚½‚à‚Ì‚Í•óÎ
+@‚Åü‚é‚È‚Ç‚Æ‚Ä‚à‚‰¿‚ÅA”hŽè‚É‘•ü‚³‚ê‚½•¿‚ðŽ‚Á‚Ä‚¢‚Ü‚µ‚½B
+
+ ƒVƒ~ƒ^[ (scimitar,shamshir,simiterra,cimeterre)
+@@gŽO“úŒŽ“hB‘S’·‚Í80`100cmAn“n‚è75`90cmAg•‚Í2`3cmAd‚³‚Í1.5
+  `2kgBƒyƒ‹ƒVƒA‚Ì‘ã•\“I‚È“Œ•‚Å‚·B“Á’¥‚ÍŠÉ‚â‚©‚É˜p‹È‚µ‚½“g‚ÆA“g‚Æ
+@‹t•ûŒü‚É˜p‹È‚µ‚Ä‚¢‚é•¿A•Ðn‚Å‚ ‚éŽ–‚Å‚·B•ÐŽè‚Åˆµ‚¢AU‚è‰º‚ë‚µ‚Ä’@‚«Ža
+@‚é‚æ‚¤‚Éì‚ç‚ê‚Ä‚¢‚Ü‚·B‚Ü‚½A•¿‚Ìuƒ‰ƒCƒIƒ“‚Ì“ªv‚ÆŒÄ‚Î‚ê‚é•¿“ª‚ª‚±‚Ì“
+@‚Ì“Á’¥‚Å‚à‚ ‚è‚Ü‚·BƒT[ƒxƒ‹‚Ì‹NŒ¹‚Æ‚È‚Á‚½“‚ÅAƒyƒ‹ƒVƒAŒê‚Å‚ÍƒVƒƒƒ€ƒV[
+@ƒ‹gƒ‰ƒCƒIƒ“‚ÌK”öh‚ÆŒÄ‚Î‚ê‚Ü‚µ‚½BƒVƒ~ƒ^[‚É‚Íƒtƒ‰ƒ“ƒ{ƒƒ„ƒ“—lŽ®i“g
+@‚ª”g‚¤‚Á‚Ä‚¢‚éŒ`ój‚Ì“g‚ðŽ‚Â‚à‚Ì‚à‚ ‚è‚Ü‚µ‚½B
+
+ ƒ^ƒ‹ƒ[ƒ‹ (tulwar,tegha)
+@@‘S’·‚Í70`100cmAg•‚Í–ñ2cmAd‚³‚Í1.4`1.8kgB16¢‹I‚ÌƒCƒ“ƒh‚Å’a¶‚µ
+@‚½ƒT[ƒxƒ‹‚ÌˆêŽí‚ÅA16`17¢‹I‚ÌƒCƒ“ƒhEƒ€ƒK[ƒ‹’é‘Eƒgƒ‹ƒREƒyƒ‹ƒVƒAE
+@ƒ‚ƒ“ƒSƒ‹‚È‚Ç‚Ì‹R•º‚ÉŽg—p‚³‚ê‚Ü‚µ‚½B“Á’¥‚Í•Ðn‚Ì˜p“‚Å‚ ‚éŽ–A\ŽšŒ^‚Ì’Õ
+@‚ðŽ‚¿ƒiƒbƒNƒ‹EƒK[ƒh‚ª‚ ‚éŽ–‚Å‚·B“g‚Ì˜p‹È‚Í‰Šú‚Ì‚à‚Ì‚Í‹É’[‚È‚Ì‚Å‚·
+@‚ªAŒãŠú‚É‚È‚é‚Æ’¼g‚É‹ß‚­‚È‚Á‚Ä‚¢‚Ü‚·B
+
+ ¦“Œ•—Þ‚ÌŽg‚¢•û‚É‚Â‚¢‚Ä
+@@¼—m‚Ì“Œ•—Þ‚Í“Œ—m‚Ì“Œ•—Þ‚Æ‚Ü‚Á‚½‚­ˆá‚Á‚½ŠT”O‚É‚æ‚Á‚Äì‚ç‚êAŽg‚í‚ê‚Ä
+@—ˆ‚Ü‚µ‚½B‚Â‚Ü‚èAØ‚é‚Ì‚Å‚Í–³‚­A’@‚«Ža‚é‚Æ‚¢‚¤Ž–‚Å‚·B¼—m‚Ì“Œ•—Þ‚Ìn
+@‚Í‚½‚µ‚©‚Én‚Æ‚µ‚Ä‚Ì«”\‚Í‚à‚Á‚Ä‚Í‚¢‚Ü‚·‚ªA‚½‚Æ‚¦‚Î“ú–{“‚È‚Ç‚É”ä‚×‚é‚Æ
+@Ø‚ê–¡‚ª‚©‚È‚èˆ«‚¢‚ÆŒ¾‚¦‚Ü‚·B¼—m‚ÌíŽm‚½‚¿‚Í“Œ—m‚ÌŒ•Žm‚½‚¿‚Ì—l‚É“Œ•—Þ
+@‚ð‚½‚¾U‚è‰º‚ë‚·‚Ì‚Å‚Í–³‚­A‘S‘Ìd‚ð‚©‚¯‚Ä—Í‚Å’@‚«Ža‚ë‚¤‚Æ‚·‚é‚Ì‚Å‚·Bn
+@‚Í‚ ‚­‚Ü‚Å‚»‚ÌŽž‚É—Í‚Ì‚©‚©‚é–ÊÏ‚ð‹·‚­‚µ‚Ä—^‚¦‚é‘ÅŒ‚‚ð‘å‚«‚­‚µ‚æ‚¤‚Æ‚·‚é
+@‚½‚ß‚Ì‚à‚Ì‚Å‚·B
+@@‚³‚ç‚É¼—m‚Æ“Œ—m‚ÌŒ•p‚É‚Í‘å‚«‚È·‚ª‚ ‚è‚Ü‚·BŠZ‚Æ‚‚Ì‘¶Ý‚Å‚·B¼—m‚Ì
+@ê‡‚Í–hŒä‚Ì‚Ù‚Æ‚ñ‚Ç‚ðd‚¢ŠZ‚Æ‘å‚«‚È‚‚ÉˆË‘¶‚µ‚Ä‚¢‚Ü‚·B•Ší‚Í‘ŠŽè‚ðUŒ‚
+@‚·‚é‚½‚ß‚Ì‚à‚Ì‚ÅA‘ŠŽè‚ÌUŒ‚‚ð•Ší‚Å–h‚¢‚¾‚èAŽó‚¯—¬‚µ‚½‚è‚µ‚½‚Ì‚Í17¢‹I
+@‚É‚È‚Á‚ÄŠZ‚â‚‚ª”p‚ê‚Ä‚©‚ç‚ÌŽ–‚Å‚·BƒtƒFƒ“ƒVƒ“ƒO‚ÆŒÄ‚Î‚ê‚éŒ•p‚ª‚±‚ê‚ÅA
+@‚»‚êˆÈ‘O‚É“Œ•—Þ‚Å‘ŠŽè‚ÌUŒ‚‚ðŽó‚¯‚½‚è‚·‚éŽ–‚Í‚Ü‚¸‚ ‚è‚Ü‚¹‚ñ‚Å‚µ‚½B
+
+•€‹y‚Ñ’È
+
+ ƒr[ƒNƒhEƒAƒbƒNƒX (beaked axe)
+@@g•E•€hB‘S’·‚Í–ñ20cmB¬Œ^‚Ì•Ðn‚Ì•€‚ÅA8`11¢‹I‚Ìƒ”ƒ@ƒCƒLƒ“ƒO‚É‚æ‚Á
+@‚ÄŽg—p‚³‚ê‚½ŠCí—p‚Ì•Ší‚Å‚·B’@‚«Ža‚éŽ–‚ð–Ú“I‚Æ‚µ‚Ä‚¨‚èA•ÐŽè‚ÅŽg—p‚³‚ê
+@‚Ü‚µ‚½B“Á’¥‚Í•€“ª‚ÌŒ`ó‚ÅA‚»‚Ì‰º‘¤‚ªŽlŠp‚­“Ë‹N‚µ‚Ä‚¢‚Ü‚µ‚½B‚±‚Ì“Ë‹N‚Í
+@‘D‰‚Éˆø‚Á‚©‚¯‚é‚½‚ß‚Ì‚à‚Ì‚Å‚µ‚½B‚Ü‚½A’·‚¢•¿‚à‚à‚Á‚Ä‚¨‚èA‚±‚Ì•¿‚Æ“Ë‹N
+@‚Í‘D‚©‚ç‘D‚Éæ‚èˆÚ‚éŽž‚É•Ö—˜‚È‚à‚Ì‚Å‚µ‚½B
+
+ ƒoƒgƒ‹EƒAƒbƒNƒX (battle axe)
+@@gí•€hB‘S’·80`120cmAd‚³‚Í1`1.6kgBVÎŠíŽž‘ã‚©‚ç19¢‹I‰“ª‚Ì“Œ‰¢
+@‚Ü‚ÅL‚­—p‚¢‚ç‚ê‚½’@‚«Ža‚éŽ–‚ð–Ú“I‚Æ‚µ‚½•ŠíB’·‚¢•¿‚Ìæ‚É•Ðn‚ÌŽè•€ó‚Ì
+@n‚ª‚Â‚¢‚Ä‚¢‚éŽ–ˆÈŠO‚ªƒƒCƒX“¯—lˆêŠT‚É“Á’¥‚ðq‚×‚éŽ–‚Í‚Å‚«‚Ü‚¹‚ñB•à•º‚Ì
+@•Ší‚Å—¼Žè‚ÅŽg—p‚µ‚Ü‚·B
+
+ ƒuƒ[ƒhEƒAƒbƒNƒX (broad axe)
+@@g•L•€hB‘S’·‚Í1.5`2mA•€“ª‚Ì’·‚³‚Í30`45cmB8`11¢‹I‚Ìƒ”ƒ@ƒCƒLƒ“
+@ƒO‚É‚æ‚Á‚ÄŽg—p‚³‚ê‚½—¼Žè—p‚Ì•Ðn‚Ì•€B“Á’¥‚Í‚»‚Ì–¼‚Ì’Ê‚èA”ñí‚Éd‚­•L
+@‚Ì•€“ª‚ÅA’@‚«Ža‚éŽ–‚ð–Ú“I‚É‚µ‚Ä‚¢‚Ü‚·B“–Žž‚ÌŽå‚ÈŠZ‚Å‚ ‚éƒ`ƒFƒCƒ“EƒƒC
+@ƒ‹‚ðˆêŒ‚‚ÅŽa‚è—ô‚­ˆÐ—Í‚ðŽ‚Á‚Ä‚¢‚Ü‚µ‚½B
+
+ ƒOƒŒ[ƒgEƒAƒbƒNƒX (great axe)
+@@g‘å•€hBd‚³‚Í–ñ4kgB—¼n‚Ì•€‚ÅA—¼Žè‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B‚»‚Ì–¼‚Ì’Ê‚è”ñ
+@í‚É‘å‚«‚­‚Äd‚¢•€“ª‚Æ’·‚¢•¿‚ª“Á’¥‚Å‚·B
+
+ ƒƒCƒX (mace)
+@@g’È–µhB‘S’·30`100cmAd‚³‚Í2`3kgB‹IŒ³‘O30¢‹I‚©‚ç17¢‹I‚Ü‚ÅŽg—p‚³
+@‚ê‚½‰£‘Å—p‚Ì•Ší‚Å‚·BƒƒCƒX‚É‚Í”ñí‚É‘½‚­‚ÌŽí—Þ‚ª‚ ‚è“Á’¥‚ðˆêŠT‚ÉŒ¾‚¤Ž–
+@‚Ío—ˆ‚Ü‚¹‚ñ‚ªA•¿‚Ìæ‚É•¡ŽG‚È“ª•”‚ª‚ ‚éžž–_‚Æ‚¢‚Á‚½Š‚Å‚·B‘ã•\“I‚È‚à‚Ì
+@‚É‚Íæ’[‚ª‘¾‚­‚È‚èŽh‚ðŽ‚Â‚à‚ÌA“¯‚¶Œ`ó‚Ì“S”Â‚ð•úŽËó‚É‚Â‚È‚¬‡‚í‚¹‚½‚à
+@‚ÌA¯‹…‚ð‚Â‚¯‚½‚à‚Ìiƒ‚[ƒjƒ“ƒOEƒXƒ^[ŽQÆjA‚½‚Ü‚Ë‚¬Œ^‚Ì“ª•”‚ðŽ‚Â‚à‚Ì
+@‚È‚Ç‚ª‚ ‚è‚Ü‚·B’†¢ˆÈ~‚Íd‘•”õ‚Å‚ ‚é‹RŽm‚É‘Î‚µ‚ÄÕŒ‚‚ð—^‚¦‚é•Ší‚Æ‚µ‚Ä
+@‘½‚­—p‚¢‚ç‚ê‚Ü‚µ‚½BŒ•‚Å‚ÍŽa‚ê‚È‚¢ŠZ‚àAƒƒCƒX‚É‚æ‚éÕŒ‚‚Í–h‚®Ž–‚ªo—ˆ‚È
+@‚¢‚Ì‚Å‚·B‹RŽm‚½‚¿‚ªŽg‚Á‚Ä‚¢‚Ü‚µ‚½‚ªAŒã‚É‚Í•à•º—p‚Ì’·‚¢•¿‚ðŽ‚ÂƒƒCƒX‚à
+@ì‚ç‚ê‚Ä‚¢‚Ü‚·B
+
+ ƒ‚[ƒjƒ“ƒOEƒXƒ^[ (morning star,morgenstern)
+@@g¯‹…’ÈhB‘S’·50`80cmAd‚³‚Í2`2.5kgB13¢‹I‚©‚ç17¢‹I‚Ì‹RŽm‚â•ºŽm
+@‚ÉÅ‚àD‚Ü‚ê‚½•Ší‚Å‚·BƒƒCƒX‚ÌˆêŽí‚ÅA“Á’¥‚Í“ª•”‚ª¯‹…‚ÌŒ`‚ð‚µ‚Ä‚¢‚éŽ–
+@‚Å‚·B‚Â‚Ü‚èA‹…Œ`E‰~’ŒŒ`E‘È‰~Œ`‚Ì“ª•”‚É‚¢‚­‚Â‚à‚ÌŽh‚ª•úŽËó‚É“Ë‚«o‚Ä
+@‚¢‚Ü‚·Bd‚¢ŠZ‚ð’…‚½‹RŽm‚â•ºŽm‚É—LŒø“I‚Å‚ ‚Á‚½‚½‚ßL‚­—p‚¢‚ç‚ê‚Ü‚µ‚½B
+
+ ƒEƒH[Eƒnƒ“ƒ}[ (war hammer)
+@@gí’ÈhB‘S’·50`200cmAd‚³‚Í1.5`3.5kgB6¢‹I‚ÌƒXƒLƒ^ƒC‚Ì‹R•º‚½‚¿‚â
+@14¢‹I‚©‚ç16¢‹I‚Ì•à•º‚É‚æ‚Á‚ÄŽg—p‚³‚ê‚½‰£‘Å—p‚Ì•Ší‚Å‚·B“Á’¥‚Í“ª•”‚ÌŒ`
+@‚Å•Ð•û‚É‚Íë‚Á‚½’È“ª‚ª‚ ‚èA”½‘Î‘¤‚É‚Íë‚Á‚Ä‚¢‚È‚¢•½‚ç‚È’È“ª‚ª‚ ‚è‚Ü‚·B
+@“ª•”‚Ìæ‚ª‘„ó‚É‚È‚Á‚Ä‚¢‚é‚à‚Ì‚âÎ“Ë‚ª‰s‚­ë‚Á‚Ä‚¢‚é‚à‚Ì‚ª‘½‚¢‚æ‚¤‚Å‚·B
+@•à•º—p‚Ì‚à‚Ì‚Í2m‚Ù‚Ç‚Ì’·‚¢•¿‚ðŽ‚¿A‹RŽm‚Ìƒg[ƒiƒƒ“ƒg—p‚ª80cm‚Ù‚ÇA‹RŽm
+@‚ª”nã‚ÅŽg‚Á‚Ä‚¢‚½‚à‚Ì‚ª50cm‚Ù‚Ç‚Å‚·B‘¼‚Ì‰£‘Å—p•Ší“¯—l‚É“G‚ÌŠZ‚ð”j‰ó‚µ
+@‚½‚èAŠZ‚Ìã‚©‚ç“G‚ÉÕŒ‚‚ð—^‚¦‚é‚½‚ß‚ÉŽg‚í‚ê‚Ü‚µ‚½Bƒnƒ“ƒ}[‚ÆŒ¾‚¤‚ÆY‚ð
+@‘Å‚Á‚½‚è‚·‚éŽž‚Ì‘å‚«‚È“ª•”‚ð‚à‚Â‚à‚Ì‚©Aƒgƒ“ƒJƒ`‚Ì‘å‚«‚¢‚à‚Ì‚ðƒCƒ[ƒW‚µ
+@‚ª‚¿‚Å‚·‚ªAƒEƒH[Eƒnƒ“ƒ}[‚ÍÕŒ‚“_‚ð¬‚³‚­‚·‚é‚½‚ß‚ÉƒsƒbƒPƒ‹‚É‹ß‚¢“ª•”
+@‚ð‚à‚Á‚Ä‚¢‚Ü‚·B
+
+ ƒtƒŒƒCƒ‹ (flail)
+@@‘S’·30`50cmA•¿‚Ì’·‚³‚Í15`30cmAd‚³‚Í1`2kgB11`12¢‹I‚Ì‹R•º‚ÉŽg‚í
+@‚ê‚½‘Î‹R•º—p‚Ì‰£‘Å•Ší‚Å‚·B“Á’¥‚Í’Z‚¢–_i’•¨j‚Æ’·‚¢–_i•¿j‚ð½‚Å‚Â‚È
+@‚¢‚Å‚¢‚é‚Æ‚¢‚¤“_‚Å‚·B•¿‚ð‚à‚Á‚ÄU‚è‰ñ‚µA’•¨‚É‰Á‘¬‚ð‚Â‚¯‚Ä‘ÅŒ‚—Í‚ð‘‚·
+@‚Æ‚¢‚¤Žg‚¢•û‚ð‚µ‚Ü‚·B’•¨‚Ì•û‚Í‹à‘®»‚Å‚ ‚Á‚½‚èA–Ø»‚Å‚ ‚Á‚Ä‚àŽh‚ª•úŽË
+@ó‚É“Ë‚«o‚Ä‚¢‚½‚èA‹à‘®‚Å•â‹­‚³‚ê‚½‚è‚ÆˆÐ—Í‚ð‘‚·‚½‚ß‚ÌH•v‚ª‚È‚³‚ê‚Ä‚¢
+@‚éŽ–‚ª‘½‚¢‚æ‚¤‚Å‚·B
+
+ ƒ{[ƒ‹EƒAƒ“ƒhEƒ`ƒFƒCƒ“ (ball-and-chain) ƒ½‚Â‚«“S‹…„
+@@‘S’·50`80cmAd‚³‚Í1`1,5kgBƒtƒŒƒCƒ‹‚ÌˆêŽí‚ÅA’•¨‚Ì•”•ª‚ª‹à‘®»‚Ì¯
+@‹…‚É‚È‚Á‚Ä‚¨‚èAƒtƒŒƒCƒ‹‚æ‚è‚à’·‚¢½‚Å•¿‚ÉŒÅ’è‚³‚ê‚Ä‚¢‚Ü‚·Bƒ‚[ƒjƒ“ƒOE
+@ƒXƒ^[‚Æ¬“¯‚³‚ê‚ÄA‚»‚¤ŒÄ‚Î‚ê‚éŽ–‚à‚ ‚è‚Ü‚·BŽg—p–@‚È‚Ç‚ÍƒtƒŒƒCƒ‹‚Æ‚Ù‚Æ
+@‚ñ‚Ç•Ï‚í‚è‚Ü‚¹‚ñB
+
+ ƒgƒD[Eƒnƒ“ƒfƒbƒhEƒtƒŒƒCƒ‹ (two-handed flail) ƒ—¼Žè—pƒtƒŒƒCƒ‹„
+@@‘S’·160`200cmA•¿‚Ì’·‚³‚Í120`150cmAd‚³‚Í2.5`3,5kgB13¢‹I‚©‚ç20¢
+@‹I‰“ª‚Ü‚Å‚Ì•à•º‚ÉŽg‚í‚ê‚½‘Î‹R•º—p‚Ì‰£‘Å•Ší‚Å‚·BƒtƒŒƒCƒ‹‚Æ‚Ìˆá‚¢‚ª•¿‚Ì
+@’·‚³‚Å‚·B—¼Žè‚ÅŽg—p‚·‚é‚½‚ß‚É”ñí‚É’·‚­A‚æ‚è‘å‚«‚ÈˆÐ—Í‚ð¶‚Ýo‚µ‚Ü‚·B
+@”ñ—Í‚È•à•º‚Å‚à\•ª‚Éd‘•”õ‚Ì‹RŽm‚É‘ÅŒ‚‚ð—^‚¦‚éŽ–‚ªo—ˆ‚é‚½‚ß14¢‹I‚É‚ÍL
+@‚­—p‚¢‚ç‚ê‚Ü‚µ‚½B
+
+ ƒNƒH[ƒ^[ƒXƒ^ƒbƒt (quarterstaff)
+@@g˜ZŽÚ–_hB‘S’·‚Í180cmAd‚³‚Í–ñ1.4kgBƒCƒMƒŠƒX‚Ì”_–¯‚½‚¿‚ªŽg‚Á‚½‰£‘Å
+@—p‚Ì•Ší‚Å‚·B‚½‚¾‚Ì–Ø»‚Ì–_‚Å‚·‚ªA—Bˆê“Á’¥‚ÆŒ¾‚¦‚é‚Ì‚ÍA—¼’[‚ª‹à‘®‚Å•â
+@‹­‚³‚ê‚Ä‚¢‚é‚Æ‚¢‚¤“_‚Å‚·B’Êí‚Í•Ð•û‚Ì’[‚¾‚¯‚Å‚Í–³‚­—¼’[‚ð—˜—p‚µ‚ÄŽg‚í‚ê
+@‚Ü‚·Bn—û‚µ‚½ƒNƒH[ƒ^[ƒXƒ^ƒbƒt‚ÌŽg‚¢Žè‚Í—¼’[‚ð‚¤‚Ü‚­—˜—p‚µ‚ÄŽ©—RŽ©Ý‚È
+@UŒ‚‚ª‰Â”\‚Å‚µ‚½B‚½‚¾‚µA‚±‚Ì•Ší‚ÌŽã“_‚ÍÞŽ¿‚ª–Ø‚Å‚ ‚é“_‚ÅAŠZ‚ð’…‚Ä‚¢
+@‚é‘ŠŽè‚É‚Í‚Ü‚Á‚½‚­Œø‰Ê‚ª‚È‚¢ãA“S»‚Ì•Ší‚É‚æ‚Á‚ÄŠÈ’P‚É”j‰ó‚³‚ê‚Ä‚µ‚Ü‚¤
+@‚Ì‚Å‚·B
+
+ ƒEƒBƒbƒv (whip) ƒƒ€ƒ`„
+@@g•ÚhB‘S’·‚Í80`100cmAd‚³‚Í0.5`1kgBŠv‚Å‚Å‚«‚½•Ró‚Ì•Ší‚Å‚·B­‚µ
+@d‚­‚È‚Á‚Ä‚¢‚é•¿‚Ì•”•ª‚ðŽ‚Á‚ÄU‚è‰ñ‚·Ž–‚ÅAæ’[‚É‘ÅŒ‚—Í‚ð—^‚¦‚Ü‚·B’@‚­
+@‚½‚ß‚Ì•Ší‚Å‚·‚ªAn—û‚µ‚½ŽÒ‚ªŽg‚¦‚Î‘ŠŽè‚ð—‚ß‚éŽ–‚à‰Â”\‚Å‚·B•Ší‚Æ‚µ‚Ä
+@‚Íˆê”Ê“I‚Å‚Í–³‚­A–{—ˆ‚Í–q’{‚È‚Ç‚ÅŽg—p‚³‚ê‚Ä‚¢‚½”_‹ï‚Å‚·B‹ß‘ã‚É‚Í“z—ê‚É
+@‘Î‚µ‚ÄŽg—p‚³‚ê‚Ü‚µ‚½B
 
 
-¼Í·âÉð´ï
+–g‘„—Þ
 
- ¥·¥ç¡¼¥È¡¦¥Ü¥¦ (short bow) ¡ãÃ»µÝ¡ä
-¡¡¡¡¡ÈÃ»µÝ¡É¡£Á´Ä¹¤Ï1m°Ê²¼¡¢½Å¤µ¤Ï0.5¡Á0.8kg¡£Í­¸ú¼ÍÄø¤Ï90m¡¢ºÇÂç¼ÍÄø¤Ï225m¡£
-¡¡µìÀÐ´ï»þÂå¤ÎËö´ü¤Ë¼íÎÄÍÑ¤Ë»È¤ï¤ì¤À¤·¤¿¼Í·âÉð´ï¤Ç¤¹¡£¸ÅÂå¥¨¥¸¥×¥È¤ä¸ÅÂå¥·¥å
-¡¡¥á¡¼¥ë¤Ê¤É¤Î·³Ââ¤Ç»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£ÆÃÄ§¤ÏµÝËÜÂÎ¤ÎÃ»¤µ¤Ç¤¹¡£°·¤¤¤ä¤¹¤¤¼êº¢¤Ê
-¡¡Ä¹¤µ¤Î¤¿¤á¤ËÇÏ¾å¤Ç¤â»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£É¸Åª¤ËÌ¿Ãæ¤µ¤»¤ë¤Ë¤ÏÈó¾ï¤Ê½ÏÎý¤òÍ×¤¹Éð
-¡¡´ï¤Ç¡¢¤«¤Ê¤ê¤ÎÎý½¬¤¬É¬Í×¤Ç¤·¤¿¡£
+ ƒXƒsƒA[ (spear)
+    Å‚à‹NŒ¹‚ÌŒÃ‚¢‘„B‘S’·‚Í0.8`3mAd‚³‚Í1.2`3.5kgB’·‚³‚É‚æ‚Á‚ÄƒVƒ‡[ƒgE
+@ƒXƒsƒA[‚Æƒƒ“ƒOEƒXƒsƒA[‚É•ª—Þ‚³‚êA—p“r‚àˆá‚¢‚Ü‚·B“Á’¥‚Í–Ø»‚Ì•¿‚Ìæ‚É
+@Î»‚à‚µ‚­‚Í‹à‘®»‚Ì•äæ‚ª‚ ‚éŽ–‚Å“Ë‚«Žh‚µ—p‚Ì•Ší‚Å‚·BƒVƒ‡[ƒgEƒXƒsƒA[
+@‚Í2mˆÈ‰º‚ÌƒXƒsƒA[‚ÅAÎŠíŽž‘ã‚©‚çŽë—Â‚âí“¬‚ÅŽg‚í‚ê‚Ä‚¢‚Ü‚µ‚½B•ÐŽè—p‚ÅA
+@“Ë‚«Žh‚µ‚ÄŽg‚¤ˆÈŠO‚É’Z‹——£‚Å‚ ‚ê‚Î“Š±‚·‚éŽ–‚ð‰Â”\‚Å‚µ‚½BŒÃ‘ãƒqƒbƒ^ƒCƒg
+@‚Å‚Í‚‚ÆƒVƒ‡[ƒgEƒXƒsƒA[‚ðŽ‚Á‚½•ºŽm‚É‚æ‚éW’cíp‚ª’a¶‚µ‚Ä‚¢‚Ü‚·Bˆê•ûA
+@ƒƒ“ƒOEƒXƒsƒA[‚Í2mˆÈã‚ÌƒXƒsƒA[‚ÅAƒVƒ‡[ƒgEƒXƒsƒA‚Ìíp‚ªŠm—§‚µ‚½Œã‚É
+@¶‚Ü‚ê‚½•Ší‚Å‚·BÚ‹ßí‚Å‘ŠŽè‚æ‚è‘‚­UŒ‚‚ð“–‚Ä‚é‚½‚ß‚ÉƒXƒsƒA[‚ª’·‚­‚È‚Á
+@‚½Œ‹‰ÊAŒÃ‘ãƒVƒ…ƒ[ƒ‹‚Å’a¶‚µ‚Ü‚µ‚½B—¼Žè‚ÅŽg‚¢A˜‚¾‚ß‚É\‚¦‚ÄŽg—p‚³‚ê
+@‚Ü‚µ‚½B’†¢‚É‚Í‚à‚Á‚Æ—LŒø“I‚È•Ší‚Ì“oê‚É‚æ‚Á‚ÄƒXƒsƒA[‚ÌŽg—p‚Í”p‚ê‚Ä‚µ
+@‚Ü‚¢‚Ü‚µ‚½‚ªA–g‘„—Þ‚ÌŠî–{‚Æ‚È‚è‹­‚¢‰e‹¿‚ð—^‚¦‚Ä‚¢‚Ü‚·B
 
- ¥í¥ó¥°¡¦¥Ü¥¦ (short bow) ¡ãÄ¹µÝ¡ä
-¡¡¡¡¡ÈÄ¹µÝ¡É¡£Á´Ä¹¤Ï150¡Á200cm¡¢½Å¤µ¤Ï0.6¡Á1kg¡£Í­¸ú¼ÍÄø¤Ï150m¡¢ºÇÂç¼ÍÄø¤Ï
-¡¡255m¡£12À¤µª¤«¤é15À¤µª¤Î¥¤¥®¥ê¥¹¤ÎµÝÊ¼¤Ë»ÈÍÑ¤µ¤ì¤¿¼Í·âÉð´ï¤Ç¤¹¡£¥·¥ç¡¼¥È¡¦
-¡¡¥Ü¥¦¤È¤Îº¹¤Ï¤½¤ÎÄ¹¤µ¤Ç¡¢¥×¥ì¡¼¥È¡¦¥á¥¤¥ë¤ò´ÓÄÌ¤¹¤ë»ö¤¬²ÄÇ½¤Ê¤Û¤É¤ÎÈó¾ï¤Ë
-¡¡Âç¤­¤Ê´ÓÄÌÎÏ¤ò¤â¤Ã¤Æ¤¤¤Þ¤·¤¿¡£¼ÍÄø¤Ï¥·¥ç¡¼¥È¡¦¥Ü¥¦¤è¤ê¤âÄ¹¤¯¡¢¤µ¤é¤Ë»³¤Ê¤ê
-¡¡¤ÎÃÆÆ»¤òÉÁ¤¯»ö¤Ë¤è¤Ã¤Æ¼ÍÄø¤òÄ¹¤¯¤¹¤ë»ö¤¬²ÄÇ½¤Ç¤·¤¿¡£¤·¤«¤·¡¢¤³¤Î¼Í·âÊý¤Ç
-¡¡É¸Åª¤ËÌ¿Ãæ¤µ¤»¤ë¤Ë¤ÏÄÌ¾ï¤è¤ê¤â¤Ï¤ë¤«¤ËÄ¹¤¤´ü´Ö¤ÎÎý½¬¤¬É¬Í×¤Ç¤·¤¿¡£
+ ƒgƒ‰ƒCƒfƒ“ƒg (trident,fuscina,fucinula)
+    gŽO³‘„hB‘S’·‚Í1.5`1.8mAd‚³‚Í2`2.5kgBƒXƒsƒA[‚Æ“¯ŽžŠú‚É‹™—Â—p‚Ì
+@“¹‹ï‚©‚ç”h¶‚µ‚½•Ší‚ÆŒ¾‚í‚êAŒÃ‘ãƒ[ƒ}‚ÌŒ•“¬Žm‚âƒKƒŒ[‘D‚Ì‘Dæ‚èAƒ[
+@ƒ}Žž‘ãˆÈ~‚Ì”_–¯•º‚È‚Ç‚ÉŽg—p‚³‚ê‚Ü‚µ‚½B“Á’¥‚Í‘„ó‚Ì•äæ‚ª3–{‚È‚ç‚ñ‚Å•¿
+@‚Ìæ‚É‚Â‚¢‚Ä‚¢‚éŽ–‚Å‚·Bˆê”Ê“I‚ÈŽg—p–@‚Í‰EŽè‚Éƒgƒ‰ƒCƒfƒ“ƒg‚ðŽ‚¿A¶Žè‚É
+@–Ô‚ðŽ‚Á‚ÄA–Ô‚Å‘ŠŽè‚ð•ß‚ç‚¦‚Ä“®‚¯‚È‚­‚µ‚Ä‚©‚çƒgƒ‰ƒCƒfƒ“ƒg‚ÅŽh‚µŽE‚·‚Æ‚¢
+@‚¤‚à‚Ì‚Å‚µ‚½B
 
- ¥Ø¥ô¥£¡¦¥¯¥í¥¹¥Ü¥¦ (heavy crossbow) ¡ã½Å¥¯¥í¥¹¥Ü¥¦¡ä
-¡¡¡¡Á´Ä¹¤Ï½Ä¤¬60¡Á100cm¡¢²£Éý¤¬50¡Á70cm¡¢½Å¤µ¤Ï3¡Á10kg¡£Í­¸ú¼ÍÄø¤Ï40¡Á80m¡¢
-¡¡ºÇÂç¼ÍÄø¤Ï100¡Á425m¡£10À¤µª¤«¤é15À¤µª¤Ë»È¤ï¤ì¤¿¼Í·âÉð´ï¤Ç¤¤¤ï¤æ¤ë¥Ü¥¦¥¬
-¡¡¥ó¤Ç¤¹¡£·±Îý¤¬É¬Í×¤Ê¥·¥ç¡¼¥È¡¦¥Ü¥¦¡¢¥í¥ó¥°¡¦¥Ü¥¦¤ËÈæ¤Ù¤Æ¡¢°ú¤­¶â¤ò°ú¤¯¤À¤±
-¡¡¤Ç¤è¤ê°ÒÎÏ¤Î¤¢¤ëÌð¡Ê¥¯¥©¡¼¥é¥ë¡Ë¤ò¤è¤ê±ó¤¯¤Ø¼Í½Ð½ÐÍè¤ë¤È¤¤¤¦¹âÀ­Ç½¤«¤é¹­
-¡¡¤¯¥è¡¼¥í¥Ã¥Ñ¤Ë¹­¤¬¤ê¤Þ¤·¤¿¡£Èó¾ï¤Ë¶¯ÎÏ¤ÇÆ±¤¸¥­¥ê¥¹¥È¶µÅÌ¤Ø¤Î»ÈÍÑ¤ò¶Ø¤¸¤é
-¡¡¤ì¤¿»ö¤â¤¢¤ë¤³¤ÎÉð´ï¤ÎºÇÂç¤Î·çÅÀ¤Ï¹ÝÅ´À½¤Î¸¹¤ò°ú¤¯¤Î¤ËÄ¹¤¤»þ´Ö¤¬¤«¤«¤Ã¤Æ
-¡¡¤·¤Þ¤¦½ê¤Ç¤·¤¿¡£¤½¤ì¤ò²ò¾Ã¤¹¤ë¤¿¤á¤Ë¤µ¤Þ¤¶¤Þ¤ÊÊýË¡¤¬¼è¤é¤ì¤Þ¤·¤¿¤¬¡¢³×Ì¿
-¡¡Åª¤ÊÊýË¡¤Ï¤È¤¦¤È¤¦¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿¡£¤³¤Î»ö¤¬Ã×Ì¿Åª¤È¤Ê¤ê15À¤µªÃæº¢¤Ë
-¡¡Éð´ï¤È¤·¤Æ¤Î¼÷Ì¿¤ò½ª¤¨¤Þ¤¹¡£À¾ÍÎ¤Ç¥¯¥í¥¹¥Ü¥¦¤¬ºÇ½é¤Ë»È¤ï¤ì¤¿¤Î¤Ïµª¸µÁ°4
-¡¡À¤µª¤Î¸ÅÂå¥®¥ê¥·¥¢¤Ç¤¹¡£
+ ƒ‰ƒ“ƒX (lance,coronel)
+    ‘S’·‚Í2.5`4.2mAd‚³‚Í3.5`10kgB16¢‹I‚©‚ç19¢‹I––‚Ü‚Å‚Ì‹R•º‚É‚æ‚Á‚Ä
+@Žg—p‚³‚ê‚½“ËŒ‚—p‚Ì‘„‚Å‚·B‚Ü‚½A13¢‹I‚©‚ç17¢‹I‚Ìƒg[ƒiƒƒ“ƒg‚ÌƒWƒ‡ƒXƒg
+@‚Å‚àŽg—p‚³‚ê‚Ü‚µ‚½Bƒ‰ƒ“ƒX‚Í‘å‚«‚­•ª‚¯‚ÄŽÀí—p‚ÆƒWƒ‡ƒXƒg—pA“Œ‰¢‚Å—p‚¢‚ç
+@‚ê‚½ƒ^ƒCƒv‚Ì3Ží—Þ‚ª‚ ‚è‚Ü‚·B“Á’¥‚Í‚»‚Ìƒ^ƒCƒv‚²‚Æ‚Éˆá‚¢‚ª‚ ‚é‚Ì‚Å‚·‚ªA
+@‚¾‚¢‚¾‚¢‚ÌŠA‰s‚¢ŽOŠp‚ÌŒ`‚ð‚µ‚Ä‚¨‚èA‘å‚«‚­L‚ª‚Á‚½ŒìŒ‚ðŽ‚¿Aˆ¬‚è‚Ì
+@•”•ª‚ª×‚­A‚»‚µ‚Ä‚»‚ÌŒã‚ë‚Éƒoƒ‰ƒ“ƒX‚ð®‚¦‚é‚½‚ß‘¾‚­‚È‚Á‚½•”•ª‚ª‚ ‚è‚Ü‚·B
+@‚Ç‚Ìƒ^ƒCƒv‚à•ÐŽè‚Å•ø‚¦‚é‚æ‚¤‚ÉŒÅ’è‚µ‚ÄŽg—p‚µ‚Ü‚µ‚½B‘„æ‚ÍŽÀí—p‚Í‘„óA
+@ƒWƒ‡ƒXƒg—p‚ª3‚Â‚Ì’Ü‚ðŽ‚Á‚½‰¤Š¥ó‚Å‚·BƒWƒ‡ƒXƒg—p‚Ìƒ‰ƒ“ƒX‚Í‘ŠŽè‚ð”nã‚©
+@‚ç—Ž‚Æ‚·Ž–‚¾‚¯‚ª–Ú“I‚È‚Ì‚ÅAÕŒ‚‚ð‚æ‚è‹­‚­—^‚¦‚ÄAˆê•û‚ð•‰‚í‚¹‚È‚¢‚æ‚¤
+@‚É‚·‚é‚½‚ß‚É‚±‚Ì‚æ‚¤‚È‘„æ‚ð‚µ‚Ä‚¢‚Ü‚·B‚Ü‚½A•¿‚Éca‚ª‚ ‚èÜ‚ê‚â‚·‚­‚È‚Á
+@‚½‚à‚Ì‚à‚ ‚è‚Ü‚µ‚½Bˆê•ûA“Œ‰¢‚Ìƒ‰ƒ“ƒX‚ÍƒpƒCƒN‚Ì—l‚É”ñí‚É’·‚¢•¿‚É‰s‚¢•ä
+@æ‚ðŽ‚ÂA‚æ‚èŽÀí“I‚È‚à‚Ì‚Å‚·B‚¿‚È‚Ý‚É7¢‹I‚©‚ç13¢‹I‚Ü‚Å‚Ì‹RŽm‚ÉŽg—p‚³
+@‚ê‚½ƒ‰ƒ“ƒX‚Íƒƒ“ƒOEƒXƒsƒA[‚Æ•Ï‚í‚ç‚È‚¢‚à‚Ì‚ÅA‹Ræ‚µ‚Ä“ËŒ‚‚·‚éŽž‚ÉŽg‚¤’·
+@‘„‚ðƒ‰ƒ“ƒX‚ÆŒÄ‚ñ‚Å‚¢‚Ü‚µ‚½B
 
- ¥é¥¤¥È¡¦¥¯¥í¥¹¥Ü¥¦ (light crossbow) ¡ã·Ú¥¯¥í¥¹¥Ü¥¦¡ä
-¡¡¡¡16À¤µª°Ê¹ß¡¢¼íÎÄ¤ä¥¹¥Ý¡¼¥Ä¤Ë»ÈÍÑ¤µ¤ì¤¿¥¯¥í¥¹¥Ü¥¦¤Î»ö¤Ç¤¹¡£¤è¤ê¾®·¿¤È¤Ê
-¡¡¤ê¡¢¤è¤ê·ÚÎÌ²½¤µ¤ì¡¢¤è¤ê°·¤¤¤ä¤¹¤¯¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢¥¯¥©¡¼¥é¥ë¤Ç¤ÏÌµ¤¯¡¢
-¡¡ÀÐ¤äÃÆ´Ý¤òÈô¤Ð¤¹¤â¤Î¤â³«È¯¤µ¤ì¤Þ¤·¤¿¡£¸½ºß¤Ç¤â¥Ü¥¦¥¬¥ó¤È¸Æ¤Ð¤ì¡¢¥¹¥Ý¡¼¥Ä
-¡¡µÚ¤Ó¼íÎÄÍÑ¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£
+ ƒpƒCƒN (pike,pique)
+    ‘S’·‚Í5`7mA•äæ‚Í–ñ25cmAd‚³‚Í3.5`5kgB15¢‹I‚©‚ç17¢‹I––‚É•à•º‚É
+@‚æ‚Á‚ÄŽg‚í‚ê‚½‘Î‹R•º—p‚Ì’·‘„‚Å‚·B“Ë‚«Žh‚·‚½‚ß‚Ì•Ší‚Å‚·‚ªA‹RŽm‚É‘Î‚·‚é
+@ˆÐŠd‚Æ‚µ‚Äâ‘å‚ÈŒø‰Ê‚ðŽ‚¿‚Ü‚µ‚½B—¼‘«‚Æ—¼Žè‚ðŽg‚Á‚Ä•äæ‚ª‹RŽm‚Ì‚‚³‚É‚È
+@‚é‚æ‚¤‚ÉŒÅ’è‚µ‚Ä\‚¦A“ËŒ‚‚µ‚Ä‚­‚é‹R•º‚ÉŒü‚¯‚ÄŽg—p‚µ‚Ü‚·B‹R•º‚ÌŽ‚Âƒ‰ƒ“
+@ƒX‚æ‚è‚à’·‚¢ƒŠ[ƒ`‚ðŽ‚Â‚½‚ß‚É‹R•º‚Í“ËŒ‚‚ð‚½‚ß‚ç‚¢‚Ü‚·‚µA‚à‚µ“ËŒ‚‚µ‚Ä—ˆ
+@‚½ê‡‚Í‘ŠŽè‚Ì¨‚¢‚ð—˜—p‚µ‚Ä‘å‚«‚È‘ÅŒ‚‚ð—^‚¦‚éŽ–‚ª‰Â”\‚Å‚µ‚½BŒãŠú‚É‚Íƒ}
+@ƒXƒPƒbƒge‚ð‘•”õ‚µ‚½•”‘à‚ª’eŠÛ‚ðž‚ß‚Ä‚¢‚éŠÔ‚É‰‡Œì‚·‚é•à•º•”‘à‚É‚æ‚Á‚ÄŽg
+@—p‚³‚ê‚Ü‚µ‚½B
 
- ¥¹¥ê¥ó¥° (sling)
-¡¡¡¡¡ÈÅêÀÐÉ³¡É¡£Á´Ä¹1m¡¢½Å¤µ¤Ï0.3kg°Ê²¼¡£Í­¸ú¼ÍÄø¤Ï100m¡¢ºÇÂç¼ÍÄø¤Ï120¡Á180m¡£
-¡¡µìÀÐ´ï»þÂå¤è¤ê¼íÎÄ¤Ë»È¤ï¤ì¤¿ÅêÚ³Éð´ï¡£¸ÅÂå¥¤¥¹¥é¥¨¥ë¡¢¸ÅÂå¥¨¥¸¥×¥È¡¢¸Å
-¡¡Âå¥®¥ê¥·¥¢¤«¤é¥í¡¼¥ÞÄë¹ñ¤Þ¤Ç·³Ââ¤Ç¤â»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£·Á¾õ¤Ï´ãÂÓ¤Ë»÷¤Æ¤ª¤ê¡¢
-¡¡É³¤ÎÀè¤ËÃÆ¤òÊñ¤à³×¤«ÉÛ¤ÎÉôÊ¬¤¬¤¢¤ê¡¢¤½¤ÎÀè¤Ë¤Þ¤¿É³¤¬¤¢¤ê¤Þ¤¹¡£»ÈÍÑÊý¤Ï¡¢
-¡¡°ìÊý¤ÎÉ³¤ò¼ê¤Ë´¬¤­ÉÕ¤±¡¢ÀÐ¼õ¤±¤ÎÉôÊ¬¤ËÀÐ¤ò¤¤¤ì¤Æ¡¢¤â¤¦°ìÊý¤ÎÉ³¤ò´¬¤­ÉÕ¤±
-¡¡¤¿¼ê¤ÇÄÏ¤ó¤Ç¡¢¥¹¥ê¥ó¥°¤òÆ¬¾å¤Ç¿¶¤ê²ó¤·¤Þ¤¹¡£ÀÐ¤Ë½½Ê¬¤Ê²ÃÂ®¤¬ÆÀ¤é¤ì¤¿¤é¼ê
-  ¤òÎ¥¤·¤Þ¤¹¡£¤¹¤ë¤È¿¶¤ê²ó¤·¤¿Àª¤¤¤ÇÀÐ¤¬Èô¤ó¤Ç¤¤¤¯¤Î¤Ç¤¹¡£ÀÐ¤òÈô¤Ð¤¹¤À¤±¤Ê
-¡¡¤é¤Ð´ÊÃ±¤Ê¤Î¤Ç¤¹¤¬¡¢Ì¿Ãæ¤µ¤»¤ë¤È¤Ê¤ë¤ÈÈó¾ï¤Ë½ÏÎý¤òÍ×¤·¤Þ¤·¤¿¡£¸¶»ÏÅª¤ÊÉð
-¡¡´ï¤Ç¤¹¤¬¡¢¥³¥¹¥È¤È°ÒÎÏ¤Î´Ø·¸¤«¤é½½»ú·³»þÂå¤Þ¤Ç·³Ââ¤Ç»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤·¤¿¡£
-¡¡Ì¤³«ÃÏ¤Ç¤Ï19À¤µª¤Þ¤Ç»È¤ï¤ì¡¢Ãµ¸¡¼Ô¤¿¤Á¤ò¶²¤ì¤µ¤»¤Þ¤·¤¿¡£
+ ƒIƒEƒ‹EƒpƒCƒN (awl-pike)
+    g“Ë‚«‘„hB‘S’·‚Í2.5`3mA•äæ‚Í80`100cmAd‚³‚Í2.5`3kgB13¢‹I‚©‚ç
+@16¢‹I‚Ì•à•º‚É‚æ‚Á‚ÄŽg‚í‚ê‚½‘Î‹R•º—p‚Ì’·‘„‚Å‚·B“Á’¥‚Í‹É’[‚Ì’·‚­A‚Ì‚æ
+@‚¤‚É×‚­‰s‚­ë‚Á‚Ä‚¢‚é•äæ‚ÆA•äæ‚Ìª–{‚É‚ ‚é‰~Œ`‚Ì’Õ‚Å‚·B•äæ‚ª’·‚­‰s
+@‚¢‚Ì‚ÍA13¢‹I‚Ì‹RŽm‚½‚¿‚ÍƒzƒEƒo[ƒN‚Æ‚¢‚¤½›çŽq‚Å‘Sg‚ð•¢‚Á‚Ä‚¢‚½‚Ì‚ÅA
+@‚»‚Ì½‚ÌŒ„ŠÔ‚©‚ç‹RŽm‚ðŽh‚µŽE‚·‚½‚ß‚Å‚·B‰~Œ`‚Ì’Õ‚Í•äæ‚ª•K—vˆÈã‚ÉŽh‚³‚è
+@‚·‚¬‚È‚¢‚½‚ßA‚Ü‚½‘ŠŽè‚ÌUŒ‚‚ð’Õ‚ÅŽó‚¯‚Æ‚ß‚é‚½‚ß‚Ì‚à‚Ì‚Å‚·B‚½‚¾‚µA‚ ‚Ü
+@‚èŽÀ—p“I‚È•Ší‚Å‚Í‚È‚­AƒzƒEƒo[ƒN‚ð’…‚Ä‚¢‚È‚¢“G‚ð‘ŠŽè‚É‚·‚éê‡‚É‚ÍˆÓ–¡
+@‚Ì‚È‚¢•Ší‚ÆŒ¾‚¦‚Ü‚·B
+
+ ƒ‹ƒcƒFƒ‹ƒ“Eƒnƒ“ƒ}[ (lucerne hammer)
+@@‘S’·‚Í3mA“ª•”‚Í40`50cmAd‚³‚Í3.5kgB15¢‹I‚©‚ç16¢‹I’† ‚Ì•à•º‚É‚æ‚Á
+@‚ÄŽg—p‚³‚ê‚½ƒEƒH[Eƒnƒ“ƒ}[‚ÌˆêŽí‚Å‚·B“Á’¥‚Í“ª•”‚Ì•Ð‘¤‚É‚ ‚é‰s‚¢çê’ÜA‚»
+@‚Ì”½‘Î‘¤‚É‚ ‚é4–{‚Ì“Ë‹NA‘„‚Ì—l‚É‰s‚­ë‚Á‚½–gæ‚Å‚·Bƒ‹ƒcƒFƒ‹ƒ“Eƒnƒ“ƒ}[‚Í
+@‚±‚Ì“ª•”‚É‚æ‚Á‚ÄA“Ë‚«Žh‚·Eˆø‚Á‚©‚¯‚éEçê’Ü‚Å‘ŠŽè‚ÌŠ•‚ðŽh‚µŠÑ‚­E“Ë‹N‚ð‘Š
+@Žè‚Ìˆß•ž‚É—‚Ý‚Â‚©‚¹‚é‚Æ‚¢‚¤4‚Â‚Ì‹@”\‚ð“¾‚Ä‚¢‚Ü‚·B‚±‚Ì‚±‚Æ‚©‚çƒ‹ƒcƒFƒ‹ƒ“E
+@ƒnƒ“ƒ}[‚ÍƒEƒH[Eƒnƒ“ƒ}[‚ÌˆêŽí‚Æ‚¢‚¤‚æ‚è‚àƒnƒ‹ƒxƒ‹ƒg‚É‹ß‚¢•Ší‚Å‚ ‚é‚ÆŒ¾
+@‚¦‚Ü‚·BƒEƒH[Eƒnƒ“ƒ}[‚©‚ç”­“W‚µAƒnƒ‹ƒxƒ‹ƒg‚»‚Á‚­‚è‚É‚È‚Á‚½•Ší‚Æ‚àŒ¾‚¦
+@‚Ü‚·Bƒ‹ƒcƒFƒ‹ƒ“‚Æ‚¢‚¤–¼‚ÍƒXƒCƒX’†•”‚É‚ ‚éƒ‹ƒcƒFƒ‹ƒ“BiƒŠƒ…ƒZƒ‹ƒkBj‚Å
+@‚±‚Ì•Ší‚ª’a¶‚µ‚½Ž–‚©‚ç—ˆ‚Ä‚¢‚Ü‚·B
+
+ ƒnƒ‹ƒxƒ‹ƒg(halberd)
+@@‚¢‚í‚ä‚ég•€‘„h–”‚Íg–g‘„hB‘S’·2`3.5mA“ª•”‚Í30`50cmAd‚³‚Í2.5`
+@3.5kgB13¢‹I‚©‚ç16¢‹I––‚Ü‚Å‚Ì•à•º‚ÉŽg—p‚³‚ê‚Ü‚µ‚½B“Á’¥‚Í‚»‚Ì•¡ŽG‚ÈŒ`ó
+@‚Ì“ª•”‚É‚ ‚è‚Ü‚·B•Ð‘¤‚É•€‚Ì—l‚ÈŒ`ó‚Ìn‚ª‚ ‚èA‚»‚Ì”½‘Î‘¤‚ÉŽh‚·‚½‚ß‚Ìçê
+@’Ü‚ª‚ ‚Á‚ÄA“ª•”‚Ìæ‚É‚Í‘„‚Ì—l‚È“Ë‚«Žh‚·‚½‚ß‚ÌØ‚Áæ‚ª‚ ‚è‚Ü‚·B‚±‚Ì“ª•”‚É
+@‚æ‚Á‚Ä’@‚«Ža‚éE“Ë‚«Žh‚·Eˆø‚Á‚©‚¯‚éEçê’Ü‚ÅŽh‚·‚Æ‚¢‚¤4‚Â‚Ì‹@”\‚ð“¾‚Ä‚¢‚Ü
+@‚·BƒXƒsƒA[‚æ‚è‚àˆÐ—Í‚ª‘å‚«‚­A‘„‚Ì•”•ª‚Å‹R•º‚ðŽh‚µAçê’Ü‚Ì•”•ª‚Å‘ŠŽè‚Ì
+@Š•‚ð”j‰ó‚µA•€‚Ì•”•ª‚ÅUŒ‚‚µ‚½‚èA‹R•º‚ð‚©‚çˆø‚«‚¸‚è~‚ë‚µ‚½‚èA•à•º‚Ì‘«
+@‚ð•¥‚Á‚½‚è‚·‚é‘½‹@”\«‚©‚ç•à•º‚ÌŽå—v•Ší‚Æ‚È‚è‚Ü‚µ‚½B16¢‹I––‚©‚ç19¢‹I
+@‚Ü‚Å‚Í‹VŽ®—p‚É‘•ü‚³‚ê‚½‚à‚Ì‚ªA‹ß‰q•º‚É‚æ‚Á‚ÄƒpƒŒ[ƒh‚ÌÛ‚ÉŽg—p‚³‚ê‚Ü‚µ
+@‚½B‘å’ï‚Ì}”Å‚Í‚±‚ÌŽžŠú‚Ìƒnƒ‹ƒxƒ‹ƒg‚ðŽQl‚É‚µ‚Ä‚¢‚Ü‚·B
+
+ ƒOƒŒƒCƒu (glaive,fauchard,cause,kuse)
+@@‘S’·2`3.5mAn‚Ì’·‚³‚ª60`70cmAd‚³‚Í2`3.5kgB13¢‹I‚©‚ç17¢‹I––‚Ü
+@‚ÅŽå‚É‹ß‰q•º—p‚Ì•Ší‚â‹V“T—p‚Ì•Ší‚Æ‚µ‚ÄŽg‚í‚ê‚Ü‚µ‚½B“Á’¥‚Í–gæ‘S‘Ì‚ðè
+@‚ß‚éƒtƒ@ƒ‹ƒVƒIƒ“‚ÉŽ—‚½Œ`ó‚Ìn‚Å‚·B‚Â‚Ü‚èA•Ðn‚Å‚ ‚èAn‚Ì•”•ª‚ÍŽO“úŒŽ
+@Œ^‚É–c‚ç‚ñ‚ÅŒÊ‚ð•`‚¢‚Ä‚¨‚èA“‚Ì•”•ª‚Í^‚Á’¼‚®‚Å‚ ‚é‚Æ‚¢‚¤Ž–‚Å‚·BØ‚Áæ
+@‚àë‚Á‚Ä‚¨‚èA“Ë‚«Žh‚·Ž–‚ðo—ˆ‚Ü‚·‚ªAU‚è‰ñ‚µ‚Ä’@‚«Ža‚é•û‚ªŒø‰Ê“I‚Å‚ ‚èA
+@‚±‚Ì•Ší‚Ìˆê”Ê“I‚ÈŽg—p•û‚Å‚·BŽÀí‚Å‚Í‚ ‚Ü‚èŽg‚í‚ê‚¸A16¢‹IˆÈ~‚ÍŠ®‘S‚É
+@‹V“T—p‚Ì•Ší‚Æ‚È‚è‚Ü‚µ‚½B‹V“T—p‚ÌƒOƒŒƒCƒu‚Ì–gæ‚É‚Í—lX‚È–Í—l‚â–äÍ‚ª’¤
+@‚³‚ê‚Ä‚¢‚Ü‚µ‚½Bn‚Ì”½‘Î‘¤‚Éçê’Ü‚ª•t‚¯‚ç‚ê‚½ƒOƒŒƒCƒu‚Í‚Ç‚¿‚ç‚©‚Æ‚¢‚¤‚Æ
+@ŽÀí—p‚ÅƒtƒH[ƒ`ƒƒ[ƒh‚ÆŒÄ‚Î‚ê‚Ü‚µ‚½B
+
+ ƒƒRƒbƒo[EƒAƒbƒNƒX (lochaber axe)
+    ‘S’·2`2.5mA•€n‚Ì’·‚³‚ª40`50cmAd‚³‚Í2.2`2.5kgB16¢‹I‚©‚ç18¢‹I
+@‚ÌƒXƒRƒbƒgƒ‰ƒ“ƒh‚Ì”_–¯og‚Ì•ºŽm‚½‚¿‚ÉŽg‚í‚ê‚½í•€‚Å‚·B“Á’¥‚Í•Ðn‚Å”ñí
+@‚É”–‚¢•€n‚ÆAæ’[‚É‚Â‚¢‚½çê’Ü‚Å‚·Bçê’Ü‚Í”nã‚Ì“G‚ðˆø‚«‚¸‚è~‚ë‚·‚Ì‚ÉŽg
+@‚í‚ê‚Ü‚µ‚½B•€n‚ÍØ‚é‚½‚ß‚Ì‚à‚Ì‚ÅAŽh‚·‚½‚ß‚ÌØ‚Áæ‚Í‚ ‚è‚Ü‚¹‚ñBƒƒRƒb
+@ƒo[‚Æ‚¢‚¤–¼‚ÍƒXƒRƒbƒgƒ‰ƒ“ƒh‚Ìˆê’n•û‚Ì–¼‘O‚ÅA‚»‚±‚Å‚±‚Ì•Ší‚ª’a¶‚µ‚½‚½
+@‚ß‚É‚±‚Ì–¼‚ª•t‚¯‚ç‚ê‚Ü‚µ‚½B”ñí‚ÉŽ—‚½•Ší‚Å‚ ‚éƒWƒƒƒbƒhƒoƒ‰EƒAƒbƒNƒX‚à
+@“¯—l‚ÉƒXƒRƒbƒgƒ‰ƒ“ƒh‚Ì“sŽs‚Ì–¼‚ðŠ¥‚µ‚Ä‚¢‚Ü‚·BƒƒRƒbƒo[EƒAƒbƒNƒX‚Í˜A–M
+@‰¤‘‚Ì•Ší‚Å‚ ‚èA˜A–M‰¤‘ˆÈŠO‚ÅŽg—p‚³‚ê‚½‹L˜^‚Í‚Ü‚Á‚½‚­‚ ‚è‚Ü‚¹‚ñB
+
+ ƒVƒBƒA[(scythe) ƒ‘åŠ™„
+@@‚¢‚í‚ä‚ég‘åŠ™hB‘S’·2`2.5mAn‚Ì’·‚³‚ª70`90cmAd‚³‚Í2.2`2.5kgB
+@”_‹ï‚Å‚ ‚é‘åŠ™‚©‚ç”h¶‚µ‚½•Ší‚ÅA16¢‹IŒãŠú‚©‚ç17¢‹I‚Ì”_–¯•º‚É‚æ‚Á‚ÄŽg
+@—p‚³‚ê‚Ü‚µ‚½B“Á’¥‚Í˜p‹È‚µ‚½•Ðn‚Ìn‚Å‚·B‚Ü‚Á‚½‚­í‚¢•û‚ð’m‚ç‚È‚¢¬ì–¯
+@‚ª”½—‚É‚¨‚¢‚ÄŽg—p‚µ‚½‚½‚ßA˜—­‚ß‚É\‚¦‚Ä‚½‚¾U‚è‰ñ‚·‚Æ‚¢‚¤Žg‚í‚ê•û‚ªˆê
+@”Ê“I‚Å‚µ‚½B‚Ü‚½AÚ‹ßí‚Å‚Ín‚Ì•”•ª‚Å’@‚«Ža‚Á‚½‚èA‘S‘Ì‚Å‰£‚è“|‚µ‚½‚è‚Æ
+@‚¢‚¤Žg—p–@‚àL‚­—p‚¢‚ç‚ê‚Ü‚µ‚½B‚¿‚È‚Ý‚ÉAŽ€_‚ªŽ‚Á‚Ä‚¢‚é‚Æ‚³‚ê‚é‘åŠ™‚Í
+@•¿‚Æn‚ÌŠÔ‚ÌŠp“x‚ª90“x‚ ‚è‚Ü‚·‚ªAŽÀÛ‚ÉŽg‚í‚ê‚½‘åŠ™‚Í•¿‚Ì‰„’·ã‚É˜p‹È‚µ
+@‚½n‚ª‚ ‚é‚Æ‚¢‚¤Œ`ó‚ð‚µ‚Ä‚¢‚Ü‚·B
 
 
-³ÊÆ®Éð´ï
+ŽËŒ‚•Ší
 
- ¥»¥¹¥¿¥¹ (cesti)
-¡¡¡¡¤¤¤ï¤æ¤ë¥Ê¥Ã¥¯¥ë¤Ç¤¹¡£¶âÂ°¤Çºî¤é¤ì¤¿·ý¤Ë¤Ï¤á¤ëÉð´ï¤Ç¡¢·ý¤Ë¤è¤ëÂÇ·âÎÏ¤ò
-¡¡¹â¤á¤ë»ö¤òÌÜÅª¤Ë¤·¤Æ¤¤¤Þ¤¹¡£·Á¾õ¤Ë¤ÏÍÍ¡¹¤Ê¤â¤Î¤¬¤¢¤ê°ì³µ¤Ë¤Ï¸À¤¨¤Þ¤»¤ó¤¬¡¢
-¡¡ºÇ¤â°ìÈÌÅª¤Ê¤â¤Î¤Ï¥Ê¥Ã¥¯¥ë¤È¤·¤Æ¸½ºß¤ò»È¤ï¤ì¤Æ¤¤¤ë¤â¤Î¤Ç¤¹¡£Â¾¤Ë¤â¥°¥í¡¼
-¡¡¥Ö·¿¤Î¤â¤Î¤ä¥Ê¥Ã¥¯¥ë·¿¤Ç¤âÉ½ÌÌ¤ËÆÍµ¯Êª¤¬¤¢¤ë¤â¤Î¤Ê¤É¤¬¤¢¤ê¤Þ¤¹¡£¸ÅÂå¥®¥ê
-¡¡¥·¥¢¤Î¥Ü¥¯¥·¥ó¥°¤Î»þ¤ä¸ÅÂå¥í¡¼¥Þ¤Î·ýÆ®»Î¤Ë»ÈÍÑ¤µ¤ì¤Þ¤·¤¿¡£Àµµ¬¤Î·³Ââ¤ÎÁõ
-¡¡È÷¤È¤·¤Æ»ÈÍÑ¤µ¤ì¤¿Îã¤Ï¤¢¤ê¤Þ¤»¤ó¡£
+ ƒVƒ‡[ƒgEƒ{ƒE (short bow) ƒ’Z‹|„
+@@g’Z‹|hB‘S’·‚Í1mˆÈ‰ºAd‚³‚Í0.5`0.8kgB—LŒøŽË’ö‚Í90mAÅ‘åŽË’ö‚Í225mB
+@‹ŒÎŠíŽž‘ã‚Ì––Šú‚ÉŽë—Â—p‚ÉŽg‚í‚ê‚¾‚µ‚½ŽËŒ‚•Ší‚Å‚·BŒÃ‘ãƒGƒWƒvƒg‚âŒÃ‘ãƒVƒ…
+@ƒ[ƒ‹‚È‚Ç‚ÌŒR‘à‚ÅŽg—p‚³‚ê‚Ü‚µ‚½B“Á’¥‚Í‹|–{‘Ì‚Ì’Z‚³‚Å‚·Bˆµ‚¢‚â‚·‚¢Žè ‚È
+@’·‚³‚Ì‚½‚ß‚É”nã‚Å‚àŽg—p‚³‚ê‚Ü‚µ‚½B•W“I‚É–½’†‚³‚¹‚é‚É‚Í”ñí‚Èn—û‚ð—v‚·•
+@Ší‚ÅA‚©‚È‚è‚Ì—ûK‚ª•K—v‚Å‚µ‚½B
+
+ ƒƒ“ƒOEƒ{ƒE (short bow) ƒ’·‹|„
+@@g’·‹|hB‘S’·‚Í150`200cmAd‚³‚Í0.6`1kgB—LŒøŽË’ö‚Í150mAÅ‘åŽË’ö‚Í
+@255mB12¢‹I‚©‚ç15¢‹I‚ÌƒCƒMƒŠƒX‚Ì‹|•º‚ÉŽg—p‚³‚ê‚½ŽËŒ‚•Ší‚Å‚·BƒVƒ‡[ƒgE
+@ƒ{ƒE‚Æ‚Ì·‚Í‚»‚Ì’·‚³‚ÅAƒvƒŒ[ƒgEƒƒCƒ‹‚ðŠÑ’Ê‚·‚éŽ–‚ª‰Â”\‚È‚Ù‚Ç‚Ì”ñí‚É
+@‘å‚«‚ÈŠÑ’Ê—Í‚ð‚à‚Á‚Ä‚¢‚Ü‚µ‚½BŽË’ö‚ÍƒVƒ‡[ƒgEƒ{ƒE‚æ‚è‚à’·‚­A‚³‚ç‚ÉŽR‚È‚è
+@‚Ì’e“¹‚ð•`‚­Ž–‚É‚æ‚Á‚ÄŽË’ö‚ð’·‚­‚·‚éŽ–‚ª‰Â”\‚Å‚µ‚½B‚µ‚©‚µA‚±‚ÌŽËŒ‚•û‚Å
+@•W“I‚É–½’†‚³‚¹‚é‚É‚Í’Êí‚æ‚è‚à‚Í‚é‚©‚É’·‚¢ŠúŠÔ‚Ì—ûK‚ª•K—v‚Å‚µ‚½B
+
+ ƒwƒ”ƒBEƒNƒƒXƒ{ƒE (heavy crossbow) ƒdƒNƒƒXƒ{ƒE„
+@@‘S’·‚Íc‚ª60`100cmA‰¡•‚ª50`70cmAd‚³‚Í3`10kgB—LŒøŽË’ö‚Í40`80mA
+@Å‘åŽË’ö‚Í100`425mB10¢‹I‚©‚ç15¢‹I‚ÉŽg‚í‚ê‚½ŽËŒ‚•Ší‚Å‚¢‚í‚ä‚éƒ{ƒEƒK
+@ƒ“‚Å‚·BŒP—û‚ª•K—v‚ÈƒVƒ‡[ƒgEƒ{ƒEAƒƒ“ƒOEƒ{ƒE‚É”ä‚×‚ÄAˆø‚«‹à‚ðˆø‚­‚¾‚¯
+@‚Å‚æ‚èˆÐ—Í‚Ì‚ ‚é–îiƒNƒH[ƒ‰ƒ‹j‚ð‚æ‚è‰“‚­‚ÖŽËoo—ˆ‚é‚Æ‚¢‚¤‚«”\‚©‚çL
+@‚­ƒˆ[ƒƒbƒp‚ÉL‚ª‚è‚Ü‚µ‚½B”ñí‚É‹­—Í‚Å“¯‚¶ƒLƒŠƒXƒg‹³“k‚Ö‚ÌŽg—p‚ð‹Ö‚¶‚ç
+@‚ê‚½Ž–‚à‚ ‚é‚±‚Ì•Ší‚ÌÅ‘å‚ÌŒ‡“_‚Í|“S»‚ÌŒ·‚ðˆø‚­‚Ì‚É’·‚¢ŽžŠÔ‚ª‚©‚©‚Á‚Ä
+@‚µ‚Ü‚¤Š‚Å‚µ‚½B‚»‚ê‚ð‰ðÁ‚·‚é‚½‚ß‚É‚³‚Ü‚´‚Ü‚È•û–@‚ªŽæ‚ç‚ê‚Ü‚µ‚½‚ªAŠv–½
+@“I‚È•û–@‚Í‚Æ‚¤‚Æ‚¤Œ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B‚±‚ÌŽ–‚ª’v–½“I‚Æ‚È‚è15¢‹I’† ‚É
+@•Ší‚Æ‚µ‚Ä‚ÌŽõ–½‚ðI‚¦‚Ü‚·B¼—m‚ÅƒNƒƒXƒ{ƒE‚ªÅ‰‚ÉŽg‚í‚ê‚½‚Ì‚Í‹IŒ³‘O4
+@¢‹I‚ÌŒÃ‘ãƒMƒŠƒVƒA‚Å‚·B
+
+ ƒ‰ƒCƒgEƒNƒƒXƒ{ƒE (light crossbow) ƒŒyƒNƒƒXƒ{ƒE„
+@@16¢‹IˆÈ~AŽë—Â‚âƒXƒ|[ƒc‚ÉŽg—p‚³‚ê‚½ƒNƒƒXƒ{ƒE‚ÌŽ–‚Å‚·B‚æ‚è¬Œ^‚Æ‚È
+@‚èA‚æ‚èŒy—Ê‰»‚³‚êA‚æ‚èˆµ‚¢‚â‚·‚­‚È‚Á‚Ä‚¢‚Ü‚·B‚Ü‚½AƒNƒH[ƒ‰ƒ‹‚Å‚Í–³‚­A
+@Î‚â’eŠÛ‚ð”ò‚Î‚·‚à‚Ì‚àŠJ”­‚³‚ê‚Ü‚µ‚½BŒ»Ý‚Å‚àƒ{ƒEƒKƒ“‚ÆŒÄ‚Î‚êAƒXƒ|[ƒc
+@‹y‚ÑŽë—Â—p‚ÉŽg—p‚³‚ê‚Ä‚¢‚Ü‚·B
+
+ ƒXƒŠƒ“ƒO (sling)
+@@g“ŠÎ•RhB‘S’·1mAd‚³‚Í0.3kgˆÈ‰ºB—LŒøŽË’ö‚Í100mAÅ‘åŽË’ö‚Í120`180mB
+@‹ŒÎŠíŽž‘ã‚æ‚èŽë—Â‚ÉŽg‚í‚ê‚½“Š±•ŠíBŒÃ‘ãƒCƒXƒ‰ƒGƒ‹AŒÃ‘ãƒGƒWƒvƒgAŒÃ
+@‘ãƒMƒŠƒVƒA‚©‚çƒ[ƒ}’é‘‚Ü‚ÅŒR‘à‚Å‚àŽg—p‚³‚ê‚Ü‚µ‚½BŒ`ó‚ÍŠá‘Ñ‚ÉŽ—‚Ä‚¨‚èA
+@•R‚Ìæ‚É’e‚ð•ï‚ÞŠv‚©•z‚Ì•”•ª‚ª‚ ‚èA‚»‚Ìæ‚É‚Ü‚½•R‚ª‚ ‚è‚Ü‚·BŽg—p•û‚ÍA
+@ˆê•û‚Ì•R‚ðŽè‚ÉŠª‚«•t‚¯AÎŽó‚¯‚Ì•”•ª‚ÉÎ‚ð‚¢‚ê‚ÄA‚à‚¤ˆê•û‚Ì•R‚ðŠª‚«•t‚¯
+@‚½Žè‚Å’Í‚ñ‚ÅAƒXƒŠƒ“ƒO‚ð“ªã‚ÅU‚è‰ñ‚µ‚Ü‚·BÎ‚É\•ª‚È‰Á‘¬‚ª“¾‚ç‚ê‚½‚çŽè
+  ‚ð—£‚µ‚Ü‚·B‚·‚é‚ÆU‚è‰ñ‚µ‚½¨‚¢‚ÅÎ‚ª”ò‚ñ‚Å‚¢‚­‚Ì‚Å‚·BÎ‚ð”ò‚Î‚·‚¾‚¯‚È
+@‚ç‚ÎŠÈ’P‚È‚Ì‚Å‚·‚ªA–½’†‚³‚¹‚é‚Æ‚È‚é‚Æ”ñí‚Én—û‚ð—v‚µ‚Ü‚µ‚½BŒ´Žn“I‚È•
+@Ší‚Å‚·‚ªAƒRƒXƒg‚ÆˆÐ—Í‚ÌŠÖŒW‚©‚ç\ŽšŒRŽž‘ã‚Ü‚ÅŒR‘à‚ÅŽg—p‚³‚ê‚Ä‚¢‚Ü‚µ‚½B
+@–¢ŠJ’n‚Å‚Í19¢‹I‚Ü‚ÅŽg‚í‚êA’TŒŸŽÒ‚½‚¿‚ð‹°‚ê‚³‚¹‚Ü‚µ‚½B
 
 
---- ¼¹É®: ¾ë¸Í¥¤¥µ¥à ---
+Ši“¬•Ší
+
+ ƒZƒXƒ^ƒX (cesti)
+@@‚¢‚í‚ä‚éƒiƒbƒNƒ‹‚Å‚·B‹à‘®‚Åì‚ç‚ê‚½Œ‚É‚Í‚ß‚é•Ší‚ÅAŒ‚É‚æ‚é‘ÅŒ‚—Í‚ð
+@‚‚ß‚éŽ–‚ð–Ú“I‚É‚µ‚Ä‚¢‚Ü‚·BŒ`ó‚É‚Í—lX‚È‚à‚Ì‚ª‚ ‚èˆêŠT‚É‚ÍŒ¾‚¦‚Ü‚¹‚ñ‚ªA
+@Å‚àˆê”Ê“I‚È‚à‚Ì‚ÍƒiƒbƒNƒ‹‚Æ‚µ‚ÄŒ»Ý‚ðŽg‚í‚ê‚Ä‚¢‚é‚à‚Ì‚Å‚·B‘¼‚É‚àƒOƒ[
+@ƒuŒ^‚Ì‚à‚Ì‚âƒiƒbƒNƒ‹Œ^‚Å‚à•\–Ê‚É“Ë‹N•¨‚ª‚ ‚é‚à‚Ì‚È‚Ç‚ª‚ ‚è‚Ü‚·BŒÃ‘ãƒMƒŠ
+@ƒVƒA‚Ìƒ{ƒNƒVƒ“ƒO‚ÌŽž‚âŒÃ‘ãƒ[ƒ}‚ÌŒ“¬Žm‚ÉŽg—p‚³‚ê‚Ü‚µ‚½B³‹K‚ÌŒR‘à‚Ì‘•
+@”õ‚Æ‚µ‚ÄŽg—p‚³‚ê‚½—á‚Í‚ ‚è‚Ü‚¹‚ñB
+
+
+--- Ž·•M: éŒËƒCƒTƒ€ ---
 
 

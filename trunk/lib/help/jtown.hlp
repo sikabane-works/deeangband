@@ -1,22 +1,22 @@
-³¹¤È¹ÓÌî
+ŠX‚Ær–ì
 
-»²¾È¤·¤¿¤¤¥ª¥ó¥é¥¤¥ó¡¦¥Ø¥ë¥×¤Îµ­¹æ¤ò²¡¤·¤Æ²¼¤µ¤¤:
+ŽQÆ‚µ‚½‚¢ƒIƒ“ƒ‰ƒCƒ“Eƒwƒ‹ƒv‚Ì‹L†‚ð‰Ÿ‚µ‚Ä‰º‚³‚¢:
 
-    (a) ³¹¤È¹ÓÌî                           (jtown.txt)
-    (b) ³¹¤È¹ÓÌî¤Ë¸½¤ì¤ëÊ¸»ú               (jtown.txt#MapSymbols)
-    (c) ³¹¤Î¥Þ¥Ã¥×                         (jtown.txt#TownLevel)
-    (d) É¸½à¤Î³¹                           (jtown.txt#StandardTown)
-    (e) ¾®µ¬ÌÏ¤Ê³¹                         (jtown.txt#LiteTown)
-    (f) ¸µÁÄ¤ÎÄ®                           (jtown.txt#VanillaTown)
-    (g) ³¹¤Î½»Ì±                           (jtown.txt#Townspeople)
-    (h) ³¹¤Ç¤ÎÇã¤¤Êª                       (jtown.txt#Shopping)
-    (i) ÇäÇã¸ò¾Ä                           (jtown.txt#Bartering)
-    (j) ¥¢¥¤¥Æ¥à¤Î²Á³Ê                     (jtown.txt#ObjectPricing)
-    (k) Å¹¤Î°ìÍ÷                           (jtown.txt#TheShops)
-    (l) ÆÃÊÌ¤Ê·úÊª                         (jtown.txt#Buildings)
-    (m) ¸ÇÄê¥¯¥¨¥¹¥È                       (jtown.txt#FixedQuests)
+    (a) ŠX‚Ær–ì                           (jtown.txt)
+    (b) ŠX‚Ær–ì‚ÉŒ»‚ê‚é•¶Žš               (jtown.txt#MapSymbols)
+    (c) ŠX‚Ìƒ}ƒbƒv                         (jtown.txt#TownLevel)
+    (d) •W€‚ÌŠX                           (jtown.txt#StandardTown)
+    (e) ¬‹K–Í‚ÈŠX                         (jtown.txt#LiteTown)
+    (f) Œ³‘c‚Ì’¬                           (jtown.txt#VanillaTown)
+    (g) ŠX‚ÌZ–¯                           (jtown.txt#Townspeople)
+    (h) ŠX‚Å‚Ì”ƒ‚¢•¨                       (jtown.txt#Shopping)
+    (i) ”„”ƒŒðÂ                           (jtown.txt#Bartering)
+    (j) ƒAƒCƒeƒ€‚Ì‰¿Ši                     (jtown.txt#ObjectPricing)
+    (k) “X‚Ìˆê——                           (jtown.txt#TheShops)
+    (l) “Á•Ê‚ÈŒš•¨                         (jtown.txt#Buildings)
+    (m) ŒÅ’èƒNƒGƒXƒg                       (jtown.txt#FixedQuests)
 
-    (?) ¥Ø¥ë¥×¥·¥¹¥Æ¥à¤Î»ÈÍÑË¡             (jhelpinfo.txt)
+    (?) ƒwƒ‹ƒvƒVƒXƒeƒ€‚ÌŽg—p–@             (jhelpinfo.txt)
 
 
 ***** [a] jtown.txt

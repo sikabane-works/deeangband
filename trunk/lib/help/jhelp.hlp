@@ -1,22 +1,22 @@
-[ ÊÑ¶òÈÚÅÜ¡¦¥ª¥ó¥é¥¤¥ó¡¦¥Ø¥ë¥×¡¦¥·¥¹¥Æ¥à¤Ø¤è¤¦¤³¤½ ]
-  »²¾È¤·¤¿¤¤¥Ø¥ë¥×¤Îµ­¹æ¤ò²¡¤·¤Æ²¼¤µ¤¤:
+[ •Ï‹ğ”Ø“{EƒIƒ“ƒ‰ƒCƒ“Eƒwƒ‹ƒvEƒVƒXƒeƒ€‚Ö‚æ‚¤‚±‚» ]
+  QÆ‚µ‚½‚¢ƒwƒ‹ƒv‚Ì‹L†‚ğ‰Ÿ‚µ‚Ä‰º‚³‚¢:
 
- (a)Á´ÂÎÅª¤Ê¾ğÊó        (jgeneral.hlp)  (o)ÄÉ²Ã¾ğÊó    (jspecial.hlp)
- (b)¥­¥ã¥é¥¯¥¿¡¼¤ÎºîÀ®  (jbirth  .hlp)  [[[[y|(p)½é¿´¼Ô¥¬¥¤¥É(jtang   .txt)|   
- (c)¼ïÂ²¡¢¿¦¶È¡¢À­³Ê    (jraceclas.hlp) (r)±Ñ¸ìÈÇ¥Ø¥ë¥×(help    .hlp)
- (d)³¹¤È¹ÓÌî            (jtown   .hlp)
- (e)¥À¥ó¥¸¥ç¥ó¤ÎÃµ¸±    (jdungeon.hlp)
- (f)¥¢¥¤¥Æ¥à            (jobjects.hlp)
- (g)¥â¥ó¥¹¥¿¡¼          (jmonster.hlp)
- (h)¹¶·â¤ÈÉğ´ï          (jattack .hlp)
- (i)ËÉ¸æ¤ÈËÉ¶ñ          (jdefend .hlp)
- (j)ËâË¡¤Î¥·¥¹¥Æ¥à      (jmagic  .hlp)
- (k)¥³¥Ş¥ó¥É¤Î²òÀâ      (jcommand.hlp)
- (l)¥ª¥×¥·¥ç¥ó¤Î°ìÍ÷    (joption .hlp)
- (m)¥æ¡¼¥¶¡¼ÀßÄê¥Õ¥¡¥¤¥ë(jpref   .hlp)
- (n)¼«Æ°½¦¤¤/ÇË²õ       (jeditor .txt)
+ (a)‘S‘Ì“I‚Èî•ñ        (jgeneral.hlp)  (o)’Ç‰Áî•ñ    (jspecial.hlp)
+ (b)ƒLƒƒƒ‰ƒNƒ^[‚Ìì¬  (jbirth  .hlp)  [[[[y|(p)‰SÒƒKƒCƒh(jtang   .txt)|   
+ (c)í‘°AE‹ÆA«Ši    (jraceclas.hlp) (r)‰pŒê”Åƒwƒ‹ƒv(help    .hlp)
+ (d)ŠX‚Ær–ì            (jtown   .hlp)
+ (e)ƒ_ƒ“ƒWƒ‡ƒ“‚Ì’TŒ¯    (jdungeon.hlp)
+ (f)ƒAƒCƒeƒ€            (jobjects.hlp)
+ (g)ƒ‚ƒ“ƒXƒ^[          (jmonster.hlp)
+ (h)UŒ‚‚Æ•Ší          (jattack .hlp)
+ (i)–hŒä‚Æ–h‹ï          (jdefend .hlp)
+ (j)–‚–@‚ÌƒVƒXƒeƒ€      (jmagic  .hlp)
+ (k)ƒRƒ}ƒ“ƒh‚Ì‰ğà      (jcommand.hlp)
+ (l)ƒIƒvƒVƒ‡ƒ“‚Ìˆê——    (joption .hlp)
+ (m)ƒ†[ƒU[İ’èƒtƒ@ƒCƒ‹(jpref   .hlp)
+ (n)©“®E‚¢/”j‰ó       (jeditor .txt)
 
-[[[[y| (?)¥Ø¥ë¥×¥·¥¹¥Æ¥à¤Î»ÈÍÑË¡      (jhelpinfo.txt)
+[[[[y| (?)ƒwƒ‹ƒvƒVƒXƒeƒ€‚Ìg—p–@      (jhelpinfo.txt)
 ***** [a] jgeneral.hlp
 ***** [b] jbirth.hlp
 ***** [c] jraceclas.hlp
