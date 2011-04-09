@@ -7181,10 +7181,11 @@ quit("セーブファイルが壊れています");
 					}
 					else
 					{
-						p_ptr->wilderness_y = 48;
-						p_ptr->wilderness_x = 5;
-						p_ptr->oldpy = 33;
-						p_ptr->oldpx = 131;
+						/*TODO: 当分はイェーキンからのみスタート */
+						p_ptr->wilderness_x = 134;
+						p_ptr->wilderness_y = 71;
+						p_ptr->oldpy = 95;
+						p_ptr->oldpx = 95;
 					}
 
 					/* Leaving */

@@ -7214,6 +7214,10 @@ static bool ask_quick_start(void)
 	init_dungeon_quests();
 	init_turn();
 
+	/*TODO: 当面はイェーキンからのみスタート、いずれ指定された都市を選ぶように指定。 */
+	p_ptr->wilderness_x = 134;
+	p_ptr->wilderness_y = 71;
+
 	sp_ptr = &sex_info[p_ptr->sex];
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
