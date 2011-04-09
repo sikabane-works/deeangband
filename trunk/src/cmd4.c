@@ -9206,16 +9206,20 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 {
 	char tmp_str[120];
 	char rand_tmp_str[120] = "\0";
+	char dungeon_name[80];
 	char name[80];
 	monster_race *r_ptr;
+	dungeon_info_type *d_ptr;
 	int i;
 	int rand_level = 100;
 	int total = 0;
 
+	
+
 #ifdef JP
-	fprintf(fff, "《遂行中のクエスト》\n");
+	fprintf(fff, "《遂行中のクエスト》\n\n");
 #else
-	fprintf(fff, "< Current Quest >\n");
+	fprintf(fff, "< Current Quest >\n\n");
 #endif
 
 	for (i = 1; i < max_quests; i++)
@@ -9256,58 +9260,63 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					case QUEST_TYPE_KILL_LEVEL:
 					case QUEST_TYPE_KILL_ANY_LEVEL:
 						r_ptr = &r_info[quest[i].r_idx];
+						d_ptr = &d_info[quest[i].dungeon];
 						strcpy(name, r_name + r_ptr->name);
+						strcpy(dungeon_name, d_name + d_ptr->name);
+
 						if (quest[i].max_num > 1)
 						{
 #ifdef JP
-							sprintf(note," - %d 体の%sを倒す。(あと %d 体)",
-								quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
+							sprintf(note,"%sにいる %d 体の%sを倒す。(あと %d 体)",
+								dungeon_name, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
 #else
 							plural_aux(name);
-							sprintf(note," - kill %d %s, have killed %d.",
-								quest[i].max_num, name, quest[i].cur_num);
+							sprintf(note,"kill %d %s in %s, have killed %d.",
+								quest[i].max_num, name, dungeon_name, quest[i].cur_num);
 #endif
 						}
 						else
 #ifdef JP
-							sprintf(note," - %sを倒す。",name);
+							sprintf(note,"「%s」にいる「%s」を倒す。", dungeon_name, name);
 #else
-							sprintf(note," - kill %s.",name);
+							sprintf(note,"kill %s in %s.", name, dungeon);
 #endif
 						break;
 
 					case QUEST_TYPE_FIND_ARTIFACT:
+						d_ptr = &d_info[quest[i].dungeon];
+						strcpy(dungeon_name, d_name + d_ptr->name);
 						strcpy(name, a_name + a_info[quest[i].k_idx].name);
 #ifdef JP
-						sprintf(note," - %sを見つけ出す。", name);
+						sprintf(note,"「%s」にある「%s」を見つけ出す。", dungeon_name, name);
 #else
-						sprintf(note," - Find out %s.", name);
+						sprintf(note,"Find out %s in %s.", name, dungeon_name);
 #endif
 						break;
 
 					case QUEST_TYPE_FIND_EXIT:
 #ifdef JP
-						sprintf(note," - 探索する。");
+						sprintf(note,"探索する。");
 #else
-						sprintf(note," - Search.");
+						sprintf(note,"Search.");
 #endif
 						break;
 
 					case QUEST_TYPE_KILL_NUMBER:
 #ifdef JP
-						sprintf(note," - %d 体のモンスターを倒す。(あと %d 体)",
+						sprintf(note,"%d 体のモンスターを倒す。(あと %d 体)",
 							quest[i].max_num, quest[i].max_num - quest[i].cur_num);
 #else
-						sprintf(note," - Kill %d monsters, have killed %d.",
+						sprintf(note,"Kill %d monsters, have killed %d.",
 							quest[i].max_num, quest[i].cur_num);
 #endif
 						break;
 
 					case QUEST_TYPE_KILL_ALL:
 #ifdef JP
-						sprintf(note," - 全てのモンスターを倒す。");
+						sprintf(note,"全てのモンスターを倒す。");
 #else
-						sprintf(note," - Kill all monsters.");
+						sprintf(note,"Kill all monsters.");
 #endif
 						break;
 					}
@@ -9315,10 +9324,10 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 				/* Print the quest info */
 #ifdef JP
-				sprintf(tmp_str, "  %s (危険度:%d階相当)%s\n",
+				sprintf(tmp_str, "  %s (危険度:%d階相当)\n  %s\n",
 					quest[i].name, quest[i].level, note);
 #else
-				sprintf(tmp_str, "  %s (Danger level: %d)%s\n",
+				sprintf(tmp_str, "  %s (Danger level: %d)\n  %s\n",
 					quest[i].name, quest[i].level, note);
 #endif
 
@@ -9342,6 +9351,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						fprintf(fff, "    %s\n", quest_text[j]);
 						j++;
 					}
+					fprintf(fff, "\n");
 				}
 			}
 			else if (quest[i].level < rand_level) /* QUEST_TYPE_RANDOM */
@@ -9405,9 +9415,9 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 	int total = 0;
 
 #ifdef JP
-	fprintf(fff, "《達成したクエスト》\n");
+	fprintf(fff, "《達成したクエスト》\n\n");
 #else
-	fprintf(fff, "< Completed Quest >\n");
+	fprintf(fff, "< Completed Quest >\n\n");
 #endif
 	for (i = 1; i < max_quests; i++)
 	{
@@ -9497,9 +9507,9 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 	int total = 0;
 
 #ifdef JP
-	fprintf(fff, "《失敗したクエスト》\n");
+	fprintf(fff, "《失敗したクエスト》\n\n");
 #else
-	fprintf(fff, "< Failed Quest >\n");
+	fprintf(fff, "< Failed Quest >\n\n");
 #endif
 	for (i = 1; i < max_quests; i++)
 	{

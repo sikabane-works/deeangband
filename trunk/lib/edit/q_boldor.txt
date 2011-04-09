@@ -1,12 +1,12 @@
 # q_boldor.txt
 
 # Name
-Q:$8:N:great king of yeeks
+Q:$8:N:Great king of yeeks
 Q:8:N:ÉCÅ[ÉNÇÃëÂâ§
 
 # type:num_mon:cur_num:max_num:level:r_idx:k_idx
-Q:$8:Q:1:0:0:1:15:237:0:1
-Q:8:Q:1:0:0:1:15:237:0:1
+Q:$8:Q:1:0:0:1:15:237:0:2
+Q:8:Q:1:0:0:1:15:237:0:2
 
 # Description for quest
 ?:[LEQ $QUEST8 2]

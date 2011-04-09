@@ -139,7 +139,7 @@
 ?:[EQU $QUEST_NUMBER 34]
 %:q_moria.txt
 
-# Boldor
+# the Bull Roaror
 ?:[EQU $QUEST_NUMBER 35]
 %:q_bullroaror.txt
 
