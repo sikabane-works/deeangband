@@ -309,8 +309,8 @@ F:FINAL_GUARDIAN_1090 | FINAL_ARTIFACT_238
 M:GOOD
 
 N:22:Žç‚è‚Ì“ƒ
-E:Minus Tirith
-D:$the entrance gate of the Minus Tirith
+E:Minas Tirith
+D:$the entrance gate of the Minas Tirith
 D:Žç‚è‚Ì“ƒ
 P:62:66
 W:35:50:30:3:14:160:75:20:0x037f:0x033f
