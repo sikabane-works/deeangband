@@ -25,7 +25,6 @@ void check_experience(void)
 	bool level_inc_stat = FALSE;
 	bool android = (p_ptr->race == RACE_ANDROID ? TRUE : FALSE);
 	int  old_lev = p_ptr->lev;
-	int i;
 
 	if(p_ptr->max_lev > PY_MAX_LEVEL) p_ptr->max_lev = PY_MAX_LEVEL;
 

@@ -1068,7 +1068,7 @@ B:TOUCH:DR_MANA:1d3
 F:NEVER_MOVE | CAN_SWIM |
 F:STUPID | EMPTY_MIND | 
 F:IM_POIS | HURT_LITE | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$Its a large pile of white flesh.
 D:それは白い肉のような物質の塊だ。
 
@@ -1314,8 +1314,8 @@ D:通常のネコより体が大きくて大きな声で鳴く。
 D:その柔らかく美しい足には鋭い爪が隠されている。
 
 #J0#
-N:63:力の指輪の勇士『スメアゴル』
-E:Smeagol, the champion of the ring
+N:63:指輪の放浪者『スメアゴル』
+E:Smeagol, the wanderer of the ring
 G:h:u
 I:130:20:12:5
 W:52:2:0:18:0:0
@@ -1358,7 +1358,7 @@ B:CRAWL:ACID:1d7
 F:RAND_50 | RAND_25 | DROP_90 | 
 F:STUPID | EMPTY_MIND | 
 F:IM_ACID | IM_POIS | CAN_SWIM |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It's green and it's oozing.
 D:それは緑色をしたシミのような生物だ。
 
@@ -1393,7 +1393,7 @@ B:TOUCH:POISON:1d7
 F:NEVER_MOVE | CAN_SWIM |
 F:STUPID | EMPTY_MIND | 
 F:IM_POIS | HURT_LITE | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 S:1_IN_15 | 
 S:DRAIN_MANA
 D:$It's a large pile of yellow flesh.
@@ -1498,7 +1498,7 @@ B:TOUCH:EAT_LITE:1d6
 F:NEVER_MOVE | CAN_SWIM | HAS_DARK_1 |
 F:STUPID | EMPTY_MIND |
 F:IM_POIS |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 S:1_IN_15 | 
 S:DRAIN_MANA
 D:$It is a large pile of silver flesh that sucks all light from its 
@@ -1671,7 +1671,7 @@ B:TOUCH:COLD:2d5
 F:NEVER_MOVE | COLD_BLOOD | 
 F:STUPID | EMPTY_MIND | CAN_SWIM |
 F:IM_COLD | HURT_LITE | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It's a large pile of pulsing blue flesh.
 D:それは脈打つ青い肉のような物質の塊だ。
 
@@ -1922,7 +1922,7 @@ B:CRAWL:COLD:1d8
 F:RAND_50 | RAND_25 | DROP_60 | 
 F:STUPID | EMPTY_MIND | CAN_SWIM |
 F:IM_COLD | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It's blue and it's oozing.
 D:それは青色をしたシミのような生物だ。
 
@@ -1954,7 +1954,7 @@ B:TOUCH:ACID:1d4
 F:NEVER_MOVE | 
 F:STUPID | EMPTY_MIND | CAN_SWIM |
 F:IM_ACID | HURT_LITE | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It is a large pile of pulsing green flesh.
 D:それは脈打つ緑色の肉のような物質の塊だ。
 
@@ -2440,7 +2440,7 @@ B:TOUCH:LOSE_STR:1d6
 F:NEVER_MOVE | 
 F:STUPID | EMPTY_MIND | 
 F:HURT_LITE | CAN_SWIM |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It is a large pulsating mound of red flesh.
 D:それは脈打つ赤い肉のような物質の塊だ。
 
@@ -2949,7 +2949,7 @@ X:20:2:1:1:20:2:1:1
 Y:-1
 B:TOUCH:PARALYZE:1d7
 B:TOUCH:PARALYZE:1d7
-F:ANIMAL | AQUATIC | IM_POIS | RES_WATE | WILD_ALL |
+F:ANIMAL | AQUATIC | IM_POIS | RES_WATE | WILD_ALL
 D:$A strange water creature, whose touch can be deadly.
 D:奇妙な水棲生物で、その触手は致命的な毒を持つ。
 
@@ -3737,7 +3737,7 @@ Y:-1
 B:TOUCH:DISEASE:1d6
 B:TOUCH:LOSE_CON:1d6
 F:UNDEAD | EMPTY_MIND | NO_CONF | NO_SLEEP | IM_POIS | IM_COLD | NO_FEAR |
-F:HURT_LITE | RES_NETH | COLD_BLOOD | EVIL | NEVER_MOVE | MULTIPLY
+F:HURT_LITE | RES_NETH | COLD_BLOOD | EVIL | NEVER_MOVE | MULTIPLY | VARIABLE_SIZE_EGO
 D:$A sickening mound of decaying flesh, bones, hands and so on. It seems to 
 D:$be growing.
 D:腐った肉、骨、手などの吐き気をもよおす塊だ。それは大きくなっている
@@ -3930,7 +3930,7 @@ B:TOUCH:EXP_10
 F:NEVER_MOVE | 
 F:STUPID | EMPTY_MIND | SELF_LITE_1 |
 F:IM_POIS | HURT_LITE | CAN_SWIM |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 S:1_IN_11 | 
 S:DRAIN_MANA
 D:$It is a pulsing mound of glowing flesh.
@@ -4315,7 +4315,7 @@ B:TOUCH:ACID:2d6
 F:NEVER_MOVE | 
 F:STUPID | EMPTY_MIND | COLD_BLOOD | 
 F:IM_ACID | IM_POIS | HURT_LITE | CAN_SWIM |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$A jelly thing.
 D:ゼリーのようなものだ。
 
@@ -4533,7 +4533,7 @@ B:TOUCH:ACID:2d6
 F:STUPID | EMPTY_MIND | COLD_BLOOD |
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_POIS | CAN_SWIM |
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$A fast moving highly acidic jelly thing, that is eating away the floor it 
 D:$rests on.
 D:動きの素早い、酸に満ちあふれたゼリーのような物体で、回りの床をも
@@ -4674,7 +4674,7 @@ X:100:30:100:3:100:30:100:3
 Y:-1
 B:CRAWL:POISON:1d4
 F:NEVER_MOVE | MULTIPLY | EVIL | CAN_SWIM |
-F:IM_POIS | EMPTY_MIND | NO_FEAR | RES_LITE
+F:IM_POIS | EMPTY_MIND | NO_FEAR | RES_LITE | VARIABLE_SIZE_EGO
 S:1_IN_7
 S:SCARE | CONF | BR_LITE
 D:$A chaotic mass of pulsating flesh, mouths and eyes.
@@ -5273,7 +5273,7 @@ F:DROP_1D2 | DROP_4D2 |
 F:STUPID | EMPTY_MIND | COLD_BLOOD |
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | CAN_SWIM |
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
-F:NO_CONF | NO_SLEEP | NO_FEAR
+F:NO_CONF | NO_SLEEP | NO_FEAR | VARIABLE_SIZE_EGO
 D:$It is a strange, vast gelatinous structure that assumes cubic proportions 
 D:$as it lines all four walls of the corridors it patrols.  Through its 
 D:$transparent jelly structure you can see treasures it has engulfed, and a 
@@ -6826,7 +6826,7 @@ B:TOUCH:ACID:2d6
 F:RAND_50 | DROP_60 | 
 F:STUPID | EMPTY_MIND | MULTIPLY | CAN_SWIM |
 F:TAKE_ITEM | KILL_BODY | OPEN_DOOR | BASH_DOOR | 
-F:IM_POIS | NO_FEAR
+F:IM_POIS | NO_FEAR | VARIABLE_SIZE_EGO
 S:1_IN_11 | 
 S:DRAIN_MANA
 D:$It is a strangely moving puddle.
@@ -7428,7 +7428,7 @@ B:ENGULF:EXP_VAMP:2d6
 B:ENGULF:EXP_VAMP:2d6
 F:RAND_25 | 
 F:IM_COLD | IM_POIS | IM_ACID | RES_NETH |
-F:EVIL | EMPTY_MIND | COLD_BLOOD | FRIENDS
+F:EVIL | EMPTY_MIND | COLD_BLOOD | FRIENDS | VARIABLE_SIZE_EGO
 D:$The eldritch blood of Yibb-Tstll is know only as "the Black": it is 
 D:$an amorphous substance, who will suck your life and deliver it to 
 D:$Yibb-Tstll.
@@ -10322,7 +10322,7 @@ F:FORCE_MAXHP | TAKE_ITEM | COLD_BLOOD |
 F:DROP_1D2 | DROP_4D2 | CAN_SWIM |
 F:STUPID | EMPTY_MIND | OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
-F:NO_FEAR | NO_CONF | NO_SLEEP
+F:NO_FEAR | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$A disgusting animated blob of destruction.  Flee its gruesome hunger!
 D:破壊を繰り返すドロドロした生物だ。その恐るべき食欲は恐怖だ。
 
@@ -11295,7 +11295,7 @@ F:DROP_60 | DROP_90 | DROP_1D2 |
 F:STUPID | EMPTY_MIND | COLD_BLOOD | 
 F:TAKE_ITEM | OPEN_DOOR | BASH_DOOR | 
 F:IM_ACID | IM_FIRE | IM_COLD | IM_ELEC | IM_POIS | 
-F:NO_CONF | NO_SLEEP | NO_FEAR | CAN_SWIM
+F:NO_CONF | NO_SLEEP | NO_FEAR | CAN_SWIM | VARIABLE_SIZE_EGO
 D:$A lump of rotting black flesh that slurrrrrrrps across the dungeon floor.
 D:腐った黒い肉の塊で、ダンジョンの床をはいずり回っている。
 
@@ -12242,7 +12242,7 @@ B:CRUSH:ACID:8d4
 F:FORCE_SLEEP | ATTR_MULTI | ATTR_ANY | MULTIPLY | EVIL |
 F:RAND_25 | RES_NEXU | AURA_ELEC | IM_FIRE | IM_ELEC |
 F:EMPTY_MIND | BASH_DOOR | POWERFUL | KILL_BODY |
-F:CAN_SWIM | NO_CONF | NO_SLEEP | 
+F:CAN_SWIM | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$Weird, jelly like creatures. No two look the same.
 D:気味の悪いゼリー状生物。同じようにみえるものは二つと無い。
 
@@ -13729,7 +13729,7 @@ B:CRUSH:ACID:5d6
 B:CRUSH:HURT:9d9
 F:REGENERATE | KILL_ITEM | CAN_SPEAK | 
 F:BASH_DOOR | EVIL | DEMON | NO_CONF | NO_FEAR | NO_SLEEP | KILL_BODY |
-F:CAN_SWIM | RES_DARK |
+F:CAN_SWIM | RES_DARK | VARIABLE_SIZE_EGO
 F:FORCE_MAXHP | FORCE_SLEEP | HURT_LITE | POWERFUL | ELDRITCH_HORROR | 
 F:IM_ACID | IM_FIRE | RES_PLAS | IM_POIS | IM_COLD | IM_ELEC | RES_TELE
 D:$"The nightmare, plastic column of fetid, black iridescence oozed 
@@ -20723,7 +20723,7 @@ Y:-1
 B:EXPLODE:FIRE:10d2
 F:IM_ACID | IM_COLD | IM_ELEC | IM_POIS |
 F:NEVER_MOVE | MULTIPLY |
-F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP
+F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$A mysterious red jelly thing.  It looks ready to explode.
 D:赤くてぷよぷよした謎の生物だ。
 
@@ -20738,7 +20738,7 @@ Y:-1
 B:EXPLODE:COLD:10d2
 F:IM_ACID | IM_FIRE | IM_ELEC | IM_POIS |
 F:NEVER_MOVE | MULTIPLY |
-F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP
+F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$A mysterious blue jelly thing.  It looks ready to explode.
 D:青くてぷよぷよした謎の生物だ。
 
@@ -20753,7 +20753,7 @@ Y:-1
 B:EXPLODE:ELEC:10d2
 F:IM_ACID | IM_FIRE | IM_COLD | IM_POIS |
 F:NEVER_MOVE | MULTIPLY |
-F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP
+F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$A mysterious yellow jelly thing.  It looks ready to explode.
 D:黄色くてぷよぷよした謎の生物だ。
 
@@ -20768,7 +20768,7 @@ X:200:30:100:3:200:30:100:3
 Y:-1
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_POIS |
 F:NEVER_MOVE | MULTIPLY |
-F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP
+F:EMPTY_MIND | NO_FEAR | NO_CONF | NO_SLEEP | VARIABLE_SIZE_EGO
 D:$A mysterious green jelly thing.  It looks ready to explode.
 D:緑色でぷよぷよした謎の生物だ。
 

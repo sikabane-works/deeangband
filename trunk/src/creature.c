@@ -149,21 +149,33 @@ void set_height_weight(creature_type *cr_ptr)
 			ave_b_wt = (int)(mr_ptr->m_b_wt + mr_ptr->f_b_wt) / 2;
 			ave_m_wt = (int)(mr_ptr->m_m_wt + mr_ptr->f_m_wt) / 2;
 		}
+
+
 		if(cheat_hear){
 			msg_format("[size: %d(%d), %d(%d)]", ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt);
 		}
 
 	}
 
-
 	if(ave_b_ht <= 0 || ave_m_ht < 0 || ave_b_wt <= 0 || ave_m_wt < 0)
 	{
-		if(cheat_hear)msg_print("[Warning: Invalid height and weight.]");
-		ave_b_ht = 100;
-		ave_m_ht = 0;
+		if(cheat_hear) msg_print("[Warning: Invalid height and weight.]");
+		ave_b_ht = 30;
+		ave_m_ht = 10;
 		ave_b_wt = 30;
-		ave_m_wt = 0;
+		ave_m_wt = 5;
 	}
+
+	if (cr_ptr->re_idx == MONEGO_VARIABLE_SIZE)
+	{
+		int rate = randint0(150);
+		ave_m_ht = 0;
+		ave_m_wt = 0;
+		ave_b_ht = ave_b_ht * (rate - 50) / 100;
+		ave_b_wt = ave_b_ht * (rate - 50) / 100 * (rate - 50) / 100 * (rate - 50) / 100;
+		if(ave_b_wt <= 0) ave_b_wt = 1;
+	}
+
 
 	/* Calculate the height/weight for intersex and nosex */
 		cr_ptr->ht = randnor(ave_b_ht, ave_m_ht);
@@ -186,14 +198,13 @@ void set_hitdice(creature_type * cr_ptr)
 {
 	cr_ptr->hitdice = 5 + cr_ptr->size / 2;
 
-	if (cr_ptr->class == CLASS_SORCERER)
-		cr_ptr->hitdice /= 2;
-
-	if(cr_ptr->class != CLASS_NONE)
-		cr_ptr->hitdice += cp_ptr->c_mhp;
-
-	if(cr_ptr->seikaku != SEIKAKU_NONE)
-		cr_ptr->hitdice += ap_ptr->a_mhp;
+	//TODO:: Irace, class, Seikaku
+//	if (cr_ptr->class == CLASS_SORCERER)
+//		cr_ptr->hitdice /= 2;
+//	if(cr_ptr->class != CLASS_NONE)
+//		cr_ptr->hitdice += cr_ptr->class;
+//	if(cr_ptr->seikaku != SEIKAKU_NONE)
+//		cr_ptr->hitdice += cr
 
 	if(cr_ptr->hitdice < 4) cr_ptr->hitdice = 4;
 }
@@ -230,7 +241,7 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 
 	if(cheat_hear)
 	{
-		msg_format("[Enemy's HP Set %d=(%d,%d)%+d)]", cr_ptr->mmhp, cr_ptr->lev, cr_ptr->hitdice, bonus);
+		msg_format("[Enemy's HP Set %d=(%d,%d)%+d)]", cr_ptr->mmhp, cr_ptr->lev+2, cr_ptr->hitdice, bonus);
 	}
 
 	return;

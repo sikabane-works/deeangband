@@ -3928,8 +3928,9 @@
 /*
  * Monster Ego flags
  */
-#define RFE_FORCE_LESSER    0x00000001
-#define RFE_RACE_EGO        0x00000002
+#define RFE_FORCE_LESSER       0x00000001
+#define RFE_RACE_EGO           0x00000002
+#define RFE_VARIABLE_SIZE_EGO  0x00000004
 
 
 
@@ -5229,6 +5230,7 @@ extern int PlayerUID;
 
 #define MONEGO_LESSER_FROM   1
 #define MONEGO_LESSER_TO     6
+#define MONEGO_VARIABLE_SIZE 13
 
 /* Maximum "Nazguls" number */
 #define MAX_NAZGUL_NUM 5
