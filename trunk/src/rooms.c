@@ -812,7 +812,6 @@ static bool build_type3(void)
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
 
-
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
 
@@ -838,6 +837,11 @@ static bool build_type3(void)
 	x1b = xval - dx;
 	x2b = xval + dx;
 
+
+	if(cheat_room)
+	{
+		msg_format("[ROOM3(%d,%d-%d,%d)]", x1b, y1b, x2b, y2b);
+	}
 
 	/* Place a full floor for room "a" */
 	for (y = y1a - 1; y <= y2a + 1; y++)
@@ -6275,20 +6279,20 @@ static bool room_build(int typ)
 	{
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
-	case ROOM_T_OVERLAP:       return build_type2();
-	case ROOM_T_CROSS:         return build_type3();
-	case ROOM_T_INNER_FEAT:    return build_type4();
-	case ROOM_T_NEST:          return build_type5();
-	case ROOM_T_PIT:           return build_type6();
-	case ROOM_T_LESSER_VAULT:  return build_type7();
-	case ROOM_T_GREATER_VAULT: return build_type8();
-	case ROOM_T_FRACAVE:       return build_type9();
-	case ROOM_T_RANDOM_VAULT:  return build_type10();
-	case ROOM_T_OVAL:          return build_type11();
-	case ROOM_T_CRYPT:         return build_type12();
-	case ROOM_T_TRAP_PIT:      return build_type13();
-	case ROOM_T_TRAP:          return build_type14();
-	case ROOM_T_GLASS:         return build_type15();
+	case ROOM_T_OVERLAP:       return build_type1(); // TODO::DEBUG
+	case ROOM_T_CROSS:         return build_type1(); // TODO::DEBUG
+	case ROOM_T_INNER_FEAT:    return build_type1(); // TODO::DEBUG
+	case ROOM_T_NEST:          return build_type1();
+	case ROOM_T_PIT:           return build_type1();
+	case ROOM_T_LESSER_VAULT:  return build_type1();
+	case ROOM_T_GREATER_VAULT: return build_type1();
+	case ROOM_T_FRACAVE:       return build_type1();
+	case ROOM_T_RANDOM_VAULT:  return build_type1();
+	case ROOM_T_OVAL:          return build_type1();
+	case ROOM_T_CRYPT:         return build_type1();
+	case ROOM_T_TRAP_PIT:      return build_type1();
+	case ROOM_T_TRAP:          return build_type1();
+	case ROOM_T_GLASS:         return build_type1();
 	}
 
 	/* Paranoia */
