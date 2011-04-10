@@ -572,7 +572,7 @@ struct object_type
 	s16b to_h;			/* Plusses to hit */
 	s16b to_d;			/* Plusses to damage */
 	s16b to_a;			/* Plusses to AC */
-	s16b fitting_size;		/* Regular body size */
+	s16b fitting_size;	/* Regular body size */
 	s16b to_size;		/* Plusses to size */
 
 	s16b ac;			/* Normal AC */

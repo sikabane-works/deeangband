@@ -3635,12 +3635,15 @@ static bool eval_ac(int iAC)
 static bool resize_item()
 {
 	object_type *o_ptr;
-	int resizelimit = (p_ptr->lev / 8);
+	int value;
+	int resizelimit = (p_ptr->lev / 8) + 2;
 	cptr q, s;
 	char tmp_str[MAX_NLEN];
 	int item;
 
+	if(resizelimit > 5) resizelimit = 5;
 	clear_bldg(4, 18);
+
 #ifdef JP
 	prt(format("現在のあなたの技量だと、-%dから+%d まで修正できます。", resizelimit, resizelimit), 5, 0);
 	prt(format("修正の料金はアイテムの価値に依存します。"), 7, 0);
@@ -3659,20 +3662,67 @@ static bool resize_item()
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
 	o_ptr = &inventory[item];
+	value = object_value(o_ptr) / 5;
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < (1000 * o_ptr->number))
+	if (p_ptr->au < object_value(o_ptr))
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
-		msg_format("%sを改良するだけのゴールドがありません！", tmp_str);
+		msg_format("%sの改良には $%d かかります！", tmp_str, value);
 #else
-		msg_format("You do not have the gold to improve %s!", tmp_str);
+		msg_format("To improve %s cost $%d!", tmp_str, value);
 #endif
 
 		return (FALSE);
 	}
-	
+	else
+	{
+		if(o_ptr->to_size >= resizelimit || o_ptr->to_size <= -resizelimit)
+		{
+#ifdef JP
+			msg_print("これ以上改良できない。");
+#else
+			msg_print("The improvement failed.");
+#endif
+		return (FALSE);
+		}
+
+		if(p_ptr->size == o_ptr->to_size + o_ptr->fitting_size || o_ptr->fitting_size == ARMOR_SIZE_FREE)
+		{
+#ifdef JP
+			msg_print("改良の必要はありません。");
+#else
+			msg_print("No improvement is required.");
+#endif
+		return (FALSE);
+		}
+
+		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
+#ifdef JP
+		if (get_check(format("%sの改良には $%d かかります、よろしいですか？", tmp_str, value)))
+#else
+		if (get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
+#endif
+		{
+			if(p_ptr->size > o_ptr->fitting_size + o_ptr->to_size)
+				o_ptr->to_size++;
+
+			if(p_ptr->size < o_ptr->fitting_size + o_ptr->to_size)
+				o_ptr->to_size--;
+
+			p_ptr->au -= value;
+#ifdef JP
+			msg_format("%sの大きさを調整した。", tmp_str);
+#else
+			msg_format("%s was made over.", tmp_str);
+#endif
+			
+		}
+		else return (FALSE);
+
+	}
+
 	return (TRUE);
 
 }

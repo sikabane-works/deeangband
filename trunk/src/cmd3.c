@@ -496,7 +496,7 @@ msg_print("クエストを達成した！");
 
 	/* Armor Size Information */
 	if(o_ptr->fitting_size != ARMOR_SIZE_FREE){
-		rate = 100 * o_ptr->fitting_size / p_ptr->size;
+		rate = 100 * (o_ptr->fitting_size + o_ptr->to_size) / p_ptr->size;
 		p_ptr->iven_fitting_rate[slot] = rate;
 #ifdef JP
 		msg_format("（装備の体格比：%d％）", rate);
