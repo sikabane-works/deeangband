@@ -2734,7 +2734,7 @@ intelligent_race race_info[MAX_RACES] =
 		"人間",
 #endif
 		"Human", 
-		RACE_CATEGORY_HUMAN, 0x03,
+		RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x03, 
 		{  0,  0,  0,  0,  0,  0 },
 		0,  0,  0,  0,  0,  10,  5,  5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2754,7 +2754,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Elf",
 
-		RACE_CATEGORY_ELF, 0x03,
+		RACE_CATEGORY_ELF, RACE_RARELITY_COMMON, 0x03,
 		{ -1,  2,  0,  1, -1,  2 },
 		5,  6,  4,  2, 8,  12, -5, 15,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2775,7 +2775,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Dwarf",
 
-		RACE_CATEGORY_DWARF, 0x03,
+		RACE_CATEGORY_DWARF, RACE_RARELITY_COMMON, 0x03,
 		{  2, -1,  1, 0,  1, 0 },
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2795,7 +2795,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Hobbit",
 
-		RACE_CATEGORY_HUMAN, 0x03,
+		RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x03,
 		{ -2,  -1,  0,  2,  1,  0 },
 		-1, 0, 0, 3, 12,  15, -10, 20,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2815,7 +2815,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Gnome",
 
-		RACE_CATEGORY_DWARF, 0x03,
+		RACE_CATEGORY_DWARF, RACE_RARELITY_COMMON, 0x03,
 		{ -1,  2,  0,  2,  0,  0},
 		10, 5, 4,  3, 6,  13, -8, 12,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2835,7 +2835,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Barbarian",
 
-		RACE_CATEGORY_HUMAN, 0x03,
+		RACE_CATEGORY_HUMAN, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 2, -2,  0,  0,  2, 0 },
 		-2, -8, 2,  -1,  1, 7, 12, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2855,7 +2855,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Dunadan",
 
-		RACE_CATEGORY_HUMAN, 0x03,
+		RACE_CATEGORY_HUMAN, RACE_RARELITY_UNCOMMON, 0x03,
 		{  1,  2,  2,  2,  3,  2 },
 		4, 5, 3, 2, 3, 13, 15, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2875,7 +2875,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Melnibone",
 
-		RACE_CATEGORY_ELF, 0x03,
+		RACE_CATEGORY_ELF, RACE_RARELITY_UNCOMMON, 0x03,
 		{  1,  3,  1,  3,  0,  0 },
 		4, 10, 5, 1, 0, 15, 12, 12,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2895,7 +2895,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Amberite",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x03,
 		{  5,  4,  4,  4,  6,  5 },
 		4,  5,  3,  2, 3, 13, 22, 22,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2915,7 +2915,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Chaosian",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x0F,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x0F,
 		{  4,  6,  5,  5,  6,  4 },
 		4,  5,  3,  2, 3, 13, 20, 21,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2935,7 +2935,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Dark-Elf",
 
-		RACE_CATEGORY_ELF, 0x03,
+		RACE_CATEGORY_ELF, RACE_RARELITY_COMMON, 0x03,
 		{ -1, 3, 2, 2, -2, 1 },
 		5, 10, 12, 3, 8, 12, -5, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2955,7 +2955,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Eldar",
 
-		RACE_CATEGORY_ELF, 0x03,
+		RACE_CATEGORY_ELF, RACE_RARELITY_RARE, 0x03,
 		{  2,  3,  2,  3,  1,  3 },
 		4,  13, 12,  4,  3, 14, 10, 25,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2975,7 +2975,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Avari",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x07,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x07,
 		{  3,  3,  1,  1,  2,  2 },
 		4,  13, 12,  4,  3, 14, 10, 25,
 		{  0,  0,  0,  0,  0,  0 },
@@ -2995,7 +2995,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Kobold",
 
-		RACE_CATEGORY_ORC, 0x03,
+		RACE_CATEGORY_ORC, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 1, -1, 0, 1, 0, -2 },
 		-2, -3, -1, -1, 1, 8, 10, -8,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3015,7 +3015,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Nibelung",
 
-		RACE_CATEGORY_DWARF, 0x03,
+		RACE_CATEGORY_DWARF, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 1, -1, 2, 0, 2, -2 },
 		3, 5, 6, 1, 5, 10, 9, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3035,7 +3035,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Sprite",
 
-		RACE_CATEGORY_ELF, 0x07,
+		RACE_CATEGORY_ELF, RACE_RARELITY_UNCOMMON, 0x07,
 		{ -4, 3, 3, 3, -2, 2 },
 		10, 8, 6, 4, 10, 10, -12, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3055,7 +3055,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Shadow-Fairy",
 
-		RACE_CATEGORY_ELF, 0x07,
+		RACE_CATEGORY_ELF, RACE_RARELITY_RARE, 0x07,
 		{-2,  2,  2,  1, -1,  0 },
 		  7,  8,  0,  6, 12, 15, -10, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3075,7 +3075,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Warefolk",
 
-		RACE_CATEGORY_ANIMALIAN, 0x03,
+		RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_COMMON, 0x03,
 		{ 1,  -1,  -1,  0,  1,  1 },
 		2,  3,  2,  1, 6,  11, -1,  5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3095,7 +3095,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Skaven",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 0, 2, 1, 1, 0, -2 },
 		-2, -3, -1, -1, 1, 8, 10, -8,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3115,7 +3115,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Lizardman",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x03,
 		{  2, -2,  -1,  2,  2, -3 },
 		-3, -3, -2,  -1,  0, 7, 12, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3135,7 +3135,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Beastman",
 
-		RACE_CATEGORY_ANIMALIAN, 0x0F,
+		RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_COMMON, 0x0F,
 		{ 2, -2, -1, -1, 2, -2 },
 		-5, -2, -1, -1, -1, 5, 12, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3155,7 +3155,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Minotaur",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 4, -2, -2, -2, 3, -2 },
 		-6, -8, -3, -2, -1, 5, 25, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3175,7 +3175,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Naga",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 0,  2,  0,  1, 0,  -1 },
 		5,  6,  4,  2, 8,  12, -5, 15,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3195,7 +3195,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Marfolk",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 0,  2,  0,  1, 0,  -1 },
 		5,  6,  4,  2, 8,  12, -5, 15,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3215,7 +3215,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Centaur",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 2, -1, -1, 1, 2, -1 },
 		10, 5, 3, 0, -1, 10, 5, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3235,7 +3235,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Ent",
 
-		RACE_CATEGORY_GIANT, 0x07,
+		RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x07,
 		{ 3,  0,  2, -3,  3,  0 },
 		 -5,  2,  5,  -1, 0, 9,  15, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3255,7 +3255,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Orc",
 
-		RACE_CATEGORY_ORC, 0x03,
+		RACE_CATEGORY_ORC, RACE_RARELITY_COMMON, 0x03,
 		{  2, -1,  0,  0,  2, -2 },
 		-3, -3, -2,  -1,  0, 7, 12, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3275,7 +3275,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Uruk",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  3, 1, 0, 3, 4, 0},
 		-3, -3, -2,  -1,  0, 7, 12, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3295,7 +3295,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Troll",
 
-		RACE_CATEGORY_GIANT, 0x07,
+		RACE_CATEGORY_GIANT, RACE_RARELITY_UNCOMMON, 0x07,
 		{ 4, -4, -1, -3,  3, -3 },
 		-5, -8, -5, -2,  -1, 5, 20, -10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3315,7 +3315,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Orog",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x07,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x07,
 		{ 4, -4, -1, -3,  3, -3 },
 		-5, -8, -5, -2,  -1, 5, 20, -10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3335,7 +3335,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Ogre",
 
-		RACE_CATEGORY_ORC, 0x03,
+		RACE_CATEGORY_ORC, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 3, -2, 0, -1, 3, -2 },
 		-3, -5, -3, -2, -1, 5, 20, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3355,7 +3355,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Giant",
 
-		RACE_CATEGORY_GIANT, 0x03,
+		RACE_CATEGORY_GIANT, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 4, -2, -2, -2, 3, -2 },
 		-6, -8, -3, -2, -1, 5, 25, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3375,7 +3375,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Cyclops",
 
-		RACE_CATEGORY_GIANT, 0x03,
+		RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x03,
 		{ 4, -3, -2, -3, 4, -3 },
 		-4, -5, -3, -2, -2, 5, 20, 12,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3395,7 +3395,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Titan",
 
-		RACE_CATEGORY_GIANT, 0x03,
+		RACE_CATEGORY_GIANT, RACE_RARELITY_LEGENDARY, 0x03,
 		{ 5, 2, 3, 0, 5, 3 },
 		-5, 5, 1, -2, 1, 8, 25, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3415,7 +3415,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Yeek",
 
-		RACE_CATEGORY_HUMAN, 0x03,
+		RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x03,
 		{ -2, 1, 1, 1, -2, -4 },
 		2, 4, 6, 3, 5, 15, -5, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3435,7 +3435,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Klackcon",
 
-		RACE_CATEGORY_ALIEN, 0x03,
+		RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x03,
 		{ 2, -1, -1, 1, 2, -1 },
 		10, 5, 3, 0, -1, 10, 5, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3455,7 +3455,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Mind-Flayer",
 
-		RACE_CATEGORY_ALIEN, 0x03,
+		RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x03,
 		{ -3, 4, 4, 0, -2, -3 },
 		10, 15, 9, 2, 5, 12, -10, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3475,7 +3475,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Draconian",
 
-		RACE_CATEGORY_DRAGONBONE, 0x03,
+		RACE_CATEGORY_DRAGONBONE, RACE_RARELITY_RARE, 0x03,
 		{ 1, 0, 0, 1, 2, -1 },
 		-2, 5, 2, 0, 1, 10, 5, 5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3495,7 +3495,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Saiyan",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{ 4, -3,  -1,  2,  3, 0 },
 		-2, -10, 2,  -1,  1, 7, 30, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3515,7 +3515,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Kutar",
 
-		RACE_CATEGORY_ALIEN, 0x03,
+		RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x03,
 		{  0,  -1,  -1,  1,  2,  3 },
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3535,7 +3535,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Golem",
 
-		RACE_CATEGORY_INORGAN, 0x08,
+		RACE_CATEGORY_INORGAN, RACE_RARELITY_UNCOMMON, 0x08,
 		{ 4, -5, -5, -2, 4, -2 },
 		-5, -5, 6, -1, -1, 8, 20, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3555,7 +3555,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Android",
 
-		RACE_CATEGORY_INORGAN, 0x08,
+		RACE_CATEGORY_INORGAN, RACE_RARELITY_UNCOMMON, 0x08,
 		{ 4, -5, -5, 0, 4, -2 },
 		0, -5, 0, -2, 3, 14, 20, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3575,7 +3575,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Archon",
 
-		RACE_CATEGORY_CELESTIAL, 0x0F,
+		RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0x0F,
 		{  2,  0,  4,  1,  2,  3 },
 		0,  12,  8,  2, 2, 11, 10, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3595,7 +3595,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Imp",
 
-		RACE_CATEGORY_CELESTIAL, 0x0F,
+		RACE_CATEGORY_CELESTIAL, RACE_RARELITY_UNCOMMON, 0x0F,
 		{ 0, -1, -1, 1, 2, -1 },
 		-3, 2, -1, 1, -1, 10, 5, -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3615,7 +3615,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Fiend",
 
-		RACE_CATEGORY_CELESTIAL, 0x0F,
+		RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0x0F,
 		{  3,  3,  -3,  2,  2,  -3 },
 		-3,  12, 15,  -2,  1, 8, 20, 0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3635,7 +3635,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Maiar",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x03,
 		{  2,  3,  3,  1,  2,  2 },
 		0,  12,  8,  2, 2, 11, 10, 10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3655,7 +3655,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Deep-One",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x03,
 		{  0,  -1,  -1,  1,  2,  3 },
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3675,7 +3675,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Elder-One",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x08,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x08,
 		{ -1,  4,  3,  2,  2,  0},
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3695,7 +3695,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Shoggoth",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x08,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x08,
 		{ -1,  -1,  -1,  0,  4,  -3},
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3715,7 +3715,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Flying-Polyp",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x08,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x08,
 		{  0,  -1,  -1,  1,  2,  3 },
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3735,7 +3735,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Race-of-Yith",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x08,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x08,
 		{  0,  -1,  -1,  1,  2,  3 },
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3755,7 +3755,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 		"Mi=Go",
 
-		RACE_CATEGORY_UNSELECTABLE, 0x08,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x08,
 		{  0,  -1,  -1,  1,  2,  3 },
 		-2,  5,  5,  5,  -2,  6,  0,  -5,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3774,7 +3774,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ゾンビ",
 #endif
 		"Zombie",
-		RACE_CATEGORY_UNDEAD, 0x03,
+		RACE_CATEGORY_UNDEAD, RACE_RARELITY_UNCOMMON, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3793,7 +3793,7 @@ intelligent_race race_info[MAX_RACES] =
 		"スケルトン",
 #endif
 		"Skelton",
-		RACE_CATEGORY_UNDEAD, 0x03,
+		RACE_CATEGORY_UNDEAD, RACE_RARELITY_UNCOMMON, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3812,7 +3812,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ヴァンパイア",
 #endif
 		"Vampire",
-		RACE_CATEGORY_UNDEAD, 0x03,
+		RACE_CATEGORY_UNDEAD, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3831,7 +3831,7 @@ intelligent_race race_info[MAX_RACES] =
 		"リッチ",
 #endif
 		"Lich",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3850,7 +3850,7 @@ intelligent_race race_info[MAX_RACES] =
 		"イスタリ",
 #endif
 		"Istari",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3869,7 +3869,7 @@ intelligent_race race_info[MAX_RACES] =
 		"バルログ",
 #endif
 		"Balrog",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3888,7 +3888,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ドラゴン",
 #endif
 		"Dragon",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3907,7 +3907,7 @@ intelligent_race race_info[MAX_RACES] =
 		"大猿",
 #endif
 		"Giant-Ape",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3926,7 +3926,7 @@ intelligent_race race_info[MAX_RACES] =
 		"超サイヤ人",
 #endif
 		"Super-Saiyan",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3945,7 +3945,7 @@ intelligent_race race_info[MAX_RACES] =
 		"赤竜",
 #endif
 		"Red-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3964,7 +3964,7 @@ intelligent_race race_info[MAX_RACES] =
 		"白竜",
 #endif
 		"White-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -3983,7 +3983,7 @@ intelligent_race race_info[MAX_RACES] =
 		"青竜",
 #endif
 		"Blue-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4002,7 +4002,7 @@ intelligent_race race_info[MAX_RACES] =
 		"黒竜",
 #endif
 		"Black-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4021,7 +4021,7 @@ intelligent_race race_info[MAX_RACES] =
 		"緑竜",
 #endif
 		"Green-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4040,7 +4040,7 @@ intelligent_race race_info[MAX_RACES] =
 		"万色竜",
 #endif
 		"Chromatic-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4059,7 +4059,7 @@ intelligent_race race_info[MAX_RACES] =
 		"青銅竜",
 #endif
 		"Bronze-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4078,7 +4078,7 @@ intelligent_race race_info[MAX_RACES] =
 		"金竜",
 #endif
 		"Gold-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4097,7 +4097,7 @@ intelligent_race race_info[MAX_RACES] =
 		"水晶竜",
 #endif
 		"Crystal-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4116,7 +4116,7 @@ intelligent_race race_info[MAX_RACES] =
 		"秩序竜",
 #endif
 		"Lawful-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4135,7 +4135,7 @@ intelligent_race race_info[MAX_RACES] =
 		"天上竜",
 #endif
 		"Balance-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4154,7 +4154,7 @@ intelligent_race race_info[MAX_RACES] =
 		"混沌竜",
 #endif
 		"Chaotic-Lineage",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4173,7 +4173,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ヴァンヤール",
 #endif
 		"Vanyar",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4192,7 +4192,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ノルドール",
 #endif
 		"Noldor",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  2, -1,  2,  3,  3,  0},
 		2,  7,  6,  -1,  7,  10, 15,  0,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4211,7 +4211,7 @@ intelligent_race race_info[MAX_RACES] =
 		"テレリ",
 #endif
 		"Teleri",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  0,  0,  0,  0,  0,  0},
 		0,  0,  0,  0,  0,  10,  10,  10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4230,7 +4230,7 @@ intelligent_race race_info[MAX_RACES] =
 		"ナズグル",
 #endif
 		"Nazgul",
-		RACE_CATEGORY_UNSELECTABLE, 0x03,
+		RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0x03,
 		{  0,  0,  0,  0,  0,  0},
 		0,  0,  0,  0,  0,  10,  10,  10,
 		{  0,  0,  0,  0,  0,  0 },
@@ -4752,7 +4752,7 @@ intelligent_race mimic_info[] =
 		"[標準形態]",
 #endif
 		"Default",
-		0, 0,
+		0, 0, 0,
 		{  0,  0,  0,  0,  0,  0 },
 		0,  0,  0,  0,  0,  10,  0,  0,
 		10,  100,
@@ -4768,7 +4768,7 @@ intelligent_race mimic_info[] =
 #endif
 		"[Demon]",
 
-		0, 0,
+		0, 0, 0,
 		{  5,  3,  2,  3,  4,  -6 },
 		-5,  18, 20, -2,  3,  10, 40, 20,
 		12,  0,
@@ -4784,7 +4784,7 @@ intelligent_race mimic_info[] =
 #endif
 		"[Demon lord]",
 
-		0, 0,
+		0, 0, 0,
 		{  20,  20,  20,  20,  20,  20 },
 		20,  20, 25, -2,  3,  10, 70, 40,
 		14,  0,
@@ -4800,7 +4800,7 @@ intelligent_race mimic_info[] =
 #endif
 		"[Vampire]",
 
-		0, 0,
+		0, 0, 0,
 		{ 4, 4, 1, 1, 2, 3 },
 		6, 12, 8, 6, 2, 12, 30, 20,
 		11,  0,

@@ -845,7 +845,7 @@
 
 
 /*
- * Player race category (hard-coded by save-files, arrays, etc)
+ * Intelligence race category (hard-coded by save-files, arrays, etc)
  */
 #define RACE_CATEGORY_HUMAN        0
 #define RACE_CATEGORY_ELF          1
@@ -863,6 +863,13 @@
 #define RACE_CATEGORY_UNSELECTABLE 255
 
 
+/*
+ * Intelligence race rarerity.
+ */
+#define RACE_RARELITY_COMMON       0
+#define RACE_RARELITY_UNCOMMON     1
+#define RACE_RARELITY_RARE         2
+#define RACE_RARELITY_LEGENDARY    3
 
 
 

@@ -829,6 +829,7 @@ struct intelligent_race
 #endif
 
 	byte race_category; /* Race Category */
+	byte rarelity;      /* Race Rarelity */
 	byte sex_flag;		/* Legal Sex */
 
 	s16b r_adj[6];		/* Racial stat bonuses(on main-race) */
@@ -1736,6 +1737,8 @@ struct dungeon_info_type {
 	int tunnel_percent;
 	int obj_great;
 	int obj_good;
+
+	int race_population[MAX_RACES];
 };
 
 

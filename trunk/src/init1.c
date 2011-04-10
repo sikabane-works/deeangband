@@ -3244,6 +3244,25 @@ errr parse_d_info(char *buf, header *head)
 		if (!add_text(&d_ptr->text, head, s, TRUE)) return (7);
 	}
 
+	/* Process "R:<RaceRate>" -- set Race Bias */
+	else if (buf[0] == 'R')
+	{
+		char *zz[MAX_RACES];
+		if (tokenize(buf+2, MAX_RACES, zz, 0) == MAX_RACES)
+		{
+			for (i = 0; i < MAX_RACES; i++)
+			{
+				d_ptr->race_population[i] = atoi(zz[i]);
+			}
+			return (0);
+		}
+		else{
+			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
+		}
+
+	}
+
+
 	/* Process 'W' for "More Info" (one line only) */
 	else if (buf[0] == 'W')
 	{
