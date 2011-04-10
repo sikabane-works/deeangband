@@ -27,16 +27,6 @@ void check_experience(void)
 	int  old_lev = p_ptr->lev;
 	int i;
 
-	/* Level Limit */
-	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
-			break;
-
-	if (p_ptr->dr >= 0)
-		p_ptr->max_lev = i + p_ptr->dr;
-	else
-		p_ptr->max_lev = i;
-
 	if(p_ptr->max_lev > PY_MAX_LEVEL) p_ptr->max_lev = PY_MAX_LEVEL;
 
 	/* Hack -- lower limit */

@@ -3225,7 +3225,15 @@ void calc_bonuses(creature_type *cr_ptr)
 	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
 
-    check_experience();
+	/* Level Limit */
+	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
+		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
+			break;
+
+	if (p_ptr->dr >= 0)
+		p_ptr->max_lev = i + p_ptr->dr;
+	else
+		p_ptr->max_lev = i;
 
 	/* Base infravision (purely racial) */
 	cr_ptr->see_infra = tmp_rp_ptr->infra;
