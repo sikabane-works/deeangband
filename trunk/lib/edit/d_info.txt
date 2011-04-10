@@ -78,7 +78,7 @@ F:MONSTER_DIV_0
 N:3:モリア
 E:Moria
 D:$the entrance to the Dungeon of Angband
-D:滅び去りしドワーフの都の入り口
+D:滅び去りしドワーフの都
 P:49:70
 W:35:50:30:0:14:160:75:20:0xffff:0xffff
 L:FLOOR:100:FLOOR:0:FLOOR:0:50

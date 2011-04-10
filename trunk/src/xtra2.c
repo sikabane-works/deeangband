@@ -25,6 +25,19 @@ void check_experience(void)
 	bool level_inc_stat = FALSE;
 	bool android = (p_ptr->race == RACE_ANDROID ? TRUE : FALSE);
 	int  old_lev = p_ptr->lev;
+	int i;
+
+	/* Level Limit */
+	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
+		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
+			break;
+
+	if (p_ptr->dr >= 0)
+		p_ptr->max_lev = i + p_ptr->dr;
+	else
+		p_ptr->max_lev = i;
+
+	if(p_ptr->max_lev > PY_MAX_LEVEL) p_ptr->max_lev = PY_MAX_LEVEL;
 
 	/* Hack -- lower limit */
 	if (p_ptr->exp < 0) p_ptr->exp = 0;
@@ -51,7 +64,7 @@ void check_experience(void)
 
 	/* Lose levels while possible */
 	while ((p_ptr->lev > 1) &&
-	       (p_ptr->exp < ((android ? player_exp_a : player_exp)[p_ptr->lev - 2] * p_ptr->expfact / 100L)))
+		(p_ptr->exp < ((android ? player_exp_a : player_exp)[p_ptr->lev - 2] * p_ptr->expfact / 100L)) || p_ptr->lev > p_ptr->max_lev)
 	{
 		/* Lose a level */
 		p_ptr->lev--;

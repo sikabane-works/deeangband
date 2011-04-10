@@ -454,6 +454,17 @@ static void do_cmd_wiz_change_aux(void)
 		/* Update */
 		check_experience();
 	}
+
+	/* Query */
+	if (!get_string("Devine Rank: ", tmp_val, 2)) return;
+
+	tmp_int = atoi(tmp_val);
+	if (tmp_int < -1) tmp_int = -1;
+	if (tmp_int > 30) tmp_int = 30;
+	p_ptr->dr = tmp_int;
+
+	check_experience();
+
 }
 
 

@@ -3856,7 +3856,7 @@ void display_player(int mode)
 		else if(p_ptr->dr >= 1)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("”¼_[%2d]", p_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‰p—Y_[%2d]", p_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("‰p—ì[%2d]", p_ptr->dr), TERM_RED);
 
 #else
 		display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)p_ptr->age), TERM_L_BLUE);
