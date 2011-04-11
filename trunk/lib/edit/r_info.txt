@@ -7549,6 +7549,8 @@ E:Kharis the Powerslave
 G:z:u
 I:110:20:40:40
 W:26:4:0:500:0:0
+P:25.0:26.0:29.0:19.0:31.0:21.0
+X:201:0:83:0:0:0:0:0
 Y:0
 B:GAZE:TERRIFY
 B:HIT:DISEASE:6d6
@@ -13294,10 +13296,10 @@ N:670:『影のジャック』
 E:Jack of Shadows
 G:p:s
 I:150:70:150:4
-W:67:4:0:10000:0:0
+W:45:4:0:10000:0:0
 P:28.0:31.0:32.0:38.0:31.0:34.0
 X:185:0:74:0:185:0:74:0
-Y:8
+Y:-1
 B:HIT:HURT:5d10
 B:HIT:HURT:5d10
 B:HIT:EAT_ITEM:2d10
@@ -16023,7 +16025,9 @@ E:Habu the Champion of Chaos
 G:h:G
 I:130:25:175:10
 W:59:2:0:20000:0:0
-Y:4
+P:38.0:34.0:31.0:34.0:35.0:36.0
+X:272:0:242:0:0:0:0:0
+Y:7
 B:HIT:EXP_VAMP:6d6
 B:HIT:EXP_VAMP:8d8
 B:HIT:EXP_VAMP:10d10
@@ -16047,6 +16051,8 @@ E:Curumo, the Omnipotent Socerer
 G:p:v
 I:120:100:100:0
 W:86:1:0:35000:0:0
+P:34.0:54.0:52.0:49.0:41.0:45.0
+X:191:0:82:0:0:0:0:0
 Y:17
 B:HIT:UN_BONUS:6d8
 B:HIT:UN_BONUS:6d8
@@ -16064,11 +16070,10 @@ S:HEAL | HASTE | TPORT | TELE_AWAY | BLIND | CONF | SCARE |
 S:CAUSE_4 | MIND_BLAST | FORGET | TRAPS | ANIM_DEAD |
 S:BO_ICEE | BA_ACID | BA_FIRE | BA_COLD | BA_WATE | 
 S:S_UNDEAD | S_DEMON | S_DRAGON | PSY_SPEAR
-D:元来、アルダの真なる歴史においては背任者として、救いようのない破滅の運命を
+D:元来アルダの真なる歴史においては背任者として、救いようのない破滅の運命を
 D:与えられていた『万色のサルマン』はメルコールの秘奥によってその運命から解き放たれた。
-D:今や彼はアウレの下僕であった頃の同僚サウロンに劣らぬ支配者の一人であり、
-D:善悪を超えた芸能と技術、そして交易を司る神として、
-D:多元宇宙へ広範に影響を与える存在になったのだ。
+D:今や彼はアウレの下僕であった頃の同僚アンナタールに劣らぬ支配者の一人であり、
+D:善悪を超えた技術と芸能、戦争と交易を司る神として、多元宇宙に広く影響を与える存在になったのだ。
 
 
 #JZ#
@@ -16077,7 +16082,9 @@ E:Olorin the Reviver
 G:p:v
 I:120:101:100:0
 W:50:7:0:35000:0:0
-Y:5
+P:34.0:31.0:38.0:33.0:34.0:32.0
+X:189:0:77:0:189:0:77:0
+Y:2
 B:HIT:UN_BONUS:6d8
 B:HIT:UN_BONUS:6d8
 B:HIT:TERRIFY:5d5
@@ -16109,13 +16116,18 @@ D:必ずやこの存在の仮初の肉体を引き千切り、その力の源たるアノールの力を奪い取るの
 #JZ#狩られてコーウィンと対決する。
 #JZ#(この描写はトランプの絵柄) by 藤岡さん
 #JZ#Z (コメント)訳は 久留さん
-N:773:アンバーの狂気の夢想家『ブランド』
-E:Brand, Mad Visionary of Amber
+#D'ang# D'angの多元宇宙では、全てがアンバーと混沌のみを
+#D'ang# 起源にしている訳ではないことが幸いして、
+#D'ang# アンバー前半シリーズのような行為に出ることなく、
+#D'ang# 他の宇宙を「素材」にしつつも、大人しく自分の芸術にいそしんでいる。
+#D'ang# とは言え、アンバーの宮廷内で最も暗躍している立場でもあるかも知れない。
+N:773:アンバーの狂気の芸術家『ブランド』
+E:Brand, Mad Artist of Amber
 G:p:v
 I:125:100:100:0
 W:95:5:0:35000:0:0
 P:39.0:60.0:41.0:40.0:38.0:51.0
-X:175:0:67:0:175:0:67:0
+X:175:0:67:0:0:0:0:0
 Y:25
 B:HIT:UN_BONUS:6d8
 B:HIT:UN_BONUS:6d8
@@ -16133,16 +16145,15 @@ S:TPORT | BLINK | BA_FIRE | BA_COLD |
 S:DRAIN_MANA | CAUSE_4 | BA_ACID | TELE_AWAY |
 S:MIND_BLAST | TRAPS | HEAL |
 S:HASTE | BRAIN_SMASH | BA_CHAO | BA_DARK | PSY_SPEAR
-D:$Brand sees himself as a hero, the god creator 
-D:$and absolute monarch of a future world. Unfortunately he needs 
-D:$to erase the existing world to make his new world. "...a figure both 
+D:$"...a figure both 
 D:$like Bleys and (Corwin). (Corwin's) features, though smaller, his eyes, 
 D:$Bleys' hair, beardless. He wore a riding suit of green and sat atop a white 
 D:$horse... There was a quality of both strength and weakness, questing and 
 D:$abandonment about him."
-D:ブランドは自分のことを英雄であり、創造主であり、将来の世界の絶対的な
-D:支配者であると見なしている。不幸なことに彼の新世界を作るためには
-D:現在の世界を消滅させなければならない。
+D:ブランドはアンバーの王子の中でも陰鬱な雰囲気を漂わせた、芸術肌の知恵者だ。
+D:その独創性あふれる芸術の数々はおぞましくも、見る者を捕らえて放さぬ魔性がある。
+D:彼の創造の志向はどす黒く破滅的ですらあるが、
+D:今のところ彼は自分の影や他の宇宙でそれを表現するのみで十分に満足しているようだ。
 D:「ブレイズとぼく自身の両方に似た男。顔かたちは、ちょっと小さいがぼくのも
 D:の。目はぼく、髪はブレイズ。顎ひげはない。緑色の乗馬服を着て、白馬にま
 D:たがり…かれには強さと弱さ、探求と放棄の両方の性格がある。」

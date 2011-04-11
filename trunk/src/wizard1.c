@@ -1701,7 +1701,7 @@ static void spoil_artifact(cptr fname)
 static void spoil_mon_desc(cptr fname)
 {
 	int i, n = 0;
-	int tmpht;
+	int tmpht, tmpwt;
 	int hpdata[4];
 
 	u16b why = 2;
@@ -1852,17 +1852,30 @@ static void spoil_mon_desc(cptr fname)
 			sprintf(hp_desc, "(%dd%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
 		}
 
-
 		/* height & weight & size */
-		tmpht = (r_ptr->m_b_ht + r_ptr->f_b_ht) / 2;
+		if(r_ptr->flags1 & RF1_MALE)
+		{
+			tmpht = r_ptr->m_b_ht;
+			tmpwt = r_ptr->m_b_wt;
+		}
+		else if (r_ptr->flags1 & RF1_FEMALE)
+		{
+			tmpht = r_ptr->f_b_ht;
+			tmpwt = r_ptr->f_b_wt;
+		}
+		else
+		{
+			tmpht = r_ptr->m_b_ht;
+			tmpwt = r_ptr->m_b_wt;
+		}
+
 		if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
-		tmpht = (r_ptr->m_b_wt + r_ptr->f_b_wt) / 2;
-		if(tmpht < 10000) sprintf(wt, "%dkg",  tmpht);
-		else if(tmpht < 10000000) sprintf(wt, "%dt ", tmpht / 1000);
-		else sprintf(wt, "%dKt", tmpht / 1000000);
+		if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
+		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
+		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
 		tmpht = calc_bodysize((r_ptr->m_b_ht + r_ptr->f_b_ht) / 2,
 		                      (r_ptr->m_b_wt + r_ptr->f_b_wt) / 2);
