@@ -190,23 +190,22 @@ void set_height_weight(creature_type *cr_ptr)
 void set_bodysize(creature_type * cr_ptr)
 {
 	cr_ptr->size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
-	return;	
+	return;
 }
 
 /* Hitdice */
 void set_hitdice(creature_type * cr_ptr)
 {
-	cr_ptr->hitdice = 5 + cr_ptr->size / 2;
-
-	//TODO:: Irace, class, Seikaku
-//	if (cr_ptr->class == CLASS_SORCERER)
-//		cr_ptr->hitdice /= 2;
-//	if(cr_ptr->class != CLASS_NONE)
-//		cr_ptr->hitdice += cr_ptr->class;
-//	if(cr_ptr->seikaku != SEIKAKU_NONE)
-//		cr_ptr->hitdice += cr
-
-	if(cr_ptr->hitdice < 4) cr_ptr->hitdice = 4;
+	cr_ptr->hitdice = cr_ptr->size >= 8 ? 4 + cr_ptr->size / 2 : cr_ptr->size;
+	if (cr_ptr->race != RACE_NONE)
+		cr_ptr->hitdice += race_info[cr_ptr->r_idx].r_mhp;
+	if (cr_ptr->class == CLASS_SORCERER)
+		cr_ptr->hitdice /= 2;
+	if (cr_ptr->class != CLASS_NONE)
+		cr_ptr->hitdice += class_info[cr_ptr->class].c_mhp;
+	if(cr_ptr->seikaku != SEIKAKU_NONE)
+		cr_ptr->hitdice += seikaku_info[cr_ptr->seikaku].a_mhp;
+	return;	
 }
 
 void set_enemy_maxhp(creature_type *cr_ptr)
@@ -321,7 +320,7 @@ s16b calc_monster_standard_size(monster_race * mr_ptr){
 void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 {
 	int con_p, bonus;
-	int num, dice;
+	int num, size, dice;
 	int convert_lv;
 
 	convert_lv = mr_ptr->level;
@@ -331,12 +330,27 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 	if(convert_lv >= 128) convert_lv = 127;
 
 	num = d_level_to_c_level[convert_lv] + 2;
-	dice = 5 + calc_monster_standard_size(mr_ptr) / 2;
+
+	size = calc_monster_standard_size(mr_ptr);
+
+	dice = size >= 8 ? 4 + size / 2 : size;
+	if (mr_ptr->i_race != RACE_NONE)
+		dice += race_info[mr_ptr->i_race].r_mhp;
+	if (mr_ptr->i_class == CLASS_SORCERER)
+		dice /= 2;
+	if (mr_ptr->i_class != CLASS_NONE)
+		dice += class_info[mr_ptr->i_class].c_mhp;
+	if (mr_ptr->i_chara != SEIKAKU_NONE)
+		dice += seikaku_info[mr_ptr->i_chara].a_mhp;
+
+
+
 	con_p = mr_ptr->stat[A_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;
+
 	bonus = ((int)(adj_con_mhp[con_p]) - 128) * num / 4;
 
-	if ((mr_ptr->flags1 & (RF1_FORCE_MAXHP)) || dice == 1)
+	if (mr_ptr->dr >= 1)
 	{
 		result[0] = num * dice + bonus;
 	}

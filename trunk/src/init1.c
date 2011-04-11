@@ -2823,6 +2823,18 @@ errr parse_r_info(char *buf, header *head)
 		r_ptr->next_r_idx = nextmon;
 	}
 
+	/* Process 'C' for "Class Info" (one line only) */
+	else if (buf[0] == 'C')
+	{
+		int i_race, i_class, i_faith, i_chara;
+		if (4 != sscanf(buf+2, "%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara)) return (1);
+		r_ptr->i_race = i_race;
+		r_ptr->i_class = i_class;
+		r_ptr->i_faith = i_faith;
+		r_ptr->i_chara = i_chara;
+	}
+
+
 	/* Process 'X' for "More Info" (one line only) */
 	else if (buf[0] == 'X')
 	{

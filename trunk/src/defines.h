@@ -210,7 +210,7 @@
 
 /* The number of "patrons" available (for Chaos Warriors) */
 #define MAX_PATRON          17
-#define PATRON_NONE          0
+#define PATRON_NONE        255
 
 /* Number of entries in the sanity-blast descriptions */
 #define MAX_SAN_HORROR 20
@@ -993,6 +993,7 @@
 #define CLASS_NINJA             26
 #define CLASS_SNIPER            27
 
+#define MAX_CLASS               28
 #define CLASS_NONE             255
 
 
@@ -1008,6 +1009,8 @@
 #define SEIKAKU_LUCKY	 9
 #define SEIKAKU_GAMAN	 10
 #define SEIKAKU_MUNCHKIN 11
+
+#define MAX_SEIKAKU      12
 
 #define SEIKAKU_NONE     255
 

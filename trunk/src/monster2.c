@@ -3121,7 +3121,11 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		rpr_ptr = &race_info[n];
 		rpr_selected = n;
 	}
-
+	else
+	{
+		rpr_ptr = &race_info[r_ptr->i_race];
+		rpr_selected = r_ptr->i_race;
+	}
 
 	if (cheat_hear)
 	{
@@ -3300,8 +3304,11 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->re_idx = re_selected;
 	m_ptr->race = rpr_selected;
 	m_ptr->ap_r_idx = initial_r_appearance(r_idx);
-	m_ptr->class = CLASS_NONE;
-	m_ptr->seikaku = SEIKAKU_NONE;
+
+	/* Save the trait */
+	m_ptr->class = (byte)r_ptr->i_class;
+	m_ptr->seikaku = (byte)r_ptr->i_chara;
+	m_ptr->patron = (s16b)r_ptr->i_faith;
 
 	/* No flags */
 	m_ptr->mflag = 0;

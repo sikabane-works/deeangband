@@ -1722,6 +1722,7 @@ static void spoil_mon_desc(cptr fname)
 	char wt[80];
 	char size[80];
 	char div[80];
+	char trait[160];
 
 	char sa[10], ia[10], wa[10], da[10], ca[10], cha[10];
 
@@ -1747,15 +1748,16 @@ static void spoil_mon_desc(cptr fname)
 	/* Dump the header */
 	fprintf(fff, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
 		FAKE_VER_MAJOR-10, FAKE_VER_MINOR, FAKE_VER_PATCH);
-	fprintf(fff, "------------------------------------------\n\n");
+	fprintf(fff, "---------------------------------------------\n\n");
 
 	/* Dump the header */
-	fprintf(fff, "%5s     %-38.38s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
+	fprintf(fff, "%5s     %-38.38s%-4s%-4s%-4s%-4s%-3s%-3s%-3s%-3s%-3s%-3s%-21s%-6s%-7s%-7s%-4s  %-11.11s %64s\n",
 		"ID", "Name",     "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
-		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info");
-	fprintf(fff, "%5s %-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s\n",
+		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info", "I_Race", "I_Class", "I_Faith", "I_Chara");
+	fprintf(fff, "%5s %-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s %64s\n",
 		"-----","--------", "---", "---", "---", "---", "--", "--", "--", "--", "--", "--",
-		"--------------------", "--", "--", "--", "---", "-----------");
+		"--------------------", "--", "--", "--", "---", "-----------",
+		"-----");
 
 
 	/* Scan the monsters */
@@ -1843,7 +1845,7 @@ static void spoil_mon_desc(cptr fname)
 		//TODO:: EstimateHP
 		estimate_enemy_hp(r_ptr, hpdata);
 		sprintf(hp, "%5d", hpdata[0]);
-		if ((r_ptr->flags1 & (RF1_FORCE_MAXHP)))
+		if (r_ptr->dr >= 1)
 		{
 			sprintf(hp_desc, "(%dx%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
 		}
@@ -1889,9 +1891,39 @@ static void spoil_mon_desc(cptr fname)
 		/* Hack -- use visual instead */
 		sprintf(exp, "%s '%c'", attr_to_text(r_ptr), r_ptr->d_char);
 
-		/* Dump the info */
-		fprintf(fff, "%6s%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%15s%6s%7s%7s%4s  %11.11s\n",
-			id, nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp);
+		/* Trait */
+		trait[0] = '\0';
+
+		if(r_ptr->i_race < MAX_RACES)
+		{
+			strcat(trait, "/");
+			strcat(trait, race_info[r_ptr->i_race].title);
+		}
+
+		if(r_ptr->i_class < MAX_CLASS)
+		{
+			strcat(trait, "/");
+			strcat(trait, class_info[r_ptr->i_class].title);
+		}
+
+		if(r_ptr->i_chara < MAX_SEIKAKU)
+		{
+			strcat(trait, "/");
+			strcat(trait, seikaku_info[r_ptr->i_chara].title);
+		}
+
+		if(r_ptr->i_faith < MAX_PATRON)
+		{
+			strcat(trait, "/");
+			strcat(trait, player_patrons[r_ptr->i_faith].title);
+		}
+
+		if(strlen(trait) > 0)
+			trait[0] = ' ';
+
+/* Dump the info */
+		fprintf(fff, "%6s%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%15s%6s%7s%7s%4s  %11.11s %s\n",
+			id, nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp, trait);
 	}
 
 	/* End it */

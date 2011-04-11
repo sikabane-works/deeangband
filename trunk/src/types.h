@@ -350,14 +350,11 @@ struct monster_race
 	byte level;				/* Level of creature */
 	byte rarity;			/* Rarity of creature */
 
-
 	byte d_attr;			/* Default monster attribute */
 	byte d_char;			/* Default monster character */
 
-
 	byte x_attr;			/* Desired monster attribute */
 	byte x_char;			/* Desired monster character */
-
 
 	byte max_num;			/* Maximum population allowed per level */
 
@@ -394,6 +391,11 @@ struct monster_race
 	u32b r_flags6;			/* Observed racial flags */
 	/* u32b r_flags7; */			/* Observed racial flags */
 	u32b r_flagsr;			/* Observed racial resistance flags */
+
+	u32b i_race;			/* Intelligent Race */
+	u32b i_class;			/* Class for Intelligent Race */
+	u32b i_faith;           /* Faith for Intelligent Race */
+	u32b i_chara;           /* Character for Intelligent Race */
 };
 
 /*
@@ -860,6 +862,8 @@ struct intelligent_race
 	u32b b_age;			/* base age */
 	u32b m_age;			/* mod age */
 
+	s16b hitdice;		/* mod hitdice */
+
 	u32b m_b_ht;		/* base height (males) */
 	u32b m_m_ht;		/* mod height (males) */
 	u32b m_b_wt;		/* base weight (males) */
@@ -1016,6 +1020,7 @@ struct creature_type
 	byte class;		        /* Class index */
 	bool class_bonus;	/* Class bonus flag*/
 	byte seikaku;		/* Seikaku index */
+	s16b patron;		/* Patron index */
 	byte realm1;        /* First magic realm */
 	byte realm2;        /* Second magic realm */
 	byte oops;			/* Unused */
@@ -1135,7 +1140,6 @@ struct creature_type
 	s16b multishadow;       /* Timed -- Multi-shadow */
 	s16b dustrobe;          /* Timed -- Robe of dust */
 
-	s16b patron;
 	u32b muta1;
 	u32b muta2;
 	u32b muta3;
