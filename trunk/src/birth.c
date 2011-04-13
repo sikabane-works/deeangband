@@ -6987,7 +6987,7 @@ static bool player_birth_aux(void)
 		if(p_ptr->class == CLASS_CHAOS_WARRIOR)
 			p_ptr->patron = (s16b)randint0(MAX_PATRON);
 		else
-			p_ptr->patron = PATRON_NONE;
+			p_ptr->patron = PATRON_N;
 
 		/* Input loop */
 		while (TRUE)
