@@ -7740,7 +7740,263 @@ player_patron player_patrons[MAX_PATRON] =
 			REW_SER_MONS, REW_GOOD_OBJ, REW_CHAOS_WP, REW_GREA_OBJ, REW_GOOD_OBS
 		}
 
-	}
+	},
+
+	{
+#ifdef JP
+		"イルーヴァタール",
+#endif
+		"Iluvatar",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"メルコール",
+#endif
+		"Melkor",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"マンウェ",
+#endif
+		"Manwe",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"ウルモ",
+#endif
+		"Ulmo",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"アウレ",
+#endif
+		"Aule",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"オロメ",
+#endif
+		"Orome",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+		
+	{
+#ifdef JP
+		"ナーモ",
+#endif
+		"Namo",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"ヴァルダ",
+#endif
+		"Varda",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"ヤヴァンナ",
+#endif
+		"Yavanna",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"ニエンナ",
+#endif
+		"Nienna",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"アンナタール",
+#endif
+		"Annatar",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"クルモ",
+#endif
+		"Curumo",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"ウンゴリアント",
+#endif
+		"Ungoliant",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"混沌のサーペント",
+#endif
+		"Sarpent of Chaos",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
+
+	{
+#ifdef JP
+		"秩序のユニコーン",
+#endif
+		"Unicorn of Order",
+			{  0,  0,  0,  0,  0,  0 },
+			0,  0,  0,  0,  0,  0,  0,  0,
+			0,
+			-1,
+			{
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE,
+				REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE, REW_IGNORE
+			}
+	},
 
 };
 

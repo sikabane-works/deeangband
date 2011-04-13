@@ -225,8 +225,27 @@
 #define PATRON_NURGLE       14
 #define PATRON_TZEENTCH     15
 #define PATRON_KHAINE       16
-#define MAX_PATRON          17
+#define PATRON_ILUVATAR     17
+#define PATRON_MELKOR       18
+#define PATRON_MANWE        19
+#define PATRON_ULMO         20
+#define PATRON_AULE         21
+#define PATRON_OLOME        22
+#define PATRON_NAMO         23
+#define PATRON_VARDA        24
+#define PATRON_YAVANNA      25
+#define PATRON_NIENNA       26
+#define PATRON_ANNATAR      27
+#define PATRON_CURUMO       28
+#define PATRON_UNGOLIANT    29
+#define PATRON_SOC          30
+#define PATRON_OOU          31
+#define MAX_PATRON          32
 #define PATRON_NONE        255
+
+#define PATRON_CHAOS_FROM    1
+#define PATRON_CHAOS_TO     16
+
 
 /* Number of entries in the sanity-blast descriptions */
 #define MAX_SAN_HORROR 20

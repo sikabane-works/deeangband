@@ -84,8 +84,7 @@ void check_experience(void)
 		{
 			p_ptr->max_plv = p_ptr->lev;
 
-			if ((p_ptr->class == CLASS_CHAOS_WARRIOR) ||
-			    (p_ptr->muta2 & MUT2_CHAOS_GIFT))
+			if (p_ptr->patron != PATRON_N)
 			{
 				level_reward = TRUE;
 			}

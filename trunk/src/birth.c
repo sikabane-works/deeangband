@@ -6985,7 +6985,18 @@ static bool player_birth_aux(void)
 
 		/* Patron */
 		if(p_ptr->class == CLASS_CHAOS_WARRIOR)
-			p_ptr->patron = (s16b)randint0(MAX_PATRON);
+		{
+			if     (p_ptr->race == RACE_MELNIBONE)  p_ptr->patron = PATRON_ARIOCH;
+			else    p_ptr->patron = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
+		}
+		else if(p_ptr->class == CLASS_PRIEST || p_ptr->class == CLASS_PALADIN)
+		{
+			if      (p_ptr->race == RACE_MELNIBONE) p_ptr->patron = PATRON_ARIOCH;
+			else if (p_ptr->race == RACE_DUNADAN)   p_ptr->patron = PATRON_ILUVATAR;
+			else if (p_ptr->race == RACE_URUK)      p_ptr->patron = PATRON_MELKOR;
+			else p_ptr->patron = (s16b)rand_range(1, MAX_PATRON-1);
+		}
+
 		else
 			p_ptr->patron = PATRON_N;
 
