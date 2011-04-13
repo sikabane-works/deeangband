@@ -41,7 +41,7 @@ static cptr attr_to_text(monster_race *r_ptr)
 	switch (r_ptr->d_attr)
 	{
 #ifdef JP000
-	case TERM_DARK:    return "XXXい";
+	case TERM_DARK:    return "XXX";
 	case TERM_WHITE:   return "白い";
 	case TERM_SLATE:   return "青灰色の";
 	case TERM_ORANGE:  return "オレンジの";
@@ -1701,7 +1701,7 @@ static void spoil_artifact(cptr fname)
 static void spoil_mon_desc(cptr fname)
 {
 	int i, n = 0;
-	int tmpht, tmpwt;
+	int tmpht, tmpwt, tmpsize;
 	int hpdata[4];
 
 	u16b why = 2;
@@ -1751,12 +1751,12 @@ static void spoil_mon_desc(cptr fname)
 	fprintf(fff, "---------------------------------------------\n\n");
 
 	/* Dump the header */
-	fprintf(fff, "%5s     %-38.38s%-4s%-4s%-4s%-4s%-3s%-3s%-3s%-3s%-3s%-3s%-21s%-6s%-7s%-7s%-4s  %-11.11s %64s\n",
+	fprintf(fff, "%5s     %-38.38s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%6s %-11.11s %-64s\n",
 		"ID", "Name",     "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
-		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info", "I_Race", "I_Class", "I_Faith", "I_Chara");
-	fprintf(fff, "%5s %-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%4s  %11.11s %64s\n",
-		"-----","--------", "---", "---", "---", "---", "--", "--", "--", "--", "--", "--",
-		"--------------------", "--", "--", "--", "---", "-----------",
+		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info", "Trait");
+	fprintf(fff, "%5s %-42.42s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%6s %11.11s %-64s\n",
+		"-----","--------", "-------", "---", "---", "---", "--", "--", "--", "--", "--", "--",
+		"--------------------", "--", "--", "--", "-----", "-----------",
 		"-----");
 
 
@@ -1808,7 +1808,11 @@ static void spoil_mon_desc(cptr fname)
 
 
 		/* Level */
-		sprintf(lev, "%d", r_ptr->level);
+		if (r_ptr->flags1 & (RF1_UNIQUE))
+			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level_u[r_ptr->level]);
+		else
+			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level[r_ptr->level]);
+
 
 		/* Divine Rank */
 		if(r_ptr->dr >= 0)
@@ -1855,6 +1859,7 @@ static void spoil_mon_desc(cptr fname)
 		}
 
 		/* height & weight & size */
+
 		if(r_ptr->flags1 & RF1_MALE)
 		{
 			tmpht = r_ptr->m_b_ht;
@@ -1871,30 +1876,49 @@ static void spoil_mon_desc(cptr fname)
 			tmpwt = r_ptr->m_b_wt;
 		}
 
-		if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
+		if(r_ptr->flagse & RFE_RACE_EGO | r_ptr->flagse & RFE_VARIABLE_SIZE_EGO) sprintf(ht, "----");
+		else if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
-		if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
+		if(r_ptr->flagse & RFE_RACE_EGO | r_ptr->flagse & RFE_VARIABLE_SIZE_EGO) sprintf(wt, "----");
+		else if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
 		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
 		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
-		tmpht = calc_bodysize((r_ptr->m_b_ht + r_ptr->f_b_ht) / 2,
-		                      (r_ptr->m_b_wt + r_ptr->f_b_wt) / 2);
+		tmpsize = calc_bodysize(tmpht, tmpwt);
 
-		if(tmpht < 1000) sprintf(size, "%3d", tmpht);
-		else sprintf(size, "***", tmpht);
+		if(r_ptr->flagse & RFE_RACE_EGO) sprintf(size, "B%+2d ", tmpsize - 10);
+		else if(r_ptr->flagse & RFE_VARIABLE_SIZE_EGO) sprintf(size, "%3d+", tmpsize);
+		else  sprintf(size, "%4d ", tmpsize);
 
 		/* Experience */
 		sprintf(exp, "%ld", (long)(r_ptr->mexp));
 
 		/* Hack -- use visual instead */
-		sprintf(exp, "%s '%c'", attr_to_text(r_ptr), r_ptr->d_char);
+		if(r_ptr->flagse & RFE_RACE_EGO)
+		{
+			sprintf(exp, "%s ---", attr_to_text(r_ptr));
+		}
+		else
+		{
+			sprintf(exp, "%s [%c]", attr_to_text(r_ptr), r_ptr->d_char);
+		}
 
 		/* Trait */
 		trait[0] = '\0';
 
-		if(r_ptr->i_race < MAX_RACES)
+		if(r_ptr->flagse & RFE_RACE_EGO) 
+		{
+			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "種族可変");
+#else
+			strcat(trait, "VariableRace");
+#endif
+
+		}
+		else if(r_ptr->i_race < MAX_RACES)
 		{
 			strcat(trait, "/");
 			strcat(trait, race_info[r_ptr->i_race].title);
@@ -1918,12 +1942,32 @@ static void spoil_mon_desc(cptr fname)
 			strcat(trait, player_patrons[r_ptr->i_faith].title);
 		}
 
-		if(strlen(trait) > 0)
-			trait[0] = ' ';
+		if(r_ptr->flagse & RFE_FORCE_LESSER) 
+		{
+			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "劣等");
+#else
+			strcat(trait, "Lesser");
+#endif
+		}
+
+		if(r_ptr->flagse & RFE_VARIABLE_SIZE_EGO) 
+		{
+			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "サイズ可変");
+#else
+			strcat(trait, "VariableSize");
+#endif
+		}
+
+		if(strlen(trait) == 0)
+			trait[1] = '\0';
 
 /* Dump the info */
-		fprintf(fff, "%6s%-42.42s%4s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%15s%6s%7s%7s%4s  %11.11s %s\n",
-			id, nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp, trait);
+		fprintf(fff, "%6s%-42.42s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%-15s%6s%7s%7s%6s %11.11s %s\n",
+			id, nam, lev, div, rar, spd, sa, ia, wa, da, ca, cha, hp, hp_desc, ac, ht, wt, size, exp, &trait[1]);
 	}
 
 	/* End it */

@@ -206,9 +206,25 @@
  */
 #define MAX_CLASS            28
 
-#define MAX_SEIKAKU          12
 
 /* The number of "patrons" available (for Chaos Warriors) */
+#define PATRON_N             0
+#define PATRON_SLORTTAR      1
+#define PATRON_MABELODE      2
+#define PATRON_CHARDROS      3
+#define PATRON_HIONHURN      4
+#define PATRON_XIOMBARG      5
+#define PATRON_PYALAY        6
+#define PATRON_BALAAN        7
+#define PATRON_ARIOCH        8
+#define PATRON_EEQUOR        9
+#define PATRON_NARJHAN      10
+#define PATRON_BALO         11
+#define PATRON_KHORNE       12
+#define PATRON_SLAANESH     13
+#define PATRON_NURGLE       14
+#define PATRON_TZEENTCH     15
+#define PATRON_KHAINE       16
 #define MAX_PATRON          17
 #define PATRON_NONE        255
 
@@ -997,20 +1013,21 @@
 #define CLASS_NONE             255
 
 
-#define SEIKAKU_FUTUU	 0
-#define SEIKAKU_CHIKARA	 1
-#define SEIKAKU_KIREMONO 2
-#define SEIKAKU_SHIAWASE 3
-#define SEIKAKU_SUBASI	 4
-#define SEIKAKU_INOCHI	 5
-#define SEIKAKU_COMBAT	 6
-#define SEIKAKU_NAMAKE	 7
-#define SEIKAKU_SEXY	 8
-#define SEIKAKU_LUCKY	 9
-#define SEIKAKU_GAMAN	 10
-#define SEIKAKU_MUNCHKIN 11
+#define SEIKAKU_FUTUU	  0
+#define SEIKAKU_CHIKARA	  1
+#define SEIKAKU_KIREMONO  2
+#define SEIKAKU_SHIAWASE  3
+#define SEIKAKU_SUBASI	  4
+#define SEIKAKU_INOCHI	  5
+#define SEIKAKU_COMBAT	  6
+#define SEIKAKU_NAMAKE	  7
+#define SEIKAKU_SEXY	  8
+#define SEIKAKU_LUCKY	  9
+#define SEIKAKU_GAMAN	  10
+#define SEIKAKU_MUNCHKIN  11
+#define SEIKAKU_CHARGEMAN 12
 
-#define MAX_SEIKAKU      12
+#define MAX_SEIKAKU       13
 
 #define SEIKAKU_NONE     255
 

@@ -4995,6 +4995,8 @@ msg_print("ここにはクエストの入口はない。");
 		if (!get_check("クエストに入りますか？")) return;
 		if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
+		if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
 		if (!get_check("Do you enter? ")) return;

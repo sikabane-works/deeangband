@@ -216,11 +216,11 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 	r_ptr = &r_info[cr_ptr->r_idx];
 
 	convert_lv = r_ptr->level;
-	if(r_ptr->flags1 & RF1_UNIQUE)
-		convert_lv += 8;
-	if(convert_lv >= 128) convert_lv = 127;
 
-	num = d_level_to_c_level[convert_lv] + 2;
+	if(r_ptr->flags1 & RF1_UNIQUE)
+		num = d_level_to_c_level_u[convert_lv] + 2;
+	else
+		num = d_level_to_c_level[convert_lv] + 2;
 
 	con_r = cr_ptr->stat_cur[A_CON] / 10 - 3;
 	if (con_r < 0) con_r = 0;
@@ -284,7 +284,7 @@ void set_speed(creature_type *cr_ptr)
 s16b calc_bodysize(s32b ht, s32b wt){
 	double t = (double)ht * wt;
 	double size = 1.0f;
-	while((t > size * size * size * size) && (size < 1000.0f)) size += 1.0f;
+	while((t > size * size * size * size) && (size < 2000.0f)) size += 1.0f;
 	return (s16b)size;	
 }
 
@@ -296,6 +296,7 @@ s16b calc_race_standard_size(intelligent_race * ir_ptr){
 
 s16b calc_monster_standard_size(monster_race * mr_ptr){
 	int tmpht, tmpwt;
+
 	if(mr_ptr->flags1 & RF1_MALE)
 	{
 		tmpht = mr_ptr->m_b_ht;
@@ -324,12 +325,13 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 	int convert_lv;
 
 	convert_lv = mr_ptr->level;
-	if(mr_ptr->flags1 & RF1_UNIQUE)
-		convert_lv += 8;
 
 	if(convert_lv >= 128) convert_lv = 127;
 
-	num = d_level_to_c_level[convert_lv] + 2;
+	if(mr_ptr->flags1 & RF1_UNIQUE)
+		num = d_level_to_c_level_u[convert_lv] + 2;
+	else
+		num = d_level_to_c_level[convert_lv] + 2;
 
 	size = calc_monster_standard_size(mr_ptr);
 
@@ -342,8 +344,6 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 		dice += class_info[mr_ptr->i_class].c_mhp;
 	if (mr_ptr->i_chara != SEIKAKU_NONE)
 		dice += seikaku_info[mr_ptr->i_chara].a_mhp;
-
-
 
 	con_p = mr_ptr->stat[A_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;
