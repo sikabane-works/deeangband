@@ -196,7 +196,7 @@ void set_bodysize(creature_type * cr_ptr)
 /* Hitdice */
 void set_hitdice(creature_type * cr_ptr)
 {
-	cr_ptr->hitdice = cr_ptr->size >= 8 ? 4 + cr_ptr->size / 2 : cr_ptr->size;
+	cr_ptr->hitdice = cr_ptr->size >= 10 ? 5 + cr_ptr->size / 2 : cr_ptr->size;
 	if (cr_ptr->race != RACE_NONE)
 		cr_ptr->hitdice += race_info[cr_ptr->race].r_mhp;
 	if (cr_ptr->class == CLASS_SORCERER)
@@ -330,7 +330,7 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 
 	size = calc_monster_standard_size(mr_ptr);
 
-	dice = size >= 8 ? 4 + size / 2 : size;
+	dice = size >= 10 ? 5 + size / 2 : size;
 	if (mr_ptr->i_race != RACE_NONE)
 		dice += race_info[mr_ptr->i_race].r_mhp;
 	if (mr_ptr->i_class == CLASS_SORCERER)

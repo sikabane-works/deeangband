@@ -3573,6 +3573,9 @@
 /*
  * New monster blow methods
  */
+
+#define RBM_NONE         0
+
 #define RBM_HIT          1
 #define RBM_TOUCH        2
 #define RBM_PUNCH        3
@@ -3583,21 +3586,24 @@
 #define RBM_SLASH        8
 #define RBM_BUTT         9
 #define RBM_CRUSH       10
-#define RBM_ENGULF      11
-#define RBM_CHARGE      12
-#define RBM_CRAWL       13
-#define RBM_DROOL       14
-#define RBM_SPIT        15
-#define RBM_EXPLODE     16
-#define RBM_GAZE        17
-#define RBM_WAIL        18
-#define RBM_SPORE       19
-#define RBM_XXX4        20
-#define RBM_BEG         21
-#define RBM_INSULT      22
-#define RBM_MOAN        23
-#define RBM_SHOW        24
-#define RBM_SHOOT       25
+#define RBM_CHARGE      11
+#define RBM_CRAWL       12
+#define RBM_DROOL       13
+#define RBM_SPIT        14
+#define RBM_XXX4        15
+#define RBM_BEG         16
+#define RBM_INSULT      17
+#define RBM_MOAN        18
+#define RBM_SHOW        19
+#define RBM_SHOOT       20
+
+#define RBM_NONDEX_ATTACK 21
+
+#define RBM_ENGULF      21
+#define RBM_EXPLODE     22
+#define RBM_GAZE        23
+#define RBM_WAIL        24
+#define RBM_SPORE       25
 
 
 /*

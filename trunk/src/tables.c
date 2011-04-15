@@ -4351,6 +4351,7 @@ intelligent_race race_info[MAX_RACES] =
  *
  *      Title,
  *      {STR,INT,WIS,DEX,CON,CHR},
+ *      {STR,INT,WIS,DEX,CON,CHR},
  *      c_dis, c_dev, c_sav, c_stl, c_srh, c_fos, c_thn, c_thb,
  *      x_dis, x_dev, x_sav, x_stl, x_srh, x_fos, x_thn, x_thb,
  *      HD, Exp, pet_upkeep_div

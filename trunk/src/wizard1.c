@@ -1700,9 +1700,10 @@ static void spoil_artifact(cptr fname)
  */
 static void spoil_mon_desc(cptr fname)
 {
-	int i, n = 0;
+	int i, j, n = 0;
 	int tmpht, tmpwt, tmpsize;
 	int hpdata[4];
+	int stat[6];
 
 	u16b why = 2;
 	s16b *who;
@@ -1834,13 +1835,50 @@ static void spoil_mon_desc(cptr fname)
 			sprintf(spd, "-%d", (110 - r_ptr->speed));
 		}
 		
+
 		/* Base Status */
-		sprintf(sa, "%2d", r_ptr->stat[A_STR] / 10);
-		sprintf(ia, "%2d", r_ptr->stat[A_INT] / 10);
-		sprintf(wa, "%2d", r_ptr->stat[A_WIS] / 10);
-		sprintf(da, "%2d", r_ptr->stat[A_DEX] / 10);
-		sprintf(ca, "%2d", r_ptr->stat[A_CON] / 10);
-		sprintf(cha, "%2d", r_ptr->stat[A_CHR] / 10);
+		for(j = A_STR; j <= A_CHR; j++)
+		{
+			stat[j] = r_ptr->stat[j] / 10;
+			if(r_ptr->i_race != RACE_NONE)
+				stat[j] += race_info[r_ptr->i_race].r_adj[j];
+			if(r_ptr->i_class != CLASS_NONE)
+				stat[j] += class_info[r_ptr->i_class].c_adj[j];
+			if(r_ptr->i_faith != PATRON_NONE)
+				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];
+			if(r_ptr->i_chara != SEIKAKU_NONE)
+				stat[j] += seikaku_info[r_ptr->i_chara].a_adj[j];
+			if(stat[j] < 3) stat[j] = 3;
+		}
+
+
+		if((r_ptr->blow[0].method == RBM_NONE || r_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && r_ptr->flags1 & RF1_NEVER_MOVE)
+			sprintf(sa, "--");
+		else
+			sprintf(sa, "%2d", stat[0]);
+
+		if(r_ptr->flags2 & RF2_EMPTY_MIND)
+			sprintf(ia, "--");
+		else
+			sprintf(ia, "%2d", stat[1]);
+
+		if(r_ptr->flags2 & RF2_EMPTY_MIND || r_ptr->flags2 & RF2_WEIRD_MIND)
+			sprintf(wa, "--");
+		else
+			sprintf(wa, "%2d", stat[2]);
+
+		if((r_ptr->blow[0].method == RBM_NONE || r_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && r_ptr->flags1 & RF1_NEVER_MOVE)
+			sprintf(da, "--");
+		else
+			sprintf(da, "%2d", stat[3]);
+
+		sprintf(ca, "%2d", stat[4]);
+
+		if(r_ptr->flags2 & RF2_EMPTY_MIND || r_ptr->flags2 & RF2_WEIRD_MIND)
+			sprintf(cha, "--");
+		else
+			sprintf(cha, "%2d", stat[5]);
+
 
 		/* Armor Class */
 		sprintf(ac, "%d", r_ptr->ac);
