@@ -1720,7 +1720,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(m_ptr->race != RACE_NONE){
+				if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
 	#ifdef JP
 					(void)strcat(desc, race_info[m_ptr->race].title);
 					(void)strcat(desc, "‚Ì");
@@ -1766,7 +1766,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(m_ptr->race != RACE_NONE){
+			if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
 #ifdef JP
 				(void)strcat(desc, race_info[m_ptr->race].title);
 				(void)strcat(desc, "‚Ì");
@@ -1818,7 +1818,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(m_ptr->race != RACE_NONE){
+			if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
 #ifdef JP
 				(void)strcat(desc, race_info[m_ptr->race].title);
 				(void)strcat(desc, "‚Ì");

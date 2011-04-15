@@ -198,7 +198,7 @@ void set_hitdice(creature_type * cr_ptr)
 {
 	cr_ptr->hitdice = cr_ptr->size >= 8 ? 4 + cr_ptr->size / 2 : cr_ptr->size;
 	if (cr_ptr->race != RACE_NONE)
-		cr_ptr->hitdice += race_info[cr_ptr->r_idx].r_mhp;
+		cr_ptr->hitdice += race_info[cr_ptr->race].r_mhp;
 	if (cr_ptr->class == CLASS_SORCERER)
 		cr_ptr->hitdice /= 2;
 	if (cr_ptr->class != CLASS_NONE)
@@ -244,11 +244,6 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 	}
 
 	cr_ptr->mhp = cr_ptr->mmhp;
-
-	if(cheat_hear)
-	{
-		msg_format("[Enemy's HP Set %d=(%d,%d)%+d)]", cr_ptr->mmhp, cr_ptr->lev+2, cr_ptr->hitdice, bonus);
-	}
 
 	return;
 }
