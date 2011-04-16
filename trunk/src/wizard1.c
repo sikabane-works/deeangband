@@ -1848,8 +1848,38 @@ static void spoil_mon_desc(cptr fname)
 				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];
 			if(r_ptr->i_chara != SEIKAKU_NONE)
 				stat[j] += seikaku_info[r_ptr->i_chara].a_adj[j];
+		}
+
+		if(r_ptr->flags2 & RF2_STUPID){
+			stat[A_INT] -= 4;
+			stat[A_WIS] -= 4;
+			stat[A_CHR] -= 4;
+		}
+
+		if(r_ptr->flags2 & RF2_SMART){
+			stat[A_INT] += 4;
+			stat[A_WIS] += 4;
+			stat[A_CHR] += 4;
+		}
+
+		if(r_ptr->flags2 & RF2_ELDRITCH_HORROR){
+			stat[A_CHR] += 5;		
+		}
+
+		if(r_ptr->flags2 & RF2_POWERFUL){
+			for(j = A_STR; j <= A_CHR; j++)
+			{
+				stat[j] += 2;
+			}
+		}
+
+		for(j = A_STR; j <= A_CHR; j++)
+		{
 			if(stat[j] < 3) stat[j] = 3;
 		}
+			
+		
+
 
 
 		if((r_ptr->blow[0].method == RBM_NONE || r_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && r_ptr->flags1 & RF1_NEVER_MOVE)
@@ -1958,25 +1988,55 @@ static void spoil_mon_desc(cptr fname)
 		}
 		else if(r_ptr->i_race < MAX_RACES)
 		{
-			strcat(trait, "/");
+			strcat(trait, "/Ží‘°:");
 			strcat(trait, race_info[r_ptr->i_race].title);
 		}
 
-		if(r_ptr->i_class < MAX_CLASS)
+		if(r_ptr->flagse & RFE_CLASS_EGO) 
 		{
 			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "E‹Æ‰Â•Ï");
+#else
+			strcat(trait, "VariableClass");
+#endif
+
+		}
+		else if(r_ptr->i_class < MAX_CLASS)
+		{
+			strcat(trait, "/E‹Æ:");
 			strcat(trait, class_info[r_ptr->i_class].title);
 		}
 
-		if(r_ptr->i_chara < MAX_SEIKAKU)
+		if(r_ptr->flagse & RFE_CHARA_EGO) 
 		{
 			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "«Ši‰Â•Ï");
+#else
+			strcat(trait, "VariableCharacter");
+#endif
+
+		}
+		else if(r_ptr->i_chara < MAX_SEIKAKU)
+		{
+			strcat(trait, "/«Ši:");
 			strcat(trait, seikaku_info[r_ptr->i_chara].title);
 		}
 
-		if(r_ptr->i_faith < MAX_PATRON)
+		if(r_ptr->flagse & RFE_PATRON_EGO) 
 		{
 			strcat(trait, "/");
+#ifdef JP
+			strcat(trait, "Žå_‰Â•Ï");
+#else
+			strcat(trait, "VariableCharacter");
+#endif
+
+		}
+		else if(r_ptr->i_faith < MAX_PATRON)
+		{
+			strcat(trait, "/Žå_:");
 			strcat(trait, player_patrons[r_ptr->i_faith].title);
 		}
 
@@ -1984,7 +2044,7 @@ static void spoil_mon_desc(cptr fname)
 		{
 			strcat(trait, "/");
 #ifdef JP
-			strcat(trait, "—ò“™");
+			strcat(trait, "—ò“™ƒGƒS");
 #else
 			strcat(trait, "Lesser");
 #endif

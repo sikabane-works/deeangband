@@ -651,10 +651,10 @@ static cptr r_info_flagse[] =
 {
 	"FORCE_LESSER_EGO",
 	"RACE_EGO",
+	"CLASS_EGO",
+	"PATRON_EGO",
+	"CHARA_EGO",
 	"VARIABLE_SIZE_EGO",
-	"XXX",
-	"XXX",
-	"XXX",
 	"XXX",
 	"XXX",
 	"XXX",
