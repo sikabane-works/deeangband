@@ -135,14 +135,13 @@
 ?:[EQU $QUEST_NUMBER 33]
 %:q0clone0.txt
 
-# The Restorer of story
+# The Restorer of *Story*
 ?:[EQU $QUEST_NUMBER 34]
 %:q_moria.txt
 
-# the Bull Roaror
+# Manifest Destiny
 ?:[EQU $QUEST_NUMBER 35]
-%:q_bullroaror.txt
-
+%:q_bull.txt
 
 # Random quests (always adressed with number 40)
 ?:[EQU $QUEST_NUMBER 40]
