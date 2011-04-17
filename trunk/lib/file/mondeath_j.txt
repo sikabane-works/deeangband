@@ -3,7 +3,7 @@ N:54:Wolf, Farmer Maggot's dog
 N:55:Fang, Farmer Maggot's dog
 
 N:63:Smeagol
-「にくむ、にくむ、にくむぅぅぅ！」
+「愛しい人！愛しい人！私の唯一つの愛しい人よ！」
 
 N:393:It
 「それってひどくない？」
@@ -14,8 +14,8 @@ N:573:Lord Borel
 N:670:Jack of Shadows
 「覚えておけ！今度会った時は貴様が堆屍穴に行く番だ！」
 
-N:732:Bull Gates
-「Ｍ＄帝国は永遠に不滅だ！」
+N:732:Aragorn
+「アルノールは永遠に不滅だ！」
 
 N:764:Uriel, Angel of Fire
 N:765:Azriel, Angel of Death

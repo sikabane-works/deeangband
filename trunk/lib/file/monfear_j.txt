@@ -54,19 +54,6 @@ pines.
 #looks at you sadly.
 は悲しそうにあなたを見た。
 
-#スメアゴル語は 日本の第一人者 Tessi さんに監修していただきました。
-N:63:Smeagol
-#says, 'Don't hurt us, mastersisis.'
-#'Don't hurt us'は「しどいことしないでくれよう」
-#だとおもうんですが'mastersisis'みたいな表現は見当たりませんでした
-#'-- sss --'みたいのはあるんですが...
-#訳すとしたら「旦那、---ス、ス、ス---」か「旦那」でしょうか？
-「しどいことしないでくれよう、旦那、---ス、ス、ス---」
-#says, 'Poor Smeagol, poor Smeagol.'
-# Tessi さん訳
-「かわいそうなスメアゴル、かわいそうなスメアゴル。」
-#says, 'No AH! Don't hurtsis us.'
-「あぁ！いやだよう、しどいことしないでくれよう。」
 
 N:135:Mughash the Kobold Lord
 #screams, 'Cowards! Why did you abandon me?'

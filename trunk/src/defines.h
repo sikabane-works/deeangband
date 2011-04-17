@@ -3984,8 +3984,8 @@
 #define RFE_RACE_EGO           0x00000002
 #define RFE_CLASS_EGO          0x00000004
 #define RFE_PATRON_EGO         0x00000008
-#define RFE_CHARA_EGO          0x00000016
-#define RFE_VARIABLE_SIZE_EGO  0x00000032
+#define RFE_CHARA_EGO          0x00000010
+#define RFE_VARIABLE_SIZE_EGO  0x00000020
 
 
 

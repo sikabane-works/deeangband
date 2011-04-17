@@ -3,7 +3,7 @@ N:54:Wolf, Farmer Maggot's dog
 N:55:Fang, Farmer Maggot's dog
 
 N:63:Smeagol
-says, 'We hates, hates, hatesss!'
+says, 'My precious! My precious! My peerless precious!'
 
 N:393:It
 says, 'It's appalling.'
@@ -14,8 +14,8 @@ says, 'Oh, basely done! I had hoped for better of thee!'
 N:670:Jack of Shadows
 says, 'I'll get even! Next time I see you, Death is yours!'
 
-N:732:Bull Gates
-says, 'Empire Micro$oft is eternal!'
+N:732:Aragorn
+says, 'Arnor is eternal!'
 
 N:764:Uriel, Angel of Fire
 N:765:Azriel, Angel of Death

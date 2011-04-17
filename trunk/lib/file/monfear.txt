@@ -48,12 +48,6 @@ limps away, howling.
 howls.
 looks at you sadly.
 
-#スメアゴル語は 日本の第一人者 Tessi さんに監修していただきました。
-N:63:Smeagol
-says, 'Don't hurt us, mastersisis.'
-says, 'Poor Smeagol, poor Smeagol.'
-says, 'No AH! Don't hurtsis us.'
-
 N:135:Mughash the Kobold Lord
 screams, 'Cowards! Why did you abandon me?'
 begs for mercy.

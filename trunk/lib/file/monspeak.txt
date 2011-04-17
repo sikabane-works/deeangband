@@ -399,17 +399,7 @@ says, 'A mere mortal, Be burned to the ground by my fire.'
 #N:729:Ulik the Troll
 #N:730:Baphomet the Minotaur Lord
 
-N:732:Bull Gates
-says, '640K should be enough for ANYBODY!'
-says, 'Buy Windows 2000; the filesystem rocks!'
-says, 'Linux?  Never heard of it...'
-says, 'Resistance is futile--you will be assimilated.'
-says, 'NT is the solution for ALL your needs!'
-hacks out some code and calls it a Service Pack.
-says, 'We don't have a monopoly... MacOS still exists!'
-wonders if he should buy a small country.
-says, 'Where will we let you go today?  HELL!'
-cackles diabolically.
+N:732:Aragorn
 
 N:733:Santa Claus
 says, 'Ho ho ho! You're gonna die!'
