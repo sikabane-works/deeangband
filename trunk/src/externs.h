@@ -1062,7 +1062,7 @@ extern void object_copy(object_type *o_ptr, object_type *j_ptr);
 extern void apply_magic(object_type *o_ptr, int lev, u32b mode);
 extern bool make_object(object_type *j_ptr, u32b mode);
 extern void place_object(int y, int x, u32b mode);
-extern bool make_gold(object_type *j_ptr);
+extern bool make_gold(object_type *j_ptr, int value);
 extern void place_gold(int y, int x);
 extern s16b drop_near(object_type *o_ptr, int chance, int y, int x);
 extern void acquirement(int y1, int x1, int num, bool great, bool known);

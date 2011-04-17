@@ -3800,3 +3800,14 @@ F:INSTA_ART | STR | WIS | INT | DEX | CON | CHR
 # P: base armor class : base damage : plus to-hit : plus to-dam : plus
 # to-ac
 # F: flag | flag |etc
+
+#JZ#
+N:246:イークの大王ボルドールの
+E:of Boldor
+I:45:56:1
+W:50:40:2:10000
+F:INT | WIS | STEALTH | HIDE_TYPE |
+F:SEE_INVIS | INSTA_ART | RES_LITE | RES_DARK
+P:0:0:1d1:0:0:0
+D:大王ボルドールが西の帝国モルドールの占い師から献上されたという指輪だ。
+D:呪わしき〈混沌〉の力は失われ、今は幾らかの加護が宿っている。

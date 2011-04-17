@@ -4736,7 +4736,7 @@ void place_object(int y, int x, u32b mode)
  *
  * The location must be a legal, clean, floor grid.
  */
-bool make_gold(object_type *j_ptr)
+bool make_gold(object_type *j_ptr, int value)
 {
 	int i;
 
@@ -4765,7 +4765,10 @@ bool make_gold(object_type *j_ptr)
 	base = k_info[OBJ_GOLD_LIST+i].cost;
 
 	/* Determine how much the treasure is "worth" */
-	j_ptr->pval = (s16b)(base + (8 * randint1(base)) + randint1(8));
+	if(value <= 0)
+		j_ptr->pval = (s16b)(base + (8 * randint1(base)) + randint1(8));
+	else
+		j_ptr->pval = value;
 
 	/* Success */
 	return (TRUE);
@@ -4806,7 +4809,7 @@ void place_gold(int y, int x)
 	object_wipe(q_ptr);
 
 	/* Make some gold */
-	if (!make_gold(q_ptr)) return;
+	if (!make_gold(q_ptr, 0)) return;
 
 
 	/* Make an object */

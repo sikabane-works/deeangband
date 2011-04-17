@@ -499,7 +499,7 @@ msg_print("クエストを達成した！");
 						quest[i].status = QUEST_STATUS_COMPLETED;
 						quest[i].complev = (byte)p_ptr->lev;
 #ifdef JP
-msg_print("クエストを達成した！");
+						msg_print("クエストを達成した！");
 #else
 						msg_print("You just completed your quest!");
 #endif
@@ -533,17 +533,18 @@ msg_print("クエストを達成した！");
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
+
 #ifdef JP
-msg_print("クエストを達成した！");
+						msg_format("あなたは %s を討ち取り、クエストを達成した！", r_name + r_info[quest[i].r_idx].name);
 #else
-						msg_print("You just completed your quest!");
+						msg_format("You just defeat %s and completed your quest!", r_name + r_info[quest[i].r_idx].name);
 #endif
 
 						msg_print(NULL);
 					}
 
 					/* Finish the two main quests without rewarding */
-					if ((i == QUEST_OBERON) || (i == QUEST_SERPENT))
+					if (i == QUEST_SERPENT)
 					{
 						quest[i].status = QUEST_STATUS_FINISHED;
 					}
@@ -1496,7 +1497,7 @@ msg_print("地面に落とされた。");
 		if (do_gold && (!do_item || (randint0(100) < 50)))
 		{
 			/* Make some gold */
-			if (!make_gold(q_ptr)) continue;
+			if (!make_gold(q_ptr, 0)) continue;
 
 			/* XXX XXX XXX */
 			dump_gold++;

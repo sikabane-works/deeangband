@@ -9267,7 +9267,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						if (quest[i].max_num > 1)
 						{
 #ifdef JP
-							sprintf(note,"%sにいる %d 体の%sを倒す。(あと %d 体)",
+							sprintf(note,"「%s」にいる %d 体の%sを倒す。(あと %d 体)",
 								dungeon_name, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
 #else
 							plural_aux(name);
@@ -9324,10 +9324,10 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 				/* Print the quest info */
 #ifdef JP
-				sprintf(tmp_str, "  %s (危険度:%d階相当)\n  %s\n",
+				sprintf(tmp_str, "  %s (危険度:%d階相当)\n",
 					quest[i].name, quest[i].level, note);
 #else
-				sprintf(tmp_str, "  %s (Danger level: %d)\n  %s\n",
+				sprintf(tmp_str, "  %s (Danger level: %d)\n",
 					quest[i].name, quest[i].level, note);
 #endif
 
@@ -9336,24 +9336,23 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				if (quest[i].status == QUEST_STATUS_COMPLETED)
 				{
 #ifdef JP
-					sprintf(tmp_str, "    クエスト達成 - まだ報酬を受けとってない。\n");
+					sprintf(tmp_str, "    ！クエスト達成 - 依頼者に未報告\n");
 #else
-					sprintf(tmp_str, "    Quest Completed - Unrewarded\n");
+					sprintf(tmp_str, "    ! Quest Completed - Unrewarded\n");
 #endif
 					fprintf(fff, tmp_str);
 				}
-				else
-				{
-					j = 0;
+				fprintf(fff, "\n");
+				j = 0;
 
-					while (quest_text[j][0] && j < 10)
-					{
-						fprintf(fff, "    %s\n", quest_text[j]);
-						j++;
-					}
-					fprintf(fff, "\n");
+				while (quest_text[j][0] && j < 10)
+				{
+					fprintf(fff, "    %s\n", quest_text[j]);
+					j++;
 				}
+				fprintf(fff, "\n");
 			}
+
 			else if (quest[i].level < rand_level) /* QUEST_TYPE_RANDOM */
 			{
 				/* New random */

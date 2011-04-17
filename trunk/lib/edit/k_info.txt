@@ -6446,3 +6446,13 @@ D:ÇµÇ©Ç‡êÌémÇ∆ã§Ç…Ç®ÇºÇ‹ÇµÇ≠êiâªÇµÇƒÇ‰Ç≠ÅB
 #W:70:0:5:60000
 #P:0:1d1:0:0:0
 #F:INSTA_ART
+
+
+# The Ring of Boldor -- see artifact list
+
+N:676:éwó÷:ÇÀÇ∂Ç‹Ç™Ç¡ÇΩ
+E:& Ring~:Twisted
+G:=:W
+I:45:56:0
+W:30:0:2:13000
+F:INSTA_ART

@@ -4051,7 +4051,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				if (o_ptr->tval == TV_GOLD)
 				{
 					coin_type = object_index - OBJ_GOLD_LIST;
-					make_gold(o_ptr);
+					make_gold(o_ptr, letter[idx].special);
 					coin_type = 0;
 				}
 

@@ -19,7 +19,7 @@ M:R:1130
 M:RE:14
 
 # Maximum number of items in k_info.txt
-M:K:676
+M:K:677
 
 # Maximum number of vaults in v_info.txt
 M:V:129
@@ -28,7 +28,7 @@ M:V:129
 M:F:256
 
 # Maximum number of artifacts in a_info.txt
-M:A:246
+M:A:247
 
 # Maximum number of ego-items in e_info.txt
 M:E:255
