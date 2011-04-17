@@ -9,10 +9,6 @@ R:2:2:2:2:2:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:130:0:0:0:
 # Entrance of Yeek Cave
 F:>:ENTRANCE:0:0:0:0:0:NONE:2
 
-# Default for inn reward
-F:A:DIRT:3
-F:B:DIRT:3
-F:C:DIRT:3
 
 
 
@@ -22,14 +18,23 @@ F:C:DIRT:3
 # Quest 8 untaken
 ?:[EQU $QUEST8 0]
 F:a:BUILDING_0:3:0:0:0:0:NONE:8
+F:A:DIRT:3
+F:B:DIRT:3
+F:C:DIRT:3
 
 # Quest 8 taken, entrance is quest entrance
 ?:[EQU $QUEST8 1]
 F:a:BUILDING_0:3:0:0:0:0:NONE:8
+F:A:DIRT:3
+F:B:DIRT:3
+F:C:DIRT:3
 
 # Quest 8 completed
 ?:[EQU $QUEST8 2]
 F:a:BUILDING_0:3:0:0:0:0:NONE:8
+F:A:DIRT:3
+F:B:DIRT:3
+F:C:DIRT:3
 
 # Quest 8 rewarding
 ?:[EQU $QUEST8 3]
@@ -38,7 +43,15 @@ F:A:DIRT:3:0:242
 F:B:DIRT:3:0:0:0:246
 F:C:DIRT:3:0:490:0:0:NONE:6000
 
+# Quest 8 rewarding
+?:[EQU $QUEST8 4]
+F:a:BUILDING_0:3:0:0:0:0:NONE:0
+F:A:DIRT:3
+F:B:DIRT:3
+F:C:DIRT:3
+
 ?:1
+
 
 F:b:BUILDING_1:3:0:0:0:0:NONE:0
 F:c:BUILDING_2:3:0:0:0:0:NONE:0

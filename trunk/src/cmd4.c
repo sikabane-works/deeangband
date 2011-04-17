@@ -439,7 +439,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			note_level = "Surface:";
 #endif
 		else if (q_idx && (is_fixed_quest_idx(q_idx)
-		         && !((q_idx == QUEST_OBERON) || (q_idx == QUEST_SERPENT))))
+		         && !(q_idx == QUEST_SERPENT)))
 #ifdef JP
 			note_level = "クエスト:";
 #else
@@ -563,7 +563,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		{
 			cptr to;
 			if (q_idx && (is_fixed_quest_idx(q_idx)
-			     && !((q_idx == QUEST_OBERON) || (q_idx == QUEST_SERPENT))))
+			     && !(q_idx == QUEST_SERPENT)))
 			{
 #ifdef JP
 				to = "地上";

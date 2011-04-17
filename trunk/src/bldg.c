@@ -3001,9 +3001,9 @@ static void castle_quest(void)
 	if (!q_index)
 	{
 #ifdef JP
-put_str("今のところクエストはありません。", 8, 0);
+put_str("今のところクエストはありません。", 8, 3);
 #else
-		put_str("I don't have a quest for you at the moment.", 8, 0);
+		put_str("I don't have a quest for you at the moment.", 8, 3);
 #endif
 
 		return;
@@ -3035,21 +3035,21 @@ put_str("今のところクエストはありません。", 8, 0);
 	else if (q_ptr->status == QUEST_STATUS_TAKEN)
 	{
 #ifdef JP
-put_str("あなたは現在のクエストを終了させていません！", 8, 0);
+put_str("あなたは現在のクエストを終了させていません！", 8, 3);
 #else
-		put_str("You have not completed your current quest yet!", 8, 0);
+		put_str("You have not completed your current quest yet!", 8, 3);
 #endif
 
 #ifdef JP
-put_str("CTRL-Qを使えばクエストの状態がチェックできます。", 9, 0);
+put_str("CTRL-Qを使えばクエストの状態がチェックできます。", 9, 3);
 #else
-		put_str("Use CTRL-Q to check the status of your quest.", 9, 0);
+		put_str("Use CTRL-Q to check the status of your quest.", 9, 3);
 #endif
 
 #ifdef JP
-put_str("クエストを終わらせたら戻って来て下さい。", 12, 0);
+put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 #else
-		put_str("Return when you have completed your quest.", 12, 0);
+		put_str("Return when you have completed your quest.", 12, 3);
 #endif
 
 	}
@@ -4863,8 +4863,7 @@ msg_print("お金が足りません！");
 		/* Limit depth in Angband */
 		if (select_dungeon == DUNGEON_ANGBAND)
 		{
-			if (quest[QUEST_OBERON].status != QUEST_STATUS_FINISHED) max_depth = 98;
-			else if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
+			if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
 		}
 
 #ifdef JP

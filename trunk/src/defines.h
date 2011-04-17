@@ -151,7 +151,6 @@
 /* Check is the quest index is "fixed" */
 #define is_fixed_quest_idx(Q_IDX) (((Q_IDX) < MIN_RANDOM_QUEST) || ((Q_IDX) > MAX_RANDOM_QUEST))
 
-#define QUEST_OBERON         8
 #define QUEST_SERPENT        9
 #define QUEST_AOY           18
 

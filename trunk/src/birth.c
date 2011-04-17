@@ -3506,23 +3506,6 @@ static void init_dungeon_quests(void)
 	p_ptr->inside_quest = 0;
 
 
-/*
-	init_flags = INIT_ASSIGN;
-	p_ptr->inside_quest = QUEST_OBERON;
-
-	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
-
-	quest[QUEST_OBERON].status = QUEST_STATUS_TAKEN;
-
-	p_ptr->inside_quest = QUEST_SERPENT;
-
-	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
-
-	quest[QUEST_SERPENT].status = QUEST_STATUS_TAKEN;
-	p_ptr->inside_quest = 0;
-*/
-
-
 }
 
 /*

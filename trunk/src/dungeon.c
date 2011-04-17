@@ -3646,7 +3646,7 @@ static void update_dungeon_feeling(void)
 	/* No feeling in a quest */
 	if (quest_num &&
 	    (is_fixed_quest_idx(quest_num) &&
-	     !((quest_num == QUEST_OBERON) || (quest_num == QUEST_SERPENT) ||
+	     !(quest_num == QUEST_SERPENT ||
 	       !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) return;
 
 
@@ -6194,7 +6194,7 @@ static void dungeon(bool load_game)
 	Term_fresh();
 
 	if (quest_num && (is_fixed_quest_idx(quest_num) &&
-	    !((quest_num == QUEST_OBERON) || (quest_num == QUEST_SERPENT) ||
+	    !( quest_num == QUEST_SERPENT ||
 	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling();
 
 	if (p_ptr->inside_battle)
