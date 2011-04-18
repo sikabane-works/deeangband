@@ -4214,6 +4214,7 @@
 #define OPT_PAGE_BIRTH          6
 #define OPT_PAGE_AUTODESTROY    7
 #define OPT_PAGE_PLAYRECORD    10
+#define OPT_PAGE_AUTOSAVE      20
 
 #define OPT_PAGE_JAPANESE_ONLY 99
 

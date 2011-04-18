@@ -27,24 +27,15 @@
 # Entries by Matt Graham, Andrew Hill, and Topi Ylinen
 
 N:8:Farmer Maggot
-#seems sad about something.
 は何か悲しそうだ。
-#asks if you have seen his dogs.
 は彼の犬を見なかったかと聞いている。
-#tells you to get off his land.
 は「わしの土地から出ていけ」と言っている。
-#says, "Grip! Fang! Wolf! Come on, lads!"
 「くいつき！きば！おおかみ！みんな来い！」
-#says, "They won't harm you -- not unless I tell 'em to!"
 「あいつらは噛みついたりせんよ。わしが命令せんかぎりな！」
-#says, "Here, Grip! Fang! Heel!"
 「ここだ、くいつき！きば！来い！」
 exclaims, "Well, if that isn't queerer than ever?"
-#asks, "Were you coming to visit me?"
 「わしに会いにきたのかい？」
-#says, "I'll not light my lanterns till I turn for home."
 「わしは家に帰るまでランターンに火を灯さないようにしよう。」
-#says, "I see you are in some kind of trouble."
 「何かやっかい事に巻き込まれたようじゃな。」
 yells, "Hallo there!"
 says, "It's been a queer day, and no mistake."
@@ -878,6 +869,17 @@ N:1069:魔人ウォーケン
 「ある種の事がらは死ぬことより恐ろしい」
 「わたしもおまえも同じだ………『化物』だ！」
 「この手で直接闇の彼方へ沈めてやろう」
+
+N:1102:突撃『アーマージャック』
+「目玉を抉り出せ♪はらわた引きずりだせ♪」
+「おいそこのハナタレ小僧！何故俺様の歌を歌わないんだ！？」
+「そうかよし！お前のような悪ガキはダブルスライサーで真っ二つだぁ！」
+「大怪獣は八つ裂き！宇宙人共は皆殺し！」
+
+N:1103:『ゴッドマン』
+「拡・大！」
+「地球が危ない！」
+「平和が壊れる！」
 
 N:*:Default lines
 #cackles evilly.

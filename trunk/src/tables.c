@@ -7442,6 +7442,15 @@ option_type option_info[] =
 	"record_named_pet",             "Record informations of named pets" },
 #endif
 
+	#ifdef JP
+	{ &autosave_l,            FALSE, OPT_PAGE_AUTOSAVE, 20, 0,
+	"autosave_l",                   "階層毎にオートセーブする" },
+#else
+	{ &autosave_l,            FALSE, OPT_PAGE_PLAYRECORD, 20, 0,
+	"autosave_l",                   "Autosave" },
+#endif
+
+
 	/*** End of Table ***/
 
 	{ NULL,                         0, 0, 0, 0,
