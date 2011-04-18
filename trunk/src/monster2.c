@@ -1720,7 +1720,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
+				if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
 	#ifdef JP
 					(void)strcat(desc, race_info[m_ptr->race].title);
 					(void)strcat(desc, "‚Ì");
@@ -1745,7 +1745,8 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	#endif
 					(void)strcat(desc, tmp);
 				}
-				else if(m_ptr->re_idx != MONEGO_NONE){
+
+				if(m_ptr->re_idx != MONEGO_NONE){
 					e_name = (re_name + re_info[m_ptr->re_idx].name);
 					(void)strcat(desc, e_name);
 				}
@@ -1766,7 +1767,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
+			if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
 #ifdef JP
 				(void)strcat(desc, race_info[m_ptr->race].title);
 				(void)strcat(desc, "‚Ì");
@@ -1792,7 +1793,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcat(desc, tmp);
 			}
 
-			else if(m_ptr->re_idx != MONEGO_NONE){
+			if(m_ptr->re_idx != MONEGO_NONE){
 				e_name = (re_name + re_info[m_ptr->re_idx].name);
 				(void)strcat(desc, e_name);
 			}
@@ -1818,7 +1819,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(m_ptr->race != RACE_NONE && (r_ptr->flagsr & RFE_RACE_EGO)){
+			if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
 #ifdef JP
 				(void)strcat(desc, race_info[m_ptr->race].title);
 				(void)strcat(desc, "‚Ì");
@@ -1843,13 +1844,16 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	#endif
 				(void)strcat(desc, tmp);
 			}
-			else if(m_ptr->re_idx != MONEGO_NONE){
+
+			if(m_ptr->re_idx != MONEGO_NONE){
 				e_name = (re_name + re_info[m_ptr->re_idx].name);
 				(void)strcat(desc, e_name);
 			}
 
 			(void)strcat(desc, name);
 		}
+
+
 
 		if (m_ptr->nickname)
 		{
@@ -3085,12 +3089,6 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	int re_selected, rpr_selected;
 
 
-	if (cheat_hear)
-	{
-		msg_format("[Generating(%s)(%d,%d)(%d-%d)]", name, x, y, r_idx, re_idx);
-	}
-
-
 	/* Select Ego */
 	re_ptr = NULL;
 	rpr_ptr = NULL;
@@ -3129,7 +3127,8 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	if (cheat_hear)
 	{
-		msg_format("[Ego:(%d-%d)]", re_selected, rpr_selected);
+		if(rpr_selected != RACE_NONE)
+			msg_format("[Race:%s]", race_info[rpr_selected].title);
 	}
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */

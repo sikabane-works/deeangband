@@ -3717,7 +3717,7 @@ static bool resize_item()
 #else
 			msg_format("%s was made over.", tmp_str);
 #endif
-			
+
 		}
 		else return (FALSE);
 
