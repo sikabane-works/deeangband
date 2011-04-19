@@ -495,20 +495,20 @@ msg_print("クエストを達成した！");
 	}
 
 	/* Armor Size Information */
-	if(o_ptr->fitting_size != ARMOR_SIZE_FREE){
-		rate = 100 * (o_ptr->fitting_size + o_ptr->to_size) / p_ptr->size;
-		p_ptr->iven_fitting_rate[slot] = rate;
-#ifdef JP
-		msg_format("（装備の体格比：%d％）", rate);
-#else
-		msg_format("(Size：%d%%)", rate);
-#endif
-	}
-	else
+
+	if(slot == INVEN_BODY || slot == INVEN_HEAD || slot == INVEN_HANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
 	{
-		p_ptr->iven_fitting_rate[slot] = 100;
+		rate = set_inventory_fitting_rate(p_ptr, o_ptr, slot);
+
+		if(o_ptr->fitting_size != ARMOR_SIZE_FREE){
+		#ifdef JP
+			msg_format("（装備の体格比：%d％）", rate);
+		#else
+			msg_format("(Size：%d%%)", rate);
+		#endif
+		}
 	}
-	
+
 	switch (slot)
 	{
 	case INVEN_BODY:
@@ -608,7 +608,7 @@ msg_print("クエストを達成した！");
 		else if(rate >= 140)
 		{
 #ifdef JP
-			msg_format("すそが地面の凹凸に引っかかって非常に動きづらい。");
+			msg_format("すそが地面に引っかかって非常に動きづらい。");
 #else
 #endif
 		}

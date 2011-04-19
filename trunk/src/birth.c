@@ -6956,10 +6956,6 @@ static bool player_birth_aux(void)
 		/* Mode */
 		mode = 0;
 
-		/* Iventory Fitting Rate */
-		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
-			p_ptr->iven_fitting_rate[i] = 100;
-
 		/* Roll for base hitpoints */
 		get_extra(TRUE);
 
@@ -6982,6 +6978,10 @@ static bool player_birth_aux(void)
 
 		else
 			p_ptr->patron = PATRON_N;
+
+		/* Iventory Fitting Rate */
+		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+			p_ptr->iven_fitting_rate[i] = 100;
 
 		/* Input loop */
 		while (TRUE)

@@ -3556,6 +3556,18 @@ msg_format("%s(%c)‚ðw“ü‚·‚éB", o_name, I2A(item));
 			msg_format("Buying %s (%c).", o_name, I2A(item));
 #endif
 
+			if (j_ptr->tval >= TV_BOOTS && j_ptr->tval <= TV_DRAG_ARMOR)
+			{
+				if (p_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) >= 110 || p_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) < 90)
+				{
+#ifdef JP
+					if (!get_check("‚ ‚È‚½‚Ì‘ÌŠi‚É‡‚í‚È‚¢‚æ‚¤‚¾‚ªA‚æ‚ë‚µ‚¢‚©H ")) return;
+#else
+					if (!get_check("It may be not your size, Are you sure? ")) return;
+#endif
+				}
+			}
+
 			msg_print(NULL);
 
 			/* Haggle for a final price */

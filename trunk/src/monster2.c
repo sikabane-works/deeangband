@@ -1793,7 +1793,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcat(desc, tmp);
 			}
 
-			if(m_ptr->re_idx != MONEGO_NONE){
+			else if(m_ptr->re_idx != MONEGO_NONE){
 				e_name = (re_name + re_info[m_ptr->re_idx].name);
 				(void)strcat(desc, e_name);
 			}
@@ -1845,7 +1845,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcat(desc, tmp);
 			}
 
-			if(m_ptr->re_idx != MONEGO_NONE){
+			else if(m_ptr->re_idx != MONEGO_NONE){
 				e_name = (re_name + re_info[m_ptr->re_idx].name);
 				(void)strcat(desc, e_name);
 			}

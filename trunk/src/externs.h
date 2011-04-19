@@ -834,6 +834,7 @@ extern void set_enemy_hp(creature_type *cr_ptr, int percentage);
 extern void set_speed(creature_type *cr_ptr);
 extern s16b calc_bodysize(s32b ht, s32b wt);
 extern s16b calc_race_standard_size(intelligent_race *ir_ptr);
+extern int  set_inventory_fitting_rate(creature_type *cr_ptr, object_type *o_ptr, int slot);
 extern void estimate_enemy_hp(monster_race *mr_ptr, int *result);
 extern void set_resistance(creature_type *cr_ptr);
 

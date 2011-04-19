@@ -4315,12 +4315,16 @@ void calc_bonuses(creature_type *cr_ptr)
 	/* Scan the usable inventory */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
+
 		int bonus_to_h, bonus_to_d;
 		o_ptr = &inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
-		rate = cr_ptr->iven_fitting_rate[i];
+		if(i == INVEN_BODY || i == INVEN_HEAD || i == INVEN_HANDS || i == INVEN_FEET || i == INVEN_OUTER)
+		{
+			rate = set_inventory_fitting_rate(p_ptr, o_ptr, i);
+		}
 
 		/* Extract the item flags */
 		object_flags(o_ptr, flgs);
