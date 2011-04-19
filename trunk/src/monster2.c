@@ -1497,11 +1497,13 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	monster_race    *r_ptr;
 
 	cptr            name;
-	cptr            e_name;
 	char            buf[128];
 	char            silly_name[1024];
 	bool            seen, pron;
 	bool            named = FALSE;
+
+
+	desc[0] = '\0';
 
 	r_ptr = &r_info[m_ptr->ap_r_idx];
 
@@ -1720,38 +1722,10 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-				if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
-	#ifdef JP
-					(void)strcat(desc, race_info[m_ptr->race].title);
-					(void)strcat(desc, "の");
-	#else
-					(void)strcat(desc, race_info[m_ptr->race].tit;e);
-					(void)strcat(desc, "'s ");
-	#endif
-				}
 
-				if(m_ptr->re_idx == MONEGO_VARIABLE_SIZE){
-					char tmp[80];
-					tmp[0] = '\0';
-	#ifdef JP
-					sprintf(tmp, "サイズ%dの", m_ptr->size);
-	#else
-					if(m_ptr->wt < 10000)
-						sprintf(tmp, "Weight:%dkg's ", m_ptr->wt);
-					else if(m_ptr->wt < 10000000)
-						sprintf(tmp, "Weight:%dt's ", m_ptr->wt / 1000);
-					else if(m_ptr->wt < 10000000000)
-						sprintf(tmp, "Weight:%dKt's ", m_ptr->wt / 10000000);
-	#endif
-					(void)strcat(desc, tmp);
-				}
 
-				if(m_ptr->re_idx != MONEGO_NONE){
-					e_name = (re_name + re_info[m_ptr->re_idx].name);
-					(void)strcat(desc, e_name);
-				}
 
-				(void)strcpy(desc, name);
+				monster_desc_ego(desc, m_ptr, r_ptr);
 			}
 		}
 
@@ -1767,38 +1741,8 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
-#ifdef JP
-				(void)strcat(desc, race_info[m_ptr->race].title);
-				(void)strcat(desc, "の");
-#else
-				(void)strcat(desc, race_info[m_ptr->race].tit;e);
-				(void)strcat(desc, "'s ");
-#endif
-			}
+			monster_desc_ego(desc, m_ptr, r_ptr);
 
-			if(m_ptr->re_idx == MONEGO_VARIABLE_SIZE){
-				char tmp[80];
-				tmp[0] = '\0';
-	#ifdef JP
-				sprintf(tmp, "サイズ%dの", m_ptr->size);
-	#else
-				if(m_ptr->wt < 10000)
-					sprintf(tmp, "Weight:%dkg's ", m_ptr->wt);
-				else if(m_ptr->wt < 10000000)
-					sprintf(tmp, "Weight:%dt's ", m_ptr->wt / 1000);
-				else if(m_ptr->wt < 10000000000)
-					sprintf(tmp, "Weight:%dKt's ", m_ptr->wt / 10000000);
-	#endif
-				(void)strcat(desc, tmp);
-			}
-
-			else if(m_ptr->re_idx != MONEGO_NONE){
-				e_name = (re_name + re_info[m_ptr->re_idx].name);
-				(void)strcat(desc, e_name);
-			}
-
-			(void)strcat(desc, name);
 		}
 
 		/* It could be a normal, definite, monster */
@@ -1819,38 +1763,8 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
-#ifdef JP
-				(void)strcat(desc, race_info[m_ptr->race].title);
-				(void)strcat(desc, "の");
-#else
-				(void)strcat(desc, race_info[m_ptr->race].tit;e);
-				(void)strcat(desc, "'s ");
-#endif
-			}
+				monster_desc_ego(desc, m_ptr, r_ptr);
 
-			if(m_ptr->re_idx == MONEGO_VARIABLE_SIZE){
-				char tmp[80];
-				tmp[0] = '\0';
-	#ifdef JP
-				sprintf(tmp, "サイズ%dの", m_ptr->size);
-	#else
-				if(m_ptr->wt < 10000)
-					sprintf(tmp, "Weight:%dkg's ", m_ptr->wt);
-				else if(m_ptr->wt < 10000000)
-					sprintf(tmp, "Weight:%dt's ", m_ptr->wt / 1000);
-				else if(m_ptr->wt < 10000000000)
-					sprintf(tmp, "Weight:%dKt's ", m_ptr->wt / 10000000);
-	#endif
-				(void)strcat(desc, tmp);
-			}
-
-			else if(m_ptr->re_idx != MONEGO_NONE){
-				e_name = (re_name + re_info[m_ptr->re_idx].name);
-				(void)strcat(desc, e_name);
-			}
-
-			(void)strcat(desc, name);
 		}
 
 
@@ -1914,6 +1828,57 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	}
 }
 
+
+void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
+{
+
+	if(m_ptr->seikaku != SEIKAKU_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
+#ifdef JP
+		(void)strcat(desc, seikaku_info[m_ptr->seikaku].title);
+		if(seikaku_info[m_ptr->seikaku].no)
+			(void)strcat(desc, "な");
+#else
+		(void)strcat(desc, seikaku_info[m_ptr->seikaku].tit;e);
+#endif
+	}
+
+	if(m_ptr->race != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
+#ifdef JP
+		(void)strcat(desc, race_info[m_ptr->race].title);
+		(void)strcat(desc, "の");
+#else
+		(void)strcat(desc, race_info[m_ptr->race].tit;e);
+		(void)strcat(desc, "'s ");
+#endif
+	}
+
+	if(m_ptr->re_idx == MONEGO_VARIABLE_SIZE){
+		char tmp[80];
+		tmp[0] = '\0';
+#ifdef JP
+		sprintf(tmp, "サイズ%dの", m_ptr->size);
+#else
+		sprintf(tmp, "Size:%d ", m_ptr->size);
+#endif
+		(void)strcat(desc, tmp);
+	}
+
+	else if(m_ptr->re_idx != MONEGO_NONE){
+		(void)strcat(desc, re_name + re_info[m_ptr->re_idx].name);
+	}
+
+	(void)strcat(desc, r_name + r_ptr->name);
+
+	if(m_ptr->class != CLASS_NONE && (r_ptr->flagse & RFE_CLASS_EGO)){
+#ifdef JP
+		(void)strcat(desc, "の");
+		(void)strcat(desc, class_info[m_ptr->class].title);
+#else
+		(void)strcat(desc, class_info[m_ptr->class].title);
+#endif
+	}
+
+}
 
 
 
@@ -3086,7 +3051,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	cptr		name = (r_name + r_ptr->name);
 
 	int cmi;
-	int re_selected, rpr_selected;
+	int re_selected, rpr_selected, rpc_selected, rps_selected;
 
 
 	/* Select Ego */
@@ -3094,6 +3059,8 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	rpr_ptr = NULL;
 	re_selected = MONEGO_NONE;
 	rpr_selected = RACE_NONE;
+	rpc_selected = CLASS_NONE;
+	rps_selected = SEIKAKU_NONE;
 
 	if(re_idx == MONEGO_NORMAL)
 	{
@@ -3112,6 +3079,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		re_selected = re_idx;
 	}
 
+	// set intelligence race
 	if (r_ptr->flagse & RFE_RACE_EGO)
 	{
 		int n;
@@ -3125,11 +3093,43 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		rpr_selected = r_ptr->i_race;
 	}
 
+	// set class
+	if (r_ptr->flagse & RFE_CLASS_EGO)
+	{
+		int n;
+		n = rand_range(CLASS_WARRIOR, CLASS_PALADIN);
+		rpc_selected = n;
+	}
+	else
+	{
+		rpc_selected = r_ptr->i_class;
+	}
+
 	if (cheat_hear)
 	{
-		if(rpr_selected != RACE_NONE)
-			msg_format("[Race:%s]", race_info[rpr_selected].title);
+		if(rpc_selected != CLASS_NONE)
+			msg_format("[Class:%s]", class_info[rpc_selected].title);
 	}
+
+	// set character
+	if (r_ptr->flagse & RFE_CHARA_EGO)
+	{
+		int n;
+		n = rand_range(SEIKAKU_FUTUU, SEIKAKU_NAMAKE);
+		rps_selected = n;
+	}
+	else
+	{
+		rps_selected = r_ptr->i_chara;
+	}
+
+	if (cheat_hear)
+	{
+		if(rps_selected != SEIKAKU_NONE)
+			msg_format("[Chara:%s]", seikaku_info[rps_selected].title);
+	}
+
+
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
 	if (p_ptr->wild_mode){
@@ -3302,11 +3302,11 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->r_idx = r_idx;
 	m_ptr->re_idx = re_selected;
 	m_ptr->race = rpr_selected;
+	m_ptr->class = rpc_selected;
+	m_ptr->seikaku = rps_selected;
 	m_ptr->ap_r_idx = initial_r_appearance(r_idx);
 
 	/* Save the trait */
-	m_ptr->class = (byte)r_ptr->i_class;
-	m_ptr->seikaku = (byte)r_ptr->i_chara;
 	m_ptr->patron = (s16b)r_ptr->i_faith;
 
 	/* No flags */

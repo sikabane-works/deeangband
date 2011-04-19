@@ -995,6 +995,7 @@ extern s16b m_pop(void);
 extern errr get_mon_num_prep(monster_hook_type monster_hook, monster_hook_type monster_hook2);
 extern s16b get_mon_num(int level);
 extern void monster_desc(char *desc, creature_type *m_ptr, int mode);
+extern void monster_desc_ego(char *desc, creature_type *m_ptr, monster_race *r_ptr);
 extern int lore_do_probe(int r_idx);
 extern void lore_treasure(int m_idx, int num_item, int num_gold);
 extern void sanity_blast(creature_type *m_ptr, bool necro);

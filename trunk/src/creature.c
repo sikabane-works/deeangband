@@ -316,12 +316,13 @@ int set_inventory_fitting_rate(creature_type * cr_ptr, object_type * o_ptr, int 
 	if(o_ptr->fitting_size != ARMOR_SIZE_FREE){
 		rate = 100 * (o_ptr->fitting_size + o_ptr->to_size) / p_ptr->size;
 		cr_ptr->iven_fitting_rate[slot] = rate;
+		return rate;
 	}
 	else
 	{
 		p_ptr->iven_fitting_rate[slot] = 100;
+		return 100;
 	}
-	return rate;
 }
 
 
