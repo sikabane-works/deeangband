@@ -1736,6 +1736,8 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #ifdef JP
 			if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_print("やりやがったな！");
+			if ((p_ptr->seikaku == SEIKAKU_CHARGEMAN))
+				msg_print("弱い者いじめはやめるんＤＡ！");
 #endif
 			learn_spell(MS_DISPEL);
 			break;
@@ -3629,9 +3631,13 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 			if (!direct) return (FALSE);
 			disturb(1, 0);
 #ifdef JP
-msg_format("%^sにテレポートさせられた。", m_name);
+			msg_format("%^sにテレポートさせられた。", m_name);
+
 			if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_print("くっそ～");
+
+			if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+				msg_print("なんて事をするんだ！");
 #else
 			msg_format("%^s teleports you away.", m_name);
 #endif

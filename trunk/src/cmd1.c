@@ -1143,6 +1143,9 @@ static void hit_trap(bool break_trap)
 				msg_print("落とし戸に落ちた！");
 				if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
+				if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+					msg_print("ジュラル星人の仕業に違いない！");
+
 #else
 				msg_print("You have fallen through a trap door!");
 #endif
