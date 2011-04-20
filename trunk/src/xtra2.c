@@ -658,10 +658,10 @@ cptr extract_note_dies(monster_race *r_ptr)
 		}
 
 #ifdef JP
-		if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
-			return "を倒した。ごめんねー";
-		else
-			return "を倒した。";
+	if(p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+		return "を倒した。ごめんね～";
+	else
+		return "を倒した。";
 #else
 		return " is destroyed.";
 #endif
@@ -669,10 +669,10 @@ cptr extract_note_dies(monster_race *r_ptr)
 
 	/* Assume a default death */
 #ifdef JP
-		if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
-			return "は死んだ。ごめんねー";
-		else
-			return "は死んだ。";
+	if(p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+		return "は死んだ。ごめんね～";
+	else
+		return "は死んだ。";
 #else
 	return " dies.";
 #endif
@@ -2018,11 +2018,10 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 #ifdef JP
 			if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを殺した。", m_name);
+			else if(p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+				msg_format("%sを殺した。ごめんね～", m_name);
 			else
-			msg_format("%sを殺した。", m_name);
-			if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
-				msg_print("ごめんね～");
-
+				msg_format("%sを殺した。", m_name);
 #else
 				msg_format("You have killed %s.", m_name);
 #endif
@@ -2052,6 +2051,8 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 #ifdef JP
 				if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_format("せっかくだから%sを倒した。", m_name);
+				else if(p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+					msg_format("%s！お許し下さい！", m_name);
 				else
 msg_format("%sを倒した。", m_name);
 				if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
@@ -2068,10 +2069,13 @@ msg_format("%sを倒した。", m_name);
 #ifdef JP
 			if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを葬り去った。", m_name);
+			else if(p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+			{
+				msg_format("%sを葬り去った。", m_name);
+				msg_format("%s！お許し下さい！", m_name);
+			}
 			else
 				msg_format("%sを葬り去った。", m_name);
-			if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
-				msg_format("%s!お許し下さい！", m_name);
 #else
 				msg_format("You have slain %s.", m_name);
 #endif

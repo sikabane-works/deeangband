@@ -4090,7 +4090,6 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
 	{
 		if (alloc_horde(y, x))
 		{
-			msg_format("test(%c)", summon_kin_type);
 #ifdef JP
 			if (cheat_hear) msg_format("モンスターの大群(%c)", summon_kin_type);
 #else

@@ -4880,6 +4880,7 @@ o_name, index_to_label(i),
 #ifdef JP
 				if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("‚â‚è‚â‚ª‚Á‚½‚ÈI");
+
 				if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
 					msg_print("‚È‚ñ‚Ä–‚ğ‚·‚é‚ñ‚¾I");
 #endif

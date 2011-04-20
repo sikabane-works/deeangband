@@ -1736,8 +1736,8 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #ifdef JP
 			if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_print("やりやがったな！");
-			if ((p_ptr->seikaku == SEIKAKU_CHARGEMAN))
-				msg_print("弱い者いじめはやめるんＤＡ！");
+			else if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+				msg_print("弱いものいじめはやめるんだ！");
 #endif
 			learn_spell(MS_DISPEL);
 			break;
