@@ -1031,23 +1031,23 @@
 #define PATRON_CHAOS_TO     16
 
 
-#define SEIKAKU_FUTUU	  0
-#define SEIKAKU_CHIKARA	  1
-#define SEIKAKU_KIREMONO  2
-#define SEIKAKU_SHIAWASE  3
-#define SEIKAKU_SUBASI	  4
-#define SEIKAKU_INOCHI	  5
-#define SEIKAKU_COMBAT	  6
-#define SEIKAKU_NAMAKE	  7
-#define SEIKAKU_SEXY	  8
-#define SEIKAKU_LUCKY	  9
-#define SEIKAKU_GAMAN	  10
-#define SEIKAKU_MUNCHKIN  11
-#define SEIKAKU_CHARGEMAN 12
+#define CHARA_FUTUU	  0
+#define CHARA_CHIKARA	  1
+#define CHARA_KIREMONO  2
+#define CHARA_SHIAWASE  3
+#define CHARA_SUBASI	  4
+#define CHARA_INOCHI	  5
+#define CHARA_COMBAT	  6
+#define CHARA_NAMAKE	  7
+#define CHARA_SEXY	  8
+#define CHARA_LUCKY	  9
+#define CHARA_GAMAN	  10
+#define CHARA_MUNCHKIN  11
+#define CHARA_CHARGEMAN 12
 
-#define MAX_SEIKAKU       13
+#define MAX_CHARA       13
 
-#define SEIKAKU_NONE     255
+#define CHARA_NONE     255
 
 
 
@@ -1068,8 +1068,8 @@
 #define ROW_TITLE               2
 #define COL_TITLE               0       /* <title> or <mode> */
 
-/*#define ROW_SEIKAKU		4 */
-/*#define COL_SEIKAKU      	0*/	/* <seikaku> */
+/*#define ROW_CHARA		4 */
+/*#define COL_CHARA      	0*/	/* <CHARA> */
 
 #define ROW_DAY                 21
 #define COL_DAY                 0       /* day */

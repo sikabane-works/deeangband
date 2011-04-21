@@ -265,7 +265,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 /*sprintf(out_val, "%3d.%9s  %s%s%sという名の%sの%s (レベル %d)", */
 			sprintf(out_val, "%3d.%9s  %s%s%s - %s%s (レベル %d)",
 				place, the_score.pts,
-				seikaku_info[pa].title, (seikaku_info[pa].no ? "の" : ""),
+				CHARA_info[pa].title, (CHARA_info[pa].no ? "の" : ""),
 				the_score.who,
 				race_info[pr].title, class_info[pc].title,
 				clev);
@@ -273,7 +273,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 #else
 			sprintf(out_val, "%3d.%9s  %s %s the %s %s, Level %d",
 				place, the_score.pts,
-				seikaku_info[pa].title,
+				CHARA_info[pa].title,
 				the_score.who, race_info[pr].title, class_info[pc].title,
 				clev);
 #endif
@@ -528,7 +528,7 @@ errr top_twenty(void)
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", p_ptr->race);
 	sprintf(the_score.p_c, "%2d", p_ptr->class);
-	sprintf(the_score.p_a, "%2d", p_ptr->seikaku);
+	sprintf(the_score.p_a, "%2d", p_ptr->CHARA);
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);
@@ -650,7 +650,7 @@ msg_print("スコア・ファイルが使用できません。");
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", p_ptr->race);
 	sprintf(the_score.p_c, "%2d", p_ptr->class);
-	sprintf(the_score.p_a, "%2d", p_ptr->seikaku);
+	sprintf(the_score.p_a, "%2d", p_ptr->CHARA);
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);

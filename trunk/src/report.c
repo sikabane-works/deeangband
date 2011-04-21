@@ -420,14 +420,14 @@ errr report_score(void)
 
 	BUF *score;
 	int sd;
-	char seikakutmp[128];
+	char CHARAtmp[128];
 
 	score = buf_new();
 
 #ifdef JP
-	sprintf(seikakutmp, "%s%s", ap_ptr->title, (ap_ptr->no ? "‚Ì" : ""));
+	sprintf(CHARAtmp, "%s%s", ap_ptr->title, (ap_ptr->no ? "‚Ì" : ""));
 #else
-	sprintf(seikakutmp, "%s ", ap_ptr->title);
+	sprintf(CHARAtmp, "%s ", ap_ptr->title);
 #endif
 
 	buf_sprintf(score, "name: %s\n", player_name);
@@ -448,7 +448,7 @@ errr report_score(void)
 	buf_sprintf(score, "sex: %d\n", p_ptr->sex);
 	buf_sprintf(score, "race: %s\n", rp_ptr->title);
 	buf_sprintf(score, "class: %s\n", cp_ptr->title);
-	buf_sprintf(score, "seikaku: %s\n", seikakutmp);
+	buf_sprintf(score, "CHARA: %s\n", CHARAtmp);
 	buf_sprintf(score, "realm1: %s\n", realm_names[p_ptr->realm1]);
 	buf_sprintf(score, "realm2: %s\n", realm_names[p_ptr->realm2]);
 	buf_sprintf(score, "killer: %s\n", p_ptr->died_from);

@@ -203,8 +203,8 @@ void set_hitdice(creature_type * cr_ptr)
 		cr_ptr->hitdice /= 2;
 	if (cr_ptr->class != CLASS_NONE)
 		cr_ptr->hitdice += class_info[cr_ptr->class].c_mhp;
-	if(cr_ptr->seikaku != SEIKAKU_NONE)
-		cr_ptr->hitdice += seikaku_info[cr_ptr->seikaku].a_mhp;
+	if(cr_ptr->CHARA != CHARA_NONE)
+		cr_ptr->hitdice += CHARA_info[cr_ptr->CHARA].a_mhp;
 	return;	
 }
 
@@ -351,8 +351,8 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 		dice /= 2;
 	if (mr_ptr->i_class != CLASS_NONE)
 		dice += class_info[mr_ptr->i_class].c_mhp;
-	if (mr_ptr->i_chara != SEIKAKU_NONE)
-		dice += seikaku_info[mr_ptr->i_chara].a_mhp;
+	if (mr_ptr->i_chara != CHARA_NONE)
+		dice += CHARA_info[mr_ptr->i_chara].a_mhp;
 
 	con_p = mr_ptr->stat[A_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;

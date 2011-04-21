@@ -5069,7 +5069,7 @@ void do_cmd_feeling(void)
 	/* Display the feeling */
 	if (p_ptr->muta3 & MUT3_GOOD_LUCK)
 		msg_print(do_cmd_feeling_text_lucky[p_ptr->feeling]);
-	else if (p_ptr->seikaku == SEIKAKU_COMBAT ||
+	else if (p_ptr->CHARA == CHARA_COMBAT ||
 		 inventory[INVEN_BOW].name1 == ART_CRIMSON)
 		msg_print(do_cmd_feeling_text_combat[p_ptr->feeling]);
 	else

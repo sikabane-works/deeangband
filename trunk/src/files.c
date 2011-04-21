@@ -2636,9 +2636,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE])
 		}
 	}
 
-	if (p_ptr->seikaku == SEIKAKU_SEXY)
+	if (p_ptr->CHARA == CHARA_SEXY)
 		add_flag(flgs, TR_AGGRAVATE);
-	if (p_ptr->seikaku == SEIKAKU_MUNCHKIN)
+	if (p_ptr->CHARA == CHARA_MUNCHKIN)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
@@ -6605,7 +6605,7 @@ long total_points(void)
 			point = point / 5;
 	}
 
-	if ((p_ptr->seikaku == SEIKAKU_MUNCHKIN) && point)
+	if ((p_ptr->CHARA == CHARA_MUNCHKIN) && point)
 	{
 		point = 1;
 		if (p_ptr->total_winner) point = 2;
@@ -7609,9 +7609,9 @@ static errr counts_seek(int fd, u32b where, bool flag)
 	int i;
 
 #ifdef SAVEFILE_USE_UID
-	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->class, p_ptr->seikaku, p_ptr->age);
+	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->class, p_ptr->CHARA, p_ptr->age);
 #else
-	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->class, p_ptr->seikaku, p_ptr->age);
+	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->class, p_ptr->CHARA, p_ptr->age);
 #endif
 	for (i = 0; temp1[i]; i++)
 		temp1[i] ^= (i+1) * 63;

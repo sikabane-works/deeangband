@@ -1868,7 +1868,7 @@ static cptr class_jouhou[MAX_CLASS] =
 };
 
 
-static cptr seikaku_jouhou[MAX_SEIKAKU] =
+static cptr CHARA_jouhou[MAX_CHARA] =
 {
 #ifdef JP
 "ふつうは、特に特筆するべき部分がない性格です。あらゆる技能を平均的にこなします。",
@@ -2476,7 +2476,7 @@ static void save_prev_data(birther *birther_ptr)
 	birther_ptr->sex = p_ptr->sex;
 	birther_ptr->race = p_ptr->race;
 	birther_ptr->class = p_ptr->class;
-	birther_ptr->seikaku = p_ptr->seikaku;
+	birther_ptr->CHARA = p_ptr->CHARA;
 	birther_ptr->realm1 = p_ptr->realm1;
 	birther_ptr->realm2 = p_ptr->realm2;
 	birther_ptr->age = p_ptr->age;
@@ -2533,7 +2533,7 @@ static void load_prev_data(bool swap)
 	p_ptr->sex = previous_char.sex;
 	p_ptr->race = previous_char.race;
 	p_ptr->class = previous_char.class;
-	p_ptr->seikaku = previous_char.seikaku;
+	p_ptr->CHARA = previous_char.CHARA;
 	p_ptr->realm1 = previous_char.realm1;
 	p_ptr->realm2 = previous_char.realm2;
 	p_ptr->age = previous_char.age;
@@ -2766,7 +2766,7 @@ static void get_extra(bool roll_hitdice)
 	for (i = 0; i < 5; i++)
 		for (j = 0; j < 64; j++)
 			p_ptr->weapon_exp[i][j] = s_info[p_ptr->class].w_start[i][j];
-	if ((p_ptr->seikaku == SEIKAKU_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+	if ((p_ptr->CHARA == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 	{
 		p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 	}
@@ -3111,9 +3111,9 @@ static void get_money(void)
 	/* Minimum 100 gold */
 	if (gold < 100) gold = 100;
 
-	if (p_ptr->seikaku == SEIKAKU_NAMAKE)
+	if (p_ptr->CHARA == CHARA_NAMAKE)
 		gold /= 2;
-	else if (p_ptr->seikaku == SEIKAKU_MUNCHKIN)
+	else if (p_ptr->CHARA == CHARA_MUNCHKIN)
 		gold = 10000000;
 	if (p_ptr->race == RACE_ANDROID) gold /= 5;
 
@@ -3989,7 +3989,7 @@ void player_outfit(void)
 	}
 	else if (p_ptr->class == CLASS_TOURIST)
 	{
-		if (p_ptr->seikaku != SEIKAKU_SEXY)
+		if (p_ptr->CHARA != CHARA_SEXY)
 		{
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
@@ -4040,7 +4040,7 @@ void player_outfit(void)
 		add_outfit(q_ptr);
 	}
 
-	if(p_ptr->seikaku == SEIKAKU_SEXY)
+	if(p_ptr->CHARA == CHARA_SEXY)
 	{
 		player_init[p_ptr->class][2][0] = TV_HAFTED;
 		player_init[p_ptr->class][2][1] = SV_WHIP;
@@ -5134,13 +5134,13 @@ static bool get_player_class(void)
 
 
 /*
- * Player seikaku
+ * Player CHARA
  */
-static bool get_player_seikaku(void)
+static bool get_player_CHARA(void)
 {
 	int     k, n, os, cs;
 	char    c;
-	char	sym[MAX_SEIKAKU];
+	char	sym[MAX_CHARA];
 	char    p2 = ')';
 	char    buf[80], cur[80];
 	char    tmp[64];
@@ -5155,13 +5155,13 @@ static bool get_player_seikaku(void)
 	put_str("Note: Your personality determines various intrinsic abilities and bonuses.", 23, 5);
 #endif
 
-	/* Dump seikakus */
-	for (n = 0; n < MAX_SEIKAKU; n++)
+	/* Dump CHARAs */
+	for (n = 0; n < MAX_CHARA; n++)
 	{
-		if(!(seikaku_info[n].sex & (0x01 << p_ptr->sex))) continue;
+		if(!(CHARA_info[n].sex & (0x01 << p_ptr->sex))) continue;
 
 		/* Analyze */
-		ap_ptr = &seikaku_info[n];
+		ap_ptr = &CHARA_info[n];
 		str = ap_ptr->title;
 		if (n < 26)
 			sym[n] = I2A(n);
@@ -5184,10 +5184,10 @@ static bool get_player_seikaku(void)
 	sprintf(cur, "%c%c %s", '*', p2, "Random");
 #endif
 
-	/* Get a seikaku */
+	/* Get a CHARA */
 	k = -1;
-	cs = p_ptr->seikaku;
-	os = MAX_SEIKAKU;
+	cs = p_ptr->CHARA;
+	os = MAX_CHARA;
 	while (1)
 	{
 		/* Move Cursol */
@@ -5195,7 +5195,7 @@ static bool get_player_seikaku(void)
 		{
 			c_put_str(TERM_WHITE, cur, 12 + (os/4), 2 + 18 * (os%4));
 			put_str("                                   ", 3, 40);
-			if(cs == MAX_SEIKAKU)
+			if(cs == MAX_CHARA)
 			{
 #ifdef JP
 				sprintf(cur, "%c%c%s", '*', p2, "ランダム");
@@ -5207,7 +5207,7 @@ static bool get_player_seikaku(void)
 			}
 			else
 			{
-				ap_ptr = &seikaku_info[cs];
+				ap_ptr = &CHARA_info[cs];
 				str = ap_ptr->title;
 #ifdef JP
 					sprintf(cur, "%c%c%s", sym[cs], p2, str);
@@ -5235,9 +5235,9 @@ static bool get_player_seikaku(void)
 		if (k >= 0) break;
 
 #ifdef JP
-		sprintf(buf, "性格を選んで下さい (%c-%c) ('='初期オプション設定): ", sym[0], sym[MAX_SEIKAKU-1]);
+		sprintf(buf, "性格を選んで下さい (%c-%c) ('='初期オプション設定): ", sym[0], sym[MAX_CHARA-1]);
 #else
-		sprintf(buf, "Choose a personality (%c-%c) ('=' for options): ", sym[0], sym[MAX_SEIKAKU-1]);
+		sprintf(buf, "Choose a personality (%c-%c) ('=' for options): ", sym[0], sym[MAX_CHARA-1]);
 #endif
 
 		put_str(buf, 10, 10);
@@ -5246,13 +5246,13 @@ static bool get_player_seikaku(void)
 		if (c == 'S') return (FALSE);
 		if (c == ' ' || c == '\r' || c == '\n')
 		{
-			if(cs == MAX_SEIKAKU)
+			if(cs == MAX_CHARA)
 			{
 				do
 				{
-					k = randint0(MAX_SEIKAKU);
+					k = randint0(MAX_CHARA);
 				}
-				while(!(seikaku_info[k].sex & (0x01 << p_ptr->sex)));
+				while(!(CHARA_info[k].sex & (0x01 << p_ptr->sex)));
 				cs = k;
 				continue;
 			}
@@ -5268,14 +5268,14 @@ static bool get_player_seikaku(void)
 			{
 				k = randint0(n);
 			}
-			while(!(seikaku_info[k].sex & (0x01 << p_ptr->sex)));
+			while(!(CHARA_info[k].sex & (0x01 << p_ptr->sex)));
 			cs = k;
 			continue;
 		}
 		if (c == '8')
 		{
 			if (cs >= 4) cs -= 4;
-			if (!(seikaku_info[cs].sex & (0x01 << p_ptr->sex)))
+			if (!(CHARA_info[cs].sex & (0x01 << p_ptr->sex)))
 			{
 				if((cs - 4) > 0)
 					cs -= 4;
@@ -5288,43 +5288,43 @@ static bool get_player_seikaku(void)
 			do
 			{
 				cs--;
-				if(cs < 0) cs = MAX_SEIKAKU; 
+				if(cs < 0) cs = MAX_CHARA; 
 			}
-			while(cs != MAX_SEIKAKU && !(seikaku_info[cs].sex & (0x01 << p_ptr->sex)));
+			while(cs != MAX_CHARA && !(CHARA_info[cs].sex & (0x01 << p_ptr->sex)));
 		}
 		if (c == '6')
 		{
 			do
 			{
 				cs++;
-				if(cs > MAX_SEIKAKU) cs = 0; 
+				if(cs > MAX_CHARA) cs = 0; 
 			}
-			while(cs != MAX_SEIKAKU && !(seikaku_info[cs].sex & (0x01 << p_ptr->sex)));
+			while(cs != MAX_CHARA && !(CHARA_info[cs].sex & (0x01 << p_ptr->sex)));
 		}
 		if (c == '2')
 		{
-			if ((cs + 4) <= MAX_SEIKAKU) cs += 4;
-			if (!(seikaku_info[cs].sex & (0x01 << p_ptr->sex)))
+			if ((cs + 4) <= MAX_CHARA) cs += 4;
+			if (!(CHARA_info[cs].sex & (0x01 << p_ptr->sex)))
 			{
-				if((cs + 4) <= MAX_SEIKAKU)
+				if((cs + 4) <= MAX_CHARA)
 					cs += 4;
 				else
 					cs -= 4;
 			}
 		}
 		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < MAX_SEIKAKU))
+		if ((k >= 0) && (k < MAX_CHARA))
 		{
-			if(seikaku_info[cs].sex & (0x01 << p_ptr->sex))
+			if(CHARA_info[cs].sex & (0x01 << p_ptr->sex))
 			{
 				cs = k;
 				continue;
 			}
 		}
 		k = (isupper(c) ? (26 + c - 'A') : -1);
-		if ((k >= 26) && (k < MAX_SEIKAKU))
+		if ((k >= 26) && (k < MAX_CHARA))
 		{
-			if(seikaku_info[cs].sex & (0x01 << p_ptr->sex))
+			if(CHARA_info[cs].sex & (0x01 << p_ptr->sex))
 			{
 				cs = k;
 				continue;
@@ -5353,9 +5353,9 @@ static bool get_player_seikaku(void)
 		else if (c !='2' && c !='4' && c !='6' && c !='8') bell();
 	}
 
-	/* Set seikaku */
-	p_ptr->seikaku = k;
-	ap_ptr = &seikaku_info[p_ptr->seikaku];
+	/* Set CHARA */
+	p_ptr->CHARA = k;
+	ap_ptr = &CHARA_info[p_ptr->CHARA];
 #ifdef JP
 	strcpy(tmp, ap_ptr->title);
 	if(ap_ptr->no == 1)
@@ -6680,17 +6680,17 @@ static bool player_birth_aux(void)
 	/* TODO:: Choose the magic faith */
 
 
-	/* Choose the players seikaku */
-	p_ptr->seikaku = 0;
+	/* Choose the players CHARA */
+	p_ptr->CHARA = 0;
 	while(1)
 	{
 		char temp[80*8];
 		cptr t;
 
-		if (!get_player_seikaku()) return FALSE;
+		if (!get_player_CHARA()) return FALSE;
 
 		clear_from(10);
-		roff_to_buf(seikaku_jouhou[p_ptr->seikaku], 74, temp, sizeof(temp));
+		roff_to_buf(CHARA_jouhou[p_ptr->CHARA], 74, temp, sizeof(temp));
 		t = temp;
 
 		for (i = 0; i< 6; i++)
@@ -7221,7 +7221,7 @@ static bool ask_quick_start(void)
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
 	mp_ptr = &m_info[p_ptr->class];
-	ap_ptr = &seikaku_info[p_ptr->seikaku];
+	ap_ptr = &CHARA_info[p_ptr->CHARA];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);
@@ -7329,9 +7329,9 @@ void player_birth(void)
 	}
 
 #ifdef JP
-	sprintf(buf,"                            性格に%sを選択した。", seikaku_info[p_ptr->seikaku].title);
+	sprintf(buf,"                            性格に%sを選択した。", CHARA_info[p_ptr->CHARA].title);
 #else
-	sprintf(buf,"                            choose %s.", seikaku_info[p_ptr->seikaku].title);
+	sprintf(buf,"                            choose %s.", CHARA_info[p_ptr->CHARA].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7402,12 +7402,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(seikaku_jouhou[p_ptr->seikaku], 78, temp, sizeof(temp));
+	roff_to_buf(CHARA_jouhou[p_ptr->CHARA], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "性格: %s\n", seikaku_info[p_ptr->seikaku].title);
+	fprintf(fff, "性格: %s\n", CHARA_info[p_ptr->CHARA].title);
 #else
-	fprintf(fff, "Pesonality: %s\n", seikaku_info[p_ptr->seikaku].title);
+	fprintf(fff, "Pesonality: %s\n", CHARA_info[p_ptr->CHARA].title);
 #endif
 	t = temp;
 	for (i = 0; i < 6; i++)

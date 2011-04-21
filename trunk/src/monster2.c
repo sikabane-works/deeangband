@@ -1832,13 +1832,13 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 {
 
-	if(m_ptr->seikaku != SEIKAKU_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
+	if(m_ptr->CHARA != CHARA_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
 #ifdef JP
-		(void)strcat(desc, seikaku_info[m_ptr->seikaku].title);
-		if(seikaku_info[m_ptr->seikaku].no)
+		(void)strcat(desc, CHARA_info[m_ptr->CHARA].title);
+		if(CHARA_info[m_ptr->CHARA].no)
 			(void)strcat(desc, "‚È");
 #else
-		(void)strcat(desc, seikaku_info[m_ptr->seikaku].tit;e);
+		(void)strcat(desc, CHARA_info[m_ptr->CHARA].tit;e);
 #endif
 	}
 
@@ -3060,7 +3060,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	re_selected = MONEGO_NONE;
 	rpr_selected = RACE_NONE;
 	rpc_selected = CLASS_NONE;
-	rps_selected = SEIKAKU_NONE;
+	rps_selected = CHARA_NONE;
 
 	if(re_idx == MONEGO_NORMAL)
 	{
@@ -3115,7 +3115,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	if (r_ptr->flagse & RFE_CHARA_EGO)
 	{
 		int n;
-		n = rand_range(SEIKAKU_FUTUU, SEIKAKU_NAMAKE);
+		n = rand_range(CHARA_FUTUU, CHARA_NAMAKE);
 		rps_selected = n;
 	}
 	else
@@ -3125,8 +3125,8 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	if (cheat_hear)
 	{
-		if(rps_selected != SEIKAKU_NONE)
-			msg_format("[Chara:%s]", seikaku_info[rps_selected].title);
+		if(rps_selected != CHARA_NONE)
+			msg_format("[Chara:%s]", CHARA_info[rps_selected].title);
 	}
 
 
@@ -3303,7 +3303,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->re_idx = re_selected;
 	m_ptr->race = rpr_selected;
 	m_ptr->class = rpc_selected;
-	m_ptr->seikaku = rps_selected;
+	m_ptr->CHARA = rps_selected;
 	m_ptr->ap_r_idx = initial_r_appearance(r_idx);
 
 	/* Save the trait */

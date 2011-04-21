@@ -143,6 +143,10 @@
 ?:[EQU $QUEST_NUMBER 35]
 %:q_bull.txt
 
+# The Rage from Abyss
+?:[EQU $QUEST_NUMBER 36]
+%:q_tulkas.txt
+
 # Random quests (always adressed with number 40)
 ?:[EQU $QUEST_NUMBER 40]
 %:q_random.txt

@@ -959,25 +959,25 @@ struct player_patron
 
 
 
-typedef struct player_seikaku player_seikaku;
-struct player_seikaku
+typedef struct player_CHARA player_CHARA;
+struct player_CHARA
 {
-	cptr title;			/* Type of seikaku */
+	cptr title;			/* Type of CHARA */
 
 #ifdef JP
 	cptr E_title;		/* âpåÍê´äi */
 #endif
 
-	s16b a_adj[6];		/* seikaku stat bonuses */
+	s16b a_adj[6];		/* CHARA stat bonuses */
 
-	s16b a_dis;			/* seikaku disarming */
-	s16b a_dev;			/* seikaku magic devices */
-	s16b a_sav;			/* seikaku saving throw */
-	s16b a_stl;			/* seikaku stealth */
-	s16b a_srh;			/* seikaku search ability */
-	s16b a_fos;			/* seikaku search frequency */
-	s16b a_thn;			/* seikaku combat (normal) */
-	s16b a_thb;			/* seikaku combat (shooting) */
+	s16b a_dis;			/* CHARA disarming */
+	s16b a_dev;			/* CHARA magic devices */
+	s16b a_sav;			/* CHARA saving throw */
+	s16b a_stl;			/* CHARA stealth */
+	s16b a_srh;			/* CHARA search ability */
+	s16b a_fos;			/* CHARA search frequency */
+	s16b a_thn;			/* CHARA combat (normal) */
+	s16b a_thb;			/* CHARA combat (shooting) */
 
 	s16b a_mhp;			/* patron hit-dice modifier */
 
@@ -1019,7 +1019,7 @@ struct creature_type
 	bool sexual_penalty;	/* Sexual penalty flag*/
 	byte class;		        /* Class index */
 	bool class_bonus;	/* Class bonus flag*/
-	byte seikaku;		/* Seikaku index */
+	byte CHARA;		/* CHARA index */
 	s16b patron;		/* Patron index */
 	byte realm1;        /* First magic realm */
 	byte realm2;        /* Second magic realm */
@@ -1463,7 +1463,7 @@ struct birther
 	s16b race;        /* Race index */
 	u32b sub_race[8];    /* Sub-Race index */
 	byte class;       /* Class index */
-	byte seikaku;     /* Seikaku index */
+	byte CHARA;     /* CHARA index */
 	byte realm1;       /* First magic realm */
 	byte realm2;       /* Second magic realm */
 
@@ -1674,7 +1674,7 @@ struct high_score
 	char sex[2];		/* Player Sex (string) */
 	char p_r[3];		/* Player Race (number) */
 	char p_c[3];		/* Player Class (number) */
-	char p_a[3];		/* Player Seikaku (number) */
+	char p_a[3];		/* Player CHARA (number) */
 
 	char cur_lev[4];		/* Current Player Level (number) */
 	char cur_dun[4];		/* Current Dungeon Level (number) */

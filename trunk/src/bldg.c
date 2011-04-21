@@ -3267,7 +3267,7 @@ static int hit_chance(int to_h, int ac)
 
 	if (chance > 95) chance = 95;
 	if (chance < 5) chance = 5;
-	if (p_ptr->seikaku == SEIKAKU_NAMAKE)
+	if (p_ptr->CHARA == CHARA_NAMAKE)
 		chance = (chance*19+9)/20;
 	return chance;
 }
@@ -4897,7 +4897,7 @@ msg_print("お金が足りません！");
 	case BACT_LOSE_MUTATION:
 		if (p_ptr->muta1 || p_ptr->muta2 ||
 		    (p_ptr->muta3 & ~MUT3_GOOD_LUCK) ||
-		    (p_ptr->seikaku != SEIKAKU_LUCKY &&
+		    (p_ptr->CHARA != CHARA_LUCKY &&
 		     (p_ptr->muta3 & MUT3_GOOD_LUCK)))
 		{
 			while(!lose_mutation(0));
@@ -4992,9 +4992,9 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((p_ptr->seikaku == SEIKAKU_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((p_ptr->CHARA == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (p_ptr->seikaku == SEIKAKU_CHARGEMAN)
+		if (p_ptr->CHARA == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");

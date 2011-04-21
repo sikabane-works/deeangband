@@ -486,7 +486,7 @@ msg_print("クエストを達成した！");
 		}
 	}
 
-	if (p_ptr->seikaku == SEIKAKU_MUNCHKIN)
+	if (p_ptr->CHARA == CHARA_MUNCHKIN)
 	{
 		identify_item(o_ptr);
 

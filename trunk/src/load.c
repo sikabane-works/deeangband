@@ -925,7 +925,7 @@ static void load_quick_start(void)
 	rd_s16b(&previous_char.race);
 	for (i = 0; i < 8; i++) rd_u32b(&previous_char.sub_race[i]);
 	rd_byte(&previous_char.class);
-	rd_byte(&previous_char.seikaku);
+	rd_byte(&previous_char.CHARA);
 	rd_byte(&previous_char.realm1);
 	rd_byte(&previous_char.realm2);
 
@@ -982,11 +982,11 @@ static void rd_extra(void)
 		rd_string(p_ptr->history[i], sizeof(p_ptr->history[i]));
 	}
 
-	/* Class/Race/Seikaku/Gender/Spells */
+	/* Class/Race/CHARA/Gender/Spells */
 	rd_s16b(&p_ptr->race);
 	for (i = 0; i < 8; i++) rd_u32b(&p_ptr->sub_race[i]);
 	rd_byte(&p_ptr->class);
-	rd_byte(&p_ptr->seikaku);
+	rd_byte(&p_ptr->CHARA);
 	rd_s16b(&p_ptr->sex);
 	rd_byte(&p_ptr->realm1);
 	rd_byte(&p_ptr->realm2);
@@ -2597,7 +2597,7 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	/* Important -- Initialize the race/class */
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
-	ap_ptr = &seikaku_info[p_ptr->seikaku];
+	ap_ptr = &CHARA_info[p_ptr->CHARA];
 
 	/* Important -- Initialize the magic */
 	mp_ptr = &m_info[p_ptr->class];

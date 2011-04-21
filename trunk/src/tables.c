@@ -4716,7 +4716,7 @@ player_class class_info[MAX_CLASS] =
 	},
 };
 
-player_seikaku seikaku_info[MAX_SEIKAKU] =
+player_CHARA CHARA_info[MAX_CHARA] =
 {
 	{
 #ifdef JP
