@@ -1096,6 +1096,19 @@ bool change_wild_mode(void)
 		}
 	}
 
+	/* Cancel hex spelling */
+	if (hex_spelling_any()) stop_hex_spell_all();
+
+	/* Cancel any special action */
+	set_action(ACTION_NONE);
+
+	/* Go into the global map */
+	p_ptr->wild_mode = TRUE;
+	msg_print("あなたは混沌の地平を歩み始めた…");
+
+	/* Leaving */
+	p_ptr->leaving = TRUE;
+
 	wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].known = TRUE;
 	wilderness[p_ptr->wilderness_y - 1][p_ptr->wilderness_x - 1].known = TRUE;
 	wilderness[p_ptr->wilderness_y + 1][p_ptr->wilderness_x + 1].known = TRUE;
@@ -1112,19 +1125,6 @@ bool change_wild_mode(void)
 	/* Remember the position */
 	p_ptr->oldpx = px;
 	p_ptr->oldpy = py;
-
-	/* Cancel hex spelling */
-	if (hex_spelling_any()) stop_hex_spell_all();
-
-	/* Cancel any special action */
-	set_action(ACTION_NONE);
-
-	/* Go into the global map */
-	p_ptr->wild_mode = TRUE;
-	msg_print("あなたは混沌の地平を歩み始めた…");
-
-	/* Leaving */
-	p_ptr->leaving = TRUE;
 
 	/* Succeed */
 	return TRUE;
