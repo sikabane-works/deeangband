@@ -2933,6 +2933,7 @@ static bool target_set_accept(int y, int x)
 
 	/* Bounds */
 	if (!(in_bounds(y, x))) return (FALSE);
+	if (p_ptr->wild_mode && !wilderness[y][x].known) return (FALSE);
 
 	/* Player grid is always interesting */
 	if (player_bold(y, x)) return (TRUE);
@@ -3589,6 +3590,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		feat = feat_none;
 	}
 
+
 	f_ptr = &f_info[feat];
 
 	/* Terrain feature if needed */
@@ -3597,7 +3599,15 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		cptr name;
 
 		/* Hack -- special handling for quest entrances */
-		if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
+		if (p_ptr->wild_mode && !wilderness[y][x].known)
+		{
+#ifdef JP
+			name = "–¢“¥”j’n‘Ñ";
+#else
+			name = "unexplored zone";
+#endif
+		}
+		else if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 		{
 			/* Set the quest number temporary */
 			int old_quest = p_ptr->inside_quest;
