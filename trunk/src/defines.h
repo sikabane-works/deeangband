@@ -663,12 +663,13 @@
 /*
  * The town starts out with 4 residents during the day
  */
-#define MIN_M_ALLOC_TD          4
+#define MIN_M_ALLOC_TD          60
+
 
 /*
  * The town starts out with 8 residents during the night
  */
-#define MIN_M_ALLOC_TN          8
+#define MIN_M_ALLOC_TN          90
 
 
 /*

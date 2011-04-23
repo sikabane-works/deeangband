@@ -1051,8 +1051,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 		(void)alloc_monster(0, PM_ALLOW_SLEEP);
 	}
 
-	/* Place some traps in the dungeon */
-	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
+	/* Place some traps in the dungeon *	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
 	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
 	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));

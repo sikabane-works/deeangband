@@ -4,6 +4,7 @@
 
 # LugBuruz
 
+F:*:DIRT:3
 
 ############### Additional default terrain settings ###############
 

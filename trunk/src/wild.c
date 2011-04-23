@@ -598,7 +598,7 @@ void wilderness_gen(void)
 	/* p_ptr->leaving_dungeon = FALSE;*/
 
 
-	lim = (generate_encounter==TRUE)?40:MIN_M_ALLOC_TN;
+	lim = (generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
 
 	/* Make some residents */
 	for (i = 0; i < lim; i++)
