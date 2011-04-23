@@ -1722,9 +1722,6 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			else
 			{
-
-
-
 				monster_desc_ego(desc, m_ptr, r_ptr);
 			}
 		}

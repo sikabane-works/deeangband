@@ -3882,82 +3882,130 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		((x == 0) || (x == MAX_WID - 1) ||
 		 (y == 0) || (y == MAX_HGT - 1)))
 	{
+		int tmp_wx, tmp_wy, tmp_px, tmp_py;
+
 		/* Can the player enter the grid? */
 		if (c_ptr->mimic && player_can_enter(c_ptr->mimic, 0))
 		{
 			/* Hack: move to new area */
 			if ((y == 0) && (x == 0))
 			{
-				p_ptr->wilderness_y--;
-				p_ptr->wilderness_x--;
-				p_ptr->oldpy = cur_hgt - 2;
-				p_ptr->oldpx = cur_wid - 2;
+				tmp_wy = p_ptr->wilderness_y - 1;
+				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_py = cur_hgt - 2;
+				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
 			}
 
 			else if ((y == 0) && (x == MAX_WID - 1))
 			{
-				p_ptr->wilderness_y--;
-				p_ptr->wilderness_x++;
-				p_ptr->oldpy = cur_hgt - 2;
-				p_ptr->oldpx = 1;
+				tmp_wy = p_ptr->wilderness_y - 1;
+				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_py = cur_hgt - 2;
+				tmp_px = 1;
 				ambush_flag = FALSE;
 			}
 
 			else if ((y == MAX_HGT - 1) && (x == 0))
 			{
-				p_ptr->wilderness_y++;
-				p_ptr->wilderness_x--;
-				p_ptr->oldpy = 1;
-				p_ptr->oldpx = cur_wid - 2;
+				tmp_wy = p_ptr->wilderness_y + 1;
+				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_py = 1;
+				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
 			}
 
 			else if ((y == MAX_HGT - 1) && (x == MAX_WID - 1))
 			{
-				p_ptr->wilderness_y++;
-				p_ptr->wilderness_x++;
-				p_ptr->oldpy = 1;
-				p_ptr->oldpx = 1;
+				tmp_wy = p_ptr->wilderness_y + 1;
+				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_py = 1;
+				tmp_px = 1;
 				ambush_flag = FALSE;
 			}
 
 			else if (y == 0)
 			{
-				p_ptr->wilderness_y--;
-				p_ptr->oldpy = cur_hgt - 2;
-				p_ptr->oldpx = x;
+				tmp_wy = p_ptr->wilderness_y - 1;
+				tmp_wx = p_ptr->wilderness_x;
+				tmp_py = cur_hgt - 2;
+				tmp_px = x;
 				ambush_flag = FALSE;
 			}
 
 			else if (y == MAX_HGT - 1)
 			{
-				p_ptr->wilderness_y++;
-				p_ptr->oldpy = 1;
-				p_ptr->oldpx = x;
+				tmp_wy = p_ptr->wilderness_y + 1;
+				tmp_wx = p_ptr->wilderness_x;
+				tmp_py = 1;
+				tmp_px = x;
 				ambush_flag = FALSE;
 			}
 
 			else if (x == 0)
 			{
-				p_ptr->wilderness_x--;
-				p_ptr->oldpx = cur_wid - 2;
-				p_ptr->oldpy = y;
+				tmp_wy = p_ptr->wilderness_y;
+				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_py = y;
+				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
 			}
 
 			else if (x == MAX_WID - 1)
 			{
-				p_ptr->wilderness_x++;
-				p_ptr->oldpx = 1;
-				p_ptr->oldpy = y;
+				tmp_wy = p_ptr->wilderness_y;
+				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_py = y;
+				tmp_px = 1;
 				ambush_flag = FALSE;
 			}
 
-			p_ptr->leaving = TRUE;
-			energy_use = 100;
+			if(wilderness[tmp_wy][tmp_wx].terrain != TERRAIN_CHAOS)
+			{
+				p_ptr->wilderness_y = tmp_wy;
+				p_ptr->wilderness_x = tmp_wx;
+				p_ptr->oldpy = tmp_py;
+				p_ptr->oldpx = tmp_px;
+				p_ptr->leaving = TRUE;
+				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
+				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
+				wilderness[tmp_wy][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy][tmp_wx].known = TRUE;
+				wilderness[tmp_wy][tmp_wx+1].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx+1].known = TRUE;
+				energy_use = 100;
+				return;
+			}
+#ifdef JP
+			else if(get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
+#else
+			else if(get_check("Really want to enter territory of chaos? "))
+#endif
+			{
+				p_ptr->wilderness_y = tmp_wy;
+				p_ptr->wilderness_x = tmp_wx;
+				p_ptr->oldpy = tmp_py;
+				p_ptr->oldpx = tmp_px;
+				p_ptr->leaving = TRUE;
+				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
+				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
+				wilderness[tmp_wy][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy][tmp_wx].known = TRUE;
+				wilderness[tmp_wy][tmp_wx+1].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx-1].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx].known = TRUE;
+				wilderness[tmp_wy+1][tmp_wx+1].known = TRUE;
+				energy_use = 100;
+				return;
+			}
 
-			return;
+			energy_use = 0;
+			oktomove = FALSE;
+
 		}
 
 		/* "Blocked" message appears later */
@@ -4253,6 +4301,21 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		/* Sound */
 		if (!boundary_floor(c_ptr, f_ptr, mimic_f_ptr)) sound(SOUND_HITWALL);
 	}
+
+
+	if(p_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	{
+#ifdef JP
+		if(!get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
+#else
+		if(!get_check("Really want to enter territory of chaos? "))
+#endif
+		{
+			energy_use = 0;
+			oktomove = FALSE;
+		}
+	}
+
 
 	/* Normal movement */
 	if (oktomove && !pattern_seq(py, px, y, x))
