@@ -1743,6 +1743,9 @@ struct dungeon_info_type {
 	int obj_good;
 
 	int race_population[MAX_RACES];
+
+	int vault_quest_level[MAX_DUNEGON_FORTLESS];
+	int vault_quest_type[MAX_DUNEGON_FORTLESS];
 };
 
 

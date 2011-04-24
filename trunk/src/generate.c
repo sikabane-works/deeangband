@@ -1344,10 +1344,51 @@ static void quest_gen(void)
 	process_dungeon_file("q_info.txt", 0, 0, MAX_HGT, MAX_WID);
 }
 
+/*
+ * Generate a fortless level
+ */
+static void fortless_gen(int type)
+{
+	int x, y;
+
+
+	/* Start with perm walls */
+	for (y = 0; y < cur_hgt; y++)
+	{
+		for (x = 0; x < cur_wid; x++)
+		{
+			place_solid_perm_bold(y, x);
+		}
+	}
+
+	/* Prepare allocation table */
+	get_mon_num_prep(get_monster_hook(), NULL);
+
+	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
+
+	p_ptr->inside_quest = type;
+	process_dungeon_file("q_info.txt", 0, 0, MAX_HGT, MAX_WID);
+	p_ptr->inside_quest = 0;
+}
+
+
+
 /* Make a real level */
 static bool level_gen(cptr *why)
 {
-	int level_height, level_width;
+	int level_height, level_width, i;
+
+	i = 0;
+	while(i < MAX_DUNEGON_FORTLESS && d_info[dungeon_type].vault_quest_level[i] != dun_level) i++;
+
+	if (i != MAX_DUNEGON_FORTLESS)
+	{
+		if (cheat_room)
+			msg_format("Fortless level -- type %d.", d_info[dungeon_type].vault_quest_type[i]);
+
+		fortless_gen(d_info[dungeon_type].vault_quest_type[i]);
+		return TRUE;
+	}
 
 	if ((always_small_levels || ironman_small_levels ||
 	    (one_in_(SMALL_LEVEL) && small_levels) ||
@@ -1356,11 +1397,7 @@ static bool level_gen(cptr *why)
 	    !(d_info[dungeon_type].flags1 & DF1_BIG))
 	{
 		if (cheat_room)
-#ifdef JP
-			msg_print("¬‚³‚ÈƒtƒƒA");
-#else
-			msg_print("A 'small' dungeon level.");
-#endif
+			msg_print("A small dungeon level.");
 
 		if (d_info[dungeon_type].flags1 & DF1_SMALLEST)
 		{
@@ -1566,6 +1603,7 @@ void generate_cave(void)
 			/* Make the wilderness */
 			if (p_ptr->wild_mode) wilderness_gen_small();
 			else wilderness_gen();
+
 		}
 
 		/* Build a real level */

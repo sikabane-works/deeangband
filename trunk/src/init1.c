@@ -3515,6 +3515,23 @@ errr parse_d_info(char *buf, header *head)
 		}
 	}
 
+	/* Process 'X' for "Vault Info"*/
+	else if (buf[0] == 'X')
+	{
+		int level, type, i;
+
+		/* Scan for the values */
+		if (2 != sscanf(buf+2, "%d:%d", &level, &type)) return (1);
+
+		/* Save the values */
+		i = 0;
+		while(d_ptr->vault_quest_level[i] != 0) i++;
+		if(i >= MAX_DUNEGON_FORTLESS) return 1;
+		d_ptr->vault_quest_level[i] = level;
+		d_ptr->vault_quest_type[i] = type;
+
+	}
+
 	/* Oops */
 	else return (6);
 

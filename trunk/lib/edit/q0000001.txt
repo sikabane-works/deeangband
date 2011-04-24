@@ -1,53 +1,19 @@
 # q0000001.txt
 
-# Name
-Q:$1:N:Thieves Hideout
-Q:1:N:“‘¯‚Ì‰B‚ê‰Æ
-
-# Definition
-Q:$1:Q:6:0:0:0:5:0:0:0:6
-Q:1:Q:6:0:0:0:5:0:0:0:6
-
-# Description for quest
-?:[LEQ $QUEST1 2]
-Q:$1:T:There are thieves robbing my people! They live in a small
-Q:$1:T:burrow outside the city walls robbing people as they pass
-Q:$1:T:on the roads. They even sneak inside the town to mug and
-Q:$1:T:pillage! Your task is to go to the burrow and kill these
-Q:$1:T:ruffians.
-Q:1:T:‹­“‚½‚¿‚ªŠX‚ÌlX‚ðP‚Á‚Ä‚¢‚Ü‚·I”Þ‚ç‚Íé•Ç‚ÌŠO‚Ì¬‚³‚È
-Q:1:T:’Ë‚ÉZ‚ñ‚Å‚¢‚ÄAŠX“¹‚ðs‚­lX‚ðP‚¤‚Ì‚Å‚·B‚ ‚°‚­‚Ì‰Ê‚Ä‚É
-Q:1:T:‚ÍŠX‚Éö‚ñ‚Å‹à•i‚ð‹­’D‚µ‚Ä‚¢‚Ü‚·B‚Ç‚¤‚©”Þ‚ç‚Ì‰B‚ê‰Æ
-Q:1:T:‚És‚Á‚Äˆ«“}‚Ç‚à‚ð“|‚µ‚Ä—ˆ‚Ä‰º‚³‚¢B
-?:1
-
-# Description for quest reward
-?:[EQU $QUEST1 3]
-Q:$1:T:Thank you for killing the band of thieves! A small reward
-Q:$1:T:awaits you outside.
-Q:1:T:“‘¯‚Ç‚à‚ð‘ÞŽ¡‚µ‚Ä‰º‚³‚Á‚Ä—L“ï‚¤‚²‚´‚¢‚Ü‚·I
-Q:1:T:‚³‚³‚â‚©‚È‚¨—ç‚ðŠO‚É—pˆÓ‚µ‚Ä‚¨‚«‚Ü‚µ‚½B
-?:1
-
-# Description for quest failed
-?:[EQU $QUEST1 5]
-Q:$1:T:It seems like this task was too difficult for you.  Good that I
-Q:$1:T:hired another adventurer to clean up the remaining thieves.
-Q:1:T:‚±‚ÌŽdŽ–‚Í‚ ‚È‚½‚É‚Í“ï‚µ‚©‚Á‚½‚æ‚¤‚Å‚·‚ËB‘¼‚Ì–`Œ¯ŽÒ‚ðŒÙ‚Á‚Ä
-Q:1:T:Žc‚è‚Ì“‘¯‚ð‘ÞŽ¡‚µ‚Ü‚·‚©‚çA‚à‚¤‚¢‚¢‚Å‚·‚æB
-?:1
-
 # Floor with Novice rogue
 F:a:FLOOR:8:44
 
 # Floor with Bandit
 F:b:FLOOR:8:150
 
+F:>:DOWN_STAIR:8
+F:<:UP_STAIR:8
+
 # Dungeon layout
 D:XXXXXXXXXXXXXXX
 D:X....a....X..TX
 D:X.........D...X
-D:X.........Xb..X
+D:X.........Xb.>X
 D:XXXXX.....XXXXX
 D:XT..D........aX
 D:X.b.X.........X
@@ -55,6 +21,5 @@ D:XXXXX.........X
 D:X<..D.........X
 D:XXXXXXXXXXXXXXX
 
-# Starting position
-P:8:1
+P:2:2
 
