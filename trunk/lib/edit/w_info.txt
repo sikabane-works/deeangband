@@ -100,6 +100,10 @@ W:J:d:1:0:13:1:ÉhÉDÅ[ÉhÉäÉì
 W:E:e:20:0:14:1:Utumno
 W:J:e:20:0:14:1:ÉEÉgÉDÉÄÉm
 
+# Town 15
+W:E:f:20:0:15:1:DofD
+W:J:f:20:0:15:1:â^ñΩÇÃëÂñ¿ã{
+
 # Grassland with road 
 W:F:*:6:3:0:1
 
@@ -161,7 +165,7 @@ W:D:#CCCCCCC~~C~CCCCCCCCCCC____~~~~~~~CCCCC~C_____,,C..TT,,^^^^,,,.,CC,...^CCC^^
 W:D:#CCCCCCCCCCCCCCCCCCCCCC__C~~~~C~CCC~CC~CC__CC,,CCC,TCT^^,,,,..TCCTT,...^C^^^.^^.C.^^^^.....CTTT.....CCC_____CCCCC.CC..CCCC.CCCCCCCCC.C...CCCCCCCC..C...........TT....,,...^^^^^^^^^^^^CC^..C.....^...^^..CC.CCCCC___~~~~~~~~~CC~~CCCCCCCCCCCCCC#
 W:D:#CCCCCCCCCCCCCCCCCCCCCCC~~~~~~~CC~~CC~~~~_____CCCCTTTTT.,,CCCC,CT,T.T..^CC^...^...^^.^....C.TTT.......CDC___~CCC__CCCCC.CCC.CCCCCCC.CC..DDDDCCCCCCC.CCC......TTTT....,....^^^^^^^^^^^^..CTTT..............CCCCCCCCCCCCC~~~CCCC~CCCCCCCCCCCCCCCC#
 W:D:#CCCC~CCCCCCCCCCCCCCC~CC~~~~~~CCCCCC~~~~~~__CCC_TTTTTT...,TCCCCTTTC...^^^^^^^^....^^^^^^.C^^.T,........DDCCC~~CCCCC_CCC...CCCCCCD..CCDDD.DDDDCDCC.CCC..C.......DD.........^^^^^^^^^,,...CTTTT..T.............CCCC_CCCCCCCCC~CCCCCCCCCCCCCCCCCCC#
-W:D:#CCC~CCC~CC~~CCCCCCCCCCC~~~~C~C~CCCC~~~~~~~~C~_..TTTTCTTTTCCCCCTTTT...^^^^^....C..^^^^^^^^^..,,,...D..DDD__~CCCCCCC_CCCCCCCCCDDDDD.D....DDDDDDDDDCCCCCCCC..DDDDDD.^^^^.^...^^^^^^^^,,....TTTTTT......T.......C.CCCCC~~CCC~~CC~CCCCCCCCCCCCCCCCC#
+W:D:#CCC~CCC~CC~~CCCCCCCCCCC~~~~C~C~CCCC~~~~~~~~C~_..TTTTCTTTTCCCCCTTTT...^^^^^....C..^^^^^^^^^..,,,.f.D..DDD__~CCCCCCC_CCCCCCCCCDDDDD.D....DDDDDDDDDCCCCCCCC..DDDDDD.^^^^.^...^^^^^^^^,,....TTTTTT......T.......C.CCCCC~~CCC~~CC~CCCCCCCCCCCCCCCCC#
 W:D:#CCCCCCCCC~~~CC~CCC~C~C~C~~~C~CCCCCC~~~C~~~~~~__..TTTTTTTTCTTC,TC,,..^^^.......C^.^.^^^^^^^^.,,,,..DD.DDD__~~~~~__CCCDDCCCCCCCCDD.....D.DDDDDDCDDDDDCCCDDDDDDDDD.^.^^^^^..^^^^^^^,,,,..TTTTTTTT.....TTT......CCC_CC~CC~~C~CC~~CCCCCCCCCCCCCCCCC#
 W:D:#CCCCC~~C~~~~CCCCCCCCC~~~~~C~CCCC~CC~~CC~~~~~~__..TTCTTTCC,T,,,.....^^^C..,,..CC....^^^^^^^^^^.,,...D...D.___~~____DDDDDDDDDDDDCD.D.D.D.DDDDDDCDDDDDCCDCDCCDDDD^^^^^^^.^...^^^.^^,,,,,.TTTTTTTT.....TTT......CCC__CCCCC~C~CCCC~CCCCCCCCCCCCCCCC#
 W:D:#CCCC~~~~~~C~~CCCCCCCC~CCCCCCCC~~~~CC~C~~~~~~~___,T,TTTTCT^^^......^C^^^...,..C.....^^^C^^^^^^^.,.......DD____~~__DDDD^DDDDDDDDDDD.DD__.DDDDDDDDDDDDDDDCCCCDDD^^^^^^^DDDDD..^..^,,,,.,..TTTTT.T.T...TT.......C____~CCCCC~~CCCCC~CCCCCCCCCCCCCCC#

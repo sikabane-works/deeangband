@@ -7204,16 +7204,16 @@ static bool player_birth_aux(void)
 	wilderness[38][169].known = TRUE;
 	wilderness[38][170].known = TRUE;
 
-	/* Labyrinth of Fate */
-	wilderness[57][109].known = TRUE;
-	wilderness[57][110].known = TRUE;
-	wilderness[57][111].known = TRUE;
-	wilderness[58][109].known = TRUE;
-	wilderness[58][110].known = TRUE;
-	wilderness[58][111].known = TRUE;
-	wilderness[59][109].known = TRUE;
-	wilderness[59][110].known = TRUE;
-	wilderness[59][111].known = TRUE;
+	/* Gungeon of Doom */
+	wilderness[51][96].known = TRUE;
+	wilderness[51][97].known = TRUE;
+	wilderness[51][98].known = TRUE;
+	wilderness[52][96].known = TRUE;
+	wilderness[52][97].known = TRUE;
+	wilderness[52][98].known = TRUE;
+	wilderness[53][96].known = TRUE;
+	wilderness[53][97].known = TRUE;
+	wilderness[53][98].known = TRUE;
 
 	/* Save character data for quick start */
 	save_prev_data(&previous_char);

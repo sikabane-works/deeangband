@@ -65,3 +65,7 @@
 # Town 14
 ?:[EQU $TOWN 14]
 %:t0000014.txt
+
+# Town 15
+?:[EQU $TOWN 15]
+%:t0000015.txt

@@ -7928,7 +7928,7 @@ static void handle_signal_abort(int sig)
 
 	/* Message */
 #ifdef JP
-Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
+	Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
 #else
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
 #endif

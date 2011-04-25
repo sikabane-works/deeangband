@@ -3603,11 +3603,16 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		{
 #ifdef JP
 			name = "–¢“¥”j’n‘Ñ";
+			s1 = "";
+			s2 = "";
+			s3 = "";
 #else
 			name = "unexplored zone";
 #endif
 		}
-		else if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
+		else
+		{
+		if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 		{
 			/* Set the quest number temporary */
 			int old_quest = p_ptr->inside_quest;
@@ -3704,6 +3709,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			s3 = (is_a_vowel(name[0])) ? "an " : "a ";
 		}
 #endif
+		}
 
 		/* Display a message */
 		if (p_ptr->wizard)

@@ -1,7 +1,7 @@
 # File: misc.txt
 
 # Maximum number of towns
-M:T:15
+M:T:16
 
 # Maximum number of quests
 M:Q:100

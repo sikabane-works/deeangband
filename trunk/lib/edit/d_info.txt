@@ -98,7 +98,7 @@ N:4:‰^–½‚Ì‘å–À‹{
 E:Labyrinth of Fate
 D:$the frightening entrance to the Labyrinth
 D:‰^–½‚Ì‘å–À‹{
-P:58:110
+P:52:97
 W:1:50:1:0:160:100:75:20:0x0000:0x0000
 L:FLOOR:100:FLOOR:0:FLOOR:0:100
 A:GRANITE:100:GRANITE:0:GRANITE:0:GRANITE:GRANITE:MAGMA_VEIN:QUARTZ_VEIN
