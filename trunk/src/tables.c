@@ -51,6 +51,12 @@ byte d_level_to_c_level_u[128] =
  60, 60, 60, 60, 60, 60, 60
 };
 
+byte race_unreached_level_penalty[8] = 
+{
+	1, 5, 9, 13, 18, 23, 29, 35
+};
+
+
 
 /*
  * Global array for looping through the "keypad directions"
