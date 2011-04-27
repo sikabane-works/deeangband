@@ -1379,7 +1379,16 @@ static bool level_gen(cptr *why)
 	int level_height, level_width, i;
 
 	i = 0;
-	while(i < MAX_DUNEGON_FORTLESS && d_info[dungeon_type].vault_quest_level[i] != dun_level) i++;
+	while(i < MAX_DUNEGON_FORTLESS)
+	{
+		int p = !one_in_(d_info[dungeon_type].vault_quest_probability[i]);
+		if(d_info[dungeon_type].vault_quest_level[i] <= dun_level &&
+		   d_info[dungeon_type].vault_quest_level_max[i] >= dun_level &&
+		   !p)
+		   break;
+
+		   i++;
+	}
 
 	if (i != MAX_DUNEGON_FORTLESS)
 	{

@@ -95,7 +95,7 @@
 ?:[EQU $QUEST_NUMBER 23]
 %:q0000023.txt
 
-# The Rise and Fall of Micro$oft
+# The Rise and Fall of Microsoft
 ?:[EQU $QUEST_NUMBER 24]
 %:q00000ms.txt
 
@@ -146,6 +146,10 @@
 # The Rage from Abyss
 ?:[EQU $QUEST_NUMBER 36]
 %:q_tulkas.txt
+
+# AOY
+?:[EQU $QUEST_NUMBER 37]
+%:q_aoyl.txt
 
 # Random quests (always adressed with number 40)
 ?:[EQU $QUEST_NUMBER 40]
