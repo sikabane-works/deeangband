@@ -151,6 +151,6 @@
 ?:[EQU $QUEST_NUMBER 37]
 %:q_aoyl.txt
 
-# Random quests (always adressed with number 40)
+# Random quests (always adressed with number 40-50)
 ?:[EQU $QUEST_NUMBER 40]
 %:q_random.txt

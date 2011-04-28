@@ -5447,7 +5447,7 @@ extern int PlayerUID;
 #define DUNGEON_ANGBAND  1
 #define DUNGEON_GALGALS  2
 #define DUNGEON_ORC      3
-#define DUNGEON_MAZE     4
+#define DUNGEON_DOD      4
 #define DUNGEON_DRAGON   5
 #define DUNGEON_GRAVE    6
 #define DUNGEON_WOOD     7

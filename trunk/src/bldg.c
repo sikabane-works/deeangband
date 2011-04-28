@@ -5314,14 +5314,14 @@ int random_quest_number(int level)
 {
 	int i;
 
-	if (dungeon_type != DUNGEON_ANGBAND) return 0;
+	if (dungeon_type != DUNGEON_DOD) return 0;
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{
 		if ((quest[i].type == QUEST_TYPE_RANDOM) &&
 		    (quest[i].status == QUEST_STATUS_TAKEN) &&
 		    (quest[i].level == level) &&
-		    (quest[i].dungeon == DUNGEON_ANGBAND))
+		    (quest[i].dungeon == DUNGEON_DOD))
 		{
 			return i;
 		}

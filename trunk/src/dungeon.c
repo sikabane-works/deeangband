@@ -3364,7 +3364,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				/* Leaving */
 				p_ptr->leaving = TRUE;
 
-				if (dungeon_type == DUNGEON_ANGBAND)
+				if (dungeon_type == DUNGEON_DOD)
 				{
 					int i;
 
@@ -6222,7 +6222,7 @@ msg_print("試合開始！");
 	if (!p_ptr->playing || p_ptr->is_dead) return;
 
 	/* Print quest message if appropriate */
-	if (!p_ptr->inside_quest && (dungeon_type == DUNGEON_ANGBAND))
+	if (!p_ptr->inside_quest && (dungeon_type == DUNGEON_DOD))
 	{
 		quest_discovery(random_quest_number(dun_level));
 		p_ptr->inside_quest = random_quest_number(dun_level);
@@ -6539,7 +6539,7 @@ void determine_today_mon(bool conv_old)
 			if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
 		}
 	}
-	else max_dl = MAX(max_dlv[DUNGEON_ANGBAND], 3);
+	else max_dl = MAX(max_dlv[DUNGEON_DOD], 3);
 
 	p_ptr->inside_battle = TRUE;
 	get_mon_num_prep(NULL, NULL);

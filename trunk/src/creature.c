@@ -168,11 +168,12 @@ void set_height_weight(creature_type *cr_ptr)
 
 	if (cr_ptr->re_idx == MONEGO_VARIABLE_SIZE)
 	{
-		int rate = randint0(150);
+		int rate = randint0(400);
 		ave_m_ht = 0;
 		ave_m_wt = 0;
-		ave_b_ht = ave_b_ht * (rate - 50) / 100;
-		ave_b_wt = ave_b_ht * (rate - 50) / 100 * (rate - 50) / 100 * (rate - 50) / 100;
+		ave_b_ht = ave_b_ht * rate / 100;
+		ave_b_wt = ave_b_ht * rate / 100 * rate / 100 * rate / 100;
+		if(ave_b_ht <= 0) ave_b_ht = 1;
 		if(ave_b_wt <= 0) ave_b_wt = 1;
 	}
 

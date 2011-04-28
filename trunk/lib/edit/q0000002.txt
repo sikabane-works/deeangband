@@ -8,31 +8,8 @@ Q:2:N:下水道
 Q:$2:Q:6:0:0:0:15:0:0:0:6
 Q:2:Q:6:0:0:0:15:0:0:0:6
 
-# Description for quest
-?:[LEQ $QUEST2 2]
-Q:$2:T:The sewer underneath the city has been acting strange
-Q:$2:T:lately. There are rumors of monsters living beneath our
-Q:$2:T:fair city. I need you to exterminate the vermin and
-Q:$2:T:bring the sewer back to its normal, if dirty, self.
-Q:2:T:街の地下の下水道の様子が最近おかしいです。この素晴らしい
-Q:2:T:街の地下に怪物が棲んでいると言う噂が流れています。どうか
-Q:2:T:害虫どもを駆除し、下水道を（汚くても）もとの状態に
-Q:2:T:戻して下さい。
-?:1
-
-# Description for quest reward
-?:[EQU $QUEST2 3]
-Q:$2:T:A reward for your good work awaits you outside.
-Q:2:T:お見事です。お礼を外に用意しておきました。
-?:1
-
-# Description for quest failed
-?:[EQU $QUEST2 5]
-Q:$1:T:I had to call help from a local druid, since you failed to
-Q:$1:T:clean out the sewer.
-Q:1:T:あなたが下水道を一掃するのに失敗したので、
-Q:1:T:地元のドルイド教会に応援を頼む羽目になりましたよ。
-?:1
+F:>:DOWN_STAIR:8
+F:<:UP_STAIR:8
 
 # Floor with Giant white rat
 F:a:FLOOR:8:86
@@ -75,16 +52,16 @@ F:m:DEEP_WATER:8:1044
 
 # Dungeon
 D:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-D:Xa..<.............%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%X
+D:Xa................%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%X
 D:XVlVVVlVVVVVVVVVV.........%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%X
 D:Xa.....a........VVVVVVVVV.....................%%%%%%%%%%%%%%%%%%%%%%X
 D:X%%%%%%%%%%%%%%.........VVVVVVVVVVVVVVVVVVVVV...........WWWWW%%%%%%%X
 D:X%%%%%%%%%%%%%%%%%%%%%%..V.%................VVVVVVVV...WWWWWWW%%%%%%X
-D:X%%%%%%%%%%%%%%%%%%%%%%%.V.%%%%%%%%%%%%%%%%........VVVVWWWWWWW%%%%%%X
+D:X%%%%%%%%%%%%%%%%%%%%%%%.V.%%%%%%%%%%%%%%%%........VVVVWWWWW<W%%%%%%X
 D:X%%%%%%%%%%%%%%%%%%%%%%%.V.........bb%%%%%%%%%%%%%h....WWWWWWW%%%%%%X
 D:X%%%%%%%%%%%%%%%%%%%%%%%.VVVVVVVVVVVb%%%%%%%%%%%%%%%%%%kWWWW%%%%%%%%X
 D:X%%%%%%%%%%%%%%%%%%%%%%%.......WWWWV.%%%%%%WWWWW%%%%%%%%%%%%%%%%W%%%X
-D:X%%%%%dVd%%%%%%%%%%%%%i........WWWWV.%%%%%%WWWWW%%%%%%%%%%%%..WWW.%%X
+D:X%%%%%d>d%%%%%%%%%%%%%i........WWWWV.%%%%%%WWW>W%%%%%%%%%%%%..W>W.%%X
 D:X%%%%%.V.%%%%%%%%%%%%%.VVVVVVVVVVVVV.%%%%%%%WWWW%%%%%%%%%%%%j..WW.%%X
 D:X%%%%%.V.%%%%%%%%%%%%..V.............%%%%%%%.WWf%%%%%%%%%%%.....k.%%X
 D:X%%%%%%V%%%%%%%%%%%%%.VV.%%%%%%%%%%%%%%%%%%%%...%%%%%%%%%%%%.%%.%%%%X
@@ -93,7 +70,7 @@ D:X%%%%%%V%%%%%%%%%%%.VVV.%%%%%%%%%%%%%%%%%%%%%%.%%%%%%%%%%%%%%%%.%%%%X
 D:X%%%%%%lVVVVVVcVVVVVV....e..........%%%%%%%%%%.%%%%%%%%%%%%%%%%.%%%%X
 D:X%%%%%%%%%%%%%%%%%%.VVVVVVVVVVVVVVV..................%%%%%%%%%%.%%%%X
 D:X%%%%%%%%%%%%%%%%%%..V............VVVVVVVVVVVVlVVVVV.%%%%%%%%%%.%%%%X
-D:X%%%%%%%%%%mW%%%%%%%%V%%%%%%%%%%%..................V............%%%%X
+D:X%%%%%%%%%%m<%%%%%%%%V%%%%%%%%%%%..................V............%%%%X
 D:X%%%%%%%%%%WW%%%%%%%%V%%%%%%%%%%%%%%%%%%%%%%%%%%%%.VVVVVVVVVVVl.....X
 D:X%%%%%%%%%%VVVVVVVVVVV%%%%%%%%%%%%%%%%%%%%%%%%%%%%gggggg......VVVVV.X
 D:X%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%.......X
