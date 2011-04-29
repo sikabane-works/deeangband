@@ -11641,7 +11641,7 @@ static cptr do_hex_spell(int spell, int mode)
 					if (one_in_(666))
 					{
 						o_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) o_ptr->curse_flags |= (TRC_PERMA_CURSE);
+						if (one_in_(666)) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
 						add_flag(o_ptr->art_flags, TR_AGGRAVATE);
 						add_flag(o_ptr->art_flags, TR_VORPAL);
@@ -12107,7 +12107,7 @@ static cptr do_hex_spell(int spell, int mode)
 					if (one_in_(666))
 					{
 						o_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) o_ptr->curse_flags |= (TRC_PERMA_CURSE);
+						if (one_in_(666)) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
 						add_flag(o_ptr->art_flags, TR_AGGRAVATE);
 						add_flag(o_ptr->art_flags, TR_RES_POIS);
@@ -12351,7 +12351,7 @@ static cptr do_hex_spell(int spell, int mode)
 			if (have_flag(f, TR_TY_CURSE) || (o_ptr->curse_flags & TRC_TY_CURSE)) p_ptr->csp += randint1(5);
 			if (p_ptr->csp > p_ptr->msp) p_ptr->csp = p_ptr->msp;
 
-			if (o_ptr->curse_flags & TRC_PERMA_CURSE)
+			if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 			{
 				/* Nothing */
 			}

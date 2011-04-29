@@ -3603,13 +3603,16 @@ info[i++] = "‚»‚ê‚Í_‚Éj•Ÿ‚³‚ê‚Ä‚¢‚éB";
 
 	if (object_is_cursed(o_ptr))
 	{
-		if (o_ptr->curse_flags & TRC_PERMA_CURSE)
+		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
+			char tx[80];
+			tx[0] = '\0';
 #ifdef JP
-info[i++] = "‚»‚ê‚Í‰i‰“‚ÌŽô‚¢‚ª‚©‚¯‚ç‚ê‚Ä‚¢‚éB";
+			sprintf(tx, "‚»‚ê‚Í_Ši %d ‚Ì_ˆæ‚ÌŽô‚¢‚ª‚©‚¯‚ç‚ê‚Ä‚¢‚éB", o_ptr->xtra1);
 #else
-			info[i++] = "It is permanently cursed.";
+			sprintf(tx, "It is divinely cursed (Divine Rank %d)", o_ptr->xtra1);
 #endif
+			info[i++] = tx;
 
 		}
 		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)

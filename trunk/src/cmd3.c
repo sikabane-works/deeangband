@@ -940,11 +940,23 @@ void do_cmd_takeoff(void)
 		o_ptr = &o_list[0 - item];
 	}
 
-
 	/* Item is cursed */
 	if (object_is_cursed(o_ptr))
 	{
-		if ((o_ptr->curse_flags & TRC_PERMA_CURSE) || (p_ptr->class != CLASS_BERSERKER))
+		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
+		{
+			if (o_ptr->xtra1 >= p_ptr->dr)
+			{
+			/* Oops */
+#ifdef JP
+			msg_print("なんてこった！あなたは神域の力に呪われている！");
+#else
+			msg_print("What the hell! You are cursed by divine power!");
+#endif
+			return;
+			}
+		}
+		else if (p_ptr->class != CLASS_BERSERKER)
 		{
 			/* Oops */
 #ifdef JP
@@ -957,7 +969,16 @@ void do_cmd_takeoff(void)
 			return;
 		}
 
-		if (((o_ptr->curse_flags & TRC_HEAVY_CURSE) && one_in_(7)) || one_in_(4))
+		if(o_ptr->curse_flags & TRC_DIVINE_CURSE && o_ptr->xtra1 < p_ptr->dr)
+		{
+#ifdef JP
+			msg_print("あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。");
+#else
+			msg_print("Your divine power is exceeding curse. You teared a cursed equipment off calmly.");
+#endif
+			o_ptr->curse_flags = 0L;
+		}
+		else if (((o_ptr->curse_flags & TRC_HEAVY_CURSE) && one_in_(7)) || one_in_(4))
 		{
 #ifdef JP
 			msg_print("呪われた装備を力づくで剥がした！");

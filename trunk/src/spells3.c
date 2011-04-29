@@ -2187,10 +2187,10 @@ static int remove_curse_aux(int all)
 		if (!all && (o_ptr->curse_flags & TRC_HEAVY_CURSE)) continue;
 
 		/* Perma-Cursed Items can NEVER be uncursed */
-		if (o_ptr->curse_flags & TRC_PERMA_CURSE)
+		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 			/* Uncurse it */
-			o_ptr->curse_flags &= (TRC_CURSED | TRC_HEAVY_CURSE | TRC_PERMA_CURSE);
+			o_ptr->curse_flags &= (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE);
 			continue;
 		}
 
@@ -2384,7 +2384,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
  */
 static void break_curse(object_type *o_ptr)
 {
-	if (object_is_cursed(o_ptr) && !(o_ptr->curse_flags & TRC_PERMA_CURSE) && !(o_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint0(100) < 25))
+	if (object_is_cursed(o_ptr) && !(o_ptr->curse_flags & TRC_DIVINE_CURSE) && !(o_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint0(100) < 25))
 	{
 #ifdef JP
 msg_print("かけられていた呪いが打ち破られた！");
@@ -3532,7 +3532,7 @@ s = "祝福できる武器がありません。";
 	if (object_is_cursed(o_ptr))
 	{
 		if (((o_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint1(100) < 33)) ||
-		    (o_ptr->curse_flags & TRC_PERMA_CURSE))
+		    (o_ptr->curse_flags & TRC_DIVINE_CURSE))
 		{
 #ifdef JP
 msg_format("%sを覆う黒いオーラは祝福を跳ね返した！",

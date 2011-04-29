@@ -332,13 +332,14 @@ I:45:37:5
 W:100:255:2:5000000
 P:0:0:1d1:15:15:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
-F:ACTIVATE | CURSED | HEAVY_CURSE | PERMA_CURSE |
+F:ACTIVATE | CURSED | HEAVY_CURSE | DIVINE_CURSE |
 F:AGGRAVATE | DRAIN_EXP | SEE_INVIS | REGEN | TY_CURSE |
 F:IM_FIRE | IM_COLD | IM_ELEC | IM_ACID |
 F:SUST_STR | SUST_DEX | SUST_CON |
 F:SUST_INT | SUST_WIS | SUST_CHR |
 F:INSTA_ART | XTRA_POWER | XTRA_H_RES |
 F:ESP_DEMON | ESP_UNDEAD
+X:17:0:0:0:0
 D:$"One Ring to rule them all, One Ring to find them, One Ring to bring 
 D:$them all and in the darkness bind them."  Made of massive gold, and 
 D:$set with runes in the foul speech of Mordor, Isildur's Bane possesses 
@@ -356,7 +357,7 @@ I:45:50:-5
 W:100:100:2:0
 P:0:0:1d1:-15:-15:0
 F:STR | INT | WIS | DEX | CON | CHR | SPEED | HIDE_TYPE |
-F:ACTIVATE | CURSED | HEAVY_CURSE | PERMA_CURSE |
+F:ACTIVATE | CURSED | HEAVY_CURSE | DIVINE_CURSE |
 F:AGGRAVATE | DRAIN_EXP | TY_CURSE |
 F:INSTA_ART
 D:$Adorned, showy gilding, 
@@ -703,7 +704,7 @@ F:STR | INT | WIS | DEX | CON | CHR | INFRA | HIDE_TYPE |
 F:RES_ACID | RES_ELEC | RES_FIRE | RES_COLD | RES_POIS |
 F:RES_LITE | RES_DARK | RES_CONF | RES_NEXUS |
 F:LITE | SEE_INVIS | TELEPATHY |
-F:CURSED | HEAVY_CURSE | PERMA_CURSE | NO_TELE | INSTA_ART | QUESTITEM
+F:CURSED | HEAVY_CURSE | DIVINE_CURSE | NO_TELE | INSTA_ART | QUESTITEM
 D:宇宙の創世以前から存在していた混沌の宮廷において王位を象徴する
 D:王冠だ。
 
@@ -3728,9 +3729,9 @@ P:0:0:1d1:0:0:0
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | RES_LITE | RES_NETHER |
 F:INSTA_ART | STR | WIS | INT | DEX | CON | CHR
 D:アノールの炎、イシルの光、３つのシルマリル、そしてそれらの元となった二本の木、
-D:最も古き原初の灯火、そしてアルダの生命全てがさかのぼればこの炎を源として生み出された。
+D:最も古き原初の二つの灯火、そしてアルダの生命全てがこの炎を源としている。
 D:これを所持していた事こそがイルーヴァタールの御技の一切が正しきことの証であり、
-D:メルコールのいかなる企みも虚しく、創造主の手の内にあった理由に他ならない。
+D:メルコールのいかなる企みも、創造主の手の内にあった理由に他ならない。
 
 
 # 御馴染みのアレ
@@ -3739,8 +3740,9 @@ E:the Amulet of Yendor
 I:40:29:2
 W:50:100:50:60000
 P:0:0:1d1:0:0:0
+X:0:0:0:0:0
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | RES_LITE | RES_DISEN |
-F:INSTA_ART | WIS | INT | FULL_NAME | QUESTITEM
+F:INSTA_ART | WIS | INT | FULL_NAME | QUESTITEM | DIVINE_CURSE
 D:多元宇宙の遥か昔から数多の挑戦者が求めて止まなかった伝説の魔除けだ。
 
 N:240:ウドゥンの
@@ -3748,6 +3750,7 @@ E:of Udun
 I:39:11:2
 W:99:90:5:150000
 P:0:0:1d1:0:0:0
+X:5:0:0:0:0
 F:ACTIVATE | SEE_INVIS | HOLD_LIFE | RES_LITE | RES_NETHER |
 F:INSTA_ART | STR | WIS | INT | DEX | CON | CHR
 

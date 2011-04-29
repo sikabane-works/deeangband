@@ -3023,7 +3023,7 @@ static void display_flag_aux(int row, int col, cptr header,
 		{
 			if ((mode & DP_CURSE) && (o_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE)))
 				c_put_str(TERM_WHITE, "+", row, col);
-			if ((mode & DP_CURSE) && (o_ptr->curse_flags & TRC_PERMA_CURSE))
+			if ((mode & DP_CURSE) && (o_ptr->curse_flags & TRC_DIVINE_CURSE))
 				c_put_str(TERM_WHITE, "*", row, col);
 		}
 		else

@@ -194,7 +194,7 @@ static void curse_artifact(object_type * o_ptr)
 	o_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
 	remove_flag(o_ptr->art_flags, TR_BLESSED);
 
-	if (one_in_(4)) o_ptr->curse_flags |= TRC_PERMA_CURSE;
+	if (one_in_(4)) o_ptr->curse_flags |= TRC_DIVINE_CURSE;
 	if (one_in_(3)) add_flag(o_ptr->art_flags, TR_TY_CURSE);
 	if (one_in_(2)) add_flag(o_ptr->art_flags, TR_AGGRAVATE);
 	if (one_in_(3)) add_flag(o_ptr->art_flags, TR_DRAIN_EXP);
@@ -3148,19 +3148,23 @@ bool create_named_art(int a_idx, int y, int x)
 	/* Extract the fields */
 	q_ptr->pval = a_ptr->pval;
 	q_ptr->ac = a_ptr->ac;
-	q_ptr->fitting_size = q_ptr->fitting_size; 
+	q_ptr->fitting_size = a_ptr->fitting_size; 
 	q_ptr->dd = a_ptr->dd;
 	q_ptr->ds = a_ptr->ds;
 	q_ptr->to_a = a_ptr->to_a;
 	q_ptr->to_h = a_ptr->to_h;
 	q_ptr->to_d = a_ptr->to_d;
 	q_ptr->weight = a_ptr->weight;
-
+	q_ptr->xtra1 = a_ptr->xtra1;
+	q_ptr->xtra2 = a_ptr->xtra2;
+	q_ptr->xtra3 = a_ptr->xtra3;
+	q_ptr->xtra4 = a_ptr->xtra4;
+	q_ptr->xtra5 = a_ptr->xtra5;
 
 	/* Hack -- extract the "cursed" flag */
 	if (a_ptr->gen_flags & TRG_CURSED) q_ptr->curse_flags |= (TRC_CURSED);
 	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) q_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-	if (a_ptr->gen_flags & TRG_PERMA_CURSE) q_ptr->curse_flags |= (TRC_PERMA_CURSE);
+	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) q_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) q_ptr->curse_flags |= get_curse(0, q_ptr);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) q_ptr->curse_flags |= get_curse(1, q_ptr);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);

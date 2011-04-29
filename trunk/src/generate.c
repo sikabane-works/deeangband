@@ -1420,7 +1420,7 @@ static bool level_gen(cptr *why)
 		}
 		else
 		{
-			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/2);
+			level_height = rand_range(MIN_SCREEN_HGT,MAX_HGT/SCREEN_HGT/2);
 			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/2);
 		}
 

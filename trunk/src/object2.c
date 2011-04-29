@@ -1031,7 +1031,7 @@ s32b flag_cost(object_type *o_ptr, int plusses)
 	if (have_flag(flgs, TR_BLESSED)) total += 750;
 	if (o_ptr->curse_flags & TRC_CURSED) total -= 5000;
 	if (o_ptr->curse_flags & TRC_HEAVY_CURSE) total -= 12500;
-	if (o_ptr->curse_flags & TRC_PERMA_CURSE) total -= 15000;
+	if (o_ptr->curse_flags & TRC_DIVINE_CURSE) total -= 15000;
 
 	/* Also, give some extra for activatable powers... */
 	if (o_ptr->art_name && (have_flag(o_ptr->art_flags, TR_ACTIVATE)))
@@ -1955,7 +1955,7 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	/* Hack -- cursed items are always "cursed" */
 	if (k_ptr->gen_flags & (TRG_CURSED)) o_ptr->curse_flags |= (TRC_CURSED);
 	if (k_ptr->gen_flags & (TRG_HEAVY_CURSE)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-	if (k_ptr->gen_flags & (TRG_PERMA_CURSE)) o_ptr->curse_flags |= (TRC_PERMA_CURSE);
+	if (k_ptr->gen_flags & (TRG_DIVINE_CURSE)) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) o_ptr->curse_flags |= get_curse(0, o_ptr);
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
@@ -4263,7 +4263,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 		/* Hack -- extract the "cursed" flag */
 		if (a_ptr->gen_flags & TRG_CURSED) o_ptr->curse_flags |= (TRC_CURSED);
 		if (a_ptr->gen_flags & TRG_HEAVY_CURSE) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-		if (a_ptr->gen_flags & TRG_PERMA_CURSE) o_ptr->curse_flags |= (TRC_PERMA_CURSE);
+		if (a_ptr->gen_flags & TRG_DIVINE_CURSE) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 		if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) o_ptr->curse_flags |= get_curse(0, o_ptr);
 		if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 		if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
@@ -4370,7 +4370,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 		/* Hack -- acquire "cursed" flag */
 		if (e_ptr->gen_flags & TRG_CURSED) o_ptr->curse_flags |= (TRC_CURSED);
 		if (e_ptr->gen_flags & TRG_HEAVY_CURSE) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-		if (e_ptr->gen_flags & TRG_PERMA_CURSE) o_ptr->curse_flags |= (TRC_PERMA_CURSE);
+		if (e_ptr->gen_flags & TRG_DIVINE_CURSE) o_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 		if (e_ptr->gen_flags & (TRG_RANDOM_CURSE0)) o_ptr->curse_flags |= get_curse(0, o_ptr);
 		if (e_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 		if (e_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
@@ -4469,7 +4469,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 		/* Hack -- acquire "cursed" flag */
 		if (k_ptr->gen_flags & (TRG_CURSED)) o_ptr->curse_flags |= (TRC_CURSED);
 		if (k_ptr->gen_flags & (TRG_HEAVY_CURSE)) o_ptr->curse_flags |= TRC_HEAVY_CURSE;
-		if (k_ptr->gen_flags & (TRG_PERMA_CURSE)) o_ptr->curse_flags |= TRC_PERMA_CURSE;
+		if (k_ptr->gen_flags & (TRG_DIVINE_CURSE)) o_ptr->curse_flags |= TRC_DIVINE_CURSE;
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) o_ptr->curse_flags |= get_curse(0, o_ptr);
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
@@ -7448,7 +7448,7 @@ static void drain_essence(void)
 	old_pval = o_ptr->pval;
 	old_name2 = o_ptr->name2;
 	old_timeout = o_ptr->timeout;
-	if (o_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE | TRC_PERMA_CURSE)) dec--;
+	if (o_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE)) dec--;
 	if (have_flag(old_flgs, TR_AGGRAVATE)) dec--;
 	if (have_flag(old_flgs, TR_NO_TELE)) dec--;
 	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;

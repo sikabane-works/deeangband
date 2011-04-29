@@ -1252,12 +1252,12 @@ static void analyze_misc_magic(object_type *o_ptr, cptr *misc_list)
 			*misc_list++ = "Ancient Curse";
 #endif
 		}
-		if (o_ptr->curse_flags & TRC_PERMA_CURSE)
+		if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 #ifdef JP
-			*misc_list++ = "‰i‰“‚ÌŽô‚¢";
+			*misc_list++ = "_ˆæ‚ÌŽô‚¢";
 #else
-			*misc_list++ = "Permanently Cursed";
+			*misc_list++ = "Divinely Cursed";
 #endif
 		}
 		else if (o_ptr->curse_flags & TRC_HEAVY_CURSE)

@@ -3511,7 +3511,7 @@
 #define TRG_XTRA_RES            0x00000200L     /* Extra resistance */
 #define TRG_CURSED              0x00000400L     /* Item is Cursed */
 #define TRG_HEAVY_CURSE         0x00000800L     /* Item is Heavily Cursed */
-#define TRG_PERMA_CURSE         0x00001000L     /* Item is Perma Cursed */
+#define TRG_DIVINE_CURSE         0x00001000L     /* Item is Perma Cursed */
 #define TRG_RANDOM_CURSE0       0x00002000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE1       0x00004000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE2       0x00008000L     /* Item is Random Cursed */
@@ -3521,7 +3521,7 @@
 
 #define TRC_CURSED              0x00000001L
 #define TRC_HEAVY_CURSE         0x00000002L
-#define TRC_PERMA_CURSE         0x00000004L
+#define TRC_DIVINE_CURSE         0x00000004L
 #define TRC_XXX1                0x00000008L
 #define TRC_TY_CURSE            0x00000010L
 #define TRC_AGGRAVATE           0x00000020L

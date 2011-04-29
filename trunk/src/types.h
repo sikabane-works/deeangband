@@ -202,6 +202,12 @@ struct artifact_type
 	byte max_num;		/* Unused (should be "1") */
 
 	s16b floor_id;          /* Leaved on this location last time */
+
+	byte xtra1;			/* Extra info type (now unused) */
+	byte xtra2;			/* Extra info index */
+	byte xtra3;			/* Extra info */
+	s16b xtra4;			/* Extra info */
+	s16b xtra5;			/* Extra info */
 };
 
 

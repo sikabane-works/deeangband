@@ -4842,7 +4842,7 @@ void calc_bonuses(creature_type *cr_ptr)
 			if (!object_is_cursed(o_ptr)) continue;
 			ac += 5;
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;
-			if (o_ptr->curse_flags & TRC_PERMA_CURSE) ac += 13;
+			if (o_ptr->curse_flags & TRC_DIVINE_CURSE) ac += 13;
 			cr_ptr->to_a += ac;
 			cr_ptr->dis_to_a += ac;
 		}
@@ -5634,13 +5634,13 @@ void calc_bonuses(creature_type *cr_ptr)
 			{
 				if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
 				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_h[i] += 7; cr_ptr->dis_to_h[i] += 7; }
-				if (o_ptr->curse_flags & (TRC_PERMA_CURSE)) { cr_ptr->to_h[i] += 13; cr_ptr->dis_to_h[i] += 13; }
+				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_h[i] += 13; cr_ptr->dis_to_h[i] += 13; }
 				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
 				if (hex_spelling(HEX_RUNESWORD))
 				{
 					if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_d[i] += 5; cr_ptr->dis_to_d[i] += 5; }
 					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_d[i] += 7; cr_ptr->dis_to_d[i] += 7; }
-					if (o_ptr->curse_flags & (TRC_PERMA_CURSE)) { cr_ptr->to_d[i] += 13; cr_ptr->dis_to_d[i] += 13; }
+					if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_d[i] += 13; cr_ptr->dis_to_d[i] += 13; }
 				}
 			}
 		}

@@ -831,7 +831,7 @@ static cptr k_info_gen_flags[] =
 	"XTRA_RES",
 	"CURSED",
 	"HEAVY_CURSE",
-	"PERMA_CURSE",
+	"DIVINE_CURSE",
 	"RANDOM_CURSE0",
 	"RANDOM_CURSE1",
 	"RANDOM_CURSE2",
@@ -2349,6 +2349,20 @@ errr parse_a_info(char *buf, header *head)
 				/* Start the next entry */
 			s = t;
 		}
+	}
+
+	/* Hack -- Process 'X' for xtra info */
+	else if (buf[0] == 'X')
+	{
+		int ex1, ex2, ex3, ex4, ex5;
+
+		/* Scan for the values */
+		if (5 != sscanf(buf+2, "%d:%d:%d:%d:%d", &ex1, &ex2, &ex3, &ex4, &ex5)) return (1);
+		a_ptr->xtra1 = ex1;
+		a_ptr->xtra2 = ex2;
+		a_ptr->xtra3 = ex3;
+		a_ptr->xtra4 = ex4;
+		a_ptr->xtra5 = ex5;
 	}
 
 
