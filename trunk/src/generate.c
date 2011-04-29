@@ -1415,18 +1415,13 @@ static bool level_gen(cptr *why)
 		}
 		else if (d_info[dungeon_type].flags1 & DF1_BEGINNER)
 		{
-			level_height = MIN_SCREEN_HGT + randint0(MAX_HGT/SCREEN_HGT/3);
-			level_width = MIN_SCREEN_WID + randint0(MAX_WID/SCREEN_WID/3);;
+			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/3);
+			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/3);;
 		}
 		else
 		{
-			do
-			{
-				level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT);
-				level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID);
-			}
-			while ((level_height == MAX_HGT/SCREEN_HGT) &&
-				   (level_width == MAX_WID/SCREEN_WID));
+			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/2);
+			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/2);
 		}
 
 		cur_hgt = level_height * SCREEN_HGT;
@@ -1442,12 +1437,20 @@ static bool level_gen(cptr *why)
 	else
 	{
 		/* Big dungeon */
-		cur_hgt = MAX_HGT;
-		cur_wid = MAX_WID;
+		do{
+		level_height = rand_range(MAX_HGT/SCREEN_HGT/3, MAX_HGT/SCREEN_HGT);
+		level_width = rand_range(MAX_WID/SCREEN_WID/3, MAX_WID/SCREEN_WID);
+		} while (level_height + level_width < (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
+			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3/4));
+		cur_hgt = level_height * SCREEN_HGT;
+		cur_wid = level_width * SCREEN_WID;
 
 		/* Assume illegal panel */
 		panel_row_min = cur_hgt;
 		panel_col_min = cur_wid;
+
+		if (cheat_room)
+		  msg_format("X:%d, Y:%d.", cur_wid, cur_hgt);
 	}
 
 	/* Make a dungeon */
