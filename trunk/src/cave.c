@@ -1346,11 +1346,19 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		feat_priority = 31;
 	}
 
-		if(p_ptr->wild_mode && !wilderness[y][x].known)
+	if(p_ptr->wild_mode)
+	{
+		if(y < max_wild_y && x < max_wild_x)
 		{
-					*ap = TERM_L_DARK;
-					*cp = 'x';
+			if(!wilderness[y][x].known)
+			{
+				*ap = TERM_L_DARK;
+				*cp = 'x';
+			}
 		}
+		else
+			p_ptr->wild_mode = FALSE;
+	}
 
 }
 
