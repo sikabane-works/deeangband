@@ -4967,6 +4967,68 @@ msg_print("お金が足りません！");
 	{
 		p_ptr->au -= bcost;
 	}
+
+
+	/* Winner? */
+	if (quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
+	{
+		/* Total winner */
+		p_ptr->total_winner = TRUE;
+
+		/* Redraw the "title" */
+		p_ptr->redraw |= (PR_TITLE);
+
+#ifdef JP
+		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
+#else
+		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
+#endif
+
+		if ((p_ptr->class == CLASS_CHAOS_WARRIOR) || (p_ptr->muta2 & MUT2_CHAOS_GIFT))
+		{
+#ifdef JP
+			msg_format("%sからの声が響いた。", player_patrons[p_ptr->patron].title);
+			msg_print("『よくやった、定命の者よ！』");
+#else
+			msg_format("The voice of %s booms out:", player_patrons[p_ptr->patron].title);
+			msg_print("'Thou art donst well, mortal!'");
+#endif
+		}
+
+		/* Congratulations */
+#ifdef JP
+		msg_print("*** おめでとう ***");
+#else
+		msg_print("*** CONGRATULATIONS ***");
+#endif
+
+#ifdef JP
+		msg_print("あなたはゲームをコンプリートしました。");
+#else
+		msg_print("You have won the game!");
+#endif
+
+#ifdef JP
+		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
+#else
+		msg_print("You may retire (commit suicide) when you are ready.");
+#endif
+
+		/* Angband */
+		wilderness[26][69].known = TRUE;
+		wilderness[26][70].known = TRUE;
+		wilderness[26][71].known = TRUE;
+		wilderness[27][69].known = TRUE;
+		wilderness[27][70].known = TRUE;
+		wilderness[27][71].known = TRUE;
+		wilderness[28][69].known = TRUE;
+		wilderness[28][70].known = TRUE;
+		wilderness[28][71].known = TRUE;
+
+		p_ptr->dr = 1;
+
+	}
+
 }
 
 

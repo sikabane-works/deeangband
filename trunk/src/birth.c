@@ -2754,7 +2754,7 @@ static void get_extra(bool roll_hitdice)
 	p_ptr->old_race2 = 0L;
 	p_ptr->old_realm = 0;
 
-	p_ptr->dr = rp_ptr->dr;
+	p_ptr->dr = -1;
 
 	for (i = 0; i < 64; i++)
 	{

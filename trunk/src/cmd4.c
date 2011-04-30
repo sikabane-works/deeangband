@@ -9336,7 +9336,10 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				if (quest[i].status == QUEST_STATUS_COMPLETED)
 				{
 #ifdef JP
-					sprintf(tmp_str, "    ！クエスト達成 - 依頼者に未報告\n");
+					if(i == QUEST_AOY)
+						sprintf(tmp_str, "    ！クエスト達成 - 因果の祭壇（大迷宮地表）へ向かえ\n");
+					else
+						sprintf(tmp_str, "    ！クエスト達成 - 依頼者に未報告\n");
 #else
 					sprintf(tmp_str, "    ! Quest Completed - Unrewarded\n");
 #endif
