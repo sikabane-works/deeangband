@@ -868,8 +868,6 @@ struct intelligent_race
 	u32b b_age;			/* base age */
 	u32b m_age;			/* mod age */
 
-	s16b hitdice;		/* mod hitdice */
-
 	u32b m_b_ht;		/* base height (males) */
 	u32b m_m_ht;		/* mod height (males) */
 	u32b m_b_wt;		/* base weight (males) */
