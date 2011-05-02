@@ -788,6 +788,41 @@ struct player_magic
 };
 
 
+/*
+ * Resist Info
+ */
+typedef struct resist resist;
+
+struct resist
+{
+	int resist_acid;	/* Resist acid */
+	int resist_elec;	/* Resist lightning */
+	int resist_fire;	/* Resist fire */
+	int resist_cold;	/* Resist cold */
+	int resist_pois;	/* Resist poison */
+
+	int resist_conf;	 /* Resist confusion */
+	int resist_sound;	 /* Resist sound */
+	int resist_lite;	 /* Resist light */
+	int resist_dark;	 /* Resist darkness */
+	int resist_chaos;	 /* Resist chaos */
+	int resist_disen;	 /* Resist disenchant */
+	int resist_shard;	 /* Resist shards */
+	int resist_nexus;	 /* Resist nexus */
+	int resist_blind;	 /* Resist blindness */
+	int resist_neth;	 /* Resist nether */
+	int resist_fear;	 /* Resist fear */
+	int resist_time;	 /* Resist time */
+	int resist_plazma;   /* Resist plazma */
+	int resist_gravity;  /* Resist gravity */
+	int resist_inertia;
+	int resist_force;    /* Resist force */
+	int resist_tele;     /* Resist teleport */
+	int resist_water;    /* Resist water */
+	int resist_ultimate; /* Resist ultimate */
+};
+
+
 
 /*
  * Player sex info
@@ -889,7 +924,11 @@ struct intelligent_race
 	byte infra;			/* Infra-vision	range */
 
 	u32b choice;        /* Legal class choices */
-/*    byte choice_xtra;   */
+
+	resist main_resist;
+	resist sub_resist;
+	
+	/*    byte choice_xtra;   */
 };
 
 
@@ -1322,7 +1361,7 @@ struct creature_type
 	bool resist_time;	 /* Resist time */
 	bool resist_plazma;  /* Resist plazma */
 	bool resist_gravity; /* Resist gravity */
-	bool resist_inertia; /* Resist gravity */
+	bool resist_inertia;
 	bool resist_force;   /* Resist force */
 	bool resist_tele;    /* Resist teleport */
 	bool resist_water;   /* Resist water */
