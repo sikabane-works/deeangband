@@ -820,6 +820,22 @@ struct resist
 	int resist_tele;     /* Resist teleport */
 	int resist_water;    /* Resist water */
 	int resist_ultimate; /* Resist ultimate */
+
+	int free_action;     /* Free Action */
+	int levitation;      /* Levitation */
+	int hold_life;		 /* Hold Life */
+	int regenerate;      /* Regenerate */
+	int slow_digest;     /* Slow Digest */
+	int see_invisible;	 /* See Invisible */
+
+	int sustain_str;
+	int sustain_int;
+	int sustain_wis;
+	int sustain_dex;
+	int sustain_con;
+	int sustain_cha;
+
+
 };
 
 

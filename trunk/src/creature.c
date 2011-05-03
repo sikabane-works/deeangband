@@ -377,69 +377,126 @@ void estimate_enemy_hp(monster_race *mr_ptr, int *result)
 
 void set_resistance(creature_type *cr_ptr)
 {
-	monster_race *mr_ptr = &r_info[cr_ptr->r_idx];
+		
+	if(cr_ptr->race != RACE_NONE)
+	{
+		intelligent_race *ir_ptr = &race_info[cr_ptr->race];
+		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
+			cr_ptr->resist_acid = TRUE;
+		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
+			cr_ptr->resist_elec = TRUE;
+		if(ir_ptr->main_resist.resist_fire != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_fire)
+			cr_ptr->resist_fire = TRUE;
+		if(ir_ptr->main_resist.resist_cold != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_cold)
+			cr_ptr->resist_cold = TRUE;
+		if(ir_ptr->main_resist.resist_pois != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_pois)
+			cr_ptr->resist_pois = TRUE;
+		if(ir_ptr->main_resist.resist_lite != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_lite)
+			cr_ptr->resist_lite = TRUE;
+		if(ir_ptr->main_resist.resist_dark != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_dark)
+			cr_ptr->resist_dark = TRUE;
+		if(ir_ptr->main_resist.resist_neth != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_neth)
+			cr_ptr->resist_neth = TRUE;
+		if(ir_ptr->main_resist.resist_water != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_water)
+			cr_ptr->resist_water = TRUE;
+		if(ir_ptr->main_resist.resist_plazma != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_plazma)
+			cr_ptr->resist_plazma = TRUE;
+		if(ir_ptr->main_resist.resist_shard != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_shard)
+			cr_ptr->resist_shard = TRUE;
+		if(ir_ptr->main_resist.resist_sound != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_sound)
+			cr_ptr->resist_sound = TRUE;
+		if(ir_ptr->main_resist.resist_chaos != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_chaos)
+			cr_ptr->resist_chaos = TRUE;
+		if(ir_ptr->main_resist.resist_nexus != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_nexus)
+			cr_ptr->resist_nexus = TRUE;
+		if(ir_ptr->main_resist.resist_disen != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_disen)
+			cr_ptr->resist_disen = TRUE;
+		if(ir_ptr->main_resist.resist_force != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_force)
+			cr_ptr->resist_force = TRUE;
+		if(ir_ptr->main_resist.resist_inertia != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_inertia)
+			cr_ptr->resist_inertia = TRUE;
+		if(ir_ptr->main_resist.resist_time != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_time)
+			cr_ptr->resist_time = TRUE;
+		if(ir_ptr->main_resist.resist_gravity != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_gravity)
+			cr_ptr->resist_gravity = TRUE;
+		if(ir_ptr->main_resist.resist_ultimate != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_ultimate)
+			cr_ptr->resist_ultimate = TRUE;
+		if(ir_ptr->main_resist.resist_tele != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_tele)
+			cr_ptr->resist_tele = TRUE;
 
-	if(mr_ptr->flagsr & RFR_IM_ACID)
-		cr_ptr->resist_acid = TRUE;
+		if(ir_ptr->main_resist.free_action != 0 && cr_ptr->lev >= ir_ptr->main_resist.free_action)
+			cr_ptr->free_act = TRUE;
+		if(ir_ptr->main_resist.levitation != 0 && cr_ptr->lev >= ir_ptr->main_resist.levitation)
+			cr_ptr->levitation = TRUE;
+		if(ir_ptr->main_resist.hold_life != 0 && cr_ptr->lev >= ir_ptr->main_resist.hold_life)
+			cr_ptr->hold_life = TRUE;
+		if(ir_ptr->main_resist.regenerate != 0 && cr_ptr->lev >= ir_ptr->main_resist.regenerate)
+			cr_ptr->regenerate = TRUE;
+		if(ir_ptr->main_resist.slow_digest != 0 && cr_ptr->lev >= ir_ptr->main_resist.slow_digest)
+			cr_ptr->slow_digest = TRUE;
+		if(ir_ptr->main_resist.see_invisible != 0 && cr_ptr->lev >= ir_ptr->main_resist.see_invisible)
+			cr_ptr->see_inv = TRUE;
 
-	if(mr_ptr->flagsr & RFR_IM_ELEC)
-		cr_ptr->resist_elec = TRUE;
+		if(ir_ptr->main_resist.sustain_str != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_str)
+			cr_ptr->sustain_str = TRUE;
+		if(ir_ptr->main_resist.sustain_int != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_int)
+			cr_ptr->sustain_int = TRUE;
+		if(ir_ptr->main_resist.sustain_wis != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_wis)
+			cr_ptr->sustain_wis = TRUE;
+		if(ir_ptr->main_resist.sustain_dex != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_dex)
+			cr_ptr->sustain_dex = TRUE;
+		if(ir_ptr->main_resist.sustain_con != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_con)
+			cr_ptr->sustain_con = TRUE;
+		if(ir_ptr->main_resist.sustain_cha != 0 && cr_ptr->lev >= ir_ptr->main_resist.sustain_cha)
+			cr_ptr->sustain_chr = TRUE;
 
-	if(mr_ptr->flagsr & RFR_IM_FIRE)
-		cr_ptr->resist_fire = TRUE;
+	}
 
-	if(mr_ptr->flagsr & RFR_IM_COLD)
-		cr_ptr->resist_cold = TRUE;
-
-	if(mr_ptr->flagsr & RFR_IM_POIS)
-		cr_ptr->resist_pois = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_LITE)
-		cr_ptr->resist_lite = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_DARK)
-		cr_ptr->resist_dark = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_NETH)
-		cr_ptr->resist_neth = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_WATE)
-		cr_ptr->resist_water = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_PLAS)
-		cr_ptr->resist_plazma = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_SHAR)
-		cr_ptr->resist_shard = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_SOUN)
-		cr_ptr->resist_sound = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_CHAO)
-		cr_ptr->resist_chaos = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_NEXU)
-		cr_ptr->resist_nexus = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_DISE)
-		cr_ptr->resist_disen = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_WALL)
-		cr_ptr->resist_force = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_INER)
-		cr_ptr->resist_inertia = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_TIME)
-		cr_ptr->resist_time = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_GRAV)
-		cr_ptr->resist_gravity = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_ALL)
-		cr_ptr->resist_ultimate = TRUE;
-
-	if(mr_ptr->flagsr & RFR_RES_TELE)
-		cr_ptr->resist_tele = TRUE;
+	if(cr_ptr->r_idx != 0)
+	{
+		monster_race *mr_ptr = &r_info[cr_ptr->r_idx];
+		if(mr_ptr->flagsr & RFR_IM_ACID)
+			cr_ptr->resist_acid = TRUE;
+		if(mr_ptr->flagsr & RFR_IM_ELEC)
+			cr_ptr->resist_elec = TRUE;
+		if(mr_ptr->flagsr & RFR_IM_FIRE)
+			cr_ptr->resist_fire = TRUE;
+		if(mr_ptr->flagsr & RFR_IM_COLD)
+			cr_ptr->resist_cold = TRUE;
+		if(mr_ptr->flagsr & RFR_IM_POIS)
+			cr_ptr->resist_pois = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_LITE)
+			cr_ptr->resist_lite = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_DARK)
+			cr_ptr->resist_dark = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_NETH)
+			cr_ptr->resist_neth = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_WATE)
+			cr_ptr->resist_water = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_PLAS)
+			cr_ptr->resist_plazma = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_SHAR)
+			cr_ptr->resist_shard = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_SOUN)
+			cr_ptr->resist_sound = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_CHAO)
+			cr_ptr->resist_chaos = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_NEXU)
+			cr_ptr->resist_nexus = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_DISE)
+			cr_ptr->resist_disen = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_WALL)
+			cr_ptr->resist_force = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_INER)
+			cr_ptr->resist_inertia = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_TIME)
+			cr_ptr->resist_time = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_GRAV)
+			cr_ptr->resist_gravity = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_ALL)
+			cr_ptr->resist_ultimate = TRUE;
+		if(mr_ptr->flagsr & RFR_RES_TELE)
+			cr_ptr->resist_tele = TRUE;
+	}
 
 }

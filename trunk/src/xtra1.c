@@ -3516,82 +3516,13 @@ void calc_bonuses(creature_type *cr_ptr)
 	}
 	else
 	{
+		void set_resistance(cr_ptr);
+
 		switch (cr_ptr->race)
 		{
-		case RACE_HUMAN:
-		case RACE_ELF:
-			cr_ptr->resist_lite = TRUE;
-			break;
-		case RACE_DWARF:
-			cr_ptr->resist_blind = TRUE;
-			break;
-		case RACE_HOBBIT:
-			cr_ptr->hold_life = TRUE;
-			break;
-		case RACE_GNOME:
-			cr_ptr->free_act = TRUE;
-			break;
-		case RACE_BARBARIAN:
-			cr_ptr->resist_fear = TRUE;
-			break;
-		case RACE_DUNADAN:
-			cr_ptr->sustain_con = TRUE;
-			break;
-		case RACE_MELNIBONE:
-			break;
-		case RACE_AMBERITE:
-			cr_ptr->sustain_con = TRUE;
-			cr_ptr->regenerate = TRUE;
-			break;
-		case RACE_CHAOSIAN:
-			cr_ptr->resist_chaos = TRUE;
-			cr_ptr->sustain_con = TRUE;
-			cr_ptr->regenerate = TRUE;
-			break;
-		case RACE_DARK_ELF:
-			cr_ptr->resist_dark = TRUE;
-			if (cr_ptr->lev > 19) cr_ptr->see_inv = TRUE;
-			break;
-		case RACE_ELDAR:
-			cr_ptr->resist_lite = TRUE;
-			cr_ptr->see_inv = TRUE;
-			break;
-		case RACE_AVARI:
-			cr_ptr->resist_lite = TRUE;
-			cr_ptr->resist_dark = TRUE;
-			if (cr_ptr->lev > 23) cr_ptr->resist_blind = TRUE;
-			break;
-		case RACE_KOBOLD:
-			cr_ptr->resist_pois = TRUE;
-			break;
-		case RACE_NIBELUNG:
-			cr_ptr->resist_disen = TRUE;
-			cr_ptr->resist_dark = TRUE;
-			break;
 		case RACE_SPRITE:
 			cr_ptr->levitation = TRUE;
-			cr_ptr->resist_lite = TRUE;
 			new_speed += (cr_ptr->lev) / 10;
-			break;
-		case RACE_S_FAIRY:
-			cr_ptr->levitation = TRUE;
-			break;
-		case RACE_WAREFOLK:
-			break;
-		case RACE_SKAVEN:
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->regenerate = TRUE;
-		case RACE_LIZARDMAN:
-			break;
-		case RACE_BEASTMAN:
-			cr_ptr->resist_conf  = TRUE;
-			cr_ptr->resist_sound = TRUE;
-			break;			
-		case RACE_MINOTAUR:
-			break;
-		case RACE_NAGA:
-			break;
-		case RACE_CENTAUR:
 			break;
 		case RACE_ENT:
 			/* Ents dig like maniacs, but only with their hands. */
@@ -3610,194 +3541,26 @@ void calc_bonuses(creature_type *cr_ptr)
 			if (cr_ptr->lev > 40) cr_ptr->stat_add[A_CON]++;
 			if (cr_ptr->lev > 45) cr_ptr->stat_add[A_CON]++;
 			break;
-		case RACE_ORC:
-			cr_ptr->resist_dark = TRUE;
-			break;
-		case RACE_URUK:
-			cr_ptr->resist_dark = TRUE;
-			break;
 		case RACE_TROLL:
-			cr_ptr->sustain_str = TRUE;
-			if (cr_ptr->lev > 14)
-			{
-				cr_ptr->regenerate = TRUE;
-				if (cr_ptr->class == CLASS_WARRIOR || cr_ptr->class == CLASS_BERSERKER)
-					cr_ptr->slow_digest = TRUE;
-			}
-			break;
-		case RACE_OGRE:
-			cr_ptr->resist_dark = TRUE;
-			cr_ptr->sustain_str = TRUE;
-			break;
-		case RACE_GIANT:
-			cr_ptr->sustain_str = TRUE;
-			cr_ptr->resist_shard = TRUE;
-			break;
-		case RACE_CYCLOPS:
-			cr_ptr->resist_sound = TRUE;
-			break;
-		case RACE_TITAN:
-			cr_ptr->resist_chaos = TRUE;
 			break;
 		case RACE_YEEK:
-			cr_ptr->resist_acid = TRUE;
 			if (cr_ptr->lev > 19) cr_ptr->immune_acid = TRUE;
 			break;
 		case RACE_KLACKON:
-			cr_ptr->resist_conf = TRUE;
-			cr_ptr->resist_acid = TRUE;
-
-			/* Klackons become faster */
 			new_speed += (cr_ptr->lev) / 10;
 			break;
 		case RACE_MIND_FLAYER:
-			cr_ptr->sustain_int = TRUE;
-			cr_ptr->sustain_wis = TRUE;
-			if (cr_ptr->lev > 14) cr_ptr->see_inv = TRUE;
 			if (cr_ptr->lev > 29) cr_ptr->telepathy = TRUE;
 			break;
-		case RACE_DRACONIAN:
-			cr_ptr->levitation = TRUE;
-			cr_ptr->resist_fire = TRUE;
-			cr_ptr->resist_cold = TRUE;
-			cr_ptr->resist_elec = TRUE;
-			if (cr_ptr->lev > 14) cr_ptr->resist_acid = TRUE;
-			if (cr_ptr->lev > 19) cr_ptr->resist_conf = TRUE;
-			if (cr_ptr->lev > 24) cr_ptr->resist_lite = TRUE;
-			if (cr_ptr->lev > 29) cr_ptr->resist_sound = TRUE;
-			break;
-		case RACE_IMP:
-			cr_ptr->resist_fire = TRUE;
-			if (cr_ptr->lev > 9) cr_ptr->see_inv = TRUE;
-			break;
-		case RACE_SAIYAN:
-			break;
-		case RACE_KUTAR:
-			cr_ptr->resist_conf = TRUE;
-			break;
-		case RACE_GOLEM:
-			cr_ptr->slow_digest = TRUE;
-			cr_ptr->free_act = TRUE;
-			cr_ptr->see_inv = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			if (cr_ptr->lev > 34) cr_ptr->hold_life = TRUE;
-			break;
-		case RACE_ANDROID:
-			cr_ptr->slow_digest = TRUE;
-			cr_ptr->free_act = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->hold_life = TRUE;
-			break;
-		case RACE_ANGEL:
-			cr_ptr->levitation = TRUE;
-			cr_ptr->see_inv = TRUE;
-			break;
-		case RACE_MAIAR:
-			cr_ptr->resist_lite = TRUE;
-			cr_ptr->see_inv = TRUE;
-			break;
 		case RACE_DEMON:
-			cr_ptr->resist_fire  = TRUE;
-			cr_ptr->resist_neth  = TRUE;
-			cr_ptr->hold_life = TRUE;
-			if (cr_ptr->lev > 9) cr_ptr->see_inv = TRUE;
 			if (cr_ptr->lev > 44)
 			{
 				cr_ptr->oppose_fire = 1;
 				cr_ptr->redraw |= PR_STATUS;
 			}
 			break;
-		case RACE_DEEP_ONE:
-			cr_ptr->resist_pois = TRUE;
-			break;
-		case RACE_ELDER_ONE:
-			cr_ptr->resist_fire  = TRUE;
-			cr_ptr->resist_cold  = TRUE;
-			break;
-		case RACE_MI_GO:
-			break;
-		case RACE_FLYING_POLYP:
-			break;
-		case RACE_SHOGGOTH:
-			break;
-		case RACE_YITH:
-			break;
-		case RACE_ZOMBIE:
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->see_inv = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->slow_digest = TRUE;
-			if (cr_ptr->lev > 4) cr_ptr->resist_cold = TRUE;
-			break;
-		case RACE_SKELETON:
-			cr_ptr->resist_shard = TRUE;
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->see_inv = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			if (cr_ptr->lev > 9) cr_ptr->resist_cold = TRUE;
-			break;
-		case RACE_VAMPIRE:
-			cr_ptr->resist_dark = TRUE;
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->resist_cold = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			if (cr_ptr->class != CLASS_NINJA) cr_ptr->lite = TRUE;
-			break;
 		case RACE_LICH:
-			cr_ptr->levitation = TRUE;
-			cr_ptr->free_act = TRUE;
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->see_inv = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->slow_digest = TRUE;
-			cr_ptr->resist_cold = TRUE;
 			cr_ptr->pass_wall = TRUE;
-			if (cr_ptr->lev > 34) cr_ptr->telepathy = TRUE;
-			break;
-		case RACE_ISTARI:
-			break;
-		case RACE_BALROG:
-			break;
-		case RACE_DRAGON:
-			break;
-		case RACE_GIANT_APE:
-			break;
-		case RACE_SUPER_SAIYAN:
-			break;
-		case RACE_RED_LINEAGE:
-			break;
-		case RACE_WHITE_LINEAGE:
-			break;
-		case RACE_BLUE_LINEAGE:
-			break;
-		case RACE_BLACK_LINEAGE:
-			break;
-		case RACE_GREEN_LINEAGE:
-			break;
-		case RACE_CHROMATIC_LINEAGE:
-			break;
-		case RACE_BRONZE_LINEAGE:
-			break;
-		case RACE_GOLD_LINEAGE:
-			break;
-		case RACE_CRYSTAL_LINEAGE:
-			break;
-		case RACE_LAW_LINEAGE:
-			break;
-		case RACE_BALANCE_LINEAGE:
-			break;
-		case RACE_CHAOS_LINEAGE:
-			break;
-		case RACE_VANYAR_LINEAGE:
-			break;
-		case RACE_NOLDOR_LINEAGE:
-			break;
-		case RACE_TELERI_LINEAGE:
-			break;
-		case RACE_NAZGUL:
 			break;
 		default:
 			/* Do nothing */
@@ -6854,5 +6617,4 @@ cptr get_intelligent_race_name(void){
 
 	return format("%s", name);
 }
-
 

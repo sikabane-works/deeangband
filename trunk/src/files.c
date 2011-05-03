@@ -2386,198 +2386,84 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE])
 			break;
 		}
 	}
-	else
-	{
+	else if(p_ptr->race != RACE_NONE)
+	{		
+		intelligent_race *ir_ptr = &race_info[p_ptr->race];
+		if(ir_ptr->main_resist.resist_acid != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_acid)
+			add_flag(flgs, TR_RES_ACID);
+		if(ir_ptr->main_resist.resist_elec != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_elec)
+			add_flag(flgs, TR_RES_ELEC);
+		if(ir_ptr->main_resist.resist_fire != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_fire)
+			add_flag(flgs, TR_RES_FIRE);
+		if(ir_ptr->main_resist.resist_cold != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_cold)
+			add_flag(flgs, TR_RES_COLD);
+		if(ir_ptr->main_resist.resist_pois != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_pois)
+			add_flag(flgs, TR_RES_POIS);
+		if(ir_ptr->main_resist.resist_lite != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_lite)
+			add_flag(flgs, TR_RES_LITE);
+		if(ir_ptr->main_resist.resist_dark != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_dark)
+			add_flag(flgs, TR_RES_DARK);
+		if(ir_ptr->main_resist.resist_neth != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_neth)
+			add_flag(flgs, TR_RES_NETHER);
+		if(ir_ptr->main_resist.resist_shard != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_shard)
+			add_flag(flgs, TR_RES_SHARDS);
+		if(ir_ptr->main_resist.resist_sound != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_sound)
+			add_flag(flgs, TR_RES_SOUND);
+		if(ir_ptr->main_resist.resist_chaos != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_chaos)
+			add_flag(flgs, TR_RES_CHAOS);
+		if(ir_ptr->main_resist.resist_nexus != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_nexus)
+			add_flag(flgs, TR_RES_NEXUS);
+		if(ir_ptr->main_resist.resist_disen != 0 && p_ptr->lev >= ir_ptr->main_resist.resist_disen)
+			add_flag(flgs, TR_RES_DISEN);
+
+
+		if(ir_ptr->main_resist.free_action != 0 && p_ptr->lev >= ir_ptr->main_resist.free_action)
+			add_flag(flgs, TR_FREE_ACT);
+		if(ir_ptr->main_resist.levitation != 0 && p_ptr->lev >= ir_ptr->main_resist.levitation)
+			add_flag(flgs, TR_LEVITATION);
+		if(ir_ptr->main_resist.hold_life != 0 && p_ptr->lev >= ir_ptr->main_resist.hold_life)
+			add_flag(flgs, TR_HOLD_LIFE);
+		if(ir_ptr->main_resist.regenerate != 0 && p_ptr->lev >= ir_ptr->main_resist.regenerate)
+			add_flag(flgs, TR_REGEN);
+		if(ir_ptr->main_resist.slow_digest != 0 && p_ptr->lev >= ir_ptr->main_resist.slow_digest)
+			add_flag(flgs, TR_SLOW_DIGEST);
+		if(ir_ptr->main_resist.see_invisible != 0 && p_ptr->lev >= ir_ptr->main_resist.see_invisible)
+			add_flag(flgs, TR_SEE_INVIS);
+
+		if(ir_ptr->main_resist.sustain_str != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_str)
+			add_flag(flgs, TR_SUST_STR);
+		if(ir_ptr->main_resist.sustain_int != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_int)
+			add_flag(flgs, TR_SUST_INT);
+		if(ir_ptr->main_resist.sustain_wis != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_wis)
+			add_flag(flgs, TR_SUST_WIS);
+		if(ir_ptr->main_resist.sustain_dex != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_dex)
+			add_flag(flgs, TR_SUST_DEX);
+		if(ir_ptr->main_resist.sustain_con != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_con)
+			add_flag(flgs, TR_SUST_CON);
+		if(ir_ptr->main_resist.sustain_cha != 0 && p_ptr->lev >= ir_ptr->main_resist.sustain_cha)
+			add_flag(flgs, TR_SUST_CHR);
+
 	switch (p_ptr->race)
 	{
-	case RACE_ELF:
-		add_flag(flgs, TR_RES_LITE);
-		break;
-	case RACE_HOBBIT:
-		add_flag(flgs, TR_HOLD_LIFE);
-		break;
-	case RACE_GNOME:
-		add_flag(flgs, TR_FREE_ACT);
-		break;
-	case RACE_DWARF:
-		add_flag(flgs, TR_RES_BLIND);
-		break;
-	case RACE_ORC:
-		add_flag(flgs, TR_RES_DARK);
-		break;
-	case RACE_TROLL:
-		add_flag(flgs, TR_SUST_STR);
-		if (p_ptr->lev > 14)
-		{
-			add_flag(flgs, TR_REGEN);
-			if ((p_ptr->class == CLASS_WARRIOR) || (p_ptr->class == CLASS_BERSERKER))
-			{
-				add_flag(flgs, TR_SLOW_DIGEST);
-				/*
-				 * Let's not make Regeneration a disadvantage
-				 * for the poor warriors who can never learn
-				 * a spell that satisfies hunger (actually
-				 * neither can rogues, but half-trolls are not
-				 * supposed to play rogues)
-				 */
-			}
-		}
-		break;
-	case RACE_AMBERITE:
-		add_flag(flgs, TR_SUST_CON);
-		add_flag(flgs, TR_REGEN); /* Amberites heal fast */
-		break;
-	case RACE_ELDAR:
-		add_flag(flgs, TR_RES_LITE);
-		add_flag(flgs, TR_SEE_INVIS);
-		break;
-	case RACE_BARBARIAN:
-		add_flag(flgs, TR_RES_FEAR);
-		break;
-	case RACE_OGRE:
-		add_flag(flgs, TR_SUST_STR);
-		add_flag(flgs, TR_RES_DARK);
-		break;
-	case RACE_GIANT:
-		add_flag(flgs, TR_RES_SHARDS);
-		add_flag(flgs, TR_SUST_STR);
-		break;
-	case RACE_TITAN:
-		add_flag(flgs, TR_RES_CHAOS);
-		break;
-	case RACE_CYCLOPS:
-		add_flag(flgs, TR_RES_SOUND);
-		break;
 	case RACE_YEEK:
-		add_flag(flgs, TR_RES_ACID);
 		if (p_ptr->lev > 19)
 			add_flag(flgs, TR_IM_ACID);
 		break;
 	case RACE_KLACKON:
-		add_flag(flgs, TR_RES_CONF);
-		add_flag(flgs, TR_RES_ACID);
 		if (p_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 		break;
-	case RACE_KOBOLD:
-		add_flag(flgs, TR_RES_POIS);
-		break;
-	case RACE_NIBELUNG:
-		add_flag(flgs, TR_RES_DISEN);
-		add_flag(flgs, TR_RES_DARK);
-		break;
-	case RACE_DARK_ELF:
-		add_flag(flgs, TR_RES_DARK);
-		if (p_ptr->lev > 19)
-			add_flag(flgs, TR_SEE_INVIS);
-		break;
-	case RACE_DRACONIAN:
-		add_flag(flgs, TR_LEVITATION);
-		if (p_ptr->lev > 4)
-			add_flag(flgs, TR_RES_FIRE);
-		if (p_ptr->lev > 9)
-			add_flag(flgs, TR_RES_COLD);
-		if (p_ptr->lev > 14)
-			add_flag(flgs, TR_RES_ACID);
-		if (p_ptr->lev > 19)
-			add_flag(flgs, TR_RES_ELEC);
-		if (p_ptr->lev > 34)
-			add_flag(flgs, TR_RES_POIS);
-		break;
 	case RACE_MIND_FLAYER:
-		add_flag(flgs, TR_SUST_INT);
-		add_flag(flgs, TR_SUST_WIS);
-		if (p_ptr->lev > 14)
-			add_flag(flgs, TR_SEE_INVIS);
 		if (p_ptr->lev > 29)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
-	case RACE_IMP:
-		add_flag(flgs, TR_RES_FIRE);
-		if (p_ptr->lev > 9)
-			add_flag(flgs, TR_SEE_INVIS);
-		break;
-	case RACE_GOLEM:
-		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_SLOW_DIGEST);
-		if (p_ptr->lev > 34)
-			add_flag(flgs, TR_HOLD_LIFE);
-		break;
-	case RACE_SKELETON:
-		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_RES_SHARDS);
-		add_flag(flgs, TR_HOLD_LIFE);
-		add_flag(flgs, TR_RES_POIS);
-		if (p_ptr->lev > 9)
-			add_flag(flgs, TR_RES_COLD);
-		break;
-	case RACE_ZOMBIE:
-		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_HOLD_LIFE);
-		add_flag(flgs, TR_RES_NETHER);
-		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_SLOW_DIGEST);
-		if (p_ptr->lev > 4)
-			add_flag(flgs, TR_RES_COLD);
-		break;
-	case RACE_VAMPIRE:
-		add_flag(flgs, TR_HOLD_LIFE);
-		add_flag(flgs, TR_RES_DARK);
-		add_flag(flgs, TR_RES_NETHER);
-		if (p_ptr->class != CLASS_NINJA) add_flag(flgs, TR_LITE);
-		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_RES_COLD);
-		break;
 	case RACE_LICH:
-		add_flag(flgs, TR_LEVITATION);
-		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_RES_COLD);
-		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_HOLD_LIFE);
-		add_flag(flgs, TR_RES_NETHER);
-		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_SLOW_DIGEST);
-		/* XXX pass_wall */
 		if (p_ptr->lev > 34)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
 	case RACE_SPRITE:
-		add_flag(flgs, TR_RES_LITE);
-		add_flag(flgs, TR_LEVITATION);
 		if (p_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
-		break;
-	case RACE_BEASTMAN:
-		add_flag(flgs, TR_RES_SOUND);
-		add_flag(flgs, TR_RES_CONF);
-		break;
-	case RACE_ANGEL:
-		add_flag(flgs, TR_LEVITATION);
-		add_flag(flgs, TR_SEE_INVIS);
-		break;
-	case RACE_DEMON:
-		add_flag(flgs, TR_RES_FIRE);
-		add_flag(flgs, TR_RES_NETHER);
-		add_flag(flgs, TR_HOLD_LIFE);
-		if (p_ptr->lev > 9)
-			add_flag(flgs, TR_SEE_INVIS);
-		break;
-	case RACE_DUNADAN:
-		add_flag(flgs, TR_SUST_CON);
-		break;
-	case RACE_S_FAIRY:
-		add_flag(flgs, TR_LEVITATION);
-		break;
-	case RACE_KUTAR:
-		add_flag(flgs, TR_RES_CONF);
-		break;
-	case RACE_ANDROID:
-		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_RES_POIS);
-		add_flag(flgs, TR_SLOW_DIGEST);
-		add_flag(flgs, TR_HOLD_LIFE);
 		break;
 	default:
 		; /* Do nothing */
