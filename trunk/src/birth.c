@@ -1871,31 +1871,31 @@ static cptr class_jouhou[MAX_CLASS] =
 static cptr CHARA_jouhou[MAX_CHARA] =
 {
 #ifdef JP
-"ふつうは、特に特筆するべき部分がない性格です。あらゆる技能を平均的にこなします。",
+"普通は、特に特筆するべき部分がない性格です。あらゆる技能を平均的にこなします。",
 
-"ちからじまんは、肉体的な能力や技能が上昇します。しかし、魔法に関係する能力や技能は劣り、戦士よりのステータスを持ちます。",
+"力自慢は、肉体的な能力や技能が上昇します。しかし、魔法に関係する能力や技能は劣り、戦士よりのステータスを持ちます。",
 
-"きれものは、肉体的な能力は下がりますが、知能や魔法に関係する技能は上昇し、メイジよりのステータスを持ちます。",
+"切れ者は、肉体的な能力は下がりますが、知能や魔法に関係する技能は上昇し、メイジよりのステータスを持ちます。",
 
-"しあわせものは、神を信仰する能力が高くなります。肉体的には平均的な能力を持ち、プリーストに近いステータスとなります。",
+"幸せ者は、神を信仰する能力が高くなります。肉体的には平均的な能力を持ち、プリーストに近いステータスとなります。",
 
-"すばしっこいは、どのスキルも比較的うまくこなしますが、肉体的な能力は低くなります。",
+"素早いは、どのスキルも比較的うまくこなしますが、肉体的な能力は低くなります。",
 
-"いのちしらずは、戦闘力、魔法能力の両方が上昇しますが、魔法防御、ＨＰといった能力は悪くなります。",
+"命知らずは、戦闘力、魔法能力の両方が上昇しますが、魔法防御、ＨＰといった能力は悪くなります。",
 
 "好きな食べ物は焼きビーフン。抑えてはいるが、冒険心旺盛な一匹狼。正義感、勇気とも平均以上だがカッとしやすい所もある。計画的人生より行き当たりばったりの人生を選んでしまうタイプで、異性の扱いは苦手。",
 
-"なまけものは、あらゆるスキルが低く、何をやってもうまくいきません。",
+"怠け者は、あらゆるスキルが低く、何をやってもうまくいきません。",
 
 "セクシーギャルは、あらゆるスキルをうまくこなすことができます。しかし、その人をなめた性格は全てのモンスターを怒らせることになるでしょう。この性格は女性しか選ぶことができません。",
 
 "ラッキーマンは、能力値はなまけものに匹敵するくらい低いにもかかわらず、どんなことをしてもなぜかうまくいってしまいます。この性格は男性しか選ぶことができません。",
 
-"がまんづよいは、じっくりと物事にとりくむ慎重な性格で、他の性格に比べて高い耐久力を得ることができます。しかし、自分から行動するのは苦手で、多くの技能は低くなってしまいます。",
+"我慢強いは、じっくりと物事にとりくむ慎重な性格で、他の性格に比べて高い耐久力を得ることができます。しかし、自分から行動するのは苦手で、多くの技能は低くなってしまいます。",
 
-"いかさまは、初心者の練習用の性格です。あらゆる能力が高くなっています。この性格を使えば勝利者になることは容易ですが、勝利しても全く自慢になりません。",
+"イカサマは、初心者の練習用の性格です。あらゆる能力が高くなっています。この性格を使えば勝利者になることは容易ですが、勝利しても全く自慢になりません。",
 
-"チャージマンは「こんなところ」に連れて行かれても仕方のない可愛そうなお友達なんＤＡ。腕っ節やタフさはマンモス並みに強いのだけれど知能面はまるで駄目なのが分かるだろう？",
+"チャージマンは「こんなところ」に連れて行かれても仕方のない可愛そうなお友達なんＤＡ。腕っ節やタフさはマンモス並みに強いのだけれど知能面はまるで駄目なのが分かるだろう？この性格は最初から気が狂っているので、混乱したり幻覚を見る心配がないのです。",
 
 #else
 
@@ -1924,7 +1924,7 @@ static cptr CHARA_jouhou[MAX_CHARA] =
 
 "\"Munchkin\" is a personality for beginners.  It raises all your stats and skills.  With this personality, you can win the game easily, but gain little honor in doing so."
 
-"\"ChargeMan\ is crazy killer. It render you powerfull strength and constitution, but poor intelligence.",
+"\"ChargeMan\ is crazy killer. It render you powerfull strength and constitution, but poor intelligence. you are not confused and seen the illusion because this you go mad from the beginning. ",
 
 #endif
 };
@@ -2476,7 +2476,7 @@ static void save_prev_data(birther *birther_ptr)
 	birther_ptr->sex = p_ptr->sex;
 	birther_ptr->race = p_ptr->race;
 	birther_ptr->class = p_ptr->class;
-	birther_ptr->CHARA = p_ptr->CHARA;
+	birther_ptr->chara = p_ptr->chara;
 	birther_ptr->realm1 = p_ptr->realm1;
 	birther_ptr->realm2 = p_ptr->realm2;
 	birther_ptr->age = p_ptr->age;
@@ -2533,7 +2533,7 @@ static void load_prev_data(bool swap)
 	p_ptr->sex = previous_char.sex;
 	p_ptr->race = previous_char.race;
 	p_ptr->class = previous_char.class;
-	p_ptr->CHARA = previous_char.CHARA;
+	p_ptr->chara = previous_char.chara;
 	p_ptr->realm1 = previous_char.realm1;
 	p_ptr->realm2 = previous_char.realm2;
 	p_ptr->age = previous_char.age;
@@ -2766,7 +2766,7 @@ static void get_extra(bool roll_hitdice)
 	for (i = 0; i < 5; i++)
 		for (j = 0; j < 64; j++)
 			p_ptr->weapon_exp[i][j] = s_info[p_ptr->class].w_start[i][j];
-	if ((p_ptr->CHARA == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+	if ((p_ptr->chara == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 	{
 		p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 	}
@@ -3112,9 +3112,9 @@ static void get_money(void)
 	/* Minimum 100 gold */
 	if (gold < 100) gold = 100;
 
-	if (p_ptr->CHARA == CHARA_NAMAKE)
+	if (p_ptr->chara == CHARA_NAMAKE)
 		gold /= 2;
-	else if (p_ptr->CHARA == CHARA_MUNCHKIN)
+	else if (p_ptr->chara == CHARA_MUNCHKIN)
 		gold = 10000000;
 	if (p_ptr->race == RACE_ANDROID) gold /= 5;
 
@@ -3990,7 +3990,7 @@ void player_outfit(void)
 	}
 	else if (p_ptr->class == CLASS_TOURIST)
 	{
-		if (p_ptr->CHARA != CHARA_SEXY)
+		if (p_ptr->chara != CHARA_SEXY)
 		{
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
@@ -4041,7 +4041,7 @@ void player_outfit(void)
 		add_outfit(q_ptr);
 	}
 
-	if(p_ptr->CHARA == CHARA_SEXY)
+	if(p_ptr->chara == CHARA_SEXY)
 	{
 		player_init[p_ptr->class][2][0] = TV_HAFTED;
 		player_init[p_ptr->class][2][1] = SV_WHIP;
@@ -5187,7 +5187,7 @@ static bool get_player_CHARA(void)
 
 	/* Get a CHARA */
 	k = -1;
-	cs = p_ptr->CHARA;
+	cs = p_ptr->chara;
 	os = MAX_CHARA;
 	while (1)
 	{
@@ -5355,8 +5355,8 @@ static bool get_player_CHARA(void)
 	}
 
 	/* Set CHARA */
-	p_ptr->CHARA = k;
-	ap_ptr = &CHARA_info[p_ptr->CHARA];
+	p_ptr->chara = k;
+	ap_ptr = &CHARA_info[p_ptr->chara];
 #ifdef JP
 	strcpy(tmp, ap_ptr->title);
 	if(ap_ptr->no == 1)
@@ -6682,7 +6682,7 @@ static bool player_birth_aux(void)
 
 
 	/* Choose the players CHARA */
-	p_ptr->CHARA = 0;
+	p_ptr->chara = 0;
 	while(1)
 	{
 		char temp[80*8];
@@ -6691,7 +6691,7 @@ static bool player_birth_aux(void)
 		if (!get_player_CHARA()) return FALSE;
 
 		clear_from(10);
-		roff_to_buf(CHARA_jouhou[p_ptr->CHARA], 74, temp, sizeof(temp));
+		roff_to_buf(CHARA_jouhou[p_ptr->chara], 74, temp, sizeof(temp));
 		t = temp;
 
 		for (i = 0; i< 6; i++)
@@ -7289,7 +7289,7 @@ static bool ask_quick_start(void)
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
 	mp_ptr = &m_info[p_ptr->class];
-	ap_ptr = &CHARA_info[p_ptr->CHARA];
+	ap_ptr = &CHARA_info[p_ptr->chara];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);
@@ -7397,9 +7397,9 @@ void player_birth(void)
 	}
 
 #ifdef JP
-	sprintf(buf,"                            性格に%sを選択した。", CHARA_info[p_ptr->CHARA].title);
+	sprintf(buf,"                            性格に%sを選択した。", CHARA_info[p_ptr->chara].title);
 #else
-	sprintf(buf,"                            choose %s.", CHARA_info[p_ptr->CHARA].title);
+	sprintf(buf,"                            choose %s.", CHARA_info[p_ptr->chara].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7470,12 +7470,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(CHARA_jouhou[p_ptr->CHARA], 78, temp, sizeof(temp));
+	roff_to_buf(CHARA_jouhou[p_ptr->chara], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "性格: %s\n", CHARA_info[p_ptr->CHARA].title);
+	fprintf(fff, "性格: %s\n", CHARA_info[p_ptr->chara].title);
 #else
-	fprintf(fff, "Pesonality: %s\n", CHARA_info[p_ptr->CHARA].title);
+	fprintf(fff, "Pesonality: %s\n", CHARA_info[p_ptr->chara].title);
 #endif
 	t = temp;
 	for (i = 0; i < 6; i++)

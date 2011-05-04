@@ -544,7 +544,7 @@ static void save_quick_start(void)
 	wr_s16b(previous_char.race);
 	for (i = 0; i < 8; i++) wr_u32b(previous_char.sub_race[i]);
 	wr_byte(previous_char.class);
-	wr_byte(previous_char.CHARA);
+	wr_byte(previous_char.chara);
 	wr_byte(previous_char.realm1);
 	wr_byte(previous_char.realm2);
 
@@ -599,7 +599,7 @@ static void wr_extra(void)
 	wr_s16b(p_ptr->race);
 	for (i = 0; i < 8; i++) wr_u32b(p_ptr->sub_race[i]);
 	wr_byte(p_ptr->class);
-	wr_byte(p_ptr->CHARA);
+	wr_byte(p_ptr->chara);
 	wr_s16b(p_ptr->sex);
 	wr_byte(p_ptr->realm1);
 	wr_byte(p_ptr->realm2);

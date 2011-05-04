@@ -528,7 +528,7 @@ errr top_twenty(void)
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", p_ptr->race);
 	sprintf(the_score.p_c, "%2d", p_ptr->class);
-	sprintf(the_score.p_a, "%2d", p_ptr->CHARA);
+	sprintf(the_score.p_a, "%2d", p_ptr->chara);
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);
@@ -650,7 +650,7 @@ msg_print("スコア・ファイルが使用できません。");
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", p_ptr->race);
 	sprintf(the_score.p_c, "%2d", p_ptr->class);
-	sprintf(the_score.p_a, "%2d", p_ptr->CHARA);
+	sprintf(the_score.p_a, "%2d", p_ptr->chara);
 
 	/* Save the level and such */
 	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);

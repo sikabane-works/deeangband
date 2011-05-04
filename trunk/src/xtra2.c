@@ -661,7 +661,7 @@ cptr extract_note_dies(monster_race *r_ptr)
 		}
 
 #ifdef JP
-	if(p_ptr->CHARA == CHARA_CHARGEMAN)
+	if(p_ptr->chara == CHARA_CHARGEMAN)
 		return "を倒した。ごめんね～";
 	else
 		return "を倒した。";
@@ -672,7 +672,7 @@ cptr extract_note_dies(monster_race *r_ptr)
 
 	/* Assume a default death */
 #ifdef JP
-	if(p_ptr->CHARA == CHARA_CHARGEMAN)
+	if(p_ptr->chara == CHARA_CHARGEMAN)
 		return "は死んだ。ごめんね～";
 	else
 		return "は死んだ。";
@@ -1006,7 +1006,7 @@ msg_print("地面に落とされた。");
 	case MON_MORGOTH:
 	case MON_ONE_RING:
 		/* Reward for "lazy" player */
-		if (p_ptr->CHARA == CHARA_NAMAKE)
+		if (p_ptr->chara == CHARA_NAMAKE)
 		{
 			int a_idx = 0;
 			artifact_type *a_ptr = NULL;
@@ -1973,9 +1973,9 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 		else if (!m_ptr->ml)
 		{
 #ifdef JP
-			if ((p_ptr->CHARA == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを殺した。", m_name);
-			else if(p_ptr->CHARA == CHARA_CHARGEMAN)
+			else if(p_ptr->chara == CHARA_CHARGEMAN)
 				msg_format("%sを殺した。ごめんね～", m_name);
 			else
 				msg_format("%sを殺した。", m_name);
@@ -2006,13 +2006,13 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			else
 			{
 #ifdef JP
-				if ((p_ptr->CHARA == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_format("せっかくだから%sを倒した。", m_name);
-				else if(p_ptr->CHARA == CHARA_CHARGEMAN)
+				else if(p_ptr->chara == CHARA_CHARGEMAN)
 					msg_format("%s！お許し下さい！", m_name);
 				else
 msg_format("%sを倒した。", m_name);
-				if (p_ptr->CHARA == CHARA_CHARGEMAN)
+				if (p_ptr->chara == CHARA_CHARGEMAN)
 					msg_format("%s!お許し下さい！", m_name);
 #else
 				msg_format("You have destroyed %s.", m_name);
@@ -2024,9 +2024,9 @@ msg_format("%sを倒した。", m_name);
 		else
 		{
 #ifdef JP
-			if ((p_ptr->CHARA == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを葬り去った。", m_name);
-			else if(p_ptr->CHARA == CHARA_CHARGEMAN)
+			else if(p_ptr->chara == CHARA_CHARGEMAN)
 			{
 				msg_format("%sを葬り去った。", m_name);
 				msg_format("%s！お許し下さい！", m_name);

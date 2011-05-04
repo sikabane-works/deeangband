@@ -1829,13 +1829,13 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 {
 
-	if(m_ptr->CHARA != CHARA_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
+	if(m_ptr->chara != CHARA_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
 #ifdef JP
-		(void)strcat(desc, CHARA_info[m_ptr->CHARA].title);
-		if(CHARA_info[m_ptr->CHARA].no)
+		(void)strcat(desc, CHARA_info[m_ptr->chara].title);
+		if(CHARA_info[m_ptr->chara].no)
 			(void)strcat(desc, "‚È");
 #else
-		(void)strcat(desc, CHARA_info[m_ptr->CHARA].tit;e);
+		(void)strcat(desc, CHARA_info[m_ptr->chara].tit;e);
 #endif
 	}
 
@@ -3300,7 +3300,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->re_idx = re_selected;
 	m_ptr->race = rpr_selected;
 	m_ptr->class = rpc_selected;
-	m_ptr->CHARA = rps_selected;
+	m_ptr->chara = rps_selected;
 	m_ptr->ap_r_idx = initial_r_appearance(r_idx);
 
 	/* Save the trait */

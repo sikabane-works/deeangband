@@ -2525,7 +2525,7 @@ static void calc_mana(void)
 
 		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
 
-		if (msp && (p_ptr->CHARA == CHARA_MUNCHKIN)) msp += msp/2;
+		if (msp && (p_ptr->chara == CHARA_MUNCHKIN)) msp += msp/2;
 
 		/* Hack: High mages have a 25% mana bonus */
 		if (msp && (p_ptr->class == CLASS_HIGH_MAGE)) msp += msp / 4;
@@ -3380,7 +3380,7 @@ void calc_bonuses(creature_type *cr_ptr)
 			{
 				if (!(prace_is_(RACE_KLACKON) ||
 				      prace_is_(RACE_SPRITE) ||
-				      (cr_ptr->CHARA == CHARA_MUNCHKIN)))
+				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 
 				/* Free action if unencumbered at level 25 */
@@ -3432,7 +3432,7 @@ void calc_bonuses(creature_type *cr_ptr)
 				new_speed += 3;
 				if (!(prace_is_(RACE_KLACKON) ||
 				      prace_is_(RACE_SPRITE) ||
-				      (cr_ptr->CHARA == CHARA_MUNCHKIN)))
+				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl += (cr_ptr->lev)/10;
 
@@ -3861,16 +3861,19 @@ void calc_bonuses(creature_type *cr_ptr)
 		cr_ptr->resist_time = TRUE;
 	}
 
+
+
 	/* Sexy Gal */
-	if (cr_ptr->CHARA == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
-	if (cr_ptr->CHARA == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
-	if (cr_ptr->CHARA == CHARA_KIREMONO) cr_ptr->to_m_chance -= 3;
-	if ((cr_ptr->CHARA == CHARA_GAMAN) || (cr_ptr->CHARA == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
+	if (cr_ptr->chara == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
+	if (cr_ptr->chara == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
+	if (cr_ptr->chara == CHARA_KIREMONO) cr_ptr->to_m_chance -= 3;
+	if (cr_ptr->chara == CHARA_CHARGEMAN) cr_ptr->resist_conf = TRUE;
+	if ((cr_ptr->chara == CHARA_GAMAN) || (cr_ptr->chara == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
 
 	/* Lucky man */
-	if (cr_ptr->CHARA == CHARA_LUCKY) cr_ptr->muta3 |= MUT3_GOOD_LUCK;
+	if (cr_ptr->chara == CHARA_LUCKY) cr_ptr->muta3 |= MUT3_GOOD_LUCK;
 
-	if (cr_ptr->CHARA == CHARA_MUNCHKIN)
+	if (cr_ptr->chara == CHARA_MUNCHKIN)
 	{
 		cr_ptr->resist_blind = TRUE;
 		cr_ptr->resist_conf  = TRUE;
@@ -5695,7 +5698,7 @@ void calc_bonuses(creature_type *cr_ptr)
 	cr_ptr->skill_tht += ((cp_ptr->x_thb * cr_ptr->lev / 10) + (ap_ptr->a_thb * cr_ptr->lev / 50));
 
 
-	if ((prace_is_(RACE_S_FAIRY)) && (cr_ptr->CHARA != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
+	if ((prace_is_(RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
 	{
 		cr_ptr->cursed &= ~(TRC_AGGRAVATE);
 		cr_ptr->skill_stl = MIN(cr_ptr->skill_stl - 3, (cr_ptr->skill_stl + 2) / 2);

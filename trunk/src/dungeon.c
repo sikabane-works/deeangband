@@ -6824,7 +6824,7 @@ quit("セーブファイルが壊れています");
 	panel_col_min = cur_wid;
 
 	/* Sexy gal gets bonus to maximum weapon skill of whip */
-	if (p_ptr->CHARA == CHARA_SEXY)
+	if (p_ptr->chara == CHARA_SEXY)
 		s_info[p_ptr->class].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 	/* Fill the arrays of floors and walls in the good proportions */

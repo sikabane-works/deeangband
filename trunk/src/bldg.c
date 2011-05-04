@@ -2535,7 +2535,7 @@ void have_nightmare(int r_idx)
 
 					  funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
-		if (one_in_(3))
+		if (one_in_(3) && p_ptr->chara != CHARA_CHARGEMAN)
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
 			p_ptr->image = p_ptr->image + (s16b)randint1(r_ptr->level);
@@ -2595,7 +2595,7 @@ void have_nightmare(int r_idx)
 		{
 			(void)set_confused(p_ptr->confused + randint0(4) + 4);
 		}
-		if (!p_ptr->resist_chaos && one_in_(3))
+		if (!p_ptr->resist_chaos && one_in_(3) && p_ptr->chara == CHARA_CHARGEMAN)
 		{
 			(void)set_image(p_ptr->image + randint0(250) + 150);
 		}
@@ -3267,7 +3267,7 @@ static int hit_chance(int to_h, int ac)
 
 	if (chance > 95) chance = 95;
 	if (chance < 5) chance = 5;
-	if (p_ptr->CHARA == CHARA_NAMAKE)
+	if (p_ptr->chara == CHARA_NAMAKE)
 		chance = (chance*19+9)/20;
 	return chance;
 }
@@ -4897,7 +4897,7 @@ msg_print("お金が足りません！");
 	case BACT_LOSE_MUTATION:
 		if (p_ptr->muta1 || p_ptr->muta2 ||
 		    (p_ptr->muta3 & ~MUT3_GOOD_LUCK) ||
-		    (p_ptr->CHARA != CHARA_LUCKY &&
+		    (p_ptr->chara != CHARA_LUCKY &&
 		     (p_ptr->muta3 & MUT3_GOOD_LUCK)))
 		{
 			while(!lose_mutation(0));
@@ -5054,9 +5054,9 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((p_ptr->CHARA == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (p_ptr->CHARA == CHARA_CHARGEMAN)
+		if (p_ptr->chara == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
