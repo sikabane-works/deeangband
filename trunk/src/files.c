@@ -3341,7 +3341,7 @@ put_str("‚l‚o  :", 8, 1);
  */
 static void display_player_stat_info(void)
 {
-	int i, e_adj;
+	int i, j, e_adj;
 	int stat_col, stat;
 	int row, col;
 
@@ -3415,6 +3415,10 @@ c_put_str(TERM_YELLOW, "Œ»İ", row, stat_col+35);
 					break;
 			}
 		}
+
+		for(j = 0; j < 10; j++)
+			if(race_info[p_ptr->race].lev > race_unreached_level_penalty[j] && p_ptr->lev < race_unreached_level_penalty[j])
+				r_adj--;
 
 		e_adj -= r_adj;
 		e_adj -= cp_ptr->c_adj[i];

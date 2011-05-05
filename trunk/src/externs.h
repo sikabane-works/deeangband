@@ -41,7 +41,7 @@ extern autopick_type *autopick_list;
 /* tables.c */
 extern byte d_level_to_c_level[128];
 extern byte d_level_to_c_level_u[128];
-extern byte race_unreached_level_penalty[8];
+extern byte race_unreached_level_penalty[10];
 extern s16b ddd[9];
 extern s16b ddx[10];
 extern s16b ddy[10];

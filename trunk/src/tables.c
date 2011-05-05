@@ -51,9 +51,9 @@ byte d_level_to_c_level_u[128] =
  60, 60, 60, 60, 60, 60, 60
 };
 
-byte race_unreached_level_penalty[8] = 
+byte race_unreached_level_penalty[10] = 
 {
-	1, 5, 9, 13, 18, 23, 29, 35
+	6, 10, 14, 18, 22, 26, 30, 34, 38, 42,
 };
 
 
