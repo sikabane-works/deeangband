@@ -430,7 +430,7 @@ errr report_score(void)
 	sprintf(CHARAtmp, "%s ", ap_ptr->title);
 #endif
 
-	buf_sprintf(score, "name: %s\n", player_name);
+	buf_sprintf(score, "name: %s\n", p_ptr->name);
 #ifdef JP
 	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
 		    FAKE_VER_MAJOR-10, FAKE_VER_MINOR, FAKE_VER_PATCH);

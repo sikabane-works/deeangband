@@ -1018,25 +1018,25 @@ struct player_patron
 
 
 
-typedef struct player_CHARA player_CHARA;
-struct player_CHARA
+typedef struct player_chara player_chara;
+struct player_chara
 {
-	cptr title;			/* Type of CHARA */
+	cptr title;			/* Type of chara */
 
 #ifdef JP
 	cptr E_title;		/* âpåÍê´äi */
 #endif
 
-	s16b a_adj[6];		/* CHARA stat bonuses */
+	s16b a_adj[6];		/* chara stat bonuses */
 
-	s16b a_dis;			/* CHARA disarming */
-	s16b a_dev;			/* CHARA magic devices */
-	s16b a_sav;			/* CHARA saving throw */
-	s16b a_stl;			/* CHARA stealth */
-	s16b a_srh;			/* CHARA search ability */
-	s16b a_fos;			/* CHARA search frequency */
-	s16b a_thn;			/* CHARA combat (normal) */
-	s16b a_thb;			/* CHARA combat (shooting) */
+	s16b a_dis;			/* chara disarming */
+	s16b a_dev;			/* chara magic devices */
+	s16b a_sav;			/* chara saving throw */
+	s16b a_stl;			/* chara stealth */
+	s16b a_srh;			/* chara search ability */
+	s16b a_fos;			/* chara search frequency */
+	s16b a_thn;			/* chara combat (normal) */
+	s16b a_thb;			/* chara combat (shooting) */
 
 	s16b a_mhp;			/* patron hit-dice modifier */
 
@@ -1064,6 +1064,7 @@ typedef struct creature_type creature_type;
 
 struct creature_type
 {
+	char name[128];
 
 	s16b oldpy;		/* Previous player location -KMW- */
 	s16b oldpx;		/* Previous player location -KMW- */

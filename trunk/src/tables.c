@@ -4747,7 +4747,7 @@ player_class class_info[MAX_CLASS] =
 	},
 };
 
-player_CHARA CHARA_info[MAX_CHARA] =
+player_chara chara_info[MAX_CHARA] =
 {
 	{
 #ifdef JP

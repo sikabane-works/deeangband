@@ -401,14 +401,9 @@ int player_euid;
 int player_egid;
 
 /*
- * Current player's character name
- */
-char player_name[32];
-
-/*
  * Stripped version of "player_name"
  */
-char player_base[32];
+char player_base[64];
 
 
 /*
@@ -793,7 +788,7 @@ creature_type *p_ptr = &p_body;
 player_sex *sp_ptr;
 intelligent_race *rp_ptr;
 player_class *cp_ptr;
-player_CHARA *ap_ptr;
+player_chara *ap_ptr;
 player_magic *mp_ptr;
 
 

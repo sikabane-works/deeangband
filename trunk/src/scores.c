@@ -265,7 +265,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 /*sprintf(out_val, "%3d.%9s  %s%s%sという名の%sの%s (レベル %d)", */
 			sprintf(out_val, "%3d.%9s  %s%s%s - %s%s (レベル %d)",
 				place, the_score.pts,
-				CHARA_info[pa].title, (CHARA_info[pa].no ? "の" : ""),
+				chara_info[pa].title, (chara_info[pa].no ? "の" : ""),
 				the_score.who,
 				race_info[pr].title, class_info[pc].title,
 				clev);
@@ -273,7 +273,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 #else
 			sprintf(out_val, "%3d.%9s  %s %s the %s %s, Level %d",
 				place, the_score.pts,
-				CHARA_info[pa].title,
+				chara_info[pa].title,
 				the_score.who, race_info[pr].title, class_info[pc].title,
 				clev);
 #endif
@@ -521,7 +521,7 @@ errr top_twenty(void)
 #endif
 
 	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", player_name);
+	sprintf(the_score.who, "%-.15s", p_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
@@ -643,7 +643,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 
 	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", player_name);
+	sprintf(the_score.who, "%-.15s", p_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
@@ -754,10 +754,10 @@ msg_print("スコア・ファイルが使用できません。");
 
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-	    race_info[p_ptr->race].title,player_name, p_ptr->lev);
+	    race_info[p_ptr->race].title,p_ptr->name, p_ptr->lev);
 #else
 	sprintf(out_val, "You) %s the %s (Level %2d)",
-	    player_name, race_info[p_ptr->race].title, p_ptr->lev);
+	    p_ptr->name, race_info[p_ptr->race].title, p_ptr->lev);
 #endif
 
 	prt(out_val, (m + 8), 0);
@@ -857,10 +857,10 @@ msg_print("スコア・ファイルが使用できません。");
 	{
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-		     race_info[p_ptr->race].title,player_name, p_ptr->lev);
+		     race_info[p_ptr->race].title,p_ptr->name, p_ptr->lev);
 #else
 		sprintf(out_val, "You) %s the %s (Level %3d)",
-		    player_name, race_info[p_ptr->race].title, p_ptr->lev);
+		    p_ptr->name, race_info[p_ptr->race].title, p_ptr->lev);
 #endif
 
 		prt(out_val, (m + 8), 0);

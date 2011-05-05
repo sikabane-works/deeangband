@@ -1847,7 +1847,7 @@ static void spoil_mon_desc(cptr fname)
 			if(r_ptr->i_faith != PATRON_NONE)
 				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];
 			if(r_ptr->i_chara != CHARA_NONE)
-				stat[j] += CHARA_info[r_ptr->i_chara].a_adj[j];
+				stat[j] += chara_info[r_ptr->i_chara].a_adj[j];
 		}
 
 		if(r_ptr->flags2 & RF2_STUPID){
@@ -2021,7 +2021,7 @@ static void spoil_mon_desc(cptr fname)
 		else if(r_ptr->i_chara < MAX_CHARA)
 		{
 			strcat(trait, "/«Ši:");
-			strcat(trait, CHARA_info[r_ptr->i_chara].title);
+			strcat(trait, chara_info[r_ptr->i_chara].title);
 		}
 
 		if(r_ptr->flagse & RFE_PATRON_EGO) 

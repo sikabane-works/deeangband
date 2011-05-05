@@ -965,7 +965,7 @@ static void rd_extra(void)
 	s16b tmp16s;
 	byte max;
 
-	rd_string(player_name, sizeof(player_name));
+	rd_string(p_ptr->name, sizeof(p_ptr->name));
 
 	rd_string(p_ptr->died_from, sizeof(p_ptr->died_from));
 
@@ -2597,7 +2597,7 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	/* Important -- Initialize the race/class */
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
-	ap_ptr = &CHARA_info[p_ptr->chara];
+	ap_ptr = &chara_info[p_ptr->chara];
 
 	/* Important -- Initialize the magic */
 	mp_ptr = &m_info[p_ptr->class];

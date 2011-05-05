@@ -6558,10 +6558,11 @@ void set_subrace(int n, bool b)
 
 
 /* Return Race Name */
-cptr get_intelligent_race_name(void){
+cptr get_intelligent_race_name(creature_type *cr_ptr){
 	int i;
 	bool subflag;
 	char name[80];
+	intelligent_race *rp_ptr = &race_info[cr_ptr->race];
 	name[0] = '\0';
 
 	if(get_subrace(RACE_BEASTMAN))
@@ -6574,7 +6575,7 @@ cptr get_intelligent_race_name(void){
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
 
-	switch(p_ptr->race){
+	switch(cr_ptr->race){
 		case RACE_HUMAN:
 			subflag = FALSE;
 			for(i = 0; i < MAX_RACES; i++)

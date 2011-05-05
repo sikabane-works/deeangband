@@ -1021,9 +1021,9 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			/* Player */
 			else if (streq(b+1, "PLAYER"))
 			{
-				static char tmp_player_name[32];
+				static char tmp_player_name[128];
 				char *pn, *tpn;
-				for (pn = player_name, tpn = tmp_player_name; *pn; pn++, tpn++)
+				for (pn = p_ptr->name, tpn = tmp_player_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
 					if (iskanji(*pn))
@@ -3300,10 +3300,10 @@ put_str("信仰:", 5, 1);
 #else
 		strcat(tmp," ");
 #endif
-	strcat(tmp,player_name);
+	strcat(tmp,p_ptr->name);
 
 	c_put_str(TERM_L_BLUE, tmp, 1, 7);
-	c_put_str(TERM_L_BLUE, get_intelligent_race_name(), 2, 7);
+	c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 2, 7);
 	c_put_str(TERM_L_BLUE, sp_ptr->title, 3, 7);
 	c_put_str(TERM_L_BLUE, cp_ptr->title, 4, 7);
 
@@ -3655,6 +3655,10 @@ void display_player(int mode, creature_type *cr_ptr)
 	char	buf[80];
 	char	tmp[64];
 
+	intelligent_race *ir_ptr = &race_info[cr_ptr->race];
+	player_class *cl_ptr = &class_info[cr_ptr->class];
+	player_chara *ch_ptr = &chara_info[cr_ptr->chara];
+
 
 	/* XXX XXX XXX */
 	if ((cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3) && display_mutations)
@@ -3669,21 +3673,35 @@ void display_player(int mode, creature_type *cr_ptr)
 	if ((mode == 0) || (mode == 1))
 	{
 		/* Name, Sex, Race, Class */
-		if(cr_ptr->class != CHARA_NONE){ 
+		if(cr_ptr->chara != CHARA_NONE){ 
 #ifdef JP
-			sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "の":"", player_name);
+			sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "の":"", cr_ptr->name);
 #else
-			sprintf(tmp, "%s  %s", ap_ptr->title, player_name);
+			sprintf(tmp, "%s  %s", ap_ptr->title, cr_ptr->name);
 #endif
 		}
-
+		else
+		{
+			sprintf(tmp, "%s", cr_ptr->name);
+		}
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
 		if(cr_ptr->sexual_penalty) display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_YELLOW);
 		else display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_L_BLUE);
 
-		if(cr_ptr->race != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(), TERM_L_BLUE);
-		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cp_ptr->title, TERM_L_BLUE);
+		if(cr_ptr->race != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(cr_ptr), TERM_L_BLUE);
+#ifdef JP
+		else display_player_one_line(ENTRY_RACE, "その他", TERM_L_DARK);
+#else
+		else display_player_one_line(ENTRY_RACE, "etc..", TERM_L_DARK);
+#endif
+
+		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cl_ptr->title, TERM_L_BLUE);
+#ifdef JP
+		else display_player_one_line(ENTRY_CLASS, "(なし)", TERM_L_DARK);
+#else
+		else display_player_one_line(ENTRY_CLASSS, "(None)", TERM_L_DARK);
+#endif
 
 		if (cr_ptr->realm2)
 			sprintf(tmp, "%s, %s", realm_names[cr_ptr->realm1], realm_names[cr_ptr->realm2]);
@@ -5930,7 +5948,7 @@ prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
 				break;
 			}
 
-			sprintf(xtmp, "%s: %s", player_name, what ? what : caption);
+			sprintf(xtmp, "%s: %s", p_ptr->name, what ? what : caption);
 			my_fputs(ffp, xtmp, 80);
 			my_fputs(ffp, "\n", 80);
 
@@ -6002,38 +6020,38 @@ void process_player_name(bool sf)
 	/* Cannot be too long */
 #if defined(MACINTOSH) || defined(MSDOS) || defined(USE_EMX) || defined(AMIGA) || defined(ACORN) || defined(VM)
 #ifdef MSDOS
-	if (strlen(player_name) > 8)
+	if (strlen(p_ptr->name) > 8)
 #else
-	if (strlen(player_name) > 15)
+	if (strlen(p_ptr->name) > 15)
 #endif
 	{
 		/* Name too long */
 #ifdef JP
-quit_fmt("'%s'という名前は長すぎます！", player_name);
+quit_fmt("'%s'という名前は長すぎます！", p_ptr->name);
 #else
-		quit_fmt("The name '%s' is too long!", player_name);
+		quit_fmt("The name '%s' is too long!", p_ptr->name);
 #endif
 
 	}
 #endif
 
 	/* Cannot contain "icky" characters */
-	for (i = 0; player_name[i]; i++)
+	for (i = 0; p_ptr->name[i]; i++)
 	{
 		/* No control characters */
 #ifdef JP
-		if (iskanji(player_name[i])){i++;continue;}
-		if (iscntrl( (unsigned char)player_name[i]))
+		if (iskanji(p_ptr->name[i])){i++;continue;}
+		if (iscntrl( (unsigned char)p_ptr->name[i]))
 #else
-		if (iscntrl(player_name[i]))
+		if (iscntrl(p_ptr->name[i]))
 #endif
 
 		{
 			/* Illegal characters */
 #ifdef JP
-quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", player_name);
+quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->name);
 #else
-			quit_fmt("The name '%s' contains control chars!", player_name);
+			quit_fmt("The name '%s' contains control chars!", p_ptr->name);
 #endif
 
 		}
@@ -6043,12 +6061,12 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", player_nam
 #ifdef MACINTOSH
 
 	/* Extract "useful" letters */
-	for (i = 0; player_name[i]; i++)
+	for (i = 0; p_ptr->name[i]; i++)
 	{
 #ifdef JP
-		unsigned char c = player_name[i];
+		unsigned char c = p_ptr->name[i];
 #else
-		char c = player_name[i];
+		char c = p_ptr->name[i];
 #endif
 
 
@@ -6062,21 +6080,21 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", player_nam
 #else
 
 	/* Extract "useful" letters */
-	for (i = 0; player_name[i]; i++)
+	for (i = 0; p_ptr->name[i]; i++)
 	{
 #ifdef JP
-		unsigned char c = player_name[i];
+		unsigned char c = p_ptr->name[i];
 #else
-		char c = player_name[i];
+		char c = p_ptr->name[i];
 #endif
 
 		/* Accept some letters */
 #ifdef JP
 		if(iskanji(c)){
-		  if(k + 2 >= sizeof(player_base) || !player_name[i+1]) break;
+		  if(k + 2 >= sizeof(player_base) || !p_ptr->name[i+1]) break;
 		  player_base[k++] = c;
 		  i++;
-		  player_base[k++] = player_name[i];
+		  player_base[k++] = p_ptr->name[i];
 		}
 #ifdef SJIS
 		else if (iskana(c)) player_base[k++] = c;
@@ -6084,7 +6102,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", player_nam
 		else
 #endif
 		/* Convert path separator to underscore */
-		if (!strncmp(PATH_SEP, player_name+i, strlen(PATH_SEP))){
+		if (!strncmp(PATH_SEP, p_ptr->name+i, strlen(PATH_SEP))){
 			player_base[k++] = '_';
 			i += strlen(PATH_SEP);
 		}
@@ -6185,23 +6203,23 @@ void get_name(void)
 	char tmp[64];
 
 	/* Save the player name */
-	strcpy(tmp, player_name);
+	strcpy(tmp, p_ptr->name);
 
 	/* Prompt for a new name */
 #ifdef JP
-	if (get_string("キャラクターの名前を入力して下さい: ", tmp, 15))
+	if (get_string("キャラクターの名前を入力して下さい: ", tmp, 60))
 #else
-	if (get_string("Enter a name for your character: ", tmp, 15))
+	if (get_string("Enter a name for your character: ", tmp, 60))
 #endif
 	{
 		/* Use the name */
-		strcpy(player_name, tmp);
+		strcpy(p_ptr->name, tmp);
 	}
 
-	if (0 == strlen(player_name))
+	if (0 == strlen(p_ptr->name))
 	{
 		/* Use default name */
-		strcpy(player_name, "PLAYER");
+		strcpy(p_ptr->name, "PLAYER");
 	}
 
 	strcpy(tmp,ap_ptr->title);
@@ -6211,7 +6229,7 @@ void get_name(void)
 #else
 	strcat(tmp, " ");
 #endif
-	strcat(tmp,player_name);
+	strcat(tmp,p_ptr->name);
 
 	/* Re-Draw the name (in light blue) */
 	Term_erase(34, 1, 255);
@@ -6585,7 +6603,7 @@ static void make_bones(void)
 			if (!fp) return;
 
 			/* Save the info */
-			fprintf(fp, "%s\n", player_name);
+			fprintf(fp, "%s\n", p_ptr->name);
 			fprintf(fp, "%d\n", p_ptr->mhp);
 			fprintf(fp, "%d\n", p_ptr->race);
 			fprintf(fp, "%d\n", p_ptr->class);
@@ -6678,7 +6696,7 @@ static void print_tomb(void)
 			p =  player_title[p_ptr->class][(p_ptr->lev - 1) / 6];
 		}
 
-		center_string(buf, player_name);
+		center_string(buf, p_ptr->name);
 		put_str(buf, 6, 11);
 
 #ifndef JP
@@ -6827,9 +6845,9 @@ static void print_tomb(void)
 		put_str(buf, 17, 11);
 
 #ifdef JP
-		msg_format("さようなら、%s!", player_name);
+		msg_format("さようなら、%s!", p_ptr->name);
 #else
-		msg_format("Goodbye, %s!", player_name);
+		msg_format("Goodbye, %s!", p_ptr->name);
 #endif
 	}
 }

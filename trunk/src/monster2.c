@@ -1831,11 +1831,11 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 
 	if(m_ptr->chara != CHARA_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
 #ifdef JP
-		(void)strcat(desc, CHARA_info[m_ptr->chara].title);
-		if(CHARA_info[m_ptr->chara].no)
+		(void)strcat(desc, chara_info[m_ptr->chara].title);
+		if(chara_info[m_ptr->chara].no)
 			(void)strcat(desc, "‚È");
 #else
-		(void)strcat(desc, CHARA_info[m_ptr->chara].tit;e);
+		(void)strcat(desc, chara_info[m_ptr->chara].tit;e);
 #endif
 	}
 
@@ -3123,7 +3123,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	if (cheat_hear)
 	{
 		if(rps_selected != CHARA_NONE)
-			msg_format("[Chara:%s]", CHARA_info[rps_selected].title);
+			msg_format("[Chara:%s]", chara_info[rps_selected].title);
 	}
 
 
@@ -3584,6 +3584,8 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 		note_spot(y, x);
 		lite_spot(y, x);
 	}
+
+	strcpy(m_ptr->name, r_name + r_ptr->name);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)

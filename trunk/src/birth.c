@@ -5137,7 +5137,7 @@ static bool get_player_class(void)
 /*
  * Player CHARA
  */
-static bool get_player_CHARA(void)
+static bool get_player_chara(void)
 {
 	int     k, n, os, cs;
 	char    c;
@@ -5159,10 +5159,10 @@ static bool get_player_CHARA(void)
 	/* Dump CHARAs */
 	for (n = 0; n < MAX_CHARA; n++)
 	{
-		if(!(CHARA_info[n].sex & (0x01 << p_ptr->sex))) continue;
+		if(!(chara_info[n].sex & (0x01 << p_ptr->sex))) continue;
 
 		/* Analyze */
-		ap_ptr = &CHARA_info[n];
+		ap_ptr = &chara_info[n];
 		str = ap_ptr->title;
 		if (n < 26)
 			sym[n] = I2A(n);
@@ -5208,7 +5208,7 @@ static bool get_player_CHARA(void)
 			}
 			else
 			{
-				ap_ptr = &CHARA_info[cs];
+				ap_ptr = &chara_info[cs];
 				str = ap_ptr->title;
 #ifdef JP
 					sprintf(cur, "%c%c%s", sym[cs], p2, str);
@@ -5253,7 +5253,7 @@ static bool get_player_CHARA(void)
 				{
 					k = randint0(MAX_CHARA);
 				}
-				while(!(CHARA_info[k].sex & (0x01 << p_ptr->sex)));
+				while(!(chara_info[k].sex & (0x01 << p_ptr->sex)));
 				cs = k;
 				continue;
 			}
@@ -5269,14 +5269,14 @@ static bool get_player_CHARA(void)
 			{
 				k = randint0(n);
 			}
-			while(!(CHARA_info[k].sex & (0x01 << p_ptr->sex)));
+			while(!(chara_info[k].sex & (0x01 << p_ptr->sex)));
 			cs = k;
 			continue;
 		}
 		if (c == '8')
 		{
 			if (cs >= 4) cs -= 4;
-			if (!(CHARA_info[cs].sex & (0x01 << p_ptr->sex)))
+			if (!(chara_info[cs].sex & (0x01 << p_ptr->sex)))
 			{
 				if((cs - 4) > 0)
 					cs -= 4;
@@ -5291,7 +5291,7 @@ static bool get_player_CHARA(void)
 				cs--;
 				if(cs < 0) cs = MAX_CHARA; 
 			}
-			while(cs != MAX_CHARA && !(CHARA_info[cs].sex & (0x01 << p_ptr->sex)));
+			while(cs != MAX_CHARA && !(chara_info[cs].sex & (0x01 << p_ptr->sex)));
 		}
 		if (c == '6')
 		{
@@ -5300,12 +5300,12 @@ static bool get_player_CHARA(void)
 				cs++;
 				if(cs > MAX_CHARA) cs = 0; 
 			}
-			while(cs != MAX_CHARA && !(CHARA_info[cs].sex & (0x01 << p_ptr->sex)));
+			while(cs != MAX_CHARA && !(chara_info[cs].sex & (0x01 << p_ptr->sex)));
 		}
 		if (c == '2')
 		{
 			if ((cs + 4) <= MAX_CHARA) cs += 4;
-			if (!(CHARA_info[cs].sex & (0x01 << p_ptr->sex)))
+			if (!(chara_info[cs].sex & (0x01 << p_ptr->sex)))
 			{
 				if((cs + 4) <= MAX_CHARA)
 					cs += 4;
@@ -5316,7 +5316,7 @@ static bool get_player_CHARA(void)
 		k = (islower(c) ? A2I(c) : -1);
 		if ((k >= 0) && (k < MAX_CHARA))
 		{
-			if(CHARA_info[cs].sex & (0x01 << p_ptr->sex))
+			if(chara_info[cs].sex & (0x01 << p_ptr->sex))
 			{
 				cs = k;
 				continue;
@@ -5325,7 +5325,7 @@ static bool get_player_CHARA(void)
 		k = (isupper(c) ? (26 + c - 'A') : -1);
 		if ((k >= 26) && (k < MAX_CHARA))
 		{
-			if(CHARA_info[cs].sex & (0x01 << p_ptr->sex))
+			if(chara_info[cs].sex & (0x01 << p_ptr->sex))
 			{
 				cs = k;
 				continue;
@@ -5356,7 +5356,7 @@ static bool get_player_CHARA(void)
 
 	/* Set CHARA */
 	p_ptr->chara = k;
-	ap_ptr = &CHARA_info[p_ptr->chara];
+	ap_ptr = &chara_info[p_ptr->chara];
 #ifdef JP
 	strcpy(tmp, ap_ptr->title);
 	if(ap_ptr->no == 1)
@@ -5365,7 +5365,7 @@ static bool get_player_CHARA(void)
 	strcpy(tmp, ap_ptr->title);
 	strcat(tmp," ");
 #endif
-	strcat(tmp,player_name);
+	strcat(tmp, p_ptr->name);
 
 
 	/* Display */
@@ -6333,7 +6333,7 @@ static bool player_birth_aux(void)
 
 
 	/* Dump the default name */
-	c_put_str(TERM_L_BLUE, player_name, 1, 6);
+	c_put_str(TERM_L_BLUE, p_ptr->name, 1, 6);
 
 	/*** Instructions ***/
 
@@ -6433,7 +6433,7 @@ static bool player_birth_aux(void)
 //		set_subrace(RACE_TELERI_LINEAGE, FALSE);
 		
 		clear_from(10);
-		c_put_str(TERM_L_BLUE, get_intelligent_race_name(), 3, 8);
+		c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 3, 8);
 		}
 	}
 
@@ -6498,7 +6498,7 @@ static bool player_birth_aux(void)
 #endif
 				
 		clear_from(10);
-		c_put_str(TERM_L_BLUE, get_intelligent_race_name(), 3, 8);
+		c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 3, 8);
 		}
 	}
 
@@ -6688,7 +6688,7 @@ static bool player_birth_aux(void)
 		char temp[80*8];
 		cptr t;
 
-		if (!get_player_CHARA()) return FALSE;
+		if (!get_player_chara()) return FALSE;
 
 		clear_from(10);
 		roff_to_buf(CHARA_jouhou[p_ptr->chara], 74, temp, sizeof(temp));
@@ -6709,8 +6709,8 @@ static bool player_birth_aux(void)
 #else
 		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
 #endif
-		c_put_str(TERM_L_BLUE, player_name, 1, 6);
-		prt("", 1, 34+strlen(player_name));
+		c_put_str(TERM_L_BLUE, p_ptr->name, 1, 6);
+		prt("", 1, 34+strlen(p_ptr->name));
 	}
 
 	/* Clean up */
@@ -7289,7 +7289,7 @@ static bool ask_quick_start(void)
 	rp_ptr = &race_info[p_ptr->race];
 	cp_ptr = &class_info[p_ptr->class];
 	mp_ptr = &m_info[p_ptr->class];
-	ap_ptr = &CHARA_info[p_ptr->chara];
+	ap_ptr = &chara_info[p_ptr->chara];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);
@@ -7397,9 +7397,9 @@ void player_birth(void)
 	}
 
 #ifdef JP
-	sprintf(buf,"                            «Ši‚É%s‚ð‘I‘ð‚µ‚½B", CHARA_info[p_ptr->chara].title);
+	sprintf(buf,"                            «Ši‚É%s‚ð‘I‘ð‚µ‚½B", chara_info[p_ptr->chara].title);
 #else
-	sprintf(buf,"                            choose %s.", CHARA_info[p_ptr->chara].title);
+	sprintf(buf,"                            choose %s.", chara_info[p_ptr->chara].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7473,9 +7473,9 @@ void dump_yourself(FILE *fff)
 	roff_to_buf(CHARA_jouhou[p_ptr->chara], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "«Ši: %s\n", CHARA_info[p_ptr->chara].title);
+	fprintf(fff, "«Ši: %s\n", chara_info[p_ptr->chara].title);
 #else
-	fprintf(fff, "Pesonality: %s\n", CHARA_info[p_ptr->chara].title);
+	fprintf(fff, "Pesonality: %s\n", chara_info[p_ptr->chara].title);
 #endif
 	t = temp;
 	for (i = 0; i < 6; i++)
