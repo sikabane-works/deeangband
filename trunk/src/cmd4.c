@@ -1246,12 +1246,12 @@ void do_cmd_change_name(void)
 		update_playtime();
 
 		/* Display the player */
-		display_player(mode);
+		display_player(mode, p_ptr);
 
 		if (mode == 4)
 		{
 			mode = 0;
-			display_player(mode);
+			display_player(mode, p_ptr);
 		}
 
 		/* Prompt */

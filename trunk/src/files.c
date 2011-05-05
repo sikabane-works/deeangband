@@ -3648,7 +3648,7 @@ c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
  * Mode 3 = summary of various things (part 2)
  * Mode 4 = mutations
  */
-void display_player(int mode)
+void display_player(int mode, creature_type *cr_ptr)
 {
 	int i;
 
@@ -3657,7 +3657,7 @@ void display_player(int mode)
 
 
 	/* XXX XXX XXX */
-	if ((p_ptr->muta1 || p_ptr->muta2 || p_ptr->muta3) && display_mutations)
+	if ((cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3) && display_mutations)
 		mode = (mode % 5);
 	else
 		mode = (mode % 4);
@@ -3669,33 +3669,35 @@ void display_player(int mode)
 	if ((mode == 0) || (mode == 1))
 	{
 		/* Name, Sex, Race, Class */
+		if(cr_ptr->class != CHARA_NONE){ 
 #ifdef JP
-		sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "の":"", player_name);
+			sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "の":"", player_name);
 #else
-		sprintf(tmp, "%s  %s", ap_ptr->title, player_name);
+			sprintf(tmp, "%s  %s", ap_ptr->title, player_name);
 #endif
+		}
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(p_ptr->sexual_penalty) display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_YELLOW);
+		if(cr_ptr->sexual_penalty) display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_YELLOW);
 		else display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_L_BLUE);
 
-		display_player_one_line(ENTRY_RACE, get_intelligent_race_name(), TERM_L_BLUE);
-		display_player_one_line(ENTRY_CLASS, cp_ptr->title, TERM_L_BLUE);
+		if(cr_ptr->race != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(), TERM_L_BLUE);
+		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cp_ptr->title, TERM_L_BLUE);
 
-		if (p_ptr->realm2)
-			sprintf(tmp, "%s, %s", realm_names[p_ptr->realm1], realm_names[p_ptr->realm2]);
+		if (cr_ptr->realm2)
+			sprintf(tmp, "%s, %s", realm_names[cr_ptr->realm1], realm_names[cr_ptr->realm2]);
 		else
-			strcpy(tmp, realm_names[p_ptr->realm1]);
-		if(p_ptr->realm1)
+			strcpy(tmp, realm_names[cr_ptr->realm1]);
+		if(cr_ptr->realm1)
 			display_player_one_line(ENTRY_REALM, tmp, TERM_L_BLUE);
 		else
 			display_player_one_line(ENTRY_REALM, tmp, TERM_L_DARK);
 
-		if(p_ptr->patron == PATRON_NONE)
-			display_player_one_line(ENTRY_PATRON, player_patrons[p_ptr->patron].title, TERM_L_DARK);
+		if(cr_ptr->patron == PATRON_NONE)
+			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_DARK);
 		else
-			display_player_one_line(ENTRY_PATRON, player_patrons[p_ptr->patron].title, TERM_L_BLUE);
+			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_BLUE);
 		
 
 #ifdef JP
@@ -3707,82 +3709,82 @@ void display_player(int mode)
 		/* Age, Height, Weight, Social */
 		/* D'angband(mertle scale).*/
 #ifdef JP
-		display_player_one_line(ENTRY_AGE, format("%d歳" ,(int)p_ptr->age), TERM_L_BLUE);
-		display_player_one_line(ENTRY_HEIGHT, format("%dcm" ,(int)p_ptr->ht), TERM_L_BLUE);
-		display_player_one_line(ENTRY_WEIGHT, format("%dkg" ,(int)p_ptr->wt), TERM_L_BLUE);
-		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)p_ptr->sc), TERM_L_BLUE);
+		display_player_one_line(ENTRY_AGE, format("%d歳" ,(int)cr_ptr->age), TERM_L_BLUE);
+		display_player_one_line(ENTRY_HEIGHT, format("%dcm" ,(int)cr_ptr->ht), TERM_L_BLUE);
+		display_player_one_line(ENTRY_WEIGHT, format("%dkg" ,(int)cr_ptr->wt), TERM_L_BLUE);
+		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 
 		/* Dump character level */
-		display_player_one_line(ENTRY_LEVEL, format("%d/%d", p_ptr->lev, p_ptr->max_lev), TERM_L_GREEN);
+		display_player_one_line(ENTRY_LEVEL, format("%d/%d", cr_ptr->lev, cr_ptr->max_lev), TERM_L_GREEN);
 
 		/* Dump hit point */
-		if (p_ptr->chp >= p_ptr->mhp) 
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", p_ptr->chp , p_ptr->mhp), TERM_L_GREEN);
-		else if (p_ptr->chp > (p_ptr->mhp * hitpoint_warn) / 10) 
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", p_ptr->chp , p_ptr->mhp), TERM_YELLOW);
+		if (cr_ptr->chp >= cr_ptr->mhp) 
+			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_L_GREEN);
+		else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10) 
+			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", p_ptr->chp , p_ptr->mhp), TERM_RED);
+			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_RED);
 
 		/* Dump mana power */
-		if (p_ptr->csp >= p_ptr->msp) 
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", p_ptr->csp , p_ptr->msp), TERM_L_GREEN);
-		else if (p_ptr->csp > (p_ptr->msp * mana_warn) / 10) 
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", p_ptr->csp , p_ptr->msp), TERM_YELLOW);
+		if (cr_ptr->csp >= cr_ptr->msp) 
+			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_L_GREEN);
+		else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10) 
+			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", p_ptr->csp , p_ptr->msp), TERM_RED);
+			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_RED);
 
 
-		if(p_ptr->dr < 0){
+		if(cr_ptr->dr < 0){
 			display_player_one_line(ENTRY_DIVINE_RANK, format("なし[ 0]"), TERM_L_DARK);
 		}
-		else if(p_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("究極神[%2d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("超越神[%2d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("上級神[%2d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("中級神[%2d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("下級神[%2d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("半神[%2d]", p_ptr->dr), TERM_YELLOW);
+		else if(cr_ptr->dr >= 26)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("究極神[%2d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 21)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("超越神[%2d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 16)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("上級神[%2d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 11)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("中級神[%2d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 6)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("下級神[%2d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 1)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("半神[%2d]", cr_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("英霊[%2d]", p_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("英霊[%2d]", cr_ptr->dr), TERM_RED);
 
 #else
-		display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)p_ptr->age), TERM_L_BLUE);
-		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((p_ptr->ht*100)/254)), TERM_L_BLUE);
-		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((p_ptr->wt*10000)/4536)), TERM_L_BLUE);
-		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)p_ptr->sc), TERM_L_BLUE);
+		display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
+		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((cr_ptr->ht*100)/254)), TERM_L_BLUE);
+		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((cr_ptr->wt*10000)/4536)), TERM_L_BLUE);
+		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 
-		if(p_ptr->dr < 0){
+		if(cr_ptr->dr < 0){
 			display_player_one_line(ENTRY_DIVINE_RANK, format("None"), TERM_L_DARK);
 		}
-		else if(p_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Ultima[%d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Over  [%d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Elder [%d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Middle[%d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Lesser[%d]", p_ptr->dr), TERM_L_BLUE);
-		else if(p_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Demi  [%d]", p_ptr->dr), TERM_YELLOW);
+		else if(cr_ptr->dr >= 26)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Ultima[%d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 21)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Over  [%d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 16)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Elder [%d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 11)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Middle[%d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 6)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Lesser[%d]", cr_ptr->dr), TERM_L_BLUE);
+		else if(cr_ptr->dr >= 1)
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Demi  [%d]", cr_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Hero  [%d]", p_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("Hero  [%d]", cr_ptr->dr), TERM_RED);
 
 #endif
 
-		display_player_one_line(ENTRY_GOOD,   format("%3d" ,p_ptr->good),  TERM_YELLOW);
-		display_player_one_line(ENTRY_EVIL,   format("%3d" ,p_ptr->evil),  TERM_RED);
-		display_player_one_line(ENTRY_ORDER,  format("%3d" ,p_ptr->order), TERM_L_BLUE);
-		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,p_ptr->chaos), TERM_VIOLET);
-		display_player_one_line(ENTRY_BALANCE,format("%3d" ,p_ptr->balance), TERM_L_GREEN);
+		display_player_one_line(ENTRY_GOOD,   format("%3d" ,cr_ptr->good),  TERM_YELLOW);
+		display_player_one_line(ENTRY_EVIL,   format("%3d" ,cr_ptr->evil),  TERM_RED);
+		display_player_one_line(ENTRY_ORDER,  format("%3d" ,cr_ptr->order), TERM_L_BLUE);
+		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos), TERM_VIOLET);
+		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance), TERM_L_GREEN);
 
-		display_player_one_line(ENTRY_SIZE, format("%d", p_ptr->size), TERM_L_BLUE);
+		display_player_one_line(ENTRY_SIZE, format("%d", cr_ptr->size), TERM_L_BLUE);
 
 
 
@@ -3791,7 +3793,7 @@ void display_player(int mode)
 		for (i = 0; i < 6; i++)
 		{
 			/* Special treatment of "injured" stats */
-			if (p_ptr->stat_cur[i] < p_ptr->stat_max[i])
+			if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 			{
 				int value;
 
@@ -3799,7 +3801,7 @@ void display_player(int mode)
 				put_str(stat_names_reduced[i], 3 + i, 58);
 
 				/* Get the current stat */
-				value = p_ptr->stat_use[i];
+				value = cr_ptr->stat_use[i];
 
 				/* Obtain the current stat (modified) */
 				cnv_stat(value, buf);
@@ -3808,7 +3810,7 @@ void display_player(int mode)
 				c_put_str(TERM_YELLOW, buf, 3 + i, 62);
 
 				/* Acquire the max stat */
-				value = p_ptr->stat_top[i];
+				value = cr_ptr->stat_top[i];
 
 				/* Obtain the maximum stat (modified) */
 				cnv_stat(value, buf);
@@ -3824,13 +3826,13 @@ void display_player(int mode)
 				put_str(stat_names[i], 3 + i, 58);
 
 				/* Obtain the current stat (modified) */
-				cnv_stat(p_ptr->stat_use[i], buf);
+				cnv_stat(cr_ptr->stat_use[i], buf);
 
 				/* Display the current stat (modified) */
 				c_put_str(TERM_L_GREEN, buf, 3 + i, 62);
 			}
 
-			if (p_ptr->stat_max[i] == p_ptr->stat_max_max[i])
+			if (cr_ptr->stat_max[i] == cr_ptr->stat_max_max[i])
 			{
 #ifdef JP
 				c_put_str(TERM_WHITE, "!", 3 + i, 60);
@@ -3853,30 +3855,30 @@ void display_player(int mode)
 
 			for (i = 0; i < 4; i++)
 			{
-				put_str(p_ptr->history[i], i + 12, 10);
+				put_str(cr_ptr->history[i], i + 12, 10);
 			}
 
 			*statmsg = '\0';
 
-			if (p_ptr->is_dead)
+			if (cr_ptr->is_dead)
 			{
-				if (p_ptr->total_winner)
+				if (cr_ptr->total_winner)
 				{
 #ifdef JP
-					sprintf(statmsg, "…あなたは勝利の後%sした。", streq(p_ptr->died_from, "Seppuku") ? "切腹" : "引退");
+					sprintf(statmsg, "…あなたは勝利の後%sした。", streq(cr_ptr->died_from, "Seppuku") ? "切腹" : "引退");
 #else
-					sprintf(statmsg, "...You %s after the winning.", streq(p_ptr->died_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
+					sprintf(statmsg, "...You %s after the winning.", streq(cr_ptr->died_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif
 				}
 				else if (!dun_level)
 				{
 #ifdef JP
-					sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(), p_ptr->died_from);
+					sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(), cr_ptr->died_from);
 #else
-					sprintf(statmsg, "...You were killed by %s in %s.", p_ptr->died_from, map_name());
+					sprintf(statmsg, "...You were killed by %s in %s.", cr_ptr->died_from, map_name());
 #endif
 				}
-				else if (p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest))
+				else if (cr_ptr->inside_quest && is_fixed_quest_idx(cr_ptr->inside_quest))
 				{
 					/* Get the quest text */
 					/* Bewere that INIT_ASSIGN resets the cur_num. */
@@ -3885,17 +3887,17 @@ void display_player(int mode)
 					process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
-					sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[p_ptr->inside_quest].name, p_ptr->died_from);
+					sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[cr_ptr->inside_quest].name, cr_ptr->died_from);
 #else
-					sprintf(statmsg, "...You were killed by %s in the quest '%s'.", p_ptr->died_from, quest[p_ptr->inside_quest].name);
+					sprintf(statmsg, "...You were killed by %s in the quest '%s'.", cr_ptr->died_from, quest[cr_ptr->inside_quest].name);
 #endif
 				}
 				else
 				{
 #ifdef JP
-					sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), dun_level, p_ptr->died_from);
+					sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(), dun_level, cr_ptr->died_from);
 #else
-					sprintf(statmsg, "...You were killed by %s on level %d of %s.", p_ptr->died_from, dun_level, map_name());
+					sprintf(statmsg, "...You were killed by %s on level %d of %s.", cr_ptr->died_from, dun_level, map_name());
 #endif
 				}
 			}
@@ -3909,7 +3911,7 @@ void display_player(int mode)
 					sprintf(statmsg, "...Now, you are in %s.", map_name());
 #endif
 				}
-				else if (p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest))
+				else if (cr_ptr->inside_quest && is_fixed_quest_idx(cr_ptr->inside_quest))
 				{
 					/* Clear the text */
 					/* Must be done before doing INIT_SHOW_TEXT */
@@ -3925,9 +3927,9 @@ void display_player(int mode)
 					process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
-					sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[p_ptr->inside_quest].name);
+					sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[cr_ptr->inside_quest].name);
 #else
-					sprintf(statmsg, "...Now, you are in the quest '%s'.", quest[p_ptr->inside_quest].name);
+					sprintf(statmsg, "...Now, you are in the quest '%s'.", quest[cr_ptr->inside_quest].name);
 #endif
 				}
 				else
@@ -4002,7 +4004,7 @@ static void dump_aux_display_player(FILE *fff)
 	char		buf[1024];
 
 	/* Display player */
-	display_player(0);
+	display_player(0, p_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4033,7 +4035,7 @@ static void dump_aux_display_player(FILE *fff)
 	}
 
 	/* Display history */
-	display_player(1);
+	display_player(1, p_ptr);
 
 	/* Dump part of the screen */
 	for (y = 10; y < 19; y++)
@@ -4061,7 +4063,7 @@ static void dump_aux_display_player(FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 1) */
-	display_player(2);
+	display_player(2, p_ptr);
 
 	/* Dump part of the screen */
 	for (y = 2; y < 22; y++)
@@ -4092,7 +4094,7 @@ static void dump_aux_display_player(FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 2) */
-	display_player(3);
+	display_player(3, p_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -6171,7 +6173,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", player_nam
 /*
  * Gets a name for the character, reacting to name changes.
  *
- * Assumes that "display_player(0)" has just been called
+ * Assumes that "display_player(0, p_ptr)" has just been called
  *
  * Perhaps we should NOT ask for a name (at "birth()") on
  * Unix machines?  XXX XXX
@@ -6931,7 +6933,7 @@ put_str("ファイルネーム: ", 23, 0);
 	update_playtime();
 
 	/* Display player */
-	display_player(0);
+	display_player(0, p_ptr);
 
 	/* Prompt for inventory */
 #ifdef JP

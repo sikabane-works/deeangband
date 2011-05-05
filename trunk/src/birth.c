@@ -6088,7 +6088,7 @@ static void edit_history(void)
 		for (; j < 59; j++) p_ptr->history[i][j] = ' ';
 		p_ptr->history[i][59] = '\0';
 	}
-	display_player(1);
+	display_player(1, p_ptr);
 #ifdef JP
 	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 11, 20);
 	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 17, 10);
@@ -7000,7 +7000,7 @@ static bool player_birth_aux(void)
 			p_ptr->csp = p_ptr->msp;
 
 			/* Display the player */
-			display_player(mode);
+			display_player(mode, p_ptr);
 
 			/* Prepare a prompt (must squeeze everything in) */
 			Term_gotoxy(2, 23);

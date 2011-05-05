@@ -3250,6 +3250,12 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			/* Command */
 			query = inkey();
 
+			/* Hidden commands */
+			if (query == 'd' && cheat_know){
+				display_player(0, m_ptr);
+				query = inkey();
+			}
+
 			/* Normal commands */
 			if (query != 'r') break;
 
