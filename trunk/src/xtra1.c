@@ -3516,7 +3516,7 @@ void calc_bonuses(creature_type *cr_ptr)
 	}
 	else
 	{
-		void set_resistance(cr_ptr);
+		set_resistance(cr_ptr);
 
 		switch (cr_ptr->race)
 		{
