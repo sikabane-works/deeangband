@@ -3700,7 +3700,7 @@ void display_player(int mode, creature_type *cr_ptr)
 #ifdef JP
 		else display_player_one_line(ENTRY_CLASS, "(なし)", TERM_L_DARK);
 #else
-		else display_player_one_line(ENTRY_CLASSS, "(None)", TERM_L_DARK);
+		else display_player_one_line(ENTRY_CLASS, "(None)", TERM_L_DARK);
 #endif
 
 		if (cr_ptr->realm2)
@@ -3712,8 +3712,12 @@ void display_player(int mode, creature_type *cr_ptr)
 		else
 			display_player_one_line(ENTRY_REALM, tmp, TERM_L_DARK);
 
-		if(cr_ptr->patron == PATRON_NONE)
-			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_DARK);
+		if(cr_ptr->patron == PATRON_NONE || cr_ptr->patron == PATRON_N)
+#ifdef JP
+			display_player_one_line(ENTRY_PATRON, "(なし)", TERM_L_DARK);
+#else
+			display_player_one_line(ENTRY_PATRON, "(None)", TERM_L_DARK);
+#endif
 		else
 			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_BLUE);
 		
@@ -6440,7 +6444,7 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
 	hack_mind = FALSE;
 
 	/* Update stuff */
-	update_stuff();
+	update_stuff(TRUE);
 
 	/* Initialize monster process */
 	mproc_init();

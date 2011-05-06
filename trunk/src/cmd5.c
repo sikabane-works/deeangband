@@ -978,7 +978,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 
 	/* Update Study */
 	p_ptr->update |= (PU_SPELLS);
-	update_stuff();
+	update_stuff(TRUE);
 
 	/* Redraw object recall */
 	p_ptr->window |= (PW_OBJECT);
@@ -1917,7 +1917,7 @@ static bool player_can_ride_aux(cave_type *c_ptr, bool now_riding)
 		p_ptr->riding_ryoute = p_ptr->old_riding_ryoute = FALSE;
 	}
 
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 	p_can_enter = player_can_enter(c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
@@ -1927,7 +1927,7 @@ static bool player_can_ride_aux(cave_type *c_ptr, bool now_riding)
 	p_ptr->riding_ryoute = old_riding_ryoute;
 	p_ptr->old_riding_ryoute = old_old_riding_ryoute;
 
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -2044,7 +2044,7 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 	p_ptr->riding_ryoute = p_ptr->old_riding_ryoute = FALSE;
 
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 	p_ptr->update |= (PU_BONUS);
 

@@ -1156,7 +1156,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)do_res_stat(A_INT);
 			(void)do_res_stat(A_CHR);
 			(void)set_shero(0,TRUE);
-			update_stuff();
+			update_stuff(TRUE);
 			hp_player(5000);
 			ident = TRUE;
 			break;

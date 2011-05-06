@@ -8945,7 +8945,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 
 
 	/* Update stuff if needed */
-	if (p_ptr->update) update_stuff();
+	if (p_ptr->update) update_stuff(TRUE);
 
 
 	if (flg & PROJECT_KILL)
@@ -8988,7 +8988,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 	}
 
 	/* Update stuff if needed */
-	if (p_ptr->update) update_stuff();
+	if (p_ptr->update) update_stuff(TRUE);
 
 	/* Check objects */
 	if (flg & (PROJECT_ITEM))

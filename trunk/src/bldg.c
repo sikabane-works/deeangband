@@ -3473,7 +3473,7 @@ s = "比べるものがありません。";
 	character_xtra = TRUE;
 
 	/* Get the new values */
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -3491,7 +3491,7 @@ s = "比べるものがありません。";
 	character_xtra = TRUE;
 
 	/* Get the new values */
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -3503,7 +3503,7 @@ s = "比べるものがありません。";
 	object_copy(i_ptr, &orig_weapon);
 
 	/* Reset the values for the old weapon */
-	calc_bonuses(p_ptr);
+	calc_bonuses(p_ptr, TRUE);
 
 #ifdef JP
 put_str("(一番高いダメージが適用されます。複数の倍打効果は足し算されません。)", row + 4, 0);

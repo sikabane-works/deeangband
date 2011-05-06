@@ -43,49 +43,32 @@ void set_sex(creature_type *cr_ptr)
 
 void set_status(creature_type *cr_ptr)
 {
-	cr_ptr->stat_use[A_STR] = 100;
-	cr_ptr->stat_use[A_INT] = 100;
-	cr_ptr->stat_use[A_WIS] = 100;
-	cr_ptr->stat_use[A_DEX] = 100;
-	cr_ptr->stat_use[A_CON] = 100;
-	cr_ptr->stat_use[A_CHR] = 100;
+	int i;
 
-	if(cr_ptr->r_idx != MON_NONE)
+	for(i = 0; i < 6; i++)
 	{
-		monster_race *r_ptr = &r_info[cr_ptr->r_idx]; 
-		cr_ptr->stat_use[A_STR] = r_ptr->stat[A_STR];
-		cr_ptr->stat_use[A_INT] = r_ptr->stat[A_INT];
-		cr_ptr->stat_use[A_WIS] = r_ptr->stat[A_WIS];
-		cr_ptr->stat_use[A_DEX] = r_ptr->stat[A_DEX];
-		cr_ptr->stat_use[A_CON] = r_ptr->stat[A_CON];
-		cr_ptr->stat_use[A_CHR] = r_ptr->stat[A_CHR];
+		cr_ptr->stat_max[i] = 200;
+		cr_ptr->stat_use[i] = 100;
+
+		if(cr_ptr->r_idx != MON_NONE)
+		{
+			monster_race *r_ptr = &r_info[cr_ptr->r_idx]; 
+			cr_ptr->stat_use[i] = r_ptr->stat[i];
+		}
+
+		if(cr_ptr->re_idx != MONEGO_NONE){
+			cr_ptr->stat_use[i] += re_info[cr_ptr->re_idx].stat[i];
+		}
+
+		if(cr_ptr->race != RACE_NONE)
+		{
+			cr_ptr->stat_use[i] += race_info[cr_ptr->race].r_adj[i] * 10;
+		}	
+
+		if(cr_ptr->stat_use[i] < 30) cr_ptr->stat_use[i] = 30;
+
+		cr_ptr->stat_cur[i] = cr_ptr->stat_use[i];
 	}
-
-	if(cr_ptr->re_idx != MONEGO_NONE){
-		cr_ptr->stat_use[A_STR] += re_info[cr_ptr->re_idx].stat[A_STR];
-		cr_ptr->stat_use[A_INT] += re_info[cr_ptr->re_idx].stat[A_INT];
-		cr_ptr->stat_use[A_WIS] += re_info[cr_ptr->re_idx].stat[A_WIS];
-		cr_ptr->stat_use[A_DEX] += re_info[cr_ptr->re_idx].stat[A_DEX];
-		cr_ptr->stat_use[A_CON] += re_info[cr_ptr->re_idx].stat[A_CON];
-		cr_ptr->stat_use[A_CHR] += re_info[cr_ptr->re_idx].stat[A_CHR];
-	}
-
-	if(cr_ptr->race != RACE_NONE)
-	{
-		cr_ptr->stat_use[A_STR] += race_info[cr_ptr->race].r_adj[A_STR] * 10;
-		cr_ptr->stat_use[A_INT] += race_info[cr_ptr->race].r_adj[A_INT] * 10;
-		cr_ptr->stat_use[A_WIS] += race_info[cr_ptr->race].r_adj[A_WIS] * 10;
-		cr_ptr->stat_use[A_DEX] += race_info[cr_ptr->race].r_adj[A_DEX] * 10;
-		cr_ptr->stat_use[A_CON] += race_info[cr_ptr->race].r_adj[A_CON] * 10;
-		cr_ptr->stat_use[A_CHR] += race_info[cr_ptr->race].r_adj[A_CHR] * 10;
-	}	
-
-	if(cr_ptr->stat_use[A_STR] < 30) cr_ptr->stat_use[A_STR] = 30;
-	if(cr_ptr->stat_use[A_INT] < 30) cr_ptr->stat_use[A_INT] = 30;
-	if(cr_ptr->stat_use[A_WIS] < 30) cr_ptr->stat_use[A_WIS] = 30;
-	if(cr_ptr->stat_use[A_DEX] < 30) cr_ptr->stat_use[A_DEX] = 30;
-	if(cr_ptr->stat_use[A_CON] < 30) cr_ptr->stat_use[A_CON] = 30;
-	if(cr_ptr->stat_use[A_CHR] < 30) cr_ptr->stat_use[A_CHR] = 30;
 }
 
 /*
@@ -148,11 +131,6 @@ void set_height_weight(creature_type *cr_ptr)
 			ave_m_ht = (int)(mr_ptr->m_m_ht + mr_ptr->f_m_ht) / 2;
 			ave_b_wt = (int)(mr_ptr->m_b_wt + mr_ptr->f_b_wt) / 2;
 			ave_m_wt = (int)(mr_ptr->m_m_wt + mr_ptr->f_m_wt) / 2;
-		}
-
-
-		if(cheat_hear){
-			msg_format("[size: %d(%d), %d(%d)]", ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt);
 		}
 
 	}

@@ -772,7 +772,7 @@ bool make_attack_normal(int m_idx)
 						if (apply_disenchant(0))
 						{
 							/* Hack -- Update AC */
-							update_stuff();
+							update_stuff(TRUE);
 							obvious = TRUE;
 						}
 					}
@@ -1166,7 +1166,7 @@ bool make_attack_normal(int m_idx)
 					get_damage += acid_dam(damage, ddesc, -1);
 
 					/* Hack -- Update AC */
-					update_stuff();
+					update_stuff(TRUE);
 
 					/* Learn about the player */
 					update_smart_learn(m_idx, DRS_ACID);

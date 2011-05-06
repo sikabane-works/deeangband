@@ -2964,6 +2964,7 @@ void choose_new_monster(int m_idx, bool born, int r_idx, int re_idx)
 		m_ptr->stat_use[5] += re_info[re_idx].stat[5];
 	}
 
+
 	set_enemy_maxhp(m_ptr);
 
 }
@@ -3102,12 +3103,6 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		rpc_selected = r_ptr->i_class;
 	}
 
-	if (cheat_hear)
-	{
-		if(rpc_selected != CLASS_NONE)
-			msg_format("[Class:%s]", class_info[rpc_selected].title);
-	}
-
 	// set character
 	if (r_ptr->flagse & RFE_CHARA_EGO)
 	{
@@ -3119,13 +3114,6 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	{
 		rps_selected = r_ptr->i_chara;
 	}
-
-	if (cheat_hear)
-	{
-		if(rps_selected != CHARA_NONE)
-			msg_format("[Chara:%s]", chara_info[rps_selected].title);
-	}
-
 
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
@@ -3303,6 +3291,10 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->chara = rps_selected;
 	m_ptr->ap_r_idx = initial_r_appearance(r_idx);
 
+	/* MISC parameter*/
+	m_ptr->age = 0;
+	m_ptr->dr = r_ptr->dr;
+
 	/* Save the trait */
 	m_ptr->patron = (s16b)r_ptr->i_faith;
 
@@ -3410,7 +3402,8 @@ msg_print("守りのルーンが壊れた！");
 	set_status(m_ptr);
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
-	set_resistance(m_ptr);
+	//set_resistance(m_ptr);
+	calc_bonuses(m_ptr, FALSE);
 
 	/* And start out fully healthy */
 	if (m_ptr->r_idx == MON_WOUNDED_BEAR)

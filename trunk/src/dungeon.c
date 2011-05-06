@@ -6653,7 +6653,7 @@ quit("セーブファイルが壊れています");
 		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Update stuff */
-		update_stuff();
+		update_stuff(TRUE);
 
 		p_ptr->is_dead = TRUE;
 

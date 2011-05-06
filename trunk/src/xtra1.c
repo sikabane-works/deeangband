@@ -2126,7 +2126,7 @@ static void fix_object(void)
  * Note that this function induces various "status" messages,
  * which must be bypasses until the character is created.
  */
-static void calc_spells(void)
+static void calc_spells(bool message)
 {
 	int			i, j, k, levels;
 	int			num_allowed;
@@ -2262,10 +2262,10 @@ static void calc_spells(void)
 
 			/* Message */
 #ifdef JP
-			msg_format("%sの%sを忘れてしまった。",
+			if(message) msg_format("%sの%sを忘れてしまった。",
 				   do_spell(which, j%32, SPELL_NAME), p );
 #else
-			msg_format("You have forgotten the %s of %s.", p,
+			if(message) msg_format("You have forgotten the %s of %s.", p,
 			do_spell(which, j%32, SPELL_NAME));
 #endif
 
@@ -2322,10 +2322,10 @@ static void calc_spells(void)
 
 			/* Message */
 #ifdef JP
-			msg_format("%sの%sを忘れてしまった。",
+			if(message) msg_format("%sの%sを忘れてしまった。",
 				   do_spell(which, j%32, SPELL_NAME), p );
 #else
-			msg_format("You have forgotten the %s of %s.", p,
+			if(message) msg_format("You have forgotten the %s of %s.", p,
 				   do_spell(which, j%32, SPELL_NAME));
 #endif
 
@@ -2398,10 +2398,10 @@ static void calc_spells(void)
 
 			/* Message */
 #ifdef JP
-			msg_format("%sの%sを思い出した。",
+			if(message) msg_format("%sの%sを思い出した。",
 				   do_spell(which, j%32, SPELL_NAME), p );
 #else
-			msg_format("You have remembered the %s of %s.",
+			if(message) msg_format("You have remembered the %s of %s.",
 				   p, do_spell(which, j%32, SPELL_NAME));
 #endif
 
@@ -2448,12 +2448,12 @@ static void calc_spells(void)
 			/* Message */
 #ifdef JP
 			if( p_ptr->new_spells < 10 ){
-				msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
+				if(message) msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
 			}else{
-				msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
+				if(message) msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
 			}
 #else
-			msg_format("You can learn %d more %s%s.",
+			if(message) msg_format("You can learn %d more %s%s.",
 				   p_ptr->new_spells, p,
 				   (p_ptr->new_spells != 1) ? "s" : "");
 #endif
@@ -2478,7 +2478,7 @@ static void calc_spells(void)
  *
  * This function induces status messages.
  */
-static void calc_mana(void)
+static void calc_mana(bool message)
 {
 	int		msp, levels, cur_wgt, max_wgt;
 
@@ -2731,7 +2731,7 @@ static void calc_mana(void)
 		/* レベルアップの時は上昇量を表示する */
 		if ((level_up == 1) && (msp > p_ptr->msp))
 		{
-			msg_format("最大マジック・ポイントが %d 増加した！",
+			if(message) msg_format("最大マジック・ポイントが %d 増加した！",
 				   (msp - p_ptr->msp));
 		}
 #endif
@@ -2757,18 +2757,18 @@ static void calc_mana(void)
 		if (p_ptr->cumber_glove)
 		{
 #ifdef JP
-			msg_print("手が覆われて呪文が唱えにくい感じがする。");
+			if(message) msg_print("手が覆われて呪文が唱えにくい感じがする。");
 #else
-			msg_print("Your covered hands feel unsuitable for spellcasting.");
+			if(message) msg_print("Your covered hands feel unsuitable for spellcasting.");
 #endif
 
 		}
 		else
 		{
 #ifdef JP
-			msg_print("この手の状態なら、ぐっと呪文が唱えやすい感じだ。");
+			if(message) msg_print("この手の状態なら、ぐっと呪文が唱えやすい感じだ。");
 #else
-			msg_print("Your hands feel more suitable for spellcasting.");
+			if(message) msg_print("Your hands feel more suitable for spellcasting.");
 #endif
 
 		}
@@ -2785,18 +2785,18 @@ static void calc_mana(void)
 		if (p_ptr->cumber_armor)
 		{
 #ifdef JP
-			msg_print("装備の重さで動きが鈍くなってしまっている。");
+			if(message) msg_print("装備の重さで動きが鈍くなってしまっている。");
 #else
-			msg_print("The weight of your equipment encumbers your movement.");
+			if(message) msg_print("The weight of your equipment encumbers your movement.");
 #endif
 
 		}
 		else
 		{
 #ifdef JP
-			msg_print("ぐっと楽に体を動かせるようになった。");
+			if(message) msg_print("ぐっと楽に体を動かせるようになった。");
 #else
-			msg_print("You feel able to move more freely.");
+			if(message) msg_print("You feel able to move more freely.");
 #endif
 
 		}
@@ -2812,7 +2812,7 @@ static void calc_mana(void)
  * Calculate the players (maximal) hit points
  * Adjust current hitpoints if necessary
  */
-static void calc_hitpoints(void)
+static void calc_hitpoints(bool message)
 {
 	int bonus, mhp;
 	byte tmp_hitdice;
@@ -2874,7 +2874,7 @@ static void calc_hitpoints(void)
 		/* レベルアップの時は上昇量を表示する */
 		if ((level_up == 1) && (mhp > p_ptr->mhp))
 		{
-			msg_format("最大ヒット・ポイントが %d 増加した！",
+			if(message) msg_format("最大ヒット・ポイントが %d 増加した！",
 				   (mhp - p_ptr->mhp) );
 		}
 #endif
@@ -3050,7 +3050,7 @@ bool buki_motteruka(int i)
  *
  * This function induces various "status" messages.
  */
-void calc_bonuses(creature_type *cr_ptr)
+void calc_bonuses(creature_type *cr_ptr, bool message)
 {
 	int             i, j, k, hold, neutral[2], rate;
 	int             new_speed;
@@ -3801,16 +3801,19 @@ void calc_bonuses(creature_type *cr_ptr)
 	{
 	}
 
-	for(i = 0; i < 10; i++)
+	if(cr_ptr->race != RACE_NONE)
 	{
-		if(race_info[cr_ptr->race].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
+		for(i = 0; i < 10; i++)
 		{
-			cr_ptr->stat_add[A_STR]--;
-			cr_ptr->stat_add[A_INT]--;
-			cr_ptr->stat_add[A_WIS]--;
-			cr_ptr->stat_add[A_DEX]--;
-			cr_ptr->stat_add[A_CON]--;
-			cr_ptr->stat_add[A_CHR]--;
+			if(race_info[cr_ptr->race].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
+			{
+				cr_ptr->stat_add[A_STR]--;
+				cr_ptr->stat_add[A_INT]--;
+				cr_ptr->stat_add[A_WIS]--;
+				cr_ptr->stat_add[A_DEX]--;
+				cr_ptr->stat_add[A_CON]--;
+				cr_ptr->stat_add[A_CHR]--;
+			}
 		}
 	}
 
@@ -5785,27 +5788,27 @@ void calc_bonuses(creature_type *cr_ptr)
 		if (cr_ptr->heavy_shoot)
 		{
 #ifdef JP
-			msg_print("こんな重い弓を装備しているのは大変だ。");
+			if(message) msg_print("こんな重い弓を装備しているのは大変だ。");
 #else
-			msg_print("You have trouble wielding such a heavy bow.");
+			if(message) msg_print("You have trouble wielding such a heavy bow.");
 #endif
 
 		}
 		else if (inventory[INVEN_BOW].k_idx)
 		{
 #ifdef JP
-			msg_print("この弓なら装備していても辛くない。");
+			if(message) msg_print("この弓なら装備していても辛くない。");
 #else
-			msg_print("You have no trouble wielding your bow.");
+			if(message) msg_print("You have no trouble wielding your bow.");
 #endif
 
 		}
 		else
 		{
 #ifdef JP
-			msg_print("重い弓を装備からはずして体が楽になった。");
+			if(message) msg_print("重い弓を装備からはずして体が楽になった。");
 #else
-			msg_print("You feel relieved to put down your heavy bow.");
+			if(message) msg_print("You feel relieved to put down your heavy bow.");
 #endif
 
 		}
@@ -5823,36 +5826,36 @@ void calc_bonuses(creature_type *cr_ptr)
 			if (cr_ptr->heavy_wield[i])
 			{
 #ifdef JP
-				msg_print("こんな重い武器を装備しているのは大変だ。");
+				if(message) msg_print("こんな重い武器を装備しているのは大変だ。");
 #else
-				msg_print("You have trouble wielding such a heavy weapon.");
+				if(message) msg_print("You have trouble wielding such a heavy weapon.");
 #endif
 
 			}
 			else if (buki_motteruka(INVEN_RARM+i))
 			{
 #ifdef JP
-				msg_print("これなら装備していても辛くない。");
+				if(message) msg_print("これなら装備していても辛くない。");
 #else
-				msg_print("You have no trouble wielding your weapon.");
+				if(message) msg_print("You have no trouble wielding your weapon.");
 #endif
 
 			}
 			else if (cr_ptr->heavy_wield[1-i])
 			{
 #ifdef JP
-				msg_print("まだ武器が重い。");
+				if(message) msg_print("まだ武器が重い。");
 #else
-				msg_print("You have still trouble wielding a heavy weapon.");
+				if(message) msg_print("You have still trouble wielding a heavy weapon.");
 #endif
 
 			}
 			else
 			{
 #ifdef JP
-				msg_print("重い武器を装備からはずして体が楽になった。");
+				if(message) msg_print("重い武器を装備からはずして体が楽になった。");
 #else
-				msg_print("You feel relieved to put down your heavy weapon.");
+				if(message) msg_print("You feel relieved to put down your heavy weapon.");
 #endif
 
 			}
@@ -5868,27 +5871,27 @@ void calc_bonuses(creature_type *cr_ptr)
 			if (cr_ptr->riding_wield[i])
 			{
 #ifdef JP
-				msg_print("この武器は乗馬中に使うにはむかないようだ。");
+				if(message) msg_print("この武器は乗馬中に使うにはむかないようだ。");
 #else
-				msg_print("This weapon is not suitable for use while riding.");
+				if(message) msg_print("This weapon is not suitable for use while riding.");
 #endif
 
 			}
 			else if (!cr_ptr->riding)
 			{
 #ifdef JP
-				msg_print("この武器は徒歩で使いやすい。");
+				if(message) msg_print("この武器は徒歩で使いやすい。");
 #else
-				msg_print("This weapon was not suitable for use while riding.");
+				if(message) msg_print("This weapon was not suitable for use while riding.");
 #endif
 
 			}
 			else if (buki_motteruka(INVEN_RARM+i))
 			{
 #ifdef JP
-				msg_print("これなら乗馬中にぴったりだ。");
+				if(message) msg_print("これなら乗馬中にぴったりだ。");
 #else
-				msg_print("This weapon is suitable for use while riding.");
+				if(message) msg_print("This weapon is suitable for use while riding.");
 #endif
 
 			}
@@ -5903,9 +5906,9 @@ void calc_bonuses(creature_type *cr_ptr)
 			if (cr_ptr->icky_wield[i])
 			{
 #ifdef JP
-				msg_print("今の装備はどうも自分にふさわしくない気がする。");
+				if(message) msg_print("今の装備はどうも自分にふさわしくない気がする。");
 #else
-				msg_print("You do not feel comfortable with your weapon.");
+				if(message) msg_print("You do not feel comfortable with your weapon.");
 #endif
 				if (hack_mind)
 				{
@@ -5915,18 +5918,18 @@ void calc_bonuses(creature_type *cr_ptr)
 			else if (buki_motteruka(INVEN_RARM+i))
 			{
 #ifdef JP
-				msg_print("今の装備は自分にふさわしい気がする。");
+				if(message) msg_print("今の装備は自分にふさわしい気がする。");
 #else
-				msg_print("You feel comfortable with your weapon.");
+				if(message) msg_print("You feel comfortable with your weapon.");
 #endif
 
 			}
 			else
 			{
 #ifdef JP
-				msg_print("装備をはずしたら随分と気が楽になった。");
+				if(message) msg_print("装備をはずしたら随分と気が楽になった。");
 #else
-				msg_print("You feel more comfortable after removing your weapon.");
+				if(message) msg_print("You feel more comfortable after removing your weapon.");
 #endif
 
 			}
@@ -5942,17 +5945,17 @@ void calc_bonuses(creature_type *cr_ptr)
 		if (cr_ptr->riding_ryoute)
 		{
 #ifdef JP
-			msg_format("%s馬を操れない。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+			if(message) msg_format("%s馬を操れない。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
 #else
-			msg_print("You are using both hand for fighting, and you can't control a riding pet.");
+			if(message) msg_print("You are using both hand for fighting, and you can't control a riding pet.");
 #endif
 		}
 		else
 		{
 #ifdef JP
-			msg_format("%s馬を操れるようになった。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
+			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
 #else
-			msg_print("You began to control riding pet with one hand.");
+			if(message) msg_print("You began to control riding pet with one hand.");
 #endif
 		}
 
@@ -5964,9 +5967,9 @@ void calc_bonuses(creature_type *cr_ptr)
 		if (heavy_armor())
 		{
 #ifdef JP
-msg_print("装備が重くてバランスを取れない。");
+            if(message) msg_print("装備が重くてバランスを取れない。");
 #else
-			msg_print("The weight of your armor disrupts your balance.");
+			if(message) msg_print("The weight of your armor disrupts your balance.");
 #endif
 
 			if (hack_mind)
@@ -5976,9 +5979,9 @@ msg_print("装備が重くてバランスを取れない。");
 		}
 		else
 #ifdef JP
-msg_print("バランスがとれるようになった。");
+            if(message) msg_print("バランスがとれるようになった。");
 #else
-			msg_print("You regain your balance.");
+			if(message) msg_print("You regain your balance.");
 #endif
 
 		monk_notify_aux = monk_armour_aux;
@@ -6083,7 +6086,7 @@ void notice_stuff(void)
 /*
  * Handle "p_ptr->update"
  */
-void update_stuff(void)
+void update_stuff(bool message)
 {
 	/* Update stuff */
 	if (!p_ptr->update) return;
@@ -6092,7 +6095,7 @@ void update_stuff(void)
 	if (p_ptr->update & (PU_BONUS))
 	{
 		p_ptr->update &= ~(PU_BONUS);
-		calc_bonuses(p_ptr);
+		calc_bonuses(p_ptr, TRUE);
 	}
 
 	if (p_ptr->update & (PU_TORCH))
@@ -6104,19 +6107,19 @@ void update_stuff(void)
 	if (p_ptr->update & (PU_HP))
 	{
 		p_ptr->update &= ~(PU_HP);
-		calc_hitpoints();
+		calc_hitpoints(message);
 	}
 
 	if (p_ptr->update & (PU_MANA))
 	{
 		p_ptr->update &= ~(PU_MANA);
-		calc_mana();
+		calc_mana(message);
 	}
 
 	if (p_ptr->update & (PU_SPELLS))
 	{
 		p_ptr->update &= ~(PU_SPELLS);
-		calc_spells();
+		calc_spells(message);
 	}
 
 
@@ -6484,7 +6487,7 @@ void window_stuff(void)
 void handle_stuff(void)
 {
 	/* Update stuff */
-	if (p_ptr->update) update_stuff();
+	if (p_ptr->update) update_stuff(TRUE);
 
 	/* Redraw stuff */
 	if (p_ptr->redraw) redraw_stuff();
