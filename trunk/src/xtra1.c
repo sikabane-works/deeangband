@@ -3274,7 +3274,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Base skill (Sub-race bonus)*/
 	for(i = 0; i < MAX_RACES; i++)
 	{
-		if(get_subrace(i)){
+		if(get_subrace(cr_ptr, i)){
 			j += race_info[i].infra;
 			k++;
 			cr_ptr->skill_dis += race_info[i].r_s_dis;
@@ -3569,237 +3569,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/***** Sub Races ****/
-	if(get_subrace(RACE_HUMAN))
-	{
-	}
-	if(get_subrace(RACE_ELF))
-	{
-	}
-	if(get_subrace(RACE_DWARF))
-	{
-	}
-	if(get_subrace(RACE_HOBBIT))
-	{
-	}
-	if(get_subrace(RACE_GNOME))
-	{
-	}
-	if(get_subrace(RACE_BARBARIAN))
-	{
-	}
-	if(get_subrace(RACE_DUNADAN))
-	{
-	}
-	if(get_subrace(RACE_MELNIBONE))
-	{
-	}
-	if(get_subrace(RACE_AMBERITE))
-	{
-	}
-	if(get_subrace(RACE_CHAOSIAN))
-	{
-	}
-	if(get_subrace(RACE_DARK_ELF))
-	{
-	}
-	if(get_subrace(RACE_ELDAR))
-	{
-	}
-	if(get_subrace(RACE_AVARI))
-	{
-	}
-	if(get_subrace(RACE_KOBOLD))
-	{
-	}
-	if(get_subrace(RACE_NIBELUNG))
-	{
-	}
-	if(get_subrace(RACE_SPRITE))
-	{
-	}
-	if(get_subrace(RACE_S_FAIRY))
-	{
-	}
-	if(get_subrace(RACE_WAREFOLK))
-	{
-	}
-	if(get_subrace(RACE_SKAVEN))
-	{
-	}
-	if(get_subrace(RACE_LIZARDMAN))
-	{
-	}
-	if(get_subrace(RACE_BEASTMAN))
-	{
-	}
-	if(get_subrace(RACE_MINOTAUR))
-	{
-	}
-	if(get_subrace(RACE_NAGA))
-	{
-	}
-	if(get_subrace(RACE_MARFOLK))
-	{
-	}
-	if(get_subrace(RACE_CENTAUR))
-	{
-	}
-	if(get_subrace(RACE_ENT))
-	{
-	}
-	if(get_subrace(RACE_ORC))
-	{
-	}
-	if(get_subrace(RACE_URUK))
-	{
-	}
-	if(get_subrace(RACE_TROLL))
-	{
-	}
-	if(get_subrace(RACE_OLOG))
-	{
-	}
-	if(get_subrace(RACE_OGRE))
-	{
-	}
-	if(get_subrace(RACE_GIANT))
-	{
-	}
-	if(get_subrace(RACE_CYCLOPS))
-	{
-	}
-	if(get_subrace(RACE_TITAN))
-	{
-	}
-	if(get_subrace(RACE_YEEK))
-	{
-	}
-	if(get_subrace(RACE_KLACKON))
-	{
-	}
-	if(get_subrace(RACE_MIND_FLAYER))
-	{
-	}
-	if(get_subrace(RACE_DRACONIAN))
-	{
-	}
-	if(get_subrace(RACE_SAIYAN))
-	{
-	}
-	if(get_subrace(RACE_KUTAR))
-	{
-	}
-	if(get_subrace(RACE_GOLEM))
-	{
-	}
-	if(get_subrace(RACE_ANDROID))
-	{
-	}
-	if(get_subrace(RACE_ANGEL))
-	{
-	}
-	if(get_subrace(RACE_IMP))
-	{
-	}
-	if(get_subrace(RACE_DEMON))
-	{
-	}
-	if(get_subrace(RACE_MAIAR))
-	{
-	}
-	if(get_subrace(RACE_DEEP_ONE))
-	{
-	}
-	if(get_subrace(RACE_ELDER_ONE))
-	{
-	}
-	if(get_subrace(RACE_MI_GO))
-	{
-	}
-	if(get_subrace(RACE_FLYING_POLYP))
-	{
-	}
-	if(get_subrace(RACE_SHOGGOTH))
-	{
-	}
-	if(get_subrace(RACE_YITH))
-	{
-	}
-	if(get_subrace(RACE_ZOMBIE))
-	{
-	}
-	if(get_subrace(RACE_SKELETON))
-	{
-	}
-	if(get_subrace(RACE_VAMPIRE))
-	{
-	}
-	if(get_subrace(RACE_LICH))
-	{
-	}
-	if(get_subrace(RACE_ISTARI))
-	{
-	}
-	if(get_subrace(RACE_BALROG))
-	{
-	}
-	if(get_subrace(RACE_DRAGON))
-	{
-	}
-	if(get_subrace(RACE_GIANT_APE))
-	{
-	}
-	if(get_subrace(RACE_SUPER_SAIYAN))
-	{
-	}
-	if(get_subrace(RACE_RED_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_WHITE_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_BLUE_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_BLACK_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_GREEN_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_CHROMATIC_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_BRONZE_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_GOLD_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_CRYSTAL_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_LAW_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_BALANCE_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_CHAOS_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_VANYAR_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_NOLDOR_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_TELERI_LINEAGE))
-	{
-	}
-	if(get_subrace(RACE_NAZGUL))
-	{
-	}
 
 	if(cr_ptr->race != RACE_NONE)
 	{
@@ -3914,7 +3683,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(cr_ptr->class_bonus) cr_ptr->stat_add[i] += cp_ptr->c_adj_b[i];
 
 		for(j = 0; j < MAX_RACES; j++)
-			if(get_subrace(j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
+			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
 	}
 
 
@@ -6544,18 +6313,18 @@ s16b calc_align(s32b align){
 }
 
 /* get subrace */
-bool get_subrace(int n)
+bool get_subrace(creature_type *cr_ptr, int n)
 {
-	if(p_ptr->sub_race[n / 32] & (0x01 << (n % 32))) return TRUE;
+	if(cr_ptr->sub_race[n / 32] & (0x01 << (n % 32))) return TRUE;
 	return FALSE;
 }
 
 /* set subrace */
-void set_subrace(int n, bool b)
+void set_subrace(creature_type *cr_ptr, int n, bool b)
 {
 	unsigned int a = n;
-	if(b) p_ptr->sub_race[a / 32] = p_ptr->sub_race[a / 32] | (0x01 << (a % 32));
-	else p_ptr->sub_race[a / 32] = p_ptr->sub_race[a / 32] & !(0x01 << (a % 32));
+	if(b) cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] | (0x01 << (a % 32));
+	else cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] & !(0x01 << (a % 32));
 
 }
 
@@ -6568,13 +6337,13 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	intelligent_race *rp_ptr = &race_info[cr_ptr->race];
 	name[0] = '\0';
 
-	if(get_subrace(RACE_BEASTMAN))
+	if(get_subrace(cr_ptr, RACE_BEASTMAN))
 		strcat(name, "q¬“×r‚Éâq‚ê‚½");
 
-	if(get_subrace(RACE_ZOMBIE))
+	if(get_subrace(cr_ptr, RACE_ZOMBIE))
 		strcat(name, "•…”s‚É–`‚³‚ê‚½");
 
-	if(get_subrace(RACE_SKELETON))
+	if(get_subrace(cr_ptr, RACE_SKELETON))
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
 
@@ -6587,7 +6356,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 				if(i == RACE_BEASTMAN) continue;
 				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
 				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE) continue;
-				if(get_subrace(i)){
+				if(get_subrace(cr_ptr, i)){
 					subflag = TRUE;
 					strcat(name, "ƒn[ƒt");
 					strcat(name, race_info[i].title);
@@ -6604,7 +6373,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 				if(i == RACE_BEASTMAN) continue;
 				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
 				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE) continue;
-				if(get_subrace(i)){
+				if(get_subrace(cr_ptr, i)){
 					strcat(name, race_info[i].title);
 					strcat(name, "Œ^");
 				}
@@ -6619,12 +6388,12 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
 				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE)
 				{
-					if(get_subrace(i)){
+					if(get_subrace(cr_ptr, i)){
 						strcat(name, race_info[i].title);
 					}
 					continue;
 				}
-				if(get_subrace(i)){
+				if(get_subrace(cr_ptr, i)){
 					strcat(name, "ƒn[ƒt");
 					strcat(name, race_info[i].title);
 					strcat(name, "‚Ì");

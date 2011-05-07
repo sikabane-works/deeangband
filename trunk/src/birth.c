@@ -2742,7 +2742,7 @@ static void get_extra(bool roll_hitdice)
 	else {
 		p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
 		for(i = 0; i < MAX_RACES; i++)
-			if(get_subrace(i)) p_ptr->expfact += race_info[i].r_s_exp;
+			if(get_subrace(p_ptr, i)) p_ptr->expfact += race_info[i].r_s_exp;
 	}
 
 	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->race == RACE_KLACKON) || (p_ptr->race == RACE_SPRITE)))
@@ -4699,7 +4699,7 @@ static bool get_player_subrace_eldar()
 	}
 
 	/* Set subrace */
-	set_subrace(c_races[k], TRUE);
+	set_subrace(p_ptr, c_races[k], TRUE);
 
 	/* Display */
 	c_put_str(TERM_L_BLUE, "                 ", 3, 8);
@@ -4924,7 +4924,7 @@ static bool get_player_subrace_dragon()
 	}
 
 	/* Set subrace */
-	set_subrace(c_races[k], TRUE);
+	set_subrace(p_ptr, c_races[k], TRUE);
 
 	/* Display */
 	c_put_str(TERM_L_BLUE, "                 ", 3, 8);
@@ -6397,15 +6397,15 @@ static bool player_birth_aux(void)
 			char temp[80*10];
 			cptr t;
 
-			set_subrace(RACE_VANYAR_LINEAGE, FALSE);
-			set_subrace(RACE_NOLDOR_LINEAGE, FALSE);
-			set_subrace(RACE_TELERI_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_VANYAR_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_NOLDOR_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_TELERI_LINEAGE, FALSE);
 			
 			if (!get_player_subrace_eldar()) return FALSE;
 
-			if (get_subrace(RACE_VANYAR_LINEAGE)) i = RACE_VANYAR_LINEAGE;
-			if (get_subrace(RACE_NOLDOR_LINEAGE)) i = RACE_NOLDOR_LINEAGE;
-			if (get_subrace(RACE_TELERI_LINEAGE)) i = RACE_TELERI_LINEAGE;
+			if (get_subrace(p_ptr, RACE_VANYAR_LINEAGE)) i = RACE_VANYAR_LINEAGE;
+			if (get_subrace(p_ptr, RACE_NOLDOR_LINEAGE)) i = RACE_NOLDOR_LINEAGE;
+			if (get_subrace(p_ptr, RACE_TELERI_LINEAGE)) i = RACE_TELERI_LINEAGE;
 
 			clear_from(10);
 
@@ -6448,33 +6448,33 @@ static bool player_birth_aux(void)
 			char temp[80*10];
 			cptr t;
 
-			set_subrace(RACE_RED_LINEAGE, FALSE);
-			set_subrace(RACE_WHITE_LINEAGE, FALSE);
-			set_subrace(RACE_BLUE_LINEAGE, FALSE);
-			set_subrace(RACE_BLACK_LINEAGE, FALSE);
-			set_subrace(RACE_GREEN_LINEAGE, FALSE);
-			set_subrace(RACE_CHROMATIC_LINEAGE, FALSE);
-			set_subrace(RACE_BRONZE_LINEAGE, FALSE);
-			set_subrace(RACE_GOLD_LINEAGE, FALSE);
-			set_subrace(RACE_CRYSTAL_LINEAGE, FALSE);
-			set_subrace(RACE_LAW_LINEAGE, FALSE);
-			set_subrace(RACE_BALANCE_LINEAGE, FALSE);
-			set_subrace(RACE_CHAOS_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_RED_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_WHITE_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_BLUE_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_BLACK_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_GREEN_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_CHROMATIC_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_BRONZE_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_GOLD_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_CRYSTAL_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_LAW_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_BALANCE_LINEAGE, FALSE);
+			set_subrace(p_ptr, RACE_CHAOS_LINEAGE, FALSE);
 
 			if (!get_player_subrace_dragon()) return FALSE;
 
-			if (get_subrace(RACE_RED_LINEAGE)) i = RACE_RED_LINEAGE;
-			if (get_subrace(RACE_WHITE_LINEAGE)) i = RACE_WHITE_LINEAGE;
-			if (get_subrace(RACE_BLUE_LINEAGE)) i = RACE_BLUE_LINEAGE;
-			if (get_subrace(RACE_BLACK_LINEAGE)) i = RACE_BLACK_LINEAGE;
-			if (get_subrace(RACE_GREEN_LINEAGE)) i = RACE_GREEN_LINEAGE;
-			if (get_subrace(RACE_CHROMATIC_LINEAGE)) i = RACE_CHROMATIC_LINEAGE;
-			if (get_subrace(RACE_BRONZE_LINEAGE)) i = RACE_BRONZE_LINEAGE;
-			if (get_subrace(RACE_GOLD_LINEAGE)) i = RACE_GOLD_LINEAGE;
-			if (get_subrace(RACE_CRYSTAL_LINEAGE)) i = RACE_CRYSTAL_LINEAGE;
-			if (get_subrace(RACE_LAW_LINEAGE)) i = RACE_LAW_LINEAGE;
-			if (get_subrace(RACE_BALANCE_LINEAGE)) i = RACE_BALANCE_LINEAGE;
-			if (get_subrace(RACE_CHAOS_LINEAGE)) i = RACE_CHAOS_LINEAGE;
+			if (get_subrace(p_ptr, RACE_RED_LINEAGE)) i = RACE_RED_LINEAGE;
+			if (get_subrace(p_ptr, RACE_WHITE_LINEAGE)) i = RACE_WHITE_LINEAGE;
+			if (get_subrace(p_ptr, RACE_BLUE_LINEAGE)) i = RACE_BLUE_LINEAGE;
+			if (get_subrace(p_ptr, RACE_BLACK_LINEAGE)) i = RACE_BLACK_LINEAGE;
+			if (get_subrace(p_ptr, RACE_GREEN_LINEAGE)) i = RACE_GREEN_LINEAGE;
+			if (get_subrace(p_ptr, RACE_CHROMATIC_LINEAGE)) i = RACE_CHROMATIC_LINEAGE;
+			if (get_subrace(p_ptr, RACE_BRONZE_LINEAGE)) i = RACE_BRONZE_LINEAGE;
+			if (get_subrace(p_ptr, RACE_GOLD_LINEAGE)) i = RACE_GOLD_LINEAGE;
+			if (get_subrace(p_ptr, RACE_CRYSTAL_LINEAGE)) i = RACE_CRYSTAL_LINEAGE;
+			if (get_subrace(p_ptr, RACE_LAW_LINEAGE)) i = RACE_LAW_LINEAGE;
+			if (get_subrace(p_ptr, RACE_BALANCE_LINEAGE)) i = RACE_BALANCE_LINEAGE;
+			if (get_subrace(p_ptr, RACE_CHAOS_LINEAGE)) i = RACE_CHAOS_LINEAGE;
 
 			clear_from(10);
 
