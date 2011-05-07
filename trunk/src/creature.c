@@ -7,6 +7,7 @@
 void set_sex(creature_type *cr_ptr)
 {
 	monster_race *mr_ptr;
+
 	mr_ptr = &r_info[cr_ptr->r_idx]; 
 
 	if(mr_ptr->flags1 & RF1_MALE)
@@ -47,7 +48,6 @@ void set_status(creature_type *cr_ptr)
 
 	for(i = 0; i < 6; i++)
 	{
-		cr_ptr->stat_max[i] = 200;
 		cr_ptr->stat_use[i] = 100;
 
 		if(cr_ptr->r_idx != MON_NONE)
@@ -66,8 +66,14 @@ void set_status(creature_type *cr_ptr)
 		}	
 
 		if(cr_ptr->stat_use[i] < 30) cr_ptr->stat_use[i] = 30;
+		if(cr_ptr->stat_use[i] <= 180) cr_ptr->stat_use[i] /= 10;
+		else
+		{
+			cr_ptr->stat_use[i] = cr_ptr->stat_use[i] - 162;
+		}
 
 		cr_ptr->stat_cur[i] = cr_ptr->stat_use[i];
+		cr_ptr->stat_max[i] = cr_ptr->stat_use[i];
 	}
 }
 

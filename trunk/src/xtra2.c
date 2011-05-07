@@ -3252,16 +3252,68 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 			/* Hidden commands */
 			if (query == 'd' && cheat_know){
-				display_player(0, m_ptr);
-				query = inkey();
+				char c;
+
+				/* Save the screen */
+				screen_save();
+
+				/* Forever */
+				while (1)
+				{
+					update_playtime();
+
+					/* Display the player */
+					display_player(mode, m_ptr);
+
+					if (mode == 4)
+					{
+						mode = 0;
+						display_player(mode, m_ptr);
+					}
+
+					/* Prompt */
+#ifdef JP
+					Term_putstr(2, 23, -1, TERM_WHITE,
+					    "['h'でモード変更, ESCで終了]");
+#else
+					Term_putstr(2, 23, -1, TERM_WHITE,
+						"['h' to change mode, or ESC]");
+#endif
+
+
+					/* Query */
+						c = inkey();
+
+					/* Exit */
+						if (c == ESCAPE) break;
+
+					/* Toggle mode */
+						else if (c == 'h')
+						{
+							mode++;
+						}
+
+					/* Oops */
+						else
+						{
+							bell();
+						}
+
+						/* Flush messages */
+						msg_print(NULL);
+					}
+
+					/* Restore the screen */
+					screen_load();
+
+				}
+
+				/* Normal commands */
+				if (query != 'r') break;
+
+				/* Toggle recall */
+				recall = TRUE;
 			}
-
-			/* Normal commands */
-			if (query != 'r') break;
-
-			/* Toggle recall */
-			recall = TRUE;
-		}
 
 		/* Always stop at "normal" keys */
 		if ((query != '\r') && (query != '\n') && (query != ' ') && (query != 'x')) return query;

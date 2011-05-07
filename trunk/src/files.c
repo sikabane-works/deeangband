@@ -3658,6 +3658,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	intelligent_race *ir_ptr = &race_info[cr_ptr->race];
 	player_class *cl_ptr = &class_info[cr_ptr->class];
 	player_chara *ch_ptr = &chara_info[cr_ptr->chara];
+	player_sex *se_ptr = &sex_info[cr_ptr->sex];
 
 
 	/* XXX XXX XXX */
@@ -3686,22 +3687,15 @@ void display_player(int mode, creature_type *cr_ptr)
 		}
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(cr_ptr->sexual_penalty) display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_YELLOW);
-		else display_player_one_line(ENTRY_SEX, sp_ptr->title, TERM_L_BLUE);
+		if(cr_ptr->sexual_penalty) display_player_one_line(ENTRY_SEX, se_ptr->title, TERM_YELLOW);
+		else if(cr_ptr->sex != SEX_NONE) display_player_one_line(ENTRY_SEX, se_ptr->title, TERM_L_BLUE);
+		else display_player_one_line(ENTRY_SEX, se_ptr->title, TERM_L_DARK);
 
 		if(cr_ptr->race != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(cr_ptr), TERM_L_BLUE);
-#ifdef JP
-		else display_player_one_line(ENTRY_RACE, "‚»‚Ì‘¼", TERM_L_DARK);
-#else
-		else display_player_one_line(ENTRY_RACE, "etc..", TERM_L_DARK);
-#endif
+		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
 		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cl_ptr->title, TERM_L_BLUE);
-#ifdef JP
-		else display_player_one_line(ENTRY_CLASS, "(‚È‚µ)", TERM_L_DARK);
-#else
-		else display_player_one_line(ENTRY_CLASS, "(None)", TERM_L_DARK);
-#endif
+		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
 		if (cr_ptr->realm2)
 			sprintf(tmp, "%s, %s", realm_names[cr_ptr->realm1], realm_names[cr_ptr->realm2]);
@@ -3710,31 +3704,32 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->realm1)
 			display_player_one_line(ENTRY_REALM, tmp, TERM_L_BLUE);
 		else
-			display_player_one_line(ENTRY_REALM, tmp, TERM_L_DARK);
+			display_player_one_line(ENTRY_REALM, "------", TERM_L_DARK);
 
 		if(cr_ptr->patron == PATRON_NONE || cr_ptr->patron == PATRON_N)
-#ifdef JP
-			display_player_one_line(ENTRY_PATRON, "(‚È‚µ)", TERM_L_DARK);
-#else
-			display_player_one_line(ENTRY_PATRON, "(None)", TERM_L_DARK);
-#endif
+			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
 			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_BLUE);
 		
-
-#ifdef JP
-		display_player_one_line(ENTRY_RIGHT, "(‚È‚µ)", TERM_L_DARK);
-#else
-		display_player_one_line(ENTRY_RIGHT, "(none)", TERM_L_DARK);
-#endif
+		display_player_one_line(ENTRY_RIGHT, "------", TERM_L_DARK);
 
 		/* Age, Height, Weight, Social */
 		/* D'angband(mertle scale).*/
 #ifdef JP
-		display_player_one_line(ENTRY_AGE, format("%dÎ" ,(int)cr_ptr->age), TERM_L_BLUE);
+		if(cr_ptr->race != RACE_NONE){ 
+			display_player_one_line(ENTRY_AGE, format("%dÎ" ,(int)cr_ptr->age), TERM_L_BLUE);
+		}
+		else{
+			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
+		}
+
 		display_player_one_line(ENTRY_HEIGHT, format("%dcm" ,(int)cr_ptr->ht), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%dkg" ,(int)cr_ptr->wt), TERM_L_BLUE);
-		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+
+		if(cr_ptr->race != RACE_NONE)
+			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+		else
+			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
 
 		/* Dump character level */
 		display_player_one_line(ENTRY_LEVEL, format("%d/%d", cr_ptr->lev, cr_ptr->max_lev), TERM_L_GREEN);
@@ -3757,12 +3752,12 @@ void display_player(int mode, creature_type *cr_ptr)
 
 
 		if(cr_ptr->dr < 0){
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‚È‚µ[ 0]"), TERM_L_DARK);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("------[--]"), TERM_L_DARK);
 		}
 		else if(cr_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‹†‹É_[%2d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("‹†‹É_[%2d]", cr_ptr->dr), TERM_WHITE);
 		else if(cr_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("’´‰z_[%2d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("’´‰z_[%2d]", cr_ptr->dr), TERM_VIOLET);
 		else if(cr_ptr->dr >= 16)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("ã‹‰_[%2d]", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 11)
@@ -3775,10 +3770,23 @@ void display_player(int mode, creature_type *cr_ptr)
 			display_player_one_line(ENTRY_DIVINE_RANK, format("‰p—ì[%2d]", cr_ptr->dr), TERM_RED);
 
 #else
-		display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
+
+		if(cr_ptr->race != RACE_NONE){ 
+			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
+		}
+		else{
+			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
+		}
+
 		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((cr_ptr->ht*100)/254)), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((cr_ptr->wt*10000)/4536)), TERM_L_BLUE);
-		display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+
+		if(cr_ptr->race != RACE_NONE){ 
+			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
+		}
+		else{
+			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
+		}
 
 		if(cr_ptr->dr < 0){
 			display_player_one_line(ENTRY_DIVINE_RANK, format("None"), TERM_L_DARK);

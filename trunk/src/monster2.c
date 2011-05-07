@@ -3402,7 +3402,6 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	set_status(m_ptr);
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
-	//set_resistance(m_ptr);
 	calc_bonuses(m_ptr, FALSE);
 
 	/* And start out fully healthy */
