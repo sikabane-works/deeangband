@@ -5032,14 +5032,18 @@ msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 		else
 			goalexpfact = 100 + 3 * randint0(power);
 
-		do
+		if(race_info[p_ptr->race].dr == -1)
 		{
-			new_race = randint0(MAX_RACES);
-			expfact = race_info[new_race].r_exp;
-		}
-		while (((new_race == p_ptr->race) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID));
+			do
+			{
+				new_race = randint0(MAX_RACES);
+				expfact = race_info[new_race].r_exp;
+			}
+			while (((new_race == p_ptr->race) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
 
-		change_race(new_race, effect_msg);
+			change_race(new_race, effect_msg);
+		}
+
 	}
 
 	if ((power > randint0(30)) && one_in_(6))

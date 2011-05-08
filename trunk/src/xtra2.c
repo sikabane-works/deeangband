@@ -4717,7 +4717,7 @@ void gain_level_reward(int chosen_reward)
 	else if (!(p_ptr->lev % 13)) nasty_chance = 3;
 	else if (!(p_ptr->lev % 14)) nasty_chance = 12;
 
-	if (one_in_(nasty_chance))
+	if (one_in_(nasty_chance) && p_ptr->patron != PATRON_ARIOCH && p_ptr->race != RACE_MELNIBONE)
 		type = randint1(20); /* Allow the 'nasty' effects */
 	else
 		type = randint1(15) + 5; /* Or disallow them */
@@ -4726,6 +4726,9 @@ void gain_level_reward(int chosen_reward)
 	if (type > 20) type = 20;
 	type--;
 
+	if (p_ptr->patron == PATRON_ARIOCH && p_ptr->race == RACE_MELNIBONE && type == REW_POLY_SLF)
+		 type = REW_IGNORE;
+		
 
 #ifdef JP
 sprintf(wrath_reason, "%s‚Ì“{‚è",
@@ -4737,6 +4740,8 @@ sprintf(wrath_reason, "%s‚Ì“{‚è",
 
 
 	effect = player_patrons[p_ptr->patron].rewards[type];
+	if (p_ptr->patron == PATRON_ARIOCH && p_ptr->race == RACE_MELNIBONE && effect == REW_POLY_SLF)
+		 effect = REW_IGNORE;
 
 	if (one_in_(6) && !chosen_reward)
 	{

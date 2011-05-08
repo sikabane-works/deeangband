@@ -2095,7 +2095,7 @@ static cptr likert(int x, int y)
 #ifdef JP
 		sprintf(dummy, "%2d[_ˆæ]", (int)(x / y));
 #else
-		sprintf(dummy, "%2d[Devine]", (int)(x / y));
+		sprintf(dummy, "%2d[Divine]", (int)(x / y));
 #endif
 		return dummy;
 	}
