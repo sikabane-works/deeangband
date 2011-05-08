@@ -1987,10 +1987,11 @@ static cptr likert(int x, int y)
 	{
 		likert_color = TERM_L_DARK;
 #ifdef JP
-		return "Å’á";
+		sprintf(dummy, "%2d[–³”\]", (int)(x / y));
 #else
-		return "Very Bad";
+		sprintf(dummy, "%2d[Very Bad]", (int)(x / y));
 #endif
+		return dummy;
 	}
 
 	/* Analyze the value */
@@ -2000,82 +2001,101 @@ static cptr likert(int x, int y)
 	case 1:
 		likert_color = TERM_RED;
 #ifdef JP
-		return "ˆ«‚¢";
+		sprintf(dummy, "%2d[—òˆ«]", (int)(x / y));
 #else
-		return "Bad";
+		sprintf(dummy, "%2d[Bad]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 2:
 		likert_color = TERM_L_RED;
 #ifdef JP
-		return "—ò‚é";
+		sprintf(dummy, "%2d[‹êŽè]", (int)(x / y));
 #else
-		return "Poor";
+		sprintf(dummy, "%2d[Poor]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 3:
 	case 4:
 		likert_color = TERM_ORANGE;
 #ifdef JP
-		return "•’Ê";
+		sprintf(dummy, "%2d[–}—f]", (int)(x / y));
 #else
-		return "Fair";
+		sprintf(dummy, "%2d[Fair]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 5:
 		likert_color = TERM_YELLOW;
 #ifdef JP
-		return "—Ç‚¢";
+		sprintf(dummy, "%2d[“¾ˆÓ]", (int)(x / y));
 #else
-		return "Good";
+		sprintf(dummy, "%2d[Good]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 6:
 		likert_color = TERM_YELLOW;
 #ifdef JP
-		return "‘å•Ï—Ç‚¢";
+		sprintf(dummy, "%2d[’Bl]", (int)(x / y));
 #else
-		return "Very Good";
+		sprintf(dummy, "%2d[Very Good]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 7:
 	case 8:
 		likert_color = TERM_L_GREEN;
 #ifdef JP
-		return "‘ì‰z";
+		sprintf(dummy, "%2d[‘ì‰z]", (int)(x / y));
 #else
-		return "Excellent";
+		sprintf(dummy, "%2d[Excellent]", (int)(x / y));
 #endif
+		return dummy;
 
 	case 9:
 	case 10:
 	case 11:
 	case 12:
-	case 13:
 		likert_color = TERM_GREEN;
 #ifdef JP
-		return "’´‰z";
+		sprintf(dummy, "%2d[’´‰z]", (int)(x / y));
 #else
-		return "Superb";
+		sprintf(dummy, "%2d[Superb]", (int)(x / y));
 #endif
 
+		return dummy;
+
+	case 13:
 	case 14:
 	case 15:
 	case 16:
-	case 17:
 		likert_color = TERM_BLUE;
 #ifdef JP
-		return "‰p—Y“I";
+		sprintf(dummy, "%2d[‰p—Y]", (int)(x / y));
 #else
-		return "Heroic";
+		sprintf(dummy, "%2d[Heroic]", (int)(x / y));
 #endif
 
-	default:
+	case 17:
+	case 18:
+	case 19:
+	case 20:
 		likert_color = TERM_VIOLET;
 #ifdef JP
-		sprintf(dummy, "“`à“I[%d]", (int)((((x / y) - 17) * 5) / 2));
+		sprintf(dummy, "%2d[“`à]", (int)(x / y));
 #else
-		sprintf(dummy, "Legendary[%d]", (int)((((x / y) - 17) * 5) / 2));
+		sprintf(dummy, "%2d[Legendary]", (int)(x / y));
+#endif
+		return dummy;
+
+	default:
+		likert_color = TERM_WHITE;
+#ifdef JP
+		sprintf(dummy, "%2d[_ˆæ]", (int)(x / y));
+#else
+		sprintf(dummy, "%2d[Devine]", (int)(x / y));
 #endif
 		return dummy;
 	}
@@ -2087,7 +2107,7 @@ static cptr likert(int x, int y)
  *
  * This code is "imitated" elsewhere to "dump" a character sheet.
  */
-static void display_player_various(void)
+static void display_player_various(creature_type * cr_ptr)
 {
 	int         tmp, damage[2], blows1, blows2, i, basedam;
 	int			xthn, xthb, xfos, xsrh;
@@ -2100,18 +2120,18 @@ static void display_player_various(void)
 
 	object_type		*o_ptr;
 
-	if (p_ptr->muta2 & MUT2_HORNS)     muta_att++;
-	if (p_ptr->muta2 & MUT2_SCOR_TAIL) muta_att++;
-	if (p_ptr->muta2 & MUT2_BEAK)      muta_att++;
-	if (p_ptr->muta2 & MUT2_TRUNK)     muta_att++;
-	if (p_ptr->muta2 & MUT2_TENTACLES) muta_att++;
+	if (cr_ptr->muta2 & MUT2_HORNS)     muta_att++;
+	if (cr_ptr->muta2 & MUT2_SCOR_TAIL) muta_att++;
+	if (cr_ptr->muta2 & MUT2_BEAK)      muta_att++;
+	if (cr_ptr->muta2 & MUT2_TRUNK)     muta_att++;
+	if (cr_ptr->muta2 & MUT2_TENTACLES) muta_att++;
 
-	xthn = p_ptr->skill_thn + (p_ptr->to_h_m * BTH_PLUS_ADJ);
+	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
 	o_ptr = &inventory[INVEN_BOW];
-	tmp = p_ptr->to_h_b + o_ptr->to_h;
-	xthb = p_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
+	tmp = cr_ptr->to_h_b + o_ptr->to_h;
+	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 
 	/* If the player is wielding one? */
 	if (o_ptr->k_idx)
@@ -2119,23 +2139,23 @@ static void display_player_various(void)
 		s16b energy_fire = bow_energy(o_ptr->sval);
 
 		/* Calculate shots per round */
-		shots = p_ptr->num_fire * 100;
+		shots = cr_ptr->num_fire * 100;
 		shot_frac = (shots * 100 / energy_fire) % 100;
 		shots = shots / energy_fire;
 		if (o_ptr->name1 == ART_CRIMSON)
 		{
 			shots = 1;
 			shot_frac = 0;
-			if (p_ptr->class == CLASS_ARCHER)
+			if (cr_ptr->class == CLASS_ARCHER)
 			{
 				/* Extra shot at level 10 */
-				if (p_ptr->lev >= 10) shots++;
+				if (cr_ptr->lev >= 10) shots++;
 
 				/* Extra shot at level 30 */
-				if (p_ptr->lev >= 30) shots++;
+				if (cr_ptr->lev >= 30) shots++;
 
 				/* Extra shot at level 45 */
-				if (p_ptr->lev >= 45) shots++;
+				if (cr_ptr->lev >= 45) shots++;
 			}
 		}
 	}
@@ -2147,19 +2167,19 @@ static void display_player_various(void)
 
 	for(i = 0; i < 2; i++)
 	{
-		damage[i] = p_ptr->dis_to_d[i] * 100;
-		if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER)) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+		damage[i] = cr_ptr->dis_to_d[i] * 100;
+		if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER)) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
 		{
-			int level = p_ptr->lev;
+			int level = cr_ptr->lev;
 			if (i)
 			{
 				damage[i] = 0;
 				break;
 			}
-			if (p_ptr->class == CLASS_FORCETRAINER) level = MAX(1, level - 3);
-			if (p_ptr->special_defense & KAMAE_BYAKKO)
+			if (cr_ptr->class == CLASS_FORCETRAINER) level = MAX(1, level - 3);
+			if (cr_ptr->special_defense & KAMAE_BYAKKO)
 				basedam = monk_ave_damage[level][1];
-			else if (p_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
+			else if (cr_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
 				basedam = monk_ave_damage[level][2];
 			else
 				basedam = monk_ave_damage[level][0];
@@ -2172,7 +2192,7 @@ static void display_player_various(void)
 			if (o_ptr->k_idx)
 			{
 				if (object_is_known(o_ptr)) damage[i] += o_ptr->to_d * 100;
-				basedam = ((o_ptr->dd + p_ptr->to_dd[i]) * (o_ptr->ds + p_ptr->to_ds[i] + 1)) * 50;
+				basedam = ((o_ptr->dd + cr_ptr->to_dd[i]) * (o_ptr->ds + cr_ptr->to_ds[i] + 1)) * 50;
 				object_flags_known(o_ptr, flgs);
 				if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
 				{
@@ -2186,7 +2206,7 @@ static void display_player_various(void)
 					basedam *= 11;
 					basedam /= 9;
 				}
-				if ((p_ptr->class != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+				if ((cr_ptr->class != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 					basedam = basedam * 7 / 2;
 			}
 			else basedam = 0;
@@ -2195,18 +2215,18 @@ static void display_player_various(void)
 		if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage[i] = 1;
 		if (damage[i] < 0) damage[i] = 0;
 	}
-	blows1 = p_ptr->migite ? p_ptr->num_blow[0]: 0;
-	blows2 = p_ptr->hidarite ? p_ptr->num_blow[1] : 0;
+	blows1 = cr_ptr->migite ? cr_ptr->num_blow[0]: 0;
+	blows2 = cr_ptr->hidarite ? cr_ptr->num_blow[1] : 0;
 
 	/* Basic abilities */
 
-	xdis = p_ptr->skill_dis;
-	xdev = p_ptr->skill_dev;
-	xsav = p_ptr->skill_sav;
-	xstl = p_ptr->skill_stl;
-	xsrh = p_ptr->skill_srh;
-	xfos = p_ptr->skill_fos;
-	xdig = p_ptr->skill_dig;
+	xdis = cr_ptr->skill_dis;
+	xdev = cr_ptr->skill_dev;
+	xsav = cr_ptr->skill_sav;
+	xstl = cr_ptr->skill_stl;
+	xsrh = cr_ptr->skill_srh;
+	xfos = cr_ptr->skill_fos;
+	xdig = cr_ptr->skill_dig;
 
 
 	desc = likert(xthn, 12);
@@ -2252,7 +2272,7 @@ static void display_player_various(void)
 
 	display_player_one_line(ENTRY_AVG_DMG, desc, TERM_L_BLUE);
 
-	display_player_one_line(ENTRY_INFRA, format("%d feet", p_ptr->see_infra * 10), TERM_WHITE);
+	display_player_one_line(ENTRY_INFRA, format("%d feet", cr_ptr->see_infra * 10), TERM_WHITE);
 }
 
 
@@ -3444,7 +3464,13 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 		int r_adj;
 
 		if (p_ptr->mimic_form) r_adj = mimic_info[p_ptr->mimic_form].r_adj[i];
-		else r_adj = rp_ptr->r_adj[i];
+		else{
+			r_adj = rp_ptr->r_adj[i];
+			for(j = 0; j < MAX_RACES; j++){
+				if(get_subrace(p_ptr, j))
+					r_adj += race_info[j].r_s_adj[i];
+			}
+		}
 
 		/* Calculate equipment adjustment */
 		e_adj = 0;
@@ -3814,22 +3840,22 @@ void display_player(int mode, creature_type *cr_ptr)
 
 
 		if(cr_ptr->dr < 0){
-			display_player_one_line(ENTRY_DIVINE_RANK, format("------[--]"), TERM_L_DARK);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("--[‚È‚µ]"), TERM_L_DARK);
 		}
 		else if(cr_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‹†‹É_[%2d]", cr_ptr->dr), TERM_WHITE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[‹†‹É_]", cr_ptr->dr), TERM_WHITE);
 		else if(cr_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("’´‰z_[%2d]", cr_ptr->dr), TERM_VIOLET);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[’´‰z_]", cr_ptr->dr), TERM_VIOLET);
 		else if(cr_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("ã‹‰_[%2d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[ã‹‰_]", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("’†‹‰_[%2d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[’†‹‰_]", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‰º‹‰_[%2d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[‰º‹‰_]", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("”¼_[%2d]", cr_ptr->dr), TERM_YELLOW);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[”¼_]", cr_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("‰p—ì[%2d]", cr_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("%2d[‰p—ì]", cr_ptr->dr), TERM_RED);
 
 #else
 
@@ -3851,22 +3877,22 @@ void display_player(int mode, creature_type *cr_ptr)
 		}
 
 		if(cr_ptr->dr < 0){
-			display_player_one_line(ENTRY_DIVINE_RANK, format("None"), TERM_L_DARK);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("--[None]"), TERM_L_DARK);
 		}
 		else if(cr_ptr->dr >= 26)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Ultima[%d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Ultima", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 21)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Over  [%d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Over", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 16)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Elder [%d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Elder", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 11)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Middle[%d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Middle", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 6)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Lesser[%d]", cr_ptr->dr), TERM_L_BLUE);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Lesser", cr_ptr->dr), TERM_L_BLUE);
 		else if(cr_ptr->dr >= 1)
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Demi  [%d]", cr_ptr->dr), TERM_YELLOW);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Demi", cr_ptr->dr), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_DIVINE_RANK, format("Hero  [%d]", cr_ptr->dr), TERM_RED);
+			display_player_one_line(ENTRY_DIVINE_RANK, format("[%2d]Hero", cr_ptr->dr), TERM_RED);
 
 #endif
 
@@ -4057,7 +4083,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		else
 		{
 			display_player_middle();
-			display_player_various();
+			display_player_various(cr_ptr);
 		}
 	}
 

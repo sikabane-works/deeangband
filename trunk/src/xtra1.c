@@ -3270,7 +3270,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Base skill -- digging */
 	cr_ptr->skill_dig = (body_size - 10) * 2;
 
-
 	/* Base skill (Sub-race bonus)*/
 	for(i = 0; i < MAX_RACES; i++)
 	{

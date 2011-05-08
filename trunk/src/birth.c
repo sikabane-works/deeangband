@@ -4607,8 +4607,8 @@ static bool get_player_subrace_eldar()
 				put_str("Str  Int  Wis  Dex  Con  Chr   EXP   ", 4, 40);
 #endif
 				sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-					rps_ptr->r_adj[0], rps_ptr->r_adj[1], rps_ptr->r_adj[2], rps_ptr->r_adj[3],
-					rps_ptr->r_adj[4], rps_ptr->r_adj[5], (rps_ptr->r_exp - 100));
+					rps_ptr->r_s_adj[0], rps_ptr->r_s_adj[1], rps_ptr->r_s_adj[2], rps_ptr->r_s_adj[3],
+					rps_ptr->r_s_adj[4], rps_ptr->r_s_adj[5], rps_ptr->r_s_exp - 100);
 				c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 
