@@ -2229,32 +2229,32 @@ static void display_player_various(creature_type * cr_ptr)
 	xdig = cr_ptr->skill_dig;
 
 
-	desc = likert(xthn, 12);
+	desc = likert(xthn, 10);
 	display_player_one_line(ENTRY_SKILL_FIGHT, desc, likert_color);
 
-	desc = likert(xthb, 12);
+	desc = likert(xthb, 10);
 	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
 
-	desc = likert(xsav, 7);
+	desc = likert(xsav, 5);
 	display_player_one_line(ENTRY_SKILL_SAVING, desc, likert_color);
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */
 	desc = likert((xstl > 0) ? xstl : -1, 1);
 	display_player_one_line(ENTRY_SKILL_STEALTH, desc, likert_color);
 
-	desc = likert(xfos, 6);
+	desc = likert(xfos, 5);
 	display_player_one_line(ENTRY_SKILL_PERCEP, desc, likert_color);
 
-	desc = likert(xsrh, 6);
+	desc = likert(xsrh, 5);
 	display_player_one_line(ENTRY_SKILL_SEARCH, desc, likert_color);
 
-	desc = likert(xdis, 8);
+	desc = likert(xdis, 5);
 	display_player_one_line(ENTRY_SKILL_DISARM, desc, likert_color);
 
-	desc = likert(xdev, 6);
+	desc = likert(xdev, 5);
 	display_player_one_line(ENTRY_SKILL_DEVICE, desc, likert_color);
 
-	desc = likert(xdig, 6);
+	desc = likert(xdig, 5);
 	display_player_one_line(ENTRY_SKILL_DIGGING, desc, likert_color);
 
 	if (!muta_att)
