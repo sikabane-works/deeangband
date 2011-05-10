@@ -529,6 +529,7 @@ static bool build_type1(void)
 	x2 = xval + (xsize - 1) / 2;
 
 
+
 	/* Place a full floor under the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
 	{
@@ -685,21 +686,21 @@ static bool build_type2(void)
 	cave_type   *c_ptr;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 17, 17)) return FALSE;
+	if (!find_space(&yval, &xval, 25, 25)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
 
 	/* Determine extents of the first room */
-	y1a = yval - randint1(8);
+	y1a = yval - randint1(7);
 	y2a = yval + randint1(7);
-	x1a = xval - randint1(8);
+	x1a = xval - randint1(7);
 	x2a = xval + randint1(7);
 
 	/* Determine extents of the second room */
-	y1b = yval - randint1(8);
+	y1b = yval - randint1(7);
 	y2b = yval + randint1(7);
-	x1b = xval - randint1(8);
+	x1b = xval - randint1(7);
 	x2b = xval + randint1(7);
 
 	if(cheat_room) msg_print("[OverLapping Room]");
@@ -814,7 +815,7 @@ static bool build_type3(void)
 
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
+	if (!find_space(&yval, &xval, 21, 21)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
@@ -844,7 +845,7 @@ static bool build_type3(void)
 
 	if(cheat_room)
 	{
-		msg_format("[ROOM3(%d,%d-%d,%d)]", x1b, y1b, x2b, y2b);
+		msg_format("[Closs Room(%d,%d-%d,%d)]", x1b, y1b, x2b, y2b);
 	}
 
 	/* Place a full floor for room "a" */
@@ -1072,17 +1073,28 @@ static bool build_type4(void)
 	cave_type   *c_ptr;
 
 
+	x = 10 + rand_range(0, 40);
+	y = 10 + rand_range(0, 40);
+
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
+	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
 
+
 	/* Large room */
-	y1 = yval - 8;
-	y2 = yval + 8;
-	x1 = xval - 8;
-	x2 = xval + 8;
+	y1 = yval - y/2;
+	y2 = yval + y/2;
+	x1 = xval - x/2;
+	x2 = xval + x/2;
+
+	/* Describe */
+	if (cheat_room)
+	{
+		/* Room type */
+		msg_format("[Large Room(%d,%d-%d,%d)]", x1, y1, x2, y2);
+	}
 
 	/* Place a full floor under the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -2218,14 +2230,19 @@ static bool build_type5(void)
 		nest_mon_info[i].used = FALSE;
 	}
 
+	x = rand_range(0, 16);
+	y = rand_range(0, x);
+	x = x - y + 9;
+	y += 9;
+
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
+	if (!find_space(&yval, &xval, y, x)) return FALSE;
 
 	/* Large room */
-	y1 = yval - 8;
-	y2 = yval + 8;
-	x1 = xval - 8;
-	x2 = xval + 8;
+	y1 = yval - y/2;
+	y2 = yval + y/2;
+	x1 = xval - x/2;
+	x2 = xval + x/2;
 
 	/* Place the floor area */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -2298,17 +2315,13 @@ static bool build_type5(void)
 	if (cheat_room)
 	{
 		/* Room type */
-#ifdef JP
-		msg_format("ƒ‚ƒ“ƒXƒ^[•”‰®(nest)(%s%s)", n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
-#else
-		msg_format("Monster nest (%s%s)", n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
-#endif
+		msg_format("[Monster nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
 	}
 
 	/* Place some monsters */
-	for (y = yval - 2; y <= yval + 2; y++)
+	for (y = y1; y <= y2; y++)
 	{
-		for (x = xval - 9; x <= xval + 9; x++)
+		for (x = x1; x <= x2; x++)
 		{
 			int r_idx;
 
@@ -6284,10 +6297,10 @@ static bool room_build(int typ)
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
 	case ROOM_T_OVERLAP:       return build_type2(); // TODO::DEBUG
-	case ROOM_T_CROSS:         return build_type2(); // TODO::DEBUG
-	case ROOM_T_INNER_FEAT:    return build_type2(); // TODO::DEBUG
-	case ROOM_T_NEST:          return build_type2();
-	case ROOM_T_PIT:           return build_type2();
+	case ROOM_T_CROSS:         return build_type3(); // TODO::DEBUG
+	case ROOM_T_INNER_FEAT:    return build_type4(); // TODO::DEBUG
+	case ROOM_T_NEST:          return build_type5();
+	case ROOM_T_PIT:           return build_type1();
 	case ROOM_T_LESSER_VAULT:  return build_type1();
 	case ROOM_T_GREATER_VAULT: return build_type1();
 	case ROOM_T_FRACAVE:       return build_type1();
