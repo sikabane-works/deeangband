@@ -685,7 +685,7 @@ static bool build_type2(void)
 	cave_type   *c_ptr;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
+	if (!find_space(&yval, &xval, 17, 17)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
@@ -702,6 +702,7 @@ static bool build_type2(void)
 	x1b = xval - randint1(8);
 	x2b = xval + randint1(7);
 
+	if(cheat_room) msg_print("[OverLapping Room]");
 
 	/* Place a full floor for room "a" */
 	for (y = y1a - 1; y <= y2a + 1; y++)
@@ -781,6 +782,9 @@ static bool build_type2(void)
 			place_floor_grid(c_ptr);
 		}
 	}
+
+
+	if(cheat_room) msg_print("[Success!]");
 
 	return TRUE;
 }
@@ -6279,11 +6283,11 @@ static bool room_build(int typ)
 	{
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
-	case ROOM_T_OVERLAP:       return build_type1(); // TODO::DEBUG
-	case ROOM_T_CROSS:         return build_type1(); // TODO::DEBUG
-	case ROOM_T_INNER_FEAT:    return build_type1(); // TODO::DEBUG
-	case ROOM_T_NEST:          return build_type1();
-	case ROOM_T_PIT:           return build_type1();
+	case ROOM_T_OVERLAP:       return build_type2(); // TODO::DEBUG
+	case ROOM_T_CROSS:         return build_type2(); // TODO::DEBUG
+	case ROOM_T_INNER_FEAT:    return build_type2(); // TODO::DEBUG
+	case ROOM_T_NEST:          return build_type2();
+	case ROOM_T_PIT:           return build_type2();
 	case ROOM_T_LESSER_VAULT:  return build_type1();
 	case ROOM_T_GREATER_VAULT: return build_type1();
 	case ROOM_T_FRACAVE:       return build_type1();
