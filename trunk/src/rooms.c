@@ -6278,13 +6278,13 @@ static bool room_build(int typ)
 	{
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
-	case ROOM_T_OVERLAP:       return build_type2(); // TODO::DEBUG
-	case ROOM_T_CROSS:         return build_type3(); // TODO::DEBUG
-	case ROOM_T_INNER_FEAT:    return build_type4(); // TODO::DEBUG
+	case ROOM_T_OVERLAP:       return build_type2();
+	case ROOM_T_CROSS:         return build_type3();
+	case ROOM_T_INNER_FEAT:    return build_type4();
 	case ROOM_T_NEST:          return build_type5();
 	case ROOM_T_PIT:           return build_type6();
 	case ROOM_T_LESSER_VAULT:  return build_type1();
-	case ROOM_T_GREATER_VAULT: return build_type1();
+	case ROOM_T_GREATER_VAULT: return build_type8();
 	case ROOM_T_FRACAVE:       return build_type1();
 	case ROOM_T_RANDOM_VAULT:  return build_type1();
 	case ROOM_T_OVAL:          return build_type1();
