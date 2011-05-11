@@ -3665,7 +3665,7 @@ static bool resize_item()
 	value = object_value(o_ptr) / 5;
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < object_value(o_ptr))
+	if (p_ptr->au < value)
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
