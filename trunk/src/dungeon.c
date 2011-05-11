@@ -1667,6 +1667,39 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		}
 	}
 
+	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN() && !p_ptr->levitation)
+	{
+		int damage = 0;
+
+		if (have_flag(f_ptr->flags, FF_DEEP))
+		{
+			damage = 6000 + randint0(4000);
+		}
+		else if (!p_ptr->levitation)
+		{
+			damage = 3000 + randint0(2000);
+		}
+
+		if (damage)
+		{
+			cptr name = f_name + f_info[get_feat_mimic(&cave[py][px])].name;
+			if (p_ptr->resist_pois) damage = damage / 3;
+			if (IS_OPPOSE_POIS()) damage = damage / 3;
+
+			damage = damage / 100 + (randint0(100) < (damage % 100));
+
+#ifdef JP
+			msg_format("%sに毒された！", name);
+#else
+			msg_format("you are poisoned by The %s", name);
+#endif
+			take_hit(DAMAGE_NOESCAPE, damage, name, -1);
+
+			cave_no_regen = TRUE;
+		}
+	}
+
+
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
 	    !p_ptr->levitation && !p_ptr->can_swim)
 	{

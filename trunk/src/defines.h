@@ -1291,8 +1291,9 @@
 #define FF_CONVERT       111
 #define FF_GLASS         112
 #define FF_CHAOS_TAINTED 113
+#define FF_POISON_SWAMP  114
 
-#define FF_FLAG_MAX      114
+#define FF_FLAG_MAX      115
 #define FF_FLAG_SIZE     (1 + ((FF_FLAG_MAX - 1) / 32))
 
 /* Which features are dynamic */

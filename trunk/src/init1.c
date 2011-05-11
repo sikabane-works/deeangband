@@ -250,6 +250,7 @@ static cptr f_info_flags[] =
 	"GLASS",
 	
 	"CHAOS_TAINTED",
+	"POISON_SWAMP",
 };
 
 
