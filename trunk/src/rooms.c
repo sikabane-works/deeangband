@@ -6285,7 +6285,7 @@ static bool room_build(int typ)
 	case ROOM_T_PIT:           return build_type6();
 	case ROOM_T_LESSER_VAULT:  return build_type1();
 	case ROOM_T_GREATER_VAULT: return build_type8();
-	case ROOM_T_FRACAVE:       return build_type1();
+	case ROOM_T_FRACAVE:       return build_type9();
 	case ROOM_T_RANDOM_VAULT:  return build_type1();
 	case ROOM_T_OVAL:          return build_type1();
 	case ROOM_T_CRYPT:         return build_type1();
