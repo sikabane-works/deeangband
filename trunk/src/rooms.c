@@ -5446,7 +5446,7 @@ static bool build_type11(void)
 	/* Occasional light */
 	if ((randint1(dun_level) <= 15) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
-	rad = randint0(9);
+	rad = randint0(23);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if (!find_space(&y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
@@ -5568,6 +5568,10 @@ static bool build_type12(void)
 		vault_traps(y0, x0, 4, 4, randint0(3) + 2);
 	}
 
+	if(cheat_room)
+	{
+		msg_print("[Crypt]");
+	}
 	return TRUE;
 }
 
@@ -6278,7 +6282,7 @@ static bool room_build(int typ)
 	{
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
-	case ROOM_T_OVERLAP:       return build_type2();
+	case ROOM_T_OVERLAP:       return build_type12();
 	case ROOM_T_CROSS:         return build_type3();
 	case ROOM_T_INNER_FEAT:    return build_type4();
 	case ROOM_T_NEST:          return build_type5();
@@ -6287,8 +6291,8 @@ static bool room_build(int typ)
 	case ROOM_T_GREATER_VAULT: return build_type8();
 	case ROOM_T_FRACAVE:       return build_type9();
 	case ROOM_T_RANDOM_VAULT:  return build_type10();
-	case ROOM_T_OVAL:          return build_type1();
-	case ROOM_T_CRYPT:         return build_type1();
+	case ROOM_T_OVAL:          return build_type11();
+	case ROOM_T_CRYPT:         return build_type12();
 	case ROOM_T_TRAP_PIT:      return build_type1();
 	case ROOM_T_TRAP:          return build_type1();
 	case ROOM_T_GLASS:         return build_type1();
