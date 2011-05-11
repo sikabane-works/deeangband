@@ -1756,6 +1756,8 @@ static errr init_feat_variables(void)
 	feat_shallow_water = f_tag_to_index_in_init("SHALLOW_WATER");
 	feat_deep_lava = f_tag_to_index_in_init("DEEP_LAVA");
 	feat_shallow_lava = f_tag_to_index_in_init("SHALLOW_LAVA");
+	feat_deep_poison = f_tag_to_index_in_init("DEEP_POISON_SWAMP");
+	feat_shallow_poison = f_tag_to_index_in_init("SHALLOW_POISON_SWAMP");
 	feat_dirt = f_tag_to_index_in_init("DIRT");
 	feat_grass = f_tag_to_index_in_init("GRASS");
 	feat_flower = f_tag_to_index_in_init("FLOWER");

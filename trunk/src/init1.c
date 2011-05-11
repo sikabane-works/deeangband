@@ -872,7 +872,7 @@ static cptr d_info_flags1[] =
 	"GLASS_DOOR",
 	"CAVE",
 	"CAVERN",
-	"XXX",
+	"POISON_RIVER",
 	"XXX",
 	"XXX",
 	"XXX",
@@ -890,7 +890,7 @@ static cptr d_info_flags1[] =
 	"NO_MELEE",
 	"CHAMELEON",
 	"DARKNESS",
-	"XXX",
+	"LAKE_POISON",
 	"XXX"
 };
 

@@ -612,6 +612,8 @@ extern s16b feat_deep_water;
 extern s16b feat_shallow_water;
 extern s16b feat_deep_lava;
 extern s16b feat_shallow_lava;
+extern s16b feat_deep_poison;
+extern s16b feat_shallow_poison;
 extern s16b feat_dirt;
 extern s16b feat_grass;
 extern s16b feat_flower;

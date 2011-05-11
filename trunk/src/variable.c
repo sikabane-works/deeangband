@@ -1278,6 +1278,8 @@ s16b feat_deep_water;
 s16b feat_shallow_water;
 s16b feat_deep_lava;
 s16b feat_shallow_lava;
+s16b feat_deep_poison;
+s16b feat_shallow_poison;
 s16b feat_dirt;
 s16b feat_grass;
 s16b feat_flower;

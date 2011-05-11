@@ -827,16 +827,21 @@ static bool cave_gen(void)
 		{
 			int feat1 = 0, feat2 = 0;
 
-			/* Choose water or lava */
+			/* Choose water or lava or poison swamp*/
 			if ((randint1(MAX_DEPTH * 2) - 1 > dun_level) && (d_info[dungeon_type].flags1 & DF1_WATER_RIVER))
 			{
 				feat1 = feat_deep_water;
 				feat2 = feat_shallow_water;
 			}
-			else if  (d_info[dungeon_type].flags1 & DF1_LAVA_RIVER)
+			else if  (d_info[dungeon_type].flags1 & DF1_LAVA_RIVER & one_in_(2))
 			{
 				feat1 = feat_deep_lava;
 				feat2 = feat_shallow_lava;
+			}
+			else if  (d_info[dungeon_type].flags1 & DF1_POISON_RIVER)
+			{
+				feat1 = feat_deep_poison;
+				feat2 = feat_shallow_poison;
 			}
 			else feat1 = 0;
 
