@@ -494,10 +494,10 @@ static bool build_type1(void)
 		one_in_((d_info[dungeon_type].flags1 & DF1_NO_CAVE) ? 48 : 512);
 
 	/* Pick a room size */
-	y1 = randint1(8);
-	x1 = randint1(8);
-	y2 = randint1(8);
-	x2 = randint1(8);
+	y1 = randint1(10);
+	x1 = randint1(10);
+	y2 = randint1(10);
+	x2 = randint1(10);
 
 	xsize = x1 + x2 + 1;
 	ysize = y1 + y2 + 1;
@@ -692,16 +692,16 @@ static bool build_type2(void)
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
 
 	/* Determine extents of the first room */
-	y1a = yval - randint1(7);
-	y2a = yval + randint1(7);
-	x1a = xval - randint1(7);
-	x2a = xval + randint1(7);
+	y1a = yval - randint1(10);
+	y2a = yval + randint1(10);
+	x1a = xval - randint1(10);
+	x2a = xval + randint1(10);
 
 	/* Determine extents of the second room */
-	y1b = yval - randint1(7);
-	y2b = yval + randint1(7);
-	x1b = xval - randint1(7);
-	x2b = xval + randint1(7);
+	y1b = yval - randint1(10);
+	y2b = yval + randint1(10);
+	x1b = xval - randint1(10);
+	x2b = xval + randint1(10);
 
 	if(cheat_room) msg_print("[OverLapping Room]");
 
@@ -814,21 +814,20 @@ static bool build_type3(void)
 	cave_type   *c_ptr;
 
 
-	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 21, 21)) return FALSE;
-
-	/* Choose lite or dark */
-	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
-
-	/* For now, always 3x3 */
-	wx = wy = 1;
-
 	/* Pick max vertical size*/
 	dy = rand_range(3, 9);
 
 	/* Pick max horizontal size*/
 	dx = rand_range(3, 9);
 
+	/* Find and reserve some space in the dungeon.  Get center of room. */
+	if (!find_space(&yval, &xval, dy*2+3, dx*2+3)) return FALSE;
+
+	/* Choose lite or dark */
+	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
+
+	/* For now, always 3x3 */
+	wx = wy = 1;
 
 	/* Determine extents of the north/south room */
 	y1a = yval - dy;
@@ -2236,7 +2235,7 @@ static bool build_type5(void)
 	y += 9;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, y, x)) return FALSE;
+	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
 	y1 = yval - y/2;
@@ -2397,7 +2396,7 @@ static bool build_type5(void)
 static bool build_type6(void)
 {
 	int y, x, y1, x1, y2, x2, xval, yval;
-	int i, j;
+	int i, j, k;
 
 	int what[16];
 
@@ -2450,14 +2449,19 @@ static bool build_type6(void)
 		what[i] = r_idx;
 	}
 
+	x = rand_range(0, 18);
+	y = rand_range(0, x);
+	x = x - y + 9;
+	y += 9;
+
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(&yval, &xval, 11, 25)) return FALSE;
+	if (!find_space(&yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
-	y1 = yval - 7 - randint0(10);
-	y2 = yval + 7 + randint0(10);
-	x1 = xval - 7 - randint0(10);
-	x2 = xval + 7 + randint0(10);
+	y1 = yval - y/2;
+	y2 = yval + y/2;
+	x1 = xval - x/2;
+	x2 = xval + x/2;
 
 	/* Place the floor area */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -2570,54 +2574,32 @@ static bool build_type6(void)
 		}
 	}
 
-	/* Top and bottom rows */
-	for (x = xval - 9; x <= xval + 9; x++)
-	{
-		place_monster_aux(0, yval - 2, x, what[0], PM_NO_KAGE);
-		place_monster_aux(0, yval + 2, x, what[0], PM_NO_KAGE);
-	}
-
-	/* Middle columns */
-	for (y = yval - 1; y <= yval + 1; y++)
-	{
-		place_monster_aux(0, y, xval - 9, what[0], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 9, what[0], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 8, what[1], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 8, what[1], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 7, what[1], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 7, what[1], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 6, what[2], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 6, what[2], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 5, what[2], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 5, what[2], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 4, what[3], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 4, what[3], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 3, what[3], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 3, what[3], PM_NO_KAGE);
-
-		place_monster_aux(0, y, xval - 2, what[4], PM_NO_KAGE);
-		place_monster_aux(0, y, xval + 2, what[4], PM_NO_KAGE);
-	}
-
-	/* Above/Below the center monster */
-	for (x = xval - 1; x <= xval + 1; x++)
-	{
-		place_monster_aux(0, yval + 1, x, what[5], PM_NO_KAGE);
-		place_monster_aux(0, yval - 1, x, what[5], PM_NO_KAGE);
-	}
-
-	/* Next to the center monster */
-	place_monster_aux(0, yval, xval + 1, what[6], PM_NO_KAGE);
-	place_monster_aux(0, yval, xval - 1, what[6], PM_NO_KAGE);
-
 	/* Center monster */
 	place_monster_aux(0, yval, xval, what[7], PM_NO_KAGE);
+	place_monster_aux(0, yval, xval+1, what[6], PM_NO_KAGE);
+	place_monster_aux(0, yval, xval-1, what[6], PM_NO_KAGE);
+	place_monster_aux(0, yval-1, xval, what[6], PM_NO_KAGE);
+	place_monster_aux(0, yval+1, xval, what[6], PM_NO_KAGE);
+	place_monster_aux(0, yval-1, xval-1, what[5], PM_NO_KAGE);
+	place_monster_aux(0, yval+1, xval-1, what[5], PM_NO_KAGE);
+	place_monster_aux(0, yval-1, xval+1, what[5], PM_NO_KAGE);
+	place_monster_aux(0, yval+1, xval+1, what[5], PM_NO_KAGE);
+
+	k = 2;
+	while(k <= y2 - yval|| k <= x2 - xval)
+	{
+		for(i = -k; i <= k; i++)
+		{
+			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_monster_aux(0, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_monster_aux(0, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+		}
+		for(i = -k + 1; i <= k - 1; i++)
+		{
+			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_monster_aux(0, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_monster_aux(0, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+		}
+		k++;
+	}
 
 	return TRUE;
 }
@@ -5511,7 +5493,7 @@ static bool build_type12(void)
 	int h1, h2, h3, h4;
 	h1 = randint1(32) - 16;
 	h2 = randint1(16);
-	h3 = randint1(32);
+	h3 = randint1(16);
 	h4 = randint1(32) - 16;
 
 	/* Occasional light */
@@ -5744,10 +5726,10 @@ static bool build_type13(void)
 	if (!find_space(&yval, &xval, 13, 25)) return FALSE;
 
 	/* Large room */
-	y1 = yval - 8;
-	y2 = yval + 8;
-	x1 = xval - 8;
-	x2 = xval + 8;
+	y1 = yval - 5;
+	y2 = yval + 11;
+	x1 = xval - 5;
+	x2 = xval + 11;
 
 	/* Fill with inner walls */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -6300,7 +6282,7 @@ static bool room_build(int typ)
 	case ROOM_T_CROSS:         return build_type3(); // TODO::DEBUG
 	case ROOM_T_INNER_FEAT:    return build_type4(); // TODO::DEBUG
 	case ROOM_T_NEST:          return build_type5();
-	case ROOM_T_PIT:           return build_type1();
+	case ROOM_T_PIT:           return build_type6();
 	case ROOM_T_LESSER_VAULT:  return build_type1();
 	case ROOM_T_GREATER_VAULT: return build_type1();
 	case ROOM_T_FRACAVE:       return build_type1();
