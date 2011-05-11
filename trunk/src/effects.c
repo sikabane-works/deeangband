@@ -224,6 +224,7 @@ void reset_tim_flags(void)
 	world_player = FALSE;
 
 	if (prace_is_(RACE_DEMON) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
+	if (prace_is_(RACE_BALROG) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
 	if ((p_ptr->class == CLASS_NINJA) && (p_ptr->lev > 44)) p_ptr->oppose_pois = 1;
 	if (p_ptr->class == CLASS_BERSERKER) p_ptr->shero = 1;
 
@@ -3319,7 +3320,8 @@ bool set_oppose_fire(int v, bool do_dec)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if ((prace_is_(RACE_DEMON) && (p_ptr->lev > 44)) || (p_ptr->mimic_form == MIMIC_DEMON)) v = 1;
+	if ((prace_is_(RACE_DEMON) && (p_ptr->lev > 44)) ||
+		(prace_is_(RACE_BALROG) && (p_ptr->lev > 44)) || (p_ptr->mimic_form == MIMIC_DEMON)) v = 1;
 	/* Open */
 	if (v)
 	{

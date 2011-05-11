@@ -6586,6 +6586,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 			case RACE_ZOMBIE:
 			case RACE_VAMPIRE:
 			case RACE_DEMON:
+			case RACE_BALROG:
 			case RACE_LICH:
 				dam = 0;
 				ignore_wraith_form = TRUE;

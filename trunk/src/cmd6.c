@@ -526,7 +526,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if ((prace_is_(RACE_DEMON) ||
+	else if ((prace_is_(RACE_DEMON) || prace_is_(RACE_BALROG) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", r_info[o_ptr->pval].d_char)))
@@ -592,6 +592,7 @@ msg_print("H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿AÁ‚¦‚½I");
 		 prace_is_(RACE_ZOMBIE) ||
 		 prace_is_(RACE_ENT) ||
 		 prace_is_(RACE_DEMON) ||
+		 prace_is_(RACE_BALROG) ||
 		 prace_is_(RACE_ANDROID) ||
 		 prace_is_(RACE_LICH) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
@@ -658,7 +659,7 @@ static bool item_tester_hook_eatable(object_type *o_ptr)
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
-	else if (prace_is_(RACE_DEMON) ||
+	else if (prace_is_(RACE_DEMON) || prace_is_(RACE_BALROG) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
@@ -833,7 +834,9 @@ static void do_cmd_quaff_potion_aux(int item)
 			if (!(prace_is_(RACE_GOLEM) ||
 			      prace_is_(RACE_ZOMBIE) ||
 			      prace_is_(RACE_DEMON) ||
+				  prace_is_(RACE_BALROG) ||
 			      prace_is_(RACE_ANDROID) ||
+				  prace_is_(RACE_BALROG) ||
 			      prace_is_(RACE_LICH) ||
 			      (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
 			{
@@ -1475,6 +1478,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 			case RACE_GOLEM:
 			case RACE_ZOMBIE:
 			case RACE_DEMON:
+			case RACE_BALROG:
 			case RACE_LICH:
 				set_food(p_ptr->food + ((q_ptr->pval) / 20));
 				break;

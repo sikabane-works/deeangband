@@ -3552,6 +3552,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (cr_ptr->lev > 29) cr_ptr->telepathy = TRUE;
 			break;
 		case RACE_DEMON:
+		case RACE_BALROG:
 			if (cr_ptr->lev > 44)
 			{
 				cr_ptr->oppose_fire = 1;

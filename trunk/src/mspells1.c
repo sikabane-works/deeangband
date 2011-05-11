@@ -872,7 +872,7 @@ bool dispel_check(int m_idx)
 
 	if (r_ptr->flags4 & RF4_BR_FIRE)
 	{
-		if (!((p_ptr->race == RACE_DEMON) && p_ptr->lev > 44))
+		if (!((p_ptr->race == RACE_DEMON || p_ptr->race == RACE_BALROG) && p_ptr->lev > 44))
 		{
 			if (!p_ptr->immune_fire && (p_ptr->oppose_fire || music_singing(MUSIC_RESIST))) return (TRUE);
 			if (p_ptr->special_defense & DEFENSE_FIRE) return (TRUE);

@@ -520,6 +520,7 @@ info[i++] = "あなたは敵を眠らせる魔法の粉を投げることができる。(12 MP)";
 			}
 			break;
 		case RACE_DEMON:
+		case RACE_BALROG:
 #ifdef JP
 sprintf(Dummy, "あなたは %d ダメージの地獄か火炎のブレスを吐くことができる。(%d MP)", 3 * plev, 10+plev/3);
 #else

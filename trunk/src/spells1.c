@@ -7395,6 +7395,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 				case RACE_ZOMBIE:
 				case RACE_VAMPIRE:
 				case RACE_DEMON:
+				case RACE_BALROG:
 				case RACE_LICH:
 				{
 					dam = 0;

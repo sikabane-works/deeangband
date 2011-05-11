@@ -2102,7 +2102,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 		r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 		/* Demon characters are unaffected */
-		if (prace_is_(RACE_IMP) || prace_is_(RACE_DEMON) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
+		if (prace_is_(RACE_IMP) || prace_is_(RACE_DEMON) || prace_is_(RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
 		if (p_ptr->wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */

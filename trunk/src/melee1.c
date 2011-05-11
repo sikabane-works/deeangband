@@ -1713,6 +1713,7 @@ bool make_attack_normal(int m_idx)
 						case RACE_LICH:
 						case RACE_SKELETON:
 						case RACE_DEMON:
+						case RACE_BALROG:
 						case RACE_GOLEM:
 						case RACE_ANDROID:
 							resist_drain = TRUE;

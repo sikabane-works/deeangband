@@ -2093,6 +2093,7 @@ static bool cmd_racial_power_aux(s32b command)
 			break;
 
 		case RACE_DEMON:
+		case RACE_BALROG:
 			{
 				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
 				if (!get_aim_dir(&dir)) return FALSE;
@@ -3067,6 +3068,7 @@ strcpy(power_desc[num].name, "眠り粉");
 			power_desc[num++].number = -1;
 			break;
 		case RACE_DEMON:
+		case RACE_BALROG:
 #ifdef JP
 sprintf(power_desc[num].name, "地獄/火炎のブレス (ダメージ %d)", lvl * 3);
 #else

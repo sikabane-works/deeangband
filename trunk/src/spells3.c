@@ -6074,6 +6074,7 @@ bool summon_kin_player(int level, int y, int x, u32b mode)
 				summon_kin_type = 'A';
 				break;
 			case RACE_DEMON:
+			case RACE_BALROG:
 				summon_kin_type = 'U';
 				break;
 			default:
