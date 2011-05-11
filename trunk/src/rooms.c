@@ -6282,7 +6282,7 @@ static bool room_build(int typ)
 	{
 	/* Build an appropriate room */
 	case ROOM_T_NORMAL:        return build_type1();
-	case ROOM_T_OVERLAP:       return build_type12();
+	case ROOM_T_OVERLAP:       return build_type2();
 	case ROOM_T_CROSS:         return build_type3();
 	case ROOM_T_INNER_FEAT:    return build_type4();
 	case ROOM_T_NEST:          return build_type5();
@@ -6294,7 +6294,7 @@ static bool room_build(int typ)
 	case ROOM_T_OVAL:          return build_type11();
 	case ROOM_T_CRYPT:         return build_type12();
 	case ROOM_T_TRAP_PIT:      return build_type1();
-	case ROOM_T_TRAP:          return build_type1();
+	case ROOM_T_TRAP:          return build_type14();
 	case ROOM_T_GLASS:         return build_type1();
 	}
 
