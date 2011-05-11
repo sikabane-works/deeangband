@@ -6034,8 +6034,8 @@ static bool build_type15(void)
 	cave_type *c_ptr;
 
 	/* Pick a room size */
-	xsize = rand_range(9, 13);
-	ysize = rand_range(9, 13);
+	xsize = rand_range(7, 18);
+	ysize = rand_range(7, 18);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if (!find_space(&yval, &xval, ysize + 2, xsize + 2)) return FALSE;
@@ -6295,7 +6295,7 @@ static bool room_build(int typ)
 	case ROOM_T_CRYPT:         return build_type12();
 	case ROOM_T_TRAP_PIT:      return build_type1();
 	case ROOM_T_TRAP:          return build_type14();
-	case ROOM_T_GLASS:         return build_type1();
+	case ROOM_T_GLASS:         return build_type15();
 	}
 
 	/* Paranoia */
