@@ -57,7 +57,7 @@
 #define FAKE_VERSION   0
 #define FAKE_VER_MAJOR 10
 #define FAKE_VER_MINOR 0
-#define FAKE_VER_PATCH 0
+#define FAKE_VER_PATCH 1
 
 
 /*
@@ -73,10 +73,10 @@
  *
  * Upper compatibility is always guaranteed.
  */
-#define H_VER_MAJOR 1
-#define H_VER_MINOR 7
-#define H_VER_PATCH 2
-#define H_VER_EXTRA 0
+#define VER_MAJOR 1
+#define VER_MINOR 7
+#define VER_PATCH 2
+#define VER_EXTRA 0
 
 
 #define ANGBAND_2_8_1

@@ -122,10 +122,10 @@ extern byte feature_action_flags[FF_FLAG_MAX];
 
 /* variable.c */
 extern cptr copyright[5];
-extern byte h_ver_major;
-extern byte h_ver_minor;
-extern byte h_ver_patch;
-extern byte h_ver_extra;
+extern byte ver_major;
+extern byte ver_minor;
+extern byte ver_patch;
+extern byte ver_extra;
 extern byte sf_extra;
 extern u32b sf_system;
 extern byte z_major;

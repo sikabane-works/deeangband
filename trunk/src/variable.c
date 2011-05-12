@@ -46,10 +46,10 @@ autopick_type *autopick_list = NULL;
 /*
  * Savefile version
  */
-byte h_ver_major;       /* Savefile version for D\'angband 1.1.1 and later */
-byte h_ver_minor;
-byte h_ver_patch;
-byte h_ver_extra;
+byte ver_major;       /* Savefile version for D\'angband 1.1.1 and later */
+byte ver_minor;
+byte ver_patch;
+byte ver_extra;
 
 byte sf_extra;		/* Savefile's encoding key */
 

@@ -102,6 +102,28 @@ static void note(cptr msg)
 	Term_fresh();
 }
 
+static bool older_than(byte major, byte minor, byte patch, byte extra)
+{
+	/* Much older, or much more recent */
+	if (ver_major < major) return (TRUE);
+	if (ver_major > major) return (FALSE);
+
+	/* Distinctly older, or distinctly more recent */
+	if (ver_minor < minor) return (TRUE);
+	if (ver_minor > minor) return (FALSE);
+
+	/* Barely older, or barely more recent */
+	if (ver_patch < patch) return (TRUE);
+	if (ver_patch > patch) return (FALSE);
+
+	/* Barely older, or barely more recent */
+	if (ver_extra < extra) return (TRUE);
+	if (ver_extra > extra) return (FALSE);
+
+	/* Identical versions */
+	return (FALSE);
+}
+
 
 /*
  * The following functions are used to load the basic building blocks
@@ -2234,10 +2256,10 @@ static errr rd_savefile_new_aux(void)
 
 	/* Read the version number of the savefile */
 	/* Old savefile will be version 0.0.0.3 */
-	rd_byte(&h_ver_extra);
-	rd_byte(&h_ver_patch);
-	rd_byte(&h_ver_minor);
-	rd_byte(&h_ver_major);
+	rd_byte(&ver_extra);
+	rd_byte(&ver_patch);
+	rd_byte(&ver_minor);
+	rd_byte(&ver_major);
 
 	/* Operating system info */
 	rd_u32b(&sf_system);
@@ -2803,10 +2825,10 @@ static bool load_floor_aux(saved_floor_type *sf_ptr)
 
 	/* Set the version number to current version */
 	/* Never load old temporal files */
-	h_ver_extra = H_VER_EXTRA;
-	h_ver_patch = H_VER_PATCH;
-	h_ver_minor = H_VER_MINOR;
-	h_ver_major = H_VER_MAJOR;
+	ver_extra = VER_EXTRA;
+	ver_patch = VER_PATCH;
+	ver_minor = VER_MINOR;
+	ver_major = VER_MAJOR;
 
 	/* Verify the sign */
 	rd_u32b(&tmp32u);
@@ -2850,10 +2872,10 @@ bool load_floor(saved_floor_type *sf_ptr, u32b mode)
 	byte old_xor_byte = 0;
 	u32b old_v_check = 0;
 	u32b old_x_check = 0;
-	byte old_h_ver_major = 0;
-	byte old_h_ver_minor = 0;
-	byte old_h_ver_patch = 0;
-	byte old_h_ver_extra = 0;
+	byte old_ver_major = 0;
+	byte old_ver_minor = 0;
+	byte old_ver_patch = 0;
+	byte old_ver_extra = 0;
  
 	bool ok = TRUE;
 	char floor_savefile[1024];
@@ -2887,10 +2909,10 @@ bool load_floor(saved_floor_type *sf_ptr, u32b mode)
 		old_xor_byte = xor_byte;
 		old_v_check = v_check;
 		old_x_check = x_check;
-		old_h_ver_major = h_ver_major;
-		old_h_ver_minor = h_ver_minor;
-		old_h_ver_patch = h_ver_patch;
-		old_h_ver_extra = h_ver_extra;
+		old_ver_major = ver_major;
+		old_ver_minor = ver_minor;
+		old_ver_patch = ver_patch;
+		old_ver_extra = ver_extra;
 	}
 
 	/* floor savefile */
@@ -2938,10 +2960,10 @@ bool load_floor(saved_floor_type *sf_ptr, u32b mode)
 		xor_byte = old_xor_byte;
 		v_check = old_v_check;
 		x_check = old_x_check;
-		h_ver_major = old_h_ver_major;
-		h_ver_minor = old_h_ver_minor;
-		h_ver_patch = old_h_ver_patch;
-		h_ver_extra = old_h_ver_extra;
+		ver_major = old_ver_major;
+		ver_minor = old_ver_minor;
+		ver_patch = old_ver_patch;
+		ver_extra = old_ver_extra;
 	}
 
 	/* Restore old knowledge */

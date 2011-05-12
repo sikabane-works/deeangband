@@ -1277,10 +1277,10 @@ static bool wr_savefile_new(void)
 	x_stamp = 0L;
 
 	/* Write the savefile version for Hengband 1.1.1 and later */
-	wr_byte(H_VER_EXTRA);
-	wr_byte(H_VER_PATCH);
-	wr_byte(H_VER_MINOR);
-	wr_byte(H_VER_MAJOR);
+	wr_byte(VER_EXTRA);
+	wr_byte(VER_PATCH);
+	wr_byte(VER_MINOR);
+	wr_byte(VER_MAJOR);
 
 	/* Operating system */
 	wr_u32b(sf_system);
