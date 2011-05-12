@@ -833,15 +833,20 @@ static bool cave_gen(void)
 				feat1 = feat_deep_water;
 				feat2 = feat_shallow_water;
 			}
-			else if  (d_info[dungeon_type].flags1 & DF1_LAVA_RIVER & one_in_(2))
+			else if  (d_info[dungeon_type].flags1 & DF1_LAVA_RIVER & one_in_(3))
 			{
 				feat1 = feat_deep_lava;
 				feat2 = feat_shallow_lava;
 			}
-			else if  (d_info[dungeon_type].flags1 & DF1_POISON_RIVER)
+			else if  (d_info[dungeon_type].flags1 & DF1_POISON_RIVER & one_in_(2))
 			{
 				feat1 = feat_deep_poison;
 				feat2 = feat_shallow_poison;
+			}
+			else if  (d_info[dungeon_type].flags1 & DF1_ACID_RIVER)
+			{
+				feat1 = feat_deep_acid;
+				feat2 = feat_shallow_acid;
 			}
 			else feat1 = 0;
 
