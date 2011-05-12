@@ -251,6 +251,7 @@ static cptr f_info_flags[] =
 	
 	"CHAOS_TAINTED",
 	"POISON_SWAMP",
+	"ACID_SWAMP",
 };
 
 
@@ -873,7 +874,7 @@ static cptr d_info_flags1[] =
 	"CAVE",
 	"CAVERN",
 	"POISON_RIVER",
-	"XXX",
+	"ACID_RIVER",
 	"XXX",
 	"XXX",
 	"FORGET",
@@ -891,7 +892,7 @@ static cptr d_info_flags1[] =
 	"CHAMELEON",
 	"DARKNESS",
 	"LAKE_POISON",
-	"XXX"
+	"LAKE_ACID"
 };
 
 
