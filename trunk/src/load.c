@@ -467,6 +467,9 @@ static void rd_monster(creature_type *m_ptr)
 
 	if (flags & SAVE_MON_PARENT) rd_s16b(&m_ptr->parent_m_idx);
 	else m_ptr->parent_m_idx = 0;
+
+	calc_bonuses(m_ptr, FALSE);
+
 }
 
 
@@ -577,6 +580,7 @@ static void rd_lore(int r_idx)
 	r_ptr->r_flags5 &= r_ptr->flags5;
 	r_ptr->r_flags6 &= r_ptr->flags6;
 	r_ptr->r_flagsr &= r_ptr->flagsr;
+
 }
 
 

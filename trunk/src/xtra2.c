@@ -3253,6 +3253,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 			/* Hidden commands */
 			if (query == 'd' && cheat_know){
 				char c;
+				int m = 0;
 
 				/* Save the screen */
 				screen_save();
@@ -3263,12 +3264,12 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 					update_playtime();
 
 					/* Display the player */
-					display_player(mode, m_ptr);
+					display_player(m, m_ptr);
 
-					if (mode == 4)
+					if (m == 4)
 					{
-						mode = 0;
-						display_player(mode, m_ptr);
+						m = 0;
+						display_player(m, m_ptr);
 					}
 
 					/* Prompt */
@@ -3290,7 +3291,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 					/* Toggle mode */
 						else if (c == 'h')
 						{
-							mode++;
+							m++;
 						}
 
 					/* Oops */
