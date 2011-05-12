@@ -1362,11 +1362,12 @@
 #define TRAP_TRAPS      16
 #define TRAP_ALARM      17
 
-
 /* Types of special traps */
 #define TRAP_OPEN       18
 #define TRAP_ARMAGEDDON 19
 #define TRAP_PIRANHA    20
+#define TRAP_ACID_FLOW   21
+#define TRAP_POISON_FLOW 22
 
 
 /* Maximum locked/jammed doors */
@@ -3205,8 +3206,10 @@
 #define GF_CRUSADE     114
 #define GF_STASIS_EVIL 115
 #define GF_WOUNDS      116
+#define GF_ACID_FLOW   117
+#define GF_POISON_FLOW   118
 
-#define MAX_GF				117
+#define MAX_GF				119
 
 /*
  * Some things which induce learning

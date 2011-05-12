@@ -589,6 +589,8 @@ extern s16b feat_entrance;
 extern s16b feat_trap_open;
 extern s16b feat_trap_armageddon;
 extern s16b feat_trap_piranha;
+extern s16b feat_trap_acid_flow;
+extern s16b feat_trap_poison_flow;
 extern s16b feat_rubble;
 extern s16b feat_magma_vein;
 extern s16b feat_quartz_vein;

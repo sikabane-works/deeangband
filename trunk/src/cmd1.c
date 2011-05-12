@@ -1733,6 +1733,34 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			}
 			break;
 		}
+
+		case TRAP_ACID_FLOW:
+		{
+#ifdef JP
+			msg_print("“Ë‘R°‚©‚ç_‚ªˆì‚êo‚µ‚½I");
+#else
+			msg_print("Suddenly, the room is filled with acid!");
+#endif
+
+			/* Water fills room */
+			fire_ball_hide(GF_ACID_FLOW, 0, 1, 10);
+			break;
+
+		}
+
+		case TRAP_POISON_FLOW:
+		{
+#ifdef JP
+			msg_print("“Ë‘R°‚©‚ç“Å‰t‚ªˆì‚êo‚µ‚½I");
+#else
+			msg_print("Suddenly, the room is filled with acid!");
+#endif
+
+			/* Water fills room */
+			fire_ball_hide(GF_POISON_FLOW, 0, 1, 10);
+			break;
+		}
+
 	}
 
 	if (break_trap && is_trap(c_ptr->feat))

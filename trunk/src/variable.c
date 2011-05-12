@@ -1239,6 +1239,8 @@ s16b feat_entrance;
 s16b feat_trap_open;
 s16b feat_trap_armageddon;
 s16b feat_trap_piranha;
+s16b feat_trap_acid_flow;
+s16b feat_trap_poison_flow;
 
 /* Rubble */
 s16b feat_rubble;

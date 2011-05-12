@@ -1192,6 +1192,53 @@ static bool project_f(int who, int r, int y, int x, int dam, int typ)
 			}
 			break;
 		}
+
+		case GF_ACID_FLOW:
+		{
+			/* Ignore permanent grid */
+			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+
+			/* Shallow Water */
+			if (dam == 1)
+			{
+				/* Ignore grid without enough space */
+				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+
+				/* Place a shallow water */
+				cave_set_feat(y, x, feat_shallow_acid);
+			}
+			/* Deep Water */
+			else if (dam)
+			{
+				/* Place a deep water */
+				cave_set_feat(y, x, feat_deep_acid);
+			}
+			break;
+		}
+
+		case GF_POISON_FLOW:
+		{
+			/* Ignore permanent grid */
+			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+
+			/* Shallow Water */
+			if (dam == 1)
+			{
+				/* Ignore grid without enough space */
+				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+
+				/* Place a shallow water */
+				cave_set_feat(y, x, feat_shallow_poison);
+			}
+			/* Deep Water */
+			else if (dam)
+			{
+				/* Place a deep water */
+				cave_set_feat(y, x, feat_deep_poison);
+			}
+			break;
+		}
+
 	}
 
 	lite_spot(y, x);

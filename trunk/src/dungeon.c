@@ -1610,12 +1610,13 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 	{
 		int damage = 0;
 		damage = randint0(50) + 20;
+		if(p_ptr->resist_chaos) damage /= 2;
 #ifdef JP
 				msg_print("混沌に身を蝕まれた！");
 				take_hit(DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", -1);
 #else
 				msg_print("The chaos tainted you!");
-				take_hit(DAMAGE_NOESCAPE, damage, "tainted by chaos", -1);
+				take_hit(DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", -1);
 #endif
 	}
 

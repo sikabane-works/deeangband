@@ -5953,7 +5953,9 @@ static bool build_type14(void)
 	}
 
 	if (dun_level < 30 + randint1(30))
-		trap = feat_trap_piranha;
+		if (one_in_(3)) trap = feat_trap_piranha;
+		else if(one_in_(2)) trap = feat_trap_acid_flow;
+		else trap = feat_trap_poison_flow;
 	else
 		trap = feat_trap_armageddon;
 

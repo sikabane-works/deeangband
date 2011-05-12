@@ -1717,6 +1717,8 @@ static errr init_feat_variables(void)
 	feat_trap_open = f_tag_to_index_in_init("TRAP_OPEN");
 	feat_trap_armageddon = f_tag_to_index_in_init("TRAP_ARMAGEDDON");
 	feat_trap_piranha = f_tag_to_index_in_init("TRAP_PIRANHA");
+    feat_trap_acid_flow = f_tag_to_index_in_init("TRAP_ACID_FLOW");
+    feat_trap_poison_flow = f_tag_to_index_in_init("TRAP_POISON_FLOW");
 
 	/* Rubble */
 	feat_rubble = f_tag_to_index_in_init("RUBBLE");
