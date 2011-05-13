@@ -1260,11 +1260,11 @@ static bool wr_savefile_new(void)
 
 	/* Dump the file header */
 	xor_byte = 0;
-	wr_byte(FAKE_VER_MAJOR);
+	wr_byte(VER_MAJOR);
 	xor_byte = 0;
-	wr_byte(FAKE_VER_MINOR);
+	wr_byte(VER_MINOR);
 	xor_byte = 0;
-	wr_byte(FAKE_VER_PATCH);
+	wr_byte(VER_PATCH);
 	xor_byte = 0;
 
 	/* Initial value of xor_byte */
@@ -1961,9 +1961,9 @@ bool load_player(void)
 	if (!err)
 	{
 		/* Give a conversion warning */
-		if ((FAKE_VER_MAJOR != z_major) ||
-		    (FAKE_VER_MINOR != z_minor) ||
-		    (FAKE_VER_PATCH != z_patch))
+		if ((VER_MAJOR != z_major) ||
+		    (VER_MINOR != z_minor) ||
+		    (VER_PATCH != z_patch))
 		{
 			if (z_major == 2 && z_minor == 0 && z_patch == 6)
 			{

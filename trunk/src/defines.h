@@ -43,41 +43,14 @@
 /*
  * Name of the version/variant
  */
-#define VERSION_NAME "Hengband"
+#define VERSION_NAME "D\'angband"
 
 
-/*
- * "Program Version Number" of the game
- *
- * FAKE_VER_MAJOR=1,2 were reserved for ZAngband version 1.x.x/2.x.x .
- *
- * Program Version of Hengband version is
- *   "(FAKE_VER_MAJOR-10).(FAKE_VER_MINOR).(FAKE_VER_PATCH)".
- */
-#define FAKE_VERSION   0
-#define FAKE_VER_MAJOR 10
-#define FAKE_VER_MINOR 0
-#define FAKE_VER_PATCH 1
-
-
-/*
- * "Savefile Version Number" for Hengband 1.1.1 and later
- *
- * First three digits may be same as the Program Version.  But not
- * always same.  It means that newer version may preserves lower
- * compatibility with the older version.
- *
- * For example, newer Hengband 1.4.4 creates savefiles marked with
- * Savefile Version 1.4.0.0 .  It means that Hengband 1.4.0 can load a
- * savefile of Hengband 1.4.4 (lower compatibility!).
- *
- * Upper compatibility is always guaranteed.
- */
-#define VER_MAJOR 1
-#define VER_MINOR 7
-#define VER_PATCH 2
+#define VERSION   0
+#define VER_MAJOR 0
+#define VER_MINOR 0
+#define VER_PATCH 1
 #define VER_EXTRA 0
-
 
 #define ANGBAND_2_8_1
 #define ZANGBAND

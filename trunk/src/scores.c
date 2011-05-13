@@ -496,7 +496,7 @@ errr top_twenty(void)
 
 	/* Save the version */
 	sprintf(the_score.what, "%u.%u.%u",
-		FAKE_VER_MAJOR, FAKE_VER_MINOR, FAKE_VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
 	sprintf(the_score.pts, "%9ld", (long)total_points());
@@ -623,7 +623,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 	/* Save the version */
 	sprintf(the_score.what, "%u.%u.%u",
-		FAKE_VER_MAJOR, FAKE_VER_MINOR, FAKE_VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
 	sprintf(the_score.pts, "%9ld", (long)total_points());

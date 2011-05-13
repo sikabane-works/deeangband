@@ -418,9 +418,9 @@ static errr init_info_raw(int fd, header *head)
 static void init_header(header *head, int num, int len)
 {
 	/* Save the "version" */
-	head->v_major = FAKE_VER_MAJOR;
-	head->v_minor = FAKE_VER_MINOR;
-	head->v_patch = FAKE_VER_PATCH;
+	head->v_major = VER_MAJOR;
+	head->v_minor = VER_MINOR;
+	head->v_patch = VER_PATCH;
 	head->v_extra = 0;
 
 	/* Save the "record" information */
