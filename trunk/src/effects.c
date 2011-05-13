@@ -4859,6 +4859,7 @@ take_hit(DAMAGE_LOSELIFE, change / 2, "•Ï‰»‚µ‚½", -1);
  */
 void change_race(int new_race, cptr effect_msg)
 {
+	int i;
 	cptr title = race_info[new_race].title;
 	int  old_race = p_ptr->race;
 
@@ -4883,6 +4884,8 @@ void change_race(int new_race, cptr effect_msg)
 
 	/* Experience factor */
 	p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
+	for(i = 0; i < MAX_RACES; i++)
+		if(get_subrace(p_ptr, i)) p_ptr->expfact += (race_info[i].r_s_exp - 100);
 
 	/*
 	 * The speed bonus of Klackons and Sprites are disabled
