@@ -188,6 +188,8 @@ static void wr_item(object_type *o_ptr)
  */
 static void wr_monster(creature_type *m_ptr)
 {
+	int i;
+
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
@@ -230,12 +232,9 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s16b(m_ptr->sex);
 	wr_s16b(m_ptr->hitdice);
 
-	wr_s16b(m_ptr->stat_use[A_STR]);
-	wr_s16b(m_ptr->stat_use[A_INT]);
-	wr_s16b(m_ptr->stat_use[A_WIS]);
-	wr_s16b(m_ptr->stat_use[A_DEX]);
-	wr_s16b(m_ptr->stat_use[A_CON]);
-	wr_s16b(m_ptr->stat_use[A_CHR]);
+	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);
 
 	wr_s16b(m_ptr->dr);
 

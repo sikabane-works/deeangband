@@ -378,6 +378,7 @@ static void rd_monster(creature_type *m_ptr)
 	u32b flags;
 	char buf[128];
 	byte tmp8u;
+	int i;
 
 	/*** Monster save flags ***/
 	rd_u32b(&flags);
@@ -404,12 +405,22 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->sex);
 	rd_s16b(&m_ptr->hitdice);
 
-	rd_s16b(&m_ptr->stat_use[A_STR]);
-	rd_s16b(&m_ptr->stat_use[A_INT]);
-	rd_s16b(&m_ptr->stat_use[A_WIS]);
-	rd_s16b(&m_ptr->stat_use[A_DEX]);
-	rd_s16b(&m_ptr->stat_use[A_CON]);
-	rd_s16b(&m_ptr->stat_use[A_CHR]);
+	if(older_than(0,0,2,0))
+	{
+		rd_s16b(&m_ptr->stat_use[A_STR]);
+		rd_s16b(&m_ptr->stat_use[A_INT]);
+		rd_s16b(&m_ptr->stat_use[A_WIS]);
+		rd_s16b(&m_ptr->stat_use[A_DEX]);
+		rd_s16b(&m_ptr->stat_use[A_CON]);
+		rd_s16b(&m_ptr->stat_use[A_CHR]);
+	}
+	else
+	{
+		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max[i]);
+		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max_max[i]);
+		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
+	}
+
 
 	rd_s16b(&m_ptr->dr);
 
