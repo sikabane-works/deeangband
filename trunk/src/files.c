@@ -5214,10 +5214,10 @@ errr make_character_dump(FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "  [D\'angband %d.%d.%d キャラクタ情報]\n\n",
-		VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
 	fprintf(fff, "  [D\'angband %d.%d.%d Character Dump]\n\n",
-		VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 
 	update_playtime();
@@ -5796,7 +5796,7 @@ msg_format("'%s'をオープンできません。", name);
 				"[D\'angband %d.%d.%d, %s, Line %d/%d]",
 #endif
 
-			   VER_MAJOR-10, VER_MINOR, VER_PATCH,
+			   VER_MAJOR, VER_MINOR, VER_PATCH,
 			   caption, line, size), 0, 0);
 		}
 		else

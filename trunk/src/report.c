@@ -220,7 +220,7 @@ static void http_post(int sd, cptr url, BUF *buf)
 	output = buf_new();
 	buf_sprintf(output, "POST %s HTTP/1.0\n", url);
 	buf_sprintf(output, "User-Agent: D\'angband %d.%d.%d\n",
-		    VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		    VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	buf_sprintf(output, "Content-Length: %d\n", buf->size);
 	buf_sprintf(output, "Content-Encoding: binary\n");
@@ -433,10 +433,10 @@ errr report_score(void)
 	buf_sprintf(score, "name: %s\n", p_ptr->name);
 #ifdef JP
 	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
-		    VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		    VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
 	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
-		    VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		    VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 	buf_sprintf(score, "score: %d\n", total_points());
 	buf_sprintf(score, "level: %d\n", p_ptr->lev);

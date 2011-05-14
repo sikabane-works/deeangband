@@ -386,7 +386,7 @@ static void spoil_obj_desc(cptr fname)
 
 	/* Header */
 	fprintf(fff, "Spoiler File -- Basic Items (D\'angband %d.%d.%d)\n\n\n",
-		VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* More Header */
 	fprintf(fff, "%-45s     %8s%7s%5s%9s\n",
@@ -1368,7 +1368,7 @@ static void print_header(void)
 	char buf[80];
 
 	sprintf(buf, "Artifact Spoilers for D\'angband Version %d.%d.%d",
-		VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 	spoiler_underline(buf);
 }
 
@@ -1748,7 +1748,7 @@ static void spoil_mon_desc(cptr fname)
 
 	/* Dump the header */
 	fprintf(fff, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
-		VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		VER_MAJOR, VER_MINOR, VER_PATCH);
 	fprintf(fff, "---------------------------------------------\n\n");
 
 	/* Dump the header */
@@ -2307,7 +2307,7 @@ static void spoil_mon_info(cptr fname)
 
 	/* Dump the header */
 	sprintf(buf, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
-	     VER_MAJOR-10, VER_MINOR, VER_PATCH);
+	     VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
 	spoil_out("------------------------------------------\n\n");
@@ -2606,7 +2606,7 @@ static void spoil_mon_evol(cptr fname)
 
 	/* Dump the header */
 	sprintf(buf, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
-	     VER_MAJOR-10, VER_MINOR, VER_PATCH);
+	     VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
 	spoil_out("------------------------------------------\n\n");

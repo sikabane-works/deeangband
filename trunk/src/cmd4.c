@@ -4825,10 +4825,10 @@ void do_cmd_version(void)
 	/* Silly message */
 #ifdef JP
 	msg_format("D\'angband %d.%d.%d",
-		    VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		    VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
 	msg_format("You are playing D\'angband %d.%d.%d.",
-		    VER_MAJOR-10, VER_MINOR, VER_PATCH);
+		    VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 }
 

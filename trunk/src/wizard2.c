@@ -1832,7 +1832,7 @@ static void do_cmd_dump_options(void)
 	}
 
 	fprintf(fff, "[Option bits usage on D\'angband %d.%d.%d]\n\n",
-	        VER_MAJOR - 10, VER_MINOR, VER_PATCH);
+	        VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	fputs("Set - Bit (Page) Option Name\n", fff);
 	fputs("------------------------------------------------\n", fff);
