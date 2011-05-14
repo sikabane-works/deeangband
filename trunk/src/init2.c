@@ -2297,7 +2297,9 @@ void init_angband(void)
 	FILE *fp;
 
 	char buf[1024];
+	int wid, hgt;
 
+	Term_get_size(&wid, &hgt);
 
 	/*** Verify the "news" file ***/
 
@@ -2364,6 +2366,7 @@ void init_angband(void)
 		/* Close */
 		my_fclose(fp);
 	}
+	msg_format("[Ver.%d.%d.%d]", VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Flush it */
 	Term_fresh();
