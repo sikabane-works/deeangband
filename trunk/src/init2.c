@@ -2297,6 +2297,7 @@ void init_angband(void)
 	FILE *fp;
 
 	char buf[1024];
+	char ver[24];
 	int wid, hgt;
 
 	Term_get_size(&wid, &hgt);
@@ -2366,7 +2367,8 @@ void init_angband(void)
 		/* Close */
 		my_fclose(fp);
 	}
-	msg_format("[Ver.%d.%d.%d]", VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(ver, "[Ver.%d.%d.%d]", VER_MAJOR, VER_MINOR, VER_PATCH);
+	Term_putstr(25, 2, -1, TERM_WHITE, ver);
 
 	/* Flush it */
 	Term_fresh();
