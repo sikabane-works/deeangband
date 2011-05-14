@@ -3578,6 +3578,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 	}
 
 	strcpy(m_ptr->name, r_name + r_ptr->name);
+	//monster_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)

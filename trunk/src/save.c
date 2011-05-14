@@ -218,6 +218,9 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s16b(m_ptr->re_idx);
 	wr_s16b(m_ptr->race);
 
+	wr_byte(m_ptr->class);
+	wr_byte(m_ptr->chara);
+
 	wr_byte(m_ptr->fy);
 	wr_byte(m_ptr->fx);
 

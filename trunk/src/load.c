@@ -389,6 +389,11 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->r_idx);
 	rd_s16b(&m_ptr->re_idx);
 	rd_s16b(&m_ptr->race);
+	if(!older_than(0,0,3,0))
+	{
+		rd_byte(&m_ptr->class);
+		rd_byte(&m_ptr->chara);
+	}
 
 	/* Read the other information */
 	rd_byte(&m_ptr->fy);
@@ -502,6 +507,7 @@ static void rd_monster(creature_type *m_ptr)
 	else m_ptr->parent_m_idx = 0;
 
 	calc_bonuses(m_ptr, FALSE);
+	strcpy(m_ptr->name, r_name + r_info[m_ptr->r_idx].name);
 
 }
 
