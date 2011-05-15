@@ -3423,9 +3423,9 @@ put_str("ÇlÇo  :", 8, 1);
  * Huge mods (>9), like from MICoMorgoth, will be a '*'
  * No mod, no sustain, will be a slate '.'
  */
-static void display_player_stat_info(void)
+static void display_player_stat_info(creature_type *cr_ptr)
 {
-	int i, j, e_adj;
+	int i, j, s, e_adj;
 	int stat_col, stat;
 	int row, col;
 
@@ -3463,13 +3463,13 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 	/* Display the stats */
 	for (i = 0; i < 6; i++)
 	{
-		int r_adj;
+		int r_adj, cl_adj;
 
-		if (p_ptr->mimic_form) r_adj = mimic_info[p_ptr->mimic_form].r_adj[i];
+		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
-			r_adj = rp_ptr->r_adj[i];
+			r_adj = race_info[cr_ptr->race].r_adj[i];
 			for(j = 0; j < MAX_RACES; j++){
-				if(get_subrace(p_ptr, j))
+				if(get_subrace(cr_ptr, j))
 					r_adj += race_info[j].r_s_adj[i];
 			}
 		}
@@ -3477,16 +3477,12 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 		/* Calculate equipment adjustment */
 		e_adj = 0;
 
-		/* Icky formula to deal with the 18 barrier */
-		if ((p_ptr->stat_max[i] > 18) && (p_ptr->stat_top[i] > 18))
-			e_adj = (p_ptr->stat_top[i] - p_ptr->stat_max[i]) / 10;
-		if ((p_ptr->stat_max[i] <= 18) && (p_ptr->stat_top[i] <= 18))
-			e_adj = p_ptr->stat_top[i] - p_ptr->stat_max[i];
-		if ((p_ptr->stat_max[i] <= 18) && (p_ptr->stat_top[i] > 18))
-			e_adj = (p_ptr->stat_top[i] - 18) / 10 - p_ptr->stat_max[i] + 18;
-
-		if ((p_ptr->stat_max[i] > 18) && (p_ptr->stat_top[i] <= 18))
-			e_adj = p_ptr->stat_top[i] - (p_ptr->stat_max[i] - 19) / 10 - 19;
+		for (j = INVEN_RARM; j < INVEN_TOTAL; j++)
+		{
+			o_ptr = &inventory[j];
+			object_flags_known(o_ptr, flgs);
+			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
+		}
 
 		if (prace_is_(RACE_ENT))
 		{
@@ -3494,28 +3490,23 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 			{
 				case A_STR:
 				case A_CON:
-					if (p_ptr->lev > 25) r_adj++;
-					if (p_ptr->lev > 40) r_adj++;
-					if (p_ptr->lev > 45) r_adj++;
+					if (cr_ptr->lev > 25) r_adj++;
+					if (cr_ptr->lev > 40) r_adj++;
+					if (cr_ptr->lev > 45) r_adj++;
 					break;
 				case A_DEX:
-					if (p_ptr->lev > 25) r_adj--;
-					if (p_ptr->lev > 40) r_adj--;
-					if (p_ptr->lev > 45) r_adj--;
+					if (cr_ptr->lev > 25) r_adj--;
+					if (cr_ptr->lev > 40) r_adj--;
+					if (cr_ptr->lev > 45) r_adj--;
 					break;
 			}
 		}
 
 		for(j = 0; j < 10; j++)
-			if(race_info[p_ptr->race].lev > race_unreached_level_penalty[j] && p_ptr->lev < race_unreached_level_penalty[j])
+			if(race_info[cr_ptr->race].lev > race_unreached_level_penalty[j] && cr_ptr->lev < race_unreached_level_penalty[j])
 				r_adj--;
-
-		e_adj -= r_adj;
-		e_adj -= class_info[p_ptr->class].c_adj[i];
-		e_adj -= player_patrons[p_ptr->patron].p_adj[i];
-		e_adj -= chara_info[p_ptr->chara].a_adj[i];
 		
-		if (p_ptr->stat_cur[i] < p_ptr->stat_max[i])
+		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 			/* Reduced name of stat */
 			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1);
 		else
@@ -3524,8 +3515,8 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 
 		/* Internal "natural" max value.  Maxes at 18/100 */
 		/* This is useful to see if you are maxed out */
-		cnv_stat(p_ptr->stat_max[i], buf);
-		if (p_ptr->stat_max[i] == p_ptr->stat_max_max[i])
+		cnv_stat(cr_ptr->stat_max[i], buf);
+		if (cr_ptr->stat_max[i] == cr_ptr->stat_max_max[i])
 		{
 #ifdef JP
 			c_put_str(TERM_WHITE, "!", row + i+1, stat_col + 6);
@@ -3536,20 +3527,26 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
 		/* Race, class, and equipment modifiers */
-		if(p_ptr->race != RACE_NONE)
+		if(cr_ptr->race != RACE_NONE)
 		{
 			(void)sprintf(buf, "%+3d", r_adj);
 			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 13);
 			else if(r_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 13);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 13);
 		}
-
-
-		if(p_ptr->class != CLASS_NONE)
+		else
 		{
-			(void)sprintf(buf, "%+3d", (int)class_info[p_ptr->class].c_adj[i]);
-			if(class_info[p_ptr->class].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
-			else if(class_info[p_ptr->class].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 13);
+		}
+
+
+		if(cr_ptr->class != CLASS_NONE)
+		{
+			cl_adj = (int)class_info[cr_ptr->class].c_adj[i];
+
+			(void)sprintf(buf, "%+3d", cl_adj);
+			if(class_info[cr_ptr->class].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
+			else if(class_info[cr_ptr->class].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 16);
 		}
 		else
@@ -3557,11 +3554,11 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 16);
 		}
 
-		if(p_ptr->patron != PATRON_NONE)
+		if(cr_ptr->patron != PATRON_NONE)
 		{
-			(void)sprintf(buf, "%+3d", (int)player_patrons[p_ptr->patron].p_adj[i]);
-			if(player_patrons[p_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
-			else if(player_patrons[p_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
+			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron].p_adj[i]);
+			if(player_patrons[cr_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
+			else if(player_patrons[cr_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 19);
 		}
 		else
@@ -3569,11 +3566,11 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 19);
 		}
 
-		if(p_ptr->class != CHARA_NONE)
+		if(cr_ptr->chara != CHARA_NONE)
 		{
-			(void)sprintf(buf, "%+3d", (int)chara_info[p_ptr->chara].a_adj[i]);
-			if(chara_info[p_ptr->chara].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
-			else if(chara_info[p_ptr->chara].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
+			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara].a_adj[i]);
+			if(chara_info[cr_ptr->chara].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
+			else if(chara_info[cr_ptr->chara].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 22);
 		}
 		else
@@ -3582,7 +3579,7 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 		}
 
 		/* Actual maximal modified value */
-		cnv_stat(p_ptr->stat_top[i], buf);
+		cnv_stat(cr_ptr->stat_top[i], buf);
 		c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 27);
 
 		(void)sprintf(buf, "%+3d", (int)e_adj);
@@ -3591,9 +3588,9 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 		else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 25);
 
 		/* Only display stat_use if not maximal */
-		if (p_ptr->stat_use[i] < p_ptr->stat_top[i])
+		if (cr_ptr->stat_use[i] < cr_ptr->stat_top[i])
 		{
-			cnv_stat(p_ptr->stat_use[i], buf);
+			cnv_stat(cr_ptr->stat_use[i], buf);
 			c_put_str(TERM_YELLOW, buf, row + i+1, stat_col + 33);
 		}
 	}
@@ -3676,7 +3673,7 @@ c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
 	}
 
 	/* Player flags */
-	player_flags(flgs, p_ptr);
+	player_flags(flgs, cr_ptr);
 
 	/* Check stats */
 	for (stat = 0; stat < 6; stat++)
@@ -3686,43 +3683,43 @@ c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
 		c = '.';
 
 		/* Mutations ... */
-		if (p_ptr->muta3 || p_ptr->tsuyoshi)
+		if (cr_ptr->muta3 || cr_ptr->tsuyoshi)
 		{
 			int dummy = 0;
 
 			if (stat == A_STR)
 			{
-				if (p_ptr->muta3 & MUT3_HYPER_STR) dummy += 4;
-				if (p_ptr->muta3 & MUT3_PUNY) dummy -= 4;
-				if (p_ptr->tsuyoshi) dummy += 4;
+				if (cr_ptr->muta3 & MUT3_HYPER_STR) dummy += 4;
+				if (cr_ptr->muta3 & MUT3_PUNY) dummy -= 4;
+				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == A_WIS || stat == A_INT)
 			{
-				if (p_ptr->muta3 & MUT3_HYPER_INT) dummy += 4;
-				if (p_ptr->muta3 & MUT3_MORONIC) dummy -= 4;
+				if (cr_ptr->muta3 & MUT3_HYPER_INT) dummy += 4;
+				if (cr_ptr->muta3 & MUT3_MORONIC) dummy -= 4;
 			}
 			else if (stat == A_DEX)
 			{
-				if (p_ptr->muta3 & MUT3_IRON_SKIN) dummy -= 1;
-				if (p_ptr->muta3 & MUT3_LIMBER) dummy += 3;
-				if (p_ptr->muta3 & MUT3_ARTHRITIS) dummy -= 3;
+				if (cr_ptr->muta3 & MUT3_IRON_SKIN) dummy -= 1;
+				if (cr_ptr->muta3 & MUT3_LIMBER) dummy += 3;
+				if (cr_ptr->muta3 & MUT3_ARTHRITIS) dummy -= 3;
 			}
 			else if (stat == A_CON)
 			{
-				if (p_ptr->muta3 & MUT3_RESILIENT) dummy += 4;
-				if (p_ptr->muta3 & MUT3_XTRA_FAT) dummy += 2;
-				if (p_ptr->muta3 & MUT3_ALBINO) dummy -= 4;
-				if (p_ptr->muta3 & MUT3_FLESH_ROT) dummy -= 2;
-				if (p_ptr->tsuyoshi) dummy += 4;
+				if (cr_ptr->muta3 & MUT3_RESILIENT) dummy += 4;
+				if (cr_ptr->muta3 & MUT3_XTRA_FAT) dummy += 2;
+				if (cr_ptr->muta3 & MUT3_ALBINO) dummy -= 4;
+				if (cr_ptr->muta3 & MUT3_FLESH_ROT) dummy -= 2;
+				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == A_CHR)
 			{
-				if (p_ptr->muta3 & MUT3_SILLY_VOI) dummy -= 4;
-				if (p_ptr->muta3 & MUT3_BLANK_FAC) dummy -= 1;
-				if (p_ptr->muta3 & MUT3_FLESH_ROT) dummy -= 1;
-				if (p_ptr->muta3 & MUT3_SCALES) dummy -= 1;
-				if (p_ptr->muta3 & MUT3_WART_SKIN) dummy -= 2;
-				if (p_ptr->muta3 & MUT3_ILL_NORM) dummy = 0;
+				if (cr_ptr->muta3 & MUT3_SILLY_VOI) dummy -= 4;
+				if (cr_ptr->muta3 & MUT3_BLANK_FAC) dummy -= 1;
+				if (cr_ptr->muta3 & MUT3_FLESH_ROT) dummy -= 1;
+				if (cr_ptr->muta3 & MUT3_SCALES) dummy -= 1;
+				if (cr_ptr->muta3 & MUT3_WART_SKIN) dummy -= 2;
+				if (cr_ptr->muta3 & MUT3_ILL_NORM) dummy = 0;
 			}
 
 			/* Boost */
@@ -4138,7 +4135,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 		/* Dump the info */
 		display_player_misc_info();
-		display_player_stat_info();
+		display_player_stat_info(cr_ptr);
 		display_player_flag_info();
 	}
 

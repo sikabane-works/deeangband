@@ -4981,7 +4981,7 @@ static bool get_player_class(void)
 		else
 			sprintf(buf, "%c%c*%s", sym[n], p2, str);
 
-		put_str(buf, 13+ (n/4), 2 + 19 * (n%4));
+		put_str(buf, 13 + (n/4), 2 + 19 * (n%4));
 	}
 
 #ifdef JP
