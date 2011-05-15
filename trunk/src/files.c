@@ -3447,15 +3447,15 @@ static void display_player_stat_info(void)
 	/* Print out the labels for the columns */
 #ifdef JP
 c_put_str(TERM_WHITE, "能力", row, stat_col+1);
-c_put_str(TERM_BLUE, "  基本", row, stat_col+7);
-c_put_str(TERM_L_BLUE, " 種 職 性 装 ", row, stat_col+13);
-c_put_str(TERM_L_GREEN, "合計", row, stat_col+28);
+c_put_str(TERM_WHITE, "  基本", row, stat_col+7);
+c_put_str(TERM_WHITE, " 種 職 信 性 装 ", row, stat_col+13);
+c_put_str(TERM_L_GREEN, "合計", row, stat_col+29);
 c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 #else
 	c_put_str(TERM_WHITE, "Stat", row, stat_col+1);
-	c_put_str(TERM_BLUE, "  Base", row, stat_col+7);
-	c_put_str(TERM_L_BLUE, "RacClaPerMod", row, stat_col+13);
-	c_put_str(TERM_L_GREEN, "Actual", row, stat_col+26);
+	c_put_str(TERM_WHITE, "  Base", row, stat_col+7);
+	c_put_str(TERM_WHITE, "RacClaPatPerMod", row, stat_col+13);
+	c_put_str(TERM_L_GREEN, "Actual", row, stat_col+27);
 	c_put_str(TERM_YELLOW, "Current", row, stat_col+32);
 #endif
 
@@ -3511,9 +3511,10 @@ c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 				r_adj--;
 
 		e_adj -= r_adj;
-		e_adj -= cp_ptr->c_adj[i];
-		e_adj -= ap_ptr->a_adj[i];
-
+		e_adj -= class_info[p_ptr->class].c_adj[i];
+		e_adj -= player_patrons[p_ptr->patron].p_adj[i];
+		e_adj -= chara_info[p_ptr->chara].a_adj[i];
+		
 		if (p_ptr->stat_cur[i] < p_ptr->stat_max[i])
 			/* Reduced name of stat */
 			c_put_str(TERM_WHITE, stat_names_reduced[i], row + i+1, stat_col+1);
@@ -3532,21 +3533,62 @@ c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 			c_put_str(TERM_WHITE, "!", row + i+1, stat_col + 4);
 #endif
 		}
-		c_put_str(TERM_BLUE, buf, row + i+1, stat_col + 13 - strlen(buf));
+		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
 		/* Race, class, and equipment modifiers */
-		(void)sprintf(buf, "%3d", r_adj);
-		c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 13);
-		(void)sprintf(buf, "%3d", (int)cp_ptr->c_adj[i]);
-		c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
-		(void)sprintf(buf, "%3d", (int)ap_ptr->a_adj[i]);
-		c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
-		(void)sprintf(buf, "%3d", (int)e_adj);
-		c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
+		if(p_ptr->race != RACE_NONE)
+		{
+			(void)sprintf(buf, "%+3d", r_adj);
+			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 13);
+			else if(r_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 13);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 13);
+		}
+
+
+		if(p_ptr->class != CLASS_NONE)
+		{
+			(void)sprintf(buf, "%+3d", (int)class_info[p_ptr->class].c_adj[i]);
+			if(class_info[p_ptr->class].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
+			else if(class_info[p_ptr->class].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 16);
+		}
+		else
+		{
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 16);
+		}
+
+		if(p_ptr->patron != PATRON_NONE)
+		{
+			(void)sprintf(buf, "%+3d", (int)player_patrons[p_ptr->patron].p_adj[i]);
+			if(player_patrons[p_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
+			else if(player_patrons[p_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 19);
+		}
+		else
+		{
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 19);
+		}
+
+		if(p_ptr->class != CHARA_NONE)
+		{
+			(void)sprintf(buf, "%+3d", (int)chara_info[p_ptr->chara].a_adj[i]);
+			if(chara_info[p_ptr->chara].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
+			else if(chara_info[p_ptr->chara].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 22);
+		}
+		else
+		{
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 22);
+		}
 
 		/* Actual maximal modified value */
 		cnv_stat(p_ptr->stat_top[i], buf);
-		c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 26);
+		c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 27);
+
+		(void)sprintf(buf, "%+3d", (int)e_adj);
+		if(e_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 25);
+		else if(e_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 25);
+		else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 25);
 
 		/* Only display stat_use if not maximal */
 		if (p_ptr->stat_use[i] < p_ptr->stat_top[i])
