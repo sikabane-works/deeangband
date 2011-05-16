@@ -94,7 +94,7 @@ static byte value_check_aux2(object_type *o_ptr)
 static void sense_inventory_aux(int slot, bool heavy)
 {
 	byte        feel;
-	object_type *o_ptr = &inventory[slot];
+	object_type *o_ptr = &p_ptr->inventory[slot];
 	char        o_name[MAX_NLEN];
 
 	/* We know about it already, do not tell us again */
@@ -213,7 +213,7 @@ o_name, index_to_label(slot),game_inscriptions[feel]);
 
 
 /*
- * Sense the inventory
+ * Sense the p_ptr->inventory
  *
  *   Class 0 = Warrior --> fast and heavy
  *   Class 1 = Mage    --> slow and light
@@ -408,7 +408,7 @@ static void sense_inventory1(void)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -443,7 +443,7 @@ static void sense_inventory1(void)
 		/* Skip non-sense machines */
 		if (!okay) continue;
 
-		/* Occasional failure on inventory items */
+		/* Occasional failure on p_ptr->inventory items */
 		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
 
 		/* Good luck */
@@ -552,7 +552,7 @@ static void sense_inventory2(void)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -573,7 +573,7 @@ static void sense_inventory2(void)
 		/* Skip non-sense machines */
 		if (!okay) continue;
 
-		/* Occasional failure on inventory items */
+		/* Occasional failure on p_ptr->inventory items */
 		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(i, TRUE);
@@ -1055,7 +1055,7 @@ static void regen_captured_monsters(void)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		monster_race *r_ptr;
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		if (!o_ptr->k_idx) continue;
 		if (o_ptr->tval != TV_CAPTURE) continue;
@@ -1189,7 +1189,7 @@ void leave_quest_check(void)
 
 
 /*
- * Forcibly pseudo-identify an object in the inventory
+ * Forcibly pseudo-identify an object in the p_ptr->inventory
  * (or on the floor)
  *
  * note: currently this function allows pseudo-id of any object,
@@ -1224,7 +1224,7 @@ s = "調べるアイテムがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1459,7 +1459,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
 	/* Search Inventry */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		if (o_ptr->curse_flags & flag)
 		{
@@ -1469,7 +1469,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
 	}
 
 	/* Choice one of them */
-	return (&inventory[choices[randint0(number)]]);
+	return (&p_ptr->inventory[choices[randint0(number)]]);
 }
 
 
@@ -1574,10 +1574,10 @@ take_hit(DAMAGE_NOESCAPE, 1, "日光", -1);
 			}
 		}
 
-		if (inventory[INVEN_LITE].tval && (inventory[INVEN_LITE].name2 != EGO_LITE_DARKNESS) &&
+		if (p_ptr->inventory[INVEN_LITE].tval && (p_ptr->inventory[INVEN_LITE].name2 != EGO_LITE_DARKNESS) &&
 		    !p_ptr->resist_lite)
 		{
-			object_type * o_ptr = &inventory[INVEN_LITE];
+			object_type * o_ptr = &p_ptr->inventory[INVEN_LITE];
 			char o_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -2266,7 +2266,7 @@ static void process_world_aux_timeout(void)
 static void process_world_aux_light(void)
 {
 	/* Check for light being wielded */
-	object_type *o_ptr = &inventory[INVEN_LITE];
+	object_type *o_ptr = &p_ptr->inventory[INVEN_LITE];
 
 	/* Burn some fuel in the current lite */
 	if (o_ptr->tval == TV_LITE)
@@ -2557,7 +2557,7 @@ static void process_world_aux_mutation(void)
 			hp_player(10);
 		}
 
-		o_ptr = &inventory[INVEN_LITE];
+		o_ptr = &p_ptr->inventory[INVEN_LITE];
 
 		/* Absorb some fuel in the current lite */
 		if (o_ptr->tval == TV_LITE)
@@ -2903,17 +2903,17 @@ static void process_world_aux_mutation(void)
 		if (buki_motteruka(INVEN_RARM))
 		{
 			slot = INVEN_RARM;
-			o_ptr = &inventory[INVEN_RARM];
+			o_ptr = &p_ptr->inventory[INVEN_RARM];
 
 			if (buki_motteruka(INVEN_LARM) && one_in_(2))
 			{
-				o_ptr = &inventory[INVEN_LARM];
+				o_ptr = &p_ptr->inventory[INVEN_LARM];
 				slot = INVEN_LARM;
 			}
 		}
 		else if (buki_motteruka(INVEN_LARM))
 		{
-			o_ptr = &inventory[INVEN_LARM];
+			o_ptr = &p_ptr->inventory[INVEN_LARM];
 			slot = INVEN_LARM;
 		}
 
@@ -2951,7 +2951,7 @@ static void process_world_aux_curse(void)
 			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
-				o_ptr = &inventory[i];
+				o_ptr = &p_ptr->inventory[i];
 
 				/* Skip non-objects */
 				if (!o_ptr->k_idx) continue;
@@ -2970,7 +2970,7 @@ static void process_world_aux_curse(void)
 				}
 			}
 
-			o_ptr = &inventory[i_keep];
+			o_ptr = &p_ptr->inventory[i_keep];
 			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
@@ -3192,7 +3192,7 @@ static void process_world_aux_curse(void)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if (one_in_(999) && !p_ptr->anti_magic)
 	{
-		object_type *o_ptr = &inventory[INVEN_LITE];
+		object_type *o_ptr = &p_ptr->inventory[INVEN_LITE];
 
 		if (o_ptr->name1 == ART_JUDGE)
 		{
@@ -3226,7 +3226,7 @@ static void process_world_aux_recharge(void)
 	for (changed = FALSE, i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 		/* Get the object */
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -3261,7 +3261,7 @@ static void process_world_aux_recharge(void)
 	 */
 	for (changed = FALSE, i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
 		/* Skip non-objects */
@@ -4268,7 +4268,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	/* Process recharging */
 	process_world_aux_recharge();
 
-	/* Feel the inventory */
+	/* Feel the p_ptr->inventory */
 	sense_inventory1();
 	sense_inventory2();
 
@@ -4558,7 +4558,7 @@ msg_print("ウィザードモード突入。");
 
 
 
-		/*** Inventory Commands ***/
+		/*** p_ptr->inventory Commands ***/
 
 		/* Wear/wield equipment */
 		case 'w':
@@ -4595,7 +4595,7 @@ msg_print("ウィザードモード突入。");
 			break;
 		}
 
-		/* Inventory list */
+		/* p_ptr->inventory list */
 		case 'i':
 		{
 			do_cmd_inven();
@@ -5462,17 +5462,17 @@ static bool monster_tsuri(int r_idx)
 /* Hack -- Pack Overflow */
 static void pack_overflow(void)
 {
-	if (inventory[INVEN_PACK].k_idx)
+	if (p_ptr->inventory[INVEN_PACK].k_idx)
 	{
 		char o_name[MAX_NLEN];
 		object_type *o_ptr;
 
 		/* Is auto-destroy done? */
 		notice_stuff();
-		if (!inventory[INVEN_PACK].k_idx) return;
+		if (!p_ptr->inventory[INVEN_PACK].k_idx) return;
 
 		/* Access the slot to be dropped */
-		o_ptr = &inventory[INVEN_PACK];
+		o_ptr = &p_ptr->inventory[INVEN_PACK];
 
 		/* Disturbing */
 		disturb(0, 0);

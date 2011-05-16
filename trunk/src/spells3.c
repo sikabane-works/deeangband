@@ -418,7 +418,7 @@ bool teleport_player_aux(int dis, u32b mode)
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+	if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 		msg_format("『こっちだぁ、%s』", p_ptr->name);
 #endif
 
@@ -581,7 +581,7 @@ void teleport_away_followable(int m_idx)
 
 			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 			{
-				o_ptr = &inventory[i];
+				o_ptr = &p_ptr->inventory[i];
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
 				{
 					object_flags(o_ptr, flgs);
@@ -1083,7 +1083,7 @@ bool apply_disenchant(int mode)
 	}
 
 	/* Get the item */
-	o_ptr = &inventory[t];
+	o_ptr = &p_ptr->inventory[t];
 
 	/* No item, nothing happens */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -1271,7 +1271,7 @@ msg_print("体がねじれ始めた...");
 void phlogiston(void)
 {
 	int max_flog = 0;
-	object_type * o_ptr = &inventory[INVEN_LITE];
+	object_type * o_ptr = &p_ptr->inventory[INVEN_LITE];
 
 	/* It's a lamp */
 	if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_LANTERN))
@@ -1364,7 +1364,7 @@ s = "強化できる武器がない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2131,7 +2131,7 @@ void identify_pack(void)
 	/* Simply identify and know every item */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2159,7 +2159,7 @@ static int enchant_table[16] =
 
 
 /*
- * Removes curses from items in inventory
+ * Removes curses from items in p_ptr->inventory
  *
  * Note that Items which are "Perma-Cursed" (The One Ring,
  * The Crown of Morgoth) can NEVER be uncursed.
@@ -2175,7 +2175,7 @@ static int remove_curse_aux(int all)
 	/* Attempt to uncurse items being worn */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2267,7 +2267,7 @@ s = "金に変えられる物がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2517,7 +2517,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
 
 
 /*
- * Enchant an item (in the inventory or on the floor)
+ * Enchant an item (in the p_ptr->inventory or on the floor)
  * Note that "num_ac" requires armour, else weapon
  * Returns TRUE if attempted, FALSE if cancelled
  */
@@ -2551,7 +2551,7 @@ s = "強化できるアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2649,7 +2649,7 @@ bool artifact_scroll(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2821,7 +2821,7 @@ static bool item_tester_hook_identify_weapon_armour(object_type *o_ptr)
 }
 
 /*
- * Identify an object in the inventory (or on the floor)
+ * Identify an object in the p_ptr->inventory (or on the floor)
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was identified, else FALSE.
  */
@@ -2874,7 +2874,7 @@ bool ident_spell(bool only_equip)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2924,7 +2924,7 @@ bool ident_spell(bool only_equip)
 
 
 /*
- * Mundanify an object in the inventory (or on the floor)
+ * Mundanify an object in the p_ptr->inventory (or on the floor)
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was mundanified, else FALSE.
  */
@@ -2951,7 +2951,7 @@ s = "使えるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3005,7 +3005,7 @@ static bool item_tester_hook_identify_fully_weapon_armour(object_type *o_ptr)
 }
 
 /*
- * Fully "identify" an object in the inventory  -BEN-
+ * Fully "identify" an object in the p_ptr->inventory  -BEN-
  * This routine returns TRUE if an item was identified.
  */
 bool identify_fully(bool only_equip)
@@ -3056,7 +3056,7 @@ bool identify_fully(bool only_equip)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3185,7 +3185,7 @@ s = "魔力を充填すべきアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3416,7 +3416,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				if (o_ptr->tval == TV_ROD) o_ptr->timeout = (o_ptr->number - 1) * k_ptr->pval;
 				if (o_ptr->tval == TV_WAND) o_ptr->pval = 0;
 
-				/* Reduce and describe inventory */
+				/* Reduce and describe p_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -1);
@@ -3452,7 +3452,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 
 
 
-				/* Reduce and describe inventory */
+				/* Reduce and describe p_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -999);
@@ -3513,7 +3513,7 @@ s = "祝福できる武器がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3707,7 +3707,7 @@ s = "磨く盾がありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3761,7 +3761,7 @@ msg_print("失敗した。");
 
 /*
  * Potions "smash open" and cause an area effect when
- * (1) they are shattered while in the player's inventory,
+ * (1) they are shattered while in the player's p_ptr->inventory,
  * due to cold (etc) attacks;
  * (2) they are thrown at a monster, or obstacle;
  * (3) they are shattered by a "cold ball" or other such spell
@@ -3771,10 +3771,10 @@ msg_print("失敗した。");
  *    who   ---  who caused the potion to shatter (0=player)
  *          potions that smash on the floor are assumed to
  *          be caused by no-one (who = 1), as are those that
- *          shatter inside the player inventory.
+ *          shatter inside the player p_ptr->inventory.
  *          (Not anymore -- I changed this; TY)
  *    y, x  --- coordinates of the potion (or player if
- *          the potion was in her inventory);
+ *          the potion was in her p_ptr->inventory);
  *    o_ptr --- pointer to the potion object.
  */
 bool potion_smash_effect(int who, int y, int x, int k_idx)
@@ -4834,7 +4834,7 @@ int inven_damage(inven_func typ, int perc)
 	/* Scan through the slots backwards */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4878,7 +4878,7 @@ o_name, index_to_label(i),
 #endif
 
 #ifdef JP
-				if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("やりやがったな！");
 
 				if (p_ptr->chara == CHARA_CHARGEMAN)
@@ -4923,16 +4923,16 @@ static int minus_ac(void)
 	char        o_name[MAX_NLEN];
 
 
-	/* Pick a (possibly empty) inventory slot */
+	/* Pick a (possibly empty) p_ptr->inventory slot */
 	switch (randint1(7))
 	{
-		case 1: o_ptr = &inventory[INVEN_RARM]; break;
-		case 2: o_ptr = &inventory[INVEN_LARM]; break;
-		case 3: o_ptr = &inventory[INVEN_BODY]; break;
-		case 4: o_ptr = &inventory[INVEN_OUTER]; break;
-		case 5: o_ptr = &inventory[INVEN_HANDS]; break;
-		case 6: o_ptr = &inventory[INVEN_HEAD]; break;
-		case 7: o_ptr = &inventory[INVEN_FEET]; break;
+		case 1: o_ptr = &p_ptr->inventory[INVEN_RARM]; break;
+		case 2: o_ptr = &p_ptr->inventory[INVEN_LARM]; break;
+		case 3: o_ptr = &p_ptr->inventory[INVEN_BODY]; break;
+		case 4: o_ptr = &p_ptr->inventory[INVEN_OUTER]; break;
+		case 5: o_ptr = &p_ptr->inventory[INVEN_HANDS]; break;
+		case 6: o_ptr = &p_ptr->inventory[INVEN_HEAD]; break;
+		case 7: o_ptr = &p_ptr->inventory[INVEN_FEET]; break;
 	}
 
 	/* Nothing to damage */
@@ -5024,7 +5024,7 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 	/* Take damage */
 	get_damage = take_hit(DAMAGE_ATTACK, dam, kb_str, monspell);
 
-	/* Inventory damage */
+	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_acid))
 		inven_damage(set_acid_destroy, inv);
 	return get_damage;
@@ -5063,7 +5063,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 	/* Take damage */
 	get_damage = take_hit(DAMAGE_ATTACK, dam, kb_str, monspell);
 
-	/* Inventory damage */
+	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_elec))
 		inven_damage(set_elec_destroy, inv);
 
@@ -5103,7 +5103,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 	/* Take damage */
 	get_damage = take_hit(DAMAGE_ATTACK, dam, kb_str, monspell);
 
-	/* Inventory damage */
+	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_fire))
 		inven_damage(set_fire_destroy, inv);
 
@@ -5142,7 +5142,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 	/* Take damage */
 	get_damage = take_hit(DAMAGE_ATTACK, dam, kb_str, monspell);
 
-	/* Inventory damage */
+	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_cold))
 		inven_damage(set_cold_destroy, inv);
 
@@ -5175,7 +5175,7 @@ s = "錆止めできるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -5230,7 +5230,7 @@ bool curse_armor(void)
 
 
 	/* Curse the body armor */
-	o_ptr = &inventory[INVEN_BODY];
+	o_ptr = &p_ptr->inventory[INVEN_BODY];
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -5311,7 +5311,7 @@ bool curse_weapon(bool force, int slot)
 
 
 	/* Curse the weapon */
-	o_ptr = &inventory[slot];
+	o_ptr = &p_ptr->inventory[slot];
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -5391,7 +5391,7 @@ bool brand_bolts(void)
 	/* Use the first acceptable bolts */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-bolts */
 		if (o_ptr->tval != TV_BOLT) continue;
@@ -5689,7 +5689,7 @@ s = "魔力を吸収できるアイテムがありません。";
 
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 	else
 	{
@@ -5918,7 +5918,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 					msg_format("Wild magic consumes your %s!", o_name);
 #endif
 
-				/* Reduce and describe inventory */
+				/* Reduce and describe p_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -1);
@@ -5954,7 +5954,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 
 
 
-				/* Reduce and describe inventory */
+				/* Reduce and describe p_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -999);

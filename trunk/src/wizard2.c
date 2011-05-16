@@ -1266,7 +1266,7 @@ static void do_cmd_wiz_play(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */

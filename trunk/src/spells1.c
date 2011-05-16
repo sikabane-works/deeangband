@@ -6536,7 +6536,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 	/* Analyze the damage */
 	switch (typ)
 	{
-		/* Standard damage -- hurts inventory too */
+		/* Standard damage -- hurts p_ptr->inventory too */
 		case GF_ACID:
 		{
 #ifdef JP
@@ -6549,7 +6549,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			break;
 		}
 
-		/* Standard damage -- hurts inventory too */
+		/* Standard damage -- hurts p_ptr->inventory too */
 		case GF_FIRE:
 		{
 #ifdef JP
@@ -6562,7 +6562,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			break;
 		}
 
-		/* Standard damage -- hurts inventory too */
+		/* Standard damage -- hurts p_ptr->inventory too */
 		case GF_COLD:
 		{
 #ifdef JP
@@ -6575,7 +6575,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			break;
 		}
 
-		/* Standard damage -- hurts inventory too */
+		/* Standard damage -- hurts p_ptr->inventory too */
 		case GF_ELEC:
 		{
 #ifdef JP
@@ -6708,7 +6708,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			else if ((inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (inventory[INVEN_LARM].name1 == ART_ZANTETSU))
+			else if ((p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
 			{
 #ifdef JP
 				msg_print("–î‚ğa‚èÌ‚Ä‚½I");

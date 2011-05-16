@@ -785,12 +785,12 @@
 #define INVEN_AMMO     23
 
 /*
- * Total number of inventory slots (hard-coded).
+ * Total number of p_ptr->inventory slots (hard-coded).
  */
 #define INVEN_TOTAL     36
 
 /*
- * Fake inventory slot for selecting force (hard-coded).
+ * Fake p_ptr->inventory slot for selecting force (hard-coded).
  */
 #define INVEN_FORCE     1111
 
@@ -1964,7 +1964,7 @@
  * The values for the "tval" field of various objects.
  *
  * This value is the primary means by which items are sorted in the
- * player inventory, followed by "sval" and "cost".
+ * player p_ptr->inventory, followed by "sval" and "cost".
  *
  * Note that a "BOW" with tval = 19 and sval S = 10*N+P takes a missile
  * weapon with tval = 16+N, and does (xP) damage when so combined.  This
@@ -4210,20 +4210,20 @@
 
 
 /*
- * Determine if a given inventory item is "aware"
+ * Determine if a given p_ptr->inventory item is "aware"
  */
 #define object_is_aware(T) \
     (k_info[(T)->k_idx].aware)
 
 /*
- * Determine if a given inventory item is "tried"
+ * Determine if a given p_ptr->inventory item is "tried"
  */
 #define object_is_tried(T) \
     (k_info[(T)->k_idx].tried)
 
 
 /*
- * Determine if a given inventory item is "known"
+ * Determine if a given p_ptr->inventory item is "known"
  * Test One -- Check for special "known" tag
  * Test Two -- Check for "Easy Know" + "Aware"
  */

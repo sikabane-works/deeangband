@@ -373,7 +373,7 @@ static named_num gf_desc[] =
  * Specify the attr/char values for unaware "objects" by kind tval
  *   U:<tv>:<a>:<c>
  *
- * Specify the attr/char values for inventory "objects" by kind tval
+ * Specify the attr/char values for p_ptr->inventory "objects" by kind tval
  *   E:<tv>:<a>:<c>
  *
  * Define a macro action, given an encoded macro action
@@ -544,7 +544,7 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "E:<tv>:<a>" -- attribute for inventory objects */
+	/* Process "E:<tv>:<a>" -- attribute for p_ptr->inventory objects */
 	case 'E':
 		if (tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) == 2)
 		{
@@ -1745,7 +1745,7 @@ static void display_player_melee_bonus(int hand, int hand_entry)
 	char buf[160];
 	int show_tohit = p_ptr->dis_to_h[hand];
 	int show_todam = p_ptr->dis_to_d[hand];
-	object_type *o_ptr = &inventory[INVEN_RARM + hand];
+	object_type *o_ptr = &p_ptr->inventory[INVEN_RARM + hand];
 
 	/* Hack -- add in weapon info if known */
 	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
@@ -1776,7 +1776,7 @@ static void display_player_middle(void)
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = &inventory[INVEN_BOW];
+	object_type *o_ptr = &p_ptr->inventory[INVEN_BOW];
 
 	int tmul = 0;
 	int e;
@@ -1826,9 +1826,9 @@ static void display_player_middle(void)
 	/* Range attacks */
 	display_player_one_line(ENTRY_SHOOT_HIT_DAM, format("(%+d,%+d%%)", show_tohit, show_todam), TERM_L_BLUE);
 
-	if (inventory[INVEN_BOW].k_idx)
+	if (p_ptr->inventory[INVEN_BOW].k_idx)
 	{
-		tmul = bow_tmul(inventory[INVEN_BOW].sval);
+		tmul = bow_tmul(p_ptr->inventory[INVEN_BOW].sval);
 
 		/* Get extra "power" from "extra might" */
 		if (p_ptr->xtra_might) tmul++;
@@ -2131,7 +2131,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = &inventory[INVEN_BOW];
+	o_ptr = &p_ptr->inventory[INVEN_BOW];
 	tmp = cr_ptr->to_h_b + o_ptr->to_h;
 	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 
@@ -2188,7 +2188,7 @@ static void display_player_various(creature_type * cr_ptr)
 		}
 		else
 		{
-			o_ptr = &inventory[INVEN_RARM + i];
+			o_ptr = &p_ptr->inventory[INVEN_RARM + i];
 
 			/* Average damage per round */
 			if (o_ptr->k_idx)
@@ -2322,8 +2322,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			add_flag(flgs, TR_SPEED);
 		else
 		{
-			if ((!inventory[INVEN_RARM].k_idx || p_ptr->migite) &&
-			    (!inventory[INVEN_LARM].k_idx || p_ptr->hidarite))
+			if ((!p_ptr->inventory[INVEN_RARM].k_idx || p_ptr->migite) &&
+			    (!p_ptr->inventory[INVEN_LARM].k_idx || p_ptr->hidarite))
 				add_flag(flgs, TR_SPEED);
 			if (p_ptr->lev>24)
 				add_flag(flgs, TR_FREE_ACT);
@@ -2815,7 +2815,7 @@ static void display_player_equippy(int y, int x, u16b mode)
 	for (i = INVEN_RARM; i < max_i; i++)
 	{
 		/* Object */
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		a = object_attr(o_ptr);
 		c = object_char(o_ptr);
@@ -2858,7 +2858,7 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE])
 		object_type *o_ptr;
 
 		/* Object */
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		if (!o_ptr->k_idx) continue;
 
@@ -2981,7 +2981,7 @@ static void display_flag_aux(int row, int col, cptr header,
 		object_type *o_ptr;
 
 		/* Object */
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Known flags */
 		object_flags_known(o_ptr, flgs);
@@ -3479,7 +3479,7 @@ c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 
 		for (j = INVEN_RARM; j < INVEN_TOTAL; j++)
 		{
-			o_ptr = &inventory[j];
+			o_ptr = &p_ptr->inventory[j];
 			object_flags_known(o_ptr, flgs);
 			if (have_flag(flgs, i)) e_adj += o_ptr->pval;
 		}
@@ -3611,7 +3611,7 @@ c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Acquire "known" flags */
 		object_flags_known(o_ptr, flgs);
@@ -5130,7 +5130,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 
 		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 		{
-			object_desc(o_name, &inventory[i], 0);
+			object_desc(o_name, &p_ptr->inventory[i], 0);
 			if ((((i == INVEN_RARM) && p_ptr->hidarite) || ((i == INVEN_LARM) && p_ptr->migite)) && p_ptr->ryoute)
 #ifdef JP
 				strcpy(o_name, "(武器を両手持ち)");
@@ -5144,20 +5144,20 @@ static void dump_aux_equipment_inventory(FILE *fff)
 		fprintf(fff, "\n\n");
 	}
 
-	/* Dump the inventory */
+	/* Dump the p_ptr->inventory */
 #ifdef JP
 	fprintf(fff, "  [キャラクタの持ち物]\n\n");
 #else
-	fprintf(fff, "  [Character Inventory]\n\n");
+	fprintf(fff, "  [Character p_ptr->inventory]\n\n");
 #endif
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		/* Don't dump the empty slots */
-		if (!inventory[i].k_idx) break;
+		if (!p_ptr->inventory[i].k_idx) break;
 
-		/* Dump the inventory slots */
-		object_desc(o_name, &inventory[i], 0);
+		/* Dump the p_ptr->inventory slots */
+		object_desc(o_name, &p_ptr->inventory[i], 0);
 		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
 	}
 
@@ -5189,7 +5189,7 @@ static void dump_aux_home_museum(FILE *fff)
 #ifdef JP
 		fprintf(fff, "  [我が家のアイテム]\n");
 #else
-		fprintf(fff, "  [Home Inventory]\n");
+		fprintf(fff, "  [Home p_ptr->inventory]\n");
 #endif
 
 		/* Dump all available items */
@@ -7006,7 +7006,7 @@ static void show_info(void)
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -7094,7 +7094,7 @@ put_str("ファイルネーム: ", 23, 0);
 	/* Display player */
 	display_player(0, p_ptr);
 
-	/* Prompt for inventory */
+	/* Prompt for p_ptr->inventory */
 #ifdef JP
 prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 #else
@@ -7106,7 +7106,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	if (inkey() == ESCAPE) return;
 
 
-	/* Show equipment and inventory */
+	/* Show equipment and p_ptr->inventory */
 
 	/* Equipment -- if any */
 	if (equip_cnt)
@@ -7123,7 +7123,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 		if (inkey() == ESCAPE) return;
 	}
 
-	/* Inventory -- if any */
+	/* p_ptr->inventory -- if any */
 	if (inven_cnt)
 	{
 		Term_clear();

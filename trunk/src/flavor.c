@@ -1252,7 +1252,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	/* Allow flavors to be hidden when aware */
 	if (aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;
 
-	/* Object is in the inventory of a store or spoiler */
+	/* Object is in the p_ptr->inventory of a store or spoiler */
 	if ((mode & OD_STORE) || (o_ptr->ident & IDENT_STORE))
 	{
 		/* Don't show flavors */
@@ -2397,7 +2397,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 
-	bow_ptr = &inventory[INVEN_BOW];
+	bow_ptr = &p_ptr->inventory[INVEN_BOW];
 
 	/* If have a firing weapon + ammo matches bow */
 	if (bow_ptr->k_idx && (o_ptr->tval == p_ptr->tval_ammo))

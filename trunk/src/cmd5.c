@@ -366,7 +366,7 @@ static bool player_has_no_spellbooks(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 		if (o_ptr->k_idx && check_book_realm(o_ptr->tval, o_ptr->sval)) return FALSE;
 	}
 
@@ -513,7 +513,7 @@ void do_cmd_browse(void)
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -752,7 +752,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1206,7 +1206,7 @@ void do_cmd_cast(void)
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2572,9 +2572,9 @@ void do_cmd_pet(void)
 	if (p_ptr->riding)
 	{
 		if ((p_ptr->migite && (empty_hands(FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(&inventory[INVEN_RARM])) ||
+		     object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_RARM])) ||
 		    (p_ptr->hidarite && (empty_hands(FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(&inventory[INVEN_LARM])))
+			 object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_LARM])))
 		{
 			if (p_ptr->pet_extra_flags & PF_RYOUTE)
 			{

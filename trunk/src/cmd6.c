@@ -37,8 +37,8 @@
  * 400 item comparisons, but only occasionally.
  *
  * There may be a BIG problem with any "effect" that can cause "changes"
- * to the inventory.  For example, a "scroll of recharging" can cause
- * a wand/staff to "disappear", moving the inventory up.  Luckily, the
+ * to the p_ptr->inventory.  For example, a "scroll of recharging" can cause
+ * a wand/staff to "disappear", moving the p_ptr->inventory up.  Luckily, the
  * scrolls all appear BEFORE the staffs/wands, so this is not a problem.
  * But, for example, a "staff of recharging" could cause MAJOR problems.
  * In such a case, it will be best to either (1) "postpone" the effect
@@ -65,7 +65,7 @@ static void do_cmd_eat_food_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -742,7 +742,7 @@ static void do_cmd_quaff_potion_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -760,7 +760,7 @@ static void do_cmd_quaff_potion_aux(int item)
 	/* Single object */
 	q_ptr->number = 1;
 
-	/* Reduce and describe inventory */
+	/* Reduce and describe p_ptr->inventory */
 	if (item >= 0)
 	{
 		inven_item_increase(item, -1);
@@ -1590,7 +1590,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2330,7 +2330,7 @@ void do_cmd_read_scroll(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2712,7 +2712,7 @@ static void do_cmd_use_staff_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3216,7 +3216,7 @@ msg_print("ロケットを発射した！");
  * For simplicity, you cannot use a stack of items from the
  * ground.  This would require too much nasty code.
  *
- * There are no wands which can "destroy" themselves, in the inventory
+ * There are no wands which can "destroy" themselves, in the p_ptr->inventory
  * or on the ground, so we can ignore this possibility.  Note that this
  * required giving "wand of wonder" the ability to ignore destruction
  * by electric balls.
@@ -3236,7 +3236,7 @@ static void do_cmd_aim_wand_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3674,7 +3674,7 @@ static void do_cmd_zap_rod_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3999,7 +3999,7 @@ static void do_cmd_activate_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -6671,7 +6671,7 @@ static bool item_tester_hook_use(object_type *o_ptr)
 			/* HACK - only items from the equipment can be activated */
 			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 			{
-				if (&inventory[i] == o_ptr)
+				if (&p_ptr->inventory[i] == o_ptr)
 				{
 					/* Extract the flags */
 					object_flags(o_ptr, flgs);
@@ -6721,7 +6721,7 @@ s = "使えるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 	/* Get the item (on the floor) */
 	else
@@ -6817,7 +6817,7 @@ msg_print("混乱していて読めない！");
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			do_cmd_fire_aux(item, &inventory[INVEN_BOW]);
+			do_cmd_fire_aux(item, &p_ptr->inventory[INVEN_BOW]);
 			break;
 		}
 

@@ -1072,7 +1072,7 @@ static bool cast_summon_greater_demon(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -10932,7 +10932,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				int damage;
 	
 				if (!buki_motteruka(INVEN_RARM+i)) break;
-				o_ptr = &inventory[INVEN_RARM+i];
+				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -11286,7 +11286,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			{
 				int damage;
 				if (!buki_motteruka(INVEN_RARM+i)) break;
-				o_ptr = &inventory[INVEN_RARM+i];
+				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -11582,7 +11582,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &inventory[item];
+			o_ptr = &p_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
@@ -12048,7 +12048,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &inventory[item];
+			o_ptr = &p_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
@@ -12140,7 +12140,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 		if (cast)
 		{
-			object_type *o_ptr = &inventory[INVEN_OUTER];
+			object_type *o_ptr = &p_ptr->inventory[INVEN_OUTER];
 
 			if (!o_ptr->k_idx)
 			{
@@ -12171,7 +12171,7 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cont)
 		{
-			object_type *o_ptr = &inventory[INVEN_OUTER];
+			object_type *o_ptr = &p_ptr->inventory[INVEN_OUTER];
 
 			if ((!o_ptr->k_idx) || (!object_is_cursed(o_ptr)))
 			{
@@ -12344,7 +12344,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &inventory[item];
+			o_ptr = &p_ptr->inventory[item];
 			object_flags(o_ptr, f);
 
 			p_ptr->csp += (p_ptr->lev / 5) + randint1(p_ptr->lev / 5);

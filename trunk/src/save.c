@@ -235,7 +235,7 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s16b(m_ptr->sex);
 	wr_s16b(m_ptr->hitdice);
 
-	/* Write the inventory */
+	/* Write the p_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &m_ptr->inventory[i];
@@ -259,7 +259,6 @@ static void wr_monster(creature_type *m_ptr)
 	}
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
-
 
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
@@ -1482,10 +1481,10 @@ static bool wr_savefile_new(void)
 	}
 
 
-	/* Write the inventory */
+	/* Write the p_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

@@ -48,7 +48,7 @@ void do_cmd_go_up(void)
 	{
 		/* Success */
 #ifdef JP
-		if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("なんだこの階段は！");
 		else
 			msg_print("上の階に登った。");
@@ -170,7 +170,7 @@ void do_cmd_go_up(void)
 
 	/* Success */
 #ifdef JP
-	if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+	if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 		msg_print("なんだこの階段は！");
 	else if (up_num == dun_level)
 		msg_print("地上に戻った。");
@@ -229,7 +229,7 @@ void do_cmd_go_down(void)
 	else if (have_flag(f_ptr->flags, FF_QUEST))
 	{
 #ifdef JP
-		if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("なんだこの階段は！");
 		else
 			msg_print("下の階に降りた。");
@@ -350,7 +350,7 @@ void do_cmd_go_down(void)
 			else
 			{
 #ifdef JP
-				if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("なんだこの階段は！");
 				else
 					msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
@@ -2558,7 +2558,7 @@ static bool get_spike(int *ip)
 	/* Check every item in the pack */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -3209,7 +3209,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 
 				if ((o_ptr->name1 == ART_BARD_ARROW) &&
 				    (m_ptr->r_idx == MON_SMAUG) &&
-				    (inventory[INVEN_BOW].name1 == ART_BARD))
+				    (p_ptr->inventory[INVEN_BOW].name1 == ART_BARD))
 					mult *= 5;
 			}
 
@@ -3396,7 +3396,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 	else
 	{
@@ -3512,7 +3512,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	/* Single object */
 	q_ptr->number = 1;
 
-	/* Reduce and describe inventory */
+	/* Reduce and describe p_ptr->inventory */
 	if (item >= 0)
 	{
 		inven_item_increase(item, -1);
@@ -3997,7 +3997,7 @@ void do_cmd_fire(void)
 	is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = &inventory[INVEN_BOW];
+	j_ptr = &p_ptr->inventory[INVEN_BOW];
 
 	/* Require a launcher */
 	if (!j_ptr->tval)
@@ -4168,7 +4168,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 	else
 	{
@@ -4270,7 +4270,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	    (q_ptr->name1 == ART_AEGISFANG) || boomerang)
 		return_when_thrown = TRUE;
 
-	/* Reduce and describe inventory */
+	/* Reduce and describe p_ptr->inventory */
 	if (item >= 0)
 	{
 		inven_item_increase(item, -1);
@@ -4665,7 +4665,7 @@ msg_print("これはあまり良くない気がする。");
 		if (item == INVEN_RARM || item == INVEN_LARM)
 		{
 			/* Access the wield slot */
-			o_ptr = &inventory[item];
+			o_ptr = &p_ptr->inventory[item];
 
 			/* Wear the new stuff */
 			object_copy(o_ptr, q_ptr);

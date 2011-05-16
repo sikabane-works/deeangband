@@ -187,7 +187,7 @@ static bool do_cmd_archer(void)
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &inventory[item];
+			q_ptr = &p_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -255,7 +255,7 @@ static bool do_cmd_archer(void)
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &inventory[item];
+			q_ptr = &p_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -330,7 +330,7 @@ s = "魔力を取り込めるアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */

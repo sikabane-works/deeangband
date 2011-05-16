@@ -154,7 +154,7 @@ s16b inven_nxt;			/* Hack -- unused */
 bool hack_mind;
 bool hack_mutation;
 
-s16b inven_cnt;			/* Number of items in inventory */
+s16b inven_cnt;			/* Number of items in p_ptr->inventory */
 s16b equip_cnt;			/* Number of items in equipment */
 
 s16b o_max = 1;			/* Number of allocated objects */
@@ -718,11 +718,6 @@ town_type *town;
  */
 byte race_population[MAX_RACES];
 
-/*
- * The player's inventory [INVEN_TOTAL]
- */
-object_type *inventory;
-
 
 /*
  * The size of "alloc_kind_table" (at most max_k_idx * 4)
@@ -755,7 +750,7 @@ char misc_to_char[256];
 
 
 /*
- * Specify attr/char pairs for inventory items (by tval)
+ * Specify attr/char pairs for p_ptr->inventory items (by tval)
  * Be sure to use "index & 0x7F" to avoid illegal access
  */
 byte tval_to_attr[128];

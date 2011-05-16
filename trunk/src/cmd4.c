@@ -5070,7 +5070,7 @@ void do_cmd_feeling(void)
 	if (p_ptr->muta3 & MUT3_GOOD_LUCK)
 		msg_print(do_cmd_feeling_text_lucky[p_ptr->feeling]);
 	else if (p_ptr->chara == CHARA_COMBAT ||
-		 inventory[INVEN_BOW].name1 == ART_CRIMSON)
+		 p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON)
 		msg_print(do_cmd_feeling_text_combat[p_ptr->feeling]);
 	else
 		msg_print(do_cmd_feeling_text[p_ptr->feeling]);
@@ -6021,7 +6021,7 @@ static void do_cmd_knowledge_inven(void)
 #endif
 		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 		{
-			do_cmd_knowledge_inven_aux(fff, &inventory[i], &j, tval, where);
+			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
 		}
 
 #ifdef JP
@@ -6031,7 +6031,7 @@ static void do_cmd_knowledge_inven(void)
 #endif
 		for (i = 0; i < INVEN_PACK; i++)
 		{
-			do_cmd_knowledge_inven_aux(fff, &inventory[i], &j, tval, where);
+			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
 		}
 
 		st_ptr = &town[1].store[STORE_HOME];
@@ -6598,10 +6598,10 @@ static void do_cmd_knowledge_artifacts(void)
 		}
 	}
 
-	/* Check the inventory and equipment */
+	/* Check the p_ptr->inventory and equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Ignore non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -9747,7 +9747,7 @@ static void do_cmd_knowledge_home(void)
 #ifdef JP
 			fprintf(fff, "  [ 我が家のアイテム ]\n");
 #else
-			fprintf(fff, "  [Home Inventory]\n");
+			fprintf(fff, "  [Home p_ptr->inventory]\n");
 #endif
 
 			/* Dump all available items */
@@ -9790,7 +9790,7 @@ static void do_cmd_knowledge_home(void)
 #ifdef JP
 	show_file(TRUE, file_name, "我が家のアイテム", 0, 0);
 #else
-	show_file(TRUE, file_name, "Home Inventory", 0, 0);
+	show_file(TRUE, file_name, "Home p_ptr->inventory", 0, 0);
 #endif
 
 
@@ -9966,7 +9966,7 @@ void do_cmd_knowledge(void)
 			prt("(5) Display kill count", 10, 5);
 			if (!vanilla_town) prt("(6) Display wanted monsters", 11, 5);
 			prt("(7) Display current pets", 12, 5);
-			prt("(8) Display home inventory", 13, 5);
+			prt("(8) Display home p_ptr->inventory", 13, 5);
 			prt("(9) Display *identified* equip.", 14, 5);
 			prt("(0) Display terrain symbols.", 15, 5);
 		}

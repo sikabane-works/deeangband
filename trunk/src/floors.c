@@ -917,7 +917,7 @@ void leave_floor(void)
 	/* Check if there is a same item */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;

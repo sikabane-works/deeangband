@@ -1680,7 +1680,7 @@ bool combine_and_reorder_home(int store_num)
 
 
 /*
- * Add the item "o_ptr" to the inventory of the "Home"
+ * Add the item "o_ptr" to the p_ptr->inventory of the "Home"
  *
  * In all cases, return the slot (or -1) where the object was placed
  *
@@ -1782,11 +1782,11 @@ static int home_carry(object_type *o_ptr)
 
 
 /*
- * Add the item "o_ptr" to a real stores inventory.
+ * Add the item "o_ptr" to a real stores p_ptr->inventory.
  *
  * If the item is "worthless", it is thrown away (except in the home).
  *
- * If the item cannot be combined with an object already in the inventory,
+ * If the item cannot be combined with an object already in the p_ptr->inventory,
  * make a new slot for it, and calculate its "per item" price.	Note that
  * this price will be negative, since the price will not be "fixed" yet.
  * Adding an item to a "fixed" price stack will not change the fixed price.
@@ -2359,7 +2359,7 @@ static void display_entry(int pos)
 
 
 /*
- * Displays a store's inventory 		-RAK-
+ * Displays a store's p_ptr->inventory 		-RAK-
  * All prices are listed as "per individual object".  -BEN-
  */
 static void display_inventory(void)
@@ -2560,7 +2560,7 @@ static void display_store(void)
 	/* Display the current gold */
 	store_prt_gold();
 
-	/* Draw in the inventory */
+	/* Draw in the p_ptr->inventory */
 	display_inventory();
 }
 
@@ -3640,7 +3640,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 				item_new = inven_carry(j_ptr);
 
 				/* Describe the final result */
-				object_desc(o_name, &inventory[item_new], 0);
+				object_desc(o_name, &p_ptr->inventory[item_new], 0);
 
 				/* Message */
 #ifdef JP
@@ -3708,7 +3708,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 					}
 
-					/* New inventory */
+					/* New p_ptr->inventory */
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
@@ -3766,7 +3766,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		item_new = inven_carry(j_ptr);
 
 		/* Describe just the result */
-		object_desc(o_name, &inventory[item_new], 0);
+		object_desc(o_name, &p_ptr->inventory[item_new], 0);
 
 		/* Message */
 #ifdef JP
@@ -3899,7 +3899,7 @@ static void store_sell(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -4161,7 +4161,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		choice = 0;
 
-		/* Take it from the players inventory */
+		/* Take it from the players p_ptr->inventory */
 		inven_item_increase(item, -amt);
 		inven_item_describe(item);
 		inven_item_optimize(item);
@@ -4194,7 +4194,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		choice = 0;
 
-		/* Take it from the players inventory */
+		/* Take it from the players p_ptr->inventory */
 		inven_item_increase(item, -amt);
 		inven_item_describe(item);
 		inven_item_optimize(item);
@@ -4451,7 +4451,7 @@ static void store_process_command(void)
 #ifdef JP
 				msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
 #else
-				msg_print("Entire inventory is shown.");
+				msg_print("Entire p_ptr->inventory is shown.");
 #endif
 			}
 			else{
@@ -4473,7 +4473,7 @@ static void store_process_command(void)
 #ifdef JP
 				msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
 #else
-				msg_print("Entire inventory is shown.");
+				msg_print("Entire p_ptr->inventory is shown.");
 #endif
 
 			}
@@ -4538,7 +4538,7 @@ static void store_process_command(void)
 			break;
 		}
 
-		/*** Inventory Commands ***/
+		/*** p_ptr->inventory Commands ***/
 
 		/* Wear/wield equipment */
 		case 'w':
@@ -4568,7 +4568,7 @@ static void store_process_command(void)
 			break;
 		}
 
-		/* Inventory list */
+		/* p_ptr->inventory list */
 		case 'i':
 		{
 			do_cmd_inven();
@@ -5048,11 +5048,11 @@ void do_cmd_store(void)
 		handle_stuff();
 
 		/* XXX XXX XXX Pack Overflow */
-		if (inventory[INVEN_PACK].k_idx)
+		if (p_ptr->inventory[INVEN_PACK].k_idx)
 		{
 			int item = INVEN_PACK;
 
-			object_type *o_ptr = &inventory[item];
+			object_type *o_ptr = &p_ptr->inventory[item];
 
 			/* Hack -- Flee from the store */
 			if (cur_store_num != STORE_HOME)
@@ -5126,7 +5126,7 @@ void do_cmd_store(void)
 #endif
 
 
-				/* Remove it from the players inventory */
+				/* Remove it from the players p_ptr->inventory */
 				inven_item_increase(item, -255);
 				inven_item_describe(item);
 				inven_item_optimize(item);
@@ -5269,7 +5269,7 @@ void store_shuffle(int which)
 
 
 /*
- * Maintain the inventory at the stores.
+ * Maintain the p_ptr->inventory at the stores.
  */
 void store_maint(int town_num, int store_num)
 {

@@ -1630,7 +1630,7 @@ msg_print("その方向にはモンスターはいません。");
 
 			for (slot = 0; slot < INVEN_PACK; slot++)
 			{
-				if (inventory[slot].tval == TV_SPIKE) break;
+				if (p_ptr->inventory[slot].tval == TV_SPIKE) break;
 			}
 			if (slot == INVEN_PACK)
 			{

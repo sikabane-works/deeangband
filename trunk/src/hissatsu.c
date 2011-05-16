@@ -502,7 +502,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */

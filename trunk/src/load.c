@@ -370,15 +370,15 @@ static void rd_item(object_type *o_ptr)
 }
 
 /*
- * Read the player inventory
+ * Read the player p_ptr->inventory
  *
- * Note that the inventory changed in Angband 2.7.4.  Two extra
+ * Note that the p_ptr->inventory changed in Angband 2.7.4.  Two extra
  * pack slots were added and the equipment was rearranged.  Note
  * that these two features combine when parsing old save-files, in
  * which items from the old "aux" slot are "carried", perhaps into
  * one of the two new "inventory" slots.
  *
- * Note that the inventory is "re-sorted" later by "dungeon()".
+ * Note that the p_ptr->inventory is "re-sorted" later by "dungeon()".
  */
 static errr rd_inventory(void)
 {
@@ -424,7 +424,7 @@ static errr rd_inventory(void)
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&inventory[n], q_ptr);
+			object_copy(&p_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
 			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
@@ -440,7 +440,7 @@ static errr rd_inventory(void)
 #ifdef JP
 note("持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many items in the inventory!");
+			note("Too many items in the p_ptr->inventory!");
 #endif
 
 
@@ -448,7 +448,7 @@ note("持ち物の中のアイテムが多すぎる！");
 			return (54);
 		}
 
-		/* Carry inventory */
+		/* Carry p_ptr->inventory */
 		else
 		{
 			/* Get a slot */
@@ -458,7 +458,7 @@ note("持ち物の中のアイテムが多すぎる！");
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&inventory[n], q_ptr);
+			object_copy(&p_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
 			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
@@ -532,7 +532,7 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 #ifdef JP
 note("持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many items in the inventory!");
+			note("Too many items in the p_ptr->inventory!");
 #endif
 
 
@@ -540,7 +540,7 @@ note("持ち物の中のアイテムが多すぎる！");
 			return (54);
 		}
 
-		/* Carry inventory */
+		/* Carry p_ptr->inventory */
 		else
 		{
 			/* Get a slot */
@@ -825,7 +825,7 @@ static void rd_lore(int r_idx)
 
 
 /*
- * Add the item "o_ptr" to the inventory of the "Home"
+ * Add the item "o_ptr" to the p_ptr->inventory of the "Home"
  *
  * In all cases, return the slot (or -1) where the object was placed
  *
@@ -2760,13 +2760,13 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	}
 
 
-	/* Read the inventory */
+	/* Read the p_ptr->inventory */
 	if (rd_inventory())
 	{
 #ifdef JP
 note("持ち物情報を読み込むことができません");
 #else
-		note("Unable to read inventory");
+		note("Unable to read p_ptr->inventory");
 #endif
 
 		return (21);

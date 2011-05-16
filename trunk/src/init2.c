@@ -1835,10 +1835,10 @@ static errr init_other(void)
 	message__tail = MESSAGE_BUF;
 
 
-	/*** Prepare the Player inventory ***/
+	/*** Prepare the Player p_ptr->inventory ***/
 
 	/* Allocate it */
-	C_MAKE(inventory, INVEN_TOTAL, object_type);
+//	C_MAKE(inventory, INVEN_TOTAL, object_type);
 
 
 	/*** Prepare the options ***/

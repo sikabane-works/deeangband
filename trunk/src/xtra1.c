@@ -1792,7 +1792,7 @@ static void prt_frame_extra(void)
 
 
 /*
- * Hack -- display inventory in sub-windows
+ * Hack -- display p_ptr->inventory in sub-windows
  */
 static void fix_inven(void)
 {
@@ -1812,7 +1812,7 @@ static void fix_inven(void)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Display inventory */
+		/* Display p_ptr->inventory */
 		display_inven();
 
 		/* Fresh */
@@ -2542,7 +2542,7 @@ static void calc_mana(bool message)
 		p_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = &inventory[INVEN_HANDS];
+		o_ptr = &p_ptr->inventory[INVEN_HANDS];
 
 		/* Examine the gloves */
 		object_flags(o_ptr, flgs);
@@ -2567,13 +2567,13 @@ static void calc_mana(bool message)
 
 	/* Weigh the armor */
 	cur_wgt = 0;
-	if(inventory[INVEN_RARM].tval> TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight;
-	if(inventory[INVEN_LARM].tval> TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight;
-	cur_wgt += inventory[INVEN_BODY].weight;
-	cur_wgt += inventory[INVEN_HEAD].weight;
-	cur_wgt += inventory[INVEN_OUTER].weight;
-	cur_wgt += inventory[INVEN_HANDS].weight;
-	cur_wgt += inventory[INVEN_FEET].weight;
+	if(p_ptr->inventory[INVEN_RARM].tval> TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight;
+	if(p_ptr->inventory[INVEN_LARM].tval> TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight;
+	cur_wgt += p_ptr->inventory[INVEN_BODY].weight;
+	cur_wgt += p_ptr->inventory[INVEN_HEAD].weight;
+	cur_wgt += p_ptr->inventory[INVEN_OUTER].weight;
+	cur_wgt += p_ptr->inventory[INVEN_HANDS].weight;
+	cur_wgt += p_ptr->inventory[INVEN_FEET].weight;
 
 	/* Subtract a percentage of maximum mana. */
 	switch (p_ptr->class)
@@ -2587,8 +2587,8 @@ static void calc_mana(bool message)
 		case CLASS_FORCETRAINER:
 		case CLASS_SORCERER:
 		{
-			if (inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight;
-			if (inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight;
+			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight;
+			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight;
 			break;
 		}
 
@@ -2597,8 +2597,8 @@ static void calc_mana(bool message)
 		case CLASS_BARD:
 		case CLASS_TOURIST:
 		{
-			if (inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight*2/3;
-			if (inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight*2/3;
+			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight*2/3;
+			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight*2/3;
 			break;
 		}
 
@@ -2606,8 +2606,8 @@ static void calc_mana(bool message)
 		case CLASS_BEASTMASTER:
 		case CLASS_MIRROR_MASTER:
 		{
-			if (inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight/2;
-			if (inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight/2;
+			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/2;
+			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/2;
 			break;
 		}
 
@@ -2617,8 +2617,8 @@ static void calc_mana(bool message)
 		case CLASS_RED_MAGE:
 		case CLASS_WARRIOR_MAGE:
 		{
-			if (inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight/3;
-			if (inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight/3;
+			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/3;
+			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/3;
 			break;
 		}
 
@@ -2626,8 +2626,8 @@ static void calc_mana(bool message)
 		case CLASS_PALADIN:
 		case CLASS_CHAOS_WARRIOR:
 		{
-			if (inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_RARM].weight/5;
-			if (inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += inventory[INVEN_LARM].weight/5;
+			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/5;
+			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/5;
 			break;
 		}
 
@@ -2909,7 +2909,7 @@ static void calc_torch(void)
 	/* Loop through all wielded items */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Examine actual lites */
 		if ((i == INVEN_LITE) && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
@@ -3026,7 +3026,7 @@ u32b weight_limit(void)
 
 bool buki_motteruka(int i)
 {
-	return ((inventory[i].k_idx && object_is_melee_weapon(&inventory[i])) ? TRUE : FALSE);
+	return ((p_ptr->inventory[i].k_idx && object_is_melee_weapon(&p_ptr->inventory[i])) ? TRUE : FALSE);
 }
 
 
@@ -3309,12 +3309,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (CAN_TWO_HANDS_WIELDING())
 	{
 		if (cr_ptr->migite && (empty_hands(FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(&inventory[INVEN_RARM]))
+			object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_RARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
 		else if (cr_ptr->hidarite && (empty_hands(FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(&inventory[INVEN_LARM]))
+			object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_LARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
@@ -3425,8 +3425,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				new_speed -= (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
 			}
-			else if ((!inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
-			         (!inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
+			else if ((!p_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
+			         (!p_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
 			{
 				new_speed += 3;
 				if (!(prace_is_(RACE_KLACKON) ||
@@ -3439,8 +3439,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if  (cr_ptr->lev > 24)
 					cr_ptr->free_act = TRUE;
 			}
-			if ((!inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
-			    (!inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
+			if ((!p_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
+			    (!p_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
 			{
 				cr_ptr->to_a += cr_ptr->lev/2+5;
 				cr_ptr->dis_to_a += cr_ptr->lev/2+5;
@@ -3525,7 +3525,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			break;
 		case RACE_ENT:
 			/* Ents dig like maniacs, but only with their hands. */
-			if (!inventory[INVEN_RARM].k_idx) 
+			if (!p_ptr->inventory[INVEN_RARM].k_idx) 
 				cr_ptr->skill_dig += cr_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
 			if (cr_ptr->lev > 25) cr_ptr->stat_add[A_STR]++;
@@ -3862,12 +3862,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->stat_add[A_CON] += 4;
 	}
 
-	/* Scan the usable inventory */
+	/* Scan the usable p_ptr->inventory */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 
 		int bonus_to_h, bonus_to_d;
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
@@ -4281,32 +4281,32 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Monks get extra ac for armour _not worn_ */
 	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER)) && !heavy_armor())
 	{
-		if (!(inventory[INVEN_BODY].k_idx))
+		if (!(p_ptr->inventory[INVEN_BODY].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
 			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
 		}
-		if (!(inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
+		if (!(p_ptr->inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
 		}
-		if (!(inventory[INVEN_LARM].k_idx) && (cr_ptr->lev > 10))
+		if (!(p_ptr->inventory[INVEN_LARM].k_idx) && (cr_ptr->lev > 10))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
 		}
-		if (!(inventory[INVEN_HEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(p_ptr->inventory[INVEN_HEAD].k_idx) && (cr_ptr->lev > 4))
 		{
 			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
 			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
 		}
-		if (!(inventory[INVEN_HANDS].k_idx))
+		if (!(p_ptr->inventory[INVEN_HANDS].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 2);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 2);
 		}
-		if (!(inventory[INVEN_FEET].k_idx))
+		if (!(p_ptr->inventory[INVEN_FEET].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 3);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 3);
@@ -4386,7 +4386,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		for (i = INVEN_RARM; i <= INVEN_FEET; i++)
 		{
 			int ac = 0;
-			o_ptr = &inventory[i];
+			o_ptr = &p_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
 			if (!object_is_armour(o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
@@ -4715,9 +4715,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (buki_motteruka(INVEN_RARM) && buki_motteruka(INVEN_LARM))
 	{
 		int penalty1, penalty2;
-		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - inventory[INVEN_RARM].weight) / 8);
-		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - inventory[INVEN_LARM].weight) / 8);
-		if ((inventory[INVEN_RARM].name1 == ART_QUICKTHORN) && (inventory[INVEN_LARM].name1 == ART_TINYTHORN))
+		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - p_ptr->inventory[INVEN_RARM].weight) / 8);
+		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - p_ptr->inventory[INVEN_LARM].weight) / 8);
+		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_QUICKTHORN) && (p_ptr->inventory[INVEN_LARM].name1 == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
@@ -4730,12 +4730,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
 		}
-		else if ((inventory[INVEN_LARM].tval == TV_SWORD) && ((inventory[INVEN_LARM].sval == SV_MAIN_GAUCHE) || (inventory[INVEN_LARM].sval == SV_WAKIZASHI)))
+		else if ((p_ptr->inventory[INVEN_LARM].tval == TV_SWORD) && ((p_ptr->inventory[INVEN_LARM].sval == SV_MAIN_GAUCHE) || (p_ptr->inventory[INVEN_LARM].sval == SV_WAKIZASHI)))
 		{
 			penalty1 = MAX(0, penalty1 - 10);
 			penalty2 = MAX(0, penalty2 - 10);
 		}
-		if ((inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI))
+		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (p_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI))
 		{
 			penalty1 = MIN(0, penalty1);
 			penalty2 = MIN(0, penalty2);
@@ -4744,13 +4744,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			if ((inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+			if ((p_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
 				penalty1 /= 2;
-			if ((inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+			if ((p_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
 				penalty2 /= 2;
 		}
-		if (inventory[INVEN_RARM].tval == TV_POLEARM) penalty1 += 10;
-		if (inventory[INVEN_LARM].tval == TV_POLEARM) penalty2 += 10;
+		if (p_ptr->inventory[INVEN_RARM].tval == TV_POLEARM) penalty1 += 10;
+		if (p_ptr->inventory[INVEN_LARM].tval == TV_POLEARM) penalty2 += 10;
 		cr_ptr->to_h[0] -= penalty1;
 		cr_ptr->to_h[1] -= penalty2;
 		cr_ptr->dis_to_h[0] -= penalty1;
@@ -4832,7 +4832,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Examine the "current bow" */
-	o_ptr = &inventory[INVEN_BOW];
+	o_ptr = &p_ptr->inventory[INVEN_BOW];
 
 
 	/* Assume not heavy */
@@ -4942,7 +4942,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	for(i = 0 ; i < 2 ; i++)
 	{
 		/* Examine the "main weapon" */
-		o_ptr = &inventory[INVEN_RARM+i];
+		o_ptr = &p_ptr->inventory[INVEN_RARM+i];
 
 		object_flags(o_ptr, flgs);
 
@@ -5356,8 +5356,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (buki_motteruka(INVEN_RARM+i))
 		{
-			int tval = inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
-			int sval = inventory[INVEN_RARM+i].sval;
+			int tval = p_ptr->inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
+			int sval = p_ptr->inventory[INVEN_RARM+i].sval;
 
 			cr_ptr->to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 			cr_ptr->dis_to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
@@ -5372,7 +5372,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 			else if (cr_ptr->class == CLASS_NINJA)
 			{
-				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (inventory[INVEN_LARM-i].tval == TV_SHIELD))
+				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (p_ptr->inventory[INVEN_LARM-i].tval == TV_SHIELD))
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;
@@ -5382,7 +5382,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 			}
 
-			if (inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->align -= 1000;
+			if (p_ptr->inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->align -= 1000;
 		}
 	}
 
@@ -5563,7 +5563,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (inventory[INVEN_BOW].k_idx)
+		else if (p_ptr->inventory[INVEN_BOW].k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("Ç±ÇÃã|Ç»ÇÁëïîıÇµÇƒÇ¢ÇƒÇ‡êhÇ≠Ç»Ç¢ÅB");
@@ -5759,11 +5759,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 #if 0
-		if ((inventory[i].tval == TV_SORCERY_BOOK) && (inventory[i].sval == 2)) have_dd_s = TRUE;
-		if ((inventory[i].tval == TV_TRUMP_BOOK) && (inventory[i].sval == 1)) have_dd_t = TRUE;
+		if ((p_ptr->inventory[i].tval == TV_SORCERY_BOOK) && (p_ptr->inventory[i].sval == 2)) have_dd_s = TRUE;
+		if ((p_ptr->inventory[i].tval == TV_TRUMP_BOOK) && (p_ptr->inventory[i].sval == 1)) have_dd_t = TRUE;
 #endif
-		if ((inventory[i].tval == TV_NATURE_BOOK) && (inventory[i].sval == 2)) have_sw = TRUE;
-		if ((inventory[i].tval == TV_CRAFT_BOOK) && (inventory[i].sval == 2)) have_kabe = TRUE;
+		if ((p_ptr->inventory[i].tval == TV_NATURE_BOOK) && (p_ptr->inventory[i].sval == 2)) have_sw = TRUE;
+		if ((p_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (p_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
 	for (this_o_idx = cave[py][px].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
@@ -6185,7 +6185,7 @@ void window_stuff(void)
 	if (!p_ptr->window) return;
 
 
-	/* Display inventory */
+	/* Display p_ptr->inventory */
 	if (p_ptr->window & (PW_INVEN))
 	{
 		p_ptr->window &= ~(PW_INVEN);
@@ -6270,8 +6270,8 @@ s16b empty_hands(bool riding_control)
 {
 	s16b status = EMPTY_HAND_NONE;
 
-	if (!inventory[INVEN_RARM].k_idx) status |= EMPTY_HAND_RARM;
-	if (!inventory[INVEN_LARM].k_idx) status |= EMPTY_HAND_LARM;
+	if (!p_ptr->inventory[INVEN_RARM].k_idx) status |= EMPTY_HAND_RARM;
+	if (!p_ptr->inventory[INVEN_LARM].k_idx) status |= EMPTY_HAND_LARM;
 
 	if (riding_control && (status != EMPTY_HAND_NONE) && p_ptr->riding && !(p_ptr->pet_extra_flags & PF_RYOUTE))
 	{
@@ -6290,13 +6290,13 @@ bool heavy_armor(void)
 	if ((p_ptr->class != CLASS_MONK) && (p_ptr->class != CLASS_FORCETRAINER) && (p_ptr->class != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
-	if(inventory[INVEN_RARM].tval > TV_SWORD) monk_arm_wgt += inventory[INVEN_RARM].weight;
-	if(inventory[INVEN_LARM].tval > TV_SWORD) monk_arm_wgt += inventory[INVEN_LARM].weight;
-	monk_arm_wgt += inventory[INVEN_BODY].weight;
-	monk_arm_wgt += inventory[INVEN_HEAD].weight;
-	monk_arm_wgt += inventory[INVEN_OUTER].weight;
-	monk_arm_wgt += inventory[INVEN_HANDS].weight;
-	monk_arm_wgt += inventory[INVEN_FEET].weight;
+	if(p_ptr->inventory[INVEN_RARM].tval > TV_SWORD) monk_arm_wgt += p_ptr->inventory[INVEN_RARM].weight;
+	if(p_ptr->inventory[INVEN_LARM].tval > TV_SWORD) monk_arm_wgt += p_ptr->inventory[INVEN_LARM].weight;
+	monk_arm_wgt += p_ptr->inventory[INVEN_BODY].weight;
+	monk_arm_wgt += p_ptr->inventory[INVEN_HEAD].weight;
+	monk_arm_wgt += p_ptr->inventory[INVEN_OUTER].weight;
+	monk_arm_wgt += p_ptr->inventory[INVEN_HANDS].weight;
+	monk_arm_wgt += p_ptr->inventory[INVEN_FEET].weight;
 
 	return (monk_arm_wgt > (100 + (p_ptr->lev * 4)));
 }

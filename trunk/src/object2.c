@@ -5388,11 +5388,11 @@ void place_trap(int y, int x)
 
 
 /*
- * Describe the charges on an item in the inventory.
+ * Describe the charges on an item in the p_ptr->inventory.
  */
 void inven_item_charges(int item)
 {
-	object_type *o_ptr = &inventory[item];
+	object_type *o_ptr = &p_ptr->inventory[item];
 
 	/* Require staff/wand */
 	if ((o_ptr->tval != TV_STAFF) && (o_ptr->tval != TV_WAND)) return;
@@ -5429,11 +5429,11 @@ void inven_item_charges(int item)
 
 
 /*
- * Describe an item in the inventory.
+ * Describe an item in the p_ptr->inventory.
  */
 void inven_item_describe(int item)
 {
-	object_type *o_ptr = &inventory[item];
+	object_type *o_ptr = &p_ptr->inventory[item];
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
@@ -5460,11 +5460,11 @@ void inven_item_describe(int item)
 
 
 /*
- * Increase the "number" of an item in the inventory
+ * Increase the "number" of an item in the p_ptr->inventory
  */
 void inven_item_increase(int item, int num)
 {
-	object_type *o_ptr = &inventory[item];
+	object_type *o_ptr = &p_ptr->inventory[item];
 
 	/* Apply */
 	num += o_ptr->number;
@@ -5514,11 +5514,11 @@ void inven_item_increase(int item, int num)
 
 
 /*
- * Erase an inventory slot if it has no more items
+ * Erase an p_ptr->inventory slot if it has no more items
  */
 void inven_item_optimize(int item)
 {
-	object_type *o_ptr = &inventory[item];
+	object_type *o_ptr = &p_ptr->inventory[item];
 
 	/* Only optimize real items */
 	if (!o_ptr->k_idx) return;
@@ -5538,11 +5538,11 @@ void inven_item_optimize(int item)
 		for (i = item; i < INVEN_PACK; i++)
 		{
 			/* Structure copy */
-			inventory[i] = inventory[i+1];
+			p_ptr->inventory[i] = p_ptr->inventory[i+1];
 		}
 
 		/* Erase the "final" slot */
-		object_wipe(&inventory[i]);
+		object_wipe(&p_ptr->inventory[i]);
 
 		/* Window stuff */
 		p_ptr->window |= (PW_INVEN);
@@ -5555,7 +5555,7 @@ void inven_item_optimize(int item)
 		equip_cnt--;
 
 		/* Erase the empty slot */
-		object_wipe(&inventory[item]);
+		object_wipe(&p_ptr->inventory[item]);
 
 		/* Recalculate bonuses */
 		p_ptr->update |= (PU_BONUS);
@@ -5617,7 +5617,7 @@ void floor_item_charges(int item)
 
 
 /*
- * Describe an item in the inventory.
+ * Describe an item in the p_ptr->inventory.
  */
 void floor_item_describe(int item)
 {
@@ -5698,7 +5698,7 @@ bool inven_carry_okay(object_type *o_ptr)
 	/* Similar slot? */
 	for (j = 0; j < INVEN_PACK; j++)
 	{
-		object_type *j_ptr = &inventory[j];
+		object_type *j_ptr = &p_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -5794,11 +5794,11 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 
 
 /*
- * Add an item to the players inventory, and return the slot used.
+ * Add an item to the players p_ptr->inventory, and return the slot used.
  *
- * If the new item can combine with an existing item in the inventory,
+ * If the new item can combine with an existing item in the p_ptr->inventory,
  * it will do so, using "object_similar()" and "object_absorb()", else,
- * the item will be placed into the "proper" location in the inventory.
+ * the item will be placed into the "proper" location in the p_ptr->inventory.
  *
  * This function can be used to "over-fill" the player's pack, but only
  * once, and such an action must trigger the "overflow" code immediately.
@@ -5808,7 +5808,7 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
  * combined.  This may be tricky.  See "dungeon.c" for info.
  *
  * Note that this code must remove any location/stack information
- * from the object once it is placed into the inventory.
+ * from the object once it is placed into the p_ptr->inventory.
  */
 s16b inven_carry(object_type *o_ptr)
 {
@@ -5821,7 +5821,7 @@ s16b inven_carry(object_type *o_ptr)
 	/* Check for combining */
 	for (j = 0; j < INVEN_PACK; j++)
 	{
-		j_ptr = &inventory[j];
+		j_ptr = &p_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -5856,7 +5856,7 @@ s16b inven_carry(object_type *o_ptr)
 	/* Find an empty slot */
 	for (j = 0; j <= INVEN_PACK; j++)
 	{
-		j_ptr = &inventory[j];
+		j_ptr = &p_ptr->inventory[j];
 
 		/* Use it if found */
 		if (!j_ptr->k_idx) break;
@@ -5875,7 +5875,7 @@ s16b inven_carry(object_type *o_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &inventory[j])) break;
+			if (object_sort_comp(o_ptr, o_value, &p_ptr->inventory[j])) break;
 		}
 
 		/* Use that slot */
@@ -5885,19 +5885,19 @@ s16b inven_carry(object_type *o_ptr)
 		for (k = n; k >= i; k--)
 		{
 			/* Hack -- Slide the item */
-			object_copy(&inventory[k+1], &inventory[k]);
+			object_copy(&p_ptr->inventory[k+1], &p_ptr->inventory[k]);
 		}
 
 		/* Wipe the empty slot */
-		object_wipe(&inventory[i]);
+		object_wipe(&p_ptr->inventory[i]);
 	}
 
 
 	/* Copy the item */
-	object_copy(&inventory[i], o_ptr);
+	object_copy(&p_ptr->inventory[i], o_ptr);
 
 	/* Access new object */
-	j_ptr = &inventory[i];
+	j_ptr = &p_ptr->inventory[i];
 
 	/* Forget stack */
 	j_ptr->next_o_idx = 0;
@@ -5939,7 +5939,7 @@ s16b inven_carry(object_type *o_ptr)
  * Note that taking off an item when "full" may cause that item
  * to fall to the ground.
  *
- * Return the inventory slot into which the item is placed.
+ * Return the p_ptr->inventory slot into which the item is placed.
  */
 s16b inven_takeoff(int item, int amt)
 {
@@ -5956,7 +5956,7 @@ s16b inven_takeoff(int item, int amt)
 
 
 	/* Get the item to take off */
-	o_ptr = &inventory[item];
+	o_ptr = &p_ptr->inventory[item];
 
 	/* Paranoia */
 	if (amt <= 0) return (-1);
@@ -6042,7 +6042,7 @@ s16b inven_takeoff(int item, int amt)
 
 
 /*
- * Drop (some of) a non-cursed inventory/equipment item
+ * Drop (some of) a non-cursed p_ptr->inventory/equipment item
  *
  * The object will be dropped "near" the current location
  */
@@ -6057,7 +6057,7 @@ void inven_drop(int item, int amt)
 
 
 	/* Access original object */
-	o_ptr = &inventory[item];
+	o_ptr = &p_ptr->inventory[item];
 
 	/* Error check */
 	if (amt <= 0) return;
@@ -6073,7 +6073,7 @@ void inven_drop(int item, int amt)
 		item = inven_takeoff(item, amt);
 
 		/* Access original object */
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 
@@ -6130,7 +6130,7 @@ void combine_pack(void)
 		for (i = INVEN_PACK; i > 0; i--)
 		{
 			/* Get the item */
-			o_ptr = &inventory[i];
+			o_ptr = &p_ptr->inventory[i];
 
 			/* Skip empty items */
 			if (!o_ptr->k_idx) continue;
@@ -6141,7 +6141,7 @@ void combine_pack(void)
 				int max_num;
 
 				/* Get the item */
-				j_ptr = &inventory[j];
+				j_ptr = &p_ptr->inventory[j];
 
 				/* Skip empty items */
 				if (!j_ptr->k_idx) continue;
@@ -6170,11 +6170,11 @@ void combine_pack(void)
 						for (k = i; k < INVEN_PACK; k++)
 						{
 							/* Structure copy */
-							inventory[k] = inventory[k+1];
+							p_ptr->inventory[k] = p_ptr->inventory[k+1];
 						}
 
 						/* Erase the "final" slot */
-						object_wipe(&inventory[k]);
+						object_wipe(&p_ptr->inventory[k]);
 					}
 					else
 					{
@@ -6247,7 +6247,7 @@ void reorder_pack(void)
 		if ((i == INVEN_PACK) && (inven_cnt == INVEN_PACK)) break;
 
 		/* Get the item */
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -6258,7 +6258,7 @@ void reorder_pack(void)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &inventory[j])) break;
+			if (object_sort_comp(o_ptr, o_value, &p_ptr->inventory[j])) break;
 		}
 
 		/* Never move down */
@@ -6271,17 +6271,17 @@ void reorder_pack(void)
 		q_ptr = &forge;
 
 		/* Save a copy of the moving item */
-		object_copy(q_ptr, &inventory[i]);
+		object_copy(q_ptr, &p_ptr->inventory[i]);
 
 		/* Slide the objects */
 		for (k = i; k > j; k--)
 		{
 			/* Slide the item */
-			object_copy(&inventory[k], &inventory[k-1]);
+			object_copy(&p_ptr->inventory[k], &p_ptr->inventory[k-1]);
 		}
 
 		/* Insert the moving item */
-		object_copy(&inventory[j], q_ptr);
+		object_copy(&p_ptr->inventory[j], q_ptr);
 
 		/* Window stuff */
 		p_ptr->window |= (PW_INVEN);
@@ -6384,11 +6384,11 @@ object_type *choose_warning_item(void)
 	/* Paranoia -- Player has no warning ability */
 	if (!p_ptr->warning) return NULL;
 
-	/* Search Inventory */
+	/* Search p_ptr->inventory */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
-		object_type *o_ptr = &inventory[i];
+		object_type *o_ptr = &p_ptr->inventory[i];
 
 		object_flags(o_ptr, flgs);
 		if (have_flag(flgs, TR_WARNING))
@@ -6399,7 +6399,7 @@ object_type *choose_warning_item(void)
 	}
 
 	/* Choice one of them */
-	return number ? &inventory[choices[randint0(number)]] : NULL;
+	return number ? &p_ptr->inventory[choices[randint0(number)]] : NULL;
 }
 
 /* Calculate spell damages */
@@ -6489,8 +6489,8 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 
 	case GF_ARROW:
 		if (!p_ptr->blind &&
-		    ((inventory[INVEN_RARM].k_idx && (inventory[INVEN_RARM].name1 == ART_ZANTETSU)) ||
-		     (inventory[INVEN_LARM].k_idx && (inventory[INVEN_LARM].name1 == ART_ZANTETSU))))
+		    ((p_ptr->inventory[INVEN_RARM].k_idx && (p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU)) ||
+		     (p_ptr->inventory[INVEN_LARM].k_idx && (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
@@ -7406,7 +7406,7 @@ static void drain_essence(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -8046,7 +8046,7 @@ static void add_essence(int mode)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -8351,7 +8351,7 @@ static void erase_essence(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */

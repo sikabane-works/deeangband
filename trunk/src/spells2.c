@@ -77,7 +77,7 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	{
 		u32b tflgs[TR_FLAG_SIZE];
 
-		o_ptr = &inventory[k];
+		o_ptr = &p_ptr->inventory[k];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2841,7 +2841,7 @@ info[i++] = "‚ ‚È‚½‚ÌUŒ‚‘¬“x‚Í‘•”õ‚É‚æ‚Á‚Ä‰e‹¿‚ðŽó‚¯‚Ä‚¢‚éB";
 
 
 	/* Access the current weapon */
-	o_ptr = &inventory[INVEN_RARM];
+	o_ptr = &p_ptr->inventory[INVEN_RARM];
 
 	/* Analyze the weapon */
 	if (o_ptr->k_idx)

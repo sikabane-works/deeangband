@@ -501,7 +501,7 @@ int tot_dam_aux_snipe (int mult, creature_type *m_ptr)
 static bool cast_sniper_spell(int spell)
 {
 	bool flag = FALSE;
-	object_type *o_ptr = &inventory[INVEN_BOW];
+	object_type *o_ptr = &p_ptr->inventory[INVEN_BOW];
 
 	if (o_ptr->tval != TV_BOW)
 	{

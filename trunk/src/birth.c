@@ -3243,10 +3243,10 @@ static void player_wipe(void)
 	inven_cnt = 0;
 	equip_cnt = 0;
 
-	/* Clear the inventory */
+	/* Clear the p_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_wipe(&inventory[i]);
+		object_wipe(&p_ptr->inventory[i]);
 	}
 
 
@@ -3535,7 +3535,7 @@ static void init_turn(void)
 
 
 /* 
- * Try to wield everything wieldable in the inventory. 
+ * Try to wield everything wieldable in the p_ptr->inventory. 
  * Code taken from Angband 3.1.0 under Angband license
  */ 
 static void wield_all(void) 
@@ -3550,7 +3550,7 @@ static void wield_all(void)
 	/* Scan through the slots backwards */ 
 	for (item = INVEN_PACK - 1; item >= 0; item--) 
 	{ 
-		o_ptr = &inventory[item]; 
+		o_ptr = &p_ptr->inventory[item]; 
  
 		/* Skip non-objects */ 
 		if (!o_ptr->k_idx) continue; 
@@ -3559,7 +3559,7 @@ static void wield_all(void)
 		slot = wield_slot(o_ptr); 
 		if (slot < INVEN_RARM) continue; 
 		if (slot == INVEN_LITE) continue; /* Does not wield toaches because buys a lantern soon */
-		if (inventory[slot].k_idx) continue; 
+		if (p_ptr->inventory[slot].k_idx) continue; 
  
 		/* Get local object */ 
 		i_ptr = &object_type_body; 
@@ -3583,7 +3583,7 @@ static void wield_all(void)
 		} 
  
 		/* Get the wield slot */ 
-		o_ptr = &inventory[slot]; 
+		o_ptr = &p_ptr->inventory[slot]; 
  
 		/* Wear the new stuff */ 
 		object_copy(o_ptr, i_ptr); 

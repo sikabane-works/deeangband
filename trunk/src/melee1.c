@@ -800,7 +800,7 @@ bool make_attack_normal(int m_idx)
 						i = randint0(INVEN_PACK);
 
 						/* Obtain the item */
-						o_ptr = &inventory[i];
+						o_ptr = &p_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -979,7 +979,7 @@ bool make_attack_normal(int m_idx)
 						i = randint0(INVEN_PACK);
 
 						/* Obtain the item */
-						o_ptr = &inventory[i];
+						o_ptr = &p_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -1075,7 +1075,7 @@ bool make_attack_normal(int m_idx)
 						i = randint0(INVEN_PACK);
 
 						/* Get the item */
-						o_ptr = &inventory[i];
+						o_ptr = &p_ptr->inventory[i];
 
 						/* Skip non-objects */
 						if (!o_ptr->k_idx) continue;
@@ -1115,7 +1115,7 @@ bool make_attack_normal(int m_idx)
 				case RBE_EAT_LITE:
 				{
 					/* Access the lite */
-					o_ptr = &inventory[INVEN_LITE];
+					o_ptr = &p_ptr->inventory[INVEN_LITE];
 
 					/* Take some damage */
 					get_damage += take_hit(DAMAGE_ATTACK, damage, ddesc, -1);
@@ -2067,7 +2067,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 				if (hex_spelling(HEX_SHADOW_CLOAK) && alive && !p_ptr->is_dead)
 				{
 					int dam = 1;
-					object_type *o_ptr = &inventory[INVEN_RARM];
+					object_type *o_ptr = &p_ptr->inventory[INVEN_RARM];
 
 					if (!(m_ptr->resist_ultimate || r_ptr->flagsr & RFR_RES_DARK))
 					{
@@ -2078,7 +2078,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 						}
 
 						/* Cursed armor makes damages doubled */
-						o_ptr = &inventory[INVEN_BODY];
+						o_ptr = &p_ptr->inventory[INVEN_BODY];
 						if ((o_ptr->k_idx) && object_is_cursed(o_ptr)) dam *= 2;
 
 						/* Modify the damage */
@@ -2110,7 +2110,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 							/* Some cursed armours gives an extra effect */
 							for (j = 0; j < 4; j++)
 							{
-								o_ptr = &inventory[typ[j][0]];
+								o_ptr = &p_ptr->inventory[typ[j][0]];
 								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(o_ptr))
 									project(0, 0, m_ptr->fy, m_ptr->fx, (p_ptr->lev * 2), typ[j][1], flg, -1);
 							}

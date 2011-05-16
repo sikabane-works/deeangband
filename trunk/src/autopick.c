@@ -1425,11 +1425,11 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	{
 		/*
 		 * 'Collecting' means the item must be absorbed 
-		 * into an inventory slot.
+		 * into an p_ptr->inventory slot.
 		 * But an item can not be absorbed into itself!
 		 */
-		if ((&inventory[j] != o_ptr) &&
-		    object_similar(&inventory[j], o_ptr))
+		if ((&p_ptr->inventory[j] != o_ptr) &&
+		    object_similar(&p_ptr->inventory[j], o_ptr))
 			return TRUE;
 	}
 
@@ -1626,7 +1626,7 @@ static void autopick_delayed_alter_aux(int item)
 	object_type *o_ptr;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &inventory[item];
+	if (item >= 0) o_ptr = &p_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else o_ptr = &o_list[0 - item];
@@ -1689,7 +1689,7 @@ void autopick_delayed_alter(void)
 /*
  * Auto-inscription and/or destroy
  *
- * Auto-destroyer works only on inventory or on floor stack only when
+ * Auto-destroyer works only on p_ptr->inventory or on floor stack only when
  * requested.
  */
 void autopick_alter_item(int item, bool destroy)
@@ -1698,7 +1698,7 @@ void autopick_alter_item(int item, bool destroy)
 	int idx;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &inventory[item];
+	if (item >= 0) o_ptr = &p_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else o_ptr = &o_list[0 - item];
@@ -2464,7 +2464,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	/*** Collecting items ***/
 	/*** Which can be absorbed into a slot as a bundle ***/
 	if (IS_FLG(FLG_COLLECTING))
-		which_str[which_n++] = "can be absorbed into an existing inventory slot";
+		which_str[which_n++] = "can be absorbed into an existing p_ptr->inventory slot";
 	
 	/*** Unaware items ***/
 	if (IS_FLG(FLG_UNAWARE))
@@ -3321,7 +3321,7 @@ static object_type *choose_object(cptr q, cptr s)
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP))) return NULL;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) return &inventory[item];
+	if (item >= 0) return &p_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else return &o_list[0 - item];
@@ -4053,7 +4053,7 @@ static char MN_SEARCH[] = "Search";
 static char MN_SEARCH_STR[] = "Search by string";
 static char MN_SEARCH_FORW[] = "Search forward";
 static char MN_SEARCH_BACK[] = "Search backward";
-static char MN_SEARCH_OBJ[] = "Search by inventory object";
+static char MN_SEARCH_OBJ[] = "Search by p_ptr->inventory object";
 static char MN_SEARCH_DESTROYED[] = "Search by destroyed object";
 
 static char MN_INSERT[] = "Insert...";

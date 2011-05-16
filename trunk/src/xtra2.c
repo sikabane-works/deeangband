@@ -1973,7 +1973,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 		else if (!m_ptr->ml)
 		{
 #ifdef JP
-			if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを殺した。", m_name);
 			else if(p_ptr->chara == CHARA_CHARGEMAN)
 				msg_format("%sを殺した。ごめんね～", m_name);
@@ -2006,7 +2006,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			else
 			{
 #ifdef JP
-				if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_format("せっかくだから%sを倒した。", m_name);
 				else if(p_ptr->chara == CHARA_CHARGEMAN)
 					msg_format("%s！お許し下さい！", m_name);
@@ -2024,7 +2024,7 @@ msg_format("%sを倒した。", m_name);
 		else
 		{
 #ifdef JP
-			if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを葬り去った。", m_name);
 			else if(p_ptr->chara == CHARA_CHARGEMAN)
 			{
@@ -5354,7 +5354,7 @@ msg_print("「汝、武器に頼ることなかれ。」");
 				dummy = INVEN_LARM;
 				if (buki_motteruka(INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 			}
-			object_desc(o_name, &inventory[dummy], OD_NAME_ONLY);
+			object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -5363,7 +5363,7 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 			break;
 		case REW_CURSE_AR:
-			if (!inventory[INVEN_BODY].k_idx) break;
+			if (!p_ptr->inventory[INVEN_BODY].k_idx) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
 				player_patrons[p_ptr->patron].title);
@@ -5378,7 +5378,7 @@ msg_print("「汝、防具に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, &inventory[INVEN_BODY], OD_NAME_ONLY);
+			object_desc(o_name, &p_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 			(void)curse_armor();
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -5429,7 +5429,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 							dummy = INVEN_LARM;
 							if (buki_motteruka(INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 						}
-						object_desc(o_name, &inventory[dummy], OD_NAME_ONLY);
+						object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
@@ -5439,8 +5439,8 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					}
 					else
 					{
-						if (!inventory[INVEN_BODY].k_idx) break;
-						object_desc(o_name, &inventory[INVEN_BODY], OD_NAME_ONLY);
+						if (!p_ptr->inventory[INVEN_BODY].k_idx) break;
+						object_desc(o_name, &p_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 						(void)curse_armor();
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);

@@ -2218,10 +2218,10 @@ static bool kankin(void)
 	char o_name[MAX_NLEN];
 	object_type *o_ptr;
 
-	/* Loop for inventory and right/left arm */
+	/* Loop for p_ptr->inventory and right/left arm */
 	for (i = 0; i <= INVEN_LARM; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Living Tsuchinoko worthes $1000000 */
 		if ((o_ptr->tval == TV_CAPTURE) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2252,7 +2252,7 @@ static bool kankin(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Corpse of Tsuchinoko worthes $200000 */
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2283,7 +2283,7 @@ static bool kankin(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		/* Bones of Tsuchinoko worthes $100000 */
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (o_ptr->pval == MON_TSUCHINOKO))
@@ -2314,7 +2314,7 @@ static bool kankin(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
@@ -2343,7 +2343,7 @@ static bool kankin(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 
 		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name)))
 		{
@@ -2376,7 +2376,7 @@ static bool kankin(void)
 		/* Need reverse order --- Positions will be changed in the loop */
 		for (i = INVEN_PACK-1; i >= 0; i--)
 		{
-			o_ptr = &inventory[i];
+			o_ptr = &p_ptr->inventory[i];
 			if ((o_ptr->tval == TV_CORPSE) && (o_ptr->pval == kubi_r_idx[j]))
 			{
 				char buf[MAX_NLEN+20];
@@ -3412,7 +3412,7 @@ static bool compare_weapons(void)
 	clear_bldg(0, 22);
 
 	/* Store copy of original wielded weapon */
-	i_ptr = &inventory[INVEN_RARM];
+	i_ptr = &p_ptr->inventory[INVEN_RARM];
 	object_copy(&orig_weapon, i_ptr);
 
 	item_tester_no_ryoute = TRUE;
@@ -3435,7 +3435,7 @@ s = "比べるものがありません。";
 	}
 
 	/* Get the item (in the pack) */
-	o1_ptr = &inventory[item];
+	o1_ptr = &p_ptr->inventory[item];
 
 	/* Clear the screen */
 	clear_bldg(0, 22);
@@ -3460,7 +3460,7 @@ s = "比べるものがありません。";
 	}
 
 	/* Get the item (in the pack) */
-	o2_ptr = &inventory[item2];
+	o2_ptr = &p_ptr->inventory[item2];
 
 	/* Clear the screen */
 	clear_bldg(0, 22);
@@ -3661,7 +3661,7 @@ static bool resize_item()
 #endif
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
-	o_ptr = &inventory[item];
+	o_ptr = &p_ptr->inventory[item];
 	value = object_value(o_ptr) / 5;
 
 	/* Check if the player has enough money */
@@ -3763,7 +3763,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
 
 	/* Get the item (in the pack) */
-	o_ptr = &inventory[item];
+	o_ptr = &p_ptr->inventory[item];
 
 	/* Check if the player has enough money */
 	if (p_ptr->au < (cost * o_ptr->number))
@@ -3901,7 +3901,7 @@ s = "魔力を充填すべきアイテムがない。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &inventory[item];
+		o_ptr = &p_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -4161,7 +4161,7 @@ static void building_recharge_all(void)
 	/* Calculate cost */
 	for ( i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 				
 		/* skip non magic device */
 		if (o_ptr->tval < TV_STAFF || o_ptr->tval > TV_ROD) continue;
@@ -4240,7 +4240,7 @@ static void building_recharge_all(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &inventory[i];
+		o_ptr = &p_ptr->inventory[i];
 		k_ptr = &k_info[o_ptr->k_idx];
 
 		/* skip non magic device */
@@ -5054,7 +5054,7 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
 		if (p_ptr->chara == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");

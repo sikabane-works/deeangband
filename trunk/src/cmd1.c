@@ -794,7 +794,7 @@ void search(void)
 /*
  * Helper routine for py_pickup() and py_pickup_floor().
  *
- * Add the given dungeon object to the character's inventory.
+ * Add the given dungeon object to the character's p_ptr->inventory.
  *
  * Delete the object afterwards.
  */
@@ -832,7 +832,7 @@ void py_pickup_aux(int o_idx)
 	slot = inven_carry(o_ptr);
 
 	/* Get the object again */
-	o_ptr = &inventory[slot];
+	o_ptr = &p_ptr->inventory[slot];
 
 	/* Delete the object */
 	delete_object_idx(o_idx);
@@ -1141,7 +1141,7 @@ static void hit_trap(bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((p_ptr->chara == CHARA_COMBAT) || (inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
 				if (p_ptr->chara == CHARA_CHARGEMAN)
 					msg_print("ジュラル星人の仕業に違いない！");
@@ -2053,7 +2053,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	monster_race    *r_ptr = &r_info[m_ptr->r_idx];
 
 	/* Access the weapon */
-	object_type     *o_ptr = &inventory[INVEN_RARM + hand];
+	object_type     *o_ptr = &p_ptr->inventory[INVEN_RARM + hand];
 
 	char            m_name[80];
 
@@ -2132,8 +2132,8 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	{
 		if ((r_ptr->level + 10) > p_ptr->lev)
 		{
-			int tval = inventory[INVEN_RARM+hand].tval - TV_WEAPON_BEGIN;
-			int sval = inventory[INVEN_RARM+hand].sval;
+			int tval = p_ptr->inventory[INVEN_RARM+hand].tval - TV_WEAPON_BEGIN;
+			int sval = p_ptr->inventory[INVEN_RARM+hand].sval;
 			int now_exp = p_ptr->weapon_exp[tval][sval];
 			if (now_exp < s_info[p_ptr->class].w_max[tval][sval])
 			{
@@ -3175,7 +3175,7 @@ bool py_attack(int y, int x, int mode)
 	if ((r_ptr->flags1 & RF1_FEMALE) &&
 	    !(p_ptr->stun || p_ptr->confused || p_ptr->image || !m_ptr->ml))
 	{
-		if ((inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (inventory[INVEN_LARM].name1 == ART_ZANTETSU))
+		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_print("拙者、おなごは斬れぬ！");
@@ -3201,8 +3201,8 @@ bool py_attack(int y, int x, int mode)
 	    !(p_ptr->stun || p_ptr->confused || p_ptr->image ||
 	    p_ptr->shero || !m_ptr->ml))
 	{
-		if (inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-		if (inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (p_ptr->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (p_ptr->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 		if (stormbringer)
 		{
 #ifdef JP
@@ -4045,8 +4045,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	m_ptr = &m_list[c_ptr->m_idx];
 
 
-	if (inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	if (inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (p_ptr->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (p_ptr->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */

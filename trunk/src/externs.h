@@ -456,7 +456,6 @@ extern byte race_population[MAX_RACES];
 extern u16b start_wilderness_x[MAX_STARTING_POINTS];
 extern u16b start_wilderness_y[MAX_STARTING_POINTS];
 extern u16b start_point_size;
-extern object_type *inventory;
 extern s16b alloc_kind_size;
 extern alloc_entry *alloc_kind_table;
 extern s16b alloc_race_size;
