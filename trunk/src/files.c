@@ -3425,7 +3425,7 @@ put_str("‚l‚o  :", 8, 1);
  */
 static void display_player_stat_info(creature_type *cr_ptr)
 {
-	int i, j, s, e_adj;
+	int i, j, e_adj;
 	int stat_col, stat;
 	int row, col;
 

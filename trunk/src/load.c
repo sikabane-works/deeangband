@@ -369,6 +369,202 @@ static void rd_item(object_type *o_ptr)
 	else o_ptr->art_name = 0;
 }
 
+/*
+ * Read the player inventory
+ *
+ * Note that the inventory changed in Angband 2.7.4.  Two extra
+ * pack slots were added and the equipment was rearranged.  Note
+ * that these two features combine when parsing old save-files, in
+ * which items from the old "aux" slot are "carried", perhaps into
+ * one of the two new "inventory" slots.
+ *
+ * Note that the inventory is "re-sorted" later by "dungeon()".
+ */
+static errr rd_inventory(void)
+{
+	int slot = 0;
+
+	object_type forge;
+	object_type *q_ptr;
+
+	/* No weight */
+	p_ptr->total_weight = 0;
+
+	/* No items */
+	inven_cnt = 0;
+	equip_cnt = 0;
+
+	/* Read until done */
+	while (1)
+	{
+		u16b n;
+
+		/* Get the next item index */
+		rd_u16b(&n);
+
+		/* Nope, we reached the end */
+		if (n == 0xFFFF) break;
+
+		/* Get local object */
+		q_ptr = &forge;
+
+		/* Wipe the object */
+		object_wipe(q_ptr);
+
+		/* Read the item */
+		rd_item(q_ptr);
+
+		/* Hack -- verify item */
+		if (!q_ptr->k_idx) return (53);
+
+		/* Wield equipment */
+		if (n >= INVEN_RARM)
+		{
+			/* Player touches it */
+			q_ptr->marked |= OM_TOUCHED;
+
+			/* Copy object */
+			object_copy(&inventory[n], q_ptr);
+
+			/* Add the weight */
+			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+
+			/* One more item */
+			equip_cnt++;
+		}
+
+		/* Warning -- backpack is full */
+		else if (inven_cnt == INVEN_PACK)
+		{
+			/* Oops */
+#ifdef JP
+note("持ち物の中のアイテムが多すぎる！");
+#else
+			note("Too many items in the inventory!");
+#endif
+
+
+			/* Fail */
+			return (54);
+		}
+
+		/* Carry inventory */
+		else
+		{
+			/* Get a slot */
+			n = slot++;
+
+			/* Player touches it */
+			q_ptr->marked |= OM_TOUCHED;
+
+			/* Copy object */
+			object_copy(&inventory[n], q_ptr);
+
+			/* Add the weight */
+			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+
+			/* One more item */
+			inven_cnt++;
+		}
+	}
+
+	/* Success */
+	return (0);
+}
+
+static errr rd_inventory_r(creature_type *cr_ptr)
+{
+	int slot = 0;
+
+	object_type forge;
+	object_type *q_ptr;
+
+	/* No weight */
+	cr_ptr->total_weight = 0;
+
+	/* No items */
+	inven_cnt = 0;
+	equip_cnt = 0;
+
+	/* Read until done */
+	while (1)
+	{
+		u16b n;
+
+		/* Get the next item index */
+		rd_u16b(&n);
+
+		/* Nope, we reached the end */
+		if (n == 0xFFFF) break;
+
+		/* Get local object */
+		q_ptr = &forge;
+
+		/* Wipe the object */
+		object_wipe(q_ptr);
+
+		/* Read the item */
+		rd_item(q_ptr);
+
+		/* Hack -- verify item */
+		if (!q_ptr->k_idx) return (53);
+
+		/* Wield equipment */
+		if (n >= INVEN_RARM)
+		{
+			/* Player touches it */
+			q_ptr->marked |= OM_TOUCHED;
+
+			/* Copy object */
+			object_copy(&cr_ptr->inventory[n], q_ptr);
+
+			/* Add the weight */
+			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+
+			/* One more item */
+			equip_cnt++;
+		}
+
+		/* Warning -- backpack is full */
+		else if (inven_cnt == INVEN_PACK)
+		{
+			/* Oops */
+#ifdef JP
+note("持ち物の中のアイテムが多すぎる！");
+#else
+			note("Too many items in the inventory!");
+#endif
+
+
+			/* Fail */
+			return (54);
+		}
+
+		/* Carry inventory */
+		else
+		{
+			/* Get a slot */
+			n = slot++;
+
+			/* Player touches it */
+			q_ptr->marked |= OM_TOUCHED;
+
+			/* Copy object */
+			object_copy(&cr_ptr->item[n], q_ptr);
+
+			/* Add the weight */
+			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+
+			/* One more item */
+			inven_cnt++;
+		}
+	}
+
+	/* Success */
+	return (0);
+}
+
+
 
 /*
  * Read a monster (New method)
@@ -409,6 +605,9 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->size);
 	rd_s16b(&m_ptr->sex);
 	rd_s16b(&m_ptr->hitdice);
+
+	if(!older_than(0,0,4,0))
+		rd_inventory_r(m_ptr);
 
 	if(older_than(0,0,2,0))
 	{
@@ -1345,108 +1544,6 @@ static void rd_extra(void)
 
 
 
-/*
- * Read the player inventory
- *
- * Note that the inventory changed in Angband 2.7.4.  Two extra
- * pack slots were added and the equipment was rearranged.  Note
- * that these two features combine when parsing old save-files, in
- * which items from the old "aux" slot are "carried", perhaps into
- * one of the two new "inventory" slots.
- *
- * Note that the inventory is "re-sorted" later by "dungeon()".
- */
-static errr rd_inventory(void)
-{
-	int slot = 0;
-
-	object_type forge;
-	object_type *q_ptr;
-
-	/* No weight */
-	p_ptr->total_weight = 0;
-
-	/* No items */
-	inven_cnt = 0;
-	equip_cnt = 0;
-
-	/* Read until done */
-	while (1)
-	{
-		u16b n;
-
-		/* Get the next item index */
-		rd_u16b(&n);
-
-		/* Nope, we reached the end */
-		if (n == 0xFFFF) break;
-
-		/* Get local object */
-		q_ptr = &forge;
-
-		/* Wipe the object */
-		object_wipe(q_ptr);
-
-		/* Read the item */
-		rd_item(q_ptr);
-
-		/* Hack -- verify item */
-		if (!q_ptr->k_idx) return (53);
-
-		/* Wield equipment */
-		if (n >= INVEN_RARM)
-		{
-			/* Player touches it */
-			q_ptr->marked |= OM_TOUCHED;
-
-			/* Copy object */
-			object_copy(&inventory[n], q_ptr);
-
-			/* Add the weight */
-			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
-
-			/* One more item */
-			equip_cnt++;
-		}
-
-		/* Warning -- backpack is full */
-		else if (inven_cnt == INVEN_PACK)
-		{
-			/* Oops */
-#ifdef JP
-note("持ち物の中のアイテムが多すぎる！");
-#else
-			note("Too many items in the inventory!");
-#endif
-
-
-			/* Fail */
-			return (54);
-		}
-
-		/* Carry inventory */
-		else
-		{
-			/* Get a slot */
-			n = slot++;
-
-			/* Player touches it */
-			q_ptr->marked |= OM_TOUCHED;
-
-			/* Copy object */
-			object_copy(&inventory[n], q_ptr);
-
-			/* Add the weight */
-			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
-
-			/* One more item */
-			inven_cnt++;
-		}
-	}
-
-	/* Success */
-	return (0);
-}
 
 
 

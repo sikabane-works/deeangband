@@ -1099,6 +1099,8 @@ struct creature_type
 	s16b dr;			/* Divine Rank */
 	s16b size;			/* Body Size */
 
+	object_type inventory[INVEN_TOTAL];  /* Inventory */
+	object_type item[INVEN_PACK];        /* Item */
 	s16b iven_fitting_rate[INVEN_TOTAL]; /* Inventory Fitting Rate */
 
 	s32b au;			/* Current Gold */
