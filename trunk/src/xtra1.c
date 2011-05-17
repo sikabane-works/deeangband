@@ -3377,8 +3377,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Unencumbered Monks become faster every 10 levels */
 			if (!(heavy_armor()))
 			{
-				if (!(prace_is_(RACE_KLACKON) ||
-				      prace_is_(RACE_SPRITE) ||
+				if (!(race_is_(p_ptr, RACE_KLACKON) ||
+				      race_is_(p_ptr, RACE_SPRITE) ||
 				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 
@@ -3429,8 +3429,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			         (!p_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
 			{
 				new_speed += 3;
-				if (!(prace_is_(RACE_KLACKON) ||
-				      prace_is_(RACE_SPRITE) ||
+				if (!(race_is_(p_ptr, RACE_KLACKON) ||
+				      race_is_(p_ptr, RACE_SPRITE) ||
 				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl += (cr_ptr->lev)/10;
@@ -4349,7 +4349,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 
 	/* Golems also get an intrinsic AC bonus */
-	if (prace_is_(RACE_GOLEM) || prace_is_(RACE_ANDROID))
+	if (race_is_(p_ptr, RACE_GOLEM) || race_is_(p_ptr, RACE_ANDROID))
 	{
 		cr_ptr->to_a += 10 + (cr_ptr->lev * 2 / 5);
 		cr_ptr->dis_to_a += 10 + (cr_ptr->lev * 2 / 5);
@@ -5482,7 +5482,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_tht += ((cp_ptr->x_thb * cr_ptr->lev / 10) + (ap_ptr->a_thb * cr_ptr->lev / 50));
 
 
-	if ((prace_is_(RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
+	if ((race_is_(p_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
 	{
 		cr_ptr->cursed &= ~(TRC_AGGRAVATE);
 		cr_ptr->skill_stl = MIN(cr_ptr->skill_stl - 3, (cr_ptr->skill_stl + 2) / 2);

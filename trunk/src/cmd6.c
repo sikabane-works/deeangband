@@ -403,7 +403,7 @@ static void do_cmd_eat_food_aux(int item)
 
 
 	/* Food can feed the player */
-	if (prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
 		/* Reduced nutritional benefit */
 		(void)set_food(p_ptr->food + (o_ptr->pval / 10));
@@ -421,10 +421,10 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 	}
-	else if ((prace_is_(RACE_SKELETON) ||
-		  prace_is_(RACE_GOLEM) ||
-		  prace_is_(RACE_ZOMBIE) ||
-		  prace_is_(RACE_LICH)) &&
+	else if ((race_is_(p_ptr, RACE_SKELETON) ||
+		  race_is_(p_ptr, RACE_GOLEM) ||
+		  race_is_(p_ptr, RACE_ZOMBIE) ||
+		  race_is_(p_ptr, RACE_LICH)) &&
 		 (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND))
 	{
 		cptr staff;
@@ -526,7 +526,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if ((prace_is_(RACE_DEMON) || prace_is_(RACE_BALROG) ||
+	else if ((race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", r_info[o_ptr->pval].d_char)))
@@ -543,7 +543,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 		(void)set_food(PY_FOOD_MAX - 1);
 	}
-	else if (prace_is_(RACE_SKELETON))
+	else if (race_is_(p_ptr, RACE_SKELETON))
 	{
 #if 0
 		if (o_ptr->tval == TV_SKELETON ||
@@ -588,13 +588,13 @@ msg_print("食べ物がアゴを素通りして落ち、消えた！");
 
 		}
 	}
-	else if (prace_is_(RACE_GOLEM) ||
-		 prace_is_(RACE_ZOMBIE) ||
-		 prace_is_(RACE_ENT) ||
-		 prace_is_(RACE_DEMON) ||
-		 prace_is_(RACE_BALROG) ||
-		 prace_is_(RACE_ANDROID) ||
-		 prace_is_(RACE_LICH) ||
+	else if (race_is_(p_ptr, RACE_GOLEM) ||
+		 race_is_(p_ptr, RACE_ZOMBIE) ||
+		 race_is_(p_ptr, RACE_ENT) ||
+		 race_is_(p_ptr, RACE_DEMON) ||
+		 race_is_(p_ptr, RACE_BALROG) ||
+		 race_is_(p_ptr, RACE_ANDROID) ||
+		 race_is_(p_ptr, RACE_LICH) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
 	{
 #ifdef JP
@@ -642,7 +642,7 @@ static bool item_tester_hook_eatable(object_type *o_ptr)
 	if (o_ptr->tval==TV_FOOD) return TRUE;
 
 #if 0
-	if (prace_is_(RACE_SKELETON))
+	if (race_is_(p_ptr, RACE_SKELETON))
 	{
 		if (o_ptr->tval == TV_SKELETON ||
 		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
@@ -651,15 +651,15 @@ static bool item_tester_hook_eatable(object_type *o_ptr)
 	else 
 #endif
 
-	if (prace_is_(RACE_SKELETON) ||
-	    prace_is_(RACE_GOLEM) ||
-	    prace_is_(RACE_ZOMBIE) ||
-	    prace_is_(RACE_LICH))
+	if (race_is_(p_ptr, RACE_SKELETON) ||
+	    race_is_(p_ptr, RACE_GOLEM) ||
+	    race_is_(p_ptr, RACE_ZOMBIE) ||
+	    race_is_(p_ptr, RACE_LICH))
 	{
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
-	else if (prace_is_(RACE_DEMON) || prace_is_(RACE_BALROG) ||
+	else if (race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) ||
 		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
@@ -831,13 +831,13 @@ static void do_cmd_quaff_potion_aux(int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!(prace_is_(RACE_GOLEM) ||
-			      prace_is_(RACE_ZOMBIE) ||
-			      prace_is_(RACE_DEMON) ||
-				  prace_is_(RACE_BALROG) ||
-			      prace_is_(RACE_ANDROID) ||
-				  prace_is_(RACE_BALROG) ||
-			      prace_is_(RACE_LICH) ||
+			if (!(race_is_(p_ptr, RACE_GOLEM) ||
+			      race_is_(p_ptr, RACE_ZOMBIE) ||
+			      race_is_(p_ptr, RACE_DEMON) ||
+				  race_is_(p_ptr, RACE_BALROG) ||
+			      race_is_(p_ptr, RACE_ANDROID) ||
+				  race_is_(p_ptr, RACE_BALROG) ||
+			      race_is_(p_ptr, RACE_LICH) ||
 			      (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
 			{
 				/* Only living creatures get thirsty */
@@ -1429,7 +1429,7 @@ msg_print("全ての突然変異が治った。");
 		}
 	}
 
-	if (prace_is_(RACE_SKELETON))
+	if (race_is_(p_ptr, RACE_SKELETON))
 	{
 #ifdef JP
 msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
@@ -1531,7 +1531,7 @@ static bool item_tester_hook_quaff(object_type *o_ptr)
 {
 	if (o_ptr->tval == TV_POTION) return TRUE;
 
-	if (prace_is_(RACE_ANDROID))
+	if (race_is_(p_ptr, RACE_ANDROID))
 	{
 		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
@@ -2679,8 +2679,8 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Nothing happen.");
 #endif
-			if (prace_is_(RACE_SKELETON) || prace_is_(RACE_GOLEM) ||
-				prace_is_(RACE_ZOMBIE) || prace_is_(RACE_LICH))
+			if (race_is_(p_ptr, RACE_SKELETON) || race_is_(p_ptr, RACE_GOLEM) ||
+				race_is_(p_ptr, RACE_ZOMBIE) || race_is_(p_ptr, RACE_LICH))
 #ifdef JP
 				msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
 #else

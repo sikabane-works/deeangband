@@ -6759,12 +6759,12 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 
 			if (p_ptr->resist_neth)
 			{
-				if (!prace_is_(RACE_LICH))
+				if (!race_is_(p_ptr, RACE_LICH))
 					dam *= 6; dam /= (randint1(4) + 7);
 			}
 			else if (!CHECK_MULTISHADOW()) drain_exp(200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
 
-			if (prace_is_(RACE_LICH) && !CHECK_MULTISHADOW())
+			if (race_is_(p_ptr, RACE_LICH) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
@@ -7063,7 +7063,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 				(void)set_blind(p_ptr->blind + randint1(5) + 2);
 			}
 
-			if (prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+			if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 			{
 #ifdef JP
 				if (!CHECK_MULTISHADOW()) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
@@ -7073,7 +7073,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 
 				dam *= 2;
 			}
-			else if (prace_is_(RACE_S_FAIRY))
+			else if (race_is_(p_ptr, RACE_S_FAIRY))
 			{
 				dam = dam * 4 / 3;
 			}
@@ -7117,7 +7117,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 
-				if (prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form) dam = 0;
+				if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form) dam = 0;
 			}
 			else if (!blind && !p_ptr->resist_blind && !CHECK_MULTISHADOW())
 			{

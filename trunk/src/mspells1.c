@@ -238,7 +238,7 @@ static void remove_bad_spells(int m_idx, u32b *f4p, u32b *f5p, u32b *f6p)
 
 	if (smart & (SM_RES_NETH))
 	{
-		if (prace_is_(RACE_LICH))
+		if (race_is_(p_ptr, RACE_LICH))
 		{
 			f4 &= ~(RF4_BR_NETH);
 			f5 &= ~(RF5_BA_NETH);
@@ -260,7 +260,7 @@ static void remove_bad_spells(int m_idx, u32b *f4p, u32b *f5p, u32b *f6p)
 
 	if (smart & (SM_RES_DARK))
 	{
-		if (prace_is_(RACE_VAMPIRE))
+		if (race_is_(p_ptr, RACE_VAMPIRE))
 		{
 			f4 &= ~(RF4_BR_DARK);
 			f5 &= ~(RF5_BA_DARK);

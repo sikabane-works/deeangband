@@ -737,7 +737,7 @@ static bool pattern_effect(void)
 
 	if (!pattern_tile(py, px)) return FALSE;
 
-	if ((prace_is_(RACE_AMBERITE)) &&
+	if ((race_is_(p_ptr, RACE_AMBERITE)) &&
 	    (p_ptr->cut > 0) && one_in_(10))
 	{
 		wreck_the_pattern();
@@ -797,7 +797,7 @@ static bool pattern_effect(void)
 		break;
 
 	default:
-		if (prace_is_(RACE_AMBERITE) && !one_in_(2))
+		if (race_is_(p_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
 		else if (!IS_INVULN())
 #ifdef JP
@@ -1555,7 +1555,7 @@ static void process_world_aux_hp_and_sp(void)
 
 
 	/* (Vampires) Take damage from sunlight */
-	if (prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
 		if (!dun_level && !p_ptr->resist_lite && !IS_INVULN() && is_daytime())
 		{
@@ -1635,7 +1635,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 
 		if (damage)
 		{
-			if (prace_is_(RACE_ENT)) damage += damage / 3;
+			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
 			if (p_ptr->resist_fire) damage = damage / 3;
 			if (IS_OPPOSE_FIRE()) damage = damage / 3;
 
@@ -1757,7 +1757,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		if ((r_info[m_list[p_ptr->riding].r_idx].flags2 & RF2_AURA_FIRE) && !p_ptr->immune_fire)
 		{
 			damage = r_info[m_list[p_ptr->riding].r_idx].level / 2;
-			if (prace_is_(RACE_ENT)) damage += damage / 3;
+			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
 			if (p_ptr->resist_fire) damage = damage / 3;
 			if (IS_OPPOSE_FIRE()) damage = damage / 3;
 #ifdef JP
@@ -1771,7 +1771,7 @@ take_hit(DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
 		if ((r_info[m_list[p_ptr->riding].r_idx].flags2 & RF2_AURA_ELEC) && !p_ptr->immune_elec)
 		{
 			damage = r_info[m_list[p_ptr->riding].r_idx].level / 2;
-			if (prace_is_(RACE_ANDROID)) damage += damage / 3;
+			if (race_is_(p_ptr, RACE_ANDROID)) damage += damage / 3;
 			if (p_ptr->resist_elec) damage = damage / 3;
 			if (IS_OPPOSE_ELEC()) damage = damage / 3;
 #ifdef JP

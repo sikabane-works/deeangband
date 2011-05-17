@@ -2440,7 +2440,7 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 
 	}
 
-	if (prace_is_(RACE_ANDROID) && !p_ptr->immune_elec)
+	if (race_is_(p_ptr, RACE_ANDROID) && !p_ptr->immune_elec)
 	{
 #ifdef JP
 info[i++] = "あなたは電撃に弱い。";
@@ -2478,7 +2478,7 @@ info[i++] = "あなたは火への耐性を持っている。";
 
 	}
 
-	if (prace_is_(RACE_ENT) && !p_ptr->immune_fire)
+	if (race_is_(p_ptr, RACE_ENT) && !p_ptr->immune_fire)
 	{
 #ifdef JP
 info[i++] = "あなたは火に弱い。";
@@ -2545,7 +2545,7 @@ info[i++] = "あなたは閃光への耐性を持っている。";
 
 	}
 
-	if (prace_is_(RACE_VAMPIRE) || prace_is_(RACE_S_FAIRY) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (race_is_(p_ptr, RACE_VAMPIRE) || race_is_(p_ptr, RACE_S_FAIRY) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
 #ifdef JP
 info[i++] = "あなたは閃光に弱い。";
@@ -2555,7 +2555,7 @@ info[i++] = "あなたは閃光に弱い。";
 
 	}
 
-	if (prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form)
+	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form)
 	{
 #ifdef JP
 info[i++] = "あなたは暗黒に対する完全なる免疫を持っている。";
@@ -2628,7 +2628,7 @@ info[i++] = "あなたは因果混乱の攻撃への耐性を持っている。";
 
 	}
 
-	if (prace_is_(RACE_LICH))
+	if (race_is_(p_ptr, RACE_LICH))
 	{
 #ifdef JP
 info[i++] = "あなたは地獄の力を吸収できる。";

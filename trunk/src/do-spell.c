@@ -2728,7 +2728,7 @@ static cptr do_nature_spell(int spell, int mode)
 			{
 				lite_area(damroll(dice, sides), rad);
 
-				if ((prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
+				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("“ú‚ÌŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");
@@ -3312,7 +3312,7 @@ static cptr do_nature_spell(int spell, int mode)
 				chg_virtue(V_ENLIGHTEN, 1);
 				wiz_lite(FALSE);
 
-				if ((prace_is_(RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
+				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("“úŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");

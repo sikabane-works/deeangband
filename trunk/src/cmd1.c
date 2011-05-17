@@ -1797,7 +1797,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You are suddenly very hot!");
 #endif
 
-			if (prace_is_(RACE_ENT)) aura_damage += aura_damage / 3;
+			if (race_is_(p_ptr, RACE_ENT)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_FIRE()) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
@@ -1844,7 +1844,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			/* Hack -- Get the "died from" name */
 			monster_desc(aura_dam, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-			if (prace_is_(RACE_ANDROID)) aura_damage += aura_damage / 3;
+			if (race_is_(p_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_ELEC()) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 

@@ -223,8 +223,8 @@ void reset_tim_flags(void)
 	while(p_ptr->energy_need < 0) p_ptr->energy_need += ENERGY_NEED();
 	world_player = FALSE;
 
-	if (prace_is_(RACE_DEMON) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
-	if (prace_is_(RACE_BALROG) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
+	if (race_is_(p_ptr, RACE_DEMON) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
+	if (race_is_(p_ptr, RACE_BALROG) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
 	if ((p_ptr->class == CLASS_NINJA) && (p_ptr->lev > 44)) p_ptr->oppose_pois = 1;
 	if (p_ptr->class == CLASS_BERSERKER) p_ptr->shero = 1;
 
@@ -3320,8 +3320,8 @@ bool set_oppose_fire(int v, bool do_dec)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if ((prace_is_(RACE_DEMON) && (p_ptr->lev > 44)) ||
-		(prace_is_(RACE_BALROG) && (p_ptr->lev > 44)) || (p_ptr->mimic_form == MIMIC_DEMON)) v = 1;
+	if ((race_is_(p_ptr, RACE_DEMON) && (p_ptr->lev > 44)) ||
+		(race_is_(p_ptr, RACE_BALROG) && (p_ptr->lev > 44)) || (p_ptr->mimic_form == MIMIC_DEMON)) v = 1;
 	/* Open */
 	if (v)
 	{
@@ -3525,7 +3525,7 @@ bool set_stun(int v)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if (prace_is_(RACE_GOLEM) || ((p_ptr->class == CLASS_BERSERKER) && (p_ptr->lev > 34))) v = 0;
+	if (race_is_(p_ptr, RACE_GOLEM) || ((p_ptr->class == CLASS_BERSERKER) && (p_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
 	if (p_ptr->stun > 100)

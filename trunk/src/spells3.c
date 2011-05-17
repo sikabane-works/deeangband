@@ -5050,7 +5050,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 	/* Vulnerability (Ouch!) */
 	if (p_ptr->muta3 & MUT3_VULN_ELEM) dam *= 2;
 	if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
-	if (prace_is_(RACE_ANDROID)) dam += dam / 3;
+	if (race_is_(p_ptr, RACE_ANDROID)) dam += dam / 3;
 
 	/* Resist the damage */
 	if (p_ptr->resist_elec) dam = (dam + 2) / 3;
@@ -5089,7 +5089,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 
 	/* Vulnerability (Ouch!) */
 	if (p_ptr->muta3 & MUT3_VULN_ELEM) dam *= 2;
-	if (prace_is_(RACE_ENT)) dam += dam / 3;
+	if (race_is_(p_ptr, RACE_ENT)) dam += dam / 3;
 	if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 
 	/* Resist the damage */
