@@ -1767,37 +1767,37 @@ static void display_player_melee_bonus(int hand, int hand_entry)
 /*
  * Prints the following information on the screen.
  */
-static void display_player_middle(void)
+static void display_player_middle(creature_type *cr_ptr)
 {
 	char buf[160];
 
 	/* Base skill */
-	int show_tohit = p_ptr->dis_to_h_b;
+	int show_tohit = cr_ptr->dis_to_h_b;
 	int show_todam = 0;
 
 	/* Range weapon */
-	object_type *o_ptr = &p_ptr->inventory[INVEN_BOW];
+	object_type *o_ptr = &cr_ptr->inventory[INVEN_BOW];
 
 	int tmul = 0;
 	int e;
 
-	if (p_ptr->migite)
+	if (cr_ptr->migite)
 	{
 		display_player_melee_bonus(0, left_hander ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
 	}
 
-	if (p_ptr->hidarite)
+	if (cr_ptr->hidarite)
 	{
 		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
 	}
-	else if ((p_ptr->class == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+	else if ((cr_ptr->class == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
-		if (p_ptr->special_defense & KAMAE_MASK)
+		if (cr_ptr->special_defense & KAMAE_MASK)
 		{
 			for (i = 0; i < MAX_KAMAE; i++)
 			{
-				if ((p_ptr->special_defense >> i) & KAMAE_GENBU) break;
+				if ((cr_ptr->special_defense >> i) & KAMAE_GENBU) break;
 			}
 			if (i < MAX_KAMAE)
 #ifdef JP
@@ -1819,28 +1819,28 @@ static void display_player_middle(void)
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	if ((o_ptr->sval == SV_LIGHT_XBOW) || (o_ptr->sval == SV_HEAVY_XBOW))
-		show_tohit += p_ptr->weapon_exp[0][o_ptr->sval] / 400;
+		show_tohit += cr_ptr->weapon_exp[0][o_ptr->sval] / 400;
 	else
-		show_tohit += (p_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
+		show_tohit += (cr_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 	/* Range attacks */
 	display_player_one_line(ENTRY_SHOOT_HIT_DAM, format("(%+d,%+d%%)", show_tohit, show_todam), TERM_L_BLUE);
 
-	if (p_ptr->inventory[INVEN_BOW].k_idx)
+	if (cr_ptr->inventory[INVEN_BOW].k_idx)
 	{
-		tmul = bow_tmul(p_ptr->inventory[INVEN_BOW].sval);
+		tmul = bow_tmul(cr_ptr->inventory[INVEN_BOW].sval);
 
 		/* Get extra "power" from "extra might" */
-		if (p_ptr->xtra_might) tmul++;
+		if (cr_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_td[p_ptr->stat_ind[A_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
 	}
 
 	/* shoot power */
 	display_player_one_line(ENTRY_SHOOT_POWER, format("x%d.%02d", tmul/100, tmul%100), TERM_L_BLUE);
 
 	/* Dump the armor class */
-	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", p_ptr->dis_ac, p_ptr->dis_to_a), TERM_L_BLUE);
+	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", cr_ptr->dis_ac, cr_ptr->dis_to_a), TERM_L_BLUE);
 
 	/* Dump speed */
 	{
@@ -1848,48 +1848,48 @@ static void display_player_middle(void)
 		byte attr;
 		int i;
 
-		i = p_ptr->speed-110;
+		i = cr_ptr->speed-110;
 
 		/* Hack -- Visually "undo" the Search Mode Slowdown */
-		if (p_ptr->action == ACTION_SEARCH) i += 10;
+		if (cr_ptr->action == ACTION_SEARCH) i += 10;
 
 		if (i > 0)
 		{
-			if (!p_ptr->riding)
+			if (!cr_ptr->riding)
 				attr = TERM_L_GREEN;
 			else
 				attr = TERM_GREEN;
 		}
 		else if (i == 0)
 		{
-			if (!p_ptr->riding)
+			if (!cr_ptr->riding)
 				attr = TERM_L_BLUE;
 			else
 				attr = TERM_GREEN;
 		}
 		else
 		{
-			if (!p_ptr->riding)
+			if (!cr_ptr->riding)
 				attr = TERM_L_UMBER;
 			else
 				attr = TERM_RED;
 		}
 
-		if (!p_ptr->riding)
+		if (!cr_ptr->riding)
 		{
 			if (IS_FAST()) tmp_speed += 10;
-			if (p_ptr->slow) tmp_speed -= 10;
-			if (p_ptr->lightspeed) tmp_speed = 99;
+			if (cr_ptr->slow) tmp_speed -= 10;
+			if (cr_ptr->lightspeed) tmp_speed = 99;
 		}
 		else
 		{
-			if (MON_FAST(&m_list[p_ptr->riding])) tmp_speed += 10;
-			if (MON_SLOW(&m_list[p_ptr->riding])) tmp_speed -= 10;
+			if (MON_FAST(&m_list[cr_ptr->riding])) tmp_speed += 10;
+			if (MON_SLOW(&m_list[cr_ptr->riding])) tmp_speed -= 10;
 		}
 
 		if (tmp_speed)
 		{
-			if (!p_ptr->riding)
+			if (!cr_ptr->riding)
 				sprintf(buf, "(%+d%+d)", i-tmp_speed, tmp_speed);
 			else
 #ifdef JP
@@ -1905,7 +1905,7 @@ static void display_player_middle(void)
 		}
 		else
 		{
-			if (!p_ptr->riding)
+			if (!cr_ptr->riding)
 				sprintf(buf, "(%+d)", i);
 			else
 #ifdef JP
@@ -1919,33 +1919,33 @@ static void display_player_middle(void)
 	}
 
 	/* Dump experience */
-	if (p_ptr->race == RACE_ANDROID) e = ENTRY_EXP_ANDR;
+	if (cr_ptr->race == RACE_ANDROID) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
-	if (p_ptr->exp >= p_ptr->max_exp)
-		display_player_one_line(e, format("%ld", p_ptr->exp), TERM_L_GREEN);
+	if (cr_ptr->exp >= cr_ptr->max_exp)
+		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_L_GREEN);
 	else
-		display_player_one_line(e, format("%ld", p_ptr->exp), TERM_YELLOW);
+		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (p_ptr->race == RACE_ANDROID)
+	if (cr_ptr->race == RACE_ANDROID)
 		/* Nothing */;
 	else
-		display_player_one_line(ENTRY_MAX_EXP, format("%ld", p_ptr->max_exp), TERM_L_GREEN);
+		display_player_one_line(ENTRY_MAX_EXP, format("%ld", cr_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (p_ptr->race == RACE_ANDROID) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (cr_ptr->race == RACE_ANDROID) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
-	if (p_ptr->lev >= p_ptr->max_lev)
+	if (cr_ptr->lev >= cr_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (p_ptr->race == RACE_ANDROID)
-		display_player_one_line(e, format("%ld", (s32b)(player_exp_a[p_ptr->lev - 1] * p_ptr->expfact / 100L)), TERM_L_GREEN);
+	else if (cr_ptr->race == RACE_ANDROID)
+		display_player_one_line(e, format("%ld", (s32b)(player_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
-		display_player_one_line(e, format("%ld", (s32b)(player_exp[p_ptr->lev - 1] * p_ptr->expfact / 100L)), TERM_L_GREEN);
+		display_player_one_line(e, format("%ld", (s32b)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 
 	/* Dump gold */
-	display_player_one_line(ENTRY_GOLD, format("%ld", p_ptr->au), TERM_L_GREEN);
+	display_player_one_line(ENTRY_GOLD, format("%ld", cr_ptr->au), TERM_L_GREEN);
 
 	/* Dump Day */
 	{
@@ -4123,7 +4123,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* Display "various" info */
 		else
 		{
-			display_player_middle();
+			display_player_middle(cr_ptr);
 			display_player_various(cr_ptr);
 		}
 	}
