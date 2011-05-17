@@ -6014,7 +6014,7 @@ void redraw_stuff(void)
 	if (p_ptr->redraw & (PR_EQUIPPY))
 	{
 		p_ptr->redraw &= ~(PR_EQUIPPY);
-		print_equippy(); /* To draw / delete equippy chars */
+		print_equippy(p_ptr); /* To draw / delete equippy chars */
 	}
 
 	if (p_ptr->redraw & (PR_MISC))

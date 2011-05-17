@@ -2798,7 +2798,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 /*
  * Equippy chars
  */
-static void display_player_equippy(int y, int x, u16b mode)
+static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_ptr)
 {
 	int i, max_i;
 
@@ -2815,7 +2815,7 @@ static void display_player_equippy(int y, int x, u16b mode)
 	for (i = INVEN_RARM; i < max_i; i++)
 	{
 		/* Object */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		a = object_attr(o_ptr);
 		c = object_char(o_ptr);
@@ -2833,9 +2833,9 @@ static void display_player_equippy(int y, int x, u16b mode)
 }
 
 
-void print_equippy(void)
+void print_equippy(creature_type *cr_ptr)
 {
-	display_player_equippy(ROW_EQUIPPY, COL_EQUIPPY, 0);
+	display_player_equippy(ROW_EQUIPPY, COL_EQUIPPY, 0, cr_ptr);
 }
 
 /*
@@ -3053,7 +3053,7 @@ static void display_player_flag_info(creature_type *cr_ptr)
 	row = 12;
 	col = 1;
 
-	display_player_equippy(row-2, col+8, 0);
+	display_player_equippy(row-2, col+8, 0, cr_ptr);
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
 
 #ifdef JP
@@ -3094,7 +3094,7 @@ display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0);
 	row = 12;
 	col = 26;
 
-	display_player_equippy(row-2, col+8, 0);
+	display_player_equippy(row-2, col+8, 0, cr_ptr);
 
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
 
@@ -3128,7 +3128,7 @@ display_flag_aux(row+9, col, "ó‚ãCÉI:", TR_SH_COLD, &f, 0);
 	row = 12;
 	col = 51;
 
-	display_player_equippy(row-2, col+12, 0);
+	display_player_equippy(row-2, col+12, 0, cr_ptr);
 
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
 
@@ -3182,7 +3182,7 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	row = 3;
 	col = 1;
 
-	display_player_equippy(row-2, col+12, DP_WP);
+	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
 
 	c_put_str(TERM_WHITE, "ab@", row-1, col+12);
 
@@ -3256,7 +3256,7 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	row = 3;
 	col = col + 12 + 7;
 
-	display_player_equippy(row-2, col+12, 0);
+	display_player_equippy(row-2, col+12, 0, cr_ptr);
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
 
 #ifdef JP
@@ -3307,7 +3307,7 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	row = 3;
 	col = col + 12 + 17;
 
-	display_player_equippy(row-2, col+14, 0);
+	display_player_equippy(row-2, col+14, 0, cr_ptr);
 
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+14);
 
