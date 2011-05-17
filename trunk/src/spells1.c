@@ -6591,7 +6591,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Standard damage -- also poisons player */
 		case GF_POIS:
 		{
-			bool double_resist = IS_OPPOSE_POIS();
+			bool double_resist = IS_OPPOSE_POIS(p_ptr);
 #ifdef JP
 			if (fuzzy) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -6619,7 +6619,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Standard damage -- also poisons / mutates player */
 		case GF_NUKE:
 		{
-			bool double_resist = IS_OPPOSE_POIS();
+			bool double_resist = IS_OPPOSE_POIS(p_ptr);
 #ifdef JP
 			if (fuzzy) msg_print("•úË”\‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -6739,7 +6739,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			}
 
 			if (!(p_ptr->resist_fire ||
-			      IS_OPPOSE_FIRE() ||
+			      IS_OPPOSE_FIRE(p_ptr) ||
 			      p_ptr->immune_fire))
 			{
 				inven_damage(set_acid_destroy, 3);
@@ -7407,7 +7407,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 					(void)set_stun(p_ptr->stun + randint1(15));
 				}
 
-				if ((!(p_ptr->resist_cold || IS_OPPOSE_COLD())) || one_in_(12))
+				if ((!(p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr))) || one_in_(12))
 				{
 					if (!p_ptr->immune_cold) inven_damage(set_cold_destroy, 3);
 				}

@@ -297,12 +297,12 @@ void dispel_player(void)
 #endif
 	}
 
-	if (music_singing_any() || hex_spelling_any())
+	if (music_singing_any(p_ptr) || hex_spelling_any())
 	{
 #ifdef JP
-		cptr str = (music_singing_any()) ? "歌" : "呪文";
+		cptr str = (music_singing_any(p_ptr)) ? "歌" : "呪文";
 #else
-		cptr str = (music_singing_any()) ? "singing" : "spelling";
+		cptr str = (music_singing_any(p_ptr)) ? "singing" : "spelling";
 #endif
 		p_ptr->magic_num1[1] = p_ptr->magic_num1[0];
 		p_ptr->magic_num1[0] = 0;
@@ -931,7 +931,7 @@ bool set_fast(int v, bool do_dec)
 		{
 			if (p_ptr->fast > v) return FALSE;
 		}
-		else if (!IS_FAST() && !p_ptr->lightspeed)
+		else if (!IS_FAST(p_ptr) && !p_ptr->lightspeed)
 		{
 #ifdef JP
 msg_print("素早く動けるようになった！");
@@ -948,7 +948,7 @@ msg_print("素早く動けるようになった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->fast && !p_ptr->lightspeed && !music_singing(MUSIC_SPEED) && !music_singing(MUSIC_SHERO))
+		if (p_ptr->fast && !p_ptr->lightspeed && !music_singing(p_ptr, MUSIC_SPEED) && !music_singing(p_ptr, MUSIC_SHERO))
 		{
 #ifdef JP
 msg_print("動きの素早さがなくなったようだ。");
@@ -1345,7 +1345,7 @@ bool set_blessed(int v, bool do_dec)
 		{
 			if (p_ptr->blessed > v) return FALSE;
 		}
-		else if (!IS_BLESSED())
+		else if (!IS_BLESSED(p_ptr))
 		{
 #ifdef JP
 msg_print("高潔な気分になった！");
@@ -1360,7 +1360,7 @@ msg_print("高潔な気分になった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->blessed && !music_singing(MUSIC_BLESS))
+		if (p_ptr->blessed && !music_singing(p_ptr, MUSIC_BLESS))
 		{
 #ifdef JP
 msg_print("高潔な気分が消え失せた。");
@@ -1414,7 +1414,7 @@ bool set_hero(int v, bool do_dec)
 		{
 			if (p_ptr->hero > v) return FALSE;
 		}
-		else if (!IS_HERO())
+		else if (!IS_HERO(p_ptr))
 		{
 #ifdef JP
 msg_print("ヒーローになった気がする！");
@@ -1429,7 +1429,7 @@ msg_print("ヒーローになった気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->hero && !music_singing(MUSIC_HERO) && !music_singing(MUSIC_SHERO))
+		if (p_ptr->hero && !music_singing(p_ptr, MUSIC_HERO) && !music_singing(p_ptr, MUSIC_SHERO))
 		{
 #ifdef JP
 msg_print("ヒーローの気分が消え失せた。");
@@ -1717,7 +1717,7 @@ bool set_invuln(int v, bool do_dec)
 		{
 			if (p_ptr->invuln > v) return FALSE;
 		}
-		else if (!IS_INVULN())
+		else if (!IS_INVULN(p_ptr))
 		{
 #ifdef JP
 msg_print("無敵だ！");
@@ -1746,7 +1746,7 @@ msg_print("無敵だ！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->invuln && !music_singing(MUSIC_INVULN))
+		if (p_ptr->invuln && !music_singing(p_ptr, MUSIC_INVULN))
 		{
 #ifdef JP
 msg_print("無敵ではなくなった。");
@@ -1811,7 +1811,7 @@ bool set_tim_esp(int v, bool do_dec)
 		{
 			if (p_ptr->tim_esp > v) return FALSE;
 		}
-		else if (!IS_TIM_ESP())
+		else if (!IS_TIM_ESP(p_ptr))
 		{
 #ifdef JP
 msg_print("意識が広がった気がする！");
@@ -1826,7 +1826,7 @@ msg_print("意識が広がった気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_esp && !music_singing(MUSIC_MIND))
+		if (p_ptr->tim_esp && !music_singing(p_ptr, MUSIC_MIND))
 		{
 #ifdef JP
 msg_print("意識は元に戻った。");
@@ -2096,7 +2096,7 @@ bool set_tim_stealth(int v, bool do_dec)
 		{
 			if (p_ptr->tim_stealth > v) return FALSE;
 		}
-		else if (!IS_TIM_STEALTH())
+		else if (!IS_TIM_STEALTH(p_ptr))
 		{
 #ifdef JP
 msg_print("足音が小さくなった！");
@@ -2111,7 +2111,7 @@ msg_print("足音が小さくなった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_stealth && !music_singing(MUSIC_STEALTH))
+		if (p_ptr->tim_stealth && !music_singing(p_ptr, MUSIC_STEALTH))
 		{
 #ifdef JP
 msg_print("足音が大きくなった。");
@@ -3195,7 +3195,7 @@ bool set_oppose_acid(int v, bool do_dec)
 		{
 			if (p_ptr->oppose_acid > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_ACID())
+		else if (!IS_OPPOSE_ACID(p_ptr))
 		{
 #ifdef JP
 msg_print("酸への耐性がついた気がする！");
@@ -3210,7 +3210,7 @@ msg_print("酸への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_acid && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (p_ptr->oppose_acid && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("酸への耐性が薄れた気がする。");
@@ -3261,7 +3261,7 @@ bool set_oppose_elec(int v, bool do_dec)
 		{
 			if (p_ptr->oppose_elec > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_ELEC())
+		else if (!IS_OPPOSE_ELEC(p_ptr))
 		{
 #ifdef JP
 msg_print("電撃への耐性がついた気がする！");
@@ -3276,7 +3276,7 @@ msg_print("電撃への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_elec && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (p_ptr->oppose_elec && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("電撃への耐性が薄れた気がする。");
@@ -3329,7 +3329,7 @@ bool set_oppose_fire(int v, bool do_dec)
 		{
 			if (p_ptr->oppose_fire > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_FIRE())
+		else if (!IS_OPPOSE_FIRE(p_ptr))
 		{
 #ifdef JP
 msg_print("火への耐性がついた気がする！");
@@ -3344,7 +3344,7 @@ msg_print("火への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_fire && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (p_ptr->oppose_fire && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("火への耐性が薄れた気がする。");
@@ -3395,7 +3395,7 @@ bool set_oppose_cold(int v, bool do_dec)
 		{
 			if (p_ptr->oppose_cold > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_COLD())
+		else if (!IS_OPPOSE_COLD(p_ptr))
 		{
 #ifdef JP
 msg_print("冷気への耐性がついた気がする！");
@@ -3410,7 +3410,7 @@ msg_print("冷気への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_cold && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (p_ptr->oppose_cold && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("冷気への耐性が薄れた気がする。");
@@ -3462,7 +3462,7 @@ bool set_oppose_pois(int v, bool do_dec)
 		{
 			if (p_ptr->oppose_pois > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_POIS())
+		else if (!IS_OPPOSE_POIS(p_ptr))
 		{
 #ifdef JP
 msg_print("毒への耐性がついた気がする！");
@@ -3477,7 +3477,7 @@ msg_print("毒への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_pois && !music_singing(MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (p_ptr->oppose_pois && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("毒への耐性が薄れた気がする。");
@@ -5154,7 +5154,7 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 	/* Mega-Hack -- Apply "invulnerability" */
 	if ((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))
 	{
-		if (IS_INVULN() && (damage < 9000))
+		if (IS_INVULN(p_ptr) && (damage < 9000))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{

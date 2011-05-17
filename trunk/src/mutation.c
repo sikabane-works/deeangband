@@ -3301,7 +3301,7 @@ int calc_mutant_regenerate_mod(void)
 
 void mutation_stop_mouth()
 {
-	if (music_singing_any()) stop_singing();
+	if (music_singing_any(p_ptr)) stop_singing();
 	if (hex_spelling_any()) stop_hex_spell_all();
 }
 

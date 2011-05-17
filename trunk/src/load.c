@@ -1268,7 +1268,7 @@ static void rd_extra(void)
 	for (i = 0; i < 108; i++) rd_s32b(&p_ptr->magic_num1[i]);
 	for (i = 0; i < 108; i++) rd_byte(&p_ptr->magic_num2[i]);
 
-	if (music_singing_any()) p_ptr->action = ACTION_SING;
+	if (music_singing_any(p_ptr)) p_ptr->action = ACTION_SING;
 
 	rd_s16b(&p_ptr->start_race);
 	rd_s32b(&p_ptr->old_race1);

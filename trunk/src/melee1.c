@@ -744,7 +744,7 @@ bool make_attack_normal(int m_idx)
 					if (explode) break;
 
 					/* Take "poison" effect */
-					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS()) && !CHECK_MULTISHADOW())
+					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)) && !CHECK_MULTISHADOW())
 					{
 						if (set_poisoned(p_ptr->poisoned + randint1(rlev) + 5))
 						{
@@ -1576,7 +1576,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Take "poison" effect */
-					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS()))
+					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
 					{
 						if (set_poisoned(p_ptr->poisoned + randint1(rlev) + 5))
 						{

@@ -557,7 +557,7 @@ static void prt_status(void)
 	if (p_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);
 
 	/* Timed esp */
-	if (IS_TIM_ESP()) ADD_FLG(BAR_TELEPATHY);
+	if (IS_TIM_ESP(p_ptr)) ADD_FLG(BAR_TELEPATHY);
 
 	/* Timed regenerate */
 	if (p_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);
@@ -569,7 +569,7 @@ static void prt_status(void)
 	if (p_ptr->protevil) ADD_FLG(BAR_PROTEVIL);
 
 	/* Invulnerability */
-	if (IS_INVULN()) ADD_FLG(BAR_INVULN);
+	if (IS_INVULN(p_ptr)) ADD_FLG(BAR_INVULN);
 
 	/* Wraith form */
 	if (p_ptr->wraith_form) ADD_FLG(BAR_WRAITH);
@@ -580,13 +580,13 @@ static void prt_status(void)
 	if (p_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
 
 	/* Heroism */
-	if (IS_HERO()) ADD_FLG(BAR_HEROISM);
+	if (IS_HERO(p_ptr)) ADD_FLG(BAR_HEROISM);
 
 	/* Super Heroism / berserk */
 	if (p_ptr->shero) ADD_FLG(BAR_BERSERK);
 
 	/* Blessed */
-	if (IS_BLESSED()) ADD_FLG(BAR_BLESSED);
+	if (IS_BLESSED(p_ptr)) ADD_FLG(BAR_BLESSED);
 
 	/* Shield */
 	if (p_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);
@@ -599,22 +599,22 @@ static void prt_status(void)
 
 	/* Oppose Acid */
 	if (p_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID);
-	if (IS_OPPOSE_ACID()) ADD_FLG(BAR_RESACID);
+	if (IS_OPPOSE_ACID(p_ptr)) ADD_FLG(BAR_RESACID);
 
 	/* Oppose Lightning */
 	if (p_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC);
-	if (IS_OPPOSE_ELEC()) ADD_FLG(BAR_RESELEC);
+	if (IS_OPPOSE_ELEC(p_ptr)) ADD_FLG(BAR_RESELEC);
 
 	/* Oppose Fire */
 	if (p_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
-	if (IS_OPPOSE_FIRE()) ADD_FLG(BAR_RESFIRE);
+	if (IS_OPPOSE_FIRE(p_ptr)) ADD_FLG(BAR_RESFIRE);
 
 	/* Oppose Cold */
 	if (p_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
-	if (IS_OPPOSE_COLD()) ADD_FLG(BAR_RESCOLD);
+	if (IS_OPPOSE_COLD(p_ptr)) ADD_FLG(BAR_RESCOLD);
 
 	/* Oppose Poison */
-	if (IS_OPPOSE_POIS()) ADD_FLG(BAR_RESPOIS);
+	if (IS_OPPOSE_POIS(p_ptr)) ADD_FLG(BAR_RESPOIS);
 
 	/* Word of Recall */
 	if (p_ptr->word_recall) ADD_FLG(BAR_RECALL);
@@ -656,7 +656,7 @@ static void prt_status(void)
 	if (p_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
 
 	/* tim stealth */
-	if (IS_TIM_STEALTH()) ADD_FLG(BAR_STEALTH);
+	if (IS_TIM_STEALTH(p_ptr)) ADD_FLG(BAR_STEALTH);
 
 	if (p_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
 
@@ -1371,7 +1371,7 @@ sprintf(text, "  %2d", command_rep);
 static void prt_speed(void)
 {
 	int i = p_ptr->speed;
-	bool is_fast = IS_FAST();
+	bool is_fast = IS_FAST(p_ptr);
 
 	byte attr = TERM_WHITE;
 	char buf[32] = "";
@@ -2852,7 +2852,7 @@ static void calc_hitpoints(bool message)
 	if (mhp < p_ptr->lev + 1) mhp = p_ptr->lev + 1;
 
 	/* Factor in the hero / superhero settings */
-	if (IS_HERO()) mhp += 10;
+	if (IS_HERO(p_ptr)) mhp += 10;
 	if (p_ptr->shero && (p_ptr->class != CLASS_BERSERKER)) mhp += 30;
 	if (p_ptr->tsuyoshi) mhp += 50;
 
@@ -3669,7 +3669,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			new_speed += (cr_ptr->lev) / 10 + 5;
 	}
 
-	if (music_singing(MUSIC_WALL))
+	if (music_singing(p_ptr, MUSIC_WALL))
 	{
 		cr_ptr->kill_wall = TRUE;
 	}
@@ -4545,7 +4545,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary blessing */
-	if (IS_BLESSED())
+	if (IS_BLESSED(p_ptr))
 	{
 		cr_ptr->to_a += 5;
 		cr_ptr->dis_to_a += 5;
@@ -4568,7 +4568,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "Hero" */
-	if (IS_HERO())
+	if (IS_HERO(p_ptr))
 	{
 		cr_ptr->to_h[0] += 12;
 		cr_ptr->to_h[1] += 12;
@@ -4606,7 +4606,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "fast" */
-	if (IS_FAST())
+	if (IS_FAST(p_ptr))
 	{
 		new_speed += 10;
 	}
@@ -4618,7 +4618,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "telepathy" */
-	if (IS_TIM_ESP())
+	if (IS_TIM_ESP(p_ptr))
 	{
 		cr_ptr->telepathy = TRUE;
 	}
@@ -4666,7 +4666,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
-	if (IS_HERO() || cr_ptr->shero)
+	if (IS_HERO(p_ptr) || cr_ptr->shero)
 	{
 		cr_ptr->resist_fear = TRUE;
 	}
@@ -5439,7 +5439,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;
 
-	if (IS_TIM_STEALTH()) cr_ptr->skill_stl += 99;
+	if (IS_TIM_STEALTH(p_ptr)) cr_ptr->skill_stl += 99;
 
 	/* Affect Skill -- disarming (DEX and INT) */
 	cr_ptr->skill_dis += adj_dex_dis[cr_ptr->stat_ind[A_DEX]];

@@ -99,21 +99,21 @@ static void remove_bad_spells(int m_idx, u32b *f4p, u32b *f5p, u32b *f6p)
 	{
 		/* Know basic info */
 		if (p_ptr->resist_acid) smart |= (SM_RES_ACID);
-		if (IS_OPPOSE_ACID()) smart |= (SM_OPP_ACID);
+		if (IS_OPPOSE_ACID(p_ptr)) smart |= (SM_OPP_ACID);
 		if (p_ptr->immune_acid) smart |= (SM_IMM_ACID);
 		if (p_ptr->resist_elec) smart |= (SM_RES_ELEC);
-		if (IS_OPPOSE_ELEC()) smart |= (SM_OPP_ELEC);
+		if (IS_OPPOSE_ELEC(p_ptr)) smart |= (SM_OPP_ELEC);
 		if (p_ptr->immune_elec) smart |= (SM_IMM_ELEC);
 		if (p_ptr->resist_fire) smart |= (SM_RES_FIRE);
-		if (IS_OPPOSE_FIRE()) smart |= (SM_OPP_FIRE);
+		if (IS_OPPOSE_FIRE(p_ptr)) smart |= (SM_OPP_FIRE);
 		if (p_ptr->immune_fire) smart |= (SM_IMM_FIRE);
 		if (p_ptr->resist_cold) smart |= (SM_RES_COLD);
-		if (IS_OPPOSE_COLD()) smart |= (SM_OPP_COLD);
+		if (IS_OPPOSE_COLD(p_ptr)) smart |= (SM_OPP_COLD);
 		if (p_ptr->immune_cold) smart |= (SM_IMM_COLD);
 
 		/* Know poison info */
 		if (p_ptr->resist_pois) smart |= (SM_RES_POIS);
-		if (IS_OPPOSE_POIS()) smart |= (SM_OPP_POIS);
+		if (IS_OPPOSE_POIS(p_ptr)) smart |= (SM_OPP_POIS);
 
 		/* Know special resistances */
 		if (p_ptr->resist_neth) smart |= (SM_RES_NETH);
@@ -840,7 +840,7 @@ bool dispel_check(int m_idx)
 	monster_race *r_ptr = &r_info[m_ptr->r_idx];
 
 	/* Invulnabilty (including the song) */
-	if (IS_INVULN()) return (TRUE);
+	if (IS_INVULN(p_ptr)) return (TRUE);
 
 	/* Wraith form */
 	if (p_ptr->wraith_form) return (TRUE);
@@ -866,7 +866,7 @@ bool dispel_check(int m_idx)
 	/* Elemental resistances */
 	if (r_ptr->flags4 & RF4_BR_ACID)
 	{
-		if (!p_ptr->immune_acid && (p_ptr->oppose_acid || music_singing(MUSIC_RESIST))) return (TRUE);
+		if (!p_ptr->immune_acid && (p_ptr->oppose_acid || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
 		if (p_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
@@ -874,20 +874,20 @@ bool dispel_check(int m_idx)
 	{
 		if (!((p_ptr->race == RACE_DEMON || p_ptr->race == RACE_BALROG) && p_ptr->lev > 44))
 		{
-			if (!p_ptr->immune_fire && (p_ptr->oppose_fire || music_singing(MUSIC_RESIST))) return (TRUE);
+			if (!p_ptr->immune_fire && (p_ptr->oppose_fire || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
 			if (p_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
 		}
 	}
 
 	if (r_ptr->flags4 & RF4_BR_ELEC)
 	{
-		if (!p_ptr->immune_elec && (p_ptr->oppose_elec || music_singing(MUSIC_RESIST))) return (TRUE);
+		if (!p_ptr->immune_elec && (p_ptr->oppose_elec || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
 		if (p_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
 	if (r_ptr->flags4 & RF4_BR_COLD)
 	{
-		if (!p_ptr->immune_cold && (p_ptr->oppose_cold || music_singing(MUSIC_RESIST))) return (TRUE);
+		if (!p_ptr->immune_cold && (p_ptr->oppose_cold || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
 		if (p_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 
@@ -895,7 +895,7 @@ bool dispel_check(int m_idx)
 	{
 		if (!((p_ptr->class == CLASS_NINJA) && p_ptr->lev > 44))
 		{
-			if (p_ptr->oppose_pois || music_singing(MUSIC_RESIST)) return (TRUE);
+			if (p_ptr->oppose_pois || music_singing(p_ptr, MUSIC_RESIST)) return (TRUE);
 			if (p_ptr->special_defense & DEFENSE_POIS) return (TRUE);
 		}
 	}
@@ -916,7 +916,7 @@ bool dispel_check(int m_idx)
 	/* Speed */
 	if (p_ptr->speed < 145)
 	{
-		if (IS_FAST()) return (TRUE);
+		if (IS_FAST(p_ptr)) return (TRUE);
 	}
 
 	/* Light speed */
@@ -1110,7 +1110,7 @@ static int choose_attack_spell(int m_idx, byte spells[], byte num)
 	}
 
 	/* Attack spell (most of the time) */
-	if (IS_INVULN())
+	if (IS_INVULN(p_ptr))
 	{
 		if (psy_spe_num && (randint0(100) < 50))
 		{

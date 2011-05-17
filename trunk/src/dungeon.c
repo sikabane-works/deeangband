@@ -706,7 +706,7 @@ static void wreck_the_pattern(void)
 	msg_print("Something terrible happens!");
 #endif
 
-	if (!IS_INVULN())
+	if (!IS_INVULN(p_ptr))
 #ifdef JP
 		take_hit(DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", -1);
 #else
@@ -788,7 +788,7 @@ static bool pattern_effect(void)
 		break;
 
 	case PATTERN_TILE_WRECKED:
-		if (!IS_INVULN())
+		if (!IS_INVULN(p_ptr))
 #ifdef JP
 			take_hit(DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", -1);
 #else
@@ -799,7 +799,7 @@ static bool pattern_effect(void)
 	default:
 		if (race_is_(p_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
-		else if (!IS_INVULN())
+		else if (!IS_INVULN(p_ptr))
 #ifdef JP
 			take_hit(DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", -1);
 #else
@@ -1490,7 +1490,7 @@ static void process_world_aux_hp_and_sp(void)
 	/*** Damage over Time ***/
 
 	/* Take damage from poison */
-	if (p_ptr->poisoned && !IS_INVULN())
+	if (p_ptr->poisoned && !IS_INVULN(p_ptr))
 	{
 		/* Take damage */
 #ifdef JP
@@ -1502,7 +1502,7 @@ static void process_world_aux_hp_and_sp(void)
 	}
 
 	/* Take damage from cuts */
-	if (p_ptr->cut && !IS_INVULN())
+	if (p_ptr->cut && !IS_INVULN(p_ptr))
 	{
 		int dam;
 
@@ -1557,7 +1557,7 @@ static void process_world_aux_hp_and_sp(void)
 	/* (Vampires) Take damage from sunlight */
 	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
-		if (!dun_level && !p_ptr->resist_lite && !IS_INVULN() && is_daytime())
+		if (!dun_level && !p_ptr->resist_lite && !IS_INVULN(p_ptr) && is_daytime())
 		{
 			if ((cave[py][px].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
@@ -1602,7 +1602,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			sprintf(ouch, "wielding %s", o_name);
 #endif
 
-			if (!IS_INVULN()) take_hit(DAMAGE_NOESCAPE, 1, ouch, -1);
+			if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_NOESCAPE, 1, ouch, -1);
 		}
 	}
 
@@ -1620,7 +1620,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 #endif
 	}
 
-	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN() && !p_ptr->immune_fire)
+	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(p_ptr) && !p_ptr->immune_fire)
 	{
 		int damage = 0;
 
@@ -1637,7 +1637,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		{
 			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
 			if (p_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE()) damage = damage / 3;
+			if (IS_OPPOSE_FIRE(p_ptr)) damage = damage / 3;
 
 			if (p_ptr->levitation) damage = damage / 5;
 
@@ -1668,7 +1668,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN() && !p_ptr->levitation)
+	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(p_ptr) && !p_ptr->levitation)
 	{
 		int damage = 0;
 
@@ -1685,7 +1685,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[py][px])].name;
 			if (p_ptr->resist_pois) damage = damage / 3;
-			if (IS_OPPOSE_POIS()) damage = damage / 3;
+			if (IS_OPPOSE_POIS(p_ptr)) damage = damage / 3;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1700,7 +1700,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN() && !p_ptr->levitation && !p_ptr->immune_acid)
+	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(p_ptr) && !p_ptr->levitation && !p_ptr->immune_acid)
 	{
 		int damage = 0;
 
@@ -1717,7 +1717,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[py][px])].name;
 			if (p_ptr->resist_acid) damage = damage / 3;
-			if (IS_OPPOSE_ACID()) damage = damage / 3;
+			if (IS_OPPOSE_ACID(p_ptr)) damage = damage / 3;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1759,7 +1759,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			damage = r_info[m_list[p_ptr->riding].r_idx].level / 2;
 			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
 			if (p_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE()) damage = damage / 3;
+			if (IS_OPPOSE_FIRE(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("熱い！");
 take_hit(DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
@@ -1773,7 +1773,7 @@ take_hit(DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
 			damage = r_info[m_list[p_ptr->riding].r_idx].level / 2;
 			if (race_is_(p_ptr, RACE_ANDROID)) damage += damage / 3;
 			if (p_ptr->resist_elec) damage = damage / 3;
-			if (IS_OPPOSE_ELEC()) damage = damage / 3;
+			if (IS_OPPOSE_ELEC(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("痛い！");
 take_hit(DAMAGE_NOESCAPE, damage, "電気のオーラ", -1);
@@ -1786,7 +1786,7 @@ take_hit(DAMAGE_NOESCAPE, damage, "電気のオーラ", -1);
 		{
 			damage = r_info[m_list[p_ptr->riding].r_idx].level / 2;
 			if (p_ptr->resist_cold) damage = damage / 3;
-			if (IS_OPPOSE_COLD()) damage = damage / 3;
+			if (IS_OPPOSE_COLD(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("冷たい！");
 take_hit(DAMAGE_NOESCAPE, damage, "冷気のオーラ", -1);
@@ -1806,7 +1806,7 @@ take_hit(DAMAGE_NOESCAPE, damage, "冷気のオーラ", -1);
 	 */
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if (!IS_INVULN() && !p_ptr->wraith_form && !p_ptr->kabenuke &&
+		if (!IS_INVULN(p_ptr) && !p_ptr->wraith_form && !p_ptr->kabenuke &&
 		    ((p_ptr->chp > (p_ptr->lev / 5)) || !p_ptr->pass_wall))
 		{
 			cptr dam_desc;
@@ -2754,7 +2754,7 @@ static void process_world_aux_mutation(void)
 
 		msg_print(NULL);
 		set_food(PY_FOOD_WEAK);
-		if (music_singing_any()) stop_singing();
+		if (music_singing_any(p_ptr)) stop_singing();
 		if (hex_spelling_any()) stop_hex_spell_all();
 	}
 
@@ -4240,9 +4240,9 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 				/* Take damage */
 #ifdef JP
-				if (!IS_INVULN()) take_hit(DAMAGE_LOSELIFE, dam, "空腹", -1);
+				if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_LOSELIFE, dam, "空腹", -1);
 #else
-				if (!IS_INVULN()) take_hit(DAMAGE_LOSELIFE, dam, "starvation", -1);
+				if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_LOSELIFE, dam, "starvation", -1);
 #endif
 			}
 		}

@@ -1877,7 +1877,7 @@ static void display_player_middle(creature_type *cr_ptr)
 
 		if (!cr_ptr->riding)
 		{
-			if (IS_FAST()) tmp_speed += 10;
+			if (IS_FAST(p_ptr)) tmp_speed += 10;
 			if (cr_ptr->slow) tmp_speed -= 10;
 			if (cr_ptr->lightspeed) tmp_speed = 99;
 		}
@@ -2131,7 +2131,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
-	o_ptr = &p_ptr->inventory[INVEN_BOW];
+	o_ptr = &cr_ptr->inventory[INVEN_BOW];
 	tmp = cr_ptr->to_h_b + o_ptr->to_h;
 	xthb = cr_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
 
@@ -2188,7 +2188,7 @@ static void display_player_various(creature_type * cr_ptr)
 		}
 		else
 		{
-			o_ptr = &p_ptr->inventory[INVEN_RARM + i];
+			o_ptr = &cr_ptr->inventory[INVEN_RARM + i];
 
 			/* Average damage per round */
 			if (o_ptr->k_idx)
@@ -2680,26 +2680,26 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (IS_HERO() || cr_ptr->shero)
+	if (IS_HERO(cr_ptr) || cr_ptr->shero)
 		add_flag(flgs, TR_RES_FEAR);
 	if (cr_ptr->tim_invis)
 		add_flag(flgs, TR_SEE_INVIS);
 	if (cr_ptr->tim_regen)
 		add_flag(flgs, TR_REGEN);
-	if (IS_TIM_ESP())
+	if (IS_TIM_ESP(cr_ptr))
 		add_flag(flgs, TR_TELEPATHY);
-	if (IS_FAST() || cr_ptr->slow)
+	if (IS_FAST(cr_ptr) || cr_ptr->slow)
 		add_flag(flgs, TR_SPEED);
 
-	if (IS_OPPOSE_ACID() && !(cr_ptr->special_defense & DEFENSE_ACID) && !(race_is_(cr_ptr, RACE_YEEK) && (cr_ptr->lev > 19)))
+	if (IS_OPPOSE_ACID(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ACID) && !(race_is_(cr_ptr, RACE_YEEK) && (cr_ptr->lev > 19)))
 		add_flag(flgs, TR_RES_ACID);
-	if (IS_OPPOSE_ELEC() && !(cr_ptr->special_defense & DEFENSE_ELEC))
+	if (IS_OPPOSE_ELEC(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_ELEC))
 		add_flag(flgs, TR_RES_ELEC);
-	if (IS_OPPOSE_FIRE() && !(cr_ptr->special_defense & DEFENSE_FIRE))
+	if (IS_OPPOSE_FIRE(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_FIRE))
 		add_flag(flgs, TR_RES_FIRE);
-	if (IS_OPPOSE_COLD() && !(cr_ptr->special_defense & DEFENSE_COLD))
+	if (IS_OPPOSE_COLD(cr_ptr) && !(cr_ptr->special_defense & DEFENSE_COLD))
 		add_flag(flgs, TR_RES_COLD);
-	if (IS_OPPOSE_POIS())
+	if (IS_OPPOSE_POIS(cr_ptr))
 		add_flag(flgs, TR_RES_POIS);
 
 	if (cr_ptr->special_attack & ATTACK_ACID)
@@ -2929,7 +2929,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_RES_ELEC);
 	if (race_is_(cr_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || race_is_(p_ptr, RACE_S_FAIRY) ||
+	if (race_is_(cr_ptr, RACE_VAMPIRE) || race_is_(cr_ptr, RACE_S_FAIRY) ||
 	    (cr_ptr->mimic_form == MIMIC_VAMPIRE))
 		add_flag(flgs, TR_RES_LITE);
 }
@@ -3621,7 +3621,7 @@ c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Acquire "known" flags */
 		object_flags_known(o_ptr, flgs);
@@ -5154,11 +5154,11 @@ static void dump_aux_equipment_inventory(FILE *fff)
 		fprintf(fff, "\n\n");
 	}
 
-	/* Dump the p_ptr->inventory */
+	/* Dump the inventory */
 #ifdef JP
 	fprintf(fff, "  [キャラクタの持ち物]\n\n");
 #else
-	fprintf(fff, "  [Character p_ptr->inventory]\n\n");
+	fprintf(fff, "  [Character inventory]\n\n");
 #endif
 
 	for (i = 0; i < INVEN_PACK; i++)
@@ -5166,7 +5166,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 		/* Don't dump the empty slots */
 		if (!p_ptr->inventory[i].k_idx) break;
 
-		/* Dump the p_ptr->inventory slots */
+		/* Dump the inventory slots */
 		object_desc(o_name, &p_ptr->inventory[i], 0);
 		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
 	}
@@ -5199,7 +5199,7 @@ static void dump_aux_home_museum(FILE *fff)
 #ifdef JP
 		fprintf(fff, "  [我が家のアイテム]\n");
 #else
-		fprintf(fff, "  [Home p_ptr->inventory]\n");
+		fprintf(fff, "  [Home inventory]\n");
 #endif
 
 		/* Dump all available items */
@@ -7104,7 +7104,7 @@ put_str("ファイルネーム: ", 23, 0);
 	/* Display player */
 	display_player(0, p_ptr);
 
-	/* Prompt for p_ptr->inventory */
+	/* Prompt for inventory */
 #ifdef JP
 prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 #else
@@ -7116,7 +7116,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	if (inkey() == ESCAPE) return;
 
 
-	/* Show equipment and p_ptr->inventory */
+	/* Show equipment and inventory */
 
 	/* Equipment -- if any */
 	if (equip_cnt)
@@ -7133,7 +7133,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 		if (inkey() == ESCAPE) return;
 	}
 
-	/* p_ptr->inventory -- if any */
+	/* inventory -- if any */
 	if (inven_cnt)
 	{
 		Term_clear();

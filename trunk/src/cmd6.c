@@ -59,7 +59,7 @@ static void do_cmd_eat_food_aux(int item)
 	int ident, lev;
 	object_type *o_ptr;
 
-	if (music_singing_any()) stop_singing();
+	if (music_singing_any(p_ptr)) stop_singing();
 	if (hex_spelling_any()) stop_hex_spell_all();
 
 	/* Get the item (in the pack) */
@@ -93,7 +93,7 @@ static void do_cmd_eat_food_aux(int item)
 		{
 			case SV_FOOD_POISON:
 			{
-				if (!(p_ptr->resist_pois || IS_OPPOSE_POIS()))
+				if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
 				{
 					if (set_poisoned(p_ptr->poisoned + randint0(10) + 10))
 					{
@@ -733,7 +733,7 @@ static void do_cmd_quaff_potion_aux(int item)
 		return;
 	}
 
-	if (music_singing_any()) stop_singing();
+	if (music_singing_any(p_ptr)) stop_singing();
 	if (hex_spelling_any())
 	{
 		if (!hex_spelling(HEX_INHAIL)) stop_hex_spell_all();
@@ -850,7 +850,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			break;
 
 		case SV_POTION_POISON:
-			if (!(p_ptr->resist_pois || IS_OPPOSE_POIS()))
+			if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
 			{
 				if (set_poisoned(p_ptr->poisoned + randint0(15) + 10))
 				{
@@ -1626,7 +1626,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		return;
 	}
 
-	if (music_singing_any()) stop_singing();
+	if (music_singing_any(p_ptr)) stop_singing();
 
 	/* Hex */
 	if (hex_spelling_any() && ((p_ptr->lev < 35) || hex_spell_fully())) stop_hex_spell_all();
@@ -2024,7 +2024,7 @@ msg_print("ダンジョンが揺れた...");
 		{
 			fire_ball(GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if (!(IS_OPPOSE_FIRE() || p_ptr->resist_fire || p_ptr->immune_fire))
+			if (!(IS_OPPOSE_FIRE(p_ptr) || p_ptr->resist_fire || p_ptr->immune_fire))
 #ifdef JP
 take_hit(DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", -1);
 #else
@@ -2039,7 +2039,7 @@ take_hit(DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", -1);
 		case SV_SCROLL_ICE:
 		{
 			fire_ball(GF_ICE, 0, 777, 4);
-			if (!(IS_OPPOSE_COLD() || p_ptr->resist_cold || p_ptr->immune_cold))
+			if (!(IS_OPPOSE_COLD(p_ptr) || p_ptr->resist_cold || p_ptr->immune_cold))
 #ifdef JP
 take_hit(DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", -1);
 #else
@@ -5314,7 +5314,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_BOROMIR:
 			{
-				if (music_singing_any()) stop_singing();
+				if (music_singing_any(p_ptr)) stop_singing();
 				if (hex_spelling_any()) stop_hex_spell_all();
 #ifdef JP
 				msg_print("あなたは力強い突風を吹き鳴らした。周囲の敵が震え上っている!");
@@ -5957,7 +5957,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		/* Get a direction for breathing (or abort) */
 		if (!get_aim_dir(&dir)) return;
 
-		if (music_singing_any()) stop_singing();
+		if (music_singing_any(p_ptr)) stop_singing();
 		if (hex_spelling_any()) stop_hex_spell_all();
 
 		/* Branch on the sub-type */
@@ -6404,7 +6404,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 	else if (o_ptr->tval == TV_WHISTLE)
 	{
-		if (music_singing_any()) stop_singing();
+		if (music_singing_any(p_ptr)) stop_singing();
 		if (hex_spelling_any()) stop_hex_spell_all();
 
 #if 0

@@ -953,7 +953,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		 * Only heal when Adrenalin Channeling is not active. We check
 		 * that by checking if the player isn't fast and 'heroed' atm.
 		 */
-		if (!IS_FAST() || !IS_HERO())
+		if (!IS_FAST(p_ptr) || !IS_HERO(p_ptr))
 		{
 			hp_player(plev);
 		}

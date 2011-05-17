@@ -6426,14 +6426,14 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (race_is_(p_ptr, RACE_ANDROID)) dam += dam / 3;
 			if (p_ptr->resist_elec) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_ELEC())
+			if (IS_OPPOSE_ELEC(p_ptr))
 				dam = (dam + 2) / 3;
 		}
 		break;
 
 	case GF_POIS:
 		if (p_ptr->resist_pois) dam = (dam + 2) / 3;
-		if (IS_OPPOSE_POIS()) dam = (dam + 2) / 3;
+		if (IS_OPPOSE_POIS(p_ptr)) dam = (dam + 2) / 3;
 		break;
 
 	case GF_ACID:
@@ -6447,7 +6447,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 			if (p_ptr->muta3 & MUT3_VULN_ELEM) dam *= 2;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_acid) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_ACID()) dam = (dam + 2) / 3;
+			if (IS_OPPOSE_ACID(p_ptr)) dam = (dam + 2) / 3;
 		}
 		break;
 
@@ -6463,7 +6463,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 			if (p_ptr->muta3 & MUT3_VULN_ELEM) dam *= 2;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_cold) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_COLD()) dam = (dam + 2) / 3;
+			if (IS_OPPOSE_COLD(p_ptr)) dam = (dam + 2) / 3;
 		}
 		break;
 
@@ -6479,7 +6479,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 			if (race_is_(p_ptr, RACE_ENT)) dam += dam / 3;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_fire) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_FIRE()) dam = (dam + 2) / 3;
+			if (IS_OPPOSE_FIRE(p_ptr)) dam = (dam + 2) / 3;
 		}
 		break;
 
@@ -6565,7 +6565,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 
 	case GF_NUKE:
 		if (p_ptr->resist_pois) dam = (2 * dam + 2) / 5;
-		if (IS_OPPOSE_POIS()) dam = (2 * dam + 2) / 5;
+		if (IS_OPPOSE_POIS(p_ptr)) dam = (2 * dam + 2) / 5;
 		break;
 
 	case GF_DEATH_RAY:

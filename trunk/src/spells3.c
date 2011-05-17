@@ -279,7 +279,7 @@ bool cave_player_teleportable_bold(int y, int x, u32b mode)
 			if (!p_ptr->levitation && !p_ptr->can_swim) return FALSE;
 		}
 
-		if (have_flag(f_ptr->flags, FF_LAVA) && !p_ptr->immune_fire && !IS_INVULN())
+		if (have_flag(f_ptr->flags, FF_LAVA) && !p_ptr->immune_fire && !IS_INVULN(p_ptr))
 		{
 			/* Always forbid deep lava */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
@@ -4994,7 +4994,7 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ACID();
+	bool double_resist = IS_OPPOSE_ACID(p_ptr);
 
 	/* Total Immunity */
 	if (p_ptr->immune_acid || (dam <= 0))
@@ -5038,7 +5038,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ELEC();
+	bool double_resist = IS_OPPOSE_ELEC(p_ptr);
 
 	/* Total immunity */
 	if (p_ptr->immune_elec || (dam <= 0))
@@ -5078,7 +5078,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_FIRE();
+	bool double_resist = IS_OPPOSE_FIRE(p_ptr);
 
 	/* Totally immune */
 	if (p_ptr->immune_fire || (dam <= 0))
@@ -5118,7 +5118,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 {
 	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_COLD();
+	bool double_resist = IS_OPPOSE_COLD(p_ptr);
 
 	/* Total immunity */
 	if (p_ptr->immune_cold || (dam <= 0))

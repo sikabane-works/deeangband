@@ -5324,8 +5324,8 @@ extern int PlayerUID;
 
 #define MUSIC_DETECT            101
 
-#define music_singing(X) ((p_ptr->class == CLASS_BARD) && (p_ptr->magic_num1[0] == (X)))
-#define music_singing_any() ((p_ptr->class == CLASS_BARD) && p_ptr->magic_num1[0])
+#define music_singing(C, X) ((C->class == CLASS_BARD) && (p_ptr->magic_num1[0] == (X)))
+#define music_singing_any(C) ((C->class == CLASS_BARD) && p_ptr->magic_num1[0])
 
 #define HISSATSU_NONE   0
 #define HISSATSU_2      1
@@ -5545,17 +5545,17 @@ extern int PlayerUID;
 #define SUB_ALIGN_GOOD    0x0002
 
 /* Temporary flags macro */
-#define IS_FAST() (p_ptr->fast || music_singing(MUSIC_SPEED) || music_singing(MUSIC_SHERO))
-#define IS_INVULN() (p_ptr->invuln || music_singing(MUSIC_INVULN))
-#define IS_HERO() (p_ptr->hero || music_singing(MUSIC_HERO) || music_singing(MUSIC_SHERO))
-#define IS_BLESSED() (p_ptr->blessed || music_singing(MUSIC_BLESS) || hex_spelling(HEX_BLESS))
-#define IS_OPPOSE_ACID() (p_ptr->oppose_acid || music_singing(MUSIC_RESIST) || (p_ptr->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_ELEC() (p_ptr->oppose_elec || music_singing(MUSIC_RESIST) || (p_ptr->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_FIRE() (p_ptr->oppose_fire || music_singing(MUSIC_RESIST) || (p_ptr->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_COLD() (p_ptr->oppose_cold || music_singing(MUSIC_RESIST) || (p_ptr->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_POIS() (p_ptr->oppose_pois || music_singing(MUSIC_RESIST) || (p_ptr->special_defense & KATA_MUSOU))
-#define IS_TIM_ESP() (p_ptr->tim_esp || music_singing(MUSIC_MIND) || (p_ptr->concent >= CONCENT_TELE_THRESHOLD))
-#define IS_TIM_STEALTH() (p_ptr->tim_stealth || music_singing(MUSIC_STEALTH))
+#define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
+#define IS_INVULN(C) (C->invuln || music_singing(C, MUSIC_INVULN))
+#define IS_HERO(C) (C->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
+#define IS_BLESSED(C) (p_ptr->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(HEX_BLESS))
+#define IS_OPPOSE_ACID(C) (C->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
+#define IS_OPPOSE_ELEC(C) (C->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
+#define IS_OPPOSE_FIRE(C) (C->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
+#define IS_OPPOSE_COLD(C) (C->oppose_cold || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
+#define IS_OPPOSE_POIS(C) (C->oppose_pois || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
+#define IS_TIM_ESP(C) (C->tim_esp || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
+#define IS_TIM_STEALTH(C) (C->tim_stealth || music_singing(C, MUSIC_STEALTH))
 
 /* Multishadow effects is determined by turn */
 #define CHECK_MULTISHADOW() (p_ptr->multishadow && (turn & 1))

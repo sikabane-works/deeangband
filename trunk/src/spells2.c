@@ -1923,7 +1923,7 @@ info[i++] = "あなたは魔力を吸われている。";
 #endif
 
 	}
-	if (IS_BLESSED())
+	if (IS_BLESSED(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは公正さを感じている。";
@@ -1932,7 +1932,7 @@ info[i++] = "あなたは公正さを感じている。";
 #endif
 
 	}
-	if (IS_HERO())
+	if (IS_HERO(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたはヒーロー気分だ。";
@@ -1968,7 +1968,7 @@ info[i++] = "あなたは神秘のシールドで守られている。";
 #endif
 
 	}
-	if (IS_INVULN())
+	if (IS_INVULN(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは現在傷つかない。";
@@ -2393,7 +2393,7 @@ info[i++] = "あなたは酸に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_acid && IS_OPPOSE_ACID())
+	else if (p_ptr->resist_acid && IS_OPPOSE_ACID(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは酸への強力な耐性を持っている。";
@@ -2402,7 +2402,7 @@ info[i++] = "あなたは酸への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_acid || IS_OPPOSE_ACID())
+	else if (p_ptr->resist_acid || IS_OPPOSE_ACID(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは酸への耐性を持っている。";
@@ -2421,7 +2421,7 @@ info[i++] = "あなたは電撃に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_elec && IS_OPPOSE_ELEC())
+	else if (p_ptr->resist_elec && IS_OPPOSE_ELEC(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは電撃への強力な耐性を持っている。";
@@ -2430,7 +2430,7 @@ info[i++] = "あなたは電撃への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_elec || IS_OPPOSE_ELEC())
+	else if (p_ptr->resist_elec || IS_OPPOSE_ELEC(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは電撃への耐性を持っている。";
@@ -2459,7 +2459,7 @@ info[i++] = "あなたは火に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_fire && IS_OPPOSE_FIRE())
+	else if (p_ptr->resist_fire && IS_OPPOSE_FIRE(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは火への強力な耐性を持っている。";
@@ -2468,7 +2468,7 @@ info[i++] = "あなたは火への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_fire || IS_OPPOSE_FIRE())
+	else if (p_ptr->resist_fire || IS_OPPOSE_FIRE(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは火への耐性を持っている。";
@@ -2497,7 +2497,7 @@ info[i++] = "あなたは冷気に対する完全なる免疫を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_cold && IS_OPPOSE_COLD())
+	else if (p_ptr->resist_cold && IS_OPPOSE_COLD(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気への強力な耐性を持っている。";
@@ -2506,7 +2506,7 @@ info[i++] = "あなたは冷気への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_cold || IS_OPPOSE_COLD())
+	else if (p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは冷気への耐性を持っている。";
@@ -2516,7 +2516,7 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 
 	}
 
-	if (p_ptr->resist_pois && IS_OPPOSE_POIS())
+	if (p_ptr->resist_pois && IS_OPPOSE_POIS(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは毒への強力な耐性を持っている。";
@@ -2525,7 +2525,7 @@ info[i++] = "あなたは毒への強力な耐性を持っている。";
 #endif
 
 	}
-	else if (p_ptr->resist_pois || IS_OPPOSE_POIS())
+	else if (p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr))
 	{
 #ifdef JP
 info[i++] = "あなたは毒への耐性を持っている。";
@@ -3588,7 +3588,7 @@ bool detect_traps(int range, bool known)
 
 	if (known) p_ptr->dtrap = TRUE;
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3612,7 +3612,7 @@ bool detect_doors(int range)
 {
 	bool detect = detect_feat_flag(range, FF_DOOR, TRUE);
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3636,7 +3636,7 @@ bool detect_stairs(int range)
 {
 	bool detect = detect_feat_flag(range, FF_STAIRS, TRUE);
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3660,7 +3660,7 @@ bool detect_treasure(int range)
 {
 	bool detect = detect_feat_flag(range, FF_HAS_GOLD, TRUE);
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3721,7 +3721,7 @@ bool detect_objects_gold(int range)
 		}
 	}
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3788,7 +3788,7 @@ bool detect_objects_normal(int range)
 		}
 	}
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3946,7 +3946,7 @@ bool detect_monsters_normal(int range)
 		}
 	}
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -4015,7 +4015,7 @@ bool detect_monsters_invis(int range)
 		}
 	}
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -4294,7 +4294,7 @@ bool detect_monsters_string(int range, cptr Match)
 		}
 	}
 
-	if (music_singing(MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)

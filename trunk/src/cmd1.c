@@ -1313,7 +1313,7 @@ static void hit_trap(bool break_trap)
 					dam = dam * 2;
 					(void)set_cut(p_ptr->cut + randint1(dam));
 
-					if (p_ptr->resist_pois || IS_OPPOSE_POIS())
+					if (p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr))
 					{
 #ifdef JP
 						msg_print("‚µ‚©‚µ“Å‚Ì‰e‹¿‚Í‚È‚©‚Á‚½I");
@@ -1575,7 +1575,7 @@ static void hit_trap(bool break_trap)
 			msg_print("A pungent green gas surrounds you!");
 #endif
 
-			if (!p_ptr->resist_pois && !IS_OPPOSE_POIS())
+			if (!p_ptr->resist_pois && !IS_OPPOSE_POIS(p_ptr))
 			{
 				(void)set_poisoned(p_ptr->poisoned + randint0(20) + 10);
 			}
@@ -1798,7 +1798,7 @@ static void touch_zap_player(creature_type *m_ptr)
 #endif
 
 			if (race_is_(p_ptr, RACE_ENT)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_FIRE()) aura_damage = (aura_damage + 2) / 3;
+			if (IS_OPPOSE_FIRE(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
@@ -1824,7 +1824,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You are suddenly very cold!");
 #endif
 
-			if (IS_OPPOSE_COLD()) aura_damage = (aura_damage + 2) / 3;
+			if (IS_OPPOSE_COLD(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
@@ -1845,7 +1845,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			monster_desc(aura_dam, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 			if (race_is_(p_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_ELEC()) aura_damage = (aura_damage + 2) / 3;
+			if (IS_OPPOSE_ELEC(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 
 #ifdef JP
@@ -3042,15 +3042,15 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
 					if (p_ptr->align < 0 && mult < 20)
 						mult = 20;
-					if (!(p_ptr->resist_acid || IS_OPPOSE_ACID() || p_ptr->immune_acid) && (mult < 25))
+					if (!(p_ptr->resist_acid || IS_OPPOSE_ACID(p_ptr) || p_ptr->immune_acid) && (mult < 25))
 						mult = 25;
-					if (!(p_ptr->resist_elec || IS_OPPOSE_ELEC() || p_ptr->immune_elec) && (mult < 25))
+					if (!(p_ptr->resist_elec || IS_OPPOSE_ELEC(p_ptr) || p_ptr->immune_elec) && (mult < 25))
 						mult = 25;
-					if (!(p_ptr->resist_fire || IS_OPPOSE_FIRE() || p_ptr->immune_fire) && (mult < 25))
+					if (!(p_ptr->resist_fire || IS_OPPOSE_FIRE(p_ptr) || p_ptr->immune_fire) && (mult < 25))
 						mult = 25;
-					if (!(p_ptr->resist_cold || IS_OPPOSE_COLD() || p_ptr->immune_cold) && (mult < 25))
+					if (!(p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr) || p_ptr->immune_cold) && (mult < 25))
 						mult = 25;
-					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS()) && (mult < 25))
+					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)) && (mult < 25))
 						mult = 25;
 
 					if ((p_ptr->class != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (p_ptr->msp / 30)))
@@ -3682,7 +3682,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 
 	if (mpe_mode & MPE_ENERGY_USE)
 	{
-		if (music_singing(MUSIC_WALL))
+		if (music_singing(p_ptr, MUSIC_WALL))
 		{
 			(void)project(0, 0, py, px, (60 + p_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
@@ -4881,7 +4881,7 @@ static bool run_test(void)
 				}
 
 				/* Lava */
-				else if (have_flag(f_ptr->flags, FF_LAVA) && (p_ptr->immune_fire || IS_INVULN()))
+				else if (have_flag(f_ptr->flags, FF_LAVA) && (p_ptr->immune_fire || IS_INVULN(p_ptr)))
 				{
 					/* Ignore */
 					notice = FALSE;
