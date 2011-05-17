@@ -3357,7 +3357,7 @@ static void display_player_other_flag_info(void)
 /*
  * Special display, part 2a
  */
-static void display_player_misc_info(void)
+static void display_player_misc_info(creature_type *cr_ptr)
 {
 	char	buf[80];
 	char	tmp[80];
@@ -3377,19 +3377,29 @@ put_str("M‹Â:", 5, 1);
 	put_str("Faith:", 5, 1);
 #endif
 
-	strcpy(tmp,ap_ptr->title);
+	tmp[0] = '\0';
+	if(cr_ptr->chara != CHARA_NONE){
+		strcpy(tmp, chara_info[cr_ptr->chara].title);
+
 #ifdef JP
-	if(ap_ptr->no == 1)
-		strcat(tmp,"‚Ì");
+		if(chara_info[cr_ptr->chara].no == 1)
+			strcat(tmp,"‚Ì");
 #else
-		strcat(tmp," ");
+			strcat(tmp," ");
 #endif
-	strcat(tmp,p_ptr->name);
+	}
+
+	strcat(tmp,cr_ptr->name);
 
 	c_put_str(TERM_L_BLUE, tmp, 1, 7);
-	c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 2, 7);
-	c_put_str(TERM_L_BLUE, sp_ptr->title, 3, 7);
-	c_put_str(TERM_L_BLUE, cp_ptr->title, 4, 7);
+	if(cr_ptr->race != RACE_NONE) c_put_str(TERM_L_BLUE, get_intelligent_race_name(cr_ptr), 2, 7);
+	else c_put_str(TERM_L_DARK, "--", 2, 7);
+	if(cr_ptr->sex != SEX_NONE) c_put_str(TERM_L_BLUE, sex_info[cr_ptr->sex].title, 3, 7);
+	else c_put_str(TERM_L_DARK, sex_info[cr_ptr->sex].title, 3, 7);
+	if(cr_ptr->class != CLASS_NONE) c_put_str(TERM_L_BLUE, class_info[cr_ptr->class].title, 4, 7);
+	else c_put_str(TERM_L_DARK, "--", 4, 7);
+	if(cr_ptr->patron != PATRON_NONE) c_put_str(TERM_L_BLUE, player_patrons[cr_ptr->patron].title, 5, 7);
+	else c_put_str(TERM_L_DARK, "--", 5, 7);
 
 	/* Display extras */
 #ifdef JP
@@ -3403,11 +3413,11 @@ put_str("‚l‚o  :", 8, 1);
 #endif
 
 
-	(void)sprintf(buf, "%d/%d", (int)p_ptr->lev, (int)p_ptr->max_lev);
+	(void)sprintf(buf, "%d/%d", (int)cr_ptr->lev, (int)cr_ptr->max_lev);
 	c_put_str(TERM_L_BLUE, buf, 6, 9);
-	(void)sprintf(buf, "%d/%d", (int)p_ptr->chp, (int)p_ptr->mhp);
+	(void)sprintf(buf, "%d/%d", (int)cr_ptr->chp, (int)cr_ptr->mhp);
 	c_put_str(TERM_L_BLUE, buf, 7, 9);
-	(void)sprintf(buf, "%d/%d", (int)p_ptr->csp, (int)p_ptr->msp);
+	(void)sprintf(buf, "%d/%d", (int)cr_ptr->csp, (int)cr_ptr->msp);
 	c_put_str(TERM_L_BLUE, buf, 8, 9);
 }
 
@@ -4134,7 +4144,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
 		/* Dump the info */
-		display_player_misc_info();
+		display_player_misc_info(cr_ptr);
 		display_player_stat_info(cr_ptr);
 		display_player_flag_info();
 	}
