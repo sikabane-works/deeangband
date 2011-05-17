@@ -1740,12 +1740,12 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 }
 
 
-static void display_player_melee_bonus(int hand, int hand_entry)
+static void display_player_melee_bonus(int hand, int hand_entry, creature_type *cr_ptr)
 {
 	char buf[160];
-	int show_tohit = p_ptr->dis_to_h[hand];
-	int show_todam = p_ptr->dis_to_d[hand];
-	object_type *o_ptr = &p_ptr->inventory[INVEN_RARM + hand];
+	int show_tohit = cr_ptr->dis_to_h[hand];
+	int show_todam = cr_ptr->dis_to_d[hand];
+	object_type *o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
 
 	/* Hack -- add in weapon info if known */
 	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
@@ -1757,7 +1757,7 @@ static void display_player_melee_bonus(int hand, int hand_entry)
 	/* Dump the bonuses to hit/dam */
 	if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
-	else if (p_ptr->ryoute)
+	else if (cr_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);
 	else
 		display_player_one_line(hand_entry, buf, TERM_L_BLUE);
@@ -1783,12 +1783,12 @@ static void display_player_middle(creature_type *cr_ptr)
 
 	if (cr_ptr->migite)
 	{
-		display_player_melee_bonus(0, left_hander ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
+		display_player_melee_bonus(0, left_hander ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1, cr_ptr);
 	}
 
 	if (cr_ptr->hidarite)
 	{
-		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
+		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
 	}
 	else if ((cr_ptr->class == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
 	{
