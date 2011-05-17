@@ -2952,7 +2952,7 @@ typedef struct {
  * Helper function, see below
  */
 static void display_flag_aux(int row, int col, cptr header,
-				    int flag1, all_player_flags *f, u16b mode)
+				    int flag1, all_player_flags *f, u16b mode, creature_type *cr_ptr)
 {
 	int     i;
 	bool    vuln = FALSE;
@@ -2981,7 +2981,7 @@ static void display_flag_aux(int row, int col, cptr header,
 		object_type *o_ptr;
 
 		/* Object */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Known flags */
 		object_flags_known(o_ptr, flgs);
@@ -3057,35 +3057,35 @@ static void display_player_flag_info(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
 
 #ifdef JP
-display_flag_aux(row+0, col, "ëœé_  :", TR_RES_ACID, &f, 0);
-display_flag_aux(row+0, col, "ëœé_  :", TR_IM_ACID, &f, DP_IMM);
-display_flag_aux(row+1, col, "ëœìdåÇ:", TR_RES_ELEC, &f, 0);
-display_flag_aux(row+1, col, "ëœìdåÇ:", TR_IM_ELEC, &f, DP_IMM);
-display_flag_aux(row+2, col, "ëœâŒâä:", TR_RES_FIRE, &f, 0);
-display_flag_aux(row+2, col, "ëœâŒâä:", TR_IM_FIRE, &f, DP_IMM);
-display_flag_aux(row+3, col, "ëœó‚ãC:", TR_RES_COLD, &f, 0);
-display_flag_aux(row+3, col, "ëœó‚ãC:", TR_IM_COLD, &f, DP_IMM);
-display_flag_aux(row+4, col, "ëœì≈  :", TR_RES_POIS, &f, 0);
-display_flag_aux(row+5, col, "ëœëMåı:", TR_RES_LITE, &f, 0);
-display_flag_aux(row+6, col, "ëœà√çï:", TR_RES_DARK, &f, 0);
-display_flag_aux(row+7, col, "ëœîjï–:", TR_RES_SHARDS, &f, 0);
-display_flag_aux(row+8, col, "ëœñ”ñ⁄:", TR_RES_BLIND, &f, 0);
-display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0);
+display_flag_aux(row+0, col, "ëœé_  :", TR_RES_ACID, &f, 0, cr_ptr);
+display_flag_aux(row+0, col, "ëœé_  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
+display_flag_aux(row+1, col, "ëœìdåÇ:", TR_RES_ELEC, &f, 0, cr_ptr);
+display_flag_aux(row+1, col, "ëœìdåÇ:", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
+display_flag_aux(row+2, col, "ëœâŒâä:", TR_RES_FIRE, &f, 0, cr_ptr);
+display_flag_aux(row+2, col, "ëœâŒâä:", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
+display_flag_aux(row+3, col, "ëœó‚ãC:", TR_RES_COLD, &f, 0, cr_ptr);
+display_flag_aux(row+3, col, "ëœó‚ãC:", TR_IM_COLD, &f, DP_IMM, cr_ptr);
+display_flag_aux(row+4, col, "ëœì≈  :", TR_RES_POIS, &f, 0, cr_ptr);
+display_flag_aux(row+5, col, "ëœëMåı:", TR_RES_LITE, &f, 0, cr_ptr);
+display_flag_aux(row+6, col, "ëœà√çï:", TR_RES_DARK, &f, 0, cr_ptr);
+display_flag_aux(row+7, col, "ëœîjï–:", TR_RES_SHARDS, &f, 0, cr_ptr);
+display_flag_aux(row+8, col, "ëœñ”ñ⁄:", TR_RES_BLIND, &f, 0, cr_ptr);
+display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0, cr_ptr);
 #else
-	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0);
-	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM);
-	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0);
-	display_flag_aux(row+1, col, "Elec  :", TR_IM_ELEC, &f, DP_IMM);
-	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0);
-	display_flag_aux(row+2, col, "Fire  :", TR_IM_FIRE, &f, DP_IMM);
-	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0);
-	display_flag_aux(row+3, col, "Cold  :", TR_IM_COLD, &f, DP_IMM);
-	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0);
-	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0);
-	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0);
-	display_flag_aux(row+7, col, "Shard :", TR_RES_SHARDS, &f, 0);
-	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0);
-	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0);
+	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, cr_ptr);
+	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TR_IM_ELEC, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TR_IM_FIRE, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TR_IM_COLD, &f, DP_IMM, cr_ptr);
+	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "Shard :", TR_RES_SHARDS, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, cr_ptr);
 #endif
 
 
@@ -3099,27 +3099,27 @@ display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0);
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
 
 #ifdef JP
-display_flag_aux(row+0, col, "ëœçåâπ:", TR_RES_SOUND, &f, 0);
-display_flag_aux(row+1, col, "ëœínçñ:", TR_RES_NETHER, &f, 0);
-display_flag_aux(row+2, col, "ëœàˆç¨:", TR_RES_NEXUS, &f, 0);
-display_flag_aux(row+3, col, "ëœÉJÉI:", TR_RES_CHAOS, &f, 0);
-display_flag_aux(row+4, col, "ëœóÚâª:", TR_RES_DISEN, &f, 0);
-display_flag_aux(row+5, col, "ëœã∞ï|:", TR_RES_FEAR, &f, 0);
-display_flag_aux(row+6, col, "îΩéÀ  :", TR_REFLECT, &f, 0);
-display_flag_aux(row+7, col, "âŒâäÉI:", TR_SH_FIRE, &f, 0);
-display_flag_aux(row+8, col, "ìdãCÉI:", TR_SH_ELEC, &f, 0);
-display_flag_aux(row+9, col, "ó‚ãCÉI:", TR_SH_COLD, &f, 0);
+display_flag_aux(row+0, col, "ëœçåâπ:", TR_RES_SOUND, &f, 0, cr_ptr);
+display_flag_aux(row+1, col, "ëœínçñ:", TR_RES_NETHER, &f, 0, cr_ptr);
+display_flag_aux(row+2, col, "ëœàˆç¨:", TR_RES_NEXUS, &f, 0, cr_ptr);
+display_flag_aux(row+3, col, "ëœÉJÉI:", TR_RES_CHAOS, &f, 0, cr_ptr);
+display_flag_aux(row+4, col, "ëœóÚâª:", TR_RES_DISEN, &f, 0, cr_ptr);
+display_flag_aux(row+5, col, "ëœã∞ï|:", TR_RES_FEAR, &f, 0, cr_ptr);
+display_flag_aux(row+6, col, "îΩéÀ  :", TR_REFLECT, &f, 0, cr_ptr);
+display_flag_aux(row+7, col, "âŒâäÉI:", TR_SH_FIRE, &f, 0, cr_ptr);
+display_flag_aux(row+8, col, "ìdãCÉI:", TR_SH_ELEC, &f, 0, cr_ptr);
+display_flag_aux(row+9, col, "ó‚ãCÉI:", TR_SH_COLD, &f, 0, cr_ptr);
 #else
-	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0);
-	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0);
-	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0);
-	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0);
-	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0);
-	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0);
-	display_flag_aux(row+6, col, "Reflct:", TR_REFLECT, &f, 0);
-	display_flag_aux(row+7, col, "AuFire:", TR_SH_FIRE, &f, 0);
-	display_flag_aux(row+8, col, "AuElec:", TR_SH_ELEC, &f, 0);
-	display_flag_aux(row+9, col, "AuCold:", TR_SH_COLD, &f, 0);
+	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0, cr_ptr);
+	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "Reflct:", TR_REFLECT, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "AuFire:", TR_SH_FIRE, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "AuElec:", TR_SH_ELEC, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "AuCold:", TR_SH_COLD, &f, 0, cr_ptr);
 #endif
 
 
@@ -3133,27 +3133,27 @@ display_flag_aux(row+9, col, "ó‚ãCÉI:", TR_SH_COLD, &f, 0);
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
 
 #ifdef JP
-display_flag_aux(row+0, col, "â¡ë¨      :", TR_SPEED, &f, 0);
-display_flag_aux(row+1, col, "ëœñÉ·É    :", TR_FREE_ACT, &f, 0);
-display_flag_aux(row+2, col, "ìßñæëÃéãîF:", TR_SEE_INVIS, &f, 0);
-display_flag_aux(row+3, col, "åoå±ílï€éù:", TR_HOLD_LIFE, &f, 0);
-display_flag_aux(row+4, col, "åxçê      :", TR_WARNING, &f, 0);
-display_flag_aux(row+5, col, "íxè¡âª    :", TR_SLOW_DIGEST, &f, 0);
-display_flag_aux(row+6, col, "ã}âÒïú    :", TR_REGEN, &f, 0);
-display_flag_aux(row+7, col, "ïÇóV      :", TR_LEVITATION, &f, 0);
-display_flag_aux(row+8, col, "âiâìåıåπ  :", TR_LITE, &f, 0);
-display_flag_aux(row+9, col, "éÙÇ¢      :", 0, &f, DP_CURSE);
+display_flag_aux(row+0, col, "â¡ë¨      :", TR_SPEED, &f, 0, cr_ptr);
+display_flag_aux(row+1, col, "ëœñÉ·É    :", TR_FREE_ACT, &f, 0, cr_ptr);
+display_flag_aux(row+2, col, "ìßñæëÃéãîF:", TR_SEE_INVIS, &f, 0, cr_ptr);
+display_flag_aux(row+3, col, "åoå±ílï€éù:", TR_HOLD_LIFE, &f, 0, cr_ptr);
+display_flag_aux(row+4, col, "åxçê      :", TR_WARNING, &f, 0, cr_ptr);
+display_flag_aux(row+5, col, "íxè¡âª    :", TR_SLOW_DIGEST, &f, 0, cr_ptr);
+display_flag_aux(row+6, col, "ã}âÒïú    :", TR_REGEN, &f, 0, cr_ptr);
+display_flag_aux(row+7, col, "ïÇóV      :", TR_LEVITATION, &f, 0, cr_ptr);
+display_flag_aux(row+8, col, "âiâìåıåπ  :", TR_LITE, &f, 0, cr_ptr);
+display_flag_aux(row+9, col, "éÙÇ¢      :", 0, &f, DP_CURSE, cr_ptr);
 #else
-	display_flag_aux(row+0, col, "Speed     :", TR_SPEED, &f, 0);
-	display_flag_aux(row+1, col, "FreeAction:", TR_FREE_ACT, &f, 0);
-	display_flag_aux(row+2, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0);
-	display_flag_aux(row+3, col, "Hold Life :", TR_HOLD_LIFE, &f, 0);
-	display_flag_aux(row+4, col, "Warning   :", TR_WARNING, &f, 0);
-	display_flag_aux(row+5, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0);
-	display_flag_aux(row+6, col, "Regene.   :", TR_REGEN, &f, 0);
-	display_flag_aux(row+7, col, "Levitation:", TR_LEVITATION, &f, 0);
-	display_flag_aux(row+8, col, "Perm Lite :", TR_LITE, &f, 0);
-	display_flag_aux(row+9, col, "Cursed    :", 0, &f, DP_CURSE);
+	display_flag_aux(row+0, col, "Speed     :", TR_SPEED, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "FreeAction:", TR_FREE_ACT, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, cr_ptr);
+	display_flag_aux(row+4, col, "Warning   :", TR_WARNING, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "Regene.   :", TR_REGEN, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "Levitation:", TR_LEVITATION, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "Perm Lite :", TR_LITE, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "Cursed    :", 0, &f, DP_CURSE, cr_ptr);
 #endif
 
 }
@@ -3187,67 +3187,67 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "ab@", row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_SLAY_EVIL, &f, DP_WP);
-	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_SLAY_GOOD, &f, DP_WP);
-	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_SLAY_UNDEAD, &f, DP_WP);
-	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_SLAY_DEMON, &f, DP_WP);
-	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_KILL_DEMON, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_SLAY_DRAGON, &f, DP_WP);
-	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_SLAY_HUMAN, &f, DP_WP);
-	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_SLAY_ANIMAL, &f, DP_WP);
-	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_SLAY_ORC, &f, DP_WP);
-	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_KILL_ORC, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_SLAY_TROLL, &f, DP_WP);
-	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_SLAY_GIANT, &f, DP_WP);
-	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+10, col, "ónâ      :", TR_BRAND_ACID, &f, DP_WP);
-	display_flag_aux(row+11, col, "ìdåÇ      :", TR_BRAND_ELEC, &f, DP_WP);
-	display_flag_aux(row+12, col, "èƒä¸      :", TR_BRAND_FIRE, &f, DP_WP);
-	display_flag_aux(row+13, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP);
-	display_flag_aux(row+14, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP);
-	display_flag_aux(row+15, col, "êÿÇÍñ°    :", TR_VORPAL, &f, DP_WP);
-	display_flag_aux(row+16, col, "ínêk      :", TR_IMPACT, &f, DP_WP);
-	display_flag_aux(row+17, col, "ãzåå      :", TR_VAMPIRIC, &f, DP_WP);
-	display_flag_aux(row+18, col, "ÉJÉIÉXå¯â :", TR_CHAOTIC, &f, DP_WP);
-	display_flag_aux(row+19, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP);
+	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_SLAY_GOOD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_SLAY_UNDEAD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_SLAY_DEMON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_SLAY_DRAGON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_SLAY_HUMAN, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_SLAY_ANIMAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_SLAY_ORC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_KILL_ORC, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_SLAY_TROLL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+10, col, "ónâ      :", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+11, col, "ìdåÇ      :", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+12, col, "èƒä¸      :", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+13, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+14, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+15, col, "êÿÇÍñ°    :", TR_VORPAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+16, col, "ínêk      :", TR_IMPACT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+17, col, "ãzåå      :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+18, col, "ÉJÉIÉXå¯â :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+19, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP);
-	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 1, col, "Slay Good :", TR_SLAY_GOOD, &f, DP_WP);
-	display_flag_aux(row+ 1, col, "Slay Good :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 2, col, "Slay Und. :", TR_SLAY_UNDEAD, &f, DP_WP);
-	display_flag_aux(row+ 2, col, "Slay Und. :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 3, col, "Slay Demon:", TR_SLAY_DEMON, &f, DP_WP);
-	display_flag_aux(row+ 3, col, "Slay Demon:", TR_KILL_DEMON, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_SLAY_DRAGON, &f, DP_WP);
-	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 5, col, "Slay Human:", TR_SLAY_HUMAN, &f, DP_WP);
-	display_flag_aux(row+ 5, col, "Slay Human:", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_SLAY_ANIMAL, &f, DP_WP);
-	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_SLAY_ORC, &f, DP_WP);
-	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_KILL_ORC, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 8, col, "Slay Troll:", TR_SLAY_TROLL, &f, DP_WP);
-	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP);
-	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM));
-	display_flag_aux(row+10, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP);
-	display_flag_aux(row+11, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP);
-	display_flag_aux(row+12, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP);
-	display_flag_aux(row+13, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP);
-	display_flag_aux(row+14, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP);
-	display_flag_aux(row+15, col, "Sharpness :", TR_VORPAL, &f, DP_WP);
-	display_flag_aux(row+16, col, "Quake     :", TR_IMPACT, &f, DP_WP);
-	display_flag_aux(row+17, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP);
-	display_flag_aux(row+18, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP);
-	display_flag_aux(row+19, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP);
+	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 1, col, "Slay Good :", TR_SLAY_GOOD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 1, col, "Slay Good :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 2, col, "Slay Und. :", TR_SLAY_UNDEAD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 2, col, "Slay Und. :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 3, col, "Slay Demon:", TR_SLAY_DEMON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 3, col, "Slay Demon:", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_SLAY_DRAGON, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 5, col, "Slay Human:", TR_SLAY_HUMAN, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 5, col, "Slay Human:", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_SLAY_ANIMAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_SLAY_ORC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_KILL_ORC, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 8, col, "Slay Troll:", TR_SLAY_TROLL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
+	display_flag_aux(row+10, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+11, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+12, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+13, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+14, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+15, col, "Sharpness :", TR_VORPAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+16, col, "Quake     :", TR_IMPACT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+17, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+18, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+19, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
 #endif
 
 
@@ -3260,45 +3260,45 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row+ 0, col, "ÉeÉåÉpÉVÅ[:", TR_TELEPATHY, &f, 0);
-	display_flag_aux(row+ 1, col, "é◊à´ESP   :", TR_ESP_EVIL, &f, 0);
-	display_flag_aux(row+ 2, col, "ñ≥ê∂ï®ESP :", TR_ESP_NONLIVING, &f, 0);
-	display_flag_aux(row+ 3, col, "ëPó«ESP   :", TR_ESP_GOOD, &f, 0);
-	display_flag_aux(row+ 4, col, "ïséÄESP   :", TR_ESP_UNDEAD, &f, 0);
-	display_flag_aux(row+ 5, col, "à´ñÇESP   :", TR_ESP_DEMON, &f, 0);
-	display_flag_aux(row+ 6, col, "ó¥ESP     :", TR_ESP_DRAGON, &f, 0);
-	display_flag_aux(row+ 7, col, "êlä‘ESP   :", TR_ESP_HUMAN, &f, 0);
-	display_flag_aux(row+ 8, col, "ìÆï®ESP   :", TR_ESP_ANIMAL, &f, 0);
-	display_flag_aux(row+ 9, col, "ÉIÅ[ÉNESP :", TR_ESP_ORC, &f, 0);
-	display_flag_aux(row+10, col, "ÉgÉçÉãESP :", TR_ESP_TROLL, &f, 0);
-	display_flag_aux(row+11, col, "ãêêlESP   :", TR_ESP_GIANT, &f, 0);
+	display_flag_aux(row+ 0, col, "ÉeÉåÉpÉVÅ[:", TR_TELEPATHY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "é◊à´ESP   :", TR_ESP_EVIL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "ñ≥ê∂ï®ESP :", TR_ESP_NONLIVING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "ëPó«ESP   :", TR_ESP_GOOD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "ïséÄESP   :", TR_ESP_UNDEAD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "à´ñÇESP   :", TR_ESP_DEMON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 6, col, "ó¥ESP     :", TR_ESP_DRAGON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "êlä‘ESP   :", TR_ESP_HUMAN, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "ìÆï®ESP   :", TR_ESP_ANIMAL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "ÉIÅ[ÉNESP :", TR_ESP_ORC, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "ÉgÉçÉãESP :", TR_ESP_TROLL, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "ãêêlESP   :", TR_ESP_GIANT, &f, 0, cr_ptr);
 
-	display_flag_aux(row+13, col, "òróÕà€éù  :", TR_SUST_STR, &f, 0);
-	display_flag_aux(row+14, col, "ímóÕà€éù  :", TR_SUST_INT, &f, 0);
-	display_flag_aux(row+15, col, "å´Ç≥à€éù  :", TR_SUST_WIS, &f, 0);
-	display_flag_aux(row+16, col, "äÌópà€éù  :", TR_SUST_DEX, &f, 0);
-	display_flag_aux(row+17, col, "ëœãvà€éù  :", TR_SUST_CON, &f, 0);
-	display_flag_aux(row+18, col, "ñ£óÕà€éù  :", TR_SUST_CHR, &f, 0);
+	display_flag_aux(row+13, col, "òróÕà€éù  :", TR_SUST_STR, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "ímóÕà€éù  :", TR_SUST_INT, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "å´Ç≥à€éù  :", TR_SUST_WIS, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "äÌópà€éù  :", TR_SUST_DEX, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "ëœãvà€éù  :", TR_SUST_CON, &f, 0, cr_ptr);
+	display_flag_aux(row+18, col, "ñ£óÕà€éù  :", TR_SUST_CHR, &f, 0, cr_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0);
-	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0);
-	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0);
-	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0);
-	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0);
-	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0);
-	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0);
-	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0);
-	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0);
-	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0);
-	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0);
-	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0);
+	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, cr_ptr);
 
-	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0);
-	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0);
-	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0);
-	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0);
-	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0);
-	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0);
+	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, cr_ptr);
+	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, cr_ptr);
 #endif
 
 
@@ -3312,43 +3312,43 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+14);
 
 #ifdef JP
-	display_flag_aux(row+ 0, col, "í«â¡çUåÇ    :", TR_BLOWS, &f, 0);
-	display_flag_aux(row+ 1, col, "çÃå@        :", TR_TUNNEL, &f, 0);
-	display_flag_aux(row+ 2, col, "ê‘äOê¸éãóÕ  :", TR_INFRA, &f, 0);
-	display_flag_aux(row+ 3, col, "ñÇñ@ìπãÔéxîz:", TR_MAGIC_MASTERY, &f, 0);
-	display_flag_aux(row+ 4, col, "âBñß        :", TR_STEALTH, &f, 0);
-	display_flag_aux(row+ 5, col, "íTçı        :", TR_SEARCH, &f, 0);
+	display_flag_aux(row+ 0, col, "í«â¡çUåÇ    :", TR_BLOWS, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "çÃå@        :", TR_TUNNEL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "ê‘äOê¸éãóÕ  :", TR_INFRA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "ñÇñ@ìπãÔéxîz:", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "âBñß        :", TR_STEALTH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "íTçı        :", TR_SEARCH, &f, 0, cr_ptr);
 
-	display_flag_aux(row+ 7, col, "èÊîn        :", TR_RIDING, &f, 0);
-	display_flag_aux(row+ 8, col, "ìäù±        :", TR_THROW, &f, 0);
-	display_flag_aux(row+ 9, col, "èjïü        :", TR_BLESSED, &f, 0);
-	display_flag_aux(row+10, col, "îΩÉeÉåÉ|Å[Ég:", TR_NO_TELE, &f, 0);
-	display_flag_aux(row+11, col, "îΩñÇñ@      :", TR_NO_MAGIC, &f, 0);
-	display_flag_aux(row+12, col, "è¡îÔñÇóÕå∏è≠:", TR_DEC_MANA, &f, 0);
+	display_flag_aux(row+ 7, col, "èÊîn        :", TR_RIDING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "ìäù±        :", TR_THROW, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "èjïü        :", TR_BLESSED, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "îΩÉeÉåÉ|Å[Ég:", TR_NO_TELE, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "îΩñÇñ@      :", TR_NO_MAGIC, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "è¡îÔñÇóÕå∏è≠:", TR_DEC_MANA, &f, 0, cr_ptr);
 
-	display_flag_aux(row+14, col, "åoå±ílå∏è≠  :", TR_DRAIN_EXP, &f, 0);
-	display_flag_aux(row+15, col, "óêÉeÉåÉ|Å[Ég:", TR_TELEPORT, &f, 0);
-	display_flag_aux(row+16, col, "îΩä¥        :", TR_AGGRAVATE, &f, 0);
-	display_flag_aux(row+17, col, "ëæå√ÇÃâÖîO  :", TR_TY_CURSE, &f, 0);
+	display_flag_aux(row+14, col, "åoå±ílå∏è≠  :", TR_DRAIN_EXP, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "óêÉeÉåÉ|Å[Ég:", TR_TELEPORT, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "îΩä¥        :", TR_AGGRAVATE, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "ëæå√ÇÃâÖîO  :", TR_TY_CURSE, &f, 0, cr_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0);
-	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0);
-	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0);
-	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0);
-	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0);
-	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0);
+	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, cr_ptr);
 
-	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0);
-	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0);
-	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0);
-	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0);
-	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0);
-	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0);
+	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, cr_ptr);
 
-	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0);
-	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0);
-	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0);
-	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0);
+	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0, cr_ptr);
 #endif
 
 }
