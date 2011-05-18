@@ -6991,7 +6991,7 @@ static bool player_birth_aux(void)
 			p_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Update stuff */
-			update_stuff(TRUE);
+			update_stuff(p_ptr, TRUE);
 
 			/* Fully healed */
 			p_ptr->chp = p_ptr->mhp;
@@ -7298,7 +7298,7 @@ static bool ask_quick_start(void)
 	p_ptr->update |= (PU_BONUS | PU_HP);
 
 	/* Update stuff */
-	update_stuff(TRUE);
+	update_stuff(p_ptr, TRUE);
 
 	/* Fully healed */
 	p_ptr->chp = p_ptr->mhp;

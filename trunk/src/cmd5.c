@@ -978,7 +978,7 @@ msg_format("‚»‚Ì–{‚É‚ÍŠw‚Ô‚×‚«%s‚ª‚È‚¢B", p);
 
 	/* Update Study */
 	p_ptr->update |= (PU_SPELLS);
-	update_stuff(TRUE);
+	update_stuff(p_ptr, TRUE);
 
 	/* Redraw object recall */
 	p_ptr->window |= (PW_OBJECT);

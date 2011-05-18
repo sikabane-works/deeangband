@@ -6591,7 +6591,7 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
 	hack_mind = FALSE;
 
 	/* Update stuff */
-	update_stuff(TRUE);
+	update_stuff(p_ptr, TRUE);
 
 	/* Initialize monster process */
 	mproc_init();

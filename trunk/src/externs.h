@@ -1407,7 +1407,7 @@ extern u32b weight_limit(void);
 extern bool buki_motteruka(int i);
 extern void calc_bonuses(creature_type *cr_ptr, bool message);
 extern void notice_stuff(void);
-extern void update_stuff(bool message);
+extern void update_stuff(creature_type *cr_ptr, bool message);
 extern void redraw_stuff(void);
 extern void window_stuff(void);
 extern void handle_stuff(void);

@@ -4533,7 +4533,7 @@ bool process_the_world(int num, int who, bool vs_player)
 		if (p_ptr->notice) notice_stuff();
 
 		/* Update stuff */
-		if (p_ptr->update) update_stuff(TRUE);
+		if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 		/* Redraw stuff */
 		if (p_ptr->redraw) redraw_stuff();

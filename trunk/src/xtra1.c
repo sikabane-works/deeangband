@@ -2812,30 +2812,32 @@ static void calc_mana(bool message)
  * Calculate the players (maximal) hit points
  * Adjust current hitpoints if necessary
  */
-static void calc_hitpoints(bool message)
+static void calc_hitpoints(bool message, creature_type *cr_ptr)
 {
 	int bonus, mhp;
 	byte tmp_hitdice;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
-	bonus = ((int)(adj_con_mhp[p_ptr->stat_ind[A_CON]]) - 128) * p_ptr->lev / 4;
+	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[A_CON]]) - 128) * cr_ptr->lev / 4;
 
 	/* Calculate hitpoints */
-	mhp = p_ptr->player_hp[p_ptr->lev - 1];
+	mhp = cr_ptr->player_hp[cr_ptr->lev - 1];
 
-	if (p_ptr->mimic_form)
+	if (cr_ptr->mimic_form)
 	{
-		if (p_ptr->class == CLASS_SORCERER)
-			tmp_hitdice = mimic_info[p_ptr->mimic_form].r_mhp/2 + cp_ptr->c_mhp + ap_ptr->a_mhp;
-		else
-			tmp_hitdice = mimic_info[p_ptr->mimic_form].r_mhp + cp_ptr->c_mhp + ap_ptr->a_mhp;
-		mhp = mhp * tmp_hitdice / p_ptr->hitdice;
+		if (cr_ptr->class == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
+		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
+
+		if (cr_ptr->class != CLASS_NONE) tmp_hitdice += class_info[cr_ptr->class].c_mhp;
+		if (cr_ptr->chara != CHARA_NONE) tmp_hitdice += chara_info[cr_ptr->chara].a_mhp;
+
+		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
 	}
 
-	if (p_ptr->class == CLASS_SORCERER)
+	if (cr_ptr->class == CLASS_SORCERER)
 	{
-		if (p_ptr->lev < 30)
-			mhp = (mhp * (45+p_ptr->lev) / 100);
+		if (cr_ptr->lev < 30)
+			mhp = (mhp * (45+cr_ptr->lev) / 100);
 		else
 			mhp = (mhp * 75 / 100);
 		bonus = (bonus * 65 / 100);
@@ -2843,49 +2845,49 @@ static void calc_hitpoints(bool message)
 
 	mhp += bonus;
 
-	if (p_ptr->class == CLASS_BERSERKER)
+	if (cr_ptr->class == CLASS_BERSERKER)
 	{
-		mhp = mhp*(110+(((p_ptr->lev + 40) * (p_ptr->lev + 40) - 1550) / 110))/100;
+		mhp = mhp*(110+(((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110))/100;
 	}
 
 	/* Always have at least one hitpoint per level */
-	if (mhp < p_ptr->lev + 1) mhp = p_ptr->lev + 1;
+	if (mhp < cr_ptr->lev + 1) mhp = cr_ptr->lev + 1;
 
 	/* Factor in the hero / superhero settings */
-	if (IS_HERO(p_ptr)) mhp += 10;
-	if (p_ptr->shero && (p_ptr->class != CLASS_BERSERKER)) mhp += 30;
-	if (p_ptr->tsuyoshi) mhp += 50;
+	if (IS_HERO(cr_ptr)) mhp += 10;
+	if (cr_ptr->shero && (cr_ptr->class != CLASS_BERSERKER)) mhp += 30;
+	if (cr_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
 	if (hex_spelling(HEX_XTRA_MIGHT)) mhp += 15;
 	if (hex_spelling(HEX_BUILDING)) mhp += 60;
 
 	/* New maximum hitpoints */
-	if (p_ptr->mhp != mhp)
+	if (cr_ptr->mhp != mhp)
 	{
 		/* Enforce maximum */
-		if (p_ptr->chp >= mhp)
+		if (cr_ptr->chp >= mhp)
 		{
-			p_ptr->chp = mhp;
-			p_ptr->chp_frac = 0;
+			cr_ptr->chp = mhp;
+			cr_ptr->chp_frac = 0;
 		}
 
 #ifdef JP
 		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (mhp > p_ptr->mhp))
+		if ((level_up == 1) && (mhp > cr_ptr->mhp))
 		{
 			if(message) msg_format("最大ヒット・ポイントが %d 増加した！",
-				   (mhp - p_ptr->mhp) );
+				   (mhp - cr_ptr->mhp) );
 		}
 #endif
 		/* Save the new max-hitpoints */
-		p_ptr->mhp = mhp;
+		cr_ptr->mhp = mhp;
 
 		/* Display hitpoints (later) */
-		p_ptr->redraw |= (PR_HP);
+		cr_ptr->redraw |= (PR_HP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		cr_ptr->window |= (PW_PLAYER);
 	}
 }
 
@@ -5521,15 +5523,15 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
 	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->class].x_thn * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thn += (ap_ptr->a_thn * cr_ptr->lev / 50);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara].a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
 	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thb += (ap_ptr->a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
 	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (ap_ptr->a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
 
 
 	if ((race_is_(p_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
@@ -5903,41 +5905,41 @@ void notice_stuff(void)
 
 
 /*
- * Handle "p_ptr->update"
+ * Handle "cr_ptr->update"
  */
-void update_stuff(bool message)
+void update_stuff(creature_type *cr_ptr, bool message)
 {
 	/* Update stuff */
-	if (!p_ptr->update) return;
+	if (!cr_ptr->update) return;
 
 
-	if (p_ptr->update & (PU_BONUS))
+	if (cr_ptr->update & (PU_BONUS))
 	{
-		p_ptr->update &= ~(PU_BONUS);
-		calc_bonuses(p_ptr, TRUE);
+		cr_ptr->update &= ~(PU_BONUS);
+		calc_bonuses(cr_ptr, TRUE);
 	}
 
-	if (p_ptr->update & (PU_TORCH))
+	if (cr_ptr->update & (PU_TORCH))
 	{
-		p_ptr->update &= ~(PU_TORCH);
+		cr_ptr->update &= ~(PU_TORCH);
 		calc_torch();
 	}
 
-	if (p_ptr->update & (PU_HP))
+	if (cr_ptr->update & (PU_HP))
 	{
-		p_ptr->update &= ~(PU_HP);
-		calc_hitpoints(message);
+		cr_ptr->update &= ~(PU_HP);
+		calc_hitpoints(message, cr_ptr);
 	}
 
-	if (p_ptr->update & (PU_MANA))
+	if (cr_ptr->update & (PU_MANA))
 	{
-		p_ptr->update &= ~(PU_MANA);
+		cr_ptr->update &= ~(PU_MANA);
 		calc_mana(message);
 	}
 
-	if (p_ptr->update & (PU_SPELLS))
+	if (cr_ptr->update & (PU_SPELLS))
 	{
-		p_ptr->update &= ~(PU_SPELLS);
+		cr_ptr->update &= ~(PU_SPELLS);
 		calc_spells(message);
 	}
 
@@ -5950,50 +5952,50 @@ void update_stuff(bool message)
 	if (character_icky) return;
 
 
-	if (p_ptr->update & (PU_UN_LITE))
+	if (cr_ptr->update & (PU_UN_LITE))
 	{
-		p_ptr->update &= ~(PU_UN_LITE);
+		cr_ptr->update &= ~(PU_UN_LITE);
 		forget_lite();
 	}
 
-	if (p_ptr->update & (PU_UN_VIEW))
+	if (cr_ptr->update & (PU_UN_VIEW))
 	{
-		p_ptr->update &= ~(PU_UN_VIEW);
+		cr_ptr->update &= ~(PU_UN_VIEW);
 		forget_view();
 	}
 
-	if (p_ptr->update & (PU_VIEW))
+	if (cr_ptr->update & (PU_VIEW))
 	{
-		p_ptr->update &= ~(PU_VIEW);
+		cr_ptr->update &= ~(PU_VIEW);
 		update_view();
 	}
 
-	if (p_ptr->update & (PU_LITE))
+	if (cr_ptr->update & (PU_LITE))
 	{
-		p_ptr->update &= ~(PU_LITE);
+		cr_ptr->update &= ~(PU_LITE);
 		update_lite();
 	}
 
 
-	if (p_ptr->update & (PU_FLOW))
+	if (cr_ptr->update & (PU_FLOW))
 	{
-		p_ptr->update &= ~(PU_FLOW);
+		cr_ptr->update &= ~(PU_FLOW);
 		update_flow();
 	}
 
-	if (p_ptr->update & (PU_DISTANCE))
+	if (cr_ptr->update & (PU_DISTANCE))
 	{
-		p_ptr->update &= ~(PU_DISTANCE);
+		cr_ptr->update &= ~(PU_DISTANCE);
 
 		/* Still need to call update_monsters(FALSE) after update_mon_lite() */ 
-		/* p_ptr->update &= ~(PU_MONSTERS); */
+		/* cr_ptr->update &= ~(PU_MONSTERS); */
 
 		update_monsters(TRUE);
 	}
 
-	if (p_ptr->update & (PU_MON_LITE))
+	if (cr_ptr->update & (PU_MON_LITE))
 	{
-		p_ptr->update &= ~(PU_MON_LITE);
+		cr_ptr->update &= ~(PU_MON_LITE);
 		update_mon_lite();
 	}
 
@@ -6001,15 +6003,15 @@ void update_stuff(bool message)
 	 * Mega-Hack -- Delayed visual update
 	 * Only used if update_view(), update_lite() or update_mon_lite() was called
 	 */
-	if (p_ptr->update & (PU_DELAY_VIS))
+	if (cr_ptr->update & (PU_DELAY_VIS))
 	{
-		p_ptr->update &= ~(PU_DELAY_VIS);
+		cr_ptr->update &= ~(PU_DELAY_VIS);
 		delayed_visual_update();
 	}
 
-	if (p_ptr->update & (PU_MONSTERS))
+	if (cr_ptr->update & (PU_MONSTERS))
 	{
-		p_ptr->update &= ~(PU_MONSTERS);
+		cr_ptr->update &= ~(PU_MONSTERS);
 		update_monsters(FALSE);
 	}
 }
@@ -6306,7 +6308,7 @@ void window_stuff(void)
 void handle_stuff(void)
 {
 	/* Update stuff */
-	if (p_ptr->update) update_stuff(TRUE);
+	if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 	/* Redraw stuff */
 	if (p_ptr->redraw) redraw_stuff();
