@@ -3338,6 +3338,11 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	m_ptr->exp = 0;
 
+	m_ptr->expfact = 100;
+	if(m_ptr->race != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
+	if(m_ptr->class != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
+
+
 
 	/* Your pet summons its pet. */
 	if (who > 0 && is_pet(&m_list[who]))

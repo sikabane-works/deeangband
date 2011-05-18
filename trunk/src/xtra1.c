@@ -3108,7 +3108,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Level Limit */
 	cr_ptr->max_lev = 0;
 
-
 	/* Clear the Displayed/Real armor class */
 	cr_ptr->dis_ac = cr_ptr->ac = 0;
 
@@ -3230,10 +3229,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
 			break;
 
-	if (p_ptr->dr >= 0)
-		p_ptr->max_lev = i + p_ptr->dr;
+	if (cr_ptr->dr >= 0)
+		cr_ptr->max_lev = i + cr_ptr->dr;
 	else
-		p_ptr->max_lev = i;
+		cr_ptr->max_lev = i;
 
 	/* Base infravision (purely racial) */
 	cr_ptr->see_infra = tmp_rp_ptr->infra;
