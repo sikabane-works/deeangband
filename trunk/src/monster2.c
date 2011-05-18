@@ -3336,12 +3336,6 @@ msg_print("守りのルーンが壊れた！");
 
 	m_ptr->nickname = 0;
 
-	m_ptr->exp = 0;
-
-	m_ptr->expfact = 100;
-	if(m_ptr->race != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
-	if(m_ptr->class != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
-
 
 
 	/* Your pet summons its pet. */
@@ -3400,6 +3394,12 @@ msg_print("守りのルーンが壊れた！");
 
 	/* Set Monster's Level */
 	m_ptr->lev = d_level_to_c_level[r_ptr->level];
+
+	m_ptr->expfact = 100;
+	if(m_ptr->race != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
+	if(m_ptr->class != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
+
+	m_ptr->exp = player_exp[m_ptr->lev];
 
 	set_sex(m_ptr);
 	set_height_weight(m_ptr);
