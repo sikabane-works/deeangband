@@ -3239,37 +3239,31 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	j = 0;
 	k = 1;
 
-	/* Base skill -- disarming */
-	cr_ptr->skill_dis = tmp_rp_ptr->r_dis + cp_ptr->c_dis + ap_ptr->a_dis + player_patrons[cr_ptr->patron].p_dis;
-
-	/* Base skill -- magic devices */
-	cr_ptr->skill_dev = tmp_rp_ptr->r_dev + cp_ptr->c_dev + ap_ptr->a_dev + player_patrons[cr_ptr->patron].p_dev;
-
-	/* Base skill -- saving throw */
-	cr_ptr->skill_sav = tmp_rp_ptr->r_sav + cp_ptr->c_sav + ap_ptr->a_sav + player_patrons[cr_ptr->patron].p_sav;
-
-	/* Base skill -- stealth */
-	cr_ptr->skill_stl = tmp_rp_ptr->r_stl + cp_ptr->c_stl + ap_ptr->a_stl + player_patrons[cr_ptr->patron].p_stl - (body_size / 3 - 3);
-
-	/* Base skill -- searching ability */
-	cr_ptr->skill_srh = tmp_rp_ptr->r_srh + cp_ptr->c_srh + ap_ptr->a_srh + player_patrons[cr_ptr->patron].p_srh;
-
-	/* Base skill -- searching frequency */
-	cr_ptr->skill_fos = tmp_rp_ptr->r_fos + cp_ptr->c_fos + ap_ptr->a_fos + player_patrons[cr_ptr->patron].p_fos;
-
-	/* Base skill -- combat (normal) */
-	cr_ptr->skill_thn = tmp_rp_ptr->r_thn + cp_ptr->c_thn + ap_ptr->a_thn + player_patrons[cr_ptr->patron].p_thn;
-
-	/* Base skill -- combat (shooting) */
-	cr_ptr->skill_thb = tmp_rp_ptr->r_thb + cp_ptr->c_thb + ap_ptr->a_thb + player_patrons[cr_ptr->patron].p_thb;
-
-	/* Base skill -- combat (throwing) */
-	cr_ptr->skill_tht = tmp_rp_ptr->r_thb + cp_ptr->c_thb + ap_ptr->a_thb + player_patrons[cr_ptr->patron].p_thb;
-
-	/* Base skill -- digging */
+	/* Base skills */
+	cr_ptr->skill_dis = 0;
+	cr_ptr->skill_dev = 0;
+	cr_ptr->skill_sav = 0;
+	cr_ptr->skill_stl = -(body_size / 3 - 3);
+	cr_ptr->skill_srh = 0;
+	cr_ptr->skill_fos = 0;
+	cr_ptr->skill_thn = 0;
+	cr_ptr->skill_thb = 0;
+	cr_ptr->skill_tht = 0;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
 
-	/* Base skill (Sub-race bonus)*/
+	if(cr_ptr->race != RACE_NONE)
+	{
+		cr_ptr->skill_dis += race_info[cr_ptr->race].r_dis;
+		cr_ptr->skill_dev += race_info[cr_ptr->race].r_dev;
+		cr_ptr->skill_sav += race_info[cr_ptr->race].r_sav;
+		cr_ptr->skill_stl += race_info[cr_ptr->race].r_stl;
+		cr_ptr->skill_srh += race_info[cr_ptr->race].r_srh;
+		cr_ptr->skill_fos += race_info[cr_ptr->race].r_fos;
+		cr_ptr->skill_thn += race_info[cr_ptr->race].r_thn;
+		cr_ptr->skill_thb += race_info[cr_ptr->race].r_thb;
+		cr_ptr->skill_tht += race_info[cr_ptr->race].r_thb;
+	}
+
 	for(i = 0; i < MAX_RACES; i++)
 	{
 		if(get_subrace(cr_ptr, i)){
@@ -3287,6 +3281,46 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		}
 	}
+
+	if(cr_ptr->class != CLASS_NONE)
+	{
+		cr_ptr->skill_dis += class_info[cr_ptr->class].c_dis;
+		cr_ptr->skill_dev += class_info[cr_ptr->class].c_dev;
+		cr_ptr->skill_sav += class_info[cr_ptr->class].c_sav;
+		cr_ptr->skill_stl += class_info[cr_ptr->class].c_stl;
+		cr_ptr->skill_srh += class_info[cr_ptr->class].c_srh;
+		cr_ptr->skill_fos += class_info[cr_ptr->class].c_fos;
+		cr_ptr->skill_thn += class_info[cr_ptr->class].c_thn;
+		cr_ptr->skill_thb += class_info[cr_ptr->class].c_thb;
+		cr_ptr->skill_tht += class_info[cr_ptr->class].c_thb;
+	}
+
+	if(cr_ptr->chara != CHARA_NONE)
+	{
+		cr_ptr->skill_dis += chara_info[cr_ptr->chara].a_dis;
+		cr_ptr->skill_dev += chara_info[cr_ptr->chara].a_dev;
+		cr_ptr->skill_sav += chara_info[cr_ptr->chara].a_sav;
+		cr_ptr->skill_stl += chara_info[cr_ptr->chara].a_stl;
+		cr_ptr->skill_srh += chara_info[cr_ptr->chara].a_srh;
+		cr_ptr->skill_fos += chara_info[cr_ptr->chara].a_fos;
+		cr_ptr->skill_thn += chara_info[cr_ptr->chara].a_thn;
+		cr_ptr->skill_thb += chara_info[cr_ptr->chara].a_thb;
+		cr_ptr->skill_tht += chara_info[cr_ptr->chara].a_thb;
+	}
+
+	if(cr_ptr->patron != PATRON_NONE)
+	{
+		cr_ptr->skill_dis += player_patrons[cr_ptr->patron].p_dis;
+		cr_ptr->skill_dev += player_patrons[cr_ptr->patron].p_dev;
+		cr_ptr->skill_sav += player_patrons[cr_ptr->patron].p_sav;
+		cr_ptr->skill_stl += player_patrons[cr_ptr->patron].p_stl;
+		cr_ptr->skill_srh += player_patrons[cr_ptr->patron].p_srh;
+		cr_ptr->skill_fos += player_patrons[cr_ptr->patron].p_fos;
+		cr_ptr->skill_thn += player_patrons[cr_ptr->patron].p_thn;
+		cr_ptr->skill_thb += player_patrons[cr_ptr->patron].p_thb;
+		cr_ptr->skill_tht += player_patrons[cr_ptr->patron].p_thb;
+	}
+
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
 
 
