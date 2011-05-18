@@ -4843,7 +4843,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_inven(int target_item)
+int show_inven(int target_item, creature_type *cr_ptr)
 {
 	int             i, j, k, l, z = 0;
 	int             col, cur_col, len;
@@ -4870,7 +4870,7 @@ int show_inven(int target_item)
 	/* Find the "final" slot */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4881,10 +4881,10 @@ int show_inven(int target_item)
 
 	prepare_label_string(inven_label, USE_INVEN);
 
-	/* Display the p_ptr->inventory */
+	/* Display the cr_ptr->inventory */
 	for (k = 0, i = 0; i < z; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
 		if (!item_tester_okay(o_ptr)) continue;
@@ -4934,7 +4934,7 @@ int show_inven(int target_item)
 		i = out_index[j];
 
 		/* Get the item */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Clear the line */
 		prt("", j + 1, col ? col - 2 : col);
@@ -5016,7 +5016,7 @@ int show_inven(int target_item)
 /*
  * Display the equipment.
  */
-int show_equip(int target_item)
+int show_equip(int target_item, creature_type *cr_ptr)
 {
 	int             i, j, k, l;
 	int             col, cur_col, len;
@@ -5043,17 +5043,17 @@ int show_equip(int target_item)
 	/* Scan the equipment list */
 	for (k = 0, i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
 		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(o_ptr)) &&
-		    (!((((i == INVEN_RARM) && p_ptr->hidarite) || ((i == INVEN_LARM) && p_ptr->migite)) && p_ptr->ryoute) ||
+		    (!((((i == INVEN_RARM) && cr_ptr->hidarite) || ((i == INVEN_LARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
 		     item_tester_no_ryoute)) continue;
 
 		/* Description */
 		object_desc(o_name, o_ptr, 0);
 
-		if ((((i == INVEN_RARM) && p_ptr->hidarite) || ((i == INVEN_LARM) && p_ptr->migite)) && p_ptr->ryoute)
+		if ((((i == INVEN_RARM) && cr_ptr->hidarite) || ((i == INVEN_LARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 		{
 #ifdef JP
 			(void)strcpy(out_desc[k],"(•Ší‚ð—¼ŽèŽ‚¿)");
@@ -5119,7 +5119,7 @@ int show_equip(int target_item)
 		i = out_index[j];
 
 		/* Get the item */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Clear the line */
 		prt("", j + 1, col ? col - 2 : col);
@@ -5752,14 +5752,14 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 		if (!command_wrk)
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line);
+			if (command_see) get_item_label = show_inven(menu_line, p_ptr);
 		}
 
 		/* Equipment screen */
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line);
+			if (command_see) get_item_label = show_equip(menu_line, p_ptr);
 		}
 
 		/* Viewing p_ptr->inventory */
@@ -6824,7 +6824,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line);
+			if (command_see) get_item_label = show_inven(menu_line, p_ptr);
 		}
 
 		/* Equipment screen */
@@ -6835,7 +6835,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			n2 = I2A(e2 - INVEN_RARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line);
+			if (command_see) get_item_label = show_equip(menu_line, p_ptr);
 		}
 
 		/* Floor screen */

@@ -3410,7 +3410,11 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Equipment */
 	if(m_ptr->race != RACE_NONE)
-		object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), ITEM_FREE_SIZE);
+	{
+		object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
+		object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
+		object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
+	}
 
 
 	calc_bonuses(m_ptr, FALSE);
