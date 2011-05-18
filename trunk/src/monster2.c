@@ -3407,6 +3407,12 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	set_status(m_ptr);
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
+
+	/* Equipment */
+	if(m_ptr->race != RACE_NONE)
+		object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), ITEM_FREE_SIZE);
+
+
 	calc_bonuses(m_ptr, FALSE);
 
 	/* And start out fully healthy */
