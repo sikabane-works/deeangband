@@ -3316,6 +3316,57 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				recall = TRUE;
 			}
 
+			if (query == 'i' && cheat_know){
+				char c;
+				int m = 0;
+
+				/* Save the screen */
+				screen_save();
+
+				(void)show_inven(0, m_ptr);
+				/* Forever */
+				while (1)
+				{
+					c = inkey();
+
+					/* Exit */
+					if (c == ESCAPE) break;
+
+
+				}
+				/* Restore the screen */
+				screen_load();
+
+				/* Toggle recall */
+				recall = TRUE;
+			}
+
+			if (query == 'e' && cheat_know){
+				char c;
+				int m = 0;
+
+				/* Save the screen */
+				screen_save();
+
+				(void)show_equip(0, m_ptr);
+				/* Forever */
+				while (1)
+				{
+					c = inkey();
+
+					/* Exit */
+					if (c == ESCAPE) break;
+
+
+				}
+				/* Restore the screen */
+				screen_load();
+
+				/* Toggle recall */
+				recall = TRUE;
+			}
+
+
 		/* Always stop at "normal" keys */
 		if ((query != '\r') && (query != '\n') && (query != ' ') && (query != 'x')) return query;
 
