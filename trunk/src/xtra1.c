@@ -3342,12 +3342,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (CAN_TWO_HANDS_WIELDING())
 	{
 		if (cr_ptr->migite && (empty_hands(FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_RARM]))
+			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_RARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
 		else if (cr_ptr->hidarite && (empty_hands(FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_LARM]))
+			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_LARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
@@ -3410,8 +3410,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Unencumbered Monks become faster every 10 levels */
 			if (!(heavy_armor()))
 			{
-				if (!(race_is_(p_ptr, RACE_KLACKON) ||
-				      race_is_(p_ptr, RACE_SPRITE) ||
+				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
+				      race_is_(cr_ptr, RACE_SPRITE) ||
 				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 
@@ -3458,12 +3458,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				new_speed -= (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
 			}
-			else if ((!p_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
-			         (!p_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
+			else if ((!cr_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
+			         (!cr_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
 			{
 				new_speed += 3;
-				if (!(race_is_(p_ptr, RACE_KLACKON) ||
-				      race_is_(p_ptr, RACE_SPRITE) ||
+				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
+				      race_is_(cr_ptr, RACE_SPRITE) ||
 				      (cr_ptr->chara == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl += (cr_ptr->lev)/10;
@@ -3472,8 +3472,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if  (cr_ptr->lev > 24)
 					cr_ptr->free_act = TRUE;
 			}
-			if ((!p_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
-			    (!p_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
+			if ((!cr_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
+			    (!cr_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
 			{
 				cr_ptr->to_a += cr_ptr->lev/2+5;
 				cr_ptr->dis_to_a += cr_ptr->lev/2+5;
@@ -3558,7 +3558,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			break;
 		case RACE_ENT:
 			/* Ents dig like maniacs, but only with their hands. */
-			if (!p_ptr->inventory[INVEN_RARM].k_idx) 
+			if (!cr_ptr->inventory[INVEN_RARM].k_idx) 
 				cr_ptr->skill_dig += cr_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
 			if (cr_ptr->lev > 25) cr_ptr->stat_add[A_STR]++;
@@ -3702,7 +3702,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			new_speed += (cr_ptr->lev) / 10 + 5;
 	}
 
-	if (music_singing(p_ptr, MUSIC_WALL))
+	if (music_singing(cr_ptr, MUSIC_WALL))
 	{
 		cr_ptr->kill_wall = TRUE;
 	}
@@ -3711,12 +3711,23 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		/* Modify the stats for "race" */
-		cr_ptr->stat_add[i] += (tmp_rp_ptr->r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i] + player_patrons[cr_ptr->patron].p_adj[i]);
-		if(cr_ptr->class_bonus) cr_ptr->stat_add[i] += cp_ptr->c_adj_b[i];
+		if(cr_ptr->race != RACE_NONE) cr_ptr->stat_add[i] += tmp_rp_ptr->r_adj[i];
 
 		for(j = 0; j < MAX_RACES; j++)
 			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
+
+		if(cr_ptr->class != CLASS_NONE)
+		{
+			cr_ptr->stat_add[i] += class_info[cr_ptr->class].c_adj[i];
+			if(cr_ptr->class_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->class].c_adj_b[i];
+		}
+
+		if(cr_ptr->chara != CHARA_NONE)
+			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara].a_adj[i];
+
+		if(cr_ptr->patron != PATRON_NONE)
+			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron].p_adj[i];
+
 	}
 
 
@@ -5488,31 +5499,37 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[A_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
-	cr_ptr->skill_dis += ((cp_ptr->x_dis * cr_ptr->lev / 10) + (ap_ptr->a_dis * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->class].x_dis * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara].a_dis * cr_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
-	cr_ptr->skill_dev += ((cp_ptr->x_dev * cr_ptr->lev / 10) + (ap_ptr->a_dev * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->class].x_dev * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara].a_dev * cr_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
-	cr_ptr->skill_sav += ((cp_ptr->x_sav * cr_ptr->lev / 10) + (ap_ptr->a_sav * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_sav += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_sav += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
-	cr_ptr->skill_stl += (cp_ptr->x_stl * cr_ptr->lev / 10);
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->class].x_stl * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search ability (Level, by Class) */
-	cr_ptr->skill_srh += (cp_ptr->x_srh * cr_ptr->lev / 10);
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_srh += (class_info[cr_ptr->class].x_srh * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search frequency (Level, by Class) */
-	cr_ptr->skill_fos += (cp_ptr->x_fos * cr_ptr->lev / 10);
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_fos += (class_info[cr_ptr->class].x_fos * cr_ptr->lev / 10);
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
-	cr_ptr->skill_thn += ((cp_ptr->x_thn * cr_ptr->lev / 10) + (ap_ptr->a_thn * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->class].x_thn * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thn += (ap_ptr->a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	cr_ptr->skill_thb += ((cp_ptr->x_thb * cr_ptr->lev / 10) + (ap_ptr->a_thb * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thb += (ap_ptr->a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	cr_ptr->skill_tht += ((cp_ptr->x_thb * cr_ptr->lev / 10) + (ap_ptr->a_thb * cr_ptr->lev / 50));
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (ap_ptr->a_thb * cr_ptr->lev / 50);
 
 
 	if ((race_is_(p_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
