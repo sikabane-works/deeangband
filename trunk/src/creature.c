@@ -195,6 +195,7 @@ void set_hitdice(creature_type * cr_ptr)
 
 void set_enemy_maxhp(creature_type *cr_ptr)
 {
+	int i;
 	monster_race *r_ptr;
 	int con_r, bonus, convert_lv, num;
 
@@ -211,22 +212,35 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 	if (con_r < 0) con_r = 0;
 	bonus = ((int)(adj_con_mhp[con_r]) - 128) * d_level_to_c_level[convert_lv] / 4;
 
+/*  TODO: erase after debug.
 	if (r_ptr->flags1 & RF1_FORCE_MAXHP)
 	{
+		cr_ptr->player_hp[0] = maxroll(num, cr_ptr->hitdice);
+		for(i = 1; i < PY_MAX_LEVEL - 1; i++)
+			cr_ptr->player_hp[i] += (cr_ptr->player_hp[i-1] + cr_ptr->hitdice);
+
 		cr_ptr->mmhp = maxroll(num, cr_ptr->hitdice);
 	}
 	else
 	{
+*/
+
+		cr_ptr->player_hp[0] = damroll(3, cr_ptr->hitdice);
+		for(i = 1; i < PY_MAX_LEVEL - 1; i++)
+			cr_ptr->player_hp[i] += (cr_ptr->player_hp[i-1] + damroll(1, cr_ptr->hitdice));
+
 		cr_ptr->mmhp = damroll(num, cr_ptr->hitdice);
-	}
+//	}
 
 	cr_ptr->mmhp += bonus;
 	if (cr_ptr->mmhp < 1) cr_ptr->mmhp = 1;
 
+/*
 	if (ironman_nightmare)
 	{
 		cr_ptr->mmhp = (s32b)MIN(99999, cr_ptr->mmhp * 2);
 	}
+*/
 
 	cr_ptr->mhp = cr_ptr->mmhp;
 

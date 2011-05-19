@@ -3416,7 +3416,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	calc_bonuses(m_ptr, FALSE);
-//	update_stuff(m_ptr, FALSE); // TODO
+	update_stuff(m_ptr, FALSE); // TODO
 
 	/* And start out fully healthy */
 	if (m_ptr->r_idx == MON_WOUNDED_BEAR)
