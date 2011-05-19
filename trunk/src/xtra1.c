@@ -3228,7 +3228,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Level Limit */
 	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
+		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
 
 	if (cr_ptr->dr >= 0)
@@ -3908,18 +3908,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->stat_add[A_CON] += 4;
 	}
 
-	/* Scan the usable p_ptr->inventory */
+	/* Scan the usable cr_ptr->inventory */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 
 		int bonus_to_h, bonus_to_d;
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
 		if(i == INVEN_BODY || i == INVEN_HEAD || i == INVEN_HANDS || i == INVEN_FEET || i == INVEN_OUTER)
 		{
-			rate = set_inventory_fitting_rate(p_ptr, o_ptr, i);
+			rate = set_inventory_fitting_rate(cr_ptr, o_ptr, i);
 		}
 
 		/* Extract the item flags */
@@ -4327,32 +4327,32 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Monks get extra ac for armour _not worn_ */
 	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER)) && !heavy_armor())
 	{
-		if (!(p_ptr->inventory[INVEN_BODY].k_idx))
+		if (!(cr_ptr->inventory[INVEN_BODY].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev * 3) / 2;
 			cr_ptr->dis_to_a += (cr_ptr->lev * 3) / 2;
 		}
-		if (!(p_ptr->inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
+		if (!(cr_ptr->inventory[INVEN_OUTER].k_idx) && (cr_ptr->lev > 15))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 13) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 13) / 3);
 		}
-		if (!(p_ptr->inventory[INVEN_LARM].k_idx) && (cr_ptr->lev > 10))
+		if (!(cr_ptr->inventory[INVEN_LARM].k_idx) && (cr_ptr->lev > 10))
 		{
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
 		}
-		if (!(p_ptr->inventory[INVEN_HEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(cr_ptr->inventory[INVEN_HEAD].k_idx) && (cr_ptr->lev > 4))
 		{
 			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
 			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
 		}
-		if (!(p_ptr->inventory[INVEN_HANDS].k_idx))
+		if (!(cr_ptr->inventory[INVEN_HANDS].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 2);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 2);
 		}
-		if (!(p_ptr->inventory[INVEN_FEET].k_idx))
+		if (!(cr_ptr->inventory[INVEN_FEET].k_idx))
 		{
 			cr_ptr->to_a += (cr_ptr->lev / 3);
 			cr_ptr->dis_to_a += (cr_ptr->lev / 3);
@@ -4395,7 +4395,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 
 	/* Golems also get an intrinsic AC bonus */
-	if (race_is_(p_ptr, RACE_GOLEM) || race_is_(p_ptr, RACE_ANDROID))
+	if (race_is_(cr_ptr, RACE_GOLEM) || race_is_(cr_ptr, RACE_ANDROID))
 	{
 		cr_ptr->to_a += 10 + (cr_ptr->lev * 2 / 5);
 		cr_ptr->dis_to_a += 10 + (cr_ptr->lev * 2 / 5);
@@ -4432,7 +4432,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		for (i = INVEN_RARM; i <= INVEN_FEET; i++)
 		{
 			int ac = 0;
-			o_ptr = &p_ptr->inventory[i];
+			o_ptr = &cr_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
 			if (!object_is_armour(o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
@@ -4591,7 +4591,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary blessing */
-	if (IS_BLESSED(p_ptr))
+	if (IS_BLESSED(cr_ptr))
 	{
 		cr_ptr->to_a += 5;
 		cr_ptr->dis_to_a += 5;
@@ -4614,7 +4614,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "Hero" */
-	if (IS_HERO(p_ptr))
+	if (IS_HERO(cr_ptr))
 	{
 		cr_ptr->to_h[0] += 12;
 		cr_ptr->to_h[1] += 12;
@@ -4652,7 +4652,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "fast" */
-	if (IS_FAST(p_ptr))
+	if (IS_FAST(cr_ptr))
 	{
 		new_speed += 10;
 	}
@@ -4664,7 +4664,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Temporary "telepathy" */
-	if (IS_TIM_ESP(p_ptr))
+	if (IS_TIM_ESP(cr_ptr))
 	{
 		cr_ptr->telepathy = TRUE;
 	}
@@ -4712,7 +4712,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
-	if (IS_HERO(p_ptr) || cr_ptr->shero)
+	if (IS_HERO(cr_ptr) || cr_ptr->shero)
 	{
 		cr_ptr->resist_fear = TRUE;
 	}
@@ -4761,9 +4761,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (buki_motteruka(INVEN_RARM) && buki_motteruka(INVEN_LARM))
 	{
 		int penalty1, penalty2;
-		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - p_ptr->inventory[INVEN_RARM].weight) / 8);
-		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - p_ptr->inventory[INVEN_LARM].weight) / 8);
-		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_QUICKTHORN) && (p_ptr->inventory[INVEN_LARM].name1 == ART_TINYTHORN))
+		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[INVEN_RARM].weight) / 8);
+		penalty2 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[INVEN_LARM].weight) / 8);
+		if ((cr_ptr->inventory[INVEN_RARM].name1 == ART_QUICKTHORN) && (cr_ptr->inventory[INVEN_LARM].name1 == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
@@ -4776,12 +4776,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
 		}
-		else if ((p_ptr->inventory[INVEN_LARM].tval == TV_SWORD) && ((p_ptr->inventory[INVEN_LARM].sval == SV_MAIN_GAUCHE) || (p_ptr->inventory[INVEN_LARM].sval == SV_WAKIZASHI)))
+		else if ((cr_ptr->inventory[INVEN_LARM].tval == TV_SWORD) && ((cr_ptr->inventory[INVEN_LARM].sval == SV_MAIN_GAUCHE) || (cr_ptr->inventory[INVEN_LARM].sval == SV_WAKIZASHI)))
 		{
 			penalty1 = MAX(0, penalty1 - 10);
 			penalty2 = MAX(0, penalty2 - 10);
 		}
-		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (p_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI))
+		if ((cr_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (cr_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI))
 		{
 			penalty1 = MIN(0, penalty1);
 			penalty2 = MIN(0, penalty2);
@@ -4790,13 +4790,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			if ((p_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+			if ((cr_ptr->inventory[INVEN_RARM].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
 				penalty1 /= 2;
-			if ((p_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+			if ((cr_ptr->inventory[INVEN_LARM].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
 				penalty2 /= 2;
 		}
-		if (p_ptr->inventory[INVEN_RARM].tval == TV_POLEARM) penalty1 += 10;
-		if (p_ptr->inventory[INVEN_LARM].tval == TV_POLEARM) penalty2 += 10;
+		if (cr_ptr->inventory[INVEN_RARM].tval == TV_POLEARM) penalty1 += 10;
+		if (cr_ptr->inventory[INVEN_LARM].tval == TV_POLEARM) penalty2 += 10;
 		cr_ptr->to_h[0] -= penalty1;
 		cr_ptr->to_h[1] -= penalty2;
 		cr_ptr->dis_to_h[0] -= penalty1;
@@ -4878,7 +4878,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Examine the "current bow" */
-	o_ptr = &p_ptr->inventory[INVEN_BOW];
+	o_ptr = &cr_ptr->inventory[INVEN_BOW];
 
 
 	/* Assume not heavy */
@@ -4988,7 +4988,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	for(i = 0 ; i < 2 ; i++)
 	{
 		/* Examine the "main weapon" */
-		o_ptr = &p_ptr->inventory[INVEN_RARM+i];
+		o_ptr = &cr_ptr->inventory[INVEN_RARM+i];
 
 		object_flags(o_ptr, flgs);
 
@@ -5402,8 +5402,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (buki_motteruka(INVEN_RARM+i))
 		{
-			int tval = p_ptr->inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
-			int sval = p_ptr->inventory[INVEN_RARM+i].sval;
+			int tval = cr_ptr->inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
+			int sval = cr_ptr->inventory[INVEN_RARM+i].sval;
 
 			cr_ptr->to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 			cr_ptr->dis_to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
@@ -5418,7 +5418,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 			else if (cr_ptr->class == CLASS_NINJA)
 			{
-				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (p_ptr->inventory[INVEN_LARM-i].tval == TV_SHIELD))
+				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (cr_ptr->inventory[INVEN_LARM-i].tval == TV_SHIELD))
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;
@@ -5428,7 +5428,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 			}
 
-			if (p_ptr->inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->align -= 1000;
+			if (cr_ptr->inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->align -= 1000;
 		}
 	}
 
@@ -5485,7 +5485,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;
 
-	if (IS_TIM_STEALTH(p_ptr)) cr_ptr->skill_stl += 99;
+	if (IS_TIM_STEALTH(cr_ptr)) cr_ptr->skill_stl += 99;
 
 	/* Affect Skill -- disarming (DEX and INT) */
 	cr_ptr->skill_dis += adj_dex_dis[cr_ptr->stat_ind[A_DEX]];
@@ -5534,7 +5534,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
 
 
-	if ((race_is_(p_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
+	if ((race_is_(cr_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
 	{
 		cr_ptr->cursed &= ~(TRC_AGGRAVATE);
 		cr_ptr->skill_stl = MIN(cr_ptr->skill_stl - 3, (cr_ptr->skill_stl + 2) / 2);
@@ -5615,7 +5615,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 		}
-		else if (p_ptr->inventory[INVEN_BOW].k_idx)
+		else if (cr_ptr->inventory[INVEN_BOW].k_idx)
 		{
 #ifdef JP
 			if(message) msg_print("Ç±ÇÃã|Ç»ÇÁëïîıÇµÇƒÇ¢ÇƒÇ‡êhÇ≠Ç»Ç¢ÅB");
@@ -5811,11 +5811,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 #if 0
-		if ((p_ptr->inventory[i].tval == TV_SORCERY_BOOK) && (p_ptr->inventory[i].sval == 2)) have_dd_s = TRUE;
-		if ((p_ptr->inventory[i].tval == TV_TRUMP_BOOK) && (p_ptr->inventory[i].sval == 1)) have_dd_t = TRUE;
+		if ((cr_ptr->inventory[i].tval == TV_SORCERY_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_dd_s = TRUE;
+		if ((cr_ptr->inventory[i].tval == TV_TRUMP_BOOK) && (cr_ptr->inventory[i].sval == 1)) have_dd_t = TRUE;
 #endif
-		if ((p_ptr->inventory[i].tval == TV_NATURE_BOOK) && (p_ptr->inventory[i].sval == 2)) have_sw = TRUE;
-		if ((p_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (p_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
+		if ((cr_ptr->inventory[i].tval == TV_NATURE_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_sw = TRUE;
+		if ((cr_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
 	for (this_o_idx = cave[py][px].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
@@ -5873,7 +5873,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 /*
- * Handle "p_ptr->notice"
+ * Handle "cr_ptr->notice"
  */
 void notice_stuff(void)
 {
