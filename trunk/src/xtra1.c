@@ -2478,7 +2478,7 @@ static void calc_spells(bool message)
  *
  * This function induces status messages.
  */
-static void calc_mana(bool message)
+static void calc_mana(creature_type *cr_ptr, bool message)
 {
 	int		msp, levels, cur_wgt, max_wgt;
 
@@ -2488,49 +2488,49 @@ static void calc_mana(bool message)
 	/* Hack -- Must be literate */
 	if (!mp_ptr->spell_book) return;
 
-	if ((p_ptr->class == CLASS_MINDCRAFTER) ||
-	    (p_ptr->class == CLASS_MIRROR_MASTER) ||
-	    (p_ptr->class == CLASS_BLUE_MAGE))
+	if ((cr_ptr->class == CLASS_MINDCRAFTER) ||
+	    (cr_ptr->class == CLASS_MIRROR_MASTER) ||
+	    (cr_ptr->class == CLASS_BLUE_MAGE))
 	{
-		levels = p_ptr->lev;
+		levels = cr_ptr->lev;
 	}
 	else
 	{
-		if(mp_ptr->spell_first > p_ptr->lev)
+		if(mp_ptr->spell_first > cr_ptr->lev)
 		{
 			/* Save new mana */
-			p_ptr->msp = 0;
+			cr_ptr->msp = 0;
 
 			/* Display mana later */
-			p_ptr->redraw |= (PR_MANA);
+			cr_ptr->redraw |= (PR_MANA);
 			return;
 		}
 
 		/* Extract "effective" player level */
-		levels = (p_ptr->lev - mp_ptr->spell_first) + 1;
+		levels = (cr_ptr->lev - mp_ptr->spell_first) + 1;
 	}
 
-	if (p_ptr->class == CLASS_SAMURAI)
+	if (cr_ptr->class == CLASS_SAMURAI)
 	{
-		msp = (adj_mag_mana[p_ptr->stat_ind[mp_ptr->spell_stat]] + 10) * 2;
+		msp = (adj_mag_mana[cr_ptr->stat_ind[mp_ptr->spell_stat]] + 10) * 2;
 		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
 	}
 	else
 	{
 		/* Extract total mana */
-		msp = adj_mag_mana[p_ptr->stat_ind[mp_ptr->spell_stat]] * (levels+3) / 4;
+		msp = adj_mag_mana[cr_ptr->stat_ind[mp_ptr->spell_stat]] * (levels+3) / 4;
 
 		/* Hack -- usually add one mana */
 		if (msp) msp++;
 
 		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
 
-		if (msp && (p_ptr->chara == CHARA_MUNCHKIN)) msp += msp/2;
+		if (msp && (cr_ptr->chara == CHARA_MUNCHKIN)) msp += msp/2;
 
 		/* Hack: High mages have a 25% mana bonus */
-		if (msp && (p_ptr->class == CLASS_HIGH_MAGE)) msp += msp / 4;
+		if (msp && (cr_ptr->class == CLASS_HIGH_MAGE)) msp += msp / 4;
 
-		if (msp && (p_ptr->class == CLASS_SORCERER)) msp += msp*(25+p_ptr->lev)/100;
+		if (msp && (cr_ptr->class == CLASS_SORCERER)) msp += msp*(25+cr_ptr->lev)/100;
 	}
 
 	/* Only mages are affected */
@@ -2539,10 +2539,10 @@ static void calc_mana(bool message)
 		u32b flgs[TR_FLAG_SIZE];
 
 		/* Assume player is not encumbered by gloves */
-		p_ptr->cumber_glove = FALSE;
+		cr_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		o_ptr = &p_ptr->inventory[INVEN_HANDS];
+		o_ptr = &cr_ptr->inventory[INVEN_HANDS];
 
 		/* Examine the gloves */
 		object_flags(o_ptr, flgs);
@@ -2554,7 +2554,7 @@ static void calc_mana(bool message)
 		    !((have_flag(flgs, TR_DEX)) && (o_ptr->pval > 0)))
 		{
 			/* Encumbered */
-			p_ptr->cumber_glove = TRUE;
+			cr_ptr->cumber_glove = TRUE;
 
 			/* Reduce mana */
 			msp = (3 * msp) / 4;
@@ -2563,20 +2563,20 @@ static void calc_mana(bool message)
 
 
 	/* Assume player not encumbered by armor */
-	p_ptr->cumber_armor = FALSE;
+	cr_ptr->cumber_armor = FALSE;
 
 	/* Weigh the armor */
 	cur_wgt = 0;
-	if(p_ptr->inventory[INVEN_RARM].tval> TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight;
-	if(p_ptr->inventory[INVEN_LARM].tval> TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight;
-	cur_wgt += p_ptr->inventory[INVEN_BODY].weight;
-	cur_wgt += p_ptr->inventory[INVEN_HEAD].weight;
-	cur_wgt += p_ptr->inventory[INVEN_OUTER].weight;
-	cur_wgt += p_ptr->inventory[INVEN_HANDS].weight;
-	cur_wgt += p_ptr->inventory[INVEN_FEET].weight;
+	if(cr_ptr->inventory[INVEN_RARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight;
+	if(cr_ptr->inventory[INVEN_LARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_BODY].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_HEAD].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_HANDS].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
 	/* Subtract a percentage of maximum mana. */
-	switch (p_ptr->class)
+	switch (cr_ptr->class)
 	{
 		/* For these classes, mana is halved if armour 
 		 * is 30 pounds over their weight limit. */
@@ -2587,8 +2587,8 @@ static void calc_mana(bool message)
 		case CLASS_FORCETRAINER:
 		case CLASS_SORCERER:
 		{
-			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight;
-			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight;
+			if (cr_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight;
+			if (cr_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight;
 			break;
 		}
 
@@ -2597,8 +2597,8 @@ static void calc_mana(bool message)
 		case CLASS_BARD:
 		case CLASS_TOURIST:
 		{
-			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight*2/3;
-			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight*2/3;
+			if (cr_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight*2/3;
+			if (cr_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight*2/3;
 			break;
 		}
 
@@ -2606,8 +2606,8 @@ static void calc_mana(bool message)
 		case CLASS_BEASTMASTER:
 		case CLASS_MIRROR_MASTER:
 		{
-			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/2;
-			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/2;
+			if (cr_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight/2;
+			if (cr_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight/2;
 			break;
 		}
 
@@ -2617,8 +2617,8 @@ static void calc_mana(bool message)
 		case CLASS_RED_MAGE:
 		case CLASS_WARRIOR_MAGE:
 		{
-			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/3;
-			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/3;
+			if (cr_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight/3;
+			if (cr_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight/3;
 			break;
 		}
 
@@ -2626,8 +2626,8 @@ static void calc_mana(bool message)
 		case CLASS_PALADIN:
 		case CLASS_CHAOS_WARRIOR:
 		{
-			if (p_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_RARM].weight/5;
-			if (p_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += p_ptr->inventory[INVEN_LARM].weight/5;
+			if (cr_ptr->inventory[INVEN_RARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_RARM].weight/5;
+			if (cr_ptr->inventory[INVEN_LARM].tval <= TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_LARM].weight/5;
 			break;
 		}
 
@@ -2645,10 +2645,10 @@ static void calc_mana(bool message)
 	if ((cur_wgt - max_wgt) > 0)
 	{
 		/* Encumbered */
-		p_ptr->cumber_armor = TRUE;
+		cr_ptr->cumber_armor = TRUE;
 
 		/* Subtract a percentage of maximum mana. */
-		switch (p_ptr->class)
+		switch (cr_ptr->class)
 		{
 			/* For these classes, mana is halved if armour 
 			 * is 30 pounds over their weight limit. */
@@ -2700,7 +2700,7 @@ static void calc_mana(bool message)
 
 			case CLASS_SAMURAI:
 			{
-				p_ptr->cumber_armor = FALSE;
+				cr_ptr->cumber_armor = FALSE;
 				break;
 			}
 
@@ -2718,32 +2718,32 @@ static void calc_mana(bool message)
 
 
 	/* Maximum mana has changed */
-	if (p_ptr->msp != msp)
+	if (cr_ptr->msp != msp)
 	{
 		/* Enforce maximum */
-		if ((p_ptr->csp >= msp) && (p_ptr->class != CLASS_SAMURAI))
+		if ((cr_ptr->csp >= msp) && (cr_ptr->class != CLASS_SAMURAI))
 		{
-			p_ptr->csp = msp;
-			p_ptr->csp_frac = 0;
+			cr_ptr->csp = msp;
+			cr_ptr->csp_frac = 0;
 		}
 
 #ifdef JP
 		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (msp > p_ptr->msp))
+		if ((level_up == 1) && (msp > cr_ptr->msp))
 		{
 			if(message) msg_format("最大マジック・ポイントが %d 増加した！",
-				   (msp - p_ptr->msp));
+				   (msp - cr_ptr->msp));
 		}
 #endif
 		/* Save new mana */
-		p_ptr->msp = msp;
+		cr_ptr->msp = msp;
 
 		/* Display mana later */
-		p_ptr->redraw |= (PR_MANA);
+		cr_ptr->redraw |= (PR_MANA);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
-		p_ptr->window |= (PW_SPELL);
+		cr_ptr->window |= (PW_PLAYER);
+		cr_ptr->window |= (PW_SPELL);
 	}
 
 
@@ -2751,10 +2751,10 @@ static void calc_mana(bool message)
 	if (character_xtra) return;
 
 	/* Take note when "glove state" changes */
-	if (p_ptr->old_cumber_glove != p_ptr->cumber_glove)
+	if (cr_ptr->old_cumber_glove != cr_ptr->cumber_glove)
 	{
 		/* Message */
-		if (p_ptr->cumber_glove)
+		if (cr_ptr->cumber_glove)
 		{
 #ifdef JP
 			if(message) msg_print("手が覆われて呪文が唱えにくい感じがする。");
@@ -2774,15 +2774,15 @@ static void calc_mana(bool message)
 		}
 
 		/* Save it */
-		p_ptr->old_cumber_glove = p_ptr->cumber_glove;
+		cr_ptr->old_cumber_glove = cr_ptr->cumber_glove;
 	}
 
 
 	/* Take note when "armor state" changes */
-	if (p_ptr->old_cumber_armor != p_ptr->cumber_armor)
+	if (cr_ptr->old_cumber_armor != cr_ptr->cumber_armor)
 	{
 		/* Message */
-		if (p_ptr->cumber_armor)
+		if (cr_ptr->cumber_armor)
 		{
 #ifdef JP
 			if(message) msg_print("装備の重さで動きが鈍くなってしまっている。");
@@ -2802,7 +2802,7 @@ static void calc_mana(bool message)
 		}
 
 		/* Save it */
-		p_ptr->old_cumber_armor = p_ptr->cumber_armor;
+		cr_ptr->old_cumber_armor = cr_ptr->cumber_armor;
 	}
 }
 
@@ -2812,7 +2812,7 @@ static void calc_mana(bool message)
  * Calculate the players (maximal) hit points
  * Adjust current hitpoints if necessary
  */
-static void calc_hitpoints(bool message, creature_type *cr_ptr)
+static void calc_hitpoints(creature_type *cr_ptr, bool message)
 {
 	int bonus, mhp;
 	byte tmp_hitdice;
@@ -5928,13 +5928,13 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_HP))
 	{
 		cr_ptr->update &= ~(PU_HP);
-		calc_hitpoints(message, cr_ptr);
+		calc_hitpoints(cr_ptr, message);
 	}
 
 	if (cr_ptr->update & (PU_MANA))
 	{
 		cr_ptr->update &= ~(PU_MANA);
-		calc_mana(message);
+		calc_mana(cr_ptr, message);
 	}
 
 	if (cr_ptr->update & (PU_SPELLS))

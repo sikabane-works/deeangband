@@ -2964,7 +2964,6 @@ void choose_new_monster(int m_idx, bool born, int r_idx, int re_idx)
 		m_ptr->stat_use[5] += re_info[re_idx].stat[5];
 	}
 
-
 	set_enemy_maxhp(m_ptr);
 
 }
@@ -3416,8 +3415,8 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
 	}
 
-
 	calc_bonuses(m_ptr, FALSE);
+//	update_stuff(m_ptr, FALSE); // TODO
 
 	/* And start out fully healthy */
 	if (m_ptr->r_idx == MON_WOUNDED_BEAR)
