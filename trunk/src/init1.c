@@ -3001,6 +3001,18 @@ errr parse_r_info(char *buf, header *head)
 		}
 	}
 
+	/* Process 'A' for "Artifacts" (up to multi lines) */
+	else if (buf[0] == 'A')
+	{
+		int i = 0;
+		while(!r_ptr->artifact_prob[i] || i < 10) i++;
+		if(i >= 10) return (6);
+
+		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
+			&r_ptr->artifact_id[i], &r_ptr->artifact_tval[i], &r_ptr->artifact_sval[i], &r_ptr->artifact_prob[i])) return (1);
+		
+	}
+
 	/* Oops */
 	else return (6);
 

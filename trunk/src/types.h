@@ -330,6 +330,11 @@ struct monster_race
 	u16b underling_d_num[10];	    /* Dice Number of Underlings */
 	u16b underling_d_side[10];	    /* Dice Side of Underlings */
 
+	u16b artifact_id[10];
+	u16b artifact_tval[10];
+	u16b artifact_sval[10];
+	u16b artifact_prob[10];
+
 	s32b mexp;				/* Exp value for kill */
 
 	s16b extra;				/* Unused (for now) */
