@@ -3049,7 +3049,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	int cmi, number;
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
-	int i, j;
+	int i;
 
 
 	/* Select Ego */
@@ -3411,9 +3411,10 @@ msg_print("守りのルーンが壊れた！");
 	/* Equipment */
 	if(m_ptr->race != RACE_NONE)
 	{
-		object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
-		object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
-		object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
+	// temporary OFF.
+	//	object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
+	//	object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
+	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
 	}
 
 	/* inventory */
@@ -3433,17 +3434,17 @@ msg_print("守りのルーンが壊れた！");
 	object_level = (dun_level + r_ptr->level) / 2;
 
 	/* Drop some objects */
-	for (j = 0; j < number; j++)
+	for (i = 0; i < number; i++)
 	{
 		u32b mo_mode = 0L;
-//		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-//		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
 		/* Wipe the object */
-		object_wipe(&m_ptr->inventory[j]);
+		object_wipe(&m_ptr->inventory[i]);
 
 		/* Make an object */
-		if (!make_object(&m_ptr->inventory[j], mo_mode)) continue;
+		if (!make_object(&m_ptr->inventory[i], mo_mode)) continue;
 
 		/* Drop it in the dungeon */
 	}

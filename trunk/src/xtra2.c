@@ -832,6 +832,12 @@ msg_print("ínñ Ç…óéÇ∆Ç≥ÇÍÇΩÅB");
 		}
 	}
 
+	for(i = 0; i < INVEN_TOTAL; i++) {
+		if(m_ptr->inventory[i].k_idx) (void)drop_near(&m_ptr->inventory[i], -1, y, x);
+		i++;
+	}
+
+
 	/* Drop a dead corpse? */
 	if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
 	    (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
