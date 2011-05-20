@@ -2126,7 +2126,7 @@ static void fix_object(void)
  * Note that this function induces various "status" messages,
  * which must be bypasses until the character is created.
  */
-static void calc_spells(bool message)
+static void calc_spells(creature_type *cr_ptr, bool message)
 {
 	int			i, j, k, levels;
 	int			num_allowed;
@@ -2148,37 +2148,37 @@ static void calc_spells(bool message)
 	/* Hack -- handle "xtra" mode */
 	if (character_xtra) return;
 
-	if ((p_ptr->class == CLASS_SORCERER) || (p_ptr->class == CLASS_RED_MAGE))
+	if ((cr_ptr->class == CLASS_SORCERER) || (cr_ptr->class == CLASS_RED_MAGE))
 	{
-		p_ptr->new_spells = 0;
+		cr_ptr->new_spells = 0;
 		return;
 	}
 
 	p = spell_category_name(mp_ptr->spell_book);
 
 	/* Determine the number of spells allowed */
-	levels = p_ptr->lev - mp_ptr->spell_first + 1;
+	levels = cr_ptr->lev - mp_ptr->spell_first + 1;
 
 	/* Hack -- no negative spells */
 	if (levels < 0) levels = 0;
 
 	/* Extract total allowed spells */
-	num_allowed = (adj_mag_study[p_ptr->stat_ind[mp_ptr->spell_stat]] * levels / 2);
+	num_allowed = (adj_mag_study[cr_ptr->stat_ind[mp_ptr->spell_stat]] * levels / 2);
 
-	if ((p_ptr->class != CLASS_SAMURAI) && (mp_ptr->spell_book != TV_LIFE_BOOK))
+	if ((cr_ptr->class != CLASS_SAMURAI) && (mp_ptr->spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
-	if (p_ptr->class == CLASS_SAMURAI)
+	if (cr_ptr->class == CLASS_SAMURAI)
 	{
 		num_allowed = 32;
 	}
-	else if (p_ptr->realm2 == REALM_NONE)
+	else if (cr_ptr->realm2 == REALM_NONE)
 	{
 		num_allowed = (num_allowed+1)/2;
 		if (num_allowed>(32+bonus)) num_allowed = 32+bonus;
 	}
-	else if ((p_ptr->class == CLASS_MAGE) || (p_ptr->class == CLASS_PRIEST))
+	else if ((cr_ptr->class == CLASS_MAGE) || (cr_ptr->class == CLASS_PRIEST))
 	{
 		if (num_allowed>(96+bonus)) num_allowed = 96+bonus;
 	}
@@ -2192,72 +2192,72 @@ static void calc_spells(bool message)
 	{
 		/* Count known spells */
 		if ((j < 32) ?
-		    (p_ptr->spell_forgotten1 & (1L << j)) :
-		    (p_ptr->spell_forgotten2 & (1L << (j - 32))))
+		    (cr_ptr->spell_forgotten1 & (1L << j)) :
+		    (cr_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			num_boukyaku++;
 		}
 	}
 
 	/* See how many spells we must forget or may learn */
-	p_ptr->new_spells = num_allowed + p_ptr->add_spells + num_boukyaku - p_ptr->learned_spells;
+	cr_ptr->new_spells = num_allowed + cr_ptr->add_spells + num_boukyaku - cr_ptr->learned_spells;
 
 	/* Forget spells which are too hard */
 	for (i = 63; i >= 0; i--)
 	{
 		/* Efficiency -- all done */
-		if (!p_ptr->spell_learned1 && !p_ptr->spell_learned2) break;
+		if (!cr_ptr->spell_learned1 && !cr_ptr->spell_learned2) break;
 
 		/* Access the spell */
-		j = p_ptr->spell_order[i];
+		j = cr_ptr->spell_order[i];
 
 		/* Skip non-spells */
 		if (j >= 99) continue;
 
 
 		/* Get the spell */
-		if (!is_magic((j < 32) ? p_ptr->realm1 : p_ptr->realm2))
+		if (!is_magic((j < 32) ? cr_ptr->realm1 : cr_ptr->realm2))
 		{
 			if (j < 32)
-				s_ptr = &technic_info[p_ptr->realm1 - MIN_TECHNIC][j];
+				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][j];
 			else
-				s_ptr = &technic_info[p_ptr->realm2 - MIN_TECHNIC][j%32];
+				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j < 32)
-			s_ptr = &mp_ptr->info[p_ptr->realm1-1][j];
+			s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &mp_ptr->info[p_ptr->realm2-1][j%32];
+			s_ptr = &mp_ptr->info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we are allowed to know */
-		if (s_ptr->slevel <= p_ptr->lev) continue;
+		if (s_ptr->slevel <= cr_ptr->lev) continue;
 
 		/* Is it known? */
 		if ((j < 32) ?
-		    (p_ptr->spell_learned1 & (1L << j)) :
-		    (p_ptr->spell_learned2 & (1L << (j - 32))))
+		    (cr_ptr->spell_learned1 & (1L << j)) :
+		    (cr_ptr->spell_learned2 & (1L << (j - 32))))
 		{
 			/* Mark as forgotten */
 			if (j < 32)
 			{
-				p_ptr->spell_forgotten1 |= (1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_forgotten1 |= (1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_forgotten2 |= (1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_forgotten2 |= (1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* No longer known */
 			if (j < 32)
 			{
-				p_ptr->spell_learned1 &= ~(1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_learned1 &= ~(1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_learned2 &= ~(1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_learned2 &= ~(1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* Message */
@@ -2271,7 +2271,7 @@ static void calc_spells(bool message)
 
 
 			/* One more can be learned */
-			p_ptr->new_spells++;
+			cr_ptr->new_spells++;
 		}
 	}
 
@@ -2280,44 +2280,44 @@ static void calc_spells(bool message)
 	for (i = 63; i >= 0; i--)
 	{
 		/* Stop when possible */
-		if (p_ptr->new_spells >= 0) break;
+		if (cr_ptr->new_spells >= 0) break;
 
 		/* Efficiency -- all done */
-		if (!p_ptr->spell_learned1 && !p_ptr->spell_learned2) break;
+		if (!cr_ptr->spell_learned1 && !cr_ptr->spell_learned2) break;
 
 		/* Get the (i+1)th spell learned */
-		j = p_ptr->spell_order[i];
+		j = cr_ptr->spell_order[i];
 
 		/* Skip unknown spells */
 		if (j >= 99) continue;
 
 		/* Forget it (if learned) */
 		if ((j < 32) ?
-		    (p_ptr->spell_learned1 & (1L << j)) :
-		    (p_ptr->spell_learned2 & (1L << (j - 32))))
+		    (cr_ptr->spell_learned1 & (1L << j)) :
+		    (cr_ptr->spell_learned2 & (1L << (j - 32))))
 		{
 			/* Mark as forgotten */
 			if (j < 32)
 			{
-				p_ptr->spell_forgotten1 |= (1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_forgotten1 |= (1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_forgotten2 |= (1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_forgotten2 |= (1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* No longer known */
 			if (j < 32)
 			{
-				p_ptr->spell_learned1 &= ~(1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_learned1 &= ~(1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_learned2 &= ~(1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_learned2 &= ~(1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* Message */
@@ -2331,7 +2331,7 @@ static void calc_spells(bool message)
 
 
 			/* One more can be learned */
-			p_ptr->new_spells++;
+			cr_ptr->new_spells++;
 		}
 	}
 
@@ -2340,60 +2340,60 @@ static void calc_spells(bool message)
 	for (i = 0; i < 64; i++)
 	{
 		/* None left to remember */
-		if (p_ptr->new_spells <= 0) break;
+		if (cr_ptr->new_spells <= 0) break;
 
 		/* Efficiency -- all done */
-		if (!p_ptr->spell_forgotten1 && !p_ptr->spell_forgotten2) break;
+		if (!cr_ptr->spell_forgotten1 && !cr_ptr->spell_forgotten2) break;
 
 		/* Get the next spell we learned */
-		j = p_ptr->spell_order[i];
+		j = cr_ptr->spell_order[i];
 
 		/* Skip unknown spells */
 		if (j >= 99) break;
 
 		/* Access the spell */
-		if (!is_magic((j < 32) ? p_ptr->realm1 : p_ptr->realm2))
+		if (!is_magic((j < 32) ? cr_ptr->realm1 : cr_ptr->realm2))
 		{
 			if (j < 32)
-				s_ptr = &technic_info[p_ptr->realm1 - MIN_TECHNIC][j];
+				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][j];
 			else
-				s_ptr = &technic_info[p_ptr->realm2 - MIN_TECHNIC][j%32];
+				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j<32)
-			s_ptr = &mp_ptr->info[p_ptr->realm1-1][j];
+			s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &mp_ptr->info[p_ptr->realm2-1][j%32];
+			s_ptr = &mp_ptr->info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we cannot remember */
-		if (s_ptr->slevel > p_ptr->lev) continue;
+		if (s_ptr->slevel > cr_ptr->lev) continue;
 
 		/* First set of spells */
 		if ((j < 32) ?
-		    (p_ptr->spell_forgotten1 & (1L << j)) :
-		    (p_ptr->spell_forgotten2 & (1L << (j - 32))))
+		    (cr_ptr->spell_forgotten1 & (1L << j)) :
+		    (cr_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			/* No longer forgotten */
 			if (j < 32)
 			{
-				p_ptr->spell_forgotten1 &= ~(1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_forgotten1 &= ~(1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_forgotten2 &= ~(1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_forgotten2 &= ~(1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* Known once more */
 			if (j < 32)
 			{
-				p_ptr->spell_learned1 |= (1L << j);
-				which = p_ptr->realm1;
+				cr_ptr->spell_learned1 |= (1L << j);
+				which = cr_ptr->realm1;
 			}
 			else
 			{
-				p_ptr->spell_learned2 |= (1L << (j - 32));
-				which = p_ptr->realm2;
+				cr_ptr->spell_learned2 |= (1L << (j - 32));
+				which = cr_ptr->realm2;
 			}
 
 			/* Message */
@@ -2407,25 +2407,25 @@ static void calc_spells(bool message)
 
 
 			/* One less can be learned */
-			p_ptr->new_spells--;
+			cr_ptr->new_spells--;
 		}
 	}
 
 	k = 0;
 
-	if (p_ptr->realm2 == REALM_NONE)
+	if (cr_ptr->realm2 == REALM_NONE)
 	{
 		/* Count spells that can be learned */
 		for (j = 0; j < 32; j++)
 		{
-			if (!is_magic(p_ptr->realm1)) s_ptr = &technic_info[p_ptr->realm1-MIN_TECHNIC][j];
-			else s_ptr = &mp_ptr->info[p_ptr->realm1-1][j];
+			if (!is_magic(cr_ptr->realm1)) s_ptr = &technic_info[cr_ptr->realm1-MIN_TECHNIC][j];
+			else s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
 
 			/* Skip spells we cannot remember */
-			if (s_ptr->slevel > p_ptr->lev) continue;
+			if (s_ptr->slevel > cr_ptr->lev) continue;
 
 			/* Skip spells we already know */
-			if (p_ptr->spell_learned1 & (1L << j))
+			if (cr_ptr->spell_learned1 & (1L << j))
 			{
 				continue;
 			}
@@ -2434,40 +2434,40 @@ static void calc_spells(bool message)
 			k++;
 		}
 		if (k>32) k = 32;
-		if ((p_ptr->new_spells > k) && ((mp_ptr->spell_book == TV_LIFE_BOOK) || (mp_ptr->spell_book == TV_HISSATSU_BOOK))) p_ptr->new_spells = k;
+		if ((cr_ptr->new_spells > k) && ((mp_ptr->spell_book == TV_LIFE_BOOK) || (mp_ptr->spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
 	}
 
-	if (p_ptr->new_spells < 0) p_ptr->new_spells = 0;
+	if (cr_ptr->new_spells < 0) cr_ptr->new_spells = 0;
 
 	/* Spell count changed */
-	if (p_ptr->old_spells != p_ptr->new_spells)
+	if (cr_ptr->old_spells != cr_ptr->new_spells)
 	{
 		/* Message if needed */
-		if (p_ptr->new_spells)
+		if (cr_ptr->new_spells)
 		{
 			/* Message */
 #ifdef JP
-			if( p_ptr->new_spells < 10 ){
-				if(message) msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
+			if( cr_ptr->new_spells < 10 ){
+				if(message) msg_format("あと %d つの%sを学べる。", cr_ptr->new_spells, p);
 			}else{
-				if(message) msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
+				if(message) msg_format("あと %d 個の%sを学べる。", cr_ptr->new_spells, p);
 			}
 #else
 			if(message) msg_format("You can learn %d more %s%s.",
-				   p_ptr->new_spells, p,
-				   (p_ptr->new_spells != 1) ? "s" : "");
+				   cr_ptr->new_spells, p,
+				   (cr_ptr->new_spells != 1) ? "s" : "");
 #endif
 
 		}
 
 		/* Save the new_spells value */
-		p_ptr->old_spells = p_ptr->new_spells;
+		cr_ptr->old_spells = cr_ptr->new_spells;
 
 		/* Redraw Study Status */
-		p_ptr->redraw |= (PR_STUDY);
+		cr_ptr->redraw |= (PR_STUDY);
 
 		/* Redraw object recall */
-		p_ptr->window |= (PW_OBJECT);
+		cr_ptr->window |= (PW_OBJECT);
 	}
 }
 
@@ -2899,19 +2899,19 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
  * SWD: Experimental modification: multiple light sources have additive effect.
  *
  */
-static void calc_torch(void)
+static void calc_torch(creature_type *cr_ptr)
 {
 	int i;
 	object_type *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Assume no light */
-	p_ptr->cur_lite = 0;
+	cr_ptr->cur_lite = 0;
 
 	/* Loop through all wielded items */
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Examine actual lites */
 		if ((i == INVEN_LITE) && (o_ptr->k_idx) && (o_ptr->tval == TV_LITE))
@@ -2920,44 +2920,44 @@ static void calc_torch(void)
 			{
 				if (o_ptr->sval == SV_LITE_TORCH)
 				{
-					p_ptr->cur_lite -= 1;
+					cr_ptr->cur_lite -= 1;
 				}
 
 				/* Lanterns (with fuel) provide more lite */
 				else if (o_ptr->sval == SV_LITE_LANTERN)
 				{
-					p_ptr->cur_lite -= 2;
+					cr_ptr->cur_lite -= 2;
 				}
 
 				else if (o_ptr->sval == SV_LITE_FEANOR)
 				{
-					p_ptr->cur_lite -= 3;
+					cr_ptr->cur_lite -= 3;
 				}
 			}
 			/* Torches (with fuel) provide some lite */
 			else if ((o_ptr->sval == SV_LITE_TORCH) && (o_ptr->xtra4 > 0))
 			{
-				p_ptr->cur_lite += 1;
+				cr_ptr->cur_lite += 1;
 			}
 
 			/* Lanterns (with fuel) provide more lite */
 			else if ((o_ptr->sval == SV_LITE_LANTERN) && (o_ptr->xtra4 > 0))
 			{
-				p_ptr->cur_lite += 2;
+				cr_ptr->cur_lite += 2;
 			}
 
 			else if (o_ptr->sval == SV_LITE_FEANOR)
 			{
-				p_ptr->cur_lite += 2;
+				cr_ptr->cur_lite += 2;
 			}
 
 			/* Artifact Lites provide permanent, bright, lite */
 			else if (object_is_fixed_artifact(o_ptr))
 			{
-				p_ptr->cur_lite += 3;
+				cr_ptr->cur_lite += 3;
 			}
 
-			if (o_ptr->name2 == EGO_LITE_SHINE) p_ptr->cur_lite++;
+			if (o_ptr->name2 == EGO_LITE_SHINE) cr_ptr->cur_lite++;
 		}
 		else
 		{
@@ -2970,8 +2970,8 @@ static void calc_torch(void)
 			/* does this item glow? */
 			if (have_flag(flgs, TR_LITE))
 			{
-				if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT)) p_ptr->cur_lite--;
-				else p_ptr->cur_lite++;
+				if ((o_ptr->name2 == EGO_DARK) || (o_ptr->name1 == ART_NIGHT)) cr_ptr->cur_lite--;
+				else cr_ptr->cur_lite++;
 			}
 		}
 
@@ -2979,31 +2979,31 @@ static void calc_torch(void)
 
 	/* max radius is 14 (was 5) without rewriting other code -- */
 	/* see cave.c:update_lite() and defines.h:LITE_MAX */
-	if (d_info[dungeon_type].flags1 & DF1_DARKNESS && p_ptr->cur_lite > 1)
-		p_ptr->cur_lite = 1;
+	if (d_info[dungeon_type].flags1 & DF1_DARKNESS && cr_ptr->cur_lite > 1)
+		cr_ptr->cur_lite = 1;
 
 	/*
 	 * check if the player doesn't have light radius, 
 	 * but does weakly glow as an intrinsic.
 	 */
-	if (p_ptr->cur_lite <= 0 && p_ptr->lite) p_ptr->cur_lite++;
+	if (cr_ptr->cur_lite <= 0 && cr_ptr->lite) cr_ptr->cur_lite++;
 
-	if (p_ptr->cur_lite > 14) p_ptr->cur_lite = 14;
-	if (p_ptr->cur_lite < 0) p_ptr->cur_lite = 0;
+	if (cr_ptr->cur_lite > 14) cr_ptr->cur_lite = 14;
+	if (cr_ptr->cur_lite < 0) cr_ptr->cur_lite = 0;
 
 	/* end experimental mods */
 
 	/* Notice changes in the "lite radius" */
-	if (p_ptr->old_lite != p_ptr->cur_lite)
+	if (cr_ptr->old_lite != cr_ptr->cur_lite)
 	{
 		/* Update stuff */
 		/* Hack -- PU_MON_LITE for monsters' darkness */
-		p_ptr->update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		cr_ptr->update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
 
 		/* Remember the old lite */
-		p_ptr->old_lite = p_ptr->cur_lite;
+		cr_ptr->old_lite = cr_ptr->cur_lite;
 
-		if ((p_ptr->cur_lite > 0) && (p_ptr->special_defense & NINJA_S_STEALTH))
+		if ((cr_ptr->cur_lite > 0) && (cr_ptr->special_defense & NINJA_S_STEALTH))
 			set_superstealth(FALSE);
 	}
 }
@@ -5922,7 +5922,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_TORCH))
 	{
 		cr_ptr->update &= ~(PU_TORCH);
-		calc_torch();
+		calc_torch(cr_ptr);
 	}
 
 	if (cr_ptr->update & (PU_HP))
@@ -5940,7 +5940,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_SPELLS))
 	{
 		cr_ptr->update &= ~(PU_SPELLS);
-		calc_spells(message);
+		calc_spells(cr_ptr, message);
 	}
 
 
