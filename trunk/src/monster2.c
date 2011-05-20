@@ -3417,6 +3417,31 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
 	}
 
+	for(i = 0; i < 10; i++)
+	{
+		if(!r_ptr->artifact_prob) break;
+		if(r_ptr->artifact_id)
+		{
+			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
+			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || p_ptr->wizard))
+			{
+				if (!a_ptr->cur_num)
+				{
+					/* Create the artifact */
+					equip_named_art(r_ptr->artifact_id[i], &m_ptr->inventory[INVEN_RIGHT]);
+					a_ptr->cur_num = 1;
+					/* Hack -- Memorize location of artifact in saved floors */
+					if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
+				}
+			}
+
+		}
+		else
+		{
+
+		}
+	}
+
 	/* inventory */
 	number = 0;
 	/* Determine how much we can drop */
