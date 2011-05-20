@@ -3047,8 +3047,9 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	cptr		name = (r_name + r_ptr->name);
 
-	int cmi;
+	int cmi, number;
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
+	int i, j;
 
 
 	/* Select Ego */
@@ -3415,8 +3416,44 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
 	}
 
+	/* inventory */
+	number = 0;
+	/* Determine how much we can drop */
+	if ((r_ptr->flags1 & RF1_DROP_60) && (randint0(100) < 60)) number++;
+	if ((r_ptr->flags1 & RF1_DROP_90) && (randint0(100) < 90)) number++;
+	if  (r_ptr->flags1 & RF1_DROP_1D2) number += damroll(1, 2);
+	if  (r_ptr->flags1 & RF1_DROP_2D2) number += damroll(2, 2);
+	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
+	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
+
+	if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
+		number = 0; /* Pets drop no stuff */
+
+	/* Average dungeon and monster levels */
+	object_level = (dun_level + r_ptr->level) / 2;
+
+	/* Drop some objects */
+	for (j = 0; j < number; j++)
+	{
+		u32b mo_mode = 0L;
+//		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+//		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+
+		/* Wipe the object */
+		object_wipe(&m_ptr->inventory[j]);
+
+		/* Make an object */
+		if (!make_object(&m_ptr->inventory[j], mo_mode)) continue;
+
+		/* Drop it in the dungeon */
+	}
+
+
+
+
+
 	calc_bonuses(m_ptr, FALSE);
-	update_stuff(m_ptr, FALSE); // TODO
+	update_stuff(m_ptr, FALSE);
 
 	/* And start out fully healthy */
 	if (m_ptr->r_idx == MON_WOUNDED_BEAR)
