@@ -834,7 +834,6 @@ msg_print("地面に落とされた。");
 
 	for(i = 0; i < INVEN_TOTAL; i++) {
 		if(m_ptr->inventory[i].k_idx) (void)drop_near(&m_ptr->inventory[i], -1, y, x);
-		i++;
 	}
 
 
@@ -1477,14 +1476,6 @@ msg_print("地面に落とされた。");
 #endif
 		}
 	}
-
-	/* Determine how much we can drop */
-	if ((r_ptr->flags1 & RF1_DROP_60) && (randint0(100) < 60)) number++;
-	if ((r_ptr->flags1 & RF1_DROP_90) && (randint0(100) < 90)) number++;
-	if  (r_ptr->flags1 & RF1_DROP_1D2) number += damroll(1, 2);
-	if  (r_ptr->flags1 & RF1_DROP_2D2) number += damroll(2, 2);
-	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
-	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
 
 	if (cloned && !(r_ptr->flags1 & RF1_UNIQUE))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
