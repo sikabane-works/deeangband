@@ -2064,7 +2064,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 
 		if (randint1(100) > power) return;
 
-		if (saving_throw(p_ptr->skill_sav - power))
+		if (saving_throw(p_ptr->skill_rob - power))
 		{
 			return; /* Save, no adverse effects */
 		}
@@ -2123,7 +2123,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	}
 
-	if (!saving_throw(p_ptr->skill_sav - power)) /* Mind blast */
+	if (!saving_throw(p_ptr->skill_rob - power)) /* Mind blast */
 	{
 		if (!p_ptr->resist_conf)
 		{
@@ -2136,14 +2136,14 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_sav - power)) /* Lose int & wis */
+	if (!saving_throw(p_ptr->skill_rob - power)) /* Lose int & wis */
 	{
 		do_dec_stat(A_INT);
 		do_dec_stat(A_WIS);
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_sav - power)) /* Brain smash */
+	if (!saving_throw(p_ptr->skill_rob - power)) /* Brain smash */
 	{
 		if (!p_ptr->resist_conf)
 		{
@@ -2153,9 +2153,9 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		{
 			(void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4);
 		}
-		while (randint0(100) > p_ptr->skill_sav)
+		while (randint0(100) > p_ptr->skill_rob)
 			(void)do_dec_stat(A_INT);
-		while (randint0(100) > p_ptr->skill_sav)
+		while (randint0(100) > p_ptr->skill_rob)
 			(void)do_dec_stat(A_WIS);
 		if (!p_ptr->resist_chaos)
 		{
@@ -2164,7 +2164,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_sav - power)) /* Amnesia */
+	if (!saving_throw(p_ptr->skill_rob - power)) /* Amnesia */
 	{
 
 		if (lose_all_info())
@@ -2177,7 +2177,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		return;
 	}
 
-	if (saving_throw(p_ptr->skill_sav - power))
+	if (saving_throw(p_ptr->skill_rob - power))
 	{
 		return;
 	}

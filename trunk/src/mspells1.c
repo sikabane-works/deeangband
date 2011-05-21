@@ -3007,7 +3007,7 @@ msg_print("しかし恐怖に侵されなかった。");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし恐怖に侵されなかった。");
@@ -3051,7 +3051,7 @@ msg_print("しかし効果がなかった！");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");
@@ -3095,7 +3095,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし幻覚にはだまされなかった。");
@@ -3133,7 +3133,7 @@ msg_print("しかし効果がなかった！");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");
@@ -3177,7 +3177,7 @@ msg_print("しかし効果がなかった！");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_format("しかし効力を跳ね返した！");
@@ -3673,7 +3673,7 @@ msg_print("しかし効果がなかった！");
 #endif
 
 			}
-			else if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			else if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");
@@ -3774,7 +3774,7 @@ msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
 #endif
 
 
-			if (randint0(100 + rlev/2) < p_ptr->skill_sav)
+			if (randint0(100 + rlev/2) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");

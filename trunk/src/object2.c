@@ -6606,7 +6606,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 
 	case GF_MIND_BLAST:
 	case GF_BRAIN_SMASH:
-		if (100 + rlev / 2 <= MAX(5, p_ptr->skill_sav))
+		if (100 + rlev / 2 <= MAX(5, p_ptr->skill_rob))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
@@ -6617,7 +6617,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 	case GF_CAUSE_2:
 	case GF_CAUSE_3:
 	case GF_HAND_DOOM:
-		if (100 + rlev / 2 <= p_ptr->skill_sav)
+		if (100 + rlev / 2 <= p_ptr->skill_rob)
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
@@ -6625,7 +6625,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		break;
 
 	case GF_CAUSE_4:
-		if ((100 + rlev / 2 <= p_ptr->skill_sav) && (m_ptr->r_idx != MON_KENSHIROU))
+		if ((100 + rlev / 2 <= p_ptr->skill_rob) && (m_ptr->r_idx != MON_KENSHIROU))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;

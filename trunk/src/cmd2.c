@@ -768,7 +768,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if (randint1(100+o_ptr->pval*2) > p_ptr->skill_sav)
+			if (randint1(100+o_ptr->pval*2) > p_ptr->skill_rob)
 			{
 #ifdef JP
 				if (one_in_(6)) take_hit(DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", -1);

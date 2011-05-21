@@ -2512,7 +2512,7 @@ void have_nightmare(int r_idx)
 	}
 	else power *= 2;
 
-	if (saving_throw(p_ptr->skill_sav * 100 / power))
+	if (saving_throw(p_ptr->skill_rob * 100 / power))
 	{
 #ifdef JP
 		msg_format("–²‚Ì’†‚Å%s‚É’Ç‚¢‚©‚¯‚ç‚ê‚½B", m_name);
@@ -2589,7 +2589,7 @@ void have_nightmare(int r_idx)
 	}
 
 	/* Mind blast */
-	if (!saving_throw(p_ptr->skill_sav * 100 / power))
+	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
 		if (!p_ptr->resist_conf)
 		{
@@ -2603,7 +2603,7 @@ void have_nightmare(int r_idx)
 	}
 
 	/* Lose int & wis */
-	if (!saving_throw(p_ptr->skill_sav * 100 / power))
+	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
 		do_dec_stat(A_INT);
 		do_dec_stat(A_WIS);
@@ -2611,7 +2611,7 @@ void have_nightmare(int r_idx)
 	}
 
 	/* Brain smash */
-	if (!saving_throw(p_ptr->skill_sav * 100 / power))
+	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
 		if (!p_ptr->resist_conf)
 		{
@@ -2621,11 +2621,11 @@ void have_nightmare(int r_idx)
 		{
 			(void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4);
 		}
-		while (!saving_throw(p_ptr->skill_sav))
+		while (!saving_throw(p_ptr->skill_rob))
 		{
 			(void)do_dec_stat(A_INT);
 		}
-		while (!saving_throw(p_ptr->skill_sav))
+		while (!saving_throw(p_ptr->skill_rob))
 		{
 			(void)do_dec_stat(A_WIS);
 		}
@@ -2638,7 +2638,7 @@ void have_nightmare(int r_idx)
 
 
 	/* Amnesia */
-	if (!saving_throw(p_ptr->skill_sav * 100 / power))
+	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
 		if (lose_all_info())
 		{

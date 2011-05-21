@@ -1315,7 +1315,7 @@ bool make_attack_normal(int m_idx)
 
 						obvious = TRUE;
 					}
-					else if (randint0(100 + r_ptr->level/2) < p_ptr->skill_sav)
+					else if (randint0(100 + r_ptr->level/2) < p_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½I");
@@ -1361,7 +1361,7 @@ bool make_attack_normal(int m_idx)
 
 						obvious = TRUE;
 					}
-					else if (randint0(100 + r_ptr->level/2) < p_ptr->skill_sav)
+					else if (randint0(100 + r_ptr->level/2) < p_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");

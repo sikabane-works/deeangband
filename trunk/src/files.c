@@ -1548,7 +1548,7 @@ errr check_load_init(void)
 #define ENTRY_PLAY_TIME 19
 #define ENTRY_SKILL_FIGHT 20
 #define ENTRY_SKILL_SHOOT 21
-#define ENTRY_SKILL_SAVING 22
+#define ENTRY_skill_robING 22
 #define ENTRY_SKILL_STEALTH 23
 #define ENTRY_SKILL_PERCEP 24
 #define ENTRY_SKILL_SEARCH 25
@@ -2224,7 +2224,7 @@ static void display_player_various(creature_type * cr_ptr)
 
 	xdis = cr_ptr->skill_dis;
 	xdev = cr_ptr->skill_dev;
-	xsav = cr_ptr->skill_sav;
+	xsav = cr_ptr->skill_rob;
 	xstl = cr_ptr->skill_stl;
 	xsrh = cr_ptr->skill_srh;
 	xfos = cr_ptr->skill_fos;
@@ -2238,7 +2238,7 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
 
 	desc = likert(xsav, 5);
-	display_player_one_line(ENTRY_SKILL_SAVING, desc, likert_color);
+	display_player_one_line(ENTRY_skill_robING, desc, likert_color);
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */
 	desc = likert((xstl > 0) ? xstl : -1, 1);

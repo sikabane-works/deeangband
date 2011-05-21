@@ -2851,7 +2851,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -2987,7 +2987,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 					{
 #ifdef JP
 						msg_print("あなたは効力を跳ね返した！");
@@ -3166,7 +3166,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if (randint0(100 + r_ptr->level/2) < p_ptr->skill_sav)
+					if (randint0(100 + r_ptr->level/2) < p_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -7538,7 +7538,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_sav)) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7584,7 +7584,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_sav)) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7629,9 +7629,9 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 					}
 					(void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
 
-					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_sav)))
+					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
 						(void)do_dec_stat(A_INT);
-					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_sav)))
+					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
 						(void)do_dec_stat(A_WIS);
 
 					if (!p_ptr->resist_chaos)
@@ -7646,7 +7646,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7666,7 +7666,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7686,7 +7686,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7706,7 +7706,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_sav) && !(m_ptr->r_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(m_ptr->r_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -7726,7 +7726,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
-			if ((randint0(100 + rlev/2) < p_ptr->skill_sav) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev/2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_format("しかし効力を跳ね返した！");

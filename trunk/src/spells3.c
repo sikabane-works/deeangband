@@ -1223,7 +1223,7 @@ void apply_nexus(creature_type *m_ptr)
 
 		case 6:
 		{
-			if (randint0(100) < p_ptr->skill_sav)
+			if (randint0(100) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
@@ -1241,7 +1241,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
 
 		case 7:
 		{
-			if (randint0(100) < p_ptr->skill_sav)
+			if (randint0(100) < p_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
