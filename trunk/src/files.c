@@ -2119,7 +2119,7 @@ static void display_player_various(creature_type * cr_ptr)
 {
 	int         tmp, damage[2], blows1, blows2, i, basedam;
 	int			xthn, xthb, xfos, xsrh;
-	int			xdis, xdev, xsav, xstl;
+	int			xdis, xdev, xrob, xagi, xvol, xstl;
 	int			xdig;
 	cptr		desc;
 	int         muta_att = 0;
@@ -2230,7 +2230,9 @@ static void display_player_various(creature_type * cr_ptr)
 
 	xdis = cr_ptr->skill_dis;
 	xdev = cr_ptr->skill_dev;
-	xsav = cr_ptr->skill_rob;
+	xrob = cr_ptr->skill_rob;
+	xagi = cr_ptr->skill_agi;
+	xvol = cr_ptr->skill_vol;
 	xstl = cr_ptr->skill_stl;
 	xsrh = cr_ptr->skill_srh;
 	xfos = cr_ptr->skill_fos;
@@ -2243,13 +2245,13 @@ static void display_player_various(creature_type * cr_ptr)
 	desc = likert(xthb, 10);
 	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
 
-	desc = likert(xsav, 5);
+	desc = likert(xrob, 5);
 	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
 
-	desc = likert(xsav, 5);
+	desc = likert(xagi, 5);
 	display_player_one_line(ENTRY_SKILL_AGILITY, desc, likert_color);
 
-	desc = likert(xsav, 5);
+	desc = likert(xvol, 5);
 	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */

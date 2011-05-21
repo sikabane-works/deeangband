@@ -3245,6 +3245,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_dis = 5;
 	cr_ptr->skill_dev = 5;
 	cr_ptr->skill_rob = 5;
+	cr_ptr->skill_agi = 5;
+	cr_ptr->skill_vol = 5;
 	cr_ptr->skill_stl = -(body_size / 3 - 3);
 	cr_ptr->skill_srh = 10;
 	cr_ptr->skill_fos = 10;
@@ -3258,6 +3260,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race].r_dis);
 		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race].r_dev);
 		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race].r_sav);
+		cr_ptr->skill_agi += (-5 + race_info[cr_ptr->race].r_sav);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race].r_sav);
 		cr_ptr->skill_stl += race_info[cr_ptr->race].r_stl;
 		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race].r_srh);
 		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race].r_fos);
@@ -3289,6 +3293,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_dis += class_info[cr_ptr->class].c_dis;
 		cr_ptr->skill_dev += class_info[cr_ptr->class].c_dev;
 		cr_ptr->skill_rob += class_info[cr_ptr->class].c_sav;
+		cr_ptr->skill_agi += class_info[cr_ptr->class].c_sav;
+		cr_ptr->skill_vol += class_info[cr_ptr->class].c_sav;
 		cr_ptr->skill_stl += class_info[cr_ptr->class].c_stl;
 		cr_ptr->skill_srh += class_info[cr_ptr->class].c_srh;
 		cr_ptr->skill_fos += class_info[cr_ptr->class].c_fos;
@@ -3301,6 +3307,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_dis += 15;
 		cr_ptr->skill_dev += 18;
 		cr_ptr->skill_rob += 28;
+		cr_ptr->skill_agi += 28;
+		cr_ptr->skill_vol += 28;
 		cr_ptr->skill_stl += 2;
 		cr_ptr->skill_srh += 10;
 		cr_ptr->skill_fos += 10;
@@ -3314,6 +3322,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_dis += chara_info[cr_ptr->chara].a_dis;
 		cr_ptr->skill_dev += chara_info[cr_ptr->chara].a_dev;
 		cr_ptr->skill_rob += chara_info[cr_ptr->chara].a_sav;
+		cr_ptr->skill_agi += chara_info[cr_ptr->chara].a_sav;
+		cr_ptr->skill_vol += chara_info[cr_ptr->chara].a_sav;
 		cr_ptr->skill_stl += chara_info[cr_ptr->chara].a_stl;
 		cr_ptr->skill_srh += chara_info[cr_ptr->chara].a_srh;
 		cr_ptr->skill_fos += chara_info[cr_ptr->chara].a_fos;
@@ -3327,6 +3337,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_dis += player_patrons[cr_ptr->patron].p_dis;
 		cr_ptr->skill_dev += player_patrons[cr_ptr->patron].p_dev;
 		cr_ptr->skill_rob += player_patrons[cr_ptr->patron].p_sav;
+		cr_ptr->skill_agi += player_patrons[cr_ptr->patron].p_sav;
+		cr_ptr->skill_vol += player_patrons[cr_ptr->patron].p_sav;
 		cr_ptr->skill_stl += player_patrons[cr_ptr->patron].p_stl;
 		cr_ptr->skill_srh += player_patrons[cr_ptr->patron].p_srh;
 		cr_ptr->skill_fos += player_patrons[cr_ptr->patron].p_fos;
@@ -3818,6 +3830,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->muta3 & MUT3_MAGIC_RES)
 		{
 			cr_ptr->skill_rob += (15 + (cr_ptr->lev / 5));
+			cr_ptr->skill_agi += (15 + (cr_ptr->lev / 5));
+			cr_ptr->skill_vol += (15 + (cr_ptr->lev / 5));
 		}
 
 		if (cr_ptr->muta3 & MUT3_XTRA_NOIS)
@@ -4656,7 +4670,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_a -= 10;
 		cr_ptr->skill_stl -= 7;
 		cr_ptr->skill_dev -= 20;
-		cr_ptr->skill_rob -= 30;
+		cr_ptr->skill_rob += 20;
+		cr_ptr->skill_agi += 20;
+		cr_ptr->skill_vol -= 30;
 		cr_ptr->skill_srh -= 15;
 		cr_ptr->skill_fos -= 15;
 		cr_ptr->skill_tht -= 20;
@@ -5507,7 +5523,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_dev += adj_int_dev[cr_ptr->stat_ind[A_INT]];
 
 	/* Affect Skill -- saving throw (WIS) */
-	cr_ptr->skill_rob += adj_wis_sav[cr_ptr->stat_ind[A_WIS]];
+	cr_ptr->skill_rob += (adj_sav[cr_ptr->stat_ind[A_STR]] + adj_sav[cr_ptr->stat_ind[A_CON]]);
+	cr_ptr->skill_agi += (adj_sav[cr_ptr->stat_ind[A_INT]] + adj_sav[cr_ptr->stat_ind[A_DEX]]);
+	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[A_WIS]] + adj_sav[cr_ptr->stat_ind[A_CHR]]);
 
 	/* Affect Skill -- digging (STR) */
 	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[A_STR]];
@@ -5522,7 +5540,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Affect Skill -- saving throw (Level, by Class) */
 	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_agi += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_agi += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
 	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->class].x_stl * cr_ptr->lev / 10);
@@ -5560,12 +5582,20 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->skill_dig < 1) cr_ptr->skill_dig = 1;
 
 	if (cr_ptr->anti_magic && (cr_ptr->skill_rob < (90 + cr_ptr->lev))) cr_ptr->skill_rob = 90 + cr_ptr->lev;
+	if (cr_ptr->anti_magic && (cr_ptr->skill_agi < (90 + cr_ptr->lev))) cr_ptr->skill_agi = 90 + cr_ptr->lev;
+	if (cr_ptr->anti_magic && (cr_ptr->skill_vol < (90 + cr_ptr->lev))) cr_ptr->skill_vol = 90 + cr_ptr->lev;
 
 	if (cr_ptr->tsubureru) cr_ptr->skill_rob = 10;
+	if (cr_ptr->tsubureru) cr_ptr->skill_agi = 10;
+	if (cr_ptr->tsubureru) cr_ptr->skill_vol = 10;
 
 	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_rob < (95 + cr_ptr->lev))) cr_ptr->skill_rob = 95 + cr_ptr->lev;
+	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_agi < (95 + cr_ptr->lev))) cr_ptr->skill_agi = 95 + cr_ptr->lev;
+	if ((cr_ptr->ult_res || cr_ptr->resist_magic || cr_ptr->magicdef) && (cr_ptr->skill_vol < (95 + cr_ptr->lev))) cr_ptr->skill_vol = 95 + cr_ptr->lev;
 
 	if (down_saving) cr_ptr->skill_rob /= 2;
+	if (down_saving) cr_ptr->skill_agi /= 2;
+	if (down_saving) cr_ptr->skill_vol /= 2;
 
 	/* Hack -- Each elemental immunity includes resistance */
 	if (cr_ptr->immune_acid) cr_ptr->resist_acid = TRUE;
@@ -5872,10 +5902,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		magic_type *s_ptr = &mp_ptr->info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
-
-	/* TODO: temporary saving set*/
-	cr_ptr->skill_agi = cr_ptr->skill_rob;
-	cr_ptr->skill_vol = cr_ptr->skill_rob;
 
 	/* Calc new Alignment*/
 	if(cr_ptr->race != RACE_NONE)

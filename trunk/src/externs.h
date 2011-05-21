@@ -59,7 +59,7 @@ extern byte adj_mag_fail[];
 extern byte adj_mag_stat[];
 extern byte adj_chr_gold[];
 extern byte adj_int_dev[];
-extern byte adj_wis_sav[];
+extern int adj_sav[];
 extern byte adj_dex_dis[];
 extern byte adj_int_dis[];
 extern byte adj_dex_ta[];
