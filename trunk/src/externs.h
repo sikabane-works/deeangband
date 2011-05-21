@@ -1550,7 +1550,7 @@ extern bool activate_random_artifact(object_type * o_ptr);
 extern void get_bloody_moon_flags(object_type *o_ptr);
 extern void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr);
 extern bool create_named_art(int a_idx, int y, int x);
-extern bool equip_named_art(int a_idx, object_type *q_ptr);
+extern bool equip_named_art(int a_idx, creature_type *cr_ptr);
 
 /* scores.c */
 extern void display_scores_aux(int from, int to, int note, high_score *score);

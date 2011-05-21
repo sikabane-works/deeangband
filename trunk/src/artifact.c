@@ -3181,11 +3181,76 @@ bool create_named_art(int a_idx, int y, int x)
 	return drop_near(q_ptr, -1, y, x) ? TRUE : FALSE;
 }
 
-bool equip_named_art(int a_idx, object_type *q_ptr)
+bool equip_named_art(int a_idx, creature_type *cr_ptr)
 {
 	int i;
 
+	object_type *q_ptr = NULL;
 	artifact_type *a_ptr = &a_info[a_idx];
+
+	switch(a_ptr->tval)
+	{
+	case TV_DIGGING:
+	case TV_SWORD:
+	case TV_HAFTED:
+	case TV_POLEARM:
+	case TV_SHIELD:
+	case TV_CARD:
+		if(!cr_ptr->inventory[INVEN_RARM].k_idx)      q_ptr = &cr_ptr->inventory[INVEN_RARM];
+		else if(!cr_ptr->inventory[INVEN_LARM].k_idx) q_ptr = &cr_ptr->inventory[INVEN_LARM];
+		break;
+
+	case TV_AMULET:
+		if(!cr_ptr->inventory[INVEN_NECK].k_idx)      q_ptr = &cr_ptr->inventory[INVEN_NECK];
+		break;
+
+	case TV_RING: 
+		if(!cr_ptr->inventory[INVEN_RIGHT].k_idx)     q_ptr = &cr_ptr->inventory[INVEN_RIGHT];
+		else if(!cr_ptr->inventory[INVEN_LEFT].k_idx) q_ptr = &cr_ptr->inventory[INVEN_LEFT];
+		break;
+
+	case TV_BOOTS:
+		if(!cr_ptr->inventory[INVEN_FEET].k_idx)      q_ptr = &cr_ptr->inventory[INVEN_FEET];
+		break;
+
+	case TV_GLOVES:
+		if(!cr_ptr->inventory[INVEN_HANDS].k_idx)     q_ptr = &cr_ptr->inventory[INVEN_HANDS];
+		break;
+
+	case TV_HELM:
+	case TV_CROWN:
+		if(!cr_ptr->inventory[INVEN_HEAD].k_idx)      q_ptr = &cr_ptr->inventory[INVEN_HEAD];
+		break;
+
+	case TV_BOW:
+		if(!cr_ptr->inventory[INVEN_BOW].k_idx)       q_ptr = &cr_ptr->inventory[INVEN_BOW];
+		break;
+
+	case TV_CLOAK:
+		if(!cr_ptr->inventory[INVEN_OUTER].k_idx)       q_ptr = &cr_ptr->inventory[INVEN_OUTER];
+		break;
+
+	case TV_SOFT_ARMOR:
+	case TV_HARD_ARMOR:
+	case TV_DRAG_ARMOR:
+		if(!cr_ptr->inventory[INVEN_BODY].k_idx)       q_ptr = &cr_ptr->inventory[INVEN_BODY];
+		break;
+
+	case TV_LITE:
+		if(!cr_ptr->inventory[INVEN_LITE].k_idx)       q_ptr = &cr_ptr->inventory[INVEN_LITE];
+		break;
+	}
+
+	if(q_ptr == NULL)
+	{
+		for(i = 0; i < INVEN_PACK; i++)
+		{
+			if(!cr_ptr->inventory[i].k_idx)
+				q_ptr = &cr_ptr->inventory[i];
+		}
+		if(i == INVEN_PACK) return FALSE;
+	}
+
 
 	/* Ignore "empty" artifacts */
 	if (!a_ptr->name) return FALSE;
@@ -3227,5 +3292,6 @@ bool equip_named_art(int a_idx, object_type *q_ptr)
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
 
 	random_artifact_resistance(q_ptr, a_ptr);
+
 	return TRUE;
 }

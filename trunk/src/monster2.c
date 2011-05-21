@@ -3427,8 +3427,8 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 			{
 				if (!a_ptr->cur_num)
 				{
-					/* Create the artifact */
-					equip_named_art(r_ptr->artifact_id[i], &m_ptr->inventory[INVEN_RIGHT]);
+					/* Equip the artifact */
+					equip_named_art(r_ptr->artifact_id[i], m_ptr);
 					a_ptr->cur_num = 1;
 					/* Hack -- Memorize location of artifact in saved floors */
 					if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
