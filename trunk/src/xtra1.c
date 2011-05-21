@@ -3242,28 +3242,28 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	k = 1;
 
 	/* Base skills */
-	cr_ptr->skill_dis = 0;
-	cr_ptr->skill_dev = 0;
-	cr_ptr->skill_rob = 0;
+	cr_ptr->skill_dis = 5;
+	cr_ptr->skill_dev = 5;
+	cr_ptr->skill_rob = 5;
 	cr_ptr->skill_stl = -(body_size / 3 - 3);
-	cr_ptr->skill_srh = 0;
-	cr_ptr->skill_fos = 0;
-	cr_ptr->skill_thn = 0;
-	cr_ptr->skill_thb = 0;
-	cr_ptr->skill_tht = 0;
+	cr_ptr->skill_srh = 10;
+	cr_ptr->skill_fos = 10;
+	cr_ptr->skill_thn = 10;
+	cr_ptr->skill_thb = 10;
+	cr_ptr->skill_tht = 10;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
 
 	if(cr_ptr->race != RACE_NONE)
 	{
-		cr_ptr->skill_dis += race_info[cr_ptr->race].r_dis;
-		cr_ptr->skill_dev += race_info[cr_ptr->race].r_dev;
-		cr_ptr->skill_rob += race_info[cr_ptr->race].r_sav;
+		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race].r_dis);
+		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race].r_dev);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race].r_sav);
 		cr_ptr->skill_stl += race_info[cr_ptr->race].r_stl;
-		cr_ptr->skill_srh += race_info[cr_ptr->race].r_srh;
-		cr_ptr->skill_fos += race_info[cr_ptr->race].r_fos;
-		cr_ptr->skill_thn += race_info[cr_ptr->race].r_thn;
-		cr_ptr->skill_thb += race_info[cr_ptr->race].r_thb;
-		cr_ptr->skill_tht += race_info[cr_ptr->race].r_thb;
+		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race].r_srh);
+		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race].r_fos);
+		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race].r_thn);
+		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race].r_thb);
+		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race].r_thb);
 	}
 
 	for(i = 0; i < MAX_RACES; i++)
@@ -3295,6 +3295,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_thn += class_info[cr_ptr->class].c_thn;
 		cr_ptr->skill_thb += class_info[cr_ptr->class].c_thb;
 		cr_ptr->skill_tht += class_info[cr_ptr->class].c_thb;
+	}
+	else
+	{
+		cr_ptr->skill_dis += 15;
+		cr_ptr->skill_dev += 18;
+		cr_ptr->skill_rob += 28;
+		cr_ptr->skill_stl += 2;
+		cr_ptr->skill_srh += 10;
+		cr_ptr->skill_fos += 10;
+		cr_ptr->skill_thn += 10;
+		cr_ptr->skill_thb += 40;
+		cr_ptr->skill_tht += 40;
 	}
 
 	if(cr_ptr->chara != CHARA_NONE)
@@ -5862,11 +5874,22 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Calc new Alignment*/
-	cr_ptr->good = calc_align(tmp_rp_ptr->good);
-	cr_ptr->evil = calc_align(tmp_rp_ptr->evil);
-	cr_ptr->order = calc_align(tmp_rp_ptr->order);
-	cr_ptr->chaos = calc_align(tmp_rp_ptr->chaos);
-	cr_ptr->balance = calc_align(tmp_rp_ptr->balance);
+	if(cr_ptr->race != RACE_NONE)
+	{
+		cr_ptr->good = calc_align(tmp_rp_ptr->good);
+		cr_ptr->evil = calc_align(tmp_rp_ptr->evil);
+		cr_ptr->order = calc_align(tmp_rp_ptr->order);
+		cr_ptr->chaos = calc_align(tmp_rp_ptr->chaos);
+		cr_ptr->balance = calc_align(tmp_rp_ptr->balance);
+	}
+	else
+	{
+		cr_ptr->good = 0;
+		cr_ptr->evil = 0;
+		cr_ptr->order = 0;
+		cr_ptr->chaos = 0;
+		cr_ptr->balance = 0;
+	}
 
 }
 
