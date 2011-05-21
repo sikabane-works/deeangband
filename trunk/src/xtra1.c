@@ -5873,6 +5873,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
+	/* TODO: temporary saving set*/
+	cr_ptr->skill_agi = cr_ptr->skill_rob;
+	cr_ptr->skill_vol = cr_ptr->skill_rob;
+
 	/* Calc new Alignment*/
 	if(cr_ptr->race != RACE_NONE)
 	{

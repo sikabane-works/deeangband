@@ -1548,42 +1548,44 @@ errr check_load_init(void)
 #define ENTRY_PLAY_TIME 19
 #define ENTRY_SKILL_FIGHT 20
 #define ENTRY_SKILL_SHOOT 21
-#define ENTRY_skill_robING 22
-#define ENTRY_SKILL_STEALTH 23
-#define ENTRY_SKILL_PERCEP 24
-#define ENTRY_SKILL_SEARCH 25
-#define ENTRY_SKILL_DISARM 26
-#define ENTRY_SKILL_DEVICE 27
-#define ENTRY_BLOWS 28
-#define ENTRY_SHOTS 29
-#define ENTRY_AVG_DMG 30
-#define ENTRY_INFRA 31
+#define ENTRY_SKILL_ROBUSTNESS 22
+#define ENTRY_SKILL_AGILITY 23
+#define ENTRY_SKILL_VOLITION 24
+#define ENTRY_SKILL_STEALTH 25
+#define ENTRY_SKILL_PERCEP 26
+#define ENTRY_SKILL_SEARCH 27
+#define ENTRY_SKILL_DISARM 28
+#define ENTRY_SKILL_DEVICE 29
+#define ENTRY_BLOWS 30
+#define ENTRY_SHOTS 31
+#define ENTRY_AVG_DMG 32
+#define ENTRY_INFRA 33
 
-#define ENTRY_NAME 32
-#define ENTRY_SEX 33
-#define ENTRY_RACE 34
-#define ENTRY_CLASS 35
-#define ENTRY_REALM 36
-#define ENTRY_PATRON 37
-#define ENTRY_AGE 38
-#define ENTRY_HEIGHT 39
-#define ENTRY_WEIGHT 40
-#define ENTRY_SOCIAL 41
-#define ENTRY_ALIGN 42
+#define ENTRY_NAME 34
+#define ENTRY_SEX 35
+#define ENTRY_RACE 36
+#define ENTRY_CLASS 37
+#define ENTRY_REALM 38
+#define ENTRY_PATRON 39
+#define ENTRY_AGE 40
+#define ENTRY_HEIGHT 41
+#define ENTRY_WEIGHT 42
+#define ENTRY_SOCIAL 43
+#define ENTRY_ALIGN 44
 
-#define ENTRY_EXP_ANDR 43
-#define ENTRY_EXP_TO_ADV_ANDR 44
-#define ENTRY_SIZE 45
-#define ENTRY_DIVINE_RANK 46
-#define ENTRY_SKILL_DIGGING 47
+#define ENTRY_EXP_ANDR 45
+#define ENTRY_EXP_TO_ADV_ANDR 46
+#define ENTRY_SIZE 47
+#define ENTRY_DIVINE_RANK 48
+#define ENTRY_SKILL_DIGGING 49
 
-#define ENTRY_GOOD 48
-#define ENTRY_EVIL 49
-#define ENTRY_ORDER 50
-#define ENTRY_CHAOS 51
-#define ENTRY_BALANCE 52
+#define ENTRY_GOOD 50
+#define ENTRY_EVIL 51
+#define ENTRY_ORDER 52
+#define ENTRY_CHAOS 53
+#define ENTRY_BALANCE 54
 
-#define ENTRY_RIGHT 53
+#define ENTRY_RIGHT 55
 
 
 static struct
@@ -1617,8 +1619,10 @@ static struct
 	{51, 11, 21, "ƒvƒŒƒCŠÔ"},
 	{29, 15, -1, "‘ÅŒ‚UŒ‚  :"},
 	{29, 16, -1, "ËŒ‚UŒ‚  :"},
-	{29, 17, -1, "–‚–@–hŒä  :"},
-	{29, 18, -1, "‰B–§s“®  :"},
+	{29, 17, -1, "ŠæŒ’«    :"},
+	{29, 18, -1, "•q·«    :"},
+	{29, 19, -1, "ˆÓu—Í    :"},
+	{29, 20, -1, "‰B–§s“®  :"},
 	{53, 15, -1, "’mŠo      :"},
 	{53, 16, -1, "’Tõ      :"},
 	{53, 17, -1, "‰ğœ      :"},
@@ -1674,8 +1678,10 @@ static struct
 	{51, 11, 21, "Play time"},
 	{29, 15, -1, "Fighting   : "},
 	{29, 16, -1, "Bows/Throw : "},
-	{29, 17, -1, "SavingThrow: "},
-	{29, 18, -1, "Stealth    : "},
+	{29, 17, -1, "Robustness :"},
+	{29, 18, -1, "Agility    :"},
+	{29, 19, -1, "Volition   :"},
+	{29, 20, -1, "Stealth    : "},
 	{53, 15, -1, "Perception : "},
 	{53, 16, -1, "Searching  : "},
 	{53, 17, -1, "Disarming  : "},
@@ -2238,7 +2244,13 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
 
 	desc = likert(xsav, 5);
-	display_player_one_line(ENTRY_skill_robING, desc, likert_color);
+	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
+
+	desc = likert(xsav, 5);
+	display_player_one_line(ENTRY_SKILL_AGILITY, desc, likert_color);
+
+	desc = likert(xsav, 5);
+	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */
 	desc = likert((xstl > 0) ? xstl : -1, 1);
