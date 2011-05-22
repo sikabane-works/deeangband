@@ -1,10 +1,15 @@
 N:*:Default
+「墓守どもを呼び醒ませ！」「守りを固めろ！」「ワナを忘れるな！」
+奇跡も魔法もあるけれど、夢も希望も無いそうだ。
+この前メルコール様が「はいはい、ワシのせいワシのせい」とぼやいているのを聞いた。
+らめえええぇぇ！らめなのをおお！電気ビリビリってきちゃうのほおおおお！
+ハッピー、うれピー、よろピクねー！
+ラ・ボギュラ！ラ・ボギュラ！ラ・ボギュラ！
 やたら耳が長くて乳ばかりでかいエルフを見かけた？察してやれよ…
 混沌に歪んだ領域には間違っても踏み込むんじゃない。
 何か忘れてないか？
 海を泳ぎ山を登った所にある町は他の町とは一味違うぞ。
 アイテムを惜しむな、命こそ惜しめ。
-#700
 はぐれメタルを見つけた！？今すぐ倒せ！！
 一流の冒険者は常に逃げる用意を怠らないものだ。
 勇敢さを認められたかったら、卑怯な行いを慎むべきだ。
@@ -15,51 +20,44 @@ N:*:Default
 ダンジョン内のあらゆる物に関するあらゆることを知っている者はいないそうだ．
 忙しければ忙しいほど開発の作業がはかどったそうだ。
 歩くために指を yulkjhnb のキーの上に置こう。
-#690
 秘密の扉を見つけても他言してはならない。そんなをことしたら秘密じゃなくなる。
 斑点のあるドラゴンは究極の形態変化だそうだ。
 動物園を見学することはいろんな動物に会え教育上非常によろしい。
 ディスプレイを蹴ったところで怪物は傷つかない。
 誰も噂を流すことを許してないそうだ。
-単なる楽しみで変愚蛮怒をプレイできる者などいないそうだ。
-多少の誤訳でも報告してほしいそうだ。
+単なる楽しみでD'angbandをプレイできる者などいないそうだ。
 多小の五時奪字には目を潰る寛太さが…心要ないそうだ。
 スピードの靴を履くと，不慮の攻撃や衝突の心配がないそうだ。
 噂は一行しかないので、行間を読むことはできないそうだ。
-#680
 上手くいく方法が判らないなら、上手くいかない方法を楽しめばよい。
 勝利のための戦略を発見するには気長にやるしかないそうだ。
 手が輝いているときに食事をしてはならない。
-仕事中に変愚蛮怒で遊んではならない。ボスに怒られるぞ！
+仕事中にD'angbandで遊んではならない。ボスに怒られるぞ！
 剣の世界に生きるなら、剣によって死ぬと言われている。
 鎧は「ステンレス」と銘を付けるとよいそうだ。
 怪物はあらゆるところで君を打ちまかそうと、どこからともなくやって来る。
 宴会をしよう！酔っぱらいの薬を飲もう！
 1匹のトロルは10,000匹のイモリの価値があるそうだ。
 暗い部屋は「完全」に暗いのではない。目が暗闇に慣れるまで待ってみよ...
-#670
 悪魔といっしょに眠ったならば、頭痛ともに目が覚めるであろう。
 ランニングは足によい。
-変愚蛮怒の翻訳はとても大変だったそうだ。
-変愚蛮怒は単なるコンピューターゲーム以上のものがあるそうだ。
-変愚蛮怒の最大の障害は。あなたの心だそうだ。
-変愚蛮怒は常習癖がつきやすい。君はもう手遅れだ。
-変愚蛮怒の存在意義などないそうだ。
+D'angbandは単なるコンピューターゲーム以上のものがあるそうだ。
+D'angbandの最大の障害は。あなたの心だそうだ。
+D'angbandは常習癖がつきやすい。君はもう手遅れだ。
+D'angbandの存在意義などないそうだ。
 トライデントは水面下で使用するものだ。
 スフィンクスが出す問題には答えのないものもある。
 エルフのクロークを身につけてるとセンスがよいと言われる。
-#660
 なんてことだ！あなたは読むことができない。
 ときどき小さな物体が大きな物体の下に隠れていることがある。
 その昔、アルルという名のメイジはサソリマンに苦しんだそうだ。
 その昔、ヨシミツという名の剣術家は剣を回して空を飛べたそうだ。
 さまよう目は背後から攻撃するよう心がけよ。
-変愚蛮怒は2001年冬にPlayStation2で発売される。
-変愚蛮怒の攻略本絶賛発売中！定価2500円！
+D'angbandは2012年冬にPlayStation3で発売される。
+D'angbandの攻略本絶賛発売中！定価2500円！
 20歳未満の未成年が酔っぱらいの薬を飲んだら牢屋行きになる。
 次のことをすれば一つの指輪を手に入れることができる：  --続く--
 裏口から店を出ることはできない。そんなものはないのだ！
-#650
 ダンジョンの奥深くの城には強力な魔法の道具が隠されているらしい。
 洞窟に入る前に説明書を読め -- さもなくば殺されるであろう。
 動物園には莫大な宝が隠されている。
@@ -70,7 +68,6 @@ N:*:Default
 スピードの靴は水の上を歩けるほどには速くしてくれないそうだ。
 泉にコインを投げ入れても、願いをかなえてはくれないだろう。
 神は聖職者には多くを期待している。
-#640
 神はやっかいな聖職者を評価しない。
 真夜中に墓場に行くつもりか？？？
 召喚された悪魔はゲームを好転させるかもしれない。
@@ -81,7 +78,6 @@ N:*:Default
 警備の固いところには、何か特別な物があるそうだ。
 金の損失。些細な損失。名誉の損失、多大な損失、騙されて損失、すっからかん。
 曲がりくねった小さな通路の迷路の匂いがする。
-#630
 鏡にはいつも神秘的な何かがある。
 岩の下のがらくたには誰も見向きもしないらしい。
 簡明な征服。制御、混乱、懇願、非難。
@@ -92,8 +88,7 @@ N:*:Default
 レプラコーンの王はブル・ゲイツとおなじくらい金持ちだそうだ。
 ライトを長持ちさせるには燃料に注意せよ。
 ユニコーンにルビーをくわえさせることができれば幸運になるらしい。
-#620
-トールキンを読むことは助けになるだろう。
+トールキンを読むことは助けになるだろう。ただし、それとは逆の事をやった方がいい。
 そのうちやせこけた馬はあばれ馬になり、あなたはそれを誇りにすることだろう。
 んがあ・ぐあ なふるたぐん いあ！くとぅぐあ！
 ふんぐるい むぐるうなふ くとぅるう るるいえ うがふなぐる ふたぐん
@@ -165,18 +160,21 @@ You will encounter a dark, tall stranger...
 ゼラチンキューブと戦う前に鎧を脱いでみよう。
 #They say that only one sword can score *CRITICAL* hits.
 ただ一つの剣のみが *CRITICAL* を出すことが出来るらしい。
-You have Error in objdes()
+#You have Error in objdes()
 #This rumor is not true.
 この噂は真実ではない。
-Trump power may be useful in some circumstances: free teleport!
-If you can fall like a feather, you need not care about gravity.
+#Trump power may be useful in some circumstances: free teleport!
+トランプの力はしばしば役に立ってくれるだろう。テレポート自在！
+#If you can fall like a feather, you need not care about gravity.
+浮遊の力があれば、重力の力に脅かされることもない。
 #They say that you should rejoice if you find a scroll labeled ""!
 「」と書かれた巻物を拾ったら喜ぶべきなんだそうだ。
 #You don't always have to kill everything you meet!
 いつも出会う敵全てを殺す必要はない！
 #If you can't beat it, leave it alone!
 倒せないなら、ほっときな！
-An umber hulk can be a confusing sight.
+#An umber hulk can be a confusing sight.
+アンバーハルクは視界を乱すことができる。
 #There *is* a good use for Potions of Detonations, Ruination and Death...
 爆発の薬や死の薬や破滅の薬には、いい使い道がある。
 #It's a bad idea to throw away a Longsword (4d5).
@@ -193,7 +191,8 @@ An umber hulk can be a confusing sight.
 防具に{腐食しない}と銘を刻んだことあるかい？
 #Why are you wasting time reading fortunes?
 なんでおみくじなんか読んで時間を無駄にしてるんだ？
-There is a horrible, ghastly fate awaiting you... at 2700'!
+#There is a horrible, ghastly fate awaiting you... at 2700'!
+恐ろしいことだ！５４階に君の破滅が待ち構えている！
 #You can get the Longsword 'Ringil' by doing the following:
 ロングソード『リンギル』を手に入れる方法は以下の通り：
 #You can protect yourself from Great Wyrms of Power by doing the following:
@@ -206,10 +205,12 @@ There is a horrible, ghastly fate awaiting you... at 2700'!
 ぐあああああぁぁぁぁ！
 #Imperial assassin looking for a job. Contact: Pak, Master of Sinanju, 2600'.
 帝国のアサシン、職求む。連絡は52階のシナンジュ・マスター Pak まで
-Try inscribing the name of the first monster killed by it in the weapon!
+#Try inscribing the name of the first monster killed by it in the weapon!
+最初に殺したモンスターの名前を武器に刻んでやれ！
 #The richer the victim the happier the thief.
 カモが金持ちなほど泥棒は嬉しい。
-Wanted: Smurfs. Good reward. Contact: Gargamel, 400'.
+#Wanted: Smurfs. Good reward. Contact: Gargamel, 400'.
+スマーフ募集、報酬は弾む。連絡先は８階のガーガメルにまで。
 #Beware the Jabberwock, my son! The jaws that bite, the claws that catch...
 ジャバウォックにゃ気をつけるんだぞ、わが息子！牙むき出して噛みつくぞ、爪むき出して襲いくるぞ！
 #There's something bad about what you are carrying in your backpack...
@@ -218,7 +219,8 @@ Wanted: Smurfs. Good reward. Contact: Gargamel, 400'.
 たくさん金を持っている時ほど泥棒はよく現れる。
 #Brand's sword, Werewindle, probably knows more than just one trick.
 アンバーの王子ブランドの剣『ワーウィンドル』はいくつかの芸当をするだろう。
-They say that Scrolls of *Curse Weapon* can create powerful cursed artifacts.
+#They say that Scrolls of *Curse Weapon* can create powerful cursed artifacts.
+武器呪縛の巻物は強力に呪われたアーティファクトを生成するらしい。
 #They say that Mjollnir will return to your hand if you throw it.
 ミュルニールを投げると手元に戻ってくるらしい。
 #They say that the Chainsword makes monsters mad with its awful noise!
@@ -231,7 +233,8 @@ They say that Scrolls of *Curse Weapon* can create powerful cursed artifacts.
 すべてのパターンの武器は混沌の悪魔たちに致命的な一撃を与えるそうだ。
 #Klingsor's Castle was destroyed by the the holy might of the Spear of Destiny.
 クリングゾールの城は『ロンギヌス』の聖なる力で打ち壊された。
-Orcs are mortally afraid of weapons that can slay them.
+#Orcs are mortally afraid of weapons that can slay them.
+オーク達が自分達を滅ぼしえる武器を死ぬ程に恐れている。
 #There is a way to turn a Ring of Speed (-20) into a Ring of Speed (+20).
 スピードの指輪(-20 加速)をスピードの指輪(+20 加速)に変える方法がある。
 #There is no way to turn a Ring of Speed (-20) into a Ring of Speed (+20).
@@ -239,9 +242,11 @@ Orcs are mortally afraid of weapons that can slay them.
 #Cool guys can resist fire.
 クールな奴は火への耐性を持っている。
 They say that death incarnate wears heavy metal boots...
+死はヘビーメタルブーツを履いた姿を見せるそうだ。
 #You feel the Longsword (t) you are carrying in your backpack is special...
 ザックの中のロング・ソード (t)は特別製という気がする...
-If you start seeing red monsters, you have probably gained infravision.
+#If you start seeing red monsters, you have probably gained infravision.
+赤色のモンスターを見つめるようにすれば、赤外線視力が増すかも知れない。
 #They say that the dungeon is deeper than the Abyss.
 ダンジョンは地獄の深淵より深いといわれている。
 #When all else fails, read the instructions.
@@ -266,7 +271,8 @@ If you start seeing red monsters, you have probably gained infravision.
 地獄への階段があるのなら、天国への階段もあるはずだ。
 #You feel your luck is turning...
 多少は運が向いてきたか...
-If you thought Death swords were bad, wait until you meet Killer katanas!
+#If you thought Death swords were bad, wait until you meet Killer katanas!
+デスソードがいやだというなら、ＳＡＴＳＵＺＩＮカタナに会うまで待つといい！
 #Overeating can be bad for your health if there are others nearby.
 近くに何かいる場合、食べ過ぎは健康に良くない。
 #Cave dwellers are accustomed to darkness and rarely enjoy bright light.
@@ -281,7 +287,8 @@ If you thought Death swords were bad, wait until you meet Killer katanas!
 アイテムを自分の周りにばらまいておくと、透明なモンスターはよく姿をさらけだす。
 #They say that the key to killing tougher monsters is called "hit&run".
 強いモンスターを倒すコツは「ヒット＆アウェイ」だそうだ。
-They say that there is no such thing as free advice.
+#They say that there is no such thing as free advice.
+タダで貰えるアドバイスなんてないらしい。
 #Wearing an Amulet of Doom will take you into the Dungeons of Doom.
 破滅のアミュレット(Amulet of Doom)を装備すると「運命の大迷宮」(Dungeons of Doom)に行けるらしい。
 #They say that when you're hungry you can get a pizza in 30 turns or it's free.
@@ -306,7 +313,8 @@ They say that there is no such thing as free advice.
 足元に気をつけて！探索モードに入るには(s)キーだ。
 #They say that you had better leave Greater hell-beasts alone.
 グレーター・ヘル=ビーストは放っておいたほうがいいそうだ。
-Kharis' tomb is somewhere in the dungeon and you won't want to desecrate it!
+#Kharis' tomb is somewhere in the dungeon and you won't want to desecrate it!
+カリスの墓所はダンジョンのどこかにある。決して汚すことなかれ！
 #Selling unidentified potions to shopkeepers might be safer than quaffing them.
 未鑑定の薬を店に売るのは、自分で飲むより安全だ。
 #Always look out for trapdoors on "special" feeling levels!
@@ -319,8 +327,10 @@ Kharis' tomb is somewhere in the dungeon and you won't want to desecrate it!
 ただ一つの剣、『ノートゥング』のみが龍のファフナーを倒すことが出来るらしい。
 #"So when I die, the first thing I will see in heaven is a score list?"
 「じゃあ、もし死んだ時、天国で真っ先に目にするのはスコアリストだってのかい？」
-You're going into the morgue at midnight?
-How dare you! I will not buy that!
+#You're going into the morgue at midnight?
+この真夜中に死体公示所に行く気かい？
+#How dare you! I will not buy that!
+ずうずうしいな！こんなもん買わないよ！
 #A Potion of Detonations is also known as nitroglycerin...
 爆発の薬はニトログリセリンという名でも知られている。
 #There is a trap on this level!
