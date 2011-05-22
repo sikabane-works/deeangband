@@ -2920,7 +2920,7 @@ static void calc_torch(creature_type *cr_ptr)
 			{
 				if (o_ptr->sval == SV_LITE_TORCH)
 				{
-					cr_ptr->cur_lite -= 1;
+					cr_ptr->cur_lite -= 2;
 				}
 
 				/* Lanterns (with fuel) provide more lite */
@@ -2937,7 +2937,7 @@ static void calc_torch(creature_type *cr_ptr)
 			/* Torches (with fuel) provide some lite */
 			else if ((o_ptr->sval == SV_LITE_TORCH) && (o_ptr->xtra4 > 0))
 			{
-				cr_ptr->cur_lite += 1;
+				cr_ptr->cur_lite += 2;
 			}
 
 			/* Lanterns (with fuel) provide more lite */
@@ -2948,13 +2948,13 @@ static void calc_torch(creature_type *cr_ptr)
 
 			else if (o_ptr->sval == SV_LITE_FEANOR)
 			{
-				cr_ptr->cur_lite += 2;
+				cr_ptr->cur_lite += 3;
 			}
 
 			/* Artifact Lites provide permanent, bright, lite */
 			else if (object_is_fixed_artifact(o_ptr))
 			{
-				cr_ptr->cur_lite += 3;
+				cr_ptr->cur_lite += 4;
 			}
 
 			if (o_ptr->name2 == EGO_LITE_SHINE) cr_ptr->cur_lite++;
