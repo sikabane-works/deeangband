@@ -181,6 +181,7 @@
 
 /* Number of entries in the sanity-blast descriptions */
 #define MAX_SAN_HORROR 20
+#define MAX_SAN_DELIGHT 20
 #define MAX_SAN_FUNNY 22
 #define MAX_SAN_COMMENT 5
 

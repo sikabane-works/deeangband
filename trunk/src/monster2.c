@@ -69,6 +69,61 @@ cptr horror_desc[MAX_SAN_HORROR] =
 
 };
 
+cptr delight_desc[MAX_SAN_HORROR] =
+{
+#ifdef JP
+	"‘f°‚ç‚µ‚¢",
+	"”ü‚µ‚¢",
+	"‰œ‚ä‚©‚µ‚¢",
+	"ˆ¤‚¨‚µ‚¢",
+	"—D”ü‚È",
+
+	"éeˆè‚½‚é",
+	"“V‚É¸‚é‚æ‚¤‚È",
+	"œ’›‚½‚é",
+	"j•Ÿ‚³‚ê‚½",
+	"–¾›Z‚È",
+
+	"â’¸‚·‚é‚æ‚¤‚È",
+	"–@‰x‚½‚é",
+	"‹P‚¯‚é",
+	"‰·‚©‚İ‚ ‚é",
+	"Šy‰€‚Ì‚æ‚¤‚È",
+
+	"DŠ´‚ğŠ´‚¶‚é",
+	"â^‚·‚×‚«",
+	"‹¹‚Ì”M‚­‚È‚é",
+	"´ò‚È",
+	"Œê‚é‚És‚­‚¹‚Ê",
+#else
+	"wonderful",
+	"beautiful",
+	"elegant",
+	"tender",
+	"graceful",
+
+	"fragrant",
+	"happy",
+	"enchanted",
+	"blessed",
+	"scenic",
+
+	"ecstatic",
+	"religious",
+	"luminous",
+	"warmhearted",
+	"heavenly",
+
+	"favorite",
+	"excellent",
+	"passional",
+	"immaculate",
+	"indescribable",
+#endif
+
+};
+
+
 cptr funny_desc[MAX_SAN_FUNNY] =
 {
 #ifdef JP
@@ -2091,18 +2146,33 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 		}
 
 		/* Something frightening happens... */
+
+		if (race_is_(p_ptr, RACE_IMP) || race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+		{
 #ifdef JP
-		msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
-			horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+			msg_format("%s%s‚ÌŠç‚ªŠ_ŠÔŒ©‚¦‚½B",
+				delight_desc[randint0(MAX_SAN_DELIGHT)], m_name);
 #else
-		msg_format("You behold the %s visage of %s!",
-			horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+			msg_format("You glance at the %s visage of %s.",
+				delight_desc[randint0(MAX_SAN_DELIGHT)], m_name);
 #endif
+		}
+		else
+		{
+#ifdef JP
+			msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
+				horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+#else
+			msg_format("You behold the %s visage of %s!",
+				horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+#endif
+		}
 
 		r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 		/* Demon characters are unaffected */
 		if (race_is_(p_ptr, RACE_IMP) || race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
+
 		if (p_ptr->wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */

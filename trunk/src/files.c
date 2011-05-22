@@ -7634,7 +7634,6 @@ errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int count)
 	return result;
 }
 #endif
-
 /*
  * Process file for auto picker/destroyer.
  */
