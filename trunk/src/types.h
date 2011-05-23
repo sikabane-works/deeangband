@@ -92,6 +92,7 @@ struct feature_type
 
 	byte x_attr[F_LIT_MAX];   /* Desired feature attribute */
 	byte x_char[F_LIT_MAX];   /* Desired feature character */
+
 };
 
 
@@ -508,6 +509,8 @@ struct cave_type
 	byte cost;		/* Hack -- cost of flowing */
 	byte dist;		/* Hack -- distance from player */
 	byte when;		/* Hack -- when cost was computed */
+
+	char message[CAVE_MESSAGE_LENGTH];
 };
 
 

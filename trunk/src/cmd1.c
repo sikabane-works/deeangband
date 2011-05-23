@@ -4382,6 +4382,11 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 #endif
 		}
 
+		if(strlen(c_ptr->message))
+		{
+			msg_format("地面の下にメッセージが書いてある:%s", c_ptr->message);
+		}
+
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
 		if (p_ptr->wild_mode)
 		{

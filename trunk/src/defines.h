@@ -1271,6 +1271,7 @@
 #define FF_FLAG_MAX      116
 #define FF_FLAG_SIZE     (1 + ((FF_FLAG_MAX - 1) / 32))
 
+
 /* Which features are dynamic */
 #define have_dynamic_flags(ARRAY) \
 	(!!((ARRAY)[(FF_INSTANT / 32)] & \
@@ -2704,6 +2705,8 @@
 #define CAVE_OBJECT     0x1000    /* Mirror, glyph, etc. */
 #define CAVE_UNSAFE     0x2000    /* Might have trap */
 #define CAVE_IN_DETECT  0x4000    /* trap detected area (inner circle only) */
+
+#define CAVE_MESSAGE_LENGTH 250
 
 
 /*
