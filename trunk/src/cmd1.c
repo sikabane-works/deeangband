@@ -4423,9 +4423,9 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	if(!p_ptr->blind && ((c_ptr->info & CAVE_GLOW) || p_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
-		msg_print("床にメッセージが刻まれている:");
+		msg_format("%sにメッセージが刻まれている:", f_name + f_info[c_ptr->feat].name);
 #else
-		msg_print("You find the following inscription in the floor.");
+		msg_format("You find the following inscription on %s.", f_name + f_info[c_ptr->feat].name);
 #endif
 		msg_format("%s", c_ptr->message);
 	}
