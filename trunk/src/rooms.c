@@ -670,7 +670,7 @@ static bool build_type1(void)
 		if (curtain2) cave[yval][xval].feat = feat_door[DOOR_CURTAIN].closed;
 	}
 
-	if(one_in_(10)){
+	if(one_in_(2)){
 #ifdef JP
 		get_rnd_line_jonly("rumors_j.txt", 0, cave[yval][xval].message, 10);
 #else

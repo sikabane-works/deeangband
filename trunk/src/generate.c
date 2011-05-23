@@ -1561,6 +1561,7 @@ void clear_cave(void)
 			c_ptr->cost = 0;
 			c_ptr->dist = 0;
 			c_ptr->when = 0;
+			c_ptr->message[0] = '\0';
 		}
 	}
 
