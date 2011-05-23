@@ -4991,6 +4991,21 @@ msg_print("ウィザードモード突入。");
 			break;
 		}
 
+		/* Inscribe caves */
+
+		case '\'':
+		{
+			do_cmd_inscribe();
+			break;
+		}
+
+		case KTRL('}'):
+		{
+			do_cmd_uninscribe();
+			break;
+		}
+
+
 		/* Activate an artifact */
 		case 'A':
 		{
