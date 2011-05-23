@@ -4382,11 +4382,6 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 #endif
 		}
 
-		if(strlen(c_ptr->message))
-		{
-			msg_format("地面の下にメッセージが書いてある:%s", c_ptr->message);
-		}
-
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
 		if (p_ptr->wild_mode)
 		{
@@ -4424,6 +4419,17 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		/* Move the player */
 		(void)move_player_effect(y, x, mpe_mode);
 	}
+
+	if(strlen(c_ptr->message))
+	{
+#ifdef JP
+		msg_print("床にメッセージが刻まれている:");
+#else
+		msg_print("You find the following inscription in the floor.");
+#endif
+		msg_format("%s", c_ptr->message);
+	}
+
 }
 
 
