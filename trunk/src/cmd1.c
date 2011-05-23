@@ -4420,7 +4420,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		(void)move_player_effect(y, x, mpe_mode);
 	}
 
-	if(strlen(c_ptr->message))
+	if(!p_ptr->blind && ((c_ptr->info & CAVE_GLOW) || p_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
 		msg_print("床にメッセージが刻まれている:");

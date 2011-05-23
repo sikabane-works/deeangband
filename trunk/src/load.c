@@ -2060,6 +2060,18 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	C_FREE(template, limit, cave_template_type);
 
 
+	/*** Load cave messages ***/
+	if(!older_than(0,0,5,0))
+	{
+		for (y = 0; y < cur_hgt; y++)
+		{
+			for (x = 0; x < cur_wid; x++)
+			{
+				rd_string(cave[y][x].message, CAVE_MESSAGE_LENGTH);	
+			}
+		}
+	}
+
 	/*** Objects ***/
 
 	/* Read the item count */

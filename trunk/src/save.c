@@ -1026,7 +1026,6 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 	/* Sort by occurrence */
 	ang_sort(template, &dummy_why, num_temp);
 
-
 	/*** Dump templates ***/
 
 	/* Total templates */
@@ -1043,7 +1042,6 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 		wr_s16b(ct_ptr->mimic);
 		wr_s16b(ct_ptr->special);
 	}
-
 
 
 	/*** "Run-Length-Encoding" of cave ***/
@@ -1113,6 +1111,18 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 
 	/* Free the "template" array */
 	C_FREE(template, max_num_temp, cave_template_type);
+
+
+	/*** Dump cave messages ***/
+
+	for (y = 0; y < cur_hgt; y++)
+	{
+		for (x = 0; x < cur_wid; x++)
+		{
+			wr_string(cave[y][x].message);	
+		}
+	}
+
 
 
 	/*** Dump objects ***/

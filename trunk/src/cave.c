@@ -951,6 +951,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
 			c = f_ptr->x_char[F_LIT_STANDARD];
+			if (strlen(cave[y][x].message)) a = TERM_BLUE;
 
 			if (p_ptr->wild_mode)
 			{
@@ -990,6 +991,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 						/* Use a brightly lit colour/tile */
 						a = f_ptr->x_attr[F_LIT_LITE];
 						c = f_ptr->x_char[F_LIT_LITE];
+						if (strlen(cave[y][x].message)) a = TERM_L_BLUE;
 					}
 				}
 
@@ -1039,6 +1041,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
 			c = f_ptr->x_char[F_LIT_STANDARD];
+			if (strlen(cave[y][x].message)) a = TERM_BLUE;
 
 			if (p_ptr->wild_mode)
 			{
@@ -1049,6 +1052,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
 					c = f_ptr->x_char[F_LIT_DARK];
+					if (strlen(cave[y][x].message)) a = TERM_BLUE;
 				}
 			}
 
@@ -1072,6 +1076,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
 					c = f_ptr->x_char[F_LIT_DARK];
+					if (strlen(cave[y][x].message)) a = TERM_BLUE;
 				}
 			}
 
@@ -1095,6 +1100,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 						/* Use a brightly lit colour/tile */
 						a = f_ptr->x_attr[F_LIT_LITE];
 						c = f_ptr->x_char[F_LIT_LITE];
+						if (strlen(cave[y][x].message)) a = TERM_L_BLUE;
 					}
 				}
 
@@ -1107,6 +1113,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
+						if (strlen(cave[y][x].message)) a = TERM_BLUE;
 					}
 
 					/* Not glowing */
@@ -1115,6 +1122,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
+						if (strlen(cave[y][x].message)) a = TERM_BLUE;
 					}
 
 					/* Not glowing correctly */
@@ -1123,6 +1131,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
 						c = f_ptr->x_char[F_LIT_DARK];
+						if (strlen(cave[y][x].message)) a = TERM_BLUE;
 					}
 				}
 			}
@@ -1622,6 +1631,7 @@ void lite_spot(int y, int x)
 			if (world_monster) a = TERM_DARK;
 			else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
 			else if (p_ptr->wraith_form) a = TERM_L_DARK;
+
 		}
 
 		/* Hack -- Queue it */
@@ -2094,7 +2104,6 @@ void display_map(int *cy, int *cx)
 			{
 				if (world_monster) ta = TERM_DARK;
 				else if (IS_INVULN(p_ptr) || world_player) ta = TERM_WHITE;
-				else if (p_ptr->wraith_form) ta = TERM_L_DARK;
 			}
 
 			/* Add the character */
