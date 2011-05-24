@@ -203,6 +203,10 @@ C:1:X
 A:U
 C:1:O
 
-# Hack - race/mutation power activation
+# Hack - Game Time
 A:^t
 C:1:'
+
+# Allow use of the "inscribe caves" command
+A:'
+C:1:!
