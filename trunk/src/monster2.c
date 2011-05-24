@@ -3083,6 +3083,78 @@ static int initial_r_appearance(int r_idx)
 }
 
 
+static void mon_equip(creature_type *m_ptr)
+{
+	int i, number;
+	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+
+	/* Average dungeon and monster levels */
+	object_level = (dun_level + r_ptr->level) / 2;
+
+	/* inventory */
+	number = 0;
+	/* Determine how much we can drop */
+	if ((r_ptr->flags1 & RF1_DROP_60) && (randint0(100) < 60)) number++;
+	if ((r_ptr->flags1 & RF1_DROP_90) && (randint0(100) < 90)) number++;
+	if  (r_ptr->flags1 & RF1_DROP_1D2) number += damroll(1, 2);
+	if  (r_ptr->flags1 & RF1_DROP_2D2) number += damroll(2, 2);
+	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
+	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
+
+	if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
+		number = 0; /* Pets drop no stuff */
+
+	/* Drop some objects */
+	for (i = 0; i < number; i++)
+	{
+		u32b mo_mode = 0L;
+		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+
+		/* Wipe the object */
+		object_wipe(&m_ptr->inventory[i]);
+
+		/* Make an object */
+		if (!make_object(&m_ptr->inventory[i], mo_mode)) continue;
+
+		/* Drop it in the dungeon */
+	}
+
+	if(m_ptr->race != RACE_NONE)
+	{
+	// temporary OFF.
+	//	object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
+	//	object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
+	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
+	}
+
+	for(i = 0; i < 10; i++)
+	{
+		if(!r_ptr->artifact_prob) break;
+		if(r_ptr->artifact_id)
+		{
+			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
+			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || p_ptr->wizard))
+			{
+				if (!a_ptr->cur_num)
+				{
+					/* Equip the artifact */
+					equip_named_art(r_ptr->artifact_id[i], m_ptr);
+					a_ptr->cur_num = 1;
+					/* Hack -- Memorize location of artifact in saved floors */
+					if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
+				}
+			}
+
+		}
+		else
+		{
+
+		}
+	}
+
+}
+
 
 
 /*
@@ -3117,9 +3189,8 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	cptr		name = (r_name + r_ptr->name);
 
-	int cmi, number;
+	int cmi;
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
-	int i;
 
 
 	/* Select Ego */
@@ -3479,74 +3550,7 @@ msg_print("守りのルーンが壊れた！");
 	set_enemy_maxhp(m_ptr);
 
 	/* Equipment */
-	if(m_ptr->race != RACE_NONE)
-	{
-	// temporary OFF.
-	//	object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
-	//	object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
-	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
-	}
-
-	for(i = 0; i < 10; i++)
-	{
-		if(!r_ptr->artifact_prob) break;
-		if(r_ptr->artifact_id)
-		{
-			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
-			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || p_ptr->wizard))
-			{
-				if (!a_ptr->cur_num)
-				{
-					/* Equip the artifact */
-					equip_named_art(r_ptr->artifact_id[i], m_ptr);
-					a_ptr->cur_num = 1;
-					/* Hack -- Memorize location of artifact in saved floors */
-					if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
-				}
-			}
-
-		}
-		else
-		{
-
-		}
-	}
-
-	/* inventory */
-	number = 0;
-	/* Determine how much we can drop */
-	if ((r_ptr->flags1 & RF1_DROP_60) && (randint0(100) < 60)) number++;
-	if ((r_ptr->flags1 & RF1_DROP_90) && (randint0(100) < 90)) number++;
-	if  (r_ptr->flags1 & RF1_DROP_1D2) number += damroll(1, 2);
-	if  (r_ptr->flags1 & RF1_DROP_2D2) number += damroll(2, 2);
-	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
-	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
-
-	if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
-		number = 0; /* Pets drop no stuff */
-
-	/* Average dungeon and monster levels */
-	object_level = (dun_level + r_ptr->level) / 2;
-
-	/* Drop some objects */
-	for (i = 0; i < number; i++)
-	{
-		u32b mo_mode = 0L;
-		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
-
-		/* Wipe the object */
-		object_wipe(&m_ptr->inventory[i]);
-
-		/* Make an object */
-		if (!make_object(&m_ptr->inventory[i], mo_mode)) continue;
-
-		/* Drop it in the dungeon */
-	}
-
-
-
-
+	mon_equip(m_ptr);
 
 	calc_bonuses(m_ptr, FALSE);
 	update_stuff(m_ptr, FALSE);
@@ -3741,6 +3745,9 @@ msg_print("爆発のルーンは解除された。");
 	/* Success */
 	return (TRUE);
 }
+
+
+
 
 
 /*
