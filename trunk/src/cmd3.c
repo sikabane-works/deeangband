@@ -1645,8 +1645,31 @@ void do_cmd_inscribe_caves(void)
 #else
 		msg_print("Canceled.");
 #endif
+		return;
 	}
-	
+
+	if(strstr(cave[py][px].message, "Elbereth"))
+	{
+		char error_m[1024];
+		bool stop_ty = FALSE;
+		int count = 0;
+
+		sound(SOUND_ILLEGAL);
+#ifdef JP
+		if (!get_rnd_line("error_j.txt", 0, error_m))
+#else
+		if (!get_rnd_line("error.txt", 0, error_m))
+#endif
+		msg_print(error_m);
+
+		do
+		{
+			stop_ty = activate_ty_curse(stop_ty, &count);
+		}
+		while (one_in_(6));
+	}
+
+
 }
 
 
