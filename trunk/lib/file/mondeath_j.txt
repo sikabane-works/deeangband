@@ -1,6 +1,7 @@
 N:53:Grip, Farmer Maggot's dog
 N:54:Wolf, Farmer Maggot's dog
 N:55:Fang, Farmer Maggot's dog
+は惨めな呻き声を上げて息絶えた。
 
 N:63:Smeagol
 「愛しい人！愛しい人！私の唯一つの愛しい人よ！」
@@ -33,9 +34,6 @@ N:878:Dio Brando
 
 N:880:Wong, Master of Time
 「この私がぁ！」
-
-N:921:Internet Exploder
-を削除します。
 
 N:931:Caldarm the third
 「すべての人々に．．．平和を．．．」
