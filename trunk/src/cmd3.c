@@ -1661,12 +1661,21 @@ void do_cmd_inscribe_caves(void)
 		if (!get_rnd_line("error.txt", 0, error_m))
 #endif
 		msg_print(error_m);
+		msg_print(NULL);
 
 		do
 		{
 			stop_ty = activate_ty_curse(stop_ty, &count);
 		}
 		while (one_in_(6));
+		strcpy(cave[py][px].message, "");
+
+#ifdef JP
+		msg_print("メッセージは消え去った。");
+#else
+		msg_print("Messages vanished.");
+#endif
+
 	}
 
 
