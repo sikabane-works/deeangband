@@ -761,6 +761,7 @@ extern void do_cmd_destroy(void);
 extern void do_cmd_observe(void);
 extern void do_cmd_uninscribe(void);
 extern void do_cmd_inscribe(void);
+extern void do_cmd_inscribe_caves(void);
 extern void do_cmd_refill(void);
 extern void do_cmd_target(void);
 extern void do_cmd_look(void);

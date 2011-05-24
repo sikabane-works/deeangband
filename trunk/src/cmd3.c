@@ -1609,6 +1609,47 @@ void do_cmd_inscribe(void)
 }
 
 
+/*
+ * Inscribe caves with a comment
+ */
+void do_cmd_inscribe_caves(void)
+{
+	char tmp[CAVE_MESSAGE_LENGTH];
+
+	item_tester_no_ryoute = TRUE;
+
+	/* Get an item */
+#ifdef JP
+	msg_format("自分の真下にメッセージを刻む:");
+#else
+	msg_format("Inscribe messages on your floor.");
+#endif
+
+	msg_print(NULL);
+
+	tmp[0] = '\0';
+	strcpy(tmp, cave[py][px].message);
+
+	/* Get a new inscription (possibly empty) */
+#ifdef JP
+	if(get_string("メッセージ: ", tmp, CAVE_MESSAGE_LENGTH)){
+#else
+	if(get_string("Message: ", tmp, CAVE_MESSAGE_LENGTH)){
+#endif
+		strcpy(cave[py][px].message, tmp);
+	}
+	else
+	{
+#ifdef JP
+		msg_print("中断した。");
+#else
+		msg_print("Canceled.");
+#endif
+	}
+	
+}
+
+
 
 /*
  * An "item_tester_hook" for refilling lanterns

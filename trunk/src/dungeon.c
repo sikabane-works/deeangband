@@ -4995,7 +4995,7 @@ msg_print("ウィザードモード突入。");
 
 		case '\'':
 		{
-			do_cmd_inscribe();
+			do_cmd_inscribe_caves();
 			break;
 		}
 
