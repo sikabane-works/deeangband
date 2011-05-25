@@ -3138,11 +3138,14 @@ static void mon_equip(creature_type *m_ptr)
 			{
 				if (!a_ptr->cur_num)
 				{
+					int r;
+					object_type ob;
 					/* Equip the artifact */
-					equip_named_art(r_ptr->artifact_id[i], m_ptr);
+					create_named_art(&ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
-					/* Hack -- Memorize location of artifact in saved floors */
-					if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
+					r = mon_classify_inventory(m_ptr, &ob);
+					if(r != INVEN_NULL)
+						m_ptr->inventory[r] = ob;
 				}
 			}
 
@@ -3153,6 +3156,7 @@ static void mon_equip(creature_type *m_ptr)
 		}
 	}
 
+//mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
@@ -5253,6 +5257,82 @@ void update_smart_learn(int m_idx, int what)
 		break;
 	}
 }
+
+/*
+ * Equipment classifiy for monster
+ */
+int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
+{
+	int i, r = INVEN_NULL;
+
+	if(cr_ptr->race != RACE_NONE)
+	{
+		switch(o_ptr->tval)
+		{
+		case TV_DIGGING:
+		case TV_SWORD:
+		case TV_HAFTED:
+		case TV_POLEARM:
+		case TV_SHIELD:
+		case TV_CARD:
+			if(!cr_ptr->inventory[INVEN_RARM].k_idx)      r = INVEN_RARM;
+			else if(!cr_ptr->inventory[INVEN_LARM].k_idx) r = INVEN_LARM;
+			break;
+
+		case TV_AMULET:
+			if(!cr_ptr->inventory[INVEN_NECK].k_idx)      r = INVEN_NECK;
+			break;
+
+		case TV_RING: 
+			if(!cr_ptr->inventory[INVEN_RIGHT].k_idx)     r = INVEN_RIGHT;
+			else if(!cr_ptr->inventory[INVEN_LEFT].k_idx) r = INVEN_LEFT;
+			break;
+
+		case TV_BOOTS:
+			if(!cr_ptr->inventory[INVEN_FEET].k_idx)      r = INVEN_FEET;
+			break;
+
+		case TV_GLOVES:
+			if(!cr_ptr->inventory[INVEN_HANDS].k_idx)     r = INVEN_HANDS;
+			break;
+
+		case TV_HELM:
+		case TV_CROWN:
+			if(!cr_ptr->inventory[INVEN_HEAD].k_idx)      r = INVEN_HEAD;
+			break;
+
+		case TV_BOW:
+			if(!cr_ptr->inventory[INVEN_BOW].k_idx)       r = INVEN_BOW;
+			break;
+
+		case TV_CLOAK:
+			if(!cr_ptr->inventory[INVEN_OUTER].k_idx)     r = INVEN_OUTER;
+			break;
+
+		case TV_SOFT_ARMOR:
+		case TV_HARD_ARMOR:
+		case TV_DRAG_ARMOR:
+			if(!cr_ptr->inventory[INVEN_BODY].k_idx)      r = INVEN_BODY;
+			break;
+
+		case TV_LITE:
+			if(!cr_ptr->inventory[INVEN_LITE].k_idx)      r = INVEN_LITE;
+			break;
+		}
+	}
+
+	if(r == INVEN_NULL)
+	{
+		for(i = 0; i < INVEN_PACK; i++)
+		{
+			if(!cr_ptr->inventory[i].k_idx)
+				r = i;
+		}
+	}
+
+	return r;
+}
+
 
 
 /*

@@ -1016,6 +1016,7 @@ extern bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mod
 extern bool summon_named_creature (int who, int oy, int ox, int r_idx, u32b mode);
 extern bool multiply_monster(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(int m_idx, int what);
+extern int  mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr);
 extern void choose_new_monster(int m_idx, bool born, int r_idx, int re_idx);
 extern bool player_place(int y, int x);
 extern void monster_drop_carried_objects(creature_type *m_ptr);
