@@ -3177,7 +3177,7 @@ static void mon_equip(creature_type *m_ptr)
  * This is the only function which may place a monster in the dungeon,
  * except for the savefile loading code.
  */
-static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b mode)
+static int place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -3262,18 +3262,18 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	if (p_ptr->wild_mode){
 		if (cheat_hear)
 		{
-			msg_format("[False: Wild mode]");
+			msg_format("[max_m_idx: Wild mode]");
 		}
-		return FALSE;
+		return max_m_idx;
 	}
 
 	/* Verify location */
 	if (!in_bounds(y, x)){
 		if (cheat_hear)
 		{
-			msg_format("[False: Invalid Location]");
+			msg_format("[max_m_idx: Invalid Location]");
 		}
-		return (FALSE);
+		return (max_m_idx);
 	}
 
 	/* Paranoia */
@@ -3281,9 +3281,9 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	{
 		if (cheat_hear)
 		{
-			msg_format("[False: Invalid Monster Race]");
+			msg_format("[max_m_idx: Invalid Monster Race]");
 		}
-		return (FALSE);
+		return (max_m_idx);
 	}
 
 	/* Paranoia */
@@ -3291,23 +3291,23 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 	{
 		if (cheat_hear)
 		{
-			msg_format("[False: Invalid Monster Name]");
+			msg_format("[max_m_idx: Invalid Monster Name]");
 		}
-		return (FALSE);
+		return (max_m_idx);
 	}
 
 	if (!(mode & PM_IGNORE_TERRAIN))
 	{
 		/* Not on the Pattern */
-		if (pattern_tile(y, x)) return FALSE;
+		if (pattern_tile(y, x)) return max_m_idx;
 
 		/* Require empty space (if not ghostly) */
 		if (!monster_can_enter(y, x, r_ptr, 0)){
 			if (cheat_hear)
 			{
-				msg_format("[False: Monster Can't Enter]");
+				msg_format("[max_m_idx: Monster Can't Enter]");
 			}
-			return FALSE;
+			return max_m_idx;
 		}
 	}
 
@@ -3321,11 +3321,11 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		{
 			if (cheat_hear)
 			{
-				msg_format("[False: Unique monster must be unique.]");
+				msg_format("[max_m_idx: Unique monster must be unique.]");
 			}
 
 			/* Cannot create */
-			return (FALSE);
+			return (max_m_idx);
 		}
 
 		if ((r_ptr->flags7 & (RF7_UNIQUE2)) &&
@@ -3333,18 +3333,18 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		{
 			if (cheat_hear)
 			{
-				msg_format("[False: Unique monster must be unique.]");
+				msg_format("[max_m_idx: Unique monster must be unique.]");
 			}
-			return (FALSE);
+			return (max_m_idx);
 		}
 
 		if (r_idx == MON_BANORLUPART)
 		{
-			if (r_info[MON_BANOR].cur_num > 0) return FALSE;
-			if (r_info[MON_LUPART].cur_num > 0) return FALSE;
+			if (r_info[MON_BANOR].cur_num > 0) return max_m_idx;
+			if (r_info[MON_LUPART].cur_num > 0) return max_m_idx;
 			if (cheat_hear)
 			{
-				msg_format("[False: Unique monster must be unique.]");
+				msg_format("[max_m_idx: Unique monster must be unique.]");
 			}
 
 		}
@@ -3355,10 +3355,10 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 		{
 			if (cheat_hear)
 			{
-				msg_format("[False: No Nightmare mode.]");
+				msg_format("[max_m_idx: No Nightmare mode.]");
 			}
 			/* Cannot create */
-			return (FALSE);
+			return (max_m_idx);
 		}
 	}
 
@@ -3379,7 +3379,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 							if (m_list[cave[j2][i2].m_idx].r_idx == quest[hoge].r_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
-					return FALSE;
+					return max_m_idx;
 			}
 		}
 	}
@@ -3409,7 +3409,7 @@ msg_print("守りのルーンが壊れた！");
 			/* Notice */
 			note_spot(y, x);
 		}
-		else return FALSE;
+		else return max_m_idx;
 	}
 
 
@@ -3420,7 +3420,7 @@ msg_print("守りのルーンが壊れた！");
 	hack_m_idx_ii = c_ptr->m_idx;
 
 	/* Mega-Hack -- catch "failure" */
-	if (!c_ptr->m_idx) return (FALSE);
+	if (!c_ptr->m_idx) return (max_m_idx);
 
 	/* Get a new monster record */
 	m_ptr = &m_list[c_ptr->m_idx];
@@ -3752,7 +3752,7 @@ msg_print("爆発のルーンは解除された。");
 	}
 
 	/* Success */
-	return (TRUE);
+	return c_ptr->m_idx;
 }
 
 
@@ -3910,7 +3910,7 @@ static bool place_monster_group(int who, int y, int x, int r_idx, u32b mode)
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(who, my, mx, r_idx, MONEGO_NORMAL, mode))
+			if (place_monster_one(who, my, mx, r_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -3993,14 +3993,42 @@ static bool place_monster_okay(int r_idx)
  */
 bool place_monster_aux(int who, int y, int x, int r_idx, u32b mode)
 {
-	int             i;
+	int             i, j;
 	monster_race    *r_ptr = &r_info[r_idx];
+	creature_type   *m_ptr;
 
 	if (!(mode & PM_NO_KAGE) && one_in_(333))
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	if (!place_monster_one(who, y, x, r_idx, MONEGO_NORMAL,  mode)) return (FALSE);
+	i = place_monster_one(who, y, x, r_idx, MONEGO_NORMAL, mode);
+	if (i == max_m_idx) return (FALSE);
+
+	m_ptr = &m_list[i];
+
+	i = 0;
+	while(i < MAX_UNDERLINGS && m_ptr->underling_id[i])
+	{
+		int n = 0; 
+		for(j = 0; j < m_ptr->underling_num[i]; j++)
+		{
+			int nx, ny, d = 8;
+
+			/* Pick a location */
+			scatter(&ny, &nx, y, x, d, 0);
+
+			/* Require empty grids */
+			if (!cave_empty_bold2(ny, nx)) continue;
+
+			/* Prepare allocation table */
+			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
+			if(place_monster_one(r_idx, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+				n++;
+		}
+		m_ptr->underling_num[i] -= n;
+		i++;
+	}
+
 
 
 	/* Require the "group" flag */
