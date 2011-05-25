@@ -260,6 +260,20 @@ static void wr_monster(creature_type *m_ptr)
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
 
+	/* Underlings */
+	for(i = 0; i < MAX_UNDERLINGS; i++)
+	{
+		if(m_ptr->underling_id[i])
+		{
+			wr_u16b(m_ptr->underling_id[i]);
+			wr_u16b(m_ptr->underling_num[i]);
+		}
+	}
+	/* Add a sentinel */
+	wr_u16b(0xFFFF);
+
+
+
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);

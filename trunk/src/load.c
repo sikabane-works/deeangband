@@ -609,6 +609,27 @@ static void rd_monster(creature_type *m_ptr)
 	if(!older_than(0,0,4,0))
 		rd_inventory_r(m_ptr);
 
+	if(!older_than(0,0,6,0))
+	{
+		u16b n; 
+		i = 0;
+		/* Underlings */
+		while(1)
+		{
+			rd_u16b(&n);
+			if(n != 0xFFFF)
+			{
+				m_ptr->underling_id[i] = n;
+				rd_u16b(&m_ptr->underling_num[i]);
+				i++;
+			}
+			else
+				break;
+		}
+		
+	}
+
+
 	if(older_than(0,0,2,0))
 	{
 		rd_s16b(&m_ptr->stat_use[A_STR]);
