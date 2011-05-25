@@ -3190,7 +3190,7 @@ static bool place_monster_one(int who, int y, int x, int r_idx, int re_idx, u32b
 
 	cptr		name = (r_name + r_ptr->name);
 
-	int cmi;
+	int i, cmi;
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
 
 
@@ -3552,6 +3552,14 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Equipment */
 	mon_equip(m_ptr);
+
+	/* Underlings */
+	for(i = 0; i < MAX_UNDERLINGS; i++)
+	{
+		m_ptr->underling_id[i] = r_ptr->underling_id[i];
+		m_ptr->underling_num[i] = damroll(r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]);
+	}
+
 
 	calc_bonuses(m_ptr, FALSE);
 	update_stuff(m_ptr, FALSE);
