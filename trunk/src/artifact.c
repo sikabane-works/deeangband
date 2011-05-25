@@ -3116,19 +3116,11 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 }
 
 
-/*
- * Create the artifact of the specified number
- */
-bool create_named_art(int a_idx, int y, int x)
+static bool create_named_art_aux(object_type *q_ptr, int a_idx)
 {
-	object_type forge;
-	object_type *q_ptr;
 	int i;
 
 	artifact_type *a_ptr = &a_info[a_idx];
-
-	/* Get local object */
-	q_ptr = &forge;
 
 	/* Ignore "empty" artifacts */
 	if (!a_ptr->name) return FALSE;
@@ -3170,6 +3162,17 @@ bool create_named_art(int a_idx, int y, int x)
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
 
 	random_artifact_resistance(q_ptr, a_ptr);
+	return TRUE;
+}
+
+/*
+ * Create the artifact of the specified number
+ */
+bool create_named_art(int a_idx, int y, int x)
+{
+	object_type forge;
+	
+	(void)create_named_art_aux(&forge, a_idx);
 
 	/*
 	 * drop_near()内で普通の固定アーティファクトが重ならない性質に依存する.
@@ -3178,7 +3181,7 @@ bool create_named_art(int a_idx, int y, int x)
 	 */
 
 	/* Drop the artifact from heaven */
-	return drop_near(q_ptr, -1, y, x) ? TRUE : FALSE;
+	return drop_near(&forge, -1, y, x) ? TRUE : FALSE;
 }
 
 

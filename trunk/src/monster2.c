@@ -3149,7 +3149,7 @@ static void mon_equip(creature_type *m_ptr)
 		}
 		else
 		{
-
+			s16b item = lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]);
 		}
 	}
 
