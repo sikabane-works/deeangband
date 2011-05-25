@@ -118,10 +118,10 @@ static bool wiz_dimension_door(void)
  * Create the artifact of the specified number -- DAN
  *
  */
-static void wiz_create_named_art(int a_idx)
+static void wiz_drop_named_art(int a_idx)
 {
 	/* Create the artifact */
-	(void)create_named_art(a_idx, py, px);
+	(void)drop_named_art(a_idx, py, px);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -1414,7 +1414,7 @@ static void wiz_create_item(void)
 			if (a_info[i].sval != k_info[k_idx].sval) continue;
 
 			/* Create this artifact */
-			(void)create_named_art(i, py, px);
+			(void)drop_named_art(i, py, px);
 
 			/* All done */
 			msg_print("Allocated(INSTA_ART).");
@@ -1951,7 +1951,7 @@ void do_cmd_debug(void)
 
 	/* Create a named artifact */
 	case 'C':
-		wiz_create_named_art(command_arg);
+		wiz_drop_named_art(command_arg);
 		break;
 
 	/* Detect everything */

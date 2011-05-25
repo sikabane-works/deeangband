@@ -1038,7 +1038,7 @@ msg_print("地面に落とされた。");
 			while (a_ptr->cur_num);
 
 			/* Create the artifact */
-			if (create_named_art(a_idx, y, x))
+			if (drop_named_art(a_idx, y, x))
 			{
 				a_ptr->cur_num = 1;
 
@@ -1249,7 +1249,7 @@ msg_print("地面に落とされた。");
 				if (!a_ptr->cur_num)
 				{
 					/* Create the artifact */
-					if (create_named_art(a_idx, y, x))
+					if (drop_named_art(a_idx, y, x))
 					{
 						a_ptr->cur_num = 1;
 

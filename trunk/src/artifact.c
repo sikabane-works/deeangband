@@ -3116,7 +3116,7 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 }
 
 
-static bool create_named_art_aux(object_type *q_ptr, int a_idx)
+bool create_named_art(object_type *q_ptr, int a_idx)
 {
 	int i;
 
@@ -3168,11 +3168,11 @@ static bool create_named_art_aux(object_type *q_ptr, int a_idx)
 /*
  * Create the artifact of the specified number
  */
-bool create_named_art(int a_idx, int y, int x)
+bool drop_named_art(int a_idx, int y, int x)
 {
 	object_type forge;
 	
-	(void)create_named_art_aux(&forge, a_idx);
+	(void)create_named_art(&forge, a_idx);
 
 	/*
 	 * drop_near()内で普通の固定アーティファクトが重ならない性質に依存する.
@@ -3258,47 +3258,5 @@ bool equip_named_art(int a_idx, creature_type *cr_ptr)
 		if(i == INVEN_PACK) return FALSE;
 	}
 
-
-	/* Ignore "empty" artifacts */
-	if (!a_ptr->name) return FALSE;
-
-	/* Acquire the "kind" index */
-	i = lookup_kind(a_ptr->tval, a_ptr->sval);
-
-	/* Oops */
-	if (!i) return FALSE;
-
-	/* Create the artifact */
-	object_prep(q_ptr, i, ITEM_FREE_SIZE);
-
-	/* Save the name */
-	q_ptr->name1 = a_idx;
-
-	/* Extract the fields */
-	q_ptr->pval = a_ptr->pval;
-	q_ptr->ac = a_ptr->ac;
-	q_ptr->fitting_size = a_ptr->fitting_size; 
-	q_ptr->dd = a_ptr->dd;
-	q_ptr->ds = a_ptr->ds;
-	q_ptr->to_a = a_ptr->to_a;
-	q_ptr->to_h = a_ptr->to_h;
-	q_ptr->to_d = a_ptr->to_d;
-	q_ptr->weight = a_ptr->weight;
-	q_ptr->xtra1 = a_ptr->xtra1;
-	q_ptr->xtra2 = a_ptr->xtra2;
-	q_ptr->xtra3 = a_ptr->xtra3;
-	q_ptr->xtra4 = a_ptr->xtra4;
-	q_ptr->xtra5 = a_ptr->xtra5;
-
-	/* Hack -- extract the "cursed" flag */
-	if (a_ptr->gen_flags & TRG_CURSED) q_ptr->curse_flags |= (TRC_CURSED);
-	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) q_ptr->curse_flags |= (TRC_HEAVY_CURSE);
-	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) q_ptr->curse_flags |= (TRC_DIVINE_CURSE);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) q_ptr->curse_flags |= get_curse(0, q_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) q_ptr->curse_flags |= get_curse(1, q_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
-
-	random_artifact_resistance(q_ptr, a_ptr);
-
-	return TRUE;
+	return create_named_art(q_ptr, a_idx);
 }
