@@ -3122,7 +3122,7 @@ static void mon_equip(creature_type *m_ptr)
 
 	if(m_ptr->race != RACE_NONE)
 	{
-	// temporary OFF.
+	// temporary OFF. 23 8
 	//	object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
 	//	object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
 	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
@@ -3130,8 +3130,9 @@ static void mon_equip(creature_type *m_ptr)
 
 	for(i = 0; i < 10; i++)
 	{
-		if(!r_ptr->artifact_prob) break;
-		if(r_ptr->artifact_id)
+		if(!r_ptr->artifact_prob[i]) break;
+
+		if(r_ptr->artifact_id[i])
 		{
 			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
 			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || p_ptr->wizard))
@@ -3152,7 +3153,12 @@ static void mon_equip(creature_type *m_ptr)
 		}
 		else
 		{
-			s16b item = lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]);
+			int r;
+			object_type ob;
+			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), m_ptr->size);
+			r = mon_classify_inventory(m_ptr, &ob);
+			if(r != INVEN_NULL)
+				m_ptr->inventory[r] = ob;
 		}
 	}
 
