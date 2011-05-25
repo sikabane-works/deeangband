@@ -3120,15 +3120,7 @@ static void mon_equip(creature_type *m_ptr)
 		/* Drop it in the dungeon */
 	}
 
-	if(m_ptr->race != RACE_NONE)
-	{
-	// temporary OFF. 23 8
-	//	object_prep(&m_ptr->inventory[INVEN_RARM], lookup_kind(TV_SWORD, SV_ANY), m_ptr->size);
-	//	object_prep(&m_ptr->inventory[INVEN_BODY], lookup_kind(TV_SOFT_ARMOR, SV_ANY), m_ptr->size);
-	//	object_prep(&m_ptr->inventory[INVEN_FEET], lookup_kind(TV_BOOTS, SV_ANY), m_ptr->size);
-	}
-
-	for(i = 0; i < 10; i++)
+	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!r_ptr->artifact_prob[i]) break;
 
@@ -3162,7 +3154,6 @@ static void mon_equip(creature_type *m_ptr)
 		}
 	}
 
-//mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 

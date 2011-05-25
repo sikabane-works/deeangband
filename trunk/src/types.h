@@ -327,14 +327,14 @@ struct monster_race
 	s32b enable_i_race[8];      /* Enable Intelligence Race */
 	s32b enable_ego[8];         /* Enable Ego */
 
-	u16b underling_id[10];	    /* Underling ID */
-	u16b underling_d_num[10];	    /* Dice Number of Underlings */
-	u16b underling_d_side[10];	    /* Dice Side of Underlings */
+	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
+	u16b underling_d_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
+	u16b underling_d_side[MAX_UNDERLINGS];	    /* Dice Side of Underlings */
 
-	u16b artifact_id[10];
-	u16b artifact_tval[10];
-	u16b artifact_sval[10];
-	u16b artifact_prob[10];
+	u16b artifact_id[INVEN_TOTAL];
+	u16b artifact_tval[INVEN_TOTAL];
+	u16b artifact_sval[INVEN_TOTAL];
+	u16b artifact_prob[INVEN_TOTAL];
 
 	s32b mexp;				/* Exp value for kill */
 
@@ -1520,7 +1520,8 @@ struct creature_type
 
 	s16b parent_m_idx;
 
-
+	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
+	u16b underling_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
 };
 
 

@@ -528,7 +528,10 @@
 #define MON_MULT_ADJ  	    8       /* High value slows multiplication */
 #define MON_SUMMON_ADJ	    2       /* Adjust level of summoned creatures */
 #define MON_DRAIN_LIFE	    2       /* Percent of player exp drained per hit */
-#define USE_DEVICE    	    3       /* x> Harder devices x< Easier devices     */
+#define USE_DEVICE    	    3       /* x> Harder devices x< Easier devices */
+#define MAX_UNDERLINGS     12       /* Max Underling Types */
+
+
 
 
 /* "Biases" for random artifact gen */

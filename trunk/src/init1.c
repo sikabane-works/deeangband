@@ -2750,10 +2750,10 @@ errr parse_r_info(char *buf, header *head)
 		if (3 != sscanf(buf+2, "%d:%dd%d", &id, &num, &side)) return (1);		
 
 		/* Find the next empty blow slot (if any) */
-		for (i = 0; i < 10; i++) if (!r_ptr->underling_d_num[i]) break;
+		for (i = 0; i < MAX_UNDERLINGS; i++) if (!r_ptr->underling_d_num[i]) break;
 
 		/* Oops, no more slots */
-		if (i == 10) return (1);
+		if (i == MAX_UNDERLINGS) return (1);
 
 		r_ptr->underling_id[i] = id;
 		r_ptr->underling_d_num[i] = num;
@@ -3005,8 +3005,8 @@ errr parse_r_info(char *buf, header *head)
 	else if (buf[0] == 'A')
 	{
 		int i = 0;
-		while(r_ptr->artifact_prob[i] && i < 10) i++;
-		if(i >= 10) return (1);
+		while(r_ptr->artifact_prob[i] && i < INVEN_TOTAL) i++;
+		if(i >= INVEN_TOTAL) return (1);
 
 		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
 			&r_ptr->artifact_id[i], &r_ptr->artifact_tval[i], &r_ptr->artifact_sval[i], &r_ptr->artifact_prob[i])) return (1);
