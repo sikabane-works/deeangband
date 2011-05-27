@@ -1088,7 +1088,7 @@ u16b max_monster_idx;
 /*
  * Maximum number of monsters in re_info.txt
  */
-u16b max_re_idx;
+u16b max_monster_ego_idx;
 
 /*
  * Maximum number of items in k_info.txt

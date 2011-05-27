@@ -4328,7 +4328,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				/* Maximum monster_idx */
 				if (zz[0][1] == 'E')
 				{
-					max_re_idx = atoi(zz[1]);
+					max_monster_ego_idx = atoi(zz[1]);
 				}
 				else
 				{

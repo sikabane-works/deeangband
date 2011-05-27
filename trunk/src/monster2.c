@@ -1904,7 +1904,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 #endif
 	}
 
-	if(m_ptr->re_idx == MONEGO_VARIABLE_SIZE){
+	if(m_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE){
 		char tmp[80];
 		tmp[0] = '\0';
 #ifdef JP
@@ -1915,8 +1915,8 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 		(void)strcat(desc, tmp);
 	}
 
-	else if(m_ptr->re_idx != MONEGO_NONE){
-		(void)strcat(desc, re_name + re_info[m_ptr->re_idx].name);
+	else if(m_ptr->monster_ego_idx != MONEGO_NONE){
+		(void)strcat(desc, re_name + re_info[m_ptr->monster_ego_idx].name);
 	}
 
 	(void)strcat(desc, r_name + r_ptr->name);
@@ -2913,7 +2913,7 @@ static bool monster_hook_chameleon(int monster_idx)
 }
 
 
-void choose_new_monster(int m_idx, bool born, int monster_idx, int re_idx)
+void choose_new_monster(int m_idx, bool born, int monster_idx, int monster_ego_idx)
 {
 	int oldmhp;
 	creature_type *m_ptr = &m_list[m_idx];
@@ -2964,13 +2964,13 @@ void choose_new_monster(int m_idx, bool born, int monster_idx, int re_idx)
 	update_mon(m_idx, FALSE);
 	lite_spot(m_ptr->fy, m_ptr->fx);
 
-	if(re_idx == MONEGO_NONE)
+	if(monster_ego_idx == MONEGO_NONE)
 	{
-		m_ptr->re_idx = 0;
+		m_ptr->monster_ego_idx = 0;
 	}
 	else
 	{
-		m_ptr->re_idx = re_idx;
+		m_ptr->monster_ego_idx = monster_ego_idx;
 	}
 
 
@@ -3025,13 +3025,13 @@ void choose_new_monster(int m_idx, bool born, int monster_idx, int re_idx)
 	m_ptr->stat_use[4] = r_ptr->stat[4];
 	m_ptr->stat_use[5] = r_ptr->stat[5];
 
-	if(m_ptr->re_idx != MONEGO_NONE){
-		m_ptr->stat_use[0] += re_info[re_idx].stat[0];
-		m_ptr->stat_use[1] += re_info[re_idx].stat[1];
-		m_ptr->stat_use[2] += re_info[re_idx].stat[2];
-		m_ptr->stat_use[3] += re_info[re_idx].stat[3];
-		m_ptr->stat_use[4] += re_info[re_idx].stat[4];
-		m_ptr->stat_use[5] += re_info[re_idx].stat[5];
+	if(m_ptr->monster_ego_idx != MONEGO_NONE){
+		m_ptr->stat_use[0] += re_info[monster_ego_idx].stat[0];
+		m_ptr->stat_use[1] += re_info[monster_ego_idx].stat[1];
+		m_ptr->stat_use[2] += re_info[monster_ego_idx].stat[2];
+		m_ptr->stat_use[3] += re_info[monster_ego_idx].stat[3];
+		m_ptr->stat_use[4] += re_info[monster_ego_idx].stat[4];
+		m_ptr->stat_use[5] += re_info[monster_ego_idx].stat[5];
 	}
 
 	set_enemy_maxhp(m_ptr);
@@ -3177,7 +3177,7 @@ static void mon_equip(creature_type *m_ptr)
  * This is the only function which may place a monster in the dungeon,
  * except for the savefile loading code.
  */
-static int place_monster_one(int who, int y, int x, int monster_idx, int re_idx, u32b mode)
+static int place_monster_one(int who, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -3202,7 +3202,7 @@ static int place_monster_one(int who, int y, int x, int monster_idx, int re_idx,
 	rpc_selected = CLASS_NONE;
 	rps_selected = CHARA_NONE;
 
-	if(re_idx == MONEGO_NORMAL)
+	if(monster_ego_idx == MONEGO_NORMAL)
 	{
 		if(r_ptr->flagse & RFE_FORCE_LESSER){
 			int n;
@@ -3216,7 +3216,7 @@ static int place_monster_one(int who, int y, int x, int monster_idx, int re_idx,
 		}
 	}
 	else{
-		re_selected = re_idx;
+		re_selected = monster_ego_idx;
 	}
 
 	// set intelligence race
@@ -3427,7 +3427,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Save the race */
 	m_ptr->monster_idx = monster_idx;
-	m_ptr->re_idx = re_selected;
+	m_ptr->monster_ego_idx = re_selected;
 	m_ptr->irace_idx = rpr_selected;
 	m_ptr->cls_idx = rpc_selected;
 	m_ptr->chara_idx = rps_selected;

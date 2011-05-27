@@ -56,8 +56,8 @@ void set_status(creature_type *cr_ptr)
 			cr_ptr->stat_use[i] = r_ptr->stat[i];
 		}
 
-		if(cr_ptr->re_idx != MONEGO_NONE){
-			cr_ptr->stat_use[i] += re_info[cr_ptr->re_idx].stat[i];
+		if(cr_ptr->monster_ego_idx != MONEGO_NONE){
+			cr_ptr->stat_use[i] += re_info[cr_ptr->monster_ego_idx].stat[i];
 		}
 
 		if(cr_ptr->irace_idx != RACE_NONE)
@@ -150,7 +150,7 @@ void set_height_weight(creature_type *cr_ptr)
 		ave_m_wt = 5;
 	}
 
-	if (cr_ptr->re_idx == MONEGO_VARIABLE_SIZE)
+	if (cr_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE)
 	{
 		int rate = randint0(400);
 		ave_m_ht = 0;

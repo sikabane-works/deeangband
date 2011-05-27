@@ -215,7 +215,7 @@ static void wr_monster(creature_type *m_ptr)
 
 	/*** Write only un-obvious elements ***/
 	wr_s16b(m_ptr->monster_idx);
-	wr_s16b(m_ptr->re_idx);
+	wr_s16b(m_ptr->monster_ego_idx);
 	wr_s16b(m_ptr->irace_idx);
 
 	wr_byte(m_ptr->cls_idx);

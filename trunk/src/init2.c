@@ -791,7 +791,7 @@ static errr init_r_info(void)
 static errr init_re_info(void)
 {
 	/* Init the header */
-	init_header(&re_head, max_re_idx, sizeof(monster_ego));
+	init_header(&re_head, max_monster_ego_idx, sizeof(monster_ego));
 
 #ifdef ALLOW_TEMPLATES
 

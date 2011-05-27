@@ -583,7 +583,7 @@ static void rd_monster(creature_type *m_ptr)
 
 	/* Read the monster race */
 	rd_s16b(&m_ptr->monster_idx);
-	rd_s16b(&m_ptr->re_idx);
+	rd_s16b(&m_ptr->monster_ego_idx);
 	rd_s16b(&m_ptr->irace_idx);
 	if(!older_than(0,0,3,0))
 	{

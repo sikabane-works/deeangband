@@ -529,7 +529,7 @@ extern wilderness_type **wilderness;
 extern building_type building[MAX_BLDG];
 extern u16b max_quests;
 extern u16b max_monster_idx;
-extern u16b max_re_idx;
+extern u16b max_monster_ego_idx;
 extern u16b max_k_idx;
 extern u16b max_v_idx;
 extern u16b max_f_idx;
@@ -1017,7 +1017,7 @@ extern bool summon_named_creature (int who, int oy, int ox, int monster_idx, u32
 extern bool multiply_monster(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(int m_idx, int what);
 extern int  mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr);
-extern void choose_new_monster(int m_idx, bool born, int monster_idx, int re_idx);
+extern void choose_new_monster(int m_idx, bool born, int monster_idx, int monster_ego_idx);
 extern bool player_place(int y, int x);
 extern void monster_drop_carried_objects(creature_type *m_ptr);
 

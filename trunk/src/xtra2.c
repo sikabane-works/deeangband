@@ -2350,7 +2350,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	if (ap_r_ptr->r_tkills && !(m_ptr->mflag2 & MFLAG2_KAGE))
 	{
 		if (cheat_hear)
-			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->re_idx);
+			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->monster_ego_idx);
 		else
 			return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
 	}

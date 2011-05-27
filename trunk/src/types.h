@@ -1079,7 +1079,7 @@ struct creature_type
 
 	s16b irace_idx;			    /* Intelligence race index */
 	s16b monster_idx;			    /* Monster race index */
-	s16b re_idx;		    /* Monster ego index */
+	s16b monster_ego_idx;		    /* Monster ego index */
 	s16b ap_monster_idx;		    /* Monster race appearance index */
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
 	u32b sub_race[8];       /* Sub-Race index */
