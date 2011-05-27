@@ -188,8 +188,8 @@ void set_hitdice(creature_type * cr_ptr)
 		cr_ptr->hitdice /= 2;
 	if (cr_ptr->cls_idx != CLASS_NONE)
 		cr_ptr->hitdice += class_info[cr_ptr->cls_idx].c_mhp;
-	if(cr_ptr->chara != CHARA_NONE)
-		cr_ptr->hitdice += chara_info[cr_ptr->chara].a_mhp;
+	if(cr_ptr->chara_idx != CHARA_NONE)
+		cr_ptr->hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
 	return;	
 }
 

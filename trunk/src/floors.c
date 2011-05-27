@@ -1401,7 +1401,7 @@ void change_floor(void)
 	character_dungeon = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
-	if (p_ptr->chara == CHARA_MUNCHKIN)
+	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
 		wiz_lite((bool)(p_ptr->cls_idx == CLASS_NINJA));
 
 	/* Remember when this level was "created" */

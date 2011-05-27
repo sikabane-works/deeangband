@@ -486,7 +486,7 @@ msg_print("クエストを達成した！");
 		}
 	}
 
-	if (p_ptr->chara == CHARA_MUNCHKIN)
+	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		identify_item(o_ptr);
 

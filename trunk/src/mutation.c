@@ -952,7 +952,7 @@ muta_desc = "関節が突然痛み出した。";
 
 			break;
 		case 188:
-			if (p_ptr->chara == CHARA_LUCKY) break;
+			if (p_ptr->chara_idx == CHARA_LUCKY) break;
 			muta_class = &(p_ptr->muta3);
 			muta_which = MUT3_BAD_LUCK;
 #ifdef JP
@@ -2289,7 +2289,7 @@ muta_desc = "動作の正確さがなくなった。";
 
 			break;
 		case 193:
-			if (p_ptr->chara == CHARA_LUCKY) break;
+			if (p_ptr->chara_idx == CHARA_LUCKY) break;
 			muta_class = &(p_ptr->muta3);
 			muta_which = MUT3_GOOD_LUCK;
 #ifdef JP
@@ -3280,7 +3280,7 @@ int calc_mutant_regenerate_mod(void)
 	 * only 5% decrease per additional mutation
 	 */
 
-	if (p_ptr->chara == CHARA_LUCKY) count--;
+	if (p_ptr->chara_idx == CHARA_LUCKY) count--;
 	if (p_ptr->irace_idx == RACE_BEASTMAN)
 	{
 		count -= 10;

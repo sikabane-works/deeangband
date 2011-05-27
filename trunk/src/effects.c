@@ -833,7 +833,7 @@ bool set_image(int v)
 {
 	bool notice = FALSE;
 
-	if(p_ptr->chara == CHARA_CHARGEMAN)
+	if(p_ptr->chara_idx == CHARA_CHARGEMAN)
 	{
 		p_ptr->image = 0;
 		return (TRUE);
@@ -5640,7 +5640,7 @@ void calc_android_exp(void)
 		value = object_value_real(q_ptr);
 
 		if (value <= 0) continue;
-		if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI) && (p_ptr->chara != CHARA_SEXY)) value /= 32;
+		if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI) && (p_ptr->chara_idx != CHARA_SEXY)) value /= 32;
 		if (value > 5000000L) value = 5000000L;
 		if ((o_ptr->tval == TV_DRAG_ARMOR) || (o_ptr->tval == TV_CARD)) level /= 2;
 

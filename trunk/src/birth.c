@@ -2476,7 +2476,7 @@ static void save_prev_data(birther *birther_ptr)
 	birther_ptr->sex = p_ptr->sex;
 	birther_ptr->irace_idx = p_ptr->irace_idx;
 	birther_ptr->cls_idx = p_ptr->cls_idx;
-	birther_ptr->chara = p_ptr->chara;
+	birther_ptr->chara_idx = p_ptr->chara_idx;
 	birther_ptr->realm1 = p_ptr->realm1;
 	birther_ptr->realm2 = p_ptr->realm2;
 	birther_ptr->age = p_ptr->age;
@@ -2533,7 +2533,7 @@ static void load_prev_data(bool swap)
 	p_ptr->sex = previous_char.sex;
 	p_ptr->irace_idx = previous_char.irace_idx;
 	p_ptr->cls_idx = previous_char.cls_idx;
-	p_ptr->chara = previous_char.chara;
+	p_ptr->chara_idx = previous_char.chara_idx;
 	p_ptr->realm1 = previous_char.realm1;
 	p_ptr->realm2 = previous_char.realm2;
 	p_ptr->age = previous_char.age;
@@ -2766,7 +2766,7 @@ static void get_extra(bool roll_hitdice)
 	for (i = 0; i < 5; i++)
 		for (j = 0; j < 64; j++)
 			p_ptr->weapon_exp[i][j] = s_info[p_ptr->cls_idx].w_start[i][j];
-	if ((p_ptr->chara == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+	if ((p_ptr->chara_idx == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 	{
 		p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 	}
@@ -3112,9 +3112,9 @@ static void get_money(void)
 	/* Minimum 100 gold */
 	if (gold < 100) gold = 100;
 
-	if (p_ptr->chara == CHARA_NAMAKE)
+	if (p_ptr->chara_idx == CHARA_NAMAKE)
 		gold /= 2;
-	else if (p_ptr->chara == CHARA_MUNCHKIN)
+	else if (p_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
 	if (p_ptr->irace_idx == RACE_ANDROID) gold /= 5;
 
@@ -3990,7 +3990,7 @@ void player_outfit(void)
 	}
 	else if (p_ptr->cls_idx == CLASS_TOURIST)
 	{
-		if (p_ptr->chara != CHARA_SEXY)
+		if (p_ptr->chara_idx != CHARA_SEXY)
 		{
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
@@ -4041,7 +4041,7 @@ void player_outfit(void)
 		add_outfit(q_ptr);
 	}
 
-	if(p_ptr->chara == CHARA_SEXY)
+	if(p_ptr->chara_idx == CHARA_SEXY)
 	{
 		player_init[p_ptr->cls_idx][2][0] = TV_HAFTED;
 		player_init[p_ptr->cls_idx][2][1] = SV_WHIP;
@@ -5187,7 +5187,7 @@ static bool get_player_chara(void)
 
 	/* Get a CHARA */
 	k = -1;
-	cs = p_ptr->chara;
+	cs = p_ptr->chara_idx;
 	os = MAX_CHARA;
 	while (1)
 	{
@@ -5355,8 +5355,8 @@ static bool get_player_chara(void)
 	}
 
 	/* Set CHARA */
-	p_ptr->chara = k;
-	ap_ptr = &chara_info[p_ptr->chara];
+	p_ptr->chara_idx = k;
+	ap_ptr = &chara_info[p_ptr->chara_idx];
 #ifdef JP
 	strcpy(tmp, ap_ptr->title);
 	if(ap_ptr->no == 1)
@@ -6682,7 +6682,7 @@ static bool player_birth_aux(void)
 
 
 	/* Choose the players CHARA */
-	p_ptr->chara = 0;
+	p_ptr->chara_idx = 0;
 	while(1)
 	{
 		char temp[80*8];
@@ -6691,7 +6691,7 @@ static bool player_birth_aux(void)
 		if (!get_player_chara()) return FALSE;
 
 		clear_from(10);
-		roff_to_buf(CHARA_jouhou[p_ptr->chara], 74, temp, sizeof(temp));
+		roff_to_buf(CHARA_jouhou[p_ptr->chara_idx], 74, temp, sizeof(temp));
 		t = temp;
 
 		for (i = 0; i< 6; i++)
@@ -7289,7 +7289,7 @@ static bool ask_quick_start(void)
 	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->cls_idx];
 	mp_ptr = &m_info[p_ptr->cls_idx];
-	ap_ptr = &chara_info[p_ptr->chara];
+	ap_ptr = &chara_info[p_ptr->chara_idx];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);
@@ -7397,9 +7397,9 @@ void player_birth(void)
 	}
 
 #ifdef JP
-	sprintf(buf,"                            «Ši‚É%s‚ð‘I‘ð‚µ‚½B", chara_info[p_ptr->chara].title);
+	sprintf(buf,"                            «Ši‚É%s‚ð‘I‘ð‚µ‚½B", chara_info[p_ptr->chara_idx].title);
 #else
-	sprintf(buf,"                            choose %s.", chara_info[p_ptr->chara].title);
+	sprintf(buf,"                            choose %s.", chara_info[p_ptr->chara_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7470,12 +7470,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(CHARA_jouhou[p_ptr->chara], 78, temp, sizeof(temp));
+	roff_to_buf(CHARA_jouhou[p_ptr->chara_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "«Ši: %s\n", chara_info[p_ptr->chara].title);
+	fprintf(fff, "«Ši: %s\n", chara_info[p_ptr->chara_idx].title);
 #else
-	fprintf(fff, "Pesonality: %s\n", chara_info[p_ptr->chara].title);
+	fprintf(fff, "Pesonality: %s\n", chara_info[p_ptr->chara_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 6; i++)

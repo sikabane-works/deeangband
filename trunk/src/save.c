@@ -219,7 +219,7 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s16b(m_ptr->irace_idx);
 
 	wr_byte(m_ptr->cls_idx);
-	wr_byte(m_ptr->chara);
+	wr_byte(m_ptr->chara_idx);
 
 	wr_byte(m_ptr->fy);
 	wr_byte(m_ptr->fx);
@@ -585,7 +585,7 @@ static void save_quick_start(void)
 	wr_s16b(previous_char.irace_idx);
 	for (i = 0; i < 8; i++) wr_u32b(previous_char.sub_race[i]);
 	wr_byte(previous_char.cls_idx);
-	wr_byte(previous_char.chara);
+	wr_byte(previous_char.chara_idx);
 	wr_byte(previous_char.realm1);
 	wr_byte(previous_char.realm2);
 
@@ -640,7 +640,7 @@ static void wr_extra(void)
 	wr_s16b(p_ptr->irace_idx);
 	for (i = 0; i < 8; i++) wr_u32b(p_ptr->sub_race[i]);
 	wr_byte(p_ptr->cls_idx);
-	wr_byte(p_ptr->chara);
+	wr_byte(p_ptr->chara_idx);
 	wr_s16b(p_ptr->sex);
 	wr_byte(p_ptr->realm1);
 	wr_byte(p_ptr->realm2);

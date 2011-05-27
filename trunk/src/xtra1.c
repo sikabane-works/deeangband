@@ -2525,7 +2525,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
 
-		if (msp && (cr_ptr->chara == CHARA_MUNCHKIN)) msp += msp/2;
+		if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp/2;
 
 		/* Hack: High mages have a 25% mana bonus */
 		if (msp && (cr_ptr->cls_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
@@ -2829,7 +2829,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
 
 		if (cr_ptr->cls_idx != CLASS_NONE) tmp_hitdice += class_info[cr_ptr->cls_idx].c_mhp;
-		if (cr_ptr->chara != CHARA_NONE) tmp_hitdice += chara_info[cr_ptr->chara].a_mhp;
+		if (cr_ptr->chara_idx != CHARA_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
 
 		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
 	}
@@ -3317,19 +3317,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_tht += 40;
 	}
 
-	if(cr_ptr->chara != CHARA_NONE)
+	if(cr_ptr->chara_idx != CHARA_NONE)
 	{
-		cr_ptr->skill_dis += chara_info[cr_ptr->chara].a_dis;
-		cr_ptr->skill_dev += chara_info[cr_ptr->chara].a_dev;
-		cr_ptr->skill_rob += chara_info[cr_ptr->chara].a_sav;
-		cr_ptr->skill_agi += chara_info[cr_ptr->chara].a_sav;
-		cr_ptr->skill_vol += chara_info[cr_ptr->chara].a_sav;
-		cr_ptr->skill_stl += chara_info[cr_ptr->chara].a_stl;
-		cr_ptr->skill_srh += chara_info[cr_ptr->chara].a_srh;
-		cr_ptr->skill_fos += chara_info[cr_ptr->chara].a_fos;
-		cr_ptr->skill_thn += chara_info[cr_ptr->chara].a_thn;
-		cr_ptr->skill_thb += chara_info[cr_ptr->chara].a_thb;
-		cr_ptr->skill_tht += chara_info[cr_ptr->chara].a_thb;
+		cr_ptr->skill_dis += chara_info[cr_ptr->chara_idx].a_dis;
+		cr_ptr->skill_dev += chara_info[cr_ptr->chara_idx].a_dev;
+		cr_ptr->skill_rob += chara_info[cr_ptr->chara_idx].a_sav;
+		cr_ptr->skill_agi += chara_info[cr_ptr->chara_idx].a_sav;
+		cr_ptr->skill_vol += chara_info[cr_ptr->chara_idx].a_sav;
+		cr_ptr->skill_stl += chara_info[cr_ptr->chara_idx].a_stl;
+		cr_ptr->skill_srh += chara_info[cr_ptr->chara_idx].a_srh;
+		cr_ptr->skill_fos += chara_info[cr_ptr->chara_idx].a_fos;
+		cr_ptr->skill_thn += chara_info[cr_ptr->chara_idx].a_thn;
+		cr_ptr->skill_thb += chara_info[cr_ptr->chara_idx].a_thb;
+		cr_ptr->skill_tht += chara_info[cr_ptr->chara_idx].a_thb;
 	}
 
 	if(cr_ptr->patron != PATRON_NONE)
@@ -3438,7 +3438,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
 				      race_is_(cr_ptr, RACE_SPRITE) ||
-				      (cr_ptr->chara == CHARA_MUNCHKIN)))
+				      (cr_ptr->chara_idx == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 
 				/* Free action if unencumbered at level 25 */
@@ -3490,7 +3490,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				new_speed += 3;
 				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
 				      race_is_(cr_ptr, RACE_SPRITE) ||
-				      (cr_ptr->chara == CHARA_MUNCHKIN)))
+				      (cr_ptr->chara_idx == CHARA_MUNCHKIN)))
 					new_speed += (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl += (cr_ptr->lev)/10;
 
@@ -3707,16 +3707,16 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Sexy Gal */
-	if (cr_ptr->chara == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
-	if (cr_ptr->chara == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
-	if (cr_ptr->chara == CHARA_KIREMONO) cr_ptr->to_m_chance -= 3;
-	if (cr_ptr->chara == CHARA_CHARGEMAN) cr_ptr->resist_conf = TRUE;
-	if ((cr_ptr->chara == CHARA_GAMAN) || (cr_ptr->chara == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
+	if (cr_ptr->chara_idx == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
+	if (cr_ptr->chara_idx == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
+	if (cr_ptr->chara_idx == CHARA_KIREMONO) cr_ptr->to_m_chance -= 3;
+	if (cr_ptr->chara_idx == CHARA_CHARGEMAN) cr_ptr->resist_conf = TRUE;
+	if ((cr_ptr->chara_idx == CHARA_GAMAN) || (cr_ptr->chara_idx == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
 
 	/* Lucky man */
-	if (cr_ptr->chara == CHARA_LUCKY) cr_ptr->muta3 |= MUT3_GOOD_LUCK;
+	if (cr_ptr->chara_idx == CHARA_LUCKY) cr_ptr->muta3 |= MUT3_GOOD_LUCK;
 
-	if (cr_ptr->chara == CHARA_MUNCHKIN)
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		cr_ptr->resist_blind = TRUE;
 		cr_ptr->resist_conf  = TRUE;
@@ -3748,8 +3748,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj_b[i];
 		}
 
-		if(cr_ptr->chara != CHARA_NONE)
-			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara].a_adj[i];
+		if(cr_ptr->chara_idx != CHARA_NONE)
+			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
 		if(cr_ptr->patron != PATRON_NONE)
 			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron].p_adj[i];
@@ -5532,19 +5532,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Affect Skill -- disarming (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara].a_dis * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara_idx].a_dis * cr_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara].a_dev * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara_idx].a_dev * cr_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_agi += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_agi += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_agi += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
@@ -5557,18 +5557,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara].a_thn * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara_idx].a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 
-	if ((race_is_(cr_ptr, RACE_S_FAIRY)) && (cr_ptr->chara != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
+	if ((race_is_(cr_ptr, RACE_S_FAIRY)) && (cr_ptr->chara_idx != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))
 	{
 		cr_ptr->cursed &= ~(TRC_AGGRAVATE);
 		cr_ptr->skill_stl = MIN(cr_ptr->skill_stl - 3, (cr_ptr->skill_stl + 2) / 2);

@@ -28,7 +28,7 @@ bool test_hit_fire(int chance, int ac, int vis)
 	/* Hack -- Instant miss or hit */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara == CHARA_NAMAKE)
+	if (p_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (FALSE);
 
 	/* Never hit */
@@ -61,7 +61,7 @@ bool test_hit_norm(int chance, int ac, int vis)
 	/* Hack -- Instant miss or hit */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara == CHARA_NAMAKE)
+	if (p_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (FALSE);
 
 	/* Wimpy attack never hits */
@@ -837,7 +837,7 @@ void py_pickup_aux(int o_idx)
 	/* Delete the object */
 	delete_object_idx(o_idx);
 
-	if (p_ptr->chara == CHARA_MUNCHKIN)
+	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		bool old_known = identify_item(o_ptr);
 
@@ -853,7 +853,7 @@ void py_pickup_aux(int o_idx)
 
 	/* Message */
 #ifdef JP
-	if ((o_ptr->name1 == ART_CRIMSON) && (p_ptr->chara == CHARA_COMBAT))
+	if ((o_ptr->name1 == ART_CRIMSON) && (p_ptr->chara_idx == CHARA_COMBAT))
 	{
 		msg_format("こうして、%sは『クリムゾン』を手に入れた。", p_ptr->name);
 		msg_print("しかし今、『混沌のサーペント』の放ったモンスターが、");
@@ -1081,7 +1081,7 @@ static int check_hit(int power)
 	/* Hack -- 5% hit, 5% miss */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara == CHARA_NAMAKE)
+	if (p_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (TRUE);
 
 	/* Paranoia -- No power */
@@ -1141,9 +1141,9 @@ static void hit_trap(bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((p_ptr->chara == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
-				if (p_ptr->chara == CHARA_CHARGEMAN)
+				if (p_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("ジュラル星人の仕業に違いない！");
 
 #else

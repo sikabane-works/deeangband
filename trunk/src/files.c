@@ -2620,11 +2620,11 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		}
 	}
 
-	if (cr_ptr->chara == CHARA_CHARGEMAN)
+	if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 		add_flag(flgs, TR_RES_CONF);
-	if (cr_ptr->chara == CHARA_SEXY)
+	if (cr_ptr->chara_idx == CHARA_SEXY)
 		add_flag(flgs, TR_AGGRAVATE);
-	if (cr_ptr->chara == CHARA_MUNCHKIN)
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
@@ -3392,11 +3392,11 @@ put_str("M‹Â:", 5, 1);
 #endif
 
 	tmp[0] = '\0';
-	if(cr_ptr->chara != CHARA_NONE){
-		strcpy(tmp, chara_info[cr_ptr->chara].title);
+	if(cr_ptr->chara_idx != CHARA_NONE){
+		strcpy(tmp, chara_info[cr_ptr->chara_idx].title);
 
 #ifdef JP
-		if(chara_info[cr_ptr->chara].no == 1)
+		if(chara_info[cr_ptr->chara_idx].no == 1)
 			strcat(tmp,"‚Ì");
 #else
 			strcat(tmp," ");
@@ -3590,11 +3590,11 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 19);
 		}
 
-		if(cr_ptr->chara != CHARA_NONE)
+		if(cr_ptr->chara_idx != CHARA_NONE)
 		{
-			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara].a_adj[i]);
-			if(chara_info[cr_ptr->chara].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
-			else if(chara_info[cr_ptr->chara].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
+			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara_idx].a_adj[i]);
+			if(chara_info[cr_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
+			else if(chara_info[cr_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 22);
 		}
 		else
@@ -3810,7 +3810,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 	intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
 	player_class *cl_ptr = &class_info[cr_ptr->cls_idx];
-	player_chara *ch_ptr = &chara_info[cr_ptr->chara];
+	player_chara *ch_ptr = &chara_info[cr_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];
 
 
@@ -3827,7 +3827,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	if ((mode == 0) || (mode == 1))
 	{
 		/* Name, Sex, Race, Class */
-		if(cr_ptr->chara != CHARA_NONE){ 
+		if(cr_ptr->chara_idx != CHARA_NONE){ 
 #ifdef JP
 			sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "‚Ì":"", cr_ptr->name);
 #else
@@ -6682,7 +6682,7 @@ long total_points(void)
 			point = point / 5;
 	}
 
-	if ((p_ptr->chara == CHARA_MUNCHKIN) && point)
+	if ((p_ptr->chara_idx == CHARA_MUNCHKIN) && point)
 	{
 		point = 1;
 		if (p_ptr->total_winner) point = 2;
@@ -7685,9 +7685,9 @@ static errr counts_seek(int fd, u32b where, bool flag)
 	int i;
 
 #ifdef SAVEFILE_USE_UID
-	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->cls_idx, p_ptr->chara, p_ptr->age);
+	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->cls_idx, p_ptr->chara_idx, p_ptr->age);
 #else
-	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->cls_idx, p_ptr->chara, p_ptr->age);
+	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->cls_idx, p_ptr->chara_idx, p_ptr->age);
 #endif
 	for (i = 0; temp1[i]; i++)
 		temp1[i] ^= (i+1) * 63;
