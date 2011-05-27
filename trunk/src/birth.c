@@ -2498,7 +2498,7 @@ static void save_prev_data(birther *birther_ptr)
 		birther_ptr->player_hp[i] = p_ptr->player_hp[i];
 	}
 
-	birther_ptr->patron = p_ptr->patron;
+	birther_ptr->patron_idx = p_ptr->patron_idx;
 
 	/* Save the virtues */
 	for (i = 0; i < 8; i++)
@@ -2557,7 +2557,7 @@ static void load_prev_data(bool swap)
 	p_ptr->mhp = p_ptr->player_hp[0];
 	p_ptr->chp = p_ptr->player_hp[0];
 
-	p_ptr->patron = previous_char.patron;
+	p_ptr->patron_idx = previous_char.patron_idx;
 
 	for (i = 0; i < 8; i++)
 	{
@@ -6966,19 +6966,19 @@ static bool player_birth_aux(void)
 		/* Patron */
 		if(p_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
 		{
-			if     (p_ptr->irace_idx == RACE_MELNIBONE)  p_ptr->patron = PATRON_ARIOCH;
-			else    p_ptr->patron = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
+			if     (p_ptr->irace_idx == RACE_MELNIBONE)  p_ptr->patron_idx = PATRON_ARIOCH;
+			else    p_ptr->patron_idx = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
 		}
 		else if(p_ptr->cls_idx == CLASS_PRIEST || p_ptr->cls_idx == CLASS_PALADIN)
 		{
-			if      (p_ptr->irace_idx == RACE_MELNIBONE) p_ptr->patron = PATRON_ARIOCH;
-			else if (p_ptr->irace_idx == RACE_DUNADAN)   p_ptr->patron = PATRON_ILUVATAR;
-			else if (p_ptr->irace_idx == RACE_URUK)      p_ptr->patron = PATRON_MELKOR;
-			else p_ptr->patron = (s16b)rand_range(1, MAX_PATRON-1);
+			if      (p_ptr->irace_idx == RACE_MELNIBONE) p_ptr->patron_idx = PATRON_ARIOCH;
+			else if (p_ptr->irace_idx == RACE_DUNADAN)   p_ptr->patron_idx = PATRON_ILUVATAR;
+			else if (p_ptr->irace_idx == RACE_URUK)      p_ptr->patron_idx = PATRON_MELKOR;
+			else p_ptr->patron_idx = (s16b)rand_range(1, MAX_PATRON-1);
 		}
 
 		else
-			p_ptr->patron = PATRON_N;
+			p_ptr->patron_idx = PATRON_N;
 
 		/* Iventory Fitting Rate */
 		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)

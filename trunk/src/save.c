@@ -600,7 +600,7 @@ static void save_quick_start(void)
 
 	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(previous_char.player_hp[i]);
 
-	wr_s16b(previous_char.patron);
+	wr_s16b(previous_char.patron_idx);
 
 	for (i = 0; i < 8; i++) wr_s16b(previous_char.vir_types[i]);
 
@@ -799,7 +799,7 @@ static void wr_extra(void)
 	wr_s16b(p_ptr->multishadow);
 	wr_s16b(p_ptr->dustrobe);
 
-	wr_s16b(p_ptr->patron);
+	wr_s16b(p_ptr->patron_idx);
 	wr_u32b(p_ptr->muta1);
 	wr_u32b(p_ptr->muta2);
 	wr_u32b(p_ptr->muta3);

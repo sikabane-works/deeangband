@@ -3412,7 +3412,7 @@ put_str("M‹Â:", 5, 1);
 	else c_put_str(TERM_L_DARK, sex_info[cr_ptr->sex].title, 3, 7);
 	if(cr_ptr->cls_idx != CLASS_NONE) c_put_str(TERM_L_BLUE, class_info[cr_ptr->cls_idx].title, 4, 7);
 	else c_put_str(TERM_L_DARK, "--", 4, 7);
-	if(cr_ptr->patron != PATRON_NONE) c_put_str(TERM_L_BLUE, player_patrons[cr_ptr->patron].title, 5, 7);
+	if(cr_ptr->patron_idx != PATRON_NONE) c_put_str(TERM_L_BLUE, player_patrons[cr_ptr->patron_idx].title, 5, 7);
 	else c_put_str(TERM_L_DARK, "--", 5, 7);
 
 	/* Display extras */
@@ -3578,11 +3578,11 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 16);
 		}
 
-		if(cr_ptr->patron != PATRON_NONE)
+		if(cr_ptr->patron_idx != PATRON_NONE)
 		{
-			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron].p_adj[i]);
-			if(player_patrons[cr_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
-			else if(player_patrons[cr_ptr->patron].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
+			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron_idx].p_adj[i]);
+			if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
+			else if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 19);
 		}
 		else
@@ -3859,10 +3859,10 @@ void display_player(int mode, creature_type *cr_ptr)
 		else
 			display_player_one_line(ENTRY_REALM, "------", TERM_L_DARK);
 
-		if(cr_ptr->patron == PATRON_NONE || cr_ptr->patron == PATRON_N)
+		if(cr_ptr->patron_idx == PATRON_NONE || cr_ptr->patron_idx == PATRON_N)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
-			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron].title, TERM_L_BLUE);
+			display_player_one_line(ENTRY_PATRON, player_patrons[cr_ptr->patron_idx].title, TERM_L_BLUE);
 		
 		display_player_one_line(ENTRY_RIGHT, "------", TERM_L_DARK);
 

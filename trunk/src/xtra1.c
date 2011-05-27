@@ -3332,19 +3332,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_tht += chara_info[cr_ptr->chara_idx].a_thb;
 	}
 
-	if(cr_ptr->patron != PATRON_NONE)
+	if(cr_ptr->patron_idx != PATRON_NONE)
 	{
-		cr_ptr->skill_dis += player_patrons[cr_ptr->patron].p_dis;
-		cr_ptr->skill_dev += player_patrons[cr_ptr->patron].p_dev;
-		cr_ptr->skill_rob += player_patrons[cr_ptr->patron].p_sav;
-		cr_ptr->skill_agi += player_patrons[cr_ptr->patron].p_sav;
-		cr_ptr->skill_vol += player_patrons[cr_ptr->patron].p_sav;
-		cr_ptr->skill_stl += player_patrons[cr_ptr->patron].p_stl;
-		cr_ptr->skill_srh += player_patrons[cr_ptr->patron].p_srh;
-		cr_ptr->skill_fos += player_patrons[cr_ptr->patron].p_fos;
-		cr_ptr->skill_thn += player_patrons[cr_ptr->patron].p_thn;
-		cr_ptr->skill_thb += player_patrons[cr_ptr->patron].p_thb;
-		cr_ptr->skill_tht += player_patrons[cr_ptr->patron].p_thb;
+		cr_ptr->skill_dis += player_patrons[cr_ptr->patron_idx].p_dis;
+		cr_ptr->skill_dev += player_patrons[cr_ptr->patron_idx].p_dev;
+		cr_ptr->skill_rob += player_patrons[cr_ptr->patron_idx].p_sav;
+		cr_ptr->skill_agi += player_patrons[cr_ptr->patron_idx].p_sav;
+		cr_ptr->skill_vol += player_patrons[cr_ptr->patron_idx].p_sav;
+		cr_ptr->skill_stl += player_patrons[cr_ptr->patron_idx].p_stl;
+		cr_ptr->skill_srh += player_patrons[cr_ptr->patron_idx].p_srh;
+		cr_ptr->skill_fos += player_patrons[cr_ptr->patron_idx].p_fos;
+		cr_ptr->skill_thn += player_patrons[cr_ptr->patron_idx].p_thn;
+		cr_ptr->skill_thb += player_patrons[cr_ptr->patron_idx].p_thb;
+		cr_ptr->skill_tht += player_patrons[cr_ptr->patron_idx].p_thb;
 	}
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
@@ -3751,8 +3751,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(cr_ptr->chara_idx != CHARA_NONE)
 			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
-		if(cr_ptr->patron != PATRON_NONE)
-			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron].p_adj[i];
+		if(cr_ptr->patron_idx != PATRON_NONE)
+			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron_idx].p_adj[i];
 
 	}
 

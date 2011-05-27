@@ -4987,10 +4987,10 @@ msg_print("お金が足りません！");
 		if ((p_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (p_ptr->muta2 & MUT2_CHAOS_GIFT))
 		{
 #ifdef JP
-			msg_format("%sからの声が響いた。", player_patrons[p_ptr->patron].title);
+			msg_format("%sからの声が響いた。", player_patrons[p_ptr->patron_idx].title);
 			msg_print("『よくやった、定命の者よ！』");
 #else
-			msg_format("The voice of %s booms out:", player_patrons[p_ptr->patron].title);
+			msg_format("The voice of %s booms out:", player_patrons[p_ptr->patron_idx].title);
 			msg_print("'Thou art donst well, mortal!'");
 #endif
 		}

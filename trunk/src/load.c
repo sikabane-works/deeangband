@@ -1203,7 +1203,7 @@ static void load_quick_start(void)
 
 	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&previous_char.player_hp[i]);
 
-	rd_s16b(&previous_char.patron);
+	rd_s16b(&previous_char.patron_idx);
 
 	for (i = 0; i < 8; i++) rd_s16b(&previous_char.vir_types[i]);
 
@@ -1427,7 +1427,7 @@ static void rd_extra(void)
 		p_ptr->multishadow = 0;
 		p_ptr->dustrobe = 0;
 
-		p_ptr->patron = ((p_ptr->age + p_ptr->sc) % MAX_PATRON);
+		p_ptr->patron_idx = ((p_ptr->age + p_ptr->sc) % MAX_PATRON);
 		p_ptr->muta1 = 0;
 		p_ptr->muta2 = 0;
 		p_ptr->muta3 = 0;
@@ -1456,7 +1456,7 @@ static void rd_extra(void)
 		rd_s16b(&p_ptr->tim_reflect);
 		rd_s16b(&p_ptr->multishadow);
 		rd_s16b(&p_ptr->dustrobe);
-		rd_s16b(&p_ptr->patron);
+		rd_s16b(&p_ptr->patron_idx);
 		rd_u32b(&p_ptr->muta1);
 		rd_u32b(&p_ptr->muta2);
 		rd_u32b(&p_ptr->muta3);

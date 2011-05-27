@@ -3438,7 +3438,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->dr = r_ptr->dr;
 
 	/* Save the trait */
-	m_ptr->patron = (s16b)r_ptr->i_faith;
+	m_ptr->patron_idx = (s16b)r_ptr->i_faith;
 
 	/* No flags */
 	m_ptr->mflag = 0;

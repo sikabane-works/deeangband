@@ -1085,13 +1085,13 @@ struct creature_type
 	u32b sub_race[8];       /* Sub-Race index */
 	s16b sex;				/* Sex index */
 	bool sexual_penalty;	/* Sexual penalty flag*/
-	byte cls_idx;		        /* Class index */
-	bool cls_bonus;	/* Class bonus flag*/
-	byte chara_idx;		/* CHARA index */
-	s16b patron;		/* Patron index */
-	byte realm1;        /* First magic realm */
-	byte realm2;        /* Second magic realm */
-	byte oops;			/* Unused */
+	byte cls_idx;		    /* Class index */
+	bool cls_bonus;	        /* Class bonus flag*/
+	byte chara_idx;		    /* chara index */
+	s16b patron_idx;		/* Patron index */
+	byte realm1;            /* First magic realm */
+	byte realm2;            /* Second magic realm */
+	byte oops;			    /* Unused */
 
 	s16b hitdice;		/* Hit dice */
 	s16b hitdice_base;   /* Hit dice base */
@@ -1551,7 +1551,7 @@ struct birther
 	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
 	s16b player_hp[PY_MAX_LEVEL];
 
-	s16b patron;
+	s16b patron_idx;
 
 	s16b vir_types[8];
 
