@@ -23,7 +23,7 @@ static bool is_owner(building_type *bldg)
 		return (TRUE);
 	}
 
-	if (bldg->member_race[p_ptr->race] == BUILDING_OWNER)
+	if (bldg->member_race[p_ptr->irace_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
@@ -45,7 +45,7 @@ static bool is_member(building_type *bldg)
 		return (TRUE);
 	}
 
-	if (bldg->member_race[p_ptr->race])
+	if (bldg->member_race[p_ptr->irace_idx])
 	{
 		return (TRUE);
 	}
@@ -2558,7 +2558,7 @@ void have_nightmare(int monster_idx)
 
 	if (!p_ptr->mimic_form)
 	{
-		switch (p_ptr->race)
+		switch (p_ptr->irace_idx)
 		{
 		/* Demons may make a saving throw */
 		case RACE_IMP:

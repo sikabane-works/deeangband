@@ -310,7 +310,7 @@ void get_virtues(void)
 	};
 
 	/* Get one virtue based on race */
-	switch (p_ptr->race)
+	switch (p_ptr->irace_idx)
 	{
 	case RACE_HUMAN: case RACE_ELF: case RACE_DUNADAN:
 		p_ptr->vir_types[i++] = V_INDIVIDUALISM;

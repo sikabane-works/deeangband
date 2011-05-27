@@ -3004,7 +3004,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 					switch (p_ptr->mimic_form)
 					{
 					case MIMIC_NONE:
-						switch (p_ptr->race)
+						switch (p_ptr->irace_idx)
 						{
 							case RACE_YEEK:
 							case RACE_KLACKON:

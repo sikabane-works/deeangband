@@ -3017,7 +3017,7 @@ static void process_world_aux_curse(void)
 			(void)activate_ty_curse(FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (p_ptr->race != RACE_ANDROID && 
+		if (p_ptr->irace_idx != RACE_ANDROID && 
 			((p_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
 			p_ptr->exp -= (p_ptr->lev+1)/2;
@@ -7053,7 +7053,7 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enforce "delayed death" */
 	if (p_ptr->chp < 0) p_ptr->is_dead = TRUE;
 
-	if (p_ptr->race == RACE_ANDROID) calc_android_exp();
+	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp();
 
 	if (new_game && ((p_ptr->class == CLASS_CAVALRY) || (p_ptr->class == CLASS_BEASTMASTER)))
 	{

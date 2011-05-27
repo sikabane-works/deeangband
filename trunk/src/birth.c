@@ -2474,7 +2474,7 @@ static void save_prev_data(birther *birther_ptr)
 
 	/* Save the data */
 	birther_ptr->sex = p_ptr->sex;
-	birther_ptr->race = p_ptr->race;
+	birther_ptr->irace_idx = p_ptr->irace_idx;
 	birther_ptr->class = p_ptr->class;
 	birther_ptr->chara = p_ptr->chara;
 	birther_ptr->realm1 = p_ptr->realm1;
@@ -2531,7 +2531,7 @@ static void load_prev_data(bool swap)
 
 	/* Load the data */
 	p_ptr->sex = previous_char.sex;
-	p_ptr->race = previous_char.race;
+	p_ptr->irace_idx = previous_char.irace_idx;
 	p_ptr->class = previous_char.class;
 	p_ptr->chara = previous_char.chara;
 	p_ptr->realm1 = previous_char.realm1;
@@ -2738,18 +2738,18 @@ static void get_extra(bool roll_hitdice)
 	int i, j;
 
 	/* Experience factor */
-	if (p_ptr->race == RACE_ANDROID) p_ptr->expfact = rp_ptr->r_exp;
+	if (p_ptr->irace_idx == RACE_ANDROID) p_ptr->expfact = rp_ptr->r_exp;
 	else {
 		p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
 		for(i = 0; i < MAX_RACES; i++)
 			if(get_subrace(p_ptr, i)) p_ptr->expfact += race_info[i].r_s_exp;
 	}
 
-	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->race == RACE_KLACKON) || (p_ptr->race == RACE_SPRITE)))
+	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
 		p_ptr->expfact -= 15;
 
 	/* Reset record of race/realm changes */
-	p_ptr->start_race = p_ptr->race;
+	p_ptr->start_race = p_ptr->irace_idx;
 	p_ptr->old_race1 = 0L;
 	p_ptr->old_race2 = 0L;
 	p_ptr->old_realm = 0;
@@ -2841,7 +2841,7 @@ static void get_history(void)
 	social_class = randint1(4);
 
 	/* Starting place */
-	switch (p_ptr->race)
+	switch (p_ptr->irace_idx)
 	{
 		case RACE_AMBERITE:
 		{
@@ -3116,7 +3116,7 @@ static void get_money(void)
 		gold /= 2;
 	else if (p_ptr->chara == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (p_ptr->race == RACE_ANDROID) gold /= 5;
+	if (p_ptr->irace_idx == RACE_ANDROID) gold /= 5;
 
 	/* Save the gold */
 	p_ptr->au = gold;
@@ -3514,10 +3514,10 @@ static void init_dungeon_quests(void)
  */
 static void init_turn(void)
 {
-	if ((p_ptr->race == RACE_VAMPIRE) ||
-	    (p_ptr->race == RACE_SKELETON) ||
-	    (p_ptr->race == RACE_ZOMBIE) ||
-	    (p_ptr->race == RACE_LICH))
+	if ((p_ptr->irace_idx == RACE_VAMPIRE) ||
+	    (p_ptr->irace_idx == RACE_SKELETON) ||
+	    (p_ptr->irace_idx == RACE_ZOMBIE) ||
+	    (p_ptr->irace_idx == RACE_LICH))
 	{
 		/* Undead start just after midnight */
 		turn = (TURNS_PER_TICK*3 * TOWN_DAWN) / 4 + 1;
@@ -3851,7 +3851,7 @@ void player_outfit(void)
 	q_ptr = &forge;
 
 	/* Give the player some food */
-	switch (p_ptr->race)
+	switch (p_ptr->irace_idx)
 	{
 	case RACE_VAMPIRE:
 		/* Nothing! */
@@ -3923,7 +3923,7 @@ void player_outfit(void)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((p_ptr->race == RACE_VAMPIRE) && (p_ptr->class != CLASS_NINJA))
+	if ((p_ptr->irace_idx == RACE_VAMPIRE) && (p_ptr->class != CLASS_NINJA))
 	{
 		/* Hack -- Give the player scrolls of DARKNESS! */
 		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
@@ -4054,18 +4054,18 @@ void player_outfit(void)
 		tv = player_init[p_ptr->class][i][0];
 		sv = player_init[p_ptr->class][i][1];
 
-		if ((p_ptr->race == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
+		if ((p_ptr->irace_idx == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
 		/* Hack to initialize spellbooks */
 		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + p_ptr->realm1 - 1;
 		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + p_ptr->realm2 - 1;
 
 		else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
-		    p_ptr->race == RACE_BARBARIAN)
+		    p_ptr->irace_idx == RACE_BARBARIAN)
 			/* Barbarians do not need a ring of resist fear */
 			sv = SV_RING_SUSTAIN_STR;
 
 		else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
-		    p_ptr->race == RACE_MIND_FLAYER)
+		    p_ptr->irace_idx == RACE_MIND_FLAYER)
 		  {
 			tv = TV_POTION;
 			sv = SV_POTION_RESTORE_MANA;
@@ -4249,26 +4249,26 @@ static byte get_intelligent_race_category(void)
 	/* Random Select*/
 		do 
 		{
-			p_ptr->race = (byte_hack)randint0(MAX_RACES);
-		} while(race_info[p_ptr->race].race_category == RACE_CATEGORY_UNSELECTABLE);
-		rp_ptr = &race_info[p_ptr->race];
-		c_put_str(TERM_L_BLUE, race_info[p_ptr->race].title, 3, 8);
+			p_ptr->irace_idx = (byte_hack)randint0(MAX_RACES);
+		} while(race_info[p_ptr->irace_idx].race_category == RACE_CATEGORY_UNSELECTABLE);
+		rp_ptr = &race_info[p_ptr->irace_idx];
+		c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 8);
 	}
 
 #ifdef JP
-		c_put_str(TERM_L_BLUE, race_info[p_ptr->race].title, 3, 40);
-		put_str("‚ÌŽí‘°C³", 3, 40+strlen(race_info[p_ptr->race].title));
+		c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 40);
+		put_str("‚ÌŽí‘°C³", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
 		put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í ŒoŒ±   ", 4, 40);
 #else
-		c_put_str(TERM_L_BLUE, race_info[p_ptr->race].tile, 3, 40);
-		put_str(": Race modification", 3, 40+strlen(race_info[p_ptr->race].title));
+		c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].tile, 3, 40);
+		put_str(": Race modification", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
 		put_str("Str  Int  Wis  Dex  Con  Chr   EXP   ", 4, 40);
 #endif
 		sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-			race_info[p_ptr->race].r_adj[0], race_info[p_ptr->race].r_adj[1],
-			race_info[p_ptr->race].r_adj[2], race_info[p_ptr->race].r_adj[3],
-			race_info[p_ptr->race].r_adj[4], race_info[p_ptr->race].r_adj[5],
-			(race_info[p_ptr->race].r_exp - 100));
+			race_info[p_ptr->irace_idx].r_adj[0], race_info[p_ptr->irace_idx].r_adj[1],
+			race_info[p_ptr->irace_idx].r_adj[2], race_info[p_ptr->irace_idx].r_adj[3],
+			race_info[p_ptr->irace_idx].r_adj[4], race_info[p_ptr->irace_idx].r_adj[5],
+			(race_info[p_ptr->irace_idx].r_exp - 100));
 		c_put_str(TERM_L_BLUE, buf, 5, 40);
 
 	/* Success */
@@ -4483,8 +4483,8 @@ static bool get_intelligent_race(int category)
 	}
 
 	/* Set race */
-	p_ptr->race = c_races[k];
-	rp_ptr = &race_info[p_ptr->race];
+	p_ptr->irace_idx = c_races[k];
+	rp_ptr = &race_info[p_ptr->irace_idx];
 
 	/* Display */
 	c_put_str(TERM_L_BLUE, rp_ptr->title, 3, 8);
@@ -6347,7 +6347,7 @@ static bool player_birth_aux(void)
 
 
 	/* Choose the players race */
-	p_ptr->race = 0;
+	p_ptr->irace_idx = 0;
 	for(i = 0; i < 8; i++)
 		p_ptr->sub_race[i] = 0;
 
@@ -6364,7 +6364,7 @@ static bool player_birth_aux(void)
 
 		clear_from(10);
 
-		roff_to_buf(race_jouhou[p_ptr->race], 74, temp, sizeof(temp));
+		roff_to_buf(race_jouhou[p_ptr->irace_idx], 74, temp, sizeof(temp));
 		t = temp;
 
 		for (i = 0; i < 10; i++)
@@ -6390,7 +6390,7 @@ static bool player_birth_aux(void)
 	clear_from(10);
 
 	/*** Eldar Lineage ***/
-	if(p_ptr->race == RACE_ELDAR)
+	if(p_ptr->irace_idx == RACE_ELDAR)
 	{
 		while(1)
 		{
@@ -6441,7 +6441,7 @@ static bool player_birth_aux(void)
 	clear_from(10);
 
 	/*** Doraconian Lineage ***/
-	if(p_ptr->race == RACE_DRACONIAN || p_ptr->race == RACE_DRAGON)
+	if(p_ptr->irace_idx == RACE_DRACONIAN || p_ptr->irace_idx == RACE_DRAGON)
 	{
 		while(1)
 		{
@@ -6524,7 +6524,7 @@ static bool player_birth_aux(void)
 
 		/* Display */
 
-	if(race_info[p_ptr->race].sex_flag & (0x01 << n))
+	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << n))
 		sprintf(buf, "%c%c %s", I2A(n), p2, sp_ptr->title);
 	else
 		sprintf(buf, "%c%c!%s", I2A(n), p2, sp_ptr->title);
@@ -6558,7 +6558,7 @@ static bool player_birth_aux(void)
 			{
 				sp_ptr = &sex_info[cs];
 				str = sp_ptr->title;
-				if(race_info[p_ptr->race].sex_flag & (0x01 << cs))
+				if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << cs))
 					sprintf(cur, "%c%c %s", I2A(cs), p2, str);
 				else
 					sprintf(cur, "%c%c!%s", I2A(cs), p2, str);
@@ -6625,7 +6625,7 @@ static bool player_birth_aux(void)
 	/* Set sex */
 	p_ptr->sex = k;
 	sp_ptr = &sex_info[p_ptr->sex];
-	if(race_info[p_ptr->race].sex_flag & (0x01 << p_ptr->sex))
+	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << p_ptr->sex))
 	{
 		p_ptr->sexual_penalty = FALSE;
 		c_put_str(TERM_L_BLUE, sp_ptr->title, 4, 8);
@@ -6966,14 +6966,14 @@ static bool player_birth_aux(void)
 		/* Patron */
 		if(p_ptr->class == CLASS_CHAOS_WARRIOR)
 		{
-			if     (p_ptr->race == RACE_MELNIBONE)  p_ptr->patron = PATRON_ARIOCH;
+			if     (p_ptr->irace_idx == RACE_MELNIBONE)  p_ptr->patron = PATRON_ARIOCH;
 			else    p_ptr->patron = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
 		}
 		else if(p_ptr->class == CLASS_PRIEST || p_ptr->class == CLASS_PALADIN)
 		{
-			if      (p_ptr->race == RACE_MELNIBONE) p_ptr->patron = PATRON_ARIOCH;
-			else if (p_ptr->race == RACE_DUNADAN)   p_ptr->patron = PATRON_ILUVATAR;
-			else if (p_ptr->race == RACE_URUK)      p_ptr->patron = PATRON_MELKOR;
+			if      (p_ptr->irace_idx == RACE_MELNIBONE) p_ptr->patron = PATRON_ARIOCH;
+			else if (p_ptr->irace_idx == RACE_DUNADAN)   p_ptr->patron = PATRON_ILUVATAR;
+			else if (p_ptr->irace_idx == RACE_URUK)      p_ptr->patron = PATRON_MELKOR;
 			else p_ptr->patron = (s16b)rand_range(1, MAX_PATRON-1);
 		}
 
@@ -7286,7 +7286,7 @@ static bool ask_quick_start(void)
 	p_ptr->wilderness_y = 71;
 
 	sp_ptr = &sex_info[p_ptr->sex];
-	rp_ptr = &race_info[p_ptr->race];
+	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->class];
 	mp_ptr = &m_info[p_ptr->class];
 	ap_ptr = &chara_info[p_ptr->chara];
@@ -7373,9 +7373,9 @@ void player_birth(void)
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 #ifdef JP
-	sprintf(buf,"                            Ží‘°‚É%s‚ð‘I‘ð‚µ‚½B", race_info[p_ptr->race].title);
+	sprintf(buf,"                            Ží‘°‚É%s‚ð‘I‘ð‚µ‚½B", race_info[p_ptr->irace_idx].title);
 #else
-	sprintf(buf,"                            choose %s race.", race_info[p_ptr->race].title);
+	sprintf(buf,"                            choose %s race.", race_info[p_ptr->irace_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7419,7 +7419,7 @@ void player_birth(void)
 	seed_wilderness();
 
 	/* Give beastman a mutation at character birth */
-	if (p_ptr->race == RACE_BEASTMAN) hack_mutation = TRUE;
+	if (p_ptr->irace_idx == RACE_BEASTMAN) hack_mutation = TRUE;
 	else hack_mutation = FALSE;
 
 	/* Set the message window flag as default */
@@ -7440,12 +7440,12 @@ void dump_yourself(FILE *fff)
 
 	if (!fff) return;
 
-	roff_to_buf(race_jouhou[p_ptr->race], 78, temp, sizeof(temp));
+	roff_to_buf(race_jouhou[p_ptr->irace_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n\n");
 #ifdef JP
-	fprintf(fff, "Ží‘°: %s\n", race_info[p_ptr->race].title);
+	fprintf(fff, "Ží‘°: %s\n", race_info[p_ptr->irace_idx].title);
 #else
-	fprintf(fff, "Race: %s\n", race_info[p_ptr->race].title);
+	fprintf(fff, "Race: %s\n", race_info[p_ptr->irace_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)

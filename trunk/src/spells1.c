@@ -7152,7 +7152,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 				{
 					case 1: case 2: case 3: case 4: case 5:
 					{
-						if (p_ptr->race == RACE_ANDROID) break;
+						if (p_ptr->irace_idx == RACE_ANDROID) break;
 #ifdef JP
 						msg_print("l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB");
 #else
@@ -7434,7 +7434,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			else
 			{
 
-			switch (p_ptr->race)
+			switch (p_ptr->irace_idx)
 			{
 				/* Some races are immune */
 				case RACE_GOLEM:

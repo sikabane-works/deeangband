@@ -60,9 +60,9 @@ void set_status(creature_type *cr_ptr)
 			cr_ptr->stat_use[i] += re_info[cr_ptr->re_idx].stat[i];
 		}
 
-		if(cr_ptr->race != RACE_NONE)
+		if(cr_ptr->irace_idx != RACE_NONE)
 		{
-			cr_ptr->stat_use[i] += race_info[cr_ptr->race].r_adj[i] * 10;
+			cr_ptr->stat_use[i] += race_info[cr_ptr->irace_idx].r_adj[i] * 10;
 		}	
 
 		if(cr_ptr->stat_use[i] < 30) cr_ptr->stat_use[i] = 30;
@@ -87,9 +87,9 @@ void set_height_weight(creature_type *cr_ptr)
 	intelligent_race *ir_ptr;
 	monster_race *mr_ptr;
 
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		ir_ptr = &race_info[cr_ptr->race]; 
+		ir_ptr = &race_info[cr_ptr->irace_idx]; 
 
 		if (cr_ptr->sex == SEX_MALE)
 		{
@@ -182,8 +182,8 @@ void set_bodysize(creature_type * cr_ptr)
 void set_hitdice(creature_type * cr_ptr)
 {
 	cr_ptr->hitdice = cr_ptr->size >= 10 ? 5 + cr_ptr->size / 2 : cr_ptr->size;
-	if (cr_ptr->race != RACE_NONE)
-		cr_ptr->hitdice += race_info[cr_ptr->race].r_mhp;
+	if (cr_ptr->irace_idx != RACE_NONE)
+		cr_ptr->hitdice += race_info[cr_ptr->irace_idx].r_mhp;
 	if (cr_ptr->class == CLASS_SORCERER)
 		cr_ptr->hitdice /= 2;
 	if (cr_ptr->class != CLASS_NONE)
@@ -378,9 +378,9 @@ void set_resistance(creature_type *cr_ptr)
 {
 	int i;
 
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		intelligent_race *ir_ptr = &race_info[cr_ptr->race];
+		intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			cr_ptr->resist_acid = TRUE;
 		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)

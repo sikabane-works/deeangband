@@ -6579,7 +6579,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			switch (p_ptr->race)
+			switch (p_ptr->irace_idx)
 			{
 			case RACE_GOLEM:
 			case RACE_SKELETON:

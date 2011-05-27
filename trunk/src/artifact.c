@@ -3192,7 +3192,7 @@ bool equip_named_art(int a_idx, creature_type *cr_ptr)
 	object_type *q_ptr = NULL;
 	artifact_type *a_ptr = &a_info[a_idx];
 
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
 		switch(a_ptr->tval)
 		{

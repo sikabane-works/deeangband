@@ -1530,7 +1530,7 @@ static bool cmd_racial_power_aux(s32b command)
 	else 
 	{
 
-	switch (p_ptr->race)
+	switch (p_ptr->irace_idx)
 	{
 		case RACE_DWARF:
 #ifdef JP
@@ -2741,7 +2741,7 @@ strcpy(power_desc[num].name, "¶–½—Í‹zŽû");
 	}
 	else
 	{
-	switch (p_ptr->race)
+	switch (p_ptr->irace_idx)
 	{
 		case RACE_DWARF:
 #ifdef JP

@@ -1316,7 +1316,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_EXPERIENCE:
-			if (p_ptr->race == RACE_ANDROID) break;
+			if (p_ptr->irace_idx == RACE_ANDROID) break;
 			chg_virtue(V_ENLIGHTEN, 1);
 			if (p_ptr->exp < PY_MAX_EXP)
 			{
@@ -1467,7 +1467,7 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	switch (p_ptr->mimic_form)
 	{
 	case MIMIC_NONE:
-		switch (p_ptr->race)
+		switch (p_ptr->irace_idx)
 		{
 			case RACE_VAMPIRE:
 				(void)set_food(p_ptr->food + (q_ptr->pval / 10));
@@ -5656,7 +5656,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
-				if (p_ptr->race == RACE_ANDROID) calc_android_exp();
+				if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp();
 				p_ptr->update |= (PU_BONUS | PU_HP);
 				break;
 			}

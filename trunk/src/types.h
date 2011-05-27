@@ -1077,7 +1077,7 @@ struct creature_type
 	s16b oldpy;		/* Previous player location -KMW- */
 	s16b oldpx;		/* Previous player location -KMW- */
 
-	s16b race;			    /* Intelligence race index */
+	s16b irace_idx;			    /* Intelligence race index */
 	s16b monster_idx;			    /* Monster race index */
 	s16b re_idx;		    /* Monster ego index */
 	s16b ap_monster_idx;		    /* Monster race appearance index */
@@ -1533,7 +1533,7 @@ typedef struct birther birther;
 struct birther
 {
 	s16b sex;         /* Sex index */
-	s16b race;        /* Race index */
+	s16b irace_idx;        /* Race index */
 	u32b sub_race[8];    /* Sub-Race index */
 	byte class;       /* Class index */
 	byte chara;     /* CHARA index */

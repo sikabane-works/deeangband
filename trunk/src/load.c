@@ -584,7 +584,7 @@ static void rd_monster(creature_type *m_ptr)
 	/* Read the monster race */
 	rd_s16b(&m_ptr->monster_idx);
 	rd_s16b(&m_ptr->re_idx);
-	rd_s16b(&m_ptr->race);
+	rd_s16b(&m_ptr->irace_idx);
 	if(!older_than(0,0,3,0))
 	{
 		rd_byte(&m_ptr->class);
@@ -1185,7 +1185,7 @@ static void load_quick_start(void)
 	int i;
 
 	rd_s16b(&previous_char.sex);
-	rd_s16b(&previous_char.race);
+	rd_s16b(&previous_char.irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&previous_char.sub_race[i]);
 	rd_byte(&previous_char.class);
 	rd_byte(&previous_char.chara);
@@ -1246,7 +1246,7 @@ static void rd_extra(void)
 	}
 
 	/* Class/Race/CHARA/Gender/Spells */
-	rd_s16b(&p_ptr->race);
+	rd_s16b(&p_ptr->irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&p_ptr->sub_race[i]);
 	rd_byte(&p_ptr->class);
 	rd_byte(&p_ptr->chara);
@@ -2768,7 +2768,7 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	sp_ptr = &sex_info[p_ptr->sex];
 
 	/* Important -- Initialize the race/class */
-	rp_ptr = &race_info[p_ptr->race];
+	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->class];
 	ap_ptr = &chara_info[p_ptr->chara];
 

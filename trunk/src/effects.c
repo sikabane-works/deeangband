@@ -424,7 +424,7 @@ bool set_blind(int v)
 	{
 		if (!p_ptr->blind)
 		{
-			if (p_ptr->race == RACE_ANDROID)
+			if (p_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 msg_print("センサーをやられた！");
@@ -451,7 +451,7 @@ msg_print("目が見えなくなってしまった！");
 	{
 		if (p_ptr->blind)
 		{
-			if (p_ptr->race == RACE_ANDROID)
+			if (p_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 msg_print("センサーが復旧した。");
@@ -3719,10 +3719,10 @@ bool set_cut(int v)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if ((p_ptr->race == RACE_GOLEM ||
-	    p_ptr->race == RACE_SKELETON ||
-	    p_ptr->race == RACE_LICH ||
-		(p_ptr->race == RACE_ZOMBIE && p_ptr->lev > 11)) &&
+	if ((p_ptr->irace_idx == RACE_GOLEM ||
+	    p_ptr->irace_idx == RACE_SKELETON ||
+	    p_ptr->irace_idx == RACE_LICH ||
+		(p_ptr->irace_idx == RACE_ZOMBIE && p_ptr->lev > 11)) &&
 	    !p_ptr->mimic_form)
 		v = 0;
 
@@ -3927,7 +3927,7 @@ msg_print("ひどい傷跡が残ってしまった。");
 			/* None */
 			case 0:
 #ifdef JP
-msg_format("やっと%s。", p_ptr->race == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
+msg_format("やっと%s。", p_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
 #else
 			msg_print("You are no longer bleeding.");
 #endif
@@ -4861,7 +4861,7 @@ void change_race(int new_race, cptr effect_msg)
 {
 	int i;
 	cptr title = race_info[new_race].title;
-	int  old_race = p_ptr->race;
+	int  old_race = p_ptr->irace_idx;
 
 #ifdef JP
 	msg_format("あなたは%s%sに変化した！", effect_msg, title);
@@ -4871,16 +4871,16 @@ void change_race(int new_race, cptr effect_msg)
 
 	chg_virtue(V_CHANCE, 2);
 
-	if (p_ptr->race < 32)
+	if (p_ptr->irace_idx < 32)
 	{
-		p_ptr->old_race1 |= 1L << p_ptr->race;
+		p_ptr->old_race1 |= 1L << p_ptr->irace_idx;
 	}
 	else
 	{
-		p_ptr->old_race2 |= 1L << (p_ptr->race-32);
+		p_ptr->old_race2 |= 1L << (p_ptr->irace_idx-32);
 	}
-	p_ptr->race = new_race;
-	rp_ptr = &race_info[p_ptr->race];
+	p_ptr->irace_idx = new_race;
+	rp_ptr = &race_info[p_ptr->irace_idx];
 
 	/* Experience factor */
 	p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
@@ -4891,7 +4891,7 @@ void change_race(int new_race, cptr effect_msg)
 	 * The speed bonus of Klackons and Sprites are disabled
 	 * and the experience penalty is decreased.
 	 */
-	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->race == RACE_KLACKON) || (p_ptr->race == RACE_SPRITE)))
+	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
 		p_ptr->expfact -= 15;
 
 	/* Get character's height and weight */
@@ -4915,7 +4915,7 @@ void change_race(int new_race, cptr effect_msg)
 	handle_stuff();
 
 	/* Load an autopick preference file */
-	if (old_race != p_ptr->race) autopick_load_pref(FALSE);
+	if (old_race != p_ptr->irace_idx) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
 	lite_spot(py, px);
@@ -4934,7 +4934,7 @@ msg_print("あなたは変化の訪れを感じた...");
 
 	chg_virtue(V_CHANCE, 1);
 
-	if ((power > randint0(20)) && one_in_(3) && (p_ptr->race != RACE_ANDROID))
+	if ((power > randint0(20)) && one_in_(3) && (p_ptr->irace_idx != RACE_ANDROID))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -5037,14 +5037,14 @@ msg_print("奇妙なくらい普通になった気がする。");
 		else
 			goalexpfact = 100 + 3 * randint0(power);
 
-		if(race_info[p_ptr->race].dr == -1)
+		if(race_info[p_ptr->irace_idx].dr == -1)
 		{
 			do
 			{
 				new_race = randint0(MAX_RACES);
 				expfact = race_info[new_race].r_exp;
 			}
-			while (((new_race == p_ptr->race) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
+			while (((new_race == p_ptr->irace_idx) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
 
 			change_race(new_race, effect_msg);
 		}
@@ -5059,7 +5059,7 @@ msg_print("奇妙なくらい普通になった気がする。");
 		power -= 20;
 
 #ifdef JP
-msg_format("%sの構成が変化した！", p_ptr->race == RACE_ANDROID ? "機械" : "内臓");
+msg_format("%sの構成が変化した！", p_ptr->irace_idx == RACE_ANDROID ? "機械" : "内臓");
 #else
 		msg_print("Your internal organs are rearranged!");
 #endif
@@ -5248,7 +5248,7 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 	/* Dead player */
 	if (p_ptr->chp < 0)
 	{
-		bool android = (p_ptr->race == RACE_ANDROID ? TRUE : FALSE);
+		bool android = (p_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
 
 #ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
 		if (!cheat_save)
@@ -5553,7 +5553,7 @@ void gain_exp_64(s32b amount, u32b amount_frac)
 {
 	if (p_ptr->is_dead) return;
 
-	if (p_ptr->race == RACE_ANDROID) return;
+	if (p_ptr->irace_idx == RACE_ANDROID) return;
 
 	/* Gain some experience */
 	s64b_add(&(p_ptr->exp), &(p_ptr->exp_frac), amount, amount_frac);
@@ -5585,7 +5585,7 @@ void calc_android_exp(void)
 	u32b total_exp = 0;
 	if (p_ptr->is_dead) return;
 
-	if (p_ptr->race != RACE_ANDROID) return;
+	if (p_ptr->irace_idx != RACE_ANDROID) return;
 
 	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
@@ -5681,7 +5681,7 @@ void calc_android_exp(void)
  */
 void lose_exp(s32b amount)
 {
-	if (p_ptr->race == RACE_ANDROID) return;
+	if (p_ptr->irace_idx == RACE_ANDROID) return;
 
 	/* Never drop below zero experience */
 	if (amount > p_ptr->exp) amount = p_ptr->exp;
@@ -5701,7 +5701,7 @@ void lose_exp(s32b amount)
 bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (p_ptr->race == RACE_ANDROID) return FALSE;
+	if (p_ptr->irace_idx == RACE_ANDROID) return FALSE;
 
 	if (p_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{

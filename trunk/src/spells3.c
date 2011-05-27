@@ -5996,7 +5996,7 @@ bool summon_kin_player(int level, int y, int x, u32b mode)
 	switch (p_ptr->mimic_form)
 	{
 	case MIMIC_NONE:
-		switch (p_ptr->race)
+		switch (p_ptr->irace_idx)
 		{
 			case RACE_HUMAN:
 			case RACE_AMBERITE:

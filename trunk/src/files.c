@@ -1925,7 +1925,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	}
 
 	/* Dump experience */
-	if (cr_ptr->race == RACE_ANDROID) e = ENTRY_EXP_ANDR;
+	if (cr_ptr->irace_idx == RACE_ANDROID) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
@@ -1934,18 +1934,18 @@ static void display_player_middle(creature_type *cr_ptr)
 		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (cr_ptr->race == RACE_ANDROID)
+	if (cr_ptr->irace_idx == RACE_ANDROID)
 		/* Nothing */;
 	else
 		display_player_one_line(ENTRY_MAX_EXP, format("%ld", cr_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (cr_ptr->race == RACE_ANDROID) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (cr_ptr->irace_idx == RACE_ANDROID) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
 	if (cr_ptr->lev >= cr_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (cr_ptr->race == RACE_ANDROID)
+	else if (cr_ptr->irace_idx == RACE_ANDROID)
 		display_player_one_line(e, format("%ld", (s32b)(player_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
 		display_player_one_line(e, format("%ld", (s32b)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
@@ -2422,9 +2422,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			break;
 		}
 	}
-	else if(cr_ptr->race != RACE_NONE)
+	else if(cr_ptr->irace_idx != RACE_NONE)
 	{		
-		intelligent_race *ir_ptr = &race_info[cr_ptr->race];
+		intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			add_flag(flgs, TR_RES_ACID);
 		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
@@ -2541,7 +2541,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		}
 
 
-	switch (cr_ptr->race)
+	switch (cr_ptr->irace_idx)
 	{
 	case RACE_YEEK:
 		if (cr_ptr->lev > 19)
@@ -3406,7 +3406,7 @@ put_str("M‹Â:", 5, 1);
 	strcat(tmp,cr_ptr->name);
 
 	c_put_str(TERM_L_BLUE, tmp, 1, 7);
-	if(cr_ptr->race != RACE_NONE) c_put_str(TERM_L_BLUE, get_intelligent_race_name(cr_ptr), 2, 7);
+	if(cr_ptr->irace_idx != RACE_NONE) c_put_str(TERM_L_BLUE, get_intelligent_race_name(cr_ptr), 2, 7);
 	else c_put_str(TERM_L_DARK, "--", 2, 7);
 	if(cr_ptr->sex != SEX_NONE) c_put_str(TERM_L_BLUE, sex_info[cr_ptr->sex].title, 3, 7);
 	else c_put_str(TERM_L_DARK, sex_info[cr_ptr->sex].title, 3, 7);
@@ -3491,7 +3491,7 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 
 		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
-			r_adj = race_info[cr_ptr->race].r_adj[i];
+			r_adj = race_info[cr_ptr->irace_idx].r_adj[i];
 			for(j = 0; j < MAX_RACES; j++){
 				if(get_subrace(cr_ptr, j))
 					r_adj += race_info[j].r_s_adj[i];
@@ -3527,7 +3527,7 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 		}
 
 		for(j = 0; j < 10; j++)
-			if(race_info[cr_ptr->race].lev > race_unreached_level_penalty[j] && cr_ptr->lev < race_unreached_level_penalty[j])
+			if(race_info[cr_ptr->irace_idx].lev > race_unreached_level_penalty[j] && cr_ptr->lev < race_unreached_level_penalty[j])
 				r_adj--;
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
@@ -3551,7 +3551,7 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
 		/* Race, class, and equipment modifiers */
-		if(cr_ptr->race != RACE_NONE)
+		if(cr_ptr->irace_idx != RACE_NONE)
 		{
 			(void)sprintf(buf, "%+3d", r_adj);
 			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 13);
@@ -3808,7 +3808,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	char	buf[80];
 	char	tmp[64];
 
-	intelligent_race *ir_ptr = &race_info[cr_ptr->race];
+	intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
 	player_class *cl_ptr = &class_info[cr_ptr->class];
 	player_chara *ch_ptr = &chara_info[cr_ptr->chara];
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];
@@ -3844,7 +3844,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		else if(cr_ptr->sex != SEX_NONE) display_player_one_line(ENTRY_SEX, se_ptr->title, TERM_L_BLUE);
 		else display_player_one_line(ENTRY_SEX, se_ptr->title, TERM_L_DARK);
 
-		if(cr_ptr->race != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(cr_ptr), TERM_L_BLUE);
+		if(cr_ptr->irace_idx != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
 		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cl_ptr->title, TERM_L_BLUE);
@@ -3869,7 +3869,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* Age, Height, Weight, Social */
 		/* D'angband(mertle scale).*/
 #ifdef JP
-		if(cr_ptr->race != RACE_NONE){ 
+		if(cr_ptr->irace_idx != RACE_NONE){ 
 			display_player_one_line(ENTRY_AGE, format("%dÎ" ,(int)cr_ptr->age), TERM_L_BLUE);
 		}
 		else{
@@ -3879,7 +3879,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		display_player_one_line(ENTRY_HEIGHT, format("%dcm" ,(int)cr_ptr->ht), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%dkg" ,(int)cr_ptr->wt), TERM_L_BLUE);
 
-		if(cr_ptr->race != RACE_NONE)
+		if(cr_ptr->irace_idx != RACE_NONE)
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 		else
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
@@ -3924,7 +3924,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 #else
 
-		if(cr_ptr->race != RACE_NONE){ 
+		if(cr_ptr->irace_idx != RACE_NONE){ 
 			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
 		}
 		else{
@@ -3934,7 +3934,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((cr_ptr->ht*100)/254)), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((cr_ptr->wt*10000)/4536)), TERM_L_BLUE);
 
-		if(cr_ptr->race != RACE_NONE){ 
+		if(cr_ptr->irace_idx != RACE_NONE){ 
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 		}
 		else{
@@ -6678,7 +6678,7 @@ long total_points(void)
 	if (ironman_downward) point *= 2;
 	if (p_ptr->class == CLASS_BERSERKER)
 	{
-		if ( p_ptr->race == RACE_LICH )
+		if ( p_ptr->irace_idx == RACE_LICH )
 			point = point / 5;
 	}
 
@@ -6770,7 +6770,7 @@ static void make_bones(void)
 			/* Save the info */
 			fprintf(fp, "%s\n", p_ptr->name);
 			fprintf(fp, "%d\n", p_ptr->mhp);
-			fprintf(fp, "%d\n", p_ptr->race);
+			fprintf(fp, "%d\n", p_ptr->irace_idx);
 			fprintf(fp, "%d\n", p_ptr->class);
 
 			/* Close and save the Bones file */

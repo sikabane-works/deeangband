@@ -445,7 +445,7 @@ static void do_cmd_wiz_change_aux(void)
 	/* Verify */
 	if (tmp_long < 0) tmp_long = 0L;
 
-	if (p_ptr->race != RACE_ANDROID)
+	if (p_ptr->irace_idx != RACE_ANDROID)
 	{
 		/* Save */
 		p_ptr->max_exp = tmp_long;

@@ -5544,7 +5544,7 @@ extern int PlayerUID;
 #define MIMIC_IS_UNDEAD    0x00000004
 
 
-#define race_is_(C, A) (!C->mimic_form && (C->race == A))
+#define race_is_(C, A) (!C->mimic_form && (C->irace_idx == A))
 
 /* Sub-alignment flags for neutral monsters */
 #define SUB_ALIGN_NEUTRAL 0x0000

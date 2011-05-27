@@ -1027,7 +1027,7 @@ msg_print("•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 							--- henkma
 		*/
 		if(!choose_mut){
-			if (p_ptr->race == RACE_VAMPIRE &&
+			if (p_ptr->irace_idx == RACE_VAMPIRE &&
 			  !(p_ptr->muta1 & MUT1_HYPN_GAZE) &&
 			   (randint1(10) < 7))
 			{
@@ -1041,7 +1041,7 @@ muta_desc = "Šá‚ªŒ¶˜f“I‚É‚È‚Á‚½...";
 
 			}
 
-			else if (p_ptr->race == RACE_IMP &&
+			else if (p_ptr->irace_idx == RACE_IMP &&
 				 !(p_ptr->muta2 & MUT2_HORNS) &&
 				 (randint1(10) < 7))
 			  {
@@ -1055,7 +1055,7 @@ muta_desc = "Šp‚ªŠz‚©‚ç¶‚¦‚Ä‚«‚½I";
 
 			}
 
-			else if (p_ptr->race == RACE_YEEK &&
+			else if (p_ptr->irace_idx == RACE_YEEK &&
 				!(p_ptr->muta1 & MUT1_SHRIEK) &&
 				(randint1(10) < 7))
 			{
@@ -1069,7 +1069,7 @@ muta_desc = "ºŽ¿‚ª‚©‚È‚è‹­‚­‚È‚Á‚½B";
 
 			}
 
-			else if (p_ptr->race == RACE_BEASTMAN &&
+			else if (p_ptr->irace_idx == RACE_BEASTMAN &&
 				!(p_ptr->muta1 & MUT1_POLYMORPH) &&
 				(randint1(10) < 2))
 			{
@@ -1083,7 +1083,7 @@ muta_desc = "‚ ‚È‚½‚Ì“÷‘Ì‚Í•Ï‰»‚Å‚«‚é‚æ‚¤‚É‚È‚Á‚½A";
 
 			}
 
-			else if (p_ptr->race == RACE_MIND_FLAYER &&
+			else if (p_ptr->irace_idx == RACE_MIND_FLAYER &&
 				!(p_ptr->muta2 & MUT2_TENTACLES) &&
 				(randint1(10) < 7))
 			{
@@ -3281,7 +3281,7 @@ int calc_mutant_regenerate_mod(void)
 	 */
 
 	if (p_ptr->chara == CHARA_LUCKY) count--;
-	if (p_ptr->race == RACE_BEASTMAN)
+	if (p_ptr->irace_idx == RACE_BEASTMAN)
 	{
 		count -= 10;
 		mod = 5;

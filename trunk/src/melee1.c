@@ -1585,7 +1585,7 @@ bool make_attack_normal(int m_idx)
 					}
 
 					/* Damage CON (10% chance)*/
-					if ((randint1(100) < 11) && (p_ptr->race != RACE_ANDROID))
+					if ((randint1(100) < 11) && (p_ptr->irace_idx != RACE_ANDROID))
 					{
 						/* 1% chance for perm. damage */
 						bool perm = one_in_(10);
@@ -1612,7 +1612,7 @@ bool make_attack_normal(int m_idx)
 						{
 							case 1: case 2: case 3: case 4: case 5:
 							{
-								if (p_ptr->race == RACE_ANDROID) break;
+								if (p_ptr->irace_idx == RACE_ANDROID) break;
 #ifdef JP
 								msg_print("l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB");
 #else
@@ -1706,7 +1706,7 @@ bool make_attack_normal(int m_idx)
 					}
 					else
 					{
-						switch (p_ptr->race)
+						switch (p_ptr->irace_idx)
 						{
 						case RACE_ZOMBIE:
 						case RACE_VAMPIRE:

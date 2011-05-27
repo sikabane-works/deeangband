@@ -858,7 +858,7 @@ static void prt_exp(void)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(p_ptr->race == RACE_ANDROID))
+	if ((!exp_need)||(p_ptr->irace_idx == RACE_ANDROID))
 	{
 #ifdef JP
 	(void)sprintf(out_val, "%7ld", (long)p_ptr->exp);
@@ -885,11 +885,11 @@ static void prt_exp(void)
 	if (p_ptr->exp >= p_ptr->max_exp)
 	{
 #ifdef JP
-		if (p_ptr->race == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
+		if (p_ptr->irace_idx == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
 		else put_str("ŒoŒ± ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 5);
 #else
-		if (p_ptr->race == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
+		if (p_ptr->irace_idx == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
 #endif
@@ -3221,7 +3221,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->no_flowed = FALSE;
 
 	if (cr_ptr->mimic_form) tmp_rp_ptr = &mimic_info[cr_ptr->mimic_form];
-	else tmp_rp_ptr = &race_info[cr_ptr->race];
+	else tmp_rp_ptr = &race_info[cr_ptr->irace_idx];
 
 	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
@@ -3255,19 +3255,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_tht = 10;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
 
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race].r_dis);
-		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race].r_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race].r_sav);
-		cr_ptr->skill_agi += (-5 + race_info[cr_ptr->race].r_sav);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race].r_sav);
-		cr_ptr->skill_stl += race_info[cr_ptr->race].r_stl;
-		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race].r_srh);
-		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race].r_fos);
-		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race].r_thn);
-		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race].r_thb);
-		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race].r_thb);
+		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->irace_idx].r_dis);
+		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->irace_idx].r_dev);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->irace_idx].r_sav);
+		cr_ptr->skill_agi += (-5 + race_info[cr_ptr->irace_idx].r_sav);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->irace_idx].r_sav);
+		cr_ptr->skill_stl += race_info[cr_ptr->irace_idx].r_stl;
+		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->irace_idx].r_srh);
+		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->irace_idx].r_fos);
+		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->irace_idx].r_thn);
+		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->irace_idx].r_thb);
+		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->irace_idx].r_thb);
 	}
 
 	for(i = 0; i < MAX_RACES; i++)
@@ -3576,7 +3576,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		set_resistance(cr_ptr);
 
-		switch (cr_ptr->race)
+		switch (cr_ptr->irace_idx)
 		{
 		case RACE_SPRITE:
 			cr_ptr->levitation = TRUE;
@@ -3629,11 +3629,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/***** Sub Races ****/
 
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
 		for(i = 0; i < 10; i++)
 		{
-			if(race_info[cr_ptr->race].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
+			if(race_info[cr_ptr->irace_idx].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
 			{
 				cr_ptr->stat_add[A_STR]--;
 				cr_ptr->stat_add[A_INT]--;
@@ -3723,7 +3723,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->hold_life = TRUE;
 		if (cr_ptr->class != CLASS_NINJA) cr_ptr->lite = TRUE;
 
-		if ((cr_ptr->race != RACE_KLACKON) && (cr_ptr->race != RACE_SPRITE))
+		if ((cr_ptr->irace_idx != RACE_KLACKON) && (cr_ptr->irace_idx != RACE_SPRITE))
 			/* Munchkin become faster */
 			new_speed += (cr_ptr->lev) / 10 + 5;
 	}
@@ -3737,7 +3737,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(cr_ptr->race != RACE_NONE) cr_ptr->stat_add[i] += tmp_rp_ptr->r_adj[i];
+		if(cr_ptr->irace_idx != RACE_NONE) cr_ptr->stat_add[i] += tmp_rp_ptr->r_adj[i];
 
 		for(j = 0; j < MAX_RACES; j++)
 			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
@@ -5904,7 +5904,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Calc new Alignment*/
-	if(cr_ptr->race != RACE_NONE)
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
 		cr_ptr->good = calc_align(tmp_rp_ptr->good);
 		cr_ptr->evil = calc_align(tmp_rp_ptr->evil);
@@ -6439,7 +6439,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	int i;
 	bool subflag;
 	char name[80];
-	intelligent_race *rp_ptr = &race_info[cr_ptr->race];
+	intelligent_race *rp_ptr = &race_info[cr_ptr->irace_idx];
 	name[0] = '\0';
 
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
@@ -6452,7 +6452,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
 
-	switch(cr_ptr->race){
+	switch(cr_ptr->irace_idx){
 		case RACE_HUMAN:
 			subflag = FALSE;
 			for(i = 0; i < MAX_RACES; i++)
