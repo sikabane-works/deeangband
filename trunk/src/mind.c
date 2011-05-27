@@ -454,7 +454,7 @@ void mindcraft_info(char *p, int use_mind, int power)
       int             use_mind;
       int menu_line = (use_menu ? 1 : 0);
 
-      switch(p_ptr->class)
+      switch(p_ptr->cls_idx)
 	{
 	case CLASS_MINDCRAFTER:
 	  {
@@ -1827,7 +1827,7 @@ msg_print("混乱していて集中できない！");
 	if (!get_mind_power(&n, FALSE)) return;
 
 #ifdef JP
-	switch(p_ptr->class)
+	switch(p_ptr->cls_idx)
 	{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;p = "精神";break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;p = "気";break;
@@ -1837,7 +1837,7 @@ msg_print("混乱していて集中できない！");
 		default:                use_mind = 0;p = "超能力";break;
 	}
 #else
-	switch(p_ptr->class)
+	switch(p_ptr->cls_idx)
 	{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
 		case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
@@ -2101,7 +2101,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	/* Take a turn */
 	energy_use = 100;
 	/* teleport from mirror costs small energy */
-	if( on_mirror && p_ptr->class == CLASS_MIRROR_MASTER )
+	if( on_mirror && p_ptr->cls_idx == CLASS_MIRROR_MASTER )
 	{
 	  if( n==3 || n==5 || n==7 || n==16 )energy_use = 50;
 	}
@@ -2192,11 +2192,11 @@ void do_cmd_mind_browse(void)
 	char temp[62*5];
 	int use_mind = 0;
 
-	if (p_ptr->class == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
-	else if (p_ptr->class == CLASS_FORCETRAINER) use_mind = MIND_KI;
-	else if (p_ptr->class == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
-	else if (p_ptr->class == CLASS_NINJA) use_mind = MIND_NINJUTSU;
-	else if (p_ptr->class == CLASS_MIRROR_MASTER)
+	if (p_ptr->cls_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
+	else if (p_ptr->cls_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
+	else if (p_ptr->cls_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
+	else if (p_ptr->cls_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
+	else if (p_ptr->cls_idx == CLASS_MIRROR_MASTER)
 	  use_mind = MIND_MIRROR_MASTER;
 
 	screen_save();

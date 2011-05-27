@@ -112,9 +112,9 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 
 	/* No "okay" spells */
 	if (!okay) return (FALSE);
-	if (((use_realm) != p_ptr->realm1) && ((use_realm) != p_ptr->realm2) && (p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_RED_MAGE)) return FALSE;
-	if (((p_ptr->class == CLASS_SORCERER) || (p_ptr->class == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
-	if ((p_ptr->class == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
+	if (((use_realm) != p_ptr->realm1) && ((use_realm) != p_ptr->realm2) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE)) return FALSE;
+	if (((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
+	if ((p_ptr->cls_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
 
 	/* Assume cancelled */
 	*sn = (-1);
@@ -336,9 +336,9 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 
 static bool item_tester_learn_spell(object_type *o_ptr)
 {
-	s32b choices = realm_choices2[p_ptr->class];
+	s32b choices = realm_choices2[p_ptr->cls_idx];
 
-	if (p_ptr->class == CLASS_PRIEST)
+	if (p_ptr->cls_idx == CLASS_PRIEST)
 	{
 		if (is_good_realm(p_ptr->realm1))
 		{
@@ -351,7 +351,7 @@ static bool item_tester_learn_spell(object_type *o_ptr)
 	}
 
 	if ((o_ptr->tval < TV_LIFE_BOOK) || (o_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
-	if ((o_ptr->tval == TV_MUSIC_BOOK) && (p_ptr->class == CLASS_BARD)) return (TRUE);
+	if ((o_ptr->tval == TV_MUSIC_BOOK) && (p_ptr->cls_idx == CLASS_BARD)) return (TRUE);
 	else if (!is_magic(tval2realm(o_ptr->tval))) return FALSE;
 	if ((REALM1_BOOK == o_ptr->tval) || (REALM2_BOOK == o_ptr->tval)) return (TRUE);
 	if (choices & (0x0001 << (tval2realm(o_ptr->tval) - 1))) return (TRUE);
@@ -454,7 +454,7 @@ void do_cmd_browse(void)
 	cptr q, s;
 
 	/* Warriors are illiterate */
-	if (!(p_ptr->realm1 || p_ptr->realm2) && (p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_RED_MAGE))
+	if (!(p_ptr->realm1 || p_ptr->realm2) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("本を読むことができない！");
@@ -470,7 +470,7 @@ void do_cmd_browse(void)
 		set_action(ACTION_NONE);
 	}
 
-	if (p_ptr->class == CLASS_FORCETRAINER)
+	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
 		if (player_has_no_spellbooks())
 		{
@@ -1106,7 +1106,7 @@ void do_cmd_cast(void)
 	cptr q, s;
 
 	/* Require spell ability */
-	if (!p_ptr->realm1 && (p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_RED_MAGE))
+	if (!p_ptr->realm1 && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("呪文を唱えられない！");
@@ -1120,7 +1120,7 @@ void do_cmd_cast(void)
 	/* Require lite */
 	if (p_ptr->blind || no_lite())
 	{
-		if (p_ptr->class == CLASS_FORCETRAINER) confirm_use_force(FALSE);
+		if (p_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(FALSE);
 		else
 		{
 #ifdef JP
@@ -1162,7 +1162,7 @@ void do_cmd_cast(void)
 		}
 	}
 
-	if (p_ptr->class == CLASS_FORCETRAINER)
+	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
 		if (player_has_no_spellbooks())
 		{
@@ -1218,7 +1218,7 @@ void do_cmd_cast(void)
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if ((p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK)) increment = 32;
+	if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK)) increment = 32;
 
 
 	/* Track the object kind */
@@ -1227,7 +1227,7 @@ void do_cmd_cast(void)
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((p_ptr->class == CLASS_SORCERER) || (p_ptr->class == CLASS_RED_MAGE))
+	if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
 		realm = o_ptr->tval - TV_LIFE_BOOK + 1;
 	else if (increment) realm = p_ptr->realm2;
 	else realm = p_ptr->realm1;
@@ -1414,8 +1414,8 @@ msg_print("An infernal sound echoed.");
 		if (!(increment ?
 		    (p_ptr->spell_worked2 & (1L << spell)) :
 		    (p_ptr->spell_worked1 & (1L << spell)))
-		    && (p_ptr->class != CLASS_SORCERER)
-		    && (p_ptr->class != CLASS_RED_MAGE))
+		    && (p_ptr->cls_idx != CLASS_SORCERER)
+		    && (p_ptr->cls_idx != CLASS_RED_MAGE))
 		{
 			int e = s_ptr->sexp;
 
@@ -1702,7 +1702,7 @@ int calculate_upkeep(void)
 			total_friends++;
 			if (r_ptr->flags1 & RF1_UNIQUE)
 			{
-				if (p_ptr->class == CLASS_CAVALRY)
+				if (p_ptr->cls_idx == CLASS_CAVALRY)
 				{
 					if (p_ptr->riding == m_idx)
 						total_friend_levels += (r_ptr->level+5)*2;
@@ -1951,7 +1951,7 @@ bool rakuba(int dam, bool force)
 		if (!force)
 		{
 			int cur = p_ptr->skill_exp[GINOU_RIDING];
-			int max = s_info[p_ptr->class].s_max[GINOU_RIDING];
+			int max = s_info[p_ptr->cls_idx].s_max[GINOU_RIDING];
 			int ridinglevel = r_ptr->level;
 
 			/* 落馬のしやすさ */
@@ -1974,7 +1974,7 @@ bool rakuba(int dam, bool force)
 			/* レベルの低い乗馬からは落馬しにくい */
 			if (randint0(dam / 2 + rakubalevel * 2) < cur / 30 + 10)
 			{
-				if ((((p_ptr->class == CLASS_BEASTMASTER) || (p_ptr->class == CLASS_CAVALRY)) && !p_ptr->riding_ryoute) || !one_in_(p_ptr->lev*(p_ptr->riding_ryoute ? 2 : 3) + 30))
+				if ((((p_ptr->cls_idx == CLASS_BEASTMASTER) || (p_ptr->cls_idx == CLASS_CAVALRY)) && !p_ptr->riding_ryoute) || !one_in_(p_ptr->lev*(p_ptr->riding_ryoute ? 2 : 3) + 30))
 				{
 					return FALSE;
 				}
@@ -2597,7 +2597,7 @@ void do_cmd_pet(void)
 		}
 		else
 		{
-			switch (p_ptr->class)
+			switch (p_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:

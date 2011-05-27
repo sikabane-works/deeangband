@@ -1796,7 +1796,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	{
 		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
 	}
-	else if ((cr_ptr->class == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
 		if (cr_ptr->special_defense & KAMAE_MASK)
@@ -2154,7 +2154,7 @@ static void display_player_various(creature_type * cr_ptr)
 		{
 			shots = 1;
 			shot_frac = 0;
-			if (cr_ptr->class == CLASS_ARCHER)
+			if (cr_ptr->cls_idx == CLASS_ARCHER)
 			{
 				/* Extra shot at level 10 */
 				if (cr_ptr->lev >= 10) shots++;
@@ -2176,7 +2176,7 @@ static void display_player_various(creature_type * cr_ptr)
 	for(i = 0; i < 2; i++)
 	{
 		damage[i] = cr_ptr->dis_to_d[i] * 100;
-		if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER)) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+		if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
 		{
 			int level = cr_ptr->lev;
 			if (i)
@@ -2184,7 +2184,7 @@ static void display_player_various(creature_type * cr_ptr)
 				damage[i] = 0;
 				break;
 			}
-			if (cr_ptr->class == CLASS_FORCETRAINER) level = MAX(1, level - 3);
+			if (cr_ptr->cls_idx == CLASS_FORCETRAINER) level = MAX(1, level - 3);
 			if (cr_ptr->special_defense & KAMAE_BYAKKO)
 				basedam = monk_ave_damage[level][1];
 			else if (cr_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
@@ -2214,7 +2214,7 @@ static void display_player_various(creature_type * cr_ptr)
 					basedam *= 11;
 					basedam /= 9;
 				}
-				if ((cr_ptr->class != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+				if ((cr_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 					basedam = basedam * 7 / 2;
 			}
 			else basedam = 0;
@@ -2305,7 +2305,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* Classes */
-	switch (cr_ptr->class)
+	switch (cr_ptr->cls_idx)
 	{
 	case CLASS_WARRIOR:
 		if (cr_ptr->lev > 44)
@@ -2414,7 +2414,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			add_flag(flgs, TR_HOLD_LIFE);
 			add_flag(flgs, TR_RES_DARK);
 			add_flag(flgs, TR_RES_NETHER);
-			if (cr_ptr->class != CLASS_NINJA) add_flag(flgs, TR_LITE);
+			if (cr_ptr->cls_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
 			add_flag(flgs, TR_RES_POIS);
 			add_flag(flgs, TR_RES_COLD);
 			add_flag(flgs, TR_SEE_INVIS);
@@ -2629,7 +2629,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TR_HOLD_LIFE);
-		if (cr_ptr->class != CLASS_NINJA) add_flag(flgs, TR_LITE);
+		if (cr_ptr->cls_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
 		if (cr_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
 	}
@@ -3410,7 +3410,7 @@ put_str("M‹Â:", 5, 1);
 	else c_put_str(TERM_L_DARK, "--", 2, 7);
 	if(cr_ptr->sex != SEX_NONE) c_put_str(TERM_L_BLUE, sex_info[cr_ptr->sex].title, 3, 7);
 	else c_put_str(TERM_L_DARK, sex_info[cr_ptr->sex].title, 3, 7);
-	if(cr_ptr->class != CLASS_NONE) c_put_str(TERM_L_BLUE, class_info[cr_ptr->class].title, 4, 7);
+	if(cr_ptr->cls_idx != CLASS_NONE) c_put_str(TERM_L_BLUE, class_info[cr_ptr->cls_idx].title, 4, 7);
 	else c_put_str(TERM_L_DARK, "--", 4, 7);
 	if(cr_ptr->patron != PATRON_NONE) c_put_str(TERM_L_BLUE, player_patrons[cr_ptr->patron].title, 5, 7);
 	else c_put_str(TERM_L_DARK, "--", 5, 7);
@@ -3564,13 +3564,13 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 		}
 
 
-		if(cr_ptr->class != CLASS_NONE)
+		if(cr_ptr->cls_idx != CLASS_NONE)
 		{
-			cl_adj = (int)class_info[cr_ptr->class].c_adj[i];
+			cl_adj = (int)class_info[cr_ptr->cls_idx].c_adj[i];
 
 			(void)sprintf(buf, "%+3d", cl_adj);
-			if(class_info[cr_ptr->class].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
-			else if(class_info[cr_ptr->class].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
+			if(class_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
+			else if(class_info[cr_ptr->cls_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 16);
 		}
 		else
@@ -3809,7 +3809,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	char	tmp[64];
 
 	intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
-	player_class *cl_ptr = &class_info[cr_ptr->class];
+	player_class *cl_ptr = &class_info[cr_ptr->cls_idx];
 	player_chara *ch_ptr = &chara_info[cr_ptr->chara];
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];
 
@@ -3847,7 +3847,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->irace_idx != RACE_NONE) display_player_one_line(ENTRY_RACE, get_intelligent_race_name(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
-		if(cr_ptr->class != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cl_ptr->title, TERM_L_BLUE);
+		if(cr_ptr->cls_idx != CLASS_NONE) display_player_one_line(ENTRY_CLASS, cl_ptr->title, TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
 		if (cr_ptr->realm2)
@@ -4394,7 +4394,7 @@ static void dump_aux_pet(FILE *fff)
  */
 static void dump_aux_class_special(FILE *fff)
 {
-	if (p_ptr->class == CLASS_BLUE_MAGE)
+	if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
 	{
 		int i = 0;
 		int j = 0;
@@ -4527,7 +4527,7 @@ static void dump_aux_class_special(FILE *fff)
 			fprintf(fff, p[i]);
 		}
 	}
-	else if (p_ptr->class == CLASS_MAGIC_EATER)
+	else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 	{
 		char s[EATER_EXT][MAX_NLEN];
 		int tval, ext, k_idx;
@@ -6676,7 +6676,7 @@ long total_points(void)
 		point += (arena_win * arena_win * (arena_win > 29 ? 1000 : 100));
 
 	if (ironman_downward) point *= 2;
-	if (p_ptr->class == CLASS_BERSERKER)
+	if (p_ptr->cls_idx == CLASS_BERSERKER)
 	{
 		if ( p_ptr->irace_idx == RACE_LICH )
 			point = point / 5;
@@ -6771,7 +6771,7 @@ static void make_bones(void)
 			fprintf(fp, "%s\n", p_ptr->name);
 			fprintf(fp, "%d\n", p_ptr->mhp);
 			fprintf(fp, "%d\n", p_ptr->irace_idx);
-			fprintf(fp, "%d\n", p_ptr->class);
+			fprintf(fp, "%d\n", p_ptr->cls_idx);
 
 			/* Close and save the Bones file */
 			my_fclose(fp);
@@ -6858,7 +6858,7 @@ static void print_tomb(void)
 		/* Normal */
 		else
 		{
-			p =  player_title[p_ptr->class][(p_ptr->lev - 1) / 6];
+			p =  player_title[p_ptr->cls_idx][(p_ptr->lev - 1) / 6];
 		}
 
 		center_string(buf, p_ptr->name);
@@ -7685,9 +7685,9 @@ static errr counts_seek(int fd, u32b where, bool flag)
 	int i;
 
 #ifdef SAVEFILE_USE_UID
-	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->class, p_ptr->chara, p_ptr->age);
+	(void)sprintf(temp1, "%d.%s.%d%d%d", player_uid, savefile_base, p_ptr->cls_idx, p_ptr->chara, p_ptr->age);
 #else
-	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->class, p_ptr->chara, p_ptr->age);
+	(void)sprintf(temp1, "%s.%d%d%d", savefile_base, p_ptr->cls_idx, p_ptr->chara, p_ptr->age);
 #endif
 	for (i = 0; temp1[i]; i++)
 		temp1[i] ^= (i+1) * 63;

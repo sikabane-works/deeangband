@@ -92,7 +92,7 @@ s16b critical_shot(int weight, int plus, int dam)
 
 	/* Snipers can shot more critically with crossbows */
 	if (p_ptr->concent) i += ((i * p_ptr->concent) / 5);
-	if ((p_ptr->class == CLASS_SNIPER) && (p_ptr->tval_ammo == TV_BOLT)) i *= 2;
+	if ((p_ptr->cls_idx == CLASS_SNIPER) && (p_ptr->tval_ammo == TV_BOLT)) i *= 2;
 
 	/* Critical hit */
 	if (randint1(5000) <= i)
@@ -149,7 +149,7 @@ s16b critical_norm(int weight, int plus, int dam, s16b meichuu, int mode)
 	i = (weight + (meichuu * 3 + plus * 5) + (p_ptr->lev * 3));
 
 	/* Chance */
-	if ((randint1((p_ptr->class == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
+	if ((randint1((p_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
 	{
 		k = weight + randint1(650);
 		if ((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
@@ -671,7 +671,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = 60;
 			}
-			if ((p_ptr->class != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+			if ((p_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 			{
 				p_ptr->csp -= (1+(o_ptr->dd * o_ptr->ds / 5));
 				p_ptr->redraw |= (PR_MANA);
@@ -2077,7 +2077,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	bool            is_lowlevel = (r_ptr->level < (p_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;
 
-	switch (p_ptr->class)
+	switch (p_ptr->cls_idx)
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
@@ -2114,7 +2114,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	{
 		if ((r_ptr->level + 10) > p_ptr->lev)
 		{
-			if (p_ptr->skill_exp[GINOU_SUDE] < s_info[p_ptr->class].s_max[GINOU_SUDE])
+			if (p_ptr->skill_exp[GINOU_SUDE] < s_info[p_ptr->cls_idx].s_max[GINOU_SUDE])
 			{
 				if (p_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
 					p_ptr->skill_exp[GINOU_SUDE] += 40;
@@ -2135,7 +2135,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 			int tval = p_ptr->inventory[INVEN_RARM+hand].tval - TV_WEAPON_BEGIN;
 			int sval = p_ptr->inventory[INVEN_RARM+hand].sval;
 			int now_exp = p_ptr->weapon_exp[tval][sval];
-			if (now_exp < s_info[p_ptr->class].w_max[tval][sval])
+			if (now_exp < s_info[p_ptr->cls_idx].w_max[tval][sval])
 			{
 				int amount = 0;
 				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -2196,7 +2196,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 
 			success_hit = one_in_(n);
 		}
-		else if ((p_ptr->class == CLASS_NINJA) && ((backstab || fuiuchi) && !(m_ptr->resist_ultimate))) success_hit = TRUE;
+		else if ((p_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(m_ptr->resist_ultimate))) success_hit = TRUE;
 		else success_hit = test_hit_norm(chance, r_ptr->ac, m_ptr->ml);
 
 		if (mode == HISSATSU_MAJIN)
@@ -2307,7 +2307,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 					do
 					{
 						ma_ptr = &ma_blows[randint0(MAX_MA)];
-						if ((p_ptr->class == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+						if ((p_ptr->cls_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
 						else min_level = ma_ptr->min_level;
 					}
 					while ((min_level > p_ptr->lev) ||
@@ -2334,7 +2334,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 					}
 				}
 
-				if (p_ptr->class == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+				if (p_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 				else min_level = ma_ptr->min_level;
 				k = damroll(ma_ptr->dd + p_ptr->to_dd[hand], ma_ptr->ds + p_ptr->to_ds[hand]);
 				if (p_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
@@ -2382,7 +2382,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 				}
 
 				if (p_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
-				if ((p_ptr->class == CLASS_FORCETRAINER) && (p_ptr->magic_num1[0]))
+				if ((p_ptr->cls_idx == CLASS_FORCETRAINER) && (p_ptr->magic_num1[0]))
 				{
 					weight += (p_ptr->magic_num1[0]/30);
 					if (weight > 20) weight = 20;
@@ -2632,7 +2632,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 			}
 
 			/* Modify the damage */
-			k = mon_damage_mod(m_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((p_ptr->class == CLASS_BERSERKER) && one_in_(2))));
+			k = mon_damage_mod(m_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((p_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
 			if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 			{
 				if ((randint1(randint1(r_ptr->level/7)+5) == 1) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2))
@@ -2646,7 +2646,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 				}
 				else k = 1;
 			}
-			else if ((p_ptr->class == CLASS_NINJA) && buki_motteruka(INVEN_RARM + hand) && !p_ptr->icky_wield[hand] && ((p_ptr->cur_lite <= 0) || one_in_(7)))
+			else if ((p_ptr->cls_idx == CLASS_NINJA) && buki_motteruka(INVEN_RARM + hand) && !p_ptr->icky_wield[hand] && ((p_ptr->cur_lite <= 0) || one_in_(7)))
 			{
 				if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 				{
@@ -2701,7 +2701,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 			if (mon_take_hit(c_ptr->m_idx, k, fear, NULL))
 			{
 				*mdeath = TRUE;
-				if ((p_ptr->class == CLASS_BERSERKER) && energy_use)
+				if ((p_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
 				{
 					if (p_ptr->migite && p_ptr->hidarite)
 					{
@@ -3053,7 +3053,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 					if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)) && (mult < 25))
 						mult = 25;
 
-					if ((p_ptr->class != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (p_ptr->msp / 30)))
+					if ((p_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (p_ptr->msp / 30)))
 					{
 						p_ptr->csp -= (1+(p_ptr->msp / 30));
 						p_ptr->redraw |= (PR_MANA);
@@ -3215,7 +3215,7 @@ bool py_attack(int y, int x, int mode)
 			chg_virtue(V_JUSTICE, -1);
 			chg_virtue(V_COMPASSION, -1);
 		}
-		else if (p_ptr->class != CLASS_BERSERKER)
+		else if (p_ptr->cls_idx != CLASS_BERSERKER)
 		{
 #ifdef JP
 			if (get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
@@ -3274,7 +3274,7 @@ bool py_attack(int y, int x, int mode)
 
 	if (p_ptr->migite && p_ptr->hidarite)
 	{
-		if ((p_ptr->skill_exp[GINOU_NITOURYU] < s_info[p_ptr->class].s_max[GINOU_NITOURYU]) && ((p_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
+		if ((p_ptr->skill_exp[GINOU_NITOURYU] < s_info[p_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((p_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
 		{
 			if (p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
 				p_ptr->skill_exp[GINOU_NITOURYU] += 80;
@@ -3292,7 +3292,7 @@ bool py_attack(int y, int x, int mode)
 	if (p_ptr->riding)
 	{
 		int cur = p_ptr->skill_exp[GINOU_RIDING];
-		int max = s_info[p_ptr->class].s_max[GINOU_RIDING];
+		int max = s_info[p_ptr->cls_idx].s_max[GINOU_RIDING];
 
 		if (cur < max)
 		{
@@ -3660,7 +3660,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
 
-		if (p_ptr->class == CLASS_NINJA)
+		if (p_ptr->cls_idx == CLASS_NINJA)
 		{
 			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(FALSE);
 			else if (p_ptr->cur_lite <= 0) set_superstealth(TRUE);
@@ -4081,7 +4081,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			}
 
 			/* displace? */
-			if ((stormbringer && (randint1(1000) > 666)) || (p_ptr->class == CLASS_BERSERKER))
+			if ((stormbringer && (randint1(1000) > 666)) || (p_ptr->cls_idx == CLASS_BERSERKER))
 			{
 				py_attack(y, x, 0);
 				oktomove = FALSE;
@@ -4227,7 +4227,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
 	{
-		if ((p_ptr->class != CLASS_RANGER) && !p_ptr->levitation && (!p_ptr->riding || !(riding_r_ptr->flags8 & RF8_WILD_WOOD))) energy_use *= 2;
+		if ((p_ptr->cls_idx != CLASS_RANGER) && !p_ptr->levitation && (!p_ptr->riding || !(riding_r_ptr->flags8 & RF8_WILD_WOOD))) energy_use *= 2;
 	}
 
 #ifdef ALLOW_EASY_DISARM /* TNB */

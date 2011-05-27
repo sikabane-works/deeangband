@@ -858,7 +858,7 @@ bool dispel_check(int m_idx)
 	if (p_ptr->dustrobe) return (TRUE);
 
 	/* Berserk Strength */
-	if (p_ptr->shero && (p_ptr->class != CLASS_BERSERKER)) return (TRUE);
+	if (p_ptr->shero && (p_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Demon Lord */
 	if (p_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
@@ -893,7 +893,7 @@ bool dispel_check(int m_idx)
 
 	if (r_ptr->flags4 & (RF4_BR_POIS | RF4_BR_NUKE))
 	{
-		if (!((p_ptr->class == CLASS_NINJA) && p_ptr->lev > 44))
+		if (!((p_ptr->cls_idx == CLASS_NINJA) && p_ptr->lev > 44))
 		{
 			if (p_ptr->oppose_pois || music_singing(p_ptr, MUSIC_RESIST)) return (TRUE);
 			if (p_ptr->special_defense & DEFENSE_POIS) return (TRUE);
@@ -1486,7 +1486,7 @@ bool make_attack_spell(int m_idx)
 
 	if (f6 & RF6_DARKNESS)
 	{
-		if ((p_ptr->class == CLASS_NINJA) &&
+		if ((p_ptr->cls_idx == CLASS_NINJA) &&
 		    !(r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) &&
 		    !(r_ptr->flags7 & RF7_DARK_MASK))
 			can_use_lite_area = TRUE;
@@ -1494,7 +1494,7 @@ bool make_attack_spell(int m_idx)
 		if (!(r_ptr->flags2 & RF2_STUPID))
 		{
 			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
-			else if ((p_ptr->class == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
+			else if ((p_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
@@ -4487,7 +4487,7 @@ else msg_format("%^s‚ª–‚–@‚Å“Á•Ê‚È‹­“G‚ð¢Š«‚µ‚½I", m_name);
 		learn_spell(thrown_spell - 96);
 	}
 
-	if (seen && maneable && !world_monster && (p_ptr->class == CLASS_IMITATOR))
+	if (seen && maneable && !world_monster && (p_ptr->cls_idx == CLASS_IMITATOR))
 	{
 		if (thrown_spell != 167) /* Not RF6_SPECIAL */
 		{

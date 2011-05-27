@@ -796,7 +796,7 @@ static void prt_title(void)
 	/* Normal */
 	else
 	{
-		my_strcpy(str, player_title[p_ptr->class][(p_ptr->lev - 1) / 6], sizeof(str));
+		my_strcpy(str, player_title[p_ptr->cls_idx][(p_ptr->lev - 1) / 6], sizeof(str));
 		p = str;
 	}
 
@@ -1471,7 +1471,7 @@ static void prt_imitation(void)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (p_ptr->class == CLASS_IMITATOR)
+	if (p_ptr->cls_idx == CLASS_IMITATOR)
 	{
 		if (p_ptr->mane_num)
 		{
@@ -2148,7 +2148,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	/* Hack -- handle "xtra" mode */
 	if (character_xtra) return;
 
-	if ((cr_ptr->class == CLASS_SORCERER) || (cr_ptr->class == CLASS_RED_MAGE))
+	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 	{
 		cr_ptr->new_spells = 0;
 		return;
@@ -2165,11 +2165,11 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	/* Extract total allowed spells */
 	num_allowed = (adj_mag_study[cr_ptr->stat_ind[mp_ptr->spell_stat]] * levels / 2);
 
-	if ((cr_ptr->class != CLASS_SAMURAI) && (mp_ptr->spell_book != TV_LIFE_BOOK))
+	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (mp_ptr->spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
-	if (cr_ptr->class == CLASS_SAMURAI)
+	if (cr_ptr->cls_idx == CLASS_SAMURAI)
 	{
 		num_allowed = 32;
 	}
@@ -2178,7 +2178,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		num_allowed = (num_allowed+1)/2;
 		if (num_allowed>(32+bonus)) num_allowed = 32+bonus;
 	}
-	else if ((cr_ptr->class == CLASS_MAGE) || (cr_ptr->class == CLASS_PRIEST))
+	else if ((cr_ptr->cls_idx == CLASS_MAGE) || (cr_ptr->cls_idx == CLASS_PRIEST))
 	{
 		if (num_allowed>(96+bonus)) num_allowed = 96+bonus;
 	}
@@ -2488,9 +2488,9 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	/* Hack -- Must be literate */
 	if (!mp_ptr->spell_book) return;
 
-	if ((cr_ptr->class == CLASS_MINDCRAFTER) ||
-	    (cr_ptr->class == CLASS_MIRROR_MASTER) ||
-	    (cr_ptr->class == CLASS_BLUE_MAGE))
+	if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+	    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) ||
+	    (cr_ptr->cls_idx == CLASS_BLUE_MAGE))
 	{
 		levels = cr_ptr->lev;
 	}
@@ -2510,7 +2510,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		levels = (cr_ptr->lev - mp_ptr->spell_first) + 1;
 	}
 
-	if (cr_ptr->class == CLASS_SAMURAI)
+	if (cr_ptr->cls_idx == CLASS_SAMURAI)
 	{
 		msp = (adj_mag_mana[cr_ptr->stat_ind[mp_ptr->spell_stat]] + 10) * 2;
 		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
@@ -2528,9 +2528,9 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		if (msp && (cr_ptr->chara == CHARA_MUNCHKIN)) msp += msp/2;
 
 		/* Hack: High mages have a 25% mana bonus */
-		if (msp && (cr_ptr->class == CLASS_HIGH_MAGE)) msp += msp / 4;
+		if (msp && (cr_ptr->cls_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
 
-		if (msp && (cr_ptr->class == CLASS_SORCERER)) msp += msp*(25+cr_ptr->lev)/100;
+		if (msp && (cr_ptr->cls_idx == CLASS_SORCERER)) msp += msp*(25+cr_ptr->lev)/100;
 	}
 
 	/* Only mages are affected */
@@ -2576,7 +2576,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	cur_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
 	/* Subtract a percentage of maximum mana. */
-	switch (cr_ptr->class)
+	switch (cr_ptr->cls_idx)
 	{
 		/* For these classes, mana is halved if armour 
 		 * is 30 pounds over their weight limit. */
@@ -2648,7 +2648,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		cr_ptr->cumber_armor = TRUE;
 
 		/* Subtract a percentage of maximum mana. */
-		switch (cr_ptr->class)
+		switch (cr_ptr->cls_idx)
 		{
 			/* For these classes, mana is halved if armour 
 			 * is 30 pounds over their weight limit. */
@@ -2721,7 +2721,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	if (cr_ptr->msp != msp)
 	{
 		/* Enforce maximum */
-		if ((cr_ptr->csp >= msp) && (cr_ptr->class != CLASS_SAMURAI))
+		if ((cr_ptr->csp >= msp) && (cr_ptr->cls_idx != CLASS_SAMURAI))
 		{
 			cr_ptr->csp = msp;
 			cr_ptr->csp_frac = 0;
@@ -2825,16 +2825,16 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->mimic_form)
 	{
-		if (cr_ptr->class == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
+		if (cr_ptr->cls_idx == CLASS_SORCERER) tmp_hitdice = mimic_info[cr_ptr->mimic_form].r_mhp/2;
 		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
 
-		if (cr_ptr->class != CLASS_NONE) tmp_hitdice += class_info[cr_ptr->class].c_mhp;
+		if (cr_ptr->cls_idx != CLASS_NONE) tmp_hitdice += class_info[cr_ptr->cls_idx].c_mhp;
 		if (cr_ptr->chara != CHARA_NONE) tmp_hitdice += chara_info[cr_ptr->chara].a_mhp;
 
 		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
 	}
 
-	if (cr_ptr->class == CLASS_SORCERER)
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
 		if (cr_ptr->lev < 30)
 			mhp = (mhp * (45+cr_ptr->lev) / 100);
@@ -2845,7 +2845,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	mhp += bonus;
 
-	if (cr_ptr->class == CLASS_BERSERKER)
+	if (cr_ptr->cls_idx == CLASS_BERSERKER)
 	{
 		mhp = mhp*(110+(((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110))/100;
 	}
@@ -2855,7 +2855,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	/* Factor in the hero / superhero settings */
 	if (IS_HERO(cr_ptr)) mhp += 10;
-	if (cr_ptr->shero && (cr_ptr->class != CLASS_BERSERKER)) mhp += 30;
+	if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER)) mhp += 30;
 	if (cr_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
@@ -3019,7 +3019,7 @@ u32b weight_limit(void)
 
 	/* Weight limit based only on strength */
 	i = (u32b)adj_str_wgt[p_ptr->stat_ind[A_STR]] * 50; /* Constant was 100 */
-	if (p_ptr->class == CLASS_BERSERKER) i = i * 3 / 2;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
 	/* Return the result */
 	return i;
@@ -3288,19 +3288,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if(cr_ptr->class != CLASS_NONE)
+	if(cr_ptr->cls_idx != CLASS_NONE)
 	{
-		cr_ptr->skill_dis += class_info[cr_ptr->class].c_dis;
-		cr_ptr->skill_dev += class_info[cr_ptr->class].c_dev;
-		cr_ptr->skill_rob += class_info[cr_ptr->class].c_sav;
-		cr_ptr->skill_agi += class_info[cr_ptr->class].c_sav;
-		cr_ptr->skill_vol += class_info[cr_ptr->class].c_sav;
-		cr_ptr->skill_stl += class_info[cr_ptr->class].c_stl;
-		cr_ptr->skill_srh += class_info[cr_ptr->class].c_srh;
-		cr_ptr->skill_fos += class_info[cr_ptr->class].c_fos;
-		cr_ptr->skill_thn += class_info[cr_ptr->class].c_thn;
-		cr_ptr->skill_thb += class_info[cr_ptr->class].c_thb;
-		cr_ptr->skill_tht += class_info[cr_ptr->class].c_thb;
+		cr_ptr->skill_dis += class_info[cr_ptr->cls_idx].c_dis;
+		cr_ptr->skill_dev += class_info[cr_ptr->cls_idx].c_dev;
+		cr_ptr->skill_rob += class_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_agi += class_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_vol += class_info[cr_ptr->cls_idx].c_sav;
+		cr_ptr->skill_stl += class_info[cr_ptr->cls_idx].c_stl;
+		cr_ptr->skill_srh += class_info[cr_ptr->cls_idx].c_srh;
+		cr_ptr->skill_fos += class_info[cr_ptr->cls_idx].c_fos;
+		cr_ptr->skill_thn += class_info[cr_ptr->cls_idx].c_thn;
+		cr_ptr->skill_thb += class_info[cr_ptr->cls_idx].c_thb;
+		cr_ptr->skill_tht += class_info[cr_ptr->cls_idx].c_thb;
 	}
 	else
 	{
@@ -3379,7 +3379,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			switch (cr_ptr->class)
+			switch (cr_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
@@ -3412,7 +3412,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	switch (cr_ptr->class)
+	switch (cr_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
 			if (cr_ptr->lev > 29) cr_ptr->resist_fear = TRUE;
@@ -3568,7 +3568,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			new_speed += 3;
 			cr_ptr->to_a += 10;
 			cr_ptr->dis_to_a += 10;
-			if (cr_ptr->class != CLASS_NINJA) cr_ptr->lite = TRUE;
+			if (cr_ptr->cls_idx != CLASS_NINJA) cr_ptr->lite = TRUE;
 			break;
 		}
 	}
@@ -3721,7 +3721,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->resist_blind = TRUE;
 		cr_ptr->resist_conf  = TRUE;
 		cr_ptr->hold_life = TRUE;
-		if (cr_ptr->class != CLASS_NINJA) cr_ptr->lite = TRUE;
+		if (cr_ptr->cls_idx != CLASS_NINJA) cr_ptr->lite = TRUE;
 
 		if ((cr_ptr->irace_idx != RACE_KLACKON) && (cr_ptr->irace_idx != RACE_SPRITE))
 			/* Munchkin become faster */
@@ -3742,10 +3742,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		for(j = 0; j < MAX_RACES; j++)
 			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
 
-		if(cr_ptr->class != CLASS_NONE)
+		if(cr_ptr->cls_idx != CLASS_NONE)
 		{
-			cr_ptr->stat_add[i] += class_info[cr_ptr->class].c_adj[i];
-			if(cr_ptr->class_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->class].c_adj_b[i];
+			cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj[i];
+			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj_b[i];
 		}
 
 		if(cr_ptr->chara != CHARA_NONE)
@@ -4280,7 +4280,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		bonus_to_h = o_ptr->to_h;
 		bonus_to_d = o_ptr->to_d;
 
-		if (cr_ptr->class == CLASS_NINJA)
+		if (cr_ptr->cls_idx == CLASS_NINJA)
 		{
 			if (o_ptr->to_h > 0) bonus_to_h = (o_ptr->to_h+1)/2;
 			if (o_ptr->to_d > 0) bonus_to_d = (o_ptr->to_d+1)/2;
@@ -4351,7 +4351,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->cursed & TRC_TELEPORT) cr_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
 	/* Monks get extra ac for armour _not worn_ */
-	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER)) && !heavy_armor())
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor())
 	{
 		if (!(cr_ptr->inventory[INVEN_BODY].k_idx))
 		{
@@ -4964,19 +4964,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->num_fire += (extra_shots * 100);
 
 			/* Hack -- Rangers love Bows */
-			if ((cr_ptr->class == CLASS_RANGER) &&
+			if ((cr_ptr->cls_idx == CLASS_RANGER) &&
 			    (cr_ptr->tval_ammo == TV_ARROW))
 			{
 				cr_ptr->num_fire += (cr_ptr->lev * 4);
 			}
 
-			if ((cr_ptr->class == CLASS_CAVALRY) &&
+			if ((cr_ptr->cls_idx == CLASS_CAVALRY) &&
 			    (cr_ptr->tval_ammo == TV_ARROW))
 			{
 				cr_ptr->num_fire += (cr_ptr->lev * 3);
 			}
 
-			if (cr_ptr->class == CLASS_ARCHER)
+			if (cr_ptr->cls_idx == CLASS_ARCHER)
 			{
 				if (cr_ptr->tval_ammo == TV_ARROW)
 					cr_ptr->num_fire += ((cr_ptr->lev * 5)+50);
@@ -4988,20 +4988,20 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			 * Addendum -- also "Reward" high level warriors,
 			 * with _any_ missile weapon -- TY
 			 */
-			if (cr_ptr->class == CLASS_WARRIOR &&
+			if (cr_ptr->cls_idx == CLASS_WARRIOR &&
 			   (cr_ptr->tval_ammo <= TV_BOLT) &&
 			   (cr_ptr->tval_ammo >= TV_SHOT))
 			{
 				cr_ptr->num_fire += (cr_ptr->lev * 2);
 			}
-			if ((cr_ptr->class == CLASS_ROGUE) &&
+			if ((cr_ptr->cls_idx == CLASS_ROGUE) &&
 			    (cr_ptr->tval_ammo == TV_SHOT))
 			{
 				cr_ptr->num_fire += (cr_ptr->lev * 4);
 			}
 
 			/* Snipers love Cross bows */
-			if ((cr_ptr->class == CLASS_SNIPER) &&
+			if ((cr_ptr->cls_idx == CLASS_SNIPER) &&
 				(cr_ptr->tval_ammo == TV_BOLT))
 			{
 				cr_ptr->to_h_b += (10 + (cr_ptr->lev / 5));
@@ -5052,7 +5052,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			int num = 0, wgt = 0, mul = 0, div = 0;
 
 			/* Analyze the class */
-			switch (cr_ptr->class)
+			switch (cr_ptr->cls_idx)
 			{
 				/* Warrior */
 				case CLASS_WARRIOR:
@@ -5155,7 +5155,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			str_index = (adj_str_blow[cr_ptr->stat_ind[A_STR]] * mul / div);
 
 			if (cr_ptr->ryoute && !omoi) str_index++;
-			if (cr_ptr->class == CLASS_NINJA) str_index = MAX(0, str_index-1);
+			if (cr_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
 
 			/* Maximal value */
 			if (str_index > 11) str_index = 11;
@@ -5176,12 +5176,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->num_blow[i] += extra_blows[i];
 
 
-			if (cr_ptr->class == CLASS_WARRIOR) cr_ptr->num_blow[i] += (cr_ptr->lev / 40);
-			else if (cr_ptr->class == CLASS_BERSERKER)
+			if (cr_ptr->cls_idx == CLASS_WARRIOR) cr_ptr->num_blow[i] += (cr_ptr->lev / 40);
+			else if (cr_ptr->cls_idx == CLASS_BERSERKER)
 			{
 				cr_ptr->num_blow[i] += (cr_ptr->lev / 23);
 			}
-			else if ((cr_ptr->class == CLASS_ROGUE) && (o_ptr->weight < 50) && (cr_ptr->stat_ind[A_DEX] >= 30)) cr_ptr->num_blow[i] ++;
+			else if ((cr_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (cr_ptr->stat_ind[A_DEX] >= 30)) cr_ptr->num_blow[i] ++;
 
 			if (cr_ptr->special_defense & KATA_FUUJIN) cr_ptr->num_blow[i] -= 1;
 
@@ -5197,7 +5197,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		/* Assume okay */
 		/* Priest weapon penalty for non-blessed edged weapons */
-		if ((cr_ptr->class == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) &&
+		if ((cr_ptr->cls_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) &&
 		    ((o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
@@ -5211,7 +5211,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Icky weapon */
 			cr_ptr->icky_wield[i] = TRUE;
 		}
-		else if (cr_ptr->class == CLASS_BERSERKER)
+		else if (cr_ptr->cls_idx == CLASS_BERSERKER)
 		{
 			cr_ptr->to_h[i] += cr_ptr->lev/5;
 			cr_ptr->to_d[i] += cr_ptr->lev/6;
@@ -5225,7 +5225,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				cr_ptr->dis_to_d[i] += cr_ptr->lev/6;
 			}
 		}
-		else if (cr_ptr->class == CLASS_SORCERER)
+		else if (cr_ptr->cls_idx == CLASS_SORCERER)
 		{
 			if (!((o_ptr->tval == TV_HAFTED) && ((o_ptr->sval == SV_WIZSTAFF) || (o_ptr->sval == SV_NAMAKE_HAMMER))))
 			{
@@ -5279,7 +5279,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			else if (!(have_flag(flgs, TR_RIDING)))
 			{
 				int penalty;
-				if ((cr_ptr->class == CLASS_BEASTMASTER) || (cr_ptr->class == CLASS_CAVALRY))
+				if ((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
 				{
 					penalty = 5;
 				}
@@ -5307,7 +5307,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->ryoute || (empty_hands(FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_ryoute = TRUE;
 		else if (cr_ptr->pet_extra_flags & PF_RYOUTE)
 		{
-			switch (cr_ptr->class)
+			switch (cr_ptr->cls_idx)
 			{
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
@@ -5318,7 +5318,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 		}
 
-		if ((cr_ptr->class == CLASS_BEASTMASTER) || (cr_ptr->class == CLASS_CAVALRY))
+		if ((cr_ptr->cls_idx == CLASS_BEASTMASTER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
 		{
 			if (cr_ptr->tval_ammo != TV_ARROW) penalty = 5;
 		}
@@ -5334,13 +5334,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Different calculation for monks with empty hands */
-	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER) || (cr_ptr->class == CLASS_BERSERKER)) &&
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) &&
 		(empty_hands_status & EMPTY_HAND_RARM) && !cr_ptr->hidarite)
 	{
 		int blow_base = cr_ptr->lev + adj_dex_blow[cr_ptr->stat_ind[A_DEX]];
 		cr_ptr->num_blow[0] = 0;
 
-		if (cr_ptr->class == CLASS_FORCETRAINER)
+		if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
 		{
 			if (blow_base > 18) cr_ptr->num_blow[0]++;
 			if (blow_base > 31) cr_ptr->num_blow[0]++;
@@ -5363,7 +5363,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (blow_base > 59) cr_ptr->num_blow[0]++;
 		}
 
-		if (heavy_armor() && (cr_ptr->class != CLASS_BERSERKER))
+		if (heavy_armor() && (cr_ptr->cls_idx != CLASS_BERSERKER))
 			cr_ptr->num_blow[0] /= 2;
 		else
 		{
@@ -5400,7 +5400,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->dis_to_a += (cr_ptr->lev*cr_ptr->lev)/50;
 			cr_ptr->reflect = TRUE;
 			cr_ptr->num_blow[0] -= 2;
-			if ((cr_ptr->class == CLASS_MONK) && (cr_ptr->lev > 42)) cr_ptr->num_blow[0]--;
+			if ((cr_ptr->cls_idx == CLASS_MONK) && (cr_ptr->lev > 42)) cr_ptr->num_blow[0]--;
 			if (cr_ptr->num_blow[0] < 0) cr_ptr->num_blow[0] = 0;
 		}
 		else if (cr_ptr->special_defense & KAMAE_SUZAKU)
@@ -5435,16 +5435,16 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 			cr_ptr->to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 			cr_ptr->dis_to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
-			if ((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER))
+			if ((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER))
 			{
-				if (!s_info[cr_ptr->class].w_max[tval][sval])
+				if (!s_info[cr_ptr->cls_idx].w_max[tval][sval])
 				{
 					cr_ptr->to_h[i] -= 40;
 					cr_ptr->dis_to_h[i] -= 40;
 					cr_ptr->icky_wield[i] = TRUE;
 				}
 			}
-			else if (cr_ptr->class == CLASS_NINJA)
+			else if (cr_ptr->cls_idx == CLASS_NINJA)
 			{
 				if ((s_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) || (cr_ptr->inventory[INVEN_LARM-i].tval == TV_SHIELD))
 				{
@@ -5508,7 +5508,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
 	}
 
-	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER) || (cr_ptr->class == CLASS_BERSERKER)) && (empty_hands(FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->ryoute = FALSE;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->ryoute = FALSE;
 
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;
@@ -5531,40 +5531,40 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[A_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->class].x_dis * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara].a_dis * cr_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->class].x_dev * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara].a_dev * cr_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_agi += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->class].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_agi += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_agi += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->class].x_stl * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search ability (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_srh += (class_info[cr_ptr->class].x_srh * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_srh += (class_info[cr_ptr->cls_idx].x_srh * cr_ptr->lev / 10);
 
 	/* Affect Skill -- search frequency (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_fos += (class_info[cr_ptr->class].x_fos * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_fos += (class_info[cr_ptr->cls_idx].x_fos * cr_ptr->lev / 10);
 
 	/* Affect Skill -- combat (normal) (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->class].x_thn * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara].a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
-	if(cr_ptr->class != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->class].x_thb * cr_ptr->lev / 10);
+	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
 	if(cr_ptr->chara != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara].a_thb * cr_ptr->lev / 50);
 
 
@@ -5825,7 +5825,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->old_riding_ryoute = cr_ptr->riding_ryoute;
 	}
 
-	if (((cr_ptr->class == CLASS_MONK) || (cr_ptr->class == CLASS_FORCETRAINER) || (cr_ptr->class == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
 	{
 		if (heavy_armor())
 		{
@@ -5879,25 +5879,25 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->pass_wall && !cr_ptr->kill_wall) cr_ptr->no_flowed = TRUE;
 #if 0
-	if (have_dd_s && ((cr_ptr->realm1 == REALM_SORCERY) || (cr_ptr->realm2 == REALM_SORCERY) || (cr_ptr->class == CLASS_SORCERER)))
+	if (have_dd_s && ((cr_ptr->realm1 == REALM_SORCERY) || (cr_ptr->realm2 == REALM_SORCERY) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
 		magic_type *s_ptr = &mp_ptr->info[REALM_SORCERY-1][SPELL_DD_S];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
-	if (have_dd_t && ((cr_ptr->realm1 == REALM_TRUMP) || (cr_ptr->realm2 == REALM_TRUMP) || (cr_ptr->class == CLASS_SORCERER) || (cr_ptr->class == CLASS_RED_MAGE)))
+	if (have_dd_t && ((cr_ptr->realm1 == REALM_TRUMP) || (cr_ptr->realm2 == REALM_TRUMP) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)))
 	{
 		magic_type *s_ptr = &mp_ptr->info[REALM_TRUMP-1][SPELL_DD_T];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 #endif
-	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->class == CLASS_SORCERER)))
+	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
 		magic_type *s_ptr = &mp_ptr->info[REALM_NATURE-1][SPELL_SW];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
-	if (have_kabe && ((cr_ptr->realm1 == REALM_CRAFT) || (cr_ptr->realm2 == REALM_CRAFT) || (cr_ptr->class == CLASS_SORCERER)))
+	if (have_kabe && ((cr_ptr->realm1 == REALM_CRAFT) || (cr_ptr->realm2 == REALM_CRAFT) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
 		magic_type *s_ptr = &mp_ptr->info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
@@ -6247,7 +6247,7 @@ void redraw_stuff(void)
 		prt_speed();
 	}
 
-	if (p_ptr->class == CLASS_IMITATOR)
+	if (p_ptr->cls_idx == CLASS_IMITATOR)
 	{
 		if (p_ptr->redraw & (PR_IMITATION))
 		{
@@ -6392,7 +6392,7 @@ bool heavy_armor(void)
 {
 	u16b monk_arm_wgt = 0;
 
-	if ((p_ptr->class != CLASS_MONK) && (p_ptr->class != CLASS_FORCETRAINER) && (p_ptr->class != CLASS_NINJA)) return FALSE;
+	if ((p_ptr->cls_idx != CLASS_MONK) && (p_ptr->cls_idx != CLASS_FORCETRAINER) && (p_ptr->cls_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
 	if(p_ptr->inventory[INVEN_RARM].tval > TV_SWORD) monk_arm_wgt += p_ptr->inventory[INVEN_RARM].weight;

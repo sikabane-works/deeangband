@@ -4599,16 +4599,16 @@ static void store_process_command(void)
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (p_ptr->class == CLASS_MINDCRAFTER) ||
-			     (p_ptr->class == CLASS_BERSERKER) ||
-			     (p_ptr->class == CLASS_NINJA) ||
-			     (p_ptr->class == CLASS_MIRROR_MASTER) 
+			if ( (p_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+			     (p_ptr->cls_idx == CLASS_BERSERKER) ||
+			     (p_ptr->cls_idx == CLASS_NINJA) ||
+			     (p_ptr->cls_idx == CLASS_MIRROR_MASTER) 
 			     ) do_cmd_mind_browse();
-			else if (p_ptr->class == CLASS_SMITH)
+			else if (p_ptr->cls_idx == CLASS_SMITH)
 				do_cmd_kaji(TRUE);
-			else if (p_ptr->class == CLASS_MAGIC_EATER)
+			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(TRUE);
-			else if (p_ptr->class == CLASS_SNIPER)
+			else if (p_ptr->cls_idx == CLASS_SNIPER)
 				do_cmd_snipe_browse();
 			else do_cmd_browse();
 			break;

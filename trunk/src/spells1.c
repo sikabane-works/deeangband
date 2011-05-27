@@ -3021,10 +3021,10 @@ note_dies = "は蒸発した！";
 			{
 				int b = damroll(5, dam) / 4;
 #ifdef JP
-				cptr str = (p_ptr->class == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+				cptr str = (p_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
 				msg_format("あなたは%sの苦痛を%sに変換した！", m_name, str);
 #else
-				cptr str = (p_ptr->class == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+				cptr str = (p_ptr->cls_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
 				msg_format("You convert %s%s pain into %s!",
 				    m_name, (seen ? "'s" : "s"), str);
 #endif
@@ -5412,7 +5412,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			if (is_pet(m_ptr)) nokori_hp = m_ptr->mhp * 4L;
-			else if ((p_ptr->class == CLASS_BEASTMASTER) && monster_living(r_ptr))
+			else if ((p_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(r_ptr))
 				nokori_hp = m_ptr->mhp * 3 / 10;
 			else
 				nokori_hp = m_ptr->mhp * 3 / 20;

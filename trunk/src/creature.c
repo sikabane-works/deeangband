@@ -184,10 +184,10 @@ void set_hitdice(creature_type * cr_ptr)
 	cr_ptr->hitdice = cr_ptr->size >= 10 ? 5 + cr_ptr->size / 2 : cr_ptr->size;
 	if (cr_ptr->irace_idx != RACE_NONE)
 		cr_ptr->hitdice += race_info[cr_ptr->irace_idx].r_mhp;
-	if (cr_ptr->class == CLASS_SORCERER)
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
 		cr_ptr->hitdice /= 2;
-	if (cr_ptr->class != CLASS_NONE)
-		cr_ptr->hitdice += class_info[cr_ptr->class].c_mhp;
+	if (cr_ptr->cls_idx != CLASS_NONE)
+		cr_ptr->hitdice += class_info[cr_ptr->cls_idx].c_mhp;
 	if(cr_ptr->chara != CHARA_NONE)
 		cr_ptr->hitdice += chara_info[cr_ptr->chara].a_mhp;
 	return;	

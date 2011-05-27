@@ -451,7 +451,7 @@ bool monst_spell_monst(int m_idx)
 
 	if (f6 & RF6_DARKNESS)
 	{
-		bool vs_ninja = (p_ptr->class == CLASS_NINJA) && !is_hostile(t_ptr);
+		bool vs_ninja = (p_ptr->cls_idx == CLASS_NINJA) && !is_hostile(t_ptr);
 
 		if (vs_ninja &&
 		    !(r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) &&
@@ -4262,7 +4262,7 @@ bool monst_spell_monst(int m_idx)
 #endif
 	}
 
-	if (m_ptr->ml && maneable && !world_monster && !p_ptr->blind && (p_ptr->class == CLASS_IMITATOR))
+	if (m_ptr->ml && maneable && !world_monster && !p_ptr->blind && (p_ptr->cls_idx == CLASS_IMITATOR))
 	{
 		if (thrown_spell != 167) /* Not RF6_SPECIAL */
 		{

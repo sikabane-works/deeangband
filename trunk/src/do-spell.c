@@ -172,9 +172,9 @@ static cptr info_weight(int weight)
  */
 static int beam_chance(void)
 {
-	if (p_ptr->class == CLASS_MAGE)
+	if (p_ptr->cls_idx == CLASS_MAGE)
 		return p_ptr->lev;
-	if (p_ptr->class == CLASS_HIGH_MAGE || p_ptr->class == CLASS_SORCERER)
+	if (p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER)
 		return p_ptr->lev + 10;
 
 	return p_ptr->lev / 2;
@@ -602,9 +602,9 @@ static void cast_shuffle(void)
 	int i;
 
 	/* Card sharks and high mages get a level bonus */
-	if ((p_ptr->class == CLASS_ROGUE) ||
-	    (p_ptr->class == CLASS_HIGH_MAGE) ||
-	    (p_ptr->class == CLASS_SORCERER))
+	if ((p_ptr->cls_idx == CLASS_ROGUE) ||
+	    (p_ptr->cls_idx == CLASS_HIGH_MAGE) ||
+	    (p_ptr->cls_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
 	else
 		die = randint1(120);
@@ -1156,7 +1156,7 @@ static void start_singing(int spell, int song)
  */
 void stop_singing(void)
 {
-	if (p_ptr->class != CLASS_BARD) return;
+	if (p_ptr->cls_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
 	if (p_ptr->magic_num1[1])
@@ -3508,9 +3508,9 @@ static cptr do_chaos_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->class == CLASS_MAGE ||
-			    p_ptr->class == CLASS_HIGH_MAGE ||
-			    p_ptr->class == CLASS_SORCERER)
+			if (p_ptr->cls_idx == CLASS_MAGE ||
+			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    p_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -4421,9 +4421,9 @@ static cptr do_death_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->class == CLASS_MAGE ||
-			    p_ptr->class == CLASS_HIGH_MAGE ||
-			    p_ptr->class == CLASS_SORCERER)
+			if (p_ptr->cls_idx == CLASS_MAGE ||
+			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    p_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -5276,7 +5276,7 @@ static cptr do_trump_spell(int spell, int mode)
 					y = py;
 				}
 
-				if (p_ptr->class == CLASS_BEASTMASTER)
+				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_KAMIKAZE_LIVING;
 				else
 					type = SUMMON_KAMIKAZE;
@@ -5566,7 +5566,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (p_ptr->class == CLASS_BEASTMASTER)
+				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_LIVING;
 				else
 					type = 0;
@@ -5911,7 +5911,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				int type;
 
-				if (p_ptr->class == CLASS_BEASTMASTER)
+				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_HI_DRAGON_LIVING;
 				else
 					type = SUMMON_HI_DRAGON;
@@ -7555,9 +7555,9 @@ static cptr do_daemon_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->class == CLASS_MAGE ||
-			    p_ptr->class == CLASS_HIGH_MAGE ||
-			    p_ptr->class == CLASS_SORCERER)
+			if (p_ptr->cls_idx == CLASS_MAGE ||
+			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    p_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -8373,9 +8373,9 @@ static cptr do_crusade_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->class == CLASS_PRIEST ||
-			    p_ptr->class == CLASS_HIGH_MAGE ||
-			    p_ptr->class == CLASS_SORCERER)
+			if (p_ptr->cls_idx == CLASS_PRIEST ||
+			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    p_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;

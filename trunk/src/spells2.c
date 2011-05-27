@@ -577,7 +577,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 	}
 	}
 
-	switch(p_ptr->class)
+	switch(p_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
 			if (plev > 39)
@@ -7101,7 +7101,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 			lose_exp(p_ptr->exp / 16);
 			if (!one_in_(6)) break;
 		case 13: case 14: case 15: case 19: case 20:
-			if (stop_ty || (p_ptr->free_act && (randint1(125) < p_ptr->skill_rob)) || (p_ptr->class == CLASS_BERSERKER))
+			if (stop_ty || (p_ptr->free_act && (randint1(125) < p_ptr->skill_rob)) || (p_ptr->cls_idx == CLASS_BERSERKER))
 			{
 				/* Do nothing */ ;
 			}

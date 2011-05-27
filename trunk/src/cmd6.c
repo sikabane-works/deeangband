@@ -870,7 +870,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			break;
 
 		case SV_POTION_CONFUSION: /* Booze */
-			if (p_ptr->class != CLASS_MONK) chg_virtue(V_HARMONY, -1);
+			if (p_ptr->cls_idx != CLASS_MONK) chg_virtue(V_HARMONY, -1);
 			else if (!p_ptr->resist_conf) p_ptr->special_attack |= ATTACK_SUIKEN;
 			if (!p_ptr->resist_conf)
 			{
@@ -889,7 +889,7 @@ static void do_cmd_quaff_potion_aux(int item)
 						ident = TRUE;
 					}
 				}
-				if (one_in_(13) && (p_ptr->class != CLASS_MONK))
+				if (one_in_(13) && (p_ptr->cls_idx != CLASS_MONK))
 				{
 					ident = TRUE;
 					if (one_in_(3)) lose_all_info();
@@ -1165,7 +1165,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RESTORE_MANA:
-			if (p_ptr->class == CLASS_MAGIC_EATER)
+			if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 			{
 				int i;
 				for (i = 0; i < EATER_EXT*2; i++)
@@ -1616,7 +1616,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		return;
 	}
 
-	if (p_ptr->class == CLASS_BERSERKER)
+	if (p_ptr->cls_idx == CLASS_BERSERKER)
 	{
 #ifdef JP
 		msg_print("巻物なんて読めない。");
@@ -1984,7 +1984,7 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((p_ptr->class == CLASS_WARRIOR) || (p_ptr->class == CLASS_IMITATOR) || (p_ptr->class == CLASS_MINDCRAFTER) || (p_ptr->class == CLASS_SORCERER) || (p_ptr->class == CLASS_ARCHER) || (p_ptr->class == CLASS_MAGIC_EATER) || (p_ptr->class == CLASS_RED_MAGE) || (p_ptr->class == CLASS_SAMURAI) || (p_ptr->class == CLASS_BLUE_MAGE) || (p_ptr->class == CLASS_CAVALRY) || (p_ptr->class == CLASS_BERSERKER) || (p_ptr->class == CLASS_SMITH) || (p_ptr->class == CLASS_MIRROR_MASTER) || (p_ptr->class == CLASS_NINJA)) break;
+			if ((p_ptr->cls_idx == CLASS_WARRIOR) || (p_ptr->cls_idx == CLASS_IMITATOR) || (p_ptr->cls_idx == CLASS_MINDCRAFTER) || (p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_ARCHER) || (p_ptr->cls_idx == CLASS_MAGIC_EATER) || (p_ptr->cls_idx == CLASS_RED_MAGE) || (p_ptr->cls_idx == CLASS_SAMURAI) || (p_ptr->cls_idx == CLASS_BLUE_MAGE) || (p_ptr->cls_idx == CLASS_CAVALRY) || (p_ptr->cls_idx == CLASS_BERSERKER) || (p_ptr->cls_idx == CLASS_SMITH) || (p_ptr->cls_idx == CLASS_MIRROR_MASTER) || (p_ptr->cls_idx == CLASS_NINJA)) break;
 			p_ptr->add_spells++;
 			p_ptr->update |= (PU_SPELLS);
 			ident = TRUE;
@@ -2659,7 +2659,7 @@ msg_print("ダンジョンが揺れた。");
 #endif
 			project(0, 5, py, px,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if ((p_ptr->class != CLASS_MAGE) && (p_ptr->class != CLASS_HIGH_MAGE) && (p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_MAGIC_EATER) && (p_ptr->class != CLASS_BLUE_MAGE))
+			if ((p_ptr->cls_idx != CLASS_MAGE) && (p_ptr->cls_idx != CLASS_HIGH_MAGE) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_MAGIC_EATER) && (p_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
 				(void)take_hit(DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", -1);
@@ -2771,7 +2771,7 @@ static void do_cmd_use_staff_aux(int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (p_ptr->class == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (p_ptr->cls_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3305,7 +3305,7 @@ static void do_cmd_aim_wand_aux(int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (p_ptr->class == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (p_ptr->cls_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -3737,7 +3737,7 @@ static void do_cmd_zap_rod_aux(int item)
 		return;
 	}
 
-	if (p_ptr->class == CLASS_BERSERKER) success = FALSE;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -4141,7 +4141,7 @@ static void do_cmd_activate_aux(int item)
 		return;
 	}
 
-	if (p_ptr->class == CLASS_BERSERKER) success = FALSE;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -5191,7 +5191,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					ty = target_row;
 				}
 
-				if (p_ptr->class == CLASS_ARCHER)
+				if (p_ptr->cls_idx == CLASS_ARCHER)
 				{
 					/* Extra shot at level 10 */
 					if (p_ptr->lev >= 10) num++;
@@ -5806,7 +5806,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your pendant glows pale...");
 #endif
-				if (p_ptr->class == CLASS_MAGIC_EATER)
+				if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 				{
 					int i;
 					for (i = 0; i < EATER_EXT*2; i++)

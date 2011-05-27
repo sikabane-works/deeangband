@@ -1464,7 +1464,7 @@ if (flags6 & (RF6_TELE_LEVEL))      {vp[vn] = "テレポート・レベル";color[vn++] =
 
 	if (flags6 & (RF6_DARKNESS))
 	{
-		if ((p_ptr->class != CLASS_NINJA) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) || (r_ptr->flags7 & RF7_DARK_MASK))
+		if ((p_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) || (r_ptr->flags7 & RF7_DARK_MASK))
 		{
 #ifdef JP
 			vp[vn] =  "暗闇"; color[vn++] = TERM_L_DARK;

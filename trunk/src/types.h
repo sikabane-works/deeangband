@@ -1085,8 +1085,8 @@ struct creature_type
 	u32b sub_race[8];       /* Sub-Race index */
 	s16b sex;				/* Sex index */
 	bool sexual_penalty;	/* Sexual penalty flag*/
-	byte class;		        /* Class index */
-	bool class_bonus;	/* Class bonus flag*/
+	byte cls_idx;		        /* Class index */
+	bool cls_bonus;	/* Class bonus flag*/
 	byte chara;		/* CHARA index */
 	s16b patron;		/* Patron index */
 	byte realm1;        /* First magic realm */
@@ -1535,7 +1535,7 @@ struct birther
 	s16b sex;         /* Sex index */
 	s16b irace_idx;        /* Race index */
 	u32b sub_race[8];    /* Sub-Race index */
-	byte class;       /* Class index */
+	byte cls_idx;       /* Class index */
 	byte chara;     /* CHARA index */
 	byte realm1;       /* First magic realm */
 	byte realm2;       /* Second magic realm */

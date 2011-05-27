@@ -6347,9 +6347,9 @@ void display_koff(int k_idx)
 	}
 	else
 	{
-		if ((p_ptr->class != CLASS_SORCERER) && (p_ptr->class != CLASS_RED_MAGE)) return;
+		if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE)) return;
 		if (!is_magic(use_realm)) return;
-		if ((p_ptr->class == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
+		if ((p_ptr->cls_idx == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
 	}
 
 	/* Display spells in readible books */

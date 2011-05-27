@@ -50,7 +50,7 @@ bool object_is_favorite(object_type *o_ptr)
 	}
 
 	/* Favorite weapons are varied depend on the class */
-	switch (p_ptr->class)
+	switch (p_ptr->cls_idx)
 	{
 	case CLASS_PRIEST:
 	{
@@ -66,7 +66,7 @@ bool object_is_favorite(object_type *o_ptr)
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 		/* Icky to wield? */
-		if (!(s_info[p_ptr->class].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
+		if (!(s_info[p_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
 			return FALSE;
 		break;
 
@@ -85,7 +85,7 @@ bool object_is_favorite(object_type *o_ptr)
 
 	case CLASS_NINJA:
 		/* Icky to wield? */
-		if (s_info[p_ptr->class].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
+		if (s_info[p_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
 			return FALSE;
 		break;
 

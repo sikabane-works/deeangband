@@ -402,14 +402,14 @@ static void do_cmd_wiz_change_aux(void)
 		for (i = 0;i < 64;i++)
 		{
 			p_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (p_ptr->weapon_exp[j][i] > s_info[p_ptr->class].w_max[j][i]) p_ptr->weapon_exp[j][i] = s_info[p_ptr->class].w_max[j][i];
+			if (p_ptr->weapon_exp[j][i] > s_info[p_ptr->cls_idx].w_max[j][i]) p_ptr->weapon_exp[j][i] = s_info[p_ptr->cls_idx].w_max[j][i];
 		}
 	}
 
 	for (j = 0; j < 10; j++)
 	{
 		p_ptr->skill_exp[j] = tmp_s16b;
-		if (p_ptr->skill_exp[j] > s_info[p_ptr->class].s_max[j]) p_ptr->skill_exp[j] = s_info[p_ptr->class].s_max[j];
+		if (p_ptr->skill_exp[j] > s_info[p_ptr->cls_idx].s_max[j]) p_ptr->skill_exp[j] = s_info[p_ptr->cls_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)
@@ -1971,7 +1971,7 @@ void do_cmd_debug(void)
 
 	/* Blue Mage Only */
 	case 'E':
-		if (p_ptr->class == CLASS_BLUE_MAGE)
+		if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
 		{
 			do_cmd_wiz_blue_mage();
 		}
@@ -2116,7 +2116,7 @@ void do_cmd_debug(void)
 
 	/* Wizard Light the Level */
 	case 'w':
-		wiz_lite((bool)(p_ptr->class == CLASS_NINJA));
+		wiz_lite((bool)(p_ptr->cls_idx == CLASS_NINJA));
 		break;
 
 	/* Increase Experience */

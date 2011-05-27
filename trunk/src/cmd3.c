@@ -956,7 +956,7 @@ void do_cmd_takeoff(void)
 			return;
 			}
 		}
-		else if (p_ptr->class != CLASS_BERSERKER)
+		else if (p_ptr->cls_idx != CLASS_BERSERKER)
 		{
 			/* Oops */
 #ifdef JP
@@ -1324,11 +1324,11 @@ void do_cmd_destroy(void)
 		if (p_ptr->irace_idx == RACE_ANDROID)
 		{
 		}
-		else if ((p_ptr->class == CLASS_WARRIOR) || (p_ptr->class == CLASS_BERSERKER))
+		else if ((p_ptr->cls_idx == CLASS_WARRIOR) || (p_ptr->cls_idx == CLASS_BERSERKER))
 		{
 			gain_expr = TRUE;
 		}
-		else if (p_ptr->class == CLASS_PALADIN)
+		else if (p_ptr->cls_idx == CLASS_PALADIN)
 		{
 			if (is_good_realm(p_ptr->realm1))
 			{

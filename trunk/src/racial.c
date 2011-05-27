@@ -897,7 +897,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 	if (command <= -3)
 	{
-		switch (p_ptr->class)
+		switch (p_ptr->cls_idx)
 		{
 		case CLASS_WARRIOR:
 		{
@@ -1753,7 +1753,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 				if (randint1(100) < plev)
 				{
-					switch (p_ptr->class)
+					switch (p_ptr->cls_idx)
 					{
 						case CLASS_WARRIOR:
 						case CLASS_BERSERKER:
@@ -2185,7 +2185,7 @@ void do_cmd_racial_power(void)
 	int             ask = TRUE;
 	int             lvl = p_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = ((p_ptr->class == CLASS_WARRIOR || p_ptr->class == CLASS_BERSERKER) ? TRUE : FALSE);
+	bool            warrior = ((p_ptr->cls_idx == CLASS_WARRIOR || p_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
@@ -2216,7 +2216,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“ÁŽê”\—Í‚ðŽg‚¦‚Ü‚¹‚ñI");
 		set_action(ACTION_NONE);
 	}
 
-	switch (p_ptr->class)
+	switch (p_ptr->cls_idx)
 	{
 	case CLASS_WARRIOR:
 	{

@@ -25,7 +25,7 @@ bool gain_random_mutation(int choose_mut)
 
 	while (attempts_left--)
 	{
-		switch (choose_mut ? choose_mut : (p_ptr->class == CLASS_BERSERKER ? 74+randint1(119) : randint1(193)))
+		switch (choose_mut ? choose_mut : (p_ptr->cls_idx == CLASS_BERSERKER ? 74+randint1(119) : randint1(193)))
 		{
 		case 1: case 2: case 3: case 4:
 			muta_class = &(p_ptr->muta1);
@@ -599,7 +599,7 @@ muta_desc = "胃袋がピクピクしはじめた。";
 			break;
 		case 110: case 111:
 			/* Chaos warriors already have a chaos deity */
-			if (p_ptr->class != CLASS_CHAOS_WARRIOR)
+			if (p_ptr->cls_idx != CLASS_CHAOS_WARRIOR)
 			{
 				muta_class = &(p_ptr->muta2);
 				muta_which = MUT2_CHAOS_GIFT;

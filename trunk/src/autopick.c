@@ -599,16 +599,16 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	if (REALM1_BOOK == o_ptr->tval &&
-	    p_ptr->class != CLASS_SORCERER &&
-	    p_ptr->class != CLASS_RED_MAGE)
+	    p_ptr->cls_idx != CLASS_SORCERER &&
+	    p_ptr->cls_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM1);
 		name = FALSE;
 	}
 
 	if (REALM2_BOOK == o_ptr->tval &&
-	    p_ptr->class != CLASS_SORCERER &&
-	    p_ptr->class != CLASS_RED_MAGE)
+	    p_ptr->cls_idx != CLASS_SORCERER &&
+	    p_ptr->cls_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM2);
 		name = FALSE;
@@ -1268,15 +1268,15 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** First realm spellbooks ***/
 	if (IS_FLG(FLG_REALM1) && 
 	    (REALM1_BOOK != o_ptr->tval ||
-	     p_ptr->class == CLASS_SORCERER ||
-	     p_ptr->class == CLASS_RED_MAGE))
+	     p_ptr->cls_idx == CLASS_SORCERER ||
+	     p_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** Second realm spellbooks ***/
 	if (IS_FLG(FLG_REALM2) &&
 	    (REALM2_BOOK != o_ptr->tval ||
-	     p_ptr->class == CLASS_SORCERER ||
-	     p_ptr->class == CLASS_RED_MAGE))
+	     p_ptr->cls_idx == CLASS_SORCERER ||
+	     p_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** First rank spellbooks ***/
@@ -1525,20 +1525,20 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 				return FALSE;
 		}
 
-		if (p_ptr->class == CLASS_ARCHER)
+		if (p_ptr->cls_idx == CLASS_ARCHER)
 		{
 			if (o_ptr->tval == TV_SKELETON ||
 			    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
 				return FALSE;
 		}
-		else if (p_ptr->class == CLASS_NINJA)
+		else if (p_ptr->cls_idx == CLASS_NINJA)
 		{
 			if (o_ptr->tval == TV_LITE &&
 			    o_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(o_ptr))
 				return FALSE;
 		}
-		else if (p_ptr->class == CLASS_BEASTMASTER ||
-			 p_ptr->class == CLASS_CAVALRY)
+		else if (p_ptr->cls_idx == CLASS_BEASTMASTER ||
+			 p_ptr->cls_idx == CLASS_CAVALRY)
 		{
 			if (o_ptr->tval == TV_WAND &&
 			    o_ptr->sval == SV_WAND_HEAL_MONSTER && object_is_aware(o_ptr))

@@ -2265,7 +2265,7 @@ static bool do_cmd_bash_aux(int y, int x, int dir)
 	/* Compare bash power to door power XXX XXX XXX */
 	temp = (bash - (temp * 10));
 
-	if (p_ptr->class == CLASS_BERSERKER) temp *= 2;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) temp *= 2;
 
 	/* Hack -- always have a chance */
 	if (temp < 1) temp = 1;
@@ -2831,7 +2831,7 @@ void do_cmd_rest(void)
 
 	set_action(ACTION_NONE);
 
-	if ((p_ptr->class == CLASS_BARD) && (p_ptr->magic_num1[0] || p_ptr->magic_num1[1]))
+	if ((p_ptr->cls_idx == CLASS_BARD) && (p_ptr->magic_num1[0] || p_ptr->magic_num1[1]))
 	{
 		stop_singing();
 	}
@@ -2926,7 +2926,7 @@ void do_cmd_rest(void)
  */
 static int breakage_chance(object_type *o_ptr)
 {
-	int archer_bonus = (p_ptr->class == CLASS_ARCHER ? (p_ptr->lev-1)/7 + 4: 0);
+	int archer_bonus = (p_ptr->cls_idx == CLASS_ARCHER ? (p_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
 	if (snipe_type)
@@ -3670,7 +3670,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			if ((r_ptr->level + 10) > p_ptr->lev)
 			{
 				int now_exp = p_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < s_info[p_ptr->class].w_max[0][j_ptr->sval])
+				if (now_exp < s_info[p_ptr->cls_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
 					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
@@ -3684,7 +3684,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 
 			if (p_ptr->riding)
 			{
-				if ((p_ptr->skill_exp[GINOU_RIDING] < s_info[p_ptr->class].s_max[GINOU_RIDING])
+				if ((p_ptr->skill_exp[GINOU_RIDING] < s_info[p_ptr->cls_idx].s_max[GINOU_RIDING])
 					&& ((p_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[p_ptr->riding].monster_idx].level)
 					&& one_in_(2))
 				{
@@ -4049,7 +4049,7 @@ void do_cmd_fire(void)
 	/* Fire the item */
 	do_cmd_fire_aux(item, j_ptr);
 
-	if (!is_fired || p_ptr->class != CLASS_SNIPER) return;
+	if (!is_fired || p_ptr->cls_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
 	if (snipe_type == SP_AWAY)
@@ -4295,7 +4295,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	energy_use = 100;
 
 	/* Rogue and Ninja gets bonus */
-	if ((p_ptr->class == CLASS_ROGUE) || (p_ptr->class == CLASS_NINJA))
+	if ((p_ptr->cls_idx == CLASS_ROGUE) || (p_ptr->cls_idx == CLASS_NINJA))
 		energy_use -= p_ptr->lev;
 
 	/* Start at the player */
@@ -4306,7 +4306,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((p_ptr->class == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if ((p_ptr->cls_idx == CLASS_NINJA) && ((q_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (q_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */

@@ -587,7 +587,7 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->irace_idx);
 	if(!older_than(0,0,3,0))
 	{
-		rd_byte(&m_ptr->class);
+		rd_byte(&m_ptr->cls_idx);
 		rd_byte(&m_ptr->chara);
 	}
 
@@ -1187,7 +1187,7 @@ static void load_quick_start(void)
 	rd_s16b(&previous_char.sex);
 	rd_s16b(&previous_char.irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&previous_char.sub_race[i]);
-	rd_byte(&previous_char.class);
+	rd_byte(&previous_char.cls_idx);
 	rd_byte(&previous_char.chara);
 	rd_byte(&previous_char.realm1);
 	rd_byte(&previous_char.realm2);
@@ -1248,7 +1248,7 @@ static void rd_extra(void)
 	/* Class/Race/CHARA/Gender/Spells */
 	rd_s16b(&p_ptr->irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&p_ptr->sub_race[i]);
-	rd_byte(&p_ptr->class);
+	rd_byte(&p_ptr->cls_idx);
 	rd_byte(&p_ptr->chara);
 	rd_s16b(&p_ptr->sex);
 	rd_byte(&p_ptr->realm1);
@@ -2769,11 +2769,11 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 
 	/* Important -- Initialize the race/class */
 	rp_ptr = &race_info[p_ptr->irace_idx];
-	cp_ptr = &class_info[p_ptr->class];
+	cp_ptr = &class_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara];
 
 	/* Important -- Initialize the magic */
-	mp_ptr = &m_info[p_ptr->class];
+	mp_ptr = &m_info[p_ptr->cls_idx];
 
 	/* Read spell info */
 	rd_u32b(&p_ptr->spell_learned1);
@@ -2785,7 +2785,7 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	rd_s16b(&p_ptr->learned_spells);
 	rd_s16b(&p_ptr->add_spells);
 
-	if (p_ptr->class == CLASS_MINDCRAFTER) p_ptr->add_spells = 0;
+	if (p_ptr->cls_idx == CLASS_MINDCRAFTER) p_ptr->add_spells = 0;
 
 	for (i = 0; i < 64; i++)
 	{

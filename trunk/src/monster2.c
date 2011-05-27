@@ -1921,12 +1921,12 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, monster_race *r_ptr)
 
 	(void)strcat(desc, r_name + r_ptr->name);
 
-	if(m_ptr->class != CLASS_NONE && (r_ptr->flagse & RFE_CLASS_EGO)){
+	if(m_ptr->cls_idx != CLASS_NONE && (r_ptr->flagse & RFE_CLASS_EGO)){
 #ifdef JP
 		(void)strcat(desc, "の");
-		(void)strcat(desc, class_info[m_ptr->class].title);
+		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
 #else
-		(void)strcat(desc, class_info[m_ptr->class].title);
+		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
 #endif
 	}
 
@@ -3429,7 +3429,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->monster_idx = monster_idx;
 	m_ptr->re_idx = re_selected;
 	m_ptr->irace_idx = rpr_selected;
-	m_ptr->class = rpc_selected;
+	m_ptr->cls_idx = rpc_selected;
 	m_ptr->chara = rps_selected;
 	m_ptr->ap_monster_idx = initial_r_appearance(monster_idx);
 
@@ -3539,7 +3539,7 @@ msg_print("守りのルーンが壊れた！");
 
 	m_ptr->expfact = 100;
 	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
-	if(m_ptr->class != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
+	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
 
 	m_ptr->exp = player_exp[m_ptr->lev];
 

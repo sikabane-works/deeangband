@@ -2156,7 +2156,7 @@ static byte choose_realm(s32b choices, int *count)
 	/* Constraint to the 1st realm */
 	if (p_ptr->realm2 != 255)
 	{
-		if (p_ptr->class == CLASS_PRIEST)
+		if (p_ptr->cls_idx == CLASS_PRIEST)
 		{
 			if (is_good_realm(p_ptr->realm1))
 			{
@@ -2350,7 +2350,7 @@ static bool get_player_realms(void)
 		char temp[80*10];
 		cptr t;
 		count = 0;
-		p_ptr->realm1 = choose_realm(realm_choices1[p_ptr->class], &count);
+		p_ptr->realm1 = choose_realm(realm_choices1[p_ptr->cls_idx], &count);
 
 		if (255 == p_ptr->realm1) return FALSE;
 		if (!p_ptr->realm1) break;
@@ -2413,7 +2413,7 @@ else
 			cptr t;
 
 			count = 0;
-			p_ptr->realm2 = choose_realm(realm_choices2[p_ptr->class], &count);
+			p_ptr->realm2 = choose_realm(realm_choices2[p_ptr->cls_idx], &count);
 
 			if (255 == p_ptr->realm2) return FALSE;
 			if (!p_ptr->realm2) break;
@@ -2475,7 +2475,7 @@ static void save_prev_data(birther *birther_ptr)
 	/* Save the data */
 	birther_ptr->sex = p_ptr->sex;
 	birther_ptr->irace_idx = p_ptr->irace_idx;
-	birther_ptr->class = p_ptr->class;
+	birther_ptr->cls_idx = p_ptr->cls_idx;
 	birther_ptr->chara = p_ptr->chara;
 	birther_ptr->realm1 = p_ptr->realm1;
 	birther_ptr->realm2 = p_ptr->realm2;
@@ -2532,7 +2532,7 @@ static void load_prev_data(bool swap)
 	/* Load the data */
 	p_ptr->sex = previous_char.sex;
 	p_ptr->irace_idx = previous_char.irace_idx;
-	p_ptr->class = previous_char.class;
+	p_ptr->cls_idx = previous_char.cls_idx;
 	p_ptr->chara = previous_char.chara;
 	p_ptr->realm1 = previous_char.realm1;
 	p_ptr->realm2 = previous_char.realm2;
@@ -2745,7 +2745,7 @@ static void get_extra(bool roll_hitdice)
 			if(get_subrace(p_ptr, i)) p_ptr->expfact += race_info[i].r_s_exp;
 	}
 
-	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
+	if (((p_ptr->cls_idx == CLASS_MONK) || (p_ptr->cls_idx == CLASS_FORCETRAINER) || (p_ptr->cls_idx == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
 		p_ptr->expfact -= 15;
 
 	/* Reset record of race/realm changes */
@@ -2758,21 +2758,21 @@ static void get_extra(bool roll_hitdice)
 
 	for (i = 0; i < 64; i++)
 	{
-		if (p_ptr->class == CLASS_SORCERER) p_ptr->spell_exp[i] = SPELL_EXP_MASTER;
-		else if (p_ptr->class == CLASS_RED_MAGE) p_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
+		if (p_ptr->cls_idx == CLASS_SORCERER) p_ptr->spell_exp[i] = SPELL_EXP_MASTER;
+		else if (p_ptr->cls_idx == CLASS_RED_MAGE) p_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
 		else p_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
 	}
 
 	for (i = 0; i < 5; i++)
 		for (j = 0; j < 64; j++)
-			p_ptr->weapon_exp[i][j] = s_info[p_ptr->class].w_start[i][j];
+			p_ptr->weapon_exp[i][j] = s_info[p_ptr->cls_idx].w_start[i][j];
 	if ((p_ptr->chara == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 	{
 		p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 	}
 
 	for (i = 0; i < 10; i++)
-		p_ptr->skill_exp[i] = s_info[p_ptr->class].s_start[i];
+		p_ptr->skill_exp[i] = s_info[p_ptr->cls_idx].s_start[i];
 
 	set_bodysize(p_ptr);
 	set_hitdice(p_ptr);
@@ -3096,7 +3096,7 @@ static void get_money(void)
 
 	/* Social Class determines starting gold */
 	gold = (p_ptr->sc * 6) + randint1(100) + 300;
-	if (p_ptr->class == CLASS_TOURIST)
+	if (p_ptr->cls_idx == CLASS_TOURIST)
 	  gold += 2000;
 
 	/* Process the stats */
@@ -3290,7 +3290,7 @@ static void player_wipe(void)
 
 
 	/* Wipe the spells */
-	if (p_ptr->class == CLASS_SORCERER)
+	if (p_ptr->cls_idx == CLASS_SORCERER)
 	{
 		p_ptr->spell_learned1 = p_ptr->spell_learned2 = 0xffffffffL;
 		p_ptr->spell_worked1 = p_ptr->spell_worked2 = 0xffffffffL;
@@ -3923,7 +3923,7 @@ void player_outfit(void)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((p_ptr->irace_idx == RACE_VAMPIRE) && (p_ptr->class != CLASS_NINJA))
+	if ((p_ptr->irace_idx == RACE_VAMPIRE) && (p_ptr->cls_idx != CLASS_NINJA))
 	{
 		/* Hack -- Give the player scrolls of DARKNESS! */
 		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
@@ -3932,7 +3932,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class != CLASS_NINJA)
+	else if (p_ptr->cls_idx != CLASS_NINJA)
 	{
 		/* Hack -- Give the player some torches */
 		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
@@ -3945,7 +3945,7 @@ void player_outfit(void)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((p_ptr->class == CLASS_RANGER) || (p_ptr->class == CLASS_CAVALRY), ITEM_FREE_SIZE)
+	if ((p_ptr->cls_idx == CLASS_RANGER) || (p_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3953,14 +3953,14 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	if (p_ptr->class == CLASS_RANGER)
+	if (p_ptr->cls_idx == CLASS_RANGER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class == CLASS_ARCHER)
+	else if (p_ptr->cls_idx == CLASS_ARCHER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3968,7 +3968,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class == CLASS_HIGH_MAGE)
+	else if (p_ptr->cls_idx == CLASS_HIGH_MAGE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
@@ -3977,7 +3977,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class == CLASS_SORCERER)
+	else if (p_ptr->cls_idx == CLASS_SORCERER)
 	{
 		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK+MAX_MAGIC-1; i++)
 		{
@@ -3988,7 +3988,7 @@ void player_outfit(void)
 			add_outfit(q_ptr);
 		}
 	}
-	else if (p_ptr->class == CLASS_TOURIST)
+	else if (p_ptr->cls_idx == CLASS_TOURIST)
 	{
 		if (p_ptr->chara != CHARA_SEXY)
 		{
@@ -4024,7 +4024,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class == CLASS_NINJA)
+	else if (p_ptr->cls_idx == CLASS_NINJA)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
@@ -4032,7 +4032,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->class == CLASS_SNIPER)
+	else if (p_ptr->cls_idx == CLASS_SNIPER)
 	{
 		/* Hack -- Give the player some bolts */
 		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -4043,16 +4043,16 @@ void player_outfit(void)
 
 	if(p_ptr->chara == CHARA_SEXY)
 	{
-		player_init[p_ptr->class][2][0] = TV_HAFTED;
-		player_init[p_ptr->class][2][1] = SV_WHIP;
+		player_init[p_ptr->cls_idx][2][0] = TV_HAFTED;
+		player_init[p_ptr->cls_idx][2][1] = SV_WHIP;
 	}
 
 	/* Hack -- Give the player three useful objects */
 	for (i = 0; i < 3; i++)
 	{
 		/* Look up standard equipment */
-		tv = player_init[p_ptr->class][i][0];
-		sv = player_init[p_ptr->class][i][1];
+		tv = player_init[p_ptr->cls_idx][i][0];
+		sv = player_init[p_ptr->cls_idx][i][1];
 
 		if ((p_ptr->irace_idx == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
 		/* Hack to initialize spellbooks */
@@ -4078,7 +4078,7 @@ void player_outfit(void)
 		object_prep(q_ptr, lookup_kind(tv, sv), p_ptr->size);
 
 		/* Assassins begin the game with a poisoned dagger */
-		if ((tv == TV_SWORD || tv == TV_HAFTED) && (p_ptr->class == CLASS_ROGUE &&
+		if ((tv == TV_SWORD || tv == TV_HAFTED) && (p_ptr->cls_idx == CLASS_ROGUE &&
 			p_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
 		{
 			q_ptr->name2 = EGO_BRAND_POIS;
@@ -4992,7 +4992,7 @@ static bool get_player_class(void)
 
 	/* Get a class */
 	k = -1;
-	cs = p_ptr->class;
+	cs = p_ptr->cls_idx;
 	os = MAX_CLASS_CHOICE;
 	while (1)
 	{
@@ -5122,9 +5122,9 @@ static bool get_player_class(void)
 	}
 
 	/* Set class */
-	p_ptr->class = k;
-	cp_ptr = &class_info[p_ptr->class];
-	mp_ptr = &m_info[p_ptr->class];
+	p_ptr->cls_idx = k;
+	cp_ptr = &class_info[p_ptr->cls_idx];
+	mp_ptr = &m_info[p_ptr->cls_idx];
 
 
 	/* Display */
@@ -6644,7 +6644,7 @@ static bool player_birth_aux(void)
 	/* TODO:: SubRaceSelect */
 
 	/* Choose the players class */
-	p_ptr->class = 0;
+	p_ptr->cls_idx = 0;
 	while(1)
 	{
 		char temp[80*9];
@@ -6653,7 +6653,7 @@ static bool player_birth_aux(void)
 		if (!get_player_class()) return FALSE;
 
 		clear_from(10);
-		roff_to_buf(class_jouhou[p_ptr->class], 74, temp, sizeof(temp));
+		roff_to_buf(class_jouhou[p_ptr->cls_idx], 74, temp, sizeof(temp));
 		t = temp;
 
 		for (i = 0; i< 9; i++)
@@ -6964,12 +6964,12 @@ static bool player_birth_aux(void)
 		get_money();
 
 		/* Patron */
-		if(p_ptr->class == CLASS_CHAOS_WARRIOR)
+		if(p_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
 		{
 			if     (p_ptr->irace_idx == RACE_MELNIBONE)  p_ptr->patron = PATRON_ARIOCH;
 			else    p_ptr->patron = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
 		}
-		else if(p_ptr->class == CLASS_PRIEST || p_ptr->class == CLASS_PALADIN)
+		else if(p_ptr->cls_idx == CLASS_PRIEST || p_ptr->cls_idx == CLASS_PALADIN)
 		{
 			if      (p_ptr->irace_idx == RACE_MELNIBONE) p_ptr->patron = PATRON_ARIOCH;
 			else if (p_ptr->irace_idx == RACE_DUNADAN)   p_ptr->patron = PATRON_ILUVATAR;
@@ -7287,8 +7287,8 @@ static bool ask_quick_start(void)
 
 	sp_ptr = &sex_info[p_ptr->sex];
 	rp_ptr = &race_info[p_ptr->irace_idx];
-	cp_ptr = &class_info[p_ptr->class];
-	mp_ptr = &m_info[p_ptr->class];
+	cp_ptr = &class_info[p_ptr->cls_idx];
+	mp_ptr = &m_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara];
 
 	/* Calc hitdice, but don't roll */
@@ -7380,9 +7380,9 @@ void player_birth(void)
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 #ifdef JP
-	sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", class_info[p_ptr->class].title);
+	sprintf(buf,"                            E‹Æ‚É%s‚ð‘I‘ð‚µ‚½B", class_info[p_ptr->cls_idx].title);
 #else
-	sprintf(buf,"                            choose %s class.", class_info[p_ptr->class].title);
+	sprintf(buf,"                            choose %s class.", class_info[p_ptr->cls_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -7455,12 +7455,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(class_jouhou[p_ptr->class], 78, temp, sizeof(temp));
+	roff_to_buf(class_jouhou[p_ptr->cls_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "E‹Æ: %s\n", class_info[p_ptr->class].title);
+	fprintf(fff, "E‹Æ: %s\n", class_info[p_ptr->cls_idx].title);
 #else
-	fprintf(fff, "Class: %s\n", class_info[p_ptr->class].title);
+	fprintf(fff, "Class: %s\n", class_info[p_ptr->cls_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)

@@ -225,8 +225,8 @@ void reset_tim_flags(void)
 
 	if (race_is_(p_ptr, RACE_DEMON) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
 	if (race_is_(p_ptr, RACE_BALROG) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
-	if ((p_ptr->class == CLASS_NINJA) && (p_ptr->lev > 44)) p_ptr->oppose_pois = 1;
-	if (p_ptr->class == CLASS_BERSERKER) p_ptr->shero = 1;
+	if ((p_ptr->cls_idx == CLASS_NINJA) && (p_ptr->lev > 44)) p_ptr->oppose_pois = 1;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) p_ptr->shero = 1;
 
 	if (p_ptr->riding)
 	{
@@ -235,7 +235,7 @@ void reset_tim_flags(void)
 		(void)set_monster_invulner(p_ptr->riding, 0, FALSE);
 	}
 
-	if (p_ptr->class == CLASS_BARD)
+	if (p_ptr->cls_idx == CLASS_BARD)
 	{
 		p_ptr->magic_num1[0] = 0;
 		p_ptr->magic_num2[0] = 0;
@@ -1479,7 +1479,7 @@ bool set_shero(int v, bool do_dec)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if (p_ptr->class == CLASS_BERSERKER) v = 1;
+	if (p_ptr->cls_idx == CLASS_BERSERKER) v = 1;
 	/* Open */
 	if (v)
 	{
@@ -3452,7 +3452,7 @@ bool set_oppose_pois(int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if ((p_ptr->class == CLASS_NINJA) && (p_ptr->lev > 44)) v = 1;
+	if ((p_ptr->cls_idx == CLASS_NINJA) && (p_ptr->lev > 44)) v = 1;
 	if (p_ptr->is_dead) return FALSE;
 
 	/* Open */
@@ -3525,7 +3525,7 @@ bool set_stun(int v)
 
 	if (p_ptr->is_dead) return FALSE;
 
-	if (race_is_(p_ptr, RACE_GOLEM) || ((p_ptr->class == CLASS_BERSERKER) && (p_ptr->lev > 34))) v = 0;
+	if (race_is_(p_ptr, RACE_GOLEM) || ((p_ptr->cls_idx == CLASS_BERSERKER) && (p_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
 	if (p_ptr->stun > 100)
@@ -4891,14 +4891,14 @@ void change_race(int new_race, cptr effect_msg)
 	 * The speed bonus of Klackons and Sprites are disabled
 	 * and the experience penalty is decreased.
 	 */
-	if (((p_ptr->class == CLASS_MONK) || (p_ptr->class == CLASS_FORCETRAINER) || (p_ptr->class == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
+	if (((p_ptr->cls_idx == CLASS_MONK) || (p_ptr->cls_idx == CLASS_FORCETRAINER) || (p_ptr->cls_idx == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
 		p_ptr->expfact -= 15;
 
 	/* Get character's height and weight */
 	set_height_weight(p_ptr);
 
 	/* Hitdice */
-	if (p_ptr->class == CLASS_SORCERER)
+	if (p_ptr->cls_idx == CLASS_SORCERER)
 		p_ptr->hitdice = rp_ptr->r_mhp/2 + cp_ptr->c_mhp + ap_ptr->a_mhp;
 	else
 		p_ptr->hitdice = rp_ptr->r_mhp + cp_ptr->c_mhp + ap_ptr->a_mhp;

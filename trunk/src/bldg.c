@@ -18,7 +18,7 @@ static bool leave_bldg = FALSE;
 
 static bool is_owner(building_type *bldg)
 {
-	if (bldg->member_class[p_ptr->class] == BUILDING_OWNER)
+	if (bldg->member_class[p_ptr->cls_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
@@ -40,7 +40,7 @@ static bool is_owner(building_type *bldg)
 
 static bool is_member(building_type *bldg)
 {
-	if (bldg->member_class[p_ptr->class])
+	if (bldg->member_class[p_ptr->cls_idx])
 	{
 		return (TRUE);
 	}
@@ -57,7 +57,7 @@ static bool is_member(building_type *bldg)
 	}
 
 
-	if (p_ptr->class == CLASS_SORCERER)
+	if (p_ptr->cls_idx == CLASS_SORCERER)
 	{
 		int i;
 		bool OK = FALSE;
@@ -314,7 +314,7 @@ msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
 					msg_print(NULL);
 				}
 			}
-			else if (p_ptr->riding && (p_ptr->class != CLASS_BEASTMASTER) && (p_ptr->class != CLASS_CAVALRY))
+			else if (p_ptr->riding && (p_ptr->cls_idx != CLASS_BEASTMASTER) && (p_ptr->cls_idx != CLASS_CAVALRY))
 			{
 #ifdef JP
 msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
@@ -2877,7 +2877,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					p_ptr->stun = 0;
 					p_ptr->chp = p_ptr->mhp;
 					p_ptr->csp = p_ptr->msp;
-					if (p_ptr->class == CLASS_MAGIC_EATER)
+					if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 					{
 						int i;
 						for (i = 0; i < 72; i++)
@@ -3191,7 +3191,7 @@ static void compare_weapon_aux1(object_type *o_ptr, int col, int r)
 	/* Get the flags of the weapon */
 	object_flags(o_ptr, flgs);
 
-	if ((p_ptr->class != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+	if ((p_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 	{
 		mult = mult * 7 / 2;
 		print_force_weapon = TRUE;
@@ -4984,7 +4984,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((p_ptr->class == CLASS_CHAOS_WARRIOR) || (p_ptr->muta2 & MUT2_CHAOS_GIFT))
+		if ((p_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (p_ptr->muta2 & MUT2_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", player_patrons[p_ptr->patron].title);

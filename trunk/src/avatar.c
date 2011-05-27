@@ -207,7 +207,7 @@ void get_virtues(void)
 
 	/* Get pre-defined types */
 	/* 1 or more virtues based on class */
-	switch (p_ptr->class)
+	switch (p_ptr->cls_idx)
 	{
 	case CLASS_WARRIOR:
 	case CLASS_SAMURAI:

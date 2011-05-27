@@ -957,9 +957,9 @@ static void do_cmd_disp_nikki(void)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
-	if (p_ptr->class == CLASS_WARRIOR || p_ptr->class == CLASS_MONK || p_ptr->class == CLASS_SAMURAI || p_ptr->class == CLASS_BERSERKER)
+	if (p_ptr->cls_idx == CLASS_WARRIOR || p_ptr->cls_idx == CLASS_MONK || p_ptr->cls_idx == CLASS_SAMURAI || p_ptr->cls_idx == CLASS_BERSERKER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)]);
-	else if (p_ptr->class == CLASS_MAGE || p_ptr->class == CLASS_HIGH_MAGE || p_ptr->class == CLASS_SORCERER)
+	else if (p_ptr->cls_idx == CLASS_MAGE || p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)+1]);
 	else strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-2)+1]);
 
@@ -6897,7 +6897,7 @@ static void do_cmd_knowledge_weapon_exp(void)
 					weapon_exp = p_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
-					if (weapon_exp >= s_info[p_ptr->class].w_max[4 - i][num]) fprintf(fff, "!");
+					if (weapon_exp >= s_info[p_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
 					else fprintf(fff, " ");
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
@@ -7060,7 +7060,7 @@ static void do_cmd_knowledge_skill_exp(void)
 	{
 		skill_exp = p_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);
-		if (skill_exp >= s_info[p_ptr->class].s_max[i]) fprintf(fff, "!");
+		if (skill_exp >= s_info[p_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, "%s", exp_level_str[(i == GINOU_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
 		if (cheat_xtra) fprintf(fff, " %d", skill_exp);
