@@ -1478,7 +1478,7 @@ struct creature_type
 	s16b skill_dis;		/* Skill: Disarming */
 	s16b skill_dev;		/* Skill: Magic Devices */
 	s16b skill_rob;		/* Skill: Saving throw(Robustness) */
-	s16b skill_agi;		/* Skill: Saving throw(Agility) */
+	s16b skill_eva;		/* Skill: Saving throw(Evasion) */
 	s16b skill_vol;		/* Skill: Saving throw(Volition) */
 	s16b skill_stl;		/* Skill: Stealth factor */
 	s16b skill_srh;		/* Skill: Searching ability */

@@ -1549,7 +1549,7 @@ errr check_load_init(void)
 #define ENTRY_SKILL_FIGHT 20
 #define ENTRY_SKILL_SHOOT 21
 #define ENTRY_SKILL_ROBUSTNESS 22
-#define ENTRY_SKILL_AGILITY 23
+#define ENTRY_skill_evaLITY 23
 #define ENTRY_SKILL_VOLITION 24
 #define ENTRY_SKILL_STEALTH 25
 #define ENTRY_SKILL_PERCEP 26
@@ -1620,7 +1620,7 @@ static struct
 	{29, 15, -1, "‘ÅŒ‚UŒ‚  :"},
 	{29, 16, -1, "ŽËŒ‚UŒ‚  :"},
 	{29, 17, -1, "ŠæŒ’«    :"},
-	{29, 18, -1, "•q·«    :"},
+	{29, 18, -1, "‰ñ”ð”\—Í  :"},
 	{29, 19, -1, "ˆÓŽu—Í    :"},
 	{29, 20, -1, "‰B–§s“®  :"},
 	{53, 15, -1, "’mŠo      :"},
@@ -1679,7 +1679,7 @@ static struct
 	{29, 15, -1, "Fighting   : "},
 	{29, 16, -1, "Bows/Throw : "},
 	{29, 17, -1, "Robustness :"},
-	{29, 18, -1, "Agility    :"},
+	{29, 18, -1, "Evasion    :"},
 	{29, 19, -1, "Volition   :"},
 	{29, 20, -1, "Stealth    : "},
 	{53, 15, -1, "Perception : "},
@@ -2231,7 +2231,7 @@ static void display_player_various(creature_type * cr_ptr)
 	xdis = cr_ptr->skill_dis;
 	xdev = cr_ptr->skill_dev;
 	xrob = cr_ptr->skill_rob;
-	xagi = cr_ptr->skill_agi;
+	xagi = cr_ptr->skill_eva;
 	xvol = cr_ptr->skill_vol;
 	xstl = cr_ptr->skill_stl;
 	xsrh = cr_ptr->skill_srh;
@@ -2249,7 +2249,7 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
 
 	desc = likert(xagi, 5);
-	display_player_one_line(ENTRY_SKILL_AGILITY, desc, likert_color);
+	display_player_one_line(ENTRY_skill_evaLITY, desc, likert_color);
 
 	desc = likert(xvol, 5);
 	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
