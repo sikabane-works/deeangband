@@ -771,7 +771,7 @@ static errr init_e_info(void)
 static errr init_r_info(void)
 {
 	/* Init the header */
-	init_header(&r_head, max_r_idx, sizeof(monster_race));
+	init_header(&r_head, max_monster_idx, sizeof(monster_race));
 
 #ifdef ALLOW_TEMPLATES
 
@@ -2035,27 +2035,27 @@ static errr init_alloc(void)
 	tag_type *elements;
 
 	/* Allocate the "r_info" array */
-	C_MAKE(elements, max_r_idx, tag_type);
+	C_MAKE(elements, max_monster_idx, tag_type);
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		elements[i].tag = r_info[i].level;
 		elements[i].pointer = (void*)i;
 	}
 
-	tag_sort(elements, max_r_idx);
+	tag_sort(elements, max_monster_idx);
 
 	/*** Initialize monster allocation info ***/
 
 	/* Size of "alloc_race_table" */
-	alloc_race_size = max_r_idx;
+	alloc_race_size = max_monster_idx;
 
 	/* Allocate the alloc_race_table */
 	C_MAKE(alloc_race_table, alloc_race_size, alloc_entry);
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		/* Get the i'th race */
 		r_ptr = &r_info[(int)elements[i].pointer];
@@ -2081,7 +2081,7 @@ static errr init_alloc(void)
 	}
 
 	/* Free the "r_info" array */
-	C_KILL(elements, max_r_idx, tag_type);
+	C_KILL(elements, max_monster_idx, tag_type);
 
 #else /* SORT_R_INFO */
 
@@ -2102,7 +2102,7 @@ static errr init_alloc(void)
 	alloc_race_size = 0;
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		/* Get the i'th race */
 		r_ptr = &r_info[i];
@@ -2143,7 +2143,7 @@ static errr init_alloc(void)
 	table = alloc_race_table;
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		/* Get the i'th race */
 		r_ptr = &r_info[i];

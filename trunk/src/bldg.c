@@ -355,7 +355,7 @@ msg_print("あなたはすべての敵に勝利した。");
 			}
 			else
 			{
-				r_ptr = &r_info[arena_info[p_ptr->arena_number].r_idx];
+				r_ptr = &r_info[arena_info[p_ptr->arena_number].monster_idx];
 				name = (r_name + r_ptr->name);
 #ifdef JP
 msg_format("%s に挑戦するものはいないか？", name);
@@ -1669,15 +1669,15 @@ msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
 	return (TRUE);
 }
 
-static bool vault_aux_battle(int r_idx)
+static bool vault_aux_battle(int monster_idx)
 {
 	int i;
 	int dam = 0;
 
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 
 	/* Decline town monsters */
-/*	if (!mon_hook_dungeon(r_idx)) return FALSE; */
+/*	if (!mon_hook_dungeon(monster_idx)) return FALSE; */
 
 	/* Decline unique monsters */
 /*	if (r_ptr->flags1 & (RF1_UNIQUE)) return (FALSE); */
@@ -1730,28 +1730,28 @@ void battle_monsters(void)
 		tekitou = FALSE;
 		for(i=0;i<4;i++)
 		{
-			int r_idx, j;
+			int monster_idx, j;
 			while (1)
 			{
 				get_mon_num_prep(vault_aux_battle, NULL);
 				p_ptr->inside_battle = TRUE;
-				r_idx = get_mon_num(mon_level);
+				monster_idx = get_mon_num(mon_level);
 				p_ptr->inside_battle = old_inside_battle;
-				if (!r_idx) continue;
+				if (!monster_idx) continue;
 
-				if ((r_info[r_idx].flags1 & RF1_UNIQUE) || (r_info[r_idx].flags7 & RF7_UNIQUE2))
+				if ((r_info[monster_idx].flags1 & RF1_UNIQUE) || (r_info[monster_idx].flags7 & RF7_UNIQUE2))
 				{
-					if ((r_info[r_idx].level + 10) > mon_level) continue;
+					if ((r_info[monster_idx].level + 10) > mon_level) continue;
 				}
 
 				for (j = 0; j < i; j++)
-					if(r_idx == battle_mon[j]) break;
+					if(monster_idx == battle_mon[j]) break;
 				if (j<i) continue;
 
 				break;
 			}
-			battle_mon[i] = r_idx;
-			if (r_info[r_idx].level < 45) tekitou = TRUE;
+			battle_mon[i] = monster_idx;
+			if (r_info[monster_idx].level < 45) tekitou = TRUE;
 		}
 
 		for (i=0;i<4;i++)
@@ -2143,9 +2143,9 @@ c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
 	{
 		byte color;
 		cptr done_mark;
-		monster_race *r_ptr = &r_info[(kubi_r_idx[i] > 10000 ? kubi_r_idx[i] - 10000 : kubi_r_idx[i])];
+		monster_race *r_ptr = &r_info[(kubi_monster_idx[i] > 10000 ? kubi_monster_idx[i] - 10000 : kubi_monster_idx[i])];
 
-		if (kubi_r_idx[i] > 10000)
+		if (kubi_monster_idx[i] > 10000)
 		{
 			color = TERM_RED;
 #ifdef JP
@@ -2377,7 +2377,7 @@ static bool kankin(void)
 		for (i = INVEN_PACK-1; i >= 0; i--)
 		{
 			o_ptr = &p_ptr->inventory[i];
-			if ((o_ptr->tval == TV_CORPSE) && (o_ptr->pval == kubi_r_idx[j]))
+			if ((o_ptr->tval == TV_CORPSE) && (o_ptr->pval == kubi_monster_idx[j]))
 			{
 				char buf[MAX_NLEN+20];
 				int num, k, item_new;
@@ -2393,17 +2393,17 @@ static bool kankin(void)
 
 #if 0 /* Obsoleted */
 #ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (r_info[kubi_r_idx[j]].level + 1) * 300 * o_ptr->number);
+				msg_format("賞金 %ld＄を手に入れた。", (r_info[kubi_monster_idx[j]].level + 1) * 300 * o_ptr->number);
 #else
-				msg_format("You get %ldgp.", (r_info[kubi_r_idx[j]].level + 1) * 300 * o_ptr->number);
+				msg_format("You get %ldgp.", (r_info[kubi_monster_idx[j]].level + 1) * 300 * o_ptr->number);
 #endif
-				p_ptr->au += (r_info[kubi_r_idx[j]].level+1) * 300 * o_ptr->number;
+				p_ptr->au += (r_info[kubi_monster_idx[j]].level+1) * 300 * o_ptr->number;
 				p_ptr->redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 				chg_virtue(V_JUSTICE, 5);
-				kubi_r_idx[j] += 10000;
+				kubi_monster_idx[j] += 10000;
 
 				change = TRUE;
 #endif /* Obsoleted */
@@ -2414,12 +2414,12 @@ static bool kankin(void)
 				inven_item_optimize(i);
 
 				chg_virtue(V_JUSTICE, 5);
-				kubi_r_idx[j] += 10000;
+				kubi_monster_idx[j] += 10000;
 
 				/* Count number of unique corpses already handed */
 				for (num = 0, k = 0; k < MAX_KUBI; k++)
 				{
-					if (kubi_r_idx[k] >= 10000) num++;
+					if (kubi_monster_idx[k] >= 10000) num++;
 				}
 
 #ifdef JP
@@ -2475,9 +2475,9 @@ static bool kankin(void)
 	return TRUE;
 }
 
-bool get_nightmare(int r_idx)
+bool get_nightmare(int monster_idx)
 {
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 
 	/* Require eldritch horrors */
 	if (!(r_ptr->flags2 & (RF2_ELDRITCH_HORROR))) return (FALSE);
@@ -2490,10 +2490,10 @@ bool get_nightmare(int r_idx)
 }
 
 
-void have_nightmare(int r_idx)
+void have_nightmare(int monster_idx)
 {
 	bool happened = FALSE;
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 	int power = r_ptr->level + 10;
 	char m_name[80];
 	cptr desc = r_name + r_ptr->name;
@@ -3059,18 +3059,18 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 		/* Assign a new quest */
 		if (q_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
 		{
-			if (q_ptr->r_idx == 0)
+			if (q_ptr->monster_idx == 0)
 			{
 				/* Random monster at least 5 - 10 levels out of deep */
-				q_ptr->r_idx = get_mon_num(q_ptr->level + 4 + randint1(6));
+				q_ptr->monster_idx = get_mon_num(q_ptr->level + 4 + randint1(6));
 			}
 
-			r_ptr = &r_info[q_ptr->r_idx];
+			r_ptr = &r_info[q_ptr->monster_idx];
 
 			while ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->rarity != 1))
 			{
-				q_ptr->r_idx = get_mon_num(q_ptr->level) + 4 + (s16b)randint1(6);
-				r_ptr = &r_info[q_ptr->r_idx];
+				q_ptr->monster_idx = get_mon_num(q_ptr->level) + 4 + (s16b)randint1(6);
+				r_ptr = &r_info[q_ptr->monster_idx];
 			}
 
 			if (q_ptr->max_num == 0)
@@ -4395,7 +4395,7 @@ bool tele_town(void)
  */
 static bool research_mon(void)
 {
-	int i, n, r_idx;
+	int i, n, monster_idx;
 	char sym, query;
 	char buf[128];
 
@@ -4413,7 +4413,7 @@ static bool research_mon(void)
 	bool    norm = FALSE;
 	char temp[80] = "";
 
-	/* XTRA HACK REMEMBER_IDX */
+	/* XTRA HACK REMEMBEmonster_idx */
 	static int old_sym = '\0';
 	static int old_i = 0;
 
@@ -4510,10 +4510,10 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_r_idx, u16b);
+	C_MAKE(who, max_monster_idx, u16b);
 
 	/* Collect matching monsters */
-	for (n = 0, i = 1; i < max_r_idx; i++)
+	for (n = 0, i = 1; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 
@@ -4567,7 +4567,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 	if (!n)
 	{
 		/* Free the "who" array */
-		C_KILL(who, max_r_idx, u16b);
+		C_KILL(who, max_monster_idx, u16b);
 
 		/* Restore */
 		screen_load();
@@ -4592,7 +4592,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 
 	/* Start at the end */
-	/* XTRA HACK REMEMBER_IDX */
+	/* XTRA HACK REMEMBEmonster_idx */
 	if (old_sym == sym && old_i < n) i = old_i;
 	else i = n - 1;
 
@@ -4602,10 +4602,10 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 	while (notpicked)
 	{
 		/* Extract a race */
-		r_idx = who[i];
+		monster_idx = who[i];
 
 		/* Hack -- Begin the prompt */
-		roff_top(r_idx);
+		roff_top(monster_idx);
 
 		/* Hack -- Complete the prompt */
 #ifdef JP
@@ -4624,19 +4624,19 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 				/*** Recall on screen ***/
 
 				/* Get maximal info about this monster */
-				lore_do_probe(r_idx);
+				lore_do_probe(monster_idx);
 
 				/* Save this monster ID */
-				monster_race_track(r_idx);
+				monster_race_track(monster_idx);
 
 				/* Hack -- Handle stuff */
 				handle_stuff();
 
 				/* know every thing mode */
-				screen_roff(r_idx, 0x01);
+				screen_roff(monster_idx, 0x01);
 				notpicked = FALSE;
 
-				/* XTRA HACK REMEMBER_IDX */
+				/* XTRA HACK REMEMBEmonster_idx */
 				old_sym = sym;
 				old_i = i;
 			}
@@ -4680,7 +4680,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 	/* prt(buf, 5, 5);*/
 
 	/* Free the "who" array */
-	C_KILL(who, max_r_idx, u16b);
+	C_KILL(who, max_monster_idx, u16b);
 
 	/* Restore */
 	screen_load();
@@ -5290,7 +5290,7 @@ static cptr find_quest[] =
 void quest_discovery(int q_idx)
 {
 	quest_type      *q_ptr = &quest[q_idx];
-	monster_race    *r_ptr = &r_info[q_ptr->r_idx];
+	monster_race    *r_ptr = &r_info[q_ptr->monster_idx];
 	int             q_num = q_ptr->max_num;
 	char            name[80];
 

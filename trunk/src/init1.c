@@ -2836,7 +2836,7 @@ errr parse_r_info(char *buf, header *head)
 		r_ptr->extra = pad;
 		r_ptr->mexp = exp;
 		r_ptr->next_exp = nextexp;
-		r_ptr->next_r_idx = nextmon;
+		r_ptr->next_monster_idx = nextmon;
 	}
 
 	/* Process 'C' for "Class Info" (one line only) */
@@ -4160,7 +4160,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 		/* Get the quest */
 		q_ptr = &(quest[atoi(zz[0])]);
 
-		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<r_idx>:<k_idx>:<flags>" -- quest info */
+		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<monster_idx>:<k_idx>:<flags>" -- quest info */
 		if (zz[1][0] == 'Q')
 		{
 			if (init_flags & INIT_ASSIGN)
@@ -4175,14 +4175,14 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				q_ptr->cur_num = atoi(zz[4]);
 				q_ptr->max_num = atoi(zz[5]);
 				q_ptr->level   = atoi(zz[6]);
-				q_ptr->r_idx   = atoi(zz[7]);
+				q_ptr->monster_idx   = atoi(zz[7]);
 				q_ptr->k_idx   = atoi(zz[8]);
 				q_ptr->dungeon = atoi(zz[9]);
 
 				if (num > 10)
 					q_ptr->flags  = atoi(zz[10]);
 
-				r_ptr = &r_info[q_ptr->r_idx];
+				r_ptr = &r_info[q_ptr->monster_idx];
 				if (r_ptr->flags1 & RF1_UNIQUE)
 					r_ptr->flags1 |= RF1_QUESTOR;
 
@@ -4322,17 +4322,17 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				max_quests = atoi(zz[1]);
 			}
 
-			/* Maximum r_idx */
+			/* Maximum monster_idx */
 			else if (zz[0][0] == 'R')
 			{
-				/* Maximum r_idx */
+				/* Maximum monster_idx */
 				if (zz[0][1] == 'E')
 				{
 					max_re_idx = atoi(zz[1]);
 				}
 				else
 				{
-					max_r_idx = atoi(zz[1]);
+					max_monster_idx = atoi(zz[1]);
 				}
 			}
 

@@ -1744,7 +1744,7 @@ static void spoil_mon_desc(cptr fname)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_r_idx, s16b);
+	C_MAKE(who, max_monster_idx, s16b);
 
 	/* Dump the header */
 	fprintf(fff, "Monster Spoilers for D\'angband Version %d.%d.%d\n",
@@ -1762,7 +1762,7 @@ static void spoil_mon_desc(cptr fname)
 
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 
@@ -2073,7 +2073,7 @@ static void spoil_mon_desc(cptr fname)
 
 
 	/* Free the "who" array */
-	C_KILL(who, max_r_idx, s16b);
+	C_KILL(who, max_monster_idx, s16b);
 
 	/* Check for errors */
 	if (ferror(fff) || my_fclose(fff))
@@ -2313,10 +2313,10 @@ static void spoil_mon_info(cptr fname)
 	spoil_out("------------------------------------------\n\n");
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_r_idx, s16b);
+	C_MAKE(who, max_monster_idx, s16b);
 
 	/* Scan the monsters */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 
@@ -2470,7 +2470,7 @@ static void spoil_mon_info(cptr fname)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_r_idx, s16b);
+	C_KILL(who, max_monster_idx, s16b);
 
 	/* Check for errors */
 	if (ferror(fff) || my_fclose(fff))
@@ -2585,7 +2585,7 @@ static void spoil_mon_evol(cptr fname)
 {
 	char buf[1024];
 	monster_race *r_ptr;
-	int **evol_tree, i, j, n, r_idx;
+	int **evol_tree, i, j, n, monster_idx;
 	int *evol_tree_zero; /* For C_KILL() */
 
 	/* Build the filename */
@@ -2612,13 +2612,13 @@ static void spoil_mon_evol(cptr fname)
 	spoil_out("------------------------------------------\n\n");
 
 	/* Allocate the "evol_tree" array (2-dimension) */
-	C_MAKE(evol_tree, max_r_idx, int *);
-	C_MAKE(*evol_tree, max_r_idx * (MAX_EVOL_DEPTH + 1), int);
-	for (i = 1; i < max_r_idx; i++) evol_tree[i] = *evol_tree + i * (MAX_EVOL_DEPTH + 1);
+	C_MAKE(evol_tree, max_monster_idx, int *);
+	C_MAKE(*evol_tree, max_monster_idx * (MAX_EVOL_DEPTH + 1), int);
+	for (i = 1; i < max_monster_idx; i++) evol_tree[i] = *evol_tree + i * (MAX_EVOL_DEPTH + 1);
 	evol_tree_zero = *evol_tree;
 
 	/* Step 1: Build the evolution tree */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		r_ptr = &r_info[i];
 
@@ -2630,19 +2630,19 @@ static void spoil_mon_evol(cptr fname)
 		evol_tree[i][n++] = i;
 		do
 		{
-			evol_tree[i][n++] = r_ptr->next_r_idx;
-			r_ptr = &r_info[r_ptr->next_r_idx];
+			evol_tree[i][n++] = r_ptr->next_monster_idx;
+			r_ptr = &r_info[r_ptr->next_monster_idx];
 		}
 		while (r_ptr->next_exp && (n < MAX_EVOL_DEPTH));
 	}
 
 	/* Step 2: Scan the evolution trees and remove "partial tree" */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		/* Not evolution tree */
 		if (!evol_tree[i][0]) continue;
 
-		for (j = 1; j < max_r_idx; j++)
+		for (j = 1; j < max_monster_idx; j++)
 		{
 			/* Same tree */
 			if (i == j) continue;
@@ -2667,30 +2667,30 @@ static void spoil_mon_evol(cptr fname)
 	ang_sort_swap = ang_sort_swap_evol_tree;
 
 	/* Sort the array */
-	ang_sort(evol_tree, NULL, max_r_idx);
+	ang_sort(evol_tree, NULL, max_monster_idx);
 
 	/* Step 4: Print the evolution trees */
-	for (i = 0; i < max_r_idx; i++)
+	for (i = 0; i < max_monster_idx; i++)
 	{
-		r_idx = evol_tree[i][0];
+		monster_idx = evol_tree[i][0];
 
 		/* No evolution or removed evolution tree */
-		if (!r_idx) continue;
+		if (!monster_idx) continue;
 
 		/* Trace the evolution tree */
-		r_ptr = &r_info[r_idx];
+		r_ptr = &r_info[monster_idx];
 #ifdef JP
-		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", r_idx,
+		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", monster_idx,
 			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #else
-		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", r_idx,
+		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", monster_idx,
 			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #endif
 		for (n = 1; r_ptr->next_exp; n++)
 		{
 			fprintf(fff, "%*s-(%ld)-> ", n * 2, "", r_ptr->next_exp);
-			fprintf(fff, "[%d]: ", r_ptr->next_r_idx);
-			r_ptr = &r_info[r_ptr->next_r_idx];
+			fprintf(fff, "[%d]: ", r_ptr->next_monster_idx);
+			r_ptr = &r_info[r_ptr->next_monster_idx];
 #ifdef JP
 			fprintf(fff, "%s (ƒŒƒxƒ‹%d, '%c')\n",
 				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
@@ -2705,8 +2705,8 @@ static void spoil_mon_evol(cptr fname)
 	}
 
 	/* Free the "evol_tree" array (2-dimension) */
-	C_KILL(evol_tree_zero, max_r_idx * (MAX_EVOL_DEPTH + 1), int);
-	C_KILL(evol_tree, max_r_idx, int *);
+	C_KILL(evol_tree_zero, max_monster_idx * (MAX_EVOL_DEPTH + 1), int);
+	C_KILL(evol_tree, max_monster_idx, int *);
 
 	/* Check for errors */
 	if (ferror(fff) || my_fclose(fff))

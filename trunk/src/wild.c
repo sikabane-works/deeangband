@@ -1067,7 +1067,7 @@ bool change_wild_mode(void)
 	{
 		creature_type *m_ptr = &m_list[i];
 
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 		if (is_pet(m_ptr) && i != p_ptr->riding) have_pet = TRUE;
 		if (MON_CSLEEP(m_ptr)) continue;
 		if (m_ptr->cdis > MAX_SIGHT) continue;

@@ -65,7 +65,7 @@ static bool int_outof(monster_race *r_ptr, int prob)
 static void remove_bad_spells(int m_idx, u32b *f4p, u32b *f5p, u32b *f6p)
 {
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	u32b f4 = (*f4p);
 	u32b f5 = (*f5p);
@@ -509,7 +509,7 @@ static void breath(int y, int x, int m_idx, int typ, int dam_hp, int rad, bool b
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Determine the radius of the blast */
 	if ((rad < 1) && breath) rad = (r_ptr->flags2 & (RF2_POWERFUL)) ? 3 : 2;
@@ -837,7 +837,7 @@ static bool spell_dispel(byte spell)
 bool dispel_check(int m_idx)
 {
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Invulnabilty (including the song) */
 	if (IS_INVULN(p_ptr)) return (TRUE);
@@ -949,7 +949,7 @@ bool dispel_check(int m_idx)
 static int choose_attack_spell(int m_idx, byte spells[], byte num)
 {
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	byte escape[96], escape_num = 0;
 	byte attack[96], attack_num = 0;
@@ -1030,7 +1030,7 @@ static int choose_attack_spell(int m_idx, byte spells[], byte num)
 	if (special_num)
 	{
 		bool success = FALSE;
-		switch(m_ptr->r_idx)
+		switch(m_ptr->monster_idx)
 		{
 			case MON_BANOR:
 			case MON_LUPART:
@@ -1059,7 +1059,7 @@ static int choose_attack_spell(int m_idx, byte spells[], byte num)
 	if (special_num)
 	{
 		bool success = FALSE;
-		switch (m_ptr->r_idx)
+		switch (m_ptr->monster_idx)
 		{
 			case MON_OHMU:
 			case MON_BANOR:
@@ -1299,7 +1299,7 @@ bool make_attack_spell(int m_idx)
 	byte            spell[96], num = 0;
 	u32b            f4, f5, f6;
 	creature_type    *m_ptr = &m_list[m_idx];
-	monster_race    *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
 	char            m_name[80];
 #ifndef JP
 	char            m_poss[80];
@@ -1536,7 +1536,7 @@ bool make_attack_spell(int m_idx)
 		f5 &= ~(RF5_SUMMON_MASK);
 		f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
 
-		if (m_ptr->r_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
+		if (m_ptr->monster_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
 
 	/* No spells left */
@@ -1580,7 +1580,7 @@ bool make_attack_spell(int m_idx)
 		/* Special moves restriction */
 		if (f6 & RF6_SPECIAL)
 		{
-			if ((m_ptr->r_idx == MON_ROLENTO) && !summon_possible(y, x))
+			if ((m_ptr->monster_idx == MON_ROLENTO) && !summon_possible(y, x))
 			{
 				f6 &= ~(RF6_SPECIAL);
 			}
@@ -2013,7 +2013,7 @@ else msg_format("%^sが混乱のブレスを吐いた。", m_name);
 		case 96+17:
 		{
 			disturb(1, 0);
-			if (m_ptr->r_idx == MON_JAIAN)
+			if (m_ptr->monster_idx == MON_JAIAN)
 #ifdef JP
 				msg_format("「ボォエ～～～～～～」");
 #else
@@ -2170,7 +2170,7 @@ else msg_format("%^sが重力のブレスを吐いた。", m_name);
 		case 96+24:
 		{
 			disturb(1, 0);
-			if (m_ptr->r_idx == MON_BOTEI)
+			if (m_ptr->monster_idx == MON_BOTEI)
 #ifdef JP
 				msg_format("「ボ帝ビルカッター！！！」");
 #else
@@ -2394,7 +2394,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 		{
 			disturb(1, 0);
 
-			if (m_ptr->r_idx == MON_ROLENTO)
+			if (m_ptr->monster_idx == MON_ROLENTO)
 			{
 #ifdef JP
 				if (blind)
@@ -3427,8 +3427,8 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		{
 			int who = 0;
 			disturb(1, 0);
-			if(m_ptr->r_idx == MON_DIO) who = 1;
-			else if(m_ptr->r_idx == MON_WONG) who = 3;
+			if(m_ptr->monster_idx == MON_DIO) who = 1;
+			else if(m_ptr->monster_idx == MON_WONG) who = 3;
 			dam = who;
 			if (!process_the_world(randint1(2)+2, who, TRUE)) return (FALSE);
 			break;
@@ -3440,7 +3440,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			int k;
 
 			disturb(1, 0);
-			switch (m_ptr->r_idx)
+			switch (m_ptr->monster_idx)
 			{
 			case MON_OHMU:
 				/* Moved to process_monster(), like multiplication */
@@ -3482,11 +3482,11 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					if (!r_info[MON_BANOR].cur_num || !r_info[MON_LUPART].cur_num) return (FALSE);
 					for (k = 1; k < m_max; k++)
 					{
-						if (m_list[k].r_idx == MON_BANOR || m_list[k].r_idx == MON_LUPART)
+						if (m_list[k].monster_idx == MON_BANOR || m_list[k].monster_idx == MON_LUPART)
 						{
 							dummy_hp += m_list[k].chp;
 							dummy_mhp += m_list[k].mhp;
-							if (m_list[k].r_idx != m_ptr->r_idx)
+							if (m_list[k].monster_idx != m_ptr->monster_idx)
 							{
 								dummy_y = m_list[k].fy;
 								dummy_x = m_list[k].fx;
@@ -3819,7 +3819,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 		case 160+16:
 		{
 			disturb(1, 0);
-			if (m_ptr->r_idx == MON_SERPENT || m_ptr->r_idx == MON_ZOMBI_SERPENT)
+			if (m_ptr->monster_idx == MON_SERPENT || m_ptr->monster_idx == MON_ZOMBI_SERPENT)
 			{
 #ifdef JP
 				if (blind)
@@ -3854,7 +3854,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 #endif
 			}
 
-			switch (m_ptr->r_idx)
+			switch (m_ptr->monster_idx)
 			{
 			case MON_MENELDOR:
 			case MON_GWAIHIR:
@@ -4278,7 +4278,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		{
 			disturb(1, 0);
 
-			if (((m_ptr->r_idx == MON_MORGOTH) || (m_ptr->r_idx == MON_SAURON) || (m_ptr->r_idx == MON_ANGMAR)) && ((r_info[MON_NAZGUL].cur_num+2) < r_info[MON_NAZGUL].max_num))
+			if (((m_ptr->monster_idx == MON_MORGOTH) || (m_ptr->monster_idx == MON_SAURON) || (m_ptr->monster_idx == MON_ANGMAR)) && ((r_info[MON_NAZGUL].cur_num+2) < r_info[MON_NAZGUL].max_num))
 			{
 				int cy = y;
 				int cx = x;

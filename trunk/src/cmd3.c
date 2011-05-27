@@ -2259,7 +2259,7 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
  */
 void do_cmd_query_symbol(void)
 {
-	int		i, n, r_idx;
+	int		i, n, monster_idx;
 	char	sym, query;
 	char	buf[128];
 
@@ -2360,10 +2360,10 @@ void do_cmd_query_symbol(void)
 	prt(buf, 0, 0);
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_r_idx, u16b);
+	C_MAKE(who, max_monster_idx, u16b);
 
 	/* Collect matching monsters */
-	for (n = 0, i = 1; i < max_r_idx; i++)
+	for (n = 0, i = 1; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 
@@ -2417,7 +2417,7 @@ void do_cmd_query_symbol(void)
 	if (!n)
 	{
 		/* Free the "who" array */
-		C_KILL(who, max_r_idx, u16b);
+		C_KILL(who, max_monster_idx, u16b);
 
 		return;
 	}
@@ -2457,7 +2457,7 @@ void do_cmd_query_symbol(void)
 	if (query != 'y')
 	{
 		/* Free the "who" array */
-		C_KILL(who, max_r_idx, u16b);
+		C_KILL(who, max_monster_idx, u16b);
 
 		return;
 	}
@@ -2481,10 +2481,10 @@ void do_cmd_query_symbol(void)
 	while (1)
 	{
 		/* Extract a race */
-		r_idx = who[i];
+		monster_idx = who[i];
 
 		/* Hack -- Auto-recall */
-		monster_race_track(r_idx);
+		monster_race_track(monster_idx);
 
 		/* Hack -- Handle stuff */
 		handle_stuff();
@@ -2503,7 +2503,7 @@ void do_cmd_query_symbol(void)
 			}
 
 			/* Hack -- Begin the prompt */
-			roff_top(r_idx);
+			roff_top(monster_idx);
 
 			/* Hack -- Complete the prompt */
 #ifdef JP
@@ -2554,7 +2554,7 @@ void do_cmd_query_symbol(void)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_r_idx, u16b);
+	C_KILL(who, max_monster_idx, u16b);
 
 	/* Re-display the identity */
 	prt(buf, 0, 0);

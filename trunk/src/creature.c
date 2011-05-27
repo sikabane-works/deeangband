@@ -8,7 +8,7 @@ void set_sex(creature_type *cr_ptr)
 {
 	monster_race *mr_ptr;
 
-	mr_ptr = &r_info[cr_ptr->r_idx]; 
+	mr_ptr = &r_info[cr_ptr->monster_idx]; 
 
 	if(mr_ptr->flags1 & RF1_MALE)
 	{
@@ -50,9 +50,9 @@ void set_status(creature_type *cr_ptr)
 	{
 		cr_ptr->stat_use[i] = 100;
 
-		if(cr_ptr->r_idx != MON_NONE)
+		if(cr_ptr->monster_idx != MON_NONE)
 		{
-			monster_race *r_ptr = &r_info[cr_ptr->r_idx]; 
+			monster_race *r_ptr = &r_info[cr_ptr->monster_idx]; 
 			cr_ptr->stat_use[i] = r_ptr->stat[i];
 		}
 
@@ -113,9 +113,9 @@ void set_height_weight(creature_type *cr_ptr)
 			ave_m_wt = (int)(ir_ptr->m_m_wt + ir_ptr->f_m_wt) / 2;
 		}
 	}
-	else if(cr_ptr->r_idx != MON_NONE)
+	else if(cr_ptr->monster_idx != MON_NONE)
 	{
-		mr_ptr = &r_info[cr_ptr->r_idx]; 
+		mr_ptr = &r_info[cr_ptr->monster_idx]; 
 
 		if (cr_ptr->sex == SEX_MALE)
 		{
@@ -199,7 +199,7 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 	monster_race *r_ptr;
 	int con_r, bonus, convert_lv, num;
 
-	r_ptr = &r_info[cr_ptr->r_idx];
+	r_ptr = &r_info[cr_ptr->monster_idx];
 
 	convert_lv = r_ptr->level;
 
@@ -258,7 +258,7 @@ void set_enemy_hp(creature_type *cr_ptr, int percentage)
 void set_speed(creature_type *cr_ptr)
 {
 	/* Extract the monster base speed */
-	monster_race* r_ptr = &r_info[cr_ptr->r_idx];
+	monster_race* r_ptr = &r_info[cr_ptr->monster_idx];
 	int speed = r_ptr->speed;
 
 	/* Hack -- small racial variety */
@@ -527,9 +527,9 @@ void set_resistance(creature_type *cr_ptr)
 		}
 	}
 
-	if(cr_ptr->r_idx != 0)
+	if(cr_ptr->monster_idx != 0)
 	{
-		monster_race *mr_ptr = &r_info[cr_ptr->r_idx];
+		monster_race *mr_ptr = &r_info[cr_ptr->monster_idx];
 		if(mr_ptr->flagsr & RFR_IM_ACID)
 			cr_ptr->resist_acid = TRUE;
 		if(mr_ptr->flagsr & RFR_IM_ELEC)

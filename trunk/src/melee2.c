@@ -33,7 +33,7 @@ static bool get_enemy_dir(int m_idx, int *mm)
 	int plus = 1;
 
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	creature_type *t_ptr;
 
@@ -70,7 +70,7 @@ static bool get_enemy_dir(int m_idx, int *mm)
 			if (t_ptr == m_ptr) continue;
 
 			/* Paranoia -- Skip dead monsters */
-			if (!t_ptr->r_idx) continue;
+			if (!t_ptr->monster_idx) continue;
 
 			if (is_pet(m_ptr))
 			{
@@ -190,7 +190,7 @@ void mon_take_hit_mon(int m_idx, int dam, bool *fear, cptr note, int who)
 {
 	creature_type	*m_ptr = &m_list[m_idx];
 
-	monster_race	*r_ptr = &r_info[m_ptr->r_idx];
+	monster_race	*r_ptr = &r_info[m_ptr->monster_idx];
 
 	char m_name[160];
 
@@ -315,7 +315,7 @@ msg_format("%^sは殺された。", m_name);
 				}
 			}
 
-			monster_gain_exp(who, m_ptr->r_idx);
+			monster_gain_exp(who, m_ptr->monster_idx);
 
 			/* Generate treasure */
 			monster_death(m_idx, FALSE);
@@ -419,7 +419,7 @@ static int mon_will_run(int m_idx)
 
 #ifdef ALLOW_TERROR
 
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	u16b p_lev, m_lev;
 	u32b p_chp, p_mhp;
@@ -493,7 +493,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	int now_cost;
 
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Monster location */
 	y1 = m_ptr->fy;
@@ -591,7 +591,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	bool use_scent = FALSE;
 
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Can monster cast attack spell? */
 	if (r_ptr->flags4 & (RF4_ATTACK_MASK) ||
@@ -943,7 +943,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 			c_ptr = &cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->r_idx], (m_idx == p_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->monster_idx], (m_idx == p_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if monsters can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
@@ -999,7 +999,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 static bool find_hiding(int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -1069,7 +1069,7 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
 static bool get_moves(int m_idx, int *mm)
 {
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
 	int          y2 = py;
@@ -1428,8 +1428,8 @@ static bool monst_attack_monst(int m_idx, int t_idx)
 	creature_type    *m_ptr = &m_list[m_idx];
 	creature_type    *t_ptr = &m_list[t_idx];
 
-	monster_race    *r_ptr = &r_info[m_ptr->r_idx];
-	monster_race    *tr_ptr = &r_info[t_ptr->r_idx];
+	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race    *tr_ptr = &r_info[t_ptr->monster_idx];
 
 	int             ap_cnt;
 	int             ac, rlev, pt;
@@ -1495,7 +1495,7 @@ static bool monst_attack_monst(int m_idx, int t_idx)
 		int d_dice = r_ptr->blow[ap_cnt].d_dice;
 		int d_side = r_ptr->blow[ap_cnt].d_side;
 
-		if (!m_ptr->r_idx) break;
+		if (!m_ptr->monster_idx) break;
 
 		/* Stop attacking if the target dies! */
 		if (t_ptr->fx != x_saver || t_ptr->fy != y_saver)
@@ -1999,7 +1999,7 @@ act = "%sにむかって歌った。";
 				if (touched)
 				{
 					/* Aura fire */
-					if ((tr_ptr->flags2 & RF2_AURA_FIRE) && m_ptr->r_idx)
+					if ((tr_ptr->flags2 & RF2_AURA_FIRE) && m_ptr->monster_idx)
 					{
 						if (!(r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK))
 						{
@@ -2024,7 +2024,7 @@ act = "%sにむかって歌った。";
 					}
 
 					/* Aura cold */
-					if ((tr_ptr->flags3 & RF3_AURA_COLD) && m_ptr->r_idx)
+					if ((tr_ptr->flags3 & RF3_AURA_COLD) && m_ptr->monster_idx)
 					{
 						if (!(r_ptr->flagsr & RFR_EFF_IM_COLD_MASK))
 						{
@@ -2049,7 +2049,7 @@ act = "%sにむかって歌った。";
 					}
 
 					/* Aura elec */
-					if ((tr_ptr->flags2 & RF2_AURA_ELEC) && m_ptr->r_idx)
+					if ((tr_ptr->flags2 & RF2_AURA_ELEC) && m_ptr->monster_idx)
 					{
 						if (!(r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK))
 						{
@@ -2147,7 +2147,7 @@ act = "%sにむかって歌った。";
 	}
 
 	/* Blink away */
-	if (blinked && m_ptr->r_idx)
+	if (blinked && m_ptr->monster_idx)
 	{
 		if (teleport_barrier(m_idx))
 		{
@@ -2190,7 +2190,7 @@ act = "%sにむかって歌った。";
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
 	return !have_flag(f_ptr->flags, FF_GLASS) ||
-	       (r_info[m_ptr->r_idx].flags2 & RF2_STUPID) ||
+	       (r_info[m_ptr->monster_idx].flags2 & RF2_STUPID) ||
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
@@ -2224,8 +2224,8 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 static void process_monster(int m_idx)
 {
 	creature_type    *m_ptr = &m_list[m_idx];
-	monster_race    *r_ptr = &r_info[m_ptr->r_idx];
-	monster_race    *ap_r_ptr = &r_info[m_ptr->ap_r_idx];
+	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race    *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
 
 	int             i, d, oy, ox, ny, nx;
 
@@ -2275,7 +2275,7 @@ static void process_monster(int m_idx)
 	if ((m_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !MON_CSLEEP(m_ptr))
 	{
 		choose_new_monster(m_idx, FALSE, 0, MONEGO_NONE);
-		r_ptr = &r_info[m_ptr->r_idx];
+		r_ptr = &r_info[m_ptr->monster_idx];
 	}
 
 	/* Players hidden in shadow are almost imperceptable. -LM- */
@@ -2290,7 +2290,7 @@ static void process_monster(int m_idx)
 	}
 
 	/* Are there its parent? */
-	if (m_ptr->parent_m_idx && !m_list[m_ptr->parent_m_idx].r_idx)
+	if (m_ptr->parent_m_idx && !m_list[m_ptr->parent_m_idx].monster_idx)
 	{
 		/* Its parent have gone, it also goes away. */
 
@@ -2370,7 +2370,7 @@ static void process_monster(int m_idx)
 		}
 	}
 
-	if (m_ptr->r_idx == MON_SHURYUUDAN)
+	if (m_ptr->monster_idx == MON_SHURYUUDAN)
 #ifdef JP
 		mon_take_hit_mon(m_idx, 1, &fear, "は爆発して粉々になった。", m_idx);
 #else
@@ -2417,7 +2417,7 @@ static void process_monster(int m_idx)
 
 				if (see_m)
 				{
-					if ((r_ptr->flags2 & RF2_CAN_SPEAK) && (m_ptr->r_idx != MON_GRIP) && (m_ptr->r_idx != MON_WOLF) && (m_ptr->r_idx != MON_FANG) &&
+					if ((r_ptr->flags2 & RF2_CAN_SPEAK) && (m_ptr->monster_idx != MON_GRIP) && (m_ptr->monster_idx != MON_WOLF) && (m_ptr->monster_idx != MON_FANG) &&
 					    player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, py, px))
 					{
 #ifdef JP
@@ -2583,7 +2583,7 @@ static void process_monster(int m_idx)
 	if (r_ptr->flags6 & RF6_SPECIAL)
 	{
 		/* Hack -- Ohmu scatters molds! */
-		if (m_ptr->r_idx == MON_OHMU)
+		if (m_ptr->monster_idx == MON_OHMU)
 		{
 			if (!p_ptr->inside_arena && !p_ptr->inside_battle)
 			{
@@ -2611,7 +2611,7 @@ static void process_monster(int m_idx)
 	if (!p_ptr->inside_battle)
 	{
 		/* Hack! "Cyber" monster makes noise... */
-		if (m_ptr->ap_r_idx == MON_CYBER &&
+		if (m_ptr->ap_monster_idx == MON_CYBER &&
 		    one_in_(CYBERNOISE) &&
 		    !m_ptr->ml && (m_ptr->cdis <= MAX_SIGHT))
 		{
@@ -2669,7 +2669,7 @@ static void process_monster(int m_idx)
 				filename = "monspeak.txt";
 #endif
 			/* Get the monster line */
-			if (get_rnd_line(filename, m_ptr->ap_r_idx, monmessage) == 0)
+			if (get_rnd_line(filename, m_ptr->ap_monster_idx, monmessage) == 0)
 			{
 				/* Say something */
 #ifdef JP
@@ -3000,7 +3000,7 @@ msg_format("%^s%s", m_name, monmessage);
 				{
 					cave_alter_feat(ny, nx, FF_BASH);
 
-					if (!m_ptr->r_idx) /* Killed by shards of glass, etc. */
+					if (!m_ptr->monster_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
 						p_ptr->update |= (PU_FLOW);
@@ -3101,7 +3101,7 @@ msg_format("%^s%s", m_name, monmessage);
 				note_spot(ny, nx);
 				lite_spot(ny, nx);
 
-				if (!m_ptr->r_idx) return;
+				if (!m_ptr->monster_idx) return;
 				/* Allow movement */
 				do_move = TRUE;
 			}
@@ -3153,7 +3153,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* A monster is in the way */
 		if (do_move && c_ptr->m_idx)
 		{
-			monster_race *z_ptr = &r_info[y_ptr->r_idx];
+			monster_race *z_ptr = &r_info[y_ptr->monster_idx];
 
 			/* Assume no movement */
 			do_move = FALSE;
@@ -3172,7 +3172,7 @@ msg_format("%^s%s", m_name, monmessage);
 					}
 
 					/* attack */
-					if (y_ptr->r_idx && (y_ptr->chp >= 0))
+					if (y_ptr->monster_idx && (y_ptr->chp >= 0))
 					{
 						if (monst_attack_monst(m_idx, c_ptr->m_idx)) return;
 
@@ -3234,7 +3234,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			cave_alter_feat(ny, nx, FF_HURT_DISI);
 
-			if (!m_ptr->r_idx) /* Killed by shards of glass, etc. */
+			if (!m_ptr->monster_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
 				p_ptr->update |= (PU_FLOW);
@@ -3694,13 +3694,13 @@ void process_monsters(void)
 	{
 		/* Access the monster */
 		m_ptr = &m_list[i];
-		r_ptr = &r_info[m_ptr->r_idx];
+		r_ptr = &r_info[m_ptr->monster_idx];
 
 		/* Handle "leaving" */
 		if (p_ptr->leaving) break;
 
 		/* Ignore "dead" monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		if (p_ptr->wild_mode) continue;
 
@@ -3884,7 +3884,7 @@ void mproc_init(void)
 		m_ptr = &m_list[i];
 
 		/* Ignore "dead" monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		for (cmi = 0; cmi < MAX_MTIMED; cmi++)
 		{
@@ -3937,7 +3937,7 @@ bool set_monster_csleep(int m_idx, int v)
 		if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
 	}
 
-	if (r_info[m_ptr->r_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
+	if (r_info[m_ptr->monster_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
 
 	return TRUE;
 }
@@ -4208,7 +4208,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 	{
 	case MTIMED_CSLEEP:
 	{
-		monster_race *r_ptr = &r_info[m_ptr->r_idx];
+		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 		/* Assume does not wake up */
 		bool test = FALSE;
@@ -4336,7 +4336,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 
 	case MTIMED_STUNNED:
 	{
-		int rlev = r_info[m_ptr->r_idx].level;
+		int rlev = r_info[m_ptr->monster_idx].level;
 
 		/* Recover from stun */
 		if (set_monster_stunned(m_idx, (randint0(10000) <= rlev * rlev) ? 0 : (MON_STUNNED(m_ptr) - 1)))
@@ -4362,7 +4362,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		if (set_monster_confused(m_idx, MON_CONFUSED(m_ptr) - randint1(r_info[m_ptr->r_idx].level / 20 + 1)))
+		if (set_monster_confused(m_idx, MON_CONFUSED(m_ptr) - randint1(r_info[m_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Message if visible */
 			if (is_seen(m_ptr))
@@ -4384,7 +4384,7 @@ static void process_monsters_mtimed_aux(int m_idx, int mtimed_idx)
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		if (set_monster_monfear(m_idx, MON_MONFEAR(m_ptr) - randint1(r_info[m_ptr->r_idx].level / 20 + 1)))
+		if (set_monster_monfear(m_idx, MON_MONFEAR(m_ptr) - randint1(r_info[m_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Visual note */
 			if (is_seen(m_ptr))
@@ -4524,7 +4524,7 @@ bool process_the_world(int num, int who, bool vs_player)
 
 	while(num--)
 	{
-		if(!m_ptr->r_idx) break;
+		if(!m_ptr->monster_idx) break;
 		process_monster(world_monster);
 
 		reset_target(m_ptr);
@@ -4584,9 +4584,9 @@ void monster_gain_exp(int m_idx, int s_idx)
 	m_ptr = &m_list[m_idx];
 
 	/* Paranoia -- Skip dead monsters */
-	if (!m_ptr->r_idx) return;
+	if (!m_ptr->monster_idx) return;
 
-	r_ptr = &r_info[m_ptr->r_idx];
+	r_ptr = &r_info[m_ptr->monster_idx];
 	s_ptr = &r_info[s_idx];
 
 	if (p_ptr->inside_battle) return;
@@ -4604,20 +4604,20 @@ void monster_gain_exp(int m_idx, int s_idx)
 		char m_name[80];
 		int old_hp = m_ptr->chp;
 		int old_mhp = m_ptr->mmhp;
-		int old_r_idx = m_ptr->r_idx;
+		int old_monster_idx = m_ptr->monster_idx;
 		byte old_sub_align = m_ptr->sub_align;
 
 		/* Hack -- Reduce the racial counter of previous monster */
 		real_r_ptr(m_ptr)->cur_num--;
 
 		monster_desc(m_name, m_ptr, 0);
-		m_ptr->r_idx = r_ptr->next_r_idx;
+		m_ptr->monster_idx = r_ptr->next_monster_idx;
 
 		/* Count the monsters on the level */
 		real_r_ptr(m_ptr)->cur_num++;
 
-		m_ptr->ap_r_idx = m_ptr->r_idx;
-		r_ptr = &r_info[m_ptr->r_idx];
+		m_ptr->ap_monster_idx = m_ptr->monster_idx;
+		r_ptr = &r_info[m_ptr->monster_idx];
 
 		set_enemy_maxhp(m_ptr);
 		set_enemy_hp(m_ptr, old_hp * 100 / old_mhp);
@@ -4647,7 +4647,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 
 					do
 					{
-						hallu_race = &r_info[randint1(max_r_idx - 1)];
+						hallu_race = &r_info[randint1(max_monster_idx - 1)];
 					}
 					while (!hallu_race->name || (hallu_race->flags1 & RF1_UNIQUE));
 
@@ -4667,7 +4667,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 				}
 			}
 
-			if (!p_ptr->image) r_info[old_r_idx].r_xtra1 |= MR1_SINKA;
+			if (!p_ptr->image) r_info[old_monster_idx].r_xtra1 |= MR1_SINKA;
 
 			/* Now you feel very close to this pet. */
 			m_ptr->parent_m_idx = 0;

@@ -433,7 +433,7 @@ errr process_pref_file_command(char *buf)
 			i = (huge)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
-			if (i >= max_r_idx) return 1;
+			if (i >= max_monster_idx) return 1;
 			r_ptr = &r_info[i];
 			if (n1 || (!(n2 & 0x80) && n2)) r_ptr->x_attr = n1; /* Allow TERM_DARK text */
 			if (n2) r_ptr->x_char = n2;
@@ -4323,7 +4323,7 @@ static void dump_aux_pet(FILE *fff)
 	{
 		creature_type *m_ptr = &m_list[i];
 
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 		if (!is_pet(m_ptr)) continue;
 		pet_settings = TRUE;
 		if (!m_ptr->nickname && (p_ptr->riding != i)) continue;
@@ -4879,10 +4879,10 @@ static void dump_aux_arena(FILE *fff)
 		{
 #ifdef JP
 			fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -p_ptr->arena_number,
-				r_name + r_info[arena_info[-1 - p_ptr->arena_number].r_idx].name);
+				r_name + r_info[arena_info[-1 - p_ptr->arena_number].monster_idx].name);
 #else
 			fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
-				r_name + r_info[arena_info[-1 - p_ptr->arena_number].r_idx].name,
+				r_name + r_info[arena_info[-1 - p_ptr->arena_number].monster_idx].name,
 				-p_ptr->arena_number, get_ordinal_number_suffix(-p_ptr->arena_number));
 #endif
 		}
@@ -4938,10 +4938,10 @@ static void dump_aux_monsters(FILE *fff)
 #endif
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_r_idx, s16b);
+	C_MAKE(who, max_monster_idx, s16b);
 
 	/* Count monster kills */
-	for (k = 1; k < max_r_idx; k++)
+	for (k = 1; k < max_monster_idx; k++)
 	{
 		monster_race *r_ptr = &r_info[k];
 
@@ -5030,7 +5030,7 @@ static void dump_aux_monsters(FILE *fff)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_r_idx, s16b);
+	C_KILL(who, max_monster_idx, s16b);
 }
 
 

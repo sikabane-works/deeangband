@@ -1739,7 +1739,7 @@ static bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, b
 	creature_type *m_ptr = &m_list[c_ptr->m_idx];
 	creature_type *caster_ptr = (who > 0) ? &m_list[who] : NULL;
 
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	char killer[80];
 
@@ -1802,7 +1802,7 @@ static bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, b
 	int ty = m_ptr->fy;
 	int tx = m_ptr->fx;
 
-	int caster_lev = (who > 0) ? r_info[caster_ptr->r_idx].level : (p_ptr->lev * 2);
+	int caster_lev = (who > 0) ? r_info[caster_ptr->monster_idx].level : (p_ptr->lev * 2);
 
 	/* Nobody here */
 	if (!c_ptr->m_idx) return (FALSE);
@@ -1810,7 +1810,7 @@ static bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, b
 	/* Never affect projector */
 	if (who && (c_ptr->m_idx == who)) return (FALSE);
 	if ((c_ptr->m_idx == p_ptr->riding) && !who && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
-	if (sukekaku && ((m_ptr->r_idx == MON_SUKE) || (m_ptr->r_idx == MON_KAKU))) return FALSE;
+	if (sukekaku && ((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
 	/* Prevents problems with chain reactions of exploding monsters */
@@ -2259,7 +2259,7 @@ note = "には耐性がある。";
 			}
 			if (m_ptr->resist_water)
 			{
-				if ((m_ptr->r_idx == MON_WATER_ELEM) || (m_ptr->r_idx == MON_UNMAKER))
+				if ((m_ptr->monster_idx == MON_WATER_ELEM) || (m_ptr->monster_idx == MON_UNMAKER))
 				{
 #ifdef JP
 					note = "には完全な耐性がある。";
@@ -3549,7 +3549,7 @@ note = "が分裂した！";
 					chg_virtue(V_NATURE, 1);
 			}
 
-			if (m_ptr->r_idx == MON_LEPER)
+			if (m_ptr->monster_idx == MON_LEPER)
 			{
 				heal_leper = TRUE;
 				if (!who) chg_virtue(V_COMPASSION, 5);
@@ -5335,7 +5335,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who <= 0) || (caster_ptr->r_idx != MON_KENSHIROU)))
+			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who <= 0) || (caster_ptr->monster_idx != MON_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5434,7 +5434,7 @@ note_dies = "はドロドロに溶けた！";
 #else
 				msg_format("You capture %^s!", m_name);
 #endif
-				cap_mon = m_ptr->r_idx;
+				cap_mon = m_ptr->monster_idx;
 				cap_speed = m_ptr->speed;
 				cap_hp = m_ptr->chp;
 				cap_mhp = m_ptr->mmhp;
@@ -5691,7 +5691,7 @@ note = "には効果がなかった！";
 				dam = 0;
 			}
 
-			photo = m_ptr->r_idx;
+			photo = m_ptr->monster_idx;
 
 			break;
 		}
@@ -5992,7 +5992,7 @@ note = "には効果がなかった。";
 			m_ptr = &m_list[c_ptr->m_idx];
 
 			/* Hack -- Get new race */
-			r_ptr = &r_info[m_ptr->r_idx];
+			r_ptr = &r_info[m_ptr->monster_idx];
 		}
 
 		/* Handle "teleport" */
@@ -6073,7 +6073,7 @@ note = "には効果がなかった。";
 				}
 			}
 
-			if (who > 0) monster_gain_exp(who, m_ptr->r_idx);
+			if (who > 0) monster_gain_exp(who, m_ptr->monster_idx);
 
 			/* Generate treasure, etc */
 			monster_death(c_ptr->m_idx, FALSE);
@@ -6228,7 +6228,7 @@ msg_print("空間が歪んだ！");
 					msg_print("Space warps about you!");
 #endif
 
-					if (m_ptr->r_idx) teleport_away(c_ptr->m_idx, damroll(10, 10), TELEPORT_PASSIVE);
+					if (m_ptr->monster_idx) teleport_away(c_ptr->m_idx, damroll(10, 10), TELEPORT_PASSIVE);
 					if (one_in_(13)) count += activate_hi_summon(ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
@@ -6306,14 +6306,14 @@ msg_print("生命力が体から吸い取られた気がする！");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the monster */
-	if (m_ptr->r_idx) update_mon(c_ptr->m_idx, FALSE);
+	if (m_ptr->monster_idx) update_mon(c_ptr->m_idx, FALSE);
 
 	/* Redraw the monster grid */
 	lite_spot(y, x);
 
 
 	/* Update monster recall window */
-	if ((p_ptr->monster_race_idx == m_ptr->r_idx) && (seen || !m_ptr->r_idx))
+	if ((p_ptr->monster_race_idx == m_ptr->monster_idx) && (seen || !m_ptr->monster_idx))
 	{
 		/* Window stuff */
 		p_ptr->window |= (PW_MONSTER);
@@ -6492,7 +6492,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* Get the source monster */
 		m_ptr = &m_list[who];
 		/* Extract the monster level */
-		rlev = (((&r_info[m_ptr->r_idx])->level >= 1) ? (&r_info[m_ptr->r_idx])->level : 1);
+		rlev = (((&r_info[m_ptr->monster_idx])->level >= 1) ? (&r_info[m_ptr->monster_idx])->level : 1);
 
 		/* Get the monster name */
 		monster_desc(m_name, m_ptr, 0);
@@ -7706,7 +7706,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(m_ptr->r_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(m_ptr->monster_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -8559,7 +8559,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 					    if (m_ptr->ml)
 					    {
 					      /* Hack -- auto-recall */
-					      if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+					      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 					      /* Hack - auto-track */
 					      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -8585,7 +8585,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+			      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -8717,7 +8717,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+			      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -9098,7 +9098,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			if (grids <= 1)
 			{
 				creature_type *m_ptr = &m_list[cave[y][x].m_idx];
-				monster_race *ref_ptr = &r_info[m_ptr->r_idx];
+				monster_race *ref_ptr = &r_info[m_ptr->monster_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
@@ -9125,9 +9125,9 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 					if (is_seen(m_ptr))
 					{
 #ifdef JP
-						if ((m_ptr->r_idx == MON_KENSHIROU) || (m_ptr->r_idx == MON_RAOU))
+						if ((m_ptr->monster_idx == MON_KENSHIROU) || (m_ptr->monster_idx == MON_RAOU))
 							msg_print("「北斗神拳奥義・二指真空把！」");
-						else if (m_ptr->r_idx == MON_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
+						else if (m_ptr->monster_idx == MON_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
 						else msg_print("攻撃は跳ね返った！");
 #else
 						msg_print("The attack bounces!");
@@ -9250,7 +9250,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 				if (m_ptr->ml)
 				{
 					/* Hack -- auto-recall */
-					if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+					if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 					/* Hack - auto-track */
 					if (m_ptr->ml) health_track(cave[y][x].m_idx);

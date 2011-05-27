@@ -59,7 +59,7 @@ void reset_visuals(void)
 	}
 
 	/* Extract default attr/char code for monsters */
-	for (i = 0; i < max_r_idx; i++)
+	for (i = 0; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 

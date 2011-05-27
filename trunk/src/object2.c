@@ -3799,9 +3799,9 @@ static void a_m_aux_3(object_type *o_ptr, int level, int power)
 /*
  * Hack -- help pick an item type
  */
-static bool item_monster_okay(int r_idx)
+static bool item_monster_okay(int monster_idx)
 {
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 
 	/* No uniques */
 	if (r_ptr->flags1 & RF1_UNIQUE) return (FALSE);
@@ -3943,7 +3943,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			/* Pick a random non-unique monster race */
 			while (1)
 			{
-				i = randint1(max_r_idx - 1);
+				i = randint1(max_monster_idx - 1);
 
 				if (!item_monster_okay(i)) continue;
 				if (i == MON_TSUCHINOKO) continue;
@@ -4053,7 +4053,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			/* Pick a random monster race */
 			while (1)
 			{
-				i = randint1(max_r_idx - 1);
+				i = randint1(max_monster_idx - 1);
 
 				r_ptr = &r_info[i];
 
@@ -6405,7 +6405,7 @@ object_type *choose_warning_item(void)
 /* Calculate spell damages */
 static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int *max)
 {
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 	int          rlev = r_ptr->level;
 	bool         ignore_wraith_form = FALSE;
 
@@ -6625,7 +6625,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		break;
 
 	case GF_CAUSE_4:
-		if ((100 + rlev / 2 <= p_ptr->skill_rob) && (m_ptr->r_idx != MON_KENSHIROU))
+		if ((100 + rlev / 2 <= p_ptr->skill_rob) && (m_ptr->monster_idx != MON_KENSHIROU))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
@@ -6743,7 +6743,7 @@ bool process_warning(int xx, int yy)
 			if (MON_CSLEEP(m_ptr)) continue;
 			if (!is_hostile(m_ptr)) continue;
 
-			r_ptr = &r_info[m_ptr->r_idx];
+			r_ptr = &r_info[m_ptr->monster_idx];
 
 			/* Monster spells (only powerful ones)*/
 			if (projectable(my, mx, yy, xx))

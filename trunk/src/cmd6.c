@@ -3958,8 +3958,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &m_list[w1];
 	creature_type *m_ptr2 = &m_list[w2];
-	monster_race *r_ptr1 = &r_info[m_ptr1->r_idx];
-	monster_race *r_ptr2 = &r_info[m_ptr2->r_idx];
+	monster_race *r_ptr1 = &r_info[m_ptr1->monster_idx];
+	monster_race *r_ptr2 = &r_info[m_ptr2->monster_idx];
 
 	/* Unused */
 	(void)v;
@@ -5227,9 +5227,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 					m_ptr = &m_list[i];
 
 					/* Ignore "dead" monsters */
-					if (!m_ptr->r_idx) continue;
+					if (!m_ptr->monster_idx) continue;
 
-					r_ptr = &r_info[m_ptr->r_idx];
+					r_ptr = &r_info[m_ptr->monster_idx];
 
 					if(r_ptr->flags1 & RF1_UNIQUE)
 					{
@@ -5556,8 +5556,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 					for (i = m_max - 1; i > 0; i--)
 					{
 						m_ptr = &m_list[i];
-						if (!m_ptr->r_idx) continue;
-						if (!((m_ptr->r_idx == MON_SUKE) || (m_ptr->r_idx == MON_KAKU))) continue;
+						if (!m_ptr->monster_idx) continue;
+						if (!((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) continue;
 						if (!los(m_ptr->fy, m_ptr->fx, py, px)) continue;
 						if (!projectable(m_ptr->fy, m_ptr->fx, py, px)) continue;
 						count++;

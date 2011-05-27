@@ -1627,9 +1627,9 @@ static void do_cmd_wiz_summon(int num)
  *
  * XXX XXX XXX This function is rather dangerous
  */
-static void do_cmd_wiz_named(int r_idx)
+static void do_cmd_wiz_named(int monster_idx)
 {
-	(void)summon_named_creature(0, py, px, r_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+	(void)summon_named_creature(0, py, px, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 }
 
 
@@ -1638,9 +1638,9 @@ static void do_cmd_wiz_named(int r_idx)
  *
  * XXX XXX XXX This function is rather dangerous
  */
-static void do_cmd_wiz_named_friendly(int r_idx)
+static void do_cmd_wiz_named_friendly(int monster_idx)
 {
-	(void)summon_named_creature(0, py, px, r_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
+	(void)summon_named_creature(0, py, px, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
 }
 
 
@@ -1659,7 +1659,7 @@ static void do_cmd_wiz_zap(void)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Paranoia -- Skip dead monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		/* Skip the mount */
 		if (i == p_ptr->riding) continue;
@@ -1694,7 +1694,7 @@ static void do_cmd_wiz_zap_all(void)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Paranoia -- Skip dead monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		/* Skip the mount */
 		if (i == p_ptr->riding) continue;

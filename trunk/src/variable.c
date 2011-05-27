@@ -731,7 +731,7 @@ alloc_entry *alloc_kind_table;
 
 
 /*
- * The size of "alloc_race_table" (at most max_r_idx)
+ * The size of "alloc_race_table" (at most max_monster_idx)
  */
 s16b alloc_race_size;
 
@@ -1083,7 +1083,7 @@ u16b max_quests;
 /*
  * Maximum number of monsters in r_info.txt
  */
-u16b max_r_idx;
+u16b max_monster_idx;
 
 /*
  * Maximum number of monsters in re_info.txt
@@ -1189,7 +1189,7 @@ u32b mon_odds[4];
 int pet_t_m_idx;
 int riding_t_m_idx;
 
-s16b kubi_r_idx[MAX_KUBI];
+s16b kubi_monster_idx[MAX_KUBI];
 s16b today_mon;
 
 bool write_level;

@@ -4178,10 +4178,10 @@
 
 /* Hack -- Determine monster race appearance index is same as race index */
 #define is_original_ap(A) \
-	 (bool)(((A)->ap_r_idx == (A)->r_idx) ? TRUE : FALSE)
+	 (bool)(((A)->ap_monster_idx == (A)->monster_idx) ? TRUE : FALSE)
 
 #define is_original_ap_and_seen(A) \
-	 (bool)((A)->ml && !p_ptr->image && ((A)->ap_r_idx == (A)->r_idx))
+	 (bool)((A)->ml && !p_ptr->image && ((A)->ap_monster_idx == (A)->monster_idx))
 
 /*
  * Is the monster seen by the player?
@@ -5511,7 +5511,7 @@ extern int PlayerUID;
 /*
  * Flags for wr_monster()/rd_monster()
  */
-#define SAVE_MON_AP_R_IDX     0x00000001
+#define SAVE_MON_AP_monster_idx     0x00000001
 #define SAVE_MON_SUB_ALIGN    0x00000002
 #define SAVE_MON_CSLEEP       0x00000004
 #define SAVE_MON_FAST         0x00000008

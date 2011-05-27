@@ -354,7 +354,7 @@ static void preserve_pet(void)
 
 	for (num = 0; num < MAX_PARTY_MON; num++)
 	{
-		party_mon[num].r_idx = 0;
+		party_mon[num].monster_idx = 0;
 	}
 
 	if (p_ptr->riding)
@@ -388,7 +388,7 @@ static void preserve_pet(void)
 		{
 			creature_type *m_ptr = &m_list[i];
 
-			if (!m_ptr->r_idx) continue;
+			if (!m_ptr->monster_idx) continue;
 			if (!is_pet(m_ptr)) continue;
 			if (i == p_ptr->riding) continue;
 
@@ -438,7 +438,7 @@ static void preserve_pet(void)
 			creature_type *m_ptr = &m_list[i];
 			char m_name[80];
 
-			if (!m_ptr->r_idx) continue;
+			if (!m_ptr->monster_idx) continue;
 			if (!is_pet(m_ptr)) continue;
 			if (!m_ptr->nickname) continue;
 			if (p_ptr->riding == i) continue;
@@ -455,7 +455,7 @@ static void preserve_pet(void)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Are there its parent? */
-		if (m_ptr->parent_m_idx && !m_list[m_ptr->parent_m_idx].r_idx)
+		if (m_ptr->parent_m_idx && !m_list[m_ptr->parent_m_idx].monster_idx)
 		{
 			/* Its parent have gone, it also goes away. */
 
@@ -495,7 +495,7 @@ void precalc_cur_num_of_pet(void)
 		m_ptr = &party_mon[i];
 
 		/* Skip empty monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		/* Hack -- Increase the racial counter */
 		real_r_ptr(m_ptr)->cur_num++;
@@ -515,7 +515,7 @@ static void place_pet(void)
 	{
 		int cy, cx, m_idx;
 
-		if (!(party_mon[i].r_idx)) continue;
+		if (!(party_mon[i].monster_idx)) continue;
 
 		if (i == 0)
 		{
@@ -536,7 +536,7 @@ static void place_pet(void)
 				for (j = 1000; j > 0; j--)
 				{
 					scatter(&cy, &cx, py, px, d, 0);
-					if (monster_can_enter(cy, cx, &r_info[party_mon[i].r_idx], 0)) break;
+					if (monster_can_enter(cy, cx, &r_info[party_mon[i].monster_idx], 0)) break;
 				}
 				if (j) break;
 			}
@@ -550,7 +550,7 @@ static void place_pet(void)
 
 			cave[cy][cx].m_idx = m_idx;
 
-			m_ptr->r_idx = party_mon[i].r_idx;
+			m_ptr->monster_idx = party_mon[i].monster_idx;
 
 			/* Copy all member of the structure */
 			*m_ptr = party_mon[i];
@@ -586,7 +586,7 @@ static void place_pet(void)
 
 			/* Hack -- Notice new multi-hued monsters */
 			{
-				monster_race *ap_r_ptr = &r_info[m_ptr->ap_r_idx];
+				monster_race *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
 				if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER))
 					shimmer_monsters = TRUE;
 			}
@@ -637,7 +637,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Skip dead monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		/* Extract real monster race */
 		r_ptr = real_r_ptr(m_ptr);
@@ -853,7 +853,7 @@ void leave_floor(void)
 	cave_type *c_ptr = NULL;
 	feature_type *f_ptr;
 	saved_floor_type *sf_ptr;
-	int quest_r_idx = 0;
+	int quest_monster_idx = 0;
 	int i;
 
 	/* Preserve pets and prepare to take these to next floor */
@@ -887,7 +887,7 @@ void leave_floor(void)
 		    (dungeon_type == quest[i].dungeon) &&
 		    !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
-			quest_r_idx = quest[i].r_idx;
+			quest_monster_idx = quest[i].monster_idx;
 		}
 	}
 
@@ -898,10 +898,10 @@ void leave_floor(void)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Skip dead monsters */
-		if (!m_ptr->r_idx) continue;
+		if (!m_ptr->monster_idx) continue;
 
 		/* Only maintain quest monsters */
-		if (quest_r_idx != m_ptr->r_idx) continue;
+		if (quest_monster_idx != m_ptr->monster_idx) continue;
 
 		/* Extract real monster race */
 		r_ptr = real_r_ptr(m_ptr);
@@ -1214,7 +1214,7 @@ void change_floor(void)
 				creature_type *m_ptr = &m_list[i];
 
 				/* Skip dead monsters */
-				if (!m_ptr->r_idx) continue;
+				if (!m_ptr->monster_idx) continue;
 
 				if (!is_pet(m_ptr))
 				{

@@ -356,7 +356,7 @@ struct monster_race
 
 	monster_blow blow[4];	/* Up to four blows per round */
 
-	s16b next_r_idx;
+	s16b next_monster_idx;
 	u32b next_exp;
 
 	byte level;				/* Level of creature */
@@ -687,7 +687,7 @@ struct quest_type
 
 	char name[60];          /* Quest name */
 	s16b level;             /* Dungeon level */
-	s16b r_idx;             /* Monster race */
+	s16b monster_idx;             /* Monster race */
 
 	s16b cur_num;           /* Number killed */
 	s16b max_num;           /* Number required */
@@ -1078,9 +1078,9 @@ struct creature_type
 	s16b oldpx;		/* Previous player location -KMW- */
 
 	s16b race;			    /* Intelligence race index */
-	s16b r_idx;			    /* Monster race index */
+	s16b monster_idx;			    /* Monster race index */
 	s16b re_idx;		    /* Monster ego index */
-	s16b ap_r_idx;		    /* Monster race appearance index */
+	s16b ap_monster_idx;		    /* Monster race appearance index */
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
 	u32b sub_race[8];       /* Sub-Race index */
 	s16b sex;				/* Sex index */
@@ -1706,7 +1706,7 @@ struct tag_type
 	void    *pointer;
 };
 
-typedef bool (*monster_hook_type)(int r_idx);
+typedef bool (*monster_hook_type)(int monster_idx);
 
 
 /*
@@ -1870,7 +1870,7 @@ typedef struct
  */
 typedef struct
 {
-	s16b r_idx; /* Monster (0 means victory prizing) */
+	s16b monster_idx; /* Monster (0 means victory prizing) */
 	byte tval;  /* tval of prize (0 means no prize) */
 	byte sval;  /* sval of prize */
 } arena_type;

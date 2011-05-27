@@ -1111,7 +1111,7 @@ static bool cast_force_spell(int spell)
 			int oy = y, ox = x;
 			int m_idx = cave[y][x].m_idx;
 			creature_type *m_ptr = &m_list[m_idx];
-			monster_race *r_ptr = &r_info[m_ptr->r_idx];
+			monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 			char m_name[80];
 
 			monster_desc(m_name, m_ptr, 0);
@@ -1713,13 +1713,13 @@ msg_print("その方向にはモンスターはいません。");
 		/* Redraw the new grid */
 		lite_spot(ty, tx);
 
-		if (r_info[m_ptr->r_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+		if (r_info[m_ptr->monster_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 			p_ptr->update |= (PU_MON_LITE);
 
 		if (m_ptr->ml)
 		{
 			/* Auto-Recall if possible and visible */
-			if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+			if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 			/* Track a new monster */
 			health_track(m_idx);

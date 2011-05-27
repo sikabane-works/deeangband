@@ -644,7 +644,7 @@ static void image_monster(byte *ap, char *cp)
 	/* Random symbol from set above */
 	if (use_graphics)
 	{
-		monster_race *r_ptr = &r_info[randint1(max_r_idx - 1)];
+		monster_race *r_ptr = &r_info[randint1(max_monster_idx - 1)];
 
 		*cp = r_ptr->x_char;
 		*ap = r_ptr->x_attr;
@@ -1231,7 +1231,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		/* Visible monster */
 		if (m_ptr->ml)
 		{
-			monster_race *r_ptr = &r_info[m_ptr->ap_r_idx];
+			monster_race *r_ptr = &r_info[m_ptr->ap_monster_idx];
 
 			feat_priority = 30;
 
@@ -1320,7 +1320,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					{
 						if (use_graphics)
 						{
-							monster_race *tmp_r_ptr = &r_info[randint1(max_r_idx - 1)];
+							monster_race *tmp_r_ptr = &r_info[randint1(max_monster_idx - 1)];
 							*cp = tmp_r_ptr->x_char;
 							*ap = tmp_r_ptr->x_attr;
 						}
@@ -3030,10 +3030,10 @@ void update_mon_lite(void)
 		for (i = 1; i < m_max; i++)
 		{
 			m_ptr = &m_list[i];
-			r_ptr = &r_info[m_ptr->r_idx];
+			r_ptr = &r_info[m_ptr->monster_idx];
 
 			/* Skip dead monsters */
-			if (!m_ptr->r_idx) continue;
+			if (!m_ptr->monster_idx) continue;
 
 			/* Is it too far away? */
 			if (m_ptr->cdis > dis_lim) continue;
@@ -4993,10 +4993,10 @@ void health_track(int m_idx)
 /*
  * Hack -- track the given monster race
  */
-void monster_race_track(int r_idx)
+void monster_race_track(int monster_idx)
 {
 	/* Save this monster ID */
-	p_ptr->monster_race_idx = r_idx;
+	p_ptr->monster_race_idx = monster_idx;
 
 	/* Window stuff */
 	p_ptr->window |= (PW_MONSTER);

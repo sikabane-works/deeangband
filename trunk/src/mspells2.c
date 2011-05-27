@@ -23,7 +23,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Determine the radius of the blast */
 	if (rad < 1 && breath) rad = (r_ptr->flags2 & RF2_POWERFUL) ? 3 : 2;
@@ -304,7 +304,7 @@ bool monst_spell_monst(int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	creature_type *t_ptr = NULL;
 
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 	monster_race *tr_ptr = NULL;
 
 	u32b f4, f5, f6;
@@ -404,7 +404,7 @@ bool monst_spell_monst(int m_idx)
 			t_ptr = &m_list[t_idx];
 
 			/* Skip dead monsters */
-			if (!t_ptr->r_idx) continue;
+			if (!t_ptr->monster_idx) continue;
 
 			/* Monster must be 'an enemy' */
 			if ((m_idx == t_idx) || !are_enemies(m_ptr, t_ptr)) continue;
@@ -425,7 +425,7 @@ bool monst_spell_monst(int m_idx)
 	/* OK -- we've got a target */
 	y = t_ptr->fy;
 	x = t_ptr->fx;
-	tr_ptr = &r_info[t_ptr->r_idx];
+	tr_ptr = &r_info[t_ptr->monster_idx];
 
 	/* Forget old counter attack target */
 	reset_target(m_ptr);
@@ -445,7 +445,7 @@ bool monst_spell_monst(int m_idx)
 	/* Remove unimplemented special moves */
 	if (f6 & RF6_SPECIAL)
 	{
-		if ((m_ptr->r_idx != MON_ROLENTO) && (r_ptr->d_char != 'B'))
+		if ((m_ptr->monster_idx != MON_ROLENTO) && (r_ptr->d_char != 'B'))
 			f6 &= ~(RF6_SPECIAL);
 	}
 
@@ -478,7 +478,7 @@ bool monst_spell_monst(int m_idx)
 		f5 &= ~(RF5_SUMMON_MASK);
 		f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
 
-		if (m_ptr->r_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
+		if (m_ptr->monster_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
 
 	if (p_ptr->inside_battle && !one_in_(3))
@@ -602,7 +602,7 @@ bool monst_spell_monst(int m_idx)
 		/* Special moves restriction */
 		if (f6 & RF6_SPECIAL)
 		{
-			if (m_ptr->r_idx == MON_ROLENTO)
+			if (m_ptr->monster_idx == MON_ROLENTO)
 			{
 				if ((p_ptr->pet_extra_flags & (PF_ATTACK_SPELL | PF_SUMMON_SPELL)) != (PF_ATTACK_SPELL | PF_SUMMON_SPELL))
 					f6 &= ~(RF6_SPECIAL);
@@ -660,7 +660,7 @@ bool monst_spell_monst(int m_idx)
 		/* Special moves restriction */
 		if (f6 & RF6_SPECIAL)
 		{
-			if ((m_ptr->r_idx == MON_ROLENTO) && !summon_possible(t_ptr->fy, t_ptr->fx))
+			if ((m_ptr->monster_idx == MON_ROLENTO) && !summon_possible(t_ptr->fy, t_ptr->fx))
 			{
 				f6 &= ~(RF6_SPECIAL);
 			}
@@ -1286,7 +1286,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->r_idx == MON_JAIAN)
+				if (m_ptr->monster_idx == MON_JAIAN)
 #ifdef JP
 					msg_format("「ボォエ～～～～～～」");
 #else
@@ -1579,7 +1579,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->r_idx == MON_BOTEI)
+				if (m_ptr->monster_idx == MON_BOTEI)
 #ifdef JP
 					msg_format("「ボ帝ビルカッター！！！」");
 #else
@@ -1982,7 +1982,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->r_idx == MON_ROLENTO)
+				if (m_ptr->monster_idx == MON_ROLENTO)
 				{
 #ifdef JP
 					if (blind)
@@ -3176,8 +3176,8 @@ bool monst_spell_monst(int m_idx)
 	case 160+6:
 #if 0
 		int who = 0;
-		if(m_ptr->r_idx = MON_DIO) who == 1;
-		else if(m_ptr->r_idx = MON_WONG) who == 3;
+		if(m_ptr->monster_idx = MON_DIO) who == 1;
+		else if(m_ptr->monster_idx = MON_WONG) who == 3;
 		dam = who;
 		if(!process_the_world(randint1(2)+2, who, player_has_los_bold(m_ptr->fy, m_ptr->fx))) return (FALSE);
 #endif
@@ -3185,7 +3185,7 @@ bool monst_spell_monst(int m_idx)
 
 	/* RF6_SPECIAL */
 	case 160+7:
-		switch (m_ptr->r_idx)
+		switch (m_ptr->monster_idx)
 		{
 		case MON_OHMU:
 			/* Moved to process_monster(), like multiplication */
@@ -3620,7 +3620,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->r_idx == MON_SERPENT || m_ptr->r_idx == MON_ZOMBI_SERPENT)
+				if (m_ptr->monster_idx == MON_SERPENT || m_ptr->monster_idx == MON_ZOMBI_SERPENT)
 				{
 #ifdef JP
 					msg_format("%^sがダンジョンの主を召喚した。", m_name);
@@ -3646,7 +3646,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		switch (m_ptr->r_idx)
+		switch (m_ptr->monster_idx)
 		{
 		case MON_MENELDOR:
 		case MON_GWAIHIR:

@@ -3232,7 +3232,7 @@ static void player_wipe(void)
 		quest[i].max_num = 0;
 		quest[i].type = 0;
 		quest[i].level = 0;
-		quest[i].r_idx = 0;
+		quest[i].monster_idx = 0;
 		quest[i].complev = 0;
 	}
 
@@ -3261,7 +3261,7 @@ static void player_wipe(void)
 	k_info_reset();
 
 	/* Reset the "monsters" */
-	for (i = 1; i < max_r_idx; i++)
+	for (i = 1; i < max_monster_idx; i++)
 	{
 		monster_race *r_ptr = &r_info[i];
 
@@ -3400,9 +3400,9 @@ static void player_wipe(void)
 /*
  *  Hook function for quest monsters
  */
-static bool mon_hook_quest(int r_idx)
+static bool mon_hook_quest(int monster_idx)
 {
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 
 	/* Random quests are in the dungeon */
 	if (r_ptr->flags8 & RF8_WILD_ONLY) return FALSE;
@@ -3425,7 +3425,7 @@ static bool mon_hook_quest(int r_idx)
  */
 void determine_random_questor(quest_type *q_ptr)
 {
-	int          r_idx;
+	int          monster_idx;
 	monster_race *r_ptr;
 
 	/* Prepare allocation table */
@@ -3437,8 +3437,8 @@ void determine_random_questor(quest_type *q_ptr)
 		 * Random monster 5 - 10 levels out of depth
 		 * (depending on level)
 		 */
-		r_idx = get_mon_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
-		r_ptr = &r_info[r_idx];
+		monster_idx = get_mon_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
+		r_ptr = &r_info[monster_idx];
 
 		if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
 
@@ -3452,7 +3452,7 @@ void determine_random_questor(quest_type *q_ptr)
 
 		if (r_ptr->flags8 & RF8_WILD_ONLY) continue;
 
-		if (no_questor_or_bounty_uniques(r_idx)) continue;
+		if (no_questor_or_bounty_uniques(monster_idx)) continue;
 
 		/*
 		 * Accept monsters that are 2 - 6 levels
@@ -3461,7 +3461,7 @@ void determine_random_questor(quest_type *q_ptr)
 		if (r_ptr->level > (q_ptr->level + (q_ptr->level / 20))) break;
 	}
 
-	q_ptr->r_idx = r_idx;
+	q_ptr->monster_idx = monster_idx;
 }
 
 
@@ -3491,7 +3491,7 @@ static void init_dungeon_quests(void)
 		determine_random_questor(q_ptr);
 
 		/* Mark uniques */
-		quest_r_ptr = &r_info[q_ptr->r_idx];
+		quest_r_ptr = &r_info[q_ptr->monster_idx];
 		quest_r_ptr->flags1 |= RF1_QUESTOR;
 
 		q_ptr->max_num = 1;
@@ -3803,9 +3803,9 @@ static byte player_init[MAX_CLASS][3][2] =
 /*
  * Hook function for human corpses
  */
-static bool monster_hook_human(int r_idx)
+static bool monster_hook_human(int monster_idx)
 {
-	monster_race *r_ptr = &r_info[r_idx];
+	monster_race *r_ptr = &r_info[monster_idx];
 
 	if (r_ptr->flags1 & (RF1_UNIQUE)) return FALSE;
 

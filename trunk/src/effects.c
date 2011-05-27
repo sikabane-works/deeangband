@@ -5268,7 +5268,7 @@ int take_hit(int damage_type, int damage, cptr hit_from, int monspell)
 
 		if (p_ptr->inside_arena)
 		{
-			cptr m_name = r_name+r_info[arena_info[p_ptr->arena_number].r_idx].name;
+			cptr m_name = r_name+r_info[arena_info[p_ptr->arena_number].monster_idx].name;
 #ifdef JP
 			msg_format("‚ ‚È‚½‚Í%s‚Ì‘O‚É”s‚ê‹‚Á‚½B", m_name);
 #else

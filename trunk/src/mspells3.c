@@ -1357,7 +1357,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(py, px, target_row, target_col)) break;
 		m_ptr = &m_list[cave[target_row][target_col].m_idx];
-		r_ptr = &r_info[m_ptr->r_idx];
+		r_ptr = &r_info[m_ptr->monster_idx];
 		monster_desc(m_name, m_ptr, 0);
 		if (r_ptr->flagsr & RFR_RES_TELE)
 		{
@@ -1411,7 +1411,7 @@ msg_format("%sを引き戻した。", m_name);
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(py, px, target_row, target_col)) break;
 		m_ptr = &m_list[target_m_idx];
-		r_ptr = &r_info[m_ptr->r_idx];
+		r_ptr = &r_info[m_ptr->monster_idx];
 		monster_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%^sの足を指さした。", m_name);

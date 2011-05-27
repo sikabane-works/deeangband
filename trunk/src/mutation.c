@@ -3752,7 +3752,7 @@ bool mutation_power_aux(u32b power)
 				}
 
 				m_ptr = &m_list[c_ptr->m_idx];
-				r_ptr = &r_info[m_ptr->r_idx];
+				r_ptr = &r_info[m_ptr->monster_idx];
 
 				if ((r_ptr->flags3 & RF3_EVIL) &&
 				    !(r_ptr->flags1 & RF1_QUESTOR) &&

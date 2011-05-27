@@ -2978,7 +2978,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 {
 	int mult = 10;
 
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -3208,7 +3208,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				if (mult < 30) mult = 30;
 
 				if ((o_ptr->name1 == ART_BARD_ARROW) &&
-				    (m_ptr->r_idx == MON_SMAUG) &&
+				    (m_ptr->monster_idx == MON_SMAUG) &&
 				    (p_ptr->inventory[INVEN_BOW].name1 == ART_BARD))
 					mult *= 5;
 			}
@@ -3653,7 +3653,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			cave_type *c_ptr = &cave[y][x];
 
 			creature_type *m_ptr = &m_list[c_ptr->m_idx];
-			monster_race *r_ptr = &r_info[m_ptr->r_idx];
+			monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->ml;
@@ -3685,7 +3685,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			if (p_ptr->riding)
 			{
 				if ((p_ptr->skill_exp[GINOU_RIDING] < s_info[p_ptr->class].s_max[GINOU_RIDING])
-					&& ((p_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[p_ptr->riding].r_idx].level)
+					&& ((p_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[p_ptr->riding].monster_idx].level)
 					&& one_in_(2))
 				{
 					p_ptr->skill_exp[GINOU_RIDING] += 1;
@@ -3740,7 +3740,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 					if (m_ptr->ml)
 					{
 						/* Hack -- Track this monster race */
-						if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+						if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 						/* Hack -- Track this monster */
 						health_track(c_ptr->m_idx);
@@ -4377,7 +4377,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 			cave_type *c_ptr = &cave[y][x];
 
 			creature_type *m_ptr = &m_list[c_ptr->m_idx];
-			monster_race *r_ptr = &r_info[m_ptr->r_idx];
+			monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->ml;
@@ -4420,7 +4420,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 					if (m_ptr->ml)
 					{
 						/* Hack -- Track this monster race */
-						if (!p_ptr->image) monster_race_track(m_ptr->ap_r_idx);
+						if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
 
 						/* Hack -- Track this monster */
 						health_track(c_ptr->m_idx);

@@ -144,7 +144,7 @@ bool make_attack_normal(int m_idx)
 {
 	creature_type *m_ptr = &m_list[m_idx];
 
-	monster_race *r_ptr = &r_info[m_ptr->r_idx];
+	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
 	int ap_cnt;
 
@@ -223,7 +223,7 @@ bool make_attack_normal(int m_idx)
 		int d_side = r_ptr->blow[ap_cnt].d_side;
 
 
-		if (!m_ptr->r_idx) break;
+		if (!m_ptr->monster_idx) break;
 
 		/* Hack -- no more attacks */
 		if (!method) break;
@@ -568,7 +568,7 @@ bool make_attack_normal(int m_idx)
 #ifdef JP
 					abbreviate = -1;
 #endif
-					act = desc_insult[randint0(m_ptr->r_idx == MON_DEBBY ? 10 : 8)];
+					act = desc_insult[randint0(m_ptr->monster_idx == MON_DEBBY ? 10 : 8)];
 					sound(SOUND_MOAN);
 					break;
 				}
@@ -588,7 +588,7 @@ bool make_attack_normal(int m_idx)
 #ifdef JP
 					abbreviate = -1;
 #endif
-					if (m_ptr->r_idx == MON_JAIAN)
+					if (m_ptr->monster_idx == MON_JAIAN)
 					{
 #ifdef JP
 						switch(randint1(15))
@@ -1256,7 +1256,7 @@ bool make_attack_normal(int m_idx)
 						if (set_blind(p_ptr->blind + 10 + randint1(rlev)))
 						{
 #ifdef JP
-							if (m_ptr->r_idx == MON_DIO) msg_print("どうだッ！この血の目潰しはッ！");
+							if (m_ptr->monster_idx == MON_DIO) msg_print("どうだッ！この血の目潰しはッ！");
 #else
 							/* nanka */
 #endif

@@ -528,7 +528,7 @@ extern bool monk_notify_aux;
 extern wilderness_type **wilderness;
 extern building_type building[MAX_BLDG];
 extern u16b max_quests;
-extern u16b max_r_idx;
+extern u16b max_monster_idx;
 extern u16b max_re_idx;
 extern u16b max_k_idx;
 extern u16b max_v_idx;
@@ -562,7 +562,7 @@ extern int kakekin;
 extern u32b mon_odds[4];
 extern int pet_t_m_idx;
 extern int riding_t_m_idx;
-extern s16b kubi_r_idx[MAX_KUBI];
+extern s16b kubi_monster_idx[MAX_KUBI];
 extern s16b today_mon;
 extern bool write_level;
 extern u32b playtime;
@@ -703,7 +703,7 @@ extern void mmove2(int *y, int *x, int y1, int x1, int y2, int x2);
 extern bool projectable(int y1, int x1, int y2, int x2);
 extern void scatter(int *yp, int *xp, int y, int x, int d, int mode);
 extern void health_track(int m_idx);
-extern void monster_race_track(int r_idx);
+extern void monster_race_track(int monster_idx);
 extern void object_kind_track(int k_idx);
 extern void disturb(int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(void);
@@ -965,12 +965,12 @@ extern bool process_the_world(int num, int who, bool vs_player);
 extern void monster_gain_exp(int m_idx, int s_idx);
 
 /* monster1.c */
-extern void roff_top(int r_idx);
-extern void screen_roff(int r_idx, int mode);
-extern void display_roff(int r_idx);
-extern void output_monster_spoiler(int r_idx, void (*roff_func)(byte attr, cptr str));
+extern void roff_top(int monster_idx);
+extern void screen_roff(int monster_idx, int mode);
+extern void display_roff(int monster_idx);
+extern void output_monster_spoiler(int monster_idx, void (*roff_func)(byte attr, cptr str));
 extern void create_name(int type, char *name);
-extern bool mon_hook_dungeon(int r_idx);
+extern bool mon_hook_dungeon(int monster_idx);
 
 extern monster_hook_type get_monster_hook(void);
 extern monster_hook_type get_monster_hook2(int y, int x);
@@ -983,7 +983,7 @@ extern bool monster_can_enter(int y, int x, monster_race *r_ptr, u16b mode);
 extern bool are_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, monster_race *r_ptr);
 extern bool monster_living(monster_race *r_ptr);
-extern bool no_questor_or_bounty_uniques(int r_idx);
+extern bool no_questor_or_bounty_uniques(int monster_idx);
 
 
 /* monster2.c */
@@ -1002,22 +1002,22 @@ extern errr get_mon_num_prep(monster_hook_type monster_hook, monster_hook_type m
 extern s16b get_mon_num(int level);
 extern void monster_desc(char *desc, creature_type *m_ptr, int mode);
 extern void monster_desc_ego(char *desc, creature_type *m_ptr, monster_race *r_ptr);
-extern int lore_do_probe(int r_idx);
+extern int lore_do_probe(int monster_idx);
 extern void lore_treasure(int m_idx, int num_item, int num_gold);
 extern void sanity_blast(creature_type *m_ptr, bool necro);
 extern void update_mon(int m_idx, bool full);
 extern void update_monsters(bool full);
-extern bool place_monster_aux(int who, int y, int x, int r_idx, u32b mode);
+extern bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode);
 extern bool place_monster(int y, int x, u32b mode);
 extern bool alloc_horde(int y, int x);
 extern bool alloc_guardian(bool def_val);
 extern bool alloc_monster(int dis, u32b mode);
 extern bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode);
-extern bool summon_named_creature (int who, int oy, int ox, int r_idx, u32b mode);
+extern bool summon_named_creature (int who, int oy, int ox, int monster_idx, u32b mode);
 extern bool multiply_monster(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(int m_idx, int what);
 extern int  mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr);
-extern void choose_new_monster(int m_idx, bool born, int r_idx, int re_idx);
+extern void choose_new_monster(int m_idx, bool born, int monster_idx, int re_idx);
 extern bool player_place(int y, int x);
 extern void monster_drop_carried_objects(creature_type *m_ptr);
 
@@ -1310,8 +1310,8 @@ extern void store_init(int town_num, int store_num);
 extern void move_to_black_market(object_type * o_ptr);
 
 /* bldg.c */
-extern bool get_nightmare(int r_idx);
-extern void have_nightmare(int r_idx);
+extern bool get_nightmare(int monster_idx);
+extern void have_nightmare(int monster_idx);
 extern void battle_monsters(void);
 extern void do_cmd_bldg(void);
 extern void do_cmd_quest(void);
