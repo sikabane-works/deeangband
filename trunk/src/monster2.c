@@ -3156,12 +3156,19 @@ static void mon_equip(creature_type *m_ptr)
 
 	if(m_ptr->irace_idx != RACE_NONE)
 	{
-		make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE);
-		make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY);
-		make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER);
-		make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD);
-		make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS);
-		make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET);
+		if(!m_ptr->inventory[INVEN_LITE].k_idx) make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE);
+
+		if(!m_ptr->inventory[INVEN_BODY].k_idx) make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY);
+		if(!m_ptr->inventory[INVEN_OUTER].k_idx) make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER);
+		if(!m_ptr->inventory[INVEN_HEAD].k_idx) make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD);
+		if(!m_ptr->inventory[INVEN_HANDS].k_idx) make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS);
+		if(!m_ptr->inventory[INVEN_FEET].k_idx) make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET);
+
+		if(!m_ptr->inventory[INVEN_RIGHT].k_idx) make_object(&m_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING);
+		if(!m_ptr->inventory[INVEN_LEFT].k_idx) make_object(&m_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING);
+
+		if(!m_ptr->inventory[INVEN_NECK].k_idx) make_object(&m_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET);
+
 	}
 
 }

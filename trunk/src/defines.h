@@ -3562,13 +3562,15 @@
 /*
  *  Bit flags for get_obj_num()
  */
-#define GON_ARMS   0x00000001  /* Select in hand weapons */
-#define GON_BODY   0x00000002  /* Select in body equipment */
-#define GON_HEAD   0x00000004  /* Select in head equipment */
-#define GON_FEET   0x00000008  /* Select in feets equipment */
-#define GON_LITE   0x00000010
-#define GON_OUTER  0x00000020
-#define GON_HANDS  0x00000040
+#define GON_ARMS     0x00000001  /* Select in hand weapons */
+#define GON_BODY     0x00000002  /* Select in body equipment */
+#define GON_HEAD     0x00000004  /* Select in head equipment */
+#define GON_FEET     0x00000008  /* Select in feets equipment */
+#define GON_LITE     0x00000010
+#define GON_OUTER    0x00000020
+#define GON_HANDS    0x00000040
+#define GON_RING    0x00000080
+#define GON_AMULET   0x00000100
 
 
 /*** Monster blow constants ***/

@@ -687,6 +687,18 @@ s16b get_obj_num(int level, u32b flag)
 				continue;
 		}
 
+		if(flag & GON_RING)
+		{
+			if(k_ptr->tval != TV_RING)
+				continue;
+		}
+
+		if(flag & GON_AMULET)
+		{
+			if(k_ptr->tval != TV_AMULET)
+				continue;
+		}
+
 		/* Hack -- prevent embedded chests */
 		if (opening_chest && (k_ptr->tval == TV_CHEST)) continue;
 
