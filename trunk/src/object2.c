@@ -606,7 +606,7 @@ static errr get_obj_num_prep(void)
  * Note that if no objects are "appropriate", then this function will
  * fail, and return zero, but this should *almost* never happen.
  */
-s16b get_obj_num(int level)
+s16b get_obj_num(int level, u32b flag)
 {
 	int             i, j, p;
 	int             k_idx;
@@ -635,6 +635,8 @@ s16b get_obj_num(int level)
 	{
 		/* Objects are sorted by depth */
 		if (table[i].level > level) break;
+
+		
 
 		/* Default */
 		table[i].prob3 = 0;
@@ -4599,7 +4601,7 @@ bool make_object(object_type *j_ptr, u32b mode)
 		if (get_obj_num_hook) get_obj_num_prep();
 
 		/* Pick a random object */
-		k_idx = get_obj_num(base);
+		k_idx = get_obj_num(base, 0);
 
 		/* Restricted objects */
 		if (get_obj_num_hook)

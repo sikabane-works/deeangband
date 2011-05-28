@@ -2044,7 +2044,7 @@ static void store_create(void)
 			level = 25 + randint0(25);
 
 			/* Random item (usually of given level) */
-			i = get_obj_num(level);
+			i = get_obj_num(level, 0);
 
 			/* Handle failure */
 			if (!i) continue;

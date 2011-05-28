@@ -3559,7 +3559,6 @@
 #define AM_SPECIAL      0x00000008 /* Generate artifacts (for debug mode only) */
 #define AM_CURSED       0x00000010 /* Generate cursed/worthless items */
 
-
 /*** Monster blow constants ***/
 
 
