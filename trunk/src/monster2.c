@@ -3087,6 +3087,10 @@ static void mon_equip(creature_type *m_ptr)
 {
 	int i, number;
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	u32b mo_mode = 0L;
+
+	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
 	/* Average dungeon and monster levels */
 	object_level = (dun_level + r_ptr->level) / 2;
@@ -3107,15 +3111,11 @@ static void mon_equip(creature_type *m_ptr)
 	/* Drop some objects */
 	for (i = 0; i < number; i++)
 	{
-		u32b mo_mode = 0L;
-		if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-		if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
-
 		/* Wipe the object */
 		object_wipe(&m_ptr->inventory[i]);
 
 		/* Make an object */
-		if (!make_object(&m_ptr->inventory[i], mo_mode)) continue;
+		if (!make_object(&m_ptr->inventory[i], mo_mode, 0)) continue;
 
 		/* Drop it in the dungeon */
 	}
@@ -3152,6 +3152,16 @@ static void mon_equip(creature_type *m_ptr)
 			if(r != INVEN_NULL)
 				m_ptr->inventory[r] = ob;
 		}
+	}
+
+	if(m_ptr->irace_idx != RACE_NONE)
+	{
+		make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE);
+		make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY);
+		make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER);
+		make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD);
+		make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS);
+		make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET);
 	}
 
 }

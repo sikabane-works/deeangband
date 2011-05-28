@@ -636,8 +636,6 @@ s16b get_obj_num(int level, u32b flag)
 		/* Objects are sorted by depth */
 		if (table[i].level > level) break;
 
-		
-
 		/* Default */
 		table[i].prob3 = 0;
 
@@ -646,6 +644,48 @@ s16b get_obj_num(int level, u32b flag)
 
 		/* Access the actual kind */
 		k_ptr = &k_info[k_idx];
+
+		if(flag & GON_ARMS)
+		{
+			if(k_ptr->tval != TV_HAFTED || k_ptr->tval != TV_HAFTED || k_ptr->tval != TV_HAFTED)
+				continue;
+		}
+
+		if(flag & GON_BODY)
+		{
+			if(k_ptr->tval != TV_SOFT_ARMOR || k_ptr->tval != TV_HARD_ARMOR || k_ptr->tval != TV_DRAG_ARMOR)
+				continue;
+		}
+
+		if(flag & GON_FEET)
+		{
+			if(k_ptr->tval != TV_BOOTS)
+				continue;
+		}
+
+		if(flag & GON_HANDS)
+		{
+			if(k_ptr->tval != TV_GLOVES)
+				continue;
+		}
+
+		if(flag & GON_HEAD)
+		{
+			if(k_ptr->tval != TV_HELM || k_ptr->tval != TV_CROWN)
+				continue;
+		}
+
+		if(flag & GON_LITE)
+		{
+			if(k_ptr->tval != TV_LITE)
+				continue;
+		}
+
+		if(flag & GON_OUTER)
+		{
+			if(k_ptr->tval != TV_CLOAK)
+				continue;
+		}
 
 		/* Hack -- prevent embedded chests */
 		if (opening_chest && (k_ptr->tval == TV_CHEST)) continue;
@@ -4572,7 +4612,7 @@ static bool kind_is_good(int k_idx)
  *
  * We assume that the given object has been "wiped".
  */
-bool make_object(object_type *j_ptr, u32b mode)
+bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode)
 {
 	int prob, base;
 	byte obj_level;
@@ -4601,7 +4641,7 @@ bool make_object(object_type *j_ptr, u32b mode)
 		if (get_obj_num_hook) get_obj_num_prep();
 
 		/* Pick a random object */
-		k_idx = get_obj_num(base, 0);
+		k_idx = get_obj_num(base, gon_mode);
 
 		/* Restricted objects */
 		if (get_obj_num_hook)
@@ -4689,7 +4729,7 @@ void place_object(int y, int x, u32b mode)
 	object_wipe(q_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(q_ptr, mode)) return;
+	if (!make_object(q_ptr, mode, 0)) return;
 
 
 	/* Make an object */
@@ -5259,7 +5299,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if (!make_object(i_ptr, mode)) continue;
+		if (!make_object(i_ptr, mode, 0)) continue;
 
 		if (known)
 		{
