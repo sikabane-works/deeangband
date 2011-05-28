@@ -1024,8 +1024,14 @@
 #define CHARA_GAMAN	  10
 #define CHARA_MUNCHKIN  11
 #define CHARA_CHARGEMAN 12
+#define CHARA_POWERLESS 13
+#define CHARA_IGNORANT 14
+#define CHARA_IMBECILE 15
+#define CHARA_SLOWWITTED 16
+#define CHARA_WEAK 17
+#define CHARA_UGLY 18
 
-#define MAX_CHARA       13
+#define MAX_CHARA       19
 
 #define CHARA_NONE     255
 
