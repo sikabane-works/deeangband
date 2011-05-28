@@ -5413,9 +5413,9 @@ note_dies = "‚Íƒhƒƒhƒ‚É—n‚¯‚½I";
 
 			if (is_pet(m_ptr)) nokori_hp = m_ptr->mhp * 4L;
 			else if ((p_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(r_ptr))
-				nokori_hp = m_ptr->mhp * 3 / 10;
+				nokori_hp = (m_ptr->mhp * 3 / 10) > (p_ptr->lev * 2) ? (m_ptr->mhp * 3 / 10) : (p_ptr->lev * 2);
 			else
-				nokori_hp = m_ptr->mhp * 3 / 20;
+				nokori_hp = (m_ptr->mhp * 3 / 20) > (p_ptr->lev * 3 / 2) ? (m_ptr->mhp * 3 / 10) : (p_ptr->lev * 3 / 2);
 
 			if (m_ptr->chp >= nokori_hp)
 			{
