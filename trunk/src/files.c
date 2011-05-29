@@ -2326,13 +2326,13 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		break;
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
-		if ((cr_ptr->lev > 9) && !heavy_armor())
+		if ((cr_ptr->lev > 9) && !heavy_armor(cr_ptr))
 			add_flag(flgs, TR_SPEED);
-		if ((cr_ptr->lev>24) && !heavy_armor())
+		if ((cr_ptr->lev>24) && !heavy_armor(cr_ptr))
 			add_flag(flgs, TR_FREE_ACT);
 		break;
 	case CLASS_NINJA:
-		if (heavy_armor())
+		if (heavy_armor(cr_ptr))
 			add_flag(flgs, TR_SPEED);
 		else
 		{

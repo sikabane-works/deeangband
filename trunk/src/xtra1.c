@@ -3434,7 +3434,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 			/* Unencumbered Monks become faster every 10 levels */
-			if (!(heavy_armor()))
+			if (!(heavy_armor(cr_ptr)))
 			{
 				if (!(race_is_(cr_ptr, RACE_KLACKON) ||
 				      race_is_(cr_ptr, RACE_SPRITE) ||
@@ -3479,7 +3479,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			break;
 		case CLASS_NINJA:
 			/* Unencumbered Ninjas become faster every 10 levels */
-			if (heavy_armor())
+			if (heavy_armor(cr_ptr))
 			{
 				new_speed -= (cr_ptr->lev) / 10;
 				cr_ptr->skill_stl -= (cr_ptr->lev)/10;
@@ -4351,7 +4351,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->cursed & TRC_TELEPORT) cr_ptr->cursed &= ~(TRC_TELEPORT_SELF);
 
 	/* Monks get extra ac for armour _not worn_ */
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor())
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && !heavy_armor(cr_ptr))
 	{
 		if (!(cr_ptr->inventory[INVEN_BODY].k_idx))
 		{
@@ -5363,7 +5363,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (blow_base > 59) cr_ptr->num_blow[0]++;
 		}
 
-		if (heavy_armor() && (cr_ptr->cls_idx != CLASS_BERSERKER))
+		if (heavy_armor(cr_ptr) && (cr_ptr->cls_idx != CLASS_BERSERKER))
 			cr_ptr->num_blow[0] /= 2;
 		else
 		{
@@ -5421,7 +5421,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	monk_armour_aux = FALSE;
 
-	if (heavy_armor())
+	if (heavy_armor(cr_ptr))
 	{
 		monk_armour_aux = TRUE;
 	}
@@ -5827,7 +5827,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && (monk_armour_aux != monk_notify_aux))
 	{
-		if (heavy_armor())
+		if (heavy_armor(cr_ptr))
 		{
 #ifdef JP
             if(message) msg_print("装備が重くてバランスを取れない。");
@@ -6388,22 +6388,22 @@ s16b empty_hands(bool riding_control)
 }
 
 
-bool heavy_armor(void)
+bool heavy_armor(creature_type *cr_ptr)
 {
 	u16b monk_arm_wgt = 0;
 
-	if ((p_ptr->cls_idx != CLASS_MONK) && (p_ptr->cls_idx != CLASS_FORCETRAINER) && (p_ptr->cls_idx != CLASS_NINJA)) return FALSE;
+	if ((cr_ptr->cls_idx != CLASS_MONK) && (cr_ptr->cls_idx != CLASS_FORCETRAINER) && (cr_ptr->cls_idx != CLASS_NINJA)) return FALSE;
 
 	/* Weight the armor */
-	if(p_ptr->inventory[INVEN_RARM].tval > TV_SWORD) monk_arm_wgt += p_ptr->inventory[INVEN_RARM].weight;
-	if(p_ptr->inventory[INVEN_LARM].tval > TV_SWORD) monk_arm_wgt += p_ptr->inventory[INVEN_LARM].weight;
-	monk_arm_wgt += p_ptr->inventory[INVEN_BODY].weight;
-	monk_arm_wgt += p_ptr->inventory[INVEN_HEAD].weight;
-	monk_arm_wgt += p_ptr->inventory[INVEN_OUTER].weight;
-	monk_arm_wgt += p_ptr->inventory[INVEN_HANDS].weight;
-	monk_arm_wgt += p_ptr->inventory[INVEN_FEET].weight;
+	if(cr_ptr->inventory[INVEN_RARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_RARM].weight;
+	if(cr_ptr->inventory[INVEN_LARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_LARM].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_BODY].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_HEAD].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_HANDS].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
-	return (monk_arm_wgt > (100 + (p_ptr->lev * 4)));
+	return (monk_arm_wgt > (100 + (cr_ptr->lev * 4)));
 }
 
 
