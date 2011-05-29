@@ -3629,7 +3629,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	mon_equip(m_ptr);
 
 	calc_bonuses(m_ptr, FALSE);
-	m_ptr->update = PU_HP | PU_MANA;
+	m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
 	update_stuff(m_ptr, FALSE);
 
 	/* Underlings */

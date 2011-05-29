@@ -3165,6 +3165,9 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 					identify_item(&m_ptr->inventory[i]);
 					m_ptr->inventory[i].ident |= (IDENT_MENTAL);
 				}
+				m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+				update_stuff(m_ptr, FALSE);
+
 
 #ifdef JP
 				sprintf(out_val, "[%s]%s%s(%s)%s%s [rév %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
