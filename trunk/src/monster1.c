@@ -1706,9 +1706,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	{
 		/* Armor */
 #ifdef JP
-		hooked_roff(format("%^sは AC%d の防御力、",
+		hooked_roff(format("%^sは AC%d の基本防御力、",
 #else
-		hooked_roff(format("%^s has an armor rating of %d",
+		hooked_roff(format("%^s has an base armor rating of %d",
 #endif
 
 			    wd_he[msex], r_ptr->ac));

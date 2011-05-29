@@ -1951,7 +1951,7 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 	chance = (p_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(chance, r_ptr->ac, m_ptr->ml))
+	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(chance, m_ptr->ac + m_ptr->to_a, m_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -2197,7 +2197,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 			success_hit = one_in_(n);
 		}
 		else if ((p_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(m_ptr->resist_ultimate))) success_hit = TRUE;
-		else success_hit = test_hit_norm(chance, r_ptr->ac, m_ptr->ml);
+		else success_hit = test_hit_norm(chance,  m_ptr->ac + m_ptr->to_a, m_ptr->ml);
 
 		if (mode == HISSATSU_MAJIN)
 		{
