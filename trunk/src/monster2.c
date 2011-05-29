@@ -3156,6 +3156,7 @@ static void mon_equip(creature_type *m_ptr)
 
 	if(m_ptr->irace_idx != RACE_NONE)
 	{
+  		mo_mode = mo_mode | AM_UNCURSED;
 
 		if(!m_ptr->inventory[INVEN_RARM].k_idx)
 		{
