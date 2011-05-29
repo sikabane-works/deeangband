@@ -1063,7 +1063,7 @@ static bool cmd_racial_power_aux(s32b command)
 		}
 		case CLASS_MONK:
 		{
-			if (!(empty_hands(TRUE) & EMPTY_HAND_RARM))
+			if (!(empty_hands(p_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
 #ifdef JP
 				msg_print("ëféËÇ∂Ç·Ç»Ç¢Ç∆Ç≈Ç´Ç‹ÇπÇÒÅB");

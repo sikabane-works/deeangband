@@ -3058,7 +3058,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	int             new_speed;
 	int             body_size;
 	int             default_hand = 0;
-	int             empty_hands_status = empty_hands(TRUE);
+	int             empty_hands_status = empty_hands(cr_ptr, TRUE);
 	int             extra_blows[2];
 	int             extra_shots;
 
@@ -3367,12 +3367,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (CAN_TWO_HANDS_WIELDING())
 	{
-		if (cr_ptr->migite && (empty_hands(FALSE) == EMPTY_HAND_LARM) &&
+		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
 			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_RARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
-		else if (cr_ptr->hidarite && (empty_hands(FALSE) == EMPTY_HAND_RARM) &&
+		else if (cr_ptr->hidarite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_LARM]))
 		{
 			cr_ptr->ryoute = TRUE;
@@ -3384,7 +3384,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if (empty_hands(FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
+				if (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
 					cr_ptr->migite = TRUE;
 					cr_ptr->ryoute = TRUE;
@@ -5304,7 +5304,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		cr_ptr->riding_ryoute = FALSE;
 
-		if (cr_ptr->ryoute || (empty_hands(FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_ryoute = TRUE;
+		if (cr_ptr->ryoute || (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE)) cr_ptr->riding_ryoute = TRUE;
 		else if (cr_ptr->pet_extra_flags & PF_RYOUTE)
 		{
 			switch (cr_ptr->cls_idx)
@@ -5312,7 +5312,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if ((empty_hands(FALSE) != EMPTY_HAND_NONE) && !buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
 					cr_ptr->riding_ryoute = TRUE;
 				break;
 			}
@@ -5508,7 +5508,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_d[default_hand] += MAX(bonus_to_d,1);
 	}
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->ryoute = FALSE;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) && (empty_hands(cr_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))) cr_ptr->ryoute = FALSE;
 
 	/* Affect Skill -- stealth (bonus one) */
 	cr_ptr->skill_stl += 1;
@@ -5808,7 +5808,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (cr_ptr->riding_ryoute)
 		{
 #ifdef JP
-			if(message) msg_format("%s馬を操れない。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+			if(message) msg_format("%s馬を操れない。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
 #else
 			if(message) msg_print("You are using both hand for fighting, and you can't control a riding pet.");
 #endif
@@ -5816,7 +5816,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		else
 		{
 #ifdef JP
-			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
+			if(message) msg_format("%s馬を操れるようになった。", (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
 #else
 			if(message) msg_print("You began to control riding pet with one hand.");
 #endif
@@ -6371,14 +6371,14 @@ void handle_stuff(void)
 }
 
 
-s16b empty_hands(bool riding_control)
+s16b empty_hands(creature_type *cr_ptr, bool riding_control)
 {
 	s16b status = EMPTY_HAND_NONE;
 
-	if (!p_ptr->inventory[INVEN_RARM].k_idx) status |= EMPTY_HAND_RARM;
-	if (!p_ptr->inventory[INVEN_LARM].k_idx) status |= EMPTY_HAND_LARM;
+	if (!cr_ptr->inventory[INVEN_RARM].k_idx) status |= EMPTY_HAND_RARM;
+	if (!cr_ptr->inventory[INVEN_LARM].k_idx) status |= EMPTY_HAND_LARM;
 
-	if (riding_control && (status != EMPTY_HAND_NONE) && p_ptr->riding && !(p_ptr->pet_extra_flags & PF_RYOUTE))
+	if (riding_control && (status != EMPTY_HAND_NONE) && cr_ptr->riding && !(cr_ptr->pet_extra_flags & PF_RYOUTE))
 	{
 		if (status & EMPTY_HAND_LARM) status &= ~(EMPTY_HAND_LARM);
 		else if (status & EMPTY_HAND_RARM) status &= ~(EMPTY_HAND_RARM);

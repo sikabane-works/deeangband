@@ -2106,7 +2106,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 	case CLASS_BERSERKER:
-		if ((empty_hands(TRUE) & EMPTY_HAND_RARM) && !p_ptr->riding) monk_attack = TRUE;
+		if ((empty_hands(p_ptr, TRUE) & EMPTY_HAND_RARM) && !p_ptr->riding) monk_attack = TRUE;
 		break;
 	}
 
@@ -3153,7 +3153,7 @@ bool py_attack(int y, int x, int mode)
 	    !(p_ptr->muta2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
 	{
 #ifdef JP
-		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(FALSE) == EMPTY_HAND_NONE) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(p_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
 #else
 		msg_print("You cannot do attacking.");
 #endif

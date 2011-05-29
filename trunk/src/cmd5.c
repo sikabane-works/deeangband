@@ -2571,9 +2571,9 @@ void do_cmd_pet(void)
 
 	if (p_ptr->riding)
 	{
-		if ((p_ptr->migite && (empty_hands(FALSE) == EMPTY_HAND_LARM) &&
+		if ((p_ptr->migite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) &&
 		     object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_RARM])) ||
-		    (p_ptr->hidarite && (empty_hands(FALSE) == EMPTY_HAND_RARM) &&
+		    (p_ptr->hidarite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			 object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_LARM])))
 		{
 			if (p_ptr->pet_extra_flags & PF_RYOUTE)
@@ -2602,7 +2602,7 @@ void do_cmd_pet(void)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if (empty_hands(FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
+				if (empty_hands(p_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
 					if (p_ptr->pet_extra_flags & PF_RYOUTE)
 					{
@@ -2623,7 +2623,7 @@ void do_cmd_pet(void)
 
 					powers[num++] = PET_RYOUTE;
 				}
-				else if ((empty_hands(FALSE) != EMPTY_HAND_NONE) && !buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+				else if ((empty_hands(p_ptr, FALSE) != EMPTY_HAND_NONE) && !buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
 				{
 					if (p_ptr->pet_extra_flags & PF_RYOUTE)
 					{

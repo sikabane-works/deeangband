@@ -11849,7 +11849,7 @@ static cptr do_hex_spell(int spell, int mode)
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Ì•Ší‚ª•‚­‹P‚¢‚½B");
 #else
-			if (!empty_hands(FALSE))
+			if (!empty_hands(cr_ptr, FALSE))
 				msg_print("Your weapons glow bright black.");
 			else
 				msg_print("Your weapon glows bright black.");
@@ -11860,7 +11860,7 @@ static cptr do_hex_spell(int spell, int mode)
 #ifdef JP
 			msg_print("•Ší‚Ì‹P‚«‚ªÁ‚¦‹‚Á‚½B");
 #else
-			msg_format("Brightness of weapon%s disappeared.", (empty_hands(FALSE)) ? "" : "s");
+			msg_format("Brightness of weapon%s disappeared.", (empty_hands(cr_ptr, FALSE)) ? "" : "s");
 #endif
 		}
 		break;
@@ -12394,7 +12394,7 @@ static cptr do_hex_spell(int spell, int mode)
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Ì•Ší‚ªŒŒ‚ğ—~‚µ‚Ä‚¢‚éB");
 #else
-			if (!empty_hands(FALSE))
+			if (!empty_hands(cr_ptr, FALSE))
 				msg_print("Your weapons want more blood now.");
 			else
 				msg_print("Your weapon wants more blood now.");
@@ -12405,7 +12405,7 @@ static cptr do_hex_spell(int spell, int mode)
 #ifdef JP
 			msg_print("•Ší‚ÌŠ‰–]‚ªÁ‚¦‹‚Á‚½B");
 #else
-			msg_format("Thirsty of weapon%s disappeared.", (empty_hands(FALSE)) ? "" : "s");
+			msg_format("Thirsty of weapon%s disappeared.", (empty_hands(cr_ptr, FALSE)) ? "" : "s");
 #endif
 		}
 		break;

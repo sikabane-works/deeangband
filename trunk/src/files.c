@@ -1796,7 +1796,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	{
 		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
 	}
-	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
 		if (cr_ptr->special_defense & KAMAE_MASK)
@@ -2176,7 +2176,7 @@ static void display_player_various(creature_type * cr_ptr)
 	for(i = 0; i < 2; i++)
 	{
 		damage[i] = cr_ptr->dis_to_d[i] * 100;
-		if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(TRUE) & EMPTY_HAND_RARM))
+		if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
 		{
 			int level = cr_ptr->lev;
 			if (i)

@@ -1413,7 +1413,7 @@ extern void update_stuff(creature_type *cr_ptr, bool message);
 extern void redraw_stuff(void);
 extern void window_stuff(void);
 extern void handle_stuff(void);
-extern s16b empty_hands(bool riding_control);
+extern s16b empty_hands(creature_type *cr_ptr, bool riding_control);
 extern bool heavy_armor(creature_type *cr_ptr);
 extern s16b calc_align(s32b align);
 extern bool get_subrace(creature_type *cr_ptr, int n);
