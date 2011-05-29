@@ -3570,9 +3570,9 @@
 #define GON_LITE     0x00000010
 #define GON_OUTER    0x00000020
 #define GON_HANDS    0x00000040
-#define GON_RING    0x00000080
+#define GON_RING     0x00000080
 #define GON_AMULET   0x00000100
-
+#define GON_UNCURSED 0x00000200  /* Select in uncursed equipment */
 
 /*** Monster blow constants ***/
 

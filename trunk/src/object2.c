@@ -699,6 +699,13 @@ s16b get_obj_num(int level, u32b flag)
 				continue;
 		}
 
+		if(flag & GON_UNCURSED)
+		{
+			if ((k_ptr->gen_flags & TRG_CURSED) || (k_ptr->gen_flags & TRG_HEAVY_CURSE))
+				continue;
+		}
+
+
 		/* Hack -- prevent embedded chests */
 		if (opening_chest && (k_ptr->tval == TV_CHEST)) continue;
 
