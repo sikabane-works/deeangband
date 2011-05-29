@@ -5965,7 +5965,6 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	/* Update stuff */
 	if (!cr_ptr->update) return;
 
-
 	if (cr_ptr->update & (PU_BONUS))
 	{
 		cr_ptr->update &= ~(PU_BONUS);

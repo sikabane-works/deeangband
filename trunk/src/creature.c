@@ -252,6 +252,12 @@ void set_enemy_hp(creature_type *cr_ptr, int percentage)
 	cr_ptr->chp = cr_ptr->mhp * percentage / 100;
 }
 
+void set_enemy_mana(creature_type *cr_ptr, int percentage)
+{
+	cr_ptr->csp = cr_ptr->msp * percentage / 100;
+}
+
+
 /*
  * Set initial monster speed
  */

@@ -3628,6 +3628,10 @@ msg_print("守りのルーンが壊れた！");
 	/* Equipment */
 	mon_equip(m_ptr);
 
+	calc_bonuses(m_ptr, FALSE);
+	m_ptr->update = PU_HP | PU_MANA;
+	update_stuff(m_ptr, FALSE);
+
 	/* Underlings */
 	for(i = 0; i < MAX_UNDERLINGS; i++)
 	{
@@ -3635,15 +3639,13 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->underling_num[i] = damroll(r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]);
 	}
 
-
-	calc_bonuses(m_ptr, FALSE);
-	update_stuff(m_ptr, FALSE);
-
 	/* And start out fully healthy */
 	if (m_ptr->monster_idx == MON_WOUNDED_BEAR)
 		set_enemy_hp(m_ptr, 50);
 	else
 		set_enemy_hp(m_ptr, 100);
+
+	set_enemy_mana(m_ptr, 100);
 
 	/* Extract the monster base speed */
 	set_speed(m_ptr);
