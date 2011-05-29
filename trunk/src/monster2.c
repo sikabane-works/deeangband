@@ -3115,7 +3115,7 @@ static void mon_equip(creature_type *m_ptr)
 		object_wipe(&m_ptr->inventory[i]);
 
 		/* Make an object */
-		if (!make_object(&m_ptr->inventory[i], mo_mode, 0)) continue;
+		if (!make_object(&m_ptr->inventory[i], mo_mode, GON_ITEM)) continue;
 
 		/* Drop it in the dungeon */
 	}

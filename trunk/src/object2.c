@@ -645,6 +645,12 @@ s16b get_obj_num(int level, u32b flag)
 		/* Access the actual kind */
 		k_ptr = &k_info[k_idx];
 
+		if(flag & GON_ITEM)
+		{
+			if(k_ptr->tval < TV_STAFF && k_ptr->tval < TV_POTION)
+				continue;			
+		}
+
 		if(flag & GON_ARMS)
 		{
 			if(k_ptr->tval != TV_SWORD && k_ptr->tval != TV_HAFTED && k_ptr->tval != TV_POLEARM)

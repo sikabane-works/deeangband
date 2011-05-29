@@ -3573,6 +3573,7 @@
 #define GON_RING     0x00000080
 #define GON_AMULET   0x00000100
 #define GON_UNCURSED 0x00000200  /* Select in uncursed equipment */
+#define GON_ITEM     0x00000400  /* Normal Items  */
 
 /*** Monster blow constants ***/
 
