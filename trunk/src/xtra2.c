@@ -3156,9 +3156,12 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 			if (query == 'e' && cheat_know){
 				char c;
-				int m = 0;
+				int i, m = 0;
 				char acount[10];
 				evaluate_monster_exp(acount, m_ptr);
+
+				for(i = INVEN_RARM; i <= INVEN_FEET; i++)
+					identify_item(&m_ptr->inventory[i]);
 
 #ifdef JP
 				sprintf(out_val, "[%s]%s%s(%s)%s%s [rév %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);

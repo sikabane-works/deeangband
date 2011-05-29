@@ -3156,18 +3156,66 @@ static void mon_equip(creature_type *m_ptr)
 
 	if(m_ptr->irace_idx != RACE_NONE)
 	{
-		if(!m_ptr->inventory[INVEN_LITE].k_idx) make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE);
 
-		if(!m_ptr->inventory[INVEN_BODY].k_idx) make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY);
-		if(!m_ptr->inventory[INVEN_OUTER].k_idx) make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER);
-		if(!m_ptr->inventory[INVEN_HEAD].k_idx) make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD);
-		if(!m_ptr->inventory[INVEN_HANDS].k_idx) make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS);
-		if(!m_ptr->inventory[INVEN_FEET].k_idx) make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET);
+		if(!m_ptr->inventory[INVEN_RARM].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_RARM], mo_mode, GON_ARMS);
+			m_ptr->inventory[INVEN_RARM].fitting_size = m_ptr->size;
+		}
 
-		if(!m_ptr->inventory[INVEN_RIGHT].k_idx) make_object(&m_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING);
-		if(!m_ptr->inventory[INVEN_LEFT].k_idx) make_object(&m_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING);
+		if(!m_ptr->inventory[INVEN_BODY].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY);
+			m_ptr->inventory[INVEN_BODY].fitting_size = m_ptr->size;
+		}
 
-		if(!m_ptr->inventory[INVEN_NECK].k_idx) make_object(&m_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET);
+		if(!m_ptr->inventory[INVEN_OUTER].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER);
+			m_ptr->inventory[INVEN_OUTER].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_HEAD].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD);
+			m_ptr->inventory[INVEN_HEAD].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_HANDS].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS);
+			m_ptr->inventory[INVEN_HANDS].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_FEET].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET);
+			m_ptr->inventory[INVEN_FEET].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_LITE].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE);
+			m_ptr->inventory[INVEN_LITE].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_RIGHT].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING);
+			m_ptr->inventory[INVEN_RIGHT].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_LEFT].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING);
+			m_ptr->inventory[INVEN_LEFT].fitting_size = m_ptr->size;
+		}
+
+		if(!m_ptr->inventory[INVEN_NECK].k_idx)
+		{
+			make_object(&m_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET);
+			m_ptr->inventory[INVEN_NECK].fitting_size = m_ptr->size;
+		}
 
 	}
 

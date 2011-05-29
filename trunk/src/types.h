@@ -1137,7 +1137,7 @@ struct creature_type
 	s32b chp;			/* Cur hit pts */
 	u32b chp_frac;		/* Cur hit frac (times 2^16) */
 	s32b mhp;			/* Max hit pts */
-	s32b mmhp;		/* Max Max Hit points */
+	s32b mmhp;			/* Max Max Hit points */
 
 	s32b msp;			/* Max mana pts */
 	s32b csp;			/* Cur mana pts */
@@ -1261,9 +1261,9 @@ struct creature_type
 	u16b noscore;		  /* Cheating flags */
 
 	bool wait_report_score;   /* Waiting to report score */
-	bool is_dead;		  /* Player is dead */
+	bool is_dead;		      /* is dead */
 
-	bool wizard;		  /* Player is in wizard mode */
+	bool wizard;		      /* (Player Only) wizard mode */
 
 	s16b riding;              /* Riding on a monster of this index */
 	byte knowledge;           /* Knowledge about yourself */
