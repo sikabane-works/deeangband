@@ -2281,10 +2281,7 @@ static void display_player_various(creature_type * cr_ptr)
 	display_player_one_line(ENTRY_SHOTS, format("%d.%02d", shots, shot_frac), TERM_L_BLUE);
 
 
-	if ((damage[0]+damage[1]) == 0)
-		desc = "nil!";
-	else
-		desc = format("%d+%d", blows1 * damage[0] / 100, blows2 * damage[1] / 100);
+	desc = format("%d+%d", blows1 * damage[0] / 100, blows2 * damage[1] / 100);
 
 	display_player_one_line(ENTRY_AVG_DMG, desc, TERM_L_BLUE);
 

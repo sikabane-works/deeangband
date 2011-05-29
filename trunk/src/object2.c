@@ -647,13 +647,13 @@ s16b get_obj_num(int level, u32b flag)
 
 		if(flag & GON_ARMS)
 		{
-			if(k_ptr->tval != TV_HAFTED || k_ptr->tval != TV_HAFTED || k_ptr->tval != TV_HAFTED)
+			if(k_ptr->tval != TV_SWORD && k_ptr->tval != TV_HAFTED && k_ptr->tval != TV_POLEARM)
 				continue;
 		}
 
 		if(flag & GON_BODY)
 		{
-			if(k_ptr->tval != TV_SOFT_ARMOR || k_ptr->tval != TV_HARD_ARMOR || k_ptr->tval != TV_DRAG_ARMOR)
+			if(k_ptr->tval != TV_SOFT_ARMOR && k_ptr->tval != TV_HARD_ARMOR && k_ptr->tval != TV_DRAG_ARMOR)
 				continue;
 		}
 
