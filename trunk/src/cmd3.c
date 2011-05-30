@@ -723,7 +723,7 @@ msg_print("クエストを達成した！");
 	p_ptr->total_weight += q_ptr->weight;
 
 	/* Increment the equip counter by hand */
-	equip_cnt++;
+	p_ptr->equip_cnt++;
 
 #ifdef JP
 #define STR_WIELD_RARM "%s(%c)を右手に装備した。"

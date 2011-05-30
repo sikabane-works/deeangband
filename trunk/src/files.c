@@ -5141,7 +5141,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 	char o_name[MAX_NLEN];
 
 	/* Dump the equipment */
-	if (equip_cnt)
+	if (p_ptr->equip_cnt)
 	{
 #ifdef JP
 		fprintf(fff, "  [キャラクタの装備]\n\n");
@@ -7130,7 +7130,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	/* Show equipment and inventory */
 
 	/* Equipment -- if any */
-	if (equip_cnt)
+	if (p_ptr->equip_cnt)
 	{
 		Term_clear();
 		item_tester_full = TRUE;
@@ -7145,7 +7145,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 	}
 
 	/* inventory -- if any */
-	if (inven_cnt)
+	if (p_ptr->inven_cnt)
 	{
 		Term_clear();
 		item_tester_full = TRUE;

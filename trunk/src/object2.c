@@ -5599,7 +5599,7 @@ void inven_item_optimize(int item)
 		int i;
 
 		/* One less item */
-		inven_cnt--;
+		p_ptr->inven_cnt--;
 
 		/* Slide everything down */
 		for (i = item; i < INVEN_PACK; i++)
@@ -5619,7 +5619,7 @@ void inven_item_optimize(int item)
 	else
 	{
 		/* One less item */
-		equip_cnt--;
+		p_ptr->equip_cnt--;
 
 		/* Erase the empty slot */
 		object_wipe(&p_ptr->inventory[item]);
@@ -5760,7 +5760,7 @@ bool inven_carry_okay(object_type *o_ptr)
 	int j;
 
 	/* Empty slot? */
-	if (inven_cnt < INVEN_PACK) return (TRUE);
+	if (p_ptr->inven_cnt < INVEN_PACK) return (TRUE);
 
 	/* Similar slot? */
 	for (j = 0; j < INVEN_PACK; j++)
@@ -5918,7 +5918,7 @@ s16b inven_carry(object_type *o_ptr)
 
 
 	/* Paranoia */
-	if (inven_cnt > INVEN_PACK) return (-1);
+	if (p_ptr->inven_cnt > INVEN_PACK) return (-1);
 
 	/* Find an empty slot */
 	for (j = 0; j <= INVEN_PACK; j++)
@@ -5982,7 +5982,7 @@ s16b inven_carry(object_type *o_ptr)
 	p_ptr->total_weight += (j_ptr->number * j_ptr->weight);
 
 	/* Count the items */
-	inven_cnt++;
+	p_ptr->inven_cnt++;
 
 	/* Recalculate bonuses */
 	p_ptr->update |= (PU_BONUS);
@@ -6231,7 +6231,7 @@ void combine_pack(void)
 						object_absorb(j_ptr, o_ptr);
 
 						/* One object is gone */
-						inven_cnt--;
+						p_ptr->inven_cnt--;
 
 						/* Slide everything down */
 						for (k = i; k < INVEN_PACK; k++)
@@ -6311,7 +6311,7 @@ void reorder_pack(void)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		/* Mega-Hack -- allow "proper" over-flow */
-		if ((i == INVEN_PACK) && (inven_cnt == INVEN_PACK)) break;
+		if ((i == INVEN_PACK) && (p_ptr->inven_cnt == INVEN_PACK)) break;
 
 		/* Get the item */
 		o_ptr = &p_ptr->inventory[i];

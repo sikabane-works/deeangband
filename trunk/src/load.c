@@ -391,8 +391,8 @@ static errr rd_inventory(void)
 	p_ptr->total_weight = 0;
 
 	/* No items */
-	inven_cnt = 0;
-	equip_cnt = 0;
+	p_ptr->inven_cnt = 0;
+	p_ptr->equip_cnt = 0;
 
 	/* Read until done */
 	while (1)
@@ -430,11 +430,11 @@ static errr rd_inventory(void)
 			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			equip_cnt++;
+			p_ptr->equip_cnt++;
 		}
 
 		/* Warning -- backpack is full */
-		else if (inven_cnt == INVEN_PACK)
+		else if (p_ptr->inven_cnt == INVEN_PACK)
 		{
 			/* Oops */
 #ifdef JP
@@ -464,7 +464,7 @@ note("持ち物の中のアイテムが多すぎる！");
 			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			inven_cnt++;
+			p_ptr->inven_cnt++;
 		}
 	}
 
@@ -483,8 +483,8 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 	cr_ptr->total_weight = 0;
 
 	/* No items */
-	inven_cnt = 0;
-	equip_cnt = 0;
+	cr_ptr->inven_cnt = 0;
+	cr_ptr->equip_cnt = 0;
 
 	/* Read until done */
 	while (1)
@@ -522,11 +522,11 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			equip_cnt++;
+			cr_ptr->equip_cnt++;
 		}
 
 		/* Warning -- backpack is full */
-		else if (inven_cnt == INVEN_PACK)
+		else if (cr_ptr->inven_cnt == INVEN_PACK)
 		{
 			/* Oops */
 #ifdef JP
@@ -550,13 +550,13 @@ note("持ち物の中のアイテムが多すぎる！");
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&cr_ptr->item[n], q_ptr);
+			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
 			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			inven_cnt++;
+			cr_ptr->inven_cnt++;
 		}
 	}
 

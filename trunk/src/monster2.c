@@ -3088,6 +3088,9 @@ static void mon_equip(creature_type *m_ptr)
 	int i, number;
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 	u32b mo_mode = 0L;
+	m_ptr->total_weight = 0;
+	m_ptr->inven_cnt = 0;
+	m_ptr->equip_cnt = 0;
 
 	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
 	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;

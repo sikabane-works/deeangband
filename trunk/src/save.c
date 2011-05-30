@@ -249,7 +249,7 @@ static void wr_monster(creature_type *m_ptr)
 
 	for(i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &m_ptr->item[i];
+		object_type *o_ptr = &m_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 		/* Dump index */

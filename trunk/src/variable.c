@@ -154,8 +154,6 @@ s16b inven_nxt;			/* Hack -- unused */
 bool hack_mind;
 bool hack_mutation;
 
-s16b inven_cnt;			/* Number of items in p_ptr->inventory */
-s16b equip_cnt;			/* Number of items in equipment */
 
 s16b o_max = 1;			/* Number of allocated objects */
 s16b o_cnt = 0;			/* Number of live objects */

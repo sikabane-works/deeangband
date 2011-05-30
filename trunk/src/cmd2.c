@@ -4674,7 +4674,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			p_ptr->total_weight += q_ptr->weight;
 
 			/* Increment the equip counter by hand */
-			equip_cnt++;
+			p_ptr->equip_cnt++;
 
 			/* Recalculate bonuses */
 			p_ptr->update |= (PU_BONUS);
