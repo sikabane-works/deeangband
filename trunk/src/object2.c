@@ -5050,7 +5050,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			if (k > 99) continue;
 
 			/* Calculate score */
-			s = 1000 - (d + k * 5);
+			s = 1000 - (d * 5 + k + randint0(10));
 
 			/* Skip bad values */
 			if (s < bs) continue;
