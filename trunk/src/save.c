@@ -247,16 +247,6 @@ static void wr_monster(creature_type *m_ptr)
 		wr_item(o_ptr);
 	}
 
-	for(i = 0; i < INVEN_PACK; i++)
-	{
-		object_type *o_ptr = &m_ptr->inventory[i];
-		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
-		/* Dump index */
-		wr_u16b((u16b)i);
-		/* Dump object */
-		wr_item(o_ptr);
-	}
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
 

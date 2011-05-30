@@ -438,9 +438,9 @@ static errr rd_inventory(void)
 		{
 			/* Oops */
 #ifdef JP
-note("持ち物の中のアイテムが多すぎる！");
+note("プレイヤーの持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many items in the p_ptr->inventory!");
+			note("Too many player's items in the inventory!");
 #endif
 
 
@@ -530,9 +530,9 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 		{
 			/* Oops */
 #ifdef JP
-note("持ち物の中のアイテムが多すぎる！");
+			note("モンスターの持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many items in the p_ptr->inventory!");
+			note("Too many monster's items in the inventory!");
 #endif
 
 
