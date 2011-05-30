@@ -832,8 +832,9 @@ msg_print("ínñ Ç…óéÇ∆Ç≥ÇÍÇΩÅB");
 		}
 	}
 
+	/* Drop Inventory */
 	for(i = 0; i < INVEN_TOTAL; i++) {
-		if(m_ptr->inventory[i].k_idx) (void)drop_near(&m_ptr->inventory[i], -1, y, x);
+		if(m_ptr->inventory[i].k_idx) (void)drop_near(&m_ptr->inventory[i], 25, y, x);
 	}
 
 

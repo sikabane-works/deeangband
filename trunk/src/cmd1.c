@@ -1043,14 +1043,16 @@ void carry(bool pickup)
 				o_ptr->marked &= ~OM_NOMSG;
 			}
 			/* Describe the object */
-			else if (!pickup && floor_num == 1)
+			else if (!pickup)
 			{
+				if(floor_num < 3)
+				{
 #ifdef JP
-				msg_format("%s‚ª‚ ‚éB", o_name);
+					msg_format("%s‚ª‚ ‚éB", o_name);
 #else
-				msg_format("You see %s.", o_name);
+					msg_format("You see %s.", o_name);
 #endif
-
+				}
 			}
 
 			/* Note that the pack is too full */

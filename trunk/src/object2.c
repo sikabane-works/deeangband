@@ -4962,9 +4962,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	{
 		/* Message */
 #ifdef JP
-		msg_format("%s‚ÍÁ‚¦‚½B", o_name);
+		msg_format("%s‚Í‰ó‚ê‚Äg‚¢•¨‚É‚È‚ç‚È‚­‚È‚Á‚½", o_name);
 #else
-		msg_format("The %s disappear%s.",
+		msg_format("The %s was broken and become%s useless.",
 			   o_name, (plural ? "" : "s"));
 #endif
 
