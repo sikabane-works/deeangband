@@ -7950,7 +7950,7 @@ void py_pickup_floor(bool pickup)
 
 			/* Message */
 #ifdef JP
-				msg_format("%s‚ª‚ ‚éB", o_name);
+			msg_format("%s‚ª‚ ‚éB", o_name);
 #else
 			msg_format("You see %s.", o_name);
 #endif

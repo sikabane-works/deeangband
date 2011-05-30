@@ -914,7 +914,7 @@ void carry(bool pickup)
 {
 	cave_type *c_ptr = &cave[py][px];
 
-	s16b this_o_idx, next_o_idx = 0;
+	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
 	char	o_name[MAX_NLEN];
 
@@ -946,6 +946,34 @@ void carry(bool pickup)
 	}
 
 #endif /* ALLOW_EASY_FLOOR */
+
+	for (this_o_idx = cave[py][px].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	{
+		object_type *o_ptr;
+		/* Access the object */
+		o_ptr = &o_list[this_o_idx];
+
+		next_o_idx = o_ptr->next_o_idx;
+
+		/* Hack -- disturb */
+		disturb(0, 0);
+
+		/* Count non-gold objects */
+		floor_num++;
+
+	}
+	/* Message */
+
+	if(floor_num >= 2)
+	{
+#ifdef JP
+			msg_format("%d種のアイテムがある。", floor_num);
+#else
+			msg_format("You see %d items.", floor_num);
+#endif
+	}
+
+
 
 	/* Scan the pile of objects */
 	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
@@ -1015,7 +1043,7 @@ void carry(bool pickup)
 				o_ptr->marked &= ~OM_NOMSG;
 			}
 			/* Describe the object */
-			else if (!pickup)
+			else if (!pickup && floor_num == 1)
 			{
 #ifdef JP
 				msg_format("%sがある。", o_name);
