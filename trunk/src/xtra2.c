@@ -2824,7 +2824,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((p_ptr->lev >= PY_MAX_LEVEL) || (p_ptr->irace_idx == RACE_ANDROID))
+	if ((p_ptr->lev >= p_ptr->max_plv) || (p_ptr->irace_idx == RACE_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;
