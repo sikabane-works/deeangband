@@ -1000,6 +1000,8 @@ extern monster_race *real_r_ptr(creature_type *m_ptr);
 extern void delete_monster_idx(int i);
 extern void delete_monster(int y, int x);
 extern void compact_monsters(int size);
+extern void birth_uniques(void);
+
 extern void wipe_m_list(void);
 extern s16b m_pop(void);
 extern errr get_mon_num_prep(monster_hook_type monster_hook, monster_hook_type monster_hook2);

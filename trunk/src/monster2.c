@@ -534,6 +534,22 @@ void compact_monsters(int size)
 	}
 }
 
+void birth_uniques(void)
+{
+	int i, j;
+	C_MAKE(u_info, max_unique, creature_type);
+	j = 0;
+
+	for(i = 0; i < max_monster_idx; i++)
+	{
+		if(r_info[i].flags1 & RF1_UNIQUE)
+		{
+			create_monster(&u_info[j], 0, i, 0, 0);
+			j++;
+		}
+	}
+}
+
 
 /*
  * Delete/Remove all the monsters when the player leaves the level

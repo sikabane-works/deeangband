@@ -7324,7 +7324,6 @@ static bool ask_quick_start(void)
 	return TRUE;
 }
 
-
 /*
  * Create a new character.
  *
