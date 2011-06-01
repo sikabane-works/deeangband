@@ -770,6 +770,7 @@ static errr init_e_info(void)
  */
 static errr init_r_info(void)
 {
+
 	/* Init the header */
 	init_header(&r_head, max_monster_idx, sizeof(monster_race));
 
@@ -782,6 +783,7 @@ static errr init_r_info(void)
 
 	return init_info("r_info", &r_head,
 			 (void*)&r_info, &r_name, &r_text, NULL);
+
 }
 
 
@@ -2290,6 +2292,7 @@ static void init_angband_aux(cptr why)
  */
 void init_angband(void)
 {
+	int i;
 	int fd = -1;
 
 	int mode = 0664;
@@ -2624,7 +2627,6 @@ note("[ユーザー設定ファイルを初期化しています...]");
 	note("[Initializing user pref files...]");
 #endif
 
-
 	/* Access the "basic" pref file */
 	strcpy(buf, "pref.prf");
 
@@ -2643,6 +2645,13 @@ note("[ユーザー設定ファイルを初期化しています...]");
 #else
 	note("[Initialization complete]");
 #endif
+
+	/* Init Unique Count */
+	max_unique = 0;
+	for(i = 0; i < max_monster_idx; i++)
+	{
+		if(r_info[i].flags1 & RF1_UNIQUE) max_unique++;
+	}
 
 }
 

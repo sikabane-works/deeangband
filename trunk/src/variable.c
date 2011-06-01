@@ -1128,6 +1128,10 @@ u16b max_o_idx;
  */
 u16b max_m_idx;
 
+
+u16b max_unique;
+creature_type *u_info;
+
 /*
  * Maximum size of the wilderness
  */

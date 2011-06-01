@@ -3836,7 +3836,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ğœ‚³‚ê‚½B");
 }
 
 
-bool create_monster(creature_type *m_ptr, int who, int monster_idx, int monster_ego_idx, u32b mode)
+int create_monster(creature_type *m_ptr, int who, int monster_idx, int monster_ego_idx, u32b mode)
 {
 	monster_race	*r_ptr = &r_info[monster_idx];
 	monster_ego		*re_ptr;
