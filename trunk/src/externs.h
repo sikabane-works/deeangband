@@ -1008,6 +1008,7 @@ extern void update_mon(int m_idx, bool full);
 extern void update_monsters(bool full);
 extern bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode);
 extern bool place_monster(int y, int x, u32b mode);
+extern bool create_monster(creature_type *m_ptr, int who, int monster_idx, int monster_ego_idx, u32b mode);
 extern bool alloc_horde(int y, int x);
 extern bool alloc_guardian(bool def_val);
 extern bool alloc_monster(int dis, u32b mode);
