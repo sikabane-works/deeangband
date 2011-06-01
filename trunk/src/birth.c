@@ -7426,6 +7426,9 @@ void player_birth(void)
 		}
 	}
 
+	/* Init Uniques*/
+	birth_uniques();
+
 	/* Generate the random seeds for the wilderness */
 	seed_wilderness();
 
