@@ -561,7 +561,7 @@ void birth_uniques(void)
 			j++;
 		}
 	}
-	C_KILL(u_info, max_unique, creature_type);
+//	C_KILL(u_info, max_unique, creature_type);
 
 }
 
@@ -3870,8 +3870,6 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u32b mode)
 {
 	monster_race	*r_ptr = &r_info[monster_idx];
-	monster_ego		*re_ptr;
-	intelligent_race		*rpr_ptr;
 
 	cptr		name = (r_name + r_ptr->name);
 

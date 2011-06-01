@@ -1557,6 +1557,7 @@ static void rd_extra(void)
 		rd_monster(&dummy_mon);
 	}
 
+
 	rd_u32b(&playtime);
 	rd_s32b(&p_ptr->visit);
 	rd_u32b(&p_ptr->count);
@@ -1921,6 +1922,26 @@ note(format("モンスター配置エラー (%d <> %d)", i, m_idx));
 
 		/* Count */
 		real_r_ptr(m_ptr)->cur_num++;
+	}
+
+	/* Unique monsters */
+
+	if(!older_than(0,0,7,0))
+	{
+		rd_u16b(&max_unique);
+		C_MAKE(u_info, max_unique, creature_type);
+		C_WIPE(u_info, max_unique, creature_type);
+
+		/* Dump the monsters */
+		for (i = 0; i < max_unique; i++)
+		{
+			creature_type *m_ptr = &u_info[i];
+			rd_monster(m_ptr);
+		}
+	}
+	else
+	{
+		birth_uniques();
 	}
 
 	/*** Success ***/
@@ -2943,6 +2964,7 @@ errr rd_savefile_new(void)
 
 	/* Close the file */
 	my_fclose(fff);
+
 
 	/* Result */
 	return (err);

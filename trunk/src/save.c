@@ -1157,6 +1157,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 		/* Dump it */
 		wr_monster(m_ptr);
 	}
+
 }
 
 
@@ -1567,6 +1568,35 @@ static bool wr_savefile_new(void)
 
 	/* Error in save */
 	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;
+
+	/*** Dump the monsters ***/
+
+	/* Total monsters */
+	wr_u16b(m_max);
+
+	/* Dump the monsters */
+	for (i = 1; i < m_max; i++)
+	{
+		creature_type *m_ptr = &m_list[i];
+
+		/* Dump it */
+		wr_monster(m_ptr);
+	}
+
+	/* Unique monsters */
+	wr_u16b(max_unique);
+
+	/* Dump the monsters */
+	for (i = 0; i < max_unique; i++)
+	{
+		creature_type *m_ptr = &u_info[i];
+
+		/* Dump it */
+		wr_monster(m_ptr);
+	}
+
+
+
 
 	/* Successful save */
 	return TRUE;
