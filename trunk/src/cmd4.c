@@ -8116,6 +8116,20 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				break;
 			}
 
+			case 'd':
+				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				{
+					int i;
+					for(i = 0; i < max_unique; i++)
+						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						{
+							display_creature_dump(&u_info[i]);
+							redraw = TRUE;
+							break;
+						}
+				}
+				break;
+
 			default:
 			{
 				/* Move the cursor */

@@ -3873,6 +3873,7 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 
 	cptr		name = (r_name + r_ptr->name);
 
+	m_ptr->monster_idx = monster_idx;
 	strcpy(m_ptr->name, name);
 
 	/* Success */

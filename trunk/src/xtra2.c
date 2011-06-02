@@ -6156,3 +6156,63 @@ int spell_exp_level(int spell_exp)
 	else return EXP_LEVEL_MASTER;
 }
 
+
+void display_creature_dump(creature_type *cr_ptr)
+{
+	char c;
+	int m = 0;
+
+	/* Save the screen */
+	screen_save();
+
+	/* Forever */
+	while (1)
+	{
+		update_playtime();
+
+		/* Display the player */
+		display_player(m, cr_ptr);
+
+		if (m == 4)
+		{
+			m = 0;
+			display_player(m, cr_ptr);
+		}
+
+		/* Prompt */
+#ifdef JP
+		Term_putstr(2, 23, -1, TERM_WHITE,
+			"['h'でモード変更, ESCで終了]");
+#else
+		Term_putstr(2, 23, -1, TERM_WHITE,
+			"['h' to change mode, or ESC]");
+#endif
+
+
+		/* Query */
+		c = inkey();
+
+		/* Exit */
+		if (c == ESCAPE) break;
+
+		/* Toggle mode */
+		else if (c == 'h')
+		{
+			m++;
+		}
+
+		/* Oops */
+		else
+		{
+			bell();
+		}
+
+		/* Flush messages */
+		msg_print(NULL);
+	}
+
+		/* Restore the screen */
+		screen_load();
+
+}
+
