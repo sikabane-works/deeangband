@@ -3913,6 +3913,30 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
 
+	/* Equipment */
+	mon_equip(m_ptr);
+
+	/* Underlings */
+	for(i = 0; i < MAX_UNDERLINGS; i++)
+	{
+		m_ptr->underling_id[i] = r_ptr->underling_id[i];
+		m_ptr->underling_num[i] = damroll(r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]);
+	}
+
+	/* Extract the monster base speed */
+	set_speed(m_ptr);
+
+	/* Update */
+	calc_bonuses(m_ptr, FALSE);
+	m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+	update_stuff(m_ptr, FALSE);
+
+	/* And start out fully healthy */
+	if (m_ptr->monster_idx == MON_WOUNDED_BEAR)
+		set_enemy_hp(m_ptr, 50);
+	else
+		set_enemy_hp(m_ptr, 100);
+	set_enemy_mana(m_ptr, 100);
 
 	/* Success */
 	return TRUE;
