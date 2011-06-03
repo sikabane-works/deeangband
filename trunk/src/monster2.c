@@ -3534,10 +3534,11 @@ msg_print("守りのルーンが壊れた！");
 	/* Get a new monster record */
 	m_ptr = &m_list[c_ptr->m_idx];
 
-	/* Save the race */
+	/* Save the traits */
 	m_ptr->monster_idx = monster_idx;
 	m_ptr->monster_ego_idx = re_selected;
 	m_ptr->irace_idx = rpr_selected;
+	m_ptr->patron_idx = (s16b)r_ptr->i_faith;
 	m_ptr->cls_idx = rpc_selected;
 	m_ptr->chara_idx = rps_selected;
 	m_ptr->ap_monster_idx = initial_r_appearance(monster_idx);
@@ -3545,9 +3546,6 @@ msg_print("守りのルーンが壊れた！");
 	/* MISC parameter*/
 	m_ptr->age = 0;
 	m_ptr->dr = r_ptr->dr;
-
-	/* Save the trait */
-	m_ptr->patron_idx = (s16b)r_ptr->i_faith;
 
 	/* No flags */
 	m_ptr->mflag = 0;
@@ -3869,12 +3867,52 @@ msg_print("爆発のルーンは解除された。");
 
 int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u32b mode)
 {
+	int i;
 	monster_race	*r_ptr = &r_info[monster_idx];
-
 	cptr		name = (r_name + r_ptr->name);
 
-	m_ptr->monster_idx = monster_idx;
+
 	strcpy(m_ptr->name, name);
+
+	/* Save the categories */
+	m_ptr->monster_idx = monster_idx;
+	m_ptr->monster_ego_idx = 0;
+	m_ptr->irace_idx = (s16b)r_ptr->i_race;
+	m_ptr->cls_idx = (byte)r_ptr->i_class;
+	m_ptr->chara_idx = (byte)r_ptr->i_chara;
+	m_ptr->ap_monster_idx = initial_r_appearance(monster_idx);
+
+	/* MISC parameter*/
+	m_ptr->age = 0;
+	m_ptr->dr = r_ptr->dr;
+
+	/* No flags */
+	m_ptr->mflag = 0;
+	m_ptr->mflag2 = 0;
+
+	/* No "timed status" yet */
+	for (i = 0; i < MAX_MTIMED; i++) m_ptr->mtimed[i] = 0;
+
+	/* Unknown distance */
+	m_ptr->cdis = 0;
+	reset_target(m_ptr);
+	m_ptr->nickname = 0;
+
+	/* Set Monster's Level and EXP*/
+	m_ptr->lev = d_level_to_c_level[r_ptr->level];
+	m_ptr->expfact = 100;
+	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
+	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
+	m_ptr->exp = player_exp[m_ptr->lev];
+
+	/* Set Status */
+	set_sex(m_ptr);
+	set_height_weight(m_ptr);
+	set_bodysize(m_ptr);
+	set_status(m_ptr);
+	set_hitdice(m_ptr);
+	set_enemy_maxhp(m_ptr);
+
 
 	/* Success */
 	return TRUE;
