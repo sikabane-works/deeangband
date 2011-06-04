@@ -1384,6 +1384,19 @@ static bool wr_savefile_new(void)
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) wr_lore(i);
 
+	/* Unique monsters */
+	wr_u16b(max_unique);
+
+	/* Dump the unique monsters */
+	for (i = 0; i < max_unique; i++)
+	{
+		creature_type *m_ptr = &u_info[i];
+
+		/* Dump it */
+		wr_monster(m_ptr);
+	}
+
+
 
 	/* Dump the object memory */
 	tmp16u = max_k_idx;
@@ -1584,19 +1597,6 @@ static bool wr_savefile_new(void)
 		/* Dump it */
 		wr_monster(m_ptr);
 	}
-
-	/* Unique monsters */
-	wr_u16b(max_unique);
-
-	/* Dump the monsters */
-	for (i = 0; i < max_unique; i++)
-	{
-		creature_type *m_ptr = &u_info[i];
-
-		/* Dump it */
-		wr_monster(m_ptr);
-	}
-
 
 
 	/* Successful save */

@@ -730,7 +730,7 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_PARENT) rd_s16b(&m_ptr->parent_m_idx);
 	else m_ptr->parent_m_idx = 0;
 
-	calc_bonuses(m_ptr, FALSE);
+//	calc_bonuses(m_ptr, FALSE);
 	strcpy(m_ptr->name, r_name + r_info[m_ptr->monster_idx].name);
 
 }
@@ -1878,25 +1878,6 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 
 	}
 
-	/* Unique monsters */
-
-	if(!older_than(0,0,17,0))
-	{
-		int i;
-		rd_u16b(&max_unique);
-		C_MAKE(u_info, max_unique, creature_type);
-		C_WIPE(u_info, max_unique, creature_type);
-
-		for (i = 0; i < max_unique; i++)
-		{
-			creature_type *m_ptr = &u_info[i];
-			rd_monster(m_ptr);
-		}
-	}
-	else
-	{
-		birth_uniques();
-	}
 
 
 	/* Success */
@@ -2209,6 +2190,33 @@ note(format("モンスターの種族が多すぎる(%u)！", tmp16u));
 note(format("モンスターの思い出をロードしました:%u", tmp16u));
 #else
 	if (arg_fiddle) note("Loaded Monster Memory");
+#endif
+
+
+	/* Unique monsters */
+
+	if(!older_than(0,0,7,0))
+	{
+		int i;
+		rd_u16b(&max_unique);
+		C_MAKE(u_info, max_unique, creature_type);
+		C_WIPE(u_info, max_unique, creature_type);
+
+		for (i = 0; i < max_unique; i++)
+		{
+			creature_type *m_ptr = &u_info[i];
+			rd_monster(m_ptr);
+		}
+	}
+	else
+	{
+		birth_uniques();
+	}
+
+#ifdef JP
+note(format("ユニークモンスターをロードしました:%u", max_unique));
+#else
+	if (arg_fiddle) note("Loaded Unique Monsters");
 #endif
 
 
@@ -2577,6 +2585,7 @@ note("ダンジョンデータ読み込み失敗");
 			strip_bytes(tmp32s);
 		}
 	}
+
 
 #ifdef VERIFY_CHECKSUMS
 
