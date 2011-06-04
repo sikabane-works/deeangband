@@ -3883,8 +3883,9 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	m_ptr->ap_monster_idx = initial_r_appearance(monster_idx);
 
 	/* MISC parameter*/
-	m_ptr->age = 0;
+	m_ptr->age = r_ptr->age;
 	m_ptr->dr = r_ptr->dr;
+	m_ptr->sc = r_ptr->sc;
 
 	/* No flags */
 	m_ptr->mflag = 0;

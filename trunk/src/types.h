@@ -317,6 +317,8 @@ struct monster_race
 
 	s16b stat[6];		/* Current modified stats */
 	s16b dr;			/* Divine Rank */
+	u32b age;			/* Age */
+	u16b sc;			/* Social Class */
 
 	s16b ac;				/* Armour Class */
 

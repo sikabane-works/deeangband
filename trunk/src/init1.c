@@ -2877,8 +2877,10 @@ errr parse_r_info(char *buf, header *head)
 	/* Process 'Y' for "More Info" (one line only) */
 	else if (buf[0] == 'Y')
 	{
-		int divine_rank;
-		if (1 != sscanf(buf+2, "%d", &divine_rank)) return (1);
+		int age, social_class, divine_rank;
+		if (3 != sscanf(buf+2, "%d:%d:%d", &age, &social_class, &divine_rank)) return (1);
+		r_ptr->age = age;
+		r_ptr->sc = social_class;
 		r_ptr->dr = divine_rank;
 	}
 
