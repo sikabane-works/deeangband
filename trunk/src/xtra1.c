@@ -2882,6 +2882,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 #endif
 		/* Save the new max-hitpoints */
 		cr_ptr->mhp = mhp;
+		cr_ptr->mmhp = mhp;
 
 		/* Display hitpoints (later) */
 		cr_ptr->redraw |= (PR_HP);
