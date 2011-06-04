@@ -1599,7 +1599,6 @@ static bool wr_savefile_new(void)
 
 
 
-
 	/* Successful save */
 	return TRUE;
 }
