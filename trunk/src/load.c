@@ -647,7 +647,7 @@ static void rd_monster(creature_type *m_ptr)
 	}
 
 	if(!older_than(0,0,8,0)){
-		rd_s16b(&m_ptr->age);
+		rd_s32b(&m_ptr->age);
 		rd_s16b(&m_ptr->sc);
 	}
 
@@ -655,7 +655,7 @@ static void rd_monster(creature_type *m_ptr)
 
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_monster_idx) rd_s16b(&m_ptr->ap_monster_idx);
+	if (flags & SAVE_MON_AP_MONSTER_IDX) rd_s16b(&m_ptr->ap_monster_idx);
 	else m_ptr->ap_monster_idx = m_ptr->monster_idx;
 	if (flags & SAVE_MON_SUB_ALIGN) rd_byte(&m_ptr->sub_align);
 	else m_ptr->sub_align = 0;

@@ -3880,7 +3880,7 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	m_ptr->irace_idx = (s16b)r_ptr->i_race;
 	m_ptr->cls_idx = (byte)r_ptr->i_class;
 	m_ptr->chara_idx = (byte)r_ptr->i_chara;
-	m_ptr->ap_monster_idx = initial_r_appearance(monster_idx);
+	m_ptr->ap_monster_idx = monster_idx;
 
 	/* MISC parameter*/
 	m_ptr->age = r_ptr->age;

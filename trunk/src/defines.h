@@ -5532,7 +5532,7 @@ extern int PlayerUID;
 /*
  * Flags for wr_monster()/rd_monster()
  */
-#define SAVE_MON_AP_monster_idx     0x00000001
+#define SAVE_MON_AP_MONSTER_IDX     0x00000001
 #define SAVE_MON_SUB_ALIGN    0x00000002
 #define SAVE_MON_CSLEEP       0x00000004
 #define SAVE_MON_FAST         0x00000008

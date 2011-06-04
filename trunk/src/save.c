@@ -193,7 +193,7 @@ static void wr_monster(creature_type *m_ptr)
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
-	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_monster_idx;
+	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_MONSTER_IDX;
 	if (m_ptr->sub_align) flags |= SAVE_MON_SUB_ALIGN;
 	if (MON_CSLEEP(m_ptr)) flags |= SAVE_MON_CSLEEP;
 	if (MON_FAST(m_ptr)) flags |= SAVE_MON_FAST;
@@ -268,12 +268,12 @@ static void wr_monster(creature_type *m_ptr)
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);
 
-	wr_s16b(m_ptr->age);
+	wr_s32b(m_ptr->age);
 	wr_s16b(m_ptr->sc);
 	wr_s16b(m_ptr->dr);
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_monster_idx) wr_s16b(m_ptr->ap_monster_idx);
+	if (flags & SAVE_MON_AP_MONSTER_IDX) wr_s16b(m_ptr->ap_monster_idx);
 	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
 	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->mtimed[MTIMED_CSLEEP]);
 
