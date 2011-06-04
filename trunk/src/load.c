@@ -646,6 +646,10 @@ static void rd_monster(creature_type *m_ptr)
 		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
 	}
 
+	if(!older_than(0,0,8,0)){
+		rd_s16b(&m_ptr->age);
+		rd_s16b(&m_ptr->sc);
+	}
 
 	rd_s16b(&m_ptr->dr);
 

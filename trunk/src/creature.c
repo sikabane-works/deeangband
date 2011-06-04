@@ -197,7 +197,6 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 {
 	int i;
 	monster_race *r_ptr;
-	int con_r, bonus, convert_lv, num;
 
 	r_ptr = &r_info[cr_ptr->monster_idx];
 

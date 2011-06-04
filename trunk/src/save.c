@@ -268,6 +268,8 @@ static void wr_monster(creature_type *m_ptr)
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);
 
+	wr_s16b(m_ptr->age);
+	wr_s16b(m_ptr->sc);
 	wr_s16b(m_ptr->dr);
 
 	/* Monster race index of its appearance */
