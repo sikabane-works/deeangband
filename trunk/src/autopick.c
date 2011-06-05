@@ -5862,9 +5862,9 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Conditional Expression for Class and Race */
 		sprintf(expression, "?:[AND [EQU $RACE %s] [EQU $CLASS %s] [GEQ $LEVEL %02d]]", 
 #ifdef JP
-			race_info[p_ptr->irace_idx].E_title, cp_ptr->E_title,
+			race_info[p_ptr->irace_idx].E_title, class_info[p_ptr->cls_idx].E_title,
 #else
-			race_info[p_ptr->irace_idx].title, cp_ptr->title,
+			race_info[p_ptr->irace_idx].title, class_info[p_ptr->cls_idx].title,
 #endif
 			p_ptr->lev
 			);

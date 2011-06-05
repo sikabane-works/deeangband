@@ -1014,9 +1014,9 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
-				v = cp_ptr->E_title;
+				v = class_info[p_ptr->cls_idx].E_title;
 #else
-				v = cp_ptr->title;
+				v = class_info[p_ptr->cls_idx].title;
 #endif
 			}
 
@@ -6869,7 +6869,7 @@ static void print_tomb(void)
 		center_string(buf, p);
 		put_str(buf, 8, 11);
 
-		center_string(buf, cp_ptr->title);
+		center_string(buf, class_info[p_ptr->cls_idx].title);
 		put_str(buf, 10, 11);
 
 #ifdef JP

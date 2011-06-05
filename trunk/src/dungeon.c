@@ -6487,7 +6487,7 @@ static void load_all_pref_files(void)
 	process_pref_file(buf);
 
 	/* Access the "class" pref file */
-	sprintf(buf, "%s.prf", cp_ptr->title);
+	sprintf(buf, "%s.prf", class_info[p_ptr->cls_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);

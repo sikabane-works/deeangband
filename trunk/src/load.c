@@ -2482,7 +2482,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	}
 
 	/* Important -- Initialize the race/class */
-	cp_ptr = &class_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara_idx];
 
 

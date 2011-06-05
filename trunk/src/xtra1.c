@@ -1729,7 +1729,7 @@ static void prt_frame_basic(void)
 		my_strcpy(str, race_info[p_ptr->irace_idx].title, sizeof(str));
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
-/*	prt_field(cp_ptr->title, ROW_CLASS, COL_CLASS); */
+/*	prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 /*	prt_field(ap_ptr->title, ROW_CHARA, COL_CHARA); */
 
 
@@ -6126,7 +6126,7 @@ void redraw_stuff(void)
 	{
 		p_ptr->redraw &= ~(PR_MISC);
 		prt_field(race_info[p_ptr->irace_idx].title, ROW_RACE, COL_RACE);
-/*		prt_field(cp_ptr->title, ROW_CLASS, COL_CLASS); */
+/*		prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 
 	}
 
