@@ -8130,6 +8130,74 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				}
 				break;
 
+			case 'i':
+				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				{
+					char c;
+					int m = 0;
+					char acount[10];
+
+					int i;
+					for(i = 0; i < max_unique; i++)
+						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						{
+							/* Save the screen */
+							screen_save();
+
+							(void)show_inven(0, &u_info[i]);
+							/* Forever */
+							while (1)
+							{
+								c = inkey();
+
+								/* Exit */
+								if (c == ESCAPE) break;
+
+							}
+
+							/* Restore the screen */
+							screen_load();
+							break;
+
+						}
+
+				}
+				break;
+
+			case 'e':
+				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				{
+					char c;
+					int m = 0;
+					char acount[10];
+
+					int i;
+					for(i = 0; i < max_unique; i++)
+						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						{
+							/* Save the screen */
+							screen_save();
+
+							(void)show_equip(0, &u_info[i]);
+							/* Forever */
+							while (1)
+							{
+								c = inkey();
+
+								/* Exit */
+								if (c == ESCAPE) break;
+
+							}
+
+							/* Restore the screen */
+							screen_load();
+							break;
+
+						}
+
+				}
+				break;
+
 			default:
 			{
 				/* Move the cursor */

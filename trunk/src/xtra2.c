@@ -6216,3 +6216,5 @@ void display_creature_dump(creature_type *cr_ptr)
 
 }
 
+
+
