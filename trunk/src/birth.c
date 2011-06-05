@@ -3156,7 +3156,7 @@ static void birth_put_stats(void)
 		for (i = 0; i < 6; i++)
 		{
 			/* Race/Class bonus */
-			j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + ap_ptr->a_adj[i];
+			j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
 
 			/* Obtain the current stat */
 			m = adjust_stat(p_ptr->stat_max[i], j);
@@ -5165,8 +5165,7 @@ static bool get_player_chara(void)
 		if(!(chara_info[n].sex & (0x01 << p_ptr->sex))) continue;
 
 		/* Analyze */
-		ap_ptr = &chara_info[n];
-		str = ap_ptr->title;
+		str = chara_info[p_ptr->chara_idx].title;
 		if (n < 26)
 			sym[n] = I2A(n);
 		else
@@ -5211,25 +5210,24 @@ static bool get_player_chara(void)
 			}
 			else
 			{
-				ap_ptr = &chara_info[cs];
-				str = ap_ptr->title;
+				str = chara_info[p_ptr->chara_idx].title;
 #ifdef JP
 					sprintf(cur, "%c%c%s", sym[cs], p2, str);
 #else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
 #endif
 #ifdef JP
-					c_put_str(TERM_L_BLUE, ap_ptr->title, 3, 40);
-					put_str("‚Ì«ŠiC³", 3, 40+strlen(ap_ptr->title));
+					c_put_str(TERM_L_BLUE, chara_info[p_ptr->chara_idx].title, 3, 40);
+					put_str("‚Ì«ŠiC³", 3, 40+strlen(chara_info[p_ptr->chara_idx].title));
 					put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í      ", 4, 40);
 #else
-					c_put_str(TERM_L_BLUE, ap_ptr->title, 3, 40);
-					put_str(": Personality modification", 3, 40+strlen(ap_ptr->title));
+					c_put_str(TERM_L_BLUE, chara_info[p_ptr->chara_idx].title, 3, 40);
+					put_str(": Personality modification", 3, 40+strlen(chara_info[p_ptr->chara_idx].title));
 					put_str("Str  Int  Wis  Dex  Con  Chr       ", 4, 40);
 #endif
 					sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d       ",
-						ap_ptr->a_adj[0], ap_ptr->a_adj[1], ap_ptr->a_adj[2], ap_ptr->a_adj[3],
-						ap_ptr->a_adj[4], ap_ptr->a_adj[5]);
+						chara_info[p_ptr->chara_idx].a_adj[0], chara_info[p_ptr->chara_idx].a_adj[1], chara_info[p_ptr->chara_idx].a_adj[2], chara_info[p_ptr->chara_idx].a_adj[3],
+						chara_info[p_ptr->chara_idx].a_adj[4], chara_info[p_ptr->chara_idx].a_adj[5]);
 					c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 			c_put_str(TERM_YELLOW, cur, 12 + (cs/4), 2 + 18 * (cs%4));
@@ -5359,13 +5357,12 @@ static bool get_player_chara(void)
 
 	/* Set CHARA */
 	p_ptr->chara_idx = k;
-	ap_ptr = &chara_info[p_ptr->chara_idx];
 #ifdef JP
-	strcpy(tmp, ap_ptr->title);
-	if(ap_ptr->no == 1)
+	strcpy(tmp, chara_info[p_ptr->chara_idx].title);
+	if(chara_info[p_ptr->chara_idx].no == 1)
 	strcat(tmp,"‚Ì");
 #else
-	strcpy(tmp, ap_ptr->title);
+	strcpy(tmp, chara_info[p_ptr->chara_idx].title);
 	strcat(tmp," ");
 #endif
 	strcat(tmp, p_ptr->name);
@@ -5412,7 +5409,7 @@ static bool get_stat_limits(void)
 		cval[i] = 3;
 
 		/* Race/Class bonus */
-		j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + ap_ptr->a_adj[i];
+		j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -5466,7 +5463,7 @@ static bool get_stat_limits(void)
 		/* Prepare a prompt */
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
 			stat_names[i], cval[i], race_info[p_ptr->irace_idx].r_adj[i], class_info[p_ptr->cls_idx].c_adj[i],
-			ap_ptr->a_adj[i], inp, cur);
+			chara_info[p_ptr->chara_idx].a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
 		put_str(buf, 14 + i, 10);
@@ -5502,7 +5499,7 @@ static bool get_stat_limits(void)
 			else
 			{
 				/* Race/Class bonus */
-				j = race_info[p_ptr->irace_idx].r_adj[cs] + class_info[p_ptr->cls_idx].c_adj[cs] + ap_ptr->a_adj[cs];
+				j = race_info[p_ptr->irace_idx].r_adj[cs] + class_info[p_ptr->cls_idx].c_adj[cs] + chara_info[p_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -5530,7 +5527,7 @@ static bool get_stat_limits(void)
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
 					stat_names[cs], cval[cs], race_info[p_ptr->irace_idx].r_adj[cs],
-					class_info[p_ptr->cls_idx].c_adj[cs], ap_ptr->a_adj[cs], inp);
+					class_info[p_ptr->cls_idx].c_adj[cs], chara_info[p_ptr->chara_idx].a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
 			os = cs;
@@ -6833,7 +6830,7 @@ static bool player_birth_aux(void)
 				put_str(stat_names[i], 3+i, col);
 
 				/* Race/Class bonus */
-				j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + ap_ptr->a_adj[i];
+				j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
 
 				/* Obtain the current stat */
 				m = adjust_stat(stat_limit[i], j);
@@ -7282,8 +7279,6 @@ static bool ask_quick_start(void)
 	/*TODO: “––Ê‚ÍƒCƒF[ƒLƒ“‚©‚ç‚Ì‚ÝƒXƒ^[ƒgA‚¢‚¸‚êŽw’è‚³‚ê‚½“sŽs‚ð‘I‚Ô‚æ‚¤‚ÉŽw’èB */
 	p_ptr->wilderness_x = 134;
 	p_ptr->wilderness_y = 71;
-
-	ap_ptr = &chara_info[p_ptr->chara_idx];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);

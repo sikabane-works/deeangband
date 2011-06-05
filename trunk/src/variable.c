@@ -775,12 +775,6 @@ creature_type p_body;
 creature_type *p_ptr = &p_body;
 
 /*
- * Pointer to the player tables
- */
-player_chara *ap_ptr;
-
-
-/*
  * The last character rolled,
  * holded for quick start
  */

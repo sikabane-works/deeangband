@@ -3826,9 +3826,9 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* Name, Sex, Race, Class */
 		if(cr_ptr->chara_idx != CHARA_NONE){ 
 #ifdef JP
-			sprintf(tmp, "%s%s%s", ap_ptr->title, ap_ptr->no == 1 ? "‚Ì":"", cr_ptr->name);
+			sprintf(tmp, "%s%s%s", chara_info[p_ptr->chara_idx].title, chara_info[p_ptr->chara_idx].no == 1 ? "‚Ì":"", cr_ptr->name);
 #else
-			sprintf(tmp, "%s  %s", ap_ptr->title, cr_ptr->name);
+			sprintf(tmp, "%s  %s", chara_info[p_ptr->chara_idx].title, cr_ptr->name);
 #endif
 		}
 		else
@@ -6384,9 +6384,9 @@ void get_name(void)
 		strcpy(p_ptr->name, "PLAYER");
 	}
 
-	strcpy(tmp,ap_ptr->title);
+	strcpy(tmp,chara_info[p_ptr->chara_idx].title);
 #ifdef JP
-	if(ap_ptr->no == 1)
+	if(chara_info[p_ptr->chara_idx].no == 1)
 		strcat(tmp,"‚Ì");
 #else
 	strcat(tmp, " ");

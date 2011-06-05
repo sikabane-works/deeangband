@@ -2481,9 +2481,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 		rd_s16b(&p_ptr->player_hp[i]);
 	}
 
-	/* Important -- Initialize the race/class */
-	ap_ptr = &chara_info[p_ptr->chara_idx];
-
 
 	/* Read spell info */
 	rd_u32b(&p_ptr->spell_learned1);

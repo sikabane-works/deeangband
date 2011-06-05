@@ -464,7 +464,6 @@ extern byte tval_to_attr[128];
 extern char tval_to_char[128];
 extern cptr keymap_act[KEYMAP_MODES][256];
 extern creature_type *p_ptr;
-extern player_chara *ap_ptr;
 extern birther previous_char;
 extern vault_type *v_info;
 extern char *v_name;

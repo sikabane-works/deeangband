@@ -4898,9 +4898,9 @@ void change_race(int new_race, cptr effect_msg)
 
 	/* Hitdice */
 	if (p_ptr->cls_idx == CLASS_SORCERER)
-		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp/2 + class_info[p_ptr->cls_idx].c_mhp + ap_ptr->a_mhp;
+		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp/2 + class_info[p_ptr->cls_idx].c_mhp + chara_info[p_ptr->chara_idx].a_mhp;
 	else
-		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp + class_info[p_ptr->cls_idx].c_mhp + ap_ptr->a_mhp;
+		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp + class_info[p_ptr->cls_idx].c_mhp + chara_info[p_ptr->chara_idx].a_mhp;
 
 	do_cmd_rerate(FALSE);
 

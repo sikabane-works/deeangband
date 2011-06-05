@@ -1730,7 +1730,7 @@ static void prt_frame_basic(void)
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
 /*	prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
-/*	prt_field(ap_ptr->title, ROW_CHARA, COL_CHARA); */
+/*	prt_field(chara_info[p_ptr->chara_idx].title, ROW_CHARA, COL_CHARA); */
 
 
 	/* Title */

@@ -965,10 +965,10 @@ static void do_cmd_disp_nikki(void)
 
 #ifdef JP
 	sprintf(nikki_title, "u%s%s%s‚Ì“`à -%s-v",
-		ap_ptr->title, ap_ptr->no ? "‚Ì" : "", p_ptr->name, tmp);
+		chara_info[p_ptr->chara_idx].title, chara_info[p_ptr->chara_idx].no ? "‚Ì" : "", p_ptr->name, tmp);
 #else
 	sprintf(nikki_title, "Legend of %s %s '%s'",
-		ap_ptr->title, p_ptr->name, tmp);
+		chara_info[p_ptr->chara_idx].title, p_ptr->name, tmp);
 #endif
 
 	/* Display the file contents */

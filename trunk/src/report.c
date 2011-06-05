@@ -425,9 +425,9 @@ errr report_score(void)
 	score = buf_new();
 
 #ifdef JP
-	sprintf(CHARAtmp, "%s%s", ap_ptr->title, (ap_ptr->no ? "‚Ì" : ""));
+	sprintf(CHARAtmp, "%s%s", chara_info[p_ptr->chara_idx].title, (chara_info[p_ptr->chara_idx].no ? "‚Ì" : ""));
 #else
-	sprintf(CHARAtmp, "%s ", ap_ptr->title);
+	sprintf(CHARAtmp, "%s ", chara_info[p_ptr->chara_idx].title);
 #endif
 
 	buf_sprintf(score, "name: %s\n", p_ptr->name);
