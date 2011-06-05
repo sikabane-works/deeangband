@@ -730,9 +730,9 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_PARENT) rd_s16b(&m_ptr->parent_m_idx);
 	else m_ptr->parent_m_idx = 0;
 
-//	calc_bonuses(m_ptr, FALSE);
 	strcpy(m_ptr->name, r_name + r_info[m_ptr->monster_idx].name);
 
+//	calc_bonuses(m_ptr, FALSE);
 }
 
 

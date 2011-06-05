@@ -4523,10 +4523,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (use <= 18) ind = (use - 3);
 
 		/* Ranges: 18/00-18/09, ..., 18/210-18/219 */
-		else if (use <= 18+219) ind = (15 + (use - 18) / 10);
+		else if (use <= 18+419) ind = (15 + (use - 18) / 10);
 
 		/* Range: 18/220+ */
-		else ind = (37);
+		else ind = (57);
 
 		/* Notice changes */
 		if (cr_ptr->stat_ind[i] != ind)
