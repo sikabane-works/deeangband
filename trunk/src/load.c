@@ -732,7 +732,7 @@ static void rd_monster(creature_type *m_ptr)
 
 	strcpy(m_ptr->name, r_name + r_info[m_ptr->monster_idx].name);
 
-//	calc_bonuses(m_ptr, FALSE);
+	calc_bonuses(m_ptr, FALSE);
 }
 
 
