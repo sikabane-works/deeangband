@@ -3846,18 +3846,17 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 		lite_spot(y, x);
 	}
 
-	strcpy(m_ptr->name, r_name + r_ptr->name);
-	//monster_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	//strcpy(m_ptr->name, r_name + r_ptr->name);
+	monster_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)
 	{
 		char m_name[120];
-		monster_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-		msg_format("[True: Monster[%s] Lv:%d HP:%d Stat:%d/%d/%d/%d/%d/%d H:%d W:%d S:%d]", m_name, r_ptr->level,
-			m_ptr->chp, m_ptr->stat_use[0] / 10,m_ptr->stat_use[1] / 10, m_ptr->stat_use[2] / 10,
-			m_ptr->stat_use[3] / 10, m_ptr->stat_use[4] / 10, m_ptr->stat_use[5] / 10,
-			m_ptr->ht, m_ptr->wt, m_ptr->sex);
+		msg_format("[%s L%d H%d %d/%d/%d/%d/%d/%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
+			m_ptr->chp, m_ptr->stat_ind[0]+3,m_ptr->stat_ind[1]+3, m_ptr->stat_ind[2]+3,
+			m_ptr->stat_ind[3]+3, m_ptr->stat_ind[4]+3, m_ptr->stat_ind[5]+3,
+			m_ptr->ac + m_ptr->to_a, m_ptr->ht, m_ptr->wt, m_ptr->sex);
 	}
 
 	/* Success */
