@@ -446,7 +446,7 @@ errr report_score(void)
 	buf_sprintf(score, "au: %d\n", p_ptr->au);
 	buf_sprintf(score, "turns: %d\n", turn_real(turn));
 	buf_sprintf(score, "sex: %d\n", p_ptr->sex);
-	buf_sprintf(score, "race: %s\n", rp_ptr->title);
+	buf_sprintf(score, "race: %s\n", race_info[p_ptr->irace_idx].title);
 	buf_sprintf(score, "class: %s\n", cp_ptr->title);
 	buf_sprintf(score, "CHARA: %s\n", CHARAtmp);
 	buf_sprintf(score, "realm1: %s\n", realm_names[p_ptr->realm1]);

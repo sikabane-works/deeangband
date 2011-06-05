@@ -2750,9 +2750,9 @@ static void get_extra(bool roll_hitdice)
 	int i, j;
 
 	/* Experience factor */
-	if (p_ptr->irace_idx == RACE_ANDROID) p_ptr->expfact = rp_ptr->r_exp;
+	if (p_ptr->irace_idx == RACE_ANDROID) p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp;
 	else {
-		p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
+		p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp + cp_ptr->c_exp;
 		for(i = 0; i < MAX_RACES; i++)
 			if(get_subrace(p_ptr, i)) p_ptr->expfact += race_info[i].r_s_exp;
 	}
@@ -3092,7 +3092,7 @@ static void get_history(void)
 static void get_ahw(void)
 {
 	/* Get character's age */
-	p_ptr->age = rp_ptr->b_age + randint1(rp_ptr->m_age);
+	p_ptr->age = race_info[p_ptr->irace_idx].b_age + randint1(race_info[p_ptr->irace_idx].m_age);
 
 	/* Get character's height and weight */
 	set_height_weight(p_ptr);
@@ -3156,7 +3156,7 @@ static void birth_put_stats(void)
 		for (i = 0; i < 6; i++)
 		{
 			/* Race/Class bonus */
-			j = rp_ptr->r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
+			j = race_info[p_ptr->irace_idx].r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
 
 			/* Obtain the current stat */
 			m = adjust_stat(p_ptr->stat_max[i], j);
@@ -4263,7 +4263,6 @@ static byte get_intelligent_race_category(void)
 		{
 			p_ptr->irace_idx = (byte_hack)randint0(MAX_RACES);
 		} while(race_info[p_ptr->irace_idx].race_category == RACE_CATEGORY_UNSELECTABLE);
-		rp_ptr = &race_info[p_ptr->irace_idx];
 		c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 8);
 	}
 
@@ -4323,8 +4322,7 @@ static bool get_intelligent_race(int category)
 	{
 		 
 		/* Analyze */
-		rp_ptr = &race_info[c_races[n]];
-		str = rp_ptr->title;
+		str = race_info[p_ptr->irace_idx].title;
 
 		/* Display */
 		if (n < 26)
@@ -4332,7 +4330,7 @@ static bool get_intelligent_race(int category)
 		else
 			sym[n] = ('A' + n - 26);
 
-		if(rp_ptr->dr >= 0)
+		if(race_info[p_ptr->irace_idx].dr >= 0)
 		{
 #ifdef JP
 			sprintf(buf, "%c%c!%s", sym[n], p2, str);
@@ -4383,28 +4381,28 @@ static bool get_intelligent_race(int category)
 			}
 			else
 			{
-				rp_ptr = &race_info[c_races[cs]];
-				str = rp_ptr->title;
+				
+				str = race_info[p_ptr->irace_idx].title;
 #ifdef JP
-				if(rp_ptr->dr >= 0)
+				if(race_info[p_ptr->irace_idx].dr >= 0)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, rp_ptr->title, 3, 40);
-				put_str("‚ÌŽåŽí‘°C³", 3, 40+strlen(rp_ptr->title));
+				c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 40);
+				put_str("‚ÌŽåŽí‘°C³", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
 				put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í ŒoŒ±   ", 4, 40);
 #else
-				if(rp_ptr->dr >= 0)
+				if(race_info[p_ptr->irace_idx].dr >= 0)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, rp_ptr->title, 3, 40);
-				put_str(": Main-Race modification", 3, 40+strlen(rp_ptr->title));
+				c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 40);
+				put_str(": Main-Race modification", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
 				put_str("Str  Int  Wis  Dex  Con  Chr   EXP   ", 4, 40);
 #endif
 				sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-					rp_ptr->r_adj[0], rp_ptr->r_adj[1], rp_ptr->r_adj[2], rp_ptr->r_adj[3],
-					rp_ptr->r_adj[4], rp_ptr->r_adj[5], (rp_ptr->r_exp - 100));
+					race_info[p_ptr->irace_idx].r_adj[0], race_info[p_ptr->irace_idx].r_adj[1], race_info[p_ptr->irace_idx].r_adj[2], race_info[p_ptr->irace_idx].r_adj[3],
+					race_info[p_ptr->irace_idx].r_adj[4], race_info[p_ptr->irace_idx].r_adj[5], (race_info[p_ptr->irace_idx].r_exp - 100));
 				c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 
@@ -4496,10 +4494,9 @@ static bool get_intelligent_race(int category)
 
 	/* Set race */
 	p_ptr->irace_idx = c_races[k];
-	rp_ptr = &race_info[p_ptr->irace_idx];
 
 	/* Display */
-	c_put_str(TERM_L_BLUE, rp_ptr->title, 3, 8);
+	c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 8);
 
 	/* Success */
 	return TRUE;
@@ -4987,7 +4984,7 @@ static bool get_player_class(void)
 			sym[n] = ('A' + n - 26);
 
 		/* Display */
-		if (!(rp_ptr->choice & (1L << n)))
+		if (!(race_info[p_ptr->irace_idx].choice & (1L << n)))
 			sprintf(buf, "%c%c %s", sym[n], p2, str);
 		else
 			sprintf(buf, "%c%c*%s", sym[n], p2, str);
@@ -5026,7 +5023,7 @@ static bool get_player_class(void)
 			{
 				cp_ptr = &class_info[cs];
 				str = cp_ptr->title;
-				if (!(rp_ptr->choice & (1L << cs)))
+				if (!(race_info[p_ptr->irace_idx].choice & (1L << cs)))
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c*%s", sym[cs], p2, str);
@@ -5418,7 +5415,7 @@ static bool get_stat_limits(void)
 		cval[i] = 3;
 
 		/* Race/Class bonus */
-		j = rp_ptr->r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
+		j = race_info[p_ptr->irace_idx].r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -5471,7 +5468,7 @@ static bool get_stat_limits(void)
 
 		/* Prepare a prompt */
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
-			stat_names[i], cval[i], rp_ptr->r_adj[i], cp_ptr->c_adj[i],
+			stat_names[i], cval[i], race_info[p_ptr->irace_idx].r_adj[i], cp_ptr->c_adj[i],
 			ap_ptr->a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
@@ -5508,7 +5505,7 @@ static bool get_stat_limits(void)
 			else
 			{
 				/* Race/Class bonus */
-				j = rp_ptr->r_adj[cs] + cp_ptr->c_adj[cs] + ap_ptr->a_adj[cs];
+				j = race_info[p_ptr->irace_idx].r_adj[cs] + cp_ptr->c_adj[cs] + ap_ptr->a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -5535,7 +5532,7 @@ static bool get_stat_limits(void)
 				
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
-					stat_names[cs], cval[cs], rp_ptr->r_adj[cs],
+					stat_names[cs], cval[cs], race_info[p_ptr->irace_idx].r_adj[cs],
 					cp_ptr->c_adj[cs], ap_ptr->a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
@@ -5686,13 +5683,13 @@ static bool get_chara_limits(void)
 	
 	if (p_ptr->sex == SEX_MALE)
 	{
-		max_percent = (int)(rp_ptr->m_b_ht+rp_ptr->m_m_ht*4-1) * 100 / (int)(rp_ptr->m_b_ht);
-		min_percent = (int)(rp_ptr->m_b_ht-rp_ptr->m_m_ht*4+1) * 100 / (int)(rp_ptr->m_b_ht);
+		max_percent = (int)(race_info[p_ptr->irace_idx].m_b_ht+race_info[p_ptr->irace_idx].m_m_ht*4-1) * 100 / (int)(race_info[p_ptr->irace_idx].m_b_ht);
+		min_percent = (int)(race_info[p_ptr->irace_idx].m_b_ht-race_info[p_ptr->irace_idx].m_m_ht*4+1) * 100 / (int)(race_info[p_ptr->irace_idx].m_b_ht);
 	}
 	else
 	{
-		max_percent = (int)(rp_ptr->f_b_ht+rp_ptr->f_m_ht*4-1) * 100 / (int)(rp_ptr->f_b_ht);
-		min_percent = (int)(rp_ptr->f_b_ht-rp_ptr->f_m_ht*4+1) * 100 / (int)(rp_ptr->f_b_ht);
+		max_percent = (int)(race_info[p_ptr->irace_idx].f_b_ht+race_info[p_ptr->irace_idx].f_m_ht*4-1) * 100 / (int)(race_info[p_ptr->irace_idx].f_b_ht);
+		min_percent = (int)(race_info[p_ptr->irace_idx].f_b_ht-race_info[p_ptr->irace_idx].f_m_ht*4+1) * 100 / (int)(race_info[p_ptr->irace_idx].f_b_ht);
 	}
 	
 #ifdef JP
@@ -5710,27 +5707,27 @@ static bool get_chara_limits(void)
 		switch (i)
 		{
 		case 0:	/* Minimum age */
-			m = rp_ptr->b_age + 1;
+			m = race_info[p_ptr->irace_idx].b_age + 1;
 			break;
 		case 1:	/* Maximum age */
-			m = rp_ptr->b_age + rp_ptr->m_age;
+			m = race_info[p_ptr->irace_idx].b_age + race_info[p_ptr->irace_idx].m_age;
 			break;
 
 		case 2:	/* Minimum height */
-			if (p_ptr->sex == SEX_MALE) m = rp_ptr->m_b_ht-rp_ptr->m_m_ht*4+1;
-			else m = rp_ptr->f_b_ht-rp_ptr->f_m_ht*4+1;
+			if (p_ptr->sex == SEX_MALE) m = race_info[p_ptr->irace_idx].m_b_ht-race_info[p_ptr->irace_idx].m_m_ht*4+1;
+			else m = race_info[p_ptr->irace_idx].f_b_ht-race_info[p_ptr->irace_idx].f_m_ht*4+1;
 			break;
 		case 3:	/* Maximum height */
-			if (p_ptr->sex == SEX_MALE) m = rp_ptr->m_b_ht+rp_ptr->m_m_ht*4-1;
-			else m = rp_ptr->f_b_ht+rp_ptr->f_m_ht*4-1;
+			if (p_ptr->sex == SEX_MALE) m = race_info[p_ptr->irace_idx].m_b_ht+race_info[p_ptr->irace_idx].m_m_ht*4-1;
+			else m = race_info[p_ptr->irace_idx].f_b_ht+race_info[p_ptr->irace_idx].f_m_ht*4-1;
 			break;
 		case 4:	/* Minimum weight */
-			if (p_ptr->sex == SEX_MALE) m = (rp_ptr->m_b_wt * min_percent / 100) - (rp_ptr->m_m_wt * min_percent / 75) +1;
-			else m = (rp_ptr->f_b_wt * min_percent / 100) - (rp_ptr->f_m_wt * min_percent / 75) +1;
+			if (p_ptr->sex == SEX_MALE) m = (race_info[p_ptr->irace_idx].m_b_wt * min_percent / 100) - (race_info[p_ptr->irace_idx].m_m_wt * min_percent / 75) +1;
+			else m = (race_info[p_ptr->irace_idx].f_b_wt * min_percent / 100) - (race_info[p_ptr->irace_idx].f_m_wt * min_percent / 75) +1;
 			break;
 		case 5:	/* Maximum weight */
-			if (p_ptr->sex == SEX_MALE) m = (rp_ptr->m_b_wt * max_percent / 100) + (rp_ptr->m_m_wt * max_percent / 75) -1;
-			else m = (rp_ptr->f_b_wt * max_percent / 100) + (rp_ptr->f_m_wt * max_percent / 75) -1;
+			if (p_ptr->sex == SEX_MALE) m = (race_info[p_ptr->irace_idx].m_b_wt * max_percent / 100) + (race_info[p_ptr->irace_idx].m_m_wt * max_percent / 75) -1;
+			else m = (race_info[p_ptr->irace_idx].f_b_wt * max_percent / 100) + (race_info[p_ptr->irace_idx].f_m_wt * max_percent / 75) -1;
 			break;
 		case 6:	/* Minimum social class */
 			m = 1;
@@ -6839,7 +6836,7 @@ static bool player_birth_aux(void)
 				put_str(stat_names[i], 3+i, col);
 
 				/* Race/Class bonus */
-				j = rp_ptr->r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
+				j = race_info[p_ptr->irace_idx].r_adj[i] + cp_ptr->c_adj[i] + ap_ptr->a_adj[i];
 
 				/* Obtain the current stat */
 				m = adjust_stat(stat_limit[i], j);
@@ -7289,7 +7286,6 @@ static bool ask_quick_start(void)
 	p_ptr->wilderness_x = 134;
 	p_ptr->wilderness_y = 71;
 
-	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara_idx];
 

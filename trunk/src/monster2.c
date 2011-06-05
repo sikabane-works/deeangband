@@ -3645,7 +3645,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->lev = d_level_to_c_level[r_ptr->level];
 
 	m_ptr->expfact = 100;
-	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
+	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[p_ptr->irace_idx].r_exp - 100);
 	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
 
 	m_ptr->exp = player_exp[m_ptr->lev];
@@ -3902,7 +3902,7 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	/* Set Monster's Level and EXP*/
 	m_ptr->lev = d_level_to_c_level[r_ptr->level];
 	m_ptr->expfact = 100;
-	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (rp_ptr->r_exp - 100);
+	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[p_ptr->irace_idx].r_exp - 100);
 	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += cp_ptr->c_exp;
 	m_ptr->exp = player_exp[m_ptr->lev];
 

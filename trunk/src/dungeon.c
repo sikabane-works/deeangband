@@ -6481,7 +6481,7 @@ static void load_all_pref_files(void)
 	process_pref_file(buf);
 
 	/* Access the "race" pref file */
-	sprintf(buf, "%s.prf", rp_ptr->title);
+	sprintf(buf, "%s.prf", race_info[p_ptr->irace_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);

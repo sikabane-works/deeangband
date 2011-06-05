@@ -4880,10 +4880,9 @@ void change_race(int new_race, cptr effect_msg)
 		p_ptr->old_race2 |= 1L << (p_ptr->irace_idx-32);
 	}
 	p_ptr->irace_idx = new_race;
-	rp_ptr = &race_info[p_ptr->irace_idx];
 
 	/* Experience factor */
-	p_ptr->expfact = rp_ptr->r_exp + cp_ptr->c_exp;
+	p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp + cp_ptr->c_exp;
 	for(i = 0; i < MAX_RACES; i++)
 		if(get_subrace(p_ptr, i)) p_ptr->expfact += (race_info[i].r_s_exp - 100);
 
@@ -4899,9 +4898,9 @@ void change_race(int new_race, cptr effect_msg)
 
 	/* Hitdice */
 	if (p_ptr->cls_idx == CLASS_SORCERER)
-		p_ptr->hitdice = rp_ptr->r_mhp/2 + cp_ptr->c_mhp + ap_ptr->a_mhp;
+		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp/2 + cp_ptr->c_mhp + ap_ptr->a_mhp;
 	else
-		p_ptr->hitdice = rp_ptr->r_mhp + cp_ptr->c_mhp + ap_ptr->a_mhp;
+		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp + cp_ptr->c_mhp + ap_ptr->a_mhp;
 
 	do_cmd_rerate(FALSE);
 

@@ -1726,7 +1726,7 @@ static void prt_frame_basic(void)
 	else
 	{
 		char str[14];
-		my_strcpy(str, rp_ptr->title, sizeof(str));
+		my_strcpy(str, race_info[p_ptr->irace_idx].title, sizeof(str));
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
 /*	prt_field(cp_ptr->title, ROW_CLASS, COL_CLASS); */
@@ -2513,7 +2513,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	if (cr_ptr->cls_idx == CLASS_SAMURAI)
 	{
 		msp = (adj_mag_mana[cr_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] + 10) * 2;
-		if (msp) msp += (msp * rp_ptr->r_adj[m_info[p_ptr->sex].spell_stat] / 20);
+		if (msp) msp += (msp * race_info[p_ptr->irace_idx].r_adj[m_info[p_ptr->sex].spell_stat] / 20);
 	}
 	else
 	{
@@ -2523,7 +2523,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		/* Hack -- usually add one mana */
 		if (msp) msp++;
 
-		if (msp) msp += (msp * rp_ptr->r_adj[m_info[p_ptr->sex].spell_stat] / 20);
+		if (msp) msp += (msp * race_info[p_ptr->irace_idx].r_adj[m_info[p_ptr->sex].spell_stat] / 20);
 
 		if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp/2;
 
@@ -6125,7 +6125,7 @@ void redraw_stuff(void)
 	if (p_ptr->redraw & (PR_MISC))
 	{
 		p_ptr->redraw &= ~(PR_MISC);
-		prt_field(rp_ptr->title, ROW_RACE, COL_RACE);
+		prt_field(race_info[p_ptr->irace_idx].title, ROW_RACE, COL_RACE);
 /*		prt_field(cp_ptr->title, ROW_CLASS, COL_CLASS); */
 
 	}
@@ -6467,7 +6467,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, race_info[i].title);
 				}
 			}
-			if(!subflag) strcat(name, rp_ptr->title);
+			if(!subflag) strcat(name, race_info[p_ptr->irace_idx].title);
 		break;
 		case RACE_GOLEM:
 		case RACE_ANDROID:
@@ -6483,7 +6483,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, "Œ^");
 				}
 			}
-			strcat(name, rp_ptr->title);
+			strcat(name, race_info[p_ptr->irace_idx].title);
 		break;
 		default:
 			for(i = 0; i < MAX_RACES; i++)
@@ -6504,7 +6504,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, "‚Ì");
 				}
 			}
-			strcat(name, rp_ptr->title);
+			strcat(name, race_info[p_ptr->irace_idx].title);
 		break;
 	}
 

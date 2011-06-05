@@ -1004,9 +1004,9 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "RACE"))
 			{
 #ifdef JP
-				v = rp_ptr->E_title;
+				v = race_info[p_ptr->irace_idx].E_title;
 #else
-				v = rp_ptr->title;
+				v = race_info[p_ptr->irace_idx].title;
 #endif
 			}
 

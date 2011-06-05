@@ -748,7 +748,7 @@ char misc_to_char[256];
 
 
 /*
- * Specify attr/char pairs for p_ptr->inventory items (by tval)
+ * Specify attr/char pairs for inventory items (by tval)
  * Be sure to use "index & 0x7F" to avoid illegal access
  */
 byte tval_to_attr[128];
@@ -777,7 +777,6 @@ creature_type *p_ptr = &p_body;
 /*
  * Pointer to the player tables
  */
-intelligent_race *rp_ptr;
 player_class *cp_ptr;
 player_chara *ap_ptr;
 
