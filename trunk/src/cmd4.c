@@ -8135,7 +8135,6 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				{
 					char c;
 					int m = 0;
-					char acount[10];
 
 					int i;
 					for(i = 0; i < max_unique; i++)
@@ -8169,7 +8168,6 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				{
 					char c;
 					int m = 0;
-					char acount[10];
 
 					int i;
 					for(i = 0; i < max_unique; i++)

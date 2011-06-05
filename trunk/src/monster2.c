@@ -3286,7 +3286,7 @@ static void mon_equip(creature_type *m_ptr)
  * This is the only function which may place a monster in the dungeon,
  * except for the savefile loading code.
  */
-static int place_monster_one(int who, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
+static int place_monster_one_old(int who, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -3852,7 +3852,520 @@ msg_print("爆発のルーンは解除された。");
 	/* Info for Wizard Mode*/
 	if (cheat_hear)
 	{
-		char m_name[120];
+		msg_format("[%s L%d H%d %d/%d/%d/%d/%d/%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
+			m_ptr->chp, m_ptr->stat_ind[0]+3,m_ptr->stat_ind[1]+3, m_ptr->stat_ind[2]+3,
+			m_ptr->stat_ind[3]+3, m_ptr->stat_ind[4]+3, m_ptr->stat_ind[5]+3,
+			m_ptr->ac + m_ptr->to_a, m_ptr->ht, m_ptr->wt, m_ptr->sex);
+	}
+
+	/* Success */
+	return c_ptr->m_idx;
+}
+
+static int place_monster_one(int who, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
+{
+	/* Access the location */
+	cave_type		*c_ptr = &cave[y][x];
+
+	creature_type	*m_ptr;
+
+	monster_race	*r_ptr = &r_info[monster_idx];
+	monster_ego		*re_ptr;
+	intelligent_race		*rpr_ptr;
+
+	cptr		name = (r_name + r_ptr->name);
+
+	int i, cmi;
+	int re_selected, rpr_selected, rpc_selected, rps_selected;
+
+
+	/* Select Ego */
+	re_ptr = NULL;
+	rpr_ptr = NULL;
+	re_selected = MONEGO_NONE;
+	rpr_selected = RACE_NONE;
+	rpc_selected = CLASS_NONE;
+	rps_selected = CHARA_NONE;
+
+	if(monster_ego_idx == MONEGO_NORMAL)
+	{
+		if(r_ptr->flagse & RFE_FORCE_LESSER){
+			int n;
+			n = rand_range(MONEGO_LESSER_FROM, MONEGO_LESSER_TO);
+			re_ptr = &re_info[n];
+			re_selected = n;
+		}
+		else if (r_ptr->flagse & RFE_VARIABLE_SIZE_EGO)
+		{
+			re_selected = MONEGO_VARIABLE_SIZE;
+		}
+	}
+	else{
+		re_selected = monster_ego_idx;
+	}
+
+	// set intelligence race
+	if (r_ptr->flagse & RFE_RACE_EGO)
+	{
+		int n;
+		n = rand_range(RACE_HUMAN, RACE_GNOME);
+		rpr_ptr = &race_info[n];
+		rpr_selected = n;
+	}
+	else
+	{
+		rpr_ptr = &race_info[r_ptr->i_race];
+		rpr_selected = r_ptr->i_race;
+	}
+
+	// set class
+	if (r_ptr->flagse & RFE_CLASS_EGO)
+	{
+		int n;
+		n = rand_range(CLASS_WARRIOR, CLASS_PALADIN);
+		rpc_selected = n;
+	}
+	else
+	{
+		rpc_selected = r_ptr->i_class;
+	}
+
+	// set character
+	if (r_ptr->flagse & RFE_CHARA_EGO)
+	{
+		int n;
+		n = rand_range(CHARA_FUTUU, CHARA_NAMAKE);
+		rps_selected = n;
+	}
+	else
+	{
+		rps_selected = r_ptr->i_chara;
+	}
+
+
+	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
+	if (p_ptr->wild_mode){
+		if (cheat_hear)
+		{
+			msg_format("[max_m_idx: Wild mode]");
+		}
+		return max_m_idx;
+	}
+
+	/* Verify location */
+	if (!in_bounds(y, x)){
+		if (cheat_hear)
+		{
+			msg_format("[max_m_idx: Invalid Location]");
+		}
+		return (max_m_idx);
+	}
+
+	/* Paranoia */
+	if (!monster_idx)
+	{
+		if (cheat_hear)
+		{
+			msg_format("[max_m_idx: Invalid Monster Race]");
+		}
+		return (max_m_idx);
+	}
+
+	/* Paranoia */
+	if (!r_ptr->name)
+	{
+		if (cheat_hear)
+		{
+			msg_format("[max_m_idx: Invalid Monster Name]");
+		}
+		return (max_m_idx);
+	}
+
+	if (!(mode & PM_IGNORE_TERRAIN))
+	{
+		/* Not on the Pattern */
+		if (pattern_tile(y, x)) return max_m_idx;
+
+		/* Require empty space (if not ghostly) */
+		if (!monster_can_enter(y, x, r_ptr, 0)){
+			if (cheat_hear)
+			{
+				msg_format("[max_m_idx: Monster Can't Enter]");
+			}
+			return max_m_idx;
+		}
+	}
+
+	// TO DO DEBUG.
+	if (!p_ptr->inside_battle)
+	{
+		/* Hack -- "unique" monsters must be "unique" */
+		if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
+		     (r_ptr->flags7 & (RF7_NAZGUL))) &&
+		    (r_ptr->cur_num >= r_ptr->max_num))
+		{
+			if (cheat_hear)
+			{
+				msg_format("[max_m_idx: Unique monster must be unique.]");
+			}
+
+			/* Cannot create */
+			return (max_m_idx);
+		}
+
+		if ((r_ptr->flags7 & (RF7_UNIQUE2)) &&
+		    (r_ptr->cur_num >= 1))
+		{
+			if (cheat_hear)
+			{
+				msg_format("[max_m_idx: Unique monster must be unique.]");
+			}
+			return (max_m_idx);
+		}
+
+		if (monster_idx == MON_BANORLUPART)
+		{
+			if (r_info[MON_BANOR].cur_num > 0) return max_m_idx;
+			if (r_info[MON_LUPART].cur_num > 0) return max_m_idx;
+			if (cheat_hear)
+			{
+				msg_format("[max_m_idx: Unique monster must be unique.]");
+			}
+
+		}
+
+		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
+		if ((r_ptr->flags1 & (RF1_FORCE_DEPTH)) && (dun_level < r_ptr->level) &&
+		    (!ironman_nightmare || (r_ptr->flags1 & (RF1_QUESTOR))))
+		{
+			if (cheat_hear)
+			{
+				msg_format("[max_m_idx: No Nightmare mode.]");
+			}
+			/* Cannot create */
+			return (max_m_idx);
+		}
+	}
+
+	if (quest_number(dun_level))
+	{
+		int hoge = quest_number(dun_level);
+		if ((quest[hoge].type == QUEST_TYPE_KILL_LEVEL) || (quest[hoge].type == QUEST_TYPE_RANDOM))
+		{
+			if(monster_idx == quest[hoge].monster_idx)
+			{
+				int number_mon, i2, j2;
+				number_mon = 0;
+
+				/* Count all quest monsters */
+				for (i2 = 0; i2 < cur_wid; ++i2)
+					for (j2 = 0; j2 < cur_hgt; j2++)
+						if (cave[j2][i2].m_idx > 0)
+							if (m_list[cave[j2][i2].m_idx].monster_idx == quest[hoge].monster_idx)
+								number_mon++;
+				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
+					return max_m_idx;
+			}
+		}
+	}
+
+	if (is_glyph_grid(c_ptr))
+	{
+		if (randint1(BREAK_GLYPH) < (r_ptr->level+20))
+		{
+			/* Describe observable breakage */
+			if (c_ptr->info & CAVE_MARK)
+			{
+#ifdef JP
+msg_print("守りのルーンが壊れた！");
+#else
+				msg_print("The rune of protection is broken!");
+#endif
+
+			}
+
+			/* Forget the rune */
+			c_ptr->info &= ~(CAVE_MARK);
+
+			/* Break the rune */
+			c_ptr->info &= ~(CAVE_OBJECT);
+			c_ptr->mimic = 0;
+
+			/* Notice */
+			note_spot(y, x);
+		}
+		else return max_m_idx;
+	}
+
+
+	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+
+	/* Make a new monster */
+	c_ptr->m_idx = m_pop();
+	hack_m_idx_ii = c_ptr->m_idx;
+
+	/* Mega-Hack -- catch "failure" */
+	if (!c_ptr->m_idx) return (max_m_idx);
+
+	/* Get a new monster record */
+	m_ptr = &m_list[c_ptr->m_idx];
+
+	create_monster(m_ptr, monster_idx, re_selected, mode); 
+
+	/* No flags */
+	m_ptr->mflag = 0;
+	m_ptr->mflag2 = 0;
+
+	/* Hack -- Appearance transfer */
+	if ((mode & PM_MULTIPLY) && (who > 0) && !is_original_ap(&m_list[who]))
+	{
+		m_ptr->ap_monster_idx = m_list[who].ap_monster_idx;
+
+		/* Hack -- Shadower spawns Shadower */
+		if (m_list[who].mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
+	}
+
+	/* Sub-alignment of a monster */
+	if ((who > 0) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
+		m_ptr->sub_align = m_list[who].sub_align;
+	else
+	{
+		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+		if (r_ptr->flags3 & RF3_EVIL) m_ptr->sub_align |= SUB_ALIGN_EVIL;
+		if (r_ptr->flags3 & RF3_GOOD) m_ptr->sub_align |= SUB_ALIGN_GOOD;
+	}
+
+	/* Place the monster at the location */
+	m_ptr->fy = y;
+	m_ptr->fx = x;
+
+	/* Unknown distance */
+	m_ptr->cdis = 0;
+	reset_target(m_ptr);
+	m_ptr->nickname = 0;
+
+	/* Your pet summons its pet. */
+	if (who > 0 && is_pet(&m_list[who]))
+	{
+		mode |= PM_FORCE_PET;
+		m_ptr->parent_m_idx = who;
+	}
+	else
+	{
+		m_ptr->parent_m_idx = 0;
+	}
+
+	if (r_ptr->flags7 & RF7_CHAMELEON)
+	{
+		choose_new_monster(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
+		r_ptr = &r_info[m_ptr->monster_idx];
+		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
+
+		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
+		if ((r_ptr->flags1 & RF1_UNIQUE) && (who <= 0))
+			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+	}
+	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
+	{
+		m_ptr->ap_monster_idx = MON_KAGE;
+		m_ptr->mflag2 |= MFLAG2_KAGE;
+	}
+
+	if (mode & PM_NO_PET) m_ptr->mflag2 |= MFLAG2_NOPET;
+
+	/* Not visible */
+	m_ptr->ml = FALSE;
+
+	/* Pet? */
+	if (mode & PM_FORCE_PET)
+	{
+		set_pet(m_ptr);
+	}
+	/* Friendly? */
+	else if ((r_ptr->flags7 & RF7_FRIENDLY) ||
+		 (mode & PM_FORCE_FRIENDLY) || is_friendly_idx(who))
+	{
+		if (!monster_has_hostile_align(NULL, 0, -1, r_ptr)) set_friendly(m_ptr);
+	}
+
+	/* Assume no sleeping */
+	m_ptr->mtimed[MTIMED_CSLEEP] = 0;
+
+	/* Enforce sleeping if needed */
+	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
+	{
+		int val = r_ptr->sleep;
+		(void)set_monster_csleep(c_ptr->m_idx, (val * 2) + randint1(val * 10));
+	}
+
+	if (mode & PM_HASTE) (void)set_monster_fast(c_ptr->m_idx, 100);
+
+	/* Give a random starting energy */
+	if (!ironman_nightmare)
+	{
+		m_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
+	}
+	else
+	{
+		/* Nightmare monsters are more prepared */
+		m_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
+	}
+
+	/* Force monster to wait for player, unless in Nightmare mode */
+	if ((r_ptr->flags1 & RF1_FORCE_SLEEP) && !ironman_nightmare)
+	{
+		/* Monster is still being nice */
+		m_ptr->mflag |= (MFLAG_NICE);
+
+		/* Must repair monsters */
+		repair_monsters = TRUE;
+	}
+
+	/* Hack -- see "process_monsters()" */
+	if (c_ptr->m_idx < hack_m_idx)
+	{
+		/* Monster is still being born */
+		m_ptr->mflag |= (MFLAG_BORN);
+	}
+
+	if (r_ptr->flags7 & RF7_SELF_LD_MASK)
+		p_ptr->update |= (PU_MON_LITE);
+	else if ((r_ptr->flags7 & RF7_HAS_LD_MASK) && !MON_CSLEEP(m_ptr))
+		p_ptr->update |= (PU_MON_LITE);
+
+	/* Update the monster */
+	update_mon(c_ptr->m_idx, TRUE);
+
+	/* Count the monsters on the level */
+	real_r_ptr(m_ptr)->cur_num++;
+
+	/*
+	 * Memorize location of the unique monster in saved floors.
+	 * A unique monster move from old saved floor.
+	 */
+	if (character_dungeon &&
+	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)))
+		real_r_ptr(m_ptr)->floor_id = p_ptr->floor_id;
+
+	/* Hack -- Count the number of "reproducers" */
+	if (r_ptr->flags2 & RF2_MULTIPLY) num_repro++;
+
+	/* Hack -- Notice new multi-hued monsters */
+	{
+		monster_race *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
+		if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER))
+			shimmer_monsters = TRUE;
+	}
+
+	if (p_ptr->warning && character_dungeon)
+	{
+		if (r_ptr->flags1 & RF1_UNIQUE)
+		{
+			cptr color;
+			object_type *o_ptr;
+			char o_name[MAX_NLEN];
+
+			if (r_ptr->level > p_ptr->lev + 30)
+#ifdef JP
+				color = "黒く";
+#else
+				color = "black";
+#endif
+			else if (r_ptr->level > p_ptr->lev + 15)
+#ifdef JP
+				color = "紫色に";
+#else
+				color = "purple";
+#endif
+			else if (r_ptr->level > p_ptr->lev + 5)
+#ifdef JP
+				color = "ルビー色に";
+#else
+				color = "deep red";
+#endif
+			else if (r_ptr->level > p_ptr->lev - 5)
+#ifdef JP
+				color = "赤く";
+#else
+				color = "red";
+#endif
+			else if (r_ptr->level > p_ptr->lev - 15)
+#ifdef JP
+				color = "ピンク色に";
+#else
+				color = "pink";
+#endif
+			else
+#ifdef JP
+				color = "白く";
+#else
+				color = "white";
+#endif
+
+			o_ptr = choose_warning_item();
+			if (o_ptr)
+			{
+				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+				msg_format("%sは%s光った。", o_name, color);
+#else
+				msg_format("%s glows %s.", o_name, color);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				msg_format("s%光る物が頭に浮かんだ。", color);
+#else
+				msg_format("An %s image forms in your mind.");
+#endif
+			}
+		}
+	}
+
+	if (is_explosive_rune_grid(c_ptr))
+	{
+		/* Break the ward */
+		if (randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
+		{
+			/* Describe observable breakage */
+			if (c_ptr->info & CAVE_MARK)
+			{
+#ifdef JP
+msg_print("ルーンが爆発した！");
+#else
+				msg_print("The rune explodes!");
+#endif
+
+				project(0, 2, y, x, 2 * (p_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+			}
+		}
+		else
+		{
+#ifdef JP
+msg_print("爆発のルーンは解除された。");
+#else
+			msg_print("An explosive rune was disarmed.");
+#endif
+		}
+
+		/* Forget the rune */
+		c_ptr->info &= ~(CAVE_MARK);
+
+		/* Break the rune */
+		c_ptr->info &= ~(CAVE_OBJECT);
+		c_ptr->mimic = 0;
+
+		note_spot(y, x);
+		lite_spot(y, x);
+	}
+
+	//strcpy(m_ptr->name, r_name + r_ptr->name);
+	monster_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+
+	/* Info for Wizard Mode*/
+	if (cheat_hear)
+	{
 		msg_format("[%s L%d H%d %d/%d/%d/%d/%d/%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
 			m_ptr->chp, m_ptr->stat_ind[0]+3,m_ptr->stat_ind[1]+3, m_ptr->stat_ind[2]+3,
 			m_ptr->stat_ind[3]+3, m_ptr->stat_ind[4]+3, m_ptr->stat_ind[5]+3,
