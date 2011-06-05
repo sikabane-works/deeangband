@@ -2820,6 +2820,11 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	/* Un-inflate "half-hitpoint bonus per level" value */
 	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[A_CON]]) - 128) * cr_ptr->lev / 4;
 
+	/* Divine Bonuses */
+	if(cr_ptr->dr >= 0){
+		bonus += adj_dr_mhp[cr_ptr->dr] * cr_ptr->hitdice;
+	}
+
 	/* Calculate hitpoints */
 	mhp = cr_ptr->player_hp[cr_ptr->lev - 1];
 

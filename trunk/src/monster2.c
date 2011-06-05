@@ -3875,7 +3875,6 @@ static int place_monster_one(int who, int y, int x, int monster_idx, int monster
 
 	cptr		name = (r_name + r_ptr->name);
 
-	int i, cmi;
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
 
 
