@@ -2481,9 +2481,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 		rd_s16b(&p_ptr->player_hp[i]);
 	}
 
-	/* Important -- Initialize the sex */
-	sp_ptr = &sex_info[p_ptr->sex];
-
 	/* Important -- Initialize the race/class */
 	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->cls_idx];

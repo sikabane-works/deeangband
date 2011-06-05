@@ -6531,15 +6531,12 @@ static bool player_birth_aux(void)
 	/* Prompt for "Sex" */
 	for (n = 0; n < MAX_SEXES; n++)
 	{
-		/* Analyze */
-		sp_ptr = &sex_info[n];
-
 		/* Display */
 
 	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << n))
-		sprintf(buf, "%c%c %s", I2A(n), p2, sp_ptr->title);
+		sprintf(buf, "%c%c %s", I2A(n), p2, sex_info[p_ptr->sex].title);
 	else
-		sprintf(buf, "%c%c!%s", I2A(n), p2, sp_ptr->title);
+		sprintf(buf, "%c%c!%s", I2A(n), p2, sex_info[p_ptr->sex].title);
 		put_str(buf, 13 + (n/5), 2 + 15 * (n%5));
 	}
 
@@ -6568,8 +6565,7 @@ static bool player_birth_aux(void)
 			}
 			else
 			{
-				sp_ptr = &sex_info[cs];
-				str = sp_ptr->title;
+				str = sex_info[p_ptr->sex].title;
 				if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << cs))
 					sprintf(cur, "%c%c %s", I2A(cs), p2, str);
 				else
@@ -6636,16 +6632,15 @@ static bool player_birth_aux(void)
 
 	/* Set sex */
 	p_ptr->sex = k;
-	sp_ptr = &sex_info[p_ptr->sex];
 	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << p_ptr->sex))
 	{
 		p_ptr->sexual_penalty = FALSE;
-		c_put_str(TERM_L_BLUE, sp_ptr->title, 4, 8);
+		c_put_str(TERM_L_BLUE, sex_info[p_ptr->sex].title, 4, 8);
 	}
 	else
 	{
 		p_ptr->sexual_penalty = TRUE;
-		c_put_str(TERM_YELLOW, sp_ptr->title, 4, 8);
+		c_put_str(TERM_YELLOW, sex_info[p_ptr->sex].title, 4, 8);
 	}
 
 	/* Display */
@@ -7297,7 +7292,6 @@ static bool ask_quick_start(void)
 	p_ptr->wilderness_x = 134;
 	p_ptr->wilderness_y = 71;
 
-	sp_ptr = &sex_info[p_ptr->sex];
 	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->cls_idx];
 	mp_ptr = &m_info[p_ptr->cls_idx];

@@ -4950,7 +4950,6 @@ msg_print("‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ğŠ´‚¶‚½...");
 			if (p_ptr->sex == SEX_MALE)
 			{
 				p_ptr->sex = SEX_FEMALE;
-				sp_ptr = &sex_info[p_ptr->sex];
 #ifdef JP
 sprintf(effect_msg, "—«‚Ì");
 #else
@@ -4961,7 +4960,6 @@ sprintf(effect_msg, "—«‚Ì");
 			else
 			{
 				p_ptr->sex = SEX_MALE;
-				sp_ptr = &sex_info[p_ptr->sex];
 #ifdef JP
 sprintf(effect_msg, "’j«‚Ì");
 #else

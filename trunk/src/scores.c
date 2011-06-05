@@ -951,11 +951,11 @@ void kingly(void)
 #ifdef JP
 	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
 	put_str("来た、見た、勝った！", cy + 4, cx - 10);
-	put_str(format("偉大なる%s万歳！", sp_ptr->winner), cy + 5, cx - 11);
+	put_str(format("偉大なる%s万歳！", sex_info[p_ptr->sex].winner), cy + 5, cx - 11);
 #else
 	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
 	put_str("I came, I saw, I conquered!", cy + 4, cx - 14);
-	put_str(format("All Hail the Mighty %s!", sp_ptr->winner), cy + 5, cx - 13);
+	put_str(format("All Hail the Mighty %s!", sex_info[p_ptr->sex].winner), cy + 5, cx - 13);
 #endif
 
 	/* If player did Seppuku, that is already written in playrecord */
