@@ -467,7 +467,6 @@ extern creature_type *p_ptr;
 extern intelligent_race *rp_ptr;
 extern player_class *cp_ptr;
 extern player_chara *ap_ptr;
-extern player_magic *mp_ptr;
 extern birther previous_char;
 extern vault_type *v_info;
 extern char *v_name;

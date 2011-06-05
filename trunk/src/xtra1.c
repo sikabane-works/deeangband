@@ -1003,7 +1003,7 @@ static void prt_sp(void)
 
 
 	/* Do not show mana unless it matters */
-	if (!mp_ptr->spell_book) return;
+	if (!m_info[p_ptr->sex].spell_book) return;
 
 	/* ƒ^ƒCƒgƒ‹ */
 /*	put_str(" ‚l‚o / Å‘å", ROW_MAXSP, COL_MAXSP); */
@@ -2140,7 +2140,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	cptr p;
 
 	/* Hack -- must be literate */
-	if (!mp_ptr->spell_book) return;
+	if (!m_info[p_ptr->sex].spell_book) return;
 
 	/* Hack -- wait for creation */
 	if (!character_generated) return;
@@ -2154,18 +2154,18 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		return;
 	}
 
-	p = spell_category_name(mp_ptr->spell_book);
+	p = spell_category_name(m_info[p_ptr->sex].spell_book);
 
 	/* Determine the number of spells allowed */
-	levels = cr_ptr->lev - mp_ptr->spell_first + 1;
+	levels = cr_ptr->lev - m_info[p_ptr->sex].spell_first + 1;
 
 	/* Hack -- no negative spells */
 	if (levels < 0) levels = 0;
 
 	/* Extract total allowed spells */
-	num_allowed = (adj_mag_study[cr_ptr->stat_ind[mp_ptr->spell_stat]] * levels / 2);
+	num_allowed = (adj_mag_study[cr_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] * levels / 2);
 
-	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (mp_ptr->spell_book != TV_LIFE_BOOK))
+	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (m_info[p_ptr->sex].spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
@@ -2224,9 +2224,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j < 32)
-			s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
+			s_ptr = &m_info[p_ptr->sex].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &mp_ptr->info[cr_ptr->realm2-1][j%32];
+			s_ptr = &m_info[p_ptr->sex].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we are allowed to know */
 		if (s_ptr->slevel <= cr_ptr->lev) continue;
@@ -2360,9 +2360,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j<32)
-			s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
+			s_ptr = &m_info[p_ptr->sex].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &mp_ptr->info[cr_ptr->realm2-1][j%32];
+			s_ptr = &m_info[p_ptr->sex].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we cannot remember */
 		if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2419,7 +2419,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		for (j = 0; j < 32; j++)
 		{
 			if (!is_magic(cr_ptr->realm1)) s_ptr = &technic_info[cr_ptr->realm1-MIN_TECHNIC][j];
-			else s_ptr = &mp_ptr->info[cr_ptr->realm1-1][j];
+			else s_ptr = &m_info[p_ptr->sex].info[cr_ptr->realm1-1][j];
 
 			/* Skip spells we cannot remember */
 			if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2434,7 +2434,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 			k++;
 		}
 		if (k>32) k = 32;
-		if ((cr_ptr->new_spells > k) && ((mp_ptr->spell_book == TV_LIFE_BOOK) || (mp_ptr->spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
+		if ((cr_ptr->new_spells > k) && ((m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK) || (m_info[p_ptr->sex].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
 	}
 
 	if (cr_ptr->new_spells < 0) cr_ptr->new_spells = 0;
@@ -2486,7 +2486,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 
 	/* Hack -- Must be literate */
-	if (!mp_ptr->spell_book) return;
+	if (!m_info[p_ptr->sex].spell_book) return;
 
 	if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
 	    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) ||
@@ -2496,7 +2496,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	}
 	else
 	{
-		if(mp_ptr->spell_first > cr_ptr->lev)
+		if(m_info[p_ptr->sex].spell_first > cr_ptr->lev)
 		{
 			/* Save new mana */
 			cr_ptr->msp = 0;
@@ -2507,23 +2507,23 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		}
 
 		/* Extract "effective" player level */
-		levels = (cr_ptr->lev - mp_ptr->spell_first) + 1;
+		levels = (cr_ptr->lev - m_info[p_ptr->sex].spell_first) + 1;
 	}
 
 	if (cr_ptr->cls_idx == CLASS_SAMURAI)
 	{
-		msp = (adj_mag_mana[cr_ptr->stat_ind[mp_ptr->spell_stat]] + 10) * 2;
-		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
+		msp = (adj_mag_mana[cr_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] + 10) * 2;
+		if (msp) msp += (msp * rp_ptr->r_adj[m_info[p_ptr->sex].spell_stat] / 20);
 	}
 	else
 	{
 		/* Extract total mana */
-		msp = adj_mag_mana[cr_ptr->stat_ind[mp_ptr->spell_stat]] * (levels+3) / 4;
+		msp = adj_mag_mana[cr_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] * (levels+3) / 4;
 
 		/* Hack -- usually add one mana */
 		if (msp) msp++;
 
-		if (msp) msp += (msp * rp_ptr->r_adj[mp_ptr->spell_stat] / 20);
+		if (msp) msp += (msp * rp_ptr->r_adj[m_info[p_ptr->sex].spell_stat] / 20);
 
 		if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp/2;
 
@@ -2534,7 +2534,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	}
 
 	/* Only mages are affected */
-	if (mp_ptr->spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
+	if (m_info[p_ptr->sex].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 
@@ -2639,7 +2639,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	}
 
 	/* Determine the weight allowance */
-	max_wgt = mp_ptr->spell_weight;
+	max_wgt = m_info[p_ptr->sex].spell_weight;
 
 	/* Heavy armor penalizes mana by a percentage.  -LM- */
 	if ((cur_wgt - max_wgt) > 0)
@@ -4543,7 +4543,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in INT may affect Mana/Spells */
 			else if (i == A_INT)
 			{
-				if (mp_ptr->spell_stat == A_INT)
+				if (m_info[p_ptr->sex].spell_stat == A_INT)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -4552,7 +4552,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == A_WIS)
 			{
-				if (mp_ptr->spell_stat == A_WIS)
+				if (m_info[p_ptr->sex].spell_stat == A_WIS)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -4561,7 +4561,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == A_CHR)
 			{
-				if (mp_ptr->spell_stat == A_CHR)
+				if (m_info[p_ptr->sex].spell_stat == A_CHR)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -5882,25 +5882,25 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #if 0
 	if (have_dd_s && ((cr_ptr->realm1 == REALM_SORCERY) || (cr_ptr->realm2 == REALM_SORCERY) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &mp_ptr->info[REALM_SORCERY-1][SPELL_DD_S];
+		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_SORCERY-1][SPELL_DD_S];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
 	if (have_dd_t && ((cr_ptr->realm1 == REALM_TRUMP) || (cr_ptr->realm2 == REALM_TRUMP) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)))
 	{
-		magic_type *s_ptr = &mp_ptr->info[REALM_TRUMP-1][SPELL_DD_T];
+		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_TRUMP-1][SPELL_DD_T];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 #endif
 	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &mp_ptr->info[REALM_NATURE-1][SPELL_SW];
+		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_NATURE-1][SPELL_SW];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
 	if (have_kabe && ((cr_ptr->realm1 == REALM_CRAFT) || (cr_ptr->realm2 == REALM_CRAFT) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &mp_ptr->info[REALM_CRAFT-1][SPELL_KABE];
+		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 

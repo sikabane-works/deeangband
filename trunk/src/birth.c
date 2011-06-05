@@ -4980,7 +4980,6 @@ static bool get_player_class(void)
 	{
 		/* Analyze */
 		cp_ptr = &class_info[n];
-		mp_ptr = &m_info[n];
 		str = cp_ptr->title;
 		if (n < 26)
 			sym[n] = I2A(n);
@@ -5026,7 +5025,6 @@ static bool get_player_class(void)
 			else
 			{
 				cp_ptr = &class_info[cs];
-				mp_ptr = &m_info[cs];
 				str = cp_ptr->title;
 				if (!(rp_ptr->choice & (1L << cs)))
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
@@ -5136,7 +5134,6 @@ static bool get_player_class(void)
 	/* Set class */
 	p_ptr->cls_idx = k;
 	cp_ptr = &class_info[p_ptr->cls_idx];
-	mp_ptr = &m_info[p_ptr->cls_idx];
 
 
 	/* Display */
@@ -7294,7 +7291,6 @@ static bool ask_quick_start(void)
 
 	rp_ptr = &race_info[p_ptr->irace_idx];
 	cp_ptr = &class_info[p_ptr->cls_idx];
-	mp_ptr = &m_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara_idx];
 
 	/* Calc hitdice, but don't roll */

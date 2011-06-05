@@ -1597,7 +1597,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "生命の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Life Magic %";
 			else
 				basenm = "& Life Spellbook~ %";
@@ -1611,7 +1611,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "仙術の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Sorcery %";
 			else
 				basenm = "& Sorcery Spellbook~ %";
@@ -1625,7 +1625,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "自然の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Nature Magic %";
 			else
 				basenm = "& Nature Spellbook~ %";
@@ -1639,7 +1639,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "カオスの魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Chaos Magic %";
 			else
 				basenm = "& Chaos Spellbook~ %";
@@ -1653,7 +1653,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "暗黒の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Death Magic %";
 			else
 				basenm = "& Death Spellbook~ %";
@@ -1667,7 +1667,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "トランプの魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Trump Magic %";
 			else
 				basenm = "& Trump Spellbook~ %";
@@ -1681,7 +1681,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "秘術の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Arcane Magic %";
 			else
 				basenm = "& Arcane Spellbook~ %";
@@ -1695,7 +1695,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "匠の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Craft Magic %";
 			else
 				basenm = "& Craft Spellbook~ %";
@@ -1709,7 +1709,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "悪魔の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Daemon Magic %";
 			else
 				basenm = "& Daemon Spellbook~ %";
@@ -1723,7 +1723,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "破邪の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Crusade Magic %";
 			else
 				basenm = "& Crusade Spellbook~ %";
@@ -1759,7 +1759,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "呪術の魔法書%";
 #else
-			if (mp_ptr->spell_book == TV_LIFE_BOOK)
+			if (m_info[p_ptr->sex].spell_book == TV_LIFE_BOOK)
 				basenm = "& Book~ of Crusade Magic %";
 			else
 				basenm = "& Crusade Spellbook~ %";

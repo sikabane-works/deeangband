@@ -2486,8 +2486,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	cp_ptr = &class_info[p_ptr->cls_idx];
 	ap_ptr = &chara_info[p_ptr->chara_idx];
 
-	/* Important -- Initialize the magic */
-	mp_ptr = &m_info[p_ptr->cls_idx];
 
 	/* Read spell info */
 	rd_u32b(&p_ptr->spell_learned1);

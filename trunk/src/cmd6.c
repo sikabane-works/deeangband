@@ -5253,7 +5253,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				if (!ident_spell(FALSE)) return;
 
-				if (mp_ptr->spell_book)
+				if (m_info[p_ptr->sex].spell_book)
 				{
 					/* Sufficient mana */
 					if (20 <= p_ptr->csp)
@@ -7040,14 +7040,14 @@ static int select_magic_eater(bool only_browse)
 				y1 = ((ctr < EATER_EXT/2) ? y + ctr : y + ctr - EATER_EXT/2);
 				level = (tval == TV_ROD ? k_info[k_idx].level * 5 / 6 - 5 : k_info[k_idx].level);
 				chance = level * 4 / 5 + 20;
-				chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[mp_ptr->spell_stat]] - 1);
+				chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
 				level /= 2;
 				if (p_ptr->lev > level)
 				{
 					chance -= 3 * (p_ptr->lev - level);
 				}
 				chance = mod_spell_chance_1(chance);
-				chance = MAX(chance, adj_mag_fail[p_ptr->stat_ind[mp_ptr->spell_stat]]);
+				chance = MAX(chance, adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]]);
 				/* Stunning makes spells harder */
 				if (p_ptr->stun > 50) chance += 25;
 				else if (p_ptr->stun) chance += 15;
@@ -7339,14 +7339,14 @@ msg_print("混乱していて唱えられない！");
 
 	level = (tval == TV_ROD ? k_info[k_idx].level * 5 / 6 - 5 : k_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
-	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[mp_ptr->spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
 	level /= 2;
 	if (p_ptr->lev > level)
 	{
 		chance -= 3 * (p_ptr->lev - level);
 	}
 	chance = mod_spell_chance_1(chance);
-	chance = MAX(chance, adj_mag_fail[p_ptr->stat_ind[mp_ptr->spell_stat]]);
+	chance = MAX(chance, adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]]);
 	/* Stunning makes spells harder */
 	if (p_ptr->stun > 50) chance += 25;
 	else if (p_ptr->stun) chance += 15;
