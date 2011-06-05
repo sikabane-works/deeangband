@@ -6439,7 +6439,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	int i;
 	bool subflag;
 	char name[80];
-	intelligent_race *rp_ptr = &race_info[cr_ptr->irace_idx];
+	intelligent_race *rcr_ptr = &race_info[cr_ptr->irace_idx];
 	name[0] = '\0';
 
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
@@ -6467,7 +6467,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, race_info[i].title);
 				}
 			}
-			if(!subflag) strcat(name, race_info[p_ptr->irace_idx].title);
+			if(!subflag) strcat(name, race_info[cr_ptr->irace_idx].title);
 		break;
 		case RACE_GOLEM:
 		case RACE_ANDROID:
@@ -6483,7 +6483,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, "Œ^");
 				}
 			}
-			strcat(name, race_info[p_ptr->irace_idx].title);
+			strcat(name, race_info[cr_ptr->irace_idx].title);
 		break;
 		default:
 			for(i = 0; i < MAX_RACES; i++)
@@ -6504,7 +6504,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 					strcat(name, "‚Ì");
 				}
 			}
-			strcat(name, race_info[p_ptr->irace_idx].title);
+			strcat(name, race_info[cr_ptr->irace_idx].title);
 		break;
 	}
 
