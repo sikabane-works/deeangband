@@ -164,11 +164,17 @@ void set_height_weight(creature_type *cr_ptr)
 
 
 	/* Calculate the height/weight for intersex and nosex */
-		cr_ptr->ht = randnor(ave_b_ht, ave_m_ht);
+
+		if(ave_m_ht > 0)
+			cr_ptr->ht = randnor(ave_b_ht, ave_m_ht);
+		else
+			cr_ptr->ht = ave_b_ht;
+
 		h_percent = (int)(cr_ptr->ht) * 1000 / ave_b_ht;
 		tmp = (double)ave_b_wt * h_percent / 1000.0 * h_percent / 1000.0 * h_percent / 1000.0;
 		tmp2 = (int)tmp;
-		if(tmp2 < 1000000)
+
+		if(tmp2 < 1000000 && ave_m_wt > 0)
 			cr_ptr->wt = randnor((int)tmp2, ave_m_wt * h_percent / 1000 );
 		else
 			cr_ptr->wt = tmp2;
