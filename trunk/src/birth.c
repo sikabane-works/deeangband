@@ -4322,7 +4322,7 @@ static bool get_intelligent_race(int category)
 	{
 		 
 		/* Analyze */
-		str = race_info[p_ptr->irace_idx].title;
+		str = race_info[c_races[n]].title;
 
 		/* Display */
 		if (n < 26)
@@ -4382,9 +4382,9 @@ static bool get_intelligent_race(int category)
 			else
 			{
 				
-				str = race_info[p_ptr->irace_idx].title;
+				str = race_info[c_races[cs]].title;
 #ifdef JP
-				if(race_info[p_ptr->irace_idx].dr >= 0)
+				if(race_info[c_races[cs]].dr >= 0)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
@@ -4392,7 +4392,7 @@ static bool get_intelligent_race(int category)
 				put_str("‚ÌŽåŽí‘°C³", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
 				put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í ŒoŒ±   ", 4, 40);
 #else
-				if(race_info[p_ptr->irace_idx].dr >= 0)
+				if(race_info[c_races[cs]].dr >= 0)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
@@ -4976,14 +4976,14 @@ static bool get_player_class(void)
 	for (n = 0; n < MAX_CLASS_CHOICE; n++)
 	{
 		/* Analyze */
-		str = class_info[p_ptr->cls_idx].title;
+		str = class_info[n].title;
 		if (n < 26)
 			sym[n] = I2A(n);
 		else
 			sym[n] = ('A' + n - 26);
 
 		/* Display */
-		if (!(race_info[p_ptr->irace_idx].choice & (1L << n)))
+		if (!(race_info[n].choice & (1L << n)))
 			sprintf(buf, "%c%c %s", sym[n], p2, str);
 		else
 			sprintf(buf, "%c%c*%s", sym[n], p2, str);
@@ -5020,7 +5020,7 @@ static bool get_player_class(void)
 			}
 			else
 			{
-				str = class_info[p_ptr->cls_idx].title;
+				str = class_info[cs].title;
 				if (!(race_info[p_ptr->irace_idx].choice & (1L << cs)))
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
 				else
@@ -5165,7 +5165,7 @@ static bool get_player_chara(void)
 		if(!(chara_info[n].sex & (0x01 << p_ptr->sex))) continue;
 
 		/* Analyze */
-		str = chara_info[p_ptr->chara_idx].title;
+		str = chara_info[n].title;
 		if (n < 26)
 			sym[n] = I2A(n);
 		else
@@ -5210,7 +5210,7 @@ static bool get_player_chara(void)
 			}
 			else
 			{
-				str = chara_info[p_ptr->chara_idx].title;
+				str = chara_info[cs].title;
 #ifdef JP
 					sprintf(cur, "%c%c%s", sym[cs], p2, str);
 #else
@@ -6522,9 +6522,9 @@ static bool player_birth_aux(void)
 		/* Display */
 
 	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << n))
-		sprintf(buf, "%c%c %s", I2A(n), p2, sex_info[p_ptr->sex].title);
+		sprintf(buf, "%c%c %s", I2A(n), p2, sex_info[n].title);
 	else
-		sprintf(buf, "%c%c!%s", I2A(n), p2, sex_info[p_ptr->sex].title);
+		sprintf(buf, "%c%c!%s", I2A(n), p2, sex_info[n].title);
 		put_str(buf, 13 + (n/5), 2 + 15 * (n%5));
 	}
 
@@ -6553,7 +6553,7 @@ static bool player_birth_aux(void)
 			}
 			else
 			{
-				str = sex_info[p_ptr->sex].title;
+				str = sex_info[cs].title;
 				if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << cs))
 					sprintf(cur, "%c%c %s", I2A(cs), p2, str);
 				else
