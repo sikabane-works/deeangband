@@ -3250,16 +3250,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Base skills */
 	cr_ptr->skill_dis = 5;
 	cr_ptr->skill_dev = 5;
-	cr_ptr->skill_rob = 5;
-	cr_ptr->skill_eva = 5;
+	cr_ptr->skill_rob = 5 + (body_size - 10) / 2 * 3;
+	cr_ptr->skill_eva = 5 - (body_size - 10) / 2 * 3;
 	cr_ptr->skill_vol = 5;
-	cr_ptr->skill_stl = -(body_size / 3 - 3);
+	cr_ptr->skill_stl = 3 - body_size / 3;
 	cr_ptr->skill_srh = 10;
 	cr_ptr->skill_fos = 10;
 	cr_ptr->skill_thn = 10;
 	cr_ptr->skill_thb = 10;
 	cr_ptr->skill_tht = 10;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
+
+
 
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
@@ -3351,6 +3353,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_thn += player_patrons[cr_ptr->patron_idx].p_thn;
 		cr_ptr->skill_thb += player_patrons[cr_ptr->patron_idx].p_thb;
 		cr_ptr->skill_tht += player_patrons[cr_ptr->patron_idx].p_thb;
+	}
+
+	if(cr_ptr->dr >= 0)
+	{
+		cr_ptr->skill_rob += adj_dr_saving[cr_ptr->dr];
+		cr_ptr->skill_eva += adj_dr_saving[cr_ptr->dr];
+		cr_ptr->skill_vol += adj_dr_saving[cr_ptr->dr];
 	}
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
