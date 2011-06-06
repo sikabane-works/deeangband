@@ -927,6 +927,36 @@
 #define RACE_NOLDOR_LINEAGE    74
 #define RACE_TELERI_LINEAGE    75
 #define RACE_NAZGUL            76
+
+#define RACE_ANT               77
+#define RACE_BAT               78
+#define RACE_CENTIPETE         79
+#define RACE_FLOATING_EYE      80
+#define RACE_FELINE            81
+#define RACE_ICKY              82
+#define RACE_JELLY             83
+#define RACE_AQUARIC_MONSTER   84
+#define RACE_MOLD              85
+#define RACE_QUADRUPED         86
+#define RACE_RODENT            87
+#define RACE_VORTEX            88
+#define RACE_WORM              89
+#define RACE_MIMIC             90
+#define RACE_BIRD              91
+#define RACE_CANINE            92
+#define RACE_ELEMENTAL         93
+#define RACE_INSECT            94
+#define RACE_SNAKE             95
+#define RACE_SHADOW            96
+#define RACE_QUYLTHLUG         97
+#define RACE_SPIDER            98
+#define RACE_CRUSTASEA         99
+#define RACE_WRAITH           100
+#define RACE_XORN             101
+#define RACE_YETI             102
+#define RACE_ZEPHYR_HOUND     103
+#define RACE_FUNGUS           104
+#define RACE_GREAT_OLD_ONE    105
 #define RACE_NONE             255
 
 /*
