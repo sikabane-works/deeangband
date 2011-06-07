@@ -950,6 +950,7 @@ struct intelligent_race
 	byte infra;			/* Infra-vision	range */
 
 	u32b choice;        /* Legal class choices */
+	u32b equipment;     /* Possible Equipment*/
 
 	resist main_resist;
 	resist sub_resist;
