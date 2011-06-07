@@ -3290,16 +3290,17 @@ errr parse_d_info(char *buf, header *head)
 	else if (buf[0] == 'R')
 	{
 		char *zz[MAX_RACES];
-		if (tokenize(buf+2, MAX_RACES, zz, 0) == MAX_RACES)
+		int n;
+
+		n = tokenize(buf+2, MAX_RACES, zz, 0);
+		for (i = 0; i < n; i++)
 		{
-			for (i = 0; i < MAX_RACES; i++)
-			{
-				d_ptr->race_population[i] = atoi(zz[i]);
-			}
-			return (0);
+			d_ptr->race_population[i] = atoi(zz[i]);
 		}
-		else{
-			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
+		if(n < MAX_RACES)
+		{
+			for (i = n; i < MAX_RACES ; i++)
+			d_ptr->race_population[i] = 0;
 		}
 
 	}
@@ -3842,17 +3843,20 @@ static errr parse_line_building(char *buf)
 		/* Building Races */
 		case 'R':
 		{
-			if (tokenize(s+2, MAX_RACES, zz, 0) == MAX_RACES)
-			{
-				for (i = 0; i < MAX_RACES; i++)
-				{
-					building[index].member_race[i] = atoi(zz[i]);
-				}
+			char *zz[MAX_RACES];
+			int n;
 
-				break;
+			n = tokenize(buf+2, MAX_RACES, zz, 0);
+			for (i = 0; i < n; i++)
+			{
+				building[index].member_race[i] = atoi(zz[i]);
+			}
+			if(n < MAX_RACES)
+			{
+				for (i = n; i < MAX_RACES ; i++)
+				building[index].member_race[i] = 0;
 			}
 
-			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 		}
 
 		/* Building Realms */
@@ -4281,29 +4285,20 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 	/* Process "R:<RaceRate>" -- set Race Bias */
 	else if (buf[0] == 'R')
 	{
+		char *zz[MAX_RACES];
+		int n;
 
-			if (tokenize(buf+2, MAX_RACES, zz, 0) == MAX_RACES)
-			{
-				for (i = 0; i < MAX_RACES; i++)
-				{
-					race_population[i] = atoi(zz[i]);
-				}
-				return (0);
-			}
-			else{
-				return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
-			}
-
-/*
-		if (tokenize(buf+2, MAX_RACES, zz, 0) == MAX_RACES)
+		n = tokenize(buf+2, MAX_RACES, zz, 0);
+		for (i = 0; i < n; i++)
 		{
-			for (i = 0; i < MAX_RACES; i++)
-			{
-				race_population[i] = zz[i];	
-			}
+			race_population[i] = atoi(zz[i]);
+		}
+		if(n < MAX_RACES)
+		{
+				for (i = n; i < MAX_RACES ; i++)
+					race_population[i] = 0;
 		}
 		return (0);
-		*/
 
 	}
 

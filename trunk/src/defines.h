@@ -962,7 +962,7 @@
 /*
  * Maximum number of player "race" types (see "table.c", etc)
  */
-#define MAX_RACES              77
+#define MAX_RACES             106
 
 
 /*
