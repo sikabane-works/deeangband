@@ -957,12 +957,13 @@
 #define RACE_ZEPHYR_HOUND     103
 #define RACE_FUNGUS           104
 #define RACE_GREAT_OLD_ONE    105
+#define RACE_REPTILIA         106
 #define RACE_NONE             255
 
 /*
  * Maximum number of player "race" types (see "table.c", etc)
  */
-#define MAX_RACES             106
+#define MAX_RACES             107
 
 
 /*

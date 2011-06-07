@@ -2844,7 +2844,6 @@ player_r_category r_category_info[MAX_RACE_CATEGORYS] = {
  */
 intelligent_race race_info[MAX_RACES] =
 {
-
 {
 #ifdef JP
 	"êlä‘", 
@@ -5022,7 +5021,7 @@ intelligent_race race_info[MAX_RACES] =
 },
 {
 #ifdef JP
-	"Ç∞Ç¡éïóﬁ", 
+	"Íñéïóﬁ ", 
 #endif
 	"Rodent", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
@@ -5475,6 +5474,31 @@ intelligent_race race_info[MAX_RACES] =
 	"ãåéxîzé“åQ", 
 #endif
 	"Great-Old-Ones", 
+	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	{0 , 0 , 0 , 0 , 0 , 0 },
+	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
+	{0 , 0 , 0 , 0 , 0 , 0 },
+	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
+	2 , 100 , 1 , 100 , 
+	15 , 20 , 
+	170 , 10 , 60 , 1 , 
+	155 , 10 , 40 , 1 , 
+	1 , -1 , 
+	0 , 0 , 0 , 0 , 10000 , 
+	0 , 
+	0xFFFFFFF, 
+	{0 , 0 , 0 , 0 , 0 , 
+	 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0, 0, 0, 0, 0, 0 , 0, 
+	 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , },
+	{0 , 0 , 0 , 0 , 0 , 
+	 0 , 0 , 0 , 0 , 0 , 0 , 0 , 15 , 0 , 0 , 0 , 0 , 0, 0, 0, 0, 0, 0 , 0, 
+	 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , },
+},
+{
+#ifdef JP
+	"‡¶íéóﬁ", 
+#endif
+	"Reptilia", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
