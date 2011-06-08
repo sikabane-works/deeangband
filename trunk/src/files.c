@@ -1995,9 +1995,9 @@ static cptr likert(int x, int y)
 	{
 		likert_color = TERM_L_DARK;
 #ifdef JP
-		sprintf(dummy, "%3d[–³”\]", (int)(x));
+		sprintf(dummy, "   0[–³”\]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Very Bad]", (int)(x));
+		sprintf(dummy, "   0[Very Bad]", (int)(x));
 #endif
 		return dummy;
 	}
@@ -2009,18 +2009,18 @@ static cptr likert(int x, int y)
 	case 1:
 		likert_color = TERM_RED;
 #ifdef JP
-		sprintf(dummy, "%3d[—òˆ«]", (int)(x));
+		sprintf(dummy, "%4d[—òˆ«]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Bad]", (int)(x));
+		sprintf(dummy, "%4d[Bad]", (int)(x));
 #endif
 		return dummy;
 
 	case 2:
 		likert_color = TERM_L_RED;
 #ifdef JP
-		sprintf(dummy, "%3d[‹êè]", (int)(x));
+		sprintf(dummy, "%4d[‹êè]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Poor]", (int)(x));
+		sprintf(dummy, "%4d[Poor]", (int)(x));
 #endif
 		return dummy;
 
@@ -2028,27 +2028,27 @@ static cptr likert(int x, int y)
 	case 4:
 		likert_color = TERM_ORANGE;
 #ifdef JP
-		sprintf(dummy, "%3d[–}—f]", (int)(x));
+		sprintf(dummy, "%4d[–}—f]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Fair]", (int)(x));
+		sprintf(dummy, "%4d[Fair]", (int)(x));
 #endif
 		return dummy;
 
 	case 5:
 		likert_color = TERM_YELLOW;
 #ifdef JP
-		sprintf(dummy, "%3d[“¾ˆÓ]", (int)(x));
+		sprintf(dummy, "%4d[“¾ˆÓ]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Good]", (int)(x));
+		sprintf(dummy, "%4d[Good]", (int)(x));
 #endif
 		return dummy;
 
 	case 6:
 		likert_color = TERM_YELLOW;
 #ifdef JP
-		sprintf(dummy, "%3d[n—û]", (int)(x));
+		sprintf(dummy, "%4d[n—û]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Very Good]", (int)(x));
+		sprintf(dummy, "%4d[Very Good]", (int)(x));
 #endif
 		return dummy;
 
@@ -2056,9 +2056,9 @@ static cptr likert(int x, int y)
 	case 8:
 		likert_color = TERM_L_GREEN;
 #ifdef JP
-		sprintf(dummy, "%3d[‘ì‰z]", (int)(x));
+		sprintf(dummy, "%4d[‘ì‰z]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Excellent]", (int)(x));
+		sprintf(dummy, "%4d[Excellent]", (int)(x));
 #endif
 		return dummy;
 
@@ -2068,9 +2068,9 @@ static cptr likert(int x, int y)
 	case 12:
 		likert_color = TERM_GREEN;
 #ifdef JP
-		sprintf(dummy, "%3d[’´‰z]", (int)(x));
+		sprintf(dummy, "%4d[’´‰z]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Superb]", (int)(x));
+		sprintf(dummy, "%4d[Superb]", (int)(x));
 #endif
 
 		return dummy;
@@ -2081,9 +2081,9 @@ static cptr likert(int x, int y)
 	case 16:
 		likert_color = TERM_BLUE;
 #ifdef JP
-		sprintf(dummy, "%3d[‰p—Y“I]", (int)(x));
+		sprintf(dummy, "%4d[‰p—Y“I]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Heroic]", (int)(x));
+		sprintf(dummy, "%4d[Heroic]", (int)(x));
 #endif
 
 	case 17:
@@ -2092,18 +2092,18 @@ static cptr likert(int x, int y)
 	case 20:
 		likert_color = TERM_VIOLET;
 #ifdef JP
-		sprintf(dummy, "%3d[“`à“I]", (int)(x));
+		sprintf(dummy, "%4d[“`à“I]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Legendary]", (int)(x));
+		sprintf(dummy, "%4d[Legendary]", (int)(x));
 #endif
 		return dummy;
 
 	default:
 		likert_color = TERM_WHITE;
 #ifdef JP
-		sprintf(dummy, "%3d[_ˆæ]", (int)(x));
+		sprintf(dummy, "%4d[_ˆæ]", (int)(x));
 #else
-		sprintf(dummy, "%3d[Divine]", (int)(x));
+		sprintf(dummy, "%4d[Divine]", (int)(x));
 #endif
 		return dummy;
 	}
