@@ -88,33 +88,7 @@ void set_height_weight(creature_type *cr_ptr)
 	intelligent_race *ir_ptr;
 	monster_race *mr_ptr;
 
-	if(cr_ptr->irace_idx != RACE_NONE)
-	{
-		ir_ptr = &race_info[cr_ptr->irace_idx]; 
-
-		if (cr_ptr->sex == SEX_MALE)
-		{
-			ave_b_ht = (int)(ir_ptr->m_b_ht);
-			ave_m_ht = (int)(ir_ptr->m_m_ht);
-			ave_b_wt = (int)(ir_ptr->m_b_wt);
-			ave_m_wt = (int)(ir_ptr->m_m_wt);
-		}
-		else if (cr_ptr->sex == SEX_FEMALE)
-		{
-			ave_b_ht = (int)(ir_ptr->f_b_ht);
-			ave_m_ht = (int)(ir_ptr->f_m_ht);
-			ave_b_wt = (int)(ir_ptr->f_b_wt);
-			ave_m_wt = (int)(ir_ptr->f_m_wt);
-		}
-		else
-		{
-			ave_b_ht = (int)(ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2;
-			ave_m_ht = (int)(ir_ptr->m_m_ht + ir_ptr->f_m_ht) / 2;
-			ave_b_wt = (int)(ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2;
-			ave_m_wt = (int)(ir_ptr->m_m_wt + ir_ptr->f_m_wt) / 2;
-		}
-	}
-	else if(cr_ptr->monster_idx != MON_NONE)
+	if(cr_ptr->monster_idx != MON_NONE)
 	{
 		mr_ptr = &r_info[cr_ptr->monster_idx]; 
 
@@ -140,6 +114,32 @@ void set_height_weight(creature_type *cr_ptr)
 			ave_m_wt = (int)(mr_ptr->m_m_wt + mr_ptr->f_m_wt) / 2;
 		}
 
+	}
+	else if(cr_ptr->irace_idx != RACE_NONE)
+	{
+		ir_ptr = &race_info[cr_ptr->irace_idx]; 
+
+		if (cr_ptr->sex == SEX_MALE)
+		{
+			ave_b_ht = (int)(ir_ptr->m_b_ht);
+			ave_m_ht = (int)(ir_ptr->m_m_ht);
+			ave_b_wt = (int)(ir_ptr->m_b_wt);
+			ave_m_wt = (int)(ir_ptr->m_m_wt);
+		}
+		else if (cr_ptr->sex == SEX_FEMALE)
+		{
+			ave_b_ht = (int)(ir_ptr->f_b_ht);
+			ave_m_ht = (int)(ir_ptr->f_m_ht);
+			ave_b_wt = (int)(ir_ptr->f_b_wt);
+			ave_m_wt = (int)(ir_ptr->f_m_wt);
+		}
+		else
+		{
+			ave_b_ht = (int)(ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2;
+			ave_m_ht = (int)(ir_ptr->m_m_ht + ir_ptr->f_m_ht) / 2;
+			ave_b_wt = (int)(ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2;
+			ave_m_wt = (int)(ir_ptr->m_m_wt + ir_ptr->f_m_wt) / 2;
+		}
 	}
 
 	if(ave_b_ht <= 0 || ave_m_ht < 0 || ave_b_wt <= 0 || ave_m_wt < 0)

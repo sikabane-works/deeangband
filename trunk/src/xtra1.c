@@ -3256,7 +3256,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_stl = 3 - body_size / 3;
 	cr_ptr->skill_srh = 10;
 	cr_ptr->skill_fos = 10;
-	cr_ptr->skill_thn = 10;
+	cr_ptr->skill_thn = body_size;
 	cr_ptr->skill_thb = 10;
 	cr_ptr->skill_tht = 10;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
