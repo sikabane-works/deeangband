@@ -1758,7 +1758,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	/* Melee attacks */
-	sprintf(buf, "(%+d,%+d%%)", show_tohit, show_todam);
+	sprintf(buf, "(%+d,%+d)", show_tohit, show_todam);
 
 	/* Dump the bonuses to hit/dam */
 	if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
@@ -1830,7 +1830,7 @@ static void display_player_middle(creature_type *cr_ptr)
 		show_tohit += (cr_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 	/* Range attacks */
-	display_player_one_line(ENTRY_SHOOT_HIT_DAM, format("(%+d,%+d%%)", show_tohit, show_todam), TERM_L_BLUE);
+	display_player_one_line(ENTRY_SHOOT_HIT_DAM, format("(%+d,%+d)", show_tohit, show_todam), TERM_L_BLUE);
 
 	if (cr_ptr->inventory[INVEN_BOW].k_idx)
 	{
