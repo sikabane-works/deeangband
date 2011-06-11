@@ -2834,8 +2834,12 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 		/* Clear the part of the screen */
 		if (!equippy_chars || !o_ptr->k_idx)
 		{
-			c = ' ';
-			a = TERM_DARK;
+			if(can_equip(cr_ptr, i))
+				c = '-';
+			else
+				c = 'x';
+			a = TERM_L_DARK;
+
 		}
 
 		/* Dump */
