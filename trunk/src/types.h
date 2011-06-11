@@ -950,7 +950,7 @@ struct intelligent_race
 	byte infra;			/* Infra-vision	range */
 
 	u32b choice;        /* Legal class choices */
-	u32b equipment;     /* Possible Equipment*/
+	u32b possible_equipment;     /* Possible Equipment*/
 
 	resist main_resist;
 	resist sub_resist;
@@ -1526,6 +1526,9 @@ struct creature_type
 
 	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
 	u16b underling_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
+
+	u32b possible_equipment;     /* Possible Equipment*/
+
 };
 
 

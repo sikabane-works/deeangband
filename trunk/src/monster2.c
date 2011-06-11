@@ -3192,7 +3192,7 @@ static void mon_equip(creature_type *m_ptr)
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
-		if(!m_ptr->inventory[INVEN_RARM].k_idx)
+		if(!m_ptr->inventory[INVEN_RARM].k_idx && can_equip(m_ptr, INVEN_RARM))
 		{
 			make_object(&m_ptr->inventory[INVEN_RARM], mo_mode, GON_ARMS | GON_UNCURSED);
 			m_ptr->inventory[INVEN_RARM].fitting_size = m_ptr->size;
@@ -3202,37 +3202,37 @@ static void mon_equip(creature_type *m_ptr)
 
 		}
 
-		if(!m_ptr->inventory[INVEN_BODY].k_idx)
+		if(!m_ptr->inventory[INVEN_BODY].k_idx && can_equip(m_ptr, INVEN_BODY))
 		{
 			make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY | GON_UNCURSED);
 			m_ptr->inventory[INVEN_BODY].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_OUTER].k_idx)
+		if(!m_ptr->inventory[INVEN_OUTER].k_idx && can_equip(m_ptr, INVEN_OUTER))
 		{
 			make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER | GON_UNCURSED);
 			m_ptr->inventory[INVEN_OUTER].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_HEAD].k_idx)
+		if(!m_ptr->inventory[INVEN_HEAD].k_idx && can_equip(m_ptr, INVEN_HEAD))
 		{
 			make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD | GON_UNCURSED);
 			m_ptr->inventory[INVEN_HEAD].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_HANDS].k_idx)
+		if(!m_ptr->inventory[INVEN_HANDS].k_idx && can_equip(m_ptr, INVEN_HANDS))
 		{
 			make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS | GON_UNCURSED);
 			m_ptr->inventory[INVEN_HANDS].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_FEET].k_idx)
+		if(!m_ptr->inventory[INVEN_FEET].k_idx && can_equip(m_ptr, INVEN_FEET))
 		{
 			make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET | GON_UNCURSED);
 			m_ptr->inventory[INVEN_FEET].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_LITE].k_idx)
+		if(!m_ptr->inventory[INVEN_LITE].k_idx && can_equip(m_ptr, INVEN_LITE))
 		{
 			make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE | GON_UNCURSED);
 			m_ptr->inventory[INVEN_LITE].fitting_size = m_ptr->size;
@@ -3240,7 +3240,7 @@ static void mon_equip(creature_type *m_ptr)
 
 		if(randint0(100) < m_ptr->lev)
 		{
-			if(!m_ptr->inventory[INVEN_RIGHT].k_idx)
+			if(!m_ptr->inventory[INVEN_RIGHT].k_idx && can_equip(m_ptr, INVEN_RIGHT))
 			{
 				make_object(&m_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING | GON_UNCURSED);
 				m_ptr->inventory[INVEN_RIGHT].fitting_size = m_ptr->size;
@@ -3248,7 +3248,7 @@ static void mon_equip(creature_type *m_ptr)
 
 			if(randint0(100) < m_ptr->lev)
 			{
-				if(!m_ptr->inventory[INVEN_LEFT].k_idx)
+				if(!m_ptr->inventory[INVEN_LEFT].k_idx && can_equip(m_ptr, INVEN_LEFT))
 				{
 					make_object(&m_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING | GON_UNCURSED);
 					m_ptr->inventory[INVEN_LEFT].fitting_size = m_ptr->size;
@@ -3258,7 +3258,7 @@ static void mon_equip(creature_type *m_ptr)
 
 		if(randint0(100) < m_ptr->lev)
 		{
-			if(!m_ptr->inventory[INVEN_NECK].k_idx)
+			if(!m_ptr->inventory[INVEN_NECK].k_idx && can_equip(m_ptr, INVEN_NECK))
 			{
 				make_object(&m_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET | GON_UNCURSED);
 				m_ptr->inventory[INVEN_NECK].fitting_size = m_ptr->size;
@@ -4430,6 +4430,7 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	set_enemy_maxhp(m_ptr);
 
 	/* Equipment */
+	calc_bonuses(m_ptr, FALSE);
 	mon_equip(m_ptr);
 
 	/* Underlings */

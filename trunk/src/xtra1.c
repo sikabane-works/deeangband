@@ -5670,6 +5670,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
+	/* Set Possible Equipment*/
+	if(cr_ptr->irace_idx != RACE_NONE)
+		cr_ptr->possible_equipment = race_info[cr_ptr->irace_idx].possible_equipment;
+	else
+		cr_ptr->possible_equipment = 0;
+
+
+
 	/* Hack -- handle "xtra" mode */
 	if (character_xtra) return;
 
@@ -5949,6 +5957,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->chaos = 0;
 		cr_ptr->balance = 0;
 	}
+
+
 
 }
 
@@ -6539,3 +6549,12 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	return format("%s", name);
 }
 
+bool can_equip(creature_type* cr_ptr, int k_idx)
+{
+//	return (cr_ptr->possible_equipment & (1 << (k_idx - INVEN_PACK - 1))) ? TRUE : FALSE;
+	if(cr_ptr->possible_equipment & (1 << (k_idx - INVEN_PACK - 1)))
+		return TRUE;
+	else
+		return FALSE;
+
+}
