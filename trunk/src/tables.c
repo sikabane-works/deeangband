@@ -4359,7 +4359,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Dragon", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{8 , 3 , 2 , 4 , 8 , 2 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4385,7 +4385,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Giant-Ape", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{7 , -5 , -3 , 1 , 5 , -2 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4411,7 +4411,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Super-Saiyan", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0xF, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{7 , -3 , -1 , 6 , 7 , 1 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4853,7 +4853,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Ant", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{3 , -4 , -4 , 2 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4879,7 +4879,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Bat", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-4 , -2 , -2 , 4 , -2 , -1 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4905,7 +4905,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Centipete", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{4 , -4 , -4 , 3 , 5 , -4 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4931,7 +4931,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"FloatingEye", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{2 , 2 , -4 , -2 , 4 , -4 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4957,7 +4957,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Feline", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{1 , -2 , -2 , 3 , 2 , 2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -4983,7 +4983,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Icky", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{3 , -2 , -2 , -2 , 3 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5009,7 +5009,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Jelly", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-3 , -3 , -3 , -3 , 9 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5035,7 +5035,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Aquatic-Monster", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{5 , 0 , -4 , 0 , 5 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5061,7 +5061,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Mold", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5087,7 +5087,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Quadruped", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{4 , -3 , -3 , 4 , 4 , -1 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5113,7 +5113,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Rodent", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-2 , -1 , -1 , 2 , -1 , -1 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5139,7 +5139,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Vortex", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5165,7 +5165,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Worm", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5217,7 +5217,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Bird", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{1 , -1 , 1 , 1 , 2 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5243,7 +5243,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Canine", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{2 , -2 , -2 , 4 , 4 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5269,7 +5269,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Elemental", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{0 , 3 , 3 , -2 , -3 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5295,7 +5295,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Insect", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{3 , -4 , -4 , 2 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5321,7 +5321,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Snake", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{0 , -2 , -2 , 0 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5373,7 +5373,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Quylthulg", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{0 , 0 , 0 , 0 , -4 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5399,7 +5399,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Spider", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{2 , -4 , -4 , 2 , 5 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5425,7 +5425,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Crustasea", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{4 , -3 , -3 , -3 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5451,7 +5451,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Wraith", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{-1 , 3 , 0 , 1 , 2 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5477,7 +5477,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Xorn", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{4 , -2 , -2 , -2 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5503,7 +5503,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Yeti", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{3 , -1 , -1 , 0 , 2 , -1 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5529,7 +5529,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"ZepherHound", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{2 , -2 , -2 , 2 , 4 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5555,7 +5555,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Fungus", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{0 , 0 , 0 , 0 , -2 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5581,7 +5581,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Great-Old-Ones", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{2 , -2 , -2 , 2 , 4 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
@@ -5607,7 +5607,7 @@ intelligent_race race_info[MAX_RACES] =
 #endif
 	"Reptilia", 
 	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
-	{0 , 0 , 0 , 0 , 0 , 0 },
+	{4 , -3 , -3 , -3 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
