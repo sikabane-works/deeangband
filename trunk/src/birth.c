@@ -5021,22 +5021,22 @@ static bool get_player_class(void)
 			else
 			{
 				str = class_info[cs].title;
-				if (!(race_info[p_ptr->irace_idx].choice & (1L << cs)))
+				if (!(race_info[cs].choice & (1L << cs)))
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c*%s", sym[cs], p2, str);
 #ifdef JP
-					c_put_str(TERM_L_BLUE, class_info[p_ptr->cls_idx].title, 3, 40);
-					put_str("‚ÌE‹ÆC³", 3, 40+strlen(class_info[p_ptr->cls_idx].title));
+					c_put_str(TERM_L_BLUE, class_info[cs].title, 3, 40);
+					put_str("‚ÌE‹ÆC³", 3, 40+strlen(class_info[cs].title));
 					put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í ŒoŒ± ", 4, 40);
 #else
-					c_put_str(TERM_L_BLUE, class_info[p_ptr->cls_idx].title, 3, 40);
-					put_str(": Class modification", 3, 40+strlen(class_info[p_ptr->cls_idx].title));
+					c_put_str(TERM_L_BLUE, class_info[cs].title, 3, 40);
+					put_str(": Class modification", 3, 40+strlen(class_info[cs].title));
 					put_str("Str  Int  Wis  Dex  Con  Chr   EXP ", 4, 40);
 #endif
 					sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-						class_info[p_ptr->cls_idx].c_adj[0], class_info[p_ptr->cls_idx].c_adj[1], class_info[p_ptr->cls_idx].c_adj[2], class_info[p_ptr->cls_idx].c_adj[3],
-						class_info[p_ptr->cls_idx].c_adj[4], class_info[p_ptr->cls_idx].c_adj[5], class_info[p_ptr->cls_idx].c_exp);
+						class_info[cs].c_adj[0], class_info[cs].c_adj[1], class_info[cs].c_adj[2], class_info[cs].c_adj[3],
+						class_info[cs].c_adj[4], class_info[cs].c_adj[5], class_info[cs].c_exp);
 					c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 			c_put_str(TERM_YELLOW, cur, 13 + (cs/4), 2 + 19 * (cs%4));
@@ -5217,17 +5217,17 @@ static bool get_player_chara(void)
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
 #endif
 #ifdef JP
-					c_put_str(TERM_L_BLUE, chara_info[p_ptr->chara_idx].title, 3, 40);
-					put_str("‚Ì«ŠiC³", 3, 40+strlen(chara_info[p_ptr->chara_idx].title));
+					c_put_str(TERM_L_BLUE, chara_info[cs].title, 3, 40);
+					put_str("‚Ì«ŠiC³", 3, 40+strlen(chara_info[cs].title));
 					put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í      ", 4, 40);
 #else
-					c_put_str(TERM_L_BLUE, chara_info[p_ptr->chara_idx].title, 3, 40);
-					put_str(": Personality modification", 3, 40+strlen(chara_info[p_ptr->chara_idx].title));
+					c_put_str(TERM_L_BLUE, chara_info[cs].title, 3, 40);
+					put_str(": Personality modification", 3, 40+strlen(chara_info[cs].title));
 					put_str("Str  Int  Wis  Dex  Con  Chr       ", 4, 40);
 #endif
 					sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d       ",
-						chara_info[p_ptr->chara_idx].a_adj[0], chara_info[p_ptr->chara_idx].a_adj[1], chara_info[p_ptr->chara_idx].a_adj[2], chara_info[p_ptr->chara_idx].a_adj[3],
-						chara_info[p_ptr->chara_idx].a_adj[4], chara_info[p_ptr->chara_idx].a_adj[5]);
+						chara_info[cs].a_adj[0], chara_info[cs].a_adj[1], chara_info[cs].a_adj[2], chara_info[cs].a_adj[3],
+						chara_info[cs].a_adj[4], chara_info[cs].a_adj[5]);
 					c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 			c_put_str(TERM_YELLOW, cur, 12 + (cs/4), 2 + 18 * (cs%4));
