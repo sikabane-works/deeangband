@@ -188,8 +188,8 @@ static void wr_item(object_type *o_ptr)
  */
 static void wr_monster(creature_type *m_ptr)
 {
-	int i;
-
+	int i, j;
+	u16b tmp16u;
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
@@ -229,6 +229,13 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s32b(m_ptr->mhp);
 	wr_s32b(m_ptr->mmhp);
 
+	tmp16u = PY_MAX_LEVEL;
+	wr_u16b(tmp16u);
+	for (i = 0; i < tmp16u; i++)
+	{
+		wr_s16b(m_ptr->player_hp[i]);
+	}
+
 	wr_s32b(m_ptr->ht);
 	wr_s32b(m_ptr->wt);
 	wr_s16b(m_ptr->size);
@@ -262,8 +269,6 @@ static void wr_monster(creature_type *m_ptr)
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
 
-
-
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);
@@ -276,6 +281,12 @@ static void wr_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_AP_MONSTER_IDX) wr_s16b(m_ptr->ap_monster_idx);
 	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
 	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->mtimed[MTIMED_CSLEEP]);
+
+	for (i = 0; i < 64; i++) wr_s16b(m_ptr->spell_exp[i]);
+	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(m_ptr->weapon_exp[i][j]);
+	for (i = 0; i < 10; i++) wr_s16b(m_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) wr_s32b(m_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) wr_byte(m_ptr->magic_num2[i]);
 
 	wr_byte(m_ptr->speed);
 	wr_s16b(m_ptr->energy_need);

@@ -574,7 +574,8 @@ static void rd_monster(creature_type *m_ptr)
 	u32b flags;
 	char buf[128];
 	byte tmp8u;
-	int i;
+	u16b tmp16u;
+	int i, j;
 
 	/*** Monster save flags ***/
 	rd_u32b(&flags);
@@ -599,6 +600,29 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s32b(&m_ptr->chp);
 	rd_s32b(&m_ptr->mhp);
 	rd_s32b(&m_ptr->mmhp);
+
+
+	if(!older_than(0,0,9,0))
+	{
+		/* Read the player_hp array */
+		rd_u16b(&tmp16u);
+
+		/* Incompatible save files */
+		if (tmp16u > PY_MAX_LEVEL)
+		{
+	#ifdef JP
+	note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
+	#else
+			note(format("Too many (%u) hitpoint entries!", tmp16u));
+	#endif
+		}
+
+		/* Read the player_hp array */
+		for (i = 0; i < tmp16u; i++)
+		{
+			rd_s16b(&p_ptr->player_hp[i]);
+		}
+	}
 
 	rd_s32b(&m_ptr->ht);
 	rd_s32b(&m_ptr->wt);
@@ -646,6 +670,7 @@ static void rd_monster(creature_type *m_ptr)
 		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
 	}
 
+
 	if(!older_than(0,0,8,0)){
 		rd_s32b(&m_ptr->age);
 		rd_s16b(&m_ptr->sc);
@@ -662,8 +687,15 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->mtimed[MTIMED_CSLEEP]);
 	else m_ptr->mtimed[MTIMED_CSLEEP] = 0;
 
-	rd_byte(&m_ptr->speed);
+	if(!older_than(0,0,9,0)){
+		for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
+		for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&m_ptr->weapon_exp[i][j]);
+		for (i = 0; i < 10; i++) rd_s16b(&m_ptr->skill_exp[i]);
+		for (i = 0; i < 108; i++) rd_s32b(&m_ptr->magic_num1[i]);
+		for (i = 0; i < 108; i++) rd_byte(&m_ptr->magic_num2[i]);
+	}
 
+	rd_byte(&m_ptr->speed);
 	rd_s16b(&m_ptr->energy_need);
 
 	if (flags & SAVE_MON_FAST)
