@@ -597,9 +597,24 @@ static void rd_monster(creature_type *m_ptr)
 	rd_byte(&m_ptr->fx);
 
 	rd_s16b(&m_ptr->lev);
-	rd_s32b(&m_ptr->chp);
-	rd_s32b(&m_ptr->mhp);
-	rd_s32b(&m_ptr->mmhp);
+
+	if(older_than(0,0,10,0))
+	{
+		rd_s32b(&m_ptr->chp);
+		rd_s32b(&m_ptr->mhp);
+		rd_s32b(&m_ptr->mmhp);
+	}
+	else
+	{
+		rd_s32b(&m_ptr->mhp);
+		rd_s32b(&m_ptr->mmhp);
+		rd_s32b(&m_ptr->chp);
+		rd_u32b(&m_ptr->chp_frac);
+
+		rd_s32b(&m_ptr->msp);
+		rd_s32b(&m_ptr->csp);
+		rd_u32b(&m_ptr->csp_frac);
+	}
 
 
 	if(!older_than(0,0,9,0))

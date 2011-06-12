@@ -225,9 +225,15 @@ static void wr_monster(creature_type *m_ptr)
 	wr_byte(m_ptr->fx);
 
 	wr_s16b(m_ptr->lev);
-	wr_s32b(m_ptr->chp);
+
 	wr_s32b(m_ptr->mhp);
 	wr_s32b(m_ptr->mmhp);
+	wr_s32b(m_ptr->chp);
+	wr_u32b(m_ptr->chp_frac);
+
+	wr_s32b(m_ptr->msp);
+	wr_s32b(m_ptr->csp);
+	wr_u32b(m_ptr->csp_frac);
 
 	tmp16u = PY_MAX_LEVEL;
 	wr_u16b(tmp16u);
