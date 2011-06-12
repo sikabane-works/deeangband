@@ -2852,7 +2852,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->cls_idx == CLASS_BERSERKER)
 	{
-		mhp = mhp*(110+(((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110))/100;
+		mhp = mhp * (110+(((cr_ptr->lev + 40) * (cr_ptr->lev + 40) - 1550) / 110))/100;
 	}
 
 	/* Always have at least one hitpoint per level */

@@ -635,7 +635,7 @@ static void rd_monster(creature_type *m_ptr)
 		/* Read the player_hp array */
 		for (i = 0; i < tmp16u; i++)
 		{
-			rd_s16b(&p_ptr->player_hp[i]);
+			rd_s16b(&m_ptr->player_hp[i]);
 		}
 	}
 
