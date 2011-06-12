@@ -4388,21 +4388,21 @@ static bool get_intelligent_race(int category)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 40);
-				put_str("‚ÌŽåŽí‘°C³", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
+				c_put_str(TERM_L_BLUE, race_info[c_races[cs]].title, 3, 40);
+				put_str("‚ÌŽåŽí‘°C³", 3, 40+strlen(race_info[c_races[cs]].title));
 				put_str("˜r—Í ’m”\ Œ«‚³ Ší—p ‘Ï‹v –£—Í ŒoŒ±   ", 4, 40);
 #else
 				if(race_info[c_races[cs]].dr >= 0)
 					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
 				else
 					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, race_info[p_ptr->irace_idx].title, 3, 40);
-				put_str(": Main-Race modification", 3, 40+strlen(race_info[p_ptr->irace_idx].title));
+				c_put_str(TERM_L_BLUE, race_info[c_races[cs]].title, 3, 40);
+				put_str(": Main-Race modification", 3, 40+strlen(race_info[].title));
 				put_str("Str  Int  Wis  Dex  Con  Chr   EXP   ", 4, 40);
 #endif
 				sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-					race_info[p_ptr->irace_idx].r_adj[0], race_info[p_ptr->irace_idx].r_adj[1], race_info[p_ptr->irace_idx].r_adj[2], race_info[p_ptr->irace_idx].r_adj[3],
-					race_info[p_ptr->irace_idx].r_adj[4], race_info[p_ptr->irace_idx].r_adj[5], (race_info[p_ptr->irace_idx].r_exp - 100));
+					race_info[c_races[cs]].r_adj[0], race_info[c_races[cs]].r_adj[1], race_info[c_races[cs]].r_adj[2], race_info[c_races[cs]].r_adj[3],
+					race_info[c_races[cs]].r_adj[4], race_info[c_races[cs]].r_adj[5], (race_info[c_races[cs]].r_exp - 100));
 				c_put_str(TERM_L_BLUE, buf, 5, 40);
 			}
 

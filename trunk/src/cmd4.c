@@ -8137,7 +8137,15 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							break;
 						}
 				}
-				break;
+				else
+				{
+					creature_type tmp_cr;
+					C_WIPE(&tmp_cr, 1, creature_type);
+					create_monster(&tmp_cr, mon_idx[mon_cur], 0, 0);
+					display_creature_dump(&tmp_cr);
+					redraw = TRUE;
+					break;
+				}
 
 			case 'i':
 				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
