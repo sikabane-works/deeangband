@@ -5158,6 +5158,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				/* Ninja */
 				case CLASS_NINJA:
 					num = 4; wgt = 20; mul = 1; break;
+
+				/* None */
+				default:
+					num = 4; wgt = 100; mul = 3; break;
+
 			}
 
 			/* Hex - extra mights gives +1 bonus to max blows */
