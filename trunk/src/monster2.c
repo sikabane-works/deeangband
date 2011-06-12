@@ -4417,9 +4417,11 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	/* Set Monster's Level and EXP*/
 	m_ptr->lev = d_level_to_c_level[r_ptr->level];
 	m_ptr->expfact = 100;
-	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[p_ptr->irace_idx].r_exp - 100);
-	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += class_info[p_ptr->cls_idx].c_exp;
+	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[m_ptr->irace_idx].r_exp - 100);
+	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += class_info[m_ptr->cls_idx].c_exp;
 	m_ptr->exp = player_exp[m_ptr->lev];
+
+	initialize_skill(m_ptr);
 
 	/* Set Status */
 	set_sex(m_ptr);

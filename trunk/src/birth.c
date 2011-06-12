@@ -2747,7 +2747,7 @@ void get_max_stats(void)
  */
 static void get_extra(bool roll_hitdice)
 {
-	int i, j;
+	int i;
 
 	/* Experience factor */
 	if (p_ptr->irace_idx == RACE_ANDROID) p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp;
@@ -2768,23 +2768,7 @@ static void get_extra(bool roll_hitdice)
 
 	p_ptr->dr = -1;
 
-	for (i = 0; i < 64; i++)
-	{
-		if (p_ptr->cls_idx == CLASS_SORCERER) p_ptr->spell_exp[i] = SPELL_EXP_MASTER;
-		else if (p_ptr->cls_idx == CLASS_RED_MAGE) p_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
-		else p_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
-	}
-
-	for (i = 0; i < 5; i++)
-		for (j = 0; j < 64; j++)
-			p_ptr->weapon_exp[i][j] = s_info[p_ptr->cls_idx].w_start[i][j];
-	if ((p_ptr->chara_idx == CHARA_SEXY) && (p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
-	{
-		p_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
-	}
-
-	for (i = 0; i < 10; i++)
-		p_ptr->skill_exp[i] = s_info[p_ptr->cls_idx].s_start[i];
+	initialize_skill(p_ptr);
 
 	set_bodysize(p_ptr);
 	set_hitdice(p_ptr);

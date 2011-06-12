@@ -553,3 +553,32 @@ void set_resistance(creature_type *cr_ptr)
 	}
 
 }
+
+void initialize_skill(creature_type *cr_ptr)
+{
+	int i,j, tmp_cls;
+
+	if(cr_ptr->cls_idx != CLASS_NONE)
+		tmp_cls = cr_ptr->cls_idx;
+	else
+		tmp_cls = CLASS_TOURIST;
+
+	for (i = 0; i < 64; i++)
+	{
+		if (tmp_cls == CLASS_SORCERER) cr_ptr->spell_exp[i] = SPELL_EXP_MASTER;
+		else if (tmp_cls == CLASS_RED_MAGE) cr_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
+		else cr_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
+	}
+
+	for (i = 0; i < 5; i++)
+		for (j = 0; j < 64; j++)
+			cr_ptr->weapon_exp[i][j] = s_info[tmp_cls].w_start[i][j];
+	if ((cr_ptr->chara_idx == CHARA_SEXY) && (cr_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+	{
+		cr_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
+	}
+
+	for (i = 0; i < 10; i++)
+		cr_ptr->skill_exp[i] = s_info[tmp_cls].s_start[i];
+
+}

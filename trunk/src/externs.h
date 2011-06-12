@@ -844,6 +844,8 @@ extern s16b calc_race_standard_size(intelligent_race *ir_ptr);
 extern int  set_inventory_fitting_rate(creature_type *cr_ptr, object_type *o_ptr, int slot);
 extern void estimate_enemy_hp(monster_race *mr_ptr, int *result);
 extern void set_resistance(creature_type *cr_ptr);
+extern void initialize_skill(creature_type *cr_ptr);
+
 
 /* do-spell.c */
 extern void stop_singing(void);
