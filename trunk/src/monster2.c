@@ -4443,7 +4443,7 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	}
 
 	/* Extract the monster base speed */
-	set_speed(m_ptr);
+//	set_speed(m_ptr);
 
 	/* Update */
 	calc_bonuses(m_ptr, FALSE);

@@ -764,7 +764,11 @@ static void rd_monster(creature_type *m_ptr)
 
 	strcpy(m_ptr->name, r_name + r_info[m_ptr->monster_idx].name);
 
+	/* Update */
 	calc_bonuses(m_ptr, FALSE);
+	m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+	update_stuff(m_ptr, FALSE);
+
 }
 
 

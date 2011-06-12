@@ -3137,6 +3137,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/* Start with "normal" speed */
 	new_speed = 110;
+	if(cr_ptr->dr >= 0) new_speed += adj_dr_speed[cr_ptr->dr];
 
 	/* Start with a single blow per turn */
 	cr_ptr->num_blow[0] = 1;
