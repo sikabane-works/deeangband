@@ -355,7 +355,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 
 		return;
 	}
-	if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
 	{
 		if (flush_failure) flush();
 #ifdef JP

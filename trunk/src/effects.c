@@ -5662,7 +5662,7 @@ void calc_android_exp(void)
 			if (value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if ((((i == INVEN_RARM) || (i == INVEN_LARM)) && (buki_motteruka(i))) || (i == INVEN_BOW)) total_exp += exp / 48;
+		if ((((i == INVEN_RARM) || (i == INVEN_LARM)) && (have_weapon(p_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
 		else total_exp += exp / 16;
 		if (i == INVEN_BODY) total_exp += exp / 32;
 	}
@@ -5940,7 +5940,7 @@ bool choose_ele_attack(void)
 
 	char choice;
 
-	if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
 	{
 #ifdef JP
 		msg_format("ïêäÌÇéùÇΩÇ»Ç¢Ç∆ñÇñ@åïÇÕégÇ¶Ç»Ç¢ÅB");

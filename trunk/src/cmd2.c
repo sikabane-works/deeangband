@@ -4127,7 +4127,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	}
 	else if (boomerang)
 	{
-		if (buki_motteruka(INVEN_RARM) && buki_motteruka(INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_RARM) && have_weapon(p_ptr, INVEN_LARM))
 		{
 			item_tester_hook = item_tester_hook_boomerang;
 #ifdef JP
@@ -4144,7 +4144,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				return FALSE;
 			}
 		}
-		else if (buki_motteruka(INVEN_LARM)) item = INVEN_LARM;
+		else if (have_weapon(p_ptr, INVEN_LARM)) item = INVEN_LARM;
 		else item = INVEN_RARM;
 	}
 	else

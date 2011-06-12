@@ -10931,7 +10931,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			{
 				int damage;
 	
-				if (!buki_motteruka(INVEN_RARM+i)) break;
+				if (!have_weapon(p_ptr, INVEN_RARM+i)) break;
 				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
@@ -11285,7 +11285,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if (!buki_motteruka(INVEN_RARM+i)) break;
+				if (!have_weapon(p_ptr, INVEN_RARM+i)) break;
 				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;

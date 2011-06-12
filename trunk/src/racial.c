@@ -1258,7 +1258,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 			else if (command == -4)
 			{
-				if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+				if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
 				{
 #ifdef JP
 					msg_print("•Ší‚ğ‚½‚È‚¢‚Æ‚¢‚¯‚Ü‚¹‚ñB");

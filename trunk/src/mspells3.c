@@ -84,8 +84,8 @@ static void learned_info(char *p, int power)
 		case MS_SHOOT:
 		{
 			object_type *o_ptr = NULL;
-			if (buki_motteruka(INVEN_RARM)) o_ptr = &p_ptr->inventory[INVEN_RARM];
-			else if (buki_motteruka(INVEN_LARM)) o_ptr = &p_ptr->inventory[INVEN_LARM];
+			if (have_weapon(p_ptr, INVEN_RARM)) o_ptr = &p_ptr->inventory[INVEN_RARM];
+			else if (have_weapon(p_ptr, INVEN_LARM)) o_ptr = &p_ptr->inventory[INVEN_LARM];
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)
@@ -757,8 +757,8 @@ msg_print("–î‚ð•ú‚Á‚½B");
 #else
 			msg_print("You fire an arrow.");
 #endif
-			if (buki_motteruka(INVEN_RARM)) o_ptr = &p_ptr->inventory[INVEN_RARM];
-			else if (buki_motteruka(INVEN_LARM)) o_ptr = &p_ptr->inventory[INVEN_LARM];
+			if (have_weapon(p_ptr, INVEN_RARM)) o_ptr = &p_ptr->inventory[INVEN_RARM];
+			else if (have_weapon(p_ptr, INVEN_LARM)) o_ptr = &p_ptr->inventory[INVEN_LARM];
 			else
 			damage = 1;
 			if (o_ptr)

@@ -5569,7 +5569,7 @@ void inven_item_increase(int item, int num)
 		{
 			if ((item == INVEN_RARM) || (item == INVEN_LARM))
 			{
-				if (!buki_motteruka(INVEN_RARM + INVEN_LARM - item))
+				if (!have_weapon(p_ptr, INVEN_RARM + INVEN_LARM - item))
 				{
 					/* Clear all temporary elemental brands */
 					set_ele_attack(0, 0);

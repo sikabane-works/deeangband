@@ -1761,7 +1761,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	sprintf(buf, "(%+d,%+d)", show_tohit, show_todam);
 
 	/* Dump the bonuses to hit/dam */
-	if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
 	else if (cr_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);

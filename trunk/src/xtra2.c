@@ -5217,7 +5217,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 #endif
 			break;
 		case REW_CURSE_WP:
-			if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM)) break;
+			if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM)) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
 				player_patrons[p_ptr->patron_idx].title);
@@ -5233,10 +5233,10 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 
 			dummy = INVEN_RARM;
-			if (buki_motteruka(INVEN_LARM))
+			if (have_weapon(p_ptr, INVEN_LARM))
 			{
 				dummy = INVEN_LARM;
-				if (buki_motteruka(INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+				if (have_weapon(p_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 			}
 			object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(FALSE, dummy);
@@ -5306,12 +5306,12 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				case 3:
 					if (one_in_(2))
 					{
-						if (!buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM)) break;
+						if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM)) break;
 						dummy = INVEN_RARM;
-						if (buki_motteruka(INVEN_LARM))
+						if (have_weapon(p_ptr, INVEN_LARM))
 						{
 							dummy = INVEN_LARM;
-							if (buki_motteruka(INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+							if (have_weapon(p_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 						}
 						object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(FALSE, dummy);
@@ -5371,12 +5371,12 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				dummy = 0;
 
-				if (buki_motteruka(INVEN_RARM))
+				if (have_weapon(p_ptr, INVEN_RARM))
 				{
 					dummy = INVEN_RARM;
-					if (buki_motteruka(INVEN_LARM) && one_in_(2)) dummy = INVEN_LARM;
+					if (have_weapon(p_ptr, INVEN_LARM) && one_in_(2)) dummy = INVEN_LARM;
 				}
-				else if (buki_motteruka(INVEN_LARM)) dummy = INVEN_LARM;
+				else if (have_weapon(p_ptr, INVEN_LARM)) dummy = INVEN_LARM;
 
 				if (dummy) (void)curse_weapon(FALSE, dummy);
 			}

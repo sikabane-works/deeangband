@@ -3032,9 +3032,9 @@ u32b weight_limit(void)
 }
 
 
-bool buki_motteruka(int i)
+bool have_weapon(creature_type *cr_ptr, int i)
 {
-	return ((p_ptr->inventory[i].k_idx && object_is_melee_weapon(&p_ptr->inventory[i])) ? TRUE : FALSE);
+	return ((cr_ptr->inventory[i].k_idx && object_is_melee_weapon(&cr_ptr->inventory[i])) ? TRUE : FALSE);
 }
 
 
@@ -3373,8 +3373,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	tmp_balance = tmp_rp_ptr->balance;
 
 
-	if (buki_motteruka(INVEN_RARM)) cr_ptr->migite = TRUE;
-	if (buki_motteruka(INVEN_LARM))
+	if (have_weapon(p_ptr, INVEN_RARM)) cr_ptr->migite = TRUE;
+	if (have_weapon(p_ptr, INVEN_LARM))
 	{
 		cr_ptr->hidarite = TRUE;
 		if (!cr_ptr->migite) default_hand = 1;
@@ -4286,8 +4286,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if (i == INVEN_RARM && buki_motteruka(i)) continue;
-		if (i == INVEN_LARM && buki_motteruka(i)) continue;
+		if (i == INVEN_RARM && have_weapon(p_ptr, i)) continue;
+		if (i == INVEN_LARM && have_weapon(p_ptr, i)) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
 		if (i == INVEN_BOW) continue;
@@ -4801,7 +4801,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE] - WEAPON_EXP_BEGINNER) / 200;
 	}
 
-	if (buki_motteruka(INVEN_RARM) && buki_motteruka(INVEN_LARM))
+	if (have_weapon(p_ptr, INVEN_RARM) && have_weapon(p_ptr, INVEN_LARM))
 	{
 		int penalty1, penalty2;
 		penalty1 = ((100 - cr_ptr->skill_exp[GINOU_NITOURYU] / 160) - (130 - cr_ptr->inventory[INVEN_RARM].weight) / 8);
@@ -5040,7 +5040,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->icky_wield[i] = FALSE;
 		cr_ptr->riding_wield[i] = FALSE;
 
-		if (!buki_motteruka(INVEN_RARM+i)) {cr_ptr->num_blow[i]=1;continue;}
+		if (!have_weapon(cr_ptr, INVEN_RARM+i)) {cr_ptr->num_blow[i]=1;continue;}
 		/* It is hard to hold a heavy weapon */
 		if (hold < o_ptr->weight / 10)
 		{
@@ -5327,7 +5327,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			case CLASS_MONK:
 			case CLASS_FORCETRAINER:
 			case CLASS_BERSERKER:
-				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !buki_motteruka(INVEN_RARM) && !buki_motteruka(INVEN_LARM))
+				if ((empty_hands(cr_ptr, FALSE) != EMPTY_HAND_NONE) && !have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
 					cr_ptr->riding_ryoute = TRUE;
 				break;
 			}
@@ -5443,7 +5443,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	for (i = 0; i < 2; i++)
 	{
-		if (buki_motteruka(INVEN_RARM+i))
+		if (have_weapon(p_ptr, INVEN_RARM+i))
 		{
 			int tval = cr_ptr->inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
 			int sval = cr_ptr->inventory[INVEN_RARM+i].sval;
@@ -5732,7 +5732,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (buki_motteruka(INVEN_RARM+i))
+			else if (have_weapon(p_ptr, INVEN_RARM+i))
 			{
 #ifdef JP
 				if(message) msg_print("これなら装備していても辛くない。");
@@ -5786,7 +5786,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 
 			}
-			else if (buki_motteruka(INVEN_RARM+i))
+			else if (have_weapon(p_ptr, INVEN_RARM+i))
 			{
 #ifdef JP
 				if(message) msg_print("これなら乗馬中にぴったりだ。");
@@ -5815,7 +5815,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 					chg_virtue(V_FAITH, -1);
 				}
 			}
-			else if (buki_motteruka(INVEN_RARM+i))
+			else if (have_weapon(p_ptr, INVEN_RARM+i))
 			{
 #ifdef JP
 				if(message) msg_print("今の装備は自分にふさわしい気がする。");

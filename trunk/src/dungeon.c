@@ -2900,18 +2900,18 @@ static void process_world_aux_mutation(void)
 #endif
 
 		msg_print(NULL);
-		if (buki_motteruka(INVEN_RARM))
+		if (have_weapon(p_ptr, INVEN_RARM))
 		{
 			slot = INVEN_RARM;
 			o_ptr = &p_ptr->inventory[INVEN_RARM];
 
-			if (buki_motteruka(INVEN_LARM) && one_in_(2))
+			if (have_weapon(p_ptr, INVEN_LARM) && one_in_(2))
 			{
 				o_ptr = &p_ptr->inventory[INVEN_LARM];
 				slot = INVEN_LARM;
 			}
 		}
-		else if (buki_motteruka(INVEN_LARM))
+		else if (have_weapon(p_ptr, INVEN_LARM))
 		{
 			o_ptr = &p_ptr->inventory[INVEN_LARM];
 			slot = INVEN_LARM;

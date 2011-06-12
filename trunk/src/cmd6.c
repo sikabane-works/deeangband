@@ -1677,12 +1677,12 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (buki_motteruka(INVEN_RARM))
+			if (have_weapon(p_ptr, INVEN_RARM))
 			{
 				k = INVEN_RARM;
-				if (buki_motteruka(INVEN_LARM) && one_in_(2)) k = INVEN_LARM;
+				if (have_weapon(p_ptr, INVEN_LARM) && one_in_(2)) k = INVEN_LARM;
 			}
-			else if (buki_motteruka(INVEN_LARM)) k = INVEN_LARM;
+			else if (have_weapon(p_ptr, INVEN_LARM)) k = INVEN_LARM;
 			if (k && curse_weapon(FALSE, k)) ident = TRUE;
 			break;
 		}

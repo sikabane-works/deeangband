@@ -263,7 +263,7 @@ void do_cmd_wield(void)
 	case TV_SHIELD:
 	case TV_CARD:
 		/* Dual wielding */
-		if (buki_motteruka(INVEN_RARM) && buki_motteruka(INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_RARM) && have_weapon(p_ptr, INVEN_LARM))
 		{
 			/* Restrict the choices */
 			item_tester_hook = item_tester_hook_melee_weapon;
@@ -282,7 +282,7 @@ void do_cmd_wield(void)
 			if (slot == INVEN_RARM) need_switch_wielding = INVEN_LARM;
 		}
 
-		else if (buki_motteruka(INVEN_LARM)) slot = INVEN_RARM;
+		else if (have_weapon(p_ptr, INVEN_LARM)) slot = INVEN_RARM;
 
 		/* Both arms are already used by non-weapon */
 		else if (p_ptr->inventory[INVEN_RARM].k_idx && !object_is_melee_weapon(&p_ptr->inventory[INVEN_RARM]) &&
@@ -319,7 +319,7 @@ void do_cmd_wield(void)
 #endif
 		}
 
-		else if (!p_ptr->inventory[INVEN_RARM].k_idx && buki_motteruka(INVEN_LARM))
+		else if (!p_ptr->inventory[INVEN_RARM].k_idx && have_weapon(p_ptr, INVEN_LARM))
 		{
 #ifdef JP
 			if (!get_check("“ñ“—¬‚Åí‚¢‚Ü‚·‚©H")) slot = INVEN_LARM;
@@ -344,7 +344,7 @@ void do_cmd_wield(void)
 #endif
 
 			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
-			if ((slot == INVEN_LARM) && !buki_motteruka(INVEN_RARM))
+			if ((slot == INVEN_LARM) && !have_weapon(p_ptr, INVEN_RARM))
 				need_switch_wielding = INVEN_RARM;
 		}
 		break;
@@ -833,7 +833,7 @@ void kamaenaoshi(int item)
 
 	if (item == INVEN_RARM)
 	{
-		if (buki_motteruka(INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_LARM))
 		{
 			o_ptr = &p_ptr->inventory[INVEN_LARM];
 			object_desc(o_name, o_ptr, 0);
@@ -874,7 +874,7 @@ void kamaenaoshi(int item)
 		o_ptr = &p_ptr->inventory[INVEN_RARM];
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (buki_motteruka(INVEN_RARM))
+		if (have_weapon(p_ptr, INVEN_RARM))
 		{
 			if (object_allow_two_hands_wielding(o_ptr) && CAN_TWO_HANDS_WIELDING())
 #ifdef JP
