@@ -976,6 +976,8 @@ struct player_class
 	s16b c_adj[6];		/* Class stat modifier */
 	s16b c_adj_b[6];	/* Class stat bonus */
 
+	int rarelity;		/* Class rarelity */ 
+
 	s16b c_dis;			/* class disarming */
 	s16b c_dev;			/* class magic devices */
 	s16b c_sav;			/* class saving throws */

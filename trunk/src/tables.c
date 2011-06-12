@@ -5701,6 +5701,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 4, -2, -2, 2, 2, -1},
 		{ 2, 0, 0, 0, 1, 0},
+		CLASS_RARELITY_COMMON,
 		25, 18, 31, 1,  14, 2, 70, 55,
 		12, 7,  10, 0,  0,  0,  30, 30,
 		9,  0, 40
@@ -5714,6 +5715,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-4, 3, 0, 1, -2, 1},
 		{ 0, 2, 0, 0, 1, 0},
+		CLASS_RARELITY_COMMON,
 		30, 40, 38, 3,  16, 20, 34, 20,
 		7,  15, 11,  0,  0,  0,  6, 7,
 		0, 30, 30
@@ -5727,6 +5729,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-1, -3, 3, -1, 0, 2},
 		{ 0, 0, 2, 0, 1, 0},
+		CLASS_RARELITY_COMMON,
 		25, 35, 40, 2,  16, 8, 48, 35,
 		7,  11, 12, 0,  0,  0, 13, 11,
 		2, 20, 35
@@ -5740,6 +5743,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, 1, -2, 3, 1, -1},
 		{ 0, 0, 0, 1, 1, 1},
+		CLASS_RARELITY_COMMON,
 		45, 37, 36, 5, 32, 24, 60, 66,
 		15, 12, 10, 0,  0,  0, 21, 18,
 		6, 25, 40
@@ -5753,6 +5757,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, 2, 0, 1, 1, 1},
 		{ 1, 1, 0, 1, 0, 0},
+		CLASS_RARELITY_COMMON,
 		30, 37, 36, 3,  24, 16, 56, 72,
 		8,  11, 10, 0,  0,  0,  18, 28,
 		4, 40, 35
@@ -5766,6 +5771,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 3, -3, 1, 0, 2, 2},
 		{ 0, 0, 1, 0, 2, 0},
+		CLASS_RARELITY_COMMON,
 		20, 24, 34, 1,  12, 2, 68, 40,
 		7,  10, 11, 0,  0,  0,  21, 18,
 		6, 35, 40
@@ -5779,6 +5785,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, 2, 0, 1, 0, 1},
 		{ 1, 1, 0, 0, 1, 0},
+		CLASS_RARELITY_COMMON,
 		30, 35, 36, 2,  18, 16, 50, 25,
 		7,  10, 10, 0,  0,  0,  15, 11,
 		4, 40, 35
@@ -5792,6 +5799,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, 1, -1, 0, 2, -2},
 		{ 2, 1, 0, 0, 1, -1},
+		CLASS_RARELITY_UNCOMMON,
 		20, 25, 34, 1,  14, 12, 65, 40,
 		7,  11, 10, 0,  0,  0,  20, 17,
 		6, 25, 40
@@ -5805,6 +5813,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, -1, 1, 3, 2, 1},
 		{ 1, 0, 1, 1, 0, 0},
+		CLASS_RARELITY_UNCOMMON,
 		45, 34, 36, 5, 32, 24, 64, 60,
 		15, 11, 10, 0,  0,  0, 18, 18,
 		6, 50, 35
@@ -5818,6 +5827,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-1, 0, 3, -1, -1, 2},   /* note: spell stat is Wis */
 		{ 0, 0, 2, 0, 0, 1},
+		CLASS_RARELITY_UNCOMMON,
 		30, 33, 38, 3,  22, 16, 50, 40,
 		10, 11, 10, 0,   0,  0, 14, 18,
 		2, 25, 35
@@ -5831,6 +5841,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-4, 4, 0, 0, -2, 1},
 		{ 0, 3, 0, 0, 0, 0},
+		CLASS_RARELITY_UNCOMMON,
 		30, 40, 38, 3,  16, 20, 34, 20,
 		7,  15, 11,  0,  0,  0,  6, 7,
 		0, 30, 25
@@ -5843,6 +5854,7 @@ player_class class_info[MAX_CLASS] =
 		"Tourist",
 		{ -1, -1, -1, -1, -1, -1},
 		{ 1, 1, 1, 1, 1, 1},
+		CLASS_RARELITY_RARE,
 		15, 18, 28, 1, 12, 2, 40, 20,
 		5, 7, 9, 0,  0,  0,  11, 11,
 		0, -30, 40
@@ -5855,6 +5867,7 @@ player_class class_info[MAX_CLASS] =
 		"Imitator",
 		{ 0, 1, -1, 2, 0, 1},
 		{ 0, 1, 0, 1, 0, 1},
+		CLASS_RARELITY_RARE,
 		25, 30, 36, 2,  18, 16, 60, 50,
 		7,  10,  10, 0,  0,  0,  18, 20,
 		5, 10, 20
@@ -5867,6 +5880,7 @@ player_class class_info[MAX_CLASS] =
 		"BeastMaster",
 		{ 1, -1, -1, 1, 0, 2},
 		{ 0, 0, 0, 0, 1, 2},
+		CLASS_RARELITY_UNCOMMON,
 		20, 25, 32, 2,  18, 16, 52, 63,
 		7,  10, 10, 0,  0,  0,  14, 25,
 		3, 20, 10
@@ -5880,6 +5894,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-5, 6, -2, 2, 0, -2},
 		{-1, 2, 0, 0, 2, 0},
+		CLASS_RARELITY_RARE,
 		30, 48, 75, 2,  12, 22,  0, 0,
 		 7, 18, 13, 0,  0,  0,  0, 0,
 		4, 60, 25
@@ -5893,6 +5908,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, -1, -1, 2, 1, 0},
 		{ 0, 0, 0, 2, 1, 0},
+		CLASS_RARELITY_COMMON,
 		38, 24, 35, 4,  24, 16, 56, 82,
 		12, 10, 10, 0,  0,  0,  18, 36,
 		6, 10, 40
@@ -5906,6 +5922,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-1, 2, 1, 2, -2, 1},
 		{ 0, 1, 0, 1, 1, 0},
+		CLASS_RARELITY_RARE,
 		25, 42, 36, 2,  20, 16, 48, 35,
 		7,  16, 10,  0,  0,  0, 13, 11,
 		3, 30, 30
@@ -5918,6 +5935,7 @@ player_class class_info[MAX_CLASS] =
 		"Bard",              /* Note : spell stat is Charisma */
 		{-2, 1, 2, -1, -2, 4},
 		{ 0, 0, -1, 0, 0, 4},
+		CLASS_RARELITY_UNCOMMON,
 		20, 33, 34, -5, 16, 20, 34, 20,
 		8,  13, 11, 0,  0,  0,  10, 8,
 		2, 40, 25
@@ -5931,6 +5949,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, 2, -1, 1, 0, -1},
 		{ 1, 1, 0, 1, 0, 0},
+		CLASS_RARELITY_RARE,
 		20, 34, 34, 1,  16, 10, 56, 25,
 		7,  11, 11, 0,  0,  0,  18, 11,
 		4, 40, 40
@@ -5944,6 +5963,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 3, -2, 1, 2, 1, 0},
 		{ 1, 0, 0, 2, 0, 0},
+		CLASS_RARELITY_RARE,
 		25, 18, 32, 2,  16, 6, 70, 40,
 		12, 7,  10, 0,  0,  0,  23, 18,
 		6,  30, 40
@@ -5957,6 +5977,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 0, -1, 3, 2, 1, 1},
 		{ 0, 0, 1, 1, 1, 0},
+		CLASS_RARELITY_RARE,
 		30, 34, 38, 4, 32, 24, 50, 40,
 		10, 11, 11, 0,  0,  0, 14, 15,
 		2, 35, 40
@@ -5970,6 +5991,7 @@ player_class class_info[MAX_CLASS] =
 
 		{-4, 4, -1, 1, -2, -1},
 		{ 0, 2, 0, 1, 0, 0},
+		CLASS_RARELITY_RARE,
 		30, 40, 36, 3,  20, 16, 40, 25,
 		7,  16, 11,  0,  0,  0,  6, 7,
 		2, 30, 35
@@ -5982,6 +6004,7 @@ player_class class_info[MAX_CLASS] =
 		"Cavalry",
 		{ 2, -2, -2, 2, 2, 0},
 		{ 1, 0, 0, 1, 1, 0},
+		CLASS_RARELITY_UNCOMMON,
 		20, 18, 32, 1,  16, 10, 60, 66,
 		10,  7, 10, 0,  0,  0,  22, 26,
 		5, 20, 35
@@ -5995,6 +6018,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 8, -20, -20, 4, 4, -5},
 		{ 0, 0, 0, 2, 2, 0},
+		CLASS_RARELITY_UNCOMMON,
 		-100, -1000, -200, -100,  -100, -100, 120, -2000,
 		0, 0,  0, 0,  0,  0,  50, 0,
 		11,  60, 255
@@ -6008,6 +6032,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 3, -1, -1, 1, 0, -1},
 		{ 1, 0, 0, 2, 1, -1},
+		CLASS_RARELITY_UNCOMMON,
 		30, 28, 28, 1,  20, 10, 60, 45,
 		10, 10,  10, 0,  0,  0,  21, 15,
 		6,  30, 40
@@ -6020,6 +6045,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ -2,  3, 1, -1, -2, 1},
 		{ 0, 1, 0, 0, 1, 1},
+		CLASS_RARELITY_RARE,
 		30, 33, 40, 3, 14, 16, 34,30,
 		10, 11, 12, 0,  0,  0,  6,10,
 		2,  30, 30
@@ -6032,6 +6058,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 0,  -1, -1, 3, 2, -1},
 		{ 0, 0, 0, 1, 1, 1},
+		CLASS_RARELITY_RARE,
 		45, 24, 36, 8, 48, 32, 70,66,
 		15, 10, 10, 0,  0,  0, 25,18,
 		2,  50, 40
@@ -6045,6 +6072,7 @@ player_class class_info[MAX_CLASS] =
 
 		{ 2, -1, -1, 2, 1, 0},
 		{ 1, 0, 0, 3, 0, -1},
+		CLASS_RARELITY_UNCOMMON,
 		25, 24, 28, 5, 32, 18, 35,  72,
 		12, 10, 10, 0,  0,  0, 12,  28,
 		2, 20, 40,

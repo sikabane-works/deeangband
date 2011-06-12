@@ -846,6 +846,15 @@
 #define RACE_RARELITY_LEGENDARY    3
 
 
+/*
+ * Class rarerity.
+ */
+#define CLASS_RARELITY_COMMON       0
+#define CLASS_RARELITY_UNCOMMON     1
+#define CLASS_RARELITY_RARE         2
+#define CLASS_RARELITY_LEGENDARY    3
+
+
 
 /*
  * Player race constants (hard-coded by save-files, arrays, etc)
