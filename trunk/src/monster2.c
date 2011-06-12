@@ -3194,11 +3194,11 @@ static void mon_equip(creature_type *m_ptr)
 
 		if(!m_ptr->inventory[INVEN_RARM].k_idx && can_equip(m_ptr, INVEN_RARM))
 		{
-			make_object(&m_ptr->inventory[INVEN_RARM], mo_mode, GON_ARMS | GON_UNCURSED);
-			m_ptr->inventory[INVEN_RARM].fitting_size = m_ptr->size;
-			//bool ryoute;
-			m_ptr->migite = TRUE;
-			//bool hidarite;
+			if(m_ptr->cls_idx != CLASS_MONK && m_ptr->cls_idx != CLASS_FORCETRAINER)
+			{
+				make_object(&m_ptr->inventory[INVEN_RARM], mo_mode, GON_ARMS | GON_UNCURSED);
+				m_ptr->inventory[INVEN_RARM].fitting_size = m_ptr->size;
+			}
 
 		}
 
