@@ -948,6 +948,12 @@ struct intelligent_race
 	s32b balance;
 
 	byte infra;			/* Infra-vision	range */
+	int ac_base;
+	int ac_plus;
+
+	byte sub_infra;			/* Infra-vision	range */
+	int ac_s_base;
+	int ac_s_plus;
 
 	u32b choice;        /* Legal class choices */
 	u32b possible_equipment;     /* Possible Equipment*/

@@ -4444,10 +4444,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 
 	/* Golems also get an intrinsic AC bonus */
-	if (race_is_(cr_ptr, RACE_GOLEM) || race_is_(cr_ptr, RACE_ANDROID))
+	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		cr_ptr->to_a += 10 + (cr_ptr->lev * 2 / 5);
-		cr_ptr->dis_to_a += 10 + (cr_ptr->lev * 2 / 5);
+		cr_ptr->to_a += race_info[cr_ptr->irace_idx].ac_base + (race_info[cr_ptr->irace_idx].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->dis_to_a += race_info[cr_ptr->irace_idx].ac_base + (race_info[cr_ptr->irace_idx].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
 	}
 
 	/* Hex bonuses */
