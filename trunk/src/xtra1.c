@@ -3139,6 +3139,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	new_speed = 110;
 	if(cr_ptr->dr >= 0) new_speed += adj_dr_speed[cr_ptr->dr];
 
+	/* Plus AC on Divine Rank */
+	if(cr_ptr->dr >= 0){
+		cr_ptr->dis_to_a += adj_dr_ac[cr_ptr->dr];
+		cr_ptr->to_a += adj_dr_ac[cr_ptr->dr];
+	}
+
+
 	/* Start with a single blow per turn */
 	cr_ptr->num_blow[0] = 1;
 	cr_ptr->num_blow[1] = 1;

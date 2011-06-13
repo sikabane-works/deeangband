@@ -77,6 +77,7 @@ extern byte adj_con_mhp[];
 extern int adj_dr_mhp[];
 extern int adj_dr_saving[];
 extern int adj_dr_speed[];
+extern int adj_dr_ac[];
 extern byte adj_chr_chm[];
 extern byte blows_table[12][12];
 extern arena_type arena_info[MAX_ARENA_MONS + 2];
