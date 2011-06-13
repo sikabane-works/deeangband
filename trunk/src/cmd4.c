@@ -5143,7 +5143,34 @@ static cptr monster_group_text[] =
 	"壁/植物/気体",
 	"おばけキノコ",
 	"球体",
-	"プレイヤー",
+	"戦士",
+	"メイジ",
+	"プリースト",
+	"盗賊",
+	"レンジャー",
+	"パラディン",
+	"魔法戦士",
+	"混沌の戦士",
+	"修行僧",
+	"超能力者",
+	"ハイ=メイジ",
+	"観光客",
+	"ものまね師",
+	"魔獣使い",
+	"スペルマスター",
+	"アーチャー",
+	"魔道具術師",
+	"吟遊詩人",
+	"赤魔道師",
+	"剣術家",
+	"練気術師",
+	"青魔道師",
+	"騎兵",
+	"狂戦士",
+	"鍛冶師",
+	"鏡使い",
+	"忍者",
+	"スナイパー",
 #else
 	"Uniques",
 	"Ridable monsters",
@@ -5204,7 +5231,34 @@ static cptr monster_group_text[] =
 	"Wall/Plant/Gas",
 	"Mushroom patch",
 	"Ball",
-	"Player",
+	"Warrior",
+	"Mage",
+	"Priest",
+	"Rouge",
+	"Ranger",
+	"Paladin",
+	"Warrior-Mage",
+	"Chaos-Warrior",
+	"Monk",
+	"Mind-Crafter",
+	"High-Mage",
+	"Tourist",
+	"Imitator",
+	"Beast-Master",
+	"Sorcerer",
+	"Archer",
+	"Magic-Eater",
+	"Bard",
+	"Red-Mage",
+	"Samurai",
+	"ForceTrainer",
+	"Blue-Mage",
+	"Cavalry",
+	"Berserker",
+	"Smith",
+	"Mirror-Master",
+	"Ninja",
+	"Sniper",
 #endif
 	NULL
 };
@@ -5275,7 +5329,34 @@ static cptr monster_group_char[] =
 	"#%",
 	",",
 	"*",
-	"@",
+	(char *) -100L,
+	(char *) -101L,
+	(char *) -102L,
+	(char *) -103L,
+	(char *) -104L,
+	(char *) -105L,
+	(char *) -106L,
+	(char *) -107L,
+	(char *) -108L,
+	(char *) -109L,
+	(char *) -110L,
+	(char *) -111L,
+	(char *) -112L,
+	(char *) -113L,
+	(char *) -114L,
+	(char *) -115L,
+	(char *) -116L,
+	(char *) -117L,
+	(char *) -118L,
+	(char *) -119L,
+	(char *) -120L,
+	(char *) -121L,
+	(char *) -122L,
+	(char *) -123L,
+	(char *) -124L,
+	(char *) -125L,
+	(char *) -126L,
+	(char *) -127L,
 	NULL
 };
 
@@ -5315,6 +5396,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 {
 	int i, mon_cnt = 0;
 	int dummy_why;
+	int cls = 255;
 
 	/* Get a list of x_char in this group */
 	cptr group_char = monster_group_char[grp_cur];
@@ -5330,6 +5412,11 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 	/* XXX Hack -- Check if this is the "Amberite" group */
 	bool grp_amberite = (monster_group_char[grp_cur] == (char *) -4L);
+
+	if(monster_group_char[grp_cur] <= (char *) -100L)
+	{
+		cls = -((int)monster_group_char[grp_cur] + 100);
+	}
 
 
 	/* Check every race */
@@ -5373,6 +5460,11 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 		else if (grp_amberite)
 		{
 			if (!(r_ptr->flags3 & RF3_AMBERITE)) continue;
+		}
+
+		else if (cls != 255)
+		{
+			if (r_ptr->i_class != cls) continue;
 		}
 
 		else
