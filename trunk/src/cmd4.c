@@ -5143,6 +5143,7 @@ static cptr monster_group_text[] =
 	"壁/植物/気体",
 	"おばけキノコ",
 	"球体",
+	"種族可変",
 	"戦士",
 	"メイジ",
 	"プリースト",
@@ -5171,6 +5172,7 @@ static cptr monster_group_text[] =
 	"鏡使い",
 	"忍者",
 	"スナイパー",
+	"職業可変",
 #else
 	"Uniques",
 	"Ridable monsters",
@@ -5231,6 +5233,7 @@ static cptr monster_group_text[] =
 	"Wall/Plant/Gas",
 	"Mushroom patch",
 	"Ball",
+	"Variable-Race"
 	"Warrior",
 	"Mage",
 	"Priest",
@@ -5259,6 +5262,7 @@ static cptr monster_group_text[] =
 	"Mirror-Master",
 	"Ninja",
 	"Sniper",
+	"Variable-Class"
 #endif
 	NULL
 };
@@ -5329,6 +5333,7 @@ static cptr monster_group_char[] =
 	"#%",
 	",",
 	"*",
+	(char *) -200L,
 	(char *) -100L,
 	(char *) -101L,
 	(char *) -102L,
@@ -5357,6 +5362,7 @@ static cptr monster_group_char[] =
 	(char *) -125L,
 	(char *) -126L,
 	(char *) -127L,
+	(char *) -201L,
 	NULL
 };
 
@@ -5394,7 +5400,7 @@ static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
  */
 static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 {
-	int i, mon_cnt = 0;
+	int i, mon_cnt = 0, ego = 0;
 	int dummy_why;
 	int cls = 255;
 
@@ -5413,10 +5419,17 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 	/* XXX Hack -- Check if this is the "Amberite" group */
 	bool grp_amberite = (monster_group_char[grp_cur] == (char *) -4L);
 
-	if(monster_group_char[grp_cur] <= (char *) -100L)
+	if(monster_group_char[grp_cur] == (char *) -200L)
+		ego = 1;
+
+	if(monster_group_char[grp_cur] == (char *) -201L)
+		ego = 2;
+
+	if(monster_group_char[grp_cur] > (char *) -200L && monster_group_char[grp_cur] <= (char *) -100L)
 	{
 		cls = -((int)monster_group_char[grp_cur] + 100);
 	}
+
 
 
 	/* Check every race */
@@ -5465,6 +5478,17 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 		else if (cls != 255)
 		{
 			if (r_ptr->i_class != cls) continue;
+		}
+
+		else if (ego == 1)
+		{
+			if(!(r_ptr->flagse & RFE_RACE_EGO))
+				continue;
+		}
+
+		else if (ego == 2)
+		{
+			if(!(r_ptr->flagse & RFE_CLASS_EGO)) continue;
 		}
 
 		else
