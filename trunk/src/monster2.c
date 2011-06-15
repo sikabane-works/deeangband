@@ -3945,7 +3945,6 @@ static int place_monster_one(int who, int y, int x, int monster_idx, int monster
 		rps_selected = r_ptr->i_chara;
 	}
 
-
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
 	if (p_ptr->wild_mode){
 		if (cheat_hear)
@@ -4113,7 +4112,17 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	/* Get a new monster record */
 	m_ptr = &m_list[c_ptr->m_idx];
 
-	create_monster(m_ptr, monster_idx, re_selected, mode); 
+	if(r_ptr->flags1 & RF1_UNIQUE)
+	{
+		int i;
+		for(i = 0; i < max_unique; i++)
+			if(monster_idx == u_info[i].monster_idx)
+				*m_ptr = u_info[i];
+	}
+	else
+	{
+		create_monster(m_ptr, monster_idx, re_selected, mode); 
+	}
 
 	/* No flags */
 	m_ptr->mflag = 0;
