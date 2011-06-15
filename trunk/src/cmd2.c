@@ -1267,7 +1267,7 @@ void do_cmd_open(void)
 
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Handle chests */
@@ -1438,7 +1438,7 @@ void do_cmd_close(void)
 #endif
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Close the door */
@@ -1742,7 +1742,7 @@ void do_cmd_tunnel(void)
 #endif
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Try digging */
@@ -2201,7 +2201,7 @@ void do_cmd_disarm(void)
 
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Disarm chest */
@@ -2418,7 +2418,7 @@ void do_cmd_bash(void)
 
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Bash a closed door */
@@ -2495,7 +2495,7 @@ void do_cmd_alter(void)
 		if (c_ptr->m_idx)
 		{
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Locked doors */
@@ -2647,7 +2647,7 @@ void do_cmd_spike(void)
 #endif
 
 			/* Attack */
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 		}
 
 		/* Go for it */

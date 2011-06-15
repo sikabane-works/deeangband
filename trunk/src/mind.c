@@ -1453,7 +1453,7 @@ static bool cast_berserk_spell(int spell)
 			return FALSE;
 		}
 
-		py_attack(y, x, 0);
+		py_attack(p_ptr, y, x, 0);
 
 		if (!player_can_enter(cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
 			break;
@@ -1497,7 +1497,7 @@ static bool cast_berserk_spell(int spell)
 
 			/* Hack -- attack monsters */
 			if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 		}
 		break;
 	}
@@ -1579,7 +1579,7 @@ static bool cast_ninja_spell(int spell)
 		x = px + ddx[dir];
 		if (cave[y][x].m_idx)
 		{
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 			if (randint0(p_ptr->skill_dis) < 7)
 #ifdef JP
 msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");

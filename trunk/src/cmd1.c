@@ -3163,7 +3163,7 @@ static void py_attack_aux(int y, int x, bool *fear, bool *mdeath, s16b hand, int
 	}
 }
 
-bool py_attack(int y, int x, int mode)
+bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 {
 	bool            fear = FALSE;
 	bool            mdeath = FALSE;
@@ -3179,11 +3179,11 @@ bool py_attack(int y, int x, int mode)
 
 	energy_use = 100;
 
-	if (!p_ptr->migite && !p_ptr->hidarite &&
-	    !(p_ptr->muta2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
+	if (!cr_ptr ->migite && !cr_ptr ->hidarite &&
+	    !(cr_ptr ->muta2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
 	{
 #ifdef JP
-		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(p_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(cr_ptr , FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
 #else
 		msg_print("You cannot do attacking.");
 #endif
@@ -3196,16 +3196,16 @@ bool py_attack(int y, int x, int mode)
 	if (m_ptr->ml)
 	{
 		/* Auto-Recall if possible and visible */
-		if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
+		if (!cr_ptr ->image) monster_race_track(m_ptr->ap_monster_idx);
 
 		/* Track a new monster */
 		health_track(c_ptr->m_idx);
 	}
 
 	if ((r_ptr->flags1 & RF1_FEMALE) &&
-	    !(p_ptr->stun || p_ptr->confused || p_ptr->image || !m_ptr->ml))
+	    !(cr_ptr ->stun || cr_ptr ->confused || cr_ptr ->image || !m_ptr->ml))
 	{
-		if ((p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
+		if ((cr_ptr ->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (cr_ptr ->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_print("ÙŽÒA‚¨‚È‚²‚ÍŽa‚ê‚ÊI");
@@ -3228,11 +3228,11 @@ bool py_attack(int y, int x, int mode)
 
 	/* Stop if friendly */
 	if (!is_hostile(m_ptr) &&
-	    !(p_ptr->stun || p_ptr->confused || p_ptr->image ||
-	    p_ptr->shero || !m_ptr->ml))
+	    !(cr_ptr ->stun || cr_ptr ->confused || cr_ptr ->image ||
+	    cr_ptr ->shero || !m_ptr->ml))
 	{
-		if (p_ptr->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-		if (p_ptr->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (cr_ptr ->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (cr_ptr ->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 		if (stormbringer)
 		{
 #ifdef JP
@@ -3245,7 +3245,7 @@ bool py_attack(int y, int x, int mode)
 			chg_virtue(V_JUSTICE, -1);
 			chg_virtue(V_COMPASSION, -1);
 		}
-		else if (p_ptr->cls_idx != CLASS_BERSERKER)
+		else if (cr_ptr ->cls_idx != CLASS_BERSERKER)
 		{
 #ifdef JP
 			if (get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
@@ -3272,7 +3272,7 @@ bool py_attack(int y, int x, int mode)
 
 
 	/* Handle player fear */
-	if (p_ptr->afraid)
+	if (cr_ptr ->afraid)
 	{
 		/* Message */
 		if (m_ptr->ml)
@@ -3302,31 +3302,31 @@ bool py_attack(int y, int x, int mode)
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
 	}
 
-	if (p_ptr->migite && p_ptr->hidarite)
+	if (cr_ptr ->migite && cr_ptr ->hidarite)
 	{
-		if ((p_ptr->skill_exp[GINOU_NITOURYU] < s_info[p_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((p_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
+		if ((cr_ptr ->skill_exp[GINOU_NITOURYU] < s_info[cr_ptr ->cls_idx].s_max[GINOU_NITOURYU]) && ((cr_ptr ->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
 		{
-			if (p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
-				p_ptr->skill_exp[GINOU_NITOURYU] += 80;
-			else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
-				p_ptr->skill_exp[GINOU_NITOURYU] += 4;
-			else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
-				p_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			else if(p_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
-				if (one_in_(3)) p_ptr->skill_exp[GINOU_NITOURYU] += 1;
-			p_ptr->update |= (PU_BONUS);
+			if (cr_ptr ->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
+				cr_ptr ->skill_exp[GINOU_NITOURYU] += 80;
+			else if(cr_ptr ->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_SKILLED)
+				cr_ptr ->skill_exp[GINOU_NITOURYU] += 4;
+			else if(cr_ptr ->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_EXPERT)
+				cr_ptr ->skill_exp[GINOU_NITOURYU] += 1;
+			else if(cr_ptr ->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_MASTER)
+				if (one_in_(3)) cr_ptr ->skill_exp[GINOU_NITOURYU] += 1;
+			cr_ptr ->update |= (PU_BONUS);
 		}
 	}
 
 	/* Gain riding experience */
-	if (p_ptr->riding)
+	if (cr_ptr ->riding)
 	{
-		int cur = p_ptr->skill_exp[GINOU_RIDING];
-		int max = s_info[p_ptr->cls_idx].s_max[GINOU_RIDING];
+		int cur = cr_ptr ->skill_exp[GINOU_RIDING];
+		int max = s_info[cr_ptr ->cls_idx].s_max[GINOU_RIDING];
 
 		if (cur < max)
 		{
-			int ridinglevel = r_info[m_list[p_ptr->riding].monster_idx].level;
+			int ridinglevel = r_info[m_list[cr_ptr ->riding].monster_idx].level;
 			int targetlevel = r_ptr->level;
 			int inc = 0;
 
@@ -3342,20 +3342,20 @@ bool py_attack(int y, int x, int mode)
 					inc += 1;
 			}
 
-			p_ptr->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
+			cr_ptr ->skill_exp[GINOU_RIDING] = MIN(max, cur + inc);
 
-			p_ptr->update |= (PU_BONUS);
+			cr_ptr ->update |= (PU_BONUS);
 		}
 	}
 
 	riding_t_m_idx = c_ptr->m_idx;
-	if (p_ptr->migite) py_attack_aux(y, x, &fear, &mdeath, 0, mode);
-	if (p_ptr->hidarite && !mdeath) py_attack_aux(y, x, &fear, &mdeath, 1, mode);
+	if (cr_ptr ->migite) py_attack_aux(y, x, &fear, &mdeath, 0, mode);
+	if (cr_ptr ->hidarite && !mdeath) py_attack_aux(y, x, &fear, &mdeath, 1, mode);
 
 	if(!mdeath)
 	{
 
-		if(p_ptr->size - m_ptr->size > 5)
+		if(cr_ptr ->size - m_ptr->size > 5)
 		{
 			if (one_in_(10))
 			{
@@ -3365,9 +3365,9 @@ bool py_attack(int y, int x, int mode)
 #else
 				msg_format("You tranmpled %s cruelly!", m_name);
 #endif
-				k = damroll(p_ptr->size - m_ptr->size * 10, p_ptr->size - m_ptr->size);
+				k = damroll(cr_ptr ->size - m_ptr->size * 10, cr_ptr ->size - m_ptr->size);
 				m_ptr->chp -= k;
-				if (p_ptr->wizard)
+				if (cr_ptr ->wizard)
 				{
 #ifdef JP
 					msg_format("%d/%d ‚Ìƒ_ƒ[ƒW‚ð—^‚¦‚½B", k, m_ptr->chp);
@@ -3384,15 +3384,15 @@ bool py_attack(int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if ((p_ptr->muta2 & MUT2_HORNS) && !mdeath)
+		if ((cr_ptr ->muta2 & MUT2_HORNS) && !mdeath)
 			natural_attack(c_ptr->m_idx, MUT2_HORNS, &fear, &mdeath);
-		if ((p_ptr->muta2 & MUT2_BEAK) && !mdeath)
+		if ((cr_ptr ->muta2 & MUT2_BEAK) && !mdeath)
 			natural_attack(c_ptr->m_idx, MUT2_BEAK, &fear, &mdeath);
-		if ((p_ptr->muta2 & MUT2_SCOR_TAIL) && !mdeath)
+		if ((cr_ptr ->muta2 & MUT2_SCOR_TAIL) && !mdeath)
 			natural_attack(c_ptr->m_idx, MUT2_SCOR_TAIL, &fear, &mdeath);
-		if ((p_ptr->muta2 & MUT2_TRUNK) && !mdeath)
+		if ((cr_ptr ->muta2 & MUT2_TRUNK) && !mdeath)
 			natural_attack(c_ptr->m_idx, MUT2_TRUNK, &fear, &mdeath);
-		if ((p_ptr->muta2 & MUT2_TENTACLES) && !mdeath)
+		if ((cr_ptr ->muta2 & MUT2_TENTACLES) && !mdeath)
 			natural_attack(c_ptr->m_idx, MUT2_TENTACLES, &fear, &mdeath);
 	}
 
@@ -3412,7 +3412,7 @@ bool py_attack(int y, int x, int mode)
 
 	}
 
-	if ((p_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
+	if ((cr_ptr ->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
 	{
 		set_action(ACTION_NONE);
 	}
@@ -4113,7 +4113,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			/* displace? */
 			if ((stormbringer && (randint1(1000) > 666)) || (p_ptr->cls_idx == CLASS_BERSERKER))
 			{
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
 			else if (monster_can_cross_terrain(cave[py][px].feat, r_ptr, 0))
@@ -4136,7 +4136,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		}
 		else
 		{
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 			oktomove = FALSE;
 		}
 	}

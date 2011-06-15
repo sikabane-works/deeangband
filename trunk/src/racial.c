@@ -913,7 +913,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 				/* Hack -- attack monsters */
 				if (c_ptr->m_idx)
-					py_attack(y, x, 0);
+					py_attack(p_ptr, y, x, 0);
 				else
 				{
 #ifdef JP
@@ -962,7 +962,7 @@ static bool cmd_racial_power_aux(s32b command)
 			x = px + ddx[dir];
 			if (cave[y][x].m_idx)
 			{
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 				if (randint0(p_ptr->skill_dis) < 7)
 #ifdef JP
 					msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
@@ -1104,11 +1104,11 @@ static bool cmd_racial_power_aux(s32b command)
 					else msg_print("Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!");
 #endif
 
-					py_attack(y, x, 0);
+					py_attack(p_ptr, y, x, 0);
 					if (cave[y][x].m_idx)
 					{
 						handle_stuff();
-						py_attack(y, x, 0);
+						py_attack(p_ptr, y, x, 0);
 					}
 					p_ptr->energy_need += ENERGY_NEED();
 				}

@@ -2125,7 +2125,7 @@ bool do_riding(bool force)
 			msg_print("There is a monster in the way!");
 #endif
 
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 			return FALSE;
 		}
 

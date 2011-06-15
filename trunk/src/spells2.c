@@ -7607,7 +7607,7 @@ bool rush_attack(bool *mdeath)
 
 		if (!player_bold(ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
-		tmp_mdeath = py_attack(ny, nx, HISSATSU_NYUSIN);
+		tmp_mdeath = py_attack(p_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}

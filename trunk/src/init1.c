@@ -2765,7 +2765,7 @@ errr parse_r_info(char *buf, header *head)
 	else if (buf[0] == 'P')
 	{
 		int sa,ia,wa,da,ca,cha;
-		if (12 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
+		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
 				&sa,&ia,&wa,&da,&ca,&cha)) return (1);
 		
 		r_ptr->stat[A_STR] = sa * 10;
@@ -2843,7 +2843,7 @@ errr parse_r_info(char *buf, header *head)
 	else if (buf[0] == 'C')
 	{
 		int i_race, i_class, i_faith, i_chara, magic1, magic2;
-		if (4 != sscanf(buf+2, "%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara, &magic1, &magic2)) return (1);
+		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara, &magic1, &magic2)) return (1);
 		r_ptr->i_race = i_race;
 		r_ptr->i_class = i_class;
 		r_ptr->i_faith = i_faith;

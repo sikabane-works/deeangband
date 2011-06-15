@@ -3213,7 +3213,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						py_attack(y, x, 0);
+						py_attack(p_ptr, y, x, 0);
 				}
 			}
 		}
@@ -10239,7 +10239,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			y = py + ddy_cdd[cdir];
 			x = px + ddx_cdd[cdir];
 			if (cave[y][x].m_idx)
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("UŒ‚‚Í‹ó‚ðØ‚Á‚½B");
@@ -10249,7 +10249,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			y = py + ddy_cdd[(cdir + 7) % 8];
 			x = px + ddx_cdd[(cdir + 7) % 8];
 			if (cave[y][x].m_idx)
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("UŒ‚‚Í‹ó‚ðØ‚Á‚½B");
@@ -10259,7 +10259,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			y = py + ddy_cdd[(cdir + 1) % 8];
 			x = px + ddx_cdd[(cdir + 1) % 8];
 			if (cave[y][x].m_idx)
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("UŒ‚‚Í‹ó‚ðØ‚Á‚½B");
@@ -10304,7 +10304,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_FIRE);
+				py_attack(p_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
 #ifdef JP
@@ -10352,7 +10352,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_MINEUCHI);
+				py_attack(p_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
 #ifdef JP
@@ -10433,7 +10433,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 	
-			py_attack(y, x, 0);
+			py_attack(p_ptr, y, x, 0);
 	
 			if (!player_can_enter(cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
 				break;
@@ -10471,7 +10471,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_POISON);
+				py_attack(p_ptr, y, x, HISSATSU_POISON);
 			else
 			{
 #ifdef JP
@@ -10504,7 +10504,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_ZANMA);
+				py_attack(p_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
 #ifdef JP
@@ -10537,7 +10537,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 			else
 			{
 #ifdef JP
@@ -10638,7 +10638,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_HAGAN);
+				py_attack(p_ptr, y, x, HISSATSU_HAGAN);
 	
 			if (!cave_have_flag_bold(y, x, FF_HURT_ROCK)) break;
 	
@@ -10670,7 +10670,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_COLD);
+				py_attack(p_ptr, y, x, HISSATSU_COLD);
 			else
 			{
 #ifdef JP
@@ -10703,7 +10703,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_KYUSHO);
+				py_attack(p_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
 #ifdef JP
@@ -10736,7 +10736,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_MAJIN);
+				py_attack(p_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
 #ifdef JP
@@ -10769,7 +10769,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_SUTEMI);
+				py_attack(p_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
 #ifdef JP
@@ -10803,7 +10803,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_ELEC);
+				py_attack(p_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
 #ifdef JP
@@ -10875,7 +10875,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 						msg_format("%s is unharmed!", m_name);
 #endif
 					}
-					else py_attack(y, x, HISSATSU_SEKIRYUKA);
+					else py_attack(p_ptr, y, x, HISSATSU_SEKIRYUKA);
 				}
 			}
 		}
@@ -10901,7 +10901,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_QUAKE);
+				py_attack(p_ptr, y, x, HISSATSU_QUAKE);
 			else
 				earthquake(py, px, 10);
 		}
@@ -11007,7 +11007,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				c_ptr = &cave[y][x];
 	
 				if (c_ptr->m_idx)
-					py_attack(y, x, HISSATSU_3DAN);
+					py_attack(p_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
 #ifdef JP
@@ -11089,7 +11089,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_DRAIN);
+				py_attack(p_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
 #ifdef JP
@@ -11227,11 +11227,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 
 			if (cave[y][x].m_idx)
 			{
-				py_attack(y, x, 0);
+				py_attack(p_ptr, y, x, 0);
 				if (cave[y][x].m_idx)
 				{
 					handle_stuff();
-					py_attack(y, x, 0);
+					py_attack(p_ptr, y, x, 0);
 				}
 			}
 			else
@@ -11331,7 +11331,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			x = px + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(y, x, HISSATSU_UNDEAD);
+				py_attack(p_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
 #ifdef JP

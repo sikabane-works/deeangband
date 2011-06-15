@@ -2244,7 +2244,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						py_attack(y, x, 0);
+						py_attack(p_ptr, y, x, 0);
 				}
 			}
 			o_ptr->timeout = 250;

@@ -195,7 +195,7 @@ bool make_attack_normal(int m_idx)
 #else
 		msg_format("You took sen, draw and cut in one motion before %s move.", m_name);
 #endif
-		if (py_attack(m_ptr->fy, m_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if (py_attack(p_ptr, m_ptr->fy, m_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	if ((p_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (p_ptr->lev*3/5+20)))
@@ -2234,7 +2234,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 #else
 		msg_format("Your counterattack to %s!", m_name);
 #endif
-		py_attack(m_ptr->fy, m_ptr->fx, HISSATSU_COUNTER);
+		py_attack(p_ptr, m_ptr->fy, m_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
 		/* Redraw mana */
