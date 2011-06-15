@@ -410,6 +410,10 @@ struct monster_race
 	u32b i_class;			/* Class for Intelligent Race */
 	u32b i_faith;           /* Faith for Intelligent Race */
 	u32b i_chara;           /* Character for Intelligent Race */
+	u32b magic1;
+	u32b magic2;
+
+
 };
 
 /*

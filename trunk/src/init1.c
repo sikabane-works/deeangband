@@ -2764,16 +2764,16 @@ errr parse_r_info(char *buf, header *head)
 	/* Process 'P' for "Parameters" (one line only) */
 	else if (buf[0] == 'P')
 	{
-		int sa,sb,ia,ib,wa,wb,da,db,ca,cb,cha,chb;
-		if (12 != sscanf(buf+2, "%d.%d:%d.%d:%d.%d:%d.%d:%d.%d:%d.%d",
-				&sa,&sb,&ia,&ib,&wa,&wb,&da,&db,&ca,&cb,&cha,&chb)) return (1);
+		int sa,ia,wa,da,ca,cha;
+		if (12 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
+				&sa,&ia,&wa,&da,&ca,&cha)) return (1);
 		
-		r_ptr->stat[A_STR] = sa * 10 + sb;
-		r_ptr->stat[A_INT] = ia * 10 + ib;
-		r_ptr->stat[A_WIS] = wa * 10 + wb;
-		r_ptr->stat[A_DEX] = da * 10 + db;
-		r_ptr->stat[A_CON] = ca * 10 + cb;
-		r_ptr->stat[A_CHR] = cha * 10 + chb;
+		r_ptr->stat[A_STR] = sa * 10;
+		r_ptr->stat[A_INT] = ia * 10;
+		r_ptr->stat[A_WIS] = wa * 10;
+		r_ptr->stat[A_DEX] = da * 10;
+		r_ptr->stat[A_CON] = ca * 10;
+		r_ptr->stat[A_CHR] = cha * 10;
 	}
 
 	/* Process 'G' for "Graphics" (one line only) */
@@ -2842,12 +2842,14 @@ errr parse_r_info(char *buf, header *head)
 	/* Process 'C' for "Class Info" (one line only) */
 	else if (buf[0] == 'C')
 	{
-		int i_race, i_class, i_faith, i_chara;
-		if (4 != sscanf(buf+2, "%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara)) return (1);
+		int i_race, i_class, i_faith, i_chara, magic1, magic2;
+		if (4 != sscanf(buf+2, "%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara, &magic1, &magic2)) return (1);
 		r_ptr->i_race = i_race;
 		r_ptr->i_class = i_class;
 		r_ptr->i_faith = i_faith;
 		r_ptr->i_chara = i_chara;
+		r_ptr->magic1 = magic1;
+		r_ptr->magic2 = magic2;
 	}
 
 
