@@ -4743,9 +4743,9 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	{
 		/* Take damage */
 #ifdef JP
-		take_hit(DAMAGE_GENO, randint1(dam_side), format("%^sの呪文を唱えた疲労", spell_name), -1);
+		take_hit(p_ptr, DAMAGE_GENO, randint1(dam_side), format("%^sの呪文を唱えた疲労", spell_name), -1);
 #else
-		take_hit(DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), -1);
+		take_hit(p_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), -1);
 #endif
 	}
 
@@ -5620,7 +5620,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 #endif
 			}
 
-			take_hit(DAMAGE_ATTACK, damage, killer, -1);
+			take_hit(p_ptr, DAMAGE_ATTACK, damage, killer, -1);
 		}
 	}
 
@@ -7045,9 +7045,9 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 
 				project(0, 8, py, px, dam, GF_MANA, flg, -1);
 #ifdef JP
-				take_hit(DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", -1);
 #else
-				take_hit(DAMAGE_NOESCAPE, dam, "released pure mana", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", -1);
 #endif
 				if (!one_in_(6)) break;
 			}
@@ -7076,9 +7076,9 @@ msg_print("エネルギーのうねりを感じた！");
 			{
 				project(0, 7, py, px, 50, GF_KILL_WALL, flg, -1);
 #ifdef JP
-				take_hit(DAMAGE_NOESCAPE, 50, "エネルギーのうねり", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", -1);
 #else
-				take_hit(DAMAGE_NOESCAPE, 50, "surge of energy", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", -1);
 #endif
 			}
 			if (!one_in_(6)) break;

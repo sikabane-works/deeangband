@@ -3136,15 +3136,19 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
+				/*
+				py_attack(m_ptr, py, px, 0);
+
+				do_move = FALSE;
+				do_turn = TRUE;
+				*/
+
 				if (!p_ptr->riding || one_in_(2))
 				{
-					/* Do the attack */
 					(void)make_attack_normal(m_idx);
 
-					/* Do not move */
 					do_move = FALSE;
 
-					/* Took a turn */
 					do_turn = TRUE;
 				}
 			}

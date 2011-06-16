@@ -3673,10 +3673,10 @@ bool mutation_power_aux(u32b power)
 			/* Fake a population explosion. */
 #ifdef JP
 			msg_print("“Ë‘R“ª‚ª’É‚­‚È‚Á‚½I");
-			take_hit(DAMAGE_LOSELIFE, randint1(17) + 17, "‹Ö—~‚ğ‹­‚¢‚½”æ˜J", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "‹Ö—~‚ğ‹­‚¢‚½”æ˜J", -1);
 #else
 			msg_print("You suddenly have a headache!");
-			take_hit(DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", -1);
 #endif
 
 			num_repro += MAX_REPRO;

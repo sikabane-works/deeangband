@@ -2737,9 +2737,9 @@ static cptr do_nature_spell(int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(DAMAGE_NOESCAPE, damroll(2, 2), "“ú‚ÌŒõ", -1);
+					take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "“ú‚ÌŒõ", -1);
 #else
-					take_hit(DAMAGE_NOESCAPE, damroll(2, 2), "daylight", -1);
+					take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "daylight", -1);
 #endif
 				}
 			}
@@ -3321,9 +3321,9 @@ static cptr do_nature_spell(int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(DAMAGE_NOESCAPE, 50, "“úŒõ", -1);
+					take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "“úŒõ", -1);
 #else
-					take_hit(DAMAGE_NOESCAPE, 50, "sunlight", -1);
+					take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "sunlight", -1);
 #endif
 				}
 			}
@@ -4981,9 +4981,9 @@ static cptr do_death_spell(int spell, int mode)
 
 				fire_ball(GF_HELL_FIRE, dir, dam, rad);
 #ifdef JP
-				take_hit(DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", -1);
+				take_hit(p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", -1);
 #else
-				take_hit(DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", -1);
+				take_hit(p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", -1);
 #endif
 			}
 		}
@@ -8121,9 +8121,9 @@ static cptr do_daemon_spell(int spell, int mode)
 
 				fire_ball_hide(GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
-				take_hit(DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", -1);
+				take_hit(p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", -1);
 #else
-				take_hit(DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", -1);
+				take_hit(p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", -1);
 #endif
 			}
 		}
@@ -11342,9 +11342,9 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 #ifdef JP
-			take_hit(DAMAGE_NOESCAPE, 100 + randint1(100), "Œc‰_‹S”EŒ•‚ðŽg‚Á‚½ÕŒ‚", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "Œc‰_‹S”EŒ•‚ðŽg‚Á‚½ÕŒ‚", -1);
 #else
-			take_hit(DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", -1);
 #endif
 		}
 		break;
@@ -11379,7 +11379,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (i != '@') return NULL;
 			if (p_ptr->total_winner)
 			{
-				take_hit(DAMAGE_FORCE, 9999, "Seppuku", -1);
+				take_hit(p_ptr, DAMAGE_FORCE, 9999, "Seppuku", -1);
 				p_ptr->total_winner = TRUE;
 			}
 			else
@@ -11389,7 +11389,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #else
 				msg_print("Meaning of Bushi-do is found in the death.");
 #endif
-				take_hit(DAMAGE_FORCE, 9999, "Seppuku", -1);
+				take_hit(p_ptr, DAMAGE_FORCE, 9999, "Seppuku", -1);
 			}
 		}
 		break;

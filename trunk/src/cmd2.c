@@ -580,10 +580,10 @@ static void chest_trap(int y, int x, s16b o_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", -1);
 #endif
 
 		(void)do_dec_stat(A_STR);
@@ -594,10 +594,10 @@ static void chest_trap(int y, int x, s16b o_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", -1);
 #endif
 
 		(void)do_dec_stat(A_CON);
@@ -771,9 +771,9 @@ static void chest_trap(int y, int x, s16b o_idx)
 			if (randint1(100+o_ptr->pval*2) > p_ptr->skill_rob)
 			{
 #ifdef JP
-				if (one_in_(6)) take_hit(DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", -1);
+				if (one_in_(6)) take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", -1);
 #else
-				if (one_in_(6)) take_hit(DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", -1);
+				if (one_in_(6)) take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", -1);
 #endif
 				else if (one_in_(5)) (void)set_cut(p_ptr->cut + 200);
 				else if (one_in_(4))
@@ -825,9 +825,9 @@ static void chest_trap(int y, int x, s16b o_idx)
 		o_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
-		take_hit(DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", -1);
+		take_hit(p_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", -1);
 #else
-		take_hit(DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", -1);
+		take_hit(p_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", -1);
 #endif
 
 	}

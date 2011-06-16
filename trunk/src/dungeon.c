@@ -708,9 +708,9 @@ static void wreck_the_pattern(void)
 
 	if (!IS_INVULN(p_ptr))
 #ifdef JP
-		take_hit(DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", -1);
 #else
-		take_hit(DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", -1);
 #endif
 
 	to_ruin = randint1(45) + 35;
@@ -790,9 +790,9 @@ static bool pattern_effect(void)
 	case PATTERN_TILE_WRECKED:
 		if (!IS_INVULN(p_ptr))
 #ifdef JP
-			take_hit(DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", -1);
 #else
-			take_hit(DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", -1);
 #endif
 		break;
 
@@ -801,9 +801,9 @@ static bool pattern_effect(void)
 			return TRUE;
 		else if (!IS_INVULN(p_ptr))
 #ifdef JP
-			take_hit(DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", -1);
 #else
-			take_hit(DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", -1);
 #endif
 		break;
 	}
@@ -1494,9 +1494,9 @@ static void process_world_aux_hp_and_sp(void)
 	{
 		/* Take damage */
 #ifdef JP
-		take_hit(DAMAGE_NOESCAPE, 1, "毒", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, 1, "毒", -1);
 #else
-		take_hit(DAMAGE_NOESCAPE, 1, "poison", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, 1, "poison", -1);
 #endif
 
 	}
@@ -1546,9 +1546,9 @@ static void process_world_aux_hp_and_sp(void)
 
 		/* Take damage */
 #ifdef JP
-		take_hit(DAMAGE_NOESCAPE, dam, "致命傷", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, dam, "致命傷", -1);
 #else
-		take_hit(DAMAGE_NOESCAPE, dam, "a fatal wound", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", -1);
 #endif
 
 	}
@@ -1564,10 +1564,10 @@ static void process_world_aux_hp_and_sp(void)
 				/* Take damage */
 #ifdef JP
 msg_print("日光があなたのアンデッドの肉体を焼き焦がした！");
-take_hit(DAMAGE_NOESCAPE, 1, "日光", -1);
+take_hit(p_ptr, DAMAGE_NOESCAPE, 1, "日光", -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
-				take_hit(DAMAGE_NOESCAPE, 1, "sunlight", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, 1, "sunlight", -1);
 #endif
 
 				cave_no_regen = TRUE;
@@ -1602,7 +1602,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			sprintf(ouch, "wielding %s", o_name);
 #endif
 
-			if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_NOESCAPE, 1, ouch, -1);
+			if (!IS_INVULN(p_ptr)) take_hit(p_ptr, DAMAGE_NOESCAPE, 1, ouch, -1);
 		}
 	}
 
@@ -1613,10 +1613,10 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 		if(p_ptr->resist_chaos) damage /= 2;
 #ifdef JP
 				msg_print("混沌に身を蝕まれた！");
-				take_hit(DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", -1);
 #else
 				msg_print("The chaos tainted you!");
-				take_hit(DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", -1);
 #endif
 	}
 
@@ -1647,10 +1647,10 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[py][px])].name), -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[py][px])].name), -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[py][px])].name), -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[py][px])].name), -1);
 #endif
 			}
 			else
@@ -1661,7 +1661,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 #else
 				msg_format("The %s burns you!", name);
 #endif
-				take_hit(DAMAGE_NOESCAPE, damage, name, -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, damage, name, -1);
 			}
 
 			cave_no_regen = TRUE;
@@ -1694,7 +1694,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 #else
 			msg_format("you are poisoned by The %s", name);
 #endif
-			take_hit(DAMAGE_NOESCAPE, damage, name, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damage, name, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1726,7 +1726,7 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 #else
 			msg_format("you are disolved by The %s", name);
 #endif
-			take_hit(DAMAGE_NOESCAPE, damage, name, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damage, name, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1741,10 +1741,10 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			/* Take damage */
 #ifdef JP
 			msg_print("溺れている！");
-			take_hit(DAMAGE_NOESCAPE, randint1(p_ptr->lev), "溺れ", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->lev), "溺れ", -1);
 #else
 			msg_print("You are drowning!");
-			take_hit(DAMAGE_NOESCAPE, randint1(p_ptr->lev), "drowning", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->lev), "drowning", -1);
 #endif
 
 			cave_no_regen = TRUE;
@@ -1762,10 +1762,10 @@ sprintf(ouch, "%sを装備したダメージ", o_name);
 			if (IS_OPPOSE_FIRE(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("熱い！");
-take_hit(DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
+take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
 #else
 			msg_print("It's hot!");
-			take_hit(DAMAGE_NOESCAPE, damage, "Fire aura", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", -1);
 #endif
 		}
 		if ((r_info[m_list[p_ptr->riding].monster_idx].flags2 & RF2_AURA_ELEC) && !p_ptr->immune_elec)
@@ -1776,10 +1776,10 @@ take_hit(DAMAGE_NOESCAPE, damage, "炎のオーラ", -1);
 			if (IS_OPPOSE_ELEC(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("痛い！");
-take_hit(DAMAGE_NOESCAPE, damage, "電気のオーラ", -1);
+take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", -1);
 #else
 			msg_print("It hurts!");
-			take_hit(DAMAGE_NOESCAPE, damage, "Elec aura", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", -1);
 #endif
 		}
 		if ((r_info[m_list[p_ptr->riding].monster_idx].flags3 & RF3_AURA_COLD) && !p_ptr->immune_cold)
@@ -1789,10 +1789,10 @@ take_hit(DAMAGE_NOESCAPE, damage, "電気のオーラ", -1);
 			if (IS_OPPOSE_COLD(p_ptr)) damage = damage / 3;
 #ifdef JP
 msg_print("冷たい！");
-take_hit(DAMAGE_NOESCAPE, damage, "冷気のオーラ", -1);
+take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", -1);
 #else
 			msg_print("It's cold!");
-			take_hit(DAMAGE_NOESCAPE, damage, "Cold aura", -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", -1);
 #endif
 		}
 	}
@@ -1834,7 +1834,7 @@ take_hit(DAMAGE_NOESCAPE, damage, "冷気のオーラ", -1);
 #endif
 			}
 
-			take_hit(DAMAGE_NOESCAPE, 1 + (p_ptr->lev / 5), dam_desc, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, 1 + (p_ptr->lev / 5), dam_desc, -1);
 		}
 	}
 
@@ -2878,9 +2878,9 @@ static void process_world_aux_mutation(void)
 			/* Redraw mana */
 			p_ptr->redraw |= (PR_MANA);
 #ifdef JP
-			take_hit(DAMAGE_LOSELIFE, healing, "頭に昇った血", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, healing, "頭に昇った血", -1);
 #else
-			take_hit(DAMAGE_LOSELIFE, healing, "blood rushing to the head", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", -1);
 #endif
 
 		}
@@ -2893,10 +2893,10 @@ static void process_world_aux_mutation(void)
 		disturb(0, 0);
 #ifdef JP
 		msg_print("足がもつれて転んだ！");
-		take_hit(DAMAGE_NOESCAPE, randint1(p_ptr->wt / 6), "転倒", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->wt / 6), "転倒", -1);
 #else
 		msg_print("You trip over your own feet!");
-		take_hit(DAMAGE_NOESCAPE, randint1(p_ptr->wt / 6), "tripping", -1);
+		take_hit(p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->wt / 6), "tripping", -1);
 #endif
 
 		msg_print(NULL);
@@ -3166,7 +3166,7 @@ static void process_world_aux_curse(void)
 #else
 			msg_format("Your %s drains HP from you!", o_name);
 #endif
-			take_hit(DAMAGE_LOSELIFE, MIN(p_ptr->lev*2, 100), o_name, -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev*2, 100), o_name, -1);
 		}
 		/* Handle mana draining */
 		if ((p_ptr->cursed & TRC_DRAIN_MANA) && p_ptr->csp && one_in_(666))
@@ -3201,13 +3201,13 @@ static void process_world_aux_curse(void)
 				msg_print("『審判の宝石』はあなたの体力を吸収した！");
 			else
 				msg_print("なにかがあなたの体力を吸収した！");
-			take_hit(DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "審判の宝石", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "審判の宝石", -1);
 #else
 			if (object_is_known(o_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
-			take_hit(DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "the Jewel of Judgement", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "the Jewel of Judgement", -1);
 #endif
 		}
 	}
@@ -4240,9 +4240,9 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 				/* Take damage */
 #ifdef JP
-				if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_LOSELIFE, dam, "空腹", -1);
+				if (!IS_INVULN(p_ptr)) take_hit(p_ptr, DAMAGE_LOSELIFE, dam, "空腹", -1);
 #else
-				if (!IS_INVULN(p_ptr)) take_hit(DAMAGE_LOSELIFE, dam, "starvation", -1);
+				if (!IS_INVULN(p_ptr)) take_hit(p_ptr, DAMAGE_LOSELIFE, dam, "starvation", -1);
 #endif
 			}
 		}

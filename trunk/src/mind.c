@@ -1084,9 +1084,9 @@ static bool cast_force_spell(int spell)
 #endif
 			fire_ball(GF_MANA, 0, p_ptr->magic_num1[0] / 2, 10);
 #ifdef JP
-			take_hit(DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, "気の暴走", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, "気の暴走", -1);
 #else
-			take_hit(DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, "Explosion of the Force", -1);
+			take_hit(p_ptr, DAMAGE_LOSELIFE, p_ptr->magic_num1[0] / 2, "Explosion of the Force", -1);
 #endif
 		}
 		else return TRUE;
@@ -2109,9 +2109,9 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	if ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{
 #ifdef JP
-		take_hit(DAMAGE_USELIFE, mana_cost, "過度の集中", -1);
+		take_hit(p_ptr, DAMAGE_USELIFE, mana_cost, "過度の集中", -1);
 #else
-		take_hit(DAMAGE_USELIFE, mana_cost, "concentrating too hard", -1);
+		take_hit(p_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", -1);
 #endif
 		/* Redraw hp */
 		p_ptr->redraw |= (PR_HP);

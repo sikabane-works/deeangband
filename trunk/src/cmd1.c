@@ -1188,7 +1188,7 @@ static void hit_trap(bool break_trap)
 				name = "a trap door";
 #endif
 
-				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
 
 				/* Still alive and autosave enabled */
 				if (autosave_l && (p_ptr->chp >= 0))
@@ -1233,7 +1233,7 @@ static void hit_trap(bool break_trap)
 				name = "a pit trap";
 #endif
 
-				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
 			}
 			break;
 		}
@@ -1288,7 +1288,7 @@ static void hit_trap(bool break_trap)
 				}
 
 				/* Take the damage */
-				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
 			}
 			break;
 		}
@@ -1361,7 +1361,7 @@ static void hit_trap(bool break_trap)
 				}
 
 				/* Take the damage */
-				take_hit(DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
 			}
 
 			break;
@@ -1455,9 +1455,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
 #else
-				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr->slow + randint0(20) + 20, FALSE);
@@ -1486,9 +1486,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
 #else
-				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_STR);
@@ -1517,9 +1517,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
 #else
-				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_DEX);
@@ -1548,9 +1548,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
 #else
-				take_hit(DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_CON);
@@ -1831,7 +1831,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (IS_OPPOSE_FIRE(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff();
 		}
@@ -1857,7 +1857,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (IS_OPPOSE_COLD(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff();
 		}
@@ -1884,7 +1884,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You get zapped!");
 #endif
 
-			take_hit(DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff();
 		}
@@ -2073,13 +2073,12 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
  *
  * If no "weapon" is available, then "punch" the monster one time.
  */
-static void py_attack_aux(creature_type *cr_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance, vir;
 
 	cave_type       *c_ptr = &cave[y][x];
 
-	creature_type    *m_ptr = &m_list[c_ptr->m_idx];
 	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
 
 	/* Access the weapon */
@@ -3115,9 +3114,9 @@ static void py_attack_aux(creature_type *cr_ptr, int y, int x, bool *fear, bool 
 				if (k < 0) k = 0;
 
 #ifdef JP
-				take_hit(DAMAGE_FORCE, k, "死の大鎌", -1);
+				take_hit(p_ptr, DAMAGE_FORCE, k, "死の大鎌", -1);
 #else
-				take_hit(DAMAGE_FORCE, k, "Death scythe", -1);
+				take_hit(p_ptr, DAMAGE_FORCE, k, "Death scythe", -1);
 #endif
 
 				redraw_stuff();
@@ -3170,9 +3169,29 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 	bool            stormbringer = FALSE;
 
 	cave_type       *c_ptr = &cave[y][x];
-	creature_type    *m_ptr = &m_list[c_ptr->m_idx];
-	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	creature_type   *m_ptr;
+	monster_race    *r_ptr;
 	char            m_name[80];
+
+	/* Player or Enemy */
+	if(px == x && py == y && c_ptr->m_idx)
+	{
+		if(one_in_(2))
+			m_ptr = p_ptr;
+		else
+			m_ptr = &m_list[c_ptr->m_idx];
+	}
+	else if (px == x && py == y)
+	{
+		m_ptr = p_ptr;
+	}
+	else
+	{
+		m_ptr = &m_list[c_ptr->m_idx];
+	}
+
+	r_ptr = &r_info[m_ptr->monster_idx];
+
 
 	/* Disturb the player */
 	disturb(0, 0);
@@ -3349,8 +3368,8 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 	}
 
 	riding_t_m_idx = c_ptr->m_idx;
-	if (cr_ptr->migite) py_attack_aux(cr_ptr, y, x, &fear, &mdeath, 0, mode);
-	if (cr_ptr->hidarite && !mdeath) py_attack_aux(cr_ptr, y, x, &fear, &mdeath, 1, mode);
+	if (cr_ptr->migite) py_attack_aux(cr_ptr, m_ptr, y, x, &fear, &mdeath, 0, mode);
+	if (cr_ptr->hidarite && !mdeath) py_attack_aux(cr_ptr, m_ptr, y, x, &fear, &mdeath, 1, mode);
 
 	if(!mdeath)
 	{

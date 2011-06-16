@@ -3581,7 +3581,7 @@ msg_format("%s‚Í–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 						   -- henkma
 						 */
-						get_damage = take_hit(DAMAGE_NOESCAPE, dam, m_name, -1);
+						get_damage = take_hit(p_ptr, DAMAGE_NOESCAPE, dam, m_name, -1);
 						if (p_ptr->tim_eyeeye && get_damage > 0 && !p_ptr->is_dead)
 						{
 #ifdef JP
