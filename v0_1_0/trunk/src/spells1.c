@@ -2582,7 +2582,7 @@ note = "には耐性がある。";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(c_ptr->m_idx, MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -2698,7 +2698,7 @@ note = "には耐性がある！";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(c_ptr->m_idx, MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -3466,7 +3466,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_monster_csleep(c_ptr->m_idx, 0);
+			(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
 
 			if (m_ptr->mhp < m_ptr->mmhp)
 			{
@@ -3493,7 +3493,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_monster_csleep(c_ptr->m_idx, 0);
+			(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
 			if (MON_STUNNED(m_ptr))
 			{
 #ifdef JP
@@ -3501,7 +3501,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s is no longer stunned.", m_name);
 #endif
-				(void)set_monster_stunned(c_ptr->m_idx, 0);
+				(void)set_monster_stunned(&m_list[c_ptr->m_idx], 0);
 			}
 			if (MON_CONFUSED(m_ptr))
 			{
@@ -3510,7 +3510,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s is no longer confused.", m_name);
 #endif
-				(void)set_monster_confused(c_ptr->m_idx, 0);
+				(void)set_monster_confused(&m_list[c_ptr->m_idx], 0);
 			}
 			if (MON_MONFEAR(m_ptr))
 			{
@@ -3519,7 +3519,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s recovers %s courage.", m_name, m_poss);
 #endif
-				(void)set_monster_monfear(c_ptr->m_idx, 0);
+				(void)set_monster_monfear(&m_list[c_ptr->m_idx], 0);
 			}
 
 			/* Heal */
@@ -3578,7 +3578,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Speed up */
-			if (set_monster_fast(c_ptr->m_idx, MON_FAST(m_ptr) + 100))
+			if (set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100))
 			{
 #ifdef JP
 				note = "の動きが速くなった。";
@@ -3633,7 +3633,7 @@ note = "には効果がなかった！";
 			/* Normal monsters slow down */
 			else
 			{
-				if (set_monster_slow(c_ptr->m_idx, MON_SLOW(m_ptr) + 50))
+				if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
 				{
 #ifdef JP
 					note = "の動きが遅くなった。";
@@ -5198,7 +5198,7 @@ note_dies = "はドロドロに溶けた！";
 					do_conf = randint0(8) + 8;
 					do_stun = randint0(8) + 8;
 				}
-				(void)set_monster_slow(c_ptr->m_idx, MON_SLOW(m_ptr) + 10);
+				(void)set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 10);
 			}
 			break;
 		}
@@ -5540,7 +5540,7 @@ msg_format("うまく捕まえられなかった。");
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(c_ptr->m_idx, MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -5735,7 +5735,7 @@ note = "には効果がなかった！";
 					note = " starts moving faster.";
 #endif
 
-					(void)set_monster_fast(c_ptr->m_idx, MON_FAST(m_ptr) + 100);
+					(void)set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100);
 					success = TRUE;
 				}
 
@@ -5758,7 +5758,7 @@ note = "には効果がなかった！";
 #endif
 
 					set_pet(m_ptr);
-					(void)set_monster_fast(c_ptr->m_idx, MON_FAST(m_ptr) + 100);
+					(void)set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100);
 
 					/* Learn about type */
 					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
@@ -5895,7 +5895,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Apply stun */
-			(void)set_monster_stunned(c_ptr->m_idx, tmp);
+			(void)set_monster_stunned(&m_list[c_ptr->m_idx], tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -5934,7 +5934,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Apply confusion */
-			(void)set_monster_confused(c_ptr->m_idx, tmp);
+			(void)set_monster_confused(&m_list[c_ptr->m_idx], tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -6026,7 +6026,7 @@ note = "には効果がなかった。";
 		if (do_fear)
 		{
 			/* Set fear */
-			(void)set_monster_monfear(c_ptr->m_idx, MON_MONFEAR(m_ptr) + do_fear);
+			(void)set_monster_monfear(&m_list[c_ptr->m_idx], MON_MONFEAR(m_ptr) + do_fear);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -6046,7 +6046,7 @@ note = "には効果がなかった。";
 		if (p_ptr->riding == c_ptr->m_idx) p_ptr->redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
-		(void)set_monster_csleep(c_ptr->m_idx, 0);
+		(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
 
 		/* Hurt the monster */
 		m_ptr->chp -= dam;
@@ -6108,7 +6108,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_monster_csleep(c_ptr->m_idx, do_sleep);
+			if (do_sleep) (void)set_monster_csleep(&m_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 
@@ -6182,7 +6182,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_monster_csleep(c_ptr->m_idx, do_sleep);
+			if (do_sleep) (void)set_monster_csleep(&m_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 

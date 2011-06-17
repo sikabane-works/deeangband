@@ -5691,7 +5691,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_monster_csleep(p_ptr->riding, 0);
+			(void)set_monster_csleep(&m_list[p_ptr->riding], 0);
 
 			/* Acquire the monster name */
 			monster_desc(m_name, m_ptr, 0);
@@ -5705,7 +5705,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (MON_STUNNED(m_ptr))
 		{
 			/* Hack -- Recover from stun */
-			if (set_monster_stunned(p_ptr->riding,
+			if (set_monster_stunned(&m_list[p_ptr->riding],
 				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_STUNNED(m_ptr) - 1)))
 			{
 				char m_name[80];
@@ -5725,7 +5725,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (MON_CONFUSED(m_ptr))
 		{
 			/* Hack -- Recover from confusion */
-			if (set_monster_confused(p_ptr->riding,
+			if (set_monster_confused(&m_list[p_ptr->riding],
 				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_CONFUSED(m_ptr) - 1)))
 			{
 				char m_name[80];
@@ -5745,7 +5745,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (MON_MONFEAR(m_ptr))
 		{
 			/* Hack -- Recover from fear */
-			if (set_monster_monfear(p_ptr->riding,
+			if (set_monster_monfear(&m_list[p_ptr->riding],
 				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_MONFEAR(m_ptr) - 1)))
 			{
 				char m_name[80];

@@ -2178,7 +2178,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	}
 
 	/* Disturb the monster */
-	(void)set_monster_csleep(c_ptr->m_idx, 0);
+	(void)set_monster_csleep(m_ptr, 0);
 
 	/* Extract monster name (or "it") */
 	monster_desc(m_name, m_ptr, 0);
@@ -2451,7 +2451,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				{
 					if (cr_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 					{
-						if (set_monster_stunned(c_ptr->m_idx, stun_effect + MON_STUNNED(m_ptr)))
+						if (set_monster_stunned(&m_list[c_ptr->m_idx], stun_effect + MON_STUNNED(m_ptr)))
 						{
 #ifdef JP
 							msg_format("%^s‚Íƒtƒ‰ƒtƒ‰‚É‚È‚Á‚½B", m_name);
@@ -2648,7 +2648,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 
 					/* Apply stun */
-					(void)set_monster_stunned(c_ptr->m_idx, MON_STUNNED(m_ptr) + tmp);
+					(void)set_monster_stunned(&m_list[c_ptr->m_idx], MON_STUNNED(m_ptr) + tmp);
 				}
 				else
 				{
@@ -2891,7 +2891,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("%^s appears confused.", m_name);
 #endif
 
-					(void)set_monster_confused(c_ptr->m_idx, MON_CONFUSED(m_ptr) + 10 + randint0(cr_ptr->lev) / 5);
+					(void)set_monster_confused(&m_list[c_ptr->m_idx], MON_CONFUSED(m_ptr) + 10 + randint0(cr_ptr->lev) / 5);
 				}
 			}
 
@@ -3309,7 +3309,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 #endif
 
 		/* Disturb the monster */
-		(void)set_monster_csleep(c_ptr->m_idx, 0);
+		(void)set_monster_csleep(m_ptr, 0);
 
 		/* Done */
 		return FALSE;
@@ -4115,7 +4115,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		    pattern_seq(py, px, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
-			(void)set_monster_csleep(c_ptr->m_idx, 0);
+			(void)set_monster_csleep(m_ptr, 0);
 
 			/* Extract monster name (or "it") */
 			monster_desc(m_name, m_ptr, 0);

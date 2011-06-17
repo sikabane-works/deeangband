@@ -230,9 +230,9 @@ void reset_tim_flags(void)
 
 	if (p_ptr->riding)
 	{
-		(void)set_monster_fast(p_ptr->riding, 0);
-		(void)set_monster_slow(p_ptr->riding, 0);
-		(void)set_monster_invulner(p_ptr->riding, 0, FALSE);
+		(void)set_monster_fast(&m_list[p_ptr->riding], 0);
+		(void)set_monster_slow(&m_list[p_ptr->riding], 0);
+		(void)set_monster_invulner(&m_list[p_ptr->riding], 0, FALSE);
 	}
 
 	if (p_ptr->cls_idx == CLASS_BARD)

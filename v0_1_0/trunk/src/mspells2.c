@@ -2738,7 +2738,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_monfear(t_idx, MON_MONFEAR(t_ptr) + randint0(4) + 4)) fear = TRUE;
+			if (set_monster_monfear(t_ptr, MON_MONFEAR(t_ptr) + randint0(4) + 4)) fear = TRUE;
 		}
 
 		wake_up = TRUE;
@@ -2792,7 +2792,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is blinded!", t_name);
 #endif
 
-			(void)set_monster_confused(t_idx, MON_CONFUSED(t_ptr) + 12 + randint0(4));
+			(void)set_monster_confused(t_ptr, MON_CONFUSED(t_ptr) + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
@@ -2844,7 +2844,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s seems confused.", t_name);
 #endif
 
-			(void)set_monster_confused(t_idx, MON_CONFUSED(t_ptr) + 12 + randint0(4));
+			(void)set_monster_confused(t_ptr, MON_CONFUSED(t_ptr) + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
@@ -2891,7 +2891,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_slow(t_idx, MON_SLOW(t_ptr) + 50))
+			if (set_monster_slow(t_ptr, MON_SLOW(t_ptr) + 50))
 			{
 #ifdef JP
 				if (see_t) msg_format("%sÇÃìÆÇ´Ç™íxÇ≠Ç»Ç¡ÇΩÅB", t_name);
@@ -2951,7 +2951,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is paralyzed!", t_name);
 #endif
 
-			(void)set_monster_stunned(t_idx, MON_STUNNED(t_ptr) + randint1(4) + 4);
+			(void)set_monster_stunned(t_ptr, MON_STUNNED(t_ptr) + randint1(4) + 4);
 		}
 
 		wake_up = TRUE;
@@ -2979,7 +2979,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Allow quick speed increases to base+10 */
-		if (set_monster_fast(m_idx, MON_FAST(m_ptr) + 100))
+		if (set_monster_fast(m_ptr, MON_FAST(m_ptr) + 100))
 		{
 #ifdef JP
 			if (see_m) msg_format("%^sÇÃìÆÇ´Ç™ë¨Ç≠Ç»Ç¡ÇΩÅB", m_name);
@@ -3084,7 +3084,7 @@ bool monst_spell_monst(int m_idx)
 		if (MON_MONFEAR(m_ptr))
 		{
 			/* Cancel fear */
-			(void)set_monster_monfear(m_idx, 0);
+			(void)set_monster_monfear(m_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -3115,7 +3115,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (!MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_idx, randint1(4) + 4, FALSE);
+		if (!MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
 		break;
 
 	/* RF6_BLINK */
@@ -4251,7 +4251,7 @@ bool monst_spell_monst(int m_idx)
 		break;
 	}
 
-	if (wake_up) (void)set_monster_csleep(t_idx, 0);
+	if (wake_up) (void)set_monster_csleep(&m_list[t_idx], 0);
 
 	if (fear && see_t)
 	{

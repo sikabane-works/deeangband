@@ -696,7 +696,7 @@ cptr extract_note_dies(monster_race *r_ptr)
  * Note that monsters can now carry objects, and when a monster dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
-void monster_death(int m_idx, bool drop_item)
+void monster_death(creature_type *cr_ptr, bool drop_item)
 {
 	int i, j, y, x;
 
@@ -705,27 +705,25 @@ void monster_death(int m_idx, bool drop_item)
 
 	int number = 0;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	monster_race *r_ptr = &r_info[cr_ptr->monster_idx];
 
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
-
-	bool visible = ((m_ptr->ml && !p_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE));
+	bool visible = ((cr_ptr->ml && !p_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE));
 
 	u32b mo_mode = 0L;
 
 	bool do_gold = (!(r_ptr->flags1 & RF1_ONLY_ITEM));
 	bool do_item = (!(r_ptr->flags1 & RF1_ONLY_GOLD));
-	bool cloned = (m_ptr->smart & SM_CLONED) ? TRUE : FALSE;
-	int force_coin = get_coin_type(m_ptr->monster_idx);
+	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
+	int force_coin = get_coin_type(cr_ptr->monster_idx);
 
 	object_type forge;
 	object_type *q_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !p_ptr->inside_arena
-		&& !p_ptr->inside_battle && !is_pet(m_ptr);
+		&& !p_ptr->inside_battle && !is_pet(cr_ptr);
 
 	/* The caster is dead? */
-	if (world_monster && world_monster == m_idx) world_monster = 0;
+	if (world_monster && &m_list[world_monster] == cr_ptr) world_monster = 0;
 
 	/* Notice changes in view */
 	if (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
@@ -735,14 +733,14 @@ void monster_death(int m_idx, bool drop_item)
 	}
 
 	/* Get the location */
-	y = m_ptr->fy;
-	x = m_ptr->fx;
+	y = cr_ptr->fy;
+	x = cr_ptr->fx;
 
-	if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+	if (record_named_pet && is_pet(cr_ptr) && cr_ptr->nickname)
 	{
 		char m_name[80];
 
-		monster_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+		monster_desc(m_name, cr_ptr, MD_INDEF_VISIBLE);
 		do_cmd_write_nikki(NIKKI_NAMED_PET, 3, m_name);
 	}
 
@@ -757,22 +755,24 @@ void monster_death(int m_idx, bool drop_item)
 			int d_side = r_ptr->blow[i].d_side;
 			int damage = damroll(d_dice, d_side);
 
-			project(m_idx, 3, y, x, damage, typ, flg, -1);
+			//TODO
+			//project(m_idx, 3, y, x, damage, typ, flg, -1);
 			break;
 		}
 	}
 
-	if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
+	if (cr_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
-		choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
-		r_ptr = &r_info[m_ptr->monster_idx];
+		//TODO
+		//choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
+		r_ptr = &r_info[cr_ptr->monster_idx];
 	}
 
 	/* Check for quest completion */
-	check_quest_completion(m_ptr);
+	check_quest_completion(cr_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (p_ptr->inside_arena && !is_pet(m_ptr))
+	if (p_ptr->inside_arena && !is_pet(cr_ptr))
 	{
 		p_ptr->exit_bldg = TRUE;
 
@@ -814,13 +814,13 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			char m_name[80];
 			
 			/* Extract monster name */
-			monster_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			monster_desc(m_name, cr_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(NIKKI_ARENA, p_ptr->arena_number, m_name);
 		}
 	}
 
-	if (m_idx == p_ptr->riding)
+	if (cr_ptr == &m_list[p_ptr->riding])
 	{
 		if (rakuba(-1, FALSE))
 		{
@@ -834,14 +834,14 @@ msg_print("地面に落とされた。");
 
 	/* Drop Inventory */
 	for(i = 0; i < INVEN_TOTAL; i++) {
-		if(m_ptr->inventory[i].k_idx) (void)drop_near(&m_ptr->inventory[i], 25, y, x);
+		if(cr_ptr->inventory[i].k_idx) (void)drop_near(&cr_ptr->inventory[i], 25, y, x);
 	}
 
 
 	/* Drop a dead corpse? */
 	if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
 	    (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
-	    !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((m_ptr->monster_idx == today_mon) && is_pet(m_ptr))))
+	    !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((cr_ptr->monster_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -859,7 +859,7 @@ msg_print("地面に落とされた。");
 		else if (r_ptr->flags9 & RF9_DROP_CORPSE)
 		{
 			/* Lots of damage in one blow */
-			if ((0 - ((m_ptr->mhp) / 4)) > m_ptr->chp)
+			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
 			{
 				if (one_in_(5)) corpse = TRUE;
 			}
@@ -877,19 +877,19 @@ msg_print("地面に落とされた。");
 
 		apply_magic(q_ptr, object_level, AM_NO_FIXED_ART);
 
-		q_ptr->pval = m_ptr->monster_idx;
+		q_ptr->pval = cr_ptr->monster_idx;
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
 	}
 
 	/* Drop objects being carried */
-	monster_drop_carried_objects(m_ptr);
+	monster_drop_carried_objects(cr_ptr);
 
 	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
 	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
-	switch (m_ptr->monster_idx)
+	switch (cr_ptr->monster_idx)
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
@@ -900,16 +900,18 @@ msg_print("地面に落とされた。");
 			for (i = 0; i < 2; i++)
 			{
 				int wy = y, wx = x;
-				bool pet = is_pet(m_ptr);
+				bool pet = is_pet(cr_ptr);
 				u32b mode = 0L;
 
 				if (pet) mode |= PM_FORCE_PET;
+				/*TODO
 
 				if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
 				{
 					if (player_can_see_bold(wy, wx))
 						notice = TRUE;
 				}
+				*/
 			}
 
 			if (notice)
@@ -972,7 +974,7 @@ msg_print("地面に落とされた。");
 			{
 				int wy = y, wx = x;
 				int attempts = 100;
-				bool pet = is_pet(m_ptr);
+				bool pet = is_pet(cr_ptr);
 
 				do
 				{
@@ -985,6 +987,7 @@ msg_print("地面に落とされた。");
 					u32b mode = 0L;
 					if (pet) mode |= PM_FORCE_PET;
 
+					/*TODO
 					if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
 					{
 						if (player_can_see_bold(wy, wx))
@@ -995,6 +998,7 @@ msg_print("地面に落とされた。");
 #endif
 
 					}
+					*/
 				}
 			}
 		}
@@ -1003,8 +1007,10 @@ msg_print("地面に落とされた。");
 	case MON_UNMAKER:
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
 		{
+			/*TODO
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			(void)project(m_idx, 6, y, x, 100, GF_CHAOS, flg, -1);
+			*/
 		}
 		break;
 
@@ -1100,8 +1106,8 @@ msg_print("地面に落とされた。");
 
 	case MON_A_GOLD:
 	case MON_A_SILVER:
-		if (drop_chosen_item && ((m_ptr->monster_idx == MON_A_GOLD) ||
-		     ((m_ptr->monster_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((cr_ptr->monster_idx == MON_A_GOLD) ||
+		     ((cr_ptr->monster_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -1118,8 +1124,10 @@ msg_print("地面に落とされた。");
 
 	case MON_ROLENTO:
 		{
+			/*TODO
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			(void)project(m_idx, 3, y, x, damroll(20, 10), GF_FIRE, flg, -1);
+			*/
 		}
 		break;
 
@@ -1209,7 +1217,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '|':
-			if (m_ptr->monster_idx != MON_STORMBRINGER)
+			if (cr_ptr->monster_idx != MON_STORMBRINGER)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1237,7 +1245,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if ((r_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == m_ptr->monster_idx))
+		if ((r_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->monster_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1288,7 +1296,7 @@ msg_print("地面に落とされた。");
 	if (cloned && !(r_ptr->flags1 & RF1_UNIQUE))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
+	if (is_pet(cr_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1342,7 +1350,7 @@ msg_print("地面に落とされた。");
 	if (visible && (dump_item || dump_gold))
 	{
 		/* Take notes on treasure */
-		lore_treasure(m_idx, dump_item, dump_gold);
+		lore_treasure(cr_ptr, dump_item, dump_gold);
 	}
 
 	/* Only process "Quest Monsters" */
@@ -1514,7 +1522,7 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 	if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
 
 	/* Wake it up */
-	(void)set_monster_csleep(m_idx, 0);
+	(void)set_monster_csleep(m_ptr, 0);
 
 	/* Hack - Cancel any special player stealth magics. -LM- */
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
@@ -1860,7 +1868,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		}
 
 		/* Generate treasure */
-		monster_death(m_idx, TRUE);
+		monster_death(&m_list[m_idx], TRUE);
 
 		/* Mega hack : replace IKETA to BIKETAL */
 		if ((m_ptr->monster_idx == MON_IKETA) &&
@@ -1910,7 +1918,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 	if (MON_MONFEAR(m_ptr) && (dam > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(m_idx, MON_MONFEAR(m_ptr) - randint1(dam)))
+		if (set_monster_monfear(m_ptr, MON_MONFEAR(m_ptr) - randint1(dam)))
 		{
 			/* No more fear */
 			(*fear) = FALSE;
@@ -1934,7 +1942,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 			(*fear) = TRUE;
 
 			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_monster_monfear(m_idx, (randint1(10) +
+			(void)set_monster_monfear(m_ptr, (randint1(10) +
 					  (((dam >= m_ptr->chp) && (percentage > 7)) ?
 					   20 : ((11 - percentage) * 5))));
 		}

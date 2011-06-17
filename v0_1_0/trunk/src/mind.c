@@ -1702,7 +1702,7 @@ msg_print("その方向にはモンスターはいません。");
 		m_ptr->fx = tx;
 
 		/* Wake the monster up */
-		(void)set_monster_csleep(m_idx, 0);
+		(void)set_monster_csleep(&m_list[m_idx], 0);
 
 		/* Update the monster (new location) */
 		update_mon(m_idx, TRUE);

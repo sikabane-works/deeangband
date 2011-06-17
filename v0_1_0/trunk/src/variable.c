@@ -689,7 +689,7 @@ creature_type *m_list;
 /*
  * The array to process dungeon monsters [max_m_idx]
  */
-s16b *mproc_list[MAX_MTIMED];
+creature_type **mproc_list[MAX_MTIMED];
 s16b mproc_max[MAX_MTIMED]; /* Number of monsters to be processed */
 
 

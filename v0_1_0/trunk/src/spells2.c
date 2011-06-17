@@ -4630,7 +4630,7 @@ void aggravate_monsters(int who)
 			/* Wake up */
 			if (MON_CSLEEP(m_ptr))
 			{
-				(void)set_monster_csleep(i, 0);
+				(void)set_monster_csleep(&m_list[i], 0);
 				sleep = TRUE;
 			}
 			if (!is_pet(m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
@@ -4641,7 +4641,7 @@ void aggravate_monsters(int who)
 		{
 			if (!is_pet(m_ptr))
 			{
-				(void)set_monster_fast(i, MON_FAST(m_ptr) + 100);
+				(void)set_monster_fast(m_ptr, MON_FAST(m_ptr) + 100);
 				speed = TRUE;
 			}
 		}
@@ -4714,7 +4714,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 		}
 		if (MON_CSLEEP(m_ptr))
 		{
-			(void)set_monster_csleep(m_idx, 0);
+			(void)set_monster_csleep(&m_list[m_idx], 0);
 			if (m_ptr->ml)
 			{
 #ifdef JP
@@ -5716,7 +5716,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					damage = (sn ? damroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Monster is certainly awake */
-					(void)set_monster_csleep(c_ptr->m_idx, 0);
+					(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
@@ -6032,7 +6032,7 @@ static void cave_temp_room_lite(void)
 			if (MON_CSLEEP(m_ptr) && (randint0(100) < chance))
 			{
 				/* Wake up! */
-				(void)set_monster_csleep(c_ptr->m_idx, 0);
+				(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
 
 				/* Notice the "waking up" */
 				if (m_ptr->ml)
@@ -6661,7 +6661,7 @@ msg_print("Ž¸”s‚µ‚½B");
 	m_ptr = &m_list[c_ptr->m_idx];
 	r_ptr = &r_info[m_ptr->monster_idx];
 
-	(void)set_monster_csleep(c_ptr->m_idx, 0);
+	(void)set_monster_csleep(m_ptr, 0);
 
 	if (r_ptr->flagsr & RFR_RES_TELE)
 	{

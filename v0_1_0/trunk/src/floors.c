@@ -1222,12 +1222,12 @@ void change_floor(void)
 					m_ptr->chp = m_ptr->mhp = m_ptr->mmhp;
 
 					/* Remove timed status (except MTIMED_CSLEEP) */
-					(void)set_monster_fast(i, 0);
-					(void)set_monster_slow(i, 0);
-					(void)set_monster_stunned(i, 0);
-					(void)set_monster_confused(i, 0);
-					(void)set_monster_monfear(i, 0);
-					(void)set_monster_invulner(i, 0, FALSE);
+					(void)set_monster_fast(m_ptr, 0);
+					(void)set_monster_slow(m_ptr, 0);
+					(void)set_monster_stunned(m_ptr, 0);
+					(void)set_monster_confused(m_ptr, 0);
+					(void)set_monster_monfear(m_ptr, 0);
+					(void)set_monster_invulner(m_ptr, 0, FALSE);
 				}
 
 				/* Extract real monster race */

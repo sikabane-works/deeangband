@@ -271,13 +271,13 @@ void delete_monster_idx(int i)
 	/* Hack -- count the number of "reproducers" */
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
 
-	if (MON_CSLEEP(m_ptr)) (void)set_monster_csleep(i, 0);
-	if (MON_FAST(m_ptr)) (void)set_monster_fast(i, 0);
-	if (MON_SLOW(m_ptr)) (void)set_monster_slow(i, 0);
-	if (MON_STUNNED(m_ptr)) (void)set_monster_stunned(i, 0);
-	if (MON_CONFUSED(m_ptr)) (void)set_monster_confused(i, 0);
-	if (MON_MONFEAR(m_ptr)) (void)set_monster_monfear(i, 0);
-	if (MON_INVULNER(m_ptr)) (void)set_monster_invulner(i, 0, FALSE);
+	if (MON_CSLEEP(m_ptr)) (void)set_monster_csleep(m_ptr, 0);
+	if (MON_FAST(m_ptr)) (void)set_monster_fast(m_ptr, 0);
+	if (MON_SLOW(m_ptr)) (void)set_monster_slow(m_ptr, 0);
+	if (MON_STUNNED(m_ptr)) (void)set_monster_stunned(m_ptr, 0);
+	if (MON_CONFUSED(m_ptr)) (void)set_monster_confused(m_ptr, 0);
+	if (MON_MONFEAR(m_ptr)) (void)set_monster_monfear(m_ptr, 0);
+	if (MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_ptr, 0, FALSE);
 
 
 	/* Hack -- remove target monster */
@@ -430,8 +430,8 @@ static void compact_monsters_aux(int i1, int i2)
 
 	for (i = 0; i < MAX_MTIMED; i++)
 	{
-		int mproc_idx = get_mproc_idx(i1, i);
-		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = i2;
+		int mproc_idx = get_mproc_idx(&m_list[i1], i);
+		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = &m_list[i2];
 	}
 }
 
@@ -2084,14 +2084,12 @@ int lore_do_probe(int monster_idx)
  * gold and items are dropped, and remembers that information to be
  * described later by the monster recall code.
  */
-void lore_treasure(int m_idx, int num_item, int num_gold)
+void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 {
-	creature_type *m_ptr = &m_list[m_idx];
-
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race *r_ptr = &r_info[cr_ptr->monster_idx];
 
 	/* If the monster doesn't have original appearance, don't note */
-	if (!is_original_ap(m_ptr)) return;
+	if (!is_original_ap(cr_ptr)) return;
 
 	/* Note the number of things dropped */
 	if (num_item > r_ptr->r_drop_item) r_ptr->r_drop_item = num_item;
@@ -2102,7 +2100,7 @@ void lore_treasure(int m_idx, int num_item, int num_gold)
 	if (r_ptr->flags1 & (RF1_DROP_GREAT)) r_ptr->r_flags1 |= (RF1_DROP_GREAT);
 
 	/* Update monster recall window */
-	if (p_ptr->monster_race_idx == m_ptr->monster_idx)
+	if (p_ptr->monster_race_idx == cr_ptr->monster_idx)
 	{
 		/* Window stuff */
 		p_ptr->window |= (PW_MONSTER);
@@ -3642,7 +3640,7 @@ msg_print("守りのルーンが壊れた！");
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
 	{
 		int val = r_ptr->sleep;
-		(void)set_monster_csleep(c_ptr->m_idx, (val * 2) + randint1(val * 10));
+		(void)set_monster_csleep(m_ptr, (val * 2) + randint1(val * 10));
 	}
 
 	/* Set Monster's Level */
@@ -3686,7 +3684,7 @@ msg_print("守りのルーンが壊れた！");
 	/* Extract the monster base speed */
 	set_speed(m_ptr);
 
-	if (mode & PM_HASTE) (void)set_monster_fast(c_ptr->m_idx, 100);
+	if (mode & PM_HASTE) (void)set_monster_fast(&m_list[c_ptr->m_idx], 100);
 
 	/* Give a random starting energy */
 	if (!ironman_nightmare)
@@ -4207,10 +4205,10 @@ msg_print("守りのルーンが壊れた！");
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
 	{
 		int val = r_ptr->sleep;
-		(void)set_monster_csleep(c_ptr->m_idx, (val * 2) + randint1(val * 10));
+		(void)set_monster_csleep(&m_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
 	}
 
-	if (mode & PM_HASTE) (void)set_monster_fast(c_ptr->m_idx, 100);
+	if (mode & PM_HASTE) (void)set_monster_fast(&m_list[c_ptr->m_idx], 100);
 
 	/* Give a random starting energy */
 	if (!ironman_nightmare)

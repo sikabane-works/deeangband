@@ -3219,7 +3219,7 @@ msg_format("%^sが自分の体に念を送った。", m_name);
 			}
 
 			/* Allow quick speed increases to base+10 */
-			if (set_monster_fast(m_idx, MON_FAST(m_ptr) + 100))
+			if (set_monster_fast(m_ptr, MON_FAST(m_ptr) + 100))
 			{
 #ifdef JP
 				msg_format("%^sの動きが速くなった。", m_name);
@@ -3332,7 +3332,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 			if (MON_MONFEAR(m_ptr))
 			{
 				/* Cancel fear */
-				(void)set_monster_monfear(m_idx, 0);
+				(void)set_monster_monfear(m_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -3369,7 +3369,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 
 			}
 
-			if (!MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_idx, randint1(4) + 4, FALSE);
+			if (!MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
 			break;
 		}
 
