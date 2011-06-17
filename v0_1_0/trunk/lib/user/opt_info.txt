@@ -1,0 +1,536 @@
+[Option bits usage on Hengband 1.7.2]
+
+Set - Bit (Page) Option Name
+------------------------------------------------
+  0 -  00 (   1) rogue_like_commands
+  0 -  01 (   1) quick_messages
+  0 -  02 (   1) other_query_flag
+  0 -  03 (   1) carry_query_flag
+  0 -  04 (   1) use_old_target
+  0 -  05 (   1) always_pickup
+  0 -  06 (   1) always_repeat
+  0 -  07 (   3) depth_in_feet
+  0 -  08 (   4) stack_force_notes
+  0 -  09 (   4) stack_force_costs
+  0 -  10 (   3) show_labels
+  0 -  11 (   3) show_weights
+  0 -  12
+  0 -  13
+  0 -  14 (   5) ring_bell
+  0 -  15
+  0 -  16 (   5) find_ignore_stairs
+  0 -  17 (   5) find_ignore_doors
+  0 -  18 (   5) find_cut
+  0 -  19
+  0 -  20 (   5) disturb_move
+  0 -  21 (   5) disturb_near
+  0 -  22 (   5) disturb_panel
+  0 -  23 (   5) disturb_state
+  0 -  24 (   5) disturb_minor
+  0 -  25 (   5) alert_trap_detect
+  0 -  26
+  0 -  27 (   5) disturb_trap_detect
+  0 -  28 (   4) last_words
+  0 -  29 (   1) over_exert
+  0 -  30 (   4) small_levels
+  0 -  31 (   4) empty_levels
+
+  1 -  00 (   6) manual_haggle
+  1 -  01
+  1 -  02
+  1 -  03 (   5) disturb_high
+  1 -  04
+  1 -  05 (   4) expand_list
+  1 -  06 (   2) view_perma_grids
+  1 -  07 (   2) view_torch_grids
+  1 -  08 (   2) view_unsafe_grids
+  1 -  09 (   1) confirm_quest
+  1 -  10
+  1 -  11
+  1 -  12 (   3) equippy_chars
+  1 -  13
+  1 -  14 (   6) smart_learn
+  1 -  15 (   6) smart_cheat
+  1 -  16
+  1 -  17 (   2) view_reduce_view
+  1 -  18 (   5) check_abort
+  1 -  19
+  1 -  20 (   5) flush_failure
+  1 -  21 (   5) flush_disturb
+  1 -  22
+  1 -  23 (   2) fresh_before
+  1 -  24 (   2) fresh_after
+  1 -  25 (   2) fresh_message
+  1 -  26 (   3) compress_savefile
+  1 -  27 (   2) hilite_player
+  1 -  28 (   2) view_yellow_lite
+  1 -  29 (   2) view_bright_lite
+  1 -  30 (   2) view_granite_lite
+  1 -  31 (   2) view_special_lite
+
+  2 -  00 (   3) show_item_graph
+  2 -  01 (   4) bound_walls_perm
+  2 -  02
+  2 -  03 (   4) always_small_levels
+  2 -  04
+  2 -  05 (   1) target_pet
+  2 -  06 (   1) auto_more
+  2 -  07 (   1) command_menu
+  2 -  08 (   2) display_path
+  2 -  09
+  2 -  10 (   3) abbrev_extra
+  2 -  11 (   3) abbrev_all
+  2 -  12 (   3) exp_need
+  2 -  13 (   3) ignore_unview
+  2 -  14
+  2 -  15
+  2 -  16
+  2 -  17
+  2 -  18
+  2 -  19
+  2 -  20
+  2 -  21
+  2 -  22
+  2 -  23
+  2 -  24
+  2 -  25
+  2 -  26
+  2 -  27
+  2 -  28
+  2 -  29
+  2 -  30
+  2 -  31 (   1) numpad_as_cursorkey
+
+  3 -  00
+  3 -  01
+  3 -  02
+  3 -  03
+  3 -  04
+  3 -  05
+  3 -  06
+  3 -  07
+  3 -  08
+  3 -  09
+  3 -  10
+  3 -  11
+  3 -  12
+  3 -  13
+  3 -  14
+  3 -  15
+  3 -  16
+  3 -  17
+  3 -  18
+  3 -  19
+  3 -  20
+  3 -  21
+  3 -  22
+  3 -  23
+  3 -  24
+  3 -  25
+  3 -  26
+  3 -  27
+  3 -  28
+  3 -  29
+  3 -  30
+  3 -  31
+
+  4 -  00 (   3) always_show_list
+  4 -  01
+  4 -  02
+  4 -  03 (   6) powerup_home
+  4 -  04
+  4 -  05
+  4 -  06
+  4 -  07
+  4 -  08
+  4 -  09
+  4 -  10
+  4 -  11 (  10) record_fix_art
+  4 -  12 (  10) record_rand_art
+  4 -  13 (  10) record_destroy_uniq
+  4 -  14 (  10) record_fix_quest
+  4 -  15 (  10) record_rand_quest
+  4 -  16 (  10) record_maxdepth
+  4 -  17 (  10) record_stair
+  4 -  18 (  10) record_buy
+  4 -  19 (  10) record_sell
+  4 -  20 (  10) record_danger
+  4 -  21 (  10) record_arena
+  4 -  22 (  10) record_ident
+  4 -  23 (  10) record_named_pet
+  4 -  24
+  4 -  25
+  4 -  26
+  4 -  27
+  4 -  28
+  4 -  29
+  4 -  30
+  4 -  31
+
+  5 -  00 (   3) display_mutations
+  5 -  01 (   3) plain_descriptions
+  5 -  02
+  5 -  03 (   1) confirm_destroy
+  5 -  04 (   1) confirm_wear
+  5 -  05
+  5 -  06 (   5) disturb_pets
+  5 -  07 (   1) easy_open
+  5 -  08 (   1) easy_disarm
+  5 -  09 (   1) easy_floor
+  5 -  10 (   1) use_command
+  5 -  11 (   2) center_player
+  5 -  12 (   2) center_running
+  5 -  13
+  5 -  14
+  5 -  15
+  5 -  16
+  5 -  17
+  5 -  18
+  5 -  19
+  5 -  20
+  5 -  21
+  5 -  22
+  5 -  23
+  5 -  24
+  5 -  25
+  5 -  26
+  5 -  27
+  5 -  28
+  5 -  29
+  5 -  30
+  5 -  31
+
+  6 -  00 (   6) vanilla_town
+  6 -  01 (   6) lite_town
+  6 -  02 (   6) ironman_shops
+  6 -  03 (   6) ironman_small_levels
+  6 -  04 (   6) ironman_downward
+  6 -  05
+  6 -  06 (   3) plain_pickup
+  6 -  07
+  6 -  08 (   6) ironman_empty_levels
+  6 -  09
+  6 -  10
+  6 -  11 (   4) allow_debug_opts
+  6 -  12 (   6) ironman_rooms
+  6 -  13 (   6) left_hander
+  6 -  14 (   6) preserve_mode
+  6 -  15 (   6) autoroller
+  6 -  16 (   6) autochara
+  6 -  17
+  6 -  18 (   6) ironman_nightmare
+  6 -  19
+  6 -  20
+  6 -  21
+  6 -  22
+  6 -  23
+  6 -  24
+  6 -  25
+  6 -  26
+  6 -  27
+  6 -  28
+  6 -  29
+  6 -  30
+  6 -  31 (   6) easy_band
+
+  7 -  00 (   7) destroy_items
+  7 -  01 (   7) leave_special
+  7 -  02 (   7) leave_worth
+  7 -  03 (   7) leave_equip
+  7 -  04 (   7) leave_wanted
+  7 -  05 (   7) leave_corpse
+  7 -  06 (   7) leave_junk
+  7 -  07 (   7) leave_chest
+  7 -  08 (   7) destroy_feeling
+  7 -  09 (   7) destroy_identify
+  7 -  10
+  7 -  11
+  7 -  12
+  7 -  13
+  7 -  14
+  7 -  15
+  7 -  16
+  7 -  17
+  7 -  18
+  7 -  19
+  7 -  20
+  7 -  21
+  7 -  22
+  7 -  23
+  7 -  24
+  7 -  25
+  7 -  26
+  7 -  27
+  7 -  28
+  7 -  29
+  7 -  30
+  7 -  31
+
+[Option bits usage on D'angband 0.0.0]
+
+Set - Bit (Page) Option Name
+------------------------------------------------
+  0 -  00 (   1) rogue_like_commands
+  0 -  01 (   1) quick_messages
+  0 -  02 (   1) other_query_flag
+  0 -  03 (   1) carry_query_flag
+  0 -  04 (   1) use_old_target
+  0 -  05 (   1) always_pickup
+  0 -  06 (   1) always_repeat
+  0 -  07 (   3) depth_in_feet
+  0 -  08 (   4) stack_force_notes
+  0 -  09 (   4) stack_force_costs
+  0 -  10 (   3) show_labels
+  0 -  11 (   3) show_weights
+  0 -  12
+  0 -  13
+  0 -  14 (   5) ring_bell
+  0 -  15
+  0 -  16 (   5) find_ignore_stairs
+  0 -  17 (   5) find_ignore_doors
+  0 -  18 (   5) find_cut
+  0 -  19
+  0 -  20 (   5) disturb_move
+  0 -  21 (   5) disturb_near
+  0 -  22 (   5) disturb_panel
+  0 -  23 (   5) disturb_state
+  0 -  24 (   5) disturb_minor
+  0 -  25 (   5) alert_trap_detect
+  0 -  26
+  0 -  27 (   5) disturb_trap_detect
+  0 -  28 (   4) last_words
+  0 -  29 (   1) over_exert
+  0 -  30 (   4) small_levels
+  0 -  31 (   4) empty_levels
+
+  1 -  00 (   6) manual_haggle
+  1 -  01
+  1 -  02
+  1 -  03 (   5) disturb_high
+  1 -  04
+  1 -  05 (   4) expand_list
+  1 -  06 (   2) view_perma_grids
+  1 -  07 (   2) view_torch_grids
+  1 -  08 (   2) view_unsafe_grids
+  1 -  09 (   1) confirm_quest
+  1 -  10
+  1 -  11
+  1 -  12 (   3) equippy_chars
+  1 -  13
+  1 -  14 (   6) smart_learn
+  1 -  15 (   6) smart_cheat
+  1 -  16
+  1 -  17 (   2) view_reduce_view
+  1 -  18 (   5) check_abort
+  1 -  19
+  1 -  20 (   5) flush_failure
+  1 -  21 (   5) flush_disturb
+  1 -  22
+  1 -  23 (   2) fresh_before
+  1 -  24 (   2) fresh_after
+  1 -  25 (   2) fresh_message
+  1 -  26 (   3) compress_savefile
+  1 -  27 (   2) hilite_player
+  1 -  28 (   2) view_yellow_lite
+  1 -  29 (   2) view_bright_lite
+  1 -  30 (   2) view_granite_lite
+  1 -  31 (   2) view_special_lite
+
+  2 -  00 (   3) show_item_graph
+  2 -  01 (   4) bound_walls_perm
+  2 -  02
+  2 -  03 (   4) always_small_levels
+  2 -  04
+  2 -  05 (   1) target_pet
+  2 -  06 (   1) auto_more
+  2 -  07 (   1) command_menu
+  2 -  08 (   2) display_path
+  2 -  09
+  2 -  10 (   3) abbrev_extra
+  2 -  11 (   3) abbrev_all
+  2 -  12 (   3) exp_need
+  2 -  13 (   3) ignore_unview
+  2 -  14
+  2 -  15
+  2 -  16
+  2 -  17
+  2 -  18
+  2 -  19
+  2 -  20
+  2 -  21
+  2 -  22
+  2 -  23
+  2 -  24
+  2 -  25
+  2 -  26
+  2 -  27
+  2 -  28
+  2 -  29
+  2 -  30
+  2 -  31 (   1) numpad_as_cursorkey
+
+  3 -  00
+  3 -  01
+  3 -  02
+  3 -  03
+  3 -  04
+  3 -  05
+  3 -  06
+  3 -  07
+  3 -  08
+  3 -  09
+  3 -  10
+  3 -  11
+  3 -  12
+  3 -  13
+  3 -  14
+  3 -  15
+  3 -  16
+  3 -  17
+  3 -  18
+  3 -  19
+  3 -  20
+  3 -  21
+  3 -  22
+  3 -  23
+  3 -  24
+  3 -  25
+  3 -  26
+  3 -  27
+  3 -  28
+  3 -  29
+  3 -  30
+  3 -  31
+
+  4 -  00 (   3) always_show_list
+  4 -  01
+  4 -  02
+  4 -  03 (   6) powerup_home
+  4 -  04
+  4 -  05
+  4 -  06
+  4 -  07
+  4 -  08
+  4 -  09
+  4 -  10
+  4 -  11 (  10) record_fix_art
+  4 -  12 (  10) record_rand_art
+  4 -  13 (  10) record_destroy_uniq
+  4 -  14 (  10) record_fix_quest
+  4 -  15 (  10) record_rand_quest
+  4 -  16 (  10) record_maxdepth
+  4 -  17 (  10) record_stair
+  4 -  18 (  10) record_buy
+  4 -  19 (  10) record_sell
+  4 -  20 (  10) record_danger
+  4 -  21 (  10) record_arena
+  4 -  22 (  10) record_ident
+  4 -  23 (  10) record_named_pet
+  4 -  24
+  4 -  25
+  4 -  26
+  4 -  27
+  4 -  28
+  4 -  29
+  4 -  30
+  4 -  31
+
+  5 -  00 (   3) display_mutations
+  5 -  01 (   3) plain_descriptions
+  5 -  02
+  5 -  03 (   1) confirm_destroy
+  5 -  04 (   1) confirm_wear
+  5 -  05
+  5 -  06 (   5) disturb_pets
+  5 -  07 (   1) easy_open
+  5 -  08 (   1) easy_disarm
+  5 -  09 (   1) easy_floor
+  5 -  10 (   1) use_command
+  5 -  11 (   2) center_player
+  5 -  12 (   2) center_running
+  5 -  13
+  5 -  14
+  5 -  15
+  5 -  16
+  5 -  17
+  5 -  18
+  5 -  19
+  5 -  20
+  5 -  21
+  5 -  22
+  5 -  23
+  5 -  24
+  5 -  25
+  5 -  26
+  5 -  27
+  5 -  28
+  5 -  29
+  5 -  30
+  5 -  31
+
+  6 -  00 (   6) vanilla_town
+  6 -  01 (   6) lite_town
+  6 -  02 (   6) ironman_shops
+  6 -  03 (   6) ironman_small_levels
+  6 -  04 (   6) ironman_downward
+  6 -  05
+  6 -  06 (   3) plain_pickup
+  6 -  07
+  6 -  08 (   6) ironman_empty_levels
+  6 -  09
+  6 -  10
+  6 -  11 (   4) allow_debug_opts
+  6 -  12 (   6) ironman_rooms
+  6 -  13 (   6) left_hander
+  6 -  14 (   6) preserve_mode
+  6 -  15 (   6) autoroller
+  6 -  16 (   6) autochara
+  6 -  17
+  6 -  18 (   6) ironman_nightmare
+  6 -  19
+  6 -  20
+  6 -  21
+  6 -  22
+  6 -  23
+  6 -  24
+  6 -  25
+  6 -  26
+  6 -  27
+  6 -  28
+  6 -  29
+  6 -  30
+  6 -  31 (   6) easy_band
+
+  7 -  00 (   7) destroy_items
+  7 -  01 (   7) leave_special
+  7 -  02 (   7) leave_worth
+  7 -  03 (   7) leave_equip
+  7 -  04 (   7) leave_wanted
+  7 -  05 (   7) leave_corpse
+  7 -  06 (   7) leave_junk
+  7 -  07 (   7) leave_chest
+  7 -  08 (   7) destroy_feeling
+  7 -  09 (   7) destroy_identify
+  7 -  10
+  7 -  11
+  7 -  12
+  7 -  13
+  7 -  14
+  7 -  15
+  7 -  16
+  7 -  17
+  7 -  18
+  7 -  19
+  7 -  20
+  7 -  21
+  7 -  22
+  7 -  23
+  7 -  24
+  7 -  25
+  7 -  26
+  7 -  27
+  7 -  28
+  7 -  29
+  7 -  30
+  7 -  31
+
