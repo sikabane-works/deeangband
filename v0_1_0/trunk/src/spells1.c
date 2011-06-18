@@ -6076,7 +6076,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 			if (who > 0) monster_gain_exp(who, m_ptr->monster_idx);
 
 			/* Generate treasure, etc */
-			monster_death(c_ptr->m_idx, FALSE);
+			monster_death(&m_list[c_ptr->m_idx], FALSE);
 
 			/* Delete the monster */
 			delete_monster_idx(c_ptr->m_idx);
@@ -8292,7 +8292,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * in the blast radius, in case the "illumination" of the grid was changed,
  * and "update_view()" and "update_monsters()" need to be called.
  */
-bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int monspell)
+bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	int i, t, dist;
 
@@ -8372,18 +8372,18 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 	}
 
 	/* Start at player */
-	else if (who <= 0)
+	else if (who_ptr == p_ptr)
 	{
 		x1 = px;
 		y1 = py;
 	}
 
 	/* Start at monster */
-	else if (who > 0)
+	else if (who_ptr != p_ptr)
 	{
-		x1 = m_list[who].fx;
-		y1 = m_list[who].fy;
-		monster_desc(who_name, &m_list[who], MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		x1 = who_ptr->fx;
+		y1 = who_ptr->fy;
+		monster_desc(who_name, who_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 	}
 
 	/* Oops */
@@ -8552,7 +8552,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
 					if(project_m(0,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
-					if(!who && (project_m_n==1) && !jump ){
+					if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8578,7 +8578,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			x = GRID_X(path_g[i]);
 			if(project_m(0,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
-			if(!who && (project_m_n==1) && !jump ){
+			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8710,7 +8710,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
 			(void)project_m(0,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
-			if(!who && (project_m_n==1) && !jump ){
+			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8998,8 +8998,8 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (who > 0) ? is_seen(&m_list[who]) :
-			(!who ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
+		see_s_msg = (who_ptr != p_ptr) ? is_seen(who_ptr) :
+			(who_ptr == p_ptr ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
 	}
 
 
@@ -9025,12 +9025,14 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if (project_f(who, d, y, x, dam, typ)) notice = TRUE;
+				//TODO
+				//if (project_f(who, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if (project_f(who, dist, y, x, dam, typ)) notice = TRUE;
+				//TODO
+				//if (project_f(who, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -9060,12 +9062,14 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the object in the grid */
-				if (project_o(who, d, y, x, dam, typ)) notice = TRUE;
+				//TODO
+				//if (project_o(who, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the object in the grid */
-				if (project_o(who, dist, y, x, dam, typ)) notice = TRUE;
+				//TODO
+				//if (project_o(who, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -9102,7 +9106,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
-				    (!who || dist_hack > 1) && !one_in_(10))
+				    (who_ptr == p_ptr || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
 					int max_attempts = 10;
@@ -9140,7 +9144,7 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(cave[y][x].m_idx, 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&m_list[cave[y][x].m_idx], 0, t_y, t_x, dam, typ, flg, monspell);
 
 					/* Don't affect the monster any longer */
 					continue;
@@ -9231,12 +9235,13 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			}
 
 			/* Affect the monster in the grid */
-			if (project_m(who, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
+			//TODO
+			//if (project_m(who, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
 		}
 
 
 		/* Player affected one monster (without "jumping") */
-		if (!who && (project_m_n == 1) && !jump)
+		if (who_ptr == p_ptr && (project_m_n == 1) && !jump)
 		{
 			/* Location */
 			x = project_m_x;
@@ -9331,7 +9336,8 @@ bool project(int who, int rad, int y, int x, int dam, int typ, int flg, int mons
 			}
 
 			/* Affect the player */
-			if (project_p(who, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
+			//TODO
+			//if (project_p(who, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
 		}
 	}
 

@@ -48,7 +48,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 		break;
 	}
 
-	(void)project(m_idx, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
@@ -61,14 +61,14 @@ static void monst_bolt_monst(int m_idx, int y, int x, int typ, int dam_hp, int m
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
 
-	(void)project(m_idx, 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void monst_beam_monst(int m_idx, int y, int x, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU;
 
-	(void)project(m_idx, 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 /*
@@ -3538,12 +3538,12 @@ bool monst_spell_monst(int m_idx)
 
 		if (can_use_lite_area)
 		{
-			(void)project(m_idx, 3, y, x, 0, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+			(void)project(&m_list[m_idx], 3, y, x, 0, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 			lite_room(y, x);
 		}
 		else
 		{
-			(void)project(m_idx, 3, y, x, 0, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, MS_DARKNESS);
+			(void)project(&m_list[m_idx], 3, y, x, 0, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, MS_DARKNESS);
 			unlite_room(y, x);
 		}
 
@@ -3682,7 +3682,7 @@ bool monst_spell_monst(int m_idx)
 					msg_print("Water blew off from the ground!");
 #endif
 				}
-				project(t_idx, 8, y, x, 3, GF_WATER_FLOW, PROJECT_GRID | PROJECT_HIDE, -1);
+				project(&m_list[t_idx], 8, y, x, 3, GF_WATER_FLOW, PROJECT_GRID | PROJECT_HIDE, -1);
 			}
 
 			{

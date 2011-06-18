@@ -5957,7 +5957,7 @@ void discharge_minion(void)
 		if (dam > 100) dam = (dam-100)/2 + 100;
 		if (dam > 400) dam = (dam-400)/2 + 400;
 		if (dam > 800) dam = 800;
-		project(i, 2+(r_ptr->level/20), m_ptr->fy,
+		project(m_ptr, 2+(r_ptr->level/20), m_ptr->fy,
 			m_ptr->fx, dam, GF_PLASMA, 
 			PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 
@@ -6542,7 +6542,7 @@ bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	/* Analyze the "target" and the caster. */
-	return (project(who, rad, y, x, dam, typ, flg, -1));
+	return (project(&m_list[who], rad, y, x, dam, typ, flg, -1));
 }
 
 
@@ -6953,7 +6953,7 @@ bool sleep_monsters_touch(void)
 bool animate_dead(int who, int y, int x)
 {
 	int flg = PROJECT_ITEM | PROJECT_HIDE;
-	return (project(who, 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
+	return (project(&m_list[who], 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
 }
 
 

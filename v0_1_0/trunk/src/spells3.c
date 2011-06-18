@@ -3910,7 +3910,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			/* Do nothing */  ;
 	}
 
-	(void)project(who, radius, y, x, dam, dt,
+	(void)project(&m_list[who], radius, y, x, dam, dt,
 	    (PROJECT_JUMP | PROJECT_ITEM | PROJECT_KILL), -1);
 
 	/* XXX  those potions that explode need to become "known" */

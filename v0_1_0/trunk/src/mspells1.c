@@ -487,7 +487,7 @@ static void bolt(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;
 
 	/* Target the player with a bolt attack */
-	(void)project(m_idx, 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void beam(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
@@ -495,7 +495,7 @@ static void beam(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU | PROJECT_PLAYER;
 
 	/* Target the player with a bolt attack */
-	(void)project(m_idx, 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
@@ -535,7 +535,7 @@ static void breath(int y, int x, int m_idx, int typ, int dam_hp, int rad, bool b
 	}
 
 	/* Target the player with a ball attack */
-	(void)project(m_idx, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
