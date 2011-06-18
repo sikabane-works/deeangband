@@ -33,12 +33,12 @@ N:8:Farmer Maggot
 「くいつき！きば！おおかみ！みんな来い！」
 「あいつらは噛みついたりせんよ。わしが命令せんかぎりな！」
 「ここだ、くいつき！きば！来い！」
-exclaims, "Well, if that isn't queerer than ever?"
+は声を大きく上げて言った。「むむ、これ以上奇妙なことがあるものなのか？」
 「わしに会いにきたのかい？」
-「わしは家に帰るまでランターンに火を灯さないようにしよう。」
+「わしは家に帰るまでランタンに火を灯さないようにしよう。」
 「何かやっかい事に巻き込まれたようじゃな。」
-yells, "Hallo there!"
-says, "It's been a queer day, and no mistake."
+は大きな声で「やあ！」と呼びかけてきた。
+「今日はなんとも不吉な日になったもんじゃ。」
 
 N:19:Hato Poppo
 「トラスト・ミー。」
@@ -176,7 +176,6 @@ says, 'Give 'til it hurts!'
 #N:291:Ulfast, Son of Ulfang
 
 N:180:Orfax, Son of Boldor
-N:237:Boldor, King of the Yeeks
 #wonders aloud about your sexual orientation.
 はあなたを変態呼ばわりしてわめいている。
 #spouts torrents of obscenities.
@@ -187,6 +186,9 @@ N:237:Boldor, King of the Yeeks
 「イークもバカにできないってことを教えてやろう！」'
 #says, 'Feel lucky, punk?'
 はダーティーハリーの真似をして「命を賭けてみるか、チンピラ野郎」と言っている。
+
+N:237:Boldor, King of the Yeeks
+「我々を蔑むな！見下すな！哀れむな！」
 
 N:200:Hobbes the Tiger
 #says, 'Why were people put here? TIGER FOOD!'
@@ -202,10 +204,11 @@ N:140:Lagduf, the Snaga
 N:186:Grishnakh, the Hill Orc
 says, 'Saruman is a fool, and a dirty treacherous fool.'
 says, 'I left a fool.'
-yells, 'Nazgul, Nazgul!'
-says, 'Fine leadership!　I hope the great Ugluk will lead us out again.'
+「ナズグルだ！ナズグル達が俺達の闘いぶりを見ている！」
+says, 'Fine leadership! I hope the great Ugluk will lead us out again.'
 hisses, 'My dear tender little fools.'
-says, 'Well, my little ones!　Enjoying your nice rest?'
+#says, 'Well, my little ones! Enjoying your nice rest?'
+「はぁい坊や！ゆっくりお休みできてるかい！？ん？」
 snarls, 'Have you got it -- either of you?'
 
 N:215:Golfimbul, the Hill Orc Chief
@@ -218,35 +221,8 @@ N:356:Lugdush, the Uruk
 N:373:Azog, King of the Uruk-Hai
 #fingers his blade and grins evilly.
 は武器に手をかけてにやりと笑った。
-snickers, 'Now, I strike a blow for *our* side!'
 says, 'Orcs don't get no respect... I'm gonna change that!'
 calls your mother nasty names.
-#says, 'I'll bet your innards would taste real sweet...'
-「貴様のハラワタはきっとおいしいだろうな」
-#belches and spits.
-はげっぷをしてつばを吐きかけた。
-#scratches his armpits.
-はわきの下を掻いた。
-#says, 'I love the smell of fresh blood.'
-「俺は新鮮な血のにおいが大好きなんだよ。」
-#says, 'Yeeha! Another idiot to slaughter!'
-「もう一匹大バカ野郎が殺されに来やがった！」
-hawks a loogie in your direction.
-farts thunderously.
-#wonders aloud how many experience points you're worth.
-は、あなたが何点の経験値になるか考えている。
-#says, 'I love being psychotic!'
-「俺はブチキレんのが大好きなんだぜ！」
-#says, 'My brain's on fire with the feeling to kill!'
-「俺のノーミソは貴様を殺す思いで焼け付きそうだぜ！」
-#says, 'I shall torture you slowly.'
-「貴様をゆっくり拷問してやる。」
-#calls you a scum-sucking pig-dog.
-はあなたのことを腐れカス野郎のケツの毛と呼んでいる。
-says, 'I shall have my way with your women!'
-says, 'You're not so tough, buttmunch!'
-#says, 'Heh-heh, heh-heh, killing people is cool.'
-「へへ、へへ。人を殺すのは楽しいなあ。」
 
 N:382:Mime, the Nibelung
 #says, 'Get away! This spot is mine!'
@@ -279,7 +255,8 @@ grins, 'You will die soon, handsome hero!'
 「私は偽誓者を罰しているにすぎない。」
 #shouts, 'Give the Ring here!'
 「今ここで指輪を渡すのだ！」
-shouts, 'Hoiho! Hoiho-hoho!'
+#shouts, 'Hoiho! Hoiho-hoho!'
+
 
 N:419:Alberich the Nibelung King
 #says, 'I'll mess up all your stuff!'
@@ -309,10 +286,11 @@ says, 'Feel my wrath, idle rascal!'
 #says, 'Are you still not afraid? You should be!'
 「怖くないというのか？！恐れた方が身の為だぞ！」
 
-#N:392:Sangahyando of Umbar
-#N:380:Angamaite of Umbar
-
-#This next may be unnecessarily evil... :-]
+N:392:Sangahyando of Umbar
+N:380:Angamaite of Umbar
+「臆病な陸の子犬共め、目にものを見せてくれよう！」
+「父祖の仇、必ずや取ってくれるぞ！」
+「勝てば官軍！よくぞ言ったものよな！」
 
 N:393:It
 #says, 'Nyah, nyah, betcha can't find me!'
@@ -340,7 +318,9 @@ N:409:Kharis the Powerslave
 #curses you.
 は呪いをかけている。
 
-#N:413:Ulwarth, Son of Ulfang
+N:413:Ulwarth, Son of Ulfang
+「来るなら来い！白い家畜共が！」
+
 #N:431:Grendel
 
 N:441:Gachapin
@@ -426,10 +406,14 @@ N:654:Judge Fire
 N:656:Judge Mortis
 N:674:Judge Fear
 N:686:Judge Death
-hisses, 'Thisssss dungeon issss guilty.'
-hisses, 'Your crime isssss life.'
-hisses, 'The sssentencce isss death!'
-hisses, 'Your crime issss life. The sssentencce isss death.'
+#hisses, 'Thisssss dungeon issss guilty.'
+「この迷宮はぁ、罪であるぅ！」
+#hisses, 'Your crime isssss life.'
+「貴様ぁの罪業はぁ！生きていることぉそのものでぇぇある！」
+#hisses, 'The sssentencce isss death!'
+「判決はぁ！死刑だぁ！！」'
+#hisses, 'Your crime issss life. The sssentencce isss death.'
+「貴様ぁの生は罪であるぁ！判決は死刑イえぃ！」
 
 N:660:Rinaldo, son of Brand
 「俺はリナルド一世、カシュファの王にしてバークレー大経営学科卒だ！」
@@ -717,31 +701,9 @@ leafs through 'Evil Geniuses For Dummies'.
 
 N:862:The Serpent of Chaos
 N:883:Zombified Serpent of Chaos
-#says, 'Foolish worm, you are DOOMED!'
-「マヌケなイモムシが！貴様の運命もこれまでだ！」
-#says, 'I'm the Big Bad Guy, and you're toast!'
-「私が真の悪、貴様は餌食だ！」
-#shouts, 'MOO HA HA HA! I am DEATH incarnate!'
-「ムゥッハッハッハァーッ！私は死の権化なのだ！」
-#says, 'Prepare for your untimely demise!'
-「早死にする準備をするがいい！」
-#opens up a can of Whoop-Ass (tm).
-は Whoop Ass (tm) の缶を開けている。
-#picks its teeth with former adventurers' bones.
-は歯にはさまった以前の冒険者の骨をほじっている。
-#says, 'Maybe I won't kill you... NOT!'
-「私はおそらく貴様を殺さな……くはない！」
-#yawns at your pathetic efforts to kill it.
-はあなたの哀れな努力に対してあくびをした。
-#says, 'Another day, another bastard to slaughter...'
-「さらなる日にはさらなるマヌケがなぶり殺されに来る……」
-#says, 'I can't be bothered... minions, slaughter this fool!'
-「面倒だ……下僕ども、このマヌケをブチ殺せ！」
-#says, 'Such a doomed, pathetic gesture as yours  verges on the heroic!'
-「これほどまでに破滅的で哀れなお前の行動は英雄的でさえある！」
-#says, 'Mere mortals such as you should not meddle the affair of the Powers!'
-「お前ごとき定命の者が<力>同士の争いに首を突っ込む事なぞあってはならぬ！」
-「お前は永遠に続く混沌と秩序の争いの道具にすぎぬ。」
+の虹色に光る眼があなたを見つめた。
+の狂える声が直接脳裏に響いた。「お前ごとき卑小な存在が<力>同士の争いに首を突っ込む事なぞあってはならぬ！」
+の狂える声が直接脳裏に響いた。「お前は永遠に続く混沌と秩序の争いの道具にすぎぬ。」
 
 N:873:Combat-Echizen, SEKKAKUDAKARA
 「上から来るぞ！気をつけろ！」
@@ -1065,7 +1027,7 @@ N:*:Default lines
 #sighs: 'They send a poorer grade of adventurers down each year than the last.'
 は溜息をついた：「やつらは年々質の下がった冒険者を送りこんできやがるなあ」
 #says: 'Your life-blood will baptise my blade!'
-「貴様の鮮血で私の剣を洗礼するとしよう！」
+「貴様の生き血で私の剣を洗礼するとしよう！」
 #shouts: 'You will serve me in Valhalla!'
 は叫んだ：「貴様はヴァルハラで私に仕えるのだ！」
 #snickers: 'Mommy's not here to save you now!'
