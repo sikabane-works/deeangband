@@ -3165,7 +3165,7 @@ msg_format("%^s%s", m_name, monmessage);
 			if (((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW) &&
 				 (r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != p_ptr->riding)) ||
-				are_enemies(m_ptr, y_ptr) || MON_CONFUSED(m_ptr))
+				are_enemies(m_ptr, y_ptr) ||  MON_CONFUSED(m_ptr))
 			{
 				if (!(r_ptr->flags1 & RF1_NEVER_BLOW))
 				{
@@ -3177,7 +3177,7 @@ msg_format("%^s%s", m_name, monmessage);
 					/* attack */
 					if (y_ptr->monster_idx && (y_ptr->chp >= 0))
 					{
-						if (monst_attack_monst(m_idx, c_ptr->m_idx)) return;
+						if (py_attack(m_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)

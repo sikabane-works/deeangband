@@ -3264,7 +3264,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 			chg_virtue(V_JUSTICE, -1);
 			chg_virtue(V_COMPASSION, -1);
 		}
-		else if (cr_ptr->cls_idx != CLASS_BERSERKER)
+		else if (cr_ptr->cls_idx != CLASS_BERSERKER && cr_ptr == p_ptr)
 		{
 #ifdef JP
 			if (get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
