@@ -3873,7 +3873,7 @@ msg_print("爆発のルーンは解除された。");
 	return c_ptr->m_idx;
 }
 
-static int place_monster_one(int who, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
+static int place_monster_one(creature_type *who_ptr, int y, int x, int monster_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -4136,17 +4136,17 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->mflag2 = 0;
 
 	/* Hack -- Appearance transfer */
-	if ((mode & PM_MULTIPLY) && (who > 0) && !is_original_ap(&m_list[who]))
+	if ((mode & PM_MULTIPLY) && (who_ptr != p_ptr) && !is_original_ap(who_ptr))
 	{
-		m_ptr->ap_monster_idx = m_list[who].ap_monster_idx;
+		m_ptr->ap_monster_idx = who_ptr->ap_monster_idx;
 
 		/* Hack -- Shadower spawns Shadower */
-		if (m_list[who].mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
+		if (who_ptr->mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
 	/* Sub-alignment of a monster */
-	if ((who > 0) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
-		m_ptr->sub_align = m_list[who].sub_align;
+	if ((who_ptr != p_ptr) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
+		m_ptr->sub_align = who_ptr->sub_align;
 	else
 	{
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
@@ -4164,10 +4164,11 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
-	if (who > 0 && is_pet(&m_list[who]))
+	if (who_ptr != p_ptr && is_pet(who_ptr))
 	{
 		mode |= PM_FORCE_PET;
-		m_ptr->parent_m_idx = who;
+		//TODO Parent Set
+		m_ptr->parent_m_idx = 0;
 	}
 	else
 	{
@@ -4181,7 +4182,7 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if ((r_ptr->flags1 & RF1_UNIQUE) && (who <= 0))
+		if ((r_ptr->flags1 & RF1_UNIQUE) && (who_ptr == p_ptr))
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
@@ -4202,7 +4203,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 	/* Friendly? */
 	else if ((r_ptr->flags7 & RF7_FRIENDLY) ||
-		 (mode & PM_FORCE_FRIENDLY) || is_friendly_idx(who))
+		 (mode & PM_FORCE_FRIENDLY)) //TODO || is_friendly_idx(who))
 	{
 		if (!monster_has_hostile_align(NULL, 0, -1, r_ptr)) set_friendly(m_ptr);
 	}
@@ -4633,7 +4634,7 @@ static bool place_monster_group(int who, int y, int x, int monster_idx, u32b mod
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(who, my, mx, monster_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(&m_list[who], my, mx, monster_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4724,7 +4725,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(who, y, x, monster_idx, MONEGO_NORMAL, mode);
+	i = place_monster_one(&m_list[who], y, x, monster_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
 	m_ptr = &m_list[i];
@@ -4745,7 +4746,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
-			if(place_monster_one(monster_idx, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(&m_list[who], ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4794,7 +4795,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(place_monster_m_idx, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_monster_one(&m_list[who], ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if ((r_info[z].flags1 & RF1_FRIENDS) ||
