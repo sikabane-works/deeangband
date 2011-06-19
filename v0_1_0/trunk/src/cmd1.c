@@ -2022,19 +2022,19 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 				*mdeath = (m_ptr->monster_idx == 0);
 				break;
 			case MUT2_HORNS:
-				*mdeath = mon_take_hit(m_idx, k, fear, NULL);
+				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], k, fear, NULL);
 				break;
 			case MUT2_BEAK:
-				*mdeath = mon_take_hit(m_idx, k, fear, NULL);
+				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], k, fear, NULL);
 				break;
 			case MUT2_TRUNK:
-				*mdeath = mon_take_hit(m_idx, k, fear, NULL);
+				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], k, fear, NULL);
 				break;
 			case MUT2_TENTACLES:
-				*mdeath = mon_take_hit(m_idx, k, fear, NULL);
+				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], k, fear, NULL);
 				break;
 			default:
-				*mdeath = mon_take_hit(m_idx, k, fear, NULL);
+				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], k, fear, NULL);
 		}
 
 		touch_zap_player(m_ptr);
@@ -2750,7 +2750,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				drain_result = m_ptr->chp;
 
 			/* Damage, check for fear and death */
-			if (mon_take_hit(c_ptr->m_idx, k, fear, NULL))
+			if (mon_take_hit(cr_ptr, m_ptr, k, fear, NULL))
 			{
 				*mdeath = TRUE;
 				if ((cr_ptr->cls_idx == CLASS_BERSERKER) && energy_use)

@@ -1507,7 +1507,7 @@ extern void check_experience(void);
 extern void check_quest_completion(creature_type *m_ptr);
 extern cptr extract_note_dies(monster_race *r_ptr);
 extern void monster_death(creature_type *cr_ptr, bool drop_item);
-extern bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note);
+extern bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool *fear, cptr note);
 extern void get_screen_size(int *wid_p, int *hgt_p);
 extern void panel_bounds_center(void);
 extern void resize_map(void);

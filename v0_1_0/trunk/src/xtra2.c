@@ -1493,10 +1493,9 @@ static void get_exp_from_mon(int dam, creature_type *m_ptr)
  * monster worth more than subsequent monsters.  This would also need
  * to induce changes in the monster recall code.
  */
-bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
+bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool *fear, cptr note)
 {
-	creature_type   *m_ptr = &m_list[m_idx];
-	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
 
 	creature_type    exp_mon;
 
@@ -1505,58 +1504,60 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 	int         i;
 	int         expdam;
 
-	COPY(&exp_mon, m_ptr, creature_type);
+	COPY(&exp_mon, tar_ptr, creature_type);
 	if (!(r_ptr->flags7 & RF7_KILL_EXP))
 	{
-		expdam = (m_ptr->chp > dam) ? dam : m_ptr->chp;
+		expdam = (tar_ptr->chp > dam) ? dam : tar_ptr->chp;
 		if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
 
 		get_exp_from_mon(expdam, &exp_mon);
 
 		/* Genocided by chaos patron */
-		if (!m_ptr->monster_idx) m_idx = 0;
+		//TODO check
+		//if (!tar_ptr->monster_idx) m_idx = 0;
 	}
 
 	/* Redraw (later) if needed */
-	if (p_ptr->health_who == m_idx) p_ptr->redraw |= (PR_HEALTH);
-	if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
+	if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
+	if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
 
 	/* Wake it up */
-	(void)set_monster_csleep(m_ptr, 0);
+	(void)set_monster_csleep(tar_ptr, 0);
 
 	/* Hack - Cancel any special player stealth magics. -LM- */
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (atk_ptr->special_defense & NINJA_S_STEALTH)
 	{
 		set_superstealth(FALSE);
 	}
 
 	/* Genocided by chaos patron */
-	if (!m_idx) return TRUE;
+	//TODO CHECK
+	//if (!m_idx) return TRUE;
 
 	/* Hurt it */
-	m_ptr->chp -= dam;
+	tar_ptr->chp -= dam;
 
 	/* It is dead now */
-	if (m_ptr->chp < 0)
+	if (tar_ptr->chp < 0)
 	{
 		char m_name[80];
 
-		if (r_info[m_ptr->monster_idx].flags7 & RF7_TANUKI)
+		if (r_info[tar_ptr->monster_idx].flags7 & RF7_TANUKI)
 		{
 			/* You might have unmasked Tanuki first time */
-			r_ptr = &r_info[m_ptr->monster_idx];
-			m_ptr->ap_monster_idx = m_ptr->monster_idx;
+			r_ptr = &r_info[tar_ptr->monster_idx];
+			tar_ptr->ap_monster_idx = tar_ptr->monster_idx;
 			if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 		}
 
-		if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
+		if (tar_ptr->mflag2 & MFLAG2_CHAMELEON)
 		{
 			/* You might have unmasked Chameleon first time */
-			r_ptr = real_r_ptr(m_ptr);
+			r_ptr = real_r_ptr(tar_ptr);
 			if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 		}
 
-		if (!(m_ptr->smart & SM_CLONED))
+		if (!(tar_ptr->smart & SM_CLONED))
 		{
 			/* When the player kills a Unique, it stays dead */
 			if (r_ptr->flags1 & RF1_UNIQUE)
@@ -1564,14 +1565,14 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 				r_ptr->max_num = 0;
 
 				/* Mega-Hack -- Banor & Lupart */
-				if ((m_ptr->monster_idx == MON_BANOR) || (m_ptr->monster_idx == MON_LUPART))
+				if ((tar_ptr->monster_idx == MON_BANOR) || (tar_ptr->monster_idx == MON_LUPART))
 				{
 					r_info[MON_BANORLUPART].max_num = 0;
 					r_info[MON_BANORLUPART].r_pkills++;
 					r_info[MON_BANORLUPART].r_akills++;
 					if (r_info[MON_BANORLUPART].r_tkills < MAX_SHORT) r_info[MON_BANORLUPART].r_tkills++;
 				}
-				else if (m_ptr->monster_idx == MON_BANORLUPART)
+				else if (tar_ptr->monster_idx == MON_BANORLUPART)
 				{
 					r_info[MON_BANOR].max_num = 0;
 					r_info[MON_BANOR].r_pkills++;
@@ -1592,22 +1593,22 @@ bool mon_take_hit(int m_idx, int dam, bool *fear, cptr note)
 		if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 
 		/* Recall even invisible uniques or winners */
-		if ((m_ptr->ml && !p_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE))
+		if ((tar_ptr->ml && !atk_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE))
 		{
 			/* Count kills this life */
-			if ((m_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_pkills < MAX_SHORT)) r_info[MON_KAGE].r_pkills++;
+			if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_pkills < MAX_SHORT)) r_info[MON_KAGE].r_pkills++;
 			else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
 
 			/* Count kills in all lives */
-			if ((m_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_tkills < MAX_SHORT)) r_info[MON_KAGE].r_tkills++;
+			if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_tkills < MAX_SHORT)) r_info[MON_KAGE].r_tkills++;
 			else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 
 			/* Hack -- Auto-recall */
-			monster_race_track(m_ptr->ap_monster_idx);
+			monster_race_track(tar_ptr->ap_monster_idx);
 		}
 
 		/* Extract monster name */
-		monster_desc(m_name, m_ptr, MD_TRUE_NAME);
+		monster_desc(m_name, tar_ptr, MD_TRUE_NAME);
 
 		/* Don't kill Amberites */
 		if ((r_ptr->flags3 & RF3_AMBERITE) && one_in_(2))
@@ -1637,15 +1638,15 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 			/* Dump a message */
 #ifdef JP
-			if (!get_rnd_line("mondeath_j.txt", m_ptr->monster_idx, line_got))
+			if (!get_rnd_line("mondeath_j.txt", tar_ptr->monster_idx, line_got))
 #else
-			if (!get_rnd_line("mondeath.txt", m_ptr->monster_idx, line_got))
+			if (!get_rnd_line("mondeath.txt", tar_ptr->monster_idx, line_got))
 #endif
 
 				msg_format("%^s %s", m_name, line_got);
 
 #ifdef WORLD_SCORE
-			if (m_ptr->monster_idx == MON_SERPENT)
+			if (tar_ptr->monster_idx == MON_SERPENT)
 			{
 				/* Make screen dump */
 				screen_dump = make_screen_dump();
@@ -1655,7 +1656,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 		if (!(d_info[dungeon_type].flags1 & DF1_BEGINNER))
 		{
-			if (!dun_level && !ambush_flag && !p_ptr->inside_arena)
+			if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
 			{
 				chg_virtue(V_VALOUR, -1);
 			}
@@ -1668,7 +1669,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			{
 				chg_virtue(V_VALOUR, 1);
 			}
-			if (r_ptr->level >= 2 * (p_ptr->lev+1))
+			if (r_ptr->level >= 2 * (atk_ptr->lev+1))
 				chg_virtue(V_VALOUR, 2);
 		}
 
@@ -1685,7 +1686,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			if (one_in_(3)) chg_virtue(V_INDIVIDUALISM, -1);
 		}
 
-		if (m_ptr->monster_idx == MON_BEGGAR || m_ptr->monster_idx == MON_LEPER)
+		if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
 		{
 			chg_virtue(V_COMPASSION, -1);
 		}
@@ -1766,9 +1767,9 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 		{
 			char note_buf[160];
 #ifdef JP
-			sprintf(note_buf, "%s%s", r_name + r_ptr->name, (m_ptr->smart & SM_CLONED) ? "(クローン)" : "");
+			sprintf(note_buf, "%s%s", r_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(クローン)" : "");
 #else
-			sprintf(note_buf, "%s%s", r_name + r_ptr->name, (m_ptr->smart & SM_CLONED) ? "(Clone)" : "");
+			sprintf(note_buf, "%s%s", r_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(Clone)" : "");
 #endif
 			do_cmd_write_nikki(NIKKI_UNIQUE, 0, note_buf);
 		}
@@ -1783,12 +1784,12 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 		}
 
 		/* Death by physical attack -- invisible monster */
-		else if (!m_ptr->ml)
+		else if (!tar_ptr->ml)
 		{
 #ifdef JP
-			if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを殺した。", m_name);
-			else if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+			else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_format("%sを殺した。ごめんね～", m_name);
 			else
 				msg_format("%sを殺した。", m_name);
@@ -1819,13 +1820,13 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			else
 			{
 #ifdef JP
-				if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_format("せっかくだから%sを倒した。", m_name);
-				else if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+				else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_format("%s！お許し下さい！", m_name);
 				else
 msg_format("%sを倒した。", m_name);
-				if (p_ptr->chara_idx == CHARA_CHARGEMAN)
+				if (atk_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_format("%s!お許し下さい！", m_name);
 #else
 				msg_format("You have destroyed %s.", m_name);
@@ -1837,9 +1838,9 @@ msg_format("%sを倒した。", m_name);
 		else
 		{
 #ifdef JP
-			if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+			if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 				msg_format("せっかくだから%sを葬り去った。", m_name);
-			else if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+			else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 			{
 				msg_format("%sを葬り去った。", m_name);
 				msg_format("%s！お許し下さい！", m_name);
@@ -1851,11 +1852,11 @@ msg_format("%sを倒した。", m_name);
 #endif
 
 		}
-		if ((r_ptr->flags1 & RF1_UNIQUE) && !(m_ptr->smart & SM_CLONED) && !vanilla_town)
+		if ((r_ptr->flags1 & RF1_UNIQUE) && !(tar_ptr->smart & SM_CLONED) && !vanilla_town)
 		{
 			for (i = 0; i < MAX_KUBI; i++)
 			{
-				if ((kubi_monster_idx[i] == m_ptr->monster_idx) && !(m_ptr->mflag2 & MFLAG2_CHAMELEON))
+				if ((kubi_monster_idx[i] == tar_ptr->monster_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
 				{
 #ifdef JP
 msg_format("%sの首には賞金がかかっている。", m_name);
@@ -1868,20 +1869,20 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		}
 
 		/* Generate treasure */
-		monster_death(&m_list[m_idx], TRUE);
+		monster_death(tar_ptr, TRUE);
 
 		/* Mega hack : replace IKETA to BIKETAL */
-		if ((m_ptr->monster_idx == MON_IKETA) &&
-		    !(p_ptr->inside_arena || p_ptr->inside_battle))
+		if ((tar_ptr->monster_idx == MON_IKETA) &&
+		    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
 		{
-			int dummy_y = m_ptr->fy;
-			int dummy_x = m_ptr->fx;
+			int dummy_y = tar_ptr->fy;
+			int dummy_x = tar_ptr->fx;
 			u32b mode = 0L;
 
-			if (is_pet(m_ptr)) mode |= PM_FORCE_PET;
+			if (is_pet(tar_ptr)) mode |= PM_FORCE_PET;
 
 			/* Delete the monster */
-			delete_monster_idx(&m_list[m_idx]);
+			delete_monster_idx(tar_ptr);
 
 			if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
 			{
@@ -1895,7 +1896,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		else
 		{
 			/* Delete the monster */
-			delete_monster_idx(&m_list[m_idx]);
+			delete_monster_idx(tar_ptr);
 		}
 
 		/* Prevent bug of chaos patron's reward */
@@ -1915,10 +1916,10 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #ifdef ALLOW_FEAR
 
 	/* Mega-Hack -- Pain cancels fear */
-	if (MON_MONFEAR(m_ptr) && (dam > 0))
+	if (MON_MONFEAR(tar_ptr) && (dam > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(m_ptr, MON_MONFEAR(m_ptr) - randint1(dam)))
+		if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(dam)))
 		{
 			/* No more fear */
 			(*fear) = FALSE;
@@ -1926,24 +1927,24 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 	}
 
 	/* Sometimes a monster gets scared by damage */
-	if (!MON_MONFEAR(m_ptr) && !(r_ptr->flags3 & (RF3_NO_FEAR)))
+	if (!MON_MONFEAR(tar_ptr) && !(r_ptr->flags3 & (RF3_NO_FEAR)))
 	{
 		/* Percentage of fully healthy */
-		int percentage = (100L * m_ptr->chp) / m_ptr->mhp;
+		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
 
 		/*
 		 * Run (sometimes) if at 10% or less of max hit points,
 		 * or (usually) when hit for half its current hit points
 		 */
 		if ((randint1(10) >= percentage) ||
-		    ((dam >= m_ptr->chp) && (randint0(100) < 80)))
+		    ((dam >= tar_ptr->chp) && (randint0(100) < 80)))
 		{
 			/* Hack -- note fear */
 			(*fear) = TRUE;
 
 			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_monster_monfear(m_ptr, (randint1(10) +
-					  (((dam >= m_ptr->chp) && (percentage > 7)) ?
+			(void)set_monster_monfear(tar_ptr, (randint1(10) +
+					  (((dam >= tar_ptr->chp) && (percentage > 7)) ?
 					   20 : ((11 - percentage) * 5))));
 		}
 	}
@@ -1951,14 +1952,14 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #endif
 
 #if 0
-	if (p_ptr->riding && (p_ptr->riding == m_idx) && (dam > 0))
+	if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (dam > 0))
 	{
 		char m_name[80];
 
 		/* Extract monster name */
-		monster_desc(m_name, m_ptr, 0);
+		monster_desc(m_name, tar_ptr, 0);
 
-		if (m_ptr->chp > m_ptr->mhp/3) dam = (dam + 1) / 2;
+		if (tar_ptr->chp > tar_ptr->mhp/3) dam = (dam + 1) / 2;
 		if (rakuba((dam > 200) ? 200 : dam, FALSE))
 		{
 #ifdef JP

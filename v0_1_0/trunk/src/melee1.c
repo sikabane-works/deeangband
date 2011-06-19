@@ -1854,7 +1854,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 			{
 				sound(SOUND_EXPLODE);
 
-				if (mon_take_hit(m_idx, m_ptr->chp + 1, &fear, NULL))
+				if (mon_take_hit(p_ptr, &m_list[m_idx], m_ptr->chp + 1, &fear, NULL))
 				{
 					blinked = FALSE;
 					alive = FALSE;
@@ -1874,12 +1874,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは突然熱くなった！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    "は灰の山になった。"))
 #else
 						msg_format("%^s is suddenly very hot!", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    " turns into a pile of ash."))
 #endif
 
@@ -1906,12 +1906,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは電撃をくらった！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    "は燃え殻の山になった。"))
 #else
 						msg_format("%^s gets zapped!", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    " turns into a pile of cinder."))
 #endif
 
@@ -1938,12 +1938,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは冷気をくらった！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    "は凍りついた。"))
 #else
 						msg_format("%^s is very cold!", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    " was frozen."))
 #endif
 
@@ -1971,12 +1971,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは鏡の破片をくらった！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    "はズタズタになった。"))
 #else
 						msg_format("%^s gets zapped!", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    " had torn to pieces."))
 #endif
 						{
@@ -2009,12 +2009,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 							msg_format("%^sは聖なるオーラで傷ついた！", m_name);
-							if (mon_take_hit(m_idx, dam, &fear,
+							if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 							    "は倒れた。"))
 #else
 							msg_format("%^s is injured by holy power!", m_name);
 
-							if (mon_take_hit(m_idx, dam, &fear,
+							if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 							    " is destroyed."))
 #endif
 							{
@@ -2043,12 +2043,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sが鋭い闘気のオーラで傷ついた！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    "は倒れた。"))
 #else
 						msg_format("%^s is injured by the Force", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear,
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
 						    " is destroyed."))
 #endif
 
@@ -2086,11 +2086,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("影のオーラが%^sに反撃した！", m_name);
-						if (mon_take_hit(m_idx, dam, &fear, "は倒れた。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear, "は倒れた。"))
 #else
 						msg_format("Enveloped shadows attack %^s.", m_name);
 
-						if (mon_take_hit(m_idx, dam, &fear, " is destroyed."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear, " is destroyed."))
 #endif
 						{
 							blinked = FALSE;
