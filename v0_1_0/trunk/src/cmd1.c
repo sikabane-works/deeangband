@@ -2008,12 +2008,7 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 		/* Complex message */
 		if (p_ptr->wizard)
 		{
-#ifdef JP
-				msg_format("%d/%d のダメージを与えた。", k, m_ptr->chp);
-#else
-			msg_format("You do %d (out of %d) damage.", k, m_ptr->chp);
-#endif
-
+			msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
 		}
 
 		/* Anger the monster */
@@ -2746,11 +2741,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			/* Complex message */
 			if (cr_ptr->wizard || cheat_xtra)
 			{
-#ifdef JP
-				msg_format("%d/%d のダメージを与えた。", k, m_ptr->chp);
-#else
-				msg_format("You do %d (out of %d) damage.", k, m_ptr->chp);
-#endif
+				msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
 			}
 
 			if (k <= 0) can_drain = FALSE;
@@ -3421,11 +3412,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 				m_ptr->chp -= k;
 				if (cr_ptr->wizard)
 				{
-#ifdef JP
-					msg_format("%d/%d のダメージを与えた。", k, m_ptr->chp);
-#else
-					msg_format("You do %d (out of %d) damage.", k, m_ptr->chp);
-#endif
+					msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
 				}
 			}
 		}

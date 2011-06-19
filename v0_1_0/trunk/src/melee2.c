@@ -2367,13 +2367,13 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				/*
 				py_attack(m_ptr, py, px, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
-				*/
 
+				//TODO: Change melee process
+				/*
 				if (!p_ptr->riding || one_in_(2))
 				{
 					(void)make_attack_normal(m_idx);
@@ -2382,6 +2382,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 					do_turn = TRUE;
 				}
+				*/
 			}
 		}
 

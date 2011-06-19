@@ -3782,14 +3782,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				/* Complex message */
 				if (p_ptr->wizard || cheat_xtra)
 				{
-#ifdef JP
-					msg_format("%d/%d のダメージを与えた。",
-						   tdam, m_ptr->chp);
-#else
-					msg_format("You do %d (out of %d) damage.",
-						   tdam, m_ptr->chp);
-#endif
-
+					msg_format("DAMAGE:%d->HP:%d", tdam, m_ptr->chp);
 				}
 
 				/* Sniper */
@@ -4465,14 +4458,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				/* Complex message */
 				if (p_ptr->wizard)
 				{
-#ifdef JP
-					msg_format("%d/%dのダメージを与えた。",
-						   tdam, m_ptr->chp);
-#else
-					msg_format("You do %d (out of %d) damage.",
-						   tdam, m_ptr->chp);
-#endif
-
+					msg_format("DAMAGE:%d->HP:%d", tdam, m_ptr->chp);
 				}
 
 				/* Hit the monster, check for death */
