@@ -1261,7 +1261,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
  *
  * We return "TRUE" if the effect of the projection is "obvious".
  */
-static bool project_o(int who, int r, int y, int x, int dam, int typ)
+static bool project_o(creature_type *who_ptr, int r, int y, int x, int dam, int typ)
 {
 	cave_type *c_ptr = &cave[y][x];
 
@@ -1279,7 +1279,7 @@ static bool project_o(int who, int r, int y, int x, int dam, int typ)
 
 
 	/* XXX XXX XXX */
-	who = who ? who : 0;
+	who_ptr = who_ptr ? who_ptr : 0;
 
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
@@ -1565,7 +1565,7 @@ msg_print("カチッと音がした！");
 					int i;
 					u32b mode = 0L;
 
-					if (!who || is_pet(&m_list[who]))
+					if (who_ptr == p_ptr || is_pet(who_ptr))
 						mode |= PM_FORCE_PET;
 
 					for (i = 0; i < o_ptr->number ; i++)
@@ -1583,7 +1583,8 @@ note_kill = "灰になった。";
 							}
 							continue;
 						}
-						else if (summon_named_creature(who, y, x, o_ptr->pval, mode))
+/*TODO
+						else if (summon_named_creature(who_ptr, y, x, o_ptr->pval, mode))
 						{
 #ifdef JP
 note_kill = "生き返った。";
@@ -1591,6 +1592,7 @@ note_kill = "生き返った。";
 					note_kill = " revived.";
 #endif
 						}
+*/
 						else if (!note_kill)
 						{
 #ifdef JP
@@ -1659,7 +1661,7 @@ msg_format("%sは%s", o_name, note_kill);
 				/* Potions produce effects when 'shattered' */
 				if (is_potion)
 				{
-					(void)potion_smash_effect(who, y, x, k_idx);
+					//TODO (void)potion_smash_effect(who, y, x, k_idx);
 				}
 
 				/* Redraw */
@@ -1727,14 +1729,13 @@ msg_format("%sは%s", o_name, note_kill);
  * We attempt to return "TRUE" if the player saw anything "useful" happen.
  */
 /* "flg" was added. */
-static bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
+static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
 {
 	int tmp;
 
 	cave_type *c_ptr = &cave[y][x];
 
 	creature_type *m_ptr = &m_list[c_ptr->m_idx];
-	creature_type *caster_ptr = (who > 0) ? &m_list[who] : NULL;
 
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
@@ -1799,14 +1800,14 @@ static bool project_m(int who, int r, int y, int x, int dam, int typ, int flg, b
 	int ty = m_ptr->fy;
 	int tx = m_ptr->fx;
 
-	int caster_lev = (who > 0) ? r_info[caster_ptr->monster_idx].level : (p_ptr->lev * 2);
+	int caster_lev = who_ptr->lev * 2;
 
 	/* Nobody here */
 	if (!c_ptr->m_idx) return (FALSE);
 
 	/* Never affect projector */
-	if (who && (c_ptr->m_idx == who)) return (FALSE);
-	if ((c_ptr->m_idx == p_ptr->riding) && !who && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
+	if (who_ptr != p_ptr && (&m_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
+	if ((c_ptr->m_idx == p_ptr->riding) && !who_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
@@ -3525,7 +3526,7 @@ note = "が分裂した！";
 			/* No overflow */
 			if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
-			if (!who)
+			if (!who_ptr)
 			{
 				chg_virtue(V_VITALITY, 1);
 
@@ -3549,7 +3550,7 @@ note = "が分裂した！";
 			if (m_ptr->monster_idx == MON_LEPER)
 			{
 				heal_leper = TRUE;
-				if (!who) chg_virtue(V_COMPASSION, 5);
+				if (!who_ptr) chg_virtue(V_COMPASSION, 5);
 			}
 
 			/* Redraw (later) if needed */
@@ -3584,7 +3585,7 @@ note = "が分裂した！";
 #endif
 			}
 
-			if (!who)
+			if (!who_ptr)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
 					chg_virtue(V_INDIVIDUALISM, 1);
@@ -4989,24 +4990,24 @@ note_dies = "はドロドロに溶けた！";
 
 			if ((r_ptr->flags4 & ~(RF4_NOMAGIC_MASK)) || (r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) || (r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
 			{
-				if (who > 0)
+				if (who_ptr > 0)
 				{
 					/* Heal the monster */
-					if (caster_ptr->chp < caster_ptr->mhp)
+					if (who_ptr->chp < who_ptr->mhp)
 					{
 						/* Heal */
-						caster_ptr->chp += 6 * dam;
-						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
+						who_ptr->chp += 6 * dam;
+						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (p_ptr->health_who == who) p_ptr->redraw |= (PR_HEALTH);
-						if (p_ptr->riding == who) p_ptr->redraw |= (PR_UHEALTH);
+						if (&m_list[p_ptr->health_who] == who_ptr) p_ptr->redraw |= (PR_HEALTH);
+						if (&m_list[p_ptr->riding] == who_ptr) p_ptr->redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (see_s_msg)
 						{
 							/* Get the monster name */
-							monster_desc(killer, caster_ptr, 0);
+							monster_desc(killer, who_ptr, 0);
 #ifdef JP
 							msg_format("%^sは気分が良さそうだ。", killer);
 #else
@@ -5045,9 +5046,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sをじっと睨んだ。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sをじっと睨んだ。", m_name);
 #else
-			if (!who) msg_format("You gaze intently at %s.", m_name);
+			if (who_ptr == p_ptr) msg_format("You gaze intently at %s.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5109,7 +5110,7 @@ note_dies = "はドロドロに溶けた！";
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (who > 0) do_conf = randint0(4) + 4;
+				if (who_ptr != p_ptr) do_conf = randint0(4) + 4;
 				else do_conf = randint0(8) + 8;
 			}
 			break;
@@ -5121,9 +5122,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sをじっと睨んだ。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sをじっと睨んだ。", m_name);
 #else
-			if (!who) msg_format("You gaze intently at %s.", m_name);
+			if (who_ptr != p_ptr) msg_format("You gaze intently at %s.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5185,7 +5186,7 @@ note_dies = "はドロドロに溶けた！";
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (who > 0)
+				if (who_ptr != p_ptr)
 				{
 					do_conf = randint0(4) + 4;
 					do_stun = randint0(4) + 4;
@@ -5206,9 +5207,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sを指差して呪いをかけた。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sを指差して呪いをかけた。", m_name);
 #else
-			if (!who) msg_format("You point at %s and curse.", m_name);
+			if (who_ptr == p_ptr) msg_format("You point at %s and curse.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5242,9 +5243,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sを指差して恐ろしげに呪いをかけた。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", m_name);
 #else
-			if (!who) msg_format("You point at %s and curse horribly.", m_name);
+			if (who_ptr == p_ptr) msg_format("You point at %s and curse horribly.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5278,9 +5279,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", m_name);
+			if (who_ptr == p_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", m_name);
 #else
-			if (!who) msg_format("You point at %s, incanting terribly!", m_name);
+			if (who_ptr == p_ptr) msg_format("You point at %s, incanting terribly!", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5314,9 +5315,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (!who) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", m_name);
 #else
-			if (!who) msg_format("You point at %s, screaming the word, 'DIE!'.", m_name);
+			if (who_ptr == p_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5332,7 +5333,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who <= 0) || (caster_ptr->monster_idx != MON_KENSHIROU)))
+			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who_ptr == p_ptr) || (who_ptr->monster_idx != MON_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5372,7 +5373,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else
 			{
-				if ((who > 0) ? ((caster_lev + randint1(dam)) > (r_ptr->level + 10 + randint1(20))) :
+				if ((who_ptr != p_ptr) ? ((caster_lev + randint1(dam)) > (r_ptr->level + 10 + randint1(20))) :
 				   (((caster_lev / 2) + randint1(dam)) > (r_ptr->level + randint1(200))))
 				{
 					dam = ((40 + randint1(20)) * m_ptr->chp) / 100;
@@ -5637,9 +5638,9 @@ note = "には効果がなかった！";
 			}
 
 #ifdef JP
-			if (genocide_aux(c_ptr->m_idx, dam, !who, (r_ptr->level + 1) / 2, "モンスター消滅"))
+			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == p_ptr, (r_ptr->level + 1) / 2, "モンスター消滅"))
 #else
-			if (genocide_aux(c_ptr->m_idx, dam, !who, (r_ptr->level + 1) / 2, "Genocide One"))
+			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == p_ptr, (r_ptr->level + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP
@@ -5658,9 +5659,9 @@ note = "には効果がなかった！";
 		case GF_PHOTO:
 		{
 #ifdef JP
-			if (!who) msg_format("%sを写真に撮った。", m_name);
+			if (who_ptr == p_ptr) msg_format("%sを写真に撮った。", m_name);
 #else
-			if (!who) msg_format("You take a photograph of %s.", m_name);
+			if (who_ptr == p_ptr) msg_format("You take a photograph of %s.", m_name);
 #endif
 			/* Hurt by light */
 			if (r_ptr->flags3 & (RF3_HURT_LITE))
@@ -5835,10 +5836,10 @@ note = "には効果がなかった。";
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
 	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !p_ptr->inside_battle)
 	{
-		if (who && (dam > m_ptr->chp)) dam = m_ptr->chp;
+		if (who_ptr != p_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
 	}
 
-	if (!who && slept)
+	if (who_ptr == p_ptr && slept)
 	{
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
@@ -6005,11 +6006,11 @@ note = "には効果がなかった。";
 			note = " disappears!";
 #endif
 
-			if (!who) chg_virtue(V_VALOUR, -1);
+			if (who_ptr == p_ptr) chg_virtue(V_VALOUR, -1);
 
 			/* Teleport */
 			teleport_away(c_ptr->m_idx, do_dist,
-						(!who ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
+						(who_ptr == p_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
 			/* Hack -- get new location */
 			y = m_ptr->fy;
@@ -6036,7 +6037,7 @@ note = "には効果がなかった。";
 	}
 
 	/* If another monster did the damage, hurt the monster by hand */
-	else if (who)
+	else if (who_ptr != p_ptr)
 	{
 		/* Redraw (later) if needed */
 		if (p_ptr->health_who == c_ptr->m_idx) p_ptr->redraw |= (PR_HEALTH);
@@ -6070,7 +6071,8 @@ note = "には効果がなかった。";
 				}
 			}
 
-			if (who > 0) monster_gain_exp(who, m_ptr->monster_idx);
+			//TODO
+			//if (who_ptr != p_ptr) monster_gain_exp(who, m_ptr->monster_idx);
 
 			/* Generate treasure, etc */
 			monster_death(&m_list[c_ptr->m_idx], FALSE);
@@ -6318,16 +6320,16 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 	if ((dam > 0) && !is_pet(m_ptr) && !is_friendly(m_ptr))
 	{
-		if (!who)
+		if (who_ptr == p_ptr)
 		{
 			if (!(flg & PROJECT_NO_HANGEKI))
 			{
 				set_target(m_ptr, monster_target_y, monster_target_x);
 			}
 		}
-		else if ((who > 0) && is_pet(caster_ptr) && !player_bold(m_ptr->target_y, m_ptr->target_x))
+		else if ((who_ptr != p_ptr) && is_pet(who_ptr) && !player_bold(m_ptr->target_y, m_ptr->target_x))
 		{
-			set_target(m_ptr, caster_ptr->fy, caster_ptr->fx);
+			set_target(m_ptr, who_ptr->fy, who_ptr->fx);
 		}
 	}
 
@@ -8533,7 +8535,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(0,0,y,x,dam,GF_SEEKER))notice=TRUE;
+			if(project_o(p_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&cave[y][x]))
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
@@ -8548,7 +8550,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_m(0,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
+					if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
 					if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
@@ -8573,7 +8575,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_m(0,0,y,x,dam,GF_SEEKER,flg,TRUE))
+			if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
 			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
@@ -8670,7 +8672,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(0,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
+			if(project_o(p_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
 			if (!cave_have_flag_bold(y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
@@ -8706,7 +8708,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_m(0,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
+			(void)project_m(who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
 			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
@@ -9057,14 +9059,12 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the object in the grid */
-				//TODO
-				//if (project_o(who, d, y, x, dam, typ)) notice = TRUE;
+				if (project_o(p_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the object in the grid */
-				//TODO
-				//if (project_o(who, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_o(p_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -9230,8 +9230,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the monster in the grid */
-			//TODO
-			//if (project_m(who, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
+			if (project_m(who_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
 		}
 
 
@@ -9485,7 +9484,7 @@ bool binding_field( int dam )
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
-					(void)project_o(0,0,y,x,dam,GF_MANA); 
+					(void)project_o(p_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
@@ -9500,7 +9499,7 @@ bool binding_field( int dam )
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
-					(void)project_m(0,0,y,x,dam,GF_MANA,
+					(void)project_m(p_ptr,0,y,x,dam,GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE);
 				}
 			}
@@ -9528,7 +9527,7 @@ void seal_of_mirror( int dam )
 		{
 			if( is_mirror_grid(&cave[y][x]))
 			{
-				if(project_m(0,0,y,x,dam,GF_GENOCIDE,
+				if(project_m(p_ptr,0,y,x,dam,GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE))
 				{
 					if( !cave[y][x].m_idx )
