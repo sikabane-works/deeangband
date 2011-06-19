@@ -320,8 +320,7 @@ msg_format("%^sÇÕéEÇ≥ÇÍÇΩÅB", m_name);
 			monster_death(cr_ptr, FALSE);
 
 			/* Delete the monster */
-			//TODO::
-			//delete_monster_idx(m_idx);
+			delete_monster_idx(cr_ptr);
 
 			/* Not afraid */
 			(*fear) = FALSE;
@@ -1549,7 +1548,7 @@ static void process_monster(int m_idx)
 		}
 
 		/* Delete the monster */
-		delete_monster_idx(m_idx);
+		delete_monster_idx(&m_list[m_idx]);
 
 		return;
 	}
@@ -1587,7 +1586,7 @@ static void process_monster(int m_idx)
 			monster_death(&m_list[m_idx], FALSE);
 
 			/* Delete the monster */
-			delete_monster_idx(m_idx);
+			delete_monster_idx(&m_list[m_idx]);
 
 			if (sad)
 			{
@@ -1679,7 +1678,7 @@ static void process_monster(int m_idx)
 				/* Check for quest completion */
 				check_quest_completion(m_ptr);
 
-				delete_monster_idx(m_idx);
+				delete_monster_idx(&m_list[m_idx]);
 
 				return;
 			}

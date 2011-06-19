@@ -4695,7 +4695,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 		}
 
-		delete_monster_idx(m_idx);
+		delete_monster_idx(&m_list[m_idx]);
 	}
 
 	if (resist && player_cast)
@@ -5950,7 +5950,7 @@ void discharge_minion(void)
 #else
 			msg_format("%^s resists to be blasted, and run away.", m_name);
 #endif
-			delete_monster_idx(i);
+			delete_monster_idx(&m_list[i]);
 			continue;
 		}
 		dam = m_ptr->mhp / 2;
@@ -5969,7 +5969,7 @@ void discharge_minion(void)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
 		}
 
-		delete_monster_idx(i);
+		delete_monster_idx(&m_list[i]);
 	}
 }
 

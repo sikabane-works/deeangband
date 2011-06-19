@@ -249,53 +249,50 @@ monster_race *real_r_ptr(creature_type *m_ptr)
  *
  * When a monster is deleted, all of its objects are deleted.
  */
-void delete_monster_idx(int i)
+void delete_monster_idx(creature_type *cr_ptr)
 {
 	int x, y;
-
-	creature_type *m_ptr = &m_list[i];
-
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race *r_ptr = &r_info[cr_ptr->monster_idx];
 
 	s16b this_o_idx, next_o_idx = 0;
 
 
 	/* Get location */
-	y = m_ptr->fy;
-	x = m_ptr->fx;
+	y = cr_ptr->fy;
+	x = cr_ptr->fx;
 
 
 	/* Hack -- Reduce the racial counter */
-	real_r_ptr(m_ptr)->cur_num--;
+	real_r_ptr(cr_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
 
-	if (MON_CSLEEP(m_ptr)) (void)set_monster_csleep(m_ptr, 0);
-	if (MON_FAST(m_ptr)) (void)set_monster_fast(m_ptr, 0);
-	if (MON_SLOW(m_ptr)) (void)set_monster_slow(m_ptr, 0);
-	if (MON_STUNNED(m_ptr)) (void)set_monster_stunned(m_ptr, 0);
-	if (MON_CONFUSED(m_ptr)) (void)set_monster_confused(m_ptr, 0);
-	if (MON_MONFEAR(m_ptr)) (void)set_monster_monfear(m_ptr, 0);
-	if (MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_ptr, 0, FALSE);
+	if (MON_CSLEEP(cr_ptr)) (void)set_monster_csleep(cr_ptr, 0);
+	if (MON_FAST(cr_ptr)) (void)set_monster_fast(cr_ptr, 0);
+	if (MON_SLOW(cr_ptr)) (void)set_monster_slow(cr_ptr, 0);
+	if (MON_STUNNED(cr_ptr)) (void)set_monster_stunned(cr_ptr, 0);
+	if (MON_CONFUSED(cr_ptr)) (void)set_monster_confused(cr_ptr, 0);
+	if (MON_MONFEAR(cr_ptr)) (void)set_monster_monfear(cr_ptr, 0);
+	if (MON_INVULNER(cr_ptr)) (void)set_monster_invulner(cr_ptr, 0, FALSE);
 
 
 	/* Hack -- remove target monster */
-	if (i == target_who) target_who = 0;
+	if (cr_ptr == &m_list[target_who]) target_who = 0;
 
 	/* Hack -- remove tracked monster */
-	if (i == p_ptr->health_who) health_track(0);
+	if (cr_ptr == &m_list[p_ptr->health_who]) health_track(0);
 
-	if (pet_t_m_idx == i ) pet_t_m_idx = 0;
-	if (riding_t_m_idx == i) riding_t_m_idx = 0;
-	if (p_ptr->riding == i) p_ptr->riding = 0;
+	if (&m_list[pet_t_m_idx] == cr_ptr) pet_t_m_idx = 0;
+	if (&m_list[riding_t_m_idx] == cr_ptr) riding_t_m_idx = 0;
+	if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->riding = 0;
 
 	/* Monster is gone */
 	cave[y][x].m_idx = 0;
 
 
 	/* Delete objects */
-	for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = cr_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 
@@ -315,11 +312,11 @@ void delete_monster_idx(int i)
 	}
 
 
-	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(cr_ptr)) check_pets_num_and_align(cr_ptr, FALSE);
 
 
 	/* Wipe the Monster */
-	(void)WIPE(m_ptr, creature_type);
+	(void)WIPE(cr_ptr, creature_type);
 
 	/* Count monsters */
 	m_cnt--;
@@ -347,7 +344,7 @@ void delete_monster(int y, int x)
 	c_ptr = &cave[y][x];
 
 	/* Delete the monster (if any) */
-	if (c_ptr->m_idx) delete_monster_idx(c_ptr->m_idx);
+	if (c_ptr->m_idx) delete_monster_idx(&m_list[c_ptr->m_idx]);
 }
 
 
@@ -509,7 +506,7 @@ void compact_monsters(int size)
 			}
 
 			/* Delete the monster */
-			delete_monster_idx(i);
+			delete_monster_idx(m_ptr);
 
 			/* Count the monster */
 			num++;
@@ -1591,6 +1588,17 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 	desc[0] = '\0';
 
+	if(m_ptr == p_ptr)
+	{
+#ifdef JP
+		(void)strcpy(desc, "‚ ‚È‚½");
+#else
+		(void)strcpy(desc, "You");
+#endif
+		return;
+	}
+
+
 	r_ptr = &r_info[m_ptr->ap_monster_idx];
 
 	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
@@ -1627,6 +1635,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 		/* Better not strcpy it, or we could corrupt r_info... */
 		name = silly_name;
 	}
+
 
 	/* Can we "see" it (exists + forced, or visible + not unforced) */
 	seen = (m_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && m_ptr->ml)));

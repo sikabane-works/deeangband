@@ -1872,7 +1872,7 @@ void do_cmd_pet_dismiss(void)
 			p_ptr->window |= (PW_MESSAGE);
 			window_stuff();
 
-			delete_monster_idx(pet_ctr);
+			delete_monster_idx(&m_list[pet_ctr]);
 			Dismissed++;
 		}
 	}

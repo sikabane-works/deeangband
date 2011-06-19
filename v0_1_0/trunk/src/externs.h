@@ -998,7 +998,7 @@ extern cptr funny_comments[MAX_SAN_COMMENT];
 extern void set_target(creature_type *m_ptr, int y, int x);
 extern void reset_target(creature_type *m_ptr);
 extern monster_race *real_r_ptr(creature_type *m_ptr);
-extern void delete_monster_idx(int i);
+extern void delete_monster_idx(creature_type *cr_ptr);
 extern void delete_monster(int y, int x);
 extern void compact_monsters(int size);
 extern void birth_uniques(void);

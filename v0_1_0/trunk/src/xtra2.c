@@ -1881,7 +1881,7 @@ msg_format("%s‚Ìñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", m_name);
 			if (is_pet(m_ptr)) mode |= PM_FORCE_PET;
 
 			/* Delete the monster */
-			delete_monster_idx(m_idx);
+			delete_monster_idx(&m_list[m_idx]);
 
 			if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
 			{
@@ -1895,7 +1895,7 @@ msg_format("%s‚Ìñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", m_name);
 		else
 		{
 			/* Delete the monster */
-			delete_monster_idx(m_idx);
+			delete_monster_idx(&m_list[m_idx]);
 		}
 
 		/* Prevent bug of chaos patron's reward */

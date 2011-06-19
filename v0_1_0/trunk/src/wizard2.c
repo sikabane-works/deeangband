@@ -1675,7 +1675,7 @@ static void do_cmd_wiz_zap(void)
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 			}
 
-			delete_monster_idx(i);
+			delete_monster_idx(&m_list[i]);
 		}
 	}
 }
@@ -1708,7 +1708,7 @@ static void do_cmd_wiz_zap_all(void)
 		}
 
 		/* Delete this monster */
-		delete_monster_idx(i);
+		delete_monster_idx(&m_list[i]);
 	}
 }
 

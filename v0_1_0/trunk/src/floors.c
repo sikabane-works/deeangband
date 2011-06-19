@@ -374,7 +374,7 @@ static void preserve_pet(void)
 			COPY(&party_mon[0], m_ptr, creature_type);
 
 			/* Delete from this floor */
-			delete_monster_idx(p_ptr->riding);
+			delete_monster_idx(&m_list[p_ptr->riding]);
 		}
 	}
 
@@ -427,7 +427,7 @@ static void preserve_pet(void)
 			num++;
 
 			/* Delete from this floor */
-			delete_monster_idx(i);
+			delete_monster_idx(&m_list[i]);
 		}
 	}
 
@@ -474,7 +474,7 @@ static void preserve_pet(void)
 			}
 
 			/* Delete the monster */
-			delete_monster_idx(i);
+			delete_monster_idx(&m_list[i]);
 		}
 	}
 }
@@ -911,7 +911,7 @@ void leave_floor(void)
 		    (r_ptr->flags7 & RF7_NAZGUL)) continue;
 
 		/* Delete non-unique quest monsters */
-		delete_monster_idx(i);
+		delete_monster_idx(&m_list[i]);
 	}
 
 	/* Check if there is a same item */
@@ -1241,7 +1241,7 @@ void change_floor(void)
 				if (r_ptr->floor_id != new_floor_id)
 				{
 					/* Disapper from here */
-					delete_monster_idx(i);
+					delete_monster_idx(&m_list[i]);
 				}
 			}
 

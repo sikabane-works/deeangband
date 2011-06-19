@@ -801,7 +801,7 @@ void teleport_level(int m_idx)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
-		delete_monster_idx(m_idx);
+		delete_monster_idx(&m_list[m_idx]);
 	}
 
 	/* Sound */
@@ -5527,7 +5527,7 @@ bool polymorph_monster(int y, int x)
 		m_ptr->hold_o_idx = 0;
 
 		/* "Kill" the "old" monster */
-		delete_monster_idx(c_ptr->m_idx);
+		delete_monster_idx(&m_list[c_ptr->m_idx]);
 
 		/* Create a new monster (no groups) */
 		if (place_monster_aux(0, y, x, new_monster_idx, mode))

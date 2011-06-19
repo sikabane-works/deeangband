@@ -589,7 +589,7 @@ static s16b monster_target_y;
  *
  * XXX XXX XXX Perhaps we should affect doors?
  */
-static bool project_f(int who, int r, int y, int x, int dam, int typ)
+static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int typ)
 {
 	cave_type       *c_ptr = &cave[y][x];
 	feature_type    *f_ptr = &f_info[c_ptr->feat];
@@ -597,9 +597,6 @@ static bool project_f(int who, int r, int y, int x, int dam, int typ)
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
 
-
-	/* XXX XXX XXX */
-	who = who ? who : 0;
 
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
@@ -5451,7 +5448,7 @@ note_dies = "はドロドロに溶けた！";
 					}
 				}
 
-				delete_monster_idx(c_ptr->m_idx);
+				delete_monster_idx(&m_list[c_ptr->m_idx]);
 
 				return (TRUE);
 			}
@@ -6079,7 +6076,7 @@ note = "には効果がなかった。";
 			monster_death(&m_list[c_ptr->m_idx], FALSE);
 
 			/* Delete the monster */
-			delete_monster_idx(c_ptr->m_idx);
+			delete_monster_idx(&m_list[c_ptr->m_idx]);
 
 			if (sad)
 			{
@@ -6128,7 +6125,7 @@ note = "には効果がなかった。";
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
-		delete_monster_idx(c_ptr->m_idx);
+		delete_monster_idx(&m_list[c_ptr->m_idx]);
 	}
 
 	/* If the player did it, give him experience, check fear */
@@ -8566,7 +8563,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					    }
 					  }
 					}
-					(void)project_f(0,0,y,x,dam,GF_SEEKER);
+					(void)project_f(who_ptr,0,y,x,dam,GF_SEEKER);
 				}
 				last_i = i;
 			}
@@ -8592,7 +8589,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(0,0,y,x,dam,GF_SEEKER);
+			(void)project_f(who_ptr,0,y,x,dam,GF_SEEKER);
 		}
 		return notice;
 	}
@@ -8690,7 +8687,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_f(0,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_f(who_ptr,0,y,x,dam,GF_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
@@ -8724,7 +8721,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(0,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_f(who_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -9025,14 +9022,12 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				//TODO
-				//if (project_f(who, d, y, x, dam, typ)) notice = TRUE;
+				if (project_f(who_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				//TODO
-				//if (project_f(who, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_f(who_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -9475,7 +9470,7 @@ bool binding_field( int dam )
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
-					(void)project_f(0,0,y,x,dam,GF_MANA); 
+					(void)project_f(NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}

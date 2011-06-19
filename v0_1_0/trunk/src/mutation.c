@@ -3770,7 +3770,7 @@ bool mutation_power_aux(u32b power)
 					}
 
 					/* Delete the monster, rather than killing it. */
-					delete_monster_idx(c_ptr->m_idx);
+					delete_monster_idx(&m_list[c_ptr->m_idx]);
 #ifdef JP
 					msg_print("その邪悪なモンスターは硫黄臭い煙とともに消え去った！");
 #else

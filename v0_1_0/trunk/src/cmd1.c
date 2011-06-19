@@ -2084,6 +2084,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	/* Access the weapon */
 	object_type     *o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
 
+	char            a_name[80];
 	char            m_name[80];
 
 	bool            success_hit = FALSE;
@@ -2181,6 +2182,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	(void)set_monster_csleep(m_ptr, 0);
 
 	/* Extract monster name (or "it") */
+	monster_desc(a_name, cr_ptr, 0);
 	monster_desc(m_name, m_ptr, 0);
 
 	/* Calculate the "attack quality" */
@@ -2244,15 +2246,43 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 			/* Message */
 #ifdef JP
-			if (backstab) msg_format("あなたは冷酷にも眠っている無力な%sを突き刺した！", m_name);
-			else if (fuiuchi) msg_format("不意を突いて%sに強烈な一撃を喰らわせた！", m_name);
-			else if (stab_fleeing) msg_format("逃げる%sを背中から突き刺した！", m_name);
-			else if (!monk_attack) msg_format("%sを攻撃した。", m_name);
+			if (backstab)
+			{
+				msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", a_name, m_name);
+			}
+			else if (fuiuchi)
+			{
+				msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", a_name, m_name);
+			}
+			else if (stab_fleeing)
+			{
+				msg_format("%sは逃げる%sを背中から突き刺した！", a_name, m_name);
+			}
+			else if (!monk_attack)
+			{
+				msg_format("%sは%sを攻撃した。", a_name, m_name);
+			}
 #else
-			if (backstab) msg_format("You cruelly stab the helpless, sleeping %s!", m_name);
-			else if (fuiuchi) msg_format("You make surprise attack, and hit %s with a powerful blow!", m_name);
-			else if (stab_fleeing) msg_format("You backstab the fleeing %s!",  m_name);
-			else if (!monk_attack) msg_format("You hit %s.", m_name);
+			if (backstab)
+			{
+				//TODO
+				msg_format("%s cruelly stab the helpless, sleeping %s!", a_name, m_name);
+			}
+			else if (fuiuchi)
+			{
+				//TODO
+				msg_format("%s make surprise attack, and hit %s with a powerful blow!", a_name, m_name);
+			}
+			else if (stab_fleeing)
+			{
+				//TODO
+				msg_format("%s backstab the fleeing %s!", a_name, m_name);
+			}
+			else if (!monk_attack)
+			{
+				//TODO
+				msg_format("%s hit %s.", a_name, m_name);
+			}
 #endif
 
 			/* Hack -- bare hands do one damage */
@@ -2373,9 +2403,10 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					if (r_ptr->flags1 & RF1_MALE)
 					{
 #ifdef JP
-						msg_format("%sに金的膝蹴りをくらわした！", m_name);
+						msg_format("%sは%sに金的膝蹴りをくらわした！", a_name, m_name);
 #else
-						msg_format("You hit %s in the groin with your knee!", m_name);
+						//TODO
+						msg_format("%s hit %s in the groin with your knee!", a_name, m_name);
 #endif
 
 						sound(SOUND_PAIN);
@@ -2391,8 +2422,9 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					    my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 					{
 #ifdef JP
-						msg_format("%sの足首に関節蹴りをくらわした！", m_name);
+						msg_format("%sは%sの足首に関節蹴りをくらわした！", a_name, m_name);
 #else
+						//TODO
 						msg_format("You kick %s in the ankle.", m_name);
 #endif
 
@@ -2407,7 +2439,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 					}
 
-					msg_format(ma_ptr->desc, m_name);
+					msg_format(ma_ptr->desc, a_name, m_name);
 				}
 
 				if (cr_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
@@ -3013,14 +3045,15 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 				/* Message */
 #ifdef JP
-				msg_format("ミス！ %sにかわされた。", m_name);
+				msg_format("%sは%sの攻撃をかわした。", m_name, a_name);
 #else
-				msg_format("You miss %s.", m_name);
+				msg_format("%^s misses %s.", m_name, a_name);
 #endif
 				/* Message */
 #ifdef JP
 				msg_print("振り回した大鎌が自分自身に返ってきた！");
 #else
+				//TODO
 				msg_print("Your scythe returns to you!");
 #endif
 
@@ -3128,9 +3161,9 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 				/* Message */
 #ifdef JP
-				msg_format("ミス！ %sにかわされた。", m_name);
+				msg_format("%sは%sの攻撃をかわした。", m_name, a_name);
 #else
-				msg_format("You miss %s.", m_name);
+				msg_format("%^s misses %s.", m_name, a_name);
 #endif
 			}
 		}
@@ -5383,3 +5416,4 @@ void travel_step(void)
 		travel.run--;
 }
 #endif
+

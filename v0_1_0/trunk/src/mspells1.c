@@ -3454,7 +3454,7 @@ msg_format("%s‚Í–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 					int dummy_x = m_ptr->fx;
 
 					if (p_ptr->inside_arena || p_ptr->inside_battle || !summon_possible(m_ptr->fy, m_ptr->fx)) return FALSE;
-					delete_monster_idx(cave[m_ptr->fy][m_ptr->fx].m_idx);
+					delete_monster_idx(&m_list[cave[m_ptr->fy][m_ptr->fx].m_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
 					m_list[hack_m_idx_ii].chp = dummy_hp;
 					m_list[hack_m_idx_ii].mhp = dummy_mhp;
@@ -3491,7 +3491,7 @@ msg_format("%s‚Í–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 								dummy_y = m_list[k].fy;
 								dummy_x = m_list[k].fx;
 							}
-							delete_monster_idx(k);
+							delete_monster_idx(&m_list[k]);
 						}
 					}
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANORLUPART, mode);
