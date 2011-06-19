@@ -2337,7 +2337,7 @@ static bool build_type5(void)
 			monster_idx = nest_mon_info[i].monster_idx;
 
 			/* Place that "random" monster (no groups) */
-			(void)place_monster_aux(0, y, x, monster_idx, 0L);
+			(void)place_monster_aux(p_ptr, y, x, monster_idx, 0L);
 
 			nest_mon_info[i].used = TRUE;
 		}
@@ -2584,28 +2584,28 @@ static bool build_type6(void)
 	}
 
 	/* Center monster */
-	place_monster_aux(0, yval, xval, what[7], PM_NO_KAGE);
-	place_monster_aux(0, yval, xval+1, what[6], PM_NO_KAGE);
-	place_monster_aux(0, yval, xval-1, what[6], PM_NO_KAGE);
-	place_monster_aux(0, yval-1, xval, what[6], PM_NO_KAGE);
-	place_monster_aux(0, yval+1, xval, what[6], PM_NO_KAGE);
-	place_monster_aux(0, yval-1, xval-1, what[5], PM_NO_KAGE);
-	place_monster_aux(0, yval+1, xval-1, what[5], PM_NO_KAGE);
-	place_monster_aux(0, yval-1, xval+1, what[5], PM_NO_KAGE);
-	place_monster_aux(0, yval+1, xval+1, what[5], PM_NO_KAGE);
+	place_monster_aux(NULL, yval, xval, what[7], PM_NO_KAGE);
+	place_monster_aux(NULL, yval, xval+1, what[6], PM_NO_KAGE);
+	place_monster_aux(NULL, yval, xval-1, what[6], PM_NO_KAGE);
+	place_monster_aux(NULL, yval-1, xval, what[6], PM_NO_KAGE);
+	place_monster_aux(NULL, yval+1, xval, what[6], PM_NO_KAGE);
+	place_monster_aux(NULL, yval-1, xval-1, what[5], PM_NO_KAGE);
+	place_monster_aux(NULL, yval+1, xval-1, what[5], PM_NO_KAGE);
+	place_monster_aux(NULL, yval-1, xval+1, what[5], PM_NO_KAGE);
+	place_monster_aux(NULL, yval+1, xval+1, what[5], PM_NO_KAGE);
 
 	k = 2;
 	while(k <= y2 - yval|| k <= x2 - xval)
 	{
 		for(i = -k; i <= k; i++)
 		{
-			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_monster_aux(0, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_monster_aux(0, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_monster_aux(NULL, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_monster_aux(NULL, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
 		}
 		for(i = -k + 1; i <= k - 1; i++)
 		{
-			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_monster_aux(0, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_monster_aux(0, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_monster_aux(NULL, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_monster_aux(NULL, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
 		}
 		k++;
 	}
@@ -5888,7 +5888,7 @@ static bool build_type13(void)
 	{
 		y = yval + placing[i][0];
 		x = xval + placing[i][1];
-		place_monster_aux(0, y, x, what[placing[i][2]], PM_NO_KAGE);
+		place_monster_aux(NULL, y, x, what[placing[i][2]], PM_NO_KAGE);
 	}
 
 	return TRUE;
@@ -6109,7 +6109,7 @@ static bool build_type15(void)
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
-				if (monster_idx) place_monster_aux(0, y, x, monster_idx, PM_ALLOW_SLEEP);
+				if (monster_idx) place_monster_aux(NULL, y, x, monster_idx, PM_ALLOW_SLEEP);
 
 				/* Walls around the breather */
 				for (dir2 = 0; dir2 < 8; dir2++)
@@ -6171,7 +6171,7 @@ static bool build_type15(void)
 			get_mon_num_prep(vault_aux_lite, NULL);
 
 			monster_idx = get_mon_num(dun_level);
-			if (monster_idx) place_monster_aux(0, yval, xval, monster_idx, 0L);
+			if (monster_idx) place_monster_aux(NULL, yval, xval, monster_idx, 0L);
 
 			/* Walls around the breather */
 			for (dir1 = 0; dir1 < 8; dir1++)
@@ -6239,7 +6239,7 @@ static bool build_type15(void)
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];
-				if (monster_idx) place_monster_aux(0, y, x, monster_idx, 0L);
+				if (monster_idx) place_monster_aux(NULL, y, x, monster_idx, 0L);
 			}
 
 			/* Place two potions */

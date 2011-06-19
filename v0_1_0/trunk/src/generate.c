@@ -534,7 +534,7 @@ bool place_quest_monsters(void)
 				if (!l) return FALSE;
 
 				/* Try to place the monster */
-				if (place_monster_aux(0, y, x, quest[i].monster_idx, mode))
+				if (place_monster_aux(p_ptr, y, x, quest[i].monster_idx, mode))
 				{
 					/* Success */
 					break;
@@ -1197,7 +1197,7 @@ static void arena_gen(void)
 
 	build_arena();
 
-	place_monster_aux(0, py + 5, px, arena_info[p_ptr->arena_number].monster_idx,
+	place_monster_aux(p_ptr, py + 5, px, arena_info[p_ptr->arena_number].monster_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
 
@@ -1302,7 +1302,7 @@ static void battle_gen(void)
 
 	for(i=0;i<4;i++)
 	{
-		place_monster_aux(0, py + 8 + (i/2)*4, px - 2 + (i%2)*4, battle_mon[i],
+		place_monster_aux(p_ptr, py + 8 + (i/2)*4, px - 2 + (i%2)*4, battle_mon[i],
 				  (PM_NO_KAGE | PM_NO_PET));
 		set_friendly(&m_list[cave[py+8+(i/2)*4][px-2+(i%2)*4].m_idx]);
 	}

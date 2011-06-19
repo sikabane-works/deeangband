@@ -2474,6 +2474,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * "disturb_near" (monster which is "easily" viewable moves in some
  * way).  Note that "moves" includes "appears" and "disappears".
  */
+//TODO  Marge to calc_bonuses
 void update_mon(int m_idx, bool full)
 {
 	creature_type *m_ptr = &m_list[m_idx];
@@ -3971,7 +3972,7 @@ static bool mon_scatter(int monster_idx, int *yp, int *xp, int y, int x, int max
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_monster_group(int who, int y, int x, int monster_idx, u32b mode)
+static bool place_monster_group(creature_type *who_ptr, int y, int x, int monster_idx, u32b mode)
 {
 	monster_race *r_ptr = &r_info[monster_idx];
 
@@ -4037,7 +4038,7 @@ static bool place_monster_group(int who, int y, int x, int monster_idx, u32b mod
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(&m_list[who], my, mx, monster_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(who_ptr, my, mx, monster_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4118,7 +4119,7 @@ static bool place_monster_okay(int monster_idx)
  * Note the use of the new "monster allocation table" code to restrict
  * the "get_mon_num()" function to "legal" escort types.
  */
-bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
+bool place_monster_aux(creature_type *who_ptr, int y, int x, int monster_idx, u32b mode)
 {
 	int             i, j;
 	monster_race    *r_ptr = &r_info[monster_idx];
@@ -4128,7 +4129,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(&m_list[who], y, x, monster_idx, MONEGO_NORMAL, mode);
+	i = place_monster_one(who_ptr, y, x, monster_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
 	m_ptr = &m_list[i];
@@ -4149,7 +4150,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
-			if(place_monster_one(&m_list[who], ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(who_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4167,7 +4168,7 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 	if (r_ptr->flags1 & (RF1_FRIENDS))
 	{
 		/* Attempt to place a group */
-		(void)place_monster_group(who, y, x, monster_idx, mode);
+		(void)place_monster_group(who_ptr, y, x, monster_idx, mode);
 	}
 
 
@@ -4198,14 +4199,14 @@ bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode)
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(&m_list[who], ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_monster_one(who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if ((r_info[z].flags1 & RF1_FRIENDS) ||
 			    (r_ptr->flags1 & RF1_ESCORTS))
 			{
 				/* Place a group of monsters */
-				(void)place_monster_group(place_monster_m_idx, ny, nx, z, mode);
+				(void)place_monster_group(&m_list[place_monster_m_idx], ny, nx, z, mode);
 			}
 		}
 	}
@@ -4234,7 +4235,7 @@ bool place_monster(int y, int x, u32b mode)
 	if (!monster_idx) return (FALSE);
 
 	/* Attempt to place the monster */
-	if (place_monster_aux(0, y, x, monster_idx, mode)) return (TRUE);
+	if (place_monster_aux(p_ptr, y, x, monster_idx, mode)) return (TRUE);
 
 	/* Oops */
 	return (FALSE);
@@ -4277,7 +4278,7 @@ bool alloc_horde(int y, int x)
 	while (--attempts)
 	{
 		/* Attempt to place the monster */
-		if (place_monster_aux(0, y, x, monster_idx, 0L)) break;
+		if (place_monster_aux(p_ptr, y, x, monster_idx, 0L)) break;
 	}
 
 	if (attempts < 1) return FALSE;
@@ -4327,7 +4328,7 @@ bool alloc_guardian(bool def_val)
 			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &r_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if (place_monster_aux(0, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
+				if (place_monster_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
@@ -4529,7 +4530,7 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_monster_aux(who, y, x, monster_idx, mode))
+	if (!place_monster_aux(&m_list[who], y, x, monster_idx, mode))
 	{
 		summon_specific_type = 0;
 		return (FALSE);
@@ -4541,12 +4542,9 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 }
 
 /* A "dangerous" function, creates a pet of the specified type */
-bool summon_named_creature (int who, int oy, int ox, int monster_idx, u32b mode)
+bool summon_named_creature(int who, int oy, int ox, int monster_idx, u32b mode)
 {
 	int x, y;
-
-	/* Paranoia */
-	/* if (!monster_idx) return; */
 
 	/* Prevent illegal monsters */
 	if (monster_idx >= max_monster_idx) return FALSE;
@@ -4556,7 +4554,7 @@ bool summon_named_creature (int who, int oy, int ox, int monster_idx, u32b mode)
 	if (!mon_scatter(monster_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_monster_aux(who, y, x, monster_idx, (mode | PM_NO_KAGE));
+	return place_monster_aux(&m_list[who], y, x, monster_idx, (mode | PM_NO_KAGE));
 }
 
 
@@ -4577,7 +4575,7 @@ bool multiply_monster(int m_idx, bool clone, u32b mode)
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new monster (awake, no groups) */
-	if (!place_monster_aux(m_idx, y, x, m_ptr->monster_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_monster_aux(&m_list[m_idx], y, x, m_ptr->monster_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */

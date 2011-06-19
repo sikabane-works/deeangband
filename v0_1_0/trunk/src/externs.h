@@ -1014,7 +1014,7 @@ extern void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *m_ptr, bool necro);
 extern void update_mon(int m_idx, bool full);
 extern void update_monsters(bool full);
-extern bool place_monster_aux(int who, int y, int x, int monster_idx, u32b mode);
+extern bool place_monster_aux(creature_type *who_ptr, int y, int x, int monster_idx, u32b mode);
 extern bool place_monster(int y, int x, u32b mode);
 extern int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u32b mode);
 extern bool alloc_horde(int y, int x);

@@ -5530,7 +5530,7 @@ bool polymorph_monster(int y, int x)
 		delete_monster_idx(&m_list[c_ptr->m_idx]);
 
 		/* Create a new monster (no groups) */
-		if (place_monster_aux(0, y, x, new_monster_idx, mode))
+		if (place_monster_aux(NULL, y, x, new_monster_idx, mode))
 		{
 			m_list[hack_m_idx_ii].nickname = back_m.nickname;
 			m_list[hack_m_idx_ii].parent_m_idx = back_m.parent_m_idx;
@@ -5542,7 +5542,7 @@ bool polymorph_monster(int y, int x)
 		else
 		{
 			/* Placing the new monster failed */
-			if (place_monster_aux(0, y, x, old_monster_idx, (mode | PM_NO_KAGE | PM_IGNORE_TERRAIN)))
+			if (place_monster_aux(NULL, y, x, old_monster_idx, (mode | PM_NO_KAGE | PM_IGNORE_TERRAIN)))
 			{
 				m_list[hack_m_idx_ii] = back_m;
 

@@ -5628,7 +5628,7 @@ msg_print("何か変わった気がする！");
 				int y, x;
 				y = py+ddy[tsuri_dir];
 				x = px+ddx[tsuri_dir];
-				if (place_monster_aux(0, y, x, monster_idx, PM_NO_KAGE))
+				if (place_monster_aux(p_ptr, y, x, monster_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
 					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
@@ -7060,7 +7060,7 @@ quit("セーブファイルが壊れています");
 		creature_type *m_ptr;
 		int pet_monster_idx = ((p_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		monster_race *r_ptr = &r_info[pet_monster_idx];
-		place_monster_aux(0, py, px - 1, pet_monster_idx,
+		place_monster_aux(p_ptr, py, px - 1, pet_monster_idx,
 				  (PM_FORCE_PET | PM_NO_KAGE));
 		m_ptr = &m_list[hack_m_idx_ii];
 		m_ptr->speed = r_ptr->speed;
