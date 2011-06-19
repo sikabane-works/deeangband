@@ -6389,7 +6389,7 @@ msg_print("生命力が体から吸い取られた気がする！");
  * We return "TRUE" if any "obvious" effects were observed.  XXX XXX Actually,
  * we just assume that the effects were obvious, for historical reasons.
  */
-static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int typ, int flg, int monspell)
+static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	int k = 0;
 	int rlev = 0;
@@ -6421,14 +6421,14 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 	/* Player is not here */
 	if (!player_bold(y, x)) return (FALSE);
 
-	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && who && (who != p_ptr->riding))
+	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && who_ptr != p_ptr && (who_ptr != &m_list[p_ptr->riding]))
 	{
 		if (kawarimi(TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
-	if (!who) return (FALSE);
-	if (who == p_ptr->riding) return (FALSE);
+	if (who_ptr == p_ptr) return (FALSE);
+	if (who_ptr == &m_list[p_ptr->riding]) return (FALSE);
 
 	if ((p_ptr->reflect || ((p_ptr->special_defense & KATA_FUUJIN) && !p_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
@@ -6446,20 +6446,20 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 
 
 		/* Choose 'new' target */
-		if (who > 0)
+		if (who_ptr != p_ptr)
 		{
 			do
 			{
-				t_y = m_list[who].fy - 1 + (byte)randint1(3);
-				t_x = m_list[who].fx - 1 + (byte)randint1(3);
+				t_y = who_ptr->fy - 1 + (byte)randint1(3);
+				t_x = who_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
 			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(py, px, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
-				t_y = m_list[who].fy;
-				t_x = m_list[who].fx;
+				t_y = who_ptr->fy;
+				t_x = who_ptr->fx;
 			}
 		}
 		else
@@ -6486,21 +6486,21 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 	if (blind) fuzzy = TRUE;
 
 
-	if (who > 0)
+	if (who_ptr != p_ptr)
 	{
 		/* Get the source monster */
-		m_ptr = &m_list[who];
 		/* Extract the monster level */
-		rlev = (((&r_info[m_ptr->monster_idx])->level >= 1) ? (&r_info[m_ptr->monster_idx])->level : 1);
+		rlev = (((&r_info[who_ptr->monster_idx])->level >= 1) ? (&r_info[who_ptr->monster_idx])->level : 1);
 
 		/* Get the monster name */
-		monster_desc(m_name, m_ptr, 0);
+		monster_desc(m_name, who_ptr, 0);
 
 		/* Get the monster's real name (gotten before polymorph!) */
 		strcpy(killer, who_name);
 	}
 	else
 	{
+/*TODO
 		switch (who)
 		{
 		case PROJECT_WHO_UNCTRL_POWER:
@@ -6527,6 +6527,13 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 #endif
 			break;
 		}
+*/
+
+#ifdef JP
+		strcpy(killer, "罠");
+#else
+		strcpy(killer, "a trap");
+#endif
 
 		/* Paranoia */
 		strcpy(m_name, killer);
@@ -7474,10 +7481,10 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 			{
 				/* Basic message */
 #ifdef JP
-				if (who > 0) msg_format("%^sに精神エネルギーを吸い取られてしまった！", m_name);
+				if (who_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", m_name);
 				else msg_print("精神エネルギーを吸い取られてしまった！");
 #else
-				if (who > 0) msg_format("%^s draws psychic energy from you!", m_name);
+				if (who_ptr != NULL) msg_format("%^s draws psychic energy from you!", m_name);
 				else msg_print("Your psychic energy is drawn!");
 #endif
 
@@ -7504,7 +7511,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 				p_ptr->window |= (PW_PLAYER);
 				p_ptr->window |= (PW_SPELL);
 
-				if (who > 0)
+				if (who_ptr != NULL)
 				{
 					/* Heal the monster */
 					if (m_ptr->chp < m_ptr->mhp)
@@ -7514,8 +7521,8 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 						if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (p_ptr->health_who == who) p_ptr->redraw |= (PR_HEALTH);
-						if (p_ptr->riding == who) p_ptr->redraw |= (PR_UHEALTH);
+						if (&m_list[p_ptr->health_who] == who_ptr) p_ptr->redraw |= (PR_HEALTH);
+						if (&m_list[p_ptr->riding] == who_ptr) p_ptr->redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (m_ptr->ml)
@@ -7767,7 +7774,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 	revenge_store(get_damage);
 
 	if ((p_ptr->tim_eyeeye || hex_spelling(HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !p_ptr->is_dead && (who > 0))
+		&& (get_damage > 0) && !p_ptr->is_dead && (who_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("攻撃が%s自身を傷つけた！", m_name);
@@ -7793,7 +7800,7 @@ static bool project_p(int who, cptr who_name, int r, int y, int x, int dam, int 
 	disturb(1, 0);
 
 
-	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && who && (who != p_ptr->riding))
+	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && who_ptr && (who_ptr != &m_list[p_ptr->riding]))
 	{
 		(void)kawarimi(FALSE);
 	}
@@ -9330,8 +9337,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the player */
-			//TODO
-			//if (project_p(who, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
+			if (project_p(who_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
 		}
 	}
 
