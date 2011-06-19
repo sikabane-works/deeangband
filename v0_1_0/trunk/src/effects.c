@@ -4838,11 +4838,11 @@ msg_print("傷がより軽いものに変化した。");
 	if (Nasty_effect)
 	{
 #ifdef JP
-msg_print("新たな傷ができた！");
-take_hit(p_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", -1);
+		msg_print("新たな傷ができた！");
+		take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", NULL, -1);
 #else
 		msg_print("A new wound was created!");
-		take_hit(p_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", -1);
+		take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 
 		set_cut(change);
@@ -5070,10 +5070,10 @@ msg_format("%sの構成が変化した！", p_ptr->irace_idx == RACE_ANDROID ? "機械" : "
 		{
 #ifdef JP
 			msg_print("現在の姿で生きていくのは困難なようだ！");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "致命的な突然変異", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "致命的な突然変異", NULL, -1);
 #else
 			msg_print("You find living difficult in your present form!");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "a lethal mutation", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "a lethal mutation", NULL, -1);
 #endif
 
 			power -= 10;
@@ -5119,20 +5119,20 @@ msg_format("%sの構成が変化した！", p_ptr->irace_idx == RACE_ANDROID ? "機械" : "
  * setting the player to "dead".
  */
 
-int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, int monspell)
+int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
-	int old_chp = cr_ptr->chp;
+	int old_chp = tar_ptr->chp;
 
 	char death_message[1024];
 	char tmp[80];
 
-	int warning = (cr_ptr->mhp * hitpoint_warn / 10);
+	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
 
 	/* Paranoia */
-	if (cr_ptr->is_dead) return 0;
+	if (tar_ptr->is_dead) return 0;
 
-	if (cr_ptr->sutemi) damage *= 2;
-	if (cr_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
+	if (tar_ptr->sutemi) damage *= 2;
+	if (tar_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
 
 	if (easy_band) damage = (damage+1)/2;
 
@@ -5151,7 +5151,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 	/* Mega-Hack -- Apply "invulnerability" */
 	if ((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))
 	{
-		if (IS_INVULN(cr_ptr) && (damage < 9000))
+		if (IS_INVULN(tar_ptr) && (damage < 9000))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -5196,7 +5196,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 			}
 		}
 
-		if (cr_ptr->wraith_form)
+		if (tar_ptr->wraith_form)
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -5213,7 +5213,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 			}
 		}
 
-		if (cr_ptr->special_defense & KATA_MUSOU)
+		if (tar_ptr->special_defense & KATA_MUSOU)
 		{
 			damage /= 2;
 			if ((damage == 0) && one_in_(2)) damage = 1;
@@ -5221,31 +5221,31 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 	} /* not if LOSELIFE USELIFE */
 
 	/* Hurt the player */
-	cr_ptr->chp -= damage;
-	if(damage_type == DAMAGE_GENO && cr_ptr->chp < 0)
+	tar_ptr->chp -= damage;
+	if(damage_type == DAMAGE_GENO && tar_ptr->chp < 0)
 	{
-		damage += cr_ptr->chp;
-		cr_ptr->chp = 0;
+		damage += tar_ptr->chp;
+		tar_ptr->chp = 0;
 	}
 
 	/* Display the hitpoints */
-	cr_ptr->redraw |= (PR_HP);
+	tar_ptr->redraw |= (PR_HP);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_PLAYER);
+	tar_ptr->window |= (PW_PLAYER);
 
 	handle_stuff();
 
-	if (damage_type != DAMAGE_GENO && cr_ptr->chp == 0)
+	if (damage_type != DAMAGE_GENO && tar_ptr->chp == 0)
 	{
 		chg_virtue(V_SACRIFICE, 1);
 		chg_virtue(V_CHANCE, 2);
 	}
 
 	/* Dead player */
-	if (cr_ptr->chp < 0)
+	if (tar_ptr->chp < 0)
 	{
-		bool android = (cr_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
+		bool android = (tar_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
 
 #ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
 		if (!cheat_save)
@@ -5258,27 +5258,27 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 		chg_virtue(V_SACRIFICE, 10);
 
 		/* Leaving */
-		cr_ptr->leaving = TRUE;
+		tar_ptr->leaving = TRUE;
 
 		/* Note death */
-		cr_ptr->is_dead = TRUE;
+		tar_ptr->is_dead = TRUE;
 
-		if (cr_ptr->inside_arena)
+		if (tar_ptr->inside_arena)
 		{
-			cptr m_name = r_name+r_info[arena_info[cr_ptr->arena_number].monster_idx].name;
+			cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].monster_idx].name;
 #ifdef JP
 			msg_format("あなたは%sの前に敗れ去った。", m_name);
 #else
 			msg_format("You are beaten by %s.", m_name);
 #endif
 			msg_print(NULL);
-			if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - cr_ptr->arena_number, m_name);
+			if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - tar_ptr->arena_number, m_name);
 		}
 		else
 		{
 			int q_idx = quest_number(dun_level);
 			bool seppuku = streq(hit_from, "Seppuku");
-			bool winning_seppuku = cr_ptr->total_winner && seppuku;
+			bool winning_seppuku = tar_ptr->total_winner && seppuku;
 
 #ifdef WORLD_SCORE
 			/* Make screen dump */
@@ -5288,24 +5288,24 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 			/* Note cause of death */
 			if (seppuku)
 			{
-				strcpy(cr_ptr->died_from, hit_from);
+				strcpy(tar_ptr->died_from, hit_from);
 #ifdef JP
-				if (!winning_seppuku) strcpy(cr_ptr->died_from, "切腹");
+				if (!winning_seppuku) strcpy(tar_ptr->died_from, "切腹");
 #endif
 			}
 			else
 			{
 				char dummy[1024];
 #ifdef JP
-				sprintf(dummy, "%s%s%s", !cr_ptr->paralyzed ? "" : cr_ptr->free_act ? "彫像状態で" : "麻痺状態で", cr_ptr->image ? "幻覚に歪んだ" : "", hit_from);
+				sprintf(dummy, "%s%s%s", !tar_ptr->paralyzed ? "" : tar_ptr->free_act ? "彫像状態で" : "麻痺状態で", tar_ptr->image ? "幻覚に歪んだ" : "", hit_from);
 #else
-				sprintf(dummy, "%s%s", hit_from, !cr_ptr->paralyzed ? "" : " while helpless");
+				sprintf(dummy, "%s%s", hit_from, !tar_ptr->paralyzed ? "" : " while helpless");
 #endif
-				my_strcpy(cr_ptr->died_from, dummy, sizeof cr_ptr->died_from);
+				my_strcpy(tar_ptr->died_from, dummy, sizeof tar_ptr->died_from);
 			}
 
 			/* No longer a winner */
-			cr_ptr->total_winner = FALSE;
+			tar_ptr->total_winner = FALSE;
 
 			if (winning_seppuku)
 			{
@@ -5319,7 +5319,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 			{
 				char buf[24];
 
-				if (cr_ptr->inside_arena)
+				if (tar_ptr->inside_arena)
 #ifdef JP
 					strcpy(buf,"アリーナ");
 #else
@@ -5346,9 +5346,9 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 #endif
 
 #ifdef JP
-				sprintf(tmp, "%sで%sに殺された。", buf, cr_ptr->died_from);
+				sprintf(tmp, "%sで%sに殺された。", buf, tar_ptr->died_from);
 #else
-				sprintf(tmp, "killed by %s %s.", cr_ptr->died_from, buf);
+				sprintf(tmp, "killed by %s %s.", tar_ptr->died_from, buf);
 #endif
 				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
 			}
@@ -5374,8 +5374,8 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 			flush();
 
 			/* Initialize "last message" buffer */
-			if (cr_ptr->last_message) string_free(cr_ptr->last_message);
-			cr_ptr->last_message = NULL;
+			if (tar_ptr->last_message) string_free(tar_ptr->last_message);
+			tar_ptr->last_message = NULL;
 
 			/* Hack -- Note death */
 			if (!last_words)
@@ -5429,7 +5429,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 					strcpy(death_message, android ? "You are broken." : "You die.");
 #endif
 				}
-				else cr_ptr->last_message = string_make(death_message);
+				else tar_ptr->last_message = string_make(death_message);
 
 #ifdef JP
 				if (winning_seppuku)
@@ -5495,7 +5495,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 	}
 
 	/* Hitpoint warning */
-	if (cr_ptr->chp < warning)
+	if (tar_ptr->chp < warning)
 	{
 		/* Hack -- bell on first notice */
 		if (old_chp > warning) bell();
@@ -5504,7 +5504,7 @@ int take_hit(creature_type *cr_ptr, int damage_type, int damage, cptr hit_from, 
 
 		if (record_danger && (old_chp > warning))
 		{
-			if (cr_ptr->image && damage_type == DAMAGE_ATTACK)
+			if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
 #ifdef JP
 				hit_from = "何か";
 #else
@@ -5535,7 +5535,7 @@ msg_print("*** 警告:低ヒット・ポイント！ ***");
 		msg_print(NULL);
 		flush();
 	}
-	if (cr_ptr->wild_mode && !cr_ptr->leaving && (cr_ptr->chp < MAX(warning, cr_ptr->mhp/5)))
+	if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 	{
 		change_wild_mode();
 	}

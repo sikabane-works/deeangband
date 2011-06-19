@@ -1007,9 +1007,9 @@ static bool cmd_racial_power_aux(s32b command)
 			if (command == -3)
 			{
 #ifdef JP
-				int gain_sp = take_hit(p_ptr, DAMAGE_USELIFE, p_ptr->lev, "‚g‚o‚©‚ç‚l‚o‚Ö‚Ì–³–d‚È•ÏŠ·", -1) / 5;
+				int gain_sp = take_hit(NULL, p_ptr, DAMAGE_USELIFE, p_ptr->lev, "‚g‚o‚©‚ç‚l‚o‚Ö‚Ì–³–d‚È•ÏŠ·", NULL, -1) / 5;
 #else
-				int gain_sp = take_hit(p_ptr, DAMAGE_USELIFE, p_ptr->lev, "thoughtless convertion from HP to SP", -1) / 5;
+				int gain_sp = take_hit(NULL, p_ptr, DAMAGE_USELIFE, p_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
 				if (gain_sp)
 				{
@@ -3905,9 +3905,9 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 				actual_racial_cost -= p_ptr->csp;
 				p_ptr->csp = 0;
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_USELIFE, actual_racial_cost, "‰ß“x‚ÌW’†", -1);
+				take_hit(NULL, p_ptr, DAMAGE_USELIFE, actual_racial_cost, "‰ß“x‚ÌW’†", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", -1);
+				take_hit(NULL, p_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
 #endif
 			}
 			else p_ptr->csp -= actual_racial_cost;

@@ -5185,7 +5185,7 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 #endif
 
 			fire_ball(GF_DISINTEGRATE, 0, p_ptr->lev * 4, 4);
-			take_hit(p_ptr, DAMAGE_NOESCAPE, p_ptr->lev * 4, wrath_reason, -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, p_ptr->lev * 4, wrath_reason, NULL, -1);
 #ifdef JP
 			reward = "分解の球が発生した。";
 #else
@@ -5369,7 +5369,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 			msg_print("'Die, mortal!'");
 #endif
 
-			take_hit(p_ptr, DAMAGE_LOSELIFE, p_ptr->lev * 4, wrath_reason, -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, p_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
 				(void)dec_stat(dummy, 10 + randint1(15), FALSE);

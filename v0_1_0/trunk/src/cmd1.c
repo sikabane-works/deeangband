@@ -1188,7 +1188,7 @@ static void hit_trap(bool break_trap)
 				name = "a trap door";
 #endif
 
-				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 
 				/* Still alive and autosave enabled */
 				if (autosave_l && (p_ptr->chp >= 0))
@@ -1233,7 +1233,7 @@ static void hit_trap(bool break_trap)
 				name = "a pit trap";
 #endif
 
-				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
@@ -1288,7 +1288,7 @@ static void hit_trap(bool break_trap)
 				}
 
 				/* Take the damage */
-				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
@@ -1361,7 +1361,7 @@ static void hit_trap(bool break_trap)
 				}
 
 				/* Take the damage */
-				take_hit(p_ptr, DAMAGE_NOESCAPE, dam, name, -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 
 			break;
@@ -1455,9 +1455,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr->slow + randint0(20) + 20, FALSE);
@@ -1486,9 +1486,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_STR);
@@ -1517,9 +1517,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_DEX);
@@ -1548,9 +1548,9 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_ATTACK, dam, "a dart trap", -1);
+				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
 				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_CON);
@@ -1831,7 +1831,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (IS_OPPOSE_FIRE(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff();
 		}
@@ -1857,7 +1857,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (IS_OPPOSE_COLD(p_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (p_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff();
 		}
@@ -1884,7 +1884,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You get zapped!");
 #endif
 
-			take_hit(p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff();
 		}
@@ -3138,9 +3138,9 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (k < 0) k = 0;
 
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_FORCE, k, "死の大鎌", -1);
+				take_hit(NULL, p_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_FORCE, k, "Death scythe", -1);
+				take_hit(NULL, p_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
 				redraw_stuff();

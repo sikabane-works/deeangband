@@ -166,9 +166,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_WEAKNESS:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_STR);
@@ -179,9 +179,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_SICKNESS:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_CON);
@@ -192,9 +192,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_STUPIDITY:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_INT);
@@ -205,9 +205,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_NAIVETY:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_WIS);
@@ -218,9 +218,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_UNHEALTH:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_CON);
@@ -231,9 +231,9 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_DISEASE:
 			{
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(A_STR);
@@ -961,10 +961,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_RUINATION:
 #ifdef JP
 			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "破滅の薬", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "破滅の薬", NULL, -1);
 #else
 			msg_print("Your nerves and muscles feel weak and lifeless!");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
 			(void)dec_stat(A_DEX, 25, TRUE);
@@ -1003,10 +1003,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_DETONATIONS:
 #ifdef JP
 			msg_print("体の中で激しい爆発が起きた！");
-			take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "爆発の薬", -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "爆発の薬", NULL, -1);
 #else
 			msg_print("Massive explosions rupture your body!");
-			take_hit(p_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
 			(void)set_stun(p_ptr->stun + 75);
@@ -1019,10 +1019,10 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			chg_virtue(V_UNLIFE, 5);
 #ifdef JP
 			msg_print("死の予感が体中を駆けめぐった。");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
 #else
 			msg_print("A feeling of Death flows through your body.");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", -1);
+			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2026,9 +2026,9 @@ msg_print("ダンジョンが揺れた...");
 			/* Note: "Double" damage since it is centered on the player ... */
 			if (!(IS_OPPOSE_FIRE(p_ptr) || p_ptr->resist_fire || p_ptr->immune_fire))
 #ifdef JP
-take_hit(p_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2041,9 +2041,9 @@ take_hit(p_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", -1);
 			fire_ball(GF_ICE, 0, 777, 4);
 			if (!(IS_OPPOSE_COLD(p_ptr) || p_ptr->resist_cold || p_ptr->immune_cold))
 #ifdef JP
-take_hit(p_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2055,9 +2055,9 @@ take_hit(p_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", -1);
 			fire_ball(GF_CHAOS, 0, 1000, 4);
 			if (!p_ptr->resist_chaos)
 #ifdef JP
-take_hit(p_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", -1);
+				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2662,9 +2662,9 @@ msg_print("ダンジョンが揺れた。");
 			if ((p_ptr->cls_idx != CLASS_MAGE) && (p_ptr->cls_idx != CLASS_HIGH_MAGE) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_MAGIC_EATER) && (p_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
-				(void)take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", -1);
+				(void)take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
 #else
-				(void)take_hit(p_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", -1);
+				(void)take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
 #endif
 			}
 			ident = TRUE;
@@ -4248,11 +4248,11 @@ msg_print("その宝石は赤く明るく光った！");
 				chg_virtue(V_ENLIGHTEN, 1);
 				wiz_lite(FALSE);
 #ifdef JP
-msg_print("その宝石はあなたの体力を奪った...");
-take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(3,8), "審判の宝石", -1);
+				msg_print("その宝石はあなたの体力を奪った...");
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(3,8), "審判の宝石", NULL, -1);
 #else
 				msg_print("The Jewel drains your vitality...");
-				take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(3, 8), "the Jewel of Judgement", -1);
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(3, 8), "the Jewel of Judgement", NULL, -1);
 #endif
 
 				(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
@@ -5292,9 +5292,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "危険な秘密", -1);
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "危険な秘密", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "perilous secrets", -1);
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(1, 12), "perilous secrets", NULL, -1);
 #endif
 
 				/* Confusing. */
@@ -5304,9 +5304,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				/* Exercise a little care... */
 				if (one_in_(20))
 #ifdef JP
-					take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "危険な秘密", -1);
+					take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "危険な秘密", NULL, -1);
 #else
-					take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "perilous secrets", -1);
+					take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(4, 10), "perilous secrets", NULL, -1);
 #endif
 				o_ptr->timeout = 0;
 				break;

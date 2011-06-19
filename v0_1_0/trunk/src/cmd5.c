@@ -1378,9 +1378,9 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 #ifdef JP
-				take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", -1);
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
 #else
-				take_hit(p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", -1);
+				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 
 				if ((spell > 15) && one_in_(6) && !p_ptr->hold_life)
@@ -2016,10 +2016,10 @@ bool rakuba(int dam, bool force)
 			monster_desc(m_name, m_ptr, 0);
 #ifdef JP
 msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-			take_hit(p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-			take_hit(p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", -1);
+			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
 #endif
 			return FALSE;
 		}
@@ -2071,9 +2071,9 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	else
 	{
 #ifdef JP
-		take_hit(p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", -1);
+		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
 #else
-		take_hit(p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", -1);
+		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
 #endif
 		fall_dam = TRUE;
 	}

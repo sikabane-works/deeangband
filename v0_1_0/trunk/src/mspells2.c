@@ -3291,7 +3291,7 @@ bool monst_spell_monst(int m_idx)
 						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 						   -- henkma
 						 */
-						get_damage = take_hit(p_ptr, DAMAGE_NOESCAPE, dam, m_name, -1);
+						get_damage = take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, m_name, NULL, -1);
 						if (p_ptr->tim_eyeeye && get_damage > 0 && !p_ptr->is_dead)
 						{
 #ifdef JP

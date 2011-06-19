@@ -1835,9 +1835,9 @@ void call_the_(void)
 		}
 
 #ifdef JP
-		take_hit(p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "©E“I‚È‹•–³µ—ˆ", -1);
+		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "©E“I‚È‹•–³µ—ˆ", NULL, -1);
 #else
-		take_hit(p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", -1);
+		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
 #endif
 	}
 }
@@ -5022,7 +5022,7 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 	}
 
 	/* Take damage */
-	get_damage = take_hit(p_ptr, DAMAGE_ATTACK, dam, kb_str, monspell);
+	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_acid))
@@ -5061,7 +5061,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 		(void)do_dec_stat(A_DEX);
 
 	/* Take damage */
-	get_damage = take_hit(p_ptr, DAMAGE_ATTACK, dam, kb_str, monspell);
+	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_elec))
@@ -5101,7 +5101,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 		(void)do_dec_stat(A_STR);
 
 	/* Take damage */
-	get_damage = take_hit(p_ptr, DAMAGE_ATTACK, dam, kb_str, monspell);
+	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_fire))
@@ -5140,7 +5140,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 		(void)do_dec_stat(A_STR);
 
 	/* Take damage */
-	get_damage = take_hit(p_ptr, DAMAGE_ATTACK, dam, kb_str, monspell);
+	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_cold))
