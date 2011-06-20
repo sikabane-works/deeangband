@@ -2019,24 +2019,23 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 		{
 			case MUT2_SCOR_TAIL:
 				project(0, 0, m_ptr->fy, m_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
-				*mdeath = (m_ptr->monster_idx == 0);
 				break;
 			case MUT2_HORNS:
-				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], 0, k, NULL , NULL, -1);
+				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_BEAK:
-				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], 0, k, NULL , NULL, -1);
+				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TRUNK:
-				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], 0, k, NULL , NULL, -1);
+				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TENTACLES:
-				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], 0, k, NULL , NULL, -1);
+				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
-				*mdeath = mon_take_hit(p_ptr, &m_list[m_idx], 0, k, NULL , NULL, -1);
+				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 		}
-
+		*mdeath = (m_ptr->monster_idx == 0);
 		touch_zap_player(m_ptr);
 	}
 	/* Player misses */
@@ -2750,7 +2749,8 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				drain_result = m_ptr->chp;
 
 			/* Damage, check for fear and death */
-			if (mon_take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1))
+			mon_take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1);
+			if(m_ptr->monster_idx == 0);
 			{
 				*mdeath = TRUE;
 				if ((cr_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
@@ -3404,7 +3404,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 			{
 				int k;
 #ifdef JP
-				msg_format("あなたは残酷にも %sを踏みつけた！", m_name);
+				msg_format("あなたは残酷にも%sを踏みつけた！", m_name);
 #else
 				msg_format("You tranmpled %s cruelly!", m_name);
 #endif

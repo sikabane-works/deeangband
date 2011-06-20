@@ -6136,13 +6136,10 @@ note = "には効果がなかった。";
 		bool fear = FALSE;
 
 		/* Hurt the monster, check for fear and death */
-		if (mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1))
-		{
-			/* Dead monster */
-		}
+		mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
 
 		/* Damaged monster */
-		else
+		if(&m_list[c_ptr->m_idx].monster_idx != 0)
 		{
 			/* HACK - anger the monster before showing the sleep message */
 			if (do_sleep) anger_monster(m_ptr);
@@ -6165,20 +6162,6 @@ note = "には効果がなかった。";
 			/* Anger monsters */
 			if (((dam > 0) || get_angry) && !do_sleep)
 				anger_monster(m_ptr);
-
-			/* Take note */
-			if ((fear || do_fear) && seen)
-			{
-				/* Sound */
-				sound(SOUND_FLEE);
-
-				/* Message */
-#ifdef JP
-				msg_format("%^sは恐怖して逃げ出した！", m_name);
-#else
-				msg_format("%^s flees in terror!", m_name);
-#endif
-			}
 
 			/* Hack -- handle sleep */
 			if (do_sleep) (void)set_monster_csleep(&m_list[c_ptr->m_idx], do_sleep);

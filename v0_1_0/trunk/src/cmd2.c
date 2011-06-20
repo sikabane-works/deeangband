@@ -3808,13 +3808,10 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				if (mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1))
-				{
-					/* Dead monster */
-				}
+				mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1);
 
 				/* No death */
-				else
+				if(m_list[c_ptr->m_idx].monster_idx != 0)
 				{
 					/* STICK TO */
 					if (object_is_fixed_artifact(q_ptr))
@@ -4462,13 +4459,10 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				}
 
 				/* Hit the monster, check for death */
-				if (mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1))
-				{
-					/* Dead monster */
-				}
+				mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1);
 
 				/* No death */
-				else
+				if(m_list[c_ptr->m_idx].monster_idx != 0)
 				{
 					/* Message */
 					message_pain(c_ptr->m_idx, tdam);

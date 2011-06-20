@@ -1854,7 +1854,8 @@ msg_format("%sは体力を回復したようだ。", m_name);
 			{
 				sound(SOUND_EXPLODE);
 
-				if (mon_take_hit(p_ptr, &m_list[m_idx], 0, m_ptr->chp + 1, NULL, NULL, -1))
+				mon_take_hit(p_ptr, &m_list[m_idx], 0, m_ptr->chp + 1, NULL, NULL, -1);
+				if(m_list[m_idx].monster_idx == 0)
 				{
 					blinked = FALSE;
 					alive = FALSE;
@@ -1874,13 +1875,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは突然熱くなった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は灰の山になった。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は灰の山になった。", -1);
 #else
 						msg_format("%^s is suddenly very hot!", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of ash.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
-
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1904,13 +1904,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは電撃をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は燃え殻の山になった。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は燃え殻の山になった。", -1);
 #else
 						msg_format("%^s gets zapped!", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of cinder.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
-
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1934,13 +1933,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは冷気をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は凍りついた。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は凍りついた。", -1);
 #else
 						msg_format("%^s is very cold!", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " was frozen.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " was frozen.", -1);
 #endif
-
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1965,12 +1963,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは鏡の破片をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "はズタズタになった。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "はズタズタになった。", -1);
 #else
 						msg_format("%^s gets zapped!", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " had torn to pieces.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " had torn to pieces.", -1);
 #endif
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2001,12 +1999,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 							msg_format("%^sは聖なるオーラで傷ついた！", m_name);
-							if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
+							mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1);
 #else
 							msg_format("%^s is injured by holy power!", m_name);
-
-							if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
+							mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1);
 #endif
+							if(m_list[m_idx].monster_idx == 0)
 							{
 								blinked = FALSE;
 								alive = FALSE;
@@ -2033,13 +2031,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sが鋭い闘気のオーラで傷ついた！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1);
 #else
 						msg_format("%^s is injured by the Force", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1);
 #endif
-
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2074,12 +2071,12 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("影のオーラが%^sに反撃した！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1);
 #else
 						msg_format("Enveloped shadows attack %^s.", m_name);
-
-						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
+						mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1);
 #endif
+						if(m_list[m_idx].monster_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2256,17 +2253,6 @@ msg_format("%^sから落ちてしまった！", m_name);
 	if (p_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !p_ptr->inside_arena)
 	{
 		r_ptr->r_deaths++;
-	}
-
-	if (m_ptr->ml && fear && alive && !p_ptr->is_dead)
-	{
-		sound(SOUND_FLEE);
-#ifdef JP
-		msg_format("%^sは恐怖で逃げ出した！", m_name);
-#else
-		msg_format("%^s flees in terror!", m_name);
-#endif
-
 	}
 
 	if (p_ptr->special_defense & KATA_IAI)

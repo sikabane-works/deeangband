@@ -1825,7 +1825,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 				else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_format("%s！お許し下さい！", m_name);
 				else
-msg_format("%sを倒した。", m_name);
+					msg_format("%sを倒した。", m_name);
 				if (atk_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_format("%s!お許し下さい！", m_name);
 #else
@@ -1942,11 +1942,8 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 			/* Hack -- note fear */
 			fear = TRUE;
 
-			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_monster_monfear(tar_ptr, (randint1(10) +
-					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
-					   20 : ((11 - percentage) * 5))));
 		}
+
 	}
 
 #endif
@@ -1970,6 +1967,29 @@ msg_format("%^sに振り落とされた！", m_name);
 		}
 	}
 #endif
+
+	if(fear && !MON_MONFEAR(tar_ptr))
+	{
+		char m_name[80];
+		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+
+		/* Extract monster name */
+		monster_desc(m_name, tar_ptr, 0);
+
+		/*TODO Feared Message:
+		sound(SOUND_FLEE);
+#ifdef JP
+		msg_format("%^sは恐怖で逃げ出した！", m_name);
+#else
+		msg_format("%^s flees in terror!", m_name);
+#endif
+		*/
+
+		/* XXX XXX XXX Hack -- Add some timed fear */
+		(void)set_monster_monfear(tar_ptr, (randint1(10) +
+				  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
+l				   20 : ((11 - percentage) * 5))));
+	}
 
 	/* Not dead yet */
 	return (FALSE);
