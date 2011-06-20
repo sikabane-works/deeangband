@@ -965,7 +965,7 @@ extern void process_monsters_mtimed(int mtimed_idx);
 extern void dispel_monster_status(int m_idx);
 extern u32b get_curse(int power, object_type *o_ptr);
 extern void curse_equipment(int chance, int heavy_chance);
-extern void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int who);
+extern void mon_take_hit_mon(creature_type *cr_ptr, int damage, bool *fear, cptr note, int who);
 extern bool process_the_world(int num, int who, bool vs_player);
 extern void monster_gain_exp(int m_idx, int s_idx);
 
@@ -1507,7 +1507,8 @@ extern void check_experience(void);
 extern void check_quest_completion(creature_type *m_ptr);
 extern cptr extract_note_dies(monster_race *r_ptr);
 extern void monster_death(creature_type *cr_ptr, bool drop_item);
-extern bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool *fear, cptr note);
+//extern int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell);
+extern int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int dam, cptr hit_from, cptr note, int monspell);
 extern void get_screen_size(int *wid_p, int *hgt_p);
 extern void panel_bounds_center(void);
 extern void resize_map(void);

@@ -1493,11 +1493,11 @@ static void get_exp_from_mon(int dam, creature_type *m_ptr)
  * monster worth more than subsequent monsters.  This would also need
  * to induce changes in the monster recall code.
  */
-bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool *fear, cptr note)
+int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
-
 	creature_type    exp_mon;
+	bool fear;
 
 	/* Innocent until proven otherwise */
 	bool        innocent = TRUE, thief = FALSE;
@@ -1507,7 +1507,7 @@ bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool 
 	COPY(&exp_mon, tar_ptr, creature_type);
 	if (!(r_ptr->flags7 & RF7_KILL_EXP))
 	{
-		expdam = (tar_ptr->chp > dam) ? dam : tar_ptr->chp;
+		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
 
 		get_exp_from_mon(expdam, &exp_mon);
@@ -1535,7 +1535,7 @@ bool mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int dam, bool 
 	//if (!m_idx) return TRUE;
 
 	/* Hurt it */
-	tar_ptr->chp -= dam;
+	tar_ptr->chp -= damage;
 
 	/* It is dead now */
 	if (tar_ptr->chp < 0)
@@ -1906,7 +1906,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 			get_exp_from_mon(((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
 
 		/* Not afraid */
-		(*fear) = FALSE;
+		fear = FALSE;
 
 		/* Monster is dead */
 		return (TRUE);
@@ -1916,13 +1916,13 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #ifdef ALLOW_FEAR
 
 	/* Mega-Hack -- Pain cancels fear */
-	if (MON_MONFEAR(tar_ptr) && (dam > 0))
+	if (MON_MONFEAR(tar_ptr) && (damage > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(dam)))
+		if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(damage)))
 		{
 			/* No more fear */
-			(*fear) = FALSE;
+			fear = FALSE;
 		}
 	}
 
@@ -1937,14 +1937,14 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		 * or (usually) when hit for half its current hit points
 		 */
 		if ((randint1(10) >= percentage) ||
-		    ((dam >= tar_ptr->chp) && (randint0(100) < 80)))
+		    ((damage >= tar_ptr->chp) && (randint0(100) < 80)))
 		{
 			/* Hack -- note fear */
-			(*fear) = TRUE;
+			fear = TRUE;
 
 			/* XXX XXX XXX Hack -- Add some timed fear */
 			(void)set_monster_monfear(tar_ptr, (randint1(10) +
-					  (((dam >= tar_ptr->chp) && (percentage > 7)) ?
+					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
 					   20 : ((11 - percentage) * 5))));
 		}
 	}
@@ -1952,15 +1952,15 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #endif
 
 #if 0
-	if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (dam > 0))
+	if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (damage > 0))
 	{
 		char m_name[80];
 
 		/* Extract monster name */
 		monster_desc(m_name, tar_ptr, 0);
 
-		if (tar_ptr->chp > tar_ptr->mhp/3) dam = (dam + 1) / 2;
-		if (rakuba((dam > 200) ? 200 : dam, FALSE))
+		if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
+		if (rakuba((damage > 200) ? 200 : damage, FALSE))
 		{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);

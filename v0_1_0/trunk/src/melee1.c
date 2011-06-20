@@ -1854,7 +1854,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 			{
 				sound(SOUND_EXPLODE);
 
-				if (mon_take_hit(p_ptr, &m_list[m_idx], m_ptr->chp + 1, &fear, NULL))
+				if (mon_take_hit(p_ptr, &m_list[m_idx], 0, m_ptr->chp + 1, NULL, NULL, -1))
 				{
 					blinked = FALSE;
 					alive = FALSE;
@@ -1874,13 +1874,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは突然熱くなった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    "は灰の山になった。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は灰の山になった。", -1))
 #else
 						msg_format("%^s is suddenly very hot!", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    " turns into a pile of ash."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of ash.", -1))
 #endif
 
 						{
@@ -1906,13 +1904,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは電撃をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    "は燃え殻の山になった。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は燃え殻の山になった。", -1))
 #else
 						msg_format("%^s gets zapped!", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    " turns into a pile of cinder."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " turns into a pile of cinder.", -1))
 #endif
 
 						{
@@ -1938,13 +1934,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは冷気をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    "は凍りついた。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は凍りついた。", -1))
 #else
 						msg_format("%^s is very cold!", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    " was frozen."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " was frozen.", -1))
 #endif
 
 						{
@@ -1971,13 +1965,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sは鏡の破片をくらった！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    "はズタズタになった。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "はズタズタになった。", -1))
 #else
 						msg_format("%^s gets zapped!", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    " had torn to pieces."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " had torn to pieces.", -1))
 #endif
 						{
 							blinked = FALSE;
@@ -2009,13 +2001,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 							msg_format("%^sは聖なるオーラで傷ついた！", m_name);
-							if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-							    "は倒れた。"))
+							if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
 #else
 							msg_format("%^s is injured by holy power!", m_name);
 
-							if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-							    " is destroyed."))
+							if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
 #endif
 							{
 								blinked = FALSE;
@@ -2043,13 +2033,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("%^sが鋭い闘気のオーラで傷ついた！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    "は倒れた。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
 #else
 						msg_format("%^s is injured by the Force", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear,
-						    " is destroyed."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
 #endif
 
 						{
@@ -2086,11 +2074,11 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 #ifdef JP
 						msg_format("影のオーラが%^sに反撃した！", m_name);
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear, "は倒れた。"))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, "は倒れた。", -1))
 #else
 						msg_format("Enveloped shadows attack %^s.", m_name);
 
-						if (mon_take_hit(p_ptr, &m_list[m_idx], dam, &fear, " is destroyed."))
+						if (mon_take_hit(p_ptr, &m_list[m_idx], 0, dam, NULL, " is destroyed.", -1))
 #endif
 						{
 							blinked = FALSE;
