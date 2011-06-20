@@ -1988,7 +1988,7 @@ msg_format("%^s‚ÉU‚è—‚Æ‚³‚ê‚½I", m_name);
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		(void)set_monster_monfear(tar_ptr, (randint1(10) +
 				  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
-l				   20 : ((11 - percentage) * 5))));
+				   20 : ((11 - percentage) * 5))));
 	}
 
 	/* Not dead yet */
