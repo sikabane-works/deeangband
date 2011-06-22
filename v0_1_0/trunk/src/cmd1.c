@@ -2021,19 +2021,19 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 				project(0, 0, m_ptr->fy, m_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
 			case MUT2_HORNS:
-				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_BEAK:
-				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TRUNK:
-				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TENTACLES:
-				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
-				mon_take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
 		}
 		*mdeath = (m_ptr->monster_idx == 0);
 		touch_zap_player(m_ptr);
@@ -2749,7 +2749,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				drain_result = m_ptr->chp;
 
 			/* Damage, check for fear and death */
-			mon_take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1);
+			take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1);
 			if(m_ptr->monster_idx == 0);
 			{
 				*mdeath = TRUE;

@@ -5282,303 +5282,768 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		chg_virtue(V_CHANCE, 2);
 	}
 
-	/* Dead player */
-	if (tar_ptr->chp < 0)
+
+	if(tar_ptr == p_ptr)
 	{
-		bool android = (tar_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
-
-#ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
-		if (!cheat_save)
-			if(!save_player()) msg_print("セーブ失敗！");
-#endif
-
-		/* Sound */
-		sound(SOUND_DEATH);
-
-		chg_virtue(V_SACRIFICE, 10);
-
-		/* Leaving */
-		tar_ptr->leaving = TRUE;
-
-		/* Note death */
-		tar_ptr->is_dead = TRUE;
-
-		if (tar_ptr->inside_arena)
+		/* Dead player */
+		if (tar_ptr->chp < 0)
 		{
-			cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].monster_idx].name;
-#ifdef JP
-			msg_format("あなたは%sの前に敗れ去った。", m_name);
-#else
-			msg_format("You are beaten by %s.", m_name);
-#endif
-			msg_print(NULL);
-			if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - tar_ptr->arena_number, m_name);
-		}
-		else
-		{
-			int q_idx = quest_number(dun_level);
-			bool seppuku = streq(hit_from, "Seppuku");
-			bool winning_seppuku = tar_ptr->total_winner && seppuku;
-
-#ifdef WORLD_SCORE
-			/* Make screen dump */
-			screen_dump = make_screen_dump();
-#endif
-
-			/* Note cause of death */
-			if (seppuku)
+			bool android = (tar_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
+	
+	#ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
+			if (!cheat_save)
+				if(!save_player()) msg_print("セーブ失敗！");
+	#endif
+	
+			/* Sound */
+			sound(SOUND_DEATH);
+	
+			chg_virtue(V_SACRIFICE, 10);
+	
+			/* Leaving */
+			tar_ptr->leaving = TRUE;
+	
+			/* Note death */
+			tar_ptr->is_dead = TRUE;
+	
+			if (tar_ptr->inside_arena)
 			{
-				strcpy(tar_ptr->died_from, hit_from);
-#ifdef JP
-				if (!winning_seppuku) strcpy(tar_ptr->died_from, "切腹");
-#endif
+				cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].monster_idx].name;
+	#ifdef JP
+				msg_format("あなたは%sの前に敗れ去った。", m_name);
+	#else
+				msg_format("You are beaten by %s.", m_name);
+	#endif
+				msg_print(NULL);
+				if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - tar_ptr->arena_number, m_name);
 			}
 			else
 			{
-				char dummy[1024];
-#ifdef JP
-				sprintf(dummy, "%s%s%s", !tar_ptr->paralyzed ? "" : tar_ptr->free_act ? "彫像状態で" : "麻痺状態で", tar_ptr->image ? "幻覚に歪んだ" : "", hit_from);
-#else
-				sprintf(dummy, "%s%s", hit_from, !tar_ptr->paralyzed ? "" : " while helpless");
-#endif
-				my_strcpy(tar_ptr->died_from, dummy, sizeof tar_ptr->died_from);
-			}
-
-			/* No longer a winner */
-			tar_ptr->total_winner = FALSE;
-
-			if (winning_seppuku)
-			{
-#ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "勝利の後切腹した。");
-#else
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "did Seppuku after the winning.");
-#endif
-			}
-			else
-			{
-				char buf[24];
-
-				if (tar_ptr->inside_arena)
-#ifdef JP
-					strcpy(buf,"アリーナ");
-#else
-					strcpy(buf,"in the Arena");
-#endif
-				else if (!dun_level)
-#ifdef JP
-					strcpy(buf,"地上");
-#else
-					strcpy(buf,"on the surface");
-#endif
-				else if (q_idx && (is_fixed_quest_idx(q_idx) &&
-				         !(q_idx == QUEST_SERPENT)))
-#ifdef JP
-					strcpy(buf,"クエスト");
-#else
-					strcpy(buf,"in a quest");
-#endif
+				int q_idx = quest_number(dun_level);
+				bool seppuku = streq(hit_from, "Seppuku");
+				bool winning_seppuku = tar_ptr->total_winner && seppuku;
+	
+	#ifdef WORLD_SCORE
+				/* Make screen dump */
+				screen_dump = make_screen_dump();
+	#endif
+	
+				/* Note cause of death */
+				if (seppuku)
+				{
+					strcpy(tar_ptr->died_from, hit_from);
+	#ifdef JP
+					if (!winning_seppuku) strcpy(tar_ptr->died_from, "切腹");
+	#endif
+				}
 				else
-#ifdef JP
-					sprintf(buf,"%d階", dun_level);
-#else
-					sprintf(buf,"level %d", dun_level);
-#endif
-
-#ifdef JP
-				sprintf(tmp, "%sで%sに殺された。", buf, tar_ptr->died_from);
-#else
-				sprintf(tmp, "killed by %s %s.", tar_ptr->died_from, buf);
-#endif
+				{
+					char dummy[1024];
+	#ifdef JP
+					sprintf(dummy, "%s%s%s", !tar_ptr->paralyzed ? "" : tar_ptr->free_act ? "彫像状態で" : "麻痺状態で", tar_ptr->image ? "幻覚に歪んだ" : "", hit_from);
+	#else
+					sprintf(dummy, "%s%s", hit_from, !tar_ptr->paralyzed ? "" : " while helpless");
+	#endif
+					my_strcpy(tar_ptr->died_from, dummy, sizeof tar_ptr->died_from);
+				}
+	
+				/* No longer a winner */
+				tar_ptr->total_winner = FALSE;
+	
+				if (winning_seppuku)
+				{
+	#ifdef JP
+					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "勝利の後切腹した。");
+	#else
+					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "did Seppuku after the winning.");
+	#endif
+				}
+				else
+				{
+					char buf[24];
+	
+					if (tar_ptr->inside_arena)
+	#ifdef JP
+						strcpy(buf,"アリーナ");
+	#else
+						strcpy(buf,"in the Arena");
+	#endif
+					else if (!dun_level)
+	#ifdef JP
+						strcpy(buf,"地上");
+	#else
+						strcpy(buf,"on the surface");
+	#endif
+					else if (q_idx && (is_fixed_quest_idx(q_idx) &&
+					         !(q_idx == QUEST_SERPENT)))
+	#ifdef JP
+						strcpy(buf,"クエスト");
+	#else
+						strcpy(buf,"in a quest");
+	#endif
+					else
+	#ifdef JP
+						sprintf(buf,"%d階", dun_level);
+	#else
+						sprintf(buf,"level %d", dun_level);
+	#endif
+	
+	#ifdef JP
+					sprintf(tmp, "%sで%sに殺された。", buf, tar_ptr->died_from);
+	#else
+					sprintf(tmp, "killed by %s %s.", tar_ptr->died_from, buf);
+	#endif
+					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
+				}
+	
+	#ifdef JP
+				do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ゲームオーバー --------");
+	#else
+				do_cmd_write_nikki(NIKKI_GAMESTART, 1, "--------   Game  Over   --------");
+	#endif
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "\n\n\n\n");
+	
+				flush();
+	
+	#ifdef JP
+				if (get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY))
+	#else
+				if (get_check_strict("Dump the screen? ", CHECK_NO_HISTORY))
+	#endif
+				{
+					do_cmd_save_screen();
+				}
+	
+				flush();
+	
+				/* Initialize "last message" buffer */
+				if (tar_ptr->last_message) string_free(tar_ptr->last_message);
+				tar_ptr->last_message = NULL;
+	
+				/* Hack -- Note death */
+				if (!last_words)
+				{
+	#ifdef JP
+					msg_format("あなたは%sました。", android ? "壊れ" : "死に");
+	#else
+					msg_print(android ? "You are broken." : "You die.");
+	#endif
+	
+					msg_print(NULL);
+				}
+				else
+				{
+					if (winning_seppuku)
+					{
+	#ifdef JP
+						get_rnd_line("seppuku_j.txt", 0, death_message);
+	#else
+						get_rnd_line("seppuku.txt", 0, death_message);
+	#endif
+					}
+					else
+					{
+	#ifdef JP
+						get_rnd_line("death_j.txt", 0, death_message);
+	#else
+						get_rnd_line("death.txt", 0, death_message);
+	#endif
+					}
+	
+					do
+					{
+	#ifdef JP
+						while (!get_string(winning_seppuku ? "辞世の句: " : "断末魔の叫び: ", death_message, 1024)) ;
+	#else
+						while (!get_string("Last word: ", death_message, 1024)) ;
+	#endif
+					}
+	#ifdef JP
+					while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
+	#else
+					while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
+	#endif
+	
+					if (death_message[0] == '\0')
+					{
+	#ifdef JP
+						strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
+	#else
+						strcpy(death_message, android ? "You are broken." : "You die.");
+	#endif
+					}
+					else tar_ptr->last_message = string_make(death_message);
+	
+	#ifdef JP
+					if (winning_seppuku)
+					{
+						int i, len;
+						int w = Term->wid;
+						int h = Term->hgt;
+						int msg_pos_x[9] = {  5,  7,  9, 12,  14,  17,  19,  21, 23};
+						int msg_pos_y[9] = {  3,  4,  5,  4,   5,   4,   5,   6,  4};
+						cptr str;
+						char* str2;
+	
+						Term_clear();
+	
+						/* 桜散る */
+						for (i = 0; i < 40; i++)
+							Term_putstr(randint0(w / 2) * 2, randint0(h), 2, TERM_VIOLET, "υ");
+	
+						str = death_message;
+						if (strncmp(str, "「", 2) == 0) str += 2;
+	
+						str2 = my_strstr(str, "」");
+						if (str2 != NULL) *str2 = '\0';
+	
+						i = 0;
+						while (i < 9)
+						{
+							str2 = my_strstr(str, " ");
+							if (str2 == NULL) len = strlen(str);
+							else len = str2 - str;
+	
+							if (len != 0)
+							{
+								Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len,
+								TERM_WHITE, str);
+								if (str2 == NULL) break;
+								i++;
+							}
+							str = str2 + 1;
+							if (*str == 0) break;
+						}
+	
+						/* Hide cursor */
+						Term_putstr(w-1, h-1, 1, TERM_WHITE, " ");
+	
+						flush();
+	#ifdef WORLD_SCORE
+						/* Make screen dump */
+						screen_dump = make_screen_dump();
+	#endif
+	
+						/* Wait a key press */
+						(void)inkey();
+					}
+					else
+	#endif
+						msg_print(death_message);
+				}
+			}
+	
+			/* Dead */
+			return damage;
+		}
+	
+		/* Hitpoint warning */
+		if (tar_ptr->chp < warning)
+		{
+			/* Hack -- bell on first notice */
+			if (old_chp > warning) bell();
+	
+			sound(SOUND_WARN);
+	
+			if (record_danger && (old_chp > warning))
+			{
+				if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
+	#ifdef JP
+					hit_from = "何か";
+	#else
+					hit_from = "something";
+	#endif
+	
+	#ifdef JP
+				sprintf(tmp,"%sによってピンチに陥った。",hit_from);
+	#else
+				sprintf(tmp,"A critical situation because of %s.",hit_from);
+	#endif
 				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
 			}
-
-#ifdef JP
-			do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ゲームオーバー --------");
-#else
-			do_cmd_write_nikki(NIKKI_GAMESTART, 1, "--------   Game  Over   --------");
-#endif
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "\n\n\n\n");
-
-			flush();
-
-#ifdef JP
-			if (get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY))
-#else
-			if (get_check_strict("Dump the screen? ", CHECK_NO_HISTORY))
-#endif
+	
+			if (auto_more)
 			{
-				do_cmd_save_screen();
+				/* stop auto_more even if DAMAGE_USELIFE */
+				now_damaged = TRUE;
 			}
-
+	
+			/* Message */
+	#ifdef JP
+	msg_print("*** 警告:低ヒット・ポイント！ ***");
+	#else
+			msg_print("*** LOW HITPOINT WARNING! ***");
+	#endif
+	
+			msg_print(NULL);
 			flush();
-
-			/* Initialize "last message" buffer */
-			if (tar_ptr->last_message) string_free(tar_ptr->last_message);
-			tar_ptr->last_message = NULL;
-
-			/* Hack -- Note death */
-			if (!last_words)
+		}
+		if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
+		{
+			change_wild_mode();
+		}
+		return damage;
+	}
+	else
+	{
+				/* It is dead now */
+		if (tar_ptr->chp < 0)
+		{
+			char m_name[80];
+	
+			if (r_info[tar_ptr->monster_idx].flags7 & RF7_TANUKI)
 			{
-#ifdef JP
-				msg_format("あなたは%sました。", android ? "壊れ" : "死に");
-#else
-				msg_print(android ? "You are broken." : "You die.");
-#endif
-
-				msg_print(NULL);
+				/* You might have unmasked Tanuki first time */
+				r_ptr = &r_info[tar_ptr->monster_idx];
+				tar_ptr->ap_monster_idx = tar_ptr->monster_idx;
+				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
+			}
+	
+			if (tar_ptr->mflag2 & MFLAG2_CHAMELEON)
+			{
+				/* You might have unmasked Chameleon first time */
+				r_ptr = real_r_ptr(tar_ptr);
+				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
+			}
+	
+			if (!(tar_ptr->smart & SM_CLONED))
+			{
+				/* When the player kills a Unique, it stays dead */
+				if (r_ptr->flags1 & RF1_UNIQUE)
+				{
+					r_ptr->max_num = 0;
+	
+					/* Mega-Hack -- Banor & Lupart */
+					if ((tar_ptr->monster_idx == MON_BANOR) || (tar_ptr->monster_idx == MON_LUPART))
+					{
+						r_info[MON_BANORLUPART].max_num = 0;
+						r_info[MON_BANORLUPART].r_pkills++;
+						r_info[MON_BANORLUPART].r_akills++;
+						if (r_info[MON_BANORLUPART].r_tkills < MAX_SHORT) r_info[MON_BANORLUPART].r_tkills++;
+					}
+					else if (tar_ptr->monster_idx == MON_BANORLUPART)
+					{
+						r_info[MON_BANOR].max_num = 0;
+						r_info[MON_BANOR].r_pkills++;
+						r_info[MON_BANOR].r_akills++;
+						if (r_info[MON_BANOR].r_tkills < MAX_SHORT) r_info[MON_BANOR].r_tkills++;
+						r_info[MON_LUPART].max_num = 0;
+						r_info[MON_LUPART].r_pkills++;
+						r_info[MON_LUPART].r_akills++;
+						if (r_info[MON_LUPART].r_tkills < MAX_SHORT) r_info[MON_LUPART].r_tkills++;
+					}
+				}
+	
+				/* When the player kills a Nazgul, it stays dead */
+				else if (r_ptr->flags7 & RF7_NAZGUL) r_ptr->max_num--;
+			}
+	
+			/* Count all monsters killed */
+			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
+	
+			/* Recall even invisible uniques or winners */
+			if ((tar_ptr->ml && !atk_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE))
+			{
+				/* Count kills this life */
+				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_pkills < MAX_SHORT)) r_info[MON_KAGE].r_pkills++;
+				else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
+	
+				/* Count kills in all lives */
+				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_tkills < MAX_SHORT)) r_info[MON_KAGE].r_tkills++;
+				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
+	
+				/* Hack -- Auto-recall */
+				monster_race_track(tar_ptr->ap_monster_idx);
+			}
+	
+			/* Extract monster name */
+			monster_desc(m_name, tar_ptr, MD_TRUE_NAME);
+	
+			/* Don't kill Amberites */
+			if ((r_ptr->flags3 & RF3_AMBERITE) && one_in_(2))
+			{
+				int curses = 1 + randint1(3);
+				bool stop_ty = FALSE;
+				int count = 0;
+	
+	#ifdef JP
+	msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
+	#else
+				msg_format("%^s puts a terrible blood curse on you!", m_name);
+	#endif
+	
+				curse_equipment(100, 50);
+	
+				do
+				{
+					stop_ty = activate_ty_curse(stop_ty, &count);
+				}
+				while (--curses);
+			}
+	
+			if (r_ptr->flags2 & RF2_CAN_SPEAK)
+			{
+				char line_got[1024];
+	
+				/* Dump a message */
+	#ifdef JP
+				if (!get_rnd_line("mondeath_j.txt", tar_ptr->monster_idx, line_got))
+	#else
+				if (!get_rnd_line("mondeath.txt", tar_ptr->monster_idx, line_got))
+	#endif
+	
+					msg_format("%^s %s", m_name, line_got);
+	
+	#ifdef WORLD_SCORE
+				if (tar_ptr->monster_idx == MON_SERPENT)
+				{
+					/* Make screen dump */
+					screen_dump = make_screen_dump();
+				}
+	#endif
+			}
+	
+			if (!(d_info[dungeon_type].flags1 & DF1_BEGINNER))
+			{
+				if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
+				{
+					chg_virtue(V_VALOUR, -1);
+				}
+				else if (r_ptr->level > dun_level)
+				{
+					if (randint1(10) <= (r_ptr->level - dun_level))
+						chg_virtue(V_VALOUR, 1);
+				}
+				if (r_ptr->level > 60)
+				{
+					chg_virtue(V_VALOUR, 1);
+				}
+				if (r_ptr->level >= 2 * (atk_ptr->lev+1))
+					chg_virtue(V_VALOUR, 2);
+			}
+	
+			if (r_ptr->flags1 & RF1_UNIQUE)
+			{
+				if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_virtue(V_HARMONY, 2);
+	
+				if (r_ptr->flags3 & RF3_GOOD)
+				{
+					chg_virtue(V_UNLIFE, 2);
+					chg_virtue(V_VITALITY, -2);
+				}
+	
+				if (one_in_(3)) chg_virtue(V_INDIVIDUALISM, -1);
+			}
+	
+			if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
+			{
+				chg_virtue(V_COMPASSION, -1);
+			}
+	
+			if ((r_ptr->flags3 & RF3_GOOD) &&
+				((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100)))
+				chg_virtue(V_UNLIFE, 1);
+	
+			if (r_ptr->d_char == 'A')
+			{
+				if (r_ptr->flags1 & RF1_UNIQUE)
+					chg_virtue(V_FAITH, -2);
+				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
+				{
+					if (r_ptr->flags3 & RF3_GOOD) chg_virtue(V_FAITH, -1);
+					else chg_virtue(V_FAITH, 1);
+				}
+			}
+			else if (r_ptr->flags3 & RF3_DEMON)
+			{
+				if (r_ptr->flags1 & RF1_UNIQUE)
+					chg_virtue(V_FAITH, 2);
+				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
+					chg_virtue(V_FAITH, 1);
+			}
+	
+			if ((r_ptr->flags3 & RF3_UNDEAD) && (r_ptr->flags1 & RF1_UNIQUE))
+				chg_virtue(V_VITALITY, 2);
+	
+			if (r_ptr->r_deaths)
+			{
+				if (r_ptr->flags1 & RF1_UNIQUE)
+				{
+					chg_virtue(V_HONOUR, 10);
+				}
+				else if ((r_ptr->level) / 10 + (2 * dun_level) >= randint1(100))
+				{
+					chg_virtue(V_HONOUR, 1);
+				}
+			}
+			if ((r_ptr->flags2 & RF2_MULTIPLY) && (r_ptr->r_akills > 1000) && one_in_(10))
+			{
+				chg_virtue(V_VALOUR, -1);
+			}
+	
+			for (i = 0; i < 4; i++)
+			{
+				if (r_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
+	
+				if ((r_ptr->blow[i].effect == RBE_EAT_ITEM)
+					|| (r_ptr->blow[i].effect == RBE_EAT_GOLD))
+	
+					thief = TRUE; /* Thief! */
+			}
+	
+			/* The new law says it is illegal to live in the dungeon */
+			if (r_ptr->level != 0) innocent = FALSE;
+	
+			if (thief)
+			{
+				if (r_ptr->flags1 & RF1_UNIQUE)
+					chg_virtue(V_JUSTICE, 3);
+				else if (1+((r_ptr->level) / 10 + (2 * dun_level))
+					>= randint1(100))
+					chg_virtue(V_JUSTICE, 1);
+			}
+			else if (innocent)
+			{
+				chg_virtue (V_JUSTICE, -1);
+			}
+	
+			if ((r_ptr->flags3 & RF3_ANIMAL) && !(r_ptr->flags3 & RF3_EVIL) && !(r_ptr->flags4 & ~(RF4_NOMAGIC_MASK))  && !(r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) && !(r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
+			{
+				if (one_in_(4)) chg_virtue(V_NATURE, -1);
+			}
+	
+			if ((r_ptr->flags1 & RF1_UNIQUE) && record_destroy_uniq)
+			{
+				char note_buf[160];
+	#ifdef JP
+				sprintf(note_buf, "%s%s", r_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(クローン)" : "");
+	#else
+				sprintf(note_buf, "%s%s", r_name + r_ptr->name, (tar_ptr->smart & SM_CLONED) ? "(Clone)" : "");
+	#endif
+				do_cmd_write_nikki(NIKKI_UNIQUE, 0, note_buf);
+			}
+	
+			/* Make a sound */
+			sound(SOUND_KILL);
+	
+			/* Death by Missile/Spell attack */
+			if (note)
+			{
+				msg_format("%^s%s", m_name, note);
+			}
+	
+			/* Death by physical attack -- invisible monster */
+			else if (!tar_ptr->ml)
+			{
+	#ifdef JP
+				if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+					msg_format("せっかくだから%sを殺した。", m_name);
+				else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+					msg_format("%sを殺した。ごめんね～", m_name);
+				else
+					msg_format("%sを殺した。", m_name);
+	#else
+					msg_format("You have killed %s.", m_name);
+	#endif
+	
+			}
+	
+			/* Death by Physical attack -- non-living monster */
+			else if (!monster_living(r_ptr))
+			{
+				int i;
+				bool explode = FALSE;
+	
+				for (i = 0; i < 4; i++)
+				{
+					if (r_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
+				}
+	
+				/* Special note at death */
+				if (explode)
+	#ifdef JP
+					msg_format("%sは爆発して粉々になった。", m_name);
+	#else
+					msg_format("%^s explodes into tiny shreds.", m_name);
+	#endif
+				else
+				{
+	#ifdef JP
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+						msg_format("せっかくだから%sを倒した。", m_name);
+					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+						msg_format("%s！お許し下さい！", m_name);
+					else
+						msg_format("%sを倒した。", m_name);
+					if (atk_ptr->chara_idx == CHARA_CHARGEMAN)
+						msg_format("%s!お許し下さい！", m_name);
+	#else
+					msg_format("You have destroyed %s.", m_name);
+	#endif
+				}
+			}
+	
+			/* Death by Physical attack -- living monster */
+			else
+			{
+	#ifdef JP
+				if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+					msg_format("せっかくだから%sを葬り去った。", m_name);
+				else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+				{
+					msg_format("%sを葬り去った。", m_name);
+					msg_format("%s！お許し下さい！", m_name);
+				}
+				else
+					msg_format("%sを葬り去った。", m_name);
+	#else
+					msg_format("You have slain %s.", m_name);
+	#endif
+	
+			}
+			if ((r_ptr->flags1 & RF1_UNIQUE) && !(tar_ptr->smart & SM_CLONED) && !vanilla_town)
+			{
+				for (i = 0; i < MAX_KUBI; i++)
+				{
+					if ((kubi_monster_idx[i] == tar_ptr->monster_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
+					{
+	#ifdef JP
+	msg_format("%sの首には賞金がかかっている。", m_name);
+	#else
+						msg_format("There is a price on %s's head.", m_name);
+	#endif
+						break;
+					}
+				}
+			}
+	
+			/* Generate treasure */
+			monster_death(tar_ptr, TRUE);
+	
+			/* Mega hack : replace IKETA to BIKETAL */
+			if ((tar_ptr->monster_idx == MON_IKETA) &&
+			    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
+			{
+				int dummy_y = tar_ptr->fy;
+				int dummy_x = tar_ptr->fx;
+				u32b mode = 0L;
+	
+				if (is_pet(tar_ptr)) mode |= PM_FORCE_PET;
+	
+				/* Delete the monster */
+				delete_monster_idx(tar_ptr);
+	
+				if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
+				{
+	#ifdef JP
+					msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");
+	#else
+					msg_print("Uwa-hahaha!  *I* am Biketal!");
+	#endif
+				}
 			}
 			else
 			{
-				if (winning_seppuku)
-				{
-#ifdef JP
-					get_rnd_line("seppuku_j.txt", 0, death_message);
-#else
-					get_rnd_line("seppuku.txt", 0, death_message);
-#endif
-				}
-				else
-				{
-#ifdef JP
-					get_rnd_line("death_j.txt", 0, death_message);
-#else
-					get_rnd_line("death.txt", 0, death_message);
-#endif
-				}
-
-				do
-				{
-#ifdef JP
-					while (!get_string(winning_seppuku ? "辞世の句: " : "断末魔の叫び: ", death_message, 1024)) ;
-#else
-					while (!get_string("Last word: ", death_message, 1024)) ;
-#endif
-				}
-#ifdef JP
-				while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
-#else
-				while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
-#endif
-
-				if (death_message[0] == '\0')
-				{
-#ifdef JP
-					strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
-#else
-					strcpy(death_message, android ? "You are broken." : "You die.");
-#endif
-				}
-				else tar_ptr->last_message = string_make(death_message);
-
-#ifdef JP
-				if (winning_seppuku)
-				{
-					int i, len;
-					int w = Term->wid;
-					int h = Term->hgt;
-					int msg_pos_x[9] = {  5,  7,  9, 12,  14,  17,  19,  21, 23};
-					int msg_pos_y[9] = {  3,  4,  5,  4,   5,   4,   5,   6,  4};
-					cptr str;
-					char* str2;
-
-					Term_clear();
-
-					/* 桜散る */
-					for (i = 0; i < 40; i++)
-						Term_putstr(randint0(w / 2) * 2, randint0(h), 2, TERM_VIOLET, "υ");
-
-					str = death_message;
-					if (strncmp(str, "「", 2) == 0) str += 2;
-
-					str2 = my_strstr(str, "」");
-					if (str2 != NULL) *str2 = '\0';
-
-					i = 0;
-					while (i < 9)
-					{
-						str2 = my_strstr(str, " ");
-						if (str2 == NULL) len = strlen(str);
-						else len = str2 - str;
-
-						if (len != 0)
-						{
-							Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len,
-							TERM_WHITE, str);
-							if (str2 == NULL) break;
-							i++;
-						}
-						str = str2 + 1;
-						if (*str == 0) break;
-					}
-
-					/* Hide cursor */
-					Term_putstr(w-1, h-1, 1, TERM_WHITE, " ");
-
-					flush();
-#ifdef WORLD_SCORE
-					/* Make screen dump */
-					screen_dump = make_screen_dump();
-#endif
-
-					/* Wait a key press */
-					(void)inkey();
-				}
-				else
-#endif
-					msg_print(death_message);
+				/* Delete the monster */
+				delete_monster_idx(tar_ptr);
+			}
+	
+			/* Prevent bug of chaos patron's reward */
+			if (r_ptr->flags7 & RF7_KILL_EXP)
+				get_exp_from_mon((long)exp_mon.mmhp*2, &exp_mon);
+			else
+				get_exp_from_mon(((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
+	
+			/* Not afraid */
+			fear = FALSE;
+	
+			/* Monster is dead */
+			return (TRUE);
+		}
+	
+	
+	#ifdef ALLOW_FEAR
+	
+		/* Mega-Hack -- Pain cancels fear */
+		if (MON_MONFEAR(tar_ptr) && (damage > 0))
+		{
+			/* Cure fear */
+			if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(damage)))
+			{
+				/* No more fear */
+				fear = FALSE;
 			}
 		}
-
-		/* Dead */
-		return damage;
-	}
-
-	/* Hitpoint warning */
-	if (tar_ptr->chp < warning)
-	{
-		/* Hack -- bell on first notice */
-		if (old_chp > warning) bell();
-
-		sound(SOUND_WARN);
-
-		if (record_danger && (old_chp > warning))
+	
+		/* Sometimes a monster gets scared by damage */
+		if (!MON_MONFEAR(tar_ptr) && !(r_ptr->flags3 & (RF3_NO_FEAR)))
 		{
-			if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
-#ifdef JP
-				hit_from = "何か";
-#else
-				hit_from = "something";
-#endif
-
-#ifdef JP
-			sprintf(tmp,"%sによってピンチに陥った。",hit_from);
-#else
-			sprintf(tmp,"A critical situation because of %s.",hit_from);
-#endif
-			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
+			/* Percentage of fully healthy */
+			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+	
+			/*
+			 * Run (sometimes) if at 10% or less of max hit points,
+			 * or (usually) when hit for half its current hit points
+			 */
+			if ((randint1(10) >= percentage) ||
+			    ((damage >= tar_ptr->chp) && (randint0(100) < 80)))
+			{
+				/* Hack -- note fear */
+				fear = TRUE;
+	
+			}
+	
+		}
+	
+	#endif
+	
+	#if 0
+		if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (damage > 0))
+		{
+			char m_name[80];
+	
+			/* Extract monster name */
+			monster_desc(m_name, tar_ptr, 0);
+	
+			if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
+			if (rakuba((damage > 200) ? 200 : damage, FALSE))
+			{
+	#ifdef JP
+	msg_format("%^sに振り落とされた！", m_name);
+	#else
+					msg_format("%^s has thrown you off!", m_name);
+	#endif
+			}
+		}
+	#endif
+	
+		if(fear && !MON_MONFEAR(tar_ptr))
+		{
+			char m_name[80];
+			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+	
+			/* Extract monster name */
+			monster_desc(m_name, tar_ptr, 0);
+	
+			/*TODO Feared Message:
+			sound(SOUND_FLEE);
+	#ifdef JP
+			msg_format("%^sは恐怖で逃げ出した！", m_name);
+	#else
+			msg_format("%^s flees in terror!", m_name);
+	#endif
+			*/
+	
+			/* XXX XXX XXX Hack -- Add some timed fear */
+			(void)set_monster_monfear(tar_ptr, (randint1(10) +
+					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
+					   20 : ((11 - percentage) * 5))));
 		}
 
-		if (auto_more)
-		{
-			/* stop auto_more even if DAMAGE_USELIFE */
-			now_damaged = TRUE;
-		}
 
-		/* Message */
-#ifdef JP
-msg_print("*** 警告:低ヒット・ポイント！ ***");
-#else
-		msg_print("*** LOW HITPOINT WARNING! ***");
-#endif
 
-		msg_print(NULL);
-		flush();
 	}
-	if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
-	{
-		change_wild_mode();
-	}
+
 	return damage;
 }
 

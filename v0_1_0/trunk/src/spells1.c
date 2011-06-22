@@ -6136,7 +6136,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 		bool fear = FALSE;
 
 		/* Hurt the monster, check for fear and death */
-		mon_take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
+		take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
 
 		/* Damaged monster */
 		if(&m_list[c_ptr->m_idx].monster_idx != 0)
