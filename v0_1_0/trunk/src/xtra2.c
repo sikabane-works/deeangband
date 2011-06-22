@@ -1408,7 +1408,7 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * Get the coefficient first, and multiply (potentially huge) base
  * experience point of a monster later.
  */
-static void get_exp_from_mon(int dam, creature_type *m_ptr)
+void get_exp_from_mon(int dam, creature_type *m_ptr)
 {
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
@@ -1493,6 +1493,7 @@ static void get_exp_from_mon(int dam, creature_type *m_ptr)
  * monster worth more than subsequent monsters.  This would also need
  * to induce changes in the monster recall code.
  */
+
 int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
@@ -1994,6 +1995,7 @@ msg_format("%^s‚ÉU‚è—‚Æ‚³‚ê‚½I", m_name);
 	/* Not dead yet */
 	return (FALSE);
 }
+
 
 
 /*

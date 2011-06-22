@@ -5122,11 +5122,51 @@ msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", p_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : "
 int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	int old_chp = tar_ptr->chp;
+	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
+	creature_type    exp_mon;
+	bool fear;
+
+	/* Innocent until proven otherwise */
+	bool        innocent = TRUE, thief = FALSE;
+	int         i;
+	int         expdam;
 
 	char death_message[1024];
 	char tmp[80];
 
+	// for Player
 	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
+
+	COPY(&exp_mon, tar_ptr, creature_type);
+
+	if (!(r_ptr->flags7 & RF7_KILL_EXP))
+	{
+		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
+		if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
+
+		get_exp_from_mon(expdam, &exp_mon);
+
+		/* Genocided by chaos patron */
+		//TODO check
+		//if (!tar_ptr->monster_idx) m_idx = 0;
+	}
+
+	/* Wake it up */
+	(void)set_monster_csleep(tar_ptr, 0);
+
+	/* Hack - Cancel any special player stealth magics. -LM- */
+	if (atk_ptr->special_defense & NINJA_S_STEALTH)
+	{
+		set_superstealth(FALSE);
+	}
+
+	/* Redraw (later) if needed */
+	if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
+	if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
+
+	/* Genocided by chaos patron */
+	//TODO CHECK
+	//if (!m_idx) return TRUE;
 
 	/* Paranoia */
 	if (tar_ptr->is_dead) return 0;
