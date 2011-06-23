@@ -2641,13 +2641,13 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 			if (!direct) return (FALSE);
 			disturb(1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたを指さして呪った。", m_name);
+			else msg_format("%^sがあなたを指さして呪った。", m_name);
 #else
 			else msg_format("%^s points at you and curses.", m_name);
 #endif

@@ -5154,15 +5154,18 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	/* Wake it up */
 	(void)set_monster_csleep(tar_ptr, 0);
 
-	/* Hack - Cancel any special player stealth magics. -LM- */
-	if (atk_ptr->special_defense & NINJA_S_STEALTH)
+	if(atk_ptr)
 	{
-		set_superstealth(FALSE);
-	}
+		/* Hack - Cancel any special player stealth magics. -LM- */
+		if (atk_ptr->special_defense & NINJA_S_STEALTH)
+		{
+			set_superstealth(FALSE);
+		}
 
-	/* Redraw (later) if needed */
-	if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
-	if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
+		/* Redraw (later) if needed */
+		if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
+		if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
+	}
 
 	/* Genocided by chaos patron */
 	//TODO CHECK
@@ -5281,6 +5284,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		chg_virtue(V_SACRIFICE, 1);
 		chg_virtue(V_CHANCE, 2);
 	}
+
 
 
 	if(tar_ptr == p_ptr)
@@ -5537,56 +5541,17 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			return damage;
 		}
 	
-		/* Hitpoint warning */
-		if (tar_ptr->chp < warning)
-		{
-			/* Hack -- bell on first notice */
-			if (old_chp > warning) bell();
-	
-			sound(SOUND_WARN);
-	
-			if (record_danger && (old_chp > warning))
-			{
-				if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
-	#ifdef JP
-					hit_from = "何か";
-	#else
-					hit_from = "something";
-	#endif
-	
-	#ifdef JP
-				sprintf(tmp,"%sによってピンチに陥った。",hit_from);
-	#else
-				sprintf(tmp,"A critical situation because of %s.",hit_from);
-	#endif
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
-			}
-	
-			if (auto_more)
-			{
-				/* stop auto_more even if DAMAGE_USELIFE */
-				now_damaged = TRUE;
-			}
-	
-			/* Message */
-	#ifdef JP
-	msg_print("*** 警告:低ヒット・ポイント！ ***");
-	#else
-			msg_print("*** LOW HITPOINT WARNING! ***");
-	#endif
-	
-			msg_print(NULL);
-			flush();
-		}
+
 		if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 		{
 			change_wild_mode();
 		}
 		return damage;
 	}
+
 	else
 	{
-				/* It is dead now */
+		/* It is dead now */
 		if (tar_ptr->chp < 0)
 		{
 			char m_name[80];
@@ -6039,12 +6004,56 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
 					   20 : ((11 - percentage) * 5))));
 		}
-
-
-
 	}
 
+
+
+	/* Hitpoint warning */
+	if (tar_ptr == p_ptr && tar_ptr->chp < warning)
+	{
+		/* Hack -- bell on first notice */
+		if (old_chp > warning) bell();
+	
+		sound(SOUND_WARN);
+	
+		if (record_danger && (old_chp > warning))
+		{
+			if (tar_ptr->image && damage_type == DAMAGE_ATTACK)
+	#ifdef JP
+				hit_from = "何か";
+	#else
+				hit_from = "something";
+	#endif
+	
+	#ifdef JP
+			sprintf(tmp,"%sによってピンチに陥った。",hit_from);
+	#else
+			sprintf(tmp,"A critical situation because of %s.",hit_from);
+	#endif
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
+		}
+	
+		if (auto_more)
+		{
+			/* stop auto_more even if DAMAGE_USELIFE */
+			now_damaged = TRUE;
+		}
+	
+		/* Message */
+	#ifdef JP
+		msg_print("*** 警告:低ヒット・ポイント！ ***");
+	#else
+		msg_print("*** LOW HITPOINT WARNING! ***");
+	#endif
+	
+		msg_print(NULL);
+		flush();
+	}
+
+
 	return damage;
+
+
 }
 
 

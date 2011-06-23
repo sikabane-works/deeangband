@@ -7646,6 +7646,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
+				//TODO curse_equipment
 				if (!CHECK_MULTISHADOW()) curse_equipment(15, 0);
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
