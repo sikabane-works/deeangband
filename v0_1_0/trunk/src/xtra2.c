@@ -1624,7 +1624,7 @@ msg_format("%^s‚Í‹°‚ë‚µ‚¢ŒŒ‚Ìô‚¢‚ğ‚ ‚È‚½‚É‚©‚¯‚½I", m_name);
 			msg_format("%^s puts a terrible blood curse on you!", m_name);
 #endif
 
-			curse_equipment(100, 50);
+			curse_equipment(p_ptr, 100, 50);
 
 			do
 			{

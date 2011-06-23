@@ -964,7 +964,7 @@ extern bool set_monster_invulner(creature_type *cr_ptr, int v, bool energy_need)
 extern void process_monsters_mtimed(int mtimed_idx);
 extern void dispel_monster_status(int m_idx);
 extern u32b get_curse(int power, object_type *o_ptr);
-extern void curse_equipment(int chance, int heavy_chance);
+extern void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance);
 extern void mon_take_hit_mon(creature_type *cr_ptr, int damage, bool *fear, cptr note, int who);
 extern bool process_the_world(int num, int who, bool vs_player);
 extern void monster_gain_exp(int m_idx, int s_idx);

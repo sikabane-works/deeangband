@@ -7647,7 +7647,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			else
 			{
 				//TODO curse_equipment
-				if (!CHECK_MULTISHADOW()) curse_equipment(15, 0);
+				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 15, 0);
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7667,7 +7667,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW()) curse_equipment(25, MIN(rlev / 2 - 15, 5));
+				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 25, MIN(rlev / 2 - 15, 5));
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7687,7 +7687,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW()) curse_equipment(33, MIN(rlev / 2 - 15, 15));
+				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 33, MIN(rlev / 2 - 15, 15));
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7734,7 +7734,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 					msg_print("You feel your life fade away!");
 #endif
-					curse_equipment(40, 20);
+					curse_equipment(p_ptr, 40, 20);
 				}
 
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, m_name, NULL, monspell);

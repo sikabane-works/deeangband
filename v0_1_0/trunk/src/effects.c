@@ -5637,7 +5637,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				msg_format("%^s puts a terrible blood curse on you!", m_name);
 	#endif
 	
-				curse_equipment(100, 50);
+				curse_equipment(tar_ptr, 100, 50);
 	
 				do
 				{
