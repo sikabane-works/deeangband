@@ -3019,13 +3019,13 @@ static void calc_torch(creature_type *cr_ptr)
 /*
  * Computes current weight limit.
  */
-u32b weight_limit(void)
+u32b weight_limit(creature_type *cr_ptr)
 {
 	u32b i;
 
 	/* Weight limit based only on strength */
-	i = (u32b)adj_str_wgt[p_ptr->stat_ind[A_STR]] * 50; /* Constant was 100 */
-	if (p_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
+	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[A_STR]] * 50; /* Constant was 100 */
+	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
 	/* Return the result */
 	return i;
@@ -4860,7 +4860,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (!cr_ptr->riding)
 	{
 		/* Extract the "weight limit" (in tenth pounds) */
-		i = (int)weight_limit();
+		i = (int)weight_limit(cr_ptr);
 	}
 	else
 	{

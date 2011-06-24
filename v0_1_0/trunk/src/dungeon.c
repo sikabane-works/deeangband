@@ -1736,7 +1736,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
 	    !p_ptr->levitation && !p_ptr->can_swim)
 	{
-		if (p_ptr->total_weight > weight_limit())
+		if (p_ptr->total_weight > weight_limit(p_ptr))
 		{
 			/* Take damage */
 #ifdef JP
