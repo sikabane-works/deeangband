@@ -6386,9 +6386,6 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	/* Player needs a "description" (he is blind) */
 	bool fuzzy = FALSE;
 
-	/* Source monster */
-	creature_type *m_ptr = NULL;
-
 	/* Monster name (for attacks) */
 	char m_name[80];
 
@@ -6964,7 +6961,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!CHECK_MULTISHADOW())
 			{
-				apply_nexus(m_ptr);
+				apply_nexus(who_ptr);
 			}
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
@@ -7497,18 +7494,18 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				if (who_ptr != NULL)
 				{
 					/* Heal the monster */
-					if (m_ptr->chp < m_ptr->mhp)
+					if (who_ptr->chp < who_ptr->mhp)
 					{
 						/* Heal */
-						m_ptr->chp += (6 * dam);
-						if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
+						who_ptr->chp += (6 * dam);
+						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
 						if (&m_list[p_ptr->health_who] == who_ptr) p_ptr->redraw |= (PR_HEALTH);
 						if (&m_list[p_ptr->riding] == who_ptr) p_ptr->redraw |= (PR_UHEALTH);
 
 						/* Special message */
-						if (m_ptr->ml)
+						if (who_ptr->ml)
 						{
 #ifdef JP
 							msg_format("%^s‚Í‹C•ª‚ª—Ç‚³‚»‚¤‚¾B", m_name);
@@ -7696,7 +7693,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(m_ptr->monster_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->monster_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µ”éE‚ğ’µ‚Ë•Ô‚µ‚½I");
@@ -7766,11 +7763,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		char m_name_self[80];
 
 		/* hisself */
-		monster_desc(m_name_self, m_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		monster_desc(m_name_self, who_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
-		project(0, 0, m_ptr->fy, m_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(0, 0, who_ptr->fy, who_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (p_ptr->tim_eyeeye) set_tim_eyeeye(p_ptr->tim_eyeeye-5, TRUE);
 	}
 
