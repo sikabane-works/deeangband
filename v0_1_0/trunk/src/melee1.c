@@ -250,7 +250,7 @@ bool make_attack_normal(int m_idx)
 		ac = p_ptr->ac + p_ptr->to_a;
 
 		/* Monster hits player */
-		if (!effect || check_hit(power, rlev, MON_STUNNED(m_ptr)))
+		if (!effect || check_hit(power, rlev, m_ptr->stun))
 		{
 			/* Always disturbing */
 			disturb(1, 0);
@@ -859,7 +859,7 @@ bool make_attack_normal(int m_idx)
 					get_damage += take_hit(NULL, p_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
-					if (MON_CONFUSED(m_ptr)) break;
+					if (m_ptr->confused) break;
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
@@ -943,7 +943,7 @@ bool make_attack_normal(int m_idx)
 					get_damage += take_hit(NULL, p_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
-					if (MON_CONFUSED(m_ptr)) break;
+					if (m_ptr->confused) break;
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 

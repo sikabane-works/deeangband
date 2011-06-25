@@ -1526,6 +1526,7 @@ void clear_cave(void)
 	C_WIPE(m_list, m_max, creature_type);
 	m_max = 1;
 	m_cnt = 0;
+
 	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
 
 	/* Pre-calc cur_num of pets in party_mon[] */

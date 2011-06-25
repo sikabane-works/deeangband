@@ -5930,10 +5930,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#ifdef ALLOW_FEAR
 	
 		/* Mega-Hack -- Pain cancels fear */
-		if (MON_MONFEAR(tar_ptr) && (damage > 0))
+		if (tar_ptr->afraid && (damage > 0))
 		{
 			/* Cure fear */
-			if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(damage)))
+			if (set_monster_monfear(tar_ptr, tar_ptr->afraid - randint1(damage)))
 			{
 				/* No more fear */
 				fear = FALSE;
@@ -5941,7 +5941,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 	
 		/* Sometimes a monster gets scared by damage */
-		if (!MON_MONFEAR(tar_ptr) && !(r_ptr->flags3 & (RF3_NO_FEAR)))
+		if (!tar_ptr->afraid && !(r_ptr->flags3 & (RF3_NO_FEAR)))
 		{
 			/* Percentage of fully healthy */
 			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
@@ -5982,7 +5982,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 	#endif
 	
-		if(fear && !MON_MONFEAR(tar_ptr))
+		if(fear && !tar_ptr->afraid)
 		{
 			char m_name[80];
 			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;

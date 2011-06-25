@@ -401,7 +401,7 @@ static void preserve_pet(void)
 				int dis = distance(py, px, m_ptr->fy, m_ptr->fx);
 
 				/* Confused (etc.) monsters don't follow. */
-				if (MON_CONFUSED(m_ptr) || MON_STUNNED(m_ptr) || MON_CSLEEP(m_ptr)) continue;
+				if (m_ptr->confused || m_ptr->stun || m_ptr->paralyzed) continue;
 
 				/* Pet of other pet don't follow. */
 				if (m_ptr->parent_m_idx) continue;
@@ -559,7 +559,7 @@ static void place_pet(void)
 			m_ptr->fy = cy;
 			m_ptr->fx = cx;
 			m_ptr->ml = TRUE;
-			m_ptr->mtimed[MTIMED_CSLEEP] = 0;
+			m_ptr->paralyzed = 0;
 
 			/* Paranoia */
 			m_ptr->hold_o_idx = 0;

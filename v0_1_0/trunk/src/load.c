@@ -699,8 +699,8 @@ static void rd_monster(creature_type *m_ptr)
 	else m_ptr->ap_monster_idx = m_ptr->monster_idx;
 	if (flags & SAVE_MON_SUB_ALIGN) rd_byte(&m_ptr->sub_align);
 	else m_ptr->sub_align = 0;
-	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->mtimed[MTIMED_CSLEEP]);
-	else m_ptr->mtimed[MTIMED_CSLEEP] = 0;
+	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->paralyzed);
+	else m_ptr->paralyzed = 0;
 
 	if(!older_than(0,0,9,0)){
 		for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
@@ -716,33 +716,33 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_FAST)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_FAST] = (s16b)tmp8u;
+		m_ptr->fast = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_FAST] = 0;
+	else m_ptr->fast = 0;
 	if (flags & SAVE_MON_SLOW)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_SLOW] = (s16b)tmp8u;
+		m_ptr->slow = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_SLOW] = 0;
+	else m_ptr->slow = 0;
 	if (flags & SAVE_MON_STUNNED)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_STUNNED] = (s16b)tmp8u;
+		m_ptr->stun = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_STUNNED] = 0;
+	else m_ptr->stun = 0;
 	if (flags & SAVE_MON_CONFUSED)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_CONFUSED] = (s16b)tmp8u;
+		m_ptr->confused = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_CONFUSED] = 0;
+	else m_ptr->confused = 0;
 	if (flags & SAVE_MON_MONFEAR)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_MONFEAR] = (s16b)tmp8u;
+		m_ptr->afraid = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_MONFEAR] = 0;
+	else m_ptr->afraid = 0;
 
 	if (flags & SAVE_MON_TARGET_Y) rd_s16b(&m_ptr->target_y);
 	else m_ptr->target_y = 0;
@@ -752,9 +752,9 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_INVULNER)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->mtimed[MTIMED_INVULNER] = (s16b)tmp8u;
+		m_ptr->invuln = (s16b)tmp8u;
 	}
-	else m_ptr->mtimed[MTIMED_INVULNER] = 0;
+	else m_ptr->invuln = 0;
 
 	if (flags & SAVE_MON_SMART) rd_u32b(&m_ptr->smart);
 	else m_ptr->smart = 0;

@@ -5721,13 +5721,13 @@ extern int PlayerUID;
 
 #define MAX_MTIMED      7
 
-#define MON_CSLEEP(M_PTR)   ((M_PTR)->mtimed[MTIMED_CSLEEP])
-#define MON_FAST(M_PTR)     ((M_PTR)->mtimed[MTIMED_FAST])
-#define MON_SLOW(M_PTR)     ((M_PTR)->mtimed[MTIMED_SLOW])
-#define MON_STUNNED(M_PTR)  ((M_PTR)->mtimed[MTIMED_STUNNED])
-#define MON_CONFUSED(M_PTR) ((M_PTR)->mtimed[MTIMED_CONFUSED])
-#define MON_MONFEAR(M_PTR)  ((M_PTR)->mtimed[MTIMED_MONFEAR])
-#define MON_INVULNER(M_PTR) ((M_PTR)->mtimed[MTIMED_INVULNER])
+//#define m_ptr->paralyzed   ((M_PTR)->paralyzed)
+//#define m_ptr->fast     ((M_PTR)->fast)
+//#define m_ptr->slow     ((M_PTR)->slow)
+//#define m_ptr->stun  ((M_PTR)->stun)
+//#define m_ptr->confused ((M_PTR)->confused)
+//#define m_ptr->afraid  ((M_PTR)->afraid)
+//#define m_ptr->invuln ((M_PTR)->invuln)
 
 /*
  * Bit flags for screen_object()

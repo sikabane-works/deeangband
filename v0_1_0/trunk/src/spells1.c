@@ -1745,7 +1745,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	bool seen = m_ptr->ml;
 	bool seen_msg = is_seen(m_ptr);
 
-	bool slept = (bool)MON_CSLEEP(m_ptr);
+	bool slept = (bool)m_ptr->paralyzed;
 
 	/* Were the effects "obvious" (if seen)? */
 	bool obvious = FALSE;
@@ -2580,7 +2580,7 @@ note = "には耐性がある。";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -2696,7 +2696,7 @@ note = "には耐性がある！";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -3492,7 +3492,7 @@ note = "が分裂した！";
 
 			/* Wake up */
 			(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
-			if (MON_STUNNED(m_ptr))
+			if (m_ptr->stun)
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", m_name);
@@ -3501,7 +3501,7 @@ note = "が分裂した！";
 #endif
 				(void)set_monster_stunned(&m_list[c_ptr->m_idx], 0);
 			}
-			if (MON_CONFUSED(m_ptr))
+			if (m_ptr->confused)
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%^sは混乱から立ち直った。", m_name);
@@ -3510,7 +3510,7 @@ note = "が分裂した！";
 #endif
 				(void)set_monster_confused(&m_list[c_ptr->m_idx], 0);
 			}
-			if (MON_MONFEAR(m_ptr))
+			if (m_ptr->afraid)
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%^sは勇気を取り戻した。", m_name);
@@ -3576,7 +3576,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Speed up */
-			if (set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100))
+			if (set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100))
 			{
 #ifdef JP
 				note = "の動きが速くなった。";
@@ -3631,7 +3631,7 @@ note = "には効果がなかった！";
 			/* Normal monsters slow down */
 			else
 			{
-				if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
+				if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
 				{
 #ifdef JP
 					note = "の動きが遅くなった。";
@@ -5196,7 +5196,7 @@ note_dies = "はドロドロに溶けた！";
 					do_conf = randint0(8) + 8;
 					do_stun = randint0(8) + 8;
 				}
-				(void)set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 10);
+				(void)set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 10);
 			}
 			break;
 		}
@@ -5503,7 +5503,7 @@ msg_format("うまく捕まえられなかった。");
 				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
-			if (MON_CSLEEP(m_ptr))
+			if (m_ptr->paralyzed)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5538,7 +5538,7 @@ msg_format("うまく捕まえられなかった。");
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], MON_SLOW(m_ptr) + 50))
+					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -5733,7 +5733,7 @@ note = "には効果がなかった！";
 					note = " starts moving faster.";
 #endif
 
-					(void)set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100);
+					(void)set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100);
 					success = TRUE;
 				}
 
@@ -5756,7 +5756,7 @@ note = "には効果がなかった！";
 #endif
 
 					set_pet(m_ptr);
-					(void)set_monster_fast(&m_list[c_ptr->m_idx], MON_FAST(m_ptr) + 100);
+					(void)set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100);
 
 					/* Learn about type */
 					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
@@ -5871,7 +5871,7 @@ note = "には効果がなかった。";
 			if (seen) obvious = TRUE;
 
 			/* Get stunned */
-			if (MON_STUNNED(m_ptr))
+			if (m_ptr->stun)
 			{
 #ifdef JP
 				note = "はひどくもうろうとした。";
@@ -5879,7 +5879,7 @@ note = "には効果がなかった。";
 				note = " is more dazed.";
 #endif
 
-				tmp = MON_STUNNED(m_ptr) + (do_stun / 2);
+				tmp = m_ptr->stun + (do_stun / 2);
 			}
 			else
 			{
@@ -5908,7 +5908,7 @@ note = "には効果がなかった。";
 			if (seen) obvious = TRUE;
 
 			/* Already partially confused */
-			if (MON_CONFUSED(m_ptr))
+			if (m_ptr->confused)
 			{
 #ifdef JP
 				note = "はさらに混乱したようだ。";
@@ -5916,7 +5916,7 @@ note = "には効果がなかった。";
 				note = " looks more confused.";
 #endif
 
-				tmp = MON_CONFUSED(m_ptr) + (do_conf / 2);
+				tmp = m_ptr->confused + (do_conf / 2);
 			}
 
 			/* Was not confused */
@@ -6024,7 +6024,7 @@ note = "には効果がなかった。";
 		if (do_fear)
 		{
 			/* Set fear */
-			(void)set_monster_monfear(&m_list[c_ptr->m_idx], MON_MONFEAR(m_ptr) + do_fear);
+			(void)set_monster_monfear(&m_list[c_ptr->m_idx], m_ptr->afraid + do_fear);
 
 			/* Get angry */
 			get_angry = TRUE;

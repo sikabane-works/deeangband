@@ -255,12 +255,12 @@ static bool dispel_check_monster(int m_idx, int t_idx)
 	creature_type *t_ptr = &m_list[t_idx];
 
 	/* Invulnabilty */
-	if (MON_INVULNER(t_ptr)) return TRUE;
+	if (t_ptr->invuln) return TRUE;
 
 	/* Speed */
 	if (t_ptr->speed < 135)
 	{
-		if (MON_FAST(t_ptr)) return TRUE;
+		if (t_ptr->fast) return TRUE;
 	}
 
 	/* Riding monster */
@@ -336,7 +336,7 @@ bool monst_spell_monst(int m_idx)
 	if (!pet) u_mode |= PM_ALLOW_UNIQUE;
 
 	/* Cannot cast spells when confused */
-	if (MON_CONFUSED(m_ptr)) return (FALSE);
+	if (m_ptr->confused) return (FALSE);
 
 	/* Extract the racial spell flags */
 	f4 = r_ptr->flags4;
@@ -739,7 +739,7 @@ bool monst_spell_monst(int m_idx)
 	if (p_ptr->riding && (m_idx == p_ptr->riding)) disturb(1, 0);
 
 	/* Check for spell failure (inate attacks never fail) */
-	if (!spell_is_inate(thrown_spell) && (in_no_magic_dungeon || (MON_STUNNED(m_ptr) && one_in_(2))))
+	if (!spell_is_inate(thrown_spell) && (in_no_magic_dungeon || (m_ptr->stun && one_in_(2))))
 	{
 		disturb(1, 0);
 		/* Message */
@@ -2738,7 +2738,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_monfear(t_ptr, MON_MONFEAR(t_ptr) + randint0(4) + 4)) fear = TRUE;
+			if (set_monster_monfear(t_ptr, t_ptr->afraid + randint0(4) + 4)) fear = TRUE;
 		}
 
 		wake_up = TRUE;
@@ -2792,7 +2792,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is blinded!", t_name);
 #endif
 
-			(void)set_monster_confused(t_ptr, MON_CONFUSED(t_ptr) + 12 + randint0(4));
+			(void)set_monster_confused(t_ptr, t_ptr->blind + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
@@ -2844,7 +2844,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s seems confused.", t_name);
 #endif
 
-			(void)set_monster_confused(t_ptr, MON_CONFUSED(t_ptr) + 12 + randint0(4));
+			(void)set_monster_confused(t_ptr, t_ptr->confused + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
@@ -2891,7 +2891,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_slow(t_ptr, MON_SLOW(t_ptr) + 50))
+			if (set_monster_slow(t_ptr, t_ptr->slow + 50))
 			{
 #ifdef JP
 				if (see_t) msg_format("%s‚Ì“®‚«‚ª’x‚­‚È‚Á‚½B", t_name);
@@ -2951,7 +2951,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is paralyzed!", t_name);
 #endif
 
-			(void)set_monster_stunned(t_ptr, MON_STUNNED(t_ptr) + randint1(4) + 4);
+			(void)set_monster_stunned(t_ptr, t_ptr->stun + randint1(4) + 4);
 		}
 
 		wake_up = TRUE;
@@ -2979,7 +2979,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Allow quick speed increases to base+10 */
-		if (set_monster_fast(m_ptr, MON_FAST(m_ptr) + 100))
+		if (set_monster_fast(m_ptr, m_ptr->fast + 100))
 		{
 #ifdef JP
 			if (see_m) msg_format("%^s‚Ì“®‚«‚ª‘¬‚­‚È‚Á‚½B", m_name);
@@ -3081,7 +3081,7 @@ bool monst_spell_monst(int m_idx)
 		if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
 
 		/* Cancel fear */
-		if (MON_MONFEAR(m_ptr))
+		if (m_ptr->afraid)
 		{
 			/* Cancel fear */
 			(void)set_monster_monfear(m_ptr, 0);
@@ -3115,7 +3115,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (!MON_INVULNER(m_ptr)) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
+		if (!m_ptr->invuln) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
 		break;
 
 	/* RF6_BLINK */

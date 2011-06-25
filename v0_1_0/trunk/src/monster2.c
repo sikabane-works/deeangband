@@ -268,13 +268,13 @@ void delete_monster_idx(creature_type *cr_ptr)
 	/* Hack -- count the number of "reproducers" */
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
 
-	if (MON_CSLEEP(cr_ptr)) (void)set_monster_csleep(cr_ptr, 0);
-	if (MON_FAST(cr_ptr)) (void)set_monster_fast(cr_ptr, 0);
-	if (MON_SLOW(cr_ptr)) (void)set_monster_slow(cr_ptr, 0);
-	if (MON_STUNNED(cr_ptr)) (void)set_monster_stunned(cr_ptr, 0);
-	if (MON_CONFUSED(cr_ptr)) (void)set_monster_confused(cr_ptr, 0);
-	if (MON_MONFEAR(cr_ptr)) (void)set_monster_monfear(cr_ptr, 0);
-	if (MON_INVULNER(cr_ptr)) (void)set_monster_invulner(cr_ptr, 0, FALSE);
+	if (cr_ptr->paralyzed) (void)set_monster_csleep(cr_ptr, 0);
+	if (cr_ptr->fast) (void)set_monster_fast(cr_ptr, 0);
+	if (cr_ptr->slow) (void)set_monster_slow(cr_ptr, 0);
+	if (cr_ptr->stun) (void)set_monster_stunned(cr_ptr, 0);
+	if (cr_ptr->confused) (void)set_monster_confused(cr_ptr, 0);
+	if (cr_ptr->afraid) (void)set_monster_monfear(cr_ptr, 0);
+	if (cr_ptr->invuln) (void)set_monster_invulner(cr_ptr, 0, FALSE);
 
 
 	/* Hack -- remove target monster */
@@ -3613,7 +3613,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	/* Assume no sleeping */
-	m_ptr->mtimed[MTIMED_CSLEEP] = 0;
+	m_ptr->paralyzed = 0;
 
 	/* Enforce sleeping if needed */
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
@@ -3654,7 +3654,7 @@ msg_print("守りのルーンが壊れた！");
 
 	if (r_ptr->flags7 & RF7_SELF_LD_MASK)
 		p_ptr->update |= (PU_MON_LITE);
-	else if ((r_ptr->flags7 & RF7_HAS_LD_MASK) && !MON_CSLEEP(m_ptr))
+	else if ((r_ptr->flags7 & RF7_HAS_LD_MASK) && !m_ptr->paralyzed)
 		p_ptr->update |= (PU_MON_LITE);
 
 	/* Update the monster */
@@ -3828,7 +3828,14 @@ int create_monster(creature_type *m_ptr, int monster_idx, int monster_ego_idx, u
 	m_ptr->mflag2 = 0;
 
 	/* No "timed status" yet */
-	for (i = 0; i < MAX_MTIMED; i++) m_ptr->mtimed[i] = 0;
+	m_ptr->fast = 0;
+	m_ptr->slow = 0;
+	m_ptr->blind = 0;
+	m_ptr->afraid = 0;
+	m_ptr->invuln = 0;
+	m_ptr->stun = 0;
+	m_ptr->paralyzed = 0;
+	m_ptr->confused = 0;
 
 	/* Unknown distance */
 	m_ptr->cdis = 0;

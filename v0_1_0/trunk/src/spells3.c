@@ -458,7 +458,7 @@ void teleport_player(int dis, u32b mode)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!MON_CSLEEP(m_ptr)) teleport_monster_to(tmp_m_idx, py, px, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, py, px, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -496,7 +496,7 @@ void teleport_player_away(int m_idx, int dis)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!MON_CSLEEP(m_ptr)) teleport_monster_to(tmp_m_idx, py, px, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, py, px, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -1635,7 +1635,7 @@ static bool vanish_dungeon(void)
 			m_ptr = &m_list[c_ptr->m_idx];
 
 			/* Awake monster */
-			if (c_ptr->m_idx && MON_CSLEEP(m_ptr))
+			if (c_ptr->m_idx && m_ptr->paralyzed)
 			{
 				/* Reset sleep counter */
 				(void)set_monster_csleep(m_ptr, 0);

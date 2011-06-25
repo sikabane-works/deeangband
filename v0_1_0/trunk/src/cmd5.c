@@ -2211,7 +2211,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (MON_CSLEEP(m_ptr))
+		if (m_ptr->paralyzed)
 		{
 			char m_name[80];
 			monster_desc(m_name, m_ptr, 0);

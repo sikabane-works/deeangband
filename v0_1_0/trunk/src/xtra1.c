@@ -1390,8 +1390,8 @@ static void prt_speed(creature_type *cr_ptr)
 		if (cr_ptr->riding)
 		{
 			creature_type *m_ptr = &m_list[cr_ptr->riding];
-			if (MON_FAST(m_ptr) && !MON_SLOW(m_ptr)) attr = TERM_L_BLUE;
-			else if (MON_SLOW(m_ptr) && !MON_FAST(m_ptr)) attr = TERM_VIOLET;
+			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
+			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
 		else if ((is_fast && !cr_ptr->slow) || cr_ptr->lightspeed) attr = TERM_YELLOW;
@@ -1411,8 +1411,8 @@ static void prt_speed(creature_type *cr_ptr)
 		if (cr_ptr->riding)
 		{
 			creature_type *m_ptr = &m_list[cr_ptr->riding];
-			if (MON_FAST(m_ptr) && !MON_SLOW(m_ptr)) attr = TERM_L_BLUE;
-			else if (MON_SLOW(m_ptr) && !MON_FAST(m_ptr)) attr = TERM_VIOLET;
+			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
+			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
 		else if (is_fast && !cr_ptr->slow) attr = TERM_YELLOW;
@@ -1683,13 +1683,13 @@ static void health_redraw(bool riding)
 		byte attr = TERM_RED;
 
 		/* Invulnerable */
-		if (MON_INVULNER(m_ptr)) attr = TERM_WHITE;
+		if (m_ptr->invuln) attr = TERM_WHITE;
 
 		/* Asleep */
-		else if (MON_CSLEEP(m_ptr)) attr = TERM_BLUE;
+		else if (m_ptr->paralyzed) attr = TERM_BLUE;
 
 		/* Afraid */
-		else if (MON_MONFEAR(m_ptr)) attr = TERM_VIOLET;
+		else if (m_ptr->afraid) attr = TERM_VIOLET;
 
 		/* Healthy */
 		else if (pct >= 100) attr = TERM_L_GREEN;
@@ -4878,8 +4878,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			new_speed = speed;
 		}
 		new_speed += (cr_ptr->skill_exp[GINOU_RIDING] + cr_ptr->lev *160L)/3200;
-		if (MON_FAST(riding_m_ptr)) new_speed += 10;
-		if (MON_SLOW(riding_m_ptr)) new_speed -= 10;
+		if (riding_m_ptr->fast) new_speed += 10;
+		if (riding_m_ptr->slow) new_speed -= 10;
 		riding_levitation = (riding_r_ptr->flags7 & RF7_CAN_FLY) ? TRUE : FALSE;
 		if (riding_r_ptr->flags7 & (RF7_CAN_SWIM | RF7_AQUATIC)) cr_ptr->can_swim = TRUE;
 

@@ -6807,7 +6807,7 @@ bool process_warning(int xx, int yy)
 
 			m_ptr = &m_list[c_ptr->m_idx];
 
-			if (MON_CSLEEP(m_ptr)) continue;
+			if (m_ptr->paralyzed) continue;
 			if (!is_hostile(m_ptr)) continue;
 
 			r_ptr = &r_info[m_ptr->monster_idx];

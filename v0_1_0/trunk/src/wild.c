@@ -1069,7 +1069,7 @@ bool change_wild_mode(void)
 
 		if (!m_ptr->monster_idx) continue;
 		if (is_pet(m_ptr) && i != p_ptr->riding) have_pet = TRUE;
-		if (MON_CSLEEP(m_ptr)) continue;
+		if (m_ptr->paralyzed) continue;
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 		if (!is_hostile(m_ptr)) continue;
 #ifdef JP

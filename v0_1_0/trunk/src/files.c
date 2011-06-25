@@ -1889,8 +1889,8 @@ static void display_player_middle(creature_type *cr_ptr)
 		}
 		else
 		{
-			if (MON_FAST(&m_list[cr_ptr->riding])) tmp_speed += 10;
-			if (MON_SLOW(&m_list[cr_ptr->riding])) tmp_speed -= 10;
+			if (m_list[cr_ptr->riding].fast) tmp_speed += 10;
+			if (m_list[cr_ptr->riding].slow) tmp_speed -= 10;
 		}
 
 		if (tmp_speed)

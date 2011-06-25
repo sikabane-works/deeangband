@@ -195,15 +195,15 @@ static void wr_monster(creature_type *m_ptr)
 
 	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_MONSTER_IDX;
 	if (m_ptr->sub_align) flags |= SAVE_MON_SUB_ALIGN;
-	if (MON_CSLEEP(m_ptr)) flags |= SAVE_MON_CSLEEP;
-	if (MON_FAST(m_ptr)) flags |= SAVE_MON_FAST;
-	if (MON_SLOW(m_ptr)) flags |= SAVE_MON_SLOW;
-	if (MON_STUNNED(m_ptr)) flags |= SAVE_MON_STUNNED;
-	if (MON_CONFUSED(m_ptr)) flags |= SAVE_MON_CONFUSED;
-	if (MON_MONFEAR(m_ptr)) flags |= SAVE_MON_MONFEAR;
+	if (m_ptr->paralyzed) flags |= SAVE_MON_CSLEEP;
+	if (m_ptr->fast) flags |= SAVE_MON_FAST;
+	if (m_ptr->slow) flags |= SAVE_MON_SLOW;
+	if (m_ptr->stun) flags |= SAVE_MON_STUNNED;
+	if (m_ptr->confused) flags |= SAVE_MON_CONFUSED;
+	if (m_ptr->afraid) flags |= SAVE_MON_MONFEAR;
 	if (m_ptr->target_y) flags |= SAVE_MON_TARGET_Y;
 	if (m_ptr->target_x) flags |= SAVE_MON_TARGET_X;
-	if (MON_INVULNER(m_ptr)) flags |= SAVE_MON_INVULNER;
+	if (m_ptr->invuln) flags |= SAVE_MON_INVULNER;
 	if (m_ptr->smart) flags |= SAVE_MON_SMART;
 	if (m_ptr->exp) flags |= SAVE_MON_EXP;
 	if (m_ptr->mflag2) flags |= SAVE_MON_MFLAG2;
@@ -286,7 +286,7 @@ static void wr_monster(creature_type *m_ptr)
 	/* Monster race index of its appearance */
 	if (flags & SAVE_MON_AP_MONSTER_IDX) wr_s16b(m_ptr->ap_monster_idx);
 	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
-	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->mtimed[MTIMED_CSLEEP]);
+	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->paralyzed);
 
 	for (i = 0; i < 64; i++) wr_s16b(m_ptr->spell_exp[i]);
 	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(m_ptr->weapon_exp[i][j]);
@@ -299,34 +299,34 @@ static void wr_monster(creature_type *m_ptr)
 
 	if (flags & SAVE_MON_FAST)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_FAST];
+		tmp8u = (byte)m_ptr->fast;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_SLOW)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_SLOW];
+		tmp8u = (byte)m_ptr->slow;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_STUNNED)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_STUNNED];
+		tmp8u = (byte)m_ptr->stun;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_CONFUSED)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_CONFUSED];
+		tmp8u = (byte)m_ptr->confused;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_MONFEAR)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_MONFEAR];
+		tmp8u = (byte)m_ptr->afraid;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_TARGET_Y) wr_s16b(m_ptr->target_y);
 	if (flags & SAVE_MON_TARGET_X) wr_s16b(m_ptr->target_x);
 	if (flags & SAVE_MON_INVULNER)
 	{
-		tmp8u = (byte)m_ptr->mtimed[MTIMED_INVULNER];
+		tmp8u = (byte)m_ptr->invuln;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_SMART) wr_u32b(m_ptr->smart);

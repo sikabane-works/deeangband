@@ -5686,7 +5686,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		creature_type *m_ptr = &m_list[p_ptr->riding];
 		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-		if (MON_CSLEEP(m_ptr))
+		if (m_ptr->paralyzed)
 		{
 			char m_name[80];
 
@@ -5702,11 +5702,11 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 #endif
 		}
 
-		if (MON_STUNNED(m_ptr))
+		if (m_ptr->stun)
 		{
 			/* Hack -- Recover from stun */
 			if (set_monster_stunned(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_STUNNED(m_ptr) - 1)))
+				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];
 
@@ -5722,11 +5722,11 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			}
 		}
 
-		if (MON_CONFUSED(m_ptr))
+		if (m_ptr->confused)
 		{
 			/* Hack -- Recover from confusion */
 			if (set_monster_confused(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_CONFUSED(m_ptr) - 1)))
+				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
 			{
 				char m_name[80];
 
@@ -5742,11 +5742,11 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			}
 		}
 
-		if (MON_MONFEAR(m_ptr))
+		if (m_ptr->afraid)
 		{
 			/* Hack -- Recover from fear */
 			if (set_monster_monfear(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (MON_MONFEAR(m_ptr) - 1)))
+				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
 

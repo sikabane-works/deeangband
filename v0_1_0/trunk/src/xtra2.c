@@ -1377,7 +1377,7 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 		if ((dam == 0) && one_in_(3)) dam = 1;
 	}
 
-	if (MON_INVULNER(m_ptr))
+	if (m_ptr->invuln)
 	{
 		if (is_psy_spear)
 		{
@@ -1917,10 +1917,10 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #ifdef ALLOW_FEAR
 
 	/* Mega-Hack -- Pain cancels fear */
-	if (MON_MONFEAR(tar_ptr) && (damage > 0))
+	if (tar_ptr->afraid && (damage > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(tar_ptr, MON_MONFEAR(tar_ptr) - randint1(damage)))
+		if (set_monster_monfear(tar_ptr, tar_ptr->afraid - randint1(damage)))
 		{
 			/* No more fear */
 			fear = FALSE;
@@ -1928,7 +1928,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 	}
 
 	/* Sometimes a monster gets scared by damage */
-	if (!MON_MONFEAR(tar_ptr) && !(r_ptr->flags3 & (RF3_NO_FEAR)))
+	if (!tar_ptr->afraid && !(r_ptr->flags3 & (RF3_NO_FEAR)))
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
@@ -1969,7 +1969,7 @@ msg_format("%^sに振り落とされた！", m_name);
 	}
 #endif
 
-	if(fear && !MON_MONFEAR(tar_ptr))
+	if(fear && !tar_ptr->afraid)
 	{
 		char m_name[80];
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
@@ -4448,7 +4448,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 		creature_type *m_ptr = &m_list[p_ptr->riding];
 		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-		if (MON_CONFUSED(m_ptr))
+		if (m_ptr->confused)
 		{
 			/* Standard confusion */
 			if (randint0(100) < 75)
@@ -4487,7 +4487,7 @@ msg_print("あなたは混乱している。");
 			creature_type *m_ptr = &m_list[p_ptr->riding];
 
 			monster_desc(m_name, m_ptr, 0);
-			if (MON_CONFUSED(m_ptr))
+			if (m_ptr->confused)
 			{
 #ifdef JP
 msg_format("%sは混乱している。", m_name);

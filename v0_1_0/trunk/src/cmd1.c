@@ -2111,7 +2111,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			if (cr_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if (cr_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
 			if (r_ptr->level > (cr_ptr->lev * cr_ptr->lev / 20 + 10)) tmp /= 3;
-			if (MON_CSLEEP(m_ptr) && m_ptr->ml)
+			if (m_ptr->paralyzed && m_ptr->ml)
 			{
 				/* Can't backstab creatures that we can't see, right? */
 				backstab = TRUE;
@@ -2120,7 +2120,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			{
 				fuiuchi = TRUE;
 			}
-			else if (MON_MONFEAR(m_ptr) && m_ptr->ml)
+			else if (m_ptr->afraid && m_ptr->ml)
 			{
 				stab_fleeing = TRUE;
 			}
@@ -2477,7 +2477,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				{
 					if (cr_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 					{
-						if (set_monster_stunned(&m_list[c_ptr->m_idx], stun_effect + MON_STUNNED(m_ptr)))
+						if (set_monster_stunned(&m_list[c_ptr->m_idx], stun_effect + m_ptr->stun))
 						{
 #ifdef JP
 							msg_format("%^sはフラフラになった。", m_name);
@@ -2654,7 +2654,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (!(r_ptr->flags3 & (RF3_NO_STUN)))
 				{
 					/* Get stunned */
-					if (MON_STUNNED(m_ptr))
+					if (m_ptr->stun)
 					{
 #ifdef JP
 						msg_format("%sはひどくもうろうとした。", m_name);
@@ -2674,7 +2674,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 
 					/* Apply stun */
-					(void)set_monster_stunned(&m_list[c_ptr->m_idx], MON_STUNNED(m_ptr) + tmp);
+					(void)set_monster_stunned(&m_list[c_ptr->m_idx], m_ptr->stun + tmp);
 				}
 				else
 				{
@@ -2914,7 +2914,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("%^s appears confused.", m_name);
 #endif
 
-					(void)set_monster_confused(&m_list[c_ptr->m_idx], MON_CONFUSED(m_ptr) + 10 + randint0(cr_ptr->lev) / 5);
+					(void)set_monster_confused(&m_list[c_ptr->m_idx], m_ptr->confused + 10 + randint0(cr_ptr->lev) / 5);
 				}
 			}
 
@@ -3339,7 +3339,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	if (MON_CSLEEP(m_ptr)) /* It is not honorable etc to attack helpless victims */
+	if (m_ptr->paralyzed) /* It is not honorable etc to attack helpless victims */
 	{
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
@@ -4193,7 +4193,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (MON_MONFEAR(riding_m_ptr))
+		else if (riding_m_ptr->afraid)
 		{
 			char m_name[80];
 
@@ -4258,7 +4258,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			disturb(0, 0);
 		}
 
-		if (oktomove && MON_STUNNED(riding_m_ptr) && one_in_(2))
+		if (oktomove && riding_m_ptr->stun && one_in_(2))
 		{
 			char m_name[80];
 			monster_desc(m_name, riding_m_ptr, 0);

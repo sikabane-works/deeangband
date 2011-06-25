@@ -3661,7 +3661,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			/* Note the collision */
 			hit_body = TRUE;
 
-			if (MON_CSLEEP(m_ptr))
+			if (m_ptr->paralyzed)
 			{
 				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
 				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
@@ -4544,7 +4544,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 				/* ToDo (Robert): fix the invulnerability */
 				if (cave[y][x].m_idx &&
 				    is_friendly(&m_list[cave[y][x].m_idx]) &&
-				    !MON_INVULNER(m_ptr))
+				    !m_ptr->invuln)
 				{
 					char m_name[80];
 					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);

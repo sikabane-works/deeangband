@@ -1516,7 +1516,7 @@ struct creature_type
 	byte fy;		/* Y location on map */
 	byte fx;		/* X location on map */
 
-	s16b mtimed[MAX_MTIMED];	/* Timed status counter */
+//	s16b mtimed[MAX_MTIMED];	/* Timed status counter */
 
 	byte cdis;		/* Current dis from player */
 

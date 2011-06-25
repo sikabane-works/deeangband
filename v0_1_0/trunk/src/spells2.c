@@ -4628,7 +4628,7 @@ void aggravate_monsters(int who)
 		if (m_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
-			if (MON_CSLEEP(m_ptr))
+			if (m_ptr->paralyzed)
 			{
 				(void)set_monster_csleep(&m_list[i], 0);
 				sleep = TRUE;
@@ -4641,7 +4641,7 @@ void aggravate_monsters(int who)
 		{
 			if (!is_pet(m_ptr))
 			{
-				(void)set_monster_fast(m_ptr, MON_FAST(m_ptr) + 100);
+				(void)set_monster_fast(m_ptr, m_ptr->fast + 100);
 				speed = TRUE;
 			}
 		}
@@ -4712,7 +4712,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 			msg_format("%^s is unaffected.", m_name);
 #endif
 		}
-		if (MON_CSLEEP(m_ptr))
+		if (m_ptr->paralyzed)
 		{
 			(void)set_monster_csleep(&m_list[m_idx], 0);
 			if (m_ptr->ml)
@@ -4972,8 +4972,8 @@ bool probing(void)
 			monster_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed - 110;
-			if (MON_FAST(m_ptr)) speed += 10;
-			if (MON_SLOW(m_ptr)) speed -= 10;
+			if (m_ptr->fast) speed += 10;
+			if (m_ptr->slow) speed -= 10;
 
 			/* Get the monster's alignment */
 #ifdef JP
@@ -5026,17 +5026,17 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			}
 
 #ifdef JP
-			if (MON_CSLEEP(m_ptr)) strcat(buf,"‡–° ");
-			if (MON_STUNNED(m_ptr)) strcat(buf,"žNžO ");
-			if (MON_MONFEAR(m_ptr)) strcat(buf,"‹°•| ");
-			if (MON_CONFUSED(m_ptr)) strcat(buf,"¬— ");
-			if (MON_INVULNER(m_ptr)) strcat(buf,"–³“G ");
+			if (m_ptr->paralyzed) strcat(buf,"‡–° ");
+			if (m_ptr->stun) strcat(buf,"žNžO ");
+			if (m_ptr->afraid) strcat(buf,"‹°•| ");
+			if (m_ptr->confused) strcat(buf,"¬— ");
+			if (m_ptr->invuln) strcat(buf,"–³“G ");
 #else
-			if (MON_CSLEEP(m_ptr)) strcat(buf,"sleeping ");
-			if (MON_STUNNED(m_ptr)) strcat(buf,"stunned ");
-			if (MON_MONFEAR(m_ptr)) strcat(buf,"scared ");
-			if (MON_CONFUSED(m_ptr)) strcat(buf,"confused ");
-			if (MON_INVULNER(m_ptr)) strcat(buf,"invulnerable ");
+			if (m_ptr->paralyzed) strcat(buf,"sleeping ");
+			if (m_ptr->stun) strcat(buf,"stunned ");
+			if (m_ptr->afraid) strcat(buf,"scared ");
+			if (m_ptr->confused) strcat(buf,"confused ");
+			if (m_ptr->invuln) strcat(buf,"invulnerable ");
 #endif
 			buf[strlen(buf)-1] = '\0';
 			prt(buf,0,0);
@@ -6029,7 +6029,7 @@ static void cave_temp_room_lite(void)
 			if (r_ptr->flags2 & (RF2_SMART)) chance = 100;
 
 			/* Sometimes monsters wake up */
-			if (MON_CSLEEP(m_ptr) && (randint0(100) < chance))
+			if (m_ptr->paralyzed && (randint0(100) < chance))
 			{
 				/* Wake up! */
 				(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
