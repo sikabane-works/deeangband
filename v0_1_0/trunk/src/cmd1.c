@@ -4702,7 +4702,7 @@ static int see_nothing(int dir, int y, int x)
 
 
 
-/*
+/*KU
  * Hack -- allow quick "cycling" through the legal directions
  */
 static byte cycle[] =
