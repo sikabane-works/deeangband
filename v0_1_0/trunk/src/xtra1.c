@@ -520,7 +520,7 @@ static struct {
 /*
  *  Show status bar
  */
-static void prt_status(void)
+static void prt_status(creature_type *cr_ptr)
 {
 	u32b bar_flags[3];
 	int wid, hgt, row_statbar, max_col_statbar;
@@ -536,138 +536,138 @@ static void prt_status(void)
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
 	/* Tsuyoshi  */
-	if (p_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);
+	if (cr_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);
 
 	/* Hallucinating */
-	if (p_ptr->image) ADD_FLG(BAR_HALLUCINATION);
+	if (cr_ptr->image) ADD_FLG(BAR_HALLUCINATION);
 
 	/* Blindness */
-	if (p_ptr->blind) ADD_FLG(BAR_BLINDNESS);
+	if (cr_ptr->blind) ADD_FLG(BAR_BLINDNESS);
 
 	/* Paralysis */
-	if (p_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);
+	if (cr_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);
 
 	/* Confusion */
-	if (p_ptr->confused) ADD_FLG(BAR_CONFUSE);
+	if (cr_ptr->confused) ADD_FLG(BAR_CONFUSE);
 
 	/* Posioned */
-	if (p_ptr->poisoned) ADD_FLG(BAR_POISONED);
+	if (cr_ptr->poisoned) ADD_FLG(BAR_POISONED);
 
 	/* Times see-invisible */
-	if (p_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);
+	if (cr_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);
 
 	/* Timed esp */
-	if (IS_TIM_ESP(p_ptr)) ADD_FLG(BAR_TELEPATHY);
+	if (IS_TIM_ESP(cr_ptr)) ADD_FLG(BAR_TELEPATHY);
 
 	/* Timed regenerate */
-	if (p_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);
+	if (cr_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);
 
 	/* Timed infra-vision */
-	if (p_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);
+	if (cr_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);
 
 	/* Protection from evil */
-	if (p_ptr->protevil) ADD_FLG(BAR_PROTEVIL);
+	if (cr_ptr->protevil) ADD_FLG(BAR_PROTEVIL);
 
 	/* Invulnerability */
-	if (IS_INVULN(p_ptr)) ADD_FLG(BAR_INVULN);
+	if (IS_INVULN(cr_ptr)) ADD_FLG(BAR_INVULN);
 
 	/* Wraith form */
-	if (p_ptr->wraith_form) ADD_FLG(BAR_WRAITH);
+	if (cr_ptr->wraith_form) ADD_FLG(BAR_WRAITH);
 
 	/* Kabenuke */
-	if (p_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);
+	if (cr_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);
 
-	if (p_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
+	if (cr_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
 
 	/* Heroism */
-	if (IS_HERO(p_ptr)) ADD_FLG(BAR_HEROISM);
+	if (IS_HERO(cr_ptr)) ADD_FLG(BAR_HEROISM);
 
 	/* Super Heroism / berserk */
-	if (p_ptr->shero) ADD_FLG(BAR_BERSERK);
+	if (cr_ptr->shero) ADD_FLG(BAR_BERSERK);
 
 	/* Blessed */
-	if (IS_BLESSED(p_ptr)) ADD_FLG(BAR_BLESSED);
+	if (IS_BLESSED(cr_ptr)) ADD_FLG(BAR_BLESSED);
 
 	/* Shield */
-	if (p_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);
+	if (cr_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);
 
-	if (p_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
+	if (cr_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
 
-	if (p_ptr->shield) ADD_FLG(BAR_STONESKIN);
+	if (cr_ptr->shield) ADD_FLG(BAR_STONESKIN);
 	
-	if (p_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
+	if (cr_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
 	/* Oppose Acid */
-	if (p_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID);
-	if (IS_OPPOSE_ACID(p_ptr)) ADD_FLG(BAR_RESACID);
+	if (cr_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID);
+	if (IS_OPPOSE_ACID(cr_ptr)) ADD_FLG(BAR_RESACID);
 
 	/* Oppose Lightning */
-	if (p_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC);
-	if (IS_OPPOSE_ELEC(p_ptr)) ADD_FLG(BAR_RESELEC);
+	if (cr_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC);
+	if (IS_OPPOSE_ELEC(cr_ptr)) ADD_FLG(BAR_RESELEC);
 
 	/* Oppose Fire */
-	if (p_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
-	if (IS_OPPOSE_FIRE(p_ptr)) ADD_FLG(BAR_RESFIRE);
+	if (cr_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
+	if (IS_OPPOSE_FIRE(cr_ptr)) ADD_FLG(BAR_RESFIRE);
 
 	/* Oppose Cold */
-	if (p_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
-	if (IS_OPPOSE_COLD(p_ptr)) ADD_FLG(BAR_RESCOLD);
+	if (cr_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
+	if (IS_OPPOSE_COLD(cr_ptr)) ADD_FLG(BAR_RESCOLD);
 
 	/* Oppose Poison */
-	if (IS_OPPOSE_POIS(p_ptr)) ADD_FLG(BAR_RESPOIS);
+	if (IS_OPPOSE_POIS(cr_ptr)) ADD_FLG(BAR_RESPOIS);
 
 	/* Word of Recall */
-	if (p_ptr->word_recall) ADD_FLG(BAR_RECALL);
+	if (cr_ptr->word_recall) ADD_FLG(BAR_RECALL);
 
 	/* Alter realiry */
-	if (p_ptr->alter_reality) ADD_FLG(BAR_ALTER);
+	if (cr_ptr->alter_reality) ADD_FLG(BAR_ALTER);
 
 	/* Afraid */
-	if (p_ptr->afraid) ADD_FLG(BAR_AFRAID);
+	if (cr_ptr->afraid) ADD_FLG(BAR_AFRAID);
 
 	/* Resist time */
-	if (p_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
+	if (cr_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
 
-	if (p_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
+	if (cr_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
 
 	/* Confusing Hands */
-	if (p_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
+	if (cr_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
 
-	if (p_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
+	if (cr_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
 
 	/* Ultimate-resistance */
-	if (p_ptr->ult_res) ADD_FLG(BAR_ULTIMATE);
+	if (cr_ptr->ult_res) ADD_FLG(BAR_ULTIMATE);
 
 	/* tim levitation */
-	if (p_ptr->tim_levitation) ADD_FLG(BAR_LEVITATE);
+	if (cr_ptr->tim_levitation) ADD_FLG(BAR_LEVITATE);
 
-	if (p_ptr->tim_res_nether) ADD_FLG(BAR_RESNETH);
+	if (cr_ptr->tim_res_nether) ADD_FLG(BAR_RESNETH);
 
-	if (p_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
+	if (cr_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
 
 	/* Mahouken */
-	if (p_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
-	if (p_ptr->special_attack & ATTACK_COLD) ADD_FLG(BAR_ATTKCOLD);
-	if (p_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
-	if (p_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
-	if (p_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
-	if (p_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
+	if (cr_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
+	if (cr_ptr->special_attack & ATTACK_COLD) ADD_FLG(BAR_ATTKCOLD);
+	if (cr_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
+	if (cr_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
+	if (cr_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
+	if (cr_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
-	if (p_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
+	if (cr_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
 
 	/* tim stealth */
-	if (IS_TIM_STEALTH(p_ptr)) ADD_FLG(BAR_STEALTH);
+	if (IS_TIM_STEALTH(cr_ptr)) ADD_FLG(BAR_STEALTH);
 
-	if (p_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
+	if (cr_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
 
 	/* Holy aura */
-	if (p_ptr->tim_sh_holy) ADD_FLG(BAR_SHHOLY);
+	if (cr_ptr->tim_sh_holy) ADD_FLG(BAR_SHHOLY);
 
 	/* An Eye for an Eye */
-	if (p_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
+	if (cr_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
-	if (p_ptr->realm1 == REALM_HEX)
+	if (cr_ptr->realm1 == REALM_HEX)
 	{
 		if (hex_spelling(HEX_BLESS)) ADD_FLG(BAR_BLESSED);
 		if (hex_spelling(HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
@@ -688,10 +688,10 @@ static void prt_status(void)
 			hex_spelling(HEX_CURE_SERIOUS) ||
 			hex_spelling(HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
 
-		if (p_ptr->magic_num2[2])
+		if (cr_ptr->magic_num2[2])
 		{
-			if (p_ptr->magic_num2[1] == 1) ADD_FLG(BAR_PATIENCE);
-			if (p_ptr->magic_num2[1] == 2) ADD_FLG(BAR_REVENGE);
+			if (cr_ptr->magic_num2[1] == 1) ADD_FLG(BAR_PATIENCE);
+			if (cr_ptr->magic_num2[1] == 2) ADD_FLG(BAR_REVENGE);
 		}
 	}
 
@@ -1108,10 +1108,10 @@ static void prt_depth(void)
 /*
  * Prints status of hunger
  */
-static void prt_hunger(void)
+static void prt_hunger(creature_type *cr_ptr)
 {
 	/* Fainting / Starving */
-	if (p_ptr->food < PY_FOOD_FAINT)
+	if (cr_ptr->food < PY_FOOD_FAINT)
 	{
 #ifdef JP
 		c_put_str(TERM_RED, "衰弱  ", ROW_HUNGRY, COL_HUNGRY);
@@ -1122,7 +1122,7 @@ static void prt_hunger(void)
 	}
 
 	/* Weak */
-	else if (p_ptr->food < PY_FOOD_WEAK)
+	else if (cr_ptr->food < PY_FOOD_WEAK)
 	{
 #ifdef JP
 		c_put_str(TERM_ORANGE, "衰弱  ", ROW_HUNGRY, COL_HUNGRY);
@@ -1133,7 +1133,7 @@ static void prt_hunger(void)
 	}
 
 	/* Hungry */
-	else if (p_ptr->food < PY_FOOD_ALERT)
+	else if (cr_ptr->food < PY_FOOD_ALERT)
 	{
 #ifdef JP
 		c_put_str(TERM_YELLOW, "空腹  ", ROW_HUNGRY, COL_HUNGRY);
@@ -1144,13 +1144,13 @@ static void prt_hunger(void)
 	}
 
 	/* Normal */
-	else if (p_ptr->food < PY_FOOD_FULL)
+	else if (cr_ptr->food < PY_FOOD_FULL)
 	{
 		c_put_str(TERM_L_GREEN, "      ", ROW_HUNGRY, COL_HUNGRY);
 	}
 
 	/* Full */
-	else if (p_ptr->food < PY_FOOD_MAX)
+	else if (cr_ptr->food < PY_FOOD_MAX)
 	{
 #ifdef JP
 		c_put_str(TERM_L_GREEN, "満腹  ", ROW_HUNGRY, COL_HUNGRY);
@@ -1180,7 +1180,7 @@ static void prt_hunger(void)
  * This function was a major bottleneck when resting, so a lot of
  * the text formatting code was optimized in place below.
  */
-static void prt_state(void)
+static void prt_state(creature_type *cr_ptr)
 {
 	byte attr = TERM_WHITE;
 
@@ -1212,7 +1212,7 @@ sprintf(text, "  %2d", command_rep);
 	/* Action */
 	else
 	{
-		switch(p_ptr->action)
+		switch(cr_ptr->action)
 		{
 			case ACTION_SEARCH:
 			{
@@ -1306,7 +1306,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KAMAE; i++)
-					if (p_ptr->special_defense & (KAMAE_GENBU << i)) break;
+					if (cr_ptr->special_defense & (KAMAE_GENBU << i)) break;
 				switch (i)
 				{
 					case 0: attr = TERM_GREEN;break;
@@ -1321,7 +1321,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KATA; i++)
-					if (p_ptr->special_defense & (KATA_IAI << i)) break;
+					if (cr_ptr->special_defense & (KATA_IAI << i)) break;
 				strcpy(text, kata_shurui[i].desc);
 				break;
 			}
@@ -1368,10 +1368,10 @@ sprintf(text, "  %2d", command_rep);
 /*
  * Prints the speed of a character.			-CJS-
  */
-static void prt_speed(void)
+static void prt_speed(creature_type *cr_ptr)
 {
-	int i = p_ptr->speed;
-	bool is_fast = IS_FAST(p_ptr);
+	int i = cr_ptr->speed;
+	bool is_fast = IS_FAST(cr_ptr);
 
 	byte attr = TERM_WHITE;
 	char buf[32] = "";
@@ -1382,23 +1382,23 @@ static void prt_speed(void)
 	row_speed = hgt + ROW_SPEED;
 
 	/* Hack -- Visually "undo" the Search Mode Slowdown */
-	if (p_ptr->action == ACTION_SEARCH && !p_ptr->lightspeed) i += 10;
+	if (cr_ptr->action == ACTION_SEARCH && !cr_ptr->lightspeed) i += 10;
 
 	/* Fast */
 	if (i > 110)
 	{
-		if (p_ptr->riding)
+		if (cr_ptr->riding)
 		{
-			creature_type *m_ptr = &m_list[p_ptr->riding];
+			creature_type *m_ptr = &m_list[cr_ptr->riding];
 			if (MON_FAST(m_ptr) && !MON_SLOW(m_ptr)) attr = TERM_L_BLUE;
 			else if (MON_SLOW(m_ptr) && !MON_FAST(m_ptr)) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
-		else if ((is_fast && !p_ptr->slow) || p_ptr->lightspeed) attr = TERM_YELLOW;
-		else if (p_ptr->slow && !is_fast) attr = TERM_VIOLET;
+		else if ((is_fast && !cr_ptr->slow) || cr_ptr->lightspeed) attr = TERM_YELLOW;
+		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
-		sprintf(buf, "%s(+%d)", (p_ptr->riding ? "乗馬" : "加速"), (i - 110));
+		sprintf(buf, "%s(+%d)", (cr_ptr->riding ? "乗馬" : "加速"), (i - 110));
 #else
 		sprintf(buf, "Fast(+%d)", (i - 110));
 #endif
@@ -1408,23 +1408,23 @@ static void prt_speed(void)
 	/* Slow */
 	else if (i < 110)
 	{
-		if (p_ptr->riding)
+		if (cr_ptr->riding)
 		{
-			creature_type *m_ptr = &m_list[p_ptr->riding];
+			creature_type *m_ptr = &m_list[cr_ptr->riding];
 			if (MON_FAST(m_ptr) && !MON_SLOW(m_ptr)) attr = TERM_L_BLUE;
 			else if (MON_SLOW(m_ptr) && !MON_FAST(m_ptr)) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
-		else if (is_fast && !p_ptr->slow) attr = TERM_YELLOW;
-		else if (p_ptr->slow && !is_fast) attr = TERM_VIOLET;
+		else if (is_fast && !cr_ptr->slow) attr = TERM_YELLOW;
+		else if (cr_ptr->slow && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
 #ifdef JP
-		sprintf(buf, "%s(-%d)", (p_ptr->riding ? "乗馬" : "減速"), (110 - i));
+		sprintf(buf, "%s(-%d)", (cr_ptr->riding ? "乗馬" : "減速"), (110 - i));
 #else
 		sprintf(buf, "Slow(-%d)", (110 - i));
 #endif
 	}
-	else if (p_ptr->riding)
+	else if (cr_ptr->riding)
 	{
 		attr = TERM_GREEN;
 #ifdef JP
@@ -1439,7 +1439,7 @@ static void prt_speed(void)
 }
 
 
-static void prt_study(void)
+static void prt_study(creature_type *cr_ptr)
 {
 	int wid, hgt, row_study, col_study;
 
@@ -1447,7 +1447,7 @@ static void prt_study(void)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (p_ptr->new_spells)
+	if (cr_ptr->new_spells)
 	{
 #ifdef JP
 		put_str("学習", row_study, col_study);
@@ -1463,7 +1463,7 @@ static void prt_study(void)
 }
 
 
-static void prt_imitation(void)
+static void prt_imitation(creature_type *cr_ptr)
 {
 	int wid, hgt, row_study, col_study;
 
@@ -1471,9 +1471,9 @@ static void prt_imitation(void)
 	col_study = wid + COL_STUDY;
 	row_study = hgt + ROW_STUDY;
 
-	if (p_ptr->cls_idx == CLASS_IMITATOR)
+	if (cr_ptr->cls_idx == CLASS_IMITATOR)
 	{
-		if (p_ptr->mane_num)
+		if (cr_ptr->mane_num)
 		{
 			byte attr;
 			if (new_mane) attr = TERM_L_RED;
@@ -1492,9 +1492,9 @@ static void prt_imitation(void)
 }
 
 
-static void prt_cut(void)
+static void prt_cut(creature_type *cr_ptr)
 {
-	int c = p_ptr->cut;
+	int c = cr_ptr->cut;
 
 	if (c > 1000)
 	{
@@ -1567,9 +1567,9 @@ static void prt_cut(void)
 
 
 
-static void prt_stun(void)
+static void prt_stun(creature_type *cr_ptr)
 {
-	int s = p_ptr->stun;
+	int s = cr_ptr->stun;
 
 	if (s > 100)
 	{
@@ -1770,24 +1770,24 @@ static void prt_frame_basic(void)
 static void prt_frame_extra(void)
 {
 	/* Cut/Stun */
-	prt_cut();
-	prt_stun();
+	prt_cut(p_ptr);
+	prt_stun(p_ptr);
 
 	/* Food */
-	prt_hunger();
+	prt_hunger(p_ptr);
 
 	/* State */
-	prt_state();
+	prt_state(p_ptr);
 
 	/* Speed */
-	prt_speed();
+	prt_speed(p_ptr);
 
 	/* Study spells */
-	prt_study();
+	prt_study(p_ptr);
 
-	prt_imitation();
+	prt_imitation(p_ptr);
 
-	prt_status();
+	prt_status(p_ptr);
 }
 
 
@@ -6213,7 +6213,7 @@ void redraw_stuff(void)
 	if (p_ptr->redraw & (PR_STATUS))
 	{
 		p_ptr->redraw &= ~(PR_STATUS);
-		prt_status();
+		prt_status(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_ARMOR))
@@ -6271,31 +6271,31 @@ void redraw_stuff(void)
 	if (p_ptr->redraw & (PR_CUT))
 	{
 		p_ptr->redraw &= ~(PR_CUT);
-		prt_cut();
+		prt_cut(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_STUN))
 	{
 		p_ptr->redraw &= ~(PR_STUN);
-		prt_stun();
+		prt_stun(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_HUNGER))
 	{
 		p_ptr->redraw &= ~(PR_HUNGER);
-		prt_hunger();
+		prt_hunger(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_STATE))
 	{
 		p_ptr->redraw &= ~(PR_STATE);
-		prt_state();
+		prt_state(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_SPEED))
 	{
 		p_ptr->redraw &= ~(PR_SPEED);
-		prt_speed();
+		prt_speed(p_ptr);
 	}
 
 	if (p_ptr->cls_idx == CLASS_IMITATOR)
@@ -6303,13 +6303,13 @@ void redraw_stuff(void)
 		if (p_ptr->redraw & (PR_IMITATION))
 		{
 			p_ptr->redraw &= ~(PR_IMITATION);
-			prt_imitation();
+			prt_imitation(p_ptr);
 		}
 	}
 	else if (p_ptr->redraw & (PR_STUDY))
 	{
 		p_ptr->redraw &= ~(PR_STUDY);
-		prt_study();
+		prt_study(p_ptr);
 	}
 }
 
