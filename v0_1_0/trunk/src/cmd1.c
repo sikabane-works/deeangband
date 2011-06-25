@@ -964,7 +964,7 @@ void carry(bool pickup)
 	}
 	/* Message */
 
-	if(floor_num >= 2)
+	if(floor_num >= 3)
 	{
 #ifdef JP
 			msg_format("%d種のアイテムがある。", floor_num);
