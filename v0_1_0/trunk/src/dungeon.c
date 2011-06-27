@@ -752,7 +752,7 @@ static bool pattern_effect(void)
 		(void)set_image(0);
 		(void)set_stun(0);
 		(void)set_cut(0);
-		(void)set_blind(0);
+		(void)set_blind(p_ptr, 0);
 		(void)set_afraid(0);
 		(void)do_res_stat(A_STR);
 		(void)do_res_stat(A_INT);
@@ -1973,7 +1973,7 @@ static void process_world_aux_timeout(void)
 	/* Blindness */
 	if (p_ptr->blind)
 	{
-		(void)set_blind(p_ptr->blind - dec_count);
+		(void)set_blind(p_ptr, p_ptr->blind - dec_count);
 	}
 
 	/* Times see-invisible */
@@ -7226,7 +7226,7 @@ quit("セーブファイルが壊れています");
 					p_ptr->is_dead = FALSE;
 
 					/* Hack -- Healing */
-					(void)set_blind(0);
+					(void)set_blind(p_ptr, 0);
 					(void)set_confused(0);
 					(void)set_poisoned(0);
 					(void)set_afraid(0);

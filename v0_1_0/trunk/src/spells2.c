@@ -5360,7 +5360,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 			if (!p_ptr->resist_blind && !p_ptr->resist_lite)
 			{
 				/* Become blind */
-				(void)set_blind(p_ptr->blind + 10 + randint1(10));
+				(void)set_blind(p_ptr, p_ptr->blind + 10 + randint1(10));
 			}
 		}
 

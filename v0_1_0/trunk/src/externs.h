@@ -1437,7 +1437,7 @@ extern void set_action(int typ);
 extern void reset_tim_flags(void);
 extern void dispel_player(void);
 extern bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec);
-extern bool set_blind(int v);
+extern bool set_blind(creature_type *cr_ptr, int v);
 extern bool set_confused(int v);
 extern bool set_poisoned(int v);
 extern bool set_afraid(int v);

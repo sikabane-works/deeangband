@@ -5231,7 +5231,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 
 			restore_level();
 			(void)set_poisoned(0);
-			(void)set_blind(0);
+			(void)set_blind(p_ptr, 0);
 			(void)set_confused(0);
 			(void)set_image(0);
 			(void)set_stun(0);

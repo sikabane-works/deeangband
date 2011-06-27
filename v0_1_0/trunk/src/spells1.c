@@ -7046,7 +7046,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!blind && !p_ptr->resist_blind && !CHECK_MULTISHADOW())
 			{
-				(void)set_blind(p_ptr->blind + randint1(5) + 2);
+				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
 			}
 
 			if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
@@ -7107,7 +7107,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!blind && !p_ptr->resist_blind && !CHECK_MULTISHADOW())
 			{
-				(void)set_blind(p_ptr->blind + randint1(5) + 2);
+				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
 			}
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
@@ -7603,7 +7603,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				{
 					if (!p_ptr->resist_blind)
 					{
-						(void)set_blind(p_ptr->blind + 8 + randint0(8));
+						(void)set_blind(p_ptr, p_ptr->blind + 8 + randint0(8));
 					}
 					if (!p_ptr->resist_conf)
 					{

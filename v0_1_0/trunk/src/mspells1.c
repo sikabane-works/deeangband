@@ -3061,7 +3061,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
 			}
 			else
 			{
-				(void)set_blind(12 + randint0(4));
+				(void)set_blind(p_ptr, 12 + randint0(4));
 			}
 			learn_spell(MS_BLIND);
 			update_smart_learn(m_idx, DRS_BLIND);

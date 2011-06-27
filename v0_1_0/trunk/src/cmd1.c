@@ -1577,7 +1577,7 @@ static void hit_trap(bool break_trap)
 
 			if (!p_ptr->resist_blind)
 			{
-				(void)set_blind(p_ptr->blind + randint0(50) + 25);
+				(void)set_blind(p_ptr, p_ptr->blind + randint0(50) + 25);
 			}
 			break;
 		}

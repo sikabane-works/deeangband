@@ -2872,7 +2872,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				}
 				else
 				{
-					set_blind(0);
+					set_blind(p_ptr, 0);
 					set_confused(0);
 					p_ptr->stun = 0;
 					p_ptr->chp = p_ptr->mhp;
@@ -4819,7 +4819,7 @@ msg_print("お金が足りません！");
 	case BACT_HEALING: /* needs work */
 		hp_player(200);
 		set_poisoned(0);
-		set_blind(0);
+		set_blind(p_ptr, 0);
 		set_confused(0);
 		set_cut(0);
 		set_stun(0);

@@ -331,7 +331,7 @@ void dispel_player(void)
 
 
 /*
- * Set "p_ptr->tim_mimic", and "p_ptr->mimic_form",
+ * Set "cr_ptr->tim_mimic", and "cr_ptr->mimic_form",
  * notice observable changes
  */
 bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
@@ -405,28 +405,28 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 }
 
 /*
- * Set "p_ptr->blind", notice observable changes
+ * Set "cr_ptr->blind", notice observable changes
  *
  * Note the use of "PU_UN_LITE" and "PU_UN_VIEW", which is needed to
  * memorize any terrain features which suddenly become "visible".
  * Note that blindness is currently the only thing which can affect
  * "player_can_see_bold()".
  */
-bool set_blind(int v)
+bool set_blind(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (!p_ptr->blind)
+		if (!cr_ptr->blind)
 		{
-			if (p_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 msg_print("センサーをやられた！");
@@ -451,9 +451,9 @@ msg_print("目が見えなくなってしまった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->blind)
+		if (cr_ptr->blind)
 		{
-			if (p_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 msg_print("センサーが復旧した。");
@@ -475,10 +475,10 @@ msg_print("やっと目が見えるようになった。");
 	}
 
 	/* Use the value */
-	p_ptr->blind = v;
+	cr_ptr->blind = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -487,13 +487,13 @@ msg_print("やっと目が見えるようになった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Fully update the visuals */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	cr_ptr->redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
 	handle_stuff();
