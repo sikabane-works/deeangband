@@ -504,21 +504,21 @@ msg_print("やっと目が見えるようになった。");
 
 
 /*
- * Set "p_ptr->confused", notice observable changes
+ * Set "cr_ptr->confused", notice observable changes
  */
-bool set_confused(int v)
+bool set_confused(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (!p_ptr->confused)
+		if (!cr_ptr->confused)
 		{
 #ifdef JP
 msg_print("あなたは混乱した！");
@@ -526,7 +526,7 @@ msg_print("あなたは混乱した！");
 			msg_print("You are confused!");
 #endif
 
-			if (p_ptr->action == ACTION_LEARN)
+			if (cr_ptr->action == ACTION_LEARN)
 			{
 #ifdef JP
 				msg_print("学習が続けられない！");
@@ -535,44 +535,44 @@ msg_print("あなたは混乱した！");
 #endif
 				new_mane = FALSE;
 
-				p_ptr->redraw |= (PR_STATE);
-				p_ptr->action = ACTION_NONE;
+				cr_ptr->redraw |= (PR_STATE);
+				cr_ptr->action = ACTION_NONE;
 			}
-			if (p_ptr->action == ACTION_KAMAE)
+			if (cr_ptr->action == ACTION_KAMAE)
 			{
 #ifdef JP
 				msg_print("構えがとけた。");
 #else
 				msg_print("Your posture gets loose.");
 #endif
-				p_ptr->special_defense &= ~(KAMAE_MASK);
-				p_ptr->update |= (PU_BONUS);
-				p_ptr->redraw |= (PR_STATE);
-				p_ptr->action = ACTION_NONE;
+				cr_ptr->special_defense &= ~(KAMAE_MASK);
+				cr_ptr->update |= (PU_BONUS);
+				cr_ptr->redraw |= (PR_STATE);
+				cr_ptr->action = ACTION_NONE;
 			}
-			else if (p_ptr->action == ACTION_KATA)
+			else if (cr_ptr->action == ACTION_KATA)
 			{
 #ifdef JP
 				msg_print("型が崩れた。");
 #else
 				msg_print("Your posture gets loose.");
 #endif
-				p_ptr->special_defense &= ~(KATA_MASK);
-				p_ptr->update |= (PU_BONUS);
-				p_ptr->update |= (PU_MONSTERS);
-				p_ptr->redraw |= (PR_STATE);
-				p_ptr->redraw |= (PR_STATUS);
-				p_ptr->action = ACTION_NONE;
+				cr_ptr->special_defense &= ~(KATA_MASK);
+				cr_ptr->update |= (PU_BONUS);
+				cr_ptr->update |= (PU_MONSTERS);
+				cr_ptr->redraw |= (PR_STATE);
+				cr_ptr->redraw |= (PR_STATUS);
+				cr_ptr->action = ACTION_NONE;
 			}
 
 			/* Sniper */
-			if (p_ptr->concent) reset_concentration(TRUE);
+			if (cr_ptr->concent) reset_concentration(TRUE);
 
 			/* Hex */
 			if (hex_spelling_any()) stop_hex_spell_all();
 
 			notice = TRUE;
-			p_ptr->counter = FALSE;
+			cr_ptr->counter = FALSE;
 			chg_virtue(V_HARMONY, -1);
 		}
 	}
@@ -580,7 +580,7 @@ msg_print("あなたは混乱した！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->confused)
+		if (cr_ptr->confused)
 		{
 #ifdef JP
 msg_print("やっと混乱がおさまった。");
@@ -588,16 +588,16 @@ msg_print("やっと混乱がおさまった。");
 			msg_print("You feel less confused now.");
 #endif
 
-			p_ptr->special_attack &= ~(ATTACK_SUIKEN);
+			cr_ptr->special_attack &= ~(ATTACK_SUIKEN);
 			notice = TRUE;
 		}
 	}
 
 	/* Use the value */
-	p_ptr->confused = v;
+	cr_ptr->confused = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);

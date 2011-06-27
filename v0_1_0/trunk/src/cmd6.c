@@ -131,7 +131,7 @@ static void do_cmd_eat_food_aux(int item)
 			{
 				if (!p_ptr->resist_conf)
 				{
-					if (set_confused(p_ptr->confused + randint0(10) + 10))
+					if (set_confused(p_ptr, p_ptr->confused + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -261,7 +261,7 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_CURE_CONFUSION:
 			{
-				if (set_confused(0)) ident = TRUE;
+				if (set_confused(p_ptr, 0)) ident = TRUE;
 				break;
 			}
 
@@ -874,7 +874,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			else if (!p_ptr->resist_conf) p_ptr->special_attack |= ATTACK_SUIKEN;
 			if (!p_ptr->resist_conf)
 			{
-				if (set_confused(randint0(20) + 15))
+				if (set_confused(p_ptr, randint0(20) + 15))
 				{
 					ident = TRUE;
 				}
@@ -1101,7 +1101,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_CURE_SERIOUS:
 			if (hp_player(damroll(4, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_cut((p_ptr->cut / 2) - 50)) ident = TRUE;
 			if (set_shero(0,TRUE)) ident = TRUE;
 			break;
@@ -1109,7 +1109,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_CURE_CRITICAL:
 			if (hp_player(damroll(6, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
@@ -1119,7 +1119,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_HEALING:
 			if (hp_player(300)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
@@ -1129,7 +1129,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_STAR_HEALING:
 			if (hp_player(1200)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
@@ -1148,7 +1148,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			restore_level();
 			(void)set_poisoned(0);
 			(void)set_blind(p_ptr, 0);
-			(void)set_confused(0);
+			(void)set_confused(p_ptr, 0);
 			(void)set_image(0);
 			(void)set_stun(0);
 			(void)set_cut(0);
@@ -1346,7 +1346,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (hp_player(50)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(0)) ident = TRUE;
@@ -2523,7 +2523,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		{
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(0)) ident = TRUE;
@@ -3480,7 +3480,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 		{
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(0)) ident = TRUE;
-			if (set_confused(0)) ident = TRUE;
+			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(0)) ident = TRUE;
@@ -4488,7 +4488,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_poisoned(0);
 				(void)set_cut(0);
 				(void)set_stun(0);
-				(void)set_confused(0);
+				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
 				(void)set_afraid(0);
 				(void)set_hero(randint1(25) + 25, FALSE);
@@ -5283,7 +5283,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 							randint1(5 * oops + 1));
 
 						/* Confusing. */
-						(void)set_confused(p_ptr->confused +
+						(void)set_confused(p_ptr, p_ptr->confused +
 							randint1(5 * oops + 1));
 					}
 
@@ -5298,7 +5298,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				/* Confusing. */
-				if (one_in_(5)) (void)set_confused(p_ptr->confused +
+				if (one_in_(5)) (void)set_confused(p_ptr, p_ptr->confused +
 					randint1(10));
 
 				/* Exercise a little care... */
@@ -5616,7 +5616,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_EARENDIL:
 			{
 				(void)set_poisoned(0);
-				(void)set_confused(0);
+				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
 				(void)set_stun(0);
 				(void)set_cut(0);

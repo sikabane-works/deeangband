@@ -2593,7 +2593,7 @@ void have_nightmare(int monster_idx)
 	{
 		if (!p_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 		}
 		if (!p_ptr->resist_chaos && one_in_(3) && p_ptr->chara_idx == CHARA_CHARGEMAN)
 		{
@@ -2615,7 +2615,7 @@ void have_nightmare(int monster_idx)
 	{
 		if (!p_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 		}
 		if (!p_ptr->free_act)
 		{
@@ -2873,7 +2873,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				else
 				{
 					set_blind(p_ptr, 0);
-					set_confused(0);
+					set_confused(p_ptr, 0);
 					p_ptr->stun = 0;
 					p_ptr->chp = p_ptr->mhp;
 					p_ptr->csp = p_ptr->msp;
@@ -4820,7 +4820,7 @@ msg_print("お金が足りません！");
 		hp_player(200);
 		set_poisoned(0);
 		set_blind(p_ptr, 0);
-		set_confused(0);
+		set_confused(p_ptr, 0);
 		set_cut(0);
 		set_stun(0);
 		paid = TRUE;

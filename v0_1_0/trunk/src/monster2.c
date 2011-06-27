@@ -2235,7 +2235,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if (!p_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 		}
 		if (!p_ptr->resist_chaos && one_in_(3))
 		{
@@ -2255,7 +2255,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if (!p_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 		}
 		if (!p_ptr->free_act)
 		{

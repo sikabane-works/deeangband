@@ -1482,7 +1482,7 @@ static void do_cmd_wiz_cure_all(void)
 
 	/* Cure stuff */
 	(void)set_blind(p_ptr, 0);
-	(void)set_confused(0);
+	(void)set_confused(p_ptr, 0);
 	(void)set_poisoned(0);
 	(void)set_afraid(0);
 	(void)set_paralyzed(0);

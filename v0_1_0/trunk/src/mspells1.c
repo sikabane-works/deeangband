@@ -3105,7 +3105,7 @@ msg_print("‚µ‚©‚µŒ¶Šo‚É‚Í‚¾‚Ü‚³‚ê‚È‚©‚Á‚½B");
 			}
 			else
 			{
-				(void)set_confused(p_ptr->confused + randint0(4) + 4);
+				(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 			}
 			learn_spell(MS_CONF);
 			update_smart_learn(m_idx, DRS_CONF);

@@ -1592,7 +1592,7 @@ static void hit_trap(bool break_trap)
 
 			if (!p_ptr->resist_conf)
 			{
-				(void)set_confused(p_ptr->confused + randint0(20) + 10);
+				(void)set_confused(p_ptr, p_ptr->confused + randint0(20) + 10);
 			}
 			break;
 		}

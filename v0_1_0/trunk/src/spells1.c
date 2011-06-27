@@ -2868,7 +2868,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 							switch (randint1(4))
 							{
 								case 1:
-									set_confused(p_ptr->confused + 3 + randint1(dam));
+									set_confused(p_ptr, p_ptr->confused + 3 + randint1(dam));
 									break;
 								case 2:
 									set_stun(p_ptr->stun + randint1(dam));
@@ -3182,7 +3182,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 								set_stun(p_ptr->stun + dam / 2);
 								break;
 							case 2:
-								set_confused(p_ptr->confused + dam / 2);
+								set_confused(p_ptr, p_ptr->confused + dam / 2);
 								break;
 							default:
 							{
@@ -6786,7 +6786,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				}
 				if (!p_ptr->resist_conf)
 				{
-					set_confused(p_ptr->confused + randint1(5) + 5);
+					set_confused(p_ptr, p_ptr->confused + randint1(5) + 5);
 				}
 
 				if (one_in_(5))
@@ -6817,7 +6817,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				if (!p_ptr->resist_conf)
 				{
-					(void)set_confused(p_ptr->confused + randint0(20) + 10);
+					(void)set_confused(p_ptr, p_ptr->confused + randint0(20) + 10);
 				}
 				if (!p_ptr->resist_chaos)
 				{
@@ -6919,7 +6919,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!CHECK_MULTISHADOW())
 			{
-				(void)set_confused(p_ptr->confused + randint1(20) + 10);
+				(void)set_confused(p_ptr, p_ptr->confused + randint1(20) + 10);
 			}
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
@@ -7545,7 +7545,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 					if (!p_ptr->resist_conf)
 					{
-						(void)set_confused(p_ptr->confused + randint0(4) + 4);
+						(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 					}
 
 					if (!p_ptr->resist_chaos && one_in_(3))
@@ -7607,7 +7607,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					}
 					if (!p_ptr->resist_conf)
 					{
-						(void)set_confused(p_ptr->confused + randint0(4) + 4);
+						(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 					}
 					if (!p_ptr->free_act)
 					{

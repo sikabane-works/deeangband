@@ -2110,7 +2110,7 @@ static void process_world_aux_timeout(void)
 	/* Confusion */
 	if (p_ptr->confused)
 	{
-		(void)set_confused(p_ptr->confused - dec_count);
+		(void)set_confused(p_ptr, p_ptr->confused - dec_count);
 	}
 
 	/* Afraid */
@@ -2368,7 +2368,7 @@ static void process_world_aux_mutation(void)
 
 		if (!p_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr->confused + randint0(20) + 15);
+			(void)set_confused(p_ptr, p_ptr->confused + randint0(20) + 15);
 		}
 
 		if (!p_ptr->resist_chaos)
@@ -7227,7 +7227,7 @@ quit("セーブファイルが壊れています");
 
 					/* Hack -- Healing */
 					(void)set_blind(p_ptr, 0);
-					(void)set_confused(0);
+					(void)set_confused(p_ptr, 0);
 					(void)set_poisoned(0);
 					(void)set_afraid(0);
 					(void)set_paralyzed(0);

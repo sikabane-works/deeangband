@@ -1997,7 +1997,7 @@ msg_print("‚ ‚È‚½‚Ì“ª‚Í¬—‚µ‚½I");
 					msg_print("Your brain is addled!");
 #endif
 
-					set_confused(p_ptr->confused + randint1(8));
+					set_confused(p_ptr, p_ptr->confused + randint1(8));
 				}
 				else if (b < 90)
 				{
