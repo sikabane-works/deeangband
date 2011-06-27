@@ -1454,7 +1454,7 @@ extern bool set_shero(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_protevil(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_invuln(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_infra(int v, bool do_dec);
+extern bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_regen(int v, bool do_dec);
 extern bool set_tim_stealth(int v, bool do_dec);
 extern bool set_lightspeed(int v, bool do_dec);

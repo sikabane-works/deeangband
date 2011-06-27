@@ -6693,7 +6693,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_infra(base + randint1(base), FALSE);
+				set_tim_infra(p_ptr, base + randint1(base), FALSE);
 			}
 		}
 		break;

@@ -1029,7 +1029,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if (set_tim_infra(p_ptr->tim_infra + 100 + randint1(100), FALSE))
+			if (set_tim_infra(p_ptr, p_ptr->tim_infra + 100 + randint1(100), FALSE))
 			{
 				ident = TRUE;
 			}

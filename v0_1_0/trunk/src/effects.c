@@ -265,7 +265,7 @@ void dispel_player(void)
 	(void)set_dustrobe(0,TRUE);
 
 	(void)set_tim_invis(p_ptr, 0, TRUE);
-	(void)set_tim_infra(0, TRUE);
+	(void)set_tim_infra(p_ptr, 0, TRUE);
 	(void)set_tim_esp(0, TRUE);
 	(void)set_tim_regen(0, TRUE);
 	(void)set_tim_stealth(0, TRUE);
@@ -1939,25 +1939,25 @@ msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 
 
 /*
- * Set "p_ptr->tim_infra", notice observable changes
+ * Set "cr_ptr->tim_infra", notice observable changes
  */
-bool set_tim_infra(int v, bool do_dec)
+bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_infra && !do_dec)
+		if (cr_ptr->tim_infra && !do_dec)
 		{
-			if (p_ptr->tim_infra > v) return FALSE;
+			if (cr_ptr->tim_infra > v) return FALSE;
 		}
-		else if (!p_ptr->tim_infra)
+		else if (!cr_ptr->tim_infra)
 		{
 #ifdef JP
 msg_print("–Ú‚ªƒ‰ƒ“ƒ‰ƒ“‚Æ‹P‚«Žn‚ß‚½I");
@@ -1972,7 +1972,7 @@ msg_print("–Ú‚ªƒ‰ƒ“ƒ‰ƒ“‚Æ‹P‚«Žn‚ß‚½I");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_infra)
+		if (cr_ptr->tim_infra)
 		{
 #ifdef JP
 msg_print("–Ú‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
@@ -1985,10 +1985,10 @@ msg_print("–Ú‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
 	}
 
 	/* Use the value */
-	p_ptr->tim_infra = v;
+	cr_ptr->tim_infra = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1997,10 +1997,10 @@ msg_print("–Ú‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff();
