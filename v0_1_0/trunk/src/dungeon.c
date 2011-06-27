@@ -2158,7 +2158,7 @@ static void process_world_aux_timeout(void)
 	/* Super Heroism */
 	if (p_ptr->shero)
 	{
-		(void)set_shero(p_ptr->shero - 1, TRUE);
+		(void)set_shero(p_ptr, p_ptr->shero - 1, TRUE);
 	}
 
 	/* Blessed */
@@ -2314,7 +2314,7 @@ static void process_world_aux_mutation(void)
 		msg_print("You feel a fit of rage coming over you!");
 #endif
 
-		(void)set_shero(10 + randint1(p_ptr->lev), FALSE);
+		(void)set_shero(p_ptr, 10 + randint1(p_ptr->lev), FALSE);
 		(void)set_afraid(p_ptr, 0);
 	}
 

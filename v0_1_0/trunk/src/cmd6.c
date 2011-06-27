@@ -1087,7 +1087,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 
 		case SV_POTION_BESERK_STRENGTH:
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
-			if (set_shero(p_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (set_shero(p_ptr, p_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (hp_player(30)) ident = TRUE;
 			break;
 
@@ -1095,7 +1095,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (hp_player(damroll(2, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr->cut - 10)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
@@ -1103,7 +1103,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_cut((p_ptr->cut / 2) - 50)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
@@ -1113,7 +1113,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_HEALING:
@@ -1123,7 +1123,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_STAR_HEALING:
@@ -1133,7 +1133,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_LIFE:
@@ -1158,7 +1158,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)do_res_stat(A_WIS);
 			(void)do_res_stat(A_INT);
 			(void)do_res_stat(A_CHR);
-			(void)set_shero(0,TRUE);
+			(void)set_shero(p_ptr, 0,TRUE);
 			update_stuff(p_ptr, TRUE);
 			hp_player(5000);
 			ident = TRUE;
@@ -1202,7 +1202,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 				p_ptr->window |= (PW_SPELL);
 				ident = TRUE;
 			}
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_RESTORE_EXP:
@@ -2515,7 +2515,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		case SV_STAFF_CURE_LIGHT:
 		{
 			if (hp_player(damroll(2, 8))) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2527,7 +2527,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(p_ptr, 0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2536,7 +2536,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (hp_player(300)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2558,7 +2558,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 				p_ptr->window |= (PW_PLAYER);
 				p_ptr->window |= (PW_SPELL);
 			}
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -3484,7 +3484,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(p_ptr, 0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -3493,7 +3493,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 			if (hp_player(500)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_shero(0,TRUE)) ident = TRUE;
+			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -6274,7 +6274,7 @@ msg_print("‚ ‚È‚½‚ÍƒGƒŒƒƒ“ƒg‚ÌƒuƒŒƒX‚ð“f‚¢‚½B");
 				break;
 			case EGO_RING_BERSERKER:
 				(void)set_afraid(p_ptr, 0);
-				(void)set_shero(randint1(25) + 25, FALSE);
+				(void)set_shero(p_ptr, randint1(25) + 25, FALSE);
 				o_ptr->timeout = randint0(75)+75;
 				break;
 			case EGO_RING_TELE_AWAY:

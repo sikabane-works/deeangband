@@ -252,7 +252,7 @@ void dispel_player(void)
 	(void)set_blessed(p_ptr, 0, TRUE);
 	(void)set_tsuyoshi(0, TRUE);
 	(void)set_hero(p_ptr, 0, TRUE);
-	(void)set_shero(0, TRUE);
+	(void)set_shero(p_ptr, 0, TRUE);
 	(void)set_protevil(0, TRUE);
 	(void)set_invuln(0, TRUE);
 	(void)set_wraith_form(0, TRUE);
@@ -1470,26 +1470,26 @@ msg_print("ヒーローの気分が消え失せた。");
 
 
 /*
- * Set "p_ptr->shero", notice observable changes
+ * Set "cr_ptr->shero", notice observable changes
  */
-bool set_shero(int v, bool do_dec)
+bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
-	if (p_ptr->cls_idx == CLASS_BERSERKER) v = 1;
+	if (cr_ptr->cls_idx == CLASS_BERSERKER) v = 1;
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->shero && !do_dec)
+		if (cr_ptr->shero && !do_dec)
 		{
-			if (p_ptr->shero > v) return FALSE;
+			if (cr_ptr->shero > v) return FALSE;
 		}
-		else if (!p_ptr->shero)
+		else if (!cr_ptr->shero)
 		{
 #ifdef JP
 msg_print("殺戮マシーンになった気がする！");
@@ -1504,7 +1504,7 @@ msg_print("殺戮マシーンになった気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->shero)
+		if (cr_ptr->shero)
 		{
 #ifdef JP
 msg_print("野蛮な気持ちが消え失せた。");
@@ -1517,10 +1517,10 @@ msg_print("野蛮な気持ちが消え失せた。");
 	}
 
 	/* Use the value */
-	p_ptr->shero = v;
+	cr_ptr->shero = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1529,10 +1529,10 @@ msg_print("野蛮な気持ちが消え失せた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	p_ptr->update |= (PU_HP);
+	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff();

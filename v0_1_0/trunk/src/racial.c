@@ -1594,7 +1594,7 @@ static bool cmd_racial_power_aux(s32b command)
 #endif
 
 			(void)set_afraid(p_ptr, 0);
-			(void)set_shero(10 + randint1(plev), FALSE);
+			(void)set_shero(p_ptr, 10 + randint1(plev), FALSE);
 			(void)hp_player(30);
 			break;
 
@@ -1640,7 +1640,7 @@ static bool cmd_racial_power_aux(s32b command)
 #endif
 
 			(void)set_afraid(p_ptr, 0);
-			(void)set_shero(10 + randint1(plev), FALSE);
+			(void)set_shero(p_ptr, 10 + randint1(plev), FALSE);
 			(void)hp_player(30);
 			break;
 

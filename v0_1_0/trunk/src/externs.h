@@ -1450,7 +1450,7 @@ extern bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_blessed(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_hero(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_shero(int v, bool do_dec);
+extern bool set_shero(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_protevil(int v, bool do_dec);
 extern bool set_invuln(int v, bool do_dec);
 extern bool set_tim_invis(int v, bool do_dec);

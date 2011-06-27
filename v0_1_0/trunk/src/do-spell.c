@@ -4630,7 +4630,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(randint1(base) + base, FALSE);
+				set_shero(p_ptr, randint1(base) + base, FALSE);
 				hp_player(30);
 				set_afraid(p_ptr, 0);
 			}
@@ -4700,7 +4700,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(randint1(25) + 25, FALSE);
+				set_shero(p_ptr, randint1(25) + 25, FALSE);
 				hp_player(30);
 				set_afraid(p_ptr, 0);
 				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
@@ -6925,7 +6925,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(randint1(base) + base, FALSE);
+				set_shero(p_ptr, randint1(base) + base, FALSE);
 				hp_player(30);
 				set_afraid(p_ptr, 0);
 			}
