@@ -1036,7 +1036,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if (set_tim_invis(p_ptr->tim_invis + 12 + randint1(12), FALSE))
+			if (set_tim_invis(p_ptr, p_ptr->tim_invis + 12 + randint1(12), FALSE))
 			{
 				ident = TRUE;
 			}

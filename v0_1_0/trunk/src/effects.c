@@ -264,7 +264,7 @@ void dispel_player(void)
 	(void)set_multishadow(0,TRUE);
 	(void)set_dustrobe(0,TRUE);
 
-	(void)set_tim_invis(0, TRUE);
+	(void)set_tim_invis(p_ptr, 0, TRUE);
 	(void)set_tim_infra(0, TRUE);
 	(void)set_tim_esp(0, TRUE);
 	(void)set_tim_regen(0, TRUE);
@@ -1867,25 +1867,25 @@ msg_print("ˆÓŽ¯‚ÍŒ³‚É–ß‚Á‚½B");
 
 
 /*
- * Set "p_ptr->tim_invis", notice observable changes
+ * Set "cr_ptr->tim_invis", notice observable changes
  */
-bool set_tim_invis(int v, bool do_dec)
+bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_invis && !do_dec)
+		if (cr_ptr->tim_invis && !do_dec)
 		{
-			if (p_ptr->tim_invis > v) return FALSE;
+			if (cr_ptr->tim_invis > v) return FALSE;
 		}
-		else if (!p_ptr->tim_invis)
+		else if (!cr_ptr->tim_invis)
 		{
 #ifdef JP
 msg_print("–Ú‚ª”ñí‚É•qŠ´‚É‚È‚Á‚½‹C‚ª‚·‚éI");
@@ -1900,7 +1900,7 @@ msg_print("–Ú‚ª”ñí‚É•qŠ´‚É‚È‚Á‚½‹C‚ª‚·‚éI");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_invis)
+		if (cr_ptr->tim_invis)
 		{
 #ifdef JP
 msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
@@ -1913,10 +1913,10 @@ msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	}
 
 	/* Use the value */
-	p_ptr->tim_invis = v;
+	cr_ptr->tim_invis = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1925,10 +1925,10 @@ msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff();

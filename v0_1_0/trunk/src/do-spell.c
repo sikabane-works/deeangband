@@ -6480,7 +6480,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(randint1(base) + base, FALSE);
+				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6859,7 +6859,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(randint1(base) + base, FALSE);
+				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8456,7 +8456,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(randint1(base) + base, FALSE);
+				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
