@@ -946,7 +946,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		break;
 	case 9:
 		/* Adrenaline */
-		set_afraid(0);
+		set_afraid(p_ptr, 0);
 		set_stun(0);
 
 		/*

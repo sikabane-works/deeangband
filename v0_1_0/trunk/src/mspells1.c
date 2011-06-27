@@ -3017,7 +3017,7 @@ msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½B");
 			}
 			else
 			{
-				(void)set_afraid(p_ptr->afraid + randint0(4) + 4);
+				(void)set_afraid(p_ptr, p_ptr->afraid + randint0(4) + 4);
 			}
 			learn_spell(MS_SCARE);
 			update_smart_learn(m_idx, DRS_FEAR);

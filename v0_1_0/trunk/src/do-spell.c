@@ -382,7 +382,7 @@ static void cast_invoke_spirits(int dir)
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
 
-		set_afraid(p_ptr->afraid + randint1(4) + 4);
+		set_afraid(p_ptr, p_ptr->afraid + randint1(4) + 4);
 	}
 	else if (die < 26)
 	{
@@ -4632,7 +4632,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				set_shero(randint1(base) + base, FALSE);
 				hp_player(30);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -4702,7 +4702,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				set_shero(randint1(25) + 25, FALSE);
 				hp_player(30);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 				set_fast(randint1(sp_sides) + sp_base, FALSE);
 			}
 		}
@@ -6796,7 +6796,7 @@ static cptr do_craft_spell(int spell, int mode)
 			{
 				set_hero(randint1(base) + base, FALSE);
 				hp_player(10);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -6927,7 +6927,7 @@ static cptr do_craft_spell(int spell, int mode)
 			{
 				set_shero(randint1(base) + base, FALSE);
 				hp_player(30);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -7829,7 +7829,7 @@ static cptr do_daemon_spell(int spell, int mode)
 				set_oppose_fire(dur, FALSE);
 				set_oppose_cold(dur, FALSE);
 				set_tim_sh_fire(dur, FALSE);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 				break;
 			}
 		}
@@ -7991,7 +7991,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				set_hero(randint1(base) + base, FALSE);
 				hp_player(10);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -8224,7 +8224,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -8528,7 +8528,7 @@ static cptr do_crusade_spell(int spell, int mode)
 			{
 				dispel_evil(randint1(dam_sides));
 				hp_player(heal);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 				set_poisoned(p_ptr, 0);
 				set_stun(0);
 				set_cut(0);
@@ -8742,7 +8742,7 @@ static cptr do_crusade_spell(int spell, int mode)
 			{
 				set_hero(randint1(base) + base, FALSE);
 				hp_player(10);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -8935,7 +8935,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				set_blessed(randint1(base) + base, FALSE);
 				set_fast(randint1(sp_sides) + sp_base, FALSE);
 				set_protevil(randint1(base) + base, FALSE);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 			}
 		}
 		break;
@@ -9223,7 +9223,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 			(void)hp_player(10);
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 
 			/* Recalculate hitpoints */
 			p_ptr->update |= (PU_HP);
@@ -9983,7 +9983,7 @@ static cptr do_music_spell(int spell, int mode)
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
 			(void)hp_player(10);
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 
 			/* Recalculate hitpoints */
 			p_ptr->update |= (PU_HP);

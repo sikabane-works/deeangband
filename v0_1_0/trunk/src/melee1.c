@@ -1327,7 +1327,7 @@ bool make_attack_normal(int m_idx)
 					}
 					else
 					{
-						if (set_afraid(p_ptr->afraid + 3 + randint1(rlev)))
+						if (set_afraid(p_ptr, p_ptr->afraid + 3 + randint1(rlev)))
 						{
 							obvious = TRUE;
 						}

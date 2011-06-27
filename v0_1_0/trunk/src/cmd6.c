@@ -119,7 +119,7 @@ static void do_cmd_eat_food_aux(int item)
 			{
 				if (!p_ptr->resist_fear)
 				{
-					if (set_afraid(p_ptr->afraid + randint0(10) + 10))
+					if (set_afraid(p_ptr, p_ptr->afraid + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -255,7 +255,7 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_CURE_PARANOIA:
 			{
-				if (set_afraid(0)) ident = TRUE;
+				if (set_afraid(p_ptr, 0)) ident = TRUE;
 				break;
 			}
 
@@ -1051,7 +1051,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if (set_afraid(0)) ident = TRUE;
+			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_SPEED:
@@ -1080,13 +1080,13 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_HEROISM:
-			if (set_afraid(0)) ident = TRUE;
+			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (set_hero(p_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (hp_player(10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
-			if (set_afraid(0)) ident = TRUE;
+			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (hp_player(30)) ident = TRUE;
 			break;
@@ -2605,7 +2605,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			k = 3 * p_ptr->lev;
 			if (set_protevil((magic ? 0 : p_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_afraid(0)) ident = TRUE;
+			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (hp_player(50)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
@@ -4448,7 +4448,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("Your armor glows many colours...");
 #endif
 
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(randint1(50) + 50, FALSE);
 				(void)hp_player(10);
 				(void)set_blessed(randint1(50) + 50, FALSE);
@@ -4490,7 +4490,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_stun(0);
 				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(randint1(25) + 25, FALSE);
 				(void)hp_player(777);
 				o_ptr->timeout = 300;
@@ -4751,7 +4751,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your boots glow deep blue...");
 #endif
 
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_poisoned(p_ptr, 0);
 				o_ptr->timeout = 5;
 				break;
@@ -5366,7 +5366,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				(void)set_fast(randint1(50) + 50, FALSE);
 				hp_player(10);
-				set_afraid(0);
+				set_afraid(p_ptr, 0);
 				set_hero(randint1(50) + 50, FALSE);
 				o_ptr->timeout = randint0(200) + 100;
 				break;
@@ -5606,7 +5606,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_MATOI:
 			case ART_AEGISFANG:
 			{
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				set_hero(randint1(25)+25, FALSE);
 				hp_player(10);
 				o_ptr->timeout = randint0(30) + 30;
@@ -5667,7 +5667,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("You stamp. (as if you are in a ring.)");
 #endif
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(randint1(20) + 20, FALSE);
 				dispel_evil(p_ptr->lev * 3);
 				o_ptr->timeout = 100 + randint1(100);
@@ -6183,7 +6183,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			switch (o_ptr->name2)
 			{
 			case EGO_RING_HERO:
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(randint1(25) + 25, FALSE);
 				(void)hp_player(10);
 				o_ptr->timeout = randint1(100)+100;
@@ -6273,7 +6273,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = 100;
 				break;
 			case EGO_RING_BERSERKER:
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_shero(randint1(25) + 25, FALSE);
 				o_ptr->timeout = randint0(75)+75;
 				break;
@@ -6285,7 +6285,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case EGO_RING_TRUE:
 			{
 				int v = randint1(25)+25;
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(v, FALSE);
 				(void)hp_player(10);
 				(void)set_blessed(v, FALSE);

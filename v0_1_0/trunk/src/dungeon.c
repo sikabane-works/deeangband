@@ -753,7 +753,7 @@ static bool pattern_effect(void)
 		(void)set_stun(0);
 		(void)set_cut(0);
 		(void)set_blind(p_ptr, 0);
-		(void)set_afraid(0);
+		(void)set_afraid(p_ptr, 0);
 		(void)do_res_stat(A_STR);
 		(void)do_res_stat(A_INT);
 		(void)do_res_stat(A_WIS);
@@ -2116,7 +2116,7 @@ static void process_world_aux_timeout(void)
 	/* Afraid */
 	if (p_ptr->afraid)
 	{
-		(void)set_afraid(p_ptr->afraid - dec_count);
+		(void)set_afraid(p_ptr, p_ptr->afraid - dec_count);
 	}
 
 	/* Fast */
@@ -2315,7 +2315,7 @@ static void process_world_aux_mutation(void)
 #endif
 
 		(void)set_shero(10 + randint1(p_ptr->lev), FALSE);
-		(void)set_afraid(0);
+		(void)set_afraid(p_ptr, 0);
 	}
 
 	if ((p_ptr->muta2 & MUT2_COWARDICE) && (randint1(3000) == 13))
@@ -2329,7 +2329,7 @@ static void process_world_aux_mutation(void)
 			msg_print("It's so dark... so scary!");
 #endif
 
-			set_afraid(p_ptr->afraid + 13 + randint1(26));
+			set_afraid(p_ptr, p_ptr->afraid + 13 + randint1(26));
 		}
 	}
 
@@ -3144,7 +3144,7 @@ static void process_world_aux_curse(void)
 				msg_print("It's so dark... so scary!");
 #endif
 
-				set_afraid(p_ptr->afraid + 13 + randint1(26));
+				set_afraid(p_ptr, p_ptr->afraid + 13 + randint1(26));
 			}
 		}
 		/* Teleport player */
@@ -7229,7 +7229,7 @@ quit("セーブファイルが壊れています");
 					(void)set_blind(p_ptr, 0);
 					(void)set_confused(p_ptr, 0);
 					(void)set_poisoned(p_ptr, 0);
-					(void)set_afraid(0);
+					(void)set_afraid(p_ptr, 0);
 					(void)set_paralyzed(0);
 					(void)set_image(0);
 					(void)set_stun(0);

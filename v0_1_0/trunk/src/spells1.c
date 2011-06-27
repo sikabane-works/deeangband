@@ -2883,7 +2883,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 #endif
 
 									else
-										set_afraid(p_ptr->afraid + 3 + randint1(dam));
+										set_afraid(p_ptr, p_ptr->afraid + 3 + randint1(dam));
 									break;
 								}
 								default:
@@ -3194,7 +3194,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 #endif
 
 								else
-									set_afraid(p_ptr->afraid + dam);
+									set_afraid(p_ptr, p_ptr->afraid + dam);
 							}
 						}
 					}

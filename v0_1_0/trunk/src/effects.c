@@ -678,19 +678,19 @@ msg_print("‚â‚Á‚Æ“Å‚Ì’É‚Ý‚ª‚È‚­‚È‚Á‚½B");
 /*
  * Set "p_ptr->afraid", notice observable changes
  */
-bool set_afraid(int v)
+bool set_afraid(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (!p_ptr->afraid)
+		if (!cr_ptr->afraid)
 		{
 #ifdef JP
 msg_print("‰½‚à‚©‚à‹°‚­‚È‚Á‚Ä‚«‚½I");
@@ -698,23 +698,23 @@ msg_print("‰½‚à‚©‚à‹°‚­‚È‚Á‚Ä‚«‚½I");
 			msg_print("You are terrified!");
 #endif
 
-			if (p_ptr->special_defense & KATA_MASK)
+			if (cr_ptr->special_defense & KATA_MASK)
 			{
 #ifdef JP
 				msg_print("Œ^‚ª•ö‚ê‚½B");
 #else
 				msg_print("Your posture gets loose.");
 #endif
-				p_ptr->special_defense &= ~(KATA_MASK);
-				p_ptr->update |= (PU_BONUS);
-				p_ptr->update |= (PU_MONSTERS);
-				p_ptr->redraw |= (PR_STATE);
-				p_ptr->redraw |= (PR_STATUS);
-				p_ptr->action = ACTION_NONE;
+				cr_ptr->special_defense &= ~(KATA_MASK);
+				cr_ptr->update |= (PU_BONUS);
+				cr_ptr->update |= (PU_MONSTERS);
+				cr_ptr->redraw |= (PR_STATE);
+				cr_ptr->redraw |= (PR_STATUS);
+				cr_ptr->action = ACTION_NONE;
 			}
 
 			notice = TRUE;
-			p_ptr->counter = FALSE;
+			cr_ptr->counter = FALSE;
 			chg_virtue(V_VALOUR, -1);
 		}
 	}
@@ -722,7 +722,7 @@ msg_print("‰½‚à‚©‚à‹°‚­‚È‚Á‚Ä‚«‚½I");
 	/* Shut */
 	else
 	{
-		if (p_ptr->afraid)
+		if (cr_ptr->afraid)
 		{
 #ifdef JP
 msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
@@ -735,10 +735,10 @@ msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
 	}
 
 	/* Use the value */
-	p_ptr->afraid = v;
+	cr_ptr->afraid = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);

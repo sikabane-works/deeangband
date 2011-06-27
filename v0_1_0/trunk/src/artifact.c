@@ -2603,7 +2603,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_CURE_LW:
 		{
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			(void)hp_player(30);
 			o_ptr->timeout = 10;
 			break;
@@ -2631,7 +2631,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows deep blue...");
 #endif
 
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			(void)set_poisoned(p_ptr, 0);
 			o_ptr->timeout = 5;
 			break;
@@ -2720,7 +2720,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_BERSERK:
 		{
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			(void)set_hero(randint1(50) + 50, FALSE);
 			(void)set_blessed(randint1(50) + 50, FALSE);
 			o_ptr->timeout = 100 + (s16b)randint1(100);

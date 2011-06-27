@@ -1583,7 +1583,7 @@ static bool cmd_racial_power_aux(s32b command)
 			msg_print("You play tough.");
 #endif
 
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			break;
 
 		case RACE_TROLL:
@@ -1593,7 +1593,7 @@ static bool cmd_racial_power_aux(s32b command)
 			msg_print("RAAAGH!");
 #endif
 
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			(void)set_shero(10 + randint1(plev), FALSE);
 			(void)hp_player(30);
 			break;
@@ -1621,7 +1621,7 @@ static bool cmd_racial_power_aux(s32b command)
 				(void)set_stun(0);
 				(void)set_cut(0);
 				(void)set_blind(p_ptr, 0);
-				(void)set_afraid(0);
+				(void)set_afraid(p_ptr, 0);
 				(void)do_res_stat(A_STR);
 				(void)do_res_stat(A_INT);
 				(void)do_res_stat(A_WIS);
@@ -1639,7 +1639,7 @@ static bool cmd_racial_power_aux(s32b command)
 			msg_print("Raaagh!");
 #endif
 
-			(void)set_afraid(0);
+			(void)set_afraid(p_ptr, 0);
 			(void)set_shero(10 + randint1(plev), FALSE);
 			(void)hp_player(30);
 			break;
