@@ -3782,7 +3782,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				/* Complex message */
 				if (p_ptr->wizard || cheat_xtra)
 				{
-					msg_format("DAMAGE:%d->HP:%d", tdam, m_ptr->chp);
+					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}
 
 				/* Sniper */
@@ -4455,7 +4455,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				/* Complex message */
 				if (p_ptr->wizard)
 				{
-					msg_format("DAMAGE:%d->HP:%d", tdam, m_ptr->chp);
+					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}
 
 				/* Hit the monster, check for death */

@@ -1892,12 +1892,11 @@ static void touch_zap_player(creature_type *m_ptr)
 }
 
 
-static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
+static void natural_attack(creature_type *tar_ptr, int attack, bool *fear, bool *mdeath)
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
-	creature_type    *m_ptr = &m_list[m_idx];
-	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
 	char            m_name[80];
 
 	int             dss, ddd;
@@ -1972,7 +1971,7 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 	}
 
 	/* Extract monster name (or "it") */
-	monster_desc(m_name, m_ptr, 0);
+	monster_desc(m_name, tar_ptr, 0);
 
 
 	/* Calculate the "attack quality" */
@@ -1981,7 +1980,7 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 	chance = (p_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(chance, m_ptr->ac + m_ptr->to_a, m_ptr->ml))
+	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -2003,40 +2002,40 @@ static void natural_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 		if (k < 0) k = 0;
 
 		/* Modify the damage */
-		k = mon_damage_mod(m_ptr, k, FALSE);
+		k = mon_damage_mod(tar_ptr, k, FALSE);
 
 		/* Complex message */
 		if (p_ptr->wizard)
 		{
-			msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
+			msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
 		}
 
 		/* Anger the monster */
-		if (k > 0) anger_monster(m_ptr);
+		if (k > 0) anger_monster(tar_ptr);
 
 		/* Damage, check for fear and mdeath */
 		switch (attack)
 		{
 			case MUT2_SCOR_TAIL:
-				project(0, 0, m_ptr->fy, m_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
+				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
 			case MUT2_HORNS:
-				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_BEAK:
-				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TRUNK:
-				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case MUT2_TENTACLES:
-				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
-				take_hit(p_ptr, m_ptr, 0, k, NULL , NULL, -1);
+				take_hit(p_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 		}
-		*mdeath = (m_ptr->monster_idx == 0);
-		touch_zap_player(m_ptr);
+		*mdeath = (tar_ptr->monster_idx == 0);
+		touch_zap_player(tar_ptr);
 	}
 	/* Player misses */
 	else
@@ -2740,7 +2739,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			/* Complex message */
 			if (cr_ptr->wizard || cheat_xtra)
 			{
-				msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
+				msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
 			}
 
 			if (k <= 0) can_drain = FALSE;
@@ -3412,7 +3411,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 				m_ptr->chp -= k;
 				if (cr_ptr->wizard)
 				{
-					msg_format("DAMAGE:%d->HP:%d", k, m_ptr->chp);
+					msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
 				}
 			}
 		}
@@ -3424,15 +3423,15 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 	if (!mdeath)
 	{
 		if ((cr_ptr->muta2 & MUT2_HORNS) && !mdeath)
-			natural_attack(c_ptr->m_idx, MUT2_HORNS, &fear, &mdeath);
+			natural_attack(m_ptr, MUT2_HORNS, &fear, &mdeath);
 		if ((cr_ptr->muta2 & MUT2_BEAK) && !mdeath)
-			natural_attack(c_ptr->m_idx, MUT2_BEAK, &fear, &mdeath);
+			natural_attack(m_ptr, MUT2_BEAK, &fear, &mdeath);
 		if ((cr_ptr->muta2 & MUT2_SCOR_TAIL) && !mdeath)
-			natural_attack(c_ptr->m_idx, MUT2_SCOR_TAIL, &fear, &mdeath);
+			natural_attack(m_ptr, MUT2_SCOR_TAIL, &fear, &mdeath);
 		if ((cr_ptr->muta2 & MUT2_TRUNK) && !mdeath)
-			natural_attack(c_ptr->m_idx, MUT2_TRUNK, &fear, &mdeath);
+			natural_attack(m_ptr, MUT2_TRUNK, &fear, &mdeath);
 		if ((cr_ptr->muta2 & MUT2_TENTACLES) && !mdeath)
-			natural_attack(c_ptr->m_idx, MUT2_TENTACLES, &fear, &mdeath);
+			natural_attack(m_ptr, MUT2_TENTACLES, &fear, &mdeath);
 	}
 
 
