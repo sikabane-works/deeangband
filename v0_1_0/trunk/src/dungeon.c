@@ -2176,7 +2176,7 @@ static void process_world_aux_timeout(void)
 	/* Tsubureru */
 	if (p_ptr->tsubureru)
 	{
-		(void)set_tsubureru(p_ptr->tsubureru - 1, TRUE);
+		(void)set_tsubureru(p_ptr, p_ptr->tsubureru - 1, TRUE);
 	}
 
 	/* Magicdef */
