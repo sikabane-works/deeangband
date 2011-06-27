@@ -274,7 +274,7 @@ void dispel_player(void)
 	(void)set_tim_sh_fire(0, TRUE);
 	(void)set_tim_sh_holy(0, TRUE);
 	(void)set_tim_eyeeye(0, TRUE);
-	(void)set_magicdef(0, TRUE);
+	(void)set_magicdef(p_ptr, 0, TRUE);
 	(void)set_resist_magic(0, TRUE);
 	(void)set_oppose_acid(0, TRUE);
 	(void)set_oppose_elec(0, TRUE);
@@ -1259,25 +1259,25 @@ msg_print("‚à‚¤‰¡‚ÉL‚Ñ‚Ä‚¢‚È‚¢B");
 
 
 /*
- * Set "p_ptr->magicdef", notice observable changes
+ * Set "cr_ptr->magicdef", notice observable changes
  */
-bool set_magicdef(int v, bool do_dec)
+bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->magicdef && !do_dec)
+		if (cr_ptr->magicdef && !do_dec)
 		{
-			if (p_ptr->magicdef > v) return FALSE;
+			if (cr_ptr->magicdef > v) return FALSE;
 		}
-		else if (!p_ptr->magicdef)
+		else if (!cr_ptr->magicdef)
 		{
 #ifdef JP
 			msg_print("–‚–@‚Ì–hŒä—Í‚ª‘‚µ‚½‚æ‚¤‚È‹C‚ª‚·‚éB");
@@ -1292,7 +1292,7 @@ bool set_magicdef(int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (p_ptr->magicdef)
+		if (cr_ptr->magicdef)
 		{
 #ifdef JP
 			msg_print("–‚–@‚Ì–hŒä—Í‚ªŒ³‚É–ß‚Á‚½B");
@@ -1305,10 +1305,10 @@ bool set_magicdef(int v, bool do_dec)
 	}
 
 	/* Use the value */
-	p_ptr->magicdef = v;
+	cr_ptr->magicdef = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1317,7 +1317,7 @@ bool set_magicdef(int v, bool do_dec)
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
