@@ -2793,7 +2793,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_INVULN:
 		{
-			(void)set_invuln(randint1(8) + 8, FALSE);
+			(void)set_invuln(p_ptr, randint1(8) + 8, FALSE);
 			o_ptr->timeout = 1000;
 			break;
 		}

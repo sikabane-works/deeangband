@@ -1313,7 +1313,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 #else
 			msg_print("You cast a Globe of Invulnerability.");
 #endif
-		(void)set_invuln(randint1(4) + 4, FALSE);
+		(void)set_invuln(p_ptr, randint1(4) + 4, FALSE);
 		break;
 	case MS_BLINK:
 		teleport_player(10, 0L);

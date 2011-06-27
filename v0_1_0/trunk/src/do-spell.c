@@ -2578,7 +2578,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_invuln(randint1(base) + base, FALSE);
+				set_invuln(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;

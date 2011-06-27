@@ -254,7 +254,7 @@ void dispel_player(void)
 	(void)set_hero(p_ptr, 0, TRUE);
 	(void)set_shero(p_ptr, 0, TRUE);
 	(void)set_protevil(p_ptr, 0, TRUE);
-	(void)set_invuln(0, TRUE);
+	(void)set_invuln(p_ptr, 0, TRUE);
 	(void)set_wraith_form(0, TRUE);
 	(void)set_kabenuke(0, TRUE);
 	(void)set_tim_res_nether(0, TRUE);
@@ -1701,25 +1701,25 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 
 
 /*
- * Set "p_ptr->invuln", notice observable changes
+ * Set "cr_ptr->invuln", notice observable changes
  */
-bool set_invuln(int v, bool do_dec)
+bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->invuln && !do_dec)
+		if (cr_ptr->invuln && !do_dec)
 		{
-			if (p_ptr->invuln > v) return FALSE;
+			if (cr_ptr->invuln > v) return FALSE;
 		}
-		else if (!IS_INVULN(p_ptr))
+		else if (!IS_INVULN(cr_ptr))
 		{
 #ifdef JP
 msg_print("–³“G‚¾I");
@@ -1735,20 +1735,20 @@ msg_print("–³“G‚¾I");
 			chg_virtue(V_VALOUR, -5);
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			cr_ptr->redraw |= (PR_MAP);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
 	/* Shut */
 	else
 	{
-		if (p_ptr->invuln && !music_singing(p_ptr, MUSIC_INVULN))
+		if (cr_ptr->invuln && !music_singing(cr_ptr, MUSIC_INVULN))
 		{
 #ifdef JP
 msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
@@ -1759,23 +1759,23 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 			notice = TRUE;
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			cr_ptr->redraw |= (PR_MAP);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 
-			p_ptr->energy_need += ENERGY_NEED();
+			cr_ptr->energy_need += ENERGY_NEED();
 		}
 	}
 
 	/* Use the value */
-	p_ptr->invuln = v;
+	cr_ptr->invuln = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1784,7 +1784,7 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

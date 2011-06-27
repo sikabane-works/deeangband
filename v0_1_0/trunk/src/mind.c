@@ -1394,7 +1394,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* mirror of Ruffnor */
 	case 20:
-	  (void)set_invuln(randint1(4)+4,FALSE);
+	  (void)set_invuln(p_ptr, randint1(4)+4,FALSE);
 	  break;
 	default:
 #ifdef JP
