@@ -1647,7 +1647,7 @@ msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 					/* Remove the monster restriction */
 					get_mon_num_prep(NULL, NULL);
 				}
-				(void)set_paralyzed(p_ptr->paralyzed + randint0(10) + 5);
+				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(10) + 5);
 			}
 			break;
 		}

@@ -155,7 +155,7 @@ static void do_cmd_eat_food_aux(int item)
 			{
 				if (!p_ptr->free_act)
 				{
-					if (set_paralyzed(p_ptr->paralyzed + randint0(10) + 10))
+					if (set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -845,7 +845,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			}
 
 			(void)set_poisoned(p_ptr, 0);
-			(void)set_paralyzed(p_ptr->paralyzed + 4);
+			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 4);
 			ident = TRUE;
 			break;
 
@@ -936,7 +936,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 					/* Remove the monster restriction */
 					get_mon_num_prep(NULL, NULL);
 				}
-				if (set_paralyzed(p_ptr->paralyzed + randint0(4) + 4))
+				if (set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4))
 				{
 					ident = TRUE;
 				}
@@ -5279,7 +5279,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 						/* Hack -- Bypass free action */
-						(void)set_paralyzed(p_ptr->paralyzed +
+						(void)set_paralyzed(p_ptr, p_ptr->paralyzed +
 							randint1(5 * oops + 1));
 
 						/* Confusing. */

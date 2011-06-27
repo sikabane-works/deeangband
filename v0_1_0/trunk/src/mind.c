@@ -2154,7 +2154,7 @@ msg_format("%s‚ðW’†‚µ‚·‚¬‚Ä‹C‚ðŽ¸‚Á‚Ä‚µ‚Ü‚Á‚½I",p);
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(p_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(5 * oops + 1));
 
 		/* Damage WIS (possibly permanently) */
 		if (randint0(100) < 50)

@@ -3187,7 +3187,7 @@ msg_format("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 			}
 			else
 			{
-				(void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4);
+				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 			}
 			learn_spell(MS_SLEEP);
 			update_smart_learn(m_idx, DRS_FREE);

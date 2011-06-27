@@ -2026,7 +2026,7 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(p_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(5 * oops + 1));
 
 		chg_virtue(V_KNOWLEDGE, -10);
 

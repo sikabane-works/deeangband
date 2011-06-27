@@ -630,7 +630,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 
 		if (!p_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr->paralyzed + 10 + randint1(20));
+			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 10 + randint1(20));
 		}
 	}
 
@@ -779,7 +779,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 				else if (one_in_(4))
 				{
 					if (!p_ptr->free_act) 
-						(void)set_paralyzed(p_ptr->paralyzed + 2 + 
+						(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 
 						(void)set_stun(p_ptr->stun + 10 + 
@@ -2327,7 +2327,7 @@ static bool do_cmd_bash_aux(int y, int x, int dir)
 
 
 		/* Hack -- Lose balance ala paralysis */
-		(void)set_paralyzed(p_ptr->paralyzed + 2 + randint0(2));
+		(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 2 + randint0(2));
 	}
 
 	/* Result */

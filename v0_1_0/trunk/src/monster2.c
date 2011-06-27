@@ -2259,7 +2259,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		}
 		if (!p_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 		}
 		while (randint0(100) > p_ptr->skill_rob)
 			(void)do_dec_stat(A_INT);

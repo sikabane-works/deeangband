@@ -1485,7 +1485,7 @@ static void do_cmd_wiz_cure_all(void)
 	(void)set_confused(p_ptr, 0);
 	(void)set_poisoned(p_ptr, 0);
 	(void)set_afraid(p_ptr, 0);
-	(void)set_paralyzed(0);
+	(void)set_paralyzed(p_ptr, 0);
 	(void)set_image(0);
 	(void)set_stun(0);
 	(void)set_cut(0);

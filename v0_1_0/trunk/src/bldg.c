@@ -2619,7 +2619,7 @@ void have_nightmare(int monster_idx)
 		}
 		if (!p_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 		}
 		while (!saving_throw(p_ptr->skill_rob))
 		{

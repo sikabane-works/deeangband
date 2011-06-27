@@ -2104,7 +2104,7 @@ static void process_world_aux_timeout(void)
 	/* Paralysis */
 	if (p_ptr->paralyzed)
 	{
-		(void)set_paralyzed(p_ptr->paralyzed - dec_count);
+		(void)set_paralyzed(p_ptr, p_ptr->paralyzed - dec_count);
 	}
 
 	/* Confusion */
@@ -4229,7 +4229,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				disturb(1, 0);
 
 				/* Hack -- faint (bypass free action) */
-				(void)set_paralyzed(p_ptr->paralyzed + 1 + randint0(5));
+				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 1 + randint0(5));
 			}
 
 			/* Starve to death (slowly) */
@@ -7230,7 +7230,7 @@ quit("セーブファイルが壊れています");
 					(void)set_confused(p_ptr, 0);
 					(void)set_poisoned(p_ptr, 0);
 					(void)set_afraid(p_ptr, 0);
-					(void)set_paralyzed(0);
+					(void)set_paralyzed(p_ptr, 0);
 					(void)set_image(0);
 					(void)set_stun(0);
 					(void)set_cut(0);

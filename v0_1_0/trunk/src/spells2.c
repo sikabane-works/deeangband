@@ -7114,9 +7114,9 @@ msg_print("’¤‘œ‚É‚È‚Á‚½‹C•ª‚¾I");
 #endif
 
 				if (p_ptr->free_act)
-					set_paralyzed(p_ptr->paralyzed + randint1(3));
+					set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(3));
 				else
-					set_paralyzed(p_ptr->paralyzed + randint1(13));
+					set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(13));
 				stop_ty = TRUE;
 			}
 			if (!one_in_(6)) break;

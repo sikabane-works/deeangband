@@ -676,7 +676,7 @@ msg_print("やっと毒の痛みがなくなった。");
 
 
 /*
- * Set "p_ptr->afraid", notice observable changes
+ * Set "cr_ptr->afraid", notice observable changes
  */
 bool set_afraid(creature_type *cr_ptr, int v)
 {
@@ -755,21 +755,21 @@ msg_print("やっと恐怖を振り払った。");
 
 
 /*
- * Set "p_ptr->paralyzed", notice observable changes
+ * Set "cr_ptr->paralyzed", notice observable changes
  */
-bool set_paralyzed(int v)
+bool set_paralyzed(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (!p_ptr->paralyzed)
+		if (!cr_ptr->paralyzed)
 		{
 #ifdef JP
 msg_print("体が麻痺してしまった！");
@@ -778,12 +778,12 @@ msg_print("体が麻痺してしまった！");
 #endif
 
 			/* Sniper */
-			if (p_ptr->concent) reset_concentration(TRUE);
+			if (cr_ptr->concent) reset_concentration(TRUE);
 
 			/* Hex */
 			if (hex_spelling_any()) stop_hex_spell_all();
 
-			p_ptr->counter = FALSE;
+			cr_ptr->counter = FALSE;
 			notice = TRUE;
 		}
 	}
@@ -791,7 +791,7 @@ msg_print("体が麻痺してしまった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->paralyzed)
+		if (cr_ptr->paralyzed)
 		{
 #ifdef JP
 msg_print("やっと動けるようになった。");
@@ -804,10 +804,10 @@ msg_print("やっと動けるようになった。");
 	}
 
 	/* Use the value */
-	p_ptr->paralyzed = v;
+	cr_ptr->paralyzed = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -816,7 +816,7 @@ msg_print("やっと動けるようになった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw the state */
-	p_ptr->redraw |= (PR_STATE);
+	cr_ptr->redraw |= (PR_STATE);
 
 	/* Handle stuff */
 	handle_stuff();
