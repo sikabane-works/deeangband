@@ -5230,7 +5230,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 #endif
 
 			restore_level();
-			(void)set_poisoned(0);
+			(void)set_poisoned(p_ptr, 0);
 			(void)set_blind(p_ptr, 0);
 			(void)set_confused(p_ptr, 0);
 			(void)set_image(0);

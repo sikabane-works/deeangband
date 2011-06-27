@@ -1616,7 +1616,7 @@ static bool cmd_racial_power_aux(s32b command)
 				msg_print("You picture the Pattern in your mind and walk it...");
 #endif
 
-				(void)set_poisoned(0);
+				(void)set_poisoned(p_ptr, 0);
 				(void)set_image(0);
 				(void)set_stun(0);
 				(void)set_cut(0);

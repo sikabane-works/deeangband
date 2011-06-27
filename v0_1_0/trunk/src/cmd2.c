@@ -614,7 +614,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 
 		if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
 		{
-			(void)set_poisoned(p_ptr->poisoned + 10 + randint1(20));
+			(void)set_poisoned(p_ptr, p_ptr->poisoned + 10 + randint1(20));
 		}
 	}
 

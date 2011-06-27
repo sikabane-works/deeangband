@@ -1346,7 +1346,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 			}
 		}
 		break;
@@ -2811,7 +2811,7 @@ static cptr do_nature_spell(int spell, int mode)
 			{
 				hp_player(damroll(dice, sides));
 				set_cut(0);
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 			}
 		}
 		break;
@@ -3007,7 +3007,7 @@ static cptr do_nature_spell(int spell, int mode)
 				hp_player(heal);
 				set_stun(0);
 				set_cut(0);
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 			}
 		}
 		break;
@@ -6242,7 +6242,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 			}
 		}
 		break;
@@ -6983,7 +6983,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 				set_stun(0);
 				set_cut(0);
 				set_image(0);
@@ -8330,7 +8330,7 @@ static cptr do_crusade_spell(int spell, int mode)
 			if (cast)
 			{
 				set_cut(0);
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 				set_stun(0);
 			}
 		}
@@ -8529,7 +8529,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				dispel_evil(randint1(dam_sides));
 				hp_player(heal);
 				set_afraid(0);
-				set_poisoned(0);
+				set_poisoned(p_ptr, 0);
 				set_stun(0);
 				set_cut(0);
 			}
@@ -11978,7 +11978,7 @@ static cptr do_hex_spell(int spell, int mode)
 			hp_player(damroll(4, 10));
 			set_stun(0);
 			set_cut(0);
-			set_poisoned(0);
+			set_poisoned(p_ptr, 0);
 		}
 		break;
 

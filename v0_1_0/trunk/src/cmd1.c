@@ -1356,7 +1356,7 @@ static void hit_trap(bool break_trap)
 					else
 					{
 						dam = dam * 2;
-						(void)set_poisoned(p_ptr->poisoned + randint1(dam));
+						(void)set_poisoned(p_ptr, p_ptr->poisoned + randint1(dam));
 					}
 				}
 
@@ -1607,7 +1607,7 @@ static void hit_trap(bool break_trap)
 
 			if (!p_ptr->resist_pois && !IS_OPPOSE_POIS(p_ptr))
 			{
-				(void)set_poisoned(p_ptr->poisoned + randint0(20) + 10);
+				(void)set_poisoned(p_ptr, p_ptr->poisoned + randint0(20) + 10);
 			}
 			break;
 		}

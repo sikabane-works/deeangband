@@ -614,21 +614,21 @@ msg_print("やっと混乱がおさまった。");
 
 
 /*
- * Set "p_ptr->poisoned", notice observable changes
+ * Set "cr_ptr->poisoned", notice observable changes
  */
-bool set_poisoned(int v)
+bool set_poisoned(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (!p_ptr->poisoned)
+		if (!cr_ptr->poisoned)
 		{
 #ifdef JP
 msg_print("毒に侵されてしまった！");
@@ -643,7 +643,7 @@ msg_print("毒に侵されてしまった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->poisoned)
+		if (cr_ptr->poisoned)
 		{
 #ifdef JP
 msg_print("やっと毒の痛みがなくなった。");
@@ -656,10 +656,10 @@ msg_print("やっと毒の痛みがなくなった。");
 	}
 
 	/* Use the value */
-	p_ptr->poisoned = v;
+	cr_ptr->poisoned = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);

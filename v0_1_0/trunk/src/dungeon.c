@@ -748,7 +748,7 @@ static bool pattern_effect(void)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		(void)set_poisoned(0);
+		(void)set_poisoned(p_ptr, 0);
 		(void)set_image(0);
 		(void)set_stun(0);
 		(void)set_cut(0);
@@ -2234,7 +2234,7 @@ static void process_world_aux_timeout(void)
 		int adjust = adj_con_fix[p_ptr->stat_ind[A_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_poisoned(p_ptr->poisoned - adjust);
+		(void)set_poisoned(p_ptr, p_ptr->poisoned - adjust);
 	}
 
 	/* Stun */
@@ -7228,7 +7228,7 @@ quit("セーブファイルが壊れています");
 					/* Hack -- Healing */
 					(void)set_blind(p_ptr, 0);
 					(void)set_confused(p_ptr, 0);
-					(void)set_poisoned(0);
+					(void)set_poisoned(p_ptr, 0);
 					(void)set_afraid(0);
 					(void)set_paralyzed(0);
 					(void)set_image(0);

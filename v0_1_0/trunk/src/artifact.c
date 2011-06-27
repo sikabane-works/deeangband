@@ -2632,7 +2632,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			(void)set_afraid(0);
-			(void)set_poisoned(0);
+			(void)set_poisoned(p_ptr, 0);
 			o_ptr->timeout = 5;
 			break;
 		}

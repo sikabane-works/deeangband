@@ -6597,7 +6597,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!(double_resist || p_ptr->resist_pois) && !CHECK_MULTISHADOW())
 			{
-				set_poisoned(p_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
 			}
 			break;
 		}
@@ -6617,7 +6617,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			if (!(double_resist || p_ptr->resist_pois) && !CHECK_MULTISHADOW())
 			{
-				set_poisoned(p_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
 
 				if (one_in_(5)) /* 6 */
 				{
