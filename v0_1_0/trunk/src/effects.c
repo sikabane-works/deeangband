@@ -248,7 +248,7 @@ void dispel_player(void)
 	(void)set_fast(p_ptr, 0, TRUE);
 	(void)set_lightspeed(0, TRUE);
 	(void)set_slow(p_ptr, 0, TRUE);
-	(void)set_shield(0, TRUE);
+	(void)set_shield(p_ptr, 0, TRUE);
 	(void)set_blessed(0, TRUE);
 	(void)set_tsuyoshi(0, TRUE);
 	(void)set_hero(0, TRUE);
@@ -1119,25 +1119,25 @@ msg_print("動きの遅さがなくなったようだ。");
 
 
 /*
- * Set "p_ptr->shield", notice observable changes
+ * Set "cr_ptr->shield", notice observable changes
  */
-bool set_shield(int v, bool do_dec)
+bool set_shield(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->shield && !do_dec)
+		if (cr_ptr->shield && !do_dec)
 		{
-			if (p_ptr->shield > v) return FALSE;
+			if (cr_ptr->shield > v) return FALSE;
 		}
-		else if (!p_ptr->shield)
+		else if (!cr_ptr->shield)
 		{
 #ifdef JP
 msg_print("肌が石になった。");
@@ -1152,7 +1152,7 @@ msg_print("肌が石になった。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->shield)
+		if (cr_ptr->shield)
 		{
 #ifdef JP
 msg_print("肌が元に戻った。");
@@ -1165,10 +1165,10 @@ msg_print("肌が元に戻った。");
 	}
 
 	/* Use the value */
-	p_ptr->shield = v;
+	cr_ptr->shield = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1177,7 +1177,7 @@ msg_print("肌が元に戻った。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

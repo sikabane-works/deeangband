@@ -1445,7 +1445,7 @@ extern bool set_paralyzed(creature_type *cr_ptr, int v);
 extern bool set_image(creature_type *cr_ptr, int v);
 extern bool set_fast(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_slow(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_shield(int v, bool do_dec);
+extern bool set_shield(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tsubureru(int v, bool do_dec);
 extern bool set_magicdef(int v, bool do_dec);
 extern bool set_blessed(int v, bool do_dec);

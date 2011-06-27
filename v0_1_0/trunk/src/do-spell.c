@@ -3046,7 +3046,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shield(randint1(sides) + base, FALSE);
+				set_shield(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7051,7 +7051,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shield(randint1(sides) + base, FALSE);
+				set_shield(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;

@@ -917,7 +917,7 @@ if (!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
 		break;
 	case 6:
 		/* Character Armour */
-		set_shield(plev, FALSE);
+		set_shield(p_ptr, plev, FALSE);
 		if (plev > 14) set_oppose_acid(plev, FALSE);
 		if (plev > 19) set_oppose_fire(plev, FALSE);
 		if (plev > 24) set_oppose_cold(plev, FALSE);
@@ -1337,7 +1337,7 @@ msg_format("There are too many mirrors to control!");
 	/* shield of water */
 	case 12:
 	  tmp = 20+randint1(20);
-	  set_shield(tmp, FALSE);
+	  set_shield(p_ptr, tmp, FALSE);
 	  if( plev > 31 )set_tim_reflect(tmp, FALSE);
 	  if( plev > 39 )set_resist_magic(tmp,FALSE);
 	  break;
