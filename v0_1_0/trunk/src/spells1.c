@@ -6821,7 +6821,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				}
 				if (!p_ptr->resist_chaos)
 				{
-					(void)set_image(p_ptr->image + randint1(10));
+					(void)set_image(p_ptr, p_ptr->image + randint1(10));
 					if (one_in_(3))
 					{
 #ifdef JP
@@ -7550,7 +7550,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 					if (!p_ptr->resist_chaos && one_in_(3))
 					{
-						(void)set_image(p_ptr->image + randint0(250) + 150);
+						(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
 					}
 
 					p_ptr->csp -= 50;
@@ -7622,7 +7622,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 					if (!p_ptr->resist_chaos)
 					{
-						(void)set_image(p_ptr->image + randint0(250) + 150);
+						(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
 					}
 				}
 			}

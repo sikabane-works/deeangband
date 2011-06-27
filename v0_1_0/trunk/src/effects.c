@@ -827,11 +827,11 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 
 
 /*
- * Set "p_ptr->image", notice observable changes
+ * Set "cr_ptr->image", notice observable changes
  *
  * Note that we must redraw the map when hallucination changes.
  */
-bool set_image(int v)
+bool set_image(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 

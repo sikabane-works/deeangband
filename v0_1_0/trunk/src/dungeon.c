@@ -749,7 +749,7 @@ static bool pattern_effect(void)
 	{
 	case PATTERN_TILE_END:
 		(void)set_poisoned(p_ptr, 0);
-		(void)set_image(0);
+		(void)set_image(p_ptr, 0);
 		(void)set_stun(0);
 		(void)set_cut(0);
 		(void)set_blind(p_ptr, 0);
@@ -1967,7 +1967,7 @@ static void process_world_aux_timeout(void)
 	/* Hack -- Hallucinating */
 	if (p_ptr->image)
 	{
-		(void)set_image(p_ptr->image - dec_count);
+		(void)set_image(p_ptr, p_ptr->image - dec_count);
 	}
 
 	/* Blindness */
@@ -2399,7 +2399,7 @@ static void process_world_aux_mutation(void)
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
 
-					(void)set_image(p_ptr->image + randint0(150) + 150);
+					(void)set_image(p_ptr, p_ptr->image + randint0(150) + 150);
 				}
 			}
 		}
@@ -2411,7 +2411,7 @@ static void process_world_aux_mutation(void)
 		{
 			disturb(0, 0);
 			p_ptr->redraw |= PR_EXTRA;
-			(void)set_image(p_ptr->image + randint0(50) + 20);
+			(void)set_image(p_ptr, p_ptr->image + randint0(50) + 20);
 		}
 	}
 
@@ -7231,7 +7231,7 @@ quit("セーブファイルが壊れています");
 					(void)set_poisoned(p_ptr, 0);
 					(void)set_afraid(p_ptr, 0);
 					(void)set_paralyzed(p_ptr, 0);
-					(void)set_image(0);
+					(void)set_image(p_ptr, 0);
 					(void)set_stun(0);
 					(void)set_cut(0);
 

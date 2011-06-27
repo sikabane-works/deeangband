@@ -1617,7 +1617,7 @@ static bool cmd_racial_power_aux(s32b command)
 #endif
 
 				(void)set_poisoned(p_ptr, 0);
-				(void)set_image(0);
+				(void)set_image(p_ptr, 0);
 				(void)set_stun(0);
 				(void)set_cut(0);
 				(void)set_blind(p_ptr, 0);

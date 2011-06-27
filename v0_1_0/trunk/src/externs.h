@@ -1442,7 +1442,7 @@ extern bool set_confused(creature_type *cr_ptr, int v);
 extern bool set_poisoned(creature_type *cr_ptr, int v);
 extern bool set_afraid(creature_type *cr_ptr, int v);
 extern bool set_paralyzed(creature_type *cr_ptr, int v);
-extern bool set_image(int v);
+extern bool set_image(creature_type *cr_ptr, int v);
 extern bool set_fast(int v, bool do_dec);
 extern bool set_slow(int v, bool do_dec);
 extern bool set_shield(int v, bool do_dec);

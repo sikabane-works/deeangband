@@ -6986,7 +6986,7 @@ static cptr do_craft_spell(int spell, int mode)
 				set_poisoned(p_ptr, 0);
 				set_stun(0);
 				set_cut(0);
-				set_image(0);
+				set_image(p_ptr, 0);
 			}
 		}
 		break;

@@ -2597,7 +2597,7 @@ void have_nightmare(int monster_idx)
 		}
 		if (!p_ptr->resist_chaos && one_in_(3) && p_ptr->chara_idx == CHARA_CHARGEMAN)
 		{
-			(void)set_image(p_ptr->image + randint0(250) + 150);
+			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2631,7 +2631,7 @@ void have_nightmare(int monster_idx)
 		}
 		if (!p_ptr->resist_chaos)
 		{
-			(void)set_image(p_ptr->image + randint0(250) + 150);
+			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}

@@ -143,7 +143,7 @@ static void do_cmd_eat_food_aux(int item)
 			{
 				if (!p_ptr->resist_chaos)
 				{
-					if (set_image(p_ptr->image + randint0(250) + 250))
+					if (set_image(p_ptr, p_ptr->image + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}
@@ -884,7 +884,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			{
 				if (one_in_(2))
 				{
-					if (set_image(p_ptr->image + randint0(150) + 150))
+					if (set_image(p_ptr, p_ptr->image + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}
@@ -1149,7 +1149,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)set_poisoned(p_ptr, 0);
 			(void)set_blind(p_ptr, 0);
 			(void)set_confused(p_ptr, 0);
-			(void)set_image(0);
+			(void)set_image(p_ptr, 0);
 			(void)set_stun(0);
 			(void)set_cut(0);
 			(void)do_res_stat(A_STR);
@@ -1349,7 +1349,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_image(0)) ident = TRUE;
+			if (set_image(p_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_INVULNERABILITY:
@@ -1379,7 +1379,7 @@ msg_print("全ての突然変異が治った。");
 			break;
 
 		case SV_POTION_NEO_TSUYOSHI:
-			(void)set_image(0);
+			(void)set_image(p_ptr, 0);
 			(void)set_tsuyoshi(p_ptr->tsuyoshi + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
@@ -1395,7 +1395,7 @@ msg_print("「オクレ兄さん！」");
 			(void)set_tsuyoshi(0, TRUE);
 			if (!p_ptr->resist_chaos)
 			{
-				(void)set_image(50 + randint1(50));
+				(void)set_image(p_ptr, 50 + randint1(50));
 			}
 			ident = TRUE;
 			break;
@@ -2526,7 +2526,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_image(0)) ident = TRUE;
+			if (set_image(p_ptr, 0)) ident = TRUE;
 			if (set_shero(0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -3483,7 +3483,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_stun(0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
-			if (set_image(0)) ident = TRUE;
+			if (set_image(p_ptr, 0)) ident = TRUE;
 			if (set_shero(0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -5620,7 +5620,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_blind(p_ptr, 0);
 				(void)set_stun(0);
 				(void)set_cut(0);
-				(void)set_image(0);
+				(void)set_image(p_ptr, 0);
 
 				o_ptr->timeout = 100;
 				break;
