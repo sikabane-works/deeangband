@@ -7026,7 +7026,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
+			if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
@@ -7220,7 +7220,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				teleport_player(5, TELEPORT_PASSIVE);
 				if (!p_ptr->levitation)
-					(void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
+					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 				if (!(p_ptr->resist_sound || p_ptr->levitation))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
@@ -7288,7 +7288,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			(void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
+			(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 			break;
 		}
 
@@ -7613,7 +7613,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					{
 						(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 					}
-					(void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
+					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 
 					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
 						(void)do_dec_stat(A_INT);

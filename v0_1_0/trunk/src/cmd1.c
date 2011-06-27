@@ -1460,7 +1460,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr->slow + randint0(20) + 20, FALSE);
+				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr, p_ptr->slow + randint0(20) + 20, FALSE);
 			}
 			else
 			{

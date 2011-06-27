@@ -821,7 +821,7 @@ static void do_cmd_quaff_potion_aux(int item)
 #endif
 
 		case SV_POTION_SLOWNESS:
-			if (set_slow(randint1(25) + 15, FALSE)) ident = TRUE;
+			if (set_slow(p_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
 		case SV_POTION_SALT_WATER:
@@ -2364,7 +2364,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if (set_slow(p_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_slow(p_ptr, p_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 

@@ -4053,7 +4053,7 @@ void do_cmd_fire(void)
 #else
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
-		(void)set_slow(p_ptr->slow + randint0(7) + 7, FALSE);
+		(void)set_slow(p_ptr, p_ptr->slow + randint0(7) + 7, FALSE);
 		(void)set_stun(p_ptr->stun + randint1(25));
 	}
 }

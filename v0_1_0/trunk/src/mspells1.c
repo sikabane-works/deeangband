@@ -3143,7 +3143,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 			}
 			else
 			{
-				(void)set_slow(p_ptr->slow + randint0(4) + 4, FALSE);
+				(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 			}
 			learn_spell(MS_SLOW);
 			update_smart_learn(m_idx, DRS_FREE);

@@ -247,7 +247,7 @@ void dispel_player(void)
 {
 	(void)set_fast(p_ptr, 0, TRUE);
 	(void)set_lightspeed(0, TRUE);
-	(void)set_slow(0, TRUE);
+	(void)set_slow(p_ptr, 0, TRUE);
 	(void)set_shield(0, TRUE);
 	(void)set_blessed(0, TRUE);
 	(void)set_tsuyoshi(0, TRUE);
@@ -924,16 +924,16 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->fast && !do_dec)
+		if (cr_ptr->fast && !do_dec)
 		{
-			if (p_ptr->fast > v) return FALSE;
+			if (cr_ptr->fast > v) return FALSE;
 		}
-		else if (!IS_FAST(p_ptr) && !p_ptr->lightspeed)
+		else if (!IS_FAST(cr_ptr) && !cr_ptr->lightspeed)
 		{
 #ifdef JP
 msg_print("‘f‘‚­“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½I");
@@ -950,7 +950,7 @@ msg_print("‘f‘‚­“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½I");
 	/* Shut */
 	else
 	{
-		if (p_ptr->fast && !p_ptr->lightspeed && !music_singing(p_ptr, MUSIC_SPEED) && !music_singing(p_ptr, MUSIC_SHERO))
+		if (cr_ptr->fast && !cr_ptr->lightspeed && !music_singing(cr_ptr, MUSIC_SPEED) && !music_singing(cr_ptr, MUSIC_SHERO))
 		{
 #ifdef JP
 msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
@@ -963,7 +963,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	}
 
 	/* Use the value */
-	p_ptr->fast = v;
+	cr_ptr->fast = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -972,7 +972,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -1053,25 +1053,25 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 
 
 /*
- * Set "p_ptr->slow", notice observable changes
+ * Set "cr_ptr->slow", notice observable changes
  */
-bool set_slow(int v, bool do_dec)
+bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->slow && !do_dec)
+		if (cr_ptr->slow && !do_dec)
 		{
-			if (p_ptr->slow > v) return FALSE;
+			if (cr_ptr->slow > v) return FALSE;
 		}
-		else if (!p_ptr->slow)
+		else if (!cr_ptr->slow)
 		{
 #ifdef JP
 msg_print("‘Ì‚Ì“®‚«‚ª’x‚­‚È‚Á‚Ä‚µ‚Ü‚Á‚½I");
@@ -1086,7 +1086,7 @@ msg_print("‘Ì‚Ì“®‚«‚ª’x‚­‚È‚Á‚Ä‚µ‚Ü‚Á‚½I");
 	/* Shut */
 	else
 	{
-		if (p_ptr->slow)
+		if (cr_ptr->slow)
 		{
 #ifdef JP
 msg_print("“®‚«‚Ì’x‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
@@ -1099,7 +1099,7 @@ msg_print("“®‚«‚Ì’x‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	}
 
 	/* Use the value */
-	p_ptr->slow = v;
+	cr_ptr->slow = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1108,7 +1108,7 @@ msg_print("“®‚«‚Ì’x‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
