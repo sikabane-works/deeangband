@@ -2122,7 +2122,7 @@ static void process_world_aux_timeout(void)
 	/* Fast */
 	if (p_ptr->fast)
 	{
-		(void)set_fast(p_ptr->fast - 1, TRUE);
+		(void)set_fast(p_ptr, p_ptr->fast - 1, TRUE);
 	}
 
 	/* Slow */
@@ -2481,7 +2481,7 @@ static void process_world_aux_mutation(void)
 
 			if (p_ptr->fast > 0)
 			{
-				set_fast(0, TRUE);
+				set_fast(p_ptr, 0, TRUE);
 			}
 			else
 			{
@@ -2502,7 +2502,7 @@ static void process_world_aux_mutation(void)
 			}
 			else
 			{
-				set_fast(randint1(30) + 10, FALSE);
+				set_fast(p_ptr, randint1(30) + 10, FALSE);
 			}
 		}
 		msg_print(NULL);

@@ -7275,7 +7275,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			(void)set_fast(p_ptr->fast + randint1(5), FALSE);
+			(void)set_fast(p_ptr, p_ptr->fast + randint1(5), FALSE);
 			dam = 0;
 			break;
 		}

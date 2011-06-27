@@ -1057,11 +1057,11 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_SPEED:
 			if (!p_ptr->fast)
 			{
-				if (set_fast(randint1(25) + 15, FALSE)) ident = TRUE;
+				if (set_fast(p_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			}
 			else
 			{
-				(void)set_fast(p_ptr->fast + 5, FALSE);
+				(void)set_fast(p_ptr, p_ptr->fast + 5, FALSE);
 			}
 			break;
 
@@ -2576,7 +2576,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_SPEED:
 		{
-			if (set_fast(randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(p_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -3511,7 +3511,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_SPEED:
 		{
-			if (set_fast(randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(p_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -4335,7 +4335,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("The ring glows brightly...");
 #endif
 
-				(void)set_fast(randint1(75) + 75, FALSE);
+				(void)set_fast(p_ptr, randint1(75) + 75, FALSE);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -4738,7 +4738,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your boots glow bright green...");
 #endif
 
-				(void)set_fast(randint1(20) + 20, FALSE);
+				(void)set_fast(p_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -5106,7 +5106,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your mace glows bright green...");
 #endif
 
-				(void)set_fast(randint1(20) + 20, FALSE);
+				(void)set_fast(p_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(100) + 100;
 				break;
 			}
@@ -5364,7 +5364,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_HURIN:
 			{
-				(void)set_fast(randint1(50) + 50, FALSE);
+				(void)set_fast(p_ptr, randint1(50) + 50, FALSE);
 				hp_player(10);
 				set_afraid(p_ptr, 0);
 				set_hero(randint1(50) + 50, FALSE);
@@ -6269,7 +6269,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = 150;
 				break;
 			case EGO_RING_D_SPEED:
-				(void)set_fast(randint1(30) + 15, FALSE);
+				(void)set_fast(p_ptr, randint1(30) + 15, FALSE);
 				o_ptr->timeout = 100;
 				break;
 			case EGO_RING_BERSERKER:

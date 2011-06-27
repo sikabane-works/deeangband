@@ -1868,7 +1868,7 @@ static cptr do_life_spell(int spell, int mode)
 			if (cast)
 			{
 				int v = randint1(base) + base;
-				set_fast(v, FALSE);
+				set_fast(p_ptr, v, FALSE);
 				set_oppose_acid(v, FALSE);
 				set_oppose_elec(v, FALSE);
 				set_oppose_fire(v, FALSE);
@@ -2194,7 +2194,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_fast(randint1(sides) + base, FALSE);
+				set_fast(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -4703,7 +4703,7 @@ static cptr do_death_spell(int spell, int mode)
 				set_shero(randint1(25) + 25, FALSE);
 				hp_player(30);
 				set_afraid(p_ptr, 0);
-				set_fast(randint1(sp_sides) + sp_base, FALSE);
+				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
 			}
 		}
 		break;
@@ -7098,7 +7098,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_fast(randint1(sides) + base, FALSE);
+				set_fast(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -8933,7 +8933,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				}
 				set_hero(randint1(base) + base, FALSE);
 				set_blessed(randint1(base) + base, FALSE);
-				set_fast(randint1(sp_sides) + sp_base, FALSE);
+				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
 				set_protevil(randint1(base) + base, FALSE);
 				set_afraid(p_ptr, 0);
 			}

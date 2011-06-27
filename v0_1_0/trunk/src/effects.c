@@ -245,7 +245,7 @@ void reset_tim_flags(void)
 
 void dispel_player(void)
 {
-	(void)set_fast(0, TRUE);
+	(void)set_fast(p_ptr, 0, TRUE);
 	(void)set_lightspeed(0, TRUE);
 	(void)set_slow(0, TRUE);
 	(void)set_shield(0, TRUE);
@@ -915,9 +915,9 @@ msg_print("‚â‚Á‚Æ‚Í‚Á‚«‚è‚Æ•¨‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 
 
 /*
- * Set "p_ptr->fast", notice observable changes
+ * Set "cr_ptr->fast", notice observable changes
  */
-bool set_fast(int v, bool do_dec)
+bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 

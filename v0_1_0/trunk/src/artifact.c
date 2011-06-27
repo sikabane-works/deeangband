@@ -2766,7 +2766,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows bright green...");
 #endif
 
-			(void)set_fast(randint1(20) + 20, FALSE);
+			(void)set_fast(p_ptr, randint1(20) + 20, FALSE);
 			o_ptr->timeout = 250;
 			break;
 		}
@@ -2779,7 +2779,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows brightly...");
 #endif
 
-			(void)set_fast(randint1(75) + 75, FALSE);
+			(void)set_fast(p_ptr, randint1(75) + 75, FALSE);
 			o_ptr->timeout = (s16b)randint0(200) + 200;
 			break;
 		}

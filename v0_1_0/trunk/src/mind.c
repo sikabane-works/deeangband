@@ -961,7 +961,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		b = 10 + randint1((plev * 3) / 2);
 		set_hero(b, FALSE);
 		/* Haste */
-		(void)set_fast(b, FALSE);
+		(void)set_fast(p_ptr, b, FALSE);
 		break;
 	case 10:
 		/* Telekinesis */
