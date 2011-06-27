@@ -2736,7 +2736,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			k = 3 * p_ptr->lev;
-			(void)set_protevil(randint1(25) + k, FALSE);
+			(void)set_protevil(p_ptr, randint1(25) + k, FALSE);
 			o_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
 		}

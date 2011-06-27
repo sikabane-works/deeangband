@@ -6966,7 +6966,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_protevil(randint1(sides) + base, FALSE);
+				set_protevil(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -8478,7 +8478,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_protevil(randint1(sides) + sides, FALSE);
+				set_protevil(p_ptr, randint1(sides) + sides, FALSE);
 			}
 		}
 		break;
@@ -8934,7 +8934,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				set_hero(p_ptr, randint1(base) + base, FALSE);
 				set_blessed(p_ptr, randint1(base) + base, FALSE);
 				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
-				set_protevil(randint1(base) + base, FALSE);
+				set_protevil(p_ptr, randint1(base) + base, FALSE);
 				set_afraid(p_ptr, 0);
 			}
 		}

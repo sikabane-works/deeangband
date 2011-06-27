@@ -2134,7 +2134,7 @@ static void process_world_aux_timeout(void)
 	/* Protection from evil */
 	if (p_ptr->protevil)
 	{
-		(void)set_protevil(p_ptr->protevil - 1, TRUE);
+		(void)set_protevil(p_ptr, p_ptr->protevil - 1, TRUE);
 	}
 
 	/* Invulnerability */

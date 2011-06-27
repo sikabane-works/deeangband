@@ -1944,7 +1944,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
 		{
 			k = 3 * p_ptr->lev;
-			if (set_protevil(p_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
+			if (set_protevil(p_ptr, p_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2603,7 +2603,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		{
 			if (dispel_evil(150)) ident = TRUE;
 			k = 3 * p_ptr->lev;
-			if (set_protevil((magic ? 0 : p_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
+			if (set_protevil(p_ptr, (magic ? 0 : p_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (hp_player(50)) ident = TRUE;
@@ -4282,7 +4282,7 @@ if (get_check("帰還の力を使いますか？"))
 #endif
 
 				k = 3 * p_ptr->lev;
-				(void)set_protevil(randint1(25) + k, FALSE);
+				(void)set_protevil(p_ptr, randint1(25) + k, FALSE);
 				o_ptr->timeout = randint0(225) + 225;
 				break;
 			}
@@ -5344,7 +5344,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("A shrill wailing sound surrounds you.");
 #endif
-				(void)set_protevil(randint1(25) + p_ptr->lev, FALSE);
+				(void)set_protevil(p_ptr, randint1(25) + p_ptr->lev, FALSE);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -5693,7 +5693,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				k = 3 * p_ptr->lev;
-				(void)set_protevil(randint1(25) + k, FALSE);
+				(void)set_protevil(p_ptr, randint1(25) + k, FALSE);
 				o_ptr->timeout = randint0(225) + 225;
 				break;
 			}

@@ -253,7 +253,7 @@ void dispel_player(void)
 	(void)set_tsuyoshi(0, TRUE);
 	(void)set_hero(p_ptr, 0, TRUE);
 	(void)set_shero(p_ptr, 0, TRUE);
-	(void)set_protevil(0, TRUE);
+	(void)set_protevil(p_ptr, 0, TRUE);
 	(void)set_invuln(0, TRUE);
 	(void)set_wraith_form(0, TRUE);
 	(void)set_kabenuke(0, TRUE);
@@ -1543,25 +1543,25 @@ msg_print("野蛮な気持ちが消え失せた。");
 
 
 /*
- * Set "p_ptr->protevil", notice observable changes
+ * Set "cr_ptr->protevil", notice observable changes
  */
-bool set_protevil(int v, bool do_dec)
+bool set_protevil(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->protevil && !do_dec)
+		if (cr_ptr->protevil && !do_dec)
 		{
-			if (p_ptr->protevil > v) return FALSE;
+			if (cr_ptr->protevil > v) return FALSE;
 		}
-		else if (!p_ptr->protevil)
+		else if (!cr_ptr->protevil)
 		{
 #ifdef JP
 msg_print("邪悪なる存在から守られているような感じがする！");
@@ -1576,7 +1576,7 @@ msg_print("邪悪なる存在から守られているような感じがする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->protevil)
+		if (cr_ptr->protevil)
 		{
 #ifdef JP
 msg_print("邪悪なる存在から守られている感じがなくなった。");
@@ -1589,10 +1589,10 @@ msg_print("邪悪なる存在から守られている感じがなくなった。");
 	}
 
 	/* Use the value */
-	p_ptr->protevil = v;
+	cr_ptr->protevil = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
