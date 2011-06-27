@@ -4010,7 +4010,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else if(i == INVEN_OUTER)
 		{
-			new_speed += o_ptr->pval;
+			if (have_flag(flgs, TR_SPEED)) new_speed += o_ptr->pval;
 			if(rate >= 180) new_speed -= 10;
 			else if(rate >= 140) new_speed -= 5;
 			else if(rate >= 120) new_speed -= 2;
