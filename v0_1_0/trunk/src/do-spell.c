@@ -732,7 +732,7 @@ static void cast_shuffle(void)
 		msg_print("It's Justice.");
 #endif
 
-		set_blessed(p_ptr->lev, FALSE);
+		set_blessed(p_ptr, p_ptr->lev, FALSE);
 	}
 	else if (die < 47)
 	{
@@ -1237,7 +1237,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_blessed(randint1(base) + base, FALSE);
+				set_blessed(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6794,7 +6794,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(randint1(base) + base, FALSE);
+				set_hero(p_ptr, randint1(base) + base, FALSE);
 				hp_player(10);
 				set_afraid(p_ptr, 0);
 			}
@@ -7442,7 +7442,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_blessed(randint1(base) + base, FALSE);
+				set_blessed(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7989,7 +7989,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(randint1(base) + base, FALSE);
+				set_hero(p_ptr, randint1(base) + base, FALSE);
 				hp_player(10);
 				set_afraid(p_ptr, 0);
 			}
@@ -8740,7 +8740,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(randint1(base) + base, FALSE);
+				set_hero(p_ptr, randint1(base) + base, FALSE);
 				hp_player(10);
 				set_afraid(p_ptr, 0);
 			}
@@ -8931,8 +8931,8 @@ static cptr do_crusade_spell(int spell, int mode)
 					if (attempt < 0) continue;
 					summon_specific(-1, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
 				}
-				set_hero(randint1(base) + base, FALSE);
-				set_blessed(randint1(base) + base, FALSE);
+				set_hero(p_ptr, randint1(base) + base, FALSE);
+				set_blessed(p_ptr, randint1(base) + base, FALSE);
 				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
 				set_protevil(randint1(base) + base, FALSE);
 				set_afraid(p_ptr, 0);

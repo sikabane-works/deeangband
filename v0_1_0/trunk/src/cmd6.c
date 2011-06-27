@@ -1081,7 +1081,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 
 		case SV_POTION_HEROISM:
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
-			if (set_hero(p_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (set_hero(p_ptr, p_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (hp_player(10)) ident = TRUE;
 			break;
 
@@ -1908,19 +1908,19 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_BLESSING:
 		{
-			if (set_blessed(p_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
+			if (set_blessed(p_ptr, p_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if (set_blessed(p_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
+			if (set_blessed(p_ptr, p_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if (set_blessed(p_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
+			if (set_blessed(p_ptr, p_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -4449,9 +4449,9 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				(void)set_afraid(p_ptr, 0);
-				(void)set_hero(randint1(50) + 50, FALSE);
+				(void)set_hero(p_ptr, randint1(50) + 50, FALSE);
 				(void)hp_player(10);
-				(void)set_blessed(randint1(50) + 50, FALSE);
+				(void)set_blessed(p_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_acid(randint1(50) + 50, FALSE);
 				(void)set_oppose_elec(randint1(50) + 50, FALSE);
 				(void)set_oppose_fire(randint1(50) + 50, FALSE);
@@ -4491,7 +4491,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
 				(void)set_afraid(p_ptr, 0);
-				(void)set_hero(randint1(25) + 25, FALSE);
+				(void)set_hero(p_ptr, randint1(25) + 25, FALSE);
 				(void)hp_player(777);
 				o_ptr->timeout = 300;
 				break;
@@ -5367,7 +5367,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_fast(p_ptr, randint1(50) + 50, FALSE);
 				hp_player(10);
 				set_afraid(p_ptr, 0);
-				set_hero(randint1(50) + 50, FALSE);
+				set_hero(p_ptr, randint1(50) + 50, FALSE);
 				o_ptr->timeout = randint0(200) + 100;
 				break;
 			}
@@ -5607,7 +5607,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_AEGISFANG:
 			{
 				(void)set_afraid(p_ptr, 0);
-				set_hero(randint1(25)+25, FALSE);
+				set_hero(p_ptr, randint1(25)+25, FALSE);
 				hp_player(10);
 				o_ptr->timeout = randint0(30) + 30;
 				break;
@@ -5668,7 +5668,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You stamp. (as if you are in a ring.)");
 #endif
 				(void)set_afraid(p_ptr, 0);
-				(void)set_hero(randint1(20) + 20, FALSE);
+				(void)set_hero(p_ptr, randint1(20) + 20, FALSE);
 				dispel_evil(p_ptr->lev * 3);
 				o_ptr->timeout = 100 + randint1(100);
 				break;
@@ -6184,7 +6184,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 			case EGO_RING_HERO:
 				(void)set_afraid(p_ptr, 0);
-				(void)set_hero(randint1(25) + 25, FALSE);
+				(void)set_hero(p_ptr, randint1(25) + 25, FALSE);
 				(void)hp_player(10);
 				o_ptr->timeout = randint1(100)+100;
 				break;
@@ -6286,9 +6286,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				int v = randint1(25)+25;
 				(void)set_afraid(p_ptr, 0);
-				(void)set_hero(v, FALSE);
+				(void)set_hero(p_ptr, v, FALSE);
 				(void)hp_player(10);
-				(void)set_blessed(v, FALSE);
+				(void)set_blessed(p_ptr, v, FALSE);
 				(void)set_oppose_acid(v, FALSE);
 				(void)set_oppose_elec(v, FALSE);
 				(void)set_oppose_fire(v, FALSE);

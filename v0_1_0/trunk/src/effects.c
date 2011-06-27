@@ -249,9 +249,9 @@ void dispel_player(void)
 	(void)set_lightspeed(0, TRUE);
 	(void)set_slow(p_ptr, 0, TRUE);
 	(void)set_shield(p_ptr, 0, TRUE);
-	(void)set_blessed(0, TRUE);
+	(void)set_blessed(p_ptr, 0, TRUE);
 	(void)set_tsuyoshi(0, TRUE);
-	(void)set_hero(0, TRUE);
+	(void)set_hero(p_ptr, 0, TRUE);
 	(void)set_shero(0, TRUE);
 	(void)set_protevil(0, TRUE);
 	(void)set_invuln(0, TRUE);
@@ -1329,25 +1329,25 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 
 
 /*
- * Set "p_ptr->blessed", notice observable changes
+ * Set "cr_ptr->blessed", notice observable changes
  */
-bool set_blessed(int v, bool do_dec)
+bool set_blessed(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->blessed && !do_dec)
+		if (cr_ptr->blessed && !do_dec)
 		{
-			if (p_ptr->blessed > v) return FALSE;
+			if (cr_ptr->blessed > v) return FALSE;
 		}
-		else if (!IS_BLESSED(p_ptr))
+		else if (!IS_BLESSED(cr_ptr))
 		{
 #ifdef JP
 msg_print("高潔な気分になった！");
@@ -1362,7 +1362,7 @@ msg_print("高潔な気分になった！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->blessed && !music_singing(p_ptr, MUSIC_BLESS))
+		if (cr_ptr->blessed && !music_singing(cr_ptr, MUSIC_BLESS))
 		{
 #ifdef JP
 msg_print("高潔な気分が消え失せた。");
@@ -1375,10 +1375,10 @@ msg_print("高潔な気分が消え失せた。");
 	}
 
 	/* Use the value */
-	p_ptr->blessed = v;
+	cr_ptr->blessed = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1387,7 +1387,7 @@ msg_print("高潔な気分が消え失せた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -1398,25 +1398,25 @@ msg_print("高潔な気分が消え失せた。");
 
 
 /*
- * Set "p_ptr->hero", notice observable changes
+ * Set "cr_ptr->hero", notice observable changes
  */
-bool set_hero(int v, bool do_dec)
+bool set_hero(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->hero && !do_dec)
+		if (cr_ptr->hero && !do_dec)
 		{
-			if (p_ptr->hero > v) return FALSE;
+			if (cr_ptr->hero > v) return FALSE;
 		}
-		else if (!IS_HERO(p_ptr))
+		else if (!IS_HERO(cr_ptr))
 		{
 #ifdef JP
 msg_print("ヒーローになった気がする！");
@@ -1431,7 +1431,7 @@ msg_print("ヒーローになった気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->hero && !music_singing(p_ptr, MUSIC_HERO) && !music_singing(p_ptr, MUSIC_SHERO))
+		if (cr_ptr->hero && !music_singing(cr_ptr, MUSIC_HERO) && !music_singing(cr_ptr, MUSIC_SHERO))
 		{
 #ifdef JP
 msg_print("ヒーローの気分が消え失せた。");
@@ -1444,10 +1444,10 @@ msg_print("ヒーローの気分が消え失せた。");
 	}
 
 	/* Use the value */
-	p_ptr->hero = v;
+	cr_ptr->hero = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1456,10 +1456,10 @@ msg_print("ヒーローの気分が消え失せた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	p_ptr->update |= (PU_HP);
+	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff();

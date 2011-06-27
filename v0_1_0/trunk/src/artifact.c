@@ -2721,8 +2721,8 @@ bool activate_random_artifact(object_type * o_ptr)
 		case ACT_BERSERK:
 		{
 			(void)set_afraid(p_ptr, 0);
-			(void)set_hero(randint1(50) + 50, FALSE);
-			(void)set_blessed(randint1(50) + 50, FALSE);
+			(void)set_hero(p_ptr, randint1(50) + 50, FALSE);
+			(void)set_blessed(p_ptr, randint1(50) + 50, FALSE);
 			o_ptr->timeout = 100 + (s16b)randint1(100);
 			break;
 		}

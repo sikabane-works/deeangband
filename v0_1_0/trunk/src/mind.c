@@ -959,7 +959,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		}
 
 		b = 10 + randint1((plev * 3) / 2);
-		set_hero(b, FALSE);
+		set_hero(p_ptr, b, FALSE);
 		/* Haste */
 		(void)set_fast(p_ptr, b, FALSE);
 		break;
