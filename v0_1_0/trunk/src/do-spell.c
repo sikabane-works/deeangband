@@ -7353,7 +7353,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!choose_ele_immune(base + randint1(base))) return NULL;
+				if (!choose_ele_immune(p_ptr, base + randint1(base))) return NULL;
 			}
 		}
 		break;

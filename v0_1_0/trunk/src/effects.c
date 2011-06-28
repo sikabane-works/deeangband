@@ -6973,7 +6973,7 @@ bool choose_ele_attack(creature_type *cr_ptr)
 /*
  * Choose a elemental immune. -LM-
  */
-bool choose_ele_immune(int turn)
+bool choose_ele_immune(creature_type *cr_ptr, int turn)
 {
 	char choice;
 
@@ -7020,13 +7020,13 @@ bool choose_ele_immune(int turn)
 	choice = inkey();
 
 	if ((choice == 'a') || (choice == 'A')) 
-		set_ele_immune(p_ptr, DEFENSE_FIRE, turn);
+		set_ele_immune(cr_ptr, DEFENSE_FIRE, turn);
 	else if ((choice == 'b') || (choice == 'B'))
-		set_ele_immune(p_ptr, DEFENSE_COLD, turn);
+		set_ele_immune(cr_ptr, DEFENSE_COLD, turn);
 	else if ((choice == 'c') || (choice == 'C'))
-		set_ele_immune(p_ptr, DEFENSE_ACID, turn);
+		set_ele_immune(cr_ptr, DEFENSE_ACID, turn);
 	else if ((choice == 'd') || (choice == 'D'))
-		set_ele_immune(p_ptr, DEFENSE_ELEC, turn);
+		set_ele_immune(cr_ptr, DEFENSE_ELEC, turn);
 	else
 	{
 #ifdef JP
