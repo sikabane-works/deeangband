@@ -1092,7 +1092,7 @@ static bool cast_force_spell(int spell)
 		else return TRUE;
 		break;
 	case 6:
-		set_tim_sh_touki(randint1(plev / 2) + 15 + boost / 7, FALSE);
+		set_tim_sh_touki(p_ptr, randint1(plev / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
 	{

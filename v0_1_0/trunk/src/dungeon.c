@@ -2032,7 +2032,7 @@ static void process_world_aux_timeout(void)
 	/* Timed sh_touki */
 	if (p_ptr->tim_sh_touki)
 	{
-		(void)set_tim_sh_touki(p_ptr->tim_sh_touki - 1, TRUE);
+		(void)set_tim_sh_touki(p_ptr, p_ptr->tim_sh_touki - 1, TRUE);
 	}
 
 	/* Timed sh_fire */

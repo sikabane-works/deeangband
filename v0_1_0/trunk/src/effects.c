@@ -270,7 +270,7 @@ void dispel_player(void)
 	(void)set_tim_regen(p_ptr, 0, TRUE);
 	(void)set_tim_stealth(p_ptr, 0, TRUE);
 	(void)set_tim_levitation(p_ptr, 0, TRUE);
-	(void)set_tim_sh_touki(0, TRUE);
+	(void)set_tim_sh_touki(p_ptr, 0, TRUE);
 	(void)set_tim_sh_fire(0, TRUE);
 	(void)set_tim_sh_holy(0, TRUE);
 	(void)set_tim_eyeeye(0, TRUE);
@@ -2287,25 +2287,25 @@ msg_print("もう宙に浮かべなくなった。");
 
 
 /*
- * Set "p_ptr->tim_sh_touki", notice observable changes
+ * Set "cr_ptr->tim_sh_touki", notice observable changes
  */
-bool set_tim_sh_touki(int v, bool do_dec)
+bool set_tim_sh_touki(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_sh_touki && !do_dec)
+		if (cr_ptr->tim_sh_touki && !do_dec)
 		{
-			if (p_ptr->tim_sh_touki > v) return FALSE;
+			if (cr_ptr->tim_sh_touki > v) return FALSE;
 		}
-		else if (!p_ptr->tim_sh_touki)
+		else if (!cr_ptr->tim_sh_touki)
 		{
 #ifdef JP
 msg_print("体が闘気のオーラで覆われた。");
@@ -2320,7 +2320,7 @@ msg_print("体が闘気のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_sh_touki)
+		if (cr_ptr->tim_sh_touki)
 		{
 #ifdef JP
 msg_print("闘気が消えた。");
@@ -2333,10 +2333,10 @@ msg_print("闘気が消えた。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_sh_touki = v;
+	cr_ptr->tim_sh_touki = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
