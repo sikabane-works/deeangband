@@ -6748,7 +6748,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				if (!race_is_(p_ptr, RACE_LICH))
 					dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW()) drain_exp(200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
+			else if (!CHECK_MULTISHADOW()) drain_exp(p_ptr, 200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
 
 			if (race_is_(p_ptr, RACE_LICH) && !CHECK_MULTISHADOW())
 			{
@@ -6835,7 +6835,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				}
 				if (!p_ptr->resist_neth && !p_ptr->resist_chaos)
 				{
-					drain_exp(5000 + (p_ptr->exp / 100), 500 + (p_ptr->exp / 1000), 75);
+					drain_exp(p_ptr, 5000 + (p_ptr->exp / 100), 500 + (p_ptr->exp / 1000), 75);
 				}
 
 				if (!p_ptr->resist_chaos || one_in_(9))

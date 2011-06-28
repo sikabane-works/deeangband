@@ -6637,12 +6637,12 @@ void lose_exp(creature_type *cr_ptr, s32b amount)
  * Drain experience
  * If resisted to draining, return FALSE
  */
-bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
+bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (p_ptr->irace_idx == RACE_ANDROID) return FALSE;
+	if (cr_ptr->irace_idx == RACE_ANDROID) return FALSE;
 
-	if (p_ptr->hold_life && (randint0(100) < hold_life_prob))
+	if (cr_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{
 		/* Hold experience */
 #ifdef JP
@@ -6654,14 +6654,14 @@ bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 	}
 
 	/* Hold experience failed */
-	if (p_ptr->hold_life)
+	if (cr_ptr->hold_life)
 	{
 #ifdef JP
 		msg_print("¶–½—Í‚ğ­‚µ‹z‚¢æ‚ç‚ê‚½‹C‚ª‚·‚éI");
 #else
 		msg_print("You feel your life slipping away!");
 #endif
-		lose_exp(p_ptr, slip);
+		lose_exp(cr_ptr, slip);
 	}
 	else
 	{
@@ -6670,7 +6670,7 @@ bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 #else
 		msg_print("You feel your life draining away!");
 #endif
-		lose_exp(p_ptr, drain);
+		lose_exp(cr_ptr, drain);
 	}
 
 	return TRUE;

@@ -1516,7 +1516,7 @@ bool make_attack_normal(int m_idx)
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
-					(void)drain_exp(d, d / 10, 95);
+					(void)drain_exp(p_ptr, d, d / 10, 95);
 					break;
 				}
 
@@ -1532,7 +1532,7 @@ bool make_attack_normal(int m_idx)
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
-					(void)drain_exp(d, d / 10, 90);
+					(void)drain_exp(p_ptr, d, d / 10, 90);
 					break;
 				}
 
@@ -1548,7 +1548,7 @@ bool make_attack_normal(int m_idx)
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
-					(void)drain_exp(d, d / 10, 75);
+					(void)drain_exp(p_ptr, d, d / 10, 75);
 					break;
 				}
 
@@ -1564,7 +1564,7 @@ bool make_attack_normal(int m_idx)
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
-					(void)drain_exp(d, d / 10, 50);
+					(void)drain_exp(p_ptr, d, d / 10, 50);
 					break;
 				}
 
@@ -1696,7 +1696,7 @@ bool make_attack_normal(int m_idx)
 
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
-					resist_drain = !drain_exp(d, d / 10, 50);
+					resist_drain = !drain_exp(p_ptr, d, d / 10, 50);
 
 					/* Heal the attacker? */
 					if (p_ptr->mimic_form)

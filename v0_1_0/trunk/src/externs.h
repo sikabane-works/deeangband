@@ -1492,7 +1492,7 @@ extern void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac);
 extern void gain_exp(creature_type *cr_ptr, s32b amount);
 extern void calc_android_exp(creature_type *cr_ptr);
 extern void lose_exp(creature_type *cr_ptr, s32b amount);
-extern bool drain_exp(s32b drain, s32b slip, int hold_life_prob);
+extern bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob);
 extern void do_poly_self(void);
 extern bool set_ultimate_res(int v, bool do_dec);
 extern bool set_tim_res_nether(int v, bool do_dec);
