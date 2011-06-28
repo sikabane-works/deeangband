@@ -271,7 +271,7 @@ void delete_monster_idx(creature_type *cr_ptr)
 	if (cr_ptr->paralyzed) (void)set_monster_csleep(cr_ptr, 0);
 	if (cr_ptr->fast) (void)set_monster_fast(cr_ptr, 0);
 	if (cr_ptr->slow) (void)set_monster_slow(cr_ptr, 0);
-	if (cr_ptr->stun) (void)set_monster_stunned(cr_ptr, 0);
+	if (cr_ptr->stun) (void)set_stun(cr_ptr, 0);
 	if (cr_ptr->confused) (void)set_confused(cr_ptr, 0);
 	if (cr_ptr->afraid) (void)set_afraid(cr_ptr, 0);
 	if (cr_ptr->invuln) (void)set_monster_invulner(cr_ptr, 0, FALSE);

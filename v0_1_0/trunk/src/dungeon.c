@@ -5705,7 +5705,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (m_ptr->stun)
 		{
 			/* Hack -- Recover from stun */
-			if (set_monster_stunned(&m_list[p_ptr->riding],
+			if (set_stun(&m_list[p_ptr->riding],
 				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];

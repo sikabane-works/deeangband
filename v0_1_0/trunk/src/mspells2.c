@@ -2951,7 +2951,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is paralyzed!", t_name);
 #endif
 
-			(void)set_monster_stunned(t_ptr, t_ptr->stun + randint1(4) + 4);
+			(void)set_stun(t_ptr, t_ptr->stun + randint1(4) + 4);
 		}
 
 		wake_up = TRUE;

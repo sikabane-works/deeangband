@@ -3499,7 +3499,7 @@ note = "‚ª•ª—ô‚µ‚½I";
 #else
 				if (seen_msg) msg_format("%^s is no longer stunned.", m_name);
 #endif
-				(void)set_monster_stunned(&m_list[c_ptr->m_idx], 0);
+				(void)set_stun(&m_list[c_ptr->m_idx], 0);
 			}
 			if (m_ptr->confused)
 			{
@@ -5893,7 +5893,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 			}
 
 			/* Apply stun */
-			(void)set_monster_stunned(&m_list[c_ptr->m_idx], tmp);
+			(void)set_stun(&m_list[c_ptr->m_idx], tmp);
 
 			/* Get angry */
 			get_angry = TRUE;

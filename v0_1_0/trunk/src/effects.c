@@ -515,6 +515,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
 	if(cr_ptr == p_ptr)
 	{
 
@@ -724,6 +725,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
 	if(cr_ptr == p_ptr)
 	{
 
@@ -3607,6 +3609,10 @@ bool set_stun(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+
+	//TODO
+	if(cr_ptr == p_ptr)
+	{
 	if (race_is_(cr_ptr, RACE_GOLEM) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
@@ -3783,6 +3789,35 @@ msg_print("‚â‚Á‚ÆžNžOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->stun)
+		{
+			mproc_add(cr_ptr, MTIMED_STUNNED);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (cr_ptr->stun)
+		{
+			mproc_remove(cr_ptr, MTIMED_STUNNED);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->stun = v;
+
+	return notice;
+
+	}
 }
 
 

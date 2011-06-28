@@ -3574,7 +3574,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		int rlev = r_info[cr_ptr->monster_idx].level;
 
 		/* Recover from stun */
-		if (set_monster_stunned(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1)))
+		if (set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1)))
 		{
 			/* Message if visible */
 			if (is_seen(cr_ptr))

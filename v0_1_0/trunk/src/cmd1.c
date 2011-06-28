@@ -2476,7 +2476,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				{
 					if (cr_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 					{
-						if (set_monster_stunned(&m_list[c_ptr->m_idx], stun_effect + m_ptr->stun))
+						if (set_stun(&m_list[c_ptr->m_idx], stun_effect + m_ptr->stun))
 						{
 #ifdef JP
 							msg_format("%^s‚Íƒtƒ‰ƒtƒ‰‚É‚È‚Á‚½B", m_name);
@@ -2673,7 +2673,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 
 					/* Apply stun */
-					(void)set_monster_stunned(&m_list[c_ptr->m_idx], m_ptr->stun + tmp);
+					(void)set_stun(&m_list[c_ptr->m_idx], m_ptr->stun + tmp);
 				}
 				else
 				{
