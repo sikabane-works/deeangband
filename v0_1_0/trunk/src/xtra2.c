@@ -5235,7 +5235,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			(void)set_confused(p_ptr, 0);
 			(void)set_image(p_ptr, 0);
 			(void)set_stun(p_ptr, 0);
-			(void)set_cut(0);
+			(void)set_cut(p_ptr, 0);
 			hp_player(5000);
 			for (dummy = 0; dummy < 6; dummy++)
 			{

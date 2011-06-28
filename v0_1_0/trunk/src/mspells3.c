@@ -1305,7 +1305,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 #endif
 		(void)hp_player(plev*4);
 		(void)set_stun(p_ptr, 0);
-		(void)set_cut(0);
+		(void)set_cut(p_ptr, 0);
 		break;
 	case MS_INVULNER:
 #ifdef JP

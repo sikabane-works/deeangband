@@ -6864,7 +6864,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!CHECK_MULTISHADOW())
 			{
-				(void)set_cut(p_ptr->cut + dam);
+				(void)set_cut(p_ptr, p_ptr->cut + dam);
 			}
 
 			if (!p_ptr->resist_shard || one_in_(13))
@@ -7005,7 +7005,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!CHECK_MULTISHADOW())
 			{
-				(void)set_cut(p_ptr->cut + (dam / 2));
+				(void)set_cut(p_ptr, p_ptr->cut + (dam / 2));
 			}
 
 			if (!p_ptr->resist_shard || one_in_(12))
@@ -7386,7 +7386,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				if (!p_ptr->resist_shard)
 				{
-					(void)set_cut(p_ptr->cut + damroll(5, 8));
+					(void)set_cut(p_ptr, p_ptr->cut + damroll(5, 8));
 				}
 				if (!p_ptr->resist_sound)
 				{
@@ -7705,7 +7705,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			else
 			{
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-				if (!CHECK_MULTISHADOW()) (void)set_cut(p_ptr->cut + damroll(10, 10));
+				if (!CHECK_MULTISHADOW()) (void)set_cut(p_ptr, p_ptr->cut + damroll(10, 10));
 			}
 			break;
 		}

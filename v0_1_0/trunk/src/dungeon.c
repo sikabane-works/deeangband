@@ -751,7 +751,7 @@ static bool pattern_effect(void)
 		(void)set_poisoned(p_ptr, 0);
 		(void)set_image(p_ptr, 0);
 		(void)set_stun(p_ptr, 0);
-		(void)set_cut(0);
+		(void)set_cut(p_ptr, 0);
 		(void)set_blind(p_ptr, 0);
 		(void)set_afraid(p_ptr, 0);
 		(void)do_res_stat(A_STR);
@@ -2255,7 +2255,7 @@ static void process_world_aux_timeout(void)
 		if (p_ptr->cut > 1000) adjust = 0;
 
 		/* Apply some healing */
-		(void)set_cut(p_ptr->cut - adjust);
+		(void)set_cut(p_ptr, p_ptr->cut - adjust);
 	}
 }
 
@@ -7233,7 +7233,7 @@ quit("セーブファイルが壊れています");
 					(void)set_paralyzed(p_ptr, 0);
 					(void)set_image(p_ptr, 0);
 					(void)set_stun(p_ptr, 0);
-					(void)set_cut(0);
+					(void)set_cut(p_ptr, 0);
 
 					/* Hack -- Prevent starvation */
 					(void)set_food(PY_FOOD_MAX - 1);

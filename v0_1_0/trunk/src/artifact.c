@@ -2618,7 +2618,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			hp_player(damroll(4, 8));
-			(void)set_cut((p_ptr->cut / 2) - 50);
+			(void)set_cut(p_ptr, (p_ptr->cut / 2) - 50);
 			o_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
 		}
@@ -2684,7 +2684,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			(void)hp_player(700);
-			(void)set_cut(0);
+			(void)set_cut(p_ptr, 0);
 			o_ptr->timeout = 250;
 			break;
 		}
@@ -2704,7 +2704,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			(void)hp_player(1000);
-			(void)set_cut(0);
+			(void)set_cut(p_ptr, 0);
 			o_ptr->timeout = 888;
 			break;
 		}

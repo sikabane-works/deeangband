@@ -775,7 +775,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 #else
 				if (one_in_(6)) take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if (one_in_(5)) (void)set_cut(p_ptr->cut + 200);
+				else if (one_in_(5)) (void)set_cut(p_ptr, p_ptr->cut + 200);
 				else if (one_in_(4))
 				{
 					if (!p_ptr->free_act) 

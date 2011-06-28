@@ -3707,11 +3707,11 @@ msg_print("やっと朦朧状態から回復した。");
 
 
 /*
- * Set "p_ptr->cut", notice observable changes
+ * Set cr_ptr->cut", notice observable changes
  *
  * Note the special code to only notice "range" changes.
  */
-bool set_cut(int v)
+bool set_cut(creature_type *cr_ptr, int v)
 {
 	int old_aux, new_aux;
 	bool notice = FALSE;
@@ -3719,53 +3719,53 @@ bool set_cut(int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
-	if ((p_ptr->irace_idx == RACE_GOLEM ||
-	    p_ptr->irace_idx == RACE_SKELETON ||
-	    p_ptr->irace_idx == RACE_LICH ||
-		(p_ptr->irace_idx == RACE_ZOMBIE && p_ptr->lev > 11)) &&
-	    !p_ptr->mimic_form)
+	if ((cr_ptr->irace_idx == RACE_GOLEM ||
+	    cr_ptr->irace_idx == RACE_SKELETON ||
+	    cr_ptr->irace_idx == RACE_LICH ||
+		(cr_ptr->irace_idx == RACE_ZOMBIE && cr_ptr->lev > 11)) &&
+	    !cr_ptr->mimic_form)
 		v = 0;
 
 	/* Mortal wound */
-	if (p_ptr->cut > 1000)
+	if (cr_ptr->cut > 1000)
 	{
 		old_aux = 7;
 	}
 
 	/* Deep gash */
-	else if (p_ptr->cut > 200)
+	else if (cr_ptr->cut > 200)
 	{
 		old_aux = 6;
 	}
 
 	/* Severe cut */
-	else if (p_ptr->cut > 100)
+	else if (cr_ptr->cut > 100)
 	{
 		old_aux = 5;
 	}
 
 	/* Nasty cut */
-	else if (p_ptr->cut > 50)
+	else if (cr_ptr->cut > 50)
 	{
 		old_aux = 4;
 	}
 
 	/* Bad cut */
-	else if (p_ptr->cut > 25)
+	else if (cr_ptr->cut > 25)
 	{
 		old_aux = 3;
 	}
 
 	/* Light cut */
-	else if (p_ptr->cut > 10)
+	else if (cr_ptr->cut > 10)
 	{
 		old_aux = 2;
 	}
 
 	/* Graze */
-	else if (p_ptr->cut > 0)
+	else if (cr_ptr->cut > 0)
 	{
 		old_aux = 1;
 	}
@@ -3906,7 +3906,7 @@ msg_print("致命的な傷を負ってしまった。");
 
 		if (randint1(1000) < v || one_in_(16))
 		{
-			if (!p_ptr->sustain_chr)
+			if (!cr_ptr->sustain_chr)
 			{
 #ifdef JP
 msg_print("ひどい傷跡が残ってしまった。");
@@ -3929,7 +3929,7 @@ msg_print("ひどい傷跡が残ってしまった。");
 			/* None */
 			case 0:
 #ifdef JP
-msg_format("やっと%s。", p_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
+msg_format("やっと%s。", cr_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
 #else
 			msg_print("You are no longer bleeding.");
 #endif
@@ -3943,7 +3943,7 @@ msg_format("やっと%s。", p_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出
 	}
 
 	/* Use the value */
-	p_ptr->cut = v;
+	cr_ptr->cut = v;
 
 	/* No change */
 	if (!notice) return (FALSE);
@@ -3952,10 +3952,10 @@ msg_format("やっと%s。", p_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the "cut" */
-	p_ptr->redraw |= (PR_CUT);
+	cr_ptr->redraw |= (PR_CUT);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -4847,11 +4847,11 @@ msg_print("傷がより軽いものに変化した。");
 		take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 
-		set_cut(change);
+		set_cut(p_ptr, change);
 	}
 	else
 	{
-		set_cut(p_ptr->cut - (change / 2));
+		set_cut(p_ptr, p_ptr->cut - (change / 2));
 	}
 }
 

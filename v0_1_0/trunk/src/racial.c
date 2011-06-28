@@ -1619,7 +1619,7 @@ static bool cmd_racial_power_aux(s32b command)
 				(void)set_poisoned(p_ptr, 0);
 				(void)set_image(p_ptr, 0);
 				(void)set_stun(p_ptr, 0);
-				(void)set_cut(0);
+				(void)set_cut(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
 				(void)set_afraid(p_ptr, 0);
 				(void)do_res_stat(A_STR);

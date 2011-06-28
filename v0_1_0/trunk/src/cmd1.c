@@ -1284,7 +1284,7 @@ static void hit_trap(bool break_trap)
 #endif
 
 					dam = dam * 2;
-					(void)set_cut(p_ptr->cut + randint1(dam));
+					(void)set_cut(p_ptr, p_ptr->cut + randint1(dam));
 				}
 
 				/* Take the damage */
@@ -1341,7 +1341,7 @@ static void hit_trap(bool break_trap)
 
 
 					dam = dam * 2;
-					(void)set_cut(p_ptr->cut + randint1(dam));
+					(void)set_cut(p_ptr, p_ptr->cut + randint1(dam));
 
 					if (p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr))
 					{
