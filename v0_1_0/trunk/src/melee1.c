@@ -1619,7 +1619,7 @@ bool make_attack_normal(int m_idx)
 								msg_print("You feel life has clocked back.");
 #endif
 
-								lose_exp(100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
+								lose_exp(p_ptr, 100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
 								break;
 							}
 

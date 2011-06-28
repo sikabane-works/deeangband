@@ -1384,7 +1384,7 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 				if ((spell > 15) && one_in_(6) && !p_ptr->hold_life)
-					lose_exp(spell * 250);
+					lose_exp(p_ptr, spell * 250);
 			}
 		}
 		else if ((o_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))

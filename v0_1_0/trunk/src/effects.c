@@ -6618,15 +6618,15 @@ void calc_android_exp(creature_type *cr_ptr)
 /*
  * Lose experience
  */
-void lose_exp(s32b amount)
+void lose_exp(creature_type *cr_ptr, s32b amount)
 {
-	if (p_ptr->irace_idx == RACE_ANDROID) return;
+	if (cr_ptr->irace_idx == RACE_ANDROID) return;
 
 	/* Never drop below zero experience */
-	if (amount > p_ptr->exp) amount = p_ptr->exp;
+	if (amount > cr_ptr->exp) amount = cr_ptr->exp;
 
 	/* Lose some experience */
-	p_ptr->exp -= amount;
+	cr_ptr->exp -= amount;
 
 	/* Check Experience */
 	check_experience();
@@ -6661,7 +6661,7 @@ bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 #else
 		msg_print("You feel your life slipping away!");
 #endif
-		lose_exp(slip);
+		lose_exp(p_ptr, slip);
 	}
 	else
 	{
@@ -6670,7 +6670,7 @@ bool drain_exp(s32b drain, s32b slip, int hold_life_prob)
 #else
 		msg_print("You feel your life draining away!");
 #endif
-		lose_exp(drain);
+		lose_exp(p_ptr, drain);
 	}
 
 	return TRUE;

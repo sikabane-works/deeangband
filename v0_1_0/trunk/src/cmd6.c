@@ -953,7 +953,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 #endif
 				chg_virtue(V_KNOWLEDGE, -5);
 
-				lose_exp(p_ptr->exp / 4);
+				lose_exp(p_ptr, p_ptr->exp / 4);
 				ident = TRUE;
 			}
 			break;

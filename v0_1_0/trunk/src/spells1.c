@@ -6248,8 +6248,8 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 				msg_print("You feel your life draining away...");
 #endif
 
-				if (p_ptr->hold_life) lose_exp(p_ptr->exp / 160);
-				else lose_exp(p_ptr->exp / 16);
+				if (p_ptr->hold_life) lose_exp(p_ptr, p_ptr->exp / 160);
+				else lose_exp(p_ptr, p_ptr->exp / 16);
 				if (!one_in_(6)) break;
 			case 26: case 27: case 28:
 			{
@@ -7145,7 +7145,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						msg_print("You feel life has clocked back.");
 #endif
 
-						lose_exp(100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
+						lose_exp(p_ptr, 100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
 						break;
 					}
 

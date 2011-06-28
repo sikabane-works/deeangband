@@ -4768,7 +4768,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			}
 			else
 			{
-				lose_exp(p_ptr->exp / 6);
+				lose_exp(p_ptr, p_ptr->exp / 6);
 #ifdef JP
 				reward = "経験値を失った。";
 #else
