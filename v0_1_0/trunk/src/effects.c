@@ -159,86 +159,86 @@ void set_action(int typ)
 }
 
 /* reset timed flags */
-void reset_tim_flags(void)
+void reset_tim_flags(creature_type *cr_ptr)
 {
-	p_ptr->fast = 0;            /* Timed -- Fast */
-	p_ptr->lightspeed = 0;
-	p_ptr->slow = 0;            /* Timed -- Slow */
-	p_ptr->blind = 0;           /* Timed -- Blindness */
-	p_ptr->paralyzed = 0;       /* Timed -- Paralysis */
-	p_ptr->confused = 0;        /* Timed -- Confusion */
-	p_ptr->afraid = 0;          /* Timed -- Fear */
-	p_ptr->image = 0;           /* Timed -- Hallucination */
-	p_ptr->poisoned = 0;        /* Timed -- Poisoned */
-	p_ptr->cut = 0;             /* Timed -- Cut */
-	p_ptr->stun = 0;            /* Timed -- Stun */
+	cr_ptr->fast = 0;            /* Timed -- Fast */
+	cr_ptr->lightspeed = 0;
+	cr_ptr->slow = 0;            /* Timed -- Slow */
+	cr_ptr->blind = 0;           /* Timed -- Blindness */
+	cr_ptr->paralyzed = 0;       /* Timed -- Paralysis */
+	cr_ptr->confused = 0;        /* Timed -- Confusion */
+	cr_ptr->afraid = 0;          /* Timed -- Fear */
+	cr_ptr->image = 0;           /* Timed -- Hallucination */
+	cr_ptr->poisoned = 0;        /* Timed -- Poisoned */
+	cr_ptr->cut = 0;             /* Timed -- Cut */
+	cr_ptr->stun = 0;            /* Timed -- Stun */
 
-	p_ptr->protevil = 0;        /* Timed -- Protection */
-	p_ptr->invuln = 0;          /* Timed -- Invulnerable */
-	p_ptr->ult_res = 0;
-	p_ptr->hero = 0;            /* Timed -- Heroism */
-	p_ptr->shero = 0;           /* Timed -- Super Heroism */
-	p_ptr->shield = 0;          /* Timed -- Shield Spell */
-	p_ptr->blessed = 0;         /* Timed -- Blessed */
-	p_ptr->tim_invis = 0;       /* Timed -- Invisibility */
-	p_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
-	p_ptr->tim_regen = 0;       /* Timed -- Regeneration */
-	p_ptr->tim_stealth = 0;     /* Timed -- Stealth */
-	p_ptr->tim_esp = 0;
-	p_ptr->wraith_form = 0;     /* Timed -- Wraith Form */
-	p_ptr->tim_levitation = 0;
-	p_ptr->tim_sh_touki = 0;
-	p_ptr->tim_sh_fire = 0;
-	p_ptr->tim_sh_holy = 0;
-	p_ptr->tim_eyeeye = 0;
-	p_ptr->magicdef = 0;
-	p_ptr->resist_magic = 0;
-	p_ptr->tsuyoshi = 0;
-	p_ptr->kabenuke = 0;
-	p_ptr->tim_res_nether = 0;
-	p_ptr->tim_res_time = 0;
-	p_ptr->tim_mimic = 0;
-	p_ptr->mimic_form = 0;
-	p_ptr->tim_reflect = 0;
-	p_ptr->multishadow = 0;
-	p_ptr->dustrobe = 0;
-	p_ptr->action = ACTION_NONE;
+	cr_ptr->protevil = 0;        /* Timed -- Protection */
+	cr_ptr->invuln = 0;          /* Timed -- Invulnerable */
+	cr_ptr->ult_res = 0;
+	cr_ptr->hero = 0;            /* Timed -- Heroism */
+	cr_ptr->shero = 0;           /* Timed -- Super Heroism */
+	cr_ptr->shield = 0;          /* Timed -- Shield Spell */
+	cr_ptr->blessed = 0;         /* Timed -- Blessed */
+	cr_ptr->tim_invis = 0;       /* Timed -- Invisibility */
+	cr_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
+	cr_ptr->tim_regen = 0;       /* Timed -- Regeneration */
+	cr_ptr->tim_stealth = 0;     /* Timed -- Stealth */
+	cr_ptr->tim_esp = 0;
+	cr_ptr->wraith_form = 0;     /* Timed -- Wraith Form */
+	cr_ptr->tim_levitation = 0;
+	cr_ptr->tim_sh_touki = 0;
+	cr_ptr->tim_sh_fire = 0;
+	cr_ptr->tim_sh_holy = 0;
+	cr_ptr->tim_eyeeye = 0;
+	cr_ptr->magicdef = 0;
+	cr_ptr->resist_magic = 0;
+	cr_ptr->tsuyoshi = 0;
+	cr_ptr->kabenuke = 0;
+	cr_ptr->tim_res_nether = 0;
+	cr_ptr->tim_res_time = 0;
+	cr_ptr->tim_mimic = 0;
+	cr_ptr->mimic_form = 0;
+	cr_ptr->tim_reflect = 0;
+	cr_ptr->multishadow = 0;
+	cr_ptr->dustrobe = 0;
+	cr_ptr->action = ACTION_NONE;
 
 
-	p_ptr->oppose_acid = 0;     /* Timed -- oppose acid */
-	p_ptr->oppose_elec = 0;     /* Timed -- oppose lightning */
-	p_ptr->oppose_fire = 0;     /* Timed -- oppose heat */
-	p_ptr->oppose_cold = 0;     /* Timed -- oppose cold */
-	p_ptr->oppose_pois = 0;     /* Timed -- oppose poison */
+	cr_ptr->oppose_acid = 0;     /* Timed -- oppose acid */
+	cr_ptr->oppose_elec = 0;     /* Timed -- oppose lightning */
+	cr_ptr->oppose_fire = 0;     /* Timed -- oppose heat */
+	cr_ptr->oppose_cold = 0;     /* Timed -- oppose cold */
+	cr_ptr->oppose_pois = 0;     /* Timed -- oppose poison */
 
-	p_ptr->word_recall = 0;
-	p_ptr->alter_reality = 0;
-	p_ptr->sutemi = FALSE;
-	p_ptr->counter = FALSE;
-	p_ptr->ele_attack = 0;
-	p_ptr->ele_immune = 0;
-	p_ptr->special_attack = 0L;
-	p_ptr->special_defense = 0L;
+	cr_ptr->word_recall = 0;
+	cr_ptr->alter_reality = 0;
+	cr_ptr->sutemi = FALSE;
+	cr_ptr->counter = FALSE;
+	cr_ptr->ele_attack = 0;
+	cr_ptr->ele_immune = 0;
+	cr_ptr->special_attack = 0L;
+	cr_ptr->special_defense = 0L;
 
-	while(p_ptr->energy_need < 0) p_ptr->energy_need += ENERGY_NEED();
+	while(cr_ptr->energy_need < 0) cr_ptr->energy_need += ENERGY_NEED();
 	world_player = FALSE;
 
-	if (race_is_(p_ptr, RACE_DEMON) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
-	if (race_is_(p_ptr, RACE_BALROG) && (p_ptr->lev > 44)) p_ptr->oppose_fire = 1;
-	if ((p_ptr->cls_idx == CLASS_NINJA) && (p_ptr->lev > 44)) p_ptr->oppose_pois = 1;
-	if (p_ptr->cls_idx == CLASS_BERSERKER) p_ptr->shero = 1;
+	if (race_is_(cr_ptr, RACE_DEMON) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
+	if (race_is_(cr_ptr, RACE_BALROG) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
+	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) cr_ptr->oppose_pois = 1;
+	if (cr_ptr->cls_idx == CLASS_BERSERKER) cr_ptr->shero = 1;
 
-	if (p_ptr->riding)
+	if (cr_ptr->riding)
 	{
-		(void)set_monster_fast(&m_list[p_ptr->riding], 0);
-		(void)set_monster_slow(&m_list[p_ptr->riding], 0);
-		(void)set_monster_invulner(&m_list[p_ptr->riding], 0, FALSE);
+		(void)set_monster_fast(&m_list[cr_ptr->riding], 0);
+		(void)set_monster_slow(&m_list[cr_ptr->riding], 0);
+		(void)set_monster_invulner(&m_list[cr_ptr->riding], 0, FALSE);
 	}
 
-	if (p_ptr->cls_idx == CLASS_BARD)
+	if (cr_ptr->cls_idx == CLASS_BARD)
 	{
-		p_ptr->magic_num1[0] = 0;
-		p_ptr->magic_num2[0] = 0;
+		cr_ptr->magic_num1[0] = 0;
+		cr_ptr->magic_num2[0] = 0;
 	}
 }
 

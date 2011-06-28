@@ -285,7 +285,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 #endif
 					{
 						p_ptr->exit_bldg = FALSE;
-						reset_tim_flags();
+						reset_tim_flags(p_ptr);
 
 						/* Save the surface floor as saved floor */
 						prepare_change_floor_mode(CFM_SAVE_FLOORS);
@@ -327,7 +327,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 			else
 			{
 				p_ptr->exit_bldg = FALSE;
-				reset_tim_flags();
+				reset_tim_flags(p_ptr);
 
 				/* Save the surface floor as saved floor */
 				prepare_change_floor_mode(CFM_SAVE_FLOORS);
@@ -2055,7 +2055,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			battle_odds = MAX(wager+1, wager * battle_odds / 100);
 			kakekin = wager;
 			p_ptr->au -= wager;
-			reset_tim_flags();
+			reset_tim_flags(p_ptr);
 
 			/* Save the surface floor as saved floor */
 			prepare_change_floor_mode(CFM_SAVE_FLOORS);
