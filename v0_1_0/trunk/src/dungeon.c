@@ -750,7 +750,7 @@ static bool pattern_effect(void)
 	case PATTERN_TILE_END:
 		(void)set_poisoned(p_ptr, 0);
 		(void)set_image(p_ptr, 0);
-		(void)set_stun(0);
+		(void)set_stun(p_ptr, 0);
 		(void)set_cut(0);
 		(void)set_blind(p_ptr, 0);
 		(void)set_afraid(p_ptr, 0);
@@ -2243,7 +2243,7 @@ static void process_world_aux_timeout(void)
 		int adjust = adj_con_fix[p_ptr->stat_ind[A_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_stun(p_ptr->stun - adjust);
+		(void)set_stun(p_ptr, p_ptr->stun - adjust);
 	}
 
 	/* Cut */
@@ -7232,7 +7232,7 @@ quit("セーブファイルが壊れています");
 					(void)set_afraid(p_ptr, 0);
 					(void)set_paralyzed(p_ptr, 0);
 					(void)set_image(p_ptr, 0);
-					(void)set_stun(0);
+					(void)set_stun(p_ptr, 0);
 					(void)set_cut(0);
 
 					/* Hack -- Prevent starvation */

@@ -947,7 +947,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 	case 9:
 		/* Adrenaline */
 		set_afraid(p_ptr, 0);
-		set_stun(0);
+		set_stun(p_ptr, 0);
 
 		/*
 		 * Only heal when Adrenalin Channeling is not active. We check
@@ -2001,7 +2001,7 @@ msg_print("‚ ‚È‚½‚Ì“ª‚Í¬—‚µ‚½I");
 				}
 				else if (b < 90)
 				{
-					set_stun(p_ptr->stun + randint1(8));
+					set_stun(p_ptr, p_ptr->stun + randint1(8));
 				}
 				else
 				{

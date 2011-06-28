@@ -4822,7 +4822,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		set_blind(p_ptr, 0);
 		set_confused(p_ptr, 0);
 		set_cut(0);
-		set_stun(0);
+		set_stun(p_ptr, 0);
 		paid = TRUE;
 		break;
 	case BACT_RESTORE: /* needs work */

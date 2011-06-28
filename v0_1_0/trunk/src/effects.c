@@ -3512,11 +3512,11 @@ msg_print("“Å‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 
 
 /*
- * Set "p_ptr->stun", notice observable changes
+ * Set "cr_ptr->stun", notice observable changes
  *
  * Note the special code to only notice "range" changes.
  */
-bool set_stun(int v)
+bool set_stun(creature_type *cr_ptr, int v)
 {
 	int old_aux, new_aux;
 	bool notice = FALSE;
@@ -3525,24 +3525,24 @@ bool set_stun(int v)
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
-	if (race_is_(p_ptr, RACE_GOLEM) || ((p_ptr->cls_idx == CLASS_BERSERKER) && (p_ptr->lev > 34))) v = 0;
+	if (race_is_(cr_ptr, RACE_GOLEM) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
-	if (p_ptr->stun > 100)
+	if (cr_ptr->stun > 100)
 	{
 		old_aux = 3;
 	}
 
 	/* Heavy stun */
-	else if (p_ptr->stun > 50)
+	else if (cr_ptr->stun > 50)
 	{
 		old_aux = 2;
 	}
 
 	/* Stun */
-	else if (p_ptr->stun > 0)
+	else if (cr_ptr->stun > 0)
 	{
 		old_aux = 1;
 	}
@@ -3624,35 +3624,35 @@ msg_print("Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB");
 
 			if (one_in_(3))
 			{
-				if (!p_ptr->sustain_int) (void)do_dec_stat(A_INT);
-				if (!p_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(A_INT);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
 			}
 			else if (one_in_(2))
 			{
-				if (!p_ptr->sustain_int) (void)do_dec_stat(A_INT);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(A_INT);
 			}
 			else
 			{
-				if (!p_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
 			}
 		}
-		if (p_ptr->special_defense & KATA_MASK)
+		if (cr_ptr->special_defense & KATA_MASK)
 		{
 #ifdef JP
 			msg_print("Œ^‚ª•ö‚ê‚½B");
 #else
 			msg_print("Your posture gets loose.");
 #endif
-			p_ptr->special_defense &= ~(KATA_MASK);
-			p_ptr->update |= (PU_BONUS);
-			p_ptr->update |= (PU_MONSTERS);
-			p_ptr->redraw |= (PR_STATE);
-			p_ptr->redraw |= (PR_STATUS);
-			p_ptr->action = ACTION_NONE;
+			cr_ptr->special_defense &= ~(KATA_MASK);
+			cr_ptr->update |= (PU_BONUS);
+			cr_ptr->update |= (PU_MONSTERS);
+			cr_ptr->redraw |= (PR_STATE);
+			cr_ptr->redraw |= (PR_STATUS);
+			cr_ptr->action = ACTION_NONE;
 		}
 
 		/* Sniper */
-		if (p_ptr->concent) reset_concentration(TRUE);
+		if (cr_ptr->concent) reset_concentration(TRUE);
 
 		/* Hex */
 		if (hex_spelling_any()) stop_hex_spell_all();
@@ -3684,7 +3684,7 @@ msg_print("‚â‚Á‚ÆžNžOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
 	}
 
 	/* Use the value */
-	p_ptr->stun = v;
+	cr_ptr->stun = v;
 
 	/* No change */
 	if (!notice) return (FALSE);
@@ -3693,10 +3693,10 @@ msg_print("‚â‚Á‚ÆžNžOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the "stun" */
-	p_ptr->redraw |= (PR_STUN);
+	cr_ptr->redraw |= (PR_STUN);
 
 	/* Handle stuff */
 	handle_stuff();

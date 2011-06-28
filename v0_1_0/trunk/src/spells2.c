@@ -5569,7 +5569,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					msg_print("You are bashed by rubble!");
 #endif
 					damage = damroll(10, 4);
-					(void)set_stun(p_ptr->stun + randint1(50));
+					(void)set_stun(p_ptr, p_ptr->stun + randint1(50));
 					break;
 				}
 				case 3:
@@ -5580,7 +5580,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
 					damage = damroll(10, 4);
-					(void)set_stun(p_ptr->stun + randint1(50));
+					(void)set_stun(p_ptr, p_ptr->stun + randint1(50));
 					break;
 				}
 			}

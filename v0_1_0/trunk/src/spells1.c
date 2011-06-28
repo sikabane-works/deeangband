@@ -2871,7 +2871,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 									set_confused(p_ptr, p_ptr->confused + 3 + randint1(dam));
 									break;
 								case 2:
-									set_stun(p_ptr->stun + randint1(dam));
+									set_stun(p_ptr, p_ptr->stun + randint1(dam));
 									break;
 								case 3:
 								{
@@ -3179,7 +3179,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 						switch (randint1(4))
 						{
 							case 1:
-								set_stun(p_ptr->stun + dam / 2);
+								set_stun(p_ptr, p_ptr->stun + dam / 2);
 								break;
 							case 2:
 								set_confused(p_ptr, p_ptr->confused + dam / 2);
@@ -6721,7 +6721,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_stun(p_ptr->stun + k);
+				(void)set_stun(p_ptr, p_ptr->stun + k);
 			}
 
 			if (!(p_ptr->resist_fire ||
@@ -6782,7 +6782,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				if (!p_ptr->resist_sound)
 				{
-					set_stun(p_ptr->stun + randint1(40));
+					set_stun(p_ptr, p_ptr->stun + randint1(40));
 				}
 				if (!p_ptr->resist_conf)
 				{
@@ -6892,7 +6892,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			else if (!CHECK_MULTISHADOW())
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)set_stun(p_ptr->stun + k);
+				(void)set_stun(p_ptr, p_ptr->stun + k);
 			}
 
 			if (!p_ptr->resist_sound || one_in_(13))
@@ -6978,7 +6978,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
 			{
-				(void)set_stun(p_ptr->stun + randint1(20));
+				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
 			}
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
@@ -6996,7 +6996,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
 			{
-				(void)set_stun(p_ptr->stun + randint1(20));
+				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
 			}
 
 			if (p_ptr->resist_shard)
@@ -7224,7 +7224,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				if (!(p_ptr->resist_sound || p_ptr->levitation))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-					(void)set_stun(p_ptr->stun + k);
+					(void)set_stun(p_ptr, p_ptr->stun + k);
 				}
 			}
 			if (p_ptr->levitation)
@@ -7390,7 +7390,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				}
 				if (!p_ptr->resist_sound)
 				{
-					(void)set_stun(p_ptr->stun + randint1(15));
+					(void)set_stun(p_ptr, p_ptr->stun + randint1(15));
 				}
 
 				if ((!(p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr))) || one_in_(12))

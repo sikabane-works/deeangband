@@ -1009,7 +1009,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
-			(void)set_stun(p_ptr->stun + 75);
+			(void)set_stun(p_ptr, p_ptr->stun + 75);
 			(void)set_cut(p_ptr->cut + 5000);
 			ident = TRUE;
 			break;
@@ -1111,7 +1111,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -1121,7 +1121,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -1131,7 +1131,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -1150,7 +1150,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)set_blind(p_ptr, 0);
 			(void)set_confused(p_ptr, 0);
 			(void)set_image(p_ptr, 0);
-			(void)set_stun(0);
+			(void)set_stun(p_ptr, 0);
 			(void)set_cut(0);
 			(void)do_res_stat(A_STR);
 			(void)do_res_stat(A_CON);
@@ -1347,7 +1347,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(p_ptr, 0)) ident = TRUE;
 			break;
@@ -2524,7 +2524,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
@@ -2534,7 +2534,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		case SV_STAFF_HEALING:
 		{
 			if (hp_player(300)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -2607,7 +2607,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (hp_player(50)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			break;
 		}
@@ -3481,7 +3481,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_image(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
@@ -3491,7 +3491,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 		case SV_ROD_HEALING:
 		{
 			if (hp_player(500)) ident = TRUE;
-			if (set_stun(0)) ident = TRUE;
+			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -4487,7 +4487,7 @@ msg_print("天国の歌が聞こえる...");
 
 				(void)set_poisoned(p_ptr, 0);
 				(void)set_cut(0);
-				(void)set_stun(0);
+				(void)set_stun(p_ptr, 0);
 				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
 				(void)set_afraid(p_ptr, 0);
@@ -5618,7 +5618,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_poisoned(p_ptr, 0);
 				(void)set_confused(p_ptr, 0);
 				(void)set_blind(p_ptr, 0);
-				(void)set_stun(0);
+				(void)set_stun(p_ptr, 0);
 				(void)set_cut(0);
 				(void)set_image(p_ptr, 0);
 

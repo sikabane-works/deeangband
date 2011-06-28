@@ -1476,7 +1476,7 @@ extern bool set_oppose_elec(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_oppose_cold(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_stun(int v);
+extern bool set_stun(creature_type *cr_ptr, int v);
 extern bool set_cut(int v);
 extern bool set_food(int v);
 extern bool inc_stat(int stat);

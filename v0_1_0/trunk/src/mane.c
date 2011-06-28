@@ -868,7 +868,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 			msg_print("You concentrate on your wounds!");
 #endif
 		(void)hp_player(plev*6);
-		(void)set_stun(0);
+		(void)set_stun(p_ptr, 0);
 		(void)set_cut(0);
 		break;
 	case MS_INVULNER:

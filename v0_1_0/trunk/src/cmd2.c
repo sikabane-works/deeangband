@@ -782,7 +782,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 						(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 
-						(void)set_stun(p_ptr->stun + 10 + 
+						(void)set_stun(p_ptr, p_ptr->stun + 10 + 
 						randint0(100));
 				}
 				else if (one_in_(3)) apply_disenchant(0);
@@ -4054,7 +4054,7 @@ void do_cmd_fire(void)
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
 		(void)set_slow(p_ptr, p_ptr->slow + randint0(7) + 7, FALSE);
-		(void)set_stun(p_ptr->stun + randint1(25));
+		(void)set_stun(p_ptr, p_ptr->stun + randint1(25));
 	}
 }
 
