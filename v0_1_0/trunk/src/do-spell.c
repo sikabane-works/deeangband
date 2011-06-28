@@ -6714,7 +6714,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_regen(base + randint1(base), FALSE);
+				set_tim_regen(p_ptr, base + randint1(base), FALSE);
 			}
 		}
 		break;
