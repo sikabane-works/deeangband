@@ -1470,7 +1470,7 @@ extern bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v);
-extern bool set_ele_immune(u32b immune_type, int v);
+extern bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v);
 extern bool set_oppose_acid(int v, bool do_dec);
 extern bool set_oppose_elec(int v, bool do_dec);
 extern bool set_oppose_fire(int v, bool do_dec);

@@ -284,7 +284,7 @@ void dispel_player(void)
 	(void)set_ultimate_res(0, TRUE);
 	(void)set_mimic(p_ptr, 0, 0, TRUE);
 	(void)set_ele_attack(p_ptr, 0, 0);
-	(void)set_ele_immune(0, 0);
+	(void)set_ele_immune(p_ptr, 0, 0);
 
 	/* Cancel glowing hands */
 	if (p_ptr->special_attack & ATTACK_CONFUSE)
@@ -3083,51 +3083,51 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
  * Set a temporary elemental brand.  Clear all other brands.  Print status 
  * messages. -LM-
  */
-bool set_ele_immune(u32b immune_type, int v)
+bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 {
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	/* Clear all elemental attacks (only one is allowed at a time). */
-	if ((p_ptr->special_defense & (DEFENSE_ACID)) && (immune_type != DEFENSE_ACID))
+	if ((cr_ptr->special_defense & (DEFENSE_ACID)) && (immune_type != DEFENSE_ACID))
 	{
-		p_ptr->special_defense &= ~(DEFENSE_ACID);
+		cr_ptr->special_defense &= ~(DEFENSE_ACID);
 #ifdef JP
 		msg_print("Ž_‚ÌUŒ‚‚Å‚Â‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚Á‚½BB");
 #else
 		msg_print("You are no longer immune to acid.");
 #endif
 	}
-	if ((p_ptr->special_defense & (DEFENSE_ELEC)) && (immune_type != DEFENSE_ELEC))
+	if ((cr_ptr->special_defense & (DEFENSE_ELEC)) && (immune_type != DEFENSE_ELEC))
 	{
-		p_ptr->special_defense &= ~(DEFENSE_ELEC);
+		cr_ptr->special_defense &= ~(DEFENSE_ELEC);
 #ifdef JP
 		msg_print("“dŒ‚‚ÌUŒ‚‚Å‚Â‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚Á‚½BB");
 #else
 		msg_print("You are no longer immune to electricity.");
 #endif
 	}
-	if ((p_ptr->special_defense & (DEFENSE_FIRE)) && (immune_type != DEFENSE_FIRE))
+	if ((cr_ptr->special_defense & (DEFENSE_FIRE)) && (immune_type != DEFENSE_FIRE))
 	{
-		p_ptr->special_defense &= ~(DEFENSE_FIRE);
+		cr_ptr->special_defense &= ~(DEFENSE_FIRE);
 #ifdef JP
 		msg_print("‰Î‰Š‚ÌUŒ‚‚Å‚Â‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚Á‚½BB");
 #else
 		msg_print("You are no longer immune to fire.");
 #endif
 	}
-	if ((p_ptr->special_defense & (DEFENSE_COLD)) && (immune_type != DEFENSE_COLD))
+	if ((cr_ptr->special_defense & (DEFENSE_COLD)) && (immune_type != DEFENSE_COLD))
 	{
-		p_ptr->special_defense &= ~(DEFENSE_COLD);
+		cr_ptr->special_defense &= ~(DEFENSE_COLD);
 #ifdef JP
 		msg_print("—â‹C‚ÌUŒ‚‚Å‚Â‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚Á‚½BB");
 #else
 		msg_print("You are no longer immune to cold.");
 #endif
 	}
-	if ((p_ptr->special_defense & (DEFENSE_POIS)) && (immune_type != DEFENSE_POIS))
+	if ((cr_ptr->special_defense & (DEFENSE_POIS)) && (immune_type != DEFENSE_POIS))
 	{
-		p_ptr->special_defense &= ~(DEFENSE_POIS);
+		cr_ptr->special_defense &= ~(DEFENSE_POIS);
 #ifdef JP
 		msg_print("“Å‚ÌUŒ‚‚Å‚Â‚¯‚ç‚ê‚é‚æ‚¤‚É‚È‚Á‚½BB");
 #else
@@ -3138,10 +3138,10 @@ bool set_ele_immune(u32b immune_type, int v)
 	if ((v) && (immune_type))
 	{
 		/* Set attack type. */
-		p_ptr->special_defense |= (immune_type);
+		cr_ptr->special_defense |= (immune_type);
 
 		/* Set duration. */
-		p_ptr->ele_immune = v;
+		cr_ptr->ele_immune = v;
 
 		/* Message. */
 #ifdef JP
@@ -3167,9 +3167,9 @@ bool set_ele_immune(u32b immune_type, int v)
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -7020,13 +7020,13 @@ bool choose_ele_immune(int turn)
 	choice = inkey();
 
 	if ((choice == 'a') || (choice == 'A')) 
-		set_ele_immune(DEFENSE_FIRE, turn);
+		set_ele_immune(p_ptr, DEFENSE_FIRE, turn);
 	else if ((choice == 'b') || (choice == 'B'))
-		set_ele_immune(DEFENSE_COLD, turn);
+		set_ele_immune(p_ptr, DEFENSE_COLD, turn);
 	else if ((choice == 'c') || (choice == 'C'))
-		set_ele_immune(DEFENSE_ACID, turn);
+		set_ele_immune(p_ptr, DEFENSE_ACID, turn);
 	else if ((choice == 'd') || (choice == 'D'))
-		set_ele_immune(DEFENSE_ELEC, turn);
+		set_ele_immune(p_ptr, DEFENSE_ELEC, turn);
 	else
 	{
 #ifdef JP
