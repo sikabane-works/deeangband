@@ -8593,7 +8593,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_sh_holy(randint1(base) + base, FALSE);
+				set_tim_sh_holy(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;

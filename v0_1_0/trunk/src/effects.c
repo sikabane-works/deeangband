@@ -272,7 +272,7 @@ void dispel_player(void)
 	(void)set_tim_levitation(p_ptr, 0, TRUE);
 	(void)set_tim_sh_touki(p_ptr, 0, TRUE);
 	(void)set_tim_sh_fire(p_ptr, 0, TRUE);
-	(void)set_tim_sh_holy(0, TRUE);
+	(void)set_tim_sh_holy(p_ptr, 0, TRUE);
 	(void)set_tim_eyeeye(0, TRUE);
 	(void)set_magicdef(p_ptr, 0, TRUE);
 	(void)set_resist_magic(0, TRUE);
@@ -2422,25 +2422,25 @@ msg_print("炎のオーラが消えた。");
 
 
 /*
- * Set "p_ptr->tim_sh_holy", notice observable changes
+ * Set "cr_ptr->tim_sh_holy", notice observable changes
  */
-bool set_tim_sh_holy(int v, bool do_dec)
+bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_sh_holy && !do_dec)
+		if (cr_ptr->tim_sh_holy && !do_dec)
 		{
-			if (p_ptr->tim_sh_holy > v) return FALSE;
+			if (cr_ptr->tim_sh_holy > v) return FALSE;
 		}
-		else if (!p_ptr->tim_sh_holy)
+		else if (!cr_ptr->tim_sh_holy)
 		{
 #ifdef JP
 msg_print("体が聖なるオーラで覆われた。");
@@ -2455,7 +2455,7 @@ msg_print("体が聖なるオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_sh_holy)
+		if (cr_ptr->tim_sh_holy)
 		{
 #ifdef JP
 msg_print("聖なるオーラが消えた。");
@@ -2468,10 +2468,10 @@ msg_print("聖なるオーラが消えた。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_sh_holy = v;
+	cr_ptr->tim_sh_holy = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2480,7 +2480,7 @@ msg_print("聖なるオーラが消えた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
