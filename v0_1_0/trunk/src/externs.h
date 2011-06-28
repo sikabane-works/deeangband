@@ -1468,7 +1468,7 @@ extern bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tsuyoshi(int v, bool do_dec);
+extern bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_ele_attack(u32b attack_type, int v);
 extern bool set_ele_immune(u32b immune_type, int v);
 extern bool set_oppose_acid(int v, bool do_dec);

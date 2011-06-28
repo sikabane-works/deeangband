@@ -250,7 +250,7 @@ void dispel_player(void)
 	(void)set_slow(p_ptr, 0, TRUE);
 	(void)set_shield(p_ptr, 0, TRUE);
 	(void)set_blessed(p_ptr, 0, TRUE);
-	(void)set_tsuyoshi(0, TRUE);
+	(void)set_tsuyoshi(p_ptr, 0, TRUE);
 	(void)set_hero(p_ptr, 0, TRUE);
 	(void)set_shero(p_ptr, 0, TRUE);
 	(void)set_protevil(p_ptr, 0, TRUE);
@@ -850,7 +850,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		set_tsuyoshi(0, TRUE);
+		set_tsuyoshi(p_ptr, 0, TRUE);
 		if (!p_ptr->image)
 		{
 #ifdef JP
@@ -2906,23 +2906,23 @@ msg_print("体が物質化した。");
 }
 
 
-bool set_tsuyoshi(int v, bool do_dec)
+bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tsuyoshi && !do_dec)
+		if (cr_ptr->tsuyoshi && !do_dec)
 		{
-			if (p_ptr->tsuyoshi > v) return FALSE;
+			if (cr_ptr->tsuyoshi > v) return FALSE;
 		}
-		else if (!p_ptr->tsuyoshi)
+		else if (!cr_ptr->tsuyoshi)
 		{
 #ifdef JP
 msg_print("「オクレ兄さん！」");
@@ -2938,7 +2938,7 @@ msg_print("「オクレ兄さん！」");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tsuyoshi)
+		if (cr_ptr->tsuyoshi)
 		{
 #ifdef JP
 msg_print("肉体が急速にしぼんでいった。");
@@ -2955,10 +2955,10 @@ msg_print("肉体が急速にしぼんでいった。");
 	}
 
 	/* Use the value */
-	p_ptr->tsuyoshi = v;
+	cr_ptr->tsuyoshi = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2967,10 +2967,10 @@ msg_print("肉体が急速にしぼんでいった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Recalculate hitpoints */
-	p_ptr->update |= (PU_HP);
+	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
 	handle_stuff();

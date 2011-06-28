@@ -1380,7 +1380,7 @@ msg_print("全ての突然変異が治った。");
 
 		case SV_POTION_NEO_TSUYOSHI:
 			(void)set_image(p_ptr, 0);
-			(void)set_tsuyoshi(p_ptr->tsuyoshi + randint1(100) + 100, FALSE);
+			(void)set_tsuyoshi(p_ptr, p_ptr->tsuyoshi + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1392,7 +1392,7 @@ msg_print("「オクレ兄さん！」");
 #endif
 			msg_print(NULL);
 			p_ptr->tsuyoshi = 1;
-			(void)set_tsuyoshi(0, TRUE);
+			(void)set_tsuyoshi(p_ptr, 0, TRUE);
 			if (!p_ptr->resist_chaos)
 			{
 				(void)set_image(p_ptr, 50 + randint1(50));
