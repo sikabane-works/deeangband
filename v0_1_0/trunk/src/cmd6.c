@@ -267,7 +267,7 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_CURE_SERIOUS:
 			{
-				if (hp_player(damroll(4, 8))) ident = TRUE;
+				if (hp_player(p_ptr, damroll(4, 8))) ident = TRUE;
 				break;
 			}
 
@@ -346,7 +346,7 @@ static void do_cmd_eat_food_aux(int item)
 #endif
 
 				(void)set_poisoned(p_ptr, 0);
-				(void)hp_player(damroll(4, 8));
+				(void)hp_player(p_ptr, damroll(4, 8));
 				ident = TRUE;
 				break;
 			}
@@ -1082,24 +1082,24 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_HEROISM:
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (set_hero(p_ptr, p_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(10)) ident = TRUE;
+			if (hp_player(p_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr, p_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(30)) ident = TRUE;
+			if (hp_player(p_ptr, 30)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_LIGHT:
-			if (hp_player(damroll(2, 8))) ident = TRUE;
+			if (hp_player(p_ptr, damroll(2, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr, p_ptr->cut - 10)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
-			if (hp_player(damroll(4, 8))) ident = TRUE;
+			if (hp_player(p_ptr, damroll(4, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr, (p_ptr->cut / 2) - 50)) ident = TRUE;
@@ -1107,7 +1107,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
-			if (hp_player(damroll(6, 8))) ident = TRUE;
+			if (hp_player(p_ptr, damroll(6, 8))) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
@@ -1117,7 +1117,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_HEALING:
-			if (hp_player(300)) ident = TRUE;
+			if (hp_player(p_ptr, 300)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
@@ -1127,7 +1127,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_STAR_HEALING:
-			if (hp_player(1200)) ident = TRUE;
+			if (hp_player(p_ptr, 1200)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
@@ -1160,7 +1160,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)do_res_stat(p_ptr, A_CHR);
 			(void)set_shero(p_ptr, 0,TRUE);
 			update_stuff(p_ptr, TRUE);
-			hp_player(5000);
+			hp_player(p_ptr, 5000);
 			ident = TRUE;
 			break;
 
@@ -1343,7 +1343,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURING:
-			if (hp_player(50)) ident = TRUE;
+			if (hp_player(p_ptr, 50)) ident = TRUE;
 			if (set_blind(p_ptr, 0)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_confused(p_ptr, 0)) ident = TRUE;
@@ -2514,7 +2514,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (hp_player(damroll(2, 8))) ident = TRUE;
+			if (hp_player(p_ptr, damroll(2, 8))) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -2533,7 +2533,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_HEALING:
 		{
-			if (hp_player(300)) ident = TRUE;
+			if (hp_player(p_ptr, 300)) ident = TRUE;
 			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
@@ -2606,7 +2606,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			if (set_protevil(p_ptr, (magic ? 0 : p_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
 			if (set_poisoned(p_ptr, 0)) ident = TRUE;
 			if (set_afraid(p_ptr, 0)) ident = TRUE;
-			if (hp_player(50)) ident = TRUE;
+			if (hp_player(p_ptr, 50)) ident = TRUE;
 			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr, 0)) ident = TRUE;
 			break;
@@ -3490,7 +3490,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_HEALING:
 		{
-			if (hp_player(500)) ident = TRUE;
+			if (hp_player(p_ptr, 500)) ident = TRUE;
 			if (set_stun(p_ptr, 0)) ident = TRUE;
 			if (set_cut(p_ptr, 0)) ident = TRUE;
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
@@ -4450,7 +4450,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(p_ptr, randint1(50) + 50, FALSE);
-				(void)hp_player(10);
+				(void)hp_player(p_ptr, 10);
 				(void)set_blessed(p_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_acid(p_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_elec(p_ptr, randint1(50) + 50, FALSE);
@@ -4471,7 +4471,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("You feel much better...");
 #endif
 
-				(void)hp_player(1000);
+				(void)hp_player(p_ptr, 1000);
 				(void)set_cut(p_ptr, 0);
 				o_ptr->timeout = 888;
 				break;
@@ -4492,7 +4492,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_blind(p_ptr, 0);
 				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(p_ptr, randint1(25) + 25, FALSE);
-				(void)hp_player(777);
+				(void)hp_player(p_ptr, 777);
 				o_ptr->timeout = 300;
 				break;
 			}
@@ -4558,7 +4558,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("You feel a warm tingling inside...");
 #endif
 
-				(void)hp_player(700);
+				(void)hp_player(p_ptr, 700);
 				(void)set_cut(p_ptr, 0);
 				o_ptr->timeout = 250;
 				break;
@@ -5012,7 +5012,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your battle axe radiates deep purple...");
 #endif
 
-				hp_player(damroll(4, 8));
+				hp_player(p_ptr, damroll(4, 8));
 				(void)set_cut(p_ptr, (p_ptr->cut / 2) - 50);
 				o_ptr->timeout = randint0(3) + 3;
 				break;
@@ -5365,7 +5365,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_HURIN:
 			{
 				(void)set_fast(p_ptr, randint1(50) + 50, FALSE);
-				hp_player(10);
+				hp_player(p_ptr, 10);
 				set_afraid(p_ptr, 0);
 				set_hero(p_ptr, randint1(50) + 50, FALSE);
 				o_ptr->timeout = randint0(200) + 100;
@@ -5608,7 +5608,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				(void)set_afraid(p_ptr, 0);
 				set_hero(p_ptr, randint1(25)+25, FALSE);
-				hp_player(10);
+				hp_player(p_ptr, 10);
 				o_ptr->timeout = randint0(30) + 30;
 				break;
 			}
@@ -6185,7 +6185,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case EGO_RING_HERO:
 				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(p_ptr, randint1(25) + 25, FALSE);
-				(void)hp_player(10);
+				(void)hp_player(p_ptr, 10);
 				o_ptr->timeout = randint1(100)+100;
 				break;
 			case EGO_RING_MAGIC_MIS:
@@ -6287,7 +6287,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				int v = randint1(25)+25;
 				(void)set_afraid(p_ptr, 0);
 				(void)set_hero(p_ptr, v, FALSE);
-				(void)hp_player(10);
+				(void)hp_player(p_ptr, 10);
 				(void)set_blessed(p_ptr, v, FALSE);
 				(void)set_oppose_acid(p_ptr, v, FALSE);
 				(void)set_oppose_elec(p_ptr, v, FALSE);

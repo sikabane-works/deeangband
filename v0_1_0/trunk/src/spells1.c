@@ -5025,7 +5025,7 @@ note_dies = "ÇÕÉhÉçÉhÉçÇ…ónÇØÇΩÅI";
 					msg_format("You draw psychic energy from %s.", m_name);
 #endif
 
-					(void)hp_player(dam);
+					(void)hp_player(p_ptr, dam);
 				}
 			}
 			else
@@ -6758,7 +6758,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("You feel invigorated!");
 #endif
 
-				hp_player(dam / 4);
+				hp_player(p_ptr, dam / 4);
 				learn_spell(monspell);
 			}
 			else
@@ -7262,7 +7262,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something invigorating!");
 #endif
 
-			(void)hp_player(dam);
+			(void)hp_player(p_ptr, dam);
 			dam = 0;
 			break;
 		}

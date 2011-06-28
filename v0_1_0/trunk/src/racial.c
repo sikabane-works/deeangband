@@ -1032,7 +1032,7 @@ static bool cmd_racial_power_aux(s32b command)
 				if (p_ptr->csp >= p_ptr->lev / 5)
 				{
 					p_ptr->csp -= p_ptr->lev / 5;
-					hp_player(p_ptr->lev);
+					hp_player(p_ptr, p_ptr->lev);
 				}
 				else
 #ifdef JP
@@ -1499,7 +1499,7 @@ static bool cmd_racial_power_aux(s32b command)
 				{
 					if (p_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(dummy);
+						(void)hp_player(p_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -1595,7 +1595,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 			(void)set_afraid(p_ptr, 0);
 			(void)set_shero(p_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(30);
+			(void)hp_player(p_ptr, 30);
 			break;
 
 		case RACE_AMBERITE:
@@ -1641,7 +1641,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 			(void)set_afraid(p_ptr, 0);
 			(void)set_shero(p_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(30);
+			(void)hp_player(p_ptr, 30);
 			break;
 
 		case RACE_OGRE:
@@ -2043,7 +2043,7 @@ static bool cmd_racial_power_aux(s32b command)
 				{
 					if (p_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(dummy);
+						(void)hp_player(p_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");

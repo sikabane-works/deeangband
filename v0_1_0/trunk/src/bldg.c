@@ -4817,7 +4817,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		do_cmd_study();
 		break;
 	case BACT_HEALING: /* needs work */
-		hp_player(200);
+		hp_player(p_ptr, 200);
 		set_poisoned(p_ptr, 0);
 		set_blind(p_ptr, 0);
 		set_confused(p_ptr, 0);

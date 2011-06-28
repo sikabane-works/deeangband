@@ -4451,34 +4451,34 @@ bool res_stat(creature_type *cr_ptr, int stat)
 /*
  * Increase players hit points, notice effects
  */
-bool hp_player(int num)
+bool hp_player(creature_type *cr_ptr, int num)
 {
 	int vir;
 	vir = virtue_number(V_VITALITY);
 	if (vir)
 	{
-		num = num * (p_ptr->virtues[vir - 1] + 1250) / 1250;
+		num = num * (cr_ptr->virtues[vir - 1] + 1250) / 1250;
 	}
 	/* Healing needed */
-	if (p_ptr->chp < p_ptr->mhp)
+	if (cr_ptr->chp < cr_ptr->mhp)
 	{
-		if ((num > 0) && (p_ptr->chp < (p_ptr->mhp/3)))
+		if ((num > 0) && (cr_ptr->chp < (cr_ptr->mhp/3)))
 			chg_virtue(V_TEMPERANCE, 1);
 		/* Gain hitpoints */
-		p_ptr->chp += num;
+		cr_ptr->chp += num;
 
 		/* Enforce maximum */
-		if (p_ptr->chp >= p_ptr->mhp)
+		if (cr_ptr->chp >= cr_ptr->mhp)
 		{
-			p_ptr->chp = p_ptr->mhp;
-			p_ptr->chp_frac = 0;
+			cr_ptr->chp = cr_ptr->mhp;
+			cr_ptr->chp_frac = 0;
 		}
 
 		/* Redraw */
-		p_ptr->redraw |= (PR_HP);
+		cr_ptr->redraw |= (PR_HP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		cr_ptr->window |= (PW_PLAYER);
 
 		/* Heal 0-4 */
 		if (num < 5)
@@ -4836,7 +4836,7 @@ msg_print("‚ª‚æ‚èŒy‚¢‚à‚Ì‚É•Ï‰»‚µ‚½B");
 	msg_print("Your wounds are polymorphed into less serious ones.");
 #endif
 
-	hp_player(change);
+	hp_player(p_ptr, change);
 	if (Nasty_effect)
 	{
 #ifdef JP

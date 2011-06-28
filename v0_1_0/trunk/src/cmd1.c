@@ -2855,7 +2855,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 							drain_heal = (drain_heal * mutant_regenerate_mod) / 100;
 
-							hp_player(drain_heal);
+							hp_player(p_ptr, drain_heal);
 							/* We get to keep some of it! */
 						}
 					}

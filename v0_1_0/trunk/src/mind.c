@@ -955,7 +955,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		 */
 		if (!IS_FAST(p_ptr) || !IS_HERO(p_ptr))
 		{
-			hp_player(plev);
+			hp_player(p_ptr, plev);
 		}
 
 		b = 10 + randint1((plev * 3) / 2);

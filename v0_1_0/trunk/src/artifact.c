@@ -2164,7 +2164,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 50))
-				hp_player(50);
+				hp_player(p_ptr, 50);
 			}
 			o_ptr->timeout = 400;
 			break;
@@ -2257,7 +2257,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 100))
-				hp_player(100);
+				hp_player(p_ptr, 100);
 			}
 
 			o_ptr->timeout = 400;
@@ -2604,7 +2604,7 @@ bool activate_random_artifact(object_type * o_ptr)
 		case ACT_CURE_LW:
 		{
 			(void)set_afraid(p_ptr, 0);
-			(void)hp_player(30);
+			(void)hp_player(p_ptr, 30);
 			o_ptr->timeout = 10;
 			break;
 		}
@@ -2617,7 +2617,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It radiates deep purple...");
 #endif
 
-			hp_player(damroll(4, 8));
+			hp_player(p_ptr, damroll(4, 8));
 			(void)set_cut(p_ptr, (p_ptr->cut / 2) - 50);
 			o_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
@@ -2683,7 +2683,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You feel a warm tingling inside...");
 #endif
 
-			(void)hp_player(700);
+			(void)hp_player(p_ptr, 700);
 			(void)set_cut(p_ptr, 0);
 			o_ptr->timeout = 250;
 			break;
@@ -2703,7 +2703,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You feel much better...");
 #endif
 
-			(void)hp_player(1000);
+			(void)hp_player(p_ptr, 1000);
 			(void)set_cut(p_ptr, 0);
 			o_ptr->timeout = 888;
 			break;

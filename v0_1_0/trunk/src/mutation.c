@@ -3428,7 +3428,7 @@ bool mutation_power_aux(u32b power)
 				{
 					if (p_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(dummy);
+						(void)hp_player(p_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -3596,7 +3596,7 @@ bool mutation_power_aux(u32b power)
 
 		case MUT1_BERSERK:
 			(void)set_shero(p_ptr, randint1(25) + 25, FALSE);
-			(void)hp_player(30);
+			(void)hp_player(p_ptr, 30);
 			(void)set_afraid(p_ptr, 0);
 			break;
 

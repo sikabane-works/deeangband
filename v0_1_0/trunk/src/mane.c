@@ -867,7 +867,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 #else
 			msg_print("You concentrate on your wounds!");
 #endif
-		(void)hp_player(plev*6);
+		(void)hp_player(p_ptr, plev*6);
 		(void)set_stun(p_ptr, 0);
 		(void)set_cut(p_ptr, 0);
 		break;

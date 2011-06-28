@@ -1482,7 +1482,7 @@ extern bool set_food(creature_type *cr_ptr, int v);
 extern bool inc_stat(creature_type *cr_ptr, int stat);
 extern bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent);
 extern bool res_stat(creature_type *cr_ptr, int stat);
-extern bool hp_player(int num);
+extern bool hp_player(creature_type *cr_ptr, int num);
 extern bool do_dec_stat(creature_type *cr_ptr, int stat);
 extern bool do_res_stat(creature_type *cr_ptr, int stat);
 extern bool do_inc_stat(creature_type *cr_ptr, int stat);

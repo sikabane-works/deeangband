@@ -761,7 +761,7 @@ static bool pattern_effect(void)
 		(void)do_res_stat(p_ptr, A_CON);
 		(void)do_res_stat(p_ptr, A_CHR);
 		(void)restore_level();
-		(void)hp_player(1000);
+		(void)hp_player(p_ptr, 1000);
 
 		cave_set_feat(py, px, feat_pattern_old);
 
@@ -2554,7 +2554,7 @@ static void process_world_aux_mutation(void)
 		/* Absorb light from the current possition */
 		if ((cave[py][px].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
-			hp_player(10);
+			hp_player(p_ptr, 10);
 		}
 
 		o_ptr = &p_ptr->inventory[INVEN_LITE];
@@ -2566,7 +2566,7 @@ static void process_world_aux_mutation(void)
 			if (!object_is_fixed_artifact(o_ptr) && (o_ptr->xtra4 > 0))
 			{
 				/* Heal the player a bit */
-				hp_player(o_ptr->xtra4 / 20);
+				hp_player(p_ptr, o_ptr->xtra4 / 20);
 
 				/* Decrease life-span of lite */
 				o_ptr->xtra4 /= 2;
@@ -2852,7 +2852,7 @@ static void process_world_aux_mutation(void)
 				healing = wounds;
 			}
 
-			hp_player(healing);
+			hp_player(p_ptr, healing);
 			p_ptr->csp -= healing;
 
 			/* Redraw mana */
