@@ -1460,7 +1460,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 	s64b_mul(&new_exp, &new_exp_frac, 0, r_ptr->mexp);
 
 	/* Gain experience */
-	gain_exp_64(new_exp, new_exp_frac);
+	gain_exp_64(p_ptr, new_exp, new_exp_frac);
 }
 
 
