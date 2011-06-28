@@ -1382,7 +1382,7 @@ msg_format("There are too many mirrors to control!");
 		return word_of_recall();
 	/* multi-shadow */
 	case 18:
-	  set_multishadow(6+randint1(6),FALSE);
+	  set_multishadow(p_ptr, 6+randint1(6),FALSE);
 	  break;
 	/* binding field */
 	case 19:
@@ -1777,7 +1777,7 @@ msg_print("その方向にはモンスターはいません。");
 		break;
 	}
 	case 19:
-		set_multishadow(6+randint1(6), FALSE);
+		set_multishadow(p_ptr, 6+randint1(6), FALSE);
 		break;
 	default:
 #ifdef JP

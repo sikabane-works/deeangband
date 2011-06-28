@@ -261,7 +261,7 @@ void dispel_player(void)
 	(void)set_tim_res_time(0, TRUE);
 	/* by henkma */
 	(void)set_tim_reflect(p_ptr, 0,TRUE);
-	(void)set_multishadow(0,TRUE);
+	(void)set_multishadow(p_ptr, 0,TRUE);
 	(void)set_dustrobe(0,TRUE);
 
 	(void)set_tim_invis(p_ptr, 0, TRUE);
@@ -2700,25 +2700,25 @@ msg_print("‘Ì‚Ì•\–Ê‚ªŠŠ‚©‚Å‚È‚­‚È‚Á‚½B");
 
 
 /*
- * Set "p_ptr->multishadow", notice observable changes
+ * Set "cr_ptr->multishadow", notice observable changes
  */
-bool set_multishadow(int v, bool do_dec)
+bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->multishadow && !do_dec)
+		if (cr_ptr->multishadow && !do_dec)
 		{
-			if (p_ptr->multishadow > v) return FALSE;
+			if (cr_ptr->multishadow > v) return FALSE;
 		}
-		else if (!p_ptr->multishadow)
+		else if (!cr_ptr->multishadow)
 		{
 #ifdef JP
 msg_print("‚ ‚È‚½‚ÌŽü‚è‚ÉŒ¶‰e‚ª¶‚Ü‚ê‚½B");
@@ -2733,7 +2733,7 @@ msg_print("‚ ‚È‚½‚ÌŽü‚è‚ÉŒ¶‰e‚ª¶‚Ü‚ê‚½B");
 	/* Shut */
 	else
 	{
-		if (p_ptr->multishadow)
+		if (cr_ptr->multishadow)
 		{
 #ifdef JP
 msg_print("Œ¶‰e‚ªÁ‚¦‚½B");
@@ -2746,10 +2746,10 @@ msg_print("Œ¶‰e‚ªÁ‚¦‚½B");
 	}
 
 	/* Use the value */
-	p_ptr->multishadow = v;
+	cr_ptr->multishadow = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2758,7 +2758,7 @@ msg_print("Œ¶‰e‚ªÁ‚¦‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
