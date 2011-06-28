@@ -1223,7 +1223,7 @@ void change_floor(void)
 
 					/* Remove timed status (except MTIMED_CSLEEP) */
 					(void)set_monster_fast(m_ptr, 0);
-					(void)set_monster_slow(m_ptr, 0);
+					(void)set_slow(m_ptr, 0, FALSE);
 					(void)set_stun(m_ptr, 0);
 					(void)set_confused(m_ptr, 0);
 					(void)set_afraid(m_ptr, 0);

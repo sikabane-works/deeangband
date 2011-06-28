@@ -2891,7 +2891,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_slow(t_ptr, t_ptr->slow + 50))
+			if (set_slow(t_ptr, t_ptr->slow + 50, FALSE))
 			{
 #ifdef JP
 				if (see_t) msg_format("%s‚Ì“®‚«‚ª’x‚­‚È‚Á‚½B", t_name);

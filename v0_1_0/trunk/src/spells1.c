@@ -2580,7 +2580,7 @@ note = "には耐性がある。";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
+					if (set_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -2696,7 +2696,7 @@ note = "には耐性がある！";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
+					if (set_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -3631,7 +3631,7 @@ note = "には効果がなかった！";
 			/* Normal monsters slow down */
 			else
 			{
-				if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
+				if (set_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50, FALSE))
 				{
 #ifdef JP
 					note = "の動きが遅くなった。";
@@ -5196,7 +5196,7 @@ note_dies = "はドロドロに溶けた！";
 					do_conf = randint0(8) + 8;
 					do_stun = randint0(8) + 8;
 				}
-				(void)set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 10);
+				(void)set_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 10, FALSE);
 			}
 			break;
 		}
@@ -5538,7 +5538,7 @@ msg_format("うまく捕まえられなかった。");
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_monster_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50))
+					if (set_slow(&m_list[c_ptr->m_idx], m_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";

@@ -3550,7 +3550,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 
 	case MTIMED_SLOW:
 		/* Reduce by one, note if expires */
-		if (set_monster_slow(cr_ptr, cr_ptr->slow - 1))
+		if (set_slow(cr_ptr, cr_ptr->slow - 1, FALSE))
 		{
 			if (is_seen(cr_ptr))
 			{
@@ -3711,7 +3711,7 @@ void dispel_monster_status(int m_idx)
 		if (cr_ptr->ml) msg_format("%^s is no longer fast.", m_name);
 #endif
 	}
-	if (set_monster_slow(cr_ptr, 0))
+	if (set_slow(cr_ptr, 0, FALSE))
 	{
 #ifdef JP
 		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤Œ¸‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);

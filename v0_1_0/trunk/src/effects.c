@@ -231,7 +231,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	if (cr_ptr->riding)
 	{
 		(void)set_monster_fast(&m_list[cr_ptr->riding], 0);
-		(void)set_monster_slow(&m_list[cr_ptr->riding], 0);
+		(void)set_slow(&m_list[cr_ptr->riding], 0, FALSE);
 		(void)set_monster_invulner(&m_list[cr_ptr->riding], 0, FALSE);
 	}
 
@@ -1146,6 +1146,9 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
+	if(cr_ptr == p_ptr)
+	{
 	/* Open */
 	if (v)
 	{
@@ -1197,6 +1200,42 @@ msg_print("“®‚«‚Ì’x‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+			/* Hack -- Force good values */
+	v = (v > 200) ? 200 : (v < 0) ? 0 : v;
+
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->slow)
+		{
+			mproc_add(cr_ptr, MTIMED_SLOW);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+	if (cr_ptr->slow)
+		{
+			mproc_remove(cr_ptr, MTIMED_SLOW);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->slow = v;
+
+	if (!notice) return FALSE;
+
+	if ((&m_list[p_ptr->riding] == cr_ptr) && !p_ptr->leaving) p_ptr->update |= (PU_BONUS);
+
+	return TRUE;
+
+	}
 }
 
 
