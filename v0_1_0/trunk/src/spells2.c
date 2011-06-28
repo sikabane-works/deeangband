@@ -7130,7 +7130,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			msg_print("Huh? Who am I? What am I doing here?");
 #endif
 
-			lose_all_info();
+			lose_all_info(p_ptr);
 			if (!one_in_(6)) break;
 		case 25:
 			/*

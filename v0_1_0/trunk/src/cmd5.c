@@ -1052,7 +1052,7 @@ static void wild_magic(int spell)
 		apply_disenchant(1);
 		break;
 	case 31:
-		lose_all_info();
+		lose_all_info(p_ptr);
 		break;
 	case 32:
 		fire_ball(GF_CHAOS, 0, spell + 5, 1 + (spell / 10));

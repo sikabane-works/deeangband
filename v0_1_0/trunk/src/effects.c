@@ -4772,7 +4772,7 @@ msg_print("¶–½—Í‚ª–ß‚Á‚Ä‚«‚½‹C‚ª‚·‚éB");
 /*
  * Forget everything
  */
-bool lose_all_info(void)
+bool lose_all_info(creature_type *cr_ptr)
 {
 	int i;
 
@@ -4782,7 +4782,7 @@ bool lose_all_info(void)
 	/* Forget info about objects */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4804,13 +4804,13 @@ bool lose_all_info(void)
 	}
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Mega-Hack -- Forget the map */
 	wiz_dark();

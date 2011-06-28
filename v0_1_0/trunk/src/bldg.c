@@ -2640,7 +2640,7 @@ void have_nightmare(int monster_idx)
 	/* Amnesia */
 	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
-		if (lose_all_info())
+		if (lose_all_info(p_ptr))
 		{
 #ifdef JP
 msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ğ–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");

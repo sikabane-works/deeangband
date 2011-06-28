@@ -892,7 +892,7 @@ static void do_cmd_quaff_potion_aux(int item)
 				if (one_in_(13) && (p_ptr->cls_idx != CLASS_MONK))
 				{
 					ident = TRUE;
-					if (one_in_(3)) lose_all_info();
+					if (one_in_(3)) lose_all_info(p_ptr);
 					else wiz_dark();
 					(void)teleport_player_aux(100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 					wiz_dark();

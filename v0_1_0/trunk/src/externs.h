@@ -1487,7 +1487,7 @@ extern bool do_dec_stat(creature_type *cr_ptr, int stat);
 extern bool do_res_stat(creature_type *cr_ptr, int stat);
 extern bool do_inc_stat(creature_type *cr_ptr, int stat);
 extern bool restore_level(creature_type *cr_ptr);
-extern bool lose_all_info(void);
+extern bool lose_all_info(creature_type *cr_ptr);
 extern void gain_exp_64(s32b amount, u32b amount_frac);
 extern void gain_exp(s32b amount);
 extern void calc_android_exp(void);

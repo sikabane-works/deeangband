@@ -3782,7 +3782,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
 #endif
 
 			}
-			else if (lose_all_info())
+			else if (lose_all_info(p_ptr))
 			{
 #ifdef JP
 msg_print("‹L‰¯‚ª”–‚ê‚Ä‚µ‚Ü‚Á‚½B");

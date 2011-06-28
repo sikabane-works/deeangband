@@ -1977,7 +1977,7 @@ msg_print("‚È‚ñ‚Ä‚±‚Á‚½I“ª‚Ì’†‚ª^‚Á”’‚É‚È‚Á‚½I");
 					msg_print("Oh, no! Your mind has gone blank!");
 #endif
 
-					lose_all_info();
+					lose_all_info(p_ptr);
 				}
 				else if (b < 15)
 				{

@@ -2275,7 +2275,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	if (!saving_throw(p_ptr->skill_rob - power)) /* Amnesia */
 	{
 
-		if (lose_all_info())
+		if (lose_all_info(p_ptr))
 #ifdef JP
 msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 #else
