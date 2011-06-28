@@ -4741,10 +4741,10 @@ msg_format("元通りに%sなった気がする。", desc_stat_pos[stat]);
 /*
  * Restores any drained experience
  */
-bool restore_level(void)
+bool restore_level(creature_type *cr_ptr)
 {
 	/* Restore experience */
-	if (p_ptr->exp < p_ptr->max_exp)
+	if (cr_ptr->exp < cr_ptr->max_exp)
 	{
 		/* Message */
 #ifdef JP
@@ -4755,7 +4755,7 @@ msg_print("生命力が戻ってきた気がする。");
 
 
 		/* Restore the experience */
-		p_ptr->exp = p_ptr->max_exp;
+		cr_ptr->exp = cr_ptr->max_exp;
 
 		/* Check the experience */
 		check_experience();

@@ -1628,7 +1628,7 @@ static bool cmd_racial_power_aux(s32b command)
 				(void)do_res_stat(p_ptr, A_DEX);
 				(void)do_res_stat(p_ptr, A_CON);
 				(void)do_res_stat(p_ptr, A_CHR);
-				(void)restore_level();
+				(void)restore_level(p_ptr);
 			}
 			break;
 
@@ -1995,7 +1995,7 @@ static bool cmd_racial_power_aux(s32b command)
 			msg_print("You attempt to restore your lost energies.");
 #endif
 
-			(void)restore_level();
+			(void)restore_level(p_ptr);
 			break;
 
 		case RACE_VAMPIRE:

@@ -760,7 +760,7 @@ static bool pattern_effect(void)
 		(void)do_res_stat(p_ptr, A_DEX);
 		(void)do_res_stat(p_ptr, A_CON);
 		(void)do_res_stat(p_ptr, A_CHR);
-		(void)restore_level();
+		(void)restore_level(p_ptr);
 		(void)hp_player(p_ptr, 1000);
 
 		cave_set_feat(py, px, feat_pattern_old);

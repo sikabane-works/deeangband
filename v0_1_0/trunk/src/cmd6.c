@@ -1145,7 +1145,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("You feel life flow through your body!");
 #endif
 
-			restore_level();
+			restore_level(p_ptr);
 			(void)set_poisoned(p_ptr, 0);
 			(void)set_blind(p_ptr, 0);
 			(void)set_confused(p_ptr, 0);
@@ -1206,7 +1206,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RESTORE_EXP:
-			if (restore_level()) ident = TRUE;
+			if (restore_level(p_ptr)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_STR:
@@ -3499,7 +3499,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_RESTORATION:
 		{
-			if (restore_level()) ident = TRUE;
+			if (restore_level(p_ptr)) ident = TRUE;
 			if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
 			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
 			if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
@@ -4629,7 +4629,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cloak glows a deep red...");
 #endif
 
-				restore_level();
+				restore_level(p_ptr);
 				o_ptr->timeout = 450;
 				break;
 			}
@@ -5752,7 +5752,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)do_res_stat(p_ptr, A_DEX);
 				(void)do_res_stat(p_ptr, A_CON);
 				(void)do_res_stat(p_ptr, A_CHR);
-				(void)restore_level();
+				(void)restore_level(p_ptr);
 				o_ptr->timeout = 750;
 				break;
 			}

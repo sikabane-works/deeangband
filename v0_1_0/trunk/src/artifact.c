@@ -2645,7 +2645,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows a deep red...");
 #endif
 
-			restore_level();
+			restore_level(p_ptr);
 			o_ptr->timeout = 450;
 			break;
 		}
@@ -2664,7 +2664,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			(void)do_res_stat(p_ptr, A_DEX);
 			(void)do_res_stat(p_ptr, A_CON);
 			(void)do_res_stat(p_ptr, A_CHR);
-			(void)restore_level();
+			(void)restore_level(p_ptr);
 			o_ptr->timeout = 750;
 			break;
 		}

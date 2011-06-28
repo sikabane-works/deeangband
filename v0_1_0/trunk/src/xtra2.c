@@ -5229,7 +5229,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			msg_print("'Rise, my servant!'");
 #endif
 
-			restore_level();
+			restore_level(p_ptr);
 			(void)set_poisoned(p_ptr, 0);
 			(void)set_blind(p_ptr, 0);
 			(void)set_confused(p_ptr, 0);

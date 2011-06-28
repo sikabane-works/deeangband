@@ -1454,7 +1454,7 @@ static void do_cmd_wiz_cure_all(void)
 	(void)res_stat(p_ptr, A_CHR);
 
 	/* Restore the level */
-	(void)restore_level();
+	(void)restore_level(p_ptr);
 
 	/* Heal the player */
 	if (p_ptr->chp < p_ptr->mhp)
