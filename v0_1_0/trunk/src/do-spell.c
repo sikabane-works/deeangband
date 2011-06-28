@@ -7634,7 +7634,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_res_nether(randint1(base) + base, FALSE);
+				set_tim_res_nether(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
