@@ -258,7 +258,7 @@ void dispel_player(void)
 	(void)set_wraith_form(0, TRUE);
 	(void)set_kabenuke(p_ptr, 0, TRUE);
 	(void)set_tim_res_nether(p_ptr, 0, TRUE);
-	(void)set_tim_res_time(0, TRUE);
+	(void)set_tim_res_time(p_ptr, 0, TRUE);
 	/* by henkma */
 	(void)set_tim_reflect(p_ptr, 0,TRUE);
 	(void)set_multishadow(p_ptr, 0,TRUE);
@@ -6807,23 +6807,23 @@ msg_print("’n–‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	return (TRUE);
 }
 
-bool set_tim_res_time(int v, bool do_dec)
+bool set_tim_res_time(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_res_time && !do_dec)
+		if (cr_ptr->tim_res_time && !do_dec)
 		{
-			if (p_ptr->tim_res_time > v) return FALSE;
+			if (cr_ptr->tim_res_time > v) return FALSE;
 		}
-		else if (!p_ptr->tim_res_time)
+		else if (!cr_ptr->tim_res_time)
 		{
 #ifdef JP
 msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚µ‚Ä‘Ï«‚ª‚Â‚¢‚½‹C‚ª‚·‚éI");
@@ -6838,7 +6838,7 @@ msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚µ‚Ä‘Ï«‚ª‚Â‚¢‚½‹C‚ª‚·‚éI");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_res_time)
+		if (cr_ptr->tim_res_time)
 		{
 #ifdef JP
 msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
@@ -6851,10 +6851,10 @@ msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	}
 
 	/* Use the value */
-	p_ptr->tim_res_time = v;
+	cr_ptr->tim_res_time = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -6863,7 +6863,7 @@ msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
