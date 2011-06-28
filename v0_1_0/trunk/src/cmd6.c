@@ -6294,7 +6294,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_oppose_fire(p_ptr, v, FALSE);
 				(void)set_oppose_cold(p_ptr, v, FALSE);
 				(void)set_oppose_pois(p_ptr, v, FALSE);
-				(void)set_ultimate_res(v, FALSE);
+				(void)set_ultimate_res(p_ptr, v, FALSE);
 				o_ptr->timeout = 777;
 				break;
 			}

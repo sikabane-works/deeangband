@@ -1874,7 +1874,7 @@ static cptr do_life_spell(int spell, int mode)
 				set_oppose_fire(p_ptr, v, FALSE);
 				set_oppose_cold(p_ptr, v, FALSE);
 				set_oppose_pois(p_ptr, v, FALSE);
-				set_ultimate_res(v, FALSE);
+				set_ultimate_res(p_ptr, v, FALSE);
 			}
 		}
 		break;
