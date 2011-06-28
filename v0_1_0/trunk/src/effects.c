@@ -6512,9 +6512,9 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 /*
  * Gain experience
  */
-void gain_exp(s32b amount)
+void gain_exp(creature_type *cr_ptr, s32b amount)
 {
-	gain_exp_64(p_ptr, amount, 0L);
+	gain_exp_64(cr_ptr, amount, 0L);
 }
 
 

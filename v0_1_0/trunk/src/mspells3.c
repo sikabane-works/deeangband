@@ -2073,7 +2073,7 @@ void learn_spell(int monspell)
 #else
 		msg_format("You have learned %s!", monster_powers[monspell].name);
 #endif
-		gain_exp(monster_powers[monspell].level * monster_powers[monspell].smana);
+		gain_exp(p_ptr, monster_powers[monspell].level * monster_powers[monspell].smana);
 
 		/* Sound */
 		sound(SOUND_STUDY);

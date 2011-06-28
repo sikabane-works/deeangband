@@ -395,7 +395,7 @@ static void do_cmd_eat_food_aux(int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -1328,7 +1328,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 				msg_print("You feel more experienced.");
 #endif
 
-				gain_exp(ee);
+				gain_exp(p_ptr, ee);
 				ident = TRUE;
 			}
 			break;
@@ -1457,7 +1457,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 	if (ident && !object_is_aware(q_ptr))
 	{
 		object_aware(q_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -2224,7 +2224,7 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -2826,7 +2826,7 @@ static void do_cmd_use_staff_aux(int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -3359,7 +3359,7 @@ static void do_cmd_aim_wand_aux(int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */
@@ -3815,7 +3815,7 @@ msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp((lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
 	}
 
 	/* Window stuff */

@@ -6072,7 +6072,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 			}
 
 			//TODO
-			//if (who_ptr != p_ptr) monster_gain_exp(who, m_ptr->monster_idx);
+			//if (who_ptr != p_ptr) monster_gain_exp(p_ptr, who, m_ptr->monster_idx);
 
 			/* Generate treasure, etc */
 			monster_death(&m_list[c_ptr->m_idx], FALSE);

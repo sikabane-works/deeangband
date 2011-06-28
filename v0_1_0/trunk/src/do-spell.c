@@ -897,7 +897,7 @@ static void cast_shuffle(void)
 			msg_print("You feel more experienced.");
 #endif
 
-			gain_exp(ee);
+			gain_exp(p_ptr, ee);
 		}
 	}
 }

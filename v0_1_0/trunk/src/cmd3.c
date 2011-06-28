@@ -1353,7 +1353,7 @@ msg_print("更に経験を積んだような気がする。");
 			msg_print("You feel more experienced.");
 #endif
 
-			gain_exp(tester_exp * amt);
+			gain_exp(p_ptr, tester_exp * amt);
 		}
 		if (high_level_book(q_ptr) && q_ptr->tval == TV_LIFE_BOOK)
 		{

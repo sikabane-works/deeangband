@@ -4735,7 +4735,7 @@ msg_print("更に経験を積んだような気がする。");
 				msg_print("You feel more experienced.");
 #endif
 
-				gain_exp(ee);
+				gain_exp(p_ptr, ee);
 #ifdef JP
 				reward = "経験値を得た";
 #else

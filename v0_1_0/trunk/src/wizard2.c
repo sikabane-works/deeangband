@@ -2121,7 +2121,7 @@ void do_cmd_debug(void)
 
 	/* Increase Experience */
 	case 'x':
-		gain_exp(command_arg ? command_arg : (p_ptr->exp + 1));
+		gain_exp(p_ptr, command_arg ? command_arg : (p_ptr->exp + 1));
 		break;
 
 	/* Zap Monsters (Genocide) */

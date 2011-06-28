@@ -894,7 +894,7 @@ static bool do_cmd_open_chest(int y, int x, s16b o_idx)
 			msg_print("You have picked the lock.");
 #endif
 
-			gain_exp(1);
+			gain_exp(p_ptr, 1);
 			flag = TRUE;
 		}
 
@@ -1128,7 +1128,7 @@ static bool do_cmd_open_aux(int y, int x)
 			sound(SOUND_OPENDOOR);
 
 			/* Experience */
-			gain_exp(1);
+			gain_exp(p_ptr, 1);
 		}
 
 		/* Failure */
@@ -1832,7 +1832,7 @@ bool easy_open_door(int y, int x)
 			sound(SOUND_OPENDOOR);
 
 			/* Experience */
-			gain_exp(1);
+			gain_exp(p_ptr, 1);
 		}
 
 		/* Failure */
@@ -1944,7 +1944,7 @@ static bool do_cmd_disarm_chest(int y, int x, s16b o_idx)
 		msg_print("You have disarmed the chest.");
 #endif
 
-		gain_exp(o_ptr->pval);
+		gain_exp(p_ptr, o_ptr->pval);
 		o_ptr->pval = (0 - o_ptr->pval);
 	}
 
@@ -2042,7 +2042,7 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #endif
 
 		/* Reward */
-		gain_exp(power);
+		gain_exp(p_ptr, power);
 
 		/* Remove the trap */
 		cave_alter_feat(y, x, FF_DISARM);
