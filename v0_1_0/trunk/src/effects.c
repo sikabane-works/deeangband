@@ -4425,19 +4425,19 @@ bool dec_stat(int stat, int amount, int permanent)
 /*
  * Restore a stat.  Return TRUE only if this actually makes a difference.
  */
-bool res_stat(int stat)
+bool res_stat(creature_type *cr_ptr, int stat)
 {
 	/* Restore if needed */
-	if (p_ptr->stat_cur[stat] != p_ptr->stat_max[stat])
+	if (cr_ptr->stat_cur[stat] != cr_ptr->stat_max[stat])
 	{
 		/* Restore */
-		p_ptr->stat_cur[stat] = p_ptr->stat_max[stat];
+		cr_ptr->stat_cur[stat] = cr_ptr->stat_max[stat];
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Redisplay the stats later */
-		p_ptr->redraw |= (PR_STATS);
+		cr_ptr->redraw |= (PR_STATS);
 
 		/* Success */
 		return (TRUE);
@@ -4658,10 +4658,10 @@ msg_format("‚Ğ‚Ç‚­%s‚È‚Á‚½‹C‚ª‚·‚éB", desc_stat_neg[stat]);
 /*
  * Restore lost "points" in a stat
  */
-bool do_res_stat(int stat)
+bool do_res_stat(creature_type *cr_ptr, int stat)
 {
 	/* Attempt to increase */
-	if (res_stat(stat))
+	if (res_stat(cr_ptr, stat))
 	{
 		/* Message */
 #ifdef JP
@@ -4688,7 +4688,7 @@ bool do_inc_stat(creature_type *cr_ptr, int stat)
 	bool res;
 
 	/* Restore strength */
-	res = res_stat(stat);
+	res = res_stat(p_ptr, stat);
 
 	/* Attempt to increase */
 	if (inc_stat(cr_ptr, stat))

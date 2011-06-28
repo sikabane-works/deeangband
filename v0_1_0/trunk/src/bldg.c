@@ -4826,12 +4826,12 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		paid = TRUE;
 		break;
 	case BACT_RESTORE: /* needs work */
-		if (do_res_stat(A_STR)) paid = TRUE;
-		if (do_res_stat(A_INT)) paid = TRUE;
-		if (do_res_stat(A_WIS)) paid = TRUE;
-		if (do_res_stat(A_DEX)) paid = TRUE;
-		if (do_res_stat(A_CON)) paid = TRUE;
-		if (do_res_stat(A_CHR)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_STR)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_INT)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_WIS)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_DEX)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_CON)) paid = TRUE;
+		if (do_res_stat(p_ptr, A_CHR)) paid = TRUE;
 		break;
 	case BACT_ENCHANT_ARROWS:
 		item_tester_hook = item_tester_hook_ammo;

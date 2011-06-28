@@ -5239,7 +5239,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			hp_player(5000);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_res_stat(dummy);
+				(void)do_res_stat(p_ptr, dummy);
 			}
 #ifdef JP
 			reward = "体力が回復した。";

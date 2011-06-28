@@ -1446,12 +1446,12 @@ static void wiz_create_item(void)
 static void do_cmd_wiz_cure_all(void)
 {
 	/* Restore stats */
-	(void)res_stat(A_STR);
-	(void)res_stat(A_INT);
-	(void)res_stat(A_WIS);
-	(void)res_stat(A_CON);
-	(void)res_stat(A_DEX);
-	(void)res_stat(A_CHR);
+	(void)res_stat(p_ptr, A_STR);
+	(void)res_stat(p_ptr, A_INT);
+	(void)res_stat(p_ptr, A_WIS);
+	(void)res_stat(p_ptr, A_CON);
+	(void)res_stat(p_ptr, A_DEX);
+	(void)res_stat(p_ptr, A_CHR);
 
 	/* Restore the level */
 	(void)restore_level();

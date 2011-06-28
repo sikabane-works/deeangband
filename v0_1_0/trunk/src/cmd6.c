@@ -273,24 +273,24 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_RESTORE_STR:
 			{
-				if (do_res_stat(A_STR)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_CON:
 			{
-				if (do_res_stat(A_CON)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORING:
 			{
-				if (do_res_stat(A_STR)) ident = TRUE;
-				if (do_res_stat(A_INT)) ident = TRUE;
-				if (do_res_stat(A_WIS)) ident = TRUE;
-				if (do_res_stat(A_DEX)) ident = TRUE;
-				if (do_res_stat(A_CON)) ident = TRUE;
-				if (do_res_stat(A_CHR)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_DEX)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
+				if (do_res_stat(p_ptr, A_CHR)) ident = TRUE;
 				break;
 			}
 
@@ -1152,12 +1152,12 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)set_image(p_ptr, 0);
 			(void)set_stun(p_ptr, 0);
 			(void)set_cut(p_ptr, 0);
-			(void)do_res_stat(A_STR);
-			(void)do_res_stat(A_CON);
-			(void)do_res_stat(A_DEX);
-			(void)do_res_stat(A_WIS);
-			(void)do_res_stat(A_INT);
-			(void)do_res_stat(A_CHR);
+			(void)do_res_stat(p_ptr, A_STR);
+			(void)do_res_stat(p_ptr, A_CON);
+			(void)do_res_stat(p_ptr, A_DEX);
+			(void)do_res_stat(p_ptr, A_WIS);
+			(void)do_res_stat(p_ptr, A_INT);
+			(void)do_res_stat(p_ptr, A_CHR);
 			(void)set_shero(p_ptr, 0,TRUE);
 			update_stuff(p_ptr, TRUE);
 			hp_player(5000);
@@ -1210,27 +1210,27 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RES_STR:
-			if (do_res_stat(A_STR)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_INT:
-			if (do_res_stat(A_INT)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_WIS:
-			if (do_res_stat(A_WIS)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_DEX:
-			if (do_res_stat(A_DEX)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CON:
-			if (do_res_stat(A_CON)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CHR:
-			if (do_res_stat(A_CHR)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_STR:
@@ -2542,7 +2542,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_THE_MAGI:
 		{
-			if (do_res_stat(A_INT)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
 			if (p_ptr->csp < p_ptr->msp)
 			{
 				p_ptr->csp = p_ptr->msp;
@@ -3500,12 +3500,12 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 		case SV_ROD_RESTORATION:
 		{
 			if (restore_level()) ident = TRUE;
-			if (do_res_stat(A_STR)) ident = TRUE;
-			if (do_res_stat(A_INT)) ident = TRUE;
-			if (do_res_stat(A_WIS)) ident = TRUE;
-			if (do_res_stat(A_DEX)) ident = TRUE;
-			if (do_res_stat(A_CON)) ident = TRUE;
-			if (do_res_stat(A_CHR)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_DEX)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
+			if (do_res_stat(p_ptr, A_CHR)) ident = TRUE;
 			break;
 		}
 
@@ -5746,12 +5746,12 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("The jo staff glows a deep green...");
 #endif
 
-				(void)do_res_stat(A_STR);
-				(void)do_res_stat(A_INT);
-				(void)do_res_stat(A_WIS);
-				(void)do_res_stat(A_DEX);
-				(void)do_res_stat(A_CON);
-				(void)do_res_stat(A_CHR);
+				(void)do_res_stat(p_ptr, A_STR);
+				(void)do_res_stat(p_ptr, A_INT);
+				(void)do_res_stat(p_ptr, A_WIS);
+				(void)do_res_stat(p_ptr, A_DEX);
+				(void)do_res_stat(p_ptr, A_CON);
+				(void)do_res_stat(p_ptr, A_CHR);
 				(void)restore_level();
 				o_ptr->timeout = 750;
 				break;

@@ -754,12 +754,12 @@ static bool pattern_effect(void)
 		(void)set_cut(p_ptr, 0);
 		(void)set_blind(p_ptr, 0);
 		(void)set_afraid(p_ptr, 0);
-		(void)do_res_stat(A_STR);
-		(void)do_res_stat(A_INT);
-		(void)do_res_stat(A_WIS);
-		(void)do_res_stat(A_DEX);
-		(void)do_res_stat(A_CON);
-		(void)do_res_stat(A_CHR);
+		(void)do_res_stat(p_ptr, A_STR);
+		(void)do_res_stat(p_ptr, A_INT);
+		(void)do_res_stat(p_ptr, A_WIS);
+		(void)do_res_stat(p_ptr, A_DEX);
+		(void)do_res_stat(p_ptr, A_CON);
+		(void)do_res_stat(p_ptr, A_CHR);
 		(void)restore_level();
 		(void)hp_player(1000);
 

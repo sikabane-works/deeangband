@@ -1800,12 +1800,12 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				do_res_stat(A_STR);
-				do_res_stat(A_INT);
-				do_res_stat(A_WIS);
-				do_res_stat(A_DEX);
-				do_res_stat(A_CON);
-				do_res_stat(A_CHR);
+				do_res_stat(p_ptr, A_STR);
+				do_res_stat(p_ptr, A_INT);
+				do_res_stat(p_ptr, A_WIS);
+				do_res_stat(p_ptr, A_DEX);
+				do_res_stat(p_ptr, A_CON);
+				do_res_stat(p_ptr, A_CHR);
 				restore_level();
 			}
 		}
@@ -10085,12 +10085,12 @@ static cptr do_music_spell(int spell, int mode)
 #else
 				msg_print("You strewed light and beauty in the dark as you sing. You feel refreshed.");
 #endif
-				(void)do_res_stat(A_STR);
-				(void)do_res_stat(A_INT);
-				(void)do_res_stat(A_WIS);
-				(void)do_res_stat(A_DEX);
-				(void)do_res_stat(A_CON);
-				(void)do_res_stat(A_CHR);
+				(void)do_res_stat(p_ptr, A_STR);
+				(void)do_res_stat(p_ptr, A_INT);
+				(void)do_res_stat(p_ptr, A_WIS);
+				(void)do_res_stat(p_ptr, A_DEX);
+				(void)do_res_stat(p_ptr, A_CON);
+				(void)do_res_stat(p_ptr, A_CHR);
 				(void)restore_level();
 			}
 		}
