@@ -5005,7 +5005,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_wraith_form(randint1(base) + base, FALSE);
+				set_wraith_form(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;

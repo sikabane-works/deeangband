@@ -2786,7 +2786,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_WRAITH:
 		{
-			set_wraith_form(randint1(plev / 2) + (plev / 2), FALSE);
+			set_wraith_form(p_ptr, randint1(plev / 2) + (plev / 2), FALSE);
 			o_ptr->timeout = 1000;
 			break;
 		}

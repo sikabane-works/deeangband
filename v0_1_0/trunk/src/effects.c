@@ -255,7 +255,7 @@ void dispel_player(void)
 	(void)set_shero(p_ptr, 0, TRUE);
 	(void)set_protevil(p_ptr, 0, TRUE);
 	(void)set_invuln(p_ptr, 0, TRUE);
-	(void)set_wraith_form(0, TRUE);
+	(void)set_wraith_form(p_ptr, 0, TRUE);
 	(void)set_kabenuke(p_ptr, 0, TRUE);
 	(void)set_tim_res_nether(p_ptr, 0, TRUE);
 	(void)set_tim_res_time(p_ptr, 0, TRUE);
@@ -1608,25 +1608,25 @@ msg_print("Ž×ˆ«‚È‚é‘¶Ý‚©‚çŽç‚ç‚ê‚Ä‚¢‚éŠ´‚¶‚ª‚È‚­‚È‚Á‚½B");
 }
 
 /*
- * Set "p_ptr->wraith_form", notice observable changes
+ * Set "cr_ptr->wraith_form", notice observable changes
  */
-bool set_wraith_form(int v, bool do_dec)
+bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->wraith_form && !do_dec)
+		if (cr_ptr->wraith_form && !do_dec)
 		{
-			if (p_ptr->wraith_form > v) return FALSE;
+			if (cr_ptr->wraith_form > v) return FALSE;
 		}
-		else if (!p_ptr->wraith_form)
+		else if (!cr_ptr->wraith_form)
 		{
 #ifdef JP
 msg_print("•¨Ž¿ŠE‚ð—£‚ê‚Ä—H‹S‚Ì‚æ‚¤‚È‘¶Ý‚É‚È‚Á‚½I");
@@ -1642,20 +1642,20 @@ msg_print("•¨Ž¿ŠE‚ð—£‚ê‚Ä—H‹S‚Ì‚æ‚¤‚È‘¶Ý‚É‚È‚Á‚½I");
 			chg_virtue(V_VALOUR, -5);
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			cr_ptr->redraw |= (PR_MAP);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
 	/* Shut */
 	else
 	{
-		if (p_ptr->wraith_form)
+		if (cr_ptr->wraith_form)
 		{
 #ifdef JP
 msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
@@ -1666,21 +1666,21 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 			notice = TRUE;
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			cr_ptr->redraw |= (PR_MAP);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
 	/* Use the value */
-	p_ptr->wraith_form = v;
+	cr_ptr->wraith_form = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1689,7 +1689,7 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
