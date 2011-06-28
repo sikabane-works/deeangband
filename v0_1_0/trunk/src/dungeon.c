@@ -2092,7 +2092,7 @@ static void process_world_aux_timeout(void)
 	/* Timed Robe of dust */
 	if (p_ptr->dustrobe)
 	{
-		(void)set_dustrobe(p_ptr->dustrobe - 1, TRUE);
+		(void)set_dustrobe(p_ptr, p_ptr->dustrobe - 1, TRUE);
 	}
 
 	/* Timed infra-vision */

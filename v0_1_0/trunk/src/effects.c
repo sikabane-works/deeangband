@@ -262,7 +262,7 @@ void dispel_player(void)
 	/* by henkma */
 	(void)set_tim_reflect(p_ptr, 0,TRUE);
 	(void)set_multishadow(p_ptr, 0,TRUE);
-	(void)set_dustrobe(0,TRUE);
+	(void)set_dustrobe(p_ptr, 0,TRUE);
 
 	(void)set_tim_invis(p_ptr, 0, TRUE);
 	(void)set_tim_infra(p_ptr, 0, TRUE);
@@ -2769,25 +2769,25 @@ msg_print("幻影が消えた。");
 
 
 /*
- * Set "p_ptr->dustrobe", notice observable changes
+ * Set "cr_ptr->dustrobe", notice observable changes
  */
-bool set_dustrobe(int v, bool do_dec)
+bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->dustrobe && !do_dec)
+		if (cr_ptr->dustrobe && !do_dec)
 		{
-			if (p_ptr->dustrobe > v) return FALSE;
+			if (cr_ptr->dustrobe > v) return FALSE;
 		}
-		else if (!p_ptr->dustrobe)
+		else if (!cr_ptr->dustrobe)
 		{
 #ifdef JP
 msg_print("体が鏡のオーラで覆われた。");
@@ -2802,7 +2802,7 @@ msg_print("体が鏡のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->dustrobe)
+		if (cr_ptr->dustrobe)
 		{
 #ifdef JP
 msg_print("鏡のオーラが消えた。");
@@ -2815,10 +2815,10 @@ msg_print("鏡のオーラが消えた。");
 	}
 
 	/* Use the value */
-	p_ptr->dustrobe = v;
+	cr_ptr->dustrobe = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2827,7 +2827,7 @@ msg_print("鏡のオーラが消えた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

@@ -1302,7 +1302,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* robe of dust */
 	case 6:
-	  set_dustrobe(20+randint1(20),FALSE);
+	  set_dustrobe(p_ptr, 20+randint1(20),FALSE);
 	  break;
 	/* banishing mirror */
 	case 7:
