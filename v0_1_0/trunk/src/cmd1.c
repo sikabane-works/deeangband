@@ -1491,7 +1491,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_STR);
+				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_STR);
 			}
 			else
 			{
@@ -1522,7 +1522,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_DEX);
+				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_DEX);
 			}
 			else
 			{
@@ -1553,7 +1553,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(A_CON);
+				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_CON);
 			}
 			else
 			{

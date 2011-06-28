@@ -586,7 +586,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(A_STR);
+		(void)do_dec_stat(p_ptr, A_STR);
 	}
 
 	/* Lose constitution */
@@ -600,7 +600,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(A_CON);
+		(void)do_dec_stat(p_ptr, A_CON);
 	}
 
 	/* Poison */
@@ -788,12 +788,12 @@ static void chest_trap(int y, int x, s16b o_idx)
 				else if (one_in_(3)) apply_disenchant(0);
 				else if (one_in_(2))
 				{
-					(void)do_dec_stat(A_STR);
-					(void)do_dec_stat(A_DEX);
-					(void)do_dec_stat(A_CON);
-					(void)do_dec_stat(A_INT);
-					(void)do_dec_stat(A_WIS);
-					(void)do_dec_stat(A_CHR);
+					(void)do_dec_stat(p_ptr, A_STR);
+					(void)do_dec_stat(p_ptr, A_DEX);
+					(void)do_dec_stat(p_ptr, A_CON);
+					(void)do_dec_stat(p_ptr, A_INT);
+					(void)do_dec_stat(p_ptr, A_WIS);
+					(void)do_dec_stat(p_ptr, A_CHR);
 				}
 				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
 			}

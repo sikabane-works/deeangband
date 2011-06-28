@@ -2946,8 +2946,8 @@ msg_print("肉体が急速にしぼんでいった。");
 			msg_print("Your body had quickly shriveled.");
 #endif
 
-			(void)dec_stat(A_CON, 20, TRUE);
-			(void)dec_stat(A_STR, 20, TRUE);
+			(void)dec_stat(p_ptr, A_CON, 20, TRUE);
+			(void)dec_stat(p_ptr, A_STR, 20, TRUE);
 
 			notice = TRUE;
 			chg_virtue(V_VITALITY, -3);
@@ -3624,16 +3624,16 @@ msg_print("割れるような頭痛がする。");
 
 			if (one_in_(3))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(A_INT);
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(p_ptr, A_INT);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(p_ptr, A_WIS);
 			}
 			else if (one_in_(2))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(A_INT);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(p_ptr, A_INT);
 			}
 			else
 			{
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(A_WIS);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(p_ptr, A_WIS);
 			}
 		}
 		if (cr_ptr->special_defense & KATA_MASK)
@@ -3915,7 +3915,7 @@ msg_print("ひどい傷跡が残ってしまった。");
 #endif
 
 
-				do_dec_stat(A_CHR);
+				do_dec_stat(p_ptr, A_CHR);
 			}
 		}
 	}
@@ -4308,14 +4308,14 @@ bool inc_stat(creature_type *cr_ptr, int stat)
  * if your stat is already drained, the "max" value will not drop all
  * the way down to the "cur" value.
  */
-bool dec_stat(int stat, int amount, int permanent)
+bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
 
 
 	/* Acquire current value */
-	cur = p_ptr->stat_cur[stat];
-	max = p_ptr->stat_max[stat];
+	cur = cr_ptr->stat_cur[stat];
+	max = cr_ptr->stat_max[stat];
 
 	/* Note when the values are identical */
 	same = (cur == max);
@@ -4360,7 +4360,7 @@ bool dec_stat(int stat, int amount, int permanent)
 		if (cur < 3) cur = 3;
 
 		/* Something happened */
-		if (cur != p_ptr->stat_cur[stat]) res = TRUE;
+		if (cur != cr_ptr->stat_cur[stat]) res = TRUE;
 	}
 
 	/* Damage "max" value */
@@ -4400,21 +4400,21 @@ bool dec_stat(int stat, int amount, int permanent)
 		if (same || (max < cur)) max = cur;
 
 		/* Something happened */
-		if (max != p_ptr->stat_max[stat]) res = TRUE;
+		if (max != cr_ptr->stat_max[stat]) res = TRUE;
 	}
 
 	/* Apply changes */
 	if (res)
 	{
 		/* Actually set the stat to its new value. */
-		p_ptr->stat_cur[stat] = cur;
-		p_ptr->stat_max[stat] = max;
+		cr_ptr->stat_cur[stat] = cur;
+		cr_ptr->stat_max[stat] = max;
 
 		/* Redisplay the stats later */
-		p_ptr->redraw |= (PR_STATS);
+		cr_ptr->redraw |= (PR_STATS);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 	}
 
 	/* Done */
@@ -4604,19 +4604,19 @@ static cptr desc_stat_neg[] =
 /*
  * Lose a "point"
  */
-bool do_dec_stat(int stat)
+bool do_dec_stat(creature_type *cr_ptr, int stat)
 {
 	bool sust = FALSE;
 
 	/* Access the "sustain" */
 	switch (stat)
 	{
-		case A_STR: if (p_ptr->sustain_str) sust = TRUE; break;
-		case A_INT: if (p_ptr->sustain_int) sust = TRUE; break;
-		case A_WIS: if (p_ptr->sustain_wis) sust = TRUE; break;
-		case A_DEX: if (p_ptr->sustain_dex) sust = TRUE; break;
-		case A_CON: if (p_ptr->sustain_con) sust = TRUE; break;
-		case A_CHR: if (p_ptr->sustain_chr) sust = TRUE; break;
+		case A_STR: if (cr_ptr->sustain_str) sust = TRUE; break;
+		case A_INT: if (cr_ptr->sustain_int) sust = TRUE; break;
+		case A_WIS: if (cr_ptr->sustain_wis) sust = TRUE; break;
+		case A_DEX: if (cr_ptr->sustain_dex) sust = TRUE; break;
+		case A_CON: if (cr_ptr->sustain_con) sust = TRUE; break;
+		case A_CHR: if (cr_ptr->sustain_chr) sust = TRUE; break;
 	}
 
 	/* Sustain */
@@ -4636,7 +4636,7 @@ msg_format("%sなった気がしたが、すぐに元に戻った。",
 	}
 
 	/* Attempt to reduce the stat */
-	if (dec_stat(stat, 10, (ironman_nightmare && !randint0(13))))
+	if (dec_stat(cr_ptr, stat, 10, (ironman_nightmare && !randint0(13))))
 	{
 		/* Message */
 #ifdef JP
@@ -4981,14 +4981,14 @@ sprintf(effect_msg, "男性の");
 			{
 				if (one_in_(2))
 				{
-					(void)dec_stat(tmp, randint1(6) + 6, one_in_(3));
+					(void)dec_stat(p_ptr, tmp, randint1(6) + 6, one_in_(3));
 					power -= 1;
 				}
 				tmp++;
 			}
 
 			/* Deformities are discriminated against! */
-			(void)dec_stat(A_CHR, randint1(6), TRUE);
+			(void)dec_stat(p_ptr, A_CHR, randint1(6), TRUE);
 
 			if (effect_msg[0])
 			{
@@ -5065,7 +5065,7 @@ msg_format("%sの構成が変化した！", p_ptr->irace_idx == RACE_ANDROID ? "機械" : "
 
 		while (tmp < 6)
 		{
-			(void)dec_stat(tmp, randint1(6) + 6, one_in_(3));
+			(void)dec_stat(p_ptr, tmp, randint1(6) + 6, one_in_(3));
 			tmp++;
 		}
 		if (one_in_(6))

@@ -171,7 +171,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_STR);
+				(void)do_dec_stat(p_ptr, A_STR);
 				ident = TRUE;
 				break;
 			}
@@ -184,7 +184,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_CON);
+				(void)do_dec_stat(p_ptr, A_CON);
 				ident = TRUE;
 				break;
 			}
@@ -197,7 +197,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_INT);
+				(void)do_dec_stat(p_ptr, A_INT);
 				ident = TRUE;
 				break;
 			}
@@ -210,7 +210,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_WIS);
+				(void)do_dec_stat(p_ptr, A_WIS);
 				ident = TRUE;
 				break;
 			}
@@ -223,7 +223,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_CON);
+				(void)do_dec_stat(p_ptr, A_CON);
 				ident = TRUE;
 				break;
 			}
@@ -236,7 +236,7 @@ static void do_cmd_eat_food_aux(int item)
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(A_STR);
+				(void)do_dec_stat(p_ptr, A_STR);
 				ident = TRUE;
 				break;
 			}
@@ -967,37 +967,37 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
-			(void)dec_stat(A_DEX, 25, TRUE);
-			(void)dec_stat(A_WIS, 25, TRUE);
-			(void)dec_stat(A_CON, 25, TRUE);
-			(void)dec_stat(A_STR, 25, TRUE);
-			(void)dec_stat(A_CHR, 25, TRUE);
-			(void)dec_stat(A_INT, 25, TRUE);
+			(void)dec_stat(p_ptr, A_DEX, 25, TRUE);
+			(void)dec_stat(p_ptr, A_WIS, 25, TRUE);
+			(void)dec_stat(p_ptr, A_CON, 25, TRUE);
+			(void)dec_stat(p_ptr, A_STR, 25, TRUE);
+			(void)dec_stat(p_ptr, A_CHR, 25, TRUE);
+			(void)dec_stat(p_ptr, A_INT, 25, TRUE);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_STR:
-			if (do_dec_stat(A_STR)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_INT:
-			if (do_dec_stat(A_INT)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_WIS:
-			if (do_dec_stat(A_WIS)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_DEX:
-			if (do_dec_stat(A_DEX)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CON:
-			if (do_dec_stat(A_CON)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CHR:
-			if (do_dec_stat(A_CHR)) ident = TRUE;
+			if (do_dec_stat(p_ptr, A_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DETONATIONS:
@@ -3894,12 +3894,12 @@ void ring_of_power(int dir)
 			sound(SOUND_EVIL);
 
 			/* Decrease all stats (permanently) */
-			(void)dec_stat(A_STR, 50, TRUE);
-			(void)dec_stat(A_INT, 50, TRUE);
-			(void)dec_stat(A_WIS, 50, TRUE);
-			(void)dec_stat(A_DEX, 50, TRUE);
-			(void)dec_stat(A_CON, 50, TRUE);
-			(void)dec_stat(A_CHR, 50, TRUE);
+			(void)dec_stat(p_ptr, A_STR, 50, TRUE);
+			(void)dec_stat(p_ptr, A_INT, 50, TRUE);
+			(void)dec_stat(p_ptr, A_WIS, 50, TRUE);
+			(void)dec_stat(p_ptr, A_DEX, 50, TRUE);
+			(void)dec_stat(p_ptr, A_CON, 50, TRUE);
+			(void)dec_stat(p_ptr, A_CHR, 50, TRUE);
 
 			/* Lose some experience (permanently) */
 			p_ptr->exp -= (p_ptr->exp / 4);

@@ -681,8 +681,8 @@ static void cast_shuffle(void)
 		msg_print("It's the Fool.");
 #endif
 
-		do_dec_stat(A_INT);
-		do_dec_stat(A_WIS);
+		do_dec_stat(p_ptr, A_INT);
+		do_dec_stat(p_ptr, A_WIS);
 	}
 	else if (die < 30)
 	{

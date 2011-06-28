@@ -7121,7 +7121,7 @@ msg_print("彫像になった気分だ！");
 			}
 			if (!one_in_(6)) break;
 		case 21: case 22: case 23:
-			(void)do_dec_stat(randint0(6));
+			(void)do_dec_stat(p_ptr, randint0(6));
 			if (!one_in_(6)) break;
 		case 24:
 #ifdef JP
@@ -7148,7 +7148,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			{
 				do
 				{
-					(void)do_dec_stat(i);
+					(void)do_dec_stat(p_ptr, i);
 				}
 				while (one_in_(2));
 

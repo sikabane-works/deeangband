@@ -2246,8 +2246,8 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	if (!saving_throw(p_ptr->skill_rob - power)) /* Lose int & wis */
 	{
-		do_dec_stat(A_INT);
-		do_dec_stat(A_WIS);
+		do_dec_stat(p_ptr, A_INT);
+		do_dec_stat(p_ptr, A_WIS);
 		return;
 	}
 
@@ -2262,9 +2262,9 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 		}
 		while (randint0(100) > p_ptr->skill_rob)
-			(void)do_dec_stat(A_INT);
+			(void)do_dec_stat(p_ptr, A_INT);
 		while (randint0(100) > p_ptr->skill_rob)
-			(void)do_dec_stat(A_WIS);
+			(void)do_dec_stat(p_ptr, A_WIS);
 		if (!p_ptr->resist_chaos)
 		{
 			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);

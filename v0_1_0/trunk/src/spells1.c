@@ -6260,7 +6260,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 					{
 						do
 						{
-							(void)do_dec_stat(i);
+							(void)do_dec_stat(p_ptr, i);
 						}
 						while (one_in_(2));
 
@@ -6269,7 +6269,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 				}
 				else
 				{
-					(void)do_dec_stat(randint0(6));
+					(void)do_dec_stat(p_ptr, randint0(6));
 				}
 				break;
 			}
@@ -6590,7 +6590,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if ((!(double_resist || p_ptr->resist_pois)) &&
 			     one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
 			{
-				do_dec_stat(A_CON);
+				do_dec_stat(p_ptr, A_CON);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7616,9 +7616,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 
 					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
-						(void)do_dec_stat(A_INT);
+						(void)do_dec_stat(p_ptr, A_INT);
 					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
-						(void)do_dec_stat(A_WIS);
+						(void)do_dec_stat(p_ptr, A_WIS);
 
 					if (!p_ptr->resist_chaos)
 					{

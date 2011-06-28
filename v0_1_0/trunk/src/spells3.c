@@ -5015,7 +5015,7 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 	{
 		if ((!(double_resist || p_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(A_CHR);
+			(void)do_dec_stat(p_ptr, A_CHR);
 
 		/* If any armor gets hit, defend the player */
 		if (minus_ac()) dam = (dam + 1) / 2;
@@ -5058,7 +5058,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || p_ptr->resist_elec)) &&
 	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
-		(void)do_dec_stat(A_DEX);
+		(void)do_dec_stat(p_ptr, A_DEX);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
@@ -5098,7 +5098,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || p_ptr->resist_fire)) &&
 	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
-		(void)do_dec_stat(A_STR);
+		(void)do_dec_stat(p_ptr, A_STR);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
@@ -5137,7 +5137,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || p_ptr->resist_cold)) &&
 	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
-		(void)do_dec_stat(A_STR);
+		(void)do_dec_stat(p_ptr, A_STR);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);

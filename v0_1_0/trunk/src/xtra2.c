@@ -5115,9 +5115,9 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 #endif
 
 			if (one_in_(3) && !(player_patrons[p_ptr->patron_idx].status_boost))
-				do_dec_stat(player_patrons[p_ptr->patron_idx].status_boost);
+				do_dec_stat(p_ptr, player_patrons[p_ptr->patron_idx].status_boost);
 			else
-				(void)do_dec_stat(randint0(6));
+				(void)do_dec_stat(p_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
 #else
@@ -5143,7 +5143,7 @@ msg_print("あなたは以前より弱くなった！");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(dummy, 10 + randint1(15), TRUE);
+				(void)dec_stat(p_ptr, dummy, 10 + randint1(15), TRUE);
 			}
 #ifdef JP
 			reward = "全能力値が下がった。";
@@ -5367,7 +5367,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				default:
 					for (dummy = 0; dummy < 6; dummy++)
 					{
-						(void)dec_stat(dummy, 10 + randint1(15), TRUE);
+						(void)dec_stat(p_ptr, dummy, 10 + randint1(15), TRUE);
 					}
 #ifdef JP
 					reward = "全能力値が下がった。";
@@ -5394,7 +5394,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, p_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(dummy, 10 + randint1(15), FALSE);
+				(void)dec_stat(p_ptr, dummy, 10 + randint1(15), FALSE);
 			}
 			activate_hi_summon(py, px, FALSE);
 			(void)activate_ty_curse(FALSE, &count);

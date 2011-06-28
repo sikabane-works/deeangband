@@ -2605,8 +2605,8 @@ void have_nightmare(int monster_idx)
 	/* Lose int & wis */
 	if (!saving_throw(p_ptr->skill_rob * 100 / power))
 	{
-		do_dec_stat(A_INT);
-		do_dec_stat(A_WIS);
+		do_dec_stat(p_ptr, A_INT);
+		do_dec_stat(p_ptr, A_WIS);
 		return;
 	}
 
@@ -2623,11 +2623,11 @@ void have_nightmare(int monster_idx)
 		}
 		while (!saving_throw(p_ptr->skill_rob))
 		{
-			(void)do_dec_stat(A_INT);
+			(void)do_dec_stat(p_ptr, A_INT);
 		}
 		while (!saving_throw(p_ptr->skill_rob))
 		{
-			(void)do_dec_stat(A_WIS);
+			(void)do_dec_stat(p_ptr, A_WIS);
 		}
 		if (!p_ptr->resist_chaos)
 		{

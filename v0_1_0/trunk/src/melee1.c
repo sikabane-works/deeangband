@@ -1396,7 +1396,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_STR)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_STR)) obvious = TRUE;
 
 					break;
 				}
@@ -1409,7 +1409,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_INT)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_INT)) obvious = TRUE;
 
 					break;
 				}
@@ -1422,7 +1422,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_WIS)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_WIS)) obvious = TRUE;
 
 					break;
 				}
@@ -1435,7 +1435,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_DEX)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_DEX)) obvious = TRUE;
 
 					break;
 				}
@@ -1448,7 +1448,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_CON)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_CON)) obvious = TRUE;
 
 					break;
 				}
@@ -1461,7 +1461,7 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(A_CHR)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1474,12 +1474,12 @@ bool make_attack_normal(int m_idx)
 					if (p_ptr->is_dead || CHECK_MULTISHADOW()) break;
 
 					/* Damage (stats) */
-					if (do_dec_stat(A_STR)) obvious = TRUE;
-					if (do_dec_stat(A_DEX)) obvious = TRUE;
-					if (do_dec_stat(A_CON)) obvious = TRUE;
-					if (do_dec_stat(A_INT)) obvious = TRUE;
-					if (do_dec_stat(A_WIS)) obvious = TRUE;
-					if (do_dec_stat(A_CHR)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_STR)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_DEX)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_CON)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_INT)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_WIS)) obvious = TRUE;
+					if (do_dec_stat(p_ptr, A_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1589,7 +1589,7 @@ bool make_attack_normal(int m_idx)
 					{
 						/* 1% chance for perm. damage */
 						bool perm = one_in_(10);
-						if (dec_stat(A_CON, randint1(10), perm))
+						if (dec_stat(p_ptr, A_CON, randint1(10), perm))
 						{
 #ifdef JP
 							msg_print("ïaÇ™Ç†Ç»ÇΩÇêIÇÒÇ≈Ç¢ÇÈãCÇ™Ç∑ÇÈÅB");

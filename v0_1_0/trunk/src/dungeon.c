@@ -2695,7 +2695,7 @@ static void process_world_aux_mutation(void)
 #endif
 
 			msg_print(NULL);
-			(void)dec_stat(which_stat, randint1(6) + 6, one_in_(3));
+			(void)dec_stat(p_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
 	if ((p_ptr->muta2 & MUT2_ATT_DRAGON) &&
