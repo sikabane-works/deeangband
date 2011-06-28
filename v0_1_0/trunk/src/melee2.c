@@ -3597,7 +3597,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		if (set_monster_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
+		if (set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Message if visible */
 			if (is_seen(cr_ptr))

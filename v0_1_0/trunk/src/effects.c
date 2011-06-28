@@ -515,6 +515,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	if(cr_ptr == p_ptr)
+	{
+
 	/* Open */
 	if (v)
 	{
@@ -610,6 +613,40 @@ msg_print("‚â‚Á‚Æ¬—‚ª‚¨‚³‚Ü‚Á‚½B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+			/* Hack -- Force good values */
+	v = (v > 200) ? 200 : (v < 0) ? 0 : v;
+
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->confused)
+		{
+			mproc_add(cr_ptr, MTIMED_CONFUSED);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+
+	if (cr_ptr->confused)
+		{
+			mproc_remove(cr_ptr, MTIMED_CONFUSED);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->confused = v;
+
+	return notice;
+
+	}
+
 }
 
 
@@ -786,8 +823,8 @@ msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+		if (&m_list[p_ptr->health_who] == cr_ptr) cr_ptr->redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) cr_ptr->redraw |= (PR_UHEALTH);
 	}
 
 	return TRUE;

@@ -2913,7 +2913,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("%^s appears confused.", m_name);
 #endif
 
-					(void)set_monster_confused(&m_list[c_ptr->m_idx], m_ptr->confused + 10 + randint0(cr_ptr->lev) / 5);
+					(void)set_confused(&m_list[c_ptr->m_idx], m_ptr->confused + 10 + randint0(cr_ptr->lev) / 5);
 				}
 			}
 

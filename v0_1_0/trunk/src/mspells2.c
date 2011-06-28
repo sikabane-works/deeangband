@@ -2792,7 +2792,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s is blinded!", t_name);
 #endif
 
-			(void)set_monster_confused(t_ptr, t_ptr->blind + 12 + randint0(4));
+			(void)set_confused(t_ptr, t_ptr->blind + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
@@ -2844,7 +2844,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s seems confused.", t_name);
 #endif
 
-			(void)set_monster_confused(t_ptr, t_ptr->confused + 12 + randint0(4));
+			(void)set_confused(t_ptr, t_ptr->confused + 12 + randint0(4));
 		}
 
 		wake_up = TRUE;
