@@ -919,10 +919,10 @@ if (!b) msg_print("安全な気がする。");
 		/* Character Armour */
 		set_shield(p_ptr, plev, FALSE);
 		if (plev > 14) set_oppose_acid(p_ptr, plev, FALSE);
-		if (plev > 19) set_oppose_fire(plev, FALSE);
-		if (plev > 24) set_oppose_cold(plev, FALSE);
+		if (plev > 19) set_oppose_fire(p_ptr, plev, FALSE);
+		if (plev > 24) set_oppose_cold(p_ptr, plev, FALSE);
 		if (plev > 29) set_oppose_elec(p_ptr, plev, FALSE);
-		if (plev > 34) set_oppose_pois(plev, FALSE);
+		if (plev > 34) set_oppose_pois(p_ptr, plev, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
@@ -1617,7 +1617,7 @@ msg_print("その方向にはモンスターはいません。");
 	case 9:
 		fire_ball(GF_FIRE, 0, 50+plev, plev/10+2);
 		teleport_player(30, 0L);
-		set_oppose_fire(plev, FALSE);
+		set_oppose_fire(p_ptr, plev, FALSE);
 		break;
 	case 10:
 		return rush_attack(NULL);

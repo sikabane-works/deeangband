@@ -3641,17 +3641,17 @@ bool mutation_power_aux(u32b power)
 				}
 				if (randint0(3) < num)
 				{
-					(void)set_oppose_fire(dur, FALSE);
+					(void)set_oppose_fire(p_ptr, dur, FALSE);
 					num--;
 				}
 				if (randint0(2) < num)
 				{
-					(void)set_oppose_cold(dur, FALSE);
+					(void)set_oppose_cold(p_ptr, dur, FALSE);
 					num--;
 				}
 				if (num)
 				{
-					(void)set_oppose_pois(dur, FALSE);
+					(void)set_oppose_pois(p_ptr, dur, FALSE);
 					num--;
 				}
 			}

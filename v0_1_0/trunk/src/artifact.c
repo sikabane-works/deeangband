@@ -2751,9 +2751,9 @@ bool activate_random_artifact(object_type * o_ptr)
 
 			(void)set_oppose_acid(p_ptr, randint1(40) + 40, FALSE);
 			(void)set_oppose_elec(p_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_fire(randint1(40) + 40, FALSE);
-			(void)set_oppose_cold(randint1(40) + 40, FALSE);
-			(void)set_oppose_pois(randint1(40) + 40, FALSE);
+			(void)set_oppose_fire(p_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_cold(p_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_pois(p_ptr, randint1(40) + 40, FALSE);
 			o_ptr->timeout = 200;
 			break;
 		}

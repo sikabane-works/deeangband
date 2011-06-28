@@ -2206,19 +2206,19 @@ static void process_world_aux_timeout(void)
 	/* Oppose Fire */
 	if (p_ptr->oppose_fire)
 	{
-		(void)set_oppose_fire(p_ptr->oppose_fire - 1, TRUE);
+		(void)set_oppose_fire(p_ptr, p_ptr->oppose_fire - 1, TRUE);
 	}
 
 	/* Oppose Cold */
 	if (p_ptr->oppose_cold)
 	{
-		(void)set_oppose_cold(p_ptr->oppose_cold - 1, TRUE);
+		(void)set_oppose_cold(p_ptr, p_ptr->oppose_cold - 1, TRUE);
 	}
 
 	/* Oppose Poison */
 	if (p_ptr->oppose_pois)
 	{
-		(void)set_oppose_pois(p_ptr->oppose_pois - 1, TRUE);
+		(void)set_oppose_pois(p_ptr, p_ptr->oppose_pois - 1, TRUE);
 	}
 
 	if (p_ptr->ult_res)

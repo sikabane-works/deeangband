@@ -278,9 +278,9 @@ void dispel_player(void)
 	(void)set_resist_magic(p_ptr, 0, TRUE);
 	(void)set_oppose_acid(p_ptr, 0, TRUE);
 	(void)set_oppose_elec(p_ptr, 0, TRUE);
-	(void)set_oppose_fire(0, TRUE);
-	(void)set_oppose_cold(0, TRUE);
-	(void)set_oppose_pois(0, TRUE);
+	(void)set_oppose_fire(p_ptr, 0, TRUE);
+	(void)set_oppose_cold(p_ptr, 0, TRUE);
+	(void)set_oppose_pois(p_ptr, 0, TRUE);
 	(void)set_ultimate_res(0, TRUE);
 	(void)set_mimic(p_ptr, 0, 0, TRUE);
 	(void)set_ele_attack(p_ptr, 0, 0);
@@ -374,7 +374,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 #else
 			msg_print("You are no longer transformed.");
 #endif
-			if (cr_ptr->mimic_form == MIMIC_DEMON) set_oppose_fire(0, TRUE);
+			if (cr_ptr->mimic_form == MIMIC_DEMON) set_oppose_fire(p_ptr, 0, TRUE);
 			cr_ptr->mimic_form=0;
 			notice = TRUE;
 			p = 0;
@@ -3311,27 +3311,27 @@ msg_print("電撃への耐性が薄れた気がする。");
 
 
 /*
- * Set "p_ptr->oppose_fire", notice observable changes
+ * Set "cr_ptr->oppose_fire", notice observable changes
  */
-bool set_oppose_fire(int v, bool do_dec)
+bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
-	if ((race_is_(p_ptr, RACE_DEMON) && (p_ptr->lev > 44)) ||
-		(race_is_(p_ptr, RACE_BALROG) && (p_ptr->lev > 44)) || (p_ptr->mimic_form == MIMIC_DEMON)) v = 1;
+	if ((race_is_(cr_ptr, RACE_DEMON) && (cr_ptr->lev > 44)) ||
+		(race_is_(cr_ptr, RACE_BALROG) && (cr_ptr->lev > 44)) || (cr_ptr->mimic_form == MIMIC_DEMON)) v = 1;
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->oppose_fire && !do_dec)
+		if (cr_ptr->oppose_fire && !do_dec)
 		{
-			if (p_ptr->oppose_fire > v) return FALSE;
+			if (cr_ptr->oppose_fire > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_FIRE(p_ptr))
+		else if (!IS_OPPOSE_FIRE(cr_ptr))
 		{
 #ifdef JP
 msg_print("火への耐性がついた気がする！");
@@ -3346,7 +3346,7 @@ msg_print("火への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_fire && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (cr_ptr->oppose_fire && !music_singing(cr_ptr, MUSIC_RESIST) && !(cr_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("火への耐性が薄れた気がする。");
@@ -3359,13 +3359,13 @@ msg_print("火への耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	p_ptr->oppose_fire = v;
+	cr_ptr->oppose_fire = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3379,25 +3379,25 @@ msg_print("火への耐性が薄れた気がする。");
 
 
 /*
- * Set "p_ptr->oppose_cold", notice observable changes
+ * Set "cr_ptr->oppose_cold", notice observable changes
  */
-bool set_oppose_cold(int v, bool do_dec)
+bool set_oppose_cold(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->oppose_cold && !do_dec)
+		if (cr_ptr->oppose_cold && !do_dec)
 		{
-			if (p_ptr->oppose_cold > v) return FALSE;
+			if (cr_ptr->oppose_cold > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_COLD(p_ptr))
+		else if (!IS_OPPOSE_COLD(cr_ptr))
 		{
 #ifdef JP
 msg_print("冷気への耐性がついた気がする！");
@@ -3412,7 +3412,7 @@ msg_print("冷気への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_cold && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (cr_ptr->oppose_cold && !music_singing(cr_ptr, MUSIC_RESIST) && !(cr_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("冷気への耐性が薄れた気がする。");
@@ -3425,13 +3425,13 @@ msg_print("冷気への耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	p_ptr->oppose_cold = v;
+	cr_ptr->oppose_cold = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3445,26 +3445,26 @@ msg_print("冷気への耐性が薄れた気がする。");
 
 
 /*
- * Set "p_ptr->oppose_pois", notice observable changes
+ * Set "cr_ptr->oppose_pois", notice observable changes
  */
-bool set_oppose_pois(int v, bool do_dec)
+bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if ((p_ptr->cls_idx == CLASS_NINJA) && (p_ptr->lev > 44)) v = 1;
-	if (p_ptr->is_dead) return FALSE;
+	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) v = 1;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->oppose_pois && !do_dec)
+		if (cr_ptr->oppose_pois && !do_dec)
 		{
-			if (p_ptr->oppose_pois > v) return FALSE;
+			if (cr_ptr->oppose_pois > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_POIS(p_ptr))
+		else if (!IS_OPPOSE_POIS(cr_ptr))
 		{
 #ifdef JP
 msg_print("毒への耐性がついた気がする！");
@@ -3479,7 +3479,7 @@ msg_print("毒への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_pois && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (cr_ptr->oppose_pois && !music_singing(cr_ptr, MUSIC_RESIST) && !(cr_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("毒への耐性が薄れた気がする。");
@@ -3492,13 +3492,13 @@ msg_print("毒への耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	p_ptr->oppose_pois = v;
+	cr_ptr->oppose_pois = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
