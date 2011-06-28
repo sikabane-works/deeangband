@@ -2979,7 +2979,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Allow quick speed increases to base+10 */
-		if (set_monster_fast(m_ptr, m_ptr->fast + 100))
+		if (set_fast(m_ptr, m_ptr->fast + 100, FALSE))
 		{
 #ifdef JP
 			if (see_m) msg_format("%^s‚Ì“®‚«‚ª‘¬‚­‚È‚Á‚½B", m_name);

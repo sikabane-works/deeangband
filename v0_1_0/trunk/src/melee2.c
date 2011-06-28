@@ -3529,7 +3529,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
-		if (set_monster_fast(cr_ptr, cr_ptr->fast - 1))
+		if (set_fast(cr_ptr, cr_ptr->fast - 1, FALSE))
 		{
 			if (is_seen(cr_ptr))
 			{
@@ -3703,7 +3703,7 @@ void dispel_monster_status(int m_idx)
 		if (cr_ptr->ml) msg_format("%^s is no longer invulnerable.", m_name);
 #endif
 	}
-	if (set_monster_fast(cr_ptr, 0))
+	if (set_fast(cr_ptr, 0, FALSE))
 	{
 #ifdef JP
 		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤‰Á‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);

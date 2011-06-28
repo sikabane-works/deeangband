@@ -230,7 +230,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 
 	if (cr_ptr->riding)
 	{
-		(void)set_monster_fast(&m_list[cr_ptr->riding], 0);
+		(void)set_fast(&m_list[cr_ptr->riding], 0, FALSE);
 		(void)set_slow(&m_list[cr_ptr->riding], 0, FALSE);
 		(void)set_monster_invulner(&m_list[cr_ptr->riding], 0, FALSE);
 	}
@@ -1008,6 +1008,9 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
+	if(cr_ptr == p_ptr)
+	{
 	/* Open */
 	if (v)
 	{
@@ -1061,6 +1064,40 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->fast)
+		{
+			mproc_add(cr_ptr, MTIMED_FAST);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (cr_ptr->fast)
+		{
+			mproc_remove(cr_ptr, MTIMED_FAST);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->fast = v;
+
+	if (!notice) return FALSE;
+
+	if ((&m_list[p_ptr->riding] == cr_ptr) && !p_ptr->leaving) p_ptr->update |= (PU_BONUS);
+
+	return TRUE;
+
+	}
 }
 
 

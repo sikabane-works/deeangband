@@ -269,7 +269,7 @@ void delete_monster_idx(creature_type *cr_ptr)
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
 
 	if (cr_ptr->paralyzed) (void)set_monster_csleep(cr_ptr, 0);
-	if (cr_ptr->fast) (void)set_monster_fast(cr_ptr, 0);
+	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
 	if (cr_ptr->slow) (void)set_slow(cr_ptr, 0, FALSE);
 	if (cr_ptr->stun) (void)set_stun(cr_ptr, 0);
 	if (cr_ptr->confused) (void)set_confused(cr_ptr, 0);
@@ -3622,7 +3622,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		(void)set_monster_csleep(&m_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
 	}
 
-	if (mode & PM_HASTE) (void)set_monster_fast(&m_list[c_ptr->m_idx], 100);
+	if (mode & PM_HASTE) (void)set_fast(&m_list[c_ptr->m_idx], 100, FALSE);
 
 	/* Give a random starting energy */
 	if (!ironman_nightmare)

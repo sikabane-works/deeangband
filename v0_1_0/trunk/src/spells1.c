@@ -3576,7 +3576,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Speed up */
-			if (set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100))
+			if (set_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100, FALSE))
 			{
 #ifdef JP
 				note = "の動きが速くなった。";
@@ -5733,7 +5733,7 @@ note = "には効果がなかった！";
 					note = " starts moving faster.";
 #endif
 
-					(void)set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100);
+					(void)set_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100, FALSE);
 					success = TRUE;
 				}
 
@@ -5756,7 +5756,7 @@ note = "には効果がなかった！";
 #endif
 
 					set_pet(m_ptr);
-					(void)set_monster_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100);
+					(void)set_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
 					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);

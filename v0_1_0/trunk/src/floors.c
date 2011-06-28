@@ -1222,7 +1222,7 @@ void change_floor(void)
 					m_ptr->chp = m_ptr->mhp = m_ptr->mmhp;
 
 					/* Remove timed status (except MTIMED_CSLEEP) */
-					(void)set_monster_fast(m_ptr, 0);
+					(void)set_fast(m_ptr, 0, FALSE);
 					(void)set_slow(m_ptr, 0, FALSE);
 					(void)set_stun(m_ptr, 0);
 					(void)set_confused(m_ptr, 0);

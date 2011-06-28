@@ -4641,7 +4641,7 @@ void aggravate_monsters(int who)
 		{
 			if (!is_pet(m_ptr))
 			{
-				(void)set_monster_fast(m_ptr, m_ptr->fast + 100);
+				(void)set_fast(m_ptr, m_ptr->fast + 100, FALSE);
 				speed = TRUE;
 			}
 		}
