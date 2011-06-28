@@ -7768,7 +7768,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
 		project(0, 0, who_ptr->fy, who_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (p_ptr->tim_eyeeye) set_tim_eyeeye(p_ptr->tim_eyeeye-5, TRUE);
+		if (p_ptr->tim_eyeeye) set_tim_eyeeye(p_ptr, p_ptr->tim_eyeeye-5, TRUE);
 	}
 
 	if (p_ptr->riding && dam > 0)

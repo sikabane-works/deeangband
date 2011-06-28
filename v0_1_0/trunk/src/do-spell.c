@@ -8836,7 +8836,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_eyeeye(randint1(base) + base, FALSE);
+				set_tim_eyeeye(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;

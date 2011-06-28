@@ -3594,7 +3594,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 							msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
 							project(0, 0, m_ptr->fy, m_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_tim_eyeeye(p_ptr->tim_eyeeye-5, TRUE);
+							set_tim_eyeeye(p_ptr, p_ptr->tim_eyeeye-5, TRUE);
 						}
 
 						if (p_ptr->riding) mon_take_hit_mon(&m_list[p_ptr->riding], dam, &fear, extract_note_dies(real_r_ptr(&m_list[p_ptr->riding])), m_idx);

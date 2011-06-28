@@ -273,7 +273,7 @@ void dispel_player(void)
 	(void)set_tim_sh_touki(p_ptr, 0, TRUE);
 	(void)set_tim_sh_fire(p_ptr, 0, TRUE);
 	(void)set_tim_sh_holy(p_ptr, 0, TRUE);
-	(void)set_tim_eyeeye(0, TRUE);
+	(void)set_tim_eyeeye(p_ptr, 0, TRUE);
 	(void)set_magicdef(p_ptr, 0, TRUE);
 	(void)set_resist_magic(0, TRUE);
 	(void)set_oppose_acid(0, TRUE);
@@ -2492,25 +2492,25 @@ msg_print("聖なるオーラが消えた。");
 
 
 /*
- * Set "p_ptr->tim_eyeeye", notice observable changes
+ * Set "cr_ptr->tim_eyeeye", notice observable changes
  */
-bool set_tim_eyeeye(int v, bool do_dec)
+bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_eyeeye && !do_dec)
+		if (cr_ptr->tim_eyeeye && !do_dec)
 		{
-			if (p_ptr->tim_eyeeye > v) return FALSE;
+			if (cr_ptr->tim_eyeeye > v) return FALSE;
 		}
-		else if (!p_ptr->tim_eyeeye)
+		else if (!cr_ptr->tim_eyeeye)
 		{
 #ifdef JP
 msg_print("法の守り手になった気がした！");
@@ -2525,7 +2525,7 @@ msg_print("法の守り手になった気がした！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_eyeeye)
+		if (cr_ptr->tim_eyeeye)
 		{
 #ifdef JP
 msg_print("懲罰を執行することができなくなった。");
@@ -2538,10 +2538,10 @@ msg_print("懲罰を執行することができなくなった。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_eyeeye = v;
+	cr_ptr->tim_eyeeye = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2550,7 +2550,7 @@ msg_print("懲罰を執行することができなくなった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

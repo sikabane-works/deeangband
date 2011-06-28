@@ -1462,7 +1462,7 @@ extern bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_sh_touki(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_sh_fire(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_tim_eyeeye(int v, bool do_dec);
+extern bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_resist_magic(int v, bool do_dec);
 extern bool set_tim_reflect(int v, bool do_dec);
 extern bool set_multishadow(int v, bool do_dec);
