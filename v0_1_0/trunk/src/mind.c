@@ -1746,7 +1746,7 @@ msg_print("その方向にはモンスターはいません。");
 		explosive_rune();
 		break;
 	case 16:
-		(void)set_kabenuke(randint1(plev/2) + plev/2, FALSE);
+		(void)set_kabenuke(p_ptr, randint1(plev/2) + plev/2, FALSE);
 		set_oppose_acid(plev, FALSE);
 		break;
 	case 17:

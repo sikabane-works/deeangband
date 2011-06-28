@@ -256,7 +256,7 @@ void dispel_player(void)
 	(void)set_protevil(p_ptr, 0, TRUE);
 	(void)set_invuln(p_ptr, 0, TRUE);
 	(void)set_wraith_form(0, TRUE);
-	(void)set_kabenuke(0, TRUE);
+	(void)set_kabenuke(p_ptr, 0, TRUE);
 	(void)set_tim_res_nether(0, TRUE);
 	(void)set_tim_res_time(0, TRUE);
 	/* by henkma */
@@ -2838,25 +2838,25 @@ msg_print("鏡のオーラが消えた。");
 
 
 /*
- * Set "p_ptr->tim_regen", notice observable changes
+ * Set "cr_ptr->tim_regen", notice observable changes
  */
-bool set_kabenuke(int v, bool do_dec)
+bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->kabenuke && !do_dec)
+		if (cr_ptr->kabenuke && !do_dec)
 		{
-			if (p_ptr->kabenuke > v) return FALSE;
+			if (cr_ptr->kabenuke > v) return FALSE;
 		}
-		else if (!p_ptr->kabenuke)
+		else if (!cr_ptr->kabenuke)
 		{
 #ifdef JP
 msg_print("体が半物質の状態になった。");
@@ -2871,7 +2871,7 @@ msg_print("体が半物質の状態になった。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->kabenuke)
+		if (cr_ptr->kabenuke)
 		{
 #ifdef JP
 msg_print("体が物質化した。");
@@ -2884,10 +2884,10 @@ msg_print("体が物質化した。");
 	}
 
 	/* Use the value */
-	p_ptr->kabenuke = v;
+	cr_ptr->kabenuke = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2896,7 +2896,7 @@ msg_print("体が物質化した。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

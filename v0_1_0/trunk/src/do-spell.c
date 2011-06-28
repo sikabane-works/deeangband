@@ -7119,7 +7119,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_kabenuke(randint1(base) + base, FALSE);
+				set_kabenuke(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
