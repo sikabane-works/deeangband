@@ -406,7 +406,7 @@ static void do_cmd_eat_food_aux(int item)
 	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
 		/* Reduced nutritional benefit */
-		(void)set_food(p_ptr->food + (o_ptr->pval / 10));
+		(void)set_food(p_ptr, p_ptr->food + (o_ptr->pval / 10));
 #ifdef JP
 msg_print("‚ ‚È‚½‚Ì‚æ‚¤‚ÈŽÒ‚É‚Æ‚Á‚ÄH—Æ‚È‚Ç‹Í‚©‚È‰h—{‚É‚µ‚©‚È‚ç‚È‚¢B");
 #else
@@ -474,7 +474,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		o_ptr->pval--;
 
 		/* Eat a charge */
-		set_food(p_ptr->food + 5000);
+		set_food(p_ptr, p_ptr->food + 5000);
 
 		/* XXX Hack -- unstack if necessary */
 		if (o_ptr->tval == TV_STAFF &&
@@ -541,7 +541,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #else
 		msg_format("%^s is burnt to ashes.  You absorb its vitality!", o_name);
 #endif
-		(void)set_food(PY_FOOD_MAX - 1);
+		(void)set_food(p_ptr, PY_FOOD_MAX - 1);
 	}
 	else if (race_is_(p_ptr, RACE_SKELETON))
 	{
@@ -554,7 +554,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #else
 			msg_print("Your body absorbs the bone.");
 #endif
-			set_food(p_ptr->food + 5000);
+			set_food(p_ptr, p_ptr->food + 5000);
 		}
 		else 
 #endif
@@ -603,17 +603,17 @@ msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 		msg_print("The food of mortals is poor sustenance for you.");
 #endif
 
-		set_food(p_ptr->food + ((o_ptr->pval) / 20));
+		set_food(p_ptr, p_ptr->food + ((o_ptr->pval) / 20));
 	}
 	else if (o_ptr->tval == TV_FOOD && o_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
-		set_food(MAX(p_ptr->food, PY_FOOD_MAX - 1));
+		set_food(p_ptr, MAX(p_ptr->food, PY_FOOD_MAX - 1));
 	}
 	else
 	{
 		/* Food can feed the player */
-		(void)set_food(p_ptr->food + o_ptr->pval);
+		(void)set_food(p_ptr, p_ptr->food + o_ptr->pval);
 	}
 
 	/* Destroy a food in the pack */
@@ -841,7 +841,7 @@ static void do_cmd_quaff_potion_aux(int item)
 			      (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
 			{
 				/* Only living creatures get thirsty */
-				(void)set_food(PY_FOOD_STARVE - 1);
+				(void)set_food(p_ptr, PY_FOOD_STARVE - 1);
 			}
 
 			(void)set_poisoned(p_ptr, 0);
@@ -1470,7 +1470,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 		switch (p_ptr->irace_idx)
 		{
 			case RACE_VAMPIRE:
-				(void)set_food(p_ptr->food + (q_ptr->pval / 10));
+				(void)set_food(p_ptr, p_ptr->food + (q_ptr->pval / 10));
 				break;
 			case RACE_SKELETON:
 				/* Do nothing */
@@ -1480,7 +1480,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 			case RACE_DEMON:
 			case RACE_BALROG:
 			case RACE_LICH:
-				set_food(p_ptr->food + ((q_ptr->pval) / 20));
+				set_food(p_ptr, p_ptr->food + ((q_ptr->pval) / 20));
 				break;
 			case RACE_ANDROID:
 				if (q_ptr->tval == TV_FLASK)
@@ -1490,11 +1490,11 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #else
 					msg_print("You replenish yourself with the oil.");
 #endif
-					set_food(p_ptr->food + 5000);
+					set_food(p_ptr, p_ptr->food + 5000);
 				}
 				else
 				{
-					set_food(p_ptr->food + ((q_ptr->pval) / 20));
+					set_food(p_ptr, p_ptr->food + ((q_ptr->pval) / 20));
 				}
 				break;
 			case RACE_ENT:
@@ -1503,22 +1503,22 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #else
 				msg_print("You are moistened.");
 #endif
-				set_food(MIN(p_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
+				set_food(p_ptr, MIN(p_ptr->food + q_ptr->pval + MAX(0, q_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
 				break;
 			default:
-				(void)set_food(p_ptr->food + q_ptr->pval);
+				(void)set_food(p_ptr, p_ptr->food + q_ptr->pval);
 				break;
 		}
 		break;
 	case MIMIC_DEMON:
 	case MIMIC_DEMON_LORD:
-		set_food(p_ptr->food + ((q_ptr->pval) / 20));
+		set_food(p_ptr, p_ptr->food + ((q_ptr->pval) / 20));
 		break;
 	case MIMIC_VAMPIRE:
-		(void)set_food(p_ptr->food + (q_ptr->pval / 10));
+		(void)set_food(p_ptr, p_ptr->food + (q_ptr->pval / 10));
 		break;
 	default:
-		(void)set_food(p_ptr->food + q_ptr->pval);
+		(void)set_food(p_ptr, p_ptr->food + q_ptr->pval);
 		break;
 	}
 }
@@ -1902,7 +1902,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SATISFY_HUNGER:
 		{
-			if (set_food(PY_FOOD_MAX - 1)) ident = TRUE;
+			if (set_food(p_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
 			break;
 		}
 

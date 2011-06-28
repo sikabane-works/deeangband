@@ -2753,7 +2753,7 @@ static void process_world_aux_mutation(void)
 #endif
 
 		msg_print(NULL);
-		set_food(PY_FOOD_WEAK);
+		set_food(p_ptr, PY_FOOD_WEAK);
 		if (music_singing_any(p_ptr)) stop_singing();
 		if (hex_spelling_any()) stop_hex_spell_all();
 	}
@@ -4182,7 +4182,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		if (p_ptr->food >= PY_FOOD_MAX)
 		{
 			/* Digest a lot of food */
-			(void)set_food(p_ptr->food - 100);
+			(void)set_food(p_ptr, p_ptr->food - 100);
 		}
 
 		/* Digest normally -- Every 50 game turns */
@@ -4209,7 +4209,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			if (digestion > 100) digestion = 100;
 
 			/* Digest some food */
-			(void)set_food(p_ptr->food - digestion);
+			(void)set_food(p_ptr, p_ptr->food - digestion);
 		}
 
 
@@ -7236,7 +7236,7 @@ quit("セーブファイルが壊れています");
 					(void)set_cut(p_ptr, 0);
 
 					/* Hack -- Prevent starvation */
-					(void)set_food(PY_FOOD_MAX - 1);
+					(void)set_food(p_ptr, PY_FOOD_MAX - 1);
 
 					dun_level = 0;
 					p_ptr->inside_arena = FALSE;

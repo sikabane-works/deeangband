@@ -1492,7 +1492,7 @@ static void do_cmd_wiz_cure_all(void)
 	(void)set_slow(p_ptr, 0, TRUE);
 
 	/* No longer hungry */
-	(void)set_food(PY_FOOD_MAX - 1);
+	(void)set_food(p_ptr, PY_FOOD_MAX - 1);
 }
 
 

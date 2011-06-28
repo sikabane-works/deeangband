@@ -1513,7 +1513,7 @@ static bool cmd_racial_power_aux(s32b command)
 					/* But if we ARE Gorged,  it won't cure us */
 					dummy = p_ptr->food + MIN(5000, 100 * dummy);
 					if (p_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+						(void)set_food(p_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP
@@ -2057,7 +2057,7 @@ static bool cmd_racial_power_aux(s32b command)
 					/* But if we ARE Gorged,  it won't cure us */
 					dummy = p_ptr->food + MIN(5000, 100 * dummy);
 					if (p_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+						(void)set_food(p_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP

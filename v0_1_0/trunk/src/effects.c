@@ -3966,9 +3966,9 @@ msg_format("‚â‚Á‚Æ%sB", cr_ptr->irace_idx == RACE_ANDROID ? "‰ö‰ä‚ª’¼‚Á‚½" : "
 
 
 /*
- * Set "p_ptr->food", notice observable changes
+ * Set "cr_ptr->food", notice observable changes
  *
- * The "p_ptr->food" variable can get as large as 20000, allowing the
+ * The "cr_ptr->food" variable can get as large as 20000, allowing the
  * addition of the most "filling" item, Elvish Waybread, which adds
  * 7500 food units, without overflowing the 32767 maximum limit.
  *
@@ -3987,7 +3987,7 @@ msg_format("‚â‚Á‚Æ%sB", cr_ptr->irace_idx == RACE_ANDROID ? "‰ö‰ä‚ª’¼‚Á‚½" : "
  * game turns, or 500/(100/5) = 25 player turns (if nothing else is
  * affecting the player speed).
  */
-bool set_food(int v)
+bool set_food(creature_type *cr_ptr, int v)
 {
 	int old_aux, new_aux;
 
@@ -3997,31 +3997,31 @@ bool set_food(int v)
 	v = (v > 20000) ? 20000 : (v < 0) ? 0 : v;
 
 	/* Fainting / Starving */
-	if (p_ptr->food < PY_FOOD_FAINT)
+	if (cr_ptr->food < PY_FOOD_FAINT)
 	{
 		old_aux = 0;
 	}
 
 	/* Weak */
-	else if (p_ptr->food < PY_FOOD_WEAK)
+	else if (cr_ptr->food < PY_FOOD_WEAK)
 	{
 		old_aux = 1;
 	}
 
 	/* Hungry */
-	else if (p_ptr->food < PY_FOOD_ALERT)
+	else if (cr_ptr->food < PY_FOOD_ALERT)
 	{
 		old_aux = 2;
 	}
 
 	/* Normal */
-	else if (p_ptr->food < PY_FOOD_FULL)
+	else if (cr_ptr->food < PY_FOOD_FULL)
 	{
 		old_aux = 3;
 	}
 
 	/* Full */
-	else if (p_ptr->food < PY_FOOD_MAX)
+	else if (cr_ptr->food < PY_FOOD_MAX)
 	{
 		old_aux = 4;
 	}
@@ -4198,7 +4198,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 			break;
 		}
 
-		if (p_ptr->wild_mode && (new_aux < 2))
+		if (cr_ptr->wild_mode && (new_aux < 2))
 		{
 			change_wild_mode();
 		}
@@ -4208,7 +4208,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 	}
 
 	/* Use the value */
-	p_ptr->food = v;
+	cr_ptr->food = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -4217,10 +4217,10 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw hunger */
-	p_ptr->redraw |= (PR_HUNGER);
+	cr_ptr->redraw |= (PR_HUNGER);
 
 	/* Handle stuff */
 	handle_stuff();

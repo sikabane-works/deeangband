@@ -3442,7 +3442,7 @@ bool mutation_power_aux(u32b power)
 					/* But if we ARE Gorged,  it won't cure us */
 					dummy = p_ptr->food + MIN(5000, 100 * dummy);
 					if (p_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
+						(void)set_food(p_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
 				}
 				else
 #ifdef JP
@@ -3533,11 +3533,11 @@ bool mutation_power_aux(u32b power)
 				}
 				else if (have_flag(f_ptr->flags, FF_DOOR) || have_flag(f_ptr->flags, FF_CAN_DIG))
 				{
-					(void)set_food(p_ptr->food + 3000);
+					(void)set_food(p_ptr, p_ptr->food + 3000);
 				}
 				else if (have_flag(f_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(f_ptr->flags, FF_HAS_GOLD))
 				{
-					(void)set_food(p_ptr->food + 5000);
+					(void)set_food(p_ptr, p_ptr->food + 5000);
 				}
 				else
 				{
@@ -3546,7 +3546,7 @@ bool mutation_power_aux(u32b power)
 #else
 					msg_format("This %s is very filling!", f_name + mimic_f_ptr->name);
 #endif
-					(void)set_food(p_ptr->food + 10000);
+					(void)set_food(p_ptr, p_ptr->food + 10000);
 				}
 
 				/* Destroy the wall */

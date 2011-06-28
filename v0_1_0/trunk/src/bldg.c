@@ -2797,7 +2797,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			msg_print("The barkeep gives you some gruel and a beer.");
 #endif
 
-			(void)set_food(PY_FOOD_MAX - 1);
+			(void)set_food(p_ptr, PY_FOOD_MAX - 1);
 			break;
 
 		case BACT_REST: /* Rest for the night */
