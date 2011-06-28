@@ -7007,7 +7007,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!choose_ele_attack()) return NULL;
+				if (!choose_ele_attack(p_ptr)) return NULL;
 			}
 		}
 		break;

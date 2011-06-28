@@ -1497,7 +1497,7 @@ extern void do_poly_self(creature_type *cr_ptr);
 extern bool set_ultimate_res(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_res_nether(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_res_time(creature_type *cr_ptr, int v, bool do_dec);
-extern bool choose_ele_attack(void);
+extern bool choose_ele_attack(creature_type *cr_ptr);
 extern bool choose_ele_immune(int turn);
 extern bool set_wraith_form(int v, bool do_dec);
 extern bool set_tim_esp(int v, bool do_dec);

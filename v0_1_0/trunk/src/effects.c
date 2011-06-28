@@ -6876,13 +6876,13 @@ msg_print("時間逆転の力に対する耐性が薄れた気がする。");
 /*
  * Choose a warrior-mage elemental attack. -LM-
  */
-bool choose_ele_attack(void)
+bool choose_ele_attack(creature_type *cr_ptr)
 {
 	int num;
 
 	char choice;
 
-	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
+	if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM))
 	{
 #ifdef JP
 		msg_format("武器を持たないと魔法剣は使えない。");
@@ -6895,7 +6895,7 @@ bool choose_ele_attack(void)
 	/* Save screen */
 	screen_save();
 
-	num = (p_ptr->lev - 20) / 5;
+	num = (cr_ptr->lev - 20) / 5;
 
 #ifdef JP
 		      c_prt(TERM_RED,    "        a) 焼棄", 2, 14);
@@ -6945,15 +6945,15 @@ bool choose_ele_attack(void)
 	choice = inkey();
 
 	if ((choice == 'a') || (choice == 'A')) 
-		set_ele_attack(p_ptr, ATTACK_FIRE, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(cr_ptr, ATTACK_FIRE, cr_ptr->lev/2 + randint1(cr_ptr->lev/2));
 	else if (((choice == 'b') || (choice == 'B')) && (num >= 2))
-		set_ele_attack(p_ptr, ATTACK_COLD, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(cr_ptr, ATTACK_COLD, cr_ptr->lev/2 + randint1(cr_ptr->lev/2));
 	else if (((choice == 'c') || (choice == 'C')) && (num >= 3))
-		set_ele_attack(p_ptr, ATTACK_POIS, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(cr_ptr, ATTACK_POIS, cr_ptr->lev/2 + randint1(cr_ptr->lev/2));
 	else if (((choice == 'd') || (choice == 'D')) && (num >= 4))
-		set_ele_attack(p_ptr, ATTACK_ACID, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(cr_ptr, ATTACK_ACID, cr_ptr->lev/2 + randint1(cr_ptr->lev/2));
 	else if (((choice == 'e') || (choice == 'E')) && (num >= 5))
-		set_ele_attack(p_ptr, ATTACK_ELEC, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(cr_ptr, ATTACK_ELEC, cr_ptr->lev/2 + randint1(cr_ptr->lev/2));
 	else
 	{
 #ifdef JP
