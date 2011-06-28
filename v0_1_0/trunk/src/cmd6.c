@@ -5656,7 +5656,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
-				if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp();
+				if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
 				p_ptr->update |= (PU_BONUS | PU_HP);
 				break;
 			}

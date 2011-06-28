@@ -3844,7 +3844,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 		/* Charge the money */
 		p_ptr->au -= (cost * o_ptr->number);
 
-		if (item >= INVEN_RARM) calc_android_exp();
+		if (item >= INVEN_RARM) calc_android_exp(p_ptr);
 
 		/* Something happened */
 		return (TRUE);

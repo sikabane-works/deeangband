@@ -1166,7 +1166,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 		/* Window stuff */
 		p_ptr->window |= (PW_EQUIP | PW_PLAYER);
 
-		calc_android_exp();
+		calc_android_exp(p_ptr);
 	}
 
 	/* Notice */
@@ -1598,7 +1598,7 @@ msg_print("属性付加に失敗した。");
 
 		chg_virtue(V_ENCHANT, -2);
 	}
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 }
 
 
@@ -2508,7 +2508,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
 	/* Window stuff */
 	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	/* Success */
 	return (TRUE);
@@ -2598,7 +2598,7 @@ msg_print("強化に失敗した。");
 	else
 		chg_virtue(V_ENCHANT, 1);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	/* Something happened */
 	return (TRUE);
@@ -2750,7 +2750,7 @@ bool artifact_scroll(void)
 	else
 		chg_virtue(V_ENCHANT, 1);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	/* Something happened */
 	return (TRUE);
@@ -2984,7 +2984,7 @@ s = "使えるものがありません。";
 		o_ptr->inscription = inscription;
 		if (item >= 0) p_ptr->total_weight += (o_ptr->weight - weight);
 	}
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	/* Something happened */
 	return TRUE;
@@ -3671,7 +3671,7 @@ msg_format("%s は劣化した！",
 	/* Window stuff */
 	p_ptr->window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	return TRUE;
 }
@@ -3753,7 +3753,7 @@ msg_print("失敗した。");
 
 		chg_virtue(V_ENCHANT, -2);
 	}
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	return FALSE;
 }
@@ -4980,7 +4980,7 @@ msg_format("%sがダメージを受けた！", o_name);
 	/* Window stuff */
 	p_ptr->window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	/* Item was damaged */
 	return (TRUE);
@@ -5212,7 +5212,7 @@ msg_format("%sは腐食しなくなった。", o_name);
 #endif
 
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	return TRUE;
 }

@@ -1201,7 +1201,7 @@ void do_cmd_redraw(void)
 	/* Hack -- update */
 	handle_stuff();
 
-	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp();
+	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
 
 
 	/* Redraw every window */

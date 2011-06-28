@@ -822,7 +822,7 @@ msg_print("クエストを達成した！");
 	/* Window stuff */
 	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 }
 
 
@@ -1026,7 +1026,7 @@ void do_cmd_takeoff(void)
 
 	kamaenaoshi(item);
 
-	calc_android_exp();
+	calc_android_exp(p_ptr);
 
 	p_ptr->redraw |= (PR_EQUIPPY);
 }
@@ -1109,7 +1109,7 @@ void do_cmd_drop(void)
 	if (item >= INVEN_RARM)
 	{
 		kamaenaoshi(item);
-		calc_android_exp();
+		calc_android_exp(p_ptr);
 	}
 
 	p_ptr->redraw |= (PR_EQUIPPY);
@@ -1379,7 +1379,7 @@ msg_print("更に経験を積んだような気がする。");
 	if (q_ptr->to_a != 0 || q_ptr->to_d != 0 || q_ptr->to_h != 0)
 		chg_virtue(V_HARMONY, 1);
 
-	if (item >= INVEN_RARM) calc_android_exp();
+	if (item >= INVEN_RARM) calc_android_exp(p_ptr);
 }
 
 

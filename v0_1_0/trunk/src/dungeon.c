@@ -7053,7 +7053,7 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enforce "delayed death" */
 	if (p_ptr->chp < 0) p_ptr->is_dead = TRUE;
 
-	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp();
+	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
 
 	if (new_game && ((p_ptr->cls_idx == CLASS_CAVALRY) || (p_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
