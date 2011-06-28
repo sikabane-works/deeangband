@@ -379,7 +379,7 @@ msg_print("‰½‚à‹Z‚ğ’m‚ç‚È‚¢B");
 
 	if (p_ptr->special_defense & KATA_MASK)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* get power */
@@ -435,7 +435,7 @@ void do_cmd_gain_hissatsu(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	if (p_ptr->blind || no_lite())

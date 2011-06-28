@@ -5050,7 +5050,7 @@ void disturb(int stop_search, int unused_flag)
 	if ((p_ptr->action == ACTION_REST) || (p_ptr->action == ACTION_FISH) || (stop_search && (p_ptr->action == ACTION_SEARCH)))
 	{
 		/* Cancel */
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Cancel running */

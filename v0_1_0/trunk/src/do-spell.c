@@ -1140,7 +1140,7 @@ static void start_singing(int spell, int song)
 
 
 	/* Now the player is singing */
-	set_action(ACTION_SING);
+	set_action(p_ptr, ACTION_SING);
 
 
 	/* Recalculate bonuses */
@@ -1169,8 +1169,8 @@ void stop_singing(void)
 	/* The player is singing? */
 	if (!p_ptr->magic_num1[0]) return;
 
-	/* Hack -- if called from set_action(), avoid recursive loop */
-	if (p_ptr->action == ACTION_SING) set_action(ACTION_NONE);
+	/* Hack -- if called from set_action(p_ptr, ), avoid recursive loop */
+	if (p_ptr->action == ACTION_SING) set_action(p_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
 	do_spell(REALM_MUSIC, p_ptr->magic_num2[0], SPELL_STOP);
@@ -12178,7 +12178,7 @@ static cptr do_hex_spell(int spell, int mode)
 				do_spell(REALM_HEX, spell, SPELL_STOP);
 				p_ptr->magic_num1[0] &= ~(1L << spell);
 				p_ptr->magic_num2[0]--;
-				if (!p_ptr->magic_num2[0]) set_action(ACTION_NONE);
+				if (!p_ptr->magic_num2[0]) set_action(p_ptr, ACTION_NONE);
 			}
 		}
 		if (stop)
@@ -12593,7 +12593,7 @@ static cptr do_hex_spell(int spell, int mode)
 		p_ptr->magic_num1[0] |= 1L << (spell);
 		p_ptr->magic_num2[0]++;
 
-		if (p_ptr->action != ACTION_SPELL) set_action(ACTION_SPELL);
+		if (p_ptr->action != ACTION_SPELL) set_action(p_ptr, ACTION_SPELL);
 	}
 
 	/* Redraw status */

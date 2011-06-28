@@ -4709,8 +4709,8 @@ msg_print("ウィザードモード突入。");
 		/* Toggle search mode */
 		case 'S':
 		{
-			if (p_ptr->action == ACTION_SEARCH) set_action(ACTION_NONE);
-			else set_action(ACTION_SEARCH);
+			if (p_ptr->action == ACTION_SEARCH) set_action(p_ptr, ACTION_NONE);
+			else set_action(p_ptr, ACTION_SEARCH);
 			break;
 		}
 
@@ -5590,7 +5590,7 @@ msg_print("何か変わった気がする！");
 			if ((p_ptr->chp == p_ptr->mhp) &&
 			    (p_ptr->csp >= p_ptr->msp))
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 		}
 
@@ -5607,7 +5607,7 @@ msg_print("何か変わった気がする！");
 			    !p_ptr->image && !p_ptr->word_recall &&
 			    !p_ptr->alter_reality)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 		}
 	}
@@ -5803,7 +5803,7 @@ msg_print("中断しました。");
 			/* Mana run out */
 			p_ptr->csp = 0;
 			p_ptr->csp_frac = 0;
-			set_action(ACTION_NONE);
+			set_action(p_ptr, ACTION_NONE);
 		}
 		else
 		{
@@ -5819,7 +5819,7 @@ msg_print("中断しました。");
 		{
 			if (p_ptr->csp < 3)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 			else
 			{
@@ -5891,7 +5891,7 @@ msg_print("中断しました。");
 				/* Reduce rest count */
 				resting--;
 
-				if (!resting) set_action(ACTION_NONE);
+				if (!resting) set_action(p_ptr, ACTION_NONE);
 
 				/* Redraw the state */
 				p_ptr->redraw |= (PR_STATE);

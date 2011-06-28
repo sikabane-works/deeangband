@@ -28,7 +28,7 @@ void do_cmd_go_up(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
@@ -202,7 +202,7 @@ void do_cmd_go_down(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
@@ -1181,7 +1181,7 @@ void do_cmd_open(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 #ifdef ALLOW_EASY_OPEN /* TNB */
@@ -1367,7 +1367,7 @@ void do_cmd_close(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 #ifdef ALLOW_EASY_OPEN /* TNB */
@@ -1678,7 +1678,7 @@ void do_cmd_tunnel(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -2118,7 +2118,7 @@ void do_cmd_disarm(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
@@ -2360,7 +2360,7 @@ void do_cmd_bash(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -2455,7 +2455,7 @@ void do_cmd_alter(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
@@ -2590,7 +2590,7 @@ void do_cmd_spike(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
@@ -2706,7 +2706,7 @@ void do_cmd_walk(bool pickup)
 
 		if ((dir != 5) && (p_ptr->special_defense & KATA_MUSOU))
 		{
-			set_action(ACTION_NONE);
+			set_action(p_ptr, ACTION_NONE);
 		}
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
@@ -2777,7 +2777,7 @@ void do_cmd_run(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
@@ -2829,7 +2829,7 @@ void do_cmd_stay(bool pickup)
 void do_cmd_rest(void)
 {
 
-	set_action(ACTION_NONE);
+	set_action(p_ptr, ACTION_NONE);
 
 	if ((p_ptr->cls_idx == CLASS_BARD) && (p_ptr->magic_num1[0] || p_ptr->magic_num1[1]))
 	{
@@ -4015,7 +4015,7 @@ void do_cmd_fire(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Require proper missile */
@@ -4108,7 +4108,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	if (shuriken)

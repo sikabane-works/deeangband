@@ -684,7 +684,7 @@ void do_cmd_eat_food(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to food */
@@ -1551,7 +1551,7 @@ void do_cmd_quaff_potion(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to potions */
@@ -2277,7 +2277,7 @@ void do_cmd_read_scroll(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Check some conditions */
@@ -2893,7 +2893,7 @@ void do_cmd_use_staff(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to wands */
@@ -3393,7 +3393,7 @@ void do_cmd_aim_wand(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Get an item */
@@ -3830,7 +3830,7 @@ void do_cmd_zap_rod(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to rods */
@@ -5462,7 +5462,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					energy_use = 0;
 					return;
 				}
-				set_action(ACTION_FISH);
+				set_action(p_ptr, ACTION_FISH);
 				p_ptr->redraw |= (PR_STATE);
 				break;
 			}
@@ -6613,7 +6613,7 @@ void do_cmd_activate(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	item_tester_no_ryoute = TRUE;
@@ -6700,7 +6700,7 @@ void do_cmd_use(void)
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	item_tester_no_ryoute = TRUE;

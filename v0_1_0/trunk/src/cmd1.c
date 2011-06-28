@@ -3452,7 +3452,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 
 	if ((cr_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	return mdeath;
@@ -3744,7 +3744,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 			msg_print("You cannot run in here.");
 #endif
 			energy_use = 100;
-			set_action(ACTION_NONE);
+			set_action(p_ptr, ACTION_NONE);
 		}
 	}
 

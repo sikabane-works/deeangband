@@ -467,7 +467,7 @@ void do_cmd_browse(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
@@ -713,7 +713,7 @@ msg_format("V‚µ‚¢%s‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I", p);
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 #ifdef JP
@@ -2096,7 +2096,7 @@ bool do_riding(bool force)
 	x = px + ddx[dir];
 	c_ptr = &cave[y][x];
 
-	if (p_ptr->special_defense & KATA_MUSOU) set_action(ACTION_NONE);
+	if (p_ptr->special_defense & KATA_MUSOU) set_action(p_ptr, ACTION_NONE);
 
 	if (p_ptr->riding)
 	{
@@ -2223,7 +2223,7 @@ bool do_riding(bool force)
 #endif
 		}
 
-		if (p_ptr->action == ACTION_KAMAE) set_action(ACTION_NONE);
+		if (p_ptr->action == ACTION_KAMAE) set_action(p_ptr, ACTION_NONE);
 
 		p_ptr->riding = c_ptr->m_idx;
 

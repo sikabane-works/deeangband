@@ -1433,7 +1433,7 @@ extern bool can_equip(creature_type* cr_ptr, int k_idx);
 
 
 /* effects.c */
-extern void set_action(int typ);
+extern void set_action(creature_type *cr_ptr, int typ);
 extern void reset_tim_flags(creature_type *cr_ptr);
 extern void dispel_player(creature_type *cr_ptr);
 extern bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec);

@@ -521,7 +521,7 @@ static bool choose_kamae(void)
 		{
 			if (p_ptr->action == ACTION_KAMAE)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -553,7 +553,7 @@ static bool choose_kamae(void)
 			break;
 		}
 	}
-	set_action(ACTION_KAMAE);
+	set_action(p_ptr, ACTION_KAMAE);
 
 	if (p_ptr->special_defense & (KAMAE_GENBU << new_kamae))
 	{
@@ -659,7 +659,7 @@ static bool choose_kata(void)
 		{
 			if (p_ptr->action == ACTION_KATA)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -691,7 +691,7 @@ static bool choose_kata(void)
 			break;
 		}
 	}
-	set_action(ACTION_KATA);
+	set_action(p_ptr, ACTION_KATA);
 
 	if (p_ptr->special_defense & (KATA_IAI << new_kata))
 	{
@@ -1276,11 +1276,11 @@ static bool cmd_racial_power_aux(s32b command)
 		{
 			if (p_ptr->action == ACTION_LEARN)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 			else
 			{
-				set_action(ACTION_LEARN);
+				set_action(p_ptr, ACTION_LEARN);
 			}
 			energy_use = 0;
 			break;
@@ -1409,7 +1409,7 @@ static bool cmd_racial_power_aux(s32b command)
 		{
 			if (p_ptr->action == ACTION_HAYAGAKE)
 			{
-				set_action(ACTION_NONE);
+				set_action(p_ptr, ACTION_NONE);
 			}
 			else
 			{
@@ -1427,7 +1427,7 @@ static bool cmd_racial_power_aux(s32b command)
 				}
 				else
 				{
-					set_action(ACTION_HAYAGAKE);
+					set_action(p_ptr, ACTION_HAYAGAKE);
 				}
 			}
 			energy_use = 0;
@@ -2213,7 +2213,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“ÁŽê”\—Í‚ðŽg‚¦‚Ü‚¹‚ñI");
 
 	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	switch (p_ptr->cls_idx)

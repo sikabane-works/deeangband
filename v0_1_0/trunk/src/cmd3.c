@@ -223,7 +223,7 @@ void do_cmd_wield(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Restrict the choices */
@@ -913,7 +913,7 @@ void do_cmd_takeoff(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	item_tester_no_ryoute = TRUE;
@@ -1045,7 +1045,7 @@ void do_cmd_drop(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	item_tester_no_ryoute = TRUE;
@@ -1162,7 +1162,7 @@ void do_cmd_destroy(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Hack -- force destruction */
@@ -1953,7 +1953,7 @@ void do_cmd_refill(void)
 
 	if (p_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* It is nothing */

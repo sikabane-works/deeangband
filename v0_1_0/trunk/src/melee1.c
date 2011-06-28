@@ -2257,7 +2257,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 
 	if (p_ptr->special_defense & KATA_IAI)
 	{
-		set_action(ACTION_NONE);
+		set_action(p_ptr, ACTION_NONE);
 	}
 
 	/* Assume we attacked */

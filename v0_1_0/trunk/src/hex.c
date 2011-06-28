@@ -28,7 +28,7 @@ bool stop_hex_spell_all(void)
 	p_ptr->magic_num2[0] = 0;
 
 	/* Print message */
-	if (p_ptr->action == ACTION_SPELL) set_action(ACTION_NONE);
+	if (p_ptr->action == ACTION_SPELL) set_action(p_ptr, ACTION_NONE);
 
 	/* Redraw status */
 	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);

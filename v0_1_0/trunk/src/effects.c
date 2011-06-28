@@ -12,9 +12,9 @@
 
 #include "angband.h"
 
-void set_action(int typ)
+void set_action(creature_type *cr_ptr, int typ)
 {
-	int prev_typ = p_ptr->action;
+	int prev_typ = cr_ptr->action;
 
 	if (typ == prev_typ)
 	{
@@ -31,7 +31,7 @@ void set_action(int typ)
 #else
 				msg_print("You no longer walk carefully.");
 #endif
-				p_ptr->redraw |= (PR_SPEED);
+				cr_ptr->redraw |= (PR_SPEED);
 				break;
 			}
 			case ACTION_REST:
@@ -56,7 +56,7 @@ void set_action(int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				p_ptr->special_defense &= ~(KAMAE_MASK);
+				cr_ptr->special_defense &= ~(KAMAE_MASK);
 				break;
 			}
 			case ACTION_KATA:
@@ -66,9 +66,9 @@ void set_action(int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				p_ptr->special_defense &= ~(KATA_MASK);
-				p_ptr->update |= (PU_MONSTERS);
-				p_ptr->redraw |= (PR_STATUS);
+				cr_ptr->special_defense &= ~(KATA_MASK);
+				cr_ptr->update |= (PU_MONSTERS);
+				cr_ptr->redraw |= (PR_STATUS);
 				break;
 			}
 			case ACTION_SING:
@@ -101,12 +101,12 @@ void set_action(int typ)
 		}
 	}
 
-	p_ptr->action = typ;
+	cr_ptr->action = typ;
 
 	/* If we are requested other action, stop singing */
 	if (prev_typ == ACTION_SING) stop_singing();
 
-	switch (p_ptr->action)
+	switch (cr_ptr->action)
 	{
 		case ACTION_SEARCH:
 		{
@@ -115,7 +115,7 @@ void set_action(int typ)
 #else
 			msg_print("You begin to walk carefully.");
 #endif
-			p_ptr->redraw |= (PR_SPEED);
+			cr_ptr->redraw |= (PR_SPEED);
 			break;
 		}
 		case ACTION_LEARN:
@@ -152,10 +152,10 @@ void set_action(int typ)
 	}
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the state */
-	p_ptr->redraw |= (PR_STATE);
+	cr_ptr->redraw |= (PR_STATE);
 }
 
 /* reset timed flags */

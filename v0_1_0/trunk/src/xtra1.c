@@ -3431,7 +3431,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (!(empty_hands_status & EMPTY_HAND_RARM))
 		{
-			set_action(ACTION_NONE);
+			set_action(p_ptr, ACTION_NONE);
 		}
 	}
 
