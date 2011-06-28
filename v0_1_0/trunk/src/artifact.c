@@ -2749,7 +2749,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows many colours...");
 #endif
 
-			(void)set_oppose_acid(randint1(40) + 40, FALSE);
+			(void)set_oppose_acid(p_ptr, randint1(40) + 40, FALSE);
 			(void)set_oppose_elec(randint1(40) + 40, FALSE);
 			(void)set_oppose_fire(randint1(40) + 40, FALSE);
 			(void)set_oppose_cold(randint1(40) + 40, FALSE);

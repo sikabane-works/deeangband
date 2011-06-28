@@ -1869,7 +1869,7 @@ static cptr do_life_spell(int spell, int mode)
 			{
 				int v = randint1(base) + base;
 				set_fast(p_ptr, v, FALSE);
-				set_oppose_acid(v, FALSE);
+				set_oppose_acid(p_ptr, v, FALSE);
 				set_oppose_elec(v, FALSE);
 				set_oppose_fire(v, FALSE);
 				set_oppose_cold(v, FALSE);
@@ -3067,7 +3067,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(randint1(base) + base, FALSE);
+				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
 				set_oppose_elec(randint1(base) + base, FALSE);
 				set_oppose_fire(randint1(base) + base, FALSE);
 				set_oppose_cold(randint1(base) + base, FALSE);
@@ -6326,7 +6326,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(randint1(base) + base, FALSE);
+				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6838,7 +6838,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(randint1(base) + base, FALSE);
+				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7072,7 +7072,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(randint1(base) + base, FALSE);
+				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
 				set_oppose_elec(randint1(base) + base, FALSE);
 				set_oppose_fire(randint1(base) + base, FALSE);
 				set_oppose_cold(randint1(base) + base, FALSE);

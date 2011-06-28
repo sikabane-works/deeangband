@@ -1334,7 +1334,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RESISTANCE:
-			(void)set_oppose_acid(p_ptr->oppose_acid + randint1(20) + 20, FALSE);
+			(void)set_oppose_acid(p_ptr, p_ptr->oppose_acid + randint1(20) + 20, FALSE);
 			(void)set_oppose_elec(p_ptr->oppose_elec + randint1(20) + 20, FALSE);
 			(void)set_oppose_fire(p_ptr->oppose_fire + randint1(20) + 20, FALSE);
 			(void)set_oppose_cold(p_ptr->oppose_cold + randint1(20) + 20, FALSE);
@@ -4452,7 +4452,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				(void)set_hero(p_ptr, randint1(50) + 50, FALSE);
 				(void)hp_player(10);
 				(void)set_blessed(p_ptr, randint1(50) + 50, FALSE);
-				(void)set_oppose_acid(randint1(50) + 50, FALSE);
+				(void)set_oppose_acid(p_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_elec(randint1(50) + 50, FALSE);
 				(void)set_oppose_fire(randint1(50) + 50, FALSE);
 				(void)set_oppose_cold(randint1(50) + 50, FALSE);
@@ -4573,7 +4573,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_format("Your %s glows many colours...", o_ptr->name1 == ART_COLLUIN ? "cloak" : "armor");
 #endif
 
-				(void)set_oppose_acid(randint1(20) + 20, FALSE);
+				(void)set_oppose_acid(p_ptr, randint1(20) + 20, FALSE);
 				(void)set_oppose_elec(randint1(20) + 20, FALSE);
 				(void)set_oppose_fire(randint1(20) + 20, FALSE);
 				(void)set_oppose_cold(randint1(20) + 20, FALSE);
@@ -5858,7 +5858,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		switch (o_ptr->xtra3-1)
 		{
 		case ESSENCE_TMP_RES_ACID:
-			(void)set_oppose_acid(randint1(20) + 20, FALSE);
+			(void)set_oppose_acid(p_ptr, randint1(20) + 20, FALSE);
 			o_ptr->timeout = randint0(50) + 50;
 			return;
 
@@ -6289,7 +6289,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_hero(p_ptr, v, FALSE);
 				(void)hp_player(10);
 				(void)set_blessed(p_ptr, v, FALSE);
-				(void)set_oppose_acid(v, FALSE);
+				(void)set_oppose_acid(p_ptr, v, FALSE);
 				(void)set_oppose_elec(v, FALSE);
 				(void)set_oppose_fire(v, FALSE);
 				(void)set_oppose_cold(v, FALSE);
@@ -6313,7 +6313,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case SV_RING_ACID:
 			{
 				fire_ball(GF_ACID, dir, 100, 2);
-				(void)set_oppose_acid(randint1(20) + 20, FALSE);
+				(void)set_oppose_acid(p_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -6390,7 +6390,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_RES_ACID_:
-				(void)set_oppose_acid(randint1(20) + 20, FALSE);
+				(void)set_oppose_acid(p_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_DETECTION:

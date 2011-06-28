@@ -918,7 +918,7 @@ if (!b) msg_print("安全な気がする。");
 	case 6:
 		/* Character Armour */
 		set_shield(p_ptr, plev, FALSE);
-		if (plev > 14) set_oppose_acid(plev, FALSE);
+		if (plev > 14) set_oppose_acid(p_ptr, plev, FALSE);
 		if (plev > 19) set_oppose_fire(plev, FALSE);
 		if (plev > 24) set_oppose_cold(plev, FALSE);
 		if (plev > 29) set_oppose_elec(plev, FALSE);
@@ -1747,7 +1747,7 @@ msg_print("その方向にはモンスターはいません。");
 		break;
 	case 16:
 		(void)set_kabenuke(p_ptr, randint1(plev/2) + plev/2, FALSE);
-		set_oppose_acid(plev, FALSE);
+		set_oppose_acid(p_ptr, plev, FALSE);
 		break;
 	case 17:
 		fire_ball(GF_POIS, 0, 75+plev*2/3, plev/5+2);

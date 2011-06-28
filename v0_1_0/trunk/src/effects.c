@@ -276,7 +276,7 @@ void dispel_player(void)
 	(void)set_tim_eyeeye(p_ptr, 0, TRUE);
 	(void)set_magicdef(p_ptr, 0, TRUE);
 	(void)set_resist_magic(p_ptr, 0, TRUE);
-	(void)set_oppose_acid(0, TRUE);
+	(void)set_oppose_acid(p_ptr, 0, TRUE);
 	(void)set_oppose_elec(0, TRUE);
 	(void)set_oppose_fire(0, TRUE);
 	(void)set_oppose_cold(0, TRUE);
@@ -3179,25 +3179,25 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 
 
 /*
- * Set "p_ptr->oppose_acid", notice observable changes
+ * Set "cr_ptr->oppose_acid", notice observable changes
  */
-bool set_oppose_acid(int v, bool do_dec)
+bool set_oppose_acid(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->oppose_acid && !do_dec)
+		if (cr_ptr->oppose_acid && !do_dec)
 		{
-			if (p_ptr->oppose_acid > v) return FALSE;
+			if (cr_ptr->oppose_acid > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_ACID(p_ptr))
+		else if (!IS_OPPOSE_ACID(cr_ptr))
 		{
 #ifdef JP
 msg_print("Ž_‚Ö‚Ì‘Ï«‚ª‚Â‚¢‚½‹C‚ª‚·‚éI");
@@ -3212,7 +3212,7 @@ msg_print("Ž_‚Ö‚Ì‘Ï«‚ª‚Â‚¢‚½‹C‚ª‚·‚éI");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_acid && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (cr_ptr->oppose_acid && !music_singing(cr_ptr, MUSIC_RESIST) && !(cr_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("Ž_‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
@@ -3225,13 +3225,13 @@ msg_print("Ž_‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	}
 
 	/* Use the value */
-	p_ptr->oppose_acid = v;
+	cr_ptr->oppose_acid = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
