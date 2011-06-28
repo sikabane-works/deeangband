@@ -260,7 +260,7 @@ void dispel_player(void)
 	(void)set_tim_res_nether(0, TRUE);
 	(void)set_tim_res_time(0, TRUE);
 	/* by henkma */
-	(void)set_tim_reflect(0,TRUE);
+	(void)set_tim_reflect(p_ptr, 0,TRUE);
 	(void)set_multishadow(0,TRUE);
 	(void)set_dustrobe(0,TRUE);
 
@@ -2631,25 +2631,25 @@ msg_print("You are no longer protected from magic.");
 
 
 /*
- * Set "p_ptr->tim_reflect", notice observable changes
+ * Set "cr_ptr->tim_reflect", notice observable changes
  */
-bool set_tim_reflect(int v, bool do_dec)
+bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_reflect && !do_dec)
+		if (cr_ptr->tim_reflect && !do_dec)
 		{
-			if (p_ptr->tim_reflect > v) return FALSE;
+			if (cr_ptr->tim_reflect > v) return FALSE;
 		}
-		else if (!p_ptr->tim_reflect)
+		else if (!cr_ptr->tim_reflect)
 		{
 #ifdef JP
 msg_print("体の表面が滑かになった気がする。");
@@ -2664,7 +2664,7 @@ msg_print("体の表面が滑かになった気がする。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_reflect)
+		if (cr_ptr->tim_reflect)
 		{
 #ifdef JP
 msg_print("体の表面が滑かでなくなった。");
@@ -2677,10 +2677,10 @@ msg_print("体の表面が滑かでなくなった。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_reflect = v;
+	cr_ptr->tim_reflect = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2689,7 +2689,7 @@ msg_print("体の表面が滑かでなくなった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

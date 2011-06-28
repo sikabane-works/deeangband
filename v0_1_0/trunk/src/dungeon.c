@@ -2080,7 +2080,7 @@ static void process_world_aux_timeout(void)
 	/* Timed reflect */
 	if (p_ptr->tim_reflect)
 	{
-		(void)set_tim_reflect(p_ptr->tim_reflect - 1, TRUE);
+		(void)set_tim_reflect(p_ptr, p_ptr->tim_reflect - 1, TRUE);
 	}
 
 	/* Multi-shadow */

@@ -1338,7 +1338,7 @@ msg_format("There are too many mirrors to control!");
 	case 12:
 	  tmp = 20+randint1(20);
 	  set_shield(p_ptr, tmp, FALSE);
-	  if( plev > 31 )set_tim_reflect(tmp, FALSE);
+	  if( plev > 31 )set_tim_reflect(p_ptr, tmp, FALSE);
 	  if( plev > 39 )set_resist_magic(p_ptr, tmp,FALSE);
 	  break;
 	/* super ray */
