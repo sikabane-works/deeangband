@@ -1729,7 +1729,7 @@ msg_format("%^s‚ª‚©‚ñ‚‚¢‹àØ‚èº‚ð‚ ‚°‚½B", m_name);
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
 			else msg_format("%^s invokes a dispel magic.", m_name);
 #endif
-			dispel_player();
+			dispel_player(p_ptr);
 			if (p_ptr->riding) dispel_monster_status(p_ptr->riding);
 
 #ifdef JP

@@ -813,7 +813,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (t_idx == p_ptr->riding) dispel_player();
+		if (t_idx == p_ptr->riding) dispel_player(p_ptr);
 		dispel_monster_status(t_idx);
 
 		break;

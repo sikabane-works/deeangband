@@ -243,53 +243,53 @@ void reset_tim_flags(void)
 }
 
 
-void dispel_player(void)
+void dispel_player(creature_type *cr_ptr)
 {
-	(void)set_fast(p_ptr, 0, TRUE);
-	(void)set_lightspeed(p_ptr, 0, TRUE);
-	(void)set_slow(p_ptr, 0, TRUE);
-	(void)set_shield(p_ptr, 0, TRUE);
-	(void)set_blessed(p_ptr, 0, TRUE);
-	(void)set_tsuyoshi(p_ptr, 0, TRUE);
-	(void)set_hero(p_ptr, 0, TRUE);
-	(void)set_shero(p_ptr, 0, TRUE);
-	(void)set_protevil(p_ptr, 0, TRUE);
-	(void)set_invuln(p_ptr, 0, TRUE);
-	(void)set_wraith_form(p_ptr, 0, TRUE);
-	(void)set_kabenuke(p_ptr, 0, TRUE);
-	(void)set_tim_res_nether(p_ptr, 0, TRUE);
-	(void)set_tim_res_time(p_ptr, 0, TRUE);
+	(void)set_fast(cr_ptr, 0, TRUE);
+	(void)set_lightspeed(cr_ptr, 0, TRUE);
+	(void)set_slow(cr_ptr, 0, TRUE);
+	(void)set_shield(cr_ptr, 0, TRUE);
+	(void)set_blessed(cr_ptr, 0, TRUE);
+	(void)set_tsuyoshi(cr_ptr, 0, TRUE);
+	(void)set_hero(cr_ptr, 0, TRUE);
+	(void)set_shero(cr_ptr, 0, TRUE);
+	(void)set_protevil(cr_ptr, 0, TRUE);
+	(void)set_invuln(cr_ptr, 0, TRUE);
+	(void)set_wraith_form(cr_ptr, 0, TRUE);
+	(void)set_kabenuke(cr_ptr, 0, TRUE);
+	(void)set_tim_res_nether(cr_ptr, 0, TRUE);
+	(void)set_tim_res_time(cr_ptr, 0, TRUE);
 	/* by henkma */
-	(void)set_tim_reflect(p_ptr, 0,TRUE);
-	(void)set_multishadow(p_ptr, 0,TRUE);
-	(void)set_dustrobe(p_ptr, 0,TRUE);
+	(void)set_tim_reflect(cr_ptr, 0,TRUE);
+	(void)set_multishadow(cr_ptr, 0,TRUE);
+	(void)set_dustrobe(cr_ptr, 0,TRUE);
 
-	(void)set_tim_invis(p_ptr, 0, TRUE);
-	(void)set_tim_infra(p_ptr, 0, TRUE);
-	(void)set_tim_esp(p_ptr, 0, TRUE);
-	(void)set_tim_regen(p_ptr, 0, TRUE);
-	(void)set_tim_stealth(p_ptr, 0, TRUE);
-	(void)set_tim_levitation(p_ptr, 0, TRUE);
-	(void)set_tim_sh_touki(p_ptr, 0, TRUE);
-	(void)set_tim_sh_fire(p_ptr, 0, TRUE);
-	(void)set_tim_sh_holy(p_ptr, 0, TRUE);
-	(void)set_tim_eyeeye(p_ptr, 0, TRUE);
-	(void)set_magicdef(p_ptr, 0, TRUE);
-	(void)set_resist_magic(p_ptr, 0, TRUE);
-	(void)set_oppose_acid(p_ptr, 0, TRUE);
-	(void)set_oppose_elec(p_ptr, 0, TRUE);
-	(void)set_oppose_fire(p_ptr, 0, TRUE);
-	(void)set_oppose_cold(p_ptr, 0, TRUE);
-	(void)set_oppose_pois(p_ptr, 0, TRUE);
-	(void)set_ultimate_res(p_ptr, 0, TRUE);
-	(void)set_mimic(p_ptr, 0, 0, TRUE);
-	(void)set_ele_attack(p_ptr, 0, 0);
-	(void)set_ele_immune(p_ptr, 0, 0);
+	(void)set_tim_invis(cr_ptr, 0, TRUE);
+	(void)set_tim_infra(cr_ptr, 0, TRUE);
+	(void)set_tim_esp(cr_ptr, 0, TRUE);
+	(void)set_tim_regen(cr_ptr, 0, TRUE);
+	(void)set_tim_stealth(cr_ptr, 0, TRUE);
+	(void)set_tim_levitation(cr_ptr, 0, TRUE);
+	(void)set_tim_sh_touki(cr_ptr, 0, TRUE);
+	(void)set_tim_sh_fire(cr_ptr, 0, TRUE);
+	(void)set_tim_sh_holy(cr_ptr, 0, TRUE);
+	(void)set_tim_eyeeye(cr_ptr, 0, TRUE);
+	(void)set_magicdef(cr_ptr, 0, TRUE);
+	(void)set_resist_magic(cr_ptr, 0, TRUE);
+	(void)set_oppose_acid(cr_ptr, 0, TRUE);
+	(void)set_oppose_elec(cr_ptr, 0, TRUE);
+	(void)set_oppose_fire(cr_ptr, 0, TRUE);
+	(void)set_oppose_cold(cr_ptr, 0, TRUE);
+	(void)set_oppose_pois(cr_ptr, 0, TRUE);
+	(void)set_ultimate_res(cr_ptr, 0, TRUE);
+	(void)set_mimic(cr_ptr, 0, 0, TRUE);
+	(void)set_ele_attack(cr_ptr, 0, 0);
+	(void)set_ele_immune(cr_ptr, 0, 0);
 
 	/* Cancel glowing hands */
-	if (p_ptr->special_attack & ATTACK_CONFUSE)
+	if (cr_ptr->special_attack & ATTACK_CONFUSE)
 	{
-		p_ptr->special_attack &= ~(ATTACK_CONFUSE);
+		cr_ptr->special_attack &= ~(ATTACK_CONFUSE);
 #ifdef JP
 		msg_print("Žè‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
 #else
@@ -297,35 +297,35 @@ void dispel_player(void)
 #endif
 	}
 
-	if (music_singing_any(p_ptr) || hex_spelling_any())
+	if (music_singing_any(cr_ptr) || hex_spelling_any())
 	{
 #ifdef JP
-		cptr str = (music_singing_any(p_ptr)) ? "‰Ì" : "Žô•¶";
+		cptr str = (music_singing_any(cr_ptr)) ? "‰Ì" : "Žô•¶";
 #else
-		cptr str = (music_singing_any(p_ptr)) ? "singing" : "spelling";
+		cptr str = (music_singing_any(cr_ptr)) ? "singing" : "spelling";
 #endif
-		p_ptr->magic_num1[1] = p_ptr->magic_num1[0];
-		p_ptr->magic_num1[0] = 0;
+		cr_ptr->magic_num1[1] = cr_ptr->magic_num1[0];
+		cr_ptr->magic_num1[0] = 0;
 #ifdef JP
 		msg_format("%s‚ª“rØ‚ê‚½B", str);
 #else
 		msg_format("Your %s is interrupted.", str);
 #endif
-		p_ptr->action = ACTION_NONE;
+		cr_ptr->action = ACTION_NONE;
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS | PU_HP);
+		cr_ptr->update |= (PU_BONUS | PU_HP);
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+		cr_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		/* Update monsters */
-		p_ptr->update |= (PU_MONSTERS);
+		cr_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		p_ptr->energy_need += ENERGY_NEED();
+		cr_ptr->energy_need += ENERGY_NEED();
 	}
 }
 
