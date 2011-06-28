@@ -1234,36 +1234,36 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_INC_STR:
-			if (do_inc_stat(A_STR)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_INT:
-			if (do_inc_stat(A_INT)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_WIS:
-			if (do_inc_stat(A_WIS)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_DEX:
-			if (do_inc_stat(A_DEX)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CON:
-			if (do_inc_stat(A_CON)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CHR:
-			if (do_inc_stat(A_CHR)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_AUGMENTATION:
-			if (do_inc_stat(A_STR)) ident = TRUE;
-			if (do_inc_stat(A_INT)) ident = TRUE;
-			if (do_inc_stat(A_WIS)) ident = TRUE;
-			if (do_inc_stat(A_DEX)) ident = TRUE;
-			if (do_inc_stat(A_CON)) ident = TRUE;
-			if (do_inc_stat(A_CHR)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_STR)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_INT)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_WIS)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_DEX)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_CON)) ident = TRUE;
+			if (do_inc_stat(p_ptr, A_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_ENLIGHTENMENT:
@@ -1290,8 +1290,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			chg_virtue(V_ENLIGHTEN, 2);
 			msg_print(NULL);
 			wiz_lite(FALSE);
-			(void)do_inc_stat(A_INT);
-			(void)do_inc_stat(A_WIS);
+			(void)do_inc_stat(p_ptr, A_INT);
+			(void)do_inc_stat(p_ptr, A_WIS);
 			(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
 			(void)detect_doors(DETECT_RAD_DEFAULT);
 			(void)detect_stairs(DETECT_RAD_DEFAULT);
@@ -5407,7 +5407,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 					msg_print("The Muramasa pulsates...");
 #endif
-					do_inc_stat(A_STR);
+					do_inc_stat(p_ptr, A_STR);
 					if (one_in_(2))
 					{
 #ifdef JP

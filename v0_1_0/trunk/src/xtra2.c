@@ -181,11 +181,11 @@ msg_format("レベル %d にようこそ。", p_ptr->lev);
 					if (get_check("Are you sure? ")) break;
 #endif
 				}
-				do_inc_stat(choice - 'a');
+				do_inc_stat(p_ptr, choice - 'a');
 				screen_load();
 			}
 			else if(!(p_ptr->max_plv % 2))
-				do_inc_stat(randint0(6));
+				do_inc_stat(p_ptr, randint0(6));
 		}
 
 		if (level_mutation)
@@ -5090,9 +5090,9 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 #endif
 
 			if (one_in_(3) && !(player_patrons[p_ptr->patron_idx].status_boost < 0))
-				do_inc_stat(player_patrons[p_ptr->patron_idx].status_boost);
+				do_inc_stat(p_ptr, player_patrons[p_ptr->patron_idx].status_boost);
 			else
-				do_inc_stat(randint0(6));
+				do_inc_stat(p_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が上がった。";
 #else
@@ -5183,7 +5183,7 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_inc_stat(dummy);
+				(void)do_inc_stat(p_ptr, dummy);
 			}
 #ifdef JP
 			reward = "全能力値が上がった。";

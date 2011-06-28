@@ -4235,15 +4235,15 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
  * Note that this function (used by stat potions) now restores
  * the stat BEFORE increasing it.
  */
-bool inc_stat(int stat)
+bool inc_stat(creature_type *cr_ptr, int stat)
 {
 	int value, gain;
 
 	/* Then augment the current/max stat */
-	value = p_ptr->stat_cur[stat];
+	value = cr_ptr->stat_cur[stat];
 
 	/* Cannot go above 18/100 */
-	if (value < p_ptr->stat_max_max[stat])
+	if (value < cr_ptr->stat_max_max[stat])
 	{
 		/* Gain one (sometimes two) points */
 		if (value < 18)
@@ -4253,10 +4253,10 @@ bool inc_stat(int stat)
 		}
 
 		/* Gain 1/6 to 1/3 of distance to 18/100 */
-		else if (value < (p_ptr->stat_max_max[stat]-2))
+		else if (value < (cr_ptr->stat_max_max[stat]-2))
 		{
 			/* Approximate gain value */
-			gain = (((p_ptr->stat_max_max[stat]) - value) / 2 + 3) / 2;
+			gain = (((cr_ptr->stat_max_max[stat]) - value) / 2 + 3) / 2;
 
 			/* Paranoia */
 			if (gain < 1) gain = 1;
@@ -4265,7 +4265,7 @@ bool inc_stat(int stat)
 			value += randint1(gain) + gain / 2;
 
 			/* Maximal value */
-			if (value > (p_ptr->stat_max_max[stat]-1)) value = p_ptr->stat_max_max[stat]-1;
+			if (value > (cr_ptr->stat_max_max[stat]-1)) value = cr_ptr->stat_max_max[stat]-1;
 		}
 
 		/* Gain one point at a time */
@@ -4275,16 +4275,16 @@ bool inc_stat(int stat)
 		}
 
 		/* Save the new value */
-		p_ptr->stat_cur[stat] = value;
+		cr_ptr->stat_cur[stat] = value;
 
 		/* Bring up the maximum too */
-		if (value > p_ptr->stat_max[stat])
+		if (value > cr_ptr->stat_max[stat])
 		{
-			p_ptr->stat_max[stat] = value;
+			cr_ptr->stat_max[stat] = value;
 		}
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Success */
 		return (TRUE);
@@ -4683,7 +4683,7 @@ msg_format("Œ³’Ê‚è‚É%s‚È‚Á‚½‹C‚ª‚·‚éB", desc_stat_pos[stat]);
 /*
  * Gain a "point" in a stat
  */
-bool do_inc_stat(int stat)
+bool do_inc_stat(creature_type *cr_ptr, int stat)
 {
 	bool res;
 
@@ -4691,7 +4691,7 @@ bool do_inc_stat(int stat)
 	res = res_stat(stat);
 
 	/* Attempt to increase */
-	if (inc_stat(stat))
+	if (inc_stat(cr_ptr, stat))
 	{
 		if (stat == A_WIS)
 		{
