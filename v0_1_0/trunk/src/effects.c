@@ -283,7 +283,7 @@ void dispel_player(void)
 	(void)set_oppose_pois(0, TRUE);
 	(void)set_ultimate_res(0, TRUE);
 	(void)set_mimic(p_ptr, 0, 0, TRUE);
-	(void)set_ele_attack(0, 0);
+	(void)set_ele_attack(p_ptr, 0, 0);
 	(void)set_ele_immune(0, 0);
 
 	/* Cancel glowing hands */
@@ -2984,51 +2984,51 @@ msg_print("“÷‘Ì‚ª‹}‘¬‚É‚µ‚Ú‚ñ‚Å‚¢‚Á‚½B");
  * Set a temporary elemental brand.  Clear all other brands.  Print status 
  * messages. -LM-
  */
-bool set_ele_attack(u32b attack_type, int v)
+bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 {
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	/* Clear all elemental attacks (only one is allowed at a time). */
-	if ((p_ptr->special_attack & (ATTACK_ACID)) && (attack_type != ATTACK_ACID))
+	if ((cr_ptr->special_attack & (ATTACK_ACID)) && (attack_type != ATTACK_ACID))
 	{
-		p_ptr->special_attack &= ~(ATTACK_ACID);
+		cr_ptr->special_attack &= ~(ATTACK_ACID);
 #ifdef JP
 		msg_print("Ž_‚ÅUŒ‚‚Å‚«‚È‚­‚È‚Á‚½B");
 #else
 		msg_print("Your temporary acidic brand fades away.");
 #endif
 	}
-	if ((p_ptr->special_attack & (ATTACK_ELEC)) && (attack_type != ATTACK_ELEC))
+	if ((cr_ptr->special_attack & (ATTACK_ELEC)) && (attack_type != ATTACK_ELEC))
 	{
-		p_ptr->special_attack &= ~(ATTACK_ELEC);
+		cr_ptr->special_attack &= ~(ATTACK_ELEC);
 #ifdef JP
 		msg_print("“dŒ‚‚ÅUŒ‚‚Å‚«‚È‚­‚È‚Á‚½B");
 #else
 		msg_print("Your temporary electrical brand fades away.");
 #endif
 	}
-	if ((p_ptr->special_attack & (ATTACK_FIRE)) && (attack_type != ATTACK_FIRE))
+	if ((cr_ptr->special_attack & (ATTACK_FIRE)) && (attack_type != ATTACK_FIRE))
 	{
-		p_ptr->special_attack &= ~(ATTACK_FIRE);
+		cr_ptr->special_attack &= ~(ATTACK_FIRE);
 #ifdef JP
 		msg_print("‰Î‰Š‚ÅUŒ‚‚Å‚«‚È‚­‚È‚Á‚½B");
 #else
 		msg_print("Your temporary fiery brand fades away.");
 #endif
 	}
-	if ((p_ptr->special_attack & (ATTACK_COLD)) && (attack_type != ATTACK_COLD))
+	if ((cr_ptr->special_attack & (ATTACK_COLD)) && (attack_type != ATTACK_COLD))
 	{
-		p_ptr->special_attack &= ~(ATTACK_COLD);
+		cr_ptr->special_attack &= ~(ATTACK_COLD);
 #ifdef JP
 		msg_print("—â‹C‚ÅUŒ‚‚Å‚«‚È‚­‚È‚Á‚½B");
 #else
 		msg_print("Your temporary frost brand fades away.");
 #endif
 	}
-	if ((p_ptr->special_attack & (ATTACK_POIS)) && (attack_type != ATTACK_POIS))
+	if ((cr_ptr->special_attack & (ATTACK_POIS)) && (attack_type != ATTACK_POIS))
 	{
-		p_ptr->special_attack &= ~(ATTACK_POIS);
+		cr_ptr->special_attack &= ~(ATTACK_POIS);
 #ifdef JP
 		msg_print("“Å‚ÅUŒ‚‚Å‚«‚È‚­‚È‚Á‚½B");
 #else
@@ -3039,10 +3039,10 @@ bool set_ele_attack(u32b attack_type, int v)
 	if ((v) && (attack_type))
 	{
 		/* Set attack type. */
-		p_ptr->special_attack |= (attack_type);
+		cr_ptr->special_attack |= (attack_type);
 
 		/* Set duration. */
-		p_ptr->ele_attack = v;
+		cr_ptr->ele_attack = v;
 
 		/* Message. */
 #ifdef JP
@@ -3068,9 +3068,9 @@ bool set_ele_attack(u32b attack_type, int v)
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -6945,15 +6945,15 @@ bool choose_ele_attack(void)
 	choice = inkey();
 
 	if ((choice == 'a') || (choice == 'A')) 
-		set_ele_attack(ATTACK_FIRE, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(p_ptr, ATTACK_FIRE, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else if (((choice == 'b') || (choice == 'B')) && (num >= 2))
-		set_ele_attack(ATTACK_COLD, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(p_ptr, ATTACK_COLD, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else if (((choice == 'c') || (choice == 'C')) && (num >= 3))
-		set_ele_attack(ATTACK_POIS, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(p_ptr, ATTACK_POIS, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else if (((choice == 'd') || (choice == 'D')) && (num >= 4))
-		set_ele_attack(ATTACK_ACID, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(p_ptr, ATTACK_ACID, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else if (((choice == 'e') || (choice == 'E')) && (num >= 5))
-		set_ele_attack(ATTACK_ELEC, p_ptr->lev/2 + randint1(p_ptr->lev/2));
+		set_ele_attack(p_ptr, ATTACK_ELEC, p_ptr->lev/2 + randint1(p_ptr->lev/2));
 	else
 	{
 #ifdef JP

@@ -5572,7 +5572,7 @@ void inven_item_increase(int item, int num)
 				if (!have_weapon(p_ptr, INVEN_RARM + INVEN_LARM - item))
 				{
 					/* Clear all temporary elemental brands */
-					set_ele_attack(0, 0);
+					set_ele_attack(p_ptr, 0, 0);
 				}
 			}
 		}
