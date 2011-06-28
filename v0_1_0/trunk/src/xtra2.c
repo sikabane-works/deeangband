@@ -1528,7 +1528,7 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 	/* Hack - Cancel any special player stealth magics. -LM- */
 	if (atk_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		set_superstealth(FALSE);
+		set_superstealth(p_ptr, FALSE);
 	}
 
 	/* Genocided by chaos patron */

@@ -3730,8 +3730,8 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 
 		if (p_ptr->cls_idx == CLASS_NINJA)
 		{
-			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(FALSE);
-			else if (p_ptr->cur_lite <= 0) set_superstealth(TRUE);
+			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(p_ptr, FALSE);
+			else if (p_ptr->cur_lite <= 0) set_superstealth(p_ptr, TRUE);
 		}
 
 		if ((p_ptr->action == ACTION_HAYAGAKE) &&

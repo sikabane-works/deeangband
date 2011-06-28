@@ -1031,7 +1031,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 
 				if (p_ptr->special_defense & NINJA_S_STEALTH)
 				{
-					if (player_bold(y, x)) set_superstealth(FALSE);
+					if (player_bold(y, x)) set_superstealth(p_ptr, FALSE);
 				}
 			}
 

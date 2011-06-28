@@ -862,7 +862,7 @@ void leave_floor(void)
 	/* Remove all mirrors without explosion */
 	remove_all_mirrors(FALSE);
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(FALSE);
+	if (p_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(p_ptr, FALSE);
 
 	/* New floor is not yet prepared */
 	new_floor_id = 0;

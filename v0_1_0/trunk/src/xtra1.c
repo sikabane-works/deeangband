@@ -3010,7 +3010,7 @@ static void calc_torch(creature_type *cr_ptr)
 		cr_ptr->old_lite = cr_ptr->cur_lite;
 
 		if ((cr_ptr->cur_lite > 0) && (cr_ptr->special_defense & NINJA_S_STEALTH))
-			set_superstealth(FALSE);
+			set_superstealth(p_ptr, FALSE);
 	}
 }
 

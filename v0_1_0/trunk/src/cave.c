@@ -4474,7 +4474,7 @@ void wiz_lite(bool ninja)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 }
 
@@ -4660,7 +4660,7 @@ void cave_set_feat(int y, int x, int feat)
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+			if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 		}
 	}
 }

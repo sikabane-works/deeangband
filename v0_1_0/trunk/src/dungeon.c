@@ -4014,7 +4014,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 			if (p_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+				if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 			}
 		}
 	}
@@ -6322,7 +6322,7 @@ msg_print("試合開始！");
 #endif
 	}
 
-	if (!load_game && (p_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(FALSE);
+	if (!load_game && (p_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(p_ptr, FALSE);
 
 	/*** Process this dungeon level ***/
 

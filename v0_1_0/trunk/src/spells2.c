@@ -5380,7 +5380,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+			if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 		}
 	}
 
@@ -5898,7 +5898,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 
 	/* Success */
@@ -6329,7 +6329,7 @@ void lite_room(int y1, int x1)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(FALSE);
+		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 }
 

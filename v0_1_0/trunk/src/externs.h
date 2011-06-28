@@ -1501,7 +1501,7 @@ extern bool choose_ele_attack(creature_type *cr_ptr);
 extern bool choose_ele_immune(creature_type *cr_ptr, int turn);
 extern bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec);
-extern bool set_superstealth(bool set);
+extern bool set_superstealth(creature_type *cr_ptr, bool set);
 
 /* xtra2.c */
 extern void check_experience(void);

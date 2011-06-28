@@ -2148,16 +2148,16 @@ msg_print("‘«‰¹‚ª‘å‚«‚­‚È‚Á‚½B");
 }
 
 
-bool set_superstealth(bool set)
+bool set_superstealth(creature_type *cr_ptr, bool set)
 {
 	bool notice = FALSE;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (set)
 	{
-		if (!(p_ptr->special_defense & NINJA_S_STEALTH))
+		if (!(cr_ptr->special_defense & NINJA_S_STEALTH))
 		{
 			if (cave[py][px].info & CAVE_MNLT)
 			{
@@ -2166,7 +2166,7 @@ bool set_superstealth(bool set)
 #else
 				msg_print("You are mantled in weak shadow from ordinary eyes.");
 #endif
-				p_ptr->monlite = p_ptr->old_monlite = TRUE;
+				cr_ptr->monlite = cr_ptr->old_monlite = TRUE;
 			}
 			else
 			{
@@ -2175,20 +2175,20 @@ bool set_superstealth(bool set)
 #else
 				msg_print("You are mantled in shadow from ordinary eyes!");
 #endif
-				p_ptr->monlite = p_ptr->old_monlite = FALSE;
+				cr_ptr->monlite = cr_ptr->old_monlite = FALSE;
 			}
 
 			notice = TRUE;
 
 			/* Use the value */
-			p_ptr->special_defense |= NINJA_S_STEALTH;
+			cr_ptr->special_defense |= NINJA_S_STEALTH;
 		}
 	}
 
 	/* Shut */
 	else
 	{
-		if (p_ptr->special_defense & NINJA_S_STEALTH)
+		if (cr_ptr->special_defense & NINJA_S_STEALTH)
 		{
 #ifdef JP
 			msg_print("Ä‚Ñ“G‚Ì–Ú‚É‚³‚ç‚³‚ê‚é‚æ‚¤‚É‚È‚Á‚½B");
@@ -2199,7 +2199,7 @@ bool set_superstealth(bool set)
 			notice = TRUE;
 
 			/* Use the value */
-			p_ptr->special_defense &= ~(NINJA_S_STEALTH);
+			cr_ptr->special_defense &= ~(NINJA_S_STEALTH);
 		}
 	}
 
@@ -2207,7 +2207,7 @@ bool set_superstealth(bool set)
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -5161,7 +5161,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		/* Hack - Cancel any special player stealth magics. -LM- */
 		if (atk_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			set_superstealth(FALSE);
+			set_superstealth(p_ptr, FALSE);
 		}
 
 		/* Redraw (later) if needed */
