@@ -4104,7 +4104,7 @@ static cptr do_chaos_spell(int spell, int mode)
 #else
 				if (!get_check("You will polymorph yourself. Are you sure? ")) return NULL;
 #endif
-				do_poly_self();
+				do_poly_self(p_ptr);
 			}
 		}
 		break;

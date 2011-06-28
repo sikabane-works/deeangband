@@ -4923,9 +4923,9 @@ void change_race(int new_race, cptr effect_msg)
 }
 
 
-void do_poly_self(void)
+void do_poly_self(creature_type *cr_ptr)
 {
-	int power = p_ptr->lev;
+	int power = cr_ptr->lev;
 
 #ifdef JP
 msg_print("‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ðŠ´‚¶‚½...");
@@ -4935,7 +4935,7 @@ msg_print("‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ðŠ´‚¶‚½...");
 
 	chg_virtue(V_CHANCE, 1);
 
-	if ((power > randint0(20)) && one_in_(3) && (p_ptr->irace_idx != RACE_ANDROID))
+	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->irace_idx != RACE_ANDROID))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -4948,9 +4948,9 @@ msg_print("‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ðŠ´‚¶‚½...");
 			/* sex change */
 			power -= 2;
 
-			if (p_ptr->sex == SEX_MALE)
+			if (cr_ptr->sex == SEX_MALE)
 			{
-				p_ptr->sex = SEX_FEMALE;
+				cr_ptr->sex = SEX_FEMALE;
 #ifdef JP
 sprintf(effect_msg, "—«‚Ì");
 #else
@@ -4960,7 +4960,7 @@ sprintf(effect_msg, "—«‚Ì");
 			}
 			else
 			{
-				p_ptr->sex = SEX_MALE;
+				cr_ptr->sex = SEX_MALE;
 #ifdef JP
 sprintf(effect_msg, "’j«‚Ì");
 #else
@@ -4981,14 +4981,14 @@ sprintf(effect_msg, "’j«‚Ì");
 			{
 				if (one_in_(2))
 				{
-					(void)dec_stat(p_ptr, tmp, randint1(6) + 6, one_in_(3));
+					(void)dec_stat(cr_ptr, tmp, randint1(6) + 6, one_in_(3));
 					power -= 1;
 				}
 				tmp++;
 			}
 
 			/* Deformities are discriminated against! */
-			(void)dec_stat(p_ptr, A_CHR, randint1(6), TRUE);
+			(void)dec_stat(cr_ptr, A_CHR, randint1(6), TRUE);
 
 			if (effect_msg[0])
 			{
@@ -5036,14 +5036,14 @@ msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 		else
 			goalexpfact = 100 + 3 * randint0(power);
 
-		if(race_info[p_ptr->irace_idx].dr == -1)
+		if(race_info[cr_ptr->irace_idx].dr == -1)
 		{
 			do
 			{
 				new_race = randint0(MAX_RACES);
 				expfact = race_info[new_race].r_exp;
 			}
-			while (((new_race == p_ptr->irace_idx) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
+			while (((new_race == cr_ptr->irace_idx) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
 
 			change_race(new_race, effect_msg);
 		}
@@ -5058,24 +5058,24 @@ msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 		power -= 20;
 
 #ifdef JP
-msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", p_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : "“à‘Ÿ");
+msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", cr_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : "“à‘Ÿ");
 #else
 		msg_print("Your internal organs are rearranged!");
 #endif
 
 		while (tmp < 6)
 		{
-			(void)dec_stat(p_ptr, tmp, randint1(6) + 6, one_in_(3));
+			(void)dec_stat(cr_ptr, tmp, randint1(6) + 6, one_in_(3));
 			tmp++;
 		}
 		if (one_in_(6))
 		{
 #ifdef JP
 			msg_print("Œ»Ý‚ÌŽp‚Å¶‚«‚Ä‚¢‚­‚Ì‚Í¢“ï‚È‚æ‚¤‚¾I");
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "’v–½“I‚È“Ë‘R•ÏˆÙ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), cr_ptr->lev), "’v–½“I‚È“Ë‘R•ÏˆÙ", NULL, -1);
 #else
 			msg_print("You find living difficult in your present form!");
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), p_ptr->lev), "a lethal mutation", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(randint1(10), cr_ptr->lev), "a lethal mutation", NULL, -1);
 #endif
 
 			power -= 10;

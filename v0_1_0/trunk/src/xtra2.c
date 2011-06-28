@@ -4695,7 +4695,7 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 			msg_print("'Thou needst a new form, mortal!'");
 #endif
 
-			do_poly_self();
+			do_poly_self(p_ptr);
 #ifdef JP
 			reward = "変異した。";
 #else

@@ -6628,7 +6628,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 					if (one_in_(4)) /* 4 */
-						do_poly_self();
+						do_poly_self(p_ptr);
 					else
 						mutate_player();
 				}

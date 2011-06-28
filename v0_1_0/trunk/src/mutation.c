@@ -3606,7 +3606,7 @@ bool mutation_power_aux(u32b power)
 #else
 			if (!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
 #endif
-			do_poly_self();
+			do_poly_self(p_ptr);
 			break;
 
 		case MUT1_MIDAS_TCH:
