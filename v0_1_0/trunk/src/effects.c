@@ -275,7 +275,7 @@ void dispel_player(void)
 	(void)set_tim_sh_holy(p_ptr, 0, TRUE);
 	(void)set_tim_eyeeye(p_ptr, 0, TRUE);
 	(void)set_magicdef(p_ptr, 0, TRUE);
-	(void)set_resist_magic(0, TRUE);
+	(void)set_resist_magic(p_ptr, 0, TRUE);
 	(void)set_oppose_acid(0, TRUE);
 	(void)set_oppose_elec(0, TRUE);
 	(void)set_oppose_fire(0, TRUE);
@@ -2562,25 +2562,25 @@ msg_print("懲罰を執行することができなくなった。");
 
 
 /*
- * Set "p_ptr->resist_magic", notice observable changes
+ * Set "cr_ptr->resist_magic", notice observable changes
  */
-bool set_resist_magic(int v, bool do_dec)
+bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->resist_magic && !do_dec)
+		if (cr_ptr->resist_magic && !do_dec)
 		{
-			if (p_ptr->resist_magic > v) return FALSE;
+			if (cr_ptr->resist_magic > v) return FALSE;
 		}
-		else if (!p_ptr->resist_magic)
+		else if (!cr_ptr->resist_magic)
 		{
 #ifdef JP
 msg_print("魔法への耐性がついた。");
@@ -2595,7 +2595,7 @@ msg_print("魔法への耐性がついた。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->resist_magic)
+		if (cr_ptr->resist_magic)
 		{
 #ifdef JP
 msg_print("魔法に弱くなった。");
@@ -2608,10 +2608,10 @@ msg_print("You are no longer protected from magic.");
 	}
 
 	/* Use the value */
-	p_ptr->resist_magic = v;
+	cr_ptr->resist_magic = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2620,7 +2620,7 @@ msg_print("You are no longer protected from magic.");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

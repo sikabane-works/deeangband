@@ -2056,7 +2056,7 @@ static void process_world_aux_timeout(void)
 	/* Timed resist-magic */
 	if (p_ptr->resist_magic)
 	{
-		(void)set_resist_magic(p_ptr->resist_magic - 1, TRUE);
+		(void)set_resist_magic(p_ptr, p_ptr->resist_magic - 1, TRUE);
 	}
 
 	/* Timed regeneration */
