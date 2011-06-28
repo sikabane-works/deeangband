@@ -277,7 +277,7 @@ void dispel_player(void)
 	(void)set_magicdef(p_ptr, 0, TRUE);
 	(void)set_resist_magic(p_ptr, 0, TRUE);
 	(void)set_oppose_acid(p_ptr, 0, TRUE);
-	(void)set_oppose_elec(0, TRUE);
+	(void)set_oppose_elec(p_ptr, 0, TRUE);
 	(void)set_oppose_fire(0, TRUE);
 	(void)set_oppose_cold(0, TRUE);
 	(void)set_oppose_pois(0, TRUE);
@@ -3245,25 +3245,25 @@ msg_print("酸への耐性が薄れた気がする。");
 
 
 /*
- * Set "p_ptr->oppose_elec", notice observable changes
+ * Set "cr_ptr->oppose_elec", notice observable changes
  */
-bool set_oppose_elec(int v, bool do_dec)
+bool set_oppose_elec(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->oppose_elec && !do_dec)
+		if (cr_ptr->oppose_elec && !do_dec)
 		{
-			if (p_ptr->oppose_elec > v) return FALSE;
+			if (cr_ptr->oppose_elec > v) return FALSE;
 		}
-		else if (!IS_OPPOSE_ELEC(p_ptr))
+		else if (!IS_OPPOSE_ELEC(cr_ptr))
 		{
 #ifdef JP
 msg_print("電撃への耐性がついた気がする！");
@@ -3278,7 +3278,7 @@ msg_print("電撃への耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->oppose_elec && !music_singing(p_ptr, MUSIC_RESIST) && !(p_ptr->special_defense & KATA_MUSOU))
+		if (cr_ptr->oppose_elec && !music_singing(cr_ptr, MUSIC_RESIST) && !(cr_ptr->special_defense & KATA_MUSOU))
 		{
 #ifdef JP
 msg_print("電撃への耐性が薄れた気がする。");
@@ -3291,13 +3291,13 @@ msg_print("電撃への耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	p_ptr->oppose_elec = v;
+	cr_ptr->oppose_elec = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);

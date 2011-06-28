@@ -921,7 +921,7 @@ if (!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
 		if (plev > 14) set_oppose_acid(p_ptr, plev, FALSE);
 		if (plev > 19) set_oppose_fire(plev, FALSE);
 		if (plev > 24) set_oppose_cold(plev, FALSE);
-		if (plev > 29) set_oppose_elec(plev, FALSE);
+		if (plev > 29) set_oppose_elec(p_ptr, plev, FALSE);
 		if (plev > 34) set_oppose_pois(plev, FALSE);
 		break;
 	case 7:

@@ -3636,7 +3636,7 @@ bool mutation_power_aux(u32b power)
 				}
 				if (randint0(4) < num)
 				{
-					(void)set_oppose_elec(dur, FALSE);
+					(void)set_oppose_elec(p_ptr, dur, FALSE);
 					num--;
 				}
 				if (randint0(3) < num)
