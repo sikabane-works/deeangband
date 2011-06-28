@@ -246,7 +246,7 @@ void reset_tim_flags(void)
 void dispel_player(void)
 {
 	(void)set_fast(p_ptr, 0, TRUE);
-	(void)set_lightspeed(0, TRUE);
+	(void)set_lightspeed(p_ptr, 0, TRUE);
 	(void)set_slow(p_ptr, 0, TRUE);
 	(void)set_shield(p_ptr, 0, TRUE);
 	(void)set_blessed(p_ptr, 0, TRUE);
@@ -983,27 +983,27 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 
 
 /*
- * Set "p_ptr->lightspeed", notice observable changes
+ * Set "cr_ptr->lightspeed", notice observable changes
  */
-bool set_lightspeed(int v, bool do_dec)
+bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
-	if (p_ptr->wild_mode) v = 0;
+	if (cr_ptr->wild_mode) v = 0;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->lightspeed && !do_dec)
+		if (cr_ptr->lightspeed && !do_dec)
 		{
-			if (p_ptr->lightspeed > v) return FALSE;
+			if (cr_ptr->lightspeed > v) return FALSE;
 		}
-		else if (!p_ptr->lightspeed)
+		else if (!cr_ptr->lightspeed)
 		{
 #ifdef JP
 msg_print("”ñí‚É‘f‘‚­“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½I");
@@ -1020,7 +1020,7 @@ msg_print("”ñí‚É‘f‘‚­“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½I");
 	/* Shut */
 	else
 	{
-		if (p_ptr->lightspeed)
+		if (cr_ptr->lightspeed)
 		{
 #ifdef JP
 msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
@@ -1033,7 +1033,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	}
 
 	/* Use the value */
-	p_ptr->lightspeed = v;
+	cr_ptr->lightspeed = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1042,7 +1042,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

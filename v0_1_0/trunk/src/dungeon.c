@@ -5778,7 +5778,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	/* Fast */
 	if (p_ptr->lightspeed)
 	{
-		(void)set_lightspeed(p_ptr->lightspeed - 1, TRUE);
+		(void)set_lightspeed(p_ptr, p_ptr->lightspeed - 1, TRUE);
 	}
 	if ((p_ptr->cls_idx == CLASS_FORCETRAINER) && (p_ptr->magic_num1[0]))
 	{
