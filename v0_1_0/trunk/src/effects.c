@@ -271,7 +271,7 @@ void dispel_player(void)
 	(void)set_tim_stealth(p_ptr, 0, TRUE);
 	(void)set_tim_levitation(p_ptr, 0, TRUE);
 	(void)set_tim_sh_touki(p_ptr, 0, TRUE);
-	(void)set_tim_sh_fire(0, TRUE);
+	(void)set_tim_sh_fire(p_ptr, 0, TRUE);
 	(void)set_tim_sh_holy(0, TRUE);
 	(void)set_tim_eyeeye(0, TRUE);
 	(void)set_magicdef(p_ptr, 0, TRUE);
@@ -2353,25 +2353,25 @@ msg_print("闘気が消えた。");
 
 
 /*
- * Set "p_ptr->tim_sh_fire", notice observable changes
+ * Set "cr_ptr->tim_sh_fire", notice observable changes
  */
-bool set_tim_sh_fire(int v, bool do_dec)
+bool set_tim_sh_fire(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_sh_fire && !do_dec)
+		if (cr_ptr->tim_sh_fire && !do_dec)
 		{
-			if (p_ptr->tim_sh_fire > v) return FALSE;
+			if (cr_ptr->tim_sh_fire > v) return FALSE;
 		}
-		else if (!p_ptr->tim_sh_fire)
+		else if (!cr_ptr->tim_sh_fire)
 		{
 #ifdef JP
 msg_print("体が炎のオーラで覆われた。");
@@ -2386,7 +2386,7 @@ msg_print("体が炎のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_sh_fire)
+		if (cr_ptr->tim_sh_fire)
 		{
 #ifdef JP
 msg_print("炎のオーラが消えた。");
@@ -2399,10 +2399,10 @@ msg_print("炎のオーラが消えた。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_sh_fire = v;
+	cr_ptr->tim_sh_fire = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2411,7 +2411,7 @@ msg_print("炎のオーラが消えた。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
 	handle_stuff();

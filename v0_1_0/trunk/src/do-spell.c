@@ -7828,7 +7828,7 @@ static cptr do_daemon_spell(int spell, int mode)
 					
 				set_oppose_fire(dur, FALSE);
 				set_oppose_cold(dur, FALSE);
-				set_tim_sh_fire(dur, FALSE);
+				set_tim_sh_fire(p_ptr, dur, FALSE);
 				set_afraid(p_ptr, 0);
 				break;
 			}
