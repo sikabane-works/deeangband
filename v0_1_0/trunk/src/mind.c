@@ -869,7 +869,7 @@ static bool cast_mindcrafter_spell(int spell)
 		}
 
 		if ((plev > 24) && (plev < 40))
-			set_tim_esp(plev, FALSE);
+			set_tim_esp(p_ptr, plev, FALSE);
 
 #ifdef JP
 if (!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
@@ -1256,7 +1256,7 @@ static bool cast_mirror_spell(int spell)
 	  tmp = is_mirror_grid(&cave[py][px]) ? 4 : 0;
 	  if( plev + tmp > 4)detect_monsters_normal(DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 18 )detect_monsters_invis(DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 28 )set_tim_esp(plev,FALSE);
+	  if( plev + tmp > 28 )set_tim_esp(p_ptr, plev,FALSE);
 	  if( plev + tmp > 38 )map_area(DETECT_RAD_MAP);
 	  if( tmp == 0 && plev < 5 ){
 #ifdef JP

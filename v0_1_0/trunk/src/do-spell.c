@@ -2300,7 +2300,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(randint1(sides) + base, FALSE);
+				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -2497,7 +2497,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 				if (!p_ptr->telepathy)
 				{
-					set_tim_esp(randint1(sides) + base, FALSE);
+					set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -5162,7 +5162,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(randint1(sides) + base, FALSE);
+				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -6655,7 +6655,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 				if (!p_ptr->telepathy)
 				{
-					set_tim_esp(randint1(sides) + base, FALSE);
+					set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -7029,7 +7029,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(randint1(sides) + base, FALSE);
+				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7803,7 +7803,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(randint1(base) + sides, FALSE);
+				set_tim_esp(p_ptr, randint1(base) + sides, FALSE);
 			}
 		}
 		break;

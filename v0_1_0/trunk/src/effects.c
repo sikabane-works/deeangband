@@ -266,7 +266,7 @@ void dispel_player(void)
 
 	(void)set_tim_invis(p_ptr, 0, TRUE);
 	(void)set_tim_infra(p_ptr, 0, TRUE);
-	(void)set_tim_esp(0, TRUE);
+	(void)set_tim_esp(p_ptr, 0, TRUE);
 	(void)set_tim_regen(p_ptr, 0, TRUE);
 	(void)set_tim_stealth(p_ptr, 0, TRUE);
 	(void)set_tim_levitation(p_ptr, 0, TRUE);
@@ -1795,25 +1795,25 @@ msg_print("無敵ではなくなった。");
 
 
 /*
- * Set "p_ptr->tim_esp", notice observable changes
+ * Set "cr_ptr->tim_esp", notice observable changes
  */
-bool set_tim_esp(int v, bool do_dec)
+bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 	/* Open */
 	if (v)
 	{
-		if (p_ptr->tim_esp && !do_dec)
+		if (cr_ptr->tim_esp && !do_dec)
 		{
-			if (p_ptr->tim_esp > v) return FALSE;
+			if (cr_ptr->tim_esp > v) return FALSE;
 		}
-		else if (!IS_TIM_ESP(p_ptr))
+		else if (!IS_TIM_ESP(cr_ptr))
 		{
 #ifdef JP
 msg_print("意識が広がった気がする！");
@@ -1828,7 +1828,7 @@ msg_print("意識が広がった気がする！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->tim_esp && !music_singing(p_ptr, MUSIC_MIND))
+		if (cr_ptr->tim_esp && !music_singing(cr_ptr, MUSIC_MIND))
 		{
 #ifdef JP
 msg_print("意識は元に戻った。");
@@ -1841,10 +1841,10 @@ msg_print("意識は元に戻った。");
 	}
 
 	/* Use the value */
-	p_ptr->tim_esp = v;
+	cr_ptr->tim_esp = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1853,10 +1853,10 @@ msg_print("意識は元に戻った。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
 	handle_stuff();
