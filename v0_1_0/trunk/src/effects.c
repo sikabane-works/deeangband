@@ -687,6 +687,9 @@ bool set_afraid(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	if(cr_ptr == p_ptr)
+	{
+
 	/* Open */
 	if (v)
 	{
@@ -751,6 +754,46 @@ msg_print("‚â‚Á‚Æ‹°•|‚ğU‚è•¥‚Á‚½B");
 
 	/* Result */
 	return (TRUE);
+
+	}
+	else
+	{
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->afraid)
+		{
+			mproc_add(cr_ptr, MTIMED_MONFEAR);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (cr_ptr->afraid)
+		{
+			mproc_remove(cr_ptr, MTIMED_MONFEAR);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->afraid = v;
+
+	if (!notice) return FALSE;
+
+	if (cr_ptr->ml)
+	{
+		/* Update health bar as needed */
+		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+	}
+
+	return TRUE;
+
+	}
+
 }
 
 
@@ -5935,7 +5978,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->afraid && (damage > 0))
 		{
 			/* Cure fear */
-			if (set_monster_monfear(tar_ptr, tar_ptr->afraid - randint1(damage)))
+			if (set_afraid(tar_ptr, tar_ptr->afraid - randint1(damage)))
 			{
 				/* No more fear */
 				fear = FALSE;
@@ -6002,7 +6045,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			*/
 	
 			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_monster_monfear(tar_ptr, (randint1(10) +
+			(void)set_afraid(tar_ptr, (randint1(10) +
 					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
 					   20 : ((11 - percentage) * 5))));
 		}

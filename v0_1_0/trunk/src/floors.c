@@ -1226,7 +1226,7 @@ void change_floor(void)
 					(void)set_monster_slow(m_ptr, 0);
 					(void)set_monster_stunned(m_ptr, 0);
 					(void)set_monster_confused(m_ptr, 0);
-					(void)set_monster_monfear(m_ptr, 0);
+					(void)set_afraid(m_ptr, 0);
 					(void)set_monster_invulner(m_ptr, 0, FALSE);
 				}
 

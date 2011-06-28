@@ -1920,7 +1920,7 @@ msg_format("%s‚Ìñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", m_name);
 	if (tar_ptr->afraid && (damage > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(tar_ptr, tar_ptr->afraid - randint1(damage)))
+		if (set_afraid(tar_ptr, tar_ptr->afraid - randint1(damage)))
 		{
 			/* No more fear */
 			fear = FALSE;
@@ -1987,7 +1987,7 @@ msg_format("%^s‚ÉU‚è—‚Æ‚³‚ê‚½I", m_name);
 		*/
 
 		/* XXX XXX XXX Hack -- Add some timed fear */
-		(void)set_monster_monfear(tar_ptr, (randint1(10) +
+		(void)set_afraid(tar_ptr, (randint1(10) +
 				  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
 				   20 : ((11 - percentage) * 5))));
 	}

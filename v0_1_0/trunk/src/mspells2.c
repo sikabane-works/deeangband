@@ -2738,7 +2738,7 @@ bool monst_spell_monst(int m_idx)
 		}
 		else
 		{
-			if (set_monster_monfear(t_ptr, t_ptr->afraid + randint0(4) + 4)) fear = TRUE;
+			if (set_afraid(t_ptr, t_ptr->afraid + randint0(4) + 4)) fear = TRUE;
 		}
 
 		wake_up = TRUE;
@@ -3084,7 +3084,7 @@ bool monst_spell_monst(int m_idx)
 		if (m_ptr->afraid)
 		{
 			/* Cancel fear */
-			(void)set_monster_monfear(m_ptr, 0);
+			(void)set_afraid(m_ptr, 0);
 
 			/* Message */
 #ifdef JP

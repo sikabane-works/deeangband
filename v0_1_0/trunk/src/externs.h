@@ -969,6 +969,10 @@ extern void mon_take_hit_mon(creature_type *cr_ptr, int damage, bool *fear, cptr
 extern bool process_the_world(int num, int who, bool vs_player);
 extern void monster_gain_exp(int m_idx, int s_idx);
 
+extern void mproc_add(creature_type *cr_ptr, int mproc_type);
+extern void mproc_remove(creature_type *cr_ptr, int mproc_type);
+
+
 /* monster1.c */
 extern void roff_top(int monster_idx);
 extern void screen_roff(int monster_idx, int mode);

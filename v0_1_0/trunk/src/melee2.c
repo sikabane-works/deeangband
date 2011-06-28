@@ -336,7 +336,7 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 	if (cr_ptr->afraid && (dam > 0))
 	{
 		/* Cure fear */
-		if (set_monster_monfear(cr_ptr, cr_ptr->afraid - randint1(dam / 4)))
+		if (set_afraid(cr_ptr, cr_ptr->afraid - randint1(dam / 4)))
 		{
 			(*fear) = FALSE;
 		}
@@ -359,7 +359,7 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 			(*fear) = TRUE;
 
 			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_monster_monfear(cr_ptr, (randint1(10) +
+			(void)set_afraid(cr_ptr, (randint1(10) +
 				(((dam >= cr_ptr->chp) && (percentage > 7)) ?
 				20 : ((11 - percentage) * 5))));
 		}
@@ -2808,7 +2808,7 @@ msg_format("%^s%s", m_name, monmessage);
 	if (!do_turn && !do_move && m_ptr->afraid && aware)
 	{
 		/* No longer afraid */
-		(void)set_monster_monfear(m_ptr, 0);
+		(void)set_afraid(m_ptr, 0);
 
 		/* Message if seen */
 		if (see_m)
@@ -3089,13 +3089,13 @@ int get_mproc_idx(creature_type *cr_ptr, int mproc_type)
 }
 
 
-static void mproc_add(creature_type *cr_ptr, int mproc_type)
+void mproc_add(creature_type *cr_ptr, int mproc_type)
 {
 	if (mproc_max[mproc_type] < max_m_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = cr_ptr;
 }
 
 
-static void mproc_remove(creature_type *cr_ptr, int mproc_type)
+void mproc_remove(creature_type *cr_ptr, int mproc_type)
 {
 	int mproc_idx = get_mproc_idx(cr_ptr, mproc_type);
 	if (mproc_idx >= 0) mproc_list[mproc_type][mproc_idx] = mproc_list[mproc_type][--mproc_max[mproc_type]];
@@ -3619,7 +3619,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		if (set_monster_monfear(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
+		if (set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Visual note */
 			if (is_seen(cr_ptr))

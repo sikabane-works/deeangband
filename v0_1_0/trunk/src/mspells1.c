@@ -3331,7 +3331,7 @@ msg_format("%^s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 			if (m_ptr->afraid)
 			{
 				/* Cancel fear */
-				(void)set_monster_monfear(m_ptr, 0);
+				(void)set_afraid(m_ptr, 0);
 
 				/* Message */
 #ifdef JP

@@ -3517,7 +3517,7 @@ note = "‚ª•ª—ô‚µ‚½I";
 #else
 				if (seen_msg) msg_format("%^s recovers %s courage.", m_name, m_poss);
 #endif
-				(void)set_monster_monfear(&m_list[c_ptr->m_idx], 0);
+				(void)set_afraid(&m_list[c_ptr->m_idx], 0);
 			}
 
 			/* Heal */
@@ -6024,7 +6024,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 		if (do_fear)
 		{
 			/* Set fear */
-			(void)set_monster_monfear(&m_list[c_ptr->m_idx], m_ptr->afraid + do_fear);
+			(void)set_afraid(&m_list[c_ptr->m_idx], m_ptr->afraid + do_fear);
 
 			/* Get angry */
 			get_angry = TRUE;

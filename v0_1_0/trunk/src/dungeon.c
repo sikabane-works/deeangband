@@ -5745,7 +5745,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		if (m_ptr->afraid)
 		{
 			/* Hack -- Recover from fear */
-			if (set_monster_monfear(&m_list[p_ptr->riding],
+			if (set_afraid(&m_list[p_ptr->riding],
 				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
