@@ -274,7 +274,7 @@ void delete_monster_idx(creature_type *cr_ptr)
 	if (cr_ptr->stun) (void)set_stun(cr_ptr, 0);
 	if (cr_ptr->confused) (void)set_confused(cr_ptr, 0);
 	if (cr_ptr->afraid) (void)set_afraid(cr_ptr, 0);
-	if (cr_ptr->invuln) (void)set_monster_invulner(cr_ptr, 0, FALSE);
+	if (cr_ptr->invuln) (void)set_invuln(cr_ptr, 0, FALSE);
 
 
 	/* Hack -- remove target monster */

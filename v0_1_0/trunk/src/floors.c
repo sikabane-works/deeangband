@@ -1227,7 +1227,7 @@ void change_floor(void)
 					(void)set_stun(m_ptr, 0);
 					(void)set_confused(m_ptr, 0);
 					(void)set_afraid(m_ptr, 0);
-					(void)set_monster_invulner(m_ptr, 0, FALSE);
+					(void)set_invuln(m_ptr, 0, FALSE);
 				}
 
 				/* Extract real monster race */

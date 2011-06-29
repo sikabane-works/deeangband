@@ -3115,7 +3115,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (!m_ptr->invuln) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
+		if (!m_ptr->invuln) (void)set_invuln(m_ptr, randint1(4) + 4, FALSE);
 		break;
 
 	/* RF6_BLINK */

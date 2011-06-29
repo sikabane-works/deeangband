@@ -3368,7 +3368,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 
 			}
 
-			if (!m_ptr->invuln) (void)set_monster_invulner(m_ptr, randint1(4) + 4, FALSE);
+			if (!m_ptr->invuln) (void)set_invuln(m_ptr, randint1(4) + 4, FALSE);
 			break;
 		}
 

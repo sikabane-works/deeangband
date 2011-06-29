@@ -3647,7 +3647,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 
 	case MTIMED_INVULNER:
 		/* Reduce by one, note if expires */
-		if (set_monster_invulner(cr_ptr, cr_ptr->invuln - 1, TRUE))
+		if (set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE))
 		{
 			if (is_seen(cr_ptr))
 			{
@@ -3695,7 +3695,7 @@ void dispel_monster_status(int m_idx)
 	char         m_name[80];
 
 	monster_desc(m_name, cr_ptr, 0);
-	if (set_monster_invulner(cr_ptr, 0, TRUE))
+	if (set_invuln(cr_ptr, 0, TRUE))
 	{
 #ifdef JP
 		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤–³“G‚Å‚Í‚È‚¢B", m_name);

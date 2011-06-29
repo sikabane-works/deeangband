@@ -232,7 +232,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	{
 		(void)set_fast(&m_list[cr_ptr->riding], 0, FALSE);
 		(void)set_slow(&m_list[cr_ptr->riding], 0, FALSE);
-		(void)set_monster_invulner(&m_list[cr_ptr->riding], 0, FALSE);
+		(void)set_invuln(&m_list[cr_ptr->riding], 0, FALSE);
 	}
 
 	if (cr_ptr->cls_idx == CLASS_BARD)
@@ -1917,6 +1917,9 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
+	if(cr_ptr == p_ptr)
+	{
 	/* Open */
 	if (v)
 	{
@@ -1996,6 +1999,43 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+	if (v)
+	{
+		if (!cr_ptr->invuln)
+		{
+			mproc_add(cr_ptr, MTIMED_INVULNER);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (cr_ptr->invuln)
+		{
+			mproc_remove(cr_ptr, MTIMED_INVULNER);
+			if (!p_ptr->wild_mode) cr_ptr->energy_need += ENERGY_NEED();
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->invuln = v;
+
+	if (!notice) return FALSE;
+
+	if (cr_ptr->ml)
+	{
+		/* Update health bar as needed */
+		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+	}
+
+	return TRUE;
+	}
 }
 
 
