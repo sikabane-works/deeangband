@@ -719,15 +719,14 @@ msg_print("‚â‚Á‚Æ“Å‚Ì’É‚Ý‚ª‚È‚­‚È‚Á‚½B");
 bool set_afraid(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
+	bool name[80];
+
+	monster_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	if (cr_ptr->is_dead) return FALSE;
-
-	//TODO
-	if(cr_ptr == p_ptr)
-	{
 
 	/* Open */
 	if (v)
@@ -735,9 +734,9 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (!cr_ptr->afraid)
 		{
 #ifdef JP
-msg_print("‰½‚à‚©‚à‹°‚­‚È‚Á‚Ä‚«‚½I");
+			msg_format("%s‚Í‹°Q‚ÉŠ×‚Á‚½I", name);
 #else
-			msg_print("You are terrified!");
+			msg_format("%s %s terrified!", name, cr_ptr == p_ptr ? "are" : "is" );
 #endif
 
 			if (cr_ptr->special_defense & KATA_MASK)
@@ -767,7 +766,7 @@ msg_print("‰½‚à‚©‚à‹°‚­‚È‚Á‚Ä‚«‚½I");
 		if (cr_ptr->afraid)
 		{
 #ifdef JP
-msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
+			msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
 #else
 			msg_print("You feel bolder now.");
 #endif
@@ -776,60 +775,64 @@ msg_print("‚â‚Á‚Æ‹°•|‚ðU‚è•¥‚Á‚½B");
 		}
 	}
 
-	/* Use the value */
-	cr_ptr->afraid = v;
 
-	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
-
-	/* Nothing to notice */
-	if (!notice) return (FALSE);
-
-	/* Disturb */
-	if (disturb_state) disturb(0, 0);
-
-	/* Handle stuff */
-	handle_stuff();
-
-	/* Result */
-	return (TRUE);
-
-	}
-	else
+	//TODO
+	if(cr_ptr == p_ptr)
 	{
-	/* Open */
-	if (v)
-	{
-		if (!cr_ptr->afraid)
-		{
-			mproc_add(cr_ptr, MTIMED_MONFEAR);
-			notice = TRUE;
+		/* Use the value */
+		cr_ptr->afraid = v;
+
+		/* Redraw status bar */
+		cr_ptr->redraw |= (PR_STATUS);
+
+		/* Nothing to notice */
+		if (!notice) return (FALSE);
+
+		/* Disturb */
+		if (disturb_state) disturb(0, 0);
+
+		/* Handle stuff */
+		handle_stuff();
+
+		/* Result */
+		return (TRUE);
+
 		}
-	}
-
-	/* Shut */
-	else
-	{
-		if (cr_ptr->afraid)
+		else
 		{
-			mproc_remove(cr_ptr, MTIMED_MONFEAR);
-			notice = TRUE;
+		/* Open */
+			if (v)
+			{
+				if (!cr_ptr->afraid)
+				{
+					mproc_add(cr_ptr, MTIMED_MONFEAR);
+					notice = TRUE;
+				}
+			}
+
+		/* Shut */
+		else
+		{
+			if (cr_ptr->afraid)
+			{
+				mproc_remove(cr_ptr, MTIMED_MONFEAR);
+				notice = TRUE;
+			}
 		}
-	}
 
-	/* Use the value */
-	cr_ptr->afraid = v;
+		/* Use the value */
+		cr_ptr->afraid = v;
 
-	if (!notice) return FALSE;
+		if (!notice) return FALSE;
 
-	if (cr_ptr->ml)
-	{
-		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) cr_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) cr_ptr->redraw |= (PR_UHEALTH);
-	}
+		if (cr_ptr->ml)
+		{
+			/* Update health bar as needed */
+			if (&m_list[p_ptr->health_who] == cr_ptr) cr_ptr->redraw |= (PR_HEALTH);
+			if (&m_list[p_ptr->riding] == cr_ptr) cr_ptr->redraw |= (PR_UHEALTH);
+		}
 
-	return TRUE;
+		return TRUE;
 
 	}
 
