@@ -2215,7 +2215,7 @@ bool do_riding(bool force)
 		{
 			char m_name[80];
 			monster_desc(m_name, m_ptr, 0);
-			(void)set_monster_csleep(m_ptr, 0);
+			(void)set_paralyzed(m_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ğ‹N‚±‚µ‚½B", m_name);
 #else

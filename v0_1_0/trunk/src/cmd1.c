@@ -2172,7 +2172,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	}
 
 	/* Disturb the monster */
-	(void)set_monster_csleep(m_ptr, 0);
+	(void)set_paralyzed(m_ptr, 0);
 
 	/* Extract monster name (or "it") */
 	monster_desc(a_name, cr_ptr, 0);
@@ -3332,7 +3332,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 #endif
 
 		/* Disturb the monster */
-		(void)set_monster_csleep(m_ptr, 0);
+		(void)set_paralyzed(m_ptr, 0);
 
 		/* Done */
 		return FALSE;
@@ -4134,7 +4134,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		    pattern_seq(py, px, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
-			(void)set_monster_csleep(m_ptr, 0);
+			(void)set_paralyzed(m_ptr, 0);
 
 			/* Extract monster name (or "it") */
 			monster_desc(m_name, m_ptr, 0);

@@ -4251,7 +4251,7 @@ bool monst_spell_monst(int m_idx)
 		break;
 	}
 
-	if (wake_up) (void)set_monster_csleep(&m_list[t_idx], 0);
+	if (wake_up) (void)set_paralyzed(&m_list[t_idx], 0);
 
 	if (fear && see_t)
 	{

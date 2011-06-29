@@ -208,7 +208,7 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 	}
 
 	/* Wake it up */
-	(void)set_monster_csleep(cr_ptr, 0);
+	(void)set_paralyzed(cr_ptr, 0);
 
 
 	if (p_ptr->riding && (cr_ptr == &m_list[p_ptr->riding])) disturb(1, 0);
@@ -1699,7 +1699,7 @@ static void process_monster(int m_idx)
 		/* Handle aggravation */
 
 		/* Reset sleep counter */
-		(void)set_monster_csleep(&m_list[m_idx], 0);
+		(void)set_paralyzed(&m_list[m_idx], 0);
 
 		/* Notice the "waking up" */
 		if (m_ptr->ml)
@@ -2439,7 +2439,7 @@ msg_format("%^s%s", m_name, monmessage);
 				did_move_body = TRUE;
 
 				/* Wake up the moved monster */
-				(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
+				(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
 
 				/* XXX XXX XXX Message */
 			}
@@ -3487,7 +3487,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 				/* Monster wakes up "a little bit" */
 
 				/* Still asleep */
-				if (!set_monster_csleep(cr_ptr, cr_ptr->paralyzed - d))
+				if (!set_paralyzed(cr_ptr, cr_ptr->paralyzed - d))
 				{
 					/* Notice the "not waking up" */
 					if (is_original_ap_and_seen(cr_ptr))

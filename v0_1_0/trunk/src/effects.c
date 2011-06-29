@@ -848,6 +848,10 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
+	//TODO
+	if(p_ptr == cr_ptr)
+	{
+
 	/* Open */
 	if (v)
 	{
@@ -905,6 +909,49 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 
 	/* Result */
 	return (TRUE);
+	}
+	else
+	{
+	/* Hack -- Force good values */
+	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
+
+	/* Open */
+	if (v)
+	{
+		if (!cr_ptr->paralyzed)
+		{
+			mproc_add(cr_ptr, MTIMED_CSLEEP);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (cr_ptr->paralyzed)
+		{
+			mproc_remove(cr_ptr, MTIMED_CSLEEP);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	cr_ptr->paralyzed = v;
+
+	if (!notice) return FALSE;
+
+	if (cr_ptr->ml)
+	{
+		/* Update health bar as needed */
+		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+	}
+
+	if (r_info[cr_ptr->monster_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
+
+	return TRUE;
+
+	}
 }
 
 
@@ -5345,7 +5392,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 
 	/* Wake it up */
-	(void)set_monster_csleep(tar_ptr, 0);
+	(void)set_paralyzed(tar_ptr, 0);
 
 	if(atk_ptr)
 	{

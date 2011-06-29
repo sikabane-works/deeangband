@@ -3464,7 +3464,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
+			(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
 
 			if (m_ptr->mhp < m_ptr->mmhp)
 			{
@@ -3491,7 +3491,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
+			(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
 			if (m_ptr->stun)
 			{
 #ifdef JP
@@ -6044,7 +6044,7 @@ note = "には効果がなかった。";
 		if (p_ptr->riding == c_ptr->m_idx) p_ptr->redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
-		(void)set_monster_csleep(&m_list[c_ptr->m_idx], 0);
+		(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
 
 		/* Hurt the monster */
 		m_ptr->chp -= dam;
@@ -6107,7 +6107,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_monster_csleep(&m_list[c_ptr->m_idx], do_sleep);
+			if (do_sleep) (void)set_paralyzed(&m_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 
@@ -6164,7 +6164,7 @@ note = "には効果がなかった。";
 				anger_monster(m_ptr);
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_monster_csleep(&m_list[c_ptr->m_idx], do_sleep);
+			if (do_sleep) (void)set_paralyzed(&m_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 

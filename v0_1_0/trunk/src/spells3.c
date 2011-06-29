@@ -1638,7 +1638,7 @@ static bool vanish_dungeon(void)
 			if (c_ptr->m_idx && m_ptr->paralyzed)
 			{
 				/* Reset sleep counter */
-				(void)set_monster_csleep(m_ptr, 0);
+				(void)set_paralyzed(m_ptr, 0);
 
 				/* Notice the "waking up" */
 				if (m_ptr->ml)

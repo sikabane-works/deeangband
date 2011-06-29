@@ -268,7 +268,7 @@ void delete_monster_idx(creature_type *cr_ptr)
 	/* Hack -- count the number of "reproducers" */
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
 
-	if (cr_ptr->paralyzed) (void)set_monster_csleep(cr_ptr, 0);
+	if (cr_ptr->paralyzed) (void)set_paralyzed(cr_ptr, 0);
 	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
 	if (cr_ptr->slow) (void)set_slow(cr_ptr, 0, FALSE);
 	if (cr_ptr->stun) (void)set_stun(cr_ptr, 0);
@@ -3619,7 +3619,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
 	{
 		int val = r_ptr->sleep;
-		(void)set_monster_csleep(&m_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
+		(void)set_paralyzed(&m_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
 	}
 
 	if (mode & PM_HASTE) (void)set_fast(&m_list[c_ptr->m_idx], 100, FALSE);

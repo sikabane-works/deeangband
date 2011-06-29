@@ -5691,7 +5691,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_monster_csleep(&m_list[p_ptr->riding], 0);
+			(void)set_paralyzed(&m_list[p_ptr->riding], 0);
 
 			/* Acquire the monster name */
 			monster_desc(m_name, m_ptr, 0);

@@ -1523,7 +1523,7 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 	if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
 
 	/* Wake it up */
-	(void)set_monster_csleep(tar_ptr, 0);
+	(void)set_paralyzed(tar_ptr, 0);
 
 	/* Hack - Cancel any special player stealth magics. -LM- */
 	if (atk_ptr->special_defense & NINJA_S_STEALTH)
