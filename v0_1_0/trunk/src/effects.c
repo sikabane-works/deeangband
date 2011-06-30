@@ -734,7 +734,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (!cr_ptr->afraid)
 		{
 #ifdef JP
-			msg_format("%s‚Í‹°Q‚ÉŠ×‚Á‚½I", name);
+			msg_format("%s‚Í‹°•|‚ÉŠ×‚Á‚½I", name);
 #else
 			msg_format("%s %s terrified!", name, cr_ptr == p_ptr ? "are" : "is" );
 #endif
@@ -5407,7 +5407,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	int old_chp = tar_ptr->chp;
 	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
 	creature_type    exp_mon;
-	bool fear;
+	bool fear = FALSE;
 
 	/* Innocent until proven otherwise */
 	bool        innocent = TRUE, thief = FALSE;
@@ -5821,15 +5821,12 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Dead */
-			return damage;
 		}
 	
-
 		if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 		{
 			change_wild_mode();
 		}
-		return damage;
 	}
 
 	else
@@ -6208,43 +6205,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Monster is dead */
 			return (TRUE);
 		}
-	
-	
-	#ifdef ALLOW_FEAR
-	
-		/* Mega-Hack -- Pain cancels fear */
-		if (tar_ptr->afraid && (damage > 0))
-		{
-			/* Cure fear */
-			if (set_afraid(tar_ptr, tar_ptr->afraid - randint1(damage)))
-			{
-				/* No more fear */
-				fear = FALSE;
-			}
-		}
-	
-		/* Sometimes a monster gets scared by damage */
-		if (!tar_ptr->afraid && !(r_ptr->flags3 & (RF3_NO_FEAR)))
-		{
-			/* Percentage of fully healthy */
-			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
-	
-			/*
-			 * Run (sometimes) if at 10% or less of max hit points,
-			 * or (usually) when hit for half its current hit points
-			 */
-			if ((randint1(10) >= percentage) ||
-			    ((damage >= tar_ptr->chp) && (randint0(100) < 80)))
-			{
-				/* Hack -- note fear */
-				fear = TRUE;
-	
-			}
-	
-		}
-	
-	#endif
-	
+		
 	#if 0
 		if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (damage > 0))
 		{
@@ -6265,28 +6226,48 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 	#endif
 	
-		if(fear && !tar_ptr->afraid)
+	}
+
+	#ifdef ALLOW_FEAR
+	
+	/* Mega-Hack -- Pain cancels fear */
+	if (tar_ptr->afraid && (damage > 0))
+	{
+		/* Cure fear */
+		if (set_afraid(tar_ptr, tar_ptr->afraid - randint1(damage)))
 		{
-			char m_name[80];
-			int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
-	
-			/* Extract monster name */
-			monster_desc(m_name, tar_ptr, 0);
-	
-			/*TODO Feared Message:
-			sound(SOUND_FLEE);
-	#ifdef JP
-			msg_format("%^s‚Í‹°•|‚Å“¦‚°o‚µ‚½I", m_name);
-	#else
-			msg_format("%^s flees in terror!", m_name);
-	#endif
-			*/
-	
-			/* XXX XXX XXX Hack -- Add some timed fear */
-			(void)set_afraid(tar_ptr, (randint1(10) +
-					  (((damage >= tar_ptr->chp) && (percentage > 7)) ?
-					   20 : ((11 - percentage) * 5))));
+			/* No more fear */
+			fear = FALSE;
 		}
+	}
+	
+	/* Sometimes a monster gets scared by damage */
+	if (!tar_ptr->afraid && !(r_ptr->flags3 & (RF3_NO_FEAR)) && !tar_ptr->resist_fear)
+	{
+		/* Percentage of fully healthy */
+		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+	
+		/*
+		 * Run (sometimes) if at 10% or less of max hit points,
+		 * or (usually) when hit for half its current hit points
+		 */
+		if ((randint1(10) >= percentage) || ((damage >= tar_ptr->chp) && (randint0(100) < 80)))
+		{
+			/* Hack -- note fear */
+			fear = TRUE;
+		}
+	}
+	
+	#endif
+
+
+	if(fear && !tar_ptr->afraid)
+	{
+		/* XXX XXX XXX Hack -- Add some timed fear */
+		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;
+		(void)set_afraid(tar_ptr, (randint1(10) +
+			(((damage >= tar_ptr->chp) && (percentage > 7)) ?
+			20 : ((11 - percentage) * 5))));
 	}
 
 
