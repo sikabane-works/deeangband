@@ -5501,7 +5501,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 		}
 
-		if (CHECK_MULTISHADOW())
+		if ((tar_ptr->multishadow && (turn & 1)))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{
@@ -6378,7 +6378,7 @@ int take_hit_old(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 			}
 		}
 
-		if (CHECK_MULTISHADOW())
+		if ((tar_ptr->multishadow && (turn & 1)))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{

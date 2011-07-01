@@ -1460,7 +1460,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr, p_ptr->slow + randint0(20) + 20, FALSE);
+				if (!(p_ptr->multishadow && (turn & 1))) (void)set_slow(p_ptr, p_ptr->slow + randint0(20) + 20, FALSE);
 			}
 			else
 			{
@@ -1491,7 +1491,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_STR);
+				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_STR);
 			}
 			else
 			{
@@ -1522,7 +1522,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_DEX);
+				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_DEX);
 			}
 			else
 			{
@@ -1553,7 +1553,7 @@ static void hit_trap(bool break_trap)
 				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!CHECK_MULTISHADOW()) (void)do_dec_stat(p_ptr, A_CON);
+				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_CON);
 			}
 			else
 			{

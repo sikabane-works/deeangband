@@ -7997,7 +7997,8 @@ static void handle_signal_abort(int sig)
 	/* Give a warning */
 	Term_putstr(0, hgt - 1, -1, TERM_RED,
 #ifdef JP
-			"恐ろしいソフトのバグが飛びかかってきた！");
+
+		"恐ろしいソフトのバグが飛びかかってきた！");
 #else
 		    "A gruesome software bug LEAPS out at you!");
 #endif

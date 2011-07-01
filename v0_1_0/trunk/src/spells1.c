@@ -2849,7 +2849,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -2863,7 +2863,7 @@ note_dies = "は蒸発した！";
 						/* Injure +/- confusion */
 						monster_desc(killer, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 						take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
-						if (one_in_(4) && !CHECK_MULTISHADOW())
+						if (one_in_(4) && !(p_ptr->multishadow && (turn & 1)))
 						{
 							switch (randint1(4))
 							{
@@ -2985,7 +2985,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("あなたは効力を跳ね返した！");
@@ -2997,7 +2997,7 @@ note_dies = "は蒸発した！";
 					{
 						/* Injure + mana drain */
 						monster_desc(killer, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-						if (!CHECK_MULTISHADOW())
+						if (!(p_ptr->multishadow && (turn & 1)))
 						{
 #ifdef JP
 							msg_print("超能力パワーを吸いとられた！");
@@ -6588,14 +6588,14 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (double_resist) dam = (dam + 2) / 3;
 
 			if ((!(double_resist || p_ptr->resist_pois)) &&
-			     one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
+			     one_in_(HURT_CHANCE) && !(p_ptr->multishadow && (turn & 1)))
 			{
 				do_dec_stat(p_ptr, A_CON);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (!(double_resist || p_ptr->resist_pois) && !CHECK_MULTISHADOW())
+			if (!(double_resist || p_ptr->resist_pois) && !(p_ptr->multishadow && (turn & 1)))
 			{
 				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
 			}
@@ -6615,7 +6615,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (p_ptr->resist_pois) dam = (2 * dam + 2) / 5;
 			if (double_resist) dam = (2 * dam + 2) / 5;
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-			if (!(double_resist || p_ptr->resist_pois) && !CHECK_MULTISHADOW())
+			if (!(double_resist || p_ptr->resist_pois) && !(p_ptr->multishadow && (turn & 1)))
 			{
 				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
 
@@ -6718,7 +6718,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
+			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
 				(void)set_stun(p_ptr, p_ptr->stun + k);
@@ -6748,9 +6748,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				if (!race_is_(p_ptr, RACE_LICH))
 					dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW()) drain_exp(p_ptr, 200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
+			else if (!(p_ptr->multishadow && (turn & 1))) drain_exp(p_ptr, 200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
 
-			if (race_is_(p_ptr, RACE_LICH) && !CHECK_MULTISHADOW())
+			if (race_is_(p_ptr, RACE_LICH) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("気分がよくなった。");
@@ -6778,7 +6778,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something wet!");
 #endif
 
-			if (!CHECK_MULTISHADOW())
+			if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				if (!p_ptr->resist_sound)
 				{
@@ -6813,7 +6813,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
 
-			if (!CHECK_MULTISHADOW())
+			if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				if (!p_ptr->resist_conf)
 				{
@@ -6862,7 +6862,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_cut(p_ptr, p_ptr->cut + dam);
 			}
@@ -6889,7 +6889,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 5; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 				(void)set_stun(p_ptr, p_ptr->stun + k);
@@ -6917,7 +6917,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 5; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_confused(p_ptr, p_ptr->confused + randint1(20) + 10);
 			}
@@ -6938,7 +6938,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)apply_disenchant(0);
 			}
@@ -6959,7 +6959,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				apply_nexus(who_ptr);
 			}
@@ -6976,7 +6976,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by kinetic force!");
 #endif
 
-			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
+			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
 			}
@@ -6994,7 +6994,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("There is an explosion!");
 #endif
 
-			if (!p_ptr->resist_sound && !CHECK_MULTISHADOW())
+			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
 			}
@@ -7003,7 +7003,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam /= 2;
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_cut(p_ptr, p_ptr->cut + (dam / 2));
 			}
@@ -7026,7 +7026,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (!CHECK_MULTISHADOW()) (void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
+			if (!(p_ptr->multishadow && (turn & 1))) (void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
@@ -7044,7 +7044,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 			}
-			else if (!blind && !p_ptr->resist_blind && !CHECK_MULTISHADOW())
+			else if (!blind && !p_ptr->resist_blind && !(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
 			}
@@ -7052,9 +7052,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
 			{
 #ifdef JP
-				if (!CHECK_MULTISHADOW()) msg_print("光で肉体が焦がされた！");
+				if (!(p_ptr->multishadow && (turn & 1))) msg_print("光で肉体が焦がされた！");
 #else
-				if (!CHECK_MULTISHADOW()) msg_print("The light scorches your flesh!");
+				if (!(p_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
 #endif
 
 				dam *= 2;
@@ -7067,7 +7067,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (p_ptr->wraith_form) dam *= 2;
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (p_ptr->wraith_form && !CHECK_MULTISHADOW())
+			if (p_ptr->wraith_form && !(p_ptr->multishadow && (turn & 1)))
 			{
 				p_ptr->wraith_form = 0;
 #ifdef JP
@@ -7105,7 +7105,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form) dam = 0;
 			}
-			else if (!blind && !p_ptr->resist_blind && !CHECK_MULTISHADOW())
+			else if (!blind && !p_ptr->resist_blind && !(p_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
 			}
@@ -7132,7 +7132,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("You feel as if time is passing you by.");
 #endif
 			}
-			else if (!CHECK_MULTISHADOW())
+			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				switch (randint1(10))
 				{
@@ -7216,7 +7216,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			msg_print("Gravity warps around you.");
 #endif
 
-			if (!CHECK_MULTISHADOW())
+			if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				teleport_player(5, TELEPORT_PASSIVE);
 				if (!p_ptr->levitation)
@@ -7382,7 +7382,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 			get_damage = cold_dam(dam, killer, monspell);
-			if (!CHECK_MULTISHADOW())
+			if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				if (!p_ptr->resist_shard)
 				{
@@ -7449,7 +7449,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Drain mana */
 		case GF_DRAIN_MANA:
 		{
-			if (CHECK_MULTISHADOW())
+			if ((p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
@@ -7524,7 +7524,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7535,7 +7535,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW())
+				if (!(p_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -7570,7 +7570,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7581,7 +7581,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW())
+				if (!(p_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -7599,7 +7599,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				}
 
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-				if (!CHECK_MULTISHADOW())
+				if (!(p_ptr->multishadow && (turn & 1)))
 				{
 					if (!p_ptr->resist_blind)
 					{
@@ -7632,7 +7632,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7644,7 +7644,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			else
 			{
 				//TODO curse_equipment
-				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 15, 0);
+				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 15, 0);
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7653,7 +7653,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7664,7 +7664,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 25, MIN(rlev / 2 - 15, 5));
+				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 25, MIN(rlev / 2 - 15, 5));
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7673,7 +7673,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7684,7 +7684,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW()) curse_equipment(p_ptr, 33, MIN(rlev / 2 - 15, 15));
+				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 33, MIN(rlev / 2 - 15, 15));
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
@@ -7693,7 +7693,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->monster_idx == MON_KENSHIROU) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->monster_idx == MON_KENSHIROU) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -7705,7 +7705,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			else
 			{
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-				if (!CHECK_MULTISHADOW()) (void)set_cut(p_ptr, p_ptr->cut + damroll(10, 10));
+				if (!(p_ptr->multishadow && (turn & 1))) (void)set_cut(p_ptr, p_ptr->cut + damroll(10, 10));
 			}
 			break;
 		}
@@ -7713,7 +7713,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
-			if ((randint0(100 + rlev/2) < p_ptr->skill_rob) && !CHECK_MULTISHADOW())
+			if ((randint0(100 + rlev/2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_format("しかし効力を跳ね返した！");
@@ -7724,7 +7724,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else
 			{
-				if (!CHECK_MULTISHADOW())
+				if (!(p_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("あなたは命が薄まっていくように感じた！");

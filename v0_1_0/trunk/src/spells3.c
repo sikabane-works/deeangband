@@ -4824,7 +4824,7 @@ int inven_damage(inven_func typ, int perc)
 	object_type *o_ptr;
 	char        o_name[MAX_NLEN];
 
-	if (CHECK_MULTISHADOW()) return 0;
+	if ((p_ptr->multishadow && (turn & 1))) return 0;
 
 	if (p_ptr->inside_arena) return 0;
 
@@ -5011,7 +5011,7 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 	if (p_ptr->resist_acid) dam = (dam + 2) / 3;
 	if (double_resist) dam = (dam + 2) / 3;
 
-	if (!CHECK_MULTISHADOW())
+	if (!(p_ptr->multishadow && (turn & 1)))
 	{
 		if ((!(double_resist || p_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
@@ -5057,7 +5057,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 	if (double_resist) dam = (dam + 2) / 3;
 
 	if ((!(double_resist || p_ptr->resist_elec)) &&
-	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
+	    one_in_(HURT_CHANCE) && !(p_ptr->multishadow && (turn & 1)))
 		(void)do_dec_stat(p_ptr, A_DEX);
 
 	/* Take damage */
@@ -5097,7 +5097,7 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 	if (double_resist) dam = (dam + 2) / 3;
 
 	if ((!(double_resist || p_ptr->resist_fire)) &&
-	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
+	    one_in_(HURT_CHANCE) && !(p_ptr->multishadow && (turn & 1)))
 		(void)do_dec_stat(p_ptr, A_STR);
 
 	/* Take damage */
@@ -5136,7 +5136,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 	if (double_resist) dam = (dam + 2) / 3;
 
 	if ((!(double_resist || p_ptr->resist_cold)) &&
-	    one_in_(HURT_CHANCE) && !CHECK_MULTISHADOW())
+	    one_in_(HURT_CHANCE) && !(p_ptr->multishadow && (turn & 1)))
 		(void)do_dec_stat(p_ptr, A_STR);
 
 	/* Take damage */

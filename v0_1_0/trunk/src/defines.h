@@ -5660,8 +5660,6 @@ extern int PlayerUID;
 #define IS_TIM_ESP(C) (C->tim_esp || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C) (C->tim_stealth || music_singing(C, MUSIC_STEALTH))
 
-/* Multishadow effects is determined by turn */
-#define CHECK_MULTISHADOW() (p_ptr->multishadow && (turn & 1))
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(TARGET) \
