@@ -6231,7 +6231,7 @@ static void cave_temp_room_aux(int y, int x, bool only_room, bool (*pass_bold)(i
 		if (!in_bounds2(y, x)) return;
 
 		/* Do not exceed the maximum spell range */
-		if (distance(py, px, y, x) > MAX_RANGE) return;
+		if (distance(py, px, y, x) > MAX_RANGE(p_ptr)) return;
 
 		/* Verify this grid */
 		/*

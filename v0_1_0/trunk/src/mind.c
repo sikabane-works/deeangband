@@ -1675,7 +1675,7 @@ msg_print("その方向にはモンスターはいません。");
 		msg_format("You pull back %s.", m_name);
 #endif
 
-		path_n = project_path(path_g, MAX_RANGE, target_row, target_col, py, px, 0);
+		path_n = project_path(path_g, MAX_RANGE(p_ptr), target_row, target_col, py, px, 0);
 		ty = target_row, tx = target_col;
 		for (i = 1; i < path_n; i++)
 		{

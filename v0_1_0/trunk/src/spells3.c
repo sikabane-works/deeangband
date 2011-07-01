@@ -1871,7 +1871,7 @@ msg_print("自分の足の下にある物は取れません。");
 		tx = target_col;
 		ty = target_row;
 
-		if (distance(py, px, ty, tx) > MAX_RANGE)
+		if (distance(py, px, ty, tx) > MAX_RANGE(p_ptr))
 		{
 #ifdef JP
 msg_print("そんなに遠くにある物は取れません！");
@@ -1945,7 +1945,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 			tx += ddx[dir];
 			c_ptr = &cave[ty][tx];
 
-			if ((distance(py, px, ty, tx) > MAX_RANGE) ||
+			if ((distance(py, px, ty, tx) > MAX_RANGE(p_ptr)) ||
 				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->o_idx);

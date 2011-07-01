@@ -981,7 +981,7 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 		mmove2(&ny, &nx, py, px, ty, tx);
 
 		/* Stop at maximum range */
-		if (MAX_RANGE <= distance(py, px, ny, nx)) break;
+		if (MAX_RANGE(p_ptr) <= distance(py, px, ny, nx)) break;
 
 		/* Stopped by walls/doors */
 		if (!cave_have_flag_bold(ny, nx, FF_PROJECT)) break;

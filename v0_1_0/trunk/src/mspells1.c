@@ -442,7 +442,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE, y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -1366,7 +1366,7 @@ bool make_attack_spell(int m_idx)
 	/*** require projectable player ***/
 
 	/* Check range */
-	if ((m_ptr->cdis > MAX_RANGE) && !m_ptr->target_y) return (FALSE);
+	if ((m_ptr->cdis > MAX_RANGE(p_ptr)) && !m_ptr->target_y) return (FALSE);
 
 	/* Check path for lite breath */
 	if (f4 & RF4_BR_LITE)
@@ -1415,20 +1415,20 @@ bool make_attack_spell(int m_idx)
 	{
 		bool success = FALSE;
 
-		if ((f4 & RF4_BR_DISI) && (m_ptr->cdis < MAX_RANGE/2) &&
+		if ((f4 & RF4_BR_DISI) && (m_ptr->cdis < MAX_RANGE(p_ptr)/2) &&
 		    in_disintegration_range(m_ptr->fy, m_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(y, x, m_ptr->fy, m_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
 		}
-		else if ((f4 & RF4_BR_LITE) && (m_ptr->cdis < MAX_RANGE/2) &&
+		else if ((f4 & RF4_BR_LITE) && (m_ptr->cdis < MAX_RANGE(p_ptr)/2) &&
 		    los(m_ptr->fy, m_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
 		}
-		else if ((f5 & RF5_BA_LITE) && (m_ptr->cdis <= MAX_RANGE))
+		else if ((f5 & RF5_BA_LITE) && (m_ptr->cdis <= MAX_RANGE(p_ptr)))
 		{
 			int by = y, bx = x;
 			get_project_point(m_ptr->fy, m_ptr->fx, &by, &bx, 0L);
@@ -1453,7 +1453,7 @@ bool make_attack_spell(int m_idx)
 				success = TRUE;
 			}
 
-			if (y_br_lite && x_br_lite && (m_ptr->cdis < MAX_RANGE/2) && one_in_(5))
+			if (y_br_lite && x_br_lite && (m_ptr->cdis < MAX_RANGE(p_ptr)/2) && one_in_(5))
 			{
 				if (!success)
 				{

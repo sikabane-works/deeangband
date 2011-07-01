@@ -8258,7 +8258,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * viewed as a "ball" with a "rad" of "zero".
  *
  * Note that if no "target" is reached before the beam/bolt/ball travels the
- * maximum distance allowed (MAX_RANGE), no "blast" will be induced.  This
+ * maximum distance allowed (MAX_RANGE(p_ptr)), no "blast" will be induced.  This
  * may be relevant even for bolts, since they have a "1x1" mini-blast.
  *
  * Note that for consistency, we "pretend" that the bolt actually takes "time"
@@ -8438,7 +8438,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	/* Calculate the projection path */
 
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), y1, x1, y2, x2, flg);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(who_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
 	handle_stuff();
@@ -8533,7 +8533,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				remove_mirror(y,x);
 				next_mirror( &oy,&ox,y,x );
 
-				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE), y, x, oy, ox, flg);
+				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
@@ -8681,14 +8681,14 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				}
 				path_n = i;
 				second_step =i+1;
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y-1, x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y  , x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y  , x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE), y, x, y+1, x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x  , flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x+1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x-1, flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x  , flg);
+				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x+1, flg);
 			}
 		}
 		for( i = 0; i < path_n ; i++ )
@@ -8834,7 +8834,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	project_length = 0;
 
 	/* If we found a "target", explode there */
-	if (dist <= MAX_RANGE)
+	if (dist <= MAX_RANGE(who_ptr))
 	{
 		/* Mega-Hack -- remove the final "beam" grid */
 		if ((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
@@ -9379,7 +9379,7 @@ bool binding_field( int dam )
 		for( y=0 ; y < cur_hgt ; y++ )
 		{
 			if( is_mirror_grid(&cave[y][x]) &&
-			    distance(py,px,y,x) <= MAX_RANGE &&
+			    distance(py,px,y,x) <= MAX_RANGE(p_ptr) &&
 			    distance(py,px,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
 			    projectable(py, px, y, x)
