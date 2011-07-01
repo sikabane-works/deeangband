@@ -353,7 +353,7 @@ static bool item_tester_learn_spell(object_type *o_ptr)
 	if ((o_ptr->tval < TV_LIFE_BOOK) || (o_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
 	if ((o_ptr->tval == TV_MUSIC_BOOK) && (p_ptr->cls_idx == CLASS_BARD)) return (TRUE);
 	else if (!is_magic(tval2realm(o_ptr->tval))) return FALSE;
-	if ((REALM1_BOOK == o_ptr->tval) || (REALM2_BOOK == o_ptr->tval)) return (TRUE);
+	if ((REALM1_BOOK(p_ptr) == o_ptr->tval) || (REALM2_BOOK(p_ptr) == o_ptr->tval)) return (TRUE);
 	if (choices & (0x0001 << (tval2realm(o_ptr->tval) - 1))) return (TRUE);
 	return (FALSE);
 }
@@ -764,8 +764,8 @@ s = "読める本がない。";
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if (o_ptr->tval == REALM2_BOOK) increment = 32;
-	else if (o_ptr->tval != REALM1_BOOK)
+	if (o_ptr->tval == REALM2_BOOK(p_ptr)) increment = 32;
+	else if (o_ptr->tval != REALM1_BOOK(p_ptr))
 	{
 #ifdef JP
 		if (!get_check("本当に魔法の領域を変更しますか？")) return;
@@ -1218,7 +1218,7 @@ void do_cmd_cast(void)
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK)) increment = 32;
+	if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(p_ptr))) increment = 32;
 
 
 	/* Track the object kind */

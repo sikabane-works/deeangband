@@ -5787,15 +5787,15 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 	if (!j_ptr->k_idx) return TRUE;
 
 	/* Hack -- readable books always come first */
-	if ((o_ptr->tval == REALM1_BOOK) &&
-	    (j_ptr->tval != REALM1_BOOK)) return TRUE;
-	if ((j_ptr->tval == REALM1_BOOK) &&
-	    (o_ptr->tval != REALM1_BOOK)) return FALSE;
+	if ((o_ptr->tval == REALM1_BOOK(p_ptr)) &&
+	    (j_ptr->tval != REALM1_BOOK(p_ptr))) return TRUE;
+	if ((j_ptr->tval == REALM1_BOOK(p_ptr)) &&
+	    (o_ptr->tval != REALM1_BOOK(p_ptr))) return FALSE;
 
-	if ((o_ptr->tval == REALM2_BOOK) &&
-	    (j_ptr->tval != REALM2_BOOK)) return TRUE;
-	if ((j_ptr->tval == REALM2_BOOK) &&
-	    (o_ptr->tval != REALM2_BOOK)) return FALSE;
+	if ((o_ptr->tval == REALM2_BOOK(p_ptr)) &&
+	    (j_ptr->tval != REALM2_BOOK(p_ptr))) return TRUE;
+	if ((j_ptr->tval == REALM2_BOOK(p_ptr)) &&
+	    (o_ptr->tval != REALM2_BOOK(p_ptr))) return FALSE;
 
 	/* Objects sort by decreasing type */
 	if (o_ptr->tval > j_ptr->tval) return TRUE;

@@ -4327,7 +4327,7 @@ bool check_book_realm(const byte book_tval, const byte book_sval)
 		if (is_magic(tval2realm(book_tval)))
 			return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));
 	}
-	return (REALM1_BOOK == book_tval || REALM2_BOOK == book_tval);
+	return (REALM1_BOOK(p_ptr) == book_tval || REALM2_BOOK(p_ptr) == book_tval);
 }
 
 

@@ -632,7 +632,7 @@
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
-#define MAX_RANGE(WHO)       ((WHO)->inside_battle ? 36 : 18)      /* Maximum range (spells, etc) */
+#define MAX_RANGE(WHO)  ((WHO)->inside_battle ? 36 : 18)      /* Maximum range (spells, etc) */
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
@@ -741,8 +741,8 @@
 /*
  * Magic-books for the realms
  */
-#define REALM1_BOOK     (p_ptr->realm1 + TV_LIFE_BOOK - 1)
-#define REALM2_BOOK     (p_ptr->realm2 + TV_LIFE_BOOK - 1)
+#define REALM1_BOOK(WHO)     ((WHO)->realm1 + TV_LIFE_BOOK - 1)
+#define REALM2_BOOK(WHO)     ((WHO)->realm2 + TV_LIFE_BOOK - 1)
 
 
 /*

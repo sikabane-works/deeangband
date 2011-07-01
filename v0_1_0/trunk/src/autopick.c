@@ -598,7 +598,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 		if (o_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
 	}
 
-	if (REALM1_BOOK == o_ptr->tval &&
+	if (REALM1_BOOK(p_ptr) == o_ptr->tval &&
 	    p_ptr->cls_idx != CLASS_SORCERER &&
 	    p_ptr->cls_idx != CLASS_RED_MAGE)
 	{
@@ -606,7 +606,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 		name = FALSE;
 	}
 
-	if (REALM2_BOOK == o_ptr->tval &&
+	if (REALM2_BOOK(p_ptr) == o_ptr->tval &&
 	    p_ptr->cls_idx != CLASS_SORCERER &&
 	    p_ptr->cls_idx != CLASS_RED_MAGE)
 	{
@@ -1267,14 +1267,14 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 
 	/*** First realm spellbooks ***/
 	if (IS_FLG(FLG_REALM1) && 
-	    (REALM1_BOOK != o_ptr->tval ||
+	    (REALM1_BOOK(p_ptr) != o_ptr->tval ||
 	     p_ptr->cls_idx == CLASS_SORCERER ||
 	     p_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** Second realm spellbooks ***/
 	if (IS_FLG(FLG_REALM2) &&
-	    (REALM2_BOOK != o_ptr->tval ||
+	    (REALM2_BOOK(p_ptr) != o_ptr->tval ||
 	     p_ptr->cls_idx == CLASS_SORCERER ||
 	     p_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
