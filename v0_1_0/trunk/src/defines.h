@@ -599,7 +599,7 @@
 #define PF_RYOUTE       0x0040
 
 
-#define CAN_TWO_HANDS_WIELDING() (!p_ptr->riding || (p_ptr->pet_extra_flags & PF_RYOUTE))
+#define CAN_TWO_HANDS_WIELDING(WHO) (!(WHO)->riding || ((WHO)->pet_extra_flags & PF_RYOUTE))
 
 
 /*

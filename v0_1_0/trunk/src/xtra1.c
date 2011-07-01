@@ -3388,7 +3388,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (!cr_ptr->migite) default_hand = 1;
 	}
 
-	if (CAN_TWO_HANDS_WIELDING())
+	if (CAN_TWO_HANDS_WIELDING(cr_ptr))
 	{
 		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
 			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_RARM]))
