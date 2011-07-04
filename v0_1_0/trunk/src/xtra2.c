@@ -1381,7 +1381,7 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 	{
 		if (is_psy_spear)
 		{
-			if (!p_ptr->blind && is_seen(m_ptr))
+			if (!p_ptr->blind && is_seen(p_ptr, m_ptr))
 			{
 #ifdef JP
 				msg_print("ƒoƒŠƒA‚ğØ‚è—ô‚¢‚½I");

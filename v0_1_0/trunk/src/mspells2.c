@@ -314,7 +314,7 @@ bool monst_spell_monst(int m_idx)
 
 	bool blind = (p_ptr->blind ? TRUE : FALSE);
 
-	bool see_m = is_seen(m_ptr);
+	bool see_m = is_seen(p_ptr, m_ptr);
 	bool maneable = player_has_los_bold(m_ptr->fy, m_ptr->fx);
 	bool learnable = (m_ptr->ml && maneable && !world_monster);
 	bool see_t;
@@ -730,7 +730,7 @@ bool monst_spell_monst(int m_idx)
 	/* Choose a spell to cast */
 	thrown_spell = spell[randint0(num)];
 
-	see_t = is_seen(t_ptr);
+	see_t = is_seen(p_ptr, t_ptr);
 	see_either = (see_m || see_t);
 
 	/* Can the player be aware of this attack? */

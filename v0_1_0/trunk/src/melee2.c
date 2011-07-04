@@ -192,7 +192,7 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 
 	char m_name[160];
 
-	bool seen = is_seen(cr_ptr);
+	bool seen = is_seen(p_ptr, cr_ptr);
 
 	/* Can the player be aware of this attack? */
 	bool known = (cr_ptr->cdis <= MAX_SIGHT);
@@ -1487,7 +1487,7 @@ static void process_monster(int m_idx)
 
 	bool            is_riding_mon = (m_idx == p_ptr->riding);
 
-	bool            see_m = is_seen(m_ptr);
+	bool            see_m = is_seen(p_ptr, m_ptr);
 
 	if (is_riding_mon && !(r_ptr->flags7 & RF7_RIDING))
 	{
@@ -3233,7 +3233,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_fast(cr_ptr, cr_ptr->fast - 1, FALSE))
 		{
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3254,7 +3254,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_slow(cr_ptr, cr_ptr->slow - 1, FALSE))
 		{
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3279,7 +3279,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1)))
 		{
 			/* Message if visible */
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3302,7 +3302,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Message if visible */
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3324,7 +3324,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->monster_idx].level / 20 + 1)))
 		{
 			/* Visual note */
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 #ifndef JP
@@ -3351,7 +3351,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE))
 		{
-			if (is_seen(cr_ptr))
+			if (is_seen(p_ptr, cr_ptr))
 			{
 				char m_name[80];
 

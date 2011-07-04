@@ -1743,7 +1743,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 
 	/* Is the monster "seen"? */
 	bool seen = m_ptr->ml;
-	bool seen_msg = is_seen(m_ptr);
+	bool seen_msg = is_seen(p_ptr, m_ptr);
 
 	bool slept = (bool)m_ptr->paralyzed;
 
@@ -8985,7 +8985,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (who_ptr != p_ptr) ? is_seen(who_ptr) :
+		see_s_msg = (who_ptr != p_ptr) ? is_seen(p_ptr, who_ptr) :
 			(who_ptr == p_ptr ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
 	}
 
@@ -9109,7 +9109,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						t_x = x_saver;
 					}
 
-					if (is_seen(m_ptr))
+					if (is_seen(p_ptr, m_ptr))
 					{
 #ifdef JP
 						if ((m_ptr->monster_idx == MON_KENSHIROU) || (m_ptr->monster_idx == MON_RAOU))

@@ -644,7 +644,7 @@ void teleport_level(int m_idx)
 		/* Get the monster name (or "it") */
 		monster_desc(m_name, m_ptr, 0);
 
-		see_m = is_seen(m_ptr);
+		see_m = is_seen(p_ptr, m_ptr);
 	}
 
 	/* No effect in some case */

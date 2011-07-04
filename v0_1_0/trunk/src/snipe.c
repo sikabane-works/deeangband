@@ -406,7 +406,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 int tot_dam_aux_snipe (int mult, creature_type *m_ptr)
 {
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
-	bool seen = is_seen(m_ptr);
+	bool seen = is_seen(p_ptr, m_ptr);
 
 	switch (snipe_type)
 	{

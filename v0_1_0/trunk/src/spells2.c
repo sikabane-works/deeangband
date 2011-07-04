@@ -4700,7 +4700,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 
 	if (resist && player_cast)
 	{
-		bool see_m = is_seen(m_ptr);
+		bool see_m = is_seen(p_ptr, m_ptr);
 		char m_name[80];
 
 		monster_desc(m_name, m_ptr, 0);
@@ -5707,9 +5707,9 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 					/* Scream in pain */
 #ifdef JP
-					if (!ignore_unview || is_seen(m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
+					if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
 #else
-					if (!ignore_unview || is_seen(m_ptr)) msg_format("%^s wails out in pain!", m_name);
+					if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
 #endif
 
 					/* Take damage from the quake */
@@ -5726,9 +5726,9 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					{
 						/* Message */
 #ifdef JP
-						if (!ignore_unview || is_seen(m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
+						if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
 #else
-						if (!ignore_unview || is_seen(m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
+						if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
 #endif
 
 						if (c_ptr->m_idx)

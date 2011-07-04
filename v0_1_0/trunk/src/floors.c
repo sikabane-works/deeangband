@@ -459,7 +459,7 @@ static void preserve_pet(void)
 		{
 			/* Its parent have gone, it also goes away. */
 
-			if (is_seen(m_ptr))
+			if (is_seen(p_ptr, m_ptr))
 			{
 				char m_name[80];
 
