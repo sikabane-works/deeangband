@@ -648,7 +648,7 @@ void teleport_level(int m_idx)
 	}
 
 	/* No effect in some case */
-	if (TELE_LEVEL_IS_INEFF(m_idx))
+	if (TELE_LEVEL_IS_INEFF(p_ptr, m_idx))
 	{
 #ifdef JP
 		if (see_m) msg_print("å¯â Ç™Ç»Ç©Ç¡ÇΩÅB");

@@ -680,7 +680,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if ((f6 & RF6_TELE_LEVEL) && TELE_LEVEL_IS_INEFF((t_idx == p_ptr->riding) ? 0 : t_idx))
+		if ((f6 & RF6_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(p_ptr, (t_idx == p_ptr->riding) ? 0 : t_idx))
 		{
 			f6 &= ~(RF6_TELE_LEVEL);
 		}

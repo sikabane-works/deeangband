@@ -1517,7 +1517,7 @@ bool make_attack_spell(int m_idx)
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if ((f6 & RF6_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(0))
+		if ((f6 & RF6_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(p_ptr, 0))
 		{
 			f6 &= ~(RF6_TELE_LEVEL);
 		}
