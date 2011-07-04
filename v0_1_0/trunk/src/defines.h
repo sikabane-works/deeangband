@@ -5428,8 +5428,8 @@ extern int PlayerUID;
 
 #define MUSIC_DETECT            101
 
-#define music_singing(C, X) ((C->cls_idx == CLASS_BARD) && (p_ptr->magic_num1[0] == (X)))
-#define music_singing_any(C) ((C->cls_idx == CLASS_BARD) && p_ptr->magic_num1[0])
+#define music_singing(C, X) (((C)->cls_idx == CLASS_BARD) && ((C)->magic_num1[0] == (X)))
+#define music_singing_any(C) (((C)->cls_idx == CLASS_BARD) && (C)->magic_num1[0])
 
 #define HISSATSU_NONE   0
 #define HISSATSU_2      1
@@ -5652,7 +5652,7 @@ extern int PlayerUID;
 #define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_INVULN(C) (C->invuln || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C) (C->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
-#define IS_BLESSED(C) (p_ptr->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(HEX_BLESS))
+#define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(HEX_BLESS))
 #define IS_OPPOSE_ACID(C) (C->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_ELEC(C) (C->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_FIRE(C) (C->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
