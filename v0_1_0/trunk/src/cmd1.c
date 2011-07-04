@@ -246,7 +246,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_ANIMAL)) &&
 			    (r_ptr->flags3 & RF3_ANIMAL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
@@ -258,7 +258,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_ANIMAL)) &&
 			    (r_ptr->flags3 & RF3_ANIMAL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
@@ -270,7 +270,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_EVIL)) &&
 			    (r_ptr->flags3 & RF3_EVIL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_EVIL;
 				}
@@ -280,7 +280,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			else if ((have_flag(flgs, TR_SLAY_GOOD)) &&
 			    (r_ptr->flags3 & RF3_GOOD))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GOOD;
 				}
@@ -291,7 +291,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_EVIL)) &&
 			    (r_ptr->flags3 & RF3_EVIL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_EVIL;
 				}
@@ -301,7 +301,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			else if ((have_flag(flgs, TR_KILL_GOOD)) &&
 			    (r_ptr->flags3 & RF3_GOOD))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GOOD;
 				}
@@ -313,7 +313,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_HUMAN)) &&
 			    (r_ptr->flags2 & RF2_HUMAN))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= RF2_HUMAN;
 				}
@@ -325,7 +325,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_HUMAN)) &&
 			    (r_ptr->flags2 & RF2_HUMAN))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= RF2_HUMAN;
 				}
@@ -337,7 +337,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_UNDEAD)) &&
 			    (r_ptr->flags3 & RF3_UNDEAD))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
@@ -349,7 +349,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_UNDEAD)) &&
 			    (r_ptr->flags3 & RF3_UNDEAD))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
@@ -361,7 +361,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_DEMON)) &&
 			    (r_ptr->flags3 & RF3_DEMON))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DEMON;
 				}
@@ -373,7 +373,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_DEMON)) &&
 			    (r_ptr->flags3 & RF3_DEMON))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DEMON;
 				}
@@ -385,7 +385,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_ORC)) &&
 			    (r_ptr->flags3 & RF3_ORC))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ORC;
 				}
@@ -397,7 +397,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_ORC)) &&
 			    (r_ptr->flags3 & RF3_ORC))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ORC;
 				}
@@ -409,7 +409,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_TROLL)) &&
 			    (r_ptr->flags3 & RF3_TROLL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
@@ -421,7 +421,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_TROLL)) &&
 			    (r_ptr->flags3 & RF3_TROLL))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
@@ -433,7 +433,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_GIANT)) &&
 			    (r_ptr->flags3 & RF3_GIANT))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GIANT;
 				}
@@ -445,7 +445,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_GIANT)) &&
 			    (r_ptr->flags3 & RF3_GIANT))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GIANT;
 				}
@@ -457,7 +457,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_SLAY_DRAGON)) &&
 			    (r_ptr->flags3 & RF3_DRAGON))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DRAGON;
 				}
@@ -469,7 +469,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((have_flag(flgs, TR_KILL_DRAGON)) &&
 			    (r_ptr->flags3 & RF3_DRAGON))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DRAGON;
 				}
@@ -484,7 +484,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if (hex_spelling(HEX_RUNESWORD) &&
 			    (r_ptr->flags3 & RF3_GOOD))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GOOD;
 				}
@@ -498,7 +498,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK);
 					}
@@ -517,7 +517,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK);
 					}
@@ -545,7 +545,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK);
 					}
@@ -557,7 +557,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 					if (r_ptr->flags3 & RF3_HURT_FIRE)
 					{
 						if (mult < 70) mult = 70;
-						if (is_original_ap_and_seen(m_ptr))
+						if (is_original_ap_and_seen(p_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_FIRE;
 						}
@@ -569,7 +569,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 					if (r_ptr->flags3 & RF3_HURT_FIRE)
 					{
 						if (mult < 50) mult = 50;
-						if (is_original_ap_and_seen(m_ptr))
+						if (is_original_ap_and_seen(p_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_FIRE;
 						}
@@ -584,7 +584,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK);
 					}
@@ -595,7 +595,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 					if (r_ptr->flags3 & RF3_HURT_COLD)
 					{
 						if (mult < 70) mult = 70;
-						if (is_original_ap_and_seen(m_ptr))
+						if (is_original_ap_and_seen(p_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_COLD;
 						}
@@ -607,7 +607,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 					if (r_ptr->flags3 & RF3_HURT_COLD)
 					{
 						if (mult < 50) mult = 50;
-						if (is_original_ap_and_seen(m_ptr))
+						if (is_original_ap_and_seen(p_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_COLD;
 						}
@@ -622,7 +622,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK);
 					}
@@ -647,7 +647,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			{
 				if (r_ptr->flags3 & RF3_UNDEAD)
 				{
-					if (is_original_ap_and_seen(m_ptr))
+					if (is_original_ap_and_seen(p_ptr, m_ptr))
 					{
 						r_ptr->r_flags3 |= RF3_UNDEAD;
 					}
@@ -664,7 +664,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			}
 			if ((mode == HISSATSU_HAGAN) && (r_ptr->flags3 & RF3_HURT_ROCK))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_HURT_ROCK;
 				}
@@ -1832,7 +1832,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
+			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff();
 		}
 	}
@@ -1858,7 +1858,7 @@ static void touch_zap_player(creature_type *m_ptr)
 			if (p_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
+			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff();
 		}
 	}
@@ -1885,7 +1885,7 @@ static void touch_zap_player(creature_type *m_ptr)
 #endif
 
 			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
+			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff();
 		}
 	}
@@ -2855,7 +2855,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 							drain_heal = (drain_heal * mutant_regenerate_mod) / 100;
 
-							hp_player(p_ptr, drain_heal);
+							hp_player(cr_ptr, drain_heal);
 							/* We get to keep some of it! */
 						}
 					}
@@ -2887,7 +2887,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				/* Confuse the monster */
 				if (r_ptr->flags3 & RF3_NO_CONF)
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
+					if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
 
 #ifdef JP
 					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", m_name);
@@ -2925,7 +2925,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				{
 					if (r_ptr->flags1 & RF1_UNIQUE)
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", m_name);
 #else
@@ -2936,7 +2936,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^s‚Í’ïR—Í‚ğ‚Á‚Ä‚¢‚éI", m_name);
 #else
@@ -3137,9 +3137,9 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (k < 0) k = 0;
 
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_FORCE, k, "€‚Ì‘åŠ™", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_FORCE, k, "€‚Ì‘åŠ™", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
 				redraw_stuff();

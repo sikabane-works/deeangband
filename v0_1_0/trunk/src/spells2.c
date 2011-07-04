@@ -6671,7 +6671,7 @@ msg_print("Ž¸”s‚µ‚½B");
 		msg_print("Your teleportation is blocked!");
 #endif
 
-		if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 
 		/* Failure */
 		return FALSE;

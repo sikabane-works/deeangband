@@ -1751,7 +1751,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	bool obvious = FALSE;
 
 	/* Can the player know about this effect? */
-	bool known = ((m_ptr->cdis <= MAX_SIGHT) || p_ptr->inside_battle);
+	bool known = ((m_ptr->cdis <= MAX_SIGHT) || who_ptr->inside_battle);
 
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;
@@ -1806,8 +1806,8 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	if (!c_ptr->m_idx) return (FALSE);
 
 	/* Never affect projector */
-	if (who_ptr != p_ptr && (&m_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
-	if ((c_ptr->m_idx == p_ptr->riding) && !who_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
+	if (who_ptr != who_ptr && (&m_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
+	if ((c_ptr->m_idx == who_ptr->riding) && !who_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
@@ -1827,7 +1827,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 #endif
 
 
-	if (p_ptr->riding && (c_ptr->m_idx == p_ptr->riding)) disturb(1, 0);
+	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) disturb(1, 0);
 
 	/* Analyze the damage type */
 	switch (typ)
@@ -1845,7 +1845,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -1864,7 +1864,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_acid)
@@ -1876,7 +1876,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_ACID);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_ACID);
 			}
 			break;
 		}
@@ -1894,7 +1894,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_elec)
@@ -1906,7 +1906,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_ELEC);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_ELEC);
 			}
 			break;
 		}
@@ -1924,7 +1924,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_fire)
@@ -1936,7 +1936,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_FIRE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_FIRE);
 			}
 			else if (r_ptr->flags3 & (RF3_HURT_FIRE))
 			{
@@ -1947,7 +1947,7 @@ note = "はひどい痛手をうけた。";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_FIRE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_FIRE);
 			}
 			break;
 		}
@@ -1965,7 +1965,7 @@ note = "はひどい痛手をうけた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flagsr & RFR_IM_COLD)
@@ -1977,7 +1977,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_COLD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_COLD);
 			}
 			else if (r_ptr->flags3 & (RF3_HURT_COLD))
 			{
@@ -1988,7 +1988,7 @@ note = "はひどい痛手をうけた。";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
 			}
 			break;
 		}
@@ -2006,7 +2006,7 @@ note = "はひどい痛手をうけた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_pois)
@@ -2018,7 +2018,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_POIS);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_POIS);
 			}
 			break;
 		}
@@ -2036,7 +2036,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_pois)
@@ -2048,7 +2048,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_POIS);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_POIS);
 			}
 			else if (one_in_(3)) do_poly = TRUE;
 			break;
@@ -2067,7 +2067,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags3 & RF3_GOOD)
@@ -2079,7 +2079,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 			}
 			break;
 		}
@@ -2097,7 +2097,7 @@ note = "はひどい痛手を受けた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags3 & RF3_GOOD)
@@ -2109,7 +2109,7 @@ note = "には完全な耐性がある。";
 				note = " is immune.";
 #endif
 
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
 			}
 			else if (r_ptr->flags3 & RF3_EVIL)
 			{
@@ -2120,7 +2120,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
 			}
 			else
 			{
@@ -2148,7 +2148,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -2167,7 +2167,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_plazma)
@@ -2179,7 +2179,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_PLAS);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_PLAS);
 			}
 			break;
 		}
@@ -2197,7 +2197,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flagsr & RFR_RES_NETH)
@@ -2211,7 +2211,7 @@ note = "には耐性がある。";
 #endif
 
 					dam = 0;
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 				}
 				else
 				{
@@ -2223,7 +2223,7 @@ note = "には耐性がある。";
 
 					dam *= 3; dam /= randint1(6) + 6;
 				}
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_NETH);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_NETH);
 			}
 			else if (r_ptr->flags3 & RF3_EVIL)
 			{
@@ -2234,7 +2234,7 @@ note = "には耐性がある。";
 				note = " resists somewhat.";
 #endif
 
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 			}
 			break;
 		}
@@ -2252,7 +2252,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_water)
@@ -2277,7 +2277,7 @@ note = "には耐性がある。";
 
 					dam *= 3; dam /= randint1(6) + 6;
 				}
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_WATE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_WATE);
 			}
 			break;
 		}
@@ -2295,7 +2295,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_chaos)
@@ -2307,7 +2307,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_CHAO);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_CHAO);
 			}
 			else if ((r_ptr->flags3 & RF3_DEMON) && one_in_(3))
 			{
@@ -2318,7 +2318,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
 			}
 			else
 			{
@@ -2341,7 +2341,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_shard)
@@ -2353,7 +2353,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SHAR);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SHAR);
 			}
 			break;
 		}
@@ -2371,7 +2371,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_shard)
@@ -2383,7 +2383,7 @@ note = "には耐性がある。";
 #endif
 
 				dam /= 2;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SHAR);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SHAR);
 			}
 			break;
 		}
@@ -2402,7 +2402,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_sound)
@@ -2414,7 +2414,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 2; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SOUN);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_SOUN);
 			}
 			else do_stun = (10 + randint1(15) + r) / (r + 1);
 			break;
@@ -2433,7 +2433,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_conf)
@@ -2445,7 +2445,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 			}
 			else do_conf = (10 + randint1(15) + r) / (r + 1);
 			break;
@@ -2464,7 +2464,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_disen)
@@ -2476,7 +2476,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_DISE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_DISE);
 			}
 			break;
 		}
@@ -2494,7 +2494,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_nexus)
@@ -2506,7 +2506,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_NEXU);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_NEXU);
 			}
 			break;
 		}
@@ -2524,7 +2524,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_force)
@@ -2536,7 +2536,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_WALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_WALL);
 			}
 			else do_stun = (randint1(15) + r) / (r + 1);
 			break;
@@ -2555,7 +2555,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_inertia)
@@ -2567,7 +2567,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_INER);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_INER);
 			}
 			else
 			{
@@ -2606,7 +2606,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_time)
@@ -2618,7 +2618,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_TIME);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_TIME);
 			}
 			else do_time = (dam + 1) / 2;
 			break;
@@ -2639,14 +2639,14 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (m_ptr->resist_tele)
 			{
 				if (r_ptr->flags1 & (RF1_UNIQUE))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には効果がなかった。";
 #else
@@ -2657,7 +2657,7 @@ note = "には効果がなかった。";
 				}
 				else if (r_ptr->level > randint1(100))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -2670,7 +2670,7 @@ note = "には耐性がある！";
 
 			if (!resist_tele) do_dist = 10;
 			else do_dist = 0;
-			if (p_ptr->riding && (c_ptr->m_idx == p_ptr->riding)) do_dist = 0;
+			if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_dist = 0;
 
 			if (m_ptr->resist_gravity)
 			{
@@ -2682,7 +2682,7 @@ note = "には耐性がある！";
 
 				dam *= 3; dam /= randint1(6) + 6;
 				do_dist = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_GRAV);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_GRAV);
 			}
 			else
 			{
@@ -2743,7 +2743,7 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -2763,12 +2763,12 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags3 & RF3_HURT_ROCK)
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
 #ifdef JP
 note = "の皮膚がただれた！";
 note_dies = "は蒸発した！";
@@ -2806,7 +2806,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags2 & RF2_EMPTY_MIND)
@@ -2817,7 +2817,7 @@ note_dies = "は蒸発した！";
 #else
 				note = " is immune!";
 #endif
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 
 			}
 			else if ((r_ptr->flags2 & (RF2_STUPID | RF2_WEIRD_MIND)) ||
@@ -2837,7 +2837,7 @@ note_dies = "は蒸発した！";
 				 * attacks back on them
 				 */
 				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
-				    (r_ptr->level > p_ptr->lev / 2) &&
+				    (r_ptr->level > who_ptr->lev / 2) &&
 				    one_in_(2))
 				{
 					note = NULL;
@@ -2849,7 +2849,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+					if ((randint0(100 + r_ptr->level / 2) < who_ptr->skill_rob) && !(who_ptr->multishadow && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -2862,16 +2862,16 @@ note_dies = "は蒸発した！";
 					{
 						/* Injure +/- confusion */
 						monster_desc(killer, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-						take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
-						if (one_in_(4) && !(p_ptr->multishadow && (turn & 1)))
+						take_hit(NULL, who_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
+						if (one_in_(4) && !(who_ptr->multishadow && (turn & 1)))
 						{
 							switch (randint1(4))
 							{
 								case 1:
-									set_confused(p_ptr, p_ptr->confused + 3 + randint1(dam));
+									set_confused(who_ptr, who_ptr->confused + 3 + randint1(dam));
 									break;
 								case 2:
-									set_stun(p_ptr, p_ptr->stun + randint1(dam));
+									set_stun(who_ptr, who_ptr->stun + randint1(dam));
 									break;
 								case 3:
 								{
@@ -2883,12 +2883,12 @@ note_dies = "は蒸発した！";
 #endif
 
 									else
-										set_afraid(p_ptr, p_ptr->afraid + 3 + randint1(dam));
+										set_afraid(who_ptr, who_ptr->afraid + 3 + randint1(dam));
 									break;
 								}
 								default:
-									if (!p_ptr->free_act)
-										(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(dam));
+									if (!who_ptr->free_act)
+										(void)set_paralyzed(who_ptr, who_ptr->paralyzed + randint1(dam));
 									break;
 							}
 						}
@@ -2943,7 +2943,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags2 & RF2_EMPTY_MIND)
@@ -2973,7 +2973,7 @@ note_dies = "は蒸発した！";
 				 * attacks back on them
 				 */
 				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
-				     (r_ptr->level > p_ptr->lev / 2) &&
+				     (r_ptr->level > who_ptr->lev / 2) &&
 				     (one_in_(2)))
 				{
 					note = NULL;
@@ -2985,7 +2985,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + r_ptr->level / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+					if ((randint0(100 + r_ptr->level / 2) < who_ptr->skill_rob) && !(who_ptr->multishadow && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("あなたは効力を跳ね返した！");
@@ -2997,7 +2997,7 @@ note_dies = "は蒸発した！";
 					{
 						/* Injure + mana drain */
 						monster_desc(killer, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
-						if (!(p_ptr->multishadow && (turn & 1)))
+						if (!(who_ptr->multishadow && (turn & 1)))
 						{
 #ifdef JP
 							msg_print("超能力パワーを吸いとられた！");
@@ -3005,12 +3005,12 @@ note_dies = "は蒸発した！";
 							msg_print("Your psychic energy is drained!");
 #endif
 
-							p_ptr->csp -= damroll(5, dam) / 2;
-							if (p_ptr->csp < 0) p_ptr->csp = 0;
-							p_ptr->redraw |= PR_MANA;
-							p_ptr->window |= (PW_SPELL);
+							who_ptr->csp -= damroll(5, dam) / 2;
+							if (who_ptr->csp < 0) who_ptr->csp = 0;
+							who_ptr->redraw |= PR_MANA;
+							who_ptr->window |= (PW_SPELL);
 						}
-						take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
+						take_hit(NULL, who_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
 					}
 					dam = 0;
 				}
@@ -3019,18 +3019,18 @@ note_dies = "は蒸発した！";
 			{
 				int b = damroll(5, dam) / 4;
 #ifdef JP
-				cptr str = (p_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+				cptr str = (who_ptr->cls_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
 				msg_format("あなたは%sの苦痛を%sに変換した！", m_name, str);
 #else
-				cptr str = (p_ptr->cls_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+				cptr str = (who_ptr->cls_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
 				msg_format("You convert %s%s pain into %s!",
 				    m_name, (seen ? "'s" : "s"), str);
 #endif
 
-				b = MIN(p_ptr->msp, p_ptr->csp + b);
-				p_ptr->csp = b;
-				p_ptr->redraw |= PR_MANA;
-				p_ptr->window |= (PW_SPELL);
+				b = MIN(who_ptr->msp, who_ptr->csp + b);
+				who_ptr->csp = b;
+				who_ptr->redraw |= PR_MANA;
+				who_ptr->window |= (PW_SPELL);
 			}
 
 #ifdef JP
@@ -3054,12 +3054,12 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (one_in_(4))
 			{
-				if (p_ptr->riding && (c_ptr->m_idx == p_ptr->riding)) do_dist = 0;
+				if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_dist = 0;
 				else do_dist = 7;
 			}
 
@@ -3091,7 +3091,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -3110,7 +3110,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -3130,7 +3130,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3141,7 +3141,7 @@ note_dies = "は蒸発した！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & RF3_NO_CONF)
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -3152,7 +3152,7 @@ note_dies = "は蒸発した！";
 				 * attacks back on them
 				 */
 				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
-				    (r_ptr->level > p_ptr->lev / 2) &&
+				    (r_ptr->level > who_ptr->lev / 2) &&
 				    (one_in_(2)))
 				{
 					note = NULL;
@@ -3164,7 +3164,7 @@ note_dies = "は蒸発した！";
 #endif
 
 					/* Saving throw */
-					if (randint0(100 + r_ptr->level/2) < p_ptr->skill_rob)
+					if (randint0(100 + r_ptr->level/2) < who_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -3179,10 +3179,10 @@ note_dies = "は蒸発した！";
 						switch (randint1(4))
 						{
 							case 1:
-								set_stun(p_ptr, p_ptr->stun + dam / 2);
+								set_stun(who_ptr, who_ptr->stun + dam / 2);
 								break;
 							case 2:
-								set_confused(p_ptr, p_ptr->confused + dam / 2);
+								set_confused(who_ptr, who_ptr->confused + dam / 2);
 								break;
 							default:
 							{
@@ -3194,7 +3194,7 @@ note_dies = "は蒸発した！";
 #endif
 
 								else
-									set_afraid(p_ptr, p_ptr->afraid + dam);
+									set_afraid(who_ptr, who_ptr->afraid + dam);
 							}
 						}
 					}
@@ -3259,7 +3259,7 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			do_stun = (randint1(15) + 1) / (r + 1);
@@ -3272,7 +3272,7 @@ note = "があなたに隷属した。";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_IM_COLD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_IM_COLD);
 			}
 			else if (r_ptr->flags3 & (RF3_HURT_COLD))
 			{
@@ -3283,7 +3283,7 @@ note = "があなたに隷属した。";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
 			}
 			break;
 		}
@@ -3302,12 +3302,12 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (!monster_living(r_ptr))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
 					if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
@@ -3341,12 +3341,12 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (!monster_living(r_ptr))
 			{
-				if (is_original_ap_and_seen(m_ptr))
+				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
 					if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
@@ -3393,7 +3393,7 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Attempt to polymorph (see below) */
@@ -3426,7 +3426,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((p_ptr->inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & (RF7_NAZGUL | RF7_UNIQUE2)))
+			if ((who_ptr->inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & (RF7_NAZGUL | RF7_UNIQUE2)))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -3479,8 +3479,8 @@ note = "が分裂した！";
 			if (!dam)
 			{
 				/* Redraw (later) if needed */
-				if (p_ptr->health_who == c_ptr->m_idx) p_ptr->redraw |= (PR_HEALTH);
-				if (p_ptr->riding == c_ptr->m_idx) p_ptr->redraw |= (PR_UHEALTH);
+				if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
+				if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
 				break;
 			}
 
@@ -3554,8 +3554,8 @@ note = "が分裂した！";
 			}
 
 			/* Redraw (later) if needed */
-			if (p_ptr->health_who == c_ptr->m_idx) p_ptr->redraw |= (PR_HEALTH);
-			if (p_ptr->riding == c_ptr->m_idx) p_ptr->redraw |= (PR_UHEALTH);
+			if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
+			if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
 
 			/* Message */
 #ifdef JP
@@ -3612,7 +3612,7 @@ note = "が分裂した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Powerful monsters can resist */
@@ -3660,7 +3660,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3671,7 +3671,7 @@ note = "には効果がなかった！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & RF3_NO_SLEEP)
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
 				}
 
 				/* No obvious effect */
@@ -3714,7 +3714,7 @@ note = "は眠り込んでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3760,7 +3760,7 @@ note = "は動けなくなった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3796,22 +3796,22 @@ note = "は動けなくなった！";
 		case GF_CHARM:
 		{
 			int vir;
-			dam += (adj_con_fix[p_ptr->stat_ind[A_CHR]] - 1);
+			dam += (adj_con_fix[who_ptr->stat_ind[A_CHR]] - 1);
 			vir = virtue_number(V_HARMONY);
 			if (vir)
 			{
-				dam += p_ptr->virtues[vir-1]/10;
+				dam += who_ptr->virtues[vir-1]/10;
 			}
 
 			vir = virtue_number(V_INDIVIDUALISM);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/20;
+				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
 			if (seen) obvious = TRUE;
 
-			if ((m_ptr->resist_ultimate) || p_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3819,7 +3819,7 @@ note = "は動けなくなった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -3835,7 +3835,7 @@ note = "は動けなくなった！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & RF3_NO_CONF)
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -3850,7 +3850,7 @@ note = "には効果がなかった！";
 
 				if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (p_ptr->cursed & TRC_AGGRAVATE)
+			else if (who_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
 note = "はあなたに敵意を抱いている！";
@@ -3889,16 +3889,16 @@ note = "は突然友好的になったようだ！";
 			vir = virtue_number(V_UNLIFE);
 			if (vir)
 			{
-				dam += p_ptr->virtues[vir-1]/10;
+				dam += who_ptr->virtues[vir-1]/10;
 			}
 
 			vir = virtue_number(V_INDIVIDUALISM);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/20;
+				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || p_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3906,7 +3906,7 @@ note = "は突然友好的になったようだ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -3929,7 +3929,7 @@ note = "には効果がなかった！";
 				obvious = FALSE;
 				if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (p_ptr->cursed & TRC_AGGRAVATE)
+			else if (who_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
 note = "はあなたに敵意を抱いている！";
@@ -3964,16 +3964,16 @@ note = "は既にあなたの奴隷だ！";
 			vir = virtue_number(V_UNLIFE);
 			if (vir)
 			{
-				dam += p_ptr->virtues[vir-1]/10;
+				dam += who_ptr->virtues[vir-1]/10;
 			}
 
 			vir = virtue_number(V_INDIVIDUALISM);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/20;
+				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || p_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3981,7 +3981,7 @@ note = "は既にあなたの奴隷だ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -4004,7 +4004,7 @@ note = "には効果がなかった！";
 				obvious = FALSE;
 				if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (p_ptr->cursed & TRC_AGGRAVATE)
+			else if (who_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
 note = "はあなたに敵意を抱いている！";
@@ -4040,16 +4040,16 @@ note = "は既にあなたの奴隷だ！";
 			vir = virtue_number(V_NATURE);
 			if (vir)
 			{
-				dam += p_ptr->virtues[vir-1]/10;
+				dam += who_ptr->virtues[vir-1]/10;
 			}
 
 			vir = virtue_number(V_INDIVIDUALISM);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/20;
+				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || p_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4057,7 +4057,7 @@ note = "は既にあなたの奴隷だ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -4074,7 +4074,7 @@ note = "は既にあなたの奴隷だ！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & (RF3_NO_CONF))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -4088,7 +4088,7 @@ note = "には効果がなかった！";
 				obvious = FALSE;
 				if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (p_ptr->cursed & TRC_AGGRAVATE)
+			else if (who_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
 note = "はあなたに敵意を抱いている！";
@@ -4125,17 +4125,17 @@ note = "はなついた。";
 			vir = virtue_number(V_UNLIFE);
 			if (seen) obvious = TRUE;
 
-			dam += (adj_chr_chm[p_ptr->stat_ind[A_CHR]]);
+			dam += (adj_chr_chm[who_ptr->stat_ind[A_CHR]]);
 			vir = virtue_number(V_UNLIFE);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/10;
+				dam -= who_ptr->virtues[vir-1]/10;
 			}
 
 			vir = virtue_number(V_INDIVIDUALISM);
 			if (vir)
 			{
-				dam -= p_ptr->virtues[vir-1]/20;
+				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
 			if (r_ptr->flags3 & (RF3_NO_CONF)) dam -= 30;
@@ -4145,7 +4145,7 @@ msg_format("%sを見つめた。",m_name);
 #else
 			msg_format("You stare into %s.", m_name);
 #endif
-			if ((m_ptr->resist_ultimate) || p_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4153,7 +4153,7 @@ msg_format("%sを見つめた。",m_name);
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -4177,7 +4177,7 @@ note = "には効果がなかった！";
 				obvious = FALSE;
 				if (one_in_(4)) m_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (p_ptr->cursed & TRC_AGGRAVATE)
+			else if (who_ptr->cursed & TRC_AGGRAVATE)
 			{
 #ifdef JP
 note = "はあなたに敵意を抱いている！";
@@ -4219,7 +4219,7 @@ note = "を支配した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			/* Get confused later */
@@ -4233,7 +4233,7 @@ note = "を支配した。";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & (RF3_NO_CONF))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -4266,7 +4266,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
@@ -4316,7 +4316,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -4354,7 +4354,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flagsr & RFR_RES_LITE)
@@ -4366,11 +4366,11 @@ note_dies = "は光を受けてしぼんでしまった！";
 #endif
 
 				dam *= 2; dam /= (randint1(6)+6);
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_LITE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_LITE);
 			}
 			else if (r_ptr->flags3 & (RF3_HURT_LITE))
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 #ifdef JP
 				note = "は光に身をすくめた！";
 				note_dies = "は光を受けてしぼんでしまった！";
@@ -4398,7 +4398,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flagsr & RFR_RES_DARK)
@@ -4410,7 +4410,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 #endif
 
 				dam *= 2; dam /= (randint1(6)+6);
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_DARK);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_DARK);
 			}
 			break;
 		}
@@ -4431,7 +4431,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
 
 				/* Cute little message */
 #ifdef JP
@@ -4467,7 +4467,7 @@ note_dies = "はドロドロに溶けた！";
 				{
 					if ((r_ptr->flags1 & (RF1_UNIQUE)) || (m_ptr->resist_ultimate))
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には効果がなかった！";
 #else
@@ -4478,7 +4478,7 @@ note = "には効果がなかった！";
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -4492,7 +4492,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					do_dist = dam;
 				}
 			}
@@ -4522,7 +4522,7 @@ note = "には耐性がある！";
 				{
 					if ((r_ptr->flags1 & (RF1_UNIQUE)) || (m_ptr->resist_ultimate))
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には効果がなかった！";
 #else
@@ -4533,7 +4533,7 @@ note = "には効果がなかった！";
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -4547,7 +4547,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 					do_dist = dam;
 				}
 			}
@@ -4573,7 +4573,7 @@ note = "には耐性がある！";
 			{
 				if ((r_ptr->flags1 & (RF1_UNIQUE)) || (m_ptr->resist_ultimate))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 					note = "には効果がなかった！";
 #else
@@ -4584,7 +4584,7 @@ note = "には耐性がある！";
 				}
 				else if (r_ptr->level > randint1(100))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 					note = "には耐性がある！";
 #else
@@ -4625,7 +4625,7 @@ note = "には耐性がある！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4673,7 +4673,7 @@ note = "には耐性がある！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4758,7 +4758,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 
 				/* Message */
 #ifdef JP
@@ -4800,7 +4800,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Message */
 #ifdef JP
@@ -4841,7 +4841,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 
 				/* Message */
 #ifdef JP
@@ -4921,7 +4921,7 @@ note_dies = "はドロドロに溶けた！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
 
 				/* Message */
 #ifdef JP
@@ -4984,7 +4984,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5000,8 +5000,8 @@ note_dies = "はドロドロに溶けた！";
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[p_ptr->health_who] == who_ptr) p_ptr->redraw |= (PR_HEALTH);
-						if (&m_list[p_ptr->riding] == who_ptr) p_ptr->redraw |= (PR_UHEALTH);
+						if (&m_list[who_ptr->health_who] == who_ptr) who_ptr->redraw |= (PR_HEALTH);
+						if (&m_list[who_ptr->riding] == who_ptr) who_ptr->redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (see_s_msg)
@@ -5025,7 +5025,7 @@ note_dies = "はドロドロに溶けた！";
 					msg_format("You draw psychic energy from %s.", m_name);
 #endif
 
-					(void)hp_player(p_ptr, dam);
+					(void)hp_player(who_ptr, dam);
 				}
 			}
 			else
@@ -5046,9 +5046,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sをじっと睨んだ。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sをじっと睨んだ。", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You gaze intently at %s.", m_name);
+			if (who_ptr == who_ptr) msg_format("You gaze intently at %s.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5059,7 +5059,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5071,7 +5071,7 @@ note_dies = "はドロドロに溶けた！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & (RF3_NO_CONF))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5082,7 +5082,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (r_ptr->flags2 & RF2_EMPTY_MIND)
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5092,7 +5092,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (r_ptr->flags2 & RF2_WEIRD_MIND)
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -5110,7 +5110,7 @@ note_dies = "はドロドロに溶けた！";
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (who_ptr != p_ptr) do_conf = randint0(4) + 4;
+				if (who_ptr != who_ptr) do_conf = randint0(4) + 4;
 				else do_conf = randint0(8) + 8;
 			}
 			break;
@@ -5122,9 +5122,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sをじっと睨んだ。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sをじっと睨んだ。", m_name);
 #else
-			if (who_ptr != p_ptr) msg_format("You gaze intently at %s.", m_name);
+			if (who_ptr != who_ptr) msg_format("You gaze intently at %s.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5135,7 +5135,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5147,7 +5147,7 @@ note_dies = "はドロドロに溶けた！";
 				/* Memorize a flag */
 				if (r_ptr->flags3 & (RF3_NO_CONF))
 				{
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5158,7 +5158,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (r_ptr->flags2 & RF2_EMPTY_MIND)
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5168,7 +5168,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (r_ptr->flags2 & RF2_WEIRD_MIND)
 			{
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -5186,7 +5186,7 @@ note_dies = "はドロドロに溶けた！";
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (who_ptr != p_ptr)
+				if (who_ptr != who_ptr)
 				{
 					do_conf = randint0(4) + 4;
 					do_stun = randint0(4) + 4;
@@ -5207,9 +5207,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sを指差して呪いをかけた。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sを指差して呪いをかけた。", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You point at %s and curse.", m_name);
+			if (who_ptr == who_ptr) msg_format("You point at %s and curse.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5220,7 +5220,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5243,9 +5243,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You point at %s and curse horribly.", m_name);
+			if (who_ptr == who_ptr) msg_format("You point at %s and curse horribly.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5256,7 +5256,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5279,9 +5279,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", m_name);
+			if (who_ptr == who_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You point at %s, incanting terribly!", m_name);
+			if (who_ptr == who_ptr) msg_format("You point at %s, incanting terribly!", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5292,7 +5292,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5315,9 +5315,9 @@ note_dies = "はドロドロに溶けた！";
 			if (seen) obvious = TRUE;
 			/* Message */
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", m_name);
+			if (who_ptr == who_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", m_name);
 #endif
 
 			if (m_ptr->resist_ultimate)
@@ -5328,12 +5328,12 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
 			/* Attempt a saving throw */
-			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who_ptr == p_ptr) || (who_ptr->monster_idx != MON_KENSHIROU)))
+			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who_ptr == who_ptr) || (who_ptr->monster_idx != MON_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5358,7 +5358,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5373,7 +5373,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else
 			{
-				if ((who_ptr != p_ptr) ? ((caster_lev + randint1(dam)) > (r_ptr->level + 10 + randint1(20))) :
+				if ((who_ptr != who_ptr) ? ((caster_lev + randint1(dam)) > (r_ptr->level + 10 + randint1(20))) :
 				   (((caster_lev / 2) + randint1(dam)) > (r_ptr->level + randint1(200))))
 				{
 					dam = ((40 + randint1(20)) * m_ptr->chp) / 100;
@@ -5397,7 +5397,7 @@ note_dies = "はドロドロに溶けた！";
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
-			if ((p_ptr->inside_quest && (quest[p_ptr->inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(m_ptr)) ||
+			if ((who_ptr->inside_quest && (quest[who_ptr->inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(m_ptr)) ||
 			    (r_ptr->flags1 & (RF1_UNIQUE)) || (r_ptr->flags7 & (RF7_NAZGUL)) || (r_ptr->flags7 & (RF7_UNIQUE2)) || (r_ptr->flags1 & RF1_QUESTOR) || m_ptr->parent_m_idx)
 			{
 #ifdef JP
@@ -5410,10 +5410,10 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			if (is_pet(m_ptr)) nokori_hp = m_ptr->mhp * 4L;
-			else if ((p_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(r_ptr))
-				nokori_hp = (m_ptr->mhp * 3 / 10) > (p_ptr->lev * 2) ? (m_ptr->mhp * 3 / 10) : (p_ptr->lev * 2);
+			else if ((who_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(r_ptr))
+				nokori_hp = (m_ptr->mhp * 3 / 10) > (who_ptr->lev * 2) ? (m_ptr->mhp * 3 / 10) : (who_ptr->lev * 2);
 			else
-				nokori_hp = (m_ptr->mhp * 3 / 20) > (p_ptr->lev * 3 / 2) ? (m_ptr->mhp * 3 / 10) : (p_ptr->lev * 3 / 2);
+				nokori_hp = (m_ptr->mhp * 3 / 20) > (who_ptr->lev * 3 / 2) ? (m_ptr->mhp * 3 / 10) : (who_ptr->lev * 3 / 2);
 
 			if (m_ptr->chp >= nokori_hp)
 			{
@@ -5437,7 +5437,7 @@ note_dies = "はドロドロに溶けた！";
 				cap_hp = m_ptr->chp;
 				cap_mhp = m_ptr->mmhp;
 				cap_nickname = m_ptr->nickname; /* Quark transfer */
-				if (c_ptr->m_idx == p_ptr->riding)
+				if (c_ptr->m_idx == who_ptr->riding)
 				{
 					if (rakuba(-1, FALSE))
 					{
@@ -5469,7 +5469,7 @@ msg_format("うまく捕まえられなかった。");
 		case GF_ATTACK:
 		{
 			/* Return this monster's death */
-			return py_attack(p_ptr, y, x, dam);
+			return py_attack(who_ptr, y, x, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */
@@ -5488,7 +5488,7 @@ msg_format("うまく捕まえられなかった。");
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			if (r_ptr->flags2 & RF2_EMPTY_MIND)
@@ -5500,7 +5500,7 @@ msg_format("うまく捕まえられなかった。");
 #endif
 				dam = 0;
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
 			if (m_ptr->paralyzed)
@@ -5551,7 +5551,7 @@ msg_format("うまく捕まえられなかった。");
 
 			else if (effect == 2)
 			{
-				do_stun = damroll((p_ptr->lev / 10) + 3 , (dam)) + 1;
+				do_stun = damroll((who_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
 				if ((r_ptr->flags1 & (RF1_UNIQUE)) ||
@@ -5581,7 +5581,7 @@ note = "には効果がなかった！";
 					/* Memorize a flag */
 					if (r_ptr->flags3 & RF3_NO_SLEEP)
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
+						if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
 					}
 
 					/* No obvious effect */
@@ -5633,14 +5633,14 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
 #ifdef JP
-			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == p_ptr, (r_ptr->level + 1) / 2, "モンスター消滅"))
+			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == who_ptr, (r_ptr->level + 1) / 2, "モンスター消滅"))
 #else
-			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == p_ptr, (r_ptr->level + 1) / 2, "Genocide One"))
+			if (genocide_aux(c_ptr->m_idx, dam, who_ptr == who_ptr, (r_ptr->level + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP
@@ -5659,9 +5659,9 @@ note = "には効果がなかった！";
 		case GF_PHOTO:
 		{
 #ifdef JP
-			if (who_ptr == p_ptr) msg_format("%sを写真に撮った。", m_name);
+			if (who_ptr == who_ptr) msg_format("%sを写真に撮った。", m_name);
 #else
-			if (who_ptr == p_ptr) msg_format("You take a photograph of %s.", m_name);
+			if (who_ptr == who_ptr) msg_format("You take a photograph of %s.", m_name);
 #endif
 			/* Hurt by light */
 			if (r_ptr->flags3 & (RF3_HURT_LITE))
@@ -5670,7 +5670,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -5708,7 +5708,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 			break;
@@ -5719,7 +5719,7 @@ note = "には効果がなかった！";
 			bool success = FALSE;
 			if (seen) obvious = TRUE;
 
-			if ((r_ptr->flags3 & (RF3_GOOD)) && !p_ptr->inside_arena)
+			if ((r_ptr->flags3 & (RF3_GOOD)) && !who_ptr->inside_arena)
 			{
 				if (r_ptr->flags3 & (RF3_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;
@@ -5741,7 +5741,7 @@ note = "には効果がなかった！";
 				else if ((r_ptr->flags1 & (RF1_QUESTOR)) ||
 				    (r_ptr->flags1 & (RF1_UNIQUE)) ||
 				    (m_ptr->mflag2 & MFLAG2_NOPET) ||
-				    (p_ptr->cursed & TRC_AGGRAVATE) ||
+				    (who_ptr->cursed & TRC_AGGRAVATE) ||
 					 ((r_ptr->level+10) > randint1(dam)))
 				{
 					/* Resist */
@@ -5759,7 +5759,7 @@ note = "には効果がなかった！";
 					(void)set_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
-					if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 					success = TRUE;
 				}
 			}
@@ -5770,7 +5770,7 @@ note = "には効果がなかった！";
 				{
 					do_fear = randint1(90)+10;
 				}
-				else if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags3 |= (RF3_NO_FEAR);
+				else if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_NO_FEAR);
 			}
 
 			/* No "real" damage */
@@ -5790,7 +5790,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_ALL);
 				break;
 			}
 
@@ -5831,15 +5831,15 @@ note = "には効果がなかった。";
 	/* Quest monsters cannot be polymorphed */
 	if (r_ptr->flags1 & RF1_QUESTOR) do_poly = FALSE;
 
-	if (p_ptr->riding && (c_ptr->m_idx == p_ptr->riding)) do_poly = FALSE;
+	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !p_ptr->inside_battle)
+	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !who_ptr->inside_battle)
 	{
-		if (who_ptr != p_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
+		if (who_ptr != who_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
 	}
 
-	if (who_ptr == p_ptr && slept)
+	if (who_ptr == who_ptr && slept)
 	{
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
 		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
@@ -6006,11 +6006,11 @@ note = "には効果がなかった。";
 			note = " disappears!";
 #endif
 
-			if (who_ptr == p_ptr) chg_virtue(V_VALOUR, -1);
+			if (who_ptr == who_ptr) chg_virtue(V_VALOUR, -1);
 
 			/* Teleport */
 			teleport_away(c_ptr->m_idx, do_dist,
-						(who_ptr == p_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
+						(who_ptr == who_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
 			/* Hack -- get new location */
 			y = m_ptr->fy;
@@ -6037,11 +6037,11 @@ note = "には効果がなかった。";
 	}
 
 	/* If another monster did the damage, hurt the monster by hand */
-	else if (who_ptr != p_ptr)
+	else if (who_ptr != who_ptr)
 	{
 		/* Redraw (later) if needed */
-		if (p_ptr->health_who == c_ptr->m_idx) p_ptr->redraw |= (PR_HEALTH);
-		if (p_ptr->riding == c_ptr->m_idx) p_ptr->redraw |= (PR_UHEALTH);
+		if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
+		if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
 		(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
@@ -6072,7 +6072,7 @@ note = "には効果がなかった。";
 			}
 
 			//TODO
-			//if (who_ptr != p_ptr) monster_gain_exp(p_ptr, who, m_ptr->monster_idx);
+			//if (who_ptr != who_ptr) monster_gain_exp(who_ptr, who, m_ptr->monster_idx);
 
 			/* Generate treasure, etc */
 			monster_death(&m_list[c_ptr->m_idx], FALSE);
@@ -6136,7 +6136,7 @@ note = "には効果がなかった。";
 		bool fear = FALSE;
 
 		/* Hurt the monster, check for fear and death */
-		take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
+		take_hit(who_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
 
 		/* Damaged monster */
 		if(&m_list[c_ptr->m_idx].monster_idx != 0)
@@ -6237,19 +6237,19 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? -1 : 0), py, px, (pet ? p_ptr->lev*2/3+randint1(p_ptr->lev/2) : dun_level), 0, mode);
+				count += summon_specific((pet ? -1 : 0), py, px, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
-				if (p_ptr->hold_life && (randint0(100) < 75)) break;
+				if (who_ptr->hold_life && (randint0(100) < 75)) break;
 #ifdef JP
 msg_print("生命力が体から吸い取られた気がする！");
 #else
 				msg_print("You feel your life draining away...");
 #endif
 
-				if (p_ptr->hold_life) lose_exp(p_ptr, p_ptr->exp / 160);
-				else lose_exp(p_ptr, p_ptr->exp / 16);
+				if (who_ptr->hold_life) lose_exp(who_ptr, who_ptr->exp / 160);
+				else lose_exp(who_ptr, who_ptr->exp / 16);
 				if (!one_in_(6)) break;
 			case 26: case 27: case 28:
 			{
@@ -6260,7 +6260,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 					{
 						do
 						{
-							(void)do_dec_stat(p_ptr, i);
+							(void)do_dec_stat(who_ptr, i);
 						}
 						while (one_in_(2));
 
@@ -6269,7 +6269,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 				}
 				else
 				{
-					(void)do_dec_stat(p_ptr, randint0(6));
+					(void)do_dec_stat(who_ptr, randint0(6));
 				}
 				break;
 			}
@@ -6278,10 +6278,10 @@ msg_print("生命力が体から吸い取られた気がする！");
 		while (one_in_(5));
 	}
 
-	if (p_ptr->inside_battle)
+	if (who_ptr->inside_battle)
 	{
-		p_ptr->health_who = c_ptr->m_idx;
-		p_ptr->redraw |= (PR_HEALTH);
+		who_ptr->health_who = c_ptr->m_idx;
+		who_ptr->redraw |= (PR_HEALTH);
 		redraw_stuff();
 	}
 
@@ -6295,28 +6295,28 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 
 	/* Update monster recall window */
-	if ((p_ptr->monster_race_idx == m_ptr->monster_idx) && (seen || !m_ptr->monster_idx))
+	if ((who_ptr->monster_race_idx == m_ptr->monster_idx) && (seen || !m_ptr->monster_idx))
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_MONSTER);
+		who_ptr->window |= (PW_MONSTER);
 	}
 
 	if ((dam > 0) && !is_pet(m_ptr) && !is_friendly(m_ptr))
 	{
-		if (who_ptr == p_ptr)
+		if (who_ptr == who_ptr)
 		{
 			if (!(flg & PROJECT_NO_HANGEKI))
 			{
 				set_target(m_ptr, monster_target_y, monster_target_x);
 			}
 		}
-		else if ((who_ptr != p_ptr) && is_pet(who_ptr) && !player_bold(m_ptr->target_y, m_ptr->target_x))
+		else if ((who_ptr != who_ptr) && is_pet(who_ptr) && !player_bold(m_ptr->target_y, m_ptr->target_x))
 		{
 			set_target(m_ptr, who_ptr->fy, who_ptr->fx);
 		}
 	}
 
-	if (p_ptr->riding && (p_ptr->riding == c_ptr->m_idx) && (dam > 0))
+	if (who_ptr->riding && (who_ptr->riding == c_ptr->m_idx) && (dam > 0))
 	{
 		if (m_ptr->chp > m_ptr->mhp/3) dam = (dam + 1) / 2;
 		rakubadam_m = (dam > 200) ? 200 : dam;
@@ -9120,7 +9120,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						msg_print("The attack bounces!");
 #endif
 					}
-					if (is_original_ap_and_seen(m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
+					if (is_original_ap_and_seen(p_ptr, m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
 
 					/* Reflected bolts randomly target either one */
 					if (player_bold(y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);

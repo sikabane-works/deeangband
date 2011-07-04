@@ -1718,7 +1718,7 @@ static void process_monster(int m_idx)
 		}
 
 		/* Hack -- Count the wakings */
-		if (is_original_ap_and_seen(m_ptr) && (r_ptr->r_wake < MAX_UCHAR))
+		if (is_original_ap_and_seen(p_ptr, m_ptr) && (r_ptr->r_wake < MAX_UCHAR))
 		{
 			r_ptr->r_wake++;
 		}
@@ -1799,7 +1799,7 @@ static void process_monster(int m_idx)
 			if (multiply_monster(m_idx, FALSE, (is_pet(m_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(m_ptr))
+				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(p_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1832,7 +1832,7 @@ static void process_monster(int m_idx)
 						}
 					}
 
-					if (count && is_original_ap_and_seen(m_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
+					if (count && is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
 				}
 			}
 		}
@@ -1969,7 +1969,7 @@ msg_format("%^s%s", m_name, monmessage);
 		 (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
+		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1980,7 +1980,7 @@ msg_format("%^s%s", m_name, monmessage);
 				(randint0(100) < 50))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
+		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1991,7 +1991,7 @@ msg_format("%^s%s", m_name, monmessage);
 				(randint0(100) < 25))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
+		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2236,7 +2236,7 @@ msg_format("%^s%s", m_name, monmessage);
 						/* Update some things */
 						p_ptr->update |= (PU_FLOW);
 						p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 						return;
 					}
@@ -2345,7 +2345,7 @@ msg_format("%^s%s", m_name, monmessage);
 			if (r_ptr->flags1 & RF1_NEVER_BLOW)
 			{
 				/* Hack -- memorize lack of attacks */
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
+				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2359,7 +2359,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (!(r_ptr->flags2 & RF2_STUPID)) do_move = FALSE;
 					else
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 					}
 				}
 			}
@@ -2404,7 +2404,7 @@ msg_format("%^s%s", m_name, monmessage);
 				{
 					if (r_ptr->flags2 & RF2_KILL_BODY)
 					{
-						if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
@@ -2418,7 +2418,7 @@ msg_format("%^s%s", m_name, monmessage);
 							if (m_ptr->confused) return;
 							else if (r_ptr->flags2 & RF2_STUPID)
 							{
-								if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+								if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 								return;
 							}
 						}
@@ -2475,7 +2475,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Update some things */
 				p_ptr->update |= (PU_FLOW);
 				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
-				if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 
 				return;
 			}
@@ -2514,7 +2514,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && (r_ptr->flags1 & RF1_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
-			if (is_original_ap_and_seen(m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
+			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
@@ -2779,7 +2779,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Learn things from observable monster */
-	if (is_original_ap_and_seen(m_ptr))
+	if (is_original_ap_and_seen(p_ptr, m_ptr))
 	{
 		/* Monster opened a door */
 		if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
@@ -3192,7 +3192,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 				if (!set_paralyzed(cr_ptr, cr_ptr->paralyzed - d))
 				{
 					/* Notice the "not waking up" */
-					if (is_original_ap_and_seen(cr_ptr))
+					if (is_original_ap_and_seen(p_ptr, cr_ptr))
 					{
 						/* Hack -- Count the ignores */
 						if (r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
@@ -3218,7 +3218,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 #endif
 					}
 
-					if (is_original_ap_and_seen(cr_ptr))
+					if (is_original_ap_and_seen(p_ptr, cr_ptr))
 					{
 						/* Hack -- Count the wakings */
 						if (r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;

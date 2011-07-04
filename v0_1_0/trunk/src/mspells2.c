@@ -763,7 +763,7 @@ bool monst_spell_monst(int m_idx)
 		return (TRUE);
 	}
 
-	can_remember = is_original_ap_and_seen(m_ptr);
+	can_remember = is_original_ap_and_seen(p_ptr, m_ptr);
 
 	switch (thrown_spell)
 	{
@@ -3344,7 +3344,7 @@ bool monst_spell_monst(int m_idx)
 		{
 			if ((tr_ptr->flags1 & RF1_UNIQUE) || (m_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3358,7 +3358,7 @@ bool monst_spell_monst(int m_idx)
 			}
 			else if (tr_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3404,7 +3404,7 @@ bool monst_spell_monst(int m_idx)
 		{
 			if ((tr_ptr->flags1 & RF1_UNIQUE) || (m_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3418,7 +3418,7 @@ bool monst_spell_monst(int m_idx)
 			}
 			else if (tr_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP

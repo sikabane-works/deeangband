@@ -1691,7 +1691,7 @@ bool make_attack_spell(int m_idx)
 	/* Projectable? */
 	direct = player_bold(y, x);
 
-	can_remember = is_original_ap_and_seen(m_ptr);
+	can_remember = is_original_ap_and_seen(p_ptr, m_ptr);
 
 	/* Cast the spell. */
 	switch (thrown_spell)
