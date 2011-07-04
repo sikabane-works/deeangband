@@ -669,24 +669,24 @@ static void prt_status(creature_type *cr_ptr)
 	/* Hex spells */
 	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling(HEX_BLESS)) ADD_FLG(BAR_BLESSED);
-		if (hex_spelling(HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
-		if (hex_spelling(HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
-		if (hex_spelling(HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
-		if (hex_spelling(HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
-		if (hex_spelling(HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
-		if (hex_spelling(HEX_BUILDING)) ADD_FLG(BAR_BUILD);
-		if (hex_spelling(HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
-		if (hex_spelling(HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
-		if (hex_spelling(HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
-		if (hex_spelling(HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
-		if (hex_spelling(HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
-		if (hex_spelling(HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
-		if (hex_spelling(HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
-		if (hex_spelling(HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
-		if (hex_spelling(HEX_CURE_LIGHT) ||
-			hex_spelling(HEX_CURE_SERIOUS) ||
-			hex_spelling(HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
+		if (hex_spelling(p_ptr, HEX_BLESS)) ADD_FLG(BAR_BLESSED);
+		if (hex_spelling(p_ptr, HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
+		if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
+		if (hex_spelling(p_ptr, HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
+		if (hex_spelling(p_ptr, HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
+		if (hex_spelling(p_ptr, HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
+		if (hex_spelling(p_ptr, HEX_BUILDING)) ADD_FLG(BAR_BUILD);
+		if (hex_spelling(p_ptr, HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
+		if (hex_spelling(p_ptr, HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
+		if (hex_spelling(p_ptr, HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
+		if (hex_spelling(p_ptr, HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
+		if (hex_spelling(p_ptr, HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
+		if (hex_spelling(p_ptr, HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
+		if (hex_spelling(p_ptr, HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
+		if (hex_spelling(p_ptr, HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
+		if (hex_spelling(p_ptr, HEX_CURE_LIGHT) ||
+			hex_spelling(p_ptr, HEX_CURE_SERIOUS) ||
+			hex_spelling(p_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
 
 		if (cr_ptr->magic_num2[2])
 		{
@@ -2864,8 +2864,8 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	if (cr_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
-	if (hex_spelling(HEX_XTRA_MIGHT)) mhp += 15;
-	if (hex_spelling(HEX_BUILDING)) mhp += 60;
+	if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) mhp += 15;
+	if (hex_spelling(p_ptr, HEX_BUILDING)) mhp += 60;
 
 	/* New maximum hitpoints */
 	if (cr_ptr->mhp != mhp)
@@ -4453,27 +4453,27 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Hex bonuses */
 	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling_any()) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
-		if (hex_spelling(HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
-		if (hex_spelling(HEX_XTRA_MIGHT)) cr_ptr->stat_add[A_STR] += 4;
-		if (hex_spelling(HEX_BUILDING))
+		if (hex_spelling_any(p_ptr)) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
+		if (hex_spelling(p_ptr, HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
+		if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[A_STR] += 4;
+		if (hex_spelling(p_ptr, HEX_BUILDING))
 		{
 			cr_ptr->stat_add[A_STR] += 4;
 			cr_ptr->stat_add[A_DEX] += 4;
 			cr_ptr->stat_add[A_CON] += 4;
 		}
-		if (hex_spelling(HEX_DEMON_AURA))
+		if (hex_spelling(p_ptr, HEX_DEMON_AURA))
 		{
 			cr_ptr->sh_fire = TRUE;
 			cr_ptr->regenerate = TRUE;
 		}
-		if (hex_spelling(HEX_ICE_ARMOR))
+		if (hex_spelling(p_ptr, HEX_ICE_ARMOR))
 		{
 			cr_ptr->sh_cold = TRUE; 
 			cr_ptr->to_a += 30;
 			cr_ptr->dis_to_a += 30;
 		}
-		if (hex_spelling(HEX_SHOCK_CLOAK))
+		if (hex_spelling(p_ptr, HEX_SHOCK_CLOAK))
 		{
 			cr_ptr->sh_elec = TRUE;
 			new_speed += 3;
@@ -5174,7 +5174,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Hex - extra mights gives +1 bonus to max blows */
-			if (hex_spelling(HEX_XTRA_MIGHT) || hex_spelling(HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
+			if (hex_spelling(p_ptr, HEX_XTRA_MIGHT) || hex_spelling(p_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
 
 			/* Enforce a minimum "weight" (tenth pounds) */
 			div = ((o_ptr->weight < wgt) ? wgt : o_ptr->weight);
@@ -5288,7 +5288,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_h[i] += 7; cr_ptr->dis_to_h[i] += 7; }
 				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_h[i] += 13; cr_ptr->dis_to_h[i] += 13; }
 				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
-				if (hex_spelling(HEX_RUNESWORD))
+				if (hex_spelling(p_ptr, HEX_RUNESWORD))
 				{
 					if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_d[i] += 5; cr_ptr->dis_to_d[i] += 5; }
 					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_d[i] += 7; cr_ptr->dis_to_d[i] += 7; }

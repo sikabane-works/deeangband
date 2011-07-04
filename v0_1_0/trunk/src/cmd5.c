@@ -1257,7 +1257,7 @@ void do_cmd_cast(void)
 	/* Hex */
 	if (use_realm == REALM_HEX)
 	{
-		if (hex_spelling(spell))
+		if (hex_spelling(p_ptr, spell))
 		{
 #ifdef JP
 			msg_print("‚»‚Ìô•¶‚Í‚·‚Å‚É‰r¥’†‚¾B");

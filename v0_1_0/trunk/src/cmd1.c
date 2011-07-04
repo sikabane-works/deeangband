@@ -481,7 +481,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			}
 
 			/* Hex - Slay Good (Runesword) */
-			if (hex_spelling(HEX_RUNESWORD) &&
+			if (hex_spelling(p_ptr, HEX_RUNESWORD) &&
 			    (r_ptr->flags3 & RF3_GOOD))
 			{
 				if (is_original_ap_and_seen(p_ptr, m_ptr))
@@ -2317,7 +2317,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Vampiric drain */
-			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(HEX_VAMP_BLADE))
+			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(p_ptr, HEX_VAMP_BLADE))
 			{
 				/* Only drain "living" monsters */
 				if (monster_living(r_ptr))
@@ -2326,7 +2326,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					can_drain = FALSE;
 			}
 
-			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(p_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 				vorpal_cut = TRUE;
 			else vorpal_cut = FALSE;
 
@@ -2818,7 +2818,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						drain_heal = damroll(2, drain_result / 6);
 
 						/* Hex */
-						if (hex_spelling(HEX_VAMP_BLADE)) drain_heal *= 2;
+						if (hex_spelling(p_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 						if (cheat_xtra)
 						{
@@ -2869,7 +2869,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			drain_result = 0;
 
 			/* Confusion attack */
-			if ((cr_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(HEX_CONFUSION))
+			if ((cr_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(p_ptr, HEX_CONFUSION))
 			{
 				/* Cancel glowing hands */
 				if (cr_ptr->special_attack & ATTACK_CONFUSE)

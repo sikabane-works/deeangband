@@ -886,7 +886,7 @@ static int racial_aux(power_desc_type *pd_ptr)
 void ratial_stop_mouth()
 {
 	if (music_singing_any(p_ptr)) stop_singing();
-	if (hex_spelling_any()) stop_hex_spell_all();
+	if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
 }
 
 

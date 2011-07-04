@@ -2755,7 +2755,7 @@ static void process_world_aux_mutation(void)
 		msg_print(NULL);
 		set_food(p_ptr, PY_FOOD_WEAK);
 		if (music_singing_any(p_ptr)) stop_singing();
-		if (hex_spelling_any()) stop_hex_spell_all();
+		if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
 	}
 
 	if ((p_ptr->muta2 & MUT2_WALK_SHAD) &&

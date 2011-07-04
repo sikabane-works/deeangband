@@ -21,7 +21,7 @@ bool stop_hex_spell_all(void)
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if (hex_spelling(spell)) do_spell(REALM_HEX, spell, SPELL_STOP);
+		if (hex_spelling(p_ptr, spell)) do_spell(REALM_HEX, spell, SPELL_STOP);
 	}
 
 	p_ptr->magic_num1[0] = 0;
@@ -48,7 +48,7 @@ bool stop_hex_spell(void)
 	int x = 20;
 	int sp[MAX_KEEP];
 
-	if (!hex_spelling_any())
+	if (!hex_spelling_any(p_ptr))
 	{
 #ifdef JP
 		msg_print("éÙï∂Çârè•ÇµÇƒÇ¢Ç‹ÇπÇÒÅB");
@@ -82,7 +82,7 @@ bool stop_hex_spell(void)
 			prt("     ñºëO", y, x + 5);
 			for (spell = 0; spell < 32; spell++)
 			{
-				if (hex_spelling(spell))
+				if (hex_spelling(p_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
 					put_str(format("%c)  %s", I2A(n), do_spell(REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
@@ -153,7 +153,7 @@ void check_hex(void)
 	need_mana = 0;
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(spell))
+		if (hex_spelling(p_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
 			need_mana += mod_need_mana(s_ptr->smana, spell, REALM_HEX);
@@ -206,7 +206,7 @@ void check_hex(void)
 	/* Gain experiences of spelling spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (!hex_spelling(spell)) continue;
+		if (!hex_spelling(p_ptr, spell)) continue;
 
 		if (p_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
 			p_ptr->spell_exp[spell] += 5;
@@ -221,7 +221,7 @@ void check_hex(void)
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(spell))
+		if (hex_spelling(p_ptr, spell))
 		{
 			do_spell(REALM_HEX, spell, SPELL_CONT);
 		}
@@ -269,7 +269,7 @@ bool teleport_barrier(int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-	if (!hex_spelling(HEX_ANTI_TELE)) return FALSE;
+	if (!hex_spelling(p_ptr, HEX_ANTI_TELE)) return FALSE;
 	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
@@ -281,7 +281,7 @@ bool magic_barrier(int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-	if (!hex_spelling(HEX_ANTI_MAGIC)) return FALSE;
+	if (!hex_spelling(p_ptr, HEX_ANTI_MAGIC)) return FALSE;
 	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
@@ -293,7 +293,7 @@ bool multiply_barrier(int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-	if (!hex_spelling(HEX_ANTI_MULTI)) return FALSE;
+	if (!hex_spelling(p_ptr, HEX_ANTI_MULTI)) return FALSE;
 	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;

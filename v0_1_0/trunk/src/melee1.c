@@ -2049,7 +2049,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 					}
 				}
 
-				if (hex_spelling(HEX_SHADOW_CLOAK) && alive && !p_ptr->is_dead)
+				if (hex_spelling(p_ptr, HEX_SHADOW_CLOAK) && alive && !p_ptr->is_dead)
 				{
 					int dam = 1;
 					object_type *o_ptr = &p_ptr->inventory[INVEN_RARM];
@@ -2191,7 +2191,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 	/* Hex - revenge damage stored */
 	revenge_store(get_damage);
 
-	if ((p_ptr->tim_eyeeye || hex_spelling(HEX_EYE_FOR_EYE))
+	if ((p_ptr->tim_eyeeye || hex_spelling(p_ptr, HEX_EYE_FOR_EYE))
 		&& get_damage > 0 && !p_ptr->is_dead)
 	{
 #ifdef JP

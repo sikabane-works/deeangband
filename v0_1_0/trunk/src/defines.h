@@ -5652,7 +5652,7 @@ extern int PlayerUID;
 #define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_INVULN(C) (C->invuln || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C) (C->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
-#define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(HEX_BLESS))
+#define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(p_ptr, HEX_BLESS))
 #define IS_OPPOSE_ACID(C) (C->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_ELEC(C) (C->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_FIRE(C) (C->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
@@ -5761,10 +5761,10 @@ extern int PlayerUID;
 #define CONCENT_TELE_THRESHOLD  5
 
 /* Hex */
-#define hex_spelling_any() \
-	((p_ptr->realm1 == REALM_HEX) && (p_ptr->magic_num1[0]))
-#define hex_spelling(X) \
-	((p_ptr->realm1 == REALM_HEX) && (p_ptr->magic_num1[0] & (1L << (X))))
+#define hex_spelling_any(USER) \
+	(((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0]))
+#define hex_spelling(USER, X) \
+	(((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0] & (1L << (X))))
 /* 1st book */
 #define HEX_BLESS             0
 #define HEX_CURE_LIGHT        1

@@ -1097,7 +1097,7 @@ bool change_wild_mode(void)
 	}
 
 	/* Cancel hex spelling */
-	if (hex_spelling_any()) stop_hex_spell_all();
+	if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
 
 	/* Cancel any special action */
 	set_action(p_ptr, ACTION_NONE);
