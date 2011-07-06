@@ -5462,9 +5462,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		{
 			int tval = cr_ptr->inventory[INVEN_RARM+i].tval - TV_WEAPON_BEGIN;
 			int sval = cr_ptr->inventory[INVEN_RARM+i].sval;
+			int boost = (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
 
-			cr_ptr->to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
-			cr_ptr->dis_to_h[i] += (cr_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
+			cr_ptr->to_h[i] += boost > 0 ? boost : 0;
+			cr_ptr->dis_to_h[i] += boost > 0 ? boost : 0;
+
 			if ((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER))
 			{
 				if (!s_info[cr_ptr->cls_idx].w_max[tval][sval])
