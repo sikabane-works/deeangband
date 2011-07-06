@@ -4805,8 +4805,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if ((cr_ptr->migite && (empty_hands_status & EMPTY_HAND_RARM)) ||
 	    (cr_ptr->hidarite && (empty_hands_status & EMPTY_HAND_LARM)))
 	{
-		cr_ptr->to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE] - WEAPON_EXP_BEGINNER) / 200;
-		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE] - WEAPON_EXP_BEGINNER) / 200;
+		cr_ptr->to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
+		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
+		cr_ptr->to_d[default_hand] += cr_ptr->size * (100 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		cr_ptr->dis_to_d[default_hand] += cr_ptr->size * (100 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
 	}
 
 	if (have_weapon(cr_ptr, INVEN_RARM) && have_weapon(cr_ptr, INVEN_LARM))
