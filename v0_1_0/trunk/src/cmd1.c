@@ -3194,6 +3194,7 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 	cave_type       *c_ptr = &cave[y][x];
 	creature_type   *m_ptr;
 	monster_race    *r_ptr;
+	char			cr_name[80];
 	char            m_name[80];
 
 	/* Player or Enemy */
@@ -3232,8 +3233,9 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	/* Extract monster name (or "it") */
+	/* Extract attacker and target name (or "it") */
 	monster_desc(m_name, m_ptr, 0);
+	monster_desc(cr_name, cr_ptr, 0);
 
 	if (m_ptr->ml)
 	{
@@ -3394,25 +3396,36 @@ bool py_attack(creature_type *cr_ptr, int y, int x, int mode)
 	if (cr_ptr->migite) py_attack_aux(cr_ptr, m_ptr, y, x, &fear, &mdeath, 0, mode);
 	if (cr_ptr->hidarite && !mdeath) py_attack_aux(cr_ptr, m_ptr, y, x, &fear, &mdeath, 1, mode);
 
+
+	/* Tranmpling Attack */
 	if(!mdeath)
 	{
 
-		if(cr_ptr->size - m_ptr->size > 5)
+		int prob = 100 * cr_ptr->skill_exp[GINOU_SUDE] / WEAPON_EXP_MASTER;
+		if(m_ptr->levitation) prob /= 4;
+		if(cr_ptr->size - m_ptr->size < 10) prob /= 2;
+		if(cr_ptr->size - m_ptr->size < 5) prob /= 2;
+		if(cr_ptr->size - m_ptr->size < 3) prob /= 2;
+		if(cr_ptr->size - m_ptr->size < 1) prob /= 2;
+		if(100 * m_ptr->chp / m_ptr->mhp < 50) prob = prob * 3 / 2; 
+		if(100 * m_ptr->chp / m_ptr->mhp < 30) prob = prob * 3 / 2; 
+		if(100 * m_ptr->chp / m_ptr->mhp < 10) prob = prob * 3 / 2; 
+		if(prob > 95) prob = 95;
+
+		if (cr_ptr->size > m_ptr->size && randint0(100) < prob)
 		{
-			if (one_in_(10))
-			{
-				int k;
+			int k;
 #ifdef JP
-				msg_format("あなたは残酷にも%sを踏みつけた！", m_name);
+			msg_format("%sは残酷にも%sを踏みつけた！", cr_name, m_name);
 #else
-				msg_format("You tranmpled %s cruelly!", m_name);
+			msg_format("%s tranmpled %s cruelly!", cr_name, m_name);
 #endif
-				k = damroll(cr_ptr->size - m_ptr->size * 10, cr_ptr->size - m_ptr->size);
-				m_ptr->chp -= k;
-				if (cr_ptr->wizard)
-				{
-					msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
-				}
+			k = damroll(cr_ptr->size - m_ptr->size, cr_ptr->size - m_ptr->size);
+			take_hit(cr_ptr, m_ptr, 0, k, NULL , NULL, -1);
+			mdeath = (m_ptr->monster_idx == 0);
+			if (cr_ptr->wizard)
+			{
+				msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
 			}
 		}
 
