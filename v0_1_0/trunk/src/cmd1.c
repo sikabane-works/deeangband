@@ -2406,7 +2406,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						special_effect = MA_KNEE;
 					}
 					else
-						msg_format(ma_ptr->desc, m_name);
+						msg_format(ma_ptr->desc, a_name, m_name);
 				}
 
 				else if (ma_ptr->effect == MA_SLOW)
@@ -3321,17 +3321,19 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/* Message */
 		if (tar_ptr->ml)
 #ifdef JP
-			msg_format("‹°‚­‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", tar_name);
+			msg_format("%s‚Í‹°‚­‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", atk_name, tar_name);
 #else
-			msg_format("You are too afraid to attack %s!", tar_name);
+			msg_format("%s are too afraid to attack %s!", atk_name, tar_name);
 #endif
 
-		else
+		else if(atk_ptr == p_ptr)
+		{
 #ifdef JP
 			msg_format ("‚»‚Á‚¿‚É‚Í‰½‚©‹°‚¢‚à‚Ì‚ª‚¢‚éI");
 #else
 			msg_format ("There is something scary in your way!");
 #endif
+		}
 
 		/* Disturb the monster */
 		(void)set_paralyzed(tar_ptr, 0);
