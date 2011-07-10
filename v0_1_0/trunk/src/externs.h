@@ -1738,7 +1738,7 @@ extern int virtue_number(creature_type *cr_ptr, int type);
 extern cptr virtue[MAX_VIRTUE];
 extern void get_virtues(creature_type *cr_ptr);
 extern void chg_virtue(creature_type *cr_ptr, int virtue, int amount);
-extern void set_virtue(int virtue, int amount);
+extern void set_virtue(creature_type *cr_ptr, int virtue, int amount);
 extern void dump_virtues(FILE * OutFile);
 
 #ifdef JP

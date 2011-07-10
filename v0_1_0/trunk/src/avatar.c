@@ -453,15 +453,15 @@ void chg_virtue(creature_type *cr_ptr, int virtue, int amount)
 	}
 }
 
-void set_virtue(int virtue, int amount)
+void set_virtue(creature_type *cr_ptr, int virtue, int amount)
 {
 	int i = 0;
 
 	for (i = 0; i < 8; i++)
 	{
-		if (p_ptr->vir_types[i] == virtue)
+		if (cr_ptr->vir_types[i] == virtue)
 		{
-			p_ptr->virtues[i] = amount;
+			cr_ptr->virtues[i] = amount;
 			return;
 		}
 	}
