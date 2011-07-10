@@ -1614,8 +1614,8 @@ static bool do_cmd_tunnel_aux(int y, int x)
 			/* Remove the feature */
 			cave_alter_feat(y, x, FF_TUNNEL);
 
-			chg_virtue(V_DILIGENCE, 1);
-			chg_virtue(V_NATURE, -1);
+			chg_virtue(p_ptr, V_DILIGENCE, 1);
+			chg_virtue(p_ptr, V_NATURE, -1);
 		}
 
 		/* Keep trying */
@@ -2888,7 +2888,7 @@ void do_cmd_rest(void)
 
 	/* The sin of sloth */
 	if (command_arg > 100)
-		chg_virtue(V_DILIGENCE, -1);
+		chg_virtue(p_ptr, V_DILIGENCE, -1);
 	
 	/* Why are you sleeping when there's no need?  WAKE UP!*/
 	if ((p_ptr->chp == p_ptr->mhp) &&
@@ -2899,7 +2899,7 @@ void do_cmd_rest(void)
 	    !p_ptr->slow && !p_ptr->paralyzed &&
 	    !p_ptr->image && !p_ptr->word_recall &&
 	    !p_ptr->alter_reality)
-			chg_virtue(V_DILIGENCE, -1);
+			chg_virtue(p_ptr, V_DILIGENCE, -1);
 
 	/* Save the rest code */
 	resting = command_arg;
@@ -3663,8 +3663,8 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 
 			if (m_ptr->paralyzed)
 			{
-				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
-				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
+				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_COMPASSION, -1);
+				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_HONOUR, -1);
 			}
 
 			if ((r_ptr->level + 10) > p_ptr->lev)

@@ -444,7 +444,7 @@ msg_print("ñ⁄Ç™å©Ç¶Ç»Ç≠Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅI");
 			}
 
 			notice = TRUE;
-			chg_virtue(V_ENLIGHTEN, -1);
+			chg_virtue(p_ptr, V_ENLIGHTEN, -1);
 		}
 	}
 
@@ -577,7 +577,7 @@ msg_print("Ç†Ç»ÇΩÇÕç¨óêÇµÇΩÅI");
 
 			notice = TRUE;
 			cr_ptr->counter = FALSE;
-			chg_virtue(V_HARMONY, -1);
+			chg_virtue(p_ptr, V_HARMONY, -1);
 		}
 	}
 
@@ -756,7 +756,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 
 			notice = TRUE;
 			cr_ptr->counter = FALSE;
-			chg_virtue(V_VALOUR, -1);
+			chg_virtue(p_ptr, V_VALOUR, -1);
 		}
 	}
 
@@ -1077,8 +1077,8 @@ msg_print("ëfëÅÇ≠ìÆÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅI");
 #endif
 
 			notice = TRUE;
-			chg_virtue(V_PATIENCE, -1);
-			chg_virtue(V_DILIGENCE, 1);
+			chg_virtue(p_ptr, V_PATIENCE, -1);
+			chg_virtue(p_ptr, V_DILIGENCE, 1);
 		}
 	}
 
@@ -1181,8 +1181,8 @@ msg_print("îÒèÌÇ…ëfëÅÇ≠ìÆÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅI");
 #endif
 
 			notice = TRUE;
-			chg_virtue(V_PATIENCE, -1);
-			chg_virtue(V_DILIGENCE, 1);
+			chg_virtue(p_ptr, V_PATIENCE, -1);
+			chg_virtue(p_ptr, V_DILIGENCE, 1);
 		}
 	}
 
@@ -1844,10 +1844,10 @@ msg_print("ï®éøäEÇó£ÇÍÇƒóHãSÇÃÇÊÇ§Ç»ë∂ç›Ç…Ç»Ç¡ÇΩÅI");
 
 			notice = TRUE;
 
-			chg_virtue(V_UNLIFE, 3);
-			chg_virtue(V_HONOUR, -2);
-			chg_virtue(V_SACRIFICE, -2);
-			chg_virtue(V_VALOUR, -5);
+			chg_virtue(p_ptr, V_UNLIFE, 3);
+			chg_virtue(p_ptr, V_HONOUR, -2);
+			chg_virtue(p_ptr, V_SACRIFICE, -2);
+			chg_virtue(p_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
 			cr_ptr->redraw |= (PR_MAP);
@@ -1940,10 +1940,10 @@ msg_print("ñ≥ìGÇæÅI");
 
 			notice = TRUE;
 
-			chg_virtue(V_UNLIFE, -2);
-			chg_virtue(V_HONOUR, -2);
-			chg_virtue(V_SACRIFICE, -3);
-			chg_virtue(V_VALOUR, -5);
+			chg_virtue(p_ptr, V_UNLIFE, -2);
+			chg_virtue(p_ptr, V_HONOUR, -2);
+			chg_virtue(p_ptr, V_SACRIFICE, -3);
+			chg_virtue(p_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
 			cr_ptr->redraw |= (PR_MAP);
@@ -3179,7 +3179,7 @@ msg_print("ÅuÉIÉNÉååZÇ≥ÇÒÅIÅv");
 #endif
 
 			notice = TRUE;
-			chg_virtue(V_VITALITY, 2);
+			chg_virtue(p_ptr, V_VITALITY, 2);
 		}
 	}
 
@@ -3198,7 +3198,7 @@ msg_print("ì˜ëÃÇ™ã}ë¨Ç…ÇµÇ⁄ÇÒÇ≈Ç¢Ç¡ÇΩÅB");
 			(void)dec_stat(p_ptr, A_STR, 20, TRUE);
 
 			notice = TRUE;
-			chg_virtue(V_VITALITY, -3);
+			chg_virtue(p_ptr, V_VITALITY, -3);
 		}
 	}
 
@@ -4350,13 +4350,13 @@ bool set_food(creature_type *cr_ptr, int v)
 	}
 
 	if (old_aux < 1 && new_aux > 0)
-		chg_virtue(V_PATIENCE, 2);
+		chg_virtue(p_ptr, V_PATIENCE, 2);
 	else if (old_aux < 3 && (old_aux != new_aux))
-		chg_virtue(V_PATIENCE, 1);
+		chg_virtue(p_ptr, V_PATIENCE, 1);
 	if (old_aux == 2)
-		chg_virtue(V_TEMPERANCE, 1);
+		chg_virtue(p_ptr, V_TEMPERANCE, 1);
 	if (old_aux == 0)
-		chg_virtue(V_TEMPERANCE, -1);
+		chg_virtue(p_ptr, V_TEMPERANCE, -1);
 
 	/* Food increase */
 	if (new_aux > old_aux)
@@ -4411,9 +4411,9 @@ msg_print("êHÇ◊âﬂÇ¨ÇæÅI");
 #else
 			msg_print("You have gorged yourself!");
 #endif
-			chg_virtue(V_HARMONY, -1);
-			chg_virtue(V_PATIENCE, -1);
-			chg_virtue(V_TEMPERANCE, -2);
+			chg_virtue(p_ptr, V_HARMONY, -1);
+			chg_virtue(p_ptr, V_PATIENCE, -1);
+			chg_virtue(p_ptr, V_TEMPERANCE, -2);
 
 			break;
 		}
@@ -4647,9 +4647,9 @@ bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent)
 	/* Damage "max" value */
 	if (permanent && (max > 3))
 	{
-		chg_virtue(V_SACRIFICE, 1);
+		chg_virtue(p_ptr, V_SACRIFICE, 1);
 		if (stat == A_WIS || stat == A_INT)
-			chg_virtue(V_ENLIGHTEN, -2);
+			chg_virtue(p_ptr, V_ENLIGHTEN, -2);
 
 		/* Handle "low" values */
 		if (max <= 18)
@@ -4744,7 +4744,7 @@ bool hp_player(creature_type *cr_ptr, int num)
 	if (cr_ptr->chp < cr_ptr->mhp)
 	{
 		if ((num > 0) && (cr_ptr->chp < (cr_ptr->mhp/3)))
-			chg_virtue(V_TEMPERANCE, 1);
+			chg_virtue(p_ptr, V_TEMPERANCE, 1);
 		/* Gain hitpoints */
 		cr_ptr->chp += num;
 
@@ -4976,16 +4976,16 @@ bool do_inc_stat(creature_type *cr_ptr, int stat)
 	{
 		if (stat == A_WIS)
 		{
-			chg_virtue(V_ENLIGHTEN, 1);
-			chg_virtue(V_FAITH, 1);
+			chg_virtue(p_ptr, V_ENLIGHTEN, 1);
+			chg_virtue(p_ptr, V_FAITH, 1);
 		}
 		else if (stat == A_INT)
 		{
-			chg_virtue(V_KNOWLEDGE, 1);
-			chg_virtue(V_ENLIGHTEN, 1);
+			chg_virtue(p_ptr, V_KNOWLEDGE, 1);
+			chg_virtue(p_ptr, V_ENLIGHTEN, 1);
 		}
 		else if (stat == A_CON)
-			chg_virtue(V_VITALITY, 1);
+			chg_virtue(p_ptr, V_VITALITY, 1);
 
 		/* Message */
 #ifdef JP
@@ -5057,8 +5057,8 @@ bool lose_all_info(creature_type *cr_ptr)
 {
 	int i;
 
-	chg_virtue(V_KNOWLEDGE, -5);
-	chg_virtue(V_ENLIGHTEN, -5);
+	chg_virtue(p_ptr, V_KNOWLEDGE, -5);
+	chg_virtue(p_ptr, V_ENLIGHTEN, -5);
 
 	/* Forget info about objects */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -5152,7 +5152,7 @@ void change_race(int new_race, cptr effect_msg)
 	msg_format("You turn into %s %s%s!", (!effect_msg[0] && is_a_vowel(title[0]) ? "an" : "a"), effect_msg, title);
 #endif
 
-	chg_virtue(V_CHANCE, 2);
+	chg_virtue(p_ptr, V_CHANCE, 2);
 
 	if (p_ptr->irace_idx < 32)
 	{
@@ -5214,7 +5214,7 @@ msg_print("Ç†Ç»ÇΩÇÕïœâªÇÃñKÇÍÇä¥Ç∂ÇΩ...");
 	msg_print("You feel a change coming over you...");
 #endif
 
-	chg_virtue(V_CHANCE, 1);
+	chg_virtue(p_ptr, V_CHANCE, 1);
 
 	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->irace_idx != RACE_ANDROID))
 	{
@@ -5564,8 +5564,8 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	if (damage_type != DAMAGE_GENO && tar_ptr->chp == 0)
 	{
-		chg_virtue(V_SACRIFICE, 1);
-		chg_virtue(V_CHANCE, 2);
+		chg_virtue(p_ptr, V_SACRIFICE, 1);
+		chg_virtue(p_ptr, V_CHANCE, 2);
 	}
 
 
@@ -5585,7 +5585,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Sound */
 			sound(SOUND_DEATH);
 	
-			chg_virtue(V_SACRIFICE, 10);
+			chg_virtue(p_ptr, V_SACRIFICE, 10);
 	
 			/* Leaving */
 			tar_ptr->leaving = TRUE;
@@ -5952,78 +5952,78 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
 				{
-					chg_virtue(V_VALOUR, -1);
+					chg_virtue(p_ptr, V_VALOUR, -1);
 				}
 				else if (r_ptr->level > dun_level)
 				{
 					if (randint1(10) <= (r_ptr->level - dun_level))
-						chg_virtue(V_VALOUR, 1);
+						chg_virtue(p_ptr, V_VALOUR, 1);
 				}
 				if (r_ptr->level > 60)
 				{
-					chg_virtue(V_VALOUR, 1);
+					chg_virtue(p_ptr, V_VALOUR, 1);
 				}
 				if (r_ptr->level >= 2 * (atk_ptr->lev+1))
-					chg_virtue(V_VALOUR, 2);
+					chg_virtue(p_ptr, V_VALOUR, 2);
 			}
 	
 			if (r_ptr->flags1 & RF1_UNIQUE)
 			{
-				if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_virtue(V_HARMONY, 2);
+				if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_virtue(p_ptr, V_HARMONY, 2);
 	
 				if (r_ptr->flags3 & RF3_GOOD)
 				{
-					chg_virtue(V_UNLIFE, 2);
-					chg_virtue(V_VITALITY, -2);
+					chg_virtue(p_ptr, V_UNLIFE, 2);
+					chg_virtue(p_ptr, V_VITALITY, -2);
 				}
 	
-				if (one_in_(3)) chg_virtue(V_INDIVIDUALISM, -1);
+				if (one_in_(3)) chg_virtue(p_ptr, V_INDIVIDUALISM, -1);
 			}
 	
 			if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
 			{
-				chg_virtue(V_COMPASSION, -1);
+				chg_virtue(p_ptr, V_COMPASSION, -1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_GOOD) &&
 				((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100)))
-				chg_virtue(V_UNLIFE, 1);
+				chg_virtue(p_ptr, V_UNLIFE, 1);
 	
 			if (r_ptr->d_char == 'A')
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(V_FAITH, -2);
+					chg_virtue(p_ptr, V_FAITH, -2);
 				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
 				{
-					if (r_ptr->flags3 & RF3_GOOD) chg_virtue(V_FAITH, -1);
-					else chg_virtue(V_FAITH, 1);
+					if (r_ptr->flags3 & RF3_GOOD) chg_virtue(p_ptr, V_FAITH, -1);
+					else chg_virtue(p_ptr, V_FAITH, 1);
 				}
 			}
 			else if (r_ptr->flags3 & RF3_DEMON)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(V_FAITH, 2);
+					chg_virtue(p_ptr, V_FAITH, 2);
 				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
-					chg_virtue(V_FAITH, 1);
+					chg_virtue(p_ptr, V_FAITH, 1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_UNDEAD) && (r_ptr->flags1 & RF1_UNIQUE))
-				chg_virtue(V_VITALITY, 2);
+				chg_virtue(p_ptr, V_VITALITY, 2);
 	
 			if (r_ptr->r_deaths)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
 				{
-					chg_virtue(V_HONOUR, 10);
+					chg_virtue(p_ptr, V_HONOUR, 10);
 				}
 				else if ((r_ptr->level) / 10 + (2 * dun_level) >= randint1(100))
 				{
-					chg_virtue(V_HONOUR, 1);
+					chg_virtue(p_ptr, V_HONOUR, 1);
 				}
 			}
 			if ((r_ptr->flags2 & RF2_MULTIPLY) && (r_ptr->r_akills > 1000) && one_in_(10))
 			{
-				chg_virtue(V_VALOUR, -1);
+				chg_virtue(p_ptr, V_VALOUR, -1);
 			}
 	
 			for (i = 0; i < 4; i++)
@@ -6042,19 +6042,19 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (thief)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(V_JUSTICE, 3);
+					chg_virtue(p_ptr, V_JUSTICE, 3);
 				else if (1+((r_ptr->level) / 10 + (2 * dun_level))
 					>= randint1(100))
-					chg_virtue(V_JUSTICE, 1);
+					chg_virtue(p_ptr, V_JUSTICE, 1);
 			}
 			else if (innocent)
 			{
-				chg_virtue (V_JUSTICE, -1);
+				chg_virtue(p_ptr, V_JUSTICE, -1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_ANIMAL) && !(r_ptr->flags3 & RF3_EVIL) && !(r_ptr->flags4 & ~(RF4_NOMAGIC_MASK))  && !(r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) && !(r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
 			{
-				if (one_in_(4)) chg_virtue(V_NATURE, -1);
+				if (one_in_(4)) chg_virtue(p_ptr, V_NATURE, -1);
 			}
 	
 			if ((r_ptr->flags1 & RF1_UNIQUE) && record_destroy_uniq)
@@ -6441,8 +6441,8 @@ int take_hit_old(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 
 	if (damage_type != DAMAGE_GENO && tar_ptr->chp == 0)
 	{
-		chg_virtue(V_SACRIFICE, 1);
-		chg_virtue(V_CHANCE, 2);
+		chg_virtue(p_ptr, V_SACRIFICE, 1);
+		chg_virtue(p_ptr, V_CHANCE, 2);
 	}
 
 	/* Dead player */
@@ -6458,7 +6458,7 @@ int take_hit_old(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 		/* Sound */
 		sound(SOUND_DEATH);
 
-		chg_virtue(V_SACRIFICE, 10);
+		chg_virtue(p_ptr, V_SACRIFICE, 10);
 
 		/* Leaving */
 		tar_ptr->leaving = TRUE;

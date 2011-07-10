@@ -5829,7 +5829,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 				if (hack_mind)
 				{
-					chg_virtue(V_FAITH, -1);
+					chg_virtue(p_ptr, V_FAITH, -1);
 				}
 			}
 			else if (have_weapon(cr_ptr, INVEN_RARM+i))
@@ -5891,7 +5891,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 			if (hack_mind)
 			{
-				chg_virtue(V_HARMONY, -1);
+				chg_virtue(p_ptr, V_HARMONY, -1);
 			}
 		}
 		else

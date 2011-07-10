@@ -1937,8 +1937,8 @@ bool create_artifact(object_type *o_ptr, bool a_scroll)
 		sprintf(new_name, "'%s'", dummy_name);
 #endif
 
-		chg_virtue(V_INDIVIDUALISM, 2);
-		chg_virtue(V_ENCHANT, 5);
+		chg_virtue(p_ptr, V_INDIVIDUALISM, 2);
+		chg_virtue(p_ptr, V_ENCHANT, 5);
 	}
 	else
 	{

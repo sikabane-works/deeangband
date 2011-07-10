@@ -2287,7 +2287,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
 			{
 				if (one_in_(10))
-				chg_virtue(V_CHANCE, 1);
+				chg_virtue(cr_ptr, V_CHANCE, 1);
 
 				if (randint1(5) < 3)
 				{
@@ -3174,7 +3174,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	{
 		if (one_in_(4))
 		{
-			chg_virtue(V_UNLIFE, 1);
+			chg_virtue(cr_ptr, V_UNLIFE, 1);
 		}
 	}
 	/* Mega-Hack -- apply earthquake brand */
@@ -3284,10 +3284,10 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 #else
 			msg_format("Your black blade greedily attacks %s!", tar_name);
 #endif
-			chg_virtue(V_INDIVIDUALISM, 1);
-			chg_virtue(V_HONOUR, -1);
-			chg_virtue(V_JUSTICE, -1);
-			chg_virtue(V_COMPASSION, -1);
+			chg_virtue(atk_ptr, V_INDIVIDUALISM, 1);
+			chg_virtue(atk_ptr, V_HONOUR, -1);
+			chg_virtue(atk_ptr, V_JUSTICE, -1);
+			chg_virtue(atk_ptr, V_COMPASSION, -1);
 		}
 		else if (atk_ptr->cls_idx != CLASS_BERSERKER && atk_ptr == p_ptr)
 		{
@@ -3297,10 +3297,10 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 			if (get_check("Really hit it? "))
 #endif
 			{
-				chg_virtue(V_INDIVIDUALISM, 1);
-				chg_virtue(V_HONOUR, -1);
-				chg_virtue(V_JUSTICE, -1);
-				chg_virtue(V_COMPASSION, -1);
+				chg_virtue(atk_ptr, V_INDIVIDUALISM, 1);
+				chg_virtue(atk_ptr, V_HONOUR, -1);
+				chg_virtue(atk_ptr, V_JUSTICE, -1);
+				chg_virtue(atk_ptr, V_COMPASSION, -1);
 			}
 			else
 			{
@@ -3344,8 +3344,8 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if (tar_ptr->paralyzed) /* It is not honorable etc to attack helpless victims */
 	{
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
+		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(atk_ptr, V_COMPASSION, -1);
+		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(atk_ptr, V_HONOUR, -1);
 	}
 
 	if (atk_ptr->migite && atk_ptr->hidarite)

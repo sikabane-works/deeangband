@@ -1651,7 +1651,7 @@ msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
 #else
 				msg_print("You came out a winner! We'll win next time, I'm sure.");
 #endif
-				chg_virtue(V_CHANCE, 3);
+				chg_virtue(p_ptr, V_CHANCE, 3);
 			}
 			else
 			{
@@ -1660,7 +1660,7 @@ msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
 #else
 				msg_print("You lost gold! Haha, better head home.");
 #endif
-				chg_virtue(V_CHANCE, -3);
+				chg_virtue(p_ptr, V_CHANCE, -3);
 			}
 		}
 		msg_print(NULL);
@@ -2402,7 +2402,7 @@ static bool kankin(void)
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
-				chg_virtue(V_JUSTICE, 5);
+				chg_virtue(p_ptr, V_JUSTICE, 5);
 				kubi_monster_idx[j] += 10000;
 
 				change = TRUE;
@@ -2413,7 +2413,7 @@ static bool kankin(void)
 				inven_item_describe(i);
 				inven_item_optimize(i);
 
-				chg_virtue(V_JUSTICE, 5);
+				chg_virtue(p_ptr, V_JUSTICE, 5);
 				kubi_monster_idx[j] += 10000;
 
 				/* Count number of unique corpses already handed */

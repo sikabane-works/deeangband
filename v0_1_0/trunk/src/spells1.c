@@ -3528,29 +3528,29 @@ note = "が分裂した！";
 
 			if (!who_ptr)
 			{
-				chg_virtue(V_VITALITY, 1);
+				chg_virtue(p_ptr, V_VITALITY, 1);
 
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(V_INDIVIDUALISM, 1);
+					chg_virtue(p_ptr, V_INDIVIDUALISM, 1);
 
 				if (is_friendly(m_ptr))
-					chg_virtue(V_HONOUR, 1);
+					chg_virtue(p_ptr, V_HONOUR, 1);
 				else if (!(r_ptr->flags3 & RF3_EVIL))
 				{
 					if (r_ptr->flags3 & RF3_GOOD)
-						chg_virtue(V_COMPASSION, 2);
+						chg_virtue(p_ptr, V_COMPASSION, 2);
 					else
-						chg_virtue(V_COMPASSION, 1);
+						chg_virtue(p_ptr, V_COMPASSION, 1);
 				}
 
 				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_virtue(V_NATURE, 1);
+					chg_virtue(p_ptr, V_NATURE, 1);
 			}
 
 			if (m_ptr->monster_idx == MON_LEPER)
 			{
 				heal_leper = TRUE;
-				if (!who_ptr) chg_virtue(V_COMPASSION, 5);
+				if (!who_ptr) chg_virtue(p_ptr, V_COMPASSION, 5);
 			}
 
 			/* Redraw (later) if needed */
@@ -3588,9 +3588,9 @@ note = "が分裂した！";
 			if (!who_ptr)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(V_INDIVIDUALISM, 1);
+					chg_virtue(p_ptr, V_INDIVIDUALISM, 1);
 				if (is_friendly(m_ptr))
-					chg_virtue(V_HONOUR, 1);
+					chg_virtue(p_ptr, V_HONOUR, 1);
 			}
 
 			/* No "real" damage */
@@ -3870,9 +3870,9 @@ note = "は突然友好的になったようだ！";
 
 				set_pet(m_ptr);
 
-				chg_virtue(V_INDIVIDUALISM, -1);
+				chg_virtue(p_ptr, V_INDIVIDUALISM, -1);
 				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_virtue(V_NATURE, 1);
+					chg_virtue(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -4109,7 +4109,7 @@ note = "はなついた。";
 				set_pet(m_ptr);
 
 				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_virtue(V_NATURE, 1);
+					chg_virtue(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -4198,7 +4198,7 @@ note = "を支配した。";
 				set_pet(m_ptr);
 
 				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_virtue(V_NATURE, 1);
+					chg_virtue(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -5648,7 +5648,7 @@ note = "には効果がなかった！";
 #else
 				if (seen_msg) msg_format("%^s disappered!", m_name);
 #endif
-				chg_virtue(V_VITALITY, -1);
+				chg_virtue(p_ptr, V_VITALITY, -1);
 				return TRUE;
 			}
 
@@ -5841,8 +5841,8 @@ note = "には効果がなかった。";
 
 	if (who_ptr == who_ptr && slept)
 	{
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_COMPASSION, -1);
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(V_HONOUR, -1);
+		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_COMPASSION, -1);
+		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_HONOUR, -1);
 	}
 
 	/* Modify the damage */
@@ -6006,7 +6006,7 @@ note = "には効果がなかった。";
 			note = " disappears!";
 #endif
 
-			if (who_ptr == who_ptr) chg_virtue(V_VALOUR, -1);
+			if (who_ptr == who_ptr) chg_virtue(p_ptr, V_VALOUR, -1);
 
 			/* Teleport */
 			teleport_away(c_ptr->m_idx, do_dist,

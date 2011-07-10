@@ -395,59 +395,59 @@ void get_virtues(creature_type *cr_ptr)
 	}
 }
 
-void chg_virtue(int virtue, int amount)
+void chg_virtue(creature_type *cr_ptr, int virtue, int amount)
 {
 	int i = 0;
 
 	for (i = 0; i < 8; i++)
 	{
-		if (p_ptr->vir_types[i] == virtue)
+		if (cr_ptr->vir_types[i] == virtue)
 		{
 			if (amount > 0)
 			{
-				if ((amount + p_ptr->virtues[i] > 50) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] > 50) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MAX(p_ptr->virtues[i], 50);
+					cr_ptr->virtues[i] = MAX(cr_ptr->virtues[i], 50);
 					return;
 				}
-				if ((amount + p_ptr->virtues[i] > 80) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] > 80) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MAX(p_ptr->virtues[i], 80);
+					cr_ptr->virtues[i] = MAX(cr_ptr->virtues[i], 80);
 					return;
 				}
-				if ((amount + p_ptr->virtues[i] > 100) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] > 100) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MAX(p_ptr->virtues[i], 100);
+					cr_ptr->virtues[i] = MAX(cr_ptr->virtues[i], 100);
 					return;
 				}
-				if (amount + p_ptr->virtues[i] > 125)
-					p_ptr->virtues[i] = 125;
+				if (amount + cr_ptr->virtues[i] > 125)
+					cr_ptr->virtues[i] = 125;
 				else
-					p_ptr->virtues[i] = p_ptr->virtues[i] + amount;
+					cr_ptr->virtues[i] = cr_ptr->virtues[i] + amount;
 			}
 			else
 			{
-				if ((amount + p_ptr->virtues[i] < -50) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] < -50) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MIN(p_ptr->virtues[i], -50);
+					cr_ptr->virtues[i] = MIN(cr_ptr->virtues[i], -50);
 					return;
 				}
-				if ((amount + p_ptr->virtues[i] < -80) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] < -80) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MIN(p_ptr->virtues[i], -80);
+					cr_ptr->virtues[i] = MIN(cr_ptr->virtues[i], -80);
 					return;
 				}
-				if ((amount + p_ptr->virtues[i] < -100) && one_in_(2))
+				if ((amount + cr_ptr->virtues[i] < -100) && one_in_(2))
 				{
-					p_ptr->virtues[i] = MIN(p_ptr->virtues[i], -100);
+					cr_ptr->virtues[i] = MIN(cr_ptr->virtues[i], -100);
 					return;
 				}
-				if (amount + p_ptr->virtues[i] < -125)
-					p_ptr->virtues[i] = -125;
+				if (amount + cr_ptr->virtues[i] < -125)
+					cr_ptr->virtues[i] = -125;
 				else
-					p_ptr->virtues[i] = p_ptr->virtues[i] + amount;
+					cr_ptr->virtues[i] = cr_ptr->virtues[i] + amount;
 			}
-			p_ptr->update |= (PU_BONUS);
+			cr_ptr->update |= (PU_BONUS);
 			return;
 		}
 	}

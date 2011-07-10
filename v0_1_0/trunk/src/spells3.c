@@ -75,7 +75,7 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 	    (((p_ptr->chp * 10) / p_ptr->mhp) > 5) &&
 		(4+randint1(5) < ((p_ptr->chp * 10) / p_ptr->mhp)))
 	{
-		chg_virtue(V_VALOUR, -1);
+		chg_virtue(p_ptr, V_VALOUR, -1);
 	}
 
 	/* Look until done */
@@ -1157,8 +1157,8 @@ msg_format("%s(%c)‚Í—ò‰»‚ğ’µ‚Ë•Ô‚µ‚½I",o_name, index_to_label(t) );
 			   ((o_ptr->number != 1) ? "were" : "was"));
 #endif
 
-		chg_virtue(V_HARMONY, 1);
-		chg_virtue(V_ENCHANT, -2);
+		chg_virtue(p_ptr, V_HARMONY, 1);
+		chg_virtue(p_ptr, V_ENCHANT, -2);
 
 		/* Recalculate bonuses */
 		p_ptr->update |= (PU_BONUS);
@@ -1584,7 +1584,7 @@ msg_format("‚ ‚È‚½‚Ì%s%s", o_name, act);
 		enchant(o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		o_ptr->discount = 99;
-		chg_virtue(V_ENCHANT, 2);
+		chg_virtue(p_ptr, V_ENCHANT, 2);
 	}
 	else
 	{
@@ -1596,7 +1596,7 @@ msg_print("‘®«•t‰Á‚É¸”s‚µ‚½B");
 		msg_print("The Branding failed.");
 #endif
 
-		chg_virtue(V_ENCHANT, -2);
+		chg_virtue(p_ptr, V_ENCHANT, -2);
 	}
 	calc_android_exp(p_ptr);
 }
@@ -2593,10 +2593,10 @@ msg_print("‹­‰»‚É¸”s‚µ‚½B");
 		msg_print("The enchantment failed.");
 #endif
 
-		if (one_in_(3)) chg_virtue(V_ENCHANT, -1);
+		if (one_in_(3)) chg_virtue(p_ptr, V_ENCHANT, -1);
 	}
 	else
-		chg_virtue(V_ENCHANT, 1);
+		chg_virtue(p_ptr, V_ENCHANT, 1);
 
 	calc_android_exp(p_ptr);
 
@@ -2745,10 +2745,10 @@ bool artifact_scroll(void)
 		msg_print("The enchantment failed.");
 #endif
 
-		if (one_in_(3)) chg_virtue(V_ENCHANT, -1);
+		if (one_in_(3)) chg_virtue(p_ptr, V_ENCHANT, -1);
 	}
 	else
-		chg_virtue(V_ENCHANT, 1);
+		chg_virtue(p_ptr, V_ENCHANT, 1);
 
 	calc_android_exp(p_ptr);
 
@@ -2774,7 +2774,7 @@ bool identify_item(object_type *o_ptr)
 	if (!(o_ptr->ident & (IDENT_MENTAL)))
 	{
 		if (object_is_artifact(o_ptr) || one_in_(5))
-			chg_virtue(V_KNOWLEDGE, 1);
+			chg_virtue(p_ptr, V_KNOWLEDGE, 1);
 	}
 
 	/* Identify it fully */
@@ -3737,7 +3737,7 @@ msg_format("%s‚Í‹P‚¢‚½I", o_name);
 		enchant(o_ptr, randint0(3) + 4, ENCH_TOAC);
 
 		o_ptr->discount = 99;
-		chg_virtue(V_ENCHANT, 2);
+		chg_virtue(p_ptr, V_ENCHANT, 2);
 
 		return TRUE;
 	}
@@ -3751,7 +3751,7 @@ msg_print("¸”s‚µ‚½B");
 		msg_print("Failed.");
 #endif
 
-		chg_virtue(V_ENCHANT, -2);
+		chg_virtue(p_ptr, V_ENCHANT, -2);
 	}
 	calc_android_exp(p_ptr);
 
@@ -5263,7 +5263,7 @@ msg_format("‹°•|‚ÌˆÃ•ƒI[ƒ‰‚ª‚ ‚È‚½‚Ì%s‚ğ•ï‚İ‚ñ‚¾I", o_name);
 		msg_format("A terrible black aura blasts your %s!", o_name);
 #endif
 
-		chg_virtue(V_ENCHANT, -5);
+		chg_virtue(p_ptr, V_ENCHANT, -5);
 
 		/* Blast the armor */
 		o_ptr->name1 = 0;
@@ -5344,7 +5344,7 @@ if (!force) msg_format("‹°•|‚ÌˆÃ•ƒI[ƒ‰‚ª‚ ‚È‚½‚Ì%s‚ğ•ï‚İ‚ñ‚¾I", o_name);
 		if (!force) msg_format("A terrible black aura blasts your %s!", o_name);
 #endif
 
-		chg_virtue(V_ENCHANT, -5);
+		chg_virtue(p_ptr, V_ENCHANT, -5);
 
 		/* Shatter the weapon */
 		o_ptr->name1 = 0;

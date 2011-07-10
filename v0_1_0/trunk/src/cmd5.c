@@ -943,16 +943,16 @@ msg_format("その本には学ぶべき%sがない。", p);
 	switch (m_info[p_ptr->sex].spell_book)
 	{
 	case TV_LIFE_BOOK:
-		chg_virtue(V_FAITH, 1);
+		chg_virtue(p_ptr, V_FAITH, 1);
 		break;
 	case TV_DEATH_BOOK:
-		chg_virtue(V_UNLIFE, 1);
+		chg_virtue(p_ptr, V_UNLIFE, 1);
 		break;
 	case TV_NATURE_BOOK:
-		chg_virtue(V_NATURE, 1);
+		chg_virtue(p_ptr, V_NATURE, 1);
 		break;
 	default:
-		chg_virtue(V_KNOWLEDGE, 1);
+		chg_virtue(p_ptr, V_KNOWLEDGE, 1);
 		break;
 	}
 
@@ -1327,25 +1327,25 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 		switch (realm)
 		{
 		case REALM_LIFE:
-			if (randint1(100) < chance) chg_virtue(V_VITALITY, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_VITALITY, -1);
 			break;
 		case REALM_DEATH:
-			if (randint1(100) < chance) chg_virtue(V_UNLIFE, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_UNLIFE, -1);
 			break;
 		case REALM_NATURE:
-			if (randint1(100) < chance) chg_virtue(V_NATURE, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_NATURE, -1);
 			break;
 		case REALM_DAEMON:
-			if (randint1(100) < chance) chg_virtue(V_JUSTICE, 1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_JUSTICE, 1);
 			break;
 		case REALM_CRUSADE:
-			if (randint1(100) < chance) chg_virtue(V_JUSTICE, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_JUSTICE, -1);
 			break;
 		case REALM_HEX:
-			if (randint1(100) < chance) chg_virtue(V_COMPASSION, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_COMPASSION, -1);
 			break;
 		default:
-			if (randint1(100) < chance) chg_virtue(V_KNOWLEDGE, -1);
+			if (randint1(100) < chance) chg_virtue(p_ptr, V_KNOWLEDGE, -1);
 			break;
 		}
 
@@ -1398,7 +1398,7 @@ msg_print("An infernal sound echoed.");
 			aggravate_monsters(0);
 		}
 		if (randint1(100) >= chance)
-			chg_virtue(V_CHANCE,-1);
+			chg_virtue(p_ptr, V_CHANCE,-1);
 	}
 
 	/* Process spell */
@@ -1408,7 +1408,7 @@ msg_print("An infernal sound echoed.");
 		if (!do_spell(realm, spell, SPELL_CAST)) return;
 
 		if (randint1(100) < chance)
-			chg_virtue(V_CHANCE,1);
+			chg_virtue(p_ptr, V_CHANCE,1);
 
 		/* A spell was cast */
 		if (!(increment ?
@@ -1438,79 +1438,79 @@ msg_print("An infernal sound echoed.");
 			switch (realm)
 			{
 			case REALM_LIFE:
-				chg_virtue(V_TEMPERANCE, 1);
-				chg_virtue(V_COMPASSION, 1);
-				chg_virtue(V_VITALITY, 1);
-				chg_virtue(V_DILIGENCE, 1);
+				chg_virtue(p_ptr, V_TEMPERANCE, 1);
+				chg_virtue(p_ptr, V_COMPASSION, 1);
+				chg_virtue(p_ptr, V_VITALITY, 1);
+				chg_virtue(p_ptr, V_DILIGENCE, 1);
 				break;
 			case REALM_DEATH:
-				chg_virtue(V_UNLIFE, 1);
-				chg_virtue(V_JUSTICE, -1);
-				chg_virtue(V_FAITH, -1);
-				chg_virtue(V_VITALITY, -1);
+				chg_virtue(p_ptr, V_UNLIFE, 1);
+				chg_virtue(p_ptr, V_JUSTICE, -1);
+				chg_virtue(p_ptr, V_FAITH, -1);
+				chg_virtue(p_ptr, V_VITALITY, -1);
 				break;
 			case REALM_DAEMON:
-				chg_virtue(V_JUSTICE, -1);
-				chg_virtue(V_FAITH, -1);
-				chg_virtue(V_HONOUR, -1);
-				chg_virtue(V_TEMPERANCE, -1);
+				chg_virtue(p_ptr, V_JUSTICE, -1);
+				chg_virtue(p_ptr, V_FAITH, -1);
+				chg_virtue(p_ptr, V_HONOUR, -1);
+				chg_virtue(p_ptr, V_TEMPERANCE, -1);
 				break;
 			case REALM_CRUSADE:
-				chg_virtue(V_FAITH, 1);
-				chg_virtue(V_JUSTICE, 1);
-				chg_virtue(V_SACRIFICE, 1);
-				chg_virtue(V_HONOUR, 1);
+				chg_virtue(p_ptr, V_FAITH, 1);
+				chg_virtue(p_ptr, V_JUSTICE, 1);
+				chg_virtue(p_ptr, V_SACRIFICE, 1);
+				chg_virtue(p_ptr, V_HONOUR, 1);
 				break;
 			case REALM_NATURE:
-				chg_virtue(V_NATURE, 1);
-				chg_virtue(V_HARMONY, 1);
+				chg_virtue(p_ptr, V_NATURE, 1);
+				chg_virtue(p_ptr, V_HARMONY, 1);
 				break;
 			case REALM_HEX:
-				chg_virtue(V_JUSTICE, -1);
-				chg_virtue(V_FAITH, -1);
-				chg_virtue(V_HONOUR, -1);
-				chg_virtue(V_COMPASSION, -1);
+				chg_virtue(p_ptr, V_JUSTICE, -1);
+				chg_virtue(p_ptr, V_FAITH, -1);
+				chg_virtue(p_ptr, V_HONOUR, -1);
+				chg_virtue(p_ptr, V_COMPASSION, -1);
 				break;
 			default:
-				chg_virtue(V_KNOWLEDGE, 1);
+				chg_virtue(p_ptr, V_KNOWLEDGE, 1);
 				break;
 			}
 		}
 		switch (realm)
 		{
 		case REALM_LIFE:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_TEMPERANCE, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_COMPASSION, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_VITALITY, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_DILIGENCE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_TEMPERANCE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_COMPASSION, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_VITALITY, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_DILIGENCE, 1);
 			break;
 		case REALM_DEATH:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_UNLIFE, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_JUSTICE, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_FAITH, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_VITALITY, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_UNLIFE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_JUSTICE, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_FAITH, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_VITALITY, -1);
 			break;
 		case REALM_DAEMON:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_JUSTICE, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_FAITH, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_HONOUR, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_TEMPERANCE, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_JUSTICE, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_FAITH, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_HONOUR, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_TEMPERANCE, -1);
 			break;
 		case REALM_CRUSADE:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_FAITH, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_JUSTICE, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_SACRIFICE, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_HONOUR, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_FAITH, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_JUSTICE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_SACRIFICE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_HONOUR, 1);
 			break;
 		case REALM_NATURE:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_NATURE, 1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_HARMONY, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_NATURE, 1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_HARMONY, 1);
 			break;
 		case REALM_HEX:
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_JUSTICE, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_FAITH, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_HONOUR, -1);
-			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(V_COMPASSION, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_JUSTICE, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_FAITH, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_HONOUR, -1);
+			if (randint1(100 + p_ptr->lev) < need_mana) chg_virtue(p_ptr, V_COMPASSION, -1);
 			break;
 		}
 		if (m_info[p_ptr->sex].spell_xtra & MAGIC_GAIN_EXP)
@@ -1572,25 +1572,25 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 		switch (realm)
 		{
 		case REALM_LIFE:
-			chg_virtue(V_VITALITY, -10);
+			chg_virtue(p_ptr, V_VITALITY, -10);
 			break;
 		case REALM_DEATH:
-			chg_virtue(V_UNLIFE, -10);
+			chg_virtue(p_ptr, V_UNLIFE, -10);
 			break;
 		case REALM_DAEMON:
-			chg_virtue(V_JUSTICE, 10);
+			chg_virtue(p_ptr, V_JUSTICE, 10);
 			break;
 		case REALM_NATURE:
-			chg_virtue(V_NATURE, -10);
+			chg_virtue(p_ptr, V_NATURE, -10);
 			break;
 		case REALM_CRUSADE:
-			chg_virtue(V_JUSTICE, -10);
+			chg_virtue(p_ptr, V_JUSTICE, -10);
 			break;
 		case REALM_HEX:
-			chg_virtue(V_COMPASSION, 10);
+			chg_virtue(p_ptr, V_COMPASSION, 10);
 			break;
 		default:
-			chg_virtue(V_KNOWLEDGE, -10);
+			chg_virtue(p_ptr, V_KNOWLEDGE, -10);
 			break;
 		}
 
