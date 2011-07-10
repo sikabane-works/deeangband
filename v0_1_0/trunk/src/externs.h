@@ -1733,7 +1733,7 @@ extern void spoil_random_artifact(cptr fname);
 extern void strip_name(char *buf, int k_idx);
 
 /* avatar.c */
-extern bool compare_virtue(int type, int num, int tekitou);
+extern bool compare_virtue(creature_type *cr_ptr, int type, int num, int tekitou);
 extern int virtue_number(int type);
 extern cptr virtue[MAX_VIRTUE];
 extern void get_virtues(void);

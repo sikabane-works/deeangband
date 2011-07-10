@@ -67,11 +67,11 @@ cptr virtue[MAX_VIRTUE] =
 };
 
 
-bool compare_virtue(int type, int num, int tekitou)
+bool compare_virtue(creature_type *cr_ptr, int type, int num, int tekitou)
 {
 	int vir;
 	if (virtue_number(type))
-		vir = p_ptr->virtues[virtue_number(type) - 1];
+		vir = cr_ptr->virtues[virtue_number(type) - 1];
 	else
 		vir = 0;
 
