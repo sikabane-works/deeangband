@@ -107,12 +107,12 @@ int virtue_number(creature_type *cr_ptr, int type)
 
 /* Aux function */
 
-static void get_random_virtue(int which)
+static void get_random_virtue(creature_type *cr_ptr, int which)
 {
 	int type = 0;
 
 	/* Randomly choose a type */
-	while (!(type) || virtue_number(p_ptr, type))
+	while (!(type) || virtue_number(cr_ptr, type))
 	{
 		switch (randint1(29))
 		{
@@ -147,7 +147,7 @@ static void get_random_virtue(int which)
 	}
 
 	/* Chosen */
-	p_ptr->vir_types[which] = type;
+	cr_ptr->vir_types[which] = type;
 }
 
 static s16b get_realm_virtues(byte realm)
@@ -391,7 +391,7 @@ void get_virtues(void)
 	/* Fill in the blanks */
 	for (i = 0; i < 8; i++)
 	{
-		if (p_ptr->vir_types[i] == 0) get_random_virtue(i);
+		if (p_ptr->vir_types[i] == 0) get_random_virtue(p_ptr, i);
 	}
 }
 
