@@ -3797,13 +3797,13 @@ note = "は動けなくなった！";
 		{
 			int vir;
 			dam += (adj_con_fix[who_ptr->stat_ind[A_CHR]] - 1);
-			vir = virtue_number(V_HARMONY);
+			vir = virtue_number(p_ptr, V_HARMONY);
 			if (vir)
 			{
 				dam += who_ptr->virtues[vir-1]/10;
 			}
 
-			vir = virtue_number(V_INDIVIDUALISM);
+			vir = virtue_number(p_ptr, V_INDIVIDUALISM);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/20;
@@ -3886,13 +3886,13 @@ note = "は突然友好的になったようだ！";
 			int vir;
 			if (seen) obvious = TRUE;
 
-			vir = virtue_number(V_UNLIFE);
+			vir = virtue_number(p_ptr, V_UNLIFE);
 			if (vir)
 			{
 				dam += who_ptr->virtues[vir-1]/10;
 			}
 
-			vir = virtue_number(V_INDIVIDUALISM);
+			vir = virtue_number(p_ptr, V_INDIVIDUALISM);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/20;
@@ -3961,13 +3961,13 @@ note = "は既にあなたの奴隷だ！";
 			int vir;
 			if (seen) obvious = TRUE;
 
-			vir = virtue_number(V_UNLIFE);
+			vir = virtue_number(p_ptr, V_UNLIFE);
 			if (vir)
 			{
 				dam += who_ptr->virtues[vir-1]/10;
 			}
 
-			vir = virtue_number(V_INDIVIDUALISM);
+			vir = virtue_number(p_ptr, V_INDIVIDUALISM);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/20;
@@ -4037,13 +4037,13 @@ note = "は既にあなたの奴隷だ！";
 
 			if (seen) obvious = TRUE;
 
-			vir = virtue_number(V_NATURE);
+			vir = virtue_number(p_ptr, V_NATURE);
 			if (vir)
 			{
 				dam += who_ptr->virtues[vir-1]/10;
 			}
 
-			vir = virtue_number(V_INDIVIDUALISM);
+			vir = virtue_number(p_ptr, V_INDIVIDUALISM);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/20;
@@ -4122,17 +4122,17 @@ note = "はなついた。";
 		{
 			int vir;
 
-			vir = virtue_number(V_UNLIFE);
+			vir = virtue_number(p_ptr, V_UNLIFE);
 			if (seen) obvious = TRUE;
 
 			dam += (adj_chr_chm[who_ptr->stat_ind[A_CHR]]);
-			vir = virtue_number(V_UNLIFE);
+			vir = virtue_number(p_ptr, V_UNLIFE);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/10;
 			}
 
-			vir = virtue_number(V_INDIVIDUALISM);
+			vir = virtue_number(p_ptr, V_INDIVIDUALISM);
 			if (vir)
 			{
 				dam -= who_ptr->virtues[vir-1]/20;

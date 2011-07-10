@@ -250,7 +250,7 @@ static void cast_wonder(int dir)
 {
 	int plev = p_ptr->lev;
 	int die = randint1(100) + plev / 5;
-	int vir = virtue_number(V_CHANCE);
+	int vir = virtue_number(p_ptr, V_CHANCE);
 
 	if (vir)
 	{
@@ -331,7 +331,7 @@ static void cast_invoke_spirits(int dir)
 {
 	int plev = p_ptr->lev;
 	int die = randint1(100) + plev / 5;
-	int vir = virtue_number(V_CHANCE);
+	int vir = virtue_number(p_ptr, V_CHANCE);
 
 	if (vir)
 	{
@@ -598,7 +598,7 @@ static void cast_shuffle(void)
 	int plev = p_ptr->lev;
 	int dir;
 	int die;
-	int vir = virtue_number(V_CHANCE);
+	int vir = virtue_number(p_ptr, V_CHANCE);
 	int i;
 
 	/* Card sharks and high mages get a level bonus */

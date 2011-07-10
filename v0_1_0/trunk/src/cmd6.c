@@ -2921,7 +2921,7 @@ static int wand_effect(int sval, int dir, bool magic)
 	/* XXX Hack -- Wand of wonder can do anything before it */
 	if (sval == SV_WAND_WONDER)
 	{
-		int vir = virtue_number(V_CHANCE);
+		int vir = virtue_number(p_ptr, V_CHANCE);
 		sval = randint0(SV_WAND_WONDER);
 
 		if (vir)

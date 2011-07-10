@@ -4735,7 +4735,7 @@ bool res_stat(creature_type *cr_ptr, int stat)
 bool hp_player(creature_type *cr_ptr, int num)
 {
 	int vir;
-	vir = virtue_number(V_VITALITY);
+	vir = virtue_number(p_ptr, V_VITALITY);
 	if (vir)
 	{
 		num = num * (cr_ptr->virtues[vir - 1] + 1250) / 1250;
