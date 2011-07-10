@@ -5114,7 +5114,7 @@ static void dump_aux_virtues(FILE *fff)
 #endif
 
 	fprintf(fff, "\n");
-	dump_virtues(fff);
+	dump_virtues(p_ptr, fff);
 }
 
 

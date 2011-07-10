@@ -467,7 +467,7 @@ void set_virtue(creature_type *cr_ptr, int virtue, int amount)
 	}
 }
 
-void dump_virtues(FILE *OutFile)
+void dump_virtues(creature_type *cr_ptr, FILE *OutFile)
 {
 	int v_nr = 0;
 
@@ -476,11 +476,11 @@ void dump_virtues(FILE *OutFile)
 	for (v_nr = 0; v_nr < 8; v_nr++)
 	{
 		char v_name [20];
-		int tester = p_ptr->virtues[v_nr];
+		int tester = cr_ptr->virtues[v_nr];
 
-		strcpy(v_name, virtue[(p_ptr->vir_types[v_nr])-1]);
+		strcpy(v_name, virtue[(cr_ptr->vir_types[v_nr])-1]);
 
-		if (p_ptr->vir_types[v_nr] == 0 || p_ptr->vir_types[v_nr] > MAX_VIRTUE)
+		if (cr_ptr->vir_types[v_nr] == 0 || cr_ptr->vir_types[v_nr] > MAX_VIRTUE)
 #ifdef JP
 			fprintf(OutFile, "‚¨‚Á‚ÆB%s‚Ìî•ñ‚È‚µB", v_name);
 #else

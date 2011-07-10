@@ -1739,7 +1739,7 @@ extern cptr virtue[MAX_VIRTUE];
 extern void get_virtues(creature_type *cr_ptr);
 extern void chg_virtue(creature_type *cr_ptr, int virtue, int amount);
 extern void set_virtue(creature_type *cr_ptr, int virtue, int amount);
-extern void dump_virtues(FILE * OutFile);
+extern void dump_virtues(creature_type *cr_ptr, FILE * OutFile);
 
 #ifdef JP
 /* japanese.c */

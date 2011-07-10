@@ -9271,7 +9271,7 @@ static void do_cmd_knowledge_virtues(void)
 #else
 		fprintf(fff, "Your alighnment : %s\n\n", your_alignment());
 #endif
-		dump_virtues(fff);
+		dump_virtues(p_ptr, fff);
 	}
 	
 	/* Close the file */
