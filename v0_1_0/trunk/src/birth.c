@@ -7104,7 +7104,7 @@ static bool player_birth_aux(void)
 
 	get_max_stats();
 
-	get_virtues();
+	get_virtues(p_ptr);
 
 	/* Prompt for it */
 #ifdef JP

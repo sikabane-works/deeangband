@@ -4952,7 +4952,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		set_virtue(V_DILIGENCE, 0);
 		set_virtue(V_VALOUR, 0);
 		set_virtue(V_INDIVIDUALISM, 0);
-		get_virtues();
+		get_virtues(p_ptr);
 		paid = TRUE;
 		break;
 	case BACT_TELE_TOWN:

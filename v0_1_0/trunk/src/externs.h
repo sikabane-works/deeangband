@@ -1736,7 +1736,7 @@ extern void strip_name(char *buf, int k_idx);
 extern bool compare_virtue(creature_type *cr_ptr, int type, int num, int tekitou);
 extern int virtue_number(creature_type *cr_ptr, int type);
 extern cptr virtue[MAX_VIRTUE];
-extern void get_virtues(void);
+extern void get_virtues(creature_type *cr_ptr);
 extern void chg_virtue(int virtue, int amount);
 extern void set_virtue(int virtue, int amount);
 extern void dump_virtues(FILE * OutFile);

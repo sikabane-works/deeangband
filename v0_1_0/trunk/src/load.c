@@ -1486,7 +1486,7 @@ static void rd_extra(void)
 		p_ptr->muta1 = 0;
 		p_ptr->muta2 = 0;
 		p_ptr->muta3 = 0;
-		get_virtues();
+		get_virtues(p_ptr);
 	}
 	else
 	{
