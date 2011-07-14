@@ -5770,7 +5770,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	if (!load) check_music();
 
 	/* Hex - Handle the hex spells */
-	if (!load) check_hex();
+	if (!load) check_hex(p_ptr);
 	if (!load) revenge_spell();
 
 	load = FALSE;

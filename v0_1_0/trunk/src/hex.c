@@ -124,7 +124,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 
 /* Upkeeping hex spells
    Called from dungeon.c */
-void check_hex(void)
+void check_hex(creature_type *cr_ptr)
 {
 	magic_type *s_ptr;
 	int spell;
@@ -133,27 +133,27 @@ void check_hex(void)
 	bool res = FALSE;
 
 	/* Spells spelled by player */
-	if (p_ptr->realm1 != REALM_HEX) return;
-	if (!p_ptr->magic_num1[0] && !p_ptr->magic_num1[1]) return;
+	if (cr_ptr->realm1 != REALM_HEX) return;
+	if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return;
 
-	if (p_ptr->magic_num1[1])
+	if (cr_ptr->magic_num1[1])
 	{
-		p_ptr->magic_num1[0] = p_ptr->magic_num1[1];
-		p_ptr->magic_num1[1] = 0;
+		cr_ptr->magic_num1[0] = cr_ptr->magic_num1[1];
+		cr_ptr->magic_num1[1] = 0;
 		res = TRUE;
 	}
 
 	/* Stop all spells when anti-magic ability is given */
-	if (p_ptr->anti_magic)
+	if (cr_ptr->anti_magic)
 	{
-		stop_hex_spell_all(p_ptr);
+		stop_hex_spell_all(cr_ptr);
 		return;
 	}
 
 	need_mana = 0;
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(p_ptr, spell))
+		if (hex_spelling(cr_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
 			need_mana += mod_need_mana(s_ptr->smana, spell, REALM_HEX);
@@ -164,22 +164,22 @@ void check_hex(void)
 	/* Culcurates final mana cost */
 	need_mana_frac = 0;
 	s64b_div(&need_mana, &need_mana_frac, 0, 3); /* Divide by 3 */
-	need_mana += (p_ptr->magic_num2[0] - 1);
+	need_mana += (cr_ptr->magic_num2[0] - 1);
 
 
 	/* Not enough mana */
-	if (s64b_cmp(p_ptr->csp, p_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_hex_spell_all(p_ptr);
+		stop_hex_spell_all(cr_ptr);
 		return;
 	}
 
 	/* Enough mana */
 	else
 	{
-		s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), need_mana, need_mana_frac);
+		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), need_mana, need_mana_frac);
 
-		p_ptr->redraw |= PR_MANA;
+		cr_ptr->redraw |= PR_MANA;
 		if (res)
 		{
 #ifdef JP
@@ -187,41 +187,41 @@ void check_hex(void)
 #else
 			msg_print("You restart spelling.");
 #endif
-			p_ptr->action = ACTION_SPELL;
+			cr_ptr->action = ACTION_SPELL;
 
 			/* Recalculate bonuses */
-			p_ptr->update |= (PU_BONUS | PU_HP);
+			cr_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Redraw map and status bar */
-			p_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+			cr_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
 	/* Gain experiences of spelling spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (!hex_spelling(p_ptr, spell)) continue;
+		if (!hex_spelling(cr_ptr, spell)) continue;
 
-		if (p_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
-			p_ptr->spell_exp[spell] += 5;
-		else if(p_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-		{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > p_ptr->lev)) p_ptr->spell_exp[spell] += 1; }
-		else if(p_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-		{ if (one_in_(5) && ((dun_level + 5) > p_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) p_ptr->spell_exp[spell] += 1; }
-		else if(p_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-		{ if (one_in_(5) && ((dun_level + 5) > p_ptr->lev) && (dun_level > s_ptr->slevel)) p_ptr->spell_exp[spell] += 1; }
+		if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
+			cr_ptr->spell_exp[spell] += 5;
+		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
+		{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
+		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
+		{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+		else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
+		{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && (dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 	}
 
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(p_ptr, spell))
+		if (hex_spelling(cr_ptr, spell))
 		{
 			do_spell(REALM_HEX, spell, SPELL_CONT);
 		}
