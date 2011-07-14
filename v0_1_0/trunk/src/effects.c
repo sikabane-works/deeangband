@@ -573,7 +573,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚½I");
 			if (cr_ptr->concent) reset_concentration(TRUE);
 
 			/* Hex */
-			if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
+			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
 
 			notice = TRUE;
 			cr_ptr->counter = FALSE;
@@ -870,7 +870,7 @@ msg_print("‘Ì‚ª–ƒáƒ‚µ‚Ä‚µ‚Ü‚Á‚½I");
 			if (cr_ptr->concent) reset_concentration(TRUE);
 
 			/* Hex */
-			if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
+			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
 
 			cr_ptr->counter = FALSE;
 			notice = TRUE;
@@ -3907,7 +3907,7 @@ msg_print("Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB");
 		if (cr_ptr->concent) reset_concentration(TRUE);
 
 		/* Hex */
-		if (hex_spelling_any(p_ptr)) stop_hex_spell_all();
+		if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
 
 		/* Notice */
 		notice = TRUE;

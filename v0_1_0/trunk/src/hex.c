@@ -14,25 +14,25 @@ p_ptr->magic_num2
 
 #define MAX_KEEP 4
 
-bool stop_hex_spell_all(void)
+bool stop_hex_spell_all(creature_type *cr_ptr)
 {
 	int i;
 
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if (hex_spelling(p_ptr, spell)) do_spell(REALM_HEX, spell, SPELL_STOP);
+		if (hex_spelling(cr_ptr, spell)) do_spell(REALM_HEX, spell, SPELL_STOP);
 	}
 
-	p_ptr->magic_num1[0] = 0;
-	p_ptr->magic_num2[0] = 0;
+	cr_ptr->magic_num1[0] = 0;
+	cr_ptr->magic_num2[0] = 0;
 
 	/* Print message */
-	if (p_ptr->action == ACTION_SPELL) set_action(p_ptr, ACTION_NONE);
+	if (cr_ptr->action == ACTION_SPELL) set_action(cr_ptr, ACTION_NONE);
 
 	/* Redraw status */
-	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-	p_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
 }
@@ -61,7 +61,7 @@ bool stop_hex_spell(void)
 	/* Stop all spells */
 	else if ((p_ptr->magic_num2[0] == 1) || (p_ptr->lev < 35))
 	{
-		return stop_hex_spell_all();
+		return stop_hex_spell_all(p_ptr);
 	}
 	else
 	{
@@ -96,7 +96,7 @@ bool stop_hex_spell(void)
 			if (choice == 'l')	/* All */
 			{
 				screen_load();
-				return stop_hex_spell_all();
+				return stop_hex_spell_all(p_ptr);
 			}
 			if ((choice < I2A(0)) || (choice > I2A(p_ptr->magic_num2[0] - 1))) continue;
 			flag = TRUE;
@@ -146,7 +146,7 @@ void check_hex(void)
 	/* Stop all spells when anti-magic ability is given */
 	if (p_ptr->anti_magic)
 	{
-		stop_hex_spell_all();
+		stop_hex_spell_all(p_ptr);
 		return;
 	}
 
@@ -170,7 +170,7 @@ void check_hex(void)
 	/* Not enough mana */
 	if (s64b_cmp(p_ptr->csp, p_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_hex_spell_all();
+		stop_hex_spell_all(p_ptr);
 		return;
 	}
 
