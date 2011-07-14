@@ -7752,7 +7752,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	}
 
 	/* Hex - revenge damage stored */
-	revenge_store(get_damage);
+	revenge_store(p_ptr, get_damage);
 
 	if ((p_ptr->tim_eyeeye || hex_spelling(p_ptr, HEX_EYE_FOR_EYE))
 		&& (get_damage > 0) && !p_ptr->is_dead && (who_ptr != NULL))

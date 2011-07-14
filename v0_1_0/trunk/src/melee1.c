@@ -2188,7 +2188,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 	}
 
 	/* Hex - revenge damage stored */
-	revenge_store(get_damage);
+	revenge_store(tar_ptr, get_damage);
 
 	if ((tar_ptr->tim_eyeeye || hex_spelling(tar_ptr, HEX_EYE_FOR_EYE))
 		&& get_damage > 0 && !tar_ptr->is_dead)

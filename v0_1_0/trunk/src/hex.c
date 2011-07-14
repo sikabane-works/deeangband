@@ -255,12 +255,12 @@ void revenge_spell()
 	}
 }
 
-void revenge_store(int dam)
+void revenge_store(creature_type *cr_ptr, int dam)
 {
-	if (p_ptr->realm1 != REALM_HEX) return;
-	if (p_ptr->magic_num2[2] <= 0) return;
+	if (cr_ptr->realm1 != REALM_HEX) return;
+	if (cr_ptr->magic_num2[2] <= 0) return;
 
-	p_ptr->magic_num1[2] += dam;
+	cr_ptr->magic_num1[2] += dam;
 }
 
 
