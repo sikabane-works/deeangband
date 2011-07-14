@@ -3120,7 +3120,7 @@ bool monst_spell_monst(int m_idx)
 
 	/* RF6_BLINK */
 	case 160+4:
-		if (teleport_barrier(m_idx))
+		if (teleport_barrier(p_ptr, m_ptr))
 		{
 			if (see_m)
 			{
@@ -3147,7 +3147,7 @@ bool monst_spell_monst(int m_idx)
 
 	/* RF6_TPORT */
 	case 160+5:
-		if (teleport_barrier(m_idx))
+		if (teleport_barrier(p_ptr, m_ptr))
 		{
 			if (see_m)
 			{

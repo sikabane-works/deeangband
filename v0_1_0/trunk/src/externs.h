@@ -950,7 +950,7 @@ extern bool load_floor(saved_floor_type *sf_ptr, u32b mode);
 
 /* melee1.c */
 /* melee2.c */
-extern bool make_attack_normal(int m_idx);
+extern bool make_attack_normal(creature_type *atk_ptr, creature_type *tar_ptr);
 extern void process_monsters(void);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void mproc_init(void);
@@ -1809,7 +1809,7 @@ extern void check_hex(void);
 extern bool hex_spell_fully(void);
 extern void revenge_spell();
 extern void revenge_store(int dam);
-extern bool teleport_barrier(int m_idx);
+bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool magic_barrier(int m_idx);
 extern bool multiply_barrier(int m_idx);
 

@@ -264,13 +264,12 @@ void revenge_store(int dam)
 }
 
 
-bool teleport_barrier(int m_idx)
+bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr)
 {
-	creature_type *m_ptr = &m_list[m_idx];
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	monster_race *r_ptr = &r_info[tar_ptr->monster_idx];
 
-	if (!hex_spelling(p_ptr, HEX_ANTI_TELE)) return FALSE;
-	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if (!hex_spelling(cast_ptr, HEX_ANTI_TELE)) return FALSE;
+	if ((cast_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
 }

@@ -3376,7 +3376,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		case 160+4:
 		{
 			disturb(1, 0);
-			if (teleport_barrier(m_idx))
+			if (teleport_barrier(p_ptr, m_ptr))
 			{
 #ifdef JP
 				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
@@ -3401,7 +3401,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		case 160+5:
 		{
 			disturb(1, 0);
-			if (teleport_barrier(m_idx))
+			if (teleport_barrier(p_ptr, m_ptr))
 			{
 #ifdef JP
 				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
