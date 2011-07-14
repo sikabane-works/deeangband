@@ -38,7 +38,7 @@ bool stop_hex_spell_all(creature_type *cr_ptr)
 }
 
 
-bool stop_hex_spell(void)
+bool stop_hex_spell(creature_type *cr_ptr)
 {
 	int spell;
 	char choice;
@@ -48,7 +48,7 @@ bool stop_hex_spell(void)
 	int x = 20;
 	int sp[MAX_KEEP];
 
-	if (!hex_spelling_any(p_ptr))
+	if (!hex_spelling_any(cr_ptr))
 	{
 #ifdef JP
 		msg_print("Žô•¶‚ð‰r¥‚µ‚Ä‚¢‚Ü‚¹‚ñB");
@@ -59,18 +59,18 @@ bool stop_hex_spell(void)
 	}
 
 	/* Stop all spells */
-	else if ((p_ptr->magic_num2[0] == 1) || (p_ptr->lev < 35))
+	else if ((cr_ptr->magic_num2[0] == 1) || (cr_ptr->lev < 35))
 	{
-		return stop_hex_spell_all(p_ptr);
+		return stop_hex_spell_all(cr_ptr);
 	}
 	else
 	{
 #ifdef JP
 		strnfmt(out_val, 78, "‚Ç‚ÌŽô•¶‚Ì‰r¥‚ð’†’f‚µ‚Ü‚·‚©H(Žô•¶ %c-%c, 'l'‘S‚Ä, ESC)",
-			I2A(0), I2A(p_ptr->magic_num2[0] - 1));
+			I2A(0), I2A(cr_ptr->magic_num2[0] - 1));
 #else
 		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)",
-			I2A(0), I2A(p_ptr->magic_num2[0] - 1));
+			I2A(0), I2A(cr_ptr->magic_num2[0] - 1));
 #endif
 
 		screen_save();
@@ -82,7 +82,7 @@ bool stop_hex_spell(void)
 			prt("     –¼‘O", y, x + 5);
 			for (spell = 0; spell < 32; spell++)
 			{
-				if (hex_spelling(p_ptr, spell))
+				if (hex_spelling(cr_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
 					put_str(format("%c)  %s", I2A(n), do_spell(REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
@@ -96,9 +96,9 @@ bool stop_hex_spell(void)
 			if (choice == 'l')	/* All */
 			{
 				screen_load();
-				return stop_hex_spell_all(p_ptr);
+				return stop_hex_spell_all(cr_ptr);
 			}
-			if ((choice < I2A(0)) || (choice > I2A(p_ptr->magic_num2[0] - 1))) continue;
+			if ((choice < I2A(0)) || (choice > I2A(cr_ptr->magic_num2[0] - 1))) continue;
 			flag = TRUE;
 		}
 	}
@@ -110,13 +110,13 @@ bool stop_hex_spell(void)
 		int n = sp[A2I(choice)];
 
 		do_spell(REALM_HEX, n, SPELL_STOP);
-		p_ptr->magic_num1[0] &= ~(1L << n);
-		p_ptr->magic_num2[0]--;
+		cr_ptr->magic_num1[0] &= ~(1L << n);
+		cr_ptr->magic_num2[0]--;
 	}
 
 	/* Redraw status */
-	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-	p_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
 }

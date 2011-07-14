@@ -1157,7 +1157,7 @@ void do_cmd_cast(void)
 			msg_print("Can not spell new spells more.");
 #endif
 			flush();
-			if (p_ptr->lev >= 35) flag = stop_hex_spell();
+			if (p_ptr->lev >= 35) flag = stop_hex_spell(p_ptr);
 			if (!flag) return;
 		}
 	}

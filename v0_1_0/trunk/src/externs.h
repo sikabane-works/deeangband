@@ -1804,7 +1804,7 @@ extern int boost_concentration_damage(int tdam);
 
 /* hex.c */
 extern bool stop_hex_spell_all(creature_type *cr_ptr);
-extern bool stop_hex_spell(void);
+extern bool stop_hex_spell(creature_type *cr_ptr);
 extern void check_hex(void);
 extern bool hex_spell_fully(void);
 extern void revenge_spell();

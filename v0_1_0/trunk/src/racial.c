@@ -928,7 +928,7 @@ static bool cmd_racial_power_aux(s32b command)
 		case CLASS_HIGH_MAGE:
 		if (p_ptr->realm1 == REALM_HEX)
 		{
-			bool retval = stop_hex_spell();
+			bool retval = stop_hex_spell(p_ptr);
 			if (retval) energy_use = 10;
 			return (retval);
 		}
