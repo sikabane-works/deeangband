@@ -136,9 +136,9 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	cr_ptr->update |= (PU_MONSTERS);
 }
 
-int boost_concentration_damage(int tdam)
+int boost_concentration_damage(creature_type *cr_ptr, int tdam)
 {
-	tdam *= (10 + p_ptr->concent);
+	tdam *= (10 + cr_ptr->concent);
 	tdam /= 10;
 
 	return (tdam);

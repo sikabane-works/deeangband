@@ -1800,7 +1800,7 @@ extern void display_snipe_list(void);
 extern int tot_dam_aux_snipe (int mult, creature_type *m_ptr);
 extern void do_cmd_snipe(void);
 extern void do_cmd_snipe_browse(void);
-extern int boost_concentration_damage(int tdam);
+extern int boost_concentration_damage(creature_type *cr_ptr, int tdam);
 
 /* hex.c */
 extern bool stop_hex_spell_all(creature_type *cr_ptr);

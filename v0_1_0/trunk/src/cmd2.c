@@ -3708,7 +3708,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				int tdam = tdam_base;
 
 				/* Get extra damage from concentration */
-				if (p_ptr->concent) tdam = boost_concentration_damage(tdam);
+				if (p_ptr->concent) tdam = boost_concentration_damage(p_ptr, tdam);
 
 				/* Handle unseen monster */
 				if (!visible)
