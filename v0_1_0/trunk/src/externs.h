@@ -1811,5 +1811,5 @@ extern void revenge_spell(creature_type *cr_ptr);
 extern void revenge_store(creature_type *cr_ptr, int dam);
 bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool magic_barrier(creature_type *cr_ptr, int m_idx);
-extern bool multiply_barrier(int m_idx);
+extern bool multiply_barrier(creature_type *cr_ptr, int m_idx);
 
