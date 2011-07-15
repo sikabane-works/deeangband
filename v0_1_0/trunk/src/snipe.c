@@ -195,13 +195,13 @@ void display_snipe_list(creature_type *cr_ptr)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_snipe_power(int *sn, bool only_browse)
+static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 {
 	int             i;
 	int             num = 0;
 	int             y = 1;
 	int             x = 20;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	int             ask;
 	char            choice;
 	char            out_val[160];
@@ -225,7 +225,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 	if (repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if ((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)p_ptr->concent))
+		if ((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)cr_ptr->concent))
 		{
 			/* Success */
 			return (TRUE);
@@ -243,7 +243,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)
 	{
 		if ((snipe_powers[i].min_lev <= plev) &&
-			((only_browse) || (snipe_powers[i].mana_cost <= (int)p_ptr->concent)))
+			((only_browse) || (snipe_powers[i].mana_cost <= (int)cr_ptr->concent)))
 		{
 			num = i;
 		}
@@ -308,7 +308,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 					/* Access the spell */
 					spell = snipe_powers[i];
 					if (spell.min_lev > plev) continue;
-					if (!only_browse && (spell.mana_cost > (int)p_ptr->concent)) continue;
+					if (!only_browse && (spell.mana_cost > (int)cr_ptr->concent)) continue;
 
 					/* Dump the spell --(-- */
 					if (only_browse)
@@ -348,7 +348,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 
 		/* Totally Illegal */
 		if ((i < 0) || (i > num) || 
-			(!only_browse &&(snipe_powers[i].mana_cost > (int)p_ptr->concent)))
+			(!only_browse &&(snipe_powers[i].mana_cost > (int)cr_ptr->concent)))
 		{
 			bell();
 			continue;
@@ -381,7 +381,7 @@ static int get_snipe_power(int *sn, bool only_browse)
 	if (redraw && !only_browse) screen_load();
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	cr_ptr->window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -598,7 +598,7 @@ void do_cmd_snipe(void)
 	}
 
 	/* get power */
-	if (!get_snipe_power(&n, FALSE)) return;
+	if (!get_snipe_power(p_ptr, &n, FALSE)) return;
 
 	spell = snipe_powers[n];
 
@@ -635,7 +635,7 @@ void do_cmd_snipe_browse(void)
 	while(1)
 	{
 		/* get power */
-		if (!get_snipe_power(&n, TRUE))
+		if (!get_snipe_power(p_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;
