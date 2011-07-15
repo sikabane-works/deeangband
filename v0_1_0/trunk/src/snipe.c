@@ -406,14 +406,14 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 {
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
-	bool seen = is_seen(p_ptr, m_ptr);
+	bool seen = is_seen(cr_ptr, m_ptr);
 
 	switch (snipe_type)
 	{
 	case SP_LITE:
 		if (r_ptr->flags3 & (RF3_HURT_LITE))
 		{
-			int n = 20 + p_ptr->concent;
+			int n = 20 + cr_ptr->concent;
 			if (seen) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 			if (mult < n) mult = n;
 		}
@@ -425,7 +425,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		else
 		{
-			int n = 15 + (p_ptr->concent * 3);
+			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -436,7 +436,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		else
 		{
-			int n = 15 + (p_ptr->concent * 3);
+			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -447,20 +447,20 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		else
 		{
-			int n = 18 + (p_ptr->concent * 4);
+			int n = 18 + (cr_ptr->concent * 4);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_KILL_WALL:
 		if (r_ptr->flags3 & RF3_HURT_ROCK)
 		{
-			int n = 15 + (p_ptr->concent * 2);
+			int n = 15 + (cr_ptr->concent * 2);
 			if (seen) r_ptr->r_flags3 |= RF3_HURT_ROCK;
 			if (mult < n) mult = n;
 		}
 		else if (r_ptr->flags3 & RF3_NONLIVING)
 		{
-			int n = 15 + (p_ptr->concent * 2);
+			int n = 15 + (cr_ptr->concent * 2);
 			if (seen) r_ptr->r_flags3 |= RF3_NONLIVING;
 			if (mult < n) mult = n;
 		}
@@ -468,7 +468,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 	case SP_EVILNESS:
 		if (r_ptr->flags3 & RF3_GOOD)
 		{
-			int n = 15 + (p_ptr->concent * 4);
+			int n = 15 + (cr_ptr->concent * 4);
 			if (seen) r_ptr->r_flags3 |= RF3_GOOD;
 			if (mult < n) mult = n;
 		}
@@ -476,11 +476,11 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 	case SP_HOLYNESS:
 		if (r_ptr->flags3 & RF3_EVIL)
 		{
-			int n = 12 + (p_ptr->concent * 3);
+			int n = 12 + (cr_ptr->concent * 3);
 			if (seen) r_ptr->r_flags3 |= RF3_EVIL;
 			if (r_ptr->flags3 & (RF3_HURT_LITE))
 			{
-				n += (p_ptr->concent * 3);
+				n += (cr_ptr->concent * 3);
 				if (seen) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 			}
 			if (mult < n) mult = n;
@@ -498,10 +498,10 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-static bool cast_sniper_spell(int spell)
+static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 {
 	bool flag = FALSE;
-	object_type *o_ptr = &p_ptr->inventory[INVEN_BOW];
+	object_type *o_ptr = &cr_ptr->inventory[INVEN_BOW];
 
 	if (o_ptr->tval != TV_BOW)
 	{
@@ -517,7 +517,7 @@ static bool cast_sniper_spell(int spell)
 	switch (spell)
 	{
 	case 0: /* Concentration */
-		if (!snipe_concentrate(p_ptr)) return (FALSE);
+		if (!snipe_concentrate(cr_ptr)) return (FALSE);
 		energy_use = 100;
 		return (TRUE);
 	case 1: snipe_type = SP_LITE; break;
@@ -605,7 +605,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	sound(SOUND_SHOOT);
 
 	/* Cast the spell */
-	cast = cast_sniper_spell(n);
+	cast = cast_sniper_spell(cr_ptr, n);
 
 	if (!cast) return;
 #if 0
