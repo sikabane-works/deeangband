@@ -3945,7 +3945,7 @@ void display_spell_list(void)
 	/* Snipers */
 	if (p_ptr->cls_idx == CLASS_SNIPER)
 	{
-		display_snipe_list();
+		display_snipe_list(p_ptr);
 		return;
 	}
 

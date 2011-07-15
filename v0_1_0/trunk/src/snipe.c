@@ -144,12 +144,12 @@ int boost_concentration_damage(creature_type *cr_ptr, int tdam)
 	return (tdam);
 }
 
-void display_snipe_list(void)
+void display_snipe_list(creature_type *cr_ptr)
 {
 	int             i;
 	int             y = 1;
 	int             x = 1;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	snipe_power     spell;
 	char            psi_desc[80];
 
@@ -169,7 +169,7 @@ void display_snipe_list(void)
 		/* Access the available spell */
 		spell = snipe_powers[i];
 		if (spell.min_lev > plev) continue;
-		if (spell.mana_cost > (int)p_ptr->concent) continue;
+		if (spell.mana_cost > (int)cr_ptr->concent) continue;
 
 		/* Dump the spell */
 		sprintf(psi_desc, "  %c) %-30s%2d %4d",
