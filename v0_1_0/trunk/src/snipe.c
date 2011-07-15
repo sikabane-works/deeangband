@@ -555,17 +555,17 @@ static bool cast_sniper_spell(int spell)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_snipe(void)
+void do_cmd_snipe(creature_type *cr_ptr)
 {
 	int             n = 0;
-	int             plev = p_ptr->lev;
-	int             old_chp = p_ptr->chp;
+	int             plev = cr_ptr->lev;
+	int             old_chp = cr_ptr->chp;
 	snipe_power     spell;
 	bool            cast;
 
 
 	/* not if confused */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて集中できない！");
@@ -576,7 +576,7 @@ void do_cmd_snipe(void)
 	}
 
 	/* not if hullucinated */
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
 #ifdef JP
 		msg_print("幻覚が見えて集中できない！");
@@ -587,7 +587,7 @@ void do_cmd_snipe(void)
 	}
 
 	/* not if stuned */
-	if (p_ptr->stun)
+	if (cr_ptr->stun)
 	{
 #ifdef JP
 		msg_print("頭が朦朧としていて集中できない！");
@@ -598,7 +598,7 @@ void do_cmd_snipe(void)
 	}
 
 	/* get power */
-	if (!get_snipe_power(p_ptr, &n, FALSE)) return;
+	if (!get_snipe_power(cr_ptr, &n, FALSE)) return;
 
 	spell = snipe_powers[n];
 
@@ -613,11 +613,11 @@ void do_cmd_snipe(void)
 	energy_use = 100;
 #endif
 	/* Redraw mana */
-	p_ptr->redraw |= (PR_HP | PR_MANA);
+	cr_ptr->redraw |= (PR_HP | PR_MANA);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
-	p_ptr->window |= (PW_SPELL);
+	cr_ptr->window |= (PW_PLAYER);
+	cr_ptr->window |= (PW_SPELL);
 }
 
 /*
