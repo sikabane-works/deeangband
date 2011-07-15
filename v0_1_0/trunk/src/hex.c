@@ -2,11 +2,11 @@
 
 /* Flag list */
 /*
-p_ptr-magic_num1
+cr_ptr-magic_num1
 0: Flag bits of spelling spells
 1: Flag bits of despelled spells
 2: Revange damage
-p_ptr->magic_num2
+cr_ptr->magic_num2
 0: Number of spelling spells
 1: Type of revenge
 2: Turn count for revenge
@@ -281,8 +281,8 @@ bool magic_barrier(creature_type *cr_ptr, int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-	if (!hex_spelling(p_ptr, HEX_ANTI_MAGIC)) return FALSE;
-	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if (!hex_spelling(cr_ptr, HEX_ANTI_MAGIC)) return FALSE;
+	if ((cr_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
 }
@@ -293,8 +293,8 @@ bool multiply_barrier(creature_type *cr_ptr, int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
 
-	if (!hex_spelling(p_ptr, HEX_ANTI_MULTI)) return FALSE;
-	if ((p_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if (!hex_spelling(cr_ptr, HEX_ANTI_MULTI)) return FALSE;
+	if ((cr_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
 }
