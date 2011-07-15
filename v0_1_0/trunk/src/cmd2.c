@@ -3334,7 +3334,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 	}
 
 	/* Sniper */
-	if (snipe_type) mult = tot_dam_aux_snipe(mult, m_ptr);
+	if (snipe_type) mult = tot_dam_aux_snipe(p_ptr, mult, m_ptr);
 
 	/* Return the total damage */
 	return (tdam * mult / 10);
