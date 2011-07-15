@@ -90,7 +90,7 @@ snipe_power snipe_powers[MAX_SNIPE_POWERS] =
 };
 
 
-static bool snipe_concentrate(void)
+static bool snipe_concentrate(creature_type *cr_ptr)
 {
 	if ((int)p_ptr->concent < (2 + (p_ptr->lev + 5) / 10)) p_ptr->concent++;
 
@@ -517,7 +517,7 @@ static bool cast_sniper_spell(int spell)
 	switch (spell)
 	{
 	case 0: /* Concentration */
-		if (!snipe_concentrate()) return (FALSE);
+		if (!snipe_concentrate(p_ptr)) return (FALSE);
 		energy_use = 100;
 		return (TRUE);
 	case 1: snipe_type = SP_LITE; break;
