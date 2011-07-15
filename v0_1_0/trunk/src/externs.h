@@ -1797,9 +1797,9 @@ extern bool is_fired;
 /* snipe.c */
 extern void reset_concentration(creature_type *cr_ptr, bool msg);
 extern void display_snipe_list(creature_type *cr_ptr);
-extern int tot_dam_aux_snipe (creature_type *cr_ptr, int mult, creature_type *m_ptr);
+extern int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr);
 extern void do_cmd_snipe(creature_type *cr_ptr);
-extern void do_cmd_snipe_browse(void);
+extern void do_cmd_snipe_browse(creature_type *cr_ptr);
 extern int boost_concentration_damage(creature_type *cr_ptr, int tdam);
 
 /* hex.c */

@@ -4609,7 +4609,7 @@ static void store_process_command(void)
 			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(TRUE);
 			else if (p_ptr->cls_idx == CLASS_SNIPER)
-				do_cmd_snipe_browse();
+				do_cmd_snipe_browse(p_ptr);
 			else do_cmd_browse();
 			break;
 		}

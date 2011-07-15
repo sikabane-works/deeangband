@@ -624,7 +624,7 @@ void do_cmd_snipe(creature_type *cr_ptr)
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_snipe_browse(void)
+void do_cmd_snipe_browse(creature_type *cr_ptr)
 {
 	int n = 0;
 	int j, line;
@@ -635,7 +635,7 @@ void do_cmd_snipe_browse(void)
 	while(1)
 	{
 		/* get power */
-		if (!get_snipe_power(p_ptr, &n, TRUE))
+		if (!get_snipe_power(cr_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;
