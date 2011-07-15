@@ -229,16 +229,16 @@ void check_hex(creature_type *cr_ptr)
 }
 
 
-bool hex_spell_fully(void)
+bool hex_spell_fully(creature_type *cr_ptr)
 {
 	int k_max = 0;
 
-	k_max = (p_ptr->lev / 15) + 1;
+	k_max = (cr_ptr->lev / 15) + 1;
 
 	/* Paranoia */
 	k_max = MIN(k_max, MAX_KEEP);
 
-	if (p_ptr->magic_num2[0] < k_max) return FALSE;
+	if (cr_ptr->magic_num2[0] < k_max) return FALSE;
 
 	return TRUE;
 }

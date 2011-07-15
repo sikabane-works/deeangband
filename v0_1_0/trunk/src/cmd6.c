@@ -1629,7 +1629,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 	if (music_singing_any(p_ptr)) stop_singing();
 
 	/* Hex */
-	if (hex_spelling_any(p_ptr) && ((p_ptr->lev < 35) || hex_spell_fully())) stop_hex_spell_all(p_ptr);
+	if (hex_spelling_any(p_ptr) && ((p_ptr->lev < 35) || hex_spell_fully(p_ptr))) stop_hex_spell_all(p_ptr);
 
 	/* Not identified yet */
 	ident = FALSE;

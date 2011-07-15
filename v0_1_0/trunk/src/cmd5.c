@@ -1148,7 +1148,7 @@ void do_cmd_cast(void)
 	/* Hex */
 	if (p_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spell_fully())
+		if (hex_spell_fully(p_ptr))
 		{
 			bool flag = FALSE;
 #ifdef JP
