@@ -3974,7 +3974,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Loose his/her concentration after any shot */
-	if (p_ptr->concent) reset_concentration(FALSE);
+	if (p_ptr->concent) reset_concentration(p_ptr, FALSE);
 }
 
 

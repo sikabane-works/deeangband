@@ -92,28 +92,28 @@ snipe_power snipe_powers[MAX_SNIPE_POWERS] =
 
 static bool snipe_concentrate(creature_type *cr_ptr)
 {
-	if ((int)p_ptr->concent < (2 + (p_ptr->lev + 5) / 10)) p_ptr->concent++;
+	if ((int)cr_ptr->concent < (2 + (cr_ptr->lev + 5) / 10)) cr_ptr->concent++;
 
 #ifdef JP
-	msg_format("集中した。(集中度 %d)", p_ptr->concent);
+	msg_format("集中した。(集中度 %d)", cr_ptr->concent);
 #else
-	msg_format("You concentrate deeply. (lvl %d)", p_ptr->concent);
+	msg_format("You concentrate deeply. (lvl %d)", cr_ptr->concent);
 #endif
 
 	reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	return (TRUE);
 }
 
-void reset_concentration(bool msg)
+void reset_concentration(creature_type *cr_ptr, bool msg)
 {
 	if (msg)
 	{
@@ -124,16 +124,16 @@ void reset_concentration(bool msg)
 #endif
 	}
 
-	p_ptr->concent = 0;
+	cr_ptr->concent = 0;
 	reset_concent = FALSE;
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 }
 
 int boost_concentration_damage(int tdam)

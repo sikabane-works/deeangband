@@ -1795,7 +1795,7 @@ extern bool reset_concent;   /* Concentration reset flag */
 extern bool is_fired;
 
 /* snipe.c */
-extern void reset_concentration(bool msg);
+extern void reset_concentration(creature_type *cr_ptr, bool msg);
 extern void display_snipe_list(void);
 extern int tot_dam_aux_snipe (int mult, creature_type *m_ptr);
 extern void do_cmd_snipe(void);

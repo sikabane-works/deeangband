@@ -6135,7 +6135,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Sniper */
-		if (energy_use && reset_concent) reset_concentration(TRUE);
+		if (energy_use && reset_concent) reset_concentration(p_ptr, TRUE);
 
 		/* Handle "leaving" */
 		if (p_ptr->leaving) break;

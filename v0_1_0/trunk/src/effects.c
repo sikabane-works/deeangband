@@ -570,7 +570,7 @@ msg_print("あなたは混乱した！");
 			}
 
 			/* Sniper */
-			if (cr_ptr->concent) reset_concentration(TRUE);
+			if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
 
 			/* Hex */
 			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
@@ -867,7 +867,7 @@ msg_print("体が麻痺してしまった！");
 #endif
 
 			/* Sniper */
-			if (cr_ptr->concent) reset_concentration(TRUE);
+			if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
 
 			/* Hex */
 			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
@@ -992,7 +992,7 @@ msg_print("ワーオ！何もかも虹色に見える！");
 #endif
 
 			/* Sniper */
-			if (p_ptr->concent) reset_concentration(TRUE);
+			if (p_ptr->concent) reset_concentration(p_ptr, TRUE);
 
 			p_ptr->counter = FALSE;
 			notice = TRUE;
@@ -3904,7 +3904,7 @@ msg_print("割れるような頭痛がする。");
 		}
 
 		/* Sniper */
-		if (cr_ptr->concent) reset_concentration(TRUE);
+		if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
 
 		/* Hex */
 		if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
