@@ -276,7 +276,7 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr)
 }
 
 
-bool magic_barrier(int m_idx)
+bool magic_barrier(creature_type *cr_ptr, int m_idx)
 {
 	creature_type *m_ptr = &m_list[m_idx];
 	monster_race *r_ptr = &r_info[m_ptr->monster_idx];

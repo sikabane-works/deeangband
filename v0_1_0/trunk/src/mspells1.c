@@ -1678,7 +1678,7 @@ bool make_attack_spell(int m_idx)
 	}
 
 	/* Hex: Anti Magic Barrier */
-	if (!spell_is_inate(thrown_spell) && magic_barrier(m_idx))
+	if (!spell_is_inate(thrown_spell) && magic_barrier(p_ptr, m_idx))
 	{
 #ifdef JP
 		msg_format("反魔法バリアが%^sの呪文をかき消した。", m_name);
