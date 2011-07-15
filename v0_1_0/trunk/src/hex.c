@@ -243,13 +243,14 @@ bool hex_spell_fully(creature_type *cr_ptr)
 	return TRUE;
 }
 
-void revenge_spell()
+void revenge_spell(creature_type *cr_ptr)
 {
-	if (p_ptr->realm1 != REALM_HEX) return;
-	if (p_ptr->magic_num2[2] <= 0) return;
+	if (cr_ptr->realm1 != REALM_HEX) return;
+	if (cr_ptr->magic_num2[2] <= 0) return;
 
-	switch(p_ptr->magic_num2[1])
+	switch(cr_ptr->magic_num2[1])
 	{
+	//TODO
 	case 1: do_spell(REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
 	case 2: do_spell(REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
 	}

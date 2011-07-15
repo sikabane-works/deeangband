@@ -5771,7 +5771,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 
 	/* Hex - Handle the hex spells */
 	if (!load) check_hex(p_ptr);
-	if (!load) revenge_spell();
+	if (!load) revenge_spell(p_ptr);
 
 	load = FALSE;
 

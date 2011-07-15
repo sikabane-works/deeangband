@@ -1807,7 +1807,7 @@ extern bool stop_hex_spell_all(creature_type *cr_ptr);
 extern bool stop_hex_spell(creature_type *cr_ptr);
 extern void check_hex(creature_type *cr_ptr);
 extern bool hex_spell_fully(creature_type *cr_ptr);
-extern void revenge_spell();
+extern void revenge_spell(creature_type *cr_ptr);
 extern void revenge_store(creature_type *cr_ptr, int dam);
 bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool magic_barrier(int m_idx);
