@@ -222,10 +222,10 @@ o_name, index_to_label(slot),game_inscriptions[feel]);
  *   Class 4 = Ranger  --> slow but heavy  (changed!)
  *   Class 5 = Paladin --> slow but heavy
  */
-static void sense_inventory1(void)
+static void sense_inventory1(creature_type *cr_ptr)
 {
 	int         i;
-	int         plev = p_ptr->lev;
+	int         plev = cr_ptr->lev;
 	bool        heavy = FALSE;
 	object_type *o_ptr;
 
@@ -233,10 +233,10 @@ static void sense_inventory1(void)
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if (p_ptr->confused) return;
+	if (cr_ptr->confused) return;
 
 	/* Analyze the class */
-	switch (p_ptr->cls_idx)
+	switch (cr_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
 		case CLASS_ARCHER:
@@ -399,7 +399,7 @@ static void sense_inventory1(void)
 		}
 	}
 
-	if (compare_virtue(p_ptr, V_KNOWLEDGE, 100, VIRTUE_LARGE)) heavy = TRUE;
+	if (compare_virtue(cr_ptr, V_KNOWLEDGE, 100, VIRTUE_LARGE)) heavy = TRUE;
 
 	/*** Sense everything ***/
 
@@ -408,7 +408,7 @@ static void sense_inventory1(void)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -443,11 +443,11 @@ static void sense_inventory1(void)
 		/* Skip non-sense machines */
 		if (!okay) continue;
 
-		/* Occasional failure on p_ptr->inventory items */
+		/* Occasional failure on cr_ptr->inventory items */
 		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
 
 		/* Good luck */
-		if ((p_ptr->muta3 & MUT3_GOOD_LUCK) && !randint0(13))
+		if ((cr_ptr->muta3 & MUT3_GOOD_LUCK) && !randint0(13))
 		{
 			heavy = TRUE;
 		}
@@ -457,20 +457,20 @@ static void sense_inventory1(void)
 }
 
 
-static void sense_inventory2(void)
+static void sense_inventory2(creature_type *cr_ptr)
 {
 	int         i;
-	int         plev = p_ptr->lev;
+	int         plev = cr_ptr->lev;
 	object_type *o_ptr;
 
 
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if (p_ptr->confused) return;
+	if (cr_ptr->confused) return;
 
 	/* Analyze the class */
-	switch (p_ptr->cls_idx)
+	switch (cr_ptr->cls_idx)
 	{
 		case CLASS_WARRIOR:
 		case CLASS_ARCHER:
@@ -552,7 +552,7 @@ static void sense_inventory2(void)
 	{
 		bool okay = FALSE;
 
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -573,7 +573,7 @@ static void sense_inventory2(void)
 		/* Skip non-sense machines */
 		if (!okay) continue;
 
-		/* Occasional failure on p_ptr->inventory items */
+		/* Occasional failure on cr_ptr->inventory items */
 		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(i, TRUE);
@@ -4269,8 +4269,8 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	process_world_aux_recharge(p_ptr);
 
 	/* Feel the p_ptr->inventory */
-	sense_inventory1();
-	sense_inventory2();
+	sense_inventory1(p_ptr);
+	sense_inventory2(p_ptr);
 
 	/* Involuntary Movement */
 	process_world_aux_movement();
