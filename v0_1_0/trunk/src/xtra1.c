@@ -669,24 +669,24 @@ static void prt_status(creature_type *cr_ptr)
 	/* Hex spells */
 	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling(p_ptr, HEX_BLESS)) ADD_FLG(BAR_BLESSED);
-		if (hex_spelling(p_ptr, HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
-		if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
-		if (hex_spelling(p_ptr, HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
-		if (hex_spelling(p_ptr, HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
-		if (hex_spelling(p_ptr, HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
-		if (hex_spelling(p_ptr, HEX_BUILDING)) ADD_FLG(BAR_BUILD);
-		if (hex_spelling(p_ptr, HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
-		if (hex_spelling(p_ptr, HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
-		if (hex_spelling(p_ptr, HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
-		if (hex_spelling(p_ptr, HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
-		if (hex_spelling(p_ptr, HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
-		if (hex_spelling(p_ptr, HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
-		if (hex_spelling(p_ptr, HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
-		if (hex_spelling(p_ptr, HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
-		if (hex_spelling(p_ptr, HEX_CURE_LIGHT) ||
-			hex_spelling(p_ptr, HEX_CURE_SERIOUS) ||
-			hex_spelling(p_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
+		if (hex_spelling(cr_ptr, HEX_BLESS)) ADD_FLG(BAR_BLESSED);
+		if (hex_spelling(cr_ptr, HEX_DEMON_AURA)) { ADD_FLG(BAR_SHFIRE); ADD_FLG(BAR_REGENERATION); }
+		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) ADD_FLG(BAR_MIGHT);
+		if (hex_spelling(cr_ptr, HEX_DETECT_EVIL)) ADD_FLG(BAR_ESP_EVIL);
+		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR)) ADD_FLG(BAR_SHCOLD);
+		if (hex_spelling(cr_ptr, HEX_RUNESWORD)) ADD_FLG(BAR_RUNESWORD);
+		if (hex_spelling(cr_ptr, HEX_BUILDING)) ADD_FLG(BAR_BUILD);
+		if (hex_spelling(cr_ptr, HEX_ANTI_TELE)) ADD_FLG(BAR_ANTITELE);
+		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK)) ADD_FLG(BAR_SHELEC);
+		if (hex_spelling(cr_ptr, HEX_SHADOW_CLOAK)) ADD_FLG(BAR_SHSHADOW);
+		if (hex_spelling(cr_ptr, HEX_CONFUSION)) ADD_FLG(BAR_ATTKCONF);
+		if (hex_spelling(cr_ptr, HEX_EYE_FOR_EYE)) ADD_FLG(BAR_EYEEYE);
+		if (hex_spelling(cr_ptr, HEX_ANTI_MULTI)) ADD_FLG(BAR_ANTIMULTI);
+		if (hex_spelling(cr_ptr, HEX_VAMP_BLADE)) ADD_FLG(BAR_VAMPILIC);
+		if (hex_spelling(cr_ptr, HEX_ANTI_MAGIC)) ADD_FLG(BAR_ANTIMAGIC);
+		if (hex_spelling(cr_ptr, HEX_CURE_LIGHT) ||
+			hex_spelling(cr_ptr, HEX_CURE_SERIOUS) ||
+			hex_spelling(cr_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
 
 		if (cr_ptr->magic_num2[2])
 		{
@@ -854,42 +854,42 @@ static void prt_level(void)
 /*
  * Display the experience
  */
-static void prt_exp(void)
+static void prt_exp(creature_type *cr_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(p_ptr->irace_idx == RACE_ANDROID))
+	if ((!exp_need)||(cr_ptr->irace_idx == RACE_ANDROID))
 	{
 #ifdef JP
-	(void)sprintf(out_val, "%7ld", (long)p_ptr->exp);
+	(void)sprintf(out_val, "%7ld", (long)cr_ptr->exp);
 #else
-	(void)sprintf(out_val, "%8ld", (long)p_ptr->exp);
+	(void)sprintf(out_val, "%8ld", (long)cr_ptr->exp);
 #endif
 	}
 	else
 	{
-		if (p_ptr->lev >= p_ptr->max_lev)
+		if (cr_ptr->lev >= cr_ptr->max_lev)
 		{
 			(void)sprintf(out_val, "********");
 		}
 		else
 		{
 #ifdef JP
-			(void)sprintf(out_val, "%7ld", (long)(player_exp [p_ptr->lev - 1] * p_ptr->expfact / 100L) - p_ptr->exp);
+			(void)sprintf(out_val, "%7ld", (long)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
 #else      
-			(void)sprintf(out_val, "%8ld", (long)(player_exp [p_ptr->lev - 1] * p_ptr->expfact / 100L) - p_ptr->exp);
+			(void)sprintf(out_val, "%8ld", (long)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
 #endif
 		}
 	}
 
-	if (p_ptr->exp >= p_ptr->max_exp)
+	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
 #ifdef JP
-		if (p_ptr->irace_idx == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
+		if (cr_ptr->irace_idx == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
 		else put_str("ŒoŒ± ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 5);
 #else
-		if (p_ptr->irace_idx == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
+		if (cr_ptr->irace_idx == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
 #endif
@@ -1738,7 +1738,7 @@ static void prt_frame_basic(void)
 
 	/* Level/Experience */
 	prt_level();
-	prt_exp();
+	prt_exp(p_ptr);
 
 	/* All Stats */
 	for (i = 0; i < 6; i++) prt_stat(i);
@@ -3083,7 +3083,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	bool            riding_levitation = FALSE;
 	s16b this_o_idx, next_o_idx = 0;
 
-	intelligent_race *tmp_rp_ptr;
+	intelligent_race *tmp_rcr_ptr;
 
 	/* Save the old vision stuff */
 	bool old_telepathy = cr_ptr->telepathy;
@@ -3234,8 +3234,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->hidarite = FALSE;
 	cr_ptr->no_flowed = FALSE;
 
-	if (cr_ptr->mimic_form) tmp_rp_ptr = &mimic_info[cr_ptr->mimic_form];
-	else tmp_rp_ptr = &race_info[cr_ptr->irace_idx];
+	if (cr_ptr->mimic_form) tmp_rcr_ptr = &mimic_info[cr_ptr->mimic_form];
+	else tmp_rcr_ptr = &race_info[cr_ptr->irace_idx];
 
 	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
@@ -3251,7 +3251,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->max_lev = i;
 
 	/* Base infravision (purely racial) */
-	cr_ptr->see_infra = tmp_rp_ptr->infra;
+	cr_ptr->see_infra = tmp_rcr_ptr->infra;
 	j = 0;
 	k = 1;
 
@@ -3374,11 +3374,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* new alignment calc*/
-	tmp_good = tmp_rp_ptr->good;
-	tmp_evil = tmp_rp_ptr->evil;
-	tmp_order = tmp_rp_ptr->order;
-	tmp_chaos = tmp_rp_ptr->chaos;
-	tmp_balance = tmp_rp_ptr->balance;
+	tmp_good = tmp_rcr_ptr->good;
+	tmp_evil = tmp_rcr_ptr->evil;
+	tmp_order = tmp_rcr_ptr->order;
+	tmp_chaos = tmp_rcr_ptr->chaos;
+	tmp_balance = tmp_rcr_ptr->balance;
 
 
 	if (have_weapon(cr_ptr, INVEN_RARM)) cr_ptr->migite = TRUE;
@@ -3431,7 +3431,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (!(empty_hands_status & EMPTY_HAND_RARM))
 		{
-			set_action(p_ptr, ACTION_NONE);
+			set_action(cr_ptr, ACTION_NONE);
 		}
 	}
 
@@ -3760,7 +3760,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(cr_ptr->irace_idx != RACE_NONE) cr_ptr->stat_add[i] += tmp_rp_ptr->r_adj[i];
+		if(cr_ptr->irace_idx != RACE_NONE) cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
 
 		for(j = 0; j < MAX_RACES; j++)
 			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
@@ -4453,27 +4453,27 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Hex bonuses */
 	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling_any(p_ptr)) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
-		if (hex_spelling(p_ptr, HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
-		if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[A_STR] += 4;
-		if (hex_spelling(p_ptr, HEX_BUILDING))
+		if (hex_spelling_any(cr_ptr)) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
+		if (hex_spelling(cr_ptr, HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
+		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[A_STR] += 4;
+		if (hex_spelling(cr_ptr, HEX_BUILDING))
 		{
 			cr_ptr->stat_add[A_STR] += 4;
 			cr_ptr->stat_add[A_DEX] += 4;
 			cr_ptr->stat_add[A_CON] += 4;
 		}
-		if (hex_spelling(p_ptr, HEX_DEMON_AURA))
+		if (hex_spelling(cr_ptr, HEX_DEMON_AURA))
 		{
 			cr_ptr->sh_fire = TRUE;
 			cr_ptr->regenerate = TRUE;
 		}
-		if (hex_spelling(p_ptr, HEX_ICE_ARMOR))
+		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR))
 		{
 			cr_ptr->sh_cold = TRUE; 
 			cr_ptr->to_a += 30;
 			cr_ptr->dis_to_a += 30;
 		}
-		if (hex_spelling(p_ptr, HEX_SHOCK_CLOAK))
+		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK))
 		{
 			cr_ptr->sh_elec = TRUE;
 			new_speed += 3;
@@ -4565,7 +4565,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in INT may affect Mana/Spells */
 			else if (i == A_INT)
 			{
-				if (m_info[p_ptr->sex].spell_stat == A_INT)
+				if (m_info[cr_ptr->sex].spell_stat == A_INT)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -4574,7 +4574,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == A_WIS)
 			{
-				if (m_info[p_ptr->sex].spell_stat == A_WIS)
+				if (m_info[cr_ptr->sex].spell_stat == A_WIS)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -4583,7 +4583,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Change in WIS may affect Mana/Spells */
 			else if (i == A_CHR)
 			{
-				if (m_info[p_ptr->sex].spell_stat == A_CHR)
+				if (m_info[cr_ptr->sex].spell_stat == A_CHR)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -5176,7 +5176,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Hex - extra mights gives +1 bonus to max blows */
-			if (hex_spelling(p_ptr, HEX_XTRA_MIGHT) || hex_spelling(p_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
+			if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT) || hex_spelling(cr_ptr, HEX_BUILDING)) { num++; wgt /= 2; mul += 2; }
 
 			/* Enforce a minimum "weight" (tenth pounds) */
 			div = ((o_ptr->weight < wgt) ? wgt : o_ptr->weight);
@@ -5290,7 +5290,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_h[i] += 7; cr_ptr->dis_to_h[i] += 7; }
 				if (o_ptr->curse_flags & (TRC_DIVINE_CURSE)) { cr_ptr->to_h[i] += 13; cr_ptr->dis_to_h[i] += 13; }
 				if (o_ptr->curse_flags & (TRC_TY_CURSE)) { cr_ptr->to_h[i] += 5; cr_ptr->dis_to_h[i] += 5; }
-				if (hex_spelling(p_ptr, HEX_RUNESWORD))
+				if (hex_spelling(cr_ptr, HEX_RUNESWORD))
 				{
 					if (o_ptr->curse_flags & (TRC_CURSED)) { cr_ptr->to_d[i] += 5; cr_ptr->dis_to_d[i] += 5; }
 					if (o_ptr->curse_flags & (TRC_HEAVY_CURSE)) { cr_ptr->to_d[i] += 7; cr_ptr->dis_to_d[i] += 7; }
@@ -5811,7 +5811,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #endif
 				if (hack_mind)
 				{
-					chg_virtue(p_ptr, V_FAITH, -1);
+					chg_virtue(cr_ptr, V_FAITH, -1);
 				}
 			}
 			else if (have_weapon(cr_ptr, INVEN_RARM+i))
@@ -5873,7 +5873,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 			if (hack_mind)
 			{
-				chg_virtue(p_ptr, V_HARMONY, -1);
+				chg_virtue(cr_ptr, V_HARMONY, -1);
 			}
 		}
 		else
@@ -5917,36 +5917,36 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #if 0
 	if (have_dd_s && ((cr_ptr->realm1 == REALM_SORCERY) || (cr_ptr->realm2 == REALM_SORCERY) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_SORCERY-1][SPELL_DD_S];
+		magic_type *s_ptr = &m_info[cr_ptr->sex].info[REALM_SORCERY-1][SPELL_DD_S];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
 	if (have_dd_t && ((cr_ptr->realm1 == REALM_TRUMP) || (cr_ptr->realm2 == REALM_TRUMP) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)))
 	{
-		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_TRUMP-1][SPELL_DD_T];
+		magic_type *s_ptr = &m_info[cr_ptr->sex].info[REALM_TRUMP-1][SPELL_DD_T];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 #endif
 	if (have_sw && ((cr_ptr->realm1 == REALM_NATURE) || (cr_ptr->realm2 == REALM_NATURE) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_NATURE-1][SPELL_SW];
+		magic_type *s_ptr = &m_info[cr_ptr->sex].info[REALM_NATURE-1][SPELL_SW];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
 	if (have_kabe && ((cr_ptr->realm1 == REALM_CRAFT) || (cr_ptr->realm2 == REALM_CRAFT) || (cr_ptr->cls_idx == CLASS_SORCERER)))
 	{
-		magic_type *s_ptr = &m_info[p_ptr->sex].info[REALM_CRAFT-1][SPELL_KABE];
+		magic_type *s_ptr = &m_info[cr_ptr->sex].info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
 
 	/* Calc new Alignment*/
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		cr_ptr->good = calc_align(tmp_rp_ptr->good);
-		cr_ptr->evil = calc_align(tmp_rp_ptr->evil);
-		cr_ptr->order = calc_align(tmp_rp_ptr->order);
-		cr_ptr->chaos = calc_align(tmp_rp_ptr->chaos);
-		cr_ptr->balance = calc_align(tmp_rp_ptr->balance);
+		cr_ptr->good = calc_align(tmp_rcr_ptr->good);
+		cr_ptr->evil = calc_align(tmp_rcr_ptr->evil);
+		cr_ptr->order = calc_align(tmp_rcr_ptr->order);
+		cr_ptr->chaos = calc_align(tmp_rcr_ptr->chaos);
+		cr_ptr->balance = calc_align(tmp_rcr_ptr->balance);
 	}
 	else
 	{
@@ -6182,7 +6182,7 @@ void redraw_stuff(void)
 	if (p_ptr->redraw & (PR_EXP))
 	{
 		p_ptr->redraw &= ~(PR_EXP);
-		prt_exp();
+		prt_exp(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_STATS))
