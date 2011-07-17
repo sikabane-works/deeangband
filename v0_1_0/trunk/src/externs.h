@@ -1525,7 +1525,7 @@ extern bool get_rep_dir(int *dp, bool under);
 extern bool get_rep_dir2(int *dp);
 extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
 extern bool tgt_pt (int *x, int *y);
-extern void do_poly_wounds(void);
+extern void do_poly_wounds(creature_type *cr_ptr);
 extern void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg);
 extern int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern s16b gain_energy(void);

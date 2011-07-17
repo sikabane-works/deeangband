@@ -5158,7 +5158,7 @@ msg_format("%s‚Ì—Í‚ªG‚ê‚é‚Ì‚ğŠ´‚¶‚½B",
 #endif
 
 				player_patrons[cr_ptr->patron_idx].title);
-			do_poly_wounds();
+			do_poly_wounds(p_ptr);
 #ifdef JP
 			reward = "‚ª•Ï‰»‚µ‚½B";
 #else

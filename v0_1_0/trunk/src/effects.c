@@ -5101,12 +5101,12 @@ bool lose_all_info(creature_type *cr_ptr)
 }
 
 
-void do_poly_wounds(void)
+void do_poly_wounds(creature_type *cr_ptr)
 {
 	/* Changed to always provide at least _some_ healing */
-	s16b wounds = p_ptr->cut;
-	s32b hit_p = (p_ptr->mhp - p_ptr->chp);
-	s16b change = damroll(p_ptr->lev, 5);
+	s16b wounds = cr_ptr->cut;
+	s32b hit_p = (cr_ptr->mhp - cr_ptr->chp);
+	s16b change = damroll(cr_ptr->lev, 5);
 	bool Nasty_effect = one_in_(5);
 
 	if (!(wounds || hit_p || Nasty_effect)) return;
@@ -5117,22 +5117,22 @@ msg_print("傷がより軽いものに変化した。");
 	msg_print("Your wounds are polymorphed into less serious ones.");
 #endif
 
-	hp_player(p_ptr, change);
+	hp_player(cr_ptr, change);
 	if (Nasty_effect)
 	{
 #ifdef JP
 		msg_print("新たな傷ができた！");
-		take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", NULL, -1);
 #else
 		msg_print("A new wound was created!");
-		take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 
-		set_cut(p_ptr, change);
+		set_cut(cr_ptr, change);
 	}
 	else
 	{
-		set_cut(p_ptr, p_ptr->cut - (change / 2));
+		set_cut(cr_ptr, cr_ptr->cut - (change / 2));
 	}
 }
 
@@ -5380,7 +5380,7 @@ msg_format("%sの構成が変化した！", cr_ptr->irace_idx == RACE_ANDROID ? "機械" : 
 	if (power > randint0(5))
 	{
 		power -= 5;
-		do_poly_wounds();
+		do_poly_wounds(cr_ptr);
 	}
 
 	/* Note: earlier deductions may have left power < 0 already. */
