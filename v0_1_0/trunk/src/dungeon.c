@@ -1476,7 +1476,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
 /*
  * Handle timed damage and regeneration every 10 game turns
  */
-static void process_world_aux_hp_and_sp(void)
+static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 {
 	feature_type *f_ptr = &f_info[cave[py][px].feat];
 	bool cave_no_regen = FALSE;
@@ -1490,50 +1490,50 @@ static void process_world_aux_hp_and_sp(void)
 	/*** Damage over Time ***/
 
 	/* Take damage from poison */
-	if (p_ptr->poisoned && !IS_INVULN(p_ptr))
+	if (cr_ptr->poisoned && !IS_INVULN(cr_ptr))
 	{
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
 #endif
 
 	}
 
 	/* Take damage from cuts */
-	if (p_ptr->cut && !IS_INVULN(p_ptr))
+	if (cr_ptr->cut && !IS_INVULN(cr_ptr))
 	{
 		int dam;
 
 		/* Mortal wound or Deep Gash */
-		if (p_ptr->cut > 1000)
+		if (cr_ptr->cut > 1000)
 		{
 			dam = 200;
 		}
 
-		else if (p_ptr->cut > 200)
+		else if (cr_ptr->cut > 200)
 		{
 			dam = 80;
 		}
 
 		/* Severe cut */
-		else if (p_ptr->cut > 100)
+		else if (cr_ptr->cut > 100)
 		{
 			dam = 32;
 		}
 
-		else if (p_ptr->cut > 50)
+		else if (cr_ptr->cut > 50)
 		{
 			dam = 16;
 		}
 
-		else if (p_ptr->cut > 25)
+		else if (cr_ptr->cut > 25)
 		{
 			dam = 7;
 		}
 
-		else if (p_ptr->cut > 10)
+		else if (cr_ptr->cut > 10)
 		{
 			dam = 3;
 		}
@@ -1546,38 +1546,38 @@ static void process_world_aux_hp_and_sp(void)
 
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
 #endif
 
 	}
 
 
 	/* (Vampires) Take damage from sunlight */
-	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
-		if (!dun_level && !p_ptr->resist_lite && !IS_INVULN(p_ptr) && is_daytime())
+		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
 			if ((cave[py][px].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
 				/* Take damage */
 #ifdef JP
 				msg_print("日光があなたのアンデッドの肉体を焼き焦がした！");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
 #endif
 
 				cave_no_regen = TRUE;
 			}
 		}
 
-		if (p_ptr->inventory[INVEN_LITE].tval && (p_ptr->inventory[INVEN_LITE].name2 != EGO_LITE_DARKNESS) &&
-		    !p_ptr->resist_lite)
+		if (cr_ptr->inventory[INVEN_LITE].tval && (cr_ptr->inventory[INVEN_LITE].name2 != EGO_LITE_DARKNESS) &&
+		    !cr_ptr->resist_lite)
 		{
-			object_type * o_ptr = &p_ptr->inventory[INVEN_LITE];
+			object_type * o_ptr = &cr_ptr->inventory[INVEN_LITE];
 			char o_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -1602,7 +1602,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			sprintf(ouch, "wielding %s", o_name);
 #endif
 
-			if (!IS_INVULN(p_ptr)) take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
+			if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
 		}
 	}
 
@@ -1610,17 +1610,17 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	{
 		int damage = 0;
 		damage = randint0(50) + 20;
-		if(p_ptr->resist_chaos) damage /= 2;
+		if(cr_ptr->resist_chaos) damage /= 2;
 #ifdef JP
 				msg_print("混沌に身を蝕まれた！");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
 				msg_print("The chaos tainted you!");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}
 
-	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(p_ptr) && !p_ptr->immune_fire)
+	if (have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(cr_ptr) && !cr_ptr->immune_fire)
 	{
 		int damage = 0;
 
@@ -1628,29 +1628,29 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!p_ptr->levitation)
+		else if (!cr_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
 
 		if (damage)
 		{
-			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
-			if (p_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE(p_ptr)) damage = damage / 3;
+			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
+			if (cr_ptr->resist_fire) damage = damage / 3;
+			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
 
-			if (p_ptr->levitation) damage = damage / 5;
+			if (cr_ptr->levitation) damage = damage / 5;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
-			if (p_ptr->levitation)
+			if (cr_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[py][px])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[py][px])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[py][px])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[py][px])].name), NULL, -1);
 #endif
 			}
 			else
@@ -1661,14 +1661,14 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 #else
 				msg_format("The %s burns you!", name);
 #endif
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 			}
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(p_ptr) && !p_ptr->levitation)
+	if (have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(cr_ptr) && !cr_ptr->levitation)
 	{
 		int damage = 0;
 
@@ -1676,7 +1676,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!p_ptr->levitation)
+		else if (!cr_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1684,8 +1684,8 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (damage)
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[py][px])].name;
-			if (p_ptr->resist_pois) damage = damage / 3;
-			if (IS_OPPOSE_POIS(p_ptr)) damage = damage / 3;
+			if (cr_ptr->resist_pois) damage = damage / 3;
+			if (IS_OPPOSE_POIS(cr_ptr)) damage = damage / 3;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1694,13 +1694,13 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("you are poisoned by The %s", name);
 #endif
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(p_ptr) && !p_ptr->levitation && !p_ptr->immune_acid)
+	if (have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(cr_ptr) && !cr_ptr->levitation && !cr_ptr->immune_acid)
 	{
 		int damage = 0;
 
@@ -1708,7 +1708,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		{
 			damage = 6000 + randint0(4000);
 		}
-		else if (!p_ptr->levitation)
+		else if (!cr_ptr->levitation)
 		{
 			damage = 3000 + randint0(2000);
 		}
@@ -1716,8 +1716,8 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (damage)
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[py][px])].name;
-			if (p_ptr->resist_acid) damage = damage / 3;
-			if (IS_OPPOSE_ACID(p_ptr)) damage = damage / 3;
+			if (cr_ptr->resist_acid) damage = damage / 3;
+			if (IS_OPPOSE_ACID(cr_ptr)) damage = damage / 3;
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1726,7 +1726,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("you are disolved by The %s", name);
 #endif
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1734,65 +1734,65 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 
 	if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-	    !p_ptr->levitation && !p_ptr->can_swim)
+	    !cr_ptr->levitation && !cr_ptr->can_swim)
 	{
-		if (p_ptr->total_weight > weight_limit(p_ptr))
+		if (cr_ptr->total_weight > weight_limit(cr_ptr))
 		{
 			/* Take damage */
 #ifdef JP
 			msg_print("溺れている！");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->lev), "溺れ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->lev), "溺れ", NULL, -1);
 #else
 			msg_print("You are drowning!");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, randint1(p_ptr->lev), "drowning", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->lev), "drowning", NULL, -1);
 #endif
 
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if (p_ptr->riding)
+	if (cr_ptr->riding)
 	{
 		int damage;
-		if ((r_info[m_list[p_ptr->riding].monster_idx].flags2 & RF2_AURA_FIRE) && !p_ptr->immune_fire)
+		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
 		{
-			damage = r_info[m_list[p_ptr->riding].monster_idx].level / 2;
-			if (race_is_(p_ptr, RACE_ENT)) damage += damage / 3;
-			if (p_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE(p_ptr)) damage = damage / 3;
+			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
+			if (cr_ptr->resist_fire) damage = damage / 3;
+			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
 #ifdef JP
 			msg_print("熱い！");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
 #else
 			msg_print("It's hot!");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[p_ptr->riding].monster_idx].flags2 & RF2_AURA_ELEC) && !p_ptr->immune_elec)
+		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
 		{
-			damage = r_info[m_list[p_ptr->riding].monster_idx].level / 2;
-			if (race_is_(p_ptr, RACE_ANDROID)) damage += damage / 3;
-			if (p_ptr->resist_elec) damage = damage / 3;
-			if (IS_OPPOSE_ELEC(p_ptr)) damage = damage / 3;
+			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			if (race_is_(cr_ptr, RACE_ANDROID)) damage += damage / 3;
+			if (cr_ptr->resist_elec) damage = damage / 3;
+			if (IS_OPPOSE_ELEC(cr_ptr)) damage = damage / 3;
 #ifdef JP
 			msg_print("痛い！");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
 #else
 			msg_print("It hurts!");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[p_ptr->riding].monster_idx].flags3 & RF3_AURA_COLD) && !p_ptr->immune_cold)
+		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
 		{
-			damage = r_info[m_list[p_ptr->riding].monster_idx].level / 2;
-			if (p_ptr->resist_cold) damage = damage / 3;
-			if (IS_OPPOSE_COLD(p_ptr)) damage = damage / 3;
+			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			if (cr_ptr->resist_cold) damage = damage / 3;
+			if (IS_OPPOSE_COLD(cr_ptr)) damage = damage / 3;
 #ifdef JP
 			msg_print("冷たい！");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
 #else
 			msg_print("It's cold!");
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
 #endif
 		}
 	}
@@ -1806,14 +1806,14 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	 */
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if (!IS_INVULN(p_ptr) && !p_ptr->wraith_form && !p_ptr->kabenuke &&
-		    ((p_ptr->chp > (p_ptr->lev / 5)) || !p_ptr->pass_wall))
+		if (!IS_INVULN(cr_ptr) && !cr_ptr->wraith_form && !cr_ptr->kabenuke &&
+		    ((cr_ptr->chp > (cr_ptr->lev / 5)) || !cr_ptr->pass_wall))
 		{
 			cptr dam_desc;
 
 			cave_no_regen = TRUE;
 
-			if (p_ptr->pass_wall)
+			if (cr_ptr->pass_wall)
 			{
 #ifdef JP
 				msg_print("体の分子が分解した気がする！");
@@ -1834,7 +1834,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 #endif
 			}
 
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 1 + (p_ptr->lev / 5), dam_desc, NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1 + (cr_ptr->lev / 5), dam_desc, NULL, -1);
 		}
 	}
 
@@ -1842,14 +1842,14 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	/*** handle regeneration ***/
 
 	/* Getting Weak */
-	if (p_ptr->food < PY_FOOD_WEAK)
+	if (cr_ptr->food < PY_FOOD_WEAK)
 	{
 		/* Lower regeneration */
-		if (p_ptr->food < PY_FOOD_STARVE)
+		if (cr_ptr->food < PY_FOOD_STARVE)
 		{
 			regen_amount = 0;
 		}
-		else if (p_ptr->food < PY_FOOD_FAINT)
+		else if (cr_ptr->food < PY_FOOD_FAINT)
 		{
 			regen_amount = PY_REGEN_FAINT;
 		}
@@ -1867,15 +1867,15 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	else
 	{
 		/* Regeneration ability */
-		if (p_ptr->regenerate)
+		if (cr_ptr->regenerate)
 		{
 			regen_amount = regen_amount * 2;
 		}
-		if (p_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
+		if (cr_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
 		{
 			regen_amount /= 2;
 		}
-		if (p_ptr->cursed & TRC_SLOW_REGEN)
+		if (cr_ptr->cursed & TRC_SLOW_REGEN)
 		{
 			regen_amount /= 5;
 		}
@@ -1883,7 +1883,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 
 	/* Searching or Resting */
-	if ((p_ptr->action == ACTION_SEARCH) || (p_ptr->action == ACTION_REST))
+	if ((cr_ptr->action == ACTION_SEARCH) || (cr_ptr->action == ACTION_REST))
 	{
 		regen_amount = regen_amount * 2;
 	}
@@ -1891,9 +1891,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	upkeep_factor = calculate_upkeep();
 
 	/* No regeneration while special action */
-	if ((p_ptr->action == ACTION_LEARN) ||
-	    (p_ptr->action == ACTION_HAYAGAKE) ||
-	    (p_ptr->special_defense & KATA_KOUKIJIN))
+	if ((cr_ptr->action == ACTION_LEARN) ||
+	    (cr_ptr->action == ACTION_HAYAGAKE) ||
+	    (cr_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		upkeep_factor += 100;
 	}
@@ -1904,12 +1904,12 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 
 	/* Recharge magic eater's power */
-	if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
+	if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 	{
 		regenmagic(regen_amount);
 	}
 
-	if ((p_ptr->csp == 0) && (p_ptr->csp_frac == 0))
+	if ((cr_ptr->csp == 0) && (cr_ptr->csp_frac == 0))
 	{
 		while (upkeep_factor > 100)
 		{
@@ -1933,8 +1933,8 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	}
 
 	/* Poisoned or cut yields no healing */
-	if (p_ptr->poisoned) regen_amount = 0;
-	if (p_ptr->cut) regen_amount = 0;
+	if (cr_ptr->poisoned) regen_amount = 0;
+	if (cr_ptr->cut) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if (cave_no_regen) regen_amount = 0;
@@ -1942,7 +1942,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	regen_amount = (regen_amount * mutant_regenerate_mod) / 100;
 
 	/* Regenerate Hit Points if needed */
-	if ((p_ptr->chp < p_ptr->mhp) && !cave_no_regen)
+	if ((cr_ptr->chp < cr_ptr->mhp) && !cave_no_regen)
 	{
 		regenhp(regen_amount);
 	}
@@ -4251,7 +4251,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 
 	/* Process timed damage and regeneration */
-	process_world_aux_hp_and_sp();
+	process_world_aux_hp_and_sp(p_ptr);
 
 	/* Process timeout */
 	process_world_aux_timeout();
