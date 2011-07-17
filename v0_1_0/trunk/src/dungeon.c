@@ -2933,15 +2933,15 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 /*
  * Handle curse effects once every 10 game turns
  */
-static void process_world_aux_curse(void)
+static void process_world_aux_curse(creature_type *cr_ptr)
 {
-	if ((p_ptr->cursed & TRC_P_FLAG_MASK) && !p_ptr->inside_battle && !p_ptr->wild_mode)
+	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !cr_ptr->inside_battle && !cr_ptr->wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
 		 * can actually be useful!
 		 */
-		if ((p_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
+		if ((cr_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
 		{
 			char o_name[MAX_NLEN];
 			object_type *o_ptr;
@@ -2951,7 +2951,7 @@ static void process_world_aux_curse(void)
 			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
-				o_ptr = &p_ptr->inventory[i];
+				o_ptr = &cr_ptr->inventory[i];
 
 				/* Skip non-objects */
 				if (!o_ptr->k_idx) continue;
@@ -2970,7 +2970,7 @@ static void process_world_aux_curse(void)
 				}
 			}
 
-			o_ptr = &p_ptr->inventory[i_keep];
+			o_ptr = &cr_ptr->inventory[i_keep];
 			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
@@ -2999,7 +2999,7 @@ static void process_world_aux_curse(void)
 			}
 		}
 		/* Make a chainsword noise */
-		if ((p_ptr->cursed & TRC_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
+		if ((cr_ptr->cursed & TRC_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 		{
 			char noise[1024];
 #ifdef JP
@@ -3011,23 +3011,23 @@ static void process_world_aux_curse(void)
 			disturb(FALSE, FALSE);
 		}
 		/* TY Curse */
-		if ((p_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
+		if ((cr_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
 		{
 			int count = 0;
 			(void)activate_ty_curse(FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (p_ptr->irace_idx != RACE_ANDROID && 
-			((p_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
+		if (cr_ptr->irace_idx != RACE_ANDROID && 
+			((cr_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
-			p_ptr->exp -= (p_ptr->lev+1)/2;
-			if (p_ptr->exp < 0) p_ptr->exp = 0;
-			p_ptr->max_exp -= (p_ptr->lev+1)/2;
-			if (p_ptr->max_exp < 0) p_ptr->max_exp = 0;
-			check_experience(p_ptr);
+			cr_ptr->exp -= (cr_ptr->lev+1)/2;
+			if (cr_ptr->exp < 0) cr_ptr->exp = 0;
+			cr_ptr->max_exp -= (cr_ptr->lev+1)/2;
+			if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
+			check_experience(cr_ptr);
 		}
 		/* Add light curse (Later) */
-		if ((p_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
+		if ((cr_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
 			object_type *o_ptr;
@@ -3050,11 +3050,11 @@ static void process_world_aux_curse(void)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				p_ptr->update |= (PU_BONUS);
+				cr_ptr->update |= (PU_BONUS);
 			}
 		}
 		/* Add heavy curse (Later) */
-		if ((p_ptr->cursed & TRC_ADD_H_CURSE) && one_in_(2000))
+		if ((cr_ptr->cursed & TRC_ADD_H_CURSE) && one_in_(2000))
 		{
 			u32b new_curse;
 			object_type *o_ptr;
@@ -3077,11 +3077,11 @@ static void process_world_aux_curse(void)
 
 				o_ptr->feeling = FEEL_NONE;
 
-				p_ptr->update |= (PU_BONUS);
+				cr_ptr->update |= (PU_BONUS);
 			}
 		}
 		/* Call animal */
-		if ((p_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
+		if ((cr_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
 			if (summon_specific(0, py, px, dun_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
@@ -3099,7 +3099,7 @@ static void process_world_aux_curse(void)
 			}
 		}
 		/* Call demon */
-		if ((p_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
+		if ((cr_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
 			if (summon_specific(0, py, px, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
@@ -3116,7 +3116,7 @@ static void process_world_aux_curse(void)
 			}
 		}
 		/* Call dragon */
-		if ((p_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
+		if ((cr_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
 			if (summon_specific(0, py, px, dun_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
@@ -3133,9 +3133,9 @@ static void process_world_aux_curse(void)
 				disturb(0, 0);
 			}
 		}
-		if ((p_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
+		if ((cr_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
 		{
-			if (!p_ptr->resist_fear)
+			if (!cr_ptr->resist_fear)
 			{
 				disturb(0, 0);
 #ifdef JP
@@ -3144,11 +3144,11 @@ static void process_world_aux_curse(void)
 				msg_print("It's so dark... so scary!");
 #endif
 
-				set_afraid(p_ptr, p_ptr->afraid + 13 + randint1(26));
+				set_afraid(cr_ptr, cr_ptr->afraid + 13 + randint1(26));
 			}
 		}
 		/* Teleport player */
-		if ((p_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !p_ptr->anti_tele)
+		if ((cr_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !cr_ptr->anti_tele)
 		{
 			disturb(0, 0);
 
@@ -3156,7 +3156,7 @@ static void process_world_aux_curse(void)
 			teleport_player(40, TELEPORT_PASSIVE);
 		}
 		/* Handle HP draining */
-		if ((p_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
+		if ((cr_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
 		{
 			char o_name[MAX_NLEN];
 
@@ -3166,10 +3166,10 @@ static void process_world_aux_curse(void)
 #else
 			msg_format("Your %s drains HP from you!", o_name);
 #endif
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev*2, 100), o_name, NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev*2, 100), o_name, NULL, -1);
 		}
 		/* Handle mana draining */
-		if ((p_ptr->cursed & TRC_DRAIN_MANA) && p_ptr->csp && one_in_(666))
+		if ((cr_ptr->cursed & TRC_DRAIN_MANA) && cr_ptr->csp && one_in_(666))
 		{
 			char o_name[MAX_NLEN];
 
@@ -3179,20 +3179,20 @@ static void process_world_aux_curse(void)
 #else
 			msg_format("Your %s drains mana from you!", o_name);
 #endif
-			p_ptr->csp -= MIN(p_ptr->lev, 50);
-			if (p_ptr->csp < 0)
+			cr_ptr->csp -= MIN(cr_ptr->lev, 50);
+			if (cr_ptr->csp < 0)
 			{
-				p_ptr->csp = 0;
-				p_ptr->csp_frac = 0;
+				cr_ptr->csp = 0;
+				cr_ptr->csp_frac = 0;
 			}
-			p_ptr->redraw |= PR_MANA;
+			cr_ptr->redraw |= PR_MANA;
 		}
 	}
 
 	/* Rarely, take damage from the Jewel of Judgement */
-	if (one_in_(999) && !p_ptr->anti_magic)
+	if (one_in_(999) && !cr_ptr->anti_magic)
 	{
-		object_type *o_ptr = &p_ptr->inventory[INVEN_LITE];
+		object_type *o_ptr = &cr_ptr->inventory[INVEN_LITE];
 
 		if (o_ptr->name1 == ART_JUDGE)
 		{
@@ -3201,13 +3201,13 @@ static void process_world_aux_curse(void)
 				msg_print("『審判の宝石』はあなたの体力を吸収した！");
 			else
 				msg_print("なにかがあなたの体力を吸収した！");
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "審判の宝石", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "審判の宝石", NULL, -1);
 #else
 			if (object_is_known(o_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
-			take_hit(p_ptr, DAMAGE_LOSELIFE, MIN(p_ptr->lev, 50), "the Jewel of Judgement", -1);
+			take_hit(cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "the Jewel of Judgement", -1);
 #endif
 		}
 	}
@@ -4263,7 +4263,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	process_world_aux_mutation(p_ptr);
 
 	/* Process curse effects */
-	process_world_aux_curse();
+	process_world_aux_curse(p_ptr);
 
 	/* Process recharging */
 	process_world_aux_recharge();
