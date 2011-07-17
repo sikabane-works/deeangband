@@ -3328,32 +3328,32 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 /*
  * Handle involuntary movement once every 10 game turns
  */
-static void process_world_aux_movement(void)
+static void process_world_aux_movement(creature_type *cr_ptr)
 {
 	/* Delayed Word-of-Recall */
-	if (p_ptr->word_recall)
+	if (cr_ptr->word_recall)
 	{
 		/*
 		 * HACK: Autosave BEFORE resetting the recall counter (rr9)
 		 * The player is yanked up/down as soon as
 		 * he loads the autosaved game.
 		 */
-		if (autosave_l && (p_ptr->word_recall == 1) && !p_ptr->inside_battle)
+		if (autosave_l && (cr_ptr->word_recall == 1) && !cr_ptr->inside_battle)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
-		p_ptr->word_recall--;
+		cr_ptr->word_recall--;
 
-		p_ptr->redraw |= (PR_STATUS);
+		cr_ptr->redraw |= (PR_STATUS);
 
 		/* Activate the recall */
-		if (!p_ptr->word_recall)
+		if (!cr_ptr->word_recall)
 		{
 			/* Disturbing! */
 			disturb(0, 0);
 
 			/* Determine the level */
-			if (dun_level || p_ptr->inside_quest)
+			if (dun_level || cr_ptr->inside_quest)
 			{
 #ifdef JP
 msg_print("上に引っ張りあげられる感じがする！");
@@ -3361,7 +3361,7 @@ msg_print("上に引っ張りあげられる感じがする！");
 				msg_print("You feel yourself yanked upwards!");
 #endif
 
-				if (dungeon_type) p_ptr->recall_dungeon = dungeon_type;
+				if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
 				if (record_stair)
 					do_cmd_write_nikki(NIKKI_RECALL, dun_level, NULL);
 
@@ -3370,9 +3370,9 @@ msg_print("上に引っ張りあげられる感じがする！");
 
 				leave_quest_check();
 
-				p_ptr->inside_quest = 0;
+				cr_ptr->inside_quest = 0;
 
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 			}
 			else
 			{
@@ -3382,7 +3382,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				msg_print("You feel yourself yanked downwards!");
 #endif
 
-				dungeon_type = p_ptr->recall_dungeon;
+				dungeon_type = cr_ptr->recall_dungeon;
 
 				if (record_stair)
 					do_cmd_write_nikki(NIKKI_RECALL, dun_level, NULL);
@@ -3408,18 +3408,18 @@ msg_print("下に引きずり降ろされる感じがする！");
 					}
 				}
 
-				if (p_ptr->wild_mode)
+				if (cr_ptr->wild_mode)
 				{
-					p_ptr->wilderness_y = py;
-					p_ptr->wilderness_x = px;
+					cr_ptr->wilderness_y = py;
+					cr_ptr->wilderness_x = px;
 				}
 				else
 				{
 					/* Save player position */
-					p_ptr->oldpx = px;
-					p_ptr->oldpy = py;
+					cr_ptr->oldpx = px;
+					cr_ptr->oldpy = py;
 				}
-				p_ptr->wild_mode = FALSE;
+				cr_ptr->wild_mode = FALSE;
 
 				/*
 				 * Clear all saved floors
@@ -3428,7 +3428,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 				/* Leaving */
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 
 				if (dungeon_type == DUNGEON_DOD)
 				{
@@ -3441,7 +3441,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 						    (quest[i].level < dun_level))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
-							quest[i].complev = (byte)p_ptr->lev;
+							quest[i].complev = (byte)cr_ptr->lev;
 							r_info[quest[i].monster_idx].flags1 &= ~(RF1_QUESTOR);
 						}
 					}
@@ -3455,18 +3455,18 @@ msg_print("下に引きずり降ろされる感じがする！");
 
 
 	/* Delayed Alter reality */
-	if (p_ptr->alter_reality)
+	if (cr_ptr->alter_reality)
 	{
-		if (autosave_l && (p_ptr->alter_reality == 1) && !p_ptr->inside_battle)
+		if (autosave_l && (cr_ptr->alter_reality == 1) && !cr_ptr->inside_battle)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
-		p_ptr->alter_reality--;
+		cr_ptr->alter_reality--;
 
-		p_ptr->redraw |= (PR_STATUS);
+		cr_ptr->redraw |= (PR_STATUS);
 
 		/* Activate the alter reality */
-		if (!p_ptr->alter_reality)
+		if (!cr_ptr->alter_reality)
 		{
 			/* Disturbing! */
 			disturb(0, 0);
@@ -3487,7 +3487,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 				/* Leaving */
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 			}
 			else
 			{
@@ -4273,7 +4273,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	sense_inventory2(p_ptr);
 
 	/* Involuntary Movement */
-	process_world_aux_movement();
+	process_world_aux_movement(p_ptr);
 }
 
 
