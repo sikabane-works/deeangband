@@ -3742,7 +3742,7 @@ static void update_dungeon_feeling(void)
 /*
  * Handle certain things once every 10 game turns
  */
-static void process_world(void)
+static void process_world(creature_type *cr_ptr)
 {
 	int day, hour, min;
 
@@ -3756,7 +3756,7 @@ static void process_world(void)
 	update_dungeon_feeling();
 
 	/*** Check monster arena ***/
-	if (p_ptr->inside_battle && !p_ptr->leaving)
+	if (cr_ptr->inside_battle && !cr_ptr->leaving)
 	{
 		int i2, j2;
 		int win_m_idx = 0;
@@ -3768,7 +3768,7 @@ static void process_world(void)
 			{
 				cave_type *c_ptr = &cave[j2][i2];
 
-				if ((c_ptr->m_idx > 0) && (c_ptr->m_idx != p_ptr->riding))
+				if ((c_ptr->m_idx > 0) && (c_ptr->m_idx != cr_ptr->riding))
 				{
 					number_mon++;
 					win_m_idx = c_ptr->m_idx;
@@ -3783,7 +3783,7 @@ static void process_world(void)
 			msg_print("They have kill each other at the same time.");
 #endif
 			msg_print(NULL);
-			p_ptr->energy_need = 0;
+			cr_ptr->energy_need = 0;
 			battle_monsters();
 		}
 		else if ((number_mon-1) == 0)
@@ -3813,7 +3813,7 @@ static void process_world(void)
 #else
 				msg_format("You received %d gold.", battle_odds);
 #endif
-				p_ptr->au += battle_odds;
+				cr_ptr->au += battle_odds;
 			}
 			else
 			{
@@ -3824,7 +3824,7 @@ static void process_world(void)
 #endif
 			}
 			msg_print(NULL);
-			p_ptr->energy_need = 0;
+			cr_ptr->energy_need = 0;
 			battle_monsters();
 		}
 		else if (turn - old_turn == 150*TURNS_PER_TICK)
@@ -3834,9 +3834,9 @@ static void process_world(void)
 #else
 			msg_format("This battle have ended in a draw.");
 #endif
-			p_ptr->au += kakekin;
+			cr_ptr->au += kakekin;
 			msg_print(NULL);
-			p_ptr->energy_need = 0;
+			cr_ptr->energy_need = 0;
 			battle_monsters();
 		}
 	}
@@ -3883,16 +3883,16 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 
 				/* Stop playing */
-				p_ptr->playing = FALSE;
+				cr_ptr->playing = FALSE;
 
 				/* Leaving */
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 			}
 		}
 	}
 
 	/*** Attempt timed autosave ***/
-	if (autosave_t && autosave_freq && !p_ptr->inside_battle)
+	if (autosave_t && autosave_freq && !cr_ptr->inside_battle)
 	{
 		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
 			do_cmd_save_game(TRUE);
@@ -3910,7 +3910,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	/*** Handle the wilderness/town (sunshine) ***/
 
 	/* While in town/wilderness */
-	if (!dun_level && !p_ptr->inside_quest && !p_ptr->inside_battle && !p_ptr->inside_arena)
+	if (!dun_level && !cr_ptr->inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3932,7 +3932,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				msg_print("The sun has risen.");
 #endif
 
-				if (!p_ptr->wild_mode)
+				if (!cr_ptr->wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < cur_hgt; y++)
@@ -3967,7 +3967,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				msg_print("The sun has fallen.");
 #endif
 
-				if (!p_ptr->wild_mode)
+				if (!cr_ptr->wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < cur_hgt; y++)
@@ -4004,23 +4004,23 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			}
 
 			/* Update the monsters */
-			p_ptr->update |= (PU_MONSTERS | PU_MON_LITE);
+			cr_ptr->update |= (PU_MONSTERS | PU_MON_LITE);
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			cr_ptr->redraw |= (PR_MAP);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 
-			if (p_ptr->special_defense & NINJA_S_STEALTH)
+			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+				if (cave[py][px].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 		}
 	}
 
 	/* While in the dungeon (vanilla_town or lite_town mode only) */
-	else if ((vanilla_town || (lite_town && !p_ptr->inside_quest && !p_ptr->inside_battle && !p_ptr->inside_arena)) && dun_level)
+	else if ((vanilla_town || (lite_town && !cr_ptr->inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)) && dun_level)
 	{
 		/*** Shuffle the Storekeepers ***/
 
@@ -4076,17 +4076,17 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 	/* Check for creature generation. */
 	if (one_in_(d_info[dungeon_type].max_m_alloc_chance) &&
-	    !p_ptr->inside_arena && !p_ptr->inside_quest && !p_ptr->inside_battle)
+	    !cr_ptr->inside_arena && !cr_ptr->inside_quest && !cr_ptr->inside_battle)
 	{
 		/* Make a new monster */
 		(void)alloc_monster(MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !p_ptr->inside_battle) regen_monsters();
+	if (!(turn % (TURNS_PER_TICK*10)) && !cr_ptr->inside_battle) regen_monsters();
 	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters();
 
-	if (!p_ptr->leaving)
+	if (!cr_ptr->leaving)
 	{
 		int i;
 
@@ -4176,31 +4176,31 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 	/*** Check the Food, and Regenerate ***/
 
-	if (!p_ptr->inside_battle)
+	if (!cr_ptr->inside_battle)
 	{
 		/* Digest quickly when gorged */
-		if (p_ptr->food >= PY_FOOD_MAX)
+		if (cr_ptr->food >= PY_FOOD_MAX)
 		{
 			/* Digest a lot of food */
-			(void)set_food(p_ptr, p_ptr->food - 100);
+			(void)set_food(cr_ptr, cr_ptr->food - 100);
 		}
 
 		/* Digest normally -- Every 50 game turns */
 		else if (!(turn % (TURNS_PER_TICK*5)))
 		{
 			/* Basic digestion rate based on speed */
-			int digestion = SPEED_TO_ENERGY(p_ptr->speed);
+			int digestion = SPEED_TO_ENERGY(cr_ptr->speed);
 
 			/* Regeneration takes more food */
-			if (p_ptr->regenerate)
+			if (cr_ptr->regenerate)
 				digestion += 20;
-			if (p_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
+			if (cr_ptr->special_defense & (KAMAE_MASK | KATA_MASK))
 				digestion += 20;
-			if (p_ptr->cursed & TRC_FAST_DIGEST)
+			if (cr_ptr->cursed & TRC_FAST_DIGEST)
 				digestion += 30;
 
 			/* Slow digestion takes less food */
-			if (p_ptr->slow_digest)
+			if (cr_ptr->slow_digest)
 				digestion -= 5;
 
 			/* Minimal digestion */
@@ -4209,15 +4209,15 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			if (digestion > 100) digestion = 100;
 
 			/* Digest some food */
-			(void)set_food(p_ptr, p_ptr->food - digestion);
+			(void)set_food(cr_ptr, cr_ptr->food - digestion);
 		}
 
 
 		/* Getting Faint */
-		if ((p_ptr->food < PY_FOOD_FAINT))
+		if ((cr_ptr->food < PY_FOOD_FAINT))
 		{
 			/* Faint occasionally */
-			if (!p_ptr->paralyzed && (randint0(100) < 10))
+			if (!cr_ptr->paralyzed && (randint0(100) < 10))
 			{
 				/* Message */
 #ifdef JP
@@ -4229,20 +4229,20 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				disturb(1, 0);
 
 				/* Hack -- faint (bypass free action) */
-				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 1 + randint0(5));
+				(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 1 + randint0(5));
 			}
 
 			/* Starve to death (slowly) */
-			if (p_ptr->food < PY_FOOD_STARVE)
+			if (cr_ptr->food < PY_FOOD_STARVE)
 			{
 				/* Calculate damage */
-				int dam = (PY_FOOD_STARVE - p_ptr->food) / 10;
+				int dam = (PY_FOOD_STARVE - cr_ptr->food) / 10;
 
 				/* Take damage */
 #ifdef JP
-				if (!IS_INVULN(p_ptr)) take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, dam, "飢え", NULL, -1);
+				if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, dam, "飢え", NULL, -1);
 #else
-				if (!IS_INVULN(p_ptr)) take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
+				if (!IS_INVULN(cr_ptr)) take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
 #endif
 			}
 		}
@@ -4251,29 +4251,29 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 
 	/* Process timed damage and regeneration */
-	process_world_aux_hp_and_sp(p_ptr);
+	process_world_aux_hp_and_sp(cr_ptr);
 
 	/* Process timeout */
-	process_world_aux_timeout(p_ptr);
+	process_world_aux_timeout(cr_ptr);
 
 	/* Process light */
-	process_world_aux_light(p_ptr);
+	process_world_aux_light(cr_ptr);
 
 	/* Process mutation effects */
-	process_world_aux_mutation(p_ptr);
+	process_world_aux_mutation(cr_ptr);
 
 	/* Process curse effects */
-	process_world_aux_curse(p_ptr);
+	process_world_aux_curse(cr_ptr);
 
 	/* Process recharging */
-	process_world_aux_recharge(p_ptr);
+	process_world_aux_recharge(cr_ptr);
 
-	/* Feel the p_ptr->inventory */
-	sense_inventory1(p_ptr);
-	sense_inventory2(p_ptr);
+	/* Feel the inventory */
+	sense_inventory1(cr_ptr);
+	sense_inventory2(cr_ptr);
 
 	/* Involuntary Movement */
-	process_world_aux_movement(p_ptr);
+	process_world_aux_movement(cr_ptr);
 }
 
 
@@ -6399,7 +6399,7 @@ msg_print("試合開始！");
 
 
 		/* Process the world */
-		process_world();
+		process_world(p_ptr);
 
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
