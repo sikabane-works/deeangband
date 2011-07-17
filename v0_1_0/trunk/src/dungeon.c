@@ -3688,7 +3688,7 @@ static byte get_dungeon_feeling(void)
 /*
  * Update dungeon feeling, and announce it if changed
  */
-static void update_dungeon_feeling(void)
+static void update_dungeon_feeling(creature_type *cr_ptr)
 {
 	byte new_feeling;
 	int quest_num;
@@ -3698,13 +3698,13 @@ static void update_dungeon_feeling(void)
 	if (!dun_level) return;
 
 	/* No feeling in the arena */
-	if (p_ptr->inside_battle) return;
+	if (cr_ptr->inside_battle) return;
 
 	/* Extract delay time */
-	delay = MAX(10, 150 - p_ptr->skill_fos) * (150 - dun_level) * TURNS_PER_TICK / 100;
+	delay = MAX(10, 150 - cr_ptr->skill_fos) * (150 - dun_level) * TURNS_PER_TICK / 100;
 
  	/* Not yet felt anything */
-	if (turn < p_ptr->feeling_turn + delay && !cheat_xtra) return;
+	if (turn < cr_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	/* Extract quest number (if any) */
 	quest_num = quest_number(dun_level);
@@ -3720,19 +3720,19 @@ static void update_dungeon_feeling(void)
 	new_feeling = get_dungeon_feeling();
 
 	/* Remember last time updated */
-	p_ptr->feeling_turn = turn;
+	cr_ptr->feeling_turn = turn;
 
 	/* No change */
-	if (p_ptr->feeling == new_feeling) return;
+	if (cr_ptr->feeling == new_feeling) return;
 
 	/* Dungeon feeling is changed */
-	p_ptr->feeling = new_feeling;
+	cr_ptr->feeling = new_feeling;
 
 	/* Announce feeling */
 	do_cmd_feeling();
 
 	/* Update the level indicator */
-	p_ptr->redraw |= (PR_DEPTH);
+	cr_ptr->redraw |= (PR_DEPTH);
 
 	/* Disturb */
 	if (disturb_minor) disturb(0, 0);
@@ -3753,7 +3753,7 @@ static void process_world(creature_type *cr_ptr)
 	extract_day_hour_min(&day, &hour, &min);
 
 	/* Update dungeon feeling, and announce it if changed */
-	update_dungeon_feeling();
+	update_dungeon_feeling(cr_ptr);
 
 	/*** Check monster arena ***/
 	if (cr_ptr->inside_battle && !cr_ptr->leaving)
