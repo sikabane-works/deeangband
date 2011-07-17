@@ -1952,34 +1952,34 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 /*
  * Handle timeout every 10 game turns
  */
-static void process_world_aux_timeout(void)
+static void process_world_aux_timeout(creature_type *cr_ptr)
 {
 	const int dec_count = (easy_band ? 2 : 1);
 
 	/*** Timeout Various Things ***/
 
 	/* Mimic */
-	if (p_ptr->tim_mimic)
+	if (cr_ptr->tim_mimic)
 	{
-		(void)set_mimic(p_ptr, p_ptr->tim_mimic - 1, p_ptr->mimic_form, TRUE);
+		(void)set_mimic(cr_ptr, cr_ptr->tim_mimic - 1, cr_ptr->mimic_form, TRUE);
 	}
 
 	/* Hack -- Hallucinating */
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
-		(void)set_image(p_ptr, p_ptr->image - dec_count);
+		(void)set_image(cr_ptr, cr_ptr->image - dec_count);
 	}
 
 	/* Blindness */
-	if (p_ptr->blind)
+	if (cr_ptr->blind)
 	{
-		(void)set_blind(p_ptr, p_ptr->blind - dec_count);
+		(void)set_blind(cr_ptr, cr_ptr->blind - dec_count);
 	}
 
 	/* Times see-invisible */
-	if (p_ptr->tim_invis)
+	if (cr_ptr->tim_invis)
 	{
-		(void)set_tim_invis(p_ptr, p_ptr->tim_invis - 1, TRUE);
+		(void)set_tim_invis(cr_ptr, cr_ptr->tim_invis - 1, TRUE);
 	}
 
 	if (multi_rew)
@@ -1988,274 +1988,274 @@ static void process_world_aux_timeout(void)
 	}
 
 	/* Timed esp */
-	if (p_ptr->tim_esp)
+	if (cr_ptr->tim_esp)
 	{
-		(void)set_tim_esp(p_ptr, p_ptr->tim_esp - 1, TRUE);
+		(void)set_tim_esp(cr_ptr, cr_ptr->tim_esp - 1, TRUE);
 	}
 
 	/* Timed temporary elemental brands. -LM- */
-	if (p_ptr->ele_attack)
+	if (cr_ptr->ele_attack)
 	{
-		p_ptr->ele_attack--;
+		cr_ptr->ele_attack--;
 
 		/* Clear all temporary elemental brands. */
-		if (!p_ptr->ele_attack) set_ele_attack(p_ptr, 0, 0);
+		if (!cr_ptr->ele_attack) set_ele_attack(cr_ptr, 0, 0);
 	}
 
 	/* Timed temporary elemental immune. -LM- */
-	if (p_ptr->ele_immune)
+	if (cr_ptr->ele_immune)
 	{
-		p_ptr->ele_immune--;
+		cr_ptr->ele_immune--;
 
 		/* Clear all temporary elemental brands. */
-		if (!p_ptr->ele_immune) set_ele_immune(p_ptr, 0, 0);
+		if (!cr_ptr->ele_immune) set_ele_immune(cr_ptr, 0, 0);
 	}
 
 	/* Timed infra-vision */
-	if (p_ptr->tim_infra)
+	if (cr_ptr->tim_infra)
 	{
-		(void)set_tim_infra(p_ptr, p_ptr->tim_infra - 1, TRUE);
+		(void)set_tim_infra(cr_ptr, cr_ptr->tim_infra - 1, TRUE);
 	}
 
 	/* Timed stealth */
-	if (p_ptr->tim_stealth)
+	if (cr_ptr->tim_stealth)
 	{
-		(void)set_tim_stealth(p_ptr, p_ptr->tim_stealth - 1, TRUE);
+		(void)set_tim_stealth(cr_ptr, cr_ptr->tim_stealth - 1, TRUE);
 	}
 
 	/* Timed levitation */
-	if (p_ptr->tim_levitation)
+	if (cr_ptr->tim_levitation)
 	{
-		(void)set_tim_levitation(p_ptr, p_ptr->tim_levitation - 1, TRUE);
+		(void)set_tim_levitation(cr_ptr, cr_ptr->tim_levitation - 1, TRUE);
 	}
 
 	/* Timed sh_touki */
-	if (p_ptr->tim_sh_touki)
+	if (cr_ptr->tim_sh_touki)
 	{
-		(void)set_tim_sh_touki(p_ptr, p_ptr->tim_sh_touki - 1, TRUE);
+		(void)set_tim_sh_touki(cr_ptr, cr_ptr->tim_sh_touki - 1, TRUE);
 	}
 
 	/* Timed sh_fire */
-	if (p_ptr->tim_sh_fire)
+	if (cr_ptr->tim_sh_fire)
 	{
-		(void)set_tim_sh_fire(p_ptr, p_ptr->tim_sh_fire - 1, TRUE);
+		(void)set_tim_sh_fire(cr_ptr, cr_ptr->tim_sh_fire - 1, TRUE);
 	}
 
 	/* Timed sh_holy */
-	if (p_ptr->tim_sh_holy)
+	if (cr_ptr->tim_sh_holy)
 	{
-		(void)set_tim_sh_holy(p_ptr, p_ptr->tim_sh_holy - 1, TRUE);
+		(void)set_tim_sh_holy(cr_ptr, cr_ptr->tim_sh_holy - 1, TRUE);
 	}
 
 	/* Timed eyeeye */
-	if (p_ptr->tim_eyeeye)
+	if (cr_ptr->tim_eyeeye)
 	{
-		(void)set_tim_eyeeye(p_ptr, p_ptr->tim_eyeeye - 1, TRUE);
+		(void)set_tim_eyeeye(cr_ptr, cr_ptr->tim_eyeeye - 1, TRUE);
 	}
 
 	/* Timed resist-magic */
-	if (p_ptr->resist_magic)
+	if (cr_ptr->resist_magic)
 	{
-		(void)set_resist_magic(p_ptr, p_ptr->resist_magic - 1, TRUE);
+		(void)set_resist_magic(cr_ptr, cr_ptr->resist_magic - 1, TRUE);
 	}
 
 	/* Timed regeneration */
-	if (p_ptr->tim_regen)
+	if (cr_ptr->tim_regen)
 	{
-		(void)set_tim_regen(p_ptr, p_ptr->tim_regen - 1, TRUE);
+		(void)set_tim_regen(cr_ptr, cr_ptr->tim_regen - 1, TRUE);
 	}
 
 	/* Timed resist nether */
-	if (p_ptr->tim_res_nether)
+	if (cr_ptr->tim_res_nether)
 	{
-		(void)set_tim_res_nether(p_ptr, p_ptr->tim_res_nether - 1, TRUE);
+		(void)set_tim_res_nether(cr_ptr, cr_ptr->tim_res_nether - 1, TRUE);
 	}
 
 	/* Timed resist time */
-	if (p_ptr->tim_res_time)
+	if (cr_ptr->tim_res_time)
 	{
-		(void)set_tim_res_time(p_ptr, p_ptr->tim_res_time - 1, TRUE);
+		(void)set_tim_res_time(cr_ptr, cr_ptr->tim_res_time - 1, TRUE);
 	}
 
 	/* Timed reflect */
-	if (p_ptr->tim_reflect)
+	if (cr_ptr->tim_reflect)
 	{
-		(void)set_tim_reflect(p_ptr, p_ptr->tim_reflect - 1, TRUE);
+		(void)set_tim_reflect(cr_ptr, cr_ptr->tim_reflect - 1, TRUE);
 	}
 
 	/* Multi-shadow */
-	if (p_ptr->multishadow)
+	if (cr_ptr->multishadow)
 	{
-		(void)set_multishadow(p_ptr, p_ptr->multishadow - 1, TRUE);
+		(void)set_multishadow(cr_ptr, cr_ptr->multishadow - 1, TRUE);
 	}
 
 	/* Timed Robe of dust */
-	if (p_ptr->dustrobe)
+	if (cr_ptr->dustrobe)
 	{
-		(void)set_dustrobe(p_ptr, p_ptr->dustrobe - 1, TRUE);
+		(void)set_dustrobe(cr_ptr, cr_ptr->dustrobe - 1, TRUE);
 	}
 
 	/* Timed infra-vision */
-	if (p_ptr->kabenuke)
+	if (cr_ptr->kabenuke)
 	{
-		(void)set_kabenuke(p_ptr, p_ptr->kabenuke - 1, TRUE);
+		(void)set_kabenuke(cr_ptr, cr_ptr->kabenuke - 1, TRUE);
 	}
 
 	/* Paralysis */
-	if (p_ptr->paralyzed)
+	if (cr_ptr->paralyzed)
 	{
-		(void)set_paralyzed(p_ptr, p_ptr->paralyzed - dec_count);
+		(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed - dec_count);
 	}
 
 	/* Confusion */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
-		(void)set_confused(p_ptr, p_ptr->confused - dec_count);
+		(void)set_confused(cr_ptr, cr_ptr->confused - dec_count);
 	}
 
 	/* Afraid */
-	if (p_ptr->afraid)
+	if (cr_ptr->afraid)
 	{
-		(void)set_afraid(p_ptr, p_ptr->afraid - dec_count);
+		(void)set_afraid(cr_ptr, cr_ptr->afraid - dec_count);
 	}
 
 	/* Fast */
-	if (p_ptr->fast)
+	if (cr_ptr->fast)
 	{
-		(void)set_fast(p_ptr, p_ptr->fast - 1, TRUE);
+		(void)set_fast(cr_ptr, cr_ptr->fast - 1, TRUE);
 	}
 
 	/* Slow */
-	if (p_ptr->slow)
+	if (cr_ptr->slow)
 	{
-		(void)set_slow(p_ptr, p_ptr->slow - dec_count, TRUE);
+		(void)set_slow(cr_ptr, cr_ptr->slow - dec_count, TRUE);
 	}
 
 	/* Protection from evil */
-	if (p_ptr->protevil)
+	if (cr_ptr->protevil)
 	{
-		(void)set_protevil(p_ptr, p_ptr->protevil - 1, TRUE);
+		(void)set_protevil(cr_ptr, cr_ptr->protevil - 1, TRUE);
 	}
 
 	/* Invulnerability */
-	if (p_ptr->invuln)
+	if (cr_ptr->invuln)
 	{
-		(void)set_invuln(p_ptr, p_ptr->invuln - 1, TRUE);
+		(void)set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE);
 	}
 
 	/* Wraith form */
-	if (p_ptr->wraith_form)
+	if (cr_ptr->wraith_form)
 	{
-		(void)set_wraith_form(p_ptr, p_ptr->wraith_form - 1, TRUE);
+		(void)set_wraith_form(cr_ptr, cr_ptr->wraith_form - 1, TRUE);
 	}
 
 	/* Heroism */
-	if (p_ptr->hero)
+	if (cr_ptr->hero)
 	{
-		(void)set_hero(p_ptr, p_ptr->hero - 1, TRUE);
+		(void)set_hero(cr_ptr, cr_ptr->hero - 1, TRUE);
 	}
 
 	/* Super Heroism */
-	if (p_ptr->shero)
+	if (cr_ptr->shero)
 	{
-		(void)set_shero(p_ptr, p_ptr->shero - 1, TRUE);
+		(void)set_shero(cr_ptr, cr_ptr->shero - 1, TRUE);
 	}
 
 	/* Blessed */
-	if (p_ptr->blessed)
+	if (cr_ptr->blessed)
 	{
-		(void)set_blessed(p_ptr, p_ptr->blessed - 1, TRUE);
+		(void)set_blessed(cr_ptr, cr_ptr->blessed - 1, TRUE);
 	}
 
 	/* Shield */
-	if (p_ptr->shield)
+	if (cr_ptr->shield)
 	{
-		(void)set_shield(p_ptr, p_ptr->shield - 1, TRUE);
+		(void)set_shield(cr_ptr, cr_ptr->shield - 1, TRUE);
 	}
 
 	/* Tsubureru */
-	if (p_ptr->tsubureru)
+	if (cr_ptr->tsubureru)
 	{
-		(void)set_tsubureru(p_ptr, p_ptr->tsubureru - 1, TRUE);
+		(void)set_tsubureru(cr_ptr, cr_ptr->tsubureru - 1, TRUE);
 	}
 
 	/* Magicdef */
-	if (p_ptr->magicdef)
+	if (cr_ptr->magicdef)
 	{
-		(void)set_magicdef(p_ptr, p_ptr->magicdef - 1, TRUE);
+		(void)set_magicdef(cr_ptr, cr_ptr->magicdef - 1, TRUE);
 	}
 
 	/* Tsuyoshi */
-	if (p_ptr->tsuyoshi)
+	if (cr_ptr->tsuyoshi)
 	{
-		(void)set_tsuyoshi(p_ptr, p_ptr->tsuyoshi - 1, TRUE);
+		(void)set_tsuyoshi(cr_ptr, cr_ptr->tsuyoshi - 1, TRUE);
 	}
 
 	/* Oppose Acid */
-	if (p_ptr->oppose_acid)
+	if (cr_ptr->oppose_acid)
 	{
-		(void)set_oppose_acid(p_ptr, p_ptr->oppose_acid - 1, TRUE);
+		(void)set_oppose_acid(cr_ptr, cr_ptr->oppose_acid - 1, TRUE);
 	}
 
 	/* Oppose Lightning */
-	if (p_ptr->oppose_elec)
+	if (cr_ptr->oppose_elec)
 	{
-		(void)set_oppose_elec(p_ptr, p_ptr->oppose_elec - 1, TRUE);
+		(void)set_oppose_elec(cr_ptr, cr_ptr->oppose_elec - 1, TRUE);
 	}
 
 	/* Oppose Fire */
-	if (p_ptr->oppose_fire)
+	if (cr_ptr->oppose_fire)
 	{
-		(void)set_oppose_fire(p_ptr, p_ptr->oppose_fire - 1, TRUE);
+		(void)set_oppose_fire(cr_ptr, cr_ptr->oppose_fire - 1, TRUE);
 	}
 
 	/* Oppose Cold */
-	if (p_ptr->oppose_cold)
+	if (cr_ptr->oppose_cold)
 	{
-		(void)set_oppose_cold(p_ptr, p_ptr->oppose_cold - 1, TRUE);
+		(void)set_oppose_cold(cr_ptr, cr_ptr->oppose_cold - 1, TRUE);
 	}
 
 	/* Oppose Poison */
-	if (p_ptr->oppose_pois)
+	if (cr_ptr->oppose_pois)
 	{
-		(void)set_oppose_pois(p_ptr, p_ptr->oppose_pois - 1, TRUE);
+		(void)set_oppose_pois(cr_ptr, cr_ptr->oppose_pois - 1, TRUE);
 	}
 
-	if (p_ptr->ult_res)
+	if (cr_ptr->ult_res)
 	{
-		(void)set_ultimate_res(p_ptr, p_ptr->ult_res - 1, TRUE);
+		(void)set_ultimate_res(cr_ptr, cr_ptr->ult_res - 1, TRUE);
 	}
 
 	/*** Poison and Stun and Cut ***/
 
 	/* Poison */
-	if (p_ptr->poisoned)
+	if (cr_ptr->poisoned)
 	{
-		int adjust = adj_con_fix[p_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_poisoned(p_ptr, p_ptr->poisoned - adjust);
+		(void)set_poisoned(cr_ptr, cr_ptr->poisoned - adjust);
 	}
 
 	/* Stun */
-	if (p_ptr->stun)
+	if (cr_ptr->stun)
 	{
-		int adjust = adj_con_fix[p_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_stun(p_ptr, p_ptr->stun - adjust);
+		(void)set_stun(cr_ptr, cr_ptr->stun - adjust);
 	}
 
 	/* Cut */
-	if (p_ptr->cut)
+	if (cr_ptr->cut)
 	{
-		int adjust = adj_con_fix[p_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
 
 		/* Hack -- Truly "mortal" wound */
-		if (p_ptr->cut > 1000) adjust = 0;
+		if (cr_ptr->cut > 1000) adjust = 0;
 
 		/* Apply some healing */
-		(void)set_cut(p_ptr, p_ptr->cut - adjust);
+		(void)set_cut(cr_ptr, cr_ptr->cut - adjust);
 	}
 }
 
@@ -4254,7 +4254,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	process_world_aux_hp_and_sp(p_ptr);
 
 	/* Process timeout */
-	process_world_aux_timeout();
+	process_world_aux_timeout(p_ptr);
 
 	/* Process light */
 	process_world_aux_light();
