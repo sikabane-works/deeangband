@@ -3217,7 +3217,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 /*
  * Handle recharging objects once every 10 game turns
  */
-static void process_world_aux_recharge(void)
+static void process_world_aux_recharge(creature_type *cr_ptr)
 {
 	int i;
 	bool changed;
@@ -3226,7 +3226,7 @@ static void process_world_aux_recharge(void)
 	for (changed = FALSE, i = INVEN_RARM; i < INVEN_TOTAL; i++)
 	{
 		/* Get the object */
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -3250,7 +3250,7 @@ static void process_world_aux_recharge(void)
 	if (changed)
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP);
+		cr_ptr->window |= (PW_EQUIP);
 		wild_regen = 20;
 	}
 
@@ -3261,7 +3261,7 @@ static void process_world_aux_recharge(void)
 	 */
 	for (changed = FALSE, i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
 		/* Skip non-objects */
@@ -3299,7 +3299,7 @@ static void process_world_aux_recharge(void)
 	if (changed)
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN);
+		cr_ptr->window |= (PW_INVEN);
 		wild_regen = 20;
 	}
 
@@ -4266,7 +4266,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	process_world_aux_curse(p_ptr);
 
 	/* Process recharging */
-	process_world_aux_recharge();
+	process_world_aux_recharge(p_ptr);
 
 	/* Feel the p_ptr->inventory */
 	sense_inventory1();
