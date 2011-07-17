@@ -206,7 +206,7 @@ msg_print("あなたは変わった気がする...");
 		 */
 		if (level_reward)
 		{
-			gain_level_reward(0);
+			gain_level_reward(p_ptr, 0);
 			level_reward = FALSE;
 		}
 
@@ -4609,7 +4609,7 @@ msg_print("あなたは混乱している。");
 }
 
 
-void gain_level_reward(int chosen_reward)
+void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 {
 	object_type *q_ptr;
 	object_type forge;
@@ -4629,11 +4629,11 @@ void gain_level_reward(int chosen_reward)
 	}
 
 
-	if (p_ptr->lev == 13) nasty_chance = 2;
-	else if (!(p_ptr->lev % 13)) nasty_chance = 3;
-	else if (!(p_ptr->lev % 14)) nasty_chance = 12;
+	if (cr_ptr->lev == 13) nasty_chance = 2;
+	else if (!(cr_ptr->lev % 13)) nasty_chance = 3;
+	else if (!(cr_ptr->lev % 14)) nasty_chance = 12;
 
-	if (one_in_(nasty_chance) && p_ptr->patron_idx != PATRON_ARIOCH && p_ptr->irace_idx != RACE_MELNIBONE)
+	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->irace_idx != RACE_MELNIBONE)
 		type = randint1(20); /* Allow the 'nasty' effects */
 	else
 		type = randint1(15) + 5; /* Or disallow them */
@@ -4642,31 +4642,31 @@ void gain_level_reward(int chosen_reward)
 	if (type > 20) type = 20;
 	type--;
 
-	if (p_ptr->patron_idx == PATRON_ARIOCH && p_ptr->irace_idx == RACE_MELNIBONE && type == REW_POLY_SLF)
+	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->irace_idx == RACE_MELNIBONE && type == REW_POLY_SLF)
 		 type = REW_IGNORE;
 		
 
 #ifdef JP
 sprintf(wrath_reason, "%sの怒り",
-		player_patrons[p_ptr->patron_idx].title);
+		player_patrons[cr_ptr->patron_idx].title);
 #else
 	sprintf(wrath_reason, "the Wrath of %s",
-		player_patrons[p_ptr->patron_idx].title);
+		player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 
-	effect = player_patrons[p_ptr->patron_idx].rewards[type];
-	if (p_ptr->patron_idx == PATRON_ARIOCH && p_ptr->irace_idx == RACE_MELNIBONE && effect == REW_POLY_SLF)
+	effect = player_patrons[cr_ptr->patron_idx].rewards[type];
+	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->irace_idx == RACE_MELNIBONE && effect == REW_POLY_SLF)
 		 effect = REW_IGNORE;
 
 	if (one_in_(6) && !chosen_reward)
 	{
 #ifdef JP
 msg_format("%^sは褒美としてあなたを突然変異させた。",
-			player_patrons[p_ptr->patron_idx].title);
+			player_patrons[cr_ptr->patron_idx].title);
 #else
 		msg_format("%^s rewards you with a mutation!",
-			player_patrons[p_ptr->patron_idx].title);
+			player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 		(void)gain_random_mutation(0);
@@ -4683,10 +4683,10 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 		case REW_POLY_SLF:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4695,7 +4695,7 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 			msg_print("'Thou needst a new form, mortal!'");
 #endif
 
-			do_poly_self(p_ptr);
+			do_poly_self(cr_ptr);
 #ifdef JP
 			reward = "変異した。";
 #else
@@ -4705,10 +4705,10 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 		case REW_GAIN_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4717,7 +4717,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (p_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4725,9 +4725,9 @@ msg_print("「汝は良く行いたり！続けよ！」");
 				msg_print("But, nothing happen.");
 #endif
 			}
-			else if (p_ptr->exp < PY_MAX_EXP)
+			else if (cr_ptr->exp < PY_MAX_EXP)
 			{
-				s32b ee = (p_ptr->exp / 2) + 10;
+				s32b ee = (cr_ptr->exp / 2) + 10;
 				if (ee > 100000L) ee = 100000L;
 #ifdef JP
 msg_print("更に経験を積んだような気がする。");
@@ -4735,7 +4735,7 @@ msg_print("更に経験を積んだような気がする。");
 				msg_print("You feel more experienced.");
 #endif
 
-				gain_exp(p_ptr, ee);
+				gain_exp(cr_ptr, ee);
 #ifdef JP
 				reward = "経験値を得た";
 #else
@@ -4746,10 +4746,10 @@ msg_print("更に経験を積んだような気がする。");
 		case REW_LOSE_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4758,7 +4758,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (p_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4768,7 +4768,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			}
 			else
 			{
-				lose_exp(p_ptr, p_ptr->exp / 6);
+				lose_exp(cr_ptr, cr_ptr->exp / 6);
 #ifdef JP
 				reward = "経験値を失った。";
 #else
@@ -4779,10 +4779,10 @@ msg_print("「下僕よ、汝それに値せず。」");
 		case REW_GOOD_OBJ:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s whispers:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4801,10 +4801,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_GREA_OBJ:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4823,10 +4823,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_CHAOS_WP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4838,7 +4838,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			/* Get local object */
 			q_ptr = &forge;
 			dummy = TV_SWORD;
-			switch (randint1(p_ptr->lev))
+			switch (randint1(cr_ptr->lev))
 			{
 				case 0: case 1:
 					dummy2 = SV_DAGGER;
@@ -4942,10 +4942,10 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 		case REW_GOOD_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4964,10 +4964,10 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 		case REW_GREA_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -4986,10 +4986,10 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 		case REW_TY_CURSE:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s thunders:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5008,10 +5008,10 @@ msg_print("「下僕よ、汝傲慢なり。」");
 		case REW_SUMMON_M:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5033,10 +5033,10 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 		case REW_H_SUMMON:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5055,10 +5055,10 @@ msg_print("「汝、より強き敵を必要とせり！」");
 		case REW_DO_HAVOC:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5077,10 +5077,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GAIN_ABL:
 #ifdef JP
 msg_format("%sの声が鳴り響いた:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s rings out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5089,10 +5089,10 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 			msg_print("'Stay, mortal, and let me mold thee.'");
 #endif
 
-			if (one_in_(3) && !(player_patrons[p_ptr->patron_idx].status_boost < 0))
-				do_inc_stat(p_ptr, player_patrons[p_ptr->patron_idx].status_boost);
+			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost < 0))
+				do_inc_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
 			else
-				do_inc_stat(p_ptr, randint0(6));
+				do_inc_stat(cr_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が上がった。";
 #else
@@ -5102,10 +5102,10 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 		case REW_LOSE_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5114,10 +5114,10 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 			msg_print("'I grow tired of thee, mortal.'");
 #endif
 
-			if (one_in_(3) && !(player_patrons[p_ptr->patron_idx].status_boost))
-				do_dec_stat(p_ptr, player_patrons[p_ptr->patron_idx].status_boost);
+			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost))
+				do_dec_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
 			else
-				(void)do_dec_stat(p_ptr, randint0(6));
+				(void)do_dec_stat(cr_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
 #else
@@ -5127,10 +5127,10 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 		case REW_RUIN_ABL:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s thunders:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5143,7 +5143,7 @@ msg_print("あなたは以前より弱くなった！");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(p_ptr, dummy, 10 + randint1(15), TRUE);
+				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), TRUE);
 			}
 #ifdef JP
 			reward = "全能力値が下がった。";
@@ -5158,7 +5158,7 @@ msg_format("%sの力が触れるのを感じた。",
 			msg_format("You feel the power of %s touch you.",
 #endif
 
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 			do_poly_wounds();
 #ifdef JP
 			reward = "傷が変化した。";
@@ -5169,10 +5169,10 @@ msg_format("%sの力が触れるのを感じた。",
 		case REW_AUGM_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5183,7 +5183,7 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_inc_stat(p_ptr, dummy);
+				(void)do_inc_stat(cr_ptr, dummy);
 			}
 #ifdef JP
 			reward = "全能力値が上がった。";
@@ -5194,10 +5194,10 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 		case REW_HURT_LOT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5206,8 +5206,8 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 			msg_print("'Suffer, pathetic fool!'");
 #endif
 
-			fire_ball(GF_DISINTEGRATE, 0, p_ptr->lev * 4, 4);
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, p_ptr->lev * 4, wrath_reason, NULL, -1);
+			fire_ball(GF_DISINTEGRATE, 0, cr_ptr->lev * 4, 4);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, cr_ptr->lev * 4, wrath_reason, NULL, -1);
 #ifdef JP
 			reward = "分解の球が発生した。";
 #else
@@ -5217,10 +5217,10 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 	   case REW_HEAL_FUL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5229,17 +5229,17 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			msg_print("'Rise, my servant!'");
 #endif
 
-			restore_level(p_ptr);
-			(void)set_poisoned(p_ptr, 0);
-			(void)set_blind(p_ptr, 0);
-			(void)set_confused(p_ptr, 0);
-			(void)set_image(p_ptr, 0);
-			(void)set_stun(p_ptr, 0);
-			(void)set_cut(p_ptr, 0);
-			hp_player(p_ptr, 5000);
+			restore_level(cr_ptr);
+			(void)set_poisoned(cr_ptr, 0);
+			(void)set_blind(cr_ptr, 0);
+			(void)set_confused(cr_ptr, 0);
+			(void)set_image(cr_ptr, 0);
+			(void)set_stun(cr_ptr, 0);
+			(void)set_cut(cr_ptr, 0);
+			hp_player(cr_ptr, 5000);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)do_res_stat(p_ptr, dummy);
+				(void)do_res_stat(cr_ptr, dummy);
 			}
 #ifdef JP
 			reward = "体力が回復した。";
@@ -5248,13 +5248,13 @@ msg_print("「甦るがよい、我が下僕よ！」");
 #endif
 			break;
 		case REW_CURSE_WP:
-			if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM)) break;
+			if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM)) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5264,12 +5264,12 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 
 			dummy = INVEN_RARM;
-			if (have_weapon(p_ptr, INVEN_LARM))
+			if (have_weapon(cr_ptr, INVEN_LARM))
 			{
 				dummy = INVEN_LARM;
-				if (have_weapon(p_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+				if (have_weapon(cr_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 			}
-			object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
+			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -5278,13 +5278,13 @@ msg_print("「汝、武器に頼ることなかれ。」");
 #endif
 			break;
 		case REW_CURSE_AR:
-			if (!p_ptr->inventory[INVEN_BODY].k_idx) break;
+			if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5293,7 +5293,7 @@ msg_print("「汝、防具に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, &p_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+			object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 			(void)curse_armor();
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -5304,10 +5304,10 @@ msg_print("「汝、防具に頼ることなかれ。」");
 		case REW_PISS_OFF:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s whispers:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5337,14 +5337,14 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				case 3:
 					if (one_in_(2))
 					{
-						if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM)) break;
+						if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM)) break;
 						dummy = INVEN_RARM;
-						if (have_weapon(p_ptr, INVEN_LARM))
+						if (have_weapon(cr_ptr, INVEN_LARM))
 						{
 							dummy = INVEN_LARM;
-							if (have_weapon(p_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+							if (have_weapon(cr_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
 						}
-						object_desc(o_name, &p_ptr->inventory[dummy], OD_NAME_ONLY);
+						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
@@ -5354,8 +5354,8 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					}
 					else
 					{
-						if (!p_ptr->inventory[INVEN_BODY].k_idx) break;
-						object_desc(o_name, &p_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+						if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
+						object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 						(void)curse_armor();
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
@@ -5367,7 +5367,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				default:
 					for (dummy = 0; dummy < 6; dummy++)
 					{
-						(void)dec_stat(p_ptr, dummy, 10 + randint1(15), TRUE);
+						(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), TRUE);
 					}
 #ifdef JP
 					reward = "全能力値が下がった。";
@@ -5384,17 +5384,17 @@ msg_format("%sの声が轟き渡った:",
 			msg_format("The voice of %s thunders:",
 #endif
 
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #ifdef JP
 msg_print("「死ぬがよい、下僕よ！」");
 #else
 			msg_print("'Die, mortal!'");
 #endif
 
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, p_ptr->lev * 4, wrath_reason, NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, cr_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
-				(void)dec_stat(p_ptr, dummy, 10 + randint1(15), FALSE);
+				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
 			}
 			activate_hi_summon(py, px, FALSE);
 			(void)activate_ty_curse(FALSE, &count);
@@ -5402,12 +5402,12 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				dummy = 0;
 
-				if (have_weapon(p_ptr, INVEN_RARM))
+				if (have_weapon(cr_ptr, INVEN_RARM))
 				{
 					dummy = INVEN_RARM;
-					if (have_weapon(p_ptr, INVEN_LARM) && one_in_(2)) dummy = INVEN_LARM;
+					if (have_weapon(cr_ptr, INVEN_LARM) && one_in_(2)) dummy = INVEN_LARM;
 				}
-				else if (have_weapon(p_ptr, INVEN_LARM)) dummy = INVEN_LARM;
+				else if (have_weapon(cr_ptr, INVEN_LARM)) dummy = INVEN_LARM;
 
 				if (dummy) (void)curse_weapon(FALSE, dummy);
 			}
@@ -5416,10 +5416,10 @@ msg_print("「死ぬがよい、下僕よ！」");
 		case REW_DESTRUCT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5438,10 +5438,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GENOCIDE:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5460,10 +5460,10 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_MASS_GEN:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 #ifdef JP
@@ -5482,29 +5482,29 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_DISPEL_C:
 #ifdef JP
 msg_format("%sの力が敵を攻撃するのを感じた！",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("You can feel the power of %s assault your enemies!",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			(void)dispel_monsters(p_ptr->lev * 4);
+			(void)dispel_monsters(cr_ptr->lev * 4);
 			break;
 		case REW_IGNORE:
 #ifdef JP
 msg_format("%sはあなたを無視した。",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #else
 			msg_format("%s ignores you.",
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 			break;
 		case REW_SER_DEMO:
 #ifdef JP
-msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[p_ptr->patron_idx].title);
+msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[cr_ptr->patron_idx].title);
 #else
-			msg_format("%s rewards you with a demonic servant!",player_patrons[p_ptr->patron_idx].title);
+			msg_format("%s rewards you with a demonic servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 			if (!summon_specific(-1, py, px, dun_level, SUMMON_DEMON, PM_FORCE_PET))
@@ -5523,9 +5523,9 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_MONS:
 #ifdef JP
-msg_format("%sは褒美として使いをよこした！",player_patrons[p_ptr->patron_idx].title);
+msg_format("%sは褒美として使いをよこした！",player_patrons[cr_ptr->patron_idx].title);
 #else
-			msg_format("%s rewards you with a servant!",player_patrons[p_ptr->patron_idx].title);
+			msg_format("%s rewards you with a servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 			if (!summon_specific(-1, py, px, dun_level, 0, PM_FORCE_PET))
@@ -5544,9 +5544,9 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_UNDE:
 #ifdef JP
-msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[p_ptr->patron_idx].title);
+msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[cr_ptr->patron_idx].title);
 #else
-			msg_format("%s rewards you with an undead servant!",player_patrons[p_ptr->patron_idx].title);
+			msg_format("%s rewards you with an undead servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
 			if (!summon_specific(-1, py, px, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
@@ -5570,7 +5570,7 @@ msg_format("%sの声がどもった:",
 			msg_format("The voice of %s stammers:",
 #endif
 
-				player_patrons[p_ptr->patron_idx].title);
+				player_patrons[cr_ptr->patron_idx].title);
 #ifdef JP
 msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
 #else

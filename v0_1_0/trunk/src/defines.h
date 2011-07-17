@@ -789,12 +789,12 @@
 #define INVEN_AMMO     23
 
 /*
- * Total number of p_ptr->inventory slots (hard-coded).
+ * Total number of inventory slots (hard-coded).
  */
 #define INVEN_TOTAL     36
 
 /*
- * Fake p_ptr->inventory slot for selecting force (hard-coded).
+ * Fake inventory slot for selecting force (hard-coded).
  */
 #define INVEN_FORCE     1111
 #define INVEN_NULL      2000
@@ -2050,7 +2050,7 @@
  * The values for the "tval" field of various objects.
  *
  * This value is the primary means by which items are sorted in the
- * player p_ptr->inventory, followed by "sval" and "cost".
+ * player inventory, followed by "sval" and "cost".
  *
  * Note that a "BOW" with tval = 19 and sval S = 10*N+P takes a missile
  * weapon with tval = 16+N, and does (xP) damage when so combined.  This
@@ -2916,7 +2916,7 @@
 
 
 /*
- * Bit flags for the "p_ptr->notice" variable
+ * Bit flags for the "notice" variable
  */
 #define PN_COMBINE      0x00000001L     /* Combine the pack */
 #define PN_REORDER      0x00000002L     /* Reorder the pack */
@@ -2925,7 +2925,7 @@
 
 
 /*
- * Bit flags for the "p_ptr->update" variable
+ * Bit flags for the "update" variable
  */
 #define PU_BONUS        0x00000001L     /* Calculate bonuses */
 #define PU_TORCH        0x00000002L     /* Calculate torch radius */
@@ -2950,7 +2950,7 @@
 
 
 /*
- * Bit flags for the "p_ptr->redraw" variable
+ * Bit flags for the "redraw" variable
  */
 #define PR_MISC         0x00000001L     /* Display Race/Class */
 #define PR_TITLE        0x00000002L     /* Display Title */
@@ -2986,7 +2986,7 @@
 /* xxx */
 
 /*
- * Bit flags for the "p_ptr->window" variable (etc)
+ * Bit flags for the "window" variable (etc)
  */
 #define PW_INVEN        0x00000001L     /* Display inven/equip */
 #define PW_EQUIP        0x00000002L     /* Display equip/inven */
@@ -3048,7 +3048,7 @@
 
 
 /*
- * Bit flags for the "p_ptr->special_attack" variable. -LM-
+ * Bit flags for the "special_attack" variable. -LM-
  *
  * Note:  The elemental and poison attacks should be managed using the 
  * function "set_ele_attack", in spell2.c.  This provides for timeouts and
@@ -4314,20 +4314,20 @@
 
 
 /*
- * Determine if a given p_ptr->inventory item is "aware"
+ * Determine if a given inventory item is "aware"
  */
 #define object_is_aware(T) \
     (k_info[(T)->k_idx].aware)
 
 /*
- * Determine if a given p_ptr->inventory item is "tried"
+ * Determine if a given inventory item is "tried"
  */
 #define object_is_tried(T) \
     (k_info[(T)->k_idx].tried)
 
 
 /*
- * Determine if a given p_ptr->inventory item is "known"
+ * Determine if a given inventory item is "known"
  * Test One -- Check for special "known" tag
  * Test Two -- Check for "Easy Know" + "Aware"
  */
@@ -5652,7 +5652,7 @@ extern int PlayerUID;
 #define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_INVULN(C) (C->invuln || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C) (C->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
-#define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(p_ptr, HEX_BLESS))
+#define IS_BLESSED(C) ((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
 #define IS_OPPOSE_ACID(C) (C->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_ELEC(C) (C->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_FIRE(C) (C->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))

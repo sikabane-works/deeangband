@@ -1124,8 +1124,8 @@ struct creature_type
 
 	s16b inven_cnt;			/* Number of items in inventory */
 	s16b equip_cnt;			/* Number of items in equipment */
-	object_type inventory[INVEN_TOTAL];  /* p_ptr->inventory */
-	s16b iven_fitting_rate[INVEN_TOTAL]; /* p_ptr->inventory Fitting Rate */
+	object_type inventory[INVEN_TOTAL];  /* Inventory */
+	s16b iven_fitting_rate[INVEN_TOTAL]; /* Inventory Fitting Rate */
 
 	s32b au;			/* Current Gold */
 

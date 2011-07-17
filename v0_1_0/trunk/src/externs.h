@@ -1522,7 +1522,7 @@ extern bool get_aim_dir(int *dp);
 extern bool get_hack_dir(int *dp);
 extern bool get_rep_dir(int *dp, bool under);
 extern bool get_rep_dir2(int *dp);
-extern void gain_level_reward(int chosen_reward);
+extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
 extern bool tgt_pt (int *x, int *y);
 extern void do_poly_wounds(void);
 extern void change_race(int new_race, cptr effect_msg);
