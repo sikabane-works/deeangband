@@ -967,23 +967,23 @@ bool set_image(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 
-	if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(cr_ptr->chara_idx == CHARA_CHARGEMAN)
 	{
-		p_ptr->image = 0;
+		cr_ptr->image = 0;
 		return (TRUE);
 	}
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
-	if (p_ptr->is_dead) return FALSE;
+	if (cr_ptr->is_dead) return FALSE;
 
 
 	/* Open */
 	if (v)
 	{
-		set_tsuyoshi(p_ptr, 0, TRUE);
-		if (!p_ptr->image)
+		set_tsuyoshi(cr_ptr, 0, TRUE);
+		if (!cr_ptr->image)
 		{
 #ifdef JP
 msg_print("ワーオ！何もかも虹色に見える！");
@@ -992,9 +992,9 @@ msg_print("ワーオ！何もかも虹色に見える！");
 #endif
 
 			/* Sniper */
-			if (p_ptr->concent) reset_concentration(p_ptr, TRUE);
+			if (cr_ptr->concent) reset_concentration(cr_ptr, TRUE);
 
-			p_ptr->counter = FALSE;
+			cr_ptr->counter = FALSE;
 			notice = TRUE;
 		}
 	}
@@ -1002,7 +1002,7 @@ msg_print("ワーオ！何もかも虹色に見える！");
 	/* Shut */
 	else
 	{
-		if (p_ptr->image)
+		if (cr_ptr->image)
 		{
 #ifdef JP
 msg_print("やっとはっきりと物が見えるようになった。");
@@ -1015,10 +1015,10 @@ msg_print("やっとはっきりと物が見えるようになった。");
 	}
 
 	/* Use the value */
-	p_ptr->image = v;
+	cr_ptr->image = v;
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	cr_ptr->redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1027,16 +1027,16 @@ msg_print("やっとはっきりと物が見えるようになった。");
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	cr_ptr->redraw |= (PR_MAP);
 
 	/* Update the health bar */
-	p_ptr->redraw |= (PR_HEALTH | PR_UHEALTH);
+	cr_ptr->redraw |= (PR_HEALTH | PR_UHEALTH);
 
 	/* Update monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
 	handle_stuff();
