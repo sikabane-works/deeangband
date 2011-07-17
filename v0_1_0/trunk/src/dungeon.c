@@ -2263,10 +2263,10 @@ static void process_world_aux_timeout(creature_type *cr_ptr)
 /*
  * Handle burning fuel every 10 game turns
  */
-static void process_world_aux_light(void)
+static void process_world_aux_light(creature_type *cr_ptr)
 {
 	/* Check for light being wielded */
-	object_type *o_ptr = &p_ptr->inventory[INVEN_LITE];
+	object_type *o_ptr = &cr_ptr->inventory[INVEN_LITE];
 
 	/* Burn some fuel in the current lite */
 	if (o_ptr->tval == TV_LITE)
@@ -4257,7 +4257,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	process_world_aux_timeout(p_ptr);
 
 	/* Process light */
-	process_world_aux_light();
+	process_world_aux_light(p_ptr);
 
 	/* Process mutation effects */
 	process_world_aux_mutation(p_ptr);
