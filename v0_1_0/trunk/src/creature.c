@@ -1,6 +1,13 @@
 
 #include "angband.h"
 
+
+bool is_player(creature_type *cr_ptr)
+{
+	return (cr_ptr == p_ptr); 
+}
+
+
 /*
  * Set Creature's sex
  */

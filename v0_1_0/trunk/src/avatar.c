@@ -70,8 +70,8 @@ cptr virtue[MAX_VIRTUE] =
 bool compare_virtue(creature_type *cr_ptr, int type, int num, int tekitou)
 {
 	int vir;
-	if (virtue_number(p_ptr, type))
-		vir = cr_ptr->virtues[virtue_number(p_ptr, type) - 1];
+	if (virtue_number(cr_ptr, type))
+		vir = cr_ptr->virtues[virtue_number(cr_ptr, type) - 1];
 	else
 		vir = 0;
 
@@ -98,7 +98,7 @@ int virtue_number(creature_type *cr_ptr, int type)
 	/* Search */
 	for (i = 0; i < 8; i++)
 	{
-		if (p_ptr->vir_types[i] == type) return i + 1;
+		if (cr_ptr->vir_types[i] == type) return i + 1;
 	}
 
 	/* No match */
