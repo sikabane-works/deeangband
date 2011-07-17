@@ -805,7 +805,7 @@ msg_print("クエストを達成した！");
 	if ((o_ptr->name1 == ART_STONEMASK) && (p_ptr->irace_idx != RACE_VAMPIRE) && (p_ptr->irace_idx != RACE_ANDROID))
 	{
 		/* Turn into a vampire */
-		change_race(RACE_VAMPIRE, "");
+		change_race(p_ptr, RACE_VAMPIRE, "");
 	}
 
 	/* Recalculate bonuses */

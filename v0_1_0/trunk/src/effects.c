@@ -5140,11 +5140,11 @@ msg_print("傷がより軽いものに変化した。");
 /*
  * Change player race
  */
-void change_race(int new_race, cptr effect_msg)
+void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 {
 	int i;
 	cptr title = race_info[new_race].title;
-	int  old_race = p_ptr->irace_idx;
+	int  old_race = cr_ptr->irace_idx;
 
 #ifdef JP
 	msg_format("あなたは%s%sに変化した！", effect_msg, title);
@@ -5152,52 +5152,52 @@ void change_race(int new_race, cptr effect_msg)
 	msg_format("You turn into %s %s%s!", (!effect_msg[0] && is_a_vowel(title[0]) ? "an" : "a"), effect_msg, title);
 #endif
 
-	chg_virtue(p_ptr, V_CHANCE, 2);
+	chg_virtue(cr_ptr, V_CHANCE, 2);
 
-	if (p_ptr->irace_idx < 32)
+	if (cr_ptr->irace_idx < 32)
 	{
-		p_ptr->old_race1 |= 1L << p_ptr->irace_idx;
+		cr_ptr->old_race1 |= 1L << cr_ptr->irace_idx;
 	}
 	else
 	{
-		p_ptr->old_race2 |= 1L << (p_ptr->irace_idx-32);
+		cr_ptr->old_race2 |= 1L << (cr_ptr->irace_idx-32);
 	}
-	p_ptr->irace_idx = new_race;
+	cr_ptr->irace_idx = new_race;
 
 	/* Experience factor */
-	p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp + class_info[p_ptr->cls_idx].c_exp;
+	cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp + class_info[cr_ptr->cls_idx].c_exp;
 	for(i = 0; i < MAX_RACES; i++)
-		if(get_subrace(p_ptr, i)) p_ptr->expfact += (race_info[i].r_s_exp - 100);
+		if(get_subrace(cr_ptr, i)) cr_ptr->expfact += (race_info[i].r_s_exp - 100);
 
 	/*
 	 * The speed bonus of Klackons and Sprites are disabled
 	 * and the experience penalty is decreased.
 	 */
-	if (((p_ptr->cls_idx == CLASS_MONK) || (p_ptr->cls_idx == CLASS_FORCETRAINER) || (p_ptr->cls_idx == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
-		p_ptr->expfact -= 15;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->irace_idx == RACE_KLACKON) || (cr_ptr->irace_idx == RACE_SPRITE)))
+		cr_ptr->expfact -= 15;
 
 	/* Get character's height and weight */
-	set_height_weight(p_ptr);
+	set_height_weight(cr_ptr);
 
 	/* Hitdice */
-	if (p_ptr->cls_idx == CLASS_SORCERER)
-		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp/2 + class_info[p_ptr->cls_idx].c_mhp + chara_info[p_ptr->chara_idx].a_mhp;
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
+		cr_ptr->hitdice = race_info[cr_ptr->irace_idx].r_mhp/2 + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 	else
-		p_ptr->hitdice = race_info[p_ptr->irace_idx].r_mhp + class_info[p_ptr->cls_idx].c_mhp + chara_info[p_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->irace_idx].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 
 	do_cmd_rerate(FALSE);
 
 	/* The experience level may be modified */
-	check_experience(p_ptr);
+	check_experience(cr_ptr);
 
-	p_ptr->redraw |= (PR_BASIC);
+	cr_ptr->redraw |= (PR_BASIC);
 
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	handle_stuff();
 
 	/* Load an autopick preference file */
-	if (old_race != p_ptr->irace_idx) autopick_load_pref(FALSE);
+	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
 	lite_spot(py, px);
@@ -5326,7 +5326,7 @@ msg_print("奇妙なくらい普通になった気がする。");
 			}
 			while (((new_race == cr_ptr->irace_idx) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
 
-			change_race(new_race, effect_msg);
+			change_race(cr_ptr, new_race, effect_msg);
 		}
 
 	}
