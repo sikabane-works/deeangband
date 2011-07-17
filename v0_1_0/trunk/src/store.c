@@ -4473,7 +4473,7 @@ static void store_process_command(void)
 #ifdef JP
 				msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
 #else
-				msg_print("Entire p_ptr->inventory is shown.");
+				msg_print("Entire inventory is shown.");
 #endif
 
 			}
@@ -4538,7 +4538,7 @@ static void store_process_command(void)
 			break;
 		}
 
-		/*** p_ptr->inventory Commands ***/
+		/*** Inventory Commands ***/
 
 		/* Wear/wield equipment */
 		case 'w':
@@ -4568,7 +4568,7 @@ static void store_process_command(void)
 			break;
 		}
 
-		/* p_ptr->inventory list */
+		/* Inventory list */
 		case 'i':
 		{
 			do_cmd_inven();

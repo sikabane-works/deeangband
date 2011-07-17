@@ -1767,27 +1767,27 @@ static void prt_frame_basic(void)
 /*
  * Display extra info (mostly below map)
  */
-static void prt_frame_extra(void)
+static void prt_frame_extra(creature_type *cr_ptr)
 {
 	/* Cut/Stun */
-	prt_cut(p_ptr);
-	prt_stun(p_ptr);
+	prt_cut(cr_ptr);
+	prt_stun(cr_ptr);
 
 	/* Food */
-	prt_hunger(p_ptr);
+	prt_hunger(cr_ptr);
 
 	/* State */
-	prt_state(p_ptr);
+	prt_state(cr_ptr);
 
 	/* Speed */
-	prt_speed(p_ptr);
+	prt_speed(cr_ptr);
 
 	/* Study spells */
-	prt_study(p_ptr);
+	prt_study(cr_ptr);
 
-	prt_imitation(p_ptr);
+	prt_imitation(cr_ptr);
 
-	prt_status(p_ptr);
+	prt_status(cr_ptr);
 }
 
 
@@ -6251,7 +6251,7 @@ void redraw_stuff(void)
 		p_ptr->redraw &= ~(PR_CUT | PR_STUN);
 		p_ptr->redraw &= ~(PR_HUNGER);
 		p_ptr->redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
-		prt_frame_extra();
+		prt_frame_extra(p_ptr);
 	}
 
 	if (p_ptr->redraw & (PR_CUT))
