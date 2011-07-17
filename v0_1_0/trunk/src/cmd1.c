@@ -1101,7 +1101,7 @@ void carry(bool pickup)
  * Always miss 5% of the time, Always hit 5% of the time.
  * Otherwise, match trap power against player armor.
  */
-static int check_hit(int power)
+static int check_hit(creature_type *cr_ptr, int power)
 {
 	int k, ac;
 
@@ -1111,14 +1111,14 @@ static int check_hit(int power)
 	/* Hack -- 5% hit, 5% miss */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara_idx == CHARA_NAMAKE)
+	if (cr_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (TRUE);
 
 	/* Paranoia -- No power */
 	if (power <= 0) return (FALSE);
 
 	/* Total armor */
-	ac = p_ptr->ac + p_ptr->to_a;
+	ac = cr_ptr->ac + cr_ptr->to_a;
 
 	/* Power competes against Armor */
 	if (randint1(power) > ((ac * 3) / 4)) return (TRUE);
@@ -1445,7 +1445,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if (check_hit(125))
+			if (check_hit(p_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1476,7 +1476,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_STR:
 		{
-			if (check_hit(125))
+			if (check_hit(p_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1507,7 +1507,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_DEX:
 		{
-			if (check_hit(125))
+			if (check_hit(p_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1538,7 +1538,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_CON:
 		{
-			if (check_hit(125))
+			if (check_hit(p_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
