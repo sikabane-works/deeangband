@@ -6663,9 +6663,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->align > 10)
+			if (p_ptr->good > 10)
 				dam /= 2;
-			else if (p_ptr->align < -10)
+			else if (p_ptr->evil > 10)
 				dam *= 2;
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
@@ -6679,7 +6679,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->align > 10)
+			if (p_ptr->good > 10)
 				dam *= 2;
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;

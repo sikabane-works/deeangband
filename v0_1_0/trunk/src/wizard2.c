@@ -1930,11 +1930,6 @@ void do_cmd_debug(void)
 		do_cmd_wiz_cure_all();
 		break;
 
-	/* Know alignment */
-	case 'A':
-		msg_format("Your alignment is %d.", p_ptr->align);
-		break;
-
 	/* Teleport to target */
 	case 'b':
 		do_cmd_wiz_bamf();

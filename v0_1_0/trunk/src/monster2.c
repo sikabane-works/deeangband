@@ -4461,7 +4461,7 @@ static bool summon_specific_okay(int monster_idx)
 		/* Do not summon enemies of the pets */
 		if (monster_has_hostile_align(NULL, 10, -10, r_ptr))
 		{
-			if (!one_in_(ABS(p_ptr->align) / 2 + 1)) return FALSE;
+			if (!one_in_(ABS(p_ptr->good - p_ptr->evil) / 2 + 1)) return FALSE;
 		}
 	}
 

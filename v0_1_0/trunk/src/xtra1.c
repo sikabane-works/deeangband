@@ -3060,7 +3060,7 @@ bool have_weapon(creature_type *cr_ptr, int i)
  */
 void calc_bonuses(creature_type *cr_ptr, bool message)
 {
-	int             i, j, k, hold, neutral[2], rate;
+	int             i, j, k, hold, rate;
 	int             new_speed;
 	int             body_size;
 	int             default_hand = 0;
@@ -5488,7 +5488,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 			}
 
-			if (cr_ptr->inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->align -= 1000;
+			if (cr_ptr->inventory[INVEN_RARM + i].name1 == ART_IRON_BALL) cr_ptr->good -= 1000;
 		}
 	}
 
@@ -5649,41 +5649,23 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->immune_fire) cr_ptr->resist_fire = TRUE;
 	if (cr_ptr->immune_cold) cr_ptr->resist_cold = TRUE;
 
-	/* Determine player alignment */
+	/* Determine player alignment TODO:Refine*/
 	for (i = 0, j = 0; i < 8; i++)
 	{
 		switch (cr_ptr->vir_types[i])
 		{
 		case V_JUSTICE:
-			cr_ptr->align += cr_ptr->virtues[i] * 2;
 			break;
 		case V_CHANCE:
 			/* Do nothing */
 			break;
 		case V_NATURE:
 		case V_HARMONY:
-			neutral[j++] = i;
 			break;
 		case V_UNLIFE:
-			cr_ptr->align -= cr_ptr->virtues[i];
 			break;
 		default:
-			cr_ptr->align += cr_ptr->virtues[i];
 			break;
-		}
-	}
-
-	for (i = 0; i < j; i++)
-	{
-		if (cr_ptr->align > 0)
-		{
-			cr_ptr->align -= cr_ptr->virtues[neutral[i]] / 2;
-			if (cr_ptr->align < 0) cr_ptr->align = 0;
-		}
-		else if (cr_ptr->align < 0)
-		{
-			cr_ptr->align += cr_ptr->virtues[neutral[i]] / 2;
-			if (cr_ptr->align > 0) cr_ptr->align = 0;
 		}
 	}
 

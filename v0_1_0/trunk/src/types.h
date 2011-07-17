@@ -1360,8 +1360,6 @@ struct creature_type
 	bool sutemi;
 	bool counter;
 
-	s32b align;				/* Good/Evil/Neutral */
-	s32b ethics;			/* Lawful/Chaotic/Neutral */
 	s16b good;
 	s16b evil;
 	s16b order;

@@ -111,9 +111,9 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 
 	show_alignment(buf2, p_ptr);
 #ifdef JP
-	sprintf(Dummy, "Œ»Ý‚Ì‘®« : %s(%ld)", buf2, p_ptr->align);
+	sprintf(Dummy, "Œ»Ý‚Ì‘®« : %s", buf2);
 #else
-	sprintf(Dummy, "Your alighnment : %s(%ld)", buf2, p_ptr->align);
+	sprintf(Dummy, "Your alighnment : %s", buf2);
 #endif
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];

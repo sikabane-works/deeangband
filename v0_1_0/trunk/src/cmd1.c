@@ -3092,8 +3092,6 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						mult = 10;break;
 					}
 
-					if (cr_ptr->align < 0 && mult < 20)
-						mult = 20;
 					if (!(cr_ptr->resist_acid || IS_OPPOSE_ACID(cr_ptr) || cr_ptr->immune_acid) && (mult < 25))
 						mult = 25;
 					if (!(cr_ptr->resist_elec || IS_OPPOSE_ELEC(cr_ptr) || cr_ptr->immune_elec) && (mult < 25))

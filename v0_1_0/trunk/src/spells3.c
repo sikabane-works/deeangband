@@ -4299,13 +4299,13 @@ s16b spell_chance(int spell, int use_realm)
 	switch (use_realm)
 	{
 	case REALM_NATURE:
-		if ((p_ptr->align > 50) || (p_ptr->align < -50)) chance += penalty;
+		if ((p_ptr->balance < -50)) chance += penalty;
 		break;
 	case REALM_LIFE: case REALM_CRUSADE:
-		if (p_ptr->align < -20) chance += penalty;
+		if (p_ptr->good < 0) chance += penalty;
 		break;
 	case REALM_DEATH: case REALM_DAEMON: case REALM_HEX:
-		if (p_ptr->align > 20) chance += penalty;
+		if (p_ptr->evil < 0) chance += penalty;
 		break;
 	}
 
