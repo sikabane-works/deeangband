@@ -731,14 +731,14 @@ static void wreck_the_pattern(void)
 
 
 /* Returns TRUE if we are on the Pattern... */
-static bool pattern_effect(void)
+static bool pattern_effect(creature_type *cr_ptr)
 {
 	int pattern_type;
 
 	if (!pattern_tile(py, px)) return FALSE;
 
-	if ((race_is_(p_ptr, RACE_AMBERITE)) &&
-	    (p_ptr->cut > 0) && one_in_(10))
+	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
+	    (cr_ptr->cut > 0) && one_in_(10))
 	{
 		wreck_the_pattern();
 	}
@@ -748,20 +748,20 @@ static bool pattern_effect(void)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		(void)set_poisoned(p_ptr, 0);
-		(void)set_image(p_ptr, 0);
-		(void)set_stun(p_ptr, 0);
-		(void)set_cut(p_ptr, 0);
-		(void)set_blind(p_ptr, 0);
-		(void)set_afraid(p_ptr, 0);
-		(void)do_res_stat(p_ptr, A_STR);
-		(void)do_res_stat(p_ptr, A_INT);
-		(void)do_res_stat(p_ptr, A_WIS);
-		(void)do_res_stat(p_ptr, A_DEX);
-		(void)do_res_stat(p_ptr, A_CON);
-		(void)do_res_stat(p_ptr, A_CHR);
-		(void)restore_level(p_ptr);
-		(void)hp_player(p_ptr, 1000);
+		(void)set_poisoned(cr_ptr, 0);
+		(void)set_image(cr_ptr, 0);
+		(void)set_stun(cr_ptr, 0);
+		(void)set_cut(cr_ptr, 0);
+		(void)set_blind(cr_ptr, 0);
+		(void)set_afraid(cr_ptr, 0);
+		(void)do_res_stat(cr_ptr, A_STR);
+		(void)do_res_stat(cr_ptr, A_INT);
+		(void)do_res_stat(cr_ptr, A_WIS);
+		(void)do_res_stat(cr_ptr, A_DEX);
+		(void)do_res_stat(cr_ptr, A_CON);
+		(void)do_res_stat(cr_ptr, A_CHR);
+		(void)restore_level(cr_ptr);
+		(void)hp_player(cr_ptr, 1000);
 
 		cave_set_feat(py, px, feat_pattern_old);
 
@@ -788,22 +788,22 @@ static bool pattern_effect(void)
 		break;
 
 	case PATTERN_TILE_WRECKED:
-		if (!IS_INVULN(p_ptr))
+		if (!IS_INVULN(cr_ptr))
 #ifdef JP
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
 #endif
 		break;
 
 	default:
-		if (race_is_(p_ptr, RACE_AMBERITE) && !one_in_(2))
+		if (race_is_(cr_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
-		else if (!IS_INVULN(p_ptr))
+		else if (!IS_INVULN(cr_ptr))
 #ifdef JP
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 3), "walking the Pattern", NULL, -1);
 #endif
 		break;
 	}
@@ -1860,7 +1860,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	}
 
 	/* Are we walking the pattern? */
-	if (pattern_effect())
+	if (pattern_effect(cr_ptr))
 	{
 		cave_no_regen = TRUE;
 	}
