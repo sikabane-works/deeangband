@@ -9250,7 +9250,8 @@ static void do_cmd_knowledge_virtues(void)
 	FILE *fff;
 	
 	char file_name[1024];
-	
+	char buf[100];
+	show_alignment(buf, p_ptr);
 	
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
@@ -9267,9 +9268,9 @@ static void do_cmd_knowledge_virtues(void)
 	if (fff)
 	{
 #ifdef JP
-		fprintf(fff, "Œ»İ‚Ì‘®« : %s\n\n", your_alignment());
+		fprintf(fff, "Œ»İ‚Ì‘®« : %s\n\n", buf);
 #else
-		fprintf(fff, "Your alighnment : %s\n\n", your_alignment());
+		fprintf(fff, "Your alighnment : %s\n\n", buf);
 #endif
 		dump_virtues(p_ptr, fff);
 	}

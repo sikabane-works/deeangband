@@ -5101,6 +5101,9 @@ static void dump_aux_realm_history(FILE *fff)
  */
 static void dump_aux_virtues(FILE *fff)
 {
+	char buf[100];
+	show_alignment(buf, p_ptr);
+
 #ifdef JP
 	fprintf(fff, "\n\n  [ƒvƒŒƒCƒ„[‚Ì“¿]\n\n");
 #else
@@ -5108,9 +5111,9 @@ static void dump_aux_virtues(FILE *fff)
 #endif
 
 #ifdef JP
-	fprintf(fff, "‘®« : %s\n", your_alignment());
+	fprintf(fff, "‘®« : %s\n", buf);
 #else
-	fprintf(fff, "Your alighnment : %s\n", your_alignment());
+	fprintf(fff, "Your alighnment : %s\n", buf);
 #endif
 
 	fprintf(fff, "\n");

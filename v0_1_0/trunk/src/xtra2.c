@@ -6123,29 +6123,37 @@ int bow_tmul(int sval)
 /*
  * Return alignment title
  */
-cptr your_alignment(void)
+void show_alignment(char* buf, creature_type *cr_ptr)
 {
+	char *ge, *co;
+	char tmt[3] = ">>";
+	char mt[3] = ">";
+	char eq[3] = "=";
+	char lt[3] = "<";
+	char tlt[3] = "<<";
+
+	if(cr_ptr->good >= 0 && cr_ptr->evil < 0) ge = tmt; 
+	else if (cr_ptr->good < 0 && cr_ptr->evil >= 0) ge = tlt; 
+	else if (cr_ptr->good > cr_ptr->evil) ge = mt; 
+	else if (cr_ptr->good < cr_ptr->evil) ge = lt; 
+	else ge = eq;
+
+	if(cr_ptr->order >= 0 && cr_ptr->chaos < 0) co = tmt; 
+	else if (cr_ptr->order < 0 && cr_ptr->chaos >= 0) co = tlt; 
+	else if (cr_ptr->order > cr_ptr->chaos) co = mt; 
+	else if (cr_ptr->order < cr_ptr->chaos) co = lt; 
+	else co = eq;
+
+
 #ifdef JP
-	if (p_ptr->align > 80 && p_ptr->ethics > 80) return "’˜‚É‚µ‚Ä‘P";
-	else if (p_ptr->align > 80 && p_ptr->ethics < -80) return "¬“×‚É‚µ‚Ä‘P";
-	else if (p_ptr->align < -80 && p_ptr->ethics > 80) return "’˜‚É‚µ‚Äˆ«";
-	else if (p_ptr->align < -80 && p_ptr->ethics < -80) return "¬“×‚É‚µ‚Äˆ«";
-	else if (p_ptr->align > 80) return "’†—§‚É‚µ‚Ä‘P";
-	else if (p_ptr->align < -80) return "’†—§‚É‚µ‚Äˆ«";
-	else if (p_ptr->ethics > 80) return "’˜‚É‚µ‚Ä’†—§";
-	else if (p_ptr->ethics < -80) return "¬“×‚É‚µ‚Ä’†—§";
-	else return "^‚È‚é’†—§";
+	sprintf(buf, "(‘P[%d]%s[%d]ˆ«) (’˜[%d]%s[%d]¬“×) (“V”‰[%d])",
+		cr_ptr->good, ge, cr_ptr->evil, cr_ptr->order, co, cr_ptr->chaos, cr_ptr->balance);
+
 #else
-	if (p_ptr->align > 80 && p_ptr->ethics > 80) return "Lawful Good";
-	else if (p_ptr->align > 80 && p_ptr->ethics < -80) return "Chaotic Good";
-	else if (p_ptr->align < -80 && p_ptr->ethics > 80) return "Lawful Evil";
-	else if (p_ptr->align < -80 && p_ptr->ethics < -80) return "Chaotic Evil";
-	else if (p_ptr->align > 80) return "Neutral Good";
-	else if (p_ptr->align < -80) return "Neutral Evil";
-	else if (p_ptr->ethics > 80) return "Lawful Neutral";
-	else if (p_ptr->ethics < -80) return "Chaotic Neutral";
-	else return "True Neutral";
+	sprintf(buf, "(Good[%d]%s[%d]Evil) (Order[%d]%s[%d]Chaos) (Balance[%d])",
+		cr_ptr->good, ge, cr_ptr->evil, cr_ptr->order, co, cr_ptr->chaos, cr_ptr->balance);
 #endif
+
 }
 
 

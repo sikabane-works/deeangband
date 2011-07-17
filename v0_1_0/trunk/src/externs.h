@@ -1530,7 +1530,7 @@ extern int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern s16b gain_energy(void);
 extern s16b bow_energy(int sval);
 extern int bow_tmul(int sval);
-extern cptr your_alignment(void);
+extern void show_alignment(char *buf, creature_type *cr_ptr);
 extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
 extern int spell_exp_level(int spell_exp);

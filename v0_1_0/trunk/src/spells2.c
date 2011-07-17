@@ -41,6 +41,7 @@ void self_knowledge(void)
 
 	char Dummy[80];
 	char buf[2][80];
+	char buf2[100];
 
 	cptr info[220];
 
@@ -108,10 +109,11 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	}
 	info[i++] = "";
 
+	show_alignment(buf2, p_ptr);
 #ifdef JP
-	sprintf(Dummy, "Œ»Ý‚Ì‘®« : %s(%ld)", your_alignment(), p_ptr->align);
+	sprintf(Dummy, "Œ»Ý‚Ì‘®« : %s(%ld)", buf2, p_ptr->align);
 #else
-	sprintf(Dummy, "Your alighnment : %s(%ld)", your_alignment(), p_ptr->align);
+	sprintf(Dummy, "Your alighnment : %s(%ld)", buf2, p_ptr->align);
 #endif
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];
