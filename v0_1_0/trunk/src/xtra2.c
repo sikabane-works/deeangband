@@ -18,54 +18,54 @@
 /*
  * Advance experience levels and print experience
  */
-void check_experience(void)
+void check_experience(creature_type *cr_ptr)
 {
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (p_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
-	int  old_lev = p_ptr->lev;
+	bool android = (cr_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
+	int  old_lev = cr_ptr->lev;
 
-	if(p_ptr->max_lev > PY_MAX_LEVEL) p_ptr->max_lev = PY_MAX_LEVEL;
+	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
 
 	/* Hack -- lower limit */
-	if (p_ptr->exp < 0) p_ptr->exp = 0;
-	if (p_ptr->max_exp < 0) p_ptr->max_exp = 0;
-	if (p_ptr->max_max_exp < 0) p_ptr->max_max_exp = 0;
+	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
+	if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
+	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
 
 	/* Hack -- upper limit */
-	if (p_ptr->exp > PY_MAX_EXP) p_ptr->exp = PY_MAX_EXP;
-	if (p_ptr->max_exp > PY_MAX_EXP) p_ptr->max_exp = PY_MAX_EXP;
-	if (p_ptr->max_max_exp > PY_MAX_EXP) p_ptr->max_max_exp = PY_MAX_EXP;
+	if (cr_ptr->exp > PY_MAX_EXP) cr_ptr->exp = PY_MAX_EXP;
+	if (cr_ptr->max_exp > PY_MAX_EXP) cr_ptr->max_exp = PY_MAX_EXP;
+	if (cr_ptr->max_max_exp > PY_MAX_EXP) cr_ptr->max_max_exp = PY_MAX_EXP;
 
 	/* Hack -- maintain "max" experience */
-	if (p_ptr->exp > p_ptr->max_exp) p_ptr->max_exp = p_ptr->exp;
+	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
 
 	/* Hack -- maintain "max max" experience */
-	if (p_ptr->max_exp > p_ptr->max_max_exp) p_ptr->max_max_exp = p_ptr->max_exp;
+	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
 
 	/* Redraw experience */
-	p_ptr->redraw |= (PR_EXP);
+	cr_ptr->redraw |= (PR_EXP);
 
 	/* Handle stuff */
 	handle_stuff();
 
 
 	/* Lose levels while possible */
-	while ((p_ptr->lev > 1) &&
-		(p_ptr->exp < ((android ? player_exp_a : player_exp)[p_ptr->lev - 2] * p_ptr->expfact / 100L)) || p_ptr->lev > p_ptr->max_lev)
+	while ((cr_ptr->lev > 1) &&
+		(cr_ptr->exp < ((android ? player_exp_a : player_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
 	{
 		/* Lose a level */
-		p_ptr->lev--;
+		cr_ptr->lev--;
 
 		/* Update some stuff */
-		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		p_ptr->redraw |= (PR_LEV | PR_TITLE);
+		cr_ptr->redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		cr_ptr->window |= (PW_PLAYER);
 
 		/* Handle stuff */
 		handle_stuff();
@@ -73,28 +73,28 @@ void check_experience(void)
 
 
 	/* Gain levels while possible */
-	while ((p_ptr->lev < p_ptr->max_lev) &&
-	       (p_ptr->exp >= ((android ? player_exp_a : player_exp)[p_ptr->lev-1] * p_ptr->expfact / 100L)))
+	while ((cr_ptr->lev < cr_ptr->max_lev) &&
+	       (cr_ptr->exp >= ((android ? player_exp_a : player_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
-		p_ptr->lev++;
+		cr_ptr->lev++;
 
 		/* Save the highest level */
-		if (p_ptr->lev > p_ptr->max_plv)
+		if (cr_ptr->lev > cr_ptr->max_plv)
 		{
-			p_ptr->max_plv = p_ptr->lev;
+			cr_ptr->max_plv = cr_ptr->lev;
 
-			if (p_ptr->patron_idx != PATRON_N)
+			if (cr_ptr->patron_idx != PATRON_N)
 			{
 				level_reward = TRUE;
 			}
-			if (p_ptr->irace_idx == RACE_BEASTMAN)
+			if (cr_ptr->irace_idx == RACE_BEASTMAN)
 			{
 				if (one_in_(5)) level_mutation = TRUE;
 			}
 			level_inc_stat = TRUE;
 
-			do_cmd_write_nikki(NIKKI_LEVELUP, p_ptr->lev, NULL);
+			do_cmd_write_nikki(NIKKI_LEVELUP, cr_ptr->lev, NULL);
 		}
 
 		/* Sound */
@@ -102,20 +102,20 @@ void check_experience(void)
 
 		/* Message */
 #ifdef JP
-msg_format("レベル %d にようこそ。", p_ptr->lev);
+msg_format("レベル %d にようこそ。", cr_ptr->lev);
 #else
-		msg_format("Welcome to level %d.", p_ptr->lev);
+		msg_format("Welcome to level %d.", cr_ptr->lev);
 
 #endif
 
 		/* Update some stuff */
-		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		p_ptr->redraw |= (PR_LEV | PR_TITLE | PR_EXP);
+		cr_ptr->redraw |= (PR_LEV | PR_TITLE | PR_EXP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
+		cr_ptr->window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		/* HPとMPの上昇量を表示 */
 		level_up = 1;
@@ -127,7 +127,7 @@ msg_format("レベル %d にようこそ。", p_ptr->lev);
 
 		if (level_inc_stat)
 		{
-			if(!(p_ptr->max_plv % 10))
+			if(!(cr_ptr->max_plv % 10))
 			{
 				int choice;
 				screen_save();
@@ -137,32 +137,32 @@ msg_format("レベル %d にようこそ。", p_ptr->lev);
 					char tmp[32];
 
 #ifdef JP
-					cnv_stat(p_ptr->stat_max[0], tmp);
+					cnv_stat(cr_ptr->stat_max[0], tmp);
 					prt(format("        a) 腕力 (現在値 %s)", tmp), 2, 14);
-					cnv_stat(p_ptr->stat_max[1], tmp);
+					cnv_stat(cr_ptr->stat_max[1], tmp);
 					prt(format("        b) 知能 (現在値 %s)", tmp), 3, 14);
-					cnv_stat(p_ptr->stat_max[2], tmp);
+					cnv_stat(cr_ptr->stat_max[2], tmp);
 					prt(format("        c) 賢さ (現在値 %s)", tmp), 4, 14);
-					cnv_stat(p_ptr->stat_max[3], tmp);
+					cnv_stat(cr_ptr->stat_max[3], tmp);
 					prt(format("        d) 器用 (現在値 %s)", tmp), 5, 14);
-					cnv_stat(p_ptr->stat_max[4], tmp);
+					cnv_stat(cr_ptr->stat_max[4], tmp);
 					prt(format("        e) 耐久 (現在値 %s)", tmp), 6, 14);
-					cnv_stat(p_ptr->stat_max[5], tmp);
+					cnv_stat(cr_ptr->stat_max[5], tmp);
 					prt(format("        f) 魅力 (現在値 %s)", tmp), 7, 14);
 					prt("", 8, 14);
 					prt("        どの能力値を上げますか？", 1, 14);
 #else
-					cnv_stat(p_ptr->stat_max[0], tmp);
+					cnv_stat(cr_ptr->stat_max[0], tmp);
 					prt(format("        a) Str (cur %s)", tmp), 2, 14);
-					cnv_stat(p_ptr->stat_max[1], tmp);
+					cnv_stat(cr_ptr->stat_max[1], tmp);
 					prt(format("        b) Int (cur %s)", tmp), 3, 14);
-					cnv_stat(p_ptr->stat_max[2], tmp);
+					cnv_stat(cr_ptr->stat_max[2], tmp);
 					prt(format("        c) Wis (cur %s)", tmp), 4, 14);
-					cnv_stat(p_ptr->stat_max[3], tmp);
+					cnv_stat(cr_ptr->stat_max[3], tmp);
 					prt(format("        d) Dex (cur %s)", tmp), 5, 14);
-					cnv_stat(p_ptr->stat_max[4], tmp);
+					cnv_stat(cr_ptr->stat_max[4], tmp);
 					prt(format("        e) Con (cur %s)", tmp), 6, 14);
-					cnv_stat(p_ptr->stat_max[5], tmp);
+					cnv_stat(cr_ptr->stat_max[5], tmp);
 					prt(format("        f) Chr (cur %s)", tmp), 7, 14);
 					prt("", 8, 14);
 					prt("        Which stat do you want to raise?", 1, 14);
@@ -181,11 +181,11 @@ msg_format("レベル %d にようこそ。", p_ptr->lev);
 					if (get_check("Are you sure? ")) break;
 #endif
 				}
-				do_inc_stat(p_ptr, choice - 'a');
+				do_inc_stat(cr_ptr, choice - 'a');
 				screen_load();
 			}
-			else if(!(p_ptr->max_plv % 2))
-				do_inc_stat(p_ptr, randint0(6));
+			else if(!(cr_ptr->max_plv % 2))
+				do_inc_stat(cr_ptr, randint0(6));
 		}
 
 		if (level_mutation)
@@ -201,30 +201,29 @@ msg_print("あなたは変わった気がする...");
 		}
 
 		/*
-		 * 報酬でレベルが上ると再帰的に check_experience() が
-		 * 呼ばれるので順番を最後にする。
+		 * 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
 		 */
 		if (level_reward)
 		{
-			gain_level_reward(p_ptr, 0);
+			gain_level_reward(cr_ptr, 0);
 			level_reward = FALSE;
 		}
 
 		/* Update some stuff */
-		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		p_ptr->redraw |= (PR_LEV | PR_TITLE);
+		cr_ptr->redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER | PW_SPELL);
+		cr_ptr->window |= (PW_PLAYER | PW_SPELL);
 
 		/* Handle stuff */
 		handle_stuff();
 	}
 
 	/* Load an autopick preference file */
-	if (old_lev != p_ptr->lev) autopick_load_pref(FALSE);
+	if (old_lev != cr_ptr->lev) autopick_load_pref(FALSE);
 }
 
 

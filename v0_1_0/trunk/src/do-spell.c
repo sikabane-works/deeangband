@@ -12275,7 +12275,7 @@ static cptr do_hex_spell(int spell, int mode)
 					p_ptr->exp += r;
 
 				/* Check the experience */
-				check_experience();
+				check_experience(p_ptr);
 
 				flag = TRUE;
 			}

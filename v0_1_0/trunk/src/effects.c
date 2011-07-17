@@ -5039,7 +5039,7 @@ msg_print("¶–½—Í‚ª–ß‚Á‚Ä‚«‚½‹C‚ª‚·‚éB");
 		cr_ptr->exp = cr_ptr->max_exp;
 
 		/* Check the experience */
-		check_experience();
+		check_experience(cr_ptr);
 
 		/* Did something */
 		return (TRUE);
@@ -5188,7 +5188,7 @@ void change_race(int new_race, cptr effect_msg)
 	do_cmd_rerate(FALSE);
 
 	/* The experience level may be modified */
-	check_experience();
+	check_experience(p_ptr);
 
 	p_ptr->redraw |= (PR_BASIC);
 
@@ -6767,7 +6767,7 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 	}
 
 	/* Check Experience */
-	check_experience();
+	check_experience(cr_ptr);
 }
 
 
@@ -6873,7 +6873,7 @@ void calc_android_exp(creature_type *cr_ptr)
 	cr_ptr->exp = cr_ptr->max_exp = total_exp;
 
 	/* Check Experience */
-	check_experience();
+	check_experience(cr_ptr);
 }
 
 
@@ -6891,7 +6891,7 @@ void lose_exp(creature_type *cr_ptr, s32b amount)
 	cr_ptr->exp -= amount;
 
 	/* Check Experience */
-	check_experience();
+	check_experience(cr_ptr);
 }
 
 

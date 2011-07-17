@@ -452,7 +452,7 @@ static void do_cmd_wiz_change_aux(void)
 		p_ptr->exp = tmp_long;
 
 		/* Update */
-		check_experience();
+		check_experience(p_ptr);
 	}
 
 	/* Query */
@@ -474,7 +474,7 @@ static void do_cmd_wiz_change_aux(void)
 	else
 		p_ptr->max_lev = i;
 
-	check_experience();
+	check_experience(p_ptr);
 
 }
 

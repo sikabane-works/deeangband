@@ -1502,7 +1502,7 @@ extern bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec);
 extern bool set_superstealth(creature_type *cr_ptr, bool set);
 
 /* xtra2.c */
-extern void check_experience(void);
+extern void check_experience(creature_type *cr_ptr);
 extern void check_quest_completion(creature_type *m_ptr);
 extern cptr extract_note_dies(monster_race *r_ptr);
 extern void monster_death(creature_type *cr_ptr, bool drop_item);
