@@ -516,7 +516,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 	if (cr_ptr->is_dead) return FALSE;
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 
 	/* Open */
@@ -736,7 +736,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 #ifdef JP
 			msg_format("%s‚Í‹°•|‚ÉŠ×‚Á‚½I", name);
 #else
-			msg_format("%s %s terrified!", name, cr_ptr == p_ptr ? "are" : "is" );
+			msg_format("%s %s terrified!", name, is_player(cr_ptr) ? "are" : "is" );
 #endif
 
 			if (cr_ptr->special_defense & KATA_MASK)
@@ -777,7 +777,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 		/* Use the value */
 		cr_ptr->afraid = v;
@@ -852,7 +852,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	if (cr_ptr->is_dead) return FALSE;
 
 	//TODO
-	if(p_ptr == cr_ptr)
+	if(is_player(cr_ptr))
 	{
 
 	/* Open */
@@ -1059,7 +1059,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 	if (cr_ptr->is_dead) return FALSE;
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 	/* Open */
 	if (v)
@@ -1234,7 +1234,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 	if (cr_ptr->is_dead) return FALSE;
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 	/* Open */
 	if (v)
@@ -1921,7 +1921,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	if (cr_ptr->is_dead) return FALSE;
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 	/* Open */
 	if (v)
@@ -3777,7 +3777,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 
 
 	//TODO
-	if(cr_ptr == p_ptr)
+	if(is_player(cr_ptr))
 	{
 	if (race_is_(cr_ptr, RACE_GOLEM) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
 
@@ -5570,7 +5570,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 
 
-	if(tar_ptr == p_ptr)
+	if(is_player(tar_ptr))
 	{
 		/* Dead player */
 		if (tar_ptr->chp < 0)
@@ -6273,7 +6273,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 
 	/* Hitpoint warning */
-	if (tar_ptr == p_ptr && tar_ptr->chp < warning)
+	if (is_player(tar_ptr) && tar_ptr->chp < warning)
 	{
 		/* Hack -- bell on first notice */
 		if (old_chp > warning) bell();

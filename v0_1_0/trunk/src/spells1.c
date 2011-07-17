@@ -1565,7 +1565,7 @@ msg_print("カチッと音がした！");
 					int i;
 					u32b mode = 0L;
 
-					if (who_ptr == p_ptr || is_pet(who_ptr))
+					if (is_player(who_ptr) || is_pet(who_ptr))
 						mode |= PM_FORCE_PET;
 
 					for (i = 0; i < o_ptr->number ; i++)
@@ -6401,13 +6401,13 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	/* Player is not here */
 	if (!player_bold(y, x)) return (FALSE);
 
-	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && who_ptr != p_ptr && (who_ptr != &m_list[p_ptr->riding]))
+	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && !is_player(who_ptr) && (who_ptr != &m_list[p_ptr->riding]))
 	{
 		if (kawarimi(TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
-	if (who_ptr == p_ptr) return (FALSE);
+	if (is_player(who_ptr)) return (FALSE);
 	if (who_ptr == &m_list[p_ptr->riding]) return (FALSE);
 
 	if ((p_ptr->reflect || ((p_ptr->special_defense & KATA_FUUJIN) && !p_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
@@ -6426,7 +6426,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 
 		/* Choose 'new' target */
-		if (who_ptr != p_ptr)
+		if (!is_player(who_ptr))
 		{
 			do
 			{
@@ -6466,7 +6466,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	if (blind) fuzzy = TRUE;
 
 
-	if (who_ptr != p_ptr)
+	if (!is_player(who_ptr))
 	{
 		/* Get the source monster */
 		/* Extract the monster level */
@@ -8359,14 +8359,14 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	}
 
 	/* Start at player */
-	else if (who_ptr == p_ptr)
+	else if (is_player(who_ptr))
 	{
 		x1 = px;
 		y1 = py;
 	}
 
 	/* Start at monster */
-	else if (who_ptr != p_ptr)
+	else if (!is_player(who_ptr))
 	{
 		x1 = who_ptr->fx;
 		y1 = who_ptr->fy;
@@ -8539,7 +8539,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
 					if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
-					if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
+					if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8565,7 +8565,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			x = GRID_X(path_g[i]);
 			if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
-			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
+			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8697,7 +8697,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
 			(void)project_m(who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
-			if(who_ptr == p_ptr && (project_m_n==1) && !jump ){
+			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8985,8 +8985,8 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (who_ptr != p_ptr) ? is_seen(p_ptr, who_ptr) :
-			(who_ptr == p_ptr ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
+		see_s_msg = (!is_player(who_ptr)) ? is_seen(p_ptr, who_ptr) :
+			(is_player(who_ptr) ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
 	}
 
 
@@ -9089,7 +9089,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
-				    (who_ptr == p_ptr || dist_hack > 1) && !one_in_(10))
+				    (is_player(who_ptr) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
 					int max_attempts = 10;
@@ -9223,7 +9223,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 
 		/* Player affected one monster (without "jumping") */
-		if (who_ptr == p_ptr && (project_m_n == 1) && !jump)
+		if (is_player(who_ptr) && (project_m_n == 1) && !jump)
 		{
 			/* Location */
 			x = project_m_x;

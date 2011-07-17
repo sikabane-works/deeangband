@@ -3324,7 +3324,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 			msg_format("%s are too afraid to attack %s!", atk_name, tar_name);
 #endif
 
-		else if(atk_ptr == p_ptr)
+		else if(is_player(atk_ptr))
 		{
 #ifdef JP
 			msg_format ("‚»‚Á‚¿‚É‚Í‰½‚©‹°‚¢‚à‚Ì‚ª‚¢‚éI");

@@ -1588,7 +1588,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 	desc[0] = '\0';
 
-	if(m_ptr == p_ptr)
+	if(is_player(m_ptr))
 	{
 #ifdef JP
 		(void)strcpy(desc, "あなた");
@@ -3540,7 +3540,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->mflag2 = 0;
 
 	/* Hack -- Appearance transfer */
-	if ((mode & PM_MULTIPLY) && (who_ptr != p_ptr) && !is_original_ap(who_ptr))
+	if ((mode & PM_MULTIPLY) && !is_player(who_ptr) && !is_original_ap(who_ptr))
 	{
 		m_ptr->ap_monster_idx = who_ptr->ap_monster_idx;
 
@@ -3549,7 +3549,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	/* Sub-alignment of a monster */
-	if ((who_ptr != p_ptr) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
+	if (!is_player(who_ptr) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
 		m_ptr->sub_align = who_ptr->sub_align;
 	else
 	{
@@ -3568,7 +3568,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
-	if (who_ptr != p_ptr && is_pet(who_ptr))
+	if (!is_player(who_ptr) && is_pet(who_ptr))
 	{
 		mode |= PM_FORCE_PET;
 		//TODO Parent Set
@@ -3586,7 +3586,7 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if ((r_ptr->flags1 & RF1_UNIQUE) && (who_ptr == p_ptr))
+		if ((r_ptr->flags1 & RF1_UNIQUE) && is_player(who_ptr))
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
