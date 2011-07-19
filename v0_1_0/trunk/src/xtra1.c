@@ -1812,7 +1812,7 @@ static void fix_inven(void)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Display p_ptr->inventory */
+		/* Display inventory */
 		display_inven();
 
 		/* Fresh */
