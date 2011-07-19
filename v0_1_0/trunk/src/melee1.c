@@ -140,7 +140,7 @@ static cptr desc_moan[] =
 /*
  * Attack the player via physical attacks.
  */
-bool make_attack_normal(creature_type *atk_ptr, creature_type *tar_ptr)
+bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 
 	monster_race *r_ptr = &r_info[atk_ptr->monster_idx];

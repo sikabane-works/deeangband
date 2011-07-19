@@ -3319,7 +3319,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/* Message */
 		if (tar_ptr->ml)
 #ifdef JP
-			msg_format("%s‚Í‹°‚­‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", atk_name, tar_name);
+			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", atk_name, tar_name);
 #else
 			msg_format("%s are too afraid to attack %s!", atk_name, tar_name);
 #endif
