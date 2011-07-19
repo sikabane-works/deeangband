@@ -5442,7 +5442,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		/* Hack - Cancel any special player stealth magics. -LM- */
 		if (atk_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			set_superstealth(p_ptr, FALSE);
+			set_superstealth(atk_ptr, FALSE);
 		}
 
 		/* Redraw (later) if needed */
@@ -5564,8 +5564,8 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	if (damage_type != DAMAGE_GENO && tar_ptr->chp == 0)
 	{
-		chg_virtue(p_ptr, V_SACRIFICE, 1);
-		chg_virtue(p_ptr, V_CHANCE, 2);
+		chg_virtue(atk_ptr, V_SACRIFICE, 1);
+		chg_virtue(atk_ptr, V_CHANCE, 2);
 	}
 
 
@@ -5585,7 +5585,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Sound */
 			sound(SOUND_DEATH);
 	
-			chg_virtue(p_ptr, V_SACRIFICE, 10);
+			chg_virtue(atk_ptr, V_SACRIFICE, 10);
 	
 			/* Leaving */
 			tar_ptr->leaving = TRUE;
@@ -5952,78 +5952,78 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
 				{
-					chg_virtue(p_ptr, V_VALOUR, -1);
+					chg_virtue(atk_ptr, V_VALOUR, -1);
 				}
 				else if (r_ptr->level > dun_level)
 				{
 					if (randint1(10) <= (r_ptr->level - dun_level))
-						chg_virtue(p_ptr, V_VALOUR, 1);
+						chg_virtue(atk_ptr, V_VALOUR, 1);
 				}
 				if (r_ptr->level > 60)
 				{
-					chg_virtue(p_ptr, V_VALOUR, 1);
+					chg_virtue(atk_ptr, V_VALOUR, 1);
 				}
 				if (r_ptr->level >= 2 * (atk_ptr->lev+1))
-					chg_virtue(p_ptr, V_VALOUR, 2);
+					chg_virtue(atk_ptr, V_VALOUR, 2);
 			}
 	
 			if (r_ptr->flags1 & RF1_UNIQUE)
 			{
-				if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_virtue(p_ptr, V_HARMONY, 2);
+				if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_virtue(atk_ptr, V_HARMONY, 2);
 	
 				if (r_ptr->flags3 & RF3_GOOD)
 				{
-					chg_virtue(p_ptr, V_UNLIFE, 2);
-					chg_virtue(p_ptr, V_VITALITY, -2);
+					chg_virtue(atk_ptr, V_UNLIFE, 2);
+					chg_virtue(atk_ptr, V_VITALITY, -2);
 				}
 	
-				if (one_in_(3)) chg_virtue(p_ptr, V_INDIVIDUALISM, -1);
+				if (one_in_(3)) chg_virtue(atk_ptr, V_INDIVIDUALISM, -1);
 			}
 	
 			if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
 			{
-				chg_virtue(p_ptr, V_COMPASSION, -1);
+				chg_virtue(atk_ptr, V_COMPASSION, -1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_GOOD) &&
 				((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100)))
-				chg_virtue(p_ptr, V_UNLIFE, 1);
+				chg_virtue(atk_ptr, V_UNLIFE, 1);
 	
 			if (r_ptr->d_char == 'A')
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(p_ptr, V_FAITH, -2);
+					chg_virtue(atk_ptr, V_FAITH, -2);
 				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
 				{
-					if (r_ptr->flags3 & RF3_GOOD) chg_virtue(p_ptr, V_FAITH, -1);
-					else chg_virtue(p_ptr, V_FAITH, 1);
+					if (r_ptr->flags3 & RF3_GOOD) chg_virtue(atk_ptr, V_FAITH, -1);
+					else chg_virtue(atk_ptr, V_FAITH, 1);
 				}
 			}
 			else if (r_ptr->flags3 & RF3_DEMON)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(p_ptr, V_FAITH, 2);
+					chg_virtue(atk_ptr, V_FAITH, 2);
 				else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
-					chg_virtue(p_ptr, V_FAITH, 1);
+					chg_virtue(atk_ptr, V_FAITH, 1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_UNDEAD) && (r_ptr->flags1 & RF1_UNIQUE))
-				chg_virtue(p_ptr, V_VITALITY, 2);
+				chg_virtue(atk_ptr, V_VITALITY, 2);
 	
 			if (r_ptr->r_deaths)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
 				{
-					chg_virtue(p_ptr, V_HONOUR, 10);
+					chg_virtue(atk_ptr, V_HONOUR, 10);
 				}
 				else if ((r_ptr->level) / 10 + (2 * dun_level) >= randint1(100))
 				{
-					chg_virtue(p_ptr, V_HONOUR, 1);
+					chg_virtue(atk_ptr, V_HONOUR, 1);
 				}
 			}
 			if ((r_ptr->flags2 & RF2_MULTIPLY) && (r_ptr->r_akills > 1000) && one_in_(10))
 			{
-				chg_virtue(p_ptr, V_VALOUR, -1);
+				chg_virtue(atk_ptr, V_VALOUR, -1);
 			}
 	
 			for (i = 0; i < 4; i++)
@@ -6042,19 +6042,19 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (thief)
 			{
 				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_virtue(p_ptr, V_JUSTICE, 3);
+					chg_virtue(atk_ptr, V_JUSTICE, 3);
 				else if (1+((r_ptr->level) / 10 + (2 * dun_level))
 					>= randint1(100))
-					chg_virtue(p_ptr, V_JUSTICE, 1);
+					chg_virtue(atk_ptr, V_JUSTICE, 1);
 			}
 			else if (innocent)
 			{
-				chg_virtue(p_ptr, V_JUSTICE, -1);
+				chg_virtue(atk_ptr, V_JUSTICE, -1);
 			}
 	
 			if ((r_ptr->flags3 & RF3_ANIMAL) && !(r_ptr->flags3 & RF3_EVIL) && !(r_ptr->flags4 & ~(RF4_NOMAGIC_MASK))  && !(r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) && !(r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
 			{
-				if (one_in_(4)) chg_virtue(p_ptr, V_NATURE, -1);
+				if (one_in_(4)) chg_virtue(atk_ptr, V_NATURE, -1);
 			}
 	
 			if ((r_ptr->flags1 & RF1_UNIQUE) && record_destroy_uniq)
