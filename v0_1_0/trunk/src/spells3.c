@@ -321,8 +321,8 @@ bool teleport_player_aux(int dis, u32b mode)
 
 	int left = MAX(1, p_ptr->fx - dis);
 	int right = MIN(cur_wid - 2, p_ptr->fx + dis);
-	int top = MAX(1, py - dis);
-	int bottom = MIN(cur_hgt - 2, py + dis);
+	int top = MAX(1, p_ptr->fy - dis);
+	int bottom = MIN(cur_hgt - 2, p_ptr->fy + dis);
 
 	if (p_ptr->wild_mode) return FALSE;
 
@@ -356,7 +356,7 @@ bool teleport_player_aux(int dis, u32b mode)
 			if (!cave_player_teleportable_bold(y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(py, p_ptr->fx, y, x);
+			d = distance(p_ptr->fy, p_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -395,7 +395,7 @@ bool teleport_player_aux(int dis, u32b mode)
 			if (!cave_player_teleportable_bold(y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(py, p_ptr->fx, y, x);
+			d = distance(p_ptr->fy, p_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -433,7 +433,7 @@ void teleport_player(int dis, u32b mode)
 	int yy, xx;
 
 	/* Save the old location */
-	int oy = py;
+	int oy = p_ptr->fy;
 	int ox = p_ptr->fx;
 
 	if (!teleport_player_aux(dis, mode)) return;
@@ -458,7 +458,7 @@ void teleport_player(int dis, u32b mode)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, py, p_ptr->fx, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -471,7 +471,7 @@ void teleport_player_away(int m_idx, int dis)
 	int yy, xx;
 
 	/* Save the old location */
-	int oy = py;
+	int oy = p_ptr->fy;
 	int ox = p_ptr->fx;
 
 	if (!teleport_player_aux(dis, TELEPORT_PASSIVE)) return;
@@ -496,7 +496,7 @@ void teleport_player_away(int m_idx, int dis)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, py, p_ptr->fx, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -568,7 +568,7 @@ void teleport_away_followable(int m_idx)
 
 	teleport_away(m_idx, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !p_ptr->inside_battle && los(py, p_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !p_ptr->inside_battle && los(p_ptr->fy, p_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
@@ -692,7 +692,7 @@ void teleport_level(int m_idx)
 			if (!dun_level)
 			{
 				dungeon_type = p_ptr->recall_dungeon;
-				p_ptr->oldpy = py;
+				p_ptr->oldpy = p_ptr->fy;
 				p_ptr->oldpx = p_ptr->fx;
 			}
 
@@ -1755,7 +1755,7 @@ void call_the_(void)
 
 	for (i = 0; i < 9; i++)
 	{
-		c_ptr = &cave[py + ddy_ddd[i]][p_ptr->fx + ddx_ddd[i]];
+		c_ptr = &cave[p_ptr->fy + ddy_ddd[i]][p_ptr->fx + ddx_ddd[i]];
 
 		if (!cave_have_flag_grid(c_ptr, FF_PROJECT))
 		{
@@ -1819,7 +1819,7 @@ void call_the_(void)
 		}
 		else
 		{
-			if (destroy_area(py, p_ptr->fx, 15 + p_ptr->lev + randint0(11), FALSE))
+			if (destroy_area(p_ptr->fy, p_ptr->fx, 15 + p_ptr->lev + randint0(11), FALSE))
 #ifdef JP
 				msg_print("ダンジョンが崩壊した...");
 #else
@@ -1854,7 +1854,7 @@ void fetch(int dir, int wgt, bool require_los)
 	char            o_name[MAX_NLEN];
 
 	/* Check to see if an object is already there */
-	if (cave[py][p_ptr->fx].o_idx)
+	if (cave[p_ptr->fy][p_ptr->fx].o_idx)
 	{
 #ifdef JP
 msg_print("自分の足の下にある物は取れません。");
@@ -1871,7 +1871,7 @@ msg_print("自分の足の下にある物は取れません。");
 		tx = target_col;
 		ty = target_row;
 
-		if (distance(py, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr))
+		if (distance(p_ptr->fy, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr))
 		{
 #ifdef JP
 msg_print("そんなに遠くにある物は取れません！");
@@ -1921,7 +1921,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 
 				return;
 			}
-			else if (!projectable(py, p_ptr->fx, ty, tx))
+			else if (!projectable(p_ptr->fy, p_ptr->fx, ty, tx))
 			{
 #ifdef JP
 				msg_print("そこは壁の向こうです。");
@@ -1936,7 +1936,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 	else
 	{
 		/* Use a direction */
-		ty = py; /* Where to drop the item */
+		ty = p_ptr->fy; /* Where to drop the item */
 		tx = p_ptr->fx;
 
 		do
@@ -1945,7 +1945,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 			tx += ddx[dir];
 			c_ptr = &cave[ty][tx];
 
-			if ((distance(py, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr)) ||
+			if ((distance(p_ptr->fy, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr)) ||
 				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->o_idx);
@@ -1967,9 +1967,9 @@ msg_print("そのアイテムは重過ぎます。");
 
 	i = c_ptr->o_idx;
 	c_ptr->o_idx = o_ptr->next_o_idx;
-	cave[py][p_ptr->fx].o_idx = i; /* 'move' it */
+	cave[p_ptr->fy][p_ptr->fx].o_idx = i; /* 'move' it */
 	o_ptr->next_o_idx = 0;
-	o_ptr->iy = (byte)py;
+	o_ptr->iy = (byte)p_ptr->fy;
 	o_ptr->ix = (byte)p_ptr->fx;
 
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -1980,7 +1980,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #endif
 
 
-	note_spot(py, p_ptr->fx);
+	note_spot(p_ptr->fy, p_ptr->fx);
 	p_ptr->redraw |= PR_MAP;
 }
 
@@ -2032,7 +2032,7 @@ void alter_reality(void)
 bool warding_glyph(void)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(py, p_ptr->fx))
+	if (!cave_clean_bold(p_ptr->fy, p_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2044,14 +2044,14 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a glyph */
-	cave[py][p_ptr->fx].info |= CAVE_OBJECT;
-	cave[py][p_ptr->fx].mimic = feat_glyph;
+	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_OBJECT;
+	cave[p_ptr->fy][p_ptr->fx].mimic = feat_glyph;
 
 	/* Notice */
-	note_spot(py, p_ptr->fx);
+	note_spot(p_ptr->fy, p_ptr->fx);
 
 	/* Redraw */
-	lite_spot(py, p_ptr->fx);
+	lite_spot(p_ptr->fy, p_ptr->fx);
 
 	return TRUE;
 }
@@ -2059,7 +2059,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 bool place_mirror(void)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(py, p_ptr->fx))
+	if (!cave_clean_bold(p_ptr->fy, p_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2071,19 +2071,19 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a mirror */
-	cave[py][p_ptr->fx].info |= CAVE_OBJECT;
-	cave[py][p_ptr->fx].mimic = feat_mirror;
+	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_OBJECT;
+	cave[p_ptr->fy][p_ptr->fx].mimic = feat_mirror;
 
 	/* Turn on the light */
-	cave[py][p_ptr->fx].info |= CAVE_GLOW;
+	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_GLOW;
 
 	/* Notice */
-	note_spot(py, p_ptr->fx);
+	note_spot(p_ptr->fy, p_ptr->fx);
 
 	/* Redraw */
-	lite_spot(py, p_ptr->fx);
+	lite_spot(p_ptr->fy, p_ptr->fx);
 
-	update_local_illumination(py, p_ptr->fx);
+	update_local_illumination(p_ptr->fy, p_ptr->fx);
 
 	return TRUE;
 }
@@ -2095,7 +2095,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 bool explosive_rune(void)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(py, p_ptr->fx))
+	if (!cave_clean_bold(p_ptr->fy, p_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2107,14 +2107,14 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a glyph */
-	cave[py][p_ptr->fx].info |= CAVE_OBJECT;
-	cave[py][p_ptr->fx].mimic = feat_explosive_rune;
+	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_OBJECT;
+	cave[p_ptr->fy][p_ptr->fx].mimic = feat_explosive_rune;
 
 	/* Notice */
-	note_spot(py, p_ptr->fx);
+	note_spot(p_ptr->fy, p_ptr->fx);
 	
 	/* Redraw */
-	lite_spot(py, p_ptr->fx);
+	lite_spot(p_ptr->fy, p_ptr->fx);
 
 	return TRUE;
 }
@@ -4888,7 +4888,7 @@ o_name, index_to_label(i),
 				/* Potions smash open */
 				if (object_is_potion(o_ptr))
 				{
-					(void)potion_smash_effect(0, py, p_ptr->fx, o_ptr->k_idx);
+					(void)potion_smash_effect(0, p_ptr->fy, p_ptr->fx, o_ptr->k_idx);
 				}
 
 				/* Reduce the charges of rods/wands */
@@ -5598,7 +5598,7 @@ static bool dimension_door_aux(int x, int y)
 	p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
 
 	if (!cave_player_teleportable_bold(y, x, 0L) ||
-	    (distance(y, x, py, p_ptr->fx) > plev / 2 + 10) ||
+	    (distance(y, x, p_ptr->fy, p_ptr->fx) > plev / 2 + 10) ||
 	    (!randint0(plev / 10 + 10)))
 	{
 		p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);

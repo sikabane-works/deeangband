@@ -5895,7 +5895,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if ((cr_ptr->inventory[i].tval == TV_NATURE_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_sw = TRUE;
 		if ((cr_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
-	for (this_o_idx = cave[py][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 

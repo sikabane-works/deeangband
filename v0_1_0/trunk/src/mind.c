@@ -939,7 +939,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 #endif
 
 		if (plev < 25)
-			project(0, 2 + plev / 10, py, p_ptr->fx,
+			project(0, 2 + plev / 10, p_ptr->fy, p_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
 			(void)mindblast_monsters(randint1(plev * ((plev - 5) / 10 + 1)));
@@ -1100,7 +1100,7 @@ static bool cast_force_spell(int spell)
 		project_length = 1;
 		if (!get_aim_dir(&dir)) return FALSE;
 
-		y = py + ddy[dir];
+		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 		dam = damroll(8 + ((plev - 5) / 4) + boost / 12, 8);
 		fire_beam(GF_MISSILE, dir, dam);
@@ -1172,7 +1172,7 @@ static bool cast_force_spell(int spell)
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(py, p_ptr->fx, target_row, target_col)) break;
+		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
 		dispel_monster_status(m_idx);
 		break;
 	}
@@ -1182,7 +1182,7 @@ static bool cast_force_spell(int spell)
 		bool success = FALSE;
 
 		for (i = 0; i < 1 + boost/100; i++)
-			if (summon_specific(-1, py, p_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
+			if (summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
 				success = TRUE;
 		if (success)
 		{
@@ -1253,7 +1253,7 @@ static bool cast_mirror_spell(int spell)
 	{
 	/* mirror of seeing */
 	case 0:
-	  tmp = is_mirror_grid(&cave[py][p_ptr->fx]) ? 4 : 0;
+	  tmp = is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]) ? 4 : 0;
 	  if( plev + tmp > 4)detect_monsters_normal(DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 18 )detect_monsters_invis(DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 28 )set_tim_esp(p_ptr, plev,FALSE);
@@ -1281,7 +1281,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	case 2:
 	  if (!get_aim_dir(&dir)) return FALSE;
-	  if ( plev > 9 && is_mirror_grid(&cave[py][p_ptr->fx]) ) {
+	  if ( plev > 9 && is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]) ) {
 	    fire_beam(GF_LITE, dir,damroll(3+((plev-1)/5),4));
 	  }
 	  else {
@@ -1348,7 +1348,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* illusion light */
 	case 14:
-	  tmp = is_mirror_grid(&cave[py][p_ptr->fx]) ? 4 : 3;
+	  tmp = is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]) ? 4 : 3;
 	  slow_monsters();
 	  stun_monsters(plev*tmp);
 	  confuse_monsters(plev*tmp);
@@ -1358,7 +1358,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* mirror shift */
 	case 15:
-	  if( !is_mirror_grid(&cave[py][p_ptr->fx]) ){
+	  if( !is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]) ){
 #ifdef JP
 		msg_print("鏡の国の場所がわからない！");
 #else
@@ -1440,7 +1440,7 @@ static bool cast_berserk_spell(int spell)
 		if (!get_rep_dir2(&dir)) return FALSE;
 
 		if (dir == 5) return FALSE;
-		y = py + ddy[dir];
+		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 
 		if (!cave[y][x].m_idx)
@@ -1473,13 +1473,13 @@ static bool cast_berserk_spell(int spell)
 	case 2:
 	{
 		if (!get_rep_dir2(&dir)) return FALSE;
-		y = py + ddy[dir];
+		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 		move_player(dir, easy_disarm, TRUE);
 		break;
 	}
 	case 3:
-		earthquake(py, p_ptr->fx, 8+randint0(5));
+		earthquake(p_ptr->fy, p_ptr->fx, 8+randint0(5));
 		break;
 	case 4:
 	{
@@ -1488,7 +1488,7 @@ static bool cast_berserk_spell(int spell)
 
 		for (dir = 0; dir < 8; dir++)
 		{
-			y = py + ddy_ddd[dir];
+			y = p_ptr->fy + ddy_ddd[dir];
 			x = p_ptr->fx + ddx_ddd[dir];
 			c_ptr = &cave[y][x];
 
@@ -1575,7 +1575,7 @@ static bool cast_ninja_spell(int spell)
 	case 5:
 	{
 		if (!get_rep_dir(&dir, FALSE)) return FALSE;
-		y = py + ddy[dir];
+		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 		if (cave[y][x].m_idx)
 		{
@@ -1666,7 +1666,7 @@ msg_print("その方向にはモンスターはいません。");
 		if (!m_idx) break;
 		if (m_idx == p_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(py, p_ptr->fx, target_row, target_col)) break;
+		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[m_idx];
 		monster_desc(m_name, m_ptr, 0);
 #ifdef JP
@@ -1675,7 +1675,7 @@ msg_print("その方向にはモンスターはいません。");
 		msg_format("You pull back %s.", m_name);
 #endif
 
-		path_n = project_path(path_g, MAX_RANGE(p_ptr), target_row, target_col, py, p_ptr->fx, 0);
+		path_n = project_path(path_g, MAX_RANGE(p_ptr), target_row, target_col, p_ptr->fy, p_ptr->fx, 0);
 		ty = target_row, tx = target_col;
 		for (i = 1; i < path_n; i++)
 		{
@@ -1767,7 +1767,7 @@ msg_print("その方向にはモンスターはいません。");
 
 			while (attempts--)
 			{
-				scatter(&y, &x, py, p_ptr->fx, 4, 0);
+				scatter(&y, &x, p_ptr->fy, p_ptr->fx, 4, 0);
 
 				if (!player_bold(y, x)) break;
 			}
@@ -2013,7 +2013,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 #endif
 
 					/*TODO*/
-					project(p_ptr, 2 + plev / 10, py, p_ptr->fx, plev * 2,
+					project(p_ptr, 2 + plev / 10, p_ptr->fy, p_ptr->fx, plev * 2,
 						GF_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 					p_ptr->csp = MAX(0, p_ptr->csp - plev * MAX(1, plev / 10));
 				}
@@ -2052,7 +2052,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 #endif
 
 					/*TODO*/
-					project(p_ptr, 2 + plev / 10, py, p_ptr->fx, plev * 2,
+					project(p_ptr, 2 + plev / 10, p_ptr->fy, p_ptr->fx, plev * 2,
 						GF_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 					p_ptr->csp = MAX(0, p_ptr->csp - plev * MAX(1, plev / 10));
 				}
@@ -2080,7 +2080,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 			break;
 		case MIND_MIRROR_MASTER:
 			/* Cast the spell */
-			if( is_mirror_grid(&cave[py][p_ptr->fx]) )on_mirror = TRUE;
+			if( is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]) )on_mirror = TRUE;
 			cast = cast_mirror_spell(n);
 			break;
 		case MIND_NINJUTSU:

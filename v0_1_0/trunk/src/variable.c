@@ -378,11 +378,6 @@ s16b panel_col_min, panel_col_max;
 s16b panel_col_prt, panel_row_prt;
 
 /*
- * Player location in dungeon
- */
-int py;
-
-/*
  * Targetting variables
  */
 s16b target_who;

@@ -2921,7 +2921,7 @@ static void windows_map(void)
 	}
 
 	/* Hilite the player */
-	Term_curs_win(p_ptr->fx - min_x, py - min_y);
+	Term_curs_win(p_ptr->fx - min_x, p_ptr->fy - min_y);
 
 	/* Wait for a keypress, flush key buffer */
 	Term_inkey(&c, TRUE, TRUE);

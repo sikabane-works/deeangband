@@ -111,7 +111,7 @@ static bool do_cmd_archer(void)
 		cave_type *c_ptr;
 
 		if (!get_rep_dir(&dir, FALSE)) return FALSE;
-		y = py + ddy[dir];
+		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 		c_ptr = &cave[y][x];
 
@@ -907,7 +907,7 @@ static bool cmd_racial_power_aux(s32b command)
 			for (i = 0; i < 6; i++)
 			{
 				dir = randint0(8);
-				y = py + ddy_ddd[dir];
+				y = p_ptr->fy + ddy_ddd[dir];
 				x = p_ptr->fx + ddx_ddd[dir];
 				c_ptr = &cave[y][x];
 
@@ -958,7 +958,7 @@ static bool cmd_racial_power_aux(s32b command)
 			int x, y;
 
 			if (!get_rep_dir(&dir, FALSE)) return FALSE;
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 			if (cave[y][x].m_idx)
 			{
@@ -1092,7 +1092,7 @@ static bool cmd_racial_power_aux(s32b command)
 				int x, y;
 
 				if (!get_rep_dir(&dir, FALSE)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
 				{
@@ -1376,7 +1376,7 @@ static bool cmd_racial_power_aux(s32b command)
 #endif
 					return FALSE;
 				}
-				if (is_mirror_grid(&cave[py][p_ptr->fx]))
+				if (is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]))
 				{
 #ifdef JP
 					msg_print("少し頭がハッキリした。");
@@ -1413,7 +1413,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 			else
 			{
-				cave_type *c_ptr = &cave[py][p_ptr->fx];
+				cave_type *c_ptr = &cave[p_ptr->fy][p_ptr->fx];
 				feature_type *f_ptr = &f_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
@@ -1471,7 +1471,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir(&dir, FALSE)) return FALSE;   /* was get_aim_dir */
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
@@ -1556,7 +1556,7 @@ static bool cmd_racial_power_aux(s32b command)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				(void)drop_near(q_ptr, -1, py, p_ptr->fx);
+				(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
 #ifdef JP
 				msg_print("食事を料理して作った。");
 #else
@@ -2015,7 +2015,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir(&dir,FALSE)) return FALSE;   /* was get_aim_dir */
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 

@@ -128,7 +128,7 @@
 /*
  * Extract the "ULTRIX" flag from the compiler
  */
-#if defined(ultrix) || defined(Pyramid)
+#if defined(ultrix) || defined(pyramid)
 # ifndef ULTRIX
 #  define ULTRIX
 # endif

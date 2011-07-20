@@ -33,7 +33,7 @@
 
 # include <sys/types.h>
 
-# if defined(Pyramid) || defined(NeXT) || defined(SUNOS) || \
+# if defined(p_ptr->fyramid) || defined(NeXT) || defined(SUNOS) || \
      defined(NCR3K) || defined(SUNOS) || defined(ibm032) || \
      defined(__osf__) || defined(ISC) || defined(SGI) || \
      defined(linux)

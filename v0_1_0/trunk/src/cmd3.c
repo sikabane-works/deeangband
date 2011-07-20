@@ -1628,7 +1628,7 @@ void do_cmd_inscribe_caves(void)
 	msg_print(NULL);
 
 	tmp[0] = '\0';
-	strcpy(tmp, cave[py][p_ptr->fx].message);
+	strcpy(tmp, cave[p_ptr->fy][p_ptr->fx].message);
 
 	/* Get a new inscription (possibly empty) */
 #ifdef JP
@@ -1636,7 +1636,7 @@ void do_cmd_inscribe_caves(void)
 #else
 	if(get_string("Message: ", tmp, CAVE_MESSAGE_LENGTH)){
 #endif
-		strcpy(cave[py][p_ptr->fx].message, tmp);
+		strcpy(cave[p_ptr->fy][p_ptr->fx].message, tmp);
 	}
 	else
 	{
@@ -1648,7 +1648,7 @@ void do_cmd_inscribe_caves(void)
 		return;
 	}
 
-	if(strstr(cave[py][p_ptr->fx].message, "Elbereth"))
+	if(strstr(cave[p_ptr->fy][p_ptr->fx].message, "Elbereth"))
 	{
 		char error_m[1024];
 		bool stop_ty = FALSE;
@@ -1668,7 +1668,7 @@ void do_cmd_inscribe_caves(void)
 			stop_ty = activate_ty_curse(stop_ty, &count);
 		}
 		while (one_in_(6));
-		strcpy(cave[py][p_ptr->fx].message, "");
+		strcpy(cave[p_ptr->fy][p_ptr->fx].message, "");
 
 #ifdef JP
 		msg_print("メッセージは消え去った。");

@@ -306,11 +306,11 @@ static void cast_wonder(int dir)
 	else if (die < 101) drain_life(dir, 100 + plev);
 	else if (die < 104)
 	{
-		earthquake(py, p_ptr->fx, 12);
+		earthquake(p_ptr->fy, p_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(py, p_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -371,7 +371,7 @@ static void cast_invoke_spirits(int dir)
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
 
-		(void)summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		(void)summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 		chg_virtue(p_ptr, V_UNLIFE, 1);
 	}
 	else if (die < 14)
@@ -461,11 +461,11 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 104)
 	{
-		earthquake(py, p_ptr->fx, 12);
+		earthquake(p_ptr->fy, p_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(py, p_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -538,7 +538,7 @@ static void wild_magic(int spell)
 		break;
 	case 19:
 	case 20:
-		trap_creation(py, p_ptr->fx);
+		trap_creation(p_ptr->fy, p_ptr->fx);
 		break;
 	case 21:
 	case 22:
@@ -550,7 +550,7 @@ static void wild_magic(int spell)
 		aggravate_monsters(0);
 		break;
 	case 26:
-		earthquake(py, p_ptr->fx, 5);
+		earthquake(p_ptr->fy, p_ptr->fx, 5);
 		break;
 	case 27:
 	case 28:
@@ -573,15 +573,15 @@ static void wild_magic(int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, py, p_ptr->fx, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
+			(void)summon_specific(0, p_ptr->fy, p_ptr->fx, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
 		}
 		break;
 	case 36:
 	case 37:
-		activate_hi_summon(py, p_ptr->fx, FALSE);
+		activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(-1, py, p_ptr->fx);
+		(void)summon_cyber(-1, p_ptr->fy, p_ptr->fx);
 		break;
 	default:
 		{
@@ -640,7 +640,7 @@ static void cast_shuffle(void)
 #endif
 
 		for (i = 0; i < randint1(3); i++)
-			activate_hi_summon(py, p_ptr->fx, FALSE);
+			activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
 	}
 	else if (die < 14)
 	{
@@ -650,7 +650,7 @@ static void cast_shuffle(void)
 		msg_print("Oh no! It's the Devil!");
 #endif
 
-		summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 18)
 	{
@@ -692,7 +692,7 @@ static void cast_shuffle(void)
 		msg_print("It's the picture of a strange monster.");
 #endif
 
-		trump_summoning(1, FALSE, py, p_ptr->fx, (dun_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
+		trump_summoning(1, FALSE, p_ptr->fy, p_ptr->fx, (dun_level * 3 / 2), (32 + randint1(6)), PM_ALLOW_GROUP | PM_ALLOW_UNIQUE);
 	}
 	else if (die < 33)
 	{
@@ -782,7 +782,7 @@ static void cast_shuffle(void)
 		msg_print("It's the Tower.");
 #endif
 
-		earthquake(py, p_ptr->fx, 5);
+		earthquake(p_ptr->fy, p_ptr->fx, 5);
 	}
 	else if (die < 82)
 	{
@@ -792,7 +792,7 @@ static void cast_shuffle(void)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(1, TRUE, py, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE1, 0L);
+		trump_summoning(1, TRUE, p_ptr->fy, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE1, 0L);
 	}
 	else if (die < 84)
 	{
@@ -802,7 +802,7 @@ static void cast_shuffle(void)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(1, TRUE, py, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE2, 0L);
+		trump_summoning(1, TRUE, p_ptr->fy, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE2, 0L);
 	}
 	else if (die < 86)
 	{
@@ -812,7 +812,7 @@ static void cast_shuffle(void)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(1, TRUE, py, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE4, 0L);
+		trump_summoning(1, TRUE, p_ptr->fy, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE4, 0L);
 	}
 	else if (die < 88)
 	{
@@ -822,7 +822,7 @@ static void cast_shuffle(void)
 		msg_print("It's the picture of a friendly monster.");
 #endif
 
-		trump_summoning(1, TRUE, py, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE5, 0L);
+		trump_summoning(1, TRUE, p_ptr->fy, p_ptr->fx, (dun_level * 3 / 2), SUMMON_BIZARRE5, 0L);
 	}
 	else if (die < 96)
 	{
@@ -921,17 +921,17 @@ static void cast_meteor(int dam, int rad)
 			int dy, dx, d;
 
 			x = p_ptr->fx - 8 + randint0(17);
-			y = py - 8 + randint0(17);
+			y = p_ptr->fy - 8 + randint0(17);
 
 			dx = (p_ptr->fx > x) ? (p_ptr->fx - x) : (x - p_ptr->fx);
-			dy = (py > y) ? (py - y) : (y - py);
+			dy = (p_ptr->fy > y) ? (p_ptr->fy - y) : (y - p_ptr->fy);
 
 			/* Approximate distance */
 			d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
 			if (d >= 9) continue;
 
-			if (!in_bounds(y, x) || !projectable(py, p_ptr->fx, y, x)
+			if (!in_bounds(y, x) || !projectable(p_ptr->fy, p_ptr->fx, y, x)
 			    || !cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
@@ -959,7 +959,7 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 
 	/* Use the given direction */
 	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = py + 99 * ddy[dir];
+	ty = p_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -969,7 +969,7 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 	}
 
 	x = p_ptr->fx;
-	y = py;
+	y = p_ptr->fy;
 
 	while (1)
 	{
@@ -978,10 +978,10 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 
 		ny = y;
 		nx = x;
-		mmove2(&ny, &nx, py, p_ptr->fx, ty, tx);
+		mmove2(&ny, &nx, p_ptr->fy, p_ptr->fx, ty, tx);
 
 		/* Stop at maximum range */
-		if (MAX_RANGE(p_ptr) <= distance(py, p_ptr->fx, ny, nx)) break;
+		if (MAX_RANGE(p_ptr) <= distance(p_ptr->fy, p_ptr->fx, ny, nx)) break;
 
 		/* Stopped by walls/doors */
 		if (!cave_have_flag_bold(ny, nx, FF_PROJECT)) break;
@@ -1083,7 +1083,7 @@ static bool cast_summon_greater_demon(void)
 
 	summon_lev = plev * 2 / 3 + r_info[o_ptr->pval].level;
 
-	if (summon_specific(-1, py, p_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+	if (summon_specific(-1, p_ptr->fy, p_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 	{
 #ifdef JP
 		msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -2703,7 +2703,7 @@ static cptr do_nature_spell(int spell, int mode)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				drop_near(q_ptr, -1, py, p_ptr->fx);
+				drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
 			}
 		}
 		break;
@@ -2975,7 +2975,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!(summon_specific(-1, py, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
+				if (!(summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("ìÆï®ÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -3181,7 +3181,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				earthquake(py, p_ptr->fx, rad);
+				earthquake(p_ptr->fy, p_ptr->fx, rad);
 			}
 		}
 		break;
@@ -3204,7 +3204,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 				for (dir = 0; dir < 8; dir++)
 				{
-					y = py + ddy_ddd[dir];
+					y = p_ptr->fy + ddy_ddd[dir];
 					x = p_ptr->fx + ddx_ddd[dir];
 					c_ptr = &cave[y][x];
 
@@ -3367,8 +3367,8 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				dispel_monsters(d_dam);
-				earthquake(py, p_ptr->fx, q_rad);
-				project(0, b_rad, py, p_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+				earthquake(p_ptr->fy, p_ptr->fx, q_rad);
+				project(0, b_rad, p_ptr->fy, p_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -3672,7 +3672,7 @@ static cptr do_chaos_spell(int spell, int mode)
 				msg_print("BOOM! Shake the room!");
 #endif
 
-				project(0, rad, py, p_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(0, rad, p_ptr->fy, p_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -3763,7 +3763,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(py, p_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(p_ptr->fy, p_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -3971,7 +3971,7 @@ static cptr do_chaos_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
+				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -4481,7 +4481,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				project(0, rad, py, p_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(0, rad, p_ptr->fy, p_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -4588,7 +4588,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				animate_dead(0, py, p_ptr->fx);
+				animate_dead(0, p_ptr->fy, p_ptr->fx);
 			}
 		}
 		break;
@@ -4845,7 +4845,7 @@ static cptr do_death_spell(int spell, int mode)
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-				if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, (plev * 3) / 2, type, mode))
+				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("ó‚ÇΩÇ¢ïóÇ™Ç†Ç»ÇΩÇÃé¸ÇËÇ…êÅÇ´énÇﬂÇΩÅBÇªÇÍÇÕïÖîsèLÇâ^ÇÒÇ≈Ç¢ÇÈ...");
@@ -5073,7 +5073,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an spider...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_SPIDER, PM_ALLOW_GROUP))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_SPIDER, PM_ALLOW_GROUP))
 				{
 					if (fail)
 					{
@@ -5210,7 +5210,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an animal...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, type, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, type, 0L))
 				{
 					if (fail)
 					{
@@ -5273,7 +5273,7 @@ static cptr do_trump_spell(int spell, int mode)
 				{
 					/* Summons near player when failed */
 					x = p_ptr->fx;
-					y = py;
+					y = p_ptr->fy;
 				}
 
 				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
@@ -5317,7 +5317,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
 				{
 #ifdef JP
 					msg_print("å‰ópÇ≈Ç≤Ç¥Ç¢Ç‹Ç∑Ç©ÅAå‰éÂêlólÅH");
@@ -5498,7 +5498,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an undead creature...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_UNDEAD, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_UNDEAD, 0L))
 				{
 					if (fail)
 					{
@@ -5531,7 +5531,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a reptile...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_HYDRA, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HYDRA, 0L))
 				{
 					if (fail)
 					{
@@ -5571,7 +5571,7 @@ static cptr do_trump_spell(int spell, int mode)
 				else
 					type = 0;
 
-				if (trump_summoning((1 + (plev - 15)/ 10), !fail, py, p_ptr->fx, 0, type, 0L))
+				if (trump_summoning((1 + (plev - 15)/ 10), !fail, p_ptr->fy, p_ptr->fx, 0, type, 0L))
 				{
 					if (fail)
 					{
@@ -5605,7 +5605,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a hound...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_HOUND, PM_ALLOW_GROUP))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HOUND, PM_ALLOW_GROUP))
 				{
 					if (fail)
 					{
@@ -5689,7 +5689,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a Cyberdemon...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_CYBER, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_CYBER, 0L))
 				{
 					if (fail)
 					{
@@ -5794,7 +5794,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a dragon...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_DRAGON, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_DRAGON, 0L))
 				{
 					if (fail)
 					{
@@ -5849,7 +5849,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a demon...");
 #endif
 
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_DEMON, 0L))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_DEMON, 0L))
 				{
 					if (fail)
 					{
@@ -5882,7 +5882,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a greater undead being...");
 #endif
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, SUMMON_HI_UNDEAD, PM_ALLOW_UNIQUE))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HI_UNDEAD, PM_ALLOW_UNIQUE))
 				{
 					if (fail)
 					{
@@ -5923,7 +5923,7 @@ static cptr do_trump_spell(int spell, int mode)
 #endif
 
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(1, !fail, py, p_ptr->fx, 0, type, PM_ALLOW_UNIQUE))
+				if (trump_summoning(1, !fail, p_ptr->fy, p_ptr->fx, 0, type, PM_ALLOW_UNIQUE))
 				{
 					if (fail)
 					{
@@ -6497,7 +6497,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(-1, py, p_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("ÉGÉåÉÅÉìÉ^ÉãÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -7153,7 +7153,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (summon_specific(-1, py, p_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
+				if (summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ÉSÅ[ÉåÉÄÇçÏÇ¡ÇΩÅB");
@@ -7528,7 +7528,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(-1, py, p_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("å√ë„ÇÃéÄóÏÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -7747,7 +7747,7 @@ static cptr do_daemon_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -8701,7 +8701,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
 				{
 					if (pet)
 					{
@@ -8815,7 +8815,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(py, p_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(p_ptr->fy, p_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -8886,7 +8886,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				project(0, 1, py, p_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
+				project(0, 1, p_ptr->fy, p_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_monsters(d_dam);
 				slow_monsters();
 				stun_monsters(power);
@@ -8923,7 +8923,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 					while (attempt--)
 					{
-						scatter(&my, &mx, py, p_ptr->fx, 4, 0);
+						scatter(&my, &mx, p_ptr->fy, p_ptr->fx, 4, 0);
 
 						/* Require empty grids */
 						if (cave_empty_bold2(my, mx)) break;
@@ -9387,7 +9387,7 @@ static cptr do_music_spell(int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(0, rad, py, p_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
+				project(0, rad, p_ptr->fy, p_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
 			}
 		}
 
@@ -9521,7 +9521,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The themes of life and revival are woven into your song...");
 #endif
 
-				animate_dead(0, py, p_ptr->fx);
+				animate_dead(0, p_ptr->fy, p_ptr->fx);
 			}
 		}
 		break;
@@ -9591,7 +9591,7 @@ static cptr do_music_spell(int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(0, 0, py, p_ptr->fx,
+				project(0, 0, p_ptr->fy, p_ptr->fx,
 					0, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM | PROJECT_HIDE, -1);
 			}
 		}
@@ -9731,7 +9731,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("Reality whirls wildly as you sing a dizzying melody...");
 #endif
 
-				project(0, rad, py, p_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
+				project(0, rad, p_ptr->fy, p_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
 			}
 		}
 		break;
@@ -9895,7 +9895,7 @@ static cptr do_music_spell(int spell, int mode)
 
 			if (cont)
 			{
-				earthquake(py, p_ptr->fx, 10);
+				earthquake(p_ptr->fy, p_ptr->fx, 10);
 			}
 		}
 
@@ -10236,7 +10236,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 
 			if (cdir == 8) return NULL;
 
-			y = py + ddy_cdd[cdir];
+			y = p_ptr->fy + ddy_cdd[cdir];
 			x = p_ptr->fx + ddx_cdd[cdir];
 			if (cave[y][x].m_idx)
 				py_attack(p_ptr, y, x, 0);
@@ -10246,7 +10246,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #else
 				msg_print("You attack the empty air.");
 #endif
-			y = py + ddy_cdd[(cdir + 7) % 8];
+			y = p_ptr->fy + ddy_cdd[(cdir + 7) % 8];
 			x = p_ptr->fx + ddx_cdd[(cdir + 7) % 8];
 			if (cave[y][x].m_idx)
 				py_attack(p_ptr, y, x, 0);
@@ -10256,7 +10256,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #else
 				msg_print("You attack the empty air.");
 #endif
-			y = py + ddy_cdd[(cdir + 1) % 8];
+			y = p_ptr->fy + ddy_cdd[(cdir + 1) % 8];
 			x = p_ptr->fx + ddx_cdd[(cdir + 1) % 8];
 			if (cave[y][x].m_idx)
 				py_attack(p_ptr, y, x, 0);
@@ -10300,7 +10300,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10348,7 +10348,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10420,7 +10420,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 	
 			if (dir == 5) return NULL;
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 	
 			if (!cave[y][x].m_idx)
@@ -10467,7 +10467,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10500,7 +10500,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10533,7 +10533,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10634,7 +10634,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10666,7 +10666,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10699,7 +10699,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10732,7 +10732,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10765,7 +10765,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10799,7 +10799,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -10854,7 +10854,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 	
 			for (dir = 0; dir < 8; dir++)
 			{
-				y = py + ddy_ddd[dir];
+				y = p_ptr->fy + ddy_ddd[dir];
 				x = p_ptr->fx + ddx_ddd[dir];
 				c_ptr = &cave[y][x];
 	
@@ -10897,13 +10897,13 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
 				py_attack(p_ptr, y, x, HISSATSU_QUAKE);
 			else
-				earthquake(py, p_ptr->fx, 10);
+				earthquake(p_ptr->fy, p_ptr->fx, 10);
 		}
 		break;
 
@@ -11002,7 +11002,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				cave_type *c_ptr;
 				creature_type *m_ptr;
 	
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 	
@@ -11085,7 +11085,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -11182,8 +11182,8 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!tgt_pt(&x, &y)) return NULL;
 
 			if (!cave_player_teleportable_bold(y, x, 0L) ||
-			    (distance(y, x, py, p_ptr->fx) > MAX_SIGHT / 2) ||
-			    !projectable(py, p_ptr->fx, y, x))
+			    (distance(y, x, p_ptr->fy, p_ptr->fx) > MAX_SIGHT / 2) ||
+			    !projectable(p_ptr->fy, p_ptr->fx, y, x))
 			{
 #ifdef JP
 				msg_print("é∏îsÅI");
@@ -11222,7 +11222,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 	
 			if (!get_rep_dir(&dir, FALSE)) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -11265,7 +11265,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
@@ -11327,7 +11327,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			if (!get_rep_dir2(&dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = py + ddy[dir];
+			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
@@ -11732,7 +11732,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				if (power)
 				{
-					project(0, rad, py, p_ptr->fx, power, GF_HELL_FIRE,
+					project(0, rad, p_ptr->fy, p_ptr->fx, power, GF_HELL_FIRE,
 						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 				if (p_ptr->wizard)
@@ -12017,7 +12017,7 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			animate_dead(0, py, p_ptr->fx);
+			animate_dead(0, p_ptr->fy, p_ptr->fx);
 		}
 		break;
 
@@ -12454,7 +12454,7 @@ static cptr do_hex_spell(int spell, int mode)
 				}
 
 				if (!cave_empty_bold(y, x) || (cave[y][x].info & CAVE_ICKY) ||
-					(distance(y, x, py, p_ptr->fx) > plev + 2))
+					(distance(y, x, p_ptr->fy, p_ptr->fx) > plev + 2))
 				{
 #ifdef JP
 					msg_print("ÇªÇ±Ç…ÇÕà⁄ìÆÇ≈Ç´Ç»Ç¢ÅB");

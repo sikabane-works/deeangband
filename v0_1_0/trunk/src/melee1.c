@@ -235,7 +235,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 		/* Stop if player is dead or gone */
 		if (!tar_ptr->playing || tar_ptr->is_dead) break;
-		if (distance(py, p_ptr->fx, atk_ptr->fy, atk_ptr->fx) > 1) break;
+		if (distance(p_ptr->fy, p_ptr->fx, atk_ptr->fy, atk_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */
 		if (tar_ptr->leaving) break;
@@ -1979,7 +1979,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 							r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_RES_SHAR_MASK);
 					}
 
-					if (is_mirror_grid(&cave[py][p_ptr->fx]))
+					if (is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]))
 					{
 						teleport_player(10, 0L);
 					}

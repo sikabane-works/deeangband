@@ -576,7 +576,7 @@ msg_print("食べ物がアゴを素通りして落ちた！");
 			object_prep(q_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
 
 			/* Drop the object from heaven */
-			(void)drop_near(q_ptr, -1, py, p_ptr->fx);
+			(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
 		}
 		else
 		{
@@ -1437,7 +1437,7 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 		msg_print("Some of the fluid falls through your jaws!");
 #endif
 
-		(void)potion_smash_effect(0, py, p_ptr->fx, q_ptr->k_idx);
+		(void)potion_smash_effect(0, p_ptr->fy, p_ptr->fx, q_ptr->k_idx);
 	}
 
 	/* Combine / Reorder the pack (later) */
@@ -1691,7 +1691,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1703,7 +1703,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1713,7 +1713,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(-1, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1722,7 +1722,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(p_ptr->lev, py, p_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
+			if (summon_kin_player(p_ptr->lev, p_ptr->fy, p_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}
@@ -1731,7 +1731,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_TRAP_CREATION:
 		{
-			if (trap_creation(py, p_ptr->fx)) ident = TRUE;
+			if (trap_creation(p_ptr->fy, p_ptr->fx)) ident = TRUE;
 			break;
 		}
 
@@ -1963,7 +1963,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_STAR_DESTRUCTION:
 		{
-			if (destroy_area(py, p_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -2007,14 +2007,14 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_ACQUIREMENT:
 		{
-			acquirement(py, p_ptr->fx, 1, TRUE, FALSE);
+			acquirement(p_ptr->fy, p_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ACQUIREMENT:
 		{
-			acquirement(py, p_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(p_ptr->fy, p_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
@@ -2378,7 +2378,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -2447,7 +2447,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 				while (attempts--)
 				{
-					scatter(&y, &x, py, p_ptr->fx, 4, 0);
+					scatter(&y, &x, p_ptr->fy, p_ptr->fx, 4, 0);
 
 					if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
@@ -2621,7 +2621,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if (earthquake(py, p_ptr->fx, 10))
+			if (earthquake(p_ptr->fy, p_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -2636,7 +2636,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_DESTRUCTION:
 		{
-			if (destroy_area(py, p_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 
 			break;
@@ -2644,7 +2644,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if (animate_dead(0, py, p_ptr->fx))
+			if (animate_dead(0, p_ptr->fy, p_ptr->fx))
 				ident = TRUE;
 
 			break;
@@ -2657,7 +2657,7 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(0, 5, py, p_ptr->fx,
+			project(0, 5, p_ptr->fy, p_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
 			if ((p_ptr->cls_idx != CLASS_MAGE) && (p_ptr->cls_idx != CLASS_HIGH_MAGE) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_MAGIC_EATER) && (p_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
@@ -4417,7 +4417,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 					while (attempts--)
 					{
-						scatter(&y, &x, py, p_ptr->fx, 4, 0);
+						scatter(&y, &x, p_ptr->fy, p_ptr->fx, 4, 0);
 
 						if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
@@ -4902,7 +4902,7 @@ msg_print("暁の師団を召喚した。");
 				msg_print("You summon the Legion of the Dawn.");
 #endif
 
-				(void)summon_specific(-1, py, p_ptr->fx, dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
+				(void)summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
 				o_ptr->timeout = 500 + randint1(500);
 				break;
 			}
@@ -5182,7 +5182,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				/* Use the given direction */
 				tx = p_ptr->fx + 99 * ddx[dir];
-				ty = py + 99 * ddy[dir];
+				ty = p_ptr->fy + 99 * ddy[dir];
 
 				/* Hack -- Use an actual "target" */
 				if ((dir == 5) && target_okay())
@@ -5438,7 +5438,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				int x, y;
 
 				if (!get_rep_dir2(&dir)) return;
-				y = py+ddy[dir];
+				y = p_ptr->fy+ddy[dir];
 				x = p_ptr->fx+ddx[dir];
 				tsuri_dir = dir;
 				if (!cave_have_flag_bold(y, x, FF_WATER))
@@ -5486,7 +5486,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= PM_NO_PET;
 
-				if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, ((p_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
+				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, ((p_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
 				{
 
 					if (pet)
@@ -5531,7 +5531,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				cptr kakusan = "";
 #endif
 
-				if (summon_named_creature(0, py, p_ptr->fx, MON_SUKE, PM_FORCE_PET))
+				if (summon_named_creature(0, p_ptr->fy, p_ptr->fx, MON_SUKE, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『助さん』が現れた。");
@@ -5541,7 +5541,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					count++;
 				}
-				if (summon_named_creature(0, py, p_ptr->fx, MON_KAKU, PM_FORCE_PET))
+				if (summon_named_creature(0, p_ptr->fy, p_ptr->fx, MON_KAKU, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『格さん』が現れた。");
@@ -5558,8 +5558,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 						m_ptr = &m_list[i];
 						if (!m_ptr->monster_idx) continue;
 						if (!((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) continue;
-						if (!los(m_ptr->fy, m_ptr->fx, py, p_ptr->fx)) continue;
-						if (!projectable(m_ptr->fy, m_ptr->fx, py, p_ptr->fx)) continue;
+						if (!los(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx)) continue;
+						if (!projectable(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx)) continue;
 						count++;
 						break;
 					}
@@ -5703,7 +5703,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				bool pet = !one_in_(5);
 				if (pet) mode |= PM_FORCE_PET;
 
-				if (summon_named_creature(0, py, p_ptr->fx, MON_JIZOTAKO, mode))
+				if (summon_named_creature(0, p_ptr->fy, p_ptr->fx, MON_JIZOTAKO, mode))
 				{
 					if (pet)
 #ifdef JP
@@ -5878,7 +5878,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			return;
 
 		case TR_IMPACT:
-			earthquake(py, p_ptr->fx, 5);
+			earthquake(p_ptr->fy, p_ptr->fx, 5);
 			o_ptr->timeout = 100 + randint1(100);
 			
 			/* Window stuff */
@@ -5927,7 +5927,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 	if (o_ptr->name2 == EGO_EARTHQUAKES)
 	{
-		earthquake(py, p_ptr->fx, 5);
+		earthquake(p_ptr->fy, p_ptr->fx, 5);
 		o_ptr->timeout = 100 + randint1(100);
 
 		/* Window stuff */
@@ -6445,7 +6445,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			for (i = 0; i < max_pet; i++)
 			{
 				pet_ctr = who[i];
-				teleport_monster_to(pet_ctr, py, p_ptr->fx, 100, TELEPORT_PASSIVE);
+				teleport_monster_to(pet_ctr, p_ptr->fy, p_ptr->fx, 100, TELEPORT_PASSIVE);
 			}
 
 			/* Free the "who" array */
@@ -6516,9 +6516,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool success = FALSE;
 			if (!get_rep_dir2(&dir)) return;
-			if (monster_can_enter(py + ddy[dir], p_ptr->fx + ddx[dir], &r_info[o_ptr->pval], 0))
+			if (monster_can_enter(p_ptr->fy + ddy[dir], p_ptr->fx + ddx[dir], &r_info[o_ptr->pval], 0))
 			{
-				if (place_monster_aux(p_ptr, py + ddy[dir], p_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
+				if (place_monster_aux(p_ptr, p_ptr->fy + ddy[dir], p_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{
 					if (o_ptr->xtra3) m_list[hack_m_idx_ii].speed = o_ptr->xtra3;
 					if (o_ptr->xtra5) m_list[hack_m_idx_ii].mmhp = o_ptr->xtra5;

@@ -1739,7 +1739,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 	rd_s16b(&num_repro);
 
 	rd_u16b(&tmp16u);
-	py = (int)tmp16u;
+	p_ptr->fy = (int)tmp16u;
 
 	rd_u16b(&tmp16u);
 	p_ptr->fx = (int)tmp16u;

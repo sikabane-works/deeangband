@@ -3398,7 +3398,7 @@ bool mutation_power_aux(u32b power)
 
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
@@ -3475,7 +3475,7 @@ bool mutation_power_aux(u32b power)
 				feature_type *f_ptr, *mimic_f_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 				f_ptr = &f_info[c_ptr->feat];
@@ -3619,7 +3619,7 @@ bool mutation_power_aux(u32b power)
 				int i;
 				for (i = 0; i < 8; i++)
 				{
-					summon_specific(-1, py, p_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
+					summon_specific(-1, p_ptr->fy, p_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
 				}
 			}
 			break;
@@ -3658,7 +3658,7 @@ bool mutation_power_aux(u32b power)
 			break;
 
 		case MUT1_EARTHQUAKE:
-			(void)earthquake(py, p_ptr->fx, 10);
+			(void)earthquake(p_ptr->fy, p_ptr->fx, 10);
 			break;
 
 		case MUT1_EAT_MAGIC:
@@ -3687,7 +3687,7 @@ bool mutation_power_aux(u32b power)
 				int x, y;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
 				{
@@ -3736,7 +3736,7 @@ bool mutation_power_aux(u32b power)
 				monster_race *r_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
@@ -3797,7 +3797,7 @@ bool mutation_power_aux(u32b power)
 				cave_type *c_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = py + ddy[dir];
+				y = p_ptr->fy + ddy[dir];
 				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 

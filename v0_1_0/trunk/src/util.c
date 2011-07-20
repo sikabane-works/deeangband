@@ -4104,7 +4104,7 @@ static char inkey_from_menu(void)
 	int menu = 0;
 	bool kisuu;
 
-	if (py - panel_row_min > 10) basey = 2;
+	if (p_ptr->fy - panel_row_min > 10) basey = 2;
 	else basey = 13;
 	basex = 15;
 
@@ -4162,7 +4162,7 @@ static char inkey_from_menu(void)
 #endif
 
 		/* Place the cursor on the player */
-		move_cursor_relative(py, p_ptr->fx);
+		move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 		/* Get a command */
 		sub_cmd = inkey();

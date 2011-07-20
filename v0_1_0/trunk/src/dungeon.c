@@ -690,7 +690,7 @@ static void pattern_teleport(void)
 static void wreck_the_pattern(void)
 {
 	int to_ruin = 0, r_y, r_x;
-	int pattern_type = f_info[cave[py][p_ptr->fx].feat].subtype;
+	int pattern_type = f_info[cave[p_ptr->fy][p_ptr->fx].feat].subtype;
 
 	if (pattern_type == PATTERN_TILE_WRECKED)
 	{
@@ -717,7 +717,7 @@ static void wreck_the_pattern(void)
 
 	while (to_ruin--)
 	{
-		scatter(&r_y, &r_x, py, p_ptr->fx, 4, 0);
+		scatter(&r_y, &r_x, p_ptr->fy, p_ptr->fx, 4, 0);
 
 		if (pattern_tile(r_y, r_x) &&
 		    (f_info[cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
@@ -726,7 +726,7 @@ static void wreck_the_pattern(void)
 		}
 	}
 
-	cave_set_feat(py, p_ptr->fx, feat_pattern_corrupted);
+	cave_set_feat(p_ptr->fy, p_ptr->fx, feat_pattern_corrupted);
 }
 
 
@@ -735,7 +735,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 {
 	int pattern_type;
 
-	if (!pattern_tile(py, p_ptr->fx)) return FALSE;
+	if (!pattern_tile(p_ptr->fy, p_ptr->fx)) return FALSE;
 
 	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
 	    (cr_ptr->cut > 0) && one_in_(10))
@@ -743,7 +743,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		wreck_the_pattern();
 	}
 
-	pattern_type = f_info[cave[py][p_ptr->fx].feat].subtype;
+	pattern_type = f_info[cave[p_ptr->fy][p_ptr->fx].feat].subtype;
 
 	switch (pattern_type)
 	{
@@ -763,7 +763,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		(void)restore_level(cr_ptr);
 		(void)hp_player(cr_ptr, 1000);
 
-		cave_set_feat(py, p_ptr->fx, feat_pattern_old);
+		cave_set_feat(p_ptr->fy, p_ptr->fx, feat_pattern_old);
 
 #ifdef JP
 		msg_print("「パターン」のこの部分は他の部分より強力でないようだ。");
@@ -1478,7 +1478,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
  */
 static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 {
-	feature_type *f_ptr = &f_info[cave[py][p_ptr->fx].feat];
+	feature_type *f_ptr = &f_info[cave[p_ptr->fy][p_ptr->fx].feat];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
@@ -1559,7 +1559,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 	{
 		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
-			if ((cave[py][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+			if ((cave[p_ptr->fy][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
 				/* Take damage */
 #ifdef JP
@@ -1647,15 +1647,15 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[py][p_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[py][p_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
 			{
-				cptr name = f_name + f_info[get_feat_mimic(&cave[py][p_ptr->fx])].name;
+				cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
 #ifdef JP
 				msg_format("%sで火傷した！", name);
 #else
@@ -1683,7 +1683,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[py][p_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
 			if (cr_ptr->resist_pois) damage = damage / 3;
 			if (IS_OPPOSE_POIS(cr_ptr)) damage = damage / 3;
 
@@ -1715,7 +1715,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[py][p_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
 			if (cr_ptr->resist_acid) damage = damage / 3;
 			if (IS_OPPOSE_ACID(cr_ptr)) damage = damage / 3;
 
@@ -2455,7 +2455,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), py, p_ptr->fx,
+		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx,
 				    dun_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
@@ -2552,7 +2552,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
-		if ((cave[py][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+		if ((cave[p_ptr->fy][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
 			hp_player(cr_ptr, 10);
 		}
@@ -2599,7 +2599,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
+		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("動物を引き寄せた！");
@@ -2707,7 +2707,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, dun_level, SUMMON_DRAGON, mode))
+		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ドラゴンを引き寄せた！");
@@ -3083,7 +3083,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call animal */
 		if ((cr_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
-			if (summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_ANIMAL,
+			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
@@ -3101,7 +3101,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call demon */
 		if ((cr_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
-			if (summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
@@ -3118,7 +3118,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call dragon */
 		if ((cr_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
-			if (summon_specific(0, py, p_ptr->fx, dun_level, SUMMON_DRAGON,
+			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
@@ -3410,14 +3410,14 @@ msg_print("下に引きずり降ろされる感じがする！");
 
 				if (cr_ptr->wild_mode)
 				{
-					cr_ptr->wilderness_y = py;
+					cr_ptr->wilderness_y = p_ptr->fy;
 					cr_ptr->wilderness_x = p_ptr->fx;
 				}
 				else
 				{
 					/* Save player position */
 					cr_ptr->oldpx = p_ptr->fx;
-					cr_ptr->oldpy = py;
+					cr_ptr->oldpy = p_ptr->fy;
 				}
 				cr_ptr->wild_mode = FALSE;
 
@@ -4014,7 +4014,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 		}
 	}
@@ -5510,7 +5510,7 @@ static void pack_overflow(void)
 #endif
 
 		/* Drop it (carefully) near the player */
-		(void)drop_near(o_ptr, 0, py, p_ptr->fx);
+		(void)drop_near(o_ptr, 0, p_ptr->fy, p_ptr->fx);
 
 		/* Modify, Describe, Optimize */
 		inven_item_increase(INVEN_PACK, -255);
@@ -5626,7 +5626,7 @@ msg_print("何か変わった気がする！");
 			if (monster_idx && one_in_(2))
 			{
 				int y, x;
-				y = py+ddy[tsuri_dir];
+				y = p_ptr->fy+ddy[tsuri_dir];
 				x = p_ptr->fx+ddx[tsuri_dir];
 				if (place_monster_aux(p_ptr, y, x, monster_idx, PM_NO_KAGE))
 				{
@@ -5846,7 +5846,7 @@ msg_print("中断しました。");
 		handle_stuff();
 
 		/* Place the cursor on the player */
-		move_cursor_relative(py, p_ptr->fx);
+		move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 		/* Refresh (optional) */
 		if (fresh_before) Term_fresh();
@@ -5867,7 +5867,7 @@ msg_print("中断しました。");
 		if (p_ptr->inside_battle)
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(py, p_ptr->fx);
+			move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 			command_cmd = SPECIAL_KEY_BUILDING;
 
@@ -5950,7 +5950,7 @@ msg_print("中断しました。");
 		else
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(py, p_ptr->fx);
+			move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 			can_save = TRUE;
 			/* Get a command (normal) */
@@ -6371,7 +6371,7 @@ msg_print("試合開始！");
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(py, p_ptr->fx);
+		move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6389,7 +6389,7 @@ msg_print("試合開始！");
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(py, p_ptr->fx);
+		move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6408,7 +6408,7 @@ msg_print("試合開始！");
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(py, p_ptr->fx);
+		move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
@@ -6932,7 +6932,7 @@ quit("セーブファイルが壊れています");
 		{
 			p_ptr->wizard = TRUE;
 
-			if (p_ptr->is_dead || !py || !p_ptr->fx)
+			if (p_ptr->is_dead || !p_ptr->fy || !p_ptr->fx)
 			{
 				/* Initialize the saved floors data */
 				init_saved_floors(TRUE);
@@ -6941,7 +6941,7 @@ quit("セーブファイルが壊れています");
 				p_ptr->inside_quest = 0;
 
 				/* Avoid crash in update_view() */
-				py = p_ptr->fx = 10;
+				p_ptr->fy = p_ptr->fx = 10;
 			}
 		}
 		else if (p_ptr->is_dead)
@@ -6978,7 +6978,7 @@ quit("セーブファイルが壊れています");
 		if (p_ptr->panic_save)
 		{
 			/* No player?  -- Try to regenerate floor */
-			if (!py || !p_ptr->fx)
+			if (!p_ptr->fy || !p_ptr->fx)
 			{
 #ifdef JP
 				msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
@@ -6989,7 +6989,7 @@ quit("セーブファイルが壊れています");
 			}
 
 			/* Still no player?  -- Try to locate random place */
-			if (!py || !p_ptr->fx) py = p_ptr->fx = 10;
+			if (!p_ptr->fy || !p_ptr->fx) p_ptr->fy = p_ptr->fx = 10;
 
 			/* No longer in panic */
 			p_ptr->panic_save = 0;
@@ -7060,7 +7060,7 @@ quit("セーブファイルが壊れています");
 		creature_type *m_ptr;
 		int pet_monster_idx = ((p_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		monster_race *r_ptr = &r_info[pet_monster_idx];
-		place_monster_aux(p_ptr, py, p_ptr->fx - 1, pet_monster_idx,
+		place_monster_aux(p_ptr, p_ptr->fy, p_ptr->fx - 1, pet_monster_idx,
 				  (PM_FORCE_PET | PM_NO_KAGE));
 		m_ptr = &m_list[hack_m_idx_ii];
 		m_ptr->speed = r_ptr->speed;
