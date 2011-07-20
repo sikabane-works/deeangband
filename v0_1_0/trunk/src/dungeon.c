@@ -5100,7 +5100,7 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else
 			{
-				do_cmd_zap_rod();
+				do_cmd_zap_rod(p_ptr);
 			}
 			}
 			break;

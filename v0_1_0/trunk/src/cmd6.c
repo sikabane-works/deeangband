@@ -3659,7 +3659,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
  *
  * pvals are defined for each rod in k_info. -LM-
  */
-static void do_cmd_zap_rod_aux(int item)
+static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 {
 	int ident, chance, lev, fail;
 	int dir = 0;
@@ -3674,7 +3674,7 @@ static void do_cmd_zap_rod_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3713,10 +3713,10 @@ static void do_cmd_zap_rod_aux(int item)
 	lev = k_info[o_ptr->k_idx].level;
 
 	/* Base chance of success */
-	chance = p_ptr->skill_dev;
+	chance = cr_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (p_ptr->confused) chance = chance / 2;
+	if (cr_ptr->confused) chance = chance / 2;
 
 	fail = lev+5;
 	if (chance > fail) fail -= (chance - fail)*2;
@@ -3737,7 +3737,7 @@ static void do_cmd_zap_rod_aux(int item)
 		return;
 	}
 
-	if (p_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
+	if (cr_ptr->cls_idx == CLASS_BERSERKER) success = FALSE;
 	else if (chance > fail)
 	{
 		if (randint0(chance*2) < fail) success = FALSE;
@@ -3799,13 +3799,13 @@ msg_print("そのロッドはまだ充填中です。");
 	if (use_charge) o_ptr->timeout += k_ptr->pval;
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(p_ptr, V_PATIENCE, -1);
-		chg_virtue(p_ptr, V_CHANCE, 1);
-		chg_virtue(p_ptr, V_KNOWLEDGE, -1);
+		chg_virtue(cr_ptr, V_PATIENCE, -1);
+		chg_virtue(cr_ptr, V_CHANCE, 1);
+		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* Tried the object */
@@ -3815,22 +3815,22 @@ msg_print("そのロッドはまだ充填中です。");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
 	}
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 }
 
 
-void do_cmd_zap_rod(void)
+void do_cmd_zap_rod(creature_type *cr_ptr)
 {
 	int item;
 	cptr q, s;
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to rods */
@@ -3848,7 +3848,7 @@ void do_cmd_zap_rod(void)
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Zap the rod */
-	do_cmd_zap_rod_aux(item);
+	do_cmd_zap_rod_aux(cr_ptr, item);
 }
 
 
@@ -6762,7 +6762,7 @@ s = "使えるものがありません。";
 		/* Zap a rod */
 		case TV_ROD:
 		{
-			do_cmd_zap_rod_aux(item);
+			do_cmd_zap_rod_aux(p_ptr, item);
 			break;
 		}
 
