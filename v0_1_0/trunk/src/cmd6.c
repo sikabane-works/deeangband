@@ -54,18 +54,18 @@
  */
 
 
-static void do_cmd_eat_food_aux(int item)
+static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 {
 	int ident, lev;
 	object_type *o_ptr;
 
-	if (music_singing_any(p_ptr)) stop_singing();
-	if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing();
+	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -93,9 +93,9 @@ static void do_cmd_eat_food_aux(int item)
 		{
 			case SV_FOOD_POISON:
 			{
-				if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
+				if (!(cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr)))
 				{
-					if (set_poisoned(p_ptr, p_ptr->poisoned + randint0(10) + 10))
+					if (set_poisoned(cr_ptr, cr_ptr->poisoned + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -105,9 +105,9 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_BLINDNESS:
 			{
-				if (!p_ptr->resist_blind)
+				if (!cr_ptr->resist_blind)
 				{
-					if (set_blind(p_ptr, p_ptr->blind + randint0(200) + 200))
+					if (set_blind(cr_ptr, cr_ptr->blind + randint0(200) + 200))
 					{
 						ident = TRUE;
 					}
@@ -117,9 +117,9 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_PARANOIA:
 			{
-				if (!p_ptr->resist_fear)
+				if (!cr_ptr->resist_fear)
 				{
-					if (set_afraid(p_ptr, p_ptr->afraid + randint0(10) + 10))
+					if (set_afraid(cr_ptr, cr_ptr->afraid + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -129,9 +129,9 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_CONFUSION:
 			{
-				if (!p_ptr->resist_conf)
+				if (!cr_ptr->resist_conf)
 				{
-					if (set_confused(p_ptr, p_ptr->confused + randint0(10) + 10))
+					if (set_confused(cr_ptr, cr_ptr->confused + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -141,9 +141,9 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_HALLUCINATION:
 			{
-				if (!p_ptr->resist_chaos)
+				if (!cr_ptr->resist_chaos)
 				{
-					if (set_image(p_ptr, p_ptr->image + randint0(250) + 250))
+					if (set_image(cr_ptr, cr_ptr->image + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}
@@ -153,9 +153,9 @@ static void do_cmd_eat_food_aux(int item)
 
 			case SV_FOOD_PARALYSIS:
 			{
-				if (!p_ptr->free_act)
+				if (!cr_ptr->free_act)
 				{
-					if (set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(10) + 10))
+					if (set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -166,12 +166,12 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_WEAKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_STR);
+				(void)do_dec_stat(cr_ptr, A_STR);
 				ident = TRUE;
 				break;
 			}
@@ -179,12 +179,12 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_SICKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_CON);
+				(void)do_dec_stat(cr_ptr, A_CON);
 				ident = TRUE;
 				break;
 			}
@@ -192,12 +192,12 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_STUPIDITY:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_INT);
+				(void)do_dec_stat(cr_ptr, A_INT);
 				ident = TRUE;
 				break;
 			}
@@ -205,12 +205,12 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_NAIVETY:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_WIS);
+				(void)do_dec_stat(cr_ptr, A_WIS);
 				ident = TRUE;
 				break;
 			}
@@ -218,12 +218,12 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_UNHEALTH:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_CON);
+				(void)do_dec_stat(cr_ptr, A_CON);
 				ident = TRUE;
 				break;
 			}
@@ -231,66 +231,66 @@ static void do_cmd_eat_food_aux(int item)
 			case SV_FOOD_DISEASE:
 			{
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "ì≈ì¸ÇËêHóø", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "ì≈ì¸ÇËêHóø", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(p_ptr, A_STR);
+				(void)do_dec_stat(cr_ptr, A_STR);
 				ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_POISON:
 			{
-				if (set_poisoned(p_ptr, 0)) ident = TRUE;
+				if (set_poisoned(cr_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_BLINDNESS:
 			{
-				if (set_blind(p_ptr, 0)) ident = TRUE;
+				if (set_blind(cr_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_PARANOIA:
 			{
-				if (set_afraid(p_ptr, 0)) ident = TRUE;
+				if (set_afraid(cr_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_CONFUSION:
 			{
-				if (set_confused(p_ptr, 0)) ident = TRUE;
+				if (set_confused(cr_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_SERIOUS:
 			{
-				if (hp_player(p_ptr, damroll(4, 8))) ident = TRUE;
+				if (hp_player(cr_ptr, damroll(4, 8))) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_STR:
 			{
-				if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_CON:
 			{
-				if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORING:
 			{
-				if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
-				if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
-				if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
-				if (do_res_stat(p_ptr, A_DEX)) ident = TRUE;
-				if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
-				if (do_res_stat(p_ptr, A_CHR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_WIS)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_DEX)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
+				if (do_res_stat(cr_ptr, A_CHR)) ident = TRUE;
 				break;
 			}
 
@@ -345,8 +345,8 @@ static void do_cmd_eat_food_aux(int item)
 				msg_print("That tastes good.");
 #endif
 
-				(void)set_poisoned(p_ptr, 0);
-				(void)hp_player(p_ptr, damroll(4, 8));
+				(void)set_poisoned(cr_ptr, 0);
+				(void)hp_player(cr_ptr, damroll(4, 8));
 				ident = TRUE;
 				break;
 			}
@@ -379,13 +379,13 @@ static void do_cmd_eat_food_aux(int item)
 	}
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(p_ptr, V_KNOWLEDGE, -1);
-		chg_virtue(p_ptr, V_PATIENCE, -1);
-		chg_virtue(p_ptr, V_CHANCE, 1);
+		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_virtue(cr_ptr, V_PATIENCE, -1);
+		chg_virtue(cr_ptr, V_CHANCE, 1);
 	}
 
 	/* We have tried it */
@@ -395,25 +395,25 @@ static void do_cmd_eat_food_aux(int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
 	}
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Food can feed the player */
-	if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE))
 	{
 		/* Reduced nutritional benefit */
-		(void)set_food(p_ptr, p_ptr->food + (o_ptr->pval / 10));
+		(void)set_food(cr_ptr, cr_ptr->food + (o_ptr->pval / 10));
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÃÇÊÇ§Ç»é“Ç…Ç∆Ç¡ÇƒêHó∆Ç»Ç«ãÕÇ©Ç»âhó{Ç…ÇµÇ©Ç»ÇÁÇ»Ç¢ÅB");
 #else
 		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
 #endif
 
-		if (p_ptr->food < PY_FOOD_ALERT)   /* Hungry */
+		if (cr_ptr->food < PY_FOOD_ALERT)   /* Hungry */
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #else
@@ -421,10 +421,10 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #endif
 
 	}
-	else if ((race_is_(p_ptr, RACE_SKELETON) ||
-		  race_is_(p_ptr, RACE_GOLEM) ||
-		  race_is_(p_ptr, RACE_ZOMBIE) ||
-		  race_is_(p_ptr, RACE_LICH)) &&
+	else if ((race_is_(cr_ptr, RACE_SKELETON) ||
+		  race_is_(cr_ptr, RACE_GOLEM) ||
+		  race_is_(cr_ptr, RACE_ZOMBIE) ||
+		  race_is_(cr_ptr, RACE_LICH)) &&
 		 (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND))
 	{
 		cptr staff;
@@ -458,8 +458,8 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 			o_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
-			p_ptr->notice |= (PN_COMBINE | PN_REORDER);
-			p_ptr->window |= (PW_INVEN);
+			cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+			cr_ptr->window |= (PW_INVEN);
 
 			return;
 		}
@@ -474,7 +474,7 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 		o_ptr->pval--;
 
 		/* Eat a charge */
-		set_food(p_ptr, p_ptr->food + 5000);
+		set_food(cr_ptr, cr_ptr->food + 5000);
 
 		/* XXX Hack -- unstack if necessary */
 		if (o_ptr->tval == TV_STAFF &&
@@ -497,7 +497,7 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 
 			/* Unstack the used item */
 			o_ptr->number--;
-			p_ptr->total_weight -= q_ptr->weight;
+			cr_ptr->total_weight -= q_ptr->weight;
 			item = inven_carry(q_ptr);
 
 			/* Message */
@@ -521,13 +521,13 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 		}
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
 
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if ((race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) ||
-		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
+	else if ((race_is_(cr_ptr, RACE_DEMON) || race_is_(cr_ptr, RACE_BALROG) ||
+		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", r_info[o_ptr->pval].d_char)))
 	{
@@ -541,9 +541,9 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #else
 		msg_format("%^s is burnt to ashes.  You absorb its vitality!", o_name);
 #endif
-		(void)set_food(p_ptr, PY_FOOD_MAX - 1);
+		(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 	}
-	else if (race_is_(p_ptr, RACE_SKELETON))
+	else if (race_is_(cr_ptr, RACE_SKELETON))
 	{
 #if 0
 		if (o_ptr->tval == TV_SKELETON ||
@@ -554,7 +554,7 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #else
 			msg_print("Your body absorbs the bone.");
 #endif
-			set_food(p_ptr, p_ptr->food + 5000);
+			set_food(cr_ptr, cr_ptr->food + 5000);
 		}
 		else 
 #endif
@@ -576,7 +576,7 @@ msg_print("êHÇ◊ï®Ç™ÉAÉSÇëfí ÇËÇµÇƒóéÇøÇΩÅI");
 			object_prep(q_ptr, lookup_kind(o_ptr->tval, o_ptr->sval), ITEM_FREE_SIZE);
 
 			/* Drop the object from heaven */
-			(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
+			(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 		}
 		else
 		{
@@ -588,14 +588,14 @@ msg_print("êHÇ◊ï®Ç™ÉAÉSÇëfí ÇËÇµÇƒóéÇøÅAè¡Ç¶ÇΩÅI");
 
 		}
 	}
-	else if (race_is_(p_ptr, RACE_GOLEM) ||
-		 race_is_(p_ptr, RACE_ZOMBIE) ||
-		 race_is_(p_ptr, RACE_ENT) ||
-		 race_is_(p_ptr, RACE_DEMON) ||
-		 race_is_(p_ptr, RACE_BALROG) ||
-		 race_is_(p_ptr, RACE_ANDROID) ||
-		 race_is_(p_ptr, RACE_LICH) ||
-		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
+	else if (race_is_(cr_ptr, RACE_GOLEM) ||
+		 race_is_(cr_ptr, RACE_ZOMBIE) ||
+		 race_is_(cr_ptr, RACE_ENT) ||
+		 race_is_(cr_ptr, RACE_DEMON) ||
+		 race_is_(cr_ptr, RACE_BALROG) ||
+		 race_is_(cr_ptr, RACE_ANDROID) ||
+		 race_is_(cr_ptr, RACE_LICH) ||
+		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
 	{
 #ifdef JP
 msg_print("ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB");
@@ -603,17 +603,17 @@ msg_print("ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB");
 		msg_print("The food of mortals is poor sustenance for you.");
 #endif
 
-		set_food(p_ptr, p_ptr->food + ((o_ptr->pval) / 20));
+		set_food(cr_ptr, cr_ptr->food + ((o_ptr->pval) / 20));
 	}
 	else if (o_ptr->tval == TV_FOOD && o_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
-		set_food(p_ptr, MAX(p_ptr->food, PY_FOOD_MAX - 1));
+		set_food(cr_ptr, MAX(cr_ptr->food, PY_FOOD_MAX - 1));
 	}
 	else
 	{
 		/* Food can feed the player */
-		(void)set_food(p_ptr, p_ptr->food + o_ptr->pval);
+		(void)set_food(cr_ptr, cr_ptr->food + o_ptr->pval);
 	}
 
 	/* Destroy a food in the pack */
@@ -676,15 +676,15 @@ static bool item_tester_hook_eatable(object_type *o_ptr)
 /*
  * Eat some food (from the pack or floor)
  */
-void do_cmd_eat_food(void)
+void do_cmd_eat_food(creature_type *cr_ptr)
 {
 	int         item;
 	cptr        q, s;
 
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to food */
@@ -702,7 +702,7 @@ void do_cmd_eat_food(void)
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Eat the object */
-	do_cmd_eat_food_aux(item);
+	do_cmd_eat_food_aux(cr_ptr, item);
 }
 
 
@@ -6741,7 +6741,7 @@ s = "égÇ¶ÇÈÇ‡ÇÃÇ™Ç†ÇËÇ‹ÇπÇÒÅB";
 		/* Eat some food */
 		case TV_FOOD:
 		{
-			do_cmd_eat_food_aux(item);
+			do_cmd_eat_food_aux(p_ptr, item);
 			break;
 		}
 

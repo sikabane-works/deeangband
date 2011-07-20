@@ -5030,7 +5030,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Eat some food */
 		case 'E':
 		{
-			do_cmd_eat_food();
+			do_cmd_eat_food(p_ptr);
 			break;
 		}
 
