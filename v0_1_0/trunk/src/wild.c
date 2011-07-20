@@ -678,8 +678,8 @@ void wilderness_gen_small()
 	panel_col_min = cur_wid;
 
 	/* Place the player */
-	p_ptr->fx = p_ptr->wilderness_x;
-	p_ptr->fy = p_ptr->wilderness_y;
+	p_ptr->fx = (byte)p_ptr->wilderness_x;
+	p_ptr->fy = (byte)p_ptr->wilderness_y;
 
 	p_ptr->town_num = 0;
 }

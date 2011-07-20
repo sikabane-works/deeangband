@@ -1580,7 +1580,7 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
  * include scrolls with no effects but recharge or identify, which are
  * cancelled before use.  XXX Reading them still takes a turn, though.
  */
-static void do_cmd_read_scroll_aux(int item, bool known)
+static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 {
 	int         k, used_up, ident, lev;
 	object_type *o_ptr;
@@ -1590,7 +1590,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1616,7 +1616,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		return;
 	}
 
-	if (p_ptr->cls_idx == CLASS_BERSERKER)
+	if (cr_ptr->cls_idx == CLASS_BERSERKER)
 	{
 #ifdef JP
 		msg_print("巻物なんて読めない。");
@@ -1626,10 +1626,10 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		return;
 	}
 
-	if (music_singing_any(p_ptr)) stop_singing();
+	if (music_singing_any(cr_ptr)) stop_singing();
 
 	/* Hex */
-	if (hex_spelling_any(p_ptr) && ((p_ptr->lev < 35) || hex_spell_fully(p_ptr))) stop_hex_spell_all(p_ptr);
+	if (hex_spelling_any(cr_ptr) && ((cr_ptr->lev < 35) || hex_spell_fully(cr_ptr))) stop_hex_spell_all(cr_ptr);
 
 	/* Not identified yet */
 	ident = FALSE;
@@ -1647,9 +1647,9 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 	{
 		case SV_SCROLL_DARKNESS:
 		{
-			if (!(p_ptr->resist_blind) && !(p_ptr->resist_dark))
+			if (!(cr_ptr->resist_blind) && !(cr_ptr->resist_dark))
 			{
-				(void)set_blind(p_ptr, p_ptr->blind + 3 + randint1(5));
+				(void)set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5));
 			}
 			if (unlite_area(10, 3)) ident = TRUE;
 			break;
@@ -1677,12 +1677,12 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (have_weapon(p_ptr, INVEN_RARM))
+			if (have_weapon(cr_ptr, INVEN_RARM))
 			{
 				k = INVEN_RARM;
-				if (have_weapon(p_ptr, INVEN_LARM) && one_in_(2)) k = INVEN_LARM;
+				if (have_weapon(cr_ptr, INVEN_LARM) && one_in_(2)) k = INVEN_LARM;
 			}
-			else if (have_weapon(p_ptr, INVEN_LARM)) k = INVEN_LARM;
+			else if (have_weapon(cr_ptr, INVEN_LARM)) k = INVEN_LARM;
 			if (k && curse_weapon(FALSE, k)) ident = TRUE;
 			break;
 		}
@@ -1691,7 +1691,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1703,7 +1703,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1713,7 +1713,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(-1, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1722,7 +1722,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(p_ptr->lev, p_ptr->fy, p_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
+			if (summon_kin_player(cr_ptr->lev, cr_ptr->fy, cr_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}
@@ -1731,7 +1731,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_TRAP_CREATION:
 		{
-			if (trap_creation(p_ptr->fy, p_ptr->fx)) ident = TRUE;
+			if (trap_creation(cr_ptr->fy, cr_ptr->fx)) ident = TRUE;
 			break;
 		}
 
@@ -1902,31 +1902,31 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_SATISFY_HUNGER:
 		{
-			if (set_food(p_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
+			if (set_food(cr_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_BLESSING:
 		{
-			if (set_blessed(p_ptr, p_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
+			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if (set_blessed(p_ptr, p_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
+			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if (set_blessed(p_ptr, p_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
+			if (set_blessed(cr_ptr, cr_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_MONSTER_CONFUSION:
 		{
-			if (!(p_ptr->special_attack & ATTACK_CONFUSE))
+			if (!(cr_ptr->special_attack & ATTACK_CONFUSE))
 			{
 #ifdef JP
 				msg_print("手が輝き始めた。");
@@ -1934,8 +1934,8 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 				msg_print("Your hands begin to glow.");
 #endif
 
-				p_ptr->special_attack |= ATTACK_CONFUSE;
-				p_ptr->redraw |= (PR_STATUS);
+				cr_ptr->special_attack |= ATTACK_CONFUSE;
+				cr_ptr->redraw |= (PR_STATUS);
 				ident = TRUE;
 			}
 			break;
@@ -1943,8 +1943,8 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
 		{
-			k = 3 * p_ptr->lev;
-			if (set_protevil(p_ptr, p_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
+			k = 3 * cr_ptr->lev;
+			if (set_protevil(cr_ptr, cr_ptr->protevil + randint1(25) + k, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -1963,7 +1963,7 @@ static void do_cmd_read_scroll_aux(int item, bool known)
 
 		case SV_SCROLL_STAR_DESTRUCTION:
 		{
-			if (destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -1984,9 +1984,9 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((p_ptr->cls_idx == CLASS_WARRIOR) || (p_ptr->cls_idx == CLASS_IMITATOR) || (p_ptr->cls_idx == CLASS_MINDCRAFTER) || (p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_ARCHER) || (p_ptr->cls_idx == CLASS_MAGIC_EATER) || (p_ptr->cls_idx == CLASS_RED_MAGE) || (p_ptr->cls_idx == CLASS_SAMURAI) || (p_ptr->cls_idx == CLASS_BLUE_MAGE) || (p_ptr->cls_idx == CLASS_CAVALRY) || (p_ptr->cls_idx == CLASS_BERSERKER) || (p_ptr->cls_idx == CLASS_SMITH) || (p_ptr->cls_idx == CLASS_MIRROR_MASTER) || (p_ptr->cls_idx == CLASS_NINJA)) break;
-			p_ptr->add_spells++;
-			p_ptr->update |= (PU_SPELLS);
+			if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_IMITATOR) || (cr_ptr->cls_idx == CLASS_MINDCRAFTER) || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_ARCHER) || (cr_ptr->cls_idx == CLASS_MAGIC_EATER) || (cr_ptr->cls_idx == CLASS_RED_MAGE) || (cr_ptr->cls_idx == CLASS_SAMURAI) || (cr_ptr->cls_idx == CLASS_BLUE_MAGE) || (cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BERSERKER) || (cr_ptr->cls_idx == CLASS_SMITH) || (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) || (cr_ptr->cls_idx == CLASS_NINJA)) break;
+			cr_ptr->add_spells++;
+			cr_ptr->update |= (PU_SPELLS);
 			ident = TRUE;
 			break;
 		}
@@ -2007,14 +2007,14 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_ACQUIREMENT:
 		{
-			acquirement(p_ptr->fy, p_ptr->fx, 1, TRUE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ACQUIREMENT:
 		{
-			acquirement(p_ptr->fy, p_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
 		}
@@ -2024,11 +2024,11 @@ msg_print("ダンジョンが揺れた...");
 		{
 			fire_ball(GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if (!(IS_OPPOSE_FIRE(p_ptr) || p_ptr->resist_fire || p_ptr->immune_fire))
+			if (!(IS_OPPOSE_FIRE(cr_ptr) || cr_ptr->resist_fire || cr_ptr->immune_fire))
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2039,11 +2039,11 @@ msg_print("ダンジョンが揺れた...");
 		case SV_SCROLL_ICE:
 		{
 			fire_ball(GF_ICE, 0, 777, 4);
-			if (!(IS_OPPOSE_COLD(p_ptr) || p_ptr->resist_cold || p_ptr->immune_cold))
+			if (!(IS_OPPOSE_COLD(cr_ptr) || cr_ptr->resist_cold || cr_ptr->immune_cold))
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2053,11 +2053,11 @@ msg_print("ダンジョンが揺れた...");
 		case SV_SCROLL_CHAOS:
 		{
 			fire_ball(GF_CHAOS, 0, 1000, 4);
-			if (!p_ptr->resist_chaos)
+			if (!cr_ptr->resist_chaos)
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2208,13 +2208,13 @@ msg_print("巻物は煙を立てて消え去った！");
 
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(p_ptr, V_PATIENCE, -1);
-		chg_virtue(p_ptr, V_CHANCE, 1);
-		chg_virtue(p_ptr, V_KNOWLEDGE, -1);
+		chg_virtue(cr_ptr, V_PATIENCE, -1);
+		chg_virtue(cr_ptr, V_CHANCE, 1);
+		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* The item was tried */
@@ -2224,11 +2224,11 @@ msg_print("巻物は煙を立てて消え去った！");
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
 	}
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Hack -- allow certain scrolls to be "preserved" */
@@ -2269,19 +2269,19 @@ static bool item_tester_hook_readable(object_type *o_ptr)
 }
 
 
-void do_cmd_read_scroll(void)
+void do_cmd_read_scroll(creature_type *cr_ptr)
 {
 	object_type *o_ptr;
 	int  item;
 	cptr q, s;
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	/* Check some conditions */
-	if (p_ptr->blind)
+	if (cr_ptr->blind)
 	{
 #ifdef JP
 		msg_print("目が見えない。");
@@ -2301,7 +2301,7 @@ void do_cmd_read_scroll(void)
 
 		return;
 	}
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて読めない。");
@@ -2330,7 +2330,7 @@ void do_cmd_read_scroll(void)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2340,7 +2340,7 @@ void do_cmd_read_scroll(void)
 	}
 
 	/* Read the scroll */
-	do_cmd_read_scroll_aux(item, object_is_aware(o_ptr));
+	do_cmd_read_scroll_aux(cr_ptr, item, object_is_aware(o_ptr));
 }
 
 
@@ -6808,7 +6808,7 @@ msg_print("混乱していて読めない！");
 				return;
 			}
 
-		  do_cmd_read_scroll_aux(item, TRUE);
+		  do_cmd_read_scroll_aux(p_ptr, item, TRUE);
 		  break;
 		}
 
