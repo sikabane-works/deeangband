@@ -825,7 +825,7 @@ extern void do_cmd_zap_rod(creature_type *cr_ptr);
 extern void do_cmd_activate(creature_type *cr_ptr);
 extern void do_cmd_rerate_aux(creature_type *cr_ptr);
 extern void do_cmd_rerate(creature_type *cr_ptr, bool display);
-extern void ring_of_power(int dir);
+extern void ring_of_power(creature_type *cr_ptr, int dir);
 extern void do_cmd_use(void);
 extern void do_cmd_magic_eater(bool only_browse);
 

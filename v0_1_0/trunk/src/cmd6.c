@@ -3876,7 +3876,7 @@ static bool item_tester_hook_activate(object_type *o_ptr)
 /*
  * Hack -- activate the ring of power
  */
-void ring_of_power(int dir)
+void ring_of_power(creature_type *cr_ptr, int dir)
 {
 	/* Pick a random effect */
 	switch (randint1(10))
@@ -3894,17 +3894,17 @@ void ring_of_power(int dir)
 			sound(SOUND_EVIL);
 
 			/* Decrease all stats (permanently) */
-			(void)dec_stat(p_ptr, A_STR, 50, TRUE);
-			(void)dec_stat(p_ptr, A_INT, 50, TRUE);
-			(void)dec_stat(p_ptr, A_WIS, 50, TRUE);
-			(void)dec_stat(p_ptr, A_DEX, 50, TRUE);
-			(void)dec_stat(p_ptr, A_CON, 50, TRUE);
-			(void)dec_stat(p_ptr, A_CHR, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_STR, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_INT, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_WIS, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_DEX, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_CON, 50, TRUE);
+			(void)dec_stat(cr_ptr, A_CHR, 50, TRUE);
 
 			/* Lose some experience (permanently) */
-			p_ptr->exp -= (p_ptr->exp / 4);
-			p_ptr->max_exp -= (p_ptr->exp / 4);
-			check_experience(p_ptr);
+			cr_ptr->exp -= (cr_ptr->exp / 4);
+			cr_ptr->max_exp -= (cr_ptr->exp / 4);
+			check_experience(cr_ptr);
 
 			break;
 		}
@@ -4393,7 +4393,7 @@ msg_print("‚ ‚È‚½‚Íƒtƒ‰ƒLƒA‚É“G‚ğ’÷‚ßE‚·‚æ‚¤–½‚¶‚½B");
 #endif
 
 				if (!get_aim_dir(&dir)) return;
-				ring_of_power(dir);
+				ring_of_power(cr_ptr, dir);
 				o_ptr->timeout = randint0(450) + 450;
 				break;
 			}
