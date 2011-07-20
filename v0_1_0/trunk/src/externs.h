@@ -819,7 +819,7 @@ extern void do_cmd_pet(void);
 extern void do_cmd_eat_food(creature_type *cr_ptr);
 extern void do_cmd_quaff_potion(creature_type *cr_ptr);
 extern void do_cmd_read_scroll(creature_type *cr_ptr);
-extern void do_cmd_aim_wand(void);
+extern void do_cmd_aim_wand(creature_type *cr_ptr);
 extern void do_cmd_use_staff(void);
 extern void do_cmd_zap_rod(void);
 extern void do_cmd_activate(void);
