@@ -2774,7 +2774,7 @@ static void get_extra(bool roll_hitdice)
 	set_hitdice(p_ptr);
 
 	/* Roll for hit point unless quick-start */
-	if (roll_hitdice) do_cmd_rerate_aux();
+	if (roll_hitdice) do_cmd_rerate_aux(p_ptr);
 
 	/* Initial hitpoints */
 	p_ptr->mhp = p_ptr->player_hp[0];

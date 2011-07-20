@@ -16,13 +16,13 @@
 /*
  * Roll the hitdice -- aux of do_cmd_rerate()
  */
-void do_cmd_rerate_aux(void)
+void do_cmd_rerate_aux(creature_type *cr_ptr)
 {
 	/* Minimum hitpoints at highest level */
-	int min_value = p_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (p_ptr->hitdice + 1)) * 3 / 8;
+	int min_value = cr_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (cr_ptr->hitdice + 1)) * 3 / 8;
 
 	/* Maximum hitpoints at highest level */
-	int max_value = p_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (p_ptr->hitdice + 1)) * 5 / 8;
+	int max_value = cr_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (cr_ptr->hitdice + 1)) * 5 / 8;
 
 	int i;
 
@@ -30,22 +30,22 @@ void do_cmd_rerate_aux(void)
 	while (1)
 	{
 		/* Pre-calculate level 1 hitdice */
-		p_ptr->player_hp[0] = p_ptr->hitdice;
+		cr_ptr->player_hp[0] = cr_ptr->hitdice;
 
 		for (i = 1; i < 4; i++)
 		{
-			p_ptr->player_hp[0] += (s16b)randint1(p_ptr->hitdice);
+			cr_ptr->player_hp[0] += (s16b)randint1(cr_ptr->hitdice);
 		}
 
 		/* Roll the hitpoint values */
 		for (i = 1; i < PY_MAX_LEVEL; i++)
 		{
-			p_ptr->player_hp[i] = p_ptr->player_hp[i - 1] + (s16b)randint1(p_ptr->hitdice);
+			cr_ptr->player_hp[i] = cr_ptr->player_hp[i - 1] + (s16b)randint1(cr_ptr->hitdice);
 		}
 
 		/* Require "valid" hitpoints at highest level */
-		if ((p_ptr->player_hp[PY_MAX_LEVEL - 1] >= min_value) &&
-		    (p_ptr->player_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
+		if ((cr_ptr->player_hp[PY_MAX_LEVEL - 1] >= min_value) &&
+		    (cr_ptr->player_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
 	}
 }
 
@@ -53,24 +53,24 @@ void do_cmd_rerate_aux(void)
 /*
  * Hack -- Rerate Hitpoints
  */
-void do_cmd_rerate(bool display)
+void do_cmd_rerate(creature_type *cr_ptr, bool display)
 {
 	int percent;
 
 	/* Rerate */
-	do_cmd_rerate_aux();
+	do_cmd_rerate_aux(cr_ptr);
 
-	percent = (int)(((long)p_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
-		(2 * p_ptr->hitdice +
-		((PY_MAX_LEVEL - 1+3) * (p_ptr->hitdice + 1))));
+	percent = (int)(((long)cr_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
+		(2 * cr_ptr->hitdice +
+		((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 
 
 	/* Update and redraw hitpoints */
-	p_ptr->update |= (PU_HP);
-	p_ptr->redraw |= (PR_HP);
+	cr_ptr->update |= (PU_HP);
+	cr_ptr->redraw |= (PR_HP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
+	cr_ptr->window |= (PW_PLAYER);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -83,7 +83,7 @@ void do_cmd_rerate(bool display)
 #else
 		msg_format("Your life rate is %d/100 now.", percent);
 #endif
-		p_ptr->knowledge |= KNOW_HPRATE;
+		cr_ptr->knowledge |= KNOW_HPRATE;
 	}
 	else
 	{
@@ -92,7 +92,7 @@ void do_cmd_rerate(bool display)
 #else
 		msg_print("Life rate is changed.");
 #endif
-		p_ptr->knowledge &= ~(KNOW_HPRATE);
+		cr_ptr->knowledge &= ~(KNOW_HPRATE);
 	}
 }
 
@@ -1990,7 +1990,7 @@ void do_cmd_debug(void)
 
 	/* Hitpoint rerating */
 	case 'h':
-		do_cmd_rerate(TRUE);
+		do_cmd_rerate(p_ptr, TRUE);
 		break;
 
 #ifdef MONSTER_HORDES

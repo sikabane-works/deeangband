@@ -5185,7 +5185,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	else
 		cr_ptr->hitdice = race_info[cr_ptr->irace_idx].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 
-	do_cmd_rerate(FALSE);
+	do_cmd_rerate(cr_ptr, FALSE);
 
 	/* The experience level may be modified */
 	check_experience(cr_ptr);
@@ -5368,7 +5368,7 @@ msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", cr_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : 
 		power -= 10;
 
 		get_max_stats();
-		do_cmd_rerate(FALSE);
+		do_cmd_rerate(cr_ptr, FALSE);
 	}
 
 	while ((power > randint0(15)) && one_in_(3))

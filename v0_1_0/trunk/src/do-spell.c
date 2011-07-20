@@ -853,7 +853,7 @@ static void cast_shuffle(void)
 		msg_print("It's the Judgement.");
 #endif
 
-		do_cmd_rerate(FALSE);
+		do_cmd_rerate(p_ptr, FALSE);
 		if (p_ptr->muta1 || p_ptr->muta2 || p_ptr->muta3)
 		{
 #ifdef JP
