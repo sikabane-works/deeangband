@@ -5012,7 +5012,7 @@ msg_print("ウィザードモード突入。");
 			if (!p_ptr->wild_mode)
 			{
 			if (!p_ptr->inside_arena)
-				do_cmd_activate();
+				do_cmd_activate(p_ptr);
 			else
 			{
 #ifdef JP

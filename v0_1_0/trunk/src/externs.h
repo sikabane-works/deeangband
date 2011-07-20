@@ -822,7 +822,7 @@ extern void do_cmd_read_scroll(creature_type *cr_ptr);
 extern void do_cmd_aim_wand(creature_type *cr_ptr);
 extern void do_cmd_use_staff(creature_type *cr_ptr);
 extern void do_cmd_zap_rod(creature_type *cr_ptr);
-extern void do_cmd_activate(void);
+extern void do_cmd_activate(creature_type *cr_ptr);
 extern void do_cmd_rerate_aux(void);
 extern void do_cmd_rerate(bool display);
 extern void ring_of_power(int dir);
