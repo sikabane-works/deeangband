@@ -2072,7 +2072,7 @@ int lore_do_probe(int monster_idx)
 	if (p_ptr->monster_race_idx == monster_idx)
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_MONSTER);
+		play_window |= (PW_MONSTER);
 	}
 
 	/* Return the number of new flags learnt */
@@ -2112,7 +2112,7 @@ void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 	if (p_ptr->monster_race_idx == cr_ptr->monster_idx)
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_MONSTER);
+		play_window |= (PW_MONSTER);
 	}
 }
 
@@ -2772,8 +2772,8 @@ void update_mon(int m_idx, bool full)
 			lite_spot(fy, fx);
 
 			/* Update health bar as needed */
-			if (p_ptr->health_who == m_idx) p_ptr->redraw |= (PR_HEALTH);
-			if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
+			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
 			if (!p_ptr->image)
@@ -2812,8 +2812,8 @@ void update_mon(int m_idx, bool full)
 			lite_spot(fy, fx);
 
 			/* Update health bar as needed */
-			if (p_ptr->health_who == m_idx) p_ptr->redraw |= (PR_HEALTH);
-			if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
+			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Disturb on disappearance */
 			if (do_disturb)

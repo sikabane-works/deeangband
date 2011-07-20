@@ -45,7 +45,7 @@ void check_experience(creature_type *cr_ptr)
 	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
 
 	/* Redraw experience */
-	cr_ptr->redraw |= (PR_EXP);
+	play_redraw |= (PR_EXP);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -62,10 +62,10 @@ void check_experience(creature_type *cr_ptr)
 		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		cr_ptr->redraw |= (PR_LEV | PR_TITLE);
+		play_redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 
 		/* Handle stuff */
 		handle_stuff();
@@ -112,10 +112,10 @@ msg_format("ƒŒƒxƒ‹ %d ‚É‚æ‚¤‚±‚»B", cr_ptr->lev);
 		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		cr_ptr->redraw |= (PR_LEV | PR_TITLE | PR_EXP);
+		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
+		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		/* HP‚ÆMP‚Ìã¸—Ê‚ð•\Ž¦ */
 		level_up = 1;
@@ -213,10 +213,10 @@ msg_print("‚ ‚È‚½‚Í•Ï‚í‚Á‚½‹C‚ª‚·‚é...");
 		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Redraw some stuff */
-		cr_ptr->redraw |= (PR_LEV | PR_TITLE);
+		play_redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER | PW_SPELL);
+		play_window |= (PW_PLAYER | PW_SPELL);
 
 		/* Handle stuff */
 		handle_stuff();
@@ -1518,8 +1518,8 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 	}
 
 	/* Redraw (later) if needed */
-	if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
-	if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
+	if (&m_list[atk_ptr->health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
+	if (&m_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 
 	/* Wake it up */
 	(void)set_paralyzed(tar_ptr, 0);
@@ -2058,7 +2058,7 @@ void resize_map(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw everything */
-	p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Hack -- update */
 	handle_stuff();
@@ -2085,10 +2085,10 @@ void redraw_window(void)
 	if (!character_dungeon) return;
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
 	handle_stuff();
@@ -2139,7 +2139,7 @@ bool change_panel(int dy, int dx)
 		p_ptr->update |= (PU_MONSTERS);
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP);
+		play_redraw |= (PR_MAP);
 
 		/* Handle stuff */
 		handle_stuff();
@@ -2258,10 +2258,10 @@ void verify_panel(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
 
@@ -3864,10 +3864,10 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 					p_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
-					p_ptr->redraw |= (PR_MAP);
+					play_redraw |= (PR_MAP);
 
 					/* Window stuff */
-					p_ptr->window |= (PW_OVERHEAD);
+					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
 					handle_stuff();
@@ -3947,10 +3947,10 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						p_ptr->update |= (PU_MONSTERS);
 
 						/* Redraw map */
-						p_ptr->redraw |= (PR_MAP);
+						play_redraw |= (PR_MAP);
 
 						/* Window stuff */
-						p_ptr->window |= (PW_OVERHEAD);
+						play_window |= (PW_OVERHEAD);
 
 						/* Handle stuff */
 						handle_stuff();
@@ -4064,10 +4064,10 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 					p_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
-					p_ptr->redraw |= (PR_MAP);
+					play_redraw |= (PR_MAP);
 
 					/* Window stuff */
-					p_ptr->window |= (PW_OVERHEAD);
+					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
 					handle_stuff();
@@ -4191,10 +4191,10 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD);
+	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -5759,10 +5759,10 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 					p_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
-					p_ptr->redraw |= (PR_MAP);
+					play_redraw |= (PR_MAP);
 
 					/* Window stuff */
-					p_ptr->window |= (PW_OVERHEAD);
+					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
 					handle_stuff();
@@ -5850,10 +5850,10 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD);
+	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
 	handle_stuff();

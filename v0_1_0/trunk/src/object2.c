@@ -334,10 +334,10 @@ void compact_objects(int size)
 
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP);
+		play_redraw |= (PR_MAP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}
 
 
@@ -1532,7 +1532,7 @@ bool can_player_destroy_object(object_type *o_ptr)
 		p_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Done */
 		return FALSE;
@@ -5562,7 +5562,7 @@ void inven_item_increase(int item, int num)
 		p_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
 		if (!o_ptr->number && p_ptr->ele_attack)
@@ -5612,7 +5612,7 @@ void inven_item_optimize(int item)
 		object_wipe(&p_ptr->inventory[i]);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN);
+		play_window |= (PW_INVEN);
 	}
 
 	/* The item is being wielded */
@@ -5634,11 +5634,11 @@ void inven_item_optimize(int item)
 		p_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_EQUIP);
 	}
 
 	/* Window stuff */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 }
 
 
@@ -5909,7 +5909,7 @@ s16b inven_carry(object_type *o_ptr)
 			p_ptr->update |= (PU_BONUS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_INVEN);
+			play_window |= (PW_INVEN);
 
 			/* Success */
 			return (j);
@@ -5991,7 +5991,7 @@ s16b inven_carry(object_type *o_ptr)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 
 	/* Return the slot */
 	return (i);
@@ -6270,7 +6270,7 @@ void combine_pack(void)
 					}
 
 					/* Window stuff */
-					p_ptr->window |= (PW_INVEN);
+					play_window |= (PW_INVEN);
 
 					/* Take note */
 					combined = TRUE;
@@ -6351,7 +6351,7 @@ void reorder_pack(void)
 		object_copy(&p_ptr->inventory[j], q_ptr);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN);
+		play_window |= (PW_INVEN);
 	}
 
 	/* Message */
@@ -7664,7 +7664,7 @@ static void drain_essence(void)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 }
 
 
@@ -8390,7 +8390,7 @@ static void add_essence(int mode)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 }
 
 
@@ -8457,7 +8457,7 @@ static void erase_essence(void)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 }
 
 void do_cmd_kaji(bool only_browse)

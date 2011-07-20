@@ -2464,10 +2464,10 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		cr_ptr->old_spells = cr_ptr->new_spells;
 
 		/* Redraw Study Status */
-		cr_ptr->redraw |= (PR_STUDY);
+		play_redraw |= (PR_STUDY);
 
 		/* Redraw object recall */
-		cr_ptr->window |= (PW_OBJECT);
+		play_window |= (PW_OBJECT);
 	}
 }
 
@@ -2502,7 +2502,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 			cr_ptr->msp = 0;
 
 			/* Display mana later */
-			cr_ptr->redraw |= (PR_MANA);
+			play_redraw |= (PR_MANA);
 			return;
 		}
 
@@ -2739,11 +2739,11 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 		cr_ptr->msp = msp;
 
 		/* Display mana later */
-		cr_ptr->redraw |= (PR_MANA);
+		play_redraw |= (PR_MANA);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER);
-		cr_ptr->window |= (PW_SPELL);
+		play_window |= (PW_PLAYER);
+		play_window |= (PW_SPELL);
 	}
 
 
@@ -2890,10 +2890,10 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 		cr_ptr->mmhp = mhp;
 
 		/* Display hitpoints (later) */
-		cr_ptr->redraw |= (PR_HP);
+		play_redraw |= (PR_HP);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 	}
 }
 
@@ -3495,7 +3495,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->dis_to_a += 10+cr_ptr->lev/2;
 			cr_ptr->skill_dig += (100+cr_ptr->lev*8);
 			if (cr_ptr->lev > 39) cr_ptr->reflect = TRUE;
-			cr_ptr->redraw |= PR_STATUS;
+			play_redraw |= PR_STATUS;
 			break;
 		case CLASS_MIRROR_MASTER:
 			if (cr_ptr->lev > 39) cr_ptr->reflect = TRUE;
@@ -3535,7 +3535,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (cr_ptr->lev > 44)
 			{
 				cr_ptr->oppose_pois = 1;
-				cr_ptr->redraw |= PR_STATUS;
+				play_redraw |= PR_STATUS;
 			}
 			cr_ptr->see_nocto = TRUE;
 			break;
@@ -3554,7 +3554,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->oppose_fire = 1;
 			cr_ptr->see_inv=TRUE;
 			new_speed += 3;
-			cr_ptr->redraw |= PR_STATUS;
+			play_redraw |= PR_STATUS;
 			cr_ptr->to_a += 10;
 			cr_ptr->dis_to_a += 10;
 			break;
@@ -3638,7 +3638,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (cr_ptr->lev > 44)
 			{
 				cr_ptr->oppose_fire = 1;
-				cr_ptr->redraw |= PR_STATUS;
+				play_redraw |= PR_STATUS;
 			}
 			break;
 		case RACE_LICH:
@@ -4368,7 +4368,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (old_mighty_throw != cr_ptr->mighty_throw)
 	{
 		/* Redraw average damege display of Shuriken */
-		cr_ptr->window |= PW_INVEN;
+		play_window |= PW_INVEN;
 	}
 
 	if (cr_ptr->cursed & TRC_TELEPORT) cr_ptr->cursed &= ~(TRC_TELEPORT_SELF);
@@ -4508,10 +4508,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_top[i] = top;
 
 			/* Redisplay the stats later */
-			cr_ptr->redraw |= (PR_STATS);
+			play_redraw |= (PR_STATS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER);
 		}
 
 
@@ -4534,10 +4534,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_use[i] = use;
 
 			/* Redisplay the stats later */
-			cr_ptr->redraw |= (PR_STATS);
+			play_redraw |= (PR_STATS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER);
 		}
 
 
@@ -4590,7 +4590,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			}
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER);
 		}
 	}
 
@@ -5506,7 +5506,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->speed != (byte)new_speed)
 	{
 		cr_ptr->speed = (byte)new_speed;
-		cr_ptr->redraw |= (PR_SPEED);
+		play_redraw |= (PR_SPEED);
 	}
 
 	if (yoiyami)
@@ -5521,10 +5521,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if ((cr_ptr->dis_ac != old_dis_ac) || (cr_ptr->dis_to_a != old_dis_to_a))
 	{
 		/* Redraw */
-		cr_ptr->redraw |= (PR_ARMOR);
+		play_redraw |= (PR_ARMOR);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 	}
 
 
@@ -6108,12 +6108,12 @@ void update_stuff(creature_type *cr_ptr, bool message)
 
 
 /*
- * Handle "p_ptr->redraw"
+ * Handle "play_redraw"
  */
 void redraw_stuff(void)
 {
 	/* Redraw stuff */
-	if (!p_ptr->redraw) return;
+	if (!play_redraw) return;
 
 
 	/* Character is not ready yet, no screen updates */
@@ -6126,68 +6126,68 @@ void redraw_stuff(void)
 
 
 	/* Hack -- clear the screen */
-	if (p_ptr->redraw & (PR_WIPE))
+	if (play_redraw & (PR_WIPE))
 	{
-		p_ptr->redraw &= ~(PR_WIPE);
+		play_redraw &= ~(PR_WIPE);
 		msg_print(NULL);
 		Term_clear();
 	}
 
 
-	if (p_ptr->redraw & (PR_MAP))
+	if (play_redraw & (PR_MAP))
 	{
-		p_ptr->redraw &= ~(PR_MAP);
+		play_redraw &= ~(PR_MAP);
 		prt_map();
 	}
 
 
-	if (p_ptr->redraw & (PR_BASIC))
+	if (play_redraw & (PR_BASIC))
 	{
-		p_ptr->redraw &= ~(PR_BASIC);
-		p_ptr->redraw &= ~(PR_MISC | PR_TITLE | PR_STATS);
-		p_ptr->redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
-		p_ptr->redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
-		p_ptr->redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
+		play_redraw &= ~(PR_BASIC);
+		play_redraw &= ~(PR_MISC | PR_TITLE | PR_STATS);
+		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
+		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
+		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
 		prt_frame_basic();
 		prt_time();
 		prt_dungeon();
 	}
 
-	if (p_ptr->redraw & (PR_EQUIPPY))
+	if (play_redraw & (PR_EQUIPPY))
 	{
-		p_ptr->redraw &= ~(PR_EQUIPPY);
+		play_redraw &= ~(PR_EQUIPPY);
 		print_equippy(p_ptr); /* To draw / delete equippy chars */
 	}
 
-	if (p_ptr->redraw & (PR_MISC))
+	if (play_redraw & (PR_MISC))
 	{
-		p_ptr->redraw &= ~(PR_MISC);
+		play_redraw &= ~(PR_MISC);
 		prt_field(race_info[p_ptr->irace_idx].title, ROW_RACE, COL_RACE);
 /*		prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 
 	}
 
-	if (p_ptr->redraw & (PR_TITLE))
+	if (play_redraw & (PR_TITLE))
 	{
-		p_ptr->redraw &= ~(PR_TITLE);
+		play_redraw &= ~(PR_TITLE);
 		prt_title();
 	}
 
-	if (p_ptr->redraw & (PR_LEV))
+	if (play_redraw & (PR_LEV))
 	{
-		p_ptr->redraw &= ~(PR_LEV);
+		play_redraw &= ~(PR_LEV);
 		prt_level();
 	}
 
-	if (p_ptr->redraw & (PR_EXP))
+	if (play_redraw & (PR_EXP))
 	{
-		p_ptr->redraw &= ~(PR_EXP);
+		play_redraw &= ~(PR_EXP);
 		prt_exp(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_STATS))
+	if (play_redraw & (PR_STATS))
 	{
-		p_ptr->redraw &= ~(PR_STATS);
+		play_redraw &= ~(PR_STATS);
 		prt_stat(A_STR);
 		prt_stat(A_INT);
 		prt_stat(A_WIS);
@@ -6196,112 +6196,112 @@ void redraw_stuff(void)
 		prt_stat(A_CHR);
 	}
 
-	if (p_ptr->redraw & (PR_STATUS))
+	if (play_redraw & (PR_STATUS))
 	{
-		p_ptr->redraw &= ~(PR_STATUS);
+		play_redraw &= ~(PR_STATUS);
 		prt_status(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_ARMOR))
+	if (play_redraw & (PR_ARMOR))
 	{
-		p_ptr->redraw &= ~(PR_ARMOR);
+		play_redraw &= ~(PR_ARMOR);
 		prt_ac();
 	}
 
-	if (p_ptr->redraw & (PR_HP))
+	if (play_redraw & (PR_HP))
 	{
-		p_ptr->redraw &= ~(PR_HP);
+		play_redraw &= ~(PR_HP);
 		prt_hp();
 	}
 
-	if (p_ptr->redraw & (PR_MANA))
+	if (play_redraw & (PR_MANA))
 	{
-		p_ptr->redraw &= ~(PR_MANA);
+		play_redraw &= ~(PR_MANA);
 		prt_sp();
 	}
 
-	if (p_ptr->redraw & (PR_GOLD))
+	if (play_redraw & (PR_GOLD))
 	{
-		p_ptr->redraw &= ~(PR_GOLD);
+		play_redraw &= ~(PR_GOLD);
 		prt_gold();
 	}
 
-	if (p_ptr->redraw & (PR_DEPTH))
+	if (play_redraw & (PR_DEPTH))
 	{
-		p_ptr->redraw &= ~(PR_DEPTH);
+		play_redraw &= ~(PR_DEPTH);
 		prt_depth();
 	}
 
-	if (p_ptr->redraw & (PR_HEALTH))
+	if (play_redraw & (PR_HEALTH))
 	{
-		p_ptr->redraw &= ~(PR_HEALTH);
+		play_redraw &= ~(PR_HEALTH);
 		health_redraw(FALSE);
 	}
 
-	if (p_ptr->redraw & (PR_UHEALTH))
+	if (play_redraw & (PR_UHEALTH))
 	{
-		p_ptr->redraw &= ~(PR_UHEALTH);
+		play_redraw &= ~(PR_UHEALTH);
 		health_redraw(TRUE);
 	}
 
 
-	if (p_ptr->redraw & (PR_EXTRA))
+	if (play_redraw & (PR_EXTRA))
 	{
-		p_ptr->redraw &= ~(PR_EXTRA);
-		p_ptr->redraw &= ~(PR_CUT | PR_STUN);
-		p_ptr->redraw &= ~(PR_HUNGER);
-		p_ptr->redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
+		play_redraw &= ~(PR_EXTRA);
+		play_redraw &= ~(PR_CUT | PR_STUN);
+		play_redraw &= ~(PR_HUNGER);
+		play_redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
 		prt_frame_extra(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_CUT))
+	if (play_redraw & (PR_CUT))
 	{
-		p_ptr->redraw &= ~(PR_CUT);
+		play_redraw &= ~(PR_CUT);
 		prt_cut(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_STUN))
+	if (play_redraw & (PR_STUN))
 	{
-		p_ptr->redraw &= ~(PR_STUN);
+		play_redraw &= ~(PR_STUN);
 		prt_stun(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_HUNGER))
+	if (play_redraw & (PR_HUNGER))
 	{
-		p_ptr->redraw &= ~(PR_HUNGER);
+		play_redraw &= ~(PR_HUNGER);
 		prt_hunger(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_STATE))
+	if (play_redraw & (PR_STATE))
 	{
-		p_ptr->redraw &= ~(PR_STATE);
+		play_redraw &= ~(PR_STATE);
 		prt_state(p_ptr);
 	}
 
-	if (p_ptr->redraw & (PR_SPEED))
+	if (play_redraw & (PR_SPEED))
 	{
-		p_ptr->redraw &= ~(PR_SPEED);
+		play_redraw &= ~(PR_SPEED);
 		prt_speed(p_ptr);
 	}
 
 	if (p_ptr->cls_idx == CLASS_IMITATOR)
 	{
-		if (p_ptr->redraw & (PR_IMITATION))
+		if (play_redraw & (PR_IMITATION))
 		{
-			p_ptr->redraw &= ~(PR_IMITATION);
+			play_redraw &= ~(PR_IMITATION);
 			prt_imitation(p_ptr);
 		}
 	}
-	else if (p_ptr->redraw & (PR_STUDY))
+	else if (play_redraw & (PR_STUDY))
 	{
-		p_ptr->redraw &= ~(PR_STUDY);
+		play_redraw &= ~(PR_STUDY);
 		prt_study(p_ptr);
 	}
 }
 
 
 /*
- * Handle "p_ptr->window"
+ * Handle "play_window"
  */
 void window_stuff(void)
 {
@@ -6311,7 +6311,7 @@ void window_stuff(void)
 
 
 	/* Nothing to do */
-	if (!p_ptr->window) return;
+	if (!play_window) return;
 
 	/* Scan windows */
 	for (j = 0; j < 8; j++)
@@ -6321,79 +6321,79 @@ void window_stuff(void)
 	}
 
 	/* Apply usable flags */
-	p_ptr->window &= mask;
+	play_window &= mask;
 
 	/* Nothing to do */
-	if (!p_ptr->window) return;
+	if (!play_window) return;
 
 
 	/* Display p_ptr->inventory */
-	if (p_ptr->window & (PW_INVEN))
+	if (play_window & (PW_INVEN))
 	{
-		p_ptr->window &= ~(PW_INVEN);
+		play_window &= ~(PW_INVEN);
 		fix_inven();
 	}
 
 	/* Display equipment */
-	if (p_ptr->window & (PW_EQUIP))
+	if (play_window & (PW_EQUIP))
 	{
-		p_ptr->window &= ~(PW_EQUIP);
+		play_window &= ~(PW_EQUIP);
 		fix_equip();
 	}
 
 	/* Display spell list */
-	if (p_ptr->window & (PW_SPELL))
+	if (play_window & (PW_SPELL))
 	{
-		p_ptr->window &= ~(PW_SPELL);
+		play_window &= ~(PW_SPELL);
 		fix_spell();
 	}
 
 	/* Display player */
-	if (p_ptr->window & (PW_PLAYER))
+	if (play_window & (PW_PLAYER))
 	{
-		p_ptr->window &= ~(PW_PLAYER);
+		play_window &= ~(PW_PLAYER);
 		fix_player();
 	}
 
 	/* Display overhead view */
-	if (p_ptr->window & (PW_MESSAGE))
+	if (play_window & (PW_MESSAGE))
 	{
-		p_ptr->window &= ~(PW_MESSAGE);
+		play_window &= ~(PW_MESSAGE);
 		fix_message();
 	}
 
 	/* Display overhead view */
-	if (p_ptr->window & (PW_OVERHEAD))
+	if (play_window & (PW_OVERHEAD))
 	{
-		p_ptr->window &= ~(PW_OVERHEAD);
+		play_window &= ~(PW_OVERHEAD);
 		fix_overhead();
 	}
 
 	/* Display overhead view */
-	if (p_ptr->window & (PW_DUNGEON))
+	if (play_window & (PW_DUNGEON))
 	{
-		p_ptr->window &= ~(PW_DUNGEON);
+		play_window &= ~(PW_DUNGEON);
 		fix_dungeon();
 	}
 
 	/* Display monster recall */
-	if (p_ptr->window & (PW_MONSTER))
+	if (play_window & (PW_MONSTER))
 	{
-		p_ptr->window &= ~(PW_MONSTER);
+		play_window &= ~(PW_MONSTER);
 		fix_monster();
 	}
 
 	/* Display object recall */
-	if (p_ptr->window & (PW_OBJECT))
+	if (play_window & (PW_OBJECT))
 	{
-		p_ptr->window &= ~(PW_OBJECT);
+		play_window &= ~(PW_OBJECT);
 		fix_object();
 	}
 }
 
 
 /*
- * Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window"
+ * Handle "p_ptr->update" and "play_redraw" and "play_window"
  */
 void handle_stuff(void)
 {
@@ -6401,10 +6401,10 @@ void handle_stuff(void)
 	if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 	/* Redraw stuff */
-	if (p_ptr->redraw) redraw_stuff();
+	if (play_redraw) redraw_stuff();
 
 	/* Window stuff */
-	if (p_ptr->window) window_stuff();
+	if (play_window) window_stuff();
 }
 
 

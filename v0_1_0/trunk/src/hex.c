@@ -32,7 +32,7 @@ bool stop_hex_spell_all(creature_type *cr_ptr)
 
 	/* Redraw status */
 	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-	cr_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
 }
@@ -116,7 +116,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 
 	/* Redraw status */
 	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-	cr_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
 }
@@ -179,7 +179,7 @@ void check_hex(creature_type *cr_ptr)
 	{
 		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), need_mana, need_mana_frac);
 
-		cr_ptr->redraw |= PR_MANA;
+		play_redraw |= PR_MANA;
 		if (res)
 		{
 #ifdef JP
@@ -193,13 +193,13 @@ void check_hex(creature_type *cr_ptr)
 			cr_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Redraw map and status bar */
-			cr_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			/* Update monsters */
 			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 

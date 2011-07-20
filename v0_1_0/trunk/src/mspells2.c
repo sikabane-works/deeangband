@@ -3077,8 +3077,8 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Redraw (later) if needed */
-		if (p_ptr->health_who == m_idx) p_ptr->redraw |= (PR_HEALTH);
-		if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
+		if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+		if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Cancel fear */
 		if (m_ptr->afraid)
@@ -4280,7 +4280,7 @@ bool monst_spell_monst(int m_idx)
 			p_ptr->mane_num++;
 			new_mane = TRUE;
 
-			p_ptr->redraw |= (PR_IMITATION);
+			play_redraw |= (PR_IMITATION);
 		}
 	}
 

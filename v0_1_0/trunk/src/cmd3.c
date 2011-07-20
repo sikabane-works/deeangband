@@ -817,10 +817,10 @@ msg_print("クエストを達成した！");
 	/* Recalculate mana */
 	p_ptr->update |= (PU_MANA);
 
-	p_ptr->redraw |= (PR_EQUIPPY);
+	play_redraw |= (PR_EQUIPPY);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(p_ptr);
 }
@@ -998,7 +998,7 @@ void do_cmd_takeoff(void)
 			p_ptr->update |= (PU_BONUS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_EQUIP);
+			play_window |= (PW_EQUIP);
 
 #ifdef JP
 			msg_print("呪いを打ち破った。");
@@ -1028,7 +1028,7 @@ void do_cmd_takeoff(void)
 
 	calc_android_exp(p_ptr);
 
-	p_ptr->redraw |= (PR_EQUIPPY);
+	play_redraw |= (PR_EQUIPPY);
 }
 
 
@@ -1112,7 +1112,7 @@ void do_cmd_drop(void)
 		calc_android_exp(p_ptr);
 	}
 
-	p_ptr->redraw |= (PR_EQUIPPY);
+	play_redraw |= (PR_EQUIPPY);
 }
 
 
@@ -1210,7 +1210,7 @@ void do_cmd_destroy(void)
 
 		/* HACK : Add the line to message buffer */
 		message_add(out_val);
-		p_ptr->window |= (PW_MESSAGE);
+		play_window |= (PW_MESSAGE);
 		window_stuff();
 
 		/* Get an acceptable answer */
@@ -1518,7 +1518,7 @@ void do_cmd_uninscribe(void)
 	p_ptr->notice |= (PN_COMBINE);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* .や$の関係で, 再計算が必要なはず -- henkma */
 	p_ptr->update |= (PU_BONUS);
@@ -1601,7 +1601,7 @@ void do_cmd_inscribe(void)
 		p_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* .や$の関係で, 再計算が必要なはず -- henkma */
 		p_ptr->update |= (PU_BONUS);
@@ -2137,10 +2137,10 @@ void do_cmd_locate(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
 	handle_stuff();

@@ -311,7 +311,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	if (redraw) screen_load();
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -416,11 +416,11 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 	if (p_ptr->csp < 0) p_ptr->csp = 0;
 
 	/* Redraw mana */
-	p_ptr->redraw |= (PR_MANA);
+	play_redraw |= (PR_MANA);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_PLAYER);
+	play_window |= (PW_SPELL);
 }
 
 

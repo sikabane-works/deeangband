@@ -1960,7 +1960,7 @@ bool create_artifact(object_type *o_ptr, bool a_scroll)
 	o_ptr->art_name = quark_add(new_name);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+	play_window |= (PW_INVEN | PW_EQUIP);
 
 	return TRUE;
 }

@@ -2738,7 +2738,7 @@ void get_max_stats(void)
 	p_ptr->knowledge &= ~(KNOW_STAT);
 
 	/* Redisplay the stats later */
-	p_ptr->redraw |= (PR_STATS);
+	play_redraw |= (PR_STATS);
 }
 
 

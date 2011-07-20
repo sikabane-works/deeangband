@@ -1480,7 +1480,7 @@ static void auto_inscribe_item(object_type *o_ptr, int idx)
 		o_ptr->inscription = quark_add(autopick_list[idx].insc);
 
 	/* Redraw inscription */
-	p_ptr->window |= (PW_EQUIP | PW_INVEN);
+	play_window |= (PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect p_ptr->warning and TRC_TELEPORT_SELF */
 	p_ptr->update |= (PU_BONUS);

@@ -31,7 +31,7 @@ void set_action(creature_type *cr_ptr, int typ)
 #else
 				msg_print("You no longer walk carefully.");
 #endif
-				cr_ptr->redraw |= (PR_SPEED);
+				play_redraw |= (PR_SPEED);
 				break;
 			}
 			case ACTION_REST:
@@ -68,7 +68,7 @@ void set_action(creature_type *cr_ptr, int typ)
 #endif
 				cr_ptr->special_defense &= ~(KATA_MASK);
 				cr_ptr->update |= (PU_MONSTERS);
-				cr_ptr->redraw |= (PR_STATUS);
+				play_redraw |= (PR_STATUS);
 				break;
 			}
 			case ACTION_SING:
@@ -115,7 +115,7 @@ void set_action(creature_type *cr_ptr, int typ)
 #else
 			msg_print("You begin to walk carefully.");
 #endif
-			cr_ptr->redraw |= (PR_SPEED);
+			play_redraw |= (PR_SPEED);
 			break;
 		}
 		case ACTION_LEARN:
@@ -155,7 +155,7 @@ void set_action(creature_type *cr_ptr, int typ)
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the state */
-	cr_ptr->redraw |= (PR_STATE);
+	play_redraw |= (PR_STATE);
 }
 
 /* reset timed flags */
@@ -317,13 +317,13 @@ void dispel_player(creature_type *cr_ptr)
 		cr_ptr->update |= (PU_BONUS | PU_HP);
 
 		/* Redraw map */
-		cr_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		/* Update monsters */
 		cr_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		cr_ptr->energy_need += ENERGY_NEED();
 	}
@@ -393,7 +393,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 		disturb(0, 0);
 
 	/* Redraw title */
-	cr_ptr->redraw |= (PR_BASIC | PR_STATUS);
+	play_redraw |= (PR_BASIC | PR_STATUS);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS | PU_HP);
@@ -478,7 +478,7 @@ msg_print("‚â‚Á‚Æ–Ú‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	cr_ptr->blind = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -490,10 +490,10 @@ msg_print("‚â‚Á‚Æ–Ú‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
 
 	/* Redraw map */
-	cr_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -539,7 +539,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚½I");
 #endif
 				new_mane = FALSE;
 
-				cr_ptr->redraw |= (PR_STATE);
+				play_redraw |= (PR_STATE);
 				cr_ptr->action = ACTION_NONE;
 			}
 			if (cr_ptr->action == ACTION_KAMAE)
@@ -551,7 +551,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚½I");
 #endif
 				cr_ptr->special_defense &= ~(KAMAE_MASK);
 				cr_ptr->update |= (PU_BONUS);
-				cr_ptr->redraw |= (PR_STATE);
+				play_redraw |= (PR_STATE);
 				cr_ptr->action = ACTION_NONE;
 			}
 			else if (cr_ptr->action == ACTION_KATA)
@@ -564,8 +564,8 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚½I");
 				cr_ptr->special_defense &= ~(KATA_MASK);
 				cr_ptr->update |= (PU_BONUS);
 				cr_ptr->update |= (PU_MONSTERS);
-				cr_ptr->redraw |= (PR_STATE);
-				cr_ptr->redraw |= (PR_STATUS);
+				play_redraw |= (PR_STATE);
+				play_redraw |= (PR_STATUS);
 				cr_ptr->action = ACTION_NONE;
 			}
 
@@ -601,7 +601,7 @@ msg_print("‚â‚Á‚Æ¬—‚ª‚¨‚³‚Ü‚Á‚½B");
 	cr_ptr->confused = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -697,7 +697,7 @@ msg_print("‚â‚Á‚Æ“Å‚Ì’É‚Ý‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->poisoned = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -749,8 +749,8 @@ bool set_afraid(creature_type *cr_ptr, int v)
 				cr_ptr->special_defense &= ~(KATA_MASK);
 				cr_ptr->update |= (PU_BONUS);
 				cr_ptr->update |= (PU_MONSTERS);
-				cr_ptr->redraw |= (PR_STATE);
-				cr_ptr->redraw |= (PR_STATUS);
+				play_redraw |= (PR_STATE);
+				play_redraw |= (PR_STATUS);
 				cr_ptr->action = ACTION_NONE;
 			}
 
@@ -783,7 +783,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		cr_ptr->afraid = v;
 
 		/* Redraw status bar */
-		cr_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 
 		/* Nothing to notice */
 		if (!notice) return (FALSE);
@@ -828,8 +828,8 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (cr_ptr->ml)
 		{
 			/* Update health bar as needed */
-			if (&m_list[p_ptr->health_who] == cr_ptr) cr_ptr->redraw |= (PR_HEALTH);
-			if (&m_list[p_ptr->riding] == cr_ptr) cr_ptr->redraw |= (PR_UHEALTH);
+			if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+			if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 		}
 
 		return TRUE;
@@ -896,7 +896,7 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 	cr_ptr->paralyzed = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -905,7 +905,7 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw the state */
-	cr_ptr->redraw |= (PR_STATE);
+	play_redraw |= (PR_STATE);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -946,8 +946,8 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	if (r_info[cr_ptr->monster_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
@@ -1018,7 +1018,7 @@ msg_print("‚â‚Á‚Æ‚Í‚Á‚«‚è‚Æ•¨‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	cr_ptr->image = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1027,16 +1027,16 @@ msg_print("‚â‚Á‚Æ‚Í‚Á‚«‚è‚Æ•¨‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw map */
-	cr_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Update the health bar */
-	cr_ptr->redraw |= (PR_HEALTH | PR_UHEALTH);
+	play_redraw |= (PR_HEALTH | PR_UHEALTH);
 
 	/* Update monsters */
 	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -1376,7 +1376,7 @@ msg_print("”§‚ªŒ³‚É–ß‚Á‚½B");
 	cr_ptr->shield = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1446,7 +1446,7 @@ msg_print("‚à‚¤‰¡‚ÉL‚Ñ‚Ä‚¢‚È‚¢B");
 	cr_ptr->tsubureru = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1516,7 +1516,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	cr_ptr->magicdef = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1586,7 +1586,7 @@ msg_print("‚Œ‰‚È‹C•ª‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->blessed = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1655,7 +1655,7 @@ msg_print("ƒq[ƒ[‚Ì‹C•ª‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->hero = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1728,7 +1728,7 @@ msg_print("–ì”Ø‚È‹CŽ‚¿‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->shero = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1800,7 +1800,7 @@ msg_print("Ž×ˆ«‚È‚é‘¶Ý‚©‚çŽç‚ç‚ê‚Ä‚¢‚éŠ´‚¶‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->protevil = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1850,13 +1850,13 @@ msg_print("•¨Ž¿ŠE‚ð—£‚ê‚Ä—H‹S‚Ì‚æ‚¤‚È‘¶Ý‚É‚È‚Á‚½I");
 			chg_virtue(p_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
-			cr_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
 			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
@@ -1874,13 +1874,13 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 			notice = TRUE;
 
 			/* Redraw map */
-			cr_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
 			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
@@ -1888,7 +1888,7 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 	cr_ptr->wraith_form = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1946,13 +1946,13 @@ msg_print("–³“G‚¾I");
 			chg_virtue(p_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
-			cr_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
 			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 
@@ -1970,13 +1970,13 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 			notice = TRUE;
 
 			/* Redraw map */
-			cr_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 
 			/* Update monsters */
 			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 			cr_ptr->energy_need += ENERGY_NEED();
 		}
@@ -1986,7 +1986,7 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 	cr_ptr->invuln = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2033,8 +2033,8 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	return TRUE;
@@ -2092,7 +2092,7 @@ msg_print("ˆÓŽ¯‚ÍŒ³‚É–ß‚Á‚½B");
 	cr_ptr->tim_esp = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2164,7 +2164,7 @@ msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	cr_ptr->tim_invis = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2236,7 +2236,7 @@ msg_print("–Ú‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->tim_infra = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2308,7 +2308,7 @@ msg_print("‘f‘‚­‰ñ•œ‚·‚éŠ´‚¶‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->tim_regen = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2377,7 +2377,7 @@ msg_print("‘«‰¹‚ª‘å‚«‚­‚È‚Á‚½B");
 	cr_ptr->tim_stealth = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2455,7 +2455,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -2515,7 +2515,7 @@ msg_print("‚à‚¤’ˆ‚É•‚‚©‚×‚È‚­‚È‚Á‚½B");
 	cr_ptr->tim_levitation = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2584,7 +2584,7 @@ msg_print("“¬‹C‚ªÁ‚¦‚½B");
 	cr_ptr->tim_sh_touki = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2650,7 +2650,7 @@ msg_print("‰Š‚ÌƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->tim_sh_fire = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2719,7 +2719,7 @@ msg_print("¹‚È‚éƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->tim_sh_holy = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2789,7 +2789,7 @@ msg_print("’¦”±‚ðŽ·s‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚­‚È‚Á‚½B");
 	cr_ptr->tim_eyeeye = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2859,7 +2859,7 @@ msg_print("You are no longer protected from magic.");
 	cr_ptr->resist_magic = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2928,7 +2928,7 @@ msg_print("‘Ì‚Ì•\–Ê‚ªŠŠ‚©‚Å‚È‚­‚È‚Á‚½B");
 	cr_ptr->tim_reflect = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -2997,7 +2997,7 @@ msg_print("Œ¶‰e‚ªÁ‚¦‚½B");
 	cr_ptr->multishadow = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3066,7 +3066,7 @@ msg_print("‹¾‚ÌƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->dustrobe = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3135,7 +3135,7 @@ msg_print("‘Ì‚ª•¨Ž¿‰»‚µ‚½B");
 	cr_ptr->kabenuke = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3206,7 +3206,7 @@ msg_print("“÷‘Ì‚ª‹}‘¬‚É‚µ‚Ú‚ñ‚Å‚¢‚Á‚½B");
 	cr_ptr->tsuyoshi = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3316,7 +3316,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	cr_ptr->update |= (PU_BONUS);
 
@@ -3415,7 +3415,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 	if (disturb_state) disturb(0, 0);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	cr_ptr->update |= (PU_BONUS);
 
@@ -3479,7 +3479,7 @@ msg_print("Ž_‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3545,7 +3545,7 @@ msg_print("“dŒ‚‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3613,7 +3613,7 @@ msg_print("‰Î‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3679,7 +3679,7 @@ msg_print("—â‹C‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3746,7 +3746,7 @@ msg_print("“Å‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (!notice) return (FALSE);
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
 	if (disturb_state) disturb(0, 0);
@@ -3898,8 +3898,8 @@ msg_print("Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB");
 			cr_ptr->special_defense &= ~(KATA_MASK);
 			cr_ptr->update |= (PU_BONUS);
 			cr_ptr->update |= (PU_MONSTERS);
-			cr_ptr->redraw |= (PR_STATE);
-			cr_ptr->redraw |= (PR_STATUS);
+			play_redraw |= (PR_STATE);
+			play_redraw |= (PR_STATUS);
 			cr_ptr->action = ACTION_NONE;
 		}
 
@@ -3948,7 +3948,7 @@ msg_print("‚â‚Á‚ÆžNžOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the "stun" */
-	cr_ptr->redraw |= (PR_STUN);
+	play_redraw |= (PR_STUN);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -4236,7 +4236,7 @@ msg_format("‚â‚Á‚Æ%sB", cr_ptr->irace_idx == RACE_ANDROID ? "‰ö‰ä‚ª’¼‚Á‚½" : "
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw the "cut" */
-	cr_ptr->redraw |= (PR_CUT);
+	play_redraw |= (PR_CUT);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -4501,7 +4501,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw hunger */
-	cr_ptr->redraw |= (PR_HUNGER);
+	play_redraw |= (PR_HUNGER);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -4692,7 +4692,7 @@ bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent)
 		cr_ptr->stat_max[stat] = max;
 
 		/* Redisplay the stats later */
-		cr_ptr->redraw |= (PR_STATS);
+		play_redraw |= (PR_STATS);
 
 		/* Recalculate bonuses */
 		cr_ptr->update |= (PU_BONUS);
@@ -4718,7 +4718,7 @@ bool res_stat(creature_type *cr_ptr, int stat)
 		cr_ptr->update |= (PU_BONUS);
 
 		/* Redisplay the stats later */
-		cr_ptr->redraw |= (PR_STATS);
+		play_redraw |= (PR_STATS);
 
 		/* Success */
 		return (TRUE);
@@ -4756,10 +4756,10 @@ bool hp_player(creature_type *cr_ptr, int num)
 		}
 
 		/* Redraw */
-		cr_ptr->redraw |= (PR_HP);
+		play_redraw |= (PR_HP);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 
 		/* Heal 0-4 */
 		if (num < 5)
@@ -5091,7 +5091,7 @@ bool lose_all_info(creature_type *cr_ptr)
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Mega-Hack -- Forget the map */
 	wiz_dark();
@@ -5190,7 +5190,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	/* The experience level may be modified */
 	check_experience(cr_ptr);
 
-	cr_ptr->redraw |= (PR_BASIC);
+	play_redraw |= (PR_BASIC);
 
 	cr_ptr->update |= (PU_BONUS);
 
@@ -5446,8 +5446,8 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 
 		/* Redraw (later) if needed */
-		if (&m_list[atk_ptr->health_who] == tar_ptr) atk_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[atk_ptr->riding] == tar_ptr) atk_ptr->redraw |= (PR_UHEALTH);
+		if (&m_list[atk_ptr->health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	/* Genocided by chaos patron */
@@ -5555,10 +5555,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 
 	/* Display the hitpoints */
-	tar_ptr->redraw |= (PR_HP);
+	play_redraw |= (PR_HP);
 
 	/* Window stuff */
-	tar_ptr->window |= (PW_PLAYER);
+	play_window |= (PW_PLAYER);
 
 	handle_stuff();
 
@@ -6432,10 +6432,10 @@ int take_hit_old(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 	}
 
 	/* Display the hitpoints */
-	tar_ptr->redraw |= (PR_HP);
+	play_redraw |= (PR_HP);
 
 	/* Window stuff */
-	tar_ptr->window |= (PW_PLAYER);
+	play_window |= (PW_PLAYER);
 
 	handle_stuff();
 
@@ -6986,7 +6986,7 @@ msg_print("‚ ‚ç‚ä‚é‚±‚Æ‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->ult_res = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -7051,7 +7051,7 @@ msg_print("’n–‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->tim_res_nether = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -7116,7 +7116,7 @@ msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->tim_res_time = v;
 
 	/* Redraw status bar */
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);

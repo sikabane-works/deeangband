@@ -832,8 +832,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							atk_ptr->chp += heal;
 
 							/* Redraw (later) if needed */
-							//TODO if (&m_info[tar_ptr->health_who] == atk_ptr) tar_ptr->redraw |= (PR_HEALTH);
-							//if (&m_info[tar_ptr->riding] == atk_ptr) tar_ptr->redraw |= (PR_UHEALTH);
+							//TODO if (&m_info[tar_ptr->health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
+							//if (&m_info[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
 
 							/* Uncharge */
 							o_ptr->pval = 0;
@@ -842,7 +842,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							tar_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 							/* Window stuff */
-							tar_ptr->window |= (PW_INVEN);
+							play_window |= (PW_INVEN);
 
 							/* Done */
 							break;
@@ -924,10 +924,10 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						}
 
 						/* Redraw gold */
-						tar_ptr->redraw |= (PR_GOLD);
+						play_redraw |= (PR_GOLD);
 
 						/* Window stuff */
-						tar_ptr->window |= (PW_PLAYER);
+						play_window |= (PW_PLAYER);
 
 						/* Blink away */
 						blinked = TRUE;
@@ -1141,7 +1141,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						}
 
 						/* Window stuff */
-						tar_ptr->window |= (PW_EQUIP);
+						play_window |= (PW_EQUIP);
 					}
 
 					break;
@@ -1731,8 +1731,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						//TODO if (tar_ptr->health_who == m_idx) tar_ptr->redraw |= (PR_HEALTH);
-						//TODO if (tar_ptr->riding == m_idx) tar_ptr->redraw |= (PR_UHEALTH);
+						//TODO if (tar_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+						//TODO if (tar_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (atk_ptr->ml && did_heal)
@@ -1773,7 +1773,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 							tar_ptr->csp_frac = 0;
 						}
 
-						tar_ptr->redraw |= (PR_MANA);
+						play_redraw |= (PR_MANA);
 					}
 
 					/* Learn about the player */
@@ -2222,7 +2222,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 		fear = FALSE;
 
 		/* Redraw mana */
-		tar_ptr->redraw |= (PR_MANA);
+		play_redraw |= (PR_MANA);
 	}
 
 	/* Blink away */

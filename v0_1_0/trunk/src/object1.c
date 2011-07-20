@@ -5243,7 +5243,7 @@ void toggle_inven_equip(void)
 			window_flag[j] |= (PW_EQUIP);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_EQUIP);
+			play_window |= (PW_EQUIP);
 		}
 
 		/* Flip inven to equip */
@@ -5254,7 +5254,7 @@ void toggle_inven_equip(void)
 			window_flag[j] |= (PW_INVEN);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_INVEN);
+			play_window |= (PW_INVEN);
 		}
 	}
 }
@@ -5742,7 +5742,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 		}
 
 		/* Update */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Redraw windows */
 		window_stuff();
@@ -6294,7 +6294,7 @@ if (ver && !verify("–{“–‚É", k))
 	if (toggle) toggle_inven_equip();
 
 	/* Update */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* Window stuff */
 	window_stuff();
@@ -6811,7 +6811,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		}
 
 		/* Update */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Redraw windows */
 		window_stuff();
@@ -7770,7 +7770,7 @@ if (ver && !verify("–{“–‚É", k))
 	if (toggle) toggle_inven_equip();
 
 	/* Update */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* Window stuff */
 	window_stuff();
@@ -7885,10 +7885,10 @@ void py_pickup_floor(bool pickup)
 			p_ptr->au += o_ptr->pval;
 
 			/* Redraw gold */
-			p_ptr->redraw |= (PR_GOLD);
+			play_redraw |= (PR_GOLD);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER);
 
 			/* Delete the gold */
 			delete_object_idx(this_o_idx);

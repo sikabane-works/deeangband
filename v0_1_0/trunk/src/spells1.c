@@ -3007,8 +3007,8 @@ note_dies = "は蒸発した！";
 
 							who_ptr->csp -= damroll(5, dam) / 2;
 							if (who_ptr->csp < 0) who_ptr->csp = 0;
-							who_ptr->redraw |= PR_MANA;
-							who_ptr->window |= (PW_SPELL);
+							play_redraw |= PR_MANA;
+							play_window |= (PW_SPELL);
 						}
 						take_hit(NULL, who_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
 					}
@@ -3029,8 +3029,8 @@ note_dies = "は蒸発した！";
 
 				b = MIN(who_ptr->msp, who_ptr->csp + b);
 				who_ptr->csp = b;
-				who_ptr->redraw |= PR_MANA;
-				who_ptr->window |= (PW_SPELL);
+				play_redraw |= PR_MANA;
+				play_window |= (PW_SPELL);
 			}
 
 #ifdef JP
@@ -3479,8 +3479,8 @@ note = "が分裂した！";
 			if (!dam)
 			{
 				/* Redraw (later) if needed */
-				if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
-				if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
+				if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+				if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 				break;
 			}
 
@@ -3554,8 +3554,8 @@ note = "が分裂した！";
 			}
 
 			/* Redraw (later) if needed */
-			if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
-			if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
+			if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+			if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Message */
 #ifdef JP
@@ -5000,8 +5000,8 @@ note_dies = "はドロドロに溶けた！";
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[who_ptr->health_who] == who_ptr) who_ptr->redraw |= (PR_HEALTH);
-						if (&m_list[who_ptr->riding] == who_ptr) who_ptr->redraw |= (PR_UHEALTH);
+						if (&m_list[who_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
+						if (&m_list[who_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (see_s_msg)
@@ -6040,8 +6040,8 @@ note = "には効果がなかった。";
 	else if (who_ptr != who_ptr)
 	{
 		/* Redraw (later) if needed */
-		if (who_ptr->health_who == c_ptr->m_idx) who_ptr->redraw |= (PR_HEALTH);
-		if (who_ptr->riding == c_ptr->m_idx) who_ptr->redraw |= (PR_UHEALTH);
+		if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+		if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
 		(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
@@ -6281,7 +6281,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 	if (who_ptr->inside_battle)
 	{
 		who_ptr->health_who = c_ptr->m_idx;
-		who_ptr->redraw |= (PR_HEALTH);
+		play_redraw |= (PR_HEALTH);
 		redraw_stuff();
 	}
 
@@ -6298,7 +6298,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 	if ((who_ptr->monster_race_idx == m_ptr->monster_idx) && (seen || !m_ptr->monster_idx))
 	{
 		/* Window stuff */
-		who_ptr->window |= (PW_MONSTER);
+		play_window |= (PW_MONSTER);
 	}
 
 	if ((dam > 0) && !is_pet(m_ptr) && !is_friendly(m_ptr))
@@ -7076,14 +7076,14 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("The light forces you out of your incorporeal shadow form.");
 #endif
 
-				p_ptr->redraw |= PR_MAP;
+				play_redraw |= PR_MAP;
 				/* Update monsters */
 				p_ptr->update |= (PU_MONSTERS);
 				/* Window stuff */
-				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 				/* Redraw status bar */
-				p_ptr->redraw |= (PR_STATUS);
+				play_redraw |= (PR_STATUS);
 
 			}
 
@@ -7485,11 +7485,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				learn_spell(monspell);
 
 				/* Redraw mana */
-				p_ptr->redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);
 
 				/* Window stuff */
-				p_ptr->window |= (PW_PLAYER);
-				p_ptr->window |= (PW_SPELL);
+				play_window |= (PW_PLAYER);
+				play_window |= (PW_SPELL);
 
 				if (who_ptr != NULL)
 				{
@@ -7501,8 +7501,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[p_ptr->health_who] == who_ptr) p_ptr->redraw |= (PR_HEALTH);
-						if (&m_list[p_ptr->riding] == who_ptr) p_ptr->redraw |= (PR_UHEALTH);
+						if (&m_list[p_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
+						if (&m_list[p_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (who_ptr->ml)
@@ -7559,7 +7559,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						p_ptr->csp = 0;
 						p_ptr->csp_frac = 0;
 					}
-					p_ptr->redraw |= PR_MANA;
+					play_redraw |= PR_MANA;
 				}
 
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7595,7 +7595,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						p_ptr->csp = 0;
 						p_ptr->csp_frac = 0;
 					}
-					p_ptr->redraw |= PR_MANA;
+					play_redraw |= PR_MANA;
 				}
 
 				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);

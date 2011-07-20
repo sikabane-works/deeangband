@@ -1351,8 +1351,6 @@ struct creature_type
 
 	u32b notice;		/* Special Updates (bit flags) */
 	u32b update;		/* Pending Updates (bit flags) */
-	u32b redraw;		/* Normal Redraws (bit flags) */
-	u32b window;		/* Window Redraws (bit flags) */
 
 	s16b stat_use[6];	/* Current modified stats */
 	s16b stat_top[6];	/* Maximal modified stats */

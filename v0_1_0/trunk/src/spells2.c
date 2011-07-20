@@ -4000,7 +4000,7 @@ bool detect_monsters_invis(int range)
 			if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 			{
 				/* Window stuff */
-				p_ptr->window |= (PW_MONSTER);
+				play_window |= (PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -4075,7 +4075,7 @@ bool detect_monsters_evil(int range)
 				if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 				{
 					/* Window stuff */
-					p_ptr->window |= (PW_MONSTER);
+					play_window |= (PW_MONSTER);
 				}
 			}
 
@@ -4145,7 +4145,7 @@ bool detect_monsters_nonliving(int range)
 			if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 			{
 				/* Window stuff */
-				p_ptr->window |= (PW_MONSTER);
+				play_window |= (PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -4212,7 +4212,7 @@ bool detect_monsters_mind(int range)
 			if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 			{
 				/* Window stuff */
-				p_ptr->window |= (PW_MONSTER);
+				play_window |= (PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -4279,7 +4279,7 @@ bool detect_monsters_string(int range, cptr Match)
 			if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 			{
 				/* Window stuff */
-				p_ptr->window |= (PW_MONSTER);
+				play_window |= (PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -4358,7 +4358,7 @@ cptr desc_monsters = "•Ï‚Èƒ‚ƒ“ƒXƒ^[";
 				if (p_ptr->monster_race_idx == m_ptr->monster_idx)
 				{
 					/* Window stuff */
-					p_ptr->window |= (PW_MONSTER);
+					play_window |= (PW_MONSTER);
 				}
 			}
 
@@ -4755,10 +4755,10 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	move_cursor_relative(p_ptr->fy, p_ptr->fx);
 
 	/* Redraw */
-	p_ptr->redraw |= (PR_HP);
+	play_redraw |= (PR_HP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
+	play_window |= (PW_PLAYER);
 
 	/* Handle */
 	handle_stuff();
@@ -5045,7 +5045,7 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 
 			/* HACK : Add the line to message buffer */
 			message_add(buf);
-			p_ptr->window |= (PW_MESSAGE);
+			play_window |= (PW_MESSAGE);
 			window_stuff();
 
 			if (m_ptr->ml) move_cursor_relative(m_ptr->fy, m_ptr->fx);
@@ -5375,10 +5375,10 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 		p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP);
+		play_redraw |= (PR_MAP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
@@ -5890,13 +5890,13 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 	p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 	/* Update the health bar */
-	p_ptr->redraw |= (PR_HEALTH | PR_UHEALTH);
+	play_redraw |= (PR_HEALTH | PR_UHEALTH);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
@@ -6932,7 +6932,7 @@ bool wall_stone(void)
 	p_ptr->update |= (PU_FLOW);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	return dummy;
 }
@@ -7459,7 +7459,7 @@ bool kawarimi(bool success)
 		msg_print("Failed! You couldn't run away.");
 #endif
 		p_ptr->special_defense &= ~(NINJA_KAWARIMI);
-		p_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 		return FALSE;
 	}
 
@@ -7486,7 +7486,7 @@ bool kawarimi(bool success)
 #endif
 
 	p_ptr->special_defense &= ~(NINJA_KAWARIMI);
-	p_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Teleported */
 	return TRUE;

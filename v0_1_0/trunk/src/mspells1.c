@@ -3324,8 +3324,8 @@ msg_format("%^s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 			}
 
 			/* Redraw (later) if needed */
-			if (p_ptr->health_who == m_idx) p_ptr->redraw |= (PR_HEALTH);
-			if (p_ptr->riding == m_idx) p_ptr->redraw |= (PR_UHEALTH);
+			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Cancel fear */
 			if (m_ptr->afraid)
@@ -4505,7 +4505,7 @@ else msg_format("%^s‚ª–‚–@‚Å“Á•Ê‚È‹­“G‚ð¢Š«‚µ‚½I", m_name);
 			p_ptr->mane_num++;
 			new_mane = TRUE;
 
-			p_ptr->redraw |= (PR_IMITATION);
+			play_redraw |= (PR_IMITATION);
 		}
 	}
 

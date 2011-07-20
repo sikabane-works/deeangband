@@ -809,7 +809,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	if (redraw && !only_browse) screen_load();
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -1009,13 +1009,13 @@ msg_print("¸_‚ð”P‚¶‹È‚°‚é”g“®‚ð”­¶‚³‚¹‚½I");
 		p_ptr->energy_need -= 1000 + (100 + (s16b)p_ptr->csp - 50)*TURNS_PER_TICK/10;
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP);
+		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
 		p_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		handle_stuff();
 		break;
@@ -1563,7 +1563,7 @@ static bool cast_ninja_spell(int spell)
 #endif
 
 			p_ptr->special_defense |= NINJA_KAWARIMI;
-			p_ptr->redraw |= (PR_STATUS);
+			play_redraw |= (PR_STATUS);
 		}
 		break;
 	}
@@ -2116,7 +2116,7 @@ msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ð•ú‚³‚ê‚½I", p);
 		take_hit(NULL, p_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
 #endif
 		/* Redraw hp */
-		p_ptr->redraw |= (PR_HP);
+		play_redraw |= (PR_HP);
 	}
 
 	/* Sufficient mana */
@@ -2175,11 +2175,11 @@ msg_print("Ž©•ª‚Ì¸_‚ðUŒ‚‚µ‚Ä‚µ‚Ü‚Á‚½I");
 	}
 
 	/* Redraw mana */
-	p_ptr->redraw |= (PR_MANA);
+	play_redraw |= (PR_MANA);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_PLAYER);
+	play_window |= (PW_SPELL);
 }
 
 

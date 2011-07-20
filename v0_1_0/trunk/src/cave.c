@@ -1638,7 +1638,7 @@ void lite_spot(int y, int x)
 		Term_queue_bigchar(panel_col_of(x), y-panel_row_prt, a, c, ta, tc);
 
 		/* Update sub-windows */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}
 }
 
@@ -1748,7 +1748,7 @@ void prt_path(int y, int x)
 	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), p_ptr->fy, p_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Redraw stuff */
 	redraw_stuff();
@@ -4363,10 +4363,10 @@ void map_area(int range)
 	}
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
 
@@ -4467,10 +4467,10 @@ void wiz_lite(bool ninja)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
@@ -4539,10 +4539,10 @@ void wiz_dark(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
 
@@ -4986,7 +4986,7 @@ void health_track(int m_idx)
 	p_ptr->health_who = m_idx;
 
 	/* Redraw (later) */
-	p_ptr->redraw |= (PR_HEALTH);
+	play_redraw |= (PR_HEALTH);
 }
 
 
@@ -5000,7 +5000,7 @@ void monster_race_track(int monster_idx)
 	p_ptr->monster_race_idx = monster_idx;
 
 	/* Window stuff */
-	p_ptr->window |= (PW_MONSTER);
+	play_window |= (PW_MONSTER);
 }
 
 
@@ -5014,7 +5014,7 @@ void object_kind_track(int k_idx)
 	p_ptr->object_kind_idx = k_idx;
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OBJECT);
+	play_window |= (PW_OBJECT);
 }
 
 
@@ -5043,7 +5043,7 @@ void disturb(int stop_search, int unused_flag)
 		command_rep = 0;
 
 		/* Redraw the state (later) */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 	}
 
 	/* Cancel Resting */
@@ -5124,5 +5124,5 @@ void glow_deep_lava_and_bldg(void)
 	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 }

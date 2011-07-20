@@ -126,7 +126,7 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 	redraw = FALSE;
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -311,7 +311,7 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -981,7 +981,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 	update_stuff(p_ptr, TRUE);
 
 	/* Redraw object recall */
-	p_ptr->window |= (PW_OBJECT);
+	play_window |= (PW_OBJECT);
 }
 
 
@@ -1433,7 +1433,7 @@ msg_print("An infernal sound echoed.");
 			gain_exp(p_ptr, e * s_ptr->slevel);
 
 			/* Redraw object recall */
-			p_ptr->window |= (PW_OBJECT);
+			play_window |= (PW_OBJECT);
 
 			switch (realm)
 			{
@@ -1613,11 +1613,11 @@ msg_print("体を悪くしてしまった！");
 	}
 
 	/* Redraw mana */
-	p_ptr->redraw |= (PR_MANA);
+	play_redraw |= (PR_MANA);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_PLAYER);
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_PLAYER);
+	play_window |= (PW_SPELL);
 }
 
 
@@ -1859,7 +1859,7 @@ void do_cmd_pet_dismiss(void)
 
 				/* Update the monsters */
 				p_ptr->update |= (PU_BONUS | PU_MONSTERS);
-				p_ptr->redraw |= (PR_EXTRA | PR_UHEALTH);
+				play_redraw |= (PR_EXTRA | PR_UHEALTH);
 			}
 
 			/* HACK : Add the line to message buffer */
@@ -1869,7 +1869,7 @@ void do_cmd_pet_dismiss(void)
 			sprintf(buf, "Dismissed %s.", friend_name);
 #endif
 			message_add(buf);
-			p_ptr->window |= (PW_MESSAGE);
+			play_window |= (PW_MESSAGE);
 			window_stuff();
 
 			delete_monster_idx(&m_list[pet_ctr]);
@@ -2052,12 +2052,12 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	p_ptr->redraw |= (PR_EXTRA);
+	play_redraw |= (PR_EXTRA);
 
 	/* Update health track of mount */
-	p_ptr->redraw |= (PR_UHEALTH);
+	play_redraw |= (PR_UHEALTH);
 
 	if (p_ptr->levitation && !force)
 	{
@@ -2240,9 +2240,9 @@ bool do_riding(bool force)
 	p_ptr->update |= (PU_BONUS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP | PR_EXTRA);
+	play_redraw |= (PR_MAP | PR_EXTRA);
 
-	p_ptr->redraw |= (PR_UHEALTH);
+	play_redraw |= (PR_UHEALTH);
 
 	/* Move the player */
 	(void)move_player_effect(y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);

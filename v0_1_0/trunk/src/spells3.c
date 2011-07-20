@@ -959,7 +959,7 @@ msg_print("回りの大気が張りつめてきた...");
 		msg_print("The air about you becomes charged...");
 #endif
 
-		p_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 	}
 	else
 	{
@@ -970,7 +970,7 @@ msg_print("張りつめた大気が流れ去った...");
 		msg_print("A tension leaves the air around you...");
 #endif
 
-		p_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 	}
 	return TRUE;
 }
@@ -1164,7 +1164,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 		p_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP | PW_PLAYER);
+		play_window |= (PW_EQUIP | PW_PLAYER);
 
 		calc_android_exp(p_ptr);
 	}
@@ -1738,10 +1738,10 @@ static bool vanish_dungeon(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	return TRUE;
 }
@@ -1981,7 +1981,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 
 
 	note_spot(p_ptr->fy, p_ptr->fx);
-	p_ptr->redraw |= PR_MAP;
+	play_redraw |= PR_MAP;
 }
 
 
@@ -2009,7 +2009,7 @@ void alter_reality(void)
 		msg_print("The view around you begins to change...");
 #endif
 
-		p_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 	}
 	else
 	{
@@ -2020,7 +2020,7 @@ void alter_reality(void)
 		msg_print("The view around you got back...");
 #endif
 
-		p_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 	}
 	return;
 }
@@ -2207,7 +2207,7 @@ static int remove_curse_aux(int all)
 		p_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_EQUIP);
 
 		/* Count the uncursings */
 		cnt++;
@@ -2352,10 +2352,10 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 		p_ptr->au += price;
 
 		/* Redraw gold */
-		p_ptr->redraw |= (PR_GOLD);
+		play_redraw |= (PR_GOLD);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 
 	}
 
@@ -2506,7 +2506,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(p_ptr);
 
@@ -2791,7 +2791,7 @@ bool identify_item(object_type *o_ptr)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	strcpy(record_o_name, o_name);
 	record_turn = turn;
@@ -3475,7 +3475,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 
 	/* Something was done */
 	return (TRUE);
@@ -3567,7 +3567,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 		p_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_EQUIP);
 	}
 
 	/*
@@ -3669,7 +3669,7 @@ msg_format("%s は劣化した！",
 	p_ptr->update |= (PU_BONUS);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(p_ptr);
 
@@ -4978,7 +4978,7 @@ msg_format("%sがダメージを受けた！", o_name);
 	p_ptr->update |= (PU_BONUS);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(p_ptr);
 
@@ -5291,7 +5291,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		p_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
 	return (TRUE);
@@ -5373,7 +5373,7 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		p_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
 	/* Notice */
@@ -5979,10 +5979,10 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 	}
 
 	/* Redraw mana and hp */
-	p_ptr->redraw |= (PR_MANA);
+	play_redraw |= (PR_MANA);
 
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 
 	return TRUE;
 }

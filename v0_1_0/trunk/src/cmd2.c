@@ -398,7 +398,7 @@ void do_cmd_search(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1215,7 +1215,7 @@ void do_cmd_open(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1391,7 +1391,7 @@ void do_cmd_close(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1688,7 +1688,7 @@ void do_cmd_tunnel(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2152,7 +2152,7 @@ void do_cmd_disarm(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2370,7 +2370,7 @@ void do_cmd_bash(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2465,7 +2465,7 @@ void do_cmd_alter(void)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2692,7 +2692,7 @@ void do_cmd_walk(bool pickup)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2808,7 +2808,7 @@ void do_cmd_stay(bool pickup)
 		command_rep = command_arg - 1;
 
 		/* Redraw the state */
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -2909,7 +2909,7 @@ void do_cmd_rest(void)
 	p_ptr->update |= (PU_BONUS);
 
 	/* Redraw the state */
-	p_ptr->redraw |= (PR_STATE);
+	play_redraw |= (PR_STATE);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -3326,7 +3326,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (p_ptr->msp / 30)))
 			{
 				p_ptr->csp -= (1+(p_ptr->msp / 30));
-				p_ptr->redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);
 				mult = mult * 5 / 2;
 			}
 			break;
@@ -4278,7 +4278,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	if (item >= INVEN_RARM)
 	{
 		equiped_item = TRUE;
-		p_ptr->redraw |= (PR_EQUIPPY);
+		play_redraw |= (PR_EQUIPPY);
 	}
 
 	/* Take a turn */
@@ -4666,7 +4666,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			p_ptr->update |= (PU_MANA);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_EQUIP);
+			play_window |= (PW_EQUIP);
 		}
 		else
 		{

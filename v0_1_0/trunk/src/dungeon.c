@@ -207,7 +207,7 @@ o_name, index_to_label(slot),game_inscriptions[feel]);
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP);
+	play_window |= (PW_INVEN | PW_EQUIP);
 }
 
 
@@ -856,10 +856,10 @@ static void regenhp(int percent)
 	if (old_chp != p_ptr->chp)
 	{
 		/* Redraw */
-		p_ptr->redraw |= (PR_HP);
+		play_redraw |= (PR_HP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 
 		wild_regen = 20;
 	}
@@ -945,11 +945,11 @@ static void regenmana(int percent)
 	if (old_csp != p_ptr->csp)
 	{
 		/* Redraw */
-		p_ptr->redraw |= (PR_MANA);
+		play_redraw |= (PR_MANA);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
-		p_ptr->window |= (PW_SPELL);
+		play_window |= (PW_PLAYER);
+		play_window |= (PW_SPELL);
 
 		wild_regen = 20;
 	}
@@ -1034,8 +1034,8 @@ static void regen_monsters(void)
 			if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
 			/* Redraw (later) if needed */
-			if (p_ptr->health_who == i) p_ptr->redraw |= (PR_HEALTH);
-			if (p_ptr->riding == i) p_ptr->redraw |= (PR_UHEALTH);
+			if (p_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+			if (p_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 		}
 	}
 }
@@ -1091,8 +1091,8 @@ static void regen_captured_monsters(void)
 		p_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN);
-		p_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_INVEN);
+		play_window |= (PW_EQUIP);
 		wild_regen = 20;
 	}
 }
@@ -1104,7 +1104,7 @@ static void notice_lite_change(object_type *o_ptr)
 	if ((o_ptr->xtra4 < 100) || (!(o_ptr->xtra4 % 100)))
 	{
 		/* Window stuff */
-		p_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_EQUIP);
 	}
 
 	/* Hack -- Special treatment when blind */
@@ -1286,7 +1286,7 @@ msg_format("%sは%sという感じがする...",
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Valid "tval" codes */
 	switch (o_ptr->tval)
@@ -1407,7 +1407,7 @@ static void check_music(void)
 	{
 		s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), need_mana, need_mana_frac);
 
-		p_ptr->redraw |= PR_MANA;
+		play_redraw |= PR_MANA;
 		if (p_ptr->magic_num1[1])
 		{
 			p_ptr->magic_num1[0] = p_ptr->magic_num1[1];
@@ -1423,13 +1423,13 @@ static void check_music(void)
 			p_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Redraw map and status bar */
-			p_ptr->redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			/* Update monsters */
 			p_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 	if (p_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
@@ -2357,7 +2357,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (!cr_ptr->resist_conf && !cr_ptr->resist_chaos)
 		{
 			disturb(0, 0);
-			cr_ptr->redraw |= PR_EXTRA;
+			play_redraw |= PR_EXTRA;
 #ifdef JP
 			msg_print("いひきがもーろーとひてきたきがふる...ヒック！");
 #else
@@ -2410,7 +2410,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (!cr_ptr->resist_chaos)
 		{
 			disturb(0, 0);
-			cr_ptr->redraw |= PR_EXTRA;
+			play_redraw |= PR_EXTRA;
 			(void)set_image(cr_ptr, cr_ptr->image + randint0(50) + 20);
 		}
 	}
@@ -2856,7 +2856,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			cr_ptr->csp -= healing;
 
 			/* Redraw mana */
-			cr_ptr->redraw |= (PR_MANA);
+			play_redraw |= (PR_MANA);
 		}
 	}
 	if ((cr_ptr->muta2 & MUT2_HP_TO_SP) && !cr_ptr->anti_magic &&
@@ -2876,7 +2876,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			cr_ptr->csp += healing;
 
 			/* Redraw mana */
-			cr_ptr->redraw |= (PR_MANA);
+			play_redraw |= (PR_MANA);
 #ifdef JP
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, healing, "頭に昇った血", NULL, -1);
 #else
@@ -3185,7 +3185,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				cr_ptr->csp = 0;
 				cr_ptr->csp_frac = 0;
 			}
-			cr_ptr->redraw |= PR_MANA;
+			play_redraw |= PR_MANA;
 		}
 	}
 
@@ -3250,7 +3250,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	if (changed)
 	{
 		/* Window stuff */
-		cr_ptr->window |= (PW_EQUIP);
+		play_window |= (PW_EQUIP);
 		wild_regen = 20;
 	}
 
@@ -3299,7 +3299,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	if (changed)
 	{
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN);
+		play_window |= (PW_INVEN);
 		wild_regen = 20;
 	}
 
@@ -3344,7 +3344,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 		/* Count down towards recall */
 		cr_ptr->word_recall--;
 
-		cr_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 
 		/* Activate the recall */
 		if (!cr_ptr->word_recall)
@@ -3463,7 +3463,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 		/* Count down towards alter */
 		cr_ptr->alter_reality--;
 
-		cr_ptr->redraw |= (PR_STATUS);
+		play_redraw |= (PR_STATUS);
 
 		/* Activate the alter reality */
 		if (!cr_ptr->alter_reality)
@@ -3732,7 +3732,7 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	do_cmd_feeling();
 
 	/* Update the level indicator */
-	cr_ptr->redraw |= (PR_DEPTH);
+	play_redraw |= (PR_DEPTH);
 
 	/* Disturb */
 	if (disturb_minor) disturb(0, 0);
@@ -4007,10 +4007,10 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			cr_ptr->update |= (PU_MONSTERS | PU_MON_LITE);
 
 			/* Redraw map */
-			cr_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 
 			/* Window stuff */
-			cr_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
@@ -4518,7 +4518,7 @@ msg_print("ウィザードモード突入。");
 			p_ptr->update |= (PU_MONSTERS);
 
 			/* Redraw "title" */
-			p_ptr->redraw |= (PR_TITLE);
+			play_redraw |= (PR_TITLE);
 
 			break;
 		}
@@ -5520,7 +5520,7 @@ static void pack_overflow(void)
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 	}
 }
@@ -5762,7 +5762,7 @@ msg_print("中断しました。");
 			}
 		}
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 	}
 
@@ -5810,7 +5810,7 @@ msg_print("中断しました。");
 			/* Reduce mana */
 			s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), cost, cost_frac);
 		}
-		p_ptr->redraw |= PR_MANA;
+		play_redraw |= PR_MANA;
 	}
 
 	if (p_ptr->special_defense & KATA_MASK)
@@ -5824,7 +5824,7 @@ msg_print("中断しました。");
 			else
 			{
 				p_ptr->csp -= 2;
-				p_ptr->redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);
 			}
 		}
 	}
@@ -5834,7 +5834,7 @@ msg_print("中断しました。");
 	/* Repeat until out of energy */
 	while (p_ptr->energy_need <= 0)
 	{
-		p_ptr->window |= PW_PLAYER;
+		play_window |= PW_PLAYER;
 		p_ptr->sutemi = FALSE;
 		p_ptr->counter = FALSE;
 		now_damaged = FALSE;
@@ -5842,7 +5842,7 @@ msg_print("中断しました。");
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Place the cursor on the player */
@@ -5894,7 +5894,7 @@ msg_print("中断しました。");
 				if (!resting) set_action(p_ptr, ACTION_NONE);
 
 				/* Redraw the state */
-				p_ptr->redraw |= (PR_STATE);
+				play_redraw |= (PR_STATE);
 			}
 
 			/* Take a turn */
@@ -5931,7 +5931,7 @@ msg_print("中断しました。");
 			command_rep--;
 
 			/* Redraw the state */
-			p_ptr->redraw |= (PR_STATE);
+			play_redraw |= (PR_STATE);
 
 			/* Redraw stuff */
 			redraw_stuff();
@@ -5984,7 +5984,7 @@ msg_print("中断しました。");
 			}
 
 			/* Hack -- constant hallucination */
-			if (p_ptr->image) p_ptr->redraw |= (PR_MAP);
+			if (p_ptr->image) play_redraw |= (PR_MAP);
 
 
 			/* Shimmer monsters if needed */
@@ -6073,8 +6073,8 @@ msg_print("中断しました。");
 							/* Update the monster */
 							update_mon(i, FALSE);
 
-							if (p_ptr->health_who == i) p_ptr->redraw |= (PR_HEALTH);
-							if (p_ptr->riding == i) p_ptr->redraw |= (PR_UHEALTH);
+							if (p_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+							if (p_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */
 							lite_spot(m_ptr->fy, m_ptr->fx);
@@ -6094,24 +6094,24 @@ msg_print("中断しました。");
 					}
 				}
 				new_mane = FALSE;
-				p_ptr->redraw |= (PR_IMITATION);
+				play_redraw |= (PR_IMITATION);
 			}
 			if (p_ptr->action == ACTION_LEARN)
 			{
 				new_mane = FALSE;
-				p_ptr->redraw |= (PR_STATE);
+				play_redraw |= (PR_STATE);
 			}
 
 			if (world_player && (p_ptr->energy_need > - 1000))
 			{
 				/* Redraw map */
-				p_ptr->redraw |= (PR_MAP);
+				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
 				p_ptr->update |= (PU_MONSTERS);
 
 				/* Window stuff */
-				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 #ifdef JP
 				msg_print("「時は動きだす…」");
@@ -6122,7 +6122,7 @@ msg_print("中断しました。");
 				world_player = FALSE;
 				p_ptr->energy_need = ENERGY_NEED();
 
-				/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+				/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 				handle_stuff();
 			}
 		}
@@ -6236,13 +6236,13 @@ static void dungeon(bool load_game)
 	character_xtra = TRUE;
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 
 	/* Redraw dungeon */
-	p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
+	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Update stuff */
 	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
@@ -6253,7 +6253,7 @@ static void dungeon(bool load_game)
 	/* Update monsters */
 	p_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
-	/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 	handle_stuff();
 
 	/* Leave "xtra" mode */
@@ -6268,7 +6268,7 @@ static void dungeon(bool load_game)
 	/* Handle "p_ptr->notice" */
 	notice_stuff();
 
-	/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 	handle_stuff();
 
 	/* Refresh */
@@ -6367,7 +6367,7 @@ msg_print("試合開始！");
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
@@ -6385,7 +6385,7 @@ msg_print("試合開始！");
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
@@ -6404,7 +6404,7 @@ msg_print("試合開始！");
 		/* Handle "p_ptr->notice" */
 		notice_stuff();
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		/* Hack -- Hilite the player */
@@ -7037,10 +7037,10 @@ quit("セーブファイルが壊れています");
 	Term_xtra(TERM_XTRA_REACT, 0);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Window stuff */
 	window_stuff();
@@ -7086,7 +7086,7 @@ quit("セーブファイルが壊れています");
 		/* Hack -- prevent "icky" message */
 		character_xtra = TRUE;
 
-		/* Handle "p_ptr->update" and "p_ptr->redraw" and "p_ptr->window" */
+		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
 
 		character_xtra = FALSE;
@@ -7204,7 +7204,7 @@ quit("セーブファイルが壊れています");
 
 						/* Hack -- Prevent recall */
 						p_ptr->word_recall = 0;
-						p_ptr->redraw |= (PR_STATUS);
+						play_redraw |= (PR_STATUS);
 					}
 
 					/* Hack -- cancel alter */
@@ -7212,7 +7212,7 @@ quit("セーブファイルが壊れています");
 					{
 						/* Hack -- Prevent alter */
 						p_ptr->alter_reality = 0;
-						p_ptr->redraw |= (PR_STATUS);
+						play_redraw |= (PR_STATUS);
 					}
 
 					/* Note cause of death XXX XXX XXX */

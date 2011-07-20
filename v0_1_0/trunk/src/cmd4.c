@@ -1188,13 +1188,13 @@ void do_cmd_redraw(void)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw everything */
-	p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	update_playtime();
 
@@ -1317,7 +1317,7 @@ void do_cmd_change_name(void)
 	screen_load();
 
 	/* Redraw everything */
-	p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	handle_stuff();
 }
@@ -2603,7 +2603,7 @@ void do_cmd_options(void)
 			{
 				/* Spawn */
 				do_cmd_options_win();
-				p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL |
+				play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL |
 						  PW_PLAYER | PW_MESSAGE | PW_OVERHEAD |
 						  PW_MONSTER | PW_OBJECT | PW_SNAPSHOT |
 						  PW_BORG_1 | PW_BORG_2 | PW_DUNGEON);
@@ -2787,7 +2787,7 @@ void do_cmd_options(void)
 	screen_load();
 
 	/* Hack - Redraw equippy chars */
-	p_ptr->redraw |= (PR_EQUIPPY);
+	play_redraw |= (PR_EQUIPPY);
 }
 
 
@@ -6411,7 +6411,7 @@ void do_cmd_save_screen(void)
 		reset_visuals();
 
 		/* Redraw everything */
-		p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff();
@@ -6537,7 +6537,7 @@ void do_cmd_save_screen(void)
 		reset_visuals();
 
 		/* Redraw everything */
-		p_ptr->redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff();

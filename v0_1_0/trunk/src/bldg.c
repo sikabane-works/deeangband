@@ -2241,7 +2241,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", 1000000L * o_ptr->number);
 #endif
 				p_ptr->au += 1000000L * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -2272,7 +2272,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", 200000L * o_ptr->number);
 #endif
 				p_ptr->au += 200000L * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -2303,7 +2303,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", 100000L * o_ptr->number);
 #endif
 				p_ptr->au += 100000L * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -2332,7 +2332,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", (r_info[today_mon].level * 50 + 100) * o_ptr->number);
 #endif
 				p_ptr->au += (r_info[today_mon].level * 50 + 100) * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -2362,7 +2362,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", (r_info[today_mon].level * 30 + 60) * o_ptr->number);
 #endif
 				p_ptr->au += (r_info[today_mon].level * 30 + 60) * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -2398,7 +2398,7 @@ static bool kankin(void)
 				msg_format("You get %ldgp.", (r_info[kubi_monster_idx[j]].level + 1) * 300 * o_ptr->number);
 #endif
 				p_ptr->au += (r_info[kubi_monster_idx[j]].level+1) * 300 * o_ptr->number;
-				p_ptr->redraw |= (PR_GOLD);
+				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
@@ -4119,7 +4119,7 @@ msg_format("%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 
 	/* Pay the price */
 	p_ptr->au -= price;
@@ -4288,7 +4288,7 @@ static void building_recharge_all(void)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN);
+	play_window |= (PW_INVEN);
 
 	/* Pay the price */
 	p_ptr->au -= total_cost;
@@ -4890,7 +4890,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 #endif
 
 			paid = TRUE;
-			p_ptr->redraw |= (PR_STATUS);
+			play_redraw |= (PR_STATUS);
 		}
 		break;
 	}
@@ -4976,7 +4976,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		p_ptr->total_winner = TRUE;
 
 		/* Redraw the "title" */
-		p_ptr->redraw |= (PR_TITLE);
+		play_redraw |= (PR_TITLE);
 
 #ifdef JP
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "Œ©Ž–‚ÉD\'angband‚ÌŸ—˜ŽÒ‚Æ‚È‚Á‚½I");
@@ -5241,10 +5241,10 @@ void do_cmd_bldg(void)
 	p_ptr->update |= (PU_VIEW | PU_MONSTERS | PU_BONUS | PU_LITE | PU_MON_LITE);
 
 	/* Redraw entire screen */
-	p_ptr->redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
+	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
 

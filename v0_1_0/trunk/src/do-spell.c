@@ -1147,7 +1147,7 @@ static void start_singing(int spell, int song)
 	p_ptr->update |= (PU_BONUS);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 }
 
 
@@ -1182,7 +1182,7 @@ void stop_singing(void)
 	p_ptr->update |= (PU_BONUS);
 
 	/* Redraw status bar */
-	p_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 }
 
 
@@ -3487,7 +3487,7 @@ static cptr do_chaos_spell(int spell, int mode)
 #endif
 
 					p_ptr->special_attack |= ATTACK_CONFUSE;
-					p_ptr->redraw |= (PR_STATUS);
+					play_redraw |= (PR_STATUS);
 				}
 			}
 		}
@@ -10145,13 +10145,13 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 				/* Redraw map */
-				p_ptr->redraw |= (PR_MAP);
+				play_redraw |= (PR_MAP);
 		
 				/* Update monsters */
 				p_ptr->update |= (PU_MONSTERS);
 		
 				/* Window stuff */
-				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 				start_singing(spell, MUSIC_INVULN);
 		}
@@ -10166,13 +10166,13 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The invulnerability wears off.");
 #endif
 				/* Redraw map */
-				p_ptr->redraw |= (PR_MAP);
+				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
 				p_ptr->update |= (PU_MONSTERS);
 
 				/* Window stuff */
-				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 			}
 		}
 
@@ -11154,7 +11154,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				if (!mdeath) break;
 				command_dir = 0;
 
-				p_ptr->redraw |= PR_MANA;
+				play_redraw |= PR_MANA;
 				handle_stuff();
 			}
 			while (p_ptr->csp > mana_cost_per_monster);
@@ -12311,7 +12311,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 				/* Redraw status */
 				p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-				p_ptr->redraw |= (PR_EXTRA);
+				play_redraw |= (PR_EXTRA);
 
 				return "";
 			}
@@ -12600,7 +12600,7 @@ static cptr do_hex_spell(int spell, int mode)
 	if (!info)
 	{
 		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
-		p_ptr->redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 	}
 
 	return "";

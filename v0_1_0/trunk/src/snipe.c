@@ -105,7 +105,7 @@ static bool snipe_concentrate(creature_type *cr_ptr)
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
 
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Update the monsters */
 	cr_ptr->update |= (PU_MONSTERS);
@@ -130,7 +130,7 @@ void reset_concentration(creature_type *cr_ptr, bool msg)
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
 
-	cr_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATUS);
 
 	/* Update the monsters */
 	cr_ptr->update |= (PU_MONSTERS);
@@ -381,7 +381,7 @@ static int get_snipe_power(creature_type *cr_ptr, int *sn, bool only_browse)
 	if (redraw && !only_browse) screen_load();
 
 	/* Show choices */
-	cr_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -613,11 +613,11 @@ void do_cmd_snipe(creature_type *cr_ptr)
 	energy_use = 100;
 #endif
 	/* Redraw mana */
-	cr_ptr->redraw |= (PR_HP | PR_MANA);
+	play_redraw |= (PR_HP | PR_MANA);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_PLAYER);
-	cr_ptr->window |= (PW_SPELL);
+	play_window |= (PW_PLAYER);
+	play_window |= (PW_SPELL);
 }
 
 /*

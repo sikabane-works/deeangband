@@ -67,10 +67,10 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 
 	/* Update and redraw hitpoints */
 	cr_ptr->update |= (PU_HP);
-	cr_ptr->redraw |= (PR_HP);
+	play_redraw |= (PR_HP);
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_PLAYER);
+	play_window |= (PW_PLAYER);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -993,7 +993,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 }
 
@@ -1359,7 +1359,7 @@ static void do_cmd_wiz_play(void)
 		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 
 	/* Ignore change */
@@ -1463,10 +1463,10 @@ static void do_cmd_wiz_cure_all(void)
 		p_ptr->chp_frac = 0;
 
 		/* Redraw */
-		p_ptr->redraw |= (PR_HP);
+		play_redraw |= (PR_HP);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_PLAYER);
+		play_window |= (PW_PLAYER);
 	}
 
 	/* Restore mana */
@@ -1475,9 +1475,9 @@ static void do_cmd_wiz_cure_all(void)
 		p_ptr->csp = p_ptr->msp;
 		p_ptr->csp_frac = 0;
 
-		p_ptr->redraw |= (PR_MANA);
-		p_ptr->window |= (PW_PLAYER);
-		p_ptr->window |= (PW_SPELL);
+		play_redraw |= (PR_MANA);
+		play_window |= (PW_PLAYER);
+		play_window |= (PW_SPELL);
 	}
 
 	/* Cure stuff */

@@ -262,7 +262,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 	if (redraw) screen_load();
 
 	/* Show choices */
-	p_ptr->window |= (PW_SPELL);
+	play_window |= (PW_SPELL);
 
 	/* Window stuff */
 	window_stuff();
@@ -907,13 +907,13 @@ msg_print("–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B");
 		p_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
 
 		/* Redraw map */
-		p_ptr->redraw |= (PR_MAP);
+		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
 		p_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		handle_stuff();
 		break;
@@ -1370,9 +1370,9 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 	energy_use = 100;
 
 	/* Window stuff */
-	p_ptr->redraw |= (PR_IMITATION);
-	p_ptr->window |= (PW_PLAYER);
-	p_ptr->window |= (PW_SPELL);
+	play_redraw |= (PR_IMITATION);
+	play_window |= (PW_PLAYER);
+	play_window |= (PW_SPELL);
 
 	return TRUE;
 }

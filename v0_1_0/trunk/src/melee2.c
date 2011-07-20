@@ -203,8 +203,8 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 	/* Redraw (later) if needed */
 	if (cr_ptr->ml)
 	{
-		if (&m_list[p_ptr->health_who] == cr_ptr) p_ptr->redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->redraw |= (PR_UHEALTH);
+		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	/* Wake it up */
@@ -2235,7 +2235,7 @@ msg_format("%^s%s", m_name, monmessage);
 					{
 						/* Update some things */
 						p_ptr->update |= (PU_FLOW);
-						p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+						play_window |= (PW_OVERHEAD | PW_DUNGEON);
 						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 						return;
@@ -2474,7 +2474,7 @@ msg_format("%^s%s", m_name, monmessage);
 			{
 				/* Update some things */
 				p_ptr->update |= (PU_FLOW);
-				p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 
 				return;
@@ -2767,7 +2767,7 @@ msg_format("%^s%s", m_name, monmessage);
 		p_ptr->update |= (PU_FLOW);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}
 
 	/* Notice changes in view */
@@ -3069,7 +3069,7 @@ void process_monsters(void)
 			(old_r_cast_spell != r_ptr->r_cast_spell))
 		{
 			/* Window stuff */
-			p_ptr->window |= (PW_MONSTER);
+			play_window |= (PW_MONSTER);
 		}
 	}
 }
@@ -3471,23 +3471,23 @@ bool process_the_world(int num, int who, bool vs_player)
 		if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 		/* Redraw stuff */
-		if (p_ptr->redraw) redraw_stuff();
+		if (play_redraw) redraw_stuff();
 
 		/* Redraw stuff */
-		if (p_ptr->window) window_stuff();
+		if (play_window) window_stuff();
 
 		/* Delay */
 		if (vs_player) Term_xtra(TERM_XTRA_DELAY, 500);
 	}
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Update monsters */
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	world_monster = 0;
 	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)))

@@ -674,7 +674,7 @@ s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, b
 			if ((p_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 			{
 				p_ptr->csp -= (1+(o_ptr->dd * o_ptr->ds / 5));
-				p_ptr->redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);
 				mult = mult * 3 / 2 + 20;
 			}
 			break;
@@ -925,10 +925,10 @@ void carry(bool pickup)
 	p_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
-	p_ptr->redraw |= (PR_MAP);
+	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
-	p_ptr->window |= (PW_OVERHEAD);
+	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -1027,10 +1027,10 @@ void carry(bool pickup)
 			p_ptr->au += value;
 
 			/* Redraw gold */
-			p_ptr->redraw |= (PR_GOLD);
+			play_redraw |= (PR_GOLD);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_PLAYER);
+			play_window |= (PW_PLAYER);
 		}
 
 		/* Pick up objects */
@@ -2880,7 +2880,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 #else
 					msg_print("Your hands stop glowing.");
 #endif
-					cr_ptr->redraw |= (PR_STATUS);
+					play_redraw |= (PR_STATUS);
 
 				}
 
@@ -3106,7 +3106,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (cr_ptr->csp > (cr_ptr->msp / 30)))
 					{
 						cr_ptr->csp -= (1+(cr_ptr->msp / 30));
-						cr_ptr->redraw |= (PR_MANA);
+						play_redraw |= (PR_MANA);
 						mult = mult * 3 / 2 + 20;
 					}
 					k *= mult;
@@ -3723,14 +3723,14 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 			p_ptr->update |= (PU_UN_VIEW);
 
 			/* Redraw map */
-			p_ptr->redraw |= (PR_MAP);
+			play_redraw |= (PR_MAP);
 		}
 
 		/* Update stuff */
 		p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
 
 		/* Window stuff */
-		p_ptr->window |= (PW_OVERHEAD | PW_DUNGEON);
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
 		if ((!p_ptr->blind && !no_lite()) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);

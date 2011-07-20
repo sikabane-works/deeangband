@@ -2848,7 +2848,7 @@ void msg_print(cptr msg)
 	/* if (character_generated) message_add(t); */
 
 	/* Window stuff */
-	p_ptr->window |= (PW_MESSAGE);
+	play_window |= (PW_MESSAGE);
 	window_stuff();
 
 	/* Remember the message */
@@ -3512,7 +3512,7 @@ bool get_check_strict(cptr prompt, int mode)
 
 	if (auto_more)
 	{
-		p_ptr->window |= PW_MESSAGE;
+		play_window |= PW_MESSAGE;
 		window_stuff();
 		num_more = 0;
 	}
@@ -3548,7 +3548,7 @@ bool get_check_strict(cptr prompt, int mode)
 	{
 		/* HACK : Add the line to message buffer */
 		message_add(buf);
-		p_ptr->window |= (PW_MESSAGE);
+		play_window |= (PW_MESSAGE);
 		window_stuff();
 	}
 

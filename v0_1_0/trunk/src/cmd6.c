@@ -399,7 +399,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Food can feed the player */
@@ -459,7 +459,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 
 			/* Combine / Reorder the pack (later) */
 			cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
-			cr_ptr->window |= (PW_INVEN);
+			play_window |= (PW_INVEN);
 
 			return;
 		}
@@ -521,7 +521,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		}
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Don't eat a staff/wand itself */
 		return;
@@ -1184,7 +1184,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 #else
 				msg_print("You feel your head clear.");
 #endif
-				cr_ptr->window |= (PW_PLAYER);
+				play_window |= (PW_PLAYER);
 				ident = TRUE;
 			}
 			else if (cr_ptr->csp < cr_ptr->msp)
@@ -1197,9 +1197,9 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 				msg_print("You feel your head clear.");
 #endif
 
-				cr_ptr->redraw |= (PR_MANA);
-				cr_ptr->window |= (PW_PLAYER);
-				cr_ptr->window |= (PW_SPELL);
+				play_redraw |= (PR_MANA);
+				play_window |= (PW_PLAYER);
+				play_window |= (PW_SPELL);
 				ident = TRUE;
 			}
 			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
@@ -1461,7 +1461,7 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Potions can feed the player */
 	switch (cr_ptr->mimic_form)
@@ -1935,7 +1935,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 #endif
 
 				cr_ptr->special_attack |= ATTACK_CONFUSE;
-				cr_ptr->redraw |= (PR_STATUS);
+				play_redraw |= (PR_STATUS);
 				ident = TRUE;
 			}
 			break;
@@ -2228,7 +2228,7 @@ msg_print("巻物は煙を立てて消え去った！");
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Hack -- allow certain scrolls to be "preserved" */
@@ -2554,9 +2554,9 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 				msg_print("You feel your head clear.");
 #endif
 
-				p_ptr->redraw |= (PR_MANA);
-				p_ptr->window |= (PW_PLAYER);
-				p_ptr->window |= (PW_SPELL);
+				play_redraw |= (PR_MANA);
+				play_window |= (PW_PLAYER);
+				play_window |= (PW_SPELL);
 			}
 			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -2798,7 +2798,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 		/* Combine / Reorder the pack (later) */
 		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
-		cr_ptr->window |= (PW_INVEN);
+		play_window |= (PW_INVEN);
 
 		return;
 	}
@@ -2830,7 +2830,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Hack -- some uses are "free" */
@@ -3332,7 +3332,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 
 		/* Combine / Reorder the pack (later) */
 		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
-		cr_ptr->window |= (PW_INVEN);
+		play_window |= (PW_INVEN);
 
 		return;
 	}
@@ -3363,7 +3363,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Use a single charge */
@@ -3819,7 +3819,7 @@ msg_print("そのロッドはまだ充填中です。");
 	}
 
 	/* Window stuff */
-	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 }
 
 
@@ -4197,7 +4197,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 		(void)activate_random_artifact(o_ptr);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Success */
 		return;
@@ -5288,7 +5288,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					}
 
 					/* Redraw mana */
-					cr_ptr->redraw |= (PR_MANA);
+					play_redraw |= (PR_MANA);
 				}
 
 #ifdef JP
@@ -5463,7 +5463,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					return;
 				}
 				set_action(cr_ptr, ACTION_FISH);
-				cr_ptr->redraw |= (PR_STATE);
+				play_redraw |= (PR_STATE);
 				break;
 			}
 			case ART_JONES:
@@ -5825,7 +5825,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 					msg_print("You feel your head clear.");
 #endif
-					cr_ptr->window |= (PW_PLAYER);
+					play_window |= (PW_PLAYER);
 				}
 				else if (cr_ptr->csp < cr_ptr->msp)
 				{
@@ -5837,9 +5837,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 					msg_print("You feel your head clear.");
 #endif
 
-					cr_ptr->redraw |= (PR_MANA);
-					cr_ptr->window |= (PW_PLAYER);
-					cr_ptr->window |= (PW_SPELL);
+					play_redraw |= (PR_MANA);
+					play_window |= (PW_PLAYER);
+					play_window |= (PW_SPELL);
 				}
 				o_ptr->timeout = 777;
 				break;
@@ -5847,7 +5847,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		}
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Done */
 		return;
@@ -5882,7 +5882,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			o_ptr->timeout = 100 + randint1(100);
 			
 			/* Window stuff */
-			cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+			play_window |= (PW_INVEN | PW_EQUIP);
 
 			/* Done */
 			return;
@@ -5896,7 +5896,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		o_ptr->timeout = 50 + randint1(50);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Done */
 		return;
@@ -5919,7 +5919,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		o_ptr->timeout = randint0(10) + 10;
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		return;
 	}
@@ -5931,7 +5931,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		o_ptr->timeout = 100 + randint1(100);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Done */
 		return;
@@ -5944,7 +5944,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		o_ptr->timeout = 10 + randint1(10);
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Done */
 		return;
@@ -6168,7 +6168,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		}
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Success */
 		return;
@@ -6344,7 +6344,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		}
 
 		/* Window stuff */
-		cr_ptr->window |= (PW_INVEN | PW_EQUIP);
+		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Success */
 		return;

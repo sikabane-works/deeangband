@@ -567,7 +567,7 @@ static bool choose_kamae(void)
 	{
 		p_ptr->special_defense &= ~(KAMAE_MASK);
 		p_ptr->update |= (PU_BONUS);
-		p_ptr->redraw |= (PR_STATE);
+		play_redraw |= (PR_STATE);
 #ifdef JP
 		msg_format("%s‚Ì\‚¦‚ð‚Æ‚Á‚½B",kamae_shurui[new_kamae].desc);
 #else
@@ -575,7 +575,7 @@ static bool choose_kamae(void)
 #endif
 		p_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
 	}
-	p_ptr->redraw |= PR_STATE;
+	play_redraw |= PR_STATE;
 	screen_load();
 	return TRUE;
 }
@@ -713,8 +713,8 @@ static bool choose_kata(void)
 #endif
 		p_ptr->special_defense |= (KATA_IAI << new_kata);
 	}
-	p_ptr->redraw |= (PR_STATE);
-	p_ptr->redraw |= (PR_STATUS);
+	play_redraw |= (PR_STATE);
+	play_redraw |= (PR_STATUS);
 	screen_load();
 	return TRUE;
 }
@@ -1043,7 +1043,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 
 			/* Redraw mana and hp */
-			p_ptr->redraw |= (PR_HP | PR_MANA);
+			play_redraw |= (PR_HP | PR_MANA);
 
 			break;
 		}
@@ -1151,7 +1151,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 
 			/* Redraw mana */
-			p_ptr->redraw |= (PR_MANA);
+			play_redraw |= (PR_MANA);
 			break;
 		}
 		case CLASS_TOURIST:
@@ -1254,7 +1254,7 @@ static bool cmd_racial_power_aux(s32b command)
 				}
 
 				/* Redraw mana */
-				p_ptr->redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);
 			}
 			else if (command == -4)
 			{
@@ -1392,7 +1392,7 @@ static bool cmd_racial_power_aux(s32b command)
 					}
 
 					/* Redraw mana */
-					p_ptr->redraw |= (PR_MANA);
+					play_redraw |= (PR_MANA);
 				}
 				else
 				{
@@ -3913,10 +3913,10 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 			else p_ptr->csp -= actual_racial_cost;
 
 			/* Redraw mana and hp */
-			p_ptr->redraw |= (PR_HP | PR_MANA);
+			play_redraw |= (PR_HP | PR_MANA);
 
 			/* Window stuff */
-			p_ptr->window |= (PW_PLAYER | PW_SPELL);
+			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}
 	else energy_use = 0;
