@@ -5168,7 +5168,7 @@ msg_print("アリーナが魔法を吸収した！");
 				do_cmd_use();
 			}
 			else
-				do_cmd_use_staff();
+				do_cmd_use_staff(p_ptr);
 			}
 			break;
 		}

@@ -2699,7 +2699,7 @@ msg_print("ダンジョンが揺れた。");
  *
  * Hack -- staffs of identify can be "cancelled".
  */
-static void do_cmd_use_staff_aux(int item)
+static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 {
 	int         ident, chance, lev;
 	object_type *o_ptr;
@@ -2712,7 +2712,7 @@ static void do_cmd_use_staff_aux(int item)
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2743,10 +2743,10 @@ static void do_cmd_use_staff_aux(int item)
 	if (lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
-	chance = p_ptr->skill_dev;
+	chance = cr_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (p_ptr->confused) chance = chance / 2;
+	if (cr_ptr->confused) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -2771,7 +2771,7 @@ static void do_cmd_use_staff_aux(int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (p_ptr->cls_idx == CLASS_BERSERKER))
+	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (cr_ptr->cls_idx == CLASS_BERSERKER))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -2797,8 +2797,8 @@ static void do_cmd_use_staff_aux(int item)
 		o_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
-		p_ptr->window |= (PW_INVEN);
+		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->window |= (PW_INVEN);
 
 		return;
 	}
@@ -2811,13 +2811,13 @@ static void do_cmd_use_staff_aux(int item)
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(p_ptr, V_PATIENCE, -1);
-		chg_virtue(p_ptr, V_CHANCE, 1);
-		chg_virtue(p_ptr, V_KNOWLEDGE, -1);
+		chg_virtue(cr_ptr, V_PATIENCE, -1);
+		chg_virtue(cr_ptr, V_CHANCE, 1);
+		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Tried the item */
 	object_tried(o_ptr);
@@ -2826,11 +2826,11 @@ static void do_cmd_use_staff_aux(int item)
 	if (ident && !object_is_aware(o_ptr))
 	{
 		object_aware(o_ptr);
-		gain_exp(p_ptr, (lev + (p_ptr->lev >> 1)) / p_ptr->lev);
+		gain_exp(cr_ptr, (lev + (cr_ptr->lev >> 1)) / cr_ptr->lev);
 	}
 
 	/* Window stuff */
-	p_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	cr_ptr->window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Hack -- some uses are "free" */
@@ -2860,7 +2860,7 @@ static void do_cmd_use_staff_aux(int item)
 
 		/* Unstack the used item */
 		o_ptr->number--;
-		p_ptr->total_weight -= q_ptr->weight;
+		cr_ptr->total_weight -= q_ptr->weight;
 		item = inven_carry(q_ptr);
 
 		/* Message */
@@ -2886,14 +2886,14 @@ static void do_cmd_use_staff_aux(int item)
 }
 
 
-void do_cmd_use_staff(void)
+void do_cmd_use_staff(creature_type *cr_ptr)
 {
 	int  item;
 	cptr q, s;
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	/* Restrict choices to wands */
@@ -2910,7 +2910,7 @@ void do_cmd_use_staff(void)
 
 	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
-	do_cmd_use_staff_aux(item);
+	do_cmd_use_staff_aux(cr_ptr, item);
 }
 
 
@@ -6755,7 +6755,7 @@ s = "使えるものがありません。";
 		/* Use a staff */
 		case TV_STAFF:
 		{
-			do_cmd_use_staff_aux(item);
+			do_cmd_use_staff_aux(p_ptr, item);
 			break;
 		}
 
