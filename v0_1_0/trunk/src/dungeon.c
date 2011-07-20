@@ -7263,6 +7263,8 @@ quit("セーブファイルが壊れています");
 					else
 					{
 						/*TODO: 当分はイェーキンからのみスタート */
+						//p_ptr->wilderness_x = 10;
+						//p_ptr->wilderness_y = 34;
 						p_ptr->wilderness_x = 134;
 						p_ptr->wilderness_y = 71;
 						p_ptr->oldpy = 95;
