@@ -5096,7 +5096,7 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && rogue_like_commands)
 			{
-				do_cmd_use();
+				do_cmd_use(p_ptr);
 			}
 			else
 			{
@@ -5165,7 +5165,7 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && !rogue_like_commands)
 			{
-				do_cmd_use();
+				do_cmd_use(p_ptr);
 			}
 			else
 				do_cmd_use_staff(p_ptr);

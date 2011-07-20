@@ -6692,15 +6692,15 @@ static bool item_tester_hook_use(object_type *o_ptr)
  * Use an item
  * XXX - Add actions for other item types
  */
-void do_cmd_use(void)
+void do_cmd_use(creature_type *cr_ptr)
 {
 	int         item;
 	object_type *o_ptr;
 	cptr        q, s;
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	item_tester_no_ryoute = TRUE;
@@ -6721,7 +6721,7 @@ s = "使えるものがありません。";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 	/* Get the item (on the floor) */
 	else
@@ -6741,35 +6741,35 @@ s = "使えるものがありません。";
 		/* Eat some food */
 		case TV_FOOD:
 		{
-			do_cmd_eat_food_aux(p_ptr, item);
+			do_cmd_eat_food_aux(cr_ptr, item);
 			break;
 		}
 
 		/* Aim a wand */
 		case TV_WAND:
 		{
-			do_cmd_aim_wand_aux(p_ptr, item);
+			do_cmd_aim_wand_aux(cr_ptr, item);
 			break;
 		}
 
 		/* Use a staff */
 		case TV_STAFF:
 		{
-			do_cmd_use_staff_aux(p_ptr, item);
+			do_cmd_use_staff_aux(cr_ptr, item);
 			break;
 		}
 
 		/* Zap a rod */
 		case TV_ROD:
 		{
-			do_cmd_zap_rod_aux(p_ptr, item);
+			do_cmd_zap_rod_aux(cr_ptr, item);
 			break;
 		}
 
 		/* Quaff a potion */
 		case TV_POTION:
 		{
-			do_cmd_quaff_potion_aux(p_ptr, item);
+			do_cmd_quaff_potion_aux(cr_ptr, item);
 			break;
 		}
 
@@ -6777,7 +6777,7 @@ s = "使えるものがありません。";
 		case TV_SCROLL:
 		{
 			/* Check some conditions */
-			if (p_ptr->blind)
+			if (cr_ptr->blind)
 			{
 #ifdef JP
 msg_print("目が見えない。");
@@ -6797,7 +6797,7 @@ msg_print("明かりがないので、暗くて読めない。");
 
 				return;
 			}
-			if (p_ptr->confused)
+			if (cr_ptr->confused)
 			{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -6808,7 +6808,7 @@ msg_print("混乱していて読めない！");
 				return;
 			}
 
-		  do_cmd_read_scroll_aux(p_ptr, item, TRUE);
+		  do_cmd_read_scroll_aux(cr_ptr, item, TRUE);
 		  break;
 		}
 
@@ -6817,14 +6817,14 @@ msg_print("混乱していて読めない！");
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			do_cmd_fire_aux(item, &p_ptr->inventory[INVEN_BOW]);
+			do_cmd_fire_aux(item, &cr_ptr->inventory[INVEN_BOW]);
 			break;
 		}
 
 		/* Activate an artifact */
 		default:
 		{
-			do_cmd_activate_aux(p_ptr, item);
+			do_cmd_activate_aux(cr_ptr, item);
 			break;
 		}
 	}
