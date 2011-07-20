@@ -5112,7 +5112,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!p_ptr->wild_mode)
 			{
 			if (!p_ptr->inside_arena)
-				do_cmd_quaff_potion();
+				do_cmd_quaff_potion(p_ptr);
 			else
 			{
 #ifdef JP

@@ -11814,7 +11814,7 @@ static cptr do_hex_spell(int spell, int mode)
 		if (cast)
 		{
 			p_ptr->magic_num1[0] |= (1L << HEX_INHAIL);
-			do_cmd_quaff_potion();
+			do_cmd_quaff_potion(p_ptr);
 			p_ptr->magic_num1[0] &= ~(1L << HEX_INHAIL);
 			add = FALSE;
 		}
