@@ -2070,7 +2070,7 @@ void resize_map(void)
 	 * Waiting command;
 	 * Place the cursor on the player
 	 */
-	if (can_save) move_cursor_relative(py, px);
+	if (can_save) move_cursor_relative(py, p_ptr->fx);
 
 	/* Refresh */
 	Term_fresh();
@@ -2164,7 +2164,7 @@ bool change_panel(int dy, int dx)
 void verify_panel(void)
 {
 	int y = py;
-	int x = px;
+	int x = p_ptr->fx;
 	int wid, hgt;
 
 	int prow_min;
@@ -2491,7 +2491,7 @@ bool target_able(int m_idx)
 	if (p_ptr->riding && (p_ptr->riding == m_idx)) return (TRUE);
 
 	/* Monster must be projectable */
-	if (!projectable(py, px, m_ptr->fy, m_ptr->fx)) return (FALSE);
+	if (!projectable(py, p_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
 
 	/* XXX XXX XXX Hack -- Never target trappers */
 	/* if (CLEAR_ATTR && (CLEAR_CHAR)) return (FALSE); */
@@ -2549,14 +2549,14 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 	int da, db, kx, ky;
 
 	/* Absolute distance components */
-	kx = x[a]; kx -= px; kx = ABS(kx);
+	kx = x[a]; kx -= p_ptr->fx; kx = ABS(kx);
 	ky = y[a]; ky -= py; ky = ABS(ky);
 
 	/* Approximate Double Distance to the first point */
 	da = ((kx > ky) ? (kx + kx + ky) : (ky + ky + kx));
 
 	/* Absolute distance components */
-	kx = x[b]; kx -= px; kx = ABS(kx);
+	kx = x[b]; kx -= p_ptr->fx; kx = ABS(kx);
 	ky = y[b]; ky -= py; ky = ABS(ky);
 
 	/* Approximate Double Distance to the first point */
@@ -2584,8 +2584,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	monster_race *ap_ra_ptr, *ap_rb_ptr;
 
 	/* The player grid */
-	if (y[a] == py && x[a] == px) return TRUE;
-	if (y[b] == py && x[b] == px) return FALSE;
+	if (y[a] == py && x[a] == p_ptr->fx) return TRUE;
+	if (y[b] == py && x[b] == p_ptr->fx) return FALSE;
 
 	/* Extract monster race */
 	if (ca_ptr->m_idx && ma_ptr->ml) ap_ra_ptr = &r_info[ma_ptr->ap_monster_idx];
@@ -3721,7 +3721,7 @@ bool target_set(int mode)
 {
 	int		i, d, m, t, bd;
 	int		y = py;
-	int		x = px;
+	int		x = p_ptr->fx;
 
 	bool	done = FALSE;
 
@@ -3876,7 +3876,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					target_set_prepare(mode);
 
 					y = py;
-					x = px;
+					x = p_ptr->fx;
 				}
 
 				case 'o':
@@ -4076,7 +4076,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					target_set_prepare(mode);
 
 					y = py;
-					x = px;
+					x = p_ptr->fx;
 				}
 
 				case 'o':
@@ -4790,7 +4790,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(py, px, 1, FALSE, FALSE);
+			acquirement(py, p_ptr->fx, 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4812,7 +4812,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(py, px, 1, TRUE, FALSE);
+			acquirement(py, p_ptr->fx, 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -4931,7 +4931,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			q_ptr->name2 = EGO_CHAOTIC;
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, py, px);
+			(void)drop_near(q_ptr, -1, py, p_ptr->fx);
 #ifdef JP
 			reward = "(混沌)の武器を手に入れた。";
 #else
@@ -4953,7 +4953,7 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 			msg_print("'Thy deed hath earned thee a worthy reward.'");
 #endif
 
-			acquirement(py, px, randint1(2) + 1, FALSE, FALSE);
+			acquirement(py, p_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4975,7 +4975,7 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 #endif
 
-			acquirement(py, px, randint1(2) + 1, TRUE, FALSE);
+			acquirement(py, p_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -5021,7 +5021,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
-				(void)summon_specific(0, py, px, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
 			reward = "モンスターを召喚された。";
@@ -5044,7 +5044,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 			msg_print("'Thou needst worthier opponents!'");
 #endif
 
-			activate_hi_summon(py, px, FALSE);
+			activate_hi_summon(py, p_ptr->fx, FALSE);
 #ifdef JP
 			reward = "モンスターを召喚された。";
 #else
@@ -5326,7 +5326,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 #endif
 					break;
 				case 2:
-					activate_hi_summon(py, px, FALSE);
+					activate_hi_summon(py, p_ptr->fx, FALSE);
 #ifdef JP
 					reward = "モンスターを召喚された。";
 #else
@@ -5395,7 +5395,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
 			}
-			activate_hi_summon(py, px, FALSE);
+			activate_hi_summon(py, p_ptr->fx, FALSE);
 			(void)activate_ty_curse(FALSE, &count);
 			if (one_in_(2))
 			{
@@ -5427,7 +5427,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			(void)destroy_area(py, px, 25, FALSE);
+			(void)destroy_area(py, p_ptr->fx, 25, FALSE);
 #ifdef JP
 			reward = "ダンジョンが*破壊*された。";
 #else
@@ -5506,7 +5506,7 @@ msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[cr_ptr->patron_
 			msg_format("%s rewards you with a demonic servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, py, px, dun_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(-1, py, p_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5527,7 +5527,7 @@ msg_format("%sは褒美として使いをよこした！",player_patrons[cr_ptr->patron_idx].t
 			msg_format("%s rewards you with a servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, py, px, dun_level, 0, PM_FORCE_PET))
+			if (!summon_specific(-1, py, p_ptr->fx, dun_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5548,7 +5548,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[cr_ptr->p
 			msg_format("%s rewards you with an undead servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, py, px, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(-1, py, p_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5601,7 +5601,7 @@ static bool tgt_pt_accept(int y, int x)
 	if (!(in_bounds(y, x))) return (FALSE);
 
 	/* Player grid is always interesting */
-	if ((y == py) && (x == px)) return (TRUE);
+	if ((y == py) && (x == p_ptr->fx)) return (TRUE);
 
 	/* Handle hallucination */
 	if (p_ptr->image) return (FALSE);
@@ -5676,7 +5676,7 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 	/* Get size */
 	get_screen_size(&wid, &hgt);
 
-	x = px;
+	x = p_ptr->fx;
 	y = py;
 
 	if (expand_list) 
@@ -5752,7 +5752,7 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 				{
 					n = 0;
 					y = py;
-					x = px;
+					x = p_ptr->fx;
 					verify_panel();	/* Move cursor to player */
 
 					/* Update stuff */

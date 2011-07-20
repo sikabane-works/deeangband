@@ -121,7 +121,7 @@ static bool wiz_dimension_door(void)
 static void wiz_drop_named_art(int a_idx)
 {
 	/* Create the artifact */
-	(void)drop_named_art(a_idx, py, px);
+	(void)drop_named_art(a_idx, py, p_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -145,12 +145,12 @@ static void do_cmd_wiz_hack_ben(void)
 /* Summon a horde of monsters */
 static void do_cmd_summon_horde(void)
 {
-	int wy = py, wx = px;
+	int wy = py, wx = p_ptr->fx;
 	int attempts = 1000;
 
 	while (--attempts)
 	{
-		scatter(&wy, &wx, py, px, 3, 0);
+		scatter(&wy, &wx, py, p_ptr->fx, 3, 0);
 		if (cave_empty_bold(wy, wx)) break;
 	}
 
@@ -1414,7 +1414,7 @@ static void wiz_create_item(void)
 			if (a_info[i].sval != k_info[k_idx].sval) continue;
 
 			/* Create this artifact */
-			(void)drop_named_art(i, py, px);
+			(void)drop_named_art(i, py, p_ptr->fx);
 
 			/* All done */
 			msg_print("Allocated(INSTA_ART).");
@@ -1433,7 +1433,7 @@ static void wiz_create_item(void)
 	apply_magic(q_ptr, dun_level, AM_NO_FIXED_ART);
 
 	/* Drop the object from heaven */
-	(void)drop_near(q_ptr, -1, py, px);
+	(void)drop_near(q_ptr, -1, py, p_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -1617,7 +1617,7 @@ static void do_cmd_wiz_summon(int num)
 
 	for (i = 0; i < num; i++)
 	{
-		(void)summon_specific(0, py, px, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+		(void)summon_specific(0, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 	}
 }
 
@@ -1629,7 +1629,7 @@ static void do_cmd_wiz_summon(int num)
  */
 static void do_cmd_wiz_named(int monster_idx)
 {
-	(void)summon_named_creature(0, py, px, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+	(void)summon_named_creature(0, py, p_ptr->fx, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 }
 
 
@@ -1640,7 +1640,7 @@ static void do_cmd_wiz_named(int monster_idx)
  */
 static void do_cmd_wiz_named_friendly(int monster_idx)
 {
-	(void)summon_named_creature(0, py, px, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
+	(void)summon_named_creature(0, py, p_ptr->fx, monster_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
 }
 
 
@@ -1985,7 +1985,7 @@ void do_cmd_debug(void)
 	/* Good Objects */
 	case 'g':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(py, px, command_arg, FALSE, TRUE);
+		acquirement(py, p_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
 	/* Hitpoint rerating */
@@ -2106,7 +2106,7 @@ void do_cmd_debug(void)
 	/* Very Good Objects */
 	case 'v':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(py, px, command_arg, TRUE, TRUE);
+		acquirement(py, p_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
 	/* Wizard Light the Level */

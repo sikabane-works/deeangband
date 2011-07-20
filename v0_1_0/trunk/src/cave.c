@@ -377,7 +377,7 @@ static bool check_local_illumination(int y, int x)
 {
 	/* Hack -- move towards player */
 	int yy = (y < py) ? (y + 1) : (y > py) ? (y - 1) : y;
-	int xx = (x < px) ? (x + 1) : (x > px) ? (x - 1) : x;
+	int xx = (x < p_ptr->fx) ? (x + 1) : (x > p_ptr->fx) ? (x - 1) : x;
 
 	/* Check for "local" illumination */
 
@@ -429,17 +429,17 @@ void update_local_illumination(int y, int x)
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
-	if ((y != py) && (x != px))
+	if ((y != py) && (x != p_ptr->fx))
 	{
 		yy = (y < py) ? (y - 1) : (y + 1);
-		xx = (x < px) ? (x - 1) : (x + 1);
+		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
 		update_local_illumination_aux(yy, xx);
 		update_local_illumination_aux(y, xx);
 		update_local_illumination_aux(yy, x);
 	}
-	else if (x != px) /* y == py */
+	else if (x != p_ptr->fx) /* y == py */
 	{
-		xx = (x < px) ? (x - 1) : (x + 1);
+		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
@@ -450,7 +450,7 @@ void update_local_illumination(int y, int x)
 		yy = y + 1;
 		update_local_illumination_aux(yy, x);
 	}
-	else if (y != py) /* x == px */
+	else if (y != py) /* x == p_ptr->fx */
 	{
 		yy = (y < py) ? (y - 1) : (y + 1);
 		for (i = -1; i <= 1; i++)
@@ -475,22 +475,22 @@ void update_local_illumination(int y, int x)
 
 #else /* COMPLEX_WALL_ILLUMINATION */
 
-	if ((y != py) && (x != px))
+	if ((y != py) && (x != p_ptr->fx))
 	{
 		yy = (y < py) ? (y - 1) : (y + 1);
-		xx = (x < px) ? (x - 1) : (x + 1);
+		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
 		update_local_illumination_aux(yy, xx);
 	}
-	else if (x != px) /* y == py */
+	else if (x != p_ptr->fx) /* y == py */
 	{
-		xx = (x < px) ? (x - 1) : (x + 1);
+		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
 			update_local_illumination_aux(yy, xx);
 		}
 	}
-	else if (y != py) /* x == px */
+	else if (y != py) /* x == p_ptr->fx */
 	{
 		yy = (y < py) ? (y - 1) : (y + 1);
 		for (i = -1; i <= 1; i++)
@@ -582,7 +582,7 @@ bool player_can_see_bold(int y, int x)
  */
 bool no_lite(void)
 {
-	return (!player_can_see_bold(py, px));
+	return (!player_can_see_bold(py, p_ptr->fx));
 }
 
 
@@ -1564,7 +1564,7 @@ void display_dungeon(void)
 	byte ta;
 	char tc;
 
-	for (x = px - Term->wid / 2 + 1; x <= px + Term->wid / 2; x++)
+	for (x = p_ptr->fx - Term->wid / 2 + 1; x <= p_ptr->fx + Term->wid / 2; x++)
 	{
 		for (y = py - Term->hgt / 2 + 1; y <= py + Term->hgt / 2; y++)
 		{
@@ -1583,7 +1583,7 @@ void display_dungeon(void)
 				}
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - px + Term->wid / 2 - 1, y - py + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - p_ptr->fx + Term->wid / 2 - 1, y - py + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 			else
 			{
@@ -1599,7 +1599,7 @@ void display_dungeon(void)
 				c = f_ptr->x_char[F_LIT_STANDARD];
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - px + Term->wid / 2 - 1, y - py + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - p_ptr->fx + Term->wid / 2 - 1, y - py + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 		}
 	}
@@ -1722,7 +1722,7 @@ void prt_map(void)
 	}
 
 	/* Display player */
-	lite_spot(py, px);
+	lite_spot(py, p_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
@@ -1745,7 +1745,7 @@ void prt_path(int y, int x)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), py, px, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), py, p_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	p_ptr->redraw |= (PR_MAP);
@@ -2144,9 +2144,9 @@ void display_map(int *cy, int *cx)
 	/* Player location */
 		(*cy) = py / yrat + 1 + ROW_MAP;
 	if (!use_bigtile)
-		(*cx) = px / xrat + 1 + COL_MAP;
+		(*cx) = p_ptr->fx / xrat + 1 + COL_MAP;
 	else
-		(*cx) = (px / xrat + 1) * 2 + COL_MAP;
+		(*cx) = (p_ptr->fx / xrat + 1) * 2 + COL_MAP;
 
 	/* Restore lighting effects */
 	view_special_lite = old_view_special_lite;
@@ -2611,7 +2611,7 @@ void update_lite(void)
 		/* forget_lite(); Perhaps don't need? */
 
 		/* Add it to later visual update */
-		cave_redraw_later(&cave[py][px], py, px);
+		cave_redraw_later(&cave[py][p_ptr->fx], py, p_ptr->fx);
 	}
 #endif
 
@@ -2645,54 +2645,54 @@ void update_lite(void)
 	if (p >= 1)
 	{
 		/* Player grid */
-		cave_lite_hack(py, px);
+		cave_lite_hack(py, p_ptr->fx);
 
 		/* Adjacent grid */
-		cave_lite_hack(py+1, px);
-		cave_lite_hack(py-1, px);
-		cave_lite_hack(py, px+1);
-		cave_lite_hack(py, px-1);
+		cave_lite_hack(py+1, p_ptr->fx);
+		cave_lite_hack(py-1, p_ptr->fx);
+		cave_lite_hack(py, p_ptr->fx+1);
+		cave_lite_hack(py, p_ptr->fx-1);
 
 		/* Diagonal grids */
-		cave_lite_hack(py+1, px+1);
-		cave_lite_hack(py+1, px-1);
-		cave_lite_hack(py-1, px+1);
-		cave_lite_hack(py-1, px-1);
+		cave_lite_hack(py+1, p_ptr->fx+1);
+		cave_lite_hack(py+1, p_ptr->fx-1);
+		cave_lite_hack(py-1, p_ptr->fx+1);
+		cave_lite_hack(py-1, p_ptr->fx-1);
 	}
 
 	/* Radius 2 -- lantern radius */
 	if (p >= 2)
 	{
 		/* South of the player */
-		if (cave_los_bold(py + 1, px))
+		if (cave_los_bold(py + 1, p_ptr->fx))
 		{
-			cave_lite_hack(py+2, px);
-			cave_lite_hack(py+2, px+1);
-			cave_lite_hack(py+2, px-1);
+			cave_lite_hack(py+2, p_ptr->fx);
+			cave_lite_hack(py+2, p_ptr->fx+1);
+			cave_lite_hack(py+2, p_ptr->fx-1);
 		}
 
 		/* North of the player */
-		if (cave_los_bold(py - 1, px))
+		if (cave_los_bold(py - 1, p_ptr->fx))
 		{
-			cave_lite_hack(py-2, px);
-			cave_lite_hack(py-2, px+1);
-			cave_lite_hack(py-2, px-1);
+			cave_lite_hack(py-2, p_ptr->fx);
+			cave_lite_hack(py-2, p_ptr->fx+1);
+			cave_lite_hack(py-2, p_ptr->fx-1);
 		}
 
 		/* East of the player */
-		if (cave_los_bold(py, px + 1))
+		if (cave_los_bold(py, p_ptr->fx + 1))
 		{
-			cave_lite_hack(py, px+2);
-			cave_lite_hack(py+1, px+2);
-			cave_lite_hack(py-1, px+2);
+			cave_lite_hack(py, p_ptr->fx+2);
+			cave_lite_hack(py+1, p_ptr->fx+2);
+			cave_lite_hack(py-1, p_ptr->fx+2);
 		}
 
 		/* West of the player */
-		if (cave_los_bold(py, px - 1))
+		if (cave_los_bold(py, p_ptr->fx - 1))
 		{
-			cave_lite_hack(py, px-2);
-			cave_lite_hack(py+1, px-2);
-			cave_lite_hack(py-1, px-2);
+			cave_lite_hack(py, p_ptr->fx-2);
+			cave_lite_hack(py+1, p_ptr->fx-2);
+			cave_lite_hack(py-1, p_ptr->fx-2);
 		}
 	}
 
@@ -2705,27 +2705,27 @@ void update_lite(void)
 		if (p > 14) p = 14;
 
 		/* South-East of the player */
-		if (cave_los_bold(py + 1, px + 1))
+		if (cave_los_bold(py + 1, p_ptr->fx + 1))
 		{
-			cave_lite_hack(py+2, px+2);
+			cave_lite_hack(py+2, p_ptr->fx+2);
 		}
 
 		/* South-West of the player */
-		if (cave_los_bold(py + 1, px - 1))
+		if (cave_los_bold(py + 1, p_ptr->fx - 1))
 		{
-			cave_lite_hack(py+2, px-2);
+			cave_lite_hack(py+2, p_ptr->fx-2);
 		}
 
 		/* North-East of the player */
-		if (cave_los_bold(py - 1, px + 1))
+		if (cave_los_bold(py - 1, p_ptr->fx + 1))
 		{
-			cave_lite_hack(py-2, px+2);
+			cave_lite_hack(py-2, p_ptr->fx+2);
 		}
 
 		/* North-West of the player */
-		if (cave_los_bold(py - 1, px - 1))
+		if (cave_los_bold(py - 1, p_ptr->fx - 1))
 		{
-			cave_lite_hack(py-2, px-2);
+			cave_lite_hack(py-2, p_ptr->fx-2);
 		}
 
 		/* Maximal north */
@@ -2737,11 +2737,11 @@ void update_lite(void)
 		if (max_y > cur_hgt-1) max_y = cur_hgt-1;
 
 		/* Maximal west */
-		min_x = px - p;
+		min_x = p_ptr->fx - p;
 		if (min_x < 0) min_x = 0;
 
 		/* Maximal east */
-		max_x = px + p;
+		max_x = p_ptr->fx + p;
 		if (max_x > cur_wid-1) max_x = cur_wid-1;
 
 		/* Scan the maximal box */
@@ -2750,7 +2750,7 @@ void update_lite(void)
 			for (x = min_x; x <= max_x; x++)
 			{
 				int dy = (py > y) ? (py - y) : (y - py);
-				int dx = (px > x) ? (px - x) : (x - px);
+				int dx = (p_ptr->fx > x) ? (p_ptr->fx - x) : (x - p_ptr->fx);
 
 				/* Skip the "central" grids (above) */
 				if ((dy <= 2) && (dx <= 2)) continue;
@@ -2843,7 +2843,7 @@ static void mon_lite_hack(int y, int x)
 		{
 			dpf = py - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((px - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((p_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
@@ -2860,9 +2860,9 @@ static void mon_lite_hack(int y, int x)
 		}
 
 		/* Vertical walls between player and a monster */
-		if (((x < px) && (x > mon_fx)) || ((x > px) && (x < mon_fx)))
+		if (((x < p_ptr->fx) && (x > mon_fx)) || ((x > p_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = px - mon_fx;
+			dpf = p_ptr->fx - mon_fx;
 			d = x - mon_fx;
 			midpoint = mon_fy + ((py - mon_fy) * ABS(d)) / ABS(dpf);
 
@@ -2929,7 +2929,7 @@ static void mon_dark_hack(int y, int x)
 		{
 			dpf = py - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((px - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((p_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
@@ -2946,9 +2946,9 @@ static void mon_dark_hack(int y, int x)
 		}
 
 		/* Vertical walls between player and a monster */
-		if (((x < px) && (x > mon_fx)) || ((x > px) && (x < mon_fx)))
+		if (((x < p_ptr->fx) && (x > mon_fx)) || ((x > p_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = px - mon_fx;
+			dpf = p_ptr->fx - mon_fx;
 			d = x - mon_fx;
 			midpoint = mon_fy + ((py - mon_fy) * ABS(d)) / ABS(dpf);
 
@@ -3288,7 +3288,7 @@ void update_mon_lite(void)
 	/* Mega-Hack -- Visual update later */
 	p_ptr->update |= (PU_DELAY_VIS);
 
-	p_ptr->monlite = (cave[py][px].info & CAVE_MNLT) ? TRUE : FALSE;
+	p_ptr->monlite = (cave[py][p_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
@@ -3396,8 +3396,8 @@ void forget_view(void)
  *
  * This function assumes that (y,x) is legal (i.e. on the map).
  *
- * Grid (y1,x1) is on the "diagonal" between (py,px) and (y,x)
- * Grid (y2,x2) is "adjacent", also between (py,px) and (y,x).
+ * Grid (y1,x1) is on the "diagonal" between (py,p_ptr->fx) and (y,x)
+ * Grid (y2,x2) is "adjacent", also between (py,p_ptr->fx) and (y,x).
  *
  * Note that we are using the "CAVE_XTRA" field for marking grids as
  * "easily viewable".  This bit is cleared at the end of "update_view()".
@@ -3487,7 +3487,7 @@ static bool update_view_aux(int y, int x, int y1, int x1, int y2, int x2)
 
 
 	/* Hack -- check line of sight */
-	if (los(py, px, y, x))
+	if (los(py, p_ptr->fx, y, x))
 	{
 		cave_view_hack(c_ptr, y, x);
 
@@ -3658,7 +3658,7 @@ void update_view(void)
 
 	/* Now start on the player */
 	y = py;
-	x = px;
+	x = p_ptr->fx;
 
 	/* Access the grid */
 	c_ptr = &cave[y][x];
@@ -4160,11 +4160,11 @@ void update_flow(void)
 
 	/* Save player position */
 	flow_y = py;
-	flow_x = px;
+	flow_x = p_ptr->fx;
 
 	/* Add the player's grid to the queue */
 	temp_y[0] = py;
-	temp_x[0] = px;
+	temp_x[0] = p_ptr->fx;
 
 	/* Now process the queue */
 	while (flow_head != flow_tail)
@@ -4284,7 +4284,7 @@ void update_smell(void)
 
 			/* Translate table to map grids */
 			y = i + py - 2;
-			x = j + px - 2;
+			x = j + p_ptr->fx - 2;
 
 			/* Check Bounds */
 			if (!in_bounds(y, x)) continue;
@@ -4324,7 +4324,7 @@ void map_area(int range)
 	{
 		for (x = 1; x < cur_wid - 1; x++)
 		{
-			if (distance(py, px, y, x) > range) continue;
+			if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 			c_ptr = &cave[y][x];
 
@@ -4474,7 +4474,7 @@ void wiz_lite(bool ninja)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 }
 
@@ -4660,7 +4660,7 @@ void cave_set_feat(int y, int x, int feat)
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+			if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 		}
 	}
 }

@@ -381,7 +381,6 @@ s16b panel_col_prt, panel_row_prt;
  * Player location in dungeon
  */
 int py;
-int px;
 
 /*
  * Targetting variables

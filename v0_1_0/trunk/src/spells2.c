@@ -3537,7 +3537,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 	{
 		for (x = 1; x <= cur_wid - 1; x++)
 		{
-			int dist = distance(py, px, y, x);
+			int dist = distance(py, p_ptr->fx, y, x);
 			if (dist > range) continue;
 
 			/* Access the grid */
@@ -3707,7 +3707,7 @@ bool detect_objects_gold(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(py, px, y, x) > range2) continue;
+		if (distance(py, p_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "gold" objects */
 		if (o_ptr->tval == TV_GOLD)
@@ -3774,7 +3774,7 @@ bool detect_objects_normal(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(py, px, y, x) > range2) continue;
+		if (distance(py, p_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "real" objects */
 		if (o_ptr->tval != TV_GOLD)
@@ -3846,7 +3846,7 @@ bool detect_objects_magic(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Examine the tval */
 		tv = o_ptr->tval;
@@ -3929,7 +3929,7 @@ bool detect_monsters_normal(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible monsters */
 		if (!(r_ptr->flags2 & RF2_INVISIBLE) || p_ptr->see_inv)
@@ -3991,7 +3991,7 @@ bool detect_monsters_invis(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible monsters */
 		if (r_ptr->flags2 & RF2_INVISIBLE)
@@ -4061,7 +4061,7 @@ bool detect_monsters_evil(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
 		if (r_ptr->flags3 & RF3_EVIL)
@@ -4136,7 +4136,7 @@ bool detect_monsters_nonliving(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
 		if (!monster_living(r_ptr))
@@ -4203,7 +4203,7 @@ bool detect_monsters_mind(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
 		if (!(r_ptr->flags2 & RF2_EMPTY_MIND))
@@ -4270,7 +4270,7 @@ bool detect_monsters_string(int range, cptr Match)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect monsters with the same symbol */
 		if (my_strchr(Match, r_ptr->d_char))
@@ -4344,7 +4344,7 @@ cptr desc_monsters = "変なモンスター";
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(py, px, y, x) > range) continue;
+		if (distance(py, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
 		if (r_ptr->flags3 & (match_flag))
@@ -4467,7 +4467,7 @@ bool project_hack(int typ, int dam)
 		x = m_ptr->fx;
 
 		/* Require line of sight */
-		if (!player_has_los_bold(y, x) || !projectable(py, px, y, x)) continue;
+		if (!player_has_los_bold(y, x) || !projectable(py, p_ptr->fx, y, x)) continue;
 
 		/* Mark the monster */
 		m_ptr->mflag |= (MFLAG_TEMP);
@@ -4752,7 +4752,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	}
 
 	/* Visual feedback */
-	move_cursor_relative(py, px);
+	move_cursor_relative(py, p_ptr->fx);
 
 	/* Redraw */
 	p_ptr->redraw |= (PR_HP);
@@ -5382,7 +5382,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+			if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 		}
 	}
 
@@ -5483,7 +5483,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 		{
 			/* Access the location */
 			y = py + ddy_ddd[i];
-			x = px + ddx_ddd[i];
+			x = p_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
 			if (!cave_empty_bold(y, x)) continue;
@@ -5592,7 +5592,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 		}
 
 		/* Important -- no wall on player */
-		map[16+py-cy][16+px-cx] = FALSE;
+		map[16+py-cy][16+p_ptr->fx-cx] = FALSE;
 
 		/* Take some damage */
 		if (damage)
@@ -5900,7 +5900,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 
 	/* Success */
@@ -6233,7 +6233,7 @@ static void cave_temp_room_aux(int y, int x, bool only_room, bool (*pass_bold)(i
 		if (!in_bounds2(y, x)) return;
 
 		/* Do not exceed the maximum spell range */
-		if (distance(py, px, y, x) > MAX_RANGE(p_ptr)) return;
+		if (distance(py, p_ptr->fx, y, x) > MAX_RANGE(p_ptr)) return;
 
 		/* Verify this grid */
 		/*
@@ -6331,7 +6331,7 @@ void lite_room(int y1, int x1)
 
 	if (p_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[py][px].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[py][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
 	}
 }
 
@@ -6403,10 +6403,10 @@ msg_print("白い光が辺りを覆った。");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, py, px, dam, GF_LITE_WEAK, flg, -1);
+	(void)project(0, rad, py, p_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
 
 	/* Lite up the room */
-	lite_room(py, px);
+	lite_room(py, p_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
@@ -6433,10 +6433,10 @@ msg_print("暗闇が辺りを覆った。");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, py, px, dam, GF_DARK_WEAK, flg, -1);
+	(void)project(0, rad, py, p_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
 
 	/* Lite up the room */
-	unlite_room(py, px);
+	unlite_room(py, p_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
@@ -6458,7 +6458,7 @@ bool fire_ball(int typ, int dir, int dam, int rad)
 
 	if (typ == GF_CONTROL_LIVING) flg|= PROJECT_HIDE;
 	/* Use the given direction */
-	tx = px + 99 * ddx[dir];
+	tx = p_ptr->fx + 99 * ddx[dir];
 	ty = py + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
@@ -6487,7 +6487,7 @@ bool fire_rocket(int typ, int dir, int dam, int rad)
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	/* Use the given direction */
-	tx = px + 99 * ddx[dir];
+	tx = p_ptr->fx + 99 * ddx[dir];
 	ty = py + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
@@ -6515,7 +6515,7 @@ bool fire_ball_hide(int typ, int dir, int dam, int rad)
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE;
 
 	/* Use the given direction */
-	tx = px + 99 * ddx[dir];
+	tx = p_ptr->fx + 99 * ddx[dir];
 	ty = py + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
@@ -6563,7 +6563,7 @@ bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
 	if (dir != 5)
 	{
 		ly = ty = py + 20 * ddy[dir];
-		lx = tx = px + 20 * ddx[dir];
+		lx = tx = p_ptr->fx + 20 * ddx[dir];
 	}
 
 	/* Use an actual "target" */
@@ -6572,11 +6572,11 @@ bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
 		tx = target_col;
 		ty = target_row;
 
-		lx = 20 * (tx - px) + px;
+		lx = 20 * (tx - p_ptr->fx) + p_ptr->fx;
 		ly = 20 * (ty - py) + py;
 	}
 
-	ld = distance(py, px, ly, lx);
+	ld = distance(py, p_ptr->fx, ly, lx);
 
 	/* Blast */
 	for (i = 0; i < num; i++)
@@ -6618,7 +6618,7 @@ bool teleport_swap(int dir)
 	}
 	else
 	{
-		tx = px + ddx[dir];
+		tx = p_ptr->fx + ddx[dir];
 		ty = py + ddy[dir];
 	}
 	c_ptr = &cave[ty][tx];
@@ -6647,7 +6647,7 @@ msg_print("それとは場所を交換できません。");
 		return FALSE;
 	}
 
-	if ((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, py, px) > p_ptr->lev * 3 / 2 + 10))
+	if ((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, py, p_ptr->fx) > p_ptr->lev * 3 / 2 + 10))
 	{
 #ifdef JP
 msg_print("失敗した。");
@@ -6700,7 +6700,7 @@ bool project_hook(int typ, int dir, int dam, int flg)
 	flg |= (PROJECT_THRU);
 
 	/* Use the given direction */
-	tx = px + ddx[dir];
+	tx = p_ptr->fx + ddx[dir];
 	ty = py + ddy[dir];
 
 	/* Hack -- Use an actual "target" */
@@ -6897,7 +6897,7 @@ bool teleport_monster(int dir)
 bool door_creation(void)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, py, px, 0, GF_MAKE_DOOR, flg, -1));
+	return (project(0, 1, py, p_ptr->fx, 0, GF_MAKE_DOOR, flg, -1));
 }
 
 
@@ -6911,14 +6911,14 @@ bool trap_creation(int y, int x)
 bool tree_creation(void)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, py, px, 0, GF_MAKE_TREE, flg, -1));
+	return (project(0, 1, py, p_ptr->fx, 0, GF_MAKE_TREE, flg, -1));
 }
 
 
 bool glyph_creation(void)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM;
-	return (project(0, 1, py, px, 0, GF_MAKE_GLYPH, flg, -1));
+	return (project(0, 1, py, p_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
 }
 
 
@@ -6926,7 +6926,7 @@ bool wall_stone(void)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
 
-	bool dummy = (project(0, 1, py, px, 0, GF_STONE_WALL, flg, -1));
+	bool dummy = (project(0, 1, py, p_ptr->fx, 0, GF_STONE_WALL, flg, -1));
 
 	/* Update stuff */
 	p_ptr->update |= (PU_FLOW);
@@ -6941,14 +6941,14 @@ bool wall_stone(void)
 bool destroy_doors_touch(void)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, py, px, 0, GF_KILL_DOOR, flg, -1));
+	return (project(0, 1, py, p_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
 }
 
 
 bool sleep_monsters_touch(void)
 {
 	int flg = PROJECT_KILL | PROJECT_HIDE;
-	return (project(0, 1, py, px, p_ptr->lev, GF_OLD_SLEEP, flg, -1));
+	return (project(0, 1, py, p_ptr->fx, p_ptr->lev, GF_OLD_SLEEP, flg, -1));
 }
 
 
@@ -7032,7 +7032,7 @@ msg_print("地面が揺れた...");
 				msg_print("The ground trembles...");
 #endif
 
-				earthquake(py, px, 5 + randint0(10));
+				earthquake(py, p_ptr->fx, 5 + randint0(10));
 				if (!one_in_(6)) break;
 			}
 		case 30: case 31:
@@ -7045,7 +7045,7 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 8, py, px, dam, GF_MANA, flg, -1);
+				project(0, 8, py, p_ptr->fx, dam, GF_MANA, flg, -1);
 #ifdef JP
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
 #else
@@ -7063,7 +7063,7 @@ msg_print("周囲の空間が歪んだ！");
 #endif
 
 				teleport_player(damroll(10, 10), TELEPORT_PASSIVE);
-				if (randint0(13)) (*count) += activate_hi_summon(py, px, FALSE);
+				if (randint0(13)) (*count) += activate_hi_summon(py, p_ptr->fx, FALSE);
 				if (!one_in_(6)) break;
 			}
 		case 34:
@@ -7076,7 +7076,7 @@ msg_print("エネルギーのうねりを感じた！");
 			wall_breaker();
 			if (!randint0(7))
 			{
-				project(0, 7, py, px, 50, GF_KILL_WALL, flg, -1);
+				project(0, 7, py, p_ptr->fx, 50, GF_KILL_WALL, flg, -1);
 #ifdef JP
 				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
 #else
@@ -7088,10 +7088,10 @@ msg_print("エネルギーのうねりを感じた！");
 			aggravate_monsters(0);
 			if (!one_in_(6)) break;
 		case 4: case 5: case 6:
-			(*count) += activate_hi_summon(py, px, FALSE);
+			(*count) += activate_hi_summon(py, p_ptr->fx, FALSE);
 			if (!one_in_(6)) break;
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, py, px, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(*count) += summon_specific(0, py, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			if (!one_in_(6)) break;
 		case 10: case 11: case 12:
 #ifdef JP
@@ -7140,7 +7140,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			 */
 			if ((dun_level > 65) && !stop_ty)
 			{
-				(*count) += summon_cyber(-1, py, px);
+				(*count) += summon_cyber(-1, py, p_ptr->fx);
 				stop_ty = TRUE;
 				break;
 			}
@@ -7282,7 +7282,7 @@ void wall_breaker(void)
 	{
 		while (attempts--)
 		{
-			scatter(&y, &x, py, px, 4, 0);
+			scatter(&y, &x, py, p_ptr->fx, 4, 0);
 
 			if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
@@ -7294,7 +7294,7 @@ void wall_breaker(void)
 	}
 	else if (randint1(100) > 30)
 	{
-		earthquake(py, px, 1);
+		earthquake(py, p_ptr->fx, 1);
 	}
 	else
 	{
@@ -7304,7 +7304,7 @@ void wall_breaker(void)
 		{
 			while (1)
 			{
-				scatter(&y, &x, py, px, 10, 0);
+				scatter(&y, &x, py, p_ptr->fx, 10, 0);
 
 				if (!player_bold(y, x)) break;
 			}
@@ -7464,7 +7464,7 @@ bool kawarimi(bool success)
 	}
 
 	y = py;
-	x = px;
+	x = p_ptr->fx;
 
 	teleport_player(10 + randint1(90), 0L);
 
@@ -7513,7 +7513,7 @@ bool rush_attack(bool *mdeath)
 	if (!get_aim_dir(&dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = px + project_length * ddx[dir];
+	tx = p_ptr->fx + project_length * ddx[dir];
 	ty = py + project_length * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
@@ -7525,7 +7525,7 @@ bool rush_attack(bool *mdeath)
 
 	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].m_idx;
 
-	path_n = project_path(path_g, project_length, py, px, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	path_n = project_path(path_g, project_length, py, p_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
 
 	/* No need to move */
@@ -7533,7 +7533,7 @@ bool rush_attack(bool *mdeath)
 
 	/* Use ty and tx as to-move point */
 	ty = py;
-	tx = px;
+	tx = p_ptr->fx;
 
 	/* Project along the path */
 	for (i = 0; i < path_n; i++)

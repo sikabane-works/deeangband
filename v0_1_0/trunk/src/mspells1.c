@@ -487,7 +487,7 @@ static void bolt(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;
 
 	/* Target the player with a bolt attack */
-	(void)project(&m_list[m_idx], 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, py, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void beam(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
@@ -495,7 +495,7 @@ static void beam(int m_idx, int typ, int dam_hp, int monspell, bool learnable)
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU | PROJECT_PLAYER;
 
 	/* Target the player with a bolt attack */
-	(void)project(&m_list[m_idx], 0, py, px, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&m_list[m_idx], 0, py, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
@@ -1078,7 +1078,7 @@ static int choose_attack_spell(int m_idx, byte spells[], byte num)
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(py, px, m_ptr->fy, m_ptr->fx) < 4) && (attack_num || (r_ptr->flags6 & RF6_TRAPS)) && (randint0(100) < 75) && !world_monster)
+	if ((distance(py, p_ptr->fx, m_ptr->fy, m_ptr->fx) < 4) && (attack_num || (r_ptr->flags6 & RF6_TRAPS)) && (randint0(100) < 75) && !world_monster)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);
@@ -1205,9 +1205,9 @@ static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
 			                     {-1,  0,  1, -1,  1, -1,  0,  1},
 			                     { 1,  0, -1,  1, -1,  1,  0, -1}};
 
-	if (m_ptr->fy < py && m_ptr->fx < px) tonari = 0;
+	if (m_ptr->fy < py && m_ptr->fx < p_ptr->fx) tonari = 0;
 	else if (m_ptr->fy < py) tonari = 1;
-	else if (m_ptr->fx < px) tonari = 2;
+	else if (m_ptr->fx < p_ptr->fx) tonari = 2;
 	else tonari = 3;
 
 	for (i = 0; i < 8; i++)
@@ -1311,7 +1311,7 @@ bool make_attack_spell(int m_idx)
 	int s_num_4 = (easy_band ? 1 : 4);
 
 	/* Target location */
-	int x = px;
+	int x = p_ptr->fx;
 	int y = py;
 
 	/* Target location for lite breath */
@@ -1549,7 +1549,7 @@ bool make_attack_spell(int m_idx)
 		if (((f4 & RF4_BOLT_MASK) ||
 		     (f5 & RF5_BOLT_MASK) ||
 		     (f6 & RF6_BOLT_MASK)) &&
-		    !clean_shot(m_ptr->fy, m_ptr->fx, py, px, FALSE))
+		    !clean_shot(m_ptr->fy, m_ptr->fx, py, p_ptr->fx, FALSE))
 		{
 			/* Remove spells that will only hurt friends */
 			f4 &= ~(RF4_BOLT_MASK);

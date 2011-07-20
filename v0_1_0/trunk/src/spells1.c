@@ -2787,7 +2787,7 @@ note_dies = "は蒸発した！";
 			if (seen) obvious = TRUE;
 
 			/* PSI only works if the monster can see you! -- RG */
-			if (!(los(m_ptr->fy, m_ptr->fx, py, px)))
+			if (!(los(m_ptr->fy, m_ptr->fx, py, p_ptr->fx)))
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%sはあなたが見えないので影響されない！", m_name);
@@ -6237,7 +6237,7 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? -1 : 0), py, px, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
+				count += summon_specific((pet ? -1 : 0), py, p_ptr->fx, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
@@ -6340,7 +6340,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		q_ptr->ident |= (IDENT_MENTAL);
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, py, px);
+		(void)drop_near(q_ptr, -1, py, p_ptr->fx);
 	}
 
 	/* Track it */
@@ -6434,7 +6434,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				t_x = who_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(py, px, t_y, t_x));
+			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(py, p_ptr->fx, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
@@ -6445,7 +6445,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		else
 		{
 			t_y = py - 1 + (byte)randint1(3);
-			t_x = px - 1 + (byte)randint1(3);
+			t_x = p_ptr->fx - 1 + (byte)randint1(3);
 		}
 
 		project(0, 0, t_y, t_x, dam, typ, (PROJECT_STOP|PROJECT_KILL|PROJECT_REFLECTABLE), monspell);
@@ -7811,7 +7811,7 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 	if (pd > nd) return distance(y, x, y2, x2);
 
 	/* Component of P on N */
-	nd = ((nd) ? ((py * ny + px * nx) / nd) : 0);
+	nd = ((nd) ? ((py * ny + p_ptr->fx * nx) / nd) : 0);
 
    /* Absolute value */
    return((nd >= 0) ? nd : 0 - nd);
@@ -8344,7 +8344,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	/* Default target of monsterspell is player */
 	monster_target_y=py;
-	monster_target_x=px;
+	monster_target_x=p_ptr->fx;
 
 	/* Hack -- Jump to target */
 	if (flg & (PROJECT_JUMP))
@@ -8361,7 +8361,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	/* Start at player */
 	else if (is_player(who_ptr))
 	{
-		x1 = px;
+		x1 = p_ptr->fx;
 		y1 = py;
 	}
 
@@ -8986,7 +8986,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	if (flg & PROJECT_KILL)
 	{
 		see_s_msg = (!is_player(who_ptr)) ? is_seen(p_ptr, who_ptr) :
-			(is_player(who_ptr) ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, px, y1, x1)));
+			(is_player(who_ptr) ? TRUE : (player_can_see_bold(y1, x1) && projectable(py, p_ptr->fx, y1, x1)));
 	}
 
 
@@ -9372,17 +9372,17 @@ bool binding_field( int dam )
 
 	/* Default target of monsterspell is player */
 	monster_target_y=py;
-	monster_target_x=px;
+	monster_target_x=p_ptr->fx;
 
 	for( x=0 ; x < cur_wid ; x++ )
 	{
 		for( y=0 ; y < cur_hgt ; y++ )
 		{
 			if( is_mirror_grid(&cave[y][x]) &&
-			    distance(py,px,y,x) <= MAX_RANGE(p_ptr) &&
-			    distance(py,px,y,x) != 0 &&
+			    distance(py,p_ptr->fx,y,x) <= MAX_RANGE(p_ptr) &&
+			    distance(py,p_ptr->fx,y,x) != 0 &&
 			    player_has_los_bold(y,x) &&
-			    projectable(py, px, y, x)
+			    projectable(py, p_ptr->fx, y, x)
 			    ){
 				mirror_y[mirror_num]=y;
 				mirror_x[mirror_num]=x;
@@ -9404,7 +9404,7 @@ bool binding_field( int dam )
 	point_y[1]=mirror_y[point_x[1]];
 	point_x[1]=mirror_x[point_x[1]];
 	point_y[2]=py;
-	point_x[2]=px;
+	point_x[2]=p_ptr->fx;
 
 	x=point_x[0]+point_x[1]+point_x[2];
 	y=point_y[0]+point_y[1]+point_y[2];
@@ -9432,7 +9432,7 @@ bool binding_field( int dam )
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(py, p_ptr->fx, y, x)) {
 					/* Visual effects */
 					if(!(p_ptr->blind)
 					   && panel_contains(y,x)){
@@ -9455,7 +9455,7 @@ bool binding_field( int dam )
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(py, p_ptr->fx, y, x)) {
 					(void)project_f(NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -9470,7 +9470,7 @@ bool binding_field( int dam )
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(py, p_ptr->fx, y, x)) {
 					(void)project_o(p_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -9485,7 +9485,7 @@ bool binding_field( int dam )
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(py, px, y, x)) {
+				if (player_has_los_bold(y, x) && projectable(py, p_ptr->fx, y, x)) {
 					(void)project_m(p_ptr,0,y,x,dam,GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE);
 				}

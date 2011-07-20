@@ -316,7 +316,7 @@ msg_print("かん高い金切り声をあげた。");
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(py, px, target_row, target_col)) break;
+		if (!projectable(py, p_ptr->fx, target_row, target_col)) break;
 		dispel_monster_status(m_idx);
 		break;
 	}
@@ -928,7 +928,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		if (!target_set(TARGET_KILL)) return FALSE;
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(py, px, target_row, target_col)) break;
+		if (!projectable(py, p_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[cave[target_row][target_col].m_idx];
 		r_ptr = &r_info[m_ptr->monster_idx];
 		monster_desc(m_name, m_ptr, 0);
@@ -963,7 +963,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You command %s to return.", m_name);
 #endif
 
-		teleport_monster_to(cave[target_row][target_col].m_idx, py, px, 100, TELEPORT_PASSIVE);
+		teleport_monster_to(cave[target_row][target_col].m_idx, py, p_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
 	case MS_TELE_AWAY:
@@ -982,7 +982,7 @@ msg_format("%sを引き戻した。", m_name);
 		target_m_idx = cave[target_row][target_col].m_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(py, px, target_row, target_col)) break;
+		if (!projectable(py, p_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[target_m_idx];
 		r_ptr = &r_info[m_ptr->monster_idx];
 		monster_desc(m_name, m_ptr, 0);
@@ -1044,7 +1044,7 @@ msg_print("死者復活の呪文を唱えた。");
 #else
 		msg_print("You cast a animate dead.");
 #endif
-		(void)animate_dead(0, py, px);
+		(void)animate_dead(0, py, p_ptr->fx);
 		break;
 	case MS_S_KIN:
 	{

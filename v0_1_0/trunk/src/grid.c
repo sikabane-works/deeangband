@@ -70,7 +70,7 @@ bool new_player_spot(void)
 
 	/* Save the new player grid */
 	py = y;
-	px = x;
+	p_ptr->fx = x;
 
 	return TRUE;
 }

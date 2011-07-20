@@ -2407,7 +2407,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	{
 		if (!(cr_ptr->special_defense & NINJA_S_STEALTH))
 		{
-			if (cave[py][px].info & CAVE_MNLT)
+			if (cave[py][p_ptr->fx].info & CAVE_MNLT)
 			{
 #ifdef JP
 				msg_print("“G‚Ì–Ú‚©‚ç”–‚¢‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½B");
@@ -5200,7 +5200,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
-	lite_spot(py, px);
+	lite_spot(py, p_ptr->fx);
 }
 
 

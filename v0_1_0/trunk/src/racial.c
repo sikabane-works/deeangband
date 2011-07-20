@@ -112,7 +112,7 @@ static bool do_cmd_archer(void)
 
 		if (!get_rep_dir(&dir, FALSE)) return FALSE;
 		y = py + ddy[dir];
-		x = px + ddx[dir];
+		x = p_ptr->fx + ddx[dir];
 		c_ptr = &cave[y][x];
 
 		if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
@@ -908,7 +908,7 @@ static bool cmd_racial_power_aux(s32b command)
 			{
 				dir = randint0(8);
 				y = py + ddy_ddd[dir];
-				x = px + ddx_ddd[dir];
+				x = p_ptr->fx + ddx_ddd[dir];
 				c_ptr = &cave[y][x];
 
 				/* Hack -- attack monsters */
@@ -959,7 +959,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 			if (!get_rep_dir(&dir, FALSE)) return FALSE;
 			y = py + ddy[dir];
-			x = px + ddx[dir];
+			x = p_ptr->fx + ddx[dir];
 			if (cave[y][x].m_idx)
 			{
 				py_attack(p_ptr, y, x, 0);
@@ -1093,7 +1093,7 @@ static bool cmd_racial_power_aux(s32b command)
 
 				if (!get_rep_dir(&dir, FALSE)) return FALSE;
 				y = py + ddy[dir];
-				x = px + ddx[dir];
+				x = p_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
 				{
 #ifdef JP
@@ -1376,7 +1376,7 @@ static bool cmd_racial_power_aux(s32b command)
 #endif
 					return FALSE;
 				}
-				if (is_mirror_grid(&cave[py][px]))
+				if (is_mirror_grid(&cave[py][p_ptr->fx]))
 				{
 #ifdef JP
 					msg_print("少し頭がハッキリした。");
@@ -1413,7 +1413,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 			else
 			{
-				cave_type *c_ptr = &cave[py][px];
+				cave_type *c_ptr = &cave[py][p_ptr->fx];
 				feature_type *f_ptr = &f_info[c_ptr->feat];
 
 				if (!have_flag(f_ptr->flags, FF_PROJECT) ||
@@ -1472,7 +1472,7 @@ static bool cmd_racial_power_aux(s32b command)
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir(&dir, FALSE)) return FALSE;   /* was get_aim_dir */
 				y = py + ddy[dir];
-				x = px + ddx[dir];
+				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
 				ratial_stop_mouth();
@@ -1556,7 +1556,7 @@ static bool cmd_racial_power_aux(s32b command)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				(void)drop_near(q_ptr, -1, py, px);
+				(void)drop_near(q_ptr, -1, py, p_ptr->fx);
 #ifdef JP
 				msg_print("食事を料理して作った。");
 #else
@@ -2016,7 +2016,7 @@ static bool cmd_racial_power_aux(s32b command)
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir(&dir,FALSE)) return FALSE;   /* was get_aim_dir */
 				y = py + ddy[dir];
-				x = px + ddx[dir];
+				x = p_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
 				ratial_stop_mouth();

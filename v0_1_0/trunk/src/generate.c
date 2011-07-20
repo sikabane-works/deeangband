@@ -525,7 +525,7 @@ bool place_quest_monsters(void)
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
 					if (!monster_can_enter(y, x, r_ptr, 0)) continue;
-					if (distance(y, x, py, px) < 10) continue;
+					if (distance(y, x, py, p_ptr->fx) < 10) continue;
 					if (c_ptr->info & CAVE_ICKY) continue;
 					else break;
 				}
@@ -1197,7 +1197,7 @@ static void arena_gen(void)
 
 	build_arena();
 
-	place_monster_aux(p_ptr, py + 5, px, arena_info[p_ptr->arena_number].monster_idx,
+	place_monster_aux(p_ptr, py + 5, p_ptr->fx, arena_info[p_ptr->arena_number].monster_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
 
@@ -1302,9 +1302,9 @@ static void battle_gen(void)
 
 	for(i=0;i<4;i++)
 	{
-		place_monster_aux(p_ptr, py + 8 + (i/2)*4, px - 2 + (i%2)*4, battle_mon[i],
+		place_monster_aux(p_ptr, py + 8 + (i/2)*4, p_ptr->fx - 2 + (i%2)*4, battle_mon[i],
 				  (PM_NO_KAGE | PM_NO_PET));
-		set_friendly(&m_list[cave[py+8+(i/2)*4][px-2+(i%2)*4].m_idx]);
+		set_friendly(&m_list[cave[py+8+(i/2)*4][p_ptr->fx-2+(i%2)*4].m_idx]);
 	}
 	for(i = 1; i < m_max; i++)
 	{
@@ -1567,7 +1567,7 @@ void clear_cave(void)
 	}
 
 	/* Mega-Hack -- no player yet */
-	px = py = 0;
+	p_ptr->fx = py = 0;
 
 	/* Set the base level */
 	base_level = dun_level;

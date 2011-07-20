@@ -370,7 +370,7 @@ static bool player_has_no_spellbooks(void)
 		if (o_ptr->k_idx && check_book_realm(o_ptr->tval, o_ptr->sval)) return FALSE;
 	}
 
-	for (i = cave[py][px].o_idx; i; i = o_ptr->next_o_idx)
+	for (i = cave[py][p_ptr->fx].o_idx; i; i = o_ptr->next_o_idx)
 	{
 		o_ptr = &o_list[i];
 		if (o_ptr->k_idx && (o_ptr->marked & OM_FOUND) && check_book_realm(o_ptr->tval, o_ptr->sval)) return FALSE;
@@ -1029,7 +1029,7 @@ static void wild_magic(int spell)
 		break;
 	case 19:
 	case 20:
-		trap_creation(py, px);
+		trap_creation(py, p_ptr->fx);
 		break;
 	case 21:
 	case 22:
@@ -1041,7 +1041,7 @@ static void wild_magic(int spell)
 		aggravate_monsters(0);
 		break;
 	case 26:
-		earthquake(py, px, 5);
+		earthquake(py, p_ptr->fx, 5);
 		break;
 	case 27:
 	case 28:
@@ -1064,15 +1064,15 @@ static void wild_magic(int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, py, px, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
+			(void)summon_specific(0, py, p_ptr->fx, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
 		}
 		break;
 	case 36:
 	case 37:
-		activate_hi_summon(py, px, FALSE);
+		activate_hi_summon(py, p_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(-1, py, px);
+		(void)summon_cyber(-1, py, p_ptr->fx);
 		break;
 	default:
 		{
@@ -1988,7 +1988,7 @@ bool rakuba(int dam, bool force)
 
 			/* Access the location */
 			y = py + ddy_ddd[i];
-			x = px + ddx_ddd[i];
+			x = p_ptr->fx + ddx_ddd[i];
 
 			c_ptr = &cave[y][x];
 
@@ -2025,16 +2025,16 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 		}
 
 		oy = py;
-		ox = px;
+		ox = p_ptr->fx;
 
 		py = sy;
-		px = sx;
+		p_ptr->fx = sx;
 
 		/* Redraw the old spot */
 		lite_spot(oy, ox);
 
 		/* Redraw the new spot */
-		lite_spot(py, px);
+		lite_spot(py, p_ptr->fx);
 
 		/* Check for new panel */
 		verify_panel();
@@ -2080,7 +2080,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 
 	/* Move the player */
 	if (sy && !p_ptr->is_dead)
-		(void)move_player_effect(py, px, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+		(void)move_player_effect(py, p_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return fall_dam;
 }
@@ -2093,7 +2093,7 @@ bool do_riding(bool force)
 
 	if (!get_rep_dir2(&dir)) return FALSE;
 	y = py + ddy[dir];
-	x = px + ddx[dir];
+	x = p_ptr->fx + ddx[dir];
 	c_ptr = &cave[y][x];
 
 	if (p_ptr->special_defense & KATA_MUSOU) set_action(p_ptr, ACTION_NONE);
@@ -2111,7 +2111,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(py, px, y, x)) return FALSE;
+		if (!pattern_seq(py, p_ptr->fx, y, x)) return FALSE;
 
 		if (c_ptr->m_idx)
 		{
@@ -2178,7 +2178,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(py, px, y, x)) return FALSE;
+		if (!pattern_seq(py, p_ptr->fx, y, x)) return FALSE;
 
 		if (!player_can_ride_aux(c_ptr, TRUE))
 		{

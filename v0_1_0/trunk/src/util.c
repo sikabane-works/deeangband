@@ -4162,7 +4162,7 @@ static char inkey_from_menu(void)
 #endif
 
 		/* Place the cursor on the player */
-		move_cursor_relative(py, px);
+		move_cursor_relative(py, p_ptr->fx);
 
 		/* Get a command */
 		sub_cmd = inkey();

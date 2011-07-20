@@ -386,7 +386,7 @@ void compact_objects(int size)
 			}
 
 			/* Nearby objects start out "immune" */
-			if ((cur_dis > 0) && (distance(py, px, y, x) < cur_dis)) continue;
+			if ((cur_dis > 0) && (distance(py, p_ptr->fx, y, x) < cur_dis)) continue;
 
 			/* Saving throw */
 			chance = 90;
@@ -6168,7 +6168,7 @@ void inven_drop(int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(q_ptr, 0, py, px);
+	(void)drop_near(q_ptr, 0, py, p_ptr->fx);
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(item, -amt);

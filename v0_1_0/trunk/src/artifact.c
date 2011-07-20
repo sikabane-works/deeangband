@@ -2236,7 +2236,7 @@ bool activate_random_artifact(object_type * o_ptr)
 				for (dir = 0; dir <= 9; dir++)
 				{
 					y = py + ddy[dir];
-					x = px + ddx[dir];
+					x = p_ptr->fx + ddx[dir];
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
@@ -2363,7 +2363,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_QUAKE:
 		{
-			earthquake(py, px, 10);
+			earthquake(py, p_ptr->fx, 10);
 			o_ptr->timeout = 50;
 			break;
 		}
@@ -2466,7 +2466,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_SUMMON_ANIMAL:
 		{
-			(void)summon_specific(-1, py, px, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(-1, py, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(300);
 			break;
 		}
@@ -2479,7 +2479,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You summon a phantasmal servant.");
 #endif
 
-			(void)summon_specific(-1, py, px, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(-1, py, p_ptr->fx, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}
@@ -2493,7 +2493,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? -1 : 0), py, px, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
+			if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
 			{
 #ifdef JP
 				msg_print("ƒGƒŒƒƒ“ƒ^ƒ‹‚ªŒ»‚ê‚½...");
@@ -2531,7 +2531,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? -1 : 0), py, px, ((plev * 3) / 2), SUMMON_DEMON, mode))
+			if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
 			{
 #ifdef JP
 				msg_print("—°‰©‚Ìˆ«L‚ª[–‚µ‚½B");
@@ -2571,7 +2571,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-			if (summon_specific((pet ? -1 : 0), py, px, ((plev * 3) / 2), type, mode))
+			if (summon_specific((pet ? -1 : 0), py, p_ptr->fx, ((plev * 3) / 2), type, mode))
 			{
 #ifdef JP
 				msg_print("—â‚½‚¢•—‚ª‚ ‚È‚½‚Ìü‚è‚É‚«n‚ß‚½B‚»‚ê‚Í•…”sL‚ğ‰^‚ñ‚Å‚¢‚é...");
