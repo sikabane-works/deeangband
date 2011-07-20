@@ -7309,13 +7309,13 @@ static int select_magic_eater(bool only_browse)
 /*
  *  Use eaten rod, wand or staff
  */
-void do_cmd_magic_eater(bool only_browse)
+void do_cmd_magic_eater(creature_type *cr_ptr, bool only_browse)
 {
 	int item, chance, level, k_idx, tval, sval;
 	bool use_charge = TRUE;
 
 	/* Not when confused */
-	if (!only_browse && p_ptr->confused)
+	if (!only_browse && cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -7339,17 +7339,17 @@ msg_print("混乱していて唱えられない！");
 
 	level = (tval == TV_ROD ? k_info[k_idx].level * 5 / 6 - 5 : k_info[k_idx].level);
 	chance = level * 4 / 5 + 20;
-	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->sex].spell_stat]] - 1);
 	level /= 2;
-	if (p_ptr->lev > level)
+	if (cr_ptr->lev > level)
 	{
-		chance -= 3 * (p_ptr->lev - level);
+		chance -= 3 * (cr_ptr->lev - level);
 	}
 	chance = mod_spell_chance_1(chance);
-	chance = MAX(chance, adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]]);
+	chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->sex].spell_stat]]);
 	/* Stunning makes spells harder */
-	if (p_ptr->stun > 50) chance += 25;
-	else if (p_ptr->stun) chance += 15;
+	if (cr_ptr->stun > 50) chance += 25;
+	else if (cr_ptr->stun) chance += 15;
 
 	if (chance > 95) chance = 95;
 
@@ -7367,7 +7367,7 @@ msg_print("呪文をうまく唱えられなかった！");
 
 		sound(SOUND_FAIL);
 		if (randint1(100) >= chance)
-			chg_virtue(p_ptr, V_CHANCE,-1);
+			chg_virtue(cr_ptr, V_CHANCE,-1);
 		energy_use = 100;
 
 		return;
@@ -7394,9 +7394,9 @@ msg_print("呪文をうまく唱えられなかった！");
 			if (!use_charge) return;
 		}
 		if (randint1(100) < chance)
-			chg_virtue(p_ptr, V_CHANCE,1);
+			chg_virtue(cr_ptr, V_CHANCE,1);
 	}
 	energy_use = 100;
-	if (tval == TV_ROD) p_ptr->magic_num1[item] += k_info[k_idx].pval * EATER_ROD_CHARGE;
-	else p_ptr->magic_num1[item] -= EATER_CHARGE;
+	if (tval == TV_ROD) cr_ptr->magic_num1[item] += k_info[k_idx].pval * EATER_ROD_CHARGE;
+	else cr_ptr->magic_num1[item] -= EATER_CHARGE;
 }
