@@ -359,18 +359,18 @@ static bool item_tester_learn_spell(object_type *o_ptr)
 }
 
 
-static bool player_has_no_spellbooks(void)
+static bool player_has_no_spellbooks(creature_type *cr_ptr)
 {
 	int         i;
 	object_type *o_ptr;
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 		if (o_ptr->k_idx && check_book_realm(o_ptr->tval, o_ptr->sval)) return FALSE;
 	}
 
-	for (i = cave[p_ptr->fy][p_ptr->fx].o_idx; i; i = o_ptr->next_o_idx)
+	for (i = cave[cr_ptr->fy][cr_ptr->fx].o_idx; i; i = o_ptr->next_o_idx)
 	{
 		o_ptr = &o_list[i];
 		if (o_ptr->k_idx && (o_ptr->marked & OM_FOUND) && check_book_realm(o_ptr->tval, o_ptr->sval)) return FALSE;
@@ -472,7 +472,7 @@ void do_cmd_browse(void)
 
 	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
-		if (player_has_no_spellbooks())
+		if (player_has_no_spellbooks(p_ptr))
 		{
 			confirm_use_force(TRUE);
 			return;
@@ -1164,7 +1164,7 @@ void do_cmd_cast(void)
 
 	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
-		if (player_has_no_spellbooks())
+		if (player_has_no_spellbooks(p_ptr))
 		{
 			confirm_use_force(FALSE);
 			return;
