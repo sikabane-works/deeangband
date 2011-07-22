@@ -2914,31 +2914,31 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 }
 
 
-static int wand_effect(int sval, int dir, bool magic)
+static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 {
 	int ident = FALSE;
 
 	/* XXX Hack -- Wand of wonder can do anything before it */
 	if (sval == SV_WAND_WONDER)
 	{
-		int vir = virtue_number(p_ptr, V_CHANCE);
+		int vir = virtue_number(cr_ptr, V_CHANCE);
 		sval = randint0(SV_WAND_WONDER);
 
 		if (vir)
 		{
-			if (p_ptr->virtues[vir - 1] > 0)
+			if (cr_ptr->virtues[vir - 1] > 0)
 			{
-				while (randint1(300) < p_ptr->virtues[vir - 1]) sval++;
+				while (randint1(300) < cr_ptr->virtues[vir - 1]) sval++;
 				if (sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
-				while (randint1(300) < (0-p_ptr->virtues[vir - 1])) sval--;
+				while (randint1(300) < (0-cr_ptr->virtues[vir - 1])) sval--;
 				if (sval < SV_WAND_HEAL_MONSTER) sval = randint0(3) + SV_WAND_HEAL_MONSTER;
 			}
 		}
 		if (sval < SV_WAND_TELEPORT_AWAY)
-			chg_virtue(p_ptr, V_CHANCE, 1);
+			chg_virtue(cr_ptr, V_CHANCE, 1);
 	}
 
 	/* Analyze the wand */
@@ -3013,19 +3013,19 @@ static int wand_effect(int sval, int dir, bool magic)
 
 		case SV_WAND_CONFUSE_MONSTER:
 		{
-			if (confuse_monster(dir, p_ptr->lev)) ident = TRUE;
+			if (confuse_monster(dir, cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FEAR_MONSTER:
 		{
-			if (fear_monster(dir, p_ptr->lev)) ident = TRUE;
+			if (fear_monster(dir, cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAIN_LIFE:
 		{
-			if (drain_life(dir, 80 + p_ptr->lev)) ident = TRUE;
+			if (drain_life(dir, 80 + cr_ptr->lev)) ident = TRUE;
 			break;
 		}
 
@@ -3037,70 +3037,70 @@ static int wand_effect(int sval, int dir, bool magic)
 
 		case SV_WAND_STINKING_CLOUD:
 		{
-			fire_ball(GF_POIS, dir, 12 + p_ptr->lev / 4, 2);
+			fire_ball(GF_POIS, dir, 12 + cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			fire_bolt_or_beam(20, GF_MISSILE, dir, damroll(2 + p_ptr->lev / 10, 6));
+			fire_bolt_or_beam(20, GF_MISSILE, dir, damroll(2 + cr_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_ACID, dir, damroll(6 + p_ptr->lev / 7, 8));
+			fire_bolt_or_beam(20, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CHARM_MONSTER:
 		{
-			if (charm_monster(dir, MAX(20, p_ptr->lev)))
+			if (charm_monster(dir, MAX(20, cr_ptr->lev)))
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_FIRE, dir, damroll(7 + p_ptr->lev / 6, 8));
+			fire_bolt_or_beam(20, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			fire_bolt_or_beam(20, GF_COLD, dir, damroll(5 + p_ptr->lev / 8, 8));
+			fire_bolt_or_beam(20, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BALL:
 		{
-			fire_ball(GF_ACID, dir, 60 + 3 * p_ptr->lev / 4, 2);
+			fire_ball(GF_ACID, dir, 60 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ELEC_BALL:
 		{
-			fire_ball(GF_ELEC, dir, 40 + 3 * p_ptr->lev / 4, 2);
+			fire_ball(GF_ELEC, dir, 40 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BALL:
 		{
-			fire_ball(GF_FIRE, dir, 70 + 3 * p_ptr->lev / 4, 2);
+			fire_ball(GF_FIRE, dir, 70 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BALL:
 		{
-			fire_ball(GF_COLD, dir, 50 + 3 * p_ptr->lev / 4, 2);
+			fire_ball(GF_COLD, dir, 50 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3171,7 +3171,7 @@ static int wand_effect(int sval, int dir, bool magic)
 
 		case SV_WAND_DISINTEGRATE:
 		{
-			fire_ball(GF_DISINTEGRATE, dir, 200 + randint1(p_ptr->lev * 2), 2);
+			fire_ball(GF_DISINTEGRATE, dir, 200 + randint1(cr_ptr->lev * 2), 2);
 			ident = TRUE;
 			break;
 		}
@@ -3184,21 +3184,21 @@ msg_print("ロケットを発射した！");
 			msg_print("You launch a rocket!");
 #endif
 
-			fire_rocket(GF_ROCKET, dir, 250 + p_ptr->lev * 3, 2);
+			fire_rocket(GF_ROCKET, dir, 250 + cr_ptr->lev * 3, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STRIKING:
 		{
-			fire_bolt(GF_METEOR, dir, damroll(15 + p_ptr->lev / 3, 13));
+			fire_bolt(GF_METEOR, dir, damroll(15 + cr_ptr->lev / 3, 13));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_GENOCIDE:
 		{
-			fire_ball_hide(GF_GENOCIDE, dir, magic ? p_ptr->lev + 50 : 250, 0);
+			fire_ball_hide(GF_GENOCIDE, dir, magic ? cr_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 		}
@@ -3340,7 +3340,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = wand_effect(o_ptr->sval, dir, FALSE);
+	ident = wand_effect(cr_ptr, o_ptr->sval, dir, FALSE);
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -7386,7 +7386,7 @@ msg_print("呪文をうまく唱えられなかった！");
 		else if (tval == TV_WAND)
 		{
 			if (!get_aim_dir(&dir)) return;
-			wand_effect(sval, dir, TRUE);
+			wand_effect(cr_ptr, sval, dir, TRUE);
 		}
 		else
 		{
