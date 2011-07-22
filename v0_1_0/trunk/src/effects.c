@@ -5386,7 +5386,7 @@ msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", cr_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : 
 	/* Note: earlier deductions may have left power < 0 already. */
 	while (power > 0)
 	{
-		mutate_player();
+		mutate_creature(cr_ptr);
 		power--;
 	}
 }

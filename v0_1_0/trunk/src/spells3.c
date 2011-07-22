@@ -1174,7 +1174,7 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(t) );
 }
 
 
-void mutate_player(void)
+void mutate_creature(creature_type *cr_ptr)
 {
 	int max1, cur1, max2, cur2, ii, jj, i;
 
@@ -1182,23 +1182,23 @@ void mutate_player(void)
 	ii = randint0(6);
 	for (jj = ii; jj == ii; jj = randint0(6)) /* loop */;
 
-	max1 = p_ptr->stat_max[ii];
-	cur1 = p_ptr->stat_cur[ii];
-	max2 = p_ptr->stat_max[jj];
-	cur2 = p_ptr->stat_cur[jj];
+	max1 = cr_ptr->stat_max[ii];
+	cur1 = cr_ptr->stat_cur[ii];
+	max2 = cr_ptr->stat_max[jj];
+	cur2 = cr_ptr->stat_cur[jj];
 
-	p_ptr->stat_max[ii] = max2;
-	p_ptr->stat_cur[ii] = cur2;
-	p_ptr->stat_max[jj] = max1;
-	p_ptr->stat_cur[jj] = cur1;
+	cr_ptr->stat_max[ii] = max2;
+	cr_ptr->stat_cur[ii] = cur2;
+	cr_ptr->stat_max[jj] = max1;
+	cr_ptr->stat_cur[jj] = cur1;
 
 	for (i=0;i<6;i++)
 	{
-		if(p_ptr->stat_max[i] > p_ptr->stat_max_max[i]) p_ptr->stat_max[i] = p_ptr->stat_max_max[i];
-		if(p_ptr->stat_cur[i] > p_ptr->stat_max_max[i]) p_ptr->stat_cur[i] = p_ptr->stat_max_max[i];
+		if(cr_ptr->stat_max[i] > cr_ptr->stat_max_max[i]) cr_ptr->stat_max[i] = cr_ptr->stat_max_max[i];
+		if(cr_ptr->stat_cur[i] > cr_ptr->stat_max_max[i]) cr_ptr->stat_cur[i] = cr_ptr->stat_max_max[i];
 	}
 
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 }
 
 
@@ -1211,7 +1211,7 @@ void apply_nexus(creature_type *m_ptr)
 	{
 		case 1: case 2: case 3:
 		{
-			teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
+			teleport_player(m_ptr, 200, TELEPORT_PASSIVE);
 			break;
 		}
 
@@ -1223,7 +1223,7 @@ void apply_nexus(creature_type *m_ptr)
 
 		case 6:
 		{
-			if (randint0(100) < p_ptr->skill_rob)
+			if (randint0(100) < m_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");
@@ -1235,13 +1235,13 @@ msg_print("しかし効力を跳ね返した！");
 			}
 
 			/* Teleport Level */
-			teleport_level(p_ptr, 0);
+			teleport_level(m_ptr, 0);
 			break;
 		}
 
 		case 7:
 		{
-			if (randint0(100) < p_ptr->skill_rob)
+			if (randint0(100) < m_ptr->skill_rob)
 			{
 #ifdef JP
 msg_print("しかし効力を跳ね返した！");
@@ -1258,7 +1258,7 @@ msg_print("体がねじれ始めた...");
 			msg_print("Your body starts to scramble...");
 #endif
 
-			mutate_player();
+			mutate_creature(m_ptr);
 			break;
 		}
 	}
