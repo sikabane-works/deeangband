@@ -507,16 +507,16 @@ static void wild_magic(int spell)
 	case 1:
 	case 2:
 	case 3:
-		teleport_player(10, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 10, TELEPORT_PASSIVE);
 		break;
 	case 4:
 	case 5:
 	case 6:
-		teleport_player(100, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 100, TELEPORT_PASSIVE);
 		break;
 	case 7:
 	case 8:
-		teleport_player(200, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
 		break;
 	case 9:
 	case 10:
@@ -722,7 +722,7 @@ static void cast_shuffle(void)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(10, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if (die < 42)
 	{
@@ -742,7 +742,7 @@ static void cast_shuffle(void)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(100, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if (die < 52)
 	{
@@ -752,7 +752,7 @@ static void cast_shuffle(void)
 		msg_print("It's a teleport trump card.");
 #endif
 
-		teleport_player(200, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if (die < 60)
 	{
@@ -1933,7 +1933,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -2023,7 +2023,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -3598,7 +3598,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5050,7 +5050,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5140,7 +5140,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -6056,7 +6056,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -6370,7 +6370,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -8289,7 +8289,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(range, 0L);
+				teleport_player(p_ptr, range, 0L);
 			}
 		}
 		break;
@@ -12477,7 +12477,7 @@ static cptr do_hex_spell(int spell, int mode)
 #else
 				msg_print("Oops!");
 #endif
-				teleport_player(30, 0L);
+				teleport_player(p_ptr, 30, 0L);
 			}
 
 			add = FALSE;

@@ -4044,7 +4044,7 @@ void do_cmd_fire(void)
 	/* Sniper actions after some shootings */
 	if (snipe_type == SP_AWAY)
 	{
-		teleport_player(10 + (p_ptr->concent * 2), 0L);
+		teleport_player(p_ptr, 10 + (p_ptr->concent * 2), 0L);
 	}
 	if (snipe_type == SP_FINAL)
 	{

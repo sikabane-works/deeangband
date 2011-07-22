@@ -313,20 +313,20 @@ bool cave_player_teleportable_bold(int y, int x, u32b mode)
 
 #define MAX_TELEPORT_DISTANCE 200
 
-bool teleport_player_aux(int dis, u32b mode)
+bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 {
 	int candidates_at[MAX_TELEPORT_DISTANCE + 1];
 	int total_candidates, cur_candidates;
 	int y = 0, x = 0, min, pick, i;
 
-	int left = MAX(1, p_ptr->fx - dis);
-	int right = MIN(cur_wid - 2, p_ptr->fx + dis);
-	int top = MAX(1, p_ptr->fy - dis);
-	int bottom = MIN(cur_hgt - 2, p_ptr->fy + dis);
+	int left = MAX(1, cr_ptr->fx - dis);
+	int right = MIN(cur_wid - 2, cr_ptr->fx + dis);
+	int top = MAX(1, cr_ptr->fy - dis);
+	int bottom = MIN(cur_hgt - 2, cr_ptr->fy + dis);
 
-	if (p_ptr->wild_mode) return FALSE;
+	if (cr_ptr->wild_mode) return FALSE;
 
-	if (p_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
+	if (cr_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
 	{
 #ifdef JP
 		msg_print("不思議な力がテレポートを防いだ！");
@@ -356,7 +356,7 @@ bool teleport_player_aux(int dis, u32b mode)
 			if (!cave_player_teleportable_bold(y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(p_ptr->fy, p_ptr->fx, y, x);
+			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -395,7 +395,7 @@ bool teleport_player_aux(int dis, u32b mode)
 			if (!cave_player_teleportable_bold(y, x, mode)) continue;
 
 			/* Calculate distance */
-			d = distance(p_ptr->fy, p_ptr->fx, y, x);
+			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
 
 			/* Skip too far locations */
 			if (d > dis) continue;
@@ -418,8 +418,8 @@ bool teleport_player_aux(int dis, u32b mode)
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
-		msg_format("『こっちだぁ、%s』", p_ptr->name);
+	if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		msg_format("『こっちだぁ、%s』", cr_ptr->name);
 #endif
 
 	/* Move the player */
@@ -428,15 +428,15 @@ bool teleport_player_aux(int dis, u32b mode)
 	return TRUE;
 }
 
-void teleport_player(int dis, u32b mode)
+void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 {
 	int yy, xx;
 
 	/* Save the old location */
-	int oy = p_ptr->fy;
-	int ox = p_ptr->fx;
+	int oy = cr_ptr->fy;
+	int ox = cr_ptr->fx;
 
-	if (!teleport_player_aux(dis, mode)) return;
+	if (!teleport_player_aux(p_ptr, dis, mode)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
@@ -446,7 +446,7 @@ void teleport_player(int dis, u32b mode)
 			int tmp_m_idx = cave[oy+yy][ox+xx].m_idx;
 
 			/* A monster except your mount may follow */
-			if (tmp_m_idx && (p_ptr->riding != tmp_m_idx))
+			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &m_list[tmp_m_idx];
 				monster_race *r_ptr = &r_info[m_ptr->monster_idx];
@@ -458,7 +458,7 @@ void teleport_player(int dis, u32b mode)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -474,7 +474,7 @@ void teleport_player_away(int m_idx, int dis)
 	int oy = p_ptr->fy;
 	int ox = p_ptr->fx;
 
-	if (!teleport_player_aux(dis, TELEPORT_PASSIVE)) return;
+	if (!teleport_player_aux(p_ptr, dis, TELEPORT_PASSIVE)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
@@ -604,7 +604,7 @@ void teleport_away_followable(int m_idx)
 			{
 				if (one_in_(3))
 				{
-					teleport_player(200, TELEPORT_PASSIVE);
+					teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
 #ifdef JP
 					msg_print("失敗！");
 #else
@@ -1211,7 +1211,7 @@ void apply_nexus(creature_type *m_ptr)
 	{
 		case 1: case 2: case 3:
 		{
-			teleport_player(200, TELEPORT_PASSIVE);
+			teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
 			break;
 		}
 
@@ -5602,7 +5602,7 @@ static bool dimension_door_aux(int x, int y)
 	    (!randint0(plev / 10 + 10)))
 	{
 		p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
-		teleport_player((plev + 2) * 2, TELEPORT_PASSIVE);
+		teleport_player(p_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
 		/* Failed */
 		return FALSE;

@@ -969,7 +969,7 @@ static bool cmd_racial_power_aux(s32b command)
 #else
 					msg_print("You are failed to run away.");
 #endif
-				else teleport_player(30, 0L);
+				else teleport_player(p_ptr, 30, 0L);
 			}
 			else
 			{
@@ -1573,7 +1573,7 @@ static bool cmd_racial_power_aux(s32b command)
 			msg_print("Blink!");
 #endif
 
-			teleport_player(10, 0L);
+			teleport_player(p_ptr, 10, 0L);
 			break;
 
 		case RACE_ORC:

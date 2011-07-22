@@ -1981,7 +1981,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 
 					if (is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]))
 					{
-						teleport_player(10, 0L);
+						teleport_player(p_ptr, 10, 0L);
 					}
 				}
 

@@ -7062,7 +7062,7 @@ msg_print("ŽüˆÍ‚Ì‹óŠÔ‚ª˜c‚ñ‚¾I");
 				msg_print("Space warps about you!");
 #endif
 
-				teleport_player(damroll(10, 10), TELEPORT_PASSIVE);
+				teleport_player(p_ptr, damroll(10, 10), TELEPORT_PASSIVE);
 				if (randint0(13)) (*count) += activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
 				if (!one_in_(6)) break;
 			}
@@ -7466,7 +7466,7 @@ bool kawarimi(bool success)
 	y = p_ptr->fy;
 	x = p_ptr->fx;
 
-	teleport_player(10 + randint1(90), 0L);
+	teleport_player(p_ptr, 10 + randint1(90), 0L);
 
 	object_wipe(q_ptr);
 

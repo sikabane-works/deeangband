@@ -7218,7 +7218,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!(p_ptr->multishadow && (turn & 1)))
 			{
-				teleport_player(5, TELEPORT_PASSIVE);
+				teleport_player(p_ptr, 5, TELEPORT_PASSIVE);
 				if (!p_ptr->levitation)
 					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 				if (!(p_ptr->resist_sound || p_ptr->levitation))

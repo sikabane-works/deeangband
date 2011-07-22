@@ -642,7 +642,7 @@ static void pattern_teleport(void)
 	else if (get_check("Normal teleport? "))
 #endif
 	{
-		teleport_player(200, 0L);
+		teleport_player(p_ptr, 200, 0L);
 		return;
 	}
 	else
@@ -2348,7 +2348,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 			msg_print(NULL);
-			teleport_player(40, TELEPORT_PASSIVE);
+			teleport_player(p_ptr, 40, TELEPORT_PASSIVE);
 		}
 	}
 
@@ -2378,7 +2378,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 				msg_print(NULL);
 				if (one_in_(3)) lose_all_info(cr_ptr);
 				else wiz_dark();
-				(void)teleport_player_aux(100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+				(void)teleport_player_aux(p_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 				wiz_dark();
 #ifdef JP
 				msg_print("‚ ‚È‚½‚ÍŒ©’m‚ç‚ÊêŠ‚Å–Ú‚ªÁ‚ß‚½...“ª‚ª’É‚¢B");
@@ -2986,7 +2986,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #endif
 			{
 				disturb(0, 0);
-				teleport_player(50, 0L);
+				teleport_player(p_ptr, 50, 0L);
 			}
 			else
 			{
@@ -3153,7 +3153,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			disturb(0, 0);
 
 			/* Teleport player */
-			teleport_player(40, TELEPORT_PASSIVE);
+			teleport_player(p_ptr, 40, TELEPORT_PASSIVE);
 		}
 		/* Handle HP draining */
 		if ((cr_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))

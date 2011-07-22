@@ -2056,7 +2056,7 @@ void do_cmd_debug(void)
 
 	/* Phase Door */
 	case 'p':
-		teleport_player(10, 0L);
+		teleport_player(p_ptr, 10, 0L);
 		break;
 
 #if 0
@@ -2100,7 +2100,7 @@ void do_cmd_debug(void)
 
 	/* Teleport */
 	case 't':
-		teleport_player(100, 0L);
+		teleport_player(p_ptr, 100, 0L);
 		break;
 
 	/* Very Good Objects */

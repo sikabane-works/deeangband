@@ -1403,7 +1403,7 @@ static void hit_trap(bool break_trap)
 			msg_print("You hit a teleport trap!");
 #endif
 
-			teleport_player(100, TELEPORT_PASSIVE);
+			teleport_player(p_ptr, 100, TELEPORT_PASSIVE);
 			break;
 		}
 

@@ -880,10 +880,10 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 		(void)set_invuln(p_ptr, randint1(7) + 7, FALSE);
 		break;
 	case MS_BLINK:
-		teleport_player(10, 0L);
+		teleport_player(p_ptr, 10, 0L);
 		break;
 	case MS_TELEPORT:
-		teleport_player(plev * 5, 0L);
+		teleport_player(p_ptr, plev * 5, 0L);
 		break;
 	case MS_WORLD:
 		world_player = TRUE;
