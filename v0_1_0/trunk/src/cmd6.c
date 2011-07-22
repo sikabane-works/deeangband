@@ -3412,7 +3412,7 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 }
 
 
-static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
+static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge, bool magic)
 {
 	int ident = FALSE;
 
@@ -3478,40 +3478,40 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_CURING:
 		{
-			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_confused(p_ptr, 0)) ident = TRUE;
-			if (set_stun(p_ptr, 0)) ident = TRUE;
-			if (set_cut(p_ptr, 0)) ident = TRUE;
-			if (set_image(p_ptr, 0)) ident = TRUE;
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (set_blind(cr_ptr, 0)) ident = TRUE;
+			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
+			if (set_confused(cr_ptr, 0)) ident = TRUE;
+			if (set_stun(cr_ptr, 0)) ident = TRUE;
+			if (set_cut(cr_ptr, 0)) ident = TRUE;
+			if (set_image(cr_ptr, 0)) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_HEALING:
 		{
-			if (hp_player(p_ptr, 500)) ident = TRUE;
-			if (set_stun(p_ptr, 0)) ident = TRUE;
-			if (set_cut(p_ptr, 0)) ident = TRUE;
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(cr_ptr, 500)) ident = TRUE;
+			if (set_stun(cr_ptr, 0)) ident = TRUE;
+			if (set_cut(cr_ptr, 0)) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_RESTORATION:
 		{
-			if (restore_level(p_ptr)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_STR)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_WIS)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_DEX)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_CON)) ident = TRUE;
-			if (do_res_stat(p_ptr, A_CHR)) ident = TRUE;
+			if (restore_level(cr_ptr)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_WIS)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_DEX)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
+			if (do_res_stat(cr_ptr, A_CHR)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SPEED:
 		{
-			if (set_fast(p_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(cr_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -3560,7 +3560,7 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_DRAIN_LIFE:
 		{
-			if (drain_life(dir, 70 + 3 * p_ptr->lev / 2)) ident = TRUE;
+			if (drain_life(dir, 70 + 3 * cr_ptr->lev / 2)) ident = TRUE;
 			break;
 		}
 
@@ -3572,56 +3572,56 @@ static int rod_effect(int sval, int dir, bool *use_charge, bool magic)
 
 		case SV_ROD_ACID_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_ACID, dir, damroll(6 + p_ptr->lev / 7, 8));
+			fire_bolt_or_beam(10, GF_ACID, dir, damroll(6 + cr_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_ELEC, dir, damroll(4 + p_ptr->lev / 9, 8));
+			fire_bolt_or_beam(10, GF_ELEC, dir, damroll(4 + cr_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_FIRE, dir, damroll(7 + p_ptr->lev / 6, 8));
+			fire_bolt_or_beam(10, GF_FIRE, dir, damroll(7 + cr_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			fire_bolt_or_beam(10, GF_COLD, dir, damroll(5 + p_ptr->lev / 8, 8));
+			fire_bolt_or_beam(10, GF_COLD, dir, damroll(5 + cr_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ACID_BALL:
 		{
-			fire_ball(GF_ACID, dir, 60 + p_ptr->lev, 2);
+			fire_ball(GF_ACID, dir, 60 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BALL:
 		{
-			fire_ball(GF_ELEC, dir, 40 + p_ptr->lev, 2);
+			fire_ball(GF_ELEC, dir, 40 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BALL:
 		{
-			fire_ball(GF_FIRE, dir, 70 + p_ptr->lev, 2);
+			fire_ball(GF_FIRE, dir, 70 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BALL:
 		{
-			fire_ball(GF_COLD, dir, 50 + p_ptr->lev, 2);
+			fire_ball(GF_COLD, dir, 50 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3793,7 +3793,7 @@ msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = rod_effect(o_ptr->sval, dir, &use_charge, FALSE);
+	ident = rod_effect(cr_ptr, o_ptr->sval, dir, &use_charge, FALSE);
 
 	/* Increase the timeout by the rod kind's pval. -LM- */
 	if (use_charge) o_ptr->timeout += k_ptr->pval;
@@ -7380,7 +7380,7 @@ msg_print("Žô•¶‚ð‚¤‚Ü‚­¥‚¦‚ç‚ê‚È‚©‚Á‚½I");
 		{
 			if ((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
 				if (!get_aim_dir(&dir)) return;
-			rod_effect(sval, dir, &use_charge, TRUE);
+			rod_effect(cr_ptr, sval, dir, &use_charge, TRUE);
 			if (!use_charge) return;
 		}
 		else if (tval == TV_WAND)
