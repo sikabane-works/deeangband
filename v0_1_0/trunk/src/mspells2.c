@@ -3476,7 +3476,7 @@ bool monst_spell_monst(int m_idx)
 			if (see_t) msg_format("%^s resist the effects!", t_name);
 #endif
 		}
-		else teleport_level((t_idx == p_ptr->riding) ? 0 : t_idx);
+		else teleport_level(p_ptr, (t_idx == p_ptr->riding) ? 0 : t_idx);
 
 		wake_up = TRUE;
 		break;

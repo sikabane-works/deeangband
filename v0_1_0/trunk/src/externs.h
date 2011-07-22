@@ -1249,7 +1249,7 @@ extern void teleport_player(creature_type *cr_ptr, int dis, u32b mode);
 extern void teleport_player_away(int m_idx, int dis);
 extern void teleport_player_to(int ny, int nx, u32b mode);
 extern void teleport_away_followable(int m_idx);
-extern void teleport_level(int m_idx);
+extern void teleport_level(creature_type *cr_ptr, int m_idx);
 extern int choose_dungeon(cptr note, int y, int x);
 extern bool recall_player(int turns);
 extern bool word_of_recall(void);

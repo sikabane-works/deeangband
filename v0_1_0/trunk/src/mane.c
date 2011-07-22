@@ -1001,7 +1001,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 			msg_format("%^s is unaffected!", m_name);
 #endif
 		}
-		else teleport_level(target_m_idx);
+		else teleport_level(p_ptr, target_m_idx);
 		break;
 	}
 	case MS_PSY_SPEAR:

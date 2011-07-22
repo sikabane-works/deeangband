@@ -1751,7 +1751,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_TELEPORT_LEVEL:
 		{
-			(void)teleport_level(0);
+			(void)teleport_level(p_ptr, 0);
 			ident = TRUE;
 			break;
 		}

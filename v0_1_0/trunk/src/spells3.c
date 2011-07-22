@@ -623,7 +623,7 @@ void teleport_away_followable(int m_idx)
  * Teleport the player one level up or down (random when legal)
  * Note: If m_idx <= 0, target is player.
  */
-void teleport_level(int m_idx)
+void teleport_level(creature_type *cr_ptr, int m_idx)
 {
 	bool         go_up;
 	char         m_name[160];
@@ -644,11 +644,11 @@ void teleport_level(int m_idx)
 		/* Get the monster name (or "it") */
 		monster_desc(m_name, m_ptr, 0);
 
-		see_m = is_seen(p_ptr, m_ptr);
+		see_m = is_seen(cr_ptr, m_ptr);
 	}
 
 	/* No effect in some case */
-	if (TELE_LEVEL_IS_INEFF(p_ptr, m_idx))
+	if (TELE_LEVEL_IS_INEFF(cr_ptr, m_idx))
 	{
 #ifdef JP
 		if (see_m) msg_print("効果がなかった。");
@@ -659,7 +659,7 @@ void teleport_level(int m_idx)
 		return;
 	}
 
-	if ((m_idx <= 0) && p_ptr->anti_tele) /* To player */
+	if ((m_idx <= 0) && cr_ptr->anti_tele) /* To player */
 	{
 #ifdef JP
 		msg_print("不思議な力がテレポートを防いだ！");
@@ -673,7 +673,7 @@ void teleport_level(int m_idx)
 	if (randint0(100) < 50) go_up = TRUE;
 	else go_up = FALSE;
 
-	if ((m_idx <= 0) && p_ptr->wizard)
+	if ((m_idx <= 0) && cr_ptr->wizard)
 	{
 		if (get_check("Force to go up? ")) go_up = TRUE;
 		else if (get_check("Force to go down? ")) go_up = FALSE;
@@ -691,9 +691,9 @@ void teleport_level(int m_idx)
 		{
 			if (!dun_level)
 			{
-				dungeon_type = p_ptr->recall_dungeon;
-				p_ptr->oldpy = p_ptr->fy;
-				p_ptr->oldpx = p_ptr->fx;
+				dungeon_type = cr_ptr->recall_dungeon;
+				cr_ptr->oldpy = cr_ptr->fy;
+				cr_ptr->oldpx = cr_ptr->fx;
 			}
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
@@ -711,7 +711,7 @@ void teleport_level(int m_idx)
 			}
 
 			/* Leaving */
-			p_ptr->leaving = TRUE;
+			cr_ptr->leaving = TRUE;
 		}
 	}
 
@@ -736,8 +736,8 @@ void teleport_level(int m_idx)
 			leave_quest_check();
 
 			/* Leaving */
-			p_ptr->inside_quest = 0;
-			p_ptr->leaving = TRUE;
+			cr_ptr->inside_quest = 0;
+			cr_ptr->leaving = TRUE;
 		}
 	}
 	else if (go_up)
@@ -758,7 +758,7 @@ void teleport_level(int m_idx)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
-			p_ptr->leaving = TRUE;
+			cr_ptr->leaving = TRUE;
 		}
 	}
 	else
@@ -772,7 +772,7 @@ void teleport_level(int m_idx)
 		if (m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
-			/* if (!dun_level) dungeon_type = p_ptr->recall_dungeon; */
+			/* if (!dun_level) dungeon_type = cr_ptr->recall_dungeon; */
 
 			if (record_stair) do_cmd_write_nikki(NIKKI_TELE_LEV, 1, NULL);
 
@@ -781,7 +781,7 @@ void teleport_level(int m_idx)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 			/* Leaving */
-			p_ptr->leaving = TRUE;
+			cr_ptr->leaving = TRUE;
 		}
 	}
 
@@ -1235,7 +1235,7 @@ msg_print("しかし効力を跳ね返した！");
 			}
 
 			/* Teleport Level */
-			teleport_level(0);
+			teleport_level(p_ptr, 0);
 			break;
 		}
 

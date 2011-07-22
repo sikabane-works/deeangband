@@ -3683,7 +3683,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
 			}
 			else
 			{
-				teleport_level(0);
+				teleport_level(p_ptr, 0);
 			}
 			learn_spell(MS_TELE_LEVEL);
 			update_smart_learn(m_idx, DRS_NEXUS);

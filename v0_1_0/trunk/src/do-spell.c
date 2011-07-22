@@ -2356,7 +2356,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(0);
+				teleport_level(p_ptr, 0);
 			}
 		}
 		break;
@@ -5376,7 +5376,7 @@ static cptr do_trump_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(0);
+				teleport_level(p_ptr, 0);
 			}
 		}
 		break;
@@ -6526,7 +6526,7 @@ static cptr do_arcane_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(0);
+				teleport_level(p_ptr, 0);
 			}
 		}
 		break;
