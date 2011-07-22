@@ -2344,7 +2344,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 }
 
 
-static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
+static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool magic, bool known)
 {
 	int k;
 	int ident = FALSE;
@@ -2354,9 +2354,9 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 	{
 		case SV_STAFF_DARKNESS:
 		{
-			if (!(p_ptr->resist_blind) && !(p_ptr->resist_dark))
+			if (!(cr_ptr->resist_blind) && !(cr_ptr->resist_dark))
 			{
-				if (set_blind(p_ptr, p_ptr->blind + 3 + randint1(5))) ident = TRUE;
+				if (set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5))) ident = TRUE;
 			}
 			if (unlite_area(10, 3)) ident = TRUE;
 			break;
@@ -2364,7 +2364,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if (set_slow(p_ptr, p_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_slow(cr_ptr, cr_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2378,7 +2378,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -2388,7 +2388,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_TELEPORTATION:
 		{
-			teleport_player(p_ptr, 100, 0L);
+			teleport_player(cr_ptr, 100, 0L);
 			ident = TRUE;
 			break;
 		}
@@ -2412,7 +2412,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				else if (!p_ptr->blind)
+				else if (!cr_ptr->blind)
 				{
 #ifdef JP
 					msg_print("杖は一瞬ブルーに輝いた...");
@@ -2432,7 +2432,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 			int y, x;
 			int attempts;
 
-			if (!p_ptr->blind && !magic)
+			if (!cr_ptr->blind && !magic)
 			{
 #ifdef JP
 				msg_print("杖の先が明るく輝いた...");
@@ -2447,14 +2447,14 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 				while (attempts--)
 				{
-					scatter(&y, &x, p_ptr->fy, p_ptr->fx, 4, 0);
+					scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 					if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
 					if (!player_bold(y, x)) break;
 				}
 
-				project(0, 0, y, x, damroll(6 + p_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(0, 0, y, x, damroll(6 + cr_ptr->lev / 8, 10), GF_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2514,39 +2514,39 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (hp_player(p_ptr, damroll(2, 8))) ident = TRUE;
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(cr_ptr, damroll(2, 8))) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_CURING:
 		{
-			if (set_blind(p_ptr, 0)) ident = TRUE;
-			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_confused(p_ptr, 0)) ident = TRUE;
-			if (set_stun(p_ptr, 0)) ident = TRUE;
-			if (set_cut(p_ptr, 0)) ident = TRUE;
-			if (set_image(p_ptr, 0)) ident = TRUE;
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (set_blind(cr_ptr, 0)) ident = TRUE;
+			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
+			if (set_confused(cr_ptr, 0)) ident = TRUE;
+			if (set_stun(cr_ptr, 0)) ident = TRUE;
+			if (set_cut(cr_ptr, 0)) ident = TRUE;
+			if (set_image(cr_ptr, 0)) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HEALING:
 		{
-			if (hp_player(p_ptr, 300)) ident = TRUE;
-			if (set_stun(p_ptr, 0)) ident = TRUE;
-			if (set_cut(p_ptr, 0)) ident = TRUE;
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (hp_player(cr_ptr, 300)) ident = TRUE;
+			if (set_stun(cr_ptr, 0)) ident = TRUE;
+			if (set_cut(cr_ptr, 0)) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_THE_MAGI:
 		{
-			if (do_res_stat(p_ptr, A_INT)) ident = TRUE;
-			if (p_ptr->csp < p_ptr->msp)
+			if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (cr_ptr->csp < cr_ptr->msp)
 			{
-				p_ptr->csp = p_ptr->msp;
-				p_ptr->csp_frac = 0;
+				cr_ptr->csp = cr_ptr->msp;
+				cr_ptr->csp_frac = 0;
 				ident = TRUE;
 #ifdef JP
 				msg_print("頭がハッキリとした。");
@@ -2558,7 +2558,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
 			}
-			if (set_shero(p_ptr, 0,TRUE)) ident = TRUE;
+			if (set_shero(cr_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2576,7 +2576,7 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 
 		case SV_STAFF_SPEED:
 		{
-			if (set_fast(p_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_fast(cr_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2602,26 +2602,26 @@ static int staff_effect(int sval, bool *use_charge, bool magic, bool known)
 		case SV_STAFF_HOLINESS:
 		{
 			if (dispel_evil(150)) ident = TRUE;
-			k = 3 * p_ptr->lev;
-			if (set_protevil(p_ptr, (magic ? 0 : p_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
-			if (set_poisoned(p_ptr, 0)) ident = TRUE;
-			if (set_afraid(p_ptr, 0)) ident = TRUE;
-			if (hp_player(p_ptr, 50)) ident = TRUE;
-			if (set_stun(p_ptr, 0)) ident = TRUE;
-			if (set_cut(p_ptr, 0)) ident = TRUE;
+			k = 3 * cr_ptr->lev;
+			if (set_protevil(cr_ptr, (magic ? 0 : cr_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
+			if (set_poisoned(cr_ptr, 0)) ident = TRUE;
+			if (set_afraid(cr_ptr, 0)) ident = TRUE;
+			if (hp_player(cr_ptr, 50)) ident = TRUE;
+			if (set_stun(cr_ptr, 0)) ident = TRUE;
+			if (set_cut(cr_ptr, 0)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_GENOCIDE:
 		{
-			(void)symbol_genocide((magic ? p_ptr->lev + 50 : 200), TRUE);
+			(void)symbol_genocide((magic ? cr_ptr->lev + 50 : 200), TRUE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if (earthquake(p_ptr->fy, p_ptr->fx, 10))
+			if (earthquake(cr_ptr->fy, cr_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -2636,7 +2636,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_DESTRUCTION:
 		{
-			if (destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 
 			break;
@@ -2644,7 +2644,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if (animate_dead(0, p_ptr->fy, p_ptr->fx))
+			if (animate_dead(0, cr_ptr->fy, cr_ptr->fx))
 				ident = TRUE;
 
 			break;
@@ -2657,14 +2657,14 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(0, 5, p_ptr->fy, p_ptr->fx,
+			project(0, 5, cr_ptr->fy, cr_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if ((p_ptr->cls_idx != CLASS_MAGE) && (p_ptr->cls_idx != CLASS_HIGH_MAGE) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_MAGIC_EATER) && (p_ptr->cls_idx != CLASS_BLUE_MAGE))
+			if ((cr_ptr->cls_idx != CLASS_MAGE) && (cr_ptr->cls_idx != CLASS_HIGH_MAGE) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_MAGIC_EATER) && (cr_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
-				(void)take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
+				(void)take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
 #else
-				(void)take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
+				(void)take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
 #endif
 			}
 			ident = TRUE;
@@ -2679,8 +2679,8 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Nothing happen.");
 #endif
-			if (race_is_(p_ptr, RACE_SKELETON) || race_is_(p_ptr, RACE_GOLEM) ||
-				race_is_(p_ptr, RACE_ZOMBIE) || race_is_(p_ptr, RACE_LICH))
+			if (race_is_(cr_ptr, RACE_SKELETON) || race_is_(cr_ptr, RACE_GOLEM) ||
+				race_is_(cr_ptr, RACE_ZOMBIE) || race_is_(cr_ptr, RACE_LICH))
 #ifdef JP
 				msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
 #else
@@ -2807,7 +2807,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
-	ident = staff_effect(o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
+	ident = staff_effect(cr_ptr, o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
 
 	if (!(object_is_aware(o_ptr)))
 	{
@@ -7390,7 +7390,7 @@ msg_print("呪文をうまく唱えられなかった！");
 		}
 		else
 		{
-			staff_effect(sval, &use_charge, TRUE, TRUE);
+			staff_effect(cr_ptr, sval, &use_charge, TRUE, TRUE);
 			if (!use_charge) return;
 		}
 		if (randint1(100) < chance)
