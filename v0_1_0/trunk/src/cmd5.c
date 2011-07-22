@@ -334,13 +334,13 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 }
 
 
-static bool item_tester_learn_spell(object_type *o_ptr)
+static bool item_tester_learn_spell(creature_type *cr_ptr, object_type *o_ptr)
 {
-	s32b choices = realm_choices2[p_ptr->cls_idx];
+	s32b choices = realm_choices2[cr_ptr->cls_idx];
 
-	if (p_ptr->cls_idx == CLASS_PRIEST)
+	if (cr_ptr->cls_idx == CLASS_PRIEST)
 	{
-		if (is_good_realm(p_ptr->realm1))
+		if (is_good_realm(cr_ptr->realm1))
 		{
 			choices &= ~(CH_DEATH | CH_DAEMON);
 		}
@@ -351,9 +351,9 @@ static bool item_tester_learn_spell(object_type *o_ptr)
 	}
 
 	if ((o_ptr->tval < TV_LIFE_BOOK) || (o_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
-	if ((o_ptr->tval == TV_MUSIC_BOOK) && (p_ptr->cls_idx == CLASS_BARD)) return (TRUE);
+	if ((o_ptr->tval == TV_MUSIC_BOOK) && (cr_ptr->cls_idx == CLASS_BARD)) return (TRUE);
 	else if (!is_magic(tval2realm(o_ptr->tval))) return FALSE;
-	if ((REALM1_BOOK(p_ptr) == o_ptr->tval) || (REALM2_BOOK(p_ptr) == o_ptr->tval)) return (TRUE);
+	if ((REALM1_BOOK(cr_ptr) == o_ptr->tval) || (REALM2_BOOK(cr_ptr) == o_ptr->tval)) return (TRUE);
 	if (choices & (0x0001 << (tval2realm(o_ptr->tval) - 1))) return (TRUE);
 	return (FALSE);
 }
@@ -2572,9 +2572,9 @@ void do_cmd_pet(void)
 	if (p_ptr->riding)
 	{
 		if ((p_ptr->migite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_RARM])) ||
+		     object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_RARM])) ||
 		    (p_ptr->hidarite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(&p_ptr->inventory[INVEN_LARM])))
+			 object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_LARM])))
 		{
 			if (p_ptr->pet_extra_flags & PF_RYOUTE)
 			{

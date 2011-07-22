@@ -1034,7 +1034,7 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 /*
  * An "item_tester_hook" for offer
  */
-static bool item_tester_offer(object_type *o_ptr)
+static bool item_tester_offer(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Flasks of oil are okay */
 	if (o_ptr->tval != TV_CORPSE) return (FALSE);
@@ -11400,7 +11400,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 
 
 /* Hex */
-static bool item_tester_hook_weapon_except_bow(object_type *o_ptr)
+static bool item_tester_hook_weapon_except_bow(creature_type *cr_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{
@@ -11416,7 +11416,7 @@ static bool item_tester_hook_weapon_except_bow(object_type *o_ptr)
 	return (FALSE);
 }
 
-static bool item_tester_hook_cursed(object_type *o_ptr)
+static bool item_tester_hook_cursed(creature_type *cr_ptr, object_type *o_ptr)
 {
 	return (bool)(object_is_cursed(o_ptr));
 }
@@ -11593,7 +11593,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(p_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s ‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½B", o_name);
@@ -11634,7 +11634,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -12059,7 +12059,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(p_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s ‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½B", o_name);
@@ -12100,7 +12100,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);

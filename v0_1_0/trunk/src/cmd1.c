@@ -1056,7 +1056,7 @@ void carry(bool pickup)
 			}
 
 			/* Note that the pack is too full */
-			else if (!inven_carry_okay(o_ptr))
+			else if (!inven_carry_okay(p_ptr, o_ptr))
 			{
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", o_name);
@@ -2151,7 +2151,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 		}
 	}
-	else if (object_is_melee_weapon(o_ptr))
+	else if (object_is_melee_weapon(p_ptr, o_ptr))
 	{
 		if ((r_ptr->level + 10) > cr_ptr->lev)
 		{

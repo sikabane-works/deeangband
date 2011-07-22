@@ -37,8 +37,8 @@
  * 400 item comparisons, but only occasionally.
  *
  * There may be a BIG problem with any "effect" that can cause "changes"
- * to the p_ptr->inventory.  For example, a "scroll of recharging" can cause
- * a wand/staff to "disappear", moving the p_ptr->inventory up.  Luckily, the
+ * to the cr_ptr->inventory.  For example, a "scroll of recharging" can cause
+ * a wand/staff to "disappear", moving the cr_ptr->inventory up.  Luckily, the
  * scrolls all appear BEFORE the staffs/wands, so this is not a problem.
  * But, for example, a "staff of recharging" could cause MAJOR problems.
  * In such a case, it will be best to either (1) "postpone" the effect
@@ -637,12 +637,12 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 /*
  * Hook to determine if an object is eatable
  */
-static bool item_tester_hook_eatable(object_type *o_ptr)
+static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval==TV_FOOD) return TRUE;
 
 #if 0
-	if (race_is_(p_ptr, RACE_SKELETON))
+	if (race_is_(cr_ptr, RACE_SKELETON))
 	{
 		if (o_ptr->tval == TV_SKELETON ||
 		    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
@@ -651,16 +651,16 @@ static bool item_tester_hook_eatable(object_type *o_ptr)
 	else 
 #endif
 
-	if (race_is_(p_ptr, RACE_SKELETON) ||
-	    race_is_(p_ptr, RACE_GOLEM) ||
-	    race_is_(p_ptr, RACE_ZOMBIE) ||
-	    race_is_(p_ptr, RACE_LICH))
+	if (race_is_(cr_ptr, RACE_SKELETON) ||
+	    race_is_(cr_ptr, RACE_GOLEM) ||
+	    race_is_(cr_ptr, RACE_ZOMBIE) ||
+	    race_is_(cr_ptr, RACE_LICH))
 	{
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
-	else if (race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) ||
-		 (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+	else if (race_is_(cr_ptr, RACE_DEMON) || race_is_(cr_ptr, RACE_BALROG) ||
+		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
 		    o_ptr->sval == SV_CORPSE &&
@@ -894,7 +894,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 					ident = TRUE;
 					if (one_in_(3)) lose_all_info(cr_ptr);
 					else wiz_dark();
-					(void)teleport_player_aux(p_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+					(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 					wiz_dark();
 #ifdef JP
 					msg_print("知らない場所で目が醒めた。頭痛がする。");
@@ -1527,11 +1527,11 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 /*
  * Hook to determine if an object can be quaffed
  */
-static bool item_tester_hook_quaff(object_type *o_ptr)
+static bool item_tester_hook_quaff(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval == TV_POTION) return TRUE;
 
-	if (race_is_(p_ptr, RACE_ANDROID))
+	if (race_is_(cr_ptr, RACE_ANDROID))
 	{
 		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
@@ -1737,21 +1737,21 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_PHASE_DOOR:
 		{
-			teleport_player(p_ptr, 10, 0L);
+			teleport_player(cr_ptr, 10, 0L);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_TELEPORT:
 		{
-			teleport_player(p_ptr, 100, 0L);
+			teleport_player(cr_ptr, 100, 0L);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_TELEPORT_LEVEL:
 		{
-			(void)teleport_level(p_ptr, 0);
+			(void)teleport_level(cr_ptr, 0);
 			ident = TRUE;
 			break;
 		}
@@ -2260,7 +2260,7 @@ msg_print("巻物は煙を立てて消え去った！");
 /*
  * Hook to determine if an object is readable
  */
-static bool item_tester_hook_readable(object_type *o_ptr)
+static bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);
 
@@ -3216,7 +3216,7 @@ msg_print("ロケットを発射した！");
  * For simplicity, you cannot use a stack of items from the
  * ground.  This would require too much nasty code.
  *
- * There are no wands which can "destroy" themselves, in the p_ptr->inventory
+ * There are no wands which can "destroy" themselves, in the cr_ptr->inventory
  * or on the ground, so we can ignore this possibility.  Note that this
  * required giving "wand of wonder" the ability to ignore destruction
  * by electric balls.
@@ -3855,7 +3855,7 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 /*
  * Hook to determine if an object is activatable
  */
-static bool item_tester_hook_activate(object_type *o_ptr)
+static bool item_tester_hook_activate(creature_type *cr_ptr, object_type *o_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -4616,7 +4616,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cloak twists space around you...");
 #endif
 
-				teleport_player(p_ptr, 100, 0L);
+				teleport_player(cr_ptr, 100, 0L);
 				o_ptr->timeout = 45;
 				break;
 			}
@@ -4847,10 +4847,10 @@ msg_print("天国の歌が聞こえる...");
 				switch (randint1(13))
 				{
 				case 1: case 2: case 3: case 4: case 5:
-					teleport_player(p_ptr, 10, 0L);
+					teleport_player(cr_ptr, 10, 0L);
 					break;
 				case 6: case 7: case 8: case 9: case 10:
-					teleport_player(p_ptr, 222, 0L);
+					teleport_player(cr_ptr, 222, 0L);
 					break;
 				case 11: case 12:
 					(void)stair_creation();
@@ -4875,7 +4875,7 @@ if (get_check("この階を去りますか？"))
 
 			case ART_KAMUI:
 			{
-				teleport_player(p_ptr, 222, 0L);
+				teleport_player(cr_ptr, 222, 0L);
 				o_ptr->timeout = 25;
 				break;
 			}
@@ -5853,7 +5853,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		return;
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(p_ptr, o_ptr))
 	{
 		switch (o_ptr->xtra3-1)
 		{
@@ -5892,7 +5892,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 	if (o_ptr->name2 == EGO_TRUMP)
 	{
-		teleport_player(p_ptr, 100, 0L);
+		teleport_player(cr_ptr, 100, 0L);
 		o_ptr->timeout = 50 + randint1(50);
 
 		/* Window stuff */
@@ -5940,7 +5940,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 	if (o_ptr->name2 == EGO_JUMP)
 	{
-		teleport_player(p_ptr, 10, 0L);
+		teleport_player(cr_ptr, 10, 0L);
 		o_ptr->timeout = 10 + randint1(10);
 
 		/* Window stuff */
@@ -6366,11 +6366,11 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = 200;
 				break;
 			case EGO_AMU_JUMP:
-				teleport_player(p_ptr, 10, 0L);
+				teleport_player(cr_ptr, 10, 0L);
 				o_ptr->timeout = randint0(10) + 10;
 				break;
 			case EGO_AMU_TELEPORT:
-				teleport_player(p_ptr, 100, 0L);
+				teleport_player(cr_ptr, 100, 0L);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_D_DOOR:
@@ -6639,12 +6639,12 @@ void do_cmd_activate(creature_type *cr_ptr)
 /*
  * Hook to determine if an object is useable
  */
-static bool item_tester_hook_use(object_type *o_ptr)
+static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 
 	/* Ammo */
-	if (o_ptr->tval == p_ptr->tval_ammo)
+	if (o_ptr->tval == cr_ptr->tval_ammo)
 		return (TRUE);
 
 	/* Useable object */
@@ -6671,7 +6671,7 @@ static bool item_tester_hook_use(object_type *o_ptr)
 			/* HACK - only items from the equipment can be activated */
 			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
 			{
-				if (&p_ptr->inventory[i] == o_ptr)
+				if (&cr_ptr->inventory[i] == o_ptr)
 				{
 					/* Extract the flags */
 					object_flags(o_ptr, flgs);

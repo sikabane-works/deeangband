@@ -6820,7 +6820,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			s32b total_flags = flag_cost(o_ptr, o_ptr->pval);
 			int fake_level;
 
-			if (!object_is_weapon_ammo(o_ptr))
+			if (!object_is_weapon_ammo(p_ptr, o_ptr))
 			{
 				/* For armors */
 				if (total_flags < 15000) fake_level = 10;
@@ -6845,7 +6845,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		if (value > 5000000L) value = 5000000L;
 		if ((o_ptr->tval == TV_DRAG_ARMOR) || (o_ptr->tval == TV_CARD)) level /= 2;
 
-		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr) ||
+		if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr) ||
 		    (o_ptr->tval == TV_DRAG_ARMOR) ||
 		    ((o_ptr->tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM)) ||
 		    ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||

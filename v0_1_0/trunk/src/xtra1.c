@@ -3034,7 +3034,7 @@ u32b weight_limit(creature_type *cr_ptr)
 
 bool have_weapon(creature_type *cr_ptr, int i)
 {
-	return ((cr_ptr->inventory[i].k_idx && object_is_melee_weapon(&cr_ptr->inventory[i])) ? TRUE : FALSE);
+	return ((cr_ptr->inventory[i].k_idx && object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[i])) ? TRUE : FALSE);
 }
 
 
@@ -3391,12 +3391,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (CAN_TWO_HANDS_WIELDING(cr_ptr))
 	{
 		if (cr_ptr->migite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_RARM]))
+			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_RARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
 		else if (cr_ptr->hidarite && (empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(&cr_ptr->inventory[INVEN_LARM]))
+			object_allow_two_hands_wielding(cr_ptr, &cr_ptr->inventory[INVEN_LARM]))
 		{
 			cr_ptr->ryoute = TRUE;
 		}
@@ -4483,7 +4483,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			int ac = 0;
 			o_ptr = &cr_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
-			if (!object_is_armour(o_ptr)) continue;
+			if (!object_is_armour(p_ptr, o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
 			ac += 5;
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;

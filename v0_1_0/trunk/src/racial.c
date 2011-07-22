@@ -15,7 +15,7 @@
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
  */
-static bool item_tester_hook_convertible(object_type *o_ptr)
+static bool item_tester_hook_convertible(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if((o_ptr->tval==TV_JUNK) || (o_ptr->tval==TV_SKELETON)) return TRUE;
 

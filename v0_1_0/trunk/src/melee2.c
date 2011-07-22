@@ -2656,7 +2656,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RFR_IM_POIS);
 
 					/* The object cannot be picked up by the monster */
-					if (object_is_artifact(o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||
+					if (object_is_artifact(p_ptr, o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||
 					    ((~(r_ptr->flagsr) & flgr) && !(m_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */

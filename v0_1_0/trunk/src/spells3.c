@@ -1089,7 +1089,7 @@ bool apply_disenchant(int mode)
 	if (!o_ptr->k_idx) return (FALSE);
 
 	/* Disenchant equipments only -- No disenchant on monster ball */
-	if (!object_is_weapon_armour_ammo(o_ptr))
+	if (!object_is_weapon_armour_ammo(p_ptr, o_ptr))
 		return FALSE;
 
 	/* Nothing to disenchant */
@@ -1105,7 +1105,7 @@ bool apply_disenchant(int mode)
 
 
 	/* Artifacts have 71% chance to resist */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 71))
+	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 71))
 	{
 		/* Message */
 #ifdef JP
@@ -1377,7 +1377,7 @@ s = "強化できる武器がない。";
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
 	/* TY: You _can_ modify broken items (if you're silly enough) */
-	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(p_ptr, o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) &&
 	    !((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) &&
 	    !((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) &&
@@ -2420,7 +2420,7 @@ bool enchant(object_type *o_ptr, int n, int eflag)
 {
 	int     i, chance, prob;
 	bool    res = FALSE;
-	bool    a = object_is_artifact(o_ptr);
+	bool    a = object_is_artifact(p_ptr, o_ptr);
 	bool    force = (eflag & ENCH_FORCE);
 
 
@@ -2608,13 +2608,13 @@ msg_print("強化に失敗した。");
 /*
  * Check if an object is nameless weapon or armour
  */
-static bool item_tester_hook_nameless_weapon_armour(object_type *o_ptr)
+static bool item_tester_hook_nameless_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Require weapon or armour */
-	if (!object_is_weapon_armour_ammo(o_ptr)) return FALSE;
+	if (!object_is_weapon_armour_ammo(p_ptr, o_ptr)) return FALSE;
 	
 	/* Require nameless object if the object is well known */
-	if (object_is_known(o_ptr) && !object_is_nameless(o_ptr))
+	if (object_is_known(o_ptr) && !object_is_nameless(p_ptr, o_ptr))
 		return FALSE;
 
 	return TRUE;
@@ -2671,7 +2671,7 @@ bool artifact_scroll(void)
 		  ((o_ptr->number > 1) ? "" : "s"));
 #endif
 
-	if (object_is_artifact(o_ptr))
+	if (object_is_artifact(p_ptr, o_ptr))
 	{
 #ifdef JP
 		msg_format("%sは既に伝説のアイテムです！", o_name  );
@@ -2773,7 +2773,7 @@ bool identify_item(object_type *o_ptr)
 
 	if (!(o_ptr->ident & (IDENT_MENTAL)))
 	{
-		if (object_is_artifact(o_ptr) || one_in_(5))
+		if (object_is_artifact(p_ptr, o_ptr) || one_in_(5))
 			chg_virtue(p_ptr, V_KNOWLEDGE, 1);
 	}
 
@@ -2808,16 +2808,16 @@ bool identify_item(object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_identify(object_type *o_ptr)
+static bool item_tester_hook_identify(creature_type *cr_ptr, object_type *o_ptr)
 {
 	return (bool)!object_is_known(o_ptr);
 }
 
-static bool item_tester_hook_identify_weapon_armour(object_type *o_ptr)
+static bool item_tester_hook_identify_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (object_is_known(o_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(o_ptr);
+	return object_is_weapon_armour_ammo(cr_ptr, o_ptr);
 }
 
 /*
@@ -2992,16 +2992,16 @@ s = "使えるものがありません。";
 
 
 
-static bool item_tester_hook_identify_fully(object_type *o_ptr)
+static bool item_tester_hook_identify_fully(creature_type *cr_ptr, object_type *o_ptr)
 {
 	return (bool)(!object_is_known(o_ptr) || !(o_ptr->ident & IDENT_MENTAL));
 }
 
-static bool item_tester_hook_identify_fully_weapon_armour(object_type *o_ptr)
+static bool item_tester_hook_identify_fully_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (!item_tester_hook_identify_fully(o_ptr))
+	if (!item_tester_hook_identify_fully(cr_ptr, o_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(o_ptr);
+	return object_is_weapon_armour_ammo(cr_ptr, o_ptr);
 }
 
 /*
@@ -3121,7 +3121,7 @@ bool identify_fully(bool only_equip)
 /*
  * Hook for "get_item()".  Determine if something is rechargable.
  */
-bool item_tester_hook_recharge(object_type *o_ptr)
+bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Recharge staffs */
 	if (o_ptr->tval == TV_STAFF) return (TRUE);
@@ -3592,7 +3592,7 @@ msg_format("%s は既に祝福されている。",
 		return TRUE;
 	}
 
-	if (!(object_is_artifact(o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
+	if (!(object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
 	{
 		/* Describe */
 #ifdef JP
@@ -3723,7 +3723,7 @@ s = "磨く盾がありません。";
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
 
-	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(p_ptr, o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) && (o_ptr->sval != SV_MIRROR_SHIELD))
 	{
 #ifdef JP
@@ -4840,7 +4840,7 @@ int inven_damage(inven_func typ, int perc)
 		if (!o_ptr->k_idx) continue;
 
 		/* Hack -- for now, skip artifacts */
-		if (object_is_artifact(o_ptr)) continue;
+		if (object_is_artifact(p_ptr, o_ptr)) continue;
 
 		/* Give this item slot a shot at death */
 		if ((*typ)(o_ptr))
@@ -4886,7 +4886,7 @@ o_name, index_to_label(i),
 #endif
 
 				/* Potions smash open */
-				if (object_is_potion(o_ptr))
+				if (object_is_potion(p_ptr, o_ptr))
 				{
 					(void)potion_smash_effect(0, p_ptr->fy, p_ptr->fx, o_ptr->k_idx);
 				}
@@ -4938,7 +4938,7 @@ static int minus_ac(void)
 	/* Nothing to damage */
 	if (!o_ptr->k_idx) return (FALSE);
 
-	if (!object_is_armour(o_ptr)) return (FALSE);
+	if (!object_is_armour(p_ptr, o_ptr)) return (FALSE);
 
 	/* No damage left to be done */
 	if (o_ptr->ac + o_ptr->to_a <= 0) return (FALSE);
@@ -5240,7 +5240,7 @@ bool curse_armor(void)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 50))
+	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 50))
 	{
 		/* Cool */
 #ifdef JP
@@ -5321,7 +5321,7 @@ bool curse_weapon(bool force, int slot)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw */
-	if (object_is_artifact(o_ptr) && (randint0(100) < 50) && !force)
+	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 50) && !force)
 	{
 		/* Cool */
 #ifdef JP
@@ -5397,7 +5397,7 @@ bool brand_bolts(void)
 		if (o_ptr->tval != TV_BOLT) continue;
 
 		/* Skip artifacts and ego-items */
-		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
+		if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
 			continue;
 
 		/* Skip cursed/broken items */

@@ -164,10 +164,10 @@ void do_cmd_equip(void)
 /*
  * The "wearable" tester
  */
-static bool item_tester_hook_wear(object_type *o_ptr)
+static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_ABUNAI_MIZUGI))
-		if (p_ptr->sex == SEX_MALE) return FALSE;
+		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
 	if (wield_slot(o_ptr) >= INVEN_RARM) return (TRUE);
@@ -177,7 +177,7 @@ static bool item_tester_hook_wear(object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_mochikae(object_type *o_ptr)
+static bool item_tester_hook_mochikae(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Check for a usable slot */
 	if (((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD)) ||
@@ -189,7 +189,7 @@ static bool item_tester_hook_mochikae(object_type *o_ptr)
 }
 
 
-static bool item_tester_hook_melee_weapon(object_type *o_ptr)
+static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Check for a usable slot */
 	if ((o_ptr->tval >= TV_DIGGING) && (o_ptr->tval <= TV_SWORD))return (TRUE);
@@ -285,8 +285,8 @@ void do_cmd_wield(void)
 		else if (have_weapon(p_ptr, INVEN_LARM)) slot = INVEN_RARM;
 
 		/* Both arms are already used by non-weapon */
-		else if (p_ptr->inventory[INVEN_RARM].k_idx && !object_is_melee_weapon(&p_ptr->inventory[INVEN_RARM]) &&
-		         p_ptr->inventory[INVEN_LARM].k_idx && !object_is_melee_weapon(&p_ptr->inventory[INVEN_LARM]))
+		else if (p_ptr->inventory[INVEN_RARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_RARM]) &&
+		         p_ptr->inventory[INVEN_LARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_LARM]))
 		{
 			/* Restrict the choices */
 			item_tester_hook = item_tester_hook_mochikae;
@@ -739,14 +739,14 @@ msg_print("クエストを達成した！");
 	switch (slot)
 	{
 	case INVEN_RARM:
-		if (object_allow_two_hands_wielding(o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
+		if (object_allow_two_hands_wielding(p_ptr, o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
 			act = STR_WIELD_ARMS;
 		else
 			act = (left_hander ? STR_WIELD_LARM : STR_WIELD_RARM);
 		break;
 
 	case INVEN_LARM:
-		if (object_allow_two_hands_wielding(o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
+		if (object_allow_two_hands_wielding(p_ptr, o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
 			act = STR_WIELD_ARMS;
 		else
 			act = (left_hander ? STR_WIELD_RARM : STR_WIELD_LARM);
@@ -845,7 +845,7 @@ void kamaenaoshi(int item)
 				p_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(INVEN_LARM, -((int)o_ptr->number));
 				inven_item_optimize(INVEN_LARM);
-				if (object_allow_two_hands_wielding(o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+				if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -860,7 +860,7 @@ void kamaenaoshi(int item)
 			}
 			else
 			{
-				if (object_allow_two_hands_wielding(o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+				if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -876,7 +876,7 @@ void kamaenaoshi(int item)
 
 		if (have_weapon(p_ptr, INVEN_RARM))
 		{
-			if (object_allow_two_hands_wielding(o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+			if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
 #ifdef JP
 				msg_format("%sを両手で構えた。", o_name);
 #else
@@ -1686,7 +1686,7 @@ void do_cmd_inscribe_caves(void)
 /*
  * An "item_tester_hook" for refilling lanterns
  */
-static bool item_tester_refill_lantern(object_type *o_ptr)
+static bool item_tester_refill_lantern(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Flasks of oil are okay */
 	if (o_ptr->tval == TV_FLASK) return (TRUE);
@@ -1810,7 +1810,7 @@ static void do_cmd_refill_lamp(void)
 /*
  * An "item_tester_hook" for refilling torches
  */
-static bool item_tester_refill_torch(object_type *o_ptr)
+static bool item_tester_refill_torch(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Torches are okay */
 	if ((o_ptr->tval == TV_LITE) &&

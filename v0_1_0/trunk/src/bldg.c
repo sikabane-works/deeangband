@@ -3352,7 +3352,7 @@ sprintf(tmp_str, "‚Pƒ^[ƒ“‚É‚Â‚« %d-%d",
 /*
  * Hook to specify "weapon"
  */
-static bool item_tester_hook_melee_weapon(object_type *o_ptr)
+static bool item_tester_hook_melee_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{
@@ -3375,7 +3375,7 @@ static bool item_tester_hook_melee_weapon(object_type *o_ptr)
 /*
  * Hook to specify "ammo"
  */
-static bool item_tester_hook_ammo(object_type *o_ptr)
+static bool item_tester_hook_ammo(creature_type *cr_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{

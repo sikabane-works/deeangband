@@ -984,7 +984,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (!o_ptr->k_idx) continue;
 
 						/* Skip artifacts */
-						if (object_is_artifact(o_ptr)) continue;
+						if (object_is_artifact(p_ptr, o_ptr)) continue;
 
 						/* Get a description */
 						object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
@@ -2095,7 +2095,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 							for (j = 0; j < 4; j++)
 							{
 								o_ptr = &tar_ptr->inventory[typ[j][0]];
-								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(o_ptr))
+								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(p_ptr, o_ptr))
 									project(0, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}

@@ -1309,7 +1309,7 @@ static bool project_o(creature_type *who_ptr, int r, int y, int x, int dam, int 
 		object_flags(o_ptr, flgs);
 
 		/* Check for artifact */
-		if (object_is_artifact(o_ptr)) is_art = TRUE;
+		if (object_is_artifact(p_ptr, o_ptr)) is_art = TRUE;
 
 		/* Analyze the type */
 		switch (typ)
@@ -1652,7 +1652,7 @@ msg_format("%s‚Í%s", o_name, note_kill);
 				}
 
 				k_idx = o_ptr->k_idx;
-				is_potion = object_is_potion(o_ptr);
+				is_potion = object_is_potion(p_ptr, o_ptr);
 
 
 				/* Delete the object */

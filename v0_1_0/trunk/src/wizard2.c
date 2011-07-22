@@ -839,7 +839,7 @@ static void wiz_tweak_item(object_type *o_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(p_ptr, o_ptr)) return;
 
 	p = "Enter new 'pval' setting: ";
 	sprintf(tmp_val, "%d", o_ptr->pval);
@@ -881,7 +881,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(p_ptr, o_ptr)) return;
 
 
 	/* Get local object */
@@ -969,7 +969,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 				apply_magic(q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(q_ptr)) create_artifact(q_ptr, FALSE);
+				if (!object_is_artifact(p_ptr, q_ptr)) create_artifact(q_ptr, FALSE);
 				break;
 			}
 		}
@@ -1178,7 +1178,7 @@ static void wiz_quantity_item(object_type *o_ptr)
 
 
 	/* Never duplicate artifacts */
-	if (object_is_artifact(o_ptr)) return;
+	if (object_is_artifact(p_ptr, o_ptr)) return;
 
 	/* Store old quantity. -LM- */
 	tmp_qnt = o_ptr->number;

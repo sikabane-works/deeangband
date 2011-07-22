@@ -558,8 +558,8 @@ u32b get_curse(int power, object_type *o_ptr)
 		{
 			if (new_curse & TRC_HEAVY_MASK) continue;
 		}
-		if (new_curse == TRC_LOW_MELEE && !object_is_weapon(o_ptr)) continue;
-		if (new_curse == TRC_LOW_AC && !object_is_armour(o_ptr)) continue;
+		if (new_curse == TRC_LOW_MELEE && !object_is_weapon(p_ptr, o_ptr)) continue;
+		if (new_curse == TRC_LOW_AC && !object_is_armour(p_ptr, o_ptr)) continue;
 		break;
 	}
 	return new_curse;
@@ -596,7 +596,7 @@ void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance)
 	}
 
 	if ((randint1(100) <= heavy_chance) &&
-	    (object_is_artifact(o_ptr) || object_is_ego(o_ptr)))
+	    (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr)))
 	{
 		if (!(o_ptr->curse_flags & TRC_HEAVY_CURSE))
 			changed = TRUE;

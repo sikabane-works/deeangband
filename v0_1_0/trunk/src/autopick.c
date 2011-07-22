@@ -522,7 +522,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 		/* Ego objects */
 		if (object_is_ego(o_ptr))
 		{
-			if (object_is_weapon_armour_ammo(o_ptr))
+			if (object_is_weapon_armour_ammo(p_ptr, o_ptr))
 			{
 				/*
 				 * Base name of ego weapons and armors
@@ -542,21 +542,21 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 				name = FALSE;
 
 				/* Restrict to 'common' equipments */
-				if (!object_is_rare(o_ptr)) ADD_FLG(FLG_COMMON);
+				if (!object_is_rare(p_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
 			}
 
 			ADD_FLG(FLG_EGO);
 		}
 
 		/* Artifact */
-		else if (object_is_artifact(o_ptr))
+		else if (object_is_artifact(p_ptr, o_ptr))
 			ADD_FLG(FLG_ARTIFACT);
 
 		/* Non-ego, non-artifact */
 		else
 		{
 			/* Wearable nameless object */
-			if (object_is_equipment(o_ptr))
+			if (object_is_equipment(p_ptr, o_ptr))
 				ADD_FLG(FLG_NAMELESS);
 
 			bol_mark = TRUE;
@@ -565,7 +565,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	/* Melee weapon with boosted dice */
-	if (object_is_melee_weapon(o_ptr))
+	if (object_is_melee_weapon(p_ptr, o_ptr))
 	{
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
@@ -574,7 +574,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	/* Wanted monster's corpse */
-	if (object_is_shoukinkubi(o_ptr))
+	if (object_is_shoukinkubi(p_ptr, o_ptr))
 	{
 		REM_FLG(FLG_WORTHLESS);
 		ADD_FLG(FLG_WANTED);
@@ -623,7 +623,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	if (o_ptr->tval >= TV_LIFE_BOOK && 3 == o_ptr->sval)
 		ADD_FLG(FLG_FOURTH);
 
-	if (object_is_ammo(o_ptr))
+	if (object_is_ammo(p_ptr, o_ptr))
 		ADD_FLG(FLG_MISSILES);
 	else if (o_ptr->tval == TV_SCROLL || o_ptr->tval == TV_STAFF
 		 || o_ptr->tval == TV_WAND || o_ptr->tval == TV_ROD)
@@ -1055,7 +1055,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
 		/* Require melee weapon */
-		if (!object_is_melee_weapon(o_ptr))
+		if (!object_is_melee_weapon(p_ptr, o_ptr))
 			return FALSE;
 
 		/* Require boosted dice */
@@ -1096,7 +1096,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Artifact object ***/
 	if (IS_FLG(FLG_ARTIFACT))
 	{
-		if (!object_is_known(o_ptr) || !object_is_artifact(o_ptr))
+		if (!object_is_known(o_ptr) || !object_is_artifact(p_ptr, o_ptr))
 			return FALSE;
 	}
 
@@ -1115,13 +1115,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Good ***/
 	if (IS_FLG(FLG_GOOD))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(o_ptr))
+			if (!object_is_nameless(p_ptr, o_ptr))
 				return FALSE;
 
 			/* Average are not okay */
@@ -1155,13 +1155,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Nameless ***/
 	if (IS_FLG(FLG_NAMELESS))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(o_ptr))
+			if (!object_is_nameless(p_ptr, o_ptr))
 				return FALSE;
 		}
 
@@ -1194,13 +1194,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Average ***/
 	if (IS_FLG(FLG_AVERAGE))
 	{
-		if (!object_is_equipment(o_ptr)) return FALSE;
+		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(o_ptr))
+			if (!object_is_nameless(p_ptr, o_ptr))
 				return FALSE;
 
 			/* Cursed or broken objects are not okay */
@@ -1236,15 +1236,15 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	}
 
 	/*** Rere equipments ***/
-	if (IS_FLG(FLG_RARE) && !object_is_rare(o_ptr))
+	if (IS_FLG(FLG_RARE) && !object_is_rare(p_ptr, o_ptr))
 		return FALSE;
 
 	/*** Common equipments ***/
-	if (IS_FLG(FLG_COMMON) && object_is_rare(o_ptr))
+	if (IS_FLG(FLG_COMMON) && object_is_rare(p_ptr, o_ptr))
 		return FALSE;
 
 	/*** Wanted monster's corpse/skeletons ***/
-	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(o_ptr))
+	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(p_ptr, o_ptr))
 		return FALSE;
 
 	/*** Unique monster's corpse/skeletons/statues ***/
@@ -1302,22 +1302,22 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Items ***/
 	if (IS_FLG(FLG_WEAPONS))
 	{
-		if (!object_is_weapon(o_ptr))
+		if (!object_is_weapon(p_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_FAVORITE_WEAPONS))
 	{
-		if (!object_is_favorite(o_ptr))
+		if (!object_is_favorite(p_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_ARMORS))
 	{
-		if (!object_is_armour(o_ptr))
+		if (!object_is_armour(p_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_MISSILES))
 	{
-		if (!object_is_ammo(o_ptr)) return FALSE;
+		if (!object_is_ammo(p_ptr, o_ptr)) return FALSE;
 	}
 	else if (IS_FLG(FLG_DEVICES))
 	{
@@ -1499,14 +1499,14 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 		if (object_value(o_ptr) > 0) return FALSE;
 
 	if (leave_equip)
-		if (object_is_weapon_armour_ammo(o_ptr)) return FALSE;
+		if (object_is_weapon_armour_ammo(p_ptr, o_ptr)) return FALSE;
 
 	if (leave_chest)
 		if ((o_ptr->tval == TV_CHEST) && o_ptr->pval) return FALSE;
 
 	if (leave_wanted)
 	{
-		if (object_is_shoukinkubi(o_ptr)) return FALSE;
+		if (object_is_shoukinkubi(p_ptr, o_ptr)) return FALSE;
 	}
 
 	if (leave_corpse)
@@ -1743,7 +1743,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 		{
 			disturb(0,0);
 
-			if (!inven_carry_okay(o_ptr))
+			if (!inven_carry_okay(p_ptr, o_ptr))
 			{
 				char o_name[MAX_NLEN];
 
@@ -1974,7 +1974,7 @@ bool autopick_autoregister(object_type *o_ptr)
 	}
 
 	/* Known to be an artifact? */
-	if ((object_is_known(o_ptr) && object_is_artifact(o_ptr)) ||
+	if ((object_is_known(o_ptr) && object_is_artifact(p_ptr, o_ptr)) ||
 	    ((o_ptr->ident & IDENT_SENSE) &&
 	     (o_ptr->feeling == FEEL_TERRIBLE || o_ptr->feeling == FEEL_SPECIAL)))
 	{

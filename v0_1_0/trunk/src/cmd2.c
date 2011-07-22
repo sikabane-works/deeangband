@@ -4059,7 +4059,7 @@ void do_cmd_fire(void)
 }
 
 
-static bool item_tester_hook_boomerang(object_type *o_ptr)
+static bool item_tester_hook_boomerang(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if ((o_ptr->tval==TV_DIGGING) || (o_ptr->tval == TV_SWORD) || (o_ptr->tval == TV_POLEARM) || (o_ptr->tval == TV_HAFTED)) return (TRUE);
 
@@ -4325,7 +4325,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 		if (!cave_have_flag_bold(ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(q_ptr) || !cave[ny[cur_dis]][nx[cur_dis]].m_idx) break;
+			if ((q_ptr->tval == TV_FIGURINE) || object_is_potion(p_ptr, q_ptr) || !cave[ny[cur_dis]][nx[cur_dis]].m_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
@@ -4468,7 +4468,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 					message_pain(c_ptr->m_idx, tdam);
 
 					/* Anger the monster */
-					if ((tdam > 0) && !object_is_potion(q_ptr))
+					if ((tdam > 0) && !object_is_potion(p_ptr, q_ptr))
 						anger_monster(m_ptr);
 
 					/* Take note */
@@ -4525,7 +4525,7 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 
 
 	/* Potions smash open */
-	if (object_is_potion(q_ptr))
+	if (object_is_potion(p_ptr, q_ptr))
 	{
 		if (hit_body || hit_wall || (randint1(100) < j))
 		{

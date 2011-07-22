@@ -1011,7 +1011,7 @@ static void mass_produce(object_type *o_ptr)
 		case TV_DIGGING:
 		case TV_BOW:
 		{
-			if (object_is_artifact(o_ptr)) break;
+			if (object_is_artifact(p_ptr, o_ptr)) break;
 			if (object_is_ego(o_ptr)) break;
 			if (cost <= 10L) size += damroll(3, 5);
 			if (cost <= 100L) size += damroll(3, 5);
@@ -1145,7 +1145,7 @@ static bool store_object_similar(object_type *o_ptr, object_type *j_ptr)
 	if (o_ptr->name2 != j_ptr->name2) return (0);
 
 	/* Artifacts don't stack! */
-	if (object_is_artifact(o_ptr) || object_is_artifact(j_ptr)) return (0);
+	if (object_is_artifact(p_ptr, o_ptr) || object_is_artifact(p_ptr, j_ptr)) return (0);
 
 	/* Hack -- Identical art_flags! */
 	for (i = 0; i < TR_FLAG_SIZE; i++)
@@ -1305,7 +1305,7 @@ static bool is_blessed(object_type *o_ptr)
  *
  * Note that a shop-keeper must refuse to buy "worthless" items
  */
-static bool store_will_buy(object_type *o_ptr)
+static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Hack -- The Home is simple */
 	if ((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM)) return (TRUE);
@@ -2105,7 +2105,7 @@ static void store_create(void)
 		apply_magic(q_ptr, level, AM_NO_FIXED_ART);
 
 		/* Require valid object */
-		if (!store_will_buy(q_ptr)) continue;
+		if (!store_will_buy(p_ptr, q_ptr)) continue;
 
 		/* Hack -- Charge lite's */
 		if (q_ptr->tval == TV_LITE)
@@ -3467,7 +3467,7 @@ static void store_purchase(void)
 	j_ptr->number = amt;
 
 	/* Hack -- require room in pack */
-	if (!inven_carry_okay(j_ptr))
+	if (!inven_carry_okay(p_ptr, j_ptr))
 	{
 #ifdef JP
 msg_print("そんなにアイテムを持てない。");
@@ -3519,7 +3519,7 @@ msg_format("一つにつき $%ldです。", (long)(best));
 	j_ptr->number = amt;
 
 	/* Hack -- require room in pack */
-	if (!inven_carry_okay(j_ptr))
+	if (!inven_carry_okay(p_ptr, j_ptr))
 	{
 #ifdef JP
 		msg_print("ザックにそのアイテムを入れる隙間がない。");
@@ -5249,7 +5249,7 @@ void store_shuffle(int which)
 		/* Get the item */
 		o_ptr = &st_ptr->stock[i];
 
-		if (!object_is_artifact(o_ptr))
+		if (!object_is_artifact(p_ptr, o_ptr))
 		{
 			/* Hack -- Sell all non-artifact old items for "half price" */
 			o_ptr->discount = 50;

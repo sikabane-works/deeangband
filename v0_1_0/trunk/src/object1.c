@@ -147,7 +147,7 @@ void object_flags(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] |= o_ptr->art_flags[i];
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(p_ptr, o_ptr))
 	{
 		int add = o_ptr->xtra3 - 1;
 
@@ -280,7 +280,7 @@ void object_flags_known(object_type *o_ptr, u32b flgs[TR_FLAG_SIZE])
 			flgs[i] |= o_ptr->art_flags[i];
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(p_ptr, o_ptr))
 	{
 		int add = o_ptr->xtra3 - 1;
 
@@ -1875,7 +1875,7 @@ return "’Þ‚è‚ð‚·‚é : ‚¢‚Â‚Å‚à";
 
 	}
 
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(p_ptr, o_ptr))
 	{
 		switch (o_ptr->xtra3 - 1)
 		{
@@ -2382,7 +2382,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 		{ info[i] = &temp[j]; i++;}
 	}
 
-	if (object_is_equipment(o_ptr))
+	if (object_is_equipment(p_ptr, o_ptr))
 	{
 		/* Descriptions of a basic equipment is just a flavor */
 		trivial_info = i;
@@ -4365,7 +4365,7 @@ bool item_tester_okay(object_type *o_ptr)
 	/* Check the hook */
 	if (item_tester_hook)
 	{
-		if (!(*item_tester_hook)(o_ptr)) return (FALSE);
+		if (!(*item_tester_hook)(p_ptr, o_ptr)) return (FALSE);
 	}
 
 	/* Assume okay */
@@ -7905,7 +7905,7 @@ void py_pickup_floor(bool pickup)
 		}
 
 		/* Count non-gold objects that can be picked up. */
-		if (inven_carry_okay(o_ptr))
+		if (inven_carry_okay(p_ptr, o_ptr))
 		{
 			can_pickup++;
 		}

@@ -1512,7 +1512,7 @@ s32b object_value(object_type *o_ptr)
 bool can_player_destroy_object(object_type *o_ptr)
 {
 	/* Artifacts cannot be destroyed */
-	if (!object_is_artifact(o_ptr)) return TRUE;
+	if (!object_is_artifact(p_ptr, o_ptr)) return TRUE;
 
 	/* If object is unidentified, makes fake inscription */
 	if (!object_is_known(o_ptr))
@@ -1768,7 +1768,7 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 			if (o_ptr->pval != j_ptr->pval) return 0;
 
 			/* Artifacts never stack */
-			if (object_is_artifact(o_ptr) || object_is_artifact(j_ptr)) return 0;
+			if (object_is_artifact(p_ptr, o_ptr) || object_is_artifact(p_ptr, j_ptr)) return 0;
 
 			/* Require identical "ego-item" names */
 			if (o_ptr->name2 != j_ptr->name2) return 0;
@@ -4958,7 +4958,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Handle normal "breakage" */
-	if (!object_is_artifact(j_ptr) && (randint0(100) < chance))
+	if (!object_is_artifact(p_ptr, j_ptr) && (randint0(100) < chance))
 	{
 		/* Message */
 #ifdef JP
@@ -5075,7 +5075,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Handle lack of space */
-	if (!flag && !object_is_artifact(j_ptr))
+	if (!flag && !object_is_artifact(p_ptr, j_ptr))
 	{
 		/* Message */
 #ifdef JP
@@ -5755,7 +5755,7 @@ void floor_item_optimize(int item)
 /*
  * Check if we have space for an item in the pack without overflow
  */
-bool inven_carry_okay(object_type *o_ptr)
+bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int j;
 
@@ -6045,7 +6045,7 @@ s16b inven_takeoff(int item, int amt)
 
 	/* Took off weapon */
 	if (((item == INVEN_RARM) || (item == INVEN_LARM)) &&
-	    object_is_melee_weapon(o_ptr))
+	    object_is_melee_weapon(p_ptr, o_ptr))
 	{
 #ifdef JP
 		act = "を装備からはずした";
@@ -6937,7 +6937,7 @@ bool process_warning(int xx, int yy)
 }
 
 
-static bool item_tester_hook_melee_ammo(object_type *o_ptr)
+static bool item_tester_hook_melee_ammo(creature_type *cr_ptr, object_type *o_ptr)
 {
 	switch (o_ptr->tval)
 	{
@@ -7482,7 +7482,7 @@ static void drain_essence(void)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if (object_is_known(o_ptr) && !object_is_nameless(o_ptr))
+	if (object_is_known(o_ptr) && !object_is_nameless(p_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
 		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -7611,7 +7611,7 @@ static void drain_essence(void)
 	{
 		drain_value[TR_DEX] += 20;
 	}
-	if (object_is_weapon_ammo(o_ptr))
+	if (object_is_weapon_ammo(p_ptr, o_ptr))
 	{
 		if (old_ds > o_ptr->ds) drain_value[TR_ES_ATTACK] += (old_ds-o_ptr->ds)*10;
 
@@ -8122,7 +8122,7 @@ static void add_essence(int mode)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if ((mode != 10) && (object_is_artifact(o_ptr) || object_is_smith(o_ptr)))
+	if ((mode != 10) && (object_is_artifact(p_ptr, o_ptr) || object_is_smith(p_ptr, o_ptr)))
 	{
 #ifdef JP
 		msg_print("そのアイテムはこれ以上改良できない。");
