@@ -5548,6 +5548,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	/* Hurt the player */
 	tar_ptr->chp -= damage;
+	if(tar_ptr->chp < 0)
+		tar_ptr->is_dead = TRUE;
+
 	if(damage_type == DAMAGE_GENO && tar_ptr->chp < 0)
 	{
 		damage += tar_ptr->chp;
@@ -5567,8 +5570,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		chg_virtue(atk_ptr, V_SACRIFICE, 1);
 		chg_virtue(atk_ptr, V_CHANCE, 2);
 	}
-
-
 
 	if(is_player(tar_ptr))
 	{

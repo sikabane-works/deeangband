@@ -2749,7 +2749,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 			/* Damage, check for fear and death */
 			take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1);
-			if(m_ptr->monster_idx == 0);
+			if(m_ptr->is_dead);
 			{
 				*mdeath = TRUE;
 				if ((cr_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
@@ -3431,6 +3431,10 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	}
 
+	if(!mdeath)
+	{
+		special_melee(atk_ptr, tar_ptr);
+	}
 
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
