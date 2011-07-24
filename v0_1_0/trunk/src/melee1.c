@@ -156,7 +156,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 	char o_name[MAX_NLEN];
 
-	char m_name[80];
+	char atk_name[100];
+	char tar_name[100];
 
 	char ddesc[80];
 
@@ -182,7 +183,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 	/* Get the monster name (or "it") */
-	monster_desc(m_name, atk_ptr, 0);
+	monster_desc(atk_name, atk_ptr, 0);
+	monster_desc(tar_name, tar_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
 	monster_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -190,9 +192,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 	if (tar_ptr->special_defense & KATA_IAI)
 	{
 #ifdef JP
-		msg_print("相手が襲いかかる前に素早く武器を振るった。");
+		msg_format("%sは相手が襲いかかる前に素早く武器を振るった。", tar_name);
 #else
-		msg_format("You took sen, draw and cut in one motion before %s move.", m_name);
+		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", tar_name, atk_name);
 #endif
 		if (py_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
@@ -269,10 +271,10 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				if (abbreviate)
 				    msg_format("撃退した。");
 				else
-				    msg_format("%^sは撃退された。", m_name);
+				    msg_format("%^sは撃退された。", atk_name);
 				abbreviate = 1;/*２回目以降は省略 */
 #else
-				msg_format("%^s is repelled.", m_name);
+				msg_format("%^s is repelled.", atk_name);
 #endif
 
 
@@ -290,9 +292,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_HIT:
 				{
 #ifdef JP
-					act = "殴られた。";
+					abbreviate = 0;
+					act = "殴った。";
 #else
-					act = "hits you.";
+					if(is_player(atk_ptr))
+						act = "hit";
+					else
+						act = "hits";
 #endif
 
 					do_cut = do_stun = 1;
@@ -304,9 +310,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_TOUCH:
 				{
 #ifdef JP
-					act = "触られた。";
+					abbreviate = 1;
+					act = "触れた。";
 #else
-					act = "touches you.";
+					if(is_player(atk_ptr))
+						act = "touch";
+					else
+						act = "touches";
 #endif
 
 					touched = TRUE;
@@ -317,9 +327,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_PUNCH:
 				{
 #ifdef JP
-					act = "パンチされた。";
+					abbreviate = 0;
+					act = "パンチした。";
 #else
-					act = "punches you.";
+					if(is_player(atk_ptr))
+						act = "punch";
+					else
+						act = "punches";
 #endif
 
 					touched = TRUE;
@@ -331,9 +345,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_KICK:
 				{
 #ifdef JP
-					act = "蹴られた。";
+					abbreviate = 0;
+					act = "蹴った。";
 #else
-					act = "kicks you.";
+					if(is_player(atk_ptr))
+						act = "kick";
+					else
+						act = "kicks";
 #endif
 
 					touched = TRUE;
@@ -345,9 +363,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_CLAW:
 				{
 #ifdef JP
-					act = "ひっかかれた。";
+					abbreviate = 0;
+					act = "引っ掻いた。";
 #else
-					act = "claws you.";
+					if(is_player(atk_ptr))
+						act = "claw";
+					else
+						act = "claws";
 #endif
 
 					touched = TRUE;
@@ -359,9 +381,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_BITE:
 				{
 #ifdef JP
-					act = "噛まれた。";
+					abbreviate = 0;
+					act = "噛んだ。";
 #else
-					act = "bites you.";
+					if(is_player(atk_ptr))
+						act = "bite";
+					else
+						act = "bites";
 #endif
 
 					do_cut = 1;
@@ -373,9 +399,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_STING:
 				{
 #ifdef JP
-					act = "刺された。";
+					abbreviate = 0;
+					act = "刺した。";
 #else
-					act = "stings you.";
+					if(is_player(atk_ptr))
+						act = "sting";
+					else
+						act = "stings";
 #endif
 
 					touched = TRUE;
@@ -386,9 +416,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_SLASH:
 				{
 #ifdef JP
-					act = "斬られた。";
+					abbreviate = 0;
+					act = "斬った。";
 #else
-					act = "slashes you.";
+					if(is_player(atk_ptr))
+						act = "slash";
+					else
+						act = "slashes";
 #endif
 
 					touched = TRUE;
@@ -400,9 +434,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_BUTT:
 				{
 #ifdef JP
-					act = "角で突かれた。";
+					abbreviate = 0;
+					act = "角で突いた。";
 #else
-					act = "butts you.";
+					if(is_player(atk_ptr))
+						act = "butt";
+					else
+						act = "butts";
 #endif
 
 					do_stun = 1;
@@ -414,9 +452,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_CRUSH:
 				{
 #ifdef JP
-					act = "体当たりされた。";
+					abbreviate = 1;
+					act = "体当たりした。";
 #else
-					act = "crushes you.";
+					if(is_player(atk_ptr))
+						act = "crush";
+					else
+						act = "crushes";
 #endif
 
 					do_stun = 1;
@@ -428,9 +470,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_ENGULF:
 				{
 #ifdef JP
-					act = "飲み込まれた。";
+					abbreviate = 0;
+					act = "飲み込んだ。";
 #else
-					act = "engulfs you.";
+					if(is_player(atk_ptr))
+						act = "engulf";
+					else
+						act = "engulfs";
 #endif
 
 					touched = TRUE;
@@ -441,10 +487,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_CHARGE:
 				{
 #ifdef JP
-					abbreviate = -1;
-					act = "は請求書をよこした。";
+					abbreviate = 1;
+					act = "請求書をよこした。";
 #else
-					act = "charges you.";
+					if(is_player(atk_ptr))
+						act = "charge";
+					else
+						act = "charges";
 #endif
 
 					touched = TRUE;
@@ -455,10 +504,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_CRAWL:
 				{
 #ifdef JP
-					abbreviate = -1;
-					act = "が体の上を這い回った。";
+					abbreviate = 2;
+					act = "体の上を這い回った。";
 #else
-					act = "crawls on you.";
+					if(is_player(atk_ptr))
+						act = "crawl on";
+					else
+						act = "crawls on";
 #endif
 
 					touched = TRUE;
@@ -469,9 +521,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_DROOL:
 				{
 #ifdef JP
-					act = "よだれをたらされた。";
+					abbreviate = 1;
+					act = "よだれをたらした。";
 #else
-					act = "drools on you.";
+					if(is_player(atk_ptr))
+						act = "drool on";
+					else
+						act = "drools on";
 #endif
 
 					sound(SOUND_SLIME);
@@ -481,9 +537,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_SPIT:
 				{
 #ifdef JP
-					act = "唾を吐かれた。";
+					abbreviate = 3;
+					act = "唾を吐きかけた。";
 #else
-					act = "spits on you.";
+					if(is_player(atk_ptr))
+						act = "spit on";
+					else
+						act = "spits on";
 #endif
 
 					sound(SOUND_SLIME);
@@ -493,10 +553,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_EXPLODE:
 				{
 #ifdef JP
-					abbreviate = -1;
+					abbreviate = 4;
 					act = "は爆発した。";
 #else
-					act = "explodes.";
+					if(is_player(atk_ptr))
+						act = "explode";
+					else
+						act = "explodes";
 #endif
 
 					explode = TRUE;
@@ -506,9 +569,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_GAZE:
 				{
 #ifdef JP
-					act = "にらまれた。";
+					abbreviate = 0;
+					act = "にらんだ。";
 #else
-					act = "gazes at you.";
+					if(is_player(atk_ptr))
+						act = "gaze at";
+					else
+						act = "gazes at";
 #endif
 
 					break;
@@ -517,9 +584,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_WAIL:
 				{
 #ifdef JP
-					act = "泣き叫ばれた。";
+					abbreviate = 3;
+					act = "泣き叫んだ。";
 #else
-					act = "wails at you.";
+					if(is_player(atk_ptr))
+						act = "wail at";
+					else
+						act = "wails at";
 #endif
 
 					sound(SOUND_WAIL);
@@ -529,9 +600,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_SPORE:
 				{
 #ifdef JP
-					act = "胞子を飛ばされた。";
+					abbreviate = 3;
+					act = "胞子を飛ばした。";
 #else
-					act = "releases spores at you.";
+					if(is_player(atk_ptr))
+						act = "release spores at";
+					else
+						act = "releases spores at";
 #endif
 
 					sound(SOUND_SLIME);
@@ -541,10 +616,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_XXX4:
 				{
 #ifdef JP
-					abbreviate = -1;
-					act = "が XXX4 を発射した。";
+					abbreviate = 3;
+					act = "XXX4 を発射した。";
 #else
-					act = "projects XXX4's at you.";
+					if(is_player(atk_ptr))
+						act = "project XXX4's at";
+					else
+						act = "projects XXX4's at";
 #endif
 
 					break;
@@ -553,9 +631,13 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_BEG:
 				{
 #ifdef JP
-					act = "金をせがまれた。";
+					abbreviate = 1;
+					act = "金をせがんだ。";
 #else
-					act = "begs you for money.";
+					if(is_player(atk_ptr))
+						act = "beg";
+					else
+						act = "begs";
 #endif
 
 					sound(SOUND_MOAN);
@@ -565,7 +647,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_INSULT:
 				{
 #ifdef JP
-					abbreviate = -1;
+					abbreviate = 2;
 #endif
 					act = desc_insult[randint0(atk_ptr->species_idx == MON_DEBBY ? 10 : 8)];
 					sound(SOUND_MOAN);
@@ -575,7 +657,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_MOAN:
 				{
 #ifdef JP
-					abbreviate = -1;
+					abbreviate = 2;
 #endif
 					act = desc_moan[randint0(4)];
 					sound(SOUND_MOAN);
@@ -585,7 +667,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBM_SHOW:
 				{
 #ifdef JP
-					abbreviate = -1;
+					abbreviate = 4;
 #endif
 					if (atk_ptr->species_idx == MON_JAIAN)
 					{
@@ -669,14 +751,20 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				}
 #ifdef JP
 				if (abbreviate == 0)
-				    msg_format("%^sに%s", m_name, act);
+				    msg_format("%^sは%sを%s", atk_name, tar_name, act);
 				else if (abbreviate == 1)
-				    msg_format("%s", act);
+				    msg_format("%^sは%sに%s", atk_name, tar_name, act);
+				else if (abbreviate == 2)
+				    msg_format("%^sは%sの%s", atk_name, tar_name, act);
+				else if (abbreviate == 3)
+				    msg_format("%^sは%sに向け%s", atk_name, tar_name, act);
+				else if (abbreviate == 4)
+				    msg_format("%^s%s", atk_name, act);
 				else /* if (abbreviate == -1) */
-				    msg_format("%^s%s", m_name, act);
-				abbreviate = 1;/*２回目以降は省略 */
+				    msg_format("%s", act);
+				abbreviate = -1;/*２回目以降は省略 */
 #else
-				msg_format("%^s %s%s", m_name, act, do_silly_attack ? " you." : "");
+				msg_format("%^s %s%s", atk_name, act, do_silly_attack ? " you." : "");
 #endif
 			}
 
@@ -819,9 +907,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 							/* Message */
 #ifdef JP
-							msg_print("ザックからエネルギーが吸い取られた！");
+							msg_print("魔道具からエネルギーを吸い取った！");
 #else
-							msg_print("Energy drains from your pack!");
+							msg_print("Energy drains from your magic device!");
 #endif
 
 
@@ -1255,7 +1343,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (set_blind(tar_ptr, tar_ptr->blind + 10 + randint1(rlev)))
 						{
 #ifdef JP
-							if (atk_ptr->species_idx == MON_DIO) msg_print("どうだッ！この血の目潰しはッ！");
+							if (atk_ptr->species_idx == MON_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
 #else
 							/* nanka */
 #endif
@@ -1738,9 +1826,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (atk_ptr->ml && did_heal)
 						{
 #ifdef JP
-msg_format("%sは体力を回復したようだ。", m_name);
+msg_format("%sは体力を回復したようだ。", atk_name);
 #else
-							msg_format("%^s appears healthier.", m_name);
+							msg_format("%^s appears healthier.", atk_name);
 #endif
 
 						}
@@ -1873,10 +1961,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは突然熱くなった！", m_name);
+						msg_format("%^sは突然熱くなった！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は灰の山になった。", -1);
 #else
-						msg_format("%^s is suddenly very hot!", m_name);
+						msg_format("%^s is suddenly very hot!", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -1902,10 +1990,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは電撃をくらった！", m_name);
+						msg_format("%^sは電撃をくらった！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
 #else
-						msg_format("%^s gets zapped!", m_name);
+						msg_format("%^s gets zapped!", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -1931,10 +2019,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは冷気をくらった！", m_name);
+						msg_format("%^sは冷気をくらった！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は凍りついた。", -1);
 #else
-						msg_format("%^s is very cold!", m_name);
+						msg_format("%^s is very cold!", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -1961,10 +2049,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sは鏡の破片をくらった！", m_name);
+						msg_format("%^sは鏡の破片をくらった！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "はズタズタになった。", -1);
 #else
-						msg_format("%^s gets zapped!", m_name);
+						msg_format("%^s gets zapped!", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -1997,10 +2085,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 							dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-							msg_format("%^sは聖なるオーラで傷ついた！", m_name);
+							msg_format("%^sは聖なるオーラで傷ついた！", atk_name);
 							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-							msg_format("%^s is injured by holy power!", m_name);
+							msg_format("%^s is injured by holy power!", atk_name);
 							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 							if(atk_ptr->species_idx == 0)
@@ -2029,10 +2117,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("%^sが鋭い闘気のオーラで傷ついた！", m_name);
+						msg_format("%^sが鋭い闘気のオーラで傷ついた！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-						msg_format("%^s is injured by the Force", m_name);
+						msg_format("%^s is injured by the Force", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2069,10 +2157,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						dam = mon_damage_mod(atk_ptr, dam, FALSE);
 
 #ifdef JP
-						msg_format("影のオーラが%^sに反撃した！", m_name);
+						msg_format("影のオーラが%^sに反撃した！", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
-						msg_format("Enveloped shadows attack %^s.", m_name);
+						msg_format("Enveloped shadows attack %^s.", atk_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 						if(atk_ptr->species_idx == 0)
@@ -2139,10 +2227,10 @@ msg_format("%sは体力を回復したようだ。", m_name);
 					if (abbreviate)
 					    msg_format("%sかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "");
 					else
-					    msg_format("%s%^sの攻撃をかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", m_name);
+					    msg_format("%s%^sの攻撃をかわした。", (tar_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", atk_name);
 					abbreviate = 1;/*２回目以降は省略 */
 #else
-					msg_format("%^s misses you.", m_name);
+					msg_format("%^s misses you.", atk_name);
 #endif
 
 				}
@@ -2169,14 +2257,14 @@ msg_format("%sは体力を回復したようだ。", m_name);
 
 		if (tar_ptr->riding && damage)
 		{
-			char m_name[80];
-			monster_desc(m_name, &m_list[tar_ptr->riding], 0);
+			char atk_name[80];
+			monster_desc(atk_name, &m_list[tar_ptr->riding], 0);
 			if (rakuba((damage > 200) ? 200 : damage, FALSE))
 			{
 #ifdef JP
-msg_format("%^sから落ちてしまった！", m_name);
+msg_format("%^sから落ちてしまった！", atk_name);
 #else
-				msg_format("You have fallen from %s.", m_name);
+				msg_format("You have fallen from %s.", atk_name);
 #endif
 			}
 		}
@@ -2194,14 +2282,14 @@ msg_format("%^sから落ちてしまった！", m_name);
 		&& get_damage > 0 && !tar_ptr->is_dead)
 	{
 #ifdef JP
-		msg_format("攻撃が%s自身を傷つけた！", m_name);
+		msg_format("攻撃が%s自身を傷つけた！", atk_name);
 #else
-		char m_name_self[80];
+		char atk_name_self[80];
 
 		/* hisself */
-		monster_desc(m_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		monster_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
-		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
+		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (tar_ptr->tim_eyeeye) set_tim_eyeeye(tar_ptr, tar_ptr->tim_eyeeye-5, TRUE);
@@ -2209,14 +2297,14 @@ msg_format("%^sから落ちてしまった！", m_name);
 
 	if ((tar_ptr->counter || (tar_ptr->special_defense & KATA_MUSOU)) && alive && !tar_ptr->is_dead && atk_ptr->ml && (tar_ptr->csp > 7))
 	{
-		char m_name[80];
-		monster_desc(m_name, atk_ptr, 0);
+		char atk_name[80];
+		monster_desc(atk_name, atk_ptr, 0);
 
 		tar_ptr->csp -= 7;
 #ifdef JP
-		msg_format("%^sに反撃した！", m_name);
+		msg_format("%^sに反撃した！", atk_name);
 #else
-		msg_format("Your counterattack to %s!", m_name);
+		msg_format("Your counterattack to %s!", atk_name);
 #endif
 		py_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
