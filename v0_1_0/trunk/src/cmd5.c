@@ -1897,37 +1897,37 @@ void do_cmd_pet_dismiss(void)
 #endif
 }
 
-static bool player_can_ride_aux(cave_type *c_ptr, bool now_riding)
+static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool now_riding)
 {
 	bool p_can_enter;
 	bool old_character_xtra = character_xtra;
-	int  old_riding = p_ptr->riding;
-	bool old_riding_ryoute = p_ptr->riding_ryoute;
-	bool old_old_riding_ryoute = p_ptr->old_riding_ryoute;
-	bool old_pf_ryoute = (p_ptr->pet_extra_flags & PF_RYOUTE) ? TRUE : FALSE;
+	int  old_riding = cr_ptr->riding;
+	bool old_riding_ryoute = cr_ptr->riding_ryoute;
+	bool old_old_riding_ryoute = cr_ptr->old_riding_ryoute;
+	bool old_pf_ryoute = (cr_ptr->pet_extra_flags & PF_RYOUTE) ? TRUE : FALSE;
 
 	/* Hack -- prevent "icky" message */
 	character_xtra = TRUE;
 
-	if (now_riding) p_ptr->riding = c_ptr->m_idx;
+	if (now_riding) cr_ptr->riding = c_ptr->m_idx;
 	else
 	{
-		p_ptr->riding = 0;
-		p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-		p_ptr->riding_ryoute = p_ptr->old_riding_ryoute = FALSE;
+		cr_ptr->riding = 0;
+		cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+		cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
 	}
 
-	calc_bonuses(p_ptr, TRUE);
+	calc_bonuses(cr_ptr, TRUE);
 
 	p_can_enter = player_can_enter(c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
-	p_ptr->riding = old_riding;
-	if (old_pf_ryoute) p_ptr->pet_extra_flags |= (PF_RYOUTE);
-	else p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-	p_ptr->riding_ryoute = old_riding_ryoute;
-	p_ptr->old_riding_ryoute = old_old_riding_ryoute;
+	cr_ptr->riding = old_riding;
+	if (old_pf_ryoute) cr_ptr->pet_extra_flags |= (PF_RYOUTE);
+	else cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+	cr_ptr->riding_ryoute = old_riding_ryoute;
+	cr_ptr->old_riding_ryoute = old_old_riding_ryoute;
 
-	calc_bonuses(p_ptr, TRUE);
+	calc_bonuses(cr_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -1997,7 +1997,7 @@ bool rakuba(int dam, bool force)
 			/* Skip non-empty grids */
 			if (!cave_have_flag_grid(c_ptr, FF_MOVE) && !cave_have_flag_grid(c_ptr, FF_CAN_FLY))
 			{
-				if (!player_can_ride_aux(c_ptr, FALSE)) continue;
+				if (!player_can_ride_aux(p_ptr, c_ptr, FALSE)) continue;
 			}
 
 			if (cave_have_flag_grid(c_ptr, FF_PATTERN)) continue;
@@ -2101,7 +2101,7 @@ bool do_riding(bool force)
 	if (p_ptr->riding)
 	{
 		/* Skip non-empty grids */
-		if (!player_can_ride_aux(c_ptr, FALSE))
+		if (!player_can_ride_aux(p_ptr, c_ptr, FALSE))
 		{
 #ifdef JP
 			msg_print("‚»‚¿‚ç‚É‚Í~‚è‚ç‚ê‚Ü‚¹‚ñB");
@@ -2180,7 +2180,7 @@ bool do_riding(bool force)
 
 		if (!pattern_seq(p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
 
-		if (!player_can_ride_aux(c_ptr, TRUE))
+		if (!player_can_ride_aux(p_ptr, c_ptr, TRUE))
 		{
 			/* Feature code (applying "mimic" field) */
 			feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
