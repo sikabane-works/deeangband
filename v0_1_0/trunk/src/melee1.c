@@ -764,7 +764,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				    msg_format("%s", act);
 				abbreviate = -1;/*２回目以降は省略 */
 #else
-				msg_format("%^s %s%s", atk_name, act, do_silly_attack ? " you." : "");
+				msg_format("%^s %s %s", atk_name, act, do_silly_attack ? tar_name : "");
 #endif
 			}
 
@@ -800,7 +800,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					{
 						int tmp_damage = damage - (damage * ((ac < 150) ? ac : 150) / 250);
 #ifdef JP
-						msg_print("痛恨の一撃！");
+						msg_print("クリティカルヒット！");
 #else
 						msg_print("It was a critical hit!");
 #endif

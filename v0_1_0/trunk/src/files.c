@@ -1597,12 +1597,12 @@ static struct
 } disp_player_line[]
 #ifdef JP
 = {
-	{ 1, 10, 25, "‘ÅŒ‚C³(Ši“¬)"},
-	{ 1, 10, 25, "‘ÅŒ‚C³(—¼Žè)"},
-	{ 1, 10, 25, "‘ÅŒ‚C³(‰EŽè)"},
-	{ 1, 10, 25, "‘ÅŒ‚C³(¶Žè)"},
-	{ 1, 11, 25, "‘ÅŒ‚C³(¶Žè)"},
-	{ 1, 11, 25, "‘ÅŒ‚C³(‰EŽè)"},
+	{ 1, 10, 25, "Ši“¬"},
+	{ 1, 10, 25, "—¼Žè"},
+	{ 1, 10, 25, "‰EŽè"},
+	{ 1, 10, 25, "¶Žè"},
+	{ 1, 11, 25, "¶Žè"},
+	{ 1, 11, 25, "‰EŽè"},
 	{ 1, 11, 25, ""},
 	{ 1, 15, 25, "ŽËŒ‚UŒ‚C³"},
 	{ 1, 16, 25, "ŽËŒ‚•Ší”{—¦"},
@@ -1656,12 +1656,12 @@ static struct
 };
 #else
 = {
-	{ 1, 10, 25, "Bare hand"},
-	{ 1, 10, 25, "Two hands"},
-	{ 1, 10, 25, "Right hand"},
-	{ 1, 10, 25, "Left hand"},
-	{ 1, 11, 25, "Left hand"},
-	{ 1, 11, 25, "Right hand"},
+	{ 1, 10, 25, "Bare"},
+	{ 1, 10, 25, "Two.H"},
+	{ 1, 10, 25, "Right"},
+	{ 1, 10, 25, "Left"},
+	{ 1, 11, 25, "Left"},
+	{ 1, 11, 25, "Right"},
 	{ 1, 11, 25, "Posture"},
 	{ 1, 15, 25, "Shooting"},
 	{ 1, 16, 25, "Multiplier"},
@@ -1751,14 +1751,63 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	char buf[160];
 	int show_tohit = cr_ptr->dis_to_h[hand];
 	int show_todam = cr_ptr->dis_to_d[hand];
-	object_type *o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+	int blows = cr_ptr->num_blow[hand];
+	int damage, basedam, av_dam;
+	u32b flgs[TR_FLAG_SIZE];
+	object_type *o_ptr;
+	
+	damage = cr_ptr->dis_to_d[hand] * 100;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
+	{
+		int level = cr_ptr->lev;
+		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) level = MAX(1, level - 3);
+		if (cr_ptr->special_defense & KAMAE_BYAKKO)
+			basedam = monk_ave_damage[level][1];
+		else if (cr_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
+			basedam = monk_ave_damage[level][2];
+		else
+			basedam = monk_ave_damage[level][0];
+	}
+	else
+	{
+		o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+		/* Average damage per round */
+		if (o_ptr->k_idx)
+		{
+			if (object_is_known(o_ptr)) damage += o_ptr->to_d * 100;
+			basedam = ((o_ptr->dd + cr_ptr->to_dd[hand]) * (o_ptr->ds + cr_ptr->to_ds[hand] + 1)) * 50;
+			object_flags_known(o_ptr, flgs);
+			if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
+			{
+				/* vorpal blade */
+				basedam *= 5;
+				basedam /= 3;
+			}
+			else if (have_flag(flgs, TR_VORPAL))
+			{
+				/* vorpal flag only */
+				basedam *= 11;
+				basedam /= 9;
+			}
+			if ((cr_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+				basedam = basedam * 7 / 2;
+		}
+		else basedam = 0;
+	}
+	damage += basedam;
+	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
+	if (damage < 0) damage = 0;
+
+	av_dam = blows * damage / 100;
+
+	o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
 
 	/* Hack -- add in weapon info if known */
 	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	/* Melee attacks */
-	sprintf(buf, "(%+d,%+d)", show_tohit, show_todam);
+	sprintf(buf, "(%+3d,%+3d)x%2d=>%4d", show_tohit, show_todam, blows, av_dam);
 
 	/* Dump the bonuses to hit/dam */
 	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
@@ -2173,58 +2222,6 @@ static void display_player_various(creature_type * cr_ptr)
 		shot_frac = 0;
 	}
 
-	for(i = 0; i < 2; i++)
-	{
-		damage[i] = cr_ptr->dis_to_d[i] * 100;
-		if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
-		{
-			int level = cr_ptr->lev;
-			if (i)
-			{
-				damage[i] = 0;
-				break;
-			}
-			if (cr_ptr->cls_idx == CLASS_FORCETRAINER) level = MAX(1, level - 3);
-			if (cr_ptr->special_defense & KAMAE_BYAKKO)
-				basedam = monk_ave_damage[level][1];
-			else if (cr_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
-				basedam = monk_ave_damage[level][2];
-			else
-				basedam = monk_ave_damage[level][0];
-		}
-		else
-		{
-			o_ptr = &cr_ptr->inventory[INVEN_RARM + i];
-
-			/* Average damage per round */
-			if (o_ptr->k_idx)
-			{
-				if (object_is_known(o_ptr)) damage[i] += o_ptr->to_d * 100;
-				basedam = ((o_ptr->dd + cr_ptr->to_dd[i]) * (o_ptr->ds + cr_ptr->to_ds[i] + 1)) * 50;
-				object_flags_known(o_ptr, flgs);
-				if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
-				{
-					/* vorpal blade */
-					basedam *= 5;
-					basedam /= 3;
-				}
-				else if (have_flag(flgs, TR_VORPAL))
-				{
-					/* vorpal flag only */
-					basedam *= 11;
-					basedam /= 9;
-				}
-				if ((cr_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
-					basedam = basedam * 7 / 2;
-			}
-			else basedam = 0;
-		}
-		damage[i] += basedam;
-		if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage[i] = 1;
-		if (damage[i] < 0) damage[i] = 0;
-	}
-	blows1 = cr_ptr->migite ? cr_ptr->num_blow[0]: 0;
-	blows2 = cr_ptr->hidarite ? cr_ptr->num_blow[1] : 0;
 
 	/* Basic abilities */
 
@@ -2273,6 +2270,7 @@ static void display_player_various(creature_type * cr_ptr)
 	desc = likert(xdig, 5);
 	display_player_one_line(ENTRY_SKILL_DIGGING, desc, likert_color);
 
+/*
 	if (!muta_att)
 		display_player_one_line(ENTRY_BLOWS, format("%d+%d", blows1, blows2), TERM_L_BLUE);
 	else
@@ -2280,10 +2278,9 @@ static void display_player_various(creature_type * cr_ptr)
 
 	display_player_one_line(ENTRY_SHOTS, format("%d.%02d", shots, shot_frac), TERM_L_BLUE);
 
-
 	desc = format("%d+%d", blows1 * damage[0] / 100, blows2 * damage[1] / 100);
-
 	display_player_one_line(ENTRY_AVG_DMG, desc, TERM_L_BLUE);
+*/
 
 	display_player_one_line(ENTRY_INFRA, format("%d feet", cr_ptr->see_infra * 10), TERM_WHITE);
 }
