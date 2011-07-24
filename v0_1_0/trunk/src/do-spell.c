@@ -10589,7 +10589,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 					lite_spot(oy, ox);
 					lite_spot(ty, tx);
 	
-					if (r_info[m_ptr->monster_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+					if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 						p_ptr->update |= (PU_MON_LITE);
 				}
 			}
@@ -10864,7 +10864,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				/* Hack -- attack monsters */
 				if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 				{
-					if (!monster_living(&r_info[m_ptr->monster_idx]))
+					if (!monster_living(&r_info[m_ptr->species_idx]))
 					{
 						char m_name[80];
 	
@@ -11032,7 +11032,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				m_ptr = &m_list[m_idx];
 	
 				/* Monster cannot move back? */
-				if (!monster_can_enter(ny, nx, &r_info[m_ptr->monster_idx], 0))
+				if (!monster_can_enter(ny, nx, &r_info[m_ptr->species_idx], 0))
 				{
 					/* -more- */
 					if (i < 2) msg_print(NULL);

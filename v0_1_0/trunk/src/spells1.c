@@ -1737,7 +1737,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 
 	creature_type *m_ptr = &m_list[c_ptr->m_idx];
 
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	char killer[80];
 
@@ -1808,7 +1808,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	/* Never affect projector */
 	if (who_ptr != who_ptr && (&m_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
 	if ((c_ptr->m_idx == who_ptr->riding) && !who_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
-	if (sukekaku && ((m_ptr->monster_idx == MON_SUKE) || (m_ptr->monster_idx == MON_KAKU))) return FALSE;
+	if (sukekaku && ((m_ptr->species_idx == MON_SUKE) || (m_ptr->species_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
 	/* Prevents problems with chain reactions of exploding monsters */
@@ -2257,7 +2257,7 @@ note = "には耐性がある。";
 			}
 			if (m_ptr->resist_water)
 			{
-				if ((m_ptr->monster_idx == MON_WATER_ELEM) || (m_ptr->monster_idx == MON_UNMAKER))
+				if ((m_ptr->species_idx == MON_WATER_ELEM) || (m_ptr->species_idx == MON_UNMAKER))
 				{
 #ifdef JP
 					note = "には完全な耐性がある。";
@@ -3547,7 +3547,7 @@ note = "が分裂した！";
 					chg_virtue(p_ptr, V_NATURE, 1);
 			}
 
-			if (m_ptr->monster_idx == MON_LEPER)
+			if (m_ptr->species_idx == MON_LEPER)
 			{
 				heal_leper = TRUE;
 				if (!who_ptr) chg_virtue(p_ptr, V_COMPASSION, 5);
@@ -5333,7 +5333,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who_ptr == who_ptr) || (who_ptr->monster_idx != MON_KENSHIROU)))
+			if ((randint0(100 + (caster_lev / 2)) < (r_ptr->level + 35)) && ((who_ptr == who_ptr) || (who_ptr->species_idx != MON_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5432,7 +5432,7 @@ note_dies = "はドロドロに溶けた！";
 #else
 				msg_format("You capture %^s!", m_name);
 #endif
-				cap_mon = m_ptr->monster_idx;
+				cap_mon = m_ptr->species_idx;
 				cap_speed = m_ptr->speed;
 				cap_hp = m_ptr->chp;
 				cap_mhp = m_ptr->mmhp;
@@ -5449,7 +5449,7 @@ note_dies = "はドロドロに溶けた！";
 					}
 				}
 
-				delete_monster_idx(&m_list[c_ptr->m_idx]);
+				delete_species_idx(&m_list[c_ptr->m_idx]);
 
 				return (TRUE);
 			}
@@ -5689,7 +5689,7 @@ note = "には効果がなかった！";
 				dam = 0;
 			}
 
-			photo = m_ptr->monster_idx;
+			photo = m_ptr->species_idx;
 
 			break;
 		}
@@ -5990,7 +5990,7 @@ note = "には効果がなかった。";
 			m_ptr = &m_list[c_ptr->m_idx];
 
 			/* Hack -- Get new race */
-			r_ptr = &r_info[m_ptr->monster_idx];
+			r_ptr = &r_info[m_ptr->species_idx];
 		}
 
 		/* Handle "teleport" */
@@ -6072,13 +6072,13 @@ note = "には効果がなかった。";
 			}
 
 			//TODO
-			//if (who_ptr != who_ptr) monster_gain_exp(who_ptr, who, m_ptr->monster_idx);
+			//if (who_ptr != who_ptr) monster_gain_exp(who_ptr, who, m_ptr->species_idx);
 
 			/* Generate treasure, etc */
 			monster_death(&m_list[c_ptr->m_idx], FALSE);
 
 			/* Delete the monster */
-			delete_monster_idx(&m_list[c_ptr->m_idx]);
+			delete_species_idx(&m_list[c_ptr->m_idx]);
 
 			if (sad)
 			{
@@ -6127,7 +6127,7 @@ note = "には効果がなかった。";
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
-		delete_monster_idx(&m_list[c_ptr->m_idx]);
+		delete_species_idx(&m_list[c_ptr->m_idx]);
 	}
 
 	/* If the player did it, give him experience, check fear */
@@ -6139,7 +6139,7 @@ note = "には効果がなかった。";
 		take_hit(who_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
 
 		/* Damaged monster */
-		if(&m_list[c_ptr->m_idx].monster_idx != 0)
+		if(&m_list[c_ptr->m_idx].species_idx != 0)
 		{
 			/* HACK - anger the monster before showing the sleep message */
 			if (do_sleep) anger_monster(m_ptr);
@@ -6210,7 +6210,7 @@ msg_print("空間が歪んだ！");
 					msg_print("Space warps about you!");
 #endif
 
-					if (m_ptr->monster_idx) teleport_away(c_ptr->m_idx, damroll(10, 10), TELEPORT_PASSIVE);
+					if (m_ptr->species_idx) teleport_away(c_ptr->m_idx, damroll(10, 10), TELEPORT_PASSIVE);
 					if (one_in_(13)) count += activate_hi_summon(ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
@@ -6288,14 +6288,14 @@ msg_print("生命力が体から吸い取られた気がする！");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the monster */
-	if (m_ptr->monster_idx) update_mon(c_ptr->m_idx, FALSE);
+	if (m_ptr->species_idx) update_mon(c_ptr->m_idx, FALSE);
 
 	/* Redraw the monster grid */
 	lite_spot(y, x);
 
 
 	/* Update monster recall window */
-	if ((who_ptr->monster_race_idx == m_ptr->monster_idx) && (seen || !m_ptr->monster_idx))
+	if ((who_ptr->species_type_idx == m_ptr->species_idx) && (seen || !m_ptr->species_idx))
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);
@@ -6470,7 +6470,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	{
 		/* Get the source monster */
 		/* Extract the monster level */
-		rlev = (((&r_info[who_ptr->monster_idx])->level >= 1) ? (&r_info[who_ptr->monster_idx])->level : 1);
+		rlev = (((&r_info[who_ptr->species_idx])->level >= 1) ? (&r_info[who_ptr->species_idx])->level : 1);
 
 		/* Get the monster name */
 		monster_desc(m_name, who_ptr, 0);
@@ -7693,7 +7693,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->monster_idx == MON_KENSHIROU) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->species_idx == MON_KENSHIROU) && !(p_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -8546,7 +8546,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					    if (m_ptr->ml)
 					    {
 					      /* Hack -- auto-recall */
-					      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
+					      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
 					      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -8572,7 +8572,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
+			      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -8704,7 +8704,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
+			      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
@@ -9085,7 +9085,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			if (grids <= 1)
 			{
 				creature_type *m_ptr = &m_list[cave[y][x].m_idx];
-				monster_race *ref_ptr = &r_info[m_ptr->monster_idx];
+				species_type *ref_ptr = &r_info[m_ptr->species_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
@@ -9112,9 +9112,9 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					if (is_seen(p_ptr, m_ptr))
 					{
 #ifdef JP
-						if ((m_ptr->monster_idx == MON_KENSHIROU) || (m_ptr->monster_idx == MON_RAOU))
+						if ((m_ptr->species_idx == MON_KENSHIROU) || (m_ptr->species_idx == MON_RAOU))
 							msg_print("「北斗神拳奥義・二指真空把！」");
-						else if (m_ptr->monster_idx == MON_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
+						else if (m_ptr->species_idx == MON_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
 						else msg_print("攻撃は跳ね返った！");
 #else
 						msg_print("The attack bounces!");
@@ -9237,7 +9237,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				if (m_ptr->ml)
 				{
 					/* Hack -- auto-recall */
-					if (!p_ptr->image) monster_race_track(m_ptr->ap_monster_idx);
+					if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
 					if (m_ptr->ml) health_track(cave[y][x].m_idx);

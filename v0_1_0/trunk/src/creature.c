@@ -13,9 +13,9 @@ bool is_player(creature_type *cr_ptr)
  */
 void set_sex(creature_type *cr_ptr)
 {
-	monster_race *mr_ptr;
+	species_type *mr_ptr;
 
-	mr_ptr = &r_info[cr_ptr->monster_idx]; 
+	mr_ptr = &r_info[cr_ptr->species_idx]; 
 
 	if(mr_ptr->flags1 & RF1_MALE)
 	{
@@ -57,9 +57,9 @@ void set_status(creature_type *cr_ptr)
 	{
 		cr_ptr->stat_use[i] = 100;
 
-		if(cr_ptr->monster_idx != MON_NONE)
+		if(cr_ptr->species_idx != MON_NONE)
 		{
-			monster_race *r_ptr = &r_info[cr_ptr->monster_idx]; 
+			species_type *r_ptr = &r_info[cr_ptr->species_idx]; 
 			cr_ptr->stat_use[i] = r_ptr->stat[i];
 		}
 
@@ -93,11 +93,11 @@ void set_height_weight(creature_type *cr_ptr)
 	int ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt, tmp2;
 	double tmp;
 	intelligent_race *ir_ptr;
-	monster_race *mr_ptr;
+	species_type *mr_ptr;
 
-	if(cr_ptr->monster_idx != MON_NONE)
+	if(cr_ptr->species_idx != MON_NONE)
 	{
-		mr_ptr = &r_info[cr_ptr->monster_idx]; 
+		mr_ptr = &r_info[cr_ptr->species_idx]; 
 
 		if (cr_ptr->sex == SEX_MALE)
 		{
@@ -215,9 +215,9 @@ void set_hitdice(creature_type * cr_ptr)
 void set_enemy_maxhp(creature_type *cr_ptr)
 {
 	int i;
-	monster_race *r_ptr;
+	species_type *r_ptr;
 
-	r_ptr = &r_info[cr_ptr->monster_idx];
+	r_ptr = &r_info[cr_ptr->species_idx];
 
 	cr_ptr->player_hp[0] = damroll(3, cr_ptr->hitdice);
 	for(i = 1; i < PY_MAX_LEVEL - 1; i++)
@@ -243,7 +243,7 @@ void set_enemy_mana(creature_type *cr_ptr, int percentage)
 void set_speed(creature_type *cr_ptr)
 {
 	/* Extract the monster base speed */
-	monster_race* r_ptr = &r_info[cr_ptr->monster_idx];
+	species_type* r_ptr = &r_info[cr_ptr->species_idx];
 	int speed = r_ptr->speed;
 
 	/* Hack -- small racial variety */
@@ -273,7 +273,7 @@ s16b calc_race_standard_size(intelligent_race * ir_ptr){
 						 (ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2);	
 }
 
-s16b calc_monster_standard_size(monster_race * mr_ptr){
+s16b calc_monster_standard_size(species_type * mr_ptr){
 	int tmpht, tmpwt;
 
 	if(mr_ptr->flags1 & RF1_MALE)
@@ -312,7 +312,7 @@ int set_inventory_fitting_rate(creature_type * cr_ptr, object_type * o_ptr, int 
 
 
 
-void estimate_enemy_hp(monster_race *mr_ptr, int *result)
+void estimate_enemy_hp(species_type *mr_ptr, int *result)
 {
 	int con_p, bonus;
 	int num, size, dice;
@@ -512,9 +512,9 @@ void set_resistance(creature_type *cr_ptr)
 		}
 	}
 
-	if(cr_ptr->monster_idx != 0)
+	if(cr_ptr->species_idx != 0)
 	{
-		monster_race *mr_ptr = &r_info[cr_ptr->monster_idx];
+		species_type *mr_ptr = &r_info[cr_ptr->species_idx];
 		if(mr_ptr->flagsr & RFR_IM_ACID)
 			cr_ptr->resist_acid = TRUE;
 		if(mr_ptr->flagsr & RFR_IM_ELEC)

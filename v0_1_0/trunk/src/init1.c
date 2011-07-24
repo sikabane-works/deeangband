@@ -2581,9 +2581,9 @@ errr parse_e_info(char *buf, header *head)
 
 
 /*
- * Grab one (basic) flag in a monster_race from a textual string
+ * Grab one (basic) flag in a species_type from a textual string
  */
-static errr grab_one_basic_flag(monster_race *r_ptr, cptr what)
+static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 {
 	if (grab_one_flag(&r_ptr->flags1, r_info_flags1, what) == 0)
 		return 0;
@@ -2623,9 +2623,9 @@ static errr grab_one_basic_flag(monster_race *r_ptr, cptr what)
 
 
 /*
- * Grab one (spell) flag in a monster_race from a textual string
+ * Grab one (spell) flag in a species_type from a textual string
  */
-static errr grab_one_spell_flag(monster_race *r_ptr, cptr what)
+static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 {
 	if (grab_one_flag(&r_ptr->flags4, r_info_flags4, what) == 0)
 		return 0;
@@ -2661,7 +2661,7 @@ errr parse_r_info(char *buf, header *head)
 	char *s, *t;
 
 	/* Current entry */
-	static monster_race *r_ptr = NULL;
+	static species_type *r_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
 	if (buf[0] == 'N')
@@ -2836,7 +2836,7 @@ errr parse_r_info(char *buf, header *head)
 		r_ptr->extra = pad;
 		r_ptr->mexp = exp;
 		r_ptr->next_exp = nextexp;
-		r_ptr->next_monster_idx = nextmon;
+		r_ptr->next_species_idx = nextmon;
 	}
 
 	/* Process 'C' for "Class Info" (one line only) */
@@ -3147,7 +3147,7 @@ static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
 }
 
 /*
- * Grab one (basic) flag in a monster_race from a textual string
+ * Grab one (basic) flag in a species_type from a textual string
  */
 static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
 {
@@ -3184,7 +3184,7 @@ static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
 
 
 /*
- * Grab one (spell) flag in a monster_race from a textual string
+ * Grab one (spell) flag in a species_type from a textual string
  */
 static errr grab_one_spell_monster_flag(dungeon_info_type *d_ptr, cptr what)
 {
@@ -4168,12 +4168,12 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 		/* Get the quest */
 		q_ptr = &(quest[atoi(zz[0])]);
 
-		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<monster_idx>:<k_idx>:<flags>" -- quest info */
+		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
 		if (zz[1][0] == 'Q')
 		{
 			if (init_flags & INIT_ASSIGN)
 			{
-				monster_race *r_ptr;
+				species_type *r_ptr;
 				artifact_type *a_ptr;
 
 				if (num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
@@ -4183,14 +4183,14 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				q_ptr->cur_num = atoi(zz[4]);
 				q_ptr->max_num = atoi(zz[5]);
 				q_ptr->level   = atoi(zz[6]);
-				q_ptr->monster_idx   = atoi(zz[7]);
+				q_ptr->species_idx   = atoi(zz[7]);
 				q_ptr->k_idx   = atoi(zz[8]);
 				q_ptr->dungeon = atoi(zz[9]);
 
 				if (num > 10)
 					q_ptr->flags  = atoi(zz[10]);
 
-				r_ptr = &r_info[q_ptr->monster_idx];
+				r_ptr = &r_info[q_ptr->species_idx];
 				if (r_ptr->flags1 & RF1_UNIQUE)
 					r_ptr->flags1 |= RF1_QUESTOR;
 
@@ -4321,17 +4321,17 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				max_quests = atoi(zz[1]);
 			}
 
-			/* Maximum monster_idx */
+			/* Maximum species_idx */
 			else if (zz[0][0] == 'R')
 			{
-				/* Maximum monster_idx */
+				/* Maximum species_idx */
 				if (zz[0][1] == 'E')
 				{
 					max_monster_ego_idx = atoi(zz[1]);
 				}
 				else
 				{
-					max_monster_idx = atoi(zz[1]);
+					max_species_idx = atoi(zz[1]);
 				}
 			}
 
@@ -4846,9 +4846,9 @@ void write_r_info_txt(void)
 	u32b f_ptr[11];
 	cptr *n_ptr[11];
 
-	monster_race *r_ptr;
+	species_type *r_ptr;
 
-	monster_blow *b_ptr;
+	species_blow *b_ptr;
 
 	FILE *fff = fopen("output.txt", "wt");
 

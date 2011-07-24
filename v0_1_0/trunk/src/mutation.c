@@ -3733,7 +3733,7 @@ bool mutation_power_aux(u32b power)
 				int x, y;
 				cave_type *c_ptr;
 				creature_type *m_ptr;
-				monster_race *r_ptr;
+				species_type *r_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
 				y = p_ptr->fy + ddy[dir];
@@ -3752,7 +3752,7 @@ bool mutation_power_aux(u32b power)
 				}
 
 				m_ptr = &m_list[c_ptr->m_idx];
-				r_ptr = &r_info[m_ptr->monster_idx];
+				r_ptr = &r_info[m_ptr->species_idx];
 
 				if ((r_ptr->flags3 & RF3_EVIL) &&
 				    !(r_ptr->flags1 & RF1_QUESTOR) &&
@@ -3770,7 +3770,7 @@ bool mutation_power_aux(u32b power)
 					}
 
 					/* Delete the monster, rather than killing it. */
-					delete_monster_idx(&m_list[c_ptr->m_idx]);
+					delete_species_idx(&m_list[c_ptr->m_idx]);
 #ifdef JP
 					msg_print("その邪悪なモンスターは硫黄臭い煙とともに消え去った！");
 #else

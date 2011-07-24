@@ -233,10 +233,10 @@ msg_print("あなたは変わった気がする...");
  *
  * XXX XXX XXX Note the use of actual "monster names"
  */
-static int get_coin_type(int monster_idx)
+static int get_coin_type(int species_idx)
 {
 	/* Analyze monsters */
-	switch (monster_idx)
+	switch (species_idx)
 	{
 	case MON_COPPER_COINS: return 2;
 	case MON_SILVER_COINS: return 5;
@@ -431,7 +431,7 @@ void check_quest_completion(creature_type *m_ptr)
 			if (((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
 			     (quest[i].type == QUEST_TYPE_KILL_ANY_LEVEL) ||
 			     (quest[i].type == QUEST_TYPE_RANDOM)) &&
-			     (quest[i].monster_idx == m_ptr->monster_idx))
+			     (quest[i].species_idx == m_ptr->species_idx))
 				break;
 		}
 
@@ -512,7 +512,7 @@ msg_print("クエストを達成した！");
 			case QUEST_TYPE_RANDOM:
 			{
 				/* Only count valid monsters */
-				if (quest[i].monster_idx != m_ptr->monster_idx)
+				if (quest[i].species_idx != m_ptr->species_idx)
 					break;
 
 				quest[i].cur_num++;
@@ -534,9 +534,9 @@ msg_print("クエストを達成した！");
 					{
 
 #ifdef JP
-						msg_format("あなたは %s を討ち取り、クエストを達成した！", r_name + r_info[quest[i].monster_idx].name);
+						msg_format("あなたは %s を討ち取り、クエストを達成した！", r_name + r_info[quest[i].species_idx].name);
 #else
-						msg_format("You just defeat %s and completed your quest!", r_name + r_info[quest[i].monster_idx].name);
+						msg_format("You just defeat %s and completed your quest!", r_name + r_info[quest[i].species_idx].name);
 #endif
 
 						msg_print(NULL);
@@ -640,7 +640,7 @@ msg_print("魔法の階段が現れた...");
 /*
  * Return monster death string
  */
-cptr extract_note_dies(monster_race *r_ptr)
+cptr extract_note_dies(species_type *r_ptr)
 {
 	/* Some monsters get "destroyed" */
 	if (!monster_living(r_ptr))
@@ -704,7 +704,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 
 	int number = 0;
 
-	monster_race *r_ptr = &r_info[cr_ptr->monster_idx];
+	species_type *r_ptr = &r_info[cr_ptr->species_idx];
 
 	bool visible = ((cr_ptr->ml && !p_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE));
 
@@ -713,7 +713,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	bool do_gold = (!(r_ptr->flags1 & RF1_ONLY_ITEM));
 	bool do_item = (!(r_ptr->flags1 & RF1_ONLY_GOLD));
 	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
-	int force_coin = get_coin_type(cr_ptr->monster_idx);
+	int force_coin = get_coin_type(cr_ptr->species_idx);
 
 	object_type forge;
 	object_type *q_ptr;
@@ -764,7 +764,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	{
 		//TODO
 		//choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
-		r_ptr = &r_info[cr_ptr->monster_idx];
+		r_ptr = &r_info[cr_ptr->species_idx];
 	}
 
 	/* Check for quest completion */
@@ -840,7 +840,7 @@ msg_print("地面に落とされた。");
 	/* Drop a dead corpse? */
 	if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
 	    (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
-	    !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((cr_ptr->monster_idx == today_mon) && is_pet(cr_ptr))))
+	    !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -876,7 +876,7 @@ msg_print("地面に落とされた。");
 
 		apply_magic(q_ptr, object_level, AM_NO_FIXED_ART);
 
-		q_ptr->pval = cr_ptr->monster_idx;
+		q_ptr->pval = cr_ptr->species_idx;
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
@@ -888,7 +888,7 @@ msg_print("地面に落とされた。");
 	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
 	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
-	switch (cr_ptr->monster_idx)
+	switch (cr_ptr->species_idx)
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
@@ -1105,8 +1105,8 @@ msg_print("地面に落とされた。");
 
 	case MON_A_GOLD:
 	case MON_A_SILVER:
-		if (drop_chosen_item && ((cr_ptr->monster_idx == MON_A_GOLD) ||
-		     ((cr_ptr->monster_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((cr_ptr->species_idx == MON_A_GOLD) ||
+		     ((cr_ptr->species_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -1216,7 +1216,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '|':
-			if (cr_ptr->monster_idx != MON_STORMBRINGER)
+			if (cr_ptr->species_idx != MON_STORMBRINGER)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1244,7 +1244,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if ((r_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->monster_idx))
+		if ((r_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1368,7 +1368,7 @@ msg_print("地面に落とされた。");
  */
 int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 {
-	monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+	species_type    *r_ptr = &r_info[m_ptr->species_idx];
 
 	if ((m_ptr->resist_ultimate) && dam > 0)
 	{
@@ -1409,14 +1409,14 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  */
 void get_exp_from_mon(int dam, creature_type *m_ptr)
 {
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
 	u32b div_l;
 
-	if (!m_ptr->monster_idx) return;
+	if (!m_ptr->species_idx) return;
 	if (is_pet(m_ptr) || p_ptr->inside_battle) return;
 
 	/*
@@ -1443,7 +1443,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Special penalty for mutiply-monster */
-	if ((r_ptr->flags2 & RF2_MULTIPLY) || (m_ptr->monster_idx == MON_DAWN))
+	if ((r_ptr->flags2 & RF2_MULTIPLY) || (m_ptr->species_idx == MON_DAWN))
 	{
 		int monnum_penarty = r_ptr->r_akills / 400;
 		if (monnum_penarty > 8) monnum_penarty = 8;
@@ -1495,7 +1495,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 
 int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
-	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
+	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
 	creature_type    exp_mon;
 	bool fear;
 
@@ -1514,7 +1514,7 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 
 		/* Genocided by chaos patron */
 		//TODO check
-		//if (!tar_ptr->monster_idx) m_idx = 0;
+		//if (!tar_ptr->species_idx) m_idx = 0;
 	}
 
 	/* Redraw (later) if needed */
@@ -1542,11 +1542,11 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 	{
 		char m_name[80];
 
-		if (r_info[tar_ptr->monster_idx].flags7 & RF7_TANUKI)
+		if (r_info[tar_ptr->species_idx].flags7 & RF7_TANUKI)
 		{
 			/* You might have unmasked Tanuki first time */
-			r_ptr = &r_info[tar_ptr->monster_idx];
-			tar_ptr->ap_monster_idx = tar_ptr->monster_idx;
+			r_ptr = &r_info[tar_ptr->species_idx];
+			tar_ptr->ap_species_idx = tar_ptr->species_idx;
 			if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 		}
 
@@ -1565,14 +1565,14 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 				r_ptr->max_num = 0;
 
 				/* Mega-Hack -- Banor & Lupart */
-				if ((tar_ptr->monster_idx == MON_BANOR) || (tar_ptr->monster_idx == MON_LUPART))
+				if ((tar_ptr->species_idx == MON_BANOR) || (tar_ptr->species_idx == MON_LUPART))
 				{
 					r_info[MON_BANORLUPART].max_num = 0;
 					r_info[MON_BANORLUPART].r_pkills++;
 					r_info[MON_BANORLUPART].r_akills++;
 					if (r_info[MON_BANORLUPART].r_tkills < MAX_SHORT) r_info[MON_BANORLUPART].r_tkills++;
 				}
-				else if (tar_ptr->monster_idx == MON_BANORLUPART)
+				else if (tar_ptr->species_idx == MON_BANORLUPART)
 				{
 					r_info[MON_BANOR].max_num = 0;
 					r_info[MON_BANOR].r_pkills++;
@@ -1604,7 +1604,7 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 			else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 
 			/* Hack -- Auto-recall */
-			monster_race_track(tar_ptr->ap_monster_idx);
+			species_type_track(tar_ptr->ap_species_idx);
 		}
 
 		/* Extract monster name */
@@ -1638,15 +1638,15 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 			/* Dump a message */
 #ifdef JP
-			if (!get_rnd_line("mondeath_j.txt", tar_ptr->monster_idx, line_got))
+			if (!get_rnd_line("mondeath_j.txt", tar_ptr->species_idx, line_got))
 #else
-			if (!get_rnd_line("mondeath.txt", tar_ptr->monster_idx, line_got))
+			if (!get_rnd_line("mondeath.txt", tar_ptr->species_idx, line_got))
 #endif
 
 				msg_format("%^s %s", m_name, line_got);
 
 #ifdef WORLD_SCORE
-			if (tar_ptr->monster_idx == MON_SERPENT)
+			if (tar_ptr->species_idx == MON_SERPENT)
 			{
 				/* Make screen dump */
 				screen_dump = make_screen_dump();
@@ -1686,7 +1686,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 			if (one_in_(3)) chg_virtue(atk_ptr, V_INDIVIDUALISM, -1);
 		}
 
-		if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
+		if (tar_ptr->species_idx == MON_BEGGAR || tar_ptr->species_idx == MON_LEPER)
 		{
 			chg_virtue(atk_ptr, V_COMPASSION, -1);
 		}
@@ -1856,7 +1856,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 		{
 			for (i = 0; i < MAX_KUBI; i++)
 			{
-				if ((kubi_monster_idx[i] == tar_ptr->monster_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
+				if ((kubi_species_idx[i] == tar_ptr->species_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
 				{
 #ifdef JP
 msg_format("%sの首には賞金がかかっている。", m_name);
@@ -1872,7 +1872,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		monster_death(tar_ptr, TRUE);
 
 		/* Mega hack : replace IKETA to BIKETAL */
-		if ((tar_ptr->monster_idx == MON_IKETA) &&
+		if ((tar_ptr->species_idx == MON_IKETA) &&
 		    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
 		{
 			int dummy_y = tar_ptr->fy;
@@ -1882,7 +1882,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 			if (is_pet(tar_ptr)) mode |= PM_FORCE_PET;
 
 			/* Delete the monster */
-			delete_monster_idx(tar_ptr);
+			delete_species_idx(tar_ptr);
 
 			if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
 			{
@@ -1896,7 +1896,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		else
 		{
 			/* Delete the monster */
-			delete_monster_idx(tar_ptr);
+			delete_species_idx(tar_ptr);
 		}
 
 		/* Prevent bug of chaos patron's reward */
@@ -2270,7 +2270,7 @@ void verify_panel(void)
  */
 cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 {
-	monster_race *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
+	species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
 	bool         living;
 	int          perc;
 	cptr desc;
@@ -2480,7 +2480,7 @@ bool target_able(int m_idx)
 	creature_type *m_ptr = &m_list[m_idx];
 
 	/* Monster must be alive */
-	if (!m_ptr->monster_idx) return (FALSE);
+	if (!m_ptr->species_idx) return (FALSE);
 
 	/* Hack -- no targeting hallucinations */
 	if (p_ptr->image) return (FALSE);
@@ -2581,16 +2581,16 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	cave_type *cb_ptr = &cave[y[b]][x[b]];
 	creature_type *ma_ptr = &m_list[ca_ptr->m_idx];
 	creature_type *mb_ptr = &m_list[cb_ptr->m_idx];
-	monster_race *ap_ra_ptr, *ap_rb_ptr;
+	species_type *ap_ra_ptr, *ap_rb_ptr;
 
 	/* The player grid */
 	if (y[a] == p_ptr->fy && x[a] == p_ptr->fx) return TRUE;
 	if (y[b] == p_ptr->fy && x[b] == p_ptr->fx) return FALSE;
 
 	/* Extract monster race */
-	if (ca_ptr->m_idx && ma_ptr->ml) ap_ra_ptr = &r_info[ma_ptr->ap_monster_idx];
+	if (ca_ptr->m_idx && ma_ptr->ml) ap_ra_ptr = &r_info[ma_ptr->ap_species_idx];
 	else ap_ra_ptr = NULL;
-	if (cb_ptr->m_idx && mb_ptr->ml) ap_rb_ptr = &r_info[mb_ptr->ap_monster_idx];
+	if (cb_ptr->m_idx && mb_ptr->ml) ap_rb_ptr = &r_info[mb_ptr->ap_species_idx];
 	else ap_rb_ptr = NULL;
 
 	if (ap_ra_ptr && !ap_rb_ptr) return TRUE;
@@ -2619,8 +2619,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 		}
 
 		/* Sort by index if all conditions are same */
-		if (ma_ptr->ap_monster_idx > mb_ptr->ap_monster_idx) return TRUE;
-		if (ma_ptr->ap_monster_idx < mb_ptr->ap_monster_idx) return FALSE;
+		if (ma_ptr->ap_species_idx > mb_ptr->ap_species_idx) return TRUE;
+		if (ma_ptr->ap_species_idx < mb_ptr->ap_species_idx) return FALSE;
 	}
 
 	/* An object get higher priority */
@@ -2849,7 +2849,7 @@ static void target_set_prepare(int mode)
  */
 static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 {
-	monster_race *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
+	species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
 	u32b num;
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
@@ -3010,7 +3010,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 	if (c_ptr->m_idx && m_list[c_ptr->m_idx].ml)
 	{
 		creature_type *m_ptr = &m_list[c_ptr->m_idx];
-		monster_race *ap_r_ptr = &r_info[m_ptr->ap_monster_idx];
+		species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
 		char m_name[120];
 		bool recall = FALSE;
 
@@ -3021,7 +3021,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		monster_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 		/* Hack -- track this monster race */
-		monster_race_track(m_ptr->ap_monster_idx);
+		species_type_track(m_ptr->ap_species_idx);
 
 		/* Hack -- health bar for this monster */
 		health_track(c_ptr->m_idx);
@@ -3041,7 +3041,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				screen_save();
 
 				/* Recall on screen */
-				screen_roff(m_ptr->ap_monster_idx, 0);
+				screen_roff(m_ptr->ap_species_idx, 0);
 
 				/* Hack -- Complete the prompt (again) */
 #ifdef JP
@@ -4445,7 +4445,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	else if (p_ptr->riding)
 	{
 		creature_type *m_ptr = &m_list[p_ptr->riding];
-		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->confused)
 		{

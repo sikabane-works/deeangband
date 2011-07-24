@@ -184,7 +184,7 @@ static bool alloc_stairs(int feat, int num, int walls)
 		/* No downstairs on quest levels */
 		if (dun_level > 1 && q_idx)
 		{
-			monster_race *r_ptr = &r_info[quest[q_idx].monster_idx];
+			species_type *r_ptr = &r_info[quest[q_idx].species_idx];
 
 			/* The quest monster(s) is still alive? */
 			if (!(r_ptr->flags1 & RF1_UNIQUE) || 0 < r_ptr->max_num)
@@ -476,7 +476,7 @@ bool place_quest_monsters(void)
 	/* Handle the quest monster placements */
 	for (i = 0; i < max_quests; i++)
 	{
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		u32b mode;
 		int j;
 
@@ -491,7 +491,7 @@ bool place_quest_monsters(void)
 			continue;
 		}
 
-		r_ptr = &r_info[quest[i].monster_idx];
+		r_ptr = &r_info[quest[i].species_idx];
 
 		/* Hack -- "unique" monsters must be "unique" */
 		if ((r_ptr->flags1 & RF1_UNIQUE) &&
@@ -534,7 +534,7 @@ bool place_quest_monsters(void)
 				if (!l) return FALSE;
 
 				/* Try to place the monster */
-				if (place_monster_aux(p_ptr, y, x, quest[i].monster_idx, mode))
+				if (place_monster_aux(p_ptr, y, x, quest[i].species_idx, mode))
 				{
 					/* Success */
 					break;
@@ -1197,7 +1197,7 @@ static void arena_gen(void)
 
 	build_arena();
 
-	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[p_ptr->arena_number].monster_idx,
+	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[p_ptr->arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
 
@@ -1310,7 +1310,7 @@ static void battle_gen(void)
 	{
 		creature_type *m_ptr = &m_list[i];
 
-		if (!m_ptr->monster_idx) continue;
+		if (!m_ptr->species_idx) continue;
 
 		/* Hack -- Detect monster */
 		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -1521,7 +1521,7 @@ void clear_cave(void)
 	o_cnt = 0;
 
 	/* Very simplified version of wipe_m_list() */
-	for (i = 1; i < max_monster_idx; i++)
+	for (i = 1; i < max_species_idx; i++)
 		r_info[i].cur_num = 0;
 	C_WIPE(m_list, m_max, creature_type);
 	m_max = 1;

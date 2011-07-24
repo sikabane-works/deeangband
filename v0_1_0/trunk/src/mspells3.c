@@ -1349,7 +1349,7 @@ msg_print("無傷の球の呪文を唱えた。");
 	case MS_TELE_TO:
 	{
 		creature_type *m_ptr;
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		char m_name[80];
 
 		if (!target_set(TARGET_KILL)) return FALSE;
@@ -1357,7 +1357,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[cave[target_row][target_col].m_idx];
-		r_ptr = &r_info[m_ptr->monster_idx];
+		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
 		if (r_ptr->flagsr & RFR_RES_TELE)
 		{
@@ -1402,7 +1402,7 @@ msg_format("%sを引き戻した。", m_name);
 	{
 		int target_m_idx;
 		creature_type *m_ptr;
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		char m_name[80];
 
 		if (!target_set(TARGET_KILL)) return FALSE;
@@ -1411,7 +1411,7 @@ msg_format("%sを引き戻した。", m_name);
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[target_m_idx];
-		r_ptr = &r_info[m_ptr->monster_idx];
+		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%^sの足を指さした。", m_name);

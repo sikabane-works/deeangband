@@ -583,7 +583,7 @@ static void rd_monster(creature_type *m_ptr)
 	/*** Read un-obvious elements ***/
 
 	/* Read the monster race */
-	rd_s16b(&m_ptr->monster_idx);
+	rd_s16b(&m_ptr->species_idx);
 	rd_s16b(&m_ptr->monster_ego_idx);
 	rd_s16b(&m_ptr->irace_idx);
 	if(!older_than(0,0,3,0))
@@ -695,8 +695,8 @@ static void rd_monster(creature_type *m_ptr)
 
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_MONSTER_IDX) rd_s16b(&m_ptr->ap_monster_idx);
-	else m_ptr->ap_monster_idx = m_ptr->monster_idx;
+	if (flags & SAVE_MON_AP_species_idx) rd_s16b(&m_ptr->ap_species_idx);
+	else m_ptr->ap_species_idx = m_ptr->species_idx;
 	if (flags & SAVE_MON_SUB_ALIGN) rd_byte(&m_ptr->sub_align);
 	else m_ptr->sub_align = 0;
 	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->paralyzed);
@@ -777,7 +777,7 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_PARENT) rd_s16b(&m_ptr->parent_m_idx);
 	else m_ptr->parent_m_idx = 0;
 
-	strcpy(m_ptr->name, r_name + r_info[m_ptr->monster_idx].name);
+	strcpy(m_ptr->name, r_name + r_info[m_ptr->species_idx].name);
 
 	/* Update */
 	calc_bonuses(m_ptr, FALSE);
@@ -833,11 +833,11 @@ static void rd_monster(creature_type *m_ptr)
 /*
  * Read the monster lore
  */
-static void rd_lore(int monster_idx)
+static void rd_lore(int species_idx)
 {
 	byte tmp8u;
 
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	/* Count sights/deaths/kills */
 	rd_s16b(&r_ptr->r_sights);
@@ -1360,7 +1360,7 @@ static void rd_extra(void)
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
-		rd_s16b(&kubi_monster_idx[i]);
+		rd_s16b(&kubi_species_idx[i]);
 	}
 
 	for (i = 0; i < 4; i++)
@@ -2201,10 +2201,10 @@ note("メッセージをロードしました");
 
 
 
-	for (i = 0; i < max_monster_idx; i++)
+	for (i = 0; i < max_species_idx; i++)
 	{
 		/* Access that monster */
-		monster_race *r_ptr = &r_info[i];
+		species_type *r_ptr = &r_info[i];
 
 		/* Hack -- Reset the death counter */
 		r_ptr->max_num = 100;
@@ -2219,7 +2219,7 @@ note("メッセージをロードしました");
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
-	if (tmp16u > max_monster_idx)
+	if (tmp16u > max_species_idx)
 	{
 #ifdef JP
 note(format("モンスターの種族が多すぎる(%u)！", tmp16u));
@@ -2376,9 +2376,9 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					rd_s16b(&quest[i].type);
 
 					/* Load quest monster index */
-					rd_s16b(&quest[i].monster_idx);
+					rd_s16b(&quest[i].species_idx);
 
-					if ((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].monster_idx))
+					if ((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
 					{
 						determine_random_questor(&quest[i]);
 					}
@@ -2394,8 +2394,8 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 					/* Mark uniques */
 					if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
-						if (r_info[quest[i].monster_idx].flags1 & RF1_UNIQUE)
-							r_info[quest[i].monster_idx].flags1 |= RF1_QUESTOR;
+						if (r_info[quest[i].species_idx].flags1 & RF1_UNIQUE)
+							r_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
 				}
 			}
 			/* Ignore the empty quests from old versions */
@@ -2587,7 +2587,7 @@ note("持ち物情報を読み込むことができません");
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
-			r_info[quest[i].monster_idx].flags1 &= ~(RF1_QUESTOR);
+			r_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 		}
 	}
 

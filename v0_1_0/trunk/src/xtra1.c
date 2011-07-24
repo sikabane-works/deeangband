@@ -2075,7 +2075,7 @@ static void fix_monster(void)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (p_ptr->monster_race_idx) display_roff(p_ptr->monster_race_idx);
+		if (p_ptr->species_type_idx) display_roff(p_ptr->species_type_idx);
 
 		/* Fresh */
 		Term_fresh();
@@ -4867,7 +4867,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	else
 	{
 		creature_type *riding_m_ptr = &m_list[cr_ptr->riding];
-		monster_race *riding_r_ptr = &r_info[riding_m_ptr->monster_idx];
+		species_type *riding_r_ptr = &r_info[riding_m_ptr->species_idx];
 		int speed = riding_m_ptr->speed;
 
 		if (riding_m_ptr->speed > 110)
@@ -5315,7 +5315,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 				else
 				{
-					penalty = r_info[m_list[cr_ptr->riding].monster_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty = r_info[m_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 					penalty += 30;
 					if (penalty < 30) penalty = 30;
 				}
@@ -5354,7 +5354,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			penalty = r_info[m_list[cr_ptr->riding].monster_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+			penalty = r_info[m_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 			penalty += 30;
 			if (penalty < 30) penalty = 30;
 		}

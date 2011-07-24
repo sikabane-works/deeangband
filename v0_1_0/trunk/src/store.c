@@ -1409,7 +1409,7 @@ static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
 				case TV_FIGURINE:
 				case TV_STATUE:
 				{
-					monster_race *r_ptr = &r_info[o_ptr->pval];
+					species_type *r_ptr = &r_info[o_ptr->pval];
 
 					/* Decline evil */
 					if (!(r_ptr->flags3 & RF3_EVIL))

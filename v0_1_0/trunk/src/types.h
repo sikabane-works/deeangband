@@ -254,9 +254,9 @@ struct ego_item_type
  *	- Damage Sides
  */
 
-typedef struct monster_blow monster_blow;
+typedef struct species_blow species_blow;
 
-struct monster_blow
+struct species_blow
 {
 	byte method;
 	byte effect;
@@ -295,9 +295,9 @@ struct mbe_info_type
  */
 
 
-typedef struct monster_race monster_race;
+typedef struct species_type species_type;
 
-struct monster_race
+struct species_type
 {
 	u32b name;				/* Name (offset) */
 #ifdef JP
@@ -356,9 +356,9 @@ struct monster_race
 	u32b flagsr;			/* Flags R (resistances info) */
 	u32b flagse;			/* Flags E (ego info) */
 
-	monster_blow blow[4];	/* Up to four blows per round */
+	species_blow blow[4];	/* Up to four blows per round */
 
-	s16b next_monster_idx;
+	s16b next_species_idx;
 	u32b next_exp;
 
 	byte level;				/* Level of creature */
@@ -693,7 +693,7 @@ struct quest_type
 
 	char name[60];          /* Quest name */
 	s16b level;             /* Dungeon level */
-	s16b monster_idx;             /* Monster race */
+	s16b species_idx;             /* Monster race */
 
 	s16b cur_num;           /* Number killed */
 	s16b max_num;           /* Number required */
@@ -1093,9 +1093,9 @@ struct creature_type
 	s16b oldpx;		/* Previous player location -KMW- */
 
 	s16b irace_idx;			    /* Intelligence race index */
-	s16b monster_idx;			    /* Monster race index */
+	s16b species_idx;			    /* Monster race index */
 	s16b monster_ego_idx;		    /* Monster ego index */
-	s16b ap_monster_idx;		    /* Monster race appearance index */
+	s16b ap_species_idx;		    /* Monster race appearance index */
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
 	u32b sub_race[8];       /* Sub-Race index */
 	s16b sex;				/* Sex index */
@@ -1317,7 +1317,7 @@ struct creature_type
 
 	s16b health_who;	/* Health bar trackee */
 
-	s16b monster_race_idx;	/* Monster race trackee */
+	s16b species_type_idx;	/* Monster race trackee */
 
 	s16b object_kind_idx;	/* Object kind trackee */
 
@@ -1719,7 +1719,7 @@ struct tag_type
 	void    *pointer;
 };
 
-typedef bool (*monster_hook_type)(int monster_idx);
+typedef bool (*monster_hook_type)(int species_idx);
 
 
 /*
@@ -1883,7 +1883,7 @@ typedef struct
  */
 typedef struct
 {
-	s16b monster_idx; /* Monster (0 means victory prizing) */
+	s16b species_idx; /* Monster (0 means victory prizing) */
 	byte tval;  /* tval of prize (0 means no prize) */
 	byte sval;  /* sval of prize */
 } arena_type;

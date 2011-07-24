@@ -1289,7 +1289,7 @@ static bool cmd_racial_power_aux(s32b command)
 		{
 			char m_name[80];
 			creature_type *m_ptr;
-			monster_race *r_ptr;
+			species_type *r_ptr;
 			int rlev;
 
 			if (p_ptr->riding)
@@ -1303,7 +1303,7 @@ static bool cmd_racial_power_aux(s32b command)
 			}
 			if (!do_riding(TRUE)) return TRUE;
 			m_ptr = &m_list[p_ptr->riding];
-			r_ptr = &r_info[m_ptr->monster_idx];
+			r_ptr = &r_info[m_ptr->species_idx];
 			monster_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%s‚Éæ‚Á‚½B",m_name);

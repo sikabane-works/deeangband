@@ -950,7 +950,7 @@ msg_print("やっと動けるようになった。");
 		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (r_info[cr_ptr->monster_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
+	if (r_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
 
 	return TRUE;
 
@@ -5405,7 +5405,7 @@ msg_format("%sの構成が変化した！", cr_ptr->irace_idx == RACE_ANDROID ? "機械" : 
 int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	int old_chp = tar_ptr->chp;
-	monster_race    *r_ptr = &r_info[tar_ptr->monster_idx];
+	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
 	creature_type    exp_mon;
 	bool fear = FALSE;
 
@@ -5431,7 +5431,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 		/* Genocided by chaos patron */
 		//TODO check
-		//if (!tar_ptr->monster_idx) m_idx = 0;
+		//if (!tar_ptr->species_idx) m_idx = 0;
 	}
 
 	/* Wake it up */
@@ -5596,7 +5596,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			if (tar_ptr->inside_arena)
 			{
-				cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].monster_idx].name;
+				cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].species_idx].name;
 	#ifdef JP
 				msg_format("あなたは%sの前に敗れ去った。", m_name);
 	#else
@@ -5837,11 +5837,11 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		{
 			char m_name[80];
 	
-			if (r_info[tar_ptr->monster_idx].flags7 & RF7_TANUKI)
+			if (r_info[tar_ptr->species_idx].flags7 & RF7_TANUKI)
 			{
 				/* You might have unmasked Tanuki first time */
-				r_ptr = &r_info[tar_ptr->monster_idx];
-				tar_ptr->ap_monster_idx = tar_ptr->monster_idx;
+				r_ptr = &r_info[tar_ptr->species_idx];
+				tar_ptr->ap_species_idx = tar_ptr->species_idx;
 				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
 	
@@ -5860,14 +5860,14 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					r_ptr->max_num = 0;
 	
 					/* Mega-Hack -- Banor & Lupart */
-					if ((tar_ptr->monster_idx == MON_BANOR) || (tar_ptr->monster_idx == MON_LUPART))
+					if ((tar_ptr->species_idx == MON_BANOR) || (tar_ptr->species_idx == MON_LUPART))
 					{
 						r_info[MON_BANORLUPART].max_num = 0;
 						r_info[MON_BANORLUPART].r_pkills++;
 						r_info[MON_BANORLUPART].r_akills++;
 						if (r_info[MON_BANORLUPART].r_tkills < MAX_SHORT) r_info[MON_BANORLUPART].r_tkills++;
 					}
-					else if (tar_ptr->monster_idx == MON_BANORLUPART)
+					else if (tar_ptr->species_idx == MON_BANORLUPART)
 					{
 						r_info[MON_BANOR].max_num = 0;
 						r_info[MON_BANOR].r_pkills++;
@@ -5899,7 +5899,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */
-				monster_race_track(tar_ptr->ap_monster_idx);
+				species_type_track(tar_ptr->ap_species_idx);
 			}
 	
 			/* Extract monster name */
@@ -5933,15 +5933,15 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 				/* Dump a message */
 	#ifdef JP
-				if (!get_rnd_line("mondeath_j.txt", tar_ptr->monster_idx, line_got))
+				if (!get_rnd_line("mondeath_j.txt", tar_ptr->species_idx, line_got))
 	#else
-				if (!get_rnd_line("mondeath.txt", tar_ptr->monster_idx, line_got))
+				if (!get_rnd_line("mondeath.txt", tar_ptr->species_idx, line_got))
 	#endif
 	
 					msg_format("%^s %s", m_name, line_got);
 	
 	#ifdef WORLD_SCORE
-				if (tar_ptr->monster_idx == MON_SERPENT)
+				if (tar_ptr->species_idx == MON_SERPENT)
 				{
 					/* Make screen dump */
 					screen_dump = make_screen_dump();
@@ -5981,7 +5981,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if (one_in_(3)) chg_virtue(atk_ptr, V_INDIVIDUALISM, -1);
 			}
 	
-			if (tar_ptr->monster_idx == MON_BEGGAR || tar_ptr->monster_idx == MON_LEPER)
+			if (tar_ptr->species_idx == MON_BEGGAR || tar_ptr->species_idx == MON_LEPER)
 			{
 				chg_virtue(atk_ptr, V_COMPASSION, -1);
 			}
@@ -6151,7 +6151,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				for (i = 0; i < MAX_KUBI; i++)
 				{
-					if ((kubi_monster_idx[i] == tar_ptr->monster_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
+					if ((kubi_species_idx[i] == tar_ptr->species_idx) && !(tar_ptr->mflag2 & MFLAG2_CHAMELEON))
 					{
 	#ifdef JP
 	msg_format("%sの首には賞金がかかっている。", m_name);
@@ -6167,7 +6167,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			monster_death(tar_ptr, TRUE);
 	
 			/* Mega hack : replace IKETA to BIKETAL */
-			if ((tar_ptr->monster_idx == MON_IKETA) &&
+			if ((tar_ptr->species_idx == MON_IKETA) &&
 			    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
 			{
 				int dummy_y = tar_ptr->fy;
@@ -6177,7 +6177,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if (is_pet(tar_ptr)) mode |= PM_FORCE_PET;
 	
 				/* Delete the monster */
-				delete_monster_idx(tar_ptr);
+				delete_species_idx(tar_ptr);
 	
 				if (summon_named_creature(0, dummy_y, dummy_x, MON_BIKETAL, mode))
 				{
@@ -6191,7 +6191,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			else
 			{
 				/* Delete the monster */
-				delete_monster_idx(tar_ptr);
+				delete_species_idx(tar_ptr);
 			}
 	
 			/* Prevent bug of chaos patron's reward */
@@ -6469,7 +6469,7 @@ int take_hit_old(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 
 		if (tar_ptr->inside_arena)
 		{
-			cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].monster_idx].name;
+			cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].species_idx].name;
 #ifdef JP
 			msg_format("あなたは%sの前に敗れ去った。", m_name);
 #else

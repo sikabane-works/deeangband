@@ -193,7 +193,7 @@ static void wr_monster(creature_type *m_ptr)
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
-	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_MONSTER_IDX;
+	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_species_idx;
 	if (m_ptr->sub_align) flags |= SAVE_MON_SUB_ALIGN;
 	if (m_ptr->paralyzed) flags |= SAVE_MON_CSLEEP;
 	if (m_ptr->fast) flags |= SAVE_MON_FAST;
@@ -214,7 +214,7 @@ static void wr_monster(creature_type *m_ptr)
 	wr_u32b(flags);
 
 	/*** Write only un-obvious elements ***/
-	wr_s16b(m_ptr->monster_idx);
+	wr_s16b(m_ptr->species_idx);
 	wr_s16b(m_ptr->monster_ego_idx);
 	wr_s16b(m_ptr->irace_idx);
 
@@ -284,7 +284,7 @@ static void wr_monster(creature_type *m_ptr)
 	wr_s16b(m_ptr->dr);
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_MONSTER_IDX) wr_s16b(m_ptr->ap_monster_idx);
+	if (flags & SAVE_MON_AP_species_idx) wr_s16b(m_ptr->ap_species_idx);
 	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
 	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->paralyzed);
 
@@ -340,9 +340,9 @@ static void wr_monster(creature_type *m_ptr)
 /*
  * Write a "lore" record
  */
-static void wr_lore(int monster_idx)
+static void wr_lore(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	/* Count sights/deaths/kills */
 	wr_s16b(r_ptr->r_sights);
@@ -702,7 +702,7 @@ static void wr_extra(void)
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
-		wr_s16b(kubi_monster_idx[i]);
+		wr_s16b(kubi_species_idx[i]);
 	}
 
 	for (i = 0; i < 4; i++)
@@ -1397,7 +1397,7 @@ static bool wr_savefile_new(void)
 
 
 	/* Dump the monster lore */
-	tmp16u = max_monster_idx;
+	tmp16u = max_species_idx;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) wr_lore(i);
 
@@ -1449,7 +1449,7 @@ static bool wr_savefile_new(void)
 			wr_s16b(quest[i].cur_num);
 			wr_s16b(quest[i].max_num);
 			wr_s16b(quest[i].type);
-			wr_s16b(quest[i].monster_idx);
+			wr_s16b(quest[i].species_idx);
 			wr_s16b(quest[i].k_idx);
 			wr_byte(quest[i].flags);
 			wr_byte(quest[i].dungeon);

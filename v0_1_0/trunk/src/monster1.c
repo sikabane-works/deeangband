@@ -47,9 +47,9 @@ static cptr wd_his[3] =
  * Determine if the "armor" is known
  * The higher the level, the fewer kills needed.
  */
-static bool know_armour(int monster_idx)
+static bool know_armour(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	s32b level = r_ptr->level;
 
@@ -76,9 +76,9 @@ static bool know_armour(int monster_idx)
  * the higher the level of the monster, the fewer the attacks you need,
  * the more damage an attack does, the more attacks you need
  */
-static bool know_damage(int monster_idx, int i)
+static bool know_damage(int species_idx, int i)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	s32b level = r_ptr->level;
 
@@ -124,9 +124,9 @@ static void hooked_roff(cptr str)
  * left edge of the screen, on a cleared line, in which the recall is
  * to take place.  One extra blank line is left after the recall.
  */
-static void roff_aux(int monster_idx, int mode)
+static void roff_aux(int species_idx, int mode)
 {
-	monster_race    *r_ptr = &r_info[monster_idx];
+	species_type    *r_ptr = &r_info[species_idx];
 
 	bool            old = FALSE;
 
@@ -421,7 +421,7 @@ static void roff_aux(int monster_idx, int mode)
 		}
 	}
 
-	if (monster_idx == MON_KAGE)
+	if (species_idx == MON_KAGE)
 	{
 		/* All done */
 		hooked_roff("\n");
@@ -470,7 +470,7 @@ static void roff_aux(int monster_idx, int mode)
 
 
 	/* Describe movement */
-	if (monster_idx == MON_CHAMELEON)
+	if (species_idx == MON_CHAMELEON)
 	{
 #ifdef JP
 		hooked_roff("、他のモンスターに化ける。");
@@ -1702,7 +1702,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	}
 
 	/* Describe monster "toughness" */
-	if (know_armour(monster_idx))
+	if (know_armour(species_idx))
 	{
 		/* Armor */
 #ifdef JP
@@ -2196,14 +2196,14 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 
 	if ((r_ptr->r_xtra1 & MR1_SINKA) || know_everything)
 	{
-		if (r_ptr->next_monster_idx)
+		if (r_ptr->next_species_idx)
 		{
 #ifdef JP
 			hooked_roff(format("%^sは経験を積むと、", wd_he[msex]));
 #else
 			hooked_roff(format("%^s will evolve into ", wd_he[msex]));
 #endif
-			hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[r_ptr->next_monster_idx].name));
+			hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[r_ptr->next_species_idx].name));
 #ifdef JP
 			hooked_roff(format("に進化する。"));
 #else
@@ -2935,7 +2935,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 		/***若干表現を変更 ita ***/
 
 			/* Describe damage (if known) */
-		if (d1 && d2 && (know_everything || know_damage(monster_idx, m)))
+		if (d1 && d2 && (know_everything || know_damage(species_idx, m)))
 		  {
 		    
 		    /* Display the damage */
@@ -2992,7 +2992,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 			hooked_roff(q);
 
 			/* Describe damage (if known) */
-			if (d1 && d2 && (know_everything || know_damage(monster_idx, m)))
+			if (d1 && d2 && (know_everything || know_damage(species_idx, m)))
 			{
 				/* Display the damage */
 				hooked_roff(" with damage");
@@ -3044,7 +3044,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 	 * Notice "Quest" monsters, but only if you
 	 * already encountered the monster.
 	 */
-	if ((flags1 & RF1_QUESTOR) && ((r_ptr->r_sights) && (r_ptr->max_num) && ((monster_idx == MON_OBERON) || (monster_idx == MON_SERPENT))))
+	if ((flags1 & RF1_QUESTOR) && ((r_ptr->r_sights) && (r_ptr->max_num) && ((species_idx == MON_OBERON) || (species_idx == MON_SERPENT))))
 	{
 #ifdef JP
 		hook_c_roff(TERM_VIOLET, "あなたはこのモンスターを殺したいという強い欲望を感じている...");
@@ -3075,9 +3075,9 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 /*
  * Hack -- Display the "name" and "attr/chars" of a monster race
  */
-void roff_top(int monster_idx)
+void roff_top(int species_idx)
 {
-	monster_race	*r_ptr = &r_info[monster_idx];
+	species_type	*r_ptr = &r_info[species_idx];
 
 	byte		a1, a2;
 	char		c1, c2;
@@ -3124,7 +3124,7 @@ void roff_top(int monster_idx)
 	{
 		char buf[6];
 
-		sprintf(buf, "%d", monster_idx);
+		sprintf(buf, "%d", species_idx);
 
 		Term_addstr(-1, TERM_WHITE, " (");
 		Term_addstr(-1, TERM_L_BLUE, buf);
@@ -3137,7 +3137,7 @@ void roff_top(int monster_idx)
 /*
  * Hack -- describe the given monster race at the top of the screen
  */
-void screen_roff(int monster_idx, int mode)
+void screen_roff(int species_idx, int mode)
 {
 	/* Flush messages */
 	msg_print(NULL);
@@ -3148,10 +3148,10 @@ void screen_roff(int monster_idx, int mode)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(monster_idx, mode);
+	roff_aux(species_idx, mode);
 
 	/* Describe monster */
-	roff_top(monster_idx);
+	roff_top(species_idx);
 }
 
 
@@ -3160,7 +3160,7 @@ void screen_roff(int monster_idx, int mode)
 /*
  * Hack -- describe the given monster race in the current "term" window
  */
-void display_roff(int monster_idx)
+void display_roff(int species_idx)
 {
 	int y;
 
@@ -3177,10 +3177,10 @@ void display_roff(int monster_idx)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(monster_idx, 0);
+	roff_aux(species_idx, 0);
 
 	/* Describe monster */
-	roff_top(monster_idx);
+	roff_top(species_idx);
 }
 
 
@@ -3188,18 +3188,18 @@ void display_roff(int monster_idx)
 /*
  * Hack -- output description of the given monster race
  */
-void output_monster_spoiler(int monster_idx, void (*roff_func)(byte attr, cptr str))
+void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str))
 {
 	hook_c_roff = roff_func;
 
 	/* Recall monster */
-	roff_aux(monster_idx, 0x03);
+	roff_aux(species_idx, 0x03);
 }
 
 
-bool mon_hook_dungeon(int monster_idx)
+bool mon_hook_dungeon(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (!(r_ptr->flags8 & RF8_WILD_ONLY))
 		return TRUE;
@@ -3213,9 +3213,9 @@ bool mon_hook_dungeon(int monster_idx)
 }
 
 
-static bool mon_hook_ocean(int monster_idx)
+static bool mon_hook_ocean(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_OCEAN)
 		return TRUE;
@@ -3224,9 +3224,9 @@ static bool mon_hook_ocean(int monster_idx)
 }
 
 
-static bool mon_hook_shore(int monster_idx)
+static bool mon_hook_shore(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_SHORE)
 		return TRUE;
@@ -3235,9 +3235,9 @@ static bool mon_hook_shore(int monster_idx)
 }
 
 
-static bool mon_hook_waste(int monster_idx)
+static bool mon_hook_waste(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_WASTE | RF8_WILD_ALL))
 		return TRUE;
@@ -3246,9 +3246,9 @@ static bool mon_hook_waste(int monster_idx)
 }
 
 
-static bool mon_hook_town(int monster_idx)
+static bool mon_hook_town(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL))
 		return TRUE;
@@ -3257,9 +3257,9 @@ static bool mon_hook_town(int monster_idx)
 }
 
 
-static bool mon_hook_wood(int monster_idx)
+static bool mon_hook_wood(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_WOOD | RF8_WILD_ALL))
 		return TRUE;
@@ -3268,9 +3268,9 @@ static bool mon_hook_wood(int monster_idx)
 }
 
 
-static bool mon_hook_volcano(int monster_idx)
+static bool mon_hook_volcano(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_VOLCANO)
 		return TRUE;
@@ -3279,9 +3279,9 @@ static bool mon_hook_volcano(int monster_idx)
 }
 
 
-static bool mon_hook_mountain(int monster_idx)
+static bool mon_hook_mountain(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_MOUNTAIN)
 		return TRUE;
@@ -3290,9 +3290,9 @@ static bool mon_hook_mountain(int monster_idx)
 }
 
 
-static bool mon_hook_grass(int monster_idx)
+static bool mon_hook_grass(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_GRASS | RF8_WILD_ALL))
 		return TRUE;
@@ -3301,11 +3301,11 @@ static bool mon_hook_grass(int monster_idx)
 }
 
 
-static bool mon_hook_deep_water(int monster_idx)
+static bool mon_hook_deep_water(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
-	if (!mon_hook_dungeon(monster_idx)) return FALSE;
+	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
 	if (r_ptr->flags7 & RF7_AQUATIC)
 		return TRUE;
@@ -3314,11 +3314,11 @@ static bool mon_hook_deep_water(int monster_idx)
 }
 
 
-static bool mon_hook_shallow_water(int monster_idx)
+static bool mon_hook_shallow_water(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
-	if (!mon_hook_dungeon(monster_idx)) return FALSE;
+	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
 	if (r_ptr->flags2 & RF2_AURA_FIRE)
 		return FALSE;
@@ -3327,11 +3327,11 @@ static bool mon_hook_shallow_water(int monster_idx)
 }
 
 
-static bool mon_hook_lava(int monster_idx)
+static bool mon_hook_lava(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
-	if (!mon_hook_dungeon(monster_idx)) return FALSE;
+	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
 	if (((r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK) ||
 	     (r_ptr->flags7 & RF7_CAN_FLY)) &&
@@ -3342,9 +3342,9 @@ static bool mon_hook_lava(int monster_idx)
 }
 
 
-static bool mon_hook_floor(int monster_idx)
+static bool mon_hook_floor(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if (!(r_ptr->flags7 & RF7_AQUATIC) ||
 	    (r_ptr->flags7 & RF7_CAN_FLY))
@@ -3435,7 +3435,7 @@ void set_pet(creature_type *m_ptr)
 	check_quest_completion(m_ptr);
 
 	m_ptr->smart |= SM_PET;
-	if (!(r_info[m_ptr->monster_idx].flags3 & (RF3_EVIL | RF3_GOOD)))
+	if (!(r_info[m_ptr->species_idx].flags3 & (RF3_EVIL | RF3_GOOD)))
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 }
 
@@ -3483,7 +3483,7 @@ msg_format("%^sは怒った！", m_name);
 /*
  * Check if monster can cross terrain
  */
-bool monster_can_cross_terrain(s16b feat, monster_race *r_ptr, u16b mode)
+bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feat];
 
@@ -3542,7 +3542,7 @@ bool monster_can_cross_terrain(s16b feat, monster_race *r_ptr, u16b mode)
 /*
  * Strictly check if monster can enter the grid
  */
-bool monster_can_enter(int y, int x, monster_race *r_ptr, u16b mode)
+bool monster_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 {
 	cave_type *c_ptr = &cave[y][x];
 
@@ -3576,8 +3576,8 @@ static bool check_hostile_align(byte sub_align1, byte sub_align2)
  */
 bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
-	monster_race *s_ptr = &r_info[n_ptr->monster_idx];
+	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *s_ptr = &r_info[n_ptr->species_idx];
 
 	if (p_ptr->inside_battle)
 	{
@@ -3612,7 +3612,7 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
  * Check if this monster race has "hostile" alignment
  * If user is player, m_ptr == NULL.
  */
-bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, monster_race *r_ptr)
+bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, species_type *r_ptr)
 {
 	byte sub_align1 = SUB_ALIGN_NEUTRAL;
 	byte sub_align2 = SUB_ALIGN_NEUTRAL;
@@ -3644,7 +3644,7 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, m
  * Used to determine the message to print for a killed monster.
  * ("dies", "destroyed")
  */
-bool monster_living(monster_race *r_ptr)
+bool monster_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
 	if (r_ptr->flags3 & (RF3_DEMON | RF3_UNDEAD | RF3_NONLIVING))
@@ -3657,9 +3657,9 @@ bool monster_living(monster_race *r_ptr)
 /*
  * Is this monster declined to be questor or bounty?
  */
-bool no_questor_or_bounty_uniques(int monster_idx)
+bool no_questor_or_bounty_uniques(int species_idx)
 {
-	switch (monster_idx)
+	switch (species_idx)
 	{
 	/*
 	 * Decline them to be questor or bounty because they use

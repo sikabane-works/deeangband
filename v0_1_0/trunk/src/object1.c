@@ -59,9 +59,9 @@ void reset_visuals(void)
 	}
 
 	/* Extract default attr/char code for monsters */
-	for (i = 0; i < max_monster_idx; i++)
+	for (i = 0; i < max_species_idx; i++)
 	{
-		monster_race *r_ptr = &r_info[i];
+		species_type *r_ptr = &r_info[i];
 
 		/* Default attr/char */
 		r_ptr->x_attr = r_ptr->d_attr;
@@ -2501,7 +2501,7 @@ info[i++] = "‚»‚ê‚Í–‚–@’ïR—Í‚ð‰º‚°‚éB";
 
 	if (o_ptr->tval == TV_STATUE)
 	{
-		monster_race *r_ptr = &r_info[o_ptr->pval];
+		species_type *r_ptr = &r_info[o_ptr->pval];
 
 		if (o_ptr->pval == MON_BULLGATES)
 #ifdef JP
@@ -3918,7 +3918,7 @@ info[i++] = "‚»‚ê‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹z‚¢Žæ‚éB";
 	/* Label the information */
 	if ((o_ptr->tval == TV_STATUE) && (o_ptr->sval == SV_PHOTO))
 	{
-		monster_race *r_ptr = &r_info[o_ptr->pval];
+		species_type *r_ptr = &r_info[o_ptr->pval];
 		int namelen = strlen(r_name + r_ptr->name);
 		prt(format("%s: '", r_name + r_ptr->name), 1, 15);
 		Term_queue_bigchar(18 + namelen, 1, r_ptr->x_attr, r_ptr->x_char, 0, 0);

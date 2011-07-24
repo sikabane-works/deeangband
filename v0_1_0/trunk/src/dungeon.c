@@ -1009,11 +1009,11 @@ static void regen_monsters(void)
 	{
 		/* Check the i'th monster */
 		creature_type *m_ptr = &m_list[i];
-		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 
 		/* Skip dead monsters */
-		if (!m_ptr->monster_idx) continue;
+		if (!m_ptr->species_idx) continue;
 
 		/* Allow regeneration (if needed) */
 		if (m_ptr->chp < m_ptr->mhp)
@@ -1054,7 +1054,7 @@ static void regen_captured_monsters(void)
 	/* Regenerate everyone */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		object_type *o_ptr = &p_ptr->inventory[i];
 
 		if (!o_ptr->k_idx) continue;
@@ -1175,7 +1175,7 @@ void leave_quest_check(void)
 		quest[leaving_quest].complev = (byte)p_ptr->lev;
 		if (quest[leaving_quest].type == QUEST_TYPE_RANDOM)
 		{
-			r_info[quest[leaving_quest].monster_idx].flags1 &= ~(RF1_QUESTOR);
+			r_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
 			if (record_rand_quest)
 				do_cmd_write_nikki(NIKKI_RAND_QUEST_F, leaving_quest, NULL);
 
@@ -1754,9 +1754,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	if (cr_ptr->riding)
 	{
 		int damage;
-		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
+		if ((r_info[m_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
 		{
-			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
 			if (cr_ptr->resist_fire) damage = damage / 3;
 			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
@@ -1768,9 +1768,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
+		if ((r_info[m_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
 		{
-			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ANDROID)) damage += damage / 3;
 			if (cr_ptr->resist_elec) damage = damage / 3;
 			if (IS_OPPOSE_ELEC(cr_ptr)) damage = damage / 3;
@@ -1782,9 +1782,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[cr_ptr->riding].monster_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
+		if ((r_info[m_list[cr_ptr->riding].species_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
 		{
-			damage = r_info[m_list[cr_ptr->riding].monster_idx].level / 2;
+			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
 			if (cr_ptr->resist_cold) damage = damage / 3;
 			if (IS_OPPOSE_COLD(cr_ptr)) damage = damage / 3;
 #ifdef JP
@@ -2772,10 +2772,10 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		for (monster = 0; monster < m_max; monster++)
 		{
 			creature_type    *m_ptr = &m_list[monster];
-			monster_race    *r_ptr = &r_info[m_ptr->monster_idx];
+			species_type    *r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Paranoia -- Skip dead monsters */
-			if (!m_ptr->monster_idx) continue;
+			if (!m_ptr->species_idx) continue;
 
 			if (r_ptr->level >= cr_ptr->lev)
 			{
@@ -3442,7 +3442,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)cr_ptr->lev;
-							r_info[quest[i].monster_idx].flags1 &= ~(RF1_QUESTOR);
+							r_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 						}
 					}
 				}
@@ -3554,16 +3554,16 @@ static byte get_dungeon_feeling(void)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &m_list[i];
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		int delta = 0;
 
 		/* Skip dead monsters */
-		if (!m_ptr->monster_idx) continue;
+		if (!m_ptr->species_idx) continue;
 
 		/* Ignore pet */
 		if (is_pet(m_ptr)) continue;
 
-		r_ptr = &r_info[m_ptr->monster_idx];
+		r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Unique monsters */
 		if (r_ptr->flags1 & (RF1_UNIQUE))
@@ -5463,9 +5463,9 @@ prt(" '?' でヘルプが表示されます。", 0, 0);
 
 
 
-static bool monster_tsuri(int monster_idx)
+static bool monster_tsuri(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	if ((r_ptr->flags7 & RF7_AQUATIC) && !(r_ptr->flags1 & RF1_UNIQUE) && my_strchr("Jjlw", r_ptr->d_char))
 		return TRUE;
@@ -5557,7 +5557,7 @@ msg_print("何か変わった気がする！");
 		{
 			creature_type *m_ptr = &m_list[i];
 
-			if (!m_ptr->monster_idx) continue;
+			if (!m_ptr->species_idx) continue;
 
 			/* Hack -- Detect monster */
 			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
@@ -5618,17 +5618,17 @@ msg_print("何か変わった気がする！");
 		Term_xtra(TERM_XTRA_DELAY, 10);
 		if (one_in_(1000))
 		{
-			int monster_idx;
+			int species_idx;
 			bool success = FALSE;
 			get_mon_num_prep(monster_tsuri,NULL);
-			monster_idx = get_mon_num(dun_level ? dun_level : wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].level);
+			species_idx = get_mon_num(dun_level ? dun_level : wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].level);
 			msg_print(NULL);
-			if (monster_idx && one_in_(2))
+			if (species_idx && one_in_(2))
 			{
 				int y, x;
 				y = p_ptr->fy+ddy[tsuri_dir];
 				x = p_ptr->fx+ddx[tsuri_dir];
-				if (place_monster_aux(p_ptr, y, x, monster_idx, PM_NO_KAGE))
+				if (place_monster_aux(p_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
 					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
@@ -5684,7 +5684,7 @@ msg_print("中断しました。");
 	if (p_ptr->riding && !p_ptr->confused && !p_ptr->blind)
 	{
 		creature_type *m_ptr = &m_list[p_ptr->riding];
-		monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->paralyzed)
 		{
@@ -5997,19 +5997,19 @@ msg_print("中断しました。");
 				for (i = 1; i < m_max; i++)
 				{
 					creature_type *m_ptr;
-					monster_race *r_ptr;
+					species_type *r_ptr;
 
 					/* Access monster */
 					m_ptr = &m_list[i];
 
 					/* Skip dead monsters */
-					if (!m_ptr->monster_idx) continue;
+					if (!m_ptr->species_idx) continue;
 
 					/* Skip unseen monsters */
 					if (!m_ptr->ml) continue;
 
 					/* Access the monster race */
-					r_ptr = &r_info[m_ptr->ap_monster_idx];
+					r_ptr = &r_info[m_ptr->ap_species_idx];
 
 					/* Skip non-multi-hued monsters */
 					if (!(r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER)))
@@ -6039,7 +6039,7 @@ msg_print("中断しました。");
 					m_ptr = &m_list[i];
 
 					/* Skip dead monsters */
-					if (!m_ptr->monster_idx) continue;
+					if (!m_ptr->species_idx) continue;
 
 					/* Nice monsters get mean */
 					if (m_ptr->mflag & MFLAG_NICE)
@@ -6203,7 +6203,7 @@ static void dungeon(bool load_game)
 	if (quest_num)
 	{
 		/* Mark the quest monster */
-		r_info[quest[quest_num].monster_idx].flags1 |= RF1_QUESTOR;
+		r_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
 	}
 
 	/* Track maximum player level */
@@ -6434,10 +6434,10 @@ msg_print("試合開始！");
 	}
 
 	/* Inside a quest and non-unique questor? */
-	if (quest_num && !(r_info[quest[quest_num].monster_idx].flags1 & RF1_UNIQUE))
+	if (quest_num && !(r_info[quest[quest_num].species_idx].flags1 & RF1_UNIQUE))
 	{
 		/* Un-mark the quest monster */
-		r_info[quest[quest_num].monster_idx].flags1 &= ~RF1_QUESTOR;
+		r_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
 	}
 
 	/* Not save-and-quit and not dead? */
@@ -6561,15 +6561,15 @@ void extract_option_vars(void)
 void determine_bounty_uniques(void)
 {
 	int          i, j, tmp;
-	monster_race *r_ptr;
+	species_type *r_ptr;
 
 	get_mon_num_prep(NULL, NULL);
 	for (i = 0; i < MAX_KUBI; i++)
 	{
 		while (1)
 		{
-			kubi_monster_idx[i] = get_mon_num(MAX_DEPTH - 1);
-			r_ptr = &r_info[kubi_monster_idx[i]];
+			kubi_species_idx[i] = get_mon_num(MAX_DEPTH - 1);
+			r_ptr = &r_info[kubi_species_idx[i]];
 
 			if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
 
@@ -6577,10 +6577,10 @@ void determine_bounty_uniques(void)
 
 			if (r_ptr->rarity > 100) continue;
 
-			if (no_questor_or_bounty_uniques(kubi_monster_idx[i])) continue;
+			if (no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
 
 			for (j = 0; j < i; j++)
-				if (kubi_monster_idx[i] == kubi_monster_idx[j]) break;
+				if (kubi_species_idx[i] == kubi_species_idx[j]) break;
 
 			if (j == i) break;
 		}
@@ -6591,11 +6591,11 @@ void determine_bounty_uniques(void)
 	{
 		for (j = i; j < MAX_KUBI; j++)
 		{
-			if (r_info[kubi_monster_idx[i]].level > r_info[kubi_monster_idx[j]].level)
+			if (r_info[kubi_species_idx[i]].level > r_info[kubi_species_idx[j]].level)
 			{
-				tmp = kubi_monster_idx[i];
-				kubi_monster_idx[i] = kubi_monster_idx[j];
-				kubi_monster_idx[j] = tmp;
+				tmp = kubi_species_idx[i];
+				kubi_species_idx[i] = kubi_species_idx[j];
+				kubi_species_idx[j] = tmp;
 			}
 		}
 	}
@@ -6610,7 +6610,7 @@ void determine_today_mon(bool conv_old)
 {
 	int max_dl = 3, i;
 	bool old_inside_battle = p_ptr->inside_battle;
-	monster_race *r_ptr;
+	species_type *r_ptr;
 
 	if (!conv_old)
 	{
@@ -7058,9 +7058,9 @@ quit("セーブファイルが壊れています");
 	if (new_game && ((p_ptr->cls_idx == CLASS_CAVALRY) || (p_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
 		creature_type *m_ptr;
-		int pet_monster_idx = ((p_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
-		monster_race *r_ptr = &r_info[pet_monster_idx];
-		place_monster_aux(p_ptr, p_ptr->fy, p_ptr->fx - 1, pet_monster_idx,
+		int pet_species_idx = ((p_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
+		species_type *r_ptr = &r_info[pet_species_idx];
+		place_monster_aux(p_ptr, p_ptr->fy, p_ptr->fx - 1, pet_species_idx,
 				  (PM_FORCE_PET | PM_NO_KAGE));
 		m_ptr = &m_list[hack_m_idx_ii];
 		m_ptr->speed = r_ptr->speed;

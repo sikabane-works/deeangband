@@ -1292,7 +1292,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
 		case TV_CAPTURE:
 		{
-			monster_race *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &r_info[o_ptr->pval];
 
 			if (known)
 			{
@@ -1334,7 +1334,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_FIGURINE:
 		case TV_STATUE:
 		{
-			monster_race *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &r_info[o_ptr->pval];
 
 #ifdef JP
 			modstr = r_name + r_ptr->name;
@@ -1360,7 +1360,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* Corpses */
 		case TV_CORPSE:
 		{
-			monster_race *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &r_info[o_ptr->pval];
 
 			modstr = r_name + r_ptr->name;
 

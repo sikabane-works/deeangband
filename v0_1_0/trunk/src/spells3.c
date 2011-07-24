@@ -37,7 +37,7 @@ static bool cave_monster_teleportable_bold(int m_idx, int y, int x, u32b mode)
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->monster_idx], 0)) return FALSE;
+		if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->species_idx], 0)) return FALSE;
 	}
 
 	return TRUE;
@@ -62,7 +62,7 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 	creature_type *m_ptr = &m_list[m_idx];
 
 	/* Paranoia */
-	if (!m_ptr->monster_idx) return (FALSE);
+	if (!m_ptr->species_idx) return (FALSE);
 
 	/* Save the old location */
 	oy = m_ptr->fy;
@@ -149,7 +149,7 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(ny, nx);
 
-	if (r_info[m_ptr->monster_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 
 	return (TRUE);
@@ -169,7 +169,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	creature_type *m_ptr = &m_list[m_idx];
 
 	/* Paranoia */
-	if (!m_ptr->monster_idx) return;
+	if (!m_ptr->species_idx) return;
 
 	/* "Skill" test */
 	if (randint1(100) > power) return;
@@ -249,7 +249,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(ny, nx);
 
-	if (r_info[m_ptr->monster_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 }
 
@@ -449,7 +449,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &m_list[tmp_m_idx];
-				monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+				species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -487,7 +487,7 @@ void teleport_player_away(int m_idx, int dis)
 			if (tmp_m_idx && (p_ptr->riding != tmp_m_idx) && (m_idx != tmp_m_idx))
 			{
 				creature_type *m_ptr = &m_list[tmp_m_idx];
-				monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+				species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -801,7 +801,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
-		delete_monster_idx(&m_list[m_idx]);
+		delete_species_idx(&m_list[m_idx]);
 	}
 
 	/* Sound */
@@ -4264,7 +4264,7 @@ s16b spell_chance(int spell, int use_realm)
 	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
 
 	if (p_ptr->riding)
-		chance += (MAX(r_info[m_list[p_ptr->riding].monster_idx].level - p_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
+		chance += (MAX(r_info[m_list[p_ptr->riding].species_idx].level - p_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
@@ -5445,16 +5445,16 @@ msg_print("‰Š‚Å‹­‰»‚·‚é‚Ì‚ÉŽ¸”s‚µ‚½B");
  *
  * Note that this function is one of the more "dangerous" ones...
  */
-static s16b poly_monster_idx(int monster_idx)
+static s16b poly_species_idx(int species_idx)
 {
-	monster_race *r_ptr = &r_info[monster_idx];
+	species_type *r_ptr = &r_info[species_idx];
 
 	int i, r, lev1, lev2;
 
 	/* Hack -- Uniques/Questors never polymorph */
 	if ((r_ptr->flags1 & RF1_UNIQUE) ||
 	    (r_ptr->flags1 & RF1_QUESTOR))
-		return (monster_idx);
+		return (species_idx);
 
 	/* Allowable range of "levels" for resulting monster */
 	lev1 = r_ptr->level - ((randint1(20) / randint1(9)) + 1);
@@ -5479,14 +5479,14 @@ static s16b poly_monster_idx(int monster_idx)
 		if ((r_ptr->level < lev1) || (r_ptr->level > lev2)) continue;
 
 		/* Use that index */
-		monster_idx = r;
+		species_idx = r;
 
 		/* Done */
 		break;
 	}
 
 	/* Result */
-	return (monster_idx);
+	return (species_idx);
 }
 
 
@@ -5495,8 +5495,8 @@ bool polymorph_monster(int y, int x)
 	cave_type *c_ptr = &cave[y][x];
 	creature_type *m_ptr = &m_list[c_ptr->m_idx];
 	bool polymorphed = FALSE;
-	int new_monster_idx;
-	int old_monster_idx = m_ptr->monster_idx;
+	int new_species_idx;
+	int old_species_idx = m_ptr->species_idx;
 	bool targeted = (target_who == c_ptr->m_idx) ? TRUE : FALSE;
 	bool health_tracked = (p_ptr->health_who == c_ptr->m_idx) ? TRUE : FALSE;
 	creature_type back_m;
@@ -5509,10 +5509,10 @@ bool polymorph_monster(int y, int x)
 	back_m = *m_ptr;
 
 	/* Pick a "new" monster race */
-	new_monster_idx = poly_monster_idx(old_monster_idx);
+	new_species_idx = poly_species_idx(old_species_idx);
 
 	/* Handle polymorph */
-	if (new_monster_idx != old_monster_idx)
+	if (new_species_idx != old_species_idx)
 	{
 		u32b mode = 0L;
 		bool preserve_hold_objects = back_m.hold_o_idx ? TRUE : FALSE;
@@ -5527,10 +5527,10 @@ bool polymorph_monster(int y, int x)
 		m_ptr->hold_o_idx = 0;
 
 		/* "Kill" the "old" monster */
-		delete_monster_idx(&m_list[c_ptr->m_idx]);
+		delete_species_idx(&m_list[c_ptr->m_idx]);
 
 		/* Create a new monster (no groups) */
-		if (place_monster_aux(NULL, y, x, new_monster_idx, mode))
+		if (place_monster_aux(NULL, y, x, new_species_idx, mode))
 		{
 			m_list[hack_m_idx_ii].nickname = back_m.nickname;
 			m_list[hack_m_idx_ii].parent_m_idx = back_m.parent_m_idx;
@@ -5542,7 +5542,7 @@ bool polymorph_monster(int y, int x)
 		else
 		{
 			/* Placing the new monster failed */
-			if (place_monster_aux(NULL, y, x, old_monster_idx, (mode | PM_NO_KAGE | PM_IGNORE_TERRAIN)))
+			if (place_monster_aux(NULL, y, x, old_species_idx, (mode | PM_NO_KAGE | PM_IGNORE_TERRAIN)))
 			{
 				m_list[hack_m_idx_ii] = back_m;
 

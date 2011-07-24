@@ -522,7 +522,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_RAND_QUEST_C:
 		{
 			char name[80];
-			strcpy(name, r_name+r_info[quest[num].monster_idx].name);
+			strcpy(name, r_name+r_info[quest[num].species_idx].name);
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)を達成した。\n", hour, min, note_level, name);
 #else
@@ -533,7 +533,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_RAND_QUEST_F:
 		{
 			char name[80];
-			strcpy(name, r_name+r_info[quest[num].monster_idx].name);
+			strcpy(name, r_name+r_info[quest[num].species_idx].name);
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)から逃げ出した。\n", hour, min, note_level, name);
 #else
@@ -3760,7 +3760,7 @@ static void print_visuals_menu(cptr choice_msg)
 #endif
 }
 
-static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_monster_idx);
+static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);
 static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int direct_f_idx, int *lighting_level);
 
@@ -3869,9 +3869,9 @@ void do_cmd_visuals(void)
 #endif
 
 			/* Dump monsters */
-			for (i = 0; i < max_monster_idx; i++)
+			for (i = 0; i < max_species_idx; i++)
 			{
-				monster_race *r_ptr = &r_info[i];
+				species_type *r_ptr = &r_info[i];
 
 				/* Skip non-entries */
 				if (!r_ptr->name) continue;
@@ -4072,7 +4072,7 @@ void do_cmd_visuals(void)
 			/* Hack -- query until done */
 			while (1)
 			{
-				monster_race *r_ptr = &r_info[r];
+				species_type *r_ptr = &r_info[r];
 				char c;
 				int t;
 
@@ -4142,7 +4142,7 @@ void do_cmd_visuals(void)
 						int prev_r = r;
 						do
 						{
-							if (!cmd_visuals_aux(i, &r, max_monster_idx))
+							if (!cmd_visuals_aux(i, &r, max_species_idx))
 							{
 								r = prev_r;
 								break;
@@ -5377,8 +5377,8 @@ static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	monster_race *r_ptr1 = &r_info[w1];
-	monster_race *r_ptr2 = &r_info[w2];
+	species_type *r_ptr1 = &r_info[w1];
+	species_type *r_ptr2 = &r_info[w2];
 
 	/* Unused */
 	(void)v;
@@ -5433,10 +5433,10 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 
 	/* Check every race */
-	for (i = 0; i < max_monster_idx; i++)
+	for (i = 0; i < max_species_idx; i++)
 	{
 		/* Access the race */
-		monster_race *r_ptr = &r_info[i];
+		species_type *r_ptr = &r_info[i];
 
 		/* Skip empty race */
 		if (!r_ptr->name) continue ;
@@ -5460,7 +5460,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 			int j;
 			for (j = 0; j < MAX_KUBI; j++)
 			{
-				if (kubi_monster_idx[j] == i || kubi_monster_idx[j] - 10000 == i ||
+				if (kubi_species_idx[j] == i || kubi_species_idx[j] - 10000 == i ||
 					(p_ptr->today_mon && p_ptr->today_mon == i))
 				{
 					wanted = TRUE;
@@ -6850,12 +6850,12 @@ static void do_cmd_knowledge_uniques(void)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_monster_idx, s16b);
+	C_MAKE(who, max_species_idx, s16b);
 
 	/* Scan the monsters */
-	for (i = 1; i < max_monster_idx; i++)
+	for (i = 1; i < max_species_idx; i++)
 	{
-		monster_race *r_ptr = &r_info[i];
+		species_type *r_ptr = &r_info[i];
 		int          lev;
 
 		if (!r_ptr->name) continue;
@@ -6945,7 +6945,7 @@ static void do_cmd_knowledge_uniques(void)
 	/* Scan the monster races */
 	for (k = 0; k < n; k++)
 	{
-		monster_race *r_ptr = &r_info[who[k]];
+		species_type *r_ptr = &r_info[who[k]];
 
 		/* Print a message */
 #ifdef JP
@@ -6956,7 +6956,7 @@ static void do_cmd_knowledge_uniques(void)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_monster_idx, s16b);
+	C_KILL(who, max_species_idx, s16b);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -7355,7 +7355,7 @@ static void do_cmd_knowledge_pets(void)
 		m_ptr = &m_list[i];
 
 		/* Ignore "dead" monsters */
-		if (!m_ptr->monster_idx) continue;
+		if (!m_ptr->species_idx) continue;
 
 		/* Calculate "upkeep" for pets */
 		if (is_pet(m_ptr))
@@ -7428,15 +7428,15 @@ static void do_cmd_knowledge_kill_count(void)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_monster_idx, s16b);
+	C_MAKE(who, max_species_idx, s16b);
 
 	{
 		/* Monsters slain */
 		int kk;
 
-		for (kk = 1; kk < max_monster_idx; kk++)
+		for (kk = 1; kk < max_species_idx; kk++)
 		{
-			monster_race *r_ptr = &r_info[kk];
+			species_type *r_ptr = &r_info[kk];
 
 			if (r_ptr->flags1 & (RF1_UNIQUE))
 			{
@@ -7475,9 +7475,9 @@ static void do_cmd_knowledge_kill_count(void)
 	Total = 0;
 
 	/* Scan the monsters */
-	for (i = 1; i < max_monster_idx; i++)
+	for (i = 1; i < max_species_idx; i++)
 	{
-		monster_race *r_ptr = &r_info[i];
+		species_type *r_ptr = &r_info[i];
 
 		/* Use that monster */
 		if (r_ptr->name) who[n++] = i;
@@ -7493,7 +7493,7 @@ static void do_cmd_knowledge_kill_count(void)
 	/* Scan the monster races */
 	for (k = 0; k < n; k++)
 	{
-		monster_race *r_ptr = &r_info[who[k]];
+		species_type *r_ptr = &r_info[who[k]];
 
 		if (r_ptr->flags1 & (RF1_UNIQUE))
 		{
@@ -7556,7 +7556,7 @@ static void do_cmd_knowledge_kill_count(void)
 
 
 	/* Free the "who" array */
-	C_KILL(who, max_monster_idx, s16b);
+	C_KILL(who, max_species_idx, s16b);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -7786,12 +7786,12 @@ static void place_visual_list_cursor(int col, int row, byte a, byte c, byte attr
 /*
  *  Clipboard variables for copy&paste in visual mode
  */
-static byte attmonster_idx = 0;
-static byte chamonster_idx = 0;
+static byte attspecies_idx = 0;
+static byte chaspecies_idx = 0;
 
 /* Hack -- for feature lighting */
-static byte attmonster_idx_feat[F_LIT_MAX];
-static byte chamonster_idx_feat[F_LIT_MAX];
+static byte attspecies_idx_feat[F_LIT_MAX];
+static byte chaspecies_idx_feat[F_LIT_MAX];
 
 /*
  *  Do visual mode command -- Change symbols
@@ -7851,32 +7851,32 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 			int i;
 
 			/* Set the visual */
-			attmonster_idx = *cur_attr_ptr;
-			chamonster_idx = *cur_char_ptr;
+			attspecies_idx = *cur_attr_ptr;
+			chaspecies_idx = *cur_char_ptr;
 
 			/* Hack -- for feature lighting */
 			for (i = 0; i < F_LIT_MAX; i++)
 			{
-				attmonster_idx_feat[i] = 0;
-				chamonster_idx_feat[i] = 0;
+				attspecies_idx_feat[i] = 0;
+				chaspecies_idx_feat[i] = 0;
 			}
 		}
 		return TRUE;
 
 	case 'P':
 	case 'p':
-		if (attmonster_idx || (!(chamonster_idx & 0x80) && chamonster_idx)) /* Allow TERM_DARK text */
+		if (attspecies_idx || (!(chaspecies_idx & 0x80) && chaspecies_idx)) /* Allow TERM_DARK text */
 		{
 			/* Set the char */
-			*cur_attr_ptr = attmonster_idx;
+			*cur_attr_ptr = attspecies_idx;
 			*attr_top_ptr = MAX(0, (*cur_attr_ptr & 0x7f) - 5);
 			if (!*visual_list_ptr) *need_redraw = TRUE;
 		}
 
-		if (chamonster_idx)
+		if (chaspecies_idx)
 		{
 			/* Set the char */
-			*cur_char_ptr = chamonster_idx;
+			*cur_char_ptr = chaspecies_idx;
 			*char_left_ptr = MAX(0, *cur_char_ptr - 10);
 			if (!*visual_list_ptr) *need_redraw = TRUE;
 		}
@@ -7940,10 +7940,10 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 		byte attr;
 
 		/* Get the race index */
-		int monster_idx = mon_idx[mon_top + i] ;
+		int species_idx = mon_idx[mon_top + i] ;
 
 		/* Access the race */
-		monster_race *r_ptr = &r_info[monster_idx];
+		species_type *r_ptr = &r_info[species_idx];
 
 		/* Choose a color */
 		attr = ((i + mon_top == mon_cur) ? TERM_L_BLUE : TERM_WHITE);
@@ -7958,7 +7958,7 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 		}
 		if (p_ptr->wizard || visual_only)
 		{
-			c_prt(attr, format("%d", monster_idx), row + i, 62);
+			c_prt(attr, format("%d", species_idx), row + i, 62);
 		}
 
 		/* Erase chars before overwritten by the race letter */
@@ -7990,7 +7990,7 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 /*
  * Display known monsters.
  */
-static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_monster_idx)
+static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int direct_species_idx)
 {
 	int i, len, max;
 	int grp_cur, grp_top, old_grp_cur;
@@ -8017,12 +8017,12 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 	browser_rows = hgt - 8;
 
 	/* Allocate the "mon_idx" array */
-	C_MAKE(mon_idx, max_monster_idx, s16b);
+	C_MAKE(mon_idx, max_species_idx, s16b);
 
 	max = 0;
 	grp_cnt = 0;
 
-	if (direct_monster_idx < 0)
+	if (direct_species_idx < 0)
 	{
 		mode = visual_only ? 0x03 : 0x01;
 
@@ -8047,14 +8047,14 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 	}
 	else
 	{
-		mon_idx[0] = direct_monster_idx;
+		mon_idx[0] = direct_species_idx;
 		mon_cnt = 1;
 
 		/* Terminate the list */
 		mon_idx[1] = -1;
 
 		(void)visual_mode_command('v', &visual_list, browser_rows - 1, wid - (max + 3),
-			&attr_top, &char_left, &r_info[direct_monster_idx].x_attr, &r_info[direct_monster_idx].x_char, need_redraw);
+			&attr_top, &char_left, &r_info[direct_species_idx].x_attr, &r_info[direct_species_idx].x_char, need_redraw);
 	}
 
 	/* Terminate the list */
@@ -8072,7 +8072,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 	while (!flag)
 	{
 		char ch;
-		monster_race *r_ptr;
+		species_type *r_ptr;
 
 		if (redraw)
 		{
@@ -8080,14 +8080,14 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 #ifdef JP
 			prt(format("%s - モンスター", !visual_only ? "知識" : "表示"), 2, 0);
-			if (direct_monster_idx < 0) prt("グループ", 4, 0);
+			if (direct_species_idx < 0) prt("グループ", 4, 0);
 			prt("名前", 4, max + 3);
 			if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
 			prt("文字", 4, 67);
 			if (!visual_only) prt("殺害数", 4, 72);
 #else
 			prt(format("%s - monsters", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
-			if (direct_monster_idx < 0) prt("Group", 4, 0);
+			if (direct_species_idx < 0) prt("Group", 4, 0);
 			prt("Name", 4, max + 3);
 			if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
 			prt("Sym", 4, 68);
@@ -8099,7 +8099,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				Term_putch(i, 5, TERM_WHITE, '=');
 			}
 
-			if (direct_monster_idx < 0)
+			if (direct_species_idx < 0)
 			{
 				for (i = 0; i < browser_rows; i++)
 				{
@@ -8110,7 +8110,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			redraw = FALSE;
 		}
 
-		if (direct_monster_idx < 0)
+		if (direct_species_idx < 0)
 		{
 			/* Scroll group list */
 			if (grp_cur < grp_top) grp_top = grp_cur;
@@ -8155,13 +8155,13 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 		prt(format("<方向>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r'で思い出を見る" : "",
 			visual_list ? ", ENTERで決定" : ", 'v'でシンボル変更",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
 			hgt - 1, 0);
 #else
 		prt(format("<dir>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r' to recall" : "",
 			visual_list ? ", ENTER to accept" : ", 'v' for visuals",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
 			hgt - 1, 0);
 #endif
 
@@ -8171,7 +8171,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 		if (!visual_only)
 		{
 			/* Mega Hack -- track this monster race */
-			if (mon_cnt) monster_race_track(mon_idx[mon_cur]);
+			if (mon_cnt) species_type_track(mon_idx[mon_cur]);
 
 			/* Hack -- handle stuff */
 			handle_stuff();
@@ -8195,7 +8195,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 		/* Do visual mode command if needed */
 		if (visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &r_ptr->x_attr, &r_ptr->x_char, need_redraw))
 		{
-			if (direct_monster_idx >= 0)
+			if (direct_species_idx >= 0)
 			{
 				switch (ch)
 				{
@@ -8238,7 +8238,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					int i, j;
 
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
 							for(j = INVEN_RARM; j <= INVEN_FEET; j++)
 							{
@@ -8271,7 +8271,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 					int i;
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
 							/* Save the screen */
 							screen_save();
@@ -8304,7 +8304,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 					int i;
 					for(i = 0; i < max_unique; i++)
-						if(mon_idx[mon_cur] == u_info[i].monster_idx)
+						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
 							/* Save the screen */
 							screen_save();
@@ -8340,7 +8340,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 	}
 
 	/* Free the "mon_idx" array */
-	C_KILL(mon_idx, max_monster_idx, s16b);
+	C_KILL(mon_idx, max_species_idx, s16b);
 }
 
 
@@ -8661,13 +8661,13 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		prt(format("<方向>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r'で詳細を見る" : "",
 			visual_list ? ", ENTERで決定" : ", 'v'でシンボル変更",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
 			hgt - 1, 0);
 #else
 		prt(format("<dir>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r' to recall" : "",
 			visual_list ? ", ENTER to accept" : ", 'v' for visuals",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
 			hgt - 1, 0);
 #endif
 
@@ -9014,12 +9014,12 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 #ifdef JP
 		prt(format("<方向>%s, 'd'で標準光源効果%s, ESC",
 			visual_list ? ", ENTERで決定, 'a'で対象明度変更" : ", 'v'でシンボル変更",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
 			hgt - 1, 0);
 #else
 		prt(format("<dir>%s, 'd' for default lighting%s, ESC",
 			visual_list ? ", ENTER to accept, 'a' for lighting level" : ", 'v' for visuals",
-			(attmonster_idx || chamonster_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
 			hgt - 1, 0);
 #endif
 
@@ -9125,8 +9125,8 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 				{
 					for (i = 0; i < F_LIT_MAX; i++)
 					{
-						attmonster_idx_feat[i] = f_ptr->x_attr[i];
-						chamonster_idx_feat[i] = f_ptr->x_char[i];
+						attspecies_idx_feat[i] = f_ptr->x_attr[i];
+						chaspecies_idx_feat[i] = f_ptr->x_char[i];
 					}
 				}
 				break;
@@ -9138,8 +9138,8 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 					/* Allow TERM_DARK text */
 					for (i = F_LIT_NS_BEGIN; i < F_LIT_MAX; i++)
 					{
-						if (attmonster_idx_feat[i] || (!(chamonster_idx_feat[i] & 0x80) && chamonster_idx_feat[i])) f_ptr->x_attr[i] = attmonster_idx_feat[i];
-						if (chamonster_idx_feat[i]) f_ptr->x_char[i] = chamonster_idx_feat[i];
+						if (attspecies_idx_feat[i] || (!(chaspecies_idx_feat[i] & 0x80) && chaspecies_idx_feat[i])) f_ptr->x_attr[i] = attspecies_idx_feat[i];
+						if (chaspecies_idx_feat[i]) f_ptr->x_char[i] = chaspecies_idx_feat[i];
 					}
 				}
 				break;
@@ -9209,9 +9209,9 @@ static void do_cmd_knowledge_kubi(void)
 
 		for (i = 0; i < MAX_KUBI; i++)
 		{
-			if (kubi_monster_idx[i] <= 10000)
+			if (kubi_species_idx[i] <= 10000)
 			{
-				fprintf(fff,"%s\n", r_name + r_info[kubi_monster_idx[i]].name);
+				fprintf(fff,"%s\n", r_name + r_info[kubi_species_idx[i]].name);
 
 				listed = TRUE;
 			}
@@ -9422,7 +9422,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	char rand_tmp_str[120] = "\0";
 	char dungeon_name[80];
 	char name[80];
-	monster_race *r_ptr;
+	species_type *r_ptr;
 	dungeon_info_type *d_ptr;
 	int i;
 	int rand_level = 100;
@@ -9473,7 +9473,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					{
 					case QUEST_TYPE_KILL_LEVEL:
 					case QUEST_TYPE_KILL_ANY_LEVEL:
-						r_ptr = &r_info[quest[i].monster_idx];
+						r_ptr = &r_info[quest[i].species_idx];
 						d_ptr = &d_info[quest[i].dungeon];
 						strcpy(name, r_name + r_ptr->name);
 						strcpy(dungeon_name, d_name + d_ptr->name);
@@ -9578,7 +9578,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				if (max_dlv[DUNGEON_ANGBAND] >= rand_level)
 				{
 					/* Print the quest info */
-					r_ptr = &r_info[quest[i].monster_idx];
+					r_ptr = &r_info[quest[i].species_idx];
 					strcpy(name, r_name + r_ptr->name);
 
 					if (quest[i].max_num > 1)
@@ -9662,7 +9662,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 
 			total++;
 
-			if (!is_fixed_quest_idx(q_idx) && quest[q_idx].monster_idx)
+			if (!is_fixed_quest_idx(q_idx) && quest[q_idx].species_idx)
 			{
 				/* Print the quest info */
 
@@ -9674,7 +9674,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 #else
 						"  %-40s (Dungeon level: %3d) - (Cancelled)\n",
 #endif
-						r_name+r_info[quest[q_idx].monster_idx].name,
+						r_name+r_info[quest[q_idx].species_idx].name,
 						quest[q_idx].level);
 				}
 				else
@@ -9685,7 +9685,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 #else
 						"  %-40s (Dungeon level: %3d) - level %2d\n",
 #endif
-						r_name+r_info[quest[q_idx].monster_idx].name,
+						r_name+r_info[quest[q_idx].species_idx].name,
 						quest[q_idx].level,
 						quest[q_idx].complev);
 				}
@@ -9754,15 +9754,15 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 
 			total++;
 
-			if (!is_fixed_quest_idx(q_idx) && quest[q_idx].monster_idx)
+			if (!is_fixed_quest_idx(q_idx) && quest[q_idx].species_idx)
 			{
 				/* Print the quest info */
 #ifdef JP
 				sprintf(tmp_str, "  %-40s (%3d階)            - レベル%2d\n",
-					r_name+r_info[quest[q_idx].monster_idx].name, quest[q_idx].level, quest[q_idx].complev);
+					r_name+r_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #else
 				sprintf(tmp_str, "  %-40s (Dungeon level: %3d) - level %2d\n",
-					r_name+r_info[quest[q_idx].monster_idx].name, quest[q_idx].level, quest[q_idx].complev);
+					r_name+r_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #endif
 			}
 			else
@@ -9813,10 +9813,10 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 			/* Print the quest info */
 #ifdef JP
 			sprintf(tmp_str, "  %s (%d階, %s)\n",
-				quest[i].name, quest[i].level, r_name+r_info[quest[i].monster_idx].name);
+				quest[i].name, quest[i].level, r_name+r_info[quest[i].species_idx].name);
 #else
 			sprintf(tmp_str, "  %s (%d, %s)\n",
-				quest[i].name, quest[i].level, r_name+r_info[quest[i].monster_idx].name);
+				quest[i].name, quest[i].level, r_name+r_info[quest[i].species_idx].name);
 #endif
 			fprintf(fff, tmp_str);
 		}

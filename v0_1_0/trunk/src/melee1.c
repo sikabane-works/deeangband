@@ -143,7 +143,7 @@ static cptr desc_moan[] =
 bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 
-	monster_race *r_ptr = &r_info[atk_ptr->monster_idx];
+	species_type *r_ptr = &r_info[atk_ptr->species_idx];
 
 	int ap_cnt;
 
@@ -222,7 +222,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		int d_side = r_ptr->blow[ap_cnt].d_side;
 
 
-		if (!atk_ptr->monster_idx) break;
+		if (!atk_ptr->species_idx) break;
 
 		/* Hack -- no more attacks */
 		if (!method) break;
@@ -567,7 +567,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #ifdef JP
 					abbreviate = -1;
 #endif
-					act = desc_insult[randint0(atk_ptr->monster_idx == MON_DEBBY ? 10 : 8)];
+					act = desc_insult[randint0(atk_ptr->species_idx == MON_DEBBY ? 10 : 8)];
 					sound(SOUND_MOAN);
 					break;
 				}
@@ -587,7 +587,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #ifdef JP
 					abbreviate = -1;
 #endif
-					if (atk_ptr->monster_idx == MON_JAIAN)
+					if (atk_ptr->species_idx == MON_JAIAN)
 					{
 #ifdef JP
 						switch(randint1(15))
@@ -1255,7 +1255,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (set_blind(tar_ptr, tar_ptr->blind + 10 + randint1(rlev)))
 						{
 #ifdef JP
-							if (atk_ptr->monster_idx == MON_DIO) msg_print("どうだッ！この血の目潰しはッ！");
+							if (atk_ptr->species_idx == MON_DIO) msg_print("どうだッ！この血の目潰しはッ！");
 #else
 							/* nanka */
 #endif
@@ -1854,7 +1854,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 				sound(SOUND_EXPLODE);
 
 				take_hit(atk_ptr, atk_ptr, 0, atk_ptr->chp + 1, NULL, NULL, -1);
-				if(atk_ptr->monster_idx == 0)
+				if(atk_ptr->species_idx == 0)
 				{
 					blinked = FALSE;
 					alive = FALSE;
@@ -1879,7 +1879,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("%^s is suddenly very hot!", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1908,7 +1908,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("%^s gets zapped!", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1937,7 +1937,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("%^s is very cold!", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -1967,7 +1967,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("%^s gets zapped!", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2003,7 +2003,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 							msg_format("%^s is injured by holy power!", m_name);
 							take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-							if(atk_ptr->monster_idx == 0)
+							if(atk_ptr->species_idx == 0)
 							{
 								blinked = FALSE;
 								alive = FALSE;
@@ -2035,7 +2035,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("%^s is injured by the Force", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;
@@ -2075,7 +2075,7 @@ msg_format("%sは体力を回復したようだ。", m_name);
 						msg_format("Enveloped shadows attack %^s.", m_name);
 						take_hit(tar_ptr, atk_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-						if(atk_ptr->monster_idx == 0)
+						if(atk_ptr->species_idx == 0)
 						{
 							blinked = FALSE;
 							alive = FALSE;

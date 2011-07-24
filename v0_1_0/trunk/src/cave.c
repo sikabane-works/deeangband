@@ -644,7 +644,7 @@ static void image_monster(byte *ap, char *cp)
 	/* Random symbol from set above */
 	if (use_graphics)
 	{
-		monster_race *r_ptr = &r_info[randint1(max_monster_idx - 1)];
+		species_type *r_ptr = &r_info[randint1(max_species_idx - 1)];
 
 		*cp = r_ptr->x_char;
 		*ap = r_ptr->x_attr;
@@ -1231,7 +1231,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		/* Visible monster */
 		if (m_ptr->ml)
 		{
-			monster_race *r_ptr = &r_info[m_ptr->ap_monster_idx];
+			species_type *r_ptr = &r_info[m_ptr->ap_species_idx];
 
 			feat_priority = 30;
 
@@ -1320,7 +1320,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					{
 						if (use_graphics)
 						{
-							monster_race *tmp_r_ptr = &r_info[randint1(max_monster_idx - 1)];
+							species_type *tmp_r_ptr = &r_info[randint1(max_species_idx - 1)];
 							*cp = tmp_r_ptr->x_char;
 							*ap = tmp_r_ptr->x_attr;
 						}
@@ -1344,7 +1344,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	/* Handle "player" */
 	if (player_bold(y, x))
 	{
-		monster_race *r_ptr = &r_info[0];
+		species_type *r_ptr = &r_info[0];
 
 		/* Get the "player" attr */
 		*ap = r_ptr->x_attr;
@@ -3024,16 +3024,16 @@ void update_mon_lite(void)
 	if (!world_monster)
 	{
 		creature_type *m_ptr;
-		monster_race *r_ptr;
+		species_type *r_ptr;
 
 		/* Loop through monsters, adding newly lit squares to changes list */
 		for (i = 1; i < m_max; i++)
 		{
 			m_ptr = &m_list[i];
-			r_ptr = &r_info[m_ptr->monster_idx];
+			r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Skip dead monsters */
-			if (!m_ptr->monster_idx) continue;
+			if (!m_ptr->species_idx) continue;
 
 			/* Is it too far away? */
 			if (m_ptr->cdis > dis_lim) continue;
@@ -4994,10 +4994,10 @@ void health_track(int m_idx)
 /*
  * Hack -- track the given monster race
  */
-void monster_race_track(int monster_idx)
+void species_type_track(int species_idx)
 {
 	/* Save this monster ID */
-	p_ptr->monster_race_idx = monster_idx;
+	p_ptr->species_type_idx = species_idx;
 
 	/* Window stuff */
 	play_window |= (PW_MONSTER);

@@ -1630,8 +1630,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &m_list[w1];
 	creature_type *m_ptr2 = &m_list[w2];
-	monster_race *r_ptr1 = &r_info[m_ptr1->monster_idx];
-	monster_race *r_ptr2 = &r_info[m_ptr2->monster_idx];
+	species_type *r_ptr1 = &r_info[m_ptr1->species_idx];
+	species_type *r_ptr2 = &r_info[m_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
@@ -1660,7 +1660,7 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 {
 	s32b old_friend_align = friend_align;
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	if (inc)
 	{
@@ -1691,11 +1691,11 @@ int calculate_upkeep(void)
 	for (m_idx = m_max - 1; m_idx >=1; m_idx--)
 	{
 		creature_type *m_ptr;
-		monster_race *r_ptr;
+		species_type *r_ptr;
 		
 		m_ptr = &m_list[m_idx];
-		if (!m_ptr->monster_idx) continue;
-		r_ptr = &r_info[m_ptr->monster_idx];
+		if (!m_ptr->species_idx) continue;
+		r_ptr = &r_info[m_ptr->species_idx];
 
 		if (is_pet(m_ptr))
 		{
@@ -1706,7 +1706,7 @@ int calculate_upkeep(void)
 				{
 					if (p_ptr->riding == m_idx)
 						total_friend_levels += (r_ptr->level+5)*2;
-					else if (!have_a_unique && (r_info[m_ptr->monster_idx].flags7 & RF7_RIDING))
+					else if (!have_a_unique && (r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
 						total_friend_levels += (r_ptr->level+5)*7/2;
 					else
 						total_friend_levels += (r_ptr->level+5)*10;
@@ -1872,7 +1872,7 @@ void do_cmd_pet_dismiss(void)
 			play_window |= (PW_MESSAGE);
 			window_stuff();
 
-			delete_monster_idx(&m_list[pet_ctr]);
+			delete_species_idx(&m_list[pet_ctr]);
 			Dismissed++;
 		}
 	}
@@ -1940,7 +1940,7 @@ bool rakuba(int dam, bool force)
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[80];
 	creature_type *m_ptr = &m_list[p_ptr->riding];
-	monster_race *r_ptr = &r_info[m_ptr->monster_idx];
+	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
 
 	if (!p_ptr->riding) return FALSE;
@@ -2167,7 +2167,7 @@ bool do_riding(bool force)
 
 			return FALSE;
 		}
-		if (!(r_info[m_ptr->monster_idx].flags7 & RF7_RIDING))
+		if (!(r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
 		{
 #ifdef JP
 			msg_print("そのモンスターには乗れなさそうだ。");
@@ -2198,7 +2198,7 @@ bool do_riding(bool force)
 
 			return FALSE;
 		}
-		if (r_info[m_ptr->monster_idx].level > randint1((p_ptr->skill_exp[GINOU_RIDING] / 50 + p_ptr->lev / 2 + 20)))
+		if (r_info[m_ptr->species_idx].level > randint1((p_ptr->skill_exp[GINOU_RIDING] / 50 + p_ptr->lev / 2 + 20)))
 		{
 #ifdef JP
 			msg_print("うまく乗れなかった。");
@@ -2280,7 +2280,7 @@ static void do_name_pet(void)
 #endif
 			return;
 		}
-		if (r_info[m_ptr->monster_idx].flags1 & RF1_UNIQUE)
+		if (r_info[m_ptr->species_idx].flags1 & RF1_UNIQUE)
 		{
 #ifdef JP
 			msg_print("そのモンスターの名前は変えられない！");
@@ -2381,10 +2381,10 @@ void do_cmd_pet(void)
 
 #ifdef JP
 	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (p_ptr->image ? "何か奇妙な物" : (r_name + r_info[m_list[pet_t_m_idx].ap_monster_idx].name)) : "指定なし"));
+		(pet_t_m_idx ? (p_ptr->image ? "何か奇妙な物" : (r_name + r_info[m_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
 #else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (p_ptr->image ? "something strange" : (r_name + r_info[m_list[pet_t_m_idx].ap_monster_idx].name)) : "nothing"));
+		(pet_t_m_idx ? (p_ptr->image ? "something strange" : (r_name + r_info[m_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
 #endif
 	power_desc[num] = target_buf;
 
