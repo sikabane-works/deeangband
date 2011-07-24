@@ -1535,6 +1535,8 @@ struct creature_type
 
 	u32b possible_equipment;     /* Possible Equipment*/
 
+	species_blow blow[4];	/* Up to four blows per round */
+
 };
 
 

@@ -4440,6 +4440,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->dis_to_a -= 50;
 	}
 
+	/* Set Species Blow. */
+	cr_ptr->blow[0] = r_info[cr_ptr->species_idx].blow[0];
+	cr_ptr->blow[1] = r_info[cr_ptr->species_idx].blow[1];
+	cr_ptr->blow[2] = r_info[cr_ptr->species_idx].blow[2];
+	cr_ptr->blow[3] = r_info[cr_ptr->species_idx].blow[3];
+
+
+
 	/* Hack -- aura of fire also provides light */
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 

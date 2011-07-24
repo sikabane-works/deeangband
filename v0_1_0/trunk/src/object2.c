@@ -6869,11 +6869,11 @@ bool process_warning(int xx, int yy)
 					for (m = 0; m < 4; m++)
 					{
 						/* Skip non-attacks */
-						if (!r_ptr->blow[m].method || (r_ptr->blow[m].method == RBM_SHOOT)) continue;
+						if (!m_ptr->blow[m].method || (m_ptr->blow[m].method == RBM_SHOOT)) continue;
 
 						/* Extract the attack info */
-						dam_melee += blow_damcalc(m_ptr, &r_ptr->blow[m]);
-						if (r_ptr->blow[m].method == RBM_EXPLODE) break;
+						dam_melee += blow_damcalc(m_ptr, &m_ptr->blow[m]);
+						if (m_ptr->blow[m].method == RBM_EXPLODE) break;
 					}
 					if (dam_melee > dam_max0) dam_max0 = dam_melee;
 				}
