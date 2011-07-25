@@ -1795,12 +1795,12 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 		else basedam = 0;
 	}
 	damage += basedam;
-	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
-	if (damage < 0) damage = 0;
 
 	av_dam = blows * damage / 100;
 
 	o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
+	if (damage < 0) damage = 0;
 
 	/* Hack -- add in weapon info if known */
 	if (object_is_known(o_ptr)) show_tohit += o_ptr->to_h;
@@ -2166,13 +2166,12 @@ static cptr likert(int x, int y)
  */
 static void display_player_various(creature_type * cr_ptr)
 {
-	int         tmp, damage[2], blows1, blows2, i, basedam;
+	int         tmp;
 	int			xthn, xthb, xfos, xsrh;
 	int			xdis, xdev, xrob, xagi, xvol, xstl;
 	int			xdig;
 	cptr		desc;
 	int         muta_att = 0;
-	u32b flgs[TR_FLAG_SIZE];
 	int		shots, shot_frac;
 
 	object_type		*o_ptr;
