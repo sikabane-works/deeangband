@@ -672,7 +672,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						chance -= 3 * (plev - spell.min_lev);
 
 						/* Reduce failure rate by INT/WIS adjustment */
-						chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
+						chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]] - 1);
 
 						if (use_mind == MIND_KI)
 						{
@@ -698,7 +698,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						chance += p_ptr->to_m_chance;
 
 						/* Extract the minimum failure rate */
-						minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]];
+						minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]];
 
 						/* Minimum failure rate */
 						if (chance < minfail) chance = minfail;
@@ -1910,7 +1910,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return;
 		chance += p_ptr->to_m_chance;
 
 		/* Reduce failure rate by INT/WIS adjustment */
-		chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]] - 1);
+		chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]] - 1);
 
 		/* Not enough mana to cast */
 		if ((mana_cost > p_ptr->csp) && (use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
@@ -1919,7 +1919,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return;
 		}
 
 		/* Extract the minimum failure rate */
-		minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->sex].spell_stat]];
+		minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]];
 
 		/* Minimum failure rate */
 		if (chance < minfail) chance = minfail;

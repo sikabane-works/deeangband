@@ -7079,7 +7079,7 @@ static void do_cmd_knowledge_spell_exp(void)
 			}
 			else
 			{
-				s_ptr = &m_info[p_ptr->sex].info[p_ptr->realm1 - 1][i];
+				s_ptr = &m_info[p_ptr->realm1].info[p_ptr->realm1 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 			spell_exp = p_ptr->spell_exp[i];
@@ -7113,7 +7113,7 @@ static void do_cmd_knowledge_spell_exp(void)
 			}
 			else
 			{
-				s_ptr = &m_info[p_ptr->sex].info[p_ptr->realm2 - 1][i];
+				s_ptr = &m_info[p_ptr->realm1].info[p_ptr->realm2 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 
