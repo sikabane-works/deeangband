@@ -1108,7 +1108,7 @@ extern void do_cmd_kaji(bool only_browse);
 
 /* racial.c */
 extern bool gain_magic(void);
-extern void do_cmd_racial_power(void);
+extern void do_cmd_racial_power(creature_type *cr_ptr);
 
 /* save.c */
 extern bool save_player(void);

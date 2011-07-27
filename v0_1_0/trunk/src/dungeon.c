@@ -5176,7 +5176,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use racial power */
 		case 'U':
 		{
-			if (!p_ptr->wild_mode) do_cmd_racial_power();
+			if (!p_ptr->wild_mode) do_cmd_racial_power(p_ptr);
 			break;
 		}
 

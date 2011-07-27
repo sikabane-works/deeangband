@@ -2178,14 +2178,14 @@ static bool cmd_racial_power_aux(s32b command)
 /*
  * Allow user to choose a power (racial / mutation) to activate
  */
-void do_cmd_racial_power(void)
+void do_cmd_racial_power(creature_type *cr_ptr)
 {
 	power_desc_type power_desc[36];
 	int             num, i = 0;
 	int             ask = TRUE;
-	int             lvl = p_ptr->lev;
+	int             lvl = cr_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = ((p_ptr->cls_idx == CLASS_WARRIOR || p_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
+	bool            warrior = ((cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_BERSERKER) ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
@@ -2199,7 +2199,7 @@ void do_cmd_racial_power(void)
 
 	num = 0;
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて特殊能力を使えません！");
@@ -2211,12 +2211,12 @@ msg_print("混乱していて特殊能力を使えません！");
 		return;
 	}
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	switch (p_ptr->cls_idx)
+	switch (cr_ptr->cls_idx)
 	{
 	case CLASS_WARRIOR:
 	{
@@ -2234,7 +2234,7 @@ strcpy(power_desc[num].name, "剣の舞い");
 		break;
 	}
 	case CLASS_HIGH_MAGE:
-	if (p_ptr->realm1 == REALM_HEX)
+	if (cr_ptr->realm1 == REALM_HEX)
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "詠唱をやめる");
@@ -2267,7 +2267,7 @@ strcpy(power_desc[num].name, "魔力食い");
 	}
 	case CLASS_PRIEST:
 	{
-		if (is_good_realm(p_ptr->realm1))
+		if (is_good_realm(cr_ptr->realm1))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "武器祝福");
@@ -2330,7 +2330,7 @@ strcpy(power_desc[num].name, "モンスター調査");
 	}
 	case CLASS_PALADIN:
 	{
-		if (is_good_realm(p_ptr->realm1))
+		if (is_good_realm(cr_ptr->realm1))
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "ホーリー・ランス");
@@ -2493,7 +2493,7 @@ strcpy(power_desc[num].name, "生物支配");
 #endif
 
 		power_desc[num].level = 1;
-		power_desc[num].cost = (p_ptr->lev+3)/4;
+		power_desc[num].cost = (cr_ptr->lev+3)/4;
 		power_desc[num].stat = A_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
@@ -2504,7 +2504,7 @@ strcpy(power_desc[num].name, "真・生物支配");
 #endif
 
 		power_desc[num].level = 30;
-		power_desc[num].cost = (p_ptr->lev+20)/2;
+		power_desc[num].cost = (cr_ptr->lev+20)/2;
 		power_desc[num].stat = A_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
@@ -2706,9 +2706,9 @@ strcpy(power_desc[0].name, "(なし)");
 
 	}
 
-	if (p_ptr->mimic_form)
+	if (cr_ptr->mimic_form)
 	{
-		switch (p_ptr->mimic_form)
+		switch (cr_ptr->mimic_form)
 		{
 		case MIMIC_DEMON:
 		case MIMIC_DEMON_LORD:
@@ -2741,7 +2741,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 	}
 	else
 	{
-	switch (p_ptr->irace_idx)
+	switch (cr_ptr->irace_idx)
 	{
 		case RACE_DWARF:
 #ifdef JP
@@ -3095,7 +3095,7 @@ strcpy(power_desc[num].name, "横に伸びる");
 			power_desc[num++].number = -1;
 			break;
 		case RACE_ANDROID:
-			if (p_ptr->lev < 10)
+			if (cr_ptr->lev < 10)
 			{
 #ifdef JP
 strcpy(power_desc[num].name, "レイガン");
@@ -3107,7 +3107,7 @@ strcpy(power_desc[num].name, "レイガン");
 				power_desc[num].cost = 7;
 				power_desc[num].fail = 8;
 			}
-			else if (p_ptr->lev < 25)
+			else if (cr_ptr->lev < 25)
 			{
 #ifdef JP
 strcpy(power_desc[num].name, "ブラスター");
@@ -3119,7 +3119,7 @@ strcpy(power_desc[num].name, "ブラスター");
 				power_desc[num].cost = 13;
 				power_desc[num].fail = 10;
 			}
-			else if (p_ptr->lev < 35)
+			else if (cr_ptr->lev < 35)
 			{
 #ifdef JP
 strcpy(power_desc[num].name, "バズーカ");
@@ -3131,7 +3131,7 @@ strcpy(power_desc[num].name, "バズーカ");
 				power_desc[num].cost = 26;
 				power_desc[num].fail = 12;
 			}
-			else if (p_ptr->lev < 45)
+			else if (cr_ptr->lev < 45)
 			{
 #ifdef JP
 strcpy(power_desc[num].name, "ビームキャノン");
@@ -3165,9 +3165,9 @@ strcpy(power_desc[num].name, "ロケット");
 	}
 	}
 
-	if (p_ptr->muta1)
+	if (cr_ptr->muta1)
 	{
-		if (p_ptr->muta1 & MUT1_SPIT_ACID)
+		if (cr_ptr->muta1 & MUT1_SPIT_ACID)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "酸の唾");
@@ -3182,7 +3182,7 @@ strcpy(power_desc[num].name, "酸の唾");
 			power_desc[num++].number = MUT1_SPIT_ACID;
 		}
 
-		if (p_ptr->muta1 & MUT1_BR_FIRE)
+		if (cr_ptr->muta1 & MUT1_BR_FIRE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "炎のブレス");
@@ -3197,7 +3197,7 @@ strcpy(power_desc[num].name, "炎のブレス");
 			power_desc[num++].number = MUT1_BR_FIRE;
 		}
 
-		if (p_ptr->muta1 & MUT1_HYPN_GAZE)
+		if (cr_ptr->muta1 & MUT1_HYPN_GAZE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "催眠睨み");
@@ -3212,7 +3212,7 @@ strcpy(power_desc[num].name, "催眠睨み");
 			power_desc[num++].number = MUT1_HYPN_GAZE;
 		}
 
-		if (p_ptr->muta1 & MUT1_TELEKINES)
+		if (cr_ptr->muta1 & MUT1_TELEKINES)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "念動力");
@@ -3227,7 +3227,7 @@ strcpy(power_desc[num].name, "念動力");
 			power_desc[num++].number = MUT1_TELEKINES;
 		}
 
-		if (p_ptr->muta1 & MUT1_VTELEPORT)
+		if (cr_ptr->muta1 & MUT1_VTELEPORT)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "テレポート");
@@ -3242,7 +3242,7 @@ strcpy(power_desc[num].name, "テレポート");
 			power_desc[num++].number = MUT1_VTELEPORT;
 		}
 
-		if (p_ptr->muta1 & MUT1_MIND_BLST)
+		if (cr_ptr->muta1 & MUT1_MIND_BLST)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "精神攻撃");
@@ -3257,7 +3257,7 @@ strcpy(power_desc[num].name, "精神攻撃");
 			power_desc[num++].number = MUT1_MIND_BLST;
 		}
 
-		if (p_ptr->muta1 & MUT1_RADIATION)
+		if (cr_ptr->muta1 & MUT1_RADIATION)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "放射能");
@@ -3272,7 +3272,7 @@ strcpy(power_desc[num].name, "放射能");
 			power_desc[num++].number = MUT1_RADIATION;
 		}
 
-		if (p_ptr->muta1 & MUT1_VAMPIRISM)
+		if (cr_ptr->muta1 & MUT1_VAMPIRISM)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "吸血ドレイン");
@@ -3287,7 +3287,7 @@ strcpy(power_desc[num].name, "吸血ドレイン");
 			power_desc[num++].number = MUT1_VAMPIRISM;
 		}
 
-		if (p_ptr->muta1 & MUT1_SMELL_MET)
+		if (cr_ptr->muta1 & MUT1_SMELL_MET)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "金属嗅覚");
@@ -3302,7 +3302,7 @@ strcpy(power_desc[num].name, "金属嗅覚");
 			power_desc[num++].number = MUT1_SMELL_MET;
 		}
 
-		if (p_ptr->muta1 & MUT1_SMELL_MON)
+		if (cr_ptr->muta1 & MUT1_SMELL_MON)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "敵臭嗅覚");
@@ -3317,7 +3317,7 @@ strcpy(power_desc[num].name, "敵臭嗅覚");
 			power_desc[num++].number = MUT1_SMELL_MON;
 		}
 
-		if (p_ptr->muta1 & MUT1_BLINK)
+		if (cr_ptr->muta1 & MUT1_BLINK)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "ショート・テレポート");
@@ -3332,7 +3332,7 @@ strcpy(power_desc[num].name, "ショート・テレポート");
 			power_desc[num++].number = MUT1_BLINK;
 		}
 
-		if (p_ptr->muta1 & MUT1_EAT_ROCK)
+		if (cr_ptr->muta1 & MUT1_EAT_ROCK)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "岩食い");
@@ -3347,7 +3347,7 @@ strcpy(power_desc[num].name, "岩食い");
 			power_desc[num++].number = MUT1_EAT_ROCK;
 		}
 
-		if (p_ptr->muta1 & MUT1_SWAP_POS)
+		if (cr_ptr->muta1 & MUT1_SWAP_POS)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "位置交換");
@@ -3362,7 +3362,7 @@ strcpy(power_desc[num].name, "位置交換");
 			power_desc[num++].number = MUT1_SWAP_POS;
 		}
 
-		if (p_ptr->muta1 & MUT1_SHRIEK)
+		if (cr_ptr->muta1 & MUT1_SHRIEK)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "叫び");
@@ -3377,7 +3377,7 @@ strcpy(power_desc[num].name, "叫び");
 			power_desc[num++].number = MUT1_SHRIEK;
 		}
 
-		if (p_ptr->muta1 & MUT1_ILLUMINE)
+		if (cr_ptr->muta1 & MUT1_ILLUMINE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "照明");
@@ -3392,7 +3392,7 @@ strcpy(power_desc[num].name, "照明");
 			power_desc[num++].number = MUT1_ILLUMINE;
 		}
 
-		if (p_ptr->muta1 & MUT1_DET_CURSE)
+		if (cr_ptr->muta1 & MUT1_DET_CURSE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "呪い感知");
@@ -3407,7 +3407,7 @@ strcpy(power_desc[num].name, "呪い感知");
 			power_desc[num++].number = MUT1_DET_CURSE;
 		}
 
-		if (p_ptr->muta1 & MUT1_BERSERK)
+		if (cr_ptr->muta1 & MUT1_BERSERK)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "狂戦士化");
@@ -3422,7 +3422,7 @@ strcpy(power_desc[num].name, "狂戦士化");
 			power_desc[num++].number = MUT1_BERSERK;
 		}
 
-		if (p_ptr->muta1 & MUT1_POLYMORPH)
+		if (cr_ptr->muta1 & MUT1_POLYMORPH)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "変身");
@@ -3437,7 +3437,7 @@ strcpy(power_desc[num].name, "変身");
 			power_desc[num++].number = MUT1_POLYMORPH;
 		}
 
-		if (p_ptr->muta1 & MUT1_MIDAS_TCH)
+		if (cr_ptr->muta1 & MUT1_MIDAS_TCH)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "ミダスの手");
@@ -3452,7 +3452,7 @@ strcpy(power_desc[num].name, "ミダスの手");
 			power_desc[num++].number = MUT1_MIDAS_TCH;
 		}
 
-		if (p_ptr->muta1 & MUT1_GROW_MOLD)
+		if (cr_ptr->muta1 & MUT1_GROW_MOLD)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "カビ発生");
@@ -3467,7 +3467,7 @@ strcpy(power_desc[num].name, "カビ発生");
 			power_desc[num++].number = MUT1_GROW_MOLD;
 		}
 
-		if (p_ptr->muta1 & MUT1_RESIST)
+		if (cr_ptr->muta1 & MUT1_RESIST)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "エレメント耐性");
@@ -3482,7 +3482,7 @@ strcpy(power_desc[num].name, "エレメント耐性");
 			power_desc[num++].number = MUT1_RESIST;
 		}
 
-		if (p_ptr->muta1 & MUT1_EARTHQUAKE)
+		if (cr_ptr->muta1 & MUT1_EARTHQUAKE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "地震");
@@ -3497,7 +3497,7 @@ strcpy(power_desc[num].name, "地震");
 			power_desc[num++].number = MUT1_EARTHQUAKE;
 		}
 
-		if (p_ptr->muta1 & MUT1_EAT_MAGIC)
+		if (cr_ptr->muta1 & MUT1_EAT_MAGIC)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "魔力食い");
@@ -3512,7 +3512,7 @@ strcpy(power_desc[num].name, "魔力食い");
 			power_desc[num++].number = MUT1_EAT_MAGIC;
 		}
 
-		if (p_ptr->muta1 & MUT1_WEIGH_MAG)
+		if (cr_ptr->muta1 & MUT1_WEIGH_MAG)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "魔力感知");
@@ -3527,7 +3527,7 @@ strcpy(power_desc[num].name, "魔力感知");
 			power_desc[num++].number = MUT1_WEIGH_MAG;
 		}
 
-		if (p_ptr->muta1 & MUT1_STERILITY)
+		if (cr_ptr->muta1 & MUT1_STERILITY)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "増殖阻止");
@@ -3542,7 +3542,7 @@ strcpy(power_desc[num].name, "増殖阻止");
 			power_desc[num++].number = MUT1_STERILITY;
 		}
 
-		if (p_ptr->muta1 & MUT1_PANIC_HIT)
+		if (cr_ptr->muta1 & MUT1_PANIC_HIT)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "ヒット＆アウェイ");
@@ -3557,7 +3557,7 @@ strcpy(power_desc[num].name, "ヒット＆アウェイ");
 			power_desc[num++].number = MUT1_PANIC_HIT;
 		}
 
-		if (p_ptr->muta1 & MUT1_DAZZLE)
+		if (cr_ptr->muta1 & MUT1_DAZZLE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "眩惑");
@@ -3572,7 +3572,7 @@ strcpy(power_desc[num].name, "眩惑");
 			power_desc[num++].number = MUT1_DAZZLE;
 		}
 
-		if (p_ptr->muta1 & MUT1_LASER_EYE)
+		if (cr_ptr->muta1 & MUT1_LASER_EYE)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "レーザー・アイ");
@@ -3587,7 +3587,7 @@ strcpy(power_desc[num].name, "レーザー・アイ");
 			power_desc[num++].number = MUT1_LASER_EYE;
 		}
 
-		if (p_ptr->muta1 & MUT1_RECALL)
+		if (cr_ptr->muta1 & MUT1_RECALL)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "帰還");
@@ -3602,7 +3602,7 @@ strcpy(power_desc[num].name, "帰還");
 			power_desc[num++].number = MUT1_RECALL;
 		}
 
-		if (p_ptr->muta1 & MUT1_BANISH)
+		if (cr_ptr->muta1 & MUT1_BANISH)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "邪悪消滅");
@@ -3617,7 +3617,7 @@ strcpy(power_desc[num].name, "邪悪消滅");
 			power_desc[num++].number = MUT1_BANISH;
 		}
 
-		if (p_ptr->muta1 & MUT1_COLD_TOUCH)
+		if (cr_ptr->muta1 & MUT1_COLD_TOUCH)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "凍結の手");
@@ -3632,7 +3632,7 @@ strcpy(power_desc[num].name, "凍結の手");
 			power_desc[num++].number = MUT1_COLD_TOUCH;
 		}
 
-		if (p_ptr->muta1 & MUT1_LAUNCHER)
+		if (cr_ptr->muta1 & MUT1_LAUNCHER)
 		{
 #ifdef JP
 strcpy(power_desc[num].name, "アイテム投げ");
@@ -3900,17 +3900,17 @@ prt("                            Lv   MP 失率                            Lv   MP
 			int actual_racial_cost = racial_cost / 2 + randint1(racial_cost / 2);
 
 			/* If mana is not enough, player consumes hit point! */
-			if (p_ptr->csp < actual_racial_cost)
+			if (cr_ptr->csp < actual_racial_cost)
 			{
-				actual_racial_cost -= p_ptr->csp;
-				p_ptr->csp = 0;
+				actual_racial_cost -= cr_ptr->csp;
+				cr_ptr->csp = 0;
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, actual_racial_cost, "過度の集中", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, actual_racial_cost, "過度の集中", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
 #endif
 			}
-			else p_ptr->csp -= actual_racial_cost;
+			else cr_ptr->csp -= actual_racial_cost;
 
 			/* Redraw mana and hp */
 			play_redraw |= (PR_HP | PR_MANA);
