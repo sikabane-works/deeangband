@@ -3299,10 +3299,10 @@ int calc_mutant_regenerate_mod(void)
 }
 
 
-void mutation_stop_mouth()
+void mutation_stop_mouth(creature_type *cr_ptr)
 {
-	if (music_singing_any(p_ptr)) stop_singing();
-	if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
+	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 }
 
 
@@ -3316,7 +3316,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 	{
 		case MUT1_SPIT_ACID:
 			if (!get_aim_dir(&dir)) return FALSE;
-			mutation_stop_mouth();
+			mutation_stop_mouth(p_ptr);
 #ifdef JP
 			msg_print("Ž_‚ð“f‚«‚©‚¯‚½...");
 #else
@@ -3328,7 +3328,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case MUT1_BR_FIRE:
 			if (!get_aim_dir(&dir)) return FALSE;
-			mutation_stop_mouth();
+			mutation_stop_mouth(p_ptr);
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Í‰Î‰Š‚ÌƒuƒŒƒX‚ð“f‚¢‚½...");
 #else
@@ -3402,7 +3402,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				mutation_stop_mouth();
+				mutation_stop_mouth(p_ptr);
 
 				if (!(c_ptr->m_idx))
 				{
@@ -3455,12 +3455,12 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_SMELL_MET:
-			mutation_stop_mouth();
+			mutation_stop_mouth(p_ptr);
 			(void)detect_treasure(DETECT_RAD_DEFAULT);
 			break;
 
 		case MUT1_SMELL_MON:
-			mutation_stop_mouth();
+			mutation_stop_mouth(p_ptr);
 			(void)detect_monsters_normal(DETECT_RAD_DEFAULT);
 			break;
 
@@ -3481,7 +3481,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				f_ptr = &f_info[c_ptr->feat];
 				mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
-				mutation_stop_mouth();
+				mutation_stop_mouth(p_ptr);
 
 				if (!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
 				{
@@ -3569,7 +3569,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_SHRIEK:
-			mutation_stop_mouth();
+			mutation_stop_mouth(p_ptr);
 			(void)fire_ball(GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_monsters(0);
 			break;

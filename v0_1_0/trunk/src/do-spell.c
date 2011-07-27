@@ -1154,32 +1154,32 @@ static void start_singing(int spell, int song)
 /*
  * Stop singing if the player is a Bard 
  */
-void stop_singing(void)
+void stop_singing(creature_type *cr_ptr)
 {
-	if (p_ptr->cls_idx != CLASS_BARD) return;
+	if (cr_ptr->cls_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
-	if (p_ptr->magic_num1[1])
+	if (cr_ptr->magic_num1[1])
 	{
 		/* Forget interupted song */
-		p_ptr->magic_num1[1] = 0;
+		cr_ptr->magic_num1[1] = 0;
 		return;
 	}
 
 	/* The player is singing? */
-	if (!p_ptr->magic_num1[0]) return;
+	if (!cr_ptr->magic_num1[0]) return;
 
-	/* Hack -- if called from set_action(p_ptr, ), avoid recursive loop */
-	if (p_ptr->action == ACTION_SING) set_action(p_ptr, ACTION_NONE);
+	/* Hack -- if called from set_action(cr_ptr, ), avoid recursive loop */
+	if (cr_ptr->action == ACTION_SING) set_action(cr_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
-	do_spell(REALM_MUSIC, p_ptr->magic_num2[0], SPELL_STOP);
+	do_spell(REALM_MUSIC, cr_ptr->magic_num2[0], SPELL_STOP);
 
-	p_ptr->magic_num1[0] = MUSIC_NONE;
-	p_ptr->magic_num2[0] = 0;
+	cr_ptr->magic_num1[0] = MUSIC_NONE;
+	cr_ptr->magic_num2[0] = 0;
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -8976,7 +8976,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9010,7 +9010,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9046,7 +9046,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		{
 			int dice = 4 + (plev - 1) / 5;
@@ -9073,7 +9073,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9109,7 +9109,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9145,7 +9145,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		{
 			int dice = 2;
@@ -9177,7 +9177,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9212,7 +9212,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9257,7 +9257,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9328,7 +9328,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9364,7 +9364,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9403,7 +9403,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9439,7 +9439,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9474,7 +9474,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9511,7 +9511,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -9536,7 +9536,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9572,7 +9572,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9607,7 +9607,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9679,7 +9679,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9721,7 +9721,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_radius(rad);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -9746,7 +9746,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9782,7 +9782,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9824,7 +9824,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -9851,7 +9851,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_delay(base, sides);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -9876,7 +9876,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9912,7 +9912,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -9948,7 +9948,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -9973,7 +9973,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -10037,7 +10037,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{
@@ -10076,7 +10076,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -10113,7 +10113,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing();
+			if (cast || fail) stop_singing(p_ptr);
 
 			if (cast)
 			{
@@ -10134,7 +10134,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing();
+		if (cast || fail) stop_singing(p_ptr);
 
 		if (cast)
 		{

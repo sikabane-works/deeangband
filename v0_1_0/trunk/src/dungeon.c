@@ -1385,7 +1385,7 @@ static void check_music(void)
 
 	if (p_ptr->anti_magic)
 	{
-		stop_singing();
+		stop_singing(p_ptr);
 		return;
 	}
 
@@ -1400,7 +1400,7 @@ static void check_music(void)
 
 	if (s64b_cmp(p_ptr->csp, p_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_singing();
+		stop_singing(p_ptr);
 		return;
 	}
 	else
@@ -2754,7 +2754,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		msg_print(NULL);
 		set_food(cr_ptr, PY_FOOD_WEAK);
-		if (music_singing_any(cr_ptr)) stop_singing();
+		if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 	}
 

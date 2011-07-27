@@ -104,7 +104,7 @@ void set_action(creature_type *cr_ptr, int typ)
 	cr_ptr->action = typ;
 
 	/* If we are requested other action, stop singing */
-	if (prev_typ == ACTION_SING) stop_singing();
+	if (prev_typ == ACTION_SING) stop_singing(p_ptr);
 
 	switch (cr_ptr->action)
 	{

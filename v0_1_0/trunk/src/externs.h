@@ -852,7 +852,7 @@ extern void initialize_skill(creature_type *cr_ptr);
 
 
 /* do-spell.c */
-extern void stop_singing(void);
+extern void stop_singing(creature_type *cr_ptr);
 extern cptr do_spell(int realm, int spell, int mode);
 
 /* dungeon.c */
@@ -1605,7 +1605,7 @@ extern bool lose_mutation(int choose_mut);
 extern void dump_mutations(FILE *OutFile);
 extern void do_cmd_knowledge_mutations(void);
 extern int calc_mutant_regenerate_mod(void);
-extern bool mutation_power_aux(u32b power);
+extern bool mutation_power_aux(creature_type *cr_ptr, u32b power);
 
 
 /*

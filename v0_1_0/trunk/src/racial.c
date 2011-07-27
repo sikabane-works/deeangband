@@ -885,7 +885,7 @@ static int racial_aux(power_desc_type *pd_ptr)
 
 void ratial_stop_mouth()
 {
-	if (music_singing_any(p_ptr)) stop_singing();
+	if (music_singing_any(p_ptr)) stop_singing(p_ptr);
 	if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
 }
 
@@ -1204,7 +1204,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			/* Singing is already stopped */
 			if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return FALSE;
 
-			stop_singing();
+			stop_singing(p_ptr);
 			energy_use = 10;
 			break;
 		}
