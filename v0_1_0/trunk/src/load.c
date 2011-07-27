@@ -1523,7 +1523,7 @@ static void rd_extra(void)
 	}
 
 	/* Calc the regeneration modifier for mutations */
-	mutant_regenerate_mod = calc_mutant_regenerate_mod();
+	mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
 
 	rd_s16b(&p_ptr->ele_attack);
 	rd_u32b(&p_ptr->special_attack);

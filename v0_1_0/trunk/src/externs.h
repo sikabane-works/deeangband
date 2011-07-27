@@ -1604,7 +1604,7 @@ extern bool gain_random_mutation(int choose_mut);
 extern bool lose_mutation(int choose_mut);
 extern void dump_mutations(FILE *OutFile);
 extern void do_cmd_knowledge_mutations(void);
-extern int calc_mutant_regenerate_mod(void);
+extern int calc_mutant_regenerate_mod(creature_type *cr_ptr);
 extern bool mutation_power_aux(creature_type *cr_ptr, u32b power);
 
 

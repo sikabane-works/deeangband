@@ -1373,7 +1373,7 @@ msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ªŽ¡‚Á‚½B");
 				cr_ptr->muta1 = cr_ptr->muta2 = cr_ptr->muta3 = 0;
 				cr_ptr->update |= PU_BONUS;
 				handle_stuff();
-				mutant_regenerate_mod = calc_mutant_regenerate_mod();
+				mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
 			}
 			ident = TRUE;
 			break;

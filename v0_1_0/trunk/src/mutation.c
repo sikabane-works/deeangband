@@ -1316,7 +1316,7 @@ msg_print("硬いクチバシがなくなった。");
 			}
 		}
 
-		mutant_regenerate_mod = calc_mutant_regenerate_mod();
+		mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
 		p_ptr->update |= PU_BONUS;
 		handle_stuff();
 		return TRUE;
@@ -2325,7 +2325,7 @@ muta_desc = "白いオーラは輝いて消えた。";
 
 		p_ptr->update |= PU_BONUS;
 		handle_stuff();
-		mutant_regenerate_mod = calc_mutant_regenerate_mod();
+		mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
 		return TRUE;
 	}
 }
@@ -3269,7 +3269,7 @@ static int count_mutations(void)
  * Return the modifier to the regeneration rate
  * (in percent)
  */
-int calc_mutant_regenerate_mod(void)
+int calc_mutant_regenerate_mod(creature_type *cr_ptr)
 {
 	int regen;
 	int mod = 10;
@@ -3280,8 +3280,8 @@ int calc_mutant_regenerate_mod(void)
 	 * only 5% decrease per additional mutation
 	 */
 
-	if (p_ptr->chara_idx == CHARA_LUCKY) count--;
-	if (p_ptr->irace_idx == RACE_BEASTMAN)
+	if (cr_ptr->chara_idx == CHARA_LUCKY) count--;
+	if (cr_ptr->irace_idx == RACE_BEASTMAN)
 	{
 		count -= 10;
 		mod = 5;
