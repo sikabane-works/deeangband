@@ -554,7 +554,7 @@ static void wild_magic(int spell)
 		break;
 	case 27:
 	case 28:
-		(void)gain_random_mutation(0);
+		(void)gain_random_mutation(p_ptr, 0);
 		break;
 	case 29:
 	case 30:
@@ -5659,7 +5659,7 @@ static cptr do_trump_spell(int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_random_mutation(mutation))
+				if (gain_random_mutation(p_ptr, mutation))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -7325,7 +7325,7 @@ static cptr do_craft_spell(int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_random_mutation(mutation))
+				if (gain_random_mutation(p_ptr, mutation))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");

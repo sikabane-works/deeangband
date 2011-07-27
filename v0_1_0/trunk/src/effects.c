@@ -5299,7 +5299,7 @@ sprintf(effect_msg, "男性の");
 			/* Polymorph into a less mutated form */
 			power -= 10;
 
-			if (!lose_mutation(0))
+			if (!lose_mutation(p_ptr, 0))
 #ifdef JP
 msg_print("奇妙なくらい普通になった気がする。");
 #else
@@ -5374,7 +5374,7 @@ msg_format("%sの構成が変化した！", cr_ptr->irace_idx == RACE_ANDROID ? "機械" : 
 	while ((power > randint0(15)) && one_in_(3))
 	{
 		power -= 7;
-		(void)gain_random_mutation(0);
+		(void)gain_random_mutation(p_ptr, 0);
 	}
 
 	if (power > randint0(5))

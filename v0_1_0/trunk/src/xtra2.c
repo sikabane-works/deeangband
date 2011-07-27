@@ -196,7 +196,7 @@ msg_print("あなたは変わった気がする...");
 			msg_print("You feel different...");
 #endif
 
-			(void)gain_random_mutation(0);
+			(void)gain_random_mutation(p_ptr, 0);
 			level_mutation = FALSE;
 		}
 
@@ -4668,7 +4668,7 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 			player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-		(void)gain_random_mutation(0);
+		(void)gain_random_mutation(p_ptr, 0);
 #ifdef JP
 		reward = "変異した。";
 #else

@@ -2626,7 +2626,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	}
 	if ((cr_ptr->muta2 & MUT2_NORMALITY) && one_in_(5000))
 	{
-		if (!lose_mutation(0))
+		if (!lose_mutation(p_ptr, 0))
 #ifdef JP
 			msg_print("奇妙なくらい普通になった気がする。");
 #else
@@ -5547,7 +5547,7 @@ msg_print("何か変わった気がする！");
 		msg_print("You feel different!");
 #endif
 
-		(void)gain_random_mutation(0);
+		(void)gain_random_mutation(p_ptr, 0);
 		hack_mutation = FALSE;
 	}
 

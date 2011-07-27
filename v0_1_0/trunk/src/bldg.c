@@ -4900,7 +4900,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		    (p_ptr->chara_idx != CHARA_LUCKY &&
 		     (p_ptr->muta3 & MUT3_GOOD_LUCK)))
 		{
-			while(!lose_mutation(0));
+			while(!lose_mutation(p_ptr, 0));
 			paid = TRUE;
 		}
 		else
