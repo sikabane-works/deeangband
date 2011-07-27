@@ -2331,13 +2331,13 @@ muta_desc = "白いオーラは輝いて消えた。";
 }
 
 
-void dump_mutations(FILE *OutFile)
+void dump_mutations(creature_type *cr_ptr, FILE *OutFile)
 {
 	if (!OutFile) return;
 
-	if (p_ptr->muta1)
+	if (cr_ptr->muta1)
 	{
-		if (p_ptr->muta1 & MUT1_SPIT_ACID)
+		if (cr_ptr->muta1 & MUT1_SPIT_ACID)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
@@ -2346,7 +2346,7 @@ fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_BR_FIRE)
+		if (cr_ptr->muta1 & MUT1_BR_FIRE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n");
@@ -2355,7 +2355,7 @@ fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n")
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_HYPN_GAZE)
+		if (cr_ptr->muta1 & MUT1_HYPN_GAZE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
@@ -2364,7 +2364,7 @@ fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_TELEKINES)
+		if (cr_ptr->muta1 & MUT1_TELEKINES)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは念動力をもっている。\n");
@@ -2373,7 +2373,7 @@ fprintf(OutFile, " あなたは念動力をもっている。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_VTELEPORT)
+		if (cr_ptr->muta1 & MUT1_VTELEPORT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
@@ -2382,7 +2382,7 @@ fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_MIND_BLST)
+		if (cr_ptr->muta1 & MUT1_MIND_BLST)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
@@ -2391,7 +2391,7 @@ fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_RADIATION)
+		if (cr_ptr->muta1 & MUT1_RADIATION)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
@@ -2400,7 +2400,7 @@ fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_VAMPIRISM)
+		if (cr_ptr->muta1 & MUT1_VAMPIRISM)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n");
@@ -2409,7 +2409,7 @@ fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n"
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_SMELL_MET)
+		if (cr_ptr->muta1 & MUT1_SMELL_MET)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
@@ -2418,7 +2418,7 @@ fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_SMELL_MON)
+		if (cr_ptr->muta1 & MUT1_SMELL_MON)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは近くのモンスターの存在をかぎ分けることができる。\n");
@@ -2427,7 +2427,7 @@ fprintf(OutFile, " あなたは近くのモンスターの存在をかぎ分けることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_BLINK)
+		if (cr_ptr->muta1 & MUT1_BLINK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
@@ -2436,7 +2436,7 @@ fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_EAT_ROCK)
+		if (cr_ptr->muta1 & MUT1_EAT_ROCK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
@@ -2445,7 +2445,7 @@ fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_SWAP_POS)
+		if (cr_ptr->muta1 & MUT1_SWAP_POS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
@@ -2454,7 +2454,7 @@ fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_SHRIEK)
+		if (cr_ptr->muta1 & MUT1_SHRIEK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
@@ -2463,7 +2463,7 @@ fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_ILLUMINE)
+		if (cr_ptr->muta1 & MUT1_ILLUMINE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
@@ -2472,7 +2472,7 @@ fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_DET_CURSE)
+		if (cr_ptr->muta1 & MUT1_DET_CURSE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
@@ -2481,7 +2481,7 @@ fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_BERSERK)
+		if (cr_ptr->muta1 & MUT1_BERSERK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
@@ -2490,7 +2490,7 @@ fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_POLYMORPH)
+		if (cr_ptr->muta1 & MUT1_POLYMORPH)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
@@ -2499,7 +2499,7 @@ fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_MIDAS_TCH)
+		if (cr_ptr->muta1 & MUT1_MIDAS_TCH)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
@@ -2508,7 +2508,7 @@ fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_GROW_MOLD)
+		if (cr_ptr->muta1 & MUT1_GROW_MOLD)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
@@ -2517,7 +2517,7 @@ fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_RESIST)
+		if (cr_ptr->muta1 & MUT1_RESIST)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
@@ -2526,7 +2526,7 @@ fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_EARTHQUAKE)
+		if (cr_ptr->muta1 & MUT1_EARTHQUAKE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
@@ -2535,7 +2535,7 @@ fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_EAT_MAGIC)
+		if (cr_ptr->muta1 & MUT1_EAT_MAGIC)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
@@ -2544,7 +2544,7 @@ fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_WEIGH_MAG)
+		if (cr_ptr->muta1 & MUT1_WEIGH_MAG)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
@@ -2553,7 +2553,7 @@ fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_STERILITY)
+		if (cr_ptr->muta1 & MUT1_STERILITY)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
@@ -2562,7 +2562,7 @@ fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_PANIC_HIT)
+		if (cr_ptr->muta1 & MUT1_PANIC_HIT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
@@ -2571,7 +2571,7 @@ fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_DAZZLE)
+		if (cr_ptr->muta1 & MUT1_DAZZLE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 \n");
@@ -2580,7 +2580,7 @@ fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_LASER_EYE)
+		if (cr_ptr->muta1 & MUT1_LASER_EYE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
@@ -2589,7 +2589,7 @@ fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_RECALL)
+		if (cr_ptr->muta1 & MUT1_RECALL)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
@@ -2598,7 +2598,7 @@ fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_BANISH)
+		if (cr_ptr->muta1 & MUT1_BANISH)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪なモンスターを地獄に落とすことができる。\n");
@@ -2607,7 +2607,7 @@ fprintf(OutFile, " あなたは邪悪なモンスターを地獄に落とすことができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_COLD_TOUCH)
+		if (cr_ptr->muta1 & MUT1_COLD_TOUCH)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
@@ -2616,7 +2616,7 @@ fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
 #endif
 
 		}
-		if (p_ptr->muta1 & MUT1_LAUNCHER)
+		if (cr_ptr->muta1 & MUT1_LAUNCHER)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
@@ -2627,9 +2627,9 @@ fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
 		}
 	}
 
-	if (p_ptr->muta2)
+	if (cr_ptr->muta2)
 	{
-		if (p_ptr->muta2 & MUT2_BERS_RAGE)
+		if (cr_ptr->muta2 & MUT2_BERS_RAGE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
@@ -2638,7 +2638,7 @@ fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_COWARDICE)
+		if (cr_ptr->muta2 & MUT2_COWARDICE)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々臆病になる。\n");
@@ -2647,7 +2647,7 @@ fprintf(OutFile, " あなたは時々臆病になる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_RTELEPORT)
+		if (cr_ptr->muta2 & MUT2_RTELEPORT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはランダムにテレポートする。\n");
@@ -2656,7 +2656,7 @@ fprintf(OutFile, " あなたはランダムにテレポートする。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_ALCOHOL)
+		if (cr_ptr->muta2 & MUT2_ALCOHOL)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体はアルコールを分泌する。\n");
@@ -2665,7 +2665,7 @@ fprintf(OutFile, " あなたの体はアルコールを分泌する。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_HALLU)
+		if (cr_ptr->muta2 & MUT2_HALLU)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは幻覚を引き起こす精神錯乱に侵されている。\n");
@@ -2674,7 +2674,7 @@ fprintf(OutFile, " あなたは幻覚を引き起こす精神錯乱に侵されている。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_FLATULENT)
+		if (cr_ptr->muta2 & MUT2_FLATULENT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは制御できない強烈な屁をこく。\n");
@@ -2683,7 +2683,7 @@ fprintf(OutFile, " あなたは制御できない強烈な屁をこく。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_PROD_MANA)
+		if (cr_ptr->muta2 & MUT2_PROD_MANA)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは制御不能な魔法のエネルギーを発している。\n");
@@ -2692,7 +2692,7 @@ fprintf(OutFile, " あなたは制御不能な魔法のエネルギーを発している。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_ATT_DEMON)
+		if (cr_ptr->muta2 & MUT2_ATT_DEMON)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはデーモンを引きつける。\n");
@@ -2701,7 +2701,7 @@ fprintf(OutFile, " あなたはデーモンを引きつける。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_SCOR_TAIL)
+		if (cr_ptr->muta2 & MUT2_SCOR_TAIL)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはサソリの尻尾が生えている。(毒、ダメージ 3d7)\n");
@@ -2710,7 +2710,7 @@ fprintf(OutFile, " あなたはサソリの尻尾が生えている。(毒、ダメージ 3d7)\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_HORNS)
+		if (cr_ptr->muta2 & MUT2_HORNS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは角が生えている。(ダメージ 2d6)\n");
@@ -2719,7 +2719,7 @@ fprintf(OutFile, " あなたは角が生えている。(ダメージ 2d6)\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_BEAK)
+		if (cr_ptr->muta2 & MUT2_BEAK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはクチバシが生えている。(ダメージ 2d4)\n");
@@ -2728,7 +2728,7 @@ fprintf(OutFile, " あなたはクチバシが生えている。(ダメージ 2d4)\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_SPEED_FLUX)
+		if (cr_ptr->muta2 & MUT2_SPEED_FLUX)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはランダムに早く動いたり遅く動いたりする。\n");
@@ -2737,7 +2737,7 @@ fprintf(OutFile, " あなたはランダムに早く動いたり遅く動いたりする。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_BANISH_ALL)
+		if (cr_ptr->muta2 & MUT2_BANISH_ALL)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々近くのモンスターを消滅させる。\n");
@@ -2746,7 +2746,7 @@ fprintf(OutFile, " あなたは時々近くのモンスターを消滅させる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_EAT_LIGHT)
+		if (cr_ptr->muta2 & MUT2_EAT_LIGHT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々周囲の光を吸収して栄養にする。\n");
@@ -2755,7 +2755,7 @@ fprintf(OutFile, " あなたは時々周囲の光を吸収して栄養にする。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_TRUNK)
+		if (cr_ptr->muta2 & MUT2_TRUNK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは象のような鼻を持っている。(ダメージ 1d4)\n");
@@ -2764,7 +2764,7 @@ fprintf(OutFile, " あなたは象のような鼻を持っている。(ダメージ 1d4)\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_ATT_ANIMAL)
+		if (cr_ptr->muta2 & MUT2_ATT_ANIMAL)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは動物を引きつける。\n");
@@ -2773,7 +2773,7 @@ fprintf(OutFile, " あなたは動物を引きつける。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_TENTACLES)
+		if (cr_ptr->muta2 & MUT2_TENTACLES)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪な触手を持っている。(ダメージ 2d5)\n");
@@ -2782,7 +2782,7 @@ fprintf(OutFile, " あなたは邪悪な触手を持っている。(ダメージ 2d5)\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_RAW_CHAOS)
+		if (cr_ptr->muta2 & MUT2_RAW_CHAOS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはしばしば純カオスに包まれる。\n");
@@ -2791,7 +2791,7 @@ fprintf(OutFile, " あなたはしばしば純カオスに包まれる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_NORMALITY)
+		if (cr_ptr->muta2 & MUT2_NORMALITY)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは変異していたが、回復してきている。\n");
@@ -2800,7 +2800,7 @@ fprintf(OutFile, " あなたは変異していたが、回復してきている。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_WRAITH)
+		if (cr_ptr->muta2 & MUT2_WRAITH)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肉体は幽体化したり実体化したりする。\n");
@@ -2809,7 +2809,7 @@ fprintf(OutFile, " あなたの肉体は幽体化したり実体化したりする。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_POLY_WOUND)
+		if (cr_ptr->muta2 & MUT2_POLY_WOUND)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの健康はカオスの力に影響を受ける。\n");
@@ -2818,7 +2818,7 @@ fprintf(OutFile, " あなたの健康はカオスの力に影響を受ける。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_WASTING)
+		if (cr_ptr->muta2 & MUT2_WASTING)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは衰弱する恐ろしい病気にかかっている。\n");
@@ -2827,7 +2827,7 @@ fprintf(OutFile, " あなたは衰弱する恐ろしい病気にかかっている。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_ATT_DRAGON)
+		if (cr_ptr->muta2 & MUT2_ATT_DRAGON)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはドラゴンを引きつける。\n");
@@ -2836,7 +2836,7 @@ fprintf(OutFile, " あなたはドラゴンを引きつける。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_WEIRD_MIND)
+		if (cr_ptr->muta2 & MUT2_WEIRD_MIND)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの精神はランダムに拡大したり縮小したりしている。\n");
@@ -2845,7 +2845,7 @@ fprintf(OutFile, " あなたの精神はランダムに拡大したり縮小したりしている。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_NAUSEA)
+		if (cr_ptr->muta2 & MUT2_NAUSEA)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの胃は非常に落ち着きがない。\n");
@@ -2854,7 +2854,7 @@ fprintf(OutFile, " あなたの胃は非常に落ち着きがない。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_CHAOS_GIFT)
+		if (cr_ptr->muta2 & MUT2_CHAOS_GIFT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはカオスの守護悪魔から褒美をうけとる。\n");
@@ -2863,7 +2863,7 @@ fprintf(OutFile, " あなたはカオスの守護悪魔から褒美をうけとる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_WALK_SHAD)
+		if (cr_ptr->muta2 & MUT2_WALK_SHAD)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはしばしば他の「影」に迷い込む。\n");
@@ -2872,7 +2872,7 @@ fprintf(OutFile, " あなたはしばしば他の「影」に迷い込む。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_WARNING)
+		if (cr_ptr->muta2 & MUT2_WARNING)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは敵に関する警告を感じる。\n");
@@ -2881,7 +2881,7 @@ fprintf(OutFile, " あなたは敵に関する警告を感じる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_INVULN)
+		if (cr_ptr->muta2 & MUT2_INVULN)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々負け知らずな気分になる。\n");
@@ -2890,7 +2890,7 @@ fprintf(OutFile, " あなたは時々負け知らずな気分になる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_SP_TO_HP)
+		if (cr_ptr->muta2 & MUT2_SP_TO_HP)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々血が筋肉にどっと流れる。\n");
@@ -2899,7 +2899,7 @@ fprintf(OutFile, " あなたは時々血が筋肉にどっと流れる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_HP_TO_SP)
+		if (cr_ptr->muta2 & MUT2_HP_TO_SP)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々頭に血がどっと流れる。\n");
@@ -2908,7 +2908,7 @@ fprintf(OutFile, " あなたは時々頭に血がどっと流れる。\n");
 #endif
 
 		}
-		if (p_ptr->muta2 & MUT2_DISARM)
+		if (cr_ptr->muta2 & MUT2_DISARM)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはよくつまづいて物を落とす。\n");
@@ -2919,9 +2919,9 @@ fprintf(OutFile, " あなたはよくつまづいて物を落とす。\n");
 		}
 	}
 
-	if (p_ptr->muta3)
+	if (cr_ptr->muta3)
 	{
-		if (p_ptr->muta3 & MUT3_HYPER_STR)
+		if (cr_ptr->muta3 & MUT3_HYPER_STR)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは超人的に強い。(腕力+4)\n");
@@ -2930,7 +2930,7 @@ fprintf(OutFile, " あなたは超人的に強い。(腕力+4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_PUNY)
+		if (cr_ptr->muta3 & MUT3_PUNY)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは虚弱だ。(腕力-4)\n");
@@ -2939,7 +2939,7 @@ fprintf(OutFile, " あなたは虚弱だ。(腕力-4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_HYPER_INT)
+		if (cr_ptr->muta3 & MUT3_HYPER_INT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの脳は生体コンピュータだ。(知能＆賢さ+4)\n");
@@ -2948,7 +2948,7 @@ fprintf(OutFile, " あなたの脳は生体コンピュータだ。(知能＆賢さ+4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_MORONIC)
+		if (cr_ptr->muta3 & MUT3_MORONIC)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは精神薄弱だ。(知能＆賢さ-4)\n");
@@ -2957,7 +2957,7 @@ fprintf(OutFile, " あなたは精神薄弱だ。(知能＆賢さ-4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_RESILIENT)
+		if (cr_ptr->muta3 & MUT3_RESILIENT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は弾力性に富んでいる。(耐久+4)\n");
@@ -2966,7 +2966,7 @@ fprintf(OutFile, " あなたの体は弾力性に富んでいる。(耐久+4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_XTRA_FAT)
+		if (cr_ptr->muta3 & MUT3_XTRA_FAT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは極端に太っている。(耐久+2,スピード-2)\n");
@@ -2975,7 +2975,7 @@ fprintf(OutFile, " あなたは極端に太っている。(耐久+2,スピード-2)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_ALBINO)
+		if (cr_ptr->muta3 & MUT3_ALBINO)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはアルビノだ。(耐久-4)\n");
@@ -2984,7 +2984,7 @@ fprintf(OutFile, " あなたはアルビノだ。(耐久-4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_FLESH_ROT)
+		if (cr_ptr->muta3 & MUT3_FLESH_ROT)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肉体は腐敗している。(耐久-2,魅力-1)\n");
@@ -2993,7 +2993,7 @@ fprintf(OutFile, " あなたの肉体は腐敗している。(耐久-2,魅力-1)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_SILLY_VOI)
+		if (cr_ptr->muta3 & MUT3_SILLY_VOI)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの声は間抜けなキーキー声だ。(魅力-4)\n");
@@ -3002,7 +3002,7 @@ fprintf(OutFile, " あなたの声は間抜けなキーキー声だ。(魅力-4)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_BLANK_FAC)
+		if (cr_ptr->muta3 & MUT3_BLANK_FAC)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはのっぺらぼうだ。(魅力-1)\n");
@@ -3011,7 +3011,7 @@ fprintf(OutFile, " あなたはのっぺらぼうだ。(魅力-1)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_ILL_NORM)
+		if (cr_ptr->muta3 & MUT3_ILL_NORM)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは幻影に覆われている。\n");
@@ -3020,7 +3020,7 @@ fprintf(OutFile, " あなたは幻影に覆われている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_XTRA_EYES)
+		if (cr_ptr->muta3 & MUT3_XTRA_EYES)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは余分に二つの目を持っている。(探索+15)\n");
@@ -3029,7 +3029,7 @@ fprintf(OutFile, " あなたは余分に二つの目を持っている。(探索+15)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_MAGIC_RES)
+		if (cr_ptr->muta3 & MUT3_MAGIC_RES)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは魔法への耐性をもっている。\n");
@@ -3038,7 +3038,7 @@ fprintf(OutFile, " あなたは魔法への耐性をもっている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_XTRA_NOIS)
+		if (cr_ptr->muta3 & MUT3_XTRA_NOIS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは変な音を発している。(隠密-3)\n");
@@ -3047,7 +3047,7 @@ fprintf(OutFile, " あなたは変な音を発している。(隠密-3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_INFRAVIS)
+		if (cr_ptr->muta3 & MUT3_INFRAVIS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは素晴らしい赤外線視力を持っている。(+3)\n");
@@ -3056,7 +3056,7 @@ fprintf(OutFile, " あなたは素晴らしい赤外線視力を持っている。(+3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_XTRA_LEGS)
+		if (cr_ptr->muta3 & MUT3_XTRA_LEGS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは余分に二本の足が生えている。(加速+3)\n");
@@ -3065,7 +3065,7 @@ fprintf(OutFile, " あなたは余分に二本の足が生えている。(加速+3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_SHORT_LEG)
+		if (cr_ptr->muta3 & MUT3_SHORT_LEG)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの足は短い突起だ。(加速-3)\n");
@@ -3074,7 +3074,7 @@ fprintf(OutFile, " あなたの足は短い突起だ。(加速-3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_ELEC_TOUC)
+		if (cr_ptr->muta3 & MUT3_ELEC_TOUC)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの血管には電流が流れている。\n");
@@ -3083,7 +3083,7 @@ fprintf(OutFile, " あなたの血管には電流が流れている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_FIRE_BODY)
+		if (cr_ptr->muta3 & MUT3_FIRE_BODY)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は炎につつまれている。\n");
@@ -3092,7 +3092,7 @@ fprintf(OutFile, " あなたの体は炎につつまれている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_WART_SKIN)
+		if (cr_ptr->muta3 & MUT3_WART_SKIN)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌はイボに被われている。(魅力-2, AC+5)\n");
@@ -3101,7 +3101,7 @@ fprintf(OutFile, " あなたの肌はイボに被われている。(魅力-2, AC+5)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_SCALES)
+		if (cr_ptr->muta3 & MUT3_SCALES)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌は鱗になっている。(魅力-1, AC+10)\n");
@@ -3110,7 +3110,7 @@ fprintf(OutFile, " あなたの肌は鱗になっている。(魅力-1, AC+10)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_IRON_SKIN)
+		if (cr_ptr->muta3 & MUT3_IRON_SKIN)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌は鉄でできている。(器用-1, AC+25)\n");
@@ -3119,7 +3119,7 @@ fprintf(OutFile, " あなたの肌は鉄でできている。(器用-1, AC+25)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_WINGS)
+		if (cr_ptr->muta3 & MUT3_WINGS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは羽を持っている。\n");
@@ -3128,7 +3128,7 @@ fprintf(OutFile, " あなたは羽を持っている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_FEARLESS)
+		if (cr_ptr->muta3 & MUT3_FEARLESS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは全く恐怖を感じない。\n");
@@ -3137,7 +3137,7 @@ fprintf(OutFile, " あなたは全く恐怖を感じない。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_REGEN)
+		if (cr_ptr->muta3 & MUT3_REGEN)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは急速に回復する。\n");
@@ -3146,7 +3146,7 @@ fprintf(OutFile, " あなたは急速に回復する。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_ESP)
+		if (cr_ptr->muta3 & MUT3_ESP)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはテレパシーを持っている。\n");
@@ -3155,7 +3155,7 @@ fprintf(OutFile, " あなたはテレパシーを持っている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_LIMBER)
+		if (cr_ptr->muta3 & MUT3_LIMBER)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は非常にしなやかだ。(器用+3)\n");
@@ -3164,7 +3164,7 @@ fprintf(OutFile, " あなたの体は非常にしなやかだ。(器用+3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_ARTHRITIS)
+		if (cr_ptr->muta3 & MUT3_ARTHRITIS)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはいつも関節に痛みを感じている。(器用-3)\n");
@@ -3173,7 +3173,7 @@ fprintf(OutFile, " あなたはいつも関節に痛みを感じている。(器用-3)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_VULN_ELEM)
+		if (cr_ptr->muta3 & MUT3_VULN_ELEM)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは元素の攻撃に弱い。\n");
@@ -3182,7 +3182,7 @@ fprintf(OutFile, " あなたは元素の攻撃に弱い。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_MOTION)
+		if (cr_ptr->muta3 & MUT3_MOTION)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの動作は正確で力強い。(隠密+1)\n");
@@ -3191,7 +3191,7 @@ fprintf(OutFile, " あなたの動作は正確で力強い。(隠密+1)\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_GOOD_LUCK)
+		if (cr_ptr->muta3 & MUT3_GOOD_LUCK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは白いオーラにつつまれている。\n");
@@ -3200,7 +3200,7 @@ fprintf(OutFile, " あなたは白いオーラにつつまれている。\n");
 #endif
 
 		}
-		if (p_ptr->muta3 & MUT3_BAD_LUCK)
+		if (cr_ptr->muta3 & MUT3_BAD_LUCK)
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは黒いオーラにつつまれている。\n");
@@ -3225,7 +3225,7 @@ void do_cmd_knowledge_mutations(void)
 	fff = my_fopen_temp(file_name, 1024);
 
 	/* Dump the mutations to file */
-	if (fff) dump_mutations(fff);
+	if (fff) dump_mutations(p_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);

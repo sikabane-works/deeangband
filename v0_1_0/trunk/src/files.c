@@ -5130,7 +5130,7 @@ static void dump_aux_mutations(FILE *fff)
 		fprintf(fff, "\n\n  [Mutations]\n\n");
 #endif
 
-		dump_mutations(fff);
+		dump_mutations(p_ptr, fff);
 	}
 }
 
