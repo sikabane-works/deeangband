@@ -3885,7 +3885,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 		if (power_desc[i].number < 0)
 			cast = cmd_racial_power_aux(cr_ptr, power_desc[i].number);
 		else
-			cast = mutation_power_aux(power_desc[i].number);
+			cast = mutation_power_aux(cr_ptr,power_desc[i].number);
 		break;
 	case 0:
 		cast = FALSE;

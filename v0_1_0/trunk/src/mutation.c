@@ -3306,10 +3306,10 @@ void mutation_stop_mouth()
 }
 
 
-bool mutation_power_aux(u32b power)
+bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 {
 	int     dir = 0;
-	int     lvl = p_ptr->lev;
+	int     lvl = cr_ptr->lev;
 
 
 	switch (power)
@@ -3367,7 +3367,7 @@ bool mutation_power_aux(u32b power)
 			msg_print("You concentrate...");
 #endif
 
-			teleport_player(p_ptr, 10 + 4 * lvl, 0L);
+			teleport_player(cr_ptr, 10 + 4 * lvl, 0L);
 			break;
 
 		case MUT1_MIND_BLST:
@@ -3398,8 +3398,8 @@ bool mutation_power_aux(u32b power)
 
 				/* Only works on adjacent monsters */
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
 				mutation_stop_mouth();
@@ -3426,9 +3426,9 @@ bool mutation_power_aux(u32b power)
 
 				if (drain_life(dir, dummy))
 				{
-					if (p_ptr->food < PY_FOOD_FULL)
+					if (cr_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(p_ptr, dummy);
+						(void)hp_player(cr_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -3440,9 +3440,9 @@ bool mutation_power_aux(u32b power)
 					/* A Food ration gives 5000 food points (by contrast) */
 					/* Don't ever get more than "Full" this way */
 					/* But if we ARE Gorged,  it won't cure us */
-					dummy = p_ptr->food + MIN(5000, 100 * dummy);
-					if (p_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(p_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
+					dummy = cr_ptr->food + MIN(5000, 100 * dummy);
+					if (cr_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+						(void)set_food(cr_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
 				}
 				else
 #ifdef JP
@@ -3465,7 +3465,7 @@ bool mutation_power_aux(u32b power)
 			break;
 
 		case MUT1_BLINK:
-			teleport_player(p_ptr, 10, 0L);
+			teleport_player(cr_ptr, 10, 0L);
 			break;
 
 		case MUT1_EAT_ROCK:
@@ -3475,8 +3475,8 @@ bool mutation_power_aux(u32b power)
 				feature_type *f_ptr, *mimic_f_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 				f_ptr = &f_info[c_ptr->feat];
 				mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
@@ -3510,7 +3510,7 @@ bool mutation_power_aux(u32b power)
 					msg_print("There's something in the way!");
 #endif
 
-					if (!m_ptr->ml || !is_pet(m_ptr)) py_attack(p_ptr, y, x, 0);
+					if (!m_ptr->ml || !is_pet(m_ptr)) py_attack(cr_ptr, y, x, 0);
 					break;
 				}
 				else if (have_flag(f_ptr->flags, FF_TREE))
@@ -3533,11 +3533,11 @@ bool mutation_power_aux(u32b power)
 				}
 				else if (have_flag(f_ptr->flags, FF_DOOR) || have_flag(f_ptr->flags, FF_CAN_DIG))
 				{
-					(void)set_food(p_ptr, p_ptr->food + 3000);
+					(void)set_food(cr_ptr, cr_ptr->food + 3000);
 				}
 				else if (have_flag(f_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(f_ptr->flags, FF_HAS_GOLD))
 				{
-					(void)set_food(p_ptr, p_ptr->food + 5000);
+					(void)set_food(cr_ptr, cr_ptr->food + 5000);
 				}
 				else
 				{
@@ -3546,7 +3546,7 @@ bool mutation_power_aux(u32b power)
 #else
 					msg_format("This %s is very filling!", f_name + mimic_f_ptr->name);
 #endif
-					(void)set_food(p_ptr, p_ptr->food + 10000);
+					(void)set_food(cr_ptr, cr_ptr->food + 10000);
 				}
 
 				/* Destroy the wall */
@@ -3584,7 +3584,7 @@ bool mutation_power_aux(u32b power)
 
 				for (i = 0; i < INVEN_TOTAL; i++)
 				{
-					object_type *o_ptr = &p_ptr->inventory[i];
+					object_type *o_ptr = &cr_ptr->inventory[i];
 
 					if (!o_ptr->k_idx) continue;
 					if (!object_is_cursed(o_ptr)) continue;
@@ -3595,9 +3595,9 @@ bool mutation_power_aux(u32b power)
 			break;
 
 		case MUT1_BERSERK:
-			(void)set_shero(p_ptr, randint1(25) + 25, FALSE);
-			(void)hp_player(p_ptr, 30);
-			(void)set_afraid(p_ptr, 0);
+			(void)set_shero(cr_ptr, randint1(25) + 25, FALSE);
+			(void)hp_player(cr_ptr, 30);
+			(void)set_afraid(cr_ptr, 0);
 			break;
 
 		case MUT1_POLYMORPH:
@@ -3606,7 +3606,7 @@ bool mutation_power_aux(u32b power)
 #else
 			if (!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
 #endif
-			do_poly_self(p_ptr);
+			do_poly_self(cr_ptr);
 			break;
 
 		case MUT1_MIDAS_TCH:
@@ -3619,7 +3619,7 @@ bool mutation_power_aux(u32b power)
 				int i;
 				for (i = 0; i < 8; i++)
 				{
-					summon_specific(-1, p_ptr->fy, p_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
+					summon_specific(-1, cr_ptr->fy, cr_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
 				}
 			}
 			break;
@@ -3631,38 +3631,38 @@ bool mutation_power_aux(u32b power)
 
 				if (randint0(5) < num)
 				{
-					(void)set_oppose_acid(p_ptr, dur, FALSE);
+					(void)set_oppose_acid(cr_ptr, dur, FALSE);
 					num--;
 				}
 				if (randint0(4) < num)
 				{
-					(void)set_oppose_elec(p_ptr, dur, FALSE);
+					(void)set_oppose_elec(cr_ptr, dur, FALSE);
 					num--;
 				}
 				if (randint0(3) < num)
 				{
-					(void)set_oppose_fire(p_ptr, dur, FALSE);
+					(void)set_oppose_fire(cr_ptr, dur, FALSE);
 					num--;
 				}
 				if (randint0(2) < num)
 				{
-					(void)set_oppose_cold(p_ptr, dur, FALSE);
+					(void)set_oppose_cold(cr_ptr, dur, FALSE);
 					num--;
 				}
 				if (num)
 				{
-					(void)set_oppose_pois(p_ptr, dur, FALSE);
+					(void)set_oppose_pois(cr_ptr, dur, FALSE);
 					num--;
 				}
 			}
 			break;
 
 		case MUT1_EARTHQUAKE:
-			(void)earthquake(p_ptr->fy, p_ptr->fx, 10);
+			(void)earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 			break;
 
 		case MUT1_EAT_MAGIC:
-			if (!eat_magic(p_ptr->lev * 2)) return FALSE;
+			if (!eat_magic(cr_ptr->lev * 2)) return FALSE;
 			break;
 
 		case MUT1_WEIGH_MAG:
@@ -3673,10 +3673,10 @@ bool mutation_power_aux(u32b power)
 			/* Fake a population explosion. */
 #ifdef JP
 			msg_print("“Ë‘R“ª‚ª’É‚­‚È‚Á‚½I");
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "‹Ö—~‚ð‹­‚¢‚½”æ˜J", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "‹Ö—~‚ð‹­‚¢‚½”æ˜J", NULL, -1);
 #else
 			msg_print("You suddenly have a headache!");
-			take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
 #endif
 
 			num_repro += MAX_REPRO;
@@ -3687,18 +3687,18 @@ bool mutation_power_aux(u32b power)
 				int x, y;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
 				{
-					py_attack(p_ptr, y, x, 0);
-					if (randint0(p_ptr->skill_dis) < 7)
+					py_attack(cr_ptr, y, x, 0);
+					if (randint0(cr_ptr->skill_dis) < 7)
 #ifdef JP
 						msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
 #else
 						msg_print("You failed to teleport.");
 #endif
-					else teleport_player(p_ptr, 30, 0L);
+					else teleport_player(cr_ptr, 30, 0L);
 				}
 				else
 				{
@@ -3736,8 +3736,8 @@ bool mutation_power_aux(u32b power)
 				species_type *r_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
 				if (!c_ptr->m_idx)
@@ -3757,8 +3757,8 @@ bool mutation_power_aux(u32b power)
 				if ((r_ptr->flags3 & RF3_EVIL) &&
 				    !(r_ptr->flags1 & RF1_QUESTOR) &&
 				    !(r_ptr->flags1 & RF1_UNIQUE) &&
-				    !p_ptr->inside_arena && !p_ptr->inside_quest &&
-					(r_ptr->level < randint1(p_ptr->lev+50)) &&
+				    !cr_ptr->inside_arena && !cr_ptr->inside_quest &&
+					(r_ptr->level < randint1(cr_ptr->lev+50)) &&
 					!(m_ptr->mflag2 & MFLAG2_NOGENO))
 				{
 					if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
@@ -3797,8 +3797,8 @@ bool mutation_power_aux(u32b power)
 				cave_type *c_ptr;
 
 				if (!get_rep_dir2(&dir)) return FALSE;
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
 				if (!c_ptr->m_idx)
