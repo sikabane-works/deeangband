@@ -3216,7 +3216,7 @@ fprintf(OutFile, " ‚ ‚È‚½‚Í•‚¢ƒI[ƒ‰‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB\n");
 /*
  * List mutations we have...
  */
-void do_cmd_knowledge_mutations(void)
+void do_cmd_knowledge_mutations(creature_type *cr_ptr)
 {
 	FILE *fff;
 	char file_name[1024];
@@ -3225,7 +3225,7 @@ void do_cmd_knowledge_mutations(void)
 	fff = my_fopen_temp(file_name, 1024);
 
 	/* Dump the mutations to file */
-	if (fff) dump_mutations(p_ptr, fff);
+	if (fff) dump_mutations(cr_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);

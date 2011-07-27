@@ -4168,7 +4168,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 	else if (mode == 4)
 	{
-		do_cmd_knowledge_mutations();
+		do_cmd_knowledge_mutations(cr_ptr);
 	}
 }
 
