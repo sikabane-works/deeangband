@@ -3257,11 +3257,11 @@ int count_bits(u32b x)
 }
 
 
-static int count_mutations(void)
+static int count_mutations(creature_type *cr_ptr)
 {
-	return (count_bits(p_ptr->muta1) +
-		count_bits(p_ptr->muta2) +
-		count_bits(p_ptr->muta3));
+	return (count_bits(cr_ptr->muta1) +
+		count_bits(cr_ptr->muta2) +
+		count_bits(cr_ptr->muta3));
 }
 
 
@@ -3273,7 +3273,7 @@ int calc_mutant_regenerate_mod(creature_type *cr_ptr)
 {
 	int regen;
 	int mod = 10;
-	int count = count_mutations();
+	int count = count_mutations(cr_ptr);
 
 	/*
 	 * Beastman get 10 "free" mutations and
