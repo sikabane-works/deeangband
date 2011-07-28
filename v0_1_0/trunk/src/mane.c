@@ -80,14 +80,14 @@ static void mane_info(creature_type *cr_ptr, char *p, int power, int dam)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_mane_power(int *sn, bool baigaesi)
+static int get_mane_power(creature_type *cr_ptr, int *sn, bool baigaesi)
 {
 	int             i = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	int             chance = 0;
 	int             ask;
 	char            choice;
@@ -111,7 +111,7 @@ cptr            p = "能力";
 	/* No redraw yet */
 	redraw = FALSE;
 
-	num = p_ptr->mane_num;
+	num = cr_ptr->mane_num;
 
 	/* Build a prompt (accept all spells) */
 	(void)strnfmt(out_val, 78, 
@@ -163,7 +163,7 @@ put_str("失率 効果", y, x + 36);
 				for (i = 0; i < num; i++)
 				{
 					/* Access the spell */
-					spell = monster_powers[p_ptr->mane_spell[i]];
+					spell = monster_powers[cr_ptr->mane_spell[i]];
 
 					chance = spell.manefail;
 
@@ -171,27 +171,27 @@ put_str("失率 効果", y, x + 36);
 					if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[p_ptr->stat_ind[A_DEX]] - 2) / 2;
+					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[A_DEX]] - 2) / 2;
 
-					if (spell.manedam) chance = chance * p_ptr->mane_dam[i] / spell.manedam;
+					if (spell.manedam) chance = chance * cr_ptr->mane_dam[i] / spell.manedam;
 
-					chance += p_ptr->to_m_chance;
+					chance += cr_ptr->to_m_chance;
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[p_ptr->stat_ind[spell.use_stat]];
+					minfail = adj_mag_fail[cr_ptr->stat_ind[spell.use_stat]];
 
 					/* Minimum failure rate */
 					if (chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (p_ptr->stun > 50) chance += 25;
-					else if (p_ptr->stun) chance += 15;
+					if (cr_ptr->stun > 50) chance += 25;
+					else if (cr_ptr->stun) chance += 15;
 
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
 
 					/* Get info */
-					mane_info(p_ptr, comment, p_ptr->mane_spell[i], (baigaesi ? p_ptr->mane_dam[i]*2 : p_ptr->mane_dam[i]));
+					mane_info(cr_ptr, comment, cr_ptr->mane_spell[i], (baigaesi ? cr_ptr->mane_dam[i]*2 : cr_ptr->mane_dam[i]));
 
 					/* Dump the spell --(-- */
 					sprintf(psi_desc, "  %c) %-30s %3d%%%s",
@@ -235,7 +235,7 @@ put_str("失率 効果", y, x + 36);
 		}
 
 		/* Save the spell index */
-		spell = monster_powers[p_ptr->mane_spell[i]];
+		spell = monster_powers[cr_ptr->mane_spell[i]];
 
 		/* Verify it */
 		if (ask)
@@ -244,9 +244,9 @@ put_str("失率 効果", y, x + 36);
 
 			/* Prompt */
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sをまねますか？", monster_powers[p_ptr->mane_spell[i]].name);
+			(void) strnfmt(tmp_val, 78, "%sをまねますか？", monster_powers[cr_ptr->mane_spell[i]].name);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", monster_powers[p_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", monster_powers[cr_ptr->mane_spell[i]].name);
 #endif
 
 
@@ -273,7 +273,7 @@ put_str("失率 効果", y, x + 36);
 	/* Save the choice */
 	(*sn) = i;
 
-	damage = (baigaesi ? p_ptr->mane_dam[i]*2 : p_ptr->mane_dam[i]);
+	damage = (baigaesi ? cr_ptr->mane_dam[i]*2 : cr_ptr->mane_dam[i]);
 
 	/* Success */
 	return (TRUE);
@@ -1307,7 +1307,7 @@ msg_print("まねられるものが何もない！");
 	}
 
 	/* get power */
-	if (!get_mane_power(&n, baigaesi)) return FALSE;
+	if (!get_mane_power(p_ptr, &n, baigaesi)) return FALSE;
 
 	spell = monster_powers[p_ptr->mane_spell[n]];
 
