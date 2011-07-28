@@ -284,10 +284,10 @@ put_str("失率 効果", y, x + 36);
  * do_cmd_cast calls this function if the player's class
  * is 'imitator'.
  */
-static bool use_mane(int spell)
+static bool use_mane(creature_type *cr_ptr, int spell)
 {
 	int             dir;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	u32b mode = (PM_ALLOW_GROUP | PM_FORCE_PET);
 	u32b u_mode = 0L;
 
@@ -316,7 +316,7 @@ msg_print("かん高い金切り声をあげた。");
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
+		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		dispel_monster_status(m_idx);
 		break;
 	}
@@ -847,7 +847,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		sleep_monster(dir);
 		break;
 	case MS_SPEED:
-		(void)set_fast(p_ptr, randint1(20 + plev) + plev, FALSE);
+		(void)set_fast(cr_ptr, randint1(20 + plev) + plev, FALSE);
 		break;
 	case MS_HAND_DOOM:
 	{
@@ -867,9 +867,9 @@ msg_print("自分の傷に念を集中した。");
 #else
 			msg_print("You concentrate on your wounds!");
 #endif
-		(void)hp_player(p_ptr, plev*6);
-		(void)set_stun(p_ptr, 0);
-		(void)set_cut(p_ptr, 0);
+		(void)hp_player(cr_ptr, plev*6);
+		(void)set_stun(cr_ptr, 0);
+		(void)set_cut(cr_ptr, 0);
 		break;
 	case MS_INVULNER:
 #ifdef JP
@@ -877,13 +877,13 @@ msg_print("無傷の球の呪文を唱えた。");
 #else
 			msg_print("You cast a Globe of Invulnerability.");
 #endif
-		(void)set_invuln(p_ptr, randint1(7) + 7, FALSE);
+		(void)set_invuln(cr_ptr, randint1(7) + 7, FALSE);
 		break;
 	case MS_BLINK:
-		teleport_player(p_ptr, 10, 0L);
+		teleport_player(cr_ptr, 10, 0L);
 		break;
 	case MS_TELEPORT:
-		teleport_player(p_ptr, plev * 5, 0L);
+		teleport_player(cr_ptr, plev * 5, 0L);
 		break;
 	case MS_WORLD:
 		world_player = TRUE;
@@ -904,13 +904,13 @@ msg_print("無傷の球の呪文を唱えた。");
 		msg_print(NULL);
 
 		/* Hack */
-		p_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
+		cr_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
-		p_ptr->update |= (PU_MONSTERS);
+		cr_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -928,7 +928,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		if (!target_set(TARGET_KILL)) return FALSE;
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
+		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[cave[target_row][target_col].m_idx];
 		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
@@ -936,7 +936,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		{
 			if ((r_ptr->flags1 & (RF1_UNIQUE)) || (m_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 				msg_format("%sには効果がなかった！", m_name);
 #else
@@ -947,7 +947,7 @@ msg_print("無傷の球の呪文を唱えた。");
 			}
 			else if (r_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 				msg_format("%sには耐性がある！", m_name);
 #else
@@ -963,7 +963,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You command %s to return.", m_name);
 #endif
 
-		teleport_monster_to(cave[target_row][target_col].m_idx, p_ptr->fy, p_ptr->fx, 100, TELEPORT_PASSIVE);
+		teleport_monster_to(cave[target_row][target_col].m_idx, cr_ptr->fy, cr_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
 	case MS_TELE_AWAY:
@@ -982,7 +982,7 @@ msg_format("%sを引き戻した。", m_name);
 		target_m_idx = cave[target_row][target_col].m_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(p_ptr->fy, p_ptr->fx, target_row, target_col)) break;
+		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
 		m_ptr = &m_list[target_m_idx];
 		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
@@ -1001,7 +1001,7 @@ msg_format("%sを引き戻した。", m_name);
 			msg_format("%^s is unaffected!", m_name);
 #endif
 		}
-		else teleport_level(p_ptr, target_m_idx);
+		else teleport_level(cr_ptr, target_m_idx);
 		break;
 	}
 	case MS_PSY_SPEAR:
@@ -1044,7 +1044,7 @@ msg_print("死者復活の呪文を唱えた。");
 #else
 		msg_print("You cast a animate dead.");
 #endif
-		(void)animate_dead(0, p_ptr->fy, p_ptr->fx);
+		(void)animate_dead(0, cr_ptr->fy, cr_ptr->fx);
 		break;
 	case MS_S_KIN:
 	{
@@ -1354,7 +1354,7 @@ msg_print("ものまねに失敗した！");
 		sound(SOUND_ZAP);
 
 		/* Cast the spell */
-		cast = use_mane(p_ptr->mane_spell[n]);
+		cast = use_mane(p_ptr, p_ptr->mane_spell[n]);
 
 		if (!cast) return FALSE;
 	}
