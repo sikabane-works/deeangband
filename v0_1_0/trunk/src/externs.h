@@ -1580,7 +1580,7 @@ extern void show_highclass(void);
 
 /* mind.c */
 extern mind_power mind_powers[5];
-extern void mindcraft_info(char *p, int use_mind, int power);
+extern void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power);
 extern void do_cmd_mind(creature_type *cr_ptr);
 extern void do_cmd_mind_browse(creature_type *cr_ptr);
 

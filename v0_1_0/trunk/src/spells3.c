@@ -4039,7 +4039,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 			if (chance > 95) chance = 95;
 
 			/* Get info */
-			mindcraft_info(comment, use_mind, i);
+			mindcraft_info(p_ptr, comment, use_mind, i);
 
 			/* Dump the spell */
 			sprintf(psi_desc, "  %c) %-30s%2d %4d %3d%%%s",

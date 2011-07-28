@@ -284,7 +284,7 @@ mind_power mind_powers[5] =
 };
 
 
-void mindcraft_info(char *p, int use_mind, int power)
+void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power)
 {
 #ifdef JP
 	cptr s_dam = "‘¹:";
@@ -295,7 +295,7 @@ void mindcraft_info(char *p, int use_mind, int power)
 	cptr s_dur = "dur ";
 	cptr s_range = "range ";
 #endif
-  int plev = p_ptr->lev;
+  int plev = cr_ptr->lev;
 
   strcpy(p, "");
 
@@ -322,17 +322,17 @@ void mindcraft_info(char *p, int use_mind, int power)
 	case 11: sprintf(p, " %s%dd6", s_dam, plev / 2);  break;
 	case 12: sprintf(p, " %sd%d+%d", s_dam, plev * 3, plev * 3); break;
 #ifdef JP
-	case 13: sprintf(p, " s“®:%ld‰ñ", (p_ptr->csp + 100-p_ptr->energy_need - 50)/100); break;
+	case 13: sprintf(p, " s“®:%ld‰ñ", (cr_ptr->csp + 100-cr_ptr->energy_need - 50)/100); break;
 #else
-	case 13: sprintf(p, " %ld acts.", (p_ptr->csp + 100-p_ptr->energy_need - 50)/100); break;
+	case 13: sprintf(p, " %ld acts.", (cr_ptr->csp + 100-cr_ptr->energy_need - 50)/100); break;
 #endif
 	}
       break;
     case MIND_KI:
       {
-	int boost = p_ptr->magic_num1[0];
+	int boost = cr_ptr->magic_num1[0];
 
-	if (heavy_armor(p_ptr)) boost /= 2;
+	if (heavy_armor(cr_ptr)) boost /= 2;
 
 	switch (power)
 	  {
@@ -718,7 +718,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 					}
 
 					/* Get info */
-					mindcraft_info(comment, use_mind, i);
+					mindcraft_info(p_ptr, comment, use_mind, i);
 
 					if (use_menu)
 					{
