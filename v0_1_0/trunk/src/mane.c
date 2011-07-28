@@ -1273,18 +1273,18 @@ msg_print("特別な強敵を召喚した！");
  * do_cmd_cast calls this function if the player's class
  * is 'imitator'.
  */
-bool do_cmd_mane(bool baigaesi)
+bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi)
 {
 	int             n = 0, j;
 	int             chance;
 	int             minfail = 0;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	monster_power   spell;
 	bool            cast;
 
 
 	/* not if confused */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -1295,7 +1295,7 @@ msg_print("混乱していて集中できない！");
 		return TRUE;
 	}
 
-	if (!p_ptr->mane_num)
+	if (!cr_ptr->mane_num)
 	{
 #ifdef JP
 msg_print("まねられるものが何もない！");
@@ -1307,9 +1307,9 @@ msg_print("まねられるものが何もない！");
 	}
 
 	/* get power */
-	if (!get_mane_power(p_ptr, &n, baigaesi)) return FALSE;
+	if (!get_mane_power(cr_ptr, &n, baigaesi)) return FALSE;
 
-	spell = monster_powers[p_ptr->mane_spell[n]];
+	spell = monster_powers[cr_ptr->mane_spell[n]];
 
 	/* Spell failure chance */
 	chance = spell.manefail;
@@ -1318,21 +1318,21 @@ msg_print("まねられるものが何もない！");
 	if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
-	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[p_ptr->stat_ind[A_DEX]] - 2) / 2;
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[A_DEX]] - 2) / 2;
 
 	if (spell.manedam) chance = chance * damage / spell.manedam;
 
-	chance += p_ptr->to_m_chance;
+	chance += cr_ptr->to_m_chance;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[p_ptr->stat_ind[spell.use_stat]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[spell.use_stat]];
 
 	/* Minimum failure rate */
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (p_ptr->stun > 50) chance += 25;
-	else if (p_ptr->stun) chance += 15;
+	if (cr_ptr->stun > 50) chance += 25;
+	else if (cr_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
@@ -1354,16 +1354,16 @@ msg_print("ものまねに失敗した！");
 		sound(SOUND_ZAP);
 
 		/* Cast the spell */
-		cast = use_mane(p_ptr, p_ptr->mane_spell[n]);
+		cast = use_mane(cr_ptr, cr_ptr->mane_spell[n]);
 
 		if (!cast) return FALSE;
 	}
 
-	p_ptr->mane_num--;
-	for (j = n; j < p_ptr->mane_num;j++)
+	cr_ptr->mane_num--;
+	for (j = n; j < cr_ptr->mane_num;j++)
 	{
-		p_ptr->mane_spell[j] = p_ptr->mane_spell[j+1];
-		p_ptr->mane_dam[j] = p_ptr->mane_dam[j+1];
+		cr_ptr->mane_spell[j] = cr_ptr->mane_spell[j+1];
+		cr_ptr->mane_dam[j] = cr_ptr->mane_dam[j+1];
 	}
 
 	/* Take a turn */

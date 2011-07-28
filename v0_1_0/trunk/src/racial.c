@@ -1173,7 +1173,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		case CLASS_IMITATOR:
 		{
 			handle_stuff();
-			if (!do_cmd_mane(TRUE)) return FALSE;
+			if (!do_cmd_mane(cr_ptr, TRUE)) return FALSE;
 			break;
 		}
 		case CLASS_BEASTMASTER:

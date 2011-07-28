@@ -4950,7 +4950,7 @@ msg_print("ウィザードモード突入。");
 					    )
 						do_cmd_mind(p_ptr);
 					else if (p_ptr->cls_idx == CLASS_IMITATOR)
-						do_cmd_mane(FALSE);
+						do_cmd_mane(p_ptr, FALSE);
 					else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 						do_cmd_magic_eater(p_ptr, FALSE);
 					else if (p_ptr->cls_idx == CLASS_SAMURAI)

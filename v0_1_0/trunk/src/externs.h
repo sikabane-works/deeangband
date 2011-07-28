@@ -1585,7 +1585,7 @@ extern void do_cmd_mind(creature_type *cr_ptr);
 extern void do_cmd_mind_browse(creature_type *cr_ptr);
 
 /* mane.c */
-extern bool do_cmd_mane(bool baigaesi);
+extern bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi);
 
 /* mspells3.c */
 extern bool do_cmd_cast_learned(void);
