@@ -390,7 +390,7 @@ static void confirm_use_force(bool browse_only)
 	/* Get the item index */
 	if (repeat_pull(&item) && (item == INVEN_FORCE))
 	{
-		browse_only ? do_cmd_mind_browse() : do_cmd_mind(p_ptr);
+		browse_only ? do_cmd_mind_browse(p_ptr) : do_cmd_mind(p_ptr);
 		return;
 	}
 
@@ -427,7 +427,7 @@ static void confirm_use_force(bool browse_only)
 
 	if (which == 'w')
 	{
-		browse_only ? do_cmd_mind_browse() : do_cmd_mind(p_ptr);
+		browse_only ? do_cmd_mind_browse(p_ptr) : do_cmd_mind(p_ptr);
 	}
 }
 
@@ -506,7 +506,7 @@ void do_cmd_browse(void)
 
 	if (item == INVEN_FORCE) /* the_force */
 	{
-		do_cmd_mind_browse();
+		do_cmd_mind_browse(p_ptr);
 		return;
 	}
 

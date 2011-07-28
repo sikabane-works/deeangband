@@ -2187,18 +2187,18 @@ msg_print("Ž©•ª‚Ì¸_‚ðUŒ‚‚µ‚Ä‚µ‚Ü‚Á‚½I");
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_mind_browse(void)
+void do_cmd_mind_browse(creature_type *cr_ptr)
 {
 	int n = 0;
 	int j, line;
 	char temp[62*5];
 	int use_mind = 0;
 
-	if (p_ptr->cls_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
-	else if (p_ptr->cls_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
-	else if (p_ptr->cls_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
-	else if (p_ptr->cls_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
-	else if (p_ptr->cls_idx == CLASS_MIRROR_MASTER)
+	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
+	else if (cr_ptr->cls_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
+	else if (cr_ptr->cls_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
+	else if (cr_ptr->cls_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
+	else if (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
 	  use_mind = MIND_MIRROR_MASTER;
 
 	screen_save();
