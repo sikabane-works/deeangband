@@ -15,9 +15,9 @@
 
 static int damage;
 
-static void mane_info(char *p, int power, int dam)
+static void mane_info(creature_type *cr_ptr, char *p, int power, int dam)
 {
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 #ifdef JP
 	cptr s_dam = "‘¹:";
 	cptr s_dur = "ŠúŠÔ:";
@@ -191,7 +191,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 					if (chance > 95) chance = 95;
 
 					/* Get info */
-					mane_info(comment, p_ptr->mane_spell[i], (baigaesi ? p_ptr->mane_dam[i]*2 : p_ptr->mane_dam[i]));
+					mane_info(p_ptr, comment, p_ptr->mane_spell[i], (baigaesi ? p_ptr->mane_dam[i]*2 : p_ptr->mane_dam[i]));
 
 					/* Dump the spell --(-- */
 					sprintf(psi_desc, "  %c) %-30s %3d%%%s",
