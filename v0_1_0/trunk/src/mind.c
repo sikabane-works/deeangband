@@ -433,14 +433,14 @@ void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-  static int get_mind_power(int *sn, bool only_browse)
+static int get_mind_power(creature_type *cr_ptr, int *sn, bool only_browse)
     {
       int             i;
       int             num = 0;
       int             y = 1;
       int             x = 10;
       int             minfail = 0;
-      int             plev = p_ptr->lev;
+      int             plev = cr_ptr->lev;
       int             chance = 0;
       int             ask = TRUE;
       char            choice;
@@ -454,7 +454,7 @@ void mindcraft_info(creature_type *cr_ptr, char *p, int use_mind, int power)
       int             use_mind;
       int menu_line = (use_menu ? 1 : 0);
 
-      switch(p_ptr->cls_idx)
+      switch(cr_ptr->cls_idx)
 	{
 	case CLASS_MINDCRAFTER:
 	  {
@@ -649,8 +649,8 @@ put_str(format("Lv   %s   Ž¸—¦ Œø‰Ê", ((use_mind == MIND_BERSERKER) || (use_mind
 #else
 put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? "HP" : "MP"), y, x + 35);
 #endif
-				has_weapon[0] = have_weapon(p_ptr, INVEN_RARM);
-				has_weapon[1] = have_weapon(p_ptr, INVEN_LARM);
+				has_weapon[0] = have_weapon(cr_ptr, INVEN_RARM);
+				has_weapon[1] = have_weapon(cr_ptr, INVEN_LARM);
 
 				/* Dump the spells */
 				for (i = 0; i < MAX_MIND_POWERS; i++)
@@ -672,53 +672,53 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						chance -= 3 * (plev - spell.min_lev);
 
 						/* Reduce failure rate by INT/WIS adjustment */
-						chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]] - 1);
+						chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] - 1);
 
 						if (use_mind == MIND_KI)
 						{
-							if (heavy_armor(p_ptr)) chance += 20;
-							if (p_ptr->icky_wield[0]) chance += 20;
+							if (heavy_armor(cr_ptr)) chance += 20;
+							if (cr_ptr->icky_wield[0]) chance += 20;
 							else if (has_weapon[0]) chance += 10;
-							if (p_ptr->icky_wield[1]) chance += 20;
+							if (cr_ptr->icky_wield[1]) chance += 20;
 							else if (has_weapon[1]) chance += 10;
 							if (i == 5)
 							{
 								int j;
-								for (j = 0; j < p_ptr->magic_num1[0] / 50; j++)
+								for (j = 0; j < cr_ptr->magic_num1[0] / 50; j++)
 									mana_cost += (j+1) * 3 / 2;
 							}
 						}
 
 						/* Not enough mana to cast */
-						if ((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU) && (mana_cost > p_ptr->csp))
+						if ((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU) && (mana_cost > cr_ptr->csp))
 						{
-							chance += 5 * (mana_cost - p_ptr->csp);
+							chance += 5 * (mana_cost - cr_ptr->csp);
 						}
 
-						chance += p_ptr->to_m_chance;
+						chance += cr_ptr->to_m_chance;
 
 						/* Extract the minimum failure rate */
-						minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]];
+						minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]];
 
 						/* Minimum failure rate */
 						if (chance < minfail) chance = minfail;
 
 						/* Stunning makes spells harder */
-						if (p_ptr->stun > 50) chance += 25;
-						else if (p_ptr->stun) chance += 15;
+						if (cr_ptr->stun > 50) chance += 25;
+						else if (cr_ptr->stun) chance += 15;
 
 						if (use_mind == MIND_KI)
 						{
-							if (heavy_armor(p_ptr)) chance += 5;
-							if (p_ptr->icky_wield[0]) chance += 5;
-							if (p_ptr->icky_wield[1]) chance += 5;
+							if (heavy_armor(cr_ptr)) chance += 5;
+							if (cr_ptr->icky_wield[0]) chance += 5;
+							if (cr_ptr->icky_wield[1]) chance += 5;
 						}
 						/* Always a 5 percent chance of working */
 						if (chance > 95) chance = 95;
 					}
 
 					/* Get info */
-					mindcraft_info(p_ptr, comment, use_mind, i);
+					mindcraft_info(cr_ptr, comment, use_mind, i);
 
 					if (use_menu)
 					{
@@ -1824,7 +1824,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 	}
 
 	/* get power */
-	if (!get_mind_power(&n, FALSE)) return;
+	if (!get_mind_power(cr_ptr, &n, FALSE)) return;
 
 #ifdef JP
 	switch(cr_ptr->cls_idx)
@@ -2206,7 +2206,7 @@ void do_cmd_mind_browse(creature_type *cr_ptr)
 	while(1)
 	{
 		/* get power */
-		if (!get_mind_power(&n, TRUE))
+		if (!get_mind_power(cr_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;
