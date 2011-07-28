@@ -4948,7 +4948,7 @@ msg_print("ウィザードモード突入。");
 					    (p_ptr->cls_idx == CLASS_NINJA) ||
 					    (p_ptr->cls_idx == CLASS_MIRROR_MASTER)
 					    )
-						do_cmd_mind();
+						do_cmd_mind(p_ptr);
 					else if (p_ptr->cls_idx == CLASS_IMITATOR)
 						do_cmd_mane(FALSE);
 					else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
