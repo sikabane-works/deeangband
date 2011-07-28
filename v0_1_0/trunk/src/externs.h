@@ -1595,8 +1595,7 @@ extern void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode);
 /* hissatsu.c */
 extern void hissatsu_info(char *p, int power);
 extern void do_cmd_hissatsu(creature_type *cr_ptr);
-extern void do_cmd_hissatsu_browse(void);
-extern void do_cmd_gain_hissatsu(void);
+extern void do_cmd_gain_hissatsu(creature_type *cr_ptr);
 
 /* mutation.c */
 extern int count_bits(u32b x);

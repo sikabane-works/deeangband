@@ -424,7 +424,7 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 }
 
 
-void do_cmd_gain_hissatsu(void)
+void do_cmd_gain_hissatsu(creature_type *cr_ptr)
 {
 	int item, i, j;
 
@@ -433,12 +433,12 @@ void do_cmd_gain_hissatsu(void)
 
 	bool gain = FALSE;
 
-	if (p_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if (cr_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	if (p_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite())
 	{
 #ifdef JP
 msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
@@ -449,7 +449,7 @@ msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
 		return;
 	}
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
@@ -460,7 +460,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
 		return;
 	}
 
-	if (!(p_ptr->new_spells))
+	if (!(cr_ptr->new_spells))
 	{
 #ifdef JP
 msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
@@ -472,14 +472,14 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 	}
 
 #ifdef JP
-	if( p_ptr->new_spells < 10 ){
-		msg_format("‚ ‚Æ %d ‚Â‚Ì•KŽE‹Z‚ðŠw‚×‚éB", p_ptr->new_spells);
+	if( cr_ptr->new_spells < 10 ){
+		msg_format("‚ ‚Æ %d ‚Â‚Ì•KŽE‹Z‚ðŠw‚×‚éB", cr_ptr->new_spells);
 	}else{
-		msg_format("‚ ‚Æ %d ŒÂ‚Ì•KŽE‹Z‚ðŠw‚×‚éB", p_ptr->new_spells);
+		msg_format("‚ ‚Æ %d ŒÂ‚Ì•KŽE‹Z‚ðŠw‚×‚éB", cr_ptr->new_spells);
 	}
 #else
-	msg_format("You can learn %d new special attack%s.", p_ptr->new_spells,
-		(p_ptr->new_spells == 1?"":"s"));
+	msg_format("You can learn %d new special attack%s.", cr_ptr->new_spells,
+		(cr_ptr->new_spells == 1?"":"s"));
 #endif
 
 	item_tester_tval = TV_HISSATSU_BOOK;
@@ -502,7 +502,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -513,11 +513,11 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 
 	for (i = o_ptr->sval * 8; i < o_ptr->sval * 8 + 8; i++)
 	{
-		if (p_ptr->spell_learned1 & (1L << i)) continue;
-		if (technic_info[TECHNIC_HISSATSU][i].slevel > p_ptr->lev) continue;
+		if (cr_ptr->spell_learned1 & (1L << i)) continue;
+		if (technic_info[TECHNIC_HISSATSU][i].slevel > cr_ptr->lev) continue;
 
-		p_ptr->spell_learned1 |= (1L << i);
-		p_ptr->spell_worked1 |= (1L << i);
+		cr_ptr->spell_learned1 |= (1L << i);
+		cr_ptr->spell_worked1 |= (1L << i);
 #ifdef JP
 		msg_format("%s‚Ì‹Z‚ðŠo‚¦‚½B", do_spell(REALM_HISSATSU, i, SPELL_NAME));
 #else
@@ -526,9 +526,9 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 		for (j = 0; j < 64; j++)
 		{
 			/* Stop at the first empty space */
-			if (p_ptr->spell_order[j] == 99) break;
+			if (cr_ptr->spell_order[j] == 99) break;
 		}
-		p_ptr->spell_order[j] = i;
+		cr_ptr->spell_order[j] = i;
 		gain = TRUE;
 	}
 
@@ -544,5 +544,5 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	else
 		energy_use = 100;
 
-	p_ptr->update |= (PU_SPELLS);
+	cr_ptr->update |= (PU_SPELLS);
 }
