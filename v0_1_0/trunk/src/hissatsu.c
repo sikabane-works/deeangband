@@ -338,14 +338,14 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
  * do_cmd_cast calls this function if the player's class
  * is 'mindcrafter'.
  */
-void do_cmd_hissatsu(void)
+void do_cmd_hissatsu(creature_type *cr_ptr)
 {
 	int             n = 0;
 	magic_type      spell;
 
 
 	/* not if confused */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
@@ -355,7 +355,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 
 		return;
 	}
-	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
+	if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM))
 	{
 		if (flush_failure) flush();
 #ifdef JP
@@ -366,7 +366,7 @@ msg_print("•Ší‚ðŽ‚½‚È‚¢‚Æ•KŽE‹Z‚ÍŽg‚¦‚È‚¢I");
 
 		return;
 	}
-	if (!p_ptr->spell_learned1)
+	if (!cr_ptr->spell_learned1)
 	{
 #ifdef JP
 msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
@@ -377,18 +377,18 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 		return;
 	}
 
-	if (p_ptr->special_defense & KATA_MASK)
+	if (cr_ptr->special_defense & KATA_MASK)
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 	/* get power */
-	if (!get_hissatsu_power(p_ptr, &n)) return;
+	if (!get_hissatsu_power(cr_ptr, &n)) return;
 
 	spell = technic_info[TECHNIC_HISSATSU][n];
 
 	/* Verify "dangerous" spells */
-	if (spell.smana > p_ptr->csp)
+	if (spell.smana > cr_ptr->csp)
 	{
 		if (flush_failure) flush();
 		/* Warning */
@@ -410,10 +410,10 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 	energy_use = 100;
 
 	/* Use some mana */
-	p_ptr->csp -= spell.smana;
+	cr_ptr->csp -= spell.smana;
 
 	/* Limit */
-	if (p_ptr->csp < 0) p_ptr->csp = 0;
+	if (cr_ptr->csp < 0) cr_ptr->csp = 0;
 
 	/* Redraw mana */
 	play_redraw |= (PR_MANA);
