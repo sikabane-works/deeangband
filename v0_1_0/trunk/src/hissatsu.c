@@ -28,13 +28,13 @@
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_hissatsu_power(int *sn)
+static int get_hissatsu_power(creature_type *cr_ptr, int *sn)
 {
 	int             i, j = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 15;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	int             ask = TRUE;
 	char            choice;
 	char            out_val[160];
@@ -119,7 +119,7 @@ cptr            p = "•KŽEŒ•";
 					{
 						menu_line += 31;
 						if (menu_line > 32) menu_line -= 32;
-					} while(!(p_ptr->spell_learned1 & (1L << (menu_line-1))));
+					} while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
 
@@ -131,7 +131,7 @@ cptr            p = "•KŽEŒ•";
 					{
 						menu_line++;
 						if (menu_line > 32) menu_line -= 32;
-					} while(!(p_ptr->spell_learned1 & (1L << (menu_line-1))));
+					} while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
 
@@ -150,7 +150,7 @@ cptr            p = "•KŽEŒ•";
 						reverse = TRUE;
 					}
 					else menu_line+=16;
-					while(!(p_ptr->spell_learned1 & (1L << (menu_line-1))))
+					while(!(cr_ptr->spell_learned1 & (1L << (menu_line-1))))
 					{
 						if (reverse)
 						{
@@ -207,11 +207,11 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 					if (spell.slevel > PY_MAX_LEVEL) continue;
 					line++;
-					if (!(p_ptr->spell_learned1 >> i)) break;
+					if (!(cr_ptr->spell_learned1 >> i)) break;
 
 					/* Access the spell */
 					if (spell.slevel > plev)   continue;
-					if (!(p_ptr->spell_learned1 & (1L << i))) continue;
+					if (!(cr_ptr->spell_learned1 & (1L << i))) continue;
 					if (use_menu)
 					{
 						if (i == (menu_line-1))
@@ -278,7 +278,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= 32) || !(p_ptr->spell_learned1 & (1 << sentaku[i])))
+		if ((i < 0) || (i >= 32) || !(cr_ptr->spell_learned1 & (1 << sentaku[i])))
 		{
 			bell();
 			continue;
@@ -383,7 +383,7 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 	}
 
 	/* get power */
-	if (!get_hissatsu_power(&n)) return;
+	if (!get_hissatsu_power(p_ptr, &n)) return;
 
 	spell = technic_info[TECHNIC_HISSATSU][n];
 
