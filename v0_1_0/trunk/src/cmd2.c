@@ -3621,7 +3621,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 		/* Sniper */
 		if (snipe_type == SP_KILL_TRAP)
 		{
-			project(0, 0, ny, nx, 0, GF_KILL_TRAP,
+			project(p_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
@@ -3791,7 +3791,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
 					sound(SOUND_EXPLODE); /* No explode sound - use breath fire instead */
-					project(0, ((p_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
+					project(p_ptr, ((p_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
 					break;
 				}
 

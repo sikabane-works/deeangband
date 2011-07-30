@@ -939,7 +939,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 #endif
 
 		if (plev < 25)
-			project(0, 2 + plev / 10, cr_ptr->fy, cr_ptr->fx,
+			project(cr_ptr, 2 + plev / 10, cr_ptr->fy, cr_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
 			(void)mindblast_monsters(randint1(plev * ((plev - 5) / 10 + 1)));
@@ -1771,7 +1771,7 @@ msg_print("その方向にはモンスターはいません。");
 
 				if (!player_bold(y, x)) break;
 			}
-			project(0, 0, y, x, damroll(6 + plev / 8, 10), typ,
+			project(cr_ptr, 0, y, x, damroll(6 + plev / 8, 10), typ,
 				(PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 		}
 		break;

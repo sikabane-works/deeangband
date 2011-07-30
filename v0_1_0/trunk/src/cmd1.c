@@ -3769,7 +3769,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 	{
 		if (music_singing(p_ptr, MUSIC_WALL))
 		{
-			(void)project(0, 0, p_ptr->fy, p_ptr->fx, (60 + p_ptr->lev), GF_DISINTEGRATE,
+			(void)project(p_ptr, 0, p_ptr->fy, p_ptr->fx, (60 + p_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
 			if (!player_bold(ny, nx) || p_ptr->is_dead || p_ptr->leaving) return FALSE;

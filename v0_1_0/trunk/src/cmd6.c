@@ -2454,7 +2454,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 					if (!player_bold(y, x)) break;
 				}
 
-				project(0, 0, y, x, damroll(6 + cr_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(cr_ptr, 0, y, x, damroll(6 + cr_ptr->lev / 8, 10), GF_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2657,7 +2657,7 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(0, 5, cr_ptr->fy, cr_ptr->fx,
+			project(cr_ptr, 5, cr_ptr->fy, cr_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
 			if ((cr_ptr->cls_idx != CLASS_MAGE) && (cr_ptr->cls_idx != CLASS_HIGH_MAGE) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_MAGIC_EATER) && (cr_ptr->cls_idx != CLASS_BLUE_MAGE))
 			{
@@ -4424,7 +4424,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 						if (!player_bold(y, x)) break;
 					}
 
-					project(0, 3, y, x, 150, GF_ELEC,
+					project(cr_ptr, 3, y, x, 150, GF_ELEC,
 							  (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 
@@ -5204,7 +5204,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 
 				for (i = 0; i < num; i++)
-					project(0, cr_ptr->lev/20+1, ty, tx, cr_ptr->lev*cr_ptr->lev*6/50, GF_ROCKET, flg, -1);
+					project(cr_ptr, cr_ptr->lev/20+1, ty, tx, cr_ptr->lev*cr_ptr->lev*6/50, GF_ROCKET, flg, -1);
 				o_ptr->timeout = 15;
 				break;
 			}

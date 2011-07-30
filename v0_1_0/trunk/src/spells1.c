@@ -1111,7 +1111,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(y, x);
-				project(0, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(p_ptr, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
@@ -1147,7 +1147,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(y, x);
-				project(0, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(p_ptr, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
@@ -8358,27 +8358,19 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 		jump = TRUE;
 	}
 
-	/* Start at player */
-	else if (is_player(who_ptr))
-	{
-		x1 = p_ptr->fx;
-		y1 = p_ptr->fy;
-	}
-
 	/* Start at monster */
-	else if (!is_player(who_ptr))
+	if(!who_ptr)
+	{
+		x1 = x;
+		y1 = y;
+	}
+	else
 	{
 		x1 = who_ptr->fx;
 		y1 = who_ptr->fy;
 		monster_desc(who_name, who_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 	}
 
-	/* Oops */
-	else
-	{
-		x1 = x;
-		y1 = y;
-	}
 
 	y_saver = y1;
 	x_saver = x1;

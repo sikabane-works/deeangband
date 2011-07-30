@@ -2184,7 +2184,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 							{
 								o_ptr = &tar_ptr->inventory[typ[j][0]];
 								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(p_ptr, o_ptr))
-									project(0, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
+									project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}
 					}
@@ -2291,7 +2291,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
-		project(0, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (tar_ptr->tim_eyeeye) set_tim_eyeeye(tar_ptr, tar_ptr->tim_eyeeye-5, TRUE);
 	}
 
