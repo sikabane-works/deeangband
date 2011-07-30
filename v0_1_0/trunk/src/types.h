@@ -1461,6 +1461,7 @@ struct creature_type
 
 	s16b to_dd[2]; /* Extra dice/sides */
 	s16b to_ds[2];
+	s16b to_ar[2]; /* Active rate*/
 
 	s16b dis_to_h[2];	/* Known bonus to hit (wield) */
 	s16b dis_to_h_b;	/* Known bonus to hit (bow) */

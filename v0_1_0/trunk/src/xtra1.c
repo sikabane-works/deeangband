@@ -3117,6 +3117,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->to_dd[0] = cr_ptr->to_ds[0] = 0;
 	cr_ptr->to_dd[1] = cr_ptr->to_ds[1] = 0;
 
+	/* Clear the Activate Rate */
+	cr_ptr->to_ar[0] = cr_ptr->to_ar[0] = 100; 
+
 	/* Start with "normal" speed */
 	new_speed = 110;
 	if(cr_ptr->dr >= 0) new_speed += adj_dr_speed[cr_ptr->dr];

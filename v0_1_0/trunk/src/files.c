@@ -1597,26 +1597,26 @@ static struct
 } disp_player_line[]
 #ifdef JP
 = {
-	{ 1, 10, 25, "Ši“¬"},
-	{ 1, 10, 25, "—¼è"},
-	{ 1, 10, 25, "‰Eè"},
-	{ 1, 10, 25, "¶è"},
-	{ 1, 11, 25, "¶è"},
-	{ 1, 11, 25, "‰Eè"},
-	{ 1, 11, 25, ""},
+	{ 1, 11, 30, "Ši“¬"},
+	{ 1, 11, 30, "•Ší‚P"},
+	{ 1, 11, 30, "•Ší‚P"},
+	{ 1, 11, 30, "•Ší‚P"},
+	{ 1, 12, 30, "•Ší‚Q"},
+	{ 1, 12, 30, "•Ší‚Q"},
+	{ 1, 13, 25, ""},
 	{ 1, 15, 25, "ËŒ‚UŒ‚C³"},
 	{ 1, 16, 25, "ËŒ‚•Ší”{—¦"},
 	{16, 19, 12, "‰Á‘¬ "},
 	{ 1, 19, 14, "‚`‚b"},
 	{25,  5, 15, "ƒŒƒxƒ‹"},
-	{29, 10, 21, "ŒoŒ±’l"},
-	{29, 11, 21, "Å‘åŒoŒ±"},
-	{29, 12, 21, "ŸƒŒƒxƒ‹"},
-	{29, 13, 21, "Š‹à"},
-	{51, 10, 21, "“ú•t"},
+	{33, 10, 21, "ŒoŒ±’l"},
+	{33, 11, 21, "Å‘åŒoŒ±"},
+	{33, 12, 21, "ŸƒŒƒxƒ‹"},
+	{33, 13, 21, "Š‹à"},
+	{55, 10, 21, "“ú•t"},
 	{25,  6, 15, "‚g‚o"},
 	{41,  6, 15, "‚l‚o"},
-	{51, 11, 21, "ƒvƒŒƒCŠÔ"},
+	{55, 11, 21, "ƒvƒŒƒCŠÔ"},
 	{29, 15, -1, "‘ÅŒ‚UŒ‚  :"},
 	{29, 16, -1, "ËŒ‚UŒ‚  :"},
 	{29, 17, -1, "ŠæŒ’«    :"},
@@ -1656,13 +1656,13 @@ static struct
 };
 #else
 = {
-	{ 1, 10, 25, "Bare"},
-	{ 1, 10, 25, "Two.H"},
-	{ 1, 10, 25, "Right"},
-	{ 1, 10, 25, "Left"},
-	{ 1, 11, 25, "Left"},
-	{ 1, 11, 25, "Right"},
-	{ 1, 11, 25, "Posture"},
+	{ 1, 11, 30, "Bare"},
+	{ 1, 11, 30, "Wep.1"},
+	{ 1, 11, 30, "Wep.1"},
+	{ 1, 11, 30, "Wep.1"},
+	{ 1, 12, 30, "Wep.2"},
+	{ 1, 12, 30, "Wep.2"},
+	{ 1, 13, 25, "Posture"},
 	{ 1, 15, 25, "Shooting"},
 	{ 1, 16, 25, "Multiplier"},
 	{ 1, 20, 14, "Speed "},
@@ -1751,6 +1751,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	char buf[160];
 	int show_tohit = cr_ptr->dis_to_h[hand];
 	int show_todam = cr_ptr->dis_to_d[hand];
+	int show_activerate = cr_ptr->to_ar[hand];
 	int blows = cr_ptr->num_blow[hand];
 	int damage, basedam, av_dam;
 	u32b flgs[TR_FLAG_SIZE];
@@ -1807,7 +1808,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	/* Melee attacks */
-	sprintf(buf, "(%+3d,%+3d)x%2d=>%4d", show_tohit, show_todam, blows, av_dam);
+	sprintf(buf, "%3d%%(%+4d,%+4d)x%2d:%4d", show_activerate, show_tohit, show_todam, blows, av_dam);
 
 	/* Dump the bonuses to hit/dam */
 	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
@@ -1835,6 +1836,12 @@ static void display_player_middle(creature_type *cr_ptr)
 
 	int tmul = 0;
 	int e;
+
+#ifdef JP
+	c_put_str(TERM_WHITE, "í•Ê   ”­“®(–½’†,ˆĞ—Í) ‰ñ •½‹Ï ", 10, 1);
+#else
+	c_put_str(TERM_WHITE, "Type   Actv(Hit ,Dam ) Nm  Ave ", 10, 1);
+#endif
 
 	if (cr_ptr->migite)
 	{
