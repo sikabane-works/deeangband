@@ -6470,7 +6470,7 @@ bool fire_ball(int typ, int dir, int dam, int rad)
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, rad, ty, tx, dam, typ, flg, -1));
+	return (project(p_ptr, rad, ty, tx, dam, typ, flg, -1));
 }
 
 
