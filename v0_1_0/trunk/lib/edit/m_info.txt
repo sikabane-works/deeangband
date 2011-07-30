@@ -6,7 +6,7 @@
 
 ### Warrior ###
 N:0
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -748,7 +748,7 @@ T:46:100:85:250
 
 ### Rogue ###
 N:3
-I:SORCERY:INT:0x07:0:5:400
+I:SORCERY:INT:0x07:0:1:400
 # Life
 R:0:0
 
@@ -942,7 +942,7 @@ R:9:0
 
 ### Ranger ###
 N:4
-I:SORCERY:INT:0x07:0:3:450
+I:SORCERY:INT:0x07:0:1:450
 # Life
 R:0:0
 
@@ -1652,7 +1652,7 @@ T:50:100:80:250
 
 ### Chaos Warrior ###
 N:7
-I:SORCERY:INT:0x07:0:2:450
+I:SORCERY:INT:0x07:0:1:450
 # Life
 R:0:0
 
@@ -1912,7 +1912,7 @@ R:9:0
 
 ### Mindcrafter ###
 N:9
-I:LIFE:WIS:0x00:0:99:400
+I:LIFE:WIS:0x00:0:1:400
 # Life
 R:0:0
 
@@ -2300,7 +2300,7 @@ T:45:90:75:250
 
 ### Tourist ###
 N:11
-I:SORCERY:INT:0x07:0:5:450
+I:SORCERY:INT:0x07:0:1:450
 # Life
 R:0:0
 
@@ -2366,7 +2366,7 @@ R:9:0
 
 ### Imitator ###
 N:12
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -2400,7 +2400,7 @@ R:9:0
 
 ### Beastmaster ###
 N:13
-I:SORCERY:CHR:0x06:0:3:430
+I:SORCERY:CHR:0x06:0:1:430
 # Life
 R:0:0
 
@@ -2819,7 +2819,7 @@ T:48:100:85:250
 
 ### Archer ###
 N:15
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -2853,7 +2853,7 @@ R:9:0
 
 ### Magic eater ###
 N:16
-I:NONE:INT:0x00:0:99:0
+I:NONE:INT:0x00:0:1:0
 # Life
 R:0:0
 
@@ -3503,7 +3503,7 @@ T:50:100:80:250
 
 ### Blue Mage ###
 N:21
-I:SORCERY:INT:0x01:0:99:430
+I:SORCERY:INT:0x01:0:1:430
 # Life
 R:0:0
 
@@ -3537,7 +3537,7 @@ R:9:0
 
 ### Cavalry ###
 N:22
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -3571,7 +3571,7 @@ R:9:0
 
 ### Berserker ###
 N:23
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -3605,7 +3605,7 @@ R:9:0
 
 ### Weaponsmith ###
 N:24
-I:NONE:STR:0x00:0:99:0
+I:NONE:STR:0x00:0:1:0
 # Life
 R:0:0
 
@@ -3639,7 +3639,7 @@ R:9:0
 
 ### Mirror Master ###
 N:25
-I:LIFE:INT:0x00:0:99:400
+I:LIFE:INT:0x00:0:1:400
 # Life
 R:0:0
 
@@ -3673,7 +3673,7 @@ R:9:0
 
 ### Ninja ###
 N:26
-I:NONE:DEX:0x00:0:99:0
+I:NONE:DEX:0x00:0:1:0
 # Life
 R:0:0
 
@@ -3707,7 +3707,7 @@ R:9:0
 
 ### Sniper ###
 N:27
-I:NONE:DEX:0x00:0:99:0
+I:NONE:DEX:0x00:0:1:0
 # Life
 R:0:0
 
