@@ -1533,8 +1533,8 @@ errr check_load_init(void)
 #define ENTRY_LEFT_HAND2 4
 #define ENTRY_RIGHT_HAND2 5
 #define ENTRY_POSTURE 6
-#define ENTRY_SHOOT_HIT_DAM 7
-#define ENTRY_SHOOT_POWER 8
+#define ENTRY_SHOOT 7
+#define ENTRY_THROW 8
 #define ENTRY_SPEED 9
 #define ENTRY_BASE_AC 10
 #define ENTRY_LEVEL 11
@@ -1603,9 +1603,9 @@ static struct
 	{ 1, 11, 30, "•Ší‚P"},
 	{ 1, 12, 30, "•Ší‚Q"},
 	{ 1, 12, 30, "•Ší‚Q"},
-	{ 1, 13, 25, ""},
-	{ 1, 15, 25, "ŽËŒ‚UŒ‚C³"},
-	{ 1, 16, 25, "ŽËŒ‚•Ší”{—¦"},
+	{ 1, 13, 30, ""},
+	{ 1, 15, 30, "ŽËŒ‚"},
+	{ 1, 16, 30, "“Š±"},
 	{16, 19, 12, "‰Á‘¬ "},
 	{ 1, 19, 14, "‚`‚b"},
 	{25,  5, 15, "ƒŒƒxƒ‹"},
@@ -1617,20 +1617,20 @@ static struct
 	{25,  6, 15, "‚g‚o"},
 	{41,  6, 15, "‚l‚o"},
 	{55, 11, 21, "ƒvƒŒƒCŽžŠÔ"},
-	{29, 15, -1, "‘ÅŒ‚UŒ‚  :"},
-	{29, 16, -1, "ŽËŒ‚UŒ‚  :"},
-	{29, 17, -1, "ŠæŒ’«    :"},
-	{29, 18, -1, "‰ñ”ð”\—Í  :"},
-	{29, 19, -1, "ˆÓŽu—Í    :"},
-	{29, 20, -1, "‰B–§s“®  :"},
-	{53, 15, -1, "’mŠo      :"},
-	{53, 16, -1, "’Tõ      :"},
-	{53, 17, -1, "‰ðœ      :"},
-	{53, 18, -1, "–‚–@“¹‹ï  :"},
+	{33, 15, -1, "‘ÅŒ‚UŒ‚  :"},
+	{33, 16, -1, "ŽËŒ‚UŒ‚  :"},
+	{33, 17, -1, "ŠæŒ’«    :"},
+	{33, 18, -1, "‰ñ”ð”\—Í  :"},
+	{33, 19, -1, "ˆÓŽu—Í    :"},
+	{33, 20, -1, "‰B–§s“®  :"},
+	{57, 15, -1, "’mŠo      :"},
+	{57, 16, -1, "’Tõ      :"},
+	{57, 17, -1, "‰ðœ      :"},
+	{57, 18, -1, "–‚–@“¹‹ï  :"},
 	{ 1, 12, 25, "‘ÅŒ‚‰ñ”"},
 	{ 1, 17, 25, "ŽËŒ‚‰ñ”"},
 	{ 1, 13, 25, "•½‹Ïƒ_ƒ[ƒW"},
-	{53, 20, -1, "ÔŠOüŽ‹—Í:"},
+	{57, 20, -1, "ÔŠOüŽ‹—Í:"},
 	{ 1,  1, -1, "–¼‘O: "},
 	{ 1,  3, -1, "«•Ê: "},
 	{ 1,  2, -1, "Ží‘°: "},
@@ -1646,7 +1646,7 @@ static struct
 	{29, 16, 21, "ŽŸƒŒƒxƒ‹"},
 	{48,  3, 8,  "‘ÌŠi"},
 	{41,  5, 15, "_Ši "},
-	{53, 19, -1, "Œ@í”\—Í  :"},
+	{57, 19, -1, "Œ@í”\—Í  :"},
 	{ 1,   8,  9, "‘P"},
 	{ 12,  8,  9, "ˆ«"},
 	{ 23,  8,  9, "’˜"},
@@ -1662,9 +1662,9 @@ static struct
 	{ 1, 11, 30, "Wep.1"},
 	{ 1, 12, 30, "Wep.2"},
 	{ 1, 12, 30, "Wep.2"},
-	{ 1, 13, 25, "Posture"},
-	{ 1, 15, 25, "Shooting"},
-	{ 1, 16, 25, "Multiplier"},
+	{ 1, 13, 30, "Posture"},
+	{ 1, 15, 30, "Shoot"},
+	{ 1, 16, 30, "Throw"},
 	{ 1, 20, 14, "Speed "},
 	{ 1, 19, 14, "AC    "},
 	{ 1,  9, 12, "Level "},
@@ -1676,16 +1676,16 @@ static struct
 	{40,  1, 15, "H.P."},
 	{58,  1, 15, "S.P."},
 	{51, 11, 21, "Play time"},
-	{29, 15, -1, "Fighting   : "},
-	{29, 16, -1, "Bows/Throw : "},
-	{29, 17, -1, "Robustness :"},
-	{29, 18, -1, "Evasion    :"},
-	{29, 19, -1, "Volition   :"},
-	{29, 20, -1, "Stealth    : "},
-	{53, 15, -1, "Perception : "},
-	{53, 16, -1, "Searching  : "},
-	{53, 17, -1, "Disarming  : "},
-	{53, 18, -1, "MagicDevice: "},
+	{33, 15, -1, "Fighting   : "},
+	{33, 16, -1, "Bows/Throw : "},
+	{33, 17, -1, "Robustness :"},
+	{33, 18, -1, "Evasion    :"},
+	{33, 19, -1, "Volition   :"},
+	{33, 20, -1, "Stealth    : "},
+	{57, 15, -1, "Perception : "},
+	{57, 16, -1, "Searching  : "},
+	{57, 17, -1, "Disarming  : "},
+	{57, 18, -1, "MagicDevice: "},
 	{ 1, 12, 25, "Blows/Round"},
 	{ 1, 17, 25, "Shots/Round"},
 	{ 1, 13, 25, "AverageDmg/Rnd"},
@@ -1797,7 +1797,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	}
 	damage += basedam;
 
-	av_dam = blows * damage / 100;
+	av_dam = blows * damage / 100 * show_activerate / 100;
 
 	o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
@@ -1838,9 +1838,9 @@ static void display_player_middle(creature_type *cr_ptr)
 	int e;
 
 #ifdef JP
-	c_put_str(TERM_WHITE, "Ží•Ê   ”­“®(–½’†,ˆÐ—Í) ‰ñ •½‹Ï ", 10, 1);
+	c_put_str(TERM_WHITE, "Ží•Ê   ”­“®(–½’†,ˆÐ—Í) ‰ñ Šú‘Ò ", 10, 1);
 #else
-	c_put_str(TERM_WHITE, "Type   Actv(Hit ,Dam ) Nm  Ave ", 10, 1);
+	c_put_str(TERM_WHITE, "Type   Actv(Hit ,Dam ) Nm ExpV ", 10, 1);
 #endif
 
 	if (cr_ptr->migite)
@@ -1886,7 +1886,8 @@ static void display_player_middle(creature_type *cr_ptr)
 		show_tohit += (cr_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 	/* Range attacks */
-	display_player_one_line(ENTRY_SHOOT_HIT_DAM, format("(%+d,%+d)", show_tohit, show_todam), TERM_L_BLUE);
+	display_player_one_line(ENTRY_SHOOT, format("---%%(%+4d,%+4d)  x%2d.%02d", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
+	display_player_one_line(ENTRY_THROW, format("---%%(%+4d,%+4d)  x%2d.%02d", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
 
 	if (cr_ptr->inventory[INVEN_BOW].k_idx)
 	{
@@ -1898,8 +1899,6 @@ static void display_player_middle(creature_type *cr_ptr)
 		tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
 	}
 
-	/* shoot power */
-	display_player_one_line(ENTRY_SHOOT_POWER, format("x%d.%02d", tmul/100, tmul%100), TERM_L_BLUE);
 
 	/* Dump the armor class */
 	display_player_one_line(ENTRY_BASE_AC, format("[%d,%+d]", cr_ptr->dis_ac, cr_ptr->dis_to_a), TERM_L_BLUE);
