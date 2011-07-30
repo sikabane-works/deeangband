@@ -1663,7 +1663,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 			msg_print("There is a high pitched humming noise.");
 #endif
 
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 			ident = TRUE;
 			break;
 		}
@@ -1713,7 +1713,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(-1, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -2644,7 +2644,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if (animate_dead(0, cr_ptr->fy, cr_ptr->fx))
+			if (animate_dead(NULL, cr_ptr->fy, cr_ptr->fx))
 				ident = TRUE;
 
 			break;
@@ -3641,7 +3641,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_AGGRAVATE:
 		{
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 			ident = TRUE;
 			break;
 		}
@@ -4902,7 +4902,7 @@ msg_print("暁の師団を召喚した。");
 				msg_print("You summon the Legion of the Dawn.");
 #endif
 
-				(void)summon_specific(-1, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
+				(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
 				o_ptr->timeout = 500 + randint1(500);
 				break;
 			}
@@ -5486,7 +5486,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= PM_NO_PET;
 
-				if (summon_specific((pet ? -1 : 0), cr_ptr->fy, cr_ptr->fx, ((cr_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
+				if (summon_specific((pet ? p_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((cr_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
 				{
 
 					if (pet)
@@ -5599,7 +5599,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("You beat Your wooden clappers.");
 #endif
-				aggravate_monsters(0);
+				aggravate_monsters(NULL);
 				break;
 			}
 
@@ -6415,7 +6415,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 #else
 			msg_print("You produce a shrill whistling sound.");
 #endif
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 		}
 		else
 #endif

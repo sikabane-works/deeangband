@@ -808,7 +808,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 #else
 		msg_print("An alarm sounds!");
 #endif
-		aggravate_monsters(0);
+		aggravate_monsters(NULL);
 	}
 
 	/* Explode */

@@ -3571,7 +3571,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 		case MUT1_SHRIEK:
 			mutation_stop_mouth(p_ptr);
 			(void)fire_ball(GF_SOUND, 0, 2 * lvl, 8);
-			(void)aggravate_monsters(0);
+			(void)aggravate_monsters(NULL);
 			break;
 
 		case MUT1_ILLUMINE:
@@ -3619,7 +3619,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				int i;
 				for (i = 0; i < 8; i++)
 				{
-					summon_specific(-1, cr_ptr->fy, cr_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
+					summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
 				}
 			}
 			break;

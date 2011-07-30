@@ -5506,7 +5506,7 @@ msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[cr_ptr->patron_
 			msg_format("%s rewards you with a demonic servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5527,7 +5527,7 @@ msg_format("%sは褒美として使いをよこした！",player_patrons[cr_ptr->patron_idx].t
 			msg_format("%s rewards you with a servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, 0, PM_FORCE_PET))
+			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5548,7 +5548,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[cr_ptr->p
 			msg_format("%s rewards you with an undead servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else

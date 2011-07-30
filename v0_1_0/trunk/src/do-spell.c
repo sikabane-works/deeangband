@@ -222,7 +222,7 @@ static bool trump_summoning(int num, bool pet, int y, int x, int lev, int type, 
 
 	for (i = 0; i < num; i++)
 	{
-		if (summon_specific(who, y, x, lev, type, mode))
+		if (summon_specific(p_ptr, y, x, lev, type, mode))
 			success = TRUE;
 	}
 
@@ -547,7 +547,7 @@ static void wild_magic(int spell)
 	case 23:
 	case 24:
 	case 25:
-		aggravate_monsters(0);
+		aggravate_monsters(NULL);
 		break;
 	case 26:
 		earthquake(p_ptr->fy, p_ptr->fx, 5);
@@ -581,7 +581,7 @@ static void wild_magic(int spell)
 		activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(-1, p_ptr->fy, p_ptr->fx);
+		(void)summon_cyber(NULL, p_ptr->fy, p_ptr->fx);
 		break;
 	default:
 		{
@@ -671,7 +671,7 @@ static void cast_shuffle(void)
 		msg_print("It's the swords of discord.");
 #endif
 
-		aggravate_monsters(0);
+		aggravate_monsters(NULL);
 	}
 	else if (die < 26)
 	{
@@ -1083,7 +1083,7 @@ static bool cast_summon_greater_demon(void)
 
 	summon_lev = plev * 2 / 3 + r_info[o_ptr->pval].level;
 
-	if (summon_specific(-1, p_ptr->fy, p_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+	if (summon_specific(NULL, p_ptr->fy, p_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 	{
 #ifdef JP
 		msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -2975,7 +2975,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!(summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
+				if (!(summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("ìÆï®ÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -3971,7 +3971,7 @@ static cptr do_chaos_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
+				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -4588,7 +4588,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				animate_dead(0, p_ptr->fy, p_ptr->fx);
+				animate_dead(NULL, p_ptr->fy, p_ptr->fx);
 			}
 		}
 		break;
@@ -4845,7 +4845,7 @@ static cptr do_death_spell(int spell, int mode)
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, type, mode))
+				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("ó‚ÇΩÇ¢ïóÇ™Ç†Ç»ÇΩÇÃé¸ÇËÇ…êÅÇ´énÇﬂÇΩÅBÇªÇÍÇÕïÖîsèLÇâ^ÇÒÇ≈Ç¢ÇÈ...");
@@ -6497,7 +6497,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("ÉGÉåÉÅÉìÉ^ÉãÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -7153,7 +7153,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
+				if (summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ÉSÅ[ÉåÉÄÇçÏÇ¡ÇΩÅB");
@@ -7528,7 +7528,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(-1, p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("å√ë„ÇÃéÄóÏÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -7747,7 +7747,7 @@ static cptr do_daemon_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -8701,7 +8701,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
 				{
 					if (pet)
 					{
@@ -8929,7 +8929,7 @@ static cptr do_crusade_spell(int spell, int mode)
 						if (cave_empty_bold2(my, mx)) break;
 					}
 					if (attempt < 0) continue;
-					summon_specific(-1, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
+					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
 				}
 				set_hero(p_ptr, randint1(base) + base, FALSE);
 				set_blessed(p_ptr, randint1(base) + base, FALSE);
@@ -9521,7 +9521,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The themes of life and revival are woven into your song...");
 #endif
 
-				animate_dead(0, p_ptr->fy, p_ptr->fx);
+				animate_dead(NULL, p_ptr->fy, p_ptr->fx);
 			}
 		}
 		break;
@@ -10974,7 +10974,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			msg_print("You roar out!");
 #endif
 			project_hack(GF_SOUND, randint1(plev * 3));
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 		}
 		break;
 
@@ -12017,7 +12017,7 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			animate_dead(0, p_ptr->fy, p_ptr->fx);
+			animate_dead(NULL, p_ptr->fy, p_ptr->fx);
 		}
 		break;
 

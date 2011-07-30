@@ -1674,7 +1674,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			msg_print("An alarm sounds!");
 #endif
 
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 
 			break;
 		}
@@ -1689,7 +1689,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			(void)project(0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 
 			break;
 		}
@@ -2955,7 +2955,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("%^s disappears!", m_name);
 #endif
 
-					teleport_away(c_ptr->m_idx, 50, TELEPORT_PASSIVE);
+					teleport_away(&m_list[c_ptr->m_idx], 50, TELEPORT_PASSIVE);
 					num = num_blow + 1; /* Can't hit it anymore! */
 					*mdeath = TRUE;
 				}

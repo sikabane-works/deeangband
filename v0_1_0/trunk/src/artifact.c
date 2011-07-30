@@ -2466,7 +2466,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_SUMMON_ANIMAL:
 		{
-			(void)summon_specific(-1, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(300);
 			break;
 		}
@@ -2479,7 +2479,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You summon a phantasmal servant.");
 #endif
 
-			(void)summon_specific(-1, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}
@@ -2493,7 +2493,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
+			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
 			{
 #ifdef JP
 				msg_print("エレメンタルが現れた...");
@@ -2531,7 +2531,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
+			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
 			{
 #ifdef JP
 				msg_print("硫黄の悪臭が充満した。");
@@ -2571,7 +2571,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-			if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), type, mode))
+			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), type, mode))
 			{
 #ifdef JP
 				msg_print("冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる...");

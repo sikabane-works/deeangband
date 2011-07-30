@@ -1182,7 +1182,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		bool success = FALSE;
 
 		for (i = 0; i < 1 + boost/100; i++)
-			if (summon_specific(-1, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
+			if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_PHANTOM, PM_FORCE_PET))
 				success = TRUE;
 		if (success)
 		{

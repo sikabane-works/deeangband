@@ -1826,7 +1826,7 @@ static void process_monster(int m_idx)
 
 					for (k = 0; k < 6; k++)
 					{
-						if (summon_specific(m_idx, m_ptr->fy, m_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
+						if (summon_specific(m_ptr, m_ptr->fy, m_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
 						{
 							if (m_list[hack_m_idx_ii].ml) count++;
 						}
@@ -1935,7 +1935,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (!counterattack)
 		{
 			/* Attempt to cast a spell */
-			if (aware && make_attack_spell(m_idx)) return;
+			if (aware && make_attack_spell(m_ptr)) return;
 
 			/*
 			 * Attempt to cast a spell at an enemy other than the player
@@ -1948,7 +1948,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Attempt to do counter attack at first */
 			if (monst_spell_monst(m_idx)) return;
 
-			if (aware && make_attack_spell(m_idx)) return;
+			if (aware && make_attack_spell(m_ptr)) return;
 		}
 	}
 
@@ -2755,7 +2755,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* Try to cast spell again */
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 		{
-			if (make_attack_spell(m_idx)) return;
+			if (make_attack_spell(m_ptr)) return;
 		}
 	}
 

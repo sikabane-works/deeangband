@@ -266,7 +266,7 @@ static bool dispel_check_monster(int m_idx, int t_idx)
 	/* Riding monster */
 	if (t_idx == p_ptr->riding)
 	{
-		if (dispel_check(m_idx)) return TRUE;
+		if (dispel_check(t_ptr)) return TRUE;
 	}
 
 	/* No need to cast dispel spell */
@@ -301,10 +301,10 @@ bool monst_spell_monst(int m_idx)
 	char m_poss[160];
 #endif
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *cr_ptr = &m_list[m_idx];
 	creature_type *t_ptr = NULL;
 
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &r_info[cr_ptr->species_idx];
 	species_type *tr_ptr = NULL;
 
 	u32b f4, f5, f6;
@@ -314,14 +314,14 @@ bool monst_spell_monst(int m_idx)
 
 	bool blind = (p_ptr->blind ? TRUE : FALSE);
 
-	bool see_m = is_seen(p_ptr, m_ptr);
-	bool maneable = player_has_los_bold(m_ptr->fy, m_ptr->fx);
-	bool learnable = (m_ptr->ml && maneable && !world_monster);
+	bool see_m = is_seen(p_ptr, cr_ptr);
+	bool maneable = player_has_los_bold(cr_ptr->fy, cr_ptr->fx);
+	bool learnable = (cr_ptr->ml && maneable && !world_monster);
 	bool see_t;
 	bool see_either;
 	bool known;
 
-	bool pet = is_pet(m_ptr);
+	bool pet = is_pet(cr_ptr);
 
 	bool in_no_magic_dungeon = (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && dun_level
 		&& (!p_ptr->inside_quest || is_fixed_quest_idx(p_ptr->inside_quest));
@@ -336,7 +336,7 @@ bool monst_spell_monst(int m_idx)
 	if (!pet) u_mode |= PM_ALLOW_UNIQUE;
 
 	/* Cannot cast spells when confused */
-	if (m_ptr->confused) return (FALSE);
+	if (cr_ptr->confused) return (FALSE);
 
 	/* Extract the racial spell flags */
 	f4 = r_ptr->flags4;
@@ -350,16 +350,16 @@ bool monst_spell_monst(int m_idx)
 		t_ptr = &m_list[t_idx];
 
 		/* Cancel if not projectable (for now) */
-		if ((m_idx == t_idx) || !projectable(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx))
+		if ((m_idx == t_idx) || !projectable(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx))
 		{
 			t_idx = 0;
 		}
 	}
 
 	/* Is there counter attack target? */
-	if (!t_idx && m_ptr->target_y)
+	if (!t_idx && cr_ptr->target_y)
 	{
-		t_idx = cave[m_ptr->target_y][m_ptr->target_x].m_idx;
+		t_idx = cave[cr_ptr->target_y][cr_ptr->target_x].m_idx;
 
 		if (t_idx)
 		{
@@ -367,13 +367,13 @@ bool monst_spell_monst(int m_idx)
 
 			/* Cancel if neither enemy nor a given target */
 			if ((m_idx == t_idx) ||
-			    ((t_idx != pet_t_m_idx) && !are_enemies(m_ptr, t_ptr)))
+			    ((t_idx != pet_t_m_idx) && !are_enemies(cr_ptr, t_ptr)))
 			{
 				t_idx = 0;
 			}
 
 			/* Allow only summoning etc.. if not projectable */
-			else if (!projectable(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx))
+			else if (!projectable(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx))
 			{
 				f4 &= (RF4_INDIRECT_MASK);
 				f5 &= (RF5_INDIRECT_MASK);
@@ -407,10 +407,10 @@ bool monst_spell_monst(int m_idx)
 			if (!t_ptr->species_idx) continue;
 
 			/* Monster must be 'an enemy' */
-			if ((m_idx == t_idx) || !are_enemies(m_ptr, t_ptr)) continue;
+			if ((m_idx == t_idx) || !are_enemies(cr_ptr, t_ptr)) continue;
 
 			/* Monster must be projectable */
-			if (!projectable(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+			if (!projectable(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 
 			/* Get it */
 			success = TRUE;
@@ -428,7 +428,7 @@ bool monst_spell_monst(int m_idx)
 	tr_ptr = &r_info[t_ptr->species_idx];
 
 	/* Forget old counter attack target */
-	reset_target(m_ptr);
+	reset_target(cr_ptr);
 
 	/* Extract the monster level */
 	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
@@ -438,14 +438,14 @@ bool monst_spell_monst(int m_idx)
 
 	if (f4 & RF4_BR_LITE)
 	{
-		if (!los(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx))
+		if (!los(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx))
 			f4 &= ~(RF4_BR_LITE);
 	}
 
 	/* Remove unimplemented special moves */
 	if (f6 & RF6_SPECIAL)
 	{
-		if ((m_ptr->species_idx != MON_ROLENTO) && (r_ptr->d_char != 'B'))
+		if ((cr_ptr->species_idx != MON_ROLENTO) && (r_ptr->d_char != 'B'))
 			f6 &= ~(RF6_SPECIAL);
 	}
 
@@ -478,7 +478,7 @@ bool monst_spell_monst(int m_idx)
 		f5 &= ~(RF5_SUMMON_MASK);
 		f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
 
-		if (m_ptr->species_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
+		if (cr_ptr->species_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
 
 	if (p_ptr->inside_battle && !one_in_(3))
@@ -527,7 +527,7 @@ bool monst_spell_monst(int m_idx)
 				int real_y = y;
 				int real_x = x;
 
-				get_project_point(m_ptr->fy, m_ptr->fx, &real_y, &real_x, 0L);
+				get_project_point(cr_ptr->fy, cr_ptr->fx, &real_y, &real_x, 0L);
 
 				if (projectable(real_y, real_x, p_ptr->fy, p_ptr->fx))
 				{
@@ -558,7 +558,7 @@ bool monst_spell_monst(int m_idx)
 				int real_y = y;
 				int real_x = x;
 
-				get_project_point(m_ptr->fy, m_ptr->fx, &real_y, &real_x, PROJECT_STOP);
+				get_project_point(cr_ptr->fy, cr_ptr->fx, &real_y, &real_x, PROJECT_STOP);
 				if (projectable(real_y, real_x, p_ptr->fy, p_ptr->fx) && (distance(real_y, real_x, p_ptr->fy, p_ptr->fx) <= 2))
 					f4 &= ~(RF4_ROCKET);
 			}
@@ -566,7 +566,7 @@ bool monst_spell_monst(int m_idx)
 			if (((f4 & RF4_BEAM_MASK) ||
 			     (f5 & RF5_BEAM_MASK) ||
 			     (f6 & RF6_BEAM_MASK)) &&
-			    !direct_beam(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx, m_ptr))
+			    !direct_beam(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx, cr_ptr))
 			{
 				f4 &= ~(RF4_BEAM_MASK);
 				f5 &= ~(RF5_BEAM_MASK);
@@ -580,19 +580,19 @@ bool monst_spell_monst(int m_idx)
 				/* Expected breath radius */
 				int rad = (r_ptr->flags2 & RF2_POWERFUL) ? 3 : 2;
 
-				if (!breath_direct(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx, rad, 0, TRUE))
+				if (!breath_direct(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx, rad, 0, TRUE))
 				{
 					f4 &= ~(RF4_BREATH_MASK);
 					f5 &= ~(RF5_BREATH_MASK);
 					f6 &= ~(RF6_BREATH_MASK);
 				}
 				else if ((f4 & RF4_BR_LITE) &&
-					 !breath_direct(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx, rad, GF_LITE, TRUE))
+					 !breath_direct(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx, rad, GF_LITE, TRUE))
 				{
 					f4 &= ~(RF4_BR_LITE);
 				}
 				else if ((f4 & RF4_BR_DISI) &&
-					 !breath_direct(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx, rad, GF_DISINTEGRATE, TRUE))
+					 !breath_direct(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx, rad, GF_DISINTEGRATE, TRUE))
 				{
 					f4 &= ~(RF4_BR_DISI);
 				}
@@ -602,7 +602,7 @@ bool monst_spell_monst(int m_idx)
 		/* Special moves restriction */
 		if (f6 & RF6_SPECIAL)
 		{
-			if (m_ptr->species_idx == MON_ROLENTO)
+			if (cr_ptr->species_idx == MON_ROLENTO)
 			{
 				if ((p_ptr->pet_extra_flags & (PF_ATTACK_SPELL | PF_SUMMON_SPELL)) != (PF_ATTACK_SPELL | PF_SUMMON_SPELL))
 					f6 &= ~(RF6_SPECIAL);
@@ -624,7 +624,7 @@ bool monst_spell_monst(int m_idx)
 		if (((f4 & RF4_BOLT_MASK) ||
 		     (f5 & RF5_BOLT_MASK) ||
 		     (f6 & RF6_BOLT_MASK)) &&
-		    !clean_shot(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx, pet))
+		    !clean_shot(cr_ptr->fy, cr_ptr->fx, t_ptr->fy, t_ptr->fx, pet))
 		{
 			f4 &= ~(RF4_BOLT_MASK);
 			f5 &= ~(RF5_BOLT_MASK);
@@ -651,7 +651,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Check for a possible raise dead */
-		if ((f6 & RF6_RAISE_DEAD) && !raise_possible(m_ptr))
+		if ((f6 & RF6_RAISE_DEAD) && !raise_possible(cr_ptr))
 		{
 			/* Remove raise dead spell */
 			f6 &= ~(RF6_RAISE_DEAD);
@@ -660,7 +660,7 @@ bool monst_spell_monst(int m_idx)
 		/* Special moves restriction */
 		if (f6 & RF6_SPECIAL)
 		{
-			if ((m_ptr->species_idx == MON_ROLENTO) && !summon_possible(t_ptr->fy, t_ptr->fx))
+			if ((cr_ptr->species_idx == MON_ROLENTO) && !summon_possible(t_ptr->fy, t_ptr->fx))
 			{
 				f6 &= ~(RF6_SPECIAL);
 			}
@@ -670,7 +670,7 @@ bool monst_spell_monst(int m_idx)
 	if (r_ptr->flags2 & RF2_SMART)
 	{
 		/* Hack -- allow "desperate" spells */
-		if ((m_ptr->chp < m_ptr->mhp / 10) &&
+		if ((cr_ptr->chp < cr_ptr->mhp / 10) &&
 		    (randint0(100) < 50))
 		{
 			/* Require intelligent spells */
@@ -717,11 +717,11 @@ bool monst_spell_monst(int m_idx)
 	if (p_ptr->leaving) return (FALSE);
 
 	/* Get the monster name (or "it") */
-	monster_desc(m_name, m_ptr, 0x00);
+	monster_desc(m_name, cr_ptr, 0x00);
 
 #ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */
-	monster_desc(m_poss, m_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
+	monster_desc(m_poss, cr_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
 	/* Get the target's name (or "it") */
@@ -734,12 +734,12 @@ bool monst_spell_monst(int m_idx)
 	see_either = (see_m || see_t);
 
 	/* Can the player be aware of this attack? */
-	known = (m_ptr->cdis <= MAX_SIGHT) || (t_ptr->cdis <= MAX_SIGHT);
+	known = (cr_ptr->cdis <= MAX_SIGHT) || (t_ptr->cdis <= MAX_SIGHT);
 
 	if (p_ptr->riding && (m_idx == p_ptr->riding)) disturb(1, 0);
 
 	/* Check for spell failure (inate attacks never fail) */
-	if (!spell_is_inate(thrown_spell) && (in_no_magic_dungeon || (m_ptr->stun && one_in_(2))))
+	if (!spell_is_inate(thrown_spell) && (in_no_magic_dungeon || (cr_ptr->stun && one_in_(2))))
 	{
 		disturb(1, 0);
 		/* Message */
@@ -753,7 +753,7 @@ bool monst_spell_monst(int m_idx)
 	}
 
 	/* Hex: Anti Magic Barrier */
-	if (!spell_is_inate(thrown_spell) && magic_barrier(p_ptr, m_idx))
+	if (!spell_is_inate(thrown_spell) && magic_barrier(p_ptr, cr_ptr))
 	{
 #ifdef JP
 		if (see_m) msg_format("反魔法バリアが%^sの呪文をかき消した。", m_name);
@@ -763,7 +763,7 @@ bool monst_spell_monst(int m_idx)
 		return (TRUE);
 	}
 
-	can_remember = is_original_ap_and_seen(p_ptr, m_ptr);
+	can_remember = is_original_ap_and_seen(p_ptr, cr_ptr);
 
 	switch (thrown_spell)
 	{
@@ -851,7 +851,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		dam = ((m_ptr->chp / 4) > 800 ? 800 : (m_ptr->chp / 4));
+		dam = ((cr_ptr->chp / 4) > 800 ? 800 : (cr_ptr->chp / 4));
 		monst_breath_monst(m_idx, y, x, GF_ROCKET,
 				   dam, 2, FALSE, MS_ROCKET, learnable);
 
@@ -945,7 +945,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 1600 ? 1600 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 1600 ? 1600 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_ACID,
 				   dam,0, TRUE, MS_BR_ACID, learnable);
 
@@ -986,7 +986,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 1600 ? 1600 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 1600 ? 1600 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_ELEC,
 				   dam,0, TRUE, MS_BR_ELEC, learnable);
 
@@ -1027,7 +1027,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 1600 ? 1600 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 1600 ? 1600 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_FIRE,
 				   dam,0, TRUE, MS_BR_FIRE, learnable);
 
@@ -1068,7 +1068,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 1600 ? 1600 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 1600 ? 1600 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_COLD,
 				   dam,0, TRUE, MS_BR_COLD, learnable);
 		break;
@@ -1108,7 +1108,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 800 ? 800 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 800 ? 800 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_POIS,
 				   dam,0, TRUE, MS_BR_POIS, learnable);
 
@@ -1149,7 +1149,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 550 ? 550 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 550 ? 550 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_NETHER,
 				   dam,0, TRUE, MS_BR_NETHER, learnable);
 
@@ -1190,7 +1190,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 400 ? 400 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 400 ? 400 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_LITE,
 				   dam,0, TRUE, MS_BR_LITE, learnable);
 
@@ -1231,7 +1231,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 400 ? 400 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 400 ? 400 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_DARK,
 				   dam,0, TRUE, MS_BR_DARK, learnable);
 
@@ -1272,7 +1272,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 450 ? 450 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 450 ? 450 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_CONFUSION,
 				   dam,0, TRUE, MS_BR_CONF, learnable);
 
@@ -1286,7 +1286,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->species_idx == MON_JAIAN)
+				if (cr_ptr->species_idx == MON_JAIAN)
 #ifdef JP
 					msg_format("「ボォエ～～～～～～」");
 #else
@@ -1319,7 +1319,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 450 ? 450 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 450 ? 450 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_SOUND,
 				   dam,0, TRUE, MS_BR_SOUND, learnable);
 
@@ -1360,7 +1360,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 600 ? 600 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 600 ? 600 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_CHAOS,
 				   dam,0, TRUE, MS_BR_CHAOS, learnable);
 
@@ -1401,7 +1401,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 500 ? 500 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 500 ? 500 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_DISENCHANT,
 				   dam,0, TRUE, MS_BR_DISEN, learnable);
 
@@ -1442,7 +1442,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 250 ? 250 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 250 ? 250 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_NEXUS,
 				   dam,0, TRUE, MS_BR_NEXUS, learnable);
 
@@ -1483,7 +1483,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 150 ? 150 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 150 ? 150 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_TIME,
 				   dam,0, TRUE, MS_BR_TIME, learnable);
 
@@ -1524,7 +1524,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 200 ? 200 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 200 ? 200 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_INERTIA,
 				   dam,0, TRUE, MS_BR_INERTIA, learnable);
 
@@ -1565,7 +1565,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 200 ? 200 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 200 ? 200 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_GRAVITY,
 				   dam,0, TRUE, MS_BR_GRAVITY, learnable);
 
@@ -1579,7 +1579,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->species_idx == MON_BOTEI)
+				if (cr_ptr->species_idx == MON_BOTEI)
 #ifdef JP
 					msg_format("「ボ帝ビルカッター！！！」");
 #else
@@ -1612,7 +1612,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 500 ? 500 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 500 ? 500 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_SHARDS,
 				   dam,0, TRUE, MS_BR_SHARDS, learnable);
 
@@ -1653,7 +1653,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 150 ? 150 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 150 ? 150 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_PLASMA,
 				   dam,0, TRUE, MS_BR_PLASMA, learnable);
 
@@ -1694,7 +1694,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 200 ? 200 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 200 ? 200 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_FORCE,
 				   dam,0, TRUE, MS_BR_FORCE, learnable);
 		break;
@@ -1734,7 +1734,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 250 ? 250 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 250 ? 250 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_MANA,
 				   dam,0, TRUE, MS_BR_MANA, learnable);
 
@@ -1814,7 +1814,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 3) > 800 ? 800 : (m_ptr->chp / 3));
+		dam = ((cr_ptr->chp / 3) > 800 ? 800 : (cr_ptr->chp / 3));
 		monst_breath_monst(m_idx, y, x, GF_NUKE,
 				   dam,0, TRUE, MS_BR_NUKE, learnable);
 		break;
@@ -1893,7 +1893,7 @@ bool monst_spell_monst(int m_idx)
 			sound(SOUND_BREATH);
 		}
 
-		dam = ((m_ptr->chp / 6) > 150 ? 150 : (m_ptr->chp / 6));
+		dam = ((cr_ptr->chp / 6) > 150 ? 150 : (cr_ptr->chp / 6));
 		monst_breath_monst(m_idx, y, x, GF_DISINTEGRATE,
 				   dam,0, TRUE, MS_BR_DISI, learnable);
 		break;
@@ -1982,7 +1982,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->species_idx == MON_ROLENTO)
+				if (cr_ptr->species_idx == MON_ROLENTO)
 				{
 #ifdef JP
 					if (blind)
@@ -2979,7 +2979,7 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Allow quick speed increases to base+10 */
-		if (set_fast(m_ptr, m_ptr->fast + 100, FALSE))
+		if (set_fast(cr_ptr, cr_ptr->fast + 100, FALSE))
 		{
 #ifdef JP
 			if (see_m) msg_format("%^sの動きが速くなった。", m_name);
@@ -3033,13 +3033,13 @@ bool monst_spell_monst(int m_idx)
 		}
 
 		/* Heal some */
-		m_ptr->chp += (rlev * 6);
+		cr_ptr->chp += (rlev * 6);
 
 		/* Fully healed */
-		if (m_ptr->chp >= m_ptr->mhp)
+		if (cr_ptr->chp >= cr_ptr->mhp)
 		{
 			/* Fully healed */
-			m_ptr->chp = m_ptr->mhp;
+			cr_ptr->chp = cr_ptr->mhp;
 
 			if (known)
 			{
@@ -3081,10 +3081,10 @@ bool monst_spell_monst(int m_idx)
 		if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Cancel fear */
-		if (m_ptr->afraid)
+		if (cr_ptr->afraid)
 		{
 			/* Cancel fear */
-			(void)set_afraid(m_ptr, 0);
+			(void)set_afraid(cr_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -3115,12 +3115,12 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (!m_ptr->invuln) (void)set_invuln(m_ptr, randint1(4) + 4, FALSE);
+		if (!cr_ptr->invuln) (void)set_invuln(cr_ptr, randint1(4) + 4, FALSE);
 		break;
 
 	/* RF6_BLINK */
 	case 160+4:
-		if (teleport_barrier(p_ptr, m_ptr))
+		if (teleport_barrier(p_ptr, cr_ptr))
 		{
 			if (see_m)
 			{
@@ -3141,13 +3141,13 @@ bool monst_spell_monst(int m_idx)
 				msg_format("%^s blinks away.", m_name);
 #endif
 			}
-			teleport_away(m_idx, 10, 0L);
+			teleport_away(cr_ptr, 10, 0L);
 		}
 		break;
 
 	/* RF6_TPORT */
 	case 160+5:
-		if (teleport_barrier(p_ptr, m_ptr))
+		if (teleport_barrier(p_ptr, cr_ptr))
 		{
 			if (see_m)
 			{
@@ -3168,7 +3168,7 @@ bool monst_spell_monst(int m_idx)
 				msg_format("%^s teleports away.", m_name);
 #endif
 			}
-			teleport_away_followable(m_idx);
+			teleport_away_followable(cr_ptr);
 		}
 		break;
 
@@ -3176,16 +3176,16 @@ bool monst_spell_monst(int m_idx)
 	case 160+6:
 #if 0
 		int who = 0;
-		if(m_ptr->species_idx = MON_DIO) who == 1;
-		else if(m_ptr->species_idx = MON_WONG) who == 3;
+		if(cr_ptr->species_idx = MON_DIO) who == 1;
+		else if(cr_ptr->species_idx = MON_WONG) who == 3;
 		dam = who;
-		if(!process_the_world(randint1(2)+2, who, player_has_los_bold(m_ptr->fy, m_ptr->fx))) return (FALSE);
+		if(!process_the_world(randint1(2)+2, who, player_has_los_bold(cr_ptr->fy, cr_ptr->fx))) return (FALSE);
 #endif
 		return FALSE;
 
 	/* RF6_SPECIAL */
 	case 160+7:
-		switch (m_ptr->species_idx)
+		switch (cr_ptr->species_idx)
 		{
 		case MON_OHMU:
 			/* Moved to process_monster(), like multiplication */
@@ -3214,7 +3214,7 @@ bool monst_spell_monst(int m_idx)
 				int num = 1 + randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_named_creature(m_idx, y, x, MON_SHURYUUDAN, 0);
+					count += summon_named_creature(cr_ptr, y, x, MON_SHURYUUDAN, 0);
 				}
 			}
 
@@ -3237,7 +3237,7 @@ bool monst_spell_monst(int m_idx)
 						msg_format("%^s suddenly go out of your sight!", m_name);
 #endif
 					}
-					teleport_away(m_idx, 10, TELEPORT_NONMAGICAL);
+					teleport_away(cr_ptr, 10, TELEPORT_NONMAGICAL);
 					p_ptr->update |= (PU_MONSTERS);
 				}
 				else
@@ -3261,8 +3261,8 @@ bool monst_spell_monst(int m_idx)
 
 					dam = damroll(4, 8);
 
-					if (t_idx == p_ptr->riding) teleport_player_to(m_ptr->fy, m_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-					else teleport_monster_to(t_idx, m_ptr->fy, m_ptr->fx, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+					if (t_idx == p_ptr->riding) teleport_player_to(cr_ptr->fy, cr_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+					else teleport_monster_to(t_idx, cr_ptr->fy, cr_ptr->fx, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
 					sound(SOUND_FALL);
 
@@ -3300,16 +3300,17 @@ bool monst_spell_monst(int m_idx)
 							char m_name_self[80];
 
 							/* hisself */
-							monster_desc(m_name_self, m_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+							monster_desc(m_name_self, cr_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 							msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
-							project(m_ptr, 0, m_ptr->fy, m_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+							project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 							set_tim_eyeeye(p_ptr, p_ptr->tim_eyeeye-5, TRUE);
 						}
 					}
 
-					mon_take_hit_mon(&m_list[t_idx], dam, &fear, extract_note_dies(real_r_ptr(t_ptr)), m_idx);
+					py_attack(cr_ptr, t_ptr->fy, t_ptr->fx, 0);
+					//mon_take_hit_mon(&m_list[t_idx], dam, &fear, extract_note_dies(real_r_ptr(t_ptr)), m_idx);
 				}
 				break;
 			}
@@ -3342,7 +3343,7 @@ bool monst_spell_monst(int m_idx)
 
 		if (tr_ptr->flagsr & RFR_RES_TELE)
 		{
-			if ((tr_ptr->flags1 & RF1_UNIQUE) || (m_ptr->resist_ultimate))
+			if ((tr_ptr->flags1 & RF1_UNIQUE) || (cr_ptr->resist_ultimate))
 			{
 				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
@@ -3374,8 +3375,8 @@ bool monst_spell_monst(int m_idx)
 
 		if (!resists_tele)
 		{
-			if (t_idx == p_ptr->riding) teleport_player_to(m_ptr->fy, m_ptr->fx, TELEPORT_PASSIVE);
-			else teleport_monster_to(t_idx, m_ptr->fy, m_ptr->fx, 100, TELEPORT_PASSIVE);
+			if (t_idx == p_ptr->riding) teleport_player_to(cr_ptr->fy, cr_ptr->fx, TELEPORT_PASSIVE);
+			else teleport_monster_to(t_idx, cr_ptr->fy, cr_ptr->fx, 100, TELEPORT_PASSIVE);
 		}
 
 		wake_up = TRUE;
@@ -3402,7 +3403,7 @@ bool monst_spell_monst(int m_idx)
 
 		if (tr_ptr->flagsr & RFR_RES_TELE)
 		{
-			if ((tr_ptr->flags1 & RF1_UNIQUE) || (m_ptr->resist_ultimate))
+			if ((tr_ptr->flags1 & RF1_UNIQUE) || (cr_ptr->resist_ultimate))
 			{
 				if (is_original_ap_and_seen(p_ptr, t_ptr)) tr_ptr->r_flagsr |= RFR_RES_TELE;
 				if (see_t)
@@ -3434,8 +3435,8 @@ bool monst_spell_monst(int m_idx)
 
 		if (!resists_tele)
 		{
-			if (t_idx == p_ptr->riding) teleport_player_away(m_idx, MAX_SIGHT * 2 + 5);
-			else teleport_away(t_idx, MAX_SIGHT * 2 + 5, TELEPORT_PASSIVE);
+			if (t_idx == p_ptr->riding) teleport_player_away(&m_list[t_idx], MAX_SIGHT * 2 + 5);
+			else teleport_away(&m_list[t_idx], MAX_SIGHT * 2 + 5, TELEPORT_PASSIVE);
 		}
 
 		wake_up = TRUE;
@@ -3609,7 +3610,7 @@ bool monst_spell_monst(int m_idx)
 				mon_fight = TRUE;
 			}
 		}
-		animate_dead(m_idx, m_ptr->fy, m_ptr->fx);
+		animate_dead(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 		break;
 
 	/* RF6_S_KIN */
@@ -3620,7 +3621,7 @@ bool monst_spell_monst(int m_idx)
 			{
 				disturb(1, 0);
 
-				if (m_ptr->species_idx == MON_SERPENT || m_ptr->species_idx == MON_ZOMBI_SERPENT)
+				if (cr_ptr->species_idx == MON_SERPENT || cr_ptr->species_idx == MON_ZOMBI_SERPENT)
 				{
 #ifdef JP
 					msg_format("%^sがダンジョンの主を召喚した。", m_name);
@@ -3646,7 +3647,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		switch (m_ptr->species_idx)
+		switch (cr_ptr->species_idx)
 		{
 		case MON_MENELDOR:
 		case MON_GWAIHIR:
@@ -3655,7 +3656,7 @@ bool monst_spell_monst(int m_idx)
 				int num = 4 + randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_specific(m_idx, y, x, rlev, SUMMON_EAGLES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+					count += summon_specific(cr_ptr, y, x, rlev, SUMMON_EAGLES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 				}
 			}
 			break;
@@ -3665,7 +3666,7 @@ bool monst_spell_monst(int m_idx)
 				int num = 2 + randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_named_creature(m_idx, y, x, MON_IE, 0);
+					count += summon_named_creature(cr_ptr, y, x, MON_IE, 0);
 				}
 			}
 			break;
@@ -3689,7 +3690,7 @@ bool monst_spell_monst(int m_idx)
 				int num = 2 + randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_specific(m_idx, y, x, rlev, SUMMON_GUARDIANS, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+					count += summon_specific(cr_ptr, y, x, rlev, SUMMON_GUARDIANS, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 				}
 			}
 			break;
@@ -3699,7 +3700,7 @@ bool monst_spell_monst(int m_idx)
 				int num = randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_named_creature(m_idx, y, x, MON_LOCKE_CLONE, 0);
+					count += summon_named_creature(cr_ptr, y, x, MON_LOCKE_CLONE, 0);
 				}
 			}
 			break;
@@ -3709,7 +3710,7 @@ bool monst_spell_monst(int m_idx)
 				int num = 2 + randint1(3);
 				for (k = 0; k < num; k++)
 				{
-					count += summon_specific(m_idx, y, x, rlev, SUMMON_LOUSE, (PM_ALLOW_GROUP));
+					count += summon_specific(cr_ptr, y, x, rlev, SUMMON_LOUSE, (PM_ALLOW_GROUP));
 				}
 			}
 			break;
@@ -3719,7 +3720,7 @@ bool monst_spell_monst(int m_idx)
 
 			for (k = 0; k < 4; k++)
 			{
-				count += summon_specific(m_idx, y, x, rlev, SUMMON_KIN, (PM_ALLOW_GROUP));
+				count += summon_specific(cr_ptr, y, x, rlev, SUMMON_KIN, (PM_ALLOW_GROUP));
 			}
 			break;
 		}
@@ -3752,13 +3753,13 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		if (is_friendly(m_ptr))
+		if (is_friendly(cr_ptr))
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_CYBER, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_CYBER, (PM_ALLOW_GROUP));
 		}
 		else
 		{
-			count += summon_cyber(m_idx, y, x);
+			count += summon_cyber(cr_ptr, y, x);
 		}
 
 		if (known && !see_t && count)
@@ -3789,7 +3790,7 @@ bool monst_spell_monst(int m_idx)
 			}
 		}
 
-		count += summon_specific(m_idx, y, x, rlev, 0, (u_mode));
+		count += summon_specific(cr_ptr, y, x, rlev, 0, (u_mode));
 
 		if (known && !see_t && count)
 		{
@@ -3821,7 +3822,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_6; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, 0, (PM_ALLOW_GROUP | u_mode));
+			count += summon_specific(cr_ptr, y, x, rlev, 0, (PM_ALLOW_GROUP | u_mode));
 		}
 
 		if (known && !see_t && count)
@@ -3854,7 +3855,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_6; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_ANT, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_ANT, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -3887,7 +3888,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_6; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_SPIDER, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_SPIDER, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -3920,7 +3921,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_4; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_HOUND, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_HOUND, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -3953,7 +3954,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_4; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_HYDRA, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_HYDRA, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -3994,7 +3995,7 @@ bool monst_spell_monst(int m_idx)
 
 			for (k = 0; k < num; k++)
 			{
-				count += summon_specific(m_idx, y, x, rlev, SUMMON_ANGEL, (PM_ALLOW_GROUP));
+				count += summon_specific(cr_ptr, y, x, rlev, SUMMON_ANGEL, (PM_ALLOW_GROUP));
 			}
 		}
 
@@ -4028,7 +4029,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < 1; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_DEMON, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_DEMON, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -4061,7 +4062,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < 1; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_UNDEAD, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_UNDEAD, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -4094,7 +4095,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < 1; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_DRAGON, (PM_ALLOW_GROUP));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_DRAGON, (PM_ALLOW_GROUP));
 		}
 
 		if (known && !see_t && count)
@@ -4127,7 +4128,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_6; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_UNDEAD, (PM_ALLOW_GROUP | u_mode));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_HI_UNDEAD, (PM_ALLOW_GROUP | u_mode));
 		}
 
 		if (known && !see_t && count)
@@ -4160,7 +4161,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_4; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_HI_DRAGON, (PM_ALLOW_GROUP | u_mode));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_HI_DRAGON, (PM_ALLOW_GROUP | u_mode));
 		}
 
 		if (known && !see_t && count)
@@ -4193,7 +4194,7 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_4; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_AMBERITES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_AMBERITES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 		}
 
 		if (known && !see_t && count)
@@ -4226,20 +4227,20 @@ bool monst_spell_monst(int m_idx)
 
 		for (k = 0; k < s_num_4; k++)
 		{
-			count += summon_specific(m_idx, y, x, rlev, SUMMON_UNIQUE, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+			count += summon_specific(cr_ptr, y, x, rlev, SUMMON_UNIQUE, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 		}
 
 		{
 			int non_unique_type = SUMMON_HI_UNDEAD;
 
-			if ((m_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
+			if ((cr_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
 				non_unique_type = 0;
-			else if (m_ptr->sub_align & SUB_ALIGN_GOOD)
+			else if (cr_ptr->sub_align & SUB_ALIGN_GOOD)
 				non_unique_type = SUMMON_ANGEL;
 
 			for (k = count; k < s_num_4; k++)
 			{
-				count += summon_specific(m_idx, y, x, rlev, non_unique_type, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(cr_ptr, y, x, rlev, non_unique_type, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 			}
 		}
 
@@ -4262,7 +4263,7 @@ bool monst_spell_monst(int m_idx)
 #endif
 	}
 
-	if (m_ptr->ml && maneable && !world_monster && !p_ptr->blind && (p_ptr->cls_idx == CLASS_IMITATOR))
+	if (cr_ptr->ml && maneable && !world_monster && !p_ptr->blind && (p_ptr->cls_idx == CLASS_IMITATOR))
 	{
 		if (thrown_spell != 167) /* Not RF6_SPECIAL */
 		{

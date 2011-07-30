@@ -2455,7 +2455,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx,
+		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx,
 				    dun_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
@@ -2599,7 +2599,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
+		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("“®•¨‚ğˆø‚«Šñ‚¹‚½I");
@@ -2707,7 +2707,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON, mode))
+		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ƒhƒ‰ƒSƒ“‚ğˆø‚«Šñ‚¹‚½I");

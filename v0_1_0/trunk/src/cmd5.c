@@ -1038,7 +1038,7 @@ static void wild_magic(int spell)
 	case 23:
 	case 24:
 	case 25:
-		aggravate_monsters(0);
+		aggravate_monsters(NULL);
 		break;
 	case 26:
 		earthquake(p_ptr->fy, p_ptr->fx, 5);
@@ -1072,7 +1072,7 @@ static void wild_magic(int spell)
 		activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(-1, p_ptr->fy, p_ptr->fx);
+		(void)summon_cyber(NULL, p_ptr->fy, p_ptr->fx);
 		break;
 	default:
 		{
@@ -1395,7 +1395,7 @@ msg_print("‚¢‚â‚È‰¹‚ª‹¿‚¢‚½");
 msg_print("An infernal sound echoed.");
 #endif
 
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 		}
 		if (randint1(100) >= chance)
 			chg_virtue(p_ptr, V_CHANCE,-1);

@@ -4299,7 +4299,7 @@ bool alloc_horde(int y, int x)
 	{
 		scatter(&cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(m_idx, cy, cx, dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
+		(void)summon_specific(&m_list[m_idx], cy, cx, dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4505,7 +4505,7 @@ static bool summon_specific_okay(int species_idx)
  *
  * Note that this function may not succeed, though this is very rare.
  */
-bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
+bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u32b mode)
 {
 	int x, y, species_idx;
 
@@ -4514,7 +4514,7 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 	if (!mon_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
 
 	/* Save the summoner */
-	summon_specific_who = who;
+	//summon_specific_who = who;
 
 	/* Save the "summon" type */
 	summon_specific_type = type;
@@ -4537,7 +4537,7 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
 
 	/* Attempt to place the monster (awake, allow groups) */
-	if (!place_monster_aux(&m_list[who], y, x, species_idx, mode))
+	if (!place_monster_aux(cr_ptr, y, x, species_idx, mode))
 	{
 		summon_specific_type = 0;
 		return (FALSE);
@@ -4549,7 +4549,7 @@ bool summon_specific(int who, int y1, int x1, int lev, int type, u32b mode)
 }
 
 /* A "dangerous" function, creates a pet of the specified type */
-bool summon_named_creature(int who, int oy, int ox, int species_idx, u32b mode)
+bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode)
 {
 	int x, y;
 
@@ -4561,7 +4561,7 @@ bool summon_named_creature(int who, int oy, int ox, int species_idx, u32b mode)
 	if (!mon_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_monster_aux(&m_list[who], y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_monster_aux(cr_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
 }
 
 
@@ -5313,11 +5313,10 @@ msg_format("%^s‚Í‚©‚·‚©‚É‚¤‚ß‚¢‚½B", m_name);
 /*
  * Learn about an "observed" resistance.
  */
-void update_smart_learn(int m_idx, int what)
+void update_smart_learn(creature_type *cr_ptr, int what)
 {
-	creature_type *m_ptr = &m_list[m_idx];
 
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &r_info[cr_ptr->species_idx];
 
 
 	/* Not allowed to learn */
@@ -5336,89 +5335,89 @@ void update_smart_learn(int m_idx, int what)
 	switch (what)
 	{
 	case DRS_ACID:
-		if (p_ptr->resist_acid) m_ptr->smart |= (SM_RES_ACID);
-		if (IS_OPPOSE_ACID(p_ptr)) m_ptr->smart |= (SM_OPP_ACID);
-		if (p_ptr->immune_acid) m_ptr->smart |= (SM_IMM_ACID);
+		if (p_ptr->resist_acid) cr_ptr->smart |= (SM_RES_ACID);
+		if (IS_OPPOSE_ACID(p_ptr)) cr_ptr->smart |= (SM_OPP_ACID);
+		if (p_ptr->immune_acid) cr_ptr->smart |= (SM_IMM_ACID);
 		break;
 
 	case DRS_ELEC:
-		if (p_ptr->resist_elec) m_ptr->smart |= (SM_RES_ELEC);
-		if (IS_OPPOSE_ELEC(p_ptr)) m_ptr->smart |= (SM_OPP_ELEC);
-		if (p_ptr->immune_elec) m_ptr->smart |= (SM_IMM_ELEC);
+		if (p_ptr->resist_elec) cr_ptr->smart |= (SM_RES_ELEC);
+		if (IS_OPPOSE_ELEC(p_ptr)) cr_ptr->smart |= (SM_OPP_ELEC);
+		if (p_ptr->immune_elec) cr_ptr->smart |= (SM_IMM_ELEC);
 		break;
 
 	case DRS_FIRE:
-		if (p_ptr->resist_fire) m_ptr->smart |= (SM_RES_FIRE);
-		if (IS_OPPOSE_FIRE(p_ptr)) m_ptr->smart |= (SM_OPP_FIRE);
-		if (p_ptr->immune_fire) m_ptr->smart |= (SM_IMM_FIRE);
+		if (p_ptr->resist_fire) cr_ptr->smart |= (SM_RES_FIRE);
+		if (IS_OPPOSE_FIRE(p_ptr)) cr_ptr->smart |= (SM_OPP_FIRE);
+		if (p_ptr->immune_fire) cr_ptr->smart |= (SM_IMM_FIRE);
 		break;
 
 	case DRS_COLD:
-		if (p_ptr->resist_cold) m_ptr->smart |= (SM_RES_COLD);
-		if (IS_OPPOSE_COLD(p_ptr)) m_ptr->smart |= (SM_OPP_COLD);
-		if (p_ptr->immune_cold) m_ptr->smart |= (SM_IMM_COLD);
+		if (p_ptr->resist_cold) cr_ptr->smart |= (SM_RES_COLD);
+		if (IS_OPPOSE_COLD(p_ptr)) cr_ptr->smart |= (SM_OPP_COLD);
+		if (p_ptr->immune_cold) cr_ptr->smart |= (SM_IMM_COLD);
 		break;
 
 	case DRS_POIS:
-		if (p_ptr->resist_pois) m_ptr->smart |= (SM_RES_POIS);
-		if (IS_OPPOSE_POIS(p_ptr)) m_ptr->smart |= (SM_OPP_POIS);
+		if (p_ptr->resist_pois) cr_ptr->smart |= (SM_RES_POIS);
+		if (IS_OPPOSE_POIS(p_ptr)) cr_ptr->smart |= (SM_OPP_POIS);
 		break;
 
 
 	case DRS_NETH:
-		if (p_ptr->resist_neth) m_ptr->smart |= (SM_RES_NETH);
+		if (p_ptr->resist_neth) cr_ptr->smart |= (SM_RES_NETH);
 		break;
 
 	case DRS_LITE:
-		if (p_ptr->resist_lite) m_ptr->smart |= (SM_RES_LITE);
+		if (p_ptr->resist_lite) cr_ptr->smart |= (SM_RES_LITE);
 		break;
 
 	case DRS_DARK:
-		if (p_ptr->resist_dark) m_ptr->smart |= (SM_RES_DARK);
+		if (p_ptr->resist_dark) cr_ptr->smart |= (SM_RES_DARK);
 		break;
 
 	case DRS_FEAR:
-		if (p_ptr->resist_fear) m_ptr->smart |= (SM_RES_FEAR);
+		if (p_ptr->resist_fear) cr_ptr->smart |= (SM_RES_FEAR);
 		break;
 
 	case DRS_CONF:
-		if (p_ptr->resist_conf) m_ptr->smart |= (SM_RES_CONF);
+		if (p_ptr->resist_conf) cr_ptr->smart |= (SM_RES_CONF);
 		break;
 
 	case DRS_CHAOS:
-		if (p_ptr->resist_chaos) m_ptr->smart |= (SM_RES_CHAOS);
+		if (p_ptr->resist_chaos) cr_ptr->smart |= (SM_RES_CHAOS);
 		break;
 
 	case DRS_DISEN:
-		if (p_ptr->resist_disen) m_ptr->smart |= (SM_RES_DISEN);
+		if (p_ptr->resist_disen) cr_ptr->smart |= (SM_RES_DISEN);
 		break;
 
 	case DRS_BLIND:
-		if (p_ptr->resist_blind) m_ptr->smart |= (SM_RES_BLIND);
+		if (p_ptr->resist_blind) cr_ptr->smart |= (SM_RES_BLIND);
 		break;
 
 	case DRS_NEXUS:
-		if (p_ptr->resist_nexus) m_ptr->smart |= (SM_RES_NEXUS);
+		if (p_ptr->resist_nexus) cr_ptr->smart |= (SM_RES_NEXUS);
 		break;
 
 	case DRS_SOUND:
-		if (p_ptr->resist_sound) m_ptr->smart |= (SM_RES_SOUND);
+		if (p_ptr->resist_sound) cr_ptr->smart |= (SM_RES_SOUND);
 		break;
 
 	case DRS_SHARD:
-		if (p_ptr->resist_shard) m_ptr->smart |= (SM_RES_SHARD);
+		if (p_ptr->resist_shard) cr_ptr->smart |= (SM_RES_SHARD);
 		break;
 
 	case DRS_FREE:
-		if (p_ptr->free_act) m_ptr->smart |= (SM_IMM_FREE);
+		if (p_ptr->free_act) cr_ptr->smart |= (SM_IMM_FREE);
 		break;
 
 	case DRS_MANA:
-		if (!p_ptr->msp) m_ptr->smart |= (SM_IMM_MANA);
+		if (!p_ptr->msp) cr_ptr->smart |= (SM_IMM_MANA);
 		break;
 
 	case DRS_REFLECT:
-		if (p_ptr->reflect) m_ptr-> smart |= (SM_IMM_REFLECT);
+		if (p_ptr->reflect) cr_ptr-> smart |= (SM_IMM_REFLECT);
 		break;
 	}
 }

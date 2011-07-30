@@ -19,16 +19,15 @@
 #define HURT_CHANCE 16
 
 
-static bool cave_monster_teleportable_bold(int m_idx, int y, int x, u32b mode)
+static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
 {
-	creature_type *m_ptr = &m_list[m_idx];
 	cave_type    *c_ptr = &cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
 	/* Require "teleportable" space */
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
 
-	if (c_ptr->m_idx && (c_ptr->m_idx != m_idx)) return FALSE;
+	if (c_ptr->m_idx && (&m_list[c_ptr->m_idx] != cr_ptr)) return FALSE;
 	if (player_bold(y, x)) return FALSE;
 
 	/* Hack -- no teleport onto glyph of warding */
@@ -37,7 +36,7 @@ static bool cave_monster_teleportable_bold(int m_idx, int y, int x, u32b mode)
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->species_idx], 0)) return FALSE;
+		if (!monster_can_cross_terrain(c_ptr->feat, &r_info[cr_ptr->species_idx], 0)) return FALSE;
 	}
 
 	return TRUE;
@@ -51,22 +50,21 @@ static bool cave_monster_teleportable_bold(int m_idx, int y, int x, u32b mode)
  *
  * But allow variation to prevent infinite loops.
  */
-bool teleport_away(int m_idx, int dis, u32b mode)
+bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 {
-	int oy, ox, d, i, min;
+	int oy, ox, d, i, min, m_idx;
 	int tries = 0;
 	int ny = 0, nx = 0;
 
 	bool look = TRUE;
 
-	creature_type *m_ptr = &m_list[m_idx];
 
 	/* Paranoia */
-	if (!m_ptr->species_idx) return (FALSE);
+	if (!cr_ptr->species_idx) return (FALSE);
 
 	/* Save the old location */
-	oy = m_ptr->fy;
-	ox = m_ptr->fx;
+	oy = cr_ptr->fy;
+	ox = cr_ptr->fx;
 
 	/* Minimum distance */
 	min = dis / 2;
@@ -101,7 +99,7 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 			/* Ignore illegal locations */
 			if (!in_bounds(ny, nx)) continue;
 
-			if (!cave_monster_teleportable_bold(m_idx, ny, nx, mode)) continue;
+			if (!cave_monster_teleportable_bold(cr_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
 			if (!(p_ptr->inside_quest || p_ptr->inside_arena))
@@ -130,15 +128,23 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 	/* Update the old location */
 	cave[oy][ox].m_idx = 0;
 
+	/*TODO::!*/
+	for(i = 0; i < 10000; i++)
+		if(&m_list[i] == cr_ptr)
+		{
+			m_idx = i;
+			break;
+		}
+
 	/* Update the new location */
 	cave[ny][nx].m_idx = m_idx;
 
 	/* Move the monster */
-	m_ptr->fy = ny;
-	m_ptr->fx = nx;
+	cr_ptr->fy = ny;
+	cr_ptr->fx = nx;
 
 	/* Forget the counter target */
-	reset_target(m_ptr);
+	reset_target(cr_ptr);
 
 	/* Update the monster (new location) */
 	update_mon(m_idx, TRUE);
@@ -149,7 +155,7 @@ bool teleport_away(int m_idx, int dis, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(ny, nx);
 
-	if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (r_info[cr_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 
 	return (TRUE);
@@ -206,7 +212,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 			/* Ignore illegal locations */
 			if (!in_bounds(ny, nx)) continue;
 
-			if (!cave_monster_teleportable_bold(m_idx, ny, nx, mode)) continue;
+			if (!cave_monster_teleportable_bold(m_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
 			/* if (cave[ny][nx].info & (CAVE_ICKY)) continue; */
@@ -466,7 +472,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 }
 
 
-void teleport_player_away(int m_idx, int dis)
+void teleport_player_away(creature_type *cr_ptr, int dis)
 {
 	int yy, xx;
 
@@ -484,10 +490,10 @@ void teleport_player_away(int m_idx, int dis)
 			int tmp_m_idx = cave[oy+yy][ox+xx].m_idx;
 
 			/* A monster except your mount or caster may follow */
-			if (tmp_m_idx && (p_ptr->riding != tmp_m_idx) && (m_idx != tmp_m_idx))
+			if (tmp_m_idx && (p_ptr->riding != tmp_m_idx) && (cr_ptr != &m_list[tmp_m_idx]))
 			{
-				creature_type *m_ptr = &m_list[tmp_m_idx];
-				species_type *r_ptr = &r_info[m_ptr->species_idx];
+				creature_type *cr_ptr = &m_list[tmp_m_idx];
+				species_type *r_ptr = &r_info[cr_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -496,7 +502,7 @@ void teleport_player_away(int m_idx, int dis)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
+					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -558,15 +564,14 @@ void teleport_player_to(int ny, int nx, u32b mode)
 }
 
 
-void teleport_away_followable(int m_idx)
+void teleport_away_followable(creature_type *cr_ptr)
 {
-	creature_type *m_ptr = &m_list[m_idx];
-	int          oldfy = m_ptr->fy;
-	int          oldfx = m_ptr->fx;
-	bool         old_ml = m_ptr->ml;
-	int          old_cdis = m_ptr->cdis;
+	int          oldfy = cr_ptr->fy;
+	int          oldfx = cr_ptr->fx;
+	bool         old_ml = cr_ptr->ml;
+	int          old_cdis = cr_ptr->cdis;
 
-	teleport_away(m_idx, MAX_SIGHT * 2 + 5, 0L);
+	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
 
 	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !p_ptr->inside_battle && los(p_ptr->fy, p_ptr->fx, oldfy, oldfx))
 	{
@@ -611,7 +616,7 @@ void teleport_away_followable(int m_idx)
 					msg_print("Failed!");
 #endif
 				}
-				else teleport_player_to(m_ptr->fy, m_ptr->fx, 0L);
+				else teleport_player_to(cr_ptr->fy, cr_ptr->fx, 0L);
 				p_ptr->energy_need += ENERGY_NEED();
 			}
 		}
@@ -6093,5 +6098,5 @@ bool summon_kin_player(int level, int y, int x, u32b mode)
 		summon_kin_type = 'V';
 		break;
 	}	
-	return summon_specific((pet ? -1 : 0), y, x, level, SUMMON_KIN, mode);
+	return summon_specific((pet ? p_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }

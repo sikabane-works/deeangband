@@ -6009,7 +6009,7 @@ note = "には効果がなかった。";
 			if (who_ptr == who_ptr) chg_virtue(p_ptr, V_VALOUR, -1);
 
 			/* Teleport */
-			teleport_away(c_ptr->m_idx, do_dist,
+			teleport_away(&m_list[c_ptr->m_idx], do_dist,
 						(who_ptr == who_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
 			/* Hack -- get new location */
@@ -6210,7 +6210,7 @@ msg_print("空間が歪んだ！");
 					msg_print("Space warps about you!");
 #endif
 
-					if (m_ptr->species_idx) teleport_away(c_ptr->m_idx, damroll(10, 10), TELEPORT_PASSIVE);
+					if (m_ptr->species_idx) teleport_away(&m_list[c_ptr->m_idx], damroll(10, 10), TELEPORT_PASSIVE);
 					if (one_in_(13)) count += activate_hi_summon(ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
@@ -6224,7 +6224,7 @@ msg_print("エネルギーのうねりを感じた！");
 				project(0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
 				if (!one_in_(6)) break;
 			case 12: case 13: case 14: case 15: case 16:
-				aggravate_monsters(0);
+				aggravate_monsters(NULL);
 				if (!one_in_(6)) break;
 			case 17: case 18:
 				count += activate_hi_summon(ty, tx, TRUE);
@@ -6237,7 +6237,7 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? -1 : 0), p_ptr->fy, p_ptr->fx, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
+				count += summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:

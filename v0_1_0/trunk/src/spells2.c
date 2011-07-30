@@ -4607,7 +4607,7 @@ bool crusade(void)
 /*
  * Wake up all monsters, and speed up "los" monsters.
  */
-void aggravate_monsters(int who)
+void aggravate_monsters(creature_type *cr_ptr)
 {
 	int     i;
 	bool    sleep = FALSE;
@@ -4618,13 +4618,12 @@ void aggravate_monsters(int who)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type    *m_ptr = &m_list[i];
-/*		species_type    *r_ptr = &r_info[m_ptr->species_idx]; */
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip aggravating monster (or player) */
-		if (i == who) continue;
+		if (m_ptr == cr_ptr) continue;
 
 		/* Wake up nearby sleeping monsters */
 		if (m_ptr->cdis < MAX_SIGHT * 2)
@@ -5184,7 +5183,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 					m_ptr->chp = m_ptr->mhp;
 
 					/* Try to teleport away quest monsters */
-					if (!teleport_away(c_ptr->m_idx, (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
+					if (!teleport_away(&m_list[c_ptr->m_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
 				}
 				else
 				{
@@ -6952,10 +6951,10 @@ bool sleep_monsters_touch(void)
 }
 
 
-bool animate_dead(int who, int y, int x)
+bool animate_dead(creature_type *cr_ptr, int y, int x)
 {
 	int flg = PROJECT_ITEM | PROJECT_HIDE;
-	return (project(&m_list[who], 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
+	return (project(cr_ptr, 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
 }
 
 
@@ -7085,7 +7084,7 @@ msg_print("エネルギーのうねりを感じた！");
 			}
 			if (!one_in_(6)) break;
 		case 1: case 2: case 3: case 16: case 17:
-			aggravate_monsters(0);
+			aggravate_monsters(NULL);
 			if (!one_in_(6)) break;
 		case 4: case 5: case 6:
 			(*count) += activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
@@ -7140,7 +7139,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			 */
 			if ((dun_level > 65) && !stop_ty)
 			{
-				(*count) += summon_cyber(-1, p_ptr->fy, p_ptr->fx);
+				(*count) += summon_cyber(NULL, p_ptr->fy, p_ptr->fx);
 				stop_ty = TRUE;
 				break;
 			}
@@ -7194,51 +7193,51 @@ int activate_hi_summon(int y, int x, bool can_pet)
 		switch (randint1(25) + (dun_level / 20))
 		{
 			case 1: case 2:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_ANT, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_ANT, mode);
 				break;
 			case 3: case 4:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_SPIDER, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_SPIDER, mode);
 				break;
 			case 5: case 6:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_HOUND, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_HOUND, mode);
 				break;
 			case 7: case 8:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_HYDRA, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_HYDRA, mode);
 				break;
 			case 9: case 10:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_ANGEL, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_ANGEL, mode);
 				break;
 			case 11: case 12:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_UNDEAD, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_UNDEAD, mode);
 				break;
 			case 13: case 14:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_DRAGON, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_DRAGON, mode);
 				break;
 			case 15: case 16:
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_DEMON, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_DEMON, mode);
 				break;
 			case 17:
 				if (can_pet) break;
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_AMBERITES, (mode | PM_ALLOW_UNIQUE));
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_AMBERITES, (mode | PM_ALLOW_UNIQUE));
 				break;
 			case 18: case 19:
 				if (can_pet) break;
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_UNIQUE, (mode | PM_ALLOW_UNIQUE));
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_UNIQUE, (mode | PM_ALLOW_UNIQUE));
 				break;
 			case 20: case 21:
 				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_HI_UNDEAD, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_HI_UNDEAD, mode);
 				break;
 			case 22: case 23:
 				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
-				count += summon_specific((pet ? -1 : 0), y, x, summon_lev, SUMMON_HI_DRAGON, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, summon_lev, SUMMON_HI_DRAGON, mode);
 				break;
 			case 24:
-				count += summon_specific((pet ? -1 : 0), y, x, 100, SUMMON_CYBER, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x, 100, SUMMON_CYBER, mode);
 				break;
 			default:
 				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
-				count += summon_specific((pet ? -1 : 0), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
+				count += summon_specific((pet ? p_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
 		}
 	}
 
@@ -7247,7 +7246,7 @@ int activate_hi_summon(int y, int x, bool can_pet)
 
 
 /* ToDo: check */
-int summon_cyber(int who, int y, int x)
+int summon_cyber(creature_type *cr_ptr, int y, int x)
 {
 	int i;
 	int max_cyber = (easy_band ? 1 : (dun_level / 50) + randint1(2));
@@ -7255,17 +7254,14 @@ int summon_cyber(int who, int y, int x)
 	u32b mode = PM_ALLOW_GROUP;
 
 	/* Summoned by a monster */
-	if (who > 0)
-	{
-		creature_type *m_ptr = &m_list[who];
-		if (is_pet(m_ptr)) mode |= PM_FORCE_PET;
-	}
+	if (cr_ptr)
+		if (is_pet(cr_ptr)) mode |= PM_FORCE_PET;
 
 	if (max_cyber > 4) max_cyber = 4;
 
 	for (i = 0; i < max_cyber; i++)
 	{
-		count += summon_specific(who, y, x, 100, SUMMON_CYBER, mode);
+		count += summon_specific(cr_ptr, y, x, 100, SUMMON_CYBER, mode);
 	}
 
 	return count;
