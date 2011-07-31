@@ -649,8 +649,8 @@ put_str(format("Lv   %s   Ž¸—¦ Œø‰Ê", ((use_mind == MIND_BERSERKER) || (use_mind
 #else
 put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? "HP" : "MP"), y, x + 35);
 #endif
-				has_weapon[0] = have_weapon(cr_ptr, INVEN_RARM);
-				has_weapon[1] = have_weapon(cr_ptr, INVEN_LARM);
+				has_weapon[0] = have_weapon(cr_ptr, INVEN_1STARM);
+				has_weapon[1] = have_weapon(cr_ptr, INVEN_2NDARM);
 
 				/* Dump the spells */
 				for (i = 0; i < MAX_MIND_POWERS; i++)
@@ -1857,9 +1857,9 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 	{
 		if (heavy_armor(cr_ptr)) chance += 20;
 		if (cr_ptr->icky_wield[0]) chance += 20;
-		else if (have_weapon(cr_ptr, INVEN_RARM)) chance += 10;
+		else if (have_weapon(cr_ptr, INVEN_1STARM)) chance += 10;
 		if (cr_ptr->icky_wield[1]) chance += 20;
-		else if (have_weapon(cr_ptr, INVEN_LARM)) chance += 10;
+		else if (have_weapon(cr_ptr, INVEN_2NDARM)) chance += 10;
 		if (n == 5)
 		{
 			int j;

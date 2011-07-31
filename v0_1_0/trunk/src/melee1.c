@@ -2139,7 +2139,7 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", atk_name);
 				if (hex_spelling(tar_ptr, HEX_SHADOW_CLOAK) && alive && !tar_ptr->is_dead)
 				{
 					int dam = 1;
-					object_type *o_ptr = &tar_ptr->inventory[INVEN_RARM];
+					object_type *o_ptr = &tar_ptr->inventory[INVEN_1STARM];
 
 					if (!(atk_ptr->resist_ultimate || r_ptr->flagsr & RFR_RES_DARK))
 					{
@@ -2174,8 +2174,8 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", atk_name);
 							int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 							int typ[4][2] = {
 								{ INVEN_HEAD, GF_OLD_CONF },
-								{ INVEN_LARM,  GF_OLD_SLEEP },
-								{ INVEN_HANDS, GF_TURN_ALL },
+								{ INVEN_2NDARM,  GF_OLD_SLEEP },
+								{ INVEN_1STHANDS, GF_TURN_ALL },
 								{ INVEN_FEET, GF_OLD_SLOW }
 							};
 

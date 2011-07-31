@@ -2219,7 +2219,7 @@ static bool kankin(void)
 	object_type *o_ptr;
 
 	/* Loop for p_ptr->inventory and right/left arm */
-	for (i = 0; i <= INVEN_LARM; i++)
+	for (i = 0; i <= INVEN_2NDARM; i++)
 	{
 		o_ptr = &p_ptr->inventory[i];
 
@@ -3412,7 +3412,7 @@ static bool compare_weapons(void)
 	clear_bldg(0, 22);
 
 	/* Store copy of original wielded weapon */
-	i_ptr = &p_ptr->inventory[INVEN_RARM];
+	i_ptr = &p_ptr->inventory[INVEN_1STARM];
 	object_copy(&orig_weapon, i_ptr);
 
 	item_tester_no_ryoute = TRUE;
@@ -3844,7 +3844,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 		/* Charge the money */
 		p_ptr->au -= (cost * o_ptr->number);
 
-		if (item >= INVEN_RARM) calc_android_exp(p_ptr);
+		if (item >= INVEN_1STARM) calc_android_exp(p_ptr);
 
 		/* Something happened */
 		return (TRUE);

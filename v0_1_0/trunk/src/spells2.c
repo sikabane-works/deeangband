@@ -74,7 +74,7 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	chg_virtue(p_ptr, V_ENLIGHTEN, 1);
 
 	/* Acquire item flags from equipment */
-	for (k = INVEN_RARM; k < INVEN_TOTAL; k++)
+	for (k = INVEN_1STARM; k < INVEN_TOTAL; k++)
 	{
 		u32b tflgs[TR_FLAG_SIZE];
 
@@ -2843,7 +2843,7 @@ info[i++] = "‚ ‚È‚½‚ÌUŒ‚‘¬“x‚Í‘•”õ‚É‚æ‚Á‚Ä‰e‹¿‚ğó‚¯‚Ä‚¢‚éB";
 
 
 	/* Access the current weapon */
-	o_ptr = &p_ptr->inventory[INVEN_RARM];
+	o_ptr = &p_ptr->inventory[INVEN_1STARM];
 
 	/* Analyze the weapon */
 	if (o_ptr->k_idx)

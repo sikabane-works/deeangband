@@ -418,7 +418,7 @@ static errr rd_inventory(void)
 		if (!q_ptr->k_idx) return (53);
 
 		/* Wield equipment */
-		if (n >= INVEN_RARM)
+		if (n >= INVEN_1STARM)
 		{
 			/* Player touches it */
 			q_ptr->marked |= OM_TOUCHED;
@@ -510,7 +510,7 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 		if (!q_ptr->k_idx) return (53);
 
 		/* Wield equipment */
-		if (n >= INVEN_RARM)
+		if (n >= INVEN_1STARM)
 		{
 			/* Player touches it */
 			q_ptr->marked |= OM_TOUCHED;

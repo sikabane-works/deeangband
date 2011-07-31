@@ -4117,7 +4117,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	}
 	else if (boomerang)
 	{
-		if (have_weapon(p_ptr, INVEN_RARM) && have_weapon(p_ptr, INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_1STARM) && have_weapon(p_ptr, INVEN_2NDARM))
 		{
 			item_tester_hook = item_tester_hook_boomerang;
 #ifdef JP
@@ -4134,8 +4134,8 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				return FALSE;
 			}
 		}
-		else if (have_weapon(p_ptr, INVEN_LARM)) item = INVEN_LARM;
-		else item = INVEN_RARM;
+		else if (have_weapon(p_ptr, INVEN_2NDARM)) item = INVEN_2NDARM;
+		else item = INVEN_1STARM;
 	}
 	else
 	{
@@ -4167,7 +4167,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 
 
 	/* Item is cursed */
-	if (object_is_cursed(o_ptr) && (item >= INVEN_RARM))
+	if (object_is_cursed(o_ptr) && (item >= INVEN_1STARM))
 	{
 		/* Oops */
 #ifdef JP
@@ -4275,7 +4275,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (item >= INVEN_RARM)
+	if (item >= INVEN_1STARM)
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);
@@ -4429,7 +4429,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 
 				if (boomerang)
 				{
-					tdam *= (mult+p_ptr->num_blow[item - INVEN_RARM]);
+					tdam *= (mult+p_ptr->num_blow[item - INVEN_1STARM]);
 					tdam += p_ptr->to_d_m;
 				}
 				else if (have_flag(flgs, TR_THROW))
@@ -4642,7 +4642,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (come_back)
 	{
-		if (item == INVEN_RARM || item == INVEN_LARM)
+		if (item == INVEN_1STARM || item == INVEN_2NDARM)
 		{
 			/* Access the wield slot */
 			o_ptr = &p_ptr->inventory[item];

@@ -3975,10 +3975,10 @@ prt("[âΩÇ©ÉLÅ[ÇâüÇ∑Ç∆ÉQÅ[ÉÄÇ…ñﬂÇËÇ‹Ç∑]", k, 15);
 char index_to_label(int i)
 {
 	/* Indexes for "inven" are easy */
-	if (i < INVEN_RARM) return (I2A(i));
+	if (i < INVEN_1STARM) return (I2A(i));
 
 	/* Indexes for "equip" are offset */
-	return (I2A(i - INVEN_RARM));
+	return (I2A(i - INVEN_1STARM));
 }
 
 
@@ -4023,10 +4023,10 @@ s16b label_to_equip(int c)
 	int i;
 
 	/* Convert */
-	i = (islower(c) ? A2I(c) : -1) + INVEN_RARM;
+	i = (islower(c) ? A2I(c) : -1) + INVEN_1STARM;
 
 	/* Verify the index */
-	if ((i < INVEN_RARM) || (i >= INVEN_TOTAL)) return (-1);
+	if ((i < INVEN_1STARM) || (i >= INVEN_TOTAL)) return (-1);
 
 	if (select_ring_slot) return is_ring_slot(i) ? i : -1;
 
@@ -4052,18 +4052,18 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_POLEARM:
 		case TV_SWORD:
 		{
-			if (!p_ptr->inventory[INVEN_RARM].k_idx) return (INVEN_RARM);
-			if (p_ptr->inventory[INVEN_LARM].k_idx) return (INVEN_RARM);
-			return (INVEN_LARM);
+			if (!p_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_1STARM);
+			if (p_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_1STARM);
+			return (INVEN_2NDARM);
 		}
 
 		case TV_CAPTURE:
 		case TV_CARD:
 		case TV_SHIELD:
 		{
-			if (!p_ptr->inventory[INVEN_LARM].k_idx) return (INVEN_LARM);
-			if (p_ptr->inventory[INVEN_RARM].k_idx) return (INVEN_LARM);
-			return (INVEN_RARM);
+			if (!p_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_2NDARM);
+			if (p_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_2NDARM);
+			return (INVEN_1STARM);
 		}
 
 		case TV_BOW:
@@ -4111,7 +4111,7 @@ s16b wield_slot(object_type *o_ptr)
 
 		case TV_GLOVES:
 		{
-			return (INVEN_HANDS);
+			return (INVEN_1STHANDS);
 		}
 
 		case TV_BOOTS:
@@ -4136,15 +4136,15 @@ cptr mention_use(int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_RARM:  p = p_ptr->heavy_wield[0] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->migite) ? " óºéË" : (left_hander ? " ç∂éË" : " âEéË")); break;
+		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->migite) ? " óºéË" : (left_hander ? " ç∂éË" : " âEéË")); break;
 #else
-		case INVEN_RARM:  p = p_ptr->heavy_wield[0] ? "Just lifting" : (p_ptr->migite ? "Wielding" : "On arm"); break;
+		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "Just lifting" : (p_ptr->migite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_LARM:  p = p_ptr->heavy_wield[1] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->hidarite) ? " óºéË" : (left_hander ? " âEéË" : " ç∂éË")); break;
+		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->hidarite) ? " óºéË" : (left_hander ? " âEéË" : " ç∂éË")); break;
 #else
-		case INVEN_LARM:  p = p_ptr->heavy_wield[1] ? "Just lifting" : (p_ptr->hidarite ? "Wielding" : "On arm"); break;
+		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "Just lifting" : (p_ptr->hidarite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
@@ -4196,9 +4196,9 @@ cptr mention_use(int i)
 #endif
 
 #ifdef JP
-		case INVEN_HANDS: p = "  éË"; break;
+		case INVEN_1STHANDS: p = "  éË"; break;
 #else
-		case INVEN_HANDS: p = "On hands"; break;
+		case INVEN_1STHANDS: p = "On hands"; break;
 #endif
 
 #ifdef JP
@@ -4230,15 +4230,15 @@ cptr describe_use(int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_RARM:  p = p_ptr->heavy_wield[0] ? "â^î¿íÜÇÃ" : ((p_ptr->ryoute && p_ptr->migite) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (left_hander ? "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
+		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "â^î¿íÜÇÃ" : ((p_ptr->ryoute && p_ptr->migite) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (left_hander ? "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
 #else
-		case INVEN_RARM:  p = p_ptr->heavy_wield[0] ? "just lifting" : (p_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "just lifting" : (p_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_LARM:  p = p_ptr->heavy_wield[1] ? "â^î¿íÜÇÃ" : ((p_ptr->ryoute && p_ptr->hidarite) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (left_hander ? "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
+		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "â^î¿íÜÇÃ" : ((p_ptr->ryoute && p_ptr->hidarite) ? "óºéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : (left_hander ? "âEéËÇ…ëïîıÇµÇƒÇ¢ÇÈ" : "ç∂éËÇ…ëïîıÇµÇƒÇ¢ÇÈ")); break;
 #else
-		case INVEN_LARM:  p = p_ptr->heavy_wield[1] ? "just lifting" : (p_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "just lifting" : (p_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
@@ -4290,9 +4290,9 @@ cptr describe_use(int i)
 #endif
 
 #ifdef JP
-		case INVEN_HANDS: p = "éËÇ…Ç¬ÇØÇƒÇ¢ÇÈ"; break;
+		case INVEN_1STHANDS: p = "éËÇ…Ç¬ÇØÇƒÇ¢ÇÈ"; break;
 #else
-		case INVEN_HANDS: p = "wearing on your hands"; break;
+		case INVEN_1STHANDS: p = "wearing on your hands"; break;
 #endif
 
 #ifdef JP
@@ -4486,7 +4486,7 @@ void display_equip(void)
 	Term_get_size(&wid, &hgt);
 
 	/* Display the equipment */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		/* Examine the item */
 		o_ptr = &p_ptr->inventory[i];
@@ -4505,10 +4505,10 @@ void display_equip(void)
 		}
 
 		/* Display the index (or blank space) */
-		Term_putstr(0, i - INVEN_RARM, 3, TERM_WHITE, tmp_val);
+		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		if ((((i == INVEN_RARM) && p_ptr->hidarite) || ((i == INVEN_LARM) && p_ptr->migite)) && p_ptr->ryoute)
+		if ((((i == INVEN_1STARM) && p_ptr->hidarite) || ((i == INVEN_2NDARM) && p_ptr->migite)) && p_ptr->ryoute)
 		{
 #ifdef JP
 			strcpy(o_name, "(ïêäÌÇóºéËéùÇø)");
@@ -4533,10 +4533,10 @@ void display_equip(void)
 		}
 
 		/* Display the entry itself */
-		Term_putstr(3, i - INVEN_RARM, n, attr, o_name);
+		Term_putstr(3, i - INVEN_1STARM, n, attr, o_name);
 
 		/* Erase the rest of the line */
-		Term_erase(3+n, i - INVEN_RARM, 255);
+		Term_erase(3+n, i - INVEN_1STARM, 255);
 
 		/* Display the weight (if needed) */
 		if (show_weights)
@@ -4548,19 +4548,19 @@ void display_equip(void)
 			sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
 #endif
 
-			prt(tmp_val, i - INVEN_RARM, wid - (show_labels ? 28 : 9));
+			prt(tmp_val, i - INVEN_1STARM, wid - (show_labels ? 28 : 9));
 		}
 
 		/* Display the slot description (if needed) */
 		if (show_labels)
 		{
-			Term_putstr(wid - 20, i - INVEN_RARM, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(i), i - INVEN_RARM, wid - 15);
+			Term_putstr(wid - 20, i - INVEN_1STARM, -1, TERM_WHITE, " <-- ");
+			prt(mention_use(i), i - INVEN_1STARM, wid - 15);
 		}
 	}
 
 	/* Erase the rest of the window */
-	for (i = INVEN_TOTAL - INVEN_RARM; i < hgt; i++)
+	for (i = INVEN_TOTAL - INVEN_1STARM; i < hgt; i++)
 	{
 		/* Clear that line */
 		Term_erase(0, i, 255);
@@ -4587,7 +4587,7 @@ static bool get_tag(int *cp, char tag, int mode)
 	switch (mode)
 	{
 	case USE_EQUIP:
-		start = INVEN_RARM;
+		start = INVEN_1STARM;
 		end = INVEN_TOTAL - 1;
 		break;
 
@@ -4783,7 +4783,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 static void prepare_label_string(char *label, int mode)
 {
 	cptr alphabet_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int  offset = (mode == USE_EQUIP) ? INVEN_RARM : 0;
+	int  offset = (mode == USE_EQUIP) ? INVEN_1STARM : 0;
 	int  i;
 
 	/* Prepare normal labels */
@@ -5041,19 +5041,19 @@ int show_equip(int target_item, creature_type *cr_ptr)
 
 
 	/* Scan the equipment list */
-	for (k = 0, i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (k = 0, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
 		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(o_ptr)) &&
-		    (!((((i == INVEN_RARM) && cr_ptr->hidarite) || ((i == INVEN_LARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
+		    (!((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
 		     item_tester_no_ryoute)) continue;
 
 		/* Description */
 		object_desc(o_name, o_ptr, 0);
 
-		if ((((i == INVEN_RARM) && cr_ptr->hidarite) || ((i == INVEN_LARM) && cr_ptr->migite)) && cr_ptr->ryoute)
+		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 		{
 #ifdef JP
 			(void)strcpy(out_desc[k],"(ïêäÌÇóºéËéùÇø)");
@@ -5137,10 +5137,10 @@ int show_equip(int target_item, creature_type *cr_ptr)
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else if (i >= INVEN_RARM)
+		else if (i >= INVEN_1STARM)
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", equip_label[i - INVEN_RARM]);
+			sprintf(tmp_val, "%c)", equip_label[i - INVEN_1STARM]);
 		}
 		else /* Paranoia */
 		{
@@ -5532,13 +5532,13 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 		}
 
 		else if ((inven && (*cp >= 0) && (*cp < INVEN_PACK)) ||
-		         (equip && (*cp >= INVEN_RARM) && (*cp < INVEN_TOTAL)))
+		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
 		{
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(&k, prev_tag, (*cp >= INVEN_RARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if ((k < INVEN_RARM) ? !inven : !equip) /* Reject */;
+				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(k)) /* Reject */;
 				else
 				{
@@ -5603,14 +5603,14 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 
 
 	/* Full equipment */
-	e1 = INVEN_RARM;
+	e1 = INVEN_1STARM;
 	e2 = INVEN_TOTAL - 1;
 
 	/* Forbid equipment */
 	if (!equip) e2 = -1;
 	else if (use_menu)
 	{
-		for (j = INVEN_RARM; j < INVEN_TOTAL; j++)
+		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
 			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&p_ptr->inventory[j])) max_equip++;
 		if (p_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
@@ -5623,9 +5623,9 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 	{
 		if (p_ptr->migite)
 		{
-			if (e2 < INVEN_LARM) e2 = INVEN_LARM;
+			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (p_ptr->hidarite) e1 = INVEN_RARM;
+		else if (p_ptr->hidarite) e1 = INVEN_1STARM;
 	}
 
 
@@ -6097,7 +6097,7 @@ if (other_query_flag && !verify("ñ{ìñÇ…", k)) continue;
 				}
 
 				/* Hack -- Validate the item */
-				if ((k < INVEN_RARM) ? !inven : !equip)
+				if ((k < INVEN_1STARM) ? !inven : !equip)
 				{
 					bell();
 					break;
@@ -6189,7 +6189,7 @@ if (other_query_flag && !verify("ñ{ìñÇ…", k)) continue;
 				}
 
 				/* Hack -- Validate the item */
-				else if ((k < INVEN_RARM) ? !inven : !equip)
+				else if ((k < INVEN_1STARM) ? !inven : !equip)
 				{
 					not_found = TRUE;
 				}
@@ -6602,13 +6602,13 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		}
 
 		else if ((inven && (*cp >= 0) && (*cp < INVEN_PACK)) ||
-		         (equip && (*cp >= INVEN_RARM) && (*cp < INVEN_TOTAL)))
+		         (equip && (*cp >= INVEN_1STARM) && (*cp < INVEN_TOTAL)))
 		{
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(&k, prev_tag, (*cp >= INVEN_RARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
-				else if ((k < INVEN_RARM) ? !inven : !equip) /* Reject */;
+				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(k)) /* Reject */;
 				else
 				{
@@ -6673,14 +6673,14 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 
 
 	/* Full equipment */
-	e1 = INVEN_RARM;
+	e1 = INVEN_1STARM;
 	e2 = INVEN_TOTAL - 1;
 
 	/* Forbid equipment */
 	if (!equip) e2 = -1;
 	else if (use_menu)
 	{
-		for (j = INVEN_RARM; j < INVEN_TOTAL; j++)
+		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
 			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&p_ptr->inventory[j])) max_equip++;
 		if (p_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
@@ -6693,9 +6693,9 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	{
 		if (p_ptr->migite)
 		{
-			if (e2 < INVEN_LARM) e2 = INVEN_LARM;
+			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (p_ptr->hidarite) e1 = INVEN_RARM;
+		else if (p_ptr->hidarite) e1 = INVEN_1STARM;
 	}
 
 
@@ -6831,8 +6831,8 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		else if (command_wrk == (USE_EQUIP))
 		{
 			/* Extract the legal requests */
-			n1 = I2A(e1 - INVEN_RARM);
-			n2 = I2A(e2 - INVEN_RARM);
+			n1 = I2A(e1 - INVEN_1STARM);
+			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
 			if (command_see) get_item_label = show_equip(menu_line, p_ptr);
@@ -7500,7 +7500,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Hack -- Validate the item */
-					if ((k < INVEN_RARM) ? !inven : !equip)
+					if ((k < INVEN_1STARM) ? !inven : !equip)
 					{
 						bell();
 						break;
@@ -7633,7 +7633,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Hack -- Validate the item */
-					else if ((k < INVEN_RARM) ? !inven : !equip)
+					else if ((k < INVEN_1STARM) ? !inven : !equip)
 					{
 						not_found = TRUE;
 					}

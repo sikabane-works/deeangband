@@ -10931,8 +10931,8 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			{
 				int damage;
 	
-				if (!have_weapon(p_ptr, INVEN_RARM+i)) break;
-				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
+				if (!have_weapon(p_ptr, INVEN_1STARM+i)) break;
+				o_ptr = &p_ptr->inventory[INVEN_1STARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -11285,8 +11285,8 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if (!have_weapon(p_ptr, INVEN_RARM+i)) break;
-				o_ptr = &p_ptr->inventory[INVEN_RARM+i];
+				if (!have_weapon(p_ptr, INVEN_1STARM+i)) break;
+				o_ptr = &p_ptr->inventory[INVEN_1STARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);

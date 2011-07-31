@@ -3200,12 +3200,12 @@ static void mon_equip(creature_type *m_ptr)
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
-		if(!m_ptr->inventory[INVEN_RARM].k_idx && can_equip(m_ptr, INVEN_RARM))
+		if(!m_ptr->inventory[INVEN_1STARM].k_idx && can_equip(m_ptr, INVEN_1STARM))
 		{
 			if(m_ptr->cls_idx != CLASS_MONK && m_ptr->cls_idx != CLASS_FORCETRAINER)
 			{
-				make_object(&m_ptr->inventory[INVEN_RARM], mo_mode, GON_ARMS | GON_UNCURSED);
-				m_ptr->inventory[INVEN_RARM].fitting_size = m_ptr->size;
+				make_object(&m_ptr->inventory[INVEN_1STARM], mo_mode, GON_ARMS | GON_UNCURSED);
+				m_ptr->inventory[INVEN_1STARM].fitting_size = m_ptr->size;
 			}
 
 		}
@@ -3228,10 +3228,10 @@ static void mon_equip(creature_type *m_ptr)
 			m_ptr->inventory[INVEN_HEAD].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_HANDS].k_idx && can_equip(m_ptr, INVEN_HANDS))
+		if(!m_ptr->inventory[INVEN_1STHANDS].k_idx && can_equip(m_ptr, INVEN_1STHANDS))
 		{
-			make_object(&m_ptr->inventory[INVEN_HANDS], mo_mode, GON_HANDS | GON_UNCURSED);
-			m_ptr->inventory[INVEN_HANDS].fitting_size = m_ptr->size;
+			make_object(&m_ptr->inventory[INVEN_1STHANDS], mo_mode, GON_HANDS | GON_UNCURSED);
+			m_ptr->inventory[INVEN_1STHANDS].fitting_size = m_ptr->size;
 		}
 
 		if(!m_ptr->inventory[INVEN_FEET].k_idx && can_equip(m_ptr, INVEN_FEET))
@@ -5439,8 +5439,8 @@ int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 		case TV_POLEARM:
 		case TV_SHIELD:
 		case TV_CARD:
-			if(!cr_ptr->inventory[INVEN_RARM].k_idx)      r = INVEN_RARM;
-			else if(!cr_ptr->inventory[INVEN_LARM].k_idx) r = INVEN_LARM;
+			if(!cr_ptr->inventory[INVEN_1STARM].k_idx)      r = INVEN_1STARM;
+			else if(!cr_ptr->inventory[INVEN_2NDARM].k_idx) r = INVEN_2NDARM;
 			break;
 
 		case TV_AMULET:
@@ -5457,7 +5457,7 @@ int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 			break;
 
 		case TV_GLOVES:
-			if(!cr_ptr->inventory[INVEN_HANDS].k_idx)     r = INVEN_HANDS;
+			if(!cr_ptr->inventory[INVEN_1STHANDS].k_idx)     r = INVEN_1STHANDS;
 			break;
 
 		case TV_HELM:

@@ -4561,7 +4561,7 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 #endif
 
 	/* Hack -- Scan equipment */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		cptr s;
 

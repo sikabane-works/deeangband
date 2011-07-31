@@ -2458,7 +2458,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 				while (1)
 				{
 					/* Roll for an ego-item */
-					o_ptr->name2 = get_random_ego(INVEN_RARM, TRUE);
+					o_ptr->name2 = get_random_ego(INVEN_1STARM, TRUE);
 					if (o_ptr->name2 == EGO_SHARPNESS && o_ptr->tval != TV_SWORD)
 						continue;
 					if (o_ptr->name2 == EGO_EARTHQUAKES && o_ptr->tval != TV_HAFTED)
@@ -2558,7 +2558,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 				/* Roll for ego-item */
 				if (randint0(MAX_DEPTH) < level)
 				{
-					o_ptr->name2 = get_random_ego(INVEN_RARM, FALSE);
+					o_ptr->name2 = get_random_ego(INVEN_1STARM, FALSE);
 					switch (o_ptr->name2)
 					{
 					case EGO_MORGUL:
@@ -2848,7 +2848,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 					create_artifact(o_ptr, FALSE);
 					break;
 				}
-				o_ptr->name2 = get_random_ego(INVEN_LARM, TRUE);
+				o_ptr->name2 = get_random_ego(INVEN_2NDARM, TRUE);
 				
 				switch (o_ptr->name2)
 				{
@@ -2881,13 +2881,13 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 					create_artifact(o_ptr, FALSE);
 					break;
 				}
-				o_ptr->name2 = get_random_ego(INVEN_HANDS, TRUE);
+				o_ptr->name2 = get_random_ego(INVEN_1STHANDS, TRUE);
 			}
 			
 			/* Very cursed */
 			else if (power < -1)
 			{
-				o_ptr->name2 = get_random_ego(INVEN_HANDS, FALSE);
+				o_ptr->name2 = get_random_ego(INVEN_1STHANDS, FALSE);
 			}
 
 			break;
@@ -5567,9 +5567,9 @@ void inven_item_increase(int item, int num)
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
 		if (!o_ptr->number && p_ptr->ele_attack)
 		{
-			if ((item == INVEN_RARM) || (item == INVEN_LARM))
+			if ((item == INVEN_1STARM) || (item == INVEN_2NDARM))
 			{
-				if (!have_weapon(p_ptr, INVEN_RARM + INVEN_LARM - item))
+				if (!have_weapon(p_ptr, INVEN_1STARM + INVEN_2NDARM - item))
 				{
 					/* Clear all temporary elemental brands */
 					set_ele_attack(p_ptr, 0, 0);
@@ -5594,7 +5594,7 @@ void inven_item_optimize(int item)
 	if (o_ptr->number) return;
 
 	/* The item is in the pack */
-	if (item < INVEN_RARM)
+	if (item < INVEN_1STARM)
 	{
 		int i;
 
@@ -6044,7 +6044,7 @@ s16b inven_takeoff(int item, int amt)
 	object_desc(o_name, q_ptr, 0);
 
 	/* Took off weapon */
-	if (((item == INVEN_RARM) || (item == INVEN_LARM)) &&
+	if (((item == INVEN_1STARM) || (item == INVEN_2NDARM)) &&
 	    object_is_melee_weapon(p_ptr, o_ptr))
 	{
 #ifdef JP
@@ -6134,7 +6134,7 @@ void inven_drop(int item, int amt)
 
 
 	/* Take off equipment */
-	if (item >= INVEN_RARM)
+	if (item >= INVEN_1STARM)
 	{
 		/* Take off first */
 		item = inven_takeoff(item, amt);
@@ -6445,14 +6445,14 @@ void display_koff(int k_idx)
 object_type *choose_warning_item(void)
 {
 	int i;
-	int choices[INVEN_TOTAL - INVEN_RARM];
+	int choices[INVEN_TOTAL - INVEN_1STARM];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning ability */
 	if (!p_ptr->warning) return NULL;
 
 	/* Search p_ptr->inventory */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr = &p_ptr->inventory[i];
@@ -6556,8 +6556,8 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 
 	case GF_ARROW:
 		if (!p_ptr->blind &&
-		    ((p_ptr->inventory[INVEN_RARM].k_idx && (p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU)) ||
-		     (p_ptr->inventory[INVEN_LARM].k_idx && (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))))
+		    ((p_ptr->inventory[INVEN_1STARM].k_idx && (p_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU)) ||
+		     (p_ptr->inventory[INVEN_2NDARM].k_idx && (p_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;

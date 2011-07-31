@@ -6363,7 +6363,7 @@ void calc_android_exp(creature_type *cr_ptr)
 
 	if (cr_ptr->irace_idx != RACE_ANDROID) return;
 
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &cr_ptr->inventory[i];
 		object_type forge;
@@ -6441,7 +6441,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			if (value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if ((((i == INVEN_RARM) || (i == INVEN_LARM)) && (have_weapon(cr_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
+		if ((((i == INVEN_1STARM) || (i == INVEN_2NDARM)) && (have_weapon(cr_ptr, i))) || (i == INVEN_BOW)) total_exp += exp / 48;
 		else total_exp += exp / 16;
 		if (i == INVEN_BODY) total_exp += exp / 32;
 	}
@@ -6719,7 +6719,7 @@ bool choose_ele_attack(creature_type *cr_ptr)
 
 	char choice;
 
-	if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM))
+	if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM))
 	{
 #ifdef JP
 		msg_format("ïêäÌÇéùÇΩÇ»Ç¢Ç∆ñÇñ@åïÇÕégÇ¶Ç»Ç¢ÅB");

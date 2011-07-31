@@ -1677,12 +1677,12 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (have_weapon(cr_ptr, INVEN_RARM))
+			if (have_weapon(cr_ptr, INVEN_1STARM))
 			{
-				k = INVEN_RARM;
-				if (have_weapon(cr_ptr, INVEN_LARM) && one_in_(2)) k = INVEN_LARM;
+				k = INVEN_1STARM;
+				if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2)) k = INVEN_2NDARM;
 			}
-			else if (have_weapon(cr_ptr, INVEN_LARM)) k = INVEN_LARM;
+			else if (have_weapon(cr_ptr, INVEN_2NDARM)) k = INVEN_2NDARM;
 			if (k && curse_weapon(FALSE, k)) ident = TRUE;
 			break;
 		}
@@ -6669,7 +6669,7 @@ static bool item_tester_hook_use(creature_type *cr_ptr, object_type *o_ptr)
 			if (!object_is_known(o_ptr)) return (FALSE);
 
 			/* HACK - only items from the equipment can be activated */
-			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			{
 				if (&cr_ptr->inventory[i] == o_ptr)
 				{

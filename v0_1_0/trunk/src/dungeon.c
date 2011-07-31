@@ -165,7 +165,7 @@ static void sense_inventory_aux(int slot, bool heavy)
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Message (equipment) */
-	if (slot >= INVEN_RARM)
+	if (slot >= INVEN_1STARM)
 	{
 #ifdef JP
 msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
@@ -444,7 +444,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
+		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
 
 		/* Good luck */
 		if ((cr_ptr->muta3 & MUT3_GOOD_LUCK) && !randint0(13))
@@ -574,7 +574,7 @@ static void sense_inventory2(creature_type *cr_ptr)
 		if (!okay) continue;
 
 		/* Occasional failure on cr_ptr->inventory items */
-		if ((i < INVEN_RARM) && (0 != randint0(5))) continue;
+		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
 
 		sense_inventory_aux(i, TRUE);
 	}
@@ -1450,14 +1450,14 @@ static void check_music(void)
 static object_type *choose_cursed_obj_name(u32b flag)
 {
 	int i;
-	int choices[INVEN_TOTAL-INVEN_RARM];
+	int choices[INVEN_TOTAL-INVEN_1STARM];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning-item */
 	if (!(p_ptr->cursed & flag)) return NULL;
 
 	/* Search Inventry */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &p_ptr->inventory[i];
 
@@ -2900,21 +2900,21 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		msg_print(NULL);
-		if (have_weapon(cr_ptr, INVEN_RARM))
+		if (have_weapon(cr_ptr, INVEN_1STARM))
 		{
-			slot = INVEN_RARM;
-			o_ptr = &cr_ptr->inventory[INVEN_RARM];
+			slot = INVEN_1STARM;
+			o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 
-			if (have_weapon(cr_ptr, INVEN_LARM) && one_in_(2))
+			if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2))
 			{
-				o_ptr = &cr_ptr->inventory[INVEN_LARM];
-				slot = INVEN_LARM;
+				o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
+				slot = INVEN_2NDARM;
 			}
 		}
-		else if (have_weapon(cr_ptr, INVEN_LARM))
+		else if (have_weapon(cr_ptr, INVEN_2NDARM))
 		{
-			o_ptr = &cr_ptr->inventory[INVEN_LARM];
-			slot = INVEN_LARM;
+			o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
+			slot = INVEN_2NDARM;
 		}
 
 		if (slot && !object_is_cursed(o_ptr))
@@ -2948,7 +2948,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			int i, i_keep = 0, count = 0;
 
 			/* Scan the equipment with random teleport ability */
-			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			{
 				u32b flgs[TR_FLAG_SIZE];
 				o_ptr = &cr_ptr->inventory[i];
@@ -3223,7 +3223,7 @@ static void process_world_aux_recharge(creature_type *cr_ptr)
 	bool changed;
 
 	/* Process equipment */
-	for (changed = FALSE, i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (changed = FALSE, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		/* Get the object */
 		object_type *o_ptr = &cr_ptr->inventory[i];

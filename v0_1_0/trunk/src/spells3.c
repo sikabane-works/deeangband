@@ -584,7 +584,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 			object_type *o_ptr;
 			int i;
 
-			for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			{
 				o_ptr = &p_ptr->inventory[i];
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
@@ -1077,13 +1077,13 @@ bool apply_disenchant(int mode)
 	/* Pick a random slot */
 	switch (randint1(8))
 	{
-		case 1: t = INVEN_RARM; break;
-		case 2: t = INVEN_LARM; break;
+		case 1: t = INVEN_1STARM; break;
+		case 2: t = INVEN_2NDARM; break;
 		case 3: t = INVEN_BOW; break;
 		case 4: t = INVEN_BODY; break;
 		case 5: t = INVEN_OUTER; break;
 		case 6: t = INVEN_HEAD; break;
-		case 7: t = INVEN_HANDS; break;
+		case 7: t = INVEN_1STHANDS; break;
 		case 8: t = INVEN_FEET; break;
 	}
 
@@ -2178,7 +2178,7 @@ static int remove_curse_aux(int all)
 	int i, cnt = 0;
 
 	/* Attempt to uncurse items being worn */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &p_ptr->inventory[i];
 
@@ -2895,7 +2895,7 @@ bool ident_spell(bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if (item >= INVEN_RARM)
+	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)B", describe_use(item), o_name, index_to_label(item));
@@ -3083,7 +3083,7 @@ bool identify_fully(bool only_equip)
 	object_desc(o_name, o_ptr, 0);
 
 	/* Describe */
-	if (item >= INVEN_RARM)
+	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
 		msg_format("%^s: %s(%c)B", describe_use(item), o_name, index_to_label(item));
@@ -4931,11 +4931,11 @@ static int minus_ac(void)
 	/* Pick a (possibly empty) p_ptr->inventory slot */
 	switch (randint1(7))
 	{
-		case 1: o_ptr = &p_ptr->inventory[INVEN_RARM]; break;
-		case 2: o_ptr = &p_ptr->inventory[INVEN_LARM]; break;
+		case 1: o_ptr = &p_ptr->inventory[INVEN_1STARM]; break;
+		case 2: o_ptr = &p_ptr->inventory[INVEN_2NDARM]; break;
 		case 3: o_ptr = &p_ptr->inventory[INVEN_BODY]; break;
 		case 4: o_ptr = &p_ptr->inventory[INVEN_OUTER]; break;
-		case 5: o_ptr = &p_ptr->inventory[INVEN_HANDS]; break;
+		case 5: o_ptr = &p_ptr->inventory[INVEN_1STHANDS]; break;
 		case 6: o_ptr = &p_ptr->inventory[INVEN_HEAD]; break;
 		case 7: o_ptr = &p_ptr->inventory[INVEN_FEET]; break;
 	}

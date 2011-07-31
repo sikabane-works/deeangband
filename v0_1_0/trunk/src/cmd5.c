@@ -2572,9 +2572,9 @@ void do_cmd_pet(void)
 	if (p_ptr->riding)
 	{
 		if ((p_ptr->migite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_RARM])) ||
+		     object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_1STARM])) ||
 		    (p_ptr->hidarite && (empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_LARM])))
+			 object_allow_two_hands_wielding(p_ptr, &p_ptr->inventory[INVEN_2NDARM])))
 		{
 			if (p_ptr->pet_extra_flags & PF_RYOUTE)
 			{
@@ -2623,7 +2623,7 @@ void do_cmd_pet(void)
 
 					powers[num++] = PET_RYOUTE;
 				}
-				else if ((empty_hands(p_ptr, FALSE) != EMPTY_HAND_NONE) && !have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
+				else if ((empty_hands(p_ptr, FALSE) != EMPTY_HAND_NONE) && !have_weapon(p_ptr, INVEN_1STARM) && !have_weapon(p_ptr, INVEN_2NDARM))
 				{
 					if (p_ptr->pet_extra_flags & PF_RYOUTE)
 					{

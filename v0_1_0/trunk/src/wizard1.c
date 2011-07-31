@@ -2943,7 +2943,7 @@ void spoil_random_artifact(cptr fname)
 	for (j = 0; group_artifact[j].tval; j++)
 	{
 		/* random artifacts wielding */
-		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
 			q_ptr = &p_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);

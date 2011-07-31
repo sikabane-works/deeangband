@@ -3910,7 +3910,7 @@ static void store_sell(void)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if ((item >= INVEN_RARM) && object_is_cursed(o_ptr))
+	if ((item >= INVEN_1STARM) && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -4213,7 +4213,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		}
 	}
 
-	if ((choice == 0) && (item >= INVEN_RARM))
+	if ((choice == 0) && (item >= INVEN_1STARM))
 	{
 		calc_android_exp(p_ptr);
 		kamaenaoshi(item);

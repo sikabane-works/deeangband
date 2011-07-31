@@ -170,7 +170,7 @@ static bool item_tester_hook_wear(creature_type *cr_ptr, object_type *o_ptr)
 		if (cr_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (wield_slot(o_ptr) >= INVEN_RARM) return (TRUE);
+	if (wield_slot(o_ptr) >= INVEN_1STARM) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -263,7 +263,7 @@ void do_cmd_wield(void)
 	case TV_SHIELD:
 	case TV_CARD:
 		/* Dual wielding */
-		if (have_weapon(p_ptr, INVEN_RARM) && have_weapon(p_ptr, INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_1STARM) && have_weapon(p_ptr, INVEN_2NDARM))
 		{
 			/* Restrict the choices */
 			item_tester_hook = item_tester_hook_melee_weapon;
@@ -279,14 +279,14 @@ void do_cmd_wield(void)
 #endif
 
 			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
-			if (slot == INVEN_RARM) need_switch_wielding = INVEN_LARM;
+			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
 		}
 
-		else if (have_weapon(p_ptr, INVEN_LARM)) slot = INVEN_RARM;
+		else if (have_weapon(p_ptr, INVEN_2NDARM)) slot = INVEN_1STARM;
 
 		/* Both arms are already used by non-weapon */
-		else if (p_ptr->inventory[INVEN_RARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_RARM]) &&
-		         p_ptr->inventory[INVEN_LARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_LARM]))
+		else if (p_ptr->inventory[INVEN_1STARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_1STARM]) &&
+		         p_ptr->inventory[INVEN_2NDARM].k_idx && !object_is_melee_weapon(p_ptr, &p_ptr->inventory[INVEN_2NDARM]))
 		{
 			/* Restrict the choices */
 			item_tester_hook = item_tester_hook_mochikae;
@@ -310,26 +310,26 @@ void do_cmd_wield(void)
 	case TV_POLEARM:
 	case TV_SWORD:
 		/* Asking for dual wielding */
-		if (slot == INVEN_LARM)
+		if (slot == INVEN_2NDARM)
 		{
 #ifdef JP
-			if (!get_check("二刀流で戦いますか？")) slot = INVEN_RARM;
+			if (!get_check("二刀流で戦いますか？")) slot = INVEN_1STARM;
 #else
-			if (!get_check("Dual wielding? ")) slot = INVEN_RARM;
+			if (!get_check("Dual wielding? ")) slot = INVEN_1STARM;
 #endif
 		}
 
-		else if (!p_ptr->inventory[INVEN_RARM].k_idx && have_weapon(p_ptr, INVEN_LARM))
+		else if (!p_ptr->inventory[INVEN_1STARM].k_idx && have_weapon(p_ptr, INVEN_2NDARM))
 		{
 #ifdef JP
-			if (!get_check("二刀流で戦いますか？")) slot = INVEN_LARM;
+			if (!get_check("二刀流で戦いますか？")) slot = INVEN_2NDARM;
 #else
-			if (!get_check("Dual wielding? ")) slot = INVEN_LARM;
+			if (!get_check("Dual wielding? ")) slot = INVEN_2NDARM;
 #endif
 		}
 
 		/* Both arms are already used */
-		else if (p_ptr->inventory[INVEN_LARM].k_idx && p_ptr->inventory[INVEN_RARM].k_idx)
+		else if (p_ptr->inventory[INVEN_2NDARM].k_idx && p_ptr->inventory[INVEN_1STARM].k_idx)
 		{
 			/* Restrict the choices */
 			item_tester_hook = item_tester_hook_mochikae;
@@ -344,8 +344,8 @@ void do_cmd_wield(void)
 #endif
 
 			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
-			if ((slot == INVEN_LARM) && !have_weapon(p_ptr, INVEN_RARM))
-				need_switch_wielding = INVEN_RARM;
+			if ((slot == INVEN_2NDARM) && !have_weapon(p_ptr, INVEN_1STARM))
+				need_switch_wielding = INVEN_1STARM;
 		}
 		break;
 
@@ -458,9 +458,9 @@ sprintf(dummy, "%sを装備すると吸血鬼になります。よろしいですか？", o_name);
 		object_copy(switch_o_ptr, slot_o_ptr);
 		object_copy(slot_o_ptr, otmp_ptr);
 #ifdef JP
-		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_RARM) ? (left_hander ? "左手" : "右手") : (left_hander ? "右手" : "左手"));
+		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_1STARM) ? (left_hander ? "左手" : "右手") : (left_hander ? "右手" : "左手"));
 #else
-		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_RARM) ? (left_hander ? "left" : "right") : (left_hander ? "right" : "left"));
+		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_1STARM) ? (left_hander ? "left" : "right") : (left_hander ? "right" : "left"));
 #endif
 
 		slot = need_switch_wielding;
@@ -496,7 +496,7 @@ msg_print("クエストを達成した！");
 
 	/* Armor Size Information */
 
-	if(slot == INVEN_BODY || slot == INVEN_HEAD || slot == INVEN_HANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
+	if(slot == INVEN_BODY || slot == INVEN_HEAD || slot == INVEN_1STHANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
 	{
 		rate = set_inventory_fitting_rate(p_ptr, o_ptr, slot);
 
@@ -513,7 +513,7 @@ msg_print("クエストを達成した！");
 	{
 	case INVEN_BODY:
 	case INVEN_HEAD:
-	case INVEN_HANDS:
+	case INVEN_1STHANDS:
 	case INVEN_FEET:
 		if(o_ptr->fitting_size == ARMOR_SIZE_FREE)
 		{
@@ -738,14 +738,14 @@ msg_print("クエストを達成した！");
 	/* Where is the item now */
 	switch (slot)
 	{
-	case INVEN_RARM:
+	case INVEN_1STARM:
 		if (object_allow_two_hands_wielding(p_ptr, o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
 			act = STR_WIELD_ARMS;
 		else
 			act = (left_hander ? STR_WIELD_LARM : STR_WIELD_RARM);
 		break;
 
-	case INVEN_LARM:
+	case INVEN_2NDARM:
 		if (object_allow_two_hands_wielding(p_ptr, o_ptr) && (p_ptr, empty_hands(p_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(p_ptr))
 			act = STR_WIELD_ARMS;
 		else
@@ -831,20 +831,20 @@ void kamaenaoshi(int item)
 	object_type *o_ptr, *new_o_ptr;
 	char o_name[MAX_NLEN];
 
-	if (item == INVEN_RARM)
+	if (item == INVEN_1STARM)
 	{
-		if (have_weapon(p_ptr, INVEN_LARM))
+		if (have_weapon(p_ptr, INVEN_2NDARM))
 		{
-			o_ptr = &p_ptr->inventory[INVEN_LARM];
+			o_ptr = &p_ptr->inventory[INVEN_2NDARM];
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = &p_ptr->inventory[INVEN_RARM];
+				new_o_ptr = &p_ptr->inventory[INVEN_1STARM];
 				object_copy(new_o_ptr, o_ptr);
 				p_ptr->total_weight += o_ptr->weight;
-				inven_item_increase(INVEN_LARM, -((int)o_ptr->number));
-				inven_item_optimize(INVEN_LARM);
+				inven_item_increase(INVEN_2NDARM, -((int)o_ptr->number));
+				inven_item_optimize(INVEN_2NDARM);
 				if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
@@ -869,12 +869,12 @@ void kamaenaoshi(int item)
 			}
 		}
 	}
-	else if (item == INVEN_LARM)
+	else if (item == INVEN_2NDARM)
 	{
-		o_ptr = &p_ptr->inventory[INVEN_RARM];
+		o_ptr = &p_ptr->inventory[INVEN_1STARM];
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (have_weapon(p_ptr, INVEN_RARM))
+		if (have_weapon(p_ptr, INVEN_1STARM))
 		{
 			if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
 #ifdef JP
@@ -885,11 +885,11 @@ void kamaenaoshi(int item)
 		}
 		else if (!(empty_hands(p_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
 		{
-			new_o_ptr = &p_ptr->inventory[INVEN_LARM];
+			new_o_ptr = &p_ptr->inventory[INVEN_2NDARM];
 			object_copy(new_o_ptr, o_ptr);
 			p_ptr->total_weight += o_ptr->weight;
-			inven_item_increase(INVEN_RARM, -((int)o_ptr->number));
-			inven_item_optimize(INVEN_RARM);
+			inven_item_increase(INVEN_1STARM, -((int)o_ptr->number));
+			inven_item_optimize(INVEN_1STARM);
 #ifdef JP
 			msg_format("%sを持ち替えた。", o_name);
 #else
@@ -1074,7 +1074,7 @@ void do_cmd_drop(void)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if ((item >= INVEN_RARM) && object_is_cursed(o_ptr))
+	if ((item >= INVEN_1STARM) && object_is_cursed(o_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -1106,7 +1106,7 @@ void do_cmd_drop(void)
 	/* Drop (some of) the item */
 	inven_drop(item, amt);
 
-	if (item >= INVEN_RARM)
+	if (item >= INVEN_1STARM)
 	{
 		kamaenaoshi(item);
 		calc_android_exp(p_ptr);
@@ -1379,7 +1379,7 @@ msg_print("更に経験を積んだような気がする。");
 	if (q_ptr->to_a != 0 || q_ptr->to_d != 0 || q_ptr->to_h != 0)
 		chg_virtue(p_ptr, V_HARMONY, 1);
 
-	if (item >= INVEN_RARM) calc_android_exp(p_ptr);
+	if (item >= INVEN_1STARM) calc_android_exp(p_ptr);
 }
 
 

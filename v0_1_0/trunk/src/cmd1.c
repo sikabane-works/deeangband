@@ -2075,7 +2075,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	species_type    *r_ptr = &r_info[m_ptr->species_idx];
 
 	/* Access the weapon */
-	object_type     *o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+	object_type     *o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
 
 	char            a_name[80];
 	char            m_name[80];
@@ -2104,7 +2104,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (have_weapon(cr_ptr, INVEN_RARM + hand) && !cr_ptr->icky_wield[hand])
+		if (have_weapon(cr_ptr, INVEN_1STARM + hand) && !cr_ptr->icky_wield[hand])
 		{
 			int tmp = cr_ptr->lev * 6 + (cr_ptr->skill_stl + 10) * 4;
 			if (cr_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
@@ -2155,8 +2155,8 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	{
 		if ((r_ptr->level + 10) > cr_ptr->lev)
 		{
-			int tval = cr_ptr->inventory[INVEN_RARM+hand].tval - TV_WEAPON_BEGIN;
-			int sval = cr_ptr->inventory[INVEN_RARM+hand].sval;
+			int tval = cr_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
+			int sval = cr_ptr->inventory[INVEN_1STARM+hand].sval;
 			int now_exp = cr_ptr->weapon_exp[tval][sval];
 			if (now_exp < s_info[cr_ptr->cls_idx].w_max[tval][sval])
 			{
@@ -2700,7 +2700,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				}
 				else k = 1;
 			}
-			else if ((cr_ptr->cls_idx == CLASS_NINJA) && have_weapon(cr_ptr, INVEN_RARM + hand) && !cr_ptr->icky_wield[hand] && ((cr_ptr->cur_lite <= 0) || one_in_(7)))
+			else if ((cr_ptr->cls_idx == CLASS_NINJA) && have_weapon(cr_ptr, INVEN_1STARM + hand) && !cr_ptr->icky_wield[hand] && ((cr_ptr->cur_lite <= 0) || one_in_(7)))
 			{
 				if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 				{
@@ -3247,7 +3247,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	if ((r_ptr->flags1 & RF1_FEMALE) &&
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
 	{
-		if ((atk_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
+		if ((atk_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
 		{
 #ifdef JP
 			msg_print("ÙŽÒA‚¨‚È‚²‚ÍŽa‚ê‚ÊI");
@@ -3273,8 +3273,8 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image ||
 	    atk_ptr->shero || !tar_ptr->ml))
 	{
-		if (atk_ptr->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-		if (atk_ptr->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (atk_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 		if (stormbringer)
 		{
 #ifdef JP
@@ -4130,8 +4130,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	m_ptr = &m_list[c_ptr->m_idx];
 
 
-	if (p_ptr->inventory[INVEN_RARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	if (p_ptr->inventory[INVEN_LARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (p_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (p_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */

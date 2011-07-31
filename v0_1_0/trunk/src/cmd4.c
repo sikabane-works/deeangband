@@ -6135,7 +6135,7 @@ static void do_cmd_knowledge_inven(void)
 #else
 		strcpy(where, "E ");
 #endif
-		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
 		}
@@ -8240,7 +8240,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					for(i = 0; i < max_unique; i++)
 						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
-							for(j = INVEN_RARM; j <= INVEN_FEET; j++)
+							for(j = INVEN_1STARM; j <= INVEN_FEET; j++)
 							{
 								identify_item(&u_info[i].inventory[j]);
 								u_info[i].inventory[j].ident |= (IDENT_MENTAL);

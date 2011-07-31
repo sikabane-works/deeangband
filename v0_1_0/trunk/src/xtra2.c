@@ -3191,7 +3191,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 				char acount[10];
 				evaluate_monster_exp(acount, m_ptr);
 
-				for(i = INVEN_RARM; i <= INVEN_FEET; i++)
+				for(i = INVEN_1STARM; i <= INVEN_FEET; i++)
 				{
 					identify_item(&m_ptr->inventory[i]);
 					m_ptr->inventory[i].ident |= (IDENT_MENTAL);
@@ -5247,7 +5247,7 @@ msg_print("「甦るがよい、我が下僕よ！」");
 #endif
 			break;
 		case REW_CURSE_WP:
-			if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM)) break;
+			if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
 				player_patrons[cr_ptr->patron_idx].title);
@@ -5262,11 +5262,11 @@ msg_print("「汝、武器に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thy weapon.'");
 #endif
 
-			dummy = INVEN_RARM;
-			if (have_weapon(cr_ptr, INVEN_LARM))
+			dummy = INVEN_1STARM;
+			if (have_weapon(cr_ptr, INVEN_2NDARM))
 			{
-				dummy = INVEN_LARM;
-				if (have_weapon(cr_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+				dummy = INVEN_2NDARM;
+				if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 			}
 			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(FALSE, dummy);
@@ -5336,12 +5336,12 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 				case 3:
 					if (one_in_(2))
 					{
-						if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM)) break;
-						dummy = INVEN_RARM;
-						if (have_weapon(cr_ptr, INVEN_LARM))
+						if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
+						dummy = INVEN_1STARM;
+						if (have_weapon(cr_ptr, INVEN_2NDARM))
 						{
-							dummy = INVEN_LARM;
-							if (have_weapon(cr_ptr, INVEN_RARM) && one_in_(2)) dummy = INVEN_RARM;
+							dummy = INVEN_2NDARM;
+							if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 						}
 						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(FALSE, dummy);
@@ -5401,12 +5401,12 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				dummy = 0;
 
-				if (have_weapon(cr_ptr, INVEN_RARM))
+				if (have_weapon(cr_ptr, INVEN_1STARM))
 				{
-					dummy = INVEN_RARM;
-					if (have_weapon(cr_ptr, INVEN_LARM) && one_in_(2)) dummy = INVEN_LARM;
+					dummy = INVEN_1STARM;
+					if (have_weapon(cr_ptr, INVEN_2NDARM) && one_in_(2)) dummy = INVEN_2NDARM;
 				}
-				else if (have_weapon(cr_ptr, INVEN_LARM)) dummy = INVEN_LARM;
+				else if (have_weapon(cr_ptr, INVEN_2NDARM)) dummy = INVEN_2NDARM;
 
 				if (dummy) (void)curse_weapon(FALSE, dummy);
 			}

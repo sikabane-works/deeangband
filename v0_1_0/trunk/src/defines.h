@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 0
+#define VER_PATCH 1
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -169,14 +169,19 @@
 #define MAX_OWNERS      32
 
 /*
- * Maximum number of player "sex" types (see "table.c", etc)
+ * Maximum number of creature "sex" types (see "table.c", etc)
  */
 #define MAX_SEXES            4
 
 /*
- * Maximum number of player "class" types (see "table.c", etc)
+ * Maximum number of creature "class" types (see "table.c", etc)
  */
 #define MAX_CLASS            28
+
+/*
+ * Maximum number of creature hands.
+ */
+#define MAX_HANDS            6
 
 
 /* Number of entries in the sanity-blast descriptions */
@@ -761,7 +766,7 @@
  * Maximum number of "normal" pack slots, and the index of the "overflow"
  * slot, which can hold an item, but only temporarily, since it causes the
  * pack to "overflow", dropping the "last" item onto the ground.  Since this
- * value is used as an actual slot, it must be less than "INVEN_RARM" (below).
+ * value is used as an actual slot, it must be less than "INVEN_1STARM" (below).
  * Note that "INVEN_PACK" is probably hard-coded by its use in savefiles, and
  * by the fact that the screen can only show 23 items plus a one-line prompt.
  */
@@ -770,28 +775,31 @@
 /*
  * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
  */
-#define INVEN_RARM      24
-#define INVEN_LARM      25
-#define INVEN_BOW       26
-#define INVEN_RIGHT     27
-#define INVEN_LEFT      28
-#define INVEN_NECK      29
-#define INVEN_LITE      30
-#define INVEN_BODY      31
-#define INVEN_OUTER     32
-#define INVEN_HEAD      33
-#define INVEN_HANDS     34
-#define INVEN_FEET      35
-
-/*
- * used for get_random_ego()
- */
-#define INVEN_AMMO     23
+#define INVEN_1STARM    24
+#define INVEN_2NDARM    25
+#define INVEN_3RDARM    26
+#define INVEN_4THARM    27
+#define INVEN_5THARM    28
+#define INVEN_6THARM    29
+#define INVEN_BOW       30
+#define INVEN_RIGHT     31
+#define INVEN_LEFT      32
+#define INVEN_NECK      33
+#define INVEN_LITE      34
+#define INVEN_BODY      35
+#define INVEN_OUTER     36
+#define INVEN_HEAD      37
+#define INVEN_1STHANDS  38
+#define INVEN_2NDHANDS  39
+#define INVEN_3RGHANDS  40
+#define INVEN_FEET      41
+#define INVEN_LIMB      42
+#define INVEN_AMMO      43
 
 /*
  * Total number of inventory slots (hard-coded).
  */
-#define INVEN_TOTAL     36
+#define INVEN_TOTAL     44
 
 /*
  * Fake inventory slot for selecting force (hard-coded).

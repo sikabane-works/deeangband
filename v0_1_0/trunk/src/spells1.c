@@ -6694,7 +6694,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			else if ((p_ptr->inventory[INVEN_RARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_LARM].name1 == ART_ZANTETSU))
+			else if ((p_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
 			{
 #ifdef JP
 				msg_print("–î‚ğa‚èÌ‚Ä‚½I");

@@ -1752,6 +1752,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	int show_tohit = cr_ptr->dis_to_h[hand];
 	int show_todam = cr_ptr->dis_to_d[hand];
 	int show_activerate = cr_ptr->to_ar[hand];
+	int show_blows;
 	int blows = cr_ptr->num_blow[hand];
 	int damage, basedam, av_dam;
 	u32b flgs[TR_FLAG_SIZE];
@@ -1771,7 +1772,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	}
 	else
 	{
-		o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+		o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
 		/* Average damage per round */
 		if (o_ptr->k_idx)
 		{
@@ -1798,8 +1799,9 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	damage += basedam;
 
 	av_dam = blows * damage / 100 * show_activerate / 100;
+	show_blows = blows * show_activerate;
 
-	o_ptr = &cr_ptr->inventory[INVEN_RARM + hand];
+	o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
 	if (damage < 0) damage = 0;
 
@@ -1808,10 +1810,10 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	if (object_is_known(o_ptr)) show_todam += o_ptr->to_d;
 
 	/* Melee attacks */
-	sprintf(buf, "%3d%%(%+4d,%+4d)x%2d:%4d", show_activerate, show_tohit, show_todam, blows, av_dam);
+	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
 
 	/* Dump the bonuses to hit/dam */
-	if (!have_weapon(p_ptr, INVEN_RARM) && !have_weapon(p_ptr, INVEN_LARM))
+	if (!have_weapon(p_ptr, INVEN_1STARM) && !have_weapon(p_ptr, INVEN_2NDARM))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
 	else if (cr_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);
@@ -1838,9 +1840,9 @@ static void display_player_middle(creature_type *cr_ptr)
 	int e;
 
 #ifdef JP
-	c_put_str(TERM_WHITE, "éÌï    î≠ìÆ(ñΩíÜ,à–óÕ) âÒ ä˙ë“ ", 10, 1);
+	c_put_str(TERM_WHITE, "éÌï     (ñΩíÜ,à–óÕ)  âÒêî ä˙ë“", 10, 1);
 #else
-	c_put_str(TERM_WHITE, "Type   Actv(Hit ,Dam ) Nm ExpV ", 10, 1);
+	c_put_str(TERM_WHITE, "Type    (Hit ,Dam )  Num  ExpV", 10, 1);
 #endif
 
 	if (cr_ptr->migite)
@@ -1886,8 +1888,8 @@ static void display_player_middle(creature_type *cr_ptr)
 		show_tohit += (cr_ptr->weapon_exp[0][o_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200;
 
 	/* Range attacks */
-	display_player_one_line(ENTRY_SHOOT, format("---%%(%+4d,%+4d)  x%2d.%02d", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
-	display_player_one_line(ENTRY_THROW, format("---%%(%+4d,%+4d)  x%2d.%02d", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
+	display_player_one_line(ENTRY_SHOOT, format("(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, tmul/100, tmul%100, 0), TERM_L_BLUE);
+	display_player_one_line(ENTRY_THROW, format("(%+4d,%+4d)x%2d.%02d:----", show_tohit, show_todam, tmul/100, tmul%100), TERM_L_BLUE);
 
 	if (cr_ptr->inventory[INVEN_BOW].k_idx)
 	{
@@ -2335,8 +2337,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			add_flag(flgs, TR_SPEED);
 		else
 		{
-			if ((!cr_ptr->inventory[INVEN_RARM].k_idx || cr_ptr->migite) &&
-			    (!cr_ptr->inventory[INVEN_LARM].k_idx || cr_ptr->hidarite))
+			if ((!cr_ptr->inventory[INVEN_1STARM].k_idx || cr_ptr->migite) &&
+			    (!cr_ptr->inventory[INVEN_2NDARM].k_idx || cr_ptr->hidarite))
 				add_flag(flgs, TR_SPEED);
 			if (cr_ptr->lev>24)
 				add_flag(flgs, TR_FREE_ACT);
@@ -2821,11 +2823,11 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	object_type *o_ptr;
 
 	/* Weapon flags need only two column */
-	if (mode & DP_WP) max_i = INVEN_LARM + 1;
+	if (mode & DP_WP) max_i = INVEN_2NDARM + 1;
 	else max_i = INVEN_TOTAL;
 
 	/* Dump equippy chars */
-	for (i = INVEN_RARM; i < max_i; i++)
+	for (i = INVEN_1STARM; i < max_i; i++)
 	{
 		/* Object */
 		o_ptr = &cr_ptr->inventory[i];
@@ -2845,7 +2847,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 		}
 
 		/* Dump */
-		Term_putch(x + i - INVEN_RARM, y, a, c);
+		Term_putch(x + i - INVEN_1STARM, y, a, c);
 	}
 }
 
@@ -2868,7 +2870,7 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		flgs[i] = 0L;
 
 	/* Check equipment */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		u32b o_flgs[TR_FLAG_SIZE];
 
@@ -2988,11 +2990,11 @@ static void display_flag_aux(int row, int col, cptr header,
 	col += strlen(header) + 1;
 
 	/* Weapon flags need only two column */
-	if (mode & DP_WP) max_i = INVEN_LARM + 1;
+	if (mode & DP_WP) max_i = INVEN_2NDARM + 1;
 	else max_i = INVEN_TOTAL;
 
 	/* Check equipment */
-	for (i = INVEN_RARM; i < max_i; i++)
+	for (i = INVEN_1STARM; i < max_i; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
 		object_type *o_ptr;
@@ -3504,7 +3506,7 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 		/* Calculate equipment adjustment */
 		e_adj = 0;
 
-		for (j = INVEN_RARM; j < INVEN_TOTAL; j++)
+		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
 		{
 			o_ptr = &cr_ptr->inventory[j];
 			object_flags_known(o_ptr, flgs);
@@ -3635,7 +3637,7 @@ c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
 
 
 	/* Process equipment */
-	for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		/* Access object */
 		o_ptr = &cr_ptr->inventory[i];
@@ -5158,10 +5160,10 @@ static void dump_aux_equipment_inventory(FILE *fff)
 		fprintf(fff, "  [Character Equipment]\n\n");
 #endif
 
-		for (i = INVEN_RARM; i < INVEN_TOTAL; i++)
+		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
 			object_desc(o_name, &p_ptr->inventory[i], 0);
-			if ((((i == INVEN_RARM) && p_ptr->hidarite) || ((i == INVEN_LARM) && p_ptr->migite)) && p_ptr->ryoute)
+			if ((((i == INVEN_1STARM) && p_ptr->hidarite) || ((i == INVEN_2NDARM) && p_ptr->migite)) && p_ptr->ryoute)
 #ifdef JP
 				strcpy(o_name, "(ïêäÌÇóºéËéùÇø)");
 #else

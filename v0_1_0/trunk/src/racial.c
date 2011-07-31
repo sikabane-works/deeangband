@@ -1260,7 +1260,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (!have_weapon(cr_ptr, INVEN_RARM) && !have_weapon(cr_ptr, INVEN_LARM))
+				if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM))
 				{
 #ifdef JP
 					msg_print("•Ší‚ğ‚½‚È‚¢‚Æ‚¢‚¯‚Ü‚¹‚ñB");

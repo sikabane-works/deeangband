@@ -569,7 +569,7 @@ void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance)
 	int         curse_power = 0;
 	u32b        new_curse;
 	u32b oflgs[TR_FLAG_SIZE];
-	object_type *o_ptr = &cr_ptr->inventory[INVEN_RARM + randint0(12)];
+	object_type *o_ptr = &cr_ptr->inventory[INVEN_1STARM + randint0(12)];
 	char o_name[MAX_NLEN];
 
 	if (randint1(100) > chance) return;
