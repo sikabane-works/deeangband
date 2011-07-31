@@ -2173,7 +2173,7 @@ msg_format("%sÇÕëÃóÕÇâÒïúÇµÇΩÇÊÇ§ÇæÅB", atk_name);
 							int j;
 							int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 							int typ[4][2] = {
-								{ INVEN_HEAD, GF_OLD_CONF },
+								{ INVEN_1STHEAD, GF_OLD_CONF },
 								{ INVEN_2NDARM,  GF_OLD_SLEEP },
 								{ INVEN_1STHANDS, GF_TURN_ALL },
 								{ INVEN_FEET, GF_OLD_SLOW }

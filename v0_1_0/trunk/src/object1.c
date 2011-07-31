@@ -4106,7 +4106,7 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_CROWN:
 		case TV_HELM:
 		{
-			return (INVEN_HEAD);
+			return (INVEN_1STHEAD);
 		}
 
 		case TV_GLOVES:
@@ -4128,7 +4128,7 @@ s16b wield_slot(object_type *o_ptr)
 /*
  * Return a string mentioning how a given item is carried
  */
-cptr mention_use(int i)
+cptr mention_use(creature_type *cr_ptr, int i)
 {
 	cptr p;
 
@@ -4136,81 +4136,197 @@ cptr mention_use(int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->migite) ? " óºéË" : (left_hander ? " ç∂éË" : " âEéË")); break;
+		case INVEN_1STARM:  
+			p = cr_ptr->heavy_wield[0] ? "â^î¿íÜ" : ((cr_ptr->ryoute && cr_ptr->migite) ? " óºéË" : (left_hander ? " ç∂éË" : " âEéË")); break;
 #else
-		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "Just lifting" : (p_ptr->migite ? "Wielding" : "On arm"); break;
+		case INVEN_1STARM:
+			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->migite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "â^î¿íÜ" : ((p_ptr->ryoute && p_ptr->hidarite) ? " óºéË" : (left_hander ? " âEéË" : " ç∂éË")); break;
+		case INVEN_2NDARM:
+			p = cr_ptr->heavy_wield[1] ? "â^î¿íÜ" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? " óºéË" : (left_hander ? " âEéË" : " ç∂éË")); break;
 #else
-		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "Just lifting" : (p_ptr->hidarite ? "Wielding" : "On arm"); break;
+		case INVEN_2NDARM:
+			p = cr_ptr->heavy_wield[1] ? "Just lifting" : (cr_ptr->hidarite ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_BOW:   p = (adj_str_hold[p_ptr->stat_ind[A_STR]] < p_ptr->inventory[i].weight / 10) ? "â^î¿íÜ" : "éÀåÇóp"; break;
+		case INVEN_3RDARM:
+			p = cr_ptr->heavy_wield[1] ? "â^î¿íÜ" : "ëÊÇRéË"; break;
 #else
-		case INVEN_BOW:   p = (adj_str_hold[p_ptr->stat_ind[A_STR]] < p_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
+		case INVEN_3RDARM:
+			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
-		case INVEN_RIGHT: p = (left_hander ? "ç∂éËéw" : "âEéËéw"); break;
+		case INVEN_4THARM:
+			p = cr_ptr->heavy_wield[1] ? "â^î¿íÜ" : "ëÊÇSéË"; break;
 #else
-		case INVEN_RIGHT: p = (left_hander ? "On left hand" : "On right hand"); break;
+		case INVEN_4THARM:
+			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
-		case INVEN_LEFT:  p = (left_hander ? "âEéËéw" : "ç∂éËéw"); break;
+		case INVEN_5THARM:
+			p = cr_ptr->heavy_wield[1] ? "â^î¿íÜ" : "ëÊÇTéË"; break;
 #else
-		case INVEN_LEFT:  p = (left_hander ? "On right hand" : "On left hand"); break;
+		case INVEN_5THARM:
+			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
-		case INVEN_NECK:  p = "  éÒ"; break;
+		case INVEN_6THARM:
+			p = cr_ptr->heavy_wield[1] ? "â^î¿íÜ" : "ëÊÇUéË"; break;
 #else
-		case INVEN_NECK:  p = "Around neck"; break;
+		case INVEN_6THARM:
+			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
-		case INVEN_LITE:  p = " åıåπ"; break;
+		case INVEN_BOW:
+			p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "â^î¿íÜ" : "éÀåÇóp"; break;
 #else
-		case INVEN_LITE:  p = "Light source"; break;
+		case INVEN_BOW:
+			p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 #endif
 
 #ifdef JP
-		case INVEN_BODY:  p = "  ëÃ"; break;
+		case INVEN_AMMO:
+			p = " ñÓíe"; break;
 #else
-		case INVEN_BODY:  p = "On body"; break;
+		case INVEN_AMMO:
+			p = "Projectile"; break;
 #endif
 
 #ifdef JP
-		case INVEN_OUTER: p = "ëÃÇÃè„"; break;
+		case INVEN_RIGHT:
+			p = "éwó÷ÇP"; break;
 #else
-		case INVEN_OUTER: p = "About body"; break;
+		case INVEN_RIGHT:
+			p = "1st Ring"; break;
 #endif
 
 #ifdef JP
-		case INVEN_HEAD:  p = "  ì™"; break;
+		case INVEN_LEFT:
+			p = "éwó÷ÇQ"; break;
 #else
-		case INVEN_HEAD:  p = "On head"; break;
+		case INVEN_LEFT:
+			p = "2nd Ring"; break;
 #endif
 
 #ifdef JP
-		case INVEN_1STHANDS: p = "  éË"; break;
+		case INVEN_NECK:
+			p = " åÏïÑ"; break;
 #else
-		case INVEN_1STHANDS: p = "On hands"; break;
+		case INVEN_NECK:
+			p = "Amulet"; break;
 #endif
 
 #ifdef JP
-		case INVEN_FEET:  p = "  ë´"; break;
+		case INVEN_LITE:
+			p = " åıåπ"; break;
 #else
-		case INVEN_FEET:  p = "On feet"; break;
+		case INVEN_LITE:
+			p = "Light source"; break;
 #endif
 
 #ifdef JP
-		default:          p = "ÉUÉbÉN"; break;
+		case INVEN_INSTRUMENT:
+			p = " äyäÌ"; break;
 #else
-		default:          p = "In pack"; break;
+		case INVEN_INSTRUMENT:
+			p = "Instrument"; break;
+#endif
+
+
+#ifdef JP
+		case INVEN_BODY:
+			p = "  ëÃ"; break;
+#else
+		case INVEN_BODY:
+			p = "On body"; break;
+#endif
+
+#ifdef JP
+		case INVEN_OUTER:
+			p = "ëÃÇÃè„"; break;
+#else
+		case INVEN_OUTER:
+			p = "About body"; break;
+#endif
+
+#ifdef JP
+		case INVEN_1STHEAD:
+			p = "ëÊÇPì™"; break;
+#else
+		case INVEN_1STHEAD:
+			p = "On head"; break;
+#endif
+
+
+#ifdef JP
+		case INVEN_2NDHEAD:
+			p = "ëÊÇQì™"; break;
+#else
+		case INVEN_2NDHEAD:
+			p = "On head"; break;
+#endif
+
+#ifdef JP
+		case INVEN_3RDHEAD:
+			p = "ëÊÇRì™"; break;
+#else
+		case INVEN_3RDHEAD:
+			p = "On head"; break;
+#endif
+
+#ifdef JP
+		case INVEN_1STHANDS:
+			p = "ëÊÇPòr"; break;
+#else
+		case INVEN_1STHANDS:
+			p = "On hands"; break;
+#endif
+
+#ifdef JP
+		case INVEN_2NDHANDS:
+			p = "ëÊÇQòr"; break;
+#else
+		case INVEN_2NDHANDS:
+			p = "On hands"; break;
+#endif
+
+#ifdef JP
+		case INVEN_3RDHANDS:
+			p = "ëÊÇRòr"; break;
+#else
+		case INVEN_3RDHANDS:
+			p = "On hands"; break;
+#endif
+
+#ifdef JP
+		case INVEN_FEET:
+			p = " ãrïî"; break;
+#else
+		case INVEN_FEET:
+			p = "On feet"; break;
+#endif
+
+#ifdef JP
+		case INVEN_TAIL:
+			p = " îˆïî"; break;
+#else
+		case INVEN_TAIL:
+			p = "On tail"; break;
+#endif
+
+#ifdef JP
+		default:
+			p = " èäéù"; break;
+#else
+		default:
+			p = "In pack"; break;
 #endif
 	}
 
@@ -4284,9 +4400,9 @@ cptr describe_use(int i)
 #endif
 
 #ifdef JP
-		case INVEN_HEAD:  p = "ì™Ç…Ç©Ç‘Ç¡ÇƒÇ¢ÇÈ"; break;
+		case INVEN_1STHEAD:  p = "ì™Ç…Ç©Ç‘Ç¡ÇƒÇ¢ÇÈ"; break;
 #else
-		case INVEN_HEAD:  p = "wearing on your head"; break;
+		case INVEN_1STHEAD:  p = "wearing on your head"; break;
 #endif
 
 #ifdef JP
@@ -4555,7 +4671,7 @@ void display_equip(void)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i - INVEN_1STARM, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(i), i - INVEN_1STARM, wid - 15);
+			prt(mention_use(p_ptr, i), i - INVEN_1STARM, wid - 15);
 		}
 	}
 
@@ -5174,9 +5290,9 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		{
 			/* Mention the use */
 #ifdef JP
-			(void)sprintf(tmp_val, "%-7s: ", mention_use(i));
+			(void)sprintf(tmp_val, "%-7s: ", mention_use(p_ptr, i));
 #else
-			(void)sprintf(tmp_val, "%-14s: ", mention_use(i));
+			(void)sprintf(tmp_val, "%-14s: ", mention_use(p_ptr, i));
 #endif
 
 			put_str(tmp_val, j+1, cur_col);

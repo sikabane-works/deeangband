@@ -496,7 +496,7 @@ msg_print("クエストを達成した！");
 
 	/* Armor Size Information */
 
-	if(slot == INVEN_BODY || slot == INVEN_HEAD || slot == INVEN_1STHANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
+	if(slot == INVEN_BODY || slot == INVEN_1STHEAD || slot == INVEN_1STHANDS || slot == INVEN_FEET || slot == INVEN_OUTER)
 	{
 		rate = set_inventory_fitting_rate(p_ptr, o_ptr, slot);
 
@@ -512,7 +512,7 @@ msg_print("クエストを達成した！");
 	switch (slot)
 	{
 	case INVEN_BODY:
-	case INVEN_HEAD:
+	case INVEN_1STHEAD:
 	case INVEN_1STHANDS:
 	case INVEN_FEET:
 		if(o_ptr->fitting_size == ARMOR_SIZE_FREE)

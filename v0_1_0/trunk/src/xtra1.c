@@ -2552,7 +2552,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	if(cr_ptr->inventory[INVEN_1STARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_1STARM].weight;
 	if(cr_ptr->inventory[INVEN_2NDARM].tval> TV_SWORD) cur_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_BODY].weight;
-	cur_wgt += cr_ptr->inventory[INVEN_HEAD].weight;
+	cur_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
 	cur_wgt += cr_ptr->inventory[INVEN_FEET].weight;
@@ -3951,7 +3951,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
-		if(i == INVEN_BODY || i == INVEN_HEAD || i == INVEN_1STHANDS || i == INVEN_FEET || i == INVEN_OUTER)
+		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET || i == INVEN_OUTER)
 		{
 			rate = set_inventory_fitting_rate(cr_ptr, o_ptr, i);
 		}
@@ -3988,7 +3988,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_TUNNEL)) cr_ptr->skill_dig += (o_ptr->pval * 20);
 
 		/* Affect speed */
-		if(i == INVEN_BODY || i == INVEN_HEAD || i ==  INVEN_1STHANDS || i == INVEN_FEET)
+		if(i == INVEN_BODY || i == INVEN_1STHEAD || i ==  INVEN_1STHANDS || i == INVEN_FEET)
 		{
 			if (have_flag(flgs, TR_SPEED) && rate > 90 && rate < 120) new_speed += o_ptr->pval;
 			if (rate <= 90 || rate > 120) new_speed -= 3;
@@ -4030,7 +4030,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_SLOW_DIGEST)) cr_ptr->slow_digest = TRUE;
 		if (have_flag(flgs, TR_REGEN))       cr_ptr->regenerate = TRUE;
 
-		if(i == INVEN_BODY || i == INVEN_HEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
+		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
 		{
 			if (rate > 95 && rate < 110){
 				if (have_flag(flgs, TR_TELEPATHY))   cr_ptr->telepathy = TRUE;
@@ -4162,7 +4162,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Apply the bonuses to armor class */
 		/* Apply the mental bonuses to armor class, if known */
 
-		if(i == INVEN_BODY || i == INVEN_HEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
+		if(i == INVEN_BODY || i == INVEN_1STHEAD || i == INVEN_1STHANDS || i == INVEN_FEET)
 		{
 			if(rate >= 130)
 			{
@@ -4376,7 +4376,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->to_a += ((cr_ptr->lev - 8) / 3);
 			cr_ptr->dis_to_a += ((cr_ptr->lev - 8) / 3);
 		}
-		if (!(cr_ptr->inventory[INVEN_HEAD].k_idx) && (cr_ptr->lev > 4))
+		if (!(cr_ptr->inventory[INVEN_1STHEAD].k_idx) && (cr_ptr->lev > 4))
 		{
 			cr_ptr->to_a += (cr_ptr->lev - 2) / 3;
 			cr_ptr->dis_to_a += (cr_ptr->lev -2) / 3;
@@ -6428,7 +6428,7 @@ bool heavy_armor(creature_type *cr_ptr)
 	if(cr_ptr->inventory[INVEN_1STARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_1STARM].weight;
 	if(cr_ptr->inventory[INVEN_2NDARM].tval > TV_SWORD) monk_arm_wgt += cr_ptr->inventory[INVEN_2NDARM].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_BODY].weight;
-	monk_arm_wgt += cr_ptr->inventory[INVEN_HEAD].weight;
+	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHEAD].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_OUTER].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_FEET].weight;

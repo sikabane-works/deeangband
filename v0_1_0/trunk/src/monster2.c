@@ -3222,10 +3222,10 @@ static void mon_equip(creature_type *m_ptr)
 			m_ptr->inventory[INVEN_OUTER].fitting_size = m_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_HEAD].k_idx && can_equip(m_ptr, INVEN_HEAD))
+		if(!m_ptr->inventory[INVEN_1STHEAD].k_idx && can_equip(m_ptr, INVEN_1STHEAD))
 		{
-			make_object(&m_ptr->inventory[INVEN_HEAD], mo_mode, GON_HEAD | GON_UNCURSED);
-			m_ptr->inventory[INVEN_HEAD].fitting_size = m_ptr->size;
+			make_object(&m_ptr->inventory[INVEN_1STHEAD], mo_mode, GON_HEAD | GON_UNCURSED);
+			m_ptr->inventory[INVEN_1STHEAD].fitting_size = m_ptr->size;
 		}
 
 		if(!m_ptr->inventory[INVEN_1STHANDS].k_idx && can_equip(m_ptr, INVEN_1STHANDS))
@@ -5462,7 +5462,7 @@ int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 
 		case TV_HELM:
 		case TV_CROWN:
-			if(!cr_ptr->inventory[INVEN_HEAD].k_idx)      r = INVEN_HEAD;
+			if(!cr_ptr->inventory[INVEN_1STHEAD].k_idx)      r = INVEN_1STHEAD;
 			break;
 
 		case TV_BOW:

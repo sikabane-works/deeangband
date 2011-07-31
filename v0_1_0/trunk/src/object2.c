@@ -2944,7 +2944,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 				while (1)
 				{
 					bool ok_flag = TRUE;
-					o_ptr->name2 = get_random_ego(INVEN_HEAD, TRUE);
+					o_ptr->name2 = get_random_ego(INVEN_1STHEAD, TRUE);
 
 					switch (o_ptr->name2)
 					{
@@ -2976,7 +2976,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			/* Very cursed */
 			else if (power < -1)
 			{
-				o_ptr->name2 = get_random_ego(INVEN_HEAD, FALSE);
+				o_ptr->name2 = get_random_ego(INVEN_1STHEAD, FALSE);
 			}
 
 			break;
@@ -3003,7 +3003,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 				while (1)
 				{
 					bool ok_flag = TRUE;
-					o_ptr->name2 = get_random_ego(INVEN_HEAD, TRUE);
+					o_ptr->name2 = get_random_ego(INVEN_1STHEAD, TRUE);
 
 					switch (o_ptr->name2)
 					{
@@ -3032,7 +3032,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			/* Very cursed */
 			else if (power < -1)
 			{
-				o_ptr->name2 = get_random_ego(INVEN_HEAD, FALSE);
+				o_ptr->name2 = get_random_ego(INVEN_1STHEAD, FALSE);
 			}
 			break;
 		}

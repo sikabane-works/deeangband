@@ -1082,7 +1082,7 @@ bool apply_disenchant(int mode)
 		case 3: t = INVEN_BOW; break;
 		case 4: t = INVEN_BODY; break;
 		case 5: t = INVEN_OUTER; break;
-		case 6: t = INVEN_HEAD; break;
+		case 6: t = INVEN_1STHEAD; break;
 		case 7: t = INVEN_1STHANDS; break;
 		case 8: t = INVEN_FEET; break;
 	}
@@ -4936,7 +4936,7 @@ static int minus_ac(void)
 		case 3: o_ptr = &p_ptr->inventory[INVEN_BODY]; break;
 		case 4: o_ptr = &p_ptr->inventory[INVEN_OUTER]; break;
 		case 5: o_ptr = &p_ptr->inventory[INVEN_1STHANDS]; break;
-		case 6: o_ptr = &p_ptr->inventory[INVEN_HEAD]; break;
+		case 6: o_ptr = &p_ptr->inventory[INVEN_1STHEAD]; break;
 		case 7: o_ptr = &p_ptr->inventory[INVEN_FEET]; break;
 	}
 

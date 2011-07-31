@@ -775,31 +775,33 @@
 /*
  * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
  */
-#define INVEN_1STARM    24
-#define INVEN_2NDARM    25
-#define INVEN_3RDARM    26
-#define INVEN_4THARM    27
-#define INVEN_5THARM    28
-#define INVEN_6THARM    29
-#define INVEN_BOW       30
-#define INVEN_RIGHT     31
-#define INVEN_LEFT      32
-#define INVEN_NECK      33
-#define INVEN_LITE      34
-#define INVEN_BODY      35
-#define INVEN_OUTER     36
-#define INVEN_HEAD      37
-#define INVEN_1STHANDS  38
-#define INVEN_2NDHANDS  39
-#define INVEN_3RGHANDS  40
-#define INVEN_FEET      41
-#define INVEN_LIMB      42
-#define INVEN_AMMO      43
-
+#define INVEN_1STARM     24
+#define INVEN_2NDARM     25
+#define INVEN_3RDARM     26
+#define INVEN_4THARM     27
+#define INVEN_5THARM     28
+#define INVEN_6THARM     29
+#define INVEN_BOW        30
+#define INVEN_AMMO       31
+#define INVEN_RIGHT      32
+#define INVEN_LEFT       33
+#define INVEN_NECK       34
+#define INVEN_LITE       35
+#define INVEN_INSTRUMENT 36
+#define INVEN_BODY       37
+#define INVEN_OUTER      38
+#define INVEN_1STHEAD    39
+#define INVEN_2NDHEAD    40
+#define INVEN_3RDHEAD    41
+#define INVEN_1STHANDS   42
+#define INVEN_2NDHANDS   43
+#define INVEN_3RDHANDS   44
+#define INVEN_FEET       45
+#define INVEN_TAIL       46
 /*
  * Total number of inventory slots (hard-coded).
  */
-#define INVEN_TOTAL     44
+#define INVEN_TOTAL      47
 
 /*
  * Fake inventory slot for selecting force (hard-coded).
