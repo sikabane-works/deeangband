@@ -4258,7 +4258,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_1STHEAD:
-			p = "‘æ‚P“ª"; break;
+			p = cr_ptr->num_head > 1 ? "“ª•”‚P" : " “ª•”"; break;
 #else
 		case INVEN_1STHEAD:
 			p = "On head"; break;
@@ -4267,7 +4267,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_2NDHEAD:
-			p = "‘æ‚Q“ª"; break;
+			p = "“ª•”‚Q"; break;
 #else
 		case INVEN_2NDHEAD:
 			p = "On head"; break;
@@ -4275,7 +4275,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_3RDHEAD:
-			p = "‘æ‚R“ª"; break;
+			p = "“ª•”‚R"; break;
 #else
 		case INVEN_3RDHEAD:
 			p = "On head"; break;
@@ -4283,7 +4283,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_1STHANDS:
-			p = "‘æ‚P˜r"; break;
+			p = cr_ptr->num_hand > 2 ? "˜r•”‚P" : " ˜r•”"; break;
 #else
 		case INVEN_1STHANDS:
 			p = "On hands"; break;
@@ -4291,7 +4291,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_2NDHANDS:
-			p = "‘æ‚Q˜r"; break;
+			p = "˜r•”‚Q"; break;
 #else
 		case INVEN_2NDHANDS:
 			p = "On hands"; break;
@@ -4299,7 +4299,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_3RDHANDS:
-			p = "‘æ‚R˜r"; break;
+			p = "˜r•”‚R"; break;
 #else
 		case INVEN_3RDHANDS:
 			p = "On hands"; break;
@@ -5160,6 +5160,23 @@ int show_equip(int target_item, creature_type *cr_ptr)
 	for (k = 0, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
+
+		if(i == INVEN_1STARM && cr_ptr->num_hand < 1) continue;
+		if(i == INVEN_2NDARM && cr_ptr->num_hand < 2) continue;
+		if(i == INVEN_3RDARM && cr_ptr->num_hand < 3) continue;
+		if(i == INVEN_4THARM && cr_ptr->num_hand < 4) continue;
+		if(i == INVEN_5THARM && cr_ptr->num_hand < 5) continue;
+		if(i == INVEN_6THARM && cr_ptr->num_hand < 6) continue;
+
+		if(i == INVEN_1STHEAD && cr_ptr->num_head < 1) continue;
+		if(i == INVEN_2NDHEAD && cr_ptr->num_head < 2) continue;
+		if(i == INVEN_3RDHEAD && cr_ptr->num_head < 3) continue;
+
+		if(i == INVEN_1STHANDS && cr_ptr->num_hand < 1) continue;
+		if(i == INVEN_2NDHANDS && cr_ptr->num_hand < 3) continue;
+		if(i == INVEN_3RDHANDS && cr_ptr->num_hand < 5) continue;
+
+		if(i == INVEN_TAIL && cr_ptr->num_tail < 1) continue;
 
 		/* Is this item acceptable? */
 		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(o_ptr)) &&
