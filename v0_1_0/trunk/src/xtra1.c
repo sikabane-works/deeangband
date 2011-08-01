@@ -3130,6 +3130,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->to_a += adj_dr_ac[cr_ptr->dr];
 	}
 
+	cr_ptr->num_hand = 2;
+	cr_ptr->num_head = 1;
+	cr_ptr->num_tail = 0;
+	cr_ptr->num_foot = 2;
 
 	/* Start with a single blow per turn */
 	cr_ptr->num_blow[0] = 1;
