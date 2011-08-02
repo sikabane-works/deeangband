@@ -4431,19 +4431,19 @@ cptr describe_use(int i)
 
 /* Hack: Check if a spellbook is one of the realms we can use. -- TY */
 
-bool check_book_realm(const byte book_tval, const byte book_sval)
+bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval)
 {
 	if (book_tval < TV_LIFE_BOOK) return FALSE;
-	if (p_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
 		return is_magic(tval2realm(book_tval));
 	}
-	else if (p_ptr->cls_idx == CLASS_RED_MAGE)
+	else if (cr_ptr->cls_idx == CLASS_RED_MAGE)
 	{
 		if (is_magic(tval2realm(book_tval)))
 			return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));
 	}
-	return (REALM1_BOOK(p_ptr) == book_tval || REALM2_BOOK(p_ptr) == book_tval);
+	return (REALM1_BOOK(cr_ptr) == book_tval || REALM2_BOOK(cr_ptr) == book_tval);
 }
 
 
@@ -4473,7 +4473,7 @@ bool item_tester_okay(object_type *o_ptr)
 		/* Is it a spellbook? If so, we need a hack -- TY */
 		if ((item_tester_tval <= TV_DEATH_BOOK) &&
 			(item_tester_tval >= TV_LIFE_BOOK))
-			return check_book_realm(o_ptr->tval, o_ptr->sval);
+			return check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval);
 		else
 			if (item_tester_tval != o_ptr->tval) return (FALSE);
 	}

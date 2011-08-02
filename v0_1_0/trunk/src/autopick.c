@@ -592,7 +592,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	if (o_ptr->tval >= TV_LIFE_BOOK &&
-	    !check_book_realm(o_ptr->tval, o_ptr->sval))
+	    !check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval))
 	{
 		ADD_FLG(FLG_UNREADABLE);
 		if (o_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
@@ -1262,7 +1262,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Unreadable spellbooks ***/
 	if (IS_FLG(FLG_UNREADABLE) &&
 	    (o_ptr->tval < TV_LIFE_BOOK ||
-	     check_book_realm(o_ptr->tval, o_ptr->sval)))
+	     check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval)))
 		return FALSE;
 
 	/*** First realm spellbooks ***/

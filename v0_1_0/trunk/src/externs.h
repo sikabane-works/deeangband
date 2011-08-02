@@ -1042,7 +1042,7 @@ extern s16b label_to_equip(creature_type *cr_ptr, int c);
 extern s16b wield_slot(object_type *o_ptr);
 extern cptr mention_use(creature_type *cr_ptr, int i);
 extern cptr describe_use(int i);
-extern bool check_book_realm(const byte book_tval, const byte book_sval);
+extern bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval);
 extern bool item_tester_okay(object_type *o_ptr);
 extern void display_inven(creature_type *cr_ptr);
 extern void display_equip(creature_type *cr_ptr);
