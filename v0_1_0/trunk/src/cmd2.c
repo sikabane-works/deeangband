@@ -4030,7 +4030,7 @@ void do_cmd_fire(void)
 	s = "You have nothing to fire.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR)))
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
 	{
 		flush();
 		return;
@@ -4128,7 +4128,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 			s = "You have nothing to throw.";
 #endif
 
-			if (!get_item(&item, q, s, (USE_EQUIP)))
+			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP)))
 			{
 				flush();
 				return FALSE;
@@ -4148,7 +4148,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 		s = "You have nothing to throw.";
 #endif
 
-		if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP)))
+		if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP)))
 		{
 			flush();
 			return FALSE;

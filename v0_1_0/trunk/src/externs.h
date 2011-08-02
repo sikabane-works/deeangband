@@ -1049,8 +1049,8 @@ extern void display_equip(creature_type *cr_ptr);
 extern int show_inven(int target_item, creature_type *cr_ptr);
 extern int show_equip(int target_item, creature_type *cr_ptr);
 extern void toggle_inven_equip(void);
-extern bool can_get_item(void);
-extern bool get_item(int *cp, cptr pmt, cptr str, int mode);
+extern bool can_get_item(creature_type *cr_ptr);
+extern bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode);
 
 /* object2.c */
 extern void excise_object_idx(int o_idx);

@@ -238,7 +238,7 @@ void do_cmd_wield(void)
 	s = "You have nothing you can wear or wield.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -278,7 +278,7 @@ void do_cmd_wield(void)
 			s = "Oops.";
 #endif
 
-			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(p_ptr, &slot, q, s, (USE_EQUIP))) return;
 			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
 		}
 
@@ -300,7 +300,7 @@ void do_cmd_wield(void)
 			s = "Oops.";
 #endif
 
-			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(p_ptr, &slot, q, s, (USE_EQUIP))) return;
 		}
 		break;
 
@@ -343,7 +343,7 @@ void do_cmd_wield(void)
 			s = "Oops.";
 #endif
 
-			if (!get_item(&slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(p_ptr, &slot, q, s, (USE_EQUIP))) return;
 			if ((slot == INVEN_2NDARM) && !have_weapon(p_ptr, INVEN_1STARM))
 				need_switch_wielding = INVEN_1STARM;
 		}
@@ -379,7 +379,7 @@ void do_cmd_wield(void)
 		select_ring_slot = TRUE;
 		item_tester_no_ryoute = TRUE;
 
-		if (!get_item(&slot, q, s, (USE_EQUIP)))
+		if (!get_item(p_ptr, &slot, q, s, (USE_EQUIP)))
 		{
 			select_ring_slot = FALSE;
 			return;
@@ -926,7 +926,7 @@ void do_cmd_takeoff(void)
 	s = "You are not wearing anything to take off.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1058,7 +1058,7 @@ void do_cmd_drop(void)
 	s = "You have nothing to drop.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1178,7 +1178,7 @@ void do_cmd_destroy(void)
 	s = "You have nothing to destroy.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1406,7 +1406,7 @@ void do_cmd_observe(void)
 	s = "You have nothing to examine.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1477,7 +1477,7 @@ void do_cmd_uninscribe(void)
 	s = "You have nothing to un-inscribe.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1551,7 +1551,7 @@ void do_cmd_inscribe(void)
 	s = "You have nothing to inscribe.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1725,7 +1725,7 @@ static void do_cmd_refill_lamp(void)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1846,7 +1846,7 @@ static void do_cmd_refill_torch(void)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

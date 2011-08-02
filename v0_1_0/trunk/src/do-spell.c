@@ -1067,7 +1067,7 @@ static bool cast_summon_greater_demon(void)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -11580,7 +11580,7 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You wield no weapons.";
 #endif
 
-			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
 			o_ptr = &p_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12046,7 +12046,7 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
 			o_ptr = &p_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12342,7 +12342,7 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You have no cursed equipment.";
 #endif
 
-			if (!get_item(&item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
 			o_ptr = &p_ptr->inventory[item];
 			object_flags(o_ptr, f);

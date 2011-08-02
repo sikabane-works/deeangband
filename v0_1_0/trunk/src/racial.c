@@ -182,7 +182,7 @@ static bool do_cmd_archer(void)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -250,7 +250,7 @@ static bool do_cmd_archer(void)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -325,7 +325,7 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

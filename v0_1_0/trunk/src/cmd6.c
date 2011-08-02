@@ -699,7 +699,7 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Eat the object */
 	do_cmd_eat_food_aux(cr_ptr, item);
@@ -1566,7 +1566,7 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(cr_ptr, item);
@@ -2325,7 +2325,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2908,7 +2908,7 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	do_cmd_use_staff_aux(cr_ptr, item);
 }
@@ -3405,7 +3405,7 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Aim the wand */
 	do_cmd_aim_wand_aux(cr_ptr, item);
@@ -3845,7 +3845,7 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Zap the rod */
 	do_cmd_zap_rod_aux(cr_ptr, item);
@@ -6629,7 +6629,7 @@ void do_cmd_activate(creature_type *cr_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return;
 
 	/* Activate the item */
 	do_cmd_activate_aux(cr_ptr, item);
@@ -6716,7 +6716,7 @@ s = "Žg‚¦‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

@@ -5491,7 +5491,7 @@ if (!verify("本当に", item)) return (FALSE);
 
 
 /*
- * Auxiliary function for "get_item()" -- test an index
+ * Auxiliary function for "get_item(p_ptr, )" -- test an index
  */
 static bool get_item_okay(int i)
 {
@@ -5510,18 +5510,18 @@ static bool get_item_okay(int i)
 
 
 /*
- * Determine whether get_item() can get some item or not
+ * Determine whether get_item(p_ptr, ) can get some item or not
  * assuming mode = (USE_EQUIP | USE_INVEN | USE_FLOOR).
  */
-bool can_get_item(void)
+bool can_get_item(creature_type *cr_ptr)
 {
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
-		if (item_tester_okay(&p_ptr->inventory[j]))
+		if (item_tester_okay(&cr_ptr->inventory[j]))
 			return TRUE;
 
-	floor_num = scan_floor(floor_list, p_ptr->fy, p_ptr->fx, 0x03);
+	floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
 	if (floor_num)
 		return TRUE;
 
@@ -5578,7 +5578,7 @@ bool can_get_item(void)
  * We always erase the prompt when we are done, leaving a blank line,
  * or a warning message, if appropriate, if no items are available.
  */
-bool get_item(int *cp, cptr pmt, cptr str, int mode)
+bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 {
 	s16b this_o_idx, next_o_idx = 0;
 
@@ -5718,19 +5718,19 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 	item = FALSE;
 
 
-	/* Full p_ptr->inventory */
+	/* Full cr_ptr->inventory */
 	i1 = 0;
 	i2 = INVEN_PACK - 1;
 
-	/* Forbid p_ptr->inventory */
+	/* Forbid cr_ptr->inventory */
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_PACK; j++)
-			if (item_tester_okay(&p_ptr->inventory[j])) max_inven++;
+			if (item_tester_okay(&cr_ptr->inventory[j])) max_inven++;
 	}
 
-	/* Restrict p_ptr->inventory indexes */
+	/* Restrict cr_ptr->inventory indexes */
 	while ((i1 <= i2) && (!get_item_okay(i1))) i1++;
 	while ((i1 <= i2) && (!get_item_okay(i2))) i2--;
 
@@ -5744,21 +5744,21 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&p_ptr->inventory[j])) max_equip++;
-		if (p_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
+			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&cr_ptr->inventory[j])) max_equip++;
+		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
 	while ((e1 <= e2) && (!get_item_okay(e1))) e1++;
 	while ((e1 <= e2) && (!get_item_okay(e2))) e2--;
 
-	if (equip && p_ptr->ryoute && !item_tester_no_ryoute)
+	if (equip && cr_ptr->ryoute && !item_tester_no_ryoute)
 	{
-		if (p_ptr->migite)
+		if (cr_ptr->migite)
 		{
 			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (p_ptr->hidarite) e1 = INVEN_1STARM;
+		else if (cr_ptr->hidarite) e1 = INVEN_1STARM;
 	}
 
 
@@ -5766,7 +5766,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 	if (floor)
 	{
 		/* Scan all objects in the grid */
-		for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+		for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 		{
 			object_type *o_ptr;
 
@@ -5784,7 +5784,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 	/* Require at least one legal choice */
 	if (!allow_floor && (i1 > i2) && (e1 > e2))
 	{
-		/* Cancel p_ptr->command_see */
+		/* Cancel cr_ptr->command_see */
 		command_see = FALSE;
 
 		/* Oops */
@@ -5808,7 +5808,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 			command_wrk = TRUE;
 		}
 
-		/* Use p_ptr->inventory if allowed */
+		/* Use cr_ptr->inventory if allowed */
 		else if (inven)
 		{
 			command_wrk = FALSE;
@@ -5820,7 +5820,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 			command_wrk = TRUE;
 		}
 
-		/* Use p_ptr->inventory for floor */
+		/* Use cr_ptr->inventory for floor */
 		else
 		{
 			command_wrk = FALSE;
@@ -5881,21 +5881,21 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 		window_stuff();
 
 
-		/* p_ptr->inventory screen */
+		/* cr_ptr->inventory screen */
 		if (!command_wrk)
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, p_ptr);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr);
 		}
 
 		/* Equipment screen */
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, p_ptr);
+			if (command_see) get_item_label = show_equip(menu_line, cr_ptr);
 		}
 
-		/* Viewing p_ptr->inventory */
+		/* Viewing cr_ptr->inventory */
 		if (!command_wrk)
 		{
 			/* Begin the prompt */
@@ -6174,7 +6174,7 @@ bool get_item(int *cp, cptr pmt, cptr str, int mode)
 				if (allow_floor)
 				{
 					/* Scan all objects in the grid */
-					for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+					for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 					{
 						object_type *o_ptr;
 
@@ -6264,7 +6264,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 			case '\n':
 			case '\r':
 			{
-				/* Choose "default" p_ptr->inventory item */
+				/* Choose "default" cr_ptr->inventory item */
 				if (!command_wrk)
 				{
 					k = ((i1 == i2) ? i1 : -1);
@@ -6349,12 +6349,12 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				ver = isupper(which);
 				which = tolower(which);
 
-				/* Convert letter to p_ptr->inventory index */
+				/* Convert letter to cr_ptr->inventory index */
 				if (!command_wrk)
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(p_ptr, which);
+					else k = label_to_inven(cr_ptr, which);
 				}
 
 				/* Convert letter to equipment index */
@@ -6362,7 +6362,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				{
 					if (which == '(') k = e1;
 					else if (which == ')') k = e2;
-					else k = label_to_equip(p_ptr, which);
+					else k = label_to_equip(cr_ptr, which);
 				}
 
 				/* Validate the item */
@@ -6642,7 +6642,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 }
 
 /*
- * This version of get_item() is called by get_item() when
+ * This version of get_item(p_ptr, ) is called by get_item(p_ptr, ) when
  * the easy_floor is on.
  */
 bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
@@ -7950,7 +7950,7 @@ static bool py_pickup_floor_aux(void)
 	s = "You no longer have any room for the objects on the floor.";
 #endif
 
-	if (get_item(&item, q, s, (USE_FLOOR)))
+	if (get_item(p_ptr, &item, q, s, (USE_FLOOR)))
 	{
 		this_o_idx = 0 - item;
 	}

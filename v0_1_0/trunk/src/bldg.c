@@ -3428,7 +3428,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN)))
 	{
 		screen_load();
 		return (FALSE);
@@ -3453,7 +3453,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(&item2, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(p_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN)))
 	{
 		screen_load();
 		return (FALSE);
@@ -3660,7 +3660,7 @@ static bool resize_item()
 	s = "You have nothing to resize.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
 	o_ptr = &p_ptr->inventory[item];
 	value = object_value(o_ptr) / 5;
 
@@ -3760,7 +3760,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	o_ptr = &p_ptr->inventory[item];
@@ -3896,7 +3896,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

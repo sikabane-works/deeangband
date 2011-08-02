@@ -1364,7 +1364,7 @@ s = "強化できる武器がない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP))) return;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2267,7 +2267,7 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2551,7 +2551,7 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2649,7 +2649,7 @@ bool artifact_scroll(void)
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2845,7 +2845,7 @@ bool ident_spell(bool only_equip)
 	else
 		item_tester_hook = item_tester_hook_identify;
 
-	if (can_get_item())
+	if (can_get_item(p_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを鑑定しますか? ";
@@ -2874,7 +2874,7 @@ bool ident_spell(bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2951,7 +2951,7 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3027,7 +3027,7 @@ bool identify_fully(bool only_equip)
 	else
 		item_tester_hook = item_tester_hook_identify_fully;
 
-	if (can_get_item())
+	if (can_get_item(p_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを*鑑定*しますか? ";
@@ -3056,7 +3056,7 @@ bool identify_fully(bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3124,7 +3124,7 @@ bool identify_fully(bool only_equip)
 
 
 /*
- * Hook for "get_item()".  Determine if something is rechargable.
+ * Hook for "get_item(p_ptr, )".  Determine if something is rechargable.
  */
 bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
 {
@@ -3185,7 +3185,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3512,7 +3512,7 @@ s = "祝福できる武器がありません。";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -3706,7 +3706,7 @@ s = "磨く盾がありません。";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -5175,7 +5175,7 @@ s = "錆止めできるものがありません。";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -5690,7 +5690,7 @@ s = "魔力を吸収できるアイテムがありません。";
 	s = "You have nothing to drain.";
 #endif
 
-	if (!get_item(&item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 	if (item >= 0)
 	{
