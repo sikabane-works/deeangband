@@ -3986,7 +3986,7 @@ char index_to_label(int i)
  * Convert a label into the index of an item in the "inven"
  * Return "-1" if the label does not indicate a real item
  */
-s16b label_to_inven(int c)
+s16b label_to_inven(creature_type *cr_ptr, int c)
 {
 	int i;
 
@@ -3997,7 +3997,7 @@ s16b label_to_inven(int c)
 	if ((i < 0) || (i > INVEN_PACK)) return (-1);
 
 	/* Empty slots can never be chosen */
-	if (!p_ptr->inventory[i].k_idx) return (-1);
+	if (!cr_ptr->inventory[i].k_idx) return (-1);
 
 	/* Return the index */
 	return (i);
@@ -6354,7 +6354,7 @@ if (other_query_flag && !verify("–{“–‚É", k)) continue;
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(which);
+					else k = label_to_inven(p_ptr, which);
 				}
 
 				/* Convert letter to equipment index */
@@ -7817,7 +7817,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(which);
+					else k = label_to_inven(p_ptr, which);
 				}
 
 				/* Convert letter to equipment index */
