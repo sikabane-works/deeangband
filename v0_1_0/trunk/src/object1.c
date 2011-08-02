@@ -4450,7 +4450,7 @@ bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte bo
 /*
  * Check an item against the item tester info
  */
-bool item_tester_okay(object_type *o_ptr)
+bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Hack -- allow listing empty slots */
 	if (item_tester_full) return (TRUE);
@@ -4473,7 +4473,7 @@ bool item_tester_okay(object_type *o_ptr)
 		/* Is it a spellbook? If so, we need a hack -- TY */
 		if ((item_tester_tval <= TV_DEATH_BOOK) &&
 			(item_tester_tval >= TV_LIFE_BOOK))
-			return check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval);
+			return check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval);
 		else
 			if (item_tester_tval != o_ptr->tval) return (FALSE);
 	}
@@ -4481,7 +4481,7 @@ bool item_tester_okay(object_type *o_ptr)
 	/* Check the hook */
 	if (item_tester_hook)
 	{
-		if (!(*item_tester_hook)(p_ptr, o_ptr)) return (FALSE);
+		if (!(*item_tester_hook)(cr_ptr, o_ptr)) return (FALSE);
 	}
 
 	/* Assume okay */
@@ -4528,7 +4528,7 @@ void display_inven(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(o_ptr))
+		if (item_tester_okay(p_ptr, o_ptr))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4611,7 +4611,7 @@ void display_equip(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (select_ring_slot ? is_ring_slot(i) : item_tester_okay(o_ptr))
+		if (select_ring_slot ? is_ring_slot(i) : item_tester_okay(p_ptr, o_ptr))
 		{
 			/* Prepare an "index" */
 			tmp_val[0] = index_to_label(i);
@@ -4730,7 +4730,7 @@ static bool get_tag(int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(o_ptr)) continue;
+		if (!item_tester_okay(p_ptr, o_ptr)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4775,7 +4775,7 @@ static bool get_tag(int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(o_ptr)) continue;
+		if (!item_tester_okay(p_ptr, o_ptr)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -5003,7 +5003,7 @@ int show_inven(int target_item, creature_type *cr_ptr)
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
-		if (!item_tester_okay(o_ptr)) continue;
+		if (!item_tester_okay(p_ptr, o_ptr)) continue;
 
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
@@ -5179,7 +5179,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		if(i == INVEN_TAIL && cr_ptr->num_tail < 1) continue;
 
 		/* Is this item acceptable? */
-		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(o_ptr)) &&
+		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(p_ptr, o_ptr)) &&
 		    (!((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
 		     item_tester_no_ryoute)) continue;
 
@@ -5501,7 +5501,7 @@ static bool get_item_okay(int i)
 	if (select_ring_slot) return is_ring_slot(i);
 
 	/* Verify the item */
-	if (!item_tester_okay(&p_ptr->inventory[i])) return (FALSE);
+	if (!item_tester_okay(p_ptr, &p_ptr->inventory[i])) return (FALSE);
 
 	/* Assume okay */
 	return (TRUE);
@@ -5518,7 +5518,7 @@ bool can_get_item(creature_type *cr_ptr)
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
-		if (item_tester_okay(&cr_ptr->inventory[j]))
+		if (item_tester_okay(p_ptr, &cr_ptr->inventory[j]))
 			return TRUE;
 
 	floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
@@ -5652,7 +5652,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 			o_ptr = &o_list[k];
 
 			/* Validate the item */
-			if (item_tester_okay(o_ptr))
+			if (item_tester_okay(p_ptr, o_ptr))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -5727,7 +5727,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_PACK; j++)
-			if (item_tester_okay(&cr_ptr->inventory[j])) max_inven++;
+			if (item_tester_okay(p_ptr, &cr_ptr->inventory[j])) max_inven++;
 	}
 
 	/* Restrict cr_ptr->inventory indexes */
@@ -5744,7 +5744,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&cr_ptr->inventory[j])) max_equip++;
+			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(p_ptr, &cr_ptr->inventory[j])) max_equip++;
 		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
@@ -5777,7 +5777,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 			next_o_idx = o_ptr->next_o_idx;
 
 			/* Accept the item on the floor if legal */
-			if (item_tester_okay(o_ptr) && (o_ptr->marked & OM_FOUND)) allow_floor = TRUE;
+			if (item_tester_okay(p_ptr, o_ptr) && (o_ptr->marked & OM_FOUND)) allow_floor = TRUE;
 		}
 	}
 
@@ -6185,7 +6185,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 						next_o_idx = o_ptr->next_o_idx;
 
 						/* Validate the item */
-						if (!item_tester_okay(o_ptr)) continue;
+						if (!item_tester_okay(p_ptr, o_ptr)) continue;
 
 						/* Special index */
 						k = 0 - this_o_idx;
@@ -6487,7 +6487,7 @@ int scan_floor(int *items, int y, int x, int mode)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Item tester */
-		if ((mode & 0x01) && !item_tester_okay(o_ptr)) continue;
+		if ((mode & 0x01) && !item_tester_okay(p_ptr, o_ptr)) continue;
 
 		/* Marked */
 		if ((mode & 0x02) && !(o_ptr->marked & OM_FOUND)) continue;
@@ -6539,7 +6539,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 	/* Default length */
 	len = MAX((*min_width), 20);
 
-	/* Scan for objects in the grid, using item_tester_okay() */
+	/* Scan for objects in the grid, using item_tester_okay(p_ptr, ) */
 	floor_num = scan_floor(floor_list, y, x, 0x03);
 
 	/* Display the floor objects */
@@ -6722,7 +6722,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Validate the item */
-			else if (item_tester_okay(&o_list[0 - (*cp)]))
+			else if (item_tester_okay(p_ptr, &o_list[0 - (*cp)]))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6797,7 +6797,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_PACK; j++)
-			if (item_tester_okay(&p_ptr->inventory[j])) max_inven++;
+			if (item_tester_okay(p_ptr, &p_ptr->inventory[j])) max_inven++;
 	}
 
 	/* Restrict p_ptr->inventory indexes */
@@ -6814,7 +6814,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(&p_ptr->inventory[j])) max_equip++;
+			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(p_ptr, &p_ptr->inventory[j])) max_equip++;
 		if (p_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
