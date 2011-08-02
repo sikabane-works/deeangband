@@ -4494,7 +4494,7 @@ bool item_tester_okay(object_type *o_ptr)
 /*
  * Choice window "shadow" of the "show_inven()" function
  */
-void display_inven(void)
+void display_inven(creature_type *cr_ptr)
 {
 	register        int i, n, z = 0;
 	object_type     *o_ptr;
@@ -4509,7 +4509,7 @@ void display_inven(void)
 	/* Find the "final" slot */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4522,7 +4522,7 @@ void display_inven(void)
 	for (i = 0; i < z; i++)
 	{
 		/* Examine the item */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';

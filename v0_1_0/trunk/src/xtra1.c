@@ -1809,7 +1809,7 @@ static void fix_inven(void)
 		Term_activate(angband_term[j]);
 
 		/* Display inventory */
-		display_inven();
+		display_inven(p_ptr);
 
 		/* Fresh */
 		Term_fresh();
