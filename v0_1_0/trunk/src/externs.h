@@ -1045,7 +1045,7 @@ extern cptr describe_use(int i);
 extern bool check_book_realm(const byte book_tval, const byte book_sval);
 extern bool item_tester_okay(object_type *o_ptr);
 extern void display_inven(void);
-extern void display_equip(void);
+extern void display_equip(creature_type *cr_ptr);
 extern int show_inven(int target_item, creature_type *cr_ptr);
 extern int show_equip(int target_item, creature_type *cr_ptr);
 extern void toggle_inven_equip(void);

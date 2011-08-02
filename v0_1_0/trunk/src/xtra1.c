@@ -1843,7 +1843,7 @@ static void fix_equip(void)
 		Term_activate(angband_term[j]);
 
 		/* Display equipment */
-		display_equip();
+		display_equip(p_ptr);
 
 		/* Fresh */
 		Term_fresh();

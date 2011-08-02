@@ -4589,7 +4589,7 @@ void display_inven(void)
 /*
  * Choice window "shadow" of the "show_equip()" function
  */
-void display_equip(void)
+void display_equip(creature_type *cr_ptr)
 {
 	register        int i, n;
 	object_type     *o_ptr;
@@ -4605,7 +4605,7 @@ void display_equip(void)
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		/* Examine the item */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Start with an empty "index" */
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
@@ -4624,7 +4624,7 @@ void display_equip(void)
 		Term_putstr(0, i - INVEN_1STARM, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		if ((((i == INVEN_1STARM) && p_ptr->hidarite) || ((i == INVEN_2NDARM) && p_ptr->migite)) && p_ptr->ryoute)
+		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 		{
 #ifdef JP
 			strcpy(o_name, "(•Ší‚ğ—¼è‚¿)");
@@ -4671,7 +4671,7 @@ void display_equip(void)
 		if (show_labels)
 		{
 			Term_putstr(wid - 20, i - INVEN_1STARM, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(p_ptr, i), i - INVEN_1STARM, wid - 15);
+			prt(mention_use(cr_ptr, i), i - INVEN_1STARM, wid - 15);
 		}
 	}
 
