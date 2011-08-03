@@ -5491,9 +5491,9 @@ if (!verify("本当に", item)) return (FALSE);
 
 
 /*
- * Auxiliary function for "get_item(p_ptr, )" -- test an index
+ * Auxiliary function for "get_item()" -- test an index
  */
-static bool get_item_okay(int i)
+static bool get_item_okay(creature_type *cr_ptr, int i)
 {
 	/* Illegal items */
 	if ((i < 0) || (i >= INVEN_TOTAL)) return (FALSE);
@@ -5501,7 +5501,7 @@ static bool get_item_okay(int i)
 	if (select_ring_slot) return is_ring_slot(i);
 
 	/* Verify the item */
-	if (!item_tester_okay(p_ptr, &p_ptr->inventory[i])) return (FALSE);
+	if (!item_tester_okay(cr_ptr, &cr_ptr->inventory[i])) return (FALSE);
 
 	/* Assume okay */
 	return (TRUE);
@@ -5672,7 +5672,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 				/* Look up the tag and validate the item */
 				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
 				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
-				else if (!get_item_okay(k)) /* Reject */;
+				else if (!get_item_okay(cr_ptr, k)) /* Reject */;
 				else
 				{
 					/* Accept that choice */
@@ -5691,7 +5691,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Verify the item */
-			else if (get_item_okay(*cp))
+			else if (get_item_okay(cr_ptr, *cp))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -5731,8 +5731,8 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 	}
 
 	/* Restrict cr_ptr->inventory indexes */
-	while ((i1 <= i2) && (!get_item_okay(i1))) i1++;
-	while ((i1 <= i2) && (!get_item_okay(i2))) i2--;
+	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i1))) i1++;
+	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i2))) i2--;
 
 
 	/* Full equipment */
@@ -5749,8 +5749,8 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 	}
 
 	/* Restrict equipment indexes */
-	while ((e1 <= e2) && (!get_item_okay(e1))) e1++;
-	while ((e1 <= e2) && (!get_item_okay(e2))) e2--;
+	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1))) e1++;
+	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2))) e2--;
 
 	if (equip && cr_ptr->ryoute && !item_tester_no_ryoute)
 	{
@@ -6072,7 +6072,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 				else
 				{
 					/* Validate the item */
-					if (!get_item_okay(get_item_label))
+					if (!get_item_okay(cr_ptr, get_item_label))
 					{
 						bell();
 						break;
@@ -6237,7 +6237,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(k))
+				if (!get_item_okay(cr_ptr, k))
 				{
 					bell();
 					break;
@@ -6277,7 +6277,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(k))
+				if (!get_item_okay(cr_ptr, k))
 				{
 					bell();
 					break;
@@ -6328,7 +6328,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Validate the item */
-				else if (!get_item_okay(k))
+				else if (!get_item_okay(cr_ptr, k))
 				{
 					not_found = TRUE;
 				}
@@ -6366,7 +6366,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(k))
+				if (!get_item_okay(cr_ptr, k))
 				{
 					bell();
 					break;
@@ -6742,7 +6742,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				/* Look up the tag and validate the item */
 				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
 				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
-				else if (!get_item_okay(k)) /* Reject */;
+				else if (!get_item_okay(p_ptr, k)) /* Reject */;
 				else
 				{
 					/* Accept that choice */
@@ -6761,7 +6761,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Verify the item */
-			else if (get_item_okay(*cp))
+			else if (get_item_okay(p_ptr, *cp))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6801,8 +6801,8 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	}
 
 	/* Restrict p_ptr->inventory indexes */
-	while ((i1 <= i2) && (!get_item_okay(i1))) i1++;
-	while ((i1 <= i2) && (!get_item_okay(i2))) i2--;
+	while ((i1 <= i2) && (!get_item_okay(p_ptr, i1))) i1++;
+	while ((i1 <= i2) && (!get_item_okay(p_ptr, i2))) i2--;
 
 
 	/* Full equipment */
@@ -6819,8 +6819,8 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	}
 
 	/* Restrict equipment indexes */
-	while ((e1 <= e2) && (!get_item_okay(e1))) e1++;
-	while ((e1 <= e2) && (!get_item_okay(e2))) e2--;
+	while ((e1 <= e2) && (!get_item_okay(p_ptr, e1))) e1++;
+	while ((e1 <= e2) && (!get_item_okay(p_ptr, e2))) e2--;
 
 	if (equip && p_ptr->ryoute && !item_tester_no_ryoute)
 	{
@@ -7402,7 +7402,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				else
 				{
 					/* Validate the item */
-					if (!get_item_okay(get_item_label))
+					if (!get_item_okay(p_ptr, get_item_label))
 					{
 						bell();
 						break;
@@ -7640,7 +7640,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Validate the item */
-					if (!get_item_okay(k))
+					if (!get_item_okay(p_ptr, k))
 					{
 						bell();
 						break;
@@ -7718,7 +7718,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(k))
+				if (!get_item_okay(p_ptr, k))
 				{
 					bell();
 					break;
@@ -7772,7 +7772,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Validate the item */
-					else if (!get_item_okay(k))
+					else if (!get_item_okay(p_ptr, k))
 					{
 						not_found = TRUE;
 					}
@@ -7845,7 +7845,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Validate the item */
-				if ((command_wrk != USE_FLOOR) && !get_item_okay(k))
+				if ((command_wrk != USE_FLOOR) && !get_item_okay(p_ptr, k))
 				{
 					bell();
 					break;
