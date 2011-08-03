@@ -7930,7 +7930,7 @@ if (ver && !verify("–{“–‚É", k))
 }
 
 
-static bool py_pickup_floor_aux(void)
+static bool py_pickup_floor_aux(creature_type *cr_ptr)
 {
 	s16b this_o_idx;
 
@@ -7950,7 +7950,7 @@ static bool py_pickup_floor_aux(void)
 	s = "You no longer have any room for the objects on the floor.";
 #endif
 
-	if (get_item(p_ptr, &item, q, s, (USE_FLOOR)))
+	if (get_item(cr_ptr, &item, q, s, (USE_FLOOR)))
 	{
 		this_o_idx = 0 - item;
 	}
@@ -8218,7 +8218,7 @@ void py_pickup_floor(bool pickup)
 	{
 		while (can_pickup--)
 		{
-			if (!py_pickup_floor_aux()) break;
+			if (!py_pickup_floor_aux(p_ptr)) break;
 		}
 	}
 }
