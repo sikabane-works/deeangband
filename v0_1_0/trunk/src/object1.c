@@ -5439,7 +5439,7 @@ static bool verify(cptr prompt, int item)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool get_item_allow(int item)
+static bool get_item_allow(creature_type *cr_ptr, int item)
 {
 	cptr s;
 
@@ -5447,10 +5447,10 @@ static bool get_item_allow(int item)
 
 	if (!command_cmd) return TRUE; /* command_cmd is no longer effective */
 
-	/* p_ptr->inventory */
+	/* cr_ptr->inventory */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Floor */
@@ -6079,7 +6079,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Allow player to "refuse" certain actions */
-					if (!get_item_allow(get_item_label))
+					if (!get_item_allow(cr_ptr, get_item_label))
 					{
 						done = TRUE;
 						break;
@@ -6199,7 +6199,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(k)) continue;
+						if (!get_item_allow(cr_ptr, k)) continue;
 
 						/* Accept that choice */
 						(*cp) = k;
@@ -6244,7 +6244,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -6284,7 +6284,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -6385,7 +6385,7 @@ if (ver && !verify("本当に", k))
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7409,7 +7409,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Allow player to "refuse" certain actions */
-					if (!get_item_allow(get_item_label))
+					if (!get_item_allow(p_ptr, get_item_label))
 					{
 						done = TRUE;
 						break;
@@ -7588,7 +7588,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(k))
+						if (!get_item_allow(p_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7662,7 +7662,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(p_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7703,7 +7703,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(k))
+						if (!get_item_allow(p_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7725,7 +7725,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(p_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7864,7 +7864,7 @@ if (ver && !verify("本当に", k))
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(k))
+				if (!get_item_allow(p_ptr, k))
 				{
 					done = TRUE;
 					break;
