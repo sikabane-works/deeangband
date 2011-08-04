@@ -1080,12 +1080,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I",
-							   o_name, index_to_label(i),
+							   o_name, index_to_label(p_ptr, i),
 							   ((o_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 						msg_format("%sour %s (%c) was stolen!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(i));
+							   o_name, index_to_label(p_ptr, i));
 #endif
 
 						chg_virtue(tar_ptr, V_SACRIFICE, 1);
@@ -1176,12 +1176,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I",
-							  o_name, index_to_label(i),
+							  o_name, index_to_label(p_ptr, i),
 							  ((o_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 						msg_format("%sour %s (%c) was eaten!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(i));
+							   o_name, index_to_label(p_ptr, i));
 #endif
 
 

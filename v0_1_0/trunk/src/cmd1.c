@@ -863,21 +863,21 @@ void py_pickup_aux(int o_idx)
 	{
 		if (plain_pickup)
 		{
-			msg_format("%s(%c)を持っている。",o_name, index_to_label(slot));
+			msg_format("%s(%c)を持っている。",o_name, index_to_label(p_ptr, slot));
 		}
 		else
 		{
 			if (o_ptr->number > hirottakazu) {
 			    msg_format("%s拾って、%s(%c)を持っている。",
-			       kazu_str, o_name, index_to_label(slot));
+			       kazu_str, o_name, index_to_label(p_ptr, slot));
 			} else {
-				msg_format("%s(%c)を拾った。", o_name, index_to_label(slot));
+				msg_format("%s(%c)を拾った。", o_name, index_to_label(p_ptr, slot));
 			}
 		}
 	}
 	strcpy(record_o_name, old_name);
 #else
-	msg_format("You have %s (%c).", o_name, index_to_label(slot));
+	msg_format("You have %s (%c).", o_name, index_to_label(p_ptr, slot));
 	strcpy(record_o_name, o_name);
 #endif
 	record_turn = turn;

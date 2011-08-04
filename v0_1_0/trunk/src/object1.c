@@ -3969,16 +3969,30 @@ prt("[‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
 
 
 /*
- * Convert an p_ptr->inventory index into a one character label
+ * Convert an cr_ptr->inventory index into a one character label
  * Note that the label does NOT distinguish inven/equip.
  */
-char index_to_label(int i)
+char index_to_label(creature_type *cr_ptr, int i)
 {
+	int j = i;
 	/* Indexes for "inven" are easy */
-	if (i < INVEN_1STARM) return (I2A(i));
+	if (j < INVEN_1STARM) return (I2A(j));
 
 	/* Indexes for "equip" are offset */
-	return (I2A(i - INVEN_1STARM));
+	if(j > INVEN_3RDHANDS && cr_ptr->num_hand < 5) j--;
+	if(j > INVEN_2NDHANDS && cr_ptr->num_hand < 3) j--;
+	if(j > INVEN_1STHANDS && cr_ptr->num_hand < 1) j--;
+	if(j > INVEN_3RDHEAD && cr_ptr->num_head < 3) j--;
+	if(j > INVEN_2NDHEAD && cr_ptr->num_head < 2) j--;
+	if(j > INVEN_1STHEAD && cr_ptr->num_head < 1) j--;
+	if(j > INVEN_6THARM && cr_ptr->num_hand < 6) j--;
+	if(j > INVEN_5THARM && cr_ptr->num_hand < 5) j--;
+	if(j > INVEN_4THARM && cr_ptr->num_hand < 4) j--;
+	if(j > INVEN_3RDARM && cr_ptr->num_hand < 3) j--;
+	if(j > INVEN_2NDARM && cr_ptr->num_hand < 2) j--;
+	if(j > INVEN_1STARM && cr_ptr->num_hand < 1) j--;
+	
+	return (I2A(j - INVEN_1STARM));
 }
 
 
@@ -4531,7 +4545,7 @@ void display_inven(creature_type *cr_ptr)
 		if (item_tester_okay(p_ptr, o_ptr))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(i);
+			tmp_val[0] = index_to_label(p_ptr, i);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';
@@ -4614,7 +4628,7 @@ void display_equip(creature_type *cr_ptr)
 		if (select_ring_slot ? is_ring_slot(i) : item_tester_okay(p_ptr, o_ptr))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(i);
+			tmp_val[0] = index_to_label(p_ptr, i);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';
@@ -5076,7 +5090,7 @@ int show_inven(int target_item, creature_type *cr_ptr)
 		else
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(i));
+			sprintf(tmp_val, "%c)", index_to_label(p_ptr, i));
 		}
 
 		/* Clear the line with the (possibly indented) index */
@@ -5278,7 +5292,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		else /* Paranoia */
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(i));
+			sprintf(tmp_val, "%c)", index_to_label(p_ptr, i));
 		}
 
 		/* Clear the line with the (possibly indented) index */
@@ -5914,7 +5928,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(i1), index_to_label(i2));
+					index_to_label(p_ptr, i1), index_to_label(p_ptr, i2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -5954,7 +5968,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(e1), index_to_label(e2));
+					index_to_label(p_ptr, e1), index_to_label(p_ptr, e2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -7003,7 +7017,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(i1), index_to_label(i2));
+					index_to_label(p_ptr, i1), index_to_label(p_ptr, i2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -7075,7 +7089,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(e1), index_to_label(e2));
+					index_to_label(p_ptr, e1), index_to_label(p_ptr, e2));
 
 				/* Append */
 				strcat(out_val, tmp_val);

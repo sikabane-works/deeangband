@@ -5171,7 +5171,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 #endif
 
 			fprintf(fff, "%c) %s\n",
-				index_to_label(i), o_name);
+				index_to_label(p_ptr, i), o_name);
 		}
 		fprintf(fff, "\n\n");
 	}
@@ -5190,7 +5190,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 
 		/* Dump the inventory slots */
 		object_desc(o_name, &p_ptr->inventory[i], 0);
-		fprintf(fff, "%c) %s\n", index_to_label(i), o_name);
+		fprintf(fff, "%c) %s\n", index_to_label(p_ptr, i), o_name);
 	}
 
 	/* Add an empty line */

@@ -3644,10 +3644,10 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 
 				/* Message */
 #ifdef JP
-		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(item_new));
+		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(p_ptr, item_new));
 #else
 				msg_format("You have %s (%c).",
-						   o_name, index_to_label(item_new));
+						   o_name, index_to_label(p_ptr, item_new));
 #endif
 
 				/* Auto-inscription */
@@ -3774,7 +3774,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 #else
 		msg_format("You have %s (%c).",
 #endif
- o_name, index_to_label(item_new));
+ o_name, index_to_label(p_ptr, item_new));
 
 		/* Handle stuff */
 		handle_stuff();
@@ -3999,9 +3999,9 @@ static void store_sell(void)
 	{
 		/* Describe the transaction */
 #ifdef JP
-		msg_format("%s(%c)を売却する。", o_name, index_to_label(item));
+		msg_format("%s(%c)を売却する。", o_name, index_to_label(p_ptr, item));
 #else
-		msg_format("Selling %s (%c).", o_name, index_to_label(item));
+		msg_format("Selling %s (%c).", o_name, index_to_label(p_ptr, item));
 #endif
 
 		msg_print(NULL);
@@ -4154,9 +4154,9 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 
 		/* Describe */
 #ifdef JP
-		msg_format("%sを置いた。(%c)", o_name, index_to_label(item));
+		msg_format("%sを置いた。(%c)", o_name, index_to_label(p_ptr, item));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(item));
+		msg_format("You drop %s (%c).", o_name, index_to_label(p_ptr, item));
 #endif
 
 		choice = 0;
@@ -4187,9 +4187,9 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 
 		/* Describe */
 #ifdef JP
-		msg_format("%sを置いた。(%c)", o_name, index_to_label(item));
+		msg_format("%sを置いた。(%c)", o_name, index_to_label(p_ptr, item));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(item));
+		msg_format("You drop %s (%c).", o_name, index_to_label(p_ptr, item));
 #endif
 
 		choice = 0;
@@ -5120,9 +5120,9 @@ void do_cmd_store(void)
 
 				/* Message */
 #ifdef JP
-				msg_format("%sが落ちた。(%c)", o_name, index_to_label(item));
+				msg_format("%sが落ちた。(%c)", o_name, index_to_label(p_ptr, item));
 #else
-				msg_format("You drop %s (%c).", o_name, index_to_label(item));
+				msg_format("You drop %s (%c).", o_name, index_to_label(p_ptr, item));
 #endif
 
 

@@ -781,7 +781,7 @@ msg_print("クエストを達成した！");
 	object_desc(o_name, o_ptr, 0);
 
 	/* Message */
-	msg_format(act, o_name, index_to_label(slot));
+	msg_format(act, o_name, index_to_label(p_ptr, slot));
 
 
 	/* Cursed! */

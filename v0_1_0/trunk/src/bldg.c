@@ -2446,9 +2446,9 @@ static bool kankin(void)
 				/* Describe the object */
 				object_desc(o_name, &forge, 0);
 #ifdef JP
-				msg_format("%s(%c)Çñ·Ç¡ÇΩÅB", o_name, index_to_label(item_new));
+				msg_format("%s(%c)Çñ·Ç¡ÇΩÅB", o_name, index_to_label(p_ptr, item_new));
 #else
-				msg_format("You get %s (%c). ", o_name, index_to_label(item_new));
+				msg_format("You get %s (%c). ", o_name, index_to_label(p_ptr, item_new));
 #endif
 
 				/* Auto-inscription */
