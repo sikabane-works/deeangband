@@ -1104,7 +1104,7 @@ void do_cmd_drop(void)
 	energy_use = 50;
 
 	/* Drop (some of) the item */
-	inven_drop(item, amt);
+	inven_drop(p_ptr, item, amt);
 
 	if (item >= INVEN_1STARM)
 	{

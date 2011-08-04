@@ -2924,7 +2924,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #else
 			msg_print("You drop your weapon!");
 #endif
-			inven_drop(slot, 1);
+			inven_drop(cr_ptr, slot, 1);
 		}
 	}
 }

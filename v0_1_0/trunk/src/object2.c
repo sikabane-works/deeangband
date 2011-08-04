@@ -6113,7 +6113,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
  *
  * The object will be dropped "near" the current location
  */
-void inven_drop(int item, int amt)
+void inven_drop(creature_type *cr_ptr, int item, int amt)
 {
 	object_type forge;
 	object_type *q_ptr;
@@ -6124,7 +6124,7 @@ void inven_drop(int item, int amt)
 
 
 	/* Access original object */
-	o_ptr = &p_ptr->inventory[item];
+	o_ptr = &cr_ptr->inventory[item];
 
 	/* Error check */
 	if (amt <= 0) return;
@@ -6137,10 +6137,10 @@ void inven_drop(int item, int amt)
 	if (item >= INVEN_1STARM)
 	{
 		/* Take off first */
-		item = inven_takeoff(p_ptr, item, amt);
+		item = inven_takeoff(cr_ptr, item, amt);
 
 		/* Access original object */
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 
@@ -6168,7 +6168,7 @@ void inven_drop(int item, int amt)
 
 
 	/* Drop it near the player */
-	(void)drop_near(q_ptr, 0, p_ptr->fy, p_ptr->fx);
+	(void)drop_near(q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(item, -amt);
