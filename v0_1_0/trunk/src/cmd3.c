@@ -710,7 +710,7 @@ msg_print("クエストを達成した！");
 	if (o_ptr->k_idx)
 	{
 		/* Take off existing item */
-		(void)inven_takeoff(slot, 255);
+		(void)inven_takeoff(p_ptr, slot, 255);
 	}
 
 	/* Wear the new stuff */
@@ -1022,7 +1022,7 @@ void do_cmd_takeoff(void)
 	energy_use = 50;
 
 	/* Take off the item */
-	(void)inven_takeoff(item, 255);
+	(void)inven_takeoff(p_ptr, item, 255);
 
 	kamaenaoshi(item);
 

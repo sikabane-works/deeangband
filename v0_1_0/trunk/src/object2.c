@@ -6008,7 +6008,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
  *
  * Return the p_ptr->inventory slot into which the item is placed.
  */
-s16b inven_takeoff(int item, int amt)
+s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 {
 	int slot;
 
@@ -6023,7 +6023,7 @@ s16b inven_takeoff(int item, int amt)
 
 
 	/* Get the item to take off */
-	o_ptr = &p_ptr->inventory[item];
+	o_ptr = &cr_ptr->inventory[item];
 
 	/* Paranoia */
 	if (amt <= 0) return (-1);
@@ -6045,7 +6045,7 @@ s16b inven_takeoff(int item, int amt)
 
 	/* Took off weapon */
 	if (((item == INVEN_1STARM) || (item == INVEN_2NDARM)) &&
-	    object_is_melee_weapon(p_ptr, o_ptr))
+	    object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -6093,7 +6093,7 @@ s16b inven_takeoff(int item, int amt)
 	inven_item_optimize(item);
 
 	/* Carry the object */
-	slot = inven_carry(p_ptr, q_ptr);
+	slot = inven_carry(cr_ptr, q_ptr);
 
 	/* Message */
 #ifdef JP
@@ -6137,7 +6137,7 @@ void inven_drop(int item, int amt)
 	if (item >= INVEN_1STARM)
 	{
 		/* Take off first */
-		item = inven_takeoff(item, amt);
+		item = inven_takeoff(p_ptr, item, amt);
 
 		/* Access original object */
 		o_ptr = &p_ptr->inventory[item];
