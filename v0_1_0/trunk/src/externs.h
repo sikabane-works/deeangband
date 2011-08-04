@@ -833,7 +833,8 @@ extern void do_cmd_use(creature_type *cr_ptr);
 extern void do_cmd_magic_eater(creature_type *cr_ptr, bool only_browse);
 
 /* creature.c */
-bool is_player(creature_type *cr_ptr);
+extern bool can_use_equipment_slot(creature_type *cr_ptr, int i);
+extern bool is_player(creature_type *cr_ptr);
 extern void set_sex(creature_type *cr_ptr);
 extern void set_height_weight(creature_type *cr_ptr);
 extern void set_status(creature_type *cr_ptr);

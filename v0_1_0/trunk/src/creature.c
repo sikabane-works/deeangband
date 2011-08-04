@@ -2,6 +2,32 @@
 #include "angband.h"
 
 
+bool can_use_equipment_slot(creature_type *cr_ptr, int i)
+{
+	if(i == INVEN_1STARM && cr_ptr->num_hand < 1) return FALSE;
+	if(i == INVEN_2NDARM && cr_ptr->num_hand < 2) return FALSE;
+	if(i == INVEN_3RDARM && cr_ptr->num_hand < 3) return FALSE;
+	if(i == INVEN_4THARM && cr_ptr->num_hand < 4) return FALSE;
+	if(i == INVEN_5THARM && cr_ptr->num_hand < 5) return FALSE;
+	if(i == INVEN_6THARM && cr_ptr->num_hand < 6) return FALSE;
+
+	if(i == INVEN_1STHEAD && cr_ptr->num_head < 1) return FALSE;
+	if(i == INVEN_2NDHEAD && cr_ptr->num_head < 2) return FALSE;
+	if(i == INVEN_3RDHEAD && cr_ptr->num_head < 3) return FALSE;
+
+	if(i == INVEN_1STHANDS && cr_ptr->num_hand < 1) return FALSE;
+	if(i == INVEN_2NDHANDS && cr_ptr->num_hand < 3) return FALSE;
+	if(i == INVEN_3RDHANDS && cr_ptr->num_hand < 5) return FALSE;
+
+	if(i == INVEN_FEET && cr_ptr->num_hand < 1) return FALSE;
+
+	if(i == INVEN_TAIL && cr_ptr->num_tail < 1) return FALSE;
+
+	return TRUE;
+
+}
+
+
 bool is_player(creature_type *cr_ptr)
 {
 	return (cr_ptr == p_ptr); 

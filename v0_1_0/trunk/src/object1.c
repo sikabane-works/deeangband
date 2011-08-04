@@ -4910,7 +4910,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 /*
  * Move around label characters with correspond tags
  */
-static void prepare_label_string(char *label, int mode)
+static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 {
 	cptr alphabet_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int  offset = (mode == USE_EQUIP) ? INVEN_1STARM : 0;
@@ -5009,7 +5009,7 @@ int show_inven(int target_item, creature_type *cr_ptr)
 		z = i + 1;
 	}
 
-	prepare_label_string(inven_label, USE_INVEN);
+	prepare_label_string(cr_ptr, inven_label, USE_INVEN);
 
 	/* Display the cr_ptr->inventory */
 	for (k = 0, i = 0; i < z; i++)
@@ -5190,6 +5190,8 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		if(i == INVEN_2NDHANDS && cr_ptr->num_hand < 3) continue;
 		if(i == INVEN_3RDHANDS && cr_ptr->num_hand < 5) continue;
 
+		if(i == INVEN_FEET && cr_ptr->num_hand < 1) continue;
+
 		if(i == INVEN_TAIL && cr_ptr->num_tail < 1) continue;
 
 		/* Is this item acceptable? */
@@ -5257,7 +5259,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 	col = (len > wid - 4) ? 0 : (wid - len - 1);
 #endif
 
-	prepare_label_string(equip_label, USE_EQUIP);
+	prepare_label_string(cr_ptr, equip_label, USE_EQUIP);
 
 	/* Output each entry */
 	for (j = 0; j < k; j++)
