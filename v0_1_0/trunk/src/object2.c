@@ -1509,10 +1509,10 @@ s32b object_value(object_type *o_ptr)
 /*
  * Determines whether an object can be destroyed, and makes fake inscription.
  */
-bool can_player_destroy_object(object_type *o_ptr)
+bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Artifacts cannot be destroyed */
-	if (!object_is_artifact(p_ptr, o_ptr)) return TRUE;
+	if (!object_is_artifact(cr_ptr, o_ptr)) return TRUE;
 
 	/* If object is unidentified, makes fake inscription */
 	if (!object_is_known(o_ptr))
@@ -1529,7 +1529,7 @@ bool can_player_destroy_object(object_type *o_ptr)
 		o_ptr->ident |= (IDENT_SENSE);
 
 		/* Combine the pack */
-		p_ptr->notice |= (PN_COMBINE);
+		cr_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);

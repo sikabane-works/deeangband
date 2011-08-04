@@ -1589,7 +1589,7 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 	disturb(0,0);
 
 	/* Artifact? */
-	if (!can_player_destroy_object(o_ptr))
+	if (!can_player_destroy_object(p_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
 

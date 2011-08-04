@@ -1272,7 +1272,7 @@ void do_cmd_destroy(void)
 	energy_use = 100;
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(o_ptr))
+	if (!can_player_destroy_object(p_ptr, o_ptr))
 	{
 		energy_use = 0;
 

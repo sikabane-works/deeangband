@@ -2316,7 +2316,7 @@ sprintf(out_val, "–{“–‚É%s‚ğ‹à‚É•Ï‚¦‚Ü‚·‚©H", o_name);
 	}
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(o_ptr))
+	if (!can_player_destroy_object(p_ptr, o_ptr))
 	{
 		/* Message */
 #ifdef JP
