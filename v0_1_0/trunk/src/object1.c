@@ -7973,7 +7973,7 @@ static bool py_pickup_floor_aux(creature_type *cr_ptr)
  *
  * This is called by py_pickup() when easy_floor is TRUE.
  */
-void py_pickup_floor(bool pickup)
+void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 {
 	s16b this_o_idx, next_o_idx = 0;
 
@@ -7985,7 +7985,7 @@ void py_pickup_floor(bool pickup)
 	int can_pickup = 0;
 
 	/* Scan the pile of objects */
-	for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 
@@ -8015,7 +8015,7 @@ void py_pickup_floor(bool pickup)
 
 
 			/* Collect the gold */
-			p_ptr->au += o_ptr->pval;
+			cr_ptr->au += o_ptr->pval;
 
 			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
@@ -8038,7 +8038,7 @@ void py_pickup_floor(bool pickup)
 		}
 
 		/* Count non-gold objects that can be picked up. */
-		if (inven_carry_okay(p_ptr, o_ptr))
+		if (inven_carry_okay(cr_ptr, o_ptr))
 		{
 			can_pickup++;
 		}
@@ -8218,7 +8218,7 @@ void py_pickup_floor(bool pickup)
 	{
 		while (can_pickup--)
 		{
-			if (!py_pickup_floor_aux(p_ptr)) break;
+			if (!py_pickup_floor_aux(cr_ptr)) break;
 		}
 	}
 }

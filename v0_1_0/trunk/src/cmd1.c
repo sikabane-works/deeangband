@@ -941,7 +941,7 @@ void carry(bool pickup)
 
 	if (easy_floor)
 	{
-		py_pickup_floor(pickup);
+		py_pickup_floor(p_ptr, pickup);
 		return;
 	}
 

@@ -1687,7 +1687,7 @@ extern bool do_cmd_disarm_aux(int y, int x, int dir);
 extern int scan_floor(int *items, int y, int x, int mode);
 extern int show_floor(int target_item, int y, int x, int *min_width);
 extern bool get_item_floor(int *cp, cptr pmt, cptr str, int mode);
-extern void py_pickup_floor(bool pickup);
+extern void py_pickup_floor(creature_type *cr_ptr, bool pickup);
 
 /* variable.c */
 extern bool easy_floor;
