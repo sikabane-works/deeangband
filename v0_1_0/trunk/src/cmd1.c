@@ -910,9 +910,9 @@ void py_pickup_aux(int o_idx)
  * Note that we ONLY handle things that can be picked up.
  * See "move_player()" for handling of other things.
  */
-void carry(bool pickup)
+void carry(creature_type *cr_ptr, bool pickup)
 {
-	cave_type *c_ptr = &cave[p_ptr->fy][p_ptr->fx];
+	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 
 	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
@@ -922,7 +922,7 @@ void carry(bool pickup)
 	verify_panel();
 
 	/* Update stuff */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -941,13 +941,13 @@ void carry(bool pickup)
 
 	if (easy_floor)
 	{
-		py_pickup_floor(p_ptr, pickup);
+		py_pickup_floor(cr_ptr, pickup);
 		return;
 	}
 
 #endif /* ALLOW_EASY_FLOOR */
 
-	for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 		/* Access the object */
@@ -1024,7 +1024,7 @@ void carry(bool pickup)
 			sound(SOUND_SELL);
 
 			/* Collect the gold */
-			p_ptr->au += value;
+			cr_ptr->au += value;
 
 			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
@@ -1056,7 +1056,7 @@ void carry(bool pickup)
 			}
 
 			/* Note that the pack is too full */
-			else if (!inven_carry_okay(p_ptr, o_ptr))
+			else if (!inven_carry_okay(cr_ptr, o_ptr))
 			{
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", o_name);
@@ -3791,7 +3791,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 	/* Handle "objects" */
 	if (!(mpe_mode & MPE_DONT_PICKUP))
 	{
-		carry((mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
+		carry(p_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
 	}
 
 	/* Handle "store doors" */

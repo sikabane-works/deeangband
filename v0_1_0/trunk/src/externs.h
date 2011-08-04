@@ -719,7 +719,7 @@ extern s16b critical_norm(int weight, int plus, int dam, s16b meichuu, int mode)
 extern s16b tot_dam_aux(object_type *o_ptr, int tdam, creature_type *m_ptr, int mode, bool thrown);
 extern void search(void);
 extern void py_pickup_aux(int o_idx);
-extern void carry(bool pickup);
+extern void carry(creature_type *cr_ptr, bool pickup);
 extern bool py_attack(creature_type *atk_ptr, int y, int x, int mode);
 extern bool pattern_seq(int c_y, int c_x, int n_y, int n_x);
 extern bool player_can_enter(s16b feature, u16b mode);
