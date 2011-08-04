@@ -829,7 +829,7 @@ void py_pickup_aux(int o_idx)
 	hirottakazu = o_ptr->number;
 #endif
 	/* Carry the object */
-	slot = inven_carry(o_ptr);
+	slot = inven_carry(p_ptr, o_ptr);
 
 	/* Get the object again */
 	o_ptr = &p_ptr->inventory[slot];
@@ -3015,7 +3015,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 #else
 					msg_format("You snatched %s.", o_name);
 #endif
-					inven_carry(q_ptr);
+					inven_carry(p_ptr, q_ptr);
 				}
 			}
 		}

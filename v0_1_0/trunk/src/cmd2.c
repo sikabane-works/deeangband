@@ -4670,7 +4670,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 		}
 		else
 		{
-			inven_carry(q_ptr);
+			inven_carry(p_ptr, q_ptr);
 		}
 		do_drop = FALSE;
 	}

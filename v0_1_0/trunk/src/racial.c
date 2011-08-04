@@ -147,7 +147,7 @@ static bool do_cmd_archer(void)
 			apply_magic(q_ptr, p_ptr->lev, AM_NO_FIXED_ART);
 			q_ptr->discount = 99;
 
-			slot = inven_carry(q_ptr);
+			slot = inven_carry(p_ptr, q_ptr);
 
 			object_desc(o_name, q_ptr, 0);
 #ifdef JP
@@ -228,7 +228,7 @@ static bool do_cmd_archer(void)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(q_ptr);
+		slot = inven_carry(p_ptr, q_ptr);
 
 		/* Auto-inscription */
 		if (slot >= 0) autopick_alter_item(slot, FALSE);
@@ -296,7 +296,7 @@ static bool do_cmd_archer(void)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(q_ptr);
+		slot = inven_carry(p_ptr, q_ptr);
 
 		/* Auto-inscription */
 		if (slot >= 0) autopick_alter_item(slot, FALSE);

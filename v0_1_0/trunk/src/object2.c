@@ -5877,7 +5877,7 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
  * Note that this code must remove any location/stack information
  * from the object once it is placed into the p_ptr->inventory.
  */
-s16b inven_carry(object_type *o_ptr)
+s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int i, j, k;
 	int n = -1;
@@ -5888,7 +5888,7 @@ s16b inven_carry(object_type *o_ptr)
 	/* Check for combining */
 	for (j = 0; j < INVEN_PACK; j++)
 	{
-		j_ptr = &p_ptr->inventory[j];
+		j_ptr = &cr_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -5903,10 +5903,10 @@ s16b inven_carry(object_type *o_ptr)
 			object_absorb(j_ptr, o_ptr);
 
 			/* Increase the weight */
-			p_ptr->total_weight += (o_ptr->number * o_ptr->weight);
+			cr_ptr->total_weight += (o_ptr->number * o_ptr->weight);
 
 			/* Recalculate bonuses */
-			p_ptr->update |= (PU_BONUS);
+			cr_ptr->update |= (PU_BONUS);
 
 			/* Window stuff */
 			play_window |= (PW_INVEN);
@@ -5918,12 +5918,12 @@ s16b inven_carry(object_type *o_ptr)
 
 
 	/* Paranoia */
-	if (p_ptr->inven_cnt > INVEN_PACK) return (-1);
+	if (cr_ptr->inven_cnt > INVEN_PACK) return (-1);
 
 	/* Find an empty slot */
 	for (j = 0; j <= INVEN_PACK; j++)
 	{
-		j_ptr = &p_ptr->inventory[j];
+		j_ptr = &cr_ptr->inventory[j];
 
 		/* Use it if found */
 		if (!j_ptr->k_idx) break;
@@ -5942,7 +5942,7 @@ s16b inven_carry(object_type *o_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &p_ptr->inventory[j])) break;
+			if (object_sort_comp(o_ptr, o_value, &cr_ptr->inventory[j])) break;
 		}
 
 		/* Use that slot */
@@ -5952,19 +5952,19 @@ s16b inven_carry(object_type *o_ptr)
 		for (k = n; k >= i; k--)
 		{
 			/* Hack -- Slide the item */
-			object_copy(&p_ptr->inventory[k+1], &p_ptr->inventory[k]);
+			object_copy(&cr_ptr->inventory[k+1], &cr_ptr->inventory[k]);
 		}
 
 		/* Wipe the empty slot */
-		object_wipe(&p_ptr->inventory[i]);
+		object_wipe(&cr_ptr->inventory[i]);
 	}
 
 
 	/* Copy the item */
-	object_copy(&p_ptr->inventory[i], o_ptr);
+	object_copy(&cr_ptr->inventory[i], o_ptr);
 
 	/* Access new object */
-	j_ptr = &p_ptr->inventory[i];
+	j_ptr = &cr_ptr->inventory[i];
 
 	/* Forget stack */
 	j_ptr->next_o_idx = 0;
@@ -5979,16 +5979,16 @@ s16b inven_carry(object_type *o_ptr)
 	j_ptr->marked = OM_TOUCHED;
 
 	/* Increase the weight */
-	p_ptr->total_weight += (j_ptr->number * j_ptr->weight);
+	cr_ptr->total_weight += (j_ptr->number * j_ptr->weight);
 
 	/* Count the items */
-	p_ptr->inven_cnt++;
+	cr_ptr->inven_cnt++;
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Combine and Reorder pack */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -6093,7 +6093,7 @@ s16b inven_takeoff(int item, int amt)
 	inven_item_optimize(item);
 
 	/* Carry the object */
-	slot = inven_carry(q_ptr);
+	slot = inven_carry(p_ptr, q_ptr);
 
 	/* Message */
 #ifdef JP

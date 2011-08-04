@@ -2441,7 +2441,7 @@ static bool kankin(void)
 				 * Since a corpse is handed at first,
 				 * there is at least one empty slot.
 				 */
-				item_new = inven_carry(&forge);
+				item_new = inven_carry(p_ptr, &forge);
 
 				/* Describe the object */
 				object_desc(o_name, &forge, 0);

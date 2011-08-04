@@ -5774,7 +5774,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 					/* Unstack the used item */
 					o_ptr->number--;
 					p_ptr->total_weight -= q_ptr->weight;
-					item = inven_carry(q_ptr);
+					item = inven_carry(p_ptr, q_ptr);
 
 					/* Message */
 #ifdef JP
