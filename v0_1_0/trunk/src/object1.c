@@ -4708,7 +4708,7 @@ void display_equip(creature_type *cr_ptr)
  * Also, the tag "@xn" will work as well, where "n" is a any tag-char,
  * and "x" is the "current" command_cmd code.
  */
-static bool get_tag(int *cp, char tag, int mode)
+static bool get_tag(creature_type *cr_ptr, int *cp, char tag, int mode)
 {
 	int i, start, end;
 	cptr s;
@@ -4732,10 +4732,10 @@ static bool get_tag(int *cp, char tag, int mode)
 
 	/**** Find a tag in the form of {@x#} (allow alphabet tag) ***/
 
-	/* Check every p_ptr->inventory object */
+	/* Check every cr_ptr->inventory object */
 	for (i = start; i <= end; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4744,7 +4744,7 @@ static bool get_tag(int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(p_ptr, o_ptr)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4755,7 +4755,7 @@ static bool get_tag(int *cp, char tag, int mode)
 			/* Check the special tags */
 			if ((s[1] == command_cmd) && (s[2] == tag))
 			{
-				/* Save the actual p_ptr->inventory ID */
+				/* Save the actual cr_ptr->inventory ID */
 				*cp = i;
 
 				/* Success */
@@ -4780,7 +4780,7 @@ static bool get_tag(int *cp, char tag, int mode)
 	/* Check every object */
 	for (i = start; i <= end; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -4789,7 +4789,7 @@ static bool get_tag(int *cp, char tag, int mode)
 		if (!o_ptr->inscription) continue;
 
 		/* Skip non-choice */
-		if (!item_tester_okay(p_ptr, o_ptr)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr)) continue;
 
 		/* Find a '@' */
 		s = my_strchr(quark_str(o_ptr->inscription), '@');
@@ -4800,7 +4800,7 @@ static bool get_tag(int *cp, char tag, int mode)
 			/* Check the normal tags */
 			if (s[1] == tag)
 			{
-				/* Save the actual p_ptr->inventory ID */
+				/* Save the actual cr_ptr->inventory ID */
 				*cp = i;
 
 				/* Success */
@@ -4926,7 +4926,7 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 		char c = alphabet_chars[i];
 
 		/* Find a tag with this label */
-		if (get_tag(&index, c, mode))
+		if (get_tag(cr_ptr, &index, c, mode))
 		{
 			/* Delete the overwritten label */
 			if (label[i] == c) label[i] = ' ';
@@ -5669,7 +5669,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				if (!get_tag(cr_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
 				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(cr_ptr, k)) /* Reject */;
 				else
@@ -6222,7 +6222,7 @@ if (other_query_flag && !verify("–{“–‚É", k)) continue;
 			case '7': case '8': case '9':
 			{
 				/* Look up the tag */
-				if (!get_tag(&k, which, command_wrk ? USE_EQUIP : USE_INVEN))
+				if (!get_tag(cr_ptr, &k, which, command_wrk ? USE_EQUIP : USE_INVEN))
 				{
 					bell();
 					break;
@@ -6315,7 +6315,7 @@ if (other_query_flag && !verify("–{“–‚É", k)) continue;
 				bool not_found = FALSE;
 
 				/* Look up the alphabetical tag */
-				if (!get_tag(&k, which, command_wrk ? USE_EQUIP : USE_INVEN))
+				if (!get_tag(cr_ptr, &k, which, command_wrk ? USE_EQUIP : USE_INVEN))
 				{
 					not_found = TRUE;
 				}
@@ -6739,7 +6739,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(&k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				if (!get_tag(p_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
 				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
 				else if (!get_item_okay(p_ptr, k)) /* Reject */;
 				else
@@ -7625,7 +7625,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				if (command_wrk != USE_FLOOR)
 				{
 					/* Look up the tag */
-					if (!get_tag(&k, which, command_wrk))
+					if (!get_tag(p_ptr, &k, which, command_wrk))
 					{
 						bell();
 						break;
@@ -7759,7 +7759,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					bool not_found = FALSE;
 
 					/* Look up the alphabetical tag */
-					if (!get_tag(&k, which, command_wrk))
+					if (!get_tag(p_ptr, &k, which, command_wrk))
 					{
 						not_found = TRUE;
 					}
