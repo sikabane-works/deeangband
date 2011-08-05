@@ -20,7 +20,7 @@ bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
 	if (vanilla_town) return FALSE;
 
 	/* Today's wanted */
-	if (p_ptr->today_mon > 0 && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name))) return TRUE;
+	if (cr_ptr->today_mon > 0 && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name))) return TRUE;
 
 	/* Tsuchinoko */
 	if (o_ptr->pval == MON_TSUCHINOKO) return TRUE;
@@ -66,7 +66,7 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 		/* Icky to wield? */
-		if (!(s_info[p_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
+		if (!(s_info[cr_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval]))
 			return FALSE;
 		break;
 
@@ -85,7 +85,7 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
 
 	case CLASS_NINJA:
 		/* Icky to wield? */
-		if (s_info[p_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
+		if (s_info[cr_ptr->cls_idx].w_max[o_ptr->tval-TV_WEAPON_BEGIN][o_ptr->sval] <= WEAPON_EXP_BEGINNER)
 			return FALSE;
 		break;
 
@@ -311,7 +311,7 @@ bool object_is_artifact(creature_type *cr_ptr, object_type *o_ptr)
  */
 bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (!object_is_artifact(p_ptr, o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(p_ptr, o_ptr))
+	if (!object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(cr_ptr, o_ptr))
 		return TRUE;
 
 	return FALSE;
