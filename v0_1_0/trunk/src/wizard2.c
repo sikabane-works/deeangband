@@ -969,7 +969,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 				apply_magic(q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(p_ptr, q_ptr)) create_artifact(q_ptr, FALSE);
+				if (!object_is_artifact(p_ptr, q_ptr)) create_artifact(p_ptr, q_ptr, FALSE);
 				break;
 			}
 		}

@@ -2419,7 +2419,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 			if (power > 1)
 			{
 				if (one_in_(30) || (power > 2)) /* power > 2 is debug only */
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
 					o_ptr->name2 = EGO_DIGGING;
@@ -2452,7 +2452,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(40) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -2578,7 +2578,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_BOW, TRUE);
@@ -2597,7 +2597,7 @@ static void a_m_aux_1(object_type *o_ptr, int level, int power)
 			{
 				if (power > 2) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 
@@ -2751,7 +2751,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 		case TV_DRAG_ARMOR:
 		{
 			if (one_in_(50) || (power > 2)) /* power > 2 is debug only */
-				create_artifact(o_ptr, FALSE);
+				create_artifact(p_ptr, o_ptr, FALSE);
 
 			/* Mention the item */
 			if (cheat_peek) object_mention(o_ptr);
@@ -2787,7 +2787,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 
@@ -2845,7 +2845,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_2NDARM, TRUE);
@@ -2878,7 +2878,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_1STHANDS, TRUE);
@@ -2907,7 +2907,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_FEET, TRUE);
@@ -2938,7 +2938,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -2997,7 +2997,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -3044,7 +3044,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(o_ptr, FALSE);
+					create_artifact(p_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_OUTER, TRUE);
@@ -3382,7 +3382,7 @@ static void a_m_aux_3(object_type *o_ptr, int level, int power)
 			{
 				o_ptr->pval = MIN(o_ptr->pval, 4);
 				/* Randart amulet */
-				create_artifact(o_ptr, FALSE);
+				create_artifact(p_ptr, o_ptr, FALSE);
 			}
 			else if ((power == 2) && one_in_(2))
 			{
@@ -3718,7 +3718,7 @@ static void a_m_aux_3(object_type *o_ptr, int level, int power)
 			{
 				o_ptr->pval = MIN(o_ptr->pval, 4);
 				/* Randart amulet */
-				create_artifact(o_ptr, FALSE);
+				create_artifact(p_ptr, o_ptr, FALSE);
 			}
 			else if ((power == 2) && one_in_(2))
 			{
@@ -3937,7 +3937,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 
 			if (power > 2) /* power > 2 is debug only */
 			{
-				create_artifact(o_ptr, FALSE);
+				create_artifact(p_ptr, o_ptr, FALSE);
 			}
 			else if ((power == 2) || ((power == 1) && one_in_(3)))
 			{
