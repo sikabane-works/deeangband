@@ -1443,24 +1443,24 @@ static void wiz_create_item(void)
 /*
  * Cure everything instantly
  */
-static void do_cmd_wiz_cure_all(void)
+static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 {
 	/* Restore stats */
-	(void)res_stat(p_ptr, A_STR);
-	(void)res_stat(p_ptr, A_INT);
-	(void)res_stat(p_ptr, A_WIS);
-	(void)res_stat(p_ptr, A_CON);
-	(void)res_stat(p_ptr, A_DEX);
-	(void)res_stat(p_ptr, A_CHR);
+	(void)res_stat(cr_ptr, A_STR);
+	(void)res_stat(cr_ptr, A_INT);
+	(void)res_stat(cr_ptr, A_WIS);
+	(void)res_stat(cr_ptr, A_CON);
+	(void)res_stat(cr_ptr, A_DEX);
+	(void)res_stat(cr_ptr, A_CHR);
 
 	/* Restore the level */
-	(void)restore_level(p_ptr);
+	(void)restore_level(cr_ptr);
 
 	/* Heal the player */
-	if (p_ptr->chp < p_ptr->mhp)
+	if (cr_ptr->chp < cr_ptr->mhp)
 	{
-		p_ptr->chp = p_ptr->mhp;
-		p_ptr->chp_frac = 0;
+		cr_ptr->chp = cr_ptr->mhp;
+		cr_ptr->chp_frac = 0;
 
 		/* Redraw */
 		play_redraw |= (PR_HP);
@@ -1470,10 +1470,10 @@ static void do_cmd_wiz_cure_all(void)
 	}
 
 	/* Restore mana */
-	if (p_ptr->csp < p_ptr->msp)
+	if (cr_ptr->csp < cr_ptr->msp)
 	{
-		p_ptr->csp = p_ptr->msp;
-		p_ptr->csp_frac = 0;
+		cr_ptr->csp = cr_ptr->msp;
+		cr_ptr->csp_frac = 0;
 
 		play_redraw |= (PR_MANA);
 		play_window |= (PW_PLAYER);
@@ -1481,18 +1481,18 @@ static void do_cmd_wiz_cure_all(void)
 	}
 
 	/* Cure stuff */
-	(void)set_blind(p_ptr, 0);
-	(void)set_confused(p_ptr, 0);
-	(void)set_poisoned(p_ptr, 0);
-	(void)set_afraid(p_ptr, 0);
-	(void)set_paralyzed(p_ptr, 0);
-	(void)set_image(p_ptr, 0);
-	(void)set_stun(p_ptr, 0);
-	(void)set_cut(p_ptr, 0);
-	(void)set_slow(p_ptr, 0, TRUE);
+	(void)set_blind(cr_ptr, 0);
+	(void)set_confused(cr_ptr, 0);
+	(void)set_poisoned(cr_ptr, 0);
+	(void)set_afraid(cr_ptr, 0);
+	(void)set_paralyzed(cr_ptr, 0);
+	(void)set_image(cr_ptr, 0);
+	(void)set_stun(cr_ptr, 0);
+	(void)set_cut(cr_ptr, 0);
+	(void)set_slow(cr_ptr, 0, TRUE);
 
 	/* No longer hungry */
-	(void)set_food(p_ptr, PY_FOOD_MAX - 1);
+	(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 }
 
 
@@ -1927,7 +1927,7 @@ void do_cmd_debug(void)
 
 	/* Cure all maladies */
 	case 'a':
-		do_cmd_wiz_cure_all();
+		do_cmd_wiz_cure_all(p_ptr);
 		break;
 
 	/* Teleport to target */
