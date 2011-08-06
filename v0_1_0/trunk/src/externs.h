@@ -1321,7 +1321,7 @@ extern void move_to_black_market(object_type * o_ptr);
 
 /* bldg.c */
 extern bool get_nightmare(int species_idx);
-extern void have_nightmare(int species_idx);
+extern void have_nightmare(creature_type *cr_ptr, int species_idx);
 extern void battle_monsters(void);
 extern void do_cmd_bldg(void);
 extern void do_cmd_quest(void);

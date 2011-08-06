@@ -2482,15 +2482,12 @@ bool get_nightmare(int species_idx)
 	/* Require eldritch horrors */
 	if (!(r_ptr->flags2 & (RF2_ELDRITCH_HORROR))) return (FALSE);
 
-	/* Require high level */
-	if (r_ptr->level <= p_ptr->lev) return (FALSE);
-
 	/* Accept this monster */
 	return (TRUE);
 }
 
 
-void have_nightmare(int species_idx)
+void have_nightmare(creature_type *cr_ptr, int species_idx)
 {
 	bool happened = FALSE;
 	species_type *r_ptr = &r_info[species_idx];
@@ -2512,7 +2509,7 @@ void have_nightmare(int species_idx)
 	}
 	else power *= 2;
 
-	if (saving_throw(p_ptr->skill_rob * 100 / power))
+	if (saving_throw(cr_ptr->skill_rob * 100 / power))
 	{
 #ifdef JP
 		msg_format("夢の中で%sに追いかけられた。", m_name);
@@ -2524,7 +2521,7 @@ void have_nightmare(int species_idx)
 		return;
 	}
 
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
 		/* Something silly happens... */
 #ifdef JP
@@ -2535,10 +2532,10 @@ void have_nightmare(int species_idx)
 
 					  funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
-		if (one_in_(3) && p_ptr->chara_idx != CHARA_CHARGEMAN)
+		if (one_in_(3) && cr_ptr->chara_idx != CHARA_CHARGEMAN)
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			p_ptr->image = p_ptr->image + (s16b)randint1(r_ptr->level);
+			cr_ptr->image = cr_ptr->image + (s16b)randint1(r_ptr->level);
 		}
 
 		/* Never mind; we can't see it clearly enough */
@@ -2556,91 +2553,91 @@ void have_nightmare(int species_idx)
 
 	r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
-	if (!p_ptr->mimic_form)
+	if (!cr_ptr->mimic_form)
 	{
-		switch (p_ptr->irace_idx)
+		switch (cr_ptr->irace_idx)
 		{
 		/* Demons may make a saving throw */
 		case RACE_IMP:
 		case RACE_DEMON:
-			if (saving_throw(20 + p_ptr->lev)) return;
+			if (saving_throw(20 + cr_ptr->lev)) return;
 			break;
 		/* Undead may make a saving throw */
 		case RACE_SKELETON:
 		case RACE_ZOMBIE:
 		case RACE_LICH:
 		case RACE_VAMPIRE:
-			if (saving_throw(10 + p_ptr->lev)) return;
+			if (saving_throw(10 + cr_ptr->lev)) return;
 			break;
 		}
 	}
 	else
 	{
 		/* Demons may make a saving throw */
-		if (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)
+		if (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)
 		{
-			if (saving_throw(20 + p_ptr->lev)) return;
+			if (saving_throw(20 + cr_ptr->lev)) return;
 		}
 		/* Undead may make a saving throw */
-		else if (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD)
+		else if (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD)
 		{
-			if (saving_throw(10 + p_ptr->lev)) return;
+			if (saving_throw(10 + cr_ptr->lev)) return;
 		}
 	}
 
 	/* Mind blast */
-	if (!saving_throw(p_ptr->skill_rob * 100 / power))
+	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
 	{
-		if (!p_ptr->resist_conf)
+		if (!cr_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(cr_ptr, cr_ptr->confused + randint0(4) + 4);
 		}
-		if (!p_ptr->resist_chaos && one_in_(3) && p_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (!cr_ptr->resist_chaos && one_in_(3) && cr_ptr->chara_idx == CHARA_CHARGEMAN)
 		{
-			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+			(void)set_image(cr_ptr, cr_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
 	/* Lose int & wis */
-	if (!saving_throw(p_ptr->skill_rob * 100 / power))
+	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
 	{
-		do_dec_stat(p_ptr, A_INT);
-		do_dec_stat(p_ptr, A_WIS);
+		do_dec_stat(cr_ptr, A_INT);
+		do_dec_stat(cr_ptr, A_WIS);
 		return;
 	}
 
 	/* Brain smash */
-	if (!saving_throw(p_ptr->skill_rob * 100 / power))
+	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
 	{
-		if (!p_ptr->resist_conf)
+		if (!cr_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(cr_ptr, cr_ptr->confused + randint0(4) + 4);
 		}
-		if (!p_ptr->free_act)
+		if (!cr_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint0(4) + 4);
 		}
-		while (!saving_throw(p_ptr->skill_rob))
+		while (!saving_throw(cr_ptr->skill_rob))
 		{
-			(void)do_dec_stat(p_ptr, A_INT);
+			(void)do_dec_stat(cr_ptr, A_INT);
 		}
-		while (!saving_throw(p_ptr->skill_rob))
+		while (!saving_throw(cr_ptr->skill_rob))
 		{
-			(void)do_dec_stat(p_ptr, A_WIS);
+			(void)do_dec_stat(cr_ptr, A_WIS);
 		}
-		if (!p_ptr->resist_chaos)
+		if (!cr_ptr->resist_chaos)
 		{
-			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+			(void)set_image(cr_ptr, cr_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
 
 	/* Amnesia */
-	if (!saving_throw(p_ptr->skill_rob * 100 / power))
+	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
 	{
-		if (lose_all_info(p_ptr))
+		if (lose_all_info(cr_ptr))
 		{
 #ifdef JP
 msg_print("あまりの恐怖に全てのことを忘れてしまった！");
@@ -2653,9 +2650,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((p_ptr->muta3 & MUT3_MORONIC) && (p_ptr->muta2 & MUT2_BERS_RAGE) &&
-		((p_ptr->muta2 & MUT2_COWARDICE) || (p_ptr->resist_fear)) &&
-		((p_ptr->muta2 & MUT2_HALLU) || (p_ptr->resist_chaos)))
+	if ((cr_ptr->muta3 & MUT3_MORONIC) && (cr_ptr->muta2 & MUT2_BERS_RAGE) &&
+		((cr_ptr->muta2 & MUT2_COWARDICE) || (cr_ptr->resist_fear)) &&
+		((cr_ptr->muta2 & MUT2_HALLU) || (cr_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2667,9 +2664,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!(p_ptr->muta3 & MUT3_MORONIC))
+				if (!(cr_ptr->muta3 & MUT3_MORONIC))
 				{
-					if ((p_ptr->stat_use[A_INT] < 4) && (p_ptr->stat_use[A_WIS] < 4))
+					if ((cr_ptr->stat_use[A_INT] < 4) && (cr_ptr->stat_use[A_WIS] < 4))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
@@ -2686,7 +2683,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (p_ptr->muta3 & MUT3_HYPER_INT)
+					if (cr_ptr->muta3 & MUT3_HYPER_INT)
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2694,16 +2691,16 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						p_ptr->muta3 &= ~(MUT3_HYPER_INT);
+						cr_ptr->muta3 &= ~(MUT3_HYPER_INT);
 					}
-					p_ptr->muta3 |= MUT3_MORONIC;
+					cr_ptr->muta3 |= MUT3_MORONIC;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 2:
 			{
-				if (!(p_ptr->muta2 & MUT2_COWARDICE) && !p_ptr->resist_fear)
+				if (!(cr_ptr->muta2 & MUT2_COWARDICE) && !cr_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2713,7 +2710,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (p_ptr->muta3 & MUT3_FEARLESS)
+					if (cr_ptr->muta3 & MUT3_FEARLESS)
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2721,17 +2718,17 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						p_ptr->muta3 &= ~(MUT3_FEARLESS);
+						cr_ptr->muta3 &= ~(MUT3_FEARLESS);
 					}
 
-					p_ptr->muta2 |= MUT2_COWARDICE;
+					cr_ptr->muta2 |= MUT2_COWARDICE;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 3:
 			{
-				if (!(p_ptr->muta2 & MUT2_HALLU) && !p_ptr->resist_chaos)
+				if (!(cr_ptr->muta2 & MUT2_HALLU) && !cr_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2739,14 +2736,14 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					p_ptr->muta2 |= MUT2_HALLU;
+					cr_ptr->muta2 |= MUT2_HALLU;
 					happened = TRUE;
 				}
 				break;
 			}
 			default:
 			{
-				if (!(p_ptr->muta2 & MUT2_BERS_RAGE))
+				if (!(cr_ptr->muta2 & MUT2_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2754,7 +2751,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					p_ptr->muta2 |= MUT2_BERS_RAGE;
+					cr_ptr->muta2 |= MUT2_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
@@ -2762,7 +2759,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 		}
 	}
 
-	p_ptr->update |= PU_BONUS;
+	cr_ptr->update |= PU_BONUS;
 	handle_stuff();
 }
 
@@ -2854,7 +2851,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					/* Have some nightmares */
 					while(1)
 					{
-						have_nightmare(get_mon_num(MAX_DEPTH));
+						have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
 
 						if (!one_in_(3)) break;
 					}

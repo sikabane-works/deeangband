@@ -7314,7 +7314,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				get_mon_num_prep(get_nightmare, NULL);
 
 				/* Have some nightmares */
-				have_nightmare(get_mon_num(MAX_DEPTH));
+				have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
 
 				/* Remove the monster restriction */
 				get_mon_num_prep(NULL, NULL);

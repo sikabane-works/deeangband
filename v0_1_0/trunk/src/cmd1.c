@@ -1642,7 +1642,7 @@ msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 					get_mon_num_prep(get_nightmare, NULL);
 
 					/* Have some nightmares */
-					have_nightmare(get_mon_num(MAX_DEPTH));
+					have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
 
 					/* Remove the monster restriction */
 					get_mon_num_prep(NULL, NULL);
