@@ -759,7 +759,7 @@ static void prt_title(void)
 	char str[14];
 
 	/* Wizard */
-	if (p_ptr->wizard)
+	if (wizard)
 	{
 #ifdef JP
 		/* ‰p“úØ‚è‘Ö‚¦‹@”\ Ì† */

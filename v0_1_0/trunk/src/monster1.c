@@ -3120,7 +3120,7 @@ void roff_top(int species_idx)
 	Term_addstr(-1, TERM_WHITE, "'):");
 
 	/* Wizards get extra info */
-	if (p_ptr->wizard)
+	if (wizard)
 	{
 		char buf[6];
 

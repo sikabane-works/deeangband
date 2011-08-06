@@ -2861,7 +2861,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 	}
 	else if (!ap_r_ptr->r_tkills || (m_ptr->mflag2 & MFLAG2_KAGE))
 	{
-		if (!p_ptr->wizard)
+		if (!wizard)
 		{
 			sprintf(buf,"??");
 			return;
@@ -3642,7 +3642,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		}
 
 		/* Display a message */
-		if (p_ptr->wizard)
+		if (wizard)
 		{
 			char f_idx_str[32];
 			if (c_ptr->mimic) sprintf(f_idx_str, "%d/%d", c_ptr->feat, c_ptr->mimic);

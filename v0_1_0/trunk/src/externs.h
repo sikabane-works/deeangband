@@ -468,6 +468,8 @@ extern cptr keymap_act[KEYMAP_MODES][256];
 extern creature_type *p_ptr;
 extern u32b play_redraw;		/* Normal Redraws (bit flags) */
 extern u32b play_window;		/* Window Redraws (bit flags) */
+extern bool wizard;		      /* (Player Only) wizard mode */
+
 
 extern birther previous_char;
 extern vault_type *v_info;

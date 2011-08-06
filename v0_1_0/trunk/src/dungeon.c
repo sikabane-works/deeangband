@@ -4493,9 +4493,9 @@ static void process_command(void)
 		/* Toggle Wizard Mode */
 		case KTRL('W'):
 		{
-			if (p_ptr->wizard)
+			if (wizard)
 			{
-				p_ptr->wizard = FALSE;
+				wizard = FALSE;
 #ifdef JP
 msg_print("ウィザードモード解除。");
 #else
@@ -4505,7 +4505,7 @@ msg_print("ウィザードモード解除。");
 			}
 			else if (enter_wizard_mode())
 			{
-				p_ptr->wizard = TRUE;
+				wizard = TRUE;
 #ifdef JP
 msg_print("ウィザードモード突入。");
 #else
@@ -6930,7 +6930,7 @@ quit("セーブファイルが壊れています");
 	{
 		if (enter_wizard_mode())
 		{
-			p_ptr->wizard = TRUE;
+			wizard = TRUE;
 
 			if (p_ptr->is_dead || !p_ptr->fy || !p_ptr->fx)
 			{
@@ -7146,9 +7146,9 @@ quit("セーブファイルが壊れています");
 			{
 				/* Mega-Hack -- Allow player to cheat death */
 #ifdef JP
-				if ((p_ptr->wizard || cheat_live) && !get_check("死にますか? "))
+				if ((wizard || cheat_live) && !get_check("死にますか? "))
 #else
-				if ((p_ptr->wizard || cheat_live) && !get_check("Die? "))
+				if ((wizard || cheat_live) && !get_check("Die? "))
 #endif
 				{
 					/* Mark social class, reset age, if needed */

@@ -2211,7 +2211,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 		/* Demon characters are unaffected */
 		if (race_is_(p_ptr, RACE_IMP) || race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
 
-		if (p_ptr->wizard) return;
+		if (wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */
 		if (race_is_(p_ptr, RACE_SKELETON) || race_is_(p_ptr, RACE_ZOMBIE)
@@ -3169,7 +3169,7 @@ static void mon_equip(creature_type *m_ptr)
 		if(r_ptr->artifact_id[i])
 		{
 			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
-			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || p_ptr->wizard))
+			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || wizard))
 			{
 				if (!a_ptr->cur_num)
 				{

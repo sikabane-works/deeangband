@@ -11735,7 +11735,7 @@ static cptr do_hex_spell(int spell, int mode)
 					project(p_ptr, rad, p_ptr->fy, p_ptr->fx, power, GF_HELL_FIRE,
 						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
-				if (p_ptr->wizard)
+				if (wizard)
 				{
 #ifdef JP
 					msg_format("%d点のダメージを返した。", power);
@@ -12563,7 +12563,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 					fire_ball(GF_HELL_FIRE, dir, power, 1);
 
-					if (p_ptr->wizard)
+					if (wizard)
 					{
 #ifdef JP
 						msg_format("%d点のダメージを返した。", power);

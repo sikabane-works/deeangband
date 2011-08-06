@@ -3780,7 +3780,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				}
 
 				/* Complex message */
-				if (p_ptr->wizard || cheat_xtra)
+				if (wizard || cheat_xtra)
 				{
 					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}
@@ -4453,7 +4453,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 				tdam = mon_damage_mod(m_ptr, tdam, FALSE);
 
 				/* Complex message */
-				if (p_ptr->wizard)
+				if (wizard)
 				{
 					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}

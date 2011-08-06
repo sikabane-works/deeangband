@@ -1283,8 +1283,6 @@ struct creature_type
 	bool wait_report_score;   /* Waiting to report score */
 	bool is_dead;		      /* is dead */
 
-	bool wizard;		      /* (Player Only) wizard mode */
-
 	s16b riding;              /* Riding on a monster of this index */
 	byte knowledge;           /* Knowledge about yourself */
 	s32b visit;               /* Visited towns */

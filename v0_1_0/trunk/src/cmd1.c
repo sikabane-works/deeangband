@@ -2005,7 +2005,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		k = mon_damage_mod(tar_ptr, k, FALSE);
 
 		/* Complex message */
-		if (atk_ptr->wizard)
+		if (wizard)
 		{
 			msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
 		}
@@ -2371,7 +2371,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					{
 						old_ptr = ma_ptr;
 
-						if (cr_ptr->wizard && cheat_xtra)
+						if (wizard && cheat_xtra)
 						{
 #ifdef JP
 							msg_print("攻撃を再選択しました。");
@@ -2737,7 +2737,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Complex message */
-			if (cr_ptr->wizard || cheat_xtra)
+			if (wizard || cheat_xtra)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
 			}
@@ -3423,7 +3423,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 			mdeath = (tar_ptr->species_idx == 0);
-			if (atk_ptr->wizard)
+			if (wizard)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
 			}
@@ -3593,7 +3593,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 					ok_move = PATTERN_TILE_1;
 					break;
 				default:
-					if (p_ptr->wizard)
+					if (wizard)
 #ifdef JP
 						msg_format("おかしなパターン歩行、%d。", pattern_type_cur);
 #else

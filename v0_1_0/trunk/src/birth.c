@@ -3324,7 +3324,7 @@ static void player_wipe(void)
 
 	/* Assume no cheating */
 	p_ptr->noscore = 0;
-	p_ptr->wizard = FALSE;
+	wizard = FALSE;
 
 	/* Not waiting to report score */
 	p_ptr->wait_report_score = FALSE;

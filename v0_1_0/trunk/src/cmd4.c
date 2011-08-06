@@ -1987,7 +1987,7 @@ void do_cmd_options_aux(int page, cptr info)
 	int     opt[24];
 	char    buf[80];
 	bool    browse_only = (page == OPT_PAGE_BIRTH) && character_generated &&
-	                      (!p_ptr->wizard || !allow_debug_opts);
+	                      (!wizard || !allow_debug_opts);
 
 
 	/* Lookup the options */
@@ -2560,9 +2560,9 @@ void do_cmd_options(void)
 			{
 				/* Spawn */
 #ifdef JP
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!p_ptr->wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : "初期オプション((*)はスコアに影響)");
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : "初期オプション((*)はスコアに影響)");
 #else
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!p_ptr->wizard || !allow_debug_opts) ? "Birth Options(browse only)" : "Birth Options((*)s effect score)");
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "Birth Options(browse only)" : "Birth Options((*)s effect score)");
 #endif
 				break;
 			}
@@ -5698,7 +5698,7 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 		}
 		else
 		{
-			if (!p_ptr->wizard)
+			if (!wizard)
 			{
 				/* Skip non-flavoured objects */
 				if (!k_ptr->flavor) continue;
@@ -7954,9 +7954,9 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 		/* Hack -- visual_list mode */
 		if (per_page == 1)
 		{
-			c_prt(attr, format("%02x/%02x", r_ptr->x_attr, r_ptr->x_char), row + i, (p_ptr->wizard || visual_only) ? 56 : 61);
+			c_prt(attr, format("%02x/%02x", r_ptr->x_attr, r_ptr->x_char), row + i, (wizard || visual_only) ? 56 : 61);
 		}
-		if (p_ptr->wizard || visual_only)
+		if (wizard || visual_only)
 		{
 			c_prt(attr, format("%d", species_idx), row + i, 62);
 		}
@@ -8082,14 +8082,14 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			prt(format("%s - モンスター", !visual_only ? "知識" : "表示"), 2, 0);
 			if (direct_species_idx < 0) prt("グループ", 4, 0);
 			prt("名前", 4, max + 3);
-			if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
+			if (wizard || visual_only) prt("Idx", 4, 62);
 			prt("文字", 4, 67);
 			if (!visual_only) prt("殺害数", 4, 72);
 #else
 			prt(format("%s - monsters", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if (direct_species_idx < 0) prt("Group", 4, 0);
 			prt("Name", 4, max + 3);
-			if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
+			if (wizard || visual_only) prt("Idx", 4, 62);
 			prt("Sym", 4, 68);
 			if (!visual_only) prt("Kills", 4, 73);
 #endif
@@ -8402,9 +8402,9 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		/* Hack -- visual_list mode */
 		if (per_page == 1)
 		{
-			c_prt(attr, format("%02x/%02x", flavor_k_ptr->x_attr, flavor_k_ptr->x_char), row + i, (p_ptr->wizard || visual_only) ? 64 : 68);
+			c_prt(attr, format("%02x/%02x", flavor_k_ptr->x_attr, flavor_k_ptr->x_char), row + i, (wizard || visual_only) ? 64 : 68);
 		}
-		if (p_ptr->wizard || visual_only)
+		if (wizard || visual_only)
 		{
 			c_prt(attr, format("%d", k_idx), row + i, 70);
 		}
@@ -8576,13 +8576,13 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			prt(format("%s - アイテム", !visual_only ? "知識" : "表示"), 2, 0);
 			if (direct_k_idx < 0) prt("グループ", 4, 0);
 			prt("名前", 4, max + 3);
-			if (p_ptr->wizard || visual_only) prt("Idx", 4, 70);
+			if (wizard || visual_only) prt("Idx", 4, 70);
 			prt("文字", 4, 74);
 #else
 			prt(format("%s - objects", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if (direct_k_idx < 0) prt("Group", 4, 0);
 			prt("Name", 4, max + 3);
-			if (p_ptr->wizard || visual_only) prt("Idx", 4, 70);
+			if (wizard || visual_only) prt("Idx", 4, 70);
 			prt("Sym", 4, 75);
 #endif
 
@@ -8792,9 +8792,9 @@ static void display_feature_list(int col, int row, int per_page, int *feat_idx,
 			/* Display lighting level */
 			c_prt(attr, format("(%s)", lighting_level_str[lighting_level]), row_i, col + 1 + strlen(f_name + f_ptr->name));
 
-			c_prt(attr, format("%02x/%02x", f_ptr->x_attr[lighting_level], f_ptr->x_char[lighting_level]), row_i, f_idx_col - ((p_ptr->wizard || visual_only) ? 6 : 2));
+			c_prt(attr, format("%02x/%02x", f_ptr->x_attr[lighting_level], f_ptr->x_char[lighting_level]), row_i, f_idx_col - ((wizard || visual_only) ? 6 : 2));
 		}
-		if (p_ptr->wizard || visual_only)
+		if (wizard || visual_only)
 		{
 			c_prt(attr, format("%d", f_idx), row_i, f_idx_col);
 		}
@@ -8930,12 +8930,12 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 			prt("名前", 4, max + 3);
 			if (use_bigtile)
 			{
-				if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
+				if (wizard || visual_only) prt("Idx", 4, 62);
 				prt("文字 ( l/ d)", 4, 66);
 			}
 			else
 			{
-				if (p_ptr->wizard || visual_only) prt("Idx", 4, 64);
+				if (wizard || visual_only) prt("Idx", 4, 64);
 				prt("文字 (l/d)", 4, 68);
 			}
 #else
@@ -8944,12 +8944,12 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 			prt("Name", 4, max + 3);
 			if (use_bigtile)
 			{
-				if (p_ptr->wizard || visual_only) prt("Idx", 4, 62);
+				if (wizard || visual_only) prt("Idx", 4, 62);
 				prt("Sym ( l/ d)", 4, 67);
 			}
 			else
 			{
-				if (p_ptr->wizard || visual_only) prt("Idx", 4, 64);
+				if (wizard || visual_only) prt("Idx", 4, 64);
 				prt("Sym (l/d)", 4, 69);
 			}
 #endif
@@ -9895,7 +9895,7 @@ static void do_cmd_knowledge_quests(void)
 	do_cmd_knowledge_quests_completed(fff, quest_num);
 	fputc('\n', fff);
 	do_cmd_knowledge_quests_failed(fff, quest_num);
-	if (p_ptr->wizard)
+	if (wizard)
 	{
 		fputc('\n', fff);
 		do_cmd_knowledge_quests_wiz_random(fff);

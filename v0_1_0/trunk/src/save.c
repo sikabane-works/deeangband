@@ -499,7 +499,7 @@ static void wr_options(void)
 
 	c = 0;
 
-	if (p_ptr->wizard) c |= 0x0002;
+	if (wizard) c |= 0x0002;
 
 	if (cheat_peek) c |= 0x0100;
 	if (cheat_hear) c |= 0x0200;

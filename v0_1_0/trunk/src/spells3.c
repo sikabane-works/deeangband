@@ -543,7 +543,7 @@ void teleport_player_to(int ny, int nx, u32b mode)
 		}
 
 		/* Accept any grid when wizard mode */
-		if (p_ptr->wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == p_ptr->riding))) break;
+		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == p_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
 		if (cave_player_teleportable_bold(y, x, mode)) break;
@@ -678,7 +678,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 	if (randint0(100) < 50) go_up = TRUE;
 	else go_up = FALSE;
 
-	if ((m_idx <= 0) && cr_ptr->wizard)
+	if ((m_idx <= 0) && wizard)
 	{
 		if (get_check("Force to go up? ")) go_up = TRUE;
 		else if (get_check("Force to go down? ")) go_up = FALSE;
@@ -4403,7 +4403,7 @@ void print_spells(int target_spell, byte *spells, int num, int y, int x, int use
 	bool max = FALSE;
 
 
-	if (((use_realm <= REALM_NONE) || (use_realm > MAX_REALM)) && p_ptr->wizard)
+	if (((use_realm <= REALM_NONE) || (use_realm > MAX_REALM)) && wizard)
 #ifdef JP
 msg_print("ŒxI print_spell ‚ª—Ìˆæ‚È‚µ‚ÉŒÄ‚Î‚ê‚½");
 #else

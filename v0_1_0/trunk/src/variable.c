@@ -770,6 +770,7 @@ creature_type *p_ptr = &p_body;
 
 u32b play_redraw = 0;		/* Normal Redraws (bit flags) */
 u32b play_window = 0;		/* Window Redraws (bit flags) */
+bool wizard = FALSE;		 /* (Player Only) wizard mode */
 
 
 /*

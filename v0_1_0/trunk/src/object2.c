@@ -4971,9 +4971,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 		/* Debug */
 #ifdef JP
-		if (p_ptr->wizard) msg_print("(破損)");
+		if (wizard) msg_print("(破損)");
 #else
-		if (p_ptr->wizard) msg_print("(breakage)");
+		if (wizard) msg_print("(breakage)");
 #endif
 
 
@@ -5088,9 +5088,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 		/* Debug */
 #ifdef JP
-		if (p_ptr->wizard) msg_print("(床スペースがない)");
+		if (wizard) msg_print("(床スペースがない)");
 #else
-		if (p_ptr->wizard) msg_print("(no floor space)");
+		if (wizard) msg_print("(no floor space)");
 #endif
 
 
@@ -5146,9 +5146,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 			/* Debug */
 #ifdef JP
-			if (p_ptr->wizard) msg_print("(床スペースがない)");
+			if (wizard) msg_print("(床スペースがない)");
 #else
-			if (p_ptr->wizard) msg_print("(no floor space)");
+			if (wizard) msg_print("(no floor space)");
 #endif
 
 			/* Mega-Hack -- preserve artifacts */
@@ -5235,9 +5235,9 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 		/* Debug */
 #ifdef JP
-		if (p_ptr->wizard) msg_print("(アイテムが多過ぎる)");
+		if (wizard) msg_print("(アイテムが多過ぎる)");
 #else
-		if (p_ptr->wizard) msg_print("(too many objects)");
+		if (wizard) msg_print("(too many objects)");
 #endif
 
 

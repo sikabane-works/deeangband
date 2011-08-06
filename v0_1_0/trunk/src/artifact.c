@@ -1777,7 +1777,7 @@ bool create_artifact(object_type *o_ptr, bool a_scroll)
 				random_slay(o_ptr);
 				break;
 			default:
-				if (p_ptr->wizard) msg_print("Switch error in create_artifact!");
+				if (wizard) msg_print("Switch error in create_artifact!");
 				powers++;
 		}
 	};
