@@ -1966,9 +1966,9 @@ bool create_artifact(object_type *o_ptr, bool a_scroll)
 }
 
 
-bool activate_random_artifact(object_type * o_ptr)
+bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 {
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	int k, dir, dummy = 0;
 
 	if (!o_ptr->art_name) return FALSE; /* oops? */
@@ -2164,7 +2164,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 50))
-				hp_player(p_ptr, 50);
+				hp_player(cr_ptr, 50);
 			}
 			o_ptr->timeout = 400;
 			break;
@@ -2235,8 +2235,8 @@ bool activate_random_artifact(object_type * o_ptr)
 
 				for (dir = 0; dir <= 9; dir++)
 				{
-					y = p_ptr->fy + ddy[dir];
-					x = p_ptr->fx + ddx[dir];
+					y = cr_ptr->fy + ddy[dir];
+					x = cr_ptr->fx + ddx[dir];
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
@@ -2244,7 +2244,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						py_attack(p_ptr, y, x, 0);
+						py_attack(cr_ptr, y, x, 0);
 				}
 			}
 			o_ptr->timeout = 250;
@@ -2257,7 +2257,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 100))
-				hp_player(p_ptr, 100);
+				hp_player(cr_ptr, 100);
 			}
 
 			o_ptr->timeout = 400;
@@ -2300,7 +2300,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It floods the area with goodness...");
 #endif
 
-			dispel_evil(p_ptr->lev * 5);
+			dispel_evil(cr_ptr->lev * 5);
 			o_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
@@ -2313,7 +2313,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It floods the area with evil...");
 #endif
 
-			dispel_good(p_ptr->lev * 5);
+			dispel_good(cr_ptr->lev * 5);
 			o_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
@@ -2363,15 +2363,15 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_QUAKE:
 		{
-			earthquake(p_ptr->fy, p_ptr->fx, 10);
+			earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 			o_ptr->timeout = 50;
 			break;
 		}
 
 		case ACT_TERROR:
 		{
-			turn_monsters(40 + p_ptr->lev);
-			o_ptr->timeout = 3 * (p_ptr->lev + 10);
+			turn_monsters(40 + cr_ptr->lev);
+			o_ptr->timeout = 3 * (cr_ptr->lev + 10);
 			break;
 		}
 
@@ -2466,7 +2466,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_SUMMON_ANIMAL:
 		{
-			(void)summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(300);
 			break;
 		}
@@ -2479,7 +2479,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You summon a phantasmal servant.");
 #endif
 
-			(void)summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
 			o_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}
@@ -2493,7 +2493,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
+			if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
 			{
 #ifdef JP
 				msg_print("ƒGƒŒƒƒ“ƒ^ƒ‹‚ªŒ»‚ê‚½...");
@@ -2531,7 +2531,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= PM_NO_PET;
 
-			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
+			if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
 			{
 #ifdef JP
 				msg_print("—°‰©‚Ìˆ«L‚ª[–ž‚µ‚½B");
@@ -2571,7 +2571,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			if (pet) mode |= PM_FORCE_PET;
 			else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-			if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, ((plev * 3) / 2), type, mode))
+			if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((plev * 3) / 2), type, mode))
 			{
 #ifdef JP
 				msg_print("—â‚½‚¢•—‚ª‚ ‚È‚½‚ÌŽü‚è‚É‚«Žn‚ß‚½B‚»‚ê‚Í•…”sL‚ð‰^‚ñ‚Å‚¢‚é...");
@@ -2603,8 +2603,8 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_CURE_LW:
 		{
-			(void)set_afraid(p_ptr, 0);
-			(void)hp_player(p_ptr, 30);
+			(void)set_afraid(cr_ptr, 0);
+			(void)hp_player(cr_ptr, 30);
 			o_ptr->timeout = 10;
 			break;
 		}
@@ -2617,8 +2617,8 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It radiates deep purple...");
 #endif
 
-			hp_player(p_ptr, damroll(4, 8));
-			(void)set_cut(p_ptr, (p_ptr->cut / 2) - 50);
+			hp_player(cr_ptr, damroll(4, 8));
+			(void)set_cut(cr_ptr, (cr_ptr->cut / 2) - 50);
 			o_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
 		}
@@ -2631,8 +2631,8 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows deep blue...");
 #endif
 
-			(void)set_afraid(p_ptr, 0);
-			(void)set_poisoned(p_ptr, 0);
+			(void)set_afraid(cr_ptr, 0);
+			(void)set_poisoned(cr_ptr, 0);
 			o_ptr->timeout = 5;
 			break;
 		}
@@ -2645,7 +2645,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows a deep red...");
 #endif
 
-			restore_level(p_ptr);
+			restore_level(cr_ptr);
 			o_ptr->timeout = 450;
 			break;
 		}
@@ -2658,13 +2658,13 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows a deep green...");
 #endif
 
-			(void)do_res_stat(p_ptr, A_STR);
-			(void)do_res_stat(p_ptr, A_INT);
-			(void)do_res_stat(p_ptr, A_WIS);
-			(void)do_res_stat(p_ptr, A_DEX);
-			(void)do_res_stat(p_ptr, A_CON);
-			(void)do_res_stat(p_ptr, A_CHR);
-			(void)restore_level(p_ptr);
+			(void)do_res_stat(cr_ptr, A_STR);
+			(void)do_res_stat(cr_ptr, A_INT);
+			(void)do_res_stat(cr_ptr, A_WIS);
+			(void)do_res_stat(cr_ptr, A_DEX);
+			(void)do_res_stat(cr_ptr, A_CON);
+			(void)do_res_stat(cr_ptr, A_CHR);
+			(void)restore_level(cr_ptr);
 			o_ptr->timeout = 750;
 			break;
 		}
@@ -2683,8 +2683,8 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You feel a warm tingling inside...");
 #endif
 
-			(void)hp_player(p_ptr, 700);
-			(void)set_cut(p_ptr, 0);
+			(void)hp_player(cr_ptr, 700);
+			(void)set_cut(cr_ptr, 0);
 			o_ptr->timeout = 250;
 			break;
 		}
@@ -2703,8 +2703,8 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("You feel much better...");
 #endif
 
-			(void)hp_player(p_ptr, 1000);
-			(void)set_cut(p_ptr, 0);
+			(void)hp_player(cr_ptr, 1000);
+			(void)set_cut(cr_ptr, 0);
 			o_ptr->timeout = 888;
 			break;
 		}
@@ -2713,16 +2713,16 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_ESP:
 		{
-			(void)set_tim_esp(p_ptr, randint1(30) + 25, FALSE);
+			(void)set_tim_esp(cr_ptr, randint1(30) + 25, FALSE);
 			o_ptr->timeout = 200;
 			break;
 		}
 
 		case ACT_BERSERK:
 		{
-			(void)set_afraid(p_ptr, 0);
-			(void)set_hero(p_ptr, randint1(50) + 50, FALSE);
-			(void)set_blessed(p_ptr, randint1(50) + 50, FALSE);
+			(void)set_afraid(cr_ptr, 0);
+			(void)set_hero(cr_ptr, randint1(50) + 50, FALSE);
+			(void)set_blessed(cr_ptr, randint1(50) + 50, FALSE);
 			o_ptr->timeout = 100 + (s16b)randint1(100);
 			break;
 		}
@@ -2735,8 +2735,8 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It lets out a shrill wail...");
 #endif
 
-			k = 3 * p_ptr->lev;
-			(void)set_protevil(p_ptr, randint1(25) + k, FALSE);
+			k = 3 * cr_ptr->lev;
+			(void)set_protevil(cr_ptr, randint1(25) + k, FALSE);
 			o_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
 		}
@@ -2749,11 +2749,11 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows many colours...");
 #endif
 
-			(void)set_oppose_acid(p_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_elec(p_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_fire(p_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_cold(p_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_pois(p_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_acid(cr_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_elec(cr_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_fire(cr_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_cold(cr_ptr, randint1(40) + 40, FALSE);
+			(void)set_oppose_pois(cr_ptr, randint1(40) + 40, FALSE);
 			o_ptr->timeout = 200;
 			break;
 		}
@@ -2766,7 +2766,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows bright green...");
 #endif
 
-			(void)set_fast(p_ptr, randint1(20) + 20, FALSE);
+			(void)set_fast(cr_ptr, randint1(20) + 20, FALSE);
 			o_ptr->timeout = 250;
 			break;
 		}
@@ -2779,21 +2779,21 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It glows brightly...");
 #endif
 
-			(void)set_fast(p_ptr, randint1(75) + 75, FALSE);
+			(void)set_fast(cr_ptr, randint1(75) + 75, FALSE);
 			o_ptr->timeout = (s16b)randint0(200) + 200;
 			break;
 		}
 
 		case ACT_WRAITH:
 		{
-			set_wraith_form(p_ptr, randint1(plev / 2) + (plev / 2), FALSE);
+			set_wraith_form(cr_ptr, randint1(plev / 2) + (plev / 2), FALSE);
 			o_ptr->timeout = 1000;
 			break;
 		}
 
 		case ACT_INVULN:
 		{
-			(void)set_invuln(p_ptr, randint1(8) + 8, FALSE);
+			(void)set_invuln(cr_ptr, randint1(8) + 8, FALSE);
 			o_ptr->timeout = 1000;
 			break;
 		}
@@ -2909,7 +2909,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_SATIATE:
 		{
-			(void)set_food(p_ptr, PY_FOOD_MAX - 1);
+			(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 			o_ptr->timeout = 200;
 			break;
 		}
@@ -2983,7 +2983,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It twists space around you...");
 #endif
 
-			teleport_player(p_ptr, 100, 0L);
+			teleport_player(cr_ptr, 100, 0L);
 			o_ptr->timeout = 45;
 			break;
 		}

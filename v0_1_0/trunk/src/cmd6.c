@@ -4194,7 +4194,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 
 	if (o_ptr->art_name && o_ptr->xtra2)
 	{
-		(void)activate_random_artifact(o_ptr);
+		(void)activate_random_artifact(cr_ptr, o_ptr);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
