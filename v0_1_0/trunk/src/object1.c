@@ -4699,7 +4699,7 @@ void display_equip(creature_type *cr_ptr)
 
 
 /*
- * Find the "first" p_ptr->inventory object with the given "tag".
+ * Find the "first" inventory object with the given "tag".
  *
  * A "tag" is a numeral "n" appearing as "@n" anywhere in the
  * inscription of an object.  Alphabetical characters don't work as a
@@ -4914,26 +4914,30 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 {
 	cptr alphabet_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	int  offset = (mode == USE_EQUIP) ? INVEN_1STARM : 0;
-	int  i;
+	int  i, j;
 
 	/* Prepare normal labels */
 	strcpy(label, alphabet_chars);
 
 	/* Move each label */
-	for (i = 0; i < 52; i++)
+	for (i = 0, j = 0; i < 52; i++)
 	{
 		int index;
-		char c = alphabet_chars[i];
+		char c;
+		if(!can_use_equipment_slot(cr_ptr, i + offset)) continue;
+
+		c = alphabet_chars[j];
 
 		/* Find a tag with this label */
 		if (get_tag(cr_ptr, &index, c, mode))
 		{
 			/* Delete the overwritten label */
-			if (label[i] == c) label[i] = ' ';
+			if (label[j] == c) label[j] = ' ';
 
 			/* Move the label to the place of corresponding tag */
 			label[index - offset] = c;
 		}
+		j++;
 	}
 }
 
@@ -5178,7 +5182,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		if(!can_use_equipment_slot(cr_ptr, i)) continue;
 
 		/* Is this item acceptable? */
-		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(p_ptr, o_ptr)) &&
+		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr)) &&
 		    (!((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
 		     item_tester_no_ryoute)) continue;
 
@@ -5277,7 +5281,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		else /* Paranoia */
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(p_ptr, i));
+			sprintf(tmp_val, "%c)", index_to_label(cr_ptr, i));
 		}
 
 		/* Clear the line with the (possibly indented) index */
@@ -5306,9 +5310,9 @@ int show_equip(int target_item, creature_type *cr_ptr)
 		{
 			/* Mention the use */
 #ifdef JP
-			(void)sprintf(tmp_val, "%-7s: ", mention_use(p_ptr, i));
+			(void)sprintf(tmp_val, "%-7s: ", mention_use(cr_ptr, i));
 #else
-			(void)sprintf(tmp_val, "%-14s: ", mention_use(p_ptr, i));
+			(void)sprintf(tmp_val, "%-14s: ", mention_use(cr_ptr, i));
 #endif
 
 			put_str(tmp_val, j+1, cur_col);

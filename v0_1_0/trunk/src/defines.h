@@ -2100,6 +2100,8 @@
 #define TV_DRAG_ARMOR   38      /* Dragon Scale Mail */
 #define TV_LITE         39      /* Lites (including Specials) */
 #define TV_AMULET       40      /* Amulets (including Specials) */
+#define TV_TAIL         41
+#define TV_INSTRUMENT   42
 #define TV_RING         45      /* Rings (including Specials) */
 #define TV_CARD         50
 #define TV_WHEEL        51
@@ -2474,6 +2476,14 @@
 #define SV_RING_MUSCLE                  55
 
 #define SV_EXPRESS_CARD                  0
+
+/* The sval codes for TV_TAIL */
+#define SV_TAIL_BARD					 0
+#define SV_TAIL_LETHER					 1
+#define SV_TAIL_CHAIN_MAIL				 2
+
+/* The sval codes for TV_INSTRUMENT */
+#define SV_INSTRUMENT_LUTE				 0
 
 /* The "sval" codes for TV_STAFF */
 #define SV_STAFF_DARKNESS                0

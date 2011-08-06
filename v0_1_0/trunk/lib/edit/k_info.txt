@@ -6456,3 +6456,40 @@ G:=:W
 I:45:56:0
 W:30:0:2:13000
 F:INSTA_ART
+
+N:677:リュート
+E:& Lute~
+G:~:o
+I:42:0:0
+W:15:0:3:1000
+A:15/2
+
+N:678:尾飾り
+E:Tail Bard~
+G:(:R
+I:41:0:0
+W:3:0:80:18
+A:3/1
+P:4:0d0:0:0:0
+D:$A bard equiped by intelligent race having tail.
+D:尻尾を持つ知的な種族が装備する飾り布だ。
+
+N:679:皮製尾甲
+E:Tail Lether~
+G:(:U
+I:41:1:0
+W:3:0:80:18
+A:3/1
+P:4:0d0:0:0:0
+D:$A lether armour equiped by intelligent race having tail.
+D:尻尾を持つ知的な種族が装備する皮製のよろいだ。
+
+N:680:鎖かたびら尾甲
+E:Tail Chain Mail~
+G:(:W
+I:41:2:0
+W:3:0:80:18
+A:3/1
+P:4:0d0:0:0:0
+D:$A chain mail equiped by intelligent race having tail.
+D:尻尾を持つ知的な種族が装備する鎖かたびらのよろいだ。
