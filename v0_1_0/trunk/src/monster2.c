@@ -3176,7 +3176,7 @@ static void mon_equip(creature_type *m_ptr)
 					int r;
 					object_type ob;
 					/* Equip the artifact */
-					create_named_art(&ob, r_ptr->artifact_id[i]);
+					create_named_art(m_ptr, &ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
 					r = mon_classify_inventory(m_ptr, &ob);
 					if(r != INVEN_NULL)

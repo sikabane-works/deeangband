@@ -121,7 +121,7 @@ static bool wiz_dimension_door(void)
 static void wiz_drop_named_art(int a_idx)
 {
 	/* Create the artifact */
-	(void)drop_named_art(a_idx, p_ptr->fy, p_ptr->fx);
+	(void)drop_named_art(p_ptr, a_idx, p_ptr->fy, p_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -1414,7 +1414,7 @@ static void wiz_create_item(void)
 			if (a_info[i].sval != k_info[k_idx].sval) continue;
 
 			/* Create this artifact */
-			(void)drop_named_art(i, p_ptr->fy, p_ptr->fx);
+			(void)drop_named_art(p_ptr, i, p_ptr->fy, p_ptr->fx);
 
 			/* All done */
 			msg_print("Allocated(INSTA_ART).");

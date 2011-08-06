@@ -2237,7 +2237,7 @@ static bool make_artifact_special(object_type *o_ptr)
 		o_ptr->name1 = i;
 
 		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(o_ptr, a_ptr);
+		random_artifact_resistance(p_ptr, o_ptr, a_ptr);
 
 		/* Success */
 		return (TRUE);
@@ -2302,7 +2302,7 @@ static bool make_artifact(object_type *o_ptr)
 		o_ptr->name1 = i;
 
 		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(o_ptr, a_ptr);
+		random_artifact_resistance(p_ptr, o_ptr, a_ptr);
 
 		/* Success */
 		return (TRUE);

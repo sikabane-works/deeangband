@@ -184,7 +184,7 @@ void one_ability(object_type *o_ptr)
 }
 
 
-static void curse_artifact(object_type * o_ptr)
+static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 {
 	if (o_ptr->pval > 0) o_ptr->pval = 0 - (o_ptr->pval + (s16b)randint1(4));
 	if (o_ptr->to_a > 0) o_ptr->to_a = 0 - (o_ptr->to_a + (s16b)randint1(4));
@@ -201,14 +201,14 @@ static void curse_artifact(object_type * o_ptr)
 	if (one_in_(2)) add_flag(o_ptr->art_flags, TR_TELEPORT);
 	else if (one_in_(3)) add_flag(o_ptr->art_flags, TR_NO_TELE);
 
-	if ((p_ptr->cls_idx != CLASS_WARRIOR) && (p_ptr->cls_idx != CLASS_ARCHER) && (p_ptr->cls_idx != CLASS_CAVALRY) && (p_ptr->cls_idx != CLASS_BERSERKER) && (p_ptr->cls_idx != CLASS_SMITH) && one_in_(3))
+	if ((cr_ptr->cls_idx != CLASS_WARRIOR) && (cr_ptr->cls_idx != CLASS_ARCHER) && (cr_ptr->cls_idx != CLASS_CAVALRY) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH) && one_in_(3))
 		add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 }
 
 
-static void random_plus(object_type * o_ptr)
+static void random_plus(creature_type *cr_ptr, object_type * o_ptr)
 {
-	int this_type = (object_is_weapon_ammo(p_ptr, o_ptr) ? 23 : 19);
+	int this_type = (object_is_weapon_ammo(cr_ptr, o_ptr) ? 23 : 19);
 
 	switch (artifact_bias)
 	{
@@ -408,7 +408,7 @@ static void random_plus(object_type * o_ptr)
 		add_flag(o_ptr->art_flags, TR_TUNNEL);
 		break;
 	case 22: case 23:
-		if (o_ptr->tval == TV_BOW) random_plus(o_ptr);
+		if (o_ptr->tval == TV_BOW) random_plus(cr_ptr, o_ptr);
 		else
 		{
 			add_flag(o_ptr->art_flags, TR_BLOWS);
@@ -746,7 +746,7 @@ static void random_resistance(object_type * o_ptr)
 
 
 
-static void random_misc(object_type * o_ptr)
+static void random_misc(creature_type *cr_ptr, object_type * o_ptr)
 {
 	switch (artifact_bias)
 	{
@@ -893,8 +893,8 @@ static void random_misc(object_type * o_ptr)
 		case 24:
 		case 25:
 		case 26:
-			if (object_is_armour(p_ptr, o_ptr))
-				random_misc(o_ptr);
+			if (object_is_armour(cr_ptr, o_ptr))
+				random_misc(cr_ptr, o_ptr);
 			else
 			{
 				o_ptr->to_a = 4 + (s16b)randint1(11);
@@ -1751,7 +1751,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 		switch (randint1(max_type))
 		{
 			case 1: case 2:
-				random_plus(o_ptr);
+				random_plus(cr_ptr, o_ptr);
 				has_pval = TRUE;
 				break;
 			case 3: case 4:
@@ -1771,7 +1771,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 					random_resistance(o_ptr);
 				break;
 			case 5:
-				random_misc(o_ptr);
+				random_misc(cr_ptr, o_ptr);
 				break;
 			case 6: case 7:
 				random_slay(o_ptr);
@@ -1830,7 +1830,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 	total_flags = flag_cost(o_ptr, o_ptr->pval);
 	if (cheat_peek) msg_format("%ld", total_flags);
 
-	if (a_cursed) curse_artifact(o_ptr);
+	if (a_cursed) curse_artifact(cr_ptr, o_ptr);
 
 	if (!a_cursed &&
 	    one_in_(object_is_armour(cr_ptr, o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
@@ -3045,13 +3045,13 @@ void get_bloody_moon_flags(object_type *o_ptr)
 }
 
 
-void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
+void random_artifact_resistance(creature_type *cr_ptr, object_type *o_ptr, artifact_type *a_ptr)
 {
 	bool give_resistance = FALSE, give_power = FALSE;
 
 	if (o_ptr->name1 == ART_TERROR) /* Terror Mask is for warriors... */
 	{
-		if (p_ptr->cls_idx == CLASS_WARRIOR || p_ptr->cls_idx == CLASS_ARCHER || p_ptr->cls_idx == CLASS_CAVALRY || p_ptr->cls_idx == CLASS_BERSERKER)
+		if (cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_ARCHER || cr_ptr->cls_idx == CLASS_CAVALRY || cr_ptr->cls_idx == CLASS_BERSERKER)
 		{
 			give_power = TRUE;
 			give_resistance = TRUE;
@@ -3069,7 +3069,7 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 
 	if (o_ptr->name1 == ART_MURAMASA)
 	{
-		if (p_ptr->cls_idx != CLASS_SAMURAI)
+		if (cr_ptr->cls_idx != CLASS_SAMURAI)
 		{
 			add_flag(o_ptr->art_flags, TR_NO_MAGIC);
 			o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -3078,7 +3078,7 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 
 	if (o_ptr->name1 == ART_XIAOLONG)
 	{
-		if (p_ptr->cls_idx == CLASS_MONK)
+		if (cr_ptr->cls_idx == CLASS_MONK)
 			add_flag(o_ptr->art_flags, TR_BLOWS);
 	}
 
@@ -3089,7 +3089,7 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 
 	if (o_ptr->name1 == ART_HEAVENLY_MAIDEN)
 	{
-		if (p_ptr->sex != SEX_FEMALE)
+		if (cr_ptr->sex != SEX_FEMALE)
 		{
 			add_flag(o_ptr->art_flags, TR_AGGRAVATE);
 		}
@@ -3116,7 +3116,7 @@ void random_artifact_resistance(object_type * o_ptr, artifact_type *a_ptr)
 }
 
 
-bool create_named_art(object_type *q_ptr, int a_idx)
+bool create_named_art(creature_type *cr_ptr, object_type *q_ptr, int a_idx)
 {
 	int i;
 
@@ -3161,18 +3161,18 @@ bool create_named_art(object_type *q_ptr, int a_idx)
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) q_ptr->curse_flags |= get_curse(1, q_ptr);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) q_ptr->curse_flags |= get_curse(2, q_ptr);
 
-	random_artifact_resistance(q_ptr, a_ptr);
+	random_artifact_resistance(cr_ptr, q_ptr, a_ptr);
 	return TRUE;
 }
 
 /*
  * Create the artifact of the specified number
  */
-bool drop_named_art(int a_idx, int y, int x)
+bool drop_named_art(creature_type *cr_ptr, int a_idx, int y, int x)
 {
 	object_type forge;
 	
-	(void)create_named_art(&forge, a_idx);
+	(void)create_named_art(cr_ptr, &forge, a_idx);
 
 	/*
 	 * drop_near()内で普通の固定アーティファクトが重ならない性質に依存する.
