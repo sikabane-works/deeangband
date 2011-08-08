@@ -1132,10 +1132,10 @@ static int check_hit(creature_type *cr_ptr, int power)
 /*
  * Handle player hitting a real trap
  */
-static void hit_trap(bool break_trap)
+static void hit_trap(creature_type *cr_ptr, bool break_trap)
 {
 	int i, num, dam;
-	int x = p_ptr->fx, y = p_ptr->fy;
+	int x = cr_ptr->fx, y = cr_ptr->fy;
 
 	/* Get the cave grid */
 	cave_type *c_ptr = &cave[y][x];
@@ -1158,7 +1158,7 @@ static void hit_trap(bool break_trap)
 	{
 		case TRAP_TRAPDOOR:
 		{
-			if (p_ptr->levitation)
+			if (cr_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("落とし戸を飛び越えた。");
@@ -1171,9 +1171,9 @@ static void hit_trap(bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("くっそ～！");
-				if (p_ptr->chara_idx == CHARA_CHARGEMAN)
+				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("ジュラル星人の仕業に違いない！");
 
 #else
@@ -1188,10 +1188,10 @@ static void hit_trap(bool break_trap)
 				name = "a trap door";
 #endif
 
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 
 				/* Still alive and autosave enabled */
-				if (autosave_l && (p_ptr->chp >= 0))
+				if (autosave_l && (cr_ptr->chp >= 0))
 					do_cmd_save_game(TRUE);
 
 #ifdef JP
@@ -1202,14 +1202,14 @@ static void hit_trap(bool break_trap)
 				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 				/* Leaving */
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 			}
 			break;
 		}
 
 		case TRAP_PIT:
 		{
-			if (p_ptr->levitation)
+			if (cr_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("落とし穴を飛び越えた。");
@@ -1233,14 +1233,14 @@ static void hit_trap(bool break_trap)
 				name = "a pit trap";
 #endif
 
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
 
 		case TRAP_SPIKED_PIT:
 		{
-			if (p_ptr->levitation)
+			if (cr_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("トゲのある落とし穴を飛び越えた。");
@@ -1284,18 +1284,18 @@ static void hit_trap(bool break_trap)
 #endif
 
 					dam = dam * 2;
-					(void)set_cut(p_ptr, p_ptr->cut + randint1(dam));
+					(void)set_cut(cr_ptr, cr_ptr->cut + randint1(dam));
 				}
 
 				/* Take the damage */
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
 
 		case TRAP_POISON_PIT:
 		{
-			if (p_ptr->levitation)
+			if (cr_ptr->levitation)
 			{
 #ifdef JP
 				msg_print("トゲのある落とし穴を飛び越えた。");
@@ -1341,9 +1341,9 @@ static void hit_trap(bool break_trap)
 
 
 					dam = dam * 2;
-					(void)set_cut(p_ptr, p_ptr->cut + randint1(dam));
+					(void)set_cut(cr_ptr, cr_ptr->cut + randint1(dam));
 
-					if (p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr))
+					if (cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr))
 					{
 #ifdef JP
 						msg_print("しかし毒の影響はなかった！");
@@ -1356,12 +1356,12 @@ static void hit_trap(bool break_trap)
 					else
 					{
 						dam = dam * 2;
-						(void)set_poisoned(p_ptr, p_ptr->poisoned + randint1(dam));
+						(void)set_poisoned(cr_ptr, cr_ptr->poisoned + randint1(dam));
 					}
 				}
 
 				/* Take the damage */
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 
 			break;
@@ -1403,7 +1403,7 @@ static void hit_trap(bool break_trap)
 			msg_print("You hit a teleport trap!");
 #endif
 
-			teleport_player(p_ptr, 100, TELEPORT_PASSIVE);
+			teleport_player(cr_ptr, 100, TELEPORT_PASSIVE);
 			break;
 		}
 
@@ -1445,7 +1445,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if (check_hit(p_ptr, 125))
+			if (check_hit(cr_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1455,12 +1455,12 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(p_ptr->multishadow && (turn & 1))) (void)set_slow(p_ptr, p_ptr->slow + randint0(20) + 20, FALSE);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)set_slow(cr_ptr, cr_ptr->slow + randint0(20) + 20, FALSE);
 			}
 			else
 			{
@@ -1476,7 +1476,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_STR:
 		{
-			if (check_hit(p_ptr, 125))
+			if (check_hit(cr_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1486,12 +1486,12 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_STR);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_STR);
 			}
 			else
 			{
@@ -1507,7 +1507,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_DEX:
 		{
-			if (check_hit(p_ptr, 125))
+			if (check_hit(cr_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1517,12 +1517,12 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_DEX);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_DEX);
 			}
 			else
 			{
@@ -1538,7 +1538,7 @@ static void hit_trap(bool break_trap)
 
 		case TRAP_LOSE_CON:
 		{
-			if (check_hit(p_ptr, 125))
+			if (check_hit(cr_ptr, 125))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1548,12 +1548,12 @@ static void hit_trap(bool break_trap)
 
 				dam = damroll(1, 4);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(p_ptr->multishadow && (turn & 1))) (void)do_dec_stat(p_ptr, A_CON);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_CON);
 			}
 			else
 			{
@@ -1575,9 +1575,9 @@ static void hit_trap(bool break_trap)
 			msg_print("A black gas surrounds you!");
 #endif
 
-			if (!p_ptr->resist_blind)
+			if (!cr_ptr->resist_blind)
 			{
-				(void)set_blind(p_ptr, p_ptr->blind + randint0(50) + 25);
+				(void)set_blind(cr_ptr, cr_ptr->blind + randint0(50) + 25);
 			}
 			break;
 		}
@@ -1590,9 +1590,9 @@ static void hit_trap(bool break_trap)
 			msg_print("A gas of scintillating colors surrounds you!");
 #endif
 
-			if (!p_ptr->resist_conf)
+			if (!cr_ptr->resist_conf)
 			{
-				(void)set_confused(p_ptr, p_ptr->confused + randint0(20) + 10);
+				(void)set_confused(cr_ptr, cr_ptr->confused + randint0(20) + 10);
 			}
 			break;
 		}
@@ -1605,9 +1605,9 @@ static void hit_trap(bool break_trap)
 			msg_print("A pungent green gas surrounds you!");
 #endif
 
-			if (!p_ptr->resist_pois && !IS_OPPOSE_POIS(p_ptr))
+			if (!cr_ptr->resist_pois && !IS_OPPOSE_POIS(cr_ptr))
 			{
-				(void)set_poisoned(p_ptr, p_ptr->poisoned + randint0(20) + 10);
+				(void)set_poisoned(cr_ptr, cr_ptr->poisoned + randint0(20) + 10);
 			}
 			break;
 		}
@@ -1620,7 +1620,7 @@ static void hit_trap(bool break_trap)
 			msg_print("A strange white mist surrounds you!");
 #endif
 
-			if (!p_ptr->free_act)
+			if (!cr_ptr->free_act)
 			{
 #ifdef JP
 msg_print("あなたは眠りに就いた。");
@@ -1642,12 +1642,12 @@ msg_print("身の毛もよだつ光景が頭に浮かんだ。");
 					get_mon_num_prep(get_nightmare, NULL);
 
 					/* Have some nightmares */
-					have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
+					have_nightmare(cr_ptr, get_mon_num(MAX_DEPTH));
 
 					/* Remove the monster restriction */
 					get_mon_num_prep(NULL, NULL);
 				}
-				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(10) + 5);
+				(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint0(10) + 5);
 			}
 			break;
 		}
@@ -1719,7 +1719,7 @@ msg_print("まばゆい閃光が走った！");
 					if (!in_bounds(y1, x1)) continue;
 
 					/* Require line of projection */
-					if (!projectable(p_ptr->fy, p_ptr->fx, y1, x1)) continue;
+					if (!projectable(cr_ptr->fy, cr_ptr->fx, y1, x1)) continue;
 
 					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PM_NO_PET)))
 						evil_idx = hack_m_idx_ii;
@@ -3874,7 +3874,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		}
 
 		/* Hit the trap */
-		hit_trap((mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
+		hit_trap(p_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
 		if (!player_bold(ny, nx) || p_ptr->is_dead || p_ptr->leaving) return FALSE;
 	}
