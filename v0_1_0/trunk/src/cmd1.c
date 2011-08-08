@@ -5276,7 +5276,7 @@ void run_step(int dir)
 /*
  * Test for traveling
  */
-static bool travel_test(void)
+static bool travel_test(creature_type *cr_ptr)
 {
 	int prev_dir, new_dir, check_dir = 0;
 	int row, col;
@@ -5292,20 +5292,20 @@ static bool travel_test(void)
 
 	for (i = 0; i < 8; i++)
 	{
-		if (travel.cost[p_ptr->fy+ddy_ddd[i]][p_ptr->fx+ddx_ddd[i]] < travel.cost[p_ptr->fy][p_ptr->fx]) stop = FALSE;
+		if (travel.cost[cr_ptr->fy+ddy_ddd[i]][cr_ptr->fx+ddx_ddd[i]] < travel.cost[cr_ptr->fy][cr_ptr->fx]) stop = FALSE;
 	}
 
 	if (stop) return (TRUE);
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && p_ptr->dtrap && !(cave[p_ptr->fy][p_ptr->fx].info & CAVE_IN_DETECT))
+	    && cr_ptr->dtrap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		p_ptr->dtrap = FALSE;
+		cr_ptr->dtrap = FALSE;
 
 		/* You are just on the edge */
-		if (!(cave[p_ptr->fy][p_ptr->fx].info & CAVE_UNSAFE))
+		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -5325,7 +5325,7 @@ static bool travel_test(void)
 	}
 
 	/* Cannot travel when blind */
-	if (p_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite())
 	{
 #ifdef JP
 		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
@@ -5342,8 +5342,8 @@ static bool travel_test(void)
 		new_dir = cycle[chome[prev_dir] + i];
 
 		/* New location */
-		row = p_ptr->fy + ddy[new_dir];
-		col = p_ptr->fx + ddx[new_dir];
+		row = cr_ptr->fy + ddy[new_dir];
+		col = cr_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
 		c_ptr = &cave[row][col];
@@ -5367,7 +5367,7 @@ static bool travel_test(void)
 /*
  * Travel command
  */
-void travel_step(void)
+void travel_step(creature_type *cr_ptr)
 {
 	int i;
 	int dir = travel.dir;
@@ -5376,7 +5376,7 @@ void travel_step(void)
 	find_prevdir = dir;
 
 	/* disturb */
-	if (travel_test())
+	if (travel_test(cr_ptr))
 	{
 		if (travel.run == 255)
 		{
@@ -5396,14 +5396,14 @@ void travel_step(void)
 	{
 		if (i == 5) continue;
 
-		if (travel.cost[p_ptr->fy+ddy[i]][p_ptr->fx+ddx[i]] < travel.cost[p_ptr->fy+ddy[dir]][p_ptr->fx+ddx[dir]])
+		if (travel.cost[cr_ptr->fy+ddy[i]][cr_ptr->fx+ddx[i]] < travel.cost[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]])
 		{
 			dir = i;
 		}
 	}
 
 	/* Close door */
-	if (!easy_open && is_closed_door(cave[p_ptr->fy+ddy[dir]][p_ptr->fx+ddx[dir]].feat))
+	if (!easy_open && is_closed_door(cave[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]].feat))
 	{
 		disturb(0, 0);
 		return;
@@ -5413,7 +5413,7 @@ void travel_step(void)
 	move_player(dir, always_pickup, easy_disarm);
 	travel.run = old_run;
 
-	if ((p_ptr->fy == travel.y) && (p_ptr->fx == travel.x))
+	if ((cr_ptr->fy == travel.y) && (cr_ptr->fx == travel.x))
 		travel.run = 0;
 	else
 		travel.run--;

@@ -730,7 +730,7 @@ extern bool trap_can_be_ignored(int feat);
 extern void move_player(int dir, bool do_pickup, bool break_trap);
 extern void run_step(int dir);
 #ifdef TRAVEL
-extern void travel_step(void);
+extern void travel_step(creature_type *cr_ptr);
 #endif
 
 /* cmd2.c */
