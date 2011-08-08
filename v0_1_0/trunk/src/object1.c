@@ -7963,7 +7963,7 @@ static bool py_pickup_floor_aux(creature_type *cr_ptr)
 	}
 
 	/* Pick up the object */
-	py_pickup_aux(this_o_idx);
+	py_pickup_aux(cr_ptr, this_o_idx);
 
 	return (TRUE);
 }
@@ -8213,7 +8213,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 		/* Pick up the object */
-		py_pickup_aux(floor_o_idx);
+		py_pickup_aux(cr_ptr, floor_o_idx);
 	}
 
 	/* Allow the user to choose an object */

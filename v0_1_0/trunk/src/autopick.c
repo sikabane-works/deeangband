@@ -1789,7 +1789,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 				}
 
 			}
-			py_pickup_aux(this_o_idx);
+			py_pickup_aux(p_ptr, this_o_idx);
 		}
 		
 		/*

@@ -690,7 +690,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 /*
  * Search for hidden things
  */
-void search(void)
+void search(creature_type *cr_ptr)
 {
 	int y, x, chance;
 
@@ -700,16 +700,16 @@ void search(void)
 
 
 	/* Start with base search ability */
-	chance = p_ptr->skill_srh;
+	chance = cr_ptr->skill_srh;
 
 	/* Penalize various conditions */
-	if (p_ptr->blind || no_lite()) chance = chance / 10;
-	if (p_ptr->confused || p_ptr->image) chance = chance / 10;
+	if (cr_ptr->blind || no_lite()) chance = chance / 10;
+	if (cr_ptr->confused || cr_ptr->image) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
-	for (y = (p_ptr->fy - 1); y <= (p_ptr->fy + 1); y++)
+	for (y = (cr_ptr->fy - 1); y <= (cr_ptr->fy + 1); y++)
 	{
-		for (x = (p_ptr->fx - 1); x <= (p_ptr->fx + 1); x++)
+		for (x = (cr_ptr->fx - 1); x <= (cr_ptr->fx + 1); x++)
 		{
 			/* Sometimes, notice things */
 			if (randint0(100) < chance)
@@ -798,7 +798,7 @@ void search(void)
  *
  * Delete the object afterwards.
  */
-void py_pickup_aux(int o_idx)
+void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 {
 	int slot, i;
 
@@ -829,15 +829,15 @@ void py_pickup_aux(int o_idx)
 	hirottakazu = o_ptr->number;
 #endif
 	/* Carry the object */
-	slot = inven_carry(p_ptr, o_ptr);
+	slot = inven_carry(cr_ptr, o_ptr);
 
 	/* Get the object again */
-	o_ptr = &p_ptr->inventory[slot];
+	o_ptr = &cr_ptr->inventory[slot];
 
 	/* Delete the object */
 	delete_object_idx(o_idx);
 
-	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		bool old_known = identify_item(o_ptr);
 
@@ -853,31 +853,31 @@ void py_pickup_aux(int o_idx)
 
 	/* Message */
 #ifdef JP
-	if ((o_ptr->name1 == ART_CRIMSON) && (p_ptr->chara_idx == CHARA_COMBAT))
+	if ((o_ptr->name1 == ART_CRIMSON) && (cr_ptr->chara_idx == CHARA_COMBAT))
 	{
-		msg_format("こうして、%sは『クリムゾン』を手に入れた。", p_ptr->name);
+		msg_format("こうして、%sは『クリムゾン』を手に入れた。", cr_ptr->name);
 		msg_print("しかし今、『混沌のサーペント』の放ったモンスターが、");
-		msg_format("%sに襲いかかる．．．", p_ptr->name);
+		msg_format("%sに襲いかかる．．．", cr_ptr->name);
 	}
 	else
 	{
 		if (plain_pickup)
 		{
-			msg_format("%s(%c)を持っている。",o_name, index_to_label(p_ptr, slot));
+			msg_format("%s(%c)を持っている。",o_name, index_to_label(cr_ptr, slot));
 		}
 		else
 		{
 			if (o_ptr->number > hirottakazu) {
 			    msg_format("%s拾って、%s(%c)を持っている。",
-			       kazu_str, o_name, index_to_label(p_ptr, slot));
+			       kazu_str, o_name, index_to_label(cr_ptr, slot));
 			} else {
-				msg_format("%s(%c)を拾った。", o_name, index_to_label(p_ptr, slot));
+				msg_format("%s(%c)を拾った。", o_name, index_to_label(cr_ptr, slot));
 			}
 		}
 	}
 	strcpy(record_o_name, old_name);
 #else
-	msg_format("You have %s (%c).", o_name, index_to_label(p_ptr, slot));
+	msg_format("You have %s (%c).", o_name, index_to_label(cr_ptr, slot));
 	strcpy(record_o_name, o_name);
 #endif
 	record_turn = turn;
@@ -892,7 +892,7 @@ void py_pickup_aux(int o_idx)
 		{
 			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
-			quest[i].complev = (byte)p_ptr->lev;
+			quest[i].complev = (byte)cr_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -1088,7 +1088,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 				if (okay)
 				{
 					/* Pick up the object */
-					py_pickup_aux(this_o_idx);
+					py_pickup_aux(p_ptr, this_o_idx);
 				}
 			}
 		}
@@ -3778,13 +3778,13 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		/* Spontaneous Searching */
 		if ((p_ptr->skill_fos >= 50) || (0 == randint0(50 - p_ptr->skill_fos)))
 		{
-			search();
+			search(p_ptr);
 		}
 
 		/* Continuous Searching */
 		if (p_ptr->action == ACTION_SEARCH)
 		{
-			search();
+			search(p_ptr);
 		}
 	}
 

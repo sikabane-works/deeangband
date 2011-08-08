@@ -408,7 +408,7 @@ void do_cmd_search(void)
 	energy_use = 100;
 
 	/* Search */
-	search();
+	search(p_ptr);
 }
 
 
@@ -1630,7 +1630,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 				msg_format("You chop away at the %s.", name);
 #endif
 				/* Occasional Search XXX XXX */
-				if (randint0(100) < 25) search();
+				if (randint0(100) < 25) search(p_ptr);
 			}
 			else
 			{
@@ -1649,7 +1649,7 @@ static bool do_cmd_tunnel_aux(int y, int x)
 	if (is_hidden_door(c_ptr))
 	{
 		/* Occasional Search XXX XXX */
-		if (randint0(100) < 25) search();
+		if (randint0(100) < 25) search(p_ptr);
 	}
 
 	/* Result */
