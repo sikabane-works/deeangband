@@ -6083,7 +6083,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_MON_LITE))
 	{
 		cr_ptr->update &= ~(PU_MON_LITE);
-		update_mon_lite();
+		update_mon_lite(cr_ptr);
 	}
 
 	/*

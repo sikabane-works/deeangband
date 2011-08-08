@@ -2821,7 +2821,7 @@ static s16b mon_fy, mon_fx;
 /*
  * Add a square to the changes array
  */
-static void mon_lite_hack(int y, int x)
+static void mon_lite_hack(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
@@ -2839,11 +2839,11 @@ static void mon_lite_hack(int y, int x)
 		/* Hack -- Prevent monster lite leakage in walls */
 
 		/* Horizontal walls between player and a monster */
-		if (((y < p_ptr->fy) && (y > mon_fy)) || ((y > p_ptr->fy) && (y < mon_fy)))
+		if (((y < cr_ptr->fy) && (y > mon_fy)) || ((y > cr_ptr->fy) && (y < mon_fy)))
 		{
-			dpf = p_ptr->fy - mon_fy;
+			dpf = cr_ptr->fy - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((p_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((cr_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
@@ -2860,11 +2860,11 @@ static void mon_lite_hack(int y, int x)
 		}
 
 		/* Vertical walls between player and a monster */
-		if (((x < p_ptr->fx) && (x > mon_fx)) || ((x > p_ptr->fx) && (x < mon_fx)))
+		if (((x < cr_ptr->fx) && (x > mon_fx)) || ((x > cr_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = p_ptr->fx - mon_fx;
+			dpf = cr_ptr->fx - mon_fx;
 			d = x - mon_fx;
-			midpoint = mon_fy + ((p_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fy + ((cr_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
@@ -2907,7 +2907,7 @@ static void mon_lite_hack(int y, int x)
 /*
  * Add a square to the changes array
  */
-static void mon_dark_hack(int y, int x)
+static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
@@ -2925,11 +2925,11 @@ static void mon_dark_hack(int y, int x)
 		/* Hack -- Prevent monster dark lite leakage in walls */
 
 		/* Horizontal walls between player and a monster */
-		if (((y < p_ptr->fy) && (y > mon_fy)) || ((y > p_ptr->fy) && (y < mon_fy)))
+		if (((y < cr_ptr->fy) && (y > mon_fy)) || ((y > cr_ptr->fy) && (y < mon_fy)))
 		{
-			dpf = p_ptr->fy - mon_fy;
+			dpf = cr_ptr->fy - mon_fy;
 			d = y - mon_fy;
-			midpoint = mon_fx + ((p_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fx + ((cr_ptr->fx - mon_fx) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-x is lit */
 			if (x < midpoint)
@@ -2946,11 +2946,11 @@ static void mon_dark_hack(int y, int x)
 		}
 
 		/* Vertical walls between player and a monster */
-		if (((x < p_ptr->fx) && (x > mon_fx)) || ((x > p_ptr->fx) && (x < mon_fx)))
+		if (((x < cr_ptr->fx) && (x > mon_fx)) || ((x > cr_ptr->fx) && (x < mon_fx)))
 		{
-			dpf = p_ptr->fx - mon_fx;
+			dpf = cr_ptr->fx - mon_fx;
 			d = x - mon_fx;
-			midpoint = mon_fy + ((p_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
+			midpoint = mon_fy + ((cr_ptr->fy - mon_fy) * ABS(d)) / ABS(dpf);
 
 			/* Only first wall viewed from mid-y is lit */
 			if (y < midpoint)
@@ -2989,19 +2989,19 @@ static void mon_dark_hack(int y, int x)
  * updating.  Only squares in view of the player, whos state
  * changes are drawn via lite_spot().
  */
-void update_mon_lite(void)
+void update_mon_lite(creature_type *cr_ptr)
 {
 	int i, rad;
 	cave_type *c_ptr;
 
 	s16b fx, fy;
-	void (*add_mon_lite)(int, int);
+	void (*add_mon_lite)(creature_type *, int, int);
 	int f_flag;
 
 	s16b end_temp;
 
 	/* Non-Ninja player in the darkness */
-	int dis_lim = ((d_info[dungeon_type].flags1 & DF1_DARKNESS) && !p_ptr->see_nocto) ?
+	int dis_lim = ((d_info[dungeon_type].flags1 & DF1_DARKNESS) && !cr_ptr->see_nocto) ?
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
 	/* Clear all monster lit squares */
@@ -3051,7 +3051,7 @@ void update_mon_lite(void)
 			if (!rad) continue;
 			else if (rad > 0)
 			{
-				if (!(r_ptr->flags7 & (RF7_SELF_LITE_1 | RF7_SELF_LITE_2)) && (m_ptr->paralyzed || (!dun_level && is_daytime()) || p_ptr->inside_battle)) continue;
+				if (!(r_ptr->flags7 & (RF7_SELF_LITE_1 | RF7_SELF_LITE_2)) && (m_ptr->paralyzed || (!dun_level && is_daytime()) || cr_ptr->inside_battle)) continue;
 				if (d_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_mon_lite = mon_lite_hack;
 				f_flag = FF_LOS;
@@ -3072,17 +3072,17 @@ void update_mon_lite(void)
 			mon_invis = !(cave[mon_fy][mon_fx].info & CAVE_VIEW);
 
 			/* The square it is on */
-			add_mon_lite(mon_fy, mon_fx);
+			add_mon_lite(cr_ptr, mon_fy, mon_fx);
 
 			/* Adjacent squares */
-			add_mon_lite(mon_fy + 1, mon_fx);
-			add_mon_lite(mon_fy - 1, mon_fx);
-			add_mon_lite(mon_fy, mon_fx + 1);
-			add_mon_lite(mon_fy, mon_fx - 1);
-			add_mon_lite(mon_fy + 1, mon_fx + 1);
-			add_mon_lite(mon_fy + 1, mon_fx - 1);
-			add_mon_lite(mon_fy - 1, mon_fx + 1);
-			add_mon_lite(mon_fy - 1, mon_fx - 1);
+			add_mon_lite(cr_ptr, mon_fy + 1, mon_fx);
+			add_mon_lite(cr_ptr, mon_fy - 1, mon_fx);
+			add_mon_lite(cr_ptr, mon_fy, mon_fx + 1);
+			add_mon_lite(cr_ptr, mon_fy, mon_fx - 1);
+			add_mon_lite(cr_ptr, mon_fy + 1, mon_fx + 1);
+			add_mon_lite(cr_ptr, mon_fy + 1, mon_fx - 1);
+			add_mon_lite(cr_ptr, mon_fy - 1, mon_fx + 1);
+			add_mon_lite(cr_ptr, mon_fy - 1, mon_fx - 1);
 
 			/* Radius 2 */
 			if (rad >= 2)
@@ -3090,72 +3090,72 @@ void update_mon_lite(void)
 				/* South of the monster */
 				if (cave_have_flag_bold(mon_fy + 1, mon_fx, f_flag))
 				{
-					add_mon_lite(mon_fy + 2, mon_fx + 1);
-					add_mon_lite(mon_fy + 2, mon_fx);
-					add_mon_lite(mon_fy + 2, mon_fx - 1);
+					add_mon_lite(cr_ptr, mon_fy + 2, mon_fx + 1);
+					add_mon_lite(cr_ptr, mon_fy + 2, mon_fx);
+					add_mon_lite(cr_ptr, mon_fy + 2, mon_fx - 1);
 
 					c_ptr = &cave[mon_fy + 2][mon_fx];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(mon_fy + 3, mon_fx + 1);
-						add_mon_lite(mon_fy + 3, mon_fx);
-						add_mon_lite(mon_fy + 3, mon_fx - 1);
+						add_mon_lite(cr_ptr, mon_fy + 3, mon_fx + 1);
+						add_mon_lite(cr_ptr, mon_fy + 3, mon_fx);
+						add_mon_lite(cr_ptr, mon_fy + 3, mon_fx - 1);
 					}
 				}
 
 				/* North of the monster */
 				if (cave_have_flag_bold(mon_fy - 1, mon_fx, f_flag))
 				{
-					add_mon_lite(mon_fy - 2, mon_fx + 1);
-					add_mon_lite(mon_fy - 2, mon_fx);
-					add_mon_lite(mon_fy - 2, mon_fx - 1);
+					add_mon_lite(cr_ptr, mon_fy - 2, mon_fx + 1);
+					add_mon_lite(cr_ptr, mon_fy - 2, mon_fx);
+					add_mon_lite(cr_ptr, mon_fy - 2, mon_fx - 1);
 
 					c_ptr = &cave[mon_fy - 2][mon_fx];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(mon_fy - 3, mon_fx + 1);
-						add_mon_lite(mon_fy - 3, mon_fx);
-						add_mon_lite(mon_fy - 3, mon_fx - 1);
+						add_mon_lite(cr_ptr, mon_fy - 3, mon_fx + 1);
+						add_mon_lite(cr_ptr, mon_fy - 3, mon_fx);
+						add_mon_lite(cr_ptr, mon_fy - 3, mon_fx - 1);
 					}
 				}
 
 				/* East of the monster */
 				if (cave_have_flag_bold(mon_fy, mon_fx + 1, f_flag))
 				{
-					add_mon_lite(mon_fy + 1, mon_fx + 2);
-					add_mon_lite(mon_fy, mon_fx + 2);
-					add_mon_lite(mon_fy - 1, mon_fx + 2);
+					add_mon_lite(cr_ptr, mon_fy + 1, mon_fx + 2);
+					add_mon_lite(cr_ptr, mon_fy, mon_fx + 2);
+					add_mon_lite(cr_ptr, mon_fy - 1, mon_fx + 2);
 
 					c_ptr = &cave[mon_fy][mon_fx + 2];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(mon_fy + 1, mon_fx + 3);
-						add_mon_lite(mon_fy, mon_fx + 3);
-						add_mon_lite(mon_fy - 1, mon_fx + 3);
+						add_mon_lite(cr_ptr, mon_fy + 1, mon_fx + 3);
+						add_mon_lite(cr_ptr, mon_fy, mon_fx + 3);
+						add_mon_lite(cr_ptr, mon_fy - 1, mon_fx + 3);
 					}
 				}
 
 				/* West of the monster */
 				if (cave_have_flag_bold(mon_fy, mon_fx - 1, f_flag))
 				{
-					add_mon_lite(mon_fy + 1, mon_fx - 2);
-					add_mon_lite(mon_fy, mon_fx - 2);
-					add_mon_lite(mon_fy - 1, mon_fx - 2);
+					add_mon_lite(cr_ptr, mon_fy + 1, mon_fx - 2);
+					add_mon_lite(cr_ptr, mon_fy, mon_fx - 2);
+					add_mon_lite(cr_ptr, mon_fy - 1, mon_fx - 2);
 
 					c_ptr = &cave[mon_fy][mon_fx - 2];
 
 					/* Radius 3 */
 					if ((rad == 3) && cave_have_flag_grid(c_ptr, f_flag))
 					{
-						add_mon_lite(mon_fy + 1, mon_fx - 3);
-						add_mon_lite(mon_fy, mon_fx - 3);
-						add_mon_lite(mon_fy - 1, mon_fx - 3);
+						add_mon_lite(cr_ptr, mon_fy + 1, mon_fx - 3);
+						add_mon_lite(cr_ptr, mon_fy, mon_fx - 3);
+						add_mon_lite(cr_ptr, mon_fy - 1, mon_fx - 3);
 					}
 				}
 			}
@@ -3166,25 +3166,25 @@ void update_mon_lite(void)
 				/* South-East of the monster */
 				if (cave_have_flag_bold(mon_fy + 1, mon_fx + 1, f_flag))
 				{
-					add_mon_lite(mon_fy + 2, mon_fx + 2);
+					add_mon_lite(cr_ptr, mon_fy + 2, mon_fx + 2);
 				}
 
 				/* South-West of the monster */
 				if (cave_have_flag_bold(mon_fy + 1, mon_fx - 1, f_flag))
 				{
-					add_mon_lite(mon_fy + 2, mon_fx - 2);
+					add_mon_lite(cr_ptr, mon_fy + 2, mon_fx - 2);
 				}
 
 				/* North-East of the monster */
 				if (cave_have_flag_bold(mon_fy - 1, mon_fx + 1, f_flag))
 				{
-					add_mon_lite(mon_fy - 2, mon_fx + 2);
+					add_mon_lite(cr_ptr, mon_fy - 2, mon_fx + 2);
 				}
 
 				/* North-West of the monster */
 				if (cave_have_flag_bold(mon_fy - 1, mon_fx - 1, f_flag))
 				{
-					add_mon_lite(mon_fy - 2, mon_fx - 2);
+					add_mon_lite(cr_ptr, mon_fy - 2, mon_fx - 2);
 				}
 			}
 		}
@@ -3286,15 +3286,15 @@ void update_mon_lite(void)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	p_ptr->update |= (PU_DELAY_VIS);
+	cr_ptr->update |= (PU_DELAY_VIS);
 
-	p_ptr->monlite = (cave[p_ptr->fy][p_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
+	cr_ptr->monlite = (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (cr_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (p_ptr->old_monlite != p_ptr->monlite)
+		if (cr_ptr->old_monlite != cr_ptr->monlite)
 		{
-			if (p_ptr->monlite)
+			if (cr_ptr->monlite)
 			{
 #ifdef JP
 				msg_print("‰e‚Ì•¢‚¢‚ª”–‚ê‚½‹C‚ª‚·‚éB");
@@ -3312,7 +3312,7 @@ void update_mon_lite(void)
 			}
 		}
 	}
-	p_ptr->old_monlite = p_ptr->monlite;
+	cr_ptr->old_monlite = cr_ptr->monlite;
 }
 
 void clear_mon_lite(void)
@@ -3406,7 +3406,7 @@ void forget_view(void)
  *
  * This function now returns "TRUE" if vision is "blocked" by grid (y,x).
  */
-static bool update_view_aux(int y, int x, int y1, int x1, int y2, int x2)
+static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1, int y2, int x2)
 {
 	bool f1, f2, v1, v2, z1, z2, wall;
 
@@ -3487,7 +3487,7 @@ static bool update_view_aux(int y, int x, int y1, int x1, int y2, int x2)
 
 
 	/* Hack -- check line of sight */
-	if (los(p_ptr->fy, p_ptr->fx, y, x))
+	if (los(cr_ptr->fy, cr_ptr->fx, y, x))
 	{
 		cave_view_hack(c_ptr, y, x);
 
@@ -3797,7 +3797,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
+					if (update_view_aux(p_ptr, ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
 					{
 						if (n + d >= se) break;
 					}
@@ -3820,7 +3820,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
+					if (update_view_aux(p_ptr, ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
 					{
 						if (n + d >= sw) break;
 					}
@@ -3851,7 +3851,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
+					if (update_view_aux(p_ptr, ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
 					{
 						if (n + d >= ne) break;
 					}
@@ -3874,7 +3874,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
+					if (update_view_aux(p_ptr, ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
 					{
 						if (n + d >= nw) break;
 					}
@@ -3905,7 +3905,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
+					if (update_view_aux(p_ptr, ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
 					{
 						if (n + d >= es) break;
 					}
@@ -3928,7 +3928,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
+					if (update_view_aux(p_ptr, ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
 					{
 						if (n + d >= en) break;
 					}
@@ -3959,7 +3959,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
+					if (update_view_aux(p_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
 					{
 						if (n + d >= ws) break;
 					}
@@ -3982,7 +3982,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
+					if (update_view_aux(p_ptr, ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
 					{
 						if (n + d >= wn) break;
 					}
