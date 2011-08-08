@@ -373,11 +373,11 @@ bool los(int y1, int x1, int y2, int x2)
 /*
  * Check for "local" illumination
  */
-static bool check_local_illumination(int y, int x)
+static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 {
 	/* Hack -- move towards player */
-	int yy = (y < p_ptr->fy) ? (y + 1) : (y > p_ptr->fy) ? (y - 1) : y;
-	int xx = (x < p_ptr->fx) ? (x + 1) : (x > p_ptr->fx) ? (x - 1) : x;
+	int yy = (y < cr_ptr->fy) ? (y + 1) : (y > cr_ptr->fy) ? (y - 1) : y;
+	int xx = (x < cr_ptr->fx) ? (x + 1) : (x > cr_ptr->fx) ? (x - 1) : x;
 
 	/* Check for "local" illumination */
 
@@ -572,7 +572,7 @@ bool player_can_see_bold(int y, int x)
 	if (feat_supports_los(get_feat_mimic(c_ptr))) return TRUE;
 
 	/* Check for "local" illumination */
-	return check_local_illumination(y, x);
+	return check_local_illumination(p_ptr, y, x);
 }
 
 
@@ -1126,7 +1126,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					}
 
 					/* Not glowing correctly */
-					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(y, x))
+					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(p_ptr, y, x))
 					{
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
@@ -1546,7 +1546,7 @@ void note_spot(int y, int x)
 		}
 
 		/* Memorize certain non-torch-lit wall grids */
-		else if (check_local_illumination(y, x))
+		else if (check_local_illumination(p_ptr, y, x))
 		{
 			/* Memorize */
 			c_ptr->info |= (CAVE_MARK);
