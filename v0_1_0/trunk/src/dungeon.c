@@ -5912,7 +5912,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		else if (running)
 		{
 			/* Take a step */
-			run_step(0);
+			run_step(p_ptr, 0);
 		}
 
 #ifdef TRAVEL

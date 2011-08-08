@@ -4865,7 +4865,7 @@ static void run_init(int dir)
  *
  * Return TRUE if the running should be stopped
  */
-static bool run_test(void)
+static bool run_test(creature_type *cr_ptr)
 {
 	int         prev_dir, new_dir, check_dir = 0;
 	int         row, col;
@@ -4884,13 +4884,13 @@ static bool run_test(void)
 
 	/* break run when leaving trap detected region */
 	if ((disturb_trap_detect || alert_trap_detect)
-	    && p_ptr->dtrap && !(cave[p_ptr->fy][p_ptr->fx].info & CAVE_IN_DETECT))
+	    && cr_ptr->dtrap && !(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		p_ptr->dtrap = FALSE;
+		cr_ptr->dtrap = FALSE;
 
 		/* You are just on the edge */
-		if (!(cave[p_ptr->fy][p_ptr->fx].info & CAVE_UNSAFE))
+		if (!(cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_UNSAFE))
 		{
 			if (alert_trap_detect)
 			{
@@ -4918,8 +4918,8 @@ static bool run_test(void)
 		new_dir = cycle[chome[prev_dir] + i];
 
 		/* New location */
-		row = p_ptr->fy + ddy[new_dir];
-		col = p_ptr->fx + ddx[new_dir];
+		row = cr_ptr->fy + ddy[new_dir];
+		col = cr_ptr->fx + ddx[new_dir];
 
 		/* Access grid */
 		c_ptr = &cave[row][col];
@@ -4977,7 +4977,7 @@ static bool run_test(void)
 				}
 
 				/* Lava */
-				else if (have_flag(f_ptr->flags, FF_LAVA) && (p_ptr->immune_fire || IS_INVULN(p_ptr)))
+				else if (have_flag(f_ptr->flags, FF_LAVA) && (cr_ptr->immune_fire || IS_INVULN(cr_ptr)))
 				{
 					/* Ignore */
 					notice = FALSE;
@@ -4985,7 +4985,7 @@ static bool run_test(void)
 
 				/* Deep water */
 				else if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-				         (p_ptr->levitation || p_ptr->can_swim || (p_ptr->total_weight <= weight_limit(p_ptr))))
+				         (cr_ptr->levitation || cr_ptr->can_swim || (cr_ptr->total_weight <= weight_limit(cr_ptr))))
 				{
 					/* Ignore */
 					notice = FALSE;
@@ -5069,7 +5069,7 @@ static bool run_test(void)
 		for (i = -max; i < 0; i++)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cycle[chome[prev_dir] + i], p_ptr->fy, p_ptr->fx))
+			if (!see_wall(cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
 			{
 				/* Looking to break right */
 				if (find_breakright)
@@ -5093,7 +5093,7 @@ static bool run_test(void)
 		for (i = max; i > 0; i--)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cycle[chome[prev_dir] + i], p_ptr->fy, p_ptr->fx))
+			if (!see_wall(cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
 			{
 				/* Looking to break left */
 				if (find_breakleft)
@@ -5147,8 +5147,8 @@ static bool run_test(void)
 		else
 		{
 			/* Get next location */
-			row = p_ptr->fy + ddy[option];
-			col = p_ptr->fx + ddx[option];
+			row = cr_ptr->fy + ddy[option];
+			col = cr_ptr->fx + ddx[option];
 
 			/* Don't see that it is closed off. */
 			/* This could be a potential corner or an intersection. */
@@ -5189,7 +5189,7 @@ static bool run_test(void)
 	}
 
 	/* About to hit a known wall, stop */
-	if (see_wall(find_current, p_ptr->fy, p_ptr->fx))
+	if (see_wall(find_current, cr_ptr->fy, cr_ptr->fx))
 	{
 		return (TRUE);
 	}
@@ -5203,7 +5203,7 @@ static bool run_test(void)
 /*
  * Take one step along the current "run" path
  */
-void run_step(int dir)
+void run_step(creature_type *cr_ptr, int dir)
 {
 	/* Start running */
 	if (dir)
@@ -5212,7 +5212,7 @@ void run_step(int dir)
 		ignore_avoid_run = TRUE;
 
 		/* Hack -- do not start silly run */
-		if (see_wall(dir, p_ptr->fy, p_ptr->fx))
+		if (see_wall(dir, cr_ptr->fy, cr_ptr->fx))
 		{
 			/* Message */
 #ifdef JP
@@ -5236,7 +5236,7 @@ void run_step(int dir)
 	else
 	{
 		/* Update run */
-		if (run_test())
+		if (run_test(cr_ptr))
 		{
 			/* Disturb */
 			disturb(0, 0);
@@ -5255,18 +5255,18 @@ void run_step(int dir)
 	/* Move the player, using the "pickup" flag */
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-	move_creature(p_ptr, find_current, FALSE, FALSE);
+	move_creature(cr_ptr, find_current, FALSE, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
-	move_creature(p_ptr, find_current, always_pickup, FALSE);
+	move_creature(cr_ptr, find_current, always_pickup, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 
-	if (player_bold(p_ptr->run_py, p_ptr->run_px))
+	if (player_bold(cr_ptr->run_py, cr_ptr->run_px))
 	{
-		p_ptr->run_py = 0;
-		p_ptr->run_px = 0;
+		cr_ptr->run_py = 0;
+		cr_ptr->run_px = 0;
 		disturb(0, 0);
 	}
 }

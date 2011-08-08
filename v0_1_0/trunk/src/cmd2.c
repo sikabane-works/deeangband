@@ -2787,7 +2787,7 @@ void do_cmd_run(void)
 		running = (command_arg ? command_arg : 1000);
 
 		/* First step */
-		run_step(dir);
+		run_step(p_ptr, dir);
 	}
 }
 
