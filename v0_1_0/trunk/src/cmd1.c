@@ -141,15 +141,15 @@ s16b critical_shot(int weight, int plus, int dam)
  *
  * Factor in weapon weight, total plusses, player level.
  */
-s16b critical_norm(int weight, int plus, int dam, s16b meichuu, int mode)
+s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
 {
 	int i, k;
 
 	/* Extract "blow" power */
-	i = (weight + (meichuu * 3 + plus * 5) + (p_ptr->lev * 3));
+	i = (weight + (meichuu * 3 + plus * 5) + (cr_ptr->lev * 3));
 
 	/* Chance */
-	if ((randint1((p_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
+	if ((randint1((cr_ptr->cls_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
 	{
 		k = weight + randint1(650);
 		if ((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
@@ -1993,7 +1993,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 
 		k = damroll(ddd, dss);
-		k = critical_norm(n_weight, bonus, k, (s16b)bonus, 0);
+		k = critical_norm(atk_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 
 		/* Apply the player damage bonuses */
 		k += atk_ptr->to_d_m;
@@ -2442,7 +2442,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					if (weight > 20) weight = 20;
 				}
 
-				k = critical_norm(cr_ptr->lev * weight, min_level, k, cr_ptr->to_h[0], 0);
+				k = critical_norm(cr_ptr, cr_ptr->lev * weight, min_level, k, cr_ptr->to_h[0], 0);
 
 				if ((special_effect == MA_KNEE) && ((k + cr_ptr->to_d[hand]) < m_ptr->chp))
 				{
@@ -2522,7 +2522,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				}
 
 				if ((!(o_ptr->tval == TV_SWORD) || !(o_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-					k = critical_norm(o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
+					k = critical_norm(cr_ptr, o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
 
 				drain_result = k;
 
@@ -3113,7 +3113,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					k /= 10;
 				}
 
-				k = critical_norm(o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
+				k = critical_norm(cr_ptr, o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
 				if (one_in_(6))
 				{
 					int mult = 2;
