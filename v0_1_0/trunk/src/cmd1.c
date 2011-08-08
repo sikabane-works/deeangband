@@ -3659,7 +3659,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	cave_type *c_ptr = &cave[ny][nx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
-	if (cr_ptr->wild_mode)
+	if (wild_mode)
 	{
 		/* add known map */
 		wilderness[ny][nx].known = TRUE;
@@ -3991,7 +3991,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	bool do_past = FALSE;
 
 	/* Exit the area */
-	if (!dun_level && !cr_ptr->wild_mode &&
+	if (!dun_level && !wild_mode &&
 		((x == 0) || (x == MAX_WID - 1) ||
 		 (y == 0) || (y == MAX_HGT - 1)))
 	{
@@ -4416,7 +4416,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	}
 
 
-	if(cr_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	if(wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
 #ifdef JP
 		if(!get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
@@ -4468,7 +4468,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		}
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
-		if (cr_ptr->wild_mode)
+		if (wild_mode)
 		{
 			if (ddy[dir] > 0)  cr_ptr->oldpy = 1;
 			if (ddy[dir] < 0)  cr_ptr->oldpy = MAX_HGT - 2;

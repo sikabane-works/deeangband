@@ -2710,7 +2710,7 @@ void do_cmd_walk(bool pickup)
 		}
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
-		if (p_ptr->wild_mode) energy_use *= ((MAX_HGT + MAX_WID) / 2);
+		if (wild_mode) energy_use *= ((MAX_HGT + MAX_WID) / 2);
 		if (p_ptr->action == ACTION_HAYAGAKE) energy_use = energy_use * (45-(p_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
@@ -2721,7 +2721,7 @@ void do_cmd_walk(bool pickup)
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if (p_ptr->wild_mode && !cave_have_flag_bold(p_ptr->fy, p_ptr->fx, FF_TOWN))
+	if (wild_mode && !cave_have_flag_bold(p_ptr->fy, p_ptr->fx, FF_TOWN))
 	{
 
 		int tmp = 120 + p_ptr->lev*10 - wilderness[p_ptr->fy][p_ptr->fx].level + 5;

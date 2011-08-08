@@ -4144,7 +4144,7 @@ static char inkey_from_menu(void)
 				case MENU_WILD:
 					if (!dun_level && !p_ptr->inside_arena && !inside_quest)
 					{
-						if ((byte)p_ptr->wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
+						if ((byte)wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					}
 					break;
 				default:

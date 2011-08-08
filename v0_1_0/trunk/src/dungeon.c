@@ -2300,7 +2300,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (cr_ptr->inside_battle) return;
 
 	/* No effect on the global map */
-	if (cr_ptr->wild_mode) return;
+	if (wild_mode) return;
 
 
 	if ((cr_ptr->muta2 & MUT2_BERS_RAGE) && one_in_(3000))
@@ -2935,7 +2935,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
  */
 static void process_world_aux_curse(creature_type *cr_ptr)
 {
-	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !cr_ptr->inside_battle && !cr_ptr->wild_mode)
+	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !cr_ptr->inside_battle && !wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
@@ -3408,7 +3408,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					}
 				}
 
-				if (cr_ptr->wild_mode)
+				if (wild_mode)
 				{
 					cr_ptr->wilderness_y = p_ptr->fy;
 					cr_ptr->wilderness_x = p_ptr->fx;
@@ -3419,7 +3419,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					cr_ptr->oldpx = p_ptr->fx;
 					cr_ptr->oldpy = p_ptr->fy;
 				}
-				cr_ptr->wild_mode = FALSE;
+				wild_mode = FALSE;
 
 				/*
 				 * Clear all saved floors
@@ -3932,7 +3932,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				msg_print("The sun has risen.");
 #endif
 
-				if (!cr_ptr->wild_mode)
+				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < cur_hgt; y++)
@@ -3967,7 +3967,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				msg_print("The sun has fallen.");
 #endif
 
-				if (!cr_ptr->wild_mode)
+				if (!wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < cur_hgt; y++)
@@ -4548,7 +4548,7 @@ msg_print("ウィザードモード突入。");
 			/* Enter borg mode */
 			if (enter_borg_mode())
 			{
-				if (!p_ptr->wild_mode) do_cmd_borg();
+				if (!wild_mode) do_cmd_borg();
 			}
 
 			break;
@@ -4563,21 +4563,21 @@ msg_print("ウィザードモード突入。");
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			if (!p_ptr->wild_mode) do_cmd_wield();
+			if (!wild_mode) do_cmd_wield();
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			if (!p_ptr->wild_mode) do_cmd_takeoff();
+			if (!wild_mode) do_cmd_takeoff();
 			break;
 		}
 
 		/* Drop an item */
 		case 'd':
 		{
-			if (!p_ptr->wild_mode) do_cmd_drop();
+			if (!wild_mode) do_cmd_drop();
 			break;
 		}
 
@@ -4625,14 +4625,14 @@ msg_print("ウィザードモード突入。");
 		/* Alter a grid */
 		case '+':
 		{
-			if (!p_ptr->wild_mode) do_cmd_alter();
+			if (!wild_mode) do_cmd_alter();
 			break;
 		}
 
 		/* Dig a tunnel */
 		case 'T':
 		{
-			if (!p_ptr->wild_mode) do_cmd_tunnel();
+			if (!wild_mode) do_cmd_tunnel();
 			break;
 		}
 
@@ -4674,7 +4674,7 @@ msg_print("ウィザードモード突入。");
 		/* Begin Running -- Arg is Max Distance */
 		case '.':
 		{
-			if (!p_ptr->wild_mode) do_cmd_run();
+			if (!wild_mode) do_cmd_run();
 			break;
 		}
 
@@ -4720,28 +4720,28 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			if (!p_ptr->wild_mode) do_cmd_store();
+			if (!wild_mode) do_cmd_store();
 			break;
 		}
 
 		/* Enter building -KMW- */
 		case SPECIAL_KEY_BUILDING:
 		{
-			if (!p_ptr->wild_mode) do_cmd_bldg();
+			if (!wild_mode) do_cmd_bldg();
 			break;
 		}
 
 		/* Enter quest level -KMW- */
 		case SPECIAL_KEY_QUEST:
 		{
-			if (!p_ptr->wild_mode) do_cmd_quest();
+			if (!wild_mode) do_cmd_quest();
 			break;
 		}
 
 		/* Go up staircase */
 		case '<':
 		{
-			if (!p_ptr->wild_mode && !dun_level && !p_ptr->inside_arena && !inside_quest)
+			if (!wild_mode && !dun_level && !p_ptr->inside_arena && !inside_quest)
 			{
 				if (vanilla_town) break;
 
@@ -4775,7 +4775,7 @@ msg_print("ウィザードモード突入。");
 		/* Go down staircase */
 		case '>':
 		{
-			if (p_ptr->wild_mode)
+			if (wild_mode)
 				change_wild_mode();
 			else
 				do_cmd_go_down();
@@ -4786,35 +4786,35 @@ msg_print("ウィザードモード突入。");
 		/* Open a door or chest */
 		case 'o':
 		{
-			if (!p_ptr->wild_mode) do_cmd_open();
+			if (!wild_mode) do_cmd_open();
 			break;
 		}
 
 		/* Close a door */
 		case 'c':
 		{
-			if (!p_ptr->wild_mode) do_cmd_close();
+			if (!wild_mode) do_cmd_close();
 			break;
 		}
 
 		/* Jam a door with spikes */
 		case 'j':
 		{
-			if (!p_ptr->wild_mode) do_cmd_spike();
+			if (!wild_mode) do_cmd_spike();
 			break;
 		}
 
 		/* Bash a door */
 		case 'B':
 		{
-			if (!p_ptr->wild_mode) do_cmd_bash();
+			if (!wild_mode) do_cmd_bash();
 			break;
 		}
 
 		/* Disarm a trap or chest */
 		case 'D':
 		{
-			if (!p_ptr->wild_mode) do_cmd_disarm();
+			if (!wild_mode) do_cmd_disarm();
 			break;
 		}
 
@@ -4861,7 +4861,7 @@ msg_print("ウィザードモード突入。");
 		case 'm':
 		{
 			/* -KMW- */
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 				if ((p_ptr->cls_idx == CLASS_WARRIOR) || (p_ptr->cls_idx == CLASS_ARCHER) || (p_ptr->cls_idx == CLASS_CAVALRY))
 				{
@@ -4971,7 +4971,7 @@ msg_print("ウィザードモード突入。");
 		/* Issue a pet command */
 		case 'p':
 		{
-			if (!p_ptr->wild_mode) do_cmd_pet();
+			if (!wild_mode) do_cmd_pet();
 			break;
 		}
 
@@ -5009,7 +5009,7 @@ msg_print("ウィザードモード突入。");
 		/* Activate an artifact */
 		case 'A':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (!p_ptr->inside_arena)
 				do_cmd_activate(p_ptr);
@@ -5044,14 +5044,14 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Fire an item */
 		case 'f':
 		{
-			if (!p_ptr->wild_mode) do_cmd_fire();
+			if (!wild_mode) do_cmd_fire();
 			break;
 		}
 
 		/* Throw an item */
 		case 'v':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 				do_cmd_throw();
 			}
@@ -5061,7 +5061,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Aim a wand */
 		case 'a':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (!p_ptr->inside_arena)
 				do_cmd_aim_wand(p_ptr);
@@ -5082,7 +5082,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Zap a rod */
 		case 'z':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (p_ptr->inside_arena)
 			{
@@ -5109,7 +5109,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Quaff a potion */
 		case 'q':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (!p_ptr->inside_arena)
 				do_cmd_quaff_potion(p_ptr);
@@ -5130,7 +5130,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Read a scroll */
 		case 'r':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (!p_ptr->inside_arena)
 				do_cmd_read_scroll(p_ptr);
@@ -5151,7 +5151,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use a staff */
 		case 'u':
 		{
-			if (!p_ptr->wild_mode)
+			if (!wild_mode)
 			{
 			if (p_ptr->inside_arena)
 			{
@@ -5176,7 +5176,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use racial power */
 		case 'U':
 		{
-			if (!p_ptr->wild_mode) do_cmd_racial_power(p_ptr);
+			if (!wild_mode) do_cmd_racial_power(p_ptr);
 			break;
 		}
 
@@ -5207,7 +5207,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Target monster or location */
 		case '*':
 		{
-			if (!p_ptr->wild_mode) do_cmd_target();
+			if (!wild_mode) do_cmd_target();
 			break;
 		}
 
@@ -5316,7 +5316,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			if (!p_ptr->wild_mode) do_cmd_feeling();
+			if (!wild_mode) do_cmd_feeling();
 			break;
 		}
 
@@ -5425,7 +5425,7 @@ msg_print("アリーナが魔法を吸収した！");
 #ifdef TRAVEL
 		case '`':
 		{
-			if (!p_ptr->wild_mode) do_cmd_travel();
+			if (!wild_mode) do_cmd_travel();
 			break;
 		}
 #endif
@@ -6424,8 +6424,8 @@ msg_print("試合開始！");
 
 		if (dungeon_turn < dungeon_turn_limit)
 		{
-			if (!p_ptr->wild_mode || wild_regen) dungeon_turn++;
-			else if (p_ptr->wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) dungeon_turn++;
+			if (!wild_mode || wild_regen) dungeon_turn++;
+			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) dungeon_turn++;
 		}
 
 		prevent_turn_overflow();
@@ -7272,7 +7272,7 @@ quit("セーブファイルが壊れています");
 					}
 
 					/* Leaving */
-					p_ptr->wild_mode = FALSE;
+					wild_mode = FALSE;
 					p_ptr->leaving = TRUE;
 
 #ifdef JP

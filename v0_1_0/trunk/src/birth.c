@@ -3342,7 +3342,7 @@ static void player_wipe(void)
 	p_ptr->visit = 1;
 
 	/* Reset wild_mode to FALSE */
-	p_ptr->wild_mode = FALSE;
+	wild_mode = FALSE;
 
 	for (i = 0; i < 108; i++)
 	{

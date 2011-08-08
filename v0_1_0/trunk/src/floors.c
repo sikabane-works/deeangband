@@ -382,7 +382,7 @@ static void preserve_pet(void)
 	 * If player is in wild mode, no pets are preserved
 	 * except a monster whom player riding
 	 */
-	if (!p_ptr->wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
+	if (!wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
 	{
 		for (i = m_max - 1, num = 1; (i >= 1 && num < MAX_PARTY_MON); i--)
 		{
@@ -488,7 +488,7 @@ void precalc_cur_num_of_pet(void)
 {
 	creature_type *m_ptr;
 	int i;
-	int max_num = p_ptr->wild_mode ? 1 : MAX_PARTY_MON;
+	int max_num = wild_mode ? 1 : MAX_PARTY_MON;
 
 	for (i = 0; i < max_num; i++)
 	{
@@ -509,7 +509,7 @@ void precalc_cur_num_of_pet(void)
 static void place_pet(void)
 {
 	int i;
-	int max_num = p_ptr->wild_mode ? 1 : MAX_PARTY_MON;
+	int max_num = wild_mode ? 1 : MAX_PARTY_MON;
 
 	for (i = 0; i < max_num; i++)
 	{

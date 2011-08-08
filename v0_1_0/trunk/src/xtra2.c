@@ -2725,7 +2725,7 @@ static bool target_set_accept(int y, int x)
 
 	/* Bounds */
 	if (!(in_bounds(y, x))) return (FALSE);
-	if (p_ptr->wild_mode && !wilderness[y][x].known) return (FALSE);
+	if (wild_mode && !wilderness[y][x].known) return (FALSE);
 
 	/* Player grid is always interesting */
 	if (player_bold(y, x)) return (TRUE);
@@ -3529,7 +3529,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		cptr name;
 
 		/* Hack -- special handling for quest entrances */
-		if (p_ptr->wild_mode && !wilderness[y][x].known)
+		if (wild_mode && !wilderness[y][x].known)
 		{
 #ifdef JP
 			name = "–¢“¥”j’n‘Ñ";
@@ -3586,7 +3586,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		{
 			name = town[c_ptr->special].name;
 		}
-		else if (p_ptr->wild_mode && (feat == feat_floor))
+		else if (wild_mode && (feat == feat_floor))
 		{
 #ifdef JP
 			name = "“¹";

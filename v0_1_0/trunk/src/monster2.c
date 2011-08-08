@@ -3357,7 +3357,7 @@ static int place_monster_one(creature_type *who_ptr, int y, int x, int species_i
 	}
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
-	if (p_ptr->wild_mode){
+	if (wild_mode){
 		if (cheat_hear)
 		{
 			msg_format("[max_m_idx: Wild mode]");

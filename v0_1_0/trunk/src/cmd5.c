@@ -1944,7 +1944,7 @@ bool rakuba(int dam, bool force)
 	bool fall_dam = FALSE;
 
 	if (!p_ptr->riding) return FALSE;
-	if (p_ptr->wild_mode) return FALSE;
+	if (wild_mode) return FALSE;
 
 	if (dam >= 0 || force)
 	{

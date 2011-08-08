@@ -2938,7 +2938,7 @@ void process_monsters(void)
 		/* Ignore "dead" monsters */
 		if (!m_ptr->species_idx) continue;
 
-		if (p_ptr->wild_mode) continue;
+		if (wild_mode) continue;
 
 
 		/* Handle "fresh" monsters */

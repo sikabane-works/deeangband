@@ -1625,7 +1625,7 @@ void generate_cave(void)
 		else if (!dun_level)
 		{
 			/* Make the wilderness */
-			if (p_ptr->wild_mode) wilderness_gen_small();
+			if (wild_mode) wilderness_gen_small();
 			else wilderness_gen();
 
 		}

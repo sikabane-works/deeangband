@@ -1044,7 +1044,7 @@ bool change_wild_mode(void)
 		return FALSE;
 	}
 
-	if (p_ptr->wild_mode)
+	if (wild_mode)
 	{
 		/* Save the location in the global map */
 		p_ptr->wilderness_x = p_ptr->fx;
@@ -1054,7 +1054,7 @@ bool change_wild_mode(void)
 		p_ptr->energy_need = 0;
 
 		/* Go back to the ordinary map */
-		p_ptr->wild_mode = FALSE;
+		wild_mode = FALSE;
 
 		/* Leaving */
 		p_ptr->leaving = TRUE;
@@ -1103,7 +1103,7 @@ bool change_wild_mode(void)
 	set_action(p_ptr, ACTION_NONE);
 
 	/* Go into the global map */
-	p_ptr->wild_mode = TRUE;
+	wild_mode = TRUE;
 	msg_print("‚ ‚È‚½‚Í¬“×‚Ì’n•½‚ğ•à‚İn‚ß‚½c");
 
 	/* Leaving */

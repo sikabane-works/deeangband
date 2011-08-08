@@ -1151,8 +1151,6 @@ struct creature_type
 	s32b start_wilderness_x;	/* Starting Coordinates in the wilderness */
 	s32b start_wilderness_y;
 
-	bool wild_mode;
-
 	s32b chp;			/* Cur hit pts */
 	u32b chp_frac;		/* Cur hit frac (times 2^16) */
 	s32b mhp;			/* Max hit pts */

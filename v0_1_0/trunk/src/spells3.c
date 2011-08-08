@@ -330,7 +330,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 	int top = MAX(1, cr_ptr->fy - dis);
 	int bottom = MIN(cur_hgt - 2, cr_ptr->fy + dis);
 
-	if (cr_ptr->wild_mode) return FALSE;
+	if (wild_mode) return FALSE;
 
 	if (cr_ptr->anti_tele && !(mode & TELEPORT_NONMAGICAL))
 	{

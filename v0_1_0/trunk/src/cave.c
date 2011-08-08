@@ -953,7 +953,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if (strlen(cave[y][x].message)) a = TERM_BLUE;
 
-			if (p_ptr->wild_mode)
+			if (wild_mode)
 			{
 				/* Special lighting effects */
 				/* Handle "night" */
@@ -1043,7 +1043,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if (strlen(cave[y][x].message)) a = TERM_BLUE;
 
-			if (p_ptr->wild_mode)
+			if (wild_mode)
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
@@ -1355,7 +1355,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		feat_priority = 31;
 	}
 
-	if(p_ptr->wild_mode)
+	if(wild_mode)
 	{
 		if(y < max_wild_y && x < max_wild_x)
 		{
@@ -1366,7 +1366,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			}
 		}
 		else
-			p_ptr->wild_mode = FALSE;
+			wild_mode = FALSE;
 	}
 
 }
@@ -2218,7 +2218,7 @@ prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
 	display_map(&cy, &cx);
 
 	/* Wait for it */
-	if(max_autopick && !p_ptr->wild_mode)
+	if(max_autopick && !wild_mode)
 	{
 		display_autopick = ITEM_DISPLAY;
 

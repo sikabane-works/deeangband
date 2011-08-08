@@ -1668,6 +1668,7 @@ extern void repeat_check(void);
 /* variable.c */
 extern bool easy_open;
 extern s16b inside_quest;		/* Inside quest level */
+extern bool wild_mode;
 
 
 /* cmd2.c */

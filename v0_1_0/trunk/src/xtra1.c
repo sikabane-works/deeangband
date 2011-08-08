@@ -206,7 +206,7 @@ cptr map_name(void)
 #else
 		return "Quest";
 #endif
-	else if (p_ptr->wild_mode)
+	else if (wild_mode)
 #ifdef JP
 		return "ínè„";
 #else

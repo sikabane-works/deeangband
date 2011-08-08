@@ -1163,7 +1163,7 @@ bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (cr_ptr->is_dead) return FALSE;
 
-	if (cr_ptr->wild_mode) v = 0;
+	if (wild_mode) v = 0;
 
 	/* Open */
 	if (v)
@@ -2020,7 +2020,7 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 		if (cr_ptr->invuln)
 		{
 			mproc_remove(cr_ptr, MTIMED_INVULNER);
-			if (!p_ptr->wild_mode) cr_ptr->energy_need += ENERGY_NEED();
+			if (!wild_mode) cr_ptr->energy_need += ENERGY_NEED();
 			notice = TRUE;
 		}
 	}
@@ -4479,7 +4479,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 			break;
 		}
 
-		if (cr_ptr->wild_mode && (new_aux < 2))
+		if (wild_mode && (new_aux < 2))
 		{
 			change_wild_mode();
 		}
@@ -5824,7 +5824,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Dead */
 		}
 	
-		if (tar_ptr->wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
+		if (wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 		{
 			change_wild_mode();
 		}

@@ -1554,7 +1554,7 @@ static void do_cmd_wiz_jump(void)
 
 	if (!dun_level) dungeon_type = 0;
 	p_ptr->inside_arena = FALSE;
-	p_ptr->wild_mode = FALSE;
+	wild_mode = FALSE;
 
 	leave_quest_check();
 

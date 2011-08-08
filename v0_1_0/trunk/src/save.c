@@ -1462,7 +1462,7 @@ static bool wr_savefile_new(void)
 	wr_s32b(p_ptr->start_wilderness_x);
 	wr_s32b(p_ptr->start_wilderness_y);
 
-	wr_byte(p_ptr->wild_mode);
+	wr_byte(wild_mode);
 	wr_byte(ambush_flag);
 
 	wr_s32b(max_wild_x);
