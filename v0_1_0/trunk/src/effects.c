@@ -5596,14 +5596,14 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			if (inside_arena)
 			{
-				cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].species_idx].name;
+				cptr m_name = r_name+r_info[arena_info[arena_number].species_idx].name;
 	#ifdef JP
 				msg_format("‚ ‚È‚½‚Í%s‚Ì‘O‚É”s‚ê‹Ž‚Á‚½B", m_name);
 	#else
 				msg_format("You are beaten by %s.", m_name);
 	#endif
 				msg_print(NULL);
-				if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - tar_ptr->arena_number, m_name);
+				if (record_arena) do_cmd_write_nikki(NIKKI_ARENA, -1 - arena_number, m_name);
 			}
 			else
 			{

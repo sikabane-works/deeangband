@@ -4656,7 +4656,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Town */
 			else if (streq(b+1, "TOWN"))
 			{
-				sprintf(tmp, "%d", p_ptr->town_num);
+				sprintf(tmp, "%d", town_num);
 				v = tmp;
 			}
 

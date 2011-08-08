@@ -775,7 +775,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	{
 		p_ptr->exit_bldg = TRUE;
 
-		if (p_ptr->arena_number > MAX_ARENA_MONS)
+		if (arena_number > MAX_ARENA_MONS)
 		{
 #ifdef JP
 msg_print("素晴らしい！君こそ真の勝利者だ。");
@@ -792,13 +792,13 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 #endif
 		}
 
-		if (arena_info[p_ptr->arena_number].tval)
+		if (arena_info[arena_number].tval)
 		{
 			/* Get local object */
 			q_ptr = &forge;
 
 			/* Prepare to make a prize */
-			object_prep(q_ptr, lookup_kind(arena_info[p_ptr->arena_number].tval, arena_info[p_ptr->arena_number].sval), ITEM_FREE_SIZE);
+			object_prep(q_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
 			apply_magic(q_ptr, object_level, AM_NO_FIXED_ART);
 
@@ -806,8 +806,8 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			(void)drop_near(q_ptr, -1, y, x);
 		}
 
-		if (p_ptr->arena_number > MAX_ARENA_MONS) p_ptr->arena_number++;
-		p_ptr->arena_number++;
+		if (arena_number > MAX_ARENA_MONS) arena_number++;
+		arena_number++;
 		if (record_arena)
 		{
 			char m_name[80];
@@ -815,7 +815,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Extract monster name */
 			monster_desc(m_name, cr_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
-			do_cmd_write_nikki(NIKKI_ARENA, p_ptr->arena_number, m_name);
+			do_cmd_write_nikki(NIKKI_ARENA, arena_number, m_name);
 		}
 	}
 

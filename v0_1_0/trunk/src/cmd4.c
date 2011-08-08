@@ -5026,12 +5026,12 @@ void do_cmd_feeling(void)
 	}
 
 	/* No useful feeling in town */
-	else if (p_ptr->town_num && !dun_level)
+	else if (town_num && !dun_level)
 	{
 #ifdef JP
-		if (!strcmp(town[p_ptr->town_num].name, "r–ì"))
+		if (!strcmp(town[town_num].name, "r–ì"))
 #else
-		if (!strcmp(town[p_ptr->town_num].name, "wilderness"))
+		if (!strcmp(town[town_num].name, "wilderness"))
 #endif
 		{
 #ifdef JP

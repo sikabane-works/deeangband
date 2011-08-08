@@ -242,7 +242,7 @@ static void arena_comm(int cmd)
 	switch (cmd)
 	{
 		case BACT_ARENA:
-			if (p_ptr->arena_number == MAX_ARENA_MONS)
+			if (arena_number == MAX_ARENA_MONS)
 			{
 				clear_bldg(5, 19);
 #ifdef JP
@@ -265,11 +265,11 @@ msg_print("スペースキーで続行");
 #endif
 
 				msg_print(NULL);
-				p_ptr->arena_number++;
+				arena_number++;
 			}
-			else if (p_ptr->arena_number > MAX_ARENA_MONS)
+			else if (arena_number > MAX_ARENA_MONS)
 			{
-				if (p_ptr->arena_number < MAX_ARENA_MONS+2)
+				if (arena_number < MAX_ARENA_MONS+2)
 				{
 #ifdef JP
 msg_print("君のために最強の挑戦者を用意しておいた。");
@@ -338,14 +338,14 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 			}
 			break;
 		case BACT_POSTER:
-			if (p_ptr->arena_number == MAX_ARENA_MONS)
+			if (arena_number == MAX_ARENA_MONS)
 #ifdef JP
 msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
 #else
 				msg_print("You are victorious. Enter the arena for the ceremony.");
 #endif
 
-			else if (p_ptr->arena_number > MAX_ARENA_MONS)
+			else if (arena_number > MAX_ARENA_MONS)
 			{
 #ifdef JP
 msg_print("あなたはすべての敵に勝利した。");
@@ -355,7 +355,7 @@ msg_print("あなたはすべての敵に勝利した。");
 			}
 			else
 			{
-				r_ptr = &r_info[arena_info[p_ptr->arena_number].species_idx];
+				r_ptr = &r_info[arena_info[arena_number].species_idx];
 				name = (r_name + r_ptr->name);
 #ifdef JP
 msg_format("%s に挑戦するものはいないか？", name);
@@ -4327,7 +4327,7 @@ bool tele_town(void)
 	{
 		char buf[80];
 
-		if ((i == NO_TOWN) || (i == SECRET_TOWN) || (i == p_ptr->town_num) || !(p_ptr->visit & (1L << (i-1)))) continue;
+		if ((i == NO_TOWN) || (i == SECRET_TOWN) || (i == town_num) || !(p_ptr->visit & (1L << (i-1)))) continue;
 
 		sprintf(buf,"%c) %-20s", I2A(i-1), town[i].name);
 		prt(buf, 5+i, 5);
@@ -4362,7 +4362,7 @@ bool tele_town(void)
 			return FALSE;
 		}
 		else if ((i < 'a') || (i > ('a'+max_towns-2))) continue;
-		else if (((i-'a'+1) == p_ptr->town_num) || ((i-'a'+1) == NO_TOWN) || ((i-'a'+1) == SECRET_TOWN) || !(p_ptr->visit & (1L << (i-'a')))) continue;
+		else if (((i-'a'+1) == town_num) || ((i-'a'+1) == NO_TOWN) || ((i-'a'+1) == SECRET_TOWN) || !(p_ptr->visit & (1L << (i-'a')))) continue;
 		break;
 	}
 
@@ -5105,7 +5105,7 @@ void do_cmd_bldg(void)
 	/* Don't re-init the wilderness */
 	reinit_wilderness = FALSE;
 
-	if ((which == 2) && (p_ptr->arena_number < 0))
+	if ((which == 2) && (arena_number < 0))
 	{
 #ifdef JP
 		msg_print("「敗者に用はない。」");

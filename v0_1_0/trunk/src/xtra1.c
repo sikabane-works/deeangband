@@ -224,8 +224,8 @@ cptr map_name(void)
 #else
 		return "Monster Arena";
 #endif
-	else if (!dun_level && p_ptr->town_num)
-		return town[p_ptr->town_num].name;
+	else if (!dun_level && town_num)
+		return town[town_num].name;
 	else
 		return d_name+d_info[dungeon_type].name;
 }
@@ -773,7 +773,7 @@ static void prt_title(creature_type *cr_ptr)
 	/* Winner */
 	else if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 	{
-		if (cr_ptr->arena_number > MAX_ARENA_MONS + 2)
+		if (arena_number > MAX_ARENA_MONS + 2)
 		{
 #ifdef JP
 			/* ‰p“úØ‚è‘Ö‚¦‹@”\ Ì† */

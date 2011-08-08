@@ -1671,6 +1671,8 @@ extern s16b inside_quest;		/* Inside quest level */
 extern bool wild_mode;
 extern bool inside_arena;		/* Is character inside arena? */
 extern bool inside_battle;		/* Is character inside tougijou? */
+extern s16b town_num;			/* Current town number */
+extern s16b arena_number;		/* monster number in arena -KMW- */
 
 
 /* cmd2.c */

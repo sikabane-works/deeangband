@@ -1197,7 +1197,7 @@ static void arena_gen(void)
 
 	build_arena();
 
-	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[p_ptr->arena_number].species_idx,
+	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
 

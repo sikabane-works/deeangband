@@ -2517,7 +2517,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		banish_monsters(100);
-		if (!dun_level && cr_ptr->town_num)
+		if (!dun_level && town_num)
 		{
 			int n;
 
@@ -7126,10 +7126,10 @@ quit("セーブファイルが壊れています");
 			if (inside_arena)
 			{
 				inside_arena = FALSE;
-				if (p_ptr->arena_number > MAX_ARENA_MONS)
-					p_ptr->arena_number++;
+				if (arena_number > MAX_ARENA_MONS)
+					arena_number++;
 				else
-					p_ptr->arena_number = -1 - p_ptr->arena_number;
+					arena_number = -1 - arena_number;
 				p_ptr->is_dead = FALSE;
 				p_ptr->chp = 0;
 				p_ptr->chp_frac = 0;

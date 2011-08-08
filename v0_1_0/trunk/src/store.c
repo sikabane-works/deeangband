@@ -1963,9 +1963,9 @@ static bool black_market_crap(object_type *o_ptr)
 		if (i == STORE_MUSEUM) continue;
 
 		/* Check every item in the store */
-		for (j = 0; j < town[p_ptr->town_num].store[i].stock_num; j++)
+		for (j = 0; j < town[town_num].store[i].stock_num; j++)
 		{
-			object_type *j_ptr = &town[p_ptr->town_num].store[i].stock[j];
+			object_type *j_ptr = &town[town_num].store[i].stock[j];
 
 			/* Duplicate item "type", assume crappy */
 			if (o_ptr->k_idx == j_ptr->k_idx) return (TRUE);
@@ -3712,7 +3712,7 @@ msg_format("%sÇ $%ldÇ≈çwì¸ÇµÇ‹ÇµÇΩÅB", o_name, (long)price);
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
-						store_maint(p_ptr->town_num, cur_store_num);
+						store_maint(town_num, cur_store_num);
 					}
 
 					/* Start over */
@@ -4649,9 +4649,9 @@ static void store_process_command(void)
 		/* Character description */
 		case 'C':
 		{
-			p_ptr->town_num = old_town_num;
+			town_num = old_town_num;
 			do_cmd_change_name();
-			p_ptr->town_num = inner_town_num;
+			town_num = inner_town_num;
 			display_store();
 			break;
 		}
@@ -4669,36 +4669,36 @@ static void store_process_command(void)
 		/* Single line from a pref file */
 		case '"':
 		{
-			p_ptr->town_num = old_town_num;
+			town_num = old_town_num;
 			do_cmd_pref();
-			p_ptr->town_num = inner_town_num;
+			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with macros */
 		case '@':
 		{
-			p_ptr->town_num = old_town_num;
+			town_num = old_town_num;
 			do_cmd_macros();
-			p_ptr->town_num = inner_town_num;
+			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with visuals */
 		case '%':
 		{
-			p_ptr->town_num = old_town_num;
+			town_num = old_town_num;
 			do_cmd_visuals();
-			p_ptr->town_num = inner_town_num;
+			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with colors */
 		case '&':
 		{
-			p_ptr->town_num = old_town_num;
+			town_num = old_town_num;
 			do_cmd_colors();
-			p_ptr->town_num = inner_town_num;
+			town_num = inner_town_num;
 			break;
 		}
 
@@ -4842,13 +4842,13 @@ void do_cmd_store(void)
 	/* Extract the store code */
 	which = f_info[c_ptr->feat].subtype;
 
-	old_town_num = p_ptr->town_num;
-	if ((which == STORE_HOME) || (which == STORE_MUSEUM)) p_ptr->town_num = 1;
-	if (dun_level) p_ptr->town_num = NO_TOWN;
-	inner_town_num = p_ptr->town_num;
+	old_town_num = town_num;
+	if ((which == STORE_HOME) || (which == STORE_MUSEUM)) town_num = 1;
+	if (dun_level) town_num = NO_TOWN;
+	inner_town_num = town_num;
 
 	/* Hack -- Check the "locked doors" */
-	if ((town[p_ptr->town_num].store[which].store_open >= turn) ||
+	if ((town[town_num].store[which].store_open >= turn) ||
 	    (ironman_shops))
 	{
 #ifdef JP
@@ -4857,12 +4857,12 @@ void do_cmd_store(void)
 		msg_print("The doors are locked.");
 #endif
 
-		p_ptr->town_num = old_town_num;
+		town_num = old_town_num;
 		return;
 	}
 
 	/* Calculate the number of store maintainances since the last visit */
-	maintain_num = (turn - town[p_ptr->town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
+	maintain_num = (turn - town[town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
 
 	/* Maintain the store max. 10 times */
 	if (maintain_num > 10) maintain_num = 10;
@@ -4871,10 +4871,10 @@ void do_cmd_store(void)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(p_ptr->town_num, which);
+			store_maint(town_num, which);
 
 		/* Save the visit */
-		town[p_ptr->town_num].store[which].last_visit = turn;
+		town[town_num].store[which].last_visit = turn;
 	}
 
 	/* Forget the lite */
@@ -4907,7 +4907,7 @@ void do_cmd_store(void)
 	cur_store_feat = c_ptr->feat;
 
 	/* Save the store and owner pointers */
-	st_ptr = &town[p_ptr->town_num].store[cur_store_num];
+	st_ptr = &town[town_num].store[cur_store_num];
 	ot_ptr = &owners[cur_store_num][st_ptr->owner];
 
 
@@ -5154,7 +5154,7 @@ void do_cmd_store(void)
 		if (st_ptr->store_open >= turn) leave_store = TRUE;
 	}
 
-	p_ptr->town_num = old_town_num;
+	town_num = old_town_num;
 
 	/* Free turn XXX XXX XXX */
 	energy_use = 100;
@@ -5214,7 +5214,7 @@ void store_shuffle(int which)
 	cur_store_num = which;
 
 	/* Activate that store */
-	st_ptr = &town[p_ptr->town_num].store[cur_store_num];
+	st_ptr = &town[town_num].store[cur_store_num];
 
 	j = st_ptr->owner;
 	/* Pick a new owner */
@@ -5224,7 +5224,7 @@ void store_shuffle(int which)
 		if (j == st_ptr->owner) continue;
 		for (i = 1;i < max_towns; i++)
 		{
-			if (i == p_ptr->town_num) continue;
+			if (i == town_num) continue;
 			if (st_ptr->owner == town[i].store[cur_store_num].owner) break;
 		}
 		if (i == max_towns) break;
@@ -5420,9 +5420,9 @@ void store_init(int town_num, int store_num)
 void move_to_black_market(object_type *o_ptr)
 {
 	/* Not in town */
-	if (!p_ptr->town_num) return;
+	if (!town_num) return;
 
-	st_ptr = &town[p_ptr->town_num].store[STORE_BLACK];
+	st_ptr = &town[town_num].store[STORE_BLACK];
 
 	o_ptr->ident |= IDENT_STORE;
 

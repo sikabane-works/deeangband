@@ -711,10 +711,10 @@ static void wr_extra(void)
 		wr_u32b(mon_odds[i]);
 	}
 
-	wr_s16b(p_ptr->town_num); /* -KMW- */
+	wr_s16b(town_num); /* -KMW- */
 
 	/* Write arena and rewards information -KMW- */
-	wr_s16b(p_ptr->arena_number);
+	wr_s16b(arena_number);
 	wr_s16b(inside_arena);
 	wr_s16b(inside_quest);
 	wr_s16b(inside_battle);

@@ -4870,9 +4870,9 @@ static void dump_aux_arena(FILE *fff)
 {
 	if (lite_town || vanilla_town) return;
 
-	if (p_ptr->arena_number < 0)
+	if (arena_number < 0)
 	{
-		if (p_ptr->arena_number <= ARENA_DEFEATED_OLD_VER)
+		if (arena_number <= ARENA_DEFEATED_OLD_VER)
 		{
 #ifdef JP
 			fprintf(fff, "\n “¬‹Zê: ”s–k\n");
@@ -4883,16 +4883,16 @@ static void dump_aux_arena(FILE *fff)
 		else
 		{
 #ifdef JP
-			fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -p_ptr->arena_number,
-				r_name + r_info[arena_info[-1 - p_ptr->arena_number].species_idx].name);
+			fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
+				r_name + r_info[arena_info[-1 - arena_number].species_idx].name);
 #else
 			fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
-				r_name + r_info[arena_info[-1 - p_ptr->arena_number].species_idx].name,
-				-p_ptr->arena_number, get_ordinal_number_suffix(-p_ptr->arena_number));
+				r_name + r_info[arena_info[-1 - arena_number].species_idx].name,
+				-arena_number, get_ordinal_number_suffix(-arena_number));
 #endif
 		}
 	}
-	else if (p_ptr->arena_number > MAX_ARENA_MONS + 2)
+	else if (arena_number > MAX_ARENA_MONS + 2)
 	{
 #ifdef JP
 		fprintf(fff, "\n “¬‹Zê: ^‚Ìƒ`ƒƒƒ“ƒsƒIƒ“\n");
@@ -4900,7 +4900,7 @@ static void dump_aux_arena(FILE *fff)
 		fprintf(fff, "\n Arena: True Champion\n");
 #endif
 	}
-	else if (p_ptr->arena_number > MAX_ARENA_MONS - 1)
+	else if (arena_number > MAX_ARENA_MONS - 1)
 	{
 #ifdef JP
 		fprintf(fff, "\n “¬‹Zê: ƒ`ƒƒƒ“ƒsƒIƒ“\n");
@@ -4911,9 +4911,9 @@ static void dump_aux_arena(FILE *fff)
 	else
 	{
 #ifdef JP
-		fprintf(fff, "\n “¬‹Zê: %2dŸ\n", (p_ptr->arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : p_ptr->arena_number));
+		fprintf(fff, "\n “¬‹Zê: %2dŸ\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number));
 #else
-		fprintf(fff, "\n Arena: %2d Victor%s\n", (p_ptr->arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : p_ptr->arena_number), (p_ptr->arena_number > 1) ? "ies" : "y");
+		fprintf(fff, "\n Arena: %2d Victor%s\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number), (arena_number > 1) ? "ies" : "y");
 #endif
 	}
 
@@ -6648,7 +6648,7 @@ long total_points(void)
 	int i, mult = 100;
 	s16b max_dl = 0;
 	u32b point, point_h, point_l;
-	int arena_win = MIN(p_ptr->arena_number, MAX_ARENA_MONS);
+	int arena_win = MIN(arena_number, MAX_ARENA_MONS);
 
 	if (!preserve_mode) mult += 10;
 	if (!autoroller) mult += 10;
@@ -6680,7 +6680,7 @@ long total_points(void)
 	point_l /= 100;
 
 	point = (point_h << 16) + (point_l);
-	if (p_ptr->arena_number >= 0)
+	if (arena_number >= 0)
 		point += (arena_win * arena_win * (arena_win > 29 ? 1000 : 100));
 
 	if (ironman_downward) point *= 2;
@@ -6967,7 +6967,7 @@ static void print_tomb(void)
 		{
 			if (dun_level == 0)
 			{
-				cptr town = p_ptr->town_num ? "ŠX" : "r–ì";
+				cptr town = town_num ? "ŠX" : "r–ì";
 				if (streq(p_ptr->died_from, "“r’†I—¹"))
 				{
 					sprintf(tmp, "%s‚Å€‚ñ‚¾", town);

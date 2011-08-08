@@ -1369,10 +1369,10 @@ static void rd_extra(void)
 		rd_u32b(&mon_odds[i]);
 	}
 
-	rd_s16b(&p_ptr->town_num);
+	rd_s16b(&town_num);
 
 	/* Read arena and rewards information */
-	rd_s16b(&p_ptr->arena_number);
+	rd_s16b(&arena_number);
 	rd_s16b(&tmp16s);
 	inside_arena = (bool)tmp16s;
 	rd_s16b(&inside_quest);

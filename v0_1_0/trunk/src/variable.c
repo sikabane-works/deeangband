@@ -775,6 +775,9 @@ s16b inside_quest = 0;
 bool wild_mode = FALSE;
 bool inside_arena = FALSE;		/* inside arena? */
 bool inside_battle = FALSE;		/* inside tougijou? */
+s16b town_num = 0;			/* Current town number */
+s16b arena_number = 0;		/* monster number in arena -KMW- */
+
 
 /*
  * The last character rolled,

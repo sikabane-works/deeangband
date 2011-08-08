@@ -263,7 +263,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 	int x1, y1;
 
 	/* Number of the town (if any) */
-	p_ptr->town_num = wilderness[y][x].town;
+	town_num = wilderness[y][x].town;
 
 	/* Set the base level */
 	base_level = wilderness[y][x].level;
@@ -279,7 +279,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 
 
 	/* Create the town */
-	if (p_ptr->town_num)
+	if (town_num)
 	{
 		/* Reset the buildings */
 		init_buildings();
@@ -292,7 +292,7 @@ static void generate_area(int y, int x, bool border, bool corner)
 
 		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 
-		if (!corner && !border) p_ptr->visit |= (1L << (p_ptr->town_num - 1));
+		if (!corner && !border) p_ptr->visit |= (1L << (town_num - 1));
 	}
 	else
 	{
@@ -562,7 +562,7 @@ void wilderness_gen(void)
 
 				if (have_flag(f_ptr->flags, FF_BLDG))
 				{
-					if ((f_ptr->subtype == 4) || ((p_ptr->town_num == 1) && (f_ptr->subtype == 0)))
+					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
 					{
 						if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
 						p_ptr->oldpy = y;
@@ -605,7 +605,7 @@ void wilderness_gen(void)
 	{
 		u32b mode = 0;
 
-		if (!(generate_encounter || (one_in_(2) && (!p_ptr->town_num))))
+		if (!(generate_encounter || (one_in_(2) && (!town_num))))
 			mode |= PM_ALLOW_SLEEP;
 
 		/* Make a resident */
@@ -681,7 +681,7 @@ void wilderness_gen_small()
 	p_ptr->fx = (byte)p_ptr->wilderness_x;
 	p_ptr->fy = (byte)p_ptr->wilderness_y;
 
-	p_ptr->town_num = 0;
+	town_num = 0;
 }
 
 

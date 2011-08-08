@@ -3354,7 +3354,7 @@ static void player_wipe(void)
 	p_ptr->max_plv = p_ptr->lev = 1;
 
 	/* Initialize arena and rewards information -KMW- */
-	p_ptr->arena_number = 0;
+	arena_number = 0;
 	inside_arena = FALSE;
 	inside_quest = 0;
 	for (i = 0; i < MAX_MANE; i++)
@@ -7378,7 +7378,7 @@ void player_birth(void)
 	/* Init the shops */
 	for (i = 1; i < max_towns; i++)
 	{
-		p_ptr->town_num = i;
+		town_num = i;
 		process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
 		for (j = 0; j < MAX_STORES; j++)
 		{
