@@ -753,7 +753,7 @@ static void prt_status(creature_type *cr_ptr)
 /*
  * Prints "title", including "wizard" or "winner" as needed.
  */
-static void prt_title(void)
+static void prt_title(creature_type *cr_ptr)
 {
 	cptr p = "";
 	char str[14];
@@ -771,9 +771,9 @@ static void prt_title(void)
 	}
 
 	/* Winner */
-	else if (p_ptr->total_winner || (p_ptr->lev > PY_MAX_LEVEL))
+	else if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 	{
-		if (p_ptr->arena_number > MAX_ARENA_MONS + 2)
+		if (cr_ptr->arena_number > MAX_ARENA_MONS + 2)
 		{
 #ifdef JP
 			/* 英日切り替え機能 称号 */
@@ -796,7 +796,7 @@ static void prt_title(void)
 	/* Normal */
 	else
 	{
-		my_strcpy(str, player_title[p_ptr->cls_idx][(p_ptr->lev - 1) / 6], sizeof(str));
+		my_strcpy(str, player_title[cr_ptr->cls_idx][(cr_ptr->lev - 1) / 6], sizeof(str));
 		p = str;
 	}
 
@@ -807,28 +807,28 @@ static void prt_title(void)
 /*
  * Prints level
  */
-static void prt_level(void)
+static void prt_level(creature_type *cr_ptr)
 {
 	char tmp[32];
 
 #ifdef JP
-	sprintf(tmp, "%5d", p_ptr->lev);
+	sprintf(tmp, "%5d", cr_ptr->lev);
 #else
-	sprintf(tmp, "%6d", p_ptr->lev);
+	sprintf(tmp, "%6d", cr_ptr->lev);
 #endif
 
 
-	if (p_ptr->lev >= p_ptr->max_plv)
+	if (cr_ptr->lev >= cr_ptr->max_plv)
 	{
 #ifdef JP
-		if(p_ptr->lev >= p_ptr->max_lev)
+		if(cr_ptr->lev >= cr_ptr->max_lev)
 			put_str("レベル!", ROW_LEVEL, 0);
 		else
 			put_str("レベル ", ROW_LEVEL, 0);
 
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 7);
 #else
-		if(p_ptr->lev >= p_ptr->max_lev)
+		if(cr_ptr->lev >= cr_ptr->max_lev)
 			put_str("LEVEL!", ROW_LEVEL, 0);
 		else
 			put_str("LEVEL ", ROW_LEVEL, 0);
@@ -1730,10 +1730,10 @@ static void prt_frame_basic(void)
 
 
 	/* Title */
-	prt_title();
+	prt_title(p_ptr);
 
 	/* Level/Experience */
-	prt_level();
+	prt_level(p_ptr);
 	prt_exp(p_ptr);
 
 	/* All Stats */
@@ -6167,13 +6167,13 @@ void redraw_stuff(void)
 	if (play_redraw & (PR_TITLE))
 	{
 		play_redraw &= ~(PR_TITLE);
-		prt_title();
+		prt_title(p_ptr);
 	}
 
 	if (play_redraw & (PR_LEV))
 	{
 		play_redraw &= ~(PR_LEV);
-		prt_level();
+		prt_level(p_ptr);
 	}
 
 	if (play_redraw & (PR_EXP))
