@@ -199,8 +199,8 @@ void prt_time(void)
 
 cptr map_name(void)
 {
-	if (p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)
-	    && (quest[p_ptr->inside_quest].flags & QUEST_FLAG_PRESET))
+	if (inside_quest && is_fixed_quest_idx(inside_quest)
+	    && (quest[inside_quest].flags & QUEST_FLAG_PRESET))
 #ifdef JP
 		return "クエスト";
 #else
@@ -1060,7 +1060,7 @@ static void prt_depth(void)
 		strcpy(depths, "Surf.");
 #endif
 	}
-	else if (p_ptr->inside_quest && !dungeon_type)
+	else if (inside_quest && !dungeon_type)
 	{
 #ifdef JP
 		strcpy(depths, "地上");

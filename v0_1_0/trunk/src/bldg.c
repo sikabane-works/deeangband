@@ -2949,8 +2949,8 @@ static void get_questinfo(int questnum)
 	quest_text_line = 0;
 
 	/* Set the quest number temporary */
-	old_quest = p_ptr->inside_quest;
-	p_ptr->inside_quest = questnum;
+	old_quest = inside_quest;
+	inside_quest = questnum;
 
 	/* Get the quest text */
 	init_flags = INIT_SHOW_TEXT | INIT_ASSIGN;
@@ -2958,7 +2958,7 @@ static void get_questinfo(int questnum)
 	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 	/* Reset the old quest number */
-	p_ptr->inside_quest = old_quest;
+	inside_quest = old_quest;
 
 	/* Print the quest info */
 #ifdef JP
@@ -5066,8 +5066,8 @@ msg_print("ここにはクエストの入口はない。");
 
 		leave_quest_check();
 
-		if (quest[p_ptr->inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
-		p_ptr->inside_quest = cave[p_ptr->fy][p_ptr->fx].special;
+		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
+		inside_quest = cave[p_ptr->fy][p_ptr->fx].special;
 
 		p_ptr->leaving = TRUE;
 	}
@@ -5346,8 +5346,8 @@ int quest_number(int level)
 	int i;
 
 	/* Check quests */
-	if (p_ptr->inside_quest)
-		return (p_ptr->inside_quest);
+	if (inside_quest)
+		return (inside_quest);
 
 	for (i = 0; i < max_quests; i++)
 	{

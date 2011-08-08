@@ -5685,7 +5685,7 @@ extern int PlayerUID;
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(USER, TARGET) \
 	((USER)->inside_arena || (USER)->inside_battle || \
-	 ((USER)->inside_quest && !random_quest_number(dun_level)) || \
+	 (inside_quest && !random_quest_number(dun_level)) || \
 	 (((TARGET) <= 0) && (quest_number(dun_level) || (dun_level >= d_info[dungeon_type].maxdepth)) && \
 	  (dun_level >= 1) && ironman_downward))
 

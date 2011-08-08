@@ -3356,7 +3356,7 @@ static void player_wipe(void)
 	/* Initialize arena and rewards information -KMW- */
 	p_ptr->arena_number = 0;
 	p_ptr->inside_arena = FALSE;
-	p_ptr->inside_quest = 0;
+	inside_quest = 0;
 	for (i = 0; i < MAX_MANE; i++)
 	{
 		p_ptr->mane_spell[i] = -1;
@@ -3471,11 +3471,11 @@ static void init_dungeon_quests(void)
 
 	/* Init the random quests */
 	init_flags = INIT_ASSIGN;
-	p_ptr->inside_quest = MIN_RANDOM_QUEST;
+	inside_quest = MIN_RANDOM_QUEST;
 
 	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
-	p_ptr->inside_quest = 0;
+	inside_quest = 0;
 
 	/* Generate quests */
 	for (i = MIN_RANDOM_QUEST + number_of_quests - 1; i >= MIN_RANDOM_QUEST; i--)
@@ -3495,12 +3495,12 @@ static void init_dungeon_quests(void)
 
 	/* Init the two main quests (AOY) */
 	init_flags = INIT_ASSIGN;
-	p_ptr->inside_quest = QUEST_AOY;
+	inside_quest = QUEST_AOY;
 
 	process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 	quest[QUEST_AOY].status = QUEST_STATUS_TAKEN;
-	p_ptr->inside_quest = 0;
+	inside_quest = 0;
 
 
 }

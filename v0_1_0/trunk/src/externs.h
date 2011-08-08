@@ -1667,6 +1667,8 @@ extern void repeat_check(void);
 
 /* variable.c */
 extern bool easy_open;
+extern s16b inside_quest;		/* Inside quest level */
+
 
 /* cmd2.c */
 extern bool easy_open_door(int y, int x);

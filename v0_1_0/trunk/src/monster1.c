@@ -3356,7 +3356,7 @@ static bool mon_hook_floor(int species_idx)
 
 monster_hook_type get_monster_hook(void)
 {
-	if (!dun_level && !p_ptr->inside_quest)
+	if (!dun_level && !inside_quest)
 	{
 		switch (wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].terrain)
 		{

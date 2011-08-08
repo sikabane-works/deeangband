@@ -102,7 +102,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 			if (!cave_monster_teleportable_bold(cr_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			if (!(p_ptr->inside_quest || p_ptr->inside_arena))
+			if (!(inside_quest || p_ptr->inside_arena))
 				if (cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
@@ -741,7 +741,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 			leave_quest_check();
 
 			/* Leaving */
-			cr_ptr->inside_quest = 0;
+			inside_quest = 0;
 			cr_ptr->leaving = TRUE;
 		}
 	}
@@ -926,7 +926,7 @@ msg_print("‰½‚à‹N‚±‚ç‚È‚©‚Á‚½B");
 		return TRUE;
 	}
 
-	if (dun_level && (max_dlv[dungeon_type] > dun_level) && !p_ptr->inside_quest && !p_ptr->word_recall)
+	if (dun_level && (max_dlv[dungeon_type] > dun_level) && !inside_quest && !p_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -1619,7 +1619,7 @@ static bool vanish_dungeon(void)
 	char         m_name[80];
 
 	/* Prevent vasishing of quest levels and town */
-	if ((p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)) || !dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !dun_level)
 	{
 		return FALSE;
 	}
@@ -1792,7 +1792,7 @@ void call_the_(void)
 	}
 
 	/* Prevent destruction of quest levels and town */
-	else if ((p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)) || !dun_level)
+	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !dun_level)
 	{
 #ifdef JP
 		msg_print("’n–Ê‚ª—h‚ê‚½B");

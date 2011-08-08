@@ -1329,7 +1329,7 @@ bool make_attack_spell(creature_type *cr_ptr)
 	bool direct;
 
 	bool in_no_magic_dungeon = (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && dun_level
-		&& (!p_ptr->inside_quest || is_fixed_quest_idx(p_ptr->inside_quest));
+		&& (!inside_quest || is_fixed_quest_idx(inside_quest));
 
 	bool can_use_lite_area = FALSE;
 

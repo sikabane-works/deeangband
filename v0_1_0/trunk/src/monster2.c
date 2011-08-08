@@ -1260,7 +1260,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (dun_level && (!p_ptr->inside_quest || is_fixed_quest_idx(p_ptr->inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !p_ptr->inside_battle)
+		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !p_ptr->inside_battle)
 		{
 			int hoge = entry->prob2 * d_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;

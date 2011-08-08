@@ -397,7 +397,7 @@ void check_quest_completion(creature_type *m_ptr)
 	x = m_ptr->fx;
 
 	/* Inside a quest */
-	quest_num = p_ptr->inside_quest;
+	quest_num = inside_quest;
 
 	/* Search for an active quest on this dungeon level */
 	if (!quest_num)
@@ -527,7 +527,7 @@ msg_print("クエストを達成した！");
 					if (!(quest[i].flags & QUEST_FLAG_PRESET))
 					{
 						create_stairs = TRUE;
-						p_ptr->inside_quest = 0;
+						inside_quest = 0;
 					}
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
@@ -3545,14 +3545,14 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 		{
 			/* Set the quest number temporary */
-			int old_quest = p_ptr->inside_quest;
+			int old_quest = inside_quest;
 			int j;
 
 			/* Clear the text */
 			for (j = 0; j < 10; j++) quest_text[j][0] = '\0';
 			quest_text_line = 0;
 
-			p_ptr->inside_quest = c_ptr->special;
+			inside_quest = c_ptr->special;
 
 			/* Get the quest text */
 			init_flags = INIT_SHOW_TEXT;
@@ -3566,7 +3566,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 #endif
 
 			/* Reset the old quest number */
-			p_ptr->inside_quest = old_quest;
+			inside_quest = old_quest;
 		}
 
 		/* Hack -- special handling for building doors */

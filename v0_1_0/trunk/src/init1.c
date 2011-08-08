@@ -4253,7 +4253,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				panel_col_min = cur_wid;
 
 				/* Place player in a quest level */
-				if (p_ptr->inside_quest)
+				if (inside_quest)
 				{
 					int y, x;
 
@@ -4670,7 +4670,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Current quest number */
 			else if (streq(b+1, "QUEST_NUMBER"))
 			{
-				sprintf(tmp, "%d", p_ptr->inside_quest);
+				sprintf(tmp, "%d", inside_quest);
 				v = tmp;
 			}
 

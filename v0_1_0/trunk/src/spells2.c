@@ -4679,7 +4679,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 
 	else if (m_idx == p_ptr->riding) resist = TRUE;
 
-	else if ((p_ptr->inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle) resist = TRUE;
+	else if ((inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle) resist = TRUE;
 
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
 
@@ -4782,7 +4782,7 @@ bool symbol_genocide(int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent genocide in quest levels */
-	if ((p_ptr->inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
 	{
 		return (FALSE);
 	}
@@ -4833,7 +4833,7 @@ bool mass_genocide(int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((p_ptr->inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
 	{
 		return (FALSE);
 	}
@@ -4877,7 +4877,7 @@ bool mass_genocide_undead(int power, bool player_cast)
 	bool result = FALSE;
 
 	/* Prevent mass genocide in quest levels */
-	if ((p_ptr->inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
+	if ((inside_quest && !random_quest_number(dun_level)) || p_ptr->inside_arena || p_ptr->inside_battle)
 	{
 		return (FALSE);
 	}
@@ -5117,7 +5117,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 	bool      flag = FALSE;
 
 	/* Prevent destruction of quest levels and town */
-	if ((p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)) || !dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !dun_level)
 	{
 		return (FALSE);
 	}
@@ -5419,7 +5419,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 
 	/* Prevent destruction of quest levels and town */
-	if ((p_ptr->inside_quest && is_fixed_quest_idx(p_ptr->inside_quest)) || !dun_level)
+	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !dun_level)
 	{
 		return (FALSE);
 	}

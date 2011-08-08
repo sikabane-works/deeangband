@@ -1375,7 +1375,7 @@ static void rd_extra(void)
 	rd_s16b(&p_ptr->arena_number);
 	rd_s16b(&tmp16s);
 	p_ptr->inside_arena = (bool)tmp16s;
-	rd_s16b(&p_ptr->inside_quest);
+	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	p_ptr->inside_battle = (bool)tmp16s;
 	rd_byte(&p_ptr->exit_bldg);
@@ -2319,7 +2319,7 @@ note(format("アイテムの記録をロードしました:%u", tmp16u));
 		u16b max_towns_load;
 		u16b max_quests_load;
 		byte max_rquests_load;
-		s16b old_inside_quest = p_ptr->inside_quest;
+		s16b old_inside_quest = inside_quest;
 
 		/* Number of towns */
 		rd_u16b(&max_towns_load);

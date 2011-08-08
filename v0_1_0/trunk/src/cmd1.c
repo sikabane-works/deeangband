@@ -3829,11 +3829,11 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT))
 	{
-		if (quest[cr_ptr->inside_quest].type == QUEST_TYPE_FIND_EXIT)
+		if (quest[inside_quest].type == QUEST_TYPE_FIND_EXIT)
 		{
-			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, cr_ptr->inside_quest, NULL);
-			quest[cr_ptr->inside_quest].status = QUEST_STATUS_COMPLETED;
-			quest[cr_ptr->inside_quest].complev = (byte)cr_ptr->lev;
+			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, inside_quest, NULL);
+			quest[inside_quest].status = QUEST_STATUS_COMPLETED;
+			quest[inside_quest].complev = (byte)cr_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -3845,7 +3845,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 		leave_quest_check();
 
-		cr_ptr->inside_quest = c_ptr->special;
+		inside_quest = c_ptr->special;
 		dun_level = 0;
 		cr_ptr->oldpx = 0;
 		cr_ptr->oldpy = 0;

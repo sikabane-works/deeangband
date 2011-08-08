@@ -4066,7 +4066,7 @@ void display_player(int mode, creature_type *cr_ptr)
 					sprintf(statmsg, "...You were killed by %s in %s.", cr_ptr->died_from, map_name());
 #endif
 				}
-				else if (cr_ptr->inside_quest && is_fixed_quest_idx(cr_ptr->inside_quest))
+				else if (inside_quest && is_fixed_quest_idx(inside_quest))
 				{
 					/* Get the quest text */
 					/* Bewere that INIT_ASSIGN resets the cur_num. */
@@ -4075,9 +4075,9 @@ void display_player(int mode, creature_type *cr_ptr)
 					process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
-					sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[cr_ptr->inside_quest].name, cr_ptr->died_from);
+					sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, cr_ptr->died_from);
 #else
-					sprintf(statmsg, "...You were killed by %s in the quest '%s'.", cr_ptr->died_from, quest[cr_ptr->inside_quest].name);
+					sprintf(statmsg, "...You were killed by %s in the quest '%s'.", cr_ptr->died_from, quest[inside_quest].name);
 #endif
 				}
 				else
@@ -4099,7 +4099,7 @@ void display_player(int mode, creature_type *cr_ptr)
 					sprintf(statmsg, "...Now, you are in %s.", map_name());
 #endif
 				}
-				else if (cr_ptr->inside_quest && is_fixed_quest_idx(cr_ptr->inside_quest))
+				else if (inside_quest && is_fixed_quest_idx(inside_quest))
 				{
 					/* Clear the text */
 					/* Must be done before doing INIT_SHOW_TEXT */
@@ -4115,9 +4115,9 @@ void display_player(int mode, creature_type *cr_ptr)
 					process_dungeon_file("q_info.txt", 0, 0, 0, 0);
 
 #ifdef JP
-					sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[cr_ptr->inside_quest].name);
+					sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[inside_quest].name);
 #else
-					sprintf(statmsg, "...Now, you are in the quest '%s'.", quest[cr_ptr->inside_quest].name);
+					sprintf(statmsg, "...Now, you are in the quest '%s'.", quest[inside_quest].name);
 #endif
 				}
 				else

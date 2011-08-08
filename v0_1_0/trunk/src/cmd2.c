@@ -58,16 +58,16 @@ void do_cmd_go_up(void)
 
 		leave_quest_check();
 
-		p_ptr->inside_quest = c_ptr->special;
+		inside_quest = c_ptr->special;
 
 		/* Activate the quest */
-		if (!quest[p_ptr->inside_quest].status)
+		if (!quest[inside_quest].status)
 		{
-			quest[p_ptr->inside_quest].status = QUEST_STATUS_TAKEN;
+			quest[inside_quest].status = QUEST_STATUS_TAKEN;
 		}
 
 		/* Leaving a quest */
-		if (!p_ptr->inside_quest)
+		if (!inside_quest)
 		{
 			dun_level = 0;
 		}
@@ -88,10 +88,10 @@ void do_cmd_go_up(void)
 	}
 	else
 	{
-		quest_type *q_ptr = &quest[p_ptr->inside_quest];
+		quest_type *q_ptr = &quest[inside_quest];
 
 		/* Confirm leaving from once only quest */
-		if (confirm_quest && p_ptr->inside_quest &&
+		if (confirm_quest && inside_quest &&
 		    (q_ptr->type == QUEST_TYPE_RANDOM ||
 		     (q_ptr->flags & QUEST_FLAG_ONCE &&
 		      q_ptr->status != QUEST_STATUS_COMPLETED)))
@@ -119,21 +119,21 @@ void do_cmd_go_up(void)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* For a random quest */
-	if (p_ptr->inside_quest &&
-	    quest[p_ptr->inside_quest].type == QUEST_TYPE_RANDOM)
+	if (inside_quest &&
+	    quest[inside_quest].type == QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check();
 
-		p_ptr->inside_quest = 0;
+		inside_quest = 0;
 	}
 
 	/* For a fixed quest */
-	if (p_ptr->inside_quest &&
-	    quest[p_ptr->inside_quest].type != QUEST_TYPE_RANDOM)
+	if (inside_quest &&
+	    quest[inside_quest].type != QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check();
 
-		p_ptr->inside_quest = c_ptr->special;
+		inside_quest = c_ptr->special;
 		dun_level = 0;
 		up_num = 0;
 	}
@@ -240,16 +240,16 @@ void do_cmd_go_down(void)
 
 		leave_quest_check();
 
-		p_ptr->inside_quest = c_ptr->special;
+		inside_quest = c_ptr->special;
 
 		/* Activate the quest */
-		if (!quest[p_ptr->inside_quest].status)
+		if (!quest[inside_quest].status)
 		{
-			quest[p_ptr->inside_quest].status = QUEST_STATUS_TAKEN;
+			quest[inside_quest].status = QUEST_STATUS_TAKEN;
 		}
 
 		/* Leaving a quest */
-		if (!p_ptr->inside_quest)
+		if (!inside_quest)
 		{
 			dun_level = 0;
 		}

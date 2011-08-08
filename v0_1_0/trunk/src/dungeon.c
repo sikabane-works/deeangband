@@ -673,7 +673,7 @@ static void pattern_teleport(void)
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_PAT_TELE,0,NULL);
 
-	p_ptr->inside_quest = 0;
+	inside_quest = 0;
 	energy_use = 0;
 
 	/*
@@ -1164,7 +1164,7 @@ msg_print("明かりが微かになってきている。");
 void leave_quest_check(void)
 {
 	/* Save quest number for dungeon pref file ($LEAVING_QUEST) */
-	leaving_quest = p_ptr->inside_quest;
+	leaving_quest = inside_quest;
 
 	/* Leaving an 'only once' quest marks it as failed */
 	if (leaving_quest &&
@@ -3353,7 +3353,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 			disturb(0, 0);
 
 			/* Determine the level */
-			if (dun_level || cr_ptr->inside_quest)
+			if (dun_level || inside_quest)
 			{
 #ifdef JP
 msg_print("上に引っ張りあげられる感じがする！");
@@ -3370,7 +3370,7 @@ msg_print("上に引っ張りあげられる感じがする！");
 
 				leave_quest_check();
 
-				cr_ptr->inside_quest = 0;
+				inside_quest = 0;
 
 				cr_ptr->leaving = TRUE;
 			}
@@ -3910,7 +3910,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	/*** Handle the wilderness/town (sunshine) ***/
 
 	/* While in town/wilderness */
-	if (!dun_level && !cr_ptr->inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)
+	if (!dun_level && !inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -4020,7 +4020,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	}
 
 	/* While in the dungeon (vanilla_town or lite_town mode only) */
-	else if ((vanilla_town || (lite_town && !cr_ptr->inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)) && dun_level)
+	else if ((vanilla_town || (lite_town && !inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)) && dun_level)
 	{
 		/*** Shuffle the Storekeepers ***/
 
@@ -4076,7 +4076,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 	/* Check for creature generation. */
 	if (one_in_(d_info[dungeon_type].max_m_alloc_chance) &&
-	    !cr_ptr->inside_arena && !cr_ptr->inside_quest && !cr_ptr->inside_battle)
+	    !cr_ptr->inside_arena && !inside_quest && !cr_ptr->inside_battle)
 	{
 		/* Make a new monster */
 		(void)alloc_monster(MAX_SIGHT + 5, 0);
@@ -4741,7 +4741,7 @@ msg_print("ウィザードモード突入。");
 		/* Go up staircase */
 		case '<':
 		{
-			if (!p_ptr->wild_mode && !dun_level && !p_ptr->inside_arena && !p_ptr->inside_quest)
+			if (!p_ptr->wild_mode && !dun_level && !p_ptr->inside_arena && !inside_quest)
 			{
 				if (vanilla_town) break;
 
@@ -6214,7 +6214,7 @@ static void dungeon(bool load_game)
 
 
 	/* Track maximum dungeon level (if not in quest -KMW-) */
-	if ((max_dlv[dungeon_type] < dun_level) && !p_ptr->inside_quest)
+	if ((max_dlv[dungeon_type] < dun_level) && !inside_quest)
 	{
 		max_dlv[dungeon_type] = dun_level;
 		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
@@ -6303,10 +6303,10 @@ msg_print("試合開始！");
 	if (!p_ptr->playing || p_ptr->is_dead) return;
 
 	/* Print quest message if appropriate */
-	if (!p_ptr->inside_quest && (dungeon_type == DUNGEON_DOD))
+	if (!inside_quest && (dungeon_type == DUNGEON_DOD))
 	{
 		quest_discovery(random_quest_number(dun_level));
-		p_ptr->inside_quest = random_quest_number(dun_level);
+		inside_quest = random_quest_number(dun_level);
 	}
 	if ((dun_level == d_info[dungeon_type].maxdepth) && d_info[dungeon_type].final_guardian)
 	{
@@ -6852,7 +6852,7 @@ quit("セーブファイルが壊れています");
 
 		/* Start in town */
 		dun_level = 0;
-		p_ptr->inside_quest = 0;
+		inside_quest = 0;
 		p_ptr->inside_arena = FALSE;
 		p_ptr->inside_battle = FALSE;
 
@@ -6938,7 +6938,7 @@ quit("セーブファイルが壊れています");
 				init_saved_floors(TRUE);
 
 				/* Avoid crash */
-				p_ptr->inside_quest = 0;
+				inside_quest = 0;
 
 				/* Avoid crash in update_view() */
 				p_ptr->fy = p_ptr->fx = 10;
@@ -6952,7 +6952,7 @@ quit("セーブファイルが壊れています");
 
 
 	/* Initialize the town-buildings if necessary */
-	if (!dun_level && !p_ptr->inside_quest)
+	if (!dun_level && !inside_quest)
 	{
 
 		/* Init the wilderness */
@@ -7242,7 +7242,7 @@ quit("セーブファイルが壊れています");
 					p_ptr->inside_arena = FALSE;
 					p_ptr->inside_battle = FALSE;
 					leaving_quest = 0;
-					p_ptr->inside_quest = 0;
+					inside_quest = 0;
 					if (dungeon_type) p_ptr->recall_dungeon = dungeon_type;
 					dungeon_type = 0;
 					if (lite_town || vanilla_town)

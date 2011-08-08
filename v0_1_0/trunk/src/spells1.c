@@ -5397,7 +5397,7 @@ note_dies = "‚Íƒhƒƒhƒ‚É—n‚¯‚½I";
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
-			if ((who_ptr->inside_quest && (quest[who_ptr->inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(m_ptr)) ||
+			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(m_ptr)) ||
 			    (r_ptr->flags1 & (RF1_UNIQUE)) || (r_ptr->flags7 & (RF7_NAZGUL)) || (r_ptr->flags7 & (RF7_UNIQUE2)) || (r_ptr->flags1 & RF1_QUESTOR) || m_ptr->parent_m_idx)
 			{
 #ifdef JP

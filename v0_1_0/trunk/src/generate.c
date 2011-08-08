@@ -1339,12 +1339,12 @@ static void quest_gen(void)
 	}
 
 	/* Set the quest level */
-	base_level = quest[p_ptr->inside_quest].level;
+	base_level = quest[inside_quest].level;
 	dun_level = base_level;
 	object_level = base_level;
 	monster_level = base_level;
 
-	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, p_ptr->inside_quest, NULL);
+	if (record_stair) do_cmd_write_nikki(NIKKI_TO_QUEST, inside_quest, NULL);
 
 	/* Prepare allocation table */
 	get_mon_num_prep(get_monster_hook(), NULL);
@@ -1376,9 +1376,9 @@ static void fortless_gen(int type)
 
 	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
 
-	p_ptr->inside_quest = type;
+	inside_quest = type;
 	process_dungeon_file("q_info.txt", 0, 0, MAX_HGT, MAX_WID);
-	p_ptr->inside_quest = 0;
+	inside_quest = 0;
 }
 
 
@@ -1616,7 +1616,7 @@ void generate_cave(void)
 			battle_gen();
 		}
 
-		else if (p_ptr->inside_quest)
+		else if (inside_quest)
 		{
 			quest_gen();
 		}
