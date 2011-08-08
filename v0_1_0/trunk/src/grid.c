@@ -55,7 +55,7 @@ bool new_player_spot(void)
 			/* Refuse to start on anti-teleport grids in dungeon */
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
-		if (!player_can_enter(c_ptr->feat, 0)) continue;
+		if (!player_can_enter(p_ptr, c_ptr->feat, 0)) continue;
 		if (!in_bounds(y, x)) continue;
 
 		/* Refuse to start on anti-teleport grids */

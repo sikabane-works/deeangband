@@ -278,7 +278,7 @@ bool cave_player_teleportable_bold(int y, int x, u32b mode)
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!player_can_enter(c_ptr->feat, 0)) return FALSE;
+		if (!player_can_enter(p_ptr, c_ptr->feat, 0)) return FALSE;
 
 		if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 		{

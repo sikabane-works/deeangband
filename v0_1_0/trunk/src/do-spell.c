@@ -10435,13 +10435,13 @@ static cptr do_hissatsu_spell(int spell, int mode)
 	
 			py_attack(p_ptr, y, x, 0);
 	
-			if (!player_can_enter(cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
+			if (!player_can_enter(p_ptr, cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
 				break;
 	
 			y += ddy[dir];
 			x += ddx[dir];
 	
-			if (player_can_enter(cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
+			if (player_can_enter(p_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
 			{
 				msg_print(NULL);
 	
@@ -11053,7 +11053,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				lite_spot(ny, nx);
 	
 				/* Player can move forward? */
-				if (player_can_enter(c_ptr->feat, 0))
+				if (player_can_enter(p_ptr, c_ptr->feat, 0))
 				{
 					/* Move the player */
 					if (!move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;

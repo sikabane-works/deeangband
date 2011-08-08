@@ -794,7 +794,7 @@ void search(creature_type *cr_ptr)
 /*
  * Helper routine for py_pickup() and py_pickup_floor().
  *
- * Add the given dungeon object to the character's p_ptr->inventory.
+ * Add the given dungeon object to the character's inventory.
  *
  * Delete the object afterwards.
  */
@@ -1088,7 +1088,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 				if (okay)
 				{
 					/* Pick up the object */
-					py_pickup_aux(p_ptr, this_o_idx);
+					py_pickup_aux(cr_ptr, this_o_idx);
 				}
 			}
 		}
@@ -2151,7 +2151,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 		}
 	}
-	else if (object_is_melee_weapon(p_ptr, o_ptr))
+	else if (object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 		if ((r_ptr->level + 10) > cr_ptr->lev)
 		{
@@ -2186,7 +2186,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 	if (cr_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
-	vir = virtue_number(p_ptr, V_VALOUR);
+	vir = virtue_number(cr_ptr, V_VALOUR);
 	if (vir)
 	{
 		chance += (cr_ptr->virtues[vir - 1]/10);
@@ -2317,7 +2317,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Vampiric drain */
-			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(p_ptr, HEX_VAMP_BLADE))
+			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(cr_ptr, HEX_VAMP_BLADE))
 			{
 				/* Only drain "living" monsters */
 				if (monster_living(r_ptr))
@@ -2326,7 +2326,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					can_drain = FALSE;
 			}
 
-			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(p_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(cr_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 				vorpal_cut = TRUE;
 			else vorpal_cut = FALSE;
 
@@ -2818,7 +2818,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						drain_heal = damroll(2, drain_result / 6);
 
 						/* Hex */
-						if (hex_spelling(p_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+						if (hex_spelling(cr_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 						if (cheat_xtra)
 						{
@@ -2869,7 +2869,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			drain_result = 0;
 
 			/* Confusion attack */
-			if ((cr_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(p_ptr, HEX_CONFUSION))
+			if ((cr_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(cr_ptr, HEX_CONFUSION))
 			{
 				/* Cancel glowing hands */
 				if (cr_ptr->special_attack & ATTACK_CONFUSE)
@@ -3015,7 +3015,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 #else
 					msg_format("You snatched %s.", o_name);
 #endif
-					inven_carry(p_ptr, q_ptr);
+					inven_carry(cr_ptr, q_ptr);
 				}
 			}
 		}
@@ -3178,7 +3178,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	/* Mega-Hack -- apply earthquake brand */
 	if (do_quake)
 	{
-		earthquake(p_ptr->fy, p_ptr->fx, 10);
+		earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 		if (!cave[y][x].m_idx) *mdeath = TRUE;
 	}
 }
@@ -3196,16 +3196,16 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	char            tar_name[80];
 
 	/* Player or Enemy */
-	if(p_ptr->fx == x && p_ptr->fy == y && c_ptr->m_idx)
+	if(atk_ptr->fx == x && atk_ptr->fy == y && c_ptr->m_idx)
 	{
 		if(one_in_(2))
-			tar_ptr = p_ptr;
+			tar_ptr = atk_ptr;
 		else
 			tar_ptr = &m_list[c_ptr->m_idx];
 	}
-	else if (p_ptr->fx == x && p_ptr->fy == y)
+	else if (atk_ptr->fx == x && atk_ptr->fy == y)
 	{
-		tar_ptr = p_ptr;
+		tar_ptr = atk_ptr;
 	}
 	else
 	{
@@ -3287,7 +3287,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 			chg_virtue(atk_ptr, V_JUSTICE, -1);
 			chg_virtue(atk_ptr, V_COMPASSION, -1);
 		}
-		else if (atk_ptr->cls_idx != CLASS_BERSERKER && atk_ptr == p_ptr)
+		else if (atk_ptr->cls_idx != CLASS_BERSERKER && atk_ptr == atk_ptr)
 		{
 #ifdef JP
 			if (get_check("本当に攻撃しますか？"))
@@ -3469,14 +3469,14 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if ((atk_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || mdeath))
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(atk_ptr, ACTION_NONE);
 	}
 
 	return mdeath;
 }
 
 
-bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
+bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x)
 {
 	feature_type *cur_f_ptr = &f_info[cave[c_y][c_x].feat];
 	feature_type *new_f_ptr = &f_info[cave[n_y][n_x].feat];
@@ -3491,7 +3491,7 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 
 	if (pattern_type_new == PATTERN_TILE_START)
 	{
-		if (!is_pattern_tile_cur && !p_ptr->confused && !p_ptr->stun && !p_ptr->image)
+		if (!is_pattern_tile_cur && !cr_ptr->confused && !cr_ptr->stun && !cr_ptr->image)
 		{
 #ifdef JP
 			if (get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
@@ -3628,11 +3628,11 @@ bool pattern_seq(int c_y, int c_x, int n_y, int n_x)
 }
 
 
-bool player_can_enter(s16b feature, u16b mode)
+bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feature];
 
-	if (p_ptr->riding) return monster_can_cross_terrain(feature, &r_info[m_list[p_ptr->riding].species_idx], mode | CEM_RIDING);
+	if (cr_ptr->riding) return monster_can_cross_terrain(feature, &r_info[m_list[cr_ptr->riding].species_idx], mode | CEM_RIDING);
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -3641,9 +3641,9 @@ bool player_can_enter(s16b feature, u16b mode)
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && p_ptr->levitation) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && p_ptr->can_swim) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_PASS) && p_ptr->pass_wall) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && cr_ptr->levitation) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && cr_ptr->can_swim) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_PASS) && cr_ptr->pass_wall) return TRUE;
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
@@ -3983,7 +3983,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	char m_name[80];
 
-	bool p_can_enter = player_can_enter(c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	bool p_can_enter = player_can_enter(cr_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 	bool p_can_kill_walls = FALSE;
 	bool stormbringer = FALSE;
 
@@ -3998,7 +3998,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
 		/* Can the player enter the grid? */
-		if (c_ptr->mimic && player_can_enter(c_ptr->mimic, 0))
+		if (c_ptr->mimic && player_can_enter(cr_ptr, c_ptr->mimic, 0))
 		{
 			/* Hack: move to new area */
 			if ((y == 0) && (x == 0))
@@ -4148,7 +4148,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		if (!is_hostile(m_ptr) &&
 		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
 		    ((cr_ptr->muta2 & MUT2_BERS_RAGE) && cr_ptr->shero)) &&
-		    pattern_seq(cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
+		    pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
 			(void)set_paralyzed(m_ptr, 0);
@@ -4431,7 +4431,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 
 	/* Normal movement */
-	if (oktomove && !pattern_seq(cr_ptr->fy, cr_ptr->fx, y, x))
+	if (oktomove && !pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x))
 	{
 		if (!(cr_ptr->confused || cr_ptr->stun || cr_ptr->image))
 		{
@@ -4523,7 +4523,7 @@ static bool ignore_avoid_run;
 /*
  * Hack -- Check for a "known wall" (see below)
  */
-static int see_wall(int dir, int y, int x)
+static int see_wall(creature_type *cr_ptr, int dir, int y, int x)
 {
 	cave_type   *c_ptr;
 
@@ -4545,7 +4545,7 @@ static int see_wall(int dir, int y, int x)
 		feature_type *f_ptr = &f_info[feat];
 
 		/* Wall grids are known walls */
-		if (!player_can_enter(feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
+		if (!player_can_enter(cr_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
 
 		/* Don't run on a tree unless explicitly requested */
 		if (have_flag(f_ptr->flags, FF_AVOID_RUN) && !ignore_avoid_run)
@@ -4767,7 +4767,7 @@ static bool find_breakleft;
  *       #x#                 @x#
  *       @p.                  p
  */
-static void run_init(int dir)
+static void run_init(creature_type *cr_ptr, int dir)
 {
 	int             row, col, deepleft, deepright;
 	int             i, shortleft, shortright;
@@ -4789,12 +4789,12 @@ static void run_init(int dir)
 	deepleft = deepright = FALSE;
 	shortright = shortleft = FALSE;
 
-	p_ptr->run_py = p_ptr->fy;
-	p_ptr->run_px = p_ptr->fx;
+	cr_ptr->run_py = cr_ptr->fy;
+	cr_ptr->run_px = cr_ptr->fx;
 
 	/* Find the destination grid */
-	row = p_ptr->fy + ddy[dir];
-	col = p_ptr->fx + ddx[dir];
+	row = cr_ptr->fy + ddy[dir];
+	col = cr_ptr->fx + ddx[dir];
 
 	ignore_avoid_run = cave_have_flag_bold(row, col, FF_AVOID_RUN);
 
@@ -4802,24 +4802,24 @@ static void run_init(int dir)
 	i = chome[dir];
 
 	/* Check for walls */
-	if (see_wall(cycle[i+1], p_ptr->fy, p_ptr->fx))
+	if (see_wall(cr_ptr, cycle[i+1], cr_ptr->fy, cr_ptr->fx))
 	{
 		find_breakleft = TRUE;
 		shortleft = TRUE;
 	}
-	else if (see_wall(cycle[i+1], row, col))
+	else if (see_wall(cr_ptr, cycle[i+1], row, col))
 	{
 		find_breakleft = TRUE;
 		deepleft = TRUE;
 	}
 
 	/* Check for walls */
-	if (see_wall(cycle[i-1], p_ptr->fy, p_ptr->fx))
+	if (see_wall(cr_ptr, cycle[i-1], cr_ptr->fy, cr_ptr->fx))
 	{
 		find_breakright = TRUE;
 		shortright = TRUE;
 	}
-	else if (see_wall(cycle[i-1], row, col))
+	else if (see_wall(cr_ptr, cycle[i-1], row, col))
 	{
 		find_breakright = TRUE;
 		deepright = TRUE;
@@ -4845,7 +4845,7 @@ static void run_init(int dir)
 		}
 
 		/* Hack -- allow blunt corridor entry */
-		else if (see_wall(cycle[i], row, col))
+		else if (see_wall(cr_ptr, cycle[i], row, col))
 		{
 			if (shortleft && !shortright)
 			{
@@ -5000,7 +5000,7 @@ static bool run_test(creature_type *cr_ptr)
 		}
 
 		/* Analyze unknown grids and floors considering mimic */
-		if (inv || !see_wall(0, row, col))
+		if (inv || !see_wall(cr_ptr, 0, row, col))
 		{
 			/* Looking for open area */
 			if (find_openarea)
@@ -5069,7 +5069,7 @@ static bool run_test(creature_type *cr_ptr)
 		for (i = -max; i < 0; i++)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
+			if (!see_wall(cr_ptr, cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
 			{
 				/* Looking to break right */
 				if (find_breakright)
@@ -5093,7 +5093,7 @@ static bool run_test(creature_type *cr_ptr)
 		for (i = max; i > 0; i--)
 		{
 			/* Unknown grid or non-wall */
-			if (!see_wall(cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
+			if (!see_wall(cr_ptr, cycle[chome[prev_dir] + i], cr_ptr->fy, cr_ptr->fx))
 			{
 				/* Looking to break left */
 				if (find_breakleft)
@@ -5152,8 +5152,8 @@ static bool run_test(creature_type *cr_ptr)
 
 			/* Don't see that it is closed off. */
 			/* This could be a potential corner or an intersection. */
-			if (!see_wall(option, row, col) ||
-			    !see_wall(check_dir, row, col))
+			if (!see_wall(cr_ptr, option, row, col) ||
+			    !see_wall(cr_ptr, check_dir, row, col))
 			{
 				/* Can not see anything ahead and in the direction we */
 				/* are turning, assume that it is a potential corner. */
@@ -5189,7 +5189,7 @@ static bool run_test(creature_type *cr_ptr)
 	}
 
 	/* About to hit a known wall, stop */
-	if (see_wall(find_current, cr_ptr->fy, cr_ptr->fx))
+	if (see_wall(cr_ptr, find_current, cr_ptr->fy, cr_ptr->fx))
 	{
 		return (TRUE);
 	}
@@ -5212,7 +5212,7 @@ void run_step(creature_type *cr_ptr, int dir)
 		ignore_avoid_run = TRUE;
 
 		/* Hack -- do not start silly run */
-		if (see_wall(dir, cr_ptr->fy, cr_ptr->fx))
+		if (see_wall(cr_ptr, dir, cr_ptr->fy, cr_ptr->fx))
 		{
 			/* Message */
 #ifdef JP
@@ -5229,7 +5229,7 @@ void run_step(creature_type *cr_ptr, int dir)
 		}
 
 		/* Initialize */
-		run_init(dir);
+		run_init(cr_ptr, dir);
 	}
 
 	/* Keep running */

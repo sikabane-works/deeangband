@@ -1919,7 +1919,7 @@ static bool player_can_ride_aux(creature_type *cr_ptr, cave_type *c_ptr, bool no
 
 	calc_bonuses(cr_ptr, TRUE);
 
-	p_can_enter = player_can_enter(c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	p_can_enter = player_can_enter(cr_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
 	cr_ptr->riding = old_riding;
 	if (old_pf_ryoute) cr_ptr->pet_extra_flags |= (PF_RYOUTE);
@@ -2111,7 +2111,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
+		if (!pattern_seq(p_ptr, p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
 
 		if (c_ptr->m_idx)
 		{
@@ -2178,7 +2178,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
+		if (!pattern_seq(p_ptr, p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
 
 		if (!player_can_ride_aux(p_ptr, c_ptr, TRUE))
 		{

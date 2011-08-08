@@ -1455,13 +1455,13 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 
 		py_attack(cr_ptr, y, x, 0);
 
-		if (!player_can_enter(cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
+		if (!player_can_enter(cr_ptr, cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
 			break;
 
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (player_can_enter(cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
+		if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
 		{
 			msg_print(NULL);
 
