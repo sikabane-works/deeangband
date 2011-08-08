@@ -714,8 +714,8 @@ extern void disturb(int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(void);
 
 /* cmd1.c */
-extern bool test_hit_fire(int chance, int ac, int vis);
-extern bool test_hit_norm(int chance, int ac, int vis);
+extern bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis);
+extern bool test_hit_norm(creature_type *atk_ptr, int chance, int ac, int vis);
 extern s16b critical_shot(creature_type *cr_ptr, int weight, int plus, int dam);
 extern s16b critical_norm(creature_type *cr_ptr, int weight, int plus, int dam, s16b meichuu, int mode);
 extern s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_type *tar_ptr, int mode, bool thrown);

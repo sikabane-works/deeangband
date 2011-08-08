@@ -18,7 +18,7 @@
  * Determine if the player "hits" a monster (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_fire(int chance, int ac, int vis)
+bool test_hit_fire(creature_type *atk_ptr, int chance, int ac, int vis)
 {
 	int k;
 
@@ -28,7 +28,7 @@ bool test_hit_fire(int chance, int ac, int vis)
 	/* Hack -- Instant miss or hit */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara_idx == CHARA_NAMAKE)
+	if (atk_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (FALSE);
 
 	/* Never hit */
@@ -51,7 +51,7 @@ bool test_hit_fire(int chance, int ac, int vis)
  *
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_norm(int chance, int ac, int vis)
+bool test_hit_norm(creature_type *atk_ptr, int chance, int ac, int vis)
 {
 	int k;
 
@@ -61,7 +61,7 @@ bool test_hit_norm(int chance, int ac, int vis)
 	/* Hack -- Instant miss or hit */
 	if (k < 10) return (k < 5);
 
-	if (p_ptr->chara_idx == CHARA_NAMAKE)
+	if (atk_ptr->chara_idx == CHARA_NAMAKE)
 		if (one_in_(20)) return (FALSE);
 
 	/* Wimpy attack never hits */
@@ -1980,7 +1980,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
+	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -2221,7 +2221,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			success_hit = one_in_(n);
 		}
 		else if ((cr_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(m_ptr->resist_ultimate))) success_hit = TRUE;
-		else success_hit = test_hit_norm(chance,  m_ptr->ac + m_ptr->to_a, m_ptr->ml);
+		else success_hit = test_hit_norm(cr_ptr, chance,  m_ptr->ac + m_ptr->to_a, m_ptr->ml);
 
 		if (mode == HISSATSU_MAJIN)
 		{

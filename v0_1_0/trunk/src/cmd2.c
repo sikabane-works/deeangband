@@ -3702,7 +3702,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			}
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(chance - cur_dis, armour, m_ptr->ml))
+			if (test_hit_fire(p_ptr, chance - cur_dis, armour, m_ptr->ml))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
@@ -4376,7 +4376,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(chance - cur_dis,  m_ptr->ac + m_ptr->to_a, m_ptr->ml))
+			if (test_hit_fire(p_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_a, m_ptr->ml))
 			{
 				bool fear = FALSE;
 
