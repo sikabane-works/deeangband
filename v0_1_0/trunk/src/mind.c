@@ -1466,7 +1466,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			msg_print(NULL);
 
 			/* Move the player */
-			(void)move_player_effect(y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+			(void)move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 		}
 		break;
 	}

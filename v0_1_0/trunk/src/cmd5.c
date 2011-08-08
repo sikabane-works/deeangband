@@ -2080,7 +2080,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 
 	/* Move the player */
 	if (sy && !p_ptr->is_dead)
-		(void)move_player_effect(p_ptr->fy, p_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+		(void)move_creature_effect(p_ptr, p_ptr->fy, p_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return fall_dam;
 }
@@ -2245,7 +2245,7 @@ bool do_riding(bool force)
 	play_redraw |= (PR_UHEALTH);
 
 	/* Move the player */
-	(void)move_player_effect(y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+	(void)move_creature_effect(p_ptr, y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return TRUE;
 }

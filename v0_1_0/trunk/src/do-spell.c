@@ -10446,7 +10446,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				msg_print(NULL);
 	
 				/* Move the player */
-				(void)move_player_effect(y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+				(void)move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 			}
 		}
 		break;
@@ -11056,7 +11056,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				if (player_can_enter(c_ptr->feat, 0))
 				{
 					/* Move the player */
-					if (!move_player_effect(y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
+					if (!move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
 				}
 				else
 				{

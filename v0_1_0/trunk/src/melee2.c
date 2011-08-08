@@ -2572,7 +2572,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* sound(SOUND_WALK); */
 
 				/* Move the player */
-				if (!move_player_effect(ny, nx, MPE_DONT_PICKUP)) break;
+				if (!move_creature_effect(p_ptr, ny, nx, MPE_DONT_PICKUP)) break;
 			}
 
 			/* Possible disturb */

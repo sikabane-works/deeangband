@@ -3553,7 +3553,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				cave_alter_feat(y, x, FF_HURT_ROCK);
 
 				/* Move the player */
-				(void)move_player_effect(y, x, MPE_DONT_PICKUP);
+				(void)move_creature_effect(cr_ptr, y, x, MPE_DONT_PICKUP);
 			}
 			break;
 

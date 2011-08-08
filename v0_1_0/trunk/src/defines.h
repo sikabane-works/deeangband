@@ -5718,7 +5718,7 @@ extern int PlayerUID;
 #define SKEY_BOTTOM 	  0xf008
 
 /*
- * Bit flags for move_player_effect()
+ * Bit flags for move_creature_effect()
  */
 #define MPE_STAYING       0x00000001
 #define MPE_FORGET_FLOW   0x00000002

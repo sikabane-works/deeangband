@@ -429,7 +429,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 #endif
 
 	/* Move the player */
-	(void)move_player_effect(y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
 	return TRUE;
 }
@@ -560,7 +560,7 @@ void teleport_player_to(int ny, int nx, u32b mode)
 	sound(SOUND_TELEPORT);
 
 	/* Move the player */
-	(void)move_player_effect(y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 }
 
 

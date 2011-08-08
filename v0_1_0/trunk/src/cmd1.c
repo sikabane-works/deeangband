@@ -3654,12 +3654,12 @@ bool player_can_enter(s16b feature, u16b mode)
 /*
  * Move the player
  */
-bool move_player_effect(int ny, int nx, u32b mpe_mode)
+bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 {
 	cave_type *c_ptr = &cave[ny][nx];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
 
-	if (p_ptr->wild_mode)
+	if (cr_ptr->wild_mode)
 	{
 		/* add known map */
 		wilderness[ny][nx].known = TRUE;
@@ -3676,15 +3676,15 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
-		int oy = p_ptr->fy;
-		int ox = p_ptr->fx;
+		int oy = cr_ptr->fy;
+		int ox = cr_ptr->fx;
 		cave_type *oc_ptr = &cave[oy][ox];
 		int om_idx = oc_ptr->m_idx;
 		int nm_idx = c_ptr->m_idx;
 
 		/* Move the player */
-		p_ptr->fy = ny;
-		p_ptr->fx = nx;
+		cr_ptr->fy = ny;
+		cr_ptr->fx = nx;
 
 		/* Hack -- For moving monster or riding player's moving */
 		if (!(mpe_mode & MPE_DONT_SWAP_MON))
@@ -3693,7 +3693,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 			c_ptr->m_idx = om_idx;
 			oc_ptr->m_idx = nm_idx;
 
-			if (om_idx > 0) /* Monster on old spot (or p_ptr->riding) */
+			if (om_idx > 0) /* Monster on old spot (or cr_ptr->riding) */
 			{
 				creature_type *om_ptr = &m_list[om_idx];
 				om_ptr->fy = ny;
@@ -3724,20 +3724,20 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 			forget_flow();
 
 			/* Mega-Hack -- Forget the view */
-			p_ptr->update |= (PU_UN_VIEW);
+			cr_ptr->update |= (PU_UN_VIEW);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
 		}
 
 		/* Update stuff */
-		p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
+		cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if ((!p_ptr->blind && !no_lite()) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if ((!cr_ptr->blind && !no_lite()) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
 		if (dun_level && (d_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark();
@@ -3745,15 +3745,15 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
 
-		if (p_ptr->cls_idx == CLASS_NINJA)
+		if (cr_ptr->cls_idx == CLASS_NINJA)
 		{
-			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(p_ptr, FALSE);
-			else if (p_ptr->cur_lite <= 0) set_superstealth(p_ptr, TRUE);
+			if (c_ptr->info & (CAVE_GLOW)) set_superstealth(cr_ptr, FALSE);
+			else if (cr_ptr->cur_lite <= 0) set_superstealth(cr_ptr, TRUE);
 		}
 
-		if ((p_ptr->action == ACTION_HAYAGAKE) &&
+		if ((cr_ptr->action == ACTION_HAYAGAKE) &&
 		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
-		     (!p_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
+		     (!cr_ptr->levitation && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 #ifdef JP
 			msg_print("ここでは素早く動けない。");
@@ -3761,37 +3761,37 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 			msg_print("You cannot run in here.");
 #endif
 			energy_use = 100;
-			set_action(p_ptr, ACTION_NONE);
+			set_action(cr_ptr, ACTION_NONE);
 		}
 	}
 
 	if (mpe_mode & MPE_ENERGY_USE)
 	{
-		if (music_singing(p_ptr, MUSIC_WALL))
+		if (music_singing(cr_ptr, MUSIC_WALL))
 		{
-			(void)project(p_ptr, 0, p_ptr->fy, p_ptr->fx, (60 + p_ptr->lev), GF_DISINTEGRATE,
+			(void)project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, (60 + cr_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
-			if (!player_bold(ny, nx) || p_ptr->is_dead || p_ptr->leaving) return FALSE;
+			if (!player_bold(ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
 		}
 
 		/* Spontaneous Searching */
-		if ((p_ptr->skill_fos >= 50) || (0 == randint0(50 - p_ptr->skill_fos)))
+		if ((cr_ptr->skill_fos >= 50) || (0 == randint0(50 - cr_ptr->skill_fos)))
 		{
-			search(p_ptr);
+			search(cr_ptr);
 		}
 
 		/* Continuous Searching */
-		if (p_ptr->action == ACTION_SEARCH)
+		if (cr_ptr->action == ACTION_SEARCH)
 		{
-			search(p_ptr);
+			search(cr_ptr);
 		}
 	}
 
 	/* Handle "objects" */
 	if (!(mpe_mode & MPE_DONT_PICKUP))
 	{
-		carry(p_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
+		carry(cr_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
 	}
 
 	/* Handle "store doors" */
@@ -3829,11 +3829,11 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 
 	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT))
 	{
-		if (quest[p_ptr->inside_quest].type == QUEST_TYPE_FIND_EXIT)
+		if (quest[cr_ptr->inside_quest].type == QUEST_TYPE_FIND_EXIT)
 		{
-			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, p_ptr->inside_quest, NULL);
-			quest[p_ptr->inside_quest].status = QUEST_STATUS_COMPLETED;
-			quest[p_ptr->inside_quest].complev = (byte)p_ptr->lev;
+			if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, cr_ptr->inside_quest, NULL);
+			quest[cr_ptr->inside_quest].status = QUEST_STATUS_COMPLETED;
+			quest[cr_ptr->inside_quest].complev = (byte)cr_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -3845,12 +3845,12 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 
 		leave_quest_check();
 
-		p_ptr->inside_quest = c_ptr->special;
+		cr_ptr->inside_quest = c_ptr->special;
 		dun_level = 0;
-		p_ptr->oldpx = 0;
-		p_ptr->oldpy = 0;
+		cr_ptr->oldpx = 0;
+		cr_ptr->oldpy = 0;
 
-		p_ptr->leaving = TRUE;
+		cr_ptr->leaving = TRUE;
 	}
 
 	/* Set off a trap */
@@ -3870,21 +3870,21 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 #endif
 
 			/* Pick a trap */
-			disclose_grid(p_ptr->fy, p_ptr->fx);
+			disclose_grid(cr_ptr->fy, cr_ptr->fx);
 		}
 
 		/* Hit the trap */
-		hit_trap(p_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
+		hit_trap(cr_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if (!player_bold(ny, nx) || p_ptr->is_dead || p_ptr->leaving) return FALSE;
+		if (!player_bold(ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
 	if (!(mpe_mode & MPE_STAYING) && (disturb_trap_detect || alert_trap_detect)
-	    && p_ptr->dtrap && !(c_ptr->info & CAVE_IN_DETECT))
+	    && cr_ptr->dtrap && !(c_ptr->info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
-		p_ptr->dtrap = FALSE;
+		cr_ptr->dtrap = FALSE;
 
 		/* You are just on the edge */
 		if (!(c_ptr->info & CAVE_UNSAFE))
@@ -3902,7 +3902,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 		}
 	}
 
-	return player_bold(ny, nx) && !p_ptr->is_dead && !p_ptr->leaving;
+	return player_bold(ny, nx) && !cr_ptr->is_dead && !cr_ptr->leaving;
 }
 
 
@@ -4502,7 +4502,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
 
 		/* Move the player */
-		(void)move_player_effect(y, x, mpe_mode);
+		(void)move_creature_effect(p_ptr, y, x, mpe_mode);
 	}
 
 	if(!p_ptr->blind && ((c_ptr->info & CAVE_GLOW) || p_ptr->cur_lite > 0) && strlen(c_ptr->message))
