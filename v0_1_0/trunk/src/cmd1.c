@@ -3906,7 +3906,7 @@ bool move_player_effect(int ny, int nx, u32b mpe_mode)
 }
 
 
-bool trap_can_be_ignored(int feat)
+bool trap_can_be_ignored(creature_type *cr_ptr, int feat)
 {
 	feature_type *f_ptr = &f_info[feat];
 
@@ -3918,28 +3918,28 @@ bool trap_can_be_ignored(int feat)
 	case TRAP_PIT:
 	case TRAP_SPIKED_PIT:
 	case TRAP_POISON_PIT:
-		if (p_ptr->levitation) return TRUE;
+		if (cr_ptr->levitation) return TRUE;
 		break;
 	case TRAP_TELEPORT:
-		if (p_ptr->anti_tele) return TRUE;
+		if (cr_ptr->anti_tele) return TRUE;
 		break;
 	case TRAP_FIRE:
-		if (p_ptr->immune_fire) return TRUE;
+		if (cr_ptr->immune_fire) return TRUE;
 		break;
 	case TRAP_ACID:
-		if (p_ptr->immune_acid) return TRUE;
+		if (cr_ptr->immune_acid) return TRUE;
 		break;
 	case TRAP_BLIND:
-		if (p_ptr->resist_blind) return TRUE;
+		if (cr_ptr->resist_blind) return TRUE;
 		break;
 	case TRAP_CONFUSE:
-		if (p_ptr->resist_conf) return TRUE;
+		if (cr_ptr->resist_conf) return TRUE;
 		break;
 	case TRAP_POISON:
-		if (p_ptr->resist_pois) return TRUE;
+		if (cr_ptr->resist_pois) return TRUE;
 		break;
 	case TRAP_SLEEP:
-		if (p_ptr->free_act) return TRUE;
+		if (cr_ptr->free_act) return TRUE;
 		break;
 	}
 
@@ -4320,7 +4320,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	/* Disarm a visible trap */
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
 	{
-		if (!trap_can_be_ignored(c_ptr->feat))
+		if (!trap_can_be_ignored(p_ptr, c_ptr->feat))
 		{
 			(void)do_cmd_disarm_aux(y, x, dir);
 			return;
