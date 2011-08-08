@@ -91,10 +91,10 @@ static byte value_check_aux2(object_type *o_ptr)
 
 
 
-static void sense_inventory_aux(int slot, bool heavy)
+static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 {
 	byte        feel;
-	object_type *o_ptr = &p_ptr->inventory[slot];
+	object_type *o_ptr = &cr_ptr->inventory[slot];
 	char        o_name[MAX_NLEN];
 
 	/* We know about it already, do not tell us again */
@@ -110,7 +110,7 @@ static void sense_inventory_aux(int slot, bool heavy)
 	if (!feel) return;
 
 	/* Bad luck */
-	if ((p_ptr->muta3 & MUT3_BAD_LUCK) && !randint0(13))
+	if ((cr_ptr->muta3 & MUT3_BAD_LUCK) && !randint0(13))
 	{
 		switch (feel)
 		{
@@ -169,10 +169,10 @@ static void sense_inventory_aux(int slot, bool heavy)
 	{
 #ifdef JP
 msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-describe_use(slot),o_name, index_to_label(p_ptr, slot),game_inscriptions[feel]);
+describe_use(slot),o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
-			   o_name, index_to_label(p_ptr, slot), describe_use(slot),
+			   o_name, index_to_label(cr_ptr, slot), describe_use(slot),
 			   ((o_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -184,10 +184,10 @@ describe_use(slot),o_name, index_to_label(p_ptr, slot),game_inscriptions[feel]);
 	{
 #ifdef JP
 msg_format("ƒUƒbƒN‚Ì’†‚Ì%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-o_name, index_to_label(p_ptr, slot),game_inscriptions[feel]);
+o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
-			   o_name, index_to_label(p_ptr, slot),
+			   o_name, index_to_label(cr_ptr, slot),
 			   ((o_ptr->number == 1) ? "is" : "are"),
 				   game_inscriptions[feel]);
 #endif
@@ -204,7 +204,7 @@ o_name, index_to_label(p_ptr, slot),game_inscriptions[feel]);
 	autopick_alter_item(slot, destroy_feeling);
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
@@ -452,7 +452,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 			heavy = TRUE;
 		}
 
-		sense_inventory_aux(i, heavy);
+		sense_inventory_aux(cr_ptr, i, heavy);
 	}
 }
 
@@ -576,7 +576,7 @@ static void sense_inventory2(creature_type *cr_ptr)
 		/* Occasional failure on cr_ptr->inventory items */
 		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
 
-		sense_inventory_aux(i, TRUE);
+		sense_inventory_aux(cr_ptr, i, TRUE);
 	}
 }
 
