@@ -2297,7 +2297,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (!cr_ptr->muta2) return;
 
 	/* No effect on monster arena */
-	if (cr_ptr->inside_battle) return;
+	if (inside_battle) return;
 
 	/* No effect on the global map */
 	if (wild_mode) return;
@@ -2759,7 +2759,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	}
 
 	if ((cr_ptr->muta2 & MUT2_WALK_SHAD) &&
-	    !cr_ptr->anti_magic && one_in_(12000) && !cr_ptr->inside_arena)
+	    !cr_ptr->anti_magic && one_in_(12000) && !inside_arena)
 	{
 		alter_reality();
 	}
@@ -2935,7 +2935,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
  */
 static void process_world_aux_curse(creature_type *cr_ptr)
 {
-	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !cr_ptr->inside_battle && !wild_mode)
+	if ((cr_ptr->cursed & TRC_P_FLAG_MASK) && !inside_battle && !wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
@@ -3338,7 +3338,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 		 * The player is yanked up/down as soon as
 		 * he loads the autosaved game.
 		 */
-		if (autosave_l && (cr_ptr->word_recall == 1) && !cr_ptr->inside_battle)
+		if (autosave_l && (cr_ptr->word_recall == 1) && !inside_battle)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
@@ -3457,7 +3457,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 	/* Delayed Alter reality */
 	if (cr_ptr->alter_reality)
 	{
-		if (autosave_l && (cr_ptr->alter_reality == 1) && !cr_ptr->inside_battle)
+		if (autosave_l && (cr_ptr->alter_reality == 1) && !inside_battle)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
@@ -3698,7 +3698,7 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	if (!dun_level) return;
 
 	/* No feeling in the arena */
-	if (cr_ptr->inside_battle) return;
+	if (inside_battle) return;
 
 	/* Extract delay time */
 	delay = MAX(10, 150 - cr_ptr->skill_fos) * (150 - dun_level) * TURNS_PER_TICK / 100;
@@ -3756,7 +3756,7 @@ static void process_world(creature_type *cr_ptr)
 	update_dungeon_feeling(cr_ptr);
 
 	/*** Check monster arena ***/
-	if (cr_ptr->inside_battle && !cr_ptr->leaving)
+	if (inside_battle && !cr_ptr->leaving)
 	{
 		int i2, j2;
 		int win_m_idx = 0;
@@ -3892,7 +3892,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	}
 
 	/*** Attempt timed autosave ***/
-	if (autosave_t && autosave_freq && !cr_ptr->inside_battle)
+	if (autosave_t && autosave_freq && !inside_battle)
 	{
 		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
 			do_cmd_save_game(TRUE);
@@ -3910,7 +3910,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	/*** Handle the wilderness/town (sunshine) ***/
 
 	/* While in town/wilderness */
-	if (!dun_level && !inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)
+	if (!dun_level && !inside_quest && !inside_battle && !inside_arena)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -4020,7 +4020,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	}
 
 	/* While in the dungeon (vanilla_town or lite_town mode only) */
-	else if ((vanilla_town || (lite_town && !inside_quest && !cr_ptr->inside_battle && !cr_ptr->inside_arena)) && dun_level)
+	else if ((vanilla_town || (lite_town && !inside_quest && !inside_battle && !inside_arena)) && dun_level)
 	{
 		/*** Shuffle the Storekeepers ***/
 
@@ -4076,14 +4076,14 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 	/* Check for creature generation. */
 	if (one_in_(d_info[dungeon_type].max_m_alloc_chance) &&
-	    !cr_ptr->inside_arena && !inside_quest && !cr_ptr->inside_battle)
+	    !inside_arena && !inside_quest && !inside_battle)
 	{
 		/* Make a new monster */
 		(void)alloc_monster(MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !cr_ptr->inside_battle) regen_monsters();
+	if (!(turn % (TURNS_PER_TICK*10)) && !inside_battle) regen_monsters();
 	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters();
 
 	if (!cr_ptr->leaving)
@@ -4176,7 +4176,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 	/*** Check the Food, and Regenerate ***/
 
-	if (!cr_ptr->inside_battle)
+	if (!inside_battle)
 	{
 		/* Digest quickly when gorged */
 		if (cr_ptr->food >= PY_FOOD_MAX)
@@ -4741,7 +4741,7 @@ msg_print("ウィザードモード突入。");
 		/* Go up staircase */
 		case '<':
 		{
-			if (!wild_mode && !dun_level && !p_ptr->inside_arena && !inside_quest)
+			if (!wild_mode && !dun_level && !inside_arena && !inside_quest)
 			{
 				if (vanilla_town) break;
 
@@ -5011,7 +5011,7 @@ msg_print("ウィザードモード突入。");
 		{
 			if (!wild_mode)
 			{
-			if (!p_ptr->inside_arena)
+			if (!inside_arena)
 				do_cmd_activate(p_ptr);
 			else
 			{
@@ -5063,7 +5063,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!p_ptr->inside_arena)
+			if (!inside_arena)
 				do_cmd_aim_wand(p_ptr);
 			else
 			{
@@ -5084,7 +5084,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (p_ptr->inside_arena)
+			if (inside_arena)
 			{
 #ifdef JP
 msg_print("アリーナが魔法を吸収した！");
@@ -5111,7 +5111,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!p_ptr->inside_arena)
+			if (!inside_arena)
 				do_cmd_quaff_potion(p_ptr);
 			else
 			{
@@ -5132,7 +5132,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!p_ptr->inside_arena)
+			if (!inside_arena)
 				do_cmd_read_scroll(p_ptr);
 			else
 			{
@@ -5153,7 +5153,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (p_ptr->inside_arena)
+			if (inside_arena)
 			{
 #ifdef JP
 msg_print("アリーナが魔法を吸収した！");
@@ -5551,7 +5551,7 @@ msg_print("何か変わった気がする！");
 		hack_mutation = FALSE;
 	}
 
-	if (p_ptr->inside_battle)
+	if (inside_battle)
 	{
 		for(i = 1; i < m_max; i++)
 		{
@@ -5864,7 +5864,7 @@ msg_print("中断しました。");
 		energy_use = 0;
 
 
-		if (p_ptr->inside_battle)
+		if (inside_battle)
 		{
 			/* Place the cursor on the player */
 			move_cursor_relative(p_ptr->fy, p_ptr->fx);
@@ -6278,7 +6278,7 @@ static void dungeon(bool load_game)
 	    !( quest_num == QUEST_SERPENT ||
 	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling();
 
-	if (p_ptr->inside_battle)
+	if (inside_battle)
 	{
 		if (load_game)
 		{
@@ -6334,8 +6334,8 @@ msg_print("試合開始！");
 
 	hack_mind = TRUE;
 
-	if (p_ptr->energy_need > 0 && !p_ptr->inside_battle &&
-	    (dun_level || p_ptr->leaving_dungeon || p_ptr->inside_arena))
+	if (p_ptr->energy_need > 0 && !inside_battle &&
+	    (dun_level || p_ptr->leaving_dungeon || inside_arena))
 		p_ptr->energy_need = 0;
 
 	/* Not leaving dungeon */
@@ -6348,10 +6348,10 @@ msg_print("試合開始！");
 	while (TRUE)
 	{
 		/* Hack -- Compact the monster list occasionally */
-		if ((m_cnt + 32 > max_m_idx) && !p_ptr->inside_battle) compact_monsters(64);
+		if ((m_cnt + 32 > max_m_idx) && !inside_battle) compact_monsters(64);
 
 		/* Hack -- Compress the monster list occasionally */
-		if ((m_cnt + 32 < m_max) && !p_ptr->inside_battle) compact_monsters(0);
+		if ((m_cnt + 32 < m_max) && !inside_battle) compact_monsters(0);
 
 
 		/* Hack -- Compact the object list occasionally */
@@ -6609,7 +6609,7 @@ void determine_bounty_uniques(void)
 void determine_today_mon(bool conv_old)
 {
 	int max_dl = 3, i;
-	bool old_inside_battle = p_ptr->inside_battle;
+	bool old_inside_battle = inside_battle;
 	species_type *r_ptr;
 
 	if (!conv_old)
@@ -6622,7 +6622,7 @@ void determine_today_mon(bool conv_old)
 	}
 	else max_dl = MAX(max_dlv[DUNGEON_DOD], 3);
 
-	p_ptr->inside_battle = TRUE;
+	inside_battle = TRUE;
 	get_mon_num_prep(NULL, NULL);
 
 	while (1)
@@ -6640,7 +6640,7 @@ void determine_today_mon(bool conv_old)
 	}
 
 	p_ptr->today_mon = 0;
-	p_ptr->inside_battle = old_inside_battle;
+	inside_battle = old_inside_battle;
 }
 
 
@@ -6853,8 +6853,8 @@ quit("セーブファイルが壊れています");
 		/* Start in town */
 		dun_level = 0;
 		inside_quest = 0;
-		p_ptr->inside_arena = FALSE;
-		p_ptr->inside_battle = FALSE;
+		inside_arena = FALSE;
+		inside_battle = FALSE;
 
 		write_level = TRUE;
 
@@ -7123,9 +7123,9 @@ quit("セーブファイルが壊れています");
 		/* Accidental Death */
 		if (p_ptr->playing && p_ptr->is_dead)
 		{
-			if (p_ptr->inside_arena)
+			if (inside_arena)
 			{
-				p_ptr->inside_arena = FALSE;
+				inside_arena = FALSE;
 				if (p_ptr->arena_number > MAX_ARENA_MONS)
 					p_ptr->arena_number++;
 				else
@@ -7239,8 +7239,8 @@ quit("セーブファイルが壊れています");
 					(void)set_food(p_ptr, PY_FOOD_MAX - 1);
 
 					dun_level = 0;
-					p_ptr->inside_arena = FALSE;
-					p_ptr->inside_battle = FALSE;
+					inside_arena = FALSE;
+					inside_battle = FALSE;
 					leaving_quest = 0;
 					inside_quest = 0;
 					if (dungeon_type) p_ptr->recall_dungeon = dungeon_type;

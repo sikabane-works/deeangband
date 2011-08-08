@@ -3355,7 +3355,7 @@ static void player_wipe(void)
 
 	/* Initialize arena and rewards information -KMW- */
 	p_ptr->arena_number = 0;
-	p_ptr->inside_arena = FALSE;
+	inside_arena = FALSE;
 	inside_quest = 0;
 	for (i = 0; i < MAX_MANE; i++)
 	{

@@ -4180,7 +4180,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 		return FALSE;
 	}
 
-	if (p_ptr->inside_arena && !boomerang)
+	if (inside_arena && !boomerang)
 	{
 		if (o_ptr->tval != TV_SPIKE)
 		{
@@ -4502,7 +4502,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	j = (hit_body ? breakage_chance(q_ptr) : 0);
 
 	/* Figurines transform */
-	if ((q_ptr->tval == TV_FIGURINE) && !(p_ptr->inside_arena))
+	if ((q_ptr->tval == TV_FIGURINE) && !(inside_arena))
 	{
 		j = 100;
 

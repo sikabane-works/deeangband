@@ -1241,7 +1241,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 		    (get_mon_num2_hook && !((*get_mon_num2_hook)(entry->index))))
 			continue;
 
-		if (!p_ptr->inside_battle && !chameleon_change_m_idx &&
+		if (!inside_battle && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
@@ -1260,7 +1260,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 		/* Accept this monster */
 		entry->prob2 = entry->prob1;
 
-		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !p_ptr->inside_battle)
+		if (dun_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_monster_to_dungeon(entry->index) && !inside_battle)
 		{
 			int hoge = entry->prob2 * d_info[dungeon_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1369,7 +1369,7 @@ s16b get_mon_num(int level)
 	}
 
 	/* Boost the level */
-	if ((level > 0) && !p_ptr->inside_battle && !(d_info[dungeon_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !inside_battle && !(d_info[dungeon_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth monsters */
 		if (ironman_nightmare && !randint0(pls_kakuritu))
@@ -1420,7 +1420,7 @@ s16b get_mon_num(int level)
 		/* Access the actual race */
 		r_ptr = &r_info[species_idx];
 
-		if (!p_ptr->inside_battle && !chameleon_change_m_idx)
+		if (!inside_battle && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
 			if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
@@ -1804,7 +1804,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			}
 
 			/* Inside monster arena, and it is not your mount */
-			else if (p_ptr->inside_battle &&
+			else if (inside_battle &&
 				 !(p_ptr->riding && (&m_list[p_ptr->riding] == m_ptr)))
 			{
 				/* It is a fake unique monster */
@@ -2123,7 +2123,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 	bool happened = FALSE;
 	int power = 100;
 
-	if (p_ptr->inside_battle || !character_dungeon) return;
+	if (inside_battle || !character_dungeon) return;
 
 	if (!necro)
 	{
@@ -3147,7 +3147,7 @@ static void mon_equip(creature_type *m_ptr)
 	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
 	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
 
-	if (is_pet(m_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
+	if (is_pet(m_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
 
 	/* Drop some objects */
@@ -3410,7 +3410,7 @@ static int place_monster_one(creature_type *who_ptr, int y, int x, int species_i
 	}
 
 	// TO DO DEBUG.
-	if (!p_ptr->inside_battle)
+	if (!inside_battle)
 	{
 		/* Hack -- "unique" monsters must be "unique" */
 		if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
@@ -4509,7 +4509,7 @@ bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u
 {
 	int x, y, species_idx;
 
-	if (p_ptr->inside_arena) return (FALSE);
+	if (inside_arena) return (FALSE);
 
 	if (!mon_scatter(0, &y, &x, y1, x1, 2)) return FALSE;
 
@@ -4556,7 +4556,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
 	/* Prevent illegal monsters */
 	if (species_idx >= max_species_idx) return FALSE;
 
-	if (p_ptr->inside_arena) return FALSE;
+	if (inside_arena) return FALSE;
 
 	if (!mon_scatter(species_idx, &y, &x, oy, ox, 2)) return FALSE;
 

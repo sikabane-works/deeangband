@@ -387,7 +387,7 @@ bool monst_spell_monst(int m_idx)
 	{
 		bool success = FALSE;
 
-		if (p_ptr->inside_battle)
+		if (inside_battle)
 		{
 			start = randint1(m_max-1) + m_max;
 			if (randint0(2)) plus = -1;
@@ -472,7 +472,7 @@ bool monst_spell_monst(int m_idx)
 		f6 &= (RF6_NOMAGIC_MASK);
 	}
 
-	if (p_ptr->inside_arena || p_ptr->inside_battle)
+	if (inside_arena || inside_battle)
 	{
 		f4 &= ~(RF4_SUMMON_MASK);
 		f5 &= ~(RF5_SUMMON_MASK);
@@ -481,7 +481,7 @@ bool monst_spell_monst(int m_idx)
 		if (cr_ptr->species_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
 
-	if (p_ptr->inside_battle && !one_in_(3))
+	if (inside_battle && !one_in_(3))
 	{
 		f6 &= ~(RF6_HEAL);
 	}
@@ -4311,7 +4311,7 @@ bool monst_spell_monst(int m_idx)
 	}
 
 	/* Always take note of monsters that kill you */
-	if (p_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !p_ptr->inside_arena)
+	if (p_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++; /* Ignore appearance difference */
 	}

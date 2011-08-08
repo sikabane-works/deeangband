@@ -1603,14 +1603,14 @@ void generate_cave(void)
 		clear_cave();
 
 		/* Build the arena -KMW- */
-		if (p_ptr->inside_arena)
+		if (inside_arena)
 		{
 			/* Small arena */
 			arena_gen();
 		}
 
 		/* Build the battle -KMW- */
-		else if (p_ptr->inside_battle)
+		else if (inside_battle)
 		{
 			/* Small arena */
 			battle_gen();

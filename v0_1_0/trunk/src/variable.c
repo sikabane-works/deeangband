@@ -773,6 +773,8 @@ u32b play_window = 0;		/* Window Redraws (bit flags) */
 bool wizard = FALSE;		 /* wizard mode */
 s16b inside_quest = 0;
 bool wild_mode = FALSE;
+bool inside_arena = FALSE;		/* inside arena? */
+bool inside_battle = FALSE;		/* inside tougijou? */
 
 /*
  * The last character rolled,

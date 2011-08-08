@@ -1042,7 +1042,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 		case GF_DARK_WEAK:
 		case GF_DARK:
 		{
-			bool do_dark = !p_ptr->inside_battle && !is_mirror_grid(c_ptr);
+			bool do_dark = !inside_battle && !is_mirror_grid(c_ptr);
 			int j;
 
 			/* Turn off the light. */
@@ -1751,7 +1751,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	bool obvious = FALSE;
 
 	/* Can the player know about this effect? */
-	bool known = ((m_ptr->cdis <= MAX_SIGHT) || who_ptr->inside_battle);
+	bool known = ((m_ptr->cdis <= MAX_SIGHT) || inside_battle);
 
 	/* Were the effects "irrelevant"? */
 	bool skipped = FALSE;
@@ -3426,7 +3426,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((who_ptr->inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & (RF7_NAZGUL | RF7_UNIQUE2)))
+			if ((inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & (RF7_NAZGUL | RF7_UNIQUE2)))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -3811,7 +3811,7 @@ note = "は動けなくなった！";
 
 			if (seen) obvious = TRUE;
 
-			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3898,7 +3898,7 @@ note = "は突然友好的になったようだ！";
 				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3973,7 +3973,7 @@ note = "は既にあなたの奴隷だ！";
 				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4049,7 +4049,7 @@ note = "は既にあなたの奴隷だ！";
 				dam -= who_ptr->virtues[vir-1]/20;
 			}
 
-			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4145,7 +4145,7 @@ msg_format("%sを見つめた。",m_name);
 #else
 			msg_format("You stare into %s.", m_name);
 #endif
-			if ((m_ptr->resist_ultimate) || who_ptr->inside_arena)
+			if ((m_ptr->resist_ultimate) || inside_arena)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5719,7 +5719,7 @@ note = "には効果がなかった！";
 			bool success = FALSE;
 			if (seen) obvious = TRUE;
 
-			if ((r_ptr->flags3 & (RF3_GOOD)) && !who_ptr->inside_arena)
+			if ((r_ptr->flags3 & (RF3_GOOD)) && !inside_arena)
 			{
 				if (r_ptr->flags3 & (RF3_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;
@@ -5834,7 +5834,7 @@ note = "には効果がなかった。";
 	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !who_ptr->inside_battle)
+	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !inside_battle)
 	{
 		if (who_ptr != who_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
 	}
@@ -6278,7 +6278,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		while (one_in_(5));
 	}
 
-	if (who_ptr->inside_battle)
+	if (inside_battle)
 	{
 		who_ptr->health_who = c_ptr->m_idx;
 		play_redraw |= (PR_HEALTH);

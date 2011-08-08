@@ -1317,7 +1317,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (r_ptr->flags1 & RF1_UNIQUE) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(cr_ptr->skill_exp[GINOU_RIDING] / 120 + cr_ptr->lev * 2 / 3) > rlev)
-			    && one_in_(2) && !cr_ptr->inside_arena && !cr_ptr->inside_battle
+			    && one_in_(2) && !inside_arena && !inside_battle
 			    && !(r_ptr->flags7 & (RF7_GUARDIAN)) && !(r_ptr->flags1 & (RF1_QUESTOR))
 			    && (rlev < cr_ptr->lev * 3 / 2 + randint0(cr_ptr->lev / 5)))
 			{

@@ -212,13 +212,13 @@ cptr map_name(void)
 #else
 		return "Surface";
 #endif
-	else if (p_ptr->inside_arena)
+	else if (inside_arena)
 #ifdef JP
 		return "ƒAƒŠ[ƒi";
 #else
 		return "Arena";
 #endif
-	else if (p_ptr->inside_battle)
+	else if (inside_battle)
 #ifdef JP
 		return "“¬‹Zê";
 #else
@@ -6324,7 +6324,7 @@ void window_stuff(void)
 	if (!play_window) return;
 
 
-	/* Display p_ptr->inventory */
+	/* Display inventory */
 	if (play_window & (PW_INVEN))
 	{
 		play_window &= ~(PW_INVEN);

@@ -290,7 +290,7 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 						/* Save the surface floor as saved floor */
 						prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
-						p_ptr->inside_arena = TRUE;
+						inside_arena = TRUE;
 						p_ptr->leaving = TRUE;
 						leave_bldg = TRUE;
 					}
@@ -332,7 +332,7 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 				/* Save the surface floor as saved floor */
 				prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
-				p_ptr->inside_arena = TRUE;
+				inside_arena = TRUE;
 				p_ptr->leaving = TRUE;
 				leave_bldg = TRUE;
 			}
@@ -1707,7 +1707,7 @@ void battle_monsters(void)
 	int mon_level;
 	int power[4];
 	bool tekitou;
-	bool old_inside_battle = p_ptr->inside_battle;
+	bool old_inside_battle = inside_battle;
 
 	for (i = 0; i < max_d_idx; i++)
 		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
@@ -1734,9 +1734,9 @@ void battle_monsters(void)
 			while (1)
 			{
 				get_mon_num_prep(vault_aux_battle, NULL);
-				p_ptr->inside_battle = TRUE;
+				inside_battle = TRUE;
 				species_idx = get_mon_num(mon_level);
-				p_ptr->inside_battle = old_inside_battle;
+				inside_battle = old_inside_battle;
 				if (!species_idx) continue;
 
 				if ((r_info[species_idx].flags1 & RF1_UNIQUE) || (r_info[species_idx].flags7 & RF7_UNIQUE2))
@@ -2060,7 +2060,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			/* Save the surface floor as saved floor */
 			prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
-			p_ptr->inside_battle = TRUE;
+			inside_battle = TRUE;
 			p_ptr->leaving = TRUE;
 
 			leave_bldg = TRUE;
@@ -4310,7 +4310,7 @@ bool tele_town(void)
 		return FALSE;
 	}
 
-	if (p_ptr->inside_arena || p_ptr->inside_battle)
+	if (inside_arena || inside_battle)
 	{
 #ifdef JP
 		msg_print("この魔法は外でしか使えない！");
@@ -5114,7 +5114,7 @@ void do_cmd_bldg(void)
 #endif
 		return;
 	}
-	else if ((which == 2) && p_ptr->inside_arena)
+	else if ((which == 2) && inside_arena)
 	{
 		if (!p_ptr->exit_bldg)
 		{
@@ -5129,7 +5129,7 @@ void do_cmd_bldg(void)
 			/* Don't save the arena as saved floor */
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
-			p_ptr->inside_arena = FALSE;
+			inside_arena = FALSE;
 			p_ptr->leaving = TRUE;
 
 			/* Re-enter the arena */
@@ -5141,13 +5141,13 @@ void do_cmd_bldg(void)
 
 		return;
 	}
-	else if (p_ptr->inside_battle)
+	else if (inside_battle)
 	{
 		/* Don't save the arena as saved floor */
 		prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 		p_ptr->leaving = TRUE;
-		p_ptr->inside_battle = FALSE;
+		inside_battle = FALSE;
 
 		/* Re-enter the monster arena */
 		command_new = SPECIAL_KEY_BUILDING;
@@ -5191,8 +5191,8 @@ void do_cmd_bldg(void)
 		if (command == ESCAPE)
 		{
 			leave_bldg = TRUE;
-			p_ptr->inside_arena = FALSE;
-			p_ptr->inside_battle = FALSE;
+			inside_arena = FALSE;
+			inside_battle = FALSE;
 			break;
 		}
 

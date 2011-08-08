@@ -779,7 +779,7 @@ static bool spell_world(byte spell)
  */
 static bool spell_special(byte spell)
 {
-	if (p_ptr->inside_battle) return FALSE;
+	if (inside_battle) return FALSE;
 
 	/* world */
 	if (spell == 160 + 7) return (TRUE);
@@ -1524,7 +1524,7 @@ bool make_attack_spell(creature_type *cr_ptr)
 	/* Remove the "ineffective" spells */
 	remove_bad_spells(cr_ptr, &f4, &f5, &f6);
 
-	if (p_ptr->inside_arena || p_ptr->inside_battle)
+	if (inside_arena || inside_battle)
 	{
 		f4 &= ~(RF4_SUMMON_MASK);
 		f5 &= ~(RF5_SUMMON_MASK);
@@ -3447,7 +3447,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 					int dummy_y = cr_ptr->fy;
 					int dummy_x = cr_ptr->fx;
 
-					if (p_ptr->inside_arena || p_ptr->inside_battle || !summon_possible(cr_ptr->fy, cr_ptr->fx)) return FALSE;
+					if (inside_arena || inside_battle || !summon_possible(cr_ptr->fy, cr_ptr->fx)) return FALSE;
 					delete_species_idx(&m_list[cave[cr_ptr->fy][cr_ptr->fx].m_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
 					m_list[hack_m_idx_ii].chp = dummy_hp;
@@ -4531,7 +4531,7 @@ else msg_format("%^s‚ª–‚–@‚Å“Á•Ê‚È‹­“G‚ð¢Š«‚µ‚½I", m_name);
 
 
 	/* Always take note of monsters that kill you */
-	if (p_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !p_ptr->inside_arena)
+	if (p_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++; /* Ignore appearance difference */
 	}

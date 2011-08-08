@@ -1669,6 +1669,8 @@ extern void repeat_check(void);
 extern bool easy_open;
 extern s16b inside_quest;		/* Inside quest level */
 extern bool wild_mode;
+extern bool inside_arena;		/* Is character inside arena? */
+extern bool inside_battle;		/* Is character inside tougijou? */
 
 
 /* cmd2.c */

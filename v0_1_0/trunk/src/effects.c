@@ -5594,7 +5594,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Note death */
 			tar_ptr->is_dead = TRUE;
 	
-			if (tar_ptr->inside_arena)
+			if (inside_arena)
 			{
 				cptr m_name = r_name+r_info[arena_info[tar_ptr->arena_number].species_idx].name;
 	#ifdef JP
@@ -5650,7 +5650,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				{
 					char buf[24];
 	
-					if (tar_ptr->inside_arena)
+					if (inside_arena)
 	#ifdef JP
 						strcpy(buf,"ƒAƒŠ[ƒi");
 	#else
@@ -5951,7 +5951,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			if (!(d_info[dungeon_type].flags1 & DF1_BEGINNER))
 			{
-				if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
+				if (!dun_level && !ambush_flag && !inside_arena)
 				{
 					chg_virtue(atk_ptr, V_VALOUR, -1);
 				}
@@ -6168,7 +6168,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			/* Mega hack : replace IKETA to BIKETAL */
 			if ((tar_ptr->species_idx == MON_IKETA) &&
-			    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
+			    !(inside_arena || inside_battle))
 			{
 				int dummy_y = tar_ptr->fy;
 				int dummy_x = tar_ptr->fx;

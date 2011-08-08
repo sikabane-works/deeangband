@@ -2337,7 +2337,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 
 
 	/* Always notice cause of death */
-	if (tar_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !tar_ptr->inside_arena)
+	if (tar_ptr->is_dead && (r_ptr->r_deaths < MAX_SHORT) && !inside_arena)
 	{
 		r_ptr->r_deaths++;
 	}

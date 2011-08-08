@@ -718,8 +718,8 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	object_type forge;
 	object_type *q_ptr;
 
-	bool drop_chosen_item = drop_item && !cloned && !p_ptr->inside_arena
-		&& !p_ptr->inside_battle && !is_pet(cr_ptr);
+	bool drop_chosen_item = drop_item && !cloned && !inside_arena
+		&& !inside_battle && !is_pet(cr_ptr);
 
 	/* The caster is dead? */
 	if (world_monster && &m_list[world_monster] == cr_ptr) world_monster = 0;
@@ -771,7 +771,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	check_quest_completion(cr_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (p_ptr->inside_arena && !is_pet(cr_ptr))
+	if (inside_arena && !is_pet(cr_ptr))
 	{
 		p_ptr->exit_bldg = TRUE;
 
@@ -840,7 +840,7 @@ msg_print("地面に落とされた。");
 	/* Drop a dead corpse? */
 	if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
 	    (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
-	    !(p_ptr->inside_arena || p_ptr->inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
+	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -892,7 +892,7 @@ msg_print("地面に落とされた。");
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
-		if (!(p_ptr->inside_arena || p_ptr->inside_battle))
+		if (!(inside_arena || inside_battle))
 		{
 			bool notice = FALSE;
 
@@ -967,7 +967,7 @@ msg_print("地面に落とされた。");
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
 		 */
-		if (!p_ptr->inside_arena && !p_ptr->inside_battle)
+		if (!inside_arena && !inside_battle)
 		{
 			if (!one_in_(7))
 			{
@@ -1295,7 +1295,7 @@ msg_print("地面に落とされた。");
 	if (cloned && !(r_ptr->flags1 & RF1_UNIQUE))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(cr_ptr) || p_ptr->inside_battle || p_ptr->inside_arena)
+	if (is_pet(cr_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1354,7 +1354,7 @@ msg_print("地面に落とされた。");
 
 	/* Only process "Quest Monsters" */
 	if (!(r_ptr->flags1 & RF1_QUESTOR)) return;
-	if (p_ptr->inside_battle) return;
+	if (inside_battle) return;
 }
 
 /*
@@ -1417,7 +1417,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 	u32b div_l;
 
 	if (!m_ptr->species_idx) return;
-	if (is_pet(m_ptr) || p_ptr->inside_battle) return;
+	if (is_pet(m_ptr) || inside_battle) return;
 
 	/*
 	 * - Ratio of monster's level to player's level effects
@@ -1656,7 +1656,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 		if (!(d_info[dungeon_type].flags1 & DF1_BEGINNER))
 		{
-			if (!dun_level && !ambush_flag && !atk_ptr->inside_arena)
+			if (!dun_level && !ambush_flag && !inside_arena)
 			{
 				chg_virtue(atk_ptr, V_VALOUR, -1);
 			}
@@ -1873,7 +1873,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 
 		/* Mega hack : replace IKETA to BIKETAL */
 		if ((tar_ptr->species_idx == MON_IKETA) &&
-		    !(atk_ptr->inside_arena || atk_ptr->inside_battle))
+		    !(inside_arena || inside_battle))
 		{
 			int dummy_y = tar_ptr->fy;
 			int dummy_x = tar_ptr->fx;
@@ -3570,7 +3570,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		}
 
 		/* Hack -- special handling for building doors */
-		else if (have_flag(f_ptr->flags, FF_BLDG) && !p_ptr->inside_arena)
+		else if (have_flag(f_ptr->flags, FF_BLDG) && !inside_arena)
 		{
 			name = building[f_ptr->subtype].name;
 		}
@@ -3616,7 +3616,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		/* Hack -- special introduction for store & building doors -KMW- */
 		if (have_flag(f_ptr->flags, FF_STORE) ||
 		    have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
-		    (have_flag(f_ptr->flags, FF_BLDG) && !p_ptr->inside_arena) ||
+		    (have_flag(f_ptr->flags, FF_BLDG) && !inside_arena) ||
 		    have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
 #ifdef JP

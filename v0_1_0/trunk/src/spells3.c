@@ -102,7 +102,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 			if (!cave_monster_teleportable_bold(cr_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			if (!(inside_quest || p_ptr->inside_arena))
+			if (!(inside_quest || inside_arena))
 				if (cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
@@ -573,7 +573,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !p_ptr->inside_battle && los(p_ptr->fy, p_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !inside_battle && los(p_ptr->fy, p_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
@@ -915,7 +915,7 @@ bool recall_player(int turns)
 	 */
 
 	/* Ironman option */
-	if (p_ptr->inside_arena || ironman_downward)
+	if (inside_arena || ironman_downward)
 	{
 #ifdef JP
 msg_print("何も起こらなかった。");
@@ -1993,7 +1993,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 void alter_reality(void)
 {
 	/* Ironman option */
-	if (p_ptr->inside_arena || ironman_downward)
+	if (inside_arena || ironman_downward)
 	{
 #ifdef JP
 		msg_print("何も起こらなかった。");
@@ -4831,7 +4831,7 @@ int inven_damage(inven_func typ, int perc)
 
 	if ((p_ptr->multishadow && (turn & 1))) return 0;
 
-	if (p_ptr->inside_arena) return 0;
+	if (inside_arena) return 0;
 
 	/* Count the casualties */
 	k = 0;
@@ -5506,7 +5506,7 @@ bool polymorph_monster(int y, int x)
 	bool health_tracked = (p_ptr->health_who == c_ptr->m_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
-	if (p_ptr->inside_arena || p_ptr->inside_battle) return (FALSE);
+	if (inside_arena || inside_battle) return (FALSE);
 
 	if ((p_ptr->riding == c_ptr->m_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 

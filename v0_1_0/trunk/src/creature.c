@@ -273,7 +273,7 @@ void set_speed(creature_type *cr_ptr)
 	int speed = r_ptr->speed;
 
 	/* Hack -- small racial variety */
-	if (!(r_ptr->flags1 & RF1_UNIQUE) && !p_ptr->inside_arena)
+	if (!(r_ptr->flags1 & RF1_UNIQUE) && !inside_arena)
 	{
 		/* Allow some small variation per monster */
 		int i = SPEED_TO_ENERGY(r_ptr->speed) / (one_in_(4) ? 3 : 10);

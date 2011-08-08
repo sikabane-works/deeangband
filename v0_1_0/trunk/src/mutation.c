@@ -3757,7 +3757,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				if ((r_ptr->flags3 & RF3_EVIL) &&
 				    !(r_ptr->flags1 & RF1_QUESTOR) &&
 				    !(r_ptr->flags1 & RF1_UNIQUE) &&
-				    !cr_ptr->inside_arena && !inside_quest &&
+				    !inside_arena && !inside_quest &&
 					(r_ptr->level < randint1(cr_ptr->lev+50)) &&
 					!(m_ptr->mflag2 & MFLAG2_NOGENO))
 				{

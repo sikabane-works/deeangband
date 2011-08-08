@@ -637,7 +637,7 @@
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
-#define MAX_RANGE(WHO)  (WHO ? ((WHO)->inside_battle ? 36 : 18) : 18) /* Maximum range (spells, etc) */
+#define MAX_RANGE(WHO)  (WHO ? (inside_battle ? 36 : 18) : 18) /* Maximum range (spells, etc) */
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
@@ -4304,7 +4304,7 @@
  */
 // TODO Check using
 #define is_seen(B, A) \
-	((bool)((A)->ml && (!ignore_unview || (B)->inside_battle || \
+	((bool)((A)->ml && (!ignore_unview || inside_battle || \
 	 (player_can_see_bold((A)->fy, (A)->fx) && projectable(p_ptr->fy, p_ptr->fx, (A)->fy, (A)->fx)))))
 
 
@@ -4625,7 +4625,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y,X) \
-    (((cave[Y][X].info & (CAVE_VIEW)) != 0) || p_ptr->inside_battle)
+    (((cave[Y][X].info & (CAVE_VIEW)) != 0) || inside_battle)
 
 
 /*
@@ -5684,7 +5684,7 @@ extern int PlayerUID;
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(USER, TARGET) \
-	((USER)->inside_arena || (USER)->inside_battle || \
+	(inside_arena || inside_battle || \
 	 (inside_quest && !random_quest_number(dun_level)) || \
 	 (((TARGET) <= 0) && (quest_number(dun_level) || (dun_level >= d_info[dungeon_type].maxdepth)) && \
 	  (dun_level >= 1) && ironman_downward))

@@ -1553,7 +1553,7 @@ static void do_cmd_wiz_jump(void)
 	prepare_change_floor_mode(CFM_RAND_PLACE);
 
 	if (!dun_level) dungeon_type = 0;
-	p_ptr->inside_arena = FALSE;
+	inside_arena = FALSE;
 	wild_mode = FALSE;
 
 	leave_quest_check();

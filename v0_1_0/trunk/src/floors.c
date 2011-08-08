@@ -382,7 +382,7 @@ static void preserve_pet(void)
 	 * If player is in wild mode, no pets are preserved
 	 * except a monster whom player riding
 	 */
-	if (!wild_mode && !p_ptr->inside_arena && !p_ptr->inside_battle)
+	if (!wild_mode && !inside_arena && !inside_battle)
 	{
 		for (i = m_max - 1, num = 1; (i >= 1 && num < MAX_PARTY_MON); i--)
 		{
@@ -1440,7 +1440,7 @@ void stair_creation(void)
 	/* No effect out of standard dungeon floor */
 	if (!dun_level || (!up && !down) ||
 	    (inside_quest && is_fixed_quest_idx(inside_quest)) ||
-	    p_ptr->inside_arena || p_ptr->inside_battle)
+	    inside_arena || inside_battle)
 	{
 		/* arena or quest */
 #ifdef JP

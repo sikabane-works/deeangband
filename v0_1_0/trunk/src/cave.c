@@ -3051,7 +3051,7 @@ void update_mon_lite(creature_type *cr_ptr)
 			if (!rad) continue;
 			else if (rad > 0)
 			{
-				if (!(r_ptr->flags7 & (RF7_SELF_LITE_1 | RF7_SELF_LITE_2)) && (m_ptr->paralyzed || (!dun_level && is_daytime()) || cr_ptr->inside_battle)) continue;
+				if (!(r_ptr->flags7 & (RF7_SELF_LITE_1 | RF7_SELF_LITE_2)) && (m_ptr->paralyzed || (!dun_level && is_daytime()) || inside_battle)) continue;
 				if (d_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_mon_lite = mon_lite_hack;
 				f_flag = FF_LOS;

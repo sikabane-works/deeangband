@@ -3444,7 +3444,7 @@ void set_pet(creature_type *m_ptr)
  */
 void set_hostile(creature_type *m_ptr)
 {
-	if (p_ptr->inside_battle) return;
+	if (inside_battle) return;
 
 	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
 
@@ -3458,7 +3458,7 @@ void set_hostile(creature_type *m_ptr)
  */
 void anger_monster(creature_type *m_ptr)
 {
-	if (p_ptr->inside_battle) return;
+	if (inside_battle) return;
 	if (is_friendly(m_ptr))
 	{
 		char m_name[80];
@@ -3579,7 +3579,7 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	species_type *s_ptr = &r_info[n_ptr->species_idx];
 
-	if (p_ptr->inside_battle)
+	if (inside_battle)
 	{
 		if (is_pet(m_ptr) || is_pet(n_ptr)) return FALSE;
 		return TRUE;

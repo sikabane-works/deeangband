@@ -49,7 +49,7 @@ static bool get_enemy_dir(int m_idx, int *mm)
 	}
 	else
 	{
-		if (p_ptr->inside_battle)
+		if (inside_battle)
 		{
 			start = randint1(m_max-1)+m_max;
 			if(randint0(2)) plus = -1;
@@ -258,7 +258,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	{
 		if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ||
 		    (r_ptr->flags7 & RF7_NAZGUL)) &&
-		    !p_ptr->inside_battle)
+		    !inside_battle)
 		{
 			cr_ptr->chp = 1;
 		}
@@ -1608,7 +1608,7 @@ static void process_monster(int m_idx)
 		mon_take_hit_mon(m_ptr, 1, &fear, " explodes into tiny shreds.", m_idx);
 #endif
 
-	if ((is_pet(m_ptr) || is_friendly(m_ptr)) && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)) && !p_ptr->inside_battle)
+	if ((is_pet(m_ptr) || is_friendly(m_ptr)) && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
@@ -1749,7 +1749,7 @@ static void process_monster(int m_idx)
 		gets_angry = TRUE;
 	}
 
-	if (p_ptr->inside_battle) gets_angry = FALSE;
+	if (inside_battle) gets_angry = FALSE;
 
 	if (gets_angry)
 	{
@@ -1816,7 +1816,7 @@ static void process_monster(int m_idx)
 		/* Hack -- Ohmu scatters molds! */
 		if (m_ptr->species_idx == MON_OHMU)
 		{
-			if (!p_ptr->inside_arena && !p_ptr->inside_battle)
+			if (!inside_arena && !inside_battle)
 			{
 				if (r_ptr->freq_spell && (randint1(100) <= r_ptr->freq_spell))
 				{
@@ -1839,7 +1839,7 @@ static void process_monster(int m_idx)
 	}
 
 
-	if (!p_ptr->inside_battle)
+	if (!inside_battle)
 	{
 		/* Hack! "Cyber" monster makes noise... */
 		if (m_ptr->ap_species_idx == MON_CYBER &&
@@ -2772,7 +2772,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 	/* Notice changes in view */
 	if (do_move && ((r_ptr->flags7 & (RF7_SELF_LD_MASK | RF7_HAS_DARK_1 | RF7_HAS_DARK_2))
-		|| ((r_ptr->flags7 & (RF7_HAS_LITE_1 | RF7_HAS_LITE_2)) && !p_ptr->inside_battle)))
+		|| ((r_ptr->flags7 & (RF7_HAS_LITE_1 | RF7_HAS_LITE_2)) && !inside_battle)))
 	{
 		/* Update some things */
 		p_ptr->update |= (PU_MON_LITE);
@@ -3524,7 +3524,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 	r_ptr = &r_info[m_ptr->species_idx];
 	s_ptr = &r_info[s_idx];
 
-	if (p_ptr->inside_battle) return;
+	if (inside_battle) return;
 
 	if (!r_ptr->next_exp) return;
 
