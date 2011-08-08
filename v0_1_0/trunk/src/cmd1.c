@@ -1805,21 +1805,21 @@ msg_print("まばゆい閃光が走った！");
 }
 
 
-static void touch_zap_player(creature_type *m_ptr)
+static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 	int aura_damage = 0;
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &r_info[tar_ptr->species_idx];
 
 	if (r_ptr->flags2 & RF2_AURA_FIRE)
 	{
-		if (!p_ptr->immune_fire)
+		if (!atk_ptr->immune_fire)
 		{
 			char aura_dam[80];
 
 			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても熱くなった！");
@@ -1827,26 +1827,26 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You are suddenly very hot!");
 #endif
 
-			if (race_is_(p_ptr, RACE_ENT)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_FIRE(p_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (p_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
+			if (race_is_(atk_ptr, RACE_ENT)) aura_damage += aura_damage / 3;
+			if (IS_OPPOSE_FIRE(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (atk_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff();
 		}
 	}
 
 	if (r_ptr->flags3 & RF3_AURA_COLD)
 	{
-		if (!p_ptr->immune_cold)
+		if (!atk_ptr->immune_cold)
 		{
 			char aura_dam[80];
 
 			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても寒くなった！");
@@ -1854,29 +1854,29 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You are suddenly very cold!");
 #endif
 
-			if (IS_OPPOSE_COLD(p_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (p_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
+			if (IS_OPPOSE_COLD(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff();
 		}
 	}
 
 	if (r_ptr->flags2 & RF2_AURA_ELEC)
 	{
-		if (!p_ptr->immune_elec)
+		if (!atk_ptr->immune_elec)
 		{
 			char aura_dam[80];
 
 			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-			if (race_is_(p_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_ELEC(p_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (p_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
+			if (race_is_(atk_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
+			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if (atk_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 
 #ifdef JP
 			msg_print("電撃をくらった！");
@@ -1884,8 +1884,8 @@ static void touch_zap_player(creature_type *m_ptr)
 			msg_print("You get zapped!");
 #endif
 
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
+			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff();
 		}
 	}
@@ -2035,7 +2035,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 		}
 		*mdeath = (tar_ptr->species_idx == 0);
-		touch_zap_player(tar_ptr);
+		touch_zap_player(atk_ptr, tar_ptr);
 	}
 	/* Player misses */
 	else
@@ -2776,7 +2776,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			/* Anger the monster */
 			if (k > 0) anger_monster(m_ptr);
 
-			touch_zap_player(m_ptr);
+			touch_zap_player(cr_ptr, m_ptr);
 
 			/* Are we draining it?  A little note: If the monster is
 			dead, the drain does not work... */
