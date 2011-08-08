@@ -1475,7 +1475,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		if (!get_rep_dir2(&dir)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
-		move_player(dir, easy_disarm, TRUE);
+		move_creature(cr_ptr, dir, easy_disarm, TRUE);
 		break;
 	}
 	case 3:

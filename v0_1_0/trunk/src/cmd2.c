@@ -2050,12 +2050,12 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
 		/* Move the player onto the trap */
-		move_player(dir, easy_disarm, FALSE);
+		move_creature(p_ptr, dir, easy_disarm, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
 		/* move the player onto the trap grid */
-		move_player(dir, FALSE, FALSE);
+		move_creature(p_ptr, dir, FALSE, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 	}
@@ -2090,12 +2090,12 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
 		/* Move the player onto the trap */
-		move_player(dir, easy_disarm, FALSE);
+		move_creature(p_ptr, dir, easy_disarm, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
 		/* Move the player onto the trap */
-		move_player(dir, FALSE, FALSE);
+		move_creature(p_ptr, dir, FALSE, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 	}
@@ -2296,7 +2296,7 @@ static bool do_cmd_bash_aux(int y, int x, int dir)
 		}
 
 		/* Hack -- Fall through the door */
-		move_player(dir, FALSE, FALSE);
+		move_creature(p_ptr, dir, FALSE, FALSE);
 	}
 
 	/* Saving throw against stun */
@@ -2714,7 +2714,7 @@ void do_cmd_walk(bool pickup)
 		if (p_ptr->action == ACTION_HAYAGAKE) energy_use = energy_use * (45-(p_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
-		move_player(dir, pickup, FALSE);
+		move_creature(p_ptr, dir, pickup, FALSE);
 
 		/* Allow more walking */
 		more = TRUE;

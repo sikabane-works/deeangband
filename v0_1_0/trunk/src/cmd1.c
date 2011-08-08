@@ -908,7 +908,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 /*
  * Player "wants" to pick up an object or gold.
  * Note that we ONLY handle things that can be picked up.
- * See "move_player()" for handling of other things.
+ * See "move_creature()" for handling of other things.
  */
 void carry(creature_type *cr_ptr, bool pickup)
 {
@@ -3965,11 +3965,11 @@ bool trap_can_be_ignored(creature_type *cr_ptr, int feat)
  * any monster which might be in the destination grid.  Previously,
  * moving into walls was "free" and did NOT hit invisible monsters.
  */
-void move_player(int dir, bool do_pickup, bool break_trap)
+void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_trap)
 {
 	/* Find the result of moving */
-	int y = p_ptr->fy + ddy[dir];
-	int x = p_ptr->fx + ddx[dir];
+	int y = cr_ptr->fy + ddy[dir];
+	int x = cr_ptr->fx + ddx[dir];
 
 	/* Examine the destination */
 	cave_type *c_ptr = &cave[y][x];
@@ -3978,8 +3978,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 	creature_type *m_ptr;
 
-	creature_type *riding_m_ptr = &m_list[p_ptr->riding];
-	species_type *riding_r_ptr = &r_info[p_ptr->riding ? riding_m_ptr->species_idx : 0]; /* Paranoia */
+	creature_type *riding_m_ptr = &m_list[cr_ptr->riding];
+	species_type *riding_r_ptr = &r_info[cr_ptr->riding ? riding_m_ptr->species_idx : 0]; /* Paranoia */
 
 	char m_name[80];
 
@@ -3991,7 +3991,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	bool do_past = FALSE;
 
 	/* Exit the area */
-	if (!dun_level && !p_ptr->wild_mode &&
+	if (!dun_level && !cr_ptr->wild_mode &&
 		((x == 0) || (x == MAX_WID - 1) ||
 		 (y == 0) || (y == MAX_HGT - 1)))
 	{
@@ -4003,8 +4003,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			/* Hack: move to new area */
 			if ((y == 0) && (x == 0))
 			{
-				tmp_wy = p_ptr->wilderness_y - 1;
-				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_wy = cr_ptr->wilderness_y - 1;
+				tmp_wx = cr_ptr->wilderness_x - 1;
 				tmp_py = cur_hgt - 2;
 				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
@@ -4012,8 +4012,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if ((y == 0) && (x == MAX_WID - 1))
 			{
-				tmp_wy = p_ptr->wilderness_y - 1;
-				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_wy = cr_ptr->wilderness_y - 1;
+				tmp_wx = cr_ptr->wilderness_x + 1;
 				tmp_py = cur_hgt - 2;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -4021,8 +4021,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if ((y == MAX_HGT - 1) && (x == 0))
 			{
-				tmp_wy = p_ptr->wilderness_y + 1;
-				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_wy = cr_ptr->wilderness_y + 1;
+				tmp_wx = cr_ptr->wilderness_x - 1;
 				tmp_py = 1;
 				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
@@ -4030,8 +4030,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if ((y == MAX_HGT - 1) && (x == MAX_WID - 1))
 			{
-				tmp_wy = p_ptr->wilderness_y + 1;
-				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_wy = cr_ptr->wilderness_y + 1;
+				tmp_wx = cr_ptr->wilderness_x + 1;
 				tmp_py = 1;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -4039,8 +4039,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if (y == 0)
 			{
-				tmp_wy = p_ptr->wilderness_y - 1;
-				tmp_wx = p_ptr->wilderness_x;
+				tmp_wy = cr_ptr->wilderness_y - 1;
+				tmp_wx = cr_ptr->wilderness_x;
 				tmp_py = cur_hgt - 2;
 				tmp_px = x;
 				ambush_flag = FALSE;
@@ -4048,8 +4048,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if (y == MAX_HGT - 1)
 			{
-				tmp_wy = p_ptr->wilderness_y + 1;
-				tmp_wx = p_ptr->wilderness_x;
+				tmp_wy = cr_ptr->wilderness_y + 1;
+				tmp_wx = cr_ptr->wilderness_x;
 				tmp_py = 1;
 				tmp_px = x;
 				ambush_flag = FALSE;
@@ -4057,8 +4057,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if (x == 0)
 			{
-				tmp_wy = p_ptr->wilderness_y;
-				tmp_wx = p_ptr->wilderness_x - 1;
+				tmp_wy = cr_ptr->wilderness_y;
+				tmp_wx = cr_ptr->wilderness_x - 1;
 				tmp_py = y;
 				tmp_px = cur_wid - 2;
 				ambush_flag = FALSE;
@@ -4066,8 +4066,8 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			else if (x == MAX_WID - 1)
 			{
-				tmp_wy = p_ptr->wilderness_y;
-				tmp_wx = p_ptr->wilderness_x + 1;
+				tmp_wy = cr_ptr->wilderness_y;
+				tmp_wx = cr_ptr->wilderness_x + 1;
 				tmp_py = y;
 				tmp_px = 1;
 				ambush_flag = FALSE;
@@ -4075,11 +4075,11 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 			if(wilderness[tmp_wy][tmp_wx].terrain != TERRAIN_CHAOS)
 			{
-				p_ptr->wilderness_y = tmp_wy;
-				p_ptr->wilderness_x = tmp_wx;
-				p_ptr->oldpy = tmp_py;
-				p_ptr->oldpx = tmp_px;
-				p_ptr->leaving = TRUE;
+				cr_ptr->wilderness_y = tmp_wy;
+				cr_ptr->wilderness_x = tmp_wx;
+				cr_ptr->oldpy = tmp_py;
+				cr_ptr->oldpx = tmp_px;
+				cr_ptr->leaving = TRUE;
 				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
@@ -4098,11 +4098,11 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			else if(get_check("Really want to enter territory of chaos? "))
 #endif
 			{
-				p_ptr->wilderness_y = tmp_wy;
-				p_ptr->wilderness_x = tmp_wx;
-				p_ptr->oldpy = tmp_py;
-				p_ptr->oldpx = tmp_px;
-				p_ptr->leaving = TRUE;
+				cr_ptr->wilderness_y = tmp_wy;
+				cr_ptr->wilderness_x = tmp_wx;
+				cr_ptr->oldpy = tmp_py;
+				cr_ptr->oldpx = tmp_px;
+				cr_ptr->leaving = TRUE;
 				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
 				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
@@ -4130,12 +4130,12 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	m_ptr = &m_list[c_ptr->m_idx];
 
 
-	if (p_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	if (p_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (cr_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+	if (cr_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
-	p_can_kill_walls = p_ptr->kill_wall && have_flag(f_ptr->flags, FF_HURT_DISI) &&
+	p_can_kill_walls = cr_ptr->kill_wall && have_flag(f_ptr->flags, FF_HURT_DISI) &&
 		(!p_can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
 		!have_flag(f_ptr->flags, FF_PERMANENT);
 
@@ -4146,9 +4146,9 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
-		    !(p_ptr->confused || p_ptr->image || !m_ptr->ml || p_ptr->stun ||
-		    ((p_ptr->muta2 & MUT2_BERS_RAGE) && p_ptr->shero)) &&
-		    pattern_seq(p_ptr->fy, p_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
+		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
+		    ((cr_ptr->muta2 & MUT2_BERS_RAGE) && cr_ptr->shero)) &&
+		    pattern_seq(cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
 			(void)set_paralyzed(m_ptr, 0);
@@ -4159,19 +4159,19 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			if (m_ptr->ml)
 			{
 				/* Auto-Recall if possible and visible */
-				if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+				if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 				/* Track a new monster */
 				health_track(c_ptr->m_idx);
 			}
 
 			/* displace? */
-			if ((stormbringer && (randint1(1000) > 666)) || (p_ptr->cls_idx == CLASS_BERSERKER))
+			if ((stormbringer && (randint1(1000) > 666)) || (cr_ptr->cls_idx == CLASS_BERSERKER))
 			{
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
-			else if (monster_can_cross_terrain(cave[p_ptr->fy][p_ptr->fx].feat, r_ptr, 0))
+			else if (monster_can_cross_terrain(cave[cr_ptr->fy][cr_ptr->fx].feat, r_ptr, 0))
 			{
 				do_past = TRUE;
 			}
@@ -4191,12 +4191,12 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		}
 		else
 		{
-			py_attack(p_ptr, y, x, 0);
+			py_attack(cr_ptr, y, x, 0);
 			oktomove = FALSE;
 		}
 	}
 
-	if (oktomove && p_ptr->riding)
+	if (oktomove && cr_ptr->riding)
 	{
 		if (riding_r_ptr->flags1 & RF1_NEVER_MOVE)
 		{
@@ -4225,7 +4225,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (p_ptr->riding_ryoute)
+		else if (cr_ptr->riding_ryoute)
 		{
 			oktomove = FALSE;
 			disturb(0, 0);
@@ -4254,7 +4254,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		else if (!have_flag(f_ptr->flags, FF_WATER) && (riding_r_ptr->flags7 & RF7_AQUATIC))
 		{
 #ifdef JP
-			msg_format("%sから上がれない。", f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name);
+			msg_format("%sから上がれない。", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name);
 #else
 			msg_print("Can't land.");
 #endif
@@ -4292,7 +4292,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	{
 	}
 
-	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !p_ptr->levitation)
+	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !cr_ptr->levitation)
 	{
 #ifdef JP
 		msg_format("空を飛ばないと%sの上には行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
@@ -4312,7 +4312,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
 	{
-		if ((p_ptr->cls_idx != CLASS_RANGER) && !p_ptr->levitation && (!p_ptr->riding || !(riding_r_ptr->flags8 & RF8_WILD_WOOD))) energy_use *= 2;
+		if ((cr_ptr->cls_idx != CLASS_RANGER) && !cr_ptr->levitation && (!cr_ptr->riding || !(riding_r_ptr->flags8 & RF8_WILD_WOOD))) energy_use *= 2;
 	}
 
 #ifdef ALLOW_EASY_DISARM /* TNB */
@@ -4320,7 +4320,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	/* Disarm a visible trap */
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
 	{
-		if (!trap_can_be_ignored(p_ptr, c_ptr->feat))
+		if (!trap_can_be_ignored(cr_ptr, c_ptr->feat))
 		{
 			(void)do_cmd_disarm_aux(y, x, dir);
 			return;
@@ -4382,7 +4382,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 				msg_print("You cannot go any more.");
 #endif
 
-				if (!(p_ptr->confused || p_ptr->stun || p_ptr->image))
+				if (!(cr_ptr->confused || cr_ptr->stun || cr_ptr->image))
 					energy_use = 0;
 			}
 
@@ -4406,7 +4406,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 				 * a wall _if_ you are confused, stunned or blind; but
 				 * typing mistakes should not cost you a turn...
 				 */
-				if (!(p_ptr->confused || p_ptr->stun || p_ptr->image))
+				if (!(cr_ptr->confused || cr_ptr->stun || cr_ptr->image))
 					energy_use = 0;
 			}
 		}
@@ -4416,7 +4416,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	}
 
 
-	if(p_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	if(cr_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
 #ifdef JP
 		if(!get_check("本当に〈混沌〉の領域に入りますか？"))
@@ -4431,9 +4431,9 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 
 
 	/* Normal movement */
-	if (oktomove && !pattern_seq(p_ptr->fy, p_ptr->fx, y, x))
+	if (oktomove && !pattern_seq(cr_ptr->fy, cr_ptr->fx, y, x))
 	{
-		if (!(p_ptr->confused || p_ptr->stun || p_ptr->image))
+		if (!(cr_ptr->confused || cr_ptr->stun || cr_ptr->image))
 		{
 			energy_use = 0;
 		}
@@ -4449,7 +4449,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 	{
 		u32b mpe_mode = MPE_ENERGY_USE;
 
-		if (p_ptr->warning)
+		if (cr_ptr->warning)
 		{
 			if (!process_warning(x, y))
 			{
@@ -4468,14 +4468,14 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		}
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
-		if (p_ptr->wild_mode)
+		if (cr_ptr->wild_mode)
 		{
-			if (ddy[dir] > 0)  p_ptr->oldpy = 1;
-			if (ddy[dir] < 0)  p_ptr->oldpy = MAX_HGT - 2;
-			if (ddy[dir] == 0) p_ptr->oldpy = MAX_HGT / 2;
-			if (ddx[dir] > 0)  p_ptr->oldpx = 1;
-			if (ddx[dir] < 0)  p_ptr->oldpx = MAX_WID - 2;
-			if (ddx[dir] == 0) p_ptr->oldpx = MAX_WID / 2;
+			if (ddy[dir] > 0)  cr_ptr->oldpy = 1;
+			if (ddy[dir] < 0)  cr_ptr->oldpy = MAX_HGT - 2;
+			if (ddy[dir] == 0) cr_ptr->oldpy = MAX_HGT / 2;
+			if (ddx[dir] > 0)  cr_ptr->oldpx = 1;
+			if (ddx[dir] < 0)  cr_ptr->oldpx = MAX_WID - 2;
+			if (ddx[dir] == 0) cr_ptr->oldpx = MAX_WID / 2;
 		}
 
 		if (p_can_kill_walls)
@@ -4483,7 +4483,7 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 			cave_alter_feat(y, x, FF_HURT_DISI);
 
 			/* Update some things -- similar to GF_KILL_WALL */
-			p_ptr->update |= (PU_FLOW);
+			cr_ptr->update |= (PU_FLOW);
 		}
 
 		/* Sound */
@@ -4502,10 +4502,10 @@ void move_player(int dir, bool do_pickup, bool break_trap)
 		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
 
 		/* Move the player */
-		(void)move_creature_effect(p_ptr, y, x, mpe_mode);
+		(void)move_creature_effect(cr_ptr, y, x, mpe_mode);
 	}
 
-	if(!p_ptr->blind && ((c_ptr->info & CAVE_GLOW) || p_ptr->cur_lite > 0) && strlen(c_ptr->message))
+	if(!cr_ptr->blind && ((c_ptr->info & CAVE_GLOW) || cr_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
 		msg_format("%sにメッセージが刻まれている:", f_name + f_info[c_ptr->feat].name);
@@ -5255,11 +5255,11 @@ void run_step(int dir)
 	/* Move the player, using the "pickup" flag */
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-	move_player(find_current, FALSE, FALSE);
+	move_creature(p_ptr, find_current, FALSE, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
-	move_player(find_current, always_pickup, FALSE);
+	move_creature(p_ptr, find_current, always_pickup, FALSE);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 
@@ -5410,7 +5410,7 @@ void travel_step(creature_type *cr_ptr)
 	}
 
 	travel.dir = dir;
-	move_player(dir, always_pickup, easy_disarm);
+	move_creature(cr_ptr, dir, always_pickup, easy_disarm);
 	travel.run = old_run;
 
 	if ((cr_ptr->fy == travel.y) && (cr_ptr->fx == travel.x))

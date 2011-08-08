@@ -727,7 +727,7 @@ extern bool pattern_seq(int c_y, int c_x, int n_y, int n_x);
 extern bool player_can_enter(s16b feature, u16b mode);
 extern bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *cr_ptr, int feat);
-extern void move_player(int dir, bool do_pickup, bool break_trap);
+extern void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_trap);
 extern void run_step(int dir);
 #ifdef TRAVEL
 extern void travel_step(creature_type *cr_ptr);
