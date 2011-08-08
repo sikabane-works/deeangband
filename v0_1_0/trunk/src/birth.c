@@ -3552,7 +3552,7 @@ static void wield_all(void)
 		if (!o_ptr->k_idx) continue; 
  
 		/* Make sure we can wield it and that there's nothing else in that slot */ 
-		slot = wield_slot(o_ptr); 
+		slot = wield_slot(p_ptr, o_ptr); 
 		if (slot < INVEN_1STARM) continue; 
 		if (slot == INVEN_LITE) continue; /* Does not wield toaches because buys a lantern soon */
 		if (p_ptr->inventory[slot].k_idx) continue; 

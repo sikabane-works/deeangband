@@ -4056,7 +4056,7 @@ s16b label_to_equip(creature_type *cr_ptr, int c)
 /*
  * Determine which equipment slot (if any) an item likes
  */
-s16b wield_slot(object_type *o_ptr)
+s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Slot for equipment */
 	switch (o_ptr->tval)
@@ -4066,8 +4066,8 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_POLEARM:
 		case TV_SWORD:
 		{
-			if (!p_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_1STARM);
-			if (p_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_1STARM);
+			if (!cr_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_1STARM);
+			if (cr_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_1STARM);
 			return (INVEN_2NDARM);
 		}
 
@@ -4075,8 +4075,8 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_CARD:
 		case TV_SHIELD:
 		{
-			if (!p_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_2NDARM);
-			if (p_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_2NDARM);
+			if (!cr_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_2NDARM);
+			if (cr_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_2NDARM);
 			return (INVEN_1STARM);
 		}
 
@@ -4088,14 +4088,13 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_RING:
 		{
 			/* Use the right hand first */
-			if (!p_ptr->inventory[INVEN_RIGHT].k_idx) return (INVEN_RIGHT);
+			if (!cr_ptr->inventory[INVEN_RIGHT].k_idx) return (INVEN_RIGHT);
 
 			/* Use the left hand for swapping (by default) */
 			return (INVEN_LEFT);
 		}
 
 		case TV_AMULET:
-		case TV_WHISTLE:
 		{
 			return (INVEN_NECK);
 		}
@@ -4120,7 +4119,10 @@ s16b wield_slot(object_type *o_ptr)
 		case TV_CROWN:
 		case TV_HELM:
 		{
-			return (INVEN_1STHEAD);
+			if      (!cr_ptr->inventory[INVEN_1STHEAD].k_idx) return (INVEN_1STHEAD);
+			else if (!cr_ptr->inventory[INVEN_2NDHEAD].k_idx && cr_ptr->num_head > 1) return (INVEN_2NDHEAD);
+			else if (!cr_ptr->inventory[INVEN_3RDHEAD].k_idx && cr_ptr->num_head > 2) return (INVEN_3RDHEAD);
+			else return (INVEN_1STHEAD);
 		}
 
 		case TV_GLOVES:
@@ -4132,6 +4134,18 @@ s16b wield_slot(object_type *o_ptr)
 		{
 			return (INVEN_FEET);
 		}
+
+		case TV_TAIL:
+		{
+			return (INVEN_TAIL);
+		}
+
+		case TV_INSTRUMENT:
+		case TV_WHISTLE:
+		{
+			return (INVEN_INSTRUMENT);
+		}
+
 	}
 
 	/* No slot available */
