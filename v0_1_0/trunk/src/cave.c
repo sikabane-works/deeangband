@@ -1650,7 +1650,7 @@ void lite_spot(int y, int x)
  * of both "lite_spot()" and "print_rel()", and that we use the
  * "lite_spot()" function to display the player grid, if needed.
  */
-void prt_map(void)
+void prt_map(creature_type *cr_ptr)
 {
 	int     x, y;
 	int     v;
@@ -1712,8 +1712,8 @@ void prt_map(void)
 			if (!use_graphics)
 			{
 				if (world_monster) a = TERM_DARK;
-				else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
-				else if (p_ptr->wraith_form) a = TERM_L_DARK;
+				else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+				else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 			}
 
 			/* Efficiency -- Redraw that grid of the map */
@@ -1722,7 +1722,7 @@ void prt_map(void)
 	}
 
 	/* Display player */
-	lite_spot(p_ptr->fy, p_ptr->fx);
+	lite_spot(cr_ptr->fy, cr_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
@@ -1751,7 +1751,7 @@ void prt_path(int y, int x)
 	play_redraw |= (PR_MAP);
 
 	/* Redraw stuff */
-	redraw_stuff();
+	redraw_stuff(p_ptr);
 
 	/* Draw path */
 	for (i = 0; i < path_n; i++)

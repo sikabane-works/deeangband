@@ -5934,7 +5934,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			play_redraw |= (PR_STATE);
 
 			/* Redraw stuff */
-			redraw_stuff();
+			redraw_stuff(p_ptr);
 
 			/* Hack -- Assume messages were seen */
 			msg_flag = FALSE;

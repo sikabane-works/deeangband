@@ -257,15 +257,15 @@ static void prt_dungeon(void)
 /*
  * Print character stat in given row, column
  */
-static void prt_stat(int stat)
+static void prt_stat(creature_type *cr_ptr, int stat)
 {
 	char tmp[32];
 
 	/* Display "injured" stat */
-	if (p_ptr->stat_cur[stat] < p_ptr->stat_max[stat])
+	if (cr_ptr->stat_cur[stat] < cr_ptr->stat_max[stat])
 	{
 		put_str(stat_names_reduced[stat], ROW_STAT + stat, 0);
-		cnv_stat(p_ptr->stat_use[stat], tmp);
+		cnv_stat(cr_ptr->stat_use[stat], tmp);
 		c_put_str(TERM_YELLOW, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
 
@@ -273,12 +273,12 @@ static void prt_stat(int stat)
 	else
 	{
 		put_str(stat_names[stat], ROW_STAT + stat, 0);
-		cnv_stat(p_ptr->stat_use[stat], tmp);
+		cnv_stat(cr_ptr->stat_use[stat], tmp);
 		c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
 
 	/* Indicate natural maximum */
-	if (p_ptr->stat_max[stat] == p_ptr->stat_max_max[stat])
+	if (cr_ptr->stat_max[stat] == cr_ptr->stat_max_max[stat])
 	{
 #ifdef JP
 		/* 日本語にかぶらないように表示位置を変更 */
@@ -911,7 +911,7 @@ static void prt_exp(creature_type *cr_ptr)
 /*
  * Prints current gold
  */
-static void prt_gold(void)
+static void prt_gold(creature_type *cr_ptr)
 {
 	char tmp[32];
 
@@ -921,7 +921,7 @@ static void prt_gold(void)
 	put_str("AU ", ROW_GOLD, COL_GOLD);
 #endif
 
-	sprintf(tmp, "%9ld", (long)p_ptr->au);
+	sprintf(tmp, "%9ld", (long)cr_ptr->au);
 	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 3);
 }
 
@@ -930,18 +930,18 @@ static void prt_gold(void)
 /*
  * Prints current AC
  */
-static void prt_ac(void)
+static void prt_ac(creature_type *cr_ptr)
 {
 	char tmp[32];
 
 #ifdef JP
 /* AC の表示方式を変更している */
 	put_str(" ＡＣ(     )", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", p_ptr->dis_ac + p_ptr->dis_to_a);
+	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_a);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 6);
 #else
 	put_str("Cur AC ", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", p_ptr->dis_ac + p_ptr->dis_to_a);
+	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_a);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 7);
 #endif
 
@@ -951,7 +951,7 @@ static void prt_ac(void)
 /*
  * Prints Cur/Max hit points
  */
-static void prt_hp(void)
+static void prt_hp(creature_type *cr_ptr)
 {
 /* ヒットポイントの表示方法を変更 */
 	char tmp[32];
@@ -964,13 +964,13 @@ static void prt_hp(void)
 	put_str("HP", ROW_CURHP, COL_CURHP);
 
 	/* 現在のヒットポイント */
-	sprintf(tmp, "%4ld", p_ptr->chp);
+	sprintf(tmp, "%4ld", cr_ptr->chp);
 
-	if (p_ptr->chp >= p_ptr->mhp)
+	if (cr_ptr->chp >= cr_ptr->mhp)
 	{
 		color = TERM_L_GREEN;
 	}
-	else if (p_ptr->chp > (p_ptr->mhp * hitpoint_warn) / 10)
+	else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10)
 	{
 		color = TERM_YELLOW;
 	}
@@ -985,7 +985,7 @@ static void prt_hp(void)
 	put_str( "/", ROW_CURHP, COL_CURHP + 7 );
 
 	/* 最大ヒットポイント */
-	sprintf(tmp, "%4ld", p_ptr->mhp);
+	sprintf(tmp, "%4ld", cr_ptr->mhp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 8 );
@@ -995,7 +995,7 @@ static void prt_hp(void)
 /*
  * Prints players max/cur spell points
  */
-static void prt_sp(void)
+static void prt_sp(creature_type *cr_ptr)
 {
 /* マジックポイントの表示方法を変更している */
 	char tmp[32];
@@ -1011,13 +1011,13 @@ static void prt_sp(void)
 #endif
 
 	/* 現在のマジックポイント */
-	sprintf(tmp, "%4ld", p_ptr->csp);
+	sprintf(tmp, "%4ld", cr_ptr->csp);
 
-	if (p_ptr->csp >= p_ptr->msp)
+	if (cr_ptr->csp >= cr_ptr->msp)
 	{
 		color = TERM_L_GREEN;
 	}
-	else if (p_ptr->csp > (p_ptr->msp * mana_warn) / 10)
+	else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10)
 	{
 		color = TERM_YELLOW;
 	}
@@ -1032,7 +1032,7 @@ static void prt_sp(void)
 	put_str( "/", ROW_CURSP, COL_CURSP + 7 );
 
 	/* 最大マジックポイント */
-	sprintf(tmp, "%4ld", p_ptr->msp);
+	sprintf(tmp, "%4ld", cr_ptr->msp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 8);
@@ -1042,7 +1042,7 @@ static void prt_sp(void)
 /*
  * Prints depth in stat area
  */
-static void prt_depth(void)
+static void prt_depth(creature_type *cr_ptr)
 {
 	char depths[32];
 	int wid, hgt, row_depth, col_depth;
@@ -1080,7 +1080,7 @@ static void prt_depth(void)
 
 
 		/* Get color of level based on feeling  -JSV- */
-		switch (p_ptr->feeling)
+		switch (cr_ptr->feeling)
 		{
 		case  0: attr = TERM_SLATE;   break; /* Unknown */
 		case  1: attr = TERM_L_BLUE;  break; /* Special */
@@ -1737,22 +1737,22 @@ static void prt_frame_basic(void)
 	prt_exp(p_ptr);
 
 	/* All Stats */
-	for (i = 0; i < 6; i++) prt_stat(i);
+	for (i = 0; i < 6; i++) prt_stat(p_ptr, i);
 
 	/* Armor */
-	prt_ac();
+	prt_ac(p_ptr);
 
 	/* Hitpoints */
-	prt_hp();
+	prt_hp(p_ptr);
 
 	/* Spellpoints */
-	prt_sp();
+	prt_sp(p_ptr);
 
 	/* Gold */
-	prt_gold();
+	prt_gold(p_ptr);
 
 	/* Current depth */
-	prt_depth();
+	prt_depth(p_ptr);
 
 	/* Special */
 	health_redraw(FALSE);
@@ -6107,7 +6107,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 /*
  * Handle "play_redraw"
  */
-void redraw_stuff(void)
+void redraw_stuff(creature_type *cr_ptr)
 {
 	/* Redraw stuff */
 	if (!play_redraw) return;
@@ -6134,7 +6134,7 @@ void redraw_stuff(void)
 	if (play_redraw & (PR_MAP))
 	{
 		play_redraw &= ~(PR_MAP);
-		prt_map();
+		prt_map(cr_ptr);
 	}
 
 
@@ -6153,80 +6153,80 @@ void redraw_stuff(void)
 	if (play_redraw & (PR_EQUIPPY))
 	{
 		play_redraw &= ~(PR_EQUIPPY);
-		print_equippy(p_ptr); /* To draw / delete equippy chars */
+		print_equippy(cr_ptr); /* To draw / delete equippy chars */
 	}
 
 	if (play_redraw & (PR_MISC))
 	{
 		play_redraw &= ~(PR_MISC);
-		prt_field(race_info[p_ptr->irace_idx].title, ROW_RACE, COL_RACE);
-/*		prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
+		prt_field(race_info[cr_ptr->irace_idx].title, ROW_RACE, COL_RACE);
+/*		prt_field(class_info[cr_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 
 	}
 
 	if (play_redraw & (PR_TITLE))
 	{
 		play_redraw &= ~(PR_TITLE);
-		prt_title(p_ptr);
+		prt_title(cr_ptr);
 	}
 
 	if (play_redraw & (PR_LEV))
 	{
 		play_redraw &= ~(PR_LEV);
-		prt_level(p_ptr);
+		prt_level(cr_ptr);
 	}
 
 	if (play_redraw & (PR_EXP))
 	{
 		play_redraw &= ~(PR_EXP);
-		prt_exp(p_ptr);
+		prt_exp(cr_ptr);
 	}
 
 	if (play_redraw & (PR_STATS))
 	{
 		play_redraw &= ~(PR_STATS);
-		prt_stat(A_STR);
-		prt_stat(A_INT);
-		prt_stat(A_WIS);
-		prt_stat(A_DEX);
-		prt_stat(A_CON);
-		prt_stat(A_CHR);
+		prt_stat(cr_ptr, A_STR);
+		prt_stat(cr_ptr, A_INT);
+		prt_stat(cr_ptr, A_WIS);
+		prt_stat(cr_ptr, A_DEX);
+		prt_stat(cr_ptr, A_CON);
+		prt_stat(cr_ptr, A_CHR);
 	}
 
 	if (play_redraw & (PR_STATUS))
 	{
 		play_redraw &= ~(PR_STATUS);
-		prt_status(p_ptr);
+		prt_status(cr_ptr);
 	}
 
 	if (play_redraw & (PR_ARMOR))
 	{
 		play_redraw &= ~(PR_ARMOR);
-		prt_ac();
+		prt_ac(cr_ptr);
 	}
 
 	if (play_redraw & (PR_HP))
 	{
 		play_redraw &= ~(PR_HP);
-		prt_hp();
+		prt_hp(cr_ptr);
 	}
 
 	if (play_redraw & (PR_MANA))
 	{
 		play_redraw &= ~(PR_MANA);
-		prt_sp();
+		prt_sp(cr_ptr);
 	}
 
 	if (play_redraw & (PR_GOLD))
 	{
 		play_redraw &= ~(PR_GOLD);
-		prt_gold();
+		prt_gold(cr_ptr);
 	}
 
 	if (play_redraw & (PR_DEPTH))
 	{
 		play_redraw &= ~(PR_DEPTH);
-		prt_depth();
+		prt_depth(cr_ptr);
 	}
 
 	if (play_redraw & (PR_HEALTH))
@@ -6248,51 +6248,51 @@ void redraw_stuff(void)
 		play_redraw &= ~(PR_CUT | PR_STUN);
 		play_redraw &= ~(PR_HUNGER);
 		play_redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
-		prt_frame_extra(p_ptr);
+		prt_frame_extra(cr_ptr);
 	}
 
 	if (play_redraw & (PR_CUT))
 	{
 		play_redraw &= ~(PR_CUT);
-		prt_cut(p_ptr);
+		prt_cut(cr_ptr);
 	}
 
 	if (play_redraw & (PR_STUN))
 	{
 		play_redraw &= ~(PR_STUN);
-		prt_stun(p_ptr);
+		prt_stun(cr_ptr);
 	}
 
 	if (play_redraw & (PR_HUNGER))
 	{
 		play_redraw &= ~(PR_HUNGER);
-		prt_hunger(p_ptr);
+		prt_hunger(cr_ptr);
 	}
 
 	if (play_redraw & (PR_STATE))
 	{
 		play_redraw &= ~(PR_STATE);
-		prt_state(p_ptr);
+		prt_state(cr_ptr);
 	}
 
 	if (play_redraw & (PR_SPEED))
 	{
 		play_redraw &= ~(PR_SPEED);
-		prt_speed(p_ptr);
+		prt_speed(cr_ptr);
 	}
 
-	if (p_ptr->cls_idx == CLASS_IMITATOR)
+	if (cr_ptr->cls_idx == CLASS_IMITATOR)
 	{
 		if (play_redraw & (PR_IMITATION))
 		{
 			play_redraw &= ~(PR_IMITATION);
-			prt_imitation(p_ptr);
+			prt_imitation(cr_ptr);
 		}
 	}
 	else if (play_redraw & (PR_STUDY))
 	{
 		play_redraw &= ~(PR_STUDY);
-		prt_study(p_ptr);
+		prt_study(cr_ptr);
 	}
 }
 
@@ -6398,7 +6398,7 @@ void handle_stuff(void)
 	if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff();
+	if (play_redraw) redraw_stuff(p_ptr);
 
 	/* Window stuff */
 	if (play_window) window_stuff();

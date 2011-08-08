@@ -3140,7 +3140,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				take_hit(NULL, cr_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
-				redraw_stuff();
+				redraw_stuff(p_ptr);
 			}
 			else
 			{

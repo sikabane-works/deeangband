@@ -6282,7 +6282,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 	{
 		who_ptr->health_who = c_ptr->m_idx;
 		play_redraw |= (PR_HEALTH);
-		redraw_stuff();
+		redraw_stuff(p_ptr);
 	}
 
 	/* XXX XXX XXX Verify this code */
