@@ -4676,7 +4676,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 	}
 	else if (equiped_item)
 	{
-		kamaenaoshi(item);
+		kamaenaoshi(p_ptr, item);
 		calc_android_exp(p_ptr);
 	}
 

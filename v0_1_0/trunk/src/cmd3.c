@@ -1,6 +1,6 @@
 /* File: cmd3.c */
 
-/* Purpose: p_ptr->inventory commands */
+/* Purpose: inventory commands */
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
@@ -15,7 +15,7 @@
 
 
 /*
- * Display p_ptr->inventory
+ * Display inventory
  */
 void do_cmd_inven(void)
 {
@@ -38,7 +38,7 @@ void do_cmd_inven(void)
 	/* Hack -- show empty slots */
 	item_tester_full = TRUE;
 
-	/* Display the p_ptr->inventory */
+	/* Display the inventory */
 	(void)show_inven(0, p_ptr);
 
 	/* Hack -- hide empty slots */
@@ -826,26 +826,26 @@ msg_print("クエストを達成した！");
 }
 
 
-void kamaenaoshi(int item)
+void kamaenaoshi(creature_type *cr_ptr, int item)
 {
 	object_type *o_ptr, *new_o_ptr;
 	char o_name[MAX_NLEN];
 
 	if (item == INVEN_1STARM)
 	{
-		if (have_weapon(p_ptr, INVEN_2NDARM))
+		if (have_weapon(cr_ptr, INVEN_2NDARM))
 		{
-			o_ptr = &p_ptr->inventory[INVEN_2NDARM];
+			o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
 			object_desc(o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
-				new_o_ptr = &p_ptr->inventory[INVEN_1STARM];
+				new_o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 				object_copy(new_o_ptr, o_ptr);
-				p_ptr->total_weight += o_ptr->weight;
+				cr_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(INVEN_2NDARM, -((int)o_ptr->number));
 				inven_item_optimize(INVEN_2NDARM);
-				if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -860,7 +860,7 @@ void kamaenaoshi(int item)
 			}
 			else
 			{
-				if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
 #else
@@ -871,23 +871,23 @@ void kamaenaoshi(int item)
 	}
 	else if (item == INVEN_2NDARM)
 	{
-		o_ptr = &p_ptr->inventory[INVEN_1STARM];
+		o_ptr = &cr_ptr->inventory[INVEN_1STARM];
 		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
 
-		if (have_weapon(p_ptr, INVEN_1STARM))
+		if (have_weapon(cr_ptr, INVEN_1STARM))
 		{
-			if (object_allow_two_hands_wielding(p_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(p_ptr))
+			if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
 				msg_format("%sを両手で構えた。", o_name);
 #else
 				msg_format("You are wielding %s with both hands.", o_name);
 #endif
 		}
-		else if (!(empty_hands(p_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
+		else if (!(empty_hands(cr_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(o_ptr))
 		{
-			new_o_ptr = &p_ptr->inventory[INVEN_2NDARM];
+			new_o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
 			object_copy(new_o_ptr, o_ptr);
-			p_ptr->total_weight += o_ptr->weight;
+			cr_ptr->total_weight += o_ptr->weight;
 			inven_item_increase(INVEN_1STARM, -((int)o_ptr->number));
 			inven_item_optimize(INVEN_1STARM);
 #ifdef JP
@@ -1024,7 +1024,7 @@ void do_cmd_takeoff(void)
 	/* Take off the item */
 	(void)inven_takeoff(p_ptr, item, 255);
 
-	kamaenaoshi(item);
+	kamaenaoshi(p_ptr, item);
 
 	calc_android_exp(p_ptr);
 
@@ -1108,7 +1108,7 @@ void do_cmd_drop(void)
 
 	if (item >= INVEN_1STARM)
 	{
-		kamaenaoshi(item);
+		kamaenaoshi(p_ptr, item);
 		calc_android_exp(p_ptr);
 	}
 
