@@ -11179,7 +11179,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!tgt_pt(&x, &y)) return NULL;
+			if (!tgt_pt(p_ptr, &x, &y)) return NULL;
 
 			if (!cave_player_teleportable_bold(y, x, 0L) ||
 			    (distance(y, x, p_ptr->fy, p_ptr->fx) > MAX_SIGHT / 2) ||
@@ -12441,7 +12441,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 			for (i = 0; i < 3; i++)
 			{
-				if (!tgt_pt(&x, &y)) return FALSE;
+				if (!tgt_pt(p_ptr, &x, &y)) return FALSE;
 
 				flag = FALSE;
 

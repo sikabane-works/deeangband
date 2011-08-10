@@ -4822,7 +4822,7 @@ void do_cmd_travel(void)
 	int dx, dy, sx, sy;
 	feature_type *f_ptr;
 
-	if (!tgt_pt(&x, &y)) return;
+	if (!tgt_pt(p_ptr, &x, &y)) return;
 
 	if ((x == p_ptr->fx) && (y == p_ptr->fy))
 	{

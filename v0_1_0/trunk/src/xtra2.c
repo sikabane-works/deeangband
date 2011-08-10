@@ -5665,7 +5665,7 @@ static void tgt_pt_prepare(void)
 /*
  * old -- from PsiAngband.
  */
-bool tgt_pt(int *x_ptr, int *y_ptr)
+bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 {
 	char ch = 0;
 	int d, x, y, n;
@@ -5676,8 +5676,8 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 	/* Get size */
 	get_screen_size(&wid, &hgt);
 
-	x = p_ptr->fx;
-	y = p_ptr->fy;
+	x = cr_ptr->fx;
+	y = cr_ptr->fy;
 
 	if (expand_list) 
 	{
@@ -5751,12 +5751,12 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 				if (n == temp_n)	/* Loop out taget list */
 				{
 					n = 0;
-					y = p_ptr->fy;
-					x = p_ptr->fx;
+					y = cr_ptr->fy;
+					x = cr_ptr->fx;
 					verify_panel();	/* Move cursor to player */
 
 					/* Update stuff */
-					p_ptr->update |= (PU_MONSTERS);
+					cr_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -5847,7 +5847,7 @@ bool tgt_pt(int *x_ptr, int *y_ptr)
 	verify_panel();
 
 	/* Update stuff */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
