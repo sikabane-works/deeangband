@@ -791,7 +791,7 @@ static int  racial_cost;
  * Note: return value indicates that we have succesfully used the power
  * 1: Succeeded, 0: Cancelled, -1: Failed
  */
-static int racial_aux(power_desc_type *pd_ptr)
+static int racial_aux(creature_type *cr_ptr, power_desc_type *pd_ptr)
 {
 	s16b min_level  = pd_ptr->level;
 	int  use_stat   = pd_ptr->stat;
@@ -801,10 +801,10 @@ static int racial_aux(power_desc_type *pd_ptr)
 	racial_cost = pd_ptr->cost;
 
 	/* Not enough mana - use hp */
-	if (p_ptr->csp < racial_cost) use_hp = racial_cost - p_ptr->csp;
+	if (cr_ptr->csp < racial_cost) use_hp = racial_cost - cr_ptr->csp;
 
 	/* Power is not available yet */
-	if (p_ptr->lev < min_level)
+	if (cr_ptr->lev < min_level)
 	{
 #ifdef JP
 		msg_format("この能力を使用するにはレベル %d に達していなければなりません。", min_level);
@@ -817,7 +817,7 @@ static int racial_aux(power_desc_type *pd_ptr)
 	}
 
 	/* Too confused */
-	else if (p_ptr->confused)
+	else if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していてその能力は使えない。");
@@ -830,7 +830,7 @@ static int racial_aux(power_desc_type *pd_ptr)
 	}
 
 	/* Risk death? */
-	else if (p_ptr->chp < use_hp)
+	else if (cr_ptr->chp < use_hp)
 	{
 #ifdef JP
 		if (!get_check("本当に今の衰弱した状態でこの能力を使いますか？"))
@@ -847,13 +847,13 @@ static int racial_aux(power_desc_type *pd_ptr)
 
 	if (difficulty)
 	{
-		if (p_ptr->stun)
+		if (cr_ptr->stun)
 		{
-			difficulty += p_ptr->stun;
+			difficulty += cr_ptr->stun;
 		}
-		else if (p_ptr->lev > min_level)
+		else if (cr_ptr->lev > min_level)
 		{
-			int lev_adj = ((p_ptr->lev - min_level) / 3);
+			int lev_adj = ((cr_ptr->lev - min_level) / 3);
 			if (lev_adj > 10) lev_adj = 10;
 			difficulty -= lev_adj;
 		}
@@ -865,7 +865,7 @@ static int racial_aux(power_desc_type *pd_ptr)
 	energy_use = 100;
 
 	/* Success? */
-	if (randint1(p_ptr->stat_cur[use_stat]) >=
+	if (randint1(cr_ptr->stat_cur[use_stat]) >=
 	    ((difficulty / 2) + randint1(difficulty / 2)))
 	{
 		return 1;
@@ -3879,7 +3879,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 	repeat_push(i);
 	} /*if (!repeat_pull(&i) || ...)*/
 #endif /* ALLOW_REPEAT */
-	switch (racial_aux(&power_desc[i]))
+	switch (racial_aux(cr_ptr, &power_desc[i]))
 	{
 	case 1:
 		if (power_desc[i].number < 0)
