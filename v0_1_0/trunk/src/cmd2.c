@@ -2924,9 +2924,9 @@ void do_cmd_rest(void)
  *
  * Note that artifacts never break, see the "drop_near()" function.
  */
-static int breakage_chance(object_type *o_ptr)
+static int breakage_chance(creature_type *cr_ptr, object_type *o_ptr)
 {
-	int archer_bonus = (p_ptr->cls_idx == CLASS_ARCHER ? (p_ptr->lev-1)/7 + 4: 0);
+	int archer_bonus = (cr_ptr->cls_idx == CLASS_ARCHER ? (cr_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
 	if (snipe_type)
@@ -3919,7 +3919,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(q_ptr) : 0);
+	j = (hit_body ? breakage_chance(p_ptr, q_ptr) : 0);
 
 	if (stick_to)
 	{
@@ -4499,7 +4499,7 @@ bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken)
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(q_ptr) : 0);
+	j = (hit_body ? breakage_chance(p_ptr, q_ptr) : 0);
 
 	/* Figurines transform */
 	if ((q_ptr->tval == TV_FIGURINE) && !(inside_arena))
