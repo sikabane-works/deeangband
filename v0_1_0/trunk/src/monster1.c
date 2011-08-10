@@ -3358,7 +3358,7 @@ monster_hook_type get_monster_hook(void)
 {
 	if (!dun_level && !inside_quest)
 	{
-		switch (wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].terrain)
+		switch (wilderness[wilderness_y][wilderness_x].terrain)
 		{
 		case TERRAIN_TOWN:
 			return (monster_hook_type)mon_hook_town;

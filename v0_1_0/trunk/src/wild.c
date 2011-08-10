@@ -403,8 +403,8 @@ void wilderness_gen(void)
 
 	process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
 
-	x = p_ptr->wilderness_x;
-	y = p_ptr->wilderness_y;
+	x = wilderness_x;
+	y = wilderness_y;
 
 	/* Prepare allocation table */
 	get_mon_num_prep(get_monster_hook(), NULL);
@@ -678,8 +678,8 @@ void wilderness_gen_small()
 	panel_col_min = cur_wid;
 
 	/* Place the player */
-	p_ptr->fx = (byte)p_ptr->wilderness_x;
-	p_ptr->fy = (byte)p_ptr->wilderness_y;
+	p_ptr->fx = (byte)wilderness_x;
+	p_ptr->fy = (byte)wilderness_y;
 
 	town_num = 0;
 }
@@ -801,18 +801,18 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	/* Process "W:P:<x>:<y> - starting position in the wilderness */
 	case 'P':
 	{
-		if ((p_ptr->wilderness_x == 0) &&
-		    (p_ptr->wilderness_y == 0))
+		if ((wilderness_x == 0) &&
+		    (wilderness_y == 0))
 		{
 			if (tokenize(buf+4, 2, zz, 0) == 2)
 			{
-				p_ptr->wilderness_y = atoi(zz[0]);
-				p_ptr->wilderness_x = atoi(zz[1]);
+				wilderness_y = atoi(zz[0]);
+				wilderness_x = atoi(zz[1]);
 				
-				if ((p_ptr->wilderness_x < 1) ||
-				    (p_ptr->wilderness_x > max_wild_x) ||
-				    (p_ptr->wilderness_y < 1) ||
-				    (p_ptr->wilderness_y > max_wild_y))
+				if ((wilderness_x < 1) ||
+				    (wilderness_x > max_wild_x) ||
+				    (wilderness_y < 1) ||
+				    (wilderness_y > max_wild_y))
 				{
 					return (PARSE_ERROR_OUT_OF_BOUNDS);
 				}
@@ -1047,8 +1047,8 @@ bool change_wild_mode(void)
 	if (wild_mode)
 	{
 		/* Save the location in the global map */
-		p_ptr->wilderness_x = p_ptr->fx;
-		p_ptr->wilderness_y = p_ptr->fy;
+		wilderness_x = p_ptr->fx;
+		wilderness_y = p_ptr->fy;
 
 		/* Give first move to the player */
 		p_ptr->energy_need = 0;
@@ -1109,15 +1109,15 @@ bool change_wild_mode(void)
 	/* Leaving */
 	p_ptr->leaving = TRUE;
 
-	wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].known = TRUE;
-	wilderness[p_ptr->wilderness_y - 1][p_ptr->wilderness_x - 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y + 1][p_ptr->wilderness_x + 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y + 1][p_ptr->wilderness_x - 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y - 1][p_ptr->wilderness_x + 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x - 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y - 1][p_ptr->wilderness_x].known = TRUE;
-	wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x + 1].known = TRUE;
-	wilderness[p_ptr->wilderness_y + 1][p_ptr->wilderness_x].known = TRUE;
+	wilderness[wilderness_y][wilderness_x].known = TRUE;
+	wilderness[wilderness_y - 1][wilderness_x - 1].known = TRUE;
+	wilderness[wilderness_y + 1][wilderness_x + 1].known = TRUE;
+	wilderness[wilderness_y + 1][wilderness_x - 1].known = TRUE;
+	wilderness[wilderness_y - 1][wilderness_x + 1].known = TRUE;
+	wilderness[wilderness_y][wilderness_x - 1].known = TRUE;
+	wilderness[wilderness_y - 1][wilderness_x].known = TRUE;
+	wilderness[wilderness_y][wilderness_x + 1].known = TRUE;
+	wilderness[wilderness_y + 1][wilderness_x].known = TRUE;
 
 	/* HACK */
 	energy_use = 1000;

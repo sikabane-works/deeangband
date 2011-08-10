@@ -4372,8 +4372,8 @@ bool tele_town(void)
 		{
 			if(wilderness[y][x].town == (i-'a'+1))
 			{
-				p_ptr->wilderness_y = y;
-				p_ptr->wilderness_x = x;
+				wilderness_y = y;
+				wilderness_x = x;
 			}
 		}
 	}

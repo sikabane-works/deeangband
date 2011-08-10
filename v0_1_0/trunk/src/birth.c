@@ -2796,32 +2796,32 @@ static void get_history(void)
 	i = 0;
 	switch(i){
 		case 0:
-			p_ptr->wilderness_x = 134;
-			p_ptr->wilderness_y = 71;
+			wilderness_x = 134;
+			wilderness_y = 71;
 			break;
 		case 1:
-			p_ptr->wilderness_x = 27;
-			p_ptr->wilderness_y = 25;
+			wilderness_x = 27;
+			wilderness_y = 25;
 			break;
 		case 2:
-			p_ptr->wilderness_x = 137;
-			p_ptr->wilderness_y = 100;
+			wilderness_x = 137;
+			wilderness_y = 100;
 			break;
 		case 3:
-			p_ptr->wilderness_x = 169;
-			p_ptr->wilderness_y = 37;
+			wilderness_x = 169;
+			wilderness_y = 37;
 			break;
 		case 4:
-			p_ptr->wilderness_x = 53;
-			p_ptr->wilderness_y = 123;
+			wilderness_x = 53;
+			wilderness_y = 123;
 			break;
 		case 5:
-			p_ptr->wilderness_x = 68;
-			p_ptr->wilderness_y = 118;
+			wilderness_x = 68;
+			wilderness_y = 118;
 			break;
 		case 6:
-			p_ptr->wilderness_x = 134;
-			p_ptr->wilderness_y = 135;
+			wilderness_x = 134;
+			wilderness_y = 135;
 			break;
 		default:
 			break;
@@ -7261,8 +7261,8 @@ static bool ask_quick_start(void)
 	init_turn();
 
 	/*TODO: 当面はイェーキンからのみスタート、いずれ指定された都市を選ぶように指定。 */
-	p_ptr->wilderness_x = 134;
-	p_ptr->wilderness_y = 71;
+	wilderness_x = 134;
+	wilderness_y = 71;
 
 	/* Calc hitdice, but don't roll */
 	get_extra(FALSE);

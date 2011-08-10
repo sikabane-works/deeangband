@@ -1141,8 +1141,6 @@ struct creature_type
 	s16b lev;			/* Level */
 	s16b max_lev;		/* Max Level */
 
-	s32b wilderness_x;	/* Coordinates in the wilderness */
-	s32b wilderness_y;
 	s32b start_wilderness_x;	/* Starting Coordinates in the wilderness */
 	s32b start_wilderness_y;
 

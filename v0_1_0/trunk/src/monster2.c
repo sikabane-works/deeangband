@@ -2981,7 +2981,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 		if (old_unique)
 			level = r_info[MON_CHAMELEON_K].level;
 		else if (!dun_level)
-			level = wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].level;
+			level = wilderness[wilderness_y][wilderness_x].level;
 		else
 			level = dun_level;
 

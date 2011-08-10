@@ -777,6 +777,8 @@ bool inside_arena = FALSE;		/* inside arena? */
 bool inside_battle = FALSE;		/* inside tougijou? */
 s16b town_num = 0;			/* Current town number */
 s16b arena_number = 0;		/* monster number in arena -KMW- */
+s32b wilderness_x = 0;	/* Coordinates in the wilderness */
+s32b wilderness_y = 0;
 
 
 /*

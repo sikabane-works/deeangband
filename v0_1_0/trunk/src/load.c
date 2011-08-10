@@ -2415,8 +2415,8 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		}
 
 		/* Position in the wilderness */
-		rd_s32b(&p_ptr->wilderness_x);
-		rd_s32b(&p_ptr->wilderness_y);
+		rd_s32b(&wilderness_x);
+		rd_s32b(&wilderness_y);
 		rd_s32b(&p_ptr->start_wilderness_x);
 		rd_s32b(&p_ptr->start_wilderness_y);
 		rd_byte((byte *)&wild_mode);

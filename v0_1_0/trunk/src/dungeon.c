@@ -3410,8 +3410,8 @@ msg_print("下に引きずり降ろされる感じがする！");
 
 				if (wild_mode)
 				{
-					cr_ptr->wilderness_y = p_ptr->fy;
-					cr_ptr->wilderness_x = p_ptr->fx;
+					wilderness_y = p_ptr->fy;
+					wilderness_x = p_ptr->fx;
 				}
 				else
 				{
@@ -5621,7 +5621,7 @@ msg_print("何か変わった気がする！");
 			int species_idx;
 			bool success = FALSE;
 			get_mon_num_prep(monster_tsuri,NULL);
-			species_idx = get_mon_num(dun_level ? dun_level : wilderness[p_ptr->wilderness_y][p_ptr->wilderness_x].level);
+			species_idx = get_mon_num(dun_level ? dun_level : wilderness[wilderness_y][wilderness_x].level);
 			msg_print(NULL);
 			if (species_idx && one_in_(2))
 			{
@@ -7247,8 +7247,8 @@ quit("セーブファイルが壊れています");
 					dungeon_type = 0;
 					if (lite_town || vanilla_town)
 					{
-						p_ptr->wilderness_y = 1;
-						p_ptr->wilderness_x = 1;
+						wilderness_y = 1;
+						wilderness_x = 1;
 						if (vanilla_town)
 						{
 							p_ptr->oldpy = 10;
@@ -7263,10 +7263,10 @@ quit("セーブファイルが壊れています");
 					else
 					{
 						/*TODO: 当分はイェーキンからのみスタート */
-						//p_ptr->wilderness_x = 10;
-						//p_ptr->wilderness_y = 34;
-						p_ptr->wilderness_x = 134;
-						p_ptr->wilderness_y = 71;
+						//wilderness_x = 10;
+						//wilderness_y = 34;
+						wilderness_x = 134;
+						wilderness_y = 71;
 						p_ptr->oldpy = 95;
 						p_ptr->oldpx = 95;
 					}
