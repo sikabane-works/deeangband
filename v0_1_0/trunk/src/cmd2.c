@@ -561,7 +561,7 @@ static void chest_death(bool scatter, int y, int x, s16b o_idx)
  * Exploding chest destroys contents (and traps).
  * Note that the chest itself is never destroyed.
  */
-static void chest_trap(int y, int x, s16b o_idx)
+static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 {
 	int  i, trap;
 
@@ -580,13 +580,13 @@ static void chest_trap(int y, int x, s16b o_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(p_ptr, A_STR);
+		(void)do_dec_stat(cr_ptr, A_STR);
 	}
 
 	/* Lose constitution */
@@ -594,13 +594,13 @@ static void chest_trap(int y, int x, s16b o_idx)
 	{
 #ifdef JP
 		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(p_ptr, A_CON);
+		(void)do_dec_stat(cr_ptr, A_CON);
 	}
 
 	/* Poison */
@@ -612,9 +612,9 @@ static void chest_trap(int y, int x, s16b o_idx)
 		msg_print("A puff of green gas surrounds you!");
 #endif
 
-		if (!(p_ptr->resist_pois || IS_OPPOSE_POIS(p_ptr)))
+		if (!(cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr)))
 		{
-			(void)set_poisoned(p_ptr, p_ptr->poisoned + 10 + randint1(20));
+			(void)set_poisoned(cr_ptr, cr_ptr->poisoned + 10 + randint1(20));
 		}
 	}
 
@@ -628,9 +628,9 @@ static void chest_trap(int y, int x, s16b o_idx)
 #endif
 
 
-		if (!p_ptr->free_act)
+		if (!cr_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 10 + randint1(20));
+			(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 10 + randint1(20));
 		}
 	}
 
@@ -648,7 +648,7 @@ static void chest_trap(int y, int x, s16b o_idx)
 		for (i = 0; i < num; i++)
 		{
 			if (randint1(100)<dun_level)
-				activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+				activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 		}
@@ -768,32 +768,32 @@ static void chest_trap(int y, int x, s16b o_idx)
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if (randint1(100+o_ptr->pval*2) > p_ptr->skill_rob)
+			if (randint1(100+o_ptr->pval*2) > cr_ptr->skill_rob)
 			{
 #ifdef JP
-				if (one_in_(6)) take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
 #else
-				if (one_in_(6)) take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
+				if (one_in_(6)) take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if (one_in_(5)) (void)set_cut(p_ptr, p_ptr->cut + 200);
+				else if (one_in_(5)) (void)set_cut(cr_ptr, cr_ptr->cut + 200);
 				else if (one_in_(4))
 				{
-					if (!p_ptr->free_act) 
-						(void)set_paralyzed(p_ptr, p_ptr->paralyzed + 2 + 
+					if (!cr_ptr->free_act) 
+						(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 
-						(void)set_stun(p_ptr, p_ptr->stun + 10 + 
+						(void)set_stun(cr_ptr, cr_ptr->stun + 10 + 
 						randint0(100));
 				}
 				else if (one_in_(3)) apply_disenchant(0);
 				else if (one_in_(2))
 				{
-					(void)do_dec_stat(p_ptr, A_STR);
-					(void)do_dec_stat(p_ptr, A_DEX);
-					(void)do_dec_stat(p_ptr, A_CON);
-					(void)do_dec_stat(p_ptr, A_INT);
-					(void)do_dec_stat(p_ptr, A_WIS);
-					(void)do_dec_stat(p_ptr, A_CHR);
+					(void)do_dec_stat(cr_ptr, A_STR);
+					(void)do_dec_stat(cr_ptr, A_DEX);
+					(void)do_dec_stat(cr_ptr, A_CON);
+					(void)do_dec_stat(cr_ptr, A_INT);
+					(void)do_dec_stat(cr_ptr, A_WIS);
+					(void)do_dec_stat(cr_ptr, A_CHR);
 				}
 				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
 			}
@@ -825,9 +825,9 @@ static void chest_trap(int y, int x, s16b o_idx)
 		o_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_ATTACK, damroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_ATTACK, damroll(5, 8), "an exploding chest", NULL, -1);
 #endif
 
 	}
@@ -917,7 +917,7 @@ static bool do_cmd_open_chest(int y, int x, s16b o_idx)
 	if (flag)
 	{
 		/* Apply chest traps, if any */
-		chest_trap(y, x, o_idx);
+		chest_trap(p_ptr, y, x, o_idx);
 
 		/* Let the Chest drop items */
 		chest_death(FALSE, y, x, o_idx);
@@ -1972,7 +1972,7 @@ static bool do_cmd_disarm_chest(int y, int x, s16b o_idx)
 #endif
 
 		sound(SOUND_FAIL);
-		chest_trap(y, x, o_idx);
+		chest_trap(p_ptr, y, x, o_idx);
 	}
 
 	/* Result */
