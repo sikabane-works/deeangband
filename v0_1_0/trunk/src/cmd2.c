@@ -1037,13 +1037,13 @@ static int count_chests(int *y, int *x, bool trapped)
 /*
  * Convert an adjacent location to a direction.
  */
-static int coords_to_dir(int y, int x)
+static int coords_to_dir(creature_type *cr_ptr, int y, int x)
 {
 	int d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
 	int dy, dx;
 
-	dy = y - p_ptr->fy;
-	dx = x - p_ptr->fx;
+	dy = y - cr_ptr->fy;
+	dx = x - cr_ptr->fx;
 
 	/* Paranoia */
 	if (ABS(dx) > 1 || ABS(dy) > 1) return (0);
@@ -1202,7 +1202,7 @@ void do_cmd_open(void)
 		{
 			bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(y, x);
+			if (!too_many) command_dir = coords_to_dir(p_ptr, y, x);
 		}
 	}
 
@@ -1378,7 +1378,7 @@ void do_cmd_close(void)
 		/* Count open doors */
 		if (count_dt(&y, &x, is_open, FALSE) == 1)
 		{
-			command_dir = coords_to_dir(y, x);
+			command_dir = coords_to_dir(p_ptr, y, x);
 		}
 	}
 
@@ -2139,7 +2139,7 @@ void do_cmd_disarm(void)
 		{
 			bool too_many = (num_traps && num_chests) || (num_traps > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_dir(y, x);
+			if (!too_many) command_dir = coords_to_dir(p_ptr, y, x);
 		}
 	}
 
