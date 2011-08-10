@@ -883,10 +883,10 @@ static int racial_aux(power_desc_type *pd_ptr)
 
 
 
-void ratial_stop_mouth()
+static void ratial_stop_mouth(creature_type *cr_ptr)
 {
-	if (music_singing_any(p_ptr)) stop_singing(p_ptr);
-	if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
+	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 }
 
 
@@ -1446,7 +1446,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
 			if (!get_aim_dir(&dir)) return FALSE;
-			ratial_stop_mouth();
+			ratial_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
@@ -1477,7 +1477,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				ratial_stop_mouth();
+				ratial_stop_mouth(cr_ptr);
 
 				if (!c_ptr->m_idx)
 				{
@@ -1684,7 +1684,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 		case RACE_YEEK:
 			if (!get_aim_dir(&dir)) return FALSE;
-			ratial_stop_mouth();
+			ratial_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_print("身の毛もよだつ叫び声を上げた！");
 #else
@@ -1696,7 +1696,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 		case RACE_KLACKON:
 			if (!get_aim_dir(&dir)) return FALSE;
-			ratial_stop_mouth();
+			ratial_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_print("酸を吐いた。");
 #else
@@ -1937,7 +1937,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					}
 				}
 
-				ratial_stop_mouth();
+				ratial_stop_mouth(cr_ptr);
 
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。", Type_desc);
@@ -2021,7 +2021,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				ratial_stop_mouth();
+				ratial_stop_mouth(cr_ptr);
 
 				if (!c_ptr->m_idx)
 				{
@@ -2073,7 +2073,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 		case RACE_LICH:
 			if (!get_aim_dir(&dir)) return FALSE;
-			ratial_stop_mouth();
+			ratial_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_print("あなたはおどろおどろしい叫び声をあげた！");
 #else
@@ -2099,7 +2099,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			{
 				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
 				if (!get_aim_dir(&dir)) return FALSE;
-				ratial_stop_mouth();
+				ratial_stop_mouth(cr_ptr);
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
