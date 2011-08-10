@@ -1679,7 +1679,7 @@ extern s32b wilderness_y;
 
 
 /* cmd2.c */
-extern bool easy_open_door(int y, int x);
+extern bool easy_open_door(creature_type *cr_ptr, int y, int x);
 
 #endif /* ALLOW_EASY_OPEN -- TNB */
 

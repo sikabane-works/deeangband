@@ -4391,7 +4391,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			{
 #ifdef ALLOW_EASY_OPEN
 				/* Closed doors */
-				if (easy_open && is_closed_door(feat) && easy_open_door(y, x)) return;
+				if (easy_open && is_closed_door(feat) && easy_open_door(cr_ptr, y, x)) return;
 #endif /* ALLOW_EASY_OPEN */
 
 #ifdef JP

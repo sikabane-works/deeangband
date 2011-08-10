@@ -1770,7 +1770,7 @@ void do_cmd_tunnel(void)
  *	The code here should be nearly identical to that in
  *	do_cmd_open_test() and do_cmd_open_aux().
  */
-bool easy_open_door(int y, int x)
+bool easy_open_door(creature_type *cr_ptr, int y, int x)
 {
 	int i, j;
 
@@ -1800,11 +1800,11 @@ bool easy_open_door(int y, int x)
 	else if (f_ptr->power)
 	{
 		/* Disarm factor */
-		i = p_ptr->skill_dis;
+		i = cr_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (p_ptr->blind || no_lite()) i = i / 10;
-		if (p_ptr->confused || p_ptr->image) i = i / 10;
+		if (cr_ptr->blind || no_lite()) i = i / 10;
+		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1832,7 +1832,7 @@ bool easy_open_door(int y, int x)
 			sound(SOUND_OPENDOOR);
 
 			/* Experience */
-			gain_exp(p_ptr, 1);
+			gain_exp(cr_ptr, 1);
 		}
 
 		/* Failure */
