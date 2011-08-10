@@ -992,7 +992,7 @@ static int count_dt(int *y, int *x, bool (*test)(int feat), bool under)
  * Return the number of chests around (or under) the character.
  * If requested, count only trapped chests.
  */
-static int count_chests(int *y, int *x, bool trapped)
+static int count_chests(creature_type *cr_ptr, int *y, int *x, bool trapped)
 {
 	int d, count, o_idx;
 
@@ -1005,8 +1005,8 @@ static int count_chests(int *y, int *x, bool trapped)
 	for (d = 0; d < 9; d++)
 	{
 		/* Extract adjacent (legal) location */
-		int yy = p_ptr->fy + ddy_ddd[d];
-		int xx = p_ptr->fx + ddx_ddd[d];
+		int yy = cr_ptr->fy + ddy_ddd[d];
+		int xx = cr_ptr->fx + ddx_ddd[d];
 
 		/* No (visible) chest is there */
 		if ((o_idx = chest_check(yy, xx)) == 0) continue;
@@ -1195,7 +1195,7 @@ void do_cmd_open(void)
 		num_doors = count_dt(&y, &x, is_closed_door, FALSE);
 
 		/* Count chests (locked) */
-		num_chests = count_chests(&y, &x, FALSE);
+		num_chests = count_chests(p_ptr, &y, &x, FALSE);
 
 		/* See if only one target */
 		if (num_doors || num_chests)
@@ -2132,7 +2132,7 @@ void do_cmd_disarm(void)
 		num_traps = count_dt(&y, &x, is_trap, TRUE);
 
 		/* Count chests (trapped) */
-		num_chests = count_chests(&y, &x, TRUE);
+		num_chests = count_chests(p_ptr, &y, &x, TRUE);
 
 		/* See if only one target */
 		if (num_traps || num_chests)
