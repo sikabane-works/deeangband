@@ -943,7 +943,7 @@ static bool is_open(int feat)
  * Return the number of features around (or under) the character.
  * Usually look for doors and floor traps.
  */
-static int count_dt(int *y, int *x, bool (*test)(int feat), bool under)
+static int count_dt(creature_type *cr_ptr, int *y, int *x, bool (*test)(int feat), bool under)
 {
 	int d, count, xx, yy;
 
@@ -960,8 +960,8 @@ static int count_dt(int *y, int *x, bool (*test)(int feat), bool under)
 		if ((d == 8) && !under) continue;
 
 		/* Extract adjacent (legal) location */
-		yy = p_ptr->fy + ddy_ddd[d];
-		xx = p_ptr->fx + ddx_ddd[d];
+		yy = cr_ptr->fy + ddy_ddd[d];
+		xx = cr_ptr->fx + ddx_ddd[d];
 
 		/* Get the cave */
 		c_ptr = &cave[yy][xx];
@@ -1192,7 +1192,7 @@ void do_cmd_open(void)
 		int num_doors, num_chests;
 
 		/* Count closed doors (locked or jammed) */
-		num_doors = count_dt(&y, &x, is_closed_door, FALSE);
+		num_doors = count_dt(p_ptr, &y, &x, is_closed_door, FALSE);
 
 		/* Count chests (locked) */
 		num_chests = count_chests(p_ptr, &y, &x, FALSE);
@@ -1376,7 +1376,7 @@ void do_cmd_close(void)
 	if (easy_open)
 	{
 		/* Count open doors */
-		if (count_dt(&y, &x, is_open, FALSE) == 1)
+		if (count_dt(p_ptr, &y, &x, is_open, FALSE) == 1)
 		{
 			command_dir = coords_to_dir(p_ptr, y, x);
 		}
@@ -2129,7 +2129,7 @@ void do_cmd_disarm(void)
 		int num_traps, num_chests;
 
 		/* Count visible traps */
-		num_traps = count_dt(&y, &x, is_trap, TRUE);
+		num_traps = count_dt(p_ptr, &y, &x, is_trap, TRUE);
 
 		/* Count chests (trapped) */
 		num_chests = count_chests(p_ptr, &y, &x, TRUE);
