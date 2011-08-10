@@ -2974,7 +2974,7 @@ static int breakage_chance(creature_type *cr_ptr, object_type *o_ptr)
 }
 
 
-static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
+static s16b tot_dam_aux_shot(creature_type *cr_ptr, object_type *o_ptr, int tdam, creature_type *m_ptr)
 {
 	int mult = 10;
 
@@ -2996,7 +2996,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_ANIMAL)) &&
 			    (r_ptr->flags3 & RF3_ANIMAL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
@@ -3008,7 +3008,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_ANIMAL)) &&
 			    (r_ptr->flags3 & RF3_ANIMAL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
@@ -3020,7 +3020,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_EVIL)) &&
 			    (r_ptr->flags3 & RF3_EVIL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_EVIL;
 				}
@@ -3032,7 +3032,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_EVIL)) &&
 			    (r_ptr->flags3 & RF3_EVIL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_EVIL;
 				}
@@ -3044,7 +3044,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_HUMAN)) &&
 			    (r_ptr->flags2 & RF2_HUMAN))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= RF2_HUMAN;
 				}
@@ -3056,7 +3056,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_HUMAN)) &&
 			    (r_ptr->flags2 & RF2_HUMAN))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= RF2_HUMAN;
 				}
@@ -3068,7 +3068,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_UNDEAD)) &&
 			    (r_ptr->flags3 & RF3_UNDEAD))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
@@ -3080,7 +3080,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_UNDEAD)) &&
 			    (r_ptr->flags3 & RF3_UNDEAD))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
@@ -3092,7 +3092,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_DEMON)) &&
 			    (r_ptr->flags3 & RF3_DEMON))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DEMON;
 				}
@@ -3104,7 +3104,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_DEMON)) &&
 			    (r_ptr->flags3 & RF3_DEMON))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DEMON;
 				}
@@ -3116,7 +3116,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_ORC)) &&
 			    (r_ptr->flags3 & RF3_ORC))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ORC;
 				}
@@ -3128,7 +3128,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_ORC)) &&
 			    (r_ptr->flags3 & RF3_ORC))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_ORC;
 				}
@@ -3140,7 +3140,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_TROLL)) &&
 			    (r_ptr->flags3 & RF3_TROLL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
@@ -3152,7 +3152,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_TROLL)) &&
 			    (r_ptr->flags3 & RF3_TROLL))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
@@ -3164,7 +3164,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_GIANT)) &&
 			    (r_ptr->flags3 & RF3_GIANT))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GIANT;
 				}
@@ -3176,7 +3176,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_GIANT)) &&
 			    (r_ptr->flags3 & RF3_GIANT))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_GIANT;
 				}
@@ -3188,7 +3188,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_SLAY_DRAGON)) &&
 			    (r_ptr->flags3 & RF3_DRAGON))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DRAGON;
 				}
@@ -3200,7 +3200,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 			if ((have_flag(flgs, TR_KILL_DRAGON)) &&
 			    (r_ptr->flags3 & RF3_DRAGON))
 			{
-				if (is_original_ap_and_seen(p_ptr, m_ptr))
+				if (is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_DRAGON;
 				}
@@ -3209,7 +3209,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 
 				if ((o_ptr->name1 == ART_BARD_ARROW) &&
 				    (m_ptr->species_idx == MON_SMAUG) &&
-				    (p_ptr->inventory[INVEN_BOW].name1 == ART_BARD))
+				    (cr_ptr->inventory[INVEN_BOW].name1 == ART_BARD))
 					mult *= 5;
 			}
 
@@ -3219,7 +3219,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK)
 				{
-					if (is_original_ap_and_seen(p_ptr, m_ptr))
+					if (is_original_ap_and_seen(cr_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK);
 					}
@@ -3238,7 +3238,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK)
 				{
-					if (is_original_ap_and_seen(p_ptr, m_ptr))
+					if (is_original_ap_and_seen(cr_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK);
 					}
@@ -3257,7 +3257,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK)
 				{
-					if (is_original_ap_and_seen(p_ptr, m_ptr))
+					if (is_original_ap_and_seen(cr_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK);
 					}
@@ -3269,7 +3269,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 					if (r_ptr->flags3 & RF3_HURT_FIRE)
 					{
 						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(p_ptr, m_ptr))
+						if (is_original_ap_and_seen(cr_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_FIRE;
 						}
@@ -3284,7 +3284,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK)
 				{
-					if (is_original_ap_and_seen(p_ptr, m_ptr))
+					if (is_original_ap_and_seen(cr_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK);
 					}
@@ -3295,7 +3295,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 					if (r_ptr->flags3 & RF3_HURT_COLD)
 					{
 						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(p_ptr, m_ptr))
+						if (is_original_ap_and_seen(cr_ptr, m_ptr))
 						{
 							r_ptr->r_flags3 |= RF3_HURT_COLD;
 						}
@@ -3310,7 +3310,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				/* Notice immunity */
 				if (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK)
 				{
-					if (is_original_ap_and_seen(p_ptr, m_ptr))
+					if (is_original_ap_and_seen(cr_ptr, m_ptr))
 					{
 						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK);
 					}
@@ -3323,9 +3323,9 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 				}
 			}
 
-			if ((have_flag(flgs, TR_FORCE_WEAPON)) && (p_ptr->csp > (p_ptr->msp / 30)))
+			if ((have_flag(flgs, TR_FORCE_WEAPON)) && (cr_ptr->csp > (cr_ptr->msp / 30)))
 			{
-				p_ptr->csp -= (1+(p_ptr->msp / 30));
+				cr_ptr->csp -= (1+(cr_ptr->msp / 30));
 				play_redraw |= (PR_MANA);
 				mult = mult * 5 / 2;
 			}
@@ -3334,7 +3334,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
 	}
 
 	/* Sniper */
-	if (snipe_type) mult = tot_dam_aux_snipe(p_ptr, mult, m_ptr);
+	if (snipe_type) mult = tot_dam_aux_snipe(cr_ptr, mult, m_ptr);
 
 	/* Return the total damage */
 	return (tdam * mult / 10);
@@ -3369,7 +3369,7 @@ static s16b tot_dam_aux_shot(object_type *o_ptr, int tdam, creature_type *m_ptr)
  *
  * Note that Bows of "Extra Shots" give an extra shot.
  */
-void do_cmd_fire_aux(int item, object_type *j_ptr)
+void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 {
 	int dir;
 	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
@@ -3396,7 +3396,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	/* Access the item (if in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 	else
 	{
@@ -3410,7 +3410,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */
-	thits = p_ptr->num_fire;
+	thits = cr_ptr->num_fire;
 
 	/* Use a base distance */
 	tdis = 10;
@@ -3419,19 +3419,19 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	tdam_base = damroll(o_ptr->dd, o_ptr->ds) + o_ptr->to_d + j_ptr->to_d;
 
 	/* Actually "fire" the object */
-	bonus = (p_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
+	bonus = (cr_ptr->to_h_b + o_ptr->to_h + j_ptr->to_h);
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
-		chance = (p_ptr->skill_thb + (p_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
+		chance = (cr_ptr->skill_thb + (cr_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
-		chance = (p_ptr->skill_thb + ((p_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
+		chance = (cr_ptr->skill_thb + ((cr_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
 
 	energy_use = bow_energy(j_ptr->sval);
 	tmul = bow_tmul(j_ptr->sval);
 
 	/* Get extra "power" from "extra might" */
-	if (p_ptr->xtra_might) tmul++;
+	if (cr_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_td[p_ptr->stat_ind[A_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;
@@ -3441,8 +3441,8 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	tdis = 13 + tmul/80;
 	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 	{
-		if (p_ptr->concent)
-			tdis -= (5 - (p_ptr->concent + 1) / 2);
+		if (cr_ptr->concent)
+			tdis -= (5 - (cr_ptr->concent + 1) / 2);
 		else
 			tdis -= 5;
 	}
@@ -3462,8 +3462,8 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Predict the "target" location */
-	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = p_ptr->fy + 99 * ddy[dir];
+	tx = cr_ptr->fx + 99 * ddx[dir];
+	ty = cr_ptr->fy + 99 * ddy[dir];
 
 	/* Check for "target request" */
 	if ((dir == 5) && target_okay())
@@ -3473,12 +3473,12 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, project_length, p_ptr->fy, p_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
 	project_length = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
-	if (tx == p_ptr->fx && ty == p_ptr->fy)
+	if (tx == cr_ptr->fx && ty == cr_ptr->fy)
 	{
 		energy_use = 0;
 
@@ -3493,15 +3493,15 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
-	if (snipe_type == SP_DOUBLE)  p_ptr->concent = (p_ptr->concent + 1) / 2;
+	if (snipe_type == SP_DOUBLE)  cr_ptr->concent = (cr_ptr->concent + 1) / 2;
 
 	/* Sniper - Repeat shooting when double shots */
 	for (i = 0; i < ((snipe_type == SP_DOUBLE) ? 2 : 1); i++)
 	{
 
 	/* Start at the player */
-	y = p_ptr->fy;
-	x = p_ptr->fx;
+	y = cr_ptr->fy;
+	x = cr_ptr->fx;
 
 	/* Get local object */
 	q_ptr = &forge;
@@ -3512,7 +3512,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	/* Single object */
 	q_ptr->number = 1;
 
-	/* Reduce and describe p_ptr->inventory */
+	/* Reduce and describe cr_ptr->inventory */
 	if (item >= 0)
 	{
 		inven_item_increase(item, -1);
@@ -3551,7 +3551,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 		/* Calculate the new location (see "project()") */
 		ny = y;
 		nx = x;
-		mmove2(&ny, &nx, p_ptr->fy, p_ptr->fx, ty, tx);
+		mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 		/* Shatter Arrow */
 		if (snipe_type == SP_KILL_WALL)
@@ -3568,7 +3568,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
 
-				p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+				cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 				/* Destroy the wall */
 				cave_alter_feat(ny, nx, FF_HURT_ROCK);
@@ -3621,7 +3621,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 		/* Sniper */
 		if (snipe_type == SP_KILL_TRAP)
 		{
-			project(p_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
+			project(cr_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
@@ -3663,52 +3663,52 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 
 			if (m_ptr->paralyzed)
 			{
-				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_COMPASSION, -1);
-				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(p_ptr, V_HONOUR, -1);
+				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(cr_ptr, V_COMPASSION, -1);
+				if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_virtue(cr_ptr, V_HONOUR, -1);
 			}
 
-			if ((r_ptr->level + 10) > p_ptr->lev)
+			if ((r_ptr->level + 10) > cr_ptr->lev)
 			{
-				int now_exp = p_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < s_info[p_ptr->cls_idx].w_max[0][j_ptr->sval])
+				int now_exp = cr_ptr->weapon_exp[0][j_ptr->sval];
+				if (now_exp < s_info[cr_ptr->cls_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
 					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
 					else if (now_exp < WEAPON_EXP_SKILLED) amount = 25;
-					else if ((now_exp < WEAPON_EXP_EXPERT) && (p_ptr->lev > 19)) amount = 10;
-					else if (p_ptr->lev > 34) amount = 2;
-					p_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					p_ptr->update |= (PU_BONUS);
+					else if ((now_exp < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19)) amount = 10;
+					else if (cr_ptr->lev > 34) amount = 2;
+					cr_ptr->weapon_exp[0][j_ptr->sval] += amount;
+					cr_ptr->update |= (PU_BONUS);
 				}
 			}
 
-			if (p_ptr->riding)
+			if (cr_ptr->riding)
 			{
-				if ((p_ptr->skill_exp[GINOU_RIDING] < s_info[p_ptr->cls_idx].s_max[GINOU_RIDING])
-					&& ((p_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[p_ptr->riding].species_idx].level)
+				if ((cr_ptr->skill_exp[GINOU_RIDING] < s_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
+					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[cr_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
-					p_ptr->skill_exp[GINOU_RIDING] += 1;
-					p_ptr->update |= (PU_BONUS);
+					cr_ptr->skill_exp[GINOU_RIDING] += 1;
+					cr_ptr->update |= (PU_BONUS);
 				}
 			}
 
 			/* Some shots have hit bonus */
 			armour = m_ptr->ac + m_ptr->to_a;
-			if (p_ptr->concent)
+			if (cr_ptr->concent)
 			{
-				armour *= (10 - p_ptr->concent);
+				armour *= (10 - cr_ptr->concent);
 				armour /= 10;
 			}
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(p_ptr, chance - cur_dis, armour, m_ptr->ml))
+			if (test_hit_fire(cr_ptr, chance - cur_dis, armour, m_ptr->ml))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
 
 				/* Get extra damage from concentration */
-				if (p_ptr->concent) tdam = boost_concentration_damage(p_ptr, tdam);
+				if (cr_ptr->concent) tdam = boost_concentration_damage(cr_ptr, tdam);
 
 				/* Handle unseen monster */
 				if (!visible)
@@ -3740,7 +3740,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 					if (m_ptr->ml)
 					{
 						/* Hack -- Track this monster race */
-						if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+						if (!cr_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this monster */
 						health_track(c_ptr->m_idx);
@@ -3749,7 +3749,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 
 				if (snipe_type == SP_NEEDLE)
 				{
-					if ((randint1(randint1(r_ptr->level / (3 + p_ptr->concent)) + (8 - p_ptr->concent)) == 1)
+					if ((randint1(randint1(r_ptr->level / (3 + cr_ptr->concent)) + (8 - cr_ptr->concent)) == 1)
 						&& !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2))
 					{
 						char m_name[80];
@@ -3769,8 +3769,8 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				else
 				{
 					/* Apply special damage XXX XXX XXX */
-					tdam = tot_dam_aux_shot(q_ptr, tdam, m_ptr);
-					tdam = critical_shot(p_ptr, q_ptr->weight, q_ptr->to_h, tdam);
+					tdam = tot_dam_aux_shot(cr_ptr, q_ptr, tdam, m_ptr);
+					tdam = critical_shot(cr_ptr, q_ptr->weight, q_ptr->to_h, tdam);
 
 					/* No negative damage */
 					if (tdam < 0) tdam = 0;
@@ -3791,7 +3791,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
 					sound(SOUND_EXPLODE); /* No explode sound - use breath fire instead */
-					project(p_ptr, ((p_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
+					project(cr_ptr, ((cr_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
 					break;
 				}
 
@@ -3808,7 +3808,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(p_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1);
+				take_hit(cr_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(real_r_ptr(m_ptr)), -1);
 
 				/* No death */
 				if(m_list[c_ptr->m_idx].species_idx != 0)
@@ -3854,7 +3854,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 
 					}
 
-					set_target(m_ptr, p_ptr->fy, p_ptr->fx);
+					set_target(m_ptr, cr_ptr->fy, cr_ptr->fx);
 
 					/* Sniper */
 					if (snipe_type == SP_RUSH)
@@ -3870,13 +3870,13 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 							if (!n) break;
 
 							/* Calculate the new location (see "project()") */
-							mmove2(&ny, &nx, p_ptr->fy, p_ptr->fx, ty, tx);
+							mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 							/* Stopped by wilderness boundary */
 							if (!in_bounds2(ny, nx)) break;
 
 							/* Stopped by walls/doors */
-							if (!player_can_enter(p_ptr, cave[ny][nx].feat, 0)) break;
+							if (!player_can_enter(cr_ptr, cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by monsters */
 							if (!cave_empty_bold(ny, nx)) break;
@@ -3908,8 +3908,8 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 			/* Sniper */
 			if (snipe_type == SP_PIERCE)
 			{
-				if(p_ptr->concent < 1) break;
-				p_ptr->concent--;
+				if(cr_ptr->concent < 1) break;
+				cr_ptr->concent--;
 				continue;
 			}
 
@@ -3919,7 +3919,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Chance of breakage (during attacks) */
-	j = (hit_body ? breakage_chance(p_ptr, q_ptr) : 0);
+	j = (hit_body ? breakage_chance(cr_ptr, q_ptr) : 0);
 
 	if (stick_to)
 	{
@@ -3974,7 +3974,7 @@ void do_cmd_fire_aux(int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Loose his/her concentration after any shot */
-	if (p_ptr->concent) reset_concentration(p_ptr, FALSE);
+	if (cr_ptr->concent) reset_concentration(cr_ptr, FALSE);
 }
 
 
@@ -4037,7 +4037,7 @@ void do_cmd_fire(void)
 	}
 
 	/* Fire the item */
-	do_cmd_fire_aux(item, j_ptr);
+	do_cmd_fire_aux(p_ptr, item, j_ptr);
 
 	if (!is_fired || p_ptr->cls_idx != CLASS_SNIPER) return;
 

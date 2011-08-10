@@ -749,7 +749,7 @@ extern void do_cmd_stay(bool pickup);
 extern void do_cmd_run(void);
 extern void do_cmd_rest(void);
 extern void do_cmd_fire(void);
-extern void do_cmd_fire_aux(int item, object_type *j_ptr);
+extern void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr);
 extern void do_cmd_throw(void);
 extern bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken);
 #ifdef TRAVEL
