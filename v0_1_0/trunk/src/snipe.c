@@ -544,7 +544,7 @@ static bool cast_sniper_spell(creature_type *cr_ptr, int spell)
 	}
 
 	command_cmd = 'f';
-	do_cmd_fire();
+	do_cmd_fire(cr_ptr);
 	snipe_type = 0;
 
 	return (is_fired);

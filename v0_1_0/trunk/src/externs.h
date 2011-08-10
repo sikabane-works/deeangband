@@ -734,26 +734,26 @@ extern void travel_step(creature_type *cr_ptr);
 #endif
 
 /* cmd2.c */
-extern void do_cmd_go_up(void);
-extern void do_cmd_go_down(void);
-extern void do_cmd_search(void);
-extern void do_cmd_open(void);
-extern void do_cmd_close(void);
-extern void do_cmd_tunnel(void);
-extern void do_cmd_disarm(void);
-extern void do_cmd_bash(void);
-extern void do_cmd_alter(void);
-extern void do_cmd_spike(void);
-extern void do_cmd_walk(bool pickup);
-extern void do_cmd_stay(bool pickup);
-extern void do_cmd_run(void);
-extern void do_cmd_rest(void);
-extern void do_cmd_fire(void);
+extern void do_cmd_go_up(creature_type *cr_ptr);
+extern void do_cmd_go_down(creature_type *cr_ptr);
+extern void do_cmd_search(creature_type *cr_ptr);
+extern void do_cmd_open(creature_type *cr_ptr);
+extern void do_cmd_close(creature_type *cr_ptr);
+extern void do_cmd_tunnel(creature_type *cr_ptr);
+extern void do_cmd_disarm(creature_type *cr_ptr);
+extern void do_cmd_bash(creature_type *cr_ptr);
+extern void do_cmd_alter(creature_type *cr_ptr);
+extern void do_cmd_spike(creature_type *cr_ptr);
+extern void do_cmd_walk(creature_type *cr_ptr, bool pickup);
+extern void do_cmd_stay(creature_type *cr_ptr, bool pickup);
+extern void do_cmd_run(creature_type *cr_ptr);
+extern void do_cmd_rest(creature_type *cr_ptr);
+extern void do_cmd_fire(creature_type *cr_ptr);
 extern void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr);
-extern void do_cmd_throw(void);
-extern bool do_cmd_throw_aux(int mult, bool boomerang, int shuriken);
+extern void do_cmd_throw(creature_type *cr_ptr);
+extern bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuriken);
 #ifdef TRAVEL
-extern void do_cmd_travel(void);
+extern void do_cmd_travel(creature_type *cr_ptr);
 #endif
 
 /* cmd3.c */
@@ -1689,7 +1689,7 @@ extern bool easy_open_door(creature_type *cr_ptr, int y, int x);
 extern bool easy_disarm;
 
 /* cmd2.c */
-extern bool do_cmd_disarm_aux(int y, int x, int dir);
+extern bool do_cmd_disarm_aux(creature_type *cr_ptr, int y, int x, int dir);
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 

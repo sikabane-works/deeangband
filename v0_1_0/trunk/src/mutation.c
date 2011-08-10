@@ -3818,7 +3818,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 		/* XXX_XXX_XXX Hack!  MUT1_LAUNCHER is negative, see above */
 		case 3: /* MUT1_LAUNCHER */
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
-			if (!do_cmd_throw_aux(2 + lvl / 40, FALSE, 0)) return FALSE;
+			if (!do_cmd_throw_aux(cr_ptr, 2 + lvl / 40, FALSE, 0)) return FALSE;
 			break;
 
 		default:

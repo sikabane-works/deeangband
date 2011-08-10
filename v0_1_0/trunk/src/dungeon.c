@@ -4625,14 +4625,14 @@ msg_print("ウィザードモード突入。");
 		/* Alter a grid */
 		case '+':
 		{
-			if (!wild_mode) do_cmd_alter();
+			if (!wild_mode) do_cmd_alter(p_ptr);
 			break;
 		}
 
 		/* Dig a tunnel */
 		case 'T':
 		{
-			if (!wild_mode) do_cmd_tunnel();
+			if (!wild_mode) do_cmd_tunnel(p_ptr);
 			break;
 		}
 
@@ -4641,7 +4641,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(FALSE);
+			do_cmd_walk(p_ptr, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4657,7 +4657,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(TRUE);
+			do_cmd_walk(p_ptr, TRUE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4674,35 +4674,35 @@ msg_print("ウィザードモード突入。");
 		/* Begin Running -- Arg is Max Distance */
 		case '.':
 		{
-			if (!wild_mode) do_cmd_run();
+			if (!wild_mode) do_cmd_run(p_ptr);
 			break;
 		}
 
 		/* Stay still (usually pick things up) */
 		case ',':
 		{
-			do_cmd_stay(always_pickup);
+			do_cmd_stay(p_ptr, always_pickup);
 			break;
 		}
 
 		/* Stay still (usually do not pick up) */
 		case 'g':
 		{
-			do_cmd_stay(!always_pickup);
+			do_cmd_stay(p_ptr, !always_pickup);
 			break;
 		}
 
 		/* Rest -- Arg is time */
 		case 'R':
 		{
-			do_cmd_rest();
+			do_cmd_rest(p_ptr);
 			break;
 		}
 
 		/* Search for traps/doors */
 		case 's':
 		{
-			do_cmd_search();
+			do_cmd_search(p_ptr);
 			break;
 		}
 
@@ -4768,7 +4768,7 @@ msg_print("ウィザードモード突入。");
 				change_wild_mode();
 			}
 			else
-				do_cmd_go_up();
+				do_cmd_go_up(p_ptr);
 			break;
 		}
 
@@ -4778,7 +4778,7 @@ msg_print("ウィザードモード突入。");
 			if (wild_mode)
 				change_wild_mode();
 			else
-				do_cmd_go_down();
+				do_cmd_go_down(p_ptr);
 
 			break;
 		}
@@ -4786,35 +4786,35 @@ msg_print("ウィザードモード突入。");
 		/* Open a door or chest */
 		case 'o':
 		{
-			if (!wild_mode) do_cmd_open();
+			if (!wild_mode) do_cmd_open(p_ptr);
 			break;
 		}
 
 		/* Close a door */
 		case 'c':
 		{
-			if (!wild_mode) do_cmd_close();
+			if (!wild_mode) do_cmd_close(p_ptr);
 			break;
 		}
 
 		/* Jam a door with spikes */
 		case 'j':
 		{
-			if (!wild_mode) do_cmd_spike();
+			if (!wild_mode) do_cmd_spike(p_ptr);
 			break;
 		}
 
 		/* Bash a door */
 		case 'B':
 		{
-			if (!wild_mode) do_cmd_bash();
+			if (!wild_mode) do_cmd_bash(p_ptr);
 			break;
 		}
 
 		/* Disarm a trap or chest */
 		case 'D':
 		{
-			if (!wild_mode) do_cmd_disarm();
+			if (!wild_mode) do_cmd_disarm(p_ptr);
 			break;
 		}
 
@@ -5044,7 +5044,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Fire an item */
 		case 'f':
 		{
-			if (!wild_mode) do_cmd_fire();
+			if (!wild_mode) do_cmd_fire(p_ptr);
 			break;
 		}
 
@@ -5053,7 +5053,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-				do_cmd_throw();
+				do_cmd_throw(p_ptr);
 			}
 			break;
 		}
@@ -5425,7 +5425,7 @@ msg_print("アリーナが魔法を吸収した！");
 #ifdef TRAVEL
 		case '`':
 		{
-			if (!wild_mode) do_cmd_travel();
+			if (!wild_mode) do_cmd_travel(p_ptr);
 			break;
 		}
 #endif

@@ -4322,7 +4322,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	{
 		if (!trap_can_be_ignored(cr_ptr, c_ptr->feat))
 		{
-			(void)do_cmd_disarm_aux(y, x, dir);
+			(void)do_cmd_disarm_aux(cr_ptr, y, x, dir);
 			return;
 		}
 	}

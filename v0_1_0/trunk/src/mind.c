@@ -1645,7 +1645,7 @@ msg_print("その方向にはモンスターはいません。");
 			}
 
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
-			do_cmd_throw_aux(1, FALSE, slot);
+			do_cmd_throw_aux(cr_ptr, 1, FALSE, slot);
 
 			energy_use = 100;
 		}

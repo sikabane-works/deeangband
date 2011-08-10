@@ -6734,7 +6734,7 @@ s = "g‚¦‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 		/* Spike a door */
 		case TV_SPIKE:
 		{
-			do_cmd_spike();
+			do_cmd_spike(cr_ptr);
 			break;
 		}
 
