@@ -4735,7 +4735,7 @@ void forget_travel_flow(void)
 	}
 }
 
-static bool travel_flow_aux(int y, int x, int n, bool wall)
+static bool travel_flow_aux(creature_type *cr_ptr, int y, int x, int n, bool wall)
 {
 	cave_type *c_ptr = &cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
@@ -4753,7 +4753,7 @@ static bool travel_flow_aux(int y, int x, int n, bool wall)
 	if (have_flag(f_ptr->flags, FF_WALL) ||
 		have_flag(f_ptr->flags, FF_CAN_DIG) ||
 		(have_flag(f_ptr->flags, FF_DOOR) && cave[y][x].mimic) ||
-		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !p_ptr->levitation))
+		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !cr_ptr->levitation))
 	{
 		if (!wall) return wall;
 	}
@@ -4780,7 +4780,7 @@ static bool travel_flow_aux(int y, int x, int n, bool wall)
 }
 
 
-static void travel_flow(int ty, int tx)
+static void travel_flow(creature_type *cr_ptr, int ty, int tx)
 {
 	int x, y, d;
 	bool wall = FALSE;
@@ -4792,7 +4792,7 @@ static void travel_flow(int ty, int tx)
 	if (!have_flag(f_ptr->flags, FF_MOVE)) wall = TRUE;
 
 	/* Add the player's grid to the queue */
-	wall = travel_flow_aux(ty, tx, 0, wall);
+	wall = travel_flow_aux(cr_ptr, ty, tx, 0, wall);
 
 	/* Now process the queue */
 	while (flow_head != flow_tail)
@@ -4808,7 +4808,7 @@ static void travel_flow(int ty, int tx)
 		for (d = 0; d < 8; d++)
 		{
 			/* Add that child if "legal" */
-			wall = travel_flow_aux(y + ddy_ddd[d], x + ddx_ddd[d], travel.cost[y][x] + 1, wall);
+			wall = travel_flow_aux(cr_ptr, y + ddy_ddd[d], x + ddx_ddd[d], travel.cost[y][x] + 1, wall);
 		}
 	}
 
@@ -4853,7 +4853,7 @@ void do_cmd_travel(void)
 	travel.y = y;
 
 	forget_travel_flow();
-	travel_flow(y, x);
+	travel_flow(p_ptr, y, x);
 
 	/* Travel till 255 steps */
 	travel.run = 255;
