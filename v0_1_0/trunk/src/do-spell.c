@@ -11220,7 +11220,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int x, y;
 	
-			if (!get_rep_dir(&dir, FALSE)) return NULL;
+			if (!get_rep_dir(p_ptr, &dir, FALSE)) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
 			x = p_ptr->fx + ddx[dir];

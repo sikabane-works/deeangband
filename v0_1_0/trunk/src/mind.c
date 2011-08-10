@@ -1574,7 +1574,7 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 	}
 	case 5:
 	{
-		if (!get_rep_dir(&dir, FALSE)) return FALSE;
+		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
 		if (cave[y][x].m_idx)

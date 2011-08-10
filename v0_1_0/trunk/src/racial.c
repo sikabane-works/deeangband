@@ -110,7 +110,7 @@ static bool do_cmd_archer(void)
 		int x,y, dir;
 		cave_type *c_ptr;
 
-		if (!get_rep_dir(&dir, FALSE)) return FALSE;
+		if (!get_rep_dir(p_ptr, &dir, FALSE)) return FALSE;
 		y = p_ptr->fy + ddy[dir];
 		x = p_ptr->fx + ddx[dir];
 		c_ptr = &cave[y][x];
@@ -957,7 +957,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			int x, y;
 
-			if (!get_rep_dir(&dir, FALSE)) return FALSE;
+			if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 			y = cr_ptr->fy + ddy[dir];
 			x = cr_ptr->fx + ddx[dir];
 			if (cave[y][x].m_idx)
@@ -1091,7 +1091,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			{
 				int x, y;
 
-				if (!get_rep_dir(&dir, FALSE)) return FALSE;
+				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
@@ -1472,7 +1472,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				cave_type *c_ptr;
 
 				/* Only works on adjacent monsters */
-				if (!get_rep_dir(&dir, FALSE)) return FALSE;   /* was get_aim_dir */
+				if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;   /* was get_aim_dir */
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
@@ -2016,7 +2016,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				cave_type *c_ptr;
 
 				/* Only works on adjacent monsters */
-				if (!get_rep_dir(&dir,FALSE)) return FALSE;   /* was get_aim_dir */
+				if (!get_rep_dir(cr_ptr, &dir,FALSE)) return FALSE;   /* was get_aim_dir */
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];

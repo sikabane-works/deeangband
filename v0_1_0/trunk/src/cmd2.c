@@ -1222,7 +1222,7 @@ void do_cmd_open(void)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir, TRUE))
+	if (get_rep_dir(p_ptr, &dir, TRUE))
 	{
 		s16b feat;
 		cave_type *c_ptr;
@@ -1398,7 +1398,7 @@ void do_cmd_close(void)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -1695,7 +1695,7 @@ void do_cmd_tunnel(void)
 	}
 
 	/* Get a direction to tunnel, or Abort */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		/* Get location */
 		y = p_ptr->fy + ddy[dir];
@@ -2159,7 +2159,7 @@ void do_cmd_disarm(void)
 	}
 
 	/* Get a direction (or abort) */
-	if (get_rep_dir(&dir,TRUE))
+	if (get_rep_dir(p_ptr, &dir,TRUE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -2377,7 +2377,7 @@ void do_cmd_bash(void)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		s16b feat;
 
@@ -2472,7 +2472,7 @@ void do_cmd_alter(void)
 	}
 
 	/* Get a direction */
-	if (get_rep_dir(&dir,TRUE))
+	if (get_rep_dir(p_ptr, &dir,TRUE))
 	{
 		s16b feat;
 		feature_type *f_ptr;
@@ -2594,7 +2594,7 @@ void do_cmd_spike(void)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		int y, x, item;
 		cave_type *c_ptr;
@@ -2699,7 +2699,7 @@ void do_cmd_walk(bool pickup)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		/* Take a turn */
 		energy_use = 100;
@@ -2781,7 +2781,7 @@ void do_cmd_run(void)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(&dir,FALSE))
+	if (get_rep_dir(p_ptr, &dir,FALSE))
 	{
 		/* Hack -- Set the run counter */
 		running = (command_arg ? command_arg : 1000);

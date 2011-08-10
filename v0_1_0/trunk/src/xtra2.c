@@ -4383,7 +4383,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB");
  * This function tracks and uses the "global direction", and uses
  * that as the "desired direction", to which "confusion" is applied.
  */
-bool get_rep_dir(int *dp, bool under)
+bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under)
 {
 	int dir;
 
@@ -4433,7 +4433,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)
@@ -4442,9 +4442,9 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 			dir = ddd[randint0(8)];
 		}
 	}
-	else if (p_ptr->riding)
+	else if (cr_ptr->riding)
 	{
-		creature_type *m_ptr = &m_list[p_ptr->riding];
+		creature_type *m_ptr = &m_list[cr_ptr->riding];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->confused)
@@ -4471,7 +4471,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	/* Notice confusion */
 	if (command_dir != dir)
 	{
-		if (p_ptr->confused)
+		if (cr_ptr->confused)
 		{
 			/* Warn the user */
 #ifdef JP
@@ -4483,7 +4483,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB");
 		else
 		{
 			char m_name[80];
-			creature_type *m_ptr = &m_list[p_ptr->riding];
+			creature_type *m_ptr = &m_list[cr_ptr->riding];
 
 			monster_desc(m_name, m_ptr, 0);
 			if (m_ptr->confused)
