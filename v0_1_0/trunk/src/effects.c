@@ -104,7 +104,7 @@ void set_action(creature_type *cr_ptr, int typ)
 	cr_ptr->action = typ;
 
 	/* If we are requested other action, stop singing */
-	if (prev_typ == ACTION_SING) stop_singing(p_ptr);
+	if (prev_typ == ACTION_SING) stop_singing(cr_ptr);
 
 	switch (cr_ptr->action)
 	{
@@ -297,7 +297,7 @@ void dispel_player(creature_type *cr_ptr)
 #endif
 	}
 
-	if (music_singing_any(cr_ptr) || hex_spelling_any(p_ptr))
+	if (music_singing_any(cr_ptr) || hex_spelling_any(cr_ptr))
 	{
 #ifdef JP
 		cptr str = (music_singing_any(cr_ptr)) ? "歌" : "呪文";
@@ -374,7 +374,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 #else
 			msg_print("You are no longer transformed.");
 #endif
-			if (cr_ptr->mimic_form == MIMIC_DEMON) set_oppose_fire(p_ptr, 0, TRUE);
+			if (cr_ptr->mimic_form == MIMIC_DEMON) set_oppose_fire(cr_ptr, 0, TRUE);
 			cr_ptr->mimic_form=0;
 			notice = TRUE;
 			p = 0;
@@ -444,7 +444,7 @@ msg_print("目が見えなくなってしまった！");
 			}
 
 			notice = TRUE;
-			chg_virtue(p_ptr, V_ENLIGHTEN, -1);
+			chg_virtue(cr_ptr, V_ENLIGHTEN, -1);
 		}
 	}
 
@@ -570,14 +570,14 @@ msg_print("あなたは混乱した！");
 			}
 
 			/* Sniper */
-			if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
+			if (cr_ptr->concent) reset_concentration(cr_ptr, TRUE);
 
 			/* Hex */
-			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+			if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 			notice = TRUE;
 			cr_ptr->counter = FALSE;
-			chg_virtue(p_ptr, V_HARMONY, -1);
+			chg_virtue(cr_ptr, V_HARMONY, -1);
 		}
 	}
 
@@ -756,7 +756,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 
 			notice = TRUE;
 			cr_ptr->counter = FALSE;
-			chg_virtue(p_ptr, V_VALOUR, -1);
+			chg_virtue(cr_ptr, V_VALOUR, -1);
 		}
 	}
 
@@ -828,8 +828,8 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (cr_ptr->ml)
 		{
 			/* Update health bar as needed */
-			if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-			if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+			if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+			if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 		}
 
 		return TRUE;
@@ -867,10 +867,10 @@ msg_print("体が麻痺してしまった！");
 #endif
 
 			/* Sniper */
-			if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
+			if (cr_ptr->concent) reset_concentration(cr_ptr, TRUE);
 
 			/* Hex */
-			if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+			if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 			cr_ptr->counter = FALSE;
 			notice = TRUE;
@@ -946,11 +946,11 @@ msg_print("やっと動けるようになった。");
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (r_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) p_ptr->update |= (PU_MON_LITE);
+	if (r_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) cr_ptr->update |= (PU_MON_LITE);
 
 	return TRUE;
 
@@ -1077,8 +1077,8 @@ msg_print("素早く動けるようになった！");
 #endif
 
 			notice = TRUE;
-			chg_virtue(p_ptr, V_PATIENCE, -1);
-			chg_virtue(p_ptr, V_DILIGENCE, 1);
+			chg_virtue(cr_ptr, V_PATIENCE, -1);
+			chg_virtue(cr_ptr, V_DILIGENCE, 1);
 		}
 	}
 
@@ -1143,7 +1143,7 @@ msg_print("動きの素早さがなくなったようだ。");
 
 	if (!notice) return FALSE;
 
-	if ((&m_list[p_ptr->riding] == cr_ptr) && !p_ptr->leaving) p_ptr->update |= (PU_BONUS);
+	if ((&m_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -1181,8 +1181,8 @@ msg_print("非常に素早く動けるようになった！");
 #endif
 
 			notice = TRUE;
-			chg_virtue(p_ptr, V_PATIENCE, -1);
-			chg_virtue(p_ptr, V_DILIGENCE, 1);
+			chg_virtue(cr_ptr, V_PATIENCE, -1);
+			chg_virtue(cr_ptr, V_DILIGENCE, 1);
 		}
 	}
 
@@ -1318,7 +1318,7 @@ msg_print("動きの遅さがなくなったようだ。");
 
 	if (!notice) return FALSE;
 
-	if ((&m_list[p_ptr->riding] == cr_ptr) && !p_ptr->leaving) p_ptr->update |= (PU_BONUS);
+	if ((&m_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -1844,10 +1844,10 @@ msg_print("物質界を離れて幽鬼のような存在になった！");
 
 			notice = TRUE;
 
-			chg_virtue(p_ptr, V_UNLIFE, 3);
-			chg_virtue(p_ptr, V_HONOUR, -2);
-			chg_virtue(p_ptr, V_SACRIFICE, -2);
-			chg_virtue(p_ptr, V_VALOUR, -5);
+			chg_virtue(cr_ptr, V_UNLIFE, 3);
+			chg_virtue(cr_ptr, V_HONOUR, -2);
+			chg_virtue(cr_ptr, V_SACRIFICE, -2);
+			chg_virtue(cr_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
@@ -1940,10 +1940,10 @@ msg_print("無敵だ！");
 
 			notice = TRUE;
 
-			chg_virtue(p_ptr, V_UNLIFE, -2);
-			chg_virtue(p_ptr, V_HONOUR, -2);
-			chg_virtue(p_ptr, V_SACRIFICE, -3);
-			chg_virtue(p_ptr, V_VALOUR, -5);
+			chg_virtue(cr_ptr, V_UNLIFE, -2);
+			chg_virtue(cr_ptr, V_HONOUR, -2);
+			chg_virtue(cr_ptr, V_SACRIFICE, -3);
+			chg_virtue(cr_ptr, V_VALOUR, -5);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
@@ -2033,8 +2033,8 @@ msg_print("無敵ではなくなった。");
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	return TRUE;
@@ -2407,7 +2407,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	{
 		if (!(cr_ptr->special_defense & NINJA_S_STEALTH))
 		{
-			if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_MNLT)
+			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT)
 			{
 #ifdef JP
 				msg_print("敵の目から薄い影の中に覆い隠された。");
@@ -3179,7 +3179,7 @@ msg_print("「オクレ兄さん！」");
 #endif
 
 			notice = TRUE;
-			chg_virtue(p_ptr, V_VITALITY, 2);
+			chg_virtue(cr_ptr, V_VITALITY, 2);
 		}
 	}
 
@@ -3194,11 +3194,11 @@ msg_print("肉体が急速にしぼんでいった。");
 			msg_print("Your body had quickly shriveled.");
 #endif
 
-			(void)dec_stat(p_ptr, A_CON, 20, TRUE);
-			(void)dec_stat(p_ptr, A_STR, 20, TRUE);
+			(void)dec_stat(cr_ptr, A_CON, 20, TRUE);
+			(void)dec_stat(cr_ptr, A_STR, 20, TRUE);
 
 			notice = TRUE;
-			chg_virtue(p_ptr, V_VITALITY, -3);
+			chg_virtue(cr_ptr, V_VITALITY, -3);
 		}
 	}
 
@@ -3876,16 +3876,16 @@ msg_print("割れるような頭痛がする。");
 
 			if (one_in_(3))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(p_ptr, A_INT);
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(p_ptr, A_WIS);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, A_INT);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, A_WIS);
 			}
 			else if (one_in_(2))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(p_ptr, A_INT);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, A_INT);
 			}
 			else
 			{
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(p_ptr, A_WIS);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, A_WIS);
 			}
 		}
 		if (cr_ptr->special_defense & KATA_MASK)
@@ -3904,10 +3904,10 @@ msg_print("割れるような頭痛がする。");
 		}
 
 		/* Sniper */
-		if (cr_ptr->concent) reset_concentration(p_ptr, TRUE);
+		if (cr_ptr->concent) reset_concentration(cr_ptr, TRUE);
 
 		/* Hex */
-		if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 		/* Notice */
 		notice = TRUE;
@@ -4196,7 +4196,7 @@ msg_print("ひどい傷跡が残ってしまった。");
 #endif
 
 
-				do_dec_stat(p_ptr, A_CHR);
+				do_dec_stat(cr_ptr, A_CHR);
 			}
 		}
 	}
@@ -4350,13 +4350,13 @@ bool set_food(creature_type *cr_ptr, int v)
 	}
 
 	if (old_aux < 1 && new_aux > 0)
-		chg_virtue(p_ptr, V_PATIENCE, 2);
+		chg_virtue(cr_ptr, V_PATIENCE, 2);
 	else if (old_aux < 3 && (old_aux != new_aux))
-		chg_virtue(p_ptr, V_PATIENCE, 1);
+		chg_virtue(cr_ptr, V_PATIENCE, 1);
 	if (old_aux == 2)
-		chg_virtue(p_ptr, V_TEMPERANCE, 1);
+		chg_virtue(cr_ptr, V_TEMPERANCE, 1);
 	if (old_aux == 0)
-		chg_virtue(p_ptr, V_TEMPERANCE, -1);
+		chg_virtue(cr_ptr, V_TEMPERANCE, -1);
 
 	/* Food increase */
 	if (new_aux > old_aux)
@@ -4411,9 +4411,9 @@ msg_print("食べ過ぎだ！");
 #else
 			msg_print("You have gorged yourself!");
 #endif
-			chg_virtue(p_ptr, V_HARMONY, -1);
-			chg_virtue(p_ptr, V_PATIENCE, -1);
-			chg_virtue(p_ptr, V_TEMPERANCE, -2);
+			chg_virtue(cr_ptr, V_HARMONY, -1);
+			chg_virtue(cr_ptr, V_PATIENCE, -1);
+			chg_virtue(cr_ptr, V_TEMPERANCE, -2);
 
 			break;
 		}
@@ -4647,9 +4647,9 @@ bool dec_stat(creature_type *cr_ptr, int stat, int amount, int permanent)
 	/* Damage "max" value */
 	if (permanent && (max > 3))
 	{
-		chg_virtue(p_ptr, V_SACRIFICE, 1);
+		chg_virtue(cr_ptr, V_SACRIFICE, 1);
 		if (stat == A_WIS || stat == A_INT)
-			chg_virtue(p_ptr, V_ENLIGHTEN, -2);
+			chg_virtue(cr_ptr, V_ENLIGHTEN, -2);
 
 		/* Handle "low" values */
 		if (max <= 18)
@@ -4735,7 +4735,7 @@ bool res_stat(creature_type *cr_ptr, int stat)
 bool hp_player(creature_type *cr_ptr, int num)
 {
 	int vir;
-	vir = virtue_number(p_ptr, V_VITALITY);
+	vir = virtue_number(cr_ptr, V_VITALITY);
 	if (vir)
 	{
 		num = num * (cr_ptr->virtues[vir - 1] + 1250) / 1250;
@@ -4744,7 +4744,7 @@ bool hp_player(creature_type *cr_ptr, int num)
 	if (cr_ptr->chp < cr_ptr->mhp)
 	{
 		if ((num > 0) && (cr_ptr->chp < (cr_ptr->mhp/3)))
-			chg_virtue(p_ptr, V_TEMPERANCE, 1);
+			chg_virtue(cr_ptr, V_TEMPERANCE, 1);
 		/* Gain hitpoints */
 		cr_ptr->chp += num;
 
@@ -4969,23 +4969,23 @@ bool do_inc_stat(creature_type *cr_ptr, int stat)
 	bool res;
 
 	/* Restore strength */
-	res = res_stat(p_ptr, stat);
+	res = res_stat(cr_ptr, stat);
 
 	/* Attempt to increase */
 	if (inc_stat(cr_ptr, stat))
 	{
 		if (stat == A_WIS)
 		{
-			chg_virtue(p_ptr, V_ENLIGHTEN, 1);
-			chg_virtue(p_ptr, V_FAITH, 1);
+			chg_virtue(cr_ptr, V_ENLIGHTEN, 1);
+			chg_virtue(cr_ptr, V_FAITH, 1);
 		}
 		else if (stat == A_INT)
 		{
-			chg_virtue(p_ptr, V_KNOWLEDGE, 1);
-			chg_virtue(p_ptr, V_ENLIGHTEN, 1);
+			chg_virtue(cr_ptr, V_KNOWLEDGE, 1);
+			chg_virtue(cr_ptr, V_ENLIGHTEN, 1);
 		}
 		else if (stat == A_CON)
-			chg_virtue(p_ptr, V_VITALITY, 1);
+			chg_virtue(cr_ptr, V_VITALITY, 1);
 
 		/* Message */
 #ifdef JP
@@ -5057,8 +5057,8 @@ bool lose_all_info(creature_type *cr_ptr)
 {
 	int i;
 
-	chg_virtue(p_ptr, V_KNOWLEDGE, -5);
-	chg_virtue(p_ptr, V_ENLIGHTEN, -5);
+	chg_virtue(cr_ptr, V_KNOWLEDGE, -5);
+	chg_virtue(cr_ptr, V_ENLIGHTEN, -5);
 
 	/* Forget info about objects */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -5200,7 +5200,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
-	lite_spot(p_ptr->fy, p_ptr->fx);
+	lite_spot(cr_ptr->fy, cr_ptr->fx);
 }
 
 
@@ -5214,7 +5214,7 @@ msg_print("あなたは変化の訪れを感じた...");
 	msg_print("You feel a change coming over you...");
 #endif
 
-	chg_virtue(p_ptr, V_CHANCE, 1);
+	chg_virtue(cr_ptr, V_CHANCE, 1);
 
 	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->irace_idx != RACE_ANDROID))
 	{
@@ -5299,7 +5299,7 @@ sprintf(effect_msg, "男性の");
 			/* Polymorph into a less mutated form */
 			power -= 10;
 
-			if (!lose_mutation(p_ptr, 0))
+			if (!lose_mutation(cr_ptr, 0))
 #ifdef JP
 msg_print("奇妙なくらい普通になった気がする。");
 #else
@@ -5374,7 +5374,7 @@ msg_format("%sの構成が変化した！", cr_ptr->irace_idx == RACE_ANDROID ? "機械" : 
 	while ((power > randint0(15)) && one_in_(3))
 	{
 		power -= 7;
-		(void)gain_random_mutation(p_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0);
 	}
 
 	if (power > randint0(5))
@@ -6395,7 +6395,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			s32b total_flags = flag_cost(o_ptr, o_ptr->pval);
 			int fake_level;
 
-			if (!object_is_weapon_ammo(p_ptr, o_ptr))
+			if (!object_is_weapon_ammo(cr_ptr, o_ptr))
 			{
 				/* For armors */
 				if (total_flags < 15000) fake_level = 10;
@@ -6420,7 +6420,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		if (value > 5000000L) value = 5000000L;
 		if ((o_ptr->tval == TV_DRAG_ARMOR) || (o_ptr->tval == TV_CARD)) level /= 2;
 
-		if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr) ||
+		if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr) ||
 		    (o_ptr->tval == TV_DRAG_ARMOR) ||
 		    ((o_ptr->tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM)) ||
 		    ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||
