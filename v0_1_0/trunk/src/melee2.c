@@ -2367,7 +2367,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				py_attack(m_ptr, p_ptr->fy, p_ptr->fx, 0);
+				py_attack(m_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;

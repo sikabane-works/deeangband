@@ -3196,16 +3196,16 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	char            tar_name[80];
 
 	/* Player or Enemy */
-	if(atk_ptr->fx == x && atk_ptr->fy == y && c_ptr->m_idx)
+	if(p_ptr->fx == x && p_ptr->fy == y && c_ptr->m_idx)
 	{
 		if(one_in_(2))
-			tar_ptr = atk_ptr;
+			tar_ptr = p_ptr;
 		else
 			tar_ptr = &m_list[c_ptr->m_idx];
 	}
-	else if (atk_ptr->fx == x && atk_ptr->fy == y)
+	else if (p_ptr->fx == x && p_ptr->fy == y)
 	{
-		tar_ptr = atk_ptr;
+		tar_ptr = p_ptr;
 	}
 	else
 	{
