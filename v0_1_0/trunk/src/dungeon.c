@@ -1888,7 +1888,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		regen_amount = regen_amount * 2;
 	}
 
-	upkeep_factor = calculate_upkeep();
+	upkeep_factor = calculate_upkeep(cr_ptr);
 
 	/* No regeneration while special action */
 	if ((cr_ptr->action == ACTION_LEARN) ||
@@ -1921,7 +1921,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			msg_print(NULL);
 			do_cmd_pet_dismiss();
 
-			upkeep_factor = calculate_upkeep();
+			upkeep_factor = calculate_upkeep(cr_ptr);
 
 #ifdef JP
 			msg_format("維持ＭＰは %d%%", upkeep_factor);
@@ -6220,7 +6220,7 @@ static void dungeon(bool load_game)
 		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
 	}
 
-	(void)calculate_upkeep();
+	(void)calculate_upkeep(p_ptr);
 
 	/* Validate the panel */
 	panel_bounds_center();

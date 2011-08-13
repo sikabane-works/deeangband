@@ -1678,7 +1678,7 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 	if (old_friend_align != friend_align) p_ptr->update |= (PU_BONUS);
 }
 
-int calculate_upkeep(void)
+int calculate_upkeep(creature_type *cr_ptr)
 {
 	s32b old_friend_align = friend_align;
 	int m_idx;
@@ -1702,9 +1702,9 @@ int calculate_upkeep(void)
 			total_friends++;
 			if (r_ptr->flags1 & RF1_UNIQUE)
 			{
-				if (p_ptr->cls_idx == CLASS_CAVALRY)
+				if (cr_ptr->cls_idx == CLASS_CAVALRY)
 				{
-					if (p_ptr->riding == m_idx)
+					if (cr_ptr->riding == m_idx)
 						total_friend_levels += (r_ptr->level+5)*2;
 					else if (!have_a_unique && (r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
 						total_friend_levels += (r_ptr->level+5)*7/2;
@@ -1723,11 +1723,11 @@ int calculate_upkeep(void)
 			if (r_ptr->flags3 & RF3_EVIL) friend_align -= r_ptr->level;
 		}
 	}
-	if (old_friend_align != friend_align) p_ptr->update |= (PU_BONUS);
+	if (old_friend_align != friend_align) cr_ptr->update |= (PU_BONUS);
 	if (total_friends)
 	{
 		int upkeep_factor;
-		upkeep_factor = (total_friend_levels - (p_ptr->lev * 80 / (class_info[p_ptr->cls_idx].pet_upkeep_div)));
+		upkeep_factor = (total_friend_levels - (cr_ptr->lev * 80 / (class_info[cr_ptr->cls_idx].pet_upkeep_div)));
 		if (upkeep_factor < 0) upkeep_factor = 0;
 		if (upkeep_factor > 1000) upkeep_factor = 1000;
 		return upkeep_factor;
@@ -2858,7 +2858,7 @@ void do_cmd_pet(void)
 				break;
 			}
 			do_cmd_pet_dismiss();
-			(void)calculate_upkeep();
+			(void)calculate_upkeep(p_ptr);
 			break;
 		}
 		case PET_TARGET:

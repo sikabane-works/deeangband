@@ -7366,7 +7366,7 @@ static void do_cmd_knowledge_pets(void)
 		}
 	}
 
-	show_upkeep = calculate_upkeep();
+	show_upkeep = calculate_upkeep(p_ptr);
 
 	fprintf(fff, "----------------------------------------------\n");
 #ifdef JP
