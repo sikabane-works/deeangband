@@ -6389,13 +6389,13 @@ void window_stuff(void)
 /*
  * Handle "p_ptr->update" and "play_redraw" and "play_window"
  */
-void handle_stuff(void)
+void handle_stuff(creature_type *cr_ptr)
 {
 	/* Update stuff */
-	if (p_ptr->update) update_stuff(p_ptr, TRUE);
+	if (cr_ptr->update) update_stuff(cr_ptr, TRUE);
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff(p_ptr);
+	if (play_redraw) redraw_stuff(cr_ptr);
 
 	/* Window stuff */
 	if (play_window) window_stuff();

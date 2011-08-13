@@ -6550,7 +6550,7 @@ msg_print("自動セーブ中");
 	msg_print(NULL);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Message */
 #ifdef JP
@@ -7070,7 +7070,7 @@ static void show_info(void)
 	p_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Flush all input keys */
 	flush();
@@ -7332,7 +7332,7 @@ void close_game(void)
 /*	cptr p = "[i:キャラクタの情報, f:ファイル書き出し, t:スコア, x:*鑑定*, ESC:ゲーム終了]"; */
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Flush the messages */
 	msg_print(NULL);

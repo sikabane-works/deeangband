@@ -8275,7 +8275,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * if they were being projected at a more distant destination.  This means
  * that "ball" spells will *always* explode.
  *
- * Note that we must call "handle_stuff()" after affecting terrain features
+ * Note that we must call "handle_stuff(cr_ptr)" after affecting terrain features
  * in the blast radius, in case the "illumination" of the grid was changed,
  * and "update_view()" and "update_monsters()" need to be called.
  */
@@ -8433,7 +8433,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(who_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Giga-Hack SEEKER & SUPER_RAY */
 

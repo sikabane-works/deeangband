@@ -398,7 +398,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS | PU_HP);
 
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -496,7 +496,7 @@ msg_print("‚â‚Á‚Æ–Ú‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -610,7 +610,7 @@ msg_print("‚â‚Á‚Æ¬—‚ª‚¨‚³‚Ü‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -706,7 +706,7 @@ msg_print("‚â‚Á‚Æ“Å‚Ì’É‚Ý‚ª‚È‚­‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -792,7 +792,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (disturb_state) disturb(0, 0);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(cr_ptr);
 
 		/* Result */
 		return (TRUE);
@@ -908,7 +908,7 @@ msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
 	play_redraw |= (PR_STATE);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1039,7 +1039,7 @@ msg_print("‚â‚Á‚Æ‚Í‚Á‚«‚è‚Æ•¨‚ªŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1110,7 +1110,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1214,7 +1214,7 @@ msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1283,7 +1283,7 @@ msg_print("“®‚«‚Ì’x‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1388,7 +1388,7 @@ msg_print("”§‚ªŒ³‚É–ß‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1458,7 +1458,7 @@ msg_print("‚à‚¤‰¡‚ÉL‚Ñ‚Ä‚¢‚È‚¢B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1528,7 +1528,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1598,7 +1598,7 @@ msg_print("‚Œ‰‚È‹C•ª‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1670,7 +1670,7 @@ msg_print("ƒq[ƒ[‚Ì‹C•ª‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1743,7 +1743,7 @@ msg_print("–ì”Ø‚È‹CŽ‚¿‚ªÁ‚¦Ž¸‚¹‚½B");
 	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1809,7 +1809,7 @@ msg_print("Ž×ˆ«‚È‚é‘¶Ý‚©‚çŽç‚ç‚ê‚Ä‚¢‚éŠ´‚¶‚ª‚È‚­‚È‚Á‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1900,7 +1900,7 @@ msg_print("•s“§–¾‚É‚È‚Á‚½Š´‚¶‚ª‚·‚éB");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -1998,7 +1998,7 @@ msg_print("–³“G‚Å‚Í‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2107,7 +2107,7 @@ msg_print("ˆÓŽ¯‚ÍŒ³‚É–ß‚Á‚½B");
 	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2179,7 +2179,7 @@ msg_print("–Ú‚Ì•qŠ´‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
 	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2251,7 +2251,7 @@ msg_print("–Ú‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2320,7 +2320,7 @@ msg_print("‘f‘‚­‰ñ•œ‚·‚éŠ´‚¶‚ª‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2389,7 +2389,7 @@ msg_print("‘«‰¹‚ª‘å‚«‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2527,7 +2527,7 @@ msg_print("‚à‚¤’ˆ‚É•‚‚©‚×‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2593,7 +2593,7 @@ msg_print("“¬‹C‚ªÁ‚¦‚½B");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2662,7 +2662,7 @@ msg_print("‰Š‚ÌƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2731,7 +2731,7 @@ msg_print("¹‚È‚éƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2801,7 +2801,7 @@ msg_print("’¦”±‚ðŽ·s‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2871,7 +2871,7 @@ msg_print("You are no longer protected from magic.");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -2940,7 +2940,7 @@ msg_print("‘Ì‚Ì•\–Ê‚ªŠŠ‚©‚Å‚È‚­‚È‚Á‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3009,7 +3009,7 @@ msg_print("Œ¶‰e‚ªÁ‚¦‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3078,7 +3078,7 @@ msg_print("‹¾‚ÌƒI[ƒ‰‚ªÁ‚¦‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3147,7 +3147,7 @@ msg_print("‘Ì‚ª•¨Ž¿‰»‚µ‚½B");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3221,7 +3221,7 @@ msg_print("“÷‘Ì‚ª‹}‘¬‚É‚µ‚Ú‚ñ‚Å‚¢‚Á‚½B");
 	cr_ptr->update |= (PU_HP);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3321,7 +3321,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	return (TRUE);
 }
@@ -3420,7 +3420,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	return (TRUE);
 }
@@ -3485,7 +3485,7 @@ msg_print("Ž_‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3551,7 +3551,7 @@ msg_print("“dŒ‚‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3619,7 +3619,7 @@ msg_print("‰Î‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3685,7 +3685,7 @@ msg_print("—â‹C‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3752,7 +3752,7 @@ msg_print("“Å‚Ö‚Ì‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	if (disturb_state) disturb(0, 0);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -3951,7 +3951,7 @@ msg_print("‚â‚Á‚ÆžNžOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
 	play_redraw |= (PR_STUN);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -4239,7 +4239,7 @@ msg_format("‚â‚Á‚Æ%sB", cr_ptr->irace_idx == RACE_ANDROID ? "‰ö‰ä‚ª’¼‚Á‚½" : "
 	play_redraw |= (PR_CUT);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -4504,7 +4504,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 	play_redraw |= (PR_HUNGER);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -5194,7 +5194,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 
 	cr_ptr->update |= (PU_BONUS);
 
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Load an autopick preference file */
 	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
@@ -5563,7 +5563,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	/* Window stuff */
 	play_window |= (PW_PLAYER);
 
-	handle_stuff();
+	handle_stuff(tar_ptr);
 
 	if (damage_type != DAMAGE_GENO && tar_ptr->chp == 0)
 	{
@@ -6573,7 +6573,7 @@ msg_print("‚ ‚ç‚ä‚é‚±‚Æ‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -6638,7 +6638,7 @@ msg_print("’n–‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);
@@ -6703,7 +6703,7 @@ msg_print("ŽžŠÔ‹t“]‚Ì—Í‚É‘Î‚·‚é‘Ï«‚ª”–‚ê‚½‹C‚ª‚·‚éB");
 	cr_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Result */
 	return (TRUE);

@@ -4760,7 +4760,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Fresh */
 	Term_fresh();

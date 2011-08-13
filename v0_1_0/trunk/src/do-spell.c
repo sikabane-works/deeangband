@@ -864,7 +864,7 @@ static void cast_shuffle(void)
 
 			p_ptr->muta1 = p_ptr->muta2 = p_ptr->muta3 = 0;
 			p_ptr->update |= PU_BONUS;
-			handle_stuff();
+			handle_stuff(p_ptr);
 		}
 	}
 	else if (die < 120)
@@ -11155,7 +11155,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				command_dir = 0;
 
 				play_redraw |= PR_MANA;
-				handle_stuff();
+				handle_stuff(p_ptr);
 			}
 			while (p_ptr->csp > mana_cost_per_monster);
 
@@ -11230,7 +11230,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				py_attack(p_ptr, y, x, 0);
 				if (cave[y][x].m_idx)
 				{
-					handle_stuff();
+					handle_stuff(p_ptr);
 					py_attack(p_ptr, y, x, 0);
 				}
 			}

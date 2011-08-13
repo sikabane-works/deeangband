@@ -2143,7 +2143,7 @@ void do_cmd_locate(void)
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 }
 
 
@@ -2487,7 +2487,7 @@ void do_cmd_query_symbol(void)
 		species_type_track(species_idx);
 
 		/* Hack -- Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Interact */
 		while (1)

@@ -1199,7 +1199,7 @@ void do_cmd_redraw(void)
 	update_playtime();
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
 
@@ -1319,7 +1319,7 @@ void do_cmd_change_name(void)
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
-	handle_stuff();
+	handle_stuff(p_ptr);
 }
 
 
@@ -6414,7 +6414,7 @@ void do_cmd_save_screen(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(p_ptr);
 	}
 
 	if (html_dump)
@@ -6540,7 +6540,7 @@ void do_cmd_save_screen(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(p_ptr);
 	}
 }
 
@@ -8174,7 +8174,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			if (mon_cnt) species_type_track(mon_idx[mon_cur]);
 
 			/* Hack -- handle stuff */
-			handle_stuff();
+			handle_stuff(p_ptr);
 		}
 
 		if (visual_list)
@@ -8450,7 +8450,7 @@ static void desc_obj_fake(int k_idx)
 	/* term_obj_real = FALSE; */
 
 	/* Hack -- Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	if (!screen_object(o_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))
 	{
@@ -8680,7 +8680,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			if (object_old != object_idx[object_cur])
 			{
 				/* Hack -- handle stuff */
-				handle_stuff();
+				handle_stuff(p_ptr);
 
 				/* Remember the "current" object */
 				object_old = object_idx[object_cur];

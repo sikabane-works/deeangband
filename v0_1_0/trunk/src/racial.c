@@ -1109,7 +1109,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 					py_attack(cr_ptr, y, x, 0);
 					if (cave[y][x].m_idx)
 					{
-						handle_stuff();
+						handle_stuff(cr_ptr);
 						py_attack(cr_ptr, y, x, 0);
 					}
 					cr_ptr->energy_need += ENERGY_NEED();
@@ -1172,7 +1172,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_IMITATOR:
 		{
-			handle_stuff();
+			handle_stuff(cr_ptr);
 			if (!do_cmd_mane(cr_ptr, TRUE)) return FALSE;
 			break;
 		}
@@ -1211,9 +1211,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		case CLASS_RED_MAGE:
 		{
 			if (!can_do_cmd_cast()) return FALSE;
-			handle_stuff();
+			handle_stuff(cr_ptr);
 			do_cmd_cast();
-			handle_stuff();
+			handle_stuff(cr_ptr);
 			if (!cr_ptr->paralyzed && can_do_cmd_cast())
 				do_cmd_cast();
 			break;

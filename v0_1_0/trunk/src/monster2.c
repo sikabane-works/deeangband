@@ -2411,7 +2411,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 	}
 
 	p_ptr->update |= PU_BONUS;
-	handle_stuff();
+	handle_stuff(p_ptr);
 }
 
 

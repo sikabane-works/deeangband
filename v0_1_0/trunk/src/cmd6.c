@@ -1372,7 +1372,7 @@ msg_print("全ての突然変異が治った。");
 
 				cr_ptr->muta1 = cr_ptr->muta2 = cr_ptr->muta3 = 0;
 				cr_ptr->update |= PU_BONUS;
-				handle_stuff();
+				handle_stuff(cr_ptr);
 				mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
 			}
 			ident = TRUE;
@@ -1412,7 +1412,7 @@ msg_print("全ての突然変異が治った。");
 
 				cr_ptr->muta1 = cr_ptr->muta2 = cr_ptr->muta3 = 0;
 				cr_ptr->update |= PU_BONUS;
-				handle_stuff();
+				handle_stuff(cr_ptr);
 			}
 			else
 			{

@@ -3500,7 +3500,7 @@ bool process_the_world(int num, int who, bool vs_player)
 		msg_print(NULL);
 	}
 
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	return (TRUE);
 }

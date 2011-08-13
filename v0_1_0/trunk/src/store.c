@@ -3660,7 +3660,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 				}
 
 				/* Handle stuff */
-				handle_stuff();
+				handle_stuff(p_ptr);
 
 				/* Note how many slots the store used to have */
 				i = st_ptr->stock_num;
@@ -3777,7 +3777,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
  o_name, index_to_label(p_ptr, item_new));
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Take note if we take the last one */
 		i = st_ptr->stock_num;
@@ -4103,7 +4103,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			inven_item_optimize(item);
 
 			/* Handle stuff */
-			handle_stuff();
+			handle_stuff(p_ptr);
 
 			/* The store gets that (known) item */
 			item_pos = store_carry(q_ptr);
@@ -4167,7 +4167,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		inven_item_optimize(item);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Let the home carry it */
 		item_pos = home_carry(q_ptr);
@@ -4200,7 +4200,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		inven_item_optimize(item);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Let the home carry it */
 		item_pos = home_carry(q_ptr);
@@ -5045,7 +5045,7 @@ void do_cmd_store(void)
 		notice_stuff(p_ptr);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* XXX XXX XXX Pack Overflow */
 		if (p_ptr->inventory[INVEN_PACK].k_idx)
@@ -5132,7 +5132,7 @@ void do_cmd_store(void)
 				inven_item_optimize(item);
 
 				/* Handle stuff */
-				handle_stuff();
+				handle_stuff(p_ptr);
 
 				/* Let the home carry it */
 				item_pos = home_carry(q_ptr);

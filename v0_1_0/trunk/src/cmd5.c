@@ -531,7 +531,7 @@ void do_cmd_browse(void)
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 
 	/* Extract spells */
@@ -642,7 +642,7 @@ static void change_realm2(creature_type *cr_ptr, int next_realm)
 
 	cr_ptr->notice |= (PN_REORDER);
 	cr_ptr->update |= (PU_SPELLS);
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	/* Load an autopick preference file */
 	autopick_load_pref(FALSE);
@@ -780,7 +780,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Mage -- Learn a selected spell */
 	if (m_info[p_ptr->realm1].spell_book != TV_LIFE_BOOK)
@@ -1225,7 +1225,7 @@ void do_cmd_cast(void)
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
 		realm = o_ptr->tval - TV_LIFE_BOOK + 1;
@@ -1791,7 +1791,7 @@ void do_cmd_pet_dismiss(void)
 			health_track(pet_ctr);
 
 			/* Hack -- handle stuff */
-			handle_stuff();
+			handle_stuff(p_ptr);
 
 #ifdef JP
 			sprintf(buf, "%s‚ð•ú‚µ‚Ü‚·‚©H [Yes/No/Unnamed (%d‘Ì)]", friend_name, max_pet - i);
@@ -2985,7 +2985,7 @@ void do_cmd_pet(void)
 			if (p_ptr->pet_extra_flags & PF_RYOUTE) p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 			else p_ptr->pet_extra_flags |= (PF_RYOUTE);
 			p_ptr->update |= (PU_BONUS);
-			handle_stuff();
+			handle_stuff(p_ptr);
 			break;
 		}
 	}

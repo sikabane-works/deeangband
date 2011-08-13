@@ -915,7 +915,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		handle_stuff();
+		handle_stuff(cr_ptr);
 		break;
 	case MS_SPECIAL:
 		break;

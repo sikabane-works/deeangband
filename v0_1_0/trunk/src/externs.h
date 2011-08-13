@@ -1422,7 +1422,7 @@ extern void notice_stuff(creature_type *cr_ptr);
 extern void update_stuff(creature_type *cr_ptr, bool message);
 extern void redraw_stuff(creature_type *cr_ptr);
 extern void window_stuff(void);
-extern void handle_stuff(void);
+extern void handle_stuff(creature_type *cr_ptr);
 extern s16b empty_hands(creature_type *cr_ptr, bool riding_control);
 extern bool heavy_armor(creature_type *cr_ptr);
 extern s16b calc_align(s32b align);

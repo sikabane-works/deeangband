@@ -48,7 +48,7 @@ void check_experience(creature_type *cr_ptr)
 	play_redraw |= (PR_EXP);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 
 	/* Lose levels while possible */
@@ -68,7 +68,7 @@ void check_experience(creature_type *cr_ptr)
 		play_window |= (PW_PLAYER);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(cr_ptr);
 	}
 
 
@@ -121,7 +121,7 @@ msg_format("ÉåÉxÉã %d Ç…ÇÊÇ§Ç±ÇªÅB", cr_ptr->lev);
 		level_up = 1;
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(cr_ptr);
 
 		level_up = 0;
 
@@ -219,7 +219,7 @@ msg_print("Ç†Ç»ÇΩÇÕïœÇÌÇ¡ÇΩãCÇ™Ç∑ÇÈ...");
 		play_window |= (PW_PLAYER | PW_SPELL);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(cr_ptr);
 	}
 
 	/* Load an autopick preference file */
@@ -2061,7 +2061,7 @@ void resize_map(void)
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(p_ptr);
 	
 	/* Redraw */
 	Term_redraw();
@@ -2091,7 +2091,7 @@ void redraw_window(void)
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Redraw */
 	Term_redraw();
@@ -2142,7 +2142,7 @@ bool change_panel(int dy, int dx)
 		play_redraw |= (PR_MAP);
 
 		/* Handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Success */
 		return (TRUE);
@@ -3027,7 +3027,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		health_track(c_ptr->m_idx);
 
 		/* Hack -- handle stuff */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Interact */
 		while (1)
@@ -3870,7 +3870,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
-					handle_stuff();
+					handle_stuff(p_ptr);
 
 					/* Recalculate interesting grids */
 					target_set_prepare(p_ptr, mode);
@@ -3953,7 +3953,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 						play_window |= (PW_OVERHEAD);
 
 						/* Handle stuff */
-						handle_stuff();
+						handle_stuff(p_ptr);
 
 						/* Recalculate interesting grids */
 						target_set_prepare(p_ptr, mode);
@@ -4070,7 +4070,7 @@ strcpy(info, "qé~ tåà pé© mãﬂ +éü -ëO");
 					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
-					handle_stuff();
+					handle_stuff(p_ptr);
 
 					/* Recalculate interesting grids */
 					target_set_prepare(p_ptr, mode);
@@ -4197,7 +4197,7 @@ strcpy(info, "qé~ tåà pé© mãﬂ +éü -ëO");
 	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Failure to set target */
 	if (!target_who) return (FALSE);
@@ -5765,7 +5765,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
-					handle_stuff();
+					handle_stuff(cr_ptr);
 				}
 				else	/* move cursor to next stair and change panel */
 				{
@@ -5856,7 +5856,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(cr_ptr);
 
 	*x_ptr = x;
 	*y_ptr = y;

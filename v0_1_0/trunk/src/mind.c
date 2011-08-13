@@ -1017,7 +1017,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		handle_stuff();
+		handle_stuff(cr_ptr);
 		break;
 	}
 	default:

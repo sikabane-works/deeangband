@@ -5521,7 +5521,7 @@ static void pack_overflow(void)
 		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 	}
 }
 
@@ -5763,7 +5763,7 @@ msg_print("中断しました。");
 		}
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 	}
 
 	/* Handle the player song */
@@ -5843,7 +5843,7 @@ msg_print("中断しました。");
 		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Place the cursor on the player */
 		move_cursor_relative(p_ptr->fy, p_ptr->fx);
@@ -6123,7 +6123,7 @@ msg_print("中断しました。");
 				p_ptr->energy_need = ENERGY_NEED();
 
 				/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-				handle_stuff();
+				handle_stuff(p_ptr);
 			}
 		}
 
@@ -6254,7 +6254,7 @@ static void dungeon(bool load_game)
 	p_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Leave "xtra" mode */
 	character_xtra = FALSE;
@@ -6269,7 +6269,7 @@ static void dungeon(bool load_game)
 	notice_stuff(p_ptr);
 
 	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Refresh */
 	Term_fresh();
@@ -6368,7 +6368,7 @@ msg_print("試合開始！");
 		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Hack -- Hilite the player */
 		move_cursor_relative(p_ptr->fy, p_ptr->fx);
@@ -6386,7 +6386,7 @@ msg_print("試合開始！");
 		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Hack -- Hilite the player */
 		move_cursor_relative(p_ptr->fy, p_ptr->fx);
@@ -6405,7 +6405,7 @@ msg_print("試合開始！");
 		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		/* Hack -- Hilite the player */
 		move_cursor_relative(p_ptr->fy, p_ptr->fx);
@@ -7087,7 +7087,7 @@ quit("セーブファイルが壊れています");
 		character_xtra = TRUE;
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(p_ptr);
 
 		character_xtra = FALSE;
 

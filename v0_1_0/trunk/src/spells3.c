@@ -3077,7 +3077,7 @@ bool identify_fully(bool only_equip)
 	o_ptr->ident |= (IDENT_MENTAL);
 
 	/* Handle stuff */
-	handle_stuff();
+	handle_stuff(p_ptr);
 
 	/* Description */
 	object_desc(o_name, o_ptr, 0);
