@@ -2049,7 +2049,7 @@ static void fix_dungeon(void)
 /*
  * Hack -- display monster recall in sub-windows
  */
-static void fix_monster(void)
+static void fix_monster(creature_type *cr_ptr)
 {
 	int j;
 
@@ -2068,7 +2068,7 @@ static void fix_monster(void)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (p_ptr->species_type_idx) display_roff(p_ptr->species_type_idx);
+		if (cr_ptr->species_type_idx) display_roff(cr_ptr->species_type_idx);
 
 		/* Fresh */
 		Term_fresh();
@@ -2989,7 +2989,7 @@ static void calc_torch(creature_type *cr_ptr)
 		cr_ptr->old_lite = cr_ptr->cur_lite;
 
 		if ((cr_ptr->cur_lite > 0) && (cr_ptr->special_defense & NINJA_S_STEALTH))
-			set_superstealth(p_ptr, FALSE);
+			set_superstealth(cr_ptr, FALSE);
 	}
 }
 
@@ -4477,7 +4477,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			int ac = 0;
 			o_ptr = &cr_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
-			if (!object_is_armour(p_ptr, o_ptr)) continue;
+			if (!object_is_armour(cr_ptr, o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
 			ac += 5;
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;
@@ -6374,7 +6374,7 @@ void window_stuff(void)
 	if (play_window & (PW_MONSTER))
 	{
 		play_window &= ~(PW_MONSTER);
-		fix_monster();
+		fix_monster(p_ptr);
 	}
 
 	/* Display object recall */
