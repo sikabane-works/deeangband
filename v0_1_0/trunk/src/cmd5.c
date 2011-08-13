@@ -51,7 +51,7 @@ cptr spell_category_name(int tval)
 
 bool select_the_force = FALSE;
 
-static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm)
+static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool learned, int use_realm)
 {
 	int         i;
 	int         spell = -1;
@@ -84,7 +84,7 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 
 #endif /* ALLOW_REPEAT -- TNB */
 
-	p = spell_category_name(m_info[p_ptr->realm1].spell_book);
+	p = spell_category_name(m_info[cr_ptr->realm1].spell_book);
 
 	/* Extract spells */
 	for (spell = 0; spell < 32; spell++)
@@ -112,9 +112,9 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 
 	/* No "okay" spells */
 	if (!okay) return (FALSE);
-	if (((use_realm) != p_ptr->realm1) && ((use_realm) != p_ptr->realm2) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE)) return FALSE;
-	if (((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
-	if ((p_ptr->cls_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
+	if (((use_realm) != cr_ptr->realm1) && ((use_realm) != cr_ptr->realm2) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE)) return FALSE;
+	if (((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
+	if ((cr_ptr->cls_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
 
 	/* Assume cancelled */
 	*sn = (-1);
@@ -270,7 +270,7 @@ static int get_spell(int *sn, cptr prompt, int sval, bool learned, int use_realm
 			}
 			else
 			{
-				s_ptr = &m_info[p_ptr->realm1].info[use_realm - 1][spell];
+				s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
 			}
 
 			/* Extract mana consumption rate */
@@ -557,9 +557,9 @@ void do_cmd_browse(void)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(&spell, "読む", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(p_ptr, &spell, "読む", o_ptr->sval, TRUE, use_realm))
 #else
-		if (!get_spell(&spell, "browse", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(p_ptr, &spell, "browse", o_ptr->sval, TRUE, use_realm))
 #endif
 		{
 			/* If cancelled, leave immediately. */
@@ -787,10 +787,10 @@ s = "読める本がない。";
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(&spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(p_ptr, &spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #else
-		if (!get_spell(&spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(p_ptr, &spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #endif
 
@@ -1234,7 +1234,7 @@ void do_cmd_cast(void)
 
 	/* Ask for a spell */
 #ifdef JP
-	if (!get_spell(&spell,  
+	if (!get_spell(p_ptr, &spell,  
 				((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[p_ptr->realm1].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
 		       sval, TRUE, realm))
 	{
@@ -1242,7 +1242,7 @@ void do_cmd_cast(void)
 		return;
 	}
 #else
-	if (!get_spell(&spell, ((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+	if (!get_spell(p_ptr, &spell, ((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 		sval, TRUE, realm))
 	{
 		if (spell == -2)
