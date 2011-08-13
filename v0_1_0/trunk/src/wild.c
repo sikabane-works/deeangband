@@ -385,7 +385,7 @@ static border_type border;
 /*
  * Build the wilderness area outside of the town.
  */
-void wilderness_gen(void)
+void wilderness_gen(creature_type *cr_ptr)
 {
 	int i, y, x, lim;
 	cave_type *c_ptr;
@@ -548,7 +548,7 @@ void wilderness_gen(void)
 		}
 	}
 
-	if (p_ptr->teleport_town)
+	if (cr_ptr->teleport_town)
 	{
 		for (y = 0; y < cur_hgt; y++)
 		{
@@ -565,16 +565,16 @@ void wilderness_gen(void)
 					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
 					{
 						if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
-						p_ptr->oldpy = y;
-						p_ptr->oldpx = x;
+						cr_ptr->oldpy = y;
+						cr_ptr->oldpx = x;
 					}
 				}
 			}
 		}
-		p_ptr->teleport_town = FALSE;
+		cr_ptr->teleport_town = FALSE;
 	}
 
-	else if (p_ptr->leaving_dungeon)
+	else if (cr_ptr->leaving_dungeon)
 	{
 		for (y = 0; y < cur_hgt; y++)
 		{
@@ -586,16 +586,16 @@ void wilderness_gen(void)
 				if (cave_have_flag_grid(c_ptr, FF_ENTRANCE))
 				{
 					if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
-					p_ptr->oldpy = y;
-					p_ptr->oldpx = x;
+					cr_ptr->oldpy = y;
+					cr_ptr->oldpx = x;
 				}
 			}
 		}
-		p_ptr->teleport_town = FALSE;
+		cr_ptr->teleport_town = FALSE;
 	}
 
-	player_place(p_ptr->oldpy, p_ptr->oldpx);
-	/* p_ptr->leaving_dungeon = FALSE;*/
+	player_place(cr_ptr->oldpy, cr_ptr->oldpx);
+	/* cr_ptr->leaving_dungeon = FALSE;*/
 
 
 	lim = (generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
@@ -633,7 +633,7 @@ static s16b conv_terrain2feat[MAX_WILDERNESS];
  * Build the wilderness area.
  * -DG-
  */
-void wilderness_gen_small()
+void wilderness_gen_small(creature_type *cr_ptr)
 {
 	int i, j;
 
@@ -657,7 +657,7 @@ void wilderness_gen_small()
 			cave[j][i].special = wilderness[j][i].town;
 		}
 		else if (wilderness[j][i].road) cave[j][i].feat = feat_floor;
-		else if (wilderness[j][i].entrance && (p_ptr->total_winner || !(d_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
+		else if (wilderness[j][i].entrance && (cr_ptr->total_winner || !(d_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
 		{
 			cave[j][i].feat = feat_entrance;
 			cave[j][i].special = (byte)wilderness[j][i].entrance;
@@ -678,8 +678,8 @@ void wilderness_gen_small()
 	panel_col_min = cur_wid;
 
 	/* Place the player */
-	p_ptr->fx = (byte)wilderness_x;
-	p_ptr->fy = (byte)wilderness_y;
+	cr_ptr->fx = (byte)wilderness_x;
+	cr_ptr->fy = (byte)wilderness_y;
 
 	town_num = 0;
 }

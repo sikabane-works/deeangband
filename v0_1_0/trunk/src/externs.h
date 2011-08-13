@@ -1730,8 +1730,8 @@ extern bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *
 
 /* wild.c */
 extern void set_floor_and_wall(byte type);
-extern void wilderness_gen(void);
-extern void wilderness_gen_small(void);
+extern void wilderness_gen(creature_type *cr_ptr);
+extern void wilderness_gen_small(creature_type *cr_ptr);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);
