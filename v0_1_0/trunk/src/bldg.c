@@ -4689,7 +4689,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 /*
  * Execute a building command
  */
-static void bldg_process_command(building_type *bldg, int i)
+static void bldg_process_command(creature_type *cr_ptr, building_type *bldg, int i)
 {
 	int bact = bldg->actions[i];
 	int bcost;
@@ -4719,8 +4719,8 @@ msg_print("それを選択する権利はありません！");
 
 	/* check gold (HACK - Recharge uses variable costs) */
 	if ((bact != BACT_RECHARGE) &&
-	    (((bldg->member_costs[i] > p_ptr->au) && is_owner(bldg)) ||
-	     ((bldg->other_costs[i] > p_ptr->au) && !is_owner(bldg))))
+	    (((bldg->member_costs[i] > cr_ptr->au) && is_owner(bldg)) ||
+	     ((bldg->other_costs[i] > cr_ptr->au) && !is_owner(bldg))))
 	{
 #ifdef JP
 msg_print("お金が足りません！");
@@ -4814,21 +4814,21 @@ msg_print("お金が足りません！");
 		do_cmd_study();
 		break;
 	case BACT_HEALING: /* needs work */
-		hp_player(p_ptr, 200);
-		set_poisoned(p_ptr, 0);
-		set_blind(p_ptr, 0);
-		set_confused(p_ptr, 0);
-		set_cut(p_ptr, 0);
-		set_stun(p_ptr, 0);
+		hp_player(cr_ptr, 200);
+		set_poisoned(cr_ptr, 0);
+		set_blind(cr_ptr, 0);
+		set_confused(cr_ptr, 0);
+		set_cut(cr_ptr, 0);
+		set_stun(cr_ptr, 0);
 		paid = TRUE;
 		break;
 	case BACT_RESTORE: /* needs work */
-		if (do_res_stat(p_ptr, A_STR)) paid = TRUE;
-		if (do_res_stat(p_ptr, A_INT)) paid = TRUE;
-		if (do_res_stat(p_ptr, A_WIS)) paid = TRUE;
-		if (do_res_stat(p_ptr, A_DEX)) paid = TRUE;
-		if (do_res_stat(p_ptr, A_CON)) paid = TRUE;
-		if (do_res_stat(p_ptr, A_CHR)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_STR)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_INT)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_WIS)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_DEX)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_CON)) paid = TRUE;
+		if (do_res_stat(cr_ptr, A_CHR)) paid = TRUE;
 		break;
 	case BACT_ENCHANT_ARROWS:
 		item_tester_hook = item_tester_hook_ammo;
@@ -4871,9 +4871,9 @@ msg_print("お金が足りません！");
 
 		if (amt > 0)
 		{
-			p_ptr->word_recall = 1;
-			p_ptr->recall_dungeon = select_dungeon;
-			max_dlv[p_ptr->recall_dungeon] = ((amt > d_info[select_dungeon].maxdepth) ? d_info[select_dungeon].maxdepth : ((amt < d_info[select_dungeon].mindepth) ? d_info[select_dungeon].mindepth : amt));
+			cr_ptr->word_recall = 1;
+			cr_ptr->recall_dungeon = select_dungeon;
+			max_dlv[cr_ptr->recall_dungeon] = ((amt > d_info[select_dungeon].maxdepth) ? d_info[select_dungeon].maxdepth : ((amt < d_info[select_dungeon].mindepth) ? d_info[select_dungeon].mindepth : amt));
 			if (record_maxdepth)
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_TRUMP, select_dungeon, "トランプタワーで");
@@ -4892,12 +4892,12 @@ msg_print("お金が足りません！");
 		break;
 	}
 	case BACT_LOSE_MUTATION:
-		if (p_ptr->muta1 || p_ptr->muta2 ||
-		    (p_ptr->muta3 & ~MUT3_GOOD_LUCK) ||
-		    (p_ptr->chara_idx != CHARA_LUCKY &&
-		     (p_ptr->muta3 & MUT3_GOOD_LUCK)))
+		if (cr_ptr->muta1 || cr_ptr->muta2 ||
+		    (cr_ptr->muta3 & ~MUT3_GOOD_LUCK) ||
+		    (cr_ptr->chara_idx != CHARA_LUCKY &&
+		     (cr_ptr->muta3 & MUT3_GOOD_LUCK)))
 		{
-			while(!lose_mutation(p_ptr, 0));
+			while(!lose_mutation(cr_ptr, 0));
 			paid = TRUE;
 		}
 		else
@@ -4931,38 +4931,38 @@ msg_print("お金が足りません！");
 #else
 		msg_print("You received an equalization ritual.");
 #endif
-		set_virtue(p_ptr, V_COMPASSION, 0);
-		set_virtue(p_ptr, V_HONOUR, 0);
-		set_virtue(p_ptr, V_JUSTICE, 0);
-		set_virtue(p_ptr, V_SACRIFICE, 0);
-		set_virtue(p_ptr, V_KNOWLEDGE, 0);
-		set_virtue(p_ptr, V_FAITH, 0);
-		set_virtue(p_ptr, V_ENLIGHTEN, 0);
-		set_virtue(p_ptr, V_ENCHANT, 0);
-		set_virtue(p_ptr, V_CHANCE, 0);
-		set_virtue(p_ptr, V_NATURE, 0);
-		set_virtue(p_ptr, V_HARMONY, 0);
-		set_virtue(p_ptr, V_VITALITY, 0);
-		set_virtue(p_ptr, V_UNLIFE, 0);
-		set_virtue(p_ptr, V_PATIENCE, 0);
-		set_virtue(p_ptr, V_TEMPERANCE, 0);
-		set_virtue(p_ptr, V_DILIGENCE, 0);
-		set_virtue(p_ptr, V_VALOUR, 0);
-		set_virtue(p_ptr, V_INDIVIDUALISM, 0);
-		get_virtues(p_ptr);
+		set_virtue(cr_ptr, V_COMPASSION, 0);
+		set_virtue(cr_ptr, V_HONOUR, 0);
+		set_virtue(cr_ptr, V_JUSTICE, 0);
+		set_virtue(cr_ptr, V_SACRIFICE, 0);
+		set_virtue(cr_ptr, V_KNOWLEDGE, 0);
+		set_virtue(cr_ptr, V_FAITH, 0);
+		set_virtue(cr_ptr, V_ENLIGHTEN, 0);
+		set_virtue(cr_ptr, V_ENCHANT, 0);
+		set_virtue(cr_ptr, V_CHANCE, 0);
+		set_virtue(cr_ptr, V_NATURE, 0);
+		set_virtue(cr_ptr, V_HARMONY, 0);
+		set_virtue(cr_ptr, V_VITALITY, 0);
+		set_virtue(cr_ptr, V_UNLIFE, 0);
+		set_virtue(cr_ptr, V_PATIENCE, 0);
+		set_virtue(cr_ptr, V_TEMPERANCE, 0);
+		set_virtue(cr_ptr, V_DILIGENCE, 0);
+		set_virtue(cr_ptr, V_VALOUR, 0);
+		set_virtue(cr_ptr, V_INDIVIDUALISM, 0);
+		get_virtues(cr_ptr);
 		paid = TRUE;
 		break;
 	case BACT_TELE_TOWN:
 		paid = tele_town();
 		break;
 	case BACT_EVAL_AC:
-		paid = eval_ac(p_ptr->dis_ac + p_ptr->dis_to_a);
+		paid = eval_ac(cr_ptr->dis_ac + cr_ptr->dis_to_a);
 		break;
 	}
 
 	if (paid)
 	{
-		p_ptr->au -= bcost;
+		cr_ptr->au -= bcost;
 	}
 
 
@@ -4970,7 +4970,7 @@ msg_print("お金が足りません！");
 	if (quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
 	{
 		/* Total winner */
-		p_ptr->total_winner = TRUE;
+		cr_ptr->total_winner = TRUE;
 
 		/* Redraw the "title" */
 		play_redraw |= (PR_TITLE);
@@ -4981,13 +4981,13 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((p_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (p_ptr->muta2 & MUT2_CHAOS_GIFT))
+		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (cr_ptr->muta2 & MUT2_CHAOS_GIFT))
 		{
 #ifdef JP
-			msg_format("%sからの声が響いた。", player_patrons[p_ptr->patron_idx].title);
+			msg_format("%sからの声が響いた。", player_patrons[cr_ptr->patron_idx].title);
 			msg_print("『よくやった、定命の者よ！』");
 #else
-			msg_format("The voice of %s booms out:", player_patrons[p_ptr->patron_idx].title);
+			msg_format("The voice of %s booms out:", player_patrons[cr_ptr->patron_idx].title);
 			msg_print("'Thou art donst well, mortal!'");
 #endif
 		}
@@ -5022,7 +5022,7 @@ msg_print("お金が足りません！");
 		wilderness[28][70].known = TRUE;
 		wilderness[28][71].known = TRUE;
 
-		p_ptr->dr = 1;
+		cr_ptr->dr = 1;
 
 	}
 
@@ -5209,7 +5209,7 @@ void do_cmd_bldg(void)
 		}
 
 		if (validcmd)
-			bldg_process_command(bldg, i);
+			bldg_process_command(p_ptr, bldg, i);
 
 		/* Notice stuff */
 		notice_stuff();
