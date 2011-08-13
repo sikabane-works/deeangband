@@ -736,7 +736,7 @@ struct power_desc_type
 /*
  * Returns the chance to activate a racial power/mutation
  */
-static int racial_chance(power_desc_type *pd_ptr)
+static int racial_chance(creature_type *cr_ptr, power_desc_type *pd_ptr)
 {
 	s16b min_level  = pd_ptr->level;
 	int  difficulty = pd_ptr->fail;
@@ -744,10 +744,10 @@ static int racial_chance(power_desc_type *pd_ptr)
 	int i;
 	int val;
 	int sum = 0;
-	int stat = p_ptr->stat_cur[pd_ptr->stat];
+	int stat = cr_ptr->stat_cur[pd_ptr->stat];
 
 	/* No chance for success */
-	if ((p_ptr->lev < min_level) || p_ptr->confused)
+	if ((cr_ptr->lev < min_level) || cr_ptr->confused)
 	{
 		return (0);
 	}
@@ -755,13 +755,13 @@ static int racial_chance(power_desc_type *pd_ptr)
 	if (difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if (p_ptr->stun)
+	if (cr_ptr->stun)
 	{
-		difficulty += p_ptr->stun;
+		difficulty += cr_ptr->stun;
 	}
-	else if (p_ptr->lev > min_level)
+	else if (cr_ptr->lev > min_level)
 	{
-		int lev_adj = ((p_ptr->lev - min_level) / 3);
+		int lev_adj = ((cr_ptr->lev - min_level) / 3);
 		if (lev_adj > 10) lev_adj = 10;
 		difficulty -= lev_adj;
 	}
@@ -3792,7 +3792,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 					}
 					strcat(dummy, format("%-23.23s %2d %4d %3d%%",
 						power_desc[ctr].name, power_desc[ctr].level, power_desc[ctr].cost,
-						100 - racial_chance(&power_desc[ctr])));
+						100 - racial_chance(cr_ptr, &power_desc[ctr])));
 					prt(dummy, y1, x1);
 					ctr++;
 				}
