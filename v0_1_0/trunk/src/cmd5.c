@@ -610,38 +610,38 @@ void do_cmd_browse(void)
 }
 
 
-static void change_realm2(int next_realm)
+static void change_realm2(creature_type *cr_ptr, int next_realm)
 {
 	int i, j = 0;
 	char tmp[80];
 
 	for (i = 0; i < 64; i++)
 	{
-		p_ptr->spell_order[j] = p_ptr->spell_order[i];
-		if (p_ptr->spell_order[i] < 32) j++;
+		cr_ptr->spell_order[j] = cr_ptr->spell_order[i];
+		if (cr_ptr->spell_order[i] < 32) j++;
 	}
 	for (; j < 64; j++)
-		p_ptr->spell_order[j] = 99;
+		cr_ptr->spell_order[j] = 99;
 
 	for (i = 32; i < 64; i++)
 	{
-		p_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
+		cr_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
 	}
-	p_ptr->spell_learned2 = 0L;
-	p_ptr->spell_worked2 = 0L;
-	p_ptr->spell_forgotten2 = 0L;
+	cr_ptr->spell_learned2 = 0L;
+	cr_ptr->spell_worked2 = 0L;
+	cr_ptr->spell_forgotten2 = 0L;
 
 #ifdef JP
-	sprintf(tmp,"魔法の領域を%sから%sに変更した。", realm_names[p_ptr->realm2], realm_names[next_realm]);
+	sprintf(tmp,"魔法の領域を%sから%sに変更した。", realm_names[cr_ptr->realm2], realm_names[next_realm]);
 #else
-	sprintf(tmp,"change magic realm from %s to %s.", realm_names[p_ptr->realm2], realm_names[next_realm]);
+	sprintf(tmp,"change magic realm from %s to %s.", realm_names[cr_ptr->realm2], realm_names[next_realm]);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 0, tmp);
-	p_ptr->old_realm |= 1 << (p_ptr->realm2-1);
-	p_ptr->realm2 = next_realm;
+	cr_ptr->old_realm |= 1 << (cr_ptr->realm2-1);
+	cr_ptr->realm2 = next_realm;
 
-	p_ptr->notice |= (PN_REORDER);
-	p_ptr->update |= (PU_SPELLS);
+	cr_ptr->notice |= (PN_REORDER);
+	cr_ptr->update |= (PU_SPELLS);
 	handle_stuff();
 
 	/* Load an autopick preference file */
@@ -772,7 +772,7 @@ s = "読める本がない。";
 #else
 		if (!get_check("Really, change magic realm? ")) return;
 #endif
-		change_realm2(tval2realm(o_ptr->tval));
+		change_realm2(p_ptr, tval2realm(o_ptr->tval));
 		increment = 32;
 	}
 
