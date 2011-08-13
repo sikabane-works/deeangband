@@ -1418,7 +1418,7 @@ extern cptr map_name(void);
 extern u32b weight_limit(creature_type *cr_ptr);
 extern bool have_weapon(creature_type *cr_ptr, int i);
 extern void calc_bonuses(creature_type *cr_ptr, bool message);
-extern void notice_stuff(void);
+extern void notice_stuff(creature_type *cr_ptr);
 extern void update_stuff(creature_type *cr_ptr, bool message);
 extern void redraw_stuff(creature_type *cr_ptr);
 extern void window_stuff(void);

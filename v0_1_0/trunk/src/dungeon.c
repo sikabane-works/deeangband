@@ -5483,7 +5483,7 @@ static void pack_overflow(void)
 		object_type *o_ptr;
 
 		/* Is auto-destroy done? */
-		notice_stuff();
+		notice_stuff(p_ptr);
 		if (!p_ptr->inventory[INVEN_PACK].k_idx) return;
 
 		/* Access the slot to be dropped */
@@ -5518,7 +5518,7 @@ static void pack_overflow(void)
 		inven_item_optimize(INVEN_PACK);
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
@@ -5840,7 +5840,7 @@ msg_print("中断しました。");
 		now_damaged = FALSE;
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
@@ -6266,7 +6266,7 @@ static void dungeon(bool load_game)
 	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Handle "p_ptr->notice" */
-	notice_stuff();
+	notice_stuff(p_ptr);
 
 	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 	handle_stuff();
@@ -6365,7 +6365,7 @@ msg_print("試合開始！");
 		process_player();
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
@@ -6383,7 +6383,7 @@ msg_print("試合開始！");
 		process_monsters();
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
@@ -6402,7 +6402,7 @@ msg_print("試合開始！");
 		process_world(p_ptr);
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
 		handle_stuff();
@@ -7081,7 +7081,7 @@ quit("セーブファイルが壊れています");
 		dungeon(load_game);
 
 		/* Handle "p_ptr->notice" */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Hack -- prevent "icky" message */
 		character_xtra = TRUE;

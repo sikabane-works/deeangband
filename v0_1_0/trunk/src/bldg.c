@@ -5212,7 +5212,7 @@ void do_cmd_bldg(void)
 			bldg_process_command(p_ptr, bldg, i);
 
 		/* Notice stuff */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle stuff */
 		handle_stuff();

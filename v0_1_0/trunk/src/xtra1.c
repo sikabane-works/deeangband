@@ -1616,7 +1616,7 @@ static void prt_stun(creature_type *cr_ptr)
  * Auto-track current target monster when bored.  Note that the
  * health-bar stops tracking any monster that "disappears".
  */
-static void health_redraw(bool riding)
+static void health_redraw(creature_type *cr_ptr, bool riding)
 {
 	s16b health_who;
 	int row, col;
@@ -1624,13 +1624,13 @@ static void health_redraw(bool riding)
 
 	if (riding)
 	{
-		health_who = p_ptr->riding;
+		health_who = cr_ptr->riding;
 		row = ROW_RIDING_INFO;
 		col = COL_RIDING_INFO;
 	}
 	else
 	{
-		health_who = p_ptr->health_who;
+		health_who = cr_ptr->health_who;
 		row = ROW_INFO;
 		col = COL_INFO;
 	}
@@ -1652,7 +1652,7 @@ static void health_redraw(bool riding)
 	}
 
 	/* Tracking a hallucinatory monster */
-	else if (p_ptr->image)
+	else if (cr_ptr->image)
 	{
 		/* Indicate that the monster health is "unknown" */
 		Term_putstr(col, row, 12, TERM_WHITE, "[----------]");
@@ -1712,51 +1712,48 @@ static void health_redraw(bool riding)
 /*
  * Display basic info (mostly left of map)
  */
-static void prt_frame_basic(void)
+static void prt_frame_basic(creature_type *cr_ptr)
 {
 	int i;
 
 	/* Race and Class */
-	if (p_ptr->mimic_form)
-		prt_field(mimic_info[p_ptr->mimic_form].title, ROW_RACE, COL_RACE);
+	if (cr_ptr->mimic_form)
+		prt_field(mimic_info[cr_ptr->mimic_form].title, ROW_RACE, COL_RACE);
 	else
 	{
 		char str[14];
-		my_strcpy(str, race_info[p_ptr->irace_idx].title, sizeof(str));
+		my_strcpy(str, race_info[cr_ptr->irace_idx].title, sizeof(str));
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
-/*	prt_field(class_info[p_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
-/*	prt_field(chara_info[p_ptr->chara_idx].title, ROW_CHARA, COL_CHARA); */
-
 
 	/* Title */
-	prt_title(p_ptr);
+	prt_title(cr_ptr);
 
 	/* Level/Experience */
-	prt_level(p_ptr);
-	prt_exp(p_ptr);
+	prt_level(cr_ptr);
+	prt_exp(cr_ptr);
 
 	/* All Stats */
-	for (i = 0; i < 6; i++) prt_stat(p_ptr, i);
+	for (i = 0; i < 6; i++) prt_stat(cr_ptr, i);
 
 	/* Armor */
-	prt_ac(p_ptr);
+	prt_ac(cr_ptr);
 
 	/* Hitpoints */
-	prt_hp(p_ptr);
+	prt_hp(cr_ptr);
 
 	/* Spellpoints */
-	prt_sp(p_ptr);
+	prt_sp(cr_ptr);
 
 	/* Gold */
-	prt_gold(p_ptr);
+	prt_gold(cr_ptr);
 
 	/* Current depth */
-	prt_depth(p_ptr);
+	prt_depth(cr_ptr);
 
 	/* Special */
-	health_redraw(FALSE);
-	health_redraw(TRUE);
+	health_redraw(cr_ptr, FALSE);
+	health_redraw(cr_ptr, TRUE);
 }
 
 
@@ -1788,9 +1785,9 @@ static void prt_frame_extra(creature_type *cr_ptr)
 
 
 /*
- * Hack -- display p_ptr->inventory in sub-windows
+ * Hack -- display inventory in sub-windows
  */
-static void fix_inven(void)
+static void fix_inven(creature_type *cr_ptr)
 {
 	int j;
 
@@ -1809,7 +1806,7 @@ static void fix_inven(void)
 		Term_activate(angband_term[j]);
 
 		/* Display inventory */
-		display_inven(p_ptr);
+		display_inven(cr_ptr);
 
 		/* Fresh */
 		Term_fresh();
@@ -2136,7 +2133,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	cptr p;
 
 	/* Hack -- must be literate */
-	if (!m_info[p_ptr->realm1].spell_book) return;
+	if (!m_info[cr_ptr->realm1].spell_book) return;
 
 	/* Hack -- wait for creation */
 	if (!character_generated) return;
@@ -2150,18 +2147,18 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		return;
 	}
 
-	p = spell_category_name(m_info[p_ptr->realm1].spell_book);
+	p = spell_category_name(m_info[cr_ptr->realm1].spell_book);
 
 	/* Determine the number of spells allowed */
-	levels = cr_ptr->lev - m_info[p_ptr->realm1].spell_first + 1;
+	levels = cr_ptr->lev - m_info[cr_ptr->realm1].spell_first + 1;
 
 	/* Hack -- no negative spells */
 	if (levels < 0) levels = 0;
 
 	/* Extract total allowed spells */
-	num_allowed = (adj_mag_study[cr_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]] * levels / 2);
+	num_allowed = (adj_mag_study[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] * levels / 2);
 
-	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (m_info[p_ptr->realm1].spell_book != TV_LIFE_BOOK))
+	if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (m_info[cr_ptr->realm1].spell_book != TV_LIFE_BOOK))
 	{
 		bonus = 4;
 	}
@@ -2220,9 +2217,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j < 32)
-			s_ptr = &m_info[p_ptr->realm1].info[cr_ptr->realm1-1][j];
+			s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &m_info[p_ptr->realm1].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we are allowed to know */
 		if (s_ptr->slevel <= cr_ptr->lev) continue;
@@ -2356,9 +2353,9 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if (j<32)
-			s_ptr = &m_info[p_ptr->realm1].info[cr_ptr->realm1-1][j];
+			s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm1-1][j];
 		else
-			s_ptr = &m_info[p_ptr->realm1].info[cr_ptr->realm2-1][j%32];
+			s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm2-1][j%32];
 
 		/* Skip spells we cannot remember */
 		if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2415,7 +2412,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		for (j = 0; j < 32; j++)
 		{
 			if (!is_magic(cr_ptr->realm1)) s_ptr = &technic_info[cr_ptr->realm1-MIN_TECHNIC][j];
-			else s_ptr = &m_info[p_ptr->realm1].info[cr_ptr->realm1-1][j];
+			else s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm1-1][j];
 
 			/* Skip spells we cannot remember */
 			if (s_ptr->slevel > cr_ptr->lev) continue;
@@ -2430,7 +2427,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 			k++;
 		}
 		if (k>32) k = 32;
-		if ((cr_ptr->new_spells > k) && ((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) || (m_info[p_ptr->realm1].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
+		if ((cr_ptr->new_spells > k) && ((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) || (m_info[cr_ptr->realm1].spell_book == TV_HISSATSU_BOOK))) cr_ptr->new_spells = k;
 	}
 
 	if (cr_ptr->new_spells < 0) cr_ptr->new_spells = 0;
@@ -2846,8 +2843,8 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	if (cr_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
-	if (hex_spelling(p_ptr, HEX_XTRA_MIGHT)) mhp += 15;
-	if (hex_spelling(p_ptr, HEX_BUILDING)) mhp += 60;
+	if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) mhp += 15;
+	if (hex_spelling(cr_ptr, HEX_BUILDING)) mhp += 60;
 
 	/* New maximum hitpoints */
 	if (cr_ptr->mhp != mhp)
@@ -5892,7 +5889,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if ((cr_ptr->inventory[i].tval == TV_NATURE_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_sw = TRUE;
 		if ((cr_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (cr_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
-	for (this_o_idx = cave[p_ptr->fy][p_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
+	for (this_o_idx = cave[cr_ptr->fy][cr_ptr->fx].o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
 
@@ -5963,30 +5960,30 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 /*
  * Handle "cr_ptr->notice"
  */
-void notice_stuff(void)
+void notice_stuff(creature_type *cr_ptr)
 {
 	/* Notice stuff */
-	if (!p_ptr->notice) return;
+	if (!cr_ptr->notice) return;
 
 
 	/* Actually do auto-destroy */
-	if (p_ptr->notice & (PN_AUTODESTROY))
+	if (cr_ptr->notice & (PN_AUTODESTROY))
 	{
-		p_ptr->notice &= ~(PN_AUTODESTROY);
+		cr_ptr->notice &= ~(PN_AUTODESTROY);
 		autopick_delayed_alter();
 	}
 
 	/* Combine the pack */
-	if (p_ptr->notice & (PN_COMBINE))
+	if (cr_ptr->notice & (PN_COMBINE))
 	{
-		p_ptr->notice &= ~(PN_COMBINE);
+		cr_ptr->notice &= ~(PN_COMBINE);
 		combine_pack();
 	}
 
 	/* Reorder the pack */
-	if (p_ptr->notice & (PN_REORDER))
+	if (cr_ptr->notice & (PN_REORDER))
 	{
-		p_ptr->notice &= ~(PN_REORDER);
+		cr_ptr->notice &= ~(PN_REORDER);
 		reorder_pack();
 	}
 }
@@ -6145,7 +6142,7 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_frame_basic();
+		prt_frame_basic(cr_ptr);
 		prt_time();
 		prt_dungeon();
 	}
@@ -6232,13 +6229,13 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_HEALTH))
 	{
 		play_redraw &= ~(PR_HEALTH);
-		health_redraw(FALSE);
+		health_redraw(cr_ptr, FALSE);
 	}
 
 	if (play_redraw & (PR_UHEALTH))
 	{
 		play_redraw &= ~(PR_UHEALTH);
-		health_redraw(TRUE);
+		health_redraw(cr_ptr, TRUE);
 	}
 
 
@@ -6328,7 +6325,7 @@ void window_stuff(void)
 	if (play_window & (PW_INVEN))
 	{
 		play_window &= ~(PW_INVEN);
-		fix_inven();
+		fix_inven(p_ptr);
 	}
 
 	/* Display equipment */

@@ -3465,7 +3465,7 @@ bool process_the_world(int num, int who, bool vs_player)
 		reset_target(m_ptr);
 
 		/* Notice stuff */
-		if (p_ptr->notice) notice_stuff();
+		if (p_ptr->notice) notice_stuff(p_ptr);
 
 		/* Update stuff */
 		if (p_ptr->update) update_stuff(p_ptr, TRUE);

@@ -5042,7 +5042,7 @@ void do_cmd_store(void)
 		character_icky = TRUE;
 
 		/* Notice stuff */
-		notice_stuff();
+		notice_stuff(p_ptr);
 
 		/* Handle stuff */
 		handle_stuff();
