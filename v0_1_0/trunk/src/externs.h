@@ -1133,7 +1133,7 @@ extern void seal_of_mirror(int dam);
 
 /* spells2.c */
 extern void message_pain(int m_idx, int dam);
-extern void self_knowledge(void);
+extern void self_knowledge(creature_type *cr_ptr);
 extern bool detect_traps(int range, bool known);
 extern bool detect_doors(int range);
 extern bool detect_stairs(int range);

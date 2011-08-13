@@ -2334,7 +2334,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge();
+				self_knowledge(p_ptr);
 			}
 		}
 		break;
@@ -6944,7 +6944,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge();
+				self_knowledge(p_ptr);
 			}
 		}
 		break;
