@@ -2085,23 +2085,23 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	return fall_dam;
 }
 
-bool do_riding(bool force)
+bool do_riding(creature_type *cr_ptr, bool force)
 {
 	int x, y, dir = 0;
 	cave_type *c_ptr;
 	creature_type *m_ptr;
 
 	if (!get_rep_dir2(&dir)) return FALSE;
-	y = p_ptr->fy + ddy[dir];
-	x = p_ptr->fx + ddx[dir];
+	y = cr_ptr->fy + ddy[dir];
+	x = cr_ptr->fx + ddx[dir];
 	c_ptr = &cave[y][x];
 
-	if (p_ptr->special_defense & KATA_MUSOU) set_action(p_ptr, ACTION_NONE);
+	if (cr_ptr->special_defense & KATA_MUSOU) set_action(cr_ptr, ACTION_NONE);
 
-	if (p_ptr->riding)
+	if (cr_ptr->riding)
 	{
 		/* Skip non-empty grids */
-		if (!player_can_ride_aux(p_ptr, c_ptr, FALSE))
+		if (!player_can_ride_aux(cr_ptr, c_ptr, FALSE))
 		{
 #ifdef JP
 			msg_print("そちらには降りられません。");
@@ -2111,7 +2111,7 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(p_ptr, p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
+		if (!pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x)) return FALSE;
 
 		if (c_ptr->m_idx)
 		{
@@ -2125,17 +2125,17 @@ bool do_riding(bool force)
 			msg_print("There is a monster in the way!");
 #endif
 
-			py_attack(p_ptr, y, x, 0);
+			py_attack(cr_ptr, y, x, 0);
 			return FALSE;
 		}
 
-		p_ptr->riding = 0;
-		p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-		p_ptr->riding_ryoute = p_ptr->old_riding_ryoute = FALSE;
+		cr_ptr->riding = 0;
+		cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+		cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
 	}
 	else
 	{
-		if (p_ptr->confused)
+		if (cr_ptr->confused)
 		{
 #ifdef JP
 			msg_print("混乱していて乗れない！");
@@ -2178,9 +2178,9 @@ bool do_riding(bool force)
 			return FALSE;
 		}
 
-		if (!pattern_seq(p_ptr, p_ptr->fy, p_ptr->fx, y, x)) return FALSE;
+		if (!pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x)) return FALSE;
 
-		if (!player_can_ride_aux(p_ptr, c_ptr, TRUE))
+		if (!player_can_ride_aux(cr_ptr, c_ptr, TRUE))
 		{
 			/* Feature code (applying "mimic" field) */
 			feature_type *f_ptr = &f_info[get_feat_mimic(c_ptr)];
@@ -2198,7 +2198,7 @@ bool do_riding(bool force)
 
 			return FALSE;
 		}
-		if (r_info[m_ptr->species_idx].level > randint1((p_ptr->skill_exp[GINOU_RIDING] / 50 + p_ptr->lev / 2 + 20)))
+		if (r_info[m_ptr->species_idx].level > randint1((cr_ptr->skill_exp[GINOU_RIDING] / 50 + cr_ptr->lev / 2 + 20)))
 		{
 #ifdef JP
 			msg_print("うまく乗れなかった。");
@@ -2223,21 +2223,21 @@ bool do_riding(bool force)
 #endif
 		}
 
-		if (p_ptr->action == ACTION_KAMAE) set_action(p_ptr, ACTION_NONE);
+		if (cr_ptr->action == ACTION_KAMAE) set_action(cr_ptr, ACTION_NONE);
 
-		p_ptr->riding = c_ptr->m_idx;
+		cr_ptr->riding = c_ptr->m_idx;
 
 		/* Hack -- remove tracked monster */
-		if (p_ptr->riding == p_ptr->health_who) health_track(0);
+		if (cr_ptr->riding == cr_ptr->health_who) health_track(0);
 	}
 
 	energy_use = 100;
 
 	/* Mega-Hack -- Forget the view and lite */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP | PR_EXTRA);
@@ -2245,7 +2245,7 @@ bool do_riding(bool force)
 	play_redraw |= (PR_UHEALTH);
 
 	/* Move the player */
-	(void)move_creature_effect(p_ptr, y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+	(void)move_creature_effect(cr_ptr, y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return TRUE;
 }
@@ -2970,7 +2970,7 @@ void do_cmd_pet(void)
 
 		case PET_RIDING:
 		{
-			(void)do_riding(FALSE);
+			(void)do_riding(p_ptr, FALSE);
 			break;
 		}
 

@@ -1303,7 +1303,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 				return FALSE;
 			}
-			if (!do_riding(TRUE)) return TRUE;
+			if (!do_riding(cr_ptr, TRUE)) return TRUE;
 			m_ptr = &m_list[cr_ptr->riding];
 			r_ptr = &r_info[m_ptr->species_idx];
 			monster_desc(m_name, m_ptr, 0);
