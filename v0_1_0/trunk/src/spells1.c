@@ -5439,7 +5439,7 @@ note_dies = "はドロドロに溶けた！";
 				cap_nickname = m_ptr->nickname; /* Quark transfer */
 				if (c_ptr->m_idx == who_ptr->riding)
 				{
-					if (rakuba(-1, FALSE))
+					if (rakuba(p_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -9322,7 +9322,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 		if (rakubadam_m > 0)
 		{
-			if (rakuba(rakubadam_m, FALSE))
+			if (rakuba(p_ptr, rakubadam_m, FALSE))
 			{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
@@ -9333,7 +9333,7 @@ msg_format("%^sに振り落とされた！", m_name);
 		}
 		if (p_ptr->riding && rakubadam_p > 0)
 		{
-			if(rakuba(rakubadam_p, FALSE))
+			if(rakuba(p_ptr, rakubadam_p, FALSE))
 			{
 #ifdef JP
 msg_format("%^sから落ちてしまった！", m_name);

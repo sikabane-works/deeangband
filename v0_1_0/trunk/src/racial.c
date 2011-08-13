@@ -1335,7 +1335,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_format("You have thrown off by %s.",m_name);
 #endif
-				rakuba(1,TRUE);
+				rakuba(p_ptr, 1, TRUE);
 
 				/* Paranoia */
 				/* —”nˆ—‚É¸”s‚µ‚Ä‚à‚Æ‚É‚©‚­æ”n‰ğœ */

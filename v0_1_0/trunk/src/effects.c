@@ -6216,7 +6216,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			monster_desc(m_name, tar_ptr, 0);
 	
 			if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
-			if (rakuba((damage > 200) ? 200 : damage, FALSE))
+			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 	#ifdef JP
 	msg_format("%^s‚ÉU‚è—‚Æ‚³‚ê‚½I", m_name);

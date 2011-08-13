@@ -2259,7 +2259,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 		{
 			char atk_name[80];
 			monster_desc(atk_name, &m_list[tar_ptr->riding], 0);
-			if (rakuba((damage > 200) ? 200 : damage, FALSE))
+			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 #ifdef JP
 msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);

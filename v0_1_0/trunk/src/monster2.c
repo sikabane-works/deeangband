@@ -3042,9 +3042,9 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 #endif
 		if (!(r_ptr->flags7 & RF7_RIDING))
 #ifdef JP
-			if (rakuba(0, TRUE)) msg_print("地面に落とされた。");
+			if (rakuba(p_ptr, 0, TRUE)) msg_print("地面に落とされた。");
 #else
-			if (rakuba(0, TRUE)) msg_format("You have fallen from %s.", m_name);
+			if (rakuba(p_ptr, 0, TRUE)) msg_format("You have fallen from %s.", m_name);
 #endif
 	}
 

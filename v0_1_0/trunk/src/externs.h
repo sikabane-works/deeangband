@@ -813,7 +813,7 @@ extern cptr spell_category_name(int tval);
 extern void do_cmd_browse(void);
 extern void do_cmd_study(void);
 extern void do_cmd_cast(void);
-extern bool rakuba(int dam, bool force);
+extern bool rakuba(creature_type *cr_ptr, int dam, bool force);
 extern bool do_riding(bool force);
 extern void check_pets_num_and_align(creature_type *m_ptr, bool inc);
 extern int calculate_upkeep(void);

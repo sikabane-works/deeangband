@@ -383,7 +383,7 @@ msg_format("%^sは殺された。", m_name);
 		monster_desc(m_name, cr_ptr, 0);
 
 		if (cr_ptr->chp > cr_ptr->mhp/3) dam = (dam + 1) / 2;
-		if (rakuba((dam > 200) ? 200 : dam, FALSE))
+		if (rakuba(p_ptr, (dam > 200) ? 200 : dam, FALSE))
 		{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
@@ -1491,7 +1491,7 @@ static void process_monster(int m_idx)
 
 	if (is_riding_mon && !(r_ptr->flags7 & RF7_RIDING))
 	{
-		if (rakuba(0, TRUE))
+		if (rakuba(p_ptr, 0, TRUE))
 		{
 #ifdef JP
 			msg_print("地面に落とされた。");
@@ -1636,7 +1636,7 @@ static void process_monster(int m_idx)
 #else
 					msg_format("%^s succeeded to escape from your restriction!", m_name);
 #endif
-					if (rakuba(-1, FALSE))
+					if (rakuba(p_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -1666,7 +1666,7 @@ static void process_monster(int m_idx)
 #endif
 				}
 
-				if (is_riding_mon && rakuba(-1, FALSE))
+				if (is_riding_mon && rakuba(p_ptr, -1, FALSE))
 				{
 #ifdef JP
 					msg_print("地面に落とされた。");

@@ -821,7 +821,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 
 	if (cr_ptr == &m_list[p_ptr->riding])
 	{
-		if (rakuba(-1, FALSE))
+		if (rakuba(p_ptr, -1, FALSE))
 		{
 #ifdef JP
 msg_print("地面に落とされた。");
@@ -1949,7 +1949,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 #endif
 
 #if 0
-	if (atk_ptr->riding && (atk_ptr->riding == m_idx) && (damage > 0))
+	if (tar_ptr->riding && (rar_ptr->riding == m_idx) && (damage > 0))
 	{
 		char m_name[80];
 
@@ -1957,7 +1957,7 @@ msg_format("%sの首には賞金がかかっている。", m_name);
 		monster_desc(m_name, tar_ptr, 0);
 
 		if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
-		if (rakuba((damage > 200) ? 200 : damage, FALSE))
+		if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
 		{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
