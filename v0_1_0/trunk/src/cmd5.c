@@ -985,7 +985,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 }
 
 
-static void wild_magic(int spell)
+static void wild_magic(creature_type *cr_ptr, int spell)
 {
 	int counter = 0;
 	int type = SUMMON_BIZARRE1 + randint0(6);
@@ -998,16 +998,16 @@ static void wild_magic(int spell)
 	case 1:
 	case 2:
 	case 3:
-		teleport_player(p_ptr, 10, TELEPORT_PASSIVE);
+		teleport_player(cr_ptr, 10, TELEPORT_PASSIVE);
 		break;
 	case 4:
 	case 5:
 	case 6:
-		teleport_player(p_ptr, 100, TELEPORT_PASSIVE);
+		teleport_player(cr_ptr, 100, TELEPORT_PASSIVE);
 		break;
 	case 7:
 	case 8:
-		teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
+		teleport_player(cr_ptr, 200, TELEPORT_PASSIVE);
 		break;
 	case 9:
 	case 10:
@@ -1029,7 +1029,7 @@ static void wild_magic(int spell)
 		break;
 	case 19:
 	case 20:
-		trap_creation(p_ptr->fy, p_ptr->fx);
+		trap_creation(cr_ptr->fy, cr_ptr->fx);
 		break;
 	case 21:
 	case 22:
@@ -1041,18 +1041,18 @@ static void wild_magic(int spell)
 		aggravate_monsters(NULL);
 		break;
 	case 26:
-		earthquake(p_ptr->fy, p_ptr->fx, 5);
+		earthquake(cr_ptr->fy, cr_ptr->fx, 5);
 		break;
 	case 27:
 	case 28:
-		(void)gain_random_mutation(p_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0);
 		break;
 	case 29:
 	case 30:
 		apply_disenchant(1);
 		break;
 	case 31:
-		lose_all_info(p_ptr);
+		lose_all_info(cr_ptr);
 		break;
 	case 32:
 		fire_ball(GF_CHAOS, 0, spell + 5, 1 + (spell / 10));
@@ -1064,15 +1064,15 @@ static void wild_magic(int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, p_ptr->fy, p_ptr->fx, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
+			(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, (dun_level * 3) / 2, type, (PM_ALLOW_GROUP | PM_NO_PET));
 		}
 		break;
 	case 36:
 	case 37:
-		activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+		activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(NULL, p_ptr->fy, p_ptr->fx);
+		(void)summon_cyber(NULL, cr_ptr->fy, cr_ptr->fx);
 		break;
 	default:
 		{
@@ -1361,7 +1361,7 @@ msg_print("カオス的な効果を発生した！");
 			msg_print("You produce a chaotic effect!");
 #endif
 
-			wild_magic(spell);
+			wild_magic(p_ptr, spell);
 		}
 		else if ((o_ptr->tval == TV_DEATH_BOOK) && (randint1(100) < spell))
 		{
