@@ -2717,7 +2717,7 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 /*
  * Hack -- determine if a given location is "interesting"
  */
-static bool target_set_accept(int y, int x)
+static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
@@ -2732,7 +2732,7 @@ static bool target_set_accept(int y, int x)
 
 
 	/* Handle hallucination */
-	if (p_ptr->image) return (FALSE);
+	if (cr_ptr->image) return (FALSE);
 
 
 	/* Examine the grid */
@@ -2782,7 +2782,7 @@ static bool target_set_accept(int y, int x)
  *
  * Return the number of target_able monsters in the set.
  */
-static void target_set_prepare(int mode)
+static void target_set_prepare(creature_type *cr_ptr, int mode)
 {
 	int y, x;
 
@@ -2797,7 +2797,7 @@ static void target_set_prepare(int mode)
 			cave_type *c_ptr;
 
 			/* Require "interesting" contents */
-			if (!target_set_accept(y, x)) continue;
+			if (!target_set_accept(p_ptr, y, x)) continue;
 
 			c_ptr = &cave[y][x];
 
@@ -2830,7 +2830,7 @@ static void target_set_prepare(int mode)
 	/* Sort the positions */
 	ang_sort(temp_x, temp_y, temp_n);
 
-	if (p_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
+	if (cr_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
 	{
 		byte tmp;
 
@@ -3748,7 +3748,7 @@ bool target_set(int mode)
 
 
 	/* Prepare the "temp" array */
-	target_set_prepare(mode);
+	target_set_prepare(p_ptr, mode);
 
 	/* Start near the player */
 	m = 0;
@@ -3873,7 +3873,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 					handle_stuff();
 
 					/* Recalculate interesting grids */
-					target_set_prepare(mode);
+					target_set_prepare(p_ptr, mode);
 
 					y = p_ptr->fy;
 					x = p_ptr->fx;
@@ -3920,7 +3920,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						int u = temp_x[m];
 
 						/* Recalculate interesting grids */
-						target_set_prepare(mode);
+						target_set_prepare(p_ptr, mode);
 
 						/* Look at interesting grids */
 						flag = TRUE;
@@ -3956,7 +3956,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						handle_stuff();
 
 						/* Recalculate interesting grids */
-						target_set_prepare(mode);
+						target_set_prepare(p_ptr, mode);
 
 						/* Look at boring grids */
 						flag = FALSE;
@@ -3983,7 +3983,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 						if ((y >= panel_row_min+hgt) || (y < panel_row_min) ||
 						    (x >= panel_col_min+wid) || (x < panel_col_min))
 						{
-							if (change_panel(dy, dx)) target_set_prepare(mode);
+							if (change_panel(dy, dx)) target_set_prepare(p_ptr, mode);
 						}
 
 						/* Slide into legality */
@@ -4073,7 +4073,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 					handle_stuff();
 
 					/* Recalculate interesting grids */
-					target_set_prepare(mode);
+					target_set_prepare(p_ptr, mode);
 
 					y = p_ptr->fy;
 					x = p_ptr->fx;
@@ -4164,7 +4164,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 				if ((y >= panel_row_min + hgt) || (y < panel_row_min) ||
 					 (x >= panel_col_min + wid) || (x < panel_col_min))
 				{
-					if (change_panel(dy, dx)) target_set_prepare(mode);
+					if (change_panel(dy, dx)) target_set_prepare(p_ptr, mode);
 				}
 
 				/* Slide into legality */
