@@ -3432,7 +3432,7 @@ void set_pet(creature_type *m_ptr)
 	if (!is_pet(m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
 
 	/* Check for quest completion */
-	check_quest_completion(m_ptr);
+	check_quest_completion(p_ptr, m_ptr);
 
 	m_ptr->smart |= SM_PET;
 	if (!(r_info[m_ptr->species_idx].flags3 & (RF3_EVIL | RF3_GOOD)))

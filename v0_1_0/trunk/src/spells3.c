@@ -796,7 +796,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		creature_type *m_ptr = &m_list[m_idx];
 
 		/* Check for quest completion */
-		check_quest_completion(m_ptr);
+		check_quest_completion(cr_ptr, m_ptr);
 
 		if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
 		{

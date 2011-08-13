@@ -196,7 +196,7 @@ msg_print("あなたは変わった気がする...");
 			msg_print("You feel different...");
 #endif
 
-			(void)gain_random_mutation(p_ptr, 0);
+			(void)gain_random_mutation(cr_ptr, 0);
 			level_mutation = FALSE;
 		}
 
@@ -380,7 +380,7 @@ static bool kind_is_hafted(int k_idx)
 /*
  * Check for "Quest" completion when a quest monster is killed or charmed.
  */
-void check_quest_completion(creature_type *m_ptr)
+void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr)
 {
 	int i, j, y, x, ny, nx, i2, j2;
 
@@ -455,7 +455,7 @@ void check_quest_completion(creature_type *m_ptr)
 					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)p_ptr->lev;
+					quest[i].complev = (byte)cr_ptr->lev;
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
@@ -496,7 +496,7 @@ msg_print("クエストを達成した！");
 					else
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
-						quest[i].complev = (byte)p_ptr->lev;
+						quest[i].complev = (byte)cr_ptr->lev;
 #ifdef JP
 						msg_print("クエストを達成した！");
 #else
@@ -523,7 +523,7 @@ msg_print("クエストを達成した！");
 					if (record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_nikki(NIKKI_RAND_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)p_ptr->lev;
+					quest[i].complev = (byte)cr_ptr->lev;
 					if (!(quest[i].flags & QUEST_FLAG_PRESET))
 					{
 						create_stairs = TRUE;
@@ -564,7 +564,7 @@ msg_print("クエストを達成した！");
 					if (record_fix_quest) do_cmd_write_nikki(NIKKI_FIX_QUEST_C, i, NULL);
 					 /* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)p_ptr->lev;
+					quest[i].complev = (byte)cr_ptr->lev;
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
@@ -608,7 +608,7 @@ msg_print("魔法の階段が現れた...");
 		cave_set_feat(y, x, feat_down_stair);
 
 		/* Remember to update everything */
-		p_ptr->update |= (PU_FLOW);
+		cr_ptr->update |= (PU_FLOW);
 	}
 
 	/*
@@ -640,7 +640,7 @@ msg_print("魔法の階段が現れた...");
 /*
  * Return monster death string
  */
-cptr extract_note_dies(species_type *r_ptr)
+cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
 {
 	/* Some monsters get "destroyed" */
 	if (!monster_living(r_ptr))
@@ -660,7 +660,7 @@ cptr extract_note_dies(species_type *r_ptr)
 		}
 
 #ifdef JP
-	if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(cr_ptr->chara_idx == CHARA_CHARGEMAN)
 		return "を倒した。ごめんね～";
 	else
 		return "を倒した。";
@@ -671,7 +671,7 @@ cptr extract_note_dies(species_type *r_ptr)
 
 	/* Assume a default death */
 #ifdef JP
-	if(p_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(cr_ptr->chara_idx == CHARA_CHARGEMAN)
 		return "は死んだ。ごめんね～";
 	else
 		return "は死んだ。";
@@ -768,7 +768,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	}
 
 	/* Check for quest completion */
-	check_quest_completion(cr_ptr);
+	check_quest_completion(p_ptr, cr_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
 	if (inside_arena && !is_pet(cr_ptr))
@@ -4668,7 +4668,7 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 			player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-		(void)gain_random_mutation(p_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0);
 #ifdef JP
 		reward = "変異した。";
 #else
@@ -4790,7 +4790,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(p_ptr->fy, p_ptr->fx, 1, FALSE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4812,7 +4812,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			msg_print("'Use my gift wisely.'");
 #endif
 
-			acquirement(p_ptr->fy, p_ptr->fx, 1, TRUE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -4931,7 +4931,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			q_ptr->name2 = EGO_CHAOTIC;
 
 			/* Drop it in the dungeon */
-			(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
+			(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 #ifdef JP
 			reward = "(混沌)の武器を手に入れた。";
 #else
@@ -4953,7 +4953,7 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 			msg_print("'Thy deed hath earned thee a worthy reward.'");
 #endif
 
-			acquirement(p_ptr->fy, p_ptr->fx, randint1(2) + 1, FALSE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
 #else
@@ -4975,7 +4975,7 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 #endif
 
-			acquirement(p_ptr->fy, p_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+			acquirement(cr_ptr->fy, cr_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
 #else
@@ -5021,7 +5021,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
-				(void)summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			}
 #ifdef JP
 			reward = "モンスターを召喚された。";
@@ -5044,7 +5044,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 			msg_print("'Thou needst worthier opponents!'");
 #endif
 
-			activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+			activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
 #ifdef JP
 			reward = "モンスターを召喚された。";
 #else
@@ -5158,7 +5158,7 @@ msg_format("%sの力が触れるのを感じた。",
 #endif
 
 				player_patrons[cr_ptr->patron_idx].title);
-			do_poly_wounds(p_ptr);
+			do_poly_wounds(cr_ptr);
 #ifdef JP
 			reward = "傷が変化した。";
 #else
@@ -5326,7 +5326,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 #endif
 					break;
 				case 2:
-					activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+					activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
 #ifdef JP
 					reward = "モンスターを召喚された。";
 #else
@@ -5395,7 +5395,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
 			}
-			activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+			activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
 			(void)activate_ty_curse(FALSE, &count);
 			if (one_in_(2))
 			{
@@ -5427,7 +5427,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			(void)destroy_area(p_ptr->fy, p_ptr->fx, 25, FALSE);
+			(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 25, FALSE);
 #ifdef JP
 			reward = "ダンジョンが*破壊*された。";
 #else
@@ -5506,7 +5506,7 @@ msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[cr_ptr->patron_
 			msg_format("%s rewards you with a demonic servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5527,7 +5527,7 @@ msg_format("%sは褒美として使いをよこした！",player_patrons[cr_ptr->patron_idx].t
 			msg_format("%s rewards you with a servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, 0, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, 0, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else
@@ -5548,7 +5548,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[cr_ptr->p
 			msg_format("%s rewards you with an undead servant!",player_patrons[cr_ptr->patron_idx].title);
 #endif
 
-			if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
+			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
 #ifdef JP
 msg_print("何も現れなかった...");
 #else

@@ -1795,7 +1795,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	cptr note = NULL;
 
 	/* Assume a default death */
-	cptr note_dies = extract_note_dies(real_r_ptr(m_ptr));
+	cptr note_dies = extract_note_dies(p_ptr, real_r_ptr(m_ptr));
 
 	int ty = m_ptr->fy;
 	int tx = m_ptr->fx;

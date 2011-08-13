@@ -1676,7 +1676,7 @@ static void process_monster(int m_idx)
 				}
 
 				/* Check for quest completion */
-				check_quest_completion(m_ptr);
+				check_quest_completion(p_ptr, m_ptr);
 
 				delete_species_idx(&m_list[m_idx]);
 
