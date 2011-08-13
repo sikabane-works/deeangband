@@ -4833,7 +4833,7 @@ msg_print("ウィザードモード突入。");
 			else if (p_ptr->cls_idx == CLASS_SAMURAI)
 				do_cmd_gain_hissatsu(p_ptr);
 			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
-				gain_magic();
+				gain_magic(p_ptr);
 			else
 				do_cmd_study();
 			break;

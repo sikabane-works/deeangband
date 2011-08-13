@@ -304,7 +304,7 @@ static bool do_cmd_archer(void)
 	return TRUE;
 }
 
-bool gain_magic(void)
+bool gain_magic(creature_type *cr_ptr)
 {
 	int item;
 	int pval;
@@ -325,12 +325,12 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -378,8 +378,8 @@ s = "魔力を取り込めるアイテムがない。";
 
 	if (o_ptr->tval == TV_ROD)
 	{
-		p_ptr->magic_num2[o_ptr->sval + ext] += o_ptr->number;
-		if (p_ptr->magic_num2[o_ptr->sval + ext] > 99) p_ptr->magic_num2[o_ptr->sval + ext] = 99;
+		cr_ptr->magic_num2[o_ptr->sval + ext] += o_ptr->number;
+		if (cr_ptr->magic_num2[o_ptr->sval + ext] > 99) cr_ptr->magic_num2[o_ptr->sval + ext] = 99;
 	}
 	else
 	{
@@ -388,17 +388,17 @@ s = "魔力を取り込めるアイテムがない。";
 		{
 			int gain_num = pval;
 			if (o_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
-			if (p_ptr->magic_num2[o_ptr->sval + ext])
+			if (cr_ptr->magic_num2[o_ptr->sval + ext])
 			{
 				gain_num *= 256;
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if (gain_num < 1) gain_num = 1;
 			}
-			p_ptr->magic_num2[o_ptr->sval + ext] += gain_num;
-			if (p_ptr->magic_num2[o_ptr->sval + ext] > 99) p_ptr->magic_num2[o_ptr->sval + ext] = 99;
-			p_ptr->magic_num1[o_ptr->sval + ext] += pval * 0x10000;
-			if (p_ptr->magic_num1[o_ptr->sval + ext] > 99 * 0x10000) p_ptr->magic_num1[o_ptr->sval + ext] = 99 * 0x10000;
-			if (p_ptr->magic_num1[o_ptr->sval + ext] > p_ptr->magic_num2[o_ptr->sval + ext] * 0x10000) p_ptr->magic_num1[o_ptr->sval + ext] = p_ptr->magic_num2[o_ptr->sval + ext] * 0x10000;
+			cr_ptr->magic_num2[o_ptr->sval + ext] += gain_num;
+			if (cr_ptr->magic_num2[o_ptr->sval + ext] > 99) cr_ptr->magic_num2[o_ptr->sval + ext] = 99;
+			cr_ptr->magic_num1[o_ptr->sval + ext] += pval * 0x10000;
+			if (cr_ptr->magic_num1[o_ptr->sval + ext] > 99 * 0x10000) cr_ptr->magic_num1[o_ptr->sval + ext] = 99 * 0x10000;
+			if (cr_ptr->magic_num1[o_ptr->sval + ext] > cr_ptr->magic_num2[o_ptr->sval + ext] * 0x10000) cr_ptr->magic_num1[o_ptr->sval + ext] = cr_ptr->magic_num2[o_ptr->sval + ext] * 0x10000;
 			if (o_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
 		}
 	}
@@ -1196,7 +1196,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_MAGIC_EATER:
 		{
-			if (!gain_magic()) return FALSE;
+			if (!gain_magic(p_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_BARD:

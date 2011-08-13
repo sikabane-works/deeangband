@@ -1110,7 +1110,7 @@ extern bool process_warning(int xx, int yy);
 extern void do_cmd_kaji(bool only_browse);
 
 /* racial.c */
-extern bool gain_magic(void);
+extern bool gain_magic(creature_type *cr_ptr);
 extern void do_cmd_racial_power(creature_type *cr_ptr);
 
 /* save.c */
