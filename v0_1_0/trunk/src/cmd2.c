@@ -785,7 +785,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 						(void)set_stun(cr_ptr, cr_ptr->stun + 10 + 
 						randint0(100));
 				}
-				else if (one_in_(3)) apply_disenchant(0);
+				else if (one_in_(3)) apply_disenchant(cr_ptr, 0);
 				else if (one_in_(2))
 				{
 					(void)do_dec_stat(cr_ptr, A_STR);

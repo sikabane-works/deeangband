@@ -856,7 +856,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (!tar_ptr->resist_disen && !(tar_ptr->multishadow && (turn & 1)))
 					{
 						/* Apply disenchantment */
-						if (apply_disenchant(0))
+						if (apply_disenchant(tar_ptr, 0))
 						{
 							/* Hack -- Update AC */
 							update_stuff(tar_ptr, TRUE);

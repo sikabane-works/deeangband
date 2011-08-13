@@ -573,11 +573,11 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 	teleport_away(cr_ptr, MAX_SIGHT * 2 + 5, 0L);
 
-	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !inside_battle && los(p_ptr->fy, p_ptr->fx, oldfy, oldfx))
+	if (old_ml && (old_cdis <= MAX_SIGHT) && !world_monster && !inside_battle && los(cr_ptr->fy, cr_ptr->fx, oldfy, oldfx))
 	{
 		bool follow = FALSE;
 
-		if ((p_ptr->muta1 & MUT1_VTELEPORT) || (p_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
+		if ((cr_ptr->muta1 & MUT1_VTELEPORT) || (cr_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
@@ -586,7 +586,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 
 			for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			{
-				o_ptr = &p_ptr->inventory[i];
+				o_ptr = &cr_ptr->inventory[i];
 				if (o_ptr->k_idx && !object_is_cursed(o_ptr))
 				{
 					object_flags(o_ptr, flgs);
@@ -609,7 +609,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 			{
 				if (one_in_(3))
 				{
-					teleport_player(p_ptr, 200, TELEPORT_PASSIVE);
+					teleport_player(cr_ptr, 200, TELEPORT_PASSIVE);
 #ifdef JP
 					msg_print("失敗！");
 #else
@@ -617,7 +617,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 #endif
 				}
 				else teleport_player_to(cr_ptr->fy, cr_ptr->fx, 0L);
-				p_ptr->energy_need += ENERGY_NEED();
+				cr_ptr->energy_need += ENERGY_NEED();
 			}
 		}
 	}
@@ -1067,7 +1067,7 @@ msg_format("%sの帰還レベルを %d 階にセット。", d_name+d_info[select_dungeon].nam
  *
  * Return "TRUE" if the player notices anything
  */
-bool apply_disenchant(int mode)
+bool apply_disenchant(creature_type *cr_ptr, int mode)
 {
 	int             t = 0;
 	object_type     *o_ptr;
@@ -1088,13 +1088,13 @@ bool apply_disenchant(int mode)
 	}
 
 	/* Get the item */
-	o_ptr = &p_ptr->inventory[t];
+	o_ptr = &cr_ptr->inventory[t];
 
 	/* No item, nothing happens */
 	if (!o_ptr->k_idx) return (FALSE);
 
 	/* Disenchant equipments only -- No disenchant on monster ball */
-	if (!object_is_weapon_armour_ammo(p_ptr, o_ptr))
+	if (!object_is_weapon_armour_ammo(cr_ptr, o_ptr))
 		return FALSE;
 
 	/* Nothing to disenchant */
@@ -1110,14 +1110,14 @@ bool apply_disenchant(int mode)
 
 
 	/* Artifacts have 71% chance to resist */
-	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 71))
+	if (object_is_artifact(cr_ptr, o_ptr) && (randint0(100) < 71))
 	{
 		/* Message */
 #ifdef JP
-msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(p_ptr, t) );
+msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(cr_ptr, t) );
 #else
 		msg_format("Your %s (%c) resist%s disenchantment!",
-			   o_name, index_to_label(p_ptr, t),
+			   o_name, index_to_label(cr_ptr, t),
 			   ((o_ptr->number != 1) ? "" : "s"));
 #endif
 
@@ -1155,23 +1155,23 @@ msg_format("%s(%c)は劣化を跳ね返した！",o_name, index_to_label(p_ptr, t) );
 		/* Message */
 #ifdef JP
 		msg_format("%s(%c)は劣化してしまった！",
-			   o_name, index_to_label(p_ptr, t) );
+			   o_name, index_to_label(cr_ptr, t) );
 #else
 		msg_format("Your %s (%c) %s disenchanted!",
-			   o_name, index_to_label(p_ptr, t),
+			   o_name, index_to_label(cr_ptr, t),
 			   ((o_ptr->number != 1) ? "were" : "was"));
 #endif
 
-		chg_virtue(p_ptr, V_HARMONY, 1);
-		chg_virtue(p_ptr, V_ENCHANT, -2);
+		chg_virtue(cr_ptr, V_HARMONY, 1);
+		chg_virtue(cr_ptr, V_ENCHANT, -2);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP | PW_PLAYER);
 
-		calc_android_exp(p_ptr);
+		calc_android_exp(cr_ptr);
 	}
 
 	/* Notice */

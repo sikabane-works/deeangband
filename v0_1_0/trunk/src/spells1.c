@@ -6940,7 +6940,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			}
 			else if (!(p_ptr->multishadow && (turn & 1)))
 			{
-				(void)apply_disenchant(0);
+				(void)apply_disenchant(p_ptr, 0);
 			}
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;

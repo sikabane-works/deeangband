@@ -1049,7 +1049,7 @@ static void wild_magic(creature_type *cr_ptr, int spell)
 		break;
 	case 29:
 	case 30:
-		apply_disenchant(1);
+		apply_disenchant(cr_ptr, 1);
 		break;
 	case 31:
 		lose_all_info(cr_ptr);

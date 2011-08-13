@@ -1255,7 +1255,7 @@ extern int choose_dungeon(cptr note, int y, int x);
 extern bool recall_player(int turns);
 extern bool word_of_recall(void);
 extern bool reset_recall(void);
-extern bool apply_disenchant(int mode);
+extern bool apply_disenchant(creature_type *cr_ptr, int mode);
 extern void mutate_creature(creature_type *cr_ptr);
 extern void apply_nexus(creature_type *m_ptr);
 extern void phlogiston(void);
