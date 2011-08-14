@@ -3162,7 +3162,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!rustproof()) return NULL;
+				if (!rustproof(p_ptr)) return NULL;
 			}
 		}
 		break;

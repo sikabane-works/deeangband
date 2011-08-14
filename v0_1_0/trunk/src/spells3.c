@@ -5155,7 +5155,7 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 }
 
 
-bool rustproof(void)
+bool rustproof(creature_type *cr_ptr)
 {
 	int         item;
 	object_type *o_ptr;
@@ -5175,12 +5175,12 @@ s = "K~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -5217,7 +5217,7 @@ msg_format("%s‚Í•…H‚µ‚È‚­‚È‚Á‚½B", o_name);
 #endif
 
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	return TRUE;
 }
