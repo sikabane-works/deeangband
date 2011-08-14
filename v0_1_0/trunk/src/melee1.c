@@ -1250,7 +1250,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += acid_dam(damage, ddesc, -1);
+					get_damage += acid_dam(tar_ptr, damage, ddesc, -1);
 
 					/* Hack -- Update AC */
 					update_stuff(tar_ptr, TRUE);
@@ -1276,7 +1276,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += elec_dam(damage, ddesc, -1);
+					get_damage += elec_dam(tar_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_ELEC);
@@ -1299,7 +1299,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += fire_dam(damage, ddesc, -1);
+					get_damage += fire_dam(tar_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_FIRE);
@@ -1322,7 +1322,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 					/* Special damage */
-					get_damage += cold_dam(damage, ddesc, -1);
+					get_damage += cold_dam(tar_ptr, damage, ddesc, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_COLD);

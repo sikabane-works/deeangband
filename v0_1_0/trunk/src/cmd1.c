@@ -1417,9 +1417,9 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 
 			dam = damroll(4, 6);
 #ifdef JP
-			(void)fire_dam(dam, "炎のトラップ", -1);
+			(void)fire_dam(cr_ptr, dam, "炎のトラップ", -1);
 #else
-			(void)fire_dam(dam, "a fire trap", -1);
+			(void)fire_dam(cr_ptr, dam, "a fire trap", -1);
 #endif
 
 			break;
@@ -1435,9 +1435,9 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 
 			dam = damroll(4, 6);
 #ifdef JP
-			(void)acid_dam(dam, "酸のトラップ", -1);
+			(void)acid_dam(cr_ptr, dam, "酸のトラップ", -1);
 #else
-			(void)acid_dam(dam, "an acid trap", -1);
+			(void)acid_dam(cr_ptr, dam, "an acid trap", -1);
 #endif
 
 			break;

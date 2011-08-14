@@ -6531,7 +6531,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by acid!");
 #endif
 			
-			get_damage = acid_dam(dam, killer, monspell);
+			get_damage = acid_dam(p_ptr, dam, killer, monspell);
 			break;
 		}
 
@@ -6544,7 +6544,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by fire!");
 #endif
 
-			get_damage = fire_dam(dam, killer, monspell);
+			get_damage = fire_dam(p_ptr, dam, killer, monspell);
 			break;
 		}
 
@@ -6557,7 +6557,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by cold!");
 #endif
 
-			get_damage = cold_dam(dam, killer, monspell);
+			get_damage = cold_dam(p_ptr, dam, killer, monspell);
 			break;
 		}
 
@@ -6570,7 +6570,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by lightning!");
 #endif
 
-			get_damage = elec_dam(dam, killer, monspell);
+			get_damage = elec_dam(p_ptr, dam, killer, monspell);
 			break;
 		}
 
@@ -7381,7 +7381,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something sharp and cold!");
 #endif
 
-			get_damage = cold_dam(dam, killer, monspell);
+			get_damage = cold_dam(p_ptr, dam, killer, monspell);
 			if (!(p_ptr->multishadow && (turn & 1)))
 			{
 				if (!p_ptr->resist_shard)
