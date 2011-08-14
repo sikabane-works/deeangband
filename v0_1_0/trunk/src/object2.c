@@ -5288,7 +5288,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 	/* Mega-Hack -- no message if "dropped" by player */
 	/* Message when an object falls under the player */
-	if (chance && player_bold(by, bx))
+	if (chance && creature_bold(p_ptr, by, bx))
 	{
 #ifdef JP
 		msg_print("‰½‚©‚ª‘«‰º‚É“]‚ª‚Á‚Ä‚«‚½B");

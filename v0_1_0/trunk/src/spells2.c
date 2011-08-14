@@ -5154,7 +5154,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
 				/* Hack -- Notice player affect */
-				if (player_bold(y, x))
+				if (creature_bold(p_ptr, y, x))
 				{
 					/* Hurt the player later */
 					flag = TRUE;
@@ -5470,7 +5470,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			map[16+yy-cy][16+xx-cx] = TRUE;
 
 			/* Hack -- Take note of player damage */
-			if (player_bold(yy, xx)) hurt = TRUE;
+			if (creature_bold(p_ptr, yy, xx)) hurt = TRUE;
 		}
 	}
 
@@ -5690,7 +5690,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 							if (map[16+y-cy][16+x-cx]) continue;
 
 							if (cave[y][x].m_idx) continue;
-							if (player_bold(y, x)) continue;
+							if (creature_bold(p_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
 							sn++;
@@ -5798,7 +5798,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			c_ptr = &cave[yy][xx];
 
 			/* Paranoia -- never affect player */
-/*			if (player_bold(yy, xx)) continue; */
+			if (creature_bold(p_ptr, yy, xx)) continue;
 
 			/* Destroy location (if valid) */
 			if (cave_valid_bold(yy, xx))
@@ -7282,7 +7282,7 @@ void wall_breaker(void)
 
 			if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
-			if (!player_bold(y, x)) break;
+			if (!creature_bold(p_ptr, y, x)) break;
 		}
 
 		project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
@@ -7302,7 +7302,7 @@ void wall_breaker(void)
 			{
 				scatter(&y, &x, p_ptr->fy, p_ptr->fx, 10, 0);
 
-				if (!player_bold(y, x)) break;
+				if (!creature_bold(p_ptr, y, x)) break;
 			}
 
 			project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
@@ -7572,7 +7572,7 @@ bool rush_attack(bool *mdeath)
 		}
 
 		/* Move player before updating the monster */
-		if (!player_bold(ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
 		update_mon(cave[ny][nx].m_idx, TRUE);
@@ -7589,7 +7589,7 @@ bool rush_attack(bool *mdeath)
 			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another monster" : "a monster") : "someone");
 #endif
 		}
-		else if (!player_bold(ty, tx))
+		else if (!creature_bold(p_ptr, ty, tx))
 		{
 			/* Hold the monster name */
 			char m_name[80];
@@ -7603,14 +7603,14 @@ bool rush_attack(bool *mdeath)
 #endif
 		}
 
-		if (!player_bold(ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
 		tmp_mdeath = py_attack(p_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}
 
-	if (!moved && !player_bold(ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+	if (!moved && !creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 
 	if (mdeath) *mdeath = tmp_mdeath;
 	return TRUE;

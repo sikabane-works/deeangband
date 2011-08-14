@@ -1342,7 +1342,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	}
 
 	/* Handle "player" */
-	if (player_bold(y, x))
+	if (creature_bold(p_ptr, y, x))
 	{
 		species_type *r_ptr = &r_info[0];
 
@@ -4191,7 +4191,7 @@ void update_flow(void)
 			x = tx + ddx_ddd[d];
 
 			/* Ignore player's grid */
-			if (player_bold(y, x)) continue;
+			if (creature_bold(p_ptr, y, x)) continue;
 
 			c_ptr = &cave[y][x];
 

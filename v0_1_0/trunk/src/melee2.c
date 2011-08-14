@@ -37,7 +37,7 @@ static bool get_enemy_dir(int m_idx, int *mm)
 
 	creature_type *t_ptr;
 
-	if (riding_t_m_idx && player_bold(m_ptr->fy, m_ptr->fx))
+	if (riding_t_m_idx && creature_bold(p_ptr, m_ptr->fy, m_ptr->fx))
 	{
 		y = m_list[riding_t_m_idx].fy;
 		x = m_list[riding_t_m_idx].fx;
@@ -369,7 +369,7 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 
 	if ((dam > 0) && !is_pet(cr_ptr) && !is_friendly(cr_ptr) && (&m_list[who] != cr_ptr))
 	{
-		if (is_pet(&m_list[who]) && !player_bold(cr_ptr->target_y, cr_ptr->target_x))
+		if (is_pet(&m_list[who]) && !creature_bold(cr_ptr, cr_ptr->target_y, cr_ptr->target_x))
 		{
 			set_target(cr_ptr, m_list[who].fy, m_list[who].fx);
 		}
@@ -523,7 +523,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		if (!in_bounds2(y, x)) continue;
 
 		/* Simply move to player */
-		if (player_bold(y, x)) return (FALSE);
+		if (creature_bold(p_ptr, y, x)) return (FALSE);
 
 		c_ptr = &cave[y][x];
 
@@ -2106,7 +2106,7 @@ msg_format("%^s%s", m_name, monmessage);
 		y_ptr = &m_list[c_ptr->m_idx];
 
 		/* Hack -- player 'in' wall */
-		if (player_bold(ny, nx))
+		if (creature_bold(p_ptr, ny, nx))
 		{
 			do_move = TRUE;
 		}
@@ -2257,7 +2257,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		/* Hack -- check for Glyph of Warding */
 		if (do_move && is_glyph_grid(c_ptr) &&
-		    !((r_ptr->flags1 & RF1_NEVER_BLOW) && player_bold(ny, nx)))
+		    !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(p_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2290,7 +2290,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !((r_ptr->flags1 & RF1_NEVER_BLOW) && player_bold(ny, nx)))
+			 !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(p_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2339,7 +2339,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* The player is in the way */
-		if (do_move && player_bold(ny, nx))
+		if (do_move && creature_bold(p_ptr, ny, nx))
 		{
 			/* Some monsters never attack */
 			if (r_ptr->flags1 & RF1_NEVER_BLOW)

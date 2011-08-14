@@ -4474,12 +4474,12 @@
 /*
  * Determine if player is on this grid
  */
-#define player_bold(Y,X) \
-	(((Y) == p_ptr->fy) && ((X) == p_ptr->fx))
+#define creature_bold(C,Y,X) \
+	(((Y) == (C)->fy) && ((X) == (C)->fx))
 
 
 /*
- * Grid based version of "player_bold()"
+ * Grid based version of "creature_bold()"
  */
 #define player_grid(C) \
 	((C) == &cave[p_ptr->fy][p_ptr->fx])
@@ -4546,7 +4546,7 @@
 #define cave_empty_bold(Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_PLACE) && \
 	 !(cave[Y][X].m_idx) && \
-	 !player_bold(Y,X))
+	 !creature_bold(p_ptr, Y,X))
 
 
 /*
@@ -4571,7 +4571,7 @@
 #define cave_naked_bold(Y,X) \
 	(cave_clean_bold(Y,X) && \
 	 !(cave[Y][X].m_idx) && \
-	 !player_bold(Y,X))
+	 !creature_bold(p_ptr, Y,X))
 
 
 /*

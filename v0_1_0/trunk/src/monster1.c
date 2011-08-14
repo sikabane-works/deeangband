@@ -3547,7 +3547,7 @@ bool monster_can_enter(int y, int x, species_type *r_ptr, u16b mode)
 	cave_type *c_ptr = &cave[y][x];
 
 	/* Player or other monster */
-	if (player_bold(y, x)) return FALSE;
+	if (creature_bold(p_ptr, y, x)) return FALSE;
 	if (c_ptr->m_idx) return FALSE;
 
 	return monster_can_cross_terrain(c_ptr->feat, r_ptr, mode);

@@ -382,7 +382,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (player_bold(y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -471,7 +471,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (player_bold(y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -542,7 +542,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (player_bold(y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -887,7 +887,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (player_bold(y, x)) break;
+			if (creature_bold(p_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(y, x, feat_door[DOOR_DOOR].closed);
@@ -914,7 +914,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (player_bold(y, x)) break;
+			if (creature_bold(p_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(y, x, feat_tree);
@@ -950,7 +950,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (player_bold(y, x)) break;
+			if (creature_bold(p_ptr, y, x)) break;
 
 			/* Place a wall */
 			cave_set_feat(y, x, feat_granite);
@@ -1031,7 +1031,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 
 				if (p_ptr->special_defense & NINJA_S_STEALTH)
 				{
-					if (player_bold(y, x)) set_superstealth(p_ptr, FALSE);
+					if (creature_bold(p_ptr, y, x)) set_superstealth(p_ptr, FALSE);
 				}
 			}
 
@@ -6310,7 +6310,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 				set_target(m_ptr, monster_target_y, monster_target_x);
 			}
 		}
-		else if ((who_ptr != who_ptr) && is_pet(who_ptr) && !player_bold(m_ptr->target_y, m_ptr->target_x))
+		else if ((who_ptr != who_ptr) && is_pet(who_ptr) && !creature_bold(m_ptr, m_ptr->target_y, m_ptr->target_x))
 		{
 			set_target(m_ptr, who_ptr->fy, who_ptr->fx);
 		}
@@ -6399,7 +6399,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 
 	/* Player is not here */
-	if (!player_bold(y, x)) return (FALSE);
+	if (!creature_bold(p_ptr, y, x)) return (FALSE);
 
 	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && !is_player(who_ptr) && (who_ptr != &m_list[p_ptr->riding]))
 	{
@@ -9115,7 +9115,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					if (is_original_ap_and_seen(p_ptr, m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
 
 					/* Reflected bolts randomly target either one */
-					if (player_bold(y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
+					if (creature_bold(p_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
@@ -9139,7 +9139,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 
 			/* There is the riding player on this monster */
-			if (p_ptr->riding && player_bold(y, x))
+			if (p_ptr->riding && creature_bold(p_ptr, y, x))
 			{
 				/* Aimed on the player */
 				if (flg & PROJECT_PLAYER)
@@ -9258,7 +9258,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			x = gx[i];
 
 			/* Affect the player? */
-			if (!player_bold(y, x)) continue;
+			if (!creature_bold(p_ptr, y, x)) continue;
 
 			/* Find the closest point in the blast */
 			if (breath)

@@ -2728,7 +2728,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 	if (wild_mode && !wilderness[y][x].known) return (FALSE);
 
 	/* Player grid is always interesting */
-	if (player_bold(y, x)) return (TRUE);
+	if (creature_bold(cr_ptr, y, x)) return (TRUE);
 
 
 	/* Handle hallucination */
@@ -2954,7 +2954,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 #endif /* ALLOW_EASY_FLOOR */
 
 	/* Hack -- under the player */
-	if (player_bold(y, x))
+	if (creature_bold(p_ptr, y, x))
 	{
 		/* Description */
 #ifdef JP
@@ -5708,7 +5708,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 		case '5':
 		case '0':
 			/* illegal place */
-			if (player_bold(y, x)) ch = 0;
+			if (creature_bold(cr_ptr, y, x)) ch = 0;
 
 			/* okay place */
 			else success = TRUE;

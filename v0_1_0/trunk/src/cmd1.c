@@ -3772,7 +3772,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			(void)project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx, (60 + cr_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);
 
-			if (!player_bold(ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
+			if (!creature_bold(cr_ptr, ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
 		}
 
 		/* Spontaneous Searching */
@@ -3876,7 +3876,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		/* Hit the trap */
 		hit_trap(cr_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if (!player_bold(ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
+		if (!creature_bold(cr_ptr, ny, nx) || cr_ptr->is_dead || cr_ptr->leaving) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
@@ -3902,7 +3902,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		}
 	}
 
-	return player_bold(ny, nx) && !cr_ptr->is_dead && !cr_ptr->leaving;
+	return creature_bold(cr_ptr, ny, nx) && !cr_ptr->is_dead && !cr_ptr->leaving;
 }
 
 
@@ -5263,7 +5263,7 @@ void run_step(creature_type *cr_ptr, int dir)
 
 #endif /* ALLOW_EASY_DISARM -- TNB */
 
-	if (player_bold(cr_ptr->run_py, cr_ptr->run_px))
+	if (creature_bold(cr_ptr, cr_ptr->run_py, cr_ptr->run_px))
 	{
 		cr_ptr->run_py = 0;
 		cr_ptr->run_px = 0;

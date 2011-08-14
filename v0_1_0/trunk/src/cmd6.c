@@ -2451,7 +2451,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 					if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
-					if (!player_bold(y, x)) break;
+					if (!creature_bold(cr_ptr, y, x)) break;
 				}
 
 				project(cr_ptr, 0, y, x, damroll(6 + cr_ptr->lev / 8, 10), GF_LITE_WEAK,
@@ -4421,7 +4421,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 						if (!cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
-						if (!player_bold(y, x)) break;
+						if (!creature_bold(cr_ptr, y, x)) break;
 					}
 
 					project(cr_ptr, 3, y, x, 150, GF_ELEC,

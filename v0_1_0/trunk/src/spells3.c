@@ -28,7 +28,7 @@ static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, 
 	if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
 
 	if (c_ptr->m_idx && (&m_list[c_ptr->m_idx] != cr_ptr)) return FALSE;
-	if (player_bold(y, x)) return FALSE;
+	if (creature_bold(cr_ptr, y, x)) return FALSE;
 
 	/* Hack -- no teleport onto glyph of warding */
 	if (is_glyph_grid(c_ptr)) return FALSE;
@@ -418,7 +418,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 		if (!pick) break;
 	}
 
-	if (player_bold(y, x)) return FALSE;
+	if (creature_bold(cr_ptr, y, x)) return FALSE;
 
 	/* Sound */
 	sound(SOUND_TELEPORT);

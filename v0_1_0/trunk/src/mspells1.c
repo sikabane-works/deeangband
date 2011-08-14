@@ -467,7 +467,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 			}
 		}
 		/* Pets may not shoot through the character - TNB */
-		if (player_bold(y, x))
+		if (creature_bold(p_ptr, y, x))
 		{
 			if (friend) return (FALSE);
 		}
@@ -1684,7 +1684,7 @@ bool make_attack_spell(creature_type *cr_ptr)
 	}
 
 	/* Projectable? */
-	direct = player_bold(y, x);
+	direct = creature_bold(cr_ptr, y, x);
 
 	can_remember = is_original_ap_and_seen(p_ptr, cr_ptr);
 

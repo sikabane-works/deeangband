@@ -1769,7 +1769,7 @@ msg_print("その方向にはモンスターはいません。");
 			{
 				scatter(&y, &x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
-				if (!player_bold(y, x)) break;
+				if (!creature_bold(cr_ptr, y, x)) break;
 			}
 			project(cr_ptr, 0, y, x, damroll(6 + plev / 8, 10), typ,
 				(PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
