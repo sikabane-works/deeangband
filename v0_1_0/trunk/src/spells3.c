@@ -4823,13 +4823,13 @@ int set_cold_destroy(object_type *o_ptr)
  * New-style wands and rods handled correctly. -LM-
  * Returns number of items destroyed.
  */
-int inven_damage(inven_func typ, int perc)
+int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 {
 	int         i, j, k, amt;
 	object_type *o_ptr;
 	char        o_name[MAX_NLEN];
 
-	if ((p_ptr->multishadow && (turn & 1))) return 0;
+	if ((cr_ptr->multishadow && (turn & 1))) return 0;
 
 	if (inside_arena) return 0;
 
@@ -4839,13 +4839,13 @@ int inven_damage(inven_func typ, int perc)
 	/* Scan through the slots backwards */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 
 		/* Hack -- for now, skip artifacts */
-		if (object_is_artifact(p_ptr, o_ptr)) continue;
+		if (object_is_artifact(cr_ptr, o_ptr)) continue;
 
 		/* Give this item slot a shot at death */
 		if ((*typ)(o_ptr))
@@ -4870,7 +4870,7 @@ msg_format("%s(%c)が%s壊れてしまった！",
 #endif
 
 #ifdef JP
-o_name, index_to_label(p_ptr, i),
+o_name, index_to_label(cr_ptr, i),
     ((o_ptr->number > 1) ?
     ((amt == o_ptr->number) ? "全部" :
     (amt > 1 ? "何個か" : "一個")) : "")    );
@@ -4878,22 +4878,22 @@ o_name, index_to_label(p_ptr, i),
 				    ((o_ptr->number > 1) ?
 				    ((amt == o_ptr->number) ? "All of y" :
 				    (amt > 1 ? "Some of y" : "One of y")) : "Y"),
-				    o_name, index_to_label(p_ptr, i),
+				    o_name, index_to_label(cr_ptr, i),
 				    ((amt > 1) ? "were" : "was"));
 #endif
 
 #ifdef JP
-				if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+				if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 					msg_print("やりやがったな！");
 
-				if (p_ptr->chara_idx == CHARA_CHARGEMAN)
+				if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 					msg_print("なんて事をするんだ！");
 #endif
 
 				/* Potions smash open */
-				if (object_is_potion(p_ptr, o_ptr))
+				if (object_is_potion(cr_ptr, o_ptr))
 				{
-					(void)potion_smash_effect(0, p_ptr->fy, p_ptr->fx, o_ptr->k_idx);
+					(void)potion_smash_effect(0, cr_ptr->fy, cr_ptr->fx, o_ptr->k_idx);
 				}
 
 				/* Reduce the charges of rods/wands */
@@ -4921,29 +4921,29 @@ o_name, index_to_label(p_ptr, i),
  *
  * If any armor is damaged (or resists), the player takes less damage.
  */
-static int minus_ac(void)
+static int minus_ac(creature_type *cr_ptr)
 {
 	object_type *o_ptr = NULL;
 	u32b flgs[TR_FLAG_SIZE];
 	char        o_name[MAX_NLEN];
 
 
-	/* Pick a (possibly empty) p_ptr->inventory slot */
+	/* Pick a (possibly empty) inventory slot */
 	switch (randint1(7))
 	{
-		case 1: o_ptr = &p_ptr->inventory[INVEN_1STARM]; break;
-		case 2: o_ptr = &p_ptr->inventory[INVEN_2NDARM]; break;
-		case 3: o_ptr = &p_ptr->inventory[INVEN_BODY]; break;
-		case 4: o_ptr = &p_ptr->inventory[INVEN_OUTER]; break;
-		case 5: o_ptr = &p_ptr->inventory[INVEN_1STHANDS]; break;
-		case 6: o_ptr = &p_ptr->inventory[INVEN_1STHEAD]; break;
-		case 7: o_ptr = &p_ptr->inventory[INVEN_FEET]; break;
+		case 1: o_ptr = &cr_ptr->inventory[INVEN_1STARM]; break;
+		case 2: o_ptr = &cr_ptr->inventory[INVEN_2NDARM]; break;
+		case 3: o_ptr = &cr_ptr->inventory[INVEN_BODY]; break;
+		case 4: o_ptr = &cr_ptr->inventory[INVEN_OUTER]; break;
+		case 5: o_ptr = &cr_ptr->inventory[INVEN_1STHANDS]; break;
+		case 6: o_ptr = &cr_ptr->inventory[INVEN_1STHEAD]; break;
+		case 7: o_ptr = &cr_ptr->inventory[INVEN_FEET]; break;
 	}
 
 	/* Nothing to damage */
 	if (!o_ptr->k_idx) return (FALSE);
 
-	if (!object_is_armour(p_ptr, o_ptr)) return (FALSE);
+	if (!object_is_armour(cr_ptr, o_ptr)) return (FALSE);
 
 	/* No damage left to be done */
 	if (o_ptr->ac + o_ptr->to_a <= 0) return (FALSE);
@@ -4980,12 +4980,12 @@ msg_format("%sがダメージを受けた！", o_name);
 	o_ptr->to_a--;
 
 	/* Calculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	/* Item was damaged */
 	return (TRUE);
@@ -5023,15 +5023,15 @@ int acid_dam(int dam, cptr kb_str, int monspell)
 			(void)do_dec_stat(p_ptr, A_CHR);
 
 		/* If any armor gets hit, defend the player */
-		if (minus_ac()) dam = (dam + 1) / 2;
+		if (minus_ac(p_ptr)) dam = (dam + 1) / 2;
 	}
 
 	/* Take damage */
 	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
-	/* p_ptr->inventory damage */
+	/* inventory damage */
 	if (!(double_resist && p_ptr->resist_acid))
-		inven_damage(set_acid_destroy, inv);
+		inven_damage(p_ptr, set_acid_destroy, inv);
 	return get_damage;
 }
 
@@ -5070,7 +5070,7 @@ int elec_dam(int dam, cptr kb_str, int monspell)
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_elec))
-		inven_damage(set_elec_destroy, inv);
+		inven_damage(p_ptr, set_elec_destroy, inv);
 
 	return get_damage;
 }
@@ -5108,9 +5108,9 @@ int fire_dam(int dam, cptr kb_str, int monspell)
 	/* Take damage */
 	get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
 
-	/* p_ptr->inventory damage */
+	/* inventory damage */
 	if (!(double_resist && p_ptr->resist_fire))
-		inven_damage(set_fire_destroy, inv);
+		inven_damage(p_ptr, set_fire_destroy, inv);
 
 	return get_damage;
 }
@@ -5149,7 +5149,7 @@ int cold_dam(int dam, cptr kb_str, int monspell)
 
 	/* p_ptr->inventory damage */
 	if (!(double_resist && p_ptr->resist_cold))
-		inven_damage(set_cold_destroy, inv);
+		inven_damage(p_ptr, set_cold_destroy, inv);
 
 	return get_damage;
 }

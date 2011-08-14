@@ -6635,7 +6635,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				if (one_in_(6))
 				{
-					inven_damage(set_acid_destroy, 2);
+					inven_damage(p_ptr, set_acid_destroy, 2);
 				}
 			}
 			break;
@@ -6728,7 +6728,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			      IS_OPPOSE_FIRE(p_ptr) ||
 			      p_ptr->immune_fire))
 			{
-				inven_damage(set_acid_destroy, 3);
+				inven_damage(p_ptr, set_acid_destroy, 3);
 			}
 
 			break;
@@ -6791,7 +6791,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				if (one_in_(5))
 				{
-					inven_damage(set_cold_destroy, 3);
+					inven_damage(p_ptr, set_cold_destroy, 3);
 				}
 			}
 
@@ -6840,8 +6840,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				if (!p_ptr->resist_chaos || one_in_(9))
 				{
-					inven_damage(set_elec_destroy, 2);
-					inven_damage(set_fire_destroy, 2);
+					inven_damage(p_ptr, set_elec_destroy, 2);
+					inven_damage(p_ptr, set_fire_destroy, 2);
 				}
 			}
 
@@ -6869,7 +6869,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->resist_shard || one_in_(13))
 			{
-				inven_damage(set_cold_destroy, 2);
+				inven_damage(p_ptr, set_cold_destroy, 2);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -6897,7 +6897,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->resist_sound || one_in_(13))
 			{
-				inven_damage(set_cold_destroy, 2);
+				inven_damage(p_ptr, set_cold_destroy, 2);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7010,7 +7010,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->resist_shard || one_in_(12))
 			{
-				inven_damage(set_cold_destroy, 3);
+				inven_damage(p_ptr, set_cold_destroy, 3);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7234,7 +7234,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 			if (!p_ptr->levitation || one_in_(13))
 			{
-				inven_damage(set_cold_destroy, 2);
+				inven_damage(p_ptr, set_cold_destroy, 2);
 			}
 
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7365,8 +7365,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			if (!p_ptr->resist_shard || one_in_(13))
 			{
-				if (!p_ptr->immune_fire) inven_damage(set_fire_destroy, 2);
-				inven_damage(set_cold_destroy, 2);
+				if (!p_ptr->immune_fire) inven_damage(p_ptr, set_fire_destroy, 2);
+				inven_damage(p_ptr, set_cold_destroy, 2);
 			}
 
 			break;
@@ -7395,7 +7395,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				if ((!(p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr))) || one_in_(12))
 				{
-					if (!p_ptr->immune_cold) inven_damage(set_cold_destroy, 3);
+					if (!p_ptr->immune_cold) inven_damage(p_ptr, set_cold_destroy, 3);
 				}
 			}
 
