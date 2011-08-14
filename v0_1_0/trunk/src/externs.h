@@ -857,6 +857,7 @@ extern void initialize_skill(creature_type *cr_ptr);
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);
 extern cptr do_spell(int realm, int spell, int mode);
+extern void wild_magic(creature_type *cr_ptr, int spell);
 
 /* dungeon.c */
 extern void leave_quest_check(void);
