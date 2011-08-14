@@ -7266,7 +7266,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!enchant_spell(randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
+				if (!enchant_spell(p_ptr, randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
 			}
 		}
 		break;
@@ -7283,7 +7283,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!enchant_spell(0, 0, randint0(3) + 2)) return NULL;
+				if (!enchant_spell(p_ptr, 0, 0, randint0(3) + 2)) return NULL;
 			}
 		}
 		break;

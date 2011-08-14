@@ -2522,11 +2522,11 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 
 
 /*
- * Enchant an item (in the p_ptr->inventory or on the floor)
+ * Enchant an item (in the inventory or on the floor)
  * Note that "num_ac" requires armour, else weapon
  * Returns TRUE if attempted, FALSE if cancelled
  */
-bool enchant_spell(int num_hit, int num_dam, int num_ac)
+bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac)
 {
 	int         item;
 	bool        okay = FALSE;
@@ -2551,12 +2551,12 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2581,9 +2581,9 @@ msg_format("%s は明るく輝いた！",
 
 
 	/* Enchant */
-	if (enchant(p_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
-	if (enchant(p_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
-	if (enchant(p_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
+	if (enchant(cr_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
+	if (enchant(cr_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
+	if (enchant(cr_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
 
 	/* Failure */
 	if (!okay)
@@ -2598,12 +2598,12 @@ msg_print("強化に失敗した。");
 		msg_print("The enchantment failed.");
 #endif
 
-		if (one_in_(3)) chg_virtue(p_ptr, V_ENCHANT, -1);
+		if (one_in_(3)) chg_virtue(cr_ptr, V_ENCHANT, -1);
 	}
 	else
-		chg_virtue(p_ptr, V_ENCHANT, 1);
+		chg_virtue(cr_ptr, V_ENCHANT, 1);
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	/* Something happened */
 	return (TRUE);
