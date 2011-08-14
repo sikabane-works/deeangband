@@ -5226,7 +5226,7 @@ msg_format("%sは腐食しなくなった。", o_name);
 /*
  * Curse the players armor
  */
-bool curse_armor(void)
+bool curse_armor(creature_type *cr_ptr)
 {
 	int i;
 	object_type *o_ptr;
@@ -5235,7 +5235,7 @@ bool curse_armor(void)
 
 
 	/* Curse the body armor */
-	o_ptr = &p_ptr->inventory[INVEN_BODY];
+	o_ptr = &cr_ptr->inventory[INVEN_BODY];
 
 	/* Nothing to curse */
 	if (!o_ptr->k_idx) return (FALSE);
@@ -5245,7 +5245,7 @@ bool curse_armor(void)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 50))
+	if (object_is_artifact(cr_ptr, o_ptr) && (randint0(100) < 50))
 	{
 		/* Cool */
 #ifdef JP
@@ -5268,7 +5268,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		msg_format("A terrible black aura blasts your %s!", o_name);
 #endif
 
-		chg_virtue(p_ptr, V_ENCHANT, -5);
+		chg_virtue(cr_ptr, V_ENCHANT, -5);
 
 		/* Blast the armor */
 		o_ptr->name1 = 0;
@@ -5290,10 +5290,10 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 		o_ptr->ident |= (IDENT_BROKEN);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Recalculate mana */
-		p_ptr->update |= (PU_MANA);
+		cr_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);

@@ -1304,7 +1304,7 @@ extern int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
 extern int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
 extern int cold_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell);
 extern bool rustproof(void);
-extern bool curse_armor(void);
+extern bool curse_armor(creature_type *cr_ptr);
 extern bool curse_weapon(bool force, int slot);
 extern bool brand_bolts(void);
 extern bool polymorph_monster(int y, int x);

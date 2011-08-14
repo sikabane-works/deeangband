@@ -5293,7 +5293,7 @@ msg_print("「汝、防具に頼ることなかれ。」");
 #endif
 
 			object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
-			(void)curse_armor();
+			(void)curse_armor(cr_ptr);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
 #else
@@ -5355,7 +5355,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					{
 						if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
 						object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
-						(void)curse_armor();
+						(void)curse_armor(cr_ptr);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
 #else
@@ -5410,7 +5410,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 
 				if (dummy) (void)curse_weapon(FALSE, dummy);
 			}
-			if (one_in_(2)) (void)curse_armor();
+			if (one_in_(2)) (void)curse_armor(cr_ptr);
 			break;
 		case REW_DESTRUCT:
 #ifdef JP
