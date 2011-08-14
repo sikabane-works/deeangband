@@ -2538,7 +2538,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!alchemy()) return NULL;
+				if (!alchemy(p_ptr)) return NULL;
 			}
 		}
 		break;

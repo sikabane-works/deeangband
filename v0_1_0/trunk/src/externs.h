@@ -1270,7 +1270,7 @@ extern bool explosive_rune(void);
 extern void identify_pack(void);
 extern bool remove_curse(void);
 extern bool remove_all_curse(void);
-extern bool alchemy(void);
+extern bool alchemy(creature_type *cr_ptr);
 extern bool enchant(object_type *o_ptr, int n, int eflag);
 extern bool enchant_spell(int num_hit, int num_dam, int num_ac);
 extern bool artifact_scroll(void);

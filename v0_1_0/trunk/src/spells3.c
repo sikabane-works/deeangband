@@ -2243,7 +2243,7 @@ bool remove_all_curse(void)
 /*
  * Turns an object into gold, gain some of its value in a shop
  */
-bool alchemy(void)
+bool alchemy(creature_type *cr_ptr)
 {
 	int item, amt = 1;
 	int old_number;
@@ -2267,12 +2267,12 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2316,7 +2316,7 @@ sprintf(out_val, "本当に%sを金に変えますか？", o_name);
 	}
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(p_ptr, o_ptr))
+	if (!can_player_destroy_object(cr_ptr, o_ptr))
 	{
 		/* Message */
 #ifdef JP
@@ -2354,7 +2354,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 		msg_format("You turn %s to %ld coins worth of gold.", o_name, price);
 #endif
 
-		p_ptr->au += price;
+		cr_ptr->au += price;
 
 		/* Redraw gold */
 		play_redraw |= (PR_GOLD);

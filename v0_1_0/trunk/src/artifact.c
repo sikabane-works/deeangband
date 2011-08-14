@@ -2956,7 +2956,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows bright yellow...");
 #endif
 
-			(void)alchemy();
+			(void)alchemy(cr_ptr);
 			o_ptr->timeout = 500;
 			break;
 		}
