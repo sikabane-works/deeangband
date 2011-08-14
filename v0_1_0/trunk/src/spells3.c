@@ -2173,14 +2173,14 @@ static int enchant_table[16] =
  * "Heavy-Cursed" (Mormegil, Calris, and Weapons of Morgul)
  * will not be uncursed.
  */
-static int remove_curse_aux(int all)
+static int remove_curse_aux(creature_type *cr_ptr, int all)
 {
 	int i, cnt = 0;
 
 	/* Attempt to uncurse items being worn */
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -2209,7 +2209,7 @@ static int remove_curse_aux(int all)
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -2226,17 +2226,17 @@ static int remove_curse_aux(int all)
 /*
  * Remove most curses
  */
-bool remove_curse(void)
+bool remove_curse(creature_type *cr_ptr)
 {
-	return (remove_curse_aux(FALSE));
+	return (remove_curse_aux(cr_ptr, FALSE));
 }
 
 /*
  * Remove all curses
  */
-bool remove_all_curse(void)
+bool remove_all_curse(creature_type *cr_ptr)
 {
-	return (remove_curse_aux(TRUE));
+	return (remove_curse_aux(cr_ptr, TRUE));
 }
 
 

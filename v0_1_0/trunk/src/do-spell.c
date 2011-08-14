@@ -1382,7 +1382,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse())
+				if (remove_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1553,7 +1553,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse())
+				if (remove_all_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -6878,7 +6878,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse())
+				if (remove_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -7225,7 +7225,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse())
+				if (remove_all_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8430,7 +8430,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse())
+				if (remove_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8761,7 +8761,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse())
+				if (remove_all_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");

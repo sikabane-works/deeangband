@@ -1779,7 +1779,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_REMOVE_CURSE:
 		{
-			if (remove_curse())
+			if (remove_curse(cr_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1794,7 +1794,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_STAR_REMOVE_CURSE:
 		{
-			if (remove_all_curse())
+			if (remove_all_curse(p_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -2402,7 +2402,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_REMOVE_CURSE:
 		{
-			if (remove_curse())
+			if (remove_curse(cr_ptr))
 			{
 				if (magic)
 				{
@@ -5788,7 +5788,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your amulet exhibits the truth...");
 #endif
-				if (remove_all_curse())
+				if (remove_all_curse(p_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
