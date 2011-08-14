@@ -1586,7 +1586,7 @@ msg_format("あなたの%s%s", o_name, act);
 #endif
 
 
-		enchant(o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		o_ptr->discount = 99;
 		chg_virtue(p_ptr, V_ENCHANT, 2);
@@ -2421,11 +2421,11 @@ msg_print("かけられていた呪いが打ち破られた！");
  * Note that this function can now be used on "piles" of items, and
  * the larger the pile, the lower the chance of success.
  */
-bool enchant(object_type *o_ptr, int n, int eflag)
+bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 {
 	int     i, chance, prob;
 	bool    res = FALSE;
-	bool    a = object_is_artifact(p_ptr, o_ptr);
+	bool    a = object_is_artifact(cr_ptr, o_ptr);
 	bool    force = (eflag & ENCH_FORCE);
 
 
@@ -2505,15 +2505,15 @@ bool enchant(object_type *o_ptr, int n, int eflag)
 	if (!res) return (FALSE);
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	/* Success */
 	return (TRUE);
@@ -2581,9 +2581,9 @@ msg_format("%s は明るく輝いた！",
 
 
 	/* Enchant */
-	if (enchant(o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
-	if (enchant(o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
-	if (enchant(o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
+	if (enchant(p_ptr, o_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
+	if (enchant(p_ptr, o_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
+	if (enchant(p_ptr, o_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
 
 	/* Failure */
 	if (!okay)
@@ -3739,7 +3739,7 @@ msg_format("%sは輝いた！", o_name);
 		    ((o_ptr->number > 1) ? "" : "s"));
 #endif
 		o_ptr->name2 = EGO_REFLECTION;
-		enchant(o_ptr, randint0(3) + 4, ENCH_TOAC);
+		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
 
 		o_ptr->discount = 99;
 		chg_virtue(p_ptr, V_ENCHANT, 2);
@@ -5423,7 +5423,7 @@ msg_print("クロスボウの矢が炎のオーラに包まれた！");
 		o_ptr->name2 = EGO_FLAME;
 
 		/* Enchant */
-		enchant(o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		/* Notice */
 		return (TRUE);

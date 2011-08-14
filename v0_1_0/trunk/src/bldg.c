@@ -3780,7 +3780,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_h < maxenchant)
 		{
-			if (enchant(o_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
+			if (enchant(p_ptr, o_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3793,7 +3793,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_d < maxenchant)
 		{
-			if (enchant(o_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
+			if (enchant(p_ptr, o_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3806,7 +3806,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_a < maxenchant)
 		{
-			if (enchant(o_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
+			if (enchant(p_ptr, o_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
