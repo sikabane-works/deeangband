@@ -836,91 +836,91 @@ bool dispel_check(creature_type *cr_ptr)
 	species_type *r_ptr = &r_info[cr_ptr->species_idx];
 
 	/* Invulnabilty (including the song) */
-	if (IS_INVULN(p_ptr)) return (TRUE);
+	if (IS_INVULN(cr_ptr)) return (TRUE);
 
 	/* Wraith form */
-	if (p_ptr->wraith_form) return (TRUE);
+	if (cr_ptr->wraith_form) return (TRUE);
 
 	/* Shield */
-	if (p_ptr->shield) return (TRUE);
+	if (cr_ptr->shield) return (TRUE);
 
 	/* Magic defence */
-	if (p_ptr->magicdef) return (TRUE);
+	if (cr_ptr->magicdef) return (TRUE);
 
 	/* Multi Shadow */
-	if (p_ptr->multishadow) return (TRUE);
+	if (cr_ptr->multishadow) return (TRUE);
 
 	/* Robe of dust */
-	if (p_ptr->dustrobe) return (TRUE);
+	if (cr_ptr->dustrobe) return (TRUE);
 
 	/* Berserk Strength */
-	if (p_ptr->shero && (p_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
+	if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Demon Lord */
-	if (p_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
+	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
 
 	/* Elemental resistances */
 	if (r_ptr->flags4 & RF4_BR_ACID)
 	{
-		if (!p_ptr->immune_acid && (p_ptr->oppose_acid || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
-		if (p_ptr->special_defense & DEFENSE_ACID) return (TRUE);
+		if (!cr_ptr->immune_acid && (cr_ptr->oppose_acid || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
+		if (cr_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
 	if (r_ptr->flags4 & RF4_BR_FIRE)
 	{
-		if (!((p_ptr->irace_idx == RACE_DEMON || p_ptr->irace_idx == RACE_BALROG) && p_ptr->lev > 44))
+		if (!((cr_ptr->irace_idx == RACE_DEMON || cr_ptr->irace_idx == RACE_BALROG) && cr_ptr->lev > 44))
 		{
-			if (!p_ptr->immune_fire && (p_ptr->oppose_fire || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
-			if (p_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
+			if (!cr_ptr->immune_fire && (cr_ptr->oppose_fire || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
+			if (cr_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
 		}
 	}
 
 	if (r_ptr->flags4 & RF4_BR_ELEC)
 	{
-		if (!p_ptr->immune_elec && (p_ptr->oppose_elec || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
-		if (p_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
+		if (!cr_ptr->immune_elec && (cr_ptr->oppose_elec || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
+		if (cr_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
 	if (r_ptr->flags4 & RF4_BR_COLD)
 	{
-		if (!p_ptr->immune_cold && (p_ptr->oppose_cold || music_singing(p_ptr, MUSIC_RESIST))) return (TRUE);
-		if (p_ptr->special_defense & DEFENSE_COLD) return (TRUE);
+		if (!cr_ptr->immune_cold && (cr_ptr->oppose_cold || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
+		if (cr_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 
 	if (r_ptr->flags4 & (RF4_BR_POIS | RF4_BR_NUKE))
 	{
-		if (!((p_ptr->cls_idx == CLASS_NINJA) && p_ptr->lev > 44))
+		if (!((cr_ptr->cls_idx == CLASS_NINJA) && cr_ptr->lev > 44))
 		{
-			if (p_ptr->oppose_pois || music_singing(p_ptr, MUSIC_RESIST)) return (TRUE);
-			if (p_ptr->special_defense & DEFENSE_POIS) return (TRUE);
+			if (cr_ptr->oppose_pois || music_singing(cr_ptr, MUSIC_RESIST)) return (TRUE);
+			if (cr_ptr->special_defense & DEFENSE_POIS) return (TRUE);
 		}
 	}
 
 	/* Ultimate resistance */
-	if (p_ptr->ult_res) return (TRUE);
+	if (cr_ptr->ult_res) return (TRUE);
 
 	/* Potion of Neo Tsuyosi special */
-	if (p_ptr->tsuyoshi) return (TRUE);
+	if (cr_ptr->tsuyoshi) return (TRUE);
 
 	/* Elemental Brands */
-	if ((p_ptr->special_attack & ATTACK_ACID) && !(r_ptr->flagsr & RFR_EFF_IM_ACID_MASK)) return (TRUE);
-	if ((p_ptr->special_attack & ATTACK_FIRE) && !(r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK)) return (TRUE);
-	if ((p_ptr->special_attack & ATTACK_ELEC) && !(r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK)) return (TRUE);
-	if ((p_ptr->special_attack & ATTACK_COLD) && !(r_ptr->flagsr & RFR_EFF_IM_COLD_MASK)) return (TRUE);
-	if ((p_ptr->special_attack & ATTACK_POIS) && !(r_ptr->flagsr & RFR_EFF_IM_POIS_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_ACID) && !(r_ptr->flagsr & RFR_EFF_IM_ACID_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_FIRE) && !(r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_ELEC) && !(r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_COLD) && !(r_ptr->flagsr & RFR_EFF_IM_COLD_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_POIS) && !(r_ptr->flagsr & RFR_EFF_IM_POIS_MASK)) return (TRUE);
 
 	/* Speed */
-	if (p_ptr->speed < 145)
+	if (cr_ptr->speed < 145)
 	{
-		if (IS_FAST(p_ptr)) return (TRUE);
+		if (IS_FAST(cr_ptr)) return (TRUE);
 	}
 
 	/* Light speed */
-	if (p_ptr->lightspeed && (cr_ptr->speed < 136)) return (TRUE);
+	if (cr_ptr->lightspeed && (cr_ptr->speed < 136)) return (TRUE);
 
-	if (p_ptr->riding && (m_list[p_ptr->riding].speed < 135))
+	if (cr_ptr->riding && (m_list[cr_ptr->riding].speed < 135))
 	{
-		if (m_list[p_ptr->riding].fast) return (TRUE);
+		if (m_list[cr_ptr->riding].fast) return (TRUE);
 	}
 
 	/* No need to cast dispel spell */
