@@ -532,7 +532,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		destroy_doors_touch();
 		break;
 	case 16: case 17:
-		wall_breaker();
+		wall_breaker(cr_ptr);
 	case 18:
 		sleep_monsters_touch();
 		break;
@@ -764,7 +764,7 @@ static void cast_shuffle(void)
 		msg_print("It's the Tower.");
 #endif
 
-		wall_breaker();
+		wall_breaker(p_ptr);
 	}
 	else if (die < 72)
 	{
