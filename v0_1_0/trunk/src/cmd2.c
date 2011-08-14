@@ -648,7 +648,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 		for (i = 0; i < num; i++)
 		{
 			if (randint1(100)<dun_level)
-				activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
+				activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 		}

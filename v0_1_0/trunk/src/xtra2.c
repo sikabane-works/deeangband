@@ -5044,7 +5044,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 			msg_print("'Thou needst worthier opponents!'");
 #endif
 
-			activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
+			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 #ifdef JP
 			reward = "モンスターを召喚された。";
 #else
@@ -5326,7 +5326,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 #endif
 					break;
 				case 2:
-					activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
+					activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 #ifdef JP
 					reward = "モンスターを召喚された。";
 #else
@@ -5395,7 +5395,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 			{
 				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
 			}
-			activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
+			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 			(void)activate_ty_curse(FALSE, &count);
 			if (one_in_(2))
 			{

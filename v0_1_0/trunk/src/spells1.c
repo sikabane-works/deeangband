@@ -6211,7 +6211,7 @@ msg_print("空間が歪んだ！");
 #endif
 
 					if (m_ptr->species_idx) teleport_away(&m_list[c_ptr->m_idx], damroll(10, 10), TELEPORT_PASSIVE);
-					if (one_in_(13)) count += activate_hi_summon(ty, tx, TRUE);
+					if (one_in_(13)) count += activate_hi_summon(p_ptr, ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
 			case 9: case 10: case 11:
@@ -6227,7 +6227,7 @@ msg_print("エネルギーのうねりを感じた！");
 				aggravate_monsters(NULL);
 				if (!one_in_(6)) break;
 			case 17: case 18:
-				count += activate_hi_summon(ty, tx, TRUE);
+				count += activate_hi_summon(p_ptr, ty, tx, TRUE);
 				if (!one_in_(6)) break;
 			case 19: case 20: case 21: case 22:
 			{

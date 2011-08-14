@@ -578,7 +578,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		break;
 	case 36:
 	case 37:
-		activate_hi_summon(cr_ptr->fy, cr_ptr->fx, FALSE);
+		activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 		break;
 	case 38:
 		(void)summon_cyber(NULL, cr_ptr->fy, cr_ptr->fx);
@@ -642,7 +642,7 @@ static void cast_shuffle(void)
 #endif
 
 		for (i = 0; i < randint1(3); i++)
-			activate_hi_summon(p_ptr->fy, p_ptr->fx, FALSE);
+			activate_hi_summon(p_ptr, p_ptr->fy, p_ptr->fx, FALSE);
 	}
 	else if (die < 14)
 	{
