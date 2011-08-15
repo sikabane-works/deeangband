@@ -5472,7 +5472,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 	}
 
-	if (monspell >= 0) learn_spell(monspell);
+	if (monspell >= 0) learn_spell(tar_ptr, monspell);
 
 	/* Mega-Hack -- Apply "invulnerability" */
 	if ((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))

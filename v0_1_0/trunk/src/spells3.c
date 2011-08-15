@@ -5004,7 +5004,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	/* Total Immunity */
 	if (cr_ptr->immune_acid || (dam <= 0))
 	{
-		learn_spell(monspell);
+		learn_spell(cr_ptr, monspell);
 		return 0;
 	}
 
@@ -5048,7 +5048,7 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	/* Total immunity */
 	if (cr_ptr->immune_elec || (dam <= 0))
 	{
-		learn_spell(monspell);
+		learn_spell(cr_ptr, monspell);
 		return 0;
 	}
 
@@ -5088,7 +5088,7 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	/* Totally immune */
 	if (cr_ptr->immune_fire || (dam <= 0))
 	{
-		learn_spell(monspell);
+		learn_spell(cr_ptr, monspell);
 		return 0;
 	}
 
@@ -5128,7 +5128,7 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 	/* Total immunity */
 	if (cr_ptr->immune_cold || (dam <= 0))
 	{
-		learn_spell(monspell);
+		learn_spell(cr_ptr, monspell);
 		return 0;
 	}
 

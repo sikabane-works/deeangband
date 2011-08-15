@@ -6759,7 +6759,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 				hp_player(p_ptr, dam / 4);
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7482,7 +7482,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					p_ptr->csp -= dam;
 				}
 
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 
 				/* Redraw mana */
 				play_redraw |= (PR_MANA);
@@ -7531,7 +7531,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7577,7 +7577,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7639,7 +7639,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7660,7 +7660,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7680,7 +7680,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7700,7 +7700,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr, monspell);
 			}
 			else
 			{
@@ -7720,7 +7720,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #else
 				msg_format("You resist the effects!");
 #endif
-				learn_spell(monspell);
+				learn_spell(p_ptr,monspell);
 			}
 			else
 			{

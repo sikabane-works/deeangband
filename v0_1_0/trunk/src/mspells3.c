@@ -2059,21 +2059,21 @@ msg_print("ëÃÇà´Ç≠ÇµÇƒÇµÇ‹Ç¡ÇΩÅI");
 	return TRUE;
 }
 
-void learn_spell(int monspell)
+void learn_spell(creature_type *cr_ptr, int monspell)
 {
-	if (p_ptr->action != ACTION_LEARN) return;
+	if (cr_ptr->action != ACTION_LEARN) return;
 	if (monspell < 0) return; /* Paranoia */
-	if (p_ptr->magic_num2[monspell]) return;
-	if (p_ptr->confused || p_ptr->blind || p_ptr->image || p_ptr->stun || p_ptr->paralyzed) return;
-	if (randint1(p_ptr->lev + 70) > monster_powers[monspell].level + 40)
+	if (cr_ptr->magic_num2[monspell]) return;
+	if (cr_ptr->confused || cr_ptr->blind || cr_ptr->image || cr_ptr->stun || cr_ptr->paralyzed) return;
+	if (randint1(cr_ptr->lev + 70) > monster_powers[monspell].level + 40)
 	{
-		p_ptr->magic_num2[monspell] = 1;
+		cr_ptr->magic_num2[monspell] = 1;
 #ifdef JP
 		msg_format("%sÇäwèKÇµÇΩÅI", monster_powers[monspell].name);
 #else
 		msg_format("You have learned %s!", monster_powers[monspell].name);
 #endif
-		gain_exp(p_ptr, monster_powers[monspell].level * monster_powers[monspell].smana);
+		gain_exp(cr_ptr, monster_powers[monspell].level * monster_powers[monspell].smana);
 
 		/* Sound */
 		sound(SOUND_STUDY);

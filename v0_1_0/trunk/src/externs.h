@@ -1591,7 +1591,7 @@ extern bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi);
 
 /* mspells3.c */
 extern bool do_cmd_cast_learned(void);
-extern void learn_spell(int monspell);
+extern void learn_spell(creature_type *cr_ptr, int monspell);
 extern void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode);
 
 /* hissatsu.c */

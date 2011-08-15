@@ -1733,7 +1733,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else if (p_ptr->chara_idx == CHARA_CHARGEMAN)
 				msg_print("弱いものいじめはやめるんだ！");
 #endif
-			learn_spell(MS_DISPEL);
+			learn_spell(p_ptr, MS_DISPEL);
 			break;
 		}
 
@@ -3014,7 +3014,7 @@ msg_print("しかし恐怖に侵されなかった。");
 			{
 				(void)set_afraid(p_ptr, p_ptr->afraid + randint0(4) + 4);
 			}
-			learn_spell(MS_SCARE);
+			learn_spell(p_ptr, MS_SCARE);
 			update_smart_learn(cr_ptr, DRS_FEAR);
 			break;
 		}
@@ -3058,7 +3058,7 @@ msg_print("しかし効力を跳ね返した！");
 			{
 				(void)set_blind(p_ptr, 12 + randint0(4));
 			}
-			learn_spell(MS_BLIND);
+			learn_spell(p_ptr, MS_BLIND);
 			update_smart_learn(cr_ptr, DRS_BLIND);
 			break;
 		}
@@ -3102,7 +3102,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 			{
 				(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
 			}
-			learn_spell(MS_CONF);
+			learn_spell(p_ptr, MS_CONF);
 			update_smart_learn(cr_ptr, DRS_CONF);
 			break;
 		}
@@ -3140,7 +3140,7 @@ msg_print("しかし効力を跳ね返した！");
 			{
 				(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
 			}
-			learn_spell(MS_SLOW);
+			learn_spell(p_ptr, MS_SLOW);
 			update_smart_learn(cr_ptr, DRS_FREE);
 			break;
 		}
@@ -3184,7 +3184,7 @@ msg_format("しかし効力を跳ね返した！");
 			{
 				(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
 			}
-			learn_spell(MS_SLEEP);
+			learn_spell(p_ptr, MS_SLEEP);
 			update_smart_learn(cr_ptr, DRS_FREE);
 			break;
 		}
@@ -3615,7 +3615,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 #endif
 
 			teleport_player_to(cr_ptr->fy, cr_ptr->fx, TELEPORT_PASSIVE);
-			learn_spell(MS_TELE_TO);
+			learn_spell(p_ptr, MS_TELE_TO);
 			break;
 		}
 
@@ -3636,7 +3636,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 			msg_format("%^s teleports you away.", m_name);
 #endif
 
-			learn_spell(MS_TELE_AWAY);
+			learn_spell(p_ptr, MS_TELE_AWAY);
 			teleport_player_away(cr_ptr, 100);
 			break;
 		}
@@ -3680,7 +3680,7 @@ msg_print("しかし効力を跳ね返した！");
 			{
 				teleport_level(p_ptr, 0);
 			}
-			learn_spell(MS_TELE_LEVEL);
+			learn_spell(p_ptr, MS_TELE_LEVEL);
 			update_smart_learn(cr_ptr, DRS_NEXUS);
 			break;
 		}
@@ -3729,7 +3729,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 			if (can_use_lite_area) (void)lite_area(0, 3);
 			else
 			{
-				learn_spell(MS_DARKNESS);
+				learn_spell(p_ptr, MS_DARKNESS);
 				(void)unlite_area(0, 3);
 			}
 			break;
@@ -3751,7 +3751,7 @@ else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 			else msg_format("%^s casts a spell and cackles evilly.", m_name);
 #endif
 
-			learn_spell(MS_MAKE_TRAP);
+			learn_spell(p_ptr, MS_MAKE_TRAP);
 			(void)trap_creation(y, x);
 			break;
 		}
@@ -3786,7 +3786,7 @@ msg_print("記憶が薄れてしまった。");
 #endif
 
 			}
-			learn_spell(MS_FORGET);
+			learn_spell(p_ptr, MS_FORGET);
 			break;
 		}
 
@@ -4478,7 +4478,7 @@ else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
 
 	if ((p_ptr->action == ACTION_LEARN) && thrown_spell > 175)
 	{
-		learn_spell(thrown_spell - 96);
+		learn_spell(p_ptr, thrown_spell - 96);
 	}
 
 	if (seen && maneable && !world_monster && (p_ptr->cls_idx == CLASS_IMITATOR))
