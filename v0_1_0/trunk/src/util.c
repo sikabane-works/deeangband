@@ -5512,3 +5512,9 @@ int inkey_special(bool numpad_cursor)
 	/* Return normal keycode */
 	return (int)((unsigned char)key);
 }
+
+int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
+{
+	return 0;
+}
+

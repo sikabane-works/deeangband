@@ -1899,6 +1899,14 @@ typedef struct
 } door_type;
 
 
+typedef struct
+{
+	char cap[80];
+	int code;
+} selection;
+
+
+
 #ifdef TRAVEL
 /*
  *  A structure type for travel command
