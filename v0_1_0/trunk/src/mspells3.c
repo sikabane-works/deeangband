@@ -12,12 +12,12 @@
 
 #include "angband.h"
 
-#define pseudo_plev() (((p_ptr->lev + 40) * (p_ptr->lev + 40) - 1550) / 130)
+#define pseudo_plev(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
 
-static void learned_info(char *p, int power)
+static void learned_info(creature_type *cr_ptr, char *p, int power)
 {
-	int plev = pseudo_plev();
-	int hp = p_ptr->chp;
+	int plev = pseudo_plev(cr_ptr);
+	int hp = cr_ptr->chp;
 
 #ifdef JP
 	cptr s_dam = "‘¹:";
@@ -84,8 +84,8 @@ static void learned_info(char *p, int power)
 		case MS_SHOOT:
 		{
 			object_type *o_ptr = NULL;
-			if (have_weapon(p_ptr, INVEN_1STARM)) o_ptr = &p_ptr->inventory[INVEN_1STARM];
-			else if (have_weapon(p_ptr, INVEN_2NDARM)) o_ptr = &p_ptr->inventory[INVEN_2NDARM];
+			if (have_weapon(cr_ptr, INVEN_1STARM)) o_ptr = &cr_ptr->inventory[INVEN_1STARM];
+			else if (have_weapon(cr_ptr, INVEN_2NDARM)) o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
 			else
 				sprintf(p, " %s1", s_dam);
 			if (o_ptr)
@@ -573,7 +573,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					chance = mod_spell_chance_2(chance);
 
 					/* Get info */
-					learned_info(comment, spellnum[i]);
+					learned_info(cr_ptr, comment, spellnum[i]);
 
 					if (use_menu)
 					{
@@ -687,7 +687,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 static bool cast_learned_spell(int spell, bool success)
 {
 	int             dir;
-	int             plev = pseudo_plev();
+	int             plev = pseudo_plev(p_ptr);
 	int     summon_lev = p_ptr->lev * 2 / 3 + randint1(p_ptr->lev/2);
 	int             hp = p_ptr->chp;
 	int             damage = 0;
