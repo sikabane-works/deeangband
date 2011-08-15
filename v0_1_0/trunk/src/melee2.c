@@ -1941,12 +1941,12 @@ msg_format("%^s%s", m_name, monmessage);
 			 * Attempt to cast a spell at an enemy other than the player
 			 * (may slow the game a smidgeon, but I haven't noticed.)
 			 */
-			if (monst_spell_monst(m_idx)) return;
+			if (monst_spell_monst(p_ptr, m_idx)) return;
 		}
 		else
 		{
 			/* Attempt to do counter attack at first */
-			if (monst_spell_monst(m_idx)) return;
+			if (monst_spell_monst(p_ptr, m_idx)) return;
 
 			if (aware && make_attack_spell(m_ptr)) return;
 		}
