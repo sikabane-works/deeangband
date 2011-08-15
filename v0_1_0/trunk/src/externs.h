@@ -660,6 +660,7 @@ extern void get_max_stats(void);
 extern void determine_random_questor(quest_type *q_ptr);
 extern void player_outfit(void);
 extern void dump_yourself(FILE *fff);
+extern void race_detail(int code);
 
 /* cave.c */
 extern int distance(int y1, int x1, int y2, int x2);
@@ -1391,7 +1392,7 @@ extern bool is_a_vowel(int ch);
 extern int get_keymap_dir(char ch);
 extern errr type_string(cptr str, uint len);
 extern void roff_to_buf(cptr str, int wlen, char *tbuf, size_t bufsize);
-extern int get_selection(selection *se_ptr, int num, int y, int x, int h, int w);
+extern int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*)(int));
 
 #ifdef SORT_R_INFO
 extern void tag_sort(tag_type elements[], int number);

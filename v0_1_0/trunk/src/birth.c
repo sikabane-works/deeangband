@@ -4110,7 +4110,7 @@ static byte get_intelligent_race_category(void)
 			n++;
 		}
 	}
-	get_selection(se, n, 5, 2, 18, 20);
+	get_selection(se, n, 5, 2, 18, 20, race_detail);
 
 	/* Extra info */
 	clear_from(10);
@@ -4280,6 +4280,52 @@ static byte get_intelligent_race_category(void)
 	/* Success */
 	return cs;
 }
+
+
+void race_detail(int code)
+{
+	bool e;
+	int i;
+	char buf[100], temp[56*18];
+	cptr t;
+	put_str("                                                  " , 1, 24);
+	put_str("                                                  " , 2, 24);
+	put_str("                                                  " , 3, 24);
+#ifdef JP
+	c_put_str(TERM_L_BLUE, race_info[code].title, 1, 24);
+	put_str("ÇÃéÂéÌë∞èCê≥", 1, 24+strlen(race_info[code].title));
+	put_str("òróÕ   ímî\   å´Ç≥   äÌóp   ëœãv   ñ£óÕ    åoå±   ", 2, 24);
+#else
+	c_put_str(TERM_L_BLUE, race_info[code].title, 1, 24);
+	put_str("'s Main-Race modification", 1, 24+strlen(race_info[].title));
+	put_str("Str    Int    Wis    Dex    Con    Chr     EXP   ", 2, 24);
+#endif
+	sprintf(buf, "%+5d  %+5d  %+5d  %+5d  %+5d  %+5d %+4d%% ",
+		race_info[code].r_adj[0], race_info[code].r_adj[1], race_info[code].r_adj[2], race_info[code].r_adj[3],
+		race_info[code].r_adj[4], race_info[code].r_adj[5], (race_info[code].r_exp - 100));
+		c_put_str(TERM_L_BLUE, buf, 3, 24);
+
+	roff_to_buf(race_jouhou[code], 54, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
+	{
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
+		{
+			prt("                                                                       ", 5 + i, 24);
+		}
+		else
+		{
+			prt(t, 5 + i, 24);
+			t += strlen(t) + 1;
+		}
+	}
+}
+
+
 
 
 /*
@@ -6364,12 +6410,12 @@ static bool player_birth_aux(void)
 
 		for (i = 0; i < 10; i++)
 		{
-			if(t[0] == 0)
-				break; 
+			if(temp[0] == 0)
+				break;
 			else
 			{
-				prt(t, 12+i, 3);
-				t += strlen(t) + 1;
+				prt(temp, 12+i, 3);
+				t += strlen(temp) + 1;
 			}
 		}
 #ifdef JP

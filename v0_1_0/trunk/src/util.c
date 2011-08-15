@@ -5513,7 +5513,7 @@ int inkey_special(bool numpad_cursor)
 	return (int)((unsigned char)key);
 }
 
-int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
+int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*detail)(int))
 {
 	int i, se = 0, page = 1, offset;
 	int page_num = num / h + 1;
@@ -5562,6 +5562,7 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
 		}
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
 		c_put_str(TERM_L_BLUE, buf, y+h, x);
+		detail(se_ptr[se].code);
 
 		c = inkey();
 		if (c == '2') se++;
