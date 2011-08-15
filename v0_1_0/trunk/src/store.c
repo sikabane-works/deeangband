@@ -4419,7 +4419,7 @@ static bool leave_store = FALSE;
  * must disable some commands which are allowed in the dungeon
  * but not in the stores, to prevent chaos.
  */
-static void store_process_command(void)
+static void store_process_command(creature_type *guest_ptr)
 {
 #ifdef ALLOW_REPEAT /* TNB */
 
@@ -4451,7 +4451,7 @@ static void store_process_command(void)
 #ifdef JP
 				msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
 #else
-				msg_print("Entire p_ptr->inventory is shown.");
+				msg_print("Entire guest_ptr->inventory is shown.");
 #endif
 			}
 			else{
@@ -4514,7 +4514,7 @@ static void store_process_command(void)
 		/* Get (purchase) */
 		case 'g':
 		{
-			store_purchase(p_ptr);
+			store_purchase(guest_ptr);
 			break;
 		}
 
@@ -4599,17 +4599,17 @@ static void store_process_command(void)
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (p_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-			     (p_ptr->cls_idx == CLASS_BERSERKER) ||
-			     (p_ptr->cls_idx == CLASS_NINJA) ||
-			     (p_ptr->cls_idx == CLASS_MIRROR_MASTER) 
-			     ) do_cmd_mind_browse(p_ptr);
-			else if (p_ptr->cls_idx == CLASS_SMITH)
+			if ( (guest_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+			     (guest_ptr->cls_idx == CLASS_BERSERKER) ||
+			     (guest_ptr->cls_idx == CLASS_NINJA) ||
+			     (guest_ptr->cls_idx == CLASS_MIRROR_MASTER) 
+			     ) do_cmd_mind_browse(guest_ptr);
+			else if (guest_ptr->cls_idx == CLASS_SMITH)
 				do_cmd_kaji(TRUE);
-			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
-				do_cmd_magic_eater(p_ptr, TRUE);
-			else if (p_ptr->cls_idx == CLASS_SNIPER)
-				do_cmd_snipe_browse(p_ptr);
+			else if (guest_ptr->cls_idx == CLASS_MAGIC_EATER)
+				do_cmd_magic_eater(guest_ptr, TRUE);
+			else if (guest_ptr->cls_idx == CLASS_SNIPER)
+				do_cmd_snipe_browse(guest_ptr);
 			else do_cmd_browse();
 			break;
 		}
@@ -5030,7 +5030,7 @@ void do_cmd_store(void)
 		request_command(TRUE);
 
 		/* Process the command */
-		store_process_command();
+		store_process_command(p_ptr);
 
 		/*
 		 * Hack -- To redraw missiles damage and prices in store
