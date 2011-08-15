@@ -4285,27 +4285,44 @@ static byte get_intelligent_race_category(void)
 void race_detail(int code)
 {
 	bool e;
-	int i;
-	char buf[100], temp[56*18];
+	int base = 5;
+	int i, pena = 0;
+	char buf[100], temp[58*18];
 	cptr t;
-	put_str("                                                  " , 1, 24);
-	put_str("                                                  " , 2, 24);
-	put_str("                                                  " , 3, 24);
+	put_str("                                                  " , base, 24);
+	put_str("                                                  " , base+1, 24);
+	put_str("                                                  " , base+2, 24);
 #ifdef JP
-	c_put_str(TERM_L_BLUE, race_info[code].title, 1, 24);
-	put_str("の主種族修正", 1, 24+strlen(race_info[code].title));
-	put_str("腕力   知能   賢さ   器用   耐久   魅力    経験   ", 2, 24);
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("の主種族修正", base, 24+strlen(race_info[code].title));
+	put_str("腕力    知能    賢さ    器用    耐久    魅力     経験   ", base+1, 24);
 #else
-	c_put_str(TERM_L_BLUE, race_info[code].title, 1, 24);
-	put_str("'s Main-Race modification", 1, 24+strlen(race_info[].title));
-	put_str("Str    Int    Wis    Dex    Con    Chr     EXP   ", 2, 24);
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
-	sprintf(buf, "%+5d  %+5d  %+5d  %+5d  %+5d  %+5d %+4d%% ",
-		race_info[code].r_adj[0], race_info[code].r_adj[1], race_info[code].r_adj[2], race_info[code].r_adj[3],
-		race_info[code].r_adj[4], race_info[code].r_adj[5], (race_info[code].r_exp - 100));
-		c_put_str(TERM_L_BLUE, buf, 3, 24);
 
-	roff_to_buf(race_jouhou[code], 54, temp, sizeof(temp));
+	for(i = 0; i < 10; i++)
+		if(race_info[code].lev > race_unreached_level_penalty[i])
+			pena++;
+
+	sprintf(buf, "%+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+4d%% ",
+		race_info[code].r_adj[0]-pena, race_info[code].r_adj[0],
+		race_info[code].r_adj[1]-pena, race_info[code].r_adj[1],
+		race_info[code].r_adj[2]-pena, race_info[code].r_adj[2],
+		race_info[code].r_adj[3]-pena, race_info[code].r_adj[3],
+		race_info[code].r_adj[4]-pena, race_info[code].r_adj[4],
+		race_info[code].r_adj[5]-pena, race_info[code].r_adj[5],
+		(race_info[code].r_exp - 100));
+	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 26);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 34);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 42);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 50);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 58);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 66);
+
+	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
 	t = temp;
 	e = FALSE;
 	for (i = 0; i < 18; i++)
@@ -4315,11 +4332,11 @@ void race_detail(int code)
 
 		if(e)
 		{
-			prt("                                                                       ", 5 + i, 24);
+			prt("                                                                       ", base+4 + i, 24);
 		}
 		else
 		{
-			prt(t, 5 + i, 24);
+			prt(t, base+4 + i, 24);
 			t += strlen(t) + 1;
 		}
 	}
@@ -4345,11 +4362,6 @@ static bool get_intelligent_race(int category)
 
 	/* Extra info */
 	clear_from(10);
-#ifdef JP
-	put_str("注意：《種族》によってキャラクターの先天的な資質、ボーナスが変化します。", 23, 5);
-#else
-	put_str("Note: Your 'race' determines various intrinsic factors and bonuses.", 23 ,5);
-#endif
 
 	for (n = 0; n < MAX_RACES; n++)
 		if(race_info[n].race_category == category)
@@ -6355,21 +6367,21 @@ static bool player_birth_aux(void)
 #endif
 
 #ifdef JP
-	put_str("種族  ", 3, 1);
+	put_str("種族  ", 2, 1);
 #else
-	put_str("Race  ", 3, 1);
+	put_str("Race  ", 2, 1);
 #endif
 
 #ifdef JP
-	put_str("性別  ", 4, 1);
+	put_str("性別  ", 3, 1);
 #else
 	put_str("Sex   ", 4, 1);
 #endif
 
 #ifdef JP
-	put_str("職業  ", 5, 1);
+	put_str("職業  ", 4, 1);
 #else
-	put_str("Class ", 5, 1);
+	put_str("Class ", 4, 1);
 #endif
 
 
@@ -6380,9 +6392,9 @@ static bool player_birth_aux(void)
 
 	/* Display some helpful information */
 #ifdef JP
-	put_str("キャラクターを作成します。('S'やり直す, 'Q'終了, '?'ヘルプ)", 8, 10);
+	put_str("キャラクターを作成します。('S'やり直す, 'Q'終了, '?'ヘルプ)", 0, 10);
 #else
-	put_str("Make your charactor. ('S' Restart, 'Q' Quit, '?' Help)", 8, 10);
+	put_str("Make your charactor. ('S' Restart, 'Q' Quit, '?' Help)", 0, 10);
 #endif
 
 
