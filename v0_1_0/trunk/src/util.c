@@ -5515,6 +5515,42 @@ int inkey_special(bool numpad_cursor)
 
 int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
 {
-	return 0;
+	int i, se = 0, page = 1, offset;
+	int page_num = num / h + 1;
+	char buf[80];
+	char c;
+	char eraser[200];
+	
+	for(i = 0; i < w; i++)
+		eraser[i] = ' ';
+	eraser[i] = '\0';
+
+	while(TRUE)
+	{
+		for(i = 0; i < h; i++)
+		{
+			offset = h*(page-1)+i;
+			put_str(eraser ,y+i, x);
+			if(offset >= num) break; 
+			if(offset == se) c_put_str(TERM_L_GREEN, se_ptr[offset].cap, y+i, x);
+			else c_put_str(TERM_L_DARK, se_ptr[offset].cap, y+i, x);
+		}
+		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
+		c_put_str(TERM_L_GREEN, buf, y+h, x);
+
+		c = inkey();
+		if (c == '2') se++;
+		if (c == '8') se--;
+		if (c == '6') se+=h;
+		if (c == '4') se-=h;
+		if (se < 0) se = 0;
+		if (se >= num) se = num - 1;
+		page = se / h + 1;
+
+		if (c == 'S') return -1;
+
+	}
+
+	return se;
 }
 

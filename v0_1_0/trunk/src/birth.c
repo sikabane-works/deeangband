@@ -4099,7 +4099,14 @@ static byte get_intelligent_race_category(void)
 	char	sym[MAX_RACE_CATEGORYS];
 	char    p2 = ')';
 	char    buf[80], cur[80];
+	selection se[MAX_RACES];
 
+	for (n = 0; n < MAX_RACES; n++)
+	{
+		strcpy(se[n].cap, race_info[n].title);
+		se[n].code = n;
+	}
+	get_selection(se, MAX_RACES, 5, 2, 18, 20);
 
 	/* Extra info */
 	clear_from(10);
@@ -4276,7 +4283,7 @@ static byte get_intelligent_race_category(void)
  */
 static bool get_intelligent_race(int category)
 {
-	int     c_num, k, n, cs, os;
+	int     c_num, k, n, cs, os, i;
 	int     c_races[MAX_RACES];
 	cptr    str;
 	char    c;
