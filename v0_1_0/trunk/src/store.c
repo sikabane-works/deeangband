@@ -3360,7 +3360,7 @@ static bool sell_haggle(object_type *o_ptr, s32b *price)
 /*
  * Buy an item from a store 			-RAK-
  */
-static void store_purchase(void)
+static void store_purchase(creature_type *guest_ptr)
 {
 	int i, amt, choice;
 	int item, item_new;
@@ -3467,7 +3467,7 @@ static void store_purchase(void)
 	j_ptr->number = amt;
 
 	/* Hack -- require room in pack */
-	if (!inven_carry_okay(p_ptr, j_ptr))
+	if (!inven_carry_okay(guest_ptr, j_ptr))
 	{
 #ifdef JP
 msg_print("そんなにアイテムを持てない。");
@@ -3519,7 +3519,7 @@ msg_format("一つにつき $%ldです。", (long)(best));
 	j_ptr->number = amt;
 
 	/* Hack -- require room in pack */
-	if (!inven_carry_okay(p_ptr, j_ptr))
+	if (!inven_carry_okay(guest_ptr, j_ptr))
 	{
 #ifdef JP
 		msg_print("ザックにそのアイテムを入れる隙間がない。");
@@ -3558,7 +3558,7 @@ msg_format("%s(%c)を購入する。", o_name, I2A(item));
 
 			if (j_ptr->tval >= TV_BOOTS && j_ptr->tval <= TV_DRAG_ARMOR)
 			{
-				if (p_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) >= 110 || p_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) < 90)
+				if (guest_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) >= 110 || guest_ptr->size * 100 / (j_ptr->fitting_size + j_ptr->to_size) < 90)
 				{
 #ifdef JP
 					if (!get_check("あなたの体格に合わないようだが、よろしいか？ ")) return;
@@ -3584,15 +3584,15 @@ msg_format("%s(%c)を購入する。", o_name, I2A(item));
 			if (price == (best * j_ptr->number)) o_ptr->ident |= (IDENT_FIXED);
 
 			/* Player can afford it */
-			if (p_ptr->au >= price)
+			if (guest_ptr->au >= price)
 			{
 				/* Say "okay" */
 				say_comment_1();
 
 				if (cur_store_num == STORE_BLACK) /* The black market is illegal! */
-					chg_virtue(p_ptr, V_JUSTICE, -1);
+					chg_virtue(guest_ptr, V_JUSTICE, -1);
 				if((o_ptr->tval == TV_BOTTLE) && (cur_store_num != STORE_HOME))
-					chg_virtue(p_ptr, V_NATURE, -1);
+					chg_virtue(guest_ptr, V_NATURE, -1);
 
 				/* Make a sound */
 				sound(SOUND_BUY);
@@ -3601,7 +3601,7 @@ msg_format("%s(%c)を購入する。", o_name, I2A(item));
 				decrease_insults();
 
 				/* Spend the money */
-				p_ptr->au -= price;
+				guest_ptr->au -= price;
 
 				/* Update the display */
 				store_prt_gold();
@@ -3637,17 +3637,17 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 				j_ptr->feeling = FEEL_NONE;
 				j_ptr->ident &= ~(IDENT_STORE);
 				/* Give it to the player */
-				item_new = inven_carry(p_ptr, j_ptr);
+				item_new = inven_carry(guest_ptr, j_ptr);
 
 				/* Describe the final result */
-				object_desc(o_name, &p_ptr->inventory[item_new], 0);
+				object_desc(o_name, &guest_ptr->inventory[item_new], 0);
 
 				/* Message */
 #ifdef JP
-		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(p_ptr, item_new));
+		msg_format("%s(%c)を手に入れた。", o_name, index_to_label(guest_ptr, item_new));
 #else
 				msg_format("You have %s (%c).",
-						   o_name, index_to_label(p_ptr, item_new));
+						   o_name, index_to_label(guest_ptr, item_new));
 #endif
 
 				/* Auto-inscription */
@@ -3660,7 +3660,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 				}
 
 				/* Handle stuff */
-				handle_stuff(p_ptr);
+				handle_stuff(guest_ptr);
 
 				/* Note how many slots the store used to have */
 				i = st_ptr->stock_num;
@@ -3708,7 +3708,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 
 					}
 
-					/* New p_ptr->inventory */
+					/* New guest_ptr->inventory */
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
@@ -3763,10 +3763,10 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 		distribute_charges(o_ptr, j_ptr, amt);
 
 		/* Give it to the player */
-		item_new = inven_carry(p_ptr, j_ptr);
+		item_new = inven_carry(guest_ptr, j_ptr);
 
 		/* Describe just the result */
-		object_desc(o_name, &p_ptr->inventory[item_new], 0);
+		object_desc(o_name, &guest_ptr->inventory[item_new], 0);
 
 		/* Message */
 #ifdef JP
@@ -3774,10 +3774,10 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 #else
 		msg_format("You have %s (%c).",
 #endif
- o_name, index_to_label(p_ptr, item_new));
+ o_name, index_to_label(guest_ptr, item_new));
 
 		/* Handle stuff */
-		handle_stuff(p_ptr);
+		handle_stuff(guest_ptr);
 
 		/* Take note if we take the last one */
 		i = st_ptr->stock_num;
@@ -3810,7 +3810,7 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 			/* Redraw everything */
 			display_inventory();
 
-			chg_virtue(p_ptr, V_SACRIFICE, 1);
+			chg_virtue(guest_ptr, V_SACRIFICE, 1);
 		}
 	}
 
@@ -4514,7 +4514,7 @@ static void store_process_command(void)
 		/* Get (purchase) */
 		case 'g':
 		{
-			store_purchase();
+			store_purchase(p_ptr);
 			break;
 		}
 
