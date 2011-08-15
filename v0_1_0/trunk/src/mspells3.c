@@ -1892,19 +1892,19 @@ msg_print("No one have appeared.");
  * do_cmd_cast calls this function if the player's class
  * is 'Blue-Mage'.
  */
-bool do_cmd_cast_learned(void)
+bool do_cmd_cast_learned(creature_type *cr_ptr)
 {
 	int             n = 0;
 	int             chance;
 	int             minfail = 0;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	monster_power   spell;
 	bool            cast;
 	int             need_mana;
 
 
 	/* not if confused */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -1916,14 +1916,14 @@ msg_print("混乱していて唱えられない！");
 	}
 
 	/* get power */
-	if (!get_learned_power(p_ptr, &n)) return FALSE;
+	if (!get_learned_power(cr_ptr, &n)) return FALSE;
 
 	spell = monster_powers[n];
 
 	need_mana = mod_need_mana(spell.smana, 0, REALM_NONE);
 
 	/* Verify "dangerous" spells */
-	if (need_mana > p_ptr->csp)
+	if (need_mana > cr_ptr->csp)
 	{
 		/* Warning */
 #ifdef JP
@@ -1952,25 +1952,25 @@ if (!get_check("それでも挑戦しますか? ")) return FALSE;
 	else chance += (spell.level - plev);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[A_INT]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
 
 	chance = mod_spell_chance_1(chance);
 
 	/* Not enough mana to cast */
-	if (need_mana > p_ptr->csp)
+	if (need_mana > cr_ptr->csp)
 	{
-		chance += 5 * (need_mana - p_ptr->csp);
+		chance += 5 * (need_mana - cr_ptr->csp);
 	}
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[p_ptr->stat_ind[A_INT]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[A_INT]];
 
 	/* Minimum failure rate */
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (p_ptr->stun > 50) chance += 25;
-	else if (p_ptr->stun) chance += 15;
+	if (cr_ptr->stun > 50) chance += 25;
+	else if (cr_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
@@ -2004,18 +2004,18 @@ msg_print("魔法をうまく唱えられなかった。");
 	}
 
 	/* Sufficient mana */
-	if (need_mana <= p_ptr->csp)
+	if (need_mana <= cr_ptr->csp)
 	{
 		/* Use some mana */
-		p_ptr->csp -= need_mana;
+		cr_ptr->csp -= need_mana;
 	}
 	else
 	{
 		int oops = need_mana;
 
 		/* No mana left */
-		p_ptr->csp = 0;
-		p_ptr->csp_frac = 0;
+		cr_ptr->csp = 0;
+		cr_ptr->csp_frac = 0;
 
 		/* Message */
 #ifdef JP
@@ -2026,9 +2026,9 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(5 * oops + 1));
 
-		chg_virtue(p_ptr, V_KNOWLEDGE, -10);
+		chg_virtue(cr_ptr, V_KNOWLEDGE, -10);
 
 		/* Damage CON (possibly permanently) */
 		if (randint0(100) < 50)
@@ -2044,7 +2044,7 @@ msg_print("体を悪くしてしまった！");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(p_ptr, A_CON, 15 + randint1(10), perm);
+			(void)dec_stat(cr_ptr, A_CON, 15 + randint1(10), perm);
 		}
 	}
 

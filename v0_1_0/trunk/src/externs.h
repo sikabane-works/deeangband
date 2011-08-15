@@ -1590,7 +1590,7 @@ extern void do_cmd_mind_browse(creature_type *cr_ptr);
 extern bool do_cmd_mane(creature_type *cr_ptr, bool baigaesi);
 
 /* mspells3.c */
-extern bool do_cmd_cast_learned(void);
+extern bool do_cmd_cast_learned(creature_type *cr_ptr);
 extern void learn_spell(creature_type *cr_ptr, int monspell);
 extern void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode);
 

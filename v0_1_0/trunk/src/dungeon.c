@@ -4956,7 +4956,7 @@ msg_print("ウィザードモード突入。");
 					else if (p_ptr->cls_idx == CLASS_SAMURAI)
 						do_cmd_hissatsu(p_ptr);
 					else if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
-						do_cmd_cast_learned();
+						do_cmd_cast_learned(p_ptr);
 					else if (p_ptr->cls_idx == CLASS_SMITH)
 						do_cmd_kaji(FALSE);
 					else if (p_ptr->cls_idx == CLASS_SNIPER)
