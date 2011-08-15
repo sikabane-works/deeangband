@@ -249,14 +249,14 @@ static void learned_info(char *p, int power)
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_learned_power(int *sn)
+static int get_learned_power(creature_type *cr_ptr, int *sn)
 {
 	int             i = 0;
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = p_ptr->lev;
+	int             plev = cr_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE, mode = 0;
 	int             spellnum[MAX_MONSPELLS];
@@ -401,7 +401,7 @@ cptr            p = "魔法";
 	}
 	for (i = 0; i < num; i++)
 	{
-		if (p_ptr->magic_num2[spellnum[i]])
+		if (cr_ptr->magic_num2[spellnum[i]])
 		{
 			if (use_menu) menu_line = i+1;
 			break;
@@ -454,7 +454,7 @@ cptr            p = "魔法";
 					{
 						menu_line += (num-1);
 						if (menu_line > num) menu_line -= num;
-					} while(!p_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!cr_ptr->magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -466,7 +466,7 @@ cptr            p = "魔法";
 					{
 						menu_line++;
 						if (menu_line > num) menu_line -= num;
-					} while(!p_ptr->magic_num2[spellnum[menu_line-1]]);
+					} while(!cr_ptr->magic_num2[spellnum[menu_line-1]]);
 					break;
 				}
 
@@ -475,7 +475,7 @@ cptr            p = "魔法";
 				case 'L':
 				{
 					menu_line=num;
-					while(!p_ptr->magic_num2[spellnum[menu_line-1]]) menu_line--;
+					while(!cr_ptr->magic_num2[spellnum[menu_line-1]]) menu_line--;
 					break;
 				}
 
@@ -484,7 +484,7 @@ cptr            p = "魔法";
 				case 'H':
 				{
 					menu_line=1;
-					while(!p_ptr->magic_num2[spellnum[menu_line-1]]) menu_line++;
+					while(!cr_ptr->magic_num2[spellnum[menu_line-1]]) menu_line++;
 					break;
 				}
 
@@ -533,7 +533,7 @@ put_str("MP 失率 効果", y, x + 33);
 					int need_mana;
 
 					prt("", y + i + 1, x);
-					if (!p_ptr->magic_num2[spellnum[i]]) continue;
+					if (!cr_ptr->magic_num2[spellnum[i]]) continue;
 
 					/* Access the spell */
 					spell = monster_powers[spellnum[i]];
@@ -545,27 +545,27 @@ put_str("MP 失率 効果", y, x + 33);
 					else chance += (spell.level - plev);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[A_INT]] - 1);
+					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
 
 					chance = mod_spell_chance_1(chance);
 
 					need_mana = mod_need_mana(monster_powers[spellnum[i]].smana, 0, REALM_NONE);
 
 					/* Not enough mana to cast */
-					if (need_mana > p_ptr->csp)
+					if (need_mana > cr_ptr->csp)
 					{
-						chance += 5 * (need_mana - p_ptr->csp);
+						chance += 5 * (need_mana - cr_ptr->csp);
 					}
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[p_ptr->stat_ind[A_INT]];
+					minfail = adj_mag_fail[cr_ptr->stat_ind[A_INT]];
 
 					/* Minimum failure rate */
 					if (chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (p_ptr->stun > 50) chance += 25;
-					else if (p_ptr->stun) chance += 15;
+					if (cr_ptr->stun > 50) chance += 25;
+					else if (cr_ptr->stun) chance += 15;
 
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
@@ -624,7 +624,7 @@ put_str("MP 失率 効果", y, x + 33);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= num) || !p_ptr->magic_num2[spellnum[i]])
+		if ((i < 0) || (i >= num) || !cr_ptr->magic_num2[spellnum[i]])
 		{
 			bell();
 			continue;
@@ -1916,7 +1916,7 @@ msg_print("混乱していて唱えられない！");
 	}
 
 	/* get power */
-	if (!get_learned_power(&n)) return FALSE;
+	if (!get_learned_power(p_ptr, &n)) return FALSE;
 
 	spell = monster_powers[n];
 
