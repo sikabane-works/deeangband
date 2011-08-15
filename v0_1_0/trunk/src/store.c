@@ -550,7 +550,7 @@ static cptr comment_7d[MAX_COMMENT_7D] =
  *
  * We paid "price", it was worth "value", and we thought it was worth "guess"
  */
-static void purchase_analyze(s32b price, s32b value, s32b guess)
+static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s32b guess)
 {
 	/* Item was worthless, but we bought it */
 	if ((value <= 0) && (price > value))
@@ -558,8 +558,8 @@ static void purchase_analyze(s32b price, s32b value, s32b guess)
 		/* Comment */
 		msg_print(comment_7a[randint0(MAX_COMMENT_7A)]);
 
-		chg_virtue(p_ptr, V_HONOUR, -1);
-		chg_virtue(p_ptr, V_JUSTICE, -1);
+		chg_virtue(guest_ptr, V_HONOUR, -1);
+		chg_virtue(guest_ptr, V_JUSTICE, -1);
 
 		/* Sound */
 		sound(SOUND_STORE1);
@@ -571,9 +571,9 @@ static void purchase_analyze(s32b price, s32b value, s32b guess)
 		/* Comment */
 		msg_print(comment_7b[randint0(MAX_COMMENT_7B)]);
 
-		chg_virtue(p_ptr, V_JUSTICE, -1);
+		chg_virtue(guest_ptr, V_JUSTICE, -1);
 		if (one_in_(4))
-			chg_virtue(p_ptr, V_HONOUR, -1);
+			chg_virtue(guest_ptr, V_HONOUR, -1);
 
 		/* Sound */
 		sound(SOUND_STORE2);
@@ -586,9 +586,9 @@ static void purchase_analyze(s32b price, s32b value, s32b guess)
 		msg_print(comment_7c[randint0(MAX_COMMENT_7C)]);
 
 		if (one_in_(4))
-			chg_virtue(p_ptr, V_HONOUR, -1);
+			chg_virtue(guest_ptr, V_HONOUR, -1);
 		else if (one_in_(4))
-			chg_virtue(p_ptr, V_HONOUR, 1);
+			chg_virtue(guest_ptr, V_HONOUR, 1);
 
 		/* Sound */
 		sound(SOUND_STORE3);
@@ -601,12 +601,12 @@ static void purchase_analyze(s32b price, s32b value, s32b guess)
 		msg_print(comment_7d[randint0(MAX_COMMENT_7D)]);
 
 		if (one_in_(2))
-			chg_virtue(p_ptr, V_HONOUR, -1);
+			chg_virtue(guest_ptr, V_HONOUR, -1);
 		if (one_in_(4))
-			chg_virtue(p_ptr, V_HONOUR, 1);
+			chg_virtue(guest_ptr, V_HONOUR, 1);
 
 		if (10 * price < value)
-			chg_virtue(p_ptr, V_SACRIFICE, 1);
+			chg_virtue(guest_ptr, V_SACRIFICE, 1);
 
 		/* Sound */
 		sound(SOUND_STORE4);
@@ -4080,7 +4080,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			if (!((o_ptr->tval == TV_FIGURINE) && (value > 0)))
 			{
 			 /* Analyze the prices (and comment verbally) unless a figurine*/
-			purchase_analyze(price, value, dummy);
+			purchase_analyze(p_ptr, price, value, dummy);
 			}
 
 			/*

@@ -2627,7 +2627,7 @@ owner_type owners[MAX_STORES][MAX_OWNERS] =
  * and you must get all the way to "Fast (+50)" to reach the
  * point of getting 45 energy per turn.  After that point,
  * furthur increases in speed are more or less pointless,
- * except to balance out heavy p_ptr->inventory.
+ * except to balance out heavy inventory.
  *
  * Note that currently the fastest monster is "Fast (+30)".
  *
