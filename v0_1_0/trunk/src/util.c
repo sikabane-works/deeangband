@@ -5519,24 +5519,49 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
 	int page_num = num / h + 1;
 	char buf[80];
 	char c;
-	char eraser[200];
+	char eraser[80];
+	char line[80];
 	
 	for(i = 0; i < w; i++)
+	{
 		eraser[i] = ' ';
+		line[i] = '-';
+	}
 	eraser[i] = '\0';
+	line[i] = '\0';
 
 	while(TRUE)
 	{
+		put_str("+", y-1, x-1);
+		put_str("+", y+h, x-1);
+		put_str("+", y-1, x+w);
+		put_str("+", y+h, x+w);
+		put_str(line, y-1, x);
+		put_str(line, y+h, x);
+
+
 		for(i = 0; i < h; i++)
 		{
 			offset = h*(page-1)+i;
 			put_str(eraser ,y+i, x);
-			if(offset >= num) break; 
-			if(offset == se) c_put_str(TERM_L_GREEN, se_ptr[offset].cap, y+i, x);
-			else c_put_str(TERM_L_DARK, se_ptr[offset].cap, y+i, x);
+			put_str("|" ,y+i, x-1);
+			put_str("|" ,y+i, x+w);
+			if(offset >= num) continue; 
+			sprintf(buf, "[%c]", 'a'+i);
+			if(offset == se)
+			{
+				c_put_str(TERM_WHITE, ">>", y+i, x);
+				c_put_str(TERM_L_GREEN, buf, y+i, x+2);
+				c_put_str(TERM_WHITE, se_ptr[offset].cap, y+i, x+5);
+			}
+			else
+			{
+				c_put_str(TERM_GREEN, buf, y+i, x+2);
+				c_put_str(TERM_L_DARK, se_ptr[offset].cap, y+i, x+5);
+			}
 		}
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
-		c_put_str(TERM_L_GREEN, buf, y+h, x);
+		c_put_str(TERM_L_BLUE, buf, y+h, x);
 
 		c = inkey();
 		if (c == '2') se++;
@@ -5545,12 +5570,13 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w)
 		if (c == '4') se-=h;
 		if (se < 0) se = 0;
 		if (se >= num) se = num - 1;
-		page = se / h + 1;
 
-		if (c == 'S') return -1;
+		if (c == '\r') return se_ptr[se].code;
+		if (c >= 'a' && c < 'a' + h) return se_ptr[h*(page-1)+c-'a'].code;
+
+		page = se / h + 1;
 
 	}
 
-	return se;
 }
 

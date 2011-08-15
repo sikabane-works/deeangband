@@ -4093,7 +4093,7 @@ void player_outfit(void)
  */
 static byte get_intelligent_race_category(void)
 {
-	int     k, n, cs, os;
+	int     k, n, cs, os, i;
 	cptr    str;
 	char    c;
 	char	sym[MAX_RACE_CATEGORYS];
@@ -4101,12 +4101,16 @@ static byte get_intelligent_race_category(void)
 	char    buf[80], cur[80];
 	selection se[MAX_RACES];
 
-	for (n = 0; n < MAX_RACES; n++)
+	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-		strcpy(se[n].cap, race_info[n].title);
-		se[n].code = n;
+		if(race_info[i].race_category != RACE_CATEGORY_UNSELECTABLE)
+		{
+			strcpy(se[n].cap, race_info[n].title);
+			se[n].code = i;
+			n++;
+		}
 	}
-	get_selection(se, MAX_RACES, 5, 2, 18, 20);
+	get_selection(se, n, 5, 2, 18, 20);
 
 	/* Extra info */
 	clear_from(10);
