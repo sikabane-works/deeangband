@@ -1868,7 +1868,7 @@ static cptr class_jouhou[MAX_CLASS] =
 };
 
 
-static cptr CHARA_jouhou[MAX_CHARA] =
+static cptr chara_jouhou[MAX_CHARA] =
 {
 #ifdef JP
 "普通は、特に特筆するべき部分がない性格です。あらゆる技能を平均的にこなします。",
@@ -4159,26 +4159,22 @@ void class_detail(int code)
 	put_str("                                                  " , base+2, 24);
 #ifdef JP
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("の主種族修正", base, 24+strlen(race_info[code].title));
+	put_str("の主種族修正", base, 24+strlen(class_info[code].title));
 	put_str("腕力    知能    賢さ    器用    耐久    魅力     経験   ", base+1, 24);
 #else
-	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(class_info[].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
-	for(i = 0; i < 10; i++)
-		if(race_info[code].lev > race_unreached_level_penalty[i])
-			pena++;
-
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
-		race_info[code].r_adj[0],
-		race_info[code].r_adj[1],
-		race_info[code].r_adj[2],
-		race_info[code].r_adj[3],
-		race_info[code].r_adj[4],
-		race_info[code].r_adj[5],
-		(race_info[code].r_exp - 100));
+		class_info[code].c_adj[0],
+		class_info[code].c_adj[1],
+		class_info[code].c_adj[2],
+		class_info[code].c_adj[3],
+		class_info[code].c_adj[4],
+		class_info[code].c_adj[5],
+		class_info[code].c_exp);
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
 	roff_to_buf(class_jouhou[code], 56, temp, sizeof(temp));
@@ -4201,6 +4197,56 @@ void class_detail(int code)
 	}
 }
 
+
+void chara_detail(int code)
+{
+	bool e;
+	int base = 5;
+	int i, pena = 0;
+	char buf[100], temp[58*18];
+	cptr t;
+	put_str("                                                  " , base, 24);
+	put_str("                                                  " , base+1, 24);
+	put_str("                                                  " , base+2, 24);
+#ifdef JP
+	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
+	put_str("の主種族修正", base, 24+strlen(chara_info[code].title));
+	put_str("腕力    知能    賢さ    器用    耐久    魅力     経験   ", base+1, 24);
+#else
+	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(chara_info[].title));
+	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
+#endif
+
+	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
+		chara_info[code].a_adj[0],
+		chara_info[code].a_adj[1],
+		chara_info[code].a_adj[2],
+		chara_info[code].a_adj[3],
+		chara_info[code].a_adj[4],
+		chara_info[code].a_adj[5],
+		0);
+	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+
+	roff_to_buf(chara_jouhou[code], 56, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
+	{
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
+		{
+			prt("                                                                       ", base+4 + i, 24);
+		}
+		else
+		{
+			prt(t, base+4 + i, 24);
+			t += strlen(t) + 1;
+		}
+	}
+}
 
 
 
@@ -4694,7 +4740,7 @@ static bool get_player_sex(void)
 static bool get_player_class(void)
 {
 	int i;
-	selection ce[MAX_RACES];
+	selection ce[MAX_CLASS];
 
 	for (i = 0; i < MAX_CLASS; i++)
 	{
@@ -4709,239 +4755,21 @@ static bool get_player_class(void)
 
 
 /*
- * Player CHARA
+ * Player Chara
  */
 static bool get_player_chara(void)
 {
-	int     k, n, os, cs;
-	char    c;
-	char	sym[MAX_CHARA];
-	char    p2 = ')';
-	char    buf[80], cur[80];
-	char    tmp[64];
-	cptr    str;
+	int i;
+	selection ce[MAX_CHARA];
 
-
-	/* Extra info */
-	clear_from(10);
-#ifdef JP
-	put_str("注意：《性格》によってキャラクターの能力やボーナスが変化します。", 23, 5);
-#else
-	put_str("Note: Your personality determines various intrinsic abilities and bonuses.", 23, 5);
-#endif
-
-	/* Dump CHARAs */
-	for (n = 0; n < MAX_CHARA; n++)
+	for (i = 0; i < MAX_CHARA; i++)
 	{
-		if(!(chara_info[n].sex & (0x01 << p_ptr->sex))) continue;
-
-		/* Analyze */
-		str = chara_info[n].title;
-		if (n < 26)
-			sym[n] = I2A(n);
-		else
-			sym[n] = ('A' + n - 26);
-
-		/* Display */
-		/* Display */
-#ifdef JP
-		sprintf(buf, "%c%c%s", I2A(n), p2, str);
-#else
-		sprintf(buf, "%c%c %s", I2A(n), p2, str);
-#endif
-		put_str(buf, 12 + (n/4), 2 + 18 * (n%4));
+		strcpy(ce[i].cap, chara_info[i].title);
+		ce[i].code = i;
 	}
+	p_ptr->chara_idx = get_selection(ce, MAX_CHARA, 5, 2, 18, 20, chara_detail);
 
-#ifdef JP
-	sprintf(cur, "%c%c%s", '*', p2, "ランダム");
-#else
-	sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-
-	/* Get a CHARA */
-	k = -1;
-	cs = p_ptr->chara_idx;
-	os = MAX_CHARA;
-	while (1)
-	{
-		/* Move Cursol */
-		if (cs != os)
-		{
-			c_put_str(TERM_WHITE, cur, 12 + (os/4), 2 + 18 * (os%4));
-			put_str("                                   ", 3, 40);
-			if(cs == MAX_CHARA)
-			{
-#ifdef JP
-				sprintf(cur, "%c%c%s", '*', p2, "ランダム");
-#else
-				sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-				put_str("                                   ", 4, 40);
-				put_str("                                   ", 5, 40);
-			}
-			else
-			{
-				str = chara_info[cs].title;
-#ifdef JP
-					sprintf(cur, "%c%c%s", sym[cs], p2, str);
-#else
-					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-#endif
-#ifdef JP
-					c_put_str(TERM_L_BLUE, chara_info[cs].title, 3, 40);
-					put_str("の性格修正", 3, 40+strlen(chara_info[cs].title));
-					put_str("腕力 知能 賢さ 器用 耐久 魅力      ", 4, 40);
-#else
-					c_put_str(TERM_L_BLUE, chara_info[cs].title, 3, 40);
-					put_str(": Personality modification", 3, 40+strlen(chara_info[cs].title));
-					put_str("Str  Int  Wis  Dex  Con  Chr       ", 4, 40);
-#endif
-					sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d       ",
-						chara_info[cs].a_adj[0], chara_info[cs].a_adj[1], chara_info[cs].a_adj[2], chara_info[cs].a_adj[3],
-						chara_info[cs].a_adj[4], chara_info[cs].a_adj[5]);
-					c_put_str(TERM_L_BLUE, buf, 5, 40);
-			}
-			c_put_str(TERM_YELLOW, cur, 12 + (cs/4), 2 + 18 * (cs%4));
-			os = cs;
-		}
-
-		if (k >= 0) break;
-
-#ifdef JP
-		sprintf(buf, "性格を選んで下さい (%c-%c) ('='初期オプション設定): ", sym[0], sym[MAX_CHARA-1]);
-#else
-		sprintf(buf, "Choose a personality (%c-%c) ('=' for options): ", sym[0], sym[MAX_CHARA-1]);
-#endif
-
-		put_str(buf, 10, 10);
-		c = inkey();
-		if (c == 'Q') birth_quit();
-		if (c == 'S') return (FALSE);
-		if (c == ' ' || c == '\r' || c == '\n')
-		{
-			if(cs == MAX_CHARA)
-			{
-				do
-				{
-					k = randint0(MAX_CHARA);
-				}
-				while(!(chara_info[k].sex & (0x01 << p_ptr->sex)));
-				cs = k;
-				continue;
-			}
-			else
-			{
-				k = cs;
-				break;
-			}
-		}
-		if (c == '*')
-		{
-			do
-			{
-				k = randint0(n);
-			}
-			while(!(chara_info[k].sex & (0x01 << p_ptr->sex)));
-			cs = k;
-			continue;
-		}
-		if (c == '8')
-		{
-			if (cs >= 4) cs -= 4;
-			if (!(chara_info[cs].sex & (0x01 << p_ptr->sex)))
-			{
-				if((cs - 4) > 0)
-					cs -= 4;
-				else
-					cs += 4;
-			}
-		}
-		if (c == '4')
-		{
-			do
-			{
-				cs--;
-				if(cs < 0) cs = MAX_CHARA; 
-			}
-			while(cs != MAX_CHARA && !(chara_info[cs].sex & (0x01 << p_ptr->sex)));
-		}
-		if (c == '6')
-		{
-			do
-			{
-				cs++;
-				if(cs > MAX_CHARA) cs = 0; 
-			}
-			while(cs != MAX_CHARA && !(chara_info[cs].sex & (0x01 << p_ptr->sex)));
-		}
-		if (c == '2')
-		{
-			if ((cs + 4) <= MAX_CHARA) cs += 4;
-			if (!(chara_info[cs].sex & (0x01 << p_ptr->sex)))
-			{
-				if((cs + 4) <= MAX_CHARA)
-					cs += 4;
-				else
-					cs -= 4;
-			}
-		}
-		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < MAX_CHARA))
-		{
-			if(chara_info[cs].sex & (0x01 << p_ptr->sex))
-			{
-				cs = k;
-				continue;
-			}
-		}
-		k = (isupper(c) ? (26 + c - 'A') : -1);
-		if ((k >= 26) && (k < MAX_CHARA))
-		{
-			if(chara_info[cs].sex & (0x01 << p_ptr->sex))
-			{
-				cs = k;
-				continue;
-			}
-		}
-		else k = -1;
-		if (c == '?')
-		{
-#ifdef JP
-			show_help("jraceclas.txt#ThePersonalities");
-#else
-			show_help("raceclas.txt#ThePersonalities");
-#endif
-		}
-		else if (c == '=')
-		{
-			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
-			screen_load();
-		}
-		else if (c !='2' && c !='4' && c !='6' && c !='8') bell();
-	}
-
-	/* Set CHARA */
-	p_ptr->chara_idx = k;
-#ifdef JP
-	strcpy(tmp, chara_info[p_ptr->chara_idx].title);
-	if(chara_info[p_ptr->chara_idx].no == 1)
-	strcat(tmp,"の");
-#else
-	strcpy(tmp, chara_info[p_ptr->chara_idx].title);
-	strcat(tmp," ");
-#endif
-	strcat(tmp, p_ptr->name);
-
-
-	/* Display */
-	c_put_str(TERM_L_BLUE, tmp, 1, 6);
-
+	/* Success */
 	return TRUE;
 }
 
@@ -5850,14 +5678,12 @@ static void edit_history(void)
  */
 static bool player_birth_aux(void)
 {
-	int i, k, n, cs, os;
+	int i;
 
 	int mode = 0;
 
 	bool flag = FALSE;
 	bool prev = FALSE;
-
-	cptr str;
 
 	char c;
 
@@ -5869,7 +5695,7 @@ static bool player_birth_aux(void)
 	char b1 = '[';
 	char b2 = ']';
 
-	char buf[80], cur[80];
+	char buf[80];
 
 
 	/*** Intro ***/
@@ -6055,35 +5881,7 @@ static bool player_birth_aux(void)
 
 	/* Choose the players CHARA */
 	p_ptr->chara_idx = 0;
-	while(1)
-	{
-		char temp[80*8];
-		cptr t;
-
-		if (!get_player_chara()) return FALSE;
-
-		clear_from(10);
-		roff_to_buf(CHARA_jouhou[p_ptr->chara_idx], 74, temp, sizeof(temp));
-		t = temp;
-
-		for (i = 0; i< 6; i++)
-		{
-			if(t[0] == 0)
-				break; 
-			else
-			{
-				prt(t, 12+i, 3);
-				t += strlen(t) + 1;
-			}
-		}
-#ifdef JP
-		if (get_check_strict("よろしいですか？", CHECK_DEFAULT_Y)) break;
-#else
-		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-		c_put_str(TERM_L_BLUE, p_ptr->name, 1, 6);
-		prt("", 1, 34+strlen(p_ptr->name));
-	}
+	get_player_chara();
 
 	/* Clean up */
 	clear_from(0);
@@ -6838,7 +6636,7 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(CHARA_jouhou[p_ptr->chara_idx], 78, temp, sizeof(temp));
+	roff_to_buf(chara_jouhou[p_ptr->chara_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
 	fprintf(fff, "性格: %s\n", chara_info[p_ptr->chara_idx].title);
