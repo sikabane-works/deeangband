@@ -661,6 +661,7 @@ extern void determine_random_questor(quest_type *q_ptr);
 extern void player_outfit(void);
 extern void dump_yourself(FILE *fff);
 extern void race_detail(int code);
+extern void class_detail(int code);
 
 /* cave.c */
 extern int distance(int y1, int x1, int y2, int x2);

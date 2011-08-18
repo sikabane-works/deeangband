@@ -4147,6 +4147,60 @@ void race_detail(int code)
 	}
 }
 
+void class_detail(int code)
+{
+	bool e;
+	int base = 5;
+	int i, pena = 0;
+	char buf[100], temp[58*18];
+	cptr t;
+	put_str("                                                  " , base, 24);
+	put_str("                                                  " , base+1, 24);
+	put_str("                                                  " , base+2, 24);
+#ifdef JP
+	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
+	put_str("の主種族修正", base, 24+strlen(race_info[code].title));
+	put_str("腕力    知能    賢さ    器用    耐久    魅力     経験   ", base+1, 24);
+#else
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
+#endif
+
+	for(i = 0; i < 10; i++)
+		if(race_info[code].lev > race_unreached_level_penalty[i])
+			pena++;
+
+	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
+		race_info[code].r_adj[0],
+		race_info[code].r_adj[1],
+		race_info[code].r_adj[2],
+		race_info[code].r_adj[3],
+		race_info[code].r_adj[4],
+		race_info[code].r_adj[5],
+		(race_info[code].r_exp - 100));
+	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+
+	roff_to_buf(class_jouhou[code], 56, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
+	{
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
+		{
+			prt("                                                                       ", base+4 + i, 24);
+		}
+		else
+		{
+			prt(t, base+4 + i, 24);
+			t += strlen(t) + 1;
+		}
+	}
+}
+
 
 
 
@@ -4167,7 +4221,7 @@ static bool get_intelligent_race(void)
 			n++;
 		}
 	}
-	get_selection(se, n, 5, 2, 18, 20, race_detail);
+	p_ptr->irace_idx = get_selection(se, n, 5, 2, 18, 20, race_detail);
 
 	/* Success */
 	return TRUE;
@@ -4620,190 +4674,17 @@ static bool get_player_subrace_dragon()
  */
 static bool get_player_class(void)
 {
-	int     k, n, cs, os;
-	char    c;
-	char	sym[MAX_CLASS_CHOICE];
-	char    p2 = ')';
-	char    buf[80], cur[80];
-	cptr    str;
+	int i;
+	selection ce[MAX_RACES];
 
-
-	/* Extra info */
-	clear_from(10);
-#ifdef JP
-	put_str("注意：《職業》によってキャラクターの先天的な能力やボーナスが変化します。", 23, 5);
-#else
-	put_str("Note: Your 'class' determines various intrinsic abilities and bonuses.", 23, 5);
-#endif
-
-#ifdef JP
-	put_str("'*'のついた職業はこの種族に適した職業としてボーナスを持ちます", 11, 10);
-#else
-	put_str("'*' entries have some bonus.", 11, 5);
-#endif
-
-
-	/* Dump classes */
-	for (n = 0; n < MAX_CLASS_CHOICE; n++)
+	for (i = 0; i < MAX_CLASS; i++)
 	{
-		/* Analyze */
-		str = class_info[n].title;
-		if (n < 26)
-			sym[n] = I2A(n);
-		else
-			sym[n] = ('A' + n - 26);
-
-		/* Display */
-		if (!(race_info[n].choice & (1L << n)))
-			sprintf(buf, "%c%c %s", sym[n], p2, str);
-		else
-			sprintf(buf, "%c%c*%s", sym[n], p2, str);
-
-		put_str(buf, 13 + (n/4), 2 + 19 * (n%4));
+		strcpy(ce[i].cap, class_info[i].title);
+		ce[i].code = i;
 	}
+	p_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
-#ifdef JP
-	sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-	sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-
-	/* Get a class */
-	k = -1;
-	cs = p_ptr->cls_idx;
-	os = MAX_CLASS_CHOICE;
-	while (1)
-	{
-		/* Move Cursol */
-		if (cs != os)
-		{
-			c_put_str(TERM_WHITE, cur, 13 + (os/4), 2 + 19 * (os%4));
-			put_str("                                   ", 3, 40);
-			if(cs == MAX_CLASS_CHOICE)
-			{
-#ifdef JP
-				sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-				sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-				put_str("                                   ", 4, 40);
-				put_str("                                   ", 5, 40);
-			}
-			else
-			{
-				str = class_info[cs].title;
-				if (!(race_info[cs].choice & (1L << cs)))
-					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				else
-					sprintf(cur, "%c%c*%s", sym[cs], p2, str);
-#ifdef JP
-					c_put_str(TERM_L_BLUE, class_info[cs].title, 3, 40);
-					put_str("の職業修正", 3, 40+strlen(class_info[cs].title));
-					put_str("腕力 知能 賢さ 器用 耐久 魅力 経験 ", 4, 40);
-#else
-					c_put_str(TERM_L_BLUE, class_info[cs].title, 3, 40);
-					put_str(": Class modification", 3, 40+strlen(class_info[cs].title));
-					put_str("Str  Int  Wis  Dex  Con  Chr   EXP ", 4, 40);
-#endif
-					sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-						class_info[cs].c_adj[0], class_info[cs].c_adj[1], class_info[cs].c_adj[2], class_info[cs].c_adj[3],
-						class_info[cs].c_adj[4], class_info[cs].c_adj[5], class_info[cs].c_exp);
-					c_put_str(TERM_L_BLUE, buf, 5, 40);
-			}
-			c_put_str(TERM_YELLOW, cur, 13 + (cs/4), 2 + 19 * (cs%4));
-			os = cs;
-		}
-
-		if (k >= 0) break;
-
-#ifdef JP
-		sprintf(buf, "職業を選んで下さい (%c-%c) ('='初期オプション設定): ", sym[0], sym[MAX_CLASS_CHOICE-1]);
-#else
-		sprintf(buf, "Choose a class (%c-%c) ('=' for options): ",  sym[0], sym[MAX_CLASS_CHOICE-1]);
-#endif
-
-		put_str(buf, 10, 10);
-		c = inkey();
-		if (c == 'Q') birth_quit();
-		if (c == 'S') return (FALSE);
-		if (c == ' ' || c == '\r' || c == '\n')
-		{
-			if(cs == MAX_CLASS_CHOICE)
-			{
-				k = randint0(MAX_CLASS_CHOICE);
-				cs = k;
-				continue;
-			}
-			else
-			{
-				k = cs;
-				break;
-			}
-		}
-		if (c == '*')
-		{
-			k = randint0(MAX_CLASS_CHOICE);
-			cs = k;
-			continue;
-		}
-		if (c == '8')
-		{
-			if (cs >= 4) cs -= 4;
-		}
-		if (c == '4')
-		{
-			if (cs > 0) cs--;
-		}
-		if (c == '6')
-		{
-			if (cs < MAX_CLASS_CHOICE) cs++;
-		}
-		if (c == '2')
-		{
-			if ((cs + 4) <= MAX_CLASS_CHOICE) cs += 4;
-		}
-		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < MAX_CLASS_CHOICE))
-		{
-			cs = k;
-			continue;
-		}
-		k = (isupper(c) ? (26 + c - 'A') : -1);
-		if ((k >= 26) && (k < MAX_CLASS_CHOICE))
-		{
-			cs = k;
-			continue;
-		}
-		else k = -1;
-		if (c == '?')
-		{
-#ifdef JP
-			show_help("jraceclas.txt#TheClasses");
-#else
-			show_help("raceclas.txt#TheClasses");
-#endif
-		}
-		else if (c == '=')
-		{
-			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
-			screen_load();
-		}
-		else if (c !='2' && c !='4' && c !='6' && c !='8') bell();
-	}
-
-	/* Set class */
-	p_ptr->cls_idx = k;
-
-
-	/* Display */
-	c_put_str(TERM_L_BLUE, class_info[p_ptr->cls_idx].title, 5, 8);
-
+	/* Success */
 	return TRUE;
 }
 
@@ -6006,7 +5887,7 @@ static bool player_birth_aux(void)
 	put_str("Make your charactor. ('S' Restart, 'Q' Quit, '?' Help)", 0, 10);
 #endif
 
-	p_ptr->irace_idx = get_intelligent_race();
+	get_intelligent_race();
 
 	/*** Eldar Lineage ***/
 	if(p_ptr->irace_idx == RACE_ELDAR)
@@ -6122,7 +6003,7 @@ static bool player_birth_aux(void)
 	}
 
 	/* Clean up */
-	clear_from(10);
+	clear_from(0);
 
 
 	/*** Player sex ***/
@@ -6253,41 +6134,13 @@ static bool player_birth_aux(void)
 	/* Display */
 
 	/* Clean up */
-	clear_from(10);
+	clear_from(0);
 
 	/* TODO:: SubRaceSelect */
 
 	/* Choose the players class */
 	p_ptr->cls_idx = 0;
-	while(1)
-	{
-		char temp[80*9];
-		cptr t;
-
-		if (!get_player_class()) return FALSE;
-
-		clear_from(10);
-		roff_to_buf(class_jouhou[p_ptr->cls_idx], 74, temp, sizeof(temp));
-		t = temp;
-
-		for (i = 0; i< 9; i++)
-		{
-			if(t[0] == 0)
-				break; 
-			else
-			{
-				prt(t, 12+i, 3);
-				t += strlen(t) + 1;
-			}
-		}
-
-#ifdef JP
-		if (get_check_strict("よろしいですか？", CHECK_DEFAULT_Y)) break;
-#else
-		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-		c_put_str(TERM_WHITE, "              ", 5, 8);
-	}
+	get_player_class();
 
 	/* Choose the magic realms */
 	if (!get_player_realms()) return FALSE;
