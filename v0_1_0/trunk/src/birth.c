@@ -4668,6 +4668,25 @@ static bool get_player_subrace_dragon()
 	return TRUE;
 }
 
+/*
+ * Player sex
+ */
+static bool get_player_sex(void)
+{
+	int i;
+	selection se[MAX_SEXES];
+
+	for (i = 0; i < MAX_SEXES; i++)
+	{
+		strcpy(se[i].cap, sex_info[i].title);
+		se[i].code = i;
+	}
+	p_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
+
+	/* Success */
+	return TRUE;
+}
+
 
 /*
  * Player class
@@ -5938,7 +5957,7 @@ static bool player_birth_aux(void)
 	}
 
 	/* Clean up */
-	clear_from(10);
+	clear_from(0);
 
 	/*** Doraconian Lineage ***/
 	if(p_ptr->irace_idx == RACE_DRACONIAN || p_ptr->irace_idx == RACE_DRAGON)
@@ -6009,129 +6028,15 @@ static bool player_birth_aux(void)
 	/*** Player sex ***/
 
 	/* Extra info */
+/*
 #ifdef JP
 	put_str("注意：!のつく性別は種族として稀であるためペナルティを受けます", 11, 6);
 #else
 	put_str("Note: Any entries set '!' is rarely pattern and may have some penalty.", 11, 6);
 #endif
+*/
+	get_player_sex();
 
-
-	/* Prompt for "Sex" */
-	for (n = 0; n < MAX_SEXES; n++)
-	{
-		/* Display */
-
-	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << n))
-		sprintf(buf, "%c%c %s", I2A(n), p2, sex_info[n].title);
-	else
-		sprintf(buf, "%c%c!%s", I2A(n), p2, sex_info[n].title);
-		put_str(buf, 13 + (n/5), 2 + 15 * (n%5));
-	}
-
-#ifdef JP
-	sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-	sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-
-	/* Choose */
-	k = -1;
-	cs = 0;
-	os = MAX_SEXES;
-	while (1)
-	{
-		if (cs != os)
-		{
-			put_str(cur, 13 + (os/5), 2 + 15 * (os%5));
-			if(cs == MAX_SEXES)
-			{
-#ifdef JP
-				sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-				sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-			}
-			else
-			{
-				str = sex_info[cs].title;
-				if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << cs))
-					sprintf(cur, "%c%c %s", I2A(cs), p2, str);
-				else
-					sprintf(cur, "%c%c!%s", I2A(cs), p2, str);
-			}
-			c_put_str(TERM_YELLOW, cur, 13 + (cs/5), 2 + 15 * (cs%5));
-			os = cs;
-		}
-
-		if (k >= 0) break;
-
-#ifdef JP
-		sprintf(buf, "性別を選んで下さい (%c-%c) ('='初期オプション設定): ", I2A(0), I2A(n-1));
-#else
-		sprintf(buf, "Choose a sex (%c-%c) ('=' for options): ", I2A(0), I2A(n-1));
-#endif
-
-		put_str(buf, 10, 10);
-		c = inkey();
-		if (c == 'Q') birth_quit();
-		if (c == 'S') return (FALSE);
-		if (c == ' ' || c == '\r' || c == '\n')
-		{
-			if(cs == MAX_SEXES)
-				k = randint0(MAX_SEXES);
-			else
-				k = cs;
-			break;
-		}
-		if (c == '*')
-		{
-			k = randint0(MAX_SEXES);
-			break;
-		}
-		if (c == '4')
-		{
-			if (cs > 0) cs--;
-		}
-		if (c == '6')
-		{
-			if (cs < MAX_SEXES) cs++;
-		}
-		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < MAX_SEXES))
-		{
-			cs = k;
-			continue;
-		}
-		else k = -1;
-		if (c == '?') do_cmd_help();
-		else if (c == '=')
-		{
-			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
-			screen_load();
-		}
-		else if(c != '4' && c != '6')bell();
-	}
-
-	/* Set sex */
-	p_ptr->sex = k;
-	if(race_info[p_ptr->irace_idx].sex_flag & (0x01 << p_ptr->sex))
-	{
-		p_ptr->sexual_penalty = FALSE;
-		c_put_str(TERM_L_BLUE, sex_info[p_ptr->sex].title, 4, 8);
-	}
-	else
-	{
-		p_ptr->sexual_penalty = TRUE;
-		c_put_str(TERM_YELLOW, sex_info[p_ptr->sex].title, 4, 8);
-	}
-
-	/* Display */
 
 	/* Clean up */
 	clear_from(0);
@@ -6181,7 +6086,7 @@ static bool player_birth_aux(void)
 	}
 
 	/* Clean up */
-	clear_from(10);
+	clear_from(0);
 	put_str("                                   ", 3, 40);
 	put_str("                                   ", 4, 40);
 	put_str("                                   ", 5, 40);

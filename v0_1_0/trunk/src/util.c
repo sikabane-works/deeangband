@@ -5562,7 +5562,8 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 		}
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
 		c_put_str(TERM_L_BLUE, buf, y+h, x);
-		detail(se_ptr[se].code);
+
+		if (detail) detail(se_ptr[se].code);
 
 		c = inkey();
 		if (c == '2') se++;
