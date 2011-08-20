@@ -1063,7 +1063,7 @@ struct player_chara
 
 	s16b a_mhp;			/* patron hit-dice modifier */
 
-	byte no;			/* ‚Ì */
+	byte no;			/* Japanese "no" */
 	byte sex;			/* seibetu seigen */
 };
 

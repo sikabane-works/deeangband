@@ -4759,15 +4759,19 @@ static bool get_player_class(void)
  */
 static bool get_player_chara(void)
 {
-	int i;
+	int i, n;
 	selection ce[MAX_CHARA];
 
-	for (i = 0; i < MAX_CHARA; i++)
+	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
-		strcpy(ce[i].cap, chara_info[i].title);
-		ce[i].code = i;
+		if(chara_info[i].sex & (0x01 << p_ptr->sex))
+		{
+			strcpy(ce[n].cap, chara_info[i].title);
+			ce[n].code = i;
+			n++;
+		}
 	}
-	p_ptr->chara_idx = get_selection(ce, MAX_CHARA, 5, 2, 18, 20, chara_detail);
+	p_ptr->chara_idx = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
 
 	/* Success */
 	return TRUE;
@@ -5734,122 +5738,8 @@ static bool player_birth_aux(void)
 
 	get_intelligent_race();
 
-	/*** Eldar Lineage ***/
-	if(p_ptr->irace_idx == RACE_ELDAR)
-	{
-		while(1)
-		{
-			char temp[80*10];
-			cptr t;
-
-			set_subrace(p_ptr, RACE_VANYAR_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_NOLDOR_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_TELERI_LINEAGE, FALSE);
-			
-			if (!get_player_subrace_eldar()) return FALSE;
-
-			if (get_subrace(p_ptr, RACE_VANYAR_LINEAGE)) i = RACE_VANYAR_LINEAGE;
-			if (get_subrace(p_ptr, RACE_NOLDOR_LINEAGE)) i = RACE_NOLDOR_LINEAGE;
-			if (get_subrace(p_ptr, RACE_TELERI_LINEAGE)) i = RACE_TELERI_LINEAGE;
-
-			clear_from(10);
-
-			roff_to_buf(race_jouhou[i], 74, temp, sizeof(temp));
-			t = temp;
-
-			for (i = 0; i < 10; i++)
-			{
-				if(t[0] == 0)
-					break; 
-				else
-				{
-					prt(t, 12+i, 3);
-					t += strlen(t) + 1;
-				}
-			}
-#ifdef JP
-		if (get_check_strict("‚æ‚ë‚µ‚¢‚Å‚·‚©H", CHECK_DEFAULT_Y)) break;
-#else
-		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-		
-//		set_subrace(RACE_VANYAR_LINEAGE, FALSE);
-//		set_subrace(RACE_NOLDOR_LINEAGE, FALSE);
-//		set_subrace(RACE_TELERI_LINEAGE, FALSE);
-		
-		clear_from(10);
-		c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 3, 8);
-		}
-	}
-
 	/* Clean up */
 	clear_from(0);
-
-	/*** Doraconian Lineage ***/
-	if(p_ptr->irace_idx == RACE_DRACONIAN || p_ptr->irace_idx == RACE_DRAGON)
-	{
-		while(1)
-		{
-			char temp[80*10];
-			cptr t;
-
-			set_subrace(p_ptr, RACE_RED_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_WHITE_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_BLUE_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_BLACK_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_GREEN_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_CHROMATIC_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_BRONZE_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_GOLD_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_CRYSTAL_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_LAW_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_BALANCE_LINEAGE, FALSE);
-			set_subrace(p_ptr, RACE_CHAOS_LINEAGE, FALSE);
-
-			if (!get_player_subrace_dragon()) return FALSE;
-
-			if (get_subrace(p_ptr, RACE_RED_LINEAGE)) i = RACE_RED_LINEAGE;
-			if (get_subrace(p_ptr, RACE_WHITE_LINEAGE)) i = RACE_WHITE_LINEAGE;
-			if (get_subrace(p_ptr, RACE_BLUE_LINEAGE)) i = RACE_BLUE_LINEAGE;
-			if (get_subrace(p_ptr, RACE_BLACK_LINEAGE)) i = RACE_BLACK_LINEAGE;
-			if (get_subrace(p_ptr, RACE_GREEN_LINEAGE)) i = RACE_GREEN_LINEAGE;
-			if (get_subrace(p_ptr, RACE_CHROMATIC_LINEAGE)) i = RACE_CHROMATIC_LINEAGE;
-			if (get_subrace(p_ptr, RACE_BRONZE_LINEAGE)) i = RACE_BRONZE_LINEAGE;
-			if (get_subrace(p_ptr, RACE_GOLD_LINEAGE)) i = RACE_GOLD_LINEAGE;
-			if (get_subrace(p_ptr, RACE_CRYSTAL_LINEAGE)) i = RACE_CRYSTAL_LINEAGE;
-			if (get_subrace(p_ptr, RACE_LAW_LINEAGE)) i = RACE_LAW_LINEAGE;
-			if (get_subrace(p_ptr, RACE_BALANCE_LINEAGE)) i = RACE_BALANCE_LINEAGE;
-			if (get_subrace(p_ptr, RACE_CHAOS_LINEAGE)) i = RACE_CHAOS_LINEAGE;
-
-			clear_from(10);
-
-			roff_to_buf(race_jouhou[i], 74, temp, sizeof(temp));
-			t = temp;
-
-			for (i = 0; i < 10; i++)
-			{
-				if(t[0] == 0)
-					break; 
-				else
-				{
-					prt(t, 12+i, 3);
-					t += strlen(t) + 1;
-				}
-			}
-#ifdef JP
-		if (get_check_strict("‚æ‚ë‚µ‚¢‚Å‚·‚©H", CHECK_DEFAULT_Y)) break;
-#else
-		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-				
-		clear_from(10);
-		c_put_str(TERM_L_BLUE, get_intelligent_race_name(p_ptr), 3, 8);
-		}
-	}
-
-	/* Clean up */
-	clear_from(0);
-
 
 	/*** Player sex ***/
 
@@ -5874,10 +5764,9 @@ static bool player_birth_aux(void)
 	get_player_class();
 
 	/* Choose the magic realms */
-	if (!get_player_realms()) return FALSE;
+	get_player_realms();
 
 	/* TODO:: Choose the magic faith */
-
 
 	/* Choose the players CHARA */
 	p_ptr->chara_idx = 0;

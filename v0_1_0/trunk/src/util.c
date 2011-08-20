@@ -5521,6 +5521,8 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 	char c;
 	char eraser[80];
 	char line[80];
+
+	if (num <= 0) return -1;
 	
 	for(i = 0; i < w; i++)
 	{
