@@ -1857,7 +1857,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_LIGHT:
 		{
-			if (lite_area(damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -2463,7 +2463,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_LITE:
 		{
-			if (lite_area(damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -3451,7 +3451,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_ILLUMINATION:
 		{
-			if (lite_area(damroll(2, 8), 2)) ident = TRUE;
+			if (lite_area(cr_ptr, damroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -4217,7 +4217,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 				msg_print("The phial wells with clear light...");
 #endif
 
-				lite_area(damroll(2, 15), 3);
+				lite_area(cr_ptr, damroll(2, 15), 3);
 				o_ptr->timeout = randint0(10) + 10;
 				break;
 			}
@@ -4231,7 +4231,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 #endif
 
 				map_area(DETECT_RAD_MAP);
-				lite_area(damroll(2, 15), 3);
+				lite_area(cr_ptr, damroll(2, 15), 3);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -5915,7 +5915,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			energy_use = 0;
 			return;
 		}
-		lite_area(damroll(2, 15), 3);
+		lite_area(cr_ptr, damroll(2, 15), 3);
 		o_ptr->timeout = randint0(10) + 10;
 
 		/* Window stuff */

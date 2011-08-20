@@ -2808,7 +2808,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It wells with clear light...");
 #endif
 
-			lite_area(damroll(2, 15), 3);
+			lite_area(cr_ptr, damroll(2, 15), 3);
 			o_ptr->timeout = (s16b)randint0(10) + 10;
 			break;
 		}
@@ -2822,7 +2822,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			map_area(DETECT_RAD_MAP);
-			lite_area(damroll(2, 15), 3);
+			lite_area(cr_ptr, damroll(2, 15), 3);
 			o_ptr->timeout = (s16b)randint0(50) + 50;
 			break;
 		}

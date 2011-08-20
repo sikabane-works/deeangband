@@ -526,7 +526,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 12:
 	case 13:
 	case 14:
-		lite_area(damroll(2, 3), 2);
+		lite_area(cr_ptr, damroll(2, 3), 2);
 		break;
 	case 15:
 		destroy_doors_touch();
@@ -1285,7 +1285,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -1981,7 +1981,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -2728,7 +2728,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 
 				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
 				{
@@ -3463,7 +3463,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -6081,7 +6081,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -9164,7 +9164,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("Your uplifting song brings brightness to dark places...");
 #endif
 
-				lite_area(damroll(dice, sides), rad);
+				lite_area(p_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;

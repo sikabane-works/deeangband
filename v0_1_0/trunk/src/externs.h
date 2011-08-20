@@ -1176,7 +1176,7 @@ extern bool earthquake_aux(int cy, int cx, int r, int m_idx);
 extern bool earthquake(int cy, int cx, int r);
 extern void lite_room(int y1, int x1);
 extern void unlite_room(int y1, int x1);
-extern bool lite_area(int dam, int rad);
+extern bool lite_area(creature_type *cr_ptr, int dam, int rad);
 extern bool unlite_area(int dam, int rad);
 extern bool fire_ball(int typ, int dir, int dam, int rad);
 extern bool fire_rocket(int typ, int dir, int dam, int rad);

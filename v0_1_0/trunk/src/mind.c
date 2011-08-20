@@ -1053,7 +1053,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		fire_ball(GF_MISSILE, dir, damroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
-		(void)lite_area(damroll(2, (plev / 2)), (plev / 10) + 1);
+		(void)lite_area(cr_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
 		break;
 	case 2:
 		set_tim_levitation(cr_ptr, randint1(30) + 30 + boost / 5, FALSE);
@@ -1294,7 +1294,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* mirror of light */
 	case 4:
-	  (void)lite_area(damroll(2, (plev / 2)), (plev / 10) + 1);
+	  (void)lite_area(cr_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
 	  break;
 	/* mirror of wandering */
 	case 5:

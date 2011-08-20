@@ -3575,7 +3575,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_ILLUMINE:
-			(void)lite_area(damroll(2, (lvl / 2)), (lvl / 10) + 1);
+			(void)lite_area(cr_ptr, damroll(2, (lvl / 2)), (lvl / 10) + 1);
 			break;
 
 		case MUT1_DET_CURSE:

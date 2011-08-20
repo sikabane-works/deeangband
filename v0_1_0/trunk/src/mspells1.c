@@ -3726,7 +3726,7 @@ else msg_format("%^s‚ªŒõ‚ÌŒ•‚ğ•ú‚Á‚½B", m_name);
 			else msg_format("%^s gestures in shadow.", m_name);
 #endif
 
-			if (can_use_lite_area) (void)lite_area(0, 3);
+			if (can_use_lite_area) (void)lite_area(cr_ptr, 0, 3);
 			else
 			{
 				learn_spell(p_ptr, MS_DARKNESS);

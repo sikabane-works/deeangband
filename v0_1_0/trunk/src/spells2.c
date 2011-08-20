@@ -6376,7 +6376,7 @@ void unlite_room(int y1, int x1)
  * Hack -- call light around the player
  * Affect all monsters in the projection radius
  */
-bool lite_area(int dam, int rad)
+bool lite_area(creature_type *cr_ptr, int dam, int rad)
 {
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
@@ -6402,10 +6402,10 @@ msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, p_ptr->fy, p_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
+	(void)project(0, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
 
 	/* Lite up the room */
-	lite_room(p_ptr->fy, p_ptr->fx);
+	lite_room(cr_ptr->fy, cr_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
