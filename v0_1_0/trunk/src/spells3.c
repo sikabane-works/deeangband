@@ -907,7 +907,7 @@ int choose_dungeon(cptr note, int y, int x)
 /*
  * Recall the player to town or dungeon
  */
-bool recall_player(int turns)
+bool recall_player(creature_type *cr_ptr, int turns)
 {
 	/*
 	 * TODO: Recall the player to the last
@@ -926,7 +926,7 @@ msg_print("‰½‚à‹N‚±‚ç‚È‚©‚Á‚½B");
 		return TRUE;
 	}
 
-	if (dun_level && (max_dlv[dungeon_type] > dun_level) && !inside_quest && !p_ptr->word_recall)
+	if (dun_level && (max_dlv[dungeon_type] > dun_level) && !inside_quest && !cr_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -944,7 +944,7 @@ if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 		}
 
 	}
-	if (!p_ptr->word_recall)
+	if (!cr_ptr->word_recall)
 	{
 		if (!dun_level)
 		{
@@ -955,9 +955,9 @@ if (get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 			select_dungeon = choose_dungeon("recall", 2, 14);
 #endif
 			if (!select_dungeon) return FALSE;
-			p_ptr->recall_dungeon = select_dungeon;
+			cr_ptr->recall_dungeon = select_dungeon;
 		}
-		p_ptr->word_recall = turns;
+		cr_ptr->word_recall = turns;
 #ifdef JP
 msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
 #else
@@ -968,7 +968,7 @@ msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
 	}
 	else
 	{
-		p_ptr->word_recall = 0;
+		cr_ptr->word_recall = 0;
 #ifdef JP
 msg_print("’£‚è‚Â‚ß‚½‘å‹C‚ª—¬‚ê‹Ž‚Á‚½...");
 #else
@@ -981,9 +981,9 @@ msg_print("’£‚è‚Â‚ß‚½‘å‹C‚ª—¬‚ê‹Ž‚Á‚½...");
 }
 
 
-bool word_of_recall(void)
+bool word_of_recall(creature_type *cr_ptr)
 {
-	return(recall_player(randint0(21) + 15));
+	return(recall_player(cr_ptr, randint0(21) + 15));
 }
 
 

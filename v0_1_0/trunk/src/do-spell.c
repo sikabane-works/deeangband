@@ -1665,7 +1665,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall()) return NULL;
+				if (!word_of_recall(p_ptr)) return NULL;
 			}
 		}
 		break;
@@ -2380,7 +2380,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall()) return NULL;
+				if (!word_of_recall(p_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5427,7 +5427,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall()) return NULL;
+				if (!word_of_recall(p_ptr)) return NULL;
 			}
 		}
 		break;
@@ -6628,7 +6628,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall()) return NULL;
+				if (!word_of_recall(p_ptr)) return NULL;
 			}
 		}
 		break;

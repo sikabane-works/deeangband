@@ -1379,7 +1379,7 @@ msg_format("There are too many mirrors to control!");
 
 	/* mirror of recall */
 	case 17:
-		return word_of_recall();
+		return word_of_recall(cr_ptr);
 	/* multi-shadow */
 	case 18:
 	  set_multishadow(cr_ptr, 6+randint1(6),FALSE);

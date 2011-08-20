@@ -1758,7 +1758,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_WORD_OF_RECALL:
 		{
-			if (!word_of_recall()) used_up = FALSE;
+			if (!word_of_recall(cr_ptr)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -3444,7 +3444,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_RECALL:
 		{
-			if (!word_of_recall()) *use_charge = FALSE;
+			if (!word_of_recall(cr_ptr)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -4266,7 +4266,7 @@ if (get_check("帰還の力を使いますか？"))
 #endif
 
 				{
-					(void)word_of_recall();
+					(void)word_of_recall(cr_ptr);
 				}
 
 				o_ptr->timeout = randint0(20) + 20;
@@ -4641,7 +4641,7 @@ msg_print("天国の歌が聞こえる...");
 #else
 				msg_print("Your cloak glows soft white...");
 #endif
-				if (!word_of_recall()) return;
+				if (!word_of_recall(cr_ptr)) return;
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -5039,7 +5039,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your scythe glows soft white...");
 #endif
-				if (!word_of_recall()) return;
+				if (!word_of_recall(cr_ptr)) return;
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -5051,7 +5051,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your scythe glows soft white...");
 #endif
-				if (!word_of_recall()) return;
+				if (!word_of_recall(cr_ptr)) return;
 				o_ptr->timeout = 200;
 				break;
 			}

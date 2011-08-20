@@ -2995,7 +2995,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #else
 			msg_print("It glows soft white...");
 #endif
-			if (!word_of_recall()) return FALSE;
+			if (!word_of_recall(cr_ptr)) return FALSE;
 			o_ptr->timeout = 200;
 			break;
 		}

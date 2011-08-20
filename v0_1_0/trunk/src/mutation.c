@@ -3725,7 +3725,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_RECALL:
-			if (!word_of_recall()) return FALSE;
+			if (!word_of_recall(cr_ptr)) return FALSE;
 			break;
 
 		case MUT1_BANISH:

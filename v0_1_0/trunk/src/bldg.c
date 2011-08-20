@@ -4839,7 +4839,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		enchant_item(bcost, 1, 1, 0);
 		break;
 	case BACT_RECALL:
-		if (recall_player(1)) paid = TRUE;
+		if (recall_player(cr_ptr, 1)) paid = TRUE;
 		break;
 	case BACT_TELEPORT_LEVEL:
 	{
