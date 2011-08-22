@@ -2082,263 +2082,102 @@ static void show_help(cptr helpfile)
 /*
  * Choose from one of the available magical realms
  */
-static byte choose_realm(s32b choices, int *count)
+static byte choose_realm(s32b choices)
 {
+	selection re[MAX_REALM];
 	int picks[VALID_REALM] = {0};
-	int k, i, cs, os;
-	byte auto_select = REALM_NONE;
 	int n = 0;
-	char c;
-	char sym[VALID_REALM];
-	char p2 = ')';
-	char buf[80], cur[80];
 
 	/* Count the choices */
 	if (choices & CH_LIFE)
 	{
-		(*count)++;
-		auto_select = REALM_LIFE;
+		strcpy(re[n].cap, realm_names[REALM_LIFE]);
+		re[n].code = REALM_LIFE;
+		n++;
 	}
 	if (choices & CH_SORCERY)
 	{
-		(*count)++;
-		auto_select = REALM_SORCERY;
+		strcpy(re[n].cap, realm_names[REALM_SORCERY]);
+		re[n].code = REALM_SORCERY;
+		n++;
 	}
 	if (choices & CH_NATURE)
 	{
-		(*count)++;
-		auto_select = REALM_NATURE;
+		strcpy(re[n].cap, realm_names[REALM_NATURE]);
+		re[n].code = REALM_NATURE;
+		n++;
 	}
 	if (choices & CH_CHAOS)
 	{
-		(*count)++;
-		auto_select = REALM_CHAOS;
+		strcpy(re[n].cap, realm_names[REALM_CHAOS]);
+		re[n].code = REALM_CHAOS;
+		n++;
 	}
 	if (choices & CH_DEATH)
 	{
-		(*count)++;
-		auto_select = REALM_DEATH;
+		strcpy(re[n].cap, realm_names[REALM_DEATH]);
+		re[n].code = REALM_DEATH;
+		n++;
 	}
 	if (choices & CH_TRUMP)
 	{
-		(*count)++;
-		auto_select = REALM_TRUMP;
+		strcpy(re[n].cap, realm_names[REALM_TRUMP]);
+		re[n].code = REALM_TRUMP;
+		n++;
 	}
 	if (choices & CH_ARCANE)
 	{
-		(*count)++;
-		auto_select = REALM_ARCANE;
+		strcpy(re[n].cap, realm_names[REALM_ARCANE]);
+		re[n].code = REALM_ARCANE;
+		n++;
 	}
 	if (choices & CH_ENCHANT)
 	{
-		(*count)++;
-		auto_select = REALM_CRAFT;
+		strcpy(re[n].cap, realm_names[REALM_CRAFT]);
+		re[n].code = REALM_CRAFT;
+		n++;
 	}
 	if (choices & CH_DAEMON)
 	{
-		(*count)++;
-		auto_select = REALM_DAEMON;
+		strcpy(re[n].cap, realm_names[REALM_DAEMON]);
+		re[n].code = REALM_DAEMON;
+		n++;
 	}
 	if (choices & CH_CRUSADE)
 	{
-		(*count)++;
-		auto_select = REALM_CRUSADE;
+		strcpy(re[n].cap, realm_names[REALM_CRUSADE]);
+		re[n].code = REALM_CRUSADE;
+		n++;
 	}
 	if (choices & CH_MUSIC)
 	{
-		(*count)++;
-		auto_select = REALM_MUSIC;
+		strcpy(re[n].cap, realm_names[REALM_MUSIC]);
+		re[n].code = REALM_MUSIC;
+		n++;
 	}
 	if (choices & CH_HISSATSU)
 	{
-		(*count)++;
-		auto_select = REALM_HISSATSU;
+		strcpy(re[n].cap, realm_names[REALM_HISSATSU]);
+		re[n].code = REALM_HISSATSU;
+		n++;
 	}
 	if (choices & CH_HEX)
 	{
-		(*count)++;
-		auto_select = REALM_HEX;
-	}
-
-	clear_from(10);
-
-	/* Auto-select the realm */
-	if ((*count) < 2) return auto_select;
-
-	/* Constraint to the 1st realm */
-	if (p_ptr->realm2 != 255)
-	{
-		if (p_ptr->cls_idx == CLASS_PRIEST)
-		{
-			if (is_good_realm(p_ptr->realm1))
-			{
-				choices &= ~(CH_DEATH | CH_DAEMON);
-			}
-			else
-			{
-				choices &= ~(CH_LIFE | CH_CRUSADE);
-			}
-		}
+		strcpy(re[n].cap, realm_names[REALM_HEX]);
+		re[n].code = REALM_HEX;
+		n++;
 	}
 
 	/* Extra info */
+/*
 #ifdef JP
 	put_str ("注意：魔法の領域の選択によりあなたが習得する呪文のタイプが決まります。", 23, 5);
 #else
 	put_str ("Note: The realm of magic will determine which spells you can learn.", 23, 5);
 #endif
+*/
 
-	cs = 0;
-	for (i = 0; i<32; i++)
-	{
-		/* Analize realms */
-		if (choices & (1L << i))
-		{
-			if (p_ptr->realm1 == i+1)
-			{
-				if (p_ptr->realm2 == 255)
-					cs = n;
-				else
-					continue;
-			}
-			if (p_ptr->realm2 == i+1)
-				cs = n;
-			if (n < 26)
-				sym[n] = I2A(n);
-			else
-				sym[n] = ('A' + n - 26);
-			sprintf(buf, "%c%c %s", sym[n], p2, realm_names[i+1]);
-			put_str(buf, 12 + (n/5), 2 + 15 * (n%5));
-			picks[n++] = i+1;
-		}
-	}
-#ifdef JP
-	sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-	sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-
-	/* Get a realm */
-	k = -1;
-	os = n;
-	while (1)	{
-		/* Move Cursol */
-		if (cs != os)
-		{
-			c_put_str(TERM_WHITE, cur, 12 + (os/5), 2 + 15 * (os%5));
-			put_str("                                   ", 3, 40);
-			put_str("                                   ", 4, 40);
-
-			if(cs == n)
-			{
-#ifdef JP
-				sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-				sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-			}
-			else
-			{
-				sprintf(cur, "%c%c %s", sym[cs], p2, realm_names[picks[cs]]);
-				sprintf(buf, "%s", realm_names[picks[cs]]);
-#ifdef JP
-				c_put_str(TERM_L_BLUE, buf, 3, 40);
-				put_str("の特徴", 3, 40+strlen(buf));
-#else
-				c_put_str(TERM_L_BLUE, realm_names[picks[cs]], 3, 40);
-				put_str(": Characteristic", 3, 40+strlen(realm_names[picks[cs]]));
-#endif
-				put_str(realm_subinfo[technic2magic(picks[cs])-1], 4, 40);
-			}
-			c_put_str(TERM_YELLOW, cur, 12 + (cs/5), 2 + 15 * (cs%5));
-			os = cs;
-		}
-
-		if (k >= 0) break;
-
-#ifdef JP
-		sprintf(buf, "領域を選んで下さい(%c-%c) ('='初期オプション設定): ", sym[0], sym[n-1]);
-#else
-		sprintf(buf, "Choose a realm (%c-%c) ('=' for options): ", sym[0], sym[n-1]);
-#endif
-
-		put_str(buf, 10, 10);
-		c = inkey();
-		if (c == 'Q') birth_quit();
-		if (c == 'S') return 255;
-		if (c == ' ' || c == '\r' || c == '\n')
-		{
-			if(cs == n)
-			{
-				k = randint0(n);
-				break;
-			}
-			else
-			{
-				k = cs;
-				break;
-			}
-		}
-		if (c == '*')
-		{
-			k = randint0(n);
-			break;
-		}
-		if (c == '8')
-		{
-			if (cs >= 5) cs -= 5;
-		}
-		if (c == '4')
-		{
-			if (cs > 0) cs--;
-		}
-		if (c == '6')
-		{
-			if (cs < n) cs++;
-		}
-		if (c == '2')
-		{
-			if ((cs + 5) <= n) cs += 5;
-		}
-		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < n))
-		{
-			cs = k;
-			continue;
-		}
-		k = (isupper(c) ? (26 + c - 'A') : -1);
-		if ((k >= 26) && (k < n))
-		{
-			cs = k;
-			continue;
-		}
-		else k = -1;
-		if (c == '?')
-		{
-#ifdef JP
-			show_help("jmagic.txt#MagicRealms");
-#else
-			show_help("magic.txt#MagicRealms");
-#endif
-		}
-		else if (c == '=')
-		{
-			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth option((*)s effect score)");
-#endif
-
-			screen_load();
-		}
-		else if (c !='2' && c !='4' && c !='6' && c !='8') bell();
-	}
-
-	/* Clean up */
-	clear_from(10);
-
-	return (picks[k]);
+	return get_selection(re, n, 5, 2, 18, 20, realm_detail);
 }
 
 
@@ -2347,131 +2186,16 @@ static byte choose_realm(s32b choices, int *count)
  */
 static bool get_player_realms(void)
 {
-	int i, count;
-
-	/* Clean up infomation of modifications */
-	put_str("                                   ", 3, 40);
-	put_str("                                   ", 4, 40);
-	put_str("                                   ", 5, 40);
 
 	/* Select the first realm */
 	p_ptr->realm1 = REALM_NONE;
 	p_ptr->realm2 = 255;
-	while (1)
-	{
-		char temp[80*10];
-		cptr t;
-		count = 0;
-		p_ptr->realm1 = choose_realm(realm_choices1[p_ptr->cls_idx], &count);
 
-		if (255 == p_ptr->realm1) return FALSE;
-		if (!p_ptr->realm1) break;
-
-		/* Clean up*/
-		clear_from(10);
-		put_str("                                   ", 3, 40);
-		put_str("                                   ", 4, 40);
-		put_str("                                   ", 5, 40);
-
-		roff_to_buf(realm_jouhou[technic2magic(p_ptr->realm1)-1], 74, temp, sizeof(temp));
-		t = temp;
-		for (i = 0; i < 10; i++)
-		{
-			if(t[0] == 0)
-				break; 
-			else
-			{
-				prt(t, 12+i, 3);
-				t += strlen(t) + 1;
-			}
-		}
-
-		if (count < 2)
-		{
-#ifdef JP
-			prt("何かキーを押してください", 0, 0);
-#else
-			prt("Hit any key.", 0, 0);
-#endif
-			(void)inkey();
-			prt("", 0, 0);
-			break;
-		}
-else
-#ifdef JP
-		if (get_check_strict("よろしいですか？", CHECK_DEFAULT_Y)) break;
-#else
-		if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-	}
+	p_ptr->realm1 = choose_realm(realm_choices1[p_ptr->cls_idx]);
 
 	/* Select the second realm */
 	p_ptr->realm2 = REALM_NONE;
-	if (p_ptr->realm1)
-	{
-		/* Print the realm */
-#ifdef JP
-		put_str("魔法   ", 6, 1);
-#else
-		put_str("Magic  ", 6, 1);
-#endif
-
-		c_put_str(TERM_L_BLUE, realm_names[p_ptr->realm1], 6, 8);
-
-		/* Select the second realm */
-		while (1)
-		{
-			char temp[80*8];
-			cptr t;
-
-			count = 0;
-			p_ptr->realm2 = choose_realm(realm_choices2[p_ptr->cls_idx], &count);
-
-			if (255 == p_ptr->realm2) return FALSE;
-			if (!p_ptr->realm2) break;
-
-			/* Clean up*/
-			clear_from(10);
-			put_str("                                   ", 3, 40);
-			put_str("                                   ", 4, 40);
-			put_str("                                   ", 5, 40);
-
-			roff_to_buf(realm_jouhou[technic2magic(p_ptr->realm2)-1], 74, temp, sizeof(temp));
-			t = temp;
-			for (i = 0; i< 6; i++)
-			{
-				if(t[0] == 0)
-					break; 
-				else
-				{
-					prt(t, 12+i, 3);
-					t += strlen(t) + 1;
-				}
-			}
-
-			if (count < 2)
-			{
-#ifdef JP
-				prt("何かキーを押してください", 0, 0);
-#else
-				prt("Hit any key.", 0, 0);
-#endif
-				(void)inkey();
-				prt("", 0, 0);
-				break;
-			}
-#ifdef JP
-			else if (get_check_strict("よろしいですか？", CHECK_DEFAULT_Y)) break;
-#else
-			else if (get_check_strict("Are you sure? ", CHECK_DEFAULT_Y)) break;
-#endif
-		}
-		if (p_ptr->realm2)
-		{
-			/* Print the realm */
-			c_put_str(TERM_L_BLUE, format("%s, %s", realm_names[p_ptr->realm1], realm_names[p_ptr->realm2]), 6, 8);
-		}
-	}
+	p_ptr->realm2 = choose_realm(realm_choices2[p_ptr->cls_idx]);
 
 	return (TRUE);
 }
@@ -4229,6 +3953,38 @@ void chara_detail(int code)
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
 	roff_to_buf(chara_jouhou[code], 56, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
+	{
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
+		{
+			prt("                                                                       ", base+4 + i, 24);
+		}
+		else
+		{
+			prt(t, base+4 + i, 24);
+			t += strlen(t) + 1;
+		}
+	}
+}
+
+
+void realm_detail(int code)
+{
+	bool e;
+	int base = 5;
+	int i, pena = 0;
+	char temp[58*18];
+	cptr t;
+	put_str("                                                  " , base, 24);
+	put_str("                                                  " , base+1, 24);
+	put_str("                                                  " , base+2, 24);
+
+	roff_to_buf(realm_jouhou[technic2magic(code)-1], 56, temp, sizeof(temp));
 	t = temp;
 	e = FALSE;
 	for (i = 0; i < 18; i++)
