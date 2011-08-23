@@ -2093,78 +2093,91 @@ static byte choose_realm(s32b choices)
 	{
 		strcpy(re[n].cap, realm_names[REALM_LIFE]);
 		re[n].code = REALM_LIFE;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_SORCERY)
 	{
 		strcpy(re[n].cap, realm_names[REALM_SORCERY]);
 		re[n].code = REALM_SORCERY;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_NATURE)
 	{
 		strcpy(re[n].cap, realm_names[REALM_NATURE]);
 		re[n].code = REALM_NATURE;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_CHAOS)
 	{
 		strcpy(re[n].cap, realm_names[REALM_CHAOS]);
 		re[n].code = REALM_CHAOS;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_DEATH)
 	{
 		strcpy(re[n].cap, realm_names[REALM_DEATH]);
 		re[n].code = REALM_DEATH;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_TRUMP)
 	{
 		strcpy(re[n].cap, realm_names[REALM_TRUMP]);
 		re[n].code = REALM_TRUMP;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_ARCANE)
 	{
 		strcpy(re[n].cap, realm_names[REALM_ARCANE]);
 		re[n].code = REALM_ARCANE;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_ENCHANT)
 	{
 		strcpy(re[n].cap, realm_names[REALM_CRAFT]);
 		re[n].code = REALM_CRAFT;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_DAEMON)
 	{
 		strcpy(re[n].cap, realm_names[REALM_DAEMON]);
 		re[n].code = REALM_DAEMON;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_CRUSADE)
 	{
 		strcpy(re[n].cap, realm_names[REALM_CRUSADE]);
 		re[n].code = REALM_CRUSADE;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_MUSIC)
 	{
 		strcpy(re[n].cap, realm_names[REALM_MUSIC]);
 		re[n].code = REALM_MUSIC;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_HISSATSU)
 	{
 		strcpy(re[n].cap, realm_names[REALM_HISSATSU]);
 		re[n].code = REALM_HISSATSU;
+		re[n].key = '\0';
 		n++;
 	}
 	if (choices & CH_HEX)
 	{
 		strcpy(re[n].cap, realm_names[REALM_HEX]);
 		re[n].code = REALM_HEX;
+		re[n].key = '\0';
 		n++;
 	}
 
@@ -4074,6 +4087,7 @@ static bool get_intelligent_race(void)
 		{
 			strcpy(se[n].cap, race_info[n].title);
 			se[n].code = i;
+			se[n].key = '\0';
 			n++;
 		}
 	}
@@ -4093,10 +4107,13 @@ static bool get_player_subrace_eldar()
 
 	strcpy(se[0].cap, race_info[RACE_TELERI_LINEAGE].title);
 	se[0].code = RACE_TELERI_LINEAGE;
+	se[0].key = '\0';
 	strcpy(se[1].cap, race_info[RACE_NOLDOR_LINEAGE].title);
 	se[1].code = RACE_NOLDOR_LINEAGE;
+	se[1].key = '\0';
 	strcpy(se[2].cap, race_info[RACE_VANYAR_LINEAGE].title);
 	se[2].code = RACE_VANYAR_LINEAGE;
+	se[2].key = '\0';
 	i = get_selection(se, 3, 5, 2, 18, 20, subrace_detail);
 	set_subrace(p_ptr, i, TRUE);
 
@@ -4159,6 +4176,7 @@ static bool get_player_sex(void)
 	{
 		strcpy(se[i].cap, sex_info[i].title);
 		se[i].code = i;
+		se[i].key = '\0';
 	}
 	p_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
 
@@ -4179,6 +4197,7 @@ static bool get_player_class(void)
 	{
 		strcpy(ce[i].cap, class_info[i].title);
 		ce[i].code = i;
+		ce[i].key = '\0';
 	}
 	p_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
@@ -4201,6 +4220,7 @@ static bool get_player_chara(void)
 		{
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
+			ce[n].key = '\0';
 			n++;
 		}
 	}

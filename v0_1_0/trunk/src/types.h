@@ -1903,6 +1903,7 @@ typedef struct
 {
 	char cap[80];
 	int code;
+	char key;
 } selection;
 
 
