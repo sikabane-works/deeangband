@@ -3871,6 +3871,60 @@ void race_detail(int code)
 	}
 }
 
+void subrace_detail(int code)
+{
+	bool e;
+	int base = 5;
+	int i, pena = 0;
+	char buf[100], temp[58*18];
+	cptr t;
+	put_str("                                                  " , base, 24);
+	put_str("                                                  " , base+1, 24);
+	put_str("                                                  " , base+2, 24);
+#ifdef JP
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
+	put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
+#else
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
+#endif
+
+	for(i = 0; i < 10; i++)
+		if(race_info[code].lev > race_unreached_level_penalty[i])
+			pena++;
+
+	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
+		race_info[code].r_s_adj[0],
+		race_info[code].r_s_adj[1],
+		race_info[code].r_s_adj[2],
+		race_info[code].r_s_adj[3],
+		race_info[code].r_s_adj[4],
+		race_info[code].r_s_adj[5],
+		(race_info[code].r_s_exp - 100));
+	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+
+	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
+	{
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
+		{
+			prt("                                                                       ", base+4 + i, 24);
+		}
+		else
+		{
+			prt(t, base+4 + i, 24);
+			t += strlen(t) + 1;
+		}
+	}
+}
+
 void class_detail(int code)
 {
 	bool e;
@@ -4043,7 +4097,7 @@ static bool get_player_subrace_eldar()
 	se[1].code = RACE_NOLDOR_LINEAGE;
 	strcpy(se[2].cap, race_info[RACE_VANYAR_LINEAGE].title);
 	se[2].code = RACE_VANYAR_LINEAGE;
-	i = get_selection(se, 3, 5, 2, 18, 20, race_detail);
+	i = get_selection(se, 3, 5, 2, 18, 20, subrace_detail);
 	set_subrace(p_ptr, i, TRUE);
 
 	/* Success */
