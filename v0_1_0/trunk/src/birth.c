@@ -4034,215 +4034,21 @@ static bool get_intelligent_race(void)
  */
 static bool get_player_subrace_eldar()
 {
-	int     c_num, k, n, cs, os;
-	int     c_races[MAX_RACES];
-	cptr    str;
-	char    c;
-	char    sym[MAX_RACES];
-	char    p2 = ')';
-	char    buf[80], cur[80];
-	intelligent_race *rps_ptr;
+	int     i;
+	selection se[3];
 
-
-	/* Extra info */
-	clear_from(10);
-#ifdef JP
-	put_str("副種族として以下のうちから一つ選択して下さい", 23, 5);
-#else
-	put_str("Please select these subrace.", 23 ,5);
-#endif
-
-	/*Vanyar,Noldor,Tereri*/
-	c_num = 3;
-	c_races[0] = RACE_VANYAR_LINEAGE;
-	c_races[1] = RACE_NOLDOR_LINEAGE;
-	c_races[2] = RACE_TELERI_LINEAGE;
-
-	/* Dump races */
-	for (n = 0; n < c_num; n++)
-	{
-		 
-		/* Analyze */
-		rps_ptr = &race_info[c_races[n]];
-		str = rps_ptr->title;
-
-		/* Display */
-		if (n < 26)
-			sym[n] = I2A(n);
-		else
-			sym[n] = ('A' + n - 26);
-
-		if(rps_ptr->dr >= 0)
-		{
-#ifdef JP
-			sprintf(buf, "%c%c!%s", sym[n], p2, str);
-#else
-			sprintf(buf, "%c%c!%s", sym[n], p2, str);
-#endif
-		}
-		else
-		{
-#ifdef JP
-			sprintf(buf, "%c%c %s", sym[n], p2, str);
-#else
-			sprintf(buf, "%c%c %s", sym[n], p2, str);
-#endif
-		}
-		put_str(buf, 13 + (n/4), 4 + 18 * (n%4));
-	}
-
-#ifdef JP
-	sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-	sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-	put_str(cur, 13 + (n/4), 4 + 18 * (n%4));
-
-
-	/* Choose */
-	k = -1;
-	cs = 0;
-	os = c_num;
-	while (1)
-	{
-		/* Move Cursol */
-		if (cs != os)
-		{
-			c_put_str(TERM_WHITE, cur, 13 + (os/4), 4 + 18 * (os%4));
-
-			put_str("                                   ", 3, 40);
-			if(cs == c_num)
-			{
-#ifdef JP
-				sprintf(cur, "%c%c %s", '*', p2, "ランダム");
-#else
-				sprintf(cur, "%c%c %s", '*', p2, "Random");
-#endif
-				put_str("ランダムに選択します                 ", 4, 40);
-				put_str("                                     ", 5, 40);
-			}
-			else
-			{
-				rps_ptr = &race_info[c_races[cs]];
-				str = rps_ptr->title;
-#ifdef JP
-				if(rps_ptr->dr >= 0)
-					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
-				else
-					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, rps_ptr->title, 3, 40);
-				put_str("の副種族修正", 3, 40+strlen(rps_ptr->title));
-				put_str("腕力 知能 賢さ 器用 耐久 魅力 経験   ", 4, 40);
-#else
-				if(rps_ptr->dr >= 0)
-					sprintf(cur, "%c%c!%s", sym[cs], p2, str);
-				else
-					sprintf(cur, "%c%c %s", sym[cs], p2, str);
-				c_put_str(TERM_L_BLUE, rps_ptr->title, 3, 40);
-				put_str(": Sub-Race modification", 3, 40+strlen(rps_ptr->title));
-				put_str("Str  Int  Wis  Dex  Con  Chr   EXP   ", 4, 40);
-#endif
-				sprintf(buf, "%+3d  %+3d  %+3d  %+3d  %+3d  %+3d %+4d%% ",
-					rps_ptr->r_s_adj[0], rps_ptr->r_s_adj[1], rps_ptr->r_s_adj[2], rps_ptr->r_s_adj[3],
-					rps_ptr->r_s_adj[4], rps_ptr->r_s_adj[5], rps_ptr->r_s_exp - 100);
-				c_put_str(TERM_L_BLUE, buf, 5, 40);
-			}
-
-			c_put_str(TERM_YELLOW, cur, 13 + (cs/4), 4 + 18 * (cs%4));
-			os = cs;
-		}
-
-		if (k >= 0) break;
-
-#ifdef JP
-		sprintf(buf, "種族を選んで下さい (%c-%c) ('='初期オプション設定): ", sym[0], sym[c_num-1]);
-#else
-		sprintf(buf, "Choose a race (%c-%c) ('=' for options): ", sym[0], sym[c_num-1]);
-#endif
-		put_str(buf, 10, 10);
-
-		c = inkey();
-		if (c == 'Q') birth_quit();
-		if (c == 'S') return (FALSE);
-		if (c == ' ' || c == '\r' || c == '\n')
-		{
-			if(cs == c_num)
-			{
-				k = randint0(c_num);
-				cs = k;
-				continue;
-			}
-			else
-			{
-				k = cs;
-				break;
-			}
-		}
-		if (c == '*')
-		{
-			k = randint0(c_num);
-			cs = k;
-			continue;
-		}
-		if (c == '8')
-		{
-			if (cs >= 4) cs -= 4;
-		}
-		if (c == '4')
-		{
-			if (cs > 0) cs--;
-		}
-		if (c == '6')
-		{
-			if (cs < c_num) cs++;
-		}
-		if (c == '2')
-		{
-			if ((cs + 4) <= c_num) cs += 4;
-		}
-		k = (islower(c) ? A2I(c) : -1);
-		if ((k >= 0) && (k < c_num))
-		{
-			cs = k;
-			continue;
-		}
-		k = (isupper(c) ? (26 + c - 'A') : -1);
-		if ((k >= 26) && (k < c_num))
-		{
-			cs = k;
-			continue;
-		}
-		else k = -1;
-		if (c == '?')
-		{
-#ifdef JP
-			show_help("jraceclas.txt#TheRaces");
-#else
-			show_help("raceclas.txt#TheRaces");
-#endif
-		}
-		else if (c == '=')
-		{
-			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-			screen_load();
-		}
-		else if (c !='2' && c !='4' && c !='6' && c !='8') bell();
-	}
-
-	/* Set subrace */
-	set_subrace(p_ptr, c_races[k], TRUE);
-
-	/* Display */
-	c_put_str(TERM_L_BLUE, "                 ", 3, 8);
-	c_put_str(TERM_L_BLUE, rps_ptr->title, 3, 8);
+	strcpy(se[0].cap, race_info[RACE_TELERI_LINEAGE].title);
+	se[0].code = RACE_TELERI_LINEAGE;
+	strcpy(se[1].cap, race_info[RACE_NOLDOR_LINEAGE].title);
+	se[1].code = RACE_NOLDOR_LINEAGE;
+	strcpy(se[2].cap, race_info[RACE_VANYAR_LINEAGE].title);
+	se[2].code = RACE_VANYAR_LINEAGE;
+	i = get_selection(se, 3, 5, 2, 18, 20, race_detail);
+	set_subrace(p_ptr, i, TRUE);
 
 	/* Success */
 	return TRUE;
+
 }
 
 
@@ -5494,6 +5300,8 @@ static bool player_birth_aux(void)
 
 	get_intelligent_race();
 
+	if(p_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
+
 	/* Clean up */
 	clear_from(0);
 
@@ -5508,7 +5316,6 @@ static bool player_birth_aux(void)
 #endif
 */
 	get_player_sex();
-
 
 	/* Clean up */
 	clear_from(0);
