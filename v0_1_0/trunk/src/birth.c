@@ -4205,6 +4205,31 @@ static bool get_player_class(void)
 	return TRUE;
 }
 
+/*
+ * Player patron
+ */
+static bool get_player_patron(void)
+{
+	int i, n;
+	selection pt[400];
+
+	for (i = 0, n = 0; i < max_m_idx; i++)
+	{
+		if((r_info[i].flags1 & RF1_UNIQUE) && r_info[i].dr >= 5)
+		{
+			strcpy(pt[n].cap, r_name + r_info[i].name);
+			pt[n].code = i;
+			pt[n].key = '\0';
+			n++; 
+		}
+		if(n == 400) break;
+	}
+	i = get_selection(pt, n, 5, 2, 18, 60, NULL);
+
+	/* Success */
+	return TRUE;
+}
+
 
 /*
  * Player Chara
@@ -5202,6 +5227,9 @@ static bool player_birth_aux(void)
 
 	clear_from(0);
 	get_player_class();
+
+	clear_from(0);
+	get_player_patron();
 
 	clear_from(0);
 	get_player_realms();
