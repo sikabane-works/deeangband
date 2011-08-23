@@ -4220,7 +4220,7 @@ static bool get_stat_limits(void)
 	char inp[80];
 
 	/* Clean up */
-	clear_from(10);
+	clear_from(0);
 
 	/* Extra infomation */
 #ifdef JP
@@ -5171,65 +5171,26 @@ static bool player_birth_aux(void)
 	p_ptr->sub_race[6] = 0x0;
 	p_ptr->sub_race[7] = 0x0;
 
-
-	/* Dump the default name */
-	c_put_str(TERM_L_BLUE, p_ptr->name, 1, 6);
-
-	/*** Instructions ***/
-
-	/* Display some helpful information */
-#ifdef JP
-	put_str("キャラクターを作成します。('S'やり直す, 'Q'終了, '?'ヘルプ)", 0, 10);
-#else
-	put_str("Make your charactor. ('S' Restart, 'Q' Quit, '?' Help)", 0, 10);
-#endif
-
+	clear_from(0);
 	get_intelligent_race();
-
 	if(p_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
 	if(p_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon();
 	if(p_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon();
 
-	/* Clean up */
 	clear_from(0);
-
-	/*** Player sex ***/
-
-	/* Extra info */
-/*
-#ifdef JP
-	put_str("注意：!のつく性別は種族として稀であるためペナルティを受けます", 11, 6);
-#else
-	put_str("Note: Any entries set '!' is rarely pattern and may have some penalty.", 11, 6);
-#endif
-*/
 	get_player_sex();
 
-	/* Clean up */
 	clear_from(0);
-
-	/* TODO:: SubRaceSelect */
-
-	/* Choose the players class */
-	p_ptr->cls_idx = 0;
 	get_player_class();
 
-	/* Choose the magic realms */
+	clear_from(0);
 	get_player_realms();
 
-	/* TODO:: Choose the magic faith */
-
-	/* Choose the players CHARA */
-	p_ptr->chara_idx = 0;
+	clear_from(0);
 	get_player_chara();
 
-	/* Clean up */
-	clear_from(0);
-	put_str("                                   ", 3, 40);
-	put_str("                                   ", 4, 40);
-	put_str("                                   ", 5, 40);
-
 	screen_save();
+
 #ifdef JP
 	do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
 #else
@@ -5262,7 +5223,7 @@ static bool player_birth_aux(void)
 #endif /* ALLOW_AUTOROLLER */
 
 	/* Clear */
-	clear_from(10);
+	clear_from(0);
 
 	/* Reset turn; before auto-roll and after choosing race */
 	init_turn();
