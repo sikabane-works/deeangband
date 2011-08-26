@@ -3864,6 +3864,23 @@ void race_detail(int code)
 	c_put_str(TERM_L_WHITE, "=>", base+2, 58);
 	c_put_str(TERM_L_WHITE, "=>", base+2, 66);
 
+#ifdef JP
+	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);
+#else
+	put_str("Base Level:   Base DR :", base, 53);
+#endif
+
+	sprintf(buf, "%2d", race_info[code].lev);
+	c_put_str(TERM_L_BLUE, buf, base, 64);
+
+	if(race_info[code].dr >= 0)
+	{
+		sprintf(buf, "%2d", race_info[code].dr);
+		c_put_str(TERM_L_BLUE, buf, base, 76);
+	}
+	else
+		c_put_str(TERM_L_DARK, "--", base, 76);
+
 	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
 	t = temp;
 	e = FALSE;
