@@ -1925,6 +1925,7 @@ typedef struct {
 /*
  *  A structure type for divine authority.
  */
+
 typedef struct authority_type {
 
 	cptr title;			/* Type of autority */
@@ -1951,23 +1952,6 @@ typedef struct authority_type {
 	s16b a_w_fos;			/* Autority searching frequency */
 	s16b a_w_thn;			/* Autority to hit (normal) */
 	s16b a_w_thb;			/* Autority to hit (bows) */
-
-	s16b x_dis;				/* extra disarming */
-	s16b x_dev;				/* extra magic devices */
-	s16b x_sav;				/* extra saving throws */
-	s16b x_stl;				/* extra stealth */
-	s16b x_srh;				/* extra searching ability */
-	s16b x_fos;				/* extra searching frequency */
-	s16b x_thn;				/* extra to hit (normal) */
-	s16b x_thb;				/* extra to hit (bows) */
-	s16b x_w_dis;			/* extra disarming */
-	s16b x_w_dev;			/* extra magic devices */
-	s16b x_w_sav;			/* extra saving throws */
-	s16b x_w_stl;			/* extra stealth */
-	s16b x_w_srh;			/* extra searching ability */
-	s16b x_w_fos;			/* extra searching frequency */
-	s16b x_w_thn;			/* extra to hit (normal) */
-	s16b x_w_thb;			/* extra to hit (bows) */
 
 	s16b c_mhp;			/* Class hit-dice adjustment */
 	s16b c_w_mhp;			/* Class hit-dice adjustment */
