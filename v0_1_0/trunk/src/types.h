@@ -1920,3 +1920,57 @@ typedef struct {
 	int dir;
 } travel_type;
 #endif
+
+
+/*
+ *  A structure type for divine authority.
+ */
+typedef struct authority_type {
+
+	cptr title;			/* Type of autority */
+
+#ifdef JP
+	cptr E_title;		/* English Name */
+#endif
+	s16b c_adj[6];		/* Autority owner modifier */
+	s16b c_adj_b[6];	/* Worshiper bonus */
+
+	s16b a_dis;			/* Autority disarming */
+	s16b a_dev;			/* Autority magic devices */
+	s16b a_sav;			/* Autority saving throws */
+	s16b a_stl;			/* Autority stealth */
+	s16b a_srh;			/* Autority searching ability */
+	s16b a_fos;			/* Autority searching frequency */
+	s16b a_thn;			/* Autority to hit (normal) */
+	s16b a_thb;			/* Autority to hit (bows) */
+	s16b a_w_dis;			/* Autority disarming */
+	s16b a_w_dev;			/* Autority magic devices */
+	s16b a_w_sav;			/* Autority saving throws */
+	s16b a_w_stl;			/* Autority stealth */
+	s16b a_w_srh;			/* Autority searching ability */
+	s16b a_w_fos;			/* Autority searching frequency */
+	s16b a_w_thn;			/* Autority to hit (normal) */
+	s16b a_w_thb;			/* Autority to hit (bows) */
+
+	s16b x_dis;				/* extra disarming */
+	s16b x_dev;				/* extra magic devices */
+	s16b x_sav;				/* extra saving throws */
+	s16b x_stl;				/* extra stealth */
+	s16b x_srh;				/* extra searching ability */
+	s16b x_fos;				/* extra searching frequency */
+	s16b x_thn;				/* extra to hit (normal) */
+	s16b x_thb;				/* extra to hit (bows) */
+	s16b x_w_dis;			/* extra disarming */
+	s16b x_w_dev;			/* extra magic devices */
+	s16b x_w_sav;			/* extra saving throws */
+	s16b x_w_stl;			/* extra stealth */
+	s16b x_w_srh;			/* extra searching ability */
+	s16b x_w_fos;			/* extra searching frequency */
+	s16b x_w_thn;			/* extra to hit (normal) */
+	s16b x_w_thb;			/* extra to hit (bows) */
+
+	s16b c_mhp;			/* Class hit-dice adjustment */
+	s16b c_w_mhp;			/* Class hit-dice adjustment */
+
+} authority_type;
+

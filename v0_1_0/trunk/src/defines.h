@@ -1119,7 +1119,7 @@
 #define AUTHORITY_CHAOS3  30
 #define AUTHORITY_CHAOS4  31
 
-
+#define AUTHORITY_MAX 32
 
 
 /*** Screen Locations ***/
