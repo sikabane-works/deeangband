@@ -2062,6 +2062,54 @@ static void birth_quit(void)
 	quit(NULL);
 }
 
+/*
+ *  Put initial status
+ */
+static void put_initial_status(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx != RACE_NONE)
+	{
+#ifdef JP
+		put_str("Ží‘°  :", 1, 1);
+#else
+		put_str("Race  :", 1, 1);
+#endif
+		c_put_str(TERM_L_BLUE, race_info[cr_ptr->irace_idx].title, 1, 8);
+	}
+
+	if(cr_ptr->cls_idx != CLASS_NONE)
+	{
+#ifdef JP
+		put_str("E‹Æ  :", 2, 1);
+#else
+		put_str("Class :", 2, 1);
+#endif
+		c_put_str(TERM_L_BLUE, class_info[cr_ptr->cls_idx].title, 2, 8);
+	}
+
+	if(cr_ptr->patron_idx != PATRON_NONE)
+	{
+#ifdef JP
+		put_str("Žå_  :", 3, 1);
+#else
+		put_str("Patron:", 3, 1);
+#endif
+	}
+
+	if(cr_ptr->realm1 != REALM_NONE && cr_ptr->realm2 != REALM_NONE)
+	{
+#ifdef JP
+		put_str("—Ìˆæ  :", 3, 40);
+#else
+		put_str("Realm :", 3, 40);
+#endif
+	}
+
+
+
+
+}
+
 
 /*
  *  Show specific help file
@@ -5203,25 +5251,10 @@ static bool player_birth_aux(void)
 	Term_clear();
 
 	/* Title everything */
-#ifdef JP
-	put_str("–¼‘O  ", 1, 1);
-	put_str("Ží‘°  ", 2, 1);
-	put_str("«•Ê  ", 3, 1);
-	put_str("E‹Æ  ", 3, 15);
-	put_str("Žå_  ", 3, 37);
-	put_str("—Ìˆæ  ", 3, 59);
-#else
-	put_str("Name  ", 1, 1);
-	put_str("Race  ", 2, 1);
-	put_str("Sex   ", 3, 1);
-	put_str("Class ", 3, 15);
-	put_str("Patron", 3, 37);
-	put_str("Realm ", 3, 59);
-#endif
-
 	p_ptr->irace_idx = RACE_NONE;
 	p_ptr->cls_idx = CLASS_NONE;
 	p_ptr->chara_idx = CHARA_NONE;
+	p_ptr->patron_idx = PATRON_NONE;
 	p_ptr->realm1 = REALM_NONE;
 	p_ptr->realm2 = REALM_NONE;
 	p_ptr->sub_race[0] = 0x0;
@@ -5234,24 +5267,30 @@ static bool player_birth_aux(void)
 	p_ptr->sub_race[7] = 0x0;
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_intelligent_race();
 	if(p_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
 	if(p_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon();
 	if(p_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon();
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_player_sex();
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_player_class();
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_player_patron();
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_player_realms();
 
 	clear_from(0);
+	put_initial_status(p_ptr);
 	get_player_chara();
 
 	screen_save();
@@ -6054,3 +6093,4 @@ void dump_yourself(FILE *fff)
 		}
 	}
 }
+
