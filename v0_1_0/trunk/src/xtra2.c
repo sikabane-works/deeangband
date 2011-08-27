@@ -4647,25 +4647,28 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 
 #ifdef JP
 sprintf(wrath_reason, "%sの怒り",
-		player_patrons[cr_ptr->patron_idx].title);
+		r_name + r_info[cr_ptr->patron_idx].name);
 #else
 	sprintf(wrath_reason, "the Wrath of %s",
-		player_patrons[cr_ptr->patron_idx].title);
+		r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 
+	/*TODO
 	effect = player_patrons[cr_ptr->patron_idx].rewards[type];
 	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->irace_idx == RACE_MELNIBONE && effect == REW_POLY_SLF)
 		 effect = REW_IGNORE;
+	*/
+    effect = REW_IGNORE;
 
 	if (one_in_(6) && !chosen_reward)
 	{
 #ifdef JP
 msg_format("%^sは褒美としてあなたを突然変異させた。",
-			player_patrons[cr_ptr->patron_idx].title);
+			r_name + r_info[cr_ptr->patron_idx].name);
 #else
 		msg_format("%^s rewards you with a mutation!",
-			player_patrons[cr_ptr->patron_idx].title);
+			r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 		(void)gain_random_mutation(cr_ptr, 0);
@@ -4682,10 +4685,10 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 		case REW_POLY_SLF:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4704,10 +4707,10 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 		case REW_GAIN_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4745,10 +4748,10 @@ msg_print("更に経験を積んだような気がする。");
 		case REW_LOSE_EXP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4778,10 +4781,10 @@ msg_print("「下僕よ、汝それに値せず。」");
 		case REW_GOOD_OBJ:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s whispers:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4800,10 +4803,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_GREA_OBJ:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4822,10 +4825,10 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 		case REW_CHAOS_WP:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4941,10 +4944,10 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 		case REW_GOOD_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4963,10 +4966,10 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 		case REW_GREA_OBS:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4985,10 +4988,10 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 		case REW_TY_CURSE:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s thunders:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5007,10 +5010,10 @@ msg_print("「下僕よ、汝傲慢なり。」");
 		case REW_SUMMON_M:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5032,10 +5035,10 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 		case REW_H_SUMMON:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5054,10 +5057,10 @@ msg_print("「汝、より強き敵を必要とせり！」");
 		case REW_DO_HAVOC:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5076,10 +5079,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GAIN_ABL:
 #ifdef JP
 msg_format("%sの声が鳴り響いた:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s rings out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5088,9 +5091,11 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 			msg_print("'Stay, mortal, and let me mold thee.'");
 #endif
 
+			/*TODO
 			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost < 0))
 				do_inc_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
 			else
+			*/
 				do_inc_stat(cr_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が上がった。";
@@ -5101,10 +5106,10 @@ msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 		case REW_LOSE_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5113,9 +5118,11 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 			msg_print("'I grow tired of thee, mortal.'");
 #endif
 
+			/*TODO
 			if (one_in_(3) && !(player_patrons[cr_ptr->patron_idx].status_boost))
 				do_dec_stat(cr_ptr, player_patrons[cr_ptr->patron_idx].status_boost);
 			else
+			*/
 				(void)do_dec_stat(cr_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
@@ -5126,10 +5133,10 @@ msg_print("「下僕よ、余は汝に飽みたり。」");
 		case REW_RUIN_ABL:
 #ifdef JP
 msg_format("%sの声が轟き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s thunders:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5157,7 +5164,7 @@ msg_format("%sの力が触れるのを感じた。",
 			msg_format("You feel the power of %s touch you.",
 #endif
 
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 			do_poly_wounds(cr_ptr);
 #ifdef JP
 			reward = "傷が変化した。";
@@ -5168,10 +5175,10 @@ msg_format("%sの力が触れるのを感じた。",
 		case REW_AUGM_ABL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5193,10 +5200,10 @@ msg_print("「我がささやかなる賜物を受けとるがよい！」");
 		case REW_HURT_LOT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5216,10 +5223,10 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 	   case REW_HEAL_FUL:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5250,10 +5257,10 @@ msg_print("「甦るがよい、我が下僕よ！」");
 			if (!have_weapon(cr_ptr, INVEN_1STARM) && !have_weapon(cr_ptr, INVEN_2NDARM)) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5280,10 +5287,10 @@ msg_print("「汝、武器に頼ることなかれ。」");
 			if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5303,10 +5310,10 @@ msg_print("「汝、防具に頼ることなかれ。」");
 		case REW_PISS_OFF:
 #ifdef JP
 msg_format("%sの声がささやいた:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s whispers:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5383,7 +5390,7 @@ msg_format("%sの声が轟き渡った:",
 			msg_format("The voice of %s thunders:",
 #endif
 
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #ifdef JP
 msg_print("「死ぬがよい、下僕よ！」");
 #else
@@ -5415,10 +5422,10 @@ msg_print("「死ぬがよい、下僕よ！」");
 		case REW_DESTRUCT:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5437,10 +5444,10 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 		case REW_GENOCIDE:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5459,10 +5466,10 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_MASS_GEN:
 #ifdef JP
 msg_format("%sの声が響き渡った:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -5481,10 +5488,10 @@ msg_print("「我、汝の敵を抹殺せん！」");
 		case REW_DISPEL_C:
 #ifdef JP
 msg_format("%sの力が敵を攻撃するのを感じた！",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("You can feel the power of %s assault your enemies!",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 			(void)dispel_monsters(cr_ptr->lev * 4);
@@ -5492,18 +5499,18 @@ msg_format("%sの力が敵を攻撃するのを感じた！",
 		case REW_IGNORE:
 #ifdef JP
 msg_format("%sはあなたを無視した。",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #else
 			msg_format("%s ignores you.",
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 			break;
 		case REW_SER_DEMO:
 #ifdef JP
-msg_format("%sは褒美として悪魔の使いをよこした！",player_patrons[cr_ptr->patron_idx].title);
+msg_format("%sは褒美として悪魔の使いをよこした！",r_name + r_info[cr_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with a demonic servant!",player_patrons[cr_ptr->patron_idx].title);
+			msg_format("%s rewards you with a demonic servant!",r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DEMON, PM_FORCE_PET))
@@ -5522,9 +5529,9 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_MONS:
 #ifdef JP
-msg_format("%sは褒美として使いをよこした！",player_patrons[cr_ptr->patron_idx].title);
+msg_format("%sは褒美として使いをよこした！",r_name + r_info[cr_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with a servant!",player_patrons[cr_ptr->patron_idx].title);
+			msg_format("%s rewards you with a servant!",r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, 0, PM_FORCE_PET))
@@ -5543,9 +5550,9 @@ msg_print("何も現れなかった...");
 			break;
 		case REW_SER_UNDE:
 #ifdef JP
-msg_format("%sは褒美としてアンデッドの使いをよこした。",player_patrons[cr_ptr->patron_idx].title);
+msg_format("%sは褒美としてアンデッドの使いをよこした。",r_name + r_info[cr_ptr->patron_idx].name);
 #else
-			msg_format("%s rewards you with an undead servant!",player_patrons[cr_ptr->patron_idx].title);
+			msg_format("%s rewards you with an undead servant!",r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
 			if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_UNDEAD, PM_FORCE_PET))
@@ -5569,7 +5576,7 @@ msg_format("%sの声がどもった:",
 			msg_format("The voice of %s stammers:",
 #endif
 
-				player_patrons[cr_ptr->patron_idx].title);
+				r_name + r_info[cr_ptr->patron_idx].name);
 #ifdef JP
 msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
 #else

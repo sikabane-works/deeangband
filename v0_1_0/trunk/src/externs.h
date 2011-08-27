@@ -102,7 +102,7 @@ extern cptr E_realm_names[];
 extern cptr spell_names[VALID_REALM][32];
 extern int chest_traps[64];
 extern cptr player_title[MAX_CLASS][PY_MAX_LEVEL/6];
-extern player_patron player_patrons[MAX_PATRON];
+//extern player_patron player_patrons[MAX_PATRON];
 extern cptr color_names[16];
 extern cptr stat_names[6];
 extern cptr stat_names_reduced[6];

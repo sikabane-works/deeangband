@@ -1844,8 +1844,9 @@ static void spoil_mon_desc(cptr fname)
 				stat[j] += race_info[r_ptr->i_race].r_adj[j];
 			if(r_ptr->i_class != CLASS_NONE)
 				stat[j] += class_info[r_ptr->i_class].c_adj[j];
+			/* TODO
 			if(r_ptr->i_faith != PATRON_NONE)
-				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];
+				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];*/
 			if(r_ptr->i_chara != CHARA_NONE)
 				stat[j] += chara_info[r_ptr->i_chara].a_adj[j];
 		}
@@ -2037,7 +2038,7 @@ static void spoil_mon_desc(cptr fname)
 		else if(r_ptr->i_faith < MAX_PATRON)
 		{
 			strcat(trait, "/Žå_:");
-			strcat(trait, player_patrons[r_ptr->i_faith].title);
+			strcat(trait, r_name + r_info[r_ptr->i_faith].name);
 		}
 
 		if(r_ptr->flagse & RFE_FORCE_LESSER) 
