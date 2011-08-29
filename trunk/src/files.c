@@ -5107,11 +5107,6 @@ static void dump_aux_virtues(FILE *fff)
 	fprintf(fff, "\n\n  [Virtues]\n\n");
 #endif
 
-#ifdef JP
-	fprintf(fff, "‘®« : %s\n", your_alignment());
-#else
-	fprintf(fff, "Your alighnment : %s\n", your_alignment());
-#endif
 
 	fprintf(fff, "\n");
 	dump_virtues(fff);

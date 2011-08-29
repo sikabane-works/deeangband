@@ -6089,34 +6089,6 @@ int bow_tmul(int sval)
 	return (tmul);
 }
 
-/*
- * Return alignment title
- */
-cptr your_alignment(void)
-{
-#ifdef JP
-	if (p_ptr->align > 80 && p_ptr->ethics > 80) return "’˜‚É‚µ‚Ä‘P";
-	else if (p_ptr->align > 80 && p_ptr->ethics < -80) return "¬“×‚É‚µ‚Ä‘P";
-	else if (p_ptr->align < -80 && p_ptr->ethics > 80) return "’˜‚É‚µ‚Äˆ«";
-	else if (p_ptr->align < -80 && p_ptr->ethics < -80) return "¬“×‚É‚µ‚Äˆ«";
-	else if (p_ptr->align > 80) return "’†—§‚É‚µ‚Ä‘P";
-	else if (p_ptr->align < -80) return "’†—§‚É‚µ‚Äˆ«";
-	else if (p_ptr->ethics > 80) return "’˜‚É‚µ‚Ä’†—§";
-	else if (p_ptr->ethics < -80) return "¬“×‚É‚µ‚Ä’†—§";
-	else return "^‚È‚é’†—§";
-#else
-	if (p_ptr->align > 80 && p_ptr->ethics > 80) return "Lawful Good";
-	else if (p_ptr->align > 80 && p_ptr->ethics < -80) return "Chaotic Good";
-	else if (p_ptr->align < -80 && p_ptr->ethics > 80) return "Lawful Evil";
-	else if (p_ptr->align < -80 && p_ptr->ethics < -80) return "Chaotic Evil";
-	else if (p_ptr->align > 80) return "Neutral Good";
-	else if (p_ptr->align < -80) return "Neutral Evil";
-	else if (p_ptr->ethics > 80) return "Lawful Neutral";
-	else if (p_ptr->ethics < -80) return "Chaotic Neutral";
-	else return "True Neutral";
-#endif
-}
-
 
 /*
  * Return proficiency level of weapons and misc. skills (except riding)

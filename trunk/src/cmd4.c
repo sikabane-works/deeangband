@@ -9266,11 +9266,6 @@ static void do_cmd_knowledge_virtues(void)
 	
 	if (fff)
 	{
-#ifdef JP
-		fprintf(fff, "Œ»İ‚Ì‘®« : %s\n\n", your_alignment());
-#else
-		fprintf(fff, "Your alighnment : %s\n\n", your_alignment());
-#endif
 		dump_virtues(fff);
 	}
 	

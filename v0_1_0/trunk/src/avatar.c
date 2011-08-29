@@ -23,6 +23,71 @@
 
 /* The names of the virtues */
 
+/*
+ŒÇ‚, Aloofness
+‹¦’², Harmony
+
+F—~, Lust
+ß§, Temperance
+
+•®“{, Warth
+”E‘Ï, Endurance
+
+”¯, Enlightment
+
+
+‹Î•×, Diligence
+
+
+EC, Slaying
+
+•x—T, Wealth
+
+
+cptr virtue[MAX_VIRTUE] =
+{
+#ifdef JP
+	"î",
+	"—_",
+	"³",
+	"‹]",
+	"¯",
+	"½",
+	"Œ[",
+	"”é",
+	"‰^",
+	"‘R",
+	"’²",
+	"Šˆ",
+	"€",
+	"”E",
+	"ß",
+	"‹Î",
+	"—E",
+	"ŒÂ",
+#else
+	"Compassion",
+	"Honour",
+	"Justice",
+	"Sacrifice",
+	"Knowledge",
+	"Faith",
+	"Enlightenment",
+	"Mysticism",
+	"Chance",
+	"Nature",
+	"Harmony",
+	"Vitality",
+	"Unlife",
+	"Patience",
+	"Temperance",
+	"Diligence",
+	"Valour",
+	"Individualism",
+#endif
+};
+*/
+
 cptr virtue[MAX_VIRTUE] =
 {
 #ifdef JP

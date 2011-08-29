@@ -108,11 +108,6 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	}
 	info[i++] = "";
 
-#ifdef JP
-	sprintf(Dummy, "Œ»Ý‚Ì‘®« : %s(%ld)", your_alignment(), p_ptr->align);
-#else
-	sprintf(Dummy, "Your alighnment : %s(%ld)", your_alignment(), p_ptr->align);
-#endif
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];
 	for (v_nr = 0; v_nr < 8; v_nr++)
