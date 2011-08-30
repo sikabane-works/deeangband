@@ -2238,7 +2238,10 @@ static byte choose_realm(s32b choices)
 #endif
 */
 
-	return get_selection(re, n, 5, 2, 18, 20, realm_detail);
+	if(n > 0)
+		return get_selection(re, n, 5, 2, 18, 20, realm_detail);
+	else
+		return REALM_NONE;
 }
 
 
