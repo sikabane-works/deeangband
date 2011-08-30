@@ -146,116 +146,12 @@ void dump_virtues(creature_type *cr_ptr, FILE *OutFile)
 
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
-		char v_name [20];
-		int tester = cr_ptr->virtues[v_nr];
-
-		strcpy(v_name, virtue[v_nr]);
-
-		if (tester < -100)
 #ifdef JP
-			fprintf(OutFile, "[%s]‚Ì‘Î‹É",
+		fprintf(OutFile, "[%s]‚Ì‹Æ: %d\n",
 #else
-			fprintf(OutFile, "You are the polar opposite of %s.",
+		fprintf(OutFile, "Your karma of %s is %d.",
 #endif
+			virtue[v_nr], cr_ptr->virtues[v_nr]);
 
-			        v_name);
-		else if (tester < -80)
-#ifdef JP
-			fprintf(OutFile, "[%s]‚Ì‘å“G",
-#else
-			fprintf(OutFile, "You are an arch-enemy of %s.",
-#endif
-
-			        v_name);
-		else if (tester < -60)
-#ifdef JP
-			fprintf(OutFile, "[%s]‚Ì‹­“G",
-#else
-			fprintf(OutFile, "You are a bitter enemy of %s.",
-#endif
-
-			        v_name);
-		else if (tester < -40)
-#ifdef JP
-			fprintf(OutFile, "[%s]‚Ì“G",
-#else
-			fprintf(OutFile, "You are an enemy of %s.",
-#endif
-
-			        v_name);
-		else if (tester < -20)
-#ifdef JP
-			fprintf(OutFile, "[%s]‚ÌßŽÒ",
-#else
-			fprintf(OutFile, "You have sinned against %s.",
-#endif
-
-			        v_name);
-		else if (tester < 0)
-#ifdef JP
-			fprintf(OutFile, "[%s]‚Ì–À“¹ŽÒ",
-#else
-			fprintf(OutFile, "You have strayed from the path of %s.",
-#endif
-
-			        v_name);
-		else if (tester == 0)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì’†—§ŽÒ",
-#else
-			fprintf(OutFile,"You are neutral to %s.",
-#endif
-
-			        v_name);
-		else if (tester < 20)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì¬“¿ŽÒ",
-#else
-			fprintf(OutFile,"You are somewhat virtuous in %s.",
-#endif
-
-			        v_name);
-		else if (tester < 40)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì’†“¿ŽÒ",
-#else
-			fprintf(OutFile,"You are virtuous in %s.",
-#endif
-
-			        v_name);
-		else if (tester < 60)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì‚“¿ŽÒ",
-#else
-			fprintf(OutFile,"You are very virtuous in %s.",
-#endif
-
-			        v_name);
-		else if (tester < 80)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì”eŽÒ",
-#else
-			fprintf(OutFile,"You are a champion of %s.",
-#endif
-
-			        v_name);
-		else if (tester < 100)
-#ifdef JP
-			fprintf(OutFile,"[%s]‚ÌˆÌ‘å‚È”eŽÒ",
-#else
-			fprintf(OutFile,"You are a great champion of %s.",
-#endif
-
-			        v_name);
-		else
-#ifdef JP
-			fprintf(OutFile,"[%s]‚Ì‹ïŒ»ŽÒ",
-#else
-			fprintf(OutFile,"You are the living embodiment of %s.",
-#endif
-
-			        v_name);
-
-	    fprintf(OutFile, "\n");
 	}
 }

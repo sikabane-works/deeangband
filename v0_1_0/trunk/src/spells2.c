@@ -119,108 +119,17 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	info[i++] = buf[1];
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
-		char v_name [20];
-		char vir_desc[80];
-		int tester = cr_ptr->virtues[v_nr];
-	
-		strcpy(v_name, virtue[v_nr]);
- 
-		if (tester < -100)
+
 #ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì‘Î‹É (%d)",
+		sprintf(v_string[v_nr], "[%s]‚Ì‹Æ: %d\n",
 #else
-			sprintf(vir_desc, "You are the polar opposite of %s (%d).",
+		sprintf(v_string[v_nr], "Your karma of %s is %d.",
 #endif
-				v_name, tester);
-		else if (tester < -80)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì‘å“G (%d)",
-#else
-			sprintf(vir_desc, "You are an arch-enemy of %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < -60)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì‹­“G (%d)",
-#else
-			sprintf(vir_desc, "You are a bitter enemy of %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < -40)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì“G (%d)",
-#else
-			sprintf(vir_desc, "You are an enemy of %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < -20)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚ÌßÒ (%d)",
-#else
-			sprintf(vir_desc, "You have sinned against %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 0)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì–À“¹Ò (%d)",
-#else
-			sprintf(vir_desc, "You have strayed from the path of %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester == 0)                   
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì’†—§Ò (%d)",
-#else
-			sprintf(vir_desc,"You are neutral to %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 20)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì¬“¿Ò (%d)",
-#else
-			sprintf(vir_desc,"You are somewhat virtuous in %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 40)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì’†“¿Ò (%d)",
-#else
-			sprintf(vir_desc,"You are virtuous in %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 60)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì‚“¿Ò (%d)",
-#else
-			sprintf(vir_desc,"You are very virtuous in %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 80)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì”eÒ (%d)",
-#else
-			sprintf(vir_desc,"You are a champion of %s (%d).",
-#endif
-				v_name, tester);
-		else if (tester < 100)
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚ÌˆÌ‘å‚È”eÒ (%d)",
-#else
-			sprintf(vir_desc,"You are a great champion of %s (%d).",
-#endif
-				v_name, tester);
-		else
-#ifdef JP
-			sprintf(vir_desc, "[%s]‚Ì‹ïŒ»Ò (%d)",
-#else
-			sprintf(vir_desc,"You are the living embodiment of %s (%d).",
-#endif
-		v_name, tester);
-	
-		strcpy(v_string[v_nr], vir_desc);
-	
+			virtue[v_nr], cr_ptr->virtues[v_nr]);
+
 		info[i++] = v_string[v_nr];
 	}
+
 	info[i++] = "";
 	
 	/* Racial powers... */
