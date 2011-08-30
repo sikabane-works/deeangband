@@ -2297,11 +2297,6 @@ static void save_prev_data(birther *birther_ptr)
 
 	birther_ptr->patron_idx = p_ptr->patron_idx;
 
-	/* Save the virtues */
-	for (i = 0; i < 8; i++)
-	{
-		birther_ptr->vir_types[i] = p_ptr->vir_types[i];
-	}
 
 	/* Save the history */
 	for (i = 0; i < 4; i++)
@@ -2355,11 +2350,6 @@ static void load_prev_data(bool swap)
 	p_ptr->chp = p_ptr->player_hp[0];
 
 	p_ptr->patron_idx = previous_char.patron_idx;
-
-	for (i = 0; i < 8; i++)
-	{
-		p_ptr->vir_types[i] = previous_char.vir_types[i];
-	}
 
 	/* Load the history */
 	for (i = 0; i < 4; i++)

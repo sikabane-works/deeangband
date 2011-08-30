@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 1
+#define VER_PATCH 2
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -4768,7 +4768,7 @@ extern int PlayerUID;
  */
 #define SOUND_MAX 66
 
-#define MAX_VIRTUE 22
+#define MAX_KARMA 22
 
 #define V_COMPASSION	1
 #define V_HONOUR	    2
@@ -4789,7 +4789,6 @@ extern int PlayerUID;
 #define V_VALOUR	   17
 #define V_INDIVIDUALISM    18
 
-#define MAX_KARMA 22
 #define KARMA_IDEAL_PRAGMATIC 0
 #define KARMA_HARMONY_ALOOFNESS 1
 #define KARMA_TEMPERATE_INDULGENT 2

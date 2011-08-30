@@ -1224,8 +1224,7 @@ struct creature_type
 	u32b muta2;
 	u32b muta3;
 
-	s16b virtues[8];
-	s16b vir_types[8];
+	s16b virtues[MAX_KARMA];
 
 	s16b word_recall;	  /* Word of recall counter */
 	s16b alter_reality;	  /* Alter reality counter */
@@ -1560,8 +1559,6 @@ struct birther
 	s16b player_hp[PY_MAX_LEVEL];
 
 	s16b patron_idx;
-
-	s16b vir_types[8];
 
 	char history[4][60];
 

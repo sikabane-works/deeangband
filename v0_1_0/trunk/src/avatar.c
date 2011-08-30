@@ -28,7 +28,7 @@
 
 
 /*
-cptr virtue[MAX_VIRTUE] =
+cptr virtue[MAX_KARMA] =
 {
 #ifdef JP
 	"èÓ",
@@ -144,21 +144,14 @@ void dump_virtues(creature_type *cr_ptr, FILE *OutFile)
 
 	if (!OutFile) return;
 
-	for (v_nr = 0; v_nr < 8; v_nr++)
+	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
 		char v_name [20];
 		int tester = cr_ptr->virtues[v_nr];
 
-		strcpy(v_name, virtue[(cr_ptr->vir_types[v_nr])-1]);
+		strcpy(v_name, virtue[v_nr]);
 
-		if (cr_ptr->vir_types[v_nr] == 0 || cr_ptr->vir_types[v_nr] > MAX_VIRTUE)
-#ifdef JP
-			fprintf(OutFile, "Ç®Ç¡Ç∆ÅB%sÇÃèÓïÒÇ»ÇµÅB", v_name);
-#else
-			fprintf(OutFile, "Oops. No info about %s.", v_name);
-#endif
-
-		else if (tester < -100)
+		if (tester < -100)
 #ifdef JP
 			fprintf(OutFile, "[%s]ÇÃëŒã…",
 #else

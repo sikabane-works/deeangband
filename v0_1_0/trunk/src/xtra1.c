@@ -5647,26 +5647,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->immune_fire) cr_ptr->resist_fire = TRUE;
 	if (cr_ptr->immune_cold) cr_ptr->resist_cold = TRUE;
 
-	/* Determine player alignment TODO:Refine*/
-	for (i = 0, j = 0; i < 8; i++)
-	{
-		switch (cr_ptr->vir_types[i])
-		{
-		case V_JUSTICE:
-			break;
-		case V_CHANCE:
-			/* Do nothing */
-			break;
-		case V_NATURE:
-		case V_HARMONY:
-			break;
-		case V_UNLIFE:
-			break;
-		default:
-			break;
-		}
-	}
-
 	/* Set Possible Equipment*/
 	if(cr_ptr->irace_idx != RACE_NONE)
 		cr_ptr->possible_equipment = race_info[cr_ptr->irace_idx].possible_equipment;

@@ -1260,8 +1260,6 @@ static void load_quick_start(void)
 
 	rd_s16b(&previous_char.patron_idx);
 
-	for (i = 0; i < 8; i++) rd_s16b(&previous_char.vir_types[i]);
-
 	for (i = 0; i < 4; i++) rd_string(previous_char.history[i], sizeof(previous_char.history[i]));
 
 	/* UNUSED : Was number of random quests */
@@ -1515,10 +1513,8 @@ static void rd_extra(void)
 		rd_u32b(&p_ptr->muta2);
 		rd_u32b(&p_ptr->muta3);
 
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < MAX_KARMA; i++)
 			rd_s16b(&p_ptr->virtues[i]);
-		for (i = 0; i < 8; i++)
-			rd_s16b(&p_ptr->vir_types[i]);
 	}
 
 	/* Calc the regeneration modifier for mutations */

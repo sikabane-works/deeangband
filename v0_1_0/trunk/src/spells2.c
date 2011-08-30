@@ -32,7 +32,7 @@ void self_knowledge(creature_type *cr_ptr)
 	int i = 0, j, k;
 
 	int v_nr = 0;
-	char v_string [8] [128];
+	char v_string [MAX_KARMA] [128];
 	char s_string [6] [128];
 
 	u32b flgs[TR_FLAG_SIZE];
@@ -117,19 +117,14 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 #endif
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];
-	for (v_nr = 0; v_nr < 8; v_nr++)
+	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
 		char v_name [20];
 		char vir_desc[80];
 		int tester = cr_ptr->virtues[v_nr];
 	
-		strcpy(v_name, virtue[(cr_ptr->vir_types[v_nr])-1]);
+		strcpy(v_name, virtue[v_nr]);
  
-#ifdef JP
-		sprintf(vir_desc, "‚¨‚Á‚ÆB%s‚Ìî•ñ‚È‚µB", v_name);
-#else
-		sprintf(vir_desc, "Oops. No info about %s.", v_name);
-#endif
 		if (tester < -100)
 #ifdef JP
 			sprintf(vir_desc, "[%s]‚Ì‘Î‹É (%d)",

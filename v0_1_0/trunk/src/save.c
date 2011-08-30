@@ -611,8 +611,6 @@ static void save_quick_start(void)
 
 	wr_s16b(previous_char.patron_idx);
 
-	for (i = 0; i < 8; i++) wr_s16b(previous_char.vir_types[i]);
-
 	for (i = 0; i < 4; i++) wr_string(previous_char.history[i]);
 
 	/* UNUSED : Was number of random quests */
@@ -813,10 +811,8 @@ static void wr_extra(void)
 	wr_u32b(p_ptr->muta2);
 	wr_u32b(p_ptr->muta3);
 
-	for (i = 0; i<8; i++)
+	for (i = 0; i < MAX_KARMA; i++)
 		wr_s16b(p_ptr->virtues[i]);
-	for (i = 0; i<8; i++)
-		wr_s16b(p_ptr->vir_types[i]);
 
 	wr_s16b(p_ptr->ele_attack);
 	wr_u32b(p_ptr->special_attack);
