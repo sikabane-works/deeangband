@@ -1955,3 +1955,22 @@ typedef struct authority_type {
 
 } authority_type;
 
+
+/*
+ *  A structure type for karma_infromation.
+ */
+
+typedef struct karma_type {
+	cptr title;			/* Type of autority */
+#ifdef JP
+	cptr E_title;		/* English Name */
+#endif
+	int good_adj;
+	int evil_adj;
+	int order_adj;
+	int chaos_adj;
+	int calc_type;
+	int anti_karma;
+} karma_type;
+
+
