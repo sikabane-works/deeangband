@@ -21,29 +21,7 @@
 #include "angband.h"
 
 
-/* The names of the virtues */
-
 /*
-ŒÇ‚, Aloofness
-‹¦’², Harmony
-
-F—~, Lust
-ß§, Temperance
-
-•®“{, Warth
-”E‘Ï, Endurance
-
-”¯, Enlightment
-
-
-‹Î•×, Diligence
-
-
-EC, Slaying
-
-•x—T, Wealth
-
-
 cptr virtue[MAX_VIRTUE] =
 {
 #ifdef JP
@@ -88,46 +66,54 @@ cptr virtue[MAX_VIRTUE] =
 };
 */
 
-cptr virtue[MAX_VIRTUE] =
+cptr virtue[MAX_KARMA] =
 {
 #ifdef JP
-	"î",
-	"—_",
-	"³",
-	"‹]",
-	"¯",
-	"½",
-	"Œ[",
-	"”é",
-	"‰^",
-	"‘R",
-	"’²",
-	"Šˆ",
-	"€",
-	"”E",
-	"ß",
-	"‹Î",
-	"—E",
-	"ŒÂ",
+	"—‘z/À—˜",
+	"’²˜a/ŒÇ‚",
+	"ß§/–z•ú",
+	"’åß/î—~",
+	"œ”ß/—â“",
+	"½À/àÂàÏ",
+	"Š°‘å/·”O",
+	"œ—’W/æÃ—~",
+	"Œª‹•/˜ü–",
+	"ƒ–p/àÈ‹^",
+	"”MS/‰ù‹^",
+	"‹Î•×/–³ˆ×",
+	"‘n‘¢",
+	"”j‰ó",
+	"‰õŠy",
+	"‹ê’É",
+	"•x—T",
+	"‘¸Œµ",
+	"”¯",
+	"—E–Ò",
+	"v—¶",
+	"‹­‰^",
 #else
-	"Compassion",
-	"Honour",
-	"Justice",
-	"Sacrifice",
-	"Knowledge",
-	"Faith",
-	"Enlightenment",
-	"Mysticism",
+	"Ideal/Pragmatic",
+	"Harmony/Aloofness",
+	"Temperate/Indulgent",
+	"Chaste/Passion",
+	"Mercy/Cruelty",
+	"Honest/Clever",
+	"Forgiving/Avenge",
+	"Generous/Greed",
+	"Modest/Proud",
+	"Trsuting/Suspicion",
+	"Zealotry/Scepticism",
+	"Deligent/Idleness",
+	"Creation",
+	"Destruction",
+	"Pleasure",
+	"Pain",
+	"Wealth",
+	"Presitige",
+	"Erudition",
+	"Brave",
+	"Discretion",
 	"Chance",
-	"Nature",
-	"Harmony",
-	"Vitality",
-	"Unlife",
-	"Patience",
-	"Temperance",
-	"Diligence",
-	"Valour",
-	"Individualism",
 #endif
 };
 
