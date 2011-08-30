@@ -1751,11 +1751,11 @@ extern void spoil_random_artifact(cptr fname);
 extern void strip_name(char *buf, int k_idx);
 
 /* avatar.c */
-extern cptr virtue[MAX_KARMA];
-extern void set_virtue(creature_type *cr_ptr, int virtue, int amount);
-extern void chg_virtue(creature_type *cr_ptr, int virtue, int amount);
-extern void dump_virtues(creature_type *cr_ptr, FILE * OutFile);
-extern int virtue_number(creature_type *cr_ptr, int virtue);
+extern cptr karma[MAX_KARMA];
+extern void set_karma(creature_type *cr_ptr, int karma, int amount);
+extern void chg_karma(creature_type *cr_ptr, int karma, int amount);
+extern void dump_karmas(creature_type *cr_ptr, FILE * OutFile);
+extern int karma_number(creature_type *cr_ptr, int karma);
 
 #ifdef JP
 /* japanese.c */

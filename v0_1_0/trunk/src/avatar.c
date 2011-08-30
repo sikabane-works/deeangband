@@ -3,12 +3,12 @@
 /*
  *  D'angband
  *  2011 Deskull modified.
- *  Elements of Virtue and Karma was changed for Storm Bringer TRPG like "aligance" system.
+ *  Elements of Karma(Virtue) was changed for Storm Bringer TRPG like "aligance" system.
  */
 
 /*
  * Purpose: Enable an Ultima IV style "avatar" game where you try to
- * achieve perfection in various virtues.
+ * achieve perfection in various karmas.
  *
  * Topi Ylinen 1998
  * f1toyl@uta.fi
@@ -28,7 +28,7 @@
 
 
 /*
-cptr virtue[MAX_KARMA] =
+cptr karma[MAX_KARMA] =
 {
 #ifdef JP
 	"î",
@@ -72,7 +72,7 @@ cptr virtue[MAX_KARMA] =
 };
 */
 
-cptr virtue[MAX_KARMA] =
+cptr karma[MAX_KARMA] =
 {
 #ifdef JP
 	"—‘z/À—˜",
@@ -123,22 +123,22 @@ cptr virtue[MAX_KARMA] =
 #endif
 };
 
-void set_virtue(creature_type *cr_ptr, int virtue, int amount)
+void set_karma(creature_type *cr_ptr, int karma, int amount)
 {
-	cr_ptr->virtues[virtue] = amount;
+	cr_ptr->karmas[karma] = amount;
 }
 
-void chg_virtue(creature_type *cr_ptr, int virtue, int amount)
+void chg_karma(creature_type *cr_ptr, int karma, int amount)
 {
-	cr_ptr->virtues[virtue] += amount;
+	cr_ptr->karmas[karma] += amount;
 }
 
-int virtue_number(creature_type *cr_ptr, int virtue){
-	return cr_ptr->virtues[virtue];
+int karma_number(creature_type *cr_ptr, int karma){
+	return cr_ptr->karmas[karma];
 }
 
 
-void dump_virtues(creature_type *cr_ptr, FILE *OutFile)
+void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
 {
 	int v_nr = 0;
 
@@ -151,7 +151,7 @@ void dump_virtues(creature_type *cr_ptr, FILE *OutFile)
 #else
 		fprintf(OutFile, "Your karma of %s is %d.",
 #endif
-			virtue[v_nr], cr_ptr->virtues[v_nr]);
+			karma[v_nr], cr_ptr->karmas[v_nr]);
 
 	}
 }

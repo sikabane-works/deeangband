@@ -996,7 +996,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							msg_print("Your purse feels lighter.");
 							msg_format("%ld coins were stolen!", (long)gold);
 #endif
-							chg_virtue(tar_ptr, V_SACRIFICE, 1);
+							chg_karma(tar_ptr, V_SACRIFICE, 1);
 						}
 						else
 						{
@@ -1008,7 +1008,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							msg_print("All of your coins were stolen!");
 #endif
 
-							chg_virtue(tar_ptr, V_SACRIFICE, 2);
+							chg_karma(tar_ptr, V_SACRIFICE, 2);
 						}
 
 						/* Redraw gold */
@@ -1088,7 +1088,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							   o_name, index_to_label(p_ptr, i));
 #endif
 
-						chg_virtue(tar_ptr, V_SACRIFICE, 1);
+						chg_karma(tar_ptr, V_SACRIFICE, 1);
 
 
 						/* Make an object */

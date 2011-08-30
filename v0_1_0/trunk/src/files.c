@@ -5105,7 +5105,7 @@ static void dump_aux_realm_history(FILE *fff)
 /*
  *
  */
-static void dump_aux_virtues(FILE *fff)
+static void dump_aux_karmas(FILE *fff)
 {
 	char buf[100];
 	show_alignment(buf, p_ptr);
@@ -5123,7 +5123,7 @@ static void dump_aux_virtues(FILE *fff)
 #endif
 
 	fprintf(fff, "\n");
-	dump_virtues(p_ptr, fff);
+	dump_karmas(p_ptr, fff);
 }
 
 
@@ -5302,7 +5302,7 @@ errr make_character_dump(FILE *fff)
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_monsters(fff);
-	dump_aux_virtues(fff);
+	dump_aux_karmas(fff);
 	dump_aux_race_history(fff);
 	dump_aux_realm_history(fff);
 	dump_aux_class_special(fff);

@@ -9243,9 +9243,9 @@ static void do_cmd_knowledge_kubi(void)
 }
 
 /*
- * List virtues & status
+ * List karmas & status
  */
-static void do_cmd_knowledge_virtues(void)
+static void do_cmd_knowledge_karmas(void)
 {
 	FILE *fff;
 	
@@ -9272,7 +9272,7 @@ static void do_cmd_knowledge_virtues(void)
 #else
 		fprintf(fff, "Your alighnment : %s\n\n", buf);
 #endif
-		dump_virtues(p_ptr, fff);
+		dump_karmas(p_ptr, fff);
 	}
 	
 	/* Close the file */
@@ -9351,7 +9351,7 @@ static void do_cmd_knowledge_dungeon(void)
 }
 
 /*
-* List virtues & status
+* List karmas & status
 *
 */
 static void do_cmd_knowledge_stat(void)
@@ -10191,7 +10191,7 @@ void do_cmd_knowledge(void)
 			prt("(c) Display weapon proficiency", 8, 5);
 			prt("(d) Display spell proficiency", 9, 5);
 			prt("(e) Display misc. proficiency", 10, 5);
-			prt("(f) Display virtues", 11, 5);
+			prt("(f) Display karmas", 11, 5);
 			prt("(g) Display dungeons", 12, 5);
 			prt("(h) Display current quests", 13, 5);
 			prt("(i) Display auto pick/destroy", 14, 5);
@@ -10273,7 +10273,7 @@ void do_cmd_knowledge(void)
 			do_cmd_knowledge_skill_exp();
 			break;
 		case 'f': /* Virtues */
-			do_cmd_knowledge_virtues();
+			do_cmd_knowledge_karmas();
 			break;
 		case 'g': /* Dungeon */
 			do_cmd_knowledge_dungeon();

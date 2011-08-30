@@ -3472,10 +3472,10 @@ msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
 
 		set_hostile(m_ptr);
 
-		chg_virtue(p_ptr, V_INDIVIDUALISM, 1);
-		chg_virtue(p_ptr, V_HONOUR, -1);
-		chg_virtue(p_ptr, V_JUSTICE, -1);
-		chg_virtue(p_ptr, V_COMPASSION, -1);
+		chg_karma(p_ptr, V_INDIVIDUALISM, 1);
+		chg_karma(p_ptr, V_HONOUR, -1);
+		chg_karma(p_ptr, V_JUSTICE, -1);
+		chg_karma(p_ptr, V_COMPASSION, -1);
 	}
 }
 

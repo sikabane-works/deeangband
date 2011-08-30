@@ -383,9 +383,9 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
 	}
 
 	/* We have tried it */
@@ -870,7 +870,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			break;
 
 		case SV_POTION_CONFUSION: /* Booze */
-			if (cr_ptr->cls_idx != CLASS_MONK) chg_virtue(cr_ptr, V_HARMONY, -1);
+			if (cr_ptr->cls_idx != CLASS_MONK) chg_karma(cr_ptr, V_HARMONY, -1);
 			else if (!cr_ptr->resist_conf) cr_ptr->special_attack |= ATTACK_SUIKEN;
 			if (!cr_ptr->resist_conf)
 			{
@@ -951,7 +951,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 #else
 				msg_print("You feel your memories fade.");
 #endif
-				chg_virtue(cr_ptr, V_KNOWLEDGE, -5);
+				chg_karma(cr_ptr, V_KNOWLEDGE, -5);
 
 				lose_exp(cr_ptr, cr_ptr->exp / 4);
 				ident = TRUE;
@@ -1015,8 +1015,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_DEATH:
-			chg_virtue(cr_ptr, V_VITALITY, -1);
-			chg_virtue(cr_ptr, V_UNLIFE, 5);
+			chg_karma(cr_ptr, V_VITALITY, -1);
+			chg_karma(cr_ptr, V_UNLIFE, 5);
 #ifdef JP
 			msg_print("死の予感が体中を駆けめぐった。");
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
@@ -1137,8 +1137,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_LIFE:
-			chg_virtue(cr_ptr, V_VITALITY, 1);
-			chg_virtue(cr_ptr, V_UNLIFE, -5);
+			chg_karma(cr_ptr, V_VITALITY, 1);
+			chg_karma(cr_ptr, V_UNLIFE, -5);
 #ifdef JP
 			msg_print("体中に生命力が満ちあふれてきた！");
 #else
@@ -1273,8 +1273,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("An image of your surroundings forms in your mind...");
 #endif
 
-			chg_virtue(cr_ptr, V_KNOWLEDGE, 1);
-			chg_virtue(cr_ptr, V_ENLIGHTEN, 1);
+			chg_karma(cr_ptr, V_KNOWLEDGE, 1);
+			chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 			wiz_lite(FALSE);
 			ident = TRUE;
 			break;
@@ -1286,8 +1286,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("You begin to feel more enlightened...");
 #endif
 
-			chg_virtue(cr_ptr, V_KNOWLEDGE, 1);
-			chg_virtue(cr_ptr, V_ENLIGHTEN, 2);
+			chg_karma(cr_ptr, V_KNOWLEDGE, 1);
+			chg_karma(cr_ptr, V_ENLIGHTEN, 2);
 			msg_print(NULL);
 			wiz_lite(FALSE);
 			(void)do_inc_stat(cr_ptr, A_INT);
@@ -1317,7 +1317,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 
 		case SV_POTION_EXPERIENCE:
 			if (cr_ptr->irace_idx == RACE_ANDROID) break;
-			chg_virtue(cr_ptr, V_ENLIGHTEN, 1);
+			chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 			if (cr_ptr->exp < PY_MAX_EXP)
 			{
 				s32b ee = (cr_ptr->exp / 2) + 10;
@@ -1363,7 +1363,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			cr_ptr->update |= PU_BONUS;
 			if (cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3)
 			{
-				chg_virtue(cr_ptr, V_CHANCE, -5);
+				chg_karma(cr_ptr, V_CHANCE, -5);
 #ifdef JP
 msg_print("全ての突然変異が治った。");
 #else
@@ -1403,7 +1403,7 @@ msg_print("「オクレ兄さん！」");
 		case SV_POTION_POLYMORPH:
 			if ((cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3) && one_in_(23))
 			{
-				chg_virtue(cr_ptr, V_CHANCE, -5);
+				chg_karma(cr_ptr, V_CHANCE, -5);
 #ifdef JP
 msg_print("全ての突然変異が治った。");
 #else
@@ -1445,9 +1445,9 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 
 	if (!(object_is_aware(q_ptr)))
 	{
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* The item has been tried */
@@ -2212,9 +2212,9 @@ msg_print("巻物は煙を立てて消え去った！");
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* The item was tried */
@@ -2811,9 +2811,9 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* Combine / Reorder the pack (later) */
@@ -2921,24 +2921,24 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 	/* XXX Hack -- Wand of wonder can do anything before it */
 	if (sval == SV_WAND_WONDER)
 	{
-		int vir = virtue_number(cr_ptr, V_CHANCE);
+		int vir = karma_number(cr_ptr, V_CHANCE);
 		sval = randint0(SV_WAND_WONDER);
 
 		if (vir)
 		{
-			if (cr_ptr->virtues[vir - 1] > 0)
+			if (cr_ptr->karmas[vir - 1] > 0)
 			{
-				while (randint1(300) < cr_ptr->virtues[vir - 1]) sval++;
+				while (randint1(300) < cr_ptr->karmas[vir - 1]) sval++;
 				if (sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
-				while (randint1(300) < (0-cr_ptr->virtues[vir - 1])) sval--;
+				while (randint1(300) < (0-cr_ptr->karmas[vir - 1])) sval--;
 				if (sval < SV_WAND_HEAL_MONSTER) sval = randint0(3) + SV_WAND_HEAL_MONSTER;
 			}
 		}
 		if (sval < SV_WAND_TELEPORT_AWAY)
-			chg_virtue(cr_ptr, V_CHANCE, 1);
+			chg_karma(cr_ptr, V_CHANCE, 1);
 	}
 
 	/* Analyze the wand */
@@ -3347,9 +3347,9 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* Mark it as tried */
@@ -3803,9 +3803,9 @@ msg_print("そのロッドはまだ充填中です。");
 
 	if (!(object_is_aware(o_ptr)))
 	{
-		chg_virtue(cr_ptr, V_PATIENCE, -1);
-		chg_virtue(cr_ptr, V_CHANCE, 1);
-		chg_virtue(cr_ptr, V_KNOWLEDGE, -1);
+		chg_karma(cr_ptr, V_PATIENCE, -1);
+		chg_karma(cr_ptr, V_CHANCE, 1);
+		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
 	}
 
 	/* Tried the object */
@@ -4244,8 +4244,8 @@ msg_print("その宝石は赤く明るく光った！");
 				msg_print("The Jewel flashes bright red!");
 #endif
 
-				chg_virtue(cr_ptr, V_KNOWLEDGE, 1);
-				chg_virtue(cr_ptr, V_ENLIGHTEN, 1);
+				chg_karma(cr_ptr, V_KNOWLEDGE, 1);
+				chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 				wiz_lite(FALSE);
 #ifdef JP
 				msg_print("その宝石はあなたの体力を奪った...");
@@ -7367,7 +7367,7 @@ msg_print("呪文をうまく唱えられなかった！");
 
 		sound(SOUND_FAIL);
 		if (randint1(100) >= chance)
-			chg_virtue(cr_ptr, V_CHANCE,-1);
+			chg_karma(cr_ptr, V_CHANCE,-1);
 		energy_use = 100;
 
 		return;
@@ -7394,7 +7394,7 @@ msg_print("呪文をうまく唱えられなかった！");
 			if (!use_charge) return;
 		}
 		if (randint1(100) < chance)
-			chg_virtue(cr_ptr, V_CHANCE,1);
+			chg_karma(cr_ptr, V_CHANCE,1);
 	}
 	energy_use = 100;
 	if (tval == TV_ROD) cr_ptr->magic_num1[item] += k_info[k_idx].pval * EATER_ROD_CHARGE;

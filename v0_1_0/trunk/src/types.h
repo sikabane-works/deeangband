@@ -1224,7 +1224,7 @@ struct creature_type
 	u32b muta2;
 	u32b muta3;
 
-	s16b virtues[MAX_KARMA];
+	s16b karmas[MAX_KARMA];
 
 	s16b word_recall;	  /* Word of recall counter */
 	s16b alter_reality;	  /* Alter reality counter */

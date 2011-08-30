@@ -3151,8 +3151,8 @@ static void player_wipe(void)
 	p_ptr->muta2 = 0;
 	p_ptr->muta3 = 0;
 
-	/* Reset virtues*/
-	for (i = 0; i < 8; i++) p_ptr->virtues[i]=0;
+	/* Reset karmas*/
+	for (i = 0; i < 8; i++) p_ptr->karmas[i]=0;
 
 	/* Set the recall dungeon accordingly */
 	if (vanilla_town)

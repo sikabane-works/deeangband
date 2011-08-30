@@ -2826,7 +2826,7 @@ msg_format("%^s%s", m_name, monmessage);
 #endif
 		}
 
-		if (m_ptr->ml) chg_virtue(p_ptr, V_COMPASSION, -1);
+		if (m_ptr->ml) chg_karma(p_ptr, V_COMPASSION, -1);
 
 		/* XXX XXX XXX Actually do something now (?) */
 	}
