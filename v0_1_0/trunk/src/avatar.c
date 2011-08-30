@@ -26,79 +26,247 @@
 
 #include "angband.h"
 
-cptr karma[MAX_KARMA] =
+karma_type karma[MAX_KARMA] =
 {
+	{
 #ifdef JP
-	"—‘z",
-	"À—˜",
-	"’²˜a",
-	"ŒÇ‚",
-	"ß§",
-	"–z•ú",
-	"’åß",
-	"î—~",
-	"œ”ß",
-	"—â“",
-	"½À",
-	"àÂàÏ",
-	"Š°‘å",
-	"·”O",
-	"œ—’W",
-	"æÃ—~",
-	"Œª‹•",
-	"˜ü–",
-	"ƒ–p",
-	"àÈ‹^",
-	"”MS",
-	"‰ù‹^",
-	"‹Î•×",
-	"–³ˆ×",
-	"‘n‘¢",
-	"”j‰ó",
-	"‰õŠy",
-	"‹ê’É",
-	"•x—T",
-	"‘¸Œµ",
-	"”¯",
-	"—E–Ò",
-	"v—¶",
-	"‹­‰^",
-#else
-	"Ideal",
-	"Pragmatic",
-	"Harmony",
-	"Aloofness",
-	"Temperate",
-	"Indulgent",
-	"Chaste",
-	"Passion",
-	"Mercy",
-	"Cruelty",
-	"Honest",
-	"Clever",
-	"Forgiving",
-	"Avenge",
-	"Generous",
-	"Greed",
-	"Modest",
-	"Proud",
-	"Trsuting",
-	"Suspicion",
-	"Zealotry",
-	"Scepticism",
-	"Deligent",
-	"Idleness",
-	"Creation",
-	"Destruction",
-	"Pleasure",
-	"Pain",
-	"Wealth",
-	"Presitige",
-	"Erudition",
-	"Brave",
-	"Discretion",
-	"Chance",
+		"—‘z",
 #endif
+	"Ideal",
+		12, -4, -4, -4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"À—˜",
+#endif
+	"Pragmatic",
+		-12, 4, 4, 4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"’²˜a",
+#endif
+	"Harmony",
+		4, -12, 4, 4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"ŒÇ‚",
+#endif
+	"Aloofness",
+		-4, 12, -4, -4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"ß§",
+#endif
+	"Temperate",
+		3, -4, 5, -4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"–z•ú",
+#endif
+	"Indulgent",
+		-4, 3, -4, 5, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"’åß",
+#endif
+	"Chaste",
+		2, 0, 6, -8, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"î—~",
+#endif
+	"Passion",
+		0, 2, -8, 6, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"œ”ß",
+#endif
+	"Mercy",
+		10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"—â“",
+#endif
+	"Cruelty",
+		-10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"½À",
+#endif
+	"Honest",
+		4, -3, 4, -5, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"àÂàÏ",
+#endif
+	"Clever",
+		-3, 4, -5, 4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"Š°‘å",
+#endif
+	"Forgiving",
+		4, -4, -4, 4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"·”O",
+#endif
+	"Avenge",
+		-4, 4, 4, -4, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"œ—’W",
+#endif
+	"Generous",
+		5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"æÃ—~",
+#endif
+	"Greed",
+		-8, 5, 0, 3, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"Œª‹•",
+#endif
+	"Modest",
+		5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"˜ü–",
+#endif
+	"Proud",
+		-8, 5, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"ƒ–p",
+#endif
+	"Trusting",
+		10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"àÈ‹^",
+#endif
+	"Suspicion",
+		-10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"”MS",
+#endif
+	"Zealotry",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‰ù‹^",
+#endif
+	"Scepticism",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‹Î•×",
+#endif
+	"Deligent",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"–³ˆ×",
+#endif
+	"Idleness",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‘n‘¢",
+#endif
+	"Creation",
+		8, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"”j‰ó",
+#endif
+	"Destruction",
+		0, 8, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‰õŠy",
+#endif
+	"Pleasure",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‹ê’É",
+#endif
+	"Pain",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"•x—T",
+#endif
+	"Wealth",
+		1, 1, 3, 3, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"‘¸Œµ",
+#endif
+	"Presitige",
+		3, 3, 1, 1, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"”¯",
+#endif
+	"Erudition",
+		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"—E–Ò",
+#endif
+	"Brave",
+		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"v—¶",
+#endif
+	"Discretion",
+		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+	{
+#ifdef JP
+		"“V‰^",
+#endif
+	"Chance",
+		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	},
+
 };
 
 void set_karma(creature_type *cr_ptr, int karma, int amount)
@@ -131,7 +299,7 @@ void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
 #else
 		fprintf(OutFile, "Your karma of %s is %d.",
 #endif
-			karma[v_nr], cr_ptr->karmas[v_nr]);
+			karma[v_nr].title, cr_ptr->karmas[v_nr]);
 		}
 	}
 }

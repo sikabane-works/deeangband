@@ -126,7 +126,7 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 #else
 			sprintf(v_string[v_nr], "Your karma of %s is %d.",
 #endif
-				karma[v_nr], cr_ptr->karmas[v_nr]);
+				karma[v_nr].title, cr_ptr->karmas[v_nr]);
 
 			info[i++] = v_string[v_nr];
 		}

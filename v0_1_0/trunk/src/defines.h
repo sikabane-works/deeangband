@@ -4823,6 +4823,10 @@ extern int PlayerUID;
 #define KARMA_BRAVE 31
 #define KARMA_DISCRETION 32
 #define KARMA_CHANCE 33
+#define KARMA_NONE 255
+
+#define KARMA_CALC_PLUS 0
+
 
 
 
