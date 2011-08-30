@@ -119,15 +119,17 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	info[i++] = buf[1];
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
-
+		if(cr_ptr->karmas[v_nr] > 0)
+		{
 #ifdef JP
-		sprintf(v_string[v_nr], "[%s]‚Ì‹Æ: %d\n",
+			sprintf(v_string[v_nr], "[%s]‚Ì‹Æ: %d\n",
 #else
-		sprintf(v_string[v_nr], "Your karma of %s is %d.",
+			sprintf(v_string[v_nr], "Your karma of %s is %d.",
 #endif
-			karma[v_nr], cr_ptr->karmas[v_nr]);
+				karma[v_nr], cr_ptr->karmas[v_nr]);
 
-		info[i++] = v_string[v_nr];
+			info[i++] = v_string[v_nr];
+		}
 	}
 
 	info[i++] = "";

@@ -124,12 +124,14 @@ void dump_karmas(creature_type *cr_ptr, FILE *OutFile)
 
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{
+		if(cr_ptr->karmas[v_nr] > 0)
+		{
 #ifdef JP
 		fprintf(OutFile, "[%s]‚Ì‹Æ: %d\n",
 #else
 		fprintf(OutFile, "Your karma of %s is %d.",
 #endif
 			karma[v_nr], cr_ptr->karmas[v_nr]);
-
+		}
 	}
 }

@@ -5111,7 +5111,7 @@ static void dump_aux_karmas(FILE *fff)
 	show_alignment(buf, p_ptr);
 
 #ifdef JP
-	fprintf(fff, "\n\n  [プレイヤーの徳]\n\n");
+	fprintf(fff, "\n\n  [プレイヤーの業]\n\n");
 #else
 	fprintf(fff, "\n\n  [Virtues]\n\n");
 #endif

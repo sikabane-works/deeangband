@@ -9278,13 +9278,6 @@ static void do_cmd_knowledge_karmas(void)
 	/* Close the file */
 	my_fclose(fff);
 	
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "八つの徳", 0, 0);
-#else
-	show_file(TRUE, file_name, "Virtues", 0, 0);
-#endif
-
 	
 	/* Remove the file */
 	fd_kill(file_name);
@@ -10165,7 +10158,7 @@ void do_cmd_knowledge(void)
 			prt("(c) 武器の経験値                         の一覧", 8, 5);
 			prt("(d) 魔法の経験値                         の一覧", 9, 5);
 			prt("(e) 技能の経験値                         の一覧", 10, 5);
-			prt("(f) プレイヤーの徳                       の一覧", 11, 5);
+			prt("(f) プレイヤーの業                       の一覧", 11, 5);
 			prt("(g) 入ったダンジョン                     の一覧", 12, 5);
 			prt("(h) 実行中のクエスト                     の一覧", 13, 5);
 			prt("(i) 現在の自動拾い/破壊設定              の一覧", 14, 5);
@@ -10180,7 +10173,7 @@ void do_cmd_knowledge(void)
 			prt("(5) Display kill count", 10, 5);
 			if (!vanilla_town) prt("(6) Display wanted monsters", 11, 5);
 			prt("(7) Display current pets", 12, 5);
-			prt("(8) Display home p_ptr->inventory", 13, 5);
+			prt("(8) Display home inventory", 13, 5);
 			prt("(9) Display *identified* equip.", 14, 5);
 			prt("(0) Display terrain symbols.", 15, 5);
 		}
