@@ -2068,7 +2068,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
  */
 static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-	int		num = 0, k, bonus, chance, vir;
+	int		num = 0, k, bonus, chance;
 
 	cave_type       *c_ptr = &cave[y][x];
 
@@ -2186,12 +2186,6 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 	if (cr_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
-	vir = virtue_number(cr_ptr, V_VALOUR);
-	if (vir)
-	{
-		chance += (cr_ptr->virtues[vir - 1]/10);
-	}
-
 	zantetsu_mukou = ((o_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
 	e_j_mukou = ((o_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
 
@@ -2287,7 +2281,6 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
 			{
 				if (one_in_(10))
-				chg_virtue(cr_ptr, V_CHANCE, 1);
 
 				if (randint1(5) < 3)
 				{

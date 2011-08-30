@@ -1751,13 +1751,11 @@ extern void spoil_random_artifact(cptr fname);
 extern void strip_name(char *buf, int k_idx);
 
 /* avatar.c */
-extern bool compare_virtue(creature_type *cr_ptr, int type, int num, int tekitou);
-extern int virtue_number(creature_type *cr_ptr, int type);
 extern cptr virtue[MAX_VIRTUE];
-extern void get_virtues(creature_type *cr_ptr);
-extern void chg_virtue(creature_type *cr_ptr, int virtue, int amount);
 extern void set_virtue(creature_type *cr_ptr, int virtue, int amount);
+extern void chg_virtue(creature_type *cr_ptr, int virtue, int amount);
 extern void dump_virtues(creature_type *cr_ptr, FILE * OutFile);
+extern int virtue_number(creature_type *cr_ptr, int virtue);
 
 #ifdef JP
 /* japanese.c */

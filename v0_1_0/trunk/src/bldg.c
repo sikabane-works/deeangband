@@ -1651,7 +1651,6 @@ msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
 #else
 				msg_print("You came out a winner! We'll win next time, I'm sure.");
 #endif
-				chg_virtue(p_ptr, V_CHANCE, 3);
 			}
 			else
 			{
@@ -1660,7 +1659,6 @@ msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
 #else
 				msg_print("You lost gold! Haha, better head home.");
 #endif
-				chg_virtue(p_ptr, V_CHANCE, -3);
 			}
 		}
 		msg_print(NULL);
@@ -4949,7 +4947,6 @@ msg_print("お金が足りません！");
 		set_virtue(cr_ptr, V_DILIGENCE, 0);
 		set_virtue(cr_ptr, V_VALOUR, 0);
 		set_virtue(cr_ptr, V_INDIVIDUALISM, 0);
-		get_virtues(cr_ptr);
 		paid = TRUE;
 		break;
 	case BACT_TELE_TOWN:

@@ -399,7 +399,6 @@ static void sense_inventory1(creature_type *cr_ptr)
 		}
 	}
 
-	if (compare_virtue(cr_ptr, V_KNOWLEDGE, 100, VIRTUE_LARGE)) heavy = TRUE;
 
 	/*** Sense everything ***/
 
