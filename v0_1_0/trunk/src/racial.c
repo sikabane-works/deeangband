@@ -943,7 +943,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			if (is_good_realm(cr_ptr->realm1))
 			{
-				if (!bless_weapon()) return FALSE;
+				if (!bless_weapon(cr_ptr)) return FALSE;
 			}
 			else
 			{

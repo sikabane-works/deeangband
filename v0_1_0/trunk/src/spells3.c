@@ -3466,7 +3466,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 /*
  * Bless a weapon
  */
-bool bless_weapon(void)
+bool bless_weapon(creature_type *cr_ptr)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -3488,13 +3488,13 @@ s = "祝福できる武器がありません。";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
 		return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3545,7 +3545,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 		o_ptr->feeling = FEEL_NONE;
 
 		/* Recalculate the bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -3573,7 +3573,7 @@ msg_format("%s は既に祝福されている。",
 		return TRUE;
 	}
 
-	if (!(object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
+	if (!(object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
 	{
 		/* Describe */
 #ifdef JP
@@ -3647,12 +3647,12 @@ msg_format("%s は劣化した！",
 	}
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	return TRUE;
 }
