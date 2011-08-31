@@ -1694,7 +1694,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(cr_ptr->lev, cr_ptr->fy, cr_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
+			if (summon_kin_player(cr_ptr, cr_ptr->lev, cr_ptr->fy, cr_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}

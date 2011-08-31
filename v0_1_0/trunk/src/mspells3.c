@@ -1484,7 +1484,7 @@ msg_print("‰‡ŒR‚ğ¢Š«‚µ‚½B");
 #endif
 		for (k = 0;k < 1; k++)
 		{
-			if (summon_kin_player(summon_lev, cr_ptr->fy, cr_ptr->fx, (pet ? PM_FORCE_PET : 0L)))
+			if (summon_kin_player(cr_ptr, summon_lev, cr_ptr->fy, cr_ptr->fx, (pet ? PM_FORCE_PET : 0L)))
 			{
 				if (!pet)
 #ifdef JP

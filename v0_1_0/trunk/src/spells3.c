@@ -5963,15 +5963,15 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 }
 
 
-bool summon_kin_player(int level, int y, int x, u32b mode)
+bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode)
 {
 	bool pet = (bool)(mode & PM_FORCE_PET);
 	if (!pet) mode |= PM_NO_PET;
 
-	switch (p_ptr->mimic_form)
+	switch (cr_ptr->mimic_form)
 	{
 	case MIMIC_NONE:
-		switch (p_ptr->irace_idx)
+		switch (cr_ptr->irace_idx)
 		{
 			case RACE_HUMAN:
 			case RACE_AMBERITE:
@@ -6068,5 +6068,5 @@ bool summon_kin_player(int level, int y, int x, u32b mode)
 		summon_kin_type = 'V';
 		break;
 	}	
-	return summon_specific((pet ? p_ptr : NULL), y, x, level, SUMMON_KIN, mode);
+	return summon_specific((pet ? cr_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }

@@ -1058,7 +1058,7 @@ msg_print("‰‡ŒR‚ğ¢Š«‚µ‚½B");
 #endif
 		for (k = 0;k < 4; k++)
 		{
-			(void)summon_kin_player(plev, target_row, target_col, (PM_FORCE_PET | PM_ALLOW_GROUP));
+			(void)summon_kin_player(cr_ptr, plev, target_row, target_col, (PM_FORCE_PET | PM_ALLOW_GROUP));
 		}
 		break;
 	}

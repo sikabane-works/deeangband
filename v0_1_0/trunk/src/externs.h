@@ -1314,7 +1314,7 @@ extern bool brand_bolts(creature_type *cr_ptr);
 extern bool polymorph_monster(int y, int x);
 extern bool dimension_door(void);
 extern bool mirror_tunnel(void);
-extern bool summon_kin_player(int level, int y, int x, u32b mode);
+extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode);
 
 /* store.c */
 extern bool combine_and_reorder_home(int store_num);
