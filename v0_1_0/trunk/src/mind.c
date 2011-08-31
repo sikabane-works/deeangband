@@ -1741,7 +1741,7 @@ msg_print("その方向にはモンスターはいません。");
 		(void)teleport_swap(dir);
 		break;
 	case 15:
-		explosive_rune();
+		explosive_rune(cr_ptr);
 		break;
 	case 16:
 		(void)set_kabenuke(cr_ptr, randint1(plev/2) + plev/2, FALSE);

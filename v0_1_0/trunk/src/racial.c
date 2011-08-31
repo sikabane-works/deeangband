@@ -1653,7 +1653,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You carefully set an explosive rune...");
 #endif
 
-			explosive_rune();
+			explosive_rune(cr_ptr);
 			break;
 
 		case RACE_GIANT:

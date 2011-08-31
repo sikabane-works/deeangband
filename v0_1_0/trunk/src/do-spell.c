@@ -2439,7 +2439,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				explosive_rune();
+				explosive_rune(p_ptr);
 			}
 		}
 		break;
