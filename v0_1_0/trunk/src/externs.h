@@ -1286,7 +1286,7 @@ extern bool recharge(creature_type *cr_ptr, int num);
 extern bool bless_weapon(creature_type *cr_ptr);
 extern bool pulish_shield(creature_type *cr_ptr);
 extern bool potion_smash_effect(int who, int y, int x, int k_idx);
-extern void display_spell_list(void);
+extern void display_spell_list(creature_type *cr_ptr);
 extern s16b experience_of_spell(int spell, int realm);
 extern int mod_need_mana(int need_mana, int spell, int realm);
 extern int mod_spell_chance_1(creature_type *cr_ptr, int chance);
