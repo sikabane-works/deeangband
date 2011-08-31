@@ -5636,7 +5636,7 @@ bool mirror_tunnel(void)
 }
 
 
-bool eat_magic(int power)
+bool eat_magic(creature_type *cr_ptr, int power)
 {
 	object_type * o_ptr;
 	object_kind *k_ptr;
@@ -5660,11 +5660,11 @@ s = "–‚—Í‚ð‹zŽû‚Å‚«‚éƒAƒCƒeƒ€‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have nothing to drain.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 	else
 	{
@@ -5697,7 +5697,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 			}
 			else
 			{
-				p_ptr->csp += lev;
+				cr_ptr->csp += lev;
 				o_ptr->timeout += k_ptr->pval;
 			}
 		}
@@ -5720,7 +5720,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 		{
 			if (o_ptr->pval > 0)
 			{
-				p_ptr->csp += lev / 2;
+				cr_ptr->csp += lev / 2;
 				o_ptr->pval --;
 
 				/* XXX Hack -- unstack if necessary */
@@ -5743,8 +5743,8 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 
 					/* Unstack the used item */
 					o_ptr->number--;
-					p_ptr->total_weight -= q_ptr->weight;
-					item = inven_carry(p_ptr, q_ptr);
+					cr_ptr->total_weight -= q_ptr->weight;
+					item = inven_carry(cr_ptr, q_ptr);
 
 					/* Message */
 #ifdef JP
@@ -5798,7 +5798,7 @@ msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (p_ptr->cls_idx == CLASS_MAGE || p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER || p_ptr->cls_idx == CLASS_MAGIC_EATER || p_ptr->cls_idx == CLASS_BLUE_MAGE)
+			if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER || cr_ptr->cls_idx == CLASS_MAGIC_EATER || cr_ptr->cls_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)
@@ -5893,7 +5893,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰½–{‚©‰ó‚ê‚½I", o_name);
 					msg_format("Wild magic consumes your %s!", o_name);
 #endif
 
-				/* Reduce and describe p_ptr->inventory */
+				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -1);
@@ -5929,7 +5929,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 
 
 
-				/* Reduce and describe p_ptr->inventory */
+				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -999);
@@ -5948,15 +5948,15 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 		}
 	}
 
-	if (p_ptr->csp > p_ptr->msp)
+	if (cr_ptr->csp > cr_ptr->msp)
 	{
-		p_ptr->csp = p_ptr->msp;
+		cr_ptr->csp = cr_ptr->msp;
 	}
 
 	/* Redraw mana and hp */
 	play_redraw |= (PR_MANA);
 
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 	play_window |= (PW_INVEN);
 
 	return TRUE;

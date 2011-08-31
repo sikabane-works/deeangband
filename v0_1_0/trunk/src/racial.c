@@ -936,7 +936,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		/* case CLASS_HIGH_MAGE: */
 		case CLASS_SORCERER:
 		{
-			if (!eat_magic(cr_ptr->lev * 2)) return FALSE;
+			if (!eat_magic(cr_ptr, cr_ptr->lev * 2)) return FALSE;
 			break;
 		}
 		case CLASS_PRIEST:

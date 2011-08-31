@@ -3661,7 +3661,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_EAT_MAGIC:
-			if (!eat_magic(cr_ptr->lev * 2)) return FALSE;
+			if (!eat_magic(cr_ptr, cr_ptr->lev * 2)) return FALSE;
 			break;
 
 		case MUT1_WEIGH_MAG:
