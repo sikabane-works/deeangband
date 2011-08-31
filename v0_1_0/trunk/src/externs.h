@@ -1292,7 +1292,7 @@ extern int mod_need_mana(int need_mana, int spell, int realm);
 extern int mod_spell_chance_1(int chance);
 extern int mod_spell_chance_2(int chance);
 extern s16b spell_chance(int spell,int realm);
-extern bool spell_okay(int spell, bool learned, bool study_pray, int realm);
+extern bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray, int realm);
 extern void print_spells(int target_spell, byte *spells, int num, int y, int x, int realm);
 extern bool hates_acid(object_type *o_ptr);
 extern bool hates_elec(object_type *o_ptr);

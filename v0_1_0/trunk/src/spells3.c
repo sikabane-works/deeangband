@@ -4317,7 +4317,7 @@ s16b spell_chance(int spell, int use_realm)
  * The spell must be legible, not forgotten, and also, to cast,
  * it must be known, and to study, it must not be known.
  */
-bool spell_okay(int spell, bool learned, bool study_pray, int use_realm)
+bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray, int use_realm)
 {
 	magic_type *s_ptr;
 
@@ -4328,28 +4328,28 @@ bool spell_okay(int spell, bool learned, bool study_pray, int use_realm)
 	}
 	else
 	{
-		s_ptr = &m_info[p_ptr->realm1].info[use_realm - 1][spell];
+		s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
 	}
 
 	/* Spell is illegal */
-	if (s_ptr->slevel > p_ptr->lev) return (FALSE);
+	if (s_ptr->slevel > cr_ptr->lev) return (FALSE);
 
 	/* Spell is forgotten */
-	if ((use_realm == p_ptr->realm2) ?
-	    (p_ptr->spell_forgotten2 & (1L << spell)) :
-	    (p_ptr->spell_forgotten1 & (1L << spell)))
+	if ((use_realm == cr_ptr->realm2) ?
+	    (cr_ptr->spell_forgotten2 & (1L << spell)) :
+	    (cr_ptr->spell_forgotten1 & (1L << spell)))
 	{
 		/* Never okay */
 		return (FALSE);
 	}
 
-	if (p_ptr->cls_idx == CLASS_SORCERER) return (TRUE);
-	if (p_ptr->cls_idx == CLASS_RED_MAGE) return (TRUE);
+	if (cr_ptr->cls_idx == CLASS_SORCERER) return (TRUE);
+	if (cr_ptr->cls_idx == CLASS_RED_MAGE) return (TRUE);
 
 	/* Spell is learned */
-	if ((use_realm == p_ptr->realm2) ?
-	    (p_ptr->spell_learned2 & (1L << spell)) :
-	    (p_ptr->spell_learned1 & (1L << spell)))
+	if ((use_realm == cr_ptr->realm2) ?
+	    (cr_ptr->spell_learned2 & (1L << spell)) :
+	    (cr_ptr->spell_learned1 & (1L << spell)))
 	{
 		/* Always true */
 		return (!study_pray);

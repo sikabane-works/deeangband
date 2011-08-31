@@ -75,7 +75,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 	if (repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if (spell_okay(*sn, learned, FALSE, use_realm))
+		if (spell_okay(cr_ptr, *sn, learned, FALSE, use_realm))
 		{
 			/* Success */
 			return (TRUE);
@@ -107,7 +107,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 	for (i = 0; i < num; i++)
 	{
 		/* Look for "okay" spells */
-		if (spell_okay(spells[i], learned, FALSE, use_realm)) okay = TRUE;
+		if (spell_okay(cr_ptr, spells[i], learned, FALSE, use_realm)) okay = TRUE;
 	}
 
 	/* No "okay" spells */
@@ -246,7 +246,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 		spell = spells[i];
 
 		/* Require "okay" spells */
-		if (!spell_okay(spell, learned, FALSE, use_realm))
+		if (!spell_okay(p_ptr, spell, learned, FALSE, use_realm))
 		{
 			bell();
 #ifdef JP
@@ -810,7 +810,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 			if ((fake_spell_flags[sval] & (1L << spell)))
 			{
 				/* Skip non "okay" prayers */
-				if (!spell_okay(spell, FALSE, TRUE,
+				if (!spell_okay(p_ptr, spell, FALSE, TRUE,
 					(increment ? p_ptr->realm2 : p_ptr->realm1))) continue;
 
 				/* Hack -- Prepare the randomizer */
