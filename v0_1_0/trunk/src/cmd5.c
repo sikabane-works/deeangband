@@ -289,11 +289,11 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			/* 英日切り替え機能に対応 */
 			(void) strnfmt(tmp_val, 78, "%s(MP%d, 失敗率%d%%)を%sますか? ",
 				do_spell(use_realm, spell, SPELL_NAME), need_mana,
-				       spell_chance(spell, use_realm),jverb_buf);
+				       spell_chance(cr_ptr, spell, use_realm),jverb_buf);
 #else
 			(void)strnfmt(tmp_val, 78, "%^s %s (%d mana, %d%% fail)? ",
 				prompt, do_spell(use_realm, spell, SPELL_NAME), need_mana,
-				spell_chance(spell, use_realm));
+				spell_chance(cr_ptr, spell, use_realm));
 #endif
 
 
@@ -1191,7 +1191,7 @@ msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 
 
 	/* Spell failure chance */
-	chance = spell_chance(spell, use_realm);
+	chance = spell_chance(p_ptr, spell, use_realm);
 
 	/* Failed spell */
 	if (randint0(100) < chance)

@@ -547,7 +547,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
 
-					chance = mod_spell_chance_1(chance);
+					chance = mod_spell_chance_1(cr_ptr, chance);
 
 					need_mana = mod_need_mana(monster_powers[spellnum[i]].smana, 0, REALM_NONE);
 
@@ -570,7 +570,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
 
-					chance = mod_spell_chance_2(chance);
+					chance = mod_spell_chance_2(cr_ptr, chance);
 
 					/* Get info */
 					learned_info(cr_ptr, comment, spellnum[i]);
@@ -1954,7 +1954,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
 	/* Reduce failure rate by INT/WIS adjustment */
 	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
 
-	chance = mod_spell_chance_1(chance);
+	chance = mod_spell_chance_1(cr_ptr, chance);
 
 	/* Not enough mana to cast */
 	if (need_mana > cr_ptr->csp)
@@ -1975,7 +1975,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
 
-	chance = mod_spell_chance_2(chance);
+	chance = mod_spell_chance_2(cr_ptr, chance);
 
 	/* Failed spell */
 	if (randint0(100) < chance)

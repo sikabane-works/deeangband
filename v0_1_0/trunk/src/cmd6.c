@@ -6988,7 +6988,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 				{
 					chance -= 3 * (cr_ptr->lev - level);
 				}
-				chance = mod_spell_chance_1(chance);
+				chance = mod_spell_chance_1(cr_ptr, chance);
 				chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->sex].spell_stat]]);
 				/* Stunning makes spells harder */
 				if (cr_ptr->stun > 50) chance += 25;
@@ -6996,7 +6996,7 @@ static int select_magic_eater(creature_type *cr_ptr, bool only_browse)
 
 				if (chance > 95) chance = 95;
 
-				chance = mod_spell_chance_2(chance);
+				chance = mod_spell_chance_2(cr_ptr, chance);
 
 				col = TERM_WHITE;
 
@@ -7287,7 +7287,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	{
 		chance -= 3 * (cr_ptr->lev - level);
 	}
-	chance = mod_spell_chance_1(chance);
+	chance = mod_spell_chance_1(cr_ptr, chance);
 	chance = MAX(chance, adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->sex].spell_stat]]);
 	/* Stunning makes spells harder */
 	if (cr_ptr->stun > 50) chance += 25;
@@ -7295,7 +7295,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 
 	if (chance > 95) chance = 95;
 
-	chance = mod_spell_chance_2(chance);
+	chance = mod_spell_chance_2(cr_ptr, chance);
 
 	if (randint0(100) < chance)
 	{

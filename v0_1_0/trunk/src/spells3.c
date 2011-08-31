@@ -4178,15 +4178,15 @@ int mod_need_mana(int need_mana, int spell, int realm)
  * Modify spell fail rate
  * Using p_ptr->to_m_chance, p_ptr->dec_mana, p_ptr->easy_spell and p_ptr->heavy_spell
  */
-int mod_spell_chance_1(int chance)
+int mod_spell_chance_1(creature_type *cr_ptr, int chance)
 {
-	chance += p_ptr->to_m_chance;
+	chance += cr_ptr->to_m_chance;
 
-	if (p_ptr->heavy_spell) chance += 20;
+	if (cr_ptr->heavy_spell) chance += 20;
 
-	if (p_ptr->dec_mana && p_ptr->easy_spell) chance -= 4;
-	else if (p_ptr->easy_spell) chance -= 3;
-	else if (p_ptr->dec_mana) chance -= 2;
+	if (cr_ptr->dec_mana && cr_ptr->easy_spell) chance -= 4;
+	else if (cr_ptr->easy_spell) chance -= 3;
+	else if (cr_ptr->dec_mana) chance -= 2;
 
 	return chance;
 }
@@ -4197,11 +4197,11 @@ int mod_spell_chance_1(int chance)
  * Using p_ptr->dec_mana, p_ptr->easy_spell and p_ptr->heavy_spell
  * Note: variable "chance" cannot be negative.
  */
-int mod_spell_chance_2(int chance)
+int mod_spell_chance_2(creature_type *cr_ptr, int chance)
 {
-	if (p_ptr->dec_mana) chance--;
+	if (cr_ptr->dec_mana) chance--;
 
-	if (p_ptr->heavy_spell) chance += 5;
+	if (cr_ptr->heavy_spell) chance += 5;
 
 	return MAX(chance, 0);
 }
@@ -4210,16 +4210,16 @@ int mod_spell_chance_2(int chance)
 /*
  * Returns spell chance of failure for spell -RAK-
  */
-s16b spell_chance(int spell, int use_realm)
+s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 {
 	int             chance, minfail;
 	magic_type      *s_ptr;
 	int             need_mana;
-	int penalty = (m_info[p_ptr->realm1].spell_stat == A_WIS) ? 10 : 4;
+	int penalty = (m_info[cr_ptr->realm1].spell_stat == A_WIS) ? 10 : 4;
 
 
 	/* Paranoia -- must be literate */
-	if (!m_info[p_ptr->realm1].spell_book) return (100);
+	if (!m_info[cr_ptr->realm1].spell_book) return (100);
 
 	if (use_realm == REALM_HISSATSU) return 0;
 
@@ -4230,61 +4230,61 @@ s16b spell_chance(int spell, int use_realm)
 	}
 	else
 	{
-		s_ptr = &m_info[p_ptr->realm1].info[use_realm - 1][spell];
+		s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
 	}
 
 	/* Extract the base spell failure rate */
 	chance = s_ptr->sfail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	chance -= 3 * (p_ptr->lev - s_ptr->slevel);
+	chance -= 3 * (cr_ptr->lev - s_ptr->slevel);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] - 1);
 
-	if (p_ptr->riding)
-		chance += (MAX(r_info[m_list[p_ptr->riding].species_idx].level - p_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
+	if (cr_ptr->riding)
+		chance += (MAX(r_info[m_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
 
 	/* Not enough mana to cast */
-	if (need_mana > p_ptr->csp)
+	if (need_mana > cr_ptr->csp)
 	{
-		chance += 5 * (need_mana - p_ptr->csp);
+		chance += 5 * (need_mana - cr_ptr->csp);
 	}
 
-	if ((use_realm != p_ptr->realm1) && ((p_ptr->cls_idx == CLASS_MAGE) || (p_ptr->cls_idx == CLASS_PRIEST))) chance += 5;
+	if ((use_realm != cr_ptr->realm1) && ((cr_ptr->cls_idx == CLASS_MAGE) || (cr_ptr->cls_idx == CLASS_PRIEST))) chance += 5;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[p_ptr->stat_ind[m_info[p_ptr->realm1].spell_stat]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]];
 
 	/*
 	 * Non mage/priest characters never get too good
 	 * (added high mage, mindcrafter)
 	 */
-	if (m_info[p_ptr->realm1].spell_xtra & MAGIC_FAIL_5PERCENT)
+	if (m_info[cr_ptr->realm1].spell_xtra & MAGIC_FAIL_5PERCENT)
 	{
 		if (minfail < 5) minfail = 5;
 	}
 
 	/* Hack -- Priest prayer penalty for "edged" weapons  -DGK */
-	if (((p_ptr->cls_idx == CLASS_PRIEST) || (p_ptr->cls_idx == CLASS_SORCERER)) && p_ptr->icky_wield[0]) chance += 25;
-	if (((p_ptr->cls_idx == CLASS_PRIEST) || (p_ptr->cls_idx == CLASS_SORCERER)) && p_ptr->icky_wield[1]) chance += 25;
+	if (((cr_ptr->cls_idx == CLASS_PRIEST) || (cr_ptr->cls_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[0]) chance += 25;
+	if (((cr_ptr->cls_idx == CLASS_PRIEST) || (cr_ptr->cls_idx == CLASS_SORCERER)) && cr_ptr->icky_wield[1]) chance += 25;
 
-	chance = mod_spell_chance_1(chance);
+	chance = mod_spell_chance_1(cr_ptr, chance);
 
 	/* Goodness or evilness gives a penalty to failure rate */
 	switch (use_realm)
 	{
 	case REALM_NATURE:
-		if ((p_ptr->balance < -50)) chance += penalty;
+		if ((cr_ptr->balance < -50)) chance += penalty;
 		break;
 	case REALM_LIFE: case REALM_CRUSADE:
-		if (p_ptr->good < 0) chance += penalty;
+		if (cr_ptr->good < 0) chance += penalty;
 		break;
 	case REALM_DEATH: case REALM_DAEMON: case REALM_HEX:
-		if (p_ptr->evil < 0) chance += penalty;
+		if (cr_ptr->evil < 0) chance += penalty;
 		break;
 	}
 
@@ -4292,14 +4292,14 @@ s16b spell_chance(int spell, int use_realm)
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (p_ptr->stun > 50) chance += 25;
-	else if (p_ptr->stun) chance += 15;
+	if (cr_ptr->stun > 50) chance += 25;
+	else if (cr_ptr->stun) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
 
-	if ((use_realm == p_ptr->realm1) || (use_realm == p_ptr->realm2)
-	    || (p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
+	if ((use_realm == cr_ptr->realm1) || (use_realm == cr_ptr->realm2)
+	    || (cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 	{
 		s16b exp = experience_of_spell(spell, use_realm);
 		if (exp >= SPELL_EXP_EXPERT) chance--;
@@ -4307,7 +4307,7 @@ s16b spell_chance(int spell, int use_realm)
 	}
 
 	/* Return the chance */
-	return mod_spell_chance_2(chance);
+	return mod_spell_chance_2(cr_ptr, chance);
 }
 
 
@@ -4570,7 +4570,7 @@ comment = "–¢ŒoŒ±";
 			strcat(out_val, format("%-25s%c%-4s %2d %4d %3d%% %s",
 			    do_spell(use_realm, spell, SPELL_NAME), /* realm, spell */
 			    (max ? '!' : ' '), ryakuji,
-			    s_ptr->slevel, need_mana, spell_chance(spell, use_realm), comment));
+			    s_ptr->slevel, need_mana, spell_chance(p_ptr, spell, use_realm), comment));
 		}
 		c_prt(line_attr, out_val, y + i + 1, x);
 	}
