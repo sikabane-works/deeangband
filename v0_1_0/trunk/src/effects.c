@@ -5856,11 +5856,11 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				msg_format("%^s puts a terrible blood curse on you!", m_name);
 	#endif
 	
-				curse_equipment(tar_ptr, 100, 50);
+				curse_equipment(atk_ptr, 100, 50);
 	
 				do
 				{
-					stop_ty = activate_ty_curse(stop_ty, &count);
+					stop_ty = activate_ty_curse(tar_ptr, stop_ty, &count);
 				}
 				while (--curses);
 			}

@@ -582,7 +582,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	default:
 		{
 			int count = 0;
-			(void)activate_ty_curse(FALSE, &count);
+			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 			break;
 		}
 	}
@@ -657,7 +657,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("Oh no! It's the Hanged Man.");
 #endif
 
-		activate_ty_curse(FALSE, &count);
+		activate_ty_curse(cr_ptr, FALSE, &count);
 	}
 	else if (die < 22)
 	{

@@ -6890,7 +6890,7 @@ void call_chaos(void)
  * rr9: Stop the nasty things when a Cyberdemon is summoned
  * or the player gets paralyzed.
  */
-bool activate_ty_curse(bool stop_ty, int *count)
+bool activate_ty_curse(creature_type *cr_ptr, bool stop_ty, int *count)
 {
 	int     i = 0;
 
@@ -6909,7 +6909,7 @@ msg_print("地面が揺れた...");
 				msg_print("The ground trembles...");
 #endif
 
-				earthquake(p_ptr->fy, p_ptr->fx, 5 + randint0(10));
+				earthquake(cr_ptr->fy, cr_ptr->fx, 5 + randint0(10));
 				if (!one_in_(6)) break;
 			}
 		case 30: case 31:
@@ -6922,11 +6922,11 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 8, p_ptr->fy, p_ptr->fx, dam, GF_MANA, flg, -1);
+				project(0, 8, cr_ptr->fy, cr_ptr->fx, dam, GF_MANA, flg, -1);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
 #endif
 				if (!one_in_(6)) break;
 			}
@@ -6939,8 +6939,8 @@ msg_print("周囲の空間が歪んだ！");
 				msg_print("Space warps about you!");
 #endif
 
-				teleport_player(p_ptr, damroll(10, 10), TELEPORT_PASSIVE);
-				if (randint0(13)) (*count) += activate_hi_summon(p_ptr, p_ptr->fy, p_ptr->fx, FALSE);
+				teleport_player(cr_ptr, damroll(10, 10), TELEPORT_PASSIVE);
+				if (randint0(13)) (*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 				if (!one_in_(6)) break;
 			}
 		case 34:
@@ -6950,14 +6950,14 @@ msg_print("エネルギーのうねりを感じた！");
 			msg_print("You feel a surge of energy!");
 #endif
 
-			wall_breaker(p_ptr);
+			wall_breaker(cr_ptr);
 			if (!randint0(7))
 			{
-				project(0, 7, p_ptr->fy, p_ptr->fx, 50, GF_KILL_WALL, flg, -1);
+				project(0, 7, cr_ptr->fy, cr_ptr->fx, 50, GF_KILL_WALL, flg, -1);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
 #endif
 			}
 			if (!one_in_(6)) break;
@@ -6965,10 +6965,10 @@ msg_print("エネルギーのうねりを感じた！");
 			aggravate_monsters(NULL);
 			if (!one_in_(6)) break;
 		case 4: case 5: case 6:
-			(*count) += activate_hi_summon(p_ptr, p_ptr->fy, p_ptr->fx, FALSE);
+			(*count) += activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
 			if (!one_in_(6)) break;
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(*count) += summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 			if (!one_in_(6)) break;
 		case 10: case 11: case 12:
 #ifdef JP
@@ -6977,10 +6977,10 @@ msg_print("生命力が体から吸い取られた気がする！");
 			msg_print("You feel your life draining away...");
 #endif
 
-			lose_exp(p_ptr, p_ptr->exp / 16);
+			lose_exp(cr_ptr, cr_ptr->exp / 16);
 			if (!one_in_(6)) break;
 		case 13: case 14: case 15: case 19: case 20:
-			if (stop_ty || (p_ptr->free_act && (randint1(125) < p_ptr->skill_rob)) || (p_ptr->cls_idx == CLASS_BERSERKER))
+			if (stop_ty || (cr_ptr->free_act && (randint1(125) < cr_ptr->skill_rob)) || (cr_ptr->cls_idx == CLASS_BERSERKER))
 			{
 				/* Do nothing */ ;
 			}
@@ -6992,15 +6992,15 @@ msg_print("彫像になった気分だ！");
 				msg_print("You feel like a statue!");
 #endif
 
-				if (p_ptr->free_act)
-					set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(3));
+				if (cr_ptr->free_act)
+					set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(3));
 				else
-					set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(13));
+					set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(13));
 				stop_ty = TRUE;
 			}
 			if (!one_in_(6)) break;
 		case 21: case 22: case 23:
-			(void)do_dec_stat(p_ptr, randint0(6));
+			(void)do_dec_stat(cr_ptr, randint0(6));
 			if (!one_in_(6)) break;
 		case 24:
 #ifdef JP
@@ -7009,7 +7009,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			msg_print("Huh? Who am I? What am I doing here?");
 #endif
 
-			lose_all_info(p_ptr);
+			lose_all_info(cr_ptr);
 			if (!one_in_(6)) break;
 		case 25:
 			/*
@@ -7017,7 +7017,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			 */
 			if ((dun_level > 65) && !stop_ty)
 			{
-				(*count) += summon_cyber(NULL, p_ptr->fy, p_ptr->fx);
+				(*count) += summon_cyber(NULL, cr_ptr->fy, cr_ptr->fx);
 				stop_ty = TRUE;
 				break;
 			}
@@ -7027,7 +7027,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			{
 				do
 				{
-					(void)do_dec_stat(p_ptr, i);
+					(void)do_dec_stat(cr_ptr, i);
 				}
 				while (one_in_(2));
 

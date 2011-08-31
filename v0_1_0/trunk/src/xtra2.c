@@ -1627,7 +1627,7 @@ msg_format("%^sは恐ろしい血の呪いをあなたにかけた！", m_name);
 
 			do
 			{
-				stop_ty = activate_ty_curse(stop_ty, &count);
+				stop_ty = activate_ty_curse(atk_ptr, stop_ty, &count);
 			}
 			while (--curses);
 		}
@@ -4904,7 +4904,7 @@ msg_print("「下僕よ、汝傲慢なり。」");
 			msg_print("'Thou art growing arrogant, mortal.'");
 #endif
 
-			(void)activate_ty_curse(FALSE, &count);
+			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 #ifdef JP
 			reward = "禍々しい呪いをかけられた。";
 #else
@@ -5229,7 +5229,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 			switch (randint1(4))
 			{
 				case 1:
-					(void)activate_ty_curse(FALSE, &count);
+					(void)activate_ty_curse(cr_ptr, FALSE, &count);
 #ifdef JP
 					reward = "禍々しい呪いをかけられた。";
 #else
@@ -5307,7 +5307,7 @@ msg_print("「死ぬがよい、下僕よ！」");
 				(void)dec_stat(cr_ptr, dummy, 10 + randint1(15), FALSE);
 			}
 			activate_hi_summon(cr_ptr, cr_ptr->fy, cr_ptr->fx, FALSE);
-			(void)activate_ty_curse(FALSE, &count);
+			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 			if (one_in_(2))
 			{
 				dummy = 0;

@@ -1640,7 +1640,7 @@ void do_cmd_inscribe_caves(void)
 
 		do
 		{
-			stop_ty = activate_ty_curse(stop_ty, &count);
+			stop_ty = activate_ty_curse(p_ptr, stop_ty, &count);
 		}
 		while (one_in_(6));
 		strcpy(cave[p_ptr->fy][p_ptr->fx].message, "");

@@ -1215,7 +1215,7 @@ extern bool glyph_creation(creature_type *cr_ptr);
 extern bool destroy_doors_touch(void);
 extern bool animate_dead(creature_type *cr_ptr, int y, int x);
 extern bool sleep_monsters_touch(void);
-extern bool activate_ty_curse(bool stop_ty, int *count);
+extern bool activate_ty_curse(creature_type *cr_ptr, bool stop_ty, int *count);
 extern int activate_hi_summon(creature_type *cr_ptr, int y, int x, bool can_pet);
 extern int summon_cyber(creature_type *cr_ptr, int y, int x);
 extern void wall_breaker(creature_type *cr_ptr);

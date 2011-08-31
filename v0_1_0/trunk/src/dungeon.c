@@ -3013,7 +3013,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		if ((cr_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
 		{
 			int count = 0;
-			(void)activate_ty_curse(FALSE, &count);
+			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
 		if (cr_ptr->irace_idx != RACE_ANDROID && 
@@ -4168,7 +4168,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 			msg_print("A distant bell tolls many times, fading into an deathly silence.");
 #endif
 
-			activate_ty_curse(FALSE, &count);
+			activate_ty_curse(cr_ptr, FALSE, &count);
 		}
 	}
 

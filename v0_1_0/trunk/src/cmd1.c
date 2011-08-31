@@ -1388,7 +1388,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 
 				do
 				{
-					stop_ty = activate_ty_curse(stop_ty, &count);
+					stop_ty = activate_ty_curse(cr_ptr, stop_ty, &count);
 				}
 				while (one_in_(6));
 			}
