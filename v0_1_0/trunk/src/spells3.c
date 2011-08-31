@@ -3135,7 +3135,7 @@ bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
  *
  * XXX XXX XXX Beware of "sliding index errors".
  */
-bool recharge(int power)
+bool recharge(creature_type *cr_ptr, int power)
 {
 	int item, lev;
 	int recharge_strength, recharge_amount;
@@ -3161,12 +3161,12 @@ s = "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3302,7 +3302,7 @@ msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", o_name);
 			/*** Determine Seriousness of Failure ***/
 
 			/* Mages recharge objects more safely. */
-			if (p_ptr->cls_idx == CLASS_MAGE || p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER || p_ptr->cls_idx == CLASS_MAGIC_EATER || p_ptr->cls_idx == CLASS_BLUE_MAGE)
+			if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER || cr_ptr->cls_idx == CLASS_MAGIC_EATER || cr_ptr->cls_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
 				if (o_ptr->tval == TV_ROD)
@@ -3397,7 +3397,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 				if (o_ptr->tval == TV_ROD) o_ptr->timeout = (o_ptr->number - 1) * k_ptr->pval;
 				if (o_ptr->tval == TV_WAND) o_ptr->pval = 0;
 
-				/* Reduce and describe p_ptr->inventory */
+				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -1);
@@ -3433,7 +3433,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 
 
 
-				/* Reduce and describe p_ptr->inventory */
+				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
 					inven_item_increase(item, -999);
@@ -3453,7 +3453,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", o_name);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);

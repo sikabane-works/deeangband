@@ -2061,7 +2061,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!recharge(power)) return NULL;
+				if (!recharge(p_ptr, power)) return NULL;
 			}
 		}
 		break;
@@ -3844,7 +3844,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!recharge(power)) return NULL;
+				if (!recharge(p_ptr, power)) return NULL;
 			}
 		}
 		break;
@@ -11974,7 +11974,7 @@ static cptr do_hex_spell(int spell, int mode)
 		if (info) return info_power(power);
 		if (cast)
 		{
-			if (!recharge(power)) return NULL;
+			if (!recharge(p_ptr, power)) return NULL;
 			add = FALSE;
 		}
 		break;

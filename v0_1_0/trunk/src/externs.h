@@ -1282,7 +1282,7 @@ extern bool ident_spell(bool only_equip);
 extern bool mundane_spell(bool only_equip);
 extern bool identify_item(object_type *o_ptr);
 extern bool identify_fully(bool only_equip);
-extern bool recharge(int num);
+extern bool recharge(creature_type *cr_ptr, int num);
 extern bool bless_weapon(void);
 extern bool pulish_shield(void);
 extern bool potion_smash_effect(int who, int y, int x, int k_idx);

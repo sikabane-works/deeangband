@@ -2941,7 +2941,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_RECHARGE:
 		{
-			recharge(130);
+			recharge(p_ptr, 130);
 			o_ptr->timeout = 70;
 			break;
 		}

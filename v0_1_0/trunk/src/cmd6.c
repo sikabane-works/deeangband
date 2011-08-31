@@ -1815,7 +1815,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_RECHARGING:
 		{
-			if (!recharge(130)) used_up = FALSE;
+			if (!recharge(p_ptr, 130)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -4545,7 +4545,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cloak glows bright yellow...");
 #endif
 
-				recharge(130);
+				recharge(p_ptr, 130);
 				o_ptr->timeout = 70;
 				break;
 			}
@@ -5332,7 +5332,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your card gleams with blinding light...");
 #endif
-				if (!recharge(1000)) return;
+				if (!recharge(p_ptr, 1000)) return;
 				o_ptr->timeout = 200;
 				break;
 			}
