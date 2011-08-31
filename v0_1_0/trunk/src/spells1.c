@@ -3526,33 +3526,6 @@ note = "が分裂した！";
 			/* No overflow */
 			if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
-			if (!who_ptr)
-			{
-				chg_karma(p_ptr, V_VITALITY, 1);
-
-				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_karma(p_ptr, V_INDIVIDUALISM, 1);
-
-				if (is_friendly(m_ptr))
-					chg_karma(p_ptr, V_HONOUR, 1);
-				else if (!(r_ptr->flags3 & RF3_EVIL))
-				{
-					if (r_ptr->flags3 & RF3_GOOD)
-						chg_karma(p_ptr, V_COMPASSION, 2);
-					else
-						chg_karma(p_ptr, V_COMPASSION, 1);
-				}
-
-				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_karma(p_ptr, V_NATURE, 1);
-			}
-
-			if (m_ptr->species_idx == MON_LEPER)
-			{
-				heal_leper = TRUE;
-				if (!who_ptr) chg_karma(p_ptr, V_COMPASSION, 5);
-			}
-
 			/* Redraw (later) if needed */
 			if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
 			if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
@@ -3583,14 +3556,6 @@ note = "が分裂した！";
 #else
 				note = " starts moving faster.";
 #endif
-			}
-
-			if (!who_ptr)
-			{
-				if (r_ptr->flags1 & RF1_UNIQUE)
-					chg_karma(p_ptr, V_INDIVIDUALISM, 1);
-				if (is_friendly(m_ptr))
-					chg_karma(p_ptr, V_HONOUR, 1);
 			}
 
 			/* No "real" damage */
@@ -3869,10 +3834,6 @@ note = "は突然友好的になったようだ！";
 #endif
 
 				set_pet(m_ptr);
-
-				chg_karma(p_ptr, V_INDIVIDUALISM, -1);
-				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_karma(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -4108,8 +4069,6 @@ note = "はなついた。";
 
 				set_pet(m_ptr);
 
-				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_karma(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -4196,9 +4155,6 @@ note = "を支配した。";
 #endif
 
 				set_pet(m_ptr);
-
-				if (r_ptr->flags3 & RF3_ANIMAL)
-					chg_karma(p_ptr, V_NATURE, 1);
 			}
 
 			/* No "real" damage */
@@ -5648,7 +5604,6 @@ note = "には効果がなかった！";
 #else
 				if (seen_msg) msg_format("%^s disappered!", m_name);
 #endif
-				chg_karma(p_ptr, V_VITALITY, -1);
 				return TRUE;
 			}
 
@@ -5839,12 +5794,6 @@ note = "には効果がなかった。";
 		if (who_ptr != who_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
 	}
 
-	if (who_ptr == who_ptr && slept)
-	{
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_karma(p_ptr, V_COMPASSION, -1);
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_karma(p_ptr, V_HONOUR, -1);
-	}
-
 	/* Modify the damage */
 	tmp = dam;
 	dam = mon_damage_mod(m_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
@@ -6005,8 +5954,6 @@ note = "には効果がなかった。";
 #else
 			note = " disappears!";
 #endif
-
-			if (who_ptr == who_ptr) chg_karma(p_ptr, V_VALOUR, -1);
 
 			/* Teleport */
 			teleport_away(&m_list[c_ptr->m_idx], do_dist,

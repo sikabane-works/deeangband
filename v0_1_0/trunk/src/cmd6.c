@@ -381,13 +381,6 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
-	if (!(object_is_aware(o_ptr)))
-	{
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-	}
-
 	/* We have tried it */
 	if (o_ptr->tval == TV_FOOD) object_tried(o_ptr);
 
@@ -870,10 +863,9 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			break;
 
 		case SV_POTION_CONFUSION: /* Booze */
-			if (cr_ptr->cls_idx != CLASS_MONK) chg_karma(cr_ptr, V_HARMONY, -1);
-			else if (!cr_ptr->resist_conf) cr_ptr->special_attack |= ATTACK_SUIKEN;
 			if (!cr_ptr->resist_conf)
 			{
+				cr_ptr->special_attack |= ATTACK_SUIKEN;
 				if (set_confused(cr_ptr, randint0(20) + 15))
 				{
 					ident = TRUE;
@@ -951,8 +943,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 #else
 				msg_print("You feel your memories fade.");
 #endif
-				chg_karma(cr_ptr, V_KNOWLEDGE, -5);
-
 				lose_exp(cr_ptr, cr_ptr->exp / 4);
 				ident = TRUE;
 			}
@@ -1015,8 +1005,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_DEATH:
-			chg_karma(cr_ptr, V_VITALITY, -1);
-			chg_karma(cr_ptr, V_UNLIFE, 5);
 #ifdef JP
 			msg_print("死の予感が体中を駆けめぐった。");
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
@@ -1137,8 +1125,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_LIFE:
-			chg_karma(cr_ptr, V_VITALITY, 1);
-			chg_karma(cr_ptr, V_UNLIFE, -5);
 #ifdef JP
 			msg_print("体中に生命力が満ちあふれてきた！");
 #else
@@ -1273,8 +1259,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("An image of your surroundings forms in your mind...");
 #endif
 
-			chg_karma(cr_ptr, V_KNOWLEDGE, 1);
-			chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 			wiz_lite(FALSE);
 			ident = TRUE;
 			break;
@@ -1286,8 +1270,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			msg_print("You begin to feel more enlightened...");
 #endif
 
-			chg_karma(cr_ptr, V_KNOWLEDGE, 1);
-			chg_karma(cr_ptr, V_ENLIGHTEN, 2);
 			msg_print(NULL);
 			wiz_lite(FALSE);
 			(void)do_inc_stat(cr_ptr, A_INT);
@@ -1317,7 +1299,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 
 		case SV_POTION_EXPERIENCE:
 			if (cr_ptr->irace_idx == RACE_ANDROID) break;
-			chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 			if (cr_ptr->exp < PY_MAX_EXP)
 			{
 				s32b ee = (cr_ptr->exp / 2) + 10;
@@ -1363,7 +1344,6 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			cr_ptr->update |= PU_BONUS;
 			if (cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3)
 			{
-				chg_karma(cr_ptr, V_CHANCE, -5);
 #ifdef JP
 msg_print("全ての突然変異が治った。");
 #else
@@ -1403,7 +1383,6 @@ msg_print("「オクレ兄さん！」");
 		case SV_POTION_POLYMORPH:
 			if ((cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3) && one_in_(23))
 			{
-				chg_karma(cr_ptr, V_CHANCE, -5);
 #ifdef JP
 msg_print("全ての突然変異が治った。");
 #else
@@ -1442,13 +1421,6 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
-
-	if (!(object_is_aware(q_ptr)))
-	{
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-	}
 
 	/* The item has been tried */
 	object_tried(q_ptr);
@@ -2210,13 +2182,6 @@ msg_print("巻物は煙を立てて消え去った！");
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
-	if (!(object_is_aware(o_ptr)))
-	{
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-	}
-
 	/* The item was tried */
 	object_tried(o_ptr);
 
@@ -2809,12 +2774,6 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 
 	ident = staff_effect(cr_ptr, o_ptr->sval, &use_charge, FALSE, object_is_aware(o_ptr));
 
-	if (!(object_is_aware(o_ptr)))
-	{
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-	}
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -2937,8 +2896,6 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 				if (sval < SV_WAND_HEAL_MONSTER) sval = randint0(3) + SV_WAND_HEAL_MONSTER;
 			}
 		}
-		if (sval < SV_WAND_TELEPORT_AWAY)
-			chg_karma(cr_ptr, V_CHANCE, 1);
 	}
 
 	/* Analyze the wand */
@@ -3344,13 +3301,6 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
-
-	if (!(object_is_aware(o_ptr)))
-	{
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-	}
 
 	/* Mark it as tried */
 	object_tried(o_ptr);
@@ -3801,13 +3751,6 @@ msg_print("そのロッドはまだ充填中です。");
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
-	if (!(object_is_aware(o_ptr)))
-	{
-		chg_karma(cr_ptr, V_PATIENCE, -1);
-		chg_karma(cr_ptr, V_CHANCE, 1);
-		chg_karma(cr_ptr, V_KNOWLEDGE, -1);
-	}
-
 	/* Tried the object */
 	object_tried(o_ptr);
 
@@ -4244,8 +4187,6 @@ msg_print("その宝石は赤く明るく光った！");
 				msg_print("The Jewel flashes bright red!");
 #endif
 
-				chg_karma(cr_ptr, V_KNOWLEDGE, 1);
-				chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 				wiz_lite(FALSE);
 #ifdef JP
 				msg_print("その宝石はあなたの体力を奪った...");
@@ -7366,8 +7307,6 @@ msg_print("呪文をうまく唱えられなかった！");
 #endif
 
 		sound(SOUND_FAIL);
-		if (randint1(100) >= chance)
-			chg_karma(cr_ptr, V_CHANCE,-1);
 		energy_use = 100;
 
 		return;
@@ -7393,8 +7332,6 @@ msg_print("呪文をうまく唱えられなかった！");
 			staff_effect(cr_ptr, sval, &use_charge, TRUE, TRUE);
 			if (!use_charge) return;
 		}
-		if (randint1(100) < chance)
-			chg_karma(cr_ptr, V_CHANCE,1);
 	}
 	energy_use = 100;
 	if (tval == TV_ROD) cr_ptr->magic_num1[item] += k_info[k_idx].pval * EATER_ROD_CHARGE;

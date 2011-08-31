@@ -264,9 +264,6 @@ static void cast_wonder(int dir)
 		}
 	}
 
-	if (die < 26)
-		chg_karma(p_ptr, V_CHANCE, 1);
-
 	if (die > 100)
 	{
 #ifdef JP
@@ -350,8 +347,6 @@ static void cast_invoke_spirits(int dir)
 #else
 	msg_print("You call on the power of the dead...");
 #endif
-	if (die < 26)
-		chg_karma(p_ptr, V_CHANCE, 1);
 
 	if (die > 100)
 	{
@@ -372,7 +367,6 @@ static void cast_invoke_spirits(int dir)
 #endif
 
 		(void)summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
-		chg_karma(p_ptr, V_UNLIFE, 1);
 	}
 	else if (die < 14)
 	{
@@ -630,9 +624,6 @@ static void cast_shuffle(creature_type *cr_ptr)
 	msg_print("You shuffle the deck and draw a card...");
 #endif
 
-	if (die < 30)
-		chg_karma(cr_ptr, V_CHANCE, 1);
-
 	if (die < 7)
 	{
 #ifdef JP
@@ -877,8 +868,6 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Sun.");
 #endif
 
-		chg_karma(cr_ptr, V_KNOWLEDGE, 1);
-		chg_karma(cr_ptr, V_ENLIGHTEN, 1);
 		wiz_lite(FALSE);
 	}
 	else
@@ -2492,8 +2481,6 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				chg_karma(p_ptr, V_KNOWLEDGE, 1);
-				chg_karma(p_ptr, V_ENLIGHTEN, 1);
 
 				wiz_lite(FALSE);
 
@@ -3310,8 +3297,6 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				fire_ball(GF_LITE, 0, dam, rad);
-				chg_karma(p_ptr, V_KNOWLEDGE, 1);
-				chg_karma(p_ptr, V_ENLIGHTEN, 1);
 				wiz_lite(FALSE);
 
 				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
@@ -4552,9 +4537,6 @@ static cptr do_death_spell(int spell, int mode)
 
 				if (drain_life(dir, dam))
 				{
-					chg_karma(p_ptr, V_SACRIFICE, -1);
-					chg_karma(p_ptr, V_VITALITY, -1);
-
 					hp_player(p_ptr, dam);
 
 					/*
@@ -4747,9 +4729,6 @@ static cptr do_death_spell(int spell, int mode)
 
 				if (!get_aim_dir(&dir)) return NULL;
 
-				chg_karma(p_ptr, V_SACRIFICE, -1);
-				chg_karma(p_ptr, V_VITALITY, -1);
-
 				for (i = 0; i < 3; i++)
 				{
 					if (drain_life(dir, dam))
@@ -4873,7 +4852,6 @@ static cptr do_death_spell(int spell, int mode)
 #endif
 					}
 
-					chg_karma(p_ptr, V_UNLIFE, 1);
 				}
 			}
 		}
@@ -6650,9 +6628,6 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				chg_karma(p_ptr, V_KNOWLEDGE, 1);
-				chg_karma(p_ptr, V_ENLIGHTEN, 1);
-
 				wiz_lite(FALSE);
 
 				if (!p_ptr->telepathy)

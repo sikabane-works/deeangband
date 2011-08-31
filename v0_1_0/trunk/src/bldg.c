@@ -2400,7 +2400,6 @@ static bool kankin(void)
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
-				chg_karma(p_ptr, V_JUSTICE, 5);
 				kubi_species_idx[j] += 10000;
 
 				change = TRUE;
@@ -2411,7 +2410,6 @@ static bool kankin(void)
 				inven_item_describe(i);
 				inven_item_optimize(i);
 
-				chg_karma(p_ptr, V_JUSTICE, 5);
 				kubi_species_idx[j] += 10000;
 
 				/* Count number of unique corpses already handed */

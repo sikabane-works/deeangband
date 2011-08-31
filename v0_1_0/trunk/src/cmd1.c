@@ -3161,13 +3161,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 		msg_format("%^s seems weakened.", m_name);
 #endif
 	}
-	if (drain_left != MAX_VAMPIRIC_DRAIN)
-	{
-		if (one_in_(4))
-		{
-			chg_karma(cr_ptr, V_UNLIFE, 1);
-		}
-	}
+
 	/* Mega-Hack -- apply earthquake brand */
 	if (do_quake)
 	{
@@ -3275,25 +3269,14 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 #else
 			msg_format("Your black blade greedily attacks %s!", tar_name);
 #endif
-			chg_karma(atk_ptr, V_INDIVIDUALISM, 1);
-			chg_karma(atk_ptr, V_HONOUR, -1);
-			chg_karma(atk_ptr, V_JUSTICE, -1);
-			chg_karma(atk_ptr, V_COMPASSION, -1);
 		}
 		else if (atk_ptr->cls_idx != CLASS_BERSERKER && atk_ptr == atk_ptr)
 		{
 #ifdef JP
-			if (get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
+			if (!get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))
 #else
-			if (get_check("Really hit it? "))
+			if (!get_check("Really hit it? "))
 #endif
-			{
-				chg_karma(atk_ptr, V_INDIVIDUALISM, 1);
-				chg_karma(atk_ptr, V_HONOUR, -1);
-				chg_karma(atk_ptr, V_JUSTICE, -1);
-				chg_karma(atk_ptr, V_COMPASSION, -1);
-			}
-			else
 			{
 #ifdef JP
 				msg_format("%s‚ğUŒ‚‚·‚é‚Ì‚ğ~‚ß‚½B", tar_name);
@@ -3331,12 +3314,6 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 		/* Done */
 		return FALSE;
-	}
-
-	if (tar_ptr->paralyzed) /* It is not honorable etc to attack helpless victims */
-	{
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_karma(atk_ptr, V_COMPASSION, -1);
-		if (!(r_ptr->flags3 & RF3_EVIL) || one_in_(5)) chg_karma(atk_ptr, V_HONOUR, -1);
 	}
 
 	if (atk_ptr->migite && atk_ptr->hidarite)

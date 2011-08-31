@@ -5787,10 +5787,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #else
 				if(message) msg_print("You do not feel comfortable with your weapon.");
 #endif
-				if (hack_mind)
-				{
-					chg_karma(cr_ptr, V_FAITH, -1);
-				}
 			}
 			else if (have_weapon(cr_ptr, INVEN_1STARM+i))
 			{
@@ -5848,11 +5844,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 #else
 			if(message) msg_print("The weight of your armor disrupts your balance.");
 #endif
-
-			if (hack_mind)
-			{
-				chg_karma(cr_ptr, V_HARMONY, -1);
-			}
 		}
 		else
 #ifdef JP

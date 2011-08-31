@@ -3471,11 +3471,6 @@ msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
 #endif
 
 		set_hostile(m_ptr);
-
-		chg_karma(p_ptr, V_INDIVIDUALISM, 1);
-		chg_karma(p_ptr, V_HONOUR, -1);
-		chg_karma(p_ptr, V_JUSTICE, -1);
-		chg_karma(p_ptr, V_COMPASSION, -1);
 	}
 }
 

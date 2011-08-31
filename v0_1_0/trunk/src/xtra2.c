@@ -1654,84 +1654,6 @@ msg_format("%^s‚Í‹°‚ë‚µ‚¢ŒŒ‚ÌŽô‚¢‚ð‚ ‚È‚½‚É‚©‚¯‚½I", m_name);
 #endif
 		}
 
-		if (!(d_info[dungeon_type].flags1 & DF1_BEGINNER))
-		{
-			if (!dun_level && !ambush_flag && !inside_arena)
-			{
-				chg_karma(atk_ptr, V_VALOUR, -1);
-			}
-			else if (r_ptr->level > dun_level)
-			{
-				if (randint1(10) <= (r_ptr->level - dun_level))
-					chg_karma(atk_ptr, V_VALOUR, 1);
-			}
-			if (r_ptr->level > 60)
-			{
-				chg_karma(atk_ptr, V_VALOUR, 1);
-			}
-			if (r_ptr->level >= 2 * (atk_ptr->lev+1))
-				chg_karma(atk_ptr, V_VALOUR, 2);
-		}
-
-		if (r_ptr->flags1 & RF1_UNIQUE)
-		{
-			if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) chg_karma(atk_ptr, V_HARMONY, 2);
-
-			if (r_ptr->flags3 & RF3_GOOD)
-			{
-				chg_karma(atk_ptr, V_UNLIFE, 2);
-				chg_karma(atk_ptr, V_VITALITY, -2);
-			}
-
-			if (one_in_(3)) chg_karma(atk_ptr, V_INDIVIDUALISM, -1);
-		}
-
-		if (tar_ptr->species_idx == MON_BEGGAR || tar_ptr->species_idx == MON_LEPER)
-		{
-			chg_karma(atk_ptr, V_COMPASSION, -1);
-		}
-
-		if ((r_ptr->flags3 & RF3_GOOD) &&
-			((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100)))
-			chg_karma(atk_ptr, V_UNLIFE, 1);
-
-		if (r_ptr->d_char == 'A')
-		{
-			if (r_ptr->flags1 & RF1_UNIQUE)
-				chg_karma(atk_ptr, V_FAITH, -2);
-			else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
-			{
-				if (r_ptr->flags3 & RF3_GOOD) chg_karma(atk_ptr, V_FAITH, -1);
-				else chg_karma(atk_ptr, V_FAITH, 1);
-			}
-		}
-		else if (r_ptr->flags3 & RF3_DEMON)
-		{
-			if (r_ptr->flags1 & RF1_UNIQUE)
-				chg_karma(atk_ptr, V_FAITH, 2);
-			else if ((r_ptr->level) / 10 + (3 * dun_level) >= randint1(100))
-				chg_karma(atk_ptr, V_FAITH, 1);
-		}
-
-		if ((r_ptr->flags3 & RF3_UNDEAD) && (r_ptr->flags1 & RF1_UNIQUE))
-			chg_karma(atk_ptr, V_VITALITY, 2);
-
-		if (r_ptr->r_deaths)
-		{
-			if (r_ptr->flags1 & RF1_UNIQUE)
-			{
-				chg_karma(atk_ptr, V_HONOUR, 10);
-			}
-			else if ((r_ptr->level) / 10 + (2 * dun_level) >= randint1(100))
-			{
-				chg_karma(atk_ptr, V_HONOUR, 1);
-			}
-		}
-		if ((r_ptr->flags2 & RF2_MULTIPLY) && (r_ptr->r_akills > 1000) && one_in_(10))
-		{
-			chg_karma(atk_ptr, V_VALOUR, -1);
-		}
-
 		for (i = 0; i < 4; i++)
 		{
 			if (r_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
@@ -1744,24 +1666,6 @@ msg_format("%^s‚Í‹°‚ë‚µ‚¢ŒŒ‚ÌŽô‚¢‚ð‚ ‚È‚½‚É‚©‚¯‚½I", m_name);
 
 		/* The new law says it is illegal to live in the dungeon */
 		if (r_ptr->level != 0) innocent = FALSE;
-
-		if (thief)
-		{
-			if (r_ptr->flags1 & RF1_UNIQUE)
-				chg_karma(atk_ptr, V_JUSTICE, 3);
-			else if (1+((r_ptr->level) / 10 + (2 * dun_level))
-				>= randint1(100))
-				chg_karma(atk_ptr, V_JUSTICE, 1);
-		}
-		else if (innocent)
-		{
-			chg_karma(atk_ptr, V_JUSTICE, -1);
-		}
-
-		if ((r_ptr->flags3 & RF3_ANIMAL) && !(r_ptr->flags3 & RF3_EVIL) && !(r_ptr->flags4 & ~(RF4_NOMAGIC_MASK))  && !(r_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) && !(r_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
-		{
-			if (one_in_(4)) chg_karma(atk_ptr, V_NATURE, -1);
-		}
 
 		if ((r_ptr->flags1 & RF1_UNIQUE) && record_destroy_uniq)
 		{

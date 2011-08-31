@@ -70,9 +70,6 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	info[i++] = buf[0];
 	info[i++] = "";
 
-	chg_karma(cr_ptr, V_KNOWLEDGE, 1);
-	chg_karma(cr_ptr, V_ENLIGHTEN, 1);
-
 	/* Acquire item flags from equipment */
 	for (k = INVEN_1STARM; k < INVEN_TOTAL; k++)
 	{
@@ -4443,8 +4440,6 @@ bool banish_evil(int dist)
 bool turn_undead(void)
 {
 	bool tester = (project_hack(GF_TURN_UNDEAD, p_ptr->lev));
-	if (tester)
-		chg_karma(p_ptr, V_UNLIFE, -1);
 	return tester;
 }
 
@@ -4455,8 +4450,6 @@ bool turn_undead(void)
 bool dispel_undead(int dam)
 {
 	bool tester = (project_hack(GF_DISP_UNDEAD, dam));
-	if (tester)
-		chg_karma(p_ptr, V_UNLIFE, -2);
 	return tester;
 }
 
@@ -4720,12 +4713,6 @@ bool symbol_genocide(int power, bool player_cast)
 #endif
 	}
 
-	if (result)
-	{
-		chg_karma(p_ptr, V_VITALITY, -2);
-		chg_karma(p_ptr, V_CHANCE, -1);
-	}
-
 	return result;
 }
 
@@ -4761,12 +4748,6 @@ bool mass_genocide(int power, bool player_cast)
 #else
 		result |= genocide_aux(i, power, player_cast, 3, "Mass Genocide");
 #endif
-	}
-
-	if (result)
-	{
-		chg_karma(p_ptr, V_VITALITY, -2);
-		chg_karma(p_ptr, V_CHANCE, -1);
 	}
 
 	return result;
@@ -4808,12 +4789,6 @@ bool mass_genocide_undead(int power, bool player_cast)
 #else
 		result |= genocide_aux(i, power, player_cast, 3, "Annihilate Undead");
 #endif
-	}
-
-	if (result)
-	{
-		chg_karma(p_ptr, V_UNLIFE, -2);
-		chg_karma(p_ptr, V_CHANCE, -1);
 	}
 
 	return result;
@@ -4992,7 +4967,6 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 	/* Done */
 	if (probe)
 	{
-		chg_karma(p_ptr, V_KNOWLEDGE, 1);
 
 #ifdef JP
 msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
@@ -6763,8 +6737,6 @@ bool poly_monster(int dir)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
 	bool tester = (project_hook(GF_OLD_POLY, dir, p_ptr->lev, flg));
-	if (tester)
-		chg_karma(p_ptr, V_CHANCE, 1);
 	return(tester);
 }
 

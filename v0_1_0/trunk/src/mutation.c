@@ -1019,7 +1019,6 @@ msg_print("•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 	}
 	else
 	{
-		chg_karma(cr_ptr, V_CHANCE, 1);
 
 		/*
 		  some races are apt to gain specified mutations

@@ -558,9 +558,6 @@ static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s
 		/* Comment */
 		msg_print(comment_7a[randint0(MAX_COMMENT_7A)]);
 
-		chg_karma(guest_ptr, V_HONOUR, -1);
-		chg_karma(guest_ptr, V_JUSTICE, -1);
-
 		/* Sound */
 		sound(SOUND_STORE1);
 	}
@@ -570,10 +567,6 @@ static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s
 	{
 		/* Comment */
 		msg_print(comment_7b[randint0(MAX_COMMENT_7B)]);
-
-		chg_karma(guest_ptr, V_JUSTICE, -1);
-		if (one_in_(4))
-			chg_karma(guest_ptr, V_HONOUR, -1);
 
 		/* Sound */
 		sound(SOUND_STORE2);
@@ -585,11 +578,6 @@ static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s
 		/* Comment */
 		msg_print(comment_7c[randint0(MAX_COMMENT_7C)]);
 
-		if (one_in_(4))
-			chg_karma(guest_ptr, V_HONOUR, -1);
-		else if (one_in_(4))
-			chg_karma(guest_ptr, V_HONOUR, 1);
-
 		/* Sound */
 		sound(SOUND_STORE3);
 	}
@@ -599,14 +587,6 @@ static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s
 	{
 		/* Comment */
 		msg_print(comment_7d[randint0(MAX_COMMENT_7D)]);
-
-		if (one_in_(2))
-			chg_karma(guest_ptr, V_HONOUR, -1);
-		if (one_in_(4))
-			chg_karma(guest_ptr, V_HONOUR, 1);
-
-		if (10 * price < value)
-			chg_karma(guest_ptr, V_SACRIFICE, 1);
 
 		/* Sound */
 		sound(SOUND_STORE4);
@@ -1771,8 +1751,6 @@ static int home_carry(object_type *o_ptr)
 
 	/* Insert the new item */
 	st_ptr->stock[slot] = *o_ptr;
-
-	chg_karma(p_ptr, V_SACRIFICE, -1);
 
 	(void)combine_and_reorder_home(cur_store_num);
 
@@ -3589,11 +3567,6 @@ msg_format("%s(%c)‚ðw“ü‚·‚éB", o_name, I2A(item));
 				/* Say "okay" */
 				say_comment_1();
 
-				if (cur_store_num == STORE_BLACK) /* The black market is illegal! */
-					chg_karma(guest_ptr, V_JUSTICE, -1);
-				if((o_ptr->tval == TV_BOTTLE) && (cur_store_num != STORE_HOME))
-					chg_karma(guest_ptr, V_NATURE, -1);
-
 				/* Make a sound */
 				sound(SOUND_BUY);
 
@@ -3809,8 +3782,6 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 			/* Redraw everything */
 			display_inventory();
-
-			chg_karma(guest_ptr, V_SACRIFICE, 1);
 		}
 	}
 
@@ -4021,12 +3992,6 @@ static void store_sell(void)
 			/* Make a sound */
 			sound(SOUND_SELL);
 
-			/* Be happy */
-			if (cur_store_num == STORE_BLACK) /* The black market is illegal! */
-				chg_karma(p_ptr, V_JUSTICE, -1);
-
-			if((o_ptr->tval == TV_BOTTLE) && (cur_store_num != STORE_HOME))
-				chg_karma(p_ptr, V_NATURE, 1);
 			decrease_insults();
 
 			/* Get some money */

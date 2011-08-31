@@ -794,9 +794,6 @@ msg_print("クエストを達成した！");
 		msg_print("Oops! It feels deathly cold!");
 #endif
 
-
-		chg_karma(p_ptr, V_HARMONY, -1);
-
 		/* Note the curse */
 		o_ptr->ident |= (IDENT_SENSE);
 	}
@@ -1355,29 +1352,7 @@ msg_print("更に経験を積んだような気がする。");
 
 			gain_exp(p_ptr, tester_exp * amt);
 		}
-		if (high_level_book(q_ptr) && q_ptr->tval == TV_LIFE_BOOK)
-		{
-			chg_karma(p_ptr, V_UNLIFE, 1);
-			chg_karma(p_ptr, V_VITALITY, -1);
 		}
-		else if (high_level_book(q_ptr) && q_ptr->tval == TV_DEATH_BOOK)
-		{
-			chg_karma(p_ptr, V_UNLIFE, -1);
-			chg_karma(p_ptr, V_VITALITY, 1);
-		}
-	
-		if (q_ptr->to_a || q_ptr->to_h || q_ptr->to_d)
-			chg_karma(p_ptr, V_ENCHANT, -1);
-	
-		if (object_value_real(q_ptr) > 30000)
-			chg_karma(p_ptr, V_SACRIFICE, 2);
-	
-		else if (object_value_real(q_ptr) > 10000)
-			chg_karma(p_ptr, V_SACRIFICE, 1);
-	}
-
-	if (q_ptr->to_a != 0 || q_ptr->to_d != 0 || q_ptr->to_h != 0)
-		chg_karma(p_ptr, V_HARMONY, 1);
 
 	if (item >= INVEN_1STARM) calc_android_exp(p_ptr);
 }
