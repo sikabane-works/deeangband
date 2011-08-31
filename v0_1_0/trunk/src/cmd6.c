@@ -2108,7 +2108,7 @@ msg_print("Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I");
 		case SV_SCROLL_ARTIFACT:
 		{
 			ident = TRUE;
-			if (!artifact_scroll()) used_up = FALSE;
+			if (!artifact_scroll(cr_ptr)) used_up = FALSE;
 			break;
 		}
 

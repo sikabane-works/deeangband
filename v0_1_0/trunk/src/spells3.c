@@ -2611,7 +2611,7 @@ static bool item_tester_hook_nameless_weapon_armour(creature_type *cr_ptr, objec
 }
 
 
-bool artifact_scroll(void)
+bool artifact_scroll(creature_type *cr_ptr)
 {
 	int             item;
 	bool            okay = FALSE;
@@ -2634,12 +2634,12 @@ bool artifact_scroll(void)
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2661,7 +2661,7 @@ bool artifact_scroll(void)
 		  ((o_ptr->number > 1) ? "" : "s"));
 #endif
 
-	if (object_is_artifact(p_ptr, o_ptr))
+	if (object_is_artifact(cr_ptr, o_ptr))
 	{
 #ifdef JP
 		msg_format("%sは既に伝説のアイテムです！", o_name  );
@@ -2719,7 +2719,7 @@ bool artifact_scroll(void)
 				floor_item_increase(0-item, 1-(o_ptr->number));
 			}
 		}
-		okay = create_artifact(p_ptr, o_ptr, TRUE);
+		okay = create_artifact(cr_ptr, o_ptr, TRUE);
 	}
 
 	/* Failure */
@@ -2737,7 +2737,7 @@ bool artifact_scroll(void)
 
 	}
 
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	/* Something happened */
 	return (TRUE);
