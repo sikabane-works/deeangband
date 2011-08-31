@@ -6792,10 +6792,10 @@ bool tree_creation(void)
 }
 
 
-bool glyph_creation(void)
+bool glyph_creation(creature_type *cr_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM;
-	return (project(0, 1, p_ptr->fy, p_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
+	return (project(0, 1, cr_ptr->fy, cr_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
 }
 
 

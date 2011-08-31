@@ -1211,7 +1211,7 @@ extern bool teleport_monster(int dir);
 extern bool door_creation(void);
 extern bool trap_creation(int y, int x);
 extern bool tree_creation(void);
-extern bool glyph_creation(void);
+extern bool glyph_creation(creature_type *cr_ptr);
 extern bool destroy_doors_touch(void);
 extern bool animate_dead(creature_type *cr_ptr, int y, int x);
 extern bool sleep_monsters_touch(void);

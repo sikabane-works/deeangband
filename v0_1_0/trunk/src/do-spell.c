@@ -1701,7 +1701,7 @@ static cptr do_life_spell(int spell, int mode)
 			if (cast)
 			{
 				warding_glyph(p_ptr);
-				glyph_creation();
+				glyph_creation(p_ptr);
 			}
 		}
 		break;
