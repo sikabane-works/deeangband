@@ -1364,7 +1364,7 @@ msg_format("There are too many mirrors to control!");
 #endif
 		break;
 	  }
-	  alter_reality();
+	  alter_reality(cr_ptr);
 	  break;
 	/* mirror tunnel */
 	case 16:

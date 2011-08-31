@@ -2760,7 +2760,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if ((cr_ptr->muta2 & MUT2_WALK_SHAD) &&
 	    !cr_ptr->anti_magic && one_in_(12000) && !inside_arena)
 	{
-		alter_reality();
+		alter_reality(cr_ptr);
 	}
 
 	if ((cr_ptr->muta2 & MUT2_WARNING) && one_in_(1000))

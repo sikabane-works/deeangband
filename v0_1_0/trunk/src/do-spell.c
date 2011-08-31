@@ -1679,7 +1679,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				alter_reality();
+				alter_reality(p_ptr);
 			}
 		}
 		break;
@@ -3890,7 +3890,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				alter_reality();
+				alter_reality(p_ptr);
 			}
 		}
 		break;
@@ -9841,7 +9841,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("You sing of the primeval shaping of Middle-earth...");
 #endif
 
-				alter_reality();
+				alter_reality(p_ptr);
 			}
 		}
 		break;

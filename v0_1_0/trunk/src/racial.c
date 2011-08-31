@@ -1608,7 +1608,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You start walking around. ");
 #endif
-				alter_reality();
+				alter_reality(cr_ptr);
 			}
 			else if (command == -2)
 			{

@@ -1978,7 +1978,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 }
 
 
-void alter_reality(void)
+void alter_reality(creature_type *cr_ptr)
 {
 	/* Ironman option */
 	if (inside_arena || ironman_downward)
@@ -1991,11 +1991,11 @@ void alter_reality(void)
 		return;
 	}
 
-	if (!p_ptr->alter_reality)
+	if (!cr_ptr->alter_reality)
 	{
 		int turns = randint0(21) + 15;
 
-		p_ptr->alter_reality = turns;
+		cr_ptr->alter_reality = turns;
 #ifdef JP
 		msg_print("回りの景色が変わり始めた...");
 #else
@@ -2006,7 +2006,7 @@ void alter_reality(void)
 	}
 	else
 	{
-		p_ptr->alter_reality = 0;
+		cr_ptr->alter_reality = 0;
 #ifdef JP
 		msg_print("景色が元に戻った...");
 #else
