@@ -1264,7 +1264,7 @@ extern bool apply_disenchant(creature_type *cr_ptr, int mode);
 extern void mutate_creature(creature_type *cr_ptr);
 extern void apply_nexus(creature_type *m_ptr);
 extern void phlogiston(creature_type *cr_ptr);
-extern void brand_weapon(int brand_type);
+extern void brand_weapon(creature_type *cr_ptr, int brand_type);
 extern void call_the_(void);
 extern void fetch(int dir, int wgt, bool require_los);
 extern void alter_reality(creature_type *cr_ptr);

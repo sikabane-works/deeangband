@@ -3332,7 +3332,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(randint0(2));
+				brand_weapon(p_ptr, randint0(2));
 			}
 		}
 		break;
@@ -3937,7 +3937,7 @@ static cptr do_chaos_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(2);
+				brand_weapon(p_ptr, 2);
 			}
 		}
 		break;
@@ -4511,7 +4511,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(3);
+				brand_weapon(p_ptr, 3);
 			}
 		}
 		break;
@@ -4707,7 +4707,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(4);
+				brand_weapon(p_ptr, 4);
 			}
 		}
 		break;
@@ -5615,7 +5615,7 @@ static cptr do_trump_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(5);
+				brand_weapon(p_ptr, 5);
 			}
 		}
 		break;
@@ -7278,7 +7278,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(randint0(18));
+				brand_weapon(p_ptr, randint0(18));
 			}
 		}
 		break;
@@ -7679,7 +7679,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(1);
+				brand_weapon(p_ptr, 1);
 			}
 		}
 		break;
@@ -8633,7 +8633,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(13);
+				brand_weapon(p_ptr, 13);
 			}
 		}
 		break;

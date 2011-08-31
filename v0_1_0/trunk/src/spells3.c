@@ -1334,7 +1334,7 @@ msg_print("照明用アイテムは満タンになった。");
 /*
  * Brand the current weapon
  */
-void brand_weapon(int brand_type)
+void brand_weapon(creature_type *cr_ptr, int brand_type)
 {
 	int         item;
 	object_type *o_ptr;
@@ -1354,12 +1354,12 @@ s = "強化できる武器がない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1372,7 +1372,7 @@ s = "強化できる武器がない。";
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
 	/* TY: You _can_ modify broken items (if you're silly enough) */
-	if (o_ptr->k_idx && !object_is_artifact(p_ptr, o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) &&
 	    !((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) &&
 	    !((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) &&
@@ -1576,7 +1576,7 @@ msg_format("あなたの%s%s", o_name, act);
 #endif
 
 
-		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		o_ptr->discount = 99;
 	}
@@ -1591,7 +1591,7 @@ msg_print("属性付加に失敗した。");
 #endif
 
 	}
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 }
 
 
