@@ -1271,7 +1271,7 @@ extern void alter_reality(creature_type *cr_ptr);
 extern bool warding_glyph(creature_type *cr_ptr);
 extern bool place_mirror(creature_type *cr_ptr);
 extern bool explosive_rune(creature_type *cr_ptr);
-extern void identify_pack(void);
+extern void identify_pack(creature_type *cr_ptr);
 extern bool remove_curse(creature_type *cr_ptr);
 extern bool remove_all_curse(creature_type *cr_ptr);
 extern bool alchemy(creature_type *cr_ptr);

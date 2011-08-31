@@ -2117,14 +2117,14 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
  * Identify everything being carried.
  * Done by a potion of "self knowledge".
  */
-void identify_pack(void)
+void identify_pack(creature_type *cr_ptr)
 {
 	int i;
 
 	/* Simply identify and know every item */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;

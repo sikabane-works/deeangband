@@ -1280,7 +1280,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)detect_treasure(DETECT_RAD_DEFAULT);
 			(void)detect_objects_gold(DETECT_RAD_DEFAULT);
 			(void)detect_objects_normal(DETECT_RAD_DEFAULT);
-			identify_pack();
+			identify_pack(cr_ptr);
 			self_knowledge(cr_ptr);
 			ident = TRUE;
 			break;

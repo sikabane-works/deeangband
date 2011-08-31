@@ -4793,11 +4793,11 @@ msg_print("お金が足りません！");
 	case BACT_IDENTS: /* needs work */
 #ifdef JP
 		if (!get_check("持ち物を全て鑑定してよろしいですか？")) break;
-		identify_pack();
+		identify_pack(cr_ptr);
 		msg_print(" 持ち物全てが鑑定されました。");
 #else
 		if (!get_check("Do you pay for identify all your possession? ")) break;
-		identify_pack();
+		identify_pack(cr_ptr);
 		msg_print("Your possessions have been identified.");
 #endif
 
