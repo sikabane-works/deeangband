@@ -1267,7 +1267,7 @@ static bool cast_mirror_spell(creature_type *cr_ptr, int spell)
 	/* drip of light */
 	case 1:
 	  if( number_of_mirrors() < 4 + plev/10 ){
-	    place_mirror();
+	    place_mirror(cr_ptr);
 	  }
 	  else {
 #ifdef JP

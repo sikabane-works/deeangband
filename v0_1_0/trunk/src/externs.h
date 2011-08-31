@@ -1269,7 +1269,7 @@ extern void call_the_(void);
 extern void fetch(int dir, int wgt, bool require_los);
 extern void alter_reality(void);
 extern bool warding_glyph(void);
-extern bool place_mirror(void);
+extern bool place_mirror(creature_type *cr_ptr);
 extern bool explosive_rune(creature_type *cr_ptr);
 extern void identify_pack(void);
 extern bool remove_curse(creature_type *cr_ptr);

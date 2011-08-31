@@ -2049,10 +2049,10 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	return TRUE;
 }
 
-bool place_mirror(void)
+bool place_mirror(creature_type *cr_ptr)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(p_ptr->fy, p_ptr->fx))
+	if (!cave_clean_bold(cr_ptr->fy, cr_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2064,19 +2064,19 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a mirror */
-	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_OBJECT;
-	cave[p_ptr->fy][p_ptr->fx].mimic = feat_mirror;
+	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
+	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_mirror;
 
 	/* Turn on the light */
-	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_GLOW;
+	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_GLOW;
 
 	/* Notice */
-	note_spot(p_ptr->fy, p_ptr->fx);
+	note_spot(cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
-	lite_spot(p_ptr->fy, p_ptr->fx);
+	lite_spot(cr_ptr->fy, cr_ptr->fx);
 
-	update_local_illumination(p_ptr->fy, p_ptr->fx);
+	update_local_illumination(cr_ptr->fy, cr_ptr->fx);
 
 	return TRUE;
 }
