@@ -3661,7 +3661,7 @@ msg_format("%s は劣化した！",
 /*
  * pulish shield
  */
-bool pulish_shield(void)
+bool pulish_shield(creature_type *cr_ptr)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -3682,13 +3682,13 @@ s = "磨く盾がありません。";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
 		return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3704,7 +3704,7 @@ s = "磨く盾がありません。";
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
 
-	if (o_ptr->k_idx && !object_is_artifact(p_ptr, o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) && (o_ptr->sval != SV_MIRROR_SHIELD))
 	{
 #ifdef JP
@@ -3715,7 +3715,7 @@ msg_format("%sは輝いた！", o_name);
 		    ((o_ptr->number > 1) ? "" : "s"));
 #endif
 		o_ptr->name2 = EGO_REFLECTION;
-		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
+		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOAC);
 
 		o_ptr->discount = 99;
 
@@ -3732,7 +3732,7 @@ msg_print("失敗した。");
 #endif
 
 	}
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	return FALSE;
 }

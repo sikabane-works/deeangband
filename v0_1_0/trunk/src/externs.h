@@ -1284,7 +1284,7 @@ extern bool identify_item(object_type *o_ptr);
 extern bool identify_fully(bool only_equip);
 extern bool recharge(creature_type *cr_ptr, int num);
 extern bool bless_weapon(creature_type *cr_ptr);
-extern bool pulish_shield(void);
+extern bool pulish_shield(creature_type *cr_ptr);
 extern bool potion_smash_effect(int who, int y, int x, int k_idx);
 extern void display_spell_list(void);
 extern s16b experience_of_spell(int spell, int realm);

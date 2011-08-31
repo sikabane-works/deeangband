@@ -7116,7 +7116,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				pulish_shield();
+				pulish_shield(p_ptr);
 			}
 		}
 		break;
