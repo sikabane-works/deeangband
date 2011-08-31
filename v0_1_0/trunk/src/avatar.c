@@ -263,8 +263,8 @@ karma_type karma[MAX_KARMA] =
 #ifdef JP
 		"“V‰^",
 #endif
-	"Chance",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
+	"Fortune",
+		-1, -1, -1, -1, KARMA_CALC_PLUS, KARMA_NONE,
 	},
 
 };
