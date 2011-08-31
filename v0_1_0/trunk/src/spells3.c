@@ -1263,10 +1263,10 @@ msg_print("体がねじれ始めた...");
 /*
  * Charge a lite (torch or latern)
  */
-void phlogiston(void)
+void phlogiston(creature_type *cr_ptr)
 {
 	int max_flog = 0;
-	object_type * o_ptr = &p_ptr->inventory[INVEN_LITE];
+	object_type * o_ptr = &cr_ptr->inventory[INVEN_LITE];
 
 	/* It's a lamp */
 	if ((o_ptr->tval == TV_LITE) && (o_ptr->sval == SV_LITE_LANTERN))
@@ -1327,7 +1327,7 @@ msg_print("照明用アイテムは満タンになった。");
 	}
 
 	/* Recalculate torch */
-	p_ptr->update |= (PU_TORCH);
+	cr_ptr->update |= (PU_TORCH);
 }
 
 

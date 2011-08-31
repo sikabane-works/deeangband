@@ -6144,7 +6144,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				phlogiston();
+				phlogiston(p_ptr);
 			}
 		}
 		break;
