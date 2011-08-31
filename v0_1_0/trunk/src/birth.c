@@ -2268,43 +2268,43 @@ static bool get_player_realms(void)
 /*
  * Save the current data for later
  */
-static void save_prev_data(birther *birther_ptr)
+static void save_prev_data(creature_type *cr_ptr, birther *birther_ptr)
 {
 	int i;
 
 	/* Save the data */
-	birther_ptr->sex = p_ptr->sex;
-	birther_ptr->irace_idx = p_ptr->irace_idx;
-	birther_ptr->cls_idx = p_ptr->cls_idx;
-	birther_ptr->chara_idx = p_ptr->chara_idx;
-	birther_ptr->realm1 = p_ptr->realm1;
-	birther_ptr->realm2 = p_ptr->realm2;
-	birther_ptr->age = p_ptr->age;
-	birther_ptr->ht = p_ptr->ht;
-	birther_ptr->wt = p_ptr->wt;
-	birther_ptr->sc = p_ptr->sc;
-	birther_ptr->au = p_ptr->au;
+	birther_ptr->sex = cr_ptr->sex;
+	birther_ptr->irace_idx = cr_ptr->irace_idx;
+	birther_ptr->cls_idx = cr_ptr->cls_idx;
+	birther_ptr->chara_idx = cr_ptr->chara_idx;
+	birther_ptr->realm1 = cr_ptr->realm1;
+	birther_ptr->realm2 = cr_ptr->realm2;
+	birther_ptr->age = cr_ptr->age;
+	birther_ptr->ht = cr_ptr->ht;
+	birther_ptr->wt = cr_ptr->wt;
+	birther_ptr->sc = cr_ptr->sc;
+	birther_ptr->au = cr_ptr->au;
 
 	/* Save the stats */
 	for (i = 0; i < 6; i++)
 	{
-		birther_ptr->stat_max[i] = p_ptr->stat_max[i];
-		birther_ptr->stat_max_max[i] = p_ptr->stat_max_max[i];
+		birther_ptr->stat_max[i] = cr_ptr->stat_max[i];
+		birther_ptr->stat_max_max[i] = cr_ptr->stat_max_max[i];
 	}
 
 	/* Save the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		birther_ptr->player_hp[i] = p_ptr->player_hp[i];
+		birther_ptr->player_hp[i] = cr_ptr->player_hp[i];
 	}
 
-	birther_ptr->patron_idx = p_ptr->patron_idx;
+	birther_ptr->patron_idx = cr_ptr->patron_idx;
 
 
 	/* Save the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(birther_ptr->history[i], p_ptr->history[i]);
+		strcpy(birther_ptr->history[i], cr_ptr->history[i]);
 	}
 }
 
@@ -2312,52 +2312,52 @@ static void save_prev_data(birther *birther_ptr)
 /*
  * Load the previous data
  */
-static void load_prev_data(bool swap)
+static void load_prev_data(creature_type *cr_ptr, bool swap)
 {
 	int i;
 
 	birther	temp;
 
 	/*** Save the current data ***/
-	if (swap) save_prev_data(&temp);
+	if (swap) save_prev_data(cr_ptr, &temp);
 
 
 	/*** Load the previous data ***/
 
 	/* Load the data */
-	p_ptr->sex = previous_char.sex;
-	p_ptr->irace_idx = previous_char.irace_idx;
-	p_ptr->cls_idx = previous_char.cls_idx;
-	p_ptr->chara_idx = previous_char.chara_idx;
-	p_ptr->realm1 = previous_char.realm1;
-	p_ptr->realm2 = previous_char.realm2;
-	p_ptr->age = previous_char.age;
-	p_ptr->ht = previous_char.ht;
-	p_ptr->wt = previous_char.wt;
-	p_ptr->sc = previous_char.sc;
-	p_ptr->au = previous_char.au;
+	cr_ptr->sex = previous_char.sex;
+	cr_ptr->irace_idx = previous_char.irace_idx;
+	cr_ptr->cls_idx = previous_char.cls_idx;
+	cr_ptr->chara_idx = previous_char.chara_idx;
+	cr_ptr->realm1 = previous_char.realm1;
+	cr_ptr->realm2 = previous_char.realm2;
+	cr_ptr->age = previous_char.age;
+	cr_ptr->ht = previous_char.ht;
+	cr_ptr->wt = previous_char.wt;
+	cr_ptr->sc = previous_char.sc;
+	cr_ptr->au = previous_char.au;
 
 	/* Load the stats */
 	for (i = 0; i < 6; i++)
 	{
-		p_ptr->stat_cur[i] = p_ptr->stat_max[i] = previous_char.stat_max[i];
-		p_ptr->stat_max_max[i] = previous_char.stat_max_max[i];
+		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = previous_char.stat_max[i];
+		cr_ptr->stat_max_max[i] = previous_char.stat_max_max[i];
 	}
 
 	/* Load the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		p_ptr->player_hp[i] = previous_char.player_hp[i];
+		cr_ptr->player_hp[i] = previous_char.player_hp[i];
 	}
-	p_ptr->mhp = p_ptr->player_hp[0];
-	p_ptr->chp = p_ptr->player_hp[0];
+	cr_ptr->mhp = cr_ptr->player_hp[0];
+	cr_ptr->chp = cr_ptr->player_hp[0];
 
-	p_ptr->patron_idx = previous_char.patron_idx;
+	cr_ptr->patron_idx = previous_char.patron_idx;
 
 	/* Load the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(p_ptr->history[i], previous_char.history[i]);
+		strcpy(cr_ptr->history[i], previous_char.history[i]);
 	}
 
 	/*** Save the previous data ***/
@@ -5623,7 +5623,7 @@ static bool player_birth_aux(void)
 			/* Previous character */
 			if (prev && (c == 'p'))
 			{
-				load_prev_data(TRUE);
+				load_prev_data(p_ptr, TRUE);
 				continue;
 			}
 
@@ -5670,7 +5670,7 @@ static bool player_birth_aux(void)
 		if (c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
-		save_prev_data(&previous_char);
+		save_prev_data(p_ptr, &previous_char);
 		previous_char.quick_ok = FALSE;
 
 		/* Note that a previous roll exists */
@@ -5783,7 +5783,7 @@ static bool player_birth_aux(void)
 	wilderness[53][98].known = TRUE;
 
 	/* Save character data for quick start */
-	save_prev_data(&previous_char);
+	save_prev_data(p_ptr, &previous_char);
 	previous_char.quick_ok = TRUE;
 
 	/* Accept */
@@ -5844,7 +5844,7 @@ static bool ask_quick_start(void)
 		}
 	}
 
-	load_prev_data(FALSE);
+	load_prev_data(p_ptr, FALSE);
 	init_dungeon_quests();
 	init_turn();
 
