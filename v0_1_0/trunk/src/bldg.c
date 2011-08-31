@@ -4927,24 +4927,7 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 #else
 		msg_print("You received an equalization ritual.");
 #endif
-		set_karma(cr_ptr, V_COMPASSION, 0);
-		set_karma(cr_ptr, V_HONOUR, 0);
-		set_karma(cr_ptr, V_JUSTICE, 0);
-		set_karma(cr_ptr, V_SACRIFICE, 0);
-		set_karma(cr_ptr, V_KNOWLEDGE, 0);
-		set_karma(cr_ptr, V_FAITH, 0);
-		set_karma(cr_ptr, V_ENLIGHTEN, 0);
-		set_karma(cr_ptr, V_ENCHANT, 0);
-		set_karma(cr_ptr, V_CHANCE, 0);
-		set_karma(cr_ptr, V_NATURE, 0);
-		set_karma(cr_ptr, V_HARMONY, 0);
-		set_karma(cr_ptr, V_VITALITY, 0);
-		set_karma(cr_ptr, V_UNLIFE, 0);
-		set_karma(cr_ptr, V_PATIENCE, 0);
-		set_karma(cr_ptr, V_TEMPERANCE, 0);
-		set_karma(cr_ptr, V_DILIGENCE, 0);
-		set_karma(cr_ptr, V_VALOUR, 0);
-		set_karma(cr_ptr, V_INDIVIDUALISM, 0);
+		/*TODO:: Delete feature? */
 		paid = TRUE;
 		break;
 	case BACT_TELE_TOWN:

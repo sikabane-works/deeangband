@@ -2880,7 +2880,8 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 	/* XXX Hack -- Wand of wonder can do anything before it */
 	if (sval == SV_WAND_WONDER)
 	{
-		int vir = karma_number(cr_ptr, V_CHANCE);
+		// TODO: add Karma of Fortune feature.
+		int vir = 0;
 		sval = randint0(SV_WAND_WONDER);
 
 		if (vir)

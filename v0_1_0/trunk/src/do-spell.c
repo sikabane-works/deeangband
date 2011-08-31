@@ -250,7 +250,8 @@ static void cast_wonder(int dir)
 {
 	int plev = p_ptr->lev;
 	int die = randint1(100) + plev / 5;
-	int vir = karma_number(p_ptr, V_CHANCE);
+	// TODO: add Karma of Fortune feature.
+	int vir = 0;
 
 	if (vir)
 	{
@@ -328,7 +329,8 @@ static void cast_invoke_spirits(int dir)
 {
 	int plev = p_ptr->lev;
 	int die = randint1(100) + plev / 5;
-	int vir = karma_number(p_ptr, V_CHANCE);
+	// TODO: Add Karma of Fortune feature.
+	int vir = 0;
 
 	if (vir)
 	{
@@ -594,7 +596,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 	int plev = cr_ptr->lev;
 	int dir;
 	int die;
-	int vir = karma_number(cr_ptr, V_CHANCE);
+	// TODO: Add Karma of Fortune feature.
+	int vir = 0;
 	int i;
 
 	/* Card sharks and high mages get a level bonus */

@@ -4701,7 +4701,8 @@ bool res_stat(creature_type *cr_ptr, int stat)
 bool hp_player(creature_type *cr_ptr, int num)
 {
 	int vir;
-	vir = karma_number(cr_ptr, V_VITALITY);
+	// TODO: Add Karma of Vitality feature.
+	vir = 0;
 	if (vir)
 	{
 		num = num * (cr_ptr->karmas[vir - 1] + 1250) / 1250;

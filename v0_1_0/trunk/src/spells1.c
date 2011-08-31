@@ -3762,13 +3762,17 @@ note = "は動けなくなった！";
 		{
 			int vir;
 			dam += (adj_con_fix[who_ptr->stat_ind[A_CHR]] - 1);
-			vir = karma_number(p_ptr, V_HARMONY);
+
+			// TODO: Add Karma of Fortune feature.
+			vir = 0;
+
 			if (vir)
 			{
 				dam += who_ptr->karmas[vir-1]/10;
 			}
 
-			vir = karma_number(p_ptr, V_INDIVIDUALISM);
+			// TODO: Add Karma feature.
+			vir = 0;
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/20;
@@ -3844,16 +3848,16 @@ note = "は突然友好的になったようだ！";
 		/* Control undead */
 		case GF_CONTROL_UNDEAD:
 		{
-			int vir;
+			int vir = 0;
 			if (seen) obvious = TRUE;
 
-			vir = karma_number(p_ptr, V_UNLIFE);
+			// TODO: Add Karma feature.
 			if (vir)
 			{
 				dam += who_ptr->karmas[vir-1]/10;
 			}
 
-			vir = karma_number(p_ptr, V_INDIVIDUALISM);
+			// TODO: Add Karma feature.
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/20;
@@ -3922,13 +3926,13 @@ note = "は既にあなたの奴隷だ！";
 			int vir;
 			if (seen) obvious = TRUE;
 
-			vir = karma_number(p_ptr, V_UNLIFE);
+			vir = 0;
 			if (vir)
 			{
 				dam += who_ptr->karmas[vir-1]/10;
 			}
 
-			vir = karma_number(p_ptr, V_INDIVIDUALISM);
+			vir = 0;
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/20;
@@ -3995,16 +3999,18 @@ note = "は既にあなたの奴隷だ！";
 		case GF_CONTROL_ANIMAL:
 		{
 			int vir;
+			// TODO: Add Karma feature.
+
 
 			if (seen) obvious = TRUE;
 
-			vir = karma_number(p_ptr, V_NATURE);
+			vir = 0;
 			if (vir)
 			{
 				dam += who_ptr->karmas[vir-1]/10;
 			}
 
-			vir = karma_number(p_ptr, V_INDIVIDUALISM);
+			vir = 0;
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/20;
@@ -4081,17 +4087,19 @@ note = "はなついた。";
 		{
 			int vir;
 
-			vir = karma_number(p_ptr, V_UNLIFE);
+			// TODO: Add Karma feature.
+
+			vir = 0;
 			if (seen) obvious = TRUE;
 
 			dam += (adj_chr_chm[who_ptr->stat_ind[A_CHR]]);
-			vir = karma_number(p_ptr, V_UNLIFE);
+			vir = 0;
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/10;
 			}
 
-			vir = karma_number(p_ptr, V_INDIVIDUALISM);
+			vir = 0;
 			if (vir)
 			{
 				dam -= who_ptr->karmas[vir-1]/20;

@@ -2735,7 +2735,6 @@ bool artifact_scroll(void)
 		msg_print("The enchantment failed.");
 #endif
 
-		if (one_in_(3)) chg_karma(p_ptr, V_ENCHANT, -1);
 	}
 
 	calc_android_exp(p_ptr);
