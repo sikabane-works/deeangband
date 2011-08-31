@@ -1124,21 +1124,21 @@ static bool cast_summon_greater_demon(void)
 /*
  * Start singing if the player is a Bard 
  */
-static void start_singing(int spell, int song)
+static void start_singing(creature_type *cr_ptr, int spell, int song)
 {
 	/* Remember the song index */
-	p_ptr->magic_num1[0] = song;
+	cr_ptr->magic_num1[0] = song;
 
 	/* Remember the index of the spell which activated the song */
-	p_ptr->magic_num2[0] = spell;
+	cr_ptr->magic_num2[0] = spell;
 
 
 	/* Now the player is singing */
-	set_action(p_ptr, ACTION_SING);
+	set_action(cr_ptr, ACTION_SING);
 
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -8965,7 +8965,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start humming a slow, steady melody...");
 #endif
-			start_singing(spell, MUSIC_SLOW);
+			start_singing(p_ptr, spell, MUSIC_SLOW);
 		}
 
 		{
@@ -8999,7 +8999,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("The holy power of the Music of the Ainur enters you...");
 #endif
-			start_singing(spell, MUSIC_BLESS);
+			start_singing(p_ptr, spell, MUSIC_BLESS);
 		}
 
 		if (stop)
@@ -9062,7 +9062,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to bewilder and daze...");
 #endif
-			start_singing(spell, MUSIC_STUN);
+			start_singing(p_ptr, spell, MUSIC_STUN);
 		}
 
 		{
@@ -9098,7 +9098,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing a song of healing...");
 #endif
-			start_singing(spell, MUSIC_L_LIFE);
+			start_singing(p_ptr, spell, MUSIC_L_LIFE);
 		}
 
 		{
@@ -9166,7 +9166,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start weaving a fearful pattern...");
 #endif
-			start_singing(spell, MUSIC_FEAR);			
+			start_singing(p_ptr, spell, MUSIC_FEAR);			
 		}
 
 		{
@@ -9208,7 +9208,7 @@ static cptr do_music_spell(int spell, int mode)
 			/* Recalculate hitpoints */
 			p_ptr->update |= (PU_HP);
 
-			start_singing(spell, MUSIC_HERO);
+			start_singing(p_ptr, spell, MUSIC_HERO);
 		}
 
 		if (stop)
@@ -9250,7 +9250,7 @@ static cptr do_music_spell(int spell, int mode)
 			/* Hack -- Initialize the turn count */
 			p_ptr->magic_num1[2] = 0;
 
-			start_singing(spell, MUSIC_DETECT);
+			start_singing(p_ptr, spell, MUSIC_DETECT);
 		}
 
 		{
@@ -9317,7 +9317,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start singing a song of soul in pain...");
 #endif
-			start_singing(spell, MUSIC_PSI);
+			start_singing(p_ptr, spell, MUSIC_PSI);
 		}
 
 		{
@@ -9353,7 +9353,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You recall the rich lore of the world...");
 #endif
-			start_singing(spell, MUSIC_ID);
+			start_singing(p_ptr, spell, MUSIC_ID);
 		}
 
 		{
@@ -9392,7 +9392,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Your song carries you beyond the sight of mortal eyes...");
 #endif
-			start_singing(spell, MUSIC_STEALTH);
+			start_singing(p_ptr, spell, MUSIC_STEALTH);
 		}
 
 		if (stop)
@@ -9428,7 +9428,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to beguile and confuse...");
 #endif
-			start_singing(spell, MUSIC_CONF);
+			start_singing(p_ptr, spell, MUSIC_CONF);
 		}
 
 		{
@@ -9463,7 +9463,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("The fury of the Downfall of Numenor lashes out...");
 #endif
-			start_singing(spell, MUSIC_SOUND);
+			start_singing(p_ptr, spell, MUSIC_SOUND);
 		}
 
 		{
@@ -9525,7 +9525,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a slow, soothing melody of imploration...");
 #endif
-			start_singing(spell, MUSIC_CHARM);
+			start_singing(p_ptr, spell, MUSIC_CHARM);
 		}
 
 		{
@@ -9561,7 +9561,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a violent pattern of sounds to break wall.");
 #endif
-			start_singing(spell, MUSIC_WALL);
+			start_singing(p_ptr, spell, MUSIC_WALL);
 		}
 
 		{
@@ -9596,7 +9596,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You sing a song of perseverance against powers...");
 #endif
-			start_singing(spell, MUSIC_RESIST);
+			start_singing(p_ptr, spell, MUSIC_RESIST);
 		}
 
 		if (stop)
@@ -9668,7 +9668,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start singing joyful pop song...");
 #endif
-			start_singing(spell, MUSIC_SPEED);
+			start_singing(p_ptr, spell, MUSIC_SPEED);
 		}
 
 		if (stop)
@@ -9735,7 +9735,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You cry out in an ear-wracking voice...");
 #endif
-			start_singing(spell, MUSIC_DISPEL);
+			start_singing(p_ptr, spell, MUSIC_DISPEL);
 		}
 
 		{
@@ -9771,7 +9771,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start humming a gentle and attractive song...");
 #endif
-			start_singing(spell, MUSIC_SARUMAN);
+			start_singing(p_ptr, spell, MUSIC_SARUMAN);
 		}
 
 		{
@@ -9865,7 +9865,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to contort and shatter...");
 #endif
-			start_singing(spell, MUSIC_QUAKE);
+			start_singing(p_ptr, spell, MUSIC_QUAKE);
 		}
 
 		{
@@ -9901,7 +9901,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a very slow pattern which is almost likely to stop...");
 #endif
-			start_singing(spell, MUSIC_STASIS);
+			start_singing(p_ptr, spell, MUSIC_STASIS);
 		}
 
 		{
@@ -9968,7 +9968,7 @@ static cptr do_music_spell(int spell, int mode)
 			/* Recalculate hitpoints */
 			p_ptr->update |= (PU_HP);
 
-			start_singing(spell, MUSIC_SHERO);
+			start_singing(p_ptr, spell, MUSIC_SHERO);
 		}
 
 		if (stop)
@@ -10026,7 +10026,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing the song...");
 #endif
-			start_singing(spell, MUSIC_H_LIFE);
+			start_singing(p_ptr, spell, MUSIC_H_LIFE);
 		}
 
 		{
@@ -10133,7 +10133,7 @@ static cptr do_music_spell(int spell, int mode)
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-				start_singing(spell, MUSIC_INVULN);
+				start_singing(p_ptr, spell, MUSIC_INVULN);
 		}
 
 		if (stop)
