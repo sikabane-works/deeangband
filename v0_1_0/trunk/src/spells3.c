@@ -5359,20 +5359,20 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", o_name);
 /*
  * Enchant some bolts
  */
-bool brand_bolts(void)
+bool brand_bolts(creature_type *cr_ptr)
 {
 	int i;
 
 	/* Use the first acceptable bolts */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip non-bolts */
 		if (o_ptr->tval != TV_BOLT) continue;
 
 		/* Skip artifacts and ego-items */
-		if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
+		if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
 			continue;
 
 		/* Skip cursed/broken items */
@@ -5393,7 +5393,7 @@ msg_print("クロスボウの矢が炎のオーラに包まれた！");
 		o_ptr->name2 = EGO_FLAME;
 
 		/* Enchant */
-		enchant(p_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
+		enchant(cr_ptr, o_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
 
 		/* Notice */
 		return (TRUE);

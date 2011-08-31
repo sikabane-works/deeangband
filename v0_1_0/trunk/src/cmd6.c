@@ -5104,7 +5104,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your crossbow glows deep red...");
 #endif
 
-				(void)brand_bolts();
+				(void)brand_bolts(cr_ptr);
 				o_ptr->timeout = 999;
 				break;
 			}
