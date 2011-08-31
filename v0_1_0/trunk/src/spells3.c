@@ -1740,7 +1740,7 @@ static bool vanish_dungeon(void)
 }
 
 
-void call_the_(void)
+void call_the_void(creature_type *cr_ptr)
 {
 	int i;
 	cave_type *c_ptr;
@@ -1748,7 +1748,7 @@ void call_the_(void)
 
 	for (i = 0; i < 9; i++)
 	{
-		c_ptr = &cave[p_ptr->fy + ddy_ddd[i]][p_ptr->fx + ddx_ddd[i]];
+		c_ptr = &cave[cr_ptr->fy + ddy_ddd[i]][cr_ptr->fx + ddx_ddd[i]];
 
 		if (!cave_have_flag_grid(c_ptr, FF_PROJECT))
 		{
@@ -1793,12 +1793,12 @@ void call_the_(void)
 	{
 #ifdef JP
 		msg_format("あなたは%sを壁に近すぎる場所で唱えてしまった！",
-			((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
+			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "祈り" : "呪文"));
 		msg_print("大きな爆発音があった！");
 #else
 		msg_format("You %s the %s too close to a wall!",
-			((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
+			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
 		msg_print("There is a loud explosion!");
 #endif
 
@@ -1812,7 +1812,7 @@ void call_the_(void)
 		}
 		else
 		{
-			if (destroy_area(p_ptr->fy, p_ptr->fx, 15 + p_ptr->lev + randint0(11), FALSE))
+			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 15 + cr_ptr->lev + randint0(11), FALSE))
 #ifdef JP
 				msg_print("ダンジョンが崩壊した...");
 #else
@@ -1828,9 +1828,9 @@ void call_the_(void)
 		}
 
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "自殺的な虚無招来", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "自殺的な虚無招来", NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
 #endif
 	}
 }

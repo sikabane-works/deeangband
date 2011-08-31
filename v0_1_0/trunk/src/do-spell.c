@@ -4161,7 +4161,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				call_the_();
+				call_the_void(p_ptr);
 			}
 		}
 		break;
