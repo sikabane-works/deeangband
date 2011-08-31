@@ -1922,7 +1922,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
 		{
-			warding_glyph();
+			warding_glyph(cr_ptr);
 			ident = TRUE;
 			break;
 		}

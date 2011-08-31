@@ -2022,10 +2022,10 @@ void alter_reality(void)
 /*
  * Leave a "glyph of warding" which prevents monster movement
  */
-bool warding_glyph(void)
+bool warding_glyph(creature_type *cr_ptr)
 {
 	/* XXX XXX XXX */
-	if (!cave_clean_bold(p_ptr->fy, p_ptr->fx))
+	if (!cave_clean_bold(cr_ptr->fy, cr_ptr->fx))
 	{
 #ifdef JP
 msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -2037,14 +2037,14 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	}
 
 	/* Create a glyph */
-	cave[p_ptr->fy][p_ptr->fx].info |= CAVE_OBJECT;
-	cave[p_ptr->fy][p_ptr->fx].mimic = feat_glyph;
+	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_OBJECT;
+	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_glyph;
 
 	/* Notice */
-	note_spot(p_ptr->fy, p_ptr->fx);
+	note_spot(cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
-	lite_spot(p_ptr->fy, p_ptr->fx);
+	lite_spot(cr_ptr->fy, cr_ptr->fx);
 
 	return TRUE;
 }

@@ -1528,7 +1528,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				warding_glyph();
+				warding_glyph(p_ptr);
 			}
 		}
 		break;
@@ -1700,7 +1700,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				warding_glyph();
+				warding_glyph(p_ptr);
 				glyph_creation();
 			}
 		}
@@ -9938,7 +9938,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The holy power of the Music is creating sacred field...");
 #endif
 
-				warding_glyph();
+				warding_glyph(p_ptr);
 			}
 		}
 		break;

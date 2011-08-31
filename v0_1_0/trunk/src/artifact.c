@@ -2900,7 +2900,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows light blue...");
 #endif
 
-			warding_glyph();
+			warding_glyph(cr_ptr);
 			o_ptr->timeout = 400;
 			break;
 		}
