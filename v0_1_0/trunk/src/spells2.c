@@ -4497,7 +4497,7 @@ bool dispel_demons(int dam)
 /*
  * Crusade
  */
-bool crusade(void)
+bool crusade(creature_type *cr_ptr)
 {
 	return (project_hack(GF_CRUSADE, p_ptr->lev*4));
 }

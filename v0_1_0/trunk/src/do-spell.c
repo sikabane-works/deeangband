@@ -8895,7 +8895,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				int sp_base = plev;
 
 				int i;
-				crusade();
+				crusade(p_ptr);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;

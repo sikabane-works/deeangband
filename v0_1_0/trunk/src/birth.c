@@ -2248,18 +2248,18 @@ static byte choose_realm(s32b choices)
 /*
  * Choose the magical realms
  */
-static bool get_player_realms(void)
+static bool get_player_realms(creature_type *cr_ptr)
 {
 
 	/* Select the first realm */
-	p_ptr->realm1 = REALM_NONE;
-	p_ptr->realm2 = 255;
+	cr_ptr->realm1 = REALM_NONE;
+	cr_ptr->realm2 = 255;
 
-	p_ptr->realm1 = choose_realm(realm_choices1[p_ptr->cls_idx]);
+	cr_ptr->realm1 = choose_realm(realm_choices1[cr_ptr->cls_idx]);
 
 	/* Select the second realm */
-	p_ptr->realm2 = REALM_NONE;
-	p_ptr->realm2 = choose_realm(realm_choices2[p_ptr->cls_idx]);
+	cr_ptr->realm2 = REALM_NONE;
+	cr_ptr->realm2 = choose_realm(realm_choices2[cr_ptr->cls_idx]);
 
 	return (TRUE);
 }
@@ -4134,7 +4134,7 @@ void realm_detail(int code)
 /*
  * Player race
  */
-static bool get_intelligent_race(void)
+static bool get_intelligent_race(creature_type *cr_ptr)
 {
 	int     n, i;
 	selection se[MAX_RACES];
@@ -4149,7 +4149,7 @@ static bool get_intelligent_race(void)
 			n++;
 		}
 	}
-	p_ptr->irace_idx = get_selection(se, n, 5, 2, 18, 20, race_detail);
+	cr_ptr->irace_idx = get_selection(se, n, 5, 2, 18, 20, race_detail);
 
 	/* Success */
 	return TRUE;
@@ -4225,7 +4225,7 @@ static bool get_player_subrace_dragon()
 /*
  * Player sex
  */
-static bool get_player_sex(void)
+static bool get_player_sex(creature_type *cr_ptr)
 {
 	int i;
 	selection se[MAX_SEXES];
@@ -4236,7 +4236,7 @@ static bool get_player_sex(void)
 		se[i].code = i;
 		se[i].key = '\0';
 	}
-	p_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
+	cr_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
 
 	/* Success */
 	return TRUE;
@@ -4246,7 +4246,7 @@ static bool get_player_sex(void)
 /*
  * Player class
  */
-static bool get_player_class(void)
+static bool get_player_class(creature_type *cr_ptr)
 {
 	int i;
 	selection ce[MAX_CLASS];
@@ -4257,7 +4257,7 @@ static bool get_player_class(void)
 		ce[i].code = i;
 		ce[i].key = '\0';
 	}
-	p_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
+	cr_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
 	/* Success */
 	return TRUE;
@@ -4266,7 +4266,7 @@ static bool get_player_class(void)
 /*
  * Player patron
  */
-static bool get_player_patron(void)
+static bool get_player_patron(creature_type *cr_ptr)
 {
 	int i, n;
 	selection pt[400];
@@ -4282,7 +4282,7 @@ static bool get_player_patron(void)
 		}
 		if(n == 400) break;
 	}
-	i = get_selection(pt, n, 5, 2, 18, 60, NULL);
+	cr_ptr->patron_idx = get_selection(pt, n, 5, 2, 18, 60, NULL);
 
 	/* Success */
 	return TRUE;
@@ -4292,14 +4292,14 @@ static bool get_player_patron(void)
 /*
  * Player Chara
  */
-static bool get_player_chara(void)
+static bool get_player_chara(creature_type *cr_ptr)
 {
 	int i, n;
 	selection ce[MAX_CHARA];
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
-		if(chara_info[i].sex & (0x01 << p_ptr->sex))
+		if(chara_info[i].sex & (0x01 << cr_ptr->sex))
 		{
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
@@ -4307,7 +4307,7 @@ static bool get_player_chara(void)
 			n++;
 		}
 	}
-	p_ptr->chara_idx = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
+	cr_ptr->chara_idx = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
 
 	/* Success */
 	return TRUE;
@@ -5216,7 +5216,7 @@ static void edit_history(void)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool player_birth_aux(void)
+static bool player_birth_aux(creature_type *cr_ptr)
 {
 	int i;
 
@@ -5244,47 +5244,47 @@ static bool player_birth_aux(void)
 	Term_clear();
 
 	/* Title everything */
-	p_ptr->irace_idx = RACE_NONE;
-	p_ptr->cls_idx = CLASS_NONE;
-	p_ptr->chara_idx = CHARA_NONE;
-	p_ptr->patron_idx = PATRON_NONE;
-	p_ptr->realm1 = REALM_NONE;
-	p_ptr->realm2 = REALM_NONE;
-	p_ptr->sub_race[0] = 0x0;
-	p_ptr->sub_race[1] = 0x0;
-	p_ptr->sub_race[2] = 0x0;
-	p_ptr->sub_race[3] = 0x0;
-	p_ptr->sub_race[4] = 0x0;
-	p_ptr->sub_race[5] = 0x0;
-	p_ptr->sub_race[6] = 0x0;
-	p_ptr->sub_race[7] = 0x0;
+	cr_ptr->irace_idx = RACE_NONE;
+	cr_ptr->cls_idx = CLASS_NONE;
+	cr_ptr->chara_idx = CHARA_NONE;
+	cr_ptr->patron_idx = PATRON_NONE;
+	cr_ptr->realm1 = REALM_NONE;
+	cr_ptr->realm2 = REALM_NONE;
+	cr_ptr->sub_race[0] = 0x0;
+	cr_ptr->sub_race[1] = 0x0;
+	cr_ptr->sub_race[2] = 0x0;
+	cr_ptr->sub_race[3] = 0x0;
+	cr_ptr->sub_race[4] = 0x0;
+	cr_ptr->sub_race[5] = 0x0;
+	cr_ptr->sub_race[6] = 0x0;
+	cr_ptr->sub_race[7] = 0x0;
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_intelligent_race();
-	if(p_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
-	if(p_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon();
-	if(p_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon();
+	put_initial_status(cr_ptr);
+	get_intelligent_race(cr_ptr);
+	if(cr_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
+	if(cr_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon();
+	if(cr_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon();
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_player_sex();
+	put_initial_status(cr_ptr);
+	get_player_sex(cr_ptr);
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_player_class();
+	put_initial_status(cr_ptr);
+	get_player_class(cr_ptr);
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_player_patron();
+	put_initial_status(cr_ptr);
+	get_player_patron(cr_ptr);
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_player_realms();
+	put_initial_status(cr_ptr);
+	get_player_realms(cr_ptr);
 
 	clear_from(0);
-	put_initial_status(p_ptr);
-	get_player_chara();
+	put_initial_status(cr_ptr);
+	get_player_chara(cr_ptr);
 
 	screen_save();
 
@@ -5403,7 +5403,7 @@ static bool player_birth_aux(void)
 				put_str(stat_names[i], 3+i, col);
 
 				/* Race/Class bonus */
-				j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
+				j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 				/* Obtain the current stat */
 				m = adjust_stat(stat_limit[i], j);
@@ -5445,7 +5445,7 @@ static bool player_birth_aux(void)
 				for (i = 0; i < 6; i++)
 				{
 					/* This stat is okay */
-					if (p_ptr->stat_max[i] >= stat_limit[i])
+					if (cr_ptr->stat_max[i] >= stat_limit[i])
 					{
 						stat_match[i]++;
 					}
@@ -5469,10 +5469,10 @@ static bool player_birth_aux(void)
 
 				if (autochara)
 				{
-					if ((p_ptr->age < chara_limit.agemin) || (p_ptr->age > chara_limit.agemax)) accept = FALSE;
-					if ((p_ptr->ht < chara_limit.htmin) || (p_ptr->ht > chara_limit.htmax)) accept = FALSE;
-					if ((p_ptr->wt < chara_limit.wtmin) || (p_ptr->wt > chara_limit.wtmax)) accept = FALSE;
-					if ((p_ptr->sc < chara_limit.scmin) || (p_ptr->sc > chara_limit.scmax)) accept = FALSE;
+					if ((cr_ptr->age < chara_limit.agemin) || (cr_ptr->age > chara_limit.agemax)) accept = FALSE;
+					if ((cr_ptr->ht < chara_limit.htmin) || (cr_ptr->ht > chara_limit.htmax)) accept = FALSE;
+					if ((cr_ptr->wt < chara_limit.wtmin) || (cr_ptr->wt > chara_limit.wtmax)) accept = FALSE;
+					if ((cr_ptr->sc < chara_limit.scmin) || (cr_ptr->sc > chara_limit.scmax)) accept = FALSE;
 				}
 				if (accept) break;
 			}
@@ -5532,43 +5532,43 @@ static bool player_birth_aux(void)
 		get_money();
 
 		/* Patron */
-		if(p_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
+		if(cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
 		{
-			if     (p_ptr->irace_idx == RACE_MELNIBONE)  p_ptr->patron_idx = PATRON_ARIOCH;
-			else    p_ptr->patron_idx = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
+			if     (cr_ptr->irace_idx == RACE_MELNIBONE)  cr_ptr->patron_idx = PATRON_ARIOCH;
+			else    cr_ptr->patron_idx = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
 		}
-		else if(p_ptr->cls_idx == CLASS_PRIEST || p_ptr->cls_idx == CLASS_PALADIN)
+		else if(cr_ptr->cls_idx == CLASS_PRIEST || cr_ptr->cls_idx == CLASS_PALADIN)
 		{
-			if      (p_ptr->irace_idx == RACE_MELNIBONE) p_ptr->patron_idx = PATRON_ARIOCH;
-			else if (p_ptr->irace_idx == RACE_DUNADAN)   p_ptr->patron_idx = PATRON_ILUVATAR;
-			else if (p_ptr->irace_idx == RACE_URUK)      p_ptr->patron_idx = PATRON_MELKOR;
-			else p_ptr->patron_idx = (s16b)rand_range(1, MAX_PATRON-1);
+			if      (cr_ptr->irace_idx == RACE_MELNIBONE) cr_ptr->patron_idx = PATRON_ARIOCH;
+			else if (cr_ptr->irace_idx == RACE_DUNADAN)   cr_ptr->patron_idx = PATRON_ILUVATAR;
+			else if (cr_ptr->irace_idx == RACE_URUK)      cr_ptr->patron_idx = PATRON_MELKOR;
+			else cr_ptr->patron_idx = (s16b)rand_range(1, MAX_PATRON-1);
 		}
 
 		else
-			p_ptr->patron_idx = PATRON_N;
+			cr_ptr->patron_idx = PATRON_N;
 
 		/* Iventory Fitting Rate */
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
-			p_ptr->iven_fitting_rate[i] = 100;
+			cr_ptr->iven_fitting_rate[i] = 100;
 
 		/* Input loop */
 		while (TRUE)
 		{
 			/* Calculate the bonuses and hitpoints */
-			p_ptr->update |= (PU_BONUS | PU_HP);
+			cr_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Update stuff */
-			update_stuff(p_ptr, TRUE);
+			update_stuff(cr_ptr, TRUE);
 
 			/* Fully healed */
-			p_ptr->chp = p_ptr->mhp;
+			cr_ptr->chp = cr_ptr->mhp;
 
 			/* Fully rested */
-			p_ptr->csp = p_ptr->msp;
+			cr_ptr->csp = cr_ptr->msp;
 
 			/* Display the player */
-			display_player(mode, p_ptr);
+			display_player(mode, cr_ptr);
 
 			/* Prepare a prompt (must squeeze everything in) */
 			Term_gotoxy(2, 23);
@@ -5623,7 +5623,7 @@ static bool player_birth_aux(void)
 			/* Previous character */
 			if (prev && (c == 'p'))
 			{
-				load_prev_data(p_ptr, TRUE);
+				load_prev_data(cr_ptr, TRUE);
 				continue;
 			}
 
@@ -5670,7 +5670,7 @@ static bool player_birth_aux(void)
 		if (c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
-		save_prev_data(p_ptr, &previous_char);
+		save_prev_data(cr_ptr, &previous_char);
 		previous_char.quick_ok = FALSE;
 
 		/* Note that a previous roll exists */
@@ -5783,7 +5783,7 @@ static bool player_birth_aux(void)
 	wilderness[53][98].known = TRUE;
 
 	/* Save character data for quick start */
-	save_prev_data(p_ptr, &previous_char);
+	save_prev_data(cr_ptr, &previous_char);
 	previous_char.quick_ok = TRUE;
 
 	/* Accept */
@@ -5904,7 +5904,7 @@ void player_birth(void)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (player_birth_aux()) break;
+			if (player_birth_aux(p_ptr)) break;
 
 			/* Wipe the player */
 			player_wipe();
