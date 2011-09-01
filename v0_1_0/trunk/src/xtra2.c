@@ -4973,7 +4973,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			call_chaos();
+			call_chaos(cr_ptr);
 #ifdef JP
 			reward = "カオスの力が渦巻いた。";
 #else

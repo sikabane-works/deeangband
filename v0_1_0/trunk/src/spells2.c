@@ -6836,10 +6836,10 @@ bool animate_dead(creature_type *cr_ptr, int y, int x)
 }
 
 
-void call_chaos(void)
+void call_chaos(creature_type *cr_ptr)
 {
 	int Chaos_type, dummy, dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	bool line_chaos = FALSE;
 
 	int hurt_types[31] =

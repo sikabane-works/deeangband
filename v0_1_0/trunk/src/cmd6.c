@@ -3579,7 +3579,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_HAVOC:
 		{
-			call_chaos();
+			call_chaos(cr_ptr);
 			ident = TRUE;
 			break;
 		}

@@ -2271,7 +2271,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows in scintillating colours...");
 #endif
 
-			call_chaos();
+			call_chaos(cr_ptr);
 			o_ptr->timeout = 350;
 			break;
 		}
@@ -2941,7 +2941,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_RECHARGE:
 		{
-			recharge(p_ptr, 130);
+			recharge(cr_ptr, 130);
 			o_ptr->timeout = 70;
 			break;
 		}

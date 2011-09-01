@@ -4072,7 +4072,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				call_chaos();
+				call_chaos(p_ptr);
 			}
 		}
 		break;
