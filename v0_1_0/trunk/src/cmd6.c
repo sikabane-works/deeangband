@@ -59,7 +59,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 	int ident, lev;
 	object_type *o_ptr;
 
-	if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 	/* Get the item (in the pack) */
@@ -692,7 +692,7 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Eat the object */
 	do_cmd_eat_food_aux(cr_ptr, item);
@@ -726,7 +726,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 		return;
 	}
 
-	if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 	if (hex_spelling_any(cr_ptr))
 	{
 		if (!hex_spelling(cr_ptr, HEX_INHAIL)) stop_hex_spell_all(cr_ptr);
@@ -1353,7 +1353,7 @@ msg_print("全ての突然変異が治った。");
 				cr_ptr->muta1 = cr_ptr->muta2 = cr_ptr->muta3 = 0;
 				cr_ptr->update |= PU_BONUS;
 				handle_stuff(cr_ptr);
-				mutant_regenerate_mod = calc_mutant_regenerate_mod(p_ptr);
+				mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 			}
 			ident = TRUE;
 			break;
@@ -1399,9 +1399,9 @@ msg_print("全ての突然変異が治った。");
 				{
 					if (one_in_(2))
 					{
-						if(gain_random_mutation(p_ptr, 0)) ident = TRUE;
+						if(gain_random_mutation(cr_ptr, 0)) ident = TRUE;
 					}
-					else if (lose_mutation(p_ptr, 0)) ident = TRUE;
+					else if (lose_mutation(cr_ptr, 0)) ident = TRUE;
 				} while(!ident || one_in_(2));
 			}
 			break;
@@ -1538,7 +1538,7 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(cr_ptr, item);
@@ -1598,7 +1598,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 		return;
 	}
 
-	if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+	if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 
 	/* Hex */
 	if (hex_spelling_any(cr_ptr) && ((cr_ptr->lev < 35) || hex_spell_fully(cr_ptr))) stop_hex_spell_all(cr_ptr);
@@ -1766,7 +1766,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_STAR_REMOVE_CURSE:
 		{
-			if (remove_all_curse(p_ptr))
+			if (remove_all_curse(cr_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1815,7 +1815,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_RECHARGING:
 		{
-			if (!recharge(p_ptr, 130)) used_up = FALSE;
+			if (!recharge(cr_ptr, 130)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -2290,7 +2290,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2867,7 +2867,7 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	do_cmd_use_staff_aux(cr_ptr, item);
 }
@@ -3356,7 +3356,7 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Aim the wand */
 	do_cmd_aim_wand_aux(cr_ptr, item);
@@ -3789,7 +3789,7 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Zap the rod */
 	do_cmd_zap_rod_aux(cr_ptr, item);
@@ -4545,7 +4545,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cloak glows bright yellow...");
 #endif
 
-				recharge(p_ptr, 130);
+				recharge(cr_ptr, 130);
 				o_ptr->timeout = 70;
 				break;
 			}
@@ -5256,7 +5256,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_BOROMIR:
 			{
-				if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+				if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 				if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 #ifdef JP
 				msg_print("あなたは力強い突風を吹き鳴らした。周囲の敵が震え上っている!");
@@ -5332,7 +5332,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your card gleams with blinding light...");
 #endif
-				if (!recharge(p_ptr, 1000)) return;
+				if (!recharge(cr_ptr, 1000)) return;
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -5428,7 +5428,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= PM_NO_PET;
 
-				if (summon_specific((pet ? p_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((cr_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
+				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, ((cr_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
 				{
 
 					if (pet)
@@ -5730,7 +5730,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your amulet exhibits the truth...");
 #endif
-				if (remove_all_curse(p_ptr))
+				if (remove_all_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -5795,7 +5795,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		return;
 	}
 
-	if (object_is_smith(p_ptr, o_ptr))
+	if (object_is_smith(cr_ptr, o_ptr))
 	{
 		switch (o_ptr->xtra3-1)
 		{
@@ -5899,7 +5899,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		/* Get a direction for breathing (or abort) */
 		if (!get_aim_dir(&dir)) return;
 
-		if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 		/* Branch on the sub-type */
@@ -6346,7 +6346,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 	else if (o_ptr->tval == TV_WHISTLE)
 	{
-		if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 #if 0
@@ -6571,7 +6571,7 @@ void do_cmd_activate(creature_type *cr_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return;
 
 	/* Activate the item */
 	do_cmd_activate_aux(cr_ptr, item);
@@ -6658,7 +6658,7 @@ s = "使えるものがありません。";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
