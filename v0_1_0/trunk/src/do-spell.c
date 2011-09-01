@@ -246,22 +246,22 @@ static bool trump_summoning(int num, bool pet, int y, int x, int lev, int type, 
  * while keeping the results quite random.  It also allows some potent
  * effects only at high level.
  */
-static void cast_wonder(int dir)
+static void cast_wonder(creature_type *cr_ptr, int dir)
 {
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: add Karma of Fortune feature.
 	int vir = 0;
 
 	if (vir)
 	{
-		if (p_ptr->karmas[vir - 1] > 0)
+		if (cr_ptr->karmas[vir - 1] > 0)
 		{
-			while (randint1(400) < p_ptr->karmas[vir - 1]) die++;
+			while (randint1(400) < cr_ptr->karmas[vir - 1]) die++;
 		}
 		else
 		{
-			while (randint1(400) < (0-p_ptr->karmas[vir - 1])) die--;
+			while (randint1(400) < (0-cr_ptr->karmas[vir - 1])) die--;
 		}
 	}
 
@@ -304,11 +304,11 @@ static void cast_wonder(int dir)
 	else if (die < 101) drain_life(dir, 100 + plev);
 	else if (die < 104)
 	{
-		earthquake(p_ptr->fy, p_ptr->fx, 12);
+		earthquake(cr_ptr->fy, cr_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -320,7 +320,7 @@ static void cast_wonder(int dir)
 		dispel_monsters(150);
 		slow_monsters();
 		sleep_monsters();
-		hp_player(p_ptr, 300);
+		hp_player(cr_ptr, 300);
 	}
 }
 
@@ -3610,7 +3610,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 				if (!get_aim_dir(&dir)) return NULL;
 
-				cast_wonder(dir);
+				cast_wonder(p_ptr, dir);
 			}
 		}
 		break;
