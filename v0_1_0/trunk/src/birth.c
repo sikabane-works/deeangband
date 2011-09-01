@@ -2864,36 +2864,36 @@ static void get_ahw(void)
 /*
  * Get the player's starting money
  */
-static void get_money(void)
+static void get_money(creature_type *cr_ptr)
 {
 	int i, gold;
 
 	/* Social Class determines starting gold */
-	gold = (p_ptr->sc * 6) + randint1(100) + 300;
-	if (p_ptr->cls_idx == CLASS_TOURIST)
+	gold = (cr_ptr->sc * 6) + randint1(100) + 300;
+	if (cr_ptr->cls_idx == CLASS_TOURIST)
 	  gold += 2000;
 
 	/* Process the stats */
 	for (i = 0; i < 6; i++)
 	{
 		/* Mega-Hack -- reduce gold for high stats */
-		if (p_ptr->stat_max[i] >= 18 + 50) gold -= 300;
-		else if (p_ptr->stat_max[i] >= 18 + 20) gold -= 200;
-		else if (p_ptr->stat_max[i] > 18) gold -= 150;
-		else gold -= (p_ptr->stat_max[i] - 8) * 10;
+		if (cr_ptr->stat_max[i] >= 18 + 50) gold -= 300;
+		else if (cr_ptr->stat_max[i] >= 18 + 20) gold -= 200;
+		else if (cr_ptr->stat_max[i] > 18) gold -= 150;
+		else gold -= (cr_ptr->stat_max[i] - 8) * 10;
 	}
 
 	/* Minimum 100 gold */
 	if (gold < 100) gold = 100;
 
-	if (p_ptr->chara_idx == CHARA_NAMAKE)
+	if (cr_ptr->chara_idx == CHARA_NAMAKE)
 		gold /= 2;
-	else if (p_ptr->chara_idx == CHARA_MUNCHKIN)
+	else if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (p_ptr->irace_idx == RACE_ANDROID) gold /= 5;
+	if (cr_ptr->irace_idx == RACE_ANDROID) gold /= 5;
 
 	/* Save the gold */
-	p_ptr->au = gold;
+	cr_ptr->au = gold;
 }
 
 
@@ -5529,7 +5529,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 		get_extra(TRUE);
 
 		/* Roll for gold */
-		get_money();
+		get_money(cr_ptr);
 
 		/* Patron */
 		if(cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
