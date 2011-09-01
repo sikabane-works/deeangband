@@ -1340,7 +1340,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 
 		case SV_POTION_NEW_LIFE:
 			do_cmd_rerate(cr_ptr, FALSE);
-			get_max_stats();
+			get_max_stats(cr_ptr);
 			cr_ptr->update |= PU_BONUS;
 			if (cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3)
 			{

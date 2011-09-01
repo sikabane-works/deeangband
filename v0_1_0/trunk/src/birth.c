@@ -2427,7 +2427,7 @@ static int adjust_stat(int value, int amount)
  *
  * For efficiency, we include a chunk of "calc_bonuses()".
  */
-static void get_stats(void)
+static void get_stats(creature_type *cr_ptr)
 {
 	/* Roll and verify some stats */
 	while (TRUE)
@@ -2449,7 +2449,7 @@ static void get_stats(void)
 
 			/* Save that value */
 			sum += val;
-			p_ptr->stat_cur[3*i] = p_ptr->stat_max[3*i] = val;
+			cr_ptr->stat_cur[3*i] = cr_ptr->stat_max[3*i] = val;
 
 			/* Extract 5 + 1d3 + 1d4 + 1d5 */
 			val = 5 + 3;
@@ -2459,7 +2459,7 @@ static void get_stats(void)
 
 			/* Save that value */
 			sum += val;
-			p_ptr->stat_cur[3*i+1] = p_ptr->stat_max[3*i+1] = val;
+			cr_ptr->stat_cur[3*i+1] = cr_ptr->stat_max[3*i+1] = val;
 
 			/* Extract 5 + 1d3 + 1d4 + 1d5 */
 			val = 5 + 3;
@@ -2469,7 +2469,7 @@ static void get_stats(void)
 
 			/* Save that value */
 			sum += val;
-			p_ptr->stat_cur[3*i+2] = p_ptr->stat_max[3*i+2] = val;
+			cr_ptr->stat_cur[3*i+2] = cr_ptr->stat_max[3*i+2] = val;
 		}
 
 		/* Verify totals */
@@ -2478,7 +2478,7 @@ static void get_stats(void)
 	}
 }
 
-void get_max_stats(void)
+void get_max_stats(creature_type *cr_ptr)
 {
 	int		i, j;
 
@@ -2507,13 +2507,13 @@ void get_max_stats(void)
 		j = 18 + 60 + dice[i]*10;
 
 		/* Save that value */
-		p_ptr->stat_max_max[i] = j;
-		if (p_ptr->stat_max[i] > j)
-			p_ptr->stat_max[i] = j;
-		if (p_ptr->stat_cur[i] > j)
-			p_ptr->stat_cur[i] = j;
+		cr_ptr->stat_max_max[i] = j;
+		if (cr_ptr->stat_max[i] > j)
+			cr_ptr->stat_max[i] = j;
+		if (cr_ptr->stat_cur[i] > j)
+			cr_ptr->stat_cur[i] = j;
 	}
-	p_ptr->knowledge &= ~(KNOW_STAT);
+	cr_ptr->knowledge &= ~(KNOW_STAT);
 
 	/* Redisplay the stats later */
 	play_redraw |= (PR_STATS);
@@ -2563,7 +2563,7 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 /*
  * Get the racial history, and social class, using the "history charts".
  */
-static void get_history(void)
+static void get_history(creature_type *cr_ptr)
 {
 	int i, n, chart, roll, social_class;
 
@@ -2606,7 +2606,7 @@ static void get_history(void)
 	};
 
 	/* Clear the previous history strings */
-	for (i = 0; i < 4; i++) p_ptr->history[i][0] = '\0';
+	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';
 
 	/* Clear the history text */
 	buf[0] = '\0';
@@ -2615,7 +2615,7 @@ static void get_history(void)
 	social_class = randint1(4);
 
 	/* Starting place */
-	switch (p_ptr->irace_idx)
+	switch (cr_ptr->irace_idx)
 	{
 		case RACE_AMBERITE:
 		{
@@ -2822,7 +2822,7 @@ static void get_history(void)
 	else if (social_class < 1) social_class = 1;
 
 	/* Save the social class */
-	p_ptr->sc = social_class;
+	cr_ptr->sc = social_class;
 
 
 	/* Skip leading spaces */
@@ -2841,7 +2841,7 @@ static void get_history(void)
 	t = temp;
 	for(i=0 ; i<4 ; i++){
 	     if(t[0]==0)break; 
-	     else {strcpy(p_ptr->history[i], t);t += strlen(t)+1;}
+	     else {strcpy(cr_ptr->history[i], t);t += strlen(t)+1;}
 	     }
        }
 }
@@ -2851,13 +2851,13 @@ static void get_history(void)
  * Computes character's age, height, and weight
  * by henkma
  */
-static void get_ahw(void)
+static void get_ahw(creature_type *cr_ptr)
 {
 	/* Get character's age */
-	p_ptr->age = race_info[p_ptr->irace_idx].b_age + randint1(race_info[p_ptr->irace_idx].m_age);
+	cr_ptr->age = race_info[cr_ptr->irace_idx].b_age + randint1(race_info[cr_ptr->irace_idx].m_age);
 
 	/* Get character's height and weight */
-	set_height_weight(p_ptr);
+	set_height_weight(cr_ptr);
 }
 
 
@@ -2903,7 +2903,7 @@ static void get_money(creature_type *cr_ptr)
  *
  * See 'display_player()' for screen layout constraints.
  */
-static void birth_put_stats(void)
+static void birth_put_stats(creature_type *cr_ptr)
 {
 	int i, j, m, p;
 	int col;
@@ -2918,10 +2918,10 @@ static void birth_put_stats(void)
 		for (i = 0; i < 6; i++)
 		{
 			/* Race/Class bonus */
-			j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
+			j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 			/* Obtain the current stat */
-			m = adjust_stat(p_ptr->stat_max[i], j);
+			m = adjust_stat(cr_ptr->stat_max[i], j);
 
 			/* Put the stat */
 			cnv_stat(m, buf);
@@ -2981,20 +2981,20 @@ static void k_info_reset(void)
 /*
  * Clear all the global "character" data
  */
-static void player_wipe(void)
+static void player_wipe(creature_type *cr_ptr)
 {
 	int i;
 
 	/* Hack -- free the "last message" string */
-	if (p_ptr->last_message) string_free(p_ptr->last_message);
+	if (cr_ptr->last_message) string_free(cr_ptr->last_message);
 
 	/* Hack -- zero the struct */
-	(void)WIPE(p_ptr, creature_type);
+	(void)WIPE(cr_ptr, creature_type);
 
 	/* Wipe the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(p_ptr->history[i], "");
+		strcpy(cr_ptr->history[i], "");
 	}
 
 	/* Wipe the quests */
@@ -3011,16 +3011,16 @@ static void player_wipe(void)
 	}
 
 	/* No weight */
-	p_ptr->total_weight = 0;
+	cr_ptr->total_weight = 0;
 
 	/* No items */
-	p_ptr->inven_cnt = 0;
-	p_ptr->equip_cnt = 0;
+	cr_ptr->inven_cnt = 0;
+	cr_ptr->equip_cnt = 0;
 
-	/* Clear the p_ptr->inventory */
+	/* Clear the cr_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_wipe(&p_ptr->inventory[i]);
+		object_wipe(&cr_ptr->inventory[i]);
 	}
 
 
@@ -3060,25 +3060,25 @@ static void player_wipe(void)
 
 
 	/* Hack -- Well fed player */
-	p_ptr->food = PY_FOOD_FULL - 1;
+	cr_ptr->food = PY_FOOD_FULL - 1;
 
 
 	/* Wipe the spells */
-	if (p_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
-		p_ptr->spell_learned1 = p_ptr->spell_learned2 = 0xffffffffL;
-		p_ptr->spell_worked1 = p_ptr->spell_worked2 = 0xffffffffL;
+		cr_ptr->spell_learned1 = cr_ptr->spell_learned2 = 0xffffffffL;
+		cr_ptr->spell_worked1 = cr_ptr->spell_worked2 = 0xffffffffL;
 	}
 	else
 	{
-		p_ptr->spell_learned1 = p_ptr->spell_learned2 = 0L;
-		p_ptr->spell_worked1 = p_ptr->spell_worked2 = 0L;
+		cr_ptr->spell_learned1 = cr_ptr->spell_learned2 = 0L;
+		cr_ptr->spell_worked1 = cr_ptr->spell_worked2 = 0L;
 	}
-	p_ptr->spell_forgotten1 = p_ptr->spell_forgotten2 = 0L;
-	for (i = 0; i < 64; i++) p_ptr->spell_order[i] = 99;
-	p_ptr->learned_spells = 0;
-	p_ptr->add_spells = 0;
-	p_ptr->knowledge = 0;
+	cr_ptr->spell_forgotten1 = cr_ptr->spell_forgotten2 = 0L;
+	for (i = 0; i < 64; i++) cr_ptr->spell_order[i] = 99;
+	cr_ptr->learned_spells = 0;
+	cr_ptr->add_spells = 0;
+	cr_ptr->knowledge = 0;
 
 	/* Clean the mutation count */
 	mutant_regenerate_mod = 100;
@@ -3093,23 +3093,23 @@ static void player_wipe(void)
 	cheat_save = FALSE;
 
 	/* Assume no winning game */
-	p_ptr->total_winner = FALSE;
+	cr_ptr->total_winner = FALSE;
 
 	world_player = FALSE;
 
 	/* Assume no panic save */
-	p_ptr->panic_save = 0;
+	cr_ptr->panic_save = 0;
 
 	/* Assume no cheating */
-	p_ptr->noscore = 0;
+	cr_ptr->noscore = 0;
 	wizard = FALSE;
 
 	/* Not waiting to report score */
-	p_ptr->wait_report_score = FALSE;
+	cr_ptr->wait_report_score = FALSE;
 
 	/* Default pet command settings */
-	p_ptr->pet_follow_distance = PET_FOLLOW_DIST;
-	p_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_SUMMON_SPELL);
+	cr_ptr->pet_follow_distance = PET_FOLLOW_DIST;
+	cr_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_SUMMON_SPELL);
 
 	/* Wipe the recall depths */
 	for (i = 0; i < max_d_idx; i++)
@@ -3117,19 +3117,19 @@ static void player_wipe(void)
 		max_dlv[i] = 0;
 	}
 
-	p_ptr->visit = 1;
+	cr_ptr->visit = 1;
 
 	/* Reset wild_mode to FALSE */
 	wild_mode = FALSE;
 
 	for (i = 0; i < 108; i++)
 	{
-		p_ptr->magic_num1[i] = 0;
-		p_ptr->magic_num2[i] = 0;
+		cr_ptr->magic_num1[i] = 0;
+		cr_ptr->magic_num2[i] = 0;
 	}
 
 	/* Level one */
-	p_ptr->max_plv = p_ptr->lev = 1;
+	cr_ptr->max_plv = cr_ptr->lev = 1;
 
 	/* Initialize arena and rewards information -KMW- */
 	arena_number = 0;
@@ -3137,36 +3137,36 @@ static void player_wipe(void)
 	inside_quest = 0;
 	for (i = 0; i < MAX_MANE; i++)
 	{
-		p_ptr->mane_spell[i] = -1;
-		p_ptr->mane_dam[i] = 0;
+		cr_ptr->mane_spell[i] = -1;
+		cr_ptr->mane_dam[i] = 0;
 	}
-	p_ptr->mane_num = 0;
-	p_ptr->exit_bldg = TRUE; /* only used for arena now -KMW- */
+	cr_ptr->mane_num = 0;
+	cr_ptr->exit_bldg = TRUE; /* only used for arena now -KMW- */
 
 	/* Bounty */
-	p_ptr->today_mon = 0;
+	cr_ptr->today_mon = 0;
 
 	/* Reset monster arena */
 	battle_monsters();
 
 	/* Reset mutations */
-	p_ptr->muta1 = 0;
-	p_ptr->muta2 = 0;
-	p_ptr->muta3 = 0;
+	cr_ptr->muta1 = 0;
+	cr_ptr->muta2 = 0;
+	cr_ptr->muta3 = 0;
 
 	/* Reset karmas*/
-	for (i = 0; i < 8; i++) p_ptr->karmas[i]=0;
+	for (i = 0; i < 8; i++) cr_ptr->karmas[i]=0;
 
 	/* Set the recall dungeon accordingly */
 	if (vanilla_town)
 	{
 		dungeon_type = 0;
-		p_ptr->recall_dungeon = DUNGEON_ANGBAND;
+		cr_ptr->recall_dungeon = DUNGEON_ANGBAND;
 	}
 	else
 	{
 		dungeon_type = 0;
-		p_ptr->recall_dungeon = DUNGEON_GALGALS;
+		cr_ptr->recall_dungeon = DUNGEON_GALGALS;
 	}
 }
 
@@ -3309,10 +3309,10 @@ static void init_turn(void)
 
 
 /* 
- * Try to wield everything wieldable in the p_ptr->inventory. 
+ * Try to wield everything wieldable in the inventory. 
  * Code taken from Angband 3.1.0 under Angband license
  */ 
-static void wield_all(void) 
+static void wield_all(creature_type *cr_ptr) 
 { 
 	object_type *o_ptr; 
 	object_type *i_ptr; 
@@ -3324,16 +3324,16 @@ static void wield_all(void)
 	/* Scan through the slots backwards */ 
 	for (item = INVEN_PACK - 1; item >= 0; item--) 
 	{ 
-		o_ptr = &p_ptr->inventory[item]; 
+		o_ptr = &cr_ptr->inventory[item]; 
  
 		/* Skip non-objects */ 
 		if (!o_ptr->k_idx) continue; 
  
 		/* Make sure we can wield it and that there's nothing else in that slot */ 
-		slot = wield_slot(p_ptr, o_ptr); 
+		slot = wield_slot(cr_ptr, o_ptr); 
 		if (slot < INVEN_1STARM) continue; 
 		if (slot == INVEN_LITE) continue; /* Does not wield toaches because buys a lantern soon */
-		if (p_ptr->inventory[slot].k_idx) continue; 
+		if (cr_ptr->inventory[slot].k_idx) continue; 
  
 		/* Get local object */ 
 		i_ptr = &object_type_body; 
@@ -3357,16 +3357,16 @@ static void wield_all(void)
 		} 
  
 		/* Get the wield slot */ 
-		o_ptr = &p_ptr->inventory[slot]; 
+		o_ptr = &cr_ptr->inventory[slot]; 
  
 		/* Wear the new stuff */ 
 		object_copy(o_ptr, i_ptr); 
  
 		/* Increase the weight */ 
-		p_ptr->total_weight += i_ptr->weight; 
+		cr_ptr->total_weight += i_ptr->weight; 
  
 		/* Increment the equip counter by hand */ 
-		p_ptr->equip_cnt++;
+		cr_ptr->equip_cnt++;
 
  	} 
 	return; 
@@ -3604,7 +3604,7 @@ static void add_outfit(object_type *o_ptr)
 	autopick_alter_item(slot, FALSE);
 
 	/* Now try wielding everything */ 
-	wield_all(); 
+	wield_all(p_ptr); 
 }
 
 
@@ -5358,13 +5358,13 @@ static bool player_birth_aux(creature_type *cr_ptr)
 		else
 		{
 			/* Get a new character */
-			get_stats();
+			get_stats(cr_ptr);
 
 			/* Roll for age/height/weight */
-			get_ahw();
+			get_ahw(cr_ptr);
 
 			/* Roll for social class */
-			get_history();
+			get_history(cr_ptr);
 		}
 
 		/* Feedback */
@@ -5420,7 +5420,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 			bool accept = TRUE;
 
 			/* Get a new character */
-			get_stats();
+			get_stats(cr_ptr);
 
 			/* Advance the round */
 			auto_round++;
@@ -5462,10 +5462,10 @@ static bool player_birth_aux(creature_type *cr_ptr)
 			if (accept)
 			{
 				/* Roll for age/height/weight */
-				get_ahw();
+				get_ahw(cr_ptr);
 
 				/* Roll for social class */
-				get_history();
+				get_history(cr_ptr);
 
 				if (autochara)
 				{
@@ -5484,7 +5484,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 			if (flag)
 			{
 				/* Dump data */
-				birth_put_stats();
+				birth_put_stats(cr_ptr);
 
 				/* Dump round */
 				put_str(format("%10ld", auto_round), 10, col+20);
@@ -5504,10 +5504,10 @@ static bool player_birth_aux(creature_type *cr_ptr)
 				if (inkey())
 				{
 					/* Roll for age/height/weight */
-					get_ahw();
+					get_ahw(cr_ptr);
 
 					/* Roll for social class */
-					get_history();
+					get_history(cr_ptr);
 
 					break;
 				}
@@ -5691,7 +5691,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 
 	/*** Finish up ***/
 
-	get_max_stats();
+	get_max_stats(cr_ptr);
 
 
 	/* Prompt for it */
@@ -5879,7 +5879,7 @@ static bool ask_quick_start(void)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void player_birth(void)
+void player_birth(creature_type *cr_ptr)
 {
 	int i, j;
 	char buf[80];
@@ -5893,7 +5893,7 @@ void player_birth(void)
 	wipe_m_list();
 
 	/* Wipe the player */
-	player_wipe();
+	player_wipe(cr_ptr);
 
 	/* Create a new character */
 
@@ -5904,10 +5904,10 @@ void player_birth(void)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (player_birth_aux(p_ptr)) break;
+			if (player_birth_aux(cr_ptr)) break;
 
 			/* Wipe the player */
-			player_wipe();
+			player_wipe(cr_ptr);
 		}
 	}
 
@@ -5926,40 +5926,40 @@ void player_birth(void)
 	do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
 
 #ifdef JP
-	sprintf(buf,"                            性別に%sを選択した。", sex_info[p_ptr->sex].title);
+	sprintf(buf,"                            性別に%sを選択した。", sex_info[cr_ptr->sex].title);
 #else
-	sprintf(buf,"                            choose %s personality.", sex_info[p_ptr->sex].title);
+	sprintf(buf,"                            choose %s personality.", sex_info[cr_ptr->sex].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 #ifdef JP
-	sprintf(buf,"                            種族に%sを選択した。", race_info[p_ptr->irace_idx].title);
+	sprintf(buf,"                            種族に%sを選択した。", race_info[cr_ptr->irace_idx].title);
 #else
-	sprintf(buf,"                            choose %s race.", race_info[p_ptr->irace_idx].title);
+	sprintf(buf,"                            choose %s race.", race_info[cr_ptr->irace_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 #ifdef JP
-	sprintf(buf,"                            職業に%sを選択した。", class_info[p_ptr->cls_idx].title);
+	sprintf(buf,"                            職業に%sを選択した。", class_info[cr_ptr->cls_idx].title);
 #else
-	sprintf(buf,"                            choose %s class.", class_info[p_ptr->cls_idx].title);
+	sprintf(buf,"                            choose %s class.", class_info[cr_ptr->cls_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
-	if (p_ptr->realm1)
+	if (cr_ptr->realm1)
 	{
 #ifdef JP
-		sprintf(buf,"                            魔法の領域に%s%sを選択した。",realm_names[p_ptr->realm1], p_ptr->realm2 ? format("と%s",realm_names[p_ptr->realm2]) : "");
+		sprintf(buf,"                            魔法の領域に%s%sを選択した。",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format("と%s",realm_names[cr_ptr->realm2]) : "");
 #else
-		sprintf(buf,"                            choose %s%s realm.",realm_names[p_ptr->realm1], p_ptr->realm2 ? format(" realm and %s",realm_names[p_ptr->realm2]) : "");
+		sprintf(buf,"                            choose %s%s realm.",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format(" realm and %s",realm_names[cr_ptr->realm2]) : "");
 #endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 	}
 
 #ifdef JP
-	sprintf(buf,"                            性格に%sを選択した。", chara_info[p_ptr->chara_idx].title);
+	sprintf(buf,"                            性格に%sを選択した。", chara_info[cr_ptr->chara_idx].title);
 #else
-	sprintf(buf,"                            choose %s.", chara_info[p_ptr->chara_idx].title);
+	sprintf(buf,"                            choose %s.", chara_info[cr_ptr->chara_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -5982,7 +5982,7 @@ void player_birth(void)
 	seed_wilderness();
 
 	/* Give beastman a mutation at character birth */
-	if (p_ptr->irace_idx == RACE_BEASTMAN) hack_mutation = TRUE;
+	if (cr_ptr->irace_idx == RACE_BEASTMAN) hack_mutation = TRUE;
 	else hack_mutation = FALSE;
 
 	/* Set the message window flag as default */

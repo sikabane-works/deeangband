@@ -5313,7 +5313,7 @@ msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", cr_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : 
 	{
 		power -= 10;
 
-		get_max_stats();
+		get_max_stats(cr_ptr);
 		do_cmd_rerate(cr_ptr, FALSE);
 	}
 
