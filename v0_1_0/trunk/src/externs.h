@@ -659,7 +659,7 @@ extern void player_birth(creature_type *cr_ptr);
 extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern void player_outfit(creature_type *cr_ptr);
-extern void dump_yourself(FILE *fff);
+extern void dump_yourself(creature_type *cr_ptr, FILE *fff);
 extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);

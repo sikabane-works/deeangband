@@ -9388,7 +9388,7 @@ static void do_cmd_knowledge_stat(void)
 		}
 	}
 
-	dump_yourself(fff);
+	dump_yourself(p_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);

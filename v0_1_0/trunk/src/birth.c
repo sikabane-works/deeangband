@@ -3286,12 +3286,12 @@ static void init_dungeon_quests(void)
 /*
  * Reset turn
  */
-static void init_turn(void)
+static void init_turn(creature_type *cr_ptr)
 {
-	if ((p_ptr->irace_idx == RACE_VAMPIRE) ||
-	    (p_ptr->irace_idx == RACE_SKELETON) ||
-	    (p_ptr->irace_idx == RACE_ZOMBIE) ||
-	    (p_ptr->irace_idx == RACE_LICH))
+	if ((cr_ptr->irace_idx == RACE_VAMPIRE) ||
+	    (cr_ptr->irace_idx == RACE_SKELETON) ||
+	    (cr_ptr->irace_idx == RACE_ZOMBIE) ||
+	    (cr_ptr->irace_idx == RACE_LICH))
 	{
 		/* Undead start just after midnight */
 		turn = (TURNS_PER_TICK*3 * TOWN_DAWN) / 4 + 1;
@@ -3592,19 +3592,19 @@ static bool monster_hook_human(int species_idx)
 /*
  * Add an outfit object
  */
-static void add_outfit(object_type *o_ptr)
+static void add_outfit(creature_type *cr_ptr, object_type *o_ptr)
 {
 	s16b slot;
 
 	object_aware(o_ptr);
 	object_known(o_ptr);
-	slot = inven_carry(p_ptr, o_ptr);
+	slot = inven_carry(cr_ptr, o_ptr);
 
 	/* Auto-inscription */
 	autopick_alter_item(slot, FALSE);
 
 	/* Now try wielding everything */ 
-	wield_all(p_ptr); 
+	wield_all(cr_ptr); 
 }
 
 
@@ -3643,7 +3643,7 @@ void player_outfit(creature_type *cr_ptr)
 			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
 			q_ptr->pval = get_mon_num(2);
 			q_ptr->number = 1;
-			add_outfit(q_ptr);
+			add_outfit(cr_ptr, q_ptr);
 		}
 		break;
 
@@ -3663,14 +3663,14 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_STAFF, SV_STAFF_NOTHING), ITEM_FREE_SIZE);
 		q_ptr->number = 1;
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 		break;
 
 	case RACE_ENT:
 		/* Potions of Water */
 		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 23);
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		break;
 
@@ -3682,7 +3682,7 @@ void player_outfit(creature_type *cr_ptr)
 		apply_magic(q_ptr, 1, AM_NO_FIXED_ART);
 
 		q_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		break;
 
@@ -3691,7 +3691,7 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(3, 7);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 
 	/* Get local object */
@@ -3704,7 +3704,7 @@ void player_outfit(creature_type *cr_ptr)
 
 		q_ptr->number = (byte)rand_range(2, 5);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx != CLASS_NINJA)
 	{
@@ -3713,7 +3713,7 @@ void player_outfit(creature_type *cr_ptr)
 		q_ptr->number = (byte)rand_range(3, 7);
 		q_ptr->xtra4 = (s16b)rand_range(3, 7) * 500;
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 
 	/* Get local object */
@@ -3725,14 +3725,14 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	if (cr_ptr->cls_idx == CLASS_RANGER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx == CLASS_ARCHER)
 	{
@@ -3740,7 +3740,7 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx == CLASS_HIGH_MAGE)
 	{
@@ -3749,7 +3749,7 @@ void player_outfit(creature_type *cr_ptr)
 		q_ptr->number = 1;
 		q_ptr->pval = (byte)rand_range(25, 30);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
@@ -3759,7 +3759,7 @@ void player_outfit(creature_type *cr_ptr)
 			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
 			q_ptr->number = 1;
 
-			add_outfit(q_ptr);
+			add_outfit(cr_ptr, q_ptr);
 		}
 	}
 	else if (cr_ptr->cls_idx == CLASS_TOURIST)
@@ -3770,33 +3770,33 @@ void player_outfit(creature_type *cr_ptr)
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(15, 20);
 
-			add_outfit(q_ptr);
+			add_outfit(cr_ptr, q_ptr);
 		}
 
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(1, 3);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx == CLASS_NINJA)
 	{
@@ -3804,7 +3804,7 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 	else if (cr_ptr->cls_idx == CLASS_SNIPER)
 	{
@@ -3812,7 +3812,7 @@ void player_outfit(creature_type *cr_ptr)
 		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 
 	if(cr_ptr->chara_idx == CHARA_SEXY)
@@ -3858,7 +3858,7 @@ void player_outfit(creature_type *cr_ptr)
 			q_ptr->name2 = EGO_BRAND_POIS;
 		}
 
-		add_outfit(q_ptr);
+		add_outfit(cr_ptr, q_ptr);
 	}
 
 	/* Hack -- make aware of the water */
@@ -4158,7 +4158,7 @@ static bool get_intelligent_race(creature_type *cr_ptr)
 /*
  * Player SubRace(Eldar)
  */
-static bool get_player_subrace_eldar()
+static bool get_player_subrace_eldar(creature_type *cr_ptr)
 {
 	int     i;
 	selection se[3];
@@ -4173,7 +4173,7 @@ static bool get_player_subrace_eldar()
 	se[2].code = RACE_VANYAR_LINEAGE;
 	se[2].key = '\0';
 	i = get_selection(se, 3, 5, 2, 18, 20, subrace_detail);
-	set_subrace(p_ptr, i, TRUE);
+	set_subrace(cr_ptr, i, TRUE);
 
 	/* Success */
 	return TRUE;
@@ -4184,7 +4184,7 @@ static bool get_player_subrace_eldar()
 /*
  * Player SubRace(Dragon & Draconian)
  */
-static bool get_player_subrace_dragon()
+static bool get_player_subrace_dragon(creature_type *cr_ptr)
 {
 	int     i;
 	selection se[12];
@@ -4215,7 +4215,7 @@ static bool get_player_subrace_dragon()
 	se[11].code = RACE_CHAOS_LINEAGE;
 
 	i = get_selection(se, 12, 5, 2, 18, 20, subrace_detail);
-	set_subrace(p_ptr, i, TRUE);
+	set_subrace(cr_ptr, i, TRUE);
 
 	/* Success */
 	return TRUE;
@@ -4314,7 +4314,7 @@ static bool get_player_chara(creature_type *cr_ptr)
 }
 
 #ifdef ALLOW_AUTOROLLER
-static bool get_stat_limits(void)
+static bool get_stat_limits(creature_type *cr_ptr)
 {
 	int i, j, m, cs, os;
 	int mval[6], cval[6];
@@ -4348,7 +4348,7 @@ static bool get_stat_limits(void)
 		cval[i] = 3;
 
 		/* Race/Class bonus */
-		j = race_info[p_ptr->irace_idx].r_adj[i] + class_info[p_ptr->cls_idx].c_adj[i] + chara_info[p_ptr->chara_idx].a_adj[i];
+		j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -4401,8 +4401,8 @@ static bool get_stat_limits(void)
 
 		/* Prepare a prompt */
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
-			stat_names[i], cval[i], race_info[p_ptr->irace_idx].r_adj[i], class_info[p_ptr->cls_idx].c_adj[i],
-			chara_info[p_ptr->chara_idx].a_adj[i], inp, cur);
+			stat_names[i], cval[i], race_info[cr_ptr->irace_idx].r_adj[i], class_info[cr_ptr->cls_idx].c_adj[i],
+			chara_info[cr_ptr->chara_idx].a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
 		put_str(buf, 14 + i, 10);
@@ -4438,7 +4438,7 @@ static bool get_stat_limits(void)
 			else
 			{
 				/* Race/Class bonus */
-				j = race_info[p_ptr->irace_idx].r_adj[cs] + class_info[p_ptr->cls_idx].c_adj[cs] + chara_info[p_ptr->chara_idx].a_adj[cs];
+				j = race_info[cr_ptr->irace_idx].r_adj[cs] + class_info[cr_ptr->cls_idx].c_adj[cs] + chara_info[cr_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -4465,8 +4465,8 @@ static bool get_stat_limits(void)
 				
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
-					stat_names[cs], cval[cs], race_info[p_ptr->irace_idx].r_adj[cs],
-					class_info[p_ptr->cls_idx].c_adj[cs], chara_info[p_ptr->chara_idx].a_adj[cs], inp);
+					stat_names[cs], cval[cs], race_info[cr_ptr->irace_idx].r_adj[cs],
+					class_info[cr_ptr->cls_idx].c_adj[cs], chara_info[cr_ptr->chara_idx].a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
 			os = cs;
@@ -4579,7 +4579,7 @@ static bool get_stat_limits(void)
 #endif
 
 #ifdef ALLOW_AUTOROLLER
-static bool get_chara_limits(void)
+static bool get_chara_limits(creature_type *cr_ptr)
 {
 #define MAXITEMS 8
 
@@ -4614,15 +4614,15 @@ static bool get_chara_limits(void)
 	put_str("Caution: Values near minimum or maximum is extremery rare.", 23, 5);
 #endif
 	
-	if (p_ptr->sex == SEX_MALE)
+	if (cr_ptr->sex == SEX_MALE)
 	{
-		max_percent = (int)(race_info[p_ptr->irace_idx].m_b_ht+race_info[p_ptr->irace_idx].m_m_ht*4-1) * 100 / (int)(race_info[p_ptr->irace_idx].m_b_ht);
-		min_percent = (int)(race_info[p_ptr->irace_idx].m_b_ht-race_info[p_ptr->irace_idx].m_m_ht*4+1) * 100 / (int)(race_info[p_ptr->irace_idx].m_b_ht);
+		max_percent = (int)(race_info[cr_ptr->irace_idx].m_b_ht+race_info[cr_ptr->irace_idx].m_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->irace_idx].m_b_ht);
+		min_percent = (int)(race_info[cr_ptr->irace_idx].m_b_ht-race_info[cr_ptr->irace_idx].m_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->irace_idx].m_b_ht);
 	}
 	else
 	{
-		max_percent = (int)(race_info[p_ptr->irace_idx].f_b_ht+race_info[p_ptr->irace_idx].f_m_ht*4-1) * 100 / (int)(race_info[p_ptr->irace_idx].f_b_ht);
-		min_percent = (int)(race_info[p_ptr->irace_idx].f_b_ht-race_info[p_ptr->irace_idx].f_m_ht*4+1) * 100 / (int)(race_info[p_ptr->irace_idx].f_b_ht);
+		max_percent = (int)(race_info[cr_ptr->irace_idx].f_b_ht+race_info[cr_ptr->irace_idx].f_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->irace_idx].f_b_ht);
+		min_percent = (int)(race_info[cr_ptr->irace_idx].f_b_ht-race_info[cr_ptr->irace_idx].f_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->irace_idx].f_b_ht);
 	}
 	
 #ifdef JP
@@ -4640,27 +4640,27 @@ static bool get_chara_limits(void)
 		switch (i)
 		{
 		case 0:	/* Minimum age */
-			m = race_info[p_ptr->irace_idx].b_age + 1;
+			m = race_info[cr_ptr->irace_idx].b_age + 1;
 			break;
 		case 1:	/* Maximum age */
-			m = race_info[p_ptr->irace_idx].b_age + race_info[p_ptr->irace_idx].m_age;
+			m = race_info[cr_ptr->irace_idx].b_age + race_info[cr_ptr->irace_idx].m_age;
 			break;
 
 		case 2:	/* Minimum height */
-			if (p_ptr->sex == SEX_MALE) m = race_info[p_ptr->irace_idx].m_b_ht-race_info[p_ptr->irace_idx].m_m_ht*4+1;
-			else m = race_info[p_ptr->irace_idx].f_b_ht-race_info[p_ptr->irace_idx].f_m_ht*4+1;
+			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->irace_idx].m_b_ht-race_info[cr_ptr->irace_idx].m_m_ht*4+1;
+			else m = race_info[cr_ptr->irace_idx].f_b_ht-race_info[cr_ptr->irace_idx].f_m_ht*4+1;
 			break;
 		case 3:	/* Maximum height */
-			if (p_ptr->sex == SEX_MALE) m = race_info[p_ptr->irace_idx].m_b_ht+race_info[p_ptr->irace_idx].m_m_ht*4-1;
-			else m = race_info[p_ptr->irace_idx].f_b_ht+race_info[p_ptr->irace_idx].f_m_ht*4-1;
+			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->irace_idx].m_b_ht+race_info[cr_ptr->irace_idx].m_m_ht*4-1;
+			else m = race_info[cr_ptr->irace_idx].f_b_ht+race_info[cr_ptr->irace_idx].f_m_ht*4-1;
 			break;
 		case 4:	/* Minimum weight */
-			if (p_ptr->sex == SEX_MALE) m = (race_info[p_ptr->irace_idx].m_b_wt * min_percent / 100) - (race_info[p_ptr->irace_idx].m_m_wt * min_percent / 75) +1;
-			else m = (race_info[p_ptr->irace_idx].f_b_wt * min_percent / 100) - (race_info[p_ptr->irace_idx].f_m_wt * min_percent / 75) +1;
+			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->irace_idx].m_b_wt * min_percent / 100) - (race_info[cr_ptr->irace_idx].m_m_wt * min_percent / 75) +1;
+			else m = (race_info[cr_ptr->irace_idx].f_b_wt * min_percent / 100) - (race_info[cr_ptr->irace_idx].f_m_wt * min_percent / 75) +1;
 			break;
 		case 5:	/* Maximum weight */
-			if (p_ptr->sex == SEX_MALE) m = (race_info[p_ptr->irace_idx].m_b_wt * max_percent / 100) + (race_info[p_ptr->irace_idx].m_m_wt * max_percent / 75) -1;
-			else m = (race_info[p_ptr->irace_idx].f_b_wt * max_percent / 100) + (race_info[p_ptr->irace_idx].f_m_wt * max_percent / 75) -1;
+			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->irace_idx].m_b_wt * max_percent / 100) + (race_info[cr_ptr->irace_idx].m_m_wt * max_percent / 75) -1;
+			else m = (race_info[cr_ptr->irace_idx].f_b_wt * max_percent / 100) + (race_info[cr_ptr->irace_idx].f_m_wt * max_percent / 75) -1;
 			break;
 		case 6:	/* Minimum social class */
 			m = 1;
@@ -4900,7 +4900,7 @@ void add_history_from_pref_line(cptr t)
 }
 
 
-static bool do_cmd_histpref(void)
+static bool do_cmd_histpref(creature_type *cr_ptr)
 {
 	char buf[80];
 	errr err;
@@ -4967,7 +4967,7 @@ static bool do_cmd_histpref(void)
 	}
 
 	/* Clear the previous history strings */
-	for (i = 0; i < 4; i++) p_ptr->history[i][0] = '\0';
+	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';
 
 	/* Skip leading spaces */
 	for (s = histpref_buf; *s == ' '; s++) /* loop */;
@@ -4985,7 +4985,7 @@ static bool do_cmd_histpref(void)
 		if (t[0] == 0) break;
 		else
 		{
-			strcpy(p_ptr->history[i], t);
+			strcpy(cr_ptr->history[i], t);
 			t += strlen(t) + 1;
 		}
 	}
@@ -4993,10 +4993,10 @@ static bool do_cmd_histpref(void)
 	/* Fill the remaining spaces */
 	for (i = 0; i < 4; i++)
 	{
-		for (j = 0; p_ptr->history[i][j]; j++) /* loop */;
+		for (j = 0; cr_ptr->history[i][j]; j++) /* loop */;
 
-		for (; j < 59; j++) p_ptr->history[i][j] = ' ';
-		p_ptr->history[i][59] = '\0';
+		for (; j < 59; j++) cr_ptr->history[i][j] = ' ';
+		cr_ptr->history[i][59] = '\0';
 	}
 
 	/* Kill the buffer */
@@ -5008,7 +5008,7 @@ static bool do_cmd_histpref(void)
 /*
  *  Character background edit-mode
  */
-static void edit_history(void)
+static void edit_history(creature_type *cr_ptr)
 {
 	char old_history[4][60];
 	int y = 0, x = 0;
@@ -5017,17 +5017,17 @@ static void edit_history(void)
 	/* Edit character background */
 	for (i = 0; i < 4; i++)
 	{
-		sprintf(old_history[i], "%s", p_ptr->history[i]);
+		sprintf(old_history[i], "%s", cr_ptr->history[i]);
 	}
 	/* Turn 0 to space */
 	for (i = 0; i < 4; i++)
 	{
-		for (j = 0; p_ptr->history[i][j]; j++) /* loop */;
+		for (j = 0; cr_ptr->history[i][j]; j++) /* loop */;
 
-		for (; j < 59; j++) p_ptr->history[i][j] = ' ';
-		p_ptr->history[i][59] = '\0';
+		for (; j < 59; j++) cr_ptr->history[i][j] = ' ';
+		cr_ptr->history[i][59] = '\0';
 	}
-	display_player(1, p_ptr);
+	display_player(1, cr_ptr);
 #ifdef JP
 	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 11, 20);
 	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 17, 10);
@@ -5043,14 +5043,14 @@ static void edit_history(void)
 
 		for (i = 0; i < 4; i++)
 		{
-			put_str(p_ptr->history[i], i + 12, 10);
+			put_str(cr_ptr->history[i], i + 12, 10);
 		}
 #ifdef JP
-		if (iskanji2(p_ptr->history[y], x))
-			c_put_str(TERM_L_BLUE, format("%c%c", p_ptr->history[y][x],p_ptr->history[y][x+1]), y + 12, x + 10);
+		if (iskanji2(cr_ptr->history[y], x))
+			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 12, x + 10);
 		else
 #endif
-		c_put_str(TERM_L_BLUE, format("%c", p_ptr->history[y][x]), y + 12, x + 10);
+		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 12, x + 10);
 
 		/* Place cursor just after cost of current stat */
 		Term_gotoxy(x + 10, y + 12);
@@ -5067,7 +5067,7 @@ static void edit_history(void)
 			y--;
 			if (y < 0) y = 3;
 #ifdef JP
-			if ((x > 0) && (iskanji2(p_ptr->history[y], x-1))) x--;
+			if ((x > 0) && (iskanji2(cr_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if (skey == SKEY_DOWN || c == KTRL('n'))
@@ -5075,13 +5075,13 @@ static void edit_history(void)
 			y++;
 			if (y > 3) y = 0;
 #ifdef JP
-			if ((x > 0) && (iskanji2(p_ptr->history[y], x-1))) x--;
+			if ((x > 0) && (iskanji2(cr_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if (skey == SKEY_RIGHT || c == KTRL('f'))
 		{
 #ifdef JP
-			if (iskanji2(p_ptr->history[y], x)) x++;
+			if (iskanji2(cr_ptr->history[y], x)) x++;
 #endif
 			x++;
 			if (x > 58)
@@ -5104,7 +5104,7 @@ static void edit_history(void)
 			}
 
 #ifdef JP
-			if ((x > 0) && (iskanji2(p_ptr->history[y], x-1))) x--;
+			if ((x > 0) && (iskanji2(cr_ptr->history[y], x-1))) x--;
 #endif
 		}
 		else if (c == '\r' || c == '\n')
@@ -5129,17 +5129,17 @@ static void edit_history(void)
 
 			for (i = 0; i < 4; i++)
 			{
-				sprintf(p_ptr->history[i], "%s", old_history[i]);
-				put_str(p_ptr->history[i], i + 12, 10);
+				sprintf(cr_ptr->history[i], "%s", old_history[i]);
+				put_str(cr_ptr->history[i], i + 12, 10);
 			}
 			break;
 		}
 		else if (c == KTRL('A'))
 		{
-			if (do_cmd_histpref())
+			if (do_cmd_histpref(cr_ptr))
 			{
 #ifdef JP
-				if ((x > 0) && (iskanji2(p_ptr->history[y], x - 1))) x--;
+				if ((x > 0) && (iskanji2(cr_ptr->history[y], x - 1))) x--;
 #endif
 			}
 		}
@@ -5156,12 +5156,12 @@ static void edit_history(void)
 				else x = 0;
 			}
 
-			p_ptr->history[y][x] = ' ';
+			cr_ptr->history[y][x] = ' ';
 #ifdef JP
-			if ((x > 0) && (iskanji2(p_ptr->history[y], x - 1)))
+			if ((x > 0) && (iskanji2(cr_ptr->history[y], x - 1)))
 			{
 				x--;
-				p_ptr->history[y][x] = ' ';
+				cr_ptr->history[y][x] = ' ';
 			}
 #endif
 		}
@@ -5172,9 +5172,9 @@ static void edit_history(void)
 #endif
 		{
 #ifdef JP
-			if (iskanji2(p_ptr->history[y], x))
+			if (iskanji2(cr_ptr->history[y], x))
 			{
-				p_ptr->history[y][x+1] = ' ';
+				cr_ptr->history[y][x+1] = ' ';
 			}
 
 			if (iskanji(c))
@@ -5186,17 +5186,17 @@ static void edit_history(void)
 					if (y > 3) y = 0;
 				}
 
-				if (iskanji2(p_ptr->history[y], x+1))
+				if (iskanji2(cr_ptr->history[y], x+1))
 				{
-					p_ptr->history[y][x+2] = ' ';
+					cr_ptr->history[y][x+2] = ' ';
 				}
 
-				p_ptr->history[y][x++] = c;
+				cr_ptr->history[y][x++] = c;
 
 				c = inkey();
 			}
 #endif
-			p_ptr->history[y][x++] = c;
+			cr_ptr->history[y][x++] = c;
 			if (x > 58)
 			{
 				x = 0;
@@ -5262,9 +5262,9 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	clear_from(0);
 	put_initial_status(cr_ptr);
 	get_intelligent_race(cr_ptr);
-	if(cr_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar();
-	if(cr_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon();
-	if(cr_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon();
+	if(cr_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar(cr_ptr);
+	if(cr_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon(cr_ptr);
+	if(cr_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon(cr_ptr);
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
@@ -5309,12 +5309,12 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	/* Initialize */
 	if (autoroller)
 	{
-		if (!get_stat_limits()) return FALSE;
+		if (!get_stat_limits(cr_ptr)) return FALSE;
 	}
 
 	if (autochara)
 	{
-		if (!get_chara_limits()) return FALSE;
+		if (!get_chara_limits(cr_ptr)) return FALSE;
 	}
 
 #endif /* ALLOW_AUTOROLLER */
@@ -5323,7 +5323,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	clear_from(0);
 
 	/* Reset turn; before auto-roll and after choosing race */
-	init_turn();
+	init_turn(cr_ptr);
 
 	/*** Generate ***/
 
@@ -5687,7 +5687,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	process_player_name(creating_savefile);
 
 	/*** Edit character background ***/
-	edit_history();
+	edit_history(cr_ptr);
 
 	/*** Finish up ***/
 
@@ -5794,7 +5794,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 /*
  * Ask whether the player use Quick Start or not.
  */
-static bool ask_quick_start(void)
+static bool ask_quick_start(creature_type *cr_ptr)
 {
 	/* Doesn't have previous data */
 	if (!previous_char.quick_ok) return FALSE;
@@ -5844,28 +5844,28 @@ static bool ask_quick_start(void)
 		}
 	}
 
-	load_prev_data(p_ptr, FALSE);
+	load_prev_data(cr_ptr, FALSE);
 	init_dungeon_quests();
-	init_turn();
+	init_turn(cr_ptr);
 
 	/*TODO: 当面はイェーキンからのみスタート、いずれ指定された都市を選ぶように指定。 */
 	wilderness_x = 134;
 	wilderness_y = 71;
 
 	/* Calc hitdice, but don't roll */
-	get_extra(p_ptr, FALSE);
+	get_extra(cr_ptr, FALSE);
 
 	/* Calculate the bonuses and hitpoints */
-	p_ptr->update |= (PU_BONUS | PU_HP);
+	cr_ptr->update |= (PU_BONUS | PU_HP);
 
 	/* Update stuff */
-	update_stuff(p_ptr, TRUE);
+	update_stuff(cr_ptr, TRUE);
 
 	/* Fully healed */
-	p_ptr->chp = p_ptr->mhp;
+	cr_ptr->chp = cr_ptr->mhp;
 
 	/* Fully rested */
-	p_ptr->csp = p_ptr->msp;
+	cr_ptr->csp = cr_ptr->msp;
 
 	/* Process the player name */
 	process_player_name(FALSE);
@@ -5898,7 +5898,7 @@ void player_birth(creature_type *cr_ptr)
 	/* Create a new character */
 
 	/* Quick start? */
-	if (!ask_quick_start())
+	if (!ask_quick_start(cr_ptr))
 	{
 		/* No, normal start */
 		while (1)
@@ -5995,7 +5995,7 @@ void player_birth(creature_type *cr_ptr)
 }
 
 
-void dump_yourself(FILE *fff)
+void dump_yourself(creature_type *cr_ptr, FILE *fff)
 {
 	char temp[80*10];
 	int i;
@@ -6003,12 +6003,12 @@ void dump_yourself(FILE *fff)
 
 	if (!fff) return;
 
-	roff_to_buf(race_jouhou[p_ptr->irace_idx], 78, temp, sizeof(temp));
+	roff_to_buf(race_jouhou[cr_ptr->irace_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n\n");
 #ifdef JP
-	fprintf(fff, "種族: %s\n", race_info[p_ptr->irace_idx].title);
+	fprintf(fff, "種族: %s\n", race_info[cr_ptr->irace_idx].title);
 #else
-	fprintf(fff, "Race: %s\n", race_info[p_ptr->irace_idx].title);
+	fprintf(fff, "Race: %s\n", race_info[cr_ptr->irace_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)
@@ -6018,12 +6018,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(class_jouhou[p_ptr->cls_idx], 78, temp, sizeof(temp));
+	roff_to_buf(class_jouhou[cr_ptr->cls_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "職業: %s\n", class_info[p_ptr->cls_idx].title);
+	fprintf(fff, "職業: %s\n", class_info[cr_ptr->cls_idx].title);
 #else
-	fprintf(fff, "Class: %s\n", class_info[p_ptr->cls_idx].title);
+	fprintf(fff, "Class: %s\n", class_info[cr_ptr->cls_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)
@@ -6033,12 +6033,12 @@ void dump_yourself(FILE *fff)
 		fprintf(fff, "%s\n",t);
 		t += strlen(t) + 1;
 	}
-	roff_to_buf(chara_jouhou[p_ptr->chara_idx], 78, temp, sizeof(temp));
+	roff_to_buf(chara_jouhou[cr_ptr->chara_idx], 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
 #ifdef JP
-	fprintf(fff, "性格: %s\n", chara_info[p_ptr->chara_idx].title);
+	fprintf(fff, "性格: %s\n", chara_info[cr_ptr->chara_idx].title);
 #else
-	fprintf(fff, "Pesonality: %s\n", chara_info[p_ptr->chara_idx].title);
+	fprintf(fff, "Pesonality: %s\n", chara_info[cr_ptr->chara_idx].title);
 #endif
 	t = temp;
 	for (i = 0; i < 6; i++)
@@ -6049,13 +6049,13 @@ void dump_yourself(FILE *fff)
 		t += strlen(t) + 1;
 	}
 	fprintf(fff, "\n");
-	if (p_ptr->realm1)
+	if (cr_ptr->realm1)
 	{
-		roff_to_buf(realm_jouhou[technic2magic(p_ptr->realm1)-1], 78, temp, sizeof(temp));
+		roff_to_buf(realm_jouhou[technic2magic(cr_ptr->realm1)-1], 78, temp, sizeof(temp));
 #ifdef JP
-		fprintf(fff, "魔法: %s\n", realm_names[p_ptr->realm1]);
+		fprintf(fff, "魔法: %s\n", realm_names[cr_ptr->realm1]);
 #else
-		fprintf(fff, "Realm: %s\n", realm_names[p_ptr->realm1]);
+		fprintf(fff, "Realm: %s\n", realm_names[cr_ptr->realm1]);
 #endif
 		t = temp;
 		for (i = 0; i < 6; i++)
@@ -6067,13 +6067,13 @@ void dump_yourself(FILE *fff)
 		}
 	}
 	fprintf(fff, "\n");
-	if (p_ptr->realm2)
+	if (cr_ptr->realm2)
 	{
-		roff_to_buf(realm_jouhou[technic2magic(p_ptr->realm2)-1], 78, temp, sizeof(temp));
+		roff_to_buf(realm_jouhou[technic2magic(cr_ptr->realm2)-1], 78, temp, sizeof(temp));
 #ifdef JP
-		fprintf(fff, "魔法: %s\n", realm_names[p_ptr->realm2]);
+		fprintf(fff, "魔法: %s\n", realm_names[cr_ptr->realm2]);
 #else
-		fprintf(fff, "Realm: %s\n", realm_names[p_ptr->realm2]);
+		fprintf(fff, "Realm: %s\n", realm_names[cr_ptr->realm2]);
 #endif
 		t = temp;
 		for (i = 0; i < 6; i++)
