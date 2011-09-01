@@ -3855,7 +3855,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
  * for recharging wands and staves are dependent on the cost of
  * the base-item.
  */
-static void building_recharge(void)
+static void building_recharge(creature_type *cr_ptr)
 {
 	int         item, lev;
 	object_type *o_ptr;
@@ -3889,12 +3889,12 @@ s = "–‚—Í‚ğ[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3920,7 +3920,7 @@ msg_format("[“U‚·‚é‘O‚ÉŠÓ’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·I");
 
 		msg_print(NULL);
 
-		if ((p_ptr->au >= 50) &&
+		if ((cr_ptr->au >= 50) &&
 #ifdef JP
 get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 #else
@@ -3929,7 +3929,7 @@ get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 
 		{
 			/* Pay the price */
-			p_ptr->au -= 50;
+			cr_ptr->au -= 50;
 
 			/* Identify it */
 			identify_item(o_ptr);
@@ -4040,7 +4040,7 @@ msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 	}
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < price)
+	if (cr_ptr->au < price)
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -4085,7 +4085,7 @@ charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H",
 		charges = get_quantity(format("Add how many charges for %d gold? ",
 #endif
 
-			      price), MIN(p_ptr->au / price, max_charges));
+			      price), MIN(cr_ptr->au / price, max_charges));
 
 		/* Do nothing */
 		if (charges < 1) return;
@@ -4109,13 +4109,13 @@ msg_format("%s‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
 #endif
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
 
 	/* Pay the price */
-	p_ptr->au -= price;
+	cr_ptr->au -= price;
 
 	/* Finished */
 	return;
@@ -4132,7 +4132,7 @@ msg_format("%s‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
  * for recharging wands and staves are dependent on the cost of
  * the base-item.
  */
-static void building_recharge_all(void)
+static void building_recharge_all(creature_type *cr_ptr)
 {
 	int         i;
 	int         lev;
@@ -4154,7 +4154,7 @@ static void building_recharge_all(void)
 	/* Calculate cost */
 	for ( i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 				
 		/* skip non magic device */
 		if (o_ptr->tval < TV_STAFF || o_ptr->tval > TV_ROD) continue;
@@ -4213,7 +4213,7 @@ static void building_recharge_all(void)
 	}
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < total_cost)
+	if (cr_ptr->au < total_cost)
 	{
 #ifdef JP
 		msg_format("‚·‚×‚Ä‚ÌƒAƒCƒeƒ€‚ğÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", total_cost );
@@ -4233,7 +4233,7 @@ static void building_recharge_all(void)
 
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &cr_ptr->inventory[i];
 		k_ptr = &k_info[o_ptr->k_idx];
 
 		/* skip non magic device */
@@ -4278,13 +4278,13 @@ static void building_recharge_all(void)
 	msg_print(NULL);
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
 
 	/* Pay the price */
-	p_ptr->au -= total_cost;
+	cr_ptr->au -= total_cost;
 
 	/* Finished */
 	return;
@@ -4785,10 +4785,10 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		resize_item();
 		break;
 	case BACT_RECHARGE:
-		building_recharge();
+		building_recharge(cr_ptr);
 		break;
 	case BACT_RECHARGE_ALL:
-		building_recharge_all();
+		building_recharge_all(cr_ptr);
 		break;
 	case BACT_IDENTS: /* needs work */
 #ifdef JP
