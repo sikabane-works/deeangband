@@ -2523,39 +2523,39 @@ void get_max_stats(void)
 /*
  * Roll for some info that the auto-roller ignores
  */
-static void get_extra(bool roll_hitdice)
+static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 {
 	int i;
 
 	/* Experience factor */
-	if (p_ptr->irace_idx == RACE_ANDROID) p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp;
+	if (cr_ptr->irace_idx == RACE_ANDROID) cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp;
 	else {
-		p_ptr->expfact = race_info[p_ptr->irace_idx].r_exp + class_info[p_ptr->cls_idx].c_exp;
+		cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp + class_info[cr_ptr->cls_idx].c_exp;
 		for(i = 0; i < MAX_RACES; i++)
-			if(get_subrace(p_ptr, i)) p_ptr->expfact += race_info[i].r_s_exp;
+			if(get_subrace(cr_ptr, i)) cr_ptr->expfact += race_info[i].r_s_exp;
 	}
 
-	if (((p_ptr->cls_idx == CLASS_MONK) || (p_ptr->cls_idx == CLASS_FORCETRAINER) || (p_ptr->cls_idx == CLASS_NINJA)) && ((p_ptr->irace_idx == RACE_KLACKON) || (p_ptr->irace_idx == RACE_SPRITE)))
-		p_ptr->expfact -= 15;
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->irace_idx == RACE_KLACKON) || (cr_ptr->irace_idx == RACE_SPRITE)))
+		cr_ptr->expfact -= 15;
 
 	/* Reset record of race/realm changes */
-	p_ptr->start_race = p_ptr->irace_idx;
-	p_ptr->old_race1 = 0L;
-	p_ptr->old_race2 = 0L;
-	p_ptr->old_realm = 0;
+	cr_ptr->start_race = cr_ptr->irace_idx;
+	cr_ptr->old_race1 = 0L;
+	cr_ptr->old_race2 = 0L;
+	cr_ptr->old_realm = 0;
 
-	p_ptr->dr = -1;
+	cr_ptr->dr = -1;
 
-	initialize_skill(p_ptr);
+	initialize_skill(cr_ptr);
 
-	set_bodysize(p_ptr);
-	set_hitdice(p_ptr);
+	set_bodysize(cr_ptr);
+	set_hitdice(cr_ptr);
 
 	/* Roll for hit point unless quick-start */
-	if (roll_hitdice) do_cmd_rerate_aux(p_ptr);
+	if (roll_hitdice) do_cmd_rerate_aux(cr_ptr);
 
 	/* Initial hitpoints */
-	p_ptr->mhp = p_ptr->player_hp[0];
+	cr_ptr->mhp = cr_ptr->player_hp[0];
 
 }
 
@@ -5526,7 +5526,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 		mode = 0;
 
 		/* Roll for base hitpoints */
-		get_extra(TRUE);
+		get_extra(cr_ptr, TRUE);
 
 		/* Roll for gold */
 		get_money(cr_ptr);
@@ -5853,7 +5853,7 @@ static bool ask_quick_start(void)
 	wilderness_y = 71;
 
 	/* Calc hitdice, but don't roll */
-	get_extra(FALSE);
+	get_extra(p_ptr, FALSE);
 
 	/* Calculate the bonuses and hitpoints */
 	p_ptr->update |= (PU_BONUS | PU_HP);
