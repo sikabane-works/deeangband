@@ -7028,7 +7028,7 @@ quit("セーブファイルが壊れています");
 	/* Give startup outfit (after loading pref files) */
 	if (new_game)
 	{
-		player_outfit();
+		player_outfit(p_ptr);
 	}
 
 	/* React to changes */

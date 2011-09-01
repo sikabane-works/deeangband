@@ -3613,7 +3613,7 @@ static void add_outfit(object_type *o_ptr)
  *
  * Having an item makes the player "aware" of its purpose.
  */
-void player_outfit(void)
+void player_outfit(creature_type *cr_ptr)
 {
 	int i, tv, sv;
 
@@ -3625,7 +3625,7 @@ void player_outfit(void)
 	q_ptr = &forge;
 
 	/* Give the player some food */
-	switch (p_ptr->irace_idx)
+	switch (cr_ptr->irace_idx)
 	{
 	case RACE_VAMPIRE:
 		/* Nothing! */
@@ -3697,7 +3697,7 @@ void player_outfit(void)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((p_ptr->irace_idx == RACE_VAMPIRE) && (p_ptr->cls_idx != CLASS_NINJA))
+	if ((cr_ptr->irace_idx == RACE_VAMPIRE) && (cr_ptr->cls_idx != CLASS_NINJA))
 	{
 		/* Hack -- Give the player scrolls of DARKNESS! */
 		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
@@ -3706,7 +3706,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx != CLASS_NINJA)
+	else if (cr_ptr->cls_idx != CLASS_NINJA)
 	{
 		/* Hack -- Give the player some torches */
 		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
@@ -3719,7 +3719,7 @@ void player_outfit(void)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((p_ptr->cls_idx == CLASS_RANGER) || (p_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
+	if ((cr_ptr->cls_idx == CLASS_RANGER) || (cr_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3727,14 +3727,14 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	if (p_ptr->cls_idx == CLASS_RANGER)
+	if (cr_ptr->cls_idx == CLASS_RANGER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx == CLASS_ARCHER)
+	else if (cr_ptr->cls_idx == CLASS_ARCHER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3742,7 +3742,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx == CLASS_HIGH_MAGE)
+	else if (cr_ptr->cls_idx == CLASS_HIGH_MAGE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
@@ -3751,7 +3751,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx == CLASS_SORCERER)
+	else if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
 		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK+MAX_MAGIC-1; i++)
 		{
@@ -3762,9 +3762,9 @@ void player_outfit(void)
 			add_outfit(q_ptr);
 		}
 	}
-	else if (p_ptr->cls_idx == CLASS_TOURIST)
+	else if (cr_ptr->cls_idx == CLASS_TOURIST)
 	{
-		if (p_ptr->chara_idx != CHARA_SEXY)
+		if (cr_ptr->chara_idx != CHARA_SEXY)
 		{
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
@@ -3798,7 +3798,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx == CLASS_NINJA)
+	else if (cr_ptr->cls_idx == CLASS_NINJA)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
@@ -3806,7 +3806,7 @@ void player_outfit(void)
 
 		add_outfit(q_ptr);
 	}
-	else if (p_ptr->cls_idx == CLASS_SNIPER)
+	else if (cr_ptr->cls_idx == CLASS_SNIPER)
 	{
 		/* Hack -- Give the player some bolts */
 		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
@@ -3815,31 +3815,31 @@ void player_outfit(void)
 		add_outfit(q_ptr);
 	}
 
-	if(p_ptr->chara_idx == CHARA_SEXY)
+	if(cr_ptr->chara_idx == CHARA_SEXY)
 	{
-		player_init[p_ptr->cls_idx][2][0] = TV_HAFTED;
-		player_init[p_ptr->cls_idx][2][1] = SV_WHIP;
+		player_init[cr_ptr->cls_idx][2][0] = TV_HAFTED;
+		player_init[cr_ptr->cls_idx][2][1] = SV_WHIP;
 	}
 
 	/* Hack -- Give the player three useful objects */
 	for (i = 0; i < 3; i++)
 	{
 		/* Look up standard equipment */
-		tv = player_init[p_ptr->cls_idx][i][0];
-		sv = player_init[p_ptr->cls_idx][i][1];
+		tv = player_init[cr_ptr->cls_idx][i][0];
+		sv = player_init[cr_ptr->cls_idx][i][1];
 
-		if ((p_ptr->irace_idx == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
+		if ((cr_ptr->irace_idx == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
 		/* Hack to initialize spellbooks */
-		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + p_ptr->realm1 - 1;
-		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + p_ptr->realm2 - 1;
+		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + cr_ptr->realm1 - 1;
+		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + cr_ptr->realm2 - 1;
 
 		else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
-		    p_ptr->irace_idx == RACE_BARBARIAN)
+		    cr_ptr->irace_idx == RACE_BARBARIAN)
 			/* Barbarians do not need a ring of resist fear */
 			sv = SV_RING_SUSTAIN_STR;
 
 		else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
-		    p_ptr->irace_idx == RACE_MIND_FLAYER)
+		    cr_ptr->irace_idx == RACE_MIND_FLAYER)
 		  {
 			tv = TV_POTION;
 			sv = SV_POTION_RESTORE_MANA;
@@ -3849,11 +3849,11 @@ void player_outfit(void)
 		q_ptr = &forge;
 
 		/* Hack -- Give the player an object */
-		object_prep(q_ptr, lookup_kind(tv, sv), p_ptr->size);
+		object_prep(q_ptr, lookup_kind(tv, sv), cr_ptr->size);
 
 		/* Assassins begin the game with a poisoned dagger */
-		if ((tv == TV_SWORD || tv == TV_HAFTED) && (p_ptr->cls_idx == CLASS_ROGUE &&
-			p_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
+		if ((tv == TV_SWORD || tv == TV_HAFTED) && (cr_ptr->cls_idx == CLASS_ROGUE &&
+			cr_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
 		{
 			q_ptr->name2 = EGO_BRAND_POIS;
 		}
