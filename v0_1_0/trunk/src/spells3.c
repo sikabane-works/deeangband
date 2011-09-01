@@ -4363,7 +4363,7 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 /*
  * Print a list of spells (for browsing or casting or viewing)
  */
-void print_spells(int target_spell, byte *spells, int num, int y, int x, int use_realm)
+void print_spells(creature_type *cr_ptr, int target_spell, byte *spells, int num, int y, int x, int use_realm)
 {
 	int             i, spell, exp_level, increment = 64;
 	magic_type      *s_ptr;
@@ -4408,9 +4408,9 @@ put_str(buf, y, x + 29);
 	put_str(buf, y, x + 29);
 #endif
 
-	if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE)) increment = 0;
-	else if (use_realm == p_ptr->realm1) increment = 0;
-	else if (use_realm == p_ptr->realm2) increment = 32;
+	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE)) increment = 0;
+	else if (use_realm == cr_ptr->realm1) increment = 0;
+	else if (use_realm == cr_ptr->realm2) increment = 32;
 
 	/* Dump the spells */
 	for (i = 0; i < num; i++)
@@ -4425,7 +4425,7 @@ put_str(buf, y, x + 29);
 		}
 		else
 		{
-			s_ptr = &m_info[p_ptr->realm1].info[use_realm - 1][spell];
+			s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
 		}
 
 		if (use_realm == REALM_HISSATSU)
@@ -4444,7 +4444,7 @@ put_str(buf, y, x + 29);
 			if (!increment && (exp_level == EXP_LEVEL_MASTER)) max = TRUE;
 			else if ((increment == 32) && (exp_level >= EXP_LEVEL_EXPERT)) max = TRUE;
 			else if (s_ptr->slevel >= 99) max = TRUE;
-			else if ((p_ptr->cls_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
+			else if ((cr_ptr->cls_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
 
 			strncpy(ryakuji, exp_level_str[exp_level], 4);
 			ryakuji[3] = ']';
@@ -4488,9 +4488,9 @@ strcat(out_val, format("%-30s", "(”»“Ç•s”\)"));
 		line_attr = TERM_WHITE;
 
 		/* Analyze the spell */
-		if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
+		if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 		{
-			if (s_ptr->slevel > p_ptr->max_plv)
+			if (s_ptr->slevel > cr_ptr->max_plv)
 			{
 #ifdef JP
 comment = "–¢’m";
@@ -4500,7 +4500,7 @@ comment = "–¢’m";
 
 				line_attr = TERM_L_BLUE;
 			}
-			else if (s_ptr->slevel > p_ptr->lev)
+			else if (s_ptr->slevel > cr_ptr->lev)
 			{
 #ifdef JP
 comment = "–Y‹p";
@@ -4511,7 +4511,7 @@ comment = "–Y‹p";
 				line_attr = TERM_YELLOW;
 			}
 		}
-		else if ((use_realm != p_ptr->realm1) && (use_realm != p_ptr->realm2))
+		else if ((use_realm != cr_ptr->realm1) && (use_realm != cr_ptr->realm2))
 		{
 #ifdef JP
 comment = "–¢’m";
@@ -4521,9 +4521,9 @@ comment = "–¢’m";
 
 			line_attr = TERM_L_BLUE;
 		}
-		else if ((use_realm == p_ptr->realm1) ?
-		    ((p_ptr->spell_forgotten1 & (1L << spell))) :
-		    ((p_ptr->spell_forgotten2 & (1L << spell))))
+		else if ((use_realm == cr_ptr->realm1) ?
+		    ((cr_ptr->spell_forgotten1 & (1L << spell))) :
+		    ((cr_ptr->spell_forgotten2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "–Y‹p";
@@ -4533,9 +4533,9 @@ comment = "–Y‹p";
 
 			line_attr = TERM_YELLOW;
 		}
-		else if (!((use_realm == p_ptr->realm1) ?
-		    (p_ptr->spell_learned1 & (1L << spell)) :
-		    (p_ptr->spell_learned2 & (1L << spell))))
+		else if (!((use_realm == cr_ptr->realm1) ?
+		    (cr_ptr->spell_learned1 & (1L << spell)) :
+		    (cr_ptr->spell_learned2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "–¢’m";
@@ -4545,9 +4545,9 @@ comment = "–¢’m";
 
 			line_attr = TERM_L_BLUE;
 		}
-		else if (!((use_realm == p_ptr->realm1) ?
-		    (p_ptr->spell_worked1 & (1L << spell)) :
-		    (p_ptr->spell_worked2 & (1L << spell))))
+		else if (!((use_realm == cr_ptr->realm1) ?
+		    (cr_ptr->spell_worked1 & (1L << spell)) :
+		    (cr_ptr->spell_worked2 & (1L << spell))))
 		{
 #ifdef JP
 comment = "–¢ŒoŒ±";
@@ -4570,7 +4570,7 @@ comment = "–¢ŒoŒ±";
 			strcat(out_val, format("%-25s%c%-4s %2d %4d %3d%% %s",
 			    do_spell(use_realm, spell, SPELL_NAME), /* realm, spell */
 			    (max ? '!' : ' '), ryakuji,
-			    s_ptr->slevel, need_mana, spell_chance(p_ptr, spell, use_realm), comment));
+			    s_ptr->slevel, need_mana, spell_chance(cr_ptr, spell, use_realm), comment));
 		}
 		c_prt(line_attr, out_val, y + i + 1, x);
 	}
