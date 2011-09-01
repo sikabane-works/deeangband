@@ -1569,7 +1569,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(FALSE)) return NULL;
+				if (!ident_spell(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -2099,7 +2099,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(FALSE)) return NULL;
+				if (!ident_spell(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -4874,7 +4874,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (randint1(50) > plev)
 				{
-					if (!ident_spell(FALSE)) return NULL;
+					if (!ident_spell(p_ptr, FALSE)) return NULL;
 				}
 				else
 				{
@@ -6370,7 +6370,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(FALSE)) return NULL;
+				if (!ident_spell(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -10593,7 +10593,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			}
 			else
 			{
-				if (!ident_spell(TRUE)) return NULL;
+				if (!ident_spell(p_ptr, TRUE)) return NULL;
 			}
 		}
 		break;

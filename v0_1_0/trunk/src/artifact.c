@@ -2874,7 +2874,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_ID_PLAIN:
 		{
-			if (!ident_spell(FALSE)) return FALSE;
+			if (!ident_spell(cr_ptr, FALSE)) return FALSE;
 			o_ptr->timeout = 10;
 			break;
 		}

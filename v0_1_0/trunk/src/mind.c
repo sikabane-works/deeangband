@@ -927,7 +927,7 @@ if (!b) msg_print("安全な気がする。");
 		if (plev < 25)
 			return psychometry();
 		else
-			return ident_spell(FALSE);
+			return ident_spell(cr_ptr, FALSE);
 	case 8:
 		/* Mindwave */
 #ifdef JP
@@ -1608,7 +1608,7 @@ msg_print("その方向にはモンスターはいません。");
 		break;
 	}
 	case 7:
-		return ident_spell(FALSE);
+		return ident_spell(cr_ptr, FALSE);
 	case 8:
 		set_tim_levitation(cr_ptr, randint1(20) + 20, FALSE);
 		break;

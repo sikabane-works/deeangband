@@ -1356,7 +1356,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else
 			{
-				if (!ident_spell(TRUE)) return FALSE;
+				if (!ident_spell(cr_ptr, TRUE)) return FALSE;
 			}
 			break;
 		}

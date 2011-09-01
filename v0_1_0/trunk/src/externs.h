@@ -1278,7 +1278,7 @@ extern bool alchemy(creature_type *cr_ptr);
 extern bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag);
 extern bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac);
 extern bool artifact_scroll(creature_type *cr_ptr);
-extern bool ident_spell(bool only_equip);
+extern bool ident_spell(creature_type *cr_ptr, bool only_equip);
 extern bool mundane_spell(bool only_equip);
 extern bool identify_item(object_type *o_ptr);
 extern bool identify_fully(bool only_equip);

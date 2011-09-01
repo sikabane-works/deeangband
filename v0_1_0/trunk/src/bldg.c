@@ -4804,7 +4804,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		paid = TRUE;
 		break;
 	case BACT_IDENT_ONE: /* needs work */
-		paid = ident_spell(FALSE);
+		paid = ident_spell(cr_ptr, FALSE);
 		break;
 	case BACT_LEARN:
 		do_cmd_study();

@@ -2001,7 +2001,7 @@ void do_cmd_debug(void)
 
 	/* Identify */
 	case 'i':
-		(void)ident_spell(FALSE);
+		(void)ident_spell(p_ptr, FALSE);
 		break;
 
 	/* Go up or down in the dungeon */

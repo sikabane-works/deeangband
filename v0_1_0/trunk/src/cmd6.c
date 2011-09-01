@@ -1737,7 +1737,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_IDENTIFY:
 		{
-			if (!ident_spell(FALSE)) used_up = FALSE;
+			if (!ident_spell(cr_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -2360,7 +2360,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_IDENTIFY:
 		{
-			if (!ident_spell(FALSE)) *use_charge = FALSE;
+			if (!ident_spell(cr_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -3388,7 +3388,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_IDENTIFY:
 		{
-			if (!ident_spell(FALSE)) *use_charge = FALSE;
+			if (!ident_spell(cr_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -5061,7 +5061,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your quarterstaff glows yellow...");
 #endif
 
-				if (!ident_spell(FALSE)) return;
+				if (!ident_spell(cr_ptr, FALSE)) return;
 				o_ptr->timeout = 10;
 				break;
 			}
@@ -5193,7 +5193,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("The stone reveals hidden mysteries...");
 #endif
-				if (!ident_spell(FALSE)) return;
+				if (!ident_spell(cr_ptr, FALSE)) return;
 
 				if (m_info[cr_ptr->sex].spell_book)
 				{
@@ -6299,7 +6299,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			switch (o_ptr->name2)
 			{
 			case EGO_AMU_IDENT:
-				if (!ident_spell(FALSE)) return;
+				if (!ident_spell(cr_ptr, FALSE)) return;
 				o_ptr->timeout = 10;
 				break;
 			case EGO_AMU_CHARM:

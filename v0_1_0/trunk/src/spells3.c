@@ -2802,11 +2802,11 @@ static bool item_tester_hook_identify_weapon_armour(creature_type *cr_ptr, objec
 }
 
 /*
- * Identify an object in the p_ptr->inventory (or on the floor)
+ * Identify an object in the inventory (or on the floor)
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was identified, else FALSE.
  */
-bool ident_spell(bool only_equip)
+bool ident_spell(creature_type *cr_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -2821,7 +2821,7 @@ bool ident_spell(bool only_equip)
 	else
 		item_tester_hook = item_tester_hook_identify;
 
-	if (can_get_item(p_ptr))
+	if (can_get_item(cr_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを鑑定しますか? ";
@@ -2850,12 +2850,12 @@ bool ident_spell(bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2874,17 +2874,17 @@ bool ident_spell(bool only_equip)
 	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(p_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(p_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(cr_ptr, item));
 #endif
 	}
 	else if (item >= 0)
 	{
 #ifdef JP
-		msg_format("ザック中: %s(%c)。", o_name, index_to_label(p_ptr, item));
+		msg_format("ザック中: %s(%c)。", o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("In your pack: %s (%c).", o_name, index_to_label(p_ptr, item));
+		msg_format("In your pack: %s (%c).", o_name, index_to_label(cr_ptr, item));
 #endif
 	}
 	else
