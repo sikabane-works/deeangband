@@ -1744,7 +1744,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_STAR_IDENTIFY:
 		{
-			if (!identify_fully(FALSE)) used_up = FALSE;
+			if (!identify_fully(cr_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -5076,7 +5076,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 				detect_all(DETECT_RAD_DEFAULT);
 				probing();
-				identify_fully(FALSE);
+				identify_fully(cr_ptr, FALSE);
 				o_ptr->timeout = 100;
 				break;
 			}

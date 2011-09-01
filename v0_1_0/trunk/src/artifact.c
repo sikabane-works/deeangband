@@ -2854,7 +2854,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 			detect_all(DETECT_RAD_DEFAULT);
 			probing();
-			identify_fully(FALSE);
+			identify_fully(cr_ptr, FALSE);
 			o_ptr->timeout = 1000;
 			break;
 		}
@@ -2867,7 +2867,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows yellow...");
 #endif
 
-			identify_fully(FALSE);
+			identify_fully(cr_ptr, FALSE);
 			o_ptr->timeout = 750;
 			break;
 		}

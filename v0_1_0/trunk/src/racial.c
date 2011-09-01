@@ -1166,7 +1166,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			else if (command == -4)
 			{
-				if (!identify_fully(FALSE)) return FALSE;
+				if (!identify_fully(cr_ptr, FALSE)) return FALSE;
 			}
 			break;
 		}
@@ -1352,7 +1352,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			if (cr_ptr->lev > 29)
 			{
-				if (!identify_fully(TRUE)) return FALSE;
+				if (!identify_fully(cr_ptr, TRUE)) return FALSE;
 			}
 			else
 			{

@@ -23,7 +23,7 @@
  *
  * It is now a lot more efficient. -BEN-
  *
- * See also "identify_fully()".
+ * See also "identify_fully(cr_ptr, )".
  *
  * XXX XXX XXX Use the "show_file()" method, perhaps.
  */

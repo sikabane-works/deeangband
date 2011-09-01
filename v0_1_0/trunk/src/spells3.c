@@ -2986,10 +2986,10 @@ static bool item_tester_hook_identify_fully_weapon_armour(creature_type *cr_ptr,
 }
 
 /*
- * Fully "identify" an object in the p_ptr->inventory  -BEN-
+ * Fully "identify" an object in the inventory  -BEN-
  * This routine returns TRUE if an item was identified.
  */
-bool identify_fully(bool only_equip)
+bool identify_fully(creature_type *cr_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -3003,7 +3003,7 @@ bool identify_fully(bool only_equip)
 	else
 		item_tester_hook = item_tester_hook_identify_fully;
 
-	if (can_get_item(p_ptr))
+	if (can_get_item(cr_ptr))
 	{
 #ifdef JP
 		q = "どのアイテムを*鑑定*しますか? ";
@@ -3032,12 +3032,12 @@ bool identify_fully(bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -3053,7 +3053,7 @@ bool identify_fully(bool only_equip)
 	o_ptr->ident |= (IDENT_MENTAL);
 
 	/* Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 
 	/* Description */
 	object_desc(o_name, o_ptr, 0);
@@ -3062,9 +3062,9 @@ bool identify_fully(bool only_equip)
 	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(p_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(p_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(cr_ptr, item));
 #endif
 
 
@@ -3072,9 +3072,9 @@ bool identify_fully(bool only_equip)
 	else if (item >= 0)
 	{
 #ifdef JP
-		msg_format("ザック中: %s(%c)。", o_name, index_to_label(p_ptr, item));
+		msg_format("ザック中: %s(%c)。", o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("In your pack: %s (%c).", o_name, index_to_label(p_ptr, item));
+		msg_format("In your pack: %s (%c).", o_name, index_to_label(cr_ptr, item));
 #endif
 	}
 	else

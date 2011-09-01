@@ -1840,7 +1840,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(FALSE)) return NULL;
+				if (!identify_fully(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -2226,7 +2226,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(FALSE)) return NULL;
+				if (!identify_fully(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -3118,7 +3118,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(FALSE)) return NULL;
+				if (!identify_fully(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -4878,7 +4878,7 @@ static cptr do_death_spell(int spell, int mode)
 				}
 				else
 				{
-					if (!identify_fully(FALSE)) return NULL;
+					if (!identify_fully(p_ptr, FALSE)) return NULL;
 				}
 			}
 		}
@@ -5720,7 +5720,7 @@ static cptr do_trump_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(FALSE)) return NULL;
+				if (!identify_fully(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -7227,7 +7227,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(FALSE)) return NULL;
+				if (!identify_fully(p_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -10589,7 +10589,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			if (plev > 44)
 			{
-				if (!identify_fully(TRUE)) return NULL;
+				if (!identify_fully(p_ptr, TRUE)) return NULL;
 			}
 			else
 			{

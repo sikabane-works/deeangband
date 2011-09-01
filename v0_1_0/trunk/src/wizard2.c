@@ -1974,7 +1974,7 @@ void do_cmd_debug(void)
 
 	/* View item info */
 	case 'f':
-		identify_fully(FALSE);
+		identify_fully(p_ptr, FALSE);
 		break;
 
 	/* Create desired feature */

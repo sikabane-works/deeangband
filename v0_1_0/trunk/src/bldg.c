@@ -4732,7 +4732,7 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		/* Do nothing */
 		break;
 	case BACT_RESEARCH_ITEM:
-		paid = identify_fully(FALSE);
+		paid = identify_fully(cr_ptr, FALSE);
 		break;
 	case BACT_TOWN_HISTORY:
 		town_history();
