@@ -4386,7 +4386,7 @@ bool tele_town(void)
  *  research_mon
  *  -KMW-
  */
-static bool research_mon(void)
+static bool research_mon(creature_type *cr_ptr)
 {
 	int i, n, species_idx;
 	char sym, query;
@@ -4623,7 +4623,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 				species_type_track(species_idx);
 
 				/* Hack -- Handle stuff */
-				handle_stuff(p_ptr);
+				handle_stuff(cr_ptr);
 
 				/* know every thing mode */
 				screen_roff(species_idx, 0x01);
@@ -4767,7 +4767,7 @@ msg_print("お金が足りません！");
 		paid = inn_comm(cr_ptr, bact);
 		break;
 	case BACT_RESEARCH_MONSTER:
-		paid = research_mon();
+		paid = research_mon(cr_ptr);
 		break;
 	case BACT_COMPARE_WEAPONS:
 		paid = compare_weapons(cr_ptr);
