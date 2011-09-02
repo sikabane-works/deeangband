@@ -439,7 +439,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 /*
  * Get auto-picker entry from o_ptr.
  */
-static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
+static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *entry, object_type *o_ptr)
 {
 	/* Assume that object name is to be added */
 	bool name = TRUE;
@@ -522,7 +522,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 		/* Ego objects */
 		if (object_is_ego(o_ptr))
 		{
-			if (object_is_weapon_armour_ammo(p_ptr, o_ptr))
+			if (object_is_weapon_armour_ammo(cr_ptr, o_ptr))
 			{
 				/*
 				 * Base name of ego weapons and armors
@@ -542,21 +542,21 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 				name = FALSE;
 
 				/* Restrict to 'common' equipments */
-				if (!object_is_rare(p_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
+				if (!object_is_rare(cr_ptr, o_ptr)) ADD_FLG(FLG_COMMON);
 			}
 
 			ADD_FLG(FLG_EGO);
 		}
 
 		/* Artifact */
-		else if (object_is_artifact(p_ptr, o_ptr))
+		else if (object_is_artifact(cr_ptr, o_ptr))
 			ADD_FLG(FLG_ARTIFACT);
 
 		/* Non-ego, non-artifact */
 		else
 		{
 			/* Wearable nameless object */
-			if (object_is_equipment(p_ptr, o_ptr))
+			if (object_is_equipment(cr_ptr, o_ptr))
 				ADD_FLG(FLG_NAMELESS);
 
 			bol_mark = TRUE;
@@ -565,7 +565,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	/* Melee weapon with boosted dice */
-	if (object_is_melee_weapon(p_ptr, o_ptr))
+	if (object_is_melee_weapon(cr_ptr, o_ptr))
 	{
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
@@ -574,7 +574,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	/* Wanted monster's corpse */
-	if (object_is_shoukinkubi(p_ptr, o_ptr))
+	if (object_is_shoukinkubi(cr_ptr, o_ptr))
 	{
 		REM_FLG(FLG_WORTHLESS);
 		ADD_FLG(FLG_WANTED);
@@ -592,23 +592,23 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	}
 
 	if (o_ptr->tval >= TV_LIFE_BOOK &&
-	    !check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval))
+	    !check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval))
 	{
 		ADD_FLG(FLG_UNREADABLE);
 		if (o_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
 	}
 
-	if (REALM1_BOOK(p_ptr) == o_ptr->tval &&
-	    p_ptr->cls_idx != CLASS_SORCERER &&
-	    p_ptr->cls_idx != CLASS_RED_MAGE)
+	if (REALM1_BOOK(cr_ptr) == o_ptr->tval &&
+	    cr_ptr->cls_idx != CLASS_SORCERER &&
+	    cr_ptr->cls_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM1);
 		name = FALSE;
 	}
 
-	if (REALM2_BOOK(p_ptr) == o_ptr->tval &&
-	    p_ptr->cls_idx != CLASS_SORCERER &&
-	    p_ptr->cls_idx != CLASS_RED_MAGE)
+	if (REALM2_BOOK(cr_ptr) == o_ptr->tval &&
+	    cr_ptr->cls_idx != CLASS_SORCERER &&
+	    cr_ptr->cls_idx != CLASS_RED_MAGE)
 	{
 		ADD_FLG(FLG_REALM2);
 		name = FALSE;
@@ -623,7 +623,7 @@ static void autopick_entry_from_object(autopick_type *entry, object_type *o_ptr)
 	if (o_ptr->tval >= TV_LIFE_BOOK && 3 == o_ptr->sval)
 		ADD_FLG(FLG_FOURTH);
 
-	if (object_is_ammo(p_ptr, o_ptr))
+	if (object_is_ammo(cr_ptr, o_ptr))
 		ADD_FLG(FLG_MISSILES);
 	else if (o_ptr->tval == TV_SCROLL || o_ptr->tval == TV_STAFF
 		 || o_ptr->tval == TV_WAND || o_ptr->tval == TV_ROD)
@@ -2070,7 +2070,7 @@ bool autopick_autoregister(object_type *o_ptr)
 	}
 
 	/* Get a preference entry */
-	autopick_entry_from_object(entry, o_ptr);
+	autopick_entry_from_object(p_ptr, entry, o_ptr);
 
 	/* Set to auto-destroy (with no-display) */
 	entry->action = DO_AUTODESTROY;
@@ -3347,7 +3347,7 @@ static bool entry_from_choosed_object(autopick_type *entry)
 	o_ptr = choose_object(q, s);
 	if (!o_ptr) return FALSE;
 
-	autopick_entry_from_object(entry, o_ptr);
+	autopick_entry_from_object(p_ptr, entry, o_ptr);
 	return TRUE;
 }
 
@@ -6214,7 +6214,7 @@ void do_cmd_edit_autopick(void)
 	/* Command Description of the 'Last Destroyed Item' */
 	if (autopick_last_destroyed_object.k_idx)
 	{
-		autopick_entry_from_object(entry, &autopick_last_destroyed_object);
+		autopick_entry_from_object(p_ptr, entry, &autopick_last_destroyed_object);
 		tb->last_destroyed = autopick_line_from_entry_kill(entry);
 	}
 
