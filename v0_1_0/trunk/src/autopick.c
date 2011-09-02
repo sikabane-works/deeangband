@@ -1026,7 +1026,7 @@ static cptr autopick_line_from_entry_kill(autopick_type *entry)
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the entry
  */
-static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_name)
+static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_type *entry, cptr o_name)
 {
 	int j;
 	cptr ptr = entry->name;
@@ -1055,7 +1055,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
 		/* Require melee weapon */
-		if (!object_is_melee_weapon(p_ptr, o_ptr))
+		if (!object_is_melee_weapon(cr_ptr, o_ptr))
 			return FALSE;
 
 		/* Require boosted dice */
@@ -1096,7 +1096,7 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Artifact object ***/
 	if (IS_FLG(FLG_ARTIFACT))
 	{
-		if (!object_is_known(o_ptr) || !object_is_artifact(p_ptr, o_ptr))
+		if (!object_is_known(o_ptr) || !object_is_artifact(cr_ptr, o_ptr))
 			return FALSE;
 	}
 
@@ -1115,13 +1115,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Good ***/
 	if (IS_FLG(FLG_GOOD))
 	{
-		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(p_ptr, o_ptr))
+			if (!object_is_nameless(cr_ptr, o_ptr))
 				return FALSE;
 
 			/* Average are not okay */
@@ -1155,13 +1155,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Nameless ***/
 	if (IS_FLG(FLG_NAMELESS))
 	{
-		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(p_ptr, o_ptr))
+			if (!object_is_nameless(cr_ptr, o_ptr))
 				return FALSE;
 		}
 
@@ -1194,13 +1194,13 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Average ***/
 	if (IS_FLG(FLG_AVERAGE))
 	{
-		if (!object_is_equipment(p_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
 		{
 			/* Artifacts and Ego objects are not okay */
-			if (!object_is_nameless(p_ptr, o_ptr))
+			if (!object_is_nameless(cr_ptr, o_ptr))
 				return FALSE;
 
 			/* Cursed or broken objects are not okay */
@@ -1236,15 +1236,15 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	}
 
 	/*** Rere equipments ***/
-	if (IS_FLG(FLG_RARE) && !object_is_rare(p_ptr, o_ptr))
+	if (IS_FLG(FLG_RARE) && !object_is_rare(cr_ptr, o_ptr))
 		return FALSE;
 
 	/*** Common equipments ***/
-	if (IS_FLG(FLG_COMMON) && object_is_rare(p_ptr, o_ptr))
+	if (IS_FLG(FLG_COMMON) && object_is_rare(cr_ptr, o_ptr))
 		return FALSE;
 
 	/*** Wanted monster's corpse/skeletons ***/
-	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(p_ptr, o_ptr))
+	if (IS_FLG(FLG_WANTED) && !object_is_shoukinkubi(cr_ptr, o_ptr))
 		return FALSE;
 
 	/*** Unique monster's corpse/skeletons/statues ***/
@@ -1262,21 +1262,21 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Unreadable spellbooks ***/
 	if (IS_FLG(FLG_UNREADABLE) &&
 	    (o_ptr->tval < TV_LIFE_BOOK ||
-	     check_book_realm(p_ptr, o_ptr->tval, o_ptr->sval)))
+	     check_book_realm(cr_ptr, o_ptr->tval, o_ptr->sval)))
 		return FALSE;
 
 	/*** First realm spellbooks ***/
 	if (IS_FLG(FLG_REALM1) && 
-	    (REALM1_BOOK(p_ptr) != o_ptr->tval ||
-	     p_ptr->cls_idx == CLASS_SORCERER ||
-	     p_ptr->cls_idx == CLASS_RED_MAGE))
+	    (REALM1_BOOK(cr_ptr) != o_ptr->tval ||
+	     cr_ptr->cls_idx == CLASS_SORCERER ||
+	     cr_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** Second realm spellbooks ***/
 	if (IS_FLG(FLG_REALM2) &&
-	    (REALM2_BOOK(p_ptr) != o_ptr->tval ||
-	     p_ptr->cls_idx == CLASS_SORCERER ||
-	     p_ptr->cls_idx == CLASS_RED_MAGE))
+	    (REALM2_BOOK(cr_ptr) != o_ptr->tval ||
+	     cr_ptr->cls_idx == CLASS_SORCERER ||
+	     cr_ptr->cls_idx == CLASS_RED_MAGE))
 		return FALSE;
 
 	/*** First rank spellbooks ***/
@@ -1302,22 +1302,22 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	/*** Items ***/
 	if (IS_FLG(FLG_WEAPONS))
 	{
-		if (!object_is_weapon(p_ptr, o_ptr))
+		if (!object_is_weapon(cr_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_FAVORITE_WEAPONS))
 	{
-		if (!object_is_favorite(p_ptr, o_ptr))
+		if (!object_is_favorite(cr_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_ARMORS))
 	{
-		if (!object_is_armour(p_ptr, o_ptr))
+		if (!object_is_armour(cr_ptr, o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_MISSILES))
 	{
-		if (!object_is_ammo(p_ptr, o_ptr)) return FALSE;
+		if (!object_is_ammo(cr_ptr, o_ptr)) return FALSE;
 	}
 	else if (IS_FLG(FLG_DEVICES))
 	{
@@ -1425,11 +1425,11 @@ static bool is_autopick_aux(object_type *o_ptr, autopick_type *entry, cptr o_nam
 	{
 		/*
 		 * 'Collecting' means the item must be absorbed 
-		 * into an p_ptr->inventory slot.
+		 * into an cr_ptr->inventory slot.
 		 * But an item can not be absorbed into itself!
 		 */
-		if ((&p_ptr->inventory[j] != o_ptr) &&
-		    object_similar(&p_ptr->inventory[j], o_ptr))
+		if ((&cr_ptr->inventory[j] != o_ptr) &&
+		    object_similar(&cr_ptr->inventory[j], o_ptr))
 			return TRUE;
 	}
 
@@ -1460,7 +1460,7 @@ int is_autopick(object_type *o_ptr)
 	{
 		autopick_type *entry = &autopick_list[i];
 
-		if (is_autopick_aux(o_ptr, entry, o_name)) return i;
+		if (is_autopick_aux(p_ptr, o_ptr, entry, o_name)) return i;
 	}
 
 	/* No matching entry */
@@ -3730,7 +3730,7 @@ static void search_for_object(text_body_type *tb, object_type *o_ptr, bool forwa
 		if (!autopick_new_entry(entry, tb->lines_list[i], FALSE)) continue;
 
 		/* Does this line match to the object? */
-		match = is_autopick_aux(o_ptr, entry, o_name);
+		match = is_autopick_aux(p_ptr, o_ptr, entry, o_name);
 		autopick_free_entry(entry);
 		if (!match)	continue;
 
