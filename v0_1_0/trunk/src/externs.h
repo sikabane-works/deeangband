@@ -1329,7 +1329,7 @@ extern bool get_nightmare(int species_idx);
 extern void have_nightmare(creature_type *cr_ptr, int species_idx);
 extern void battle_monsters(void);
 extern void do_cmd_bldg(void);
-extern void do_cmd_quest(void);
+extern void do_cmd_quest(creature_type *cr_ptr);
 extern void quest_discovery(int q_idx);
 extern int quest_number(int level);
 extern int random_quest_number(int level);

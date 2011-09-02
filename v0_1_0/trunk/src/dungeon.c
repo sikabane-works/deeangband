@@ -4733,7 +4733,7 @@ msg_print("ウィザードモード突入。");
 		/* Enter quest level -KMW- */
 		case SPECIAL_KEY_QUEST:
 		{
-			if (!wild_mode) do_cmd_quest();
+			if (!wild_mode) do_cmd_quest(p_ptr);
 			break;
 		}
 

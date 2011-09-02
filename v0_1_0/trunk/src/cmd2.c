@@ -222,7 +222,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 	/* Quest entrance */
 	if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 	{
-		do_cmd_quest();
+		do_cmd_quest(cr_ptr);
 	}
 
 	/* Quest down stairs */

@@ -2072,7 +2072,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 	return (FALSE);
 }
 
-static void today_target(void)
+static void today_target(creature_type *cr_ptr)
 {
 	char buf[160];
 	species_type *r_ptr = &r_info[today_mon];
@@ -2101,7 +2101,7 @@ c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 	sprintf(buf,"skeleton ---- $%d",r_ptr->level * 30 + 60);
 #endif
 	prt(buf, 9, 10);
-	p_ptr->today_mon = today_mon;
+	cr_ptr->today_mon = today_mon;
 }
 
 static void tsuchinoko(void)
@@ -4916,7 +4916,7 @@ msg_print("お金が足りません！");
 		shoukinkubi();
 		break;
 	case BACT_TARGET:
-		today_target();
+		today_target(cr_ptr);
 		break;
 	case BACT_KANKIN:
 		kankin(cr_ptr);
@@ -5010,11 +5010,11 @@ msg_print("お金が足りません！");
 /*
  * Enter quest level
  */
-void do_cmd_quest(void)
+void do_cmd_quest(creature_type *cr_ptr)
 {
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(p_ptr->fy, p_ptr->fx, FF_QUEST_ENTER))
+	if (!cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_QUEST_ENTER))
 	{
 #ifdef JP
 msg_print("ここにはクエストの入口はない。");
@@ -5029,9 +5029,9 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((p_ptr->chara_idx == CHARA_COMBAT) || (p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+		if ((cr_ptr->chara_idx == CHARA_COMBAT) || (cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (p_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
@@ -5039,15 +5039,15 @@ msg_print("ここにはクエストの入口はない。");
 #endif
 
 		/* Player enters a new quest */
-		p_ptr->oldpy = 0;
-		p_ptr->oldpx = 0;
+		cr_ptr->oldpy = 0;
+		cr_ptr->oldpx = 0;
 
 		leave_quest_check();
 
 		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
-		inside_quest = cave[p_ptr->fy][p_ptr->fx].special;
+		inside_quest = cave[cr_ptr->fy][cr_ptr->fx].special;
 
-		p_ptr->leaving = TRUE;
+		cr_ptr->leaving = TRUE;
 	}
 }
 
