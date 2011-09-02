@@ -233,7 +233,7 @@ prt(" ESC) 建物を出る", 23, 0);
 /*
  * arena commands
  */
-static void arena_comm(int cmd)
+static void arena_comm(creature_type *cr_ptr, int cmd)
 {
 	species_type    *r_ptr;
 	cptr            name;
@@ -257,7 +257,7 @@ prt("賞金として $1,000,000 が与えられます。", 8, 0);
 
 				prt("", 10, 0);
 				prt("", 11, 0);
-				p_ptr->au += 1000000L;
+				cr_ptr->au += 1000000L;
 #ifdef JP
 msg_print("スペースキーで続行");
 #else
@@ -284,14 +284,14 @@ msg_print("君のために最強の挑戦者を用意しておいた。");
 					if (get_check("Do you fight? "))
 #endif
 					{
-						p_ptr->exit_bldg = FALSE;
-						reset_tim_flags(p_ptr);
+						cr_ptr->exit_bldg = FALSE;
+						reset_tim_flags(cr_ptr);
 
 						/* Save the surface floor as saved floor */
 						prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 						inside_arena = TRUE;
-						p_ptr->leaving = TRUE;
+						cr_ptr->leaving = TRUE;
 						leave_bldg = TRUE;
 					}
 					else
@@ -314,7 +314,7 @@ msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
 					msg_print(NULL);
 				}
 			}
-			else if (p_ptr->riding && (p_ptr->cls_idx != CLASS_BEASTMASTER) && (p_ptr->cls_idx != CLASS_CAVALRY))
+			else if (cr_ptr->riding && (cr_ptr->cls_idx != CLASS_BEASTMASTER) && (cr_ptr->cls_idx != CLASS_CAVALRY))
 			{
 #ifdef JP
 msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
@@ -326,14 +326,14 @@ msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
 			}
 			else
 			{
-				p_ptr->exit_bldg = FALSE;
-				reset_tim_flags(p_ptr);
+				cr_ptr->exit_bldg = FALSE;
+				reset_tim_flags(cr_ptr);
 
 				/* Save the surface floor as saved floor */
 				prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 				inside_arena = TRUE;
-				p_ptr->leaving = TRUE;
+				cr_ptr->leaving = TRUE;
 				leave_bldg = TRUE;
 			}
 			break;
@@ -4751,7 +4751,7 @@ msg_print("お金が足りません！");
 	case BACT_POSTER:
 	case BACT_ARENA_RULES:
 	case BACT_ARENA:
-		arena_comm(bact);
+		arena_comm(cr_ptr, bact);
 		break;
 	case BACT_IN_BETWEEN:
 	case BACT_CRAPS:
