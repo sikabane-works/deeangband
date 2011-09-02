@@ -2769,12 +2769,12 @@ msg_print("激烈な感情の発作におそわれるようになった！");
  * ghost code does become a reality again. Does help to avoid filthy urchins.
  * Resting at night is also a quick way to restock stores -KMW-
  */
-static bool inn_comm(int cmd)
+static bool inn_comm(creature_type *cr_ptr, int cmd)
 {
 	switch (cmd)
 	{
 		case BACT_FOOD: /* Buy food & drink */
-			if (p_ptr->food >= PY_FOOD_FULL)
+			if (cr_ptr->food >= PY_FOOD_FULL)
 			{
 #ifdef JP
 				msg_print("今は満腹だ。");
@@ -2790,11 +2790,11 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			msg_print("The barkeep gives you some gruel and a beer.");
 #endif
 
-			(void)set_food(p_ptr, PY_FOOD_MAX - 1);
+			(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 			break;
 
 		case BACT_REST: /* Rest for the night */
-			if ((p_ptr->poisoned) || (p_ptr->cut))
+			if ((cr_ptr->poisoned) || (cr_ptr->cut))
 			{
 #ifdef JP
 				msg_print("あなたに必要なのは部屋ではなく、治療者です。");
@@ -2831,7 +2831,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				prevent_turn_overflow();
 
 				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
-				p_ptr->chp = p_ptr->mhp;
+				cr_ptr->chp = cr_ptr->mhp;
 
 				if (ironman_nightmare)
 				{
@@ -2847,7 +2847,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					/* Have some nightmares */
 					while(1)
 					{
-						have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
+						have_nightmare(cr_ptr, get_mon_num(MAX_DEPTH));
 
 						if (!one_in_(3)) break;
 					}
@@ -2865,21 +2865,21 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				}
 				else
 				{
-					set_blind(p_ptr, 0);
-					set_confused(p_ptr, 0);
-					p_ptr->stun = 0;
-					p_ptr->chp = p_ptr->mhp;
-					p_ptr->csp = p_ptr->msp;
-					if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
+					set_blind(cr_ptr, 0);
+					set_confused(cr_ptr, 0);
+					cr_ptr->stun = 0;
+					cr_ptr->chp = cr_ptr->mhp;
+					cr_ptr->csp = cr_ptr->msp;
+					if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 					{
 						int i;
 						for (i = 0; i < 72; i++)
 						{
-							p_ptr->magic_num1[i] = p_ptr->magic_num2[i]*EATER_CHARGE;
+							cr_ptr->magic_num1[i] = cr_ptr->magic_num2[i]*EATER_CHARGE;
 						}
 						for (; i < 108; i++)
 						{
-							p_ptr->magic_num1[i] = 0;
+							cr_ptr->magic_num1[i] = 0;
 						}
 					}
 
@@ -4764,7 +4764,7 @@ msg_print("お金が足りません！");
 	case BACT_REST:
 	case BACT_RUMORS:
 	case BACT_FOOD:
-		paid = inn_comm(bact);
+		paid = inn_comm(cr_ptr, bact);
 		break;
 	case BACT_RESEARCH_MONSTER:
 		paid = research_mon();
