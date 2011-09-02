@@ -1223,7 +1223,7 @@ static int do_poker(void)
 /*
  * gamble_comm
  */
-static bool gamble_comm(int cmd)
+static bool gamble_comm(creature_type *cr_ptr, int cmd)
 {
 	int i;
 	int roll1, roll2, roll3, choice, odds, win;
@@ -1249,7 +1249,7 @@ static bool gamble_comm(int cmd)
 	else
 	{
 		/* No money */
-		if (p_ptr->au < 1)
+		if (cr_ptr->au < 1)
 		{
 #ifdef JP
 			msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
@@ -1264,10 +1264,10 @@ static bool gamble_comm(int cmd)
 
 		clear_bldg(5, 23);
 
-		maxbet = p_ptr->lev * 200;
+		maxbet = cr_ptr->lev * 200;
 
 		/* We can't bet more than we have */
-		maxbet = MIN(maxbet, p_ptr->au);
+		maxbet = MIN(maxbet, cr_ptr->au);
 
 		/* Get the wager */
 		strcpy(out_val, "");
@@ -1290,7 +1290,7 @@ sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
 			/* Get the wager */
 			wager = atol(p);
 
-			if (wager > p_ptr->au)
+			if (wager > cr_ptr->au)
 			{
 #ifdef JP
 msg_print("おい！金が足りないじゃないか！出ていけ！");
@@ -1326,7 +1326,7 @@ msg_print("ＯＫ、１ゴールドからはじめよう。");
 			msg_print(NULL);
 			win = FALSE;
 			odds = 0;
-			oldgold = p_ptr->au;
+			oldgold = cr_ptr->au;
 
 #ifdef JP
 sprintf(tmp_str, "ゲーム前の所持金: %9ld", oldgold);
@@ -1355,7 +1355,7 @@ sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
 				clk = clock();
 				Rand_value *= clk;
 #endif
-				p_ptr->au -= wager;
+				cr_ptr->au -= wager;
 				switch (cmd)
 				{
 				 case BACT_IN_BETWEEN: /* Game of In-Between */
@@ -1588,7 +1588,7 @@ prt("あなたの勝ち", 16, 37);
 					prt("YOU WON", 16, 37);
 #endif
 
-					p_ptr->au += odds * wager;
+					cr_ptr->au += odds * wager;
 #ifdef JP
 sprintf(tmp_str, "倍率: %d", odds);
 #else
@@ -1608,9 +1608,9 @@ prt("あなたの負け", 16, 37);
 					prt("", 17, 37);
 				}
 #ifdef JP
-sprintf(tmp_str, "現在の所持金:     %9ld", p_ptr->au);
+sprintf(tmp_str, "現在の所持金:     %9ld", cr_ptr->au);
 #else
-				sprintf(tmp_str, "Current Gold:     %9ld", p_ptr->au);
+				sprintf(tmp_str, "Current Gold:     %9ld", cr_ptr->au);
 #endif
 
 				prt(tmp_str, 22, 2);
@@ -1625,7 +1625,7 @@ prt("もう一度(Y/N)？", 18, 37);
 				prt("", 16, 37);
 				prt("", 17, 37);
 				prt("", 18, 37);
-				if (wager > p_ptr->au)
+				if (wager > cr_ptr->au)
 				{
 #ifdef JP
 msg_print("おい！金が足りないじゃないか！ここから出て行け！");
@@ -1644,7 +1644,7 @@ msg_print("おい！金が足りないじゃないか！ここから出て行け！");
 			Rand_quick = FALSE;
 
 			prt("", 18, 37);
-			if (p_ptr->au >= oldgold)
+			if (cr_ptr->au >= oldgold)
 			{
 #ifdef JP
 msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
@@ -4759,7 +4759,7 @@ msg_print("お金が足りません！");
 	case BACT_DICE_SLOTS:
 	case BACT_GAMBLE_RULES:
 	case BACT_POKER:
-		gamble_comm(bact);
+		gamble_comm(cr_ptr, bact);
 		break;
 	case BACT_REST:
 	case BACT_RUMORS:
