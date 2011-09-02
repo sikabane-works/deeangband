@@ -5055,7 +5055,7 @@ msg_print("ここにはクエストの入口はない。");
 /*
  * Do building commands
  */
-void do_cmd_bldg(void)
+void do_cmd_bldg(creature_type *cr_ptr)
 {
 	int             i, which;
 	char            command;
@@ -5065,7 +5065,7 @@ void do_cmd_bldg(void)
 
 	energy_use = 100;
 
-	if (!cave_have_flag_bold(p_ptr->fy, p_ptr->fx, FF_BLDG))
+	if (!cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_BLDG))
 	{
 #ifdef JP
 		msg_print("ここには建物はない。");
@@ -5076,7 +5076,7 @@ void do_cmd_bldg(void)
 		return;
 	}
 
-	which = f_info[cave[p_ptr->fy][p_ptr->fx].feat].subtype;
+	which = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	bldg = &building[which];
 
@@ -5094,7 +5094,7 @@ void do_cmd_bldg(void)
 	}
 	else if ((which == 2) && inside_arena)
 	{
-		if (!p_ptr->exit_bldg)
+		if (!cr_ptr->exit_bldg)
 		{
 #ifdef JP
 			prt("ゲートは閉まっている。モンスターがあなたを待っている！", 0, 0);
@@ -5108,7 +5108,7 @@ void do_cmd_bldg(void)
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 			inside_arena = FALSE;
-			p_ptr->leaving = TRUE;
+			cr_ptr->leaving = TRUE;
 
 			/* Re-enter the arena */
 			command_new = SPECIAL_KEY_BUILDING;
@@ -5124,7 +5124,7 @@ void do_cmd_bldg(void)
 		/* Don't save the arena as saved floor */
 		prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
-		p_ptr->leaving = TRUE;
+		cr_ptr->leaving = TRUE;
 		inside_battle = FALSE;
 
 		/* Re-enter the monster arena */
@@ -5137,8 +5137,8 @@ void do_cmd_bldg(void)
 	}
 	else
 	{
-		p_ptr->oldpy = p_ptr->fy;
-		p_ptr->oldpx = p_ptr->fx;
+		cr_ptr->oldpy = cr_ptr->fy;
+		cr_ptr->oldpx = cr_ptr->fx;
 	}
 
 	/* Forget the lite */
@@ -5187,13 +5187,13 @@ void do_cmd_bldg(void)
 		}
 
 		if (validcmd)
-			bldg_process_command(p_ptr, bldg, i);
+			bldg_process_command(cr_ptr, bldg, i);
 
 		/* Notice stuff */
-		notice_stuff(p_ptr);
+		notice_stuff(cr_ptr);
 
 		/* Handle stuff */
-		handle_stuff(p_ptr);
+		handle_stuff(cr_ptr);
 	}
 
 	/* Flush messages XXX XXX XXX */
@@ -5203,7 +5203,7 @@ void do_cmd_bldg(void)
 	/* Reinit wilderness to activate quests ... */
 	if (reinit_wilderness)
 	{
-		p_ptr->leaving = TRUE;
+		cr_ptr->leaving = TRUE;
 	}
 
 	/* Hack -- Decrease "icky" depth */
@@ -5213,7 +5213,7 @@ void do_cmd_bldg(void)
 	Term_clear();
 
 	/* Update the visuals */
-	p_ptr->update |= (PU_VIEW | PU_MONSTERS | PU_BONUS | PU_LITE | PU_MON_LITE);
+	cr_ptr->update |= (PU_VIEW | PU_MONSTERS | PU_BONUS | PU_LITE | PU_MON_LITE);
 
 	/* Redraw entire screen */
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);

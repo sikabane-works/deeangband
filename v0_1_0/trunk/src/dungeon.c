@@ -4726,7 +4726,7 @@ msg_print("ウィザードモード突入。");
 		/* Enter building -KMW- */
 		case SPECIAL_KEY_BUILDING:
 		{
-			if (!wild_mode) do_cmd_bldg();
+			if (!wild_mode) do_cmd_bldg(p_ptr);
 			break;
 		}
 
