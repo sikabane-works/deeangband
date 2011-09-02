@@ -1490,7 +1490,7 @@ static void auto_inscribe_item(object_type *o_ptr, int idx)
 /*
  * Automatically destroy items in this grid.
  */
-static bool is_opt_confirm_destroy(object_type *o_ptr)
+static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (!destroy_items) return FALSE;
 
@@ -1499,14 +1499,14 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 		if (object_value(o_ptr) > 0) return FALSE;
 
 	if (leave_equip)
-		if (object_is_weapon_armour_ammo(p_ptr, o_ptr)) return FALSE;
+		if (object_is_weapon_armour_ammo(cr_ptr, o_ptr)) return FALSE;
 
 	if (leave_chest)
 		if ((o_ptr->tval == TV_CHEST) && o_ptr->pval) return FALSE;
 
 	if (leave_wanted)
 	{
-		if (object_is_shoukinkubi(p_ptr, o_ptr)) return FALSE;
+		if (object_is_shoukinkubi(cr_ptr, o_ptr)) return FALSE;
 	}
 
 	if (leave_corpse)
@@ -1517,7 +1517,7 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 
 	if (leave_special)
 	{
-		if (p_ptr->irace_idx == RACE_DEMON)
+		if (cr_ptr->irace_idx == RACE_DEMON)
 		{
 			if (o_ptr->tval == TV_CORPSE &&
 			    o_ptr->sval == SV_CORPSE &&
@@ -1525,20 +1525,20 @@ static bool is_opt_confirm_destroy(object_type *o_ptr)
 				return FALSE;
 		}
 
-		if (p_ptr->cls_idx == CLASS_ARCHER)
+		if (cr_ptr->cls_idx == CLASS_ARCHER)
 		{
 			if (o_ptr->tval == TV_SKELETON ||
 			    (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_SKELETON))
 				return FALSE;
 		}
-		else if (p_ptr->cls_idx == CLASS_NINJA)
+		else if (cr_ptr->cls_idx == CLASS_NINJA)
 		{
 			if (o_ptr->tval == TV_LITE &&
 			    o_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(o_ptr))
 				return FALSE;
 		}
-		else if (p_ptr->cls_idx == CLASS_BEASTMASTER ||
-			 p_ptr->cls_idx == CLASS_CAVALRY)
+		else if (cr_ptr->cls_idx == CLASS_BEASTMASTER ||
+			 cr_ptr->cls_idx == CLASS_CAVALRY)
 		{
 			if (o_ptr->tval == TV_WAND &&
 			    o_ptr->sval == SV_WAND_HEAL_MONSTER && object_is_aware(o_ptr))
@@ -1565,7 +1565,7 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 	bool destroy = FALSE;
 
 	/* Easy-Auto-Destroyer (3rd priority) */
-	if (is_opt_confirm_destroy(o_ptr)) destroy = TRUE;
+	if (is_opt_confirm_destroy(p_ptr, o_ptr)) destroy = TRUE;
 
 	/* Protected by auto-picker (2nd priotity) */
 	if (autopick_idx >= 0 &&
