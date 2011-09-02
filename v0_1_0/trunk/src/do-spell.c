@@ -170,14 +170,14 @@ static cptr info_weight(int weight)
 /*
  * Prepare standard probability to become beam for fire_bolt_or_beam()
  */
-static int beam_chance(void)
+static int beam_chance(creature_type *cr_ptr)
 {
-	if (p_ptr->cls_idx == CLASS_MAGE)
-		return p_ptr->lev;
-	if (p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER)
-		return p_ptr->lev + 10;
+	if (cr_ptr->cls_idx == CLASS_MAGE)
+		return cr_ptr->lev;
+	if (cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER)
+		return cr_ptr->lev + 10;
 
-	return p_ptr->lev / 2;
+	return cr_ptr->lev / 2;
 }
 
 
@@ -279,22 +279,22 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	else if (die < 26) heal_monster(dir, damroll(4, 6));
 	else if (die < 31) poly_monster(dir);
 	else if (die < 36)
-		fire_bolt_or_beam(beam_chance() - 10, GF_MISSILE, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
 	else if (die < 41) confuse_monster(dir, plev);
 	else if (die < 46) fire_ball(GF_POIS, dir, 20 + (plev / 2), 3);
 	else if (die < 51) (void)lite_line(dir);
 	else if (die < 56)
-		fire_bolt_or_beam(beam_chance() - 10, GF_ELEC, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir,
 				  damroll(3 + ((plev - 5) / 4), 8));
 	else if (die < 61)
-		fire_bolt_or_beam(beam_chance() - 10, GF_COLD, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_COLD, dir,
 				  damroll(5 + ((plev - 5) / 4), 8));
 	else if (die < 66)
-		fire_bolt_or_beam(beam_chance(), GF_ACID, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr), GF_ACID, dir,
 				  damroll(6 + ((plev - 5) / 4), 8));
 	else if (die < 71)
-		fire_bolt_or_beam(beam_chance(), GF_FIRE, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr), GF_FIRE, dir,
 				  damroll(8 + ((plev - 5) / 4), 8));
 	else if (die < 76) drain_life(dir, 75);
 	else if (die < 81) fire_ball(GF_ELEC, dir, 30 + plev / 2, 2);
@@ -396,7 +396,7 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 36)
 	{
-		fire_bolt_or_beam(beam_chance() - 10, GF_MISSILE, dir,
+		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
 	}
 	else if (die < 41)
@@ -413,22 +413,22 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 56)
 	{
-		fire_bolt_or_beam(beam_chance() - 10, GF_ELEC, dir,
+		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir,
 				  damroll(3+((plev-5)/4),8));
 	}
 	else if (die < 61)
 	{
-		fire_bolt_or_beam(beam_chance() - 10, GF_COLD, dir,
+		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_COLD, dir,
 				  damroll(5+((plev-5)/4),8));
 	}
 	else if (die < 66)
 	{
-		fire_bolt_or_beam(beam_chance(), GF_ACID, dir,
+		fire_bolt_or_beam(beam_chance(p_ptr), GF_ACID, dir,
 				  damroll(6+((plev-5)/4),8));
 	}
 	else if (die < 71)
 	{
-		fire_bolt_or_beam(beam_chance(), GF_FIRE, dir,
+		fire_bolt_or_beam(beam_chance(p_ptr), GF_FIRE, dir,
 				  damroll(8+((plev-5)/4),8));
 	}
 	else if (die < 76)
@@ -2851,7 +2851,7 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
-				fire_bolt_or_beam(beam_chance() - 10, GF_COLD, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_COLD, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -2900,7 +2900,7 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
-				fire_bolt_or_beam(beam_chance() - 10, GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_FIRE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3407,7 +3407,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance() - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3542,7 +3542,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_FIRE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3634,7 +3634,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_CHAOS, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_CHAOS, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -4449,7 +4449,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -4664,7 +4664,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_DARK, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_DARK, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -5957,7 +5957,7 @@ static cptr do_arcane_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance() - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7380,7 +7380,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance() - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7491,7 +7491,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7638,7 +7638,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(), GF_PLASMA, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr), GF_PLASMA, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -8166,7 +8166,7 @@ static cptr do_crusade_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance() - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
