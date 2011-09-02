@@ -3724,13 +3724,13 @@ static bool resize_item(creature_type *cr_ptr)
 /*
  * Enchant item
  */
-static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
+static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam, int to_ac)
 {
 	int         i, item;
 	bool        okay = FALSE;
 	object_type *o_ptr;
 	cptr        q, s;
-	int         maxenchant = (p_ptr->lev / 5);
+	int         maxenchant = (cr_ptr->lev / 5);
 	char        tmp_str[MAX_NLEN];
 
 	clear_bldg(4, 18);
@@ -3753,13 +3753,13 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
 
 	/* Get the item (in the pack) */
-	o_ptr = &p_ptr->inventory[item];
+	o_ptr = &cr_ptr->inventory[item];
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < (cost * o_ptr->number))
+	if (cr_ptr->au < (cost * o_ptr->number))
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -3776,7 +3776,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_h < maxenchant)
 		{
-			if (enchant(p_ptr, o_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
+			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3789,7 +3789,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_d < maxenchant)
 		{
-			if (enchant(p_ptr, o_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
+			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3802,7 +3802,7 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 	{
 		if (o_ptr->to_a < maxenchant)
 		{
-			if (enchant(p_ptr, o_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
+			if (enchant(cr_ptr, o_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3835,9 +3835,9 @@ static bool enchant_item(int cost, int to_hit, int to_dam, int to_ac)
 #endif
 
 		/* Charge the money */
-		p_ptr->au -= (cost * o_ptr->number);
+		cr_ptr->au -= (cost * o_ptr->number);
 
-		if (item >= INVEN_1STARM) calc_android_exp(p_ptr);
+		if (item >= INVEN_1STARM) calc_android_exp(cr_ptr);
 
 		/* Something happened */
 		return (TRUE);
@@ -4774,11 +4774,11 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		break;
 	case BACT_ENCHANT_WEAPON:
 		item_tester_hook = object_allow_enchant_melee_weapon;
-		enchant_item(bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0);
 		break;
 	case BACT_ENCHANT_ARMOR:
 		item_tester_hook = object_is_armour;
-		enchant_item(bcost, 0, 0, 1);
+		enchant_item(cr_ptr, bcost, 0, 0, 1);
 		break;
 	case BACT_RESIZE_ARMOR:
 		item_tester_hook = object_is_armour;
@@ -4828,11 +4828,11 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		break;
 	case BACT_ENCHANT_ARROWS:
 		item_tester_hook = item_tester_hook_ammo;
-		enchant_item(bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0);
 		break;
 	case BACT_ENCHANT_BOW:
 		item_tester_tval = TV_BOW;
-		enchant_item(bcost, 1, 1, 0);
+		enchant_item(cr_ptr, bcost, 1, 1, 0);
 		break;
 	case BACT_RECALL:
 		if (recall_player(cr_ptr, 1)) paid = TRUE;
