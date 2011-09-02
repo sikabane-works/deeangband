@@ -1911,7 +1911,7 @@ void battle_monsters(void)
 	}
 }
 
-static bool kakutoujou(void)
+static bool kakutoujou(creature_type *cr_ptr)
 {
 	s32b maxbet;
 	s32b wager;
@@ -1927,7 +1927,7 @@ static bool kakutoujou(void)
 	screen_save();
 
 	/* No money */
-	if (p_ptr->au < 1)
+	if (cr_ptr->au < 1)
 	{
 #ifdef JP
 		msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
@@ -1990,10 +1990,10 @@ static bool kakutoujou(void)
 		for (i=0;i<4;i++)
 			if (i !=sel_monster) clear_bldg(i+5,i+5);
 
-		maxbet = p_ptr->lev * 200;
+		maxbet = cr_ptr->lev * 200;
 
 		/* We can't bet more than we have */
-		maxbet = MIN(maxbet, p_ptr->au);
+		maxbet = MIN(maxbet, cr_ptr->au);
 
 		/* Get the wager */
 		strcpy(out_val, "");
@@ -2016,7 +2016,7 @@ sprintf(tmp_str,"賭け金 (1-%ld)？", maxbet);
 			/* Get the wager */
 			wager = atol(p);
 
-			if (wager > p_ptr->au)
+			if (wager > cr_ptr->au)
 			{
 #ifdef JP
 msg_print("おい！金が足りないじゃないか！出ていけ！");
@@ -2052,14 +2052,14 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			msg_print(NULL);
 			battle_odds = MAX(wager+1, wager * battle_odds / 100);
 			kakekin = wager;
-			p_ptr->au -= wager;
-			reset_tim_flags(p_ptr);
+			cr_ptr->au -= wager;
+			reset_tim_flags(cr_ptr);
 
 			/* Save the surface floor as saved floor */
 			prepare_change_floor_mode(CFM_SAVE_FLOORS);
 
 			inside_battle = TRUE;
-			p_ptr->leaving = TRUE;
+			cr_ptr->leaving = TRUE;
 
 			leave_bldg = TRUE;
 			screen_load();
@@ -4907,7 +4907,7 @@ msg_print("お金が足りません！");
 		}
 		break;
 	case BACT_BATTLE:
-		kakutoujou();
+		kakutoujou(cr_ptr);
 		break;
 	case BACT_TSUCHINOKO:
 		tsuchinoko();
