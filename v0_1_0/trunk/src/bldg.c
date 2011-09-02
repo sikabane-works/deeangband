@@ -4807,7 +4807,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		paid = ident_spell(cr_ptr, FALSE);
 		break;
 	case BACT_LEARN:
-		do_cmd_study();
+		do_cmd_study(cr_ptr);
 		break;
 	case BACT_HEALING: /* needs work */
 		hp_player(cr_ptr, 200);

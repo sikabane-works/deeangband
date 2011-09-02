@@ -652,7 +652,7 @@ static void change_realm2(creature_type *cr_ptr, int next_realm)
 /*
  * Study a book to gain a new spell/prayer
  */
-void do_cmd_study(void)
+void do_cmd_study(creature_type *cr_ptr)
 {
 	int	i, item, sval;
 	int	increment = 0;
@@ -661,13 +661,13 @@ void do_cmd_study(void)
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
 
-	cptr p = spell_category_name(m_info[p_ptr->realm1].spell_book);
+	cptr p = spell_category_name(m_info[cr_ptr->realm1].spell_book);
 
 	object_type *o_ptr;
 
 	cptr q, s;
 
-	if (!p_ptr->realm1)
+	if (!cr_ptr->realm1)
 	{
 #ifdef JP
 msg_print("本を読むことができない！");
@@ -678,7 +678,7 @@ msg_print("本を読むことができない！");
 		return;
 	}
 
-	if (p_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite())
 	{
 #ifdef JP
 msg_print("目が見えない！");
@@ -689,7 +689,7 @@ msg_print("目が見えない！");
 		return;
 	}
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -700,7 +700,7 @@ msg_print("混乱していて読めない！");
 		return;
 	}
 
-	if (!(p_ptr->new_spells))
+	if (!(cr_ptr->new_spells))
 	{
 #ifdef JP
 msg_format("新しい%sを覚えることはできない！", p);
@@ -711,27 +711,27 @@ msg_format("新しい%sを覚えることはできない！", p);
 		return;
 	}
 
-	if (p_ptr->special_defense & KATA_MUSOU)
+	if (cr_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
 #ifdef JP
-	if( p_ptr->new_spells < 10 ){
-		msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
+	if( cr_ptr->new_spells < 10 ){
+		msg_format("あと %d つの%sを学べる。", cr_ptr->new_spells, p);
 	}else{
-		msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
+		msg_format("あと %d 個の%sを学べる。", cr_ptr->new_spells, p);
 	}
 #else
-	msg_format("You can learn %d new %s%s.", p_ptr->new_spells, p,
-		(p_ptr->new_spells == 1?"":"s"));
+	msg_format("You can learn %d new %s%s.", cr_ptr->new_spells, p,
+		(cr_ptr->new_spells == 1?"":"s"));
 #endif
 
 	msg_print(NULL);
 
 
 	/* Restrict choices to "useful" books */
-	if (p_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[p_ptr->realm1].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->realm1].spell_book;
 	else item_tester_hook = item_tester_learn_spell;
 
 	/* Get an item */
@@ -747,12 +747,12 @@ s = "読める本がない。";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -764,15 +764,15 @@ s = "読める本がない。";
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if (o_ptr->tval == REALM2_BOOK(p_ptr)) increment = 32;
-	else if (o_ptr->tval != REALM1_BOOK(p_ptr))
+	if (o_ptr->tval == REALM2_BOOK(cr_ptr)) increment = 32;
+	else if (o_ptr->tval != REALM1_BOOK(cr_ptr))
 	{
 #ifdef JP
 		if (!get_check("本当に魔法の領域を変更しますか？")) return;
 #else
 		if (!get_check("Really, change magic realm? ")) return;
 #endif
-		change_realm2(p_ptr, tval2realm(o_ptr->tval));
+		change_realm2(cr_ptr, tval2realm(o_ptr->tval));
 		increment = 32;
 	}
 
@@ -780,17 +780,17 @@ s = "読める本がない。";
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 
 	/* Mage -- Learn a selected spell */
-	if (m_info[p_ptr->realm1].spell_book != TV_LIFE_BOOK)
+	if (m_info[cr_ptr->realm1].spell_book != TV_LIFE_BOOK)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(p_ptr, &spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(cr_ptr, &spell, "学ぶ", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #else
-		if (!get_spell(p_ptr, &spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
+		if (!get_spell(cr_ptr, &spell, "study", sval, FALSE, o_ptr->tval - TV_LIFE_BOOK + 1)
 			&& (spell == -1)) return;
 #endif
 
@@ -810,8 +810,8 @@ s = "読める本がない。";
 			if ((fake_spell_flags[sval] & (1L << spell)))
 			{
 				/* Skip non "okay" prayers */
-				if (!spell_okay(p_ptr, spell, FALSE, TRUE,
-					(increment ? p_ptr->realm2 : p_ptr->realm1))) continue;
+				if (!spell_okay(cr_ptr, spell, FALSE, TRUE,
+					(increment ? cr_ptr->realm2 : cr_ptr->realm1))) continue;
 
 				/* Hack -- Prepare the randomizer */
 				k++;
@@ -846,21 +846,21 @@ msg_format("その本には学ぶべき%sがない。", p);
 	/* Learn the spell */
 	if (spell < 32)
 	{
-		if (p_ptr->spell_learned1 & (1L << spell)) learned = TRUE;
-		else p_ptr->spell_learned1 |= (1L << spell);
+		if (cr_ptr->spell_learned1 & (1L << spell)) learned = TRUE;
+		else cr_ptr->spell_learned1 |= (1L << spell);
 	}
 	else
 	{
-		if (p_ptr->spell_learned2 & (1L << (spell - 32))) learned = TRUE;
-		else p_ptr->spell_learned2 |= (1L << (spell - 32));
+		if (cr_ptr->spell_learned2 & (1L << (spell - 32))) learned = TRUE;
+		else cr_ptr->spell_learned2 |= (1L << (spell - 32));
 	}
 
 	if (learned)
 	{
 		int max_exp = (spell < 32) ? SPELL_EXP_MASTER : SPELL_EXP_EXPERT;
-		int old_exp = p_ptr->spell_exp[spell];
+		int old_exp = cr_ptr->spell_exp[spell];
 		int new_rank = EXP_LEVEL_UNSKILLED;
-		cptr name = do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell%32, SPELL_NAME);
+		cptr name = do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell%32, SPELL_NAME);
 
 		if (old_exp >= max_exp)
 		{
@@ -881,23 +881,23 @@ msg_format("その本には学ぶべき%sがない。", p);
 		}
 		else if (old_exp >= SPELL_EXP_EXPERT)
 		{
-			p_ptr->spell_exp[spell] = SPELL_EXP_MASTER;
+			cr_ptr->spell_exp[spell] = SPELL_EXP_MASTER;
 			new_rank = EXP_LEVEL_MASTER;
 		}
 		else if (old_exp >= SPELL_EXP_SKILLED)
 		{
-			if (spell >= 32) p_ptr->spell_exp[spell] = SPELL_EXP_EXPERT;
-			else p_ptr->spell_exp[spell] += SPELL_EXP_EXPERT - SPELL_EXP_SKILLED;
+			if (spell >= 32) cr_ptr->spell_exp[spell] = SPELL_EXP_EXPERT;
+			else cr_ptr->spell_exp[spell] += SPELL_EXP_EXPERT - SPELL_EXP_SKILLED;
 			new_rank = EXP_LEVEL_EXPERT;
 		}
 		else if (old_exp >= SPELL_EXP_BEGINNER)
 		{
-			p_ptr->spell_exp[spell] = SPELL_EXP_SKILLED + (old_exp - SPELL_EXP_BEGINNER) * 2 / 3;
+			cr_ptr->spell_exp[spell] = SPELL_EXP_SKILLED + (old_exp - SPELL_EXP_BEGINNER) * 2 / 3;
 			new_rank = EXP_LEVEL_SKILLED;
 		}
 		else
 		{
-			p_ptr->spell_exp[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
+			cr_ptr->spell_exp[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
 			new_rank = EXP_LEVEL_BEGINNER;
 		}
 #ifdef JP
@@ -908,32 +908,32 @@ msg_format("その本には学ぶべき%sがない。", p);
 	}
 	else
 	{
-		/* Find the next open entry in "p_ptr->spell_order[]" */
+		/* Find the next open entry in "cr_ptr->spell_order[]" */
 		for (i = 0; i < 64; i++)
 		{
 			/* Stop at the first empty space */
-			if (p_ptr->spell_order[i] == 99) break;
+			if (cr_ptr->spell_order[i] == 99) break;
 		}
 
 		/* Add the spell to the known list */
-		p_ptr->spell_order[i++] = spell;
+		cr_ptr->spell_order[i++] = spell;
 
 		/* Mention the result */
 #ifdef JP
 		/* 英日切り替え機能に対応 */
-		if (m_info[p_ptr->realm1].spell_book == TV_MUSIC_BOOK)
+		if (m_info[cr_ptr->realm1].spell_book == TV_MUSIC_BOOK)
 		{
 			msg_format("%sを学んだ。",
-				    do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME));
+				    do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 		}
 		else
 		{
 			msg_format("%sの%sを学んだ。",
-				    do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME) ,p);
+				    do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME) ,p);
 		}
 #else
 		msg_format("You have learned the %s of %s.",
-			p, do_spell(increment ? p_ptr->realm2 : p_ptr->realm1, spell % 32, SPELL_NAME));
+			p, do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 #endif
 	}
 
@@ -944,25 +944,25 @@ msg_format("その本には学ぶべき%sがない。", p);
 	sound(SOUND_STUDY);
 
 	/* One less spell available */
-	p_ptr->learned_spells++;
+	cr_ptr->learned_spells++;
 #if 0
 	/* Message if needed */
-	if (p_ptr->new_spells)
+	if (cr_ptr->new_spells)
 	{
 		/* Message */
 #ifdef JP
-		if (p_ptr->new_spells < 10) msg_format("あと %d つの%sを学べる。", p_ptr->new_spells, p);
-		else msg_format("あと %d 個の%sを学べる。", p_ptr->new_spells, p);
+		if (cr_ptr->new_spells < 10) msg_format("あと %d つの%sを学べる。", cr_ptr->new_spells, p);
+		else msg_format("あと %d 個の%sを学べる。", cr_ptr->new_spells, p);
 #else
-		msg_format("You can learn %d more %s%s.", p_ptr->new_spells, p,
-		           (p_ptr->new_spells != 1) ? "s" : "");
+		msg_format("You can learn %d more %s%s.", cr_ptr->new_spells, p,
+		           (cr_ptr->new_spells != 1) ? "s" : "");
 #endif
 	}
 #endif
 
 	/* Update Study */
-	p_ptr->update |= (PU_SPELLS);
-	update_stuff(p_ptr, TRUE);
+	cr_ptr->update |= (PU_SPELLS);
+	update_stuff(cr_ptr, TRUE);
 
 	/* Redraw object recall */
 	play_window |= (PW_OBJECT);

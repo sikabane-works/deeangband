@@ -4834,7 +4834,7 @@ msg_print("ウィザードモード突入。");
 			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
 				gain_magic(p_ptr);
 			else
-				do_cmd_study();
+				do_cmd_study(p_ptr);
 			break;
 		}
 
