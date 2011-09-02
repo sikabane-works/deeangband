@@ -3390,7 +3390,7 @@ static bool item_tester_hook_ammo(creature_type *cr_ptr, object_type *o_ptr)
  * Copies the weapons to compare into the weapon-slot and
  * compares the values for both weapons.
  */
-static bool compare_weapons(void)
+static bool compare_weapons(creature_type *cr_ptr)
 {
 	int item, item2;
 	object_type *o1_ptr, *o2_ptr;
@@ -3405,7 +3405,7 @@ static bool compare_weapons(void)
 	clear_bldg(0, 22);
 
 	/* Store copy of original wielded weapon */
-	i_ptr = &p_ptr->inventory[INVEN_1STARM];
+	i_ptr = &cr_ptr->inventory[INVEN_1STARM];
 	object_copy(&orig_weapon, i_ptr);
 
 	item_tester_no_ryoute = TRUE;
@@ -3421,14 +3421,14 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN)))
 	{
 		screen_load();
 		return (FALSE);
 	}
 
 	/* Get the item (in the pack) */
-	o1_ptr = &p_ptr->inventory[item];
+	o1_ptr = &cr_ptr->inventory[item];
 
 	/* Clear the screen */
 	clear_bldg(0, 22);
@@ -3446,14 +3446,14 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(p_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN)))
 	{
 		screen_load();
 		return (FALSE);
 	}
 
 	/* Get the item (in the pack) */
-	o2_ptr = &p_ptr->inventory[item2];
+	o2_ptr = &cr_ptr->inventory[item2];
 
 	/* Clear the screen */
 	clear_bldg(0, 22);
@@ -3466,7 +3466,7 @@ s = "比べるものがありません。";
 	character_xtra = TRUE;
 
 	/* Get the new values */
-	calc_bonuses(p_ptr, TRUE);
+	calc_bonuses(cr_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -3484,7 +3484,7 @@ s = "比べるものがありません。";
 	character_xtra = TRUE;
 
 	/* Get the new values */
-	calc_bonuses(p_ptr, TRUE);
+	calc_bonuses(cr_ptr, TRUE);
 
 	character_xtra = old_character_xtra;
 
@@ -3496,7 +3496,7 @@ s = "比べるものがありません。";
 	object_copy(i_ptr, &orig_weapon);
 
 	/* Reset the values for the old weapon */
-	calc_bonuses(p_ptr, TRUE);
+	calc_bonuses(cr_ptr, TRUE);
 
 #ifdef JP
 put_str("(一番高いダメージが適用されます。複数の倍打効果は足し算されません。)", row + 4, 0);
@@ -4770,7 +4770,7 @@ msg_print("お金が足りません！");
 		paid = research_mon();
 		break;
 	case BACT_COMPARE_WEAPONS:
-		paid = compare_weapons();
+		paid = compare_weapons(cr_ptr);
 		break;
 	case BACT_ENCHANT_WEAPON:
 		item_tester_hook = object_allow_enchant_melee_weapon;
