@@ -3625,11 +3625,11 @@ static bool eval_ac(int iAC)
 /*
  *
  */
-static bool resize_item()
+static bool resize_item(creature_type *cr_ptr)
 {
 	object_type *o_ptr;
 	int value;
-	int resizelimit = (p_ptr->lev / 8) + 2;
+	int resizelimit = (cr_ptr->lev / 8) + 2;
 	cptr q, s;
 	char tmp_str[MAX_NLEN];
 	int item;
@@ -3653,12 +3653,12 @@ static bool resize_item()
 	s = "You have nothing to resize.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
-	o_ptr = &p_ptr->inventory[item];
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	o_ptr = &cr_ptr->inventory[item];
 	value = object_value(o_ptr) / 5;
 
 	/* Check if the player has enough money */
-	if (p_ptr->au < value)
+	if (cr_ptr->au < value)
 	{
 		object_desc(tmp_str, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -3681,7 +3681,7 @@ static bool resize_item()
 		return (FALSE);
 		}
 
-		if(p_ptr->size == o_ptr->to_size + o_ptr->fitting_size || o_ptr->fitting_size == ARMOR_SIZE_FREE)
+		if(cr_ptr->size == o_ptr->to_size + o_ptr->fitting_size || o_ptr->fitting_size == ARMOR_SIZE_FREE)
 		{
 #ifdef JP
 			msg_print("改良の必要はありません。");
@@ -3698,13 +3698,13 @@ static bool resize_item()
 		if (get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
 #endif
 		{
-			if(p_ptr->size > o_ptr->fitting_size + o_ptr->to_size)
+			if(cr_ptr->size > o_ptr->fitting_size + o_ptr->to_size)
 				o_ptr->to_size++;
 
-			if(p_ptr->size < o_ptr->fitting_size + o_ptr->to_size)
+			if(cr_ptr->size < o_ptr->fitting_size + o_ptr->to_size)
 				o_ptr->to_size--;
 
-			p_ptr->au -= value;
+			cr_ptr->au -= value;
 #ifdef JP
 			msg_format("%sの大きさを調整した。", tmp_str);
 #else
@@ -4746,7 +4746,7 @@ msg_print("お金が足りません！");
 	case BACT_KING_LEGENDS:
 	case BACT_ARENA_LEGENDS:
 	case BACT_LEGENDS:
-		show_highclass();
+		show_highclass(cr_ptr);
 		break;
 	case BACT_POSTER:
 	case BACT_ARENA_RULES:
@@ -4782,7 +4782,7 @@ msg_print("お金が足りません！");
 		break;
 	case BACT_RESIZE_ARMOR:
 		item_tester_hook = object_is_armour;
-		resize_item();
+		resize_item(cr_ptr);
 		break;
 	case BACT_RECHARGE:
 		building_recharge(cr_ptr);

@@ -696,7 +696,7 @@ msg_print("スコア・ファイルが使用できません。");
  * show_highclass - selectively list highscores based on class
  * -KMW-
  */
-void show_highclass(void)
+void show_highclass(creature_type *cr_ptr)
 {
 
 	register int i = 0, j, m = 0;
@@ -754,10 +754,10 @@ msg_print("スコア・ファイルが使用できません。");
 
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-	    race_info[p_ptr->irace_idx].title,p_ptr->name, p_ptr->lev);
+	    race_info[cr_ptr->irace_idx].title,cr_ptr->name, cr_ptr->lev);
 #else
 	sprintf(out_val, "You) %s the %s (Level %2d)",
-	    p_ptr->name, race_info[p_ptr->irace_idx].title, p_ptr->lev);
+	    cr_ptr->name, race_info[cr_ptr->irace_idx].title, cr_ptr->lev);
 #endif
 
 	prt(out_val, (m + 8), 0);

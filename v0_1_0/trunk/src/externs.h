@@ -1583,7 +1583,7 @@ extern errr top_twenty(void);
 extern errr predict_score(void);
 extern void race_legends(void);
 extern void race_score(int race_num);
-extern void show_highclass(void);
+extern void show_highclass(creature_type *cr_ptr);
 
 /* mind.c */
 extern mind_power mind_powers[5];
