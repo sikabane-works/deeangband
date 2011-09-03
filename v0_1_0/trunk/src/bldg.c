@@ -82,7 +82,7 @@ static void clear_bldg(int min_row, int max_row)
 		prt("", i, 0);
 }
 
-static void building_prt_gold(void)
+static void building_prt_gold(creature_type *cr_ptr)
 {
 	char tmp_str[80];
 
@@ -93,7 +93,7 @@ prt("éËéùÇøÇÃÇ®ã‡: ", 23,53);
 #endif
 
 
-	sprintf(tmp_str, "%9ld", (long)p_ptr->au);
+	sprintf(tmp_str, "%9ld", (long)cr_ptr->au);
 	prt(tmp_str, 23, 68);
 }
 
@@ -101,7 +101,7 @@ prt("éËéùÇøÇÃÇ®ã‡: ", 23,53);
 /*
  * Display a building.
  */
-static void show_building(building_type* bldg)
+static void show_building(creature_type *cr_ptr, building_type* bldg)
 {
 	char buff[20];
 	int i;
@@ -121,13 +121,13 @@ static void show_building(building_type* bldg)
 		{
 			if (bldg->action_restr[i] == 0)
 			{
-				if ((is_owner(p_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
-					(!is_owner(p_ptr, bldg) && (bldg->other_costs[i] == 0)))
+				if ((is_owner(cr_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
+					(!is_owner(cr_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(p_ptr, bldg))
+				else if (is_owner(cr_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -150,7 +150,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 			}
 			else if (bldg->action_restr[i] == 1)
 			{
-				if (!is_member(p_ptr, bldg))
+				if (!is_member(cr_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -160,13 +160,13 @@ strcpy(buff, "(ï¬ìX)");
 #endif
 
 				}
-				else if ((is_owner(p_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
-					(is_member(p_ptr, bldg) && (bldg->other_costs[i] == 0)))
+				else if ((is_owner(cr_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
+					(is_member(cr_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(p_ptr, bldg))
+				else if (is_owner(cr_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -189,7 +189,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 			}
 			else
 			{
-				if (!is_owner(p_ptr, bldg))
+				if (!is_owner(cr_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -3947,7 +3947,7 @@ msg_format("%s Ç≈Ç∑ÅB", tmp_str);
 			autopick_alter_item(cr_ptr, item, FALSE);
 
 			/* Update the gold display */
-			building_prt_gold();
+			building_prt_gold(cr_ptr);
 		}
 		else
 		{
@@ -4848,7 +4848,7 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 #else
 		select_dungeon = choose_dungeon("teleport", 4, 0);
 #endif
-		show_building(bldg);
+		show_building(cr_ptr, bldg);
 		if (!select_dungeon) return;
 
 		max_depth = d_info[select_dungeon].maxdepth;
@@ -5154,7 +5154,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 	command_rep = 0;
 	command_new = 0;
 
-	show_building(bldg);
+	show_building(cr_ptr, bldg);
 	leave_bldg = FALSE;
 
 	while (!leave_bldg)
@@ -5162,7 +5162,7 @@ void do_cmd_bldg(creature_type *cr_ptr)
 		validcmd = FALSE;
 		prt("", 1, 0);
 
-		building_prt_gold();
+		building_prt_gold(cr_ptr);
 
 		command = inkey();
 
