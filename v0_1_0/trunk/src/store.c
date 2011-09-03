@@ -857,7 +857,7 @@ static byte rgold_adj[MAX_RACES][MAX_RACES] =
  * to adjust (by 200) to extract a usable multiplier.  Note that the
  * "greed" value is always something (?).
  */
-static s32b price_item(object_type *o_ptr, int greed, bool flip)
+static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, bool flip)
 {
 	int 	factor;
 	int 	adjust;
@@ -872,10 +872,10 @@ static s32b price_item(object_type *o_ptr, int greed, bool flip)
 
 
 	/* Compute the racial factor */
-	factor = rgold_adj[ot_ptr->owner_race][p_ptr->irace_idx];
+	factor = rgold_adj[ot_ptr->owner_race][cr_ptr->irace_idx];
 
 	/* Add in the charisma factor */
-	factor += adj_chr_gold[p_ptr->stat_ind[A_CHR]];
+	factor += adj_chr_gold[cr_ptr->stat_ind[A_CHR]];
 
 
 	/* Shop is buying */
@@ -2296,7 +2296,7 @@ static void display_entry(int pos)
 		if (o_ptr->ident & (IDENT_FIXED))
 		{
 			/* Extract the "minimum" price */
-			x = price_item(o_ptr, ot_ptr->min_inflate, FALSE);
+			x = price_item(p_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
 
 			/* Actually draw the price (not fixed) */
 #ifdef JP
@@ -2312,7 +2312,7 @@ static void display_entry(int pos)
 		else if (!manual_haggle)
 		{
 			/* Extract the "minimum" price */
-			x = price_item(o_ptr, ot_ptr->min_inflate, FALSE);
+			x = price_item(p_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
 
 			/* Hack -- Apply Sales Tax if needed */
 			if (!noneedtobargain(x)) x += x / 10;
@@ -2326,7 +2326,7 @@ static void display_entry(int pos)
 		else
 		{
 			/* Extrect the "maximum" price */
-			x = price_item(o_ptr, ot_ptr->max_inflate, FALSE);
+			x = price_item(p_ptr, o_ptr, ot_ptr->max_inflate, FALSE);
 
 			/* Actually draw the price (not fixed) */
 			(void)sprintf(out_val, "%9ld  ", (long)x);
@@ -2910,8 +2910,8 @@ static bool purchase_haggle(object_type *o_ptr, s32b *price)
 
 
 	/* Extract the starting offer and the final offer */
-	cur_ask = price_item(o_ptr, ot_ptr->max_inflate, FALSE);
-	final_ask = price_item(o_ptr, ot_ptr->min_inflate, FALSE);
+	cur_ask = price_item(p_ptr, o_ptr, ot_ptr->max_inflate, FALSE);
+	final_ask = price_item(p_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(final_ask);
@@ -3122,8 +3122,8 @@ static bool sell_haggle(object_type *o_ptr, s32b *price)
 
 
 	/* Obtain the starting offer and the final offer */
-	cur_ask = price_item(o_ptr, ot_ptr->max_inflate, TRUE);
-	final_ask = price_item(o_ptr, ot_ptr->min_inflate, TRUE);
+	cur_ask = price_item(p_ptr, o_ptr, ot_ptr->max_inflate, TRUE);
+	final_ask = price_item(p_ptr, o_ptr, ot_ptr->min_inflate, TRUE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(final_ask);
@@ -3457,7 +3457,7 @@ msg_print("そんなにアイテムを持てない。");
 	}
 
 	/* Determine the "best" price (per item) */
-	best = price_item(j_ptr, ot_ptr->min_inflate, FALSE);
+	best = price_item(guest_ptr, j_ptr, ot_ptr->min_inflate, FALSE);
 
 	/* Find out how many the player wants */
 	if (o_ptr->number > 1)
