@@ -2464,7 +2464,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	/*** Collecting items ***/
 	/*** Which can be absorbed into a slot as a bundle ***/
 	if (IS_FLG(FLG_COLLECTING))
-		which_str[which_n++] = "can be absorbed into an existing p_ptr->inventory slot";
+		which_str[which_n++] = "can be absorbed into an existing inventory slot";
 	
 	/*** Unaware items ***/
 	if (IS_FLG(FLG_UNAWARE))
@@ -3314,14 +3314,14 @@ static bool insert_return_code(text_body_type *tb)
 /*
  * Choose an item and get auto-picker entry from it.
  */
-static object_type *choose_object(cptr q, cptr s)
+static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
 {
 	int item;
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP))) return NULL;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP))) return NULL;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) return &p_ptr->inventory[item];
+	if (item >= 0) return &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else return &o_list[0 - item];
@@ -3344,7 +3344,7 @@ static bool entry_from_choosed_object(autopick_type *entry)
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(q, s);
+	o_ptr = choose_object(p_ptr, q, s);
 	if (!o_ptr) return FALSE;
 
 	autopick_entry_from_object(p_ptr, entry, o_ptr);
@@ -3369,7 +3369,7 @@ static byte get_object_for_search(object_type **o_handle, cptr *search_strp)
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(q, s);
+	o_ptr = choose_object(p_ptr, q, s);
 	if (!o_ptr) return 0;
 
 	*o_handle = o_ptr;
