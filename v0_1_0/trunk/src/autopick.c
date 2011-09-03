@@ -1664,7 +1664,7 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 /*
  *  Auto-destroy marked items in inventry and on floor
  */
-void autopick_delayed_alter(void)
+void autopick_delayed_alter(creature_type *cr_ptr)
 {
 	int item;
 
@@ -1673,14 +1673,14 @@ void autopick_delayed_alter(void)
 	 * skipping after inven_item_optimize()
 	 */
 	for (item = INVEN_TOTAL - 1; item >= 0 ; item--)
-		autopick_delayed_alter_aux(p_ptr, item);
+		autopick_delayed_alter_aux(cr_ptr, item);
 
 	/* Scan the pile of objects */
-	item = cave[p_ptr->fy][p_ptr->fx].o_idx;
+	item = cave[cr_ptr->fy][cr_ptr->fx].o_idx;
 	while (item)
 	{
 		int next = o_list[item].next_o_idx;
-		autopick_delayed_alter_aux(p_ptr, -item);
+		autopick_delayed_alter_aux(cr_ptr, -item);
 		item = next;
 	}
 }

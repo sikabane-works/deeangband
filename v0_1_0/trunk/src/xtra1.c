@@ -5945,7 +5945,7 @@ void notice_stuff(creature_type *cr_ptr)
 	if (cr_ptr->notice & (PN_AUTODESTROY))
 	{
 		cr_ptr->notice &= ~(PN_AUTODESTROY);
-		autopick_delayed_alter();
+		autopick_delayed_alter(cr_ptr);
 	}
 
 	/* Combine the pack */
