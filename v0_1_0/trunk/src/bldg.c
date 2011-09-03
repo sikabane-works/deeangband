@@ -16,20 +16,20 @@
 /* hack as in leave_store in store.c */
 static bool leave_bldg = FALSE;
 
-static bool is_owner(building_type *bldg)
+static bool is_owner(creature_type *cr_ptr, building_type *bldg)
 {
-	if (bldg->member_class[p_ptr->cls_idx] == BUILDING_OWNER)
+	if (bldg->member_class[cr_ptr->cls_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
 
-	if (bldg->member_race[p_ptr->irace_idx] == BUILDING_OWNER)
+	if (bldg->member_race[cr_ptr->irace_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
 
-	if ((is_magic(p_ptr->realm1) && (bldg->member_realm[p_ptr->realm1] == BUILDING_OWNER)) ||
-		(is_magic(p_ptr->realm2) && (bldg->member_realm[p_ptr->realm2] == BUILDING_OWNER)))
+	if ((is_magic(cr_ptr->realm1) && (bldg->member_realm[cr_ptr->realm1] == BUILDING_OWNER)) ||
+		(is_magic(cr_ptr->realm2) && (bldg->member_realm[cr_ptr->realm2] == BUILDING_OWNER)))
 	{
 		return (TRUE);
 	}
@@ -121,13 +121,13 @@ static void show_building(building_type* bldg)
 		{
 			if (bldg->action_restr[i] == 0)
 			{
-				if ((is_owner(bldg) && (bldg->member_costs[i] == 0)) ||
-					(!is_owner(bldg) && (bldg->other_costs[i] == 0)))
+				if ((is_owner(p_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
+					(!is_owner(p_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(bldg))
+				else if (is_owner(p_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -160,13 +160,13 @@ strcpy(buff, "(閉店)");
 #endif
 
 				}
-				else if ((is_owner(bldg) && (bldg->member_costs[i] == 0)) ||
+				else if ((is_owner(p_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
 					(is_member(bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(bldg))
+				else if (is_owner(p_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -189,7 +189,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 			}
 			else
 			{
-				if (!is_owner(bldg))
+				if (!is_owner(p_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -4696,14 +4696,14 @@ static void bldg_process_command(creature_type *cr_ptr, building_type *bldg, int
 	msg_flag = FALSE;
 	msg_print(NULL);
 
-	if (is_owner(bldg))
+	if (is_owner(cr_ptr, bldg))
 		bcost = bldg->member_costs[i];
 	else
 		bcost = bldg->other_costs[i];
 
 	/* action restrictions */
 	if (((bldg->action_restr[i] == 1) && !is_member(bldg)) ||
-	    ((bldg->action_restr[i] == 2) && !is_owner(bldg)))
+	    ((bldg->action_restr[i] == 2) && !is_owner(cr_ptr, bldg)))
 	{
 #ifdef JP
 msg_print("それを選択する権利はありません！");
@@ -4715,8 +4715,8 @@ msg_print("それを選択する権利はありません！");
 
 	/* check gold (HACK - Recharge uses variable costs) */
 	if ((bact != BACT_RECHARGE) &&
-	    (((bldg->member_costs[i] > cr_ptr->au) && is_owner(bldg)) ||
-	     ((bldg->other_costs[i] > cr_ptr->au) && !is_owner(bldg))))
+	    (((bldg->member_costs[i] > cr_ptr->au) && is_owner(cr_ptr, bldg)) ||
+	     ((bldg->other_costs[i] > cr_ptr->au) && !is_owner(cr_ptr, bldg))))
 	{
 #ifdef JP
 msg_print("お金が足りません！");

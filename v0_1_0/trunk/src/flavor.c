@@ -1252,7 +1252,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	/* Allow flavors to be hidden when aware */
 	if (aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;
 
-	/* Object is in the p_ptr->inventory of a store or spoiler */
+	/* Object is in the inventory of a store or spoiler */
 	if ((mode & OD_STORE) || (o_ptr->ident & IDENT_STORE))
 	{
 		/* Don't show flavors */
@@ -1597,10 +1597,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "生命の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Life Magic %";
-			else
-				basenm = "& Life Spellbook~ %";
+			basenm = "& Life Spellbook~ %";
 #endif
 
 			break;
@@ -1611,10 +1608,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "仙術の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Sorcery %";
-			else
-				basenm = "& Sorcery Spellbook~ %";
+			basenm = "& Sorcery Spellbook~ %";
 #endif
 
 			break;
@@ -1625,10 +1619,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "自然の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Nature Magic %";
-			else
-				basenm = "& Nature Spellbook~ %";
+			basenm = "& Nature Spellbook~ %";
 #endif
 
 			break;
@@ -1639,10 +1630,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "カオスの魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Chaos Magic %";
-			else
-				basenm = "& Chaos Spellbook~ %";
+			basenm = "& Chaos Spellbook~ %";
 #endif
 
 			break;
@@ -1653,10 +1641,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "暗黒の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Death Magic %";
-			else
-				basenm = "& Death Spellbook~ %";
+			basenm = "& Death Spellbook~ %";
 #endif
 
 			break;
@@ -1667,10 +1652,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "トランプの魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Trump Magic %";
-			else
-				basenm = "& Trump Spellbook~ %";
+			basenm = "& Trump Spellbook~ %";
 #endif
 
 			break;
@@ -1681,10 +1663,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "秘術の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Arcane Magic %";
-			else
-				basenm = "& Arcane Spellbook~ %";
+			basenm = "& Arcane Spellbook~ %";
 #endif
 
 			break;
@@ -1695,10 +1674,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "匠の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Craft Magic %";
-			else
-				basenm = "& Craft Spellbook~ %";
+			basenm = "& Craft Spellbook~ %";
 #endif
 
 			break;
@@ -1709,10 +1685,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "悪魔の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Daemon Magic %";
-			else
-				basenm = "& Daemon Spellbook~ %";
+			basenm = "& Daemon Spellbook~ %";
 #endif
 
 			break;
@@ -1723,10 +1696,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "破邪の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Crusade Magic %";
-			else
-				basenm = "& Crusade Spellbook~ %";
+			basenm = "& Crusade Spellbook~ %";
 #endif
 
 			break;
@@ -1759,10 +1729,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "呪術の魔法書%";
 #else
-			if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
-				basenm = "& Book~ of Crusade Magic %";
-			else
-				basenm = "& Crusade Spellbook~ %";
+			basenm = "& Crusade Spellbook~ %";
 #endif
 
 			break;
