@@ -1460,7 +1460,7 @@ int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
 	{
 		autopick_type *entry = &autopick_list[i];
 
-		if (is_autopick_aux(p_ptr, o_ptr, entry, o_name)) return i;
+		if (is_autopick_aux(cr_ptr, o_ptr, entry, o_name)) return i;
 	}
 
 	/* No matching entry */
@@ -1471,7 +1471,7 @@ int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
 /*
  *  Auto inscription
  */
-static void auto_inscribe_item(object_type *o_ptr, int idx)
+static void auto_inscribe_item(creature_type *cr_ptr, object_type *o_ptr, int idx)
 {
 	/* Are there auto-inscription? */
 	if (idx < 0 || !autopick_list[idx].insc) return;
@@ -1482,8 +1482,8 @@ static void auto_inscribe_item(object_type *o_ptr, int idx)
 	/* Redraw inscription */
 	play_window |= (PW_EQUIP | PW_INVEN);
 
-	/* {.} and {$} effect p_ptr->warning and TRC_TELEPORT_SELF */
-	p_ptr->update |= (PU_BONUS);
+	/* {.} and {$} effect warning and TRC_TELEPORT_SELF */
+	cr_ptr->update |= (PU_BONUS);
 }
 
 
@@ -1707,7 +1707,7 @@ void autopick_alter_item(int item, bool destroy)
 	idx = is_autopick(p_ptr, o_ptr);
 
 	/* Do auto-inscription */
-	auto_inscribe_item(o_ptr, idx);
+	auto_inscribe_item(p_ptr, o_ptr, idx);
 
 	/* Do auto-destroy if needed */
 	if (destroy && item <= INVEN_PACK)
@@ -1736,7 +1736,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 		idx = is_autopick(p_ptr, o_ptr);
 
 		/* Item index for floor -1,-2,-3,...  */
-		auto_inscribe_item(o_ptr, idx);
+		auto_inscribe_item(p_ptr, o_ptr, idx);
 
 		if (idx >= 0 &&
 			(autopick_list[idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK)))
