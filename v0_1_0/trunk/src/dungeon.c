@@ -2533,7 +2533,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You see one of the shopkeepers running for the hills!");
 #endif
 
-			store_shuffle(n);
+			store_shuffle(cr_ptr, n);
 		}
 		msg_print(NULL);
 	}
@@ -4061,7 +4061,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 #endif
 
 						/* Shuffle it */
-						store_shuffle(n);
+						store_shuffle(cr_ptr, n);
 
 						break;
 					}
@@ -4719,7 +4719,7 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			if (!wild_mode) do_cmd_store();
+			if (!wild_mode) do_cmd_store(p_ptr);
 			break;
 		}
 

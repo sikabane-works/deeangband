@@ -305,6 +305,13 @@ bool object_is_artifact(creature_type *cr_ptr, object_type *o_ptr)
 	return FALSE;
 }
 
+bool object_is_artifact_aux(object_type *o_ptr)
+{
+	if (object_is_fixed_artifact(o_ptr) || o_ptr->art_name) return TRUE;
+
+	return FALSE;
+}
+
 
 /*
  * Check if an object is neither artifact, ego, nor 'smith' object

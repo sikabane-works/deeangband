@@ -1318,9 +1318,9 @@ extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u3
 
 /* store.c */
 extern bool combine_and_reorder_home(int store_num);
-extern void do_cmd_store(void);
-extern void store_shuffle(int which);
-extern void store_maint(int town_num, int store_num);
+extern void do_cmd_store(creature_type *cr_ptr);
+extern void store_shuffle(creature_type *cr_ptr, int which);
+extern void store_maint(creature_type *cr_ptr, int town_num, int store_num);
 extern void store_init(int town_num, int store_num);
 extern void move_to_black_market(object_type * o_ptr);
 
@@ -1731,6 +1731,7 @@ extern bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_pt
 extern bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_is_smith(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_is_artifact(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_artifact_aux(object_type *o_ptr);
 extern bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr);
 
