@@ -5775,7 +5775,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 }
 
 
-bool get_hack_dir(int *dp)
+bool get_hack_dir(creature_type *cr_ptr, int *dp)
 {
 	int		dir;
 	cptr    p;
@@ -5867,7 +5867,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 		/* XXX XXX XXX */
 		/* Random direction */

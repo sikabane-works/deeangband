@@ -2441,7 +2441,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		flush();
 		msg_print(NULL);
-		(void)get_hack_dir(&dire);
+		(void)get_hack_dir(cr_ptr, &dire);
 		fire_ball(GF_MANA, dire, cr_ptr->lev * 2, 3);
 	}
 
