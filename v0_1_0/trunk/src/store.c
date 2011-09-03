@@ -3624,7 +3624,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 #endif
 
 				/* Auto-inscription */
-				autopick_alter_item(item_new, FALSE);
+				autopick_alter_item(guest_ptr, item_new, FALSE);
 
 				/* Now, reduce the original stack's pval. */
 				if ((o_ptr->tval == TV_ROD) || (o_ptr->tval == TV_WAND))
@@ -4063,7 +4063,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 			/* If items remain, auto-inscribe before optimizing */
 			if (o_ptr->number > 0)
-				autopick_alter_item(item, FALSE);
+				autopick_alter_item(p_ptr, item, FALSE);
 
 			inven_item_optimize(item);
 

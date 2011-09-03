@@ -1689,29 +1689,29 @@ void autopick_delayed_alter(creature_type *cr_ptr)
 /*
  * Auto-inscription and/or destroy
  *
- * Auto-destroyer works only on p_ptr->inventory or on floor stack only when
+ * Auto-destroyer works only on inventory or on floor stack only when
  * requested.
  */
-void autopick_alter_item(int item, bool destroy)
+void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
 {
 	object_type *o_ptr;
 	int idx;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &p_ptr->inventory[item];
+	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else o_ptr = &o_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
-	idx = is_autopick(p_ptr, o_ptr);
+	idx = is_autopick(cr_ptr, o_ptr);
 
 	/* Do auto-inscription */
-	auto_inscribe_item(p_ptr, o_ptr, idx);
+	auto_inscribe_item(cr_ptr, o_ptr, idx);
 
 	/* Do auto-destroy if needed */
 	if (destroy && item <= INVEN_PACK)
-		auto_destroy_item(p_ptr, o_ptr, idx);
+		auto_destroy_item(cr_ptr, o_ptr, idx);
 }
 
 

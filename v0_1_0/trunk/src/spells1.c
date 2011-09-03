@@ -1522,7 +1522,7 @@ note_kill = "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI";
 				identify_item(o_ptr);
 
 				/* Auto-inscription */
-				autopick_alter_item((-this_o_idx), FALSE);
+				autopick_alter_item(p_ptr, (-this_o_idx), FALSE);
 				break;
 			}
 

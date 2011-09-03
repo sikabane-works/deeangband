@@ -201,7 +201,7 @@ o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 	o_ptr->feeling = feel;
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(slot, destroy_feeling);
+	autopick_alter_item(cr_ptr, slot, destroy_feeling);
 
 	/* Combine / Reorder the pack (later) */
 	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
@@ -1317,7 +1317,7 @@ msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
 	}
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(item, (bool)(okay && destroy_feeling));
+	autopick_alter_item(p_ptr, item, (bool)(okay && destroy_feeling));
 
 	/* Something happened */
 	return (TRUE);

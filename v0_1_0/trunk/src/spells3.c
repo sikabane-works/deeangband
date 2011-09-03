@@ -2133,7 +2133,7 @@ void identify_pack(creature_type *cr_ptr)
 		identify_item(o_ptr);
 
 		/* Auto-inscription */
-		autopick_alter_item(i, FALSE);
+		autopick_alter_item(cr_ptr, i, FALSE);
 	}
 }
 
@@ -2897,7 +2897,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(item, (bool)(destroy_identify && !old_known));
+	autopick_alter_item(cr_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Something happened */
 	return (TRUE);
@@ -3090,7 +3090,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	(void)screen_object(o_ptr, 0L);
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(item, (bool)(destroy_identify && !old_known));
+	autopick_alter_item(cr_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Success */
 	return (TRUE);

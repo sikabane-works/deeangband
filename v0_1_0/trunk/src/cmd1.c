@@ -842,7 +842,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 		bool old_known = identify_item(o_ptr);
 
 		/* Auto-inscription/destroy */
-		autopick_alter_item(slot, (bool)(destroy_identify && !old_known));
+		autopick_alter_item(cr_ptr, slot, (bool)(destroy_identify && !old_known));
 
 		/* If it is destroyed, don't pick it up */
 		if (o_ptr->marked & OM_AUTODESTROY) return;

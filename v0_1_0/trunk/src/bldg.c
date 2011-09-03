@@ -2448,7 +2448,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 
 				/* Auto-inscription */
-				autopick_alter_item(item_new, FALSE);
+				autopick_alter_item(cr_ptr, item_new, FALSE);
 
 				/* Handle stuff */
 				handle_stuff(cr_ptr);
@@ -3944,7 +3944,7 @@ msg_format("%s Ç≈Ç∑ÅB", tmp_str);
 #endif
 
 			/* Auto-inscription */
-			autopick_alter_item(item, FALSE);
+			autopick_alter_item(cr_ptr, item, FALSE);
 
 			/* Update the gold display */
 			building_prt_gold();
@@ -4245,7 +4245,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 			identify_item(o_ptr);
 
 			/* Auto-inscription */
-			autopick_alter_item(i, FALSE);
+			autopick_alter_item(cr_ptr, i, FALSE);
 		}
 
 		/* Recharge */

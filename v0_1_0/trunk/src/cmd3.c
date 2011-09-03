@@ -491,7 +491,7 @@ msg_print("クエストを達成した！");
 		identify_item(o_ptr);
 
 		/* Auto-inscription */
-		autopick_alter_item(item, FALSE);
+		autopick_alter_item(p_ptr, item, FALSE);
 	}
 
 	/* Armor Size Information */
@@ -1239,7 +1239,7 @@ void do_cmd_destroy(void)
 				if (autopick_autoregister(o_ptr))
 				{
 					/* Auto-destroy it */
-					autopick_alter_item(item, TRUE);
+					autopick_alter_item(p_ptr, item, TRUE);
 				}
 
 				/* The object is already destroyed. */
