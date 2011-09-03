@@ -5283,7 +5283,7 @@ static void dump_aux_home_museum(FILE *fff)
 /*
  * Output the character dump to a file
  */
-errr make_character_dump(FILE *fff)
+errr make_character_dump(creature_type *cr_ptr, FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "  [D\'angband %d.%d.%d ÉLÉÉÉâÉNÉ^èÓïÒ]\n\n",
@@ -5295,19 +5295,19 @@ errr make_character_dump(FILE *fff)
 
 	update_playtime();
 
-	dump_aux_display_player(p_ptr, fff);
-	dump_aux_last_message(p_ptr, fff);
-	dump_aux_options(p_ptr, fff);
-	dump_aux_recall(p_ptr, fff);
+	dump_aux_display_player(cr_ptr, fff);
+	dump_aux_last_message(cr_ptr, fff);
+	dump_aux_options(cr_ptr, fff);
+	dump_aux_recall(cr_ptr, fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_monsters(fff);
-	dump_aux_karmas(p_ptr, fff);
-	dump_aux_race_history(p_ptr, fff);
-	dump_aux_realm_history(p_ptr, fff);
-	dump_aux_class_special(p_ptr, fff);
-	dump_aux_mutations(p_ptr, fff);
-	dump_aux_pet(p_ptr, fff);
+	dump_aux_karmas(cr_ptr, fff);
+	dump_aux_race_history(cr_ptr, fff);
+	dump_aux_realm_history(cr_ptr, fff);
+	dump_aux_class_special(cr_ptr, fff);
+	dump_aux_mutations(cr_ptr, fff);
+	dump_aux_pet(cr_ptr, fff);
 	fputs("\n\n", fff);
 	dump_aux_equipment_inventory(fff);
 	dump_aux_home_museum(fff);
@@ -5381,7 +5381,7 @@ errr file_character(cptr name)
 		return (-1);
 	}
 
-	(void)make_character_dump(fff);
+	(void)make_character_dump(p_ptr, fff);
 
 	/* Close it */
 	my_fclose(fff);
