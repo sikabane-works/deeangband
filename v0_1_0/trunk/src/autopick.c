@@ -3331,7 +3331,7 @@ static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
 /*
  * Choose an item and get auto-picker entry from it.
  */
-static bool entry_from_choosed_object(autopick_type *entry)
+static bool entry_from_choosed_object(creature_type *cr_ptr, autopick_type *entry)
 {
 	object_type *o_ptr;
 	cptr q, s;
@@ -3344,10 +3344,10 @@ static bool entry_from_choosed_object(autopick_type *entry)
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(p_ptr, q, s);
+	o_ptr = choose_object(cr_ptr, q, s);
 	if (!o_ptr) return FALSE;
 
-	autopick_entry_from_object(p_ptr, entry, o_ptr);
+	autopick_entry_from_object(cr_ptr, entry, o_ptr);
 	return TRUE;
 }
 
@@ -3355,7 +3355,7 @@ static bool entry_from_choosed_object(autopick_type *entry)
 /*
  * Choose an item for search
  */
-static byte get_object_for_search(object_type **o_handle, cptr *search_strp)
+static byte get_object_for_search(creature_type *cr_ptr, object_type **o_handle, cptr *search_strp)
 {
 	char buf[MAX_NLEN+20];
 	object_type *o_ptr;
@@ -3369,7 +3369,7 @@ static byte get_object_for_search(object_type **o_handle, cptr *search_strp)
 	q = "Enter which item? ";
 	s = "You have nothing to enter.";
 #endif
-	o_ptr = choose_object(p_ptr, q, s);
+	o_ptr = choose_object(cr_ptr, q, s);
 	if (!o_ptr) return 0;
 
 	*o_handle = o_ptr;
@@ -3402,7 +3402,7 @@ static byte get_destroyed_object_for_search(object_type **o_handle, cptr *search
 /*
  * Choose an item or string for search
  */
-static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
+static byte get_string_for_search(creature_type *cr_ptr, object_type **o_handle, cptr *search_strp)
 {
 	int pos = 0;
 
@@ -3523,7 +3523,7 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 
 		case KTRL('i'):
 			/* Get an item */
-			return get_object_for_search(o_handle, search_strp);
+			return get_object_for_search(cr_ptr, o_handle, search_strp);
 
 		case KTRL('l'):
 			/* Prepare string for destroyed object if there is one. */
@@ -3697,7 +3697,7 @@ static byte get_string_for_search(object_type **o_handle, cptr *search_strp)
 /*
  * Search next line matches for o_ptr
  */
-static void search_for_object(text_body_type *tb, object_type *o_ptr, bool forward)
+static void search_for_object(creature_type *cr_ptr, text_body_type *tb, object_type *o_ptr, bool forward)
 {
 	autopick_type an_entry, *entry = &an_entry;
 	char o_name[MAX_NLEN];
@@ -3730,7 +3730,7 @@ static void search_for_object(text_body_type *tb, object_type *o_ptr, bool forwa
 		if (!autopick_new_entry(entry, tb->lines_list[i], FALSE)) continue;
 
 		/* Does this line match to the object? */
-		match = is_autopick_aux(p_ptr, o_ptr, entry, o_name);
+		match = is_autopick_aux(cr_ptr, o_ptr, entry, o_name);
 		autopick_free_entry(entry);
 		if (!match)	continue;
 
@@ -4053,7 +4053,7 @@ static char MN_SEARCH[] = "Search";
 static char MN_SEARCH_STR[] = "Search by string";
 static char MN_SEARCH_FORW[] = "Search forward";
 static char MN_SEARCH_BACK[] = "Search backward";
-static char MN_SEARCH_OBJ[] = "Search by p_ptr->inventory object";
+static char MN_SEARCH_OBJ[] = "Search by inventory object";
 static char MN_SEARCH_DESTROYED[] = "Search by destroyed object";
 
 static char MN_INSERT[] = "Insert...";
@@ -5123,7 +5123,7 @@ static bool insert_keymap_line(text_body_type *tb)
 /*
  * Execute a single editor command
  */
-static bool do_editor_command(text_body_type *tb, int com_id)
+static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com_id)
 {
 	switch(com_id)
 	{
@@ -5621,7 +5621,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Cut end of line */
 		tb->yank_eol = TRUE;
 
-		do_editor_command(tb, EC_DELETE_CHAR);
+		do_editor_command(cr_ptr, tb, EC_DELETE_CHAR);
 		break;
 	}
 
@@ -5661,7 +5661,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 			}
 		}
 
-		do_editor_command(tb, EC_BACKSPACE);
+		do_editor_command(cr_ptr, tb, EC_BACKSPACE);
 		break;
 	}
 
@@ -5753,19 +5753,19 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		search_dir = get_string_for_search(&tb->search_o_ptr, &tb->search_str);
+		search_dir = get_string_for_search(cr_ptr, &tb->search_o_ptr, &tb->search_str);
 
 		if (!search_dir) break;
 
-		if (search_dir == 1) do_editor_command(tb, EC_SEARCH_FORW);
-		else do_editor_command(tb, EC_SEARCH_BACK);
+		if (search_dir == 1) do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
+		else do_editor_command(cr_ptr, tb, EC_SEARCH_BACK);
 		break;
 	}
 
 	case EC_SEARCH_FORW:
 		if (tb->search_o_ptr)
 		{
-			search_for_object(tb, tb->search_o_ptr, TRUE);
+			search_for_object(cr_ptr, tb, tb->search_o_ptr, TRUE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5780,7 +5780,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 	case EC_SEARCH_BACK:
 		if (tb->search_o_ptr)
 		{
-			search_for_object(tb, tb->search_o_ptr, FALSE);
+			search_for_object(cr_ptr, tb, tb->search_o_ptr, FALSE);
 		}
 		else if (tb->search_str && tb->search_str[0])
 		{
@@ -5796,9 +5796,9 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Become dirty because of item/equip menu */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-		if (!get_object_for_search(&tb->search_o_ptr, &tb->search_str)) break;
+		if (!get_object_for_search(cr_ptr, &tb->search_o_ptr, &tb->search_str)) break;
 
-		do_editor_command(tb, EC_SEARCH_FORW);
+		do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
 		break;
 
 	case EC_SEARCH_DESTROYED:
@@ -5810,7 +5810,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 			break;
 		}
 
-		do_editor_command(tb, EC_SEARCH_FORW);
+		do_editor_command(cr_ptr, tb, EC_SEARCH_FORW);
 		break;
 
 	case EC_INSERT_OBJECT:
@@ -5819,7 +5819,7 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 
 		autopick_type an_entry, *entry = &an_entry;
 
-		if (!entry_from_choosed_object(entry))
+		if (!entry_from_choosed_object(cr_ptr, entry))
 		{
 			/* Now dirty because of item/equip menu */
 			tb->dirty_flags |= DIRTY_SCREEN;
@@ -5862,11 +5862,11 @@ static bool do_editor_command(text_body_type *tb, int com_id)
 		/* Conditional Expression for Class and Race */
 		sprintf(expression, "?:[AND [EQU $RACE %s] [EQU $CLASS %s] [GEQ $LEVEL %02d]]", 
 #ifdef JP
-			race_info[p_ptr->irace_idx].E_title, class_info[p_ptr->cls_idx].E_title,
+			race_info[cr_ptr->irace_idx].E_title, class_info[cr_ptr->cls_idx].E_title,
 #else
-			race_info[p_ptr->irace_idx].title, class_info[p_ptr->cls_idx].title,
+			race_info[cr_ptr->irace_idx].title, class_info[cr_ptr->cls_idx].title,
 #endif
-			p_ptr->lev
+			cr_ptr->lev
 			);
 
 		tb->cx = 0;
@@ -6159,10 +6159,10 @@ static int analyze_move_key(text_body_type *tb, int skey)
 /*
  * In-game editor of Object Auto-picker/Destoryer
  */
-void do_cmd_edit_autopick(void)
+void do_cmd_edit_autopick(creature_type *cr_ptr)
 {
-	static int cx_save = 0;
-	static int cy_save = 0;
+	int cx_save = 0;
+	int cy_save = 0;
 
 	text_body_type text_body, *tb = &text_body;
 
@@ -6172,7 +6172,7 @@ void do_cmd_edit_autopick(void)
 	int i;
 	int key = -1;
 
-	static s32b old_autosave_turn = 0L;
+	s32b old_autosave_turn = 0L;
 	byte quit = 0;
 
 	tb->changed = FALSE;
@@ -6214,7 +6214,7 @@ void do_cmd_edit_autopick(void)
 	/* Command Description of the 'Last Destroyed Item' */
 	if (autopick_last_destroyed_object.k_idx)
 	{
-		autopick_entry_from_object(p_ptr, entry, &autopick_last_destroyed_object);
+		autopick_entry_from_object(cr_ptr, entry, &autopick_last_destroyed_object);
 		tb->last_destroyed = autopick_line_from_entry_kill(entry);
 	}
 
@@ -6316,7 +6316,7 @@ void do_cmd_edit_autopick(void)
 			com_id = get_com_id(key);
 		}
 
-		if (com_id) quit = do_editor_command(tb, com_id);
+		if (com_id) quit = do_editor_command(cr_ptr, tb, com_id);
 	} /* while (TRUE) */
 
 	/* Restore the screen */

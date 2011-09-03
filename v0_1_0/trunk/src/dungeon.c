@@ -5260,7 +5260,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case '_':
 		{
-			do_cmd_edit_autopick();
+			do_cmd_edit_autopick(p_ptr);
 			break;
 		}
 

@@ -651,7 +651,7 @@ extern void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy);
 extern void autopick_delayed_alter(creature_type *cr_ptr);
 extern void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr);
 extern bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr);
-extern void do_cmd_edit_autopick(void);
+extern void do_cmd_edit_autopick(creature_type *cr_ptr);
 
 /* birth.c */
 extern void add_history_from_pref_line(cptr t);
