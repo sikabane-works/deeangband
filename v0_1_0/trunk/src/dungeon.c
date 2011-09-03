@@ -4764,7 +4764,7 @@ msg_print("ウィザードモード突入。");
 					break;
 				}
 
-				change_wild_mode();
+				change_wild_mode(p_ptr);
 			}
 			else
 				do_cmd_go_up(p_ptr);
@@ -4775,7 +4775,7 @@ msg_print("ウィザードモード突入。");
 		case '>':
 		{
 			if (wild_mode)
-				change_wild_mode();
+				change_wild_mode(p_ptr);
 			else
 				do_cmd_go_down(p_ptr);
 

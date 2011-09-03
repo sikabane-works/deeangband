@@ -2738,7 +2738,7 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 			/* Go into large wilderness view */
 			cr_ptr->oldpy = (s16b)randint1(MAX_HGT-2);
 			cr_ptr->oldpx = (s16b)randint1(MAX_WID-2);
-			change_wild_mode();
+			change_wild_mode(cr_ptr);
 
 			/* Give first move to monsters */
 			energy_use = 100;

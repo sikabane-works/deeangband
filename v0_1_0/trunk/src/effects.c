@@ -4450,7 +4450,7 @@ msg_print("‚â‚Á‚Æ‚¨• ‚ª‚«‚Â‚­‚È‚­‚È‚Á‚½B");
 
 		if (wild_mode && (new_aux < 2))
 		{
-			change_wild_mode();
+			change_wild_mode(cr_ptr);
 		}
 
 		/* Change */
@@ -5764,7 +5764,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 		if (wild_mode && !tar_ptr->leaving && (tar_ptr->chp < MAX(warning, tar_ptr->mhp/5)))
 		{
-			change_wild_mode();
+			change_wild_mode(tar_ptr);
 		}
 	}
 

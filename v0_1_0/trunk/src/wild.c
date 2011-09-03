@@ -1025,13 +1025,13 @@ void init_wilderness_terrains(void)
 
 
 
-bool change_wild_mode(void)
+bool change_wild_mode(creature_type *cr_ptr)
 {
 	int i;
 	bool have_pet = FALSE;
 
 	/* It is in the middle of changing map */
-	if (p_ptr->leaving) return FALSE;
+	if (cr_ptr->leaving) return FALSE;
 
 
 	if (lite_town || vanilla_town)
@@ -1047,17 +1047,17 @@ bool change_wild_mode(void)
 	if (wild_mode)
 	{
 		/* Save the location in the global map */
-		wilderness_x = p_ptr->fx;
-		wilderness_y = p_ptr->fy;
+		wilderness_x = cr_ptr->fx;
+		wilderness_y = cr_ptr->fy;
 
 		/* Give first move to the player */
-		p_ptr->energy_need = 0;
+		cr_ptr->energy_need = 0;
 
 		/* Go back to the ordinary map */
 		wild_mode = FALSE;
 
 		/* Leaving */
-		p_ptr->leaving = TRUE;
+		cr_ptr->leaving = TRUE;
 
 		/* Succeed */
 		return TRUE;
@@ -1068,7 +1068,7 @@ bool change_wild_mode(void)
 		creature_type *m_ptr = &m_list[i];
 
 		if (!m_ptr->species_idx) continue;
-		if (is_pet(m_ptr) && i != p_ptr->riding) have_pet = TRUE;
+		if (is_pet(m_ptr) && i != cr_ptr->riding) have_pet = TRUE;
 		if (m_ptr->paralyzed) continue;
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 		if (!is_hostile(m_ptr)) continue;
@@ -1097,17 +1097,17 @@ bool change_wild_mode(void)
 	}
 
 	/* Cancel hex spelling */
-	if (hex_spelling_any(p_ptr)) stop_hex_spell_all(p_ptr);
+	if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 
 	/* Cancel any special action */
-	set_action(p_ptr, ACTION_NONE);
+	set_action(cr_ptr, ACTION_NONE);
 
 	/* Go into the global map */
 	wild_mode = TRUE;
 	msg_print("‚ ‚È‚½‚Í¬“×‚Ì’n•½‚ð•à‚ÝŽn‚ß‚½c");
 
 	/* Leaving */
-	p_ptr->leaving = TRUE;
+	cr_ptr->leaving = TRUE;
 
 	wilderness[wilderness_y][wilderness_x].known = TRUE;
 	wilderness[wilderness_y - 1][wilderness_x - 1].known = TRUE;
@@ -1123,8 +1123,8 @@ bool change_wild_mode(void)
 	energy_use = 1000;
 
 	/* Remember the position */
-	p_ptr->oldpx = p_ptr->fx;
-	p_ptr->oldpy = p_ptr->fy;
+	cr_ptr->oldpx = cr_ptr->fx;
+	cr_ptr->oldpy = cr_ptr->fy;
 
 	/* Succeed */
 	return TRUE;
