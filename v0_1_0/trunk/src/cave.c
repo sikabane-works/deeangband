@@ -421,7 +421,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 /*
  * Update "local" illumination
  */
-void update_local_illumination(int y, int x)
+void update_local_illumination(creature_type *cr_ptr, int y, int x)
 {
 	int i, yy, xx;
 
@@ -429,17 +429,17 @@ void update_local_illumination(int y, int x)
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
-	if ((y != p_ptr->fy) && (x != p_ptr->fx))
+	if ((y != cr_ptr->fy) && (x != cr_ptr->fx))
 	{
-		yy = (y < p_ptr->fy) ? (y - 1) : (y + 1);
-		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
+		yy = (y < cr_ptr->fy) ? (y - 1) : (y + 1);
+		xx = (x < cr_ptr->fx) ? (x - 1) : (x + 1);
 		update_local_illumination_aux(yy, xx);
 		update_local_illumination_aux(y, xx);
 		update_local_illumination_aux(yy, x);
 	}
-	else if (x != p_ptr->fx) /* y == p_ptr->fy */
+	else if (x != cr_ptr->fx) /* y == cr_ptr->fy */
 	{
-		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
+		xx = (x < cr_ptr->fx) ? (x - 1) : (x + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
@@ -450,9 +450,9 @@ void update_local_illumination(int y, int x)
 		yy = y + 1;
 		update_local_illumination_aux(yy, x);
 	}
-	else if (y != p_ptr->fy) /* x == p_ptr->fx */
+	else if (y != cr_ptr->fy) /* x == cr_ptr->fx */
 	{
-		yy = (y < p_ptr->fy) ? (y - 1) : (y + 1);
+		yy = (y < cr_ptr->fy) ? (y - 1) : (y + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			xx = x + i;
@@ -475,24 +475,24 @@ void update_local_illumination(int y, int x)
 
 #else /* COMPLEX_WALL_ILLUMINATION */
 
-	if ((y != p_ptr->fy) && (x != p_ptr->fx))
+	if ((y != cr_ptr->fy) && (x != cr_ptr->fx))
 	{
-		yy = (y < p_ptr->fy) ? (y - 1) : (y + 1);
-		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
+		yy = (y < cr_ptr->fy) ? (y - 1) : (y + 1);
+		xx = (x < cr_ptr->fx) ? (x - 1) : (x + 1);
 		update_local_illumination_aux(yy, xx);
 	}
-	else if (x != p_ptr->fx) /* y == p_ptr->fy */
+	else if (x != cr_ptr->fx) /* y == cr_ptr->fy */
 	{
-		xx = (x < p_ptr->fx) ? (x - 1) : (x + 1);
+		xx = (x < cr_ptr->fx) ? (x - 1) : (x + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			yy = y + i;
 			update_local_illumination_aux(yy, xx);
 		}
 	}
-	else if (y != p_ptr->fy) /* x == p_ptr->fx */
+	else if (y != cr_ptr->fy) /* x == cr_ptr->fx */
 	{
-		yy = (y < p_ptr->fy) ? (y - 1) : (y + 1);
+		yy = (y < cr_ptr->fy) ? (y - 1) : (y + 1);
 		for (i = -1; i <= 1; i++)
 		{
 			xx = x + i;
@@ -4600,7 +4600,7 @@ void cave_set_feat(int y, int x, int feat)
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
-		update_local_illumination(y, x);
+		update_local_illumination(p_ptr, y, x);
 	}
 
 	/* Check for change to boring grid */
@@ -4621,7 +4621,7 @@ void cave_set_feat(int y, int x, int feat)
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
-		update_local_illumination(y, x);
+		update_local_illumination(p_ptr, y, x);
 
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
@@ -4655,7 +4655,7 @@ void cave_set_feat(int y, int x, int feat)
 				lite_spot(yy, xx);
 			}
 
-			update_local_illumination(yy, xx);
+			update_local_illumination(p_ptr, yy, xx);
 		}
 
 		if (p_ptr->special_defense & NINJA_S_STEALTH)
@@ -4797,7 +4797,7 @@ void remove_mirror(int y, int x)
 		/* Update the monster */
 		if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
 
-		update_local_illumination(y, x);
+		update_local_illumination(p_ptr, y, x);
 	}
 
 	/* Notice */

@@ -1020,7 +1020,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(y, x);
+				update_local_illumination(p_ptr, y, x);
 
 				/* Observe */
 				if (player_can_see_bold(y, x)) obvious = TRUE;
@@ -1085,7 +1085,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(y, x);
+				update_local_illumination(p_ptr, y, x);
 
 				/* Notice */
 				if (player_can_see_bold(y, x)) obvious = TRUE;
