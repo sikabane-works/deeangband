@@ -4186,7 +4186,7 @@ void display_player(int mode, creature_type *cr_ptr)
 /*
  *
  */
-static void dump_aux_display_player(FILE *fff)
+static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 {
 	int x, y;
 	byte a;
@@ -4194,7 +4194,7 @@ static void dump_aux_display_player(FILE *fff)
 	char		buf[1024];
 
 	/* Display player */
-	display_player(0, p_ptr);
+	display_player(0, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4225,7 +4225,7 @@ static void dump_aux_display_player(FILE *fff)
 	}
 
 	/* Display history */
-	display_player(1, p_ptr);
+	display_player(1, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 10; y < 19; y++)
@@ -4253,7 +4253,7 @@ static void dump_aux_display_player(FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 1) */
-	display_player(2, p_ptr);
+	display_player(2, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 2; y < 22; y++)
@@ -4284,7 +4284,7 @@ static void dump_aux_display_player(FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 2) */
-	display_player(3, p_ptr);
+	display_player(3, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4319,7 +4319,7 @@ static void dump_aux_display_player(FILE *fff)
 /*
  *
  */
-static void dump_aux_pet(FILE *fff)
+static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 {
 	int i;
 	bool pet = FALSE;
@@ -4333,7 +4333,7 @@ static void dump_aux_pet(FILE *fff)
 		if (!m_ptr->species_idx) continue;
 		if (!is_pet(m_ptr)) continue;
 		pet_settings = TRUE;
-		if (!m_ptr->nickname && (p_ptr->riding != i)) continue;
+		if (!m_ptr->nickname && (cr_ptr->riding != i)) continue;
 		if (!pet)
 		{
 #ifdef JP
@@ -4356,39 +4356,39 @@ static void dump_aux_pet(FILE *fff)
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n ドアを開ける:                       %s", (p_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
+		fprintf(fff, "\n ドアを開ける:                       %s", (cr_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Pets open doors:                    %s", (p_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
+		fprintf(fff, "\n Pets open doors:                    %s", (cr_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n アイテムを拾う:                     %s", (p_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
+		fprintf(fff, "\n アイテムを拾う:                     %s", (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Pets pick up items:                 %s", (p_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
+		fprintf(fff, "\n Pets pick up items:                 %s", (cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n テレポート系魔法を使う:             %s", (p_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
+		fprintf(fff, "\n テレポート系魔法を使う:             %s", (cr_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow teleport:                     %s", (p_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow teleport:                     %s", (cr_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (p_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow cast attack spell:            %s", (p_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast attack spell:            %s", (cr_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n 召喚魔法を使う:                     %s", (p_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 召喚魔法を使う:                     %s", (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow cast summon spell:            %s", (p_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast summon spell:            %s", (cr_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (p_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (cr_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow involve player in area spell: %s", (p_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow involve player in area spell: %s", (cr_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #endif
 
 		fputc('\n', fff);
@@ -4399,9 +4399,9 @@ static void dump_aux_pet(FILE *fff)
 /*
  *
  */
-static void dump_aux_class_special(FILE *fff)
+static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 {
-	if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
+	if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
 	{
 		int i = 0;
 		int j = 0;
@@ -4489,7 +4489,7 @@ static void dump_aux_class_special(FILE *fff)
 
 			for (i = 0; i < num; i++)
 			{
-				if (p_ptr->magic_num2[spellnum[i]])
+				if (cr_ptr->magic_num2[spellnum[i]])
 				{
 					pcol = TRUE;
 					/* Dump blue magic */
@@ -4534,7 +4534,7 @@ static void dump_aux_class_special(FILE *fff)
 			fprintf(fff, p[i]);
 		}
 	}
-	else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
+	else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 	{
 		char s[EATER_EXT][MAX_NLEN];
 		int tval, ext, k_idx;
@@ -4584,7 +4584,7 @@ static void dump_aux_class_special(FILE *fff)
 			{
 				int idx = EATER_EXT * ext + i;
 
-				magic_num = p_ptr->magic_num2[idx];
+				magic_num = cr_ptr->magic_num2[idx];
 				if (!magic_num) continue;
 
 				k_idx = lookup_kind(tval, i);
@@ -4658,11 +4658,11 @@ static void dump_aux_quest(FILE *fff)
 /*
  *
  */
-static void dump_aux_last_message(FILE *fff)
+static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 {
-	if (p_ptr->is_dead)
+	if (cr_ptr->is_dead)
 	{
-		if (!p_ptr->total_winner)
+		if (!cr_ptr->total_winner)
 		{
 			int i;
 
@@ -4679,14 +4679,14 @@ static void dump_aux_last_message(FILE *fff)
 		}
 
 		/* Hack -- *Winning* message */
-		else if (p_ptr->last_message)
+		else if (cr_ptr->last_message)
 		{
 #ifdef JP
 			fprintf(fff, "\n  [*勝利*メッセージ]\n\n");
 #else
 			fprintf(fff, "\n  [*Winning* Message]\n\n");
 #endif
-			fprintf(fff,"  %s\n", p_ptr->last_message);
+			fprintf(fff,"  %s\n", cr_ptr->last_message);
 			fputc('\n', fff);
 		}
 	}
@@ -4696,7 +4696,7 @@ static void dump_aux_last_message(FILE *fff)
 /*
  *
  */
-static void dump_aux_recall(FILE *fff)
+static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 {
 	int y;
 
@@ -4730,7 +4730,7 @@ static void dump_aux_recall(FILE *fff)
 /*
  *
  */
-static void dump_aux_options(FILE *fff)
+static void dump_aux_options(creature_type *cr_ptr, FILE *fff)
 {
 #ifdef JP
 	fprintf(fff, "\n  [オプション設定]\n");
@@ -4854,7 +4854,7 @@ static void dump_aux_options(FILE *fff)
 
 	fputc('\n', fff);
 
-	if (p_ptr->noscore)
+	if (cr_ptr->noscore)
 #ifdef JP
 		fprintf(fff, "\n 何か不正なことをしてしまっています。\n");
 #else
@@ -5081,16 +5081,16 @@ static void dump_aux_race_history(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_realm_history(FILE *fff)
+static void dump_aux_realm_history(creature_type *cr_ptr, FILE *fff)
 {
-	if (p_ptr->old_realm)
+	if (cr_ptr->old_realm)
 	{
 		int i;
 
 		fputc('\n', fff);
 		for (i = 0; i < MAX_MAGIC; i++)
 		{
-			if (!(p_ptr->old_realm & 1L << i)) continue;
+			if (!(cr_ptr->old_realm & 1L << i)) continue;
 #ifdef JP
 			fprintf(fff, "\n あなたはかつて%s魔法を使えた。", realm_names[i+1]);
 #else
@@ -5105,10 +5105,10 @@ static void dump_aux_realm_history(FILE *fff)
 /*
  *
  */
-static void dump_aux_karmas(FILE *fff)
+static void dump_aux_karmas(creature_type *cr_ptr, FILE *fff)
 {
 	char buf[100];
-	show_alignment(buf, p_ptr);
+	show_alignment(buf, cr_ptr);
 
 #ifdef JP
 	fprintf(fff, "\n\n  [プレイヤーの業]\n\n");
@@ -5123,16 +5123,16 @@ static void dump_aux_karmas(FILE *fff)
 #endif
 
 	fprintf(fff, "\n");
-	dump_karmas(p_ptr, fff);
+	dump_karmas(cr_ptr, fff);
 }
 
 
 /*
  *
  */
-static void dump_aux_mutations(FILE *fff)
+static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
 {
-	if (p_ptr->muta1 || p_ptr->muta2 || p_ptr->muta3)
+	if (cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3)
 	{
 #ifdef JP
 		fprintf(fff, "\n\n  [突然変異]\n\n");
@@ -5140,7 +5140,7 @@ static void dump_aux_mutations(FILE *fff)
 		fprintf(fff, "\n\n  [Mutations]\n\n");
 #endif
 
-		dump_mutations(p_ptr, fff);
+		dump_mutations(cr_ptr, fff);
 	}
 }
 
@@ -5295,19 +5295,19 @@ errr make_character_dump(FILE *fff)
 
 	update_playtime();
 
-	dump_aux_display_player(fff);
-	dump_aux_last_message(fff);
-	dump_aux_options(fff);
-	dump_aux_recall(fff);
+	dump_aux_display_player(p_ptr, fff);
+	dump_aux_last_message(p_ptr, fff);
+	dump_aux_options(p_ptr, fff);
+	dump_aux_recall(p_ptr, fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_monsters(fff);
-	dump_aux_karmas(fff);
+	dump_aux_karmas(p_ptr, fff);
 	dump_aux_race_history(p_ptr, fff);
-	dump_aux_realm_history(fff);
-	dump_aux_class_special(fff);
-	dump_aux_mutations(fff);
-	dump_aux_pet(fff);
+	dump_aux_realm_history(p_ptr, fff);
+	dump_aux_class_special(p_ptr, fff);
+	dump_aux_mutations(p_ptr, fff);
+	dump_aux_pet(p_ptr, fff);
 	fputs("\n\n", fff);
 	dump_aux_equipment_inventory(fff);
 	dump_aux_home_museum(fff);
