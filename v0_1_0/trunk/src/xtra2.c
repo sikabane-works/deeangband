@@ -3097,7 +3097,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 				for(i = INVEN_1STARM; i <= INVEN_FEET; i++)
 				{
-					identify_item(&m_ptr->inventory[i]);
+					identify_item(p_ptr, &m_ptr->inventory[i]);
 					m_ptr->inventory[i].ident |= (IDENT_MENTAL);
 				}
 				m_ptr->update = PU_BONUS | PU_HP | PU_MANA;

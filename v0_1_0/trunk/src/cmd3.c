@@ -488,7 +488,7 @@ msg_print("クエストを達成した！");
 
 	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		identify_item(o_ptr);
+		identify_item(p_ptr, o_ptr);
 
 		/* Auto-inscription */
 		autopick_alter_item(p_ptr, item, FALSE);

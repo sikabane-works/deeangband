@@ -2130,7 +2130,7 @@ void identify_pack(creature_type *cr_ptr)
 		if (!o_ptr->k_idx) continue;
 
 		/* Identify it */
-		identify_item(o_ptr);
+		identify_item(cr_ptr, o_ptr);
 
 		/* Auto-inscription */
 		autopick_alter_item(cr_ptr, i, FALSE);
@@ -2601,10 +2601,10 @@ msg_print("‹­‰»‚ÉŽ¸”s‚µ‚½B");
 static bool item_tester_hook_nameless_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Require weapon or armour */
-	if (!object_is_weapon_armour_ammo(p_ptr, o_ptr)) return FALSE;
+	if (!object_is_weapon_armour_ammo(cr_ptr, o_ptr)) return FALSE;
 	
 	/* Require nameless object if the object is well known */
-	if (object_is_known(o_ptr) && !object_is_nameless(p_ptr, o_ptr))
+	if (object_is_known(o_ptr) && !object_is_nameless(cr_ptr, o_ptr))
 		return FALSE;
 
 	return TRUE;
@@ -2747,7 +2747,7 @@ bool artifact_scroll(creature_type *cr_ptr)
 /*
  * Identify an object
  */
-bool identify_item(object_type *o_ptr)
+bool identify_item(creature_type *cr_ptr, object_type *o_ptr)
 {
 	bool old_known = FALSE;
 	char o_name[MAX_NLEN];
@@ -2766,10 +2766,10 @@ bool identify_item(object_type *o_ptr)
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -2865,7 +2865,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Identify it */
-	old_known = identify_item(o_ptr);
+	old_known = identify_item(cr_ptr, o_ptr);
 
 	/* Description */
 	object_desc(o_name, o_ptr, 0);
@@ -3047,7 +3047,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	}
 
 	/* Identify it */
-	old_known = identify_item(o_ptr);
+	old_known = identify_item(cr_ptr, o_ptr);
 
 	/* Mark the item as fully known */
 	o_ptr->ident |= (IDENT_MENTAL);

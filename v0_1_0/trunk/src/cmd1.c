@@ -839,7 +839,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 
 	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		bool old_known = identify_item(o_ptr);
+		bool old_known = identify_item(cr_ptr, o_ptr);
 
 		/* Auto-inscription/destroy */
 		autopick_alter_item(cr_ptr, slot, (bool)(destroy_identify && !old_known));

@@ -3932,7 +3932,7 @@ get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 			cr_ptr->au -= 50;
 
 			/* Identify it */
-			identify_item(o_ptr);
+			identify_item(cr_ptr, o_ptr);
 
 			/* Description */
 			object_desc(tmp_str, o_ptr, 0);
@@ -4242,7 +4242,7 @@ static void building_recharge_all(creature_type *cr_ptr)
 		/* Identify it */
 		if (!object_is_known(o_ptr))
 		{
-			identify_item(o_ptr);
+			identify_item(cr_ptr, o_ptr);
 
 			/* Auto-inscription */
 			autopick_alter_item(cr_ptr, i, FALSE);

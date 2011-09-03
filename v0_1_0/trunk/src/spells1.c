@@ -1519,7 +1519,7 @@ note_kill = "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI";
 
 			case GF_IDENTIFY:
 			{
-				identify_item(o_ptr);
+				identify_item(p_ptr, o_ptr);
 
 				/* Auto-inscription */
 				autopick_alter_item(p_ptr, (-this_o_idx), FALSE);

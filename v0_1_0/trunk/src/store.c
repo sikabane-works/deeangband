@@ -4004,7 +4004,7 @@ static void store_sell(creature_type *cr_ptr)
 			dummy = object_value(q_ptr) * q_ptr->number;
 
 			/* Identify it */
-			identify_item(o_ptr);
+			identify_item(cr_ptr, o_ptr);
 
 			/* Get local object */
 			q_ptr = &forge;
@@ -4111,7 +4111,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 #endif
 
 		/* Identify it */
-		identify_item(q_ptr);
+		identify_item(cr_ptr, q_ptr);
 		q_ptr->ident |= IDENT_MENTAL;
 
 		/* Distribute charges of wands/rods */
