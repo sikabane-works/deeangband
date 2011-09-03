@@ -1441,7 +1441,7 @@ static void check_music(void)
 	{ if (one_in_(5) && ((dun_level + 5) > p_ptr->lev) && (dun_level > s_ptr->slevel)) p_ptr->spell_exp[spell] += 1; }
 
 	/* Do any effects of continual song */
-	do_spell(REALM_MUSIC, spell, SPELL_CONT);
+	do_spell(p_ptr, REALM_MUSIC, spell, SPELL_CONT);
 }
 
 

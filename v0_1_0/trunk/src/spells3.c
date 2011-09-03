@@ -4064,7 +4064,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 				s_ptr = &m_info[cr_ptr->realm1].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
 			}
 
-			strcpy(name, do_spell((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2, i % 32, SPELL_NAME));
+			strcpy(name, do_spell(cr_ptr, (j < 1) ? cr_ptr->realm1 : cr_ptr->realm2, i % 32, SPELL_NAME));
 
 			/* Illegible */
 			if (s_ptr->slevel >= 99)
@@ -4479,7 +4479,7 @@ strcat(out_val, format("%-30s", "(”»“Ç•s”\)"));
 		/* XXX XXX Could label spells above the players level */
 
 		/* Get extra info */
-		strcpy(info, do_spell(use_realm, spell, SPELL_INFO));
+		strcpy(info, do_spell(cr_ptr, use_realm, spell, SPELL_INFO));
 
 		/* Use that info */
 		comment = info;
@@ -4562,13 +4562,13 @@ comment = "–¢ŒoŒ±";
 		if (use_realm == REALM_HISSATSU)
 		{
 			strcat(out_val, format("%-25s %2d %4d",
-			    do_spell(use_realm, spell, SPELL_NAME), /* realm, spell */
+			    do_spell(cr_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
 			    s_ptr->slevel, need_mana));
 		}
 		else
 		{
 			strcat(out_val, format("%-25s%c%-4s %2d %4d %3d%% %s",
-			    do_spell(use_realm, spell, SPELL_NAME), /* realm, spell */
+			    do_spell(cr_ptr, use_realm, spell, SPELL_NAME), /* realm, spell */
 			    (max ? '!' : ' '), ryakuji,
 			    s_ptr->slevel, need_mana, spell_chance(cr_ptr, spell, use_realm), comment));
 		}

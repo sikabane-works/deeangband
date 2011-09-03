@@ -21,7 +21,7 @@ bool stop_hex_spell_all(creature_type *cr_ptr)
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if (hex_spelling(cr_ptr, spell)) do_spell(REALM_HEX, spell, SPELL_STOP);
+		if (hex_spelling(cr_ptr, spell)) do_spell(cr_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
 	cr_ptr->magic_num1[0] = 0;
@@ -85,7 +85,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 				if (hex_spelling(cr_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
-					put_str(format("%c)  %s", I2A(n), do_spell(REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
+					put_str(format("%c)  %s", I2A(n), do_spell(cr_ptr, REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
 					sp[n++] = spell;
 				}
 			}
@@ -109,7 +109,7 @@ bool stop_hex_spell(creature_type *cr_ptr)
 	{
 		int n = sp[A2I(choice)];
 
-		do_spell(REALM_HEX, n, SPELL_STOP);
+		do_spell(cr_ptr, REALM_HEX, n, SPELL_STOP);
 		cr_ptr->magic_num1[0] &= ~(1L << n);
 		cr_ptr->magic_num2[0]--;
 	}
@@ -223,7 +223,7 @@ void check_hex(creature_type *cr_ptr)
 	{
 		if (hex_spelling(cr_ptr, spell))
 		{
-			do_spell(REALM_HEX, spell, SPELL_CONT);
+			do_spell(cr_ptr, REALM_HEX, spell, SPELL_CONT);
 		}
 	}
 }
@@ -251,8 +251,8 @@ void revenge_spell(creature_type *cr_ptr)
 	switch(cr_ptr->magic_num2[1])
 	{
 	//TODO
-	case 1: do_spell(REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
-	case 2: do_spell(REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
+	case 1: do_spell(cr_ptr, REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
+	case 2: do_spell(cr_ptr, REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
 	}
 }
 

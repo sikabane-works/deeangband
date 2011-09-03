@@ -288,11 +288,11 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			jverb1( prompt, jverb_buf );
 			/* 英日切り替え機能に対応 */
 			(void) strnfmt(tmp_val, 78, "%s(MP%d, 失敗率%d%%)を%sますか? ",
-				do_spell(use_realm, spell, SPELL_NAME), need_mana,
+				do_spell(cr_ptr, use_realm, spell, SPELL_NAME), need_mana,
 				       spell_chance(cr_ptr, spell, use_realm),jverb_buf);
 #else
 			(void)strnfmt(tmp_val, 78, "%^s %s (%d mana, %d%% fail)? ",
-				prompt, do_spell(use_realm, spell, SPELL_NAME), need_mana,
+				prompt, do_spell(cr_ptr, use_realm, spell, SPELL_NAME), need_mana,
 				spell_chance(cr_ptr, spell, use_realm));
 #endif
 
@@ -596,7 +596,7 @@ void do_cmd_browse(void)
 		Term_erase(14, 12, 255);
 		Term_erase(14, 11, 255);
 
-		roff_to_buf(do_spell(use_realm, spell, SPELL_DESC), 62, temp, sizeof(temp));
+		roff_to_buf(do_spell(p_ptr, use_realm, spell, SPELL_DESC), 62, temp, sizeof(temp));
 
 		for (j = 0, line = 11; temp[j]; j += 1 + strlen(&temp[j]))
 		{
@@ -860,7 +860,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 		int max_exp = (spell < 32) ? SPELL_EXP_MASTER : SPELL_EXP_EXPERT;
 		int old_exp = cr_ptr->spell_exp[spell];
 		int new_rank = EXP_LEVEL_UNSKILLED;
-		cptr name = do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell%32, SPELL_NAME);
+		cptr name = do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell%32, SPELL_NAME);
 
 		if (old_exp >= max_exp)
 		{
@@ -924,12 +924,12 @@ msg_format("その本には学ぶべき%sがない。", p);
 		if (m_info[cr_ptr->realm1].spell_book == TV_MUSIC_BOOK)
 		{
 			msg_format("%sを学んだ。",
-				    do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
+				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 		}
 		else
 		{
 			msg_format("%sの%sを学んだ。",
-				    do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME) ,p);
+				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME) ,p);
 		}
 #else
 		msg_format("You have learned the %s of %s.",
@@ -1207,7 +1207,7 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 		sound(SOUND_FAIL);
 
 		/* Failure casting may activate some side effect */
-		do_spell(realm, spell, SPELL_FAIL);
+		do_spell(p_ptr, realm, spell, SPELL_FAIL);
 
 
 		if ((o_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
@@ -1260,7 +1260,7 @@ msg_print("An infernal sound echoed.");
 	else
 	{
 		/* Canceled spells cost neither a turn nor mana */
-		if (!do_spell(realm, spell, SPELL_CAST)) return;
+		if (!do_spell(p_ptr, realm, spell, SPELL_CAST)) return;
 
 		/* A spell was cast */
 		if (!(increment ?

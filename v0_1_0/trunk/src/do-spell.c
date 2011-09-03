@@ -325,22 +325,22 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 }
 
 
-static void cast_invoke_spirits(int dir)
+static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 {
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 
 	if (vir)
 	{
-		if (p_ptr->karmas[vir - 1] > 0)
+		if (cr_ptr->karmas[vir - 1] > 0)
 		{
-			while (randint1(400) < p_ptr->karmas[vir - 1]) die++;
+			while (randint1(400) < cr_ptr->karmas[vir - 1]) die++;
 		}
 		else
 		{
-			while (randint1(400) < (0-p_ptr->karmas[vir - 1])) die--;
+			while (randint1(400) < (0-cr_ptr->karmas[vir - 1])) die--;
 		}
 	}
 
@@ -368,7 +368,7 @@ static void cast_invoke_spirits(int dir)
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
 
-		(void)summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
 	}
 	else if (die < 14)
 	{
@@ -378,7 +378,7 @@ static void cast_invoke_spirits(int dir)
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
 
-		set_afraid(p_ptr, p_ptr->afraid + randint1(4) + 4);
+		set_afraid(cr_ptr, cr_ptr->afraid + randint1(4) + 4);
 	}
 	else if (die < 26)
 	{
@@ -388,7 +388,7 @@ static void cast_invoke_spirits(int dir)
 		msg_print("Your head is invaded by a horde of gibbering spectral voices...");
 #endif
 
-		set_confused(p_ptr, p_ptr->confused + randint1(4) + 4);
+		set_confused(cr_ptr, cr_ptr->confused + randint1(4) + 4);
 	}
 	else if (die < 31)
 	{
@@ -396,7 +396,7 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 36)
 	{
-		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir,
 				  damroll(3 + ((plev - 1) / 5), 4));
 	}
 	else if (die < 41)
@@ -413,22 +413,22 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 56)
 	{
-		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir,
 				  damroll(3+((plev-5)/4),8));
 	}
 	else if (die < 61)
 	{
-		fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_COLD, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_COLD, dir,
 				  damroll(5+((plev-5)/4),8));
 	}
 	else if (die < 66)
 	{
-		fire_bolt_or_beam(beam_chance(p_ptr), GF_ACID, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr), GF_ACID, dir,
 				  damroll(6+((plev-5)/4),8));
 	}
 	else if (die < 71)
 	{
-		fire_bolt_or_beam(beam_chance(p_ptr), GF_FIRE, dir,
+		fire_bolt_or_beam(beam_chance(cr_ptr), GF_FIRE, dir,
 				  damroll(8+((plev-5)/4),8));
 	}
 	else if (die < 76)
@@ -457,11 +457,11 @@ static void cast_invoke_spirits(int dir)
 	}
 	else if (die < 104)
 	{
-		earthquake(p_ptr->fy, p_ptr->fx, 12);
+		earthquake(cr_ptr->fy, cr_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(p_ptr->fy, p_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -476,7 +476,7 @@ static void cast_invoke_spirits(int dir)
 		dispel_monsters(150);
 		slow_monsters();
 		sleep_monsters();
-		hp_player(p_ptr, 300);
+		hp_player(cr_ptr, 300);
 	}
 
 	if (die < 31)
@@ -900,7 +900,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 /*
  * Drop 10+1d10 meteor ball at random places near the player
  */
-static void cast_meteor(int dam, int rad)
+static void cast_meteor(creature_type *cr_ptr, int dam, int rad)
 {
 	int i;
 	int b = 10 + randint1(10);
@@ -914,18 +914,18 @@ static void cast_meteor(int dam, int rad)
 		{
 			int dy, dx, d;
 
-			x = p_ptr->fx - 8 + randint0(17);
-			y = p_ptr->fy - 8 + randint0(17);
+			x = cr_ptr->fx - 8 + randint0(17);
+			y = cr_ptr->fy - 8 + randint0(17);
 
-			dx = (p_ptr->fx > x) ? (p_ptr->fx - x) : (x - p_ptr->fx);
-			dy = (p_ptr->fy > y) ? (p_ptr->fy - y) : (y - p_ptr->fy);
+			dx = (cr_ptr->fx > x) ? (cr_ptr->fx - x) : (x - cr_ptr->fx);
+			dy = (cr_ptr->fy > y) ? (cr_ptr->fy - y) : (y - cr_ptr->fy);
 
 			/* Approximate distance */
 			d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
 			if (d >= 9) continue;
 
-			if (!in_bounds(y, x) || !projectable(p_ptr->fy, p_ptr->fx, y, x)
+			if (!in_bounds(y, x) || !projectable(cr_ptr->fy, cr_ptr->fx, y, x)
 			    || !cave_have_flag_bold(y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
@@ -934,7 +934,7 @@ static void cast_meteor(int dam, int rad)
 
 		if (count > 20) continue;
 
-		project(p_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+		project(cr_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 	}
 }
 
@@ -942,7 +942,7 @@ static void cast_meteor(int dam, int rad)
 /*
  * Drop 10+1d10 disintegration ball at random places near the target
  */
-static bool cast_wrath_of_the_god(int dam, int rad)
+static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 {
 	int x, y, tx, ty;
 	int nx, ny;
@@ -952,8 +952,8 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 	if (!get_aim_dir(&dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = p_ptr->fy + 99 * ddy[dir];
+	tx = cr_ptr->fx + 99 * ddx[dir];
+	ty = cr_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -962,8 +962,8 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 		ty = target_row;
 	}
 
-	x = p_ptr->fx;
-	y = p_ptr->fy;
+	x = cr_ptr->fx;
+	y = cr_ptr->fy;
 
 	while (1)
 	{
@@ -972,10 +972,10 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 
 		ny = y;
 		nx = x;
-		mmove2(&ny, &nx, p_ptr->fy, p_ptr->fx, ty, tx);
+		mmove2(&ny, &nx, cr_ptr->fy, cr_ptr->fx, ty, tx);
 
 		/* Stop at maximum range */
-		if (MAX_RANGE(p_ptr) <= distance(p_ptr->fy, p_ptr->fx, ny, nx)) break;
+		if (MAX_RANGE(cr_ptr) <= distance(cr_ptr->fy, cr_ptr->fx, ny, nx)) break;
 
 		/* Stopped by walls/doors */
 		if (!cave_have_flag_bold(ny, nx, FF_PROJECT)) break;
@@ -1018,7 +1018,7 @@ static bool cast_wrath_of_the_god(int dam, int rad)
 		    !in_disintegration_range(ty, tx, y, x))
 			continue;
 
-		project(p_ptr, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		project(cr_ptr, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	return TRUE;
@@ -1045,9 +1045,9 @@ static bool item_tester_offer(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Daemon spell Summon Greater Demon
  */
-static bool cast_summon_greater_demon(void)
+static bool cast_summon_greater_demon(creature_type *cr_ptr)
 {
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	int item;
 	cptr q, s;
 	int summon_lev;
@@ -1061,12 +1061,12 @@ static bool cast_summon_greater_demon(void)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1077,7 +1077,7 @@ static bool cast_summon_greater_demon(void)
 
 	summon_lev = plev * 2 / 3 + r_info[o_ptr->pval].level;
 
-	if (summon_specific(NULL, p_ptr->fy, p_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+	if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 	{
 #ifdef JP
 		msg_print("硫黄の悪臭が充満した。");
@@ -1167,7 +1167,7 @@ void stop_singing(creature_type *cr_ptr)
 	if (cr_ptr->action == ACTION_SING) set_action(cr_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
-	do_spell(REALM_MUSIC, cr_ptr->magic_num2[0], SPELL_STOP);
+	do_spell(cr_ptr, REALM_MUSIC, cr_ptr->magic_num2[0], SPELL_STOP);
 
 	cr_ptr->magic_num1[0] = MUSIC_NONE;
 	cr_ptr->magic_num2[0] = 0;
@@ -1180,7 +1180,7 @@ void stop_singing(creature_type *cr_ptr)
 }
 
 
-static cptr do_life_spell(int spell, int mode)
+static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -1188,7 +1188,7 @@ static cptr do_life_spell(int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -1209,8 +1209,8 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_cut(p_ptr, p_ptr->cut - 10);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_cut(cr_ptr, cr_ptr->cut - 10);
 			}
 		}
 		break;
@@ -1231,7 +1231,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_blessed(p_ptr, randint1(base) + base, FALSE);
+				set_blessed(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1277,7 +1277,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -1322,8 +1322,8 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_cut(p_ptr, (p_ptr->cut / 2) - 20);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_cut(cr_ptr, (cr_ptr->cut / 2) - 20);
 			}
 		}
 		break;
@@ -1340,7 +1340,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(p_ptr, 0);
+				set_poisoned(cr_ptr, 0);
 			}
 		}
 		break;
@@ -1357,7 +1357,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_food(p_ptr, PY_FOOD_MAX - 1);
+				set_food(cr_ptr, PY_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -1374,7 +1374,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse(p_ptr))
+				if (remove_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1426,9 +1426,9 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
 			}
 		}
 		break;
@@ -1449,8 +1449,8 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1509,9 +1509,9 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, heal);
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
+				hp_player(cr_ptr, heal);
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
 			}
 		}
 		break;
@@ -1528,7 +1528,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				warding_glyph(p_ptr);
+				warding_glyph(cr_ptr);
 			}
 		}
 		break;
@@ -1545,7 +1545,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse(p_ptr))
+				if (remove_all_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1569,7 +1569,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(p_ptr, FALSE)) return NULL;
+				if (!ident_spell(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -1657,7 +1657,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall(p_ptr)) return NULL;
+				if (!word_of_recall(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -1679,7 +1679,7 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				alter_reality(p_ptr);
+				alter_reality(cr_ptr);
 			}
 		}
 		break;
@@ -1700,8 +1700,8 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				warding_glyph(p_ptr);
-				glyph_creation(p_ptr);
+				warding_glyph(cr_ptr);
+				glyph_creation(cr_ptr);
 			}
 		}
 		break;
@@ -1794,13 +1794,13 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				do_res_stat(p_ptr, A_STR);
-				do_res_stat(p_ptr, A_INT);
-				do_res_stat(p_ptr, A_WIS);
-				do_res_stat(p_ptr, A_DEX);
-				do_res_stat(p_ptr, A_CON);
-				do_res_stat(p_ptr, A_CHR);
-				restore_level(p_ptr);
+				do_res_stat(cr_ptr, A_STR);
+				do_res_stat(cr_ptr, A_INT);
+				do_res_stat(cr_ptr, A_WIS);
+				do_res_stat(cr_ptr, A_DEX);
+				do_res_stat(cr_ptr, A_CON);
+				do_res_stat(cr_ptr, A_CHR);
+				restore_level(cr_ptr);
 			}
 		}
 		break;
@@ -1821,9 +1821,9 @@ static cptr do_life_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, heal);
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
+				hp_player(cr_ptr, heal);
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
 			}
 		}
 		break;
@@ -1840,7 +1840,7 @@ static cptr do_life_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(p_ptr, FALSE)) return NULL;
+				if (!identify_fully(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -1862,13 +1862,13 @@ static cptr do_life_spell(int spell, int mode)
 			if (cast)
 			{
 				int v = randint1(base) + base;
-				set_fast(p_ptr, v, FALSE);
-				set_oppose_acid(p_ptr, v, FALSE);
-				set_oppose_elec(p_ptr, v, FALSE);
-				set_oppose_fire(p_ptr, v, FALSE);
-				set_oppose_cold(p_ptr, v, FALSE);
-				set_oppose_pois(p_ptr, v, FALSE);
-				set_ultimate_res(p_ptr, v, FALSE);
+				set_fast(cr_ptr, v, FALSE);
+				set_oppose_acid(cr_ptr, v, FALSE);
+				set_oppose_elec(cr_ptr, v, FALSE);
+				set_oppose_fire(cr_ptr, v, FALSE);
+				set_oppose_cold(cr_ptr, v, FALSE);
+				set_oppose_pois(cr_ptr, v, FALSE);
+				set_ultimate_res(cr_ptr, v, FALSE);
 			}
 		}
 		break;
@@ -1878,7 +1878,7 @@ static cptr do_life_spell(int spell, int mode)
 }
 
 
-static cptr do_sorcery_spell(int spell, int mode)
+static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -1886,7 +1886,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -1927,7 +1927,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -1973,7 +1973,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -2017,7 +2017,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -2061,7 +2061,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!recharge(p_ptr, power)) return NULL;
+				if (!recharge(cr_ptr, power)) return NULL;
 			}
 		}
 		break;
@@ -2099,7 +2099,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(p_ptr, FALSE)) return NULL;
+				if (!ident_spell(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -2188,7 +2188,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_fast(p_ptr, randint1(sides) + base, FALSE);
+				set_fast(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -2226,7 +2226,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(p_ptr, FALSE)) return NULL;
+				if (!identify_fully(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -2294,7 +2294,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
+				set_tim_esp(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -2311,7 +2311,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!tele_town(p_ptr)) return NULL;
+				if (!tele_town(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -2328,7 +2328,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge(p_ptr);
+				self_knowledge(cr_ptr);
 			}
 		}
 		break;
@@ -2350,7 +2350,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(p_ptr, 0);
+				teleport_level(cr_ptr, 0);
 			}
 		}
 		break;
@@ -2372,7 +2372,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall(p_ptr)) return NULL;
+				if (!word_of_recall(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -2439,7 +2439,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				explosive_rune(p_ptr);
+				explosive_rune(cr_ptr);
 			}
 		}
 		break;
@@ -2462,7 +2462,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fetch(p_ptr, dir, weight, FALSE);
+				fetch(cr_ptr, dir, weight, FALSE);
 			}
 		}
 		break;
@@ -2487,9 +2487,9 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 				wiz_lite(FALSE);
 
-				if (!p_ptr->telepathy)
+				if (!cr_ptr->telepathy)
 				{
-					set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
+					set_tim_esp(cr_ptr, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -2528,7 +2528,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!alchemy(p_ptr)) return NULL;
+				if (!alchemy(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -2570,7 +2570,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_invuln(p_ptr, randint1(base) + base, FALSE);
+				set_invuln(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -2580,7 +2580,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 }
 
 
-static cptr do_nature_spell(int spell, int mode)
+static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -2596,7 +2596,7 @@ static cptr do_nature_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -2695,7 +2695,7 @@ static cptr do_nature_spell(int spell, int mode)
 				object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
 				/* Drop the object from heaven */
-				drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
+				drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 			}
 		}
 		break;
@@ -2718,9 +2718,9 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 
-				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
+				if ((race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE)) && !cr_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("日の光があなたの肉体を焦がした！");
@@ -2729,9 +2729,9 @@ static cptr do_nature_spell(int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "日の光", NULL, -1);
+					take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "日の光", NULL, -1);
 #else
-					take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "daylight", NULL, -1);
+					take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(2, 2), "daylight", NULL, -1);
 #endif
 				}
 			}
@@ -2777,9 +2777,9 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_elec(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -2801,9 +2801,9 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_cut(p_ptr, 0);
-				set_poisoned(p_ptr, 0);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_cut(cr_ptr, 0);
+				set_poisoned(cr_ptr, 0);
 			}
 		}
 		break;
@@ -2851,7 +2851,7 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_COLD, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_COLD, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -2900,7 +2900,7 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_FIRE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -2967,7 +2967,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!(summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
+				if (!(summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("動物は現れなかった。");
@@ -2996,10 +2996,10 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, heal);
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
-				set_poisoned(p_ptr, 0);
+				hp_player(cr_ptr, heal);
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
+				set_poisoned(cr_ptr, 0);
 			}
 		}
 		break;
@@ -3038,7 +3038,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shield(p_ptr, randint1(sides) + base, FALSE);
+				set_shield(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -3059,11 +3059,11 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_pois(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_acid(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_elec(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_pois(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -3118,7 +3118,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(p_ptr, FALSE)) return NULL;
+				if (!identify_fully(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -3152,7 +3152,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!rustproof(p_ptr)) return NULL;
+				if (!rustproof(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -3173,7 +3173,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 			if (cast)
 			{
-				earthquake(p_ptr->fy, p_ptr->fx, rad);
+				earthquake(cr_ptr->fy, cr_ptr->fx, rad);
 			}
 		}
 		break;
@@ -3196,8 +3196,8 @@ static cptr do_nature_spell(int spell, int mode)
 
 				for (dir = 0; dir < 8; dir++)
 				{
-					y = p_ptr->fy + ddy_ddd[dir];
-					x = p_ptr->fx + ddx_ddd[dir];
+					y = cr_ptr->fy + ddy_ddd[dir];
+					x = cr_ptr->fx + ddx_ddd[dir];
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
@@ -3205,7 +3205,7 @@ static cptr do_nature_spell(int spell, int mode)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						py_attack(p_ptr, y, x, 0);
+						py_attack(cr_ptr, y, x, 0);
 				}
 			}
 		}
@@ -3302,7 +3302,7 @@ static cptr do_nature_spell(int spell, int mode)
 				fire_ball(GF_LITE, 0, dam, rad);
 				wiz_lite(FALSE);
 
-				if ((race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) && !p_ptr->resist_lite)
+				if ((race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE)) && !cr_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("日光があなたの肉体を焦がした！");
@@ -3311,9 +3311,9 @@ static cptr do_nature_spell(int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "日光", NULL, -1);
+					take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "日光", NULL, -1);
 #else
-					take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 50, "sunlight", NULL, -1);
+					take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 50, "sunlight", NULL, -1);
 #endif
 				}
 			}
@@ -3332,7 +3332,7 @@ static cptr do_nature_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, randint0(2));
+				brand_weapon(cr_ptr, randint0(2));
 			}
 		}
 		break;
@@ -3357,8 +3357,8 @@ static cptr do_nature_spell(int spell, int mode)
 			if (cast)
 			{
 				dispel_monsters(d_dam);
-				earthquake(p_ptr->fy, p_ptr->fx, q_rad);
-				project(p_ptr, b_rad, p_ptr->fy, p_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+				earthquake(cr_ptr->fy, cr_ptr->fx, q_rad);
+				project(cr_ptr, b_rad, cr_ptr->fy, cr_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -3368,7 +3368,7 @@ static cptr do_nature_spell(int spell, int mode)
 }
 
 
-static cptr do_chaos_spell(int spell, int mode)
+static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -3384,7 +3384,7 @@ static cptr do_chaos_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -3407,7 +3407,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3451,7 +3451,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -3468,7 +3468,7 @@ static cptr do_chaos_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!(p_ptr->special_attack & ATTACK_CONFUSE))
+				if (!(cr_ptr->special_attack & ATTACK_CONFUSE))
 				{
 #ifdef JP
 					msg_print("あなたの手は光り始めた。");
@@ -3476,7 +3476,7 @@ static cptr do_chaos_spell(int spell, int mode)
 					msg_print("Your hands start glowing.");
 #endif
 
-					p_ptr->special_attack |= ATTACK_CONFUSE;
+					cr_ptr->special_attack |= ATTACK_CONFUSE;
 					play_redraw |= (PR_STATUS);
 				}
 			}
@@ -3498,9 +3498,9 @@ static cptr do_chaos_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->cls_idx == CLASS_MAGE ||
-			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    p_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->cls_idx == CLASS_MAGE ||
+			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -3542,7 +3542,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_FIRE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_FIRE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3588,7 +3588,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -3610,7 +3610,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 				if (!get_aim_dir(&dir)) return NULL;
 
-				cast_wonder(p_ptr, dir);
+				cast_wonder(cr_ptr, dir);
 			}
 		}
 		break;
@@ -3634,7 +3634,7 @@ static cptr do_chaos_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_CHAOS, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_CHAOS, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -3662,7 +3662,7 @@ static cptr do_chaos_spell(int spell, int mode)
 				msg_print("BOOM! Shake the room!");
 #endif
 
-				project(p_ptr, rad, p_ptr->fy, p_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -3753,7 +3753,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(p_ptr->fy, p_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -3844,7 +3844,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!recharge(p_ptr, power)) return NULL;
+				if (!recharge(cr_ptr, power)) return NULL;
 			}
 		}
 		break;
@@ -3890,7 +3890,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				alter_reality(p_ptr);
+				alter_reality(cr_ptr);
 			}
 		}
 		break;
@@ -3937,7 +3937,7 @@ static cptr do_chaos_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 2);
+				brand_weapon(cr_ptr, 2);
 			}
 		}
 		break;
@@ -3961,7 +3961,7 @@ static cptr do_chaos_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
+				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -4031,7 +4031,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				cast_meteor(dam, rad);
+				cast_meteor(cr_ptr, dam, rad);
 			}
 		}
 		break;
@@ -4072,7 +4072,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				call_chaos(p_ptr);
+				call_chaos(cr_ptr);
 			}
 		}
 		break;
@@ -4094,7 +4094,7 @@ static cptr do_chaos_spell(int spell, int mode)
 #else
 				if (!get_check("You will polymorph yourself. Are you sure? ")) return NULL;
 #endif
-				do_poly_self(p_ptr);
+				do_poly_self(cr_ptr);
 			}
 		}
 		break;
@@ -4133,7 +4133,7 @@ static cptr do_chaos_spell(int spell, int mode)
 #endif
     
 		{
-			int dam = p_ptr->chp;
+			int dam = cr_ptr->chp;
 			int rad = 2;
 
 			if (info) return info_damage(0, 0, dam);
@@ -4161,7 +4161,7 @@ static cptr do_chaos_spell(int spell, int mode)
 
 			if (cast)
 			{
-				call_the_void(p_ptr);
+				call_the_void(cr_ptr);
 			}
 		}
 		break;
@@ -4171,7 +4171,7 @@ static cptr do_chaos_spell(int spell, int mode)
 }
 
 
-static cptr do_death_spell(int spell, int mode)
+static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -4187,7 +4187,7 @@ static cptr do_death_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -4344,7 +4344,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_pois(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_pois(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -4411,9 +4411,9 @@ static cptr do_death_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->cls_idx == CLASS_MAGE ||
-			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    p_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->cls_idx == CLASS_MAGE ||
+			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -4449,7 +4449,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -4471,7 +4471,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				project(p_ptr, rad, p_ptr->fy, p_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -4511,7 +4511,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 3);
+				brand_weapon(cr_ptr, 3);
 			}
 		}
 		break;
@@ -4540,7 +4540,7 @@ static cptr do_death_spell(int spell, int mode)
 
 				if (drain_life(dir, dam))
 				{
-					hp_player(p_ptr, dam);
+					hp_player(cr_ptr, dam);
 
 					/*
 					 * Gain nutritional sustenance:
@@ -4553,11 +4553,11 @@ static cptr do_death_spell(int spell, int mode)
 					 * ARE Gorged, it won't cure
 					 * us
 					 */
-					dam = p_ptr->food + MIN(5000, 100 * dam);
+					dam = cr_ptr->food + MIN(5000, 100 * dam);
 
 					/* Not gorged already */
-					if (p_ptr->food < PY_FOOD_MAX)
-						set_food(p_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
+					if (cr_ptr->food < PY_FOOD_MAX)
+						set_food(cr_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
 				}
 			}
 		}
@@ -4575,7 +4575,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				animate_dead(NULL, p_ptr->fy, p_ptr->fx);
+				animate_dead(NULL, cr_ptr->fy, cr_ptr->fx);
 			}
 		}
 		break;
@@ -4617,9 +4617,9 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(p_ptr, randint1(base) + base, FALSE);
-				hp_player(p_ptr, 30);
-				set_afraid(p_ptr, 0);
+				set_shero(cr_ptr, randint1(base) + base, FALSE);
+				hp_player(cr_ptr, 30);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -4640,7 +4640,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				cast_invoke_spirits(dir);
+				cast_invoke_spirits(cr_ptr, dir);
 			}
 		}
 		break;
@@ -4664,7 +4664,7 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_DARK, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_DARK, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -4687,10 +4687,10 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(p_ptr, randint1(25) + 25, FALSE);
-				hp_player(p_ptr, 30);
-				set_afraid(p_ptr, 0);
-				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
+				set_shero(cr_ptr, randint1(25) + 25, FALSE);
+				hp_player(cr_ptr, 30);
+				set_afraid(cr_ptr, 0);
+				set_fast(cr_ptr, randint1(sp_sides) + sp_base, FALSE);
 			}
 		}
 		break;
@@ -4707,7 +4707,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 4);
+				brand_weapon(cr_ptr, 4);
 			}
 		}
 		break;
@@ -4735,7 +4735,7 @@ static cptr do_death_spell(int spell, int mode)
 				for (i = 0; i < 3; i++)
 				{
 					if (drain_life(dir, dam))
-						hp_player(p_ptr, dam);
+						hp_player(cr_ptr, dam);
 				}
 			}
 		}
@@ -4829,7 +4829,7 @@ static cptr do_death_spell(int spell, int mode)
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, type, mode))
+				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, (plev * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる...");
@@ -4874,11 +4874,11 @@ static cptr do_death_spell(int spell, int mode)
 			{
 				if (randint1(50) > plev)
 				{
-					if (!ident_spell(p_ptr, FALSE)) return NULL;
+					if (!ident_spell(cr_ptr, FALSE)) return NULL;
 				}
 				else
 				{
-					if (!identify_fully(p_ptr, FALSE)) return NULL;
+					if (!identify_fully(cr_ptr, FALSE)) return NULL;
 				}
 			}
 		}
@@ -4900,7 +4900,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(p_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
+				set_mimic(cr_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
 			}
 		}
 		break;
@@ -4917,7 +4917,7 @@ static cptr do_death_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				restore_level(p_ptr);
+				restore_level(cr_ptr);
 			}
 		}
 		break;
@@ -4964,9 +4964,9 @@ static cptr do_death_spell(int spell, int mode)
 
 				fire_ball(GF_HELL_FIRE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "地獄の劫火の呪文を唱えた疲労", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, 20 + randint1(30), "地獄の劫火の呪文を唱えた疲労", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
 #endif
 			}
 		}
@@ -4988,7 +4988,7 @@ static cptr do_death_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_wraith_form(p_ptr, randint1(base) + base, FALSE);
+				set_wraith_form(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -4998,7 +4998,7 @@ static cptr do_death_spell(int spell, int mode)
 }
 
 
-static cptr do_trump_spell(int spell, int mode)
+static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -5013,7 +5013,7 @@ static cptr do_trump_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -5033,7 +5033,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5056,7 +5056,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an spider...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_SPIDER, PM_ALLOW_GROUP))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_SPIDER, PM_ALLOW_GROUP))
 				{
 					if (fail)
 					{
@@ -5085,7 +5085,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				cast_shuffle(p_ptr);
+				cast_shuffle(cr_ptr);
 			}
 		}
 		break;
@@ -5123,7 +5123,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5145,7 +5145,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
+				set_tim_esp(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -5193,7 +5193,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an animal...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, type, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, type, 0L))
 				{
 					if (fail)
 					{
@@ -5226,7 +5226,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fetch(p_ptr, dir, weight, FALSE);
+				fetch(cr_ptr, dir, weight, FALSE);
 			}
 		}
 		break;
@@ -5255,11 +5255,11 @@ static cptr do_trump_spell(int spell, int mode)
 				else
 				{
 					/* Summons near player when failed */
-					x = p_ptr->fx;
-					y = p_ptr->fy;
+					x = cr_ptr->fx;
+					y = cr_ptr->fy;
 				}
 
-				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_KAMIKAZE_LIVING;
 				else
 					type = SUMMON_KAMIKAZE;
@@ -5270,7 +5270,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (trump_summoning(p_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
+				if (trump_summoning(cr_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
 				{
 					if (fail)
 					{
@@ -5300,7 +5300,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
 				{
 #ifdef JP
 					msg_print("御用でございますか、御主人様？");
@@ -5359,7 +5359,7 @@ static cptr do_trump_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(p_ptr, 0);
+				teleport_level(cr_ptr, 0);
 			}
 		}
 		break;
@@ -5408,7 +5408,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall(p_ptr)) return NULL;
+				if (!word_of_recall(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5481,7 +5481,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of an undead creature...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_UNDEAD, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_UNDEAD, 0L))
 				{
 					if (fail)
 					{
@@ -5514,7 +5514,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a reptile...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HYDRA, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_HYDRA, 0L))
 				{
 					if (fail)
 					{
@@ -5549,12 +5549,12 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_LIVING;
 				else
 					type = 0;
 
-				if (trump_summoning(p_ptr, (1 + (plev - 15)/ 10), !fail, p_ptr->fy, p_ptr->fx, 0, type, 0L))
+				if (trump_summoning(cr_ptr, (1 + (plev - 15)/ 10), !fail, cr_ptr->fy, cr_ptr->fx, 0, type, 0L))
 				{
 					if (fail)
 					{
@@ -5588,7 +5588,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a hound...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HOUND, PM_ALLOW_GROUP))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_HOUND, PM_ALLOW_GROUP))
 				{
 					if (fail)
 					{
@@ -5615,7 +5615,7 @@ static cptr do_trump_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 5);
+				brand_weapon(cr_ptr, 5);
 			}
 		}
 		break;
@@ -5642,7 +5642,7 @@ static cptr do_trump_spell(int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_random_mutation(p_ptr, mutation))
+				if (gain_random_mutation(cr_ptr, mutation))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -5672,7 +5672,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a Cyberdemon...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_CYBER, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_CYBER, 0L))
 				{
 					if (fail)
 					{
@@ -5720,7 +5720,7 @@ static cptr do_trump_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(p_ptr, FALSE)) return NULL;
+				if (!identify_fully(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -5777,7 +5777,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a dragon...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_DRAGON, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_DRAGON, 0L))
 				{
 					if (fail)
 					{
@@ -5809,7 +5809,7 @@ static cptr do_trump_spell(int spell, int mode)
 
 			if (cast)
 			{
-				cast_meteor(dam, rad);
+				cast_meteor(cr_ptr, dam, rad);
 			}
 		}
 		break;
@@ -5832,7 +5832,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a demon...");
 #endif
 
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_DEMON, 0L))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_DEMON, 0L))
 				{
 					if (fail)
 					{
@@ -5865,7 +5865,7 @@ static cptr do_trump_spell(int spell, int mode)
 				msg_print("You concentrate on the trump of a greater undead being...");
 #endif
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, SUMMON_HI_UNDEAD, PM_ALLOW_UNIQUE))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, SUMMON_HI_UNDEAD, PM_ALLOW_UNIQUE))
 				{
 					if (fail)
 					{
@@ -5894,7 +5894,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				int type;
 
-				if (p_ptr->cls_idx == CLASS_BEASTMASTER)
+				if (cr_ptr->cls_idx == CLASS_BEASTMASTER)
 					type = SUMMON_HI_DRAGON_LIVING;
 				else
 					type = SUMMON_HI_DRAGON;
@@ -5906,7 +5906,7 @@ static cptr do_trump_spell(int spell, int mode)
 #endif
 
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(p_ptr, 1, !fail, p_ptr->fy, p_ptr->fx, 0, type, PM_ALLOW_UNIQUE))
+				if (trump_summoning(cr_ptr, 1, !fail, cr_ptr->fy, cr_ptr->fx, 0, type, PM_ALLOW_UNIQUE))
 				{
 					if (fail)
 					{
@@ -5926,7 +5926,7 @@ static cptr do_trump_spell(int spell, int mode)
 }
 
 
-static cptr do_arcane_spell(int spell, int mode)
+static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -5934,7 +5934,7 @@ static cptr do_arcane_spell(int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -5957,7 +5957,7 @@ static cptr do_arcane_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -6039,7 +6039,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -6062,7 +6062,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -6103,8 +6103,8 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_cut(p_ptr, p_ptr->cut - 10);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_cut(cr_ptr, cr_ptr->cut - 10);
 			}
 		}
 		break;
@@ -6144,7 +6144,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				phlogiston(p_ptr);
+				phlogiston(cr_ptr);
 			}
 		}
 		break;
@@ -6225,7 +6225,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(p_ptr, 0);
+				set_poisoned(cr_ptr, 0);
 			}
 		}
 		break;
@@ -6246,7 +6246,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6267,7 +6267,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6288,7 +6288,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_elec(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_elec(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6309,7 +6309,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_acid(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6331,8 +6331,8 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_cut(p_ptr, (p_ptr->cut / 2) - 50);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_cut(cr_ptr, (cr_ptr->cut / 2) - 50);
 			}
 		}
 		break;
@@ -6353,7 +6353,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -6370,7 +6370,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!ident_spell(p_ptr, FALSE)) return NULL;
+				if (!ident_spell(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -6442,7 +6442,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_food(p_ptr, PY_FOOD_MAX - 1);
+				set_food(cr_ptr, PY_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -6463,7 +6463,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
+				set_tim_invis(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6480,7 +6480,7 @@ static cptr do_arcane_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("エレメンタルは現れなかった。");
@@ -6509,7 +6509,7 @@ static cptr do_arcane_spell(int spell, int mode)
 #else
 				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(p_ptr, 0);
+				teleport_level(cr_ptr, 0);
 			}
 		}
 		break;
@@ -6609,7 +6609,7 @@ static cptr do_arcane_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!word_of_recall(p_ptr)) return NULL;
+				if (!word_of_recall(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -6633,9 +6633,9 @@ static cptr do_arcane_spell(int spell, int mode)
 			{
 				wiz_lite(FALSE);
 
-				if (!p_ptr->telepathy)
+				if (!cr_ptr->telepathy)
 				{
-					set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
+					set_tim_esp(cr_ptr, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -6646,14 +6646,14 @@ static cptr do_arcane_spell(int spell, int mode)
 }
 
 
-static cptr do_craft_spell(int spell, int mode)
+static cptr do_craft_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -6673,7 +6673,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_infra(p_ptr, base + randint1(base), FALSE);
+				set_tim_infra(cr_ptr, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -6694,7 +6694,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_regen(p_ptr, base + randint1(base), FALSE);
+				set_tim_regen(cr_ptr, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -6711,7 +6711,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_food(p_ptr, PY_FOOD_MAX - 1);
+				set_food(cr_ptr, PY_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -6732,7 +6732,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6753,7 +6753,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6774,9 +6774,9 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(p_ptr, randint1(base) + base, FALSE);
-				hp_player(p_ptr, 10);
-				set_afraid(p_ptr, 0);
+				set_hero(cr_ptr, randint1(base) + base, FALSE);
+				hp_player(cr_ptr, 10);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -6797,7 +6797,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_elec(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_elec(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6818,7 +6818,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_acid(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6839,7 +6839,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
+				set_tim_invis(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6856,7 +6856,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse(p_ptr))
+				if (remove_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -6884,7 +6884,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_pois(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_pois(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6905,9 +6905,9 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shero(p_ptr, randint1(base) + base, FALSE);
-				hp_player(p_ptr, 30);
-				set_afraid(p_ptr, 0);
+				set_shero(cr_ptr, randint1(base) + base, FALSE);
+				hp_player(cr_ptr, 30);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -6924,7 +6924,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge(p_ptr);
+				self_knowledge(cr_ptr);
 			}
 		}
 		break;
@@ -6946,7 +6946,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_protevil(p_ptr, randint1(sides) + base, FALSE);
+				set_protevil(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -6963,10 +6963,10 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_poisoned(p_ptr, 0);
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
-				set_image(p_ptr, 0);
+				set_poisoned(cr_ptr, 0);
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
+				set_image(cr_ptr, 0);
 			}
 		}
 		break;
@@ -6987,7 +6987,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!choose_ele_attack(p_ptr)) return NULL;
+				if (!choose_ele_attack(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -7009,7 +7009,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(p_ptr, randint1(sides) + base, FALSE);
+				set_tim_esp(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7031,7 +7031,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_shield(p_ptr, randint1(sides) + base, FALSE);
+				set_shield(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7052,11 +7052,11 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_acid(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_cold(p_ptr, randint1(base) + base, FALSE);
-				set_oppose_pois(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_acid(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_elec(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_cold(cr_ptr, randint1(base) + base, FALSE);
+				set_oppose_pois(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7078,7 +7078,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_fast(p_ptr, randint1(sides) + base, FALSE);
+				set_fast(cr_ptr, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7099,7 +7099,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_kabenuke(p_ptr, randint1(base) + base, FALSE);
+				set_kabenuke(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7116,7 +7116,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				pulish_shield(p_ptr);
+				pulish_shield(cr_ptr);
 			}
 		}
 		break;
@@ -7133,7 +7133,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (summon_specific(NULL, p_ptr->fy, p_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
+				if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, plev, SUMMON_GOLEM, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ゴーレムを作った。");
@@ -7169,7 +7169,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_magicdef(p_ptr, randint1(base) + base, FALSE);
+				set_magicdef(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7186,7 +7186,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!mundane_spell(p_ptr, TRUE)) return NULL;
+				if (!mundane_spell(cr_ptr, TRUE)) return NULL;
 			}
 		}
 		break;
@@ -7203,7 +7203,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse(p_ptr))
+				if (remove_all_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -7227,7 +7227,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!identify_fully(p_ptr, FALSE)) return NULL;
+				if (!identify_fully(cr_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -7244,7 +7244,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!enchant_spell(p_ptr, randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
+				if (!enchant_spell(cr_ptr, randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
 			}
 		}
 		break;
@@ -7261,7 +7261,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!enchant_spell(p_ptr, 0, 0, randint0(3) + 2)) return NULL;
+				if (!enchant_spell(cr_ptr, 0, 0, randint0(3) + 2)) return NULL;
 			}
 		}
 		break;
@@ -7278,7 +7278,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, randint0(18));
+				brand_weapon(cr_ptr, randint0(18));
 			}
 		}
 		break;
@@ -7305,7 +7305,7 @@ static cptr do_craft_spell(int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_random_mutation(p_ptr, mutation))
+				if (gain_random_mutation(cr_ptr, mutation))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -7333,7 +7333,7 @@ static cptr do_craft_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!choose_ele_immune(p_ptr, base + randint1(base))) return NULL;
+				if (!choose_ele_immune(cr_ptr, base + randint1(base))) return NULL;
 			}
 		}
 		break;
@@ -7343,7 +7343,7 @@ static cptr do_craft_spell(int spell, int mode)
 }
 
 
-static cptr do_daemon_spell(int spell, int mode)
+static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -7357,7 +7357,7 @@ static cptr do_daemon_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -7380,7 +7380,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7422,7 +7422,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_blessed(p_ptr, randint1(base) + base, FALSE);
+				set_blessed(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7443,7 +7443,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_oppose_fire(p_ptr, randint1(base) + base, FALSE);
+				set_oppose_fire(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7491,7 +7491,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_NETHER, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7508,7 +7508,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!summon_specific(NULL, p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+				if (!summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("古代の死霊は現れなかった。");
@@ -7535,9 +7535,9 @@ static cptr do_daemon_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->cls_idx == CLASS_MAGE ||
-			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    p_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->cls_idx == CLASS_MAGE ||
+			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -7614,7 +7614,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_res_nether(p_ptr, randint1(base) + base, FALSE);
+				set_tim_res_nether(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7638,7 +7638,7 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr), GF_PLASMA, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr), GF_PLASMA, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -7679,7 +7679,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 1);
+				brand_weapon(cr_ptr, 1);
 			}
 		}
 		break;
@@ -7727,7 +7727,7 @@ static cptr do_daemon_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -7783,7 +7783,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_esp(p_ptr, randint1(base) + sides, FALSE);
+				set_tim_esp(cr_ptr, randint1(base) + sides, FALSE);
 			}
 		}
 		break;
@@ -7806,10 +7806,10 @@ static cptr do_daemon_spell(int spell, int mode)
 			{
 				int dur = randint1(base) + base;
 					
-				set_oppose_fire(p_ptr, dur, FALSE);
-				set_oppose_cold(p_ptr, dur, FALSE);
-				set_tim_sh_fire(p_ptr, dur, FALSE);
-				set_afraid(p_ptr, 0);
+				set_oppose_fire(cr_ptr, dur, FALSE);
+				set_oppose_cold(cr_ptr, dur, FALSE);
+				set_tim_sh_fire(cr_ptr, dur, FALSE);
+				set_afraid(cr_ptr, 0);
 				break;
 			}
 		}
@@ -7878,7 +7878,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(p_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
+				set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
 			}
 		}
 		break;
@@ -7969,9 +7969,9 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(p_ptr, randint1(base) + base, FALSE);
-				hp_player(p_ptr, 10);
-				set_afraid(p_ptr, 0);
+				set_hero(cr_ptr, randint1(base) + base, FALSE);
+				hp_player(cr_ptr, 10);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -7992,7 +7992,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_res_time(p_ptr, randint1(base)+base, FALSE);
+				set_tim_res_time(cr_ptr, randint1(base)+base, FALSE);
 			}
 		}
 		break;
@@ -8051,7 +8051,7 @@ static cptr do_daemon_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!cast_summon_greater_demon()) return NULL;
+				if (!cast_summon_greater_demon(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -8101,9 +8101,9 @@ static cptr do_daemon_spell(int spell, int mode)
 
 				fire_ball_hide(GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "血の呪い", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, 20 + randint1(30), "血の呪い", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
 #endif
 			}
 		}
@@ -8125,7 +8125,7 @@ static cptr do_daemon_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_mimic(p_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
+				set_mimic(cr_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
 			}
 		}
 		break;
@@ -8135,7 +8135,7 @@ static cptr do_daemon_spell(int spell, int mode)
 }
 
 
-static cptr do_crusade_spell(int spell, int mode)
+static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -8143,7 +8143,7 @@ static cptr do_crusade_spell(int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -8166,7 +8166,7 @@ static cptr do_crusade_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fire_bolt_or_beam(beam_chance(p_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
+				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
 		}
 		break;
@@ -8204,7 +8204,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_afraid(p_ptr, 0);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -8269,7 +8269,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				teleport_player(p_ptr, range, 0L);
+				teleport_player(cr_ptr, range, 0L);
 			}
 		}
 		break;
@@ -8309,9 +8309,9 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				set_cut(p_ptr, 0);
-				set_poisoned(p_ptr, 0);
-				set_stun(p_ptr, 0);
+				set_cut(cr_ptr, 0);
+				set_poisoned(cr_ptr, 0);
+				set_stun(cr_ptr, 0);
 			}
 		}
 		break;
@@ -8353,9 +8353,9 @@ static cptr do_crusade_spell(int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (p_ptr->cls_idx == CLASS_PRIEST ||
-			    p_ptr->cls_idx == CLASS_HIGH_MAGE ||
-			    p_ptr->cls_idx == CLASS_SORCERER)
+			if (cr_ptr->cls_idx == CLASS_PRIEST ||
+			    cr_ptr->cls_idx == CLASS_HIGH_MAGE ||
+			    cr_ptr->cls_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -8408,7 +8408,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_curse(p_ptr))
+				if (remove_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8436,7 +8436,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_invis(p_ptr, randint1(base) + base, FALSE);
+				set_tim_invis(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8458,7 +8458,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_protevil(p_ptr, randint1(sides) + sides, FALSE);
+				set_protevil(cr_ptr, randint1(sides) + sides, FALSE);
 			}
 		}
 		break;
@@ -8507,11 +8507,11 @@ static cptr do_crusade_spell(int spell, int mode)
 			if (cast)
 			{
 				dispel_evil(randint1(dam_sides));
-				hp_player(p_ptr, heal);
-				set_afraid(p_ptr, 0);
-				set_poisoned(p_ptr, 0);
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
+				hp_player(cr_ptr, heal);
+				set_afraid(cr_ptr, 0);
+				set_poisoned(cr_ptr, 0);
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
 			}
 		}
 		break;
@@ -8573,7 +8573,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_sh_holy(p_ptr, randint1(base) + base, FALSE);
+				set_tim_sh_holy(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8633,7 +8633,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				brand_weapon(p_ptr, 13);
+				brand_weapon(cr_ptr, 13);
 			}
 		}
 		break;
@@ -8681,7 +8681,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				else mode |= PM_NO_PET;
 				if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
 
-				if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
 				{
 					if (pet)
 					{
@@ -8720,9 +8720,9 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_hero(p_ptr, randint1(base) + base, FALSE);
-				hp_player(p_ptr, 10);
-				set_afraid(p_ptr, 0);
+				set_hero(cr_ptr, randint1(base) + base, FALSE);
+				hp_player(cr_ptr, 10);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -8739,7 +8739,7 @@ static cptr do_crusade_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (remove_all_curse(p_ptr))
+				if (remove_all_curse(cr_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8795,7 +8795,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(p_ptr->fy, p_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -8816,7 +8816,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				set_tim_eyeeye(p_ptr, randint1(base) + base, FALSE);
+				set_tim_eyeeye(cr_ptr, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8838,7 +8838,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				if (!cast_wrath_of_the_god(dam, rad)) return NULL;
+				if (!cast_wrath_of_the_god(cr_ptr, dam, rad)) return NULL;
 			}
 		}
 		break;
@@ -8866,14 +8866,14 @@ static cptr do_crusade_spell(int spell, int mode)
 
 			if (cast)
 			{
-				project(p_ptr, 1, p_ptr->fy, p_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
+				project(cr_ptr, 1, cr_ptr->fy, cr_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_monsters(d_dam);
 				slow_monsters();
 				stun_monsters(power);
 				confuse_monsters(power);
 				turn_monsters(power);
 				stasis_monsters(power);
-				hp_player(p_ptr, heal);
+				hp_player(cr_ptr, heal);
 			}
 		}
 		break;
@@ -8895,7 +8895,7 @@ static cptr do_crusade_spell(int spell, int mode)
 				int sp_base = plev;
 
 				int i;
-				crusade(p_ptr);
+				crusade(cr_ptr);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
@@ -8903,7 +8903,7 @@ static cptr do_crusade_spell(int spell, int mode)
 
 					while (attempt--)
 					{
-						scatter(&my, &mx, p_ptr->fy, p_ptr->fx, 4, 0);
+						scatter(&my, &mx, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 						/* Require empty grids */
 						if (cave_empty_bold2(my, mx)) break;
@@ -8911,11 +8911,11 @@ static cptr do_crusade_spell(int spell, int mode)
 					if (attempt < 0) continue;
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PM_ALLOW_GROUP | PM_FORCE_PET | PM_HASTE));
 				}
-				set_hero(p_ptr, randint1(base) + base, FALSE);
-				set_blessed(p_ptr, randint1(base) + base, FALSE);
-				set_fast(p_ptr, randint1(sp_sides) + sp_base, FALSE);
-				set_protevil(p_ptr, randint1(base) + base, FALSE);
-				set_afraid(p_ptr, 0);
+				set_hero(cr_ptr, randint1(base) + base, FALSE);
+				set_blessed(cr_ptr, randint1(base) + base, FALSE);
+				set_fast(cr_ptr, randint1(sp_sides) + sp_base, FALSE);
+				set_protevil(cr_ptr, randint1(base) + base, FALSE);
+				set_afraid(cr_ptr, 0);
 			}
 		}
 		break;
@@ -8925,7 +8925,7 @@ static cptr do_crusade_spell(int spell, int mode)
 }
 
 
-static cptr do_music_spell(int spell, int mode)
+static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -8942,7 +8942,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -8956,7 +8956,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -8965,7 +8965,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start humming a slow, steady melody...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_SLOW);
+			start_singing(cr_ptr, spell, MUSIC_SLOW);
 		}
 
 		{
@@ -8990,7 +8990,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -8999,12 +8999,12 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("The holy power of the Music of the Ainur enters you...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_BLESS);
+			start_singing(cr_ptr, spell, MUSIC_BLESS);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->blessed)
+			if (!cr_ptr->blessed)
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -9026,7 +9026,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		{
 			int dice = 4 + (plev - 1) / 5;
@@ -9053,7 +9053,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9062,7 +9062,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to bewilder and daze...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_STUN);
+			start_singing(cr_ptr, spell, MUSIC_STUN);
 		}
 
 		{
@@ -9089,7 +9089,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9098,7 +9098,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing a song of healing...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_L_LIFE);
+			start_singing(cr_ptr, spell, MUSIC_L_LIFE);
 		}
 
 		{
@@ -9109,7 +9109,7 @@ static cptr do_music_spell(int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
+				hp_player(cr_ptr, damroll(dice, sides));
 			}
 		}
 
@@ -9125,7 +9125,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		{
 			int dice = 2;
@@ -9142,7 +9142,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("Your uplifting song brings brightness to dark places...");
 #endif
 
-				lite_area(p_ptr, damroll(dice, sides), rad);
+				lite_area(cr_ptr, damroll(dice, sides), rad);
 			}
 		}
 		break;
@@ -9157,7 +9157,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9166,7 +9166,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start weaving a fearful pattern...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_FEAR);			
+			start_singing(cr_ptr, spell, MUSIC_FEAR);			
 		}
 
 		{
@@ -9192,7 +9192,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9202,18 +9202,18 @@ static cptr do_music_spell(int spell, int mode)
 			msg_print("You start singing a song of intense fighting...");
 #endif
 
-			(void)hp_player(p_ptr, 10);
-			(void)set_afraid(p_ptr, 0);
+			(void)hp_player(cr_ptr, 10);
+			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			p_ptr->update |= (PU_HP);
+			cr_ptr->update |= (PU_HP);
 
-			start_singing(p_ptr, spell, MUSIC_HERO);
+			start_singing(cr_ptr, spell, MUSIC_HERO);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->hero)
+			if (!cr_ptr->hero)
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9221,7 +9221,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				p_ptr->update |= (PU_HP);
+				cr_ptr->update |= (PU_HP);
 			}
 		}
 
@@ -9237,7 +9237,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9248,9 +9248,9 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 			/* Hack -- Initialize the turn count */
-			p_ptr->magic_num1[2] = 0;
+			cr_ptr->magic_num1[2] = 0;
 
-			start_singing(p_ptr, spell, MUSIC_DETECT);
+			start_singing(cr_ptr, spell, MUSIC_DETECT);
 		}
 
 		{
@@ -9260,14 +9260,14 @@ static cptr do_music_spell(int spell, int mode)
 
 			if (cont)
 			{
-				int count = p_ptr->magic_num1[2];
+				int count = cr_ptr->magic_num1[2];
 
 				if (count >= 19) wiz_lite(FALSE);
 				if (count >= 11)
 				{
 					map_area(rad);
 					if (plev > 39 && count < 19)
-						p_ptr->magic_num1[2] = count + 1;
+						cr_ptr->magic_num1[2] = count + 1;
 				}
 				if (count >= 6)
 				{
@@ -9277,7 +9277,7 @@ static cptr do_music_spell(int spell, int mode)
 					detect_objects_normal(rad);
 
 					if (plev > 24 && count < 11)
-						p_ptr->magic_num1[2] = count + 1;
+						cr_ptr->magic_num1[2] = count + 1;
 				}
 				if (count >= 3)
 				{
@@ -9285,14 +9285,14 @@ static cptr do_music_spell(int spell, int mode)
 					detect_monsters_normal(rad);
 
 					if (plev > 19 && count < 6)
-						p_ptr->magic_num1[2] = count + 1;
+						cr_ptr->magic_num1[2] = count + 1;
 				}
 				detect_traps(rad, TRUE);
 				detect_doors(rad);
 				detect_stairs(rad);
 
 				if (plev > 14 && count < 3)
-					p_ptr->magic_num1[2] = count + 1;
+					cr_ptr->magic_num1[2] = count + 1;
 			}
 		}
 
@@ -9308,7 +9308,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9317,7 +9317,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start singing a song of soul in pain...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_PSI);
+			start_singing(cr_ptr, spell, MUSIC_PSI);
 		}
 
 		{
@@ -9344,7 +9344,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9353,7 +9353,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You recall the rich lore of the world...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_ID);
+			start_singing(cr_ptr, spell, MUSIC_ID);
 		}
 
 		{
@@ -9367,7 +9367,7 @@ static cptr do_music_spell(int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(p_ptr, rad, p_ptr->fy, p_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
+				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
 			}
 		}
 
@@ -9383,7 +9383,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9392,12 +9392,12 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Your song carries you beyond the sight of mortal eyes...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_STEALTH);
+			start_singing(cr_ptr, spell, MUSIC_STEALTH);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->tim_stealth)
+			if (!cr_ptr->tim_stealth)
 			{
 #ifdef JP
 				msg_print("姿がはっきりと見えるようになった。");
@@ -9419,7 +9419,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9428,7 +9428,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to beguile and confuse...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_CONF);
+			start_singing(cr_ptr, spell, MUSIC_CONF);
 		}
 
 		{
@@ -9454,7 +9454,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9463,7 +9463,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("The fury of the Downfall of Numenor lashes out...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_SOUND);
+			start_singing(cr_ptr, spell, MUSIC_SOUND);
 		}
 
 		{
@@ -9491,7 +9491,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -9501,7 +9501,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The themes of life and revival are woven into your song...");
 #endif
 
-				animate_dead(NULL, p_ptr->fy, p_ptr->fx);
+				animate_dead(NULL, cr_ptr->fy, cr_ptr->fx);
 			}
 		}
 		break;
@@ -9516,7 +9516,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9525,7 +9525,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a slow, soothing melody of imploration...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_CHARM);
+			start_singing(cr_ptr, spell, MUSIC_CHARM);
 		}
 
 		{
@@ -9552,7 +9552,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9561,7 +9561,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a violent pattern of sounds to break wall.");
 #endif
-			start_singing(p_ptr, spell, MUSIC_WALL);
+			start_singing(cr_ptr, spell, MUSIC_WALL);
 		}
 
 		{
@@ -9571,7 +9571,7 @@ static cptr do_music_spell(int spell, int mode)
 			 */
 			if (cont || cast)
 			{
-				project(p_ptr, 0, p_ptr->fy, p_ptr->fx,
+				project(cr_ptr, 0, cr_ptr->fy, cr_ptr->fx,
 					0, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM | PROJECT_HIDE, -1);
 			}
 		}
@@ -9587,7 +9587,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9596,12 +9596,12 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You sing a song of perseverance against powers...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_RESIST);
+			start_singing(cr_ptr, spell, MUSIC_RESIST);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->oppose_acid)
+			if (!cr_ptr->oppose_acid)
 			{
 #ifdef JP
 				msg_print("酸への耐性が薄れた気がする。");
@@ -9610,7 +9610,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 			}
 
-			if (!p_ptr->oppose_elec)
+			if (!cr_ptr->oppose_elec)
 			{
 #ifdef JP
 				msg_print("電撃への耐性が薄れた気がする。");
@@ -9619,7 +9619,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 			}
 
-			if (!p_ptr->oppose_fire)
+			if (!cr_ptr->oppose_fire)
 			{
 #ifdef JP
 				msg_print("火への耐性が薄れた気がする。");
@@ -9628,7 +9628,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 			}
 
-			if (!p_ptr->oppose_cold)
+			if (!cr_ptr->oppose_cold)
 			{
 #ifdef JP
 				msg_print("冷気への耐性が薄れた気がする。");
@@ -9637,7 +9637,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 			}
 
-			if (!p_ptr->oppose_pois)
+			if (!cr_ptr->oppose_pois)
 			{
 #ifdef JP
 				msg_print("毒への耐性が薄れた気がする。");
@@ -9659,7 +9659,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9668,12 +9668,12 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start singing joyful pop song...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_SPEED);
+			start_singing(cr_ptr, spell, MUSIC_SPEED);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->fast)
+			if (!cr_ptr->fast)
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -9701,7 +9701,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_radius(rad);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -9711,7 +9711,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("Reality whirls wildly as you sing a dizzying melody...");
 #endif
 
-				project(p_ptr, rad, p_ptr->fy, p_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
+				project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
 			}
 		}
 		break;
@@ -9726,7 +9726,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9735,7 +9735,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You cry out in an ear-wracking voice...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_DISPEL);
+			start_singing(cr_ptr, spell, MUSIC_DISPEL);
 		}
 
 		{
@@ -9762,7 +9762,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9771,7 +9771,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You start humming a gentle and attractive song...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_SARUMAN);
+			start_singing(cr_ptr, spell, MUSIC_SARUMAN);
 		}
 
 		{
@@ -9804,7 +9804,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -9831,7 +9831,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_delay(base, sides);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -9841,7 +9841,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("You sing of the primeval shaping of Middle-earth...");
 #endif
 
-				alter_reality(p_ptr);
+				alter_reality(cr_ptr);
 			}
 		}
 		break;
@@ -9856,7 +9856,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9865,7 +9865,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a pattern of sounds to contort and shatter...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_QUAKE);
+			start_singing(cr_ptr, spell, MUSIC_QUAKE);
 		}
 
 		{
@@ -9875,7 +9875,7 @@ static cptr do_music_spell(int spell, int mode)
 
 			if (cont)
 			{
-				earthquake(p_ptr->fy, p_ptr->fx, 10);
+				earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 			}
 		}
 
@@ -9892,7 +9892,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9901,7 +9901,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You weave a very slow pattern which is almost likely to stop...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_STASIS);
+			start_singing(cr_ptr, spell, MUSIC_STASIS);
 		}
 
 		{
@@ -9928,7 +9928,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -9938,7 +9938,7 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The holy power of the Music is creating sacred field...");
 #endif
 
-				warding_glyph(p_ptr);
+				warding_glyph(cr_ptr);
 			}
 		}
 		break;
@@ -9953,7 +9953,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -9962,18 +9962,18 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
-			(void)hp_player(p_ptr, 10);
-			(void)set_afraid(p_ptr, 0);
+			(void)hp_player(cr_ptr, 10);
+			(void)set_afraid(cr_ptr, 0);
 
 			/* Recalculate hitpoints */
-			p_ptr->update |= (PU_HP);
+			cr_ptr->update |= (PU_HP);
 
-			start_singing(p_ptr, spell, MUSIC_SHERO);
+			start_singing(cr_ptr, spell, MUSIC_SHERO);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->hero)
+			if (!cr_ptr->hero)
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9981,10 +9981,10 @@ static cptr do_music_spell(int spell, int mode)
 				msg_print("The heroism wears off.");
 #endif
 				/* Recalculate hitpoints */
-				p_ptr->update |= (PU_HP);
+				cr_ptr->update |= (PU_HP);
 			}
 
-			if (!p_ptr->fast)
+			if (!cr_ptr->fast)
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -10017,7 +10017,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -10026,7 +10026,7 @@ static cptr do_music_spell(int spell, int mode)
 #else
 			msg_print("Life flows through you as you sing the song...");
 #endif
-			start_singing(p_ptr, spell, MUSIC_H_LIFE);
+			start_singing(cr_ptr, spell, MUSIC_H_LIFE);
 		}
 
 		{
@@ -10037,9 +10037,9 @@ static cptr do_music_spell(int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(p_ptr, damroll(dice, sides));
-				set_stun(p_ptr, 0);
-				set_cut(p_ptr, 0);
+				hp_player(cr_ptr, damroll(dice, sides));
+				set_stun(cr_ptr, 0);
+				set_cut(cr_ptr, 0);
 			}
 		}
 
@@ -10056,7 +10056,7 @@ static cptr do_music_spell(int spell, int mode)
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -10065,13 +10065,13 @@ static cptr do_music_spell(int spell, int mode)
 #else
 				msg_print("You strewed light and beauty in the dark as you sing. You feel refreshed.");
 #endif
-				(void)do_res_stat(p_ptr, A_STR);
-				(void)do_res_stat(p_ptr, A_INT);
-				(void)do_res_stat(p_ptr, A_WIS);
-				(void)do_res_stat(p_ptr, A_DEX);
-				(void)do_res_stat(p_ptr, A_CON);
-				(void)do_res_stat(p_ptr, A_CHR);
-				(void)restore_level(p_ptr);
+				(void)do_res_stat(cr_ptr, A_STR);
+				(void)do_res_stat(cr_ptr, A_INT);
+				(void)do_res_stat(cr_ptr, A_WIS);
+				(void)do_res_stat(cr_ptr, A_DEX);
+				(void)do_res_stat(cr_ptr, A_CON);
+				(void)do_res_stat(cr_ptr, A_CHR);
+				(void)restore_level(cr_ptr);
 			}
 		}
 		break;
@@ -10093,7 +10093,7 @@ static cptr do_music_spell(int spell, int mode)
 			if (info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(p_ptr);
+			if (cast || fail) stop_singing(cr_ptr);
 
 			if (cast)
 			{
@@ -10114,7 +10114,7 @@ static cptr do_music_spell(int spell, int mode)
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(p_ptr);
+		if (cast || fail) stop_singing(cr_ptr);
 
 		if (cast)
 		{
@@ -10128,17 +10128,17 @@ static cptr do_music_spell(int spell, int mode)
 				play_redraw |= (PR_MAP);
 		
 				/* Update monsters */
-				p_ptr->update |= (PU_MONSTERS);
+				cr_ptr->update |= (PU_MONSTERS);
 		
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-				start_singing(p_ptr, spell, MUSIC_INVULN);
+				start_singing(cr_ptr, spell, MUSIC_INVULN);
 		}
 
 		if (stop)
 		{
-			if (!p_ptr->invuln)
+			if (!cr_ptr->invuln)
 			{
 #ifdef JP
 				msg_print("無敵ではなくなった。");
@@ -10149,7 +10149,7 @@ static cptr do_music_spell(int spell, int mode)
 				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
-				p_ptr->update |= (PU_MONSTERS);
+				cr_ptr->update |= (PU_MONSTERS);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10163,14 +10163,14 @@ static cptr do_music_spell(int spell, int mode)
 }
 
 
-static cptr do_hissatsu_spell(int spell, int mode)
+static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 
 	switch (spell)
 	{
@@ -10206,7 +10206,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			int cdir;
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			for (cdir = 0;cdir < 8; cdir++)
@@ -10216,30 +10216,30 @@ static cptr do_hissatsu_spell(int spell, int mode)
 
 			if (cdir == 8) return NULL;
 
-			y = p_ptr->fy + ddy_cdd[cdir];
-			x = p_ptr->fx + ddx_cdd[cdir];
+			y = cr_ptr->fy + ddy_cdd[cdir];
+			x = cr_ptr->fx + ddx_cdd[cdir];
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("攻撃は空を切った。");
 #else
 				msg_print("You attack the empty air.");
 #endif
-			y = p_ptr->fy + ddy_cdd[(cdir + 7) % 8];
-			x = p_ptr->fx + ddx_cdd[(cdir + 7) % 8];
+			y = cr_ptr->fy + ddy_cdd[(cdir + 7) % 8];
+			x = cr_ptr->fx + ddx_cdd[(cdir + 7) % 8];
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("攻撃は空を切った。");
 #else
 				msg_print("You attack the empty air.");
 #endif
-			y = p_ptr->fy + ddy_cdd[(cdir + 1) % 8];
-			x = p_ptr->fx + ddx_cdd[(cdir + 1) % 8];
+			y = cr_ptr->fy + ddy_cdd[(cdir + 1) % 8];
+			x = cr_ptr->fx + ddx_cdd[(cdir + 1) % 8];
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 			else
 #ifdef JP
 				msg_print("攻撃は空を切った。");
@@ -10260,7 +10260,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
     
 		if (cast)
 		{
-			if (!do_cmd_throw_aux(p_ptr, 1, TRUE, 0)) return NULL;
+			if (!do_cmd_throw_aux(cr_ptr, 1, TRUE, 0)) return NULL;
 		}
 		break;
 
@@ -10277,14 +10277,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_FIRE);
+				py_attack(cr_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
 #ifdef JP
@@ -10325,14 +10325,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_MINEUCHI);
+				py_attack(cr_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
 #ifdef JP
@@ -10356,7 +10356,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
     
 		if (cast)
 		{
-			if (p_ptr->riding)
+			if (cr_ptr->riding)
 			{
 #ifdef JP
 				msg_print("乗馬中には無理だ。");
@@ -10370,7 +10370,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #else
 			msg_print("You prepare to counter blow.");
 #endif
-			p_ptr->counter = TRUE;
+			cr_ptr->counter = TRUE;
 		}
 		break;
 
@@ -10387,7 +10387,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (p_ptr->riding)
+			if (cr_ptr->riding)
 			{
 #ifdef JP
 				msg_print("乗馬中には無理だ。");
@@ -10397,11 +10397,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 	
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 	
 			if (dir == 5) return NULL;
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 	
 			if (!cave[y][x].m_idx)
 			{
@@ -10413,20 +10413,20 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 	
-			py_attack(p_ptr, y, x, 0);
+			py_attack(cr_ptr, y, x, 0);
 	
-			if (!player_can_enter(p_ptr, cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
+			if (!player_can_enter(cr_ptr, cave[y][x].feat, 0) || is_trap(cave[y][x].feat))
 				break;
 	
 			y += ddy[dir];
 			x += ddx[dir];
 	
-			if (player_can_enter(p_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
+			if (player_can_enter(cr_ptr, cave[y][x].feat, 0) && !is_trap(cave[y][x].feat) && !cave[y][x].m_idx)
 			{
 				msg_print(NULL);
 	
 				/* Move the player */
-				(void)move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+				(void)move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 			}
 		}
 		break;
@@ -10444,14 +10444,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_POISON);
+				py_attack(cr_ptr, y, x, HISSATSU_POISON);
 			else
 			{
 #ifdef JP
@@ -10477,14 +10477,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_ZANMA);
+				py_attack(cr_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
 #ifdef JP
@@ -10510,14 +10510,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 			else
 			{
 #ifdef JP
@@ -10570,7 +10570,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 					lite_spot(ty, tx);
 	
 					if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
-						p_ptr->update |= (PU_MON_LITE);
+						cr_ptr->update |= (PU_MON_LITE);
 				}
 			}
 		}
@@ -10589,11 +10589,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			if (plev > 44)
 			{
-				if (!identify_fully(p_ptr, TRUE)) return NULL;
+				if (!identify_fully(cr_ptr, TRUE)) return NULL;
 			}
 			else
 			{
-				if (!ident_spell(p_ptr, TRUE)) return NULL;
+				if (!ident_spell(cr_ptr, TRUE)) return NULL;
 			}
 		}
 		break;
@@ -10611,14 +10611,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_HAGAN);
+				py_attack(cr_ptr, y, x, HISSATSU_HAGAN);
 	
 			if (!cave_have_flag_bold(y, x, FF_HURT_ROCK)) break;
 	
@@ -10626,7 +10626,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			cave_alter_feat(y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
-			p_ptr->update |= (PU_FLOW);
+			cr_ptr->update |= (PU_FLOW);
 		}
 		break;
 
@@ -10643,14 +10643,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_COLD);
+				py_attack(cr_ptr, y, x, HISSATSU_COLD);
 			else
 			{
 #ifdef JP
@@ -10676,14 +10676,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_KYUSHO);
+				py_attack(cr_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
 #ifdef JP
@@ -10709,14 +10709,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_MAJIN);
+				py_attack(cr_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
 #ifdef JP
@@ -10742,14 +10742,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_SUTEMI);
+				py_attack(cr_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
 #ifdef JP
@@ -10759,7 +10759,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #endif
 				return NULL;
 			}
-			p_ptr->sutemi = TRUE;
+			cr_ptr->sutemi = TRUE;
 		}
 		break;
 
@@ -10776,14 +10776,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_ELEC);
+				py_attack(cr_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
 #ifdef JP
@@ -10827,15 +10827,15 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			cave_type       *c_ptr;
 			creature_type    *m_ptr;
 	
-			if (p_ptr->cut < 300)
-				set_cut(p_ptr, p_ptr->cut + 300);
+			if (cr_ptr->cut < 300)
+				set_cut(cr_ptr, cr_ptr->cut + 300);
 			else
-				set_cut(p_ptr, p_ptr->cut * 2);
+				set_cut(cr_ptr, cr_ptr->cut * 2);
 	
 			for (dir = 0; dir < 8; dir++)
 			{
-				y = p_ptr->fy + ddy_ddd[dir];
-				x = p_ptr->fx + ddx_ddd[dir];
+				y = cr_ptr->fy + ddy_ddd[dir];
+				x = cr_ptr->fx + ddx_ddd[dir];
 				c_ptr = &cave[y][x];
 	
 				/* Get the monster */
@@ -10855,7 +10855,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 						msg_format("%s is unharmed!", m_name);
 #endif
 					}
-					else py_attack(p_ptr, y, x, HISSATSU_SEKIRYUKA);
+					else py_attack(cr_ptr, y, x, HISSATSU_SEKIRYUKA);
 				}
 			}
 		}
@@ -10874,16 +10874,16 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y,x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_QUAKE);
+				py_attack(cr_ptr, y, x, HISSATSU_QUAKE);
 			else
-				earthquake(p_ptr->fy, p_ptr->fx, 10);
+				earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 		}
 		break;
 
@@ -10911,8 +10911,8 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			{
 				int damage;
 	
-				if (!have_weapon(p_ptr, INVEN_1STARM+i)) break;
-				o_ptr = &p_ptr->inventory[INVEN_1STARM+i];
+				if (!have_weapon(cr_ptr, INVEN_1STARM+i)) break;
+				o_ptr = &cr_ptr->inventory[INVEN_1STARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -10929,7 +10929,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 					basedam /= 9;
 				}
 				damage += basedam;
-				damage *= p_ptr->num_blow[i];
+				damage *= cr_ptr->num_blow[i];
 				total_damage += damage / 200;
 				if (i) total_damage = total_damage*7/10;
 			}
@@ -10971,7 +10971,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int i;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			for (i = 0; i < 3; i++)
@@ -10982,12 +10982,12 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				cave_type *c_ptr;
 				creature_type *m_ptr;
 	
-				y = p_ptr->fy + ddy[dir];
-				x = p_ptr->fx + ddx[dir];
+				y = cr_ptr->fy + ddy[dir];
+				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 	
 				if (c_ptr->m_idx)
-					py_attack(p_ptr, y, x, HISSATSU_3DAN);
+					py_attack(cr_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
 #ifdef JP
@@ -11033,10 +11033,10 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				lite_spot(ny, nx);
 	
 				/* Player can move forward? */
-				if (player_can_enter(p_ptr, c_ptr->feat, 0))
+				if (player_can_enter(cr_ptr, c_ptr->feat, 0))
 				{
 					/* Move the player */
-					if (!move_creature_effect(p_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
+					if (!move_creature_effect(cr_ptr, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
 				}
 				else
 				{
@@ -11062,14 +11062,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_DRAIN);
+				py_attack(cr_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
 #ifdef JP
@@ -11125,24 +11125,24 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				if (new)
 				{
 					/* Reserve needed mana point */
-					p_ptr->csp -= technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
+					cr_ptr->csp -= technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
 					new = FALSE;
 				}
 				else
-					p_ptr->csp -= mana_cost_per_monster;
+					cr_ptr->csp -= mana_cost_per_monster;
 
 				if (!mdeath) break;
 				command_dir = 0;
 
 				play_redraw |= PR_MANA;
-				handle_stuff(p_ptr);
+				handle_stuff(cr_ptr);
 			}
-			while (p_ptr->csp > mana_cost_per_monster);
+			while (cr_ptr->csp > mana_cost_per_monster);
 
 			if (new) return NULL;
 	
 			/* Restore reserved mana */
-			p_ptr->csp += technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
+			cr_ptr->csp += technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
 		}
 		break;
 
@@ -11159,11 +11159,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!tgt_pt(p_ptr, &x, &y)) return NULL;
+			if (!tgt_pt(cr_ptr, &x, &y)) return NULL;
 
 			if (!cave_player_teleportable_bold(y, x, 0L) ||
-			    (distance(y, x, p_ptr->fy, p_ptr->fx) > MAX_SIGHT / 2) ||
-			    !projectable(p_ptr->fy, p_ptr->fx, y, x))
+			    (distance(y, x, cr_ptr->fy, cr_ptr->fx) > MAX_SIGHT / 2) ||
+			    !projectable(cr_ptr->fy, cr_ptr->fx, y, x))
 			{
 #ifdef JP
 				msg_print("失敗！");
@@ -11172,7 +11172,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #endif
 				break;
 			}
-			if (p_ptr->anti_tele)
+			if (cr_ptr->anti_tele)
 			{
 #ifdef JP
 				msg_print("不思議な力がテレポートを防いだ！");
@@ -11182,7 +11182,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 	
 				break;
 			}
-			project(p_ptr, 0, y, x, HISSATSU_ISSEN, GF_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
+			project(cr_ptr, 0, y, x, HISSATSU_ISSEN, GF_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
 			teleport_player_to(y, x, 0L);
 		}
 		break;
@@ -11200,18 +11200,18 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int x, y;
 	
-			if (!get_rep_dir(p_ptr, &dir, FALSE)) return NULL;
+			if (!get_rep_dir(cr_ptr, &dir, FALSE)) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
 			{
-				py_attack(p_ptr, y, x, 0);
+				py_attack(cr_ptr, y, x, 0);
 				if (cave[y][x].m_idx)
 				{
-					handle_stuff(p_ptr);
-					py_attack(p_ptr, y, x, 0);
+					handle_stuff(cr_ptr);
+					py_attack(cr_ptr, y, x, 0);
 				}
 			}
 			else
@@ -11242,11 +11242,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			u32b flgs[TR_FLAG_SIZE];
 			object_type *o_ptr;
 	
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
 			{
@@ -11265,8 +11265,8 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if (!have_weapon(p_ptr, INVEN_1STARM+i)) break;
-				o_ptr = &p_ptr->inventory[INVEN_1STARM+i];
+				if (!have_weapon(cr_ptr, INVEN_1STARM+i)) break;
+				o_ptr = &cr_ptr->inventory[INVEN_1STARM+i];
 				basedam = (o_ptr->dd * (o_ptr->ds + 1)) * 50;
 				damage = o_ptr->to_d * 100;
 				object_flags(o_ptr, flgs);
@@ -11283,11 +11283,11 @@ static cptr do_hissatsu_spell(int spell, int mode)
 					basedam /= 9;
 				}
 				damage += basedam;
-				damage += p_ptr->to_d[i] * 100;
-				damage *= p_ptr->num_blow[i];
+				damage += cr_ptr->to_d[i] * 100;
+				damage *= cr_ptr->num_blow[i];
 				total_damage += (damage / 100);
 			}
-			project(p_ptr, (cave_have_flag_bold(y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+			project(cr_ptr, (cave_have_flag_bold(y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 		}
 		break;
 
@@ -11304,14 +11304,14 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
+			if (!get_rep_dir2(cr_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
-			y = p_ptr->fy + ddy[dir];
-			x = p_ptr->fx + ddx[dir];
+			y = cr_ptr->fy + ddy[dir];
+			x = cr_ptr->fx + ddx[dir];
 
 			if (cave[y][x].m_idx)
-				py_attack(p_ptr, y, x, HISSATSU_UNDEAD);
+				py_attack(cr_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
 #ifdef JP
@@ -11322,9 +11322,9 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 #ifdef JP
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "慶雲鬼忍剣を使った衝撃", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "慶雲鬼忍剣を使った衝撃", NULL, -1);
 #else
-			take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", NULL, -1);
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", NULL, -1);
 #endif
 		}
 		break;
@@ -11357,10 +11357,10 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			i = inkey();
 			prt("", 0, 0);
 			if (i != '@') return NULL;
-			if (p_ptr->total_winner)
+			if (cr_ptr->total_winner)
 			{
-				take_hit(NULL, p_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
-				p_ptr->total_winner = TRUE;
+				take_hit(NULL, cr_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				cr_ptr->total_winner = TRUE;
 			}
 			else
 			{
@@ -11369,7 +11369,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 #else
 				msg_print("Meaning of Bushi-do is found in the death.");
 #endif
-				take_hit(NULL, p_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
 			}
 		}
 		break;
@@ -11401,7 +11401,7 @@ static bool item_tester_hook_cursed(creature_type *cr_ptr, object_type *o_ptr)
 	return (bool)(object_is_cursed(o_ptr));
 }
 
-static cptr do_hex_spell(int spell, int mode)
+static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -11413,7 +11413,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 	bool add = TRUE;
 
-	int plev = p_ptr->lev;
+	int plev = cr_ptr->lev;
 	int power;
 
 	switch (spell)
@@ -11429,7 +11429,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 		if (cast)
 		{
-			if (!p_ptr->blessed)
+			if (!cr_ptr->blessed)
 			{
 #ifdef JP
 				msg_print("高潔な気分になった！");
@@ -11440,7 +11440,7 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (stop)
 		{
-			if (!p_ptr->blessed)
+			if (!cr_ptr->blessed)
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -11470,8 +11470,8 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(p_ptr, damroll(1, 10));
-			set_cut(p_ptr, p_ptr->cut - 10);
+			hp_player(cr_ptr, damroll(1, 10));
+			set_cut(cr_ptr, cr_ptr->cut - 10);
 		}
 		break;
 
@@ -11560,9 +11560,9 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You wield no weapons.";
 #endif
 
-			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &p_ptr->inventory[item];
+			o_ptr = &cr_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
@@ -11573,7 +11573,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(p_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(cr_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s は呪いを跳ね返した。", o_name);
@@ -11614,7 +11614,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -11638,7 +11638,7 @@ static cptr do_hex_spell(int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			p_ptr->update |= (PU_BONUS);
+			cr_ptr->update |= (PU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -11670,14 +11670,14 @@ static cptr do_hex_spell(int spell, int mode)
 		if (name) return "Patience";
 		if (desc) return "Bursts hell fire strongly after patients any damage while few turns.";
 #endif
-		power = MIN(200, (p_ptr->magic_num1[2] * 2));
+		power = MIN(200, (cr_ptr->magic_num1[2] * 2));
 		if (info) return info_damage(0, 0, power);
 		if (cast)
 		{
-			int a = 3 - (p_ptr->speed - 100) / 10;
+			int a = 3 - (cr_ptr->speed - 100) / 10;
 			int r = 3 + randint1(3) + MAX(0, MIN(3, a));
 
-			if (p_ptr->magic_num2[2] > 0)
+			if (cr_ptr->magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに我慢をしている。");
@@ -11687,9 +11687,9 @@ static cptr do_hex_spell(int spell, int mode)
 				return NULL;
 			}
 
-			p_ptr->magic_num2[1] = 1;
-			p_ptr->magic_num2[2] = r;
-			p_ptr->magic_num1[2] = 0;
+			cr_ptr->magic_num2[1] = 1;
+			cr_ptr->magic_num2[2] = r;
+			cr_ptr->magic_num1[2] = 0;
 #ifdef JP
 			msg_print("じっと耐えることにした。");
 #else
@@ -11701,9 +11701,9 @@ static cptr do_hex_spell(int spell, int mode)
 		{
 			int rad = 2 + (power / 50);
 
-			p_ptr->magic_num2[2]--;
+			cr_ptr->magic_num2[2]--;
 
-			if ((p_ptr->magic_num2[2] <= 0) || (power >= 200))
+			if ((cr_ptr->magic_num2[2] <= 0) || (power >= 200))
 			{
 #ifdef JP
 				msg_print("我慢が解かれた！");
@@ -11712,7 +11712,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				if (power)
 				{
-					project(p_ptr, rad, p_ptr->fy, p_ptr->fx, power, GF_HELL_FIRE,
+					project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, power, GF_HELL_FIRE,
 						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 				if (wizard)
@@ -11725,9 +11725,9 @@ static cptr do_hex_spell(int spell, int mode)
 				}
 
 				/* Reset */
-				p_ptr->magic_num2[1] = 0;
-				p_ptr->magic_num2[2] = 0;
-				p_ptr->magic_num1[2] = 0;
+				cr_ptr->magic_num2[1] = 0;
+				cr_ptr->magic_num2[2] = 0;
+				cr_ptr->magic_num1[2] = 0;
 			}
 		}
 		break;
@@ -11778,8 +11778,8 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(p_ptr, damroll(2, 10));
-			set_cut(p_ptr, (p_ptr->cut / 2) - 10);
+			hp_player(cr_ptr, damroll(2, 10));
+			set_cut(cr_ptr, (cr_ptr->cut / 2) - 10);
 		}
 		break;
 
@@ -11793,9 +11793,9 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 		if (cast)
 		{
-			p_ptr->magic_num1[0] |= (1L << HEX_INHAIL);
-			do_cmd_quaff_potion(p_ptr);
-			p_ptr->magic_num1[0] &= ~(1L << HEX_INHAIL);
+			cr_ptr->magic_num1[0] |= (1L << HEX_INHAIL);
+			do_cmd_quaff_potion(cr_ptr);
+			cr_ptr->magic_num1[0] &= ~(1L << HEX_INHAIL);
 			add = FALSE;
 		}
 		break;
@@ -11955,10 +11955,10 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(p_ptr, damroll(4, 10));
-			set_stun(p_ptr, 0);
-			set_cut(p_ptr, 0);
-			set_poisoned(p_ptr, 0);
+			hp_player(cr_ptr, damroll(4, 10));
+			set_stun(cr_ptr, 0);
+			set_cut(cr_ptr, 0);
+			set_poisoned(cr_ptr, 0);
 		}
 		break;
 
@@ -11974,7 +11974,7 @@ static cptr do_hex_spell(int spell, int mode)
 		if (info) return info_power(power);
 		if (cast)
 		{
-			if (!recharge(p_ptr, power)) return NULL;
+			if (!recharge(cr_ptr, power)) return NULL;
 			add = FALSE;
 		}
 		break;
@@ -11997,7 +11997,7 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			animate_dead(NULL, p_ptr->fy, p_ptr->fx);
+			animate_dead(NULL, cr_ptr->fy, cr_ptr->fx);
 		}
 		break;
 
@@ -12026,9 +12026,9 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &p_ptr->inventory[item];
+			o_ptr = &cr_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
 			object_flags(o_ptr, f);
 
@@ -12039,7 +12039,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(p_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(cr_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s は呪いを跳ね返した。", o_name);
@@ -12080,7 +12080,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(p_ptr, o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -12105,7 +12105,7 @@ static cptr do_hex_spell(int spell, int mode)
 				o_ptr->curse_flags |= get_curse(power, o_ptr);
 			}
 
-			p_ptr->update |= (PU_BONUS);
+			cr_ptr->update |= (PU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -12120,7 +12120,7 @@ static cptr do_hex_spell(int spell, int mode)
 #endif
 		if (cast)
 		{
-			object_type *o_ptr = &p_ptr->inventory[INVEN_OUTER];
+			object_type *o_ptr = &cr_ptr->inventory[INVEN_OUTER];
 
 			if (!o_ptr->k_idx)
 			{
@@ -12151,14 +12151,14 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cont)
 		{
-			object_type *o_ptr = &p_ptr->inventory[INVEN_OUTER];
+			object_type *o_ptr = &cr_ptr->inventory[INVEN_OUTER];
 
 			if ((!o_ptr->k_idx) || (!object_is_cursed(o_ptr)))
 			{
-				do_spell(REALM_HEX, spell, SPELL_STOP);
-				p_ptr->magic_num1[0] &= ~(1L << spell);
-				p_ptr->magic_num2[0]--;
-				if (!p_ptr->magic_num2[0]) set_action(p_ptr, ACTION_NONE);
+				do_spell(cr_ptr, REALM_HEX, spell, SPELL_STOP);
+				cr_ptr->magic_num1[0] &= ~(1L << spell);
+				cr_ptr->magic_num2[0]--;
+				if (!cr_ptr->magic_num2[0]) set_action(cr_ptr, ACTION_NONE);
 			}
 		}
 		if (stop)
@@ -12243,36 +12243,36 @@ static cptr do_hex_spell(int spell, int mode)
 		if (cast || cont)
 		{
 			bool flag = FALSE;
-			int d = (p_ptr->max_exp - p_ptr->exp);
-			int r = (p_ptr->exp / 20);
+			int d = (cr_ptr->max_exp - cr_ptr->exp);
+			int r = (cr_ptr->exp / 20);
 			int i;
 
 			if (d > 0)
 			{
 				if (d < r)
-					p_ptr->exp = p_ptr->max_exp;
+					cr_ptr->exp = cr_ptr->max_exp;
 				else
-					p_ptr->exp += r;
+					cr_ptr->exp += r;
 
 				/* Check the experience */
-				check_experience(p_ptr);
+				check_experience(cr_ptr);
 
 				flag = TRUE;
 			}
 			for (i = A_STR; i < 6; i ++)
 			{
-				if (p_ptr->stat_cur[i] < p_ptr->stat_max[i])
+				if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 				{
-					if (p_ptr->stat_cur[i] < 18)
-						p_ptr->stat_cur[i]++;
+					if (cr_ptr->stat_cur[i] < 18)
+						cr_ptr->stat_cur[i]++;
 					else
-						p_ptr->stat_cur[i] += 10;
+						cr_ptr->stat_cur[i] += 10;
 
-					if (p_ptr->stat_cur[i] > p_ptr->stat_max[i])
-						p_ptr->stat_cur[i] = p_ptr->stat_max[i];
+					if (cr_ptr->stat_cur[i] > cr_ptr->stat_max[i])
+						cr_ptr->stat_cur[i] = cr_ptr->stat_max[i];
 
 					/* Recalculate bonuses */
-					p_ptr->update |= (PU_BONUS);
+					cr_ptr->update |= (PU_BONUS);
 
 					flag = TRUE;
 				}
@@ -12281,16 +12281,16 @@ static cptr do_hex_spell(int spell, int mode)
 			if (!flag)
 			{
 #ifdef JP
-				msg_format("%sの呪文の詠唱をやめた。", do_spell(REALM_HEX, HEX_RESTORE, SPELL_NAME));
+				msg_format("%sの呪文の詠唱をやめた。", do_spell(cr_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #else
-				msg_format("Finish casting '%^s'.", do_spell(REALM_HEX, HEX_RESTORE, SPELL_NAME));
+				msg_format("Finish casting '%^s'.", do_spell(cr_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #endif
-				p_ptr->magic_num1[0] &= ~(1L << HEX_RESTORE);
-				if (cont) p_ptr->magic_num2[0]--;
-				if (p_ptr->magic_num2) p_ptr->action = ACTION_NONE;
+				cr_ptr->magic_num1[0] &= ~(1L << HEX_RESTORE);
+				if (cont) cr_ptr->magic_num2[0]--;
+				if (cr_ptr->magic_num2) cr_ptr->action = ACTION_NONE;
 
 				/* Redraw status */
-				p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+				cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 				play_redraw |= (PR_EXTRA);
 
 				return "";
@@ -12322,14 +12322,14 @@ static cptr do_hex_spell(int spell, int mode)
 			s = "You have no cursed equipment.";
 #endif
 
-			if (!get_item(p_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
 
-			o_ptr = &p_ptr->inventory[item];
+			o_ptr = &cr_ptr->inventory[item];
 			object_flags(o_ptr, f);
 
-			p_ptr->csp += (p_ptr->lev / 5) + randint1(p_ptr->lev / 5);
-			if (have_flag(f, TR_TY_CURSE) || (o_ptr->curse_flags & TRC_TY_CURSE)) p_ptr->csp += randint1(5);
-			if (p_ptr->csp > p_ptr->msp) p_ptr->csp = p_ptr->msp;
+			cr_ptr->csp += (cr_ptr->lev / 5) + randint1(cr_ptr->lev / 5);
+			if (have_flag(f, TR_TY_CURSE) || (o_ptr->curse_flags & TRC_TY_CURSE)) cr_ptr->csp += randint1(5);
+			if (cr_ptr->csp > cr_ptr->msp) cr_ptr->csp = cr_ptr->msp;
 
 			if (o_ptr->curse_flags & TRC_DIVINE_CURSE)
 			{
@@ -12421,7 +12421,7 @@ static cptr do_hex_spell(int spell, int mode)
 
 			for (i = 0; i < 3; i++)
 			{
-				if (!tgt_pt(p_ptr, &x, &y)) return FALSE;
+				if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
 
 				flag = FALSE;
 
@@ -12434,7 +12434,7 @@ static cptr do_hex_spell(int spell, int mode)
 				}
 
 				if (!cave_empty_bold(y, x) || (cave[y][x].info & CAVE_ICKY) ||
-					(distance(y, x, p_ptr->fy, p_ptr->fx) > plev + 2))
+					(distance(y, x, cr_ptr->fy, cr_ptr->fx) > plev + 2))
 				{
 #ifdef JP
 					msg_print("そこには移動できない。");
@@ -12457,7 +12457,7 @@ static cptr do_hex_spell(int spell, int mode)
 #else
 				msg_print("Oops!");
 #endif
-				teleport_player(p_ptr, 30, 0L);
+				teleport_player(cr_ptr, 30, 0L);
 			}
 
 			add = FALSE;
@@ -12492,15 +12492,15 @@ static cptr do_hex_spell(int spell, int mode)
 		if (name) return "Revenge sentence";
 		if (desc) return "Fires  a ball of hell fire to try revenging after few turns.";
 #endif
-		power = p_ptr->magic_num1[2];
+		power = cr_ptr->magic_num1[2];
 		if (info) return info_damage(0, 0, power);
 		if (cast)
 		{
 			int r;
-			int a = 3 - (p_ptr->speed - 100) / 10;
+			int a = 3 - (cr_ptr->speed - 100) / 10;
 			r = 1 + randint1(2) + MAX(0, MIN(3, a));
 
-			if (p_ptr->magic_num2[2] > 0)
+			if (cr_ptr->magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに復讐は宣告済みだ。");
@@ -12510,8 +12510,8 @@ static cptr do_hex_spell(int spell, int mode)
 				return NULL;
 			}
 
-			p_ptr->magic_num2[1] = 2;
-			p_ptr->magic_num2[2] = r;
+			cr_ptr->magic_num2[1] = 2;
+			cr_ptr->magic_num2[2] = r;
 #ifdef JP
 			msg_format("あなたは復讐を宣告した。あと %d ターン。", r);
 #else
@@ -12521,9 +12521,9 @@ static cptr do_hex_spell(int spell, int mode)
 		}
 		if (cont)
 		{
-			p_ptr->magic_num2[2]--;
+			cr_ptr->magic_num2[2]--;
 
-			if (p_ptr->magic_num2[2] <= 0)
+			if (cr_ptr->magic_num2[2] <= 0)
 			{
 				int dir;
 
@@ -12560,7 +12560,7 @@ static cptr do_hex_spell(int spell, int mode)
 					msg_print("You are not a mood to revenge.");
 #endif
 				}
-				p_ptr->magic_num1[2] = 0;
+				cr_ptr->magic_num1[2] = 0;
 			}
 		}
 		break;
@@ -12570,16 +12570,16 @@ static cptr do_hex_spell(int spell, int mode)
 	if ((cast) && (add))
 	{
 		/* add spell */
-		p_ptr->magic_num1[0] |= 1L << (spell);
-		p_ptr->magic_num2[0]++;
+		cr_ptr->magic_num1[0] |= 1L << (spell);
+		cr_ptr->magic_num2[0]++;
 
-		if (p_ptr->action != ACTION_SPELL) set_action(p_ptr, ACTION_SPELL);
+		if (cr_ptr->action != ACTION_SPELL) set_action(cr_ptr, ACTION_SPELL);
 	}
 
 	/* Redraw status */
 	if (!info)
 	{
-		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 	}
 
@@ -12590,23 +12590,23 @@ static cptr do_hex_spell(int spell, int mode)
 /*
  * Do everything for each spell
  */
-cptr do_spell(int realm, int spell, int mode)
+cptr do_spell(creature_type *cr_ptr, int realm, int spell, int mode)
 {
 	switch (realm)
 	{
-	case REALM_LIFE:     return do_life_spell(spell, mode);
-	case REALM_SORCERY:  return do_sorcery_spell(spell, mode);
-	case REALM_NATURE:   return do_nature_spell(spell, mode);
-	case REALM_CHAOS:    return do_chaos_spell(spell, mode);
-	case REALM_DEATH:    return do_death_spell(spell, mode);
-	case REALM_TRUMP:    return do_trump_spell(spell, mode);
-	case REALM_ARCANE:   return do_arcane_spell(spell, mode);
-	case REALM_CRAFT:    return do_craft_spell(spell, mode);
-	case REALM_DAEMON:   return do_daemon_spell(spell, mode);
-	case REALM_CRUSADE:  return do_crusade_spell(spell, mode);
-	case REALM_MUSIC:    return do_music_spell(spell, mode);
-	case REALM_HISSATSU: return do_hissatsu_spell(spell, mode);
-	case REALM_HEX:      return do_hex_spell(spell, mode);
+	case REALM_LIFE:     return do_life_spell(cr_ptr, spell, mode);
+	case REALM_SORCERY:  return do_sorcery_spell(cr_ptr, spell, mode);
+	case REALM_NATURE:   return do_nature_spell(cr_ptr, spell, mode);
+	case REALM_CHAOS:    return do_chaos_spell(cr_ptr, spell, mode);
+	case REALM_DEATH:    return do_death_spell(cr_ptr, spell, mode);
+	case REALM_TRUMP:    return do_trump_spell(cr_ptr, spell, mode);
+	case REALM_ARCANE:   return do_arcane_spell(cr_ptr, spell, mode);
+	case REALM_CRAFT:    return do_craft_spell(cr_ptr, spell, mode);
+	case REALM_DAEMON:   return do_daemon_spell(cr_ptr, spell, mode);
+	case REALM_CRUSADE:  return do_crusade_spell(cr_ptr, spell, mode);
+	case REALM_MUSIC:    return do_music_spell(cr_ptr, spell, mode);
+	case REALM_HISSATSU: return do_hissatsu_spell(cr_ptr, spell, mode);
+	case REALM_HEX:      return do_hex_spell(cr_ptr, spell, mode);
 	}
 
 	return NULL;
