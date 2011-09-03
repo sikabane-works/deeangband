@@ -1442,7 +1442,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
  * A function for Auto-picker/destroyer
  * Examine whether the object matches to the list of keywords or not.
  */
-int is_autopick(object_type *o_ptr)
+int is_autopick(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int i;
 	char o_name[MAX_NLEN];
@@ -1621,12 +1621,12 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 /*
  *  Auto-destroy marked item
  */
-static void autopick_delayed_alter_aux(int item)
+static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 {
 	object_type *o_ptr;
 
 	/* Get the item (in the pack) */
-	if (item >= 0) o_ptr = &p_ptr->inventory[item];
+	if (item >= 0) o_ptr = &cr_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
 	else o_ptr = &o_list[0 - item];
@@ -1673,14 +1673,14 @@ void autopick_delayed_alter(void)
 	 * skipping after inven_item_optimize()
 	 */
 	for (item = INVEN_TOTAL - 1; item >= 0 ; item--)
-		autopick_delayed_alter_aux(item);
+		autopick_delayed_alter_aux(p_ptr, item);
 
 	/* Scan the pile of objects */
 	item = cave[p_ptr->fy][p_ptr->fx].o_idx;
 	while (item)
 	{
 		int next = o_list[item].next_o_idx;
-		autopick_delayed_alter_aux(-item);
+		autopick_delayed_alter_aux(p_ptr, -item);
 		item = next;
 	}
 }
@@ -1704,7 +1704,7 @@ void autopick_alter_item(int item, bool destroy)
 	else o_ptr = &o_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
-	idx = is_autopick(o_ptr);
+	idx = is_autopick(p_ptr, o_ptr);
 
 	/* Do auto-inscription */
 	auto_inscribe_item(o_ptr, idx);
@@ -1733,7 +1733,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
 
-		idx = is_autopick(o_ptr);
+		idx = is_autopick(p_ptr, o_ptr);
 
 		/* Item index for floor -1,-2,-3,...  */
 		auto_inscribe_item(o_ptr, idx);
@@ -1946,7 +1946,7 @@ bool autopick_autoregister(object_type *o_ptr)
 	FILE *pref_fff;
 	autopick_type an_entry, *entry = &an_entry;
 
-	int match_autopick = is_autopick(o_ptr);
+	int match_autopick = is_autopick(p_ptr, o_ptr);
 
 	/* Already registered */
 	if (match_autopick != -1)

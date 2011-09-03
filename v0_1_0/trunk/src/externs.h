@@ -646,7 +646,7 @@ extern bool use_menu;
 extern void autopick_load_pref(bool disp_mes);
 extern errr process_autopick_file_command(char *buf);
 extern cptr autopick_line_from_entry(autopick_type *entry);
-extern int is_autopick(object_type *o_ptr);
+extern int is_autopick(creature_type *cr_ptr, object_type *o_ptr);
 extern void autopick_alter_item(int item, bool destroy);
 extern void autopick_delayed_alter(void);
 extern void autopick_pickup_items(cave_type *c_ptr);

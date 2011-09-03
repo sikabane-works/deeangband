@@ -1190,7 +1190,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			{
 				byte act;
 
-				match_autopick = is_autopick(o_ptr);
+				match_autopick = is_autopick(p_ptr, o_ptr);
 				if(match_autopick == -1)
 					continue;
 
