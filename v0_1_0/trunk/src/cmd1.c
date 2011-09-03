@@ -934,7 +934,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	handle_stuff(cr_ptr);
 
 	/* Automatically pickup/destroy/inscribe items */
-	autopick_pickup_items(c_ptr);
+	autopick_pickup_items(cr_ptr, c_ptr);
 
 
 #ifdef ALLOW_EASY_FLOOR

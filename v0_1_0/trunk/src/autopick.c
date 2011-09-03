@@ -1718,7 +1718,7 @@ void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy)
 /*
  * Automatically pickup/destroy items in this grid.
  */
-void autopick_pickup_items(cave_type *c_ptr)
+void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr)
 {
 	s16b this_o_idx, next_o_idx = 0;
 	
@@ -1733,17 +1733,17 @@ void autopick_pickup_items(cave_type *c_ptr)
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
 
-		idx = is_autopick(p_ptr, o_ptr);
+		idx = is_autopick(cr_ptr, o_ptr);
 
 		/* Item index for floor -1,-2,-3,...  */
-		auto_inscribe_item(p_ptr, o_ptr, idx);
+		auto_inscribe_item(cr_ptr, o_ptr, idx);
 
 		if (idx >= 0 &&
 			(autopick_list[idx].action & (DO_AUTOPICK | DO_QUERY_AUTOPICK)))
 		{
 			disturb(0,0);
 
-			if (!inven_carry_okay(p_ptr, o_ptr))
+			if (!inven_carry_okay(cr_ptr, o_ptr))
 			{
 				char o_name[MAX_NLEN];
 
@@ -1789,7 +1789,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 				}
 
 			}
-			py_pickup_aux(p_ptr, this_o_idx);
+			py_pickup_aux(cr_ptr, this_o_idx);
 		}
 		
 		/*
@@ -1800,7 +1800,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 		 */
 		else
 		{
-			auto_destroy_item(p_ptr, o_ptr, idx);
+			auto_destroy_item(cr_ptr, o_ptr, idx);
 		}
 	} /* for () */
 }

@@ -649,7 +649,7 @@ extern cptr autopick_line_from_entry(autopick_type *entry);
 extern int is_autopick(creature_type *cr_ptr, object_type *o_ptr);
 extern void autopick_alter_item(creature_type *cr_ptr, int item, bool destroy);
 extern void autopick_delayed_alter(creature_type *cr_ptr);
-extern void autopick_pickup_items(cave_type *c_ptr);
+extern void autopick_pickup_items(creature_type *cr_ptr, cave_type *c_ptr);
 extern bool autopick_autoregister(object_type *o_ptr);
 extern void do_cmd_edit_autopick(void);
 
