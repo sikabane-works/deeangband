@@ -346,7 +346,7 @@ static void do_cmd_wiz_bamf(void)
 /*
  * Aux function for "do_cmd_wiz_change()".	-RAK-
  */
-static void do_cmd_wiz_change_aux(void)
+static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 {
 	int i, j;
 	int tmp_int;
@@ -360,10 +360,10 @@ static void do_cmd_wiz_change_aux(void)
 	for (i = 0; i < 6; i++)
 	{
 		/* Prompt */
-		sprintf(ppp, "%s (3-%d): ", stat_names[i], p_ptr->stat_max_max[i]);
+		sprintf(ppp, "%s (3-%d): ", stat_names[i], cr_ptr->stat_max_max[i]);
 
 		/* Default */
-		sprintf(tmp_val, "%d", p_ptr->stat_max[i]);
+		sprintf(tmp_val, "%d", cr_ptr->stat_max[i]);
 
 		/* Query */
 		if (!get_string(ppp, tmp_val, 3)) return;
@@ -372,11 +372,11 @@ static void do_cmd_wiz_change_aux(void)
 		tmp_int = atoi(tmp_val);
 
 		/* Verify */
-		if (tmp_int > p_ptr->stat_max_max[i]) tmp_int = p_ptr->stat_max_max[i];
+		if (tmp_int > cr_ptr->stat_max_max[i]) tmp_int = cr_ptr->stat_max_max[i];
 		else if (tmp_int < 3) tmp_int = 3;
 
 		/* Save it */
-		p_ptr->stat_cur[i] = p_ptr->stat_max[i] = tmp_int;
+		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = tmp_int;
 	}
 
 
@@ -401,24 +401,24 @@ static void do_cmd_wiz_change_aux(void)
 	{
 		for (i = 0;i < 64;i++)
 		{
-			p_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (p_ptr->weapon_exp[j][i] > s_info[p_ptr->cls_idx].w_max[j][i]) p_ptr->weapon_exp[j][i] = s_info[p_ptr->cls_idx].w_max[j][i];
+			cr_ptr->weapon_exp[j][i] = tmp_s16b;
+			if (cr_ptr->weapon_exp[j][i] > s_info[cr_ptr->cls_idx].w_max[j][i]) cr_ptr->weapon_exp[j][i] = s_info[cr_ptr->cls_idx].w_max[j][i];
 		}
 	}
 
 	for (j = 0; j < 10; j++)
 	{
-		p_ptr->skill_exp[j] = tmp_s16b;
-		if (p_ptr->skill_exp[j] > s_info[p_ptr->cls_idx].s_max[j]) p_ptr->skill_exp[j] = s_info[p_ptr->cls_idx].s_max[j];
+		cr_ptr->skill_exp[j] = tmp_s16b;
+		if (cr_ptr->skill_exp[j] > s_info[cr_ptr->cls_idx].s_max[j]) cr_ptr->skill_exp[j] = s_info[cr_ptr->cls_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)
-		p_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
+		cr_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
 	for (; j < 64; j++)
-		p_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
+		cr_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
 
 	/* Default */
-	sprintf(tmp_val, "%ld", (long)(p_ptr->au));
+	sprintf(tmp_val, "%ld", (long)(cr_ptr->au));
 
 	/* Query */
 	if (!get_string("Gold: ", tmp_val, 9)) return;
@@ -430,11 +430,11 @@ static void do_cmd_wiz_change_aux(void)
 	if (tmp_long < 0) tmp_long = 0L;
 
 	/* Save */
-	p_ptr->au = tmp_long;
+	cr_ptr->au = tmp_long;
 
 
 	/* Default */
-	sprintf(tmp_val, "%ld", (long)(p_ptr->max_exp));
+	sprintf(tmp_val, "%ld", (long)(cr_ptr->max_exp));
 
 	/* Query */
 	if (!get_string("Experience: ", tmp_val, 9)) return;
@@ -445,36 +445,36 @@ static void do_cmd_wiz_change_aux(void)
 	/* Verify */
 	if (tmp_long < 0) tmp_long = 0L;
 
-	if (p_ptr->irace_idx != RACE_ANDROID)
+	if (cr_ptr->irace_idx != RACE_ANDROID)
 	{
 		/* Save */
-		p_ptr->max_exp = tmp_long;
-		p_ptr->exp = tmp_long;
+		cr_ptr->max_exp = tmp_long;
+		cr_ptr->exp = tmp_long;
 
 		/* Update */
-		check_experience(p_ptr);
+		check_experience(cr_ptr);
 	}
 
 	/* Query */
-	tmp_int = p_ptr->dr;
+	tmp_int = cr_ptr->dr;
 	if (!get_string("Devine Rank: ", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
 	if (tmp_int < -1) tmp_int = -1;
 	if (tmp_int > 30) tmp_int = 30;
-	p_ptr->dr = tmp_int;
+	cr_ptr->dr = tmp_int;
 	
 	/* Level Limit */
 	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (p_ptr->expfact - 50) / 100L)
+		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
 
-	if (p_ptr->dr >= 0)
-		p_ptr->max_lev = i + p_ptr->dr;
+	if (cr_ptr->dr >= 0)
+		cr_ptr->max_lev = i + cr_ptr->dr;
 	else
-		p_ptr->max_lev = i;
+		cr_ptr->max_lev = i;
 
-	check_experience(p_ptr);
+	check_experience(cr_ptr);
 
 }
 
@@ -482,10 +482,10 @@ static void do_cmd_wiz_change_aux(void)
 /*
  * Change various "permanent" player variables.
  */
-static void do_cmd_wiz_change(void)
+static void do_cmd_wiz_change(creature_type *cr_ptr)
 {
 	/* Interact */
-	do_cmd_wiz_change_aux();
+	do_cmd_wiz_change_aux(cr_ptr);
 
 	/* Redraw everything */
 	do_cmd_redraw();
@@ -1961,7 +1961,7 @@ void do_cmd_debug(void)
 
 	/* Edit character */
 	case 'e':
-		do_cmd_wiz_change();
+		do_cmd_wiz_change(p_ptr);
 		break;
 
 	/* Blue Mage Only */
