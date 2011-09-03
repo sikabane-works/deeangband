@@ -3131,7 +3131,7 @@ void mproc_init(void)
 }
 
 
-static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
+static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_type *cr_ptr, int mtimed_idx)
 {
 
 	switch (mtimed_idx)
@@ -3145,7 +3145,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		bool test = FALSE;
 
 		/* calculate the "player noise" */
-		if (mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - p_ptr->skill_stl));
+		if (mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));
 
 
 		/* Hack -- Require proximity */
@@ -3181,7 +3181,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 				int d = (cr_ptr->cdis < AAF_LIMIT / 2) ? (AAF_LIMIT / cr_ptr->cdis) : 1;
 
 				/* Hack -- amount of "waking" is affected by speed of player */
-				d = (d * SPEED_TO_ENERGY(p_ptr->speed)) / 10;
+				d = (d * SPEED_TO_ENERGY(watcher_ptr->speed)) / 10;
 				if (d < 0) d = 1;
 
 				/* Monster wakes up "a little bit" */
@@ -3190,7 +3190,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 				if (!set_paralyzed(cr_ptr, cr_ptr->paralyzed - d))
 				{
 					/* Notice the "not waking up" */
-					if (is_original_ap_and_seen(p_ptr, cr_ptr))
+					if (is_original_ap_and_seen(watcher_ptr, cr_ptr))
 					{
 						/* Hack -- Count the ignores */
 						if (r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
@@ -3216,7 +3216,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 #endif
 					}
 
-					if (is_original_ap_and_seen(p_ptr, cr_ptr))
+					if (is_original_ap_and_seen(watcher_ptr, cr_ptr))
 					{
 						/* Hack -- Count the wakings */
 						if (r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;
@@ -3231,7 +3231,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_fast(cr_ptr, cr_ptr->fast - 1, FALSE))
 		{
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3252,7 +3252,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_slow(cr_ptr, cr_ptr->slow - 1, FALSE))
 		{
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3277,7 +3277,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1)))
 		{
 			/* Message if visible */
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3300,7 +3300,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->species_idx].level / 20 + 1)))
 		{
 			/* Message if visible */
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3322,7 +3322,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		if (set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->species_idx].level / 20 + 1)))
 		{
 			/* Visual note */
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 #ifndef JP
@@ -3349,7 +3349,7 @@ static void process_monsters_mtimed_aux(creature_type *cr_ptr, int mtimed_idx)
 		/* Reduce by one, note if expires */
 		if (set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE))
 		{
-			if (is_seen(p_ptr, cr_ptr))
+			if (is_seen(watcher_ptr, cr_ptr))
 			{
 				char m_name[80];
 
@@ -3384,7 +3384,7 @@ void process_monsters_mtimed(int mtimed_idx)
 	for (i = mproc_max[mtimed_idx] - 1; i >= 0; i--)
 	{
 		/* Access the monster */
-		process_monsters_mtimed_aux(cur_mproc_list[i], mtimed_idx);
+		process_monsters_mtimed_aux(p_ptr, cur_mproc_list[i], mtimed_idx);
 	}
 }
 
