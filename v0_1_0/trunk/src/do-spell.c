@@ -7186,7 +7186,7 @@ static cptr do_craft_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!mundane_spell(TRUE)) return NULL;
+				if (!mundane_spell(p_ptr, TRUE)) return NULL;
 			}
 		}
 		break;

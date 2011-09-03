@@ -470,10 +470,10 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 	int yy, xx;
 
 	/* Save the old location */
-	int oy = p_ptr->fy;
-	int ox = p_ptr->fx;
+	int oy = cr_ptr->fy;
+	int ox = cr_ptr->fx;
 
-	if (!teleport_player_aux(p_ptr, dis, TELEPORT_PASSIVE)) return;
+	if (!teleport_player_aux(cr_ptr, dis, TELEPORT_PASSIVE)) return;
 
 	/* Monsters with teleport ability may follow the player */
 	for (xx = -1; xx < 2; xx++)
@@ -483,7 +483,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 			int tmp_m_idx = cave[oy+yy][ox+xx].m_idx;
 
 			/* A monster except your mount or caster may follow */
-			if (tmp_m_idx && (p_ptr->riding != tmp_m_idx) && (cr_ptr != &m_list[tmp_m_idx]))
+			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx) && (cr_ptr != &m_list[tmp_m_idx]))
 			{
 				creature_type *cr_ptr = &m_list[tmp_m_idx];
 				species_type *r_ptr = &r_info[cr_ptr->species_idx];
@@ -495,7 +495,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 				if ((r_ptr->flags6 & RF6_TPORT) &&
 				    !(r_ptr->flagsr & RFR_RES_TELE))
 				{
-					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, p_ptr->fy, p_ptr->fx, r_ptr->level, 0L);
+					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -2152,7 +2152,7 @@ static int enchant_table[16] =
 
 
 /*
- * Removes curses from items in p_ptr->inventory
+ * Removes curses from items inventory
  *
  * Note that Items which are "Perma-Cursed" (The One Ring,
  * The Crown of Morgoth) can NEVER be uncursed.
@@ -2905,11 +2905,11 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 
 
 /*
- * Mundanify an object in the p_ptr->inventory (or on the floor)
+ * Mundanify an object in the inventory (or on the floor)
  * This routine does *not* automatically combine objects.
  * Returns TRUE if something was mundanified, else FALSE.
  */
-bool mundane_spell(bool only_equip)
+bool mundane_spell(creature_type *cr_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -2927,12 +2927,12 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -2963,9 +2963,9 @@ s = "使えるものがありません。";
 		o_ptr->next_o_idx = next_o_idx;
 		o_ptr->marked = marked;
 		o_ptr->inscription = inscription;
-		if (item >= 0) p_ptr->total_weight += (o_ptr->weight - weight);
+		if (item >= 0) cr_ptr->total_weight += (o_ptr->weight - weight);
 	}
-	calc_android_exp(p_ptr);
+	calc_android_exp(cr_ptr);
 
 	/* Something happened */
 	return TRUE;
