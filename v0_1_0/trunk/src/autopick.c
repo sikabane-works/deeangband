@@ -1939,14 +1939,14 @@ static bool clear_auto_register(void)
 /*
  *  Automatically register an auto-destroy preference line
  */
-bool autopick_autoregister(object_type *o_ptr)
+bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 {
 	char buf[1024];
 	char pref_file[1024];
 	FILE *pref_fff;
 	autopick_type an_entry, *entry = &an_entry;
 
-	int match_autopick = is_autopick(p_ptr, o_ptr);
+	int match_autopick = is_autopick(cr_ptr, o_ptr);
 
 	/* Already registered */
 	if (match_autopick != -1)
@@ -1974,7 +1974,7 @@ bool autopick_autoregister(object_type *o_ptr)
 	}
 
 	/* Known to be an artifact? */
-	if ((object_is_known(o_ptr) && object_is_artifact(p_ptr, o_ptr)) ||
+	if ((object_is_known(o_ptr) && object_is_artifact(cr_ptr, o_ptr)) ||
 	    ((o_ptr->ident & IDENT_SENSE) &&
 	     (o_ptr->feeling == FEEL_TERRIBLE || o_ptr->feeling == FEEL_SPECIAL)))
 	{
@@ -1995,7 +1995,7 @@ bool autopick_autoregister(object_type *o_ptr)
 	}
 
 
-	if (!p_ptr->autopick_autoregister)
+	if (!cr_ptr->autopick_autoregister)
 	{
 		/* Clear old auto registered lines */
 		if (!clear_auto_register()) return FALSE;
@@ -2019,7 +2019,7 @@ bool autopick_autoregister(object_type *o_ptr)
 		if (my_fgets(pref_fff, buf, sizeof(buf)))
 		{
 			/* No header found */
-			p_ptr->autopick_autoregister = FALSE;
+			cr_ptr->autopick_autoregister = FALSE;
 
 			break;
 		}
@@ -2027,7 +2027,7 @@ bool autopick_autoregister(object_type *o_ptr)
 		if (streq(buf, autoregister_header))
 		{
 			/* Found the header */
-			p_ptr->autopick_autoregister = TRUE;
+			cr_ptr->autopick_autoregister = TRUE;
 
 			break;
 		}
@@ -2052,7 +2052,7 @@ bool autopick_autoregister(object_type *o_ptr)
 		return FALSE;
 	}
 
-	if (!p_ptr->autopick_autoregister)
+	if (!cr_ptr->autopick_autoregister)
 	{
 		/* Add the header */
 		fprintf(pref_fff, "%s\n", autoregister_header);
@@ -2066,11 +2066,11 @@ bool autopick_autoregister(object_type *o_ptr)
 #endif
 
 		/* Now auto register is in-use */
-		p_ptr->autopick_autoregister = TRUE;
+		cr_ptr->autopick_autoregister = TRUE;
 	}
 
 	/* Get a preference entry */
-	autopick_entry_from_object(p_ptr, entry, o_ptr);
+	autopick_entry_from_object(cr_ptr, entry, o_ptr);
 
 	/* Set to auto-destroy (with no-display) */
 	entry->action = DO_AUTODESTROY;

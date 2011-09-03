@@ -1236,7 +1236,7 @@ void do_cmd_destroy(void)
 			if (i == 'A')
 			{
 				/* Add an auto-destroy preference line */
-				if (autopick_autoregister(o_ptr))
+				if (autopick_autoregister(p_ptr, o_ptr))
 				{
 					/* Auto-destroy it */
 					autopick_alter_item(p_ptr, item, TRUE);
