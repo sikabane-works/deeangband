@@ -3487,13 +3487,13 @@ static bool detect_feat_flag(int range, int flag, bool known)
 /*
  * Detect all traps on current panel
  */
-bool detect_traps(int range, bool known)
+bool detect_traps(creature_type *cr_ptr, int range, bool known)
 {
 	bool detect = detect_feat_flag(range, FF_TRAP, known);
 
-	if (known) p_ptr->dtrap = TRUE;
+	if (known) cr_ptr->dtrap = TRUE;
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3513,11 +3513,11 @@ bool detect_traps(int range, bool known)
 /*
  * Detect all doors on current panel
  */
-bool detect_doors(int range)
+bool detect_doors(creature_type *cr_ptr, int range)
 {
 	bool detect = detect_feat_flag(range, FF_DOOR, TRUE);
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3537,11 +3537,11 @@ bool detect_doors(int range)
 /*
  * Detect all stairs on current panel
  */
-bool detect_stairs(int range)
+bool detect_stairs(creature_type *cr_ptr, int range)
 {
 	bool detect = detect_feat_flag(range, FF_STAIRS, TRUE);
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 0) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3561,11 +3561,11 @@ bool detect_stairs(int range)
 /*
  * Detect any treasure on the current panel
  */
-bool detect_treasure(int range)
+bool detect_treasure(creature_type *cr_ptr, int range)
 {
 	bool detect = detect_feat_flag(range, FF_HAS_GOLD, TRUE);
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3585,7 +3585,7 @@ bool detect_treasure(int range)
 /*
  * Detect all "gold" objects on the current panel
  */
-bool detect_objects_gold(int range)
+bool detect_objects_gold(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
@@ -3610,7 +3610,7 @@ bool detect_objects_gold(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range2) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "gold" objects */
 		if (o_ptr->tval == TV_GOLD)
@@ -3626,7 +3626,7 @@ bool detect_objects_gold(int range)
 		}
 	}
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3639,7 +3639,7 @@ msg_print("財宝の存在を感じとった！");
 
 	}
 
-	if (detect_monsters_string(range, "$"))
+	if (detect_monsters_string(cr_ptr, range, "$"))
 	{
 		detect = TRUE;
 	}
@@ -3652,7 +3652,7 @@ msg_print("財宝の存在を感じとった！");
 /*
  * Detect all "normal" objects on the current panel
  */
-bool detect_objects_normal(int range)
+bool detect_objects_normal(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
@@ -3677,7 +3677,7 @@ bool detect_objects_normal(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range2) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range2) continue;
 
 		/* Detect "real" objects */
 		if (o_ptr->tval != TV_GOLD)
@@ -3693,7 +3693,7 @@ bool detect_objects_normal(int range)
 		}
 	}
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 6) detect = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if (detect)
@@ -3706,7 +3706,7 @@ msg_print("アイテムの存在を感じとった！");
 
 	}
 
-	if (detect_monsters_string(range, "!=?|/`"))
+	if (detect_monsters_string(cr_ptr, range, "!=?|/`"))
 	{
 		detect = TRUE;
 	}
@@ -3725,7 +3725,7 @@ msg_print("アイテムの存在を感じとった！");
  *
  * It can probably be argued that this function is now too powerful.
  */
-bool detect_objects_magic(int range)
+bool detect_objects_magic(creature_type *cr_ptr, int range)
 {
 	int i, y, x, tv;
 
@@ -3749,13 +3749,13 @@ bool detect_objects_magic(int range)
 		x = o_ptr->ix;
 
 		/* Only detect nearby objects */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Examine the tval */
 		tv = o_ptr->tval;
 
 		/* Artifacts, misc magic items, or enchanted wearables */
-		if (object_is_artifact(p_ptr, o_ptr) ||
+		if (object_is_artifact(cr_ptr, o_ptr) ||
 			object_is_ego(o_ptr) ||
 		    (tv == TV_WHISTLE) ||
 		    (tv == TV_AMULET) ||
@@ -3810,7 +3810,7 @@ msg_print("魔法のアイテムの存在を感じとった！");
 /*
  * Detect all "normal" monsters on the current panel
  */
-bool detect_monsters_normal(int range)
+bool detect_monsters_normal(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 
@@ -3832,10 +3832,10 @@ bool detect_monsters_normal(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible monsters */
-		if (!(r_ptr->flags2 & RF2_INVISIBLE) || p_ptr->see_inv)
+		if (!(r_ptr->flags2 & RF2_INVISIBLE) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_monsters = TRUE;
@@ -3851,7 +3851,7 @@ bool detect_monsters_normal(int range)
 		}
 	}
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -3873,7 +3873,7 @@ msg_print("モンスターの存在を感じとった！");
 /*
  * Detect all "invisible" monsters around the player
  */
-bool detect_monsters_invis(int range)
+bool detect_monsters_invis(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
@@ -3894,13 +3894,13 @@ bool detect_monsters_invis(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible monsters */
 		if (r_ptr->flags2 & RF2_INVISIBLE)
 		{
 			/* Update monster recall window */
-			if (p_ptr->species_type_idx == m_ptr->species_idx)
+			if (cr_ptr->species_type_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -3920,7 +3920,7 @@ bool detect_monsters_invis(int range)
 		}
 	}
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -3943,7 +3943,7 @@ msg_print("透明な生物の存在を感じとった！");
 /*
  * Detect all "evil" monsters on current panel
  */
-bool detect_monsters_evil(int range)
+bool detect_monsters_evil(creature_type *cr_ptr, int range)
 {
 	int i, y, x;
 	bool flag = FALSE;
@@ -3964,7 +3964,7 @@ bool detect_monsters_evil(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
 		if (r_ptr->flags3 & RF3_EVIL)
@@ -3975,7 +3975,7 @@ bool detect_monsters_evil(int range)
 				r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Update monster recall window */
-				if (p_ptr->species_type_idx == m_ptr->species_idx)
+				if (cr_ptr->species_type_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
 					play_window |= (PW_MONSTER);
@@ -4018,7 +4018,7 @@ msg_print("邪悪なる生物の存在を感じとった！");
 /*
  * Detect all "nonliving", "undead" or "demonic" monsters on current panel
  */
-bool detect_monsters_nonliving(int range)
+bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
@@ -4039,13 +4039,13 @@ bool detect_monsters_nonliving(int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
 		if (!monster_living(r_ptr))
 		{
 			/* Update monster recall window */
-			if (p_ptr->species_type_idx == m_ptr->species_idx)
+			if (cr_ptr->species_type_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4085,7 +4085,7 @@ msg_print("自然でないモンスターの存在を感じた！");
 /*
  * Detect all monsters it has mind on current panel
  */
-bool detect_monsters_mind(int range)
+bool detect_monsters_mind(creature_type *cr_ptr, int range)
 {
 	int     i, y, x;
 	bool    flag = FALSE;
@@ -4152,7 +4152,7 @@ msg_print("殺気を感じとった！");
 /*
  * Detect all (string) monsters on current panel
  */
-bool detect_monsters_string(int range, cptr Match)
+bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 {
 	int i, y, x;
 	bool flag = FALSE;
@@ -4173,13 +4173,13 @@ bool detect_monsters_string(int range, cptr Match)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect monsters with the same symbol */
 		if (my_strchr(Match, r_ptr->d_char))
 		{
 			/* Update monster recall window */
-			if (p_ptr->species_type_idx == m_ptr->species_idx)
+			if (cr_ptr->species_type_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4199,7 +4199,7 @@ bool detect_monsters_string(int range, cptr Match)
 		}
 	}
 
-	if (music_singing(p_ptr, MUSIC_DETECT) && p_ptr->magic_num1[2] > 3) flag = FALSE;
+	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if (flag)
@@ -4221,7 +4221,7 @@ msg_print("モンスターの存在を感じとった！");
 /*
  * A "generic" detect monsters routine, tagged to flags3
  */
-bool detect_monsters_xxx(int range, u32b match_flag)
+bool detect_monsters_xxx(creature_type *cr_ptr, int range, u32b match_flag)
 {
 	int  i, y, x;
 	bool flag = FALSE;
@@ -4247,7 +4247,7 @@ cptr desc_monsters = "変なモンスター";
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
 		if (r_ptr->flags3 & (match_flag))
@@ -4258,7 +4258,7 @@ cptr desc_monsters = "変なモンスター";
 				r_ptr->r_flags3 |= (match_flag);
 
 				/* Update monster recall window */
-				if (p_ptr->species_type_idx == m_ptr->species_idx)
+				if (cr_ptr->species_type_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
 					play_window |= (PW_MONSTER);
@@ -4320,22 +4320,22 @@ msg_format("%sの存在を感じとった！", desc_monsters);
 /*
  * Detect everything
  */
-bool detect_all(int range)
+bool detect_all(creature_type *cr_ptr, int range)
 {
 	bool detect = FALSE;
 
 	/* Detect everything */
-	if (detect_traps(range, TRUE)) detect = TRUE;
-	if (detect_doors(range)) detect = TRUE;
-	if (detect_stairs(range)) detect = TRUE;
+	if (detect_traps(cr_ptr, range, TRUE)) detect = TRUE;
+	if (detect_doors(cr_ptr, range)) detect = TRUE;
+	if (detect_stairs(cr_ptr, range)) detect = TRUE;
 
 	/* There are too many hidden treasure.  So... */
 	/* if (detect_treasure(range)) detect = TRUE; */
 
-	if (detect_objects_gold(range)) detect = TRUE;
-	if (detect_objects_normal(range)) detect = TRUE;
-	if (detect_monsters_invis(range)) detect = TRUE;
-	if (detect_monsters_normal(range)) detect = TRUE;
+	if (detect_objects_gold(cr_ptr, range)) detect = TRUE;
+	if (detect_objects_normal(cr_ptr, range)) detect = TRUE;
+	if (detect_monsters_invis(cr_ptr, range)) detect = TRUE;
+	if (detect_monsters_normal(cr_ptr, range)) detect = TRUE;
 
 	/* Result */
 	return (detect);

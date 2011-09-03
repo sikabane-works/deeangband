@@ -4557,7 +4557,7 @@ msg_print("ウィザードモード突入。");
 
 
 
-		/*** p_ptr->inventory Commands ***/
+		/*** inventory Commands ***/
 
 		/* Wear/wield equipment */
 		case 'w':

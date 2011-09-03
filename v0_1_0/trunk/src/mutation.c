@@ -3454,13 +3454,13 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_SMELL_MET:
-			mutation_stop_mouth(p_ptr);
-			(void)detect_treasure(DETECT_RAD_DEFAULT);
+			mutation_stop_mouth(cr_ptr);
+			(void)detect_treasure(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case MUT1_SMELL_MON:
-			mutation_stop_mouth(p_ptr);
-			(void)detect_monsters_normal(DETECT_RAD_DEFAULT);
+			mutation_stop_mouth(cr_ptr);
+			(void)detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case MUT1_BLINK:

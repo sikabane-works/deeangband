@@ -1951,7 +1951,7 @@ void do_cmd_debug(void)
 
 	/* Detect everything */
 	case 'd':
-		detect_all(DETECT_RAD_ALL * 3);
+		detect_all(p_ptr, DETECT_RAD_ALL * 3);
 		break;
 
 	/* Dimension_door */

@@ -1274,12 +1274,12 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			wiz_lite(FALSE);
 			(void)do_inc_stat(cr_ptr, A_INT);
 			(void)do_inc_stat(cr_ptr, A_WIS);
-			(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(DETECT_RAD_DEFAULT);
-			(void)detect_stairs(DETECT_RAD_DEFAULT);
-			(void)detect_treasure(DETECT_RAD_DEFAULT);
-			(void)detect_objects_gold(DETECT_RAD_DEFAULT);
-			(void)detect_objects_normal(DETECT_RAD_DEFAULT);
+			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_treasure(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT);
 			identify_pack(cr_ptr);
 			self_knowledge(cr_ptr);
 			ident = TRUE;
@@ -1842,33 +1842,33 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_DETECT_GOLD:
 		{
-			if (detect_treasure(DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_treasure(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_ITEM:
 		{
-			if (detect_objects_normal(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_TRAP:
 		{
-			if (detect_traps(DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_DOOR:
 		{
-			if (detect_doors(DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
@@ -2441,39 +2441,39 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_DETECT_GOLD:
 		{
-			if (detect_treasure(DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_treasure(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_ITEM:
 		{
-			if (detect_objects_normal(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_TRAP:
 		{
-			if (detect_traps(DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_DOOR:
 		{
-			if (detect_doors(DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_INVIS:
 		{
-			if (detect_monsters_invis(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_EVIL:
 		{
-			if (detect_monsters_evil(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_monsters_evil(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
@@ -3375,14 +3375,14 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 	{
 		case SV_ROD_DETECT_TRAP:
 		{
-			if (detect_traps(DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
+			if (detect_traps(cr_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DETECT_DOOR:
 		{
-			if (detect_doors(DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_doors(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if (detect_stairs(cr_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
@@ -3415,7 +3415,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_DETECTION:
 		{
-			detect_all(DETECT_RAD_DEFAULT);
+			detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 			ident = TRUE;
 			break;
 		}
@@ -4197,9 +4197,9 @@ msg_print("その宝石は赤く明るく光った！");
 				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(3, 8), "the Jewel of Judgement", NULL, -1);
 #endif
 
-				(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
-				(void)detect_doors(DETECT_RAD_DEFAULT);
-				(void)detect_stairs(DETECT_RAD_DEFAULT);
+				(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+				(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+				(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
 
 #ifdef JP
 if (get_check("帰還の力を使いますか？"))
@@ -4485,7 +4485,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("An image forms in your mind...");
 #endif
 
-				detect_all(DETECT_RAD_DEFAULT);
+				detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 				o_ptr->timeout = randint0(55) + 55;
 				break;
 			}
@@ -5074,7 +5074,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your quarterstaff glows brightly...");
 #endif
 
-				detect_all(DETECT_RAD_DEFAULT);
+				detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 				probing();
 				identify_fully(cr_ptr, FALSE);
 				o_ptr->timeout = 100;
@@ -6206,8 +6206,8 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				else o_ptr->timeout = 250;
 				break;
 			case EGO_RING_M_DETECT:
-				(void)detect_monsters_invis(255);
-				(void)detect_monsters_normal(255);
+				(void)detect_monsters_invis(cr_ptr, 255);
+				(void)detect_monsters_normal(cr_ptr, 255);
 				o_ptr->timeout = 150;
 				break;
 			case EGO_RING_D_SPEED:
@@ -6336,7 +6336,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = randint0(50) + 50;
 				break;
 			case EGO_AMU_DETECTION:
-				detect_all(DETECT_RAD_DEFAULT);
+				detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 				o_ptr->timeout = randint0(55)+55;
 				break;
 			}

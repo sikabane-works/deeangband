@@ -1541,9 +1541,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You examine your surroundings.");
 #endif
 
-			(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(DETECT_RAD_DEFAULT);
-			(void)detect_stairs(DETECT_RAD_DEFAULT);
+			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case RACE_HOBBIT:
@@ -1725,9 +1725,9 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_print("You examine your surroundings.");
 #endif
 
-			(void)detect_traps(DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(DETECT_RAD_DEFAULT);
-			(void)detect_stairs(DETECT_RAD_DEFAULT);
+			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case RACE_DARK_ELF:

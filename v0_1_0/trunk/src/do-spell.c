@@ -1298,9 +1298,9 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_traps(rad, TRUE);
-				detect_doors(rad);
-				detect_stairs(rad);
+				detect_traps(cr_ptr, rad, TRUE);
+				detect_doors(cr_ptr, rad);
+				detect_stairs(cr_ptr, rad);
 			}
 		}
 		break;
@@ -1739,7 +1739,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_all(rad);
+				detect_all(cr_ptr, rad);
 			}
 		}
 		break;
@@ -1906,7 +1906,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(rad);
+				detect_monsters_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -1948,9 +1948,9 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_traps(rad, TRUE);
-				detect_doors(rad);
-				detect_stairs(rad);
+				detect_traps(cr_ptr, rad, TRUE);
+				detect_doors(cr_ptr, rad);
+				detect_stairs(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2209,7 +2209,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_all(rad);
+				detect_all(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2247,9 +2247,9 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_objects_normal(rad);
-				detect_treasure(rad);
-				detect_objects_gold(rad);
+				detect_objects_normal(cr_ptr, rad);
+				detect_treasure(cr_ptr, rad);
+				detect_objects_gold(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2616,7 +2616,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(rad);
+				detect_monsters_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2664,9 +2664,9 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_traps(rad, TRUE);
-				detect_doors(rad);
-				detect_stairs(rad);
+				detect_traps(cr_ptr, rad, TRUE);
+				detect_doors(cr_ptr, rad);
+				detect_stairs(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2874,10 +2874,10 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				map_area(rad1);
-				detect_traps(rad2, TRUE);
-				detect_doors(rad2);
-				detect_stairs(rad2);
-				detect_monsters_normal(rad2);
+				detect_traps(cr_ptr, rad2, TRUE);
+				detect_doors(cr_ptr, rad2);
+				detect_stairs(cr_ptr, rad2);
+				detect_monsters_normal(cr_ptr, rad2);
 			}
 		}
 		break;
@@ -4207,7 +4207,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_nonliving(rad);
+				detect_monsters_nonliving(cr_ptr, rad);
 			}
 		}
 		break;
@@ -4276,7 +4276,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_evil(rad);
+				detect_monsters_evil(cr_ptr, rad);
 			}
 		}
 		break;
@@ -5703,7 +5703,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_all(rad);
+				detect_all(cr_ptr, rad);
 			}
 		}
 		break;
@@ -5997,7 +5997,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_invis(rad);
+				detect_monsters_invis(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6018,7 +6018,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_normal(rad);
+				detect_monsters_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6125,9 +6125,9 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_traps(rad, TRUE);
-				detect_doors(rad);
-				detect_stairs(rad);
+				detect_traps(cr_ptr, rad, TRUE);
+				detect_doors(cr_ptr, rad);
+				detect_stairs(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6165,8 +6165,8 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_treasure(rad);
-				detect_objects_gold(rad);
+				detect_treasure(cr_ptr, rad);
+				detect_objects_gold(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6187,7 +6187,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_objects_magic(rad);
+				detect_objects_magic(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6208,7 +6208,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_objects_normal(rad);
+				detect_objects_normal(cr_ptr, rad);
 			}
 		}
 		break;
@@ -6587,7 +6587,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_all(rad);
+				detect_all(cr_ptr, rad);
 			}
 		}
 		break;
@@ -7401,7 +7401,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_nonliving(rad);
+				detect_monsters_nonliving(cr_ptr, rad);
 			}
 		}
 		break;
@@ -8187,7 +8187,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				detect_monsters_evil(rad);
+				detect_monsters_evil(cr_ptr, rad);
 			}
 		}
 		break;
@@ -9273,23 +9273,23 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				{
 					/* There are too many hidden treasure.  So... */
 					/* detect_treasure(rad); */
-					detect_objects_gold(rad);
-					detect_objects_normal(rad);
+					detect_objects_gold(cr_ptr, rad);
+					detect_objects_normal(cr_ptr, rad);
 
 					if (plev > 24 && count < 11)
 						cr_ptr->magic_num1[2] = count + 1;
 				}
 				if (count >= 3)
 				{
-					detect_monsters_invis(rad);
-					detect_monsters_normal(rad);
+					detect_monsters_invis(cr_ptr, rad);
+					detect_monsters_normal(cr_ptr, rad);
 
 					if (plev > 19 && count < 6)
 						cr_ptr->magic_num1[2] = count + 1;
 				}
-				detect_traps(rad, TRUE);
-				detect_doors(rad);
-				detect_stairs(rad);
+				detect_traps(cr_ptr, rad, TRUE);
+				detect_doors(cr_ptr, rad);
+				detect_stairs(cr_ptr, rad);
 
 				if (plev > 14 && count < 3)
 					cr_ptr->magic_num1[2] = count + 1;
@@ -10308,7 +10308,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
     
 		if (cast)
 		{
-			detect_monsters_mind(DETECT_RAD_DEFAULT);
+			detect_monsters_mind(cr_ptr, DETECT_RAD_DEFAULT);
 		}
 		break;
 

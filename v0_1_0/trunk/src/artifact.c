@@ -2839,7 +2839,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("An image forms in your mind...");
 #endif
 
-			detect_all(DETECT_RAD_DEFAULT);
+			detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 			o_ptr->timeout = (s16b)randint0(55) + 55;
 			break;
 		}
@@ -2852,7 +2852,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows brightly...");
 #endif
 
-			detect_all(DETECT_RAD_DEFAULT);
+			detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 			probing();
 			identify_fully(cr_ptr, FALSE);
 			o_ptr->timeout = 1000;

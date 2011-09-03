@@ -854,16 +854,16 @@ static bool cast_mindcrafter_spell(creature_type *cr_ptr, int spell)
 
 		if (plev < 30)
 		{
-			b = detect_monsters_normal(DETECT_RAD_DEFAULT);
-			if (plev > 14) b |= detect_monsters_invis(DETECT_RAD_DEFAULT);
+			b = detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
+			if (plev > 14) b |= detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT);
 			if (plev > 4)  {
-				b |= detect_traps(DETECT_RAD_DEFAULT, TRUE);
-				b |= detect_doors(DETECT_RAD_DEFAULT);
+				b |= detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+				b |= detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
 			}
 		}
 		else
 		{
-			b = detect_all(DETECT_RAD_DEFAULT);
+			b = detect_all(cr_ptr, DETECT_RAD_DEFAULT);
 		}
 
 		if ((plev > 24) && (plev < 40))
@@ -1252,10 +1252,10 @@ static bool cast_mirror_spell(creature_type *cr_ptr, int spell)
 	/* mirror of seeing */
 	case 0:
 	  tmp = is_mirror_grid(&cave[cr_ptr->fy][cr_ptr->fx]) ? 4 : 0;
-	  if( plev + tmp > 4)detect_monsters_normal(DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 18 )detect_monsters_invis(DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 28 )set_tim_esp(cr_ptr, plev,FALSE);
-	  if( plev + tmp > 38 )map_area(DETECT_RAD_MAP);
+	  if( plev + tmp > 4) detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 18) detect_monsters_invis(cr_ptr, DETECT_RAD_DEFAULT);
+	  if( plev + tmp > 28) set_tim_esp(cr_ptr, plev,FALSE);
+	  if( plev + tmp > 38) map_area(DETECT_RAD_MAP);
 	  if( tmp == 0 && plev < 5 ){
 #ifdef JP
 	    msg_print("‹¾‚ª‚È‚­‚ÄW’†‚Å‚«‚È‚©‚Á‚½I");
@@ -1421,7 +1421,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		detect_monsters_mind(DETECT_RAD_DEFAULT);
+		detect_monsters_mind(cr_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 1:
 	{
@@ -1533,16 +1533,16 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 		{
 			wiz_lite(TRUE);
 		}
-		detect_monsters_normal(DETECT_RAD_DEFAULT);
+		detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
 		if (plev > 4)
 		{
-			detect_traps(DETECT_RAD_DEFAULT, TRUE);
-			detect_doors(DETECT_RAD_DEFAULT);
-			detect_stairs(DETECT_RAD_DEFAULT);
+			detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
+			detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
+			detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
 		}
 		if (plev > 14)
 		{
-			detect_objects_normal(DETECT_RAD_DEFAULT);
+			detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT);
 		}
 		break;
 	case 2:
