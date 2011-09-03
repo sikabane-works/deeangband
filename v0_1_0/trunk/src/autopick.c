@@ -1560,12 +1560,12 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
  */
 static object_type autopick_last_destroyed_object;
 
-static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
+static void auto_destroy_item(creature_type *cr_ptr, object_type *o_ptr, int autopick_idx)
 {
 	bool destroy = FALSE;
 
 	/* Easy-Auto-Destroyer (3rd priority) */
-	if (is_opt_confirm_destroy(p_ptr, o_ptr)) destroy = TRUE;
+	if (is_opt_confirm_destroy(cr_ptr, o_ptr)) destroy = TRUE;
 
 	/* Protected by auto-picker (2nd priotity) */
 	if (autopick_idx >= 0 &&
@@ -1589,7 +1589,7 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 	disturb(0,0);
 
 	/* Artifact? */
-	if (!can_player_destroy_object(p_ptr, o_ptr))
+	if (!can_player_destroy_object(cr_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
 
@@ -1612,7 +1612,7 @@ static void auto_destroy_item(object_type *o_ptr, int autopick_idx)
 
 	/* Destroy Later */
 	o_ptr->marked |= OM_AUTODESTROY;
-	p_ptr->notice |= PN_AUTODESTROY;
+	cr_ptr->notice |= PN_AUTODESTROY;
 
 	return;
 }
@@ -1711,7 +1711,7 @@ void autopick_alter_item(int item, bool destroy)
 
 	/* Do auto-destroy if needed */
 	if (destroy && item <= INVEN_PACK)
-		auto_destroy_item(o_ptr, idx);
+		auto_destroy_item(p_ptr, o_ptr, idx);
 }
 
 
@@ -1800,7 +1800,7 @@ void autopick_pickup_items(cave_type *c_ptr)
 		 */
 		else
 		{
-			auto_destroy_item(o_ptr, idx);
+			auto_destroy_item(p_ptr, o_ptr, idx);
 		}
 	} /* for () */
 }
