@@ -4425,7 +4425,7 @@ msg_format("You cannot control %s.", m_name);
 }
 
 
-bool get_rep_dir2(int *dp)
+bool get_rep_dir2(creature_type *cr_ptr, int *dp)
 {
 	int dir;
 
@@ -4475,7 +4475,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)

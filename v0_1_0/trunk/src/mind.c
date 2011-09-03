@@ -1435,7 +1435,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			return FALSE;
 		}
 
-		if (!get_rep_dir2(&dir)) return FALSE;
+		if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 
 		if (dir == 5) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
@@ -1470,7 +1470,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 	}
 	case 2:
 	{
-		if (!get_rep_dir2(&dir)) return FALSE;
+		if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 		y = cr_ptr->fy + ddy[dir];
 		x = cr_ptr->fx + ddx[dir];
 		move_creature(cr_ptr, dir, easy_disarm, TRUE);

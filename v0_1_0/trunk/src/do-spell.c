@@ -10206,7 +10206,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			int cdir;
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			for (cdir = 0;cdir < 8; cdir++)
@@ -10277,7 +10277,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10325,7 +10325,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10397,7 +10397,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 				return NULL;
 			}
 	
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 	
 			if (dir == 5) return NULL;
 			y = p_ptr->fy + ddy[dir];
@@ -10444,7 +10444,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10477,7 +10477,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10510,7 +10510,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10611,7 +10611,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10643,7 +10643,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10676,7 +10676,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10709,7 +10709,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10742,7 +10742,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10776,7 +10776,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10874,7 +10874,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y,x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -10971,7 +10971,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int i;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			for (i = 0; i < 3; i++)
@@ -11062,7 +11062,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -11242,7 +11242,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 			u32b flgs[TR_FLAG_SIZE];
 			object_type *o_ptr;
 	
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];
@@ -11304,7 +11304,7 @@ static cptr do_hissatsu_spell(int spell, int mode)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(&dir)) return NULL;
+			if (!get_rep_dir2(p_ptr, &dir)) return NULL;
 			if (dir == 5) return NULL;
 
 			y = p_ptr->fy + ddy[dir];

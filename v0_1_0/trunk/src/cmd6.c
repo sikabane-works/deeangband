@@ -5379,7 +5379,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				int x, y;
 
-				if (!get_rep_dir2(&dir)) return;
+				if (!get_rep_dir2(cr_ptr, &dir)) return;
 				y = cr_ptr->fy+ddy[dir];
 				x = cr_ptr->fx+ddx[dir];
 				tsuri_dir = dir;
@@ -6457,7 +6457,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		else
 		{
 			bool success = FALSE;
-			if (!get_rep_dir2(&dir)) return;
+			if (!get_rep_dir2(cr_ptr, &dir)) return;
 			if (monster_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &r_info[o_ptr->pval], 0))
 			{
 				if (place_monster_aux(cr_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))

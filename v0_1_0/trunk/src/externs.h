@@ -1530,7 +1530,7 @@ extern bool target_set(int mode);
 extern bool get_aim_dir(int *dp);
 extern bool get_hack_dir(creature_type *cr_ptr, int *dp);
 extern bool get_rep_dir(creature_type *cr_ptr, int *dp, bool under);
-extern bool get_rep_dir2(int *dp);
+extern bool get_rep_dir2(creature_type *cr_ptr, int *dp);
 extern void gain_level_reward(creature_type *cr_ptr, int chosen_reward);
 extern bool tgt_pt (creature_type *cr_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *cr_ptr);

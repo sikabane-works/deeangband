@@ -3396,7 +3396,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				cave_type *c_ptr;
 
 				/* Only works on adjacent monsters */
-				if (!get_rep_dir2(&dir)) return FALSE;
+				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
@@ -3473,7 +3473,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				cave_type *c_ptr;
 				feature_type *f_ptr, *mimic_f_ptr;
 
-				if (!get_rep_dir2(&dir)) return FALSE;
+				if (!get_rep_dir2(cr_ptr,&dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
@@ -3685,7 +3685,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			{
 				int x, y;
 
-				if (!get_rep_dir2(&dir)) return FALSE;
+				if (!get_rep_dir2(cr_ptr,&dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
@@ -3734,7 +3734,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				creature_type *m_ptr;
 				species_type *r_ptr;
 
-				if (!get_rep_dir2(&dir)) return FALSE;
+				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
@@ -3795,7 +3795,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				int x, y;
 				cave_type *c_ptr;
 
-				if (!get_rep_dir2(&dir)) return FALSE;
+				if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];

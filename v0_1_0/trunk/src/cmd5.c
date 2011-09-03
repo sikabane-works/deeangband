@@ -1841,7 +1841,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 	cave_type *c_ptr;
 	creature_type *m_ptr;
 
-	if (!get_rep_dir2(&dir)) return FALSE;
+	if (!get_rep_dir2(cr_ptr, &dir)) return FALSE;
 	y = cr_ptr->fy + ddy[dir];
 	x = cr_ptr->fx + ddx[dir];
 	c_ptr = &cave[y][x];
