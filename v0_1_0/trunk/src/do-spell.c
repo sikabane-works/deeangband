@@ -2311,7 +2311,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!tele_town()) return NULL;
+				if (!tele_town(p_ptr)) return NULL;
 			}
 		}
 		break;
