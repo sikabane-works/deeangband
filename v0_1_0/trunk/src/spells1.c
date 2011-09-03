@@ -1023,7 +1023,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				update_local_illumination(p_ptr, y, x);
 
 				/* Observe */
-				if (player_can_see_bold(y, x)) obvious = TRUE;
+				if (player_can_see_bold(p_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
@@ -1088,7 +1088,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				update_local_illumination(p_ptr, y, x);
 
 				/* Notice */
-				if (player_can_see_bold(y, x)) obvious = TRUE;
+				if (player_can_see_bold(p_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
@@ -8933,7 +8933,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	if (flg & PROJECT_KILL)
 	{
 		see_s_msg = (!is_player(who_ptr)) ? is_seen(p_ptr, who_ptr) :
-			(is_player(who_ptr) ? TRUE : (player_can_see_bold(y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)));
+			(is_player(who_ptr) ? TRUE : (player_can_see_bold(p_ptr, y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)));
 	}
 
 

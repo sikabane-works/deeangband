@@ -3580,7 +3580,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny, nx) && player_can_see_bold(ny, nx))
+		if (panel_contains(ny, nx) && player_can_see_bold(cr_ptr, ny, nx))
 		{
 			char c = object_char(q_ptr);
 			byte a = object_attr(q_ptr);
@@ -4306,7 +4306,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny[cur_dis], nx[cur_dis]) && player_can_see_bold(ny[cur_dis], nx[cur_dis]))
+		if (panel_contains(ny[cur_dis], nx[cur_dis]) && player_can_see_bold(cr_ptr, ny[cur_dis], nx[cur_dis]))
 		{
 			char c = object_char(q_ptr);
 			byte a = object_attr(q_ptr);
@@ -4557,7 +4557,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 		{
 			for (i = cur_dis - 1; i > 0; i--)
 			{
-				if (panel_contains(ny[i], nx[i]) && player_can_see_bold(ny[i], nx[i]))
+				if (panel_contains(ny[i], nx[i]) && player_can_see_bold(cr_ptr, ny[i], nx[i]))
 				{
 					char c = object_char(q_ptr);
 					byte a = object_attr(q_ptr);

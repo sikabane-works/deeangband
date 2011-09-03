@@ -545,12 +545,12 @@ void update_local_illumination(creature_type *cr_ptr, int y, int x)
  * "glowing" grid.  This prevents the player from being able to "see" the
  * walls of illuminated rooms from a corridor outside the room.
  */
-bool player_can_see_bold(int y, int x)
+bool player_can_see_bold(creature_type *viewer_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
 	/* Blind players see nothing */
-	if (p_ptr->blind) return FALSE;
+	if (viewer_ptr->blind) return FALSE;
 
 	/* Access the cave grid */
 	c_ptr = &cave[y][x];
@@ -562,7 +562,7 @@ bool player_can_see_bold(int y, int x)
 	if (!player_has_los_bold(y, x)) return FALSE;
 
 	/* Noctovision of Ninja */
-	if (p_ptr->see_nocto) return TRUE;
+	if (viewer_ptr->see_nocto) return TRUE;
 
 	/* Require "perma-lite" of the grid */
 	if ((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) != CAVE_GLOW) return FALSE;
@@ -572,7 +572,7 @@ bool player_can_see_bold(int y, int x)
 	if (feat_supports_los(get_feat_mimic(c_ptr))) return TRUE;
 
 	/* Check for "local" illumination */
-	return check_local_illumination(p_ptr, y, x);
+	return check_local_illumination(viewer_ptr, y, x);
 }
 
 
@@ -582,7 +582,7 @@ bool player_can_see_bold(int y, int x)
  */
 bool no_lite(void)
 {
-	return (!player_can_see_bold(p_ptr->fy, p_ptr->fx));
+	return (!player_can_see_bold(p_ptr, p_ptr->fy, p_ptr->fx));
 }
 
 
@@ -4756,7 +4756,7 @@ void cave_alter_feat(int y, int x, int action)
 			found = TRUE;
 		}
 
-		if (found && character_dungeon && player_can_see_bold(y, x))
+		if (found && character_dungeon && player_can_see_bold(p_ptr, y, x))
 		{
 #ifdef JP
 			msg_print("‰½‚©‚ğ”­Œ©‚µ‚½I");

@@ -907,7 +907,7 @@ msg_print("地面に落とされた。");
 
 				if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
 				{
-					if (player_can_see_bold(wy, wx))
+					if (player_can_see_bold(cr_ptr, wy, wx))
 						notice = TRUE;
 				}
 				*/
@@ -989,7 +989,7 @@ msg_print("地面に落とされた。");
 					/*TODO
 					if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
 					{
-						if (player_can_see_bold(wy, wx))
+						if (player_can_see_bold(cr_ptr, wy, wx))
 #ifdef JP
 							msg_print("新たな戦士が現れた！");
 #else
@@ -3418,7 +3418,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 	feat = get_feat_mimic(c_ptr);
 
 	/* Require knowledge about grid, or ability to see grid */
-	if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(y, x))
+	if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(p_ptr, y, x))
 	{
 		/* Forget feature */
 		feat = feat_none;

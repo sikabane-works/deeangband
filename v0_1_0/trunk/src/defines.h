@@ -4301,7 +4301,7 @@
 // TODO Check using
 #define is_seen(B, A) \
 	((bool)((A)->ml && (!ignore_unview || inside_battle || \
-	 (player_can_see_bold((A)->fy, (A)->fx) && projectable(p_ptr->fy, p_ptr->fx, (A)->fy, (A)->fx)))))
+	 (player_can_see_bold(p_ptr, (A)->fy, (A)->fx) && projectable(p_ptr->fy, p_ptr->fx, (A)->fy, (A)->fx)))))
 
 
 /*** Option Definitions ***/

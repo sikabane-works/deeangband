@@ -2666,7 +2666,7 @@ msg_format("%^s%s", m_name, monmessage);
 							did_take_item = TRUE;
 
 							/* Describe observable situations */
-							if (m_ptr->ml && player_can_see_bold(ny, nx))
+							if (m_ptr->ml && player_can_see_bold(p_ptr, ny, nx))
 							{
 								/* Dump a message */
 #ifdef JP
@@ -2685,7 +2685,7 @@ msg_format("%^s%s", m_name, monmessage);
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (player_can_see_bold(ny, nx))
+						if (player_can_see_bold(p_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -3572,7 +3572,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 
 		if (is_pet(m_ptr) || m_ptr->ml)
 		{
-			if (!ignore_unview || player_can_see_bold(m_ptr->fy, m_ptr->fx))
+			if (!ignore_unview || player_can_see_bold(p_ptr, m_ptr->fy, m_ptr->fx))
 			{
 				if (p_ptr->image)
 				{
