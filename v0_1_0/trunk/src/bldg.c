@@ -38,26 +38,26 @@ static bool is_owner(creature_type *cr_ptr, building_type *bldg)
 }
 
 
-static bool is_member(building_type *bldg)
+static bool is_member(creature_type *cr_ptr, building_type *bldg)
 {
-	if (bldg->member_class[p_ptr->cls_idx])
+	if (bldg->member_class[cr_ptr->cls_idx])
 	{
 		return (TRUE);
 	}
 
-	if (bldg->member_race[p_ptr->irace_idx])
+	if (bldg->member_race[cr_ptr->irace_idx])
 	{
 		return (TRUE);
 	}
 
-	if ((is_magic(p_ptr->realm1) && bldg->member_realm[p_ptr->realm1]) ||
-	    (is_magic(p_ptr->realm2) && bldg->member_realm[p_ptr->realm2]))
+	if ((is_magic(cr_ptr->realm1) && bldg->member_realm[cr_ptr->realm1]) ||
+	    (is_magic(cr_ptr->realm2) && bldg->member_realm[cr_ptr->realm2]))
 	{
 		return (TRUE);
 	}
 
 
-	if (p_ptr->cls_idx == CLASS_SORCERER)
+	if (cr_ptr->cls_idx == CLASS_SORCERER)
 	{
 		int i;
 		bool OK = FALSE;
@@ -150,7 +150,7 @@ sprintf(buff, "($%ld)", bldg->other_costs[i]);
 			}
 			else if (bldg->action_restr[i] == 1)
 			{
-				if (!is_member(bldg))
+				if (!is_member(p_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -161,7 +161,7 @@ strcpy(buff, "(•Â“X)");
 
 				}
 				else if ((is_owner(p_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
-					(is_member(bldg) && (bldg->other_costs[i] == 0)))
+					(is_member(p_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
@@ -4702,7 +4702,7 @@ static void bldg_process_command(creature_type *cr_ptr, building_type *bldg, int
 		bcost = bldg->other_costs[i];
 
 	/* action restrictions */
-	if (((bldg->action_restr[i] == 1) && !is_member(bldg)) ||
+	if (((bldg->action_restr[i] == 1) && !is_member(cr_ptr, bldg)) ||
 	    ((bldg->action_restr[i] == 2) && !is_owner(cr_ptr, bldg)))
 	{
 #ifdef JP
