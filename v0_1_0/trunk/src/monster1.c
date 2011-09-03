@@ -124,7 +124,7 @@ static void hooked_roff(cptr str)
  * left edge of the screen, on a cleared line, in which the recall is
  * to take place.  One extra blank line is left after the recall.
  */
-static void roff_aux(int species_idx, int mode)
+static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 {
 	species_type    *r_ptr = &r_info[species_idx];
 
@@ -767,23 +767,23 @@ else                            hooked_roff("モンスター");
 			long i, j;
 
 #ifdef JP
-			i = p_ptr->lev;
+			i = cr_ptr->lev;
 			hooked_roff(format(" %lu レベルのキャラクタにとって", (long)i));
 
-			i = (long)r_ptr->mexp * r_ptr->level / (p_ptr->max_plv+2);
-			j = ((((long)r_ptr->mexp * r_ptr->level % (p_ptr->max_plv+2)) *
-			       (long)1000 / (p_ptr->max_plv+2) + 5) / 10);
+			i = (long)r_ptr->mexp * r_ptr->level / (cr_ptr->max_plv+2);
+			j = ((((long)r_ptr->mexp * r_ptr->level % (cr_ptr->max_plv+2)) *
+			       (long)1000 / (cr_ptr->max_plv+2) + 5) / 10);
 
 			hooked_roff(format(" 約%ld.%02ld ポイントの経験となる。",
 				(long)i, (long)j ));
 #else
 			/* calculate the integer exp part */
-			i = (long)r_ptr->mexp * r_ptr->level / (p_ptr->max_plv+2);
+			i = (long)r_ptr->mexp * r_ptr->level / (cr_ptr->max_plv+2);
 
 			/* calculate the fractional exp part scaled by 100, */
 			/* must use long arithmetic to avoid overflow  */
-			j = ((((long)r_ptr->mexp * r_ptr->level % (p_ptr->max_plv+2)) *
-			       (long)1000 / (p_ptr->max_plv+2) + 5) / 10);
+			j = ((((long)r_ptr->mexp * r_ptr->level % (cr_ptr->max_plv+2)) *
+			       (long)1000 / (cr_ptr->max_plv+2) + 5) / 10);
 
 			/* Mention the experience */
 			hooked_roff(format(" is worth about %ld.%02ld point%s",
@@ -792,15 +792,15 @@ else                            hooked_roff("モンスター");
 
 			/* Take account of annoying English */
 			p = "th";
-			i = p_ptr->lev % 10;
-			if ((p_ptr->lev / 10) == 1) /* nothing */;
+			i = cr_ptr->lev % 10;
+			if ((cr_ptr->lev / 10) == 1) /* nothing */;
 			else if (i == 1) p = "st";
 			else if (i == 2) p = "nd";
 			else if (i == 3) p = "rd";
 
 			/* Take account of "leading vowels" in numbers */
 			q = "";
-			i = p_ptr->lev;
+			i = cr_ptr->lev;
 			if ((i == 8) || (i == 11) || (i == 18)) q = "n";
 
 			/* Mention the dependance on the player's level */
@@ -1464,7 +1464,7 @@ if (flags6 & (RF6_TELE_LEVEL))      {vp[vn] = "テレポート・レベル";color[vn++] =
 
 	if (flags6 & (RF6_DARKNESS))
 	{
-		if ((p_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) || (r_ptr->flags7 & RF7_DARK_MASK))
+		if ((cr_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) || (r_ptr->flags7 & RF7_DARK_MASK))
 		{
 #ifdef JP
 			vp[vn] =  "暗闇"; color[vn++] = TERM_L_DARK;
@@ -3148,7 +3148,7 @@ void screen_roff(int species_idx, int mode)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(species_idx, mode);
+	roff_aux(p_ptr, species_idx, mode);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3177,7 +3177,7 @@ void display_roff(int species_idx)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(species_idx, 0);
+	roff_aux(p_ptr, species_idx, 0);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3193,7 +3193,7 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 	hook_c_roff = roff_func;
 
 	/* Recall monster */
-	roff_aux(species_idx, 0x03);
+	roff_aux(p_ptr, species_idx, 0x03);
 }
 
 
