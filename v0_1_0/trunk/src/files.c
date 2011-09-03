@@ -5044,27 +5044,27 @@ static void dump_aux_monsters(FILE *fff)
 /*
  *
  */
-static void dump_aux_race_history(FILE *fff)
+static void dump_aux_race_history(creature_type *cr_ptr, FILE *fff)
 {
-	if (p_ptr->old_race1 || p_ptr->old_race2)
+	if (cr_ptr->old_race1 || cr_ptr->old_race2)
 	{
 		int i;
 
 #ifdef JP
-		fprintf(fff, "\n\n ‚ ‚È‚½‚Í%s‚Æ‚µ‚Ä¶‚Ü‚ê‚½B", race_info[p_ptr->start_race].title);
+		fprintf(fff, "\n\n ‚ ‚È‚½‚Í%s‚Æ‚µ‚Ä¶‚Ü‚ê‚½B", race_info[cr_ptr->start_race].title);
 #else
-		fprintf(fff, "\n\n You were born as %s.", race_info[p_ptr->start_race].title);
+		fprintf(fff, "\n\n You were born as %s.", race_info[cr_ptr->start_race].title);
 #endif
 		for (i = 0; i < MAX_RACES; i++)
 		{
-			if (p_ptr->start_race == i) continue;
+			if (cr_ptr->start_race == i) continue;
 			if (i < 32)
 			{
-				if (!(p_ptr->old_race1 & 1L << i)) continue;
+				if (!(cr_ptr->old_race1 & 1L << i)) continue;
 			}
 			else
 			{
-				if (!(p_ptr->old_race2 & 1L << (i-32))) continue;
+				if (!(cr_ptr->old_race2 & 1L << (i-32))) continue;
 			}
 #ifdef JP
 			fprintf(fff, "\n ‚ ‚È‚½‚Í‚©‚Â‚Ä%s‚¾‚Á‚½B", race_info[i].title);
@@ -5303,7 +5303,7 @@ errr make_character_dump(FILE *fff)
 	dump_aux_arena(fff);
 	dump_aux_monsters(fff);
 	dump_aux_karmas(fff);
-	dump_aux_race_history(fff);
+	dump_aux_race_history(p_ptr, fff);
 	dump_aux_realm_history(fff);
 	dump_aux_class_special(fff);
 	dump_aux_mutations(fff);
