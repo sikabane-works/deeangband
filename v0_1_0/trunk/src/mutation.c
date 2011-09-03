@@ -3356,7 +3356,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("You concentrate...");
 #endif
 
-			fetch(dir, lvl * 10, TRUE);
+			fetch(cr_ptr, dir, lvl * 10, TRUE);
 			break;
 
 		case MUT1_VTELEPORT:

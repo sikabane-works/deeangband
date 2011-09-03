@@ -5417,7 +5417,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You stretched your whip.");
 #endif
 
-				fetch(dir, 500, TRUE);
+				fetch(cr_ptr, dir, 500, TRUE);
 				o_ptr->timeout = randint0(25) + 25;
 				break;
 			}

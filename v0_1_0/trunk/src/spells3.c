@@ -1839,7 +1839,7 @@ void call_the_void(creature_type *cr_ptr)
 /*
  * Fetch an item (teleport it right underneath the caster)
  */
-void fetch(int dir, int wgt, bool require_los)
+void fetch(creature_type *cr_ptr, int dir, int wgt, bool require_los)
 {
 	int             ty, tx, i;
 	cave_type       *c_ptr;
@@ -1847,7 +1847,7 @@ void fetch(int dir, int wgt, bool require_los)
 	char            o_name[MAX_NLEN];
 
 	/* Check to see if an object is already there */
-	if (cave[p_ptr->fy][p_ptr->fx].o_idx)
+	if (cave[cr_ptr->fy][cr_ptr->fx].o_idx)
 	{
 #ifdef JP
 msg_print("自分の足の下にある物は取れません。");
@@ -1864,7 +1864,7 @@ msg_print("自分の足の下にある物は取れません。");
 		tx = target_col;
 		ty = target_row;
 
-		if (distance(p_ptr->fy, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr))
+		if (distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE(cr_ptr))
 		{
 #ifdef JP
 msg_print("そんなに遠くにある物は取れません！");
@@ -1914,7 +1914,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 
 				return;
 			}
-			else if (!projectable(p_ptr->fy, p_ptr->fx, ty, tx))
+			else if (!projectable(cr_ptr->fy, cr_ptr->fx, ty, tx))
 			{
 #ifdef JP
 				msg_print("そこは壁の向こうです。");
@@ -1929,8 +1929,8 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 	else
 	{
 		/* Use a direction */
-		ty = p_ptr->fy; /* Where to drop the item */
-		tx = p_ptr->fx;
+		ty = cr_ptr->fy; /* Where to drop the item */
+		tx = cr_ptr->fx;
 
 		do
 		{
@@ -1938,7 +1938,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 			tx += ddx[dir];
 			c_ptr = &cave[ty][tx];
 
-			if ((distance(p_ptr->fy, p_ptr->fx, ty, tx) > MAX_RANGE(p_ptr)) ||
+			if ((distance(cr_ptr->fy, cr_ptr->fx, ty, tx) > MAX_RANGE(cr_ptr)) ||
 				!cave_have_flag_bold(ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->o_idx);
@@ -1960,10 +1960,10 @@ msg_print("そのアイテムは重過ぎます。");
 
 	i = c_ptr->o_idx;
 	c_ptr->o_idx = o_ptr->next_o_idx;
-	cave[p_ptr->fy][p_ptr->fx].o_idx = i; /* 'move' it */
+	cave[cr_ptr->fy][cr_ptr->fx].o_idx = i; /* 'move' it */
 	o_ptr->next_o_idx = 0;
-	o_ptr->iy = (byte)p_ptr->fy;
-	o_ptr->ix = (byte)p_ptr->fx;
+	o_ptr->iy = (byte)cr_ptr->fy;
+	o_ptr->ix = (byte)cr_ptr->fx;
 
 	object_desc(o_name, o_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -1973,7 +1973,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #endif
 
 
-	note_spot(p_ptr->fy, p_ptr->fx);
+	note_spot(cr_ptr->fy, cr_ptr->fx);
 	play_redraw |= PR_MAP;
 }
 

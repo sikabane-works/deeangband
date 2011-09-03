@@ -2462,7 +2462,7 @@ static cptr do_sorcery_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fetch(dir, weight, FALSE);
+				fetch(p_ptr, dir, weight, FALSE);
 			}
 		}
 		break;
@@ -5226,7 +5226,7 @@ static cptr do_trump_spell(int spell, int mode)
 			{
 				if (!get_aim_dir(&dir)) return NULL;
 
-				fetch(dir, weight, FALSE);
+				fetch(p_ptr, dir, weight, FALSE);
 			}
 		}
 		break;
