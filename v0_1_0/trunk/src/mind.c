@@ -925,7 +925,7 @@ if (!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
 	case 7:
 		/* Psychometry */
 		if (plev < 25)
-			return psychometry();
+			return psychometry(cr_ptr);
 		else
 			return ident_spell(cr_ptr, FALSE);
 	case 8:

@@ -1199,7 +1199,7 @@ void leave_quest_check(void)
  * good (Cure Light Wounds, Restore Strength, etc) or
  * bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
  */
-bool psychometry(void)
+bool psychometry(creature_type *cr_ptr)
 {
 	int             item;
 	object_type     *o_ptr;
@@ -1218,12 +1218,12 @@ s = "調べるアイテムがありません。";
 	s = "You have nothing appropriate.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1245,7 +1245,7 @@ msg_print("何も新しいことは判らなかった。");
 	}
 
 	/* Check for a feeling */
-	feel = value_check_aux1(p_ptr, o_ptr);
+	feel = value_check_aux1(cr_ptr, o_ptr);
 
 	/* Get an object description */
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -1282,7 +1282,7 @@ msg_format("%sは%sという感じがする...",
 	o_ptr->marked |= OM_TOUCHED;
 
 	/* Combine / Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1317,7 +1317,7 @@ msg_format("%sは%sという感じがする...",
 	}
 
 	/* Auto-inscription/destroy */
-	autopick_alter_item(p_ptr, item, (bool)(okay && destroy_feeling));
+	autopick_alter_item(cr_ptr, item, (bool)(okay && destroy_feeling));
 
 	/* Something happened */
 	return (TRUE);

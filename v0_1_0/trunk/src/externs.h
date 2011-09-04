@@ -869,7 +869,7 @@ extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
 extern void determine_today_mon(bool conv_old);
 extern void play_game(bool new_game);
-extern bool psychometry(void);
+extern bool psychometry(creature_type *cr_ptr);
 extern void leave_level(int level);
 extern void enter_level(int level);
 extern s32b turn_real(s32b hoge);
