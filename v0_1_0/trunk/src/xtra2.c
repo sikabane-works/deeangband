@@ -2826,7 +2826,7 @@ bool show_gold_on_floor = FALSE;
  *
  * This function must handle blindness/hallucination.
  */
-static int target_set_aux(int y, int x, int mode, cptr info)
+static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr info)
 {
 	cave_type *c_ptr = &cave[y][x];
 	s16b this_o_idx, next_o_idx = 0;
@@ -2858,7 +2858,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 #endif /* ALLOW_EASY_FLOOR */
 
 	/* Hack -- under the player */
-	if (creature_bold(p_ptr, y, x))
+	if (creature_bold(cr_ptr, y, x))
 	{
 		/* Description */
 #ifdef JP
@@ -2882,7 +2882,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 	}
 
 	/* Hack -- hallucination */
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
 #ifdef JP
 		cptr name = "âΩÇ©äÔñ≠Ç»ï®";
@@ -2931,7 +2931,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 		health_track(c_ptr->m_idx);
 
 		/* Hack -- handle stuff */
-		handle_stuff(p_ptr);
+		handle_stuff(cr_ptr);
 
 		/* Interact */
 		while (1)
@@ -3097,7 +3097,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 
 				for(i = INVEN_1STARM; i <= INVEN_FEET; i++)
 				{
-					identify_item(p_ptr, &m_ptr->inventory[i]);
+					identify_item(cr_ptr, &m_ptr->inventory[i]);
 					m_ptr->inventory[i].ident |= (IDENT_MENTAL);
 				}
 				m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
@@ -3418,7 +3418,7 @@ static int target_set_aux(int y, int x, int mode, cptr info)
 	feat = get_feat_mimic(c_ptr);
 
 	/* Require knowledge about grid, or ability to see grid */
-	if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(p_ptr, y, x))
+	if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(cr_ptr, y, x))
 	{
 		/* Forget feature */
 		feat = feat_none;
@@ -3694,7 +3694,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 			}
 
 			/* Describe and Prompt */
-			while (!(query = target_set_aux(y, x, mode, info)));
+			while (!(query = target_set_aux(aimer_ptr, y, x, mode, info)));
 
 			/* Cancel tracking */
 			/* health_track(0); */
@@ -3924,7 +3924,7 @@ strcpy(info, "qé~ tåà pé© mãﬂ +éü -ëO");
 
 
 			/* Describe and Prompt (enable "TARGET_LOOK") */
-			while (!(query = target_set_aux(y, x, mode | TARGET_LOOK, info)));
+			while (!(query = target_set_aux(aimer_ptr, y, x, mode | TARGET_LOOK, info)));
 
 			/* Cancel tracking */
 			/* health_track(0); */
