@@ -589,7 +589,7 @@ static s16b monster_target_y;
  *
  * XXX XXX XXX Perhaps we should affect doors?
  */
-static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int typ)
+static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, int y, int x, int dam, int typ)
 {
 	cave_type       *c_ptr = &cave[y][x];
 	feature_type    *f_ptr = &f_info[c_ptr->feat];
@@ -770,7 +770,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!p_ptr->blind && player_has_los_bold(y, x))
+			if (!aimer_ptr->blind && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -807,7 +807,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!p_ptr->blind && player_has_los_bold(y, x))
+			if (!aimer_ptr->blind && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -874,7 +874,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				cave_alter_feat(y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				p_ptr->update |= (PU_FLOW);
+				aimer_ptr->update |= (PU_FLOW);
 			}
 
 			break;
@@ -887,7 +887,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(p_ptr, y, x)) break;
+			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(y, x, feat_door[DOOR_DOOR].closed);
@@ -914,7 +914,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(p_ptr, y, x)) break;
+			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(y, x, feat_tree);
@@ -950,7 +950,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 			if (!cave_naked_bold(y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(p_ptr, y, x)) break;
+			if (creature_bold(aimer_ptr, y, x)) break;
 
 			/* Place a wall */
 			cave_set_feat(y, x, feat_granite);
@@ -1020,18 +1020,18 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(p_ptr, y, x);
+				update_local_illumination(aimer_ptr, y, x);
 
 				/* Observe */
-				if (player_can_see_bold(p_ptr, y, x)) obvious = TRUE;
+				if (player_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
 				if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
 
-				if (p_ptr->special_defense & NINJA_S_STEALTH)
+				if (aimer_ptr->special_defense & NINJA_S_STEALTH)
 				{
-					if (creature_bold(p_ptr, y, x)) set_superstealth(p_ptr, FALSE);
+					if (creature_bold(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
 				}
 			}
 
@@ -1085,10 +1085,10 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				/* Redraw */
 				lite_spot(y, x);
 
-				update_local_illumination(p_ptr, y, x);
+				update_local_illumination(aimer_ptr, y, x);
 
 				/* Notice */
-				if (player_can_see_bold(p_ptr, y, x)) obvious = TRUE;
+				if (player_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the monster in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
@@ -1111,7 +1111,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(y, x);
-				project(p_ptr, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
@@ -1131,14 +1131,14 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				cave_alter_feat(y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				p_ptr->update |= (PU_FLOW);
+				aimer_ptr->update |= (PU_FLOW);
 			}
 			break;
 		}
 
 		case GF_SOUND:
 		{
-			if (is_mirror_grid(c_ptr) && p_ptr->lev < 40)
+			if (is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
 #ifdef JP
 				msg_print("‹¾‚ªŠ„‚ê‚½I");
@@ -1147,7 +1147,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(y, x);
-				project(p_ptr, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
@@ -1167,7 +1167,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				cave_alter_feat(y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				p_ptr->update |= (PU_FLOW);
+				aimer_ptr->update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -1185,7 +1185,7 @@ static bool project_f(creature_type *who_ptr, int r, int y, int x, int dam, int 
 				cave_alter_feat(y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to GF_KILL_WALL */
-				p_ptr->update |= (PU_FLOW);
+				aimer_ptr->update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -8500,7 +8500,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					    }
 					  }
 					}
-					(void)project_f(who_ptr,0,y,x,dam,GF_SEEKER);
+					(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER);
 				}
 				last_i = i;
 			}
@@ -8526,7 +8526,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(who_ptr,0,y,x,dam,GF_SEEKER);
+			(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER);
 		}
 		return notice;
 	}
@@ -8624,7 +8624,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_f(who_ptr,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
@@ -8658,7 +8658,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(who_ptr,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -8959,12 +8959,12 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if (project_f(who_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if (project_f(p_ptr, who_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if (project_f(who_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_f(p_ptr, who_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -9403,7 +9403,7 @@ bool binding_field( int dam )
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
-					(void)project_f(NULL,0,y,x,dam,GF_MANA); 
+					(void)project_f(p_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
