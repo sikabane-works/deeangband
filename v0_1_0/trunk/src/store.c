@@ -4508,35 +4508,35 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			do_cmd_wield();
+			do_cmd_wield(guest_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			do_cmd_takeoff();
+			do_cmd_takeoff(guest_ptr);
 			break;
 		}
 
 		/* Destroy an item */
 		case 'k':
 		{
-			do_cmd_destroy();
+			do_cmd_destroy(guest_ptr);
 			break;
 		}
 
 		/* Equipment list */
 		case 'e':
 		{
-			do_cmd_equip();
+			do_cmd_equip(guest_ptr);
 			break;
 		}
 
 		/* Inventory list */
 		case 'i':
 		{
-			do_cmd_inven();
+			do_cmd_inven(guest_ptr);
 			break;
 		}
 
@@ -4546,7 +4546,7 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Identify an object */
 		case 'I':
 		{
-			do_cmd_observe();
+			do_cmd_observe(guest_ptr);
 			break;
 		}
 
@@ -4582,14 +4582,14 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Inscribe an object */
 		case '{':
 		{
-			do_cmd_inscribe();
+			do_cmd_inscribe(guest_ptr);
 			break;
 		}
 
 		/* Uninscribe an object */
 		case '}':
 		{
-			do_cmd_uninscribe();
+			do_cmd_uninscribe(guest_ptr);
 			break;
 		}
 
@@ -4607,7 +4607,7 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Identify symbol */
 		case '/':
 		{
-			do_cmd_query_symbol();
+			do_cmd_query_symbol(guest_ptr);
 			break;
 		}
 

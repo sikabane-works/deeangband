@@ -761,21 +761,21 @@ extern void do_cmd_travel(creature_type *cr_ptr);
 #endif
 
 /* cmd3.c */
-extern void do_cmd_inven(void);
-extern void do_cmd_equip(void);
-extern void do_cmd_wield(void);
-extern void do_cmd_takeoff(void);
-extern void do_cmd_drop(void);
-extern void do_cmd_destroy(void);
-extern void do_cmd_observe(void);
-extern void do_cmd_uninscribe(void);
-extern void do_cmd_inscribe(void);
-extern void do_cmd_inscribe_caves(void);
-extern void do_cmd_refill(void);
-extern void do_cmd_target(void);
-extern void do_cmd_look(void);
-extern void do_cmd_locate(void);
-extern void do_cmd_query_symbol(void);
+extern void do_cmd_inven(creature_type *cr_ptr);
+extern void do_cmd_equip(creature_type *cr_ptr);
+extern void do_cmd_wield(creature_type *cr_ptr);
+extern void do_cmd_takeoff(creature_type *cr_ptr);
+extern void do_cmd_drop(creature_type *cr_ptr);
+extern void do_cmd_destroy(creature_type *cr_ptr);
+extern void do_cmd_observe(creature_type *cr_ptr);
+extern void do_cmd_uninscribe(creature_type *cr_ptr);
+extern void do_cmd_inscribe(creature_type *cr_ptr);
+extern void do_cmd_inscribe_caves(creature_type *cr_ptr);
+extern void do_cmd_refill(creature_type *cr_ptr);
+extern void do_cmd_target(creature_type *cr_ptr);
+extern void do_cmd_look(creature_type *cr_ptr);
+extern void do_cmd_locate(creature_type *cr_ptr);
+extern void do_cmd_query_symbol(creature_type *cr_ptr);
 extern void kamaenaoshi(creature_type *cr_ptr, int item);
 extern bool ang_sort_comp_hook(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);

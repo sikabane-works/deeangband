@@ -4562,42 +4562,42 @@ msg_print("ウィザードモード突入。");
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			if (!wild_mode) do_cmd_wield();
+			if (!wild_mode) do_cmd_wield(p_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			if (!wild_mode) do_cmd_takeoff();
+			if (!wild_mode) do_cmd_takeoff(p_ptr);
 			break;
 		}
 
 		/* Drop an item */
 		case 'd':
 		{
-			if (!wild_mode) do_cmd_drop();
+			if (!wild_mode) do_cmd_drop(p_ptr);
 			break;
 		}
 
 		/* Destroy an item */
 		case 'k':
 		{
-			do_cmd_destroy();
+			do_cmd_destroy(p_ptr);
 			break;
 		}
 
 		/* Equipment list */
 		case 'e':
 		{
-			do_cmd_equip();
+			do_cmd_equip(p_ptr);
 			break;
 		}
 
-		/* p_ptr->inventory list */
+		/* inventory list */
 		case 'i':
 		{
-			do_cmd_inven();
+			do_cmd_inven(p_ptr);
 			break;
 		}
 
@@ -4607,7 +4607,7 @@ msg_print("ウィザードモード突入。");
 		/* Identify an object */
 		case 'I':
 		{
-			do_cmd_observe();
+			do_cmd_observe(p_ptr);
 			break;
 		}
 
@@ -4979,14 +4979,14 @@ msg_print("ウィザードモード突入。");
 		/* Inscribe an object */
 		case '{':
 		{
-			do_cmd_inscribe();
+			do_cmd_inscribe(p_ptr);
 			break;
 		}
 
 		/* Uninscribe an object */
 		case '}':
 		{
-			do_cmd_uninscribe();
+			do_cmd_uninscribe(p_ptr);
 			break;
 		}
 
@@ -4994,13 +4994,13 @@ msg_print("ウィザードモード突入。");
 
 		case '\'':
 		{
-			do_cmd_inscribe_caves();
+			do_cmd_inscribe_caves(p_ptr);
 			break;
 		}
 
 		case KTRL('}'):
 		{
-			do_cmd_uninscribe();
+			do_cmd_uninscribe(p_ptr);
 			break;
 		}
 
@@ -5036,7 +5036,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Fuel your lantern/torch */
 		case 'F':
 		{
-			do_cmd_refill();
+			do_cmd_refill(p_ptr);
 			break;
 		}
 
@@ -5192,21 +5192,21 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Locate player on map */
 		case 'L':
 		{
-			do_cmd_locate();
+			do_cmd_locate(p_ptr);
 			break;
 		}
 
 		/* Look around */
 		case 'l':
 		{
-			do_cmd_look();
+			do_cmd_look(p_ptr);
 			break;
 		}
 
 		/* Target monster or location */
 		case '*':
 		{
-			if (!wild_mode) do_cmd_target();
+			if (!wild_mode) do_cmd_target(p_ptr);
 			break;
 		}
 
@@ -5224,7 +5224,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Identify symbol */
 		case '/':
 		{
-			do_cmd_query_symbol();
+			do_cmd_query_symbol(p_ptr);
 			break;
 		}
 
