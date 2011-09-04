@@ -3813,7 +3813,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 			msg_print(NULL);
 		}
 
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
 		dun_level = 0;

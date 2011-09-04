@@ -1556,7 +1556,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	inside_arena = FALSE;
 	wild_mode = FALSE;
 
-	leave_quest_check();
+	leave_quest_check(p_ptr);
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_WIZ_TELE,0,NULL);
 

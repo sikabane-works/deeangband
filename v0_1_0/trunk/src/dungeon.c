@@ -668,7 +668,7 @@ static void pattern_teleport(creature_type *cr_ptr)
 	/* Change level */
 	dun_level = command_arg;
 
-	leave_quest_check();
+	leave_quest_check(cr_ptr);
 
 	if (record_stair) do_cmd_write_nikki(NIKKI_PAT_TELE,0,NULL);
 
@@ -1160,7 +1160,7 @@ msg_print("明かりが微かになってきている。");
 }
 
 
-void leave_quest_check(void)
+void leave_quest_check(creature_type *cr_ptr)
 {
 	/* Save quest number for dungeon pref file ($LEAVING_QUEST) */
 	leaving_quest = inside_quest;
@@ -1171,7 +1171,7 @@ void leave_quest_check(void)
 	    (quest[leaving_quest].status == QUEST_STATUS_TAKEN))
 	{
 		quest[leaving_quest].status = QUEST_STATUS_FAILED;
-		quest[leaving_quest].complev = (byte)p_ptr->lev;
+		quest[leaving_quest].complev = (byte)cr_ptr->lev;
 		if (quest[leaving_quest].type == QUEST_TYPE_RANDOM)
 		{
 			r_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
@@ -1188,7 +1188,7 @@ void leave_quest_check(void)
 
 
 /*
- * Forcibly pseudo-identify an object in the p_ptr->inventory
+ * Forcibly pseudo-identify an object in the inventory
  * (or on the floor)
  *
  * note: currently this function allows pseudo-id of any object,
@@ -1446,19 +1446,19 @@ static void check_music(creature_type *cr_ptr)
 
 
 /* Choose one of items that have cursed flag */
-static object_type *choose_cursed_obj_name(u32b flag)
+static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 {
 	int i;
 	int choices[INVEN_TOTAL-INVEN_1STARM];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning-item */
-	if (!(p_ptr->cursed & flag)) return NULL;
+	if (!(cr_ptr->cursed & flag)) return NULL;
 
 	/* Search Inventry */
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		if (o_ptr->curse_flags & flag)
 		{
@@ -1468,7 +1468,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
 	}
 
 	/* Choice one of them */
-	return (&p_ptr->inventory[choices[randint0(number)]]);
+	return (&cr_ptr->inventory[choices[randint0(number)]]);
 }
 
 
@@ -1477,7 +1477,7 @@ static object_type *choose_cursed_obj_name(u32b flag)
  */
 static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 {
-	feature_type *f_ptr = &f_info[cave[p_ptr->fy][p_ptr->fx].feat];
+	feature_type *f_ptr = &f_info[cave[cr_ptr->fy][cr_ptr->fx].feat];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
@@ -1558,7 +1558,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 	{
 		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
-			if ((cave[p_ptr->fy][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+			if ((cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
 				/* Take damage */
 #ifdef JP
@@ -1646,15 +1646,15 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name), NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
 			{
-				cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
+				cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
 #ifdef JP
 				msg_format("%sで火傷した！", name);
 #else
@@ -1682,7 +1682,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
 			if (cr_ptr->resist_pois) damage = damage / 3;
 			if (IS_OPPOSE_POIS(cr_ptr)) damage = damage / 3;
 
@@ -1714,7 +1714,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			cptr name = f_name + f_info[get_feat_mimic(&cave[p_ptr->fy][p_ptr->fx])].name;
+			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
 			if (cr_ptr->resist_acid) damage = damage / 3;
 			if (IS_OPPOSE_ACID(cr_ptr)) damage = damage / 3;
 
@@ -2347,7 +2347,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 			msg_print(NULL);
-			teleport_player(p_ptr, 40, TELEPORT_PASSIVE);
+			teleport_player(cr_ptr, 40, TELEPORT_PASSIVE);
 		}
 	}
 
@@ -2377,7 +2377,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 				msg_print(NULL);
 				if (one_in_(3)) lose_all_info(cr_ptr);
 				else wiz_dark();
-				(void)teleport_player_aux(p_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+				(void)teleport_player_aux(cr_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 				wiz_dark();
 #ifdef JP
 				msg_print("あなたは見知らぬ場所で目が醒めた...頭が痛い。");
@@ -2454,7 +2454,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx,
+		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx,
 				    dun_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
@@ -2551,7 +2551,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
-		if ((cave[p_ptr->fy][p_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
+		if ((cave[cr_ptr->fy][cr_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
 			hp_player(cr_ptr, 10);
 		}
@@ -2598,7 +2598,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
+		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("動物を引き寄せた！");
@@ -2625,7 +2625,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	}
 	if ((cr_ptr->muta2 & MUT2_NORMALITY) && one_in_(5000))
 	{
-		if (!lose_mutation(p_ptr, 0))
+		if (!lose_mutation(cr_ptr, 0))
 #ifdef JP
 			msg_print("奇妙なくらい普通になった気がする。");
 #else
@@ -2706,7 +2706,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (pet) mode |= PM_FORCE_PET;
 		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
 
-		if (summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON, mode))
+		if (summon_specific((pet ? cr_ptr : NULL), cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ドラゴンを引き寄せた！");
@@ -2753,7 +2753,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		msg_print(NULL);
 		set_food(cr_ptr, PY_FOOD_WEAK);
-		if (music_singing_any(cr_ptr)) stop_singing(p_ptr);
+		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 	}
 
@@ -2985,7 +2985,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #endif
 			{
 				disturb(0, 0);
-				teleport_player(p_ptr, 50, 0L);
+				teleport_player(cr_ptr, 50, 0L);
 			}
 			else
 			{
@@ -3031,7 +3031,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			u32b new_curse;
 			object_type *o_ptr;
 
-			o_ptr = choose_cursed_obj_name(TRC_ADD_L_CURSE);
+			o_ptr = choose_cursed_obj_name(cr_ptr, TRC_ADD_L_CURSE);
 
 			new_curse = get_curse(0, o_ptr);
 			if (!(o_ptr->curse_flags & new_curse))
@@ -3058,7 +3058,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			u32b new_curse;
 			object_type *o_ptr;
 
-			o_ptr = choose_cursed_obj_name(TRC_ADD_H_CURSE);
+			o_ptr = choose_cursed_obj_name(cr_ptr, TRC_ADD_H_CURSE);
 
 			new_curse = get_curse(1, o_ptr);
 			if (!(o_ptr->curse_flags & new_curse))
@@ -3082,12 +3082,12 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call animal */
 		if ((cr_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
-			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_ANIMAL,
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_ANIMAL,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sが動物を引き寄せた！", o_name);
 #else
@@ -3100,11 +3100,11 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call demon */
 		if ((cr_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
-			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sが悪魔を引き寄せた！", o_name);
 #else
@@ -3117,12 +3117,12 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Call dragon */
 		if ((cr_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
-			if (summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, SUMMON_DRAGON,
+			if (summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, SUMMON_DRAGON,
 			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sがドラゴンを引き寄せた！", o_name);
 #else
@@ -3152,14 +3152,14 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			disturb(0, 0);
 
 			/* Teleport player */
-			teleport_player(p_ptr, 40, TELEPORT_PASSIVE);
+			teleport_player(cr_ptr, 40, TELEPORT_PASSIVE);
 		}
 		/* Handle HP draining */
 		if ((cr_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sはあなたの体力を吸収した！", o_name);
 #else
@@ -3172,7 +3172,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sはあなたの魔力を吸収した！", o_name);
 #else
@@ -3367,7 +3367,7 @@ msg_print("上に引っ張りあげられる感じがする！");
 				dun_level = 0;
 				dungeon_type = 0;
 
-				leave_quest_check();
+				leave_quest_check(cr_ptr);
 
 				inside_quest = 0;
 
@@ -4013,7 +4013,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 			if (cr_ptr->special_defense & NINJA_S_STEALTH)
 			{
-				if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
+				if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 			}
 		}
 	}
@@ -4103,7 +4103,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		if (min != prev_min)
 		{
 			do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
-			determine_today_mon(FALSE);
+			determine_today_mon(cr_ptr, FALSE);
 		}
 	}
 
@@ -4280,10 +4280,10 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 /*
  * Verify use of "wizard" mode
  */
-static bool enter_wizard_mode(void)
+static bool enter_wizard_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!p_ptr->noscore)
+	if (!cr_ptr->noscore)
 	{
 		/* Wizard mode is not permitted */
 		if (!allow_debug_opts || arg_wizard)
@@ -4323,7 +4323,7 @@ static bool enter_wizard_mode(void)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to enter wizard mode.");
 #endif
 		/* Mark savefile */
-		p_ptr->noscore |= 0x0002;
+		cr_ptr->noscore |= 0x0002;
 	}
 
 	/* Success */
@@ -4399,10 +4399,10 @@ extern void do_cmd_debug(creature_type *cr_ptr);
 /*
  * Verify use of "borg" commands
  */
-static bool enter_borg_mode(void)
+static bool enter_borg_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!(p_ptr->noscore & 0x0010))
+	if (!(cr_ptr->noscore & 0x0010))
 	{
 		/* Mention effects */
 #ifdef JP
@@ -4431,7 +4431,7 @@ static bool enter_borg_mode(void)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to use borg commands.");
 #endif
 		/* Mark savefile */
-		p_ptr->noscore |= 0x0010;
+		cr_ptr->noscore |= 0x0010;
 	}
 
 	/* Success */
@@ -4502,7 +4502,7 @@ msg_print("ウィザードモード解除。");
 #endif
 
 			}
-			else if (enter_wizard_mode())
+			else if (enter_wizard_mode(cr_ptr))
 			{
 				wizard = TRUE;
 #ifdef JP
@@ -6427,7 +6427,7 @@ msg_print("試合開始！");
 			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) dungeon_turn++;
 		}
 
-		prevent_turn_overflow();
+		prevent_turn_overflow(cr_ptr);
 
 		if (wild_regen) wild_regen--;
 	}
@@ -6605,7 +6605,7 @@ void determine_bounty_uniques(void)
  * Determine today's bounty monster
  * Note: conv_old is used if loaded 0.0.3 or older save file
  */
-void determine_today_mon(bool conv_old)
+void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 {
 	int max_dl = 3, i;
 	bool old_inside_battle = inside_battle;
@@ -6638,7 +6638,7 @@ void determine_today_mon(bool conv_old)
 		break;
 	}
 
-	p_ptr->today_mon = 0;
+	cr_ptr->today_mon = 0;
 	inside_battle = old_inside_battle;
 }
 
@@ -6872,7 +6872,7 @@ quit("セーブファイルが壊れています");
 		load = FALSE;
 
 		determine_bounty_uniques();
-		determine_today_mon(FALSE);
+		determine_today_mon(cr_ptr, FALSE);
 
 		/* Initialize object array */
 		wipe_o_list();
@@ -6927,7 +6927,7 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enter wizard mode */
 	if (arg_wizard)
 	{
-		if (enter_wizard_mode())
+		if (enter_wizard_mode(cr_ptr))
 		{
 			wizard = TRUE;
 
@@ -7301,9 +7301,9 @@ quit("セーブファイルが壊れています");
 	quit(NULL);
 }
 
-s32b turn_real(s32b hoge)
+s32b turn_real(creature_type *cr_ptr, s32b hoge)
 {
-	switch (p_ptr->start_race)
+	switch (cr_ptr->start_race)
 	{
 	case RACE_VAMPIRE:
 	case RACE_SKELETON:
@@ -7319,7 +7319,7 @@ s32b turn_real(s32b hoge)
  * ターンのオーバーフローに対する対処
  * ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
  */
-void prevent_turn_overflow(void)
+void prevent_turn_overflow(creature_type *cr_ptr)
 {
 	int rollback_days, i, j;
 	s32b rollback_turns;
@@ -7335,8 +7335,8 @@ void prevent_turn_overflow(void)
 	else old_turn = 1;
 	if (old_battle > rollback_turns) old_battle -= rollback_turns;
 	else old_battle = 1;
-	if (p_ptr->feeling_turn > rollback_turns) p_ptr->feeling_turn -= rollback_turns;
-	else p_ptr->feeling_turn = 1;
+	if (cr_ptr->feeling_turn > rollback_turns) cr_ptr->feeling_turn -= rollback_turns;
+	else cr_ptr->feeling_turn = 1;
 
 	for (i = 1; i < max_towns; i++)
 	{

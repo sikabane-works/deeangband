@@ -864,16 +864,16 @@ extern cptr do_spell(creature_type *cr_ptr, int realm, int spell, int mode);
 extern void wild_magic(creature_type *cr_ptr, int spell);
 
 /* dungeon.c */
-extern void leave_quest_check(void);
+extern void leave_quest_check(creature_type *cr_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
-extern void determine_today_mon(bool conv_old);
+extern void determine_today_mon(creature_type *cr_ptr, bool conv_old);
 extern void play_game(creature_type *cr_ptr, bool new_game);
 extern bool psychometry(creature_type *cr_ptr);
 extern void leave_level(int level);
 extern void enter_level(int level);
-extern s32b turn_real(s32b hoge);
-extern void prevent_turn_overflow(void);
+extern s32b turn_real(creature_type *cr_ptr, s32b hoge);
+extern void prevent_turn_overflow(creature_type *cr_ptr);
 
 
 /* files.c */

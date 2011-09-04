@@ -2828,7 +2828,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					if (dungeon_turn > dungeon_turn_limit) dungeon_turn = dungeon_turn_limit;
 				}
 
-				prevent_turn_overflow();
+				prevent_turn_overflow(cr_ptr);
 
 				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
 				cr_ptr->chp = cr_ptr->mhp;
@@ -5042,7 +5042,7 @@ msg_print("ここにはクエストの入口はない。");
 		cr_ptr->oldpy = 0;
 		cr_ptr->oldpx = 0;
 
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) dun_level = 1;
 		inside_quest = cave[cr_ptr->fy][cr_ptr->fx].special;

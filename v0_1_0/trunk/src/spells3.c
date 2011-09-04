@@ -731,7 +731,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 
 			prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_UP | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
-			leave_quest_check();
+			leave_quest_check(cr_ptr);
 
 			/* Leaving */
 			inside_quest = 0;

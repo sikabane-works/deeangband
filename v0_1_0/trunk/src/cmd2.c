@@ -56,7 +56,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 		msg_print("You enter the up staircase.");
 #endif
 
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
 
@@ -122,7 +122,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	if (inside_quest &&
 	    quest[inside_quest].type == QUEST_TYPE_RANDOM)
 	{
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		inside_quest = 0;
 	}
@@ -131,7 +131,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	if (inside_quest &&
 	    quest[inside_quest].type != QUEST_TYPE_RANDOM)
 	{
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
 		dun_level = 0;
@@ -238,7 +238,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 #endif
 
 
-		leave_quest_check();
+		leave_quest_check(cr_ptr);
 
 		inside_quest = c_ptr->special;
 
