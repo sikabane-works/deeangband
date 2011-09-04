@@ -3665,7 +3665,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_WEIGH_MAG:
-			report_magics();
+			report_magics(cr_ptr);
 			break;
 
 		case MUT1_STERILITY:

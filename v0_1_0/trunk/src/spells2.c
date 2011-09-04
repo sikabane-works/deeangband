@@ -3163,7 +3163,7 @@ static cptr report_magic_durations[] =
 /*
  * Report all currently active magical effects.
  */
-void report_magics(void)
+void report_magics(creature_type *cr_ptr)
 {
 	int     i = 0, j, k;
 	char    Dummy[80];
@@ -3171,9 +3171,9 @@ void report_magics(void)
 	int     info2[128];
 
 
-	if (p_ptr->blind)
+	if (cr_ptr->blind)
 	{
-		info2[i]  = report_magics_aux(p_ptr->blind);
+		info2[i]  = report_magics_aux(cr_ptr->blind);
 #ifdef JP
 info[i++] = "あなたは目が見えない。";
 #else
@@ -3181,9 +3181,9 @@ info[i++] = "あなたは目が見えない。";
 #endif
 
 	}
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
-		info2[i]  = report_magics_aux(p_ptr->confused);
+		info2[i]  = report_magics_aux(cr_ptr->confused);
 #ifdef JP
 info[i++] = "あなたは混乱している。";
 #else
@@ -3191,9 +3191,9 @@ info[i++] = "あなたは混乱している。";
 #endif
 
 	}
-	if (p_ptr->afraid)
+	if (cr_ptr->afraid)
 	{
-		info2[i]  = report_magics_aux(p_ptr->afraid);
+		info2[i]  = report_magics_aux(cr_ptr->afraid);
 #ifdef JP
 info[i++] = "あなたは恐怖に侵されている。";
 #else
@@ -3201,9 +3201,9 @@ info[i++] = "あなたは恐怖に侵されている。";
 #endif
 
 	}
-	if (p_ptr->poisoned)
+	if (cr_ptr->poisoned)
 	{
-		info2[i]  = report_magics_aux(p_ptr->poisoned);
+		info2[i]  = report_magics_aux(cr_ptr->poisoned);
 #ifdef JP
 info[i++] = "あなたは毒に侵されている。";
 #else
@@ -3211,9 +3211,9 @@ info[i++] = "あなたは毒に侵されている。";
 #endif
 
 	}
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
-		info2[i]  = report_magics_aux(p_ptr->image);
+		info2[i]  = report_magics_aux(cr_ptr->image);
 #ifdef JP
 info[i++] = "あなたは幻覚を見ている。";
 #else
@@ -3221,9 +3221,9 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if (p_ptr->blessed)
+	if (cr_ptr->blessed)
 	{
-		info2[i]  = report_magics_aux(p_ptr->blessed);
+		info2[i]  = report_magics_aux(cr_ptr->blessed);
 #ifdef JP
 info[i++] = "あなたは公正さを感じている。";
 #else
@@ -3231,9 +3231,9 @@ info[i++] = "あなたは公正さを感じている。";
 #endif
 
 	}
-	if (p_ptr->hero)
+	if (cr_ptr->hero)
 	{
-		info2[i]  = report_magics_aux(p_ptr->hero);
+		info2[i]  = report_magics_aux(cr_ptr->hero);
 #ifdef JP
 info[i++] = "あなたはヒーロー気分だ。";
 #else
@@ -3241,9 +3241,9 @@ info[i++] = "あなたはヒーロー気分だ。";
 #endif
 
 	}
-	if (p_ptr->shero)
+	if (cr_ptr->shero)
 	{
-		info2[i]  = report_magics_aux(p_ptr->shero);
+		info2[i]  = report_magics_aux(cr_ptr->shero);
 #ifdef JP
 info[i++] = "あなたは戦闘狂だ。";
 #else
@@ -3251,9 +3251,9 @@ info[i++] = "あなたは戦闘狂だ。";
 #endif
 
 	}
-	if (p_ptr->protevil)
+	if (cr_ptr->protevil)
 	{
-		info2[i]  = report_magics_aux(p_ptr->protevil);
+		info2[i]  = report_magics_aux(cr_ptr->protevil);
 #ifdef JP
 info[i++] = "あなたは邪悪なる存在から守られている。";
 #else
@@ -3261,9 +3261,9 @@ info[i++] = "あなたは邪悪なる存在から守られている。";
 #endif
 
 	}
-	if (p_ptr->shield)
+	if (cr_ptr->shield)
 	{
-		info2[i]  = report_magics_aux(p_ptr->shield);
+		info2[i]  = report_magics_aux(cr_ptr->shield);
 #ifdef JP
 info[i++] = "あなたは神秘のシールドで守られている。";
 #else
@@ -3271,9 +3271,9 @@ info[i++] = "あなたは神秘のシールドで守られている。";
 #endif
 
 	}
-	if (p_ptr->invuln)
+	if (cr_ptr->invuln)
 	{
-		info2[i]  = report_magics_aux(p_ptr->invuln);
+		info2[i]  = report_magics_aux(cr_ptr->invuln);
 #ifdef JP
 info[i++] = "無敵でいられる。";
 #else
@@ -3281,9 +3281,9 @@ info[i++] = "無敵でいられる。";
 #endif
 
 	}
-	if (p_ptr->wraith_form)
+	if (cr_ptr->wraith_form)
 	{
-		info2[i]  = report_magics_aux(p_ptr->wraith_form);
+		info2[i]  = report_magics_aux(cr_ptr->wraith_form);
 #ifdef JP
 info[i++] = "幽体化できる。";
 #else
@@ -3291,7 +3291,7 @@ info[i++] = "幽体化できる。";
 #endif
 
 	}
-	if (p_ptr->special_attack & ATTACK_CONFUSE)
+	if (cr_ptr->special_attack & ATTACK_CONFUSE)
 	{
 		info2[i]  = 7;
 #ifdef JP
@@ -3301,9 +3301,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (p_ptr->word_recall)
+	if (cr_ptr->word_recall)
 	{
-		info2[i]  = report_magics_aux(p_ptr->word_recall);
+		info2[i]  = report_magics_aux(cr_ptr->word_recall);
 #ifdef JP
 		info[i++] = "この後帰還の詔を発動する。";
 #else
@@ -3311,9 +3311,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (p_ptr->alter_reality)
+	if (cr_ptr->alter_reality)
 	{
-		info2[i]  = report_magics_aux(p_ptr->alter_reality);
+		info2[i]  = report_magics_aux(cr_ptr->alter_reality);
 #ifdef JP
 		info[i++] = "この後現実変容が発動する。";
 #else
@@ -3321,9 +3321,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (p_ptr->oppose_acid)
+	if (cr_ptr->oppose_acid)
 	{
-		info2[i]  = report_magics_aux(p_ptr->oppose_acid);
+		info2[i]  = report_magics_aux(cr_ptr->oppose_acid);
 #ifdef JP
 info[i++] = "あなたは酸への耐性を持っている。";
 #else
@@ -3331,9 +3331,9 @@ info[i++] = "あなたは酸への耐性を持っている。";
 #endif
 
 	}
-	if (p_ptr->oppose_elec)
+	if (cr_ptr->oppose_elec)
 	{
-		info2[i]  = report_magics_aux(p_ptr->oppose_elec);
+		info2[i]  = report_magics_aux(cr_ptr->oppose_elec);
 #ifdef JP
 info[i++] = "あなたは電撃への耐性を持っている。";
 #else
@@ -3341,9 +3341,9 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 #endif
 
 	}
-	if (p_ptr->oppose_fire)
+	if (cr_ptr->oppose_fire)
 	{
-		info2[i]  = report_magics_aux(p_ptr->oppose_fire);
+		info2[i]  = report_magics_aux(cr_ptr->oppose_fire);
 #ifdef JP
 info[i++] = "あなたは火への耐性を持っている。";
 #else
@@ -3351,9 +3351,9 @@ info[i++] = "あなたは火への耐性を持っている。";
 #endif
 
 	}
-	if (p_ptr->oppose_cold)
+	if (cr_ptr->oppose_cold)
 	{
-		info2[i]  = report_magics_aux(p_ptr->oppose_cold);
+		info2[i]  = report_magics_aux(cr_ptr->oppose_cold);
 #ifdef JP
 info[i++] = "あなたは冷気への耐性を持っている。";
 #else
@@ -3361,9 +3361,9 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 #endif
 
 	}
-	if (p_ptr->oppose_pois)
+	if (cr_ptr->oppose_pois)
 	{
-		info2[i]  = report_magics_aux(p_ptr->oppose_pois);
+		info2[i]  = report_magics_aux(cr_ptr->oppose_pois);
 #ifdef JP
 info[i++] = "あなたは毒への耐性を持っている。";
 #else
