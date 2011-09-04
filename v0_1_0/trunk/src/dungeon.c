@@ -21,10 +21,10 @@ static int wild_regen = 20;
 /*
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
  */
-static byte value_check_aux1(object_type *o_ptr)
+static byte value_check_aux1(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Artifacts */
-	if (object_is_artifact(p_ptr, o_ptr))
+	if (object_is_artifact(cr_ptr, o_ptr))
 	{
 		/* Cursed/Broken */
 		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
@@ -65,7 +65,7 @@ static byte value_check_aux1(object_type *o_ptr)
 /*
  * Return a "feeling" (or NULL) about an item.  Method 2 (Light).
  */
-static byte value_check_aux2(object_type *o_ptr)
+static byte value_check_aux2(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Cursed items (all of them) */
 	if (object_is_cursed(o_ptr)) return FEEL_CURSED;
@@ -74,7 +74,7 @@ static byte value_check_aux2(object_type *o_ptr)
 	if (object_is_broken(o_ptr)) return FEEL_BROKEN;
 
 	/* Artifacts -- except cursed/broken ones */
-	if (object_is_artifact(p_ptr, o_ptr)) return FEEL_UNCURSED;
+	if (object_is_artifact(cr_ptr, o_ptr)) return FEEL_UNCURSED;
 
 	/* Ego-Items -- except cursed/broken ones */
 	if (object_is_ego(o_ptr)) return FEEL_UNCURSED;
@@ -104,7 +104,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	if (object_is_known(o_ptr)) return;
 
 	/* Check for a feeling */
-	feel = (heavy ? value_check_aux1(o_ptr) : value_check_aux2(o_ptr));
+	feel = (heavy ? value_check_aux1(cr_ptr, o_ptr) : value_check_aux2(cr_ptr, o_ptr));
 
 	/* Skip non-feelings */
 	if (!feel) return;
@@ -1245,7 +1245,7 @@ msg_print("âΩÇ‡êVÇµÇ¢Ç±Ç∆ÇÕîªÇÁÇ»Ç©Ç¡ÇΩÅB");
 	}
 
 	/* Check for a feeling */
-	feel = value_check_aux1(o_ptr);
+	feel = value_check_aux1(p_ptr, o_ptr);
 
 	/* Get an object description */
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
