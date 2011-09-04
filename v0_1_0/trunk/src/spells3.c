@@ -1598,7 +1598,7 @@ msg_print("属性付加に失敗した。");
 /*
  * Vanish all walls in this floor
  */
-static bool vanish_dungeon(void)
+static bool vanish_dungeon(creature_type *cr_ptr)
 {
 	int          y, x;
 	cave_type    *c_ptr;
@@ -1722,13 +1722,13 @@ static bool vanish_dungeon(void)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -1805,9 +1805,9 @@ void call_the_void(creature_type *cr_ptr)
 		if (one_in_(666))
 		{
 #ifdef JP
-			if (!vanish_dungeon()) msg_print("ダンジョンは一瞬静まり返った。");
+			if (!vanish_dungeon(cr_ptr)) msg_print("ダンジョンは一瞬静まり返った。");
 #else
-			if (!vanish_dungeon()) msg_print("The dungeon silences a moment.");
+			if (!vanish_dungeon(cr_ptr)) msg_print("The dungeon silences a moment.");
 #endif
 		}
 		else
