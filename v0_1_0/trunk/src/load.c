@@ -2094,7 +2094,7 @@ static errr rd_dungeon(void)
 /*
  * Actually read the savefile
  */
-static errr rd_savefile_new_aux(void)
+static errr rd_savefile_new_aux(creature_type *cr_ptr)
 {
 	int i, j;
 	int town_count;
@@ -2410,8 +2410,8 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		/* Position in the wilderness */
 		rd_s32b(&wilderness_x);
 		rd_s32b(&wilderness_y);
-		rd_s32b(&p_ptr->start_wilderness_x);
-		rd_s32b(&p_ptr->start_wilderness_y);
+		rd_s32b(&cr_ptr->start_wilderness_x);
+		rd_s32b(&cr_ptr->start_wilderness_y);
 		rd_byte((byte *)&wild_mode);
 		rd_byte((byte *)&ambush_flag);
 
@@ -2495,7 +2495,7 @@ note("伝説のアイテムをロードしました");
 
 	/* Read the extra stuff */
 	rd_extra();
-	if (p_ptr->energy_need < -999) world_player = TRUE;
+	if (cr_ptr->energy_need < -999) world_player = TRUE;
 
 #ifdef JP
 note("特別情報をロードしました");
@@ -2522,35 +2522,35 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	/* Read the player_hp array */
 	for (i = 0; i < tmp16u; i++)
 	{
-		rd_s16b(&p_ptr->player_hp[i]);
+		rd_s16b(&cr_ptr->player_hp[i]);
 	}
 
 
 	/* Read spell info */
-	rd_u32b(&p_ptr->spell_learned1);
-	rd_u32b(&p_ptr->spell_learned2);
-	rd_u32b(&p_ptr->spell_worked1);
-	rd_u32b(&p_ptr->spell_worked2);
-	rd_u32b(&p_ptr->spell_forgotten1);
-	rd_u32b(&p_ptr->spell_forgotten2);
-	rd_s16b(&p_ptr->learned_spells);
-	rd_s16b(&p_ptr->add_spells);
+	rd_u32b(&cr_ptr->spell_learned1);
+	rd_u32b(&cr_ptr->spell_learned2);
+	rd_u32b(&cr_ptr->spell_worked1);
+	rd_u32b(&cr_ptr->spell_worked2);
+	rd_u32b(&cr_ptr->spell_forgotten1);
+	rd_u32b(&cr_ptr->spell_forgotten2);
+	rd_s16b(&cr_ptr->learned_spells);
+	rd_s16b(&cr_ptr->add_spells);
 
-	if (p_ptr->cls_idx == CLASS_MINDCRAFTER) p_ptr->add_spells = 0;
+	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;
 
 	for (i = 0; i < 64; i++)
 	{
-		rd_byte(&p_ptr->spell_order[i]);
+		rd_byte(&cr_ptr->spell_order[i]);
 	}
 
 
-	/* Read the p_ptr->inventory */
+	/* Read the cr_ptr->inventory */
 	if (rd_inventory())
 	{
 #ifdef JP
 note("持ち物情報を読み込むことができません");
 #else
-		note("Unable to read p_ptr->inventory");
+		note("Unable to read cr_ptr->inventory");
 #endif
 
 		return (21);
@@ -2570,13 +2570,13 @@ note("持ち物情報を読み込むことができません");
 		}
 	}
 
-	rd_s16b(&p_ptr->pet_follow_distance);
-	rd_s16b(&p_ptr->pet_extra_flags);
+	rd_s16b(&cr_ptr->pet_follow_distance);
+	rd_s16b(&cr_ptr->pet_extra_flags);
 
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);
 
-	if (p_ptr->is_dead)
+	if (cr_ptr->is_dead)
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
@@ -2586,7 +2586,7 @@ note("持ち物情報を読み込むことができません");
 
 
 	/* I'm not dead yet... */
-	if (!p_ptr->is_dead)
+	if (!cr_ptr->is_dead)
 	{
 		/* Dead players have no dungeon */
 #ifdef JP
@@ -2688,7 +2688,7 @@ errr rd_savefile_new(void)
 	if (!fff) return (-1);
 
 	/* Call the sub-function */
-	err = rd_savefile_new_aux();
+	err = rd_savefile_new_aux(p_ptr);
 
 
 	/* Check for errors */
