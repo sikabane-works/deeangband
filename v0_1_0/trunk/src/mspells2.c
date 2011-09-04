@@ -85,7 +85,7 @@ static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
 	bool friend = is_pet(m_ptr);
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, PROJECT_THRU);
+	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, PROJECT_THRU);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -150,7 +150,7 @@ static bool breath_direct(int y1, int x1, int y2, int x2, int rad, int typ, bool
 	}
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, flg);
+	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, flg);
 
 	/* Project along the path */
 	for (i = 0; i < grid_n; ++i)
@@ -228,7 +228,7 @@ void get_project_point(int sy, int sx, int *ty, int *tx, int flg)
 	u16b path_g[128];
 	int  path_n, i;
 
-	path_n = project_path(path_g, MAX_RANGE(p_ptr), sy, sx, *ty, *tx, flg);
+	path_n = project_path(p_ptr, path_g, MAX_RANGE(p_ptr), sy, sx, *ty, *tx, flg);
 
 	*ty = sy;
 	*tx = sx;

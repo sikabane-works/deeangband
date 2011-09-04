@@ -1745,7 +1745,7 @@ void prt_path(int y, int x)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), p_ptr->fy, p_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), p_ptr->fy, p_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4914,7 +4914,7 @@ bool projectable(int y1, int x1, int y2, int x2)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, (project_length ? project_length : MAX_RANGE(p_ptr)), y1, x1, y2, x2, 0);
+	grid_n = project_path(p_ptr, grid_g, (project_length ? project_length : MAX_RANGE(p_ptr)), y1, x1, y2, x2, 0);
 
 	/* Identical grid */
 	if (!grid_n) return TRUE;

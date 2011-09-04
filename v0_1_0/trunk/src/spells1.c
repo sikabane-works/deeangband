@@ -268,7 +268,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
  */
-sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
+sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 {
 	int y, x;
 
@@ -382,7 +382,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -471,7 +471,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -542,7 +542,7 @@ sint project_path(u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(p_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -8385,7 +8385,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	/* Calculate the projection path */
 
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE(who_ptr)), y1, x1, y2, x2, flg);
+	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(who_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
 	handle_stuff(p_ptr);
@@ -8480,7 +8480,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				remove_mirror(y,x);
 				next_mirror( &oy,&ox,y,x );
 
-				path_n = i+project_path(&(path_g[i+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, oy, ox, flg);
+				path_n = i+project_path(p_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
@@ -8628,14 +8628,14 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				}
 				path_n = i;
 				second_step =i+1;
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x+1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x-1, flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x  , flg);
-				path_n += project_path(&(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x  , flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x  , flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x+1, flg);
 			}
 		}
 		for( i = 0; i < path_n ; i++ )

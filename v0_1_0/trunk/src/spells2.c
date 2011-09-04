@@ -7399,7 +7399,7 @@ bool rush_attack(bool *mdeath)
 
 	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].m_idx;
 
-	path_n = project_path(path_g, project_length, p_ptr->fy, p_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	path_n = project_path(p_ptr, path_g, project_length, p_ptr->fy, p_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
 
 	/* No need to move */

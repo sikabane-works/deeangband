@@ -441,7 +441,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, 0);
+	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
