@@ -1212,10 +1212,10 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		{
 			if (!can_do_cmd_cast()) return FALSE;
 			handle_stuff(cr_ptr);
-			do_cmd_cast();
+			do_cmd_cast(cr_ptr);
 			handle_stuff(cr_ptr);
 			if (!cr_ptr->paralyzed && can_do_cmd_cast())
-				do_cmd_cast();
+				do_cmd_cast(cr_ptr);
 			break;
 		}
 		case CLASS_SAMURAI:

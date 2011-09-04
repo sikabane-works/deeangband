@@ -816,7 +816,7 @@ extern void do_cmd_time(void);
 extern cptr spell_category_name(int tval);
 extern void do_cmd_browse(void);
 extern void do_cmd_study(creature_type *cr_ptr);
-extern void do_cmd_cast(void);
+extern void do_cmd_cast(creature_type *cr_ptr);
 extern bool rakuba(creature_type *cr_ptr, int dam, bool force);
 extern bool do_riding(creature_type *cr_ptr, bool force);
 extern void check_pets_num_and_align(creature_type *m_ptr, bool inc);

@@ -971,7 +971,7 @@ msg_format("その本には学ぶべき%sがない。", p);
 /*
  * Cast a spell
  */
-void do_cmd_cast(void)
+void do_cmd_cast(creature_type *cr_ptr)
 {
 	int	item, sval, spell, realm;
 	int	chance;
@@ -988,7 +988,7 @@ void do_cmd_cast(void)
 	cptr q, s;
 
 	/* Require spell ability */
-	if (!p_ptr->realm1 && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE))
+	if (!cr_ptr->realm1 && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("呪文を唱えられない！");
@@ -1000,9 +1000,9 @@ void do_cmd_cast(void)
 	}
 
 	/* Require lite */
-	if (p_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite())
 	{
-		if (p_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(FALSE);
+		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(FALSE);
 		else
 		{
 #ifdef JP
@@ -1016,7 +1016,7 @@ void do_cmd_cast(void)
 	}
 
 	/* Not when confused */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて唱えられない！");
@@ -1028,9 +1028,9 @@ void do_cmd_cast(void)
 	}
 
 	/* Hex */
-	if (p_ptr->realm1 == REALM_HEX)
+	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spell_fully(p_ptr))
+		if (hex_spell_fully(cr_ptr))
 		{
 			bool flag = FALSE;
 #ifdef JP
@@ -1039,14 +1039,14 @@ void do_cmd_cast(void)
 			msg_print("Can not spell new spells more.");
 #endif
 			flush();
-			if (p_ptr->lev >= 35) flag = stop_hex_spell(p_ptr);
+			if (cr_ptr->lev >= 35) flag = stop_hex_spell(cr_ptr);
 			if (!flag) return;
 		}
 	}
 
-	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
+	if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
-		if (player_has_no_spellbooks(p_ptr))
+		if (player_has_no_spellbooks(cr_ptr))
 		{
 			confirm_use_force(FALSE);
 			return;
@@ -1054,10 +1054,10 @@ void do_cmd_cast(void)
 		select_the_force = TRUE;
 	}
 
-	prayer = spell_category_name(m_info[p_ptr->realm1].spell_book);
+	prayer = spell_category_name(m_info[cr_ptr->realm1].spell_book);
 
 	/* Restrict choices to spell books */
-	item_tester_tval = m_info[p_ptr->realm1].spell_book;
+	item_tester_tval = m_info[cr_ptr->realm1].spell_book;
 
 	/* Get an item */
 #ifdef JP
@@ -1072,7 +1072,7 @@ void do_cmd_cast(void)
 	s = "You have no spell books!";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
 	{
 		select_the_force = FALSE;
 		return;
@@ -1081,14 +1081,14 @@ void do_cmd_cast(void)
 
 	if (item == INVEN_FORCE) /* the_force */
 	{
-		do_cmd_mind(p_ptr);
+		do_cmd_mind(cr_ptr);
 		return;
 	}
 
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1100,31 +1100,31 @@ void do_cmd_cast(void)
 	/* Access the item's sval */
 	sval = o_ptr->sval;
 
-	if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(p_ptr))) increment = 32;
+	if ((cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE) && (o_ptr->tval == REALM2_BOOK(cr_ptr))) increment = 32;
 
 
 	/* Track the object kind */
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 
-	if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
+	if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 		realm = o_ptr->tval - TV_LIFE_BOOK + 1;
-	else if (increment) realm = p_ptr->realm2;
-	else realm = p_ptr->realm1;
+	else if (increment) realm = cr_ptr->realm2;
+	else realm = cr_ptr->realm1;
 
 	/* Ask for a spell */
 #ifdef JP
-	if (!get_spell(p_ptr, &spell,  
-				((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[p_ptr->realm1].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
+	if (!get_spell(cr_ptr, &spell,  
+				((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[cr_ptr->realm1].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
 		       sval, TRUE, realm))
 	{
 		if (spell == -2) msg_format("その本には知っている%sがない。", prayer);
 		return;
 	}
 #else
-	if (!get_spell(p_ptr, &spell, ((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+	if (!get_spell(cr_ptr, &spell, ((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 		sval, TRUE, realm))
 	{
 		if (spell == -2)
@@ -1139,7 +1139,7 @@ void do_cmd_cast(void)
 	/* Hex */
 	if (use_realm == REALM_HEX)
 	{
-		if (hex_spelling(p_ptr, spell))
+		if (hex_spelling(cr_ptr, spell))
 		{
 #ifdef JP
 			msg_print("その呪文はすでに詠唱中だ。");
@@ -1156,24 +1156,24 @@ void do_cmd_cast(void)
 	}
 	else
 	{
-		s_ptr = &m_info[p_ptr->realm1].info[realm - 1][spell];
+		s_ptr = &m_info[cr_ptr->realm1].info[realm - 1][spell];
 	}
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(s_ptr->smana, spell, realm);
 
 	/* Verify "dangerous" spells */
-	if (need_mana > p_ptr->csp)
+	if (need_mana > cr_ptr->csp)
 	{
 		if (flush_failure) flush();
 
 		/* Warning */
 #ifdef JP
 msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
- ((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
+ ((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
 #else
 		msg_format("You do not have enough mana to %s this %s.",
-			((m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 			prayer);
 #endif
 
@@ -1191,7 +1191,7 @@ msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 
 
 	/* Spell failure chance */
-	chance = spell_chance(p_ptr, spell, use_realm);
+	chance = spell_chance(cr_ptr, spell, use_realm);
 
 	/* Failed spell */
 	if (randint0(100) < chance)
@@ -1207,7 +1207,7 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 		sound(SOUND_FAIL);
 
 		/* Failure casting may activate some side effect */
-		do_spell(p_ptr, realm, spell, SPELL_FAIL);
+		do_spell(cr_ptr, realm, spell, SPELL_FAIL);
 
 
 		if ((o_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
@@ -1218,7 +1218,7 @@ msg_print("カオス的な効果を発生した！");
 			msg_print("You produce a chaotic effect!");
 #endif
 
-			wild_magic(p_ptr, spell);
+			wild_magic(cr_ptr, spell);
 		}
 		else if ((o_ptr->tval == TV_DEATH_BOOK) && (randint1(100) < spell))
 		{
@@ -1235,13 +1235,13 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 #ifdef JP
-				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
 #else
-				take_hit(NULL, p_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
+				take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(o_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 
-				if ((spell > 15) && one_in_(6) && !p_ptr->hold_life)
-					lose_exp(p_ptr, spell * 250);
+				if ((spell > 15) && one_in_(6) && !cr_ptr->hold_life)
+					lose_exp(cr_ptr, spell * 250);
 			}
 		}
 		else if ((o_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
@@ -1260,57 +1260,57 @@ msg_print("An infernal sound echoed.");
 	else
 	{
 		/* Canceled spells cost neither a turn nor mana */
-		if (!do_spell(p_ptr, realm, spell, SPELL_CAST)) return;
+		if (!do_spell(cr_ptr, realm, spell, SPELL_CAST)) return;
 
 		/* A spell was cast */
 		if (!(increment ?
-		    (p_ptr->spell_worked2 & (1L << spell)) :
-		    (p_ptr->spell_worked1 & (1L << spell)))
-		    && (p_ptr->cls_idx != CLASS_SORCERER)
-		    && (p_ptr->cls_idx != CLASS_RED_MAGE))
+		    (cr_ptr->spell_worked2 & (1L << spell)) :
+		    (cr_ptr->spell_worked1 & (1L << spell)))
+		    && (cr_ptr->cls_idx != CLASS_SORCERER)
+		    && (cr_ptr->cls_idx != CLASS_RED_MAGE))
 		{
 			int e = s_ptr->sexp;
 
 			/* The spell worked */
-			if (realm == p_ptr->realm1)
+			if (realm == cr_ptr->realm1)
 			{
-				p_ptr->spell_worked1 |= (1L << spell);
+				cr_ptr->spell_worked1 |= (1L << spell);
 			}
 			else
 			{
-				p_ptr->spell_worked2 |= (1L << spell);
+				cr_ptr->spell_worked2 |= (1L << spell);
 			}
 
 			/* Gain experience */
-			gain_exp(p_ptr, e * s_ptr->slevel);
+			gain_exp(cr_ptr, e * s_ptr->slevel);
 
 			/* Redraw object recall */
 			play_window |= (PW_OBJECT);
 
 		}
-		if (m_info[p_ptr->realm1].spell_xtra & MAGIC_GAIN_EXP)
+		if (m_info[cr_ptr->realm1].spell_xtra & MAGIC_GAIN_EXP)
 		{
-			s16b cur_exp = p_ptr->spell_exp[(increment ? 32 : 0)+spell];
+			s16b cur_exp = cr_ptr->spell_exp[(increment ? 32 : 0)+spell];
 			s16b exp_gain = 0;
 
 			if (cur_exp < SPELL_EXP_BEGINNER)
 				exp_gain += 60;
 			else if (cur_exp < SPELL_EXP_SKILLED)
 			{
-				if ((dun_level > 4) && ((dun_level + 10) > p_ptr->lev))
+				if ((dun_level > 4) && ((dun_level + 10) > cr_ptr->lev))
 					exp_gain = 8;
 			}
 			else if (cur_exp < SPELL_EXP_EXPERT)
 			{
-				if (((dun_level + 5) > p_ptr->lev) && ((dun_level + 5) > s_ptr->slevel))
+				if (((dun_level + 5) > cr_ptr->lev) && ((dun_level + 5) > s_ptr->slevel))
 					exp_gain = 2;
 			}
 			else if ((cur_exp < SPELL_EXP_MASTER) && !increment)
 			{
-				if (((dun_level + 5) > p_ptr->lev) && (dun_level > s_ptr->slevel))
+				if (((dun_level + 5) > cr_ptr->lev) && (dun_level > s_ptr->slevel))
 					exp_gain = 1;
 			}
-			p_ptr->spell_exp[(increment ? 32 : 0) + spell] += exp_gain;
+			cr_ptr->spell_exp[(increment ? 32 : 0) + spell] += exp_gain;
 		}
 	}
 
@@ -1318,10 +1318,10 @@ msg_print("An infernal sound echoed.");
 	energy_use = 100;
 
 	/* Sufficient mana */
-	if (need_mana <= p_ptr->csp)
+	if (need_mana <= cr_ptr->csp)
 	{
 		/* Use some mana */
-		p_ptr->csp -= need_mana;
+		cr_ptr->csp -= need_mana;
 	}
 
 	/* Over-exert the player */
@@ -1330,8 +1330,8 @@ msg_print("An infernal sound echoed.");
 		int oops = need_mana;
 
 		/* No mana left */
-		p_ptr->csp = 0;
-		p_ptr->csp_frac = 0;
+		cr_ptr->csp = 0;
+		cr_ptr->csp_frac = 0;
 
 		/* Message */
 #ifdef JP
@@ -1342,7 +1342,7 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if (randint0(100) < 50)
@@ -1358,7 +1358,7 @@ msg_print("体を悪くしてしまった！");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(p_ptr, A_CON, 15 + randint1(10), perm);
+			(void)dec_stat(cr_ptr, A_CON, 15 + randint1(10), perm);
 		}
 	}
 

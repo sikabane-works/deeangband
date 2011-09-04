@@ -4961,7 +4961,7 @@ msg_print("ウィザードモード突入。");
 					else if (p_ptr->cls_idx == CLASS_SNIPER)
 						do_cmd_snipe(p_ptr);
 					else
-						do_cmd_cast();
+						do_cmd_cast(p_ptr);
 				}
 			}
 			break;
