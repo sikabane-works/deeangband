@@ -6032,7 +6032,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_LITE))
 	{
 		cr_ptr->update &= ~(PU_LITE);
-		update_lite();
+		update_lite(cr_ptr);
 	}
 
 
