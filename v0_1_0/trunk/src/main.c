@@ -792,7 +792,7 @@ int main(int argc, char *argv[])
 	pause_line(23);
 
 	/* Play the game */
-	play_game(new_game);
+	play_game(p_ptr, new_game);
 
 	/* Quit */
 	quit(NULL);

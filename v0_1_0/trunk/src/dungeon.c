@@ -213,7 +213,7 @@ o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 
 
 /*
- * Sense the p_ptr->inventory
+ * Sense the inventory
  *
  *   Class 0 = Warrior --> fast and heavy
  *   Class 1 = Mage    --> slow and light
@@ -584,7 +584,7 @@ static void sense_inventory2(creature_type *cr_ptr)
 /*
  * Go to any level (ripped off from wiz_jump)
  */
-static void pattern_teleport(void)
+static void pattern_teleport(creature_type *cr_ptr)
 {
 	int min_level = 0;
 	int max_level = 99;
@@ -641,7 +641,7 @@ static void pattern_teleport(void)
 	else if (get_check("Normal teleport? "))
 #endif
 	{
-		teleport_player(p_ptr, 200, 0L);
+		teleport_player(cr_ptr, 200, 0L);
 		return;
 	}
 	else
@@ -682,14 +682,14 @@ static void pattern_teleport(void)
 	prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 	/* Leaving */
-	p_ptr->leaving = TRUE;
+	cr_ptr->leaving = TRUE;
 }
 
 
-static void wreck_the_pattern(void)
+static void wreck_the_pattern(creature_type *cr_ptr)
 {
 	int to_ruin = 0, r_y, r_x;
-	int pattern_type = f_info[cave[p_ptr->fy][p_ptr->fx].feat].subtype;
+	int pattern_type = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	if (pattern_type == PATTERN_TILE_WRECKED)
 	{
@@ -705,18 +705,18 @@ static void wreck_the_pattern(void)
 	msg_print("Something terrible happens!");
 #endif
 
-	if (!IS_INVULN(p_ptr))
+	if (!IS_INVULN(cr_ptr))
 #ifdef JP
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "パターン損壊", NULL, -1);
 #else
-		take_hit(NULL, p_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", NULL, -1);
+		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 8), "corrupting the Pattern", NULL, -1);
 #endif
 
 	to_ruin = randint1(45) + 35;
 
 	while (to_ruin--)
 	{
-		scatter(&r_y, &r_x, p_ptr->fy, p_ptr->fx, 4, 0);
+		scatter(&r_y, &r_x, cr_ptr->fy, cr_ptr->fx, 4, 0);
 
 		if (pattern_tile(r_y, r_x) &&
 		    (f_info[cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
@@ -725,7 +725,7 @@ static void wreck_the_pattern(void)
 		}
 	}
 
-	cave_set_feat(p_ptr->fy, p_ptr->fx, feat_pattern_corrupted);
+	cave_set_feat(cr_ptr->fy, cr_ptr->fx, feat_pattern_corrupted);
 }
 
 
@@ -734,15 +734,15 @@ static bool pattern_effect(creature_type *cr_ptr)
 {
 	int pattern_type;
 
-	if (!pattern_tile(p_ptr->fy, p_ptr->fx)) return FALSE;
+	if (!pattern_tile(cr_ptr->fy, cr_ptr->fx)) return FALSE;
 
 	if ((race_is_(cr_ptr, RACE_AMBERITE)) &&
 	    (cr_ptr->cut > 0) && one_in_(10))
 	{
-		wreck_the_pattern();
+		wreck_the_pattern(cr_ptr);
 	}
 
-	pattern_type = f_info[cave[p_ptr->fy][p_ptr->fx].feat].subtype;
+	pattern_type = f_info[cave[cr_ptr->fy][cr_ptr->fx].feat].subtype;
 
 	switch (pattern_type)
 	{
@@ -762,7 +762,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		(void)restore_level(cr_ptr);
 		(void)hp_player(cr_ptr, 1000);
 
-		cave_set_feat(p_ptr->fy, p_ptr->fx, feat_pattern_old);
+		cave_set_feat(cr_ptr->fy, cr_ptr->fx, feat_pattern_old);
 
 #ifdef JP
 		msg_print("「パターン」のこの部分は他の部分より強力でないようだ。");
@@ -783,7 +783,7 @@ static bool pattern_effect(creature_type *cr_ptr)
 		break;
 
 	case PATTERN_TILE_TELEPORT:
-		pattern_teleport();
+		pattern_teleport(cr_ptr);
 		break;
 
 	case PATTERN_TILE_WRECKED:
@@ -817,17 +817,17 @@ static bool pattern_effect(creature_type *cr_ptr)
 /*
  * Regenerate hit points				-RAK-
  */
-static void regenhp(int percent)
+static void regenhp(creature_type *cr_ptr, int percent)
 {
 	s32b new_chp;
 	u32b new_chp_frac;
 	s32b old_chp;
 
-	if (p_ptr->special_defense & KATA_KOUKIJIN) return;
-	if (p_ptr->action == ACTION_HAYAGAKE) return;
+	if (cr_ptr->special_defense & KATA_KOUKIJIN) return;
+	if (cr_ptr->action == ACTION_HAYAGAKE) return;
 
 	/* Save the old hitpoints */
-	old_chp = p_ptr->chp;
+	old_chp = cr_ptr->chp;
 
 	/*
 	 * Extract the new hitpoints
@@ -835,24 +835,24 @@ static void regenhp(int percent)
 	 * 'percent' is the Regen factor in unit (1/2^16)
 	 */
 	new_chp = 0;
-	new_chp_frac = (p_ptr->mhp * percent + PY_REGEN_HPBASE);
+	new_chp_frac = (cr_ptr->mhp * percent + PY_REGEN_HPBASE);
 
 	/* Convert the unit (1/2^16) to (1/2^32) */
 	s64b_LSHIFT(new_chp, new_chp_frac, 16);
 
 	/* Regenerating */
-	s64b_add(&(p_ptr->chp), &(p_ptr->chp_frac), new_chp, new_chp_frac);
+	s64b_add(&(cr_ptr->chp), &(cr_ptr->chp_frac), new_chp, new_chp_frac);
 
 
 	/* Fully healed */
-	if (0 < s64b_cmp(p_ptr->chp, p_ptr->chp_frac, p_ptr->mhp, 0))
+	if (0 < s64b_cmp(cr_ptr->chp, cr_ptr->chp_frac, cr_ptr->mhp, 0))
 	{
-		p_ptr->chp = p_ptr->mhp;
-		p_ptr->chp_frac = 0;
+		cr_ptr->chp = cr_ptr->mhp;
+		cr_ptr->chp_frac = 0;
 	}
 
 	/* Notice changes */
-	if (old_chp != p_ptr->chp)
+	if (old_chp != cr_ptr->chp)
 	{
 		/* Redraw */
 		play_redraw |= (PR_HP);
@@ -868,31 +868,31 @@ static void regenhp(int percent)
 /*
  * Regenerate mana points
  */
-static void regenmana(int percent)
+static void regenmana(creature_type * cr_ptr, int percent)
 {
-	s32b old_csp = p_ptr->csp;
+	s32b old_csp = cr_ptr->csp;
 
 	/*
 	 * Excess mana will decay 32 times faster than normal
 	 * regeneration rate.
 	 */
-	if (p_ptr->csp > p_ptr->msp)
+	if (cr_ptr->csp > cr_ptr->msp)
 	{
 		/* PY_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
 		s32b decay = 0;
-		u32b decay_frac = (p_ptr->msp * 32 * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
+		u32b decay_frac = (cr_ptr->msp * 32 * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(decay, decay_frac, 16);
 
 		/* Decay */
-		s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), decay, decay_frac);
+		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), decay, decay_frac);
 
 		/* Stop decaying */
-		if (p_ptr->csp < p_ptr->msp)
+		if (cr_ptr->csp < cr_ptr->msp)
 		{
-			p_ptr->csp = p_ptr->msp;
-			p_ptr->csp_frac = 0;
+			cr_ptr->csp = cr_ptr->msp;
+			cr_ptr->csp_frac = 0;
 		}
 	}
 
@@ -901,19 +901,19 @@ static void regenmana(int percent)
 	{
 		/* (percent/100) is the Regen factor in unit (1/2^16) */
 		s32b new_mana = 0;
-		u32b new_mana_frac = (p_ptr->msp * percent / 100 + PY_REGEN_MNBASE);
+		u32b new_mana_frac = (cr_ptr->msp * percent / 100 + PY_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(new_mana, new_mana_frac, 16);
 
 		/* Regenerate */
-		s64b_add(&(p_ptr->csp), &(p_ptr->csp_frac), new_mana, new_mana_frac);
+		s64b_add(&(cr_ptr->csp), &(cr_ptr->csp_frac), new_mana, new_mana_frac);
 
 		/* Must set frac to zero even if equal */
-		if (p_ptr->csp >= p_ptr->msp)
+		if (cr_ptr->csp >= cr_ptr->msp)
 		{
-			p_ptr->csp = p_ptr->msp;
-			p_ptr->csp_frac = 0;
+			cr_ptr->csp = cr_ptr->msp;
+			cr_ptr->csp_frac = 0;
 		}
 	}
 
@@ -923,25 +923,25 @@ static void regenmana(int percent)
 	{
 		/* PY_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
 		s32b reduce_mana = 0;
-		u32b reduce_mana_frac = (p_ptr->msp * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
+		u32b reduce_mana_frac = (cr_ptr->msp * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(reduce_mana, reduce_mana_frac, 16);
 
 		/* Reduce mana */
-		s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), reduce_mana, reduce_mana_frac);
+		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), reduce_mana, reduce_mana_frac);
 
 		/* Check overflow */
-		if (p_ptr->csp < 0)
+		if (cr_ptr->csp < 0)
 		{
-			p_ptr->csp = 0;
-			p_ptr->csp_frac = 0;
+			cr_ptr->csp = 0;
+			cr_ptr->csp_frac = 0;
 		}
 	}
 
 
 	/* Redraw mana */
-	if (old_csp != p_ptr->csp)
+	if (old_csp != cr_ptr->csp)
 	{
 		/* Redraw */
 		play_redraw |= (PR_MANA);
@@ -959,31 +959,31 @@ static void regenmana(int percent)
 /*
  * Regenerate magic
  */
-static void regenmagic(int percent)
+static void regenmagic(creature_type *cr_ptr, int percent)
 {
 	s32b        new_mana;
 	int i;
 
 	for (i = 0; i < EATER_EXT*2; i++)
 	{
-		if (!p_ptr->magic_num2[i]) continue;
-		if (p_ptr->magic_num1[i] == ((long)p_ptr->magic_num2[i] << 16)) continue;
-		new_mana = ((long)p_ptr->magic_num2[i]+adj_mag_mana[A_INT]+13) * percent / 8;
-		p_ptr->magic_num1[i] += new_mana;
+		if (!cr_ptr->magic_num2[i]) continue;
+		if (cr_ptr->magic_num1[i] == ((long)cr_ptr->magic_num2[i] << 16)) continue;
+		new_mana = ((long)cr_ptr->magic_num2[i]+adj_mag_mana[A_INT]+13) * percent / 8;
+		cr_ptr->magic_num1[i] += new_mana;
 
 		/* Check maximum charge */
-		if (p_ptr->magic_num1[i] > (p_ptr->magic_num2[i] << 16))
+		if (cr_ptr->magic_num1[i] > (cr_ptr->magic_num2[i] << 16))
 		{
-			p_ptr->magic_num1[i] = ((long)p_ptr->magic_num2[i] << 16);
+			cr_ptr->magic_num1[i] = ((long)cr_ptr->magic_num2[i] << 16);
 		}
 		wild_regen = 20;
 	}
 	for (i = EATER_EXT*2; i < EATER_EXT*3; i++)
 	{
-		if (!p_ptr->magic_num1[i]) continue;
-		if (!p_ptr->magic_num2[i]) continue;
-		p_ptr->magic_num1[i] -= (long)(p_ptr->magic_num2[i] * (adj_mag_mana[A_INT] + 10)) * EATER_ROD_CHARGE/16;
-		if (p_ptr->magic_num1[i] < 0) p_ptr->magic_num1[i] = 0;
+		if (!cr_ptr->magic_num1[i]) continue;
+		if (!cr_ptr->magic_num2[i]) continue;
+		cr_ptr->magic_num1[i] -= (long)(cr_ptr->magic_num2[i] * (adj_mag_mana[A_INT] + 10)) * EATER_ROD_CHARGE/16;
+		if (cr_ptr->magic_num1[i] < 0) cr_ptr->magic_num1[i] = 0;
 		wild_regen = 20;
 	}
 }
@@ -998,7 +998,7 @@ static void regenmagic(int percent)
  *
  * XXX XXX XXX Should probably be done during monster turns.
  */
-static void regen_monsters(void)
+static void regen_monsters(creature_type *cr_ptr)
 {
 	int i, frac;
 
@@ -1033,8 +1033,8 @@ static void regen_monsters(void)
 			if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
 			/* Redraw (later) if needed */
-			if (p_ptr->health_who == i) play_redraw |= (PR_HEALTH);
-			if (p_ptr->riding == i) play_redraw |= (PR_UHEALTH);
+			if (cr_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+			if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 		}
 	}
 }
@@ -1045,7 +1045,7 @@ static void regen_monsters(void)
  *
  * XXX XXX XXX Should probably be done during monster turns.
  */
-static void regen_captured_monsters(void)
+static void regen_captured_monsters(creature_type *cr_ptr)
 {
 	int i, frac;
 	bool heal = FALSE;
@@ -1054,7 +1054,7 @@ static void regen_captured_monsters(void)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		species_type *r_ptr;
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		if (!o_ptr->k_idx) continue;
 		if (o_ptr->tval != TV_CAPTURE) continue;
@@ -1087,7 +1087,7 @@ static void regen_captured_monsters(void)
 	if (heal)
 	{
 		/* Combine pack */
-		p_ptr->notice |= (PN_COMBINE);
+		cr_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -1097,7 +1097,7 @@ static void regen_captured_monsters(void)
 }
 
 
-static void notice_lite_change(object_type *o_ptr)
+static void notice_lite_change(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Hack -- notice interesting fuel steps */
 	if ((o_ptr->xtra4 < 100) || (!(o_ptr->xtra4 % 100)))
@@ -1107,7 +1107,7 @@ static void notice_lite_change(object_type *o_ptr)
 	}
 
 	/* Hack -- Special treatment when blind */
-	if (p_ptr->blind)
+	if (cr_ptr->blind)
 	{
 		/* Hack -- save some light for later */
 		if (o_ptr->xtra4 == 0) o_ptr->xtra4++;
@@ -1124,10 +1124,10 @@ msg_print("明かりが消えてしまった！");
 #endif
 
 		/* Recalculate torch radius */
-		p_ptr->update |= (PU_TORCH);
+		cr_ptr->update |= (PU_TORCH);
 
 		/* Some ego light lose its effects without fuel */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 	}
 
 	/* The light is getting dim */
@@ -1371,7 +1371,7 @@ static void recharged_notice(object_type *o_ptr)
 }
 
 
-static void check_music(void)
+static void check_music(creature_type *cr_ptr)
 {
 	magic_type *s_ptr;
 	int spell;
@@ -1379,16 +1379,16 @@ static void check_music(void)
 	u32b need_mana_frac;
 
 	/* Music singed by player */
-	if (p_ptr->cls_idx != CLASS_BARD) return;
-	if (!p_ptr->magic_num1[0] && !p_ptr->magic_num1[1]) return;
+	if (cr_ptr->cls_idx != CLASS_BARD) return;
+	if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return;
 
-	if (p_ptr->anti_magic)
+	if (cr_ptr->anti_magic)
 	{
-		stop_singing(p_ptr);
+		stop_singing(cr_ptr);
 		return;
 	}
 
-	spell = p_ptr->magic_num2[0];
+	spell = cr_ptr->magic_num2[0];
 	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
 
 	need_mana = mod_need_mana(s_ptr->smana, spell, REALM_MUSIC);
@@ -1397,51 +1397,51 @@ static void check_music(void)
 	/* Divide by 2 */
 	s64b_RSHIFT(need_mana, need_mana_frac, 1);
 
-	if (s64b_cmp(p_ptr->csp, p_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
-		stop_singing(p_ptr);
+		stop_singing(cr_ptr);
 		return;
 	}
 	else
 	{
-		s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), need_mana, need_mana_frac);
+		s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), need_mana, need_mana_frac);
 
 		play_redraw |= PR_MANA;
-		if (p_ptr->magic_num1[1])
+		if (cr_ptr->magic_num1[1])
 		{
-			p_ptr->magic_num1[0] = p_ptr->magic_num1[1];
-			p_ptr->magic_num1[1] = 0;
+			cr_ptr->magic_num1[0] = cr_ptr->magic_num1[1];
+			cr_ptr->magic_num1[1] = 0;
 #ifdef JP
 			msg_print("歌を再開した。");
 #else
 			msg_print("You restart singing.");
 #endif
-			p_ptr->action = ACTION_SING;
+			cr_ptr->action = ACTION_SING;
 
 			/* Recalculate bonuses */
-			p_ptr->update |= (PU_BONUS | PU_HP);
+			cr_ptr->update |= (PU_BONUS | PU_HP);
 
 			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
-	if (p_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
-		p_ptr->spell_exp[spell] += 5;
-	else if(p_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-	{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > p_ptr->lev)) p_ptr->spell_exp[spell] += 1; }
-	else if(p_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-	{ if (one_in_(5) && ((dun_level + 5) > p_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) p_ptr->spell_exp[spell] += 1; }
-	else if(p_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-	{ if (one_in_(5) && ((dun_level + 5) > p_ptr->lev) && (dun_level > s_ptr->slevel)) p_ptr->spell_exp[spell] += 1; }
+	if (cr_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
+		cr_ptr->spell_exp[spell] += 5;
+	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
+	{ if (one_in_(2) && (dun_level > 4) && ((dun_level + 10) > cr_ptr->lev)) cr_ptr->spell_exp[spell] += 1; }
+	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
+	{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && ((dun_level + 5) > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
+	else if(cr_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
+	{ if (one_in_(5) && ((dun_level + 5) > cr_ptr->lev) && (dun_level > s_ptr->slevel)) cr_ptr->spell_exp[spell] += 1; }
 
 	/* Do any effects of continual song */
-	do_spell(p_ptr, REALM_MUSIC, spell, SPELL_CONT);
+	do_spell(cr_ptr, REALM_MUSIC, spell, SPELL_CONT);
 }
 
 
@@ -1899,13 +1899,13 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 	/* Regenerate the mana */
 	upkeep_regen = (100 - upkeep_factor) * regen_amount;
-	regenmana(upkeep_regen);
+	regenmana(cr_ptr, upkeep_regen);
 
 
 	/* Recharge magic eater's power */
 	if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 	{
-		regenmagic(regen_amount);
+		regenmagic(cr_ptr, regen_amount);
 	}
 
 	if ((cr_ptr->csp == 0) && (cr_ptr->csp_frac == 0))
@@ -1943,7 +1943,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	/* Regenerate Hit Points if needed */
 	if ((cr_ptr->chp < cr_ptr->mhp) && !cave_no_regen)
 	{
-		regenhp(regen_amount);
+		regenhp(cr_ptr, regen_amount);
 	}
 }
 
@@ -2281,7 +2281,7 @@ static void process_world_aux_light(creature_type *cr_ptr)
 			else o_ptr->xtra4--;
 
 			/* Notice interesting fuel steps */
-			notice_lite_change(o_ptr);
+			notice_lite_change(cr_ptr, o_ptr);
 		}
 	}
 }
@@ -2578,7 +2578,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 
 				/* Notice interesting fuel steps */
-				notice_lite_change(o_ptr);
+				notice_lite_change(cr_ptr, o_ptr);
 			}
 		}
 
@@ -3409,14 +3409,14 @@ msg_print("下に引きずり降ろされる感じがする！");
 
 				if (wild_mode)
 				{
-					wilderness_y = p_ptr->fy;
-					wilderness_x = p_ptr->fx;
+					wilderness_y = cr_ptr->fy;
+					wilderness_x = cr_ptr->fx;
 				}
 				else
 				{
 					/* Save player position */
-					cr_ptr->oldpx = p_ptr->fx;
-					cr_ptr->oldpy = p_ptr->fy;
+					cr_ptr->oldpx = cr_ptr->fx;
+					cr_ptr->oldpy = cr_ptr->fy;
 				}
 				wild_mode = FALSE;
 
@@ -4082,8 +4082,8 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !inside_battle) regen_monsters();
-	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters();
+	if (!(turn % (TURNS_PER_TICK*10)) && !inside_battle) regen_monsters(cr_ptr);
+	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_monsters(cr_ptr);
 
 	if (!cr_ptr->leaving)
 	{
@@ -4336,10 +4336,10 @@ static bool enter_wizard_mode(void)
 /*
  * Verify use of "debug" commands
  */
-static bool enter_debug_mode(void)
+static bool enter_debug_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!p_ptr->noscore)
+	if (!cr_ptr->noscore)
 	{
 		/* Debug mode is not permitted */
 		if (!allow_debug_opts)
@@ -4379,7 +4379,7 @@ static bool enter_debug_mode(void)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up sending score to use debug commands.");
 #endif
 		/* Mark savefile */
-		p_ptr->noscore |= 0x0008;
+		cr_ptr->noscore |= 0x0008;
 	}
 
 	/* Success */
@@ -4389,7 +4389,7 @@ static bool enter_debug_mode(void)
 /*
  * Hack -- Declare the Debug Routines
  */
-extern void do_cmd_debug(void);
+extern void do_cmd_debug(creature_type *cr_ptr);
 
 #endif /* ALLOW_WIZARD */
 
@@ -4453,7 +4453,7 @@ extern void do_cmd_borg(void);
  *
  * XXX XXX XXX Make some "blocks"
  */
-static void process_command(void)
+static void process_command(creature_type *cr_ptr)
 {
 	int old_now_message = now_message;
 
@@ -4467,7 +4467,7 @@ static void process_command(void)
 	now_message = 0;
 
 	/* Sniper */
-	if ((p_ptr->cls_idx == CLASS_SNIPER) && (p_ptr->concent))
+	if ((cr_ptr->cls_idx == CLASS_SNIPER) && (cr_ptr->concent))
 		reset_concent = TRUE;
 
 	/* Parse the command */
@@ -4514,7 +4514,7 @@ msg_print("ウィザードモード突入。");
 			}
 
 			/* Update monsters */
-			p_ptr->update |= (PU_MONSTERS);
+			cr_ptr->update |= (PU_MONSTERS);
 
 			/* Redraw "title" */
 			play_redraw |= (PR_TITLE);
@@ -4529,9 +4529,9 @@ msg_print("ウィザードモード突入。");
 		case KTRL('A'):
 		{
 			/* Enter debug mode */
-			if (enter_debug_mode())
+			if (enter_debug_mode(cr_ptr))
 			{
-				do_cmd_debug();
+				do_cmd_debug(cr_ptr);
 			}
 			break;
 		}
@@ -4562,42 +4562,42 @@ msg_print("ウィザードモード突入。");
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			if (!wild_mode) do_cmd_wield(p_ptr);
+			if (!wild_mode) do_cmd_wield(cr_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			if (!wild_mode) do_cmd_takeoff(p_ptr);
+			if (!wild_mode) do_cmd_takeoff(cr_ptr);
 			break;
 		}
 
 		/* Drop an item */
 		case 'd':
 		{
-			if (!wild_mode) do_cmd_drop(p_ptr);
+			if (!wild_mode) do_cmd_drop(cr_ptr);
 			break;
 		}
 
 		/* Destroy an item */
 		case 'k':
 		{
-			do_cmd_destroy(p_ptr);
+			do_cmd_destroy(cr_ptr);
 			break;
 		}
 
 		/* Equipment list */
 		case 'e':
 		{
-			do_cmd_equip(p_ptr);
+			do_cmd_equip(cr_ptr);
 			break;
 		}
 
 		/* inventory list */
 		case 'i':
 		{
-			do_cmd_inven(p_ptr);
+			do_cmd_inven(cr_ptr);
 			break;
 		}
 
@@ -4607,7 +4607,7 @@ msg_print("ウィザードモード突入。");
 		/* Identify an object */
 		case 'I':
 		{
-			do_cmd_observe(p_ptr);
+			do_cmd_observe(cr_ptr);
 			break;
 		}
 
@@ -4624,14 +4624,14 @@ msg_print("ウィザードモード突入。");
 		/* Alter a grid */
 		case '+':
 		{
-			if (!wild_mode) do_cmd_alter(p_ptr);
+			if (!wild_mode) do_cmd_alter(cr_ptr);
 			break;
 		}
 
 		/* Dig a tunnel */
 		case 'T':
 		{
-			if (!wild_mode) do_cmd_tunnel(p_ptr);
+			if (!wild_mode) do_cmd_tunnel(cr_ptr);
 			break;
 		}
 
@@ -4640,7 +4640,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(p_ptr, FALSE);
+			do_cmd_walk(cr_ptr, FALSE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4656,7 +4656,7 @@ msg_print("ウィザードモード突入。");
 		{
 #ifdef ALLOW_EASY_DISARM /* TNB */
 
-			do_cmd_walk(p_ptr, TRUE);
+			do_cmd_walk(cr_ptr, TRUE);
 
 #else /* ALLOW_EASY_DISARM -- TNB */
 
@@ -4673,43 +4673,43 @@ msg_print("ウィザードモード突入。");
 		/* Begin Running -- Arg is Max Distance */
 		case '.':
 		{
-			if (!wild_mode) do_cmd_run(p_ptr);
+			if (!wild_mode) do_cmd_run(cr_ptr);
 			break;
 		}
 
 		/* Stay still (usually pick things up) */
 		case ',':
 		{
-			do_cmd_stay(p_ptr, always_pickup);
+			do_cmd_stay(cr_ptr, always_pickup);
 			break;
 		}
 
 		/* Stay still (usually do not pick up) */
 		case 'g':
 		{
-			do_cmd_stay(p_ptr, !always_pickup);
+			do_cmd_stay(cr_ptr, !always_pickup);
 			break;
 		}
 
 		/* Rest -- Arg is time */
 		case 'R':
 		{
-			do_cmd_rest(p_ptr);
+			do_cmd_rest(cr_ptr);
 			break;
 		}
 
 		/* Search for traps/doors */
 		case 's':
 		{
-			do_cmd_search(p_ptr);
+			do_cmd_search(cr_ptr);
 			break;
 		}
 
 		/* Toggle search mode */
 		case 'S':
 		{
-			if (p_ptr->action == ACTION_SEARCH) set_action(p_ptr, ACTION_NONE);
-			else set_action(p_ptr, ACTION_SEARCH);
+			if (cr_ptr->action == ACTION_SEARCH) set_action(cr_ptr, ACTION_NONE);
+			else set_action(cr_ptr, ACTION_SEARCH);
 			break;
 		}
 
@@ -4719,21 +4719,21 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			if (!wild_mode) do_cmd_store(p_ptr);
+			if (!wild_mode) do_cmd_store(cr_ptr);
 			break;
 		}
 
 		/* Enter building -KMW- */
 		case SPECIAL_KEY_BUILDING:
 		{
-			if (!wild_mode) do_cmd_bldg(p_ptr);
+			if (!wild_mode) do_cmd_bldg(cr_ptr);
 			break;
 		}
 
 		/* Enter quest level -KMW- */
 		case SPECIAL_KEY_QUEST:
 		{
-			if (!wild_mode) do_cmd_quest(p_ptr);
+			if (!wild_mode) do_cmd_quest(cr_ptr);
 			break;
 		}
 
@@ -4754,7 +4754,7 @@ msg_print("ウィザードモード突入。");
 					break;
 				}
 
-				if (p_ptr->food < PY_FOOD_WEAK)
+				if (cr_ptr->food < PY_FOOD_WEAK)
 				{
 #ifdef JP
 					msg_print("その前に食事をとらないと。");
@@ -4764,10 +4764,10 @@ msg_print("ウィザードモード突入。");
 					break;
 				}
 
-				change_wild_mode(p_ptr);
+				change_wild_mode(cr_ptr);
 			}
 			else
-				do_cmd_go_up(p_ptr);
+				do_cmd_go_up(cr_ptr);
 			break;
 		}
 
@@ -4775,9 +4775,9 @@ msg_print("ウィザードモード突入。");
 		case '>':
 		{
 			if (wild_mode)
-				change_wild_mode(p_ptr);
+				change_wild_mode(cr_ptr);
 			else
-				do_cmd_go_down(p_ptr);
+				do_cmd_go_down(cr_ptr);
 
 			break;
 		}
@@ -4785,35 +4785,35 @@ msg_print("ウィザードモード突入。");
 		/* Open a door or chest */
 		case 'o':
 		{
-			if (!wild_mode) do_cmd_open(p_ptr);
+			if (!wild_mode) do_cmd_open(cr_ptr);
 			break;
 		}
 
 		/* Close a door */
 		case 'c':
 		{
-			if (!wild_mode) do_cmd_close(p_ptr);
+			if (!wild_mode) do_cmd_close(cr_ptr);
 			break;
 		}
 
 		/* Jam a door with spikes */
 		case 'j':
 		{
-			if (!wild_mode) do_cmd_spike(p_ptr);
+			if (!wild_mode) do_cmd_spike(cr_ptr);
 			break;
 		}
 
 		/* Bash a door */
 		case 'B':
 		{
-			if (!wild_mode) do_cmd_bash(p_ptr);
+			if (!wild_mode) do_cmd_bash(cr_ptr);
 			break;
 		}
 
 		/* Disarm a trap or chest */
 		case 'D':
 		{
-			if (!wild_mode) do_cmd_disarm(p_ptr);
+			if (!wild_mode) do_cmd_disarm(cr_ptr);
 			break;
 		}
 
@@ -4823,35 +4823,35 @@ msg_print("ウィザードモード突入。");
 		/* Gain new spells/prayers */
 		case 'G':
 		{
-			if ((p_ptr->cls_idx == CLASS_SORCERER) || (p_ptr->cls_idx == CLASS_RED_MAGE))
+			if ((cr_ptr->cls_idx == CLASS_SORCERER) || (cr_ptr->cls_idx == CLASS_RED_MAGE))
 #ifdef JP
 				msg_print("呪文を学習する必要はない！");
 #else
 				msg_print("You don't have to learn spells!");
 #endif
-			else if (p_ptr->cls_idx == CLASS_SAMURAI)
-				do_cmd_gain_hissatsu(p_ptr);
-			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
-				gain_magic(p_ptr);
+			else if (cr_ptr->cls_idx == CLASS_SAMURAI)
+				do_cmd_gain_hissatsu(cr_ptr);
+			else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+				gain_magic(cr_ptr);
 			else
-				do_cmd_study(p_ptr);
+				do_cmd_study(cr_ptr);
 			break;
 		}
 
 		/* Browse a book */
 		case 'b':
 		{
-			if ( (p_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-			     (p_ptr->cls_idx == CLASS_BERSERKER) ||
-			     (p_ptr->cls_idx == CLASS_NINJA) ||
-			     (p_ptr->cls_idx == CLASS_MIRROR_MASTER) 
-			     ) do_cmd_mind_browse(p_ptr);
-			else if (p_ptr->cls_idx == CLASS_SMITH)
+			if ( (cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+			     (cr_ptr->cls_idx == CLASS_BERSERKER) ||
+			     (cr_ptr->cls_idx == CLASS_NINJA) ||
+			     (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) 
+			     ) do_cmd_mind_browse(cr_ptr);
+			else if (cr_ptr->cls_idx == CLASS_SMITH)
 				do_cmd_kaji(TRUE);
-			else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
-				do_cmd_magic_eater(p_ptr, TRUE);
-			else if (p_ptr->cls_idx == CLASS_SNIPER)
-				do_cmd_snipe_browse(p_ptr);
+			else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+				do_cmd_magic_eater(cr_ptr, TRUE);
+			else if (cr_ptr->cls_idx == CLASS_SNIPER)
+				do_cmd_snipe_browse(cr_ptr);
 			else do_cmd_browse();
 			break;
 		}
@@ -4862,7 +4862,7 @@ msg_print("ウィザードモード突入。");
 			/* -KMW- */
 			if (!wild_mode)
 			{
-				if ((p_ptr->cls_idx == CLASS_WARRIOR) || (p_ptr->cls_idx == CLASS_ARCHER) || (p_ptr->cls_idx == CLASS_CAVALRY))
+				if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_ARCHER) || (cr_ptr->cls_idx == CLASS_CAVALRY))
 				{
 #ifdef JP
 					msg_print("呪文を唱えられない！");
@@ -4870,7 +4870,7 @@ msg_print("ウィザードモード突入。");
 					msg_print("You cannot cast spells!");
 #endif
 				}
-				else if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (p_ptr->cls_idx != CLASS_BERSERKER) && (p_ptr->cls_idx != CLASS_SMITH))
+				else if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC) && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 					msg_print("ダンジョンが魔法を吸収した！");
@@ -4879,7 +4879,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					msg_print(NULL);
 				}
-				else if (p_ptr->anti_magic && (p_ptr->cls_idx != CLASS_BERSERKER) && (p_ptr->cls_idx != CLASS_SMITH))
+				else if (cr_ptr->anti_magic && (cr_ptr->cls_idx != CLASS_BERSERKER) && (cr_ptr->cls_idx != CLASS_SMITH))
 				{
 #ifdef JP
 
@@ -4887,37 +4887,37 @@ msg_print("ウィザードモード突入。");
 #else
 					cptr which_power = "magic";
 #endif
-					if (p_ptr->cls_idx == CLASS_MINDCRAFTER)
+					if (cr_ptr->cls_idx == CLASS_MINDCRAFTER)
 #ifdef JP
 						which_power = "超能力";
 #else
 						which_power = "psionic powers";
 #endif
-					else if (p_ptr->cls_idx == CLASS_IMITATOR)
+					else if (cr_ptr->cls_idx == CLASS_IMITATOR)
 #ifdef JP
 						which_power = "ものまね";
 #else
 						which_power = "imitation";
 #endif
-					else if (p_ptr->cls_idx == CLASS_SAMURAI)
+					else if (cr_ptr->cls_idx == CLASS_SAMURAI)
 #ifdef JP
 						which_power = "必殺剣";
 #else
 						which_power = "hissatsu";
 #endif
-					else if (p_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					else if (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
 #ifdef JP
 						which_power = "鏡魔法";
 #else
 						which_power = "mirror magic";
 #endif
-					else if (p_ptr->cls_idx == CLASS_NINJA)
+					else if (cr_ptr->cls_idx == CLASS_NINJA)
 #ifdef JP
 						which_power = "忍術";
 #else
 						which_power = "ninjutsu";
 #endif
-					else if (m_info[p_ptr->realm1].spell_book == TV_LIFE_BOOK)
+					else if (m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK)
 #ifdef JP
 						which_power = "祈り";
 #else
@@ -4931,7 +4931,7 @@ msg_print("ウィザードモード突入。");
 #endif
 					energy_use = 0;
 				}
-				else if (p_ptr->shero && (p_ptr->cls_idx != CLASS_BERSERKER))
+				else if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER))
 				{
 #ifdef JP
 					msg_format("狂戦士化していて頭が回らない！");
@@ -4942,26 +4942,26 @@ msg_print("ウィザードモード突入。");
 				}
 				else
 				{
-					if ((p_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-					    (p_ptr->cls_idx == CLASS_BERSERKER) ||
-					    (p_ptr->cls_idx == CLASS_NINJA) ||
-					    (p_ptr->cls_idx == CLASS_MIRROR_MASTER)
+					if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
+					    (cr_ptr->cls_idx == CLASS_BERSERKER) ||
+					    (cr_ptr->cls_idx == CLASS_NINJA) ||
+					    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER)
 					    )
-						do_cmd_mind(p_ptr);
-					else if (p_ptr->cls_idx == CLASS_IMITATOR)
-						do_cmd_mane(p_ptr, FALSE);
-					else if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
-						do_cmd_magic_eater(p_ptr, FALSE);
-					else if (p_ptr->cls_idx == CLASS_SAMURAI)
-						do_cmd_hissatsu(p_ptr);
-					else if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
-						do_cmd_cast_learned(p_ptr);
-					else if (p_ptr->cls_idx == CLASS_SMITH)
+						do_cmd_mind(cr_ptr);
+					else if (cr_ptr->cls_idx == CLASS_IMITATOR)
+						do_cmd_mane(cr_ptr, FALSE);
+					else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
+						do_cmd_magic_eater(cr_ptr, FALSE);
+					else if (cr_ptr->cls_idx == CLASS_SAMURAI)
+						do_cmd_hissatsu(cr_ptr);
+					else if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
+						do_cmd_cast_learned(cr_ptr);
+					else if (cr_ptr->cls_idx == CLASS_SMITH)
 						do_cmd_kaji(FALSE);
-					else if (p_ptr->cls_idx == CLASS_SNIPER)
-						do_cmd_snipe(p_ptr);
+					else if (cr_ptr->cls_idx == CLASS_SNIPER)
+						do_cmd_snipe(cr_ptr);
 					else
-						do_cmd_cast(p_ptr);
+						do_cmd_cast(cr_ptr);
 				}
 			}
 			break;
@@ -4970,7 +4970,7 @@ msg_print("ウィザードモード突入。");
 		/* Issue a pet command */
 		case 'p':
 		{
-			if (!wild_mode) do_cmd_pet(p_ptr);
+			if (!wild_mode) do_cmd_pet(cr_ptr);
 			break;
 		}
 
@@ -4979,14 +4979,14 @@ msg_print("ウィザードモード突入。");
 		/* Inscribe an object */
 		case '{':
 		{
-			do_cmd_inscribe(p_ptr);
+			do_cmd_inscribe(cr_ptr);
 			break;
 		}
 
 		/* Uninscribe an object */
 		case '}':
 		{
-			do_cmd_uninscribe(p_ptr);
+			do_cmd_uninscribe(cr_ptr);
 			break;
 		}
 
@@ -4994,13 +4994,13 @@ msg_print("ウィザードモード突入。");
 
 		case '\'':
 		{
-			do_cmd_inscribe_caves(p_ptr);
+			do_cmd_inscribe_caves(cr_ptr);
 			break;
 		}
 
 		case KTRL('}'):
 		{
-			do_cmd_uninscribe(p_ptr);
+			do_cmd_uninscribe(cr_ptr);
 			break;
 		}
 
@@ -5011,7 +5011,7 @@ msg_print("ウィザードモード突入。");
 			if (!wild_mode)
 			{
 			if (!inside_arena)
-				do_cmd_activate(p_ptr);
+				do_cmd_activate(cr_ptr);
 			else
 			{
 #ifdef JP
@@ -5029,21 +5029,21 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Eat some food */
 		case 'E':
 		{
-			do_cmd_eat_food(p_ptr);
+			do_cmd_eat_food(cr_ptr);
 			break;
 		}
 
 		/* Fuel your lantern/torch */
 		case 'F':
 		{
-			do_cmd_refill(p_ptr);
+			do_cmd_refill(cr_ptr);
 			break;
 		}
 
 		/* Fire an item */
 		case 'f':
 		{
-			if (!wild_mode) do_cmd_fire(p_ptr);
+			if (!wild_mode) do_cmd_fire(cr_ptr);
 			break;
 		}
 
@@ -5052,7 +5052,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-				do_cmd_throw(p_ptr);
+				do_cmd_throw(cr_ptr);
 			}
 			break;
 		}
@@ -5063,7 +5063,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!inside_arena)
-				do_cmd_aim_wand(p_ptr);
+				do_cmd_aim_wand(cr_ptr);
 			else
 			{
 #ifdef JP
@@ -5095,11 +5095,11 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && rogue_like_commands)
 			{
-				do_cmd_use(p_ptr);
+				do_cmd_use(cr_ptr);
 			}
 			else
 			{
-				do_cmd_zap_rod(p_ptr);
+				do_cmd_zap_rod(cr_ptr);
 			}
 			}
 			break;
@@ -5111,7 +5111,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!inside_arena)
-				do_cmd_quaff_potion(p_ptr);
+				do_cmd_quaff_potion(cr_ptr);
 			else
 			{
 #ifdef JP
@@ -5132,7 +5132,7 @@ msg_print("アリーナが魔法を吸収した！");
 			if (!wild_mode)
 			{
 			if (!inside_arena)
-				do_cmd_read_scroll(p_ptr);
+				do_cmd_read_scroll(cr_ptr);
 			else
 			{
 #ifdef JP
@@ -5164,10 +5164,10 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else if (use_command && !rogue_like_commands)
 			{
-				do_cmd_use(p_ptr);
+				do_cmd_use(cr_ptr);
 			}
 			else
-				do_cmd_use_staff(p_ptr);
+				do_cmd_use_staff(cr_ptr);
 			}
 			break;
 		}
@@ -5175,7 +5175,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use racial power */
 		case 'U':
 		{
-			if (!wild_mode) do_cmd_racial_power(p_ptr);
+			if (!wild_mode) do_cmd_racial_power(cr_ptr);
 			break;
 		}
 
@@ -5192,21 +5192,21 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Locate player on map */
 		case 'L':
 		{
-			do_cmd_locate(p_ptr);
+			do_cmd_locate(cr_ptr);
 			break;
 		}
 
 		/* Look around */
 		case 'l':
 		{
-			do_cmd_look(p_ptr);
+			do_cmd_look(cr_ptr);
 			break;
 		}
 
 		/* Target monster or location */
 		case '*':
 		{
-			if (!wild_mode) do_cmd_target(p_ptr);
+			if (!wild_mode) do_cmd_target(cr_ptr);
 			break;
 		}
 
@@ -5224,7 +5224,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Identify symbol */
 		case '/':
 		{
-			do_cmd_query_symbol(p_ptr);
+			do_cmd_query_symbol(cr_ptr);
 			break;
 		}
 
@@ -5260,7 +5260,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case '_':
 		{
-			do_cmd_edit_autopick(p_ptr);
+			do_cmd_edit_autopick(cr_ptr);
 			break;
 		}
 
@@ -5417,14 +5417,14 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Make random artifact list */
 		case KTRL('V'):
 		{
-			spoil_random_artifact(p_ptr, "randifact.txt");
+			spoil_random_artifact(cr_ptr, "randifact.txt");
 			break;
 		}
 
 #ifdef TRAVEL
 		case '`':
 		{
-			if (!wild_mode) do_cmd_travel(p_ptr);
+			if (!wild_mode) do_cmd_travel(cr_ptr);
 			break;
 		}
 #endif
@@ -5532,7 +5532,7 @@ static void pack_overflow(creature_type *cr_ptr)
  * must come first just in case somebody manages to corrupt
  * the savefiles by clever use of menu commands or something.
  */
-static void process_player(void)
+static void process_player(creature_type *cr_ptr)
 {
 	int i;
 
@@ -5546,7 +5546,7 @@ msg_print("何か変わった気がする！");
 		msg_print("You feel different!");
 #endif
 
-		(void)gain_random_mutation(p_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0);
 		hack_mutation = FALSE;
 	}
 
@@ -5568,13 +5568,13 @@ msg_print("何か変わった気がする！");
 	}
 
 	/* Give the player some energy */
-	else if (!(load && p_ptr->energy_need <= 0))
+	else if (!(load && cr_ptr->energy_need <= 0))
 	{
-		p_ptr->energy_need -= SPEED_TO_ENERGY(p_ptr->speed);
+		cr_ptr->energy_need -= SPEED_TO_ENERGY(cr_ptr->speed);
 	}
 
 	/* No turn yet */
-	if (p_ptr->energy_need > 0) return;
+	if (cr_ptr->energy_need > 0) return;
 	if (!command_rep) prt_time();
 
 	/*** Check for interupts ***/
@@ -5586,10 +5586,10 @@ msg_print("何か変わった気がする！");
 		if (resting == -1)
 		{
 			/* Stop resting */
-			if ((p_ptr->chp == p_ptr->mhp) &&
-			    (p_ptr->csp >= p_ptr->msp))
+			if ((cr_ptr->chp == cr_ptr->mhp) &&
+			    (cr_ptr->csp >= cr_ptr->msp))
 			{
-				set_action(p_ptr, ACTION_NONE);
+				set_action(cr_ptr, ACTION_NONE);
 			}
 		}
 
@@ -5597,21 +5597,21 @@ msg_print("何か変わった気がする！");
 		else if (resting == -2)
 		{
 			/* Stop resting */
-			if ((p_ptr->chp == p_ptr->mhp) &&
-			    (p_ptr->csp >= p_ptr->msp) &&
-			    !p_ptr->blind && !p_ptr->confused &&
-			    !p_ptr->poisoned && !p_ptr->afraid &&
-			    !p_ptr->stun && !p_ptr->cut &&
-			    !p_ptr->slow && !p_ptr->paralyzed &&
-			    !p_ptr->image && !p_ptr->word_recall &&
-			    !p_ptr->alter_reality)
+			if ((cr_ptr->chp == cr_ptr->mhp) &&
+			    (cr_ptr->csp >= cr_ptr->msp) &&
+			    !cr_ptr->blind && !cr_ptr->confused &&
+			    !cr_ptr->poisoned && !cr_ptr->afraid &&
+			    !cr_ptr->stun && !cr_ptr->cut &&
+			    !cr_ptr->slow && !cr_ptr->paralyzed &&
+			    !cr_ptr->image && !cr_ptr->word_recall &&
+			    !cr_ptr->alter_reality)
 			{
-				set_action(p_ptr, ACTION_NONE);
+				set_action(cr_ptr, ACTION_NONE);
 			}
 		}
 	}
 
-	if (p_ptr->action == ACTION_FISH)
+	if (cr_ptr->action == ACTION_FISH)
 	{
 		/* Delay */
 		Term_xtra(TERM_XTRA_DELAY, 10);
@@ -5625,9 +5625,9 @@ msg_print("何か変わった気がする！");
 			if (species_idx && one_in_(2))
 			{
 				int y, x;
-				y = p_ptr->fy+ddy[tsuri_dir];
-				x = p_ptr->fx+ddx[tsuri_dir];
-				if (place_monster_aux(p_ptr, y, x, species_idx, PM_NO_KAGE))
+				y = cr_ptr->fy+ddy[tsuri_dir];
+				x = cr_ptr->fx+ddx[tsuri_dir];
+				if (place_monster_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
 					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
@@ -5655,7 +5655,7 @@ msg_print("何か変わった気がする！");
 	if (check_abort)
 	{
 		/* Check for "player abort" (semi-efficiently for resting) */
-		if (running || command_rep || (p_ptr->action == ACTION_REST) || (p_ptr->action == ACTION_FISH))
+		if (running || command_rep || (cr_ptr->action == ACTION_REST) || (cr_ptr->action == ACTION_FISH))
 		{
 			/* Do not wait */
 			inkey_scan = TRUE;
@@ -5680,9 +5680,9 @@ msg_print("中断しました。");
 		}
 	}
 
-	if (p_ptr->riding && !p_ptr->confused && !p_ptr->blind)
+	if (cr_ptr->riding && !cr_ptr->confused && !cr_ptr->blind)
 	{
-		creature_type *m_ptr = &m_list[p_ptr->riding];
+		creature_type *m_ptr = &m_list[cr_ptr->riding];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->paralyzed)
@@ -5690,7 +5690,7 @@ msg_print("中断しました。");
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_paralyzed(&m_list[p_ptr->riding], 0);
+			(void)set_paralyzed(&m_list[cr_ptr->riding], 0);
 
 			/* Acquire the monster name */
 			monster_desc(m_name, m_ptr, 0);
@@ -5704,8 +5704,8 @@ msg_print("中断しました。");
 		if (m_ptr->stun)
 		{
 			/* Hack -- Recover from stun */
-			if (set_stun(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
+			if (set_stun(&m_list[cr_ptr->riding],
+				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];
 
@@ -5724,8 +5724,8 @@ msg_print("中断しました。");
 		if (m_ptr->confused)
 		{
 			/* Hack -- Recover from confusion */
-			if (set_confused(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
+			if (set_confused(&m_list[cr_ptr->riding],
+				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
 			{
 				char m_name[80];
 
@@ -5744,8 +5744,8 @@ msg_print("中断しました。");
 		if (m_ptr->afraid)
 		{
 			/* Hack -- Recover from fear */
-			if (set_afraid(&m_list[p_ptr->riding],
-				(randint0(r_ptr->level) < p_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
+			if (set_afraid(&m_list[cr_ptr->riding],
+				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
 
@@ -5761,68 +5761,68 @@ msg_print("中断しました。");
 			}
 		}
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 	}
 
 	/* Handle the player song */
-	if (!load) check_music();
+	if (!load) check_music(cr_ptr);
 
 	/* Hex - Handle the hex spells */
-	if (!load) check_hex(p_ptr);
-	if (!load) revenge_spell(p_ptr);
+	if (!load) check_hex(cr_ptr);
+	if (!load) revenge_spell(cr_ptr);
 
 	load = FALSE;
 
 	/* Fast */
-	if (p_ptr->lightspeed)
+	if (cr_ptr->lightspeed)
 	{
-		(void)set_lightspeed(p_ptr, p_ptr->lightspeed - 1, TRUE);
+		(void)set_lightspeed(cr_ptr, cr_ptr->lightspeed - 1, TRUE);
 	}
-	if ((p_ptr->cls_idx == CLASS_FORCETRAINER) && (p_ptr->magic_num1[0]))
+	if ((cr_ptr->cls_idx == CLASS_FORCETRAINER) && (cr_ptr->magic_num1[0]))
 	{
-		if (p_ptr->magic_num1[0] < 40)
+		if (cr_ptr->magic_num1[0] < 40)
 		{
-			p_ptr->magic_num1[0] = 0;
+			cr_ptr->magic_num1[0] = 0;
 		}
-		else p_ptr->magic_num1[0] -= 40;
-		p_ptr->update |= (PU_BONUS);
+		else cr_ptr->magic_num1[0] -= 40;
+		cr_ptr->update |= (PU_BONUS);
 	}
-	if (p_ptr->action == ACTION_LEARN)
+	if (cr_ptr->action == ACTION_LEARN)
 	{
 		s32b cost = 0L;
-		u32b cost_frac = (p_ptr->msp + 30L) * 256L;
+		u32b cost_frac = (cr_ptr->msp + 30L) * 256L;
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(cost, cost_frac, 16);
 
  
-		if (s64b_cmp(p_ptr->csp, p_ptr->csp_frac, cost, cost_frac) < 0)
+		if (s64b_cmp(cr_ptr->csp, cr_ptr->csp_frac, cost, cost_frac) < 0)
 		{
 			/* Mana run out */
-			p_ptr->csp = 0;
-			p_ptr->csp_frac = 0;
-			set_action(p_ptr, ACTION_NONE);
+			cr_ptr->csp = 0;
+			cr_ptr->csp_frac = 0;
+			set_action(cr_ptr, ACTION_NONE);
 		}
 		else
 		{
 			/* Reduce mana */
-			s64b_sub(&(p_ptr->csp), &(p_ptr->csp_frac), cost, cost_frac);
+			s64b_sub(&(cr_ptr->csp), &(cr_ptr->csp_frac), cost, cost_frac);
 		}
 		play_redraw |= PR_MANA;
 	}
 
-	if (p_ptr->special_defense & KATA_MASK)
+	if (cr_ptr->special_defense & KATA_MASK)
 	{
-		if (p_ptr->special_defense & KATA_MUSOU)
+		if (cr_ptr->special_defense & KATA_MUSOU)
 		{
-			if (p_ptr->csp < 3)
+			if (cr_ptr->csp < 3)
 			{
-				set_action(p_ptr, ACTION_NONE);
+				set_action(cr_ptr, ACTION_NONE);
 			}
 			else
 			{
-				p_ptr->csp -= 2;
+				cr_ptr->csp -= 2;
 				play_redraw |= (PR_MANA);
 			}
 		}
@@ -5831,28 +5831,28 @@ msg_print("中断しました。");
 	/*** Handle actual user input ***/
 
 	/* Repeat until out of energy */
-	while (p_ptr->energy_need <= 0)
+	while (cr_ptr->energy_need <= 0)
 	{
 		play_window |= PW_PLAYER;
-		p_ptr->sutemi = FALSE;
-		p_ptr->counter = FALSE;
+		cr_ptr->sutemi = FALSE;
+		cr_ptr->counter = FALSE;
 		now_damaged = FALSE;
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 
 		/* Place the cursor on the player */
-		move_cursor_relative(p_ptr->fy, p_ptr->fx);
+		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 		/* Refresh (optional) */
 		if (fresh_before) Term_fresh();
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow(p_ptr);
+		pack_overflow(cr_ptr);
 
 
 		/* Hack -- cancel "lurking browse mode" */
@@ -5866,23 +5866,23 @@ msg_print("中断しました。");
 		if (inside_battle)
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(p_ptr->fy, p_ptr->fx);
+			move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 			command_cmd = SPECIAL_KEY_BUILDING;
 
 			/* Process the command */
-			process_command();
+			process_command(cr_ptr);
 		}
 
 		/* Paralyzed or Knocked Out */
-		else if (p_ptr->paralyzed || (p_ptr->stun >= 100))
+		else if (cr_ptr->paralyzed || (cr_ptr->stun >= 100))
 		{
 			/* Take a turn */
 			energy_use = 100;
 		}
 
 		/* Resting */
-		else if (p_ptr->action == ACTION_REST)
+		else if (cr_ptr->action == ACTION_REST)
 		{
 			/* Timed rest */
 			if (resting > 0)
@@ -5890,7 +5890,7 @@ msg_print("中断しました。");
 				/* Reduce rest count */
 				resting--;
 
-				if (!resting) set_action(p_ptr, ACTION_NONE);
+				if (!resting) set_action(cr_ptr, ACTION_NONE);
 
 				/* Redraw the state */
 				play_redraw |= (PR_STATE);
@@ -5901,7 +5901,7 @@ msg_print("中断しました。");
 		}
 
 		/* Fishing */
-		else if (p_ptr->action == ACTION_FISH)
+		else if (cr_ptr->action == ACTION_FISH)
 		{
 			/* Take a turn */
 			energy_use = 100;
@@ -5911,7 +5911,7 @@ msg_print("中断しました。");
 		else if (running)
 		{
 			/* Take a step */
-			run_step(p_ptr, 0);
+			run_step(cr_ptr, 0);
 		}
 
 #ifdef TRAVEL
@@ -5919,7 +5919,7 @@ msg_print("中断しました。");
 		else if (travel.run)
 		{
 			/* Take a step */
-			travel_step(p_ptr);
+			travel_step(cr_ptr);
 		}
 #endif
 
@@ -5933,7 +5933,7 @@ msg_print("中断しました。");
 			play_redraw |= (PR_STATE);
 
 			/* Redraw stuff */
-			redraw_stuff(p_ptr);
+			redraw_stuff(cr_ptr);
 
 			/* Hack -- Assume messages were seen */
 			msg_flag = FALSE;
@@ -5942,14 +5942,14 @@ msg_print("中断しました。");
 			prt("", 0, 0);
 
 			/* Process the command */
-			process_command();
+			process_command(cr_ptr);
 		}
 
 		/* Normal command */
 		else
 		{
 			/* Place the cursor on the player */
-			move_cursor_relative(p_ptr->fy, p_ptr->fx);
+			move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 			can_save = TRUE;
 			/* Get a command (normal) */
@@ -5957,12 +5957,12 @@ msg_print("中断しました。");
 			can_save = FALSE;
 
 			/* Process the command */
-			process_command();
+			process_command(cr_ptr);
 		}
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow(p_ptr);
+		pack_overflow(cr_ptr);
 
 
 		/*** Clean up ***/
@@ -5974,16 +5974,16 @@ msg_print("中断しました。");
 			if (world_player || energy_use > 400)
 			{
 				/* The Randomness is irrelevant */
-				p_ptr->energy_need += energy_use * TURNS_PER_TICK / 10;
+				cr_ptr->energy_need += energy_use * TURNS_PER_TICK / 10;
 			}
 			else
 			{
 				/* There is some randomness of needed energy */
-				p_ptr->energy_need += (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
+				cr_ptr->energy_need += (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
 			}
 
 			/* Hack -- constant hallucination */
-			if (p_ptr->image) play_redraw |= (PR_MAP);
+			if (cr_ptr->image) play_redraw |= (PR_MAP);
 
 
 			/* Shimmer monsters if needed */
@@ -6072,8 +6072,8 @@ msg_print("中断しました。");
 							/* Update the monster */
 							update_mon(i, FALSE);
 
-							if (p_ptr->health_who == i) play_redraw |= (PR_HEALTH);
-							if (p_ptr->riding == i) play_redraw |= (PR_UHEALTH);
+							if (cr_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+							if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */
 							lite_spot(m_ptr->fy, m_ptr->fx);
@@ -6081,33 +6081,33 @@ msg_print("中断しました。");
 					}
 				}
 			}
-			if (p_ptr->cls_idx == CLASS_IMITATOR)
+			if (cr_ptr->cls_idx == CLASS_IMITATOR)
 			{
-				if (p_ptr->mane_num > (p_ptr->lev > 44 ? 3 : p_ptr->lev > 29 ? 2 : 1))
+				if (cr_ptr->mane_num > (cr_ptr->lev > 44 ? 3 : cr_ptr->lev > 29 ? 2 : 1))
 				{
-					p_ptr->mane_num--;
-					for (i = 0; i < p_ptr->mane_num; i++)
+					cr_ptr->mane_num--;
+					for (i = 0; i < cr_ptr->mane_num; i++)
 					{
-						p_ptr->mane_spell[i] = p_ptr->mane_spell[i+1];
-						p_ptr->mane_dam[i] = p_ptr->mane_dam[i+1];
+						cr_ptr->mane_spell[i] = cr_ptr->mane_spell[i+1];
+						cr_ptr->mane_dam[i] = cr_ptr->mane_dam[i+1];
 					}
 				}
 				new_mane = FALSE;
 				play_redraw |= (PR_IMITATION);
 			}
-			if (p_ptr->action == ACTION_LEARN)
+			if (cr_ptr->action == ACTION_LEARN)
 			{
 				new_mane = FALSE;
 				play_redraw |= (PR_STATE);
 			}
 
-			if (world_player && (p_ptr->energy_need > - 1000))
+			if (world_player && (cr_ptr->energy_need > - 1000))
 			{
 				/* Redraw map */
 				play_redraw |= (PR_MAP);
 
 				/* Update monsters */
-				p_ptr->update |= (PU_MONSTERS);
+				cr_ptr->update |= (PU_MONSTERS);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -6119,25 +6119,25 @@ msg_print("中断しました。");
 #endif
 				msg_print(NULL);
 				world_player = FALSE;
-				p_ptr->energy_need = ENERGY_NEED();
+				cr_ptr->energy_need = ENERGY_NEED();
 
-				/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-				handle_stuff(p_ptr);
+				/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+				handle_stuff(cr_ptr);
 			}
 		}
 
 		/* Hack -- notice death */
-		if (!p_ptr->playing || p_ptr->is_dead)
+		if (!cr_ptr->playing || cr_ptr->is_dead)
 		{
 			world_player = FALSE;
 			break;
 		}
 
 		/* Sniper */
-		if (energy_use && reset_concent) reset_concentration(p_ptr, TRUE);
+		if (energy_use && reset_concent) reset_concentration(cr_ptr, TRUE);
 
 		/* Handle "leaving" */
-		if (p_ptr->leaving) break;
+		if (cr_ptr->leaving) break;
 	}
 
 	/* Update scent trail */
@@ -6151,7 +6151,7 @@ msg_print("中断しました。");
  * This function will not exit until the level is completed,
  * the user dies, or the game is terminated.
  */
-static void dungeon(bool load_game)
+static void dungeon(creature_type *cr_ptr, bool load_game)
 {
 	int quest_num = 0;
 
@@ -6162,7 +6162,7 @@ static void dungeon(bool load_game)
 	hack_mind = FALSE;
 
 	/* Not leaving */
-	p_ptr->leaving = FALSE;
+	cr_ptr->leaving = FALSE;
 
 	/* Reset the "command" vars */
 	command_cmd = 0;
@@ -6206,9 +6206,9 @@ static void dungeon(bool load_game)
 	}
 
 	/* Track maximum player level */
-	if (p_ptr->max_plv < p_ptr->lev)
+	if (cr_ptr->max_plv < cr_ptr->lev)
 	{
-		p_ptr->max_plv = p_ptr->lev;
+		cr_ptr->max_plv = cr_ptr->lev;
 	}
 
 
@@ -6219,7 +6219,7 @@ static void dungeon(bool load_game)
 		if (record_maxdepth) do_cmd_write_nikki(NIKKI_MAXDEAPTH, dun_level, NULL);
 	}
 
-	(void)calculate_upkeep(p_ptr);
+	(void)calculate_upkeep(cr_ptr);
 
 	/* Validate the panel */
 	panel_bounds_center();
@@ -6244,31 +6244,31 @@ static void dungeon(bool load_game)
 	play_redraw |= (PR_MAP);
 
 	/* Update stuff */
-	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Update lite/view */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_TORCH);
+	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_TORCH);
 
 	/* Update monsters */
-	p_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+	cr_ptr->update |= (PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
-	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-	handle_stuff(p_ptr);
+	/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+	handle_stuff(cr_ptr);
 
 	/* Leave "xtra" mode */
 	character_xtra = FALSE;
 
 	/* Update stuff */
-	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Combine / Reorder the pack */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
-	/* Handle "p_ptr->notice" */
-	notice_stuff(p_ptr);
+	/* Handle "cr_ptr->notice" */
+	notice_stuff(cr_ptr);
 
-	/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-	handle_stuff(p_ptr);
+	/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+	handle_stuff(cr_ptr);
 
 	/* Refresh */
 	Term_fresh();
@@ -6281,7 +6281,7 @@ static void dungeon(bool load_game)
 	{
 		if (load_game)
 		{
-			p_ptr->energy_need = 0;
+			cr_ptr->energy_need = 0;
 			battle_monsters();
 		}
 		else
@@ -6295,11 +6295,11 @@ msg_print("試合開始！");
 		}
 	}
 
-	if ((p_ptr->cls_idx == CLASS_BARD) && (p_ptr->magic_num1[0] > MUSIC_DETECT))
-		p_ptr->magic_num1[0] = MUSIC_DETECT;
+	if ((cr_ptr->cls_idx == CLASS_BARD) && (cr_ptr->magic_num1[0] > MUSIC_DETECT))
+		cr_ptr->magic_num1[0] = MUSIC_DETECT;
 
 	/* Hack -- notice death or departure */
-	if (!p_ptr->playing || p_ptr->is_dead) return;
+	if (!cr_ptr->playing || cr_ptr->is_dead) return;
 
 	/* Print quest message if appropriate */
 	if (!inside_quest && (dungeon_type == DUNGEON_DOD))
@@ -6321,7 +6321,7 @@ msg_print("試合開始！");
 #endif
 	}
 
-	if (!load_game && (p_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(p_ptr, FALSE);
+	if (!load_game && (cr_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(cr_ptr, FALSE);
 
 	/*** Process this dungeon level ***/
 
@@ -6333,12 +6333,12 @@ msg_print("試合開始！");
 
 	hack_mind = TRUE;
 
-	if (p_ptr->energy_need > 0 && !inside_battle &&
-	    (dun_level || p_ptr->leaving_dungeon || inside_arena))
-		p_ptr->energy_need = 0;
+	if (cr_ptr->energy_need > 0 && !inside_battle &&
+	    (dun_level || cr_ptr->leaving_dungeon || inside_arena))
+		cr_ptr->energy_need = 0;
 
 	/* Not leaving dungeon */
-	p_ptr->leaving_dungeon = FALSE;
+	cr_ptr->leaving_dungeon = FALSE;
 
 	/* Initialize monster process */
 	mproc_init();
@@ -6361,62 +6361,62 @@ msg_print("試合開始！");
 
 
 		/* Process the player */
-		process_player();
+		process_player(cr_ptr);
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(p_ptr->fy, p_ptr->fx);
+		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!p_ptr->playing || p_ptr->is_dead) break;
+		if (!cr_ptr->playing || cr_ptr->is_dead) break;
 
 		/* Process all of the monsters */
 		process_monsters();
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(p_ptr->fy, p_ptr->fx);
+		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!p_ptr->playing || p_ptr->is_dead) break;
+		if (!cr_ptr->playing || cr_ptr->is_dead) break;
 
 
 		/* Process the world */
-		process_world(p_ptr);
+		process_world(cr_ptr);
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 
 		/* Hack -- Hilite the player */
-		move_cursor_relative(p_ptr->fy, p_ptr->fx);
+		move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 		/* Optional fresh */
 		if (fresh_after) Term_fresh();
 
 		/* Hack -- Notice death or departure */
-		if (!p_ptr->playing || p_ptr->is_dead) break;
+		if (!cr_ptr->playing || cr_ptr->is_dead) break;
 
 		/* Handle "leaving" */
-		if (p_ptr->leaving) break;
+		if (cr_ptr->leaving) break;
 
 		/* Count game turns */
 		turn++;
@@ -6440,7 +6440,7 @@ msg_print("試合開始！");
 	}
 
 	/* Not save-and-quit and not dead? */
-	if (p_ptr->playing && !p_ptr->is_dead)
+	if (cr_ptr->playing && !cr_ptr->is_dead)
 	{
 		/*
 		 * Maintain Unique monsters and artifact, save current
@@ -6463,7 +6463,7 @@ msg_print("試合開始！");
  * Modified by Arcum Dagsson to support
  * separate macro files for different realms.
  */
-static void load_all_pref_files(void)
+static void load_all_pref_files(creature_type *cr_ptr)
 {
 	char buf[1024];
 
@@ -6480,13 +6480,13 @@ static void load_all_pref_files(void)
 	process_pref_file(buf);
 
 	/* Access the "race" pref file */
-	sprintf(buf, "%s.prf", race_info[p_ptr->irace_idx].title);
+	sprintf(buf, "%s.prf", race_info[cr_ptr->irace_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);
 
 	/* Access the "class" pref file */
-	sprintf(buf, "%s.prf", class_info[p_ptr->cls_idx].title);
+	sprintf(buf, "%s.prf", class_info[cr_ptr->cls_idx].title);
 
 	/* Process that file */
 	process_pref_file(buf);
@@ -6498,18 +6498,18 @@ static void load_all_pref_files(void)
 	process_pref_file(buf);
 
 	/* Access the "realm 1" pref file */
-	if (p_ptr->realm1 != REALM_NONE)
+	if (cr_ptr->realm1 != REALM_NONE)
 	{
-		sprintf(buf, "%s.prf", realm_names[p_ptr->realm1]);
+		sprintf(buf, "%s.prf", realm_names[cr_ptr->realm1]);
 
 		/* Process that file */
 		process_pref_file(buf);
 	}
 
 	/* Access the "realm 2" pref file */
-	if (p_ptr->realm2 != REALM_NONE)
+	if (cr_ptr->realm2 != REALM_NONE)
 	{
-		sprintf(buf, "%s.prf", realm_names[p_ptr->realm2]);
+		sprintf(buf, "%s.prf", realm_names[cr_ptr->realm2]);
 
 		/* Process that file */
 		process_pref_file(buf);
@@ -6650,7 +6650,7 @@ void determine_today_mon(bool conv_old)
  * savefile, we will commit suicide, if necessary, to allow the
  * player to start a new game.
  */
-void play_game(bool new_game)
+void play_game(creature_type *cr_ptr, bool new_game)
 {
 	int i;
 	bool load_game = TRUE;
@@ -6717,7 +6717,7 @@ quit("セーブファイルが壊れています");
 	extract_option_vars();
 
 	/* Report waited score */
-	if (p_ptr->wait_report_score)
+	if (cr_ptr->wait_report_score)
 	{
 		char buf[1024];
 		bool success;
@@ -6730,12 +6730,12 @@ quit("セーブファイルが壊れています");
 			quit(0);
 
 		/* Update stuff */
-		p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 		/* Update stuff */
-		update_stuff(p_ptr, TRUE);
+		update_stuff(cr_ptr, TRUE);
 
-		p_ptr->is_dead = TRUE;
+		cr_ptr->is_dead = TRUE;
 
 		start_time = (u32b)time(NULL);
 
@@ -6769,7 +6769,7 @@ quit("セーブファイルが壊れています");
 		}
 		else
 		{
-			p_ptr->wait_report_score = FALSE;
+			cr_ptr->wait_report_score = FALSE;
 			top_twenty();
 #ifdef JP
 			if (!save_player()) msg_print("セーブ失敗！");
@@ -6864,10 +6864,10 @@ quit("セーブファイルが壊れています");
 		seed_town = randint0(0x10000000);
 
 		/* Roll up a new character */
-		player_birth(p_ptr);
+		player_birth(cr_ptr);
 
 		counts_write(2,0);
-		p_ptr->count = 0;
+		cr_ptr->count = 0;
 
 		load = FALSE;
 
@@ -6891,8 +6891,8 @@ quit("セーブファイルが壊れています");
 
 	creating_savefile = FALSE;
 
-	p_ptr->teleport_town = FALSE;
-	p_ptr->sutemi = FALSE;
+	cr_ptr->teleport_town = FALSE;
+	cr_ptr->sutemi = FALSE;
 	world_monster = FALSE;
 	now_damaged = FALSE;
 	now_message = 0;
@@ -6904,8 +6904,8 @@ quit("セーブファイルが壊れています");
 	panel_col_min = cur_wid;
 
 	/* Sexy gal gets bonus to maximum weapon skill of whip */
-	if (p_ptr->chara_idx == CHARA_SEXY)
-		s_info[p_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+	if (cr_ptr->chara_idx == CHARA_SEXY)
+		s_info[cr_ptr->cls_idx].w_max[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(dungeon_type);
@@ -6931,7 +6931,7 @@ quit("セーブファイルが壊れています");
 		{
 			wizard = TRUE;
 
-			if (p_ptr->is_dead || !p_ptr->fy || !p_ptr->fx)
+			if (cr_ptr->is_dead || !cr_ptr->fy || !cr_ptr->fx)
 			{
 				/* Initialize the saved floors data */
 				init_saved_floors(TRUE);
@@ -6940,10 +6940,10 @@ quit("セーブファイルが壊れています");
 				inside_quest = 0;
 
 				/* Avoid crash in update_view() */
-				p_ptr->fy = p_ptr->fx = 10;
+				cr_ptr->fy = cr_ptr->fx = 10;
 			}
 		}
-		else if (p_ptr->is_dead)
+		else if (cr_ptr->is_dead)
 		{
 			quit("Already dead.");
 		}
@@ -6974,10 +6974,10 @@ quit("セーブファイルが壊れています");
 	else
 	{
 		/* HACK -- Restore from panic-save */
-		if (p_ptr->panic_save)
+		if (cr_ptr->panic_save)
 		{
 			/* No player?  -- Try to regenerate floor */
-			if (!p_ptr->fy || !p_ptr->fx)
+			if (!cr_ptr->fy || !cr_ptr->fx)
 			{
 #ifdef JP
 				msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
@@ -6988,10 +6988,10 @@ quit("セーブファイルが壊れています");
 			}
 
 			/* Still no player?  -- Try to locate random place */
-			if (!p_ptr->fy || !p_ptr->fx) p_ptr->fy = p_ptr->fx = 10;
+			if (!cr_ptr->fy || !cr_ptr->fx) cr_ptr->fy = cr_ptr->fx = 10;
 
 			/* No longer in panic */
-			p_ptr->panic_save = 0;
+			cr_ptr->panic_save = 0;
 		}
 	}
 
@@ -7017,18 +7017,18 @@ quit("セーブファイルが壊れています");
 
 
 	/* Start game */
-	p_ptr->playing = TRUE;
+	cr_ptr->playing = TRUE;
 
 	/* Reset the visual mappings */
 	reset_visuals();
 
 	/* Load the "pref" files */
-	load_all_pref_files();
+	load_all_pref_files(cr_ptr);
 
 	/* Give startup outfit (after loading pref files) */
 	if (new_game)
 	{
-		player_outfit(p_ptr);
+		player_outfit(cr_ptr);
 	}
 
 	/* React to changes */
@@ -7050,16 +7050,16 @@ quit("セーブファイルが壊れています");
 	if (arg_force_roguelike) rogue_like_commands = TRUE;
 
 	/* Hack -- Enforce "delayed death" */
-	if (p_ptr->chp < 0) p_ptr->is_dead = TRUE;
+	if (cr_ptr->chp < 0) cr_ptr->is_dead = TRUE;
 
-	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
+	if (cr_ptr->irace_idx == RACE_ANDROID) calc_android_exp(cr_ptr);
 
-	if (new_game && ((p_ptr->cls_idx == CLASS_CAVALRY) || (p_ptr->cls_idx == CLASS_BEASTMASTER)))
+	if (new_game && ((cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
 		creature_type *m_ptr;
-		int pet_species_idx = ((p_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
+		int pet_species_idx = ((cr_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		species_type *r_ptr = &r_info[pet_species_idx];
-		place_monster_aux(p_ptr, p_ptr->fy, p_ptr->fx - 1, pet_species_idx,
+		place_monster_aux(cr_ptr, cr_ptr->fy, cr_ptr->fx - 1, pet_species_idx,
 				  (PM_FORCE_PET | PM_NO_KAGE));
 		m_ptr = &m_list[hack_m_idx_ii];
 		m_ptr->speed = r_ptr->speed;
@@ -7077,16 +7077,16 @@ quit("セーブファイルが壊れています");
 	while (TRUE)
 	{
 		/* Process the level */
-		dungeon(load_game);
+		dungeon(cr_ptr, load_game);
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
 		/* Hack -- prevent "icky" message */
 		character_xtra = TRUE;
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 
 		character_xtra = FALSE;
 
@@ -7107,11 +7107,11 @@ quit("セーブファイルが壊れています");
 		clear_mon_lite();
 
 		/* Handle "quit and save" */
-		if (!p_ptr->playing && !p_ptr->is_dead) break;
+		if (!cr_ptr->playing && !cr_ptr->is_dead) break;
 
 		/* Erase the old cave */
 		wipe_o_list();
-		if (!p_ptr->is_dead) wipe_m_list();
+		if (!cr_ptr->is_dead) wipe_m_list();
 
 
 		/* XXX XXX XXX */
@@ -7120,7 +7120,7 @@ quit("セーブファイルが壊れています");
 		load_game = FALSE;
 
 		/* Accidental Death */
-		if (p_ptr->playing && p_ptr->is_dead)
+		if (cr_ptr->playing && cr_ptr->is_dead)
 		{
 			if (inside_arena)
 			{
@@ -7129,11 +7129,11 @@ quit("セーブファイルが壊れています");
 					arena_number++;
 				else
 					arena_number = -1 - arena_number;
-				p_ptr->is_dead = FALSE;
-				p_ptr->chp = 0;
-				p_ptr->chp_frac = 0;
-				p_ptr->exit_bldg = TRUE;
-				reset_tim_flags(p_ptr);
+				cr_ptr->is_dead = FALSE;
+				cr_ptr->chp = 0;
+				cr_ptr->chp_frac = 0;
+				cr_ptr->exit_bldg = TRUE;
+				reset_tim_flags(cr_ptr);
 
 				/* Leave through the exit */
 				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
@@ -7151,16 +7151,16 @@ quit("セーブファイルが壊れています");
 #endif
 				{
 					/* Mark social class, reset age, if needed */
-					if (p_ptr->sc){
-						p_ptr->sc = 0;
-						p_ptr->age = 0;
+					if (cr_ptr->sc){
+						cr_ptr->sc = 0;
+						cr_ptr->age = 0;
 					}
 
 					/* Increase age */
-					p_ptr->age++;
+					cr_ptr->age++;
 
 					/* Mark savefile */
-					p_ptr->noscore |= 0x0001;
+					cr_ptr->noscore |= 0x0001;
 
 					/* Message */
 #ifdef JP
@@ -7171,26 +7171,26 @@ quit("セーブファイルが壊れています");
 					msg_print(NULL);
 
 					/* Restore hit points */
-					p_ptr->chp = p_ptr->mhp;
-					p_ptr->chp_frac = 0;
+					cr_ptr->chp = cr_ptr->mhp;
+					cr_ptr->chp_frac = 0;
 
-					if (p_ptr->cls_idx == CLASS_MAGIC_EATER)
+					if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 					{
 						for (i = 0; i < EATER_EXT*2; i++)
 						{
-							p_ptr->magic_num1[i] = p_ptr->magic_num2[i]*EATER_CHARGE;
+							cr_ptr->magic_num1[i] = cr_ptr->magic_num2[i]*EATER_CHARGE;
 						}
 						for (; i < EATER_EXT*3; i++)
 						{
-							p_ptr->magic_num1[i] = 0;
+							cr_ptr->magic_num1[i] = 0;
 						}
 					}
 					/* Restore spell points */
-					p_ptr->csp = p_ptr->msp;
-					p_ptr->csp_frac = 0;
+					cr_ptr->csp = cr_ptr->msp;
+					cr_ptr->csp_frac = 0;
 
 					/* Hack -- cancel recall */
-					if (p_ptr->word_recall)
+					if (cr_ptr->word_recall)
 					{
 						/* Message */
 #ifdef JP
@@ -7202,47 +7202,47 @@ quit("セーブファイルが壊れています");
 						msg_print(NULL);
 
 						/* Hack -- Prevent recall */
-						p_ptr->word_recall = 0;
+						cr_ptr->word_recall = 0;
 						play_redraw |= (PR_STATUS);
 					}
 
 					/* Hack -- cancel alter */
-					if (p_ptr->alter_reality)
+					if (cr_ptr->alter_reality)
 					{
 						/* Hack -- Prevent alter */
-						p_ptr->alter_reality = 0;
+						cr_ptr->alter_reality = 0;
 						play_redraw |= (PR_STATUS);
 					}
 
 					/* Note cause of death XXX XXX XXX */
 #ifdef JP
-					(void)strcpy(p_ptr->died_from, "死の欺き");
+					(void)strcpy(cr_ptr->died_from, "死の欺き");
 #else
-					(void)strcpy(p_ptr->died_from, "Cheating death");
+					(void)strcpy(cr_ptr->died_from, "Cheating death");
 #endif
 
 					/* Do not die */
-					p_ptr->is_dead = FALSE;
+					cr_ptr->is_dead = FALSE;
 
 					/* Hack -- Healing */
-					(void)set_blind(p_ptr, 0);
-					(void)set_confused(p_ptr, 0);
-					(void)set_poisoned(p_ptr, 0);
-					(void)set_afraid(p_ptr, 0);
-					(void)set_paralyzed(p_ptr, 0);
-					(void)set_image(p_ptr, 0);
-					(void)set_stun(p_ptr, 0);
-					(void)set_cut(p_ptr, 0);
+					(void)set_blind(cr_ptr, 0);
+					(void)set_confused(cr_ptr, 0);
+					(void)set_poisoned(cr_ptr, 0);
+					(void)set_afraid(cr_ptr, 0);
+					(void)set_paralyzed(cr_ptr, 0);
+					(void)set_image(cr_ptr, 0);
+					(void)set_stun(cr_ptr, 0);
+					(void)set_cut(cr_ptr, 0);
 
 					/* Hack -- Prevent starvation */
-					(void)set_food(p_ptr, PY_FOOD_MAX - 1);
+					(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 
 					dun_level = 0;
 					inside_arena = FALSE;
 					inside_battle = FALSE;
 					leaving_quest = 0;
 					inside_quest = 0;
-					if (dungeon_type) p_ptr->recall_dungeon = dungeon_type;
+					if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
 					dungeon_type = 0;
 					if (lite_town || vanilla_town)
 					{
@@ -7250,13 +7250,13 @@ quit("セーブファイルが壊れています");
 						wilderness_x = 1;
 						if (vanilla_town)
 						{
-							p_ptr->oldpy = 10;
-							p_ptr->oldpx = 34;
+							cr_ptr->oldpy = 10;
+							cr_ptr->oldpx = 34;
 						}
 						else
 						{
-							p_ptr->oldpy = 33;
-							p_ptr->oldpx = 131;
+							cr_ptr->oldpy = 33;
+							cr_ptr->oldpx = 131;
 						}
 					}
 					else
@@ -7266,13 +7266,13 @@ quit("セーブファイルが壊れています");
 						//wilderness_y = 34;
 						wilderness_x = 134;
 						wilderness_y = 71;
-						p_ptr->oldpy = 95;
-						p_ptr->oldpx = 95;
+						cr_ptr->oldpy = 95;
+						cr_ptr->oldpx = 95;
 					}
 
 					/* Leaving */
 					wild_mode = FALSE;
-					p_ptr->leaving = TRUE;
+					cr_ptr->leaving = TRUE;
 
 #ifdef JP
 					do_cmd_write_nikki(NIKKI_BUNSHOU, 1, "                            しかし、生き返った。");
@@ -7288,7 +7288,7 @@ quit("セーブファイルが壊れています");
 		}
 
 		/* Handle "death" */
-		if (p_ptr->is_dead) break;
+		if (cr_ptr->is_dead) break;
 
 		/* Make a new level */
 		change_floor();
