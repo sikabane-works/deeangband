@@ -3621,11 +3621,11 @@ static int target_set_aux(int y, int x, int mode, cptr info)
  * This command will cancel any old target, even if used from
  * inside the "look" command.
  */
-bool target_set(int mode)
+bool target_set(creature_type *aimer_ptr , int mode)
 {
 	int		i, d, m, t, bd;
-	int		y = p_ptr->fy;
-	int		x = p_ptr->fx;
+	int		y = aimer_ptr->fy;
+	int		x = aimer_ptr->fx;
 
 	bool	done = FALSE;
 
@@ -3652,7 +3652,7 @@ bool target_set(int mode)
 
 
 	/* Prepare the "temp" array */
-	target_set_prepare(p_ptr, mode);
+	target_set_prepare(aimer_ptr, mode);
 
 	/* Start near the player */
 	m = 0;
@@ -3765,7 +3765,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					verify_panel();
 
 					/* Update stuff */
-					p_ptr->update |= (PU_MONSTERS);
+					aimer_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -3774,13 +3774,13 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
-					handle_stuff(p_ptr);
+					handle_stuff(aimer_ptr);
 
 					/* Recalculate interesting grids */
-					target_set_prepare(p_ptr, mode);
+					target_set_prepare(aimer_ptr, mode);
 
-					y = p_ptr->fy;
-					x = p_ptr->fx;
+					y = aimer_ptr->fy;
+					x = aimer_ptr->fx;
 				}
 
 				case 'o':
@@ -3824,7 +3824,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						int u = temp_x[m];
 
 						/* Recalculate interesting grids */
-						target_set_prepare(p_ptr, mode);
+						target_set_prepare(aimer_ptr, mode);
 
 						/* Look at interesting grids */
 						flag = TRUE;
@@ -3848,7 +3848,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						panel_bounds_center();
 
 						/* Update stuff */
-						p_ptr->update |= (PU_MONSTERS);
+						aimer_ptr->update |= (PU_MONSTERS);
 
 						/* Redraw map */
 						play_redraw |= (PR_MAP);
@@ -3857,10 +3857,10 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						play_window |= (PW_OVERHEAD);
 
 						/* Handle stuff */
-						handle_stuff(p_ptr);
+						handle_stuff(aimer_ptr);
 
 						/* Recalculate interesting grids */
-						target_set_prepare(p_ptr, mode);
+						target_set_prepare(aimer_ptr, mode);
 
 						/* Look at boring grids */
 						flag = FALSE;
@@ -3887,7 +3887,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 						if ((y >= panel_row_min+hgt) || (y < panel_row_min) ||
 						    (x >= panel_col_min+wid) || (x < panel_col_min))
 						{
-							if (change_panel(dy, dx)) target_set_prepare(p_ptr, mode);
+							if (change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
 						}
 
 						/* Slide into legality */
@@ -3965,7 +3965,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					verify_panel();
 
 					/* Update stuff */
-					p_ptr->update |= (PU_MONSTERS);
+					aimer_ptr->update |= (PU_MONSTERS);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -3974,13 +3974,13 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					play_window |= (PW_OVERHEAD);
 
 					/* Handle stuff */
-					handle_stuff(p_ptr);
+					handle_stuff(aimer_ptr);
 
 					/* Recalculate interesting grids */
-					target_set_prepare(p_ptr, mode);
+					target_set_prepare(aimer_ptr, mode);
 
-					y = p_ptr->fy;
-					x = p_ptr->fx;
+					y = aimer_ptr->fy;
+					x = aimer_ptr->fx;
 				}
 
 				case 'o':
@@ -4068,7 +4068,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 				if ((y >= panel_row_min + hgt) || (y < panel_row_min) ||
 					 (x >= panel_col_min + wid) || (x < panel_col_min))
 				{
-					if (change_panel(dy, dx)) target_set_prepare(p_ptr, mode);
+					if (change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
 				}
 
 				/* Slide into legality */
@@ -4092,7 +4092,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 	verify_panel();
 
 	/* Update stuff */
-	p_ptr->update |= (PU_MONSTERS);
+	aimer_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4101,7 +4101,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 	play_window |= (PW_OVERHEAD);
 
 	/* Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(aimer_ptr);
 
 	/* Failure to set target */
 	if (!target_who) return (FALSE);
@@ -4205,7 +4205,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 			case ' ':
 			case '\r':
 			{
-				if (target_set(TARGET_KILL)) dir = 5;
+				if (target_set(p_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
@@ -5840,7 +5840,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 			case ' ':
 			case '\r':
 			{
-				if (target_set(TARGET_KILL)) dir = 5;
+				if (target_set(cr_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 

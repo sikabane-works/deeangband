@@ -5248,7 +5248,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 				if (cast)
 				{
-					if (!target_set(TARGET_KILL)) return NULL;
+					if (!target_set(cr_ptr, TARGET_KILL)) return NULL;
 					x = target_col;
 					y = target_row;
 				}

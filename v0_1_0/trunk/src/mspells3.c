@@ -726,7 +726,7 @@ msg_print("かん高い金切り声をあげた。");
 	{
 		int m_idx;
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1352,7 +1352,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
@@ -1405,7 +1405,7 @@ msg_format("%sを引き戻した。", m_name);
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		target_m_idx = cave[target_row][target_col].m_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1451,7 +1451,7 @@ msg_print("暗闇の中で手を振った。");
 		(void)unlite_area(10, 3);
 		break;
 	case MS_MAKE_TRAP:
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else

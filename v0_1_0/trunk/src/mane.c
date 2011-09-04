@@ -312,7 +312,7 @@ msg_print("かん高い金切り声をあげた。");
 	{
 		int m_idx;
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -925,7 +925,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
@@ -978,7 +978,7 @@ msg_format("%sを引き戻した。", m_name);
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		target_m_idx = cave[target_row][target_col].m_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1023,7 +1023,7 @@ msg_print("暗闇の中で手を振った。");
 		(void)unlite_area(10, 3);
 		break;
 	case MS_MAKE_TRAP:
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else
@@ -1049,7 +1049,7 @@ msg_print("死者復活の呪文を唱えた。");
 	case MS_S_KIN:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 
 #ifdef JP
 msg_print("援軍を召喚した。");
@@ -1066,7 +1066,7 @@ msg_print("援軍を召喚した。");
 	{
 		int k;
 		int max_cyber = (dun_level / 50) + randint1(3);
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("サイバーデーモンを召喚した！");
 #else
@@ -1080,7 +1080,7 @@ msg_print("サイバーデーモンを召喚した！");
 	case MS_S_MONSTER:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("仲間を召喚した。");
 #else
@@ -1093,7 +1093,7 @@ msg_print("仲間を召喚した。");
 	case MS_S_MONSTERS:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("モンスターを召喚した！");
 #else
@@ -1106,7 +1106,7 @@ msg_print("モンスターを召喚した！");
 	case MS_S_ANT:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アリを召喚した。");
 #else
@@ -1119,7 +1119,7 @@ msg_print("アリを召喚した。");
 	case MS_S_SPIDER:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("蜘蛛を召喚した。");
 #else
@@ -1132,7 +1132,7 @@ msg_print("蜘蛛を召喚した。");
 	case MS_S_HOUND:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ハウンドを召喚した。");
 #else
@@ -1145,7 +1145,7 @@ msg_print("ハウンドを召喚した。");
 	case MS_S_HYDRA:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ヒドラを召喚した。");
 #else
@@ -1158,7 +1158,7 @@ msg_print("ヒドラを召喚した。");
 	case MS_S_ANGEL:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("天使を召喚した！");
 #else
@@ -1171,7 +1171,7 @@ msg_print("天使を召喚した！");
 	case MS_S_DEMON:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
@@ -1184,7 +1184,7 @@ msg_print("混沌の宮廷から悪魔を召喚した！");
 	case MS_S_UNDEAD:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アンデッドの強敵を召喚した！");
 #else
@@ -1197,7 +1197,7 @@ msg_print("アンデッドの強敵を召喚した！");
 	case MS_S_DRAGON:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ドラゴンを召喚した！");
 #else
@@ -1210,7 +1210,7 @@ msg_print("ドラゴンを召喚した！");
 	case MS_S_HI_UNDEAD:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("強力なアンデッドを召喚した！");
 #else
@@ -1223,7 +1223,7 @@ msg_print("強力なアンデッドを召喚した！");
 	case MS_S_HI_DRAGON:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("古代ドラゴンを召喚した！");
 #else
@@ -1236,7 +1236,7 @@ msg_print("古代ドラゴンを召喚した！");
 	case MS_S_AMBERITE:
 	{
 		int k;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アンバーの王族を召喚した！");
 #else
@@ -1249,7 +1249,7 @@ msg_print("アンバーの王族を召喚した！");
 	case MS_S_UNIQUE:
 	{
 		int k, count = 0;
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("特別な強敵を召喚した！");
 #else

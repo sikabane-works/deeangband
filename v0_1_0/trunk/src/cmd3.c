@@ -1973,7 +1973,7 @@ void do_cmd_refill(void)
 void do_cmd_target(void)
 {
 	/* Target set */
-	if (target_set(TARGET_KILL))
+	if (target_set(p_ptr,TARGET_KILL))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -2003,7 +2003,7 @@ void do_cmd_target(void)
 void do_cmd_look(void)
 {
 	/* Look around */
-	if (target_set(TARGET_LOOK))
+	if (target_set(p_ptr, TARGET_LOOK))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");

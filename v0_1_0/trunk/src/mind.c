@@ -1166,7 +1166,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 	{
 		int m_idx;
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
@@ -1659,7 +1659,7 @@ msg_print("その方向にはモンスターはいません。");
 		u16b path_g[512];
 		int ty,tx;
 
-		if (!target_set(TARGET_KILL)) return FALSE;
+		if (!target_set(cr_ptr, TARGET_KILL)) return FALSE;
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (m_idx == cr_ptr->riding) break;
