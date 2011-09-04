@@ -1097,7 +1097,8 @@ struct creature_type
 	s16b monster_ego_idx;		    /* Monster ego index */
 	s16b ap_species_idx;		    /* Monster race appearance index */
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
-	u32b sub_race[8];       /* Sub-Race index */
+	u32b sub_race[8];       /* Sub-Race flags */
+	u32b authority[8];      /* Autority flags*/
 	s16b sex;				/* Sex index */
 	bool sexual_penalty;	/* Sexual penalty flag*/
 	byte cls_idx;		    /* Class index */

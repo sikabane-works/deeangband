@@ -456,7 +456,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	}
 
 	/* Query */
-	tmp_int = cr_ptr->dr;
+	sprintf(tmp_val, "%ld", (long)(cr_ptr->dr));
 	if (!get_string("Devine Rank: ", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
@@ -475,6 +475,11 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		cr_ptr->max_lev = i;
 
 	check_experience(cr_ptr);
+
+	/* Query */
+	sprintf(tmp_val, "%ld", (long)(cr_ptr->authority[0]));
+	if (!get_string("Authority: ", tmp_val, 2)) return;
+	cr_ptr->authority[0] = atoi(tmp_val);
 
 }
 
