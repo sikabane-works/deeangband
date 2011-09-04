@@ -6663,12 +6663,12 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		break;
 
 	case GF_HOLY_FIRE:
-		if (p_ptr->good > 10) dam /= 2;
-		else if (p_ptr->evil > 10) dam *= 2;
+		if (p_ptr->good_rank > 10) dam /= 2;
+		else if (p_ptr->evil_rank > 10) dam *= 2;
 		break;
 
 	case GF_HELL_FIRE:
-		if (p_ptr->good > 10) dam *= 2;
+		if (p_ptr->good_rank > 10) dam *= 2;
 		break;
 
 	case GF_MIND_BLAST:

@@ -1224,7 +1224,9 @@ struct creature_type
 	u32b muta2;
 	u32b muta3;
 
-	s16b karmas[MAX_KARMA];
+	s32b karmas_cur[MAX_KARMA];
+	s32b karmas[MAX_KARMA];
+	s16b karmas_rank[MAX_KARMA];
 
 	s16b word_recall;	  /* Word of recall counter */
 	s16b alter_reality;	  /* Alter reality counter */
@@ -1349,11 +1351,16 @@ struct creature_type
 	bool sutemi;
 	bool counter;
 
-	s16b good;
-	s16b evil;
-	s16b order;
-	s16b chaos;
-	s16b balance;
+	s32b good;
+	s32b evil;
+	s32b order;
+	s32b chaos;
+	s32b balance;
+	s16b good_rank;
+	s16b evil_rank;
+	s16b order_rank;
+	s16b chaos_rank;
+	s16b balance_rank;
 
 	s16b run_py;
 	s16b run_px;

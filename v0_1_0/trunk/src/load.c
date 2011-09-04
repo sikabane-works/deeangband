@@ -1512,7 +1512,7 @@ static void rd_extra(creature_type *cr_ptr)
 		rd_u32b(&cr_ptr->muta3);
 
 		for (i = 0; i < MAX_KARMA; i++)
-			rd_s16b(&cr_ptr->karmas[i]);
+			rd_s32b(&cr_ptr->karmas[i]);
 	}
 
 	/* Calc the regeneration modifier for mutations */

@@ -812,7 +812,7 @@ static void wr_extra(void)
 	wr_u32b(p_ptr->muta3);
 
 	for (i = 0; i < MAX_KARMA; i++)
-		wr_s16b(p_ptr->karmas[i]);
+		wr_s32b(p_ptr->karmas[i]);
 
 	wr_s16b(p_ptr->ele_attack);
 	wr_u32b(p_ptr->special_attack);

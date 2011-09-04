@@ -3047,8 +3047,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	int             extra_blows[2];
 	int             extra_shots;
 
-	s32b		tmp_good, tmp_evil, tmp_order, tmp_chaos, tmp_balance;
-
 	object_type     *o_ptr;
 	u32b flgs[TR_FLAG_SIZE];
 	bool            omoi = FALSE;
@@ -3241,6 +3239,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	j = 0;
 	k = 1;
 
+
 	/* Base skills */
 	cr_ptr->skill_dis = 5;
 	cr_ptr->skill_dev = 5;
@@ -3359,15 +3358,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;
-
-
-	/* new alignment calc*/
-	tmp_good = tmp_rcr_ptr->good;
-	tmp_evil = tmp_rcr_ptr->evil;
-	tmp_order = tmp_rcr_ptr->order;
-	tmp_chaos = tmp_rcr_ptr->chaos;
-	tmp_balance = tmp_rcr_ptr->balance;
-
 
 	if (have_weapon(cr_ptr, INVEN_1STARM)) cr_ptr->migite = TRUE;
 	if (have_weapon(cr_ptr, INVEN_2NDARM))
@@ -5655,6 +5645,49 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 
+	/* calc karmas and bonuses */
+	for(i = 0; i < MAX_KARMA; i++)
+		cr_ptr->karmas_cur[i] = cr_ptr->karmas_cur[i];
+
+	for(i = 0; i < MAX_KARMA; i++)
+		cr_ptr->karmas_rank[i] = calc_rank(cr_ptr->karmas_cur[i]);
+
+
+	/* calc alignments and bonuses */
+	if(cr_ptr->irace_idx != RACE_NONE)
+	{
+		cr_ptr->good    = tmp_rcr_ptr->good;
+		cr_ptr->evil    = tmp_rcr_ptr->evil;
+		cr_ptr->order   = tmp_rcr_ptr->order;
+		cr_ptr->chaos   = tmp_rcr_ptr->chaos;
+		cr_ptr->balance = tmp_rcr_ptr->balance;
+	}
+	else
+	{
+		cr_ptr->good    = 0;
+		cr_ptr->evil    = 0;
+		cr_ptr->order   = 0;
+		cr_ptr->chaos   = 0;
+		cr_ptr->balance = 0;
+	}
+
+	for(i = 0; i < MAX_KARMA; i++)
+	{
+		cr_ptr->good += cr_ptr->karmas[i] * karma[i].good_adj;
+		cr_ptr->evil += cr_ptr->karmas[i] * karma[i].evil_adj;
+		cr_ptr->order += cr_ptr->karmas[i] * karma[i].order_adj;
+		cr_ptr->chaos += cr_ptr->karmas[i] * karma[i].chaos_adj;
+	}
+
+	cr_ptr->good_rank = calc_rank(cr_ptr->good);
+	cr_ptr->evil_rank = calc_rank(cr_ptr->evil);
+	cr_ptr->order_rank = calc_rank(cr_ptr->order);
+	cr_ptr->chaos_rank = calc_rank(cr_ptr->chaos);
+	cr_ptr->balance_rank = calc_rank(cr_ptr->balance);
+
+
+
+
 	/* Hack -- handle "xtra" mode */
 	if (character_xtra) return;
 
@@ -5907,26 +5940,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		magic_type *s_ptr = &m_info[cr_ptr->sex].info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
-
-	/* Calc new Alignment*/
-	if(cr_ptr->irace_idx != RACE_NONE)
-	{
-		cr_ptr->good = calc_align(tmp_rcr_ptr->good);
-		cr_ptr->evil = calc_align(tmp_rcr_ptr->evil);
-		cr_ptr->order = calc_align(tmp_rcr_ptr->order);
-		cr_ptr->chaos = calc_align(tmp_rcr_ptr->chaos);
-		cr_ptr->balance = calc_align(tmp_rcr_ptr->balance);
-	}
-	else
-	{
-		cr_ptr->good = 0;
-		cr_ptr->evil = 0;
-		cr_ptr->order = 0;
-		cr_ptr->chaos = 0;
-		cr_ptr->balance = 0;
-	}
-
-
 
 }
 
@@ -6414,7 +6427,7 @@ bool heavy_armor(creature_type *cr_ptr)
 
 
 /* Calculate alignment */
-s16b calc_align(s32b align){
+s16b calc_rank(s32b align){
 	s32b t = 0, n; 
 	if(align < 0) n = -align;
 	else          n = align;

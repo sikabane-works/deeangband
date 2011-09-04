@@ -4278,13 +4278,13 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	switch (use_realm)
 	{
 	case REALM_NATURE:
-		if ((cr_ptr->balance < -50)) chance += penalty;
+		if ((cr_ptr->balance_rank < -50)) chance += penalty;
 		break;
 	case REALM_LIFE: case REALM_CRUSADE:
-		if (cr_ptr->good < 0) chance += penalty;
+		if (cr_ptr->good_rank < 0) chance += penalty;
 		break;
 	case REALM_DEATH: case REALM_DAEMON: case REALM_HEX:
-		if (cr_ptr->evil < 0) chance += penalty;
+		if (cr_ptr->evil_rank < 0) chance += penalty;
 		break;
 	}
 

@@ -3618,8 +3618,8 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, s
 	}
 	else /* For player */
 	{
-		if (p_ptr->good < 0) sub_align1 |= SUB_ALIGN_GOOD;
-		if (p_ptr->evil < 0) sub_align1 |= SUB_ALIGN_EVIL;
+		if (p_ptr->good_rank < 0) sub_align1 |= SUB_ALIGN_GOOD;
+		if (p_ptr->evil_rank < 0) sub_align1 |= SUB_ALIGN_EVIL;
 	}
 
 	/* Racial alignment flags */

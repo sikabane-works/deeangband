@@ -3968,11 +3968,11 @@ void display_player(int mode, creature_type *cr_ptr)
 
 #endif
 
-		display_player_one_line(ENTRY_GOOD,   format("%3d" ,cr_ptr->good),  TERM_YELLOW);
-		display_player_one_line(ENTRY_EVIL,   format("%3d" ,cr_ptr->evil),  TERM_RED);
-		display_player_one_line(ENTRY_ORDER,  format("%3d" ,cr_ptr->order), TERM_L_BLUE);
-		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos), TERM_VIOLET);
-		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance), TERM_L_GREEN);
+		display_player_one_line(ENTRY_GOOD,   format("%3d" ,cr_ptr->good_rank),  TERM_YELLOW);
+		display_player_one_line(ENTRY_EVIL,   format("%3d" ,cr_ptr->evil_rank),  TERM_RED);
+		display_player_one_line(ENTRY_ORDER,  format("%3d" ,cr_ptr->order_rank), TERM_L_BLUE);
+		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos_rank), TERM_VIOLET);
+		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance_rank), TERM_L_GREEN);
 
 		display_player_one_line(ENTRY_SIZE, format("%d", cr_ptr->size), TERM_L_BLUE);
 
