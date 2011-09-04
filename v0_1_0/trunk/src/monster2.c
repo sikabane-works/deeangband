@@ -3277,7 +3277,7 @@ static void mon_equip(creature_type *m_ptr)
 
 }
 
-static int place_monster_one(creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
+static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -3653,9 +3653,9 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	if (r_ptr->flags7 & RF7_SELF_LD_MASK)
-		p_ptr->update |= (PU_MON_LITE);
+		watcher_ptr->update |= (PU_MON_LITE);
 	else if ((r_ptr->flags7 & RF7_HAS_LD_MASK) && !m_ptr->paralyzed)
-		p_ptr->update |= (PU_MON_LITE);
+		watcher_ptr->update |= (PU_MON_LITE);
 
 	/* Update the monster */
 	update_mon(c_ptr->m_idx, TRUE);
@@ -3669,7 +3669,7 @@ msg_print("守りのルーンが壊れた！");
 	 */
 	if (character_dungeon &&
 	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)))
-		real_r_ptr(m_ptr)->floor_id = p_ptr->floor_id;
+		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
 	if (r_ptr->flags2 & RF2_MULTIPLY) num_repro++;
@@ -3681,7 +3681,7 @@ msg_print("守りのルーンが壊れた！");
 			shimmer_monsters = TRUE;
 	}
 
-	if (p_ptr->warning && character_dungeon)
+	if (watcher_ptr->warning && character_dungeon)
 	{
 		if (r_ptr->flags1 & RF1_UNIQUE)
 		{
@@ -3689,31 +3689,31 @@ msg_print("守りのルーンが壊れた！");
 			object_type *o_ptr;
 			char o_name[MAX_NLEN];
 
-			if (r_ptr->level > p_ptr->lev + 30)
+			if (r_ptr->level > watcher_ptr->lev + 30)
 #ifdef JP
 				color = "黒く";
 #else
 				color = "black";
 #endif
-			else if (r_ptr->level > p_ptr->lev + 15)
+			else if (r_ptr->level > watcher_ptr->lev + 15)
 #ifdef JP
 				color = "紫色に";
 #else
 				color = "purple";
 #endif
-			else if (r_ptr->level > p_ptr->lev + 5)
+			else if (r_ptr->level > watcher_ptr->lev + 5)
 #ifdef JP
 				color = "ルビー色に";
 #else
 				color = "deep red";
 #endif
-			else if (r_ptr->level > p_ptr->lev - 5)
+			else if (r_ptr->level > watcher_ptr->lev - 5)
 #ifdef JP
 				color = "赤く";
 #else
 				color = "red";
 #endif
-			else if (r_ptr->level > p_ptr->lev - 15)
+			else if (r_ptr->level > watcher_ptr->lev - 15)
 #ifdef JP
 				color = "ピンク色に";
 #else
@@ -3761,7 +3761,7 @@ msg_print("ルーンが爆発した！");
 				msg_print("The rune explodes!");
 #endif
 
-				project(p_ptr, 2, y, x, 2 * (p_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else
@@ -4045,7 +4045,7 @@ static bool place_monster_group(creature_type *who_ptr, int y, int x, int specie
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(who_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(p_ptr, who_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4136,7 +4136,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(who_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
+	i = place_monster_one(p_ptr, who_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
 	m_ptr = &m_list[i];
@@ -4157,7 +4157,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
-			if(place_monster_one(who_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(p_ptr, who_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4206,7 +4206,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_monster_one(p_ptr, who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if ((r_info[z].flags1 & RF1_FRIENDS) ||
