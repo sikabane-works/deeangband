@@ -1678,7 +1678,7 @@ static bool item_tester_refill_lantern(creature_type *cr_ptr, object_type *o_ptr
 /*
  * Refill the players lamp (from the pack or floor)
  */
-static void do_cmd_refill_lamp(void)
+static void do_cmd_refill_lamp(creature_type *cr_ptr)
 {
 	int item;
 
@@ -1700,12 +1700,12 @@ static void do_cmd_refill_lamp(void)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1719,7 +1719,7 @@ static void do_cmd_refill_lamp(void)
 	energy_use = 50;
 
 	/* Access the lantern */
-	j_ptr = &p_ptr->inventory[INVEN_LITE];
+	j_ptr = &cr_ptr->inventory[INVEN_LITE];
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4;
@@ -1778,7 +1778,7 @@ static void do_cmd_refill_lamp(void)
 	}
 
 	/* Recalculate torch */
-	p_ptr->update |= (PU_TORCH);
+	cr_ptr->update |= (PU_TORCH);
 }
 
 
@@ -1799,7 +1799,7 @@ static bool item_tester_refill_torch(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Refuel the players torch (from the pack or floor)
  */
-static void do_cmd_refill_torch(void)
+static void do_cmd_refill_torch(creature_type *cr_ptr)
 {
 	int item;
 
@@ -1821,12 +1821,12 @@ static void do_cmd_refill_torch(void)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1840,7 +1840,7 @@ static void do_cmd_refill_torch(void)
 	energy_use = 50;
 
 	/* Access the primary torch */
-	j_ptr = &p_ptr->inventory[INVEN_LITE];
+	j_ptr = &cr_ptr->inventory[INVEN_LITE];
 
 	/* Refuel */
 	j_ptr->xtra4 += o_ptr->xtra4 + 5;
@@ -1912,7 +1912,7 @@ static void do_cmd_refill_torch(void)
 	}
 
 	/* Recalculate torch */
-	p_ptr->update |= (PU_TORCH);
+	cr_ptr->update |= (PU_TORCH);
 }
 
 
@@ -1945,13 +1945,13 @@ void do_cmd_refill(void)
 	/* It's a lamp */
 	else if (o_ptr->sval == SV_LITE_LANTERN)
 	{
-		do_cmd_refill_lamp();
+		do_cmd_refill_lamp(p_ptr);
 	}
 
 	/* It's a torch */
 	else if (o_ptr->sval == SV_LITE_TORCH)
 	{
-		do_cmd_refill_torch();
+		do_cmd_refill_torch(p_ptr);
 	}
 
 	/* No torch to refill */
