@@ -687,6 +687,41 @@ static cptr r_info_flagse[] =
 
 
 /*
+ * Monster authority flags
+ */
+static cptr r_info_auth[] =
+{
+	"FIRE1",
+	"FIRE2",
+	"FIRE3",
+	"FIRE4",
+	"WATER1",
+	"WATER2",
+	"WATER3",
+	"WATER4",
+	"EARTH1",
+	"EARTH2",
+	"EARTH3",
+	"EARTH4",
+	"WIND1",
+	"WIND2",
+	"WIND3",
+	"WIND4",
+	"LIGHT1",
+	"LIGHT2",
+	"LIGHT3",
+	"DARK1",
+	"DARK2",
+	"DARK3",
+	"ORDER1",
+	"ORDER2",
+	"ORDER3",
+	"CHAOS1",
+	"CHAOS2",
+	"CHAOS3",
+};
+
+/*
  * Object flags
  */
 static cptr k_info_flags[] =
