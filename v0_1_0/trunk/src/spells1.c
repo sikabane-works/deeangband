@@ -1729,7 +1729,7 @@ msg_format("%sは%s", o_name, note_kill);
  * We attempt to return "TRUE" if the player saw anything "useful" happen.
  */
 /* "flg" was added. */
-static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
+static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
 {
 	int tmp;
 
@@ -1743,7 +1743,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 
 	/* Is the monster "seen"? */
 	bool seen = m_ptr->ml;
-	bool seen_msg = is_seen(p_ptr, m_ptr);
+	bool seen_msg = is_seen(aimer_ptr, m_ptr);
 
 	bool slept = (bool)m_ptr->paralyzed;
 
@@ -1795,7 +1795,7 @@ static bool project_m(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	cptr note = NULL;
 
 	/* Assume a default death */
-	cptr note_dies = extract_note_dies(p_ptr, real_r_ptr(m_ptr));
+	cptr note_dies = extract_note_dies(aimer_ptr, real_r_ptr(m_ptr));
 
 	int ty = m_ptr->fy;
 	int tx = m_ptr->fx;
@@ -2787,7 +2787,7 @@ note_dies = "は蒸発した！";
 			if (seen) obvious = TRUE;
 
 			/* PSI only works if the monster can see you! -- RG */
-			if (!(los(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx)))
+			if (!(los(m_ptr->fy, m_ptr->fx, aimer_ptr->fy, aimer_ptr->fx)))
 			{
 #ifdef JP
 				if (seen_msg) msg_format("%sはあなたが見えないので影響されない！", m_name);
@@ -5403,7 +5403,7 @@ note_dies = "はドロドロに溶けた！";
 				cap_nickname = m_ptr->nickname; /* Quark transfer */
 				if (c_ptr->m_idx == who_ptr->riding)
 				{
-					if (rakuba(p_ptr, -1, FALSE))
+					if (rakuba(aimer_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -6166,7 +6166,7 @@ msg_print("空間が歪んだ！");
 #endif
 
 					if (m_ptr->species_idx) teleport_away(&m_list[c_ptr->m_idx], damroll(10, 10), TELEPORT_PASSIVE);
-					if (one_in_(13)) count += activate_hi_summon(p_ptr, ty, tx, TRUE);
+					if (one_in_(13)) count += activate_hi_summon(aimer_ptr, ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
 			case 9: case 10: case 11:
@@ -6182,7 +6182,7 @@ msg_print("エネルギーのうねりを感じた！");
 				aggravate_monsters(NULL);
 				if (!one_in_(6)) break;
 			case 17: case 18:
-				count += activate_hi_summon(p_ptr, ty, tx, TRUE);
+				count += activate_hi_summon(aimer_ptr, ty, tx, TRUE);
 				if (!one_in_(6)) break;
 			case 19: case 20: case 21: case 22:
 			{
@@ -6192,7 +6192,7 @@ msg_print("エネルギーのうねりを感じた！");
 				if (pet) mode |= PM_FORCE_PET;
 				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? p_ptr : NULL), p_ptr->fy, p_ptr->fx, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
+				count += summon_specific((pet ? aimer_ptr : NULL), aimer_ptr->fy, aimer_ptr->fx, (pet ? who_ptr->lev*2/3+randint1(who_ptr->lev/2) : dun_level), 0, mode);
 				if (!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
@@ -6237,7 +6237,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 	{
 		who_ptr->health_who = c_ptr->m_idx;
 		play_redraw |= (PR_HEALTH);
-		redraw_stuff(p_ptr);
+		redraw_stuff(aimer_ptr);
 	}
 
 	/* XXX XXX XXX Verify this code */
@@ -6295,7 +6295,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		q_ptr->ident |= (IDENT_MENTAL);
 
 		/* Drop it in the dungeon */
-		(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
+		(void)drop_near(q_ptr, -1, aimer_ptr->fy, aimer_ptr->fx);
 	}
 
 	/* Track it */
@@ -8485,7 +8485,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
+					if(project_m(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
 					if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
@@ -8510,7 +8510,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_m(who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
+			if(project_m(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
 			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
@@ -8643,7 +8643,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_m(who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
+			(void)project_m(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
 			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
@@ -9165,7 +9165,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the monster in the grid */
-			if (project_m(who_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
+			if (project_m(p_ptr, who_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
 		}
 
 
@@ -9433,7 +9433,7 @@ bool binding_field( int dam )
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if (player_has_los_bold(y, x) && projectable(p_ptr->fy, p_ptr->fx, y, x)) {
-					(void)project_m(p_ptr,0,y,x,dam,GF_MANA,
+					(void)project_m(p_ptr, p_ptr,0,y,x,dam,GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE);
 				}
 			}
@@ -9461,7 +9461,7 @@ void seal_of_mirror( int dam )
 		{
 			if( is_mirror_grid(&cave[y][x]))
 			{
-				if(project_m(p_ptr,0,y,x,dam,GF_GENOCIDE,
+				if(project_m(p_ptr, p_ptr,0,y,x,dam,GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE))
 				{
 					if( !cave[y][x].m_idx )
