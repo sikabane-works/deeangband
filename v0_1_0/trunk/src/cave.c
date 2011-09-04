@@ -914,7 +914,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * "x_ptr->xxx", is quicker than "x_info[x].xxx", if this is incorrect
  * then a whole lot of code should be changed...  XXX XXX
  */
-void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
+void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 {
 	/* Get the cave */
 	cave_type *c_ptr = &cave[y][x];
@@ -944,9 +944,9 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 		 *   (Such grids also have CAVE_VIEW)
 		 * - Can see grids with CAVE_VIEW unless darkened by monsters.
 		 */
-		if (!p_ptr->blind &&
+		if (!cr_ptr->blind &&
 		    ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
-		     ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || p_ptr->see_nocto))))
+		     ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || cr_ptr->see_nocto))))
 		{
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -1047,7 +1047,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
-				if (view_granite_lite && (p_ptr->blind || !is_daytime()))
+				if (view_granite_lite && (cr_ptr->blind || !is_daytime()))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1057,7 +1057,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(c_ptr) && !p_ptr->blind)
+			else if (darkened_grid(c_ptr) && !cr_ptr->blind)
 			{
 				if (have_flag(f_ptr->flags, FF_LOS) && have_flag(f_ptr->flags, FF_PROJECT))
 				{
@@ -1084,7 +1084,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			else if (view_granite_lite)
 			{
 				/* Handle "blind" */
-				if (p_ptr->blind)
+				if (cr_ptr->blind)
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1126,7 +1126,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 					}
 
 					/* Not glowing correctly */
-					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(p_ptr, y, x))
+					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(cr_ptr, y, x))
 					{
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
@@ -1163,7 +1163,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	(*cp) = c;
 
 	/* Hack -- rare random hallucination, except on outer dungeon walls */
-	if (p_ptr->image)
+	if (cr_ptr->image)
 	{
 		if (one_in_(256))
 		{
@@ -1190,7 +1190,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			{
 				byte act;
 
-				match_autopick = is_autopick(p_ptr, o_ptr);
+				match_autopick = is_autopick(cr_ptr, o_ptr);
 				if(match_autopick == -1)
 					continue;
 
@@ -1215,7 +1215,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			feat_priority = 20;
 
 			/* Hack -- hallucination */
-			if (p_ptr->image) image_object(ap, cp);
+			if (cr_ptr->image) image_object(ap, cp);
 
 			/* Done */
 			break;
@@ -1236,7 +1236,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 			feat_priority = 30;
 
 			/* Hallucination */
-			if (p_ptr->image)
+			if (cr_ptr->image)
 			{
 				/*
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
@@ -1342,7 +1342,7 @@ void map_info(int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 	}
 
 	/* Handle "player" */
-	if (creature_bold(p_ptr, y, x))
+	if (creature_bold(cr_ptr, y, x))
 	{
 		species_type *r_ptr = &r_info[0];
 
@@ -1572,7 +1572,7 @@ void display_dungeon(void)
 			{
 
 				/* Examine the grid */
-				map_info(y, x, &a, &c, &ta, &tc);
+				map_info(p_ptr, y, x, &a, &c, &ta, &tc);
 
 				/* Hack -- fake monochrome */
 				if (!use_graphics)
@@ -1623,7 +1623,7 @@ void lite_spot(int y, int x)
 		char tc;
 
 		/* Examine the grid */
-		map_info(y, x, &a, &c, &ta, &tc);
+		map_info(p_ptr, y, x, &a, &c, &ta, &tc);
 
 		/* Hack -- fake monochrome */
 		if (!use_graphics)
@@ -1706,7 +1706,7 @@ void prt_map(creature_type *cr_ptr)
 			char tc;
 
 			/* Determine what is there */
-			map_info(y, x, &a, &c, &ta, &tc);
+			map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
 
 			/* Hack -- fake monochrome */
 			if (!use_graphics)
@@ -1771,7 +1771,7 @@ void prt_path(int y, int x)
 			if (c_ptr->m_idx && m_list[c_ptr->m_idx].ml)
 			{
 				/* Determine what is there */
-				map_info(ny, nx, &a, &c, &ta, &tc);
+				map_info(p_ptr, ny, nx, &a, &c, &ta, &tc);
 
 				if (!is_ascii_graphics(a))
 					a = default_color;
@@ -2012,7 +2012,7 @@ void display_map(int *cy, int *cx)
 			feat_priority = -1;
 
 			/* Extract the current attr/char at that map location */
-			map_info(j, i, &ta, &tc, &ta, &tc);
+			map_info(p_ptr, j, i, &ta, &tc, &ta, &tc);
 
 			/* Extract the priority */
 			tp = feat_priority;
