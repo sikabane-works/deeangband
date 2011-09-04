@@ -29,7 +29,7 @@ static bool item_tester_hook_convertible(creature_type *cr_ptr, object_type *o_p
  * do_cmd_cast calls this function if the player's class
  * is 'archer'.
  */
-static bool do_cmd_archer(void)
+static bool do_cmd_archer(creature_type *cr_ptr)
 {
 	int ext=0;
 	char ch;
@@ -42,13 +42,13 @@ static bool do_cmd_archer(void)
 
 	q_ptr = &forge;
 
-	if(p_ptr->lev >= 20)
+	if(cr_ptr->lev >= 20)
 #ifdef JP
 		sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
 #else
 		sprintf(com, "Create [S]hots, Create [A]rrow or Create [B]olt ?");
 #endif
-	else if(p_ptr->lev >= 10)
+	else if(cr_ptr->lev >= 10)
 #ifdef JP
 		sprintf(com, "[S]弾, [A]矢:");
 #else
@@ -61,7 +61,7 @@ static bool do_cmd_archer(void)
 		sprintf(com, "Create [S]hots ?");
 #endif
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱してる！");
@@ -71,7 +71,7 @@ static bool do_cmd_archer(void)
 		return FALSE;
 	}
 
-	if (p_ptr->blind)
+	if (cr_ptr->blind)
 	{
 #ifdef JP
 		msg_print("目が見えない！");
@@ -92,12 +92,12 @@ static bool do_cmd_archer(void)
 			ext = 1;
 			break;
 		}
-		if ((ch == 'A' || ch == 'a')&&(p_ptr->lev >= 10))
+		if ((ch == 'A' || ch == 'a')&&(cr_ptr->lev >= 10))
 		{
 			ext = 2;
 			break;
 		}
-		if ((ch == 'B' || ch == 'b')&&(p_ptr->lev >= 20))
+		if ((ch == 'B' || ch == 'b')&&(cr_ptr->lev >= 20))
 		{
 			ext = 3;
 			break;
@@ -110,9 +110,9 @@ static bool do_cmd_archer(void)
 		int x,y, dir;
 		cave_type *c_ptr;
 
-		if (!get_rep_dir(p_ptr, &dir, FALSE)) return FALSE;
-		y = p_ptr->fy + ddy[dir];
-		x = p_ptr->fx + ddx[dir];
+		if (!get_rep_dir(cr_ptr, &dir, FALSE)) return FALSE;
+		y = cr_ptr->fy + ddy[dir];
+		x = cr_ptr->fx + ddx[dir];
 		c_ptr = &cave[y][x];
 
 		if (!have_flag(f_info[get_feat_mimic(c_ptr)].flags, FF_CAN_DIG))
@@ -140,14 +140,14 @@ static bool do_cmd_archer(void)
 			q_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
-			object_prep(q_ptr, lookup_kind(TV_SHOT, m_bonus(1, p_ptr->lev) + 1), ITEM_FREE_SIZE);
+			object_prep(q_ptr, lookup_kind(TV_SHOT, m_bonus(1, cr_ptr->lev) + 1), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(15,30);
 			object_aware(q_ptr);
 			object_known(q_ptr);
-			apply_magic(q_ptr, p_ptr->lev, AM_NO_FIXED_ART);
+			apply_magic(q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
 			q_ptr->discount = 99;
 
-			slot = inven_carry(p_ptr, q_ptr);
+			slot = inven_carry(cr_ptr, q_ptr);
 
 			object_desc(o_name, q_ptr, 0);
 #ifdef JP
@@ -157,12 +157,12 @@ static bool do_cmd_archer(void)
 #endif
 
 			/* Auto-inscription */
-			if (slot >= 0) autopick_alter_item(p_ptr, slot, FALSE);
+			if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
 
 			/* Destroy the wall */
 			cave_alter_feat(y, x, FF_HURT_ROCK);
 
-			p_ptr->update |= (PU_FLOW);
+			cr_ptr->update |= (PU_FLOW);
 		}
 	}
 	/**********Create arrows*********/
@@ -182,12 +182,12 @@ static bool do_cmd_archer(void)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &p_ptr->inventory[item];
+			q_ptr = &cr_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -200,11 +200,11 @@ static bool do_cmd_archer(void)
 		q_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_ARROW, m_bonus(1, p_ptr->lev)+ 1), ITEM_FREE_SIZE);
+		object_prep(q_ptr, lookup_kind(TV_ARROW, m_bonus(1, cr_ptr->lev)+ 1), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(5, 10);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(q_ptr, p_ptr->lev, AM_NO_FIXED_ART);
+		apply_magic(q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
 
 		q_ptr->discount = 99;
 
@@ -228,10 +228,10 @@ static bool do_cmd_archer(void)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(p_ptr, q_ptr);
+		slot = inven_carry(cr_ptr, q_ptr);
 
 		/* Auto-inscription */
-		if (slot >= 0) autopick_alter_item(p_ptr, slot, FALSE);
+		if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
 	}
 	/**********Create bolts*********/
 	else if (ext == 3)
@@ -250,12 +250,12 @@ static bool do_cmd_archer(void)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
 		{
-			q_ptr = &p_ptr->inventory[item];
+			q_ptr = &cr_ptr->inventory[item];
 		}
 
 		/* Get the item (on the floor) */
@@ -268,11 +268,11 @@ static bool do_cmd_archer(void)
 		q_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(q_ptr, lookup_kind(TV_BOLT, m_bonus(1, p_ptr->lev)+1), ITEM_FREE_SIZE);
+		object_prep(q_ptr, lookup_kind(TV_BOLT, m_bonus(1, cr_ptr->lev)+1), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(4, 8);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(q_ptr, p_ptr->lev, AM_NO_FIXED_ART);
+		apply_magic(q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
 
 		q_ptr->discount = 99;
 
@@ -296,10 +296,10 @@ static bool do_cmd_archer(void)
 			floor_item_optimize(0 - item);
 		}
 
-		slot = inven_carry(p_ptr, q_ptr);
+		slot = inven_carry(cr_ptr, q_ptr);
 
 		/* Auto-inscription */
-		if (slot >= 0) autopick_alter_item(p_ptr, slot, FALSE);
+		if (slot >= 0) autopick_alter_item(cr_ptr, slot, FALSE);
 	}
 	return TRUE;
 }
@@ -431,7 +431,7 @@ s = "魔力を取り込めるアイテムがない。";
 }
 
 
-static bool can_do_cmd_cast(void)
+static bool can_do_cmd_cast(creature_type *cr_ptr)
 {
 	if (dun_level && (d_info[dungeon_type].flags1 & DF1_NO_MAGIC))
 	{
@@ -443,7 +443,7 @@ static bool can_do_cmd_cast(void)
 		msg_print(NULL);
 		return FALSE;
 	}
-	else if (p_ptr->anti_magic)
+	else if (cr_ptr->anti_magic)
 	{
 #ifdef JP
 		msg_print("反魔法バリアが魔法を邪魔した！");
@@ -452,7 +452,7 @@ static bool can_do_cmd_cast(void)
 #endif
 		return FALSE;
 	}
-	else if (p_ptr->shero)
+	else if (cr_ptr->shero)
 	{
 #ifdef JP
 		msg_format("狂戦士化していて頭が回らない！");
@@ -466,14 +466,14 @@ static bool can_do_cmd_cast(void)
 }
 
 
-static bool choose_kamae(void)
+static bool choose_kamae(creature_type *cr_ptr)
 {
 	char choice;
 	int new_kamae = 0;
 	int i;
 	char buf[80];
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -494,7 +494,7 @@ static bool choose_kamae(void)
 
 	for (i = 0; i < MAX_KAMAE; i++)
 	{
-		if (p_ptr->lev >= kamae_shurui[i].min_level)
+		if (cr_ptr->lev >= kamae_shurui[i].min_level)
 		{
 			sprintf(buf," %c) %-12s  %s",I2A(i+1), kamae_shurui[i].desc, kamae_shurui[i].info);
 			prt(buf, 3+i, 20);
@@ -519,9 +519,9 @@ static bool choose_kamae(void)
 		}
 		else if ((choice == 'a') || (choice == 'A'))
 		{
-			if (p_ptr->action == ACTION_KAMAE)
+			if (cr_ptr->action == ACTION_KAMAE)
 			{
-				set_action(p_ptr, ACTION_NONE);
+				set_action(cr_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -537,25 +537,25 @@ static bool choose_kamae(void)
 			new_kamae = 0;
 			break;
 		}
-		else if (((choice == 'c') || (choice == 'C')) && (p_ptr->lev > 29))
+		else if (((choice == 'c') || (choice == 'C')) && (cr_ptr->lev > 29))
 		{
 			new_kamae = 1;
 			break;
 		}
-		else if (((choice == 'd') || (choice == 'D')) && (p_ptr->lev > 34))
+		else if (((choice == 'd') || (choice == 'D')) && (cr_ptr->lev > 34))
 		{
 			new_kamae = 2;
 			break;
 		}
-		else if (((choice == 'e') || (choice == 'E')) && (p_ptr->lev > 39))
+		else if (((choice == 'e') || (choice == 'E')) && (cr_ptr->lev > 39))
 		{
 			new_kamae = 3;
 			break;
 		}
 	}
-	set_action(p_ptr, ACTION_KAMAE);
+	set_action(cr_ptr, ACTION_KAMAE);
 
-	if (p_ptr->special_defense & (KAMAE_GENBU << new_kamae))
+	if (cr_ptr->special_defense & (KAMAE_GENBU << new_kamae))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -565,29 +565,29 @@ static bool choose_kamae(void)
 	}
 	else
 	{
-		p_ptr->special_defense &= ~(KAMAE_MASK);
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->special_defense &= ~(KAMAE_MASK);
+		cr_ptr->update |= (PU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
 		msg_format("%sの構えをとった。",kamae_shurui[new_kamae].desc);
 #else
 		msg_format("You assume a posture of %s form.",kamae_shurui[new_kamae].desc);
 #endif
-		p_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
+		cr_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
 	}
 	play_redraw |= PR_STATE;
 	screen_load();
 	return TRUE;
 }
 
-static bool choose_kata(void)
+static bool choose_kata(creature_type *cr_ptr)
 {
 	char choice;
 	int new_kata = 0;
 	int i;
 	char buf[80];
 
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -597,7 +597,7 @@ static bool choose_kata(void)
 		return FALSE;
 	}
 
-	if (p_ptr->stun)
+	if (cr_ptr->stun)
 	{
 #ifdef JP
 		msg_print("意識がはっきりとしない。");
@@ -607,7 +607,7 @@ static bool choose_kata(void)
 		return FALSE;
 	}
 
-	if (p_ptr->afraid)
+	if (cr_ptr->afraid)
 	{
 #ifdef JP
 		msg_print("体が震えて構えられない！");
@@ -628,7 +628,7 @@ static bool choose_kata(void)
 
 	for (i = 0; i < MAX_KATA; i++)
 	{
-		if (p_ptr->lev >= kata_shurui[i].min_level)
+		if (cr_ptr->lev >= kata_shurui[i].min_level)
 		{
 #ifdef JP
 			sprintf(buf," %c) %sの型    %s",I2A(i+1), kata_shurui[i].desc, kata_shurui[i].info);
@@ -657,9 +657,9 @@ static bool choose_kata(void)
 		}
 		else if ((choice == 'a') || (choice == 'A'))
 		{
-			if (p_ptr->action == ACTION_KATA)
+			if (cr_ptr->action == ACTION_KATA)
 			{
-				set_action(p_ptr, ACTION_NONE);
+				set_action(cr_ptr, ACTION_NONE);
 			}
 			else
 #ifdef JP
@@ -675,25 +675,25 @@ static bool choose_kata(void)
 			new_kata = 0;
 			break;
 		}
-		else if (((choice == 'c') || (choice == 'C')) && (p_ptr->lev > 29))
+		else if (((choice == 'c') || (choice == 'C')) && (cr_ptr->lev > 29))
 		{
 			new_kata = 1;
 			break;
 		}
-		else if (((choice == 'd') || (choice == 'D')) && (p_ptr->lev > 34))
+		else if (((choice == 'd') || (choice == 'D')) && (cr_ptr->lev > 34))
 		{
 			new_kata = 2;
 			break;
 		}
-		else if (((choice == 'e') || (choice == 'E')) && (p_ptr->lev > 39))
+		else if (((choice == 'e') || (choice == 'E')) && (cr_ptr->lev > 39))
 		{
 			new_kata = 3;
 			break;
 		}
 	}
-	set_action(p_ptr, ACTION_KATA);
+	set_action(cr_ptr, ACTION_KATA);
 
-	if (p_ptr->special_defense & (KATA_IAI << new_kata))
+	if (cr_ptr->special_defense & (KATA_IAI << new_kata))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -703,15 +703,15 @@ static bool choose_kata(void)
 	}
 	else
 	{
-		p_ptr->special_defense &= ~(KATA_MASK);
-		p_ptr->update |= (PU_BONUS);
-		p_ptr->update |= (PU_MONSTERS);
+		cr_ptr->special_defense &= ~(KATA_MASK);
+		cr_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_MONSTERS);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
 #else
 		msg_format("You assume a posture of %s form.",kata_shurui[new_kata].desc);
 #endif
-		p_ptr->special_defense |= (KATA_IAI << new_kata);
+		cr_ptr->special_defense |= (KATA_IAI << new_kata);
 	}
 	play_redraw |= (PR_STATE);
 	play_redraw |= (PR_STATUS);
@@ -1084,7 +1084,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 			if (command == -3)
 			{
-				if (!choose_kamae()) return FALSE;
+				if (!choose_kamae(cr_ptr)) return FALSE;
 				cr_ptr->update |= (PU_BONUS);
 			}
 			else if (command == -4)
@@ -1191,12 +1191,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_ARCHER:
 		{
-			if (!do_cmd_archer()) return FALSE;
+			if (!do_cmd_archer(cr_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_MAGIC_EATER:
 		{
-			if (!gain_magic(p_ptr)) return FALSE;
+			if (!gain_magic(cr_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_BARD:
@@ -1204,17 +1204,17 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			/* Singing is already stopped */
 			if (!cr_ptr->magic_num1[0] && !cr_ptr->magic_num1[1]) return FALSE;
 
-			stop_singing(p_ptr);
+			stop_singing(cr_ptr);
 			energy_use = 10;
 			break;
 		}
 		case CLASS_RED_MAGE:
 		{
-			if (!can_do_cmd_cast()) return FALSE;
+			if (!can_do_cmd_cast(cr_ptr)) return FALSE;
 			handle_stuff(cr_ptr);
 			do_cmd_cast(cr_ptr);
 			handle_stuff(cr_ptr);
-			if (!cr_ptr->paralyzed && can_do_cmd_cast())
+			if (!cr_ptr->paralyzed && can_do_cmd_cast(cr_ptr))
 				do_cmd_cast(cr_ptr);
 			break;
 		}
@@ -1269,7 +1269,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if (!choose_kata()) return FALSE;
+				if (!choose_kata(cr_ptr)) return FALSE;
 				cr_ptr->update |= (PU_BONUS);
 			}
 			break;
@@ -1335,7 +1335,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_format("You have thrown off by %s.",m_name);
 #endif
-				rakuba(p_ptr, 1, TRUE);
+				rakuba(cr_ptr, 1, TRUE);
 
 				/* Paranoia */
 				/* 落馬処理に失敗してもとにかく乗馬解除 */
