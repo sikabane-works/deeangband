@@ -1249,7 +1249,7 @@ extern void remove_all_mirrors(bool explode);
 /* spells3.c */
 extern bool teleport_away(creature_type *cr_ptr, int dis, u32b mode);
 extern void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode);
-extern bool cave_player_teleportable_bold(int y, int x, u32b mode);
+extern bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode);
 extern bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode);
 extern void teleport_player(creature_type *cr_ptr, int dis, u32b mode);
 extern void teleport_player_away(creature_type *cr_ptr, int dis);

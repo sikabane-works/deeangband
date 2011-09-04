@@ -11161,7 +11161,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (!tgt_pt(cr_ptr, &x, &y)) return NULL;
 
-			if (!cave_player_teleportable_bold(y, x, 0L) ||
+			if (!cave_player_teleportable_bold(cr_ptr, y, x, 0L) ||
 			    (distance(y, x, cr_ptr->fy, cr_ptr->fx) > MAX_SIGHT / 2) ||
 			    !projectable(cr_ptr->fy, cr_ptr->fx, y, x))
 			{

@@ -253,7 +253,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 }
 
 
-bool cave_player_teleportable_bold(int y, int x, u32b mode)
+bool cave_player_teleportable_bold(creature_type *cr_ptr, int y, int x, u32b mode)
 {
 	cave_type    *c_ptr = &cave[y][x];
 	feature_type *f_ptr = &f_info[c_ptr->feat];
@@ -264,27 +264,27 @@ bool cave_player_teleportable_bold(int y, int x, u32b mode)
 	/* No magical teleporting into vaults and such */
 	if (!(mode & TELEPORT_NONMAGICAL) && (c_ptr->info & CAVE_ICKY)) return FALSE;
 
-	if (c_ptr->m_idx && (c_ptr->m_idx != p_ptr->riding)) return FALSE;
+	if (c_ptr->m_idx && (c_ptr->m_idx != cr_ptr->riding)) return FALSE;
 
 	/* don't teleport on a trap. */
 	if (have_flag(f_ptr->flags, FF_HIT_TRAP)) return FALSE;
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!player_can_enter(p_ptr, c_ptr->feat, 0)) return FALSE;
+		if (!player_can_enter(cr_ptr, c_ptr->feat, 0)) return FALSE;
 
 		if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 		{
-			if (!p_ptr->levitation && !p_ptr->can_swim) return FALSE;
+			if (!cr_ptr->levitation && !cr_ptr->can_swim) return FALSE;
 		}
 
-		if (have_flag(f_ptr->flags, FF_LAVA) && !p_ptr->immune_fire && !IS_INVULN(p_ptr))
+		if (have_flag(f_ptr->flags, FF_LAVA) && !cr_ptr->immune_fire && !IS_INVULN(cr_ptr))
 		{
 			/* Always forbid deep lava */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Forbid shallow lava when the player don't have levitation */
-			if (!p_ptr->levitation) return FALSE;
+			if (!cr_ptr->levitation) return FALSE;
 		}
 
 	}
@@ -352,7 +352,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(p_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
 			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
@@ -391,7 +391,7 @@ bool teleport_player_aux(creature_type *cr_ptr, int dis, u32b mode)
 			int d;
 
 			/* Skip illegal locations */
-			if (!cave_player_teleportable_bold(y, x, mode)) continue;
+			if (!cave_player_teleportable_bold(p_ptr, y, x, mode)) continue;
 
 			/* Calculate distance */
 			d = distance(cr_ptr->fy, cr_ptr->fx, y, x);
@@ -539,7 +539,7 @@ void teleport_player_to(int ny, int nx, u32b mode)
 		if (wizard && !(mode & TELEPORT_PASSIVE) && (!cave[y][x].m_idx || (cave[y][x].m_idx == p_ptr->riding))) break;
 
 		/* Accept teleportable floor grids */
-		if (cave_player_teleportable_bold(y, x, mode)) break;
+		if (cave_player_teleportable_bold(p_ptr, y, x, mode)) break;
 
 		/* Occasionally advance the distance */
 		if (++ctr > (4 * dis * dis + 4 * dis + 1))
@@ -3740,7 +3740,7 @@ msg_print("¸”s‚µ‚½B");
 
 /*
  * Potions "smash open" and cause an area effect when
- * (1) they are shattered while in the player's p_ptr->inventory,
+ * (1) they are shattered while in the player's inventory,
  * due to cold (etc) attacks;
  * (2) they are thrown at a monster, or obstacle;
  * (3) they are shattered by a "cold ball" or other such spell
@@ -3750,10 +3750,10 @@ msg_print("¸”s‚µ‚½B");
  *    who   ---  who caused the potion to shatter (0=player)
  *          potions that smash on the floor are assumed to
  *          be caused by no-one (who = 1), as are those that
- *          shatter inside the player p_ptr->inventory.
+ *          shatter inside the player inventory.
  *          (Not anymore -- I changed this; TY)
  *    y, x  --- coordinates of the potion (or player if
- *          the potion was in her p_ptr->inventory);
+ *          the potion was in her inventory);
  *    o_ptr --- pointer to the potion object.
  */
 bool potion_smash_effect(int who, int y, int x, int k_idx)
@@ -5572,7 +5572,7 @@ static bool dimension_door_aux(int x, int y)
 
 	p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
 
-	if (!cave_player_teleportable_bold(y, x, 0L) ||
+	if (!cave_player_teleportable_bold(p_ptr, y, x, 0L) ||
 	    (distance(y, x, p_ptr->fy, p_ptr->fx) > plev / 2 + 10) ||
 	    (!randint0(plev / 10 + 10)))
 	{
