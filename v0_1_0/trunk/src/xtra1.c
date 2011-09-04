@@ -5683,6 +5683,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->evil_rank = calc_rank(cr_ptr->evil);
 	cr_ptr->order_rank = calc_rank(cr_ptr->order);
 	cr_ptr->chaos_rank = calc_rank(cr_ptr->chaos);
+
+	cr_ptr->balance -= ((cr_ptr->good_rank - cr_ptr->evil_rank) * (cr_ptr->good_rank - cr_ptr->evil_rank) - 100) * 10;
+	cr_ptr->balance -= ((cr_ptr->order_rank - cr_ptr->chaos_rank) * (cr_ptr->order_rank - cr_ptr->chaos_rank) - 100) * 10;
+
 	cr_ptr->balance_rank = calc_rank(cr_ptr->balance);
 
 
