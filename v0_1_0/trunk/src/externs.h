@@ -814,7 +814,7 @@ extern void do_cmd_time(void);
 
 /* cmd5.c */
 extern cptr spell_category_name(int tval);
-extern void do_cmd_browse(void);
+extern void do_cmd_browse(creature_type *cr_ptr);
 extern void do_cmd_study(creature_type *cr_ptr);
 extern void do_cmd_cast(creature_type *cr_ptr);
 extern bool rakuba(creature_type *cr_ptr, int dam, bool force);

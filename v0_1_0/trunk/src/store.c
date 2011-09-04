@@ -4575,7 +4575,7 @@ static void store_process_command(creature_type *guest_ptr)
 				do_cmd_magic_eater(guest_ptr, TRUE);
 			else if (guest_ptr->cls_idx == CLASS_SNIPER)
 				do_cmd_snipe_browse(guest_ptr);
-			else do_cmd_browse();
+			else do_cmd_browse(guest_ptr);
 			break;
 		}
 

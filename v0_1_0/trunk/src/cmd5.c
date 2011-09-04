@@ -440,7 +440,7 @@ static void confirm_use_force(bool browse_only)
  * Note that browsing is allowed while confused or blind,
  * and in the dark, primarily to allow browsing in stores.
  */
-void do_cmd_browse(void)
+void do_cmd_browse(creature_type *cr_ptr)
 {
 	int		item, sval, use_realm = 0, j, line;
 	int		spell = -1;
@@ -454,7 +454,7 @@ void do_cmd_browse(void)
 	cptr q, s;
 
 	/* Warriors are illiterate */
-	if (!(p_ptr->realm1 || p_ptr->realm2) && (p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE))
+	if (!(cr_ptr->realm1 || cr_ptr->realm2) && (cr_ptr->cls_idx != CLASS_SORCERER) && (cr_ptr->cls_idx != CLASS_RED_MAGE))
 	{
 #ifdef JP
 		msg_print("–{‚ð“Ç‚Þ‚±‚Æ‚ª‚Å‚«‚È‚¢I");
@@ -465,14 +465,14 @@ void do_cmd_browse(void)
 		return;
 	}
 
-	if (p_ptr->special_defense & KATA_MUSOU)
+	if (cr_ptr->special_defense & KATA_MUSOU)
 	{
-		set_action(p_ptr, ACTION_NONE);
+		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	if (p_ptr->cls_idx == CLASS_FORCETRAINER)
+	if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
 	{
-		if (player_has_no_spellbooks(p_ptr))
+		if (player_has_no_spellbooks(cr_ptr))
 		{
 			confirm_use_force(TRUE);
 			return;
@@ -481,7 +481,7 @@ void do_cmd_browse(void)
 	}
 
 	/* Restrict choices to "useful" books */
-	if (p_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[p_ptr->realm1].spell_book;
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->realm1].spell_book;
 	else item_tester_hook = item_tester_learn_spell;
 
 	/* Get an item */
@@ -497,7 +497,7 @@ void do_cmd_browse(void)
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
 	{
 		select_the_force = FALSE;
 		return;
@@ -506,14 +506,14 @@ void do_cmd_browse(void)
 
 	if (item == INVEN_FORCE) /* the_force */
 	{
-		do_cmd_mind_browse(p_ptr);
+		do_cmd_mind_browse(cr_ptr);
 		return;
 	}
 
 	/* Get the item (in the pack) */
 	else if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -531,7 +531,7 @@ void do_cmd_browse(void)
 	object_kind_track(o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 
 
 	/* Extract spells */
@@ -557,16 +557,16 @@ void do_cmd_browse(void)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if (!get_spell(p_ptr, &spell, "“Ç‚Þ", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(cr_ptr, &spell, "“Ç‚Þ", o_ptr->sval, TRUE, use_realm))
 #else
-		if (!get_spell(p_ptr, &spell, "browse", o_ptr->sval, TRUE, use_realm))
+		if (!get_spell(cr_ptr, &spell, "browse", o_ptr->sval, TRUE, use_realm))
 #endif
 		{
 			/* If cancelled, leave immediately. */
 			if (spell == -1) break;
 
 			/* Display a list of spells */
-			print_spells(p_ptr, 0, spells, num, 1, 15, use_realm);
+			print_spells(cr_ptr, 0, spells, num, 1, 15, use_realm);
 
 			/* Notify that there's nothing to see, and wait. */
 			if (use_realm == REALM_HISSATSU)
@@ -596,7 +596,7 @@ void do_cmd_browse(void)
 		Term_erase(14, 12, 255);
 		Term_erase(14, 11, 255);
 
-		roff_to_buf(do_spell(p_ptr, use_realm, spell, SPELL_DESC), 62, temp, sizeof(temp));
+		roff_to_buf(do_spell(cr_ptr, use_realm, spell, SPELL_DESC), 62, temp, sizeof(temp));
 
 		for (j = 0, line = 11; temp[j]; j += 1 + strlen(&temp[j]))
 		{
