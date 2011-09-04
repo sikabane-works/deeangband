@@ -102,11 +102,11 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 /*
  * Dimension Door
  */
-static bool wiz_dimension_door(void)
+static bool wiz_dimension_door(creature_type *cr_ptr)
 {
 	int	x = 0, y = 0;
 
-	if (!tgt_pt(p_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
 
 	teleport_player_to(y, x, TELEPORT_NONMAGICAL);
 
@@ -118,10 +118,10 @@ static bool wiz_dimension_door(void)
  * Create the artifact of the specified number -- DAN
  *
  */
-static void wiz_drop_named_art(int a_idx)
+static void wiz_drop_named_art(creature_type* cr_ptr, int a_idx)
 {
 	/* Create the artifact */
-	(void)drop_named_art(p_ptr, a_idx, p_ptr->fy, p_ptr->fx);
+	(void)drop_named_art(cr_ptr, a_idx, cr_ptr->fy, cr_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -143,14 +143,14 @@ static void do_cmd_wiz_hack_ben(void)
 #ifdef MONSTER_HORDES
 
 /* Summon a horde of monsters */
-static void do_cmd_summon_horde(void)
+static void do_cmd_summon_horde(creature_type *cr_ptr)
 {
-	int wy = p_ptr->fy, wx = p_ptr->fx;
+	int wy = cr_ptr->fy, wx = cr_ptr->fx;
 	int attempts = 1000;
 
 	while (--attempts)
 	{
-		scatter(&wy, &wx, p_ptr->fy, p_ptr->fx, 3, 0);
+		scatter(&wy, &wx, cr_ptr->fy, cr_ptr->fx, 3, 0);
 		if (cave_empty_bold(wy, wx)) break;
 	}
 
@@ -832,14 +832,14 @@ static int wiz_create_itemtype(void)
 /*
  * Tweak an item
  */
-static void wiz_tweak_item(object_type *o_ptr)
+static void wiz_tweak_item(creature_type *cr_ptr, object_type *o_ptr)
 {
 	cptr p;
 	char tmp_val[80];
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(p_ptr, o_ptr)) return;
+	if (object_is_artifact(cr_ptr, o_ptr)) return;
 
 	p = "Enter new 'pval' setting: ";
 	sprintf(tmp_val, "%d", o_ptr->pval);
@@ -870,7 +870,7 @@ static void wiz_tweak_item(object_type *o_ptr)
 /*
  * Apply magic to an item or turn it into an artifact. -Bernd-
  */
-static void wiz_reroll_item(object_type *o_ptr)
+static void wiz_reroll_item(creature_type *cr_ptr, object_type *o_ptr)
 {
 	object_type forge;
 	object_type *q_ptr;
@@ -881,7 +881,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(p_ptr, o_ptr)) return;
+	if (object_is_artifact(cr_ptr, o_ptr)) return;
 
 
 	/* Get local object */
@@ -969,7 +969,7 @@ static void wiz_reroll_item(object_type *o_ptr)
 				apply_magic(q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(p_ptr, q_ptr)) create_artifact(p_ptr, q_ptr, FALSE);
+				if (!object_is_artifact(cr_ptr, q_ptr)) create_artifact(cr_ptr, q_ptr, FALSE);
 				break;
 			}
 		}
@@ -987,10 +987,10 @@ static void wiz_reroll_item(object_type *o_ptr)
 		object_copy(o_ptr, q_ptr);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -1170,7 +1170,7 @@ static void wiz_statistics(object_type *o_ptr)
 /*
  * Change the quantity of a the item
  */
-static void wiz_quantity_item(object_type *o_ptr)
+static void wiz_quantity_item(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int         tmp_int, tmp_qnt;
 
@@ -1178,7 +1178,7 @@ static void wiz_quantity_item(object_type *o_ptr)
 
 
 	/* Never duplicate artifacts */
-	if (object_is_artifact(p_ptr, o_ptr)) return;
+	if (object_is_artifact(cr_ptr, o_ptr)) return;
 
 	/* Store old quantity. -LM- */
 	tmp_qnt = o_ptr->number;
@@ -1207,7 +1207,7 @@ static void wiz_quantity_item(object_type *o_ptr)
 }
 
 /* debug command for blue mage */
-static void do_cmd_wiz_blue_mage(void)
+static void do_cmd_wiz_blue_mage(creature_type *cr_ptr)
 {
 
 	int				i = 0;
@@ -1221,15 +1221,15 @@ static void do_cmd_wiz_blue_mage(void)
 
 		for (i = 0; i < 32; i++)
 		{
-			if ((0x00000001 << i) & f4) p_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << i) & f4) cr_ptr->magic_num2[i] = 1;
 		}
 		for (; i < 64; i++)
 		{
-			if ((0x00000001 << (i - 32)) & f5) p_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << (i - 32)) & f5) cr_ptr->magic_num2[i] = 1;
 		}
 		for (; i < 96; i++)
 		{
-			if ((0x00000001 << (i - 64)) & f6) p_ptr->magic_num2[i] = 1;
+			if ((0x00000001 << (i - 64)) & f6) cr_ptr->magic_num2[i] = 1;
 		}
 	}
 }
@@ -1242,7 +1242,7 @@ static void do_cmd_wiz_blue_mage(void)
  *   - Change properties (via wiz_tweak_item)
  *   - Change the number of items (via wiz_quantity_item)
  */
-static void do_cmd_wiz_play(void)
+static void do_cmd_wiz_play(creature_type *cr_ptr)
 {
 	int item;
 
@@ -1261,12 +1261,12 @@ static void do_cmd_wiz_play(void)
 	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
-	if (!get_item(p_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -1316,17 +1316,17 @@ static void do_cmd_wiz_play(void)
 
 		if (ch == 'r' || ch == 'r')
 		{
-			wiz_reroll_item(q_ptr);
+			wiz_reroll_item(cr_ptr, q_ptr);
 		}
 
 		if (ch == 't' || ch == 'T')
 		{
-			wiz_tweak_item(q_ptr);
+			wiz_tweak_item(cr_ptr, q_ptr);
 		}
 
 		if (ch == 'q' || ch == 'Q')
 		{
-			wiz_quantity_item(q_ptr);
+			wiz_quantity_item(cr_ptr, q_ptr);
 		}
 	}
 
@@ -1344,7 +1344,7 @@ static void do_cmd_wiz_play(void)
 		/* Recalcurate object's weight */
 		if (item >= 0)
 		{
-			p_ptr->total_weight += (q_ptr->weight * q_ptr->number)
+			cr_ptr->total_weight += (q_ptr->weight * q_ptr->number)
 				- (o_ptr->weight * o_ptr->number);
 		}
 
@@ -1353,10 +1353,10 @@ static void do_cmd_wiz_play(void)
 
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -1379,7 +1379,7 @@ static void do_cmd_wiz_play(void)
  * Hack -- this routine always makes a "dungeon object", and applies
  * magic to it, and attempts to decline cursed items.
  */
-static void wiz_create_item(void)
+static void wiz_create_item(creature_type *cr_ptr)
 {
 	object_type	forge;
 	object_type *q_ptr;
@@ -1414,7 +1414,7 @@ static void wiz_create_item(void)
 			if (a_info[i].sval != k_info[k_idx].sval) continue;
 
 			/* Create this artifact */
-			(void)drop_named_art(p_ptr, i, p_ptr->fy, p_ptr->fx);
+			(void)drop_named_art(cr_ptr, i, cr_ptr->fy, cr_ptr->fx);
 
 			/* All done */
 			msg_print("Allocated(INSTA_ART).");
@@ -1433,7 +1433,7 @@ static void wiz_create_item(void)
 	apply_magic(q_ptr, dun_level, AM_NO_FIXED_ART);
 
 	/* Drop the object from heaven */
-	(void)drop_near(q_ptr, -1, p_ptr->fy, p_ptr->fx);
+	(void)drop_near(q_ptr, -1, cr_ptr->fy, cr_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
@@ -1499,7 +1499,7 @@ static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 /*
  * Go to any level
  */
-static void do_cmd_wiz_jump(void)
+static void do_cmd_wiz_jump(creature_type *cr_ptr)
 {
 	/* Ask for level */
 	if (command_arg <= 0)
@@ -1564,7 +1564,7 @@ static void do_cmd_wiz_jump(void)
 	energy_use = 0;
 
 	/* Prevent energy_need from being too lower than 0 */
-	p_ptr->energy_need = 0;
+	cr_ptr->energy_need = 0;
 
 	/*
 	 * Clear all saved floors
@@ -1573,7 +1573,7 @@ static void do_cmd_wiz_jump(void)
 	prepare_change_floor_mode(CFM_FIRST_FLOOR);
 
 	/* Leaving */
-	p_ptr->leaving = TRUE;
+	cr_ptr->leaving = TRUE;
 }
 
 
@@ -1611,13 +1611,13 @@ static void do_cmd_wiz_learn(void)
 /*
  * Summon some creatures
  */
-static void do_cmd_wiz_summon(int num)
+static void do_cmd_wiz_summon(creature_type *cr_ptr, int num)
 {
 	int i;
 
 	for (i = 0; i < num; i++)
 	{
-		(void)summon_specific(0, p_ptr->fy, p_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+		(void)summon_specific(0, cr_ptr->fy, cr_ptr->fx, dun_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 	}
 }
 
@@ -1627,9 +1627,9 @@ static void do_cmd_wiz_summon(int num)
  *
  * XXX XXX XXX This function is rather dangerous
  */
-static void do_cmd_wiz_named(int species_idx)
+static void do_cmd_wiz_named(creature_type *cr_ptr, int species_idx)
 {
-	(void)summon_named_creature(0, p_ptr->fy, p_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+	(void)summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 }
 
 
@@ -1638,9 +1638,9 @@ static void do_cmd_wiz_named(int species_idx)
  *
  * XXX XXX XXX This function is rather dangerous
  */
-static void do_cmd_wiz_named_friendly(int species_idx)
+static void do_cmd_wiz_named_friendly(creature_type *cr_ptr, int species_idx)
 {
-	(void)summon_named_creature(0, p_ptr->fy, p_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
+	(void)summon_named_creature(0, cr_ptr->fy, cr_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
 }
 
 
@@ -1648,7 +1648,7 @@ static void do_cmd_wiz_named_friendly(int species_idx)
 /*
  * Hack -- Delete all nearby monsters
  */
-static void do_cmd_wiz_zap(void)
+static void do_cmd_wiz_zap(creature_type *cr_ptr)
 {
 	int i;
 
@@ -1662,7 +1662,7 @@ static void do_cmd_wiz_zap(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == p_ptr->riding) continue;
+		if (i == cr_ptr->riding) continue;
 
 		/* Delete nearby monsters */
 		if (m_ptr->cdis <= MAX_SIGHT)
@@ -1684,7 +1684,7 @@ static void do_cmd_wiz_zap(void)
 /*
  * Hack -- Delete all monsters
  */
-static void do_cmd_wiz_zap_all(void)
+static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 {
 	int i;
 
@@ -1697,7 +1697,7 @@ static void do_cmd_wiz_zap_all(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == p_ptr->riding) continue;
+		if (i == cr_ptr->riding) continue;
 
 		if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
 		{
@@ -1716,7 +1716,7 @@ static void do_cmd_wiz_zap_all(void)
 /*
  * Create desired feature
  */
-static void do_cmd_wiz_create_feature(void)
+static void do_cmd_wiz_create_feature(creature_type *cr_ptr)
 {
 	static int   prev_feat = 0;
 	static int   prev_mimic = 0;
@@ -1726,7 +1726,7 @@ static void do_cmd_wiz_create_feature(void)
 	int          tmp_feat, tmp_mimic;
 	int          y, x;
 
-	if (!tgt_pt(p_ptr, &x, &y)) return;
+	if (!tgt_pt(cr_ptr, &x, &y)) return;
 
 	c_ptr = &cave[y][x];
 
@@ -1778,7 +1778,7 @@ static void do_cmd_wiz_create_feature(void)
 	lite_spot(y, x);
 
 	/* Update some things */
-	p_ptr->update |= (PU_FLOW);
+	cr_ptr->update |= (PU_FLOW);
 
 	prev_feat = tmp_feat;
 	prev_mimic = tmp_mimic;
@@ -1884,7 +1884,7 @@ extern void do_cmd_spoilers(void);
 /*
  * Hack -- declare external function
  */
-extern void do_cmd_debug(void);
+extern void do_cmd_debug(creature_type *cr_ptr);
 
 
 
@@ -1892,7 +1892,7 @@ extern void do_cmd_debug(void);
  * Ask for and parse a "debug command"
  * The "command_arg" may have been set.
  */
-void do_cmd_debug(void)
+void do_cmd_debug(creature_type *cr_ptr)
 {
 	int     x, y;
 	char    cmd;
@@ -1927,7 +1927,7 @@ void do_cmd_debug(void)
 
 	/* Cure all maladies */
 	case 'a':
-		do_cmd_wiz_cure_all(p_ptr);
+		do_cmd_wiz_cure_all(cr_ptr);
 		break;
 
 	/* Teleport to target */
@@ -1941,77 +1941,77 @@ void do_cmd_debug(void)
 
 	/* Create any object */
 	case 'c':
-		wiz_create_item();
+		wiz_create_item(cr_ptr);
 		break;
 
 	/* Create a named artifact */
 	case 'C':
-		wiz_drop_named_art(command_arg);
+		wiz_drop_named_art(cr_ptr, command_arg);
 		break;
 
 	/* Detect everything */
 	case 'd':
-		detect_all(p_ptr, DETECT_RAD_ALL * 3);
+		detect_all(cr_ptr, DETECT_RAD_ALL * 3);
 		break;
 
 	/* Dimension_door */
 	case 'D':
-		wiz_dimension_door();
+		wiz_dimension_door(cr_ptr);
 		break;
 
 	/* Edit character */
 	case 'e':
-		do_cmd_wiz_change(p_ptr);
+		do_cmd_wiz_change(cr_ptr);
 		break;
 
 	/* Blue Mage Only */
 	case 'E':
-		if (p_ptr->cls_idx == CLASS_BLUE_MAGE)
+		if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
 		{
-			do_cmd_wiz_blue_mage();
+			do_cmd_wiz_blue_mage(cr_ptr);
 		}
 		break;
 
 	/* View item info */
 	case 'f':
-		identify_fully(p_ptr, FALSE);
+		identify_fully(cr_ptr, FALSE);
 		break;
 
 	/* Create desired feature */
 	case 'F':
-		do_cmd_wiz_create_feature();
+		do_cmd_wiz_create_feature(cr_ptr);
 		break;
 
 	/* Good Objects */
 	case 'g':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(p_ptr->fy, p_ptr->fx, command_arg, FALSE, TRUE);
+		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
 	/* Hitpoint rerating */
 	case 'h':
-		do_cmd_rerate(p_ptr, TRUE);
+		do_cmd_rerate(cr_ptr, TRUE);
 		break;
 
 #ifdef MONSTER_HORDES
 	case 'H':
-		do_cmd_summon_horde();
+		do_cmd_summon_horde(cr_ptr);
 		break;
 #endif /* MONSTER_HORDES */
 
 	/* Identify */
 	case 'i':
-		(void)ident_spell(p_ptr, FALSE);
+		(void)ident_spell(cr_ptr, FALSE);
 		break;
 
 	/* Go up or down in the dungeon */
 	case 'j':
-		do_cmd_wiz_jump();
+		do_cmd_wiz_jump(cr_ptr);
 		break;
 
 	/* Self-Knowledge */
 	case 'k':
-		self_knowledge(p_ptr);
+		self_knowledge(cr_ptr);
 		break;
 
 	/* Learn about objects */
@@ -2026,22 +2026,22 @@ void do_cmd_debug(void)
 
 	/* Mutation */
 	case 'M':
-		(void)gain_random_mutation(p_ptr, command_arg);
+		(void)gain_random_mutation(cr_ptr, command_arg);
 		break;
 
 	/* Specific reward */
 	case 'r':
-		(void)gain_level_reward(p_ptr, command_arg);
+		(void)gain_level_reward(cr_ptr, command_arg);
 		break;
 
 	/* Summon _friendly_ named monster */
 	case 'N':
-		do_cmd_wiz_named_friendly(command_arg);
+		do_cmd_wiz_named_friendly(cr_ptr, command_arg);
 		break;
 
 	/* Summon Named Monster */
 	case 'n':
-		do_cmd_wiz_named(command_arg);
+		do_cmd_wiz_named(cr_ptr, command_arg);
 		break;
 
 	/* Dump option bits usage */
@@ -2051,12 +2051,12 @@ void do_cmd_debug(void)
 
 	/* Object playing routines */
 	case 'o':
-		do_cmd_wiz_play();
+		do_cmd_wiz_play(cr_ptr);
 		break;
 
 	/* Phase Door */
 	case 'p':
-		teleport_player(p_ptr, 10, 0L);
+		teleport_player(cr_ptr, 10, 0L);
 		break;
 
 #if 0
@@ -2064,9 +2064,9 @@ void do_cmd_debug(void)
 	case 'q':
 		for (i = 0; i < max_quests; i++)
 		{
-			if (p_ptr->quest[i].status == QUEST_STATUS_TAKEN)
+			if (cr_ptr->quest[i].status == QUEST_STATUS_TAKEN)
 			{
-				p_ptr->quest[i].status++;
+				cr_ptr->quest[i].status++;
 				msg_print("Completed Quest");
 				msg_print(NULL);
 				break;
@@ -2095,38 +2095,38 @@ void do_cmd_debug(void)
 	/* Summon Random Monster(s) */
 	case 's':
 		if (command_arg <= 0) command_arg = 1;
-		do_cmd_wiz_summon(command_arg);
+		do_cmd_wiz_summon(cr_ptr, command_arg);
 		break;
 
 	/* Teleport */
 	case 't':
-		teleport_player(p_ptr, 100, 0L);
+		teleport_player(cr_ptr, 100, 0L);
 		break;
 
 	/* Very Good Objects */
 	case 'v':
 		if (command_arg <= 0) command_arg = 1;
-		acquirement(p_ptr->fy, p_ptr->fx, command_arg, TRUE, TRUE);
+		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
 	/* Wizard Light the Level */
 	case 'w':
-		wiz_lite((bool)(p_ptr->cls_idx == CLASS_NINJA));
+		wiz_lite((bool)(cr_ptr->cls_idx == CLASS_NINJA));
 		break;
 
 	/* Increase Experience */
 	case 'x':
-		gain_exp(p_ptr, command_arg ? command_arg : (p_ptr->exp + 1));
+		gain_exp(cr_ptr, command_arg ? command_arg : (cr_ptr->exp + 1));
 		break;
 
 	/* Zap Monsters (Genocide) */
 	case 'z':
-		do_cmd_wiz_zap();
+		do_cmd_wiz_zap(cr_ptr);
 		break;
 
 	/* Zap Monsters (Omnicide) */
 	case 'Z':
-		do_cmd_wiz_zap_all();
+		do_cmd_wiz_zap_all(cr_ptr);
 		break;
 
 	/* Hack -- whatever I desire */
