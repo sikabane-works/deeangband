@@ -1935,7 +1935,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (!counterattack)
 		{
 			/* Attempt to cast a spell */
-			if (aware && make_attack_spell(m_ptr)) return;
+			if (aware && make_attack_spell(m_ptr, p_ptr)) return;
 
 			/*
 			 * Attempt to cast a spell at an enemy other than the player
@@ -1948,7 +1948,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Attempt to do counter attack at first */
 			if (monst_spell_monst(p_ptr, m_idx)) return;
 
-			if (aware && make_attack_spell(m_ptr)) return;
+			if (aware && make_attack_spell(m_ptr, p_ptr)) return;
 		}
 	}
 
@@ -2755,7 +2755,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* Try to cast spell again */
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 		{
-			if (make_attack_spell(m_ptr)) return;
+			if (make_attack_spell(m_ptr, p_ptr)) return;
 		}
 	}
 
