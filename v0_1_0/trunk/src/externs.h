@@ -1746,7 +1746,7 @@ extern errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int x
 extern bool change_wild_mode(creature_type *cr_ptr);
 
 /* wizard1.c */
-extern void spoil_random_artifact(cptr fname);
+extern void spoil_random_artifact(creature_type *cr_ptr, cptr fname);
 
 /* wizard2.c */
 extern void strip_name(char *buf, int k_idx);

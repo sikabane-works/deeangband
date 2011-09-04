@@ -5504,7 +5504,7 @@ msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
  * XAngband: determine if a given location is "interesting"
  * based on target_set_accept function.
  */
-static bool tgt_pt_accept(int y, int x)
+static bool tgt_pt_accept(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
@@ -5512,10 +5512,10 @@ static bool tgt_pt_accept(int y, int x)
 	if (!(in_bounds(y, x))) return (FALSE);
 
 	/* Player grid is always interesting */
-	if ((y == p_ptr->fy) && (x == p_ptr->fx)) return (TRUE);
+	if ((y == cr_ptr->fy) && (x == cr_ptr->fx)) return (TRUE);
 
 	/* Handle hallucination */
-	if (p_ptr->image) return (FALSE);
+	if (cr_ptr->image) return (FALSE);
 
 	/* Examine the grid */
 	c_ptr = &cave[y][x];
@@ -5556,7 +5556,7 @@ static void tgt_pt_prepare(void)
 		for (x = 1; x < cur_wid; x++)
 		{
 			/* Require "interesting" contents */
-			if (!tgt_pt_accept(y, x)) continue;
+			if (!tgt_pt_accept(p_ptr, y, x)) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;

@@ -5417,7 +5417,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Make random artifact list */
 		case KTRL('V'):
 		{
-			spoil_random_artifact("randifact.txt");
+			spoil_random_artifact(p_ptr, "randifact.txt");
 			break;
 		}
 

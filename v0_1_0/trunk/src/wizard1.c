@@ -2910,7 +2910,7 @@ static void spoil_random_artifact_aux(object_type *o_ptr, int i)
 /*
  * Create a list file for random artifacts
  */
-void spoil_random_artifact(cptr fname)
+void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 {
 	int i,j;
 
@@ -2946,14 +2946,14 @@ void spoil_random_artifact(cptr fname)
 		/* random artifacts wielding */
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
-			q_ptr = &p_ptr->inventory[i];
+			q_ptr = &cr_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}
 
-		/* random artifacts in p_ptr->inventory */
+		/* random artifacts in cr_ptr */
 		for (i = 0; i < INVEN_PACK; i++)
 		{
-			q_ptr = &p_ptr->inventory[i];
+			q_ptr = &cr_ptr->inventory[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}
 
