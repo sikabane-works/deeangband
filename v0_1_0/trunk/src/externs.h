@@ -822,7 +822,7 @@ extern bool do_riding(creature_type *cr_ptr, bool force);
 extern void check_pets_num_and_align(creature_type *m_ptr, bool inc);
 extern int calculate_upkeep(creature_type *cr_ptr);
 extern void do_cmd_pet_dismiss(void);
-extern void do_cmd_pet(void);
+extern void do_cmd_pet(creature_type *cr_ptr);
 
 /* cmd6.c */
 extern void do_cmd_eat_food(creature_type *cr_ptr);

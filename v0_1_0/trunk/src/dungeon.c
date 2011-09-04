@@ -4970,7 +4970,7 @@ msg_print("ウィザードモード突入。");
 		/* Issue a pet command */
 		case 'p':
 		{
-			if (!wild_mode) do_cmd_pet();
+			if (!wild_mode) do_cmd_pet(p_ptr);
 			break;
 		}
 
