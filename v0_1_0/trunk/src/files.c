@@ -1636,7 +1636,7 @@ static struct
 	{ 1,  2, -1, "種族: "},
 	{ 1,  4, -1, "職業: "},
 	{ 1,  5, -1, "魔法: "},
-	{ 1,  6, -1, "信仰: "},
+	{ 1,  6, -1, "主神: "},
 	{25,  3, 13, "年齢"},
 	{25,  4, 15, "身長"},
 	{41,  4, 15, "体重"},
@@ -3387,13 +3387,13 @@ put_str("名前:", 1, 1);
 put_str("種族:", 2, 1);
 put_str("性別:", 3, 1);
 put_str("職業:", 4, 1);
-put_str("信仰:", 5, 1);
+put_str("主神:", 5, 1);
 #else
-	put_str("Name :", 1, 1);
-	put_str("Race :", 2, 1);
-	put_str("Sex  :", 3, 1);
-	put_str("Class:", 4, 1);
-	put_str("Faith:", 5, 1);
+	put_str("Name  :", 1, 1);
+	put_str("Race  :", 2, 1);
+	put_str("Sex   :", 3, 1);
+	put_str("Class :", 4, 1);
+	put_str("Patron:", 5, 1);
 #endif
 
 	tmp[0] = '\0';

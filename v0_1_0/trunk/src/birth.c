@@ -5531,23 +5531,6 @@ static bool player_birth_aux(creature_type *cr_ptr)
 		/* Roll for gold */
 		get_money(cr_ptr);
 
-		/* Patron */
-		if(cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR)
-		{
-			if     (cr_ptr->irace_idx == RACE_MELNIBONE)  cr_ptr->patron_idx = PATRON_ARIOCH;
-			else    cr_ptr->patron_idx = (s16b)rand_range(PATRON_CHAOS_FROM, PATRON_CHAOS_TO);
-		}
-		else if(cr_ptr->cls_idx == CLASS_PRIEST || cr_ptr->cls_idx == CLASS_PALADIN)
-		{
-			if      (cr_ptr->irace_idx == RACE_MELNIBONE) cr_ptr->patron_idx = PATRON_ARIOCH;
-			else if (cr_ptr->irace_idx == RACE_DUNADAN)   cr_ptr->patron_idx = PATRON_ILUVATAR;
-			else if (cr_ptr->irace_idx == RACE_URUK)      cr_ptr->patron_idx = PATRON_MELKOR;
-			else cr_ptr->patron_idx = (s16b)rand_range(1, MAX_PATRON-1);
-		}
-
-		else
-			cr_ptr->patron_idx = PATRON_N;
-
 		/* Iventory Fitting Rate */
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			cr_ptr->iven_fitting_rate[i] = 100;
