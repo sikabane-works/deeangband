@@ -5474,19 +5474,19 @@ static bool monster_tsuri(int species_idx)
 
 
 /* Hack -- Pack Overflow */
-static void pack_overflow(void)
+static void pack_overflow(creature_type *cr_ptr)
 {
-	if (p_ptr->inventory[INVEN_PACK].k_idx)
+	if (cr_ptr->inventory[INVEN_PACK].k_idx)
 	{
 		char o_name[MAX_NLEN];
 		object_type *o_ptr;
 
 		/* Is auto-destroy done? */
-		notice_stuff(p_ptr);
-		if (!p_ptr->inventory[INVEN_PACK].k_idx) return;
+		notice_stuff(cr_ptr);
+		if (!cr_ptr->inventory[INVEN_PACK].k_idx) return;
 
 		/* Access the slot to be dropped */
-		o_ptr = &p_ptr->inventory[INVEN_PACK];
+		o_ptr = &cr_ptr->inventory[INVEN_PACK];
 
 		/* Disturbing */
 		disturb(0, 0);
@@ -5503,24 +5503,24 @@ static void pack_overflow(void)
 
 		/* Message */
 #ifdef JP
-		msg_format("%s(%c)を落とした。", o_name, index_to_label(p_ptr, INVEN_PACK));
+		msg_format("%s(%c)を落とした。", o_name, index_to_label(cr_ptr, INVEN_PACK));
 #else
-		msg_format("You drop %s (%c).", o_name, index_to_label(p_ptr, INVEN_PACK));
+		msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, INVEN_PACK));
 #endif
 
 		/* Drop it (carefully) near the player */
-		(void)drop_near(o_ptr, 0, p_ptr->fy, p_ptr->fx);
+		(void)drop_near(o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 		/* Modify, Describe, Optimize */
 		inven_item_increase(INVEN_PACK, -255);
 		inven_item_describe(INVEN_PACK);
 		inven_item_optimize(INVEN_PACK);
 
-		/* Handle "p_ptr->notice" */
-		notice_stuff(p_ptr);
+		/* Handle "cr_ptr->notice" */
+		notice_stuff(cr_ptr);
 
-		/* Handle "p_ptr->update" and "play_redraw" and "play_window" */
-		handle_stuff(p_ptr);
+		/* Handle "cr_ptr->update" and "play_redraw" and "play_window" */
+		handle_stuff(cr_ptr);
 	}
 }
 
@@ -5852,7 +5852,7 @@ msg_print("中断しました。");
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow();
+		pack_overflow(p_ptr);
 
 
 		/* Hack -- cancel "lurking browse mode" */
@@ -5962,7 +5962,7 @@ msg_print("中断しました。");
 
 
 		/* Hack -- Pack Overflow */
-		pack_overflow();
+		pack_overflow(p_ptr);
 
 
 		/*** Clean up ***/
