@@ -6327,7 +6327,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
  * We return "TRUE" if any "obvious" effects were observed.  XXX XXX Actually,
  * we just assume that the effects were obvious, for historical reasons.
  */
-static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, int monspell)
+static bool project_p(creature_type *aimer_ptr, creature_type *who_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	int k = 0;
 	int rlev = 0;
@@ -6336,7 +6336,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	bool obvious = TRUE;
 
 	/* Player blind-ness */
-	bool blind = (p_ptr->blind ? TRUE : FALSE);
+	bool blind = (aimer_ptr->blind ? TRUE : FALSE);
 
 	/* Player needs a "description" (he is blind) */
 	bool fuzzy = FALSE;
@@ -6354,25 +6354,25 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 
 	/* Player is not here */
-	if (!creature_bold(p_ptr, y, x)) return (FALSE);
+	if (!creature_bold(aimer_ptr, y, x)) return (FALSE);
 
-	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (p_ptr->lev*3/5+20)) && !is_player(who_ptr) && (who_ptr != &m_list[p_ptr->riding]))
+	if ((aimer_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (aimer_ptr->lev*3/5+20)) && !is_player(who_ptr) && (who_ptr != &m_list[aimer_ptr->riding]))
 	{
 		if (kawarimi(TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
 	if (is_player(who_ptr)) return (FALSE);
-	if (who_ptr == &m_list[p_ptr->riding]) return (FALSE);
+	if (who_ptr == &m_list[aimer_ptr->riding]) return (FALSE);
 
-	if ((p_ptr->reflect || ((p_ptr->special_defense & KATA_FUUJIN) && !p_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if ((aimer_ptr->reflect || ((aimer_ptr->special_defense & KATA_FUUJIN) && !aimer_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
 
 #ifdef JP
 		if (blind) msg_print("‰½‚©‚ª’µ‚Ë•Ô‚Á‚½I");
-		else if (p_ptr->special_defense & KATA_FUUJIN) msg_print("•—‚Ì”@‚­•Ší‚ðU‚é‚Á‚Ä’e‚«•Ô‚µ‚½I");
+		else if (aimer_ptr->special_defense & KATA_FUUJIN) msg_print("•—‚Ì”@‚­•Ší‚ðU‚é‚Á‚Ä’e‚«•Ô‚µ‚½I");
 		else msg_print("UŒ‚‚ª’µ‚Ë•Ô‚Á‚½I");
 #else
 		if (blind) msg_print("Something bounces!");
@@ -6389,7 +6389,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				t_x = who_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(p_ptr->fy, p_ptr->fx, t_y, t_x));
+			while (max_attempts && in_bounds2u(t_y, t_x) && !projectable(aimer_ptr->fy, aimer_ptr->fx, t_y, t_x));
 
 			if (max_attempts < 1)
 			{
@@ -6399,8 +6399,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		}
 		else
 		{
-			t_y = p_ptr->fy - 1 + (byte)randint1(3);
-			t_x = p_ptr->fx - 1 + (byte)randint1(3);
+			t_y = aimer_ptr->fy - 1 + (byte)randint1(3);
+			t_x = aimer_ptr->fx - 1 + (byte)randint1(3);
 		}
 
 		project(0, 0, t_y, t_x, dam, typ, (PROJECT_STOP|PROJECT_KILL|PROJECT_REFLECTABLE), monspell);
@@ -6477,7 +6477,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	/* Analyze the damage */
 	switch (typ)
 	{
-		/* Standard damage -- hurts p_ptr->inventory too */
+		/* Standard damage -- hurts aimer_ptr->inventory too */
 		case GF_ACID:
 		{
 #ifdef JP
@@ -6486,11 +6486,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by acid!");
 #endif
 			
-			get_damage = acid_dam(p_ptr, dam, killer, monspell);
+			get_damage = acid_dam(aimer_ptr, dam, killer, monspell);
 			break;
 		}
 
-		/* Standard damage -- hurts p_ptr->inventory too */
+		/* Standard damage -- hurts aimer_ptr->inventory too */
 		case GF_FIRE:
 		{
 #ifdef JP
@@ -6499,11 +6499,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by fire!");
 #endif
 
-			get_damage = fire_dam(p_ptr, dam, killer, monspell);
+			get_damage = fire_dam(aimer_ptr, dam, killer, monspell);
 			break;
 		}
 
-		/* Standard damage -- hurts p_ptr->inventory too */
+		/* Standard damage -- hurts aimer_ptr->inventory too */
 		case GF_COLD:
 		{
 #ifdef JP
@@ -6512,11 +6512,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by cold!");
 #endif
 
-			get_damage = cold_dam(p_ptr, dam, killer, monspell);
+			get_damage = cold_dam(aimer_ptr, dam, killer, monspell);
 			break;
 		}
 
-		/* Standard damage -- hurts p_ptr->inventory too */
+		/* Standard damage -- hurts aimer_ptr->inventory too */
 		case GF_ELEC:
 		{
 #ifdef JP
@@ -6525,34 +6525,34 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by lightning!");
 #endif
 
-			get_damage = elec_dam(p_ptr, dam, killer, monspell);
+			get_damage = elec_dam(aimer_ptr, dam, killer, monspell);
 			break;
 		}
 
 		/* Standard damage -- also poisons player */
 		case GF_POIS:
 		{
-			bool double_resist = IS_OPPOSE_POIS(p_ptr);
+			bool double_resist = IS_OPPOSE_POIS(aimer_ptr);
 #ifdef JP
 			if (fuzzy) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if (fuzzy) msg_print("You are hit by poison!");
 #endif
 
-			if (p_ptr->resist_pois) dam = (dam + 2) / 3;
+			if (aimer_ptr->resist_pois) dam = (dam + 2) / 3;
 			if (double_resist) dam = (dam + 2) / 3;
 
-			if ((!(double_resist || p_ptr->resist_pois)) &&
-			     one_in_(HURT_CHANCE) && !(p_ptr->multishadow && (turn & 1)))
+			if ((!(double_resist || aimer_ptr->resist_pois)) &&
+			     one_in_(HURT_CHANCE) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				do_dec_stat(p_ptr, A_CON);
+				do_dec_stat(aimer_ptr, A_CON);
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (!(double_resist || p_ptr->resist_pois) && !(p_ptr->multishadow && (turn & 1)))
+			if (!(double_resist || aimer_ptr->resist_pois) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(aimer_ptr, aimer_ptr->poisoned + randint0(dam) + 10);
 			}
 			break;
 		}
@@ -6560,19 +6560,19 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Standard damage -- also poisons / mutates player */
 		case GF_NUKE:
 		{
-			bool double_resist = IS_OPPOSE_POIS(p_ptr);
+			bool double_resist = IS_OPPOSE_POIS(aimer_ptr);
 #ifdef JP
 			if (fuzzy) msg_print("•úŽË”\‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if (fuzzy) msg_print("You are hit by radiation!");
 #endif
 
-			if (p_ptr->resist_pois) dam = (2 * dam + 2) / 5;
+			if (aimer_ptr->resist_pois) dam = (2 * dam + 2) / 5;
 			if (double_resist) dam = (2 * dam + 2) / 5;
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-			if (!(double_resist || p_ptr->resist_pois) && !(p_ptr->multishadow && (turn & 1)))
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			if (!(double_resist || aimer_ptr->resist_pois) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				set_poisoned(p_ptr, p_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(aimer_ptr, aimer_ptr->poisoned + randint0(dam) + 10);
 
 				if (one_in_(5)) /* 6 */
 				{
@@ -6583,14 +6583,14 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 					if (one_in_(4)) /* 4 */
-						do_poly_self(p_ptr);
+						do_poly_self(aimer_ptr);
 					else
-						mutate_creature(p_ptr);
+						mutate_creature(aimer_ptr);
 				}
 
 				if (one_in_(6))
 				{
-					inven_damage(p_ptr, set_acid_destroy, 2);
+					inven_damage(aimer_ptr, set_acid_destroy, 2);
 				}
 			}
 			break;
@@ -6605,7 +6605,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6618,11 +6618,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->good > 10)
+			if (aimer_ptr->good > 10)
 				dam /= 2;
-			else if (p_ptr->evil > 10)
+			else if (aimer_ptr->evil > 10)
 				dam *= 2;
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6634,9 +6634,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->good > 10)
+			if (aimer_ptr->good > 10)
 				dam *= 2;
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6649,7 +6649,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			else if ((p_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (p_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
+			else if ((aimer_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (aimer_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))
 			{
 #ifdef JP
 				msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
@@ -6658,7 +6658,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 				break;
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6671,19 +6671,19 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something *HOT*!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
+			if (!aimer_ptr->resist_sound && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_stun(p_ptr, p_ptr->stun + k);
+				(void)set_stun(aimer_ptr, aimer_ptr->stun + k);
 			}
 
-			if (!(p_ptr->resist_fire ||
-			      IS_OPPOSE_FIRE(p_ptr) ||
-			      p_ptr->immune_fire))
+			if (!(aimer_ptr->resist_fire ||
+			      IS_OPPOSE_FIRE(aimer_ptr) ||
+			      aimer_ptr->immune_fire))
 			{
-				inven_damage(p_ptr, set_acid_destroy, 3);
+				inven_damage(aimer_ptr, set_acid_destroy, 3);
 			}
 
 			break;
@@ -6698,14 +6698,14 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by nether forces!");
 #endif
 
-			if (p_ptr->resist_neth)
+			if (aimer_ptr->resist_neth)
 			{
-				if (!race_is_(p_ptr, RACE_LICH))
+				if (!race_is_(aimer_ptr, RACE_LICH))
 					dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1))) drain_exp(p_ptr, 200 + (p_ptr->exp / 100), 200 + (p_ptr->exp / 1000), 75);
+			else if (!(aimer_ptr->multishadow && (turn & 1))) drain_exp(aimer_ptr, 200 + (aimer_ptr->exp / 100), 200 + (aimer_ptr->exp / 1000), 75);
 
-			if (race_is_(p_ptr, RACE_LICH) && !(p_ptr->multishadow && (turn & 1)))
+			if (race_is_(aimer_ptr, RACE_LICH) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
@@ -6713,12 +6713,12 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("You feel invigorated!");
 #endif
 
-				hp_player(p_ptr, dam / 4);
-				learn_spell(p_ptr, monspell);
+				hp_player(aimer_ptr, dam / 4);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 
 			break;
@@ -6733,24 +6733,24 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something wet!");
 #endif
 
-			if (!(p_ptr->multishadow && (turn & 1)))
+			if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				if (!p_ptr->resist_sound)
+				if (!aimer_ptr->resist_sound)
 				{
-					set_stun(p_ptr, p_ptr->stun + randint1(40));
+					set_stun(aimer_ptr, aimer_ptr->stun + randint1(40));
 				}
-				if (!p_ptr->resist_conf)
+				if (!aimer_ptr->resist_conf)
 				{
-					set_confused(p_ptr, p_ptr->confused + randint1(5) + 5);
+					set_confused(aimer_ptr, aimer_ptr->confused + randint1(5) + 5);
 				}
 
 				if (one_in_(5))
 				{
-					inven_damage(p_ptr, set_cold_destroy, 3);
+					inven_damage(aimer_ptr, set_cold_destroy, 3);
 				}
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6763,20 +6763,20 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by a wave of anarchy!");
 #endif
 
-			if (p_ptr->resist_chaos)
+			if (aimer_ptr->resist_chaos)
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
 
-			if (!(p_ptr->multishadow && (turn & 1)))
+			if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				if (!p_ptr->resist_conf)
+				if (!aimer_ptr->resist_conf)
 				{
-					(void)set_confused(p_ptr, p_ptr->confused + randint0(20) + 10);
+					(void)set_confused(aimer_ptr, aimer_ptr->confused + randint0(20) + 10);
 				}
-				if (!p_ptr->resist_chaos)
+				if (!aimer_ptr->resist_chaos)
 				{
-					(void)set_image(p_ptr, p_ptr->image + randint1(10));
+					(void)set_image(aimer_ptr, aimer_ptr->image + randint1(10));
 					if (one_in_(3))
 					{
 #ifdef JP
@@ -6785,22 +6785,22 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						msg_print("Your body is twisted by chaos!");
 #endif
 
-						(void)gain_random_mutation(p_ptr, 0);
+						(void)gain_random_mutation(aimer_ptr, 0);
 					}
 				}
-				if (!p_ptr->resist_neth && !p_ptr->resist_chaos)
+				if (!aimer_ptr->resist_neth && !aimer_ptr->resist_chaos)
 				{
-					drain_exp(p_ptr, 5000 + (p_ptr->exp / 100), 500 + (p_ptr->exp / 1000), 75);
+					drain_exp(aimer_ptr, 5000 + (aimer_ptr->exp / 100), 500 + (aimer_ptr->exp / 1000), 75);
 				}
 
-				if (!p_ptr->resist_chaos || one_in_(9))
+				if (!aimer_ptr->resist_chaos || one_in_(9))
 				{
-					inven_damage(p_ptr, set_elec_destroy, 2);
-					inven_damage(p_ptr, set_fire_destroy, 2);
+					inven_damage(aimer_ptr, set_elec_destroy, 2);
+					inven_damage(aimer_ptr, set_fire_destroy, 2);
 				}
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6813,21 +6813,21 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			if (p_ptr->resist_shard)
+			if (aimer_ptr->resist_shard)
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_cut(p_ptr, p_ptr->cut + dam);
+				(void)set_cut(aimer_ptr, aimer_ptr->cut + dam);
 			}
 
-			if (!p_ptr->resist_shard || one_in_(13))
+			if (!aimer_ptr->resist_shard || one_in_(13))
 			{
-				inven_damage(p_ptr, set_cold_destroy, 2);
+				inven_damage(aimer_ptr, set_cold_destroy, 2);
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6840,22 +6840,22 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by a loud noise!");
 #endif
 
-			if (p_ptr->resist_sound)
+			if (aimer_ptr->resist_sound)
 			{
 				dam *= 5; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)set_stun(p_ptr, p_ptr->stun + k);
+				(void)set_stun(aimer_ptr, aimer_ptr->stun + k);
 			}
 
-			if (!p_ptr->resist_sound || one_in_(13))
+			if (!aimer_ptr->resist_sound || one_in_(13))
 			{
-				inven_damage(p_ptr, set_cold_destroy, 2);
+				inven_damage(aimer_ptr, set_cold_destroy, 2);
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6868,15 +6868,15 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something puzzling!");
 #endif
 
-			if (p_ptr->resist_conf)
+			if (aimer_ptr->resist_conf)
 			{
 				dam *= 5; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_confused(p_ptr, p_ptr->confused + randint1(20) + 10);
+				(void)set_confused(aimer_ptr, aimer_ptr->confused + randint1(20) + 10);
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6889,15 +6889,15 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something static!");
 #endif
 
-			if (p_ptr->resist_disen)
+			if (aimer_ptr->resist_disen)
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)apply_disenchant(p_ptr, 0);
+				(void)apply_disenchant(aimer_ptr, 0);
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6910,15 +6910,15 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something strange!");
 #endif
 
-			if (p_ptr->resist_nexus)
+			if (aimer_ptr->resist_nexus)
 			{
 				dam *= 6; dam /= (randint1(4) + 7);
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
 				apply_nexus(who_ptr);
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6931,11 +6931,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by kinetic force!");
 #endif
 
-			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
+			if (!aimer_ptr->resist_sound && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
+				(void)set_stun(aimer_ptr, aimer_ptr->stun + randint1(20));
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6949,26 +6949,26 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("There is an explosion!");
 #endif
 
-			if (!p_ptr->resist_sound && !(p_ptr->multishadow && (turn & 1)))
+			if (!aimer_ptr->resist_sound && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_stun(p_ptr, p_ptr->stun + randint1(20));
+				(void)set_stun(aimer_ptr, aimer_ptr->stun + randint1(20));
 			}
 
-			if (p_ptr->resist_shard)
+			if (aimer_ptr->resist_shard)
 			{
 				dam /= 2;
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_cut(p_ptr, p_ptr->cut + (dam / 2));
+				(void)set_cut(aimer_ptr, aimer_ptr->cut + (dam / 2));
 			}
 
-			if (!p_ptr->resist_shard || one_in_(12))
+			if (!aimer_ptr->resist_shard || one_in_(12))
 			{
-				inven_damage(p_ptr, set_cold_destroy, 3);
+				inven_damage(aimer_ptr, set_cold_destroy, 3);
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6981,8 +6981,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (!(p_ptr->multishadow && (turn & 1))) (void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			if (!(aimer_ptr->multishadow && (turn & 1))) (void)set_slow(aimer_ptr, aimer_ptr->slow + randint0(4) + 4, FALSE);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -6995,36 +6995,36 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->resist_lite)
+			if (aimer_ptr->resist_lite)
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 			}
-			else if (!blind && !p_ptr->resist_blind && !(p_ptr->multishadow && (turn & 1)))
+			else if (!blind && !aimer_ptr->resist_blind && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
+				(void)set_blind(aimer_ptr, aimer_ptr->blind + randint1(5) + 2);
 			}
 
-			if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE))
+			if (race_is_(aimer_ptr, RACE_VAMPIRE) || (aimer_ptr->mimic_form == MIMIC_VAMPIRE))
 			{
 #ifdef JP
-				if (!(p_ptr->multishadow && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
+				if (!(aimer_ptr->multishadow && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
 #else
-				if (!(p_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
+				if (!(aimer_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
 #endif
 
 				dam *= 2;
 			}
-			else if (race_is_(p_ptr, RACE_S_FAIRY))
+			else if (race_is_(aimer_ptr, RACE_S_FAIRY))
 			{
 				dam = dam * 4 / 3;
 			}
 
-			if (p_ptr->wraith_form) dam *= 2;
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			if (aimer_ptr->wraith_form) dam *= 2;
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 
-			if (p_ptr->wraith_form && !(p_ptr->multishadow && (turn & 1)))
+			if (aimer_ptr->wraith_form && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				p_ptr->wraith_form = 0;
+				aimer_ptr->wraith_form = 0;
 #ifdef JP
 				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
 #else
@@ -7033,7 +7033,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 				play_redraw |= PR_MAP;
 				/* Update monsters */
-				p_ptr->update |= (PU_MONSTERS);
+				aimer_ptr->update |= (PU_MONSTERS);
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -7054,17 +7054,17 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (p_ptr->resist_dark)
+			if (aimer_ptr->resist_dark)
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 
-				if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form) dam = 0;
+				if (race_is_(aimer_ptr, RACE_VAMPIRE) || (aimer_ptr->mimic_form == MIMIC_VAMPIRE) || aimer_ptr->wraith_form) dam = 0;
 			}
-			else if (!blind && !p_ptr->resist_blind && !(p_ptr->multishadow && (turn & 1)))
+			else if (!blind && !aimer_ptr->resist_blind && !(aimer_ptr->multishadow && (turn & 1)))
 			{
-				(void)set_blind(p_ptr, p_ptr->blind + randint1(5) + 2);
+				(void)set_blind(aimer_ptr, aimer_ptr->blind + randint1(5) + 2);
 			}
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7077,7 +7077,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by a blast from the past!");
 #endif
 
-			if (p_ptr->resist_time)
+			if (aimer_ptr->resist_time)
 			{
 				dam *= 4;
 				dam /= (randint1(4) + 7);
@@ -7087,20 +7087,20 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("You feel as if time is passing you by.");
 #endif
 			}
-			else if (!(p_ptr->multishadow && (turn & 1)))
+			else if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
 				switch (randint1(10))
 				{
 					case 1: case 2: case 3: case 4: case 5:
 					{
-						if (p_ptr->irace_idx == RACE_ANDROID) break;
+						if (aimer_ptr->irace_idx == RACE_ANDROID) break;
 #ifdef JP
 						msg_print("l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB");
 #else
 						msg_print("You feel life has clocked back.");
 #endif
 
-						lose_exp(p_ptr, 100 + (p_ptr->exp / 100) * MON_DRAIN_LIFE);
+						lose_exp(aimer_ptr, 100 + (aimer_ptr->exp / 100) * MON_DRAIN_LIFE);
 						break;
 					}
 
@@ -7131,9 +7131,9 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						msg_format("You're not as %s as you used to be...", act);
 #endif
 
-						p_ptr->stat_cur[k] = (p_ptr->stat_cur[k] * 3) / 4;
-						if (p_ptr->stat_cur[k] < 3) p_ptr->stat_cur[k] = 3;
-						p_ptr->update |= (PU_BONUS);
+						aimer_ptr->stat_cur[k] = (aimer_ptr->stat_cur[k] * 3) / 4;
+						if (aimer_ptr->stat_cur[k] < 3) aimer_ptr->stat_cur[k] = 3;
+						aimer_ptr->update |= (PU_BONUS);
 						break;
 					}
 
@@ -7147,16 +7147,16 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 
 						for (k = 0; k < 6; k++)
 						{
-							p_ptr->stat_cur[k] = (p_ptr->stat_cur[k] * 7) / 8;
-							if (p_ptr->stat_cur[k] < 3) p_ptr->stat_cur[k] = 3;
+							aimer_ptr->stat_cur[k] = (aimer_ptr->stat_cur[k] * 7) / 8;
+							if (aimer_ptr->stat_cur[k] < 3) aimer_ptr->stat_cur[k] = 3;
 						}
-						p_ptr->update |= (PU_BONUS);
+						aimer_ptr->update |= (PU_BONUS);
 						break;
 					}
 				}
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7171,28 +7171,28 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			msg_print("Gravity warps around you.");
 #endif
 
-			if (!(p_ptr->multishadow && (turn & 1)))
+			if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				teleport_player(p_ptr, 5, TELEPORT_PASSIVE);
-				if (!p_ptr->levitation)
-					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
-				if (!(p_ptr->resist_sound || p_ptr->levitation))
+				teleport_player(aimer_ptr, 5, TELEPORT_PASSIVE);
+				if (!aimer_ptr->levitation)
+					(void)set_slow(aimer_ptr, aimer_ptr->slow + randint0(4) + 4, FALSE);
+				if (!(aimer_ptr->resist_sound || aimer_ptr->levitation))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-					(void)set_stun(p_ptr, p_ptr->stun + k);
+					(void)set_stun(aimer_ptr, aimer_ptr->stun + k);
 				}
 			}
-			if (p_ptr->levitation)
+			if (aimer_ptr->levitation)
 			{
 				dam = (dam * 2) / 3;
 			}
 
-			if (!p_ptr->levitation || one_in_(13))
+			if (!aimer_ptr->levitation || one_in_(13))
 			{
-				inven_damage(p_ptr, set_cold_destroy, 2);
+				inven_damage(aimer_ptr, set_cold_destroy, 2);
 			}
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7205,7 +7205,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by pure energy!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7217,7 +7217,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something invigorating!");
 #endif
 
-			(void)hp_player(p_ptr, dam);
+			(void)hp_player(aimer_ptr, dam);
 			dam = 0;
 			break;
 		}
@@ -7230,7 +7230,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			(void)set_fast(p_ptr, p_ptr->fast + randint1(5), FALSE);
+			(void)set_fast(aimer_ptr, aimer_ptr->fast + randint1(5), FALSE);
 			dam = 0;
 			break;
 		}
@@ -7243,13 +7243,13 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
+			(void)set_slow(aimer_ptr, aimer_ptr->slow + randint0(4) + 4, FALSE);
 			break;
 		}
 
 		case GF_OLD_SLEEP:
 		{
-			if (p_ptr->free_act)  break;
+			if (aimer_ptr->free_act)  break;
 #ifdef JP
 			if (fuzzy) msg_print("–°‚Á‚Ä‚µ‚Ü‚Á‚½I");
 #else
@@ -7269,13 +7269,13 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				get_mon_num_prep(get_nightmare, NULL);
 
 				/* Have some nightmares */
-				have_nightmare(p_ptr, get_mon_num(MAX_DEPTH));
+				have_nightmare(aimer_ptr, get_mon_num(MAX_DEPTH));
 
 				/* Remove the monster restriction */
 				get_mon_num_prep(NULL, NULL);
 			}
 
-			set_paralyzed(p_ptr, p_ptr->paralyzed + dam);
+			set_paralyzed(aimer_ptr, aimer_ptr->paralyzed + dam);
 			dam = 0;
 			break;
 		}
@@ -7291,7 +7291,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by an aura of magic!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7304,7 +7304,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by an energy!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_FORCE, dam, killer, NULL, monspell);
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_FORCE, dam, killer, NULL, monspell);
 			break;
 		}
 
@@ -7317,11 +7317,11 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("Something falls from the sky on you!");
 #endif
 
-			get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-			if (!p_ptr->resist_shard || one_in_(13))
+			get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+			if (!aimer_ptr->resist_shard || one_in_(13))
 			{
-				if (!p_ptr->immune_fire) inven_damage(p_ptr, set_fire_destroy, 2);
-				inven_damage(p_ptr, set_cold_destroy, 2);
+				if (!aimer_ptr->immune_fire) inven_damage(aimer_ptr, set_fire_destroy, 2);
+				inven_damage(aimer_ptr, set_cold_destroy, 2);
 			}
 
 			break;
@@ -7336,21 +7336,21 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 			if (fuzzy) msg_print("You are hit by something sharp and cold!");
 #endif
 
-			get_damage = cold_dam(p_ptr, dam, killer, monspell);
-			if (!(p_ptr->multishadow && (turn & 1)))
+			get_damage = cold_dam(aimer_ptr, dam, killer, monspell);
+			if (!(aimer_ptr->multishadow && (turn & 1)))
 			{
-				if (!p_ptr->resist_shard)
+				if (!aimer_ptr->resist_shard)
 				{
-					(void)set_cut(p_ptr, p_ptr->cut + damroll(5, 8));
+					(void)set_cut(aimer_ptr, aimer_ptr->cut + damroll(5, 8));
 				}
-				if (!p_ptr->resist_sound)
+				if (!aimer_ptr->resist_sound)
 				{
-					(void)set_stun(p_ptr, p_ptr->stun + randint1(15));
+					(void)set_stun(aimer_ptr, aimer_ptr->stun + randint1(15));
 				}
 
-				if ((!(p_ptr->resist_cold || IS_OPPOSE_COLD(p_ptr))) || one_in_(12))
+				if ((!(aimer_ptr->resist_cold || IS_OPPOSE_COLD(aimer_ptr))) || one_in_(12))
 				{
-					if (!p_ptr->immune_cold) inven_damage(p_ptr, set_cold_destroy, 3);
+					if (!aimer_ptr->immune_cold) inven_damage(aimer_ptr, set_cold_destroy, 3);
 				}
 			}
 
@@ -7367,15 +7367,15 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 
-			if (p_ptr->mimic_form)
+			if (aimer_ptr->mimic_form)
 			{
-				if (!(mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
-					get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(mimic_info[aimer_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
+					get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			else
 			{
 
-			switch (p_ptr->irace_idx)
+			switch (aimer_ptr->irace_idx)
 			{
 				/* Some races are immune */
 				case RACE_GOLEM:
@@ -7392,7 +7392,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				/* Hurt a lot */
 				default:
 				{
-					get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+					get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 					break;
 				}
 			}
@@ -7404,7 +7404,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Drain mana */
 		case GF_DRAIN_MANA:
 		{
-			if ((p_ptr->multishadow && (turn & 1)))
+			if ((aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("UŒ‚‚ÍŒ¶‰e‚É–½’†‚µA‚ ‚È‚½‚É‚Í“Í‚©‚È‚©‚Á‚½B");
@@ -7412,7 +7412,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 				msg_print("The attack hits Shadow, you are unharmed!");
 #endif
 			}
-			else if (p_ptr->csp)
+			else if (aimer_ptr->csp)
 			{
 				/* Basic message */
 #ifdef JP
@@ -7424,20 +7424,20 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 #endif
 
 				/* Full drain */
-				if (dam >= p_ptr->csp)
+				if (dam >= aimer_ptr->csp)
 				{
-					dam = p_ptr->csp;
-					p_ptr->csp = 0;
-					p_ptr->csp_frac = 0;
+					dam = aimer_ptr->csp;
+					aimer_ptr->csp = 0;
+					aimer_ptr->csp_frac = 0;
 				}
 
 				/* Partial drain */
 				else
 				{
-					p_ptr->csp -= dam;
+					aimer_ptr->csp -= dam;
 				}
 
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 
 				/* Redraw mana */
 				play_redraw |= (PR_MANA);
@@ -7456,8 +7456,8 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[p_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
-						if (&m_list[p_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
+						if (&m_list[aimer_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
+						if (&m_list[aimer_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (who_ptr->ml)
@@ -7479,18 +7479,18 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < MAX(5, aimer_ptr->skill_rob)) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				if (!(p_ptr->multishadow && (turn & 1)))
+				if (!(aimer_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("—ì“IƒGƒlƒ‹ƒM[‚Å¸_‚ªUŒ‚‚³‚ê‚½B");
@@ -7498,26 +7498,26 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					msg_print("Your mind is blasted by psyonic energy.");
 #endif
 
-					if (!p_ptr->resist_conf)
+					if (!aimer_ptr->resist_conf)
 					{
-						(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+						(void)set_confused(aimer_ptr, aimer_ptr->confused + randint0(4) + 4);
 					}
 
-					if (!p_ptr->resist_chaos && one_in_(3))
+					if (!aimer_ptr->resist_chaos && one_in_(3))
 					{
-						(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+						(void)set_image(aimer_ptr, aimer_ptr->image + randint0(250) + 150);
 					}
 
-					p_ptr->csp -= 50;
-					if (p_ptr->csp < 0)
+					aimer_ptr->csp -= 50;
+					if (aimer_ptr->csp < 0)
 					{
-						p_ptr->csp = 0;
-						p_ptr->csp_frac = 0;
+						aimer_ptr->csp = 0;
+						aimer_ptr->csp_frac = 0;
 					}
 					play_redraw |= PR_MANA;
 				}
 
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
 		}
@@ -7525,18 +7525,18 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, p_ptr->skill_rob)) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < MAX(5, aimer_ptr->skill_rob)) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				if (!(p_ptr->multishadow && (turn & 1)))
+				if (!(aimer_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("—ì“IƒGƒlƒ‹ƒM[‚Å¸_‚ªUŒ‚‚³‚ê‚½B");
@@ -7544,40 +7544,40 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 					msg_print("Your mind is blasted by psionic energy.");
 #endif
 
-					p_ptr->csp -= 100;
-					if (p_ptr->csp < 0)
+					aimer_ptr->csp -= 100;
+					if (aimer_ptr->csp < 0)
 					{
-						p_ptr->csp = 0;
-						p_ptr->csp_frac = 0;
+						aimer_ptr->csp = 0;
+						aimer_ptr->csp_frac = 0;
 					}
 					play_redraw |= PR_MANA;
 				}
 
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-				if (!(p_ptr->multishadow && (turn & 1)))
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(aimer_ptr->multishadow && (turn & 1)))
 				{
-					if (!p_ptr->resist_blind)
+					if (!aimer_ptr->resist_blind)
 					{
-						(void)set_blind(p_ptr, p_ptr->blind + 8 + randint0(8));
+						(void)set_blind(aimer_ptr, aimer_ptr->blind + 8 + randint0(8));
 					}
-					if (!p_ptr->resist_conf)
+					if (!aimer_ptr->resist_conf)
 					{
-						(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+						(void)set_confused(aimer_ptr, aimer_ptr->confused + randint0(4) + 4);
 					}
-					if (!p_ptr->free_act)
+					if (!aimer_ptr->free_act)
 					{
-						(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
+						(void)set_paralyzed(aimer_ptr, aimer_ptr->paralyzed + randint0(4) + 4);
 					}
-					(void)set_slow(p_ptr, p_ptr->slow + randint0(4) + 4, FALSE);
+					(void)set_slow(aimer_ptr, aimer_ptr->slow + randint0(4) + 4, FALSE);
 
-					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
-						(void)do_dec_stat(p_ptr, A_INT);
-					while (randint0(100 + rlev / 2) > (MAX(5, p_ptr->skill_rob)))
-						(void)do_dec_stat(p_ptr, A_WIS);
+					while (randint0(100 + rlev / 2) > (MAX(5, aimer_ptr->skill_rob)))
+						(void)do_dec_stat(aimer_ptr, A_INT);
+					while (randint0(100 + rlev / 2) > (MAX(5, aimer_ptr->skill_rob)))
+						(void)do_dec_stat(aimer_ptr, A_WIS);
 
-					if (!p_ptr->resist_chaos)
+					if (!aimer_ptr->resist_chaos)
 					{
-						(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+						(void)set_image(aimer_ptr, aimer_ptr->image + randint0(250) + 150);
 					}
 				}
 			}
@@ -7587,20 +7587,20 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < aimer_ptr->skill_rob) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
 				//TODO curse_equipment
-				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 15, 0);
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(aimer_ptr->multishadow && (turn & 1))) curse_equipment(aimer_ptr, 15, 0);
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
 		}
@@ -7608,19 +7608,19 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < aimer_ptr->skill_rob) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 25, MIN(rlev / 2 - 15, 5));
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(aimer_ptr->multishadow && (turn & 1))) curse_equipment(aimer_ptr, 25, MIN(rlev / 2 - 15, 5));
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
 		}
@@ -7628,19 +7628,19 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < aimer_ptr->skill_rob) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				if (!(p_ptr->multishadow && (turn & 1))) curse_equipment(p_ptr, 33, MIN(rlev / 2 - 15, 15));
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(aimer_ptr->multishadow && (turn & 1))) curse_equipment(aimer_ptr, 33, MIN(rlev / 2 - 15, 15));
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 			}
 			break;
 		}
@@ -7648,19 +7648,19 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < p_ptr->skill_rob) && !(who_ptr->species_idx == MON_KENSHIROU) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < aimer_ptr->skill_rob) && !(who_ptr->species_idx == MON_KENSHIROU) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‚µ‚©‚µ”éE‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_print("You resist the effects!");
 #endif
-				learn_spell(p_ptr, monspell);
+				learn_spell(aimer_ptr, monspell);
 			}
 			else
 			{
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
-				if (!(p_ptr->multishadow && (turn & 1))) (void)set_cut(p_ptr, p_ptr->cut + damroll(10, 10));
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
+				if (!(aimer_ptr->multishadow && (turn & 1))) (void)set_cut(aimer_ptr, aimer_ptr->cut + damroll(10, 10));
 			}
 			break;
 		}
@@ -7668,30 +7668,30 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
-			if ((randint0(100 + rlev/2) < p_ptr->skill_rob) && !(p_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev/2) < aimer_ptr->skill_rob) && !(aimer_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_format("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
 #else
 				msg_format("You resist the effects!");
 #endif
-				learn_spell(p_ptr,monspell);
+				learn_spell(aimer_ptr,monspell);
 			}
 			else
 			{
-				if (!(p_ptr->multishadow && (turn & 1)))
+				if (!(aimer_ptr->multishadow && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("‚ ‚È‚½‚Í–½‚ª”–‚Ü‚Á‚Ä‚¢‚­‚æ‚¤‚ÉŠ´‚¶‚½I");
 #else
 					msg_print("You feel your life fade away!");
 #endif
-					curse_equipment(p_ptr, 40, 20);
+					curse_equipment(aimer_ptr, 40, 20);
 				}
 
-				get_damage = take_hit(NULL, p_ptr, DAMAGE_ATTACK, dam, m_name, NULL, monspell);
+				get_damage = take_hit(NULL, aimer_ptr, DAMAGE_ATTACK, dam, m_name, NULL, monspell);
 
-				if (p_ptr->chp < 1) p_ptr->chp = 1; /* Paranoia */
+				if (aimer_ptr->chp < 1) aimer_ptr->chp = 1; /* Paranoia */
 			}
 			break;
 		}
@@ -7707,10 +7707,10 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	}
 
 	/* Hex - revenge damage stored */
-	revenge_store(p_ptr, get_damage);
+	revenge_store(aimer_ptr, get_damage);
 
-	if ((p_ptr->tim_eyeeye || hex_spelling(p_ptr, HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !p_ptr->is_dead && (who_ptr != NULL))
+	if ((aimer_ptr->tim_eyeeye || hex_spelling(aimer_ptr, HEX_EYE_FOR_EYE))
+		&& (get_damage > 0) && !aimer_ptr->is_dead && (who_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", m_name);
@@ -7723,10 +7723,10 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
 		project(0, 0, who_ptr->fy, who_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (p_ptr->tim_eyeeye) set_tim_eyeeye(p_ptr, p_ptr->tim_eyeeye-5, TRUE);
+		if (aimer_ptr->tim_eyeeye) set_tim_eyeeye(aimer_ptr, aimer_ptr->tim_eyeeye-5, TRUE);
 	}
 
-	if (p_ptr->riding && dam > 0)
+	if (aimer_ptr->riding && dam > 0)
 	{
 		rakubadam_p = (dam > 200) ? 200 : dam;
 	}
@@ -7736,7 +7736,7 @@ static bool project_p(creature_type *who_ptr, cptr who_name, int r, int y, int x
 	disturb(1, 0);
 
 
-	if ((p_ptr->special_defense & NINJA_KAWARIMI) && dam && who_ptr && (who_ptr != &m_list[p_ptr->riding]))
+	if ((aimer_ptr->special_defense & NINJA_KAWARIMI) && dam && who_ptr && (who_ptr != &m_list[aimer_ptr->riding]))
 	{
 		(void)kawarimi(FALSE);
 	}
@@ -9265,7 +9265,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the player */
-			if (project_p(who_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
+			if (project_p(p_ptr, who_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
 		}
 	}
 
