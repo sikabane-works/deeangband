@@ -9245,13 +9245,13 @@ static void do_cmd_knowledge_kubi(void)
 /*
  * List karmas & status
  */
-static void do_cmd_knowledge_karmas(void)
+static void do_cmd_knowledge_karmas(creature_type *cr_ptr)
 {
 	FILE *fff;
 	
 	char file_name[1024];
 	char buf[100];
-	show_alignment(buf, p_ptr);
+	show_alignment(buf, cr_ptr);
 	
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
@@ -9272,7 +9272,7 @@ static void do_cmd_knowledge_karmas(void)
 #else
 		fprintf(fff, "Your alighnment : %s\n\n", buf);
 #endif
-		dump_karmas(p_ptr, fff);
+		dump_karmas(cr_ptr, fff);
 	}
 	
 	/* Close the file */
@@ -9287,7 +9287,7 @@ static void do_cmd_knowledge_karmas(void)
 * Dungeon
 *
 */
-static void do_cmd_knowledge_dungeon(void)
+static void do_cmd_knowledge_dungeon()
 {
 	FILE *fff;
 	
@@ -9347,7 +9347,7 @@ static void do_cmd_knowledge_dungeon(void)
 * List karmas & status
 *
 */
-static void do_cmd_knowledge_stat(void)
+static void do_cmd_knowledge_stat(creature_type *cr_ptr)
 {
 	FILE *fff;
 	
@@ -9368,27 +9368,27 @@ static void do_cmd_knowledge_stat(void)
 	
 	if (fff)
 	{
-		percent = (int)(((long)p_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
-			(2 * p_ptr->hitdice +
-			((PY_MAX_LEVEL - 1+3) * (p_ptr->hitdice + 1))));
+		percent = (int)(((long)cr_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
+			(2 * cr_ptr->hitdice +
+			((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 
 #ifdef JP
-		if (p_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "現在の体力ランク : %d/100\n\n", percent);
+		if (cr_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "現在の体力ランク : %d/100\n\n", percent);
 		else fprintf(fff, "現在の体力ランク : ???\n\n");
 		fprintf(fff, "能力の最大値\n\n");
 #else
-		if (p_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
+		if (cr_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
 		else fprintf(fff, "Your current Life Rating is ???.\n\n");
 		fprintf(fff, "Limits of maximum stats\n\n");
 #endif
 		for (v_nr = 0; v_nr < 6; v_nr++)
 		{
-			if ((p_ptr->knowledge & KNOW_STAT) || p_ptr->stat_max[v_nr] == p_ptr->stat_max_max[v_nr]) fprintf(fff, "%s 18/%d\n", stat_names[v_nr], p_ptr->stat_max_max[v_nr]-18);
+			if ((cr_ptr->knowledge & KNOW_STAT) || cr_ptr->stat_max[v_nr] == cr_ptr->stat_max_max[v_nr]) fprintf(fff, "%s 18/%d\n", stat_names[v_nr], cr_ptr->stat_max_max[v_nr]-18);
 			else fprintf(fff, "%s ???\n", stat_names[v_nr]);
 		}
 	}
 
-	dump_yourself(p_ptr, fff);
+	dump_yourself(cr_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -10110,7 +10110,7 @@ static void do_cmd_knowledge_autopick(void)
 /*
  * Interact with "knowledge"
  */
-void do_cmd_knowledge(void)
+void do_cmd_knowledge(creature_type *cr_ptr)
 {
 	int i, p = 0;
 	bool need_redraw = FALSE;
@@ -10251,22 +10251,22 @@ void do_cmd_knowledge(void)
 			break;
 		/* Next page */
 		case 'a': /* Max stat */
-			do_cmd_knowledge_stat();
+			do_cmd_knowledge_stat(cr_ptr);
 			break;
 		case 'b': /* Mutations */
-			do_cmd_knowledge_mutations(p_ptr);
+			do_cmd_knowledge_mutations(cr_ptr);
 			break;
 		case 'c': /* weapon-exp */
-			do_cmd_knowledge_weapon_exp(p_ptr);
+			do_cmd_knowledge_weapon_exp(cr_ptr);
 			break;
 		case 'd': /* spell-exp */
-			do_cmd_knowledge_spell_exp(p_ptr);
+			do_cmd_knowledge_spell_exp(cr_ptr);
 			break;
 		case 'e': /* skill-exp */
-			do_cmd_knowledge_skill_exp(p_ptr);
+			do_cmd_knowledge_skill_exp(cr_ptr);
 			break;
 		case 'f': /* Virtues */
-			do_cmd_knowledge_karmas();
+			do_cmd_knowledge_karmas(cr_ptr);
 			break;
 		case 'g': /* Dungeon */
 			do_cmd_knowledge_dungeon();

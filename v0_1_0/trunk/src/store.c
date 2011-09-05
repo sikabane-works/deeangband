@@ -4723,7 +4723,7 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Check artifacts, uniques etc. */
 		case '~':
 		{
-			do_cmd_knowledge();
+			do_cmd_knowledge(guest_ptr);
 			break;
 		}
 

@@ -5389,7 +5389,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Check artifacts, uniques, objects */
 		case '~':
 		{
-			do_cmd_knowledge();
+			do_cmd_knowledge(cr_ptr);
 			break;
 		}
 

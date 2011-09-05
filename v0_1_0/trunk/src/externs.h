@@ -807,7 +807,7 @@ extern void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[]);
 extern void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[]);
 extern bool ang_sort_comp_quest_num(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_quest_num(vptr u, vptr v, int a, int b);
-extern void do_cmd_knowledge(void);
+extern void do_cmd_knowledge(creature_type *cr_ptr);
 extern void plural_aux(char * Name);
 extern void do_cmd_checkquest(void);
 extern void do_cmd_time(void);
