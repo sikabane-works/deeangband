@@ -828,7 +828,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Lovers.");
 #endif
 
-		if (get_aim_dir(&dir))
+		if (get_aim_dir(cr_ptr, &dir))
 			charm_monster(dir, MIN(cr_ptr->lev, 20));
 	}
 	else if (die < 101)
@@ -949,7 +949,7 @@ static bool cast_wrath_of_the_god(creature_type *cr_ptr, int dam, int rad)
 	int dir, i;
 	int b = 10 + randint1(10);
 
-	if (!get_aim_dir(&dir)) return FALSE;
+	if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
 	tx = cr_ptr->fx + 99 * ddx[dir];
@@ -1253,7 +1253,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball_hide(GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
@@ -1403,7 +1403,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball_hide(GF_WOUNDS, dir, damroll(sides, dice), 0);
 			}
 		}
@@ -1634,7 +1634,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball_hide(GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
@@ -1994,7 +1994,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				confuse_monster(dir, power);
 			}
@@ -2038,7 +2038,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				sleep_monster(dir);
 			}
@@ -2120,7 +2120,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				slow_monster(dir);
 			}
@@ -2164,7 +2164,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_AWAY_ALL, dir, power);
 			}
@@ -2270,7 +2270,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				charm_monster(dir, power);
 			}
@@ -2460,7 +2460,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fetch(cr_ptr, dir, weight, FALSE);
 			}
@@ -2641,7 +2641,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				project_length = range;
 
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_ELEC, dir, damroll(dice, sides));
 			}
@@ -2754,7 +2754,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				charm_animal(dir, power);
 			}
@@ -2826,7 +2826,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				wall_to_mud(dir);
 			}
@@ -2850,7 +2850,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_COLD, dir, damroll(dice, sides));
 			}
 		}
@@ -2899,7 +2899,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_FIRE, dir, damroll(dice, sides));
 			}
 		}
@@ -2922,7 +2922,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 #ifdef JP
 				msg_print("太陽光線が現れた。");
 #else
@@ -3228,7 +3228,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_COLD, dir, dam, rad);
 			}
@@ -3252,7 +3252,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball(GF_ELEC, dir, dam, rad);
 				break;
 			}
@@ -3276,7 +3276,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball(GF_WATER, dir, dam, rad);
 			}
 		}
@@ -3405,7 +3405,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
@@ -3510,7 +3510,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_MISSILE, dir, damroll(dice, sides) + base, rad);
 
@@ -3540,7 +3540,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_FIRE, dir, damroll(dice, sides));
 			}
@@ -3564,7 +3564,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_DISINTEGRATE, dir,
 					damroll(dice, sides), 0);
@@ -3608,7 +3608,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				cast_wonder(cr_ptr, dir);
 			}
@@ -3632,7 +3632,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_CHAOS, dir, damroll(dice, sides));
 			}
@@ -3684,7 +3684,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_MANA, dir, damroll(dice, sides));
 			}
@@ -3708,7 +3708,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_FIRE, dir, dam, rad);
 			}
@@ -3731,7 +3731,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_AWAY_ALL, dir, power);
 			}
@@ -3775,7 +3775,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_CHAOS, dir, dam, rad);
 			}
@@ -3798,7 +3798,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				poly_monster(dir);
 			}
@@ -3866,7 +3866,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_DISINTEGRATE, dir, dam, rad);
 			}
@@ -3912,7 +3912,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 #ifdef JP
 				msg_print("ロケット発射！");
@@ -4007,7 +4007,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_GRAVITY, dir, damroll(dice, sides));
 			}
@@ -4116,7 +4116,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_MANA, dir, dam, rad);
 			}
@@ -4140,7 +4140,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_CHAOS, dir, dam, rad);
 			}
@@ -4230,7 +4230,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				/*
 				 * A radius-0 ball may (1) be aimed at
@@ -4298,7 +4298,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_POIS, dir, dam, rad);
 			}
@@ -4321,7 +4321,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				sleep_monster(dir);
 			}
@@ -4365,7 +4365,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fear_monster(dir, power);
 				stun_monster(dir, power);
@@ -4389,7 +4389,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				control_one_undead(dir, power);
 			}
@@ -4423,7 +4423,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_OLD_DRAIN, dir, damroll(dice, dice) + base, rad);
 			}
@@ -4447,7 +4447,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
@@ -4492,7 +4492,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball_hide(GF_GENOCIDE, dir, power, 0);
 			}
@@ -4536,7 +4536,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int dam = base + damroll(dice, sides);
 
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				if (drain_life(dir, dam))
 				{
@@ -4638,7 +4638,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				cast_invoke_spirits(cr_ptr, dir);
 			}
@@ -4662,7 +4662,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_DARK, dir, damroll(dice, sides));
 			}
@@ -4730,7 +4730,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int i;
 
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				for (i = 0; i < 3; i++)
 				{
@@ -4779,7 +4779,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_DARK, dir, dam, rad);
 			}
@@ -4798,7 +4798,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				death_ray(dir, plev);
 			}
@@ -4960,7 +4960,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_HELL_FIRE, dir, dam, rad);
 #ifdef JP
@@ -5166,7 +5166,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_AWAY_ALL, dir, power);
 			}
@@ -5224,7 +5224,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fetch(cr_ptr, dir, weight, FALSE);
 			}
@@ -5330,7 +5330,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 				bool old_target_pet = target_pet;
 				target_pet = TRUE;
 
-				result = get_aim_dir(&dir);
+				result = get_aim_dir(cr_ptr, &dir);
 
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
@@ -5451,7 +5451,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 				/* HACK -- No range limit */
 				project_length = -1;
 
-				result = get_aim_dir(&dir);
+				result = get_aim_dir(cr_ptr, &dir);
 
 				/* Restore range to default */
 				project_length = 0;
@@ -5747,7 +5747,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 				bool old_target_pet = target_pet;
 				target_pet = TRUE;
 
-				result = get_aim_dir(&dir);
+				result = get_aim_dir(cr_ptr, &dir);
 
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
@@ -5955,7 +5955,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
@@ -5974,7 +5974,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				wizard_lock(dir);
 			}
@@ -6079,7 +6079,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				destroy_door(dir);
 			}
@@ -6393,7 +6393,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				wall_to_mud(dir);
 			}
@@ -6417,7 +6417,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 #ifdef JP
 				msg_print("光線が放たれた。");
@@ -6530,7 +6530,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_AWAY_ALL, dir, power);
 			}
@@ -6556,7 +6556,7 @@ static cptr do_arcane_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				int type;
 
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				switch (randint1(4))
 				{
@@ -7378,7 +7378,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_MISSILE, dir, damroll(dice, sides));
 			}
@@ -7464,7 +7464,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fear_monster(dir, power);
 				stun_monster(dir, power);
@@ -7489,7 +7489,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_NETHER, dir, damroll(dice, sides));
 			}
@@ -7547,7 +7547,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_HELL_FIRE, dir, damroll(dice, sides) + base, rad);
 			}
@@ -7570,7 +7570,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				control_one_demon(dir, power);
 			}
@@ -7636,7 +7636,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr), GF_PLASMA, dir, damroll(dice, sides));
 			}
@@ -7660,7 +7660,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_FIRE, dir, dam, rad);
 			}
@@ -7701,7 +7701,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_NETHER, dir, dam, rad);
 			}
@@ -7855,7 +7855,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_PLASMA, dir, dam, rad);
 			}
@@ -7923,7 +7923,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball(GF_NEXUS, dir, dam, rad);
 			}
 		}
@@ -7941,7 +7941,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 #ifdef JP
 				else msg_print("<破滅の手>を放った！");
 #else
@@ -8073,7 +8073,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_NETHER, dir, dam, rad);
 			}
@@ -8097,7 +8097,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball_hide(GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
@@ -8164,7 +8164,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(beam_chance(cr_ptr) - 10, GF_ELEC, dir, damroll(dice, sides));
 			}
@@ -8225,7 +8225,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fear_monster(dir, power);
 			}
@@ -8291,7 +8291,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_blast(GF_LITE, dir, dice, sides, 10, 3);
 			}
 		}
@@ -8332,7 +8332,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_ball(GF_AWAY_EVIL, dir, power, 0);
 			}
 		}
@@ -8365,7 +8365,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_HOLY_FIRE, dir, damroll(dice, sides) + base, rad);
 			}
@@ -8479,7 +8479,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				fire_bolt(GF_ELEC, dir, dam);
 			}
 		}
@@ -8528,7 +8528,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				destroy_door(dir);
 			}
@@ -8551,7 +8551,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 				stasis_evil(dir);
 			}
 		}
@@ -8655,7 +8655,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_LITE, dir, dam, rad);
 			}
@@ -9036,7 +9036,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_bolt(GF_SOUND, dir, damroll(dice, sides));
 			}
@@ -9808,7 +9808,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_beam(GF_SOUND, dir, damroll(dice, sides));
 			}
@@ -10097,7 +10097,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				if (!get_aim_dir(&dir)) return NULL;
+				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 				fire_ball(GF_SOUND, dir, damroll(dice, sides), rad);
 			}
@@ -10186,7 +10186,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 		if (cast)
 		{
 			project_length = 2;
-			if (!get_aim_dir(&dir)) return NULL;
+			if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
 			project_hook(GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
 		}
@@ -10901,7 +10901,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			int total_damage = 0, basedam, i;
 			u32b flgs[TR_FLAG_SIZE];
 			object_type *o_ptr;
-			if (!get_aim_dir(&dir)) return NULL;
+			if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 #ifdef JP
 			msg_print("武器を大きく振り下ろした。");
 #else
@@ -12539,7 +12539,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 						msg_print("Time to revenge!");
 #endif
 					}
-					while (!get_aim_dir(&dir));
+					while (!get_aim_dir(cr_ptr, &dir));
 
 					fire_ball(GF_HELL_FIRE, dir, power, 1);
 

@@ -1976,7 +1976,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 	{
 		case ACT_SUNLIGHT:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("太陽光線が放たれた。");
 #else
@@ -1996,7 +1996,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows extremely brightly...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_MISSILE, dir, damroll(2, 6));
 			o_ptr->timeout = 2;
 			break;
@@ -2010,7 +2010,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It throbs deep green...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_POIS, dir, 12, 3);
 			o_ptr->timeout = (s16b)randint0(4) + 4;
 			break;
@@ -2024,7 +2024,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It is covered in sparks...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_ELEC, dir, damroll(4, 8));
 			o_ptr->timeout = (s16b)randint0(5) + 5;
 			break;
@@ -2038,7 +2038,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It is covered in acid...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_ACID, dir, damroll(5, 8));
 			o_ptr->timeout = (s16b)randint0(6) + 6;
 			break;
@@ -2052,7 +2052,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It is covered in frost...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_COLD, dir, damroll(6, 8));
 			o_ptr->timeout = (s16b)randint0(7) + 7;
 			break;
@@ -2066,7 +2066,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It is covered in fire...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_FIRE, dir, damroll(9, 8));
 			o_ptr->timeout = (s16b)randint0(8) + 8;
 			break;
@@ -2080,7 +2080,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It is covered in frost...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_COLD, dir, 48, 2);
 			o_ptr->timeout = 400;
 			break;
@@ -2094,7 +2094,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows an intense red...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_FIRE, dir, 72, 2);
 			o_ptr->timeout = 400;
 			break;
@@ -2108,7 +2108,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows black...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			if (drain_life(dir, 100))
 			o_ptr->timeout = (s16b)randint0(100) + 100;
 			break;
@@ -2122,7 +2122,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows an intense blue...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_COLD, dir, 100, 2);
 			o_ptr->timeout = 300;
 			break;
@@ -2136,7 +2136,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It crackles with electricity...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_ELEC, dir, 100, 3);
 			o_ptr->timeout = 500;
 			break;
@@ -2150,7 +2150,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows black...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			drain_life(dir, 120);
 			o_ptr->timeout = 400;
 			break;
@@ -2158,7 +2158,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_VAMPIRE_1:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 50))
@@ -2176,7 +2176,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It grows magical spikes...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_bolt(GF_ARROW, dir, 150);
 			o_ptr->timeout = (s16b)randint0(90) + 90;
 			break;
@@ -2190,7 +2190,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows deep red...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_FIRE, dir, 120, 3);
 			o_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
@@ -2204,7 +2204,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows bright white...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_COLD, dir, 200, 3);
 			o_ptr->timeout = (s16b)randint0(325) + 325;
 			break;
@@ -2218,7 +2218,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows deep blue...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_ball(GF_ELEC, dir, 250, 3);
 			o_ptr->timeout = (s16b)randint0(425) + 425;
 			break;
@@ -2251,7 +2251,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_VAMPIRE_2:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(dir, 100))
@@ -2278,7 +2278,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_ROCKET:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("ロケットを発射した！");
 #else
@@ -2318,7 +2318,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_BA_MISS_3:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("あなたはエレメントのブレスを吐いた。");
 #else
@@ -2340,7 +2340,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows in scintillating colours...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			confuse_monster(dir, 20);
 			o_ptr->timeout = 15;
 			break;
@@ -2375,7 +2375,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_TELE_AWAY:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			(void)fire_beam(GF_AWAY_ALL, dir, plev);
 			o_ptr->timeout = 200;
 			break;
@@ -2426,7 +2426,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_CHARM_ANIMAL:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			(void)charm_animal(dir, plev);
 			o_ptr->timeout = 300;
 			break;
@@ -2434,7 +2434,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_CHARM_UNDEAD:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			(void)control_one_undead(dir, plev);
 			o_ptr->timeout = 333;
 			break;
@@ -2442,7 +2442,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_CHARM_OTHER:
 		{
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			(void)charm_monster(dir, plev);
 			o_ptr->timeout = 400;
 			break;
@@ -2933,7 +2933,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It pulsates...");
 #endif
 
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			wall_to_mud(dir);
 			o_ptr->timeout = 5;
 			break;

@@ -3314,7 +3314,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 	switch (power)
 	{
 		case MUT1_SPIT_ACID:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(p_ptr);
 #ifdef JP
 			msg_print("_‚ğ“f‚«‚©‚¯‚½...");
@@ -3326,7 +3326,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_BR_FIRE:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(p_ptr);
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Í‰Î‰Š‚ÌƒuƒŒƒX‚ğ“f‚¢‚½...");
@@ -3338,7 +3338,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_HYPN_GAZE:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Ì–Ú‚ÍŒ¶˜f“I‚É‚È‚Á‚½...");
 #else
@@ -3349,7 +3349,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_TELEKINES:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("W’†‚µ‚Ä‚¢‚é...");
 #else
@@ -3370,7 +3370,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_MIND_BLST:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("W’†‚µ‚Ä‚¢‚é...");
 #else
@@ -3558,7 +3558,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case MUT1_SWAP_POS:
 			project_length = -1;
-			if (!get_aim_dir(&dir))
+			if (!get_aim_dir(cr_ptr, &dir))
 			{
 				project_length = 0;
 				return FALSE;
@@ -3719,7 +3719,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_LASER_EYE:
-			if (!get_aim_dir(&dir)) return FALSE;
+			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_beam(GF_LITE, dir, 2 * lvl);
 			break;
 

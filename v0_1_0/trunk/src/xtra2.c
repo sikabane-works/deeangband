@@ -4122,7 +4122,7 @@ strcpy(info, "q~ tŒˆ p© m‹ß +Ÿ -‘O");
  *
  * Note that confusion over-rides any (explicit?) user choice.
  */
-bool get_aim_dir(int *dp)
+bool get_aim_dir(creature_type *cr_ptr, int *dp)
 {
 	int		dir;
 

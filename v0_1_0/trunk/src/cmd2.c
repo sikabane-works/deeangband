@@ -3433,7 +3433,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	project_length = tdis + 1;
 
 	/* Get a direction (or cancel) */
-	if (!get_aim_dir(&dir))
+	if (!get_aim_dir(cr_ptr, &dir))
 	{
 		energy_use = 0;
 
@@ -4217,7 +4217,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		project_length = tdis + 1;
 
 		/* Get a direction (or cancel) */
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
 		/* Predict the "target" location */
 		tx = cr_ptr->fx + 99 * ddx[dir];

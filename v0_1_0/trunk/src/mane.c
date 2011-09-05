@@ -321,7 +321,7 @@ msg_print("かん高い金切り声をあげた。");
 		break;
 	}
 	case MS_ROCKET:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ロケットを発射した。");
 #else
@@ -331,7 +331,7 @@ else msg_print("ロケットを発射した。");
 			fire_rocket(GF_ROCKET, dir, damage, 2);
 		break;
 	case MS_SHOOT:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("矢を放った。");
 #else
@@ -347,7 +347,7 @@ else msg_print("矢を放った。");
 	case MS_XXX4:
 		break;
 	case MS_BR_ACID:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("酸のブレスを吐いた。");
 #else
@@ -357,7 +357,7 @@ else msg_print("酸のブレスを吐いた。");
 			fire_ball(GF_ACID, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_ELEC:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("稲妻のブレスを吐いた。");
 #else
@@ -367,7 +367,7 @@ else msg_print("稲妻のブレスを吐いた。");
 			fire_ball(GF_ELEC, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_FIRE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("火炎のブレスを吐いた。");
 #else
@@ -377,7 +377,7 @@ else msg_print("火炎のブレスを吐いた。");
 			fire_ball(GF_FIRE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_COLD:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("冷気のブレスを吐いた。");
 #else
@@ -387,7 +387,7 @@ else msg_print("冷気のブレスを吐いた。");
 			fire_ball(GF_COLD, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_POIS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ガスのブレスを吐いた。");
 #else
@@ -397,7 +397,7 @@ else msg_print("ガスのブレスを吐いた。");
 			fire_ball(GF_POIS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_NETHER:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄のブレスを吐いた。");
 #else
@@ -407,7 +407,7 @@ else msg_print("地獄のブレスを吐いた。");
 			fire_ball(GF_NETHER, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_LITE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("閃光のブレスを吐いた。");
 #else
@@ -417,7 +417,7 @@ else msg_print("閃光のブレスを吐いた。");
 			fire_ball(GF_LITE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_DARK:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒のブレスを吐いた。");
 #else
@@ -427,7 +427,7 @@ else msg_print("暗黒のブレスを吐いた。");
 			fire_ball(GF_DARK, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_CONF:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("混乱のブレスを吐いた。");
 #else
@@ -437,7 +437,7 @@ else msg_print("混乱のブレスを吐いた。");
 			fire_ball(GF_CONFUSION, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_SOUND:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("轟音のブレスを吐いた。");
 #else
@@ -447,7 +447,7 @@ else msg_print("轟音のブレスを吐いた。");
 			fire_ball(GF_SOUND, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_CHAOS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("カオスのブレスを吐いた。");
 #else
@@ -457,7 +457,7 @@ else msg_print("カオスのブレスを吐いた。");
 			fire_ball(GF_CHAOS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_DISEN:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("劣化のブレスを吐いた。");
 #else
@@ -467,7 +467,7 @@ else msg_print("劣化のブレスを吐いた。");
 			fire_ball(GF_DISENCHANT, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_NEXUS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("因果混乱のブレスを吐いた。");
 #else
@@ -477,7 +477,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 			fire_ball(GF_NEXUS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_TIME:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("時間逆転のブレスを吐いた。");
 #else
@@ -487,7 +487,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 			fire_ball(GF_TIME, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_INERTIA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("遅鈍のブレスを吐いた。");
 #else
@@ -497,7 +497,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 			fire_ball(GF_INERTIA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_GRAVITY:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("重力のブレスを吐いた。");
 #else
@@ -507,7 +507,7 @@ else msg_print("重力のブレスを吐いた。");
 			fire_ball(GF_GRAVITY, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_SHARDS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("破片のブレスを吐いた。");
 #else
@@ -517,7 +517,7 @@ else msg_print("破片のブレスを吐いた。");
 			fire_ball(GF_SHARDS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_PLASMA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマのブレスを吐いた。");
 #else
@@ -527,7 +527,7 @@ else msg_print("プラズマのブレスを吐いた。");
 			fire_ball(GF_PLASMA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_FORCE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("フォースのブレスを吐いた。");
 #else
@@ -537,7 +537,7 @@ else msg_print("フォースのブレスを吐いた。");
 			fire_ball(GF_FORCE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_MANA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力のブレスを吐いた。");
 #else
@@ -547,7 +547,7 @@ else msg_print("魔力のブレスを吐いた。");
 			fire_ball(GF_MANA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_NUKE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射能球を放った。");
 #else
@@ -557,7 +557,7 @@ else msg_print("放射能球を放った。");
 			fire_ball(GF_NUKE, dir, damage, 2);
 		break;
 	case MS_BR_NUKE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射性廃棄物のブレスを吐いた。");
 #else
@@ -567,7 +567,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 			fire_ball(GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_CHAOS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
 #else
@@ -577,7 +577,7 @@ else msg_print("純ログルスを放った。");
 			fire_ball(GF_CHAOS, dir, damage, 4);
 		break;
 	case MS_BR_DISI:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("分解のブレスを吐いた。");
 #else
@@ -587,7 +587,7 @@ else msg_print("分解のブレスを吐いた。");
 			fire_ball(GF_DISINTEGRATE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_ACID:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボールの呪文を唱えた。");
 #else
@@ -597,7 +597,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 			fire_ball(GF_ACID, dir, damage, 2);
 		break;
 	case MS_BALL_ELEC:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボールの呪文を唱えた。");
 #else
@@ -607,7 +607,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 			fire_ball(GF_ELEC, dir, damage, 2);
 		break;
 	case MS_BALL_FIRE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボールの呪文を唱えた。");
 #else
@@ -617,7 +617,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 			fire_ball(GF_FIRE, dir, damage, 2);
 		break;
 	case MS_BALL_COLD:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボールの呪文を唱えた。");
 #else
@@ -627,7 +627,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 			fire_ball(GF_COLD, dir, damage, 2);
 		break;
 	case MS_BALL_POIS:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("悪臭雲の呪文を唱えた。");
 #else
@@ -637,7 +637,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 			fire_ball(GF_POIS, dir, damage, 2);
 		break;
 	case MS_BALL_NETHER:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
 #else
@@ -647,7 +647,7 @@ else msg_print("地獄球の呪文を唱えた。");
 			fire_ball(GF_NETHER, dir, damage, 2);
 		break;
 	case MS_BALL_WATER:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
 #else
@@ -657,7 +657,7 @@ else msg_print("流れるような身振りをした。");
 			fire_ball(GF_WATER, dir, damage, 4);
 		break;
 	case MS_BALL_MANA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の嵐の呪文を念じた。");
 #else
@@ -667,7 +667,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 			fire_ball(GF_MANA, dir, damage, 4);
 		break;
 	case MS_BALL_DARK:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒の嵐の呪文を念じた。");
 #else
@@ -677,35 +677,35 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 			fire_ball(GF_DARK, dir, damage, 4);
 		break;
 	case MS_DRAIN_MANA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_DRAIN_MANA, dir, randint1(plev*3)+plev, 0);
 		break;
 	case MS_MIND_BLAST:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case MS_BRAIN_SMASH:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 	case MS_CAUSE_1:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_CAUSE_1, dir, damage, 0);
 		break;
 	case MS_CAUSE_2:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_CAUSE_2, dir, damage, 0);
 		break;
 	case MS_CAUSE_3:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_CAUSE_3, dir, damage, 0);
 		break;
 	case MS_CAUSE_4:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_CAUSE_4, dir, damage, 0);
 		break;
 	case MS_BOLT_ACID:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
@@ -715,7 +715,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 			fire_bolt(GF_ACID, dir, damage);
 		break;
 	case MS_BOLT_ELEC:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
@@ -725,7 +725,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 			fire_bolt(GF_ELEC, dir, damage);
 		break;
 	case MS_BOLT_FIRE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
@@ -735,7 +735,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 			fire_bolt(GF_FIRE, dir, damage);
 		break;
 	case MS_BOLT_COLD:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
@@ -745,7 +745,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 			fire_bolt(GF_COLD, dir, damage);
 		break;
 	case MS_STARBURST:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("スターバーストの呪文を念じた。");
 #else
@@ -755,7 +755,7 @@ else msg_print("スターバーストの呪文を念じた。");
 			fire_ball(GF_LITE, dir, damage, 4);
 		break;
 	case MS_BOLT_NETHER:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄の矢の呪文を唱えた。");
 #else
@@ -765,7 +765,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 			fire_bolt(GF_NETHER, dir, damage);
 		break;
 	case MS_BOLT_WATER:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
@@ -775,7 +775,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 			fire_bolt(GF_WATER, dir, damage);
 		break;
 	case MS_BOLT_MANA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の矢の呪文を唱えた。");
 #else
@@ -785,7 +785,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 			fire_bolt(GF_MANA, dir, damage);
 		break;
 	case MS_BOLT_PLASMA:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
@@ -795,7 +795,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 			fire_bolt(GF_PLASMA, dir, damage);
 		break;
 	case MS_BOLT_ICE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("極寒の矢の呪文を唱えた。");
 #else
@@ -805,7 +805,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 			fire_bolt(GF_ICE, dir, damage);
 		break;
 	case MS_MAGIC_MISSILE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
@@ -815,7 +815,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 			fire_bolt(GF_MISSILE, dir, damage);
 		break;
 	case MS_SCARE:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("恐ろしげな幻覚を作り出した。");
 #else
@@ -825,11 +825,11 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 			fear_monster(dir, plev+10);
 		break;
 	case MS_BLIND:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		confuse_monster(dir, plev * 2);
 		break;
 	case MS_CONF:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("誘惑的な幻覚をつくり出した。");
 #else
@@ -839,11 +839,11 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 			confuse_monster(dir, plev * 2);
 		break;
 	case MS_SLOW:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		slow_monster(dir);
 		break;
 	case MS_SLEEP:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 		sleep_monster(dir);
 		break;
 	case MS_SPEED:
@@ -851,7 +851,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		break;
 	case MS_HAND_DOOM:
 	{
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("<破滅の手>を放った！");
 #else
@@ -967,7 +967,7 @@ msg_format("%sを引き戻した。", m_name);
 		break;
 	}
 	case MS_TELE_AWAY:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
 		(void)fire_beam(GF_AWAY_ALL, dir, plev);
 		break;
@@ -1005,7 +1005,7 @@ msg_format("%sを引き戻した。", m_name);
 		break;
 	}
 	case MS_PSY_SPEAR:
-		if (!get_aim_dir(&dir)) return FALSE;
+		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
 #ifdef JP
 else msg_print("光の剣を放った。");

@@ -3220,7 +3220,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	if (object_is_aware(o_ptr) && (o_ptr->sval == SV_WAND_HEAL_MONSTER
 				      || o_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
-	if (!get_aim_dir(&dir))
+	if (!get_aim_dir(cr_ptr, &dir))
 	{
 		target_pet = old_target_pet;
 		return;
@@ -3653,7 +3653,7 @@ static void do_cmd_zap_rod_aux(creature_type *cr_ptr, int item)
 	     !object_is_aware(o_ptr))
 	{
 		/* Get a direction, allow cancel */
-		if (!get_aim_dir(&dir)) return;
+		if (!get_aim_dir(cr_ptr, &dir)) return;
 	}
 
 
@@ -4263,7 +4263,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("You order Frakir to strangle your opponent.");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				if (drain_life(dir, 100))
 				o_ptr->timeout = randint0(100) + 100;
 				break;
@@ -4290,7 +4290,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("The ring glows deep red...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 300, 3);
 				o_ptr->timeout = randint0(225) + 225;
 				break;
@@ -4304,7 +4304,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("The ring glows bright white...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 400, 3);
 				o_ptr->timeout = randint0(325) + 325;
 				break;
@@ -4319,7 +4319,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_format("The %s glows deep blue...", o_ptr->name1 == ART_VILYA ? "ring" : "sword");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_ELEC, dir, 500, 3);
 				o_ptr->timeout = randint0(425) + 425;
 				break;
@@ -4334,7 +4334,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("The ring glows intensely black...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				ring_of_power(cr_ptr, dir);
 				o_ptr->timeout = randint0(450) + 450;
 				break;
@@ -4376,7 +4376,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 			case ART_BLADETURNER:
 			{
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 #ifdef JP
 				msg_print("あなたはエレメントのブレスを吐いた。");
 #else
@@ -4596,7 +4596,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your gloves glow extremely brightly...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_MISSILE, dir, damroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
@@ -4610,7 +4610,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your gauntlets are covered in fire...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
@@ -4624,7 +4624,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your gauntlets are covered in frost...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
@@ -4638,7 +4638,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your gauntlets are covered in sparks...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
@@ -4652,7 +4652,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your gauntlets are covered in acid...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ACID, dir, damroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
@@ -4666,7 +4666,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your cesti grows magical spikes...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ARROW, dir, 150);
 				o_ptr->timeout = randint0(90) + 90;
 				break;
@@ -4707,7 +4707,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger is covered in fire...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
@@ -4721,7 +4721,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger is covered in frost...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
@@ -4735,7 +4735,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger is covered in sparks...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
@@ -4749,7 +4749,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger throbs deep green...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_POIS, dir, 12, 3);
 				o_ptr->timeout = randint0(4) + 4;
 				break;
@@ -4763,7 +4763,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger throbs deep blue...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_WATER, dir, 200, 3);
 				o_ptr->timeout = 250;
 				break;
@@ -4777,7 +4777,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("Your dagger is covered in frost...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 48, 2);
 				o_ptr->timeout = randint0(5) + 5;
 				break;
@@ -4830,7 +4830,7 @@ if (get_check("この階を去りますか？"))
 				msg_print("Your sword glows an intense blue...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 100, 2);
 				o_ptr->timeout = 200;
 				break;
@@ -4857,7 +4857,7 @@ msg_print("暁の師団を召喚した。");
 				msg_print("Your sword glows an intense red...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 72, 2);
 				o_ptr->timeout = 400;
 				break;
@@ -4871,7 +4871,7 @@ msg_print("暁の師団を召喚した。");
 				msg_print("Your axe blade glows black...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				drain_life(dir, 120);
 				o_ptr->timeout = 400;
 				break;
@@ -4885,7 +4885,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your spear crackles with electricity...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_ELEC, dir, 100, 3);
 				o_ptr->timeout = 200;
 				break;
@@ -4899,7 +4899,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your spear glows a bright white...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 100, 3);
 				o_ptr->timeout = 200;
 				break;
@@ -4913,7 +4913,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your spear pulsates...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				wall_to_mud(dir);
 				o_ptr->timeout = 5;
 				break;
@@ -4927,7 +4927,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your mattock pulsates...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				wall_to_mud(dir);
 				o_ptr->timeout = 2;
 				break;
@@ -4968,7 +4968,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your trident glows deep red...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				teleport_monster(dir);
 				o_ptr->timeout = 150;
 				break;
@@ -5006,7 +5006,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your flail glows in scintillating colours...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				confuse_monster(dir, 20);
 				o_ptr->timeout = 15;
 				break;
@@ -5020,7 +5020,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your morning star rages in fire...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 72, 3);
 				o_ptr->timeout = 100;
 				break;
@@ -5034,7 +5034,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your whip glows deep red...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 120, 3);
 				o_ptr->timeout = 15;
 				break;
@@ -5089,7 +5089,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your hammer glows white...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				drain_life(dir, 90);
 				o_ptr->timeout = 70;
 				break;
@@ -5120,7 +5120,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("I'll fire CRIMSON! SEKKAKUDAKARA!");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 
 				/* Use the given direction */
 				tx = cr_ptr->fx + 99 * ddx[dir];
@@ -5299,7 +5299,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("The robe pulsates with raw mana...");
 #endif
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_MANA, dir, 120);
 				o_ptr->timeout = randint0(120) + 120;
 				break;
@@ -5370,7 +5370,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your stone glows pale...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_MANA, dir, 400, 4);
 				o_ptr->timeout = randint0(250) + 250;
 				break;
@@ -5410,7 +5410,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_JONES:
 			{
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 #ifdef JP
 				msg_print("ムチを伸ばした。");
 #else
@@ -5459,7 +5459,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your spear grows brightly...");
 #endif
 
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_LITE, dir, 200, 3);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
@@ -5570,7 +5570,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 			case ART_BOLISHOI:
 			{
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				(void)charm_animal(dir, cr_ptr->lev);
 
 				o_ptr->timeout = 200;
@@ -5584,7 +5584,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your sword glows a pale blue...");
 #endif
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_COLD, dir, damroll(12, 8));
 				o_ptr->timeout = 50;
 				break;
@@ -5706,7 +5706,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your amulet is coverd in pitch-darkness...");
 #endif
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_DARK, dir, 250, 4);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
@@ -5718,7 +5718,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your collar harness is coverd in pitch-darkness...");
 #endif
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_DARK, dir, 250, 4);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
@@ -5897,7 +5897,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 	if (o_ptr->tval == TV_DRAG_ARMOR)
 	{
 		/* Get a direction for breathing (or abort) */
-		if (!get_aim_dir(&dir)) return;
+		if (!get_aim_dir(cr_ptr, &dir)) return;
 
 		if (music_singing_any(cr_ptr)) stop_singing(cr_ptr);
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
@@ -6131,62 +6131,62 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = randint1(100)+100;
 				break;
 			case EGO_RING_MAGIC_MIS:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_MISSILE, dir, damroll(2, 6));
 				o_ptr->timeout = 2;
 				break;
 			case EGO_RING_FIRE_BOLT:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_FIRE, dir, damroll(9, 8));
 				o_ptr->timeout = randint0(8) + 8;
 				break;
 			case EGO_RING_COLD_BOLT:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_COLD, dir, damroll(6, 8));
 				o_ptr->timeout = randint0(7) + 7;
 				break;
 			case EGO_RING_ELEC_BOLT:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ELEC, dir, damroll(4, 8));
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			case EGO_RING_ACID_BOLT:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_ACID, dir, damroll(5, 8));
 				o_ptr->timeout = randint0(6) + 6;
 				break;
 			case EGO_RING_MANA_BOLT:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_bolt(GF_MANA, dir, 120);
 				o_ptr->timeout = randint0(120)+120;
 				break;
 			case EGO_RING_FIRE_BALL:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_COLD_BALL:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ELEC_BALL:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_ELEC, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ACID_BALL:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_ACID, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_MANA_BALL:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_MANA, dir, 250, 2);
 				o_ptr->timeout = 300;
 				break;
 			case EGO_RING_DRAGON_F:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_FIRE, dir, 200, -2);
 				if (o_ptr->sval == SV_RING_FLAMES)
 				{
@@ -6196,7 +6196,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				else o_ptr->timeout = 250;
 				break;
 			case EGO_RING_DRAGON_C:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				fire_ball(GF_COLD, dir, 200, -2);
 				if (o_ptr->sval == SV_RING_ICE)
 				{
@@ -6220,7 +6220,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = randint0(75)+75;
 				break;
 			case EGO_RING_TELE_AWAY:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				teleport_monster(dir);
 				o_ptr->timeout = 150;
 				break;
@@ -6248,7 +6248,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		}
 
 		/* Get a direction for breathing (or abort) */
-		if (!get_aim_dir(&dir)) return;
+		if (!get_aim_dir(cr_ptr, &dir)) return;
 
 		switch (o_ptr->sval)
 		{
@@ -6303,7 +6303,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				o_ptr->timeout = 10;
 				break;
 			case EGO_AMU_CHARM:
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 				charm_monster(dir, MAX(20, cr_ptr->lev));
 				o_ptr->timeout = 200;
 				break;
@@ -6402,7 +6402,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool old_target_pet = target_pet;
 			target_pet = TRUE;
-			if (!get_aim_dir(&dir))
+			if (!get_aim_dir(cr_ptr, &dir))
 			{
 				target_pet = old_target_pet;
 				return;
@@ -7319,13 +7319,13 @@ msg_print("呪文をうまく唱えられなかった！");
 		if (tval == TV_ROD)
 		{
 			if ((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
-				if (!get_aim_dir(&dir)) return;
+				if (!get_aim_dir(cr_ptr, &dir)) return;
 			rod_effect(cr_ptr, sval, dir, &use_charge, TRUE);
 			if (!use_charge) return;
 		}
 		else if (tval == TV_WAND)
 		{
-			if (!get_aim_dir(&dir)) return;
+			if (!get_aim_dir(cr_ptr, &dir)) return;
 			wand_effect(cr_ptr, sval, dir, TRUE);
 		}
 		else
