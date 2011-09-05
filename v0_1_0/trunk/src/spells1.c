@@ -832,7 +832,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				c_ptr->mimic = old_mimic;
 
 				/* Notice */
-				note_spot(y, x);
+				note_spot(aimer_ptr, y, x);
 
 				/* Redraw */
 				lite_spot(y, x);
@@ -936,7 +936,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			c_ptr->mimic = feat_glyph;
 
 			/* Notice */
-			note_spot(y, x);
+			note_spot(aimer_ptr, y, x);
 
 			/* Redraw */
 			lite_spot(y, x);
@@ -1015,7 +1015,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				c_ptr->info |= (CAVE_GLOW);
 
 				/* Notice */
-				note_spot(y, x);
+				note_spot(aimer_ptr, y, x);
 
 				/* Redraw */
 				lite_spot(y, x);
@@ -1079,7 +1079,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 					c_ptr->info &= ~(CAVE_MARK);
 
 					/* Notice */
-					note_spot(y, x);
+					note_spot(aimer_ptr, y, x);
 				}
 
 				/* Redraw */

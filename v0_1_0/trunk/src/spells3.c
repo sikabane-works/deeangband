@@ -1973,7 +1973,7 @@ msg_format("%^sがあなたの足元に飛んできた。", o_name);
 #endif
 
 
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 	play_redraw |= PR_MAP;
 }
 
@@ -2041,7 +2041,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_glyph;
 
 	/* Notice */
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
 	lite_spot(cr_ptr->fy, cr_ptr->fx);
@@ -2071,7 +2071,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	cave[cr_ptr->fy][cr_ptr->fx].info |= CAVE_GLOW;
 
 	/* Notice */
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
 	lite_spot(cr_ptr->fy, cr_ptr->fx);
@@ -2104,7 +2104,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	cave[cr_ptr->fy][cr_ptr->fx].mimic = feat_explosive_rune;
 
 	/* Notice */
-	note_spot(cr_ptr->fy, cr_ptr->fx);
+	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 	
 	/* Redraw */
 	lite_spot(cr_ptr->fy, cr_ptr->fx);
