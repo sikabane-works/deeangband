@@ -1243,7 +1243,7 @@ extern bool project_hack(int typ, int dam);
 extern bool eat_magic(creature_type *cr_ptr, int power);
 extern void discharge_minion(void);
 extern bool kawarimi(bool success);
-extern bool rush_attack(bool *mdeath);
+extern bool rush_attack(creature_type *cr_ptr, bool *mdeath);
 extern void remove_all_mirrors(bool explode);
 
 /* spells3.c */

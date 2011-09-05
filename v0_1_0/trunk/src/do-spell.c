@@ -10807,7 +10807,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
     
 		if (cast)
 		{
-			if (!rush_attack(NULL)) return NULL;
+			if (!rush_attack(cr_ptr, NULL)) return NULL;
 		}
 		break;
 
@@ -11121,7 +11121,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 
 			do
 			{
-				if (!rush_attack(&mdeath)) break;
+				if (!rush_attack(cr_ptr, &mdeath)) break;
 				if (new)
 				{
 					/* Reserve needed mana point */

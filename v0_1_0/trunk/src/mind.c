@@ -1618,7 +1618,7 @@ msg_print("その方向にはモンスターはいません。");
 		set_oppose_fire(cr_ptr, plev, FALSE);
 		break;
 	case 10:
-		return rush_attack(NULL);
+		return rush_attack(cr_ptr, NULL);
 	case 11:
 	{
 		int i;

@@ -7371,7 +7371,7 @@ bool kawarimi(bool success)
  * "Rush Attack" routine for Samurai or Ninja
  * Return value is for checking "done"
  */
-bool rush_attack(bool *mdeath)
+bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 {
 	int dir;
 	int tx, ty;
@@ -7384,11 +7384,11 @@ bool rush_attack(bool *mdeath)
 	if (mdeath) *mdeath = FALSE;
 
 	project_length = 5;
-	if (!get_aim_dir(p_ptr, &dir)) return FALSE;
+	if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = p_ptr->fx + project_length * ddx[dir];
-	ty = p_ptr->fy + project_length * ddy[dir];
+	tx = cr_ptr->fx + project_length * ddx[dir];
+	ty = cr_ptr->fy + project_length * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -7399,15 +7399,15 @@ bool rush_attack(bool *mdeath)
 
 	if (in_bounds(ty, tx)) tm_idx = cave[ty][tx].m_idx;
 
-	path_n = project_path(p_ptr, path_g, project_length, p_ptr->fy, p_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	path_n = project_path(cr_ptr, path_g, project_length, cr_ptr->fy, cr_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 	project_length = 0;
 
 	/* No need to move */
 	if (!path_n) return TRUE;
 
 	/* Use ty and tx as to-move point */
-	ty = p_ptr->fy;
-	tx = p_ptr->fx;
+	ty = cr_ptr->fy;
+	tx = cr_ptr->fx;
 
 	/* Project along the path */
 	for (i = 0; i < path_n; i++)
@@ -7417,7 +7417,7 @@ bool rush_attack(bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(ny, nx) && player_can_enter(p_ptr, cave[ny][nx].feat, 0))
+		if (cave_empty_bold(ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;
@@ -7450,7 +7450,7 @@ bool rush_attack(bool *mdeath)
 		}
 
 		/* Move player before updating the monster */
-		if (!creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the monster */
 		update_mon(cave[ny][nx].m_idx, TRUE);
@@ -7467,7 +7467,7 @@ bool rush_attack(bool *mdeath)
 			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another monster" : "a monster") : "someone");
 #endif
 		}
-		else if (!creature_bold(p_ptr, ty, tx))
+		else if (!creature_bold(cr_ptr, ty, tx))
 		{
 			/* Hold the monster name */
 			char m_name[80];
@@ -7481,14 +7481,14 @@ bool rush_attack(bool *mdeath)
 #endif
 		}
 
-		if (!creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+		if (!creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
-		tmp_mdeath = py_attack(p_ptr, ny, nx, HISSATSU_NYUSIN);
+		tmp_mdeath = py_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}
 
-	if (!moved && !creature_bold(p_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
+	if (!moved && !creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 
 	if (mdeath) *mdeath = tmp_mdeath;
 	return TRUE;
