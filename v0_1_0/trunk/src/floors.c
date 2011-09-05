@@ -348,7 +348,7 @@ static creature_type party_mon[MAX_PARTY_MON];
 /*
  * Preserve_pets
  */
-static void preserve_pet(void)
+static void preserve_pet(creature_type *cr_ptr)
 {
 	int num, i;
 
@@ -357,16 +357,16 @@ static void preserve_pet(void)
 		party_mon[num].species_idx = 0;
 	}
 
-	if (p_ptr->riding)
+	if (cr_ptr->riding)
 	{
-		creature_type *m_ptr = &m_list[p_ptr->riding];
+		creature_type *m_ptr = &m_list[cr_ptr->riding];
 
 		/* Pet of other pet don't follow. */
 		if (m_ptr->parent_m_idx)
 		{
-			p_ptr->riding = 0;
-			p_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-			p_ptr->riding_ryoute = p_ptr->old_riding_ryoute = FALSE;
+			cr_ptr->riding = 0;
+			cr_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+			cr_ptr->riding_ryoute = cr_ptr->old_riding_ryoute = FALSE;
 		}
 		else
 		{
@@ -374,7 +374,7 @@ static void preserve_pet(void)
 			COPY(&party_mon[0], m_ptr, creature_type);
 
 			/* Delete from this floor */
-			delete_species_idx(&m_list[p_ptr->riding]);
+			delete_species_idx(&m_list[cr_ptr->riding]);
 		}
 	}
 
@@ -390,7 +390,7 @@ static void preserve_pet(void)
 
 			if (!m_ptr->species_idx) continue;
 			if (!is_pet(m_ptr)) continue;
-			if (i == p_ptr->riding) continue;
+			if (i == cr_ptr->riding) continue;
 
 			if (reinit_wilderness)
 			{
@@ -398,7 +398,7 @@ static void preserve_pet(void)
 			}
 			else
 			{
-				int dis = distance(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx);
+				int dis = distance(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx);
 
 				/* Confused (etc.) monsters don't follow. */
 				if (m_ptr->confused || m_ptr->stun || m_ptr->paralyzed) continue;
@@ -411,8 +411,8 @@ static void preserve_pet(void)
 				 * when you or the pet can see the other.
 				 */
 				if (m_ptr->nickname && 
-				    ((player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
-				     (los(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx))))
+				    ((player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
+				     (los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx))))
 				{
 					if (dis > 3) continue;
 				}
@@ -441,7 +441,7 @@ static void preserve_pet(void)
 			if (!m_ptr->species_idx) continue;
 			if (!is_pet(m_ptr)) continue;
 			if (!m_ptr->nickname) continue;
-			if (p_ptr->riding == i) continue;
+			if (cr_ptr->riding == i) continue;
 
 			monster_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_MOVED, m_name);
@@ -459,7 +459,7 @@ static void preserve_pet(void)
 		{
 			/* Its parent have gone, it also goes away. */
 
-			if (is_seen(p_ptr, m_ptr))
+			if (is_seen(cr_ptr, m_ptr))
 			{
 				char m_name[80];
 
@@ -857,7 +857,7 @@ void leave_floor(void)
 	int i;
 
 	/* Preserve pets and prepare to take these to next floor */
-	preserve_pet();
+	preserve_pet(p_ptr);
 
 	/* Remove all mirrors without explosion */
 	remove_all_mirrors(FALSE);
