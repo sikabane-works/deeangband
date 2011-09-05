@@ -6043,7 +6043,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_VIEW))
 	{
 		cr_ptr->update &= ~(PU_VIEW);
-		update_view();
+		update_view(cr_ptr);
 	}
 
 	if (cr_ptr->update & (PU_LITE))

@@ -3592,7 +3592,7 @@ static bool update_view_aux(creature_type *cr_ptr, int y, int x, int y1, int x1,
  * just use an optimized hack of "you see me, so I see you", and then use the
  * actual "projectable()" function to check spell attacks.
  */
-void update_view(void)
+void update_view(creature_type *cr_ptr)
 {
 	int n, m, d, k, y, x, z;
 
@@ -3657,8 +3657,8 @@ void update_view(void)
 	/*** Step 1 -- adjacent grids ***/
 
 	/* Now start on the player */
-	y = p_ptr->fy;
-	x = p_ptr->fx;
+	y = cr_ptr->fy;
+	x = cr_ptr->fx;
 
 	/* Access the grid */
 	c_ptr = &cave[y][x];
@@ -3797,7 +3797,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
+					if (update_view_aux(cr_ptr, ypn+d, xpn, ypn+d-1, xpn-1, ypn+d-1, xpn))
 					{
 						if (n + d >= se) break;
 					}
@@ -3820,7 +3820,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
+					if (update_view_aux(cr_ptr, ypn+d, xmn, ypn+d-1, xmn+1, ypn+d-1, xmn))
 					{
 						if (n + d >= sw) break;
 					}
@@ -3851,7 +3851,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
+					if (update_view_aux(cr_ptr, ymn-d, xpn, ymn-d+1, xpn-1, ymn-d+1, xpn))
 					{
 						if (n + d >= ne) break;
 					}
@@ -3874,7 +3874,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
+					if (update_view_aux(cr_ptr, ymn-d, xmn, ymn-d+1, xmn+1, ymn-d+1, xmn))
 					{
 						if (n + d >= nw) break;
 					}
@@ -3905,7 +3905,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
+					if (update_view_aux(cr_ptr, ypn, xpn+d, ypn-1, xpn+d-1, ypn, xpn+d-1))
 					{
 						if (n + d >= es) break;
 					}
@@ -3928,7 +3928,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
+					if (update_view_aux(cr_ptr, ymn, xpn+d, ymn+1, xpn+d-1, ymn, xpn+d-1))
 					{
 						if (n + d >= en) break;
 					}
@@ -3959,7 +3959,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
+					if (update_view_aux(cr_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
 					{
 						if (n + d >= ws) break;
 					}
@@ -3982,7 +3982,7 @@ void update_view(void)
 				for (k = n, d = 1; d <= m; d++)
 				{
 					/* Check grid "d" in strip "n", notice "blockage" */
-					if (update_view_aux(p_ptr, ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
+					if (update_view_aux(cr_ptr, ymn, xmn-d, ymn+1, xmn-d+1, ymn, xmn-d+1))
 					{
 						if (n + d >= wn) break;
 					}
@@ -4045,7 +4045,7 @@ void update_view(void)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	p_ptr->update |= (PU_DELAY_VIS);
+	cr_ptr->update |= (PU_DELAY_VIS);
 }
 
 
