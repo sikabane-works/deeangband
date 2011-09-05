@@ -1311,7 +1311,7 @@ extern bool rustproof(creature_type *cr_ptr);
 extern bool curse_armor(creature_type *cr_ptr);
 extern bool curse_weapon(bool force, int slot);
 extern bool brand_bolts(creature_type *cr_ptr);
-extern bool polymorph_monster(int y, int x);
+extern bool polymorph_monster(creature_type *cr_ptr, int y, int x);
 extern bool dimension_door(void);
 extern bool mirror_tunnel(void);
 extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode);

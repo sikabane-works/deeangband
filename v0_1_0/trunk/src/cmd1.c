@@ -2959,7 +2959,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (!(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) &&
 				    !(r_ptr->flagsr & RFR_EFF_RES_CHAO_MASK))
 				{
-					if (polymorph_monster(y, x))
+					if (polymorph_monster(cr_ptr, y, x))
 					{
 #ifdef JP
 						msg_format("%^s‚Í•Ï‰»‚µ‚½I", m_name);

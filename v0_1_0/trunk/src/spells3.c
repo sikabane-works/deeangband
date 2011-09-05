@@ -5465,7 +5465,7 @@ static s16b poly_species_idx(int species_idx)
 }
 
 
-bool polymorph_monster(int y, int x)
+bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 	creature_type *m_ptr = &m_list[c_ptr->m_idx];
@@ -5473,12 +5473,12 @@ bool polymorph_monster(int y, int x)
 	int new_species_idx;
 	int old_species_idx = m_ptr->species_idx;
 	bool targeted = (target_who == c_ptr->m_idx) ? TRUE : FALSE;
-	bool health_tracked = (p_ptr->health_who == c_ptr->m_idx) ? TRUE : FALSE;
+	bool health_tracked = (cr_ptr->health_who == c_ptr->m_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
 	if (inside_arena || inside_battle) return (FALSE);
 
-	if ((p_ptr->riding == c_ptr->m_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
+	if ((cr_ptr->riding == c_ptr->m_idx) || (m_ptr->mflag2 & MFLAG2_KAGE)) return (FALSE);
 
 	/* Memorize the monster before polymorphing */
 	back_m = *m_ptr;
