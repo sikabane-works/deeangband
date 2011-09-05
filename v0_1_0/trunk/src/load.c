@@ -703,6 +703,7 @@ static void rd_monster(creature_type *m_ptr)
 	else m_ptr->paralyzed = 0;
 
 	if(!older_than(0,0,9,0)){
+		for (i = 0; i < 8; i++) rd_s32b(&m_ptr->authority[i]);
 		for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
 		for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&m_ptr->weapon_exp[i][j]);
 		for (i = 0; i < 10; i++) rd_s16b(&m_ptr->skill_exp[i]);
@@ -1334,6 +1335,7 @@ static void rd_extra(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->exp_frac);
 	rd_s16b(&cr_ptr->lev);
 
+	for (i = 0; i < 8; i++) rd_s32b(&cr_ptr->authority[i]);
 	for (i = 0; i < 64; i++) rd_s16b(&cr_ptr->spell_exp[i]);
 	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&cr_ptr->weapon_exp[i][j]);
 	for (i = 0; i < 10; i++) rd_s16b(&cr_ptr->skill_exp[i]);

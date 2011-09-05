@@ -288,6 +288,7 @@ static void wr_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
 	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->paralyzed);
 
+	for (i = 0; i < 8; i++) wr_s32b(m_ptr->authority[i]);
 	for (i = 0; i < 64; i++) wr_s16b(m_ptr->spell_exp[i]);
 	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(m_ptr->weapon_exp[i][j]);
 	for (i = 0; i < 10; i++) wr_s16b(m_ptr->skill_exp[i]);
@@ -625,78 +626,79 @@ static void save_quick_start(void)
 /*
  * Write some "extra" info
  */
-static void wr_extra(void)
+static void wr_extra(creature_type *cr_ptr)
 {
 	int i,j;
 	byte tmp8u;
 
-	wr_string(p_ptr->name);
+	wr_string(cr_ptr->name);
 
-	wr_string(p_ptr->died_from);
+	wr_string(cr_ptr->died_from);
 
-	wr_string(p_ptr->last_message ? p_ptr->last_message : "");
+	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
 	save_quick_start();
 
 	for (i = 0; i < 4; i++)
 	{
-		wr_string(p_ptr->history[i]);
+		wr_string(cr_ptr->history[i]);
 	}
 
 	/* Race/Class/Gender/Spells */
-	wr_s16b(p_ptr->irace_idx);
-	for (i = 0; i < 8; i++) wr_u32b(p_ptr->sub_race[i]);
-	wr_byte(p_ptr->cls_idx);
-	wr_byte(p_ptr->chara_idx);
-	wr_s16b(p_ptr->sex);
-	wr_byte(p_ptr->realm1);
-	wr_byte(p_ptr->realm2);
+	wr_s16b(cr_ptr->irace_idx);
+	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
+	wr_byte(cr_ptr->cls_idx);
+	wr_byte(cr_ptr->chara_idx);
+	wr_s16b(cr_ptr->sex);
+	wr_byte(cr_ptr->realm1);
+	wr_byte(cr_ptr->realm2);
 	wr_byte(0);	/* oops */
 
-	wr_s16b(p_ptr->hitdice);
-	wr_u16b(p_ptr->expfact);
+	wr_s16b(cr_ptr->hitdice);
+	wr_u16b(cr_ptr->expfact);
 
-	wr_s32b(p_ptr->age);
-	wr_s32b(p_ptr->ht);
-	wr_s32b(p_ptr->wt);
-	wr_s16b(p_ptr->dr);
+	wr_s32b(cr_ptr->age);
+	wr_s32b(cr_ptr->ht);
+	wr_s32b(cr_ptr->wt);
+	wr_s16b(cr_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)
-		wr_s16b(p_ptr->iven_fitting_rate[i]);
+		wr_s16b(cr_ptr->iven_fitting_rate[i]);
 
 	/* Dump the stats (maximum and current) */
-	for (i = 0; i < 6; ++i) wr_s16b(p_ptr->stat_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(p_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(p_ptr->stat_cur[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_cur[i]);
 
 	/* Ignore the transient stats */
 	for (i = 0; i < 12; ++i) wr_s16b(0);
 
-	wr_u32b(p_ptr->au);
+	wr_u32b(cr_ptr->au);
 
-	wr_u32b(p_ptr->max_exp);
-	wr_u32b(p_ptr->max_max_exp);
-	wr_u32b(p_ptr->exp);
-	wr_u32b(p_ptr->exp_frac);
-	wr_s16b(p_ptr->lev);
+	wr_u32b(cr_ptr->max_exp);
+	wr_u32b(cr_ptr->max_max_exp);
+	wr_u32b(cr_ptr->exp);
+	wr_u32b(cr_ptr->exp_frac);
+	wr_s16b(cr_ptr->lev);
 
-	for (i = 0; i < 64; i++) wr_s16b(p_ptr->spell_exp[i]);
-	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(p_ptr->weapon_exp[i][j]);
-	for (i = 0; i < 10; i++) wr_s16b(p_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) wr_s32b(p_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) wr_byte(p_ptr->magic_num2[i]);
+	for (i = 0; i < 8; i++) wr_s32b(cr_ptr->authority[i]);
+	for (i = 0; i < 64; i++) wr_s16b(cr_ptr->spell_exp[i]);
+	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(cr_ptr->weapon_exp[i][j]);
+	for (i = 0; i < 10; i++) wr_s16b(cr_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) wr_s32b(cr_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) wr_byte(cr_ptr->magic_num2[i]);
 
-	wr_s16b(p_ptr->start_race);
-	wr_s32b(p_ptr->old_race1);
-	wr_s32b(p_ptr->old_race2);
-	wr_s16b(p_ptr->old_realm);
+	wr_s16b(cr_ptr->start_race);
+	wr_s32b(cr_ptr->old_race1);
+	wr_s32b(cr_ptr->old_race2);
+	wr_s16b(cr_ptr->old_realm);
 
 	for (i = 0; i < MAX_MANE; i++)
 	{
-		wr_s16b(p_ptr->mane_spell[i]);
-		wr_s16b(p_ptr->mane_dam[i]);
+		wr_s16b(cr_ptr->mane_spell[i]);
+		wr_s16b(cr_ptr->mane_dam[i]);
 	}
-	wr_s16b(p_ptr->mane_num);
+	wr_s16b(cr_ptr->mane_num);
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
@@ -716,25 +718,25 @@ static void wr_extra(void)
 	wr_s16b(inside_arena);
 	wr_s16b(inside_quest);
 	wr_s16b(inside_battle);
-	wr_byte(p_ptr->exit_bldg);
+	wr_byte(cr_ptr->exit_bldg);
 	wr_byte(0); /* Unused */
 
-	wr_s16b(p_ptr->oldpx);
-	wr_s16b(p_ptr->oldpy);
+	wr_s16b(cr_ptr->oldpx);
+	wr_s16b(cr_ptr->oldpy);
 
-	/* Was number of p_ptr->rewards[] */
+	/* Was number of cr_ptr->rewards[] */
 	wr_s16b(0);
 
-	wr_s32b(p_ptr->mhp);
-	wr_s32b(p_ptr->chp);
-	wr_u32b(p_ptr->chp_frac);
+	wr_s32b(cr_ptr->mhp);
+	wr_s32b(cr_ptr->chp);
+	wr_u32b(cr_ptr->chp_frac);
 
-	wr_s32b(p_ptr->msp);
-	wr_s32b(p_ptr->csp);
-	wr_u32b(p_ptr->csp_frac);
+	wr_s32b(cr_ptr->msp);
+	wr_s32b(cr_ptr->csp);
+	wr_u32b(cr_ptr->csp_frac);
 
 	/* Max Player and Dungeon Levels */
-	wr_s16b(p_ptr->max_plv);
+	wr_s16b(cr_ptr->max_plv);
 	tmp8u = (byte)max_d_idx;
 	wr_byte(tmp8u);
 	for (i = 0; i < tmp8u; i++)
@@ -745,86 +747,86 @@ static void wr_extra(void)
 	wr_s16b(0);     /* oops */
 	wr_s16b(0);     /* oops */
 	wr_s16b(0);     /* oops */
-	wr_s16b(p_ptr->sc);
-	wr_s16b(p_ptr->concent);
+	wr_s16b(cr_ptr->sc);
+	wr_s16b(cr_ptr->concent);
 
 	wr_s16b(0);             /* old "rest" */
-	wr_s16b(p_ptr->blind);
-	wr_s16b(p_ptr->paralyzed);
-	wr_s16b(p_ptr->confused);
-	wr_s16b(p_ptr->food);
+	wr_s16b(cr_ptr->blind);
+	wr_s16b(cr_ptr->paralyzed);
+	wr_s16b(cr_ptr->confused);
+	wr_s16b(cr_ptr->food);
 	wr_s16b(0);     /* old "food_digested" */
 	wr_s16b(0);     /* old "protection" */
-	wr_s16b(p_ptr->energy_need);
-	wr_s16b(p_ptr->fast);
-	wr_s16b(p_ptr->slow);
-	wr_s16b(p_ptr->afraid);
-	wr_s16b(p_ptr->cut);
-	wr_s16b(p_ptr->stun);
-	wr_s16b(p_ptr->poisoned);
-	wr_s16b(p_ptr->image);
-	wr_s16b(p_ptr->protevil);
-	wr_s16b(p_ptr->invuln);
-	wr_s16b(p_ptr->ult_res);
-	wr_s16b(p_ptr->hero);
-	wr_s16b(p_ptr->shero);
-	wr_s16b(p_ptr->shield);
-	wr_s16b(p_ptr->blessed);
-	wr_s16b(p_ptr->tim_invis);
-	wr_s16b(p_ptr->word_recall);
-	wr_s16b(p_ptr->recall_dungeon);
-	wr_s16b(p_ptr->alter_reality);
-	wr_s16b(p_ptr->see_infra);
-	wr_s16b(p_ptr->tim_infra);
-	wr_s16b(p_ptr->oppose_fire);
-	wr_s16b(p_ptr->oppose_cold);
-	wr_s16b(p_ptr->oppose_acid);
-	wr_s16b(p_ptr->oppose_elec);
-	wr_s16b(p_ptr->oppose_pois);
-	wr_s16b(p_ptr->tsuyoshi);
-	wr_s16b(p_ptr->tim_esp);
-	wr_s16b(p_ptr->wraith_form);
-	wr_s16b(p_ptr->resist_magic);
-	wr_s16b(p_ptr->tim_regen);
-	wr_s16b(p_ptr->kabenuke);
-	wr_s16b(p_ptr->tim_stealth);
-	wr_s16b(p_ptr->tim_levitation);
-	wr_s16b(p_ptr->tim_sh_touki);
-	wr_s16b(p_ptr->lightspeed);
-	wr_s16b(p_ptr->tsubureru);
-	wr_s16b(p_ptr->magicdef);
-	wr_s16b(p_ptr->tim_res_nether);
-	wr_s16b(p_ptr->tim_res_time);
-	wr_byte(p_ptr->mimic_form);
-	wr_s16b(p_ptr->tim_mimic);
-	wr_s16b(p_ptr->tim_sh_fire);
-	wr_s16b(p_ptr->tim_sh_holy);
-	wr_s16b(p_ptr->tim_eyeeye);
+	wr_s16b(cr_ptr->energy_need);
+	wr_s16b(cr_ptr->fast);
+	wr_s16b(cr_ptr->slow);
+	wr_s16b(cr_ptr->afraid);
+	wr_s16b(cr_ptr->cut);
+	wr_s16b(cr_ptr->stun);
+	wr_s16b(cr_ptr->poisoned);
+	wr_s16b(cr_ptr->image);
+	wr_s16b(cr_ptr->protevil);
+	wr_s16b(cr_ptr->invuln);
+	wr_s16b(cr_ptr->ult_res);
+	wr_s16b(cr_ptr->hero);
+	wr_s16b(cr_ptr->shero);
+	wr_s16b(cr_ptr->shield);
+	wr_s16b(cr_ptr->blessed);
+	wr_s16b(cr_ptr->tim_invis);
+	wr_s16b(cr_ptr->word_recall);
+	wr_s16b(cr_ptr->recall_dungeon);
+	wr_s16b(cr_ptr->alter_reality);
+	wr_s16b(cr_ptr->see_infra);
+	wr_s16b(cr_ptr->tim_infra);
+	wr_s16b(cr_ptr->oppose_fire);
+	wr_s16b(cr_ptr->oppose_cold);
+	wr_s16b(cr_ptr->oppose_acid);
+	wr_s16b(cr_ptr->oppose_elec);
+	wr_s16b(cr_ptr->oppose_pois);
+	wr_s16b(cr_ptr->tsuyoshi);
+	wr_s16b(cr_ptr->tim_esp);
+	wr_s16b(cr_ptr->wraith_form);
+	wr_s16b(cr_ptr->resist_magic);
+	wr_s16b(cr_ptr->tim_regen);
+	wr_s16b(cr_ptr->kabenuke);
+	wr_s16b(cr_ptr->tim_stealth);
+	wr_s16b(cr_ptr->tim_levitation);
+	wr_s16b(cr_ptr->tim_sh_touki);
+	wr_s16b(cr_ptr->lightspeed);
+	wr_s16b(cr_ptr->tsubureru);
+	wr_s16b(cr_ptr->magicdef);
+	wr_s16b(cr_ptr->tim_res_nether);
+	wr_s16b(cr_ptr->tim_res_time);
+	wr_byte(cr_ptr->mimic_form);
+	wr_s16b(cr_ptr->tim_mimic);
+	wr_s16b(cr_ptr->tim_sh_fire);
+	wr_s16b(cr_ptr->tim_sh_holy);
+	wr_s16b(cr_ptr->tim_eyeeye);
 
 	/* by henkma */
-	wr_s16b(p_ptr->tim_reflect);
-	wr_s16b(p_ptr->multishadow);
-	wr_s16b(p_ptr->dustrobe);
+	wr_s16b(cr_ptr->tim_reflect);
+	wr_s16b(cr_ptr->multishadow);
+	wr_s16b(cr_ptr->dustrobe);
 
-	wr_s16b(p_ptr->patron_idx);
-	wr_u32b(p_ptr->muta1);
-	wr_u32b(p_ptr->muta2);
-	wr_u32b(p_ptr->muta3);
+	wr_s16b(cr_ptr->patron_idx);
+	wr_u32b(cr_ptr->muta1);
+	wr_u32b(cr_ptr->muta2);
+	wr_u32b(cr_ptr->muta3);
 
 	for (i = 0; i < MAX_KARMA; i++)
-		wr_s32b(p_ptr->karmas[i]);
+		wr_s32b(cr_ptr->karmas[i]);
 
-	wr_s16b(p_ptr->ele_attack);
-	wr_u32b(p_ptr->special_attack);
-	wr_s16b(p_ptr->ele_immune);
-	wr_u32b(p_ptr->special_defense);
-	wr_byte(p_ptr->knowledge);
-	wr_byte(p_ptr->autopick_autoregister);
+	wr_s16b(cr_ptr->ele_attack);
+	wr_u32b(cr_ptr->special_attack);
+	wr_s16b(cr_ptr->ele_immune);
+	wr_u32b(cr_ptr->special_defense);
+	wr_byte(cr_ptr->knowledge);
+	wr_byte(cr_ptr->autopick_autoregister);
 	wr_byte(0);     /* oops */
-	wr_byte(p_ptr->action);
+	wr_byte(cr_ptr->action);
 	wr_byte(0);
 	wr_byte(preserve_mode);
-	wr_byte(p_ptr->wait_report_score);
+	wr_byte(cr_ptr->wait_report_score);
 
 	/* Future use */
 	for (i = 0; i < 12; i++) wr_u32b(0L);
@@ -841,22 +843,22 @@ static void wr_extra(void)
 
 
 	/* Special stuff */
-	wr_u16b(p_ptr->panic_save);
-	wr_u16b(p_ptr->total_winner);
-	wr_u16b(p_ptr->noscore);
+	wr_u16b(cr_ptr->panic_save);
+	wr_u16b(cr_ptr->total_winner);
+	wr_u16b(cr_ptr->noscore);
 
 
 	/* Write death */
-	wr_byte(p_ptr->is_dead);
+	wr_byte(cr_ptr->is_dead);
 
 	/* Write feeling */
-	wr_byte(p_ptr->feeling);
+	wr_byte(cr_ptr->feeling);
 
 	/* Turn when level began */
 	wr_s32b(old_turn);
 
 	/* Turn of last "feeling" */
-	wr_s32b(p_ptr->feeling_turn);
+	wr_s32b(cr_ptr->feeling_turn);
 
 	/* Current turn */
 	wr_s32b(turn);
@@ -866,20 +868,20 @@ static void wr_extra(void)
 	wr_s32b(old_battle);
 
 	wr_s16b(today_mon);
-	wr_s16b(p_ptr->today_mon);
-	wr_s16b(p_ptr->riding);
+	wr_s16b(cr_ptr->today_mon);
+	wr_s16b(cr_ptr->riding);
 
 	/* Current floor_id */
-	wr_s16b(p_ptr->floor_id);
+	wr_s16b(cr_ptr->floor_id);
 
 	/* Save temporary preserved pets (obsolated) */
 	wr_s16b(0);
 
 	wr_u32b(playtime);
 
-	wr_s32b(p_ptr->visit);
+	wr_s32b(cr_ptr->visit);
 
-	wr_u32b(p_ptr->count);
+	wr_u32b(cr_ptr->count);
 }
 
 
@@ -1495,7 +1497,7 @@ static bool wr_savefile_new(void)
 
 
 	/* Write the "extra" information */
-	wr_extra();
+	wr_extra(p_ptr);
 
 	/* Dump the "player hp" entries */
 	tmp16u = PY_MAX_LEVEL;
