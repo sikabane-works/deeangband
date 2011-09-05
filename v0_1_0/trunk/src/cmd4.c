@@ -6977,7 +6977,7 @@ static void do_cmd_knowledge_uniques(void)
 /*
  * Display weapon-exp
  */
-static void do_cmd_knowledge_weapon_exp(void)
+static void do_cmd_knowledge_weapon_exp(creature_type *cr_ptr)
 {
 	int i, j, num, weapon_exp;
 
@@ -7010,10 +7010,10 @@ static void do_cmd_knowledge_weapon_exp(void)
 				{
 					if ((k_ptr->tval == TV_BOW) && (k_ptr->sval == SV_CRIMSON)) continue;
 
-					weapon_exp = p_ptr->weapon_exp[4 - i][num];
+					weapon_exp = cr_ptr->weapon_exp[4 - i][num];
 					strip_name(tmp, j);
 					fprintf(fff, "%-25s ", tmp);
-					if (weapon_exp >= s_info[p_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
+					if (weapon_exp >= s_info[cr_ptr->cls_idx].w_max[4 - i][num]) fprintf(fff, "!");
 					else fprintf(fff, " ");
 					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
 					if (cheat_xtra) fprintf(fff, " %d", weapon_exp);
@@ -7043,7 +7043,7 @@ static void do_cmd_knowledge_weapon_exp(void)
 /*
  * Display spell-exp
  */
-static void do_cmd_knowledge_spell_exp(void)
+static void do_cmd_knowledge_spell_exp(creature_type *cr_ptr)
 {
 	int i = 0, spell_exp, exp_level;
 
@@ -7064,28 +7064,28 @@ static void do_cmd_knowledge_spell_exp(void)
 	    return;
 	}
 
-	if (p_ptr->realm1 != REALM_NONE)
+	if (cr_ptr->realm1 != REALM_NONE)
 	{
 #ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[p_ptr->realm1]);
+		fprintf(fff, "%sの魔法書\n", realm_names[cr_ptr->realm1]);
 #else
-		fprintf(fff, "%s Spellbook\n", realm_names[p_ptr->realm1]);
+		fprintf(fff, "%s Spellbook\n", realm_names[cr_ptr->realm1]);
 #endif
 		for (i = 0; i < 32; i++)
 		{
-			if (!is_magic(p_ptr->realm1))
+			if (!is_magic(cr_ptr->realm1))
 			{
-				s_ptr = &technic_info[p_ptr->realm1 - MIN_TECHNIC][i];
+				s_ptr = &technic_info[cr_ptr->realm1 - MIN_TECHNIC][i];
 			}
 			else
 			{
-				s_ptr = &m_info[p_ptr->realm1].info[p_ptr->realm1 - 1][i];
+				s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm1 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
-			spell_exp = p_ptr->spell_exp[i];
+			spell_exp = cr_ptr->spell_exp[i];
 			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(p_ptr, p_ptr->realm1, i, SPELL_NAME));
-			if (p_ptr->realm1 == REALM_HISSATSU)
+			fprintf(fff, "%-25s ", do_spell(cr_ptr, cr_ptr->realm1, i, SPELL_NAME));
+			if (cr_ptr->realm1 == REALM_HISSATSU)
 				fprintf(fff, "[--]");
 			else
 			{
@@ -7098,28 +7098,28 @@ static void do_cmd_knowledge_spell_exp(void)
 		}
 	}
 
-	if (p_ptr->realm2 != REALM_NONE)
+	if (cr_ptr->realm2 != REALM_NONE)
 	{
 #ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[p_ptr->realm2]);
+		fprintf(fff, "%sの魔法書\n", realm_names[cr_ptr->realm2]);
 #else
-		fprintf(fff, "\n%s Spellbook\n", realm_names[p_ptr->realm2]);
+		fprintf(fff, "\n%s Spellbook\n", realm_names[cr_ptr->realm2]);
 #endif
 		for (i = 0; i < 32; i++)
 		{
-			if (!is_magic(p_ptr->realm1))
+			if (!is_magic(cr_ptr->realm1))
 			{
-				s_ptr = &technic_info[p_ptr->realm2 - MIN_TECHNIC][i];
+				s_ptr = &technic_info[cr_ptr->realm2 - MIN_TECHNIC][i];
 			}
 			else
 			{
-				s_ptr = &m_info[p_ptr->realm1].info[p_ptr->realm2 - 1][i];
+				s_ptr = &m_info[cr_ptr->realm1].info[cr_ptr->realm2 - 1][i];
 			}
 			if (s_ptr->slevel >= 99) continue;
 
-			spell_exp = p_ptr->spell_exp[i + 32];
+			spell_exp = cr_ptr->spell_exp[i + 32];
 			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(p_ptr, p_ptr->realm2, i, SPELL_NAME));
+			fprintf(fff, "%-25s ", do_spell(cr_ptr, cr_ptr->realm2, i, SPELL_NAME));
 			if (exp_level >= EXP_LEVEL_EXPERT) fprintf(fff, "!");
 			else fprintf(fff, " ");
 			fprintf(fff, "%s", exp_level_str[exp_level]);
@@ -7147,7 +7147,7 @@ static void do_cmd_knowledge_spell_exp(void)
 /*
  * Display skill-exp
  */
-static void do_cmd_knowledge_skill_exp(void)
+static void do_cmd_knowledge_skill_exp(creature_type *cr_ptr)
 {
 	int i = 0, skill_exp;
 
@@ -7174,9 +7174,9 @@ static void do_cmd_knowledge_skill_exp(void)
 
 	for (i = 0; i < 3; i++)
 	{
-		skill_exp = p_ptr->skill_exp[i];
+		skill_exp = cr_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);
-		if (skill_exp >= s_info[p_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
+		if (skill_exp >= s_info[cr_ptr->cls_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, "%s", exp_level_str[(i == GINOU_RIDING) ? riding_exp_level(skill_exp) : weapon_exp_level(skill_exp)]);
 		if (cheat_xtra) fprintf(fff, " %d", skill_exp);
@@ -10257,13 +10257,13 @@ void do_cmd_knowledge(void)
 			do_cmd_knowledge_mutations(p_ptr);
 			break;
 		case 'c': /* weapon-exp */
-			do_cmd_knowledge_weapon_exp();
+			do_cmd_knowledge_weapon_exp(p_ptr);
 			break;
 		case 'd': /* spell-exp */
-			do_cmd_knowledge_spell_exp();
+			do_cmd_knowledge_spell_exp(p_ptr);
 			break;
 		case 'e': /* skill-exp */
-			do_cmd_knowledge_skill_exp();
+			do_cmd_knowledge_skill_exp(p_ptr);
 			break;
 		case 'f': /* Virtues */
 			do_cmd_knowledge_karmas();
