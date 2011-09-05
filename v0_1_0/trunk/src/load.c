@@ -370,17 +370,17 @@ static void rd_item(object_type *o_ptr)
 }
 
 /*
- * Read the player p_ptr->inventory
+ * Read the creature inventory
  *
- * Note that the p_ptr->inventory changed in Angband 2.7.4.  Two extra
+ * Note that the inventory changed in Angband 2.7.4.  Two extra
  * pack slots were added and the equipment was rearranged.  Note
  * that these two features combine when parsing old save-files, in
  * which items from the old "aux" slot are "carried", perhaps into
  * one of the two new "inventory" slots.
  *
- * Note that the p_ptr->inventory is "re-sorted" later by "dungeon()".
+ * Note that the p_inventory is "re-sorted" later by "dungeon()".
  */
-static errr rd_inventory(void)
+static errr rd_inventory(creature_type *cr_ptr)
 {
 	int slot = 0;
 
@@ -388,11 +388,11 @@ static errr rd_inventory(void)
 	object_type *q_ptr;
 
 	/* No weight */
-	p_ptr->total_weight = 0;
+	cr_ptr->total_weight = 0;
 
 	/* No items */
-	p_ptr->inven_cnt = 0;
-	p_ptr->equip_cnt = 0;
+	cr_ptr->inven_cnt = 0;
+	cr_ptr->equip_cnt = 0;
 
 	/* Read until done */
 	while (1)
@@ -424,23 +424,23 @@ static errr rd_inventory(void)
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&p_ptr->inventory[n], q_ptr);
+			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			p_ptr->equip_cnt++;
+			cr_ptr->equip_cnt++;
 		}
 
 		/* Warning -- backpack is full */
-		else if (p_ptr->inven_cnt == INVEN_PACK)
+		else if (cr_ptr->inven_cnt == INVEN_PACK)
 		{
 			/* Oops */
 #ifdef JP
-note("プレイヤーの持ち物の中のアイテムが多すぎる！");
+			note("クリーチャーの持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many player's items in the inventory!");
+			note("Too many creature's items in the inventory!");
 #endif
 
 
@@ -448,7 +448,7 @@ note("プレイヤーの持ち物の中のアイテムが多すぎる！");
 			return (54);
 		}
 
-		/* Carry p_ptr->inventory */
+		/* Carry inventory */
 		else
 		{
 			/* Get a slot */
@@ -458,13 +458,13 @@ note("プレイヤーの持ち物の中のアイテムが多すぎる！");
 			q_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&p_ptr->inventory[n], q_ptr);
+			object_copy(&cr_ptr->inventory[n], q_ptr);
 
 			/* Add the weight */
-			p_ptr->total_weight += (q_ptr->number * q_ptr->weight);
+			cr_ptr->total_weight += (q_ptr->number * q_ptr->weight);
 
 			/* One more item */
-			p_ptr->inven_cnt++;
+			cr_ptr->inven_cnt++;
 		}
 	}
 
@@ -2546,13 +2546,13 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	}
 
 
-	/* Read the cr_ptr->inventory */
-	if (rd_inventory())
+	/* Read the inventory */
+	if (rd_inventory(cr_ptr))
 	{
 #ifdef JP
 note("持ち物情報を読み込むことができません");
 #else
-		note("Unable to read cr_ptr->inventory");
+		note("Unable to read inventory");
 #endif
 
 		return (21);
