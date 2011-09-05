@@ -1930,7 +1930,7 @@ static cptr chara_jouhou[MAX_CHARA] =
 
 "\"Munchkin\" is a personality for beginners.  It raises all your stats and skills.  With this personality, you can win the game easily, but gain little honor in doing so."
 
-"\"ChargeMan\ is crazy killer. It render you powerfull strength and constitution, but poor intelligence. you are not confused and seen the illusion because this you go mad from the beginning. ",
+"\"ChargeMan\" is crazy killer. It render you powerfull strength and constitution, but poor intelligence. you are not confused and seen the illusion because this you go mad from the beginning. ",
 "TODO::Explain",
 "TODO::Explain",
 "TODO::Explain",
@@ -3881,7 +3881,7 @@ void race_detail(int code)
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
@@ -3958,7 +3958,7 @@ void subrace_detail(int code)
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(race_info[].title));
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
@@ -4012,7 +4012,7 @@ void class_detail(int code)
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(class_info[].title));
+	put_str("'s Main-Race modification", base, 24+strlen(class_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
@@ -4063,7 +4063,7 @@ void chara_detail(int code)
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
 	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(chara_info[].title));
+	put_str("'s Main-Race modification", base, 24+strlen(chara_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 

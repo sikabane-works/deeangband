@@ -1930,7 +1930,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 		if(chara_info[m_ptr->chara_idx].no)
 			(void)strcat(desc, "‚È");
 #else
-		(void)strcat(desc, chara_info[m_ptr->chara_idx].tit;e);
+		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 #endif
 	}
 
@@ -1939,7 +1939,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 		(void)strcat(desc, race_info[m_ptr->irace_idx].title);
 		(void)strcat(desc, "‚Ì");
 #else
-		(void)strcat(desc, race_info[m_ptr->irace_idx].tit;e);
+		(void)strcat(desc, race_info[m_ptr->irace_idx].title);
 		(void)strcat(desc, "'s ");
 #endif
 	}

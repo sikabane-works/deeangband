@@ -5262,7 +5262,7 @@ static cptr monster_group_text[] =
 	"Mirror-Master",
 	"Ninja",
 	"Sniper",
-	"Variable-Class"
+	"Variable-Class",
 #endif
 	NULL
 };
@@ -9486,7 +9486,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 #ifdef JP
 							sprintf(note,"「%s」にいる「%s」を倒す。", dungeon_name, name);
 #else
-							sprintf(note,"kill %s in %s.", name, dungeon);
+							sprintf(note,"kill %s in %s.", name, dungeon_name);
 #endif
 						break;
 

@@ -1819,7 +1819,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 
 		/* Hack -- The only one of its kind */
-		else if ((known && object_is_artifact(o_ptr)) ||
+		else if ((known && object_is_artifact(p_ptr, o_ptr)) ||
 		         ((o_ptr->tval == TV_CORPSE) &&
 		          (r_info[o_ptr->pval].flags1 & RF1_UNIQUE)))
 		{
@@ -1877,7 +1877,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 
 		/* Hack -- The only one of its kind */
-		else if (known && object_is_artifact(o_ptr))
+		else if (known && object_is_artifact(p_ptr, o_ptr))
 		{
 			t = object_desc_str(t, "The ");
 		}
@@ -2060,7 +2060,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 #else
-	if (object_is_smith(o_ptr))
+	if (object_is_smith(p_ptr, o_ptr))
 	{
 		t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
 	}

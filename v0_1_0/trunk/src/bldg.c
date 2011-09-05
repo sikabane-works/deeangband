@@ -3641,8 +3641,8 @@ static bool resize_item(creature_type *cr_ptr)
 	prt(format("現在のあなたの技量だと、-%dから+%d まで修正できます。", resizelimit, resizelimit), 5, 0);
 	prt(format("修正の料金はアイテムの価値に依存します。"), 7, 0);
 #else
-	prt(format("  Based on your skill, we can resize from -%d to +%d.", maxenchant, maxenchant), 5, 0);
-	prt(format("  The price for the service depend on value of the item.", cost), 7, 0);
+	prt(format("  Based on your skill, we can resize from -%d to +%d.", resizelimit, resizelimit), 5, 0);
+	prt(format("  The price for the service depend on value of the item."), 7, 0);
 #endif
 
 #ifdef JP

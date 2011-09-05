@@ -1966,7 +1966,7 @@ owner_type owners[MAX_STORES][MAX_OWNERS] =
 		{ "Abiemar the Peasant",        250,    170, 108,  5, 15, RACE_HUMAN},
 		{ "Hurk the Poor",              500,    175, 108,  4, 12, RACE_ORC},
 		{ "Soalin the Wretched",        750,    170, 107,  5, 15, RACE_ZOMBIE},
-		{ "Merulla the Humble",        1000,    165, 107,  6, 18, RACE_ELF},
+//		{ "Merulla the Humble",        1000,    165, 107,  6, 18, RACE_ELF},
 #endif
 	},
 
@@ -2037,7 +2037,7 @@ owner_type owners[MAX_STORES][MAX_OWNERS] =
 		{ "Do-Na-Luu",                  24000,  220, 115,  5,  6, RACE_YEEK},
 		{ "Kantes the Running Water",   17000,  190, 111,  4,  9, RACE_MARFOLK},
 		{ "Bors the Stone Skin",        21000,  200, 112,  4, 10, RACE_OLOG},
-		{ "Wieland the Smith",          30000,  200, 112,  4,  5, RACE_DWARF},
+//		{ "Wieland the Smith",          30000,  200, 112,  4,  5, RACE_DWARF},
 		{ "Uwa-Lya-Rikq the Migrainer", 30000,  200, 112,  4,  5, RACE_ELDER_ONE},
 #endif
 	},

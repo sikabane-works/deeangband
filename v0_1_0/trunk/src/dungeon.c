@@ -3200,13 +3200,15 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				msg_print("wR”»‚Ì•óÎx‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
 			else
 				msg_print("‚È‚É‚©‚ª‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
+
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "R”»‚Ì•óÎ", NULL, -1);
 #else
 			if (object_is_known(o_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
-			take_hit(cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "the Jewel of Judgement", -1);
+
+			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, MIN(cr_ptr->lev, 50), "the Jewel of Judgement", "", -1);
 #endif
 		}
 	}

@@ -245,7 +245,11 @@ sprintf(tmp_val, "( %d ˆÊˆÈ‰º )", k + 1);
 			}
 
 			when = the_score.day;
+#if JP
 			while(!iskanji(*when) && isspace(*when))
+#else
+			while(isspace(*when))
+#endif
 			{
 				when++;
 			}

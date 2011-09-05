@@ -932,8 +932,7 @@ msg_format("‚»‚Ì–{‚É‚ÍŠw‚Ô‚×‚«%s‚ª‚È‚¢B", p);
 				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME) ,p);
 		}
 #else
-		msg_format("You have learned the %s of %s.",
-			p, do_spell(increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
+		msg_format("You have learned the %s of %s.", p, do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 #endif
 	}
 
