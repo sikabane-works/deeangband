@@ -6446,7 +6446,7 @@ msg_print("試合開始！");
 		 * Maintain Unique monsters and artifact, save current
 		 * floor, then prepare next floor
 		 */
-		leave_floor();
+		leave_floor(cr_ptr);
 
 		/* Forget the flag */
 		reinit_wilderness = FALSE;
@@ -6968,7 +6968,7 @@ quit("セーブファイルが壊れています");
 	/* Generate a dungeon level if needed */
 	if (!character_dungeon)
 	{
-		change_floor();
+		change_floor(cr_ptr);
 	}
 
 	else
@@ -6984,7 +6984,7 @@ quit("セーブファイルが壊れています");
 #else
 				msg_print("What a strange player location.  Regenerate the dungeon floor.");
 #endif
-				change_floor();
+				change_floor(cr_ptr);
 			}
 
 			/* Still no player?  -- Try to locate random place */
@@ -7139,7 +7139,7 @@ quit("セーブファイルが壊れています");
 				prepare_change_floor_mode(CFM_SAVE_FLOORS | CFM_RAND_CONNECT);
 
 				/* prepare next floor */
-				leave_floor();
+				leave_floor(cr_ptr);
 			}
 			else
 			{
@@ -7281,7 +7281,7 @@ quit("セーブファイルが壊れています");
 #endif
 
 					/* Prepare next floor */
-					leave_floor();
+					leave_floor(cr_ptr);
 					wipe_m_list();
 				}
 			}
@@ -7291,7 +7291,7 @@ quit("セーブファイルが壊れています");
 		if (cr_ptr->is_dead) break;
 
 		/* Make a new level */
-		change_floor();
+		change_floor(cr_ptr);
 	}
 
 	/* Close stuff */

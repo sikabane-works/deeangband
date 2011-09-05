@@ -848,7 +848,7 @@ static void locate_connected_stairs(saved_floor_type *sf_ptr)
  * Maintain quest monsters, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
-void leave_floor(void)
+void leave_floor(creature_type *cr_ptr)
 {
 	cave_type *c_ptr = NULL;
 	feature_type *f_ptr;
@@ -857,23 +857,23 @@ void leave_floor(void)
 	int i;
 
 	/* Preserve pets and prepare to take these to next floor */
-	preserve_pet(p_ptr);
+	preserve_pet(cr_ptr);
 
 	/* Remove all mirrors without explosion */
 	remove_all_mirrors(FALSE);
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(p_ptr, FALSE);
+	if (cr_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(cr_ptr, FALSE);
 
 	/* New floor is not yet prepared */
 	new_floor_id = 0;
 
 	/* Temporary get a floor_id (for Arena) */
-	if (!p_ptr->floor_id &&
+	if (!cr_ptr->floor_id &&
 	    (change_floor_mode & CFM_SAVE_FLOORS) &&
 	    !(change_floor_mode & CFM_NO_RETURN))
 	{
 	    /* Get temporal floor_id */
-	    p_ptr->floor_id = get_new_floor_id();
+	    cr_ptr->floor_id = get_new_floor_id();
 	}
 
 
@@ -917,7 +917,7 @@ void leave_floor(void)
 	/* Check if there is a same item */
 	for (i = 0; i < INVEN_PACK; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 
 		/* Skip dead objects */
 		if (!o_ptr->k_idx) continue;
@@ -930,10 +930,10 @@ void leave_floor(void)
 	}
 
 	/* Extract current floor info or NULL */
-	sf_ptr = get_sf_ptr(p_ptr->floor_id);
+	sf_ptr = get_sf_ptr(cr_ptr->floor_id);
 
 	/* Choose random stairs */
-	if ((change_floor_mode & CFM_RAND_CONNECT) && p_ptr->floor_id)
+	if ((change_floor_mode & CFM_RAND_CONNECT) && cr_ptr->floor_id)
 	{
 		locate_connected_stairs(sf_ptr);
 	}
@@ -942,7 +942,7 @@ void leave_floor(void)
 	if (change_floor_mode & CFM_SAVE_FLOORS)
 	{
 		/* Extract stair position */
-		c_ptr = &cave[p_ptr->fy][p_ptr->fx];
+		c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 		f_ptr = &f_info[c_ptr->feat];
 
 		/* Get back to old saved floor? */
@@ -990,13 +990,13 @@ void leave_floor(void)
 	/* Leaving the dungeon to town */
 	if (!dun_level && dungeon_type)
 	{
-		p_ptr->leaving_dungeon = TRUE;
+		cr_ptr->leaving_dungeon = TRUE;
 		if (!vanilla_town && !lite_town)
 		{
 			wilderness_y = d_info[dungeon_type].dy;
 			wilderness_x = d_info[dungeon_type].dx;
 		}
-		p_ptr->recall_dungeon = dungeon_type;
+		cr_ptr->recall_dungeon = dungeon_type;
 		dungeon_type = 0;
 
 		/* Reach to the surface -- Clear all saved floors */
@@ -1022,7 +1022,7 @@ void leave_floor(void)
 	}
 
 	/* No current floor -- Left/Enter dungeon etc... */
-	if (!p_ptr->floor_id)
+	if (!cr_ptr->floor_id)
 	{
 		/* No longer need to save current floor */
 		return;
@@ -1077,7 +1077,7 @@ void leave_floor(void)
 			prepare_change_floor_mode(CFM_NO_RETURN);
 
 			/* Kill current floor */
-			kill_saved_floor(get_sf_ptr(p_ptr->floor_id));
+			kill_saved_floor(get_sf_ptr(cr_ptr->floor_id));
 		}
 	}
 }
@@ -1088,7 +1088,7 @@ void leave_floor(void)
  * restored from the temporal file.  If the floor is new one, new cave
  * will be generated.
  */
-void change_floor(void)
+void change_floor(creature_type *cr_ptr)
 {
 	saved_floor_type *sf_ptr;
 	bool loaded = FALSE;
@@ -1097,7 +1097,7 @@ void change_floor(void)
 	character_dungeon = FALSE;
 
 	/* No longer in the trap detecteded region */
-	p_ptr->dtrap = FALSE;
+	cr_ptr->dtrap = FALSE;
 
 	/* Mega-Hack -- no panel yet */
 	panel_row_min = 0;
@@ -1145,7 +1145,7 @@ void change_floor(void)
 				/* Forbid return stairs */
 				if (change_floor_mode & CFM_NO_RETURN)
 				{
-					cave_type *c_ptr = &cave[p_ptr->fy][p_ptr->fx];
+					cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 
 					if (!feat_uses_special(c_ptr->feat))
 					{
@@ -1168,21 +1168,21 @@ void change_floor(void)
 		 * Stair creation/Teleport level/Trap door will take
 		 * you the same floor when you used it later again.
 		 */
-		if (p_ptr->floor_id)
+		if (cr_ptr->floor_id)
 		{
-			saved_floor_type *cur_sf_ptr = get_sf_ptr(p_ptr->floor_id);
+			saved_floor_type *cur_sf_ptr = get_sf_ptr(cr_ptr->floor_id);
 
 			if (change_floor_mode & CFM_UP)
 			{
 				/* New floor is right-above */
 				if (cur_sf_ptr->upper_floor_id == new_floor_id)
-					sf_ptr->lower_floor_id = p_ptr->floor_id;
+					sf_ptr->lower_floor_id = cr_ptr->floor_id;
 			}
 			else if (change_floor_mode & CFM_DOWN)
 			{
 				/* New floor is right-under */
 				if (cur_sf_ptr->lower_floor_id == new_floor_id)
-					sf_ptr->upper_floor_id = p_ptr->floor_id;
+					sf_ptr->upper_floor_id = cr_ptr->floor_id;
 			}
 		}
 
@@ -1325,7 +1325,7 @@ void change_floor(void)
 			if (!(change_floor_mode & CFM_NO_RETURN))
 			{
 				/* Extract stair position */
-				cave_type *c_ptr = &cave[p_ptr->fy][p_ptr->fx];
+				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 
 				/*** Create connected stairs ***/
 
@@ -1345,7 +1345,7 @@ void change_floor(void)
 				c_ptr->mimic = 0;
 
 				/* Connect to previous floor */
-				c_ptr->special = p_ptr->floor_id;
+				c_ptr->special = cr_ptr->floor_id;
 			}
 		}
 
@@ -1359,7 +1359,7 @@ void change_floor(void)
 		else if ((change_floor_mode & CFM_NO_RETURN) &&
 			 (change_floor_mode & (CFM_DOWN | CFM_UP)))
 		{
-			if (!p_ptr->blind)
+			if (!cr_ptr->blind)
 			{
 #ifdef JP
 				msg_print("“Ë‘RŠK’i‚ªÇ‚ª‚ê‚Ä‚µ‚Ü‚Á‚½B");
@@ -1395,21 +1395,21 @@ void change_floor(void)
 	update_unique_artifact(new_floor_id);
 
 	/* Now the player is in new floor */
-	p_ptr->floor_id = new_floor_id;
+	cr_ptr->floor_id = new_floor_id;
 
 	/* The dungeon is ready */
 	character_dungeon = TRUE;
 
 	/* Hack -- Munchkin characters always get whole map */
-	if (p_ptr->chara_idx == CHARA_MUNCHKIN)
-		wiz_lite((bool)(p_ptr->cls_idx == CLASS_NINJA));
+	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
+		wiz_lite((bool)(cr_ptr->cls_idx == CLASS_NINJA));
 
 	/* Remember when this level was "created" */
 	old_turn = turn;
 
 	/* No dungeon feeling yet */
-	p_ptr->feeling_turn = old_turn;
-	p_ptr->feeling = 0;
+	cr_ptr->feeling_turn = old_turn;
+	cr_ptr->feeling = 0;
 
 	/* Clear all flags */
 	change_floor_mode = 0L;
