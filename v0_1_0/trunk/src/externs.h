@@ -1757,6 +1757,7 @@ extern void set_karma(creature_type *cr_ptr, int karma, int amount);
 extern void chg_karma(creature_type *cr_ptr, int karma, int amount);
 extern void dump_karmas(creature_type *cr_ptr, FILE * OutFile);
 extern int karma_number(creature_type *cr_ptr, int karma);
+extern void authority_desc(char *tmp, creature_type *cr_ptr);
 
 #ifdef JP
 /* japanese.c */
