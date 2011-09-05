@@ -6813,7 +6813,7 @@ bool (*tombstone_aux)(void) = NULL;
 /*
  * Display a "tomb-stone"
  */
-static void print_tomb(void)
+static void print_tomb(creature_type *cr_ptr)
 {
 	bool done = FALSE;
 
@@ -6868,7 +6868,7 @@ static void print_tomb(void)
 		}
 
 		/* King or Queen */
-		if (p_ptr->total_winner || (p_ptr->lev > PY_MAX_LEVEL))
+		if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 		{
 #ifdef JP
 			/* 英日切り替え */
@@ -6881,10 +6881,10 @@ static void print_tomb(void)
 		/* Normal */
 		else
 		{
-			p =  player_title[p_ptr->cls_idx][(p_ptr->lev - 1) / 6];
+			p =  player_title[cr_ptr->cls_idx][(cr_ptr->lev - 1) / 6];
 		}
 
-		center_string(buf, p_ptr->name);
+		center_string(buf, cr_ptr->name);
 		put_str(buf, 6, 11);
 
 #ifndef JP
@@ -6895,50 +6895,50 @@ static void print_tomb(void)
 		center_string(buf, p);
 		put_str(buf, 8, 11);
 
-		center_string(buf, class_info[p_ptr->cls_idx].title);
+		center_string(buf, class_info[cr_ptr->cls_idx].title);
 		put_str(buf, 10, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "レベル: %d", (int)p_ptr->lev);
+		(void)sprintf(tmp, "レベル: %d", (int)cr_ptr->lev);
 #else
-		(void)sprintf(tmp, "Level: %d", (int)p_ptr->lev);
+		(void)sprintf(tmp, "Level: %d", (int)cr_ptr->lev);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 11, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "経験値: %ld", (long)p_ptr->exp);
+		(void)sprintf(tmp, "経験値: %ld", (long)cr_ptr->exp);
 #else
-		(void)sprintf(tmp, "Exp: %ld", (long)p_ptr->exp);
+		(void)sprintf(tmp, "Exp: %ld", (long)cr_ptr->exp);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
 #ifdef JP
-		(void)sprintf(tmp, "所持金: %ld", (long)p_ptr->au);
+		(void)sprintf(tmp, "所持金: %ld", (long)cr_ptr->au);
 #else
-		(void)sprintf(tmp, "AU: %ld", (long)p_ptr->au);
+		(void)sprintf(tmp, "AU: %ld", (long)cr_ptr->au);
 #endif
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 
 #ifdef JP
 		/* 墓に刻む言葉をオリジナルより細かく表示 */
-		if (streq(p_ptr->died_from, "途中終了"))
+		if (streq(cr_ptr->died_from, "途中終了"))
 		{
 			strcpy(tmp, "<自殺>");
 		}
-		else if (streq(p_ptr->died_from, "ripe"))
+		else if (streq(cr_ptr->died_from, "ripe"))
 		{
 			strcpy(tmp, "引退後に天寿を全う");
 		}
-		else if (streq(p_ptr->died_from, "Seppuku"))
+		else if (streq(cr_ptr->died_from, "Seppuku"))
 		{
 			strcpy(tmp, "勝利の後、切腹");
 		}
 		else
 		{
-			roff_to_buf(p_ptr->died_from, GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
+			roff_to_buf(cr_ptr->died_from, GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
 			t = tmp + strlen(tmp) + 1;
 			if (*t)
 			{
@@ -6978,12 +6978,12 @@ static void print_tomb(void)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		if (!streq(p_ptr->died_from, "ripe") && !streq(p_ptr->died_from, "Seppuku"))
+		if (!streq(cr_ptr->died_from, "ripe") && !streq(cr_ptr->died_from, "Seppuku"))
 		{
 			if (dun_level == 0)
 			{
 				cptr town = town_num ? "街" : "荒野";
-				if (streq(p_ptr->died_from, "途中終了"))
+				if (streq(cr_ptr->died_from, "途中終了"))
 				{
 					sprintf(tmp, "%sで死んだ", town);
 				}
@@ -6994,7 +6994,7 @@ static void print_tomb(void)
 			}
 			else
 			{
-				if (streq(p_ptr->died_from, "途中終了"))
+				if (streq(cr_ptr->died_from, "途中終了"))
 				{
 					sprintf(tmp, "地下 %d 階で死んだ", dun_level);
 				}
@@ -7011,7 +7011,7 @@ static void print_tomb(void)
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 
-		roff_to_buf(format("by %s.", p_ptr->died_from), GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
+		roff_to_buf(format("by %s.", cr_ptr->died_from), GRAVE_LINE_WIDTH + 1, tmp, sizeof tmp);
 		center_string(buf, tmp);
 		put_str(buf, 15, 11);
 		t = tmp + strlen(tmp) + 1;
@@ -7033,9 +7033,9 @@ static void print_tomb(void)
 		put_str(buf, 17, 11);
 
 #ifdef JP
-		msg_format("さようなら、%s!", p_ptr->name);
+		msg_format("さようなら、%s!", cr_ptr->name);
 #else
-		msg_format("Goodbye, %s!", p_ptr->name);
+		msg_format("Goodbye, %s!", cr_ptr->name);
 #endif
 	}
 }
@@ -7399,7 +7399,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 		else do_send = FALSE;
 
 		/* You are dead */
-		print_tomb();
+		print_tomb(p_ptr);
 
 		flush();
 
