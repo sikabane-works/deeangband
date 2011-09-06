@@ -1089,6 +1089,8 @@ struct creature_type
 {
 	char name[128];
 
+	byte is_player;	/* Player Flag */
+
 	s16b oldpy;		/* Previous player location -KMW- */
 	s16b oldpx;		/* Previous player location -KMW- */
 

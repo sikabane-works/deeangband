@@ -13,7 +13,6 @@
 #include "angband.h"
 
 
-
 /*
  * Some "local" parameters, used to help write savefiles
  */
@@ -186,72 +185,75 @@ static void wr_item(object_type *o_ptr)
 /*
  * Write a "monster" record
  */
-static void wr_monster(creature_type *m_ptr)
+static void wr_creature(creature_type *cr_ptr)
 {
 	int i, j;
 	u16b tmp16u;
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
-	if (!is_original_ap(m_ptr)) flags |= SAVE_MON_AP_species_idx;
-	if (m_ptr->sub_align) flags |= SAVE_MON_SUB_ALIGN;
-	if (m_ptr->paralyzed) flags |= SAVE_MON_CSLEEP;
-	if (m_ptr->fast) flags |= SAVE_MON_FAST;
-	if (m_ptr->slow) flags |= SAVE_MON_SLOW;
-	if (m_ptr->stun) flags |= SAVE_MON_STUNNED;
-	if (m_ptr->confused) flags |= SAVE_MON_CONFUSED;
-	if (m_ptr->afraid) flags |= SAVE_MON_MONFEAR;
-	if (m_ptr->target_y) flags |= SAVE_MON_TARGET_Y;
-	if (m_ptr->target_x) flags |= SAVE_MON_TARGET_X;
-	if (m_ptr->invuln) flags |= SAVE_MON_INVULNER;
-	if (m_ptr->smart) flags |= SAVE_MON_SMART;
-	if (m_ptr->exp) flags |= SAVE_MON_EXP;
-	if (m_ptr->mflag2) flags |= SAVE_MON_MFLAG2;
-	if (m_ptr->nickname) flags |= SAVE_MON_NICKNAME;
-	if (m_ptr->parent_m_idx) flags |= SAVE_MON_PARENT;
+	wr_byte(cr_ptr->is_player);
+
+	/*** Monster save flags ***/
+	if (!is_original_ap(cr_ptr)) flags |= SAVE_MON_AP_species_idx;
+	if (cr_ptr->sub_align) flags |= SAVE_MON_SUB_ALIGN;
+	if (cr_ptr->paralyzed) flags |= SAVE_MON_CSLEEP;
+	if (cr_ptr->fast) flags |= SAVE_MON_FAST;
+	if (cr_ptr->slow) flags |= SAVE_MON_SLOW;
+	if (cr_ptr->stun) flags |= SAVE_MON_STUNNED;
+	if (cr_ptr->confused) flags |= SAVE_MON_CONFUSED;
+	if (cr_ptr->afraid) flags |= SAVE_MON_MONFEAR;
+	if (cr_ptr->target_y) flags |= SAVE_MON_TARGET_Y;
+	if (cr_ptr->target_x) flags |= SAVE_MON_TARGET_X;
+	if (cr_ptr->invuln) flags |= SAVE_MON_INVULNER;
+	if (cr_ptr->smart) flags |= SAVE_MON_SMART;
+	if (cr_ptr->exp) flags |= SAVE_MON_EXP;
+	if (cr_ptr->mflag2) flags |= SAVE_MON_MFLAG2;
+	if (cr_ptr->nickname) flags |= SAVE_MON_NICKNAME;
+	if (cr_ptr->parent_m_idx) flags |= SAVE_MON_PARENT;
 
 	/*** Monster save flags ***/
 	wr_u32b(flags);
 
 	/*** Write only un-obvious elements ***/
-	wr_s16b(m_ptr->species_idx);
-	wr_s16b(m_ptr->monster_ego_idx);
-	wr_s16b(m_ptr->irace_idx);
+	wr_s16b(cr_ptr->species_idx);
+	wr_s16b(cr_ptr->monster_ego_idx);
+	wr_s16b(cr_ptr->irace_idx);
 
-	wr_byte(m_ptr->cls_idx);
-	wr_byte(m_ptr->chara_idx);
+	wr_byte(cr_ptr->cls_idx);
+	wr_byte(cr_ptr->chara_idx);
 
-	wr_byte(m_ptr->fy);
-	wr_byte(m_ptr->fx);
+	wr_byte(cr_ptr->fy);
+	wr_byte(cr_ptr->fx);
 
-	wr_s16b(m_ptr->lev);
+	wr_s16b(cr_ptr->lev);
 
-	wr_s32b(m_ptr->mhp);
-	wr_s32b(m_ptr->mmhp);
-	wr_s32b(m_ptr->chp);
-	wr_u32b(m_ptr->chp_frac);
+	wr_s32b(cr_ptr->mhp);
+	wr_s32b(cr_ptr->mmhp);
+	wr_s32b(cr_ptr->chp);
+	wr_u32b(cr_ptr->chp_frac);
 
-	wr_s32b(m_ptr->msp);
-	wr_s32b(m_ptr->csp);
-	wr_u32b(m_ptr->csp_frac);
+	wr_s32b(cr_ptr->msp);
+	wr_s32b(cr_ptr->csp);
+	wr_u32b(cr_ptr->csp_frac);
 
 	tmp16u = PY_MAX_LEVEL;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{
-		wr_s16b(m_ptr->player_hp[i]);
+		wr_s16b(cr_ptr->player_hp[i]);
 	}
 
-	wr_s32b(m_ptr->ht);
-	wr_s32b(m_ptr->wt);
-	wr_s16b(m_ptr->size);
-	wr_s16b(m_ptr->sex);
-	wr_s16b(m_ptr->hitdice);
+	wr_s32b(cr_ptr->ht);
+	wr_s32b(cr_ptr->wt);
+	wr_s16b(cr_ptr->size);
+	wr_s16b(cr_ptr->sex);
+	wr_s16b(cr_ptr->hitdice);
 
 	/* Write the p_ptr->inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &m_ptr->inventory[i];
+		object_type *o_ptr = &cr_ptr->inventory[i];
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
 		/* Dump index */
@@ -266,75 +268,75 @@ static void wr_monster(creature_type *m_ptr)
 	/* Underlings */
 	for(i = 0; i < MAX_UNDERLINGS; i++)
 	{
-		if(m_ptr->underling_id[i])
+		if(cr_ptr->underling_id[i])
 		{
-			wr_u16b(m_ptr->underling_id[i]);
-			wr_u16b(m_ptr->underling_num[i]);
+			wr_u16b(cr_ptr->underling_id[i]);
+			wr_u16b(cr_ptr->underling_num[i]);
 		}
 	}
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
 
-	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(m_ptr->stat_cur[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_cur[i]);
 
-	wr_s32b(m_ptr->age);
-	wr_s16b(m_ptr->sc);
-	wr_s16b(m_ptr->dr);
+	wr_s32b(cr_ptr->age);
+	wr_s16b(cr_ptr->sc);
+	wr_s16b(cr_ptr->dr);
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_species_idx) wr_s16b(m_ptr->ap_species_idx);
-	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(m_ptr->sub_align);
-	if (flags & SAVE_MON_CSLEEP) wr_s16b(m_ptr->paralyzed);
+	if (flags & SAVE_MON_AP_species_idx) wr_s16b(cr_ptr->ap_species_idx);
+	if (flags & SAVE_MON_SUB_ALIGN) wr_byte(cr_ptr->sub_align);
+	if (flags & SAVE_MON_CSLEEP) wr_s16b(cr_ptr->paralyzed);
 
-	for (i = 0; i < 8; i++) wr_s32b(m_ptr->authority[i]);
-	for (i = 0; i < 64; i++) wr_s16b(m_ptr->spell_exp[i]);
-	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(m_ptr->weapon_exp[i][j]);
-	for (i = 0; i < 10; i++) wr_s16b(m_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) wr_s32b(m_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) wr_byte(m_ptr->magic_num2[i]);
+	for (i = 0; i < 8; i++) wr_s32b(cr_ptr->authority[i]);
+	for (i = 0; i < 64; i++) wr_s16b(cr_ptr->spell_exp[i]);
+	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) wr_s16b(cr_ptr->weapon_exp[i][j]);
+	for (i = 0; i < 10; i++) wr_s16b(cr_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) wr_s32b(cr_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) wr_byte(cr_ptr->magic_num2[i]);
 
-	wr_byte(m_ptr->speed);
-	wr_s16b(m_ptr->energy_need);
+	wr_byte(cr_ptr->speed);
+	wr_s16b(cr_ptr->energy_need);
 
 	if (flags & SAVE_MON_FAST)
 	{
-		tmp8u = (byte)m_ptr->fast;
+		tmp8u = (byte)cr_ptr->fast;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_SLOW)
 	{
-		tmp8u = (byte)m_ptr->slow;
+		tmp8u = (byte)cr_ptr->slow;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_STUNNED)
 	{
-		tmp8u = (byte)m_ptr->stun;
+		tmp8u = (byte)cr_ptr->stun;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_CONFUSED)
 	{
-		tmp8u = (byte)m_ptr->confused;
+		tmp8u = (byte)cr_ptr->confused;
 		wr_byte(tmp8u);
 	}
 	if (flags & SAVE_MON_MONFEAR)
 	{
-		tmp8u = (byte)m_ptr->afraid;
+		tmp8u = (byte)cr_ptr->afraid;
 		wr_byte(tmp8u);
 	}
-	if (flags & SAVE_MON_TARGET_Y) wr_s16b(m_ptr->target_y);
-	if (flags & SAVE_MON_TARGET_X) wr_s16b(m_ptr->target_x);
+	if (flags & SAVE_MON_TARGET_Y) wr_s16b(cr_ptr->target_y);
+	if (flags & SAVE_MON_TARGET_X) wr_s16b(cr_ptr->target_x);
 	if (flags & SAVE_MON_INVULNER)
 	{
-		tmp8u = (byte)m_ptr->invuln;
+		tmp8u = (byte)cr_ptr->invuln;
 		wr_byte(tmp8u);
 	}
-	if (flags & SAVE_MON_SMART) wr_u32b(m_ptr->smart);
-	if (flags & SAVE_MON_EXP) wr_u32b(m_ptr->exp);
-	if (flags & SAVE_MON_MFLAG2) wr_byte(m_ptr->mflag2);
-	if (flags & SAVE_MON_NICKNAME) wr_string(quark_str(m_ptr->nickname));
-	if (flags & SAVE_MON_PARENT) wr_s16b(m_ptr->parent_m_idx);
+	if (flags & SAVE_MON_SMART) wr_u32b(cr_ptr->smart);
+	if (flags & SAVE_MON_EXP) wr_u32b(cr_ptr->exp);
+	if (flags & SAVE_MON_MFLAG2) wr_byte(cr_ptr->mflag2);
+	if (flags & SAVE_MON_NICKNAME) wr_string(quark_str(cr_ptr->nickname));
+	if (flags & SAVE_MON_PARENT) wr_s16b(cr_ptr->parent_m_idx);
 }
 
 
@@ -1172,7 +1174,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Dump it */
-		wr_monster(m_ptr);
+		wr_creature(m_ptr);
 	}
 
 }
@@ -1408,7 +1410,7 @@ static bool wr_savefile_new(void)
 		creature_type *m_ptr = &u_info[i];
 
 		/* Dump it */
-		wr_monster(m_ptr);
+		wr_creature(m_ptr);
 	}
 
 
@@ -1610,7 +1612,7 @@ static bool wr_savefile_new(void)
 		creature_type *m_ptr = &m_list[i];
 
 		/* Dump it */
-		wr_monster(m_ptr);
+		wr_creature(m_ptr);
 	}
 
 

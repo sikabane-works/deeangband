@@ -569,7 +569,7 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 /*
  * Read a monster (New method)
  */
-static void rd_monster(creature_type *m_ptr)
+static void rd_creature(creature_type *cr_ptr)
 {
 	u32b flags;
 	char buf[128];
@@ -578,33 +578,35 @@ static void rd_monster(creature_type *m_ptr)
 	int i, j;
 	u16b n; 
 
+	rd_byte(&cr_ptr->is_player);
+
 	/*** Monster save flags ***/
 	rd_u32b(&flags);
 
 	/*** Read un-obvious elements ***/
 
 	/* Read the monster race */
-	rd_s16b(&m_ptr->species_idx);
-	rd_s16b(&m_ptr->monster_ego_idx);
-	rd_s16b(&m_ptr->irace_idx);
-	rd_byte(&m_ptr->cls_idx);
-	rd_byte(&m_ptr->chara_idx);
+	rd_s16b(&cr_ptr->species_idx);
+	rd_s16b(&cr_ptr->monster_ego_idx);
+	rd_s16b(&cr_ptr->irace_idx);
+	rd_byte(&cr_ptr->cls_idx);
+	rd_byte(&cr_ptr->chara_idx);
 
 	/* Read the other information */
-	rd_byte(&m_ptr->fy);
-	rd_byte(&m_ptr->fx);
+	rd_byte(&cr_ptr->fy);
+	rd_byte(&cr_ptr->fx);
 
 
-	rd_s16b(&m_ptr->lev);
+	rd_s16b(&cr_ptr->lev);
 
-	rd_s32b(&m_ptr->mhp);
-	rd_s32b(&m_ptr->mmhp);
-	rd_s32b(&m_ptr->chp);
-	rd_u32b(&m_ptr->chp_frac);
+	rd_s32b(&cr_ptr->mhp);
+	rd_s32b(&cr_ptr->mmhp);
+	rd_s32b(&cr_ptr->chp);
+	rd_u32b(&cr_ptr->chp_frac);
 
-	rd_s32b(&m_ptr->msp);
-	rd_s32b(&m_ptr->csp);
-	rd_u32b(&m_ptr->csp_frac);
+	rd_s32b(&cr_ptr->msp);
+	rd_s32b(&cr_ptr->csp);
+	rd_u32b(&cr_ptr->csp_frac);
 
 	/* Read the player_hp array */
 	rd_u16b(&tmp16u);
@@ -622,16 +624,16 @@ static void rd_monster(creature_type *m_ptr)
 	/* Read the player_hp array */
 	for (i = 0; i < tmp16u; i++)
 	{
-		rd_s16b(&m_ptr->player_hp[i]);
+		rd_s16b(&cr_ptr->player_hp[i]);
 	}
 
-	rd_s32b(&m_ptr->ht);
-	rd_s32b(&m_ptr->wt);
-	rd_s16b(&m_ptr->size);
-	rd_s16b(&m_ptr->sex);
-	rd_s16b(&m_ptr->hitdice);
+	rd_s32b(&cr_ptr->ht);
+	rd_s32b(&cr_ptr->wt);
+	rd_s16b(&cr_ptr->size);
+	rd_s16b(&cr_ptr->sex);
+	rd_s16b(&cr_ptr->hitdice);
 
-	rd_inventory_r(m_ptr);
+	rd_inventory_r(cr_ptr);
 
 	i = 0;
 	/* Underlings */
@@ -640,110 +642,110 @@ static void rd_monster(creature_type *m_ptr)
 		rd_u16b(&n);
 		if(n != 0xFFFF)
 		{
-			m_ptr->underling_id[i] = n;
-			rd_u16b(&m_ptr->underling_num[i]);
+			cr_ptr->underling_id[i] = n;
+			rd_u16b(&cr_ptr->underling_num[i]);
 			i++;
 		}
 		else
 			break;
 	}
 		
-	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_cur[i]);
 
-	rd_s32b(&m_ptr->age);
-	rd_s16b(&m_ptr->sc);
-	rd_s16b(&m_ptr->dr);
+	rd_s32b(&cr_ptr->age);
+	rd_s16b(&cr_ptr->sc);
+	rd_s16b(&cr_ptr->dr);
 
 	/* Monster race index of its appearance */
-	if (flags & SAVE_MON_AP_species_idx) rd_s16b(&m_ptr->ap_species_idx);
-	else m_ptr->ap_species_idx = m_ptr->species_idx;
-	if (flags & SAVE_MON_SUB_ALIGN) rd_byte(&m_ptr->sub_align);
-	else m_ptr->sub_align = 0;
-	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->paralyzed);
-	else m_ptr->paralyzed = 0;
+	if (flags & SAVE_MON_AP_species_idx) rd_s16b(&cr_ptr->ap_species_idx);
+	else cr_ptr->ap_species_idx = cr_ptr->species_idx;
+	if (flags & SAVE_MON_SUB_ALIGN) rd_byte(&cr_ptr->sub_align);
+	else cr_ptr->sub_align = 0;
+	if (flags & SAVE_MON_CSLEEP) rd_s16b(&cr_ptr->paralyzed);
+	else cr_ptr->paralyzed = 0;
 
-	for (i = 0; i < 8; i++) rd_s32b(&m_ptr->authority[i]);
-	for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
-	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&m_ptr->weapon_exp[i][j]);
-	for (i = 0; i < 10; i++) rd_s16b(&m_ptr->skill_exp[i]);
-	for (i = 0; i < 108; i++) rd_s32b(&m_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) rd_byte(&m_ptr->magic_num2[i]);
+	for (i = 0; i < 8; i++) rd_s32b(&cr_ptr->authority[i]);
+	for (i = 0; i < 64; i++) rd_s16b(&cr_ptr->spell_exp[i]);
+	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&cr_ptr->weapon_exp[i][j]);
+	for (i = 0; i < 10; i++) rd_s16b(&cr_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) rd_s32b(&cr_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) rd_byte(&cr_ptr->magic_num2[i]);
 
-	rd_byte(&m_ptr->speed);
-	rd_s16b(&m_ptr->energy_need);
+	rd_byte(&cr_ptr->speed);
+	rd_s16b(&cr_ptr->energy_need);
 
 	if (flags & SAVE_MON_FAST)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->fast = (s16b)tmp8u;
+		cr_ptr->fast = (s16b)tmp8u;
 	}
-	else m_ptr->fast = 0;
+	else cr_ptr->fast = 0;
 	if (flags & SAVE_MON_SLOW)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->slow = (s16b)tmp8u;
+		cr_ptr->slow = (s16b)tmp8u;
 	}
-	else m_ptr->slow = 0;
+	else cr_ptr->slow = 0;
 	if (flags & SAVE_MON_STUNNED)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->stun = (s16b)tmp8u;
+		cr_ptr->stun = (s16b)tmp8u;
 	}
-	else m_ptr->stun = 0;
+	else cr_ptr->stun = 0;
 	if (flags & SAVE_MON_CONFUSED)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->confused = (s16b)tmp8u;
+		cr_ptr->confused = (s16b)tmp8u;
 	}
-	else m_ptr->confused = 0;
+	else cr_ptr->confused = 0;
 	if (flags & SAVE_MON_MONFEAR)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->afraid = (s16b)tmp8u;
+		cr_ptr->afraid = (s16b)tmp8u;
 	}
-	else m_ptr->afraid = 0;
+	else cr_ptr->afraid = 0;
 
-	if (flags & SAVE_MON_TARGET_Y) rd_s16b(&m_ptr->target_y);
-	else m_ptr->target_y = 0;
-	if (flags & SAVE_MON_TARGET_X) rd_s16b(&m_ptr->target_x);
-	else m_ptr->target_x = 0;
+	if (flags & SAVE_MON_TARGET_Y) rd_s16b(&cr_ptr->target_y);
+	else cr_ptr->target_y = 0;
+	if (flags & SAVE_MON_TARGET_X) rd_s16b(&cr_ptr->target_x);
+	else cr_ptr->target_x = 0;
 
 	if (flags & SAVE_MON_INVULNER)
 	{
 		rd_byte(&tmp8u);
-		m_ptr->invuln = (s16b)tmp8u;
+		cr_ptr->invuln = (s16b)tmp8u;
 	}
-	else m_ptr->invuln = 0;
+	else cr_ptr->invuln = 0;
 
-	if (flags & SAVE_MON_SMART) rd_u32b(&m_ptr->smart);
-	else m_ptr->smart = 0;
+	if (flags & SAVE_MON_SMART) rd_u32b(&cr_ptr->smart);
+	else cr_ptr->smart = 0;
 
-	if (flags & SAVE_MON_EXP) rd_u32b(&m_ptr->exp);
-	else m_ptr->exp = 0;
+	if (flags & SAVE_MON_EXP) rd_u32b(&cr_ptr->exp);
+	else cr_ptr->exp = 0;
 
-	m_ptr->mflag = 0; /* Not saved */
+	cr_ptr->mflag = 0; /* Not saved */
 
-	if (flags & SAVE_MON_MFLAG2) rd_byte(&m_ptr->mflag2);
-	else m_ptr->mflag2 = 0;
+	if (flags & SAVE_MON_MFLAG2) rd_byte(&cr_ptr->mflag2);
+	else cr_ptr->mflag2 = 0;
 
 	if (flags & SAVE_MON_NICKNAME) 
 	{
 		rd_string(buf, sizeof(buf));
-		m_ptr->nickname = quark_add(buf);
+		cr_ptr->nickname = quark_add(buf);
 	}
-	else m_ptr->nickname = 0;
+	else cr_ptr->nickname = 0;
 
-	if (flags & SAVE_MON_PARENT) rd_s16b(&m_ptr->parent_m_idx);
-	else m_ptr->parent_m_idx = 0;
+	if (flags & SAVE_MON_PARENT) rd_s16b(&cr_ptr->parent_m_idx);
+	else cr_ptr->parent_m_idx = 0;
 
-	strcpy(m_ptr->name, r_name + r_info[m_ptr->species_idx].name);
+	strcpy(cr_ptr->name, r_name + r_info[cr_ptr->species_idx].name);
 
 	/* Update */
-	calc_bonuses(m_ptr, FALSE);
-	m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
-	update_stuff(m_ptr, FALSE);
+	calc_bonuses(cr_ptr, FALSE);
+	cr_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+	update_stuff(cr_ptr, FALSE);
 
 }
 
@@ -1564,7 +1566,7 @@ static void rd_extra(creature_type *cr_ptr)
 	for (i = 0; i < tmp16s; i++)
 	{
 		creature_type dummy_mon;
-		rd_monster(&dummy_mon);
+		rd_creature(&dummy_mon);
 	}
 
 
@@ -1867,7 +1869,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		m_ptr = &m_list[m_idx];
 
 		/* Read the monster */
-		rd_monster(m_ptr);
+		rd_creature(m_ptr);
 
 		/* Access grid */
 		c_ptr = &cave[m_ptr->fy][m_ptr->fx];
@@ -2205,7 +2207,7 @@ note(format("モンスターの思い出をロードしました:%u", tmp16u));
 	for (i = 0; i < max_unique; i++)
 	{
 		creature_type *m_ptr = &u_info[i];
-		rd_monster(m_ptr);
+		rd_creature(m_ptr);
 	}
 
 #ifdef JP
