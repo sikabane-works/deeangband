@@ -679,7 +679,7 @@ extern bool no_lite(void);
 extern void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX]);
 extern void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp);
 extern void move_cursor_relative(int row, int col);
-extern void print_rel(char c, byte a, int y, int x);
+extern void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x);
 extern void note_spot(creature_type *cr_ptr, int y, int x);
 extern void display_dungeon(void);
 extern void lite_spot(int y, int x);

@@ -3586,7 +3586,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			byte a = object_attr(q_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
-			print_rel(c, a, ny, nx);
+			print_rel(cr_ptr, c, a, ny, nx);
 			move_cursor_relative(ny, nx);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
@@ -4312,7 +4312,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			byte a = object_attr(q_ptr);
 
 			/* Draw, Hilite, Fresh, Pause, Erase */
-			print_rel(c, a, ny[cur_dis], nx[cur_dis]);
+			print_rel(cr_ptr, c, a, ny[cur_dis], nx[cur_dis]);
 			move_cursor_relative(ny[cur_dis], nx[cur_dis]);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
@@ -4563,7 +4563,7 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 					byte a = object_attr(q_ptr);
 
 					/* Draw, Hilite, Fresh, Pause, Erase */
-					print_rel(c, a, ny[i], nx[i]);
+					print_rel(cr_ptr, c, a, ny[i], nx[i]);
 					move_cursor_relative(ny[i], nx[i]);
 					Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);

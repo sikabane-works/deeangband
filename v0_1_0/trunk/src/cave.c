@@ -1400,7 +1400,7 @@ void move_cursor_relative(int row, int col)
 /*
  * Place an attr/char pair at the given map coordinate, if legal.
  */
-void print_rel(char c, byte a, int y, int x)
+void print_rel(creature_type *cr_ptr, char c, byte a, int y, int x)
 {
 	/* Only do "legal" locations */
 	if (panel_contains(y, x))
@@ -1409,8 +1409,8 @@ void print_rel(char c, byte a, int y, int x)
 		if (!use_graphics)
 		{
 			if (world_monster) a = TERM_DARK;
-			else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
-			else if (p_ptr->wraith_form) a = TERM_L_DARK;
+			else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 		}
 
 		/* Draw the char using the attr */

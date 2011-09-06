@@ -8438,7 +8438,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(c, a, y, x);
+					print_rel(p_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
@@ -8456,7 +8456,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						c = PICT_C(p);
 
 						/* Visual effects */
-						print_rel(c, a, y, x);
+						print_rel(p_ptr, c, a, y, x);
 					}
 
 					/* Hack -- Activate delay */
@@ -8575,7 +8575,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(c, a, y, x);
+					print_rel(p_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
@@ -8593,7 +8593,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						c = PICT_C(p);
 
 						/* Visual effects */
-						print_rel(c, a, y, x);
+						print_rel(p_ptr, c, a, y, x);
 					}
 
 					/* Hack -- Activate delay */
@@ -8719,7 +8719,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				c = PICT_C(p);
 
 				/* Visual effects */
-				print_rel(c, a, y, x);
+				print_rel(p_ptr, c, a, y, x);
 				move_cursor_relative(y, x);
 				/*if (fresh_before)*/ Term_fresh();
 				Term_xtra(TERM_XTRA_DELAY, msec);
@@ -8737,7 +8737,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(c, a, y, x);
+					print_rel(p_ptr, c, a, y, x);
 				}
 
 				/* Hack -- Activate delay */
@@ -8883,7 +8883,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					c = PICT_C(p);
 
 					/* Visual effects -- Display */
-					print_rel(c, a, y, x);
+					print_rel(p_ptr, c, a, y, x);
 				}
 			}
 
@@ -9384,7 +9384,7 @@ bool binding_field( int dam )
 					if(!(p_ptr->blind)
 					   && panel_contains(y,x)){
 					  p = bolt_pict(y,x,y,x, GF_MANA );
-					  print_rel(PICT_C(p), PICT_A(p),y,x);
+					  print_rel(p_ptr, PICT_C(p), PICT_A(p),y,x);
 					  move_cursor_relative(y, x);
 					  /*if (fresh_before)*/ Term_fresh();
 					  Term_xtra(TERM_XTRA_DELAY, msec);
