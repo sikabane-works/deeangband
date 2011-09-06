@@ -1452,7 +1452,7 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
  *
  * A "direction" of "5" means "pick a random direction".
  */
-static void process_monster(int m_idx)
+static void process_monster(creature_type *cr_ptr, int m_idx)
 {
 	creature_type    *m_ptr = &m_list[m_idx];
 	species_type    *r_ptr = &r_info[m_ptr->species_idx];
@@ -1485,19 +1485,19 @@ static void process_monster(int m_idx)
 
 	bool            fear;
 
-	bool            is_riding_mon = (m_idx == p_ptr->riding);
+	bool            is_riding_mon = (m_idx == cr_ptr->riding);
 
-	bool            see_m = is_seen(p_ptr, m_ptr);
+	bool            see_m = is_seen(cr_ptr, m_ptr);
 
 	if (is_riding_mon && !(r_ptr->flags7 & RF7_RIDING))
 	{
-		if (rakuba(p_ptr, 0, TRUE))
+		if (rakuba(cr_ptr, 0, TRUE))
 		{
 #ifdef JP
 			msg_print("地面に落とされた。");
 #else
 			char m_name[80];
-			monster_desc(m_name, &m_list[p_ptr->riding], 0);
+			monster_desc(m_name, &m_list[cr_ptr->riding], 0);
 			msg_format("You have fallen from %s.", m_name);
 #endif
 		}
@@ -1510,12 +1510,12 @@ static void process_monster(int m_idx)
 	}
 
 	/* Players hidden in shadow are almost imperceptable. -LM- */
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (cr_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		int tmp = p_ptr->lev*6+(p_ptr->skill_stl+10)*4;
-		if (p_ptr->monlite) tmp /= 3;
-		if (p_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
-		if (r_ptr->level > (p_ptr->lev*p_ptr->lev/20+10)) tmp /= 3;
+		int tmp = cr_ptr->lev*6+(cr_ptr->skill_stl+10)*4;
+		if (cr_ptr->monlite) tmp /= 3;
+		if (cr_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
+		if (r_ptr->level > (cr_ptr->lev*cr_ptr->lev/20+10)) tmp /= 3;
 		/* Low-level monsters will find it difficult to locate the player. */
 		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
 	}
@@ -1636,7 +1636,7 @@ static void process_monster(int m_idx)
 #else
 					msg_format("%^s succeeded to escape from your restriction!", m_name);
 #endif
-					if (rakuba(p_ptr, -1, FALSE))
+					if (rakuba(cr_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -1649,7 +1649,7 @@ static void process_monster(int m_idx)
 				if (see_m)
 				{
 					if ((r_ptr->flags2 & RF2_CAN_SPEAK) && (m_ptr->species_idx != MON_GRIP) && (m_ptr->species_idx != MON_WOLF) && (m_ptr->species_idx != MON_FANG) &&
-					    player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx))
+					    player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx))
 					{
 #ifdef JP
 						msg_format("%^s「ピンチだ！退却させてもらう！」", m_name);
@@ -1666,7 +1666,7 @@ static void process_monster(int m_idx)
 #endif
 				}
 
-				if (is_riding_mon && rakuba(p_ptr, -1, FALSE))
+				if (is_riding_mon && rakuba(cr_ptr, -1, FALSE))
 				{
 #ifdef JP
 					msg_print("地面に落とされた。");
@@ -1676,7 +1676,7 @@ static void process_monster(int m_idx)
 				}
 
 				/* Check for quest completion */
-				check_quest_completion(p_ptr, m_ptr);
+				check_quest_completion(cr_ptr, m_ptr);
 
 				delete_species_idx(&m_list[m_idx]);
 
@@ -1694,7 +1694,7 @@ static void process_monster(int m_idx)
 	if (m_ptr->paralyzed)
 	{
 		/* Handle non-aggravation - Still sleeping */
-		if (!(p_ptr->cursed & TRC_AGGRAVATE)) return;
+		if (!(cr_ptr->cursed & TRC_AGGRAVATE)) return;
 
 		/* Handle aggravation */
 
@@ -1718,7 +1718,7 @@ static void process_monster(int m_idx)
 		}
 
 		/* Hack -- Count the wakings */
-		if (is_original_ap_and_seen(p_ptr, m_ptr) && (r_ptr->r_wake < MAX_UCHAR))
+		if (is_original_ap_and_seen(cr_ptr, m_ptr) && (r_ptr->r_wake < MAX_UCHAR))
 		{
 			r_ptr->r_wake++;
 		}
@@ -1733,11 +1733,11 @@ static void process_monster(int m_idx)
 
 	if (is_riding_mon)
 	{
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 	}
 
 	/* No one wants to be your friend if you're aggravating */
-	if (is_friendly(m_ptr) && (p_ptr->cursed & TRC_AGGRAVATE))
+	if (is_friendly(m_ptr) && (cr_ptr->cursed & TRC_AGGRAVATE))
 		gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
@@ -1790,7 +1790,7 @@ static void process_monster(int m_idx)
 		}
 
 		/* Hex */
-		if (multiply_barrier(p_ptr, m_idx)) k = 8;
+		if (multiply_barrier(cr_ptr, m_idx)) k = 8;
 
 		/* Hack -- multiply slower in crowded areas */
 		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
@@ -1799,7 +1799,7 @@ static void process_monster(int m_idx)
 			if (multiply_monster(m_idx, FALSE, (is_pet(m_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(p_ptr, m_ptr))
+				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(cr_ptr, m_ptr))
 				{
 					r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1832,7 +1832,7 @@ static void process_monster(int m_idx)
 						}
 					}
 
-					if (count && is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
+					if (count && is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
 				}
 			}
 		}
@@ -1858,7 +1858,7 @@ static void process_monster(int m_idx)
 		if ((ap_r_ptr->flags2 & RF2_CAN_SPEAK) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
-		    projectable(oy, ox, p_ptr->fy, p_ptr->fx))
+		    projectable(oy, ox, cr_ptr->fy, cr_ptr->fx))
 		{
 			char m_name[80];
 			char monmessage[1024];
@@ -1935,20 +1935,20 @@ msg_format("%^s%s", m_name, monmessage);
 		if (!counterattack)
 		{
 			/* Attempt to cast a spell */
-			if (aware && make_attack_spell(m_ptr, p_ptr)) return;
+			if (aware && make_attack_spell(m_ptr, cr_ptr)) return;
 
 			/*
 			 * Attempt to cast a spell at an enemy other than the player
 			 * (may slow the game a smidgeon, but I haven't noticed.)
 			 */
-			if (monst_spell_monst(p_ptr, m_idx)) return;
+			if (monst_spell_monst(cr_ptr, m_idx)) return;
 		}
 		else
 		{
 			/* Attempt to do counter attack at first */
-			if (monst_spell_monst(p_ptr, m_idx)) return;
+			if (monst_spell_monst(cr_ptr, m_idx)) return;
 
-			if (aware && make_attack_spell(m_ptr, p_ptr)) return;
+			if (aware && make_attack_spell(m_ptr, cr_ptr)) return;
 		}
 	}
 
@@ -1969,7 +1969,7 @@ msg_format("%^s%s", m_name, monmessage);
 		 (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
+		if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1980,7 +1980,7 @@ msg_format("%^s%s", m_name, monmessage);
 				(randint0(100) < 50))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
+		if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1991,7 +1991,7 @@ msg_format("%^s%s", m_name, monmessage);
 				(randint0(100) < 25))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
+		if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2013,11 +2013,11 @@ msg_format("%^s%s", m_name, monmessage);
 	else if (is_pet(m_ptr))
 	{
 		/* Are we trying to avoid the player? */
-		bool avoid = ((p_ptr->pet_follow_distance < 0) &&
-						  (m_ptr->cdis <= (0 - p_ptr->pet_follow_distance)));
+		bool avoid = ((cr_ptr->pet_follow_distance < 0) &&
+						  (m_ptr->cdis <= (0 - cr_ptr->pet_follow_distance)));
 
 		/* Do we want to find the player? */
-		bool lonely = (!avoid && (m_ptr->cdis > p_ptr->pet_follow_distance));
+		bool lonely = (!avoid && (m_ptr->cdis > cr_ptr->pet_follow_distance));
 
 		/* Should we find the player if we can't find a monster? */
 		bool distant = (m_ptr->cdis > PET_SEEK_DIST);
@@ -2032,19 +2032,19 @@ msg_format("%^s%s", m_name, monmessage);
 			if (avoid || lonely || distant)
 			{
 				/* Remember the leash length */
-				int dis = p_ptr->pet_follow_distance;
+				int dis = cr_ptr->pet_follow_distance;
 
 				/* Hack -- adjust follow distance temporarily */
-				if (p_ptr->pet_follow_distance > PET_SEEK_DIST)
+				if (cr_ptr->pet_follow_distance > PET_SEEK_DIST)
 				{
-					p_ptr->pet_follow_distance = PET_SEEK_DIST;
+					cr_ptr->pet_follow_distance = PET_SEEK_DIST;
 				}
 
 				/* Find the player */
 				(void)get_moves(m_idx, mm);
 
 				/* Restore the leash */
-				p_ptr->pet_follow_distance = dis;
+				cr_ptr->pet_follow_distance = dis;
 			}
 		}
 	}
@@ -2106,7 +2106,7 @@ msg_format("%^s%s", m_name, monmessage);
 		y_ptr = &m_list[c_ptr->m_idx];
 
 		/* Hack -- player 'in' wall */
-		if (creature_bold(p_ptr, ny, nx))
+		if (creature_bold(cr_ptr, ny, nx))
 		{
 			do_move = TRUE;
 		}
@@ -2138,7 +2138,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = TRUE;
 
 			/* Monster moves through walls (and doors) */
-			if ((r_ptr->flags2 & RF2_PASS_WALL) && (!is_riding_mon || p_ptr->pass_wall) &&
+			if ((r_ptr->flags2 & RF2_PASS_WALL) && (!is_riding_mon || cr_ptr->pass_wall) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Monster went through a wall */
@@ -2156,7 +2156,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Creature can open doors. */
 			if ((r_ptr->flags2 & RF2_OPEN_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
-				 (!is_pet(m_ptr) || (p_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+				 (!is_pet(m_ptr) || (cr_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
 				if (!f_ptr->power)
@@ -2191,7 +2191,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Stuck doors -- attempt to bash them down if allowed */
 			if (may_bash && (r_ptr->flags2 & RF2_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
-				(!is_pet(m_ptr) || (p_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+				(!is_pet(m_ptr) || (cr_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
 				if (check_hp_for_feat_destruction(f_ptr, m_ptr) && (randint0(m_ptr->chp / 10) > f_ptr->power))
@@ -2234,9 +2234,9 @@ msg_format("%^s%s", m_name, monmessage);
 					if (!m_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
-						p_ptr->update |= (PU_FLOW);
+						cr_ptr->update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 						return;
 					}
@@ -2257,7 +2257,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		/* Hack -- check for Glyph of Warding */
 		if (do_move && is_glyph_grid(c_ptr) &&
-		    !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(p_ptr, ny, nx)))
+		    !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(cr_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2286,11 +2286,11 @@ msg_format("%^s%s", m_name, monmessage);
 				do_move = TRUE;
 
 				/* Notice */
-				note_spot(p_ptr, ny, nx);
+				note_spot(cr_ptr, ny, nx);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(p_ptr, ny, nx)))
+			 !((r_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(cr_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2310,7 +2310,7 @@ msg_format("%^s%s", m_name, monmessage);
 						msg_print("The rune explodes!");
 #endif
 
-						project(p_ptr, 2, ny, nx, 2 * (p_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+						project(cr_ptr, 2, ny, nx, 2 * (cr_ptr->lev + damroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 					}
 				}
 				else
@@ -2329,7 +2329,7 @@ msg_format("%^s%s", m_name, monmessage);
 				c_ptr->info &= ~(CAVE_OBJECT);
 				c_ptr->mimic = 0;
 
-				note_spot(p_ptr, ny, nx);
+				note_spot(cr_ptr, ny, nx);
 				lite_spot(ny, nx);
 
 				if (!m_ptr->species_idx) return;
@@ -2339,13 +2339,13 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* The player is in the way */
-		if (do_move && creature_bold(p_ptr, ny, nx))
+		if (do_move && creature_bold(cr_ptr, ny, nx))
 		{
 			/* Some monsters never attack */
 			if (r_ptr->flags1 & RF1_NEVER_BLOW)
 			{
 				/* Hack -- memorize lack of attacks */
-				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2359,7 +2359,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (!(r_ptr->flags2 & RF2_STUPID)) do_move = FALSE;
 					else
 					{
-						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 					}
 				}
 			}
@@ -2374,7 +2374,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 				//TODO: Change melee process
 				/*
-				if (!p_ptr->riding || one_in_(2))
+				if (!cr_ptr->riding || one_in_(2))
 				{
 					(void)make_attack_normal(m_idx);
 
@@ -2397,14 +2397,14 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Attack 'enemies' */
 			if (((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW) &&
 				 (r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
-				 can_cross && (c_ptr->m_idx != p_ptr->riding)) ||
+				 can_cross && (c_ptr->m_idx != cr_ptr->riding)) ||
 				are_enemies(m_ptr, y_ptr) ||  m_ptr->confused)
 			{
 				if (!(r_ptr->flags1 & RF1_NEVER_BLOW))
 				{
 					if (r_ptr->flags2 & RF2_KILL_BODY)
 					{
-						if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
@@ -2418,7 +2418,7 @@ msg_format("%^s%s", m_name, monmessage);
 							if (m_ptr->confused) return;
 							else if (r_ptr->flags2 & RF2_STUPID)
 							{
-								if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+								if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 								return;
 							}
 						}
@@ -2429,7 +2429,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* Push past weaker monsters (unless leaving a wall) */
 			else if ((r_ptr->flags2 & RF2_MOVE_BODY) && !(r_ptr->flags1 & RF1_NEVER_MOVE) &&
 				(r_ptr->mexp > z_ptr->mexp) &&
-				can_cross && (c_ptr->m_idx != p_ptr->riding) &&
+				can_cross && (c_ptr->m_idx != cr_ptr->riding) &&
 				monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, z_ptr, 0))
 			{
 				/* Allow movement */
@@ -2447,7 +2447,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		if (is_riding_mon)
 		{
-			if (!p_ptr->riding_ryoute && !m_list[p_ptr->riding].afraid) do_move = FALSE;
+			if (!cr_ptr->riding_ryoute && !m_list[cr_ptr->riding].afraid) do_move = FALSE;
 		}
 
 		if (did_kill_wall && do_move)
@@ -2473,9 +2473,9 @@ msg_format("%^s%s", m_name, monmessage);
 			if (!m_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
-				p_ptr->update |= (PU_FLOW);
+				cr_ptr->update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 
 				return;
 			}
@@ -2514,7 +2514,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && (r_ptr->flags1 & RF1_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
-			if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
+			if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
@@ -2572,14 +2572,14 @@ msg_format("%^s%s", m_name, monmessage);
 				/* sound(SOUND_WALK); */
 
 				/* Move the player */
-				if (!move_creature_effect(p_ptr, ny, nx, MPE_DONT_PICKUP)) break;
+				if (!move_creature_effect(cr_ptr, ny, nx, MPE_DONT_PICKUP)) break;
 			}
 
 			/* Possible disturb */
 			if (m_ptr->ml &&
 			    (disturb_move ||
-			     (disturb_near && (m_ptr->mflag & MFLAG_VIEW) && projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
-			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= p_ptr->lev)))
+			     (disturb_near && (m_ptr->mflag & MFLAG_VIEW) && projectable(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)) ||
+			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= cr_ptr->lev)))
 			{
 				/* Disturb */
 				if (is_hostile(m_ptr))
@@ -2588,7 +2588,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Take or Kill objects on the floor */
 			if (c_ptr->o_idx && (r_ptr->flags2 & (RF2_TAKE_ITEM | RF2_KILL_ITEM)) &&
-			    (!is_pet(m_ptr) || ((p_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && (r_ptr->flags2 & RF2_TAKE_ITEM))))
+			    (!is_pet(m_ptr) || ((cr_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && (r_ptr->flags2 & RF2_TAKE_ITEM))))
 			{
 				s16b this_o_idx, next_o_idx;
 				bool do_take = (r_ptr->flags2 & RF2_TAKE_ITEM) ? TRUE : FALSE;
@@ -2656,7 +2656,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RFR_IM_POIS);
 
 					/* The object cannot be picked up by the monster */
-					if (object_is_artifact(p_ptr, o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||
+					if (object_is_artifact(cr_ptr, o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||
 					    ((~(r_ptr->flagsr) & flgr) && !(m_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */
@@ -2666,7 +2666,7 @@ msg_format("%^s%s", m_name, monmessage);
 							did_take_item = TRUE;
 
 							/* Describe observable situations */
-							if (m_ptr->ml && player_can_see_bold(p_ptr, ny, nx))
+							if (m_ptr->ml && player_can_see_bold(cr_ptr, ny, nx))
 							{
 								/* Dump a message */
 #ifdef JP
@@ -2685,7 +2685,7 @@ msg_format("%^s%s", m_name, monmessage);
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (player_can_see_bold(p_ptr, ny, nx))
+						if (player_can_see_bold(cr_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2746,7 +2746,7 @@ msg_format("%^s%s", m_name, monmessage);
 	 *  Forward movements failed, but now received LOS attack!
 	 *  Try to flow by smell.
 	 */
-	if (p_ptr->no_flowed && i > 2 &&  m_ptr->target_y)
+	if (cr_ptr->no_flowed && i > 2 &&  m_ptr->target_y)
 		m_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
@@ -2755,7 +2755,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* Try to cast spell again */
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 		{
-			if (make_attack_spell(m_ptr, p_ptr)) return;
+			if (make_attack_spell(m_ptr, cr_ptr)) return;
 		}
 	}
 
@@ -2764,7 +2764,7 @@ msg_format("%^s%s", m_name, monmessage);
 	if (do_view)
 	{
 		/* Update some things */
-		p_ptr->update |= (PU_FLOW);
+		cr_ptr->update |= (PU_FLOW);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2775,11 +2775,11 @@ msg_format("%^s%s", m_name, monmessage);
 		|| ((r_ptr->flags7 & (RF7_HAS_LITE_1 | RF7_HAS_LITE_2)) && !inside_battle)))
 	{
 		/* Update some things */
-		p_ptr->update |= (PU_MON_LITE);
+		cr_ptr->update |= (PU_MON_LITE);
 	}
 
 	/* Learn things from observable monster */
-	if (is_original_ap_and_seen(p_ptr, m_ptr))
+	if (is_original_ap_and_seen(cr_ptr, m_ptr))
 	{
 		/* Monster opened a door */
 		if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
@@ -3027,7 +3027,7 @@ void process_monsters(void)
 		hack_m_idx = i;
 
 		/* Process the monster */
-		process_monster(i);
+		process_monster(p_ptr, i);
 
 		reset_target(m_ptr);
 
@@ -3458,7 +3458,7 @@ bool process_the_world(int num, int who, bool vs_player)
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		process_monster(world_monster);
+		process_monster(p_ptr, world_monster);
 
 		reset_target(m_ptr);
 
