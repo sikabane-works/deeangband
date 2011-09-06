@@ -5161,13 +5161,13 @@ static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
 /*
  *
  */
-static void dump_aux_equipment_inventory(FILE *fff)
+static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 {
 	int i;
 	char o_name[MAX_NLEN];
 
 	/* Dump the equipment */
-	if (p_ptr->equip_cnt)
+	if (cr_ptr->equip_cnt)
 	{
 #ifdef JP
 		fprintf(fff, "  [ƒLƒƒƒ‰ƒNƒ^‚Ì‘•”õ]\n\n");
@@ -5177,8 +5177,8 @@ static void dump_aux_equipment_inventory(FILE *fff)
 
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
-			object_desc(o_name, &p_ptr->inventory[i], 0);
-			if ((((i == INVEN_1STARM) && p_ptr->hidarite) || ((i == INVEN_2NDARM) && p_ptr->migite)) && p_ptr->ryoute)
+			object_desc(o_name, &cr_ptr->inventory[i], 0);
+			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 #ifdef JP
 				strcpy(o_name, "(•Ší‚ğ—¼è‚¿)");
 #else
@@ -5186,7 +5186,7 @@ static void dump_aux_equipment_inventory(FILE *fff)
 #endif
 
 			fprintf(fff, "%c) %s\n",
-				index_to_label(p_ptr, i), o_name);
+				index_to_label(cr_ptr, i), o_name);
 		}
 		fprintf(fff, "\n\n");
 	}
@@ -5201,11 +5201,11 @@ static void dump_aux_equipment_inventory(FILE *fff)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		/* Don't dump the empty slots */
-		if (!p_ptr->inventory[i].k_idx) break;
+		if (!cr_ptr->inventory[i].k_idx) break;
 
 		/* Dump the inventory slots */
-		object_desc(o_name, &p_ptr->inventory[i], 0);
-		fprintf(fff, "%c) %s\n", index_to_label(p_ptr, i), o_name);
+		object_desc(o_name, &cr_ptr->inventory[i], 0);
+		fprintf(fff, "%c) %s\n", index_to_label(cr_ptr, i), o_name);
 	}
 
 	/* Add an empty line */
@@ -5322,7 +5322,7 @@ errr make_character_dump(creature_type *cr_ptr, FILE *fff)
 	dump_aux_mutations(cr_ptr, fff);
 	dump_aux_pet(cr_ptr, fff);
 	fputs("\n\n", fff);
-	dump_aux_equipment_inventory(fff);
+	dump_aux_equipment_inventory(cr_ptr, fff);
 	dump_aux_home_museum(fff);
 
 #ifdef JP
