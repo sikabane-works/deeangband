@@ -540,7 +540,7 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 			return (54);
 		}
 
-		/* Carry p_ptr->inventory */
+		/* Carry inventory */
 		else
 		{
 			/* Get a slot */
@@ -576,6 +576,7 @@ static void rd_monster(creature_type *m_ptr)
 	byte tmp8u;
 	u16b tmp16u;
 	int i, j;
+	u16b n; 
 
 	/*** Monster save flags ***/
 	rd_u32b(&flags);
@@ -586,57 +587,42 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->species_idx);
 	rd_s16b(&m_ptr->monster_ego_idx);
 	rd_s16b(&m_ptr->irace_idx);
-	if(!older_than(0,0,3,0))
-	{
-		rd_byte(&m_ptr->cls_idx);
-		rd_byte(&m_ptr->chara_idx);
-	}
+	rd_byte(&m_ptr->cls_idx);
+	rd_byte(&m_ptr->chara_idx);
 
 	/* Read the other information */
 	rd_byte(&m_ptr->fy);
 	rd_byte(&m_ptr->fx);
 
+
 	rd_s16b(&m_ptr->lev);
 
-	if(older_than(0,0,10,0))
+	rd_s32b(&m_ptr->mhp);
+	rd_s32b(&m_ptr->mmhp);
+	rd_s32b(&m_ptr->chp);
+	rd_u32b(&m_ptr->chp_frac);
+
+	rd_s32b(&m_ptr->msp);
+	rd_s32b(&m_ptr->csp);
+	rd_u32b(&m_ptr->csp_frac);
+
+	/* Read the player_hp array */
+	rd_u16b(&tmp16u);
+
+	/* Incompatible save files */
+	if (tmp16u > PY_MAX_LEVEL)
 	{
-		rd_s32b(&m_ptr->chp);
-		rd_s32b(&m_ptr->mhp);
-		rd_s32b(&m_ptr->mmhp);
-	}
-	else
-	{
-		rd_s32b(&m_ptr->mhp);
-		rd_s32b(&m_ptr->mmhp);
-		rd_s32b(&m_ptr->chp);
-		rd_u32b(&m_ptr->chp_frac);
-
-		rd_s32b(&m_ptr->msp);
-		rd_s32b(&m_ptr->csp);
-		rd_u32b(&m_ptr->csp_frac);
-	}
-
-
-	if(!older_than(0,0,9,0))
-	{
-		/* Read the player_hp array */
-		rd_u16b(&tmp16u);
-
-		/* Incompatible save files */
-		if (tmp16u > PY_MAX_LEVEL)
-		{
 	#ifdef JP
 	note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
-	#else
-			note(format("Too many (%u) hitpoint entries!", tmp16u));
+		#else
+		note(format("Too many (%u) hitpoint entries!", tmp16u));
 	#endif
-		}
+	}
 
-		/* Read the player_hp array */
-		for (i = 0; i < tmp16u; i++)
-		{
-			rd_s16b(&m_ptr->player_hp[i]);
-		}
+	/* Read the player_hp array */
+	for (i = 0; i < tmp16u; i++)
+	{
+		rd_s16b(&m_ptr->player_hp[i]);
 	}
 
 	rd_s32b(&m_ptr->ht);
@@ -645,54 +631,30 @@ static void rd_monster(creature_type *m_ptr)
 	rd_s16b(&m_ptr->sex);
 	rd_s16b(&m_ptr->hitdice);
 
-	if(!older_than(0,0,4,0))
-		rd_inventory_r(m_ptr);
+	rd_inventory_r(m_ptr);
 
-	if(!older_than(0,0,6,0))
+	i = 0;
+	/* Underlings */
+	while(1)
 	{
-		u16b n; 
-		i = 0;
-		/* Underlings */
-		while(1)
+		rd_u16b(&n);
+		if(n != 0xFFFF)
 		{
-			rd_u16b(&n);
-			if(n != 0xFFFF)
-			{
-				m_ptr->underling_id[i] = n;
-				rd_u16b(&m_ptr->underling_num[i]);
-				i++;
-			}
-			else
-				break;
+			m_ptr->underling_id[i] = n;
+			rd_u16b(&m_ptr->underling_num[i]);
+			i++;
 		}
+		else
+			break;
+	}
 		
-	}
+	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
 
-
-	if(older_than(0,0,2,0))
-	{
-		rd_s16b(&m_ptr->stat_use[A_STR]);
-		rd_s16b(&m_ptr->stat_use[A_INT]);
-		rd_s16b(&m_ptr->stat_use[A_WIS]);
-		rd_s16b(&m_ptr->stat_use[A_DEX]);
-		rd_s16b(&m_ptr->stat_use[A_CON]);
-		rd_s16b(&m_ptr->stat_use[A_CHR]);
-	}
-	else
-	{
-		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max[i]);
-		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_max_max[i]);
-		for (i = 0; i < 6; i++) rd_s16b(&m_ptr->stat_cur[i]);
-	}
-
-
-	if(!older_than(0,0,8,0)){
-		rd_s32b(&m_ptr->age);
-		rd_s16b(&m_ptr->sc);
-	}
-
+	rd_s32b(&m_ptr->age);
+	rd_s16b(&m_ptr->sc);
 	rd_s16b(&m_ptr->dr);
-
 
 	/* Monster race index of its appearance */
 	if (flags & SAVE_MON_AP_species_idx) rd_s16b(&m_ptr->ap_species_idx);
@@ -702,14 +664,12 @@ static void rd_monster(creature_type *m_ptr)
 	if (flags & SAVE_MON_CSLEEP) rd_s16b(&m_ptr->paralyzed);
 	else m_ptr->paralyzed = 0;
 
-	if(!older_than(0,0,9,0)){
-		for (i = 0; i < 8; i++) rd_s32b(&m_ptr->authority[i]);
-		for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
-		for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&m_ptr->weapon_exp[i][j]);
-		for (i = 0; i < 10; i++) rd_s16b(&m_ptr->skill_exp[i]);
-		for (i = 0; i < 108; i++) rd_s32b(&m_ptr->magic_num1[i]);
-		for (i = 0; i < 108; i++) rd_byte(&m_ptr->magic_num2[i]);
-	}
+	for (i = 0; i < 8; i++) rd_s32b(&m_ptr->authority[i]);
+	for (i = 0; i < 64; i++) rd_s16b(&m_ptr->spell_exp[i]);
+	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&m_ptr->weapon_exp[i][j]);
+	for (i = 0; i < 10; i++) rd_s16b(&m_ptr->skill_exp[i]);
+	for (i = 0; i < 108; i++) rd_s32b(&m_ptr->magic_num1[i]);
+	for (i = 0; i < 108; i++) rd_byte(&m_ptr->magic_num2[i]);
 
 	rd_byte(&m_ptr->speed);
 	rd_s16b(&m_ptr->energy_need);
@@ -902,7 +862,7 @@ static void rd_lore(int species_idx)
 
 
 /*
- * Add the item "o_ptr" to the p_ptr->inventory of the "Home"
+ * Add the item "o_ptr" to the inventory of the "Home"
  *
  * In all cases, return the slot (or -1) where the object was placed
  *
@@ -1817,14 +1777,11 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 
 
 	/*** Load cave messages ***/
-	if(!older_than(0,0,5,0))
+	for (y = 0; y < cur_hgt; y++)
 	{
-		for (y = 0; y < cur_hgt; y++)
+		for (x = 0; x < cur_wid; x++)
 		{
-			for (x = 0; x < cur_wid; x++)
-			{
-				rd_string(cave[y][x].message, CAVE_MESSAGE_LENGTH);	
-			}
+			rd_string(cave[y][x].message, CAVE_MESSAGE_LENGTH);	
 		}
 	}
 
@@ -2241,22 +2198,14 @@ note(format("モンスターの思い出をロードしました:%u", tmp16u));
 
 	/* Unique monsters */
 
-	if(!older_than(0,0,7,0))
-	{
-		int i;
-		rd_u16b(&max_unique);
-		C_MAKE(u_info, max_unique, creature_type);
-		C_WIPE(u_info, max_unique, creature_type);
+	rd_u16b(&max_unique);
+	C_MAKE(u_info, max_unique, creature_type);
+	C_WIPE(u_info, max_unique, creature_type);
 
-		for (i = 0; i < max_unique; i++)
-		{
-			creature_type *m_ptr = &u_info[i];
-			rd_monster(m_ptr);
-		}
-	}
-	else
+	for (i = 0; i < max_unique; i++)
 	{
-		birth_uniques();
+		creature_type *m_ptr = &u_info[i];
+		rd_monster(m_ptr);
 	}
 
 #ifdef JP
