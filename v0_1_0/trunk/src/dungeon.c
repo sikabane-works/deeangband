@@ -4094,7 +4094,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		/* Hack -- Process the counters of monsters if needed */
 		for (i = 0; i < MAX_MTIMED; i++)
 		{
-			if (mproc_max[i] > 0) process_monsters_mtimed(i);
+			if (mproc_max[i] > 0) process_monsters_mtimed(cr_ptr, i);
 		}
 	}
 
@@ -6381,7 +6381,7 @@ msg_print("試合開始！");
 		if (!cr_ptr->playing || cr_ptr->is_dead) break;
 
 		/* Process all of the monsters */
-		process_monsters();
+		process_monsters(cr_ptr);
 
 		/* Handle "cr_ptr->notice" */
 		notice_stuff(cr_ptr);

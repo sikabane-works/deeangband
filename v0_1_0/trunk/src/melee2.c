@@ -2862,7 +2862,7 @@ msg_format("%^s%s", m_name, monmessage);
  * changes (flags, attacks, spells), we induce a redraw of the monster
  * recall window.
  */
-void process_monsters(void)
+void process_monsters(creature_type *cr_ptr)
 {
 	int             i;
 	int             fx, fy;
@@ -2895,13 +2895,13 @@ void process_monsters(void)
 	mon_fight = FALSE;
 
 	/* Memorize old race */
-	old_species_type_idx = p_ptr->species_type_idx;
+	old_species_type_idx = cr_ptr->species_type_idx;
 
 	/* Acquire knowledge */
-	if (p_ptr->species_type_idx)
+	if (cr_ptr->species_type_idx)
 	{
 		/* Acquire current monster */
-		r_ptr = &r_info[p_ptr->species_type_idx];
+		r_ptr = &r_info[cr_ptr->species_type_idx];
 
 		/* Memorize flags */
 		old_r_flags1 = r_ptr->r_flags1;
@@ -2931,7 +2931,7 @@ void process_monsters(void)
 		r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Handle "leaving" */
-		if (p_ptr->leaving) break;
+		if (cr_ptr->leaving) break;
 
 		/* Ignore "dead" monsters */
 		if (!m_ptr->species_idx) continue;
@@ -2958,7 +2958,7 @@ void process_monsters(void)
 		fy = m_ptr->fy;
 
 		/* Flow by smell is allowed */
-		if (!p_ptr->no_flowed)
+		if (!cr_ptr->no_flowed)
 		{
 			m_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 		}
@@ -2975,18 +2975,18 @@ void process_monsters(void)
 
 		/* Handle "sight" and "aggravation" */
 		else if ((m_ptr->cdis <= MAX_SIGHT) &&
-			(player_has_los_bold(fy, fx) || (p_ptr->cursed & TRC_AGGRAVATE)))
+			(player_has_los_bold(fy, fx) || (cr_ptr->cursed & TRC_AGGRAVATE)))
 		{
 			/* We can "see" or "feel" the player */
 			test = TRUE;
 		}
 
-#if 0 /* (cave[p_ptr->fy][p_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
+#if 0 /* (cave[cr_ptr->fy][cr_ptr->fx].when == cave[fy][fx].when) is always FALSE... */
 		/* Hack -- Monsters can "smell" the player from far away */
 		/* Note that most monsters have "aaf" of "20" or so */
 		else if (!(m_ptr->mflag2 & MFLAG2_NOFLOW) &&
-			cave_have_flag_bold(p_ptr->fy, p_ptr->fx, FF_MOVE) &&
-			(cave[p_ptr->fy][p_ptr->fx].when == cave[fy][fx].when) &&
+			cave_have_flag_bold(cr_ptr->fy, cr_ptr->fx, FF_MOVE) &&
+			(cave[cr_ptr->fy][cr_ptr->fx].when == cave[fy][fx].when) &&
 			(cave[fy][fx].dist < MONSTER_FLOW_DEPTH) &&
 			(cave[fy][fx].dist < r_ptr->aaf))
 		{
@@ -3000,8 +3000,8 @@ void process_monsters(void)
 		if (!test) continue;
 
 
-		if (p_ptr->riding == i)
-			speed = p_ptr->speed;
+		if (cr_ptr->riding == i)
+			speed = cr_ptr->speed;
 		else
 		{
 			speed = m_ptr->speed;
@@ -3027,19 +3027,19 @@ void process_monsters(void)
 		hack_m_idx = i;
 
 		/* Process the monster */
-		process_monster(p_ptr, i);
+		process_monster(cr_ptr, i);
 
 		reset_target(m_ptr);
 
 		/* Give up flow_by_smell when it might useless */
-		if (p_ptr->no_flowed && one_in_(3))
+		if (cr_ptr->no_flowed && one_in_(3))
 			m_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 		/* Hack -- notice death or departure */
-		if (!p_ptr->playing || p_ptr->is_dead) break;
+		if (!cr_ptr->playing || cr_ptr->is_dead) break;
 
 		/* Notice leaving */
-		if (p_ptr->leaving) break;
+		if (cr_ptr->leaving) break;
 	}
 
 	/* Reset global index */
@@ -3047,10 +3047,10 @@ void process_monsters(void)
 
 
 	/* Tracking a monster race (the same one we were before) */
-	if (p_ptr->species_type_idx && (p_ptr->species_type_idx == old_species_type_idx))
+	if (cr_ptr->species_type_idx && (cr_ptr->species_type_idx == old_species_type_idx))
 	{
 		/* Acquire monster race */
-		r_ptr = &r_info[p_ptr->species_type_idx];
+		r_ptr = &r_info[cr_ptr->species_type_idx];
 
 		/* Check for knowledge change */
 		if ((old_r_flags1 != r_ptr->r_flags1) ||
@@ -3374,7 +3374,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
  *
  * These functions are to process monsters' counters same as player's.
  */
-void process_monsters_mtimed(int mtimed_idx)
+void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 {
 	int  i;
 	creature_type **cur_mproc_list = mproc_list[mtimed_idx];
@@ -3384,7 +3384,7 @@ void process_monsters_mtimed(int mtimed_idx)
 	for (i = mproc_max[mtimed_idx] - 1; i >= 0; i--)
 	{
 		/* Access the monster */
-		process_monsters_mtimed_aux(p_ptr, cur_mproc_list[i], mtimed_idx);
+		process_monsters_mtimed_aux(cr_ptr, cur_mproc_list[i], mtimed_idx);
 	}
 }
 
