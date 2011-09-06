@@ -5503,13 +5503,16 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		tar_ptr->chp = 0;
 	}
 
-	/* Display the hitpoints */
-	play_redraw |= (PR_HP);
+	if(is_player(tar_ptr))
+	{
+		/* Display the hitpoints */
+		play_redraw |= (PR_HP);
 
-	/* Window stuff */
-	play_window |= (PW_PLAYER);
+		/* Window stuff */
+		play_window |= (PW_PLAYER);
 
-	handle_stuff(tar_ptr);
+		handle_stuff(tar_ptr);
+	}
 
 	if(is_player(tar_ptr))
 	{
