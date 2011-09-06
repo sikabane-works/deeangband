@@ -2001,7 +2001,7 @@ static void fix_overhead(void)
 		if (wid > COL_MAP + 2 && hgt > ROW_MAP + 2)
 		{
 			/* Redraw map */
-			display_map(&cy, &cx);
+			display_map(p_ptr, &cy, &cx);
 
 			/* Fresh */
 			Term_fresh();

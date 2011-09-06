@@ -1904,7 +1904,7 @@ static void display_shortened_item_name(object_type *o_ptr, int y)
 /*
  * Display a "small-scale" map of the dungeon in the active Term
  */
-void display_map(int *cy, int *cx)
+void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 {
 	int i, j, x, y;
 
@@ -2103,7 +2103,7 @@ void display_map(int *cy, int *cx)
 			if (!use_graphics)
 			{
 				if (world_monster) ta = TERM_DARK;
-				else if (IS_INVULN(p_ptr) || world_player) ta = TERM_WHITE;
+				else if (IS_INVULN(watcher_ptr) || world_player) ta = TERM_WHITE;
 			}
 
 			/* Add the character */
@@ -2142,11 +2142,11 @@ void display_map(int *cy, int *cx)
 	}
 
 	/* Player location */
-		(*cy) = p_ptr->fy / yrat + 1 + ROW_MAP;
+		(*cy) = watcher_ptr->fy / yrat + 1 + ROW_MAP;
 	if (!use_bigtile)
-		(*cx) = p_ptr->fx / xrat + 1 + COL_MAP;
+		(*cx) = watcher_ptr->fx / xrat + 1 + COL_MAP;
 	else
-		(*cx) = (p_ptr->fx / xrat + 1) * 2 + COL_MAP;
+		(*cx) = (watcher_ptr->fx / xrat + 1) * 2 + COL_MAP;
 
 	/* Restore lighting effects */
 	view_special_lite = old_view_special_lite;
@@ -2215,7 +2215,7 @@ prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
 	display_autopick = 0;
 
 	/* Display the map */
-	display_map(&cy, &cx);
+	display_map(p_ptr, &cy, &cx);
 
 	/* Wait for it */
 	if(max_autopick && !wild_mode)
@@ -2261,7 +2261,7 @@ prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
 			else
 				display_autopick &= ~flag;
 			/* Display the map */
-			display_map(&cy, &cx);
+			display_map(p_ptr, &cy, &cx);
 		}
 		
 		display_autopick = 0;
