@@ -152,6 +152,62 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 		info[i++] = Dummy;
 	}
 
+	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_GOOD);
+	if(percent > 100)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íq‘Pr‚Ì“G‚Å‚ ‚éB(‘ÎŽ×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+#else
+		sprintf(Dummy, "You are a enemy of good(x%d.%02d by evil slaying).", percent / 100, percent % 100);
+#endif
+		info[i++] = Dummy;
+	}
+
+	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_EVIL);
+	if(percent > 100)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íqˆ«r‚Ì“G‚Å‚ ‚éB(‘Î‘PƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+#else
+		sprintf(Dummy, "You are a enemy of evil(x%d.%02d by good slaying).", percent / 100, percent % 100);
+#endif
+		info[i++] = Dummy;
+	}
+
+	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_ORDER);
+	if(percent > 100)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íq’˜r‚Ì“G‚Å‚ ‚éB(‘Î¬“×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+#else
+		sprintf(Dummy, "You are a enemy of order(x%d.%02d by chaos slaying).", percent / 100, percent % 100);
+#endif
+		info[i++] = Dummy;
+	}
+
+	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_CHAOS);
+	if(percent > 100)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íq¬“×r‚Ì“G‚Å‚ ‚éB(‘Î’˜ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+#else
+		sprintf(Dummy, "You are a enemy of chaos(x%d.%02d by order slaying.)", percent / 100, percent % 100);
+#endif
+		info[i++] = Dummy;
+	}
+
+	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_BALANCE);
+	if(percent > 100)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íq“V”‰r‚Ì“G‚Å‚ ‚éB(ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+#else
+		sprintf(Dummy, "You are a enemy of balance(x%d.%02d by slaying).", percent / 100, percent % 100);
+#endif
+		info[i++] = Dummy;
+	}
+
+
 	/* Racial powers... */
 	if (cr_ptr->mimic_form)
 	{
