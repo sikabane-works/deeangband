@@ -2399,7 +2399,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-				if (!dimension_door()) return NULL;
+				if (!dimension_door(cr_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5386,7 +5386,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-				if (!dimension_door()) return NULL;
+				if (!dimension_door(cr_ptr)) return NULL;
 			}
 		}
 		break;

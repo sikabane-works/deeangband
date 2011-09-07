@@ -135,7 +135,7 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 	if(cr_ptr->player)
 	{
 #ifdef JP
-		sprintf(Dummy, "あなたはプレイヤーだ。");
+		sprintf(Dummy, "あなたはプレイヤーである。");
 #else
 		sprintf(Dummy, "You are a player. ");
 #endif
@@ -145,7 +145,7 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 	if(cr_ptr->stigmatic)
 	{
 #ifdef JP
-		sprintf(Dummy, "あなたは「＠」のルーンの〈烙印〉を背負う者だ。");
+		sprintf(Dummy, "あなたは「＠」のルーンの〈烙印〉を背負う者である。");
 #else
 		sprintf(Dummy, "You are a stigmatic of the cursed rune \"@\". ");
 #endif

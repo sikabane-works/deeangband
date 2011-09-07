@@ -5566,18 +5566,18 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 /*
  * Dimension Door
  */
-static bool dimension_door_aux(int x, int y)
+static bool dimension_door_aux(creature_type *cr_ptr, int x, int y)
 {
-	int	plev = p_ptr->lev;
+	int	plev = cr_ptr->lev;
 
-	p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+	cr_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
 
-	if (!cave_player_teleportable_bold(p_ptr, y, x, 0L) ||
-	    (distance(y, x, p_ptr->fy, p_ptr->fx) > plev / 2 + 10) ||
+	if (!cave_player_teleportable_bold(cr_ptr, y, x, 0L) ||
+	    (distance(y, x, cr_ptr->fy, cr_ptr->fx) > plev / 2 + 10) ||
 	    (!randint0(plev / 10 + 10)))
 	{
-		p_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
-		teleport_player(p_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
+		cr_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+		teleport_player(cr_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
 		/* Failed */
 		return FALSE;
@@ -5595,14 +5595,14 @@ static bool dimension_door_aux(int x, int y)
 /*
  * Dimension Door
  */
-bool dimension_door(void)
+bool dimension_door(creature_type *cr_ptr)
 {
 	int x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
-	if (!tgt_pt(p_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
 
-	if (dimension_door_aux(x, y)) return TRUE;
+	if (dimension_door_aux(cr_ptr, x, y)) return TRUE;
 
 #ifdef JP
 	msg_print("ê∏óÏäEÇ©ÇÁï®éøäEÇ…ñﬂÇÈéûÇ§Ç‹Ç≠Ç¢Ç©Ç»Ç©Ç¡ÇΩÅI");
@@ -5617,14 +5617,14 @@ bool dimension_door(void)
 /*
  * Mirror Master's Dimension Door
  */
-bool mirror_tunnel(void)
+bool mirror_tunnel(creature_type *cr_ptr)
 {
 	int x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
-	if (!tgt_pt(p_ptr, &x, &y)) return FALSE;
+	if (!tgt_pt(cr_ptr, &x, &y)) return FALSE;
 
-	if (dimension_door_aux(x, y)) return TRUE;
+	if (dimension_door_aux(cr_ptr, x, y)) return TRUE;
 
 #ifdef JP
 	msg_print("ãæÇÃê¢äEÇÇ§Ç‹Ç≠í ÇÍÇ»Ç©Ç¡ÇΩÅI");

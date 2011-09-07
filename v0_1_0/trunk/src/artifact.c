@@ -2967,7 +2967,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-			if (!dimension_door()) return FALSE;
+			if (!dimension_door(cr_ptr)) return FALSE;
 			o_ptr->timeout = 100;
 			break;
 		}

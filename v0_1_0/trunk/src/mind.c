@@ -1373,7 +1373,7 @@ msg_format("There are too many mirrors to control!");
 #else
 	  msg_print("Go through the world of mirror...");
 #endif
-	  return mirror_tunnel();
+	  return mirror_tunnel(cr_ptr);
 
 	/* mirror of recall */
 	case 17:
