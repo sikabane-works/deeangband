@@ -130,7 +130,19 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	}
 
 	info[i++] = "";
-	
+
+
+	if(cr_ptr->stigmatic)
+	{
+#ifdef JP
+		sprintf(Dummy, "‚ ‚È‚½‚Íu—v‚Ìƒ‹[ƒ“‚Ìqà€ˆór‚ð”w•‰‚¤ŽÒ‚¾B");
+#else
+		sprintf(Dummy, "You are a stigmatic of the cursed rune \"@\". ");
+#endif
+		info[i++] = Dummy;
+	}
+
+
 	/* Racial powers... */
 	if (cr_ptr->mimic_form)
 	{

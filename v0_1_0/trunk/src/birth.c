@@ -5244,6 +5244,8 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	Term_clear();
 
 	/* Title everything */
+	cr_ptr->stigmatic = TRUE;
+
 	cr_ptr->irace_idx = RACE_NONE;
 	cr_ptr->cls_idx = CLASS_NONE;
 	cr_ptr->chara_idx = CHARA_NONE;

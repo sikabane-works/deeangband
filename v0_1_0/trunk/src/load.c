@@ -578,7 +578,8 @@ static void rd_creature(creature_type *cr_ptr)
 	int i, j;
 	u16b n; 
 
-	rd_byte(&cr_ptr->is_player);
+	rd_byte(&cr_ptr->player);
+	rd_byte(&cr_ptr->stigmatic);
 
 	/*** Monster save flags ***/
 	rd_u32b(&flags);

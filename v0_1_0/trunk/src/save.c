@@ -192,7 +192,8 @@ static void wr_creature(creature_type *cr_ptr)
 	u32b flags = 0x00000000;
 	byte tmp8u;
 
-	wr_byte(cr_ptr->is_player);
+	wr_byte(cr_ptr->player);
+	wr_byte(cr_ptr->stigmatic);
 
 	/*** Monster save flags ***/
 	if (!is_original_ap(cr_ptr)) flags |= SAVE_MON_AP_species_idx;
