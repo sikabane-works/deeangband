@@ -6432,7 +6432,7 @@ void get_name(creature_type *cr_ptr)
 /*
  * Hack -- commit suicide
  */
-void do_cmd_suicide(void)
+void do_cmd_suicide(creature_type *cr_ptr)
 {
 	int i;
 
@@ -6440,7 +6440,7 @@ void do_cmd_suicide(void)
 	flush();
 
 	/* Verify Retirement */
-	if (p_ptr->total_winner)
+	if (cr_ptr->total_winner)
 	{
 		/* Verify */
 #ifdef JP
@@ -6463,7 +6463,7 @@ if (!get_check("本当に自殺しますか？")) return;
 	}
 
 
-	if (!p_ptr->noscore)
+	if (!cr_ptr->noscore)
 	{
 		/* Special Verification for suicide */
 #ifdef JP
@@ -6479,11 +6479,11 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	}
 
 	/* Initialize "last message" buffer */
-	if (p_ptr->last_message) string_free(p_ptr->last_message);
-	p_ptr->last_message = NULL;
+	if (cr_ptr->last_message) string_free(cr_ptr->last_message);
+	cr_ptr->last_message = NULL;
 
 	/* Hack -- Note *winning* message */
-	if (p_ptr->total_winner && last_words)
+	if (cr_ptr->total_winner && last_words)
 	{
 		char buf[1024] = "";
 
@@ -6503,21 +6503,21 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 
 		if (buf[0])
 		{
-			p_ptr->last_message = string_make(buf);
-			msg_print(p_ptr->last_message);
+			cr_ptr->last_message = string_make(buf);
+			msg_print(cr_ptr->last_message);
 		}
 	}
 
 	/* Stop playing */
-	p_ptr->playing = FALSE;
+	cr_ptr->playing = FALSE;
 
 	/* Kill the player */
-	p_ptr->is_dead = TRUE;
+	cr_ptr->is_dead = TRUE;
 
 	/* Leaving */
-	p_ptr->leaving = TRUE;
+	cr_ptr->leaving = TRUE;
 
-	if (!p_ptr->total_winner)
+	if (!cr_ptr->total_winner)
 	{
 #ifdef JP
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
@@ -6531,9 +6531,9 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 
 	/* Cause of death */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "途中終了");
+(void)strcpy(cr_ptr->died_from, "途中終了");
 #else
-	(void)strcpy(p_ptr->died_from, "Quitting");
+	(void)strcpy(cr_ptr->died_from, "Quitting");
 #endif
 
 }

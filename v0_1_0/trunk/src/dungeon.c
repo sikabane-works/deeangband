@@ -5378,7 +5378,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Quit (commit suicide) */
 		case 'Q':
 		{
-			do_cmd_suicide();
+			do_cmd_suicide(cr_ptr);
 			break;
 		}
 
