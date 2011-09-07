@@ -3468,7 +3468,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 
 	/* Column */
-	stat_col = 22;
+	stat_col = 3;
 
 	/* Row */
 	row = 3;
@@ -4178,7 +4178,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
 		/* Dump the info */
-		display_player_misc_info(cr_ptr);
+		//display_player_misc_info(cr_ptr);
 		display_player_stat_info(cr_ptr);
 		display_player_flag_info(cr_ptr);
 	}

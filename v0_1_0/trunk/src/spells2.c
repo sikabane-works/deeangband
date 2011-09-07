@@ -40,10 +40,11 @@ void self_knowledge(creature_type *cr_ptr)
 	object_type *o_ptr;
 
 	char Dummy[80];
+	char Dummy2[10][80];
 	char buf[2][80];
 	char buf2[100];
 
-	cptr info[220];
+	cptr info[280];
 
 	int plev = cr_ptr->lev;
 
@@ -135,63 +136,61 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	if(cr_ptr->player)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚ÍƒvƒŒƒCƒ„[‚Å‚ ‚éB");
+		info[i++] = "‚ ‚È‚½‚ÍƒvƒŒƒCƒ„[‚Å‚ ‚éB";
 #else
-		sprintf(Dummy, "You are a player. ");
+		info[i++] = "You are a player. ";
 #endif
-		info[i++] = Dummy;
 	}
 
 	if(cr_ptr->stigmatic)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íu—v‚Ìƒ‹[ƒ“‚Ìqà€ˆór‚ğ”w•‰‚¤Ò‚Å‚ ‚éB");
+		info[i++] = "‚ ‚È‚½‚Íu—v‚Ìƒ‹[ƒ“‚Ìqà€ˆór‚ğ”w•‰‚¤Ò‚Å‚ ‚éB";
 #else
-		sprintf(Dummy, "You are a stigmatic of the cursed rune \"@\". ");
+		info[i++] = "You are a stigmatic of the cursed rune \"@\". ";
 #endif
-		info[i++] = Dummy;
 	}
 
 	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_GOOD);
 	if(percent > 100)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íq‘Pr‚Ì“G‚Å‚ ‚éB(‘Î×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+		sprintf(Dummy2[0], "‚ ‚È‚½‚Íq‘Pr‚Ì“G‚Å‚ ‚éB(‘Î×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
 #else
-		sprintf(Dummy, "You are a enemy of good(x%d.%02d by evil slaying).", percent / 100, percent % 100);
+		sprintf(Dummy2[0], "You are a enemy of good(x%d.%02d by evil slaying).", percent / 100, percent % 100);
 #endif
-		info[i++] = Dummy;
+		info[i++] = Dummy2[0];
 	}
 
 	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_EVIL);
 	if(percent > 100)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íqˆ«r‚Ì“G‚Å‚ ‚éB(‘Î‘PƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+		sprintf(Dummy2[1], "‚ ‚È‚½‚Íqˆ«r‚Ì“G‚Å‚ ‚éB(‘Î‘PƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
 #else
-		sprintf(Dummy, "You are a enemy of evil(x%d.%02d by good slaying).", percent / 100, percent % 100);
+		sprintf(Dummy2[1], "You are a enemy of evil(x%d.%02d by good slaying).", percent / 100, percent % 100);
 #endif
-		info[i++] = Dummy;
+		info[i++] = Dummy2[1];
 	}
 
 	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_ORDER);
 	if(percent > 100)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íq’˜r‚Ì“G‚Å‚ ‚éB(‘Î¬“×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+		sprintf(Dummy2[2], "‚ ‚È‚½‚Íq’˜r‚Ì“G‚Å‚ ‚éB(‘Î¬“×ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
 #else
-		sprintf(Dummy, "You are a enemy of order(x%d.%02d by chaos slaying).", percent / 100, percent % 100);
+		sprintf(Dummy2[2], "You are a enemy of order(x%d.%02d by chaos slaying).", percent / 100, percent % 100);
 #endif
-		info[i++] = Dummy;
+		info[i++] = Dummy2[2];
 	}
 
 	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_CHAOS);
 	if(percent > 100)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íq¬“×r‚Ì“G‚Å‚ ‚éB(‘Î’˜ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+		sprintf(Dummy2[3], "‚ ‚È‚½‚Íq¬“×r‚Ì“G‚Å‚ ‚éB(‘Î’˜ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
 #else
-		sprintf(Dummy, "You are a enemy of chaos(x%d.%02d by order slaying.)", percent / 100, percent % 100);
+		sprintf(Dummy2[3], "You are a enemy of chaos(x%d.%02d by order slaying.)", percent / 100, percent % 100);
 #endif
 		info[i++] = Dummy;
 	}
@@ -200,11 +199,11 @@ sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 	if(percent > 100)
 	{
 #ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Íq“V”‰r‚Ì“G‚Å‚ ‚éB(ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
+		sprintf(Dummy2[4], "‚ ‚È‚½‚Íq“V”‰r‚Ì“G‚Å‚ ‚éB(ƒXƒŒƒCx%d.%02d)", percent / 100, percent % 100);
 #else
-		sprintf(Dummy, "You are a enemy of balance(x%d.%02d by slaying).", percent / 100, percent % 100);
+		sprintf(Dummy2[4], "You are a enemy of balance(x%d.%02d by slaying).", percent / 100, percent % 100);
 #endif
-		info[i++] = Dummy;
+		info[i++] = Dummy2[4];
 	}
 
 

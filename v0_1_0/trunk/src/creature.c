@@ -300,19 +300,19 @@ s16b calc_punishment_slay(creature_type *cr_ptr, int alignment)
 	{
 		case ALIGNMENT_GOOD:
 			t =  (cr_ptr->good_rank < 0 ? 100 - cr_ptr->good_rank : 100);
-			t += (cr_ptr->evil_rank - cr_ptr->good_rank) * abs(cr_ptr->evil_rank) / 100;
+			t += cr_ptr->evil_rank - cr_ptr->good_rank;
 			return t;
 		case ALIGNMENT_EVIL:
 			t =  (cr_ptr->evil_rank < 0 ? 100 - cr_ptr->evil_rank : 100);
-			t += (cr_ptr->good_rank - cr_ptr->evil_rank) * abs(cr_ptr->good_rank) / 100;
+			t += cr_ptr->good_rank - cr_ptr->evil_rank;
 			return t;
 		case ALIGNMENT_ORDER:
 			t =  (cr_ptr->order_rank < 0 ? 100 - cr_ptr->order_rank : 100);
-			t += (cr_ptr->chaos_rank - cr_ptr->order_rank) * abs(cr_ptr->chaos_rank) / 100;
+			t += cr_ptr->chaos_rank - cr_ptr->order_rank;
 			return t;
 		case ALIGNMENT_CHAOS:
 			t =  (cr_ptr->chaos_rank < 0 ? 100 - cr_ptr->chaos_rank : 100);
-			t += (cr_ptr->order_rank - cr_ptr->chaos_rank) * abs(cr_ptr->order_rank) / 100;
+			t += cr_ptr->order_rank - cr_ptr->chaos_rank;
 			return t;
 		case ALIGNMENT_BALANCE:
 			return (cr_ptr->balance_rank < 0 ? 100 - cr_ptr->balance_rank : 100);
