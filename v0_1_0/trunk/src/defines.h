@@ -715,6 +715,16 @@
 
 
 /*
+ * Alignment 
+ */
+#define ALIGNMENT_GOOD    0
+#define ALIGNMENT_EVIL    1
+#define ALIGNMENT_ORDER   2
+#define ALIGNMENT_CHAOS   3
+#define ALIGNMENT_BALANCE 4
+
+
+/*
  * Magic realms
  */
 #define REALM_NONE         0

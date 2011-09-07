@@ -6035,33 +6035,13 @@ int bow_tmul(int sval)
  */
 void show_alignment(char* buf, creature_type *cr_ptr)
 {
-	char *ge, *co;
-	char tmt[3] = ">>";
-	char mt[3] = ">";
-	char eq[3] = "=";
-	char lt[3] = "<";
-	char tlt[3] = "<<";
-
-	if(cr_ptr->good >= 0 && cr_ptr->evil < 0) ge = tmt; 
-	else if (cr_ptr->good < 0 && cr_ptr->evil >= 0) ge = tlt; 
-	else if (cr_ptr->good > cr_ptr->evil) ge = mt; 
-	else if (cr_ptr->good < cr_ptr->evil) ge = lt; 
-	else ge = eq;
-
-	if(cr_ptr->order >= 0 && cr_ptr->chaos < 0) co = tmt; 
-	else if (cr_ptr->order < 0 && cr_ptr->chaos >= 0) co = tlt; 
-	else if (cr_ptr->order > cr_ptr->chaos) co = mt; 
-	else if (cr_ptr->order < cr_ptr->chaos) co = lt; 
-	else co = eq;
-
-
 #ifdef JP
-	sprintf(buf, "(‘P[%d]%s[%d]ˆ«) (’˜[%d]%s[%d]¬“×) (“V”‰[%d])",
-		cr_ptr->good, ge, cr_ptr->evil, cr_ptr->order, co, cr_ptr->chaos, cr_ptr->balance);
+	sprintf(buf, "‘P[%d]/ˆ«[%d]/’˜[%d]/¬“×[%d]/“V”‰[%d]",
+		cr_ptr->good_rank, cr_ptr->evil_rank, cr_ptr->order_rank, cr_ptr->chaos_rank, cr_ptr->balance_rank);
 
 #else
-	sprintf(buf, "(Good[%d]%s[%d]Evil) (Order[%d]%s[%d]Chaos) (Balance[%d])",
-		cr_ptr->good, ge, cr_ptr->evil, cr_ptr->order, co, cr_ptr->chaos, cr_ptr->balance);
+	sprintf(buf, "Good[%d]/Evil[%d]/Order[%d]/Chaos[%d]/Balance[%d]",
+		cr_ptr->good_rank, cr_ptr->evil_rank, cr_ptr->order_rank, cr_ptr->chaos_rank, cr_ptr->balance_rank);
 #endif
 
 }

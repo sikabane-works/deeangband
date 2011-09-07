@@ -132,6 +132,16 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 	info[i++] = "";
 
 
+	if(cr_ptr->player)
+	{
+#ifdef JP
+		sprintf(Dummy, "あなたはプレイヤーだ。");
+#else
+		sprintf(Dummy, "You are a player. ");
+#endif
+		info[i++] = Dummy;
+	}
+
 	if(cr_ptr->stigmatic)
 	{
 #ifdef JP
@@ -141,7 +151,6 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 #endif
 		info[i++] = Dummy;
 	}
-
 
 	/* Racial powers... */
 	if (cr_ptr->mimic_form)
