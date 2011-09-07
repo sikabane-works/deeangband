@@ -876,7 +876,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 #define MAX_SUBTITLE (sizeof(subtitle)/sizeof(subtitle[0]))
 
-static void do_cmd_disp_nikki(void)
+static void do_cmd_disp_nikki(creature_type *cr_ptr)
 {
 	char nikki_title[256];
 	char file_name[80];
@@ -957,18 +957,18 @@ static void do_cmd_disp_nikki(void)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
-	if (p_ptr->cls_idx == CLASS_WARRIOR || p_ptr->cls_idx == CLASS_MONK || p_ptr->cls_idx == CLASS_SAMURAI || p_ptr->cls_idx == CLASS_BERSERKER)
+	if (cr_ptr->cls_idx == CLASS_WARRIOR || cr_ptr->cls_idx == CLASS_MONK || cr_ptr->cls_idx == CLASS_SAMURAI || cr_ptr->cls_idx == CLASS_BERSERKER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)]);
-	else if (p_ptr->cls_idx == CLASS_MAGE || p_ptr->cls_idx == CLASS_HIGH_MAGE || p_ptr->cls_idx == CLASS_SORCERER)
+	else if (cr_ptr->cls_idx == CLASS_MAGE || cr_ptr->cls_idx == CLASS_HIGH_MAGE || cr_ptr->cls_idx == CLASS_SORCERER)
 		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)+1]);
 	else strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-2)+1]);
 
 #ifdef JP
 	sprintf(nikki_title, "u%s%s%s‚Ì“`à -%s-v",
-		chara_info[p_ptr->chara_idx].title, chara_info[p_ptr->chara_idx].no ? "‚Ì" : "", p_ptr->name, tmp);
+		chara_info[cr_ptr->chara_idx].title, chara_info[cr_ptr->chara_idx].no ? "‚Ì" : "", cr_ptr->name, tmp);
 #else
 	sprintf(nikki_title, "Legend of %s %s '%s'",
-		chara_info[p_ptr->chara_idx].title, p_ptr->name, tmp);
+		chara_info[cr_ptr->chara_idx].title, cr_ptr->name, tmp);
 #endif
 
 	/* Display the file contents */
@@ -1119,7 +1119,7 @@ void do_cmd_nikki(void)
 		switch (i)
 		{
 		case '1':
-			do_cmd_disp_nikki();
+			do_cmd_disp_nikki(p_ptr);
 			break;
 		case '2':
 			do_cmd_bunshou();
