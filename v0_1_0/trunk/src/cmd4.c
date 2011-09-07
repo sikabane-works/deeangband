@@ -1273,7 +1273,7 @@ void do_cmd_change_name(void)
 		/* Change name */
 		if (c == 'c')
 		{
-			get_name();
+			get_name(p_ptr);
 
 			/* Process the player name */
 			process_player_name(FALSE);

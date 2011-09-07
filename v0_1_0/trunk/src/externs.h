@@ -897,7 +897,7 @@ extern errr check_load(void);
 extern bool show_file(bool show_version, cptr name, cptr what, int line, int mode);
 extern void do_cmd_help(void);
 extern void process_player_name(bool sf);
-extern void get_name(void);
+extern void get_name(creature_type *cr_ptr);
 extern void do_cmd_suicide(void);
 extern void do_cmd_save_game(int is_autosave);
 extern void do_cmd_save_and_exit(void);

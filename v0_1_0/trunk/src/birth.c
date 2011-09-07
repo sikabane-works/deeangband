@@ -5666,7 +5666,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	clear_from(23);
 
 	/* Get a name, recolor it, prepare savefile */
-	get_name();
+	get_name(cr_ptr);
 
 	/* Process the player name */
 	process_player_name(creating_savefile);

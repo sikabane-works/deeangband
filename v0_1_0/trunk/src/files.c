@@ -6386,12 +6386,12 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->nam
  *
  * What a horrible name for a global function.  XXX XXX XXX
  */
-void get_name(void)
+void get_name(creature_type *cr_ptr)
 {
 	char tmp[64];
 
 	/* Save the player name */
-	strcpy(tmp, p_ptr->name);
+	strcpy(tmp, cr_ptr->name);
 
 	/* Prompt for a new name */
 #ifdef JP
@@ -6401,23 +6401,23 @@ void get_name(void)
 #endif
 	{
 		/* Use the name */
-		strcpy(p_ptr->name, tmp);
+		strcpy(cr_ptr->name, tmp);
 	}
 
-	if (0 == strlen(p_ptr->name))
+	if (0 == strlen(cr_ptr->name))
 	{
 		/* Use default name */
-		strcpy(p_ptr->name, "PLAYER");
+		strcpy(cr_ptr->name, "PLAYER");
 	}
 
-	strcpy(tmp,chara_info[p_ptr->chara_idx].title);
+	strcpy(tmp,chara_info[cr_ptr->chara_idx].title);
 #ifdef JP
-	if(chara_info[p_ptr->chara_idx].no == 1)
+	if(chara_info[cr_ptr->chara_idx].no == 1)
 		strcat(tmp,"の");
 #else
 	strcat(tmp, " ");
 #endif
-	strcat(tmp,p_ptr->name);
+	strcat(tmp,cr_ptr->name);
 
 	/* Re-Draw the name (in light blue) */
 	Term_erase(34, 1, 255);
