@@ -1947,7 +1947,7 @@ void resize_map(void)
 	panel_row_min = cur_hgt;
 	panel_col_min = cur_wid;
 				
-	verify_panel();
+	verify_panel(p_ptr);
 
 	/* Update stuff */
 	p_ptr->update |= (PU_TORCH | PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
@@ -2065,10 +2065,10 @@ bool change_panel(int dy, int dx)
  *
  * The map is reprinted if necessary, and "TRUE" is returned.
  */
-void verify_panel(void)
+void verify_panel(creature_type *cr_ptr)
 {
-	int y = p_ptr->fy;
-	int x = p_ptr->fx;
+	int y = cr_ptr->fy;
+	int x = cr_ptr->fx;
 	int wid, hgt;
 
 	int prow_min;
@@ -2159,7 +2159,7 @@ void verify_panel(void)
 	panel_bounds_center();
 
 	/* Update stuff */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -3762,7 +3762,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 				case 'p':
 				{
 					/* Recenter the map around the player */
-					verify_panel();
+					verify_panel(aimer_ptr);
 
 					/* Update stuff */
 					aimer_ptr->update |= (PU_MONSTERS);
@@ -3962,7 +3962,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 				case 'p':
 				{
 					/* Recenter the map around the player */
-					verify_panel();
+					verify_panel(aimer_ptr);
 
 					/* Update stuff */
 					aimer_ptr->update |= (PU_MONSTERS);
@@ -4089,7 +4089,7 @@ strcpy(info, "qŽ~ tŒˆ pŽ© m‹ß +ŽŸ -‘O");
 	prt("", 0, 0);
 
 	/* Recenter the map around the player */
-	verify_panel();
+	verify_panel(aimer_ptr);
 
 	/* Update stuff */
 	aimer_ptr->update |= (PU_MONSTERS);
@@ -5664,7 +5664,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 					n = 0;
 					y = cr_ptr->fy;
 					x = cr_ptr->fx;
-					verify_panel();	/* Move cursor to player */
+					verify_panel(cr_ptr);	/* Move cursor to player */
 
 					/* Update stuff */
 					cr_ptr->update |= (PU_MONSTERS);
@@ -5755,7 +5755,7 @@ bool tgt_pt(creature_type *cr_ptr, int *x_ptr, int *y_ptr)
 	prt("", 0, 0);
 
 	/* Recenter the map around the player */
-	verify_panel();
+	verify_panel(cr_ptr);
 
 	/* Update stuff */
 	cr_ptr->update |= (PU_MONSTERS);

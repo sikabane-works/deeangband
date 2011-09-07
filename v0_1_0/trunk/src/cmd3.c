@@ -2106,7 +2106,7 @@ void do_cmd_locate(creature_type *cr_ptr)
 
 
 	/* Recenter the map around the player */
-	verify_panel();
+	verify_panel(cr_ptr);
 
 	/* Update stuff */
 	cr_ptr->update |= (PU_MONSTERS);

@@ -1521,7 +1521,7 @@ extern void panel_bounds_center(void);
 extern void resize_map(void);
 extern void redraw_window(void);
 extern bool change_panel(int dy, int dx);
-extern void verify_panel(void);
+extern void verify_panel(creature_type *cr_ptr);
 extern cptr look_mon_desc(creature_type *m_ptr, u32b mode);
 extern void ang_sort_aux(vptr u, vptr v, int p, int q);
 extern void ang_sort(vptr u, vptr v, int n);

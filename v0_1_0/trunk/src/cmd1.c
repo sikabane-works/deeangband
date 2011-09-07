@@ -919,7 +919,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	char	o_name[MAX_NLEN];
 
 	/* Recenter the map around the player */
-	verify_panel();
+	verify_panel(cr_ptr);
 
 	/* Update stuff */
 	cr_ptr->update |= (PU_MONSTERS);
@@ -3687,7 +3687,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		lite_spot(ny, nx);
 
 		/* Check for new panel (redraw map) */
-		verify_panel();
+		verify_panel(cr_ptr);
 
 		if (mpe_mode & MPE_FORGET_FLOW)
 		{

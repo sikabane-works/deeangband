@@ -1786,7 +1786,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 		lite_spot(cr_ptr->fy, cr_ptr->fx);
 
 		/* Check for new panel */
-		verify_panel();
+		verify_panel(cr_ptr);
 	}
 
 	cr_ptr->riding = 0;

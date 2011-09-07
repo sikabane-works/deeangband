@@ -6227,7 +6227,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	panel_bounds_center();
 
 	/* Verify the panel */
-	verify_panel();
+	verify_panel(cr_ptr);
 
 	/* Flush messages */
 	msg_print(NULL);
