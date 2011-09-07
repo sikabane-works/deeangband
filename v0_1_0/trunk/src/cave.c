@@ -1555,7 +1555,7 @@ void note_spot(creature_type *cr_ptr, int y, int x)
 }
 
 
-void display_dungeon(void)
+void display_dungeon(creature_type *cr_ptr)
 {
 	int x, y;
 	byte a;
@@ -1564,26 +1564,26 @@ void display_dungeon(void)
 	byte ta;
 	char tc;
 
-	for (x = p_ptr->fx - Term->wid / 2 + 1; x <= p_ptr->fx + Term->wid / 2; x++)
+	for (x = cr_ptr->fx - Term->wid / 2 + 1; x <= cr_ptr->fx + Term->wid / 2; x++)
 	{
-		for (y = p_ptr->fy - Term->hgt / 2 + 1; y <= p_ptr->fy + Term->hgt / 2; y++)
+		for (y = cr_ptr->fy - Term->hgt / 2 + 1; y <= cr_ptr->fy + Term->hgt / 2; y++)
 		{
 			if (in_bounds2(y, x))
 			{
 
 				/* Examine the grid */
-				map_info(p_ptr, y, x, &a, &c, &ta, &tc);
+				map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
 
 				/* Hack -- fake monochrome */
 				if (!use_graphics)
 				{
 					if (world_monster) a = TERM_DARK;
-					else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
-					else if (p_ptr->wraith_form) a = TERM_L_DARK;
+					else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+					else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 				}
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - p_ptr->fx + Term->wid / 2 - 1, y - p_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - cr_ptr->fx + Term->wid / 2 - 1, y - cr_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 			else
 			{
@@ -1599,7 +1599,7 @@ void display_dungeon(void)
 				c = f_ptr->x_char[F_LIT_STANDARD];
 
 				/* Hack -- Queue it */
-				Term_queue_char(x - p_ptr->fx + Term->wid / 2 - 1, y - p_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
+				Term_queue_char(x - cr_ptr->fx + Term->wid / 2 - 1, y - cr_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 		}
 	}

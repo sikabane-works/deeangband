@@ -2035,7 +2035,7 @@ static void fix_dungeon(void)
 		Term_activate(angband_term[j]);
 
 		/* Redraw dungeon view */
-		display_dungeon();
+		display_dungeon(p_ptr);
 
 		/* Fresh */
 		Term_fresh();
