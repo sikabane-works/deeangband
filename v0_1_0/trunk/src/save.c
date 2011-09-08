@@ -648,7 +648,6 @@ static void wr_player(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->sex);
 	wr_byte(cr_ptr->realm1);
 	wr_byte(cr_ptr->realm2);
-	wr_byte(0);	/* oops */
 
 	wr_s16b(cr_ptr->hitdice);
 	wr_u16b(cr_ptr->expfact);
@@ -665,9 +664,6 @@ static void wr_player(creature_type *cr_ptr)
 	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_cur[i]);
-
-	/* Ignore the transient stats */
-	for (i = 0; i < 12; ++i) wr_s16b(0);
 
 	wr_u32b(cr_ptr->au);
 
@@ -695,6 +691,11 @@ static void wr_player(creature_type *cr_ptr)
 		wr_s16b(cr_ptr->mane_dam[i]);
 	}
 	wr_s16b(cr_ptr->mane_num);
+
+	wr_byte(cr_ptr->exit_bldg);
+
+	wr_s16b(cr_ptr->oldpx);
+	wr_s16b(cr_ptr->oldpy);
 
 }
 
@@ -728,11 +729,8 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_s16b(inside_arena);
 	wr_s16b(inside_quest);
 	wr_s16b(inside_battle);
-	wr_byte(cr_ptr->exit_bldg);
 	wr_byte(0); /* Unused */
 
-	wr_s16b(cr_ptr->oldpx);
-	wr_s16b(cr_ptr->oldpy);
 
 	/* Was number of cr_ptr->rewards[] */
 	wr_s16b(0);

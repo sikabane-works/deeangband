@@ -1259,7 +1259,6 @@ static void rd_player(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->sex);
 	rd_byte(&cr_ptr->realm1);
 	rd_byte(&cr_ptr->realm2);
-	rd_byte(&tmp8u); /* oops */
 
 	/* Special Race/Class info */
 	rd_s16b(&cr_ptr->hitdice);
@@ -1278,8 +1277,6 @@ static void rd_player(creature_type *cr_ptr)
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_cur[i]);
-
-	strip_bytes(24); /* oops */
 
 	rd_s32b(&cr_ptr->au);
 
@@ -1309,6 +1306,11 @@ static void rd_player(creature_type *cr_ptr)
 		rd_s16b(&cr_ptr->mane_dam[i]);
 	}
 	rd_s16b(&cr_ptr->mane_num);
+
+	rd_byte(&cr_ptr->exit_bldg);
+
+	rd_s16b(&cr_ptr->oldpx);
+	rd_s16b(&cr_ptr->oldpy);
 
 }
 
@@ -1346,11 +1348,8 @@ static void rd_extra(creature_type *cr_ptr)
 	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	inside_battle = (bool)tmp16s;
-	rd_byte(&cr_ptr->exit_bldg);
 	rd_byte(&tmp8u);
 
-	rd_s16b(&cr_ptr->oldpx);
-	rd_s16b(&cr_ptr->oldpy);
 
 	/* Was cr_ptr->rewards[MAX_BACT] */
 	rd_s16b(&tmp16s);
