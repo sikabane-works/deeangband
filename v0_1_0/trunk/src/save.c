@@ -697,44 +697,6 @@ static void wr_player(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->oldpx);
 	wr_s16b(cr_ptr->oldpy);
 
-}
-
-/*
- * Write some "extra" info
- */
-static void wr_extra(creature_type *cr_ptr)
-{
-	int i,j;
-	byte tmp8u;
-
-
-	save_quick_start();
-
-
-	for (i = 0; i < MAX_KUBI; i++)
-	{
-		wr_s16b(kubi_species_idx[i]);
-	}
-
-	for (i = 0; i < 4; i++)
-	{
-		wr_s16b(battle_mon[i]);
-		wr_u32b(mon_odds[i]);
-	}
-
-	wr_s16b(town_num); /* -KMW- */
-
-	/* Write arena and rewards information -KMW- */
-	wr_s16b(arena_number);
-	wr_s16b(inside_arena);
-	wr_s16b(inside_quest);
-	wr_s16b(inside_battle);
-	wr_byte(0); /* Unused */
-
-
-	/* Was number of cr_ptr->rewards[] */
-	wr_s16b(0);
-
 	wr_s32b(cr_ptr->mhp);
 	wr_s32b(cr_ptr->chp);
 	wr_u32b(cr_ptr->chp_frac);
@@ -743,20 +705,16 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_s32b(cr_ptr->csp);
 	wr_u32b(cr_ptr->csp_frac);
 
-	/* Max Player and Dungeon Levels */
 	wr_s16b(cr_ptr->max_plv);
-	tmp8u = (byte)max_d_idx;
-	wr_byte(tmp8u);
-	for (i = 0; i < tmp8u; i++)
-		wr_s16b(max_dlv[i]);
+
+	wr_s16b(cr_ptr->sc);
+	wr_s16b(cr_ptr->concent);
 
 	/* More info */
 	wr_s16b(0);     /* oops */
 	wr_s16b(0);     /* oops */
 	wr_s16b(0);     /* oops */
 	wr_s16b(0);     /* oops */
-	wr_s16b(cr_ptr->sc);
-	wr_s16b(cr_ptr->concent);
 
 	wr_s16b(0);             /* old "rest" */
 	wr_s16b(cr_ptr->blind);
@@ -835,6 +793,51 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_byte(0);
 	wr_byte(preserve_mode);
 	wr_byte(cr_ptr->wait_report_score);
+
+}
+
+/*
+ * Write some "extra" info
+ */
+static void wr_extra(creature_type *cr_ptr)
+{
+	int i,j;
+	byte tmp8u;
+
+
+	save_quick_start();
+
+
+	for (i = 0; i < MAX_KUBI; i++)
+	{
+		wr_s16b(kubi_species_idx[i]);
+	}
+
+	for (i = 0; i < 4; i++)
+	{
+		wr_s16b(battle_mon[i]);
+		wr_u32b(mon_odds[i]);
+	}
+
+	wr_s16b(town_num); /* -KMW- */
+
+	/* Write arena and rewards information -KMW- */
+	wr_s16b(arena_number);
+	wr_s16b(inside_arena);
+	wr_s16b(inside_quest);
+	wr_s16b(inside_battle);
+	wr_byte(0); /* Unused */
+
+
+	/* Was number of cr_ptr->rewards[] */
+	wr_s16b(0);
+
+	/* Max Player and Dungeon Levels */
+	tmp8u = (byte)max_d_idx;
+	wr_byte(tmp8u);
+	for (i = 0; i < tmp8u; i++)
+		wr_s16b(max_dlv[i]);
+
 
 	/* Future use */
 	for (i = 0; i < 12; i++) wr_u32b(0L);

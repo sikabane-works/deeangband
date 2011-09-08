@@ -1312,53 +1312,6 @@ static void rd_player(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->oldpx);
 	rd_s16b(&cr_ptr->oldpy);
 
-}
-
-/*
- * Read the "extra" information
- */
-static void rd_extra(creature_type *cr_ptr)
-{
-	int i,j;
-	char buf[1024];
-
-	byte tmp8u;
-	s16b tmp16s;
-	byte max;
-
-	load_quick_start();
-
-	for (i = 0; i < MAX_KUBI; i++)
-	{
-		rd_s16b(&kubi_species_idx[i]);
-	}
-
-	for (i = 0; i < 4; i++)
-	{
-		rd_s16b(&battle_mon[i]);
-		rd_u32b(&mon_odds[i]);
-	}
-
-	rd_s16b(&town_num);
-
-	/* Read arena and rewards information */
-	rd_s16b(&arena_number);
-	rd_s16b(&tmp16s);
-	inside_arena = (bool)tmp16s;
-	rd_s16b(&inside_quest);
-	rd_s16b(&tmp16s);
-	inside_battle = (bool)tmp16s;
-	rd_byte(&tmp8u);
-
-
-	/* Was cr_ptr->rewards[MAX_BACT] */
-	rd_s16b(&tmp16s);
-	for (i = 0; i < tmp16s; i++)
-	{
-		s16b tmp16s2;
-		rd_s16b(&tmp16s2);
-	}
-
 	rd_s32b(&cr_ptr->mhp);
 	rd_s32b(&cr_ptr->chp);
 	rd_u32b(&cr_ptr->chp_frac);
@@ -1369,23 +1322,14 @@ static void rd_extra(creature_type *cr_ptr)
 
 	rd_s16b(&cr_ptr->max_plv);
 
-	max = (byte)max_d_idx;
-
-	rd_byte(&max);
-
-	for(i = 0; i < max; i++)
-	{
-		rd_s16b(&max_dlv[i]);
-		if (max_dlv[i] > d_info[i].maxdepth) max_dlv[i] = d_info[i].maxdepth;
-	}
-
 	/* Repair maximum player level XXX XXX XXX */
 	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;
 
-	/* More info */
-	strip_bytes(8);
 	rd_s16b(&cr_ptr->sc);
 	rd_s16b(&cr_ptr->concent);
+
+	/* More info */
+	strip_bytes(8);
 
 	/* Read the flags */
 	strip_bytes(2); /* Old "rest" */
@@ -1506,6 +1450,64 @@ static void rd_extra(creature_type *cr_ptr)
 	if (tmp8u) cr_ptr->action = ACTION_LEARN;
 	rd_byte((byte *)&preserve_mode);
 	rd_byte((byte *)&cr_ptr->wait_report_score);
+
+}
+
+/*
+ * Read the "extra" information
+ */
+static void rd_extra(creature_type *cr_ptr)
+{
+	int i,j;
+	char buf[1024];
+
+	byte tmp8u;
+	s16b tmp16s;
+	byte max;
+
+	load_quick_start();
+
+	for (i = 0; i < MAX_KUBI; i++)
+	{
+		rd_s16b(&kubi_species_idx[i]);
+	}
+
+	for (i = 0; i < 4; i++)
+	{
+		rd_s16b(&battle_mon[i]);
+		rd_u32b(&mon_odds[i]);
+	}
+
+	rd_s16b(&town_num);
+
+	/* Read arena and rewards information */
+	rd_s16b(&arena_number);
+	rd_s16b(&tmp16s);
+	inside_arena = (bool)tmp16s;
+	rd_s16b(&inside_quest);
+	rd_s16b(&tmp16s);
+	inside_battle = (bool)tmp16s;
+	rd_byte(&tmp8u);
+
+
+	/* Was cr_ptr->rewards[MAX_BACT] */
+	rd_s16b(&tmp16s);
+	for (i = 0; i < tmp16s; i++)
+	{
+		s16b tmp16s2;
+		rd_s16b(&tmp16s2);
+	}
+
+
+	max = (byte)max_d_idx;
+
+	rd_byte(&max);
+
+	for(i = 0; i < max; i++)
+	{
+		rd_s16b(&max_dlv[i]);
+		if (max_dlv[i] > d_info[i].maxdepth) max_dlv[i] = d_info[i].maxdepth;
+	}
 
 	/* Future use */
 	for (i = 0; i < 48; i++) rd_byte(&tmp8u);
