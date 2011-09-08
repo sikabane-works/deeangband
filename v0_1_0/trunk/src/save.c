@@ -626,6 +626,17 @@ static void save_quick_start(void)
 	wr_byte((byte)previous_char.quick_ok);
 }
 
+static void wr_player(creature_type *cr_ptr)
+{
+	int i,j;
+	byte tmp8u;
+
+	wr_string(cr_ptr->name);
+	wr_string(cr_ptr->died_from);
+	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
+
+}
+
 /*
  * Write some "extra" info
  */
@@ -634,11 +645,6 @@ static void wr_extra(creature_type *cr_ptr)
 	int i,j;
 	byte tmp8u;
 
-	wr_string(cr_ptr->name);
-
-	wr_string(cr_ptr->died_from);
-
-	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
 	save_quick_start();
 
@@ -1500,6 +1506,7 @@ static bool wr_savefile_new(void)
 
 
 	/* Write the "extra" information */
+	wr_player(p_ptr);
 	wr_extra(p_ptr);
 
 	/* Dump the "player hp" entries */

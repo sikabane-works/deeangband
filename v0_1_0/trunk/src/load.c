@@ -1231,6 +1231,23 @@ static void load_quick_start(void)
 	previous_char.quick_ok = (bool)tmp8u;
 }
 
+static void rd_player(creature_type *cr_ptr)
+{
+	int i,j;
+	char buf[1024];
+
+	byte tmp8u;
+	s16b tmp16s;
+	byte max;
+
+	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
+	rd_string(cr_ptr->died_from, sizeof(cr_ptr->died_from));
+	/* Read the message */
+	rd_string(buf, sizeof buf);
+	if (buf[0]) cr_ptr->last_message = string_make(buf);
+
+}
+
 /*
  * Read the "extra" information
  */
@@ -1242,16 +1259,6 @@ static void rd_extra(creature_type *cr_ptr)
 	byte tmp8u;
 	s16b tmp16s;
 	byte max;
-
-	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
-
-	rd_string(cr_ptr->died_from, sizeof(cr_ptr->died_from));
-
-
-	/* Read the message */
-	rd_string(buf, sizeof buf);
-	if (buf[0]) cr_ptr->last_message = string_make(buf);
-
 
 	load_quick_start();
 
@@ -2448,6 +2455,7 @@ note("伝説のアイテムをロードしました");
 
 
 	/* Read the extra stuff */
+	rd_player(cr_ptr);
 	rd_extra(cr_ptr);
 	if (cr_ptr->energy_need < -999) world_player = TRUE;
 
