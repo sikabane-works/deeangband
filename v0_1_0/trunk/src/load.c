@@ -1246,22 +1246,6 @@ static void rd_player(creature_type *cr_ptr)
 	rd_string(buf, sizeof buf);
 	if (buf[0]) cr_ptr->last_message = string_make(buf);
 
-}
-
-/*
- * Read the "extra" information
- */
-static void rd_extra(creature_type *cr_ptr)
-{
-	int i,j;
-	char buf[1024];
-
-	byte tmp8u;
-	s16b tmp16s;
-	byte max;
-
-	load_quick_start();
-
 	for (i = 0; i < 4; i++)
 	{
 		rd_string(cr_ptr->history[i], sizeof(cr_ptr->history[i]));
@@ -1325,6 +1309,22 @@ static void rd_extra(creature_type *cr_ptr)
 		rd_s16b(&cr_ptr->mane_dam[i]);
 	}
 	rd_s16b(&cr_ptr->mane_num);
+
+}
+
+/*
+ * Read the "extra" information
+ */
+static void rd_extra(creature_type *cr_ptr)
+{
+	int i,j;
+	char buf[1024];
+
+	byte tmp8u;
+	s16b tmp16s;
+	byte max;
+
+	load_quick_start();
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{

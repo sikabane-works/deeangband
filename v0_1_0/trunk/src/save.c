@@ -635,20 +635,7 @@ static void wr_player(creature_type *cr_ptr)
 	wr_string(cr_ptr->died_from);
 	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
-}
-
-/*
- * Write some "extra" info
- */
-static void wr_extra(creature_type *cr_ptr)
-{
-	int i,j;
-	byte tmp8u;
-
-
-	save_quick_start();
-
-	for (i = 0; i < 4; i++)
+		for (i = 0; i < 4; i++)
 	{
 		wr_string(cr_ptr->history[i]);
 	}
@@ -708,6 +695,20 @@ static void wr_extra(creature_type *cr_ptr)
 		wr_s16b(cr_ptr->mane_dam[i]);
 	}
 	wr_s16b(cr_ptr->mane_num);
+
+}
+
+/*
+ * Write some "extra" info
+ */
+static void wr_extra(creature_type *cr_ptr)
+{
+	int i,j;
+	byte tmp8u;
+
+
+	save_quick_start();
+
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
