@@ -1164,7 +1164,7 @@ static void wr_saved_floor(saved_floor_type *sf_ptr)
 	}
 
 
-	/*** Dump the monsters ***/
+	/*** Dump the creatures ***/
 
 	/* Total monsters */
 	wr_u16b(m_max);
