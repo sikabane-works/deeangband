@@ -1328,17 +1328,10 @@ static void rd_player(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->sc);
 	rd_s16b(&cr_ptr->concent);
 
-	/* More info */
-	strip_bytes(8);
-
-	/* Read the flags */
-	strip_bytes(2); /* Old "rest" */
 	rd_s16b(&cr_ptr->blind);
 	rd_s16b(&cr_ptr->paralyzed);
 	rd_s16b(&cr_ptr->confused);
 	rd_s16b(&cr_ptr->food);
-	strip_bytes(4); /* Old "food_digested" / "protection" */
-
 	rd_s16b(&cr_ptr->energy_need);
 
 	rd_s16b(&cr_ptr->fast);
@@ -1357,8 +1350,8 @@ static void rd_player(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->blessed);
 	rd_s16b(&cr_ptr->tim_invis);
 	rd_s16b(&cr_ptr->word_recall);
-	rd_s16b(&tmp16s);
-	cr_ptr->recall_dungeon = (byte)tmp16s;
+	rd_byte(&cr_ptr->recall_dungeon);
+
 	rd_s16b(&cr_ptr->alter_reality);
 	rd_s16b(&cr_ptr->see_infra);
 	rd_s16b(&cr_ptr->tim_infra);
@@ -1444,11 +1437,7 @@ static void rd_player(creature_type *cr_ptr)
 	rd_byte(&tmp8u);
 	cr_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
 
-	rd_byte(&tmp8u); /* oops */
 	rd_byte(&cr_ptr->action);
-	rd_byte(&tmp8u);
-	if (tmp8u) cr_ptr->action = ACTION_LEARN;
-	rd_byte((byte *)&preserve_mode);
 	rd_byte((byte *)&cr_ptr->wait_report_score);
 
 }
@@ -1487,6 +1476,7 @@ static void rd_extra(creature_type *cr_ptr)
 	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	inside_battle = (bool)tmp16s;
+	rd_byte((byte *)&preserve_mode);
 	rd_byte(&tmp8u);
 
 

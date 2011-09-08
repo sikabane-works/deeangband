@@ -710,20 +710,12 @@ static void wr_player(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->sc);
 	wr_s16b(cr_ptr->concent);
 
-	/* More info */
-	wr_s16b(0);     /* oops */
-	wr_s16b(0);     /* oops */
-	wr_s16b(0);     /* oops */
-	wr_s16b(0);     /* oops */
-
-	wr_s16b(0);             /* old "rest" */
 	wr_s16b(cr_ptr->blind);
 	wr_s16b(cr_ptr->paralyzed);
 	wr_s16b(cr_ptr->confused);
 	wr_s16b(cr_ptr->food);
-	wr_s16b(0);     /* old "food_digested" */
-	wr_s16b(0);     /* old "protection" */
 	wr_s16b(cr_ptr->energy_need);
+
 	wr_s16b(cr_ptr->fast);
 	wr_s16b(cr_ptr->slow);
 	wr_s16b(cr_ptr->afraid);
@@ -740,7 +732,8 @@ static void wr_player(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->blessed);
 	wr_s16b(cr_ptr->tim_invis);
 	wr_s16b(cr_ptr->word_recall);
-	wr_s16b(cr_ptr->recall_dungeon);
+	wr_byte(cr_ptr->recall_dungeon);
+
 	wr_s16b(cr_ptr->alter_reality);
 	wr_s16b(cr_ptr->see_infra);
 	wr_s16b(cr_ptr->tim_infra);
@@ -788,10 +781,7 @@ static void wr_player(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->special_defense);
 	wr_byte(cr_ptr->knowledge);
 	wr_byte(cr_ptr->autopick_autoregister);
-	wr_byte(0);     /* oops */
 	wr_byte(cr_ptr->action);
-	wr_byte(0);
-	wr_byte(preserve_mode);
 	wr_byte(cr_ptr->wait_report_score);
 
 }
@@ -826,6 +816,7 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_s16b(inside_arena);
 	wr_s16b(inside_quest);
 	wr_s16b(inside_battle);
+	wr_byte(preserve_mode);
 	wr_byte(0); /* Unused */
 
 
