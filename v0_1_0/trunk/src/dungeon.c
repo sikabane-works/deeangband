@@ -7297,7 +7297,7 @@ quit("セーブファイルが壊れています");
 	}
 
 	/* Close stuff */
-	close_game();
+	close_game(cr_ptr);
 
 	/* Quit */
 	quit(NULL);

@@ -7339,7 +7339,7 @@ msg_print("途中終了のためスコアが記録されません。");
  *
  * This function is called only from "main.c" and "signals.c".
  */
-void close_game(void)
+void close_game(creature_type *cr_ptr)
 {
 	char buf[1024];
 	bool do_send = TRUE;
@@ -7912,7 +7912,7 @@ static void handle_signal_simple(int sig)
 		clear_mon_lite();
 
 		/* Close stuff */
-		close_game();
+		close_game(p_ptr);
 
 		/* Quit */
 #ifdef JP
@@ -7948,7 +7948,7 @@ quit("強制終了");
 		p_ptr->leaving = TRUE;
 
 		/* Close stuff */
-		close_game();
+		close_game(p_ptr);
 
 		/* Quit */
 #ifdef JP
