@@ -830,15 +830,6 @@ static void wr_extra(creature_type *cr_ptr)
 		wr_s16b(max_dlv[i]);
 
 
-	/* Future use */
-	for (i = 0; i < 12; i++) wr_u32b(0L);
-
-	/* Ignore some flags */
-	wr_u32b(0L);    /* oops */
-	wr_u32b(0L);    /* oops */
-	wr_u32b(0L);    /* oops */
-
-
 	/* Write the "object seeds" */
 	wr_u32b(seed_flavor);
 	wr_u32b(seed_town);

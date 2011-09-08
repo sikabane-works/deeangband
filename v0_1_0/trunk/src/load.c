@@ -1499,13 +1499,6 @@ static void rd_extra(creature_type *cr_ptr)
 		if (max_dlv[i] > d_info[i].maxdepth) max_dlv[i] = d_info[i].maxdepth;
 	}
 
-	/* Future use */
-	for (i = 0; i < 48; i++) rd_byte(&tmp8u);
-
-	/* Skip the flags */
-	strip_bytes(12);
-
-
 	/* Hack -- the two "special seeds" */
 	rd_u32b(&seed_flavor);
 	rd_u32b(&seed_town);
