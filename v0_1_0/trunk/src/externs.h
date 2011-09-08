@@ -786,7 +786,7 @@ extern cptr get_ordinal_number_suffix(int num);
 extern errr do_cmd_write_nikki(int type, int num, cptr note);
 extern void do_cmd_nikki(void);
 extern void do_cmd_redraw(void);
-extern void do_cmd_change_name(void);
+extern void do_cmd_change_name(creature_type *cr_ptr);
 extern void do_cmd_message_one(void);
 extern void do_cmd_messages(int num_now);
 extern void do_cmd_options_aux(int page, cptr info);

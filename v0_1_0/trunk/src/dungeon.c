@@ -5233,7 +5233,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Character description */
 		case 'C':
 		{
-			do_cmd_change_name();
+			do_cmd_change_name(cr_ptr);
 			break;
 		}
 

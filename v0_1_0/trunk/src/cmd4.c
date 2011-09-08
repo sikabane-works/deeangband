@@ -1228,7 +1228,7 @@ void do_cmd_redraw(void)
 /*
  * Hack -- change name
  */
-void do_cmd_change_name(void)
+void do_cmd_change_name(creature_type *cr_ptr)
 {
 	char	c;
 
@@ -1246,12 +1246,12 @@ void do_cmd_change_name(void)
 		update_playtime();
 
 		/* Display the player */
-		display_player(mode, p_ptr);
+		display_player(mode, cr_ptr);
 
 		if (mode == 4)
 		{
 			mode = 0;
-			display_player(mode, p_ptr);
+			display_player(mode, cr_ptr);
 		}
 
 		/* Prompt */
@@ -1273,7 +1273,7 @@ void do_cmd_change_name(void)
 		/* Change name */
 		if (c == 'c')
 		{
-			get_name(p_ptr);
+			get_name(cr_ptr);
 
 			/* Process the player name */
 			process_player_name(FALSE);
@@ -1319,7 +1319,7 @@ void do_cmd_change_name(void)
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 }
 
 

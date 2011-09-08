@@ -4615,7 +4615,7 @@ static void store_process_command(creature_type *guest_ptr)
 		case 'C':
 		{
 			town_num = old_town_num;
-			do_cmd_change_name();
+			do_cmd_change_name(guest_ptr);
 			town_num = inner_town_num;
 			display_store(guest_ptr);
 			break;
