@@ -848,6 +848,20 @@
 
 
 /*
+ * Race FLAGS
+ */
+#define RACE_BIRTH_SELECTABLE    0x01
+#define RACE_UNDEAD_FORM         0x02
+#define RACE_BEAST_FROM          0x04
+#define RACE_MECHANIZARION       0x08
+
+/*
+ * Race crossing flags.
+ */
+#define RC_MAKABLE_HALF   0x01
+#define RC_ANCESTER       0x02
+
+/*
  * Class rarerity.
  */
 #define CLASS_RARELITY_COMMON       0
