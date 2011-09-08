@@ -605,7 +605,7 @@ msg_print("–‚–@‚ÌŠK’i‚ªŒ»‚ê‚½...");
 
 
 		/* Create stairs down */
-		cave_set_feat(y, x, feat_down_stair);
+		cave_set_feat(cr_ptr, y, x, feat_down_stair);
 
 		/* Remember to update everything */
 		cr_ptr->update |= (PU_FLOW);

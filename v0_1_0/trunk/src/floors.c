@@ -1512,7 +1512,7 @@ void stair_creation(void)
 
 				/* Remove old stairs */
 				c_ptr->special = 0;
-				cave_set_feat(y, x, floor_type[randint0(100)]);
+				cave_set_feat(p_ptr, y, x, floor_type[randint0(100)]);
 			}
 		}
 	}
@@ -1536,13 +1536,13 @@ void stair_creation(void)
 	/* Create a staircase */
 	if (up)
 	{
-		cave_set_feat(p_ptr->fy, p_ptr->fx,
+		cave_set_feat(p_ptr, p_ptr->fy, p_ptr->fx,
 			(dest_sf_ptr->last_visit && (dest_sf_ptr->dun_level <= dun_level - 2)) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
-		cave_set_feat(p_ptr->fy, p_ptr->fx,
+		cave_set_feat(p_ptr, p_ptr->fy, p_ptr->fx,
 			(dest_sf_ptr->last_visit && (dest_sf_ptr->dun_level >= dun_level + 2)) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}

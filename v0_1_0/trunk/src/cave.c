@@ -4552,7 +4552,7 @@ void wiz_dark(void)
 /*
  * Change the "feat" flag for a grid, and notice/redraw the grid
  */
-void cave_set_feat(int y, int x, int feat)
+void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 {
 	cave_type *c_ptr = &cave[y][x];
 	feature_type *f_ptr = &f_info[feat];
@@ -4600,7 +4600,7 @@ void cave_set_feat(int y, int x, int feat)
 		c_ptr->info &= ~(CAVE_GLOW);
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
-		update_local_illumination(p_ptr, y, x);
+		update_local_illumination(cr_ptr, y, x);
 	}
 
 	/* Check for change to boring grid */
@@ -4610,7 +4610,7 @@ void cave_set_feat(int y, int x, int feat)
 	if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
 
 	/* Notice */
-	note_spot(p_ptr, y, x);
+	note_spot(cr_ptr, y, x);
 
 	/* Redraw */
 	lite_spot(y, x);
@@ -4621,12 +4621,12 @@ void cave_set_feat(int y, int x, int feat)
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
-		update_local_illumination(p_ptr, y, x);
+		update_local_illumination(cr_ptr, y, x);
 
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS);
 	}
 
 	/* Hack -- glow the GLOW terrain */
@@ -4649,18 +4649,18 @@ void cave_set_feat(int y, int x, int feat)
 				if (cc_ptr->m_idx) update_mon(cc_ptr->m_idx, FALSE);
 
 				/* Notice */
-				note_spot(p_ptr, yy, xx);
+				note_spot(cr_ptr, yy, xx);
 
 				/* Redraw */
 				lite_spot(yy, xx);
 			}
 
-			update_local_illumination(p_ptr, yy, xx);
+			update_local_illumination(cr_ptr, yy, xx);
 		}
 
-		if (p_ptr->special_defense & NINJA_S_STEALTH)
+		if (cr_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 		}
 	}
 }
@@ -4732,7 +4732,7 @@ void cave_alter_feat(int y, int x, int action)
 	if (newfeat == oldfeat) return;
 
 	/* Set the new feature */
-	cave_set_feat(y, x, newfeat);
+	cave_set_feat(p_ptr, y, x, newfeat);
 
 	if (!(feature_action_flags[action] & FAF_NO_DROP))
 	{

@@ -244,7 +244,7 @@ void place_closed_door(int y, int x, int type)
 
 	if (feat != feat_none)
 	{
-		cave_set_feat(y, x, feat);
+		cave_set_feat(p_ptr, y, x, feat);
 
 		/* Now it is not floor */
 		cave[y][x].info &= ~(CAVE_MASK);
