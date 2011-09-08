@@ -87,7 +87,6 @@ extern s32b player_exp[PY_MAX_LEVEL];
 extern s32b player_exp_a[PY_MAX_LEVEL];
 extern player_sex sex_info[MAX_SEXES];
 extern intelligent_race race_info[MAX_RACES];
-extern player_r_category r_category_info[MAX_RACE_CATEGORYS];
 extern player_class class_info[MAX_CLASS];
 extern magic_type technic_info[NUM_TECHNIC][32];
 extern player_chara chara_info[MAX_CHARA];

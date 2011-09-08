@@ -1610,20 +1610,6 @@ static hist_type bg[] =
 #endif
 };
 
-static cptr r_category_note[MAX_RACE_CATEGORYS] = {
-"生存力が高く多様な混血特性を持ちます",
-"鋭い感覚と高い知性を備えています",
-"頑健さと器用さに優れています",
-"知性は低いが肉体面に優れています",
-"肉体的優位と独自の個性を持っています",
-"高い能力値と充実した耐性を持ちます",
-"超然たる力を持つ謎めいた種族達です",
-"有機体特有の弱点と無縁にして強靭です",
-"従来種族の生命を超えた異能を持ちます",
-"巨躯ならではの腕力と耐久力は随一です",
-"力と知を兼ね備えた天界魔界の種族です",
-};
-
 static cptr race_jouhou[MAX_RACES] =
 {
 #ifdef JP
@@ -4141,7 +4127,7 @@ static bool get_intelligent_race(creature_type *cr_ptr)
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-		if(race_info[i].race_category != RACE_CATEGORY_UNSELECTABLE)
+		if(race_info[i].race_category != FALSE)
 		{
 			strcpy(se[n].cap, race_info[n].title);
 			se[n].code = i;

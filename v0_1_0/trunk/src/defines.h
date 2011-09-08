@@ -839,25 +839,6 @@
 
 
 /*
- * Intelligence race category (hard-coded by save-files, arrays, etc)
- */
-#define RACE_CATEGORY_HUMAN        0
-#define RACE_CATEGORY_ELF          1
-#define RACE_CATEGORY_DWARF        2
-#define RACE_CATEGORY_ORC          3
-#define RACE_CATEGORY_ANIMALIAN    4
-#define RACE_CATEGORY_DRAGONBONE   5
-#define RACE_CATEGORY_ALIEN        6
-#define RACE_CATEGORY_INORGAN      7
-#define RACE_CATEGORY_UNDEAD       8
-#define RACE_CATEGORY_GIANT        9
-#define RACE_CATEGORY_CELESTIAL   10
-
-#define MAX_RACE_CATEGORYS        11
-#define RACE_CATEGORY_UNSELECTABLE 255
-
-
-/*
  * Intelligence race rarerity.
  */
 #define RACE_RARELITY_COMMON       0

@@ -2830,99 +2830,13 @@ player_sex sex_info[MAX_SEXES] =
 };
 
 
-/*
- * Player Race Categorys
- *
- *      Title,
- *
- */
-
-player_r_category r_category_info[MAX_RACE_CATEGORYS] = {
-	{
-#ifdef JP
-	"人間系",
-#endif
-	"Humans"
-	},
-
-	{
-#ifdef JP
-	"エルフ系",
-#endif
-	"Elves"
-	},
-
-	{
-#ifdef JP
-	"ドワーフ系",
-#endif
-	"Dwarvens"
-	},
-
-	{
-#ifdef JP
-	"鬼人系",
-#endif
-	"Orcs"
-	},
-
-	{
-#ifdef JP
-	"獣人系",
-#endif
-	"Animalians"
-	},
-
-	{
-#ifdef JP
-	"竜人系",
-#endif
-	"Dragonbones"
-	},
-
-	{
-#ifdef JP
-	"異生系",
-#endif
-	"Aliens"
-	},
-
-	{
-#ifdef JP
-	"無機系",
-#endif
-	"Aliens"
-	},
-
-	{
-#ifdef JP
-	"不死系",
-#endif
-	"Undeads"
-	},
-
-	{
-#ifdef JP
-	"巨人系",
-#endif
-	"Giants"
-	},
-
-	{
-#ifdef JP
-	"来訪者系",
-#endif
-	"Celestials"
-	},
-
-};
 
 
 /*
  * Player Races
  *
  *      Title,
- *      Category,
+ *      Birth Selectable,
  *      {M_STR,M_INT,M_WIS,M_DEX,M_CON,M_CHR},
  *      {S_STR,S_INT,S_WIS,S_DEX,S_CON,S_CHR},
  *      r_dis, r_dev, r_sav, r_stl, r_srh, r_fos, r_thn, r_thb,
@@ -2942,7 +2856,7 @@ intelligent_race race_info[MAX_RACES] =
 	"人間", 
 #endif
 	"Human", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -2970,7 +2884,7 @@ intelligent_race race_info[MAX_RACES] =
 	"エルフ", 
 #endif
 	"Elf", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{-2 , 2 , 2 , 1 , -2 , 2 },
 	7 , 7 , 8 , 2 , 12 , 12 , 5 , 15 , 
 	{-1 , 1 , 1 , 0 , -1 , 1 },
@@ -2998,7 +2912,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ドワーフ", 
 #endif
 	"Dwarf", 
-	RACE_CATEGORY_DWARF, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , -2 , 2 , 0 , 2 , 0 },
 	7 , 5 , 5 , -1 , 12 , 9 , 13 , 5 , 
 	{1 , -1 , 1 , -1 , 0 , 0 },
@@ -3026,7 +2940,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ホビット", 
 #endif
 	"Hobbit", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{-2 , 0 , 0 , 1 , 3 , 0 },
 	12 , 2 , 2 , 4 , 10 , 12 , 3 , 15 , 
 	{-1 , 0 , 0 , 0 , 1 , 0 },
@@ -3054,7 +2968,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ノーム", 
 #endif
 	"Gnome", 
-	RACE_CATEGORY_DWARF, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{-2 , 2 , 2 , 1 , 0 , 0 },
 	10 , 8 , 6 , 3 , 11 , 13 , 5 , 12 , 
 	{-1 , 1 , 0 , 0 , 1 , 0 },
@@ -3082,7 +2996,7 @@ intelligent_race race_info[MAX_RACES] =
 	"野蛮人", 
 #endif
 	"Barbarian", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{3 , -2 , -1 , 1 , 2 , 0 },
 	2 , -5 , 15 , -1 , 8 , 10 , 16 , 7 , 
 	{1 , -1 , -1 , 0 , 1 , 0 },
@@ -3110,7 +3024,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ドゥナダン", 
 #endif
 	"Dunadan", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{1 , 2 , 2 , 2 , 3 , 2 },
 	5 , 5 , 5 , 2 , 11 , 13 , 15 , 12 , 
 	{1 , 0 , 0 , 1 , 2 , 1 },
@@ -3138,7 +3052,7 @@ intelligent_race race_info[MAX_RACES] =
 	"メルニボネ人", 
 #endif
 	"Melnibone", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{1 , 4 , 1 , 3 , 2 , 2 },
 	2 , 12 , 10 , 2 , 14 , 12 , 13 , 13 , 
 	{0 , 2 , 1 , 2 , 0 , 2 },
@@ -3166,7 +3080,7 @@ intelligent_race race_info[MAX_RACES] =
 	"アンバーの血族", 
 #endif
 	"Amberite", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_LEGENDARY, 0xF, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0xF, 
 	{7 , 6 , 6 , 7 , 10 , 7 },
 	10 , 10 , 10 , -1 , 20 , 18 , 30 , 30 , 
 	{2 , 1 , 1 , 2 , 4 , 2 },
@@ -3194,7 +3108,7 @@ intelligent_race race_info[MAX_RACES] =
 	"混沌の血族", 
 #endif
 	"Chaosian", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_LEGENDARY, 0x3, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0x3, 
 	{6 , 9 , 9 , 6 , 7 , 8 },
 	8 , 15 , 15 , -1 , 24 , 21 , 25 , 25 , 
 	{2 , 3 , 3 , 1 , 1 , 3 },
@@ -3222,7 +3136,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ダークエルフ", 
 #endif
 	"Dark-Elf", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{-1 , 3 , 2 , 2 , -2 , 1 },
 	5 , 10 , 10 , 3 , 13 , 12 , 5 , 15 , 
 	{-1 , 1 , 1 , 0 , -1 , 1 },
@@ -3250,7 +3164,7 @@ intelligent_race race_info[MAX_RACES] =
 	"エルダール", 
 #endif
 	"Eldar", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{2 , 3 , 3 , 3 , 2 , 3 },
 	7 , 13 , 12 , 4 , 14 , 15 , 15 , 25 , 
 	{1 , 1 , 1 , 1 , 1 , 2 },
@@ -3278,7 +3192,7 @@ intelligent_race race_info[MAX_RACES] =
 	"アヴァリ", 
 #endif
 	"Avari", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_RARE, 0x7, 
+	TRUE, RACE_RARELITY_RARE, 0x7, 
 	{3 , 3 , 1 , 2 , 3 , 2 },
 	7 , 14 , 10 , 4 , 14 , 13 , 10 , 30 , 
 	{1 , 2 , 0 , 1 , 2 , 1 },
@@ -3306,7 +3220,7 @@ intelligent_race race_info[MAX_RACES] =
 	"コボルド", 
 #endif
 	"Kobold", 
-	RACE_CATEGORY_DWARF, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{2 , -1 , 0 , 1 , 0 , -2 },
 	8 , 3 , 3 , 0 , 8 , 8 , 17 , 5 , 
 	{1 , 0 , 0 , 0 , 0 , -1 },
@@ -3334,7 +3248,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ニーベルング", 
 #endif
 	"Nibelung", 
-	RACE_CATEGORY_DWARF, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{1 , -2 , 0 , 0 , 1 , -2 },
 	5 , 5 , 5 , 1 , 16 , 10 , 10 , 10 , 
 	{1 , -1 , 0 , 0 , 1 , -1 },
@@ -3362,7 +3276,7 @@ intelligent_race race_info[MAX_RACES] =
 	"スプライト", 
 #endif
 	"Sprite", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_UNCOMMON, 0x7, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x7, 
 	{-4 , 4 , 3 , 3 , -2 , 2 },
 	10 , 8 , 6 , 5 , 17 , 10 , 0 , 10 , 
 	{-2 , 2 , 1 , 1 , -2 , 1 },
@@ -3390,7 +3304,7 @@ intelligent_race race_info[MAX_RACES] =
 	"影フェアリー", 
 #endif
 	"Shadow-Fairy", 
-	RACE_CATEGORY_ELF, RACE_RARELITY_RARE, 0x7, 
+	TRUE, RACE_RARELITY_RARE, 0x7, 
 	{-2 , 3 , 3 , 2 , -1 , 0 },
 	7 , 8 , 5 , 8 , 19 , 15 , 0 , 5 , 
 	{-1 , 1 , 1 , 1 , 0 , 0 },
@@ -3418,7 +3332,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ウェアフォーク", 
 #endif
 	"Warefolk", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -2 , -2 , 0 , 3 , 0 },
 	3 , 3 , 3 , 0 , 10 , 15 , 16 , 0 , 
 	{1 , -1 , -1 , 0 , 1 , 0 },
@@ -3446,7 +3360,7 @@ intelligent_race race_info[MAX_RACES] =
 	"スケイヴン", 
 #endif
 	"Skaven", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{1 , 3 , -4 , 2 , -2 , -3 },
 	5 , 12 , 5 , 2 , 7 , 8 , 15 , 16 , 
 	{0 , 2 , -2 , 1 , -1 , -1 },
@@ -3474,7 +3388,7 @@ intelligent_race race_info[MAX_RACES] =
 	"リザードマン", 
 #endif
 	"Lizardman", 
-	RACE_CATEGORY_DRAGONBONE, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -1 , -1 , -2 , 3 , -1 },
 	3 , 2 , 6 , 0 , 8 , 10 , 22 , 20 , 
 	{2 , 0 , 0 , -1 , 1 , 0 },
@@ -3502,7 +3416,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ビーストマン", 
 #endif
 	"Beastman", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_COMMON, 0xF, 
+	TRUE, RACE_RARELITY_COMMON, 0xF, 
 	{2 , -2 , -1 , -1 , 2 , -2 },
 	2 , 2 , 2 , -1 , 8 , 5 , 22 , 5 , 
 	{1 , -1 , 0 , 0 , 1 , -1 },
@@ -3530,7 +3444,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ミノタウロス", 
 #endif
 	"Minotaur", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{5 , -1 , -2 , 1 , 4 , -3 },
 	2 , 5 , 13 , -1 , 8 , 7 , 32 , 15 , 
 	{2 , 0 , -1 , 0 , 2 , -1 },
@@ -3558,7 +3472,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ナーガ", 
 #endif
 	"Naga", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{2 , 2 , 0 , 1 , -1 , 1 },
 	2 , 6 , 7 , -1 , 12 , 11 , 14 , 13 , 
 	{1 , 1 , 0 , 0 , 0 , 1 },
@@ -3586,7 +3500,7 @@ intelligent_race race_info[MAX_RACES] =
 	"マーフォーク", 
 #endif
 	"Marfolk", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{2 , 0 , 0 , 1 , -1 , 2 },
 	0 , 4 , 10 , 1 , 11 , 10 , 12 , 8 , 
 	{1 , 0 , 0 , 0 , -1 , 1 },
@@ -3614,7 +3528,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ケンタウロス", 
 #endif
 	"Centaur", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{2 , -2 , 0 , 2 , 2 , 0 },
 	2 , 7 , 6 , -2 , 14 , 11 , 15 , 30 , 
 	{1 , -1 , 0 , 1 , 1 , 0 },
@@ -3642,7 +3556,7 @@ intelligent_race race_info[MAX_RACES] =
 	"エント", 
 #endif
 	"Ent", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x7, 
+	TRUE, RACE_RARELITY_RARE, 0x7, 
 	{2 , 0 , 2 , -3 , 2 , 0 },
 	0 , 3 , 16 , -1 , 7 , 9 , 27 , 12 , 
 	{1 , 0 , 1 , -2 , 1 , 0 },
@@ -3670,7 +3584,7 @@ intelligent_race race_info[MAX_RACES] =
 	"オーク", 
 #endif
 	"Orc", 
-	RACE_CATEGORY_ORC, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , 1 , 0 , 0 , 2 , -2 },
 	3 , 4 , 2 , -1 , 0 , 7 , 19 , 12 , 
 	{1 , 0 , 0 , 0 , 1 , -1 },
@@ -3698,7 +3612,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ウルク", 
 #endif
 	"Uruk", 
-	RACE_CATEGORY_ORC, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{4 , 2 , 2 , 3 , 4 , 0 },
 	6 , 10 , 20 , -1 , 15 , 12 , 24 , 20 , 
 	{2 , 0 , 0 , 1 , 2 , 0 },
@@ -3726,7 +3640,7 @@ intelligent_race race_info[MAX_RACES] =
 	"トロル", 
 #endif
 	"Troll", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_UNCOMMON, 0x7, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x7, 
 	{4 , -2 , 0 , -2 , 3 , -2 },
 	2 , 2 , 3 , -2 , 2 , 2 , 22 , 1 , 
 	{2 , -1 , 0 , 0 , 2 , -1 },
@@ -3754,7 +3668,7 @@ intelligent_race race_info[MAX_RACES] =
 	"オログ", 
 #endif
 	"Orog", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x7, 
+	TRUE, RACE_RARELITY_RARE, 0x7, 
 	{6 , 0 , 2 , 2 , 6 , 0 },
 	2 , 5 , 18 , -1 , 14 , 12 , 35 , 4 , 
 	{3 , 0 , 1 , 1 , 3 , 0 },
@@ -3782,7 +3696,7 @@ intelligent_race race_info[MAX_RACES] =
 	"オーガ", 
 #endif
 	"Ogre", 
-	RACE_CATEGORY_ORC, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{3 , -1 , 1 , 0 , 4 , -1 },
 	1 , 6 , 4 , -2 , 8 , 8 , 28 , 3 , 
 	{1 , 0 , 0 , 0 , 2 , 0 },
@@ -3810,7 +3724,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ジャイアント", 
 #endif
 	"Giant", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{5 , 1 , 2 , -2 , 4 , 1 },
 	0 , 7 , 12 , -2 , 7 , 5 , 40 , 10 , 
 	{2 , 0 , 1 , -1 , 2 , 0 },
@@ -3838,7 +3752,7 @@ intelligent_race race_info[MAX_RACES] =
 	"サイクロプス", 
 #endif
 	"Cyclops", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{4 , -3 , -1 , -3 , 4 , -3 },
 	0 , 2 , 1 , -2 , 3 , 22 , 30 , 25 , 
 	{2 , -1 , 0 , -1 , 2 , -1 },
@@ -3866,7 +3780,7 @@ intelligent_race race_info[MAX_RACES] =
 	"タイタン", 
 #endif
 	"Titan", 
-	RACE_CATEGORY_GIANT, RACE_RARELITY_LEGENDARY, 0x3, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0x3, 
 	{8 , 4 , 5 , 1 , 6 , 3 },
 	0 , 10 , 25 , -2 , 10 , 10 , 45 , 13 , 
 	{3 , 1 , 2 , 0 , 3 , 2 },
@@ -3894,7 +3808,7 @@ intelligent_race race_info[MAX_RACES] =
 	"イーク", 
 #endif
 	"Yeek", 
-	RACE_CATEGORY_HUMAN, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{-2 , 1 , 1 , 1 , -2 , -4 },
 	6 , 6 , 6 , 3 , 10 , 23 , 4 , 4 , 
 	{-1 , 1 , 1 , 0 , -1 , -2 },
@@ -3922,7 +3836,7 @@ intelligent_race race_info[MAX_RACES] =
 	"クラッコン", 
 #endif
 	"Klackcon", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{2 , -1 , -1 , 1 , 2 , -1 },
 	10 , 5 , 3 , 0 , 6 , 10 , 15 , 15 , 
 	{1 , 0 , 0 , 0 , 1 , 0 },
@@ -3950,7 +3864,7 @@ intelligent_race race_info[MAX_RACES] =
 	"マインドフレア", 
 #endif
 	"Mind-Flayer", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{0 , 5 , 5 , 0 , -2 , -2 },
 	10 , 15 , 9 , 2 , 15 , 12 , 1 , 1 , 
 	{0 , 3 , 2 , 0 , -1 , -1 },
@@ -3978,7 +3892,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ドラコニアン", 
 #endif
 	"Draconian", 
-	RACE_CATEGORY_DRAGONBONE, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{2 , 1 , 1 , 1 , 2 , 0 },
 	4 , 6 , 10 , 0 , 10 , 11 , 15 , 15 , 
 	{1 , 0 , 0 , 1 , 1 , 0 },
@@ -4006,7 +3920,7 @@ intelligent_race race_info[MAX_RACES] =
 	"サイヤ人", 
 #endif
 	"Saiyan", 
-	RACE_CATEGORY_ANIMALIAN, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{4 , -3 , -1 , 1 , 2 , 0 },
 	1 , 8 , 2 , -1 , 6 , 15 , 40 , 10 , 
 	{2 , -2 , -1 , 0 , 1 , 0 },
@@ -4034,7 +3948,7 @@ intelligent_race race_info[MAX_RACES] =
 	"クター", 
 #endif
 	"Kutar", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_UNCOMMON, 0x3, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x3, 
 	{0 , -1 , -1 , 1 , 2 , 3 },
 	3 , 7 , 6 , 5 , 7 , 7 , 10 , 5 , 
 	{0 , 0 , 0 , 0 , 1 , 2 },
@@ -4062,7 +3976,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ゴーレム", 
 #endif
 	"Golem", 
-	RACE_CATEGORY_INORGAN, RACE_RARELITY_UNCOMMON, 0x8, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x8, 
 	{4 , -5 , -3 , -2 , 4 , -2 },
 	0 , 0 , 12 , -1 , 7 , 5 , 30 , 10 , 
 	{3 , 0 , 0 , 3 , 3 , 0 },
@@ -4090,7 +4004,7 @@ intelligent_race race_info[MAX_RACES] =
 	"アンドロイド", 
 #endif
 	"Android", 
-	RACE_CATEGORY_INORGAN, RACE_RARELITY_UNCOMMON, 0x8, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0x8, 
 	{4 , -3 , -5 , 0 , 4 , -2 },
 	0 , 2 , 4 , -2 , 10 , 8 , 30 , 20 , 
 	{3 , 0 , 0 , 3 , 3 , 0 },
@@ -4118,7 +4032,7 @@ intelligent_race race_info[MAX_RACES] =
 	"アルコン", 
 #endif
 	"Archon", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0xF, 
+	TRUE, RACE_RARELITY_RARE, 0xF, 
 	{3 , 2 , 5 , 2 , 3 , 4 },
 	5 , 13 , 21 , 2 , 12 , 13 , 20 , 20 , 
 	{1 , 0 , 2 , 0 , 2 , 2 },
@@ -4146,7 +4060,7 @@ intelligent_race race_info[MAX_RACES] =
 	"インプ", 
 #endif
 	"Imp", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_UNCOMMON, 0xF, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0xF, 
 	{0 , 0 , -1 , 1 , 2 , -1 },
 	4 , 7 , 3 , 1 , 8 , 10 , 12 , 4 , 
 	{0 , 0 , -1 , 1 , 1 , -1 },
@@ -4174,7 +4088,7 @@ intelligent_race race_info[MAX_RACES] =
 	"フィーンド", 
 #endif
 	"Fiend", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0xF, 
+	TRUE, RACE_RARELITY_RARE, 0xF, 
 	{5 , 5 , 0 , 4 , 4 , 2 },
 	6 , 15 , 18 , -1 , 14 , 12 , 30 , 20 , 
 	{3 , 2 , 0 , 2 , 2 , 0 },
@@ -4202,7 +4116,7 @@ intelligent_race race_info[MAX_RACES] =
 	"マイア", 
 #endif
 	"Maiar", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_LEGENDARY, 0x3, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0x3, 
 	{4 , 4 , 4 , 4 , 4 , 4 },
 	10 , 12 , 14 , -1 , 14 , 14 , 30 , 25 , 
 	{2 , 2 , 2 , 2 , 2 , 2 },
@@ -4230,7 +4144,7 @@ intelligent_race race_info[MAX_RACES] =
 	"深きもの", 
 #endif
 	"Deep-One", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_COMMON, 0x3, 
+	TRUE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , 2 , 1 , 0 , 2 , -4 },
 	6 , 7 , 10 , 0 , 11 , 12 , 10 , 10 , 
 	{1 , 1 , 0 , 0 , 1 , -2 },
@@ -4258,7 +4172,7 @@ intelligent_race race_info[MAX_RACES] =
 	"古のもの", 
 #endif
 	"Elder-One", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_RARE, 0x8, 
+	TRUE, RACE_RARELITY_RARE, 0x8, 
 	{1 , 3 , 5 , 1 , 1 , 1 },
 	7 , 7 , 12 , 0 , 10 , 15 , 8 , 24 , 
 	{0 , 2 , 3 , 0 , 0 , 0 },
@@ -4286,7 +4200,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ショゴス", 
 #endif
 	"Shoggoth", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_RARE, 0x8, 
+	TRUE, RACE_RARELITY_RARE, 0x8, 
 	{0 , -4 , -4 , -2 , 5 , -5 },
 	3 , 3 , 3 , -3 , 7 , 7 , 15 , 15 , 
 	{0 , -2 , -2 , -1 , 3 , -3 },
@@ -4314,7 +4228,7 @@ intelligent_race race_info[MAX_RACES] =
 	"盲目のもの", 
 #endif
 	"Flying-Polyp", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_RARE, 0x8, 
+	TRUE, RACE_RARELITY_RARE, 0x8, 
 	{-2 , 3 , 3 , 2 , 2 , -6 },
 	4 , 10 , 20 , 0 , 3 , 5 , 0 , 0 , 
 	{-1 , 2 , 2 , 1 , 1 , -3 },
@@ -4342,7 +4256,7 @@ intelligent_race race_info[MAX_RACES] =
 	"イスの民", 
 #endif
 	"Race-of-Yith", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_LEGENDARY, 0x8, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0x8, 
 	{0 , 7 , 3 , 3 , 3 , -2 },
 	10 , 14 , 12 , 0 , 11 , 12 , 5 , 5 , 
 	{0 , 4 , 2 , 2 , 2 , -1 },
@@ -4370,7 +4284,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ミ＝ゴウ", 
 #endif
 	"Mi=Go", 
-	RACE_CATEGORY_ALIEN, RACE_RARELITY_RARE, 0x8, 
+	TRUE, RACE_RARELITY_RARE, 0x8, 
 	{3 , 3 , 2 , 2 , 0 , 2 },
 	8 , 12 , 4 , 0 , 13 , 12 , 10 , 10 , 
 	{1 , 1 , 0 , 0 , 0 , 0 },
@@ -4398,7 +4312,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ゾンビ", 
 #endif
 	"Zombie", 
-	RACE_CATEGORY_UNDEAD, RACE_RARELITY_UNCOMMON, 0xF, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0xF, 
 	{3 , -6 , -6 , 1 , 4 , -3 },
 	2 , 2 , 2 , -1 , 3 , 5 , 25 , 10 , 
 	{1 , -2 , -2 , 0 , 2 , -2 },
@@ -4426,7 +4340,7 @@ intelligent_race race_info[MAX_RACES] =
 	"スケルトン", 
 #endif
 	"Skelton", 
-	RACE_CATEGORY_UNDEAD, RACE_RARELITY_UNCOMMON, 0xF, 
+	TRUE, RACE_RARELITY_UNCOMMON, 0xF, 
 	{0 , 1 , -2 , 0 , 1 , -2 },
 	2 , 5 , 3 , -1 , 5 , 8 , 14 , 12 , 
 	{0 , 1 , -1 , 0 , 1 , -1 },
@@ -4454,7 +4368,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ヴァンパイア", 
 #endif
 	"Vampire", 
-	RACE_CATEGORY_UNDEAD, RACE_RARELITY_RARE, 0xF, 
+	TRUE, RACE_RARELITY_RARE, 0xF, 
 	{3 , 3 , -1 , -1 , 1 , 2 },
 	6 , 12 , 9 , 4 , 12 , 10 , 13 , 14 , 
 	{1 , 1 , 0 , 0 , 1 , 0 },
@@ -4482,7 +4396,7 @@ intelligent_race race_info[MAX_RACES] =
 	"リッチ", 
 #endif
 	"Lich", 
-	RACE_CATEGORY_UNDEAD, RACE_RARELITY_LEGENDARY, 0xF, 
+	TRUE, RACE_RARELITY_LEGENDARY, 0xF, 
 	{3 , 5 , 5 , 2 , 0 , 2 },
 	10 , 15 , 12 , 5 , 20 , 20 , 10 , 10 , 
 	{1 , 2 , 2 , 1 , 0 , 1 },
@@ -4510,7 +4424,7 @@ intelligent_race race_info[MAX_RACES] =
 	"イスタリ", 
 #endif
 	"Istari", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0x3, 
+	TRUE, RACE_RARELITY_RARE, 0x3, 
 	{1 , 2 , 2 , 2 , 2 , 3 },
 	8 , 12 , 8 , 2 , 11 , 11 , 15 , 15 , 
 	{1 , 1 , 1 , 1 , 1 , 2 },
@@ -4538,7 +4452,7 @@ intelligent_race race_info[MAX_RACES] =
 	"バルログ", 
 #endif
 	"Balrog", 
-	RACE_CATEGORY_CELESTIAL, RACE_RARELITY_RARE, 0xF, 
+	TRUE, RACE_RARELITY_RARE, 0xF, 
 	{6 , 6 , 0 , 5 , 6 , 0 },
 	3 , 15 , 22 , -3 , 12 , 15 , 35 , 10 , 
 	{3 , 3 , 0 , 2 , 3 , 0 },
@@ -4566,7 +4480,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ドラゴン", 
 #endif
 	"Dragon", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{8 , 3 , 2 , 4 , 8 , 2 },
 	15 , 10 , 15 , 0 , 10 , 15 , 40 , 0 , 
 	{3 , 2 , 1 , 2 , 3 , 1 },
@@ -4594,7 +4508,7 @@ intelligent_race race_info[MAX_RACES] =
 	"大猿", 
 #endif
 	"Giant-Ape", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{7 , -5 , -3 , 1 , 5 , -2 },
 	1 , 2 , 10 , -1 , 6 , 15 , 55 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4622,7 +4536,7 @@ intelligent_race race_info[MAX_RACES] =
 	"超サイヤ人", 
 #endif
 	"Super-Saiyan", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_LEGENDARY, 0xF, 
+	FALSE, RACE_RARELITY_LEGENDARY, 0xF, 
 	{7 , -3 , -1 , 6 , 7 , 1 },
 	1 , 11 , 12 , -3 , 6 , 15 , 50 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4650,7 +4564,7 @@ intelligent_race race_info[MAX_RACES] =
 	"赤竜", 
 #endif
 	"Red-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4678,7 +4592,7 @@ intelligent_race race_info[MAX_RACES] =
 	"白竜", 
 #endif
 	"White-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4706,7 +4620,7 @@ intelligent_race race_info[MAX_RACES] =
 	"青竜", 
 #endif
 	"Blue-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4734,7 +4648,7 @@ intelligent_race race_info[MAX_RACES] =
 	"黒竜", 
 #endif
 	"Black-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4762,7 +4676,7 @@ intelligent_race race_info[MAX_RACES] =
 	"緑竜", 
 #endif
 	"Green-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4790,7 +4704,7 @@ intelligent_race race_info[MAX_RACES] =
 	"万色竜", 
 #endif
 	"Chromatic-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4818,7 +4732,7 @@ intelligent_race race_info[MAX_RACES] =
 	"青銅竜", 
 #endif
 	"Bronze-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4846,7 +4760,7 @@ intelligent_race race_info[MAX_RACES] =
 	"金竜", 
 #endif
 	"Gold-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4874,7 +4788,7 @@ intelligent_race race_info[MAX_RACES] =
 	"水晶竜", 
 #endif
 	"Cystal-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4902,7 +4816,7 @@ intelligent_race race_info[MAX_RACES] =
 	"秩序竜", 
 #endif
 	"Lawful-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4930,7 +4844,7 @@ intelligent_race race_info[MAX_RACES] =
 	"天上竜", 
 #endif
 	"Balance-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4958,7 +4872,7 @@ intelligent_race race_info[MAX_RACES] =
 	"混沌竜", 
 #endif
 	"Chaotic-Lingage", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -4986,7 +4900,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ヴァンヤール", 
 #endif
 	"Vanyar", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{1 , 2 , 2 , 1 , 1 , 2 },
@@ -5014,7 +4928,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ノルドール", 
 #endif
 	"Noldor", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{2 , 2 , -2 , 2 , 2 , 0 },
@@ -5042,7 +4956,7 @@ intelligent_race race_info[MAX_RACES] =
 	"テレリ", 
 #endif
 	"Teleri", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -5070,7 +4984,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ナズグル", 
 #endif
 	"Nazgul", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_RARE, 0xF, 
+	FALSE, RACE_RARELITY_RARE, 0xF, 
 	{3 , 4 , 4 , 2 , 2 , 2 },
 	10 , 15 , 12 , 5 , 15 , 14 , 10 , 10 , 
 	{1 , 2 , 2 , 1 , 0 , 1 },
@@ -5098,7 +5012,7 @@ intelligent_race race_info[MAX_RACES] =
 	"アリ", 
 #endif
 	"Ant", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -4 , -4 , 2 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{2 , -2 , -2 , 1 , 2 , -1 },
@@ -5126,7 +5040,7 @@ intelligent_race race_info[MAX_RACES] =
 	"コウモリ", 
 #endif
 	"Bat", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-4 , -2 , -2 , 4 , -2 , -1 },
 	25 , 5 , 5 , 18 , 10 , 40 , 0 , -10 , 
 	{-2 , -1 , -1 , 2 , -1 , -1 },
@@ -5154,7 +5068,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ムカデ", 
 #endif
 	"Centipete", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{4 , -4 , -4 , 3 , 5 , -4 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{2 , -2 , -2 , 1 , 3 , -2 },
@@ -5182,7 +5096,7 @@ intelligent_race race_info[MAX_RACES] =
 	"眼球生物", 
 #endif
 	"FloatingEye", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , 2 , -4 , -2 , 4 , -4 },
 	25 , 5 , 20 , 15 , 30 , 20 , -10 , -10 , 
 	{1 , 1 , -2 , -1 , 2 , -2 },
@@ -5210,7 +5124,7 @@ intelligent_race race_info[MAX_RACES] =
 	"猫", 
 #endif
 	"Feline", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{1 , -2 , -2 , 3 , 2 , 2 },
 	0 , 5 , 5 , 14 , 30 , 20 , 25 , -10 , 
 	{0 , -1 , -1 , 2 , 1 , 1 },
@@ -5238,7 +5152,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ベトベト", 
 #endif
 	"Icky", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -2 , -2 , -2 , 3 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{2 , -1 , -1 , -1 , 1 , -1 },
@@ -5266,7 +5180,7 @@ intelligent_race race_info[MAX_RACES] =
 	"粘体生命", 
 #endif
 	"Jelly", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-3 , -3 , -3 , -3 , 9 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{-2 , -2 , -2 , -2 , 6 , -2 },
@@ -5294,7 +5208,7 @@ intelligent_race race_info[MAX_RACES] =
 	"水棲生物", 
 #endif
 	"Aquatic-Monster", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{5 , 0 , -4 , 0 , 5 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{2 , 0 , -2 , 0 , 2 , -1 },
@@ -5322,7 +5236,7 @@ intelligent_race race_info[MAX_RACES] =
 	"モルド", 
 #endif
 	"Mold", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{-1 , -1 , -1 , -1 , 0 , -1 },
@@ -5350,7 +5264,7 @@ intelligent_race race_info[MAX_RACES] =
 	"一般四足獣", 
 #endif
 	"Quadruped", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{4 , -3 , -3 , 4 , 4 , -1 },
 	15 , 5 , 5 , 10 , 10 , 10 , 25 , 10 , 
 	{2 , -2 , -1 , 2 , 2 , 0 },
@@ -5378,7 +5292,7 @@ intelligent_race race_info[MAX_RACES] =
 	"齧歯類 ", 
 #endif
 	"Rodent", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-2 , -1 , -1 , 2 , -1 , -1 },
 	7 , 2 , 2 , 12 , 15 , 15 , 10 , 10 , 
 	{-1 , 0 , -1 , 1 , 0 , -1 },
@@ -5406,7 +5320,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ボルテックス", 
 #endif
 	"Vortex", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{-1 , -1 , -1 , -1 , 0 , -1 },
@@ -5434,7 +5348,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ワーム", 
 #endif
 	"Worm", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-3 , -3 , -3 , -3 , 0 , -3 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{-1 , -1 , -1 , -1 , 0 , -1 },
@@ -5462,7 +5376,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ミミック", 
 #endif
 	"Mimic", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -5490,7 +5404,7 @@ intelligent_race race_info[MAX_RACES] =
 	"鳥類", 
 #endif
 	"Bird", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{1 , -1 , 1 , 1 , 2 , 0 },
 	25 , 8 , 10 , 13 , 10 , 25 , 20 , -10 , 
 	{1 , 0 , 1 , 0 , 1 , 0 },
@@ -5518,7 +5432,7 @@ intelligent_race race_info[MAX_RACES] =
 	"犬", 
 #endif
 	"Canine", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , -2 , -2 , 4 , 4 , 0 },
 	-3 , 5 , 5 , 13 , 20 , 25 , 30 , -10 , 
 	{1 , -1 , -1 , 2 , 2 , 0 },
@@ -5546,7 +5460,7 @@ intelligent_race race_info[MAX_RACES] =
 	"エレメンタル", 
 #endif
 	"Elemental", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 3 , 3 , -2 , -3 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 1 , 1 , -1 , -2 , 0 },
@@ -5574,7 +5488,7 @@ intelligent_race race_info[MAX_RACES] =
 	"昆虫", 
 #endif
 	"Insect", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -4 , -4 , 2 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{1 , -2 , -2 , 1 , 2 , -1 },
@@ -5602,7 +5516,7 @@ intelligent_race race_info[MAX_RACES] =
 	"蛇", 
 #endif
 	"Snake", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , -2 , -2 , 0 , 0 , -3 },
 	-3 , 5 , 10 , 13 , 10 , 15 , 15 , 10 , 
 	{0 , -1 , -1 , 0 , 0 , -2 },
@@ -5630,7 +5544,7 @@ intelligent_race race_info[MAX_RACES] =
 	"影", 
 #endif
 	"Shadow", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , 0 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , 0 , 0 },
@@ -5658,7 +5572,7 @@ intelligent_race race_info[MAX_RACES] =
 	"クイルスルグ", 
 #endif
 	"Quylthulg", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , -4 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , -2 , 0 },
@@ -5686,7 +5600,7 @@ intelligent_race race_info[MAX_RACES] =
 	"蜘蛛", 
 #endif
 	"Spider", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , -4 , -4 , 2 , 5 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{1 , -2 , -2 , 1 , 2 , -1 },
@@ -5714,7 +5628,7 @@ intelligent_race race_info[MAX_RACES] =
 	"甲殻類", 
 #endif
 	"Crustasea", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{4 , -3 , -3 , -3 , 4 , -2 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{2 , -1 , -1 , -2 , 2 , -1 },
@@ -5742,7 +5656,7 @@ intelligent_race race_info[MAX_RACES] =
 	"レイス", 
 #endif
 	"Wraith", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{-1 , 3 , 0 , 1 , 2 , 0 },
 	5 , 5 , 5 , 10 , 10 , 10 , 10 , 10 , 
 	{-1 , 2 , 0 , 0 , 1 , 0 },
@@ -5770,7 +5684,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ゾーン", 
 #endif
 	"Xorn", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{4 , -2 , -2 , -2 , 4 , -2 },
 	-3 , 2 , 13 , 10 , 10 , 10 , 25 , 0 , 
 	{2 , -1 , -1 , -1 , 2 , -1 },
@@ -5798,7 +5712,7 @@ intelligent_race race_info[MAX_RACES] =
 	"イエティ", 
 #endif
 	"Yeti", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{3 , -1 , -1 , 0 , 2 , -1 },
 	2 , 4 , 3 , 9 , 10 , 10 , 20 , 5 , 
 	{2 , 0 , 0 , 0 , 1 , 0 },
@@ -5826,7 +5740,7 @@ intelligent_race race_info[MAX_RACES] =
 	"ゼファーハウンド", 
 #endif
 	"ZepherHound", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{2 , -2 , -2 , 2 , 4 , 0 },
 	-3 , 5 , 15 , 13 , 20 , 25 , 30 , -10 , 
 	{1 , -1 , -1 , 1 , 2 , 0 },
@@ -5854,7 +5768,7 @@ intelligent_race race_info[MAX_RACES] =
 	"菌類", 
 #endif
 	"Fungus", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{0 , 0 , 0 , 0 , -2 , 0 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{0 , 0 , 0 , 0 , -1 , 0 },
@@ -5882,7 +5796,7 @@ intelligent_race race_info[MAX_RACES] =
 	"旧支配者群", 
 #endif
 	"Great-Old-Ones", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{8 , 8 , 8 , 8 , 8 , 8 },
 	5 , 5 , 5 , 0 , 10 , 10 , 10 , 10 , 
 	{8 , 8 , 8 , 8 , 8 , 8 },
@@ -5910,7 +5824,7 @@ intelligent_race race_info[MAX_RACES] =
 	"爬虫類", 
 #endif
 	"Reptilia", 
-	RACE_CATEGORY_UNSELECTABLE, RACE_RARELITY_COMMON, 0x3, 
+	FALSE, RACE_RARELITY_COMMON, 0x3, 
 	{4 , -3 , -3 , -3 , 4 , -2 },
 	-3 , -3 , -3 , 10 , 9 , 5 , 35 , 0 , 
 	{2 , -1 , -2 , -2 , 2 , -1 },

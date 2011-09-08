@@ -871,20 +871,6 @@ struct player_sex
 };
 
 
-/*
- * Player race category info
- */
-typedef struct player_r_category player_r_category;
-
-struct player_r_category
-{
-	cptr title;
-#ifdef JP
-	cptr E_title;
-#endif
-};
-
-
 
 
 /*
