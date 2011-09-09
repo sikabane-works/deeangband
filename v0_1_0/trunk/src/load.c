@@ -1474,6 +1474,10 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s32b(&cr_ptr->visit);
 	rd_u32b(&cr_ptr->count);
 
+	/* Update */
+	calc_bonuses(cr_ptr, FALSE);
+	cr_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+	update_stuff(cr_ptr, FALSE);
 }
 
 /*
