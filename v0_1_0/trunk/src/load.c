@@ -1238,6 +1238,9 @@ static void rd_creature(creature_type *cr_ptr)
 
 	byte tmp8u;
 
+	rd_byte(&cr_ptr->player);
+	rd_byte(&cr_ptr->stigmatic);
+
 	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
 	rd_string(cr_ptr->died_from, sizeof(cr_ptr->died_from));
 	/* Read the message */
@@ -1250,8 +1253,10 @@ static void rd_creature(creature_type *cr_ptr)
 	}
 
 	/* Class/Race/CHARA/Gender/Spells */
+	rd_s16b(&cr_ptr->species_idx);
 	rd_s16b(&cr_ptr->irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
+	rd_s16b(&cr_ptr->monster_ego_idx);
 	rd_byte(&cr_ptr->cls_idx);
 	rd_byte(&cr_ptr->chara_idx);
 	rd_s16b(&cr_ptr->sex);
