@@ -629,7 +629,6 @@ static void save_quick_start(void)
 static void wr_player(creature_type *cr_ptr)
 {
 	int i,j;
-	byte tmp8u;
 
 	wr_string(cr_ptr->name);
 	wr_string(cr_ptr->died_from);
@@ -797,14 +796,17 @@ static void wr_player(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->riding);
 	wr_s16b(cr_ptr->floor_id);
 
+	wr_s32b(cr_ptr->visit);
+	wr_u32b(cr_ptr->count);
+
 }
 
 /*
  * Write some "extra" info
  */
-static void wr_extra(creature_type *cr_ptr)
+static void wr_extra(void)
 {
-	int i,j;
+	int i;
 	byte tmp8u;
 
 
@@ -868,10 +870,6 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_s16b(0);
 
 	wr_u32b(playtime);
-
-	wr_s32b(cr_ptr->visit);
-
-	wr_u32b(cr_ptr->count);
 }
 
 
@@ -1488,7 +1486,7 @@ static bool wr_savefile_new(void)
 
 	/* Write the "extra" information */
 	wr_player(p_ptr);
-	wr_extra(p_ptr);
+	wr_extra();
 
 	/* Dump the "player hp" entries */
 	tmp16u = PY_MAX_LEVEL;

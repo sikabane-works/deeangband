@@ -1237,8 +1237,6 @@ static void rd_player(creature_type *cr_ptr)
 	char buf[1024];
 
 	byte tmp8u;
-	s16b tmp16s;
-	byte max;
 
 	rd_string(cr_ptr->name, sizeof(cr_ptr->name));
 	rd_string(cr_ptr->died_from, sizeof(cr_ptr->died_from));
@@ -1468,15 +1466,17 @@ static void rd_player(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->riding);
 	rd_s16b(&cr_ptr->floor_id);
 
+	rd_s32b(&cr_ptr->visit);
+	rd_u32b(&cr_ptr->count);
+
 }
 
 /*
  * Read the "extra" information
  */
-static void rd_extra(creature_type *cr_ptr)
+static void rd_extra(void)
 {
-	int i,j;
-	char buf[1024];
+	int i;
 
 	byte tmp8u;
 	s16b tmp16s;
@@ -1560,8 +1560,6 @@ static void rd_extra(creature_type *cr_ptr)
 	}
 
 	rd_u32b(&playtime);
-	rd_s32b(&cr_ptr->visit);
-	rd_u32b(&cr_ptr->count);
 }
 
 
@@ -2436,7 +2434,7 @@ note("伝説のアイテムをロードしました");
 
 	/* Read the extra stuff */
 	rd_player(cr_ptr);
-	rd_extra(cr_ptr);
+	rd_extra();
 	if (cr_ptr->energy_need < -999) world_player = TRUE;
 
 #ifdef JP
