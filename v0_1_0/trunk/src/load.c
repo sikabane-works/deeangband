@@ -1505,9 +1505,9 @@ static void rd_extra(creature_type *cr_ptr)
 
 
 	/* Special stuff */
-	rd_u16b(&cr_ptr->panic_save);
-	rd_u16b(&cr_ptr->total_winner);
-	rd_u16b(&cr_ptr->noscore);
+	rd_u16b(&panic_save);
+	rd_u16b(&total_winner);
+	rd_u16b(&noscore);
 
 
 	/* Read "death" */

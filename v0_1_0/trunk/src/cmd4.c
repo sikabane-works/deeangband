@@ -1752,13 +1752,13 @@ static void do_cmd_options_cheat(cptr info)
 			case 'Y':
 			case '6':
 			{
-				if(!p_ptr->noscore)
+				if(!noscore)
 #ifdef JP
 					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
 #else
 					do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up sending score to use cheating options.");
 #endif
-				p_ptr->noscore |= (cheat_info[k].o_set * 256 + cheat_info[k].o_bit);
+				noscore |= (cheat_info[k].o_set * 256 + cheat_info[k].o_bit);
 				(*cheat_info[k].o_var) = TRUE;
 				k = (k + 1) % n;
 				break;
@@ -2407,7 +2407,7 @@ void do_cmd_options(void)
 		int n = OPT_NUM;
 
 		/* Does not list cheat option when cheat option is off */
-		if (!p_ptr->noscore && !allow_debug_opts) n--;
+		if (!noscore && !allow_debug_opts) n--;
 
 		/* Clear screen */
 		Term_clear();
@@ -2570,7 +2570,7 @@ void do_cmd_options(void)
 			/* Cheating Options */
 			case 'C':
 			{
-				if (!p_ptr->noscore && !allow_debug_opts)
+				if (!noscore && !allow_debug_opts)
 				{
 					/* Cheat options are not permitted */
 					bell();

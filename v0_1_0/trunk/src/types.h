@@ -1256,11 +1256,6 @@ struct creature_type
 	cptr last_message;        /* Last message on death or retirement */
 	char history[4][60];  	  /* Textual "history" for the Player */
 
-	u16b total_winner;	  /* Total winner */
-	u16b panic_save;	  /* Panic save */
-
-	u16b noscore;		  /* Cheating flags */
-
 	bool wait_report_score;   /* Waiting to report score */
 	bool is_dead;		      /* is dead */
 

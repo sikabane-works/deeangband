@@ -4285,7 +4285,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 static bool enter_wizard_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!cr_ptr->noscore)
+	if (!noscore)
 	{
 		/* Wizard mode is not permitted */
 		if (!allow_debug_opts || arg_wizard)
@@ -4325,7 +4325,7 @@ static bool enter_wizard_mode(creature_type *cr_ptr)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to enter wizard mode.");
 #endif
 		/* Mark savefile */
-		cr_ptr->noscore |= 0x0002;
+		noscore |= 0x0002;
 	}
 
 	/* Success */
@@ -4341,7 +4341,7 @@ static bool enter_wizard_mode(creature_type *cr_ptr)
 static bool enter_debug_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!cr_ptr->noscore)
+	if (!noscore)
 	{
 		/* Debug mode is not permitted */
 		if (!allow_debug_opts)
@@ -4381,7 +4381,7 @@ static bool enter_debug_mode(creature_type *cr_ptr)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up sending score to use debug commands.");
 #endif
 		/* Mark savefile */
-		cr_ptr->noscore |= 0x0008;
+		noscore |= 0x0008;
 	}
 
 	/* Success */
@@ -4404,7 +4404,7 @@ extern void do_cmd_debug(creature_type *cr_ptr);
 static bool enter_borg_mode(creature_type *cr_ptr)
 {
 	/* Ask first time */
-	if (!(cr_ptr->noscore & 0x0010))
+	if (!(noscore & 0x0010))
 	{
 		/* Mention effects */
 #ifdef JP
@@ -4433,7 +4433,7 @@ static bool enter_borg_mode(creature_type *cr_ptr)
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "give up recording score to use borg commands.");
 #endif
 		/* Mark savefile */
-		cr_ptr->noscore |= 0x0010;
+		noscore |= 0x0010;
 	}
 
 	/* Success */
@@ -6976,7 +6976,7 @@ quit("セーブファイルが壊れています");
 	else
 	{
 		/* HACK -- Restore from panic-save */
-		if (cr_ptr->panic_save)
+		if (panic_save)
 		{
 			/* No player?  -- Try to regenerate floor */
 			if (!cr_ptr->fy || !cr_ptr->fx)
@@ -6993,7 +6993,7 @@ quit("セーブファイルが壊れています");
 			if (!cr_ptr->fy || !cr_ptr->fx) cr_ptr->fy = cr_ptr->fx = 10;
 
 			/* No longer in panic */
-			cr_ptr->panic_save = 0;
+			panic_save = 0;
 		}
 	}
 
@@ -7162,7 +7162,7 @@ quit("セーブファイルが壊れています");
 					cr_ptr->age++;
 
 					/* Mark savefile */
-					cr_ptr->noscore |= 0x0001;
+					noscore |= 0x0001;
 
 					/* Message */
 #ifdef JP

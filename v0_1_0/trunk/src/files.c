@@ -4065,7 +4065,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 			if (cr_ptr->is_dead)
 			{
-				if (cr_ptr->total_winner)
+				if (total_winner)
 				{
 #ifdef JP
 					sprintf(statmsg, "…あなたは勝利の後%sした。", streq(cr_ptr->died_from, "Seppuku") ? "切腹" : "引退");
@@ -4675,7 +4675,7 @@ static void dump_aux_last_message(creature_type *cr_ptr, FILE *fff)
 {
 	if (cr_ptr->is_dead)
 	{
-		if (!cr_ptr->total_winner)
+		if (!total_winner)
 		{
 			int i;
 
@@ -4867,7 +4867,7 @@ static void dump_aux_options(creature_type *cr_ptr, FILE *fff)
 
 	fputc('\n', fff);
 
-	if (cr_ptr->noscore)
+	if (noscore)
 #ifdef JP
 		fprintf(fff, "\n 何か不正なことをしてしまっています。\n");
 #else
@@ -6440,7 +6440,7 @@ void do_cmd_suicide(creature_type *cr_ptr)
 	flush();
 
 	/* Verify Retirement */
-	if (cr_ptr->total_winner)
+	if (total_winner)
 	{
 		/* Verify */
 #ifdef JP
@@ -6463,7 +6463,7 @@ if (!get_check("本当に自殺しますか？")) return;
 	}
 
 
-	if (!cr_ptr->noscore)
+	if (!noscore)
 	{
 		/* Special Verification for suicide */
 #ifdef JP
@@ -6483,7 +6483,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	cr_ptr->last_message = NULL;
 
 	/* Hack -- Note *winning* message */
-	if (cr_ptr->total_winner && last_words)
+	if (total_winner && last_words)
 	{
 		char buf[1024] = "";
 
@@ -6517,7 +6517,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	/* Leaving */
 	cr_ptr->leaving = TRUE;
 
-	if (!cr_ptr->total_winner)
+	if (!total_winner)
 	{
 #ifdef JP
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
@@ -6708,7 +6708,7 @@ long total_points(void)
 	if ((p_ptr->chara_idx == CHARA_MUNCHKIN) && point)
 	{
 		point = 1;
-		if (p_ptr->total_winner) point = 2;
+		if (total_winner) point = 2;
 	}
 	if (easy_band) point = (0 - point);
 
@@ -6753,7 +6753,7 @@ static void make_bones(void)
 
 
 	/* Ignore wizards and borgs */
-	if (!(p_ptr->noscore & 0x00FF))
+	if (!(noscore & 0x00FF))
 	{
 		/* Ignore people who die in town */
 		if (dun_level)
@@ -6868,7 +6868,7 @@ static void print_tomb(creature_type *cr_ptr)
 		}
 
 		/* King or Queen */
-		if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
+		if (total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 		{
 #ifdef JP
 			/* 英日切り替え */
@@ -7253,7 +7253,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 #ifndef SCORE_WIZARDS
 	/* Wizard-mode pre-empts scoring */
-	if (p_ptr->noscore & 0x000F)
+	if (noscore & 0x000F)
 	{
 #ifdef JP
 msg_print("ウィザード・モードではスコアが記録されません。");
@@ -7268,7 +7268,7 @@ msg_print("ウィザード・モードではスコアが記録されません。");
 
 #ifndef SCORE_BORGS
 	/* Borg-mode pre-empts scoring */
-	if (p_ptr->noscore & 0x00F0)
+	if (noscore & 0x00F0)
 	{
 #ifdef JP
 msg_print("ボーグ・モードではスコアが記録されません。");
@@ -7283,7 +7283,7 @@ msg_print("ボーグ・モードではスコアが記録されません。");
 
 #ifndef SCORE_CHEATERS
 	/* Cheaters are not scored */
-	if (p_ptr->noscore & 0xFF00)
+	if (noscore & 0xFF00)
 	{
 #ifdef JP
 msg_print("詐欺をやった人はスコアが記録されません。");
@@ -7298,9 +7298,9 @@ msg_print("詐欺をやった人はスコアが記録されません。");
 
 	/* Interupted */
 #ifdef JP
-if (!p_ptr->total_winner && streq(p_ptr->died_from, "強制終了"))
+if (!total_winner && streq(p_ptr->died_from, "強制終了"))
 #else
-	if (!p_ptr->total_winner && streq(p_ptr->died_from, "Interrupting"))
+	if (!total_winner && streq(p_ptr->died_from, "Interrupting"))
 #endif
 
 	{
@@ -7316,9 +7316,9 @@ msg_print("強制終了のためスコアが記録されません。");
 
 	/* Quitter */
 #ifdef JP
-if (!p_ptr->total_winner && streq(p_ptr->died_from, "途中終了"))
+if (!total_winner && streq(p_ptr->died_from, "途中終了"))
 #else
-	if (!p_ptr->total_winner && streq(p_ptr->died_from, "Quitting"))
+	if (!total_winner && streq(p_ptr->died_from, "Quitting"))
 #endif
 
 	{
@@ -7380,7 +7380,7 @@ void close_game(creature_type *cr_ptr)
 	if (p_ptr->is_dead)
 	{
 		/* Handle retirement */
-		if (p_ptr->total_winner) kingly();
+		if (total_winner) kingly();
 
 		/* Save memories */
 #ifdef JP
@@ -7505,7 +7505,7 @@ void exit_game_panic(void)
 	if (p_ptr->chp < 0) p_ptr->is_dead = FALSE;
 
 	/* Hardcode panic save */
-	p_ptr->panic_save = 1;
+	panic_save = 1;
 
 	/* Forbid suspend */
 	signals_ignore_tstp();
@@ -8043,7 +8043,7 @@ static void handle_signal_abort(int sig)
 	Term_fresh();
 
 	/* Panic Save */
-	p_ptr->panic_save = 1;
+	panic_save = 1;
 
 	/* Panic save */
 #ifdef JP

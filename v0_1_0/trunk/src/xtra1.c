@@ -771,7 +771,7 @@ static void prt_title(creature_type *cr_ptr)
 	}
 
 	/* Winner */
-	else if (cr_ptr->total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
+	else if (total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
 	{
 		if (arena_number > MAX_ARENA_MONS + 2)
 		{

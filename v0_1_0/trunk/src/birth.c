@@ -3079,15 +3079,15 @@ static void player_wipe(creature_type *cr_ptr)
 	cheat_save = FALSE;
 
 	/* Assume no winning game */
-	cr_ptr->total_winner = FALSE;
+	total_winner = FALSE;
 
 	world_player = FALSE;
 
 	/* Assume no panic save */
-	cr_ptr->panic_save = 0;
+	panic_save = 0;
 
 	/* Assume no cheating */
-	cr_ptr->noscore = 0;
+	noscore = 0;
 	wizard = FALSE;
 
 	/* Not waiting to report score */
