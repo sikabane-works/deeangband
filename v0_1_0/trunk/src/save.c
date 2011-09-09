@@ -182,10 +182,7 @@ static void wr_item(object_type *o_ptr)
 }
 
 
-/*
- * Write a "monster" record
- */
-static void wr_creature(creature_type *cr_ptr)
+static void wr_creature_old(creature_type *cr_ptr)
 {
 	int i, j;
 	u16b tmp16u;
@@ -626,7 +623,7 @@ static void save_quick_start(void)
 	wr_byte((byte)previous_char.quick_ok);
 }
 
-static void wr_player(creature_type *cr_ptr)
+static void wr_creature(creature_type *cr_ptr)
 {
 	int i,j;
 
@@ -1485,7 +1482,7 @@ static bool wr_savefile_new(void)
 
 
 	/* Write the "extra" information */
-	wr_player(p_ptr);
+	wr_creature(p_ptr);
 	wr_extra();
 
 	/* Dump the "player hp" entries */

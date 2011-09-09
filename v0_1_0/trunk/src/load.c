@@ -569,7 +569,7 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 /*
  * Read a monster (New method)
  */
-static void rd_creature(creature_type *cr_ptr)
+static void rd_creature_old(creature_type *cr_ptr)
 {
 	u32b flags;
 	char buf[128];
@@ -1231,7 +1231,7 @@ static void load_quick_start(void)
 	previous_char.quick_ok = (bool)tmp8u;
 }
 
-static void rd_player(creature_type *cr_ptr)
+static void rd_creature(creature_type *cr_ptr)
 {
 	int i,j;
 	char buf[1024];
@@ -2433,7 +2433,7 @@ note("伝説のアイテムをロードしました");
 
 
 	/* Read the extra stuff */
-	rd_player(cr_ptr);
+	rd_creature(cr_ptr);
 	rd_extra();
 	if (cr_ptr->energy_need < -999) world_player = TRUE;
 
