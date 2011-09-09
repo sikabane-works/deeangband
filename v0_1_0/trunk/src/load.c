@@ -1464,6 +1464,10 @@ static void rd_player(creature_type *cr_ptr)
 	/* Turn of last "feeling" */
 	rd_s32b(&cr_ptr->feeling_turn);
 
+	rd_s16b(&cr_ptr->today_mon);
+	rd_s16b(&cr_ptr->riding);
+	rd_s16b(&cr_ptr->floor_id);
+
 }
 
 /*
@@ -1544,11 +1548,6 @@ static void rd_extra(creature_type *cr_ptr)
 	rd_s32b(&old_battle);
 
 	rd_s16b(&today_mon);
-	rd_s16b(&cr_ptr->today_mon);
-
-	rd_s16b(&cr_ptr->riding);
-
-	rd_s16b(&cr_ptr->floor_id);
 
 	/* Get number of party_mon array */
 	rd_s16b(&tmp16s);
@@ -1559,8 +1558,6 @@ static void rd_extra(creature_type *cr_ptr)
 		creature_type dummy_mon;
 		rd_creature(&dummy_mon);
 	}
-
-
 
 	rd_u32b(&playtime);
 	rd_s32b(&cr_ptr->visit);

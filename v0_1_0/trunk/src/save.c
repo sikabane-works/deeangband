@@ -793,6 +793,10 @@ static void wr_player(creature_type *cr_ptr)
 	/* Turn of last "feeling" */
 	wr_s32b(cr_ptr->feeling_turn);
 
+	wr_s16b(cr_ptr->today_mon);
+	wr_s16b(cr_ptr->riding);
+	wr_s16b(cr_ptr->floor_id);
+
 }
 
 /*
@@ -859,11 +863,6 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_s32b(old_battle);
 
 	wr_s16b(today_mon);
-	wr_s16b(cr_ptr->today_mon);
-	wr_s16b(cr_ptr->riding);
-
-	/* Current floor_id */
-	wr_s16b(cr_ptr->floor_id);
 
 	/* Save temporary preserved pets (obsolated) */
 	wr_s16b(0);
