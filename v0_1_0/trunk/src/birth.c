@@ -2128,6 +2128,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_LIFE]);
 		re[n].code = REALM_LIFE;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_SORCERY)
@@ -2135,6 +2137,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_SORCERY]);
 		re[n].code = REALM_SORCERY;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_NATURE)
@@ -2142,6 +2146,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_NATURE]);
 		re[n].code = REALM_NATURE;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_CHAOS)
@@ -2149,6 +2155,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_CHAOS]);
 		re[n].code = REALM_CHAOS;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_DEATH)
@@ -2156,6 +2164,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_DEATH]);
 		re[n].code = REALM_DEATH;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_TRUMP)
@@ -2163,6 +2173,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_TRUMP]);
 		re[n].code = REALM_TRUMP;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_ARCANE)
@@ -2170,6 +2182,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_ARCANE]);
 		re[n].code = REALM_ARCANE;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_ENCHANT)
@@ -2177,6 +2191,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_CRAFT]);
 		re[n].code = REALM_CRAFT;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_DAEMON)
@@ -2184,6 +2200,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_DAEMON]);
 		re[n].code = REALM_DAEMON;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_CRUSADE)
@@ -2191,6 +2209,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_CRUSADE]);
 		re[n].code = REALM_CRUSADE;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_MUSIC)
@@ -2198,6 +2218,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_MUSIC]);
 		re[n].code = REALM_MUSIC;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_HISSATSU)
@@ -2205,6 +2227,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_HISSATSU]);
 		re[n].code = REALM_HISSATSU;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 	if (choices & CH_HEX)
@@ -2212,6 +2236,8 @@ static byte choose_realm(s32b choices)
 		strcpy(re[n].cap, realm_names[REALM_HEX]);
 		re[n].code = REALM_HEX;
 		re[n].key = '\0';
+		re[n].d_color = TERM_L_DARK;
+		re[n].l_color = TERM_WHITE;
 		n++;
 	}
 
@@ -4132,6 +4158,8 @@ static bool get_intelligent_race(creature_type *cr_ptr)
 			strcpy(se[n].cap, race_info[n].title);
 			se[n].code = i;
 			se[n].key = '\0';
+			se[n].d_color = TERM_L_DARK;
+			se[n].l_color = TERM_WHITE;
 			n++;
 		}
 	}
@@ -4152,12 +4180,18 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr)
 	strcpy(se[0].cap, race_info[RACE_TELERI_LINEAGE].title);
 	se[0].code = RACE_TELERI_LINEAGE;
 	se[0].key = '\0';
+	se[0].d_color = TERM_L_DARK;
+	se[0].l_color = TERM_WHITE;
 	strcpy(se[1].cap, race_info[RACE_NOLDOR_LINEAGE].title);
 	se[1].code = RACE_NOLDOR_LINEAGE;
 	se[1].key = '\0';
+	se[1].d_color = TERM_L_DARK;
+	se[1].l_color = TERM_WHITE;
 	strcpy(se[2].cap, race_info[RACE_VANYAR_LINEAGE].title);
 	se[2].code = RACE_VANYAR_LINEAGE;
 	se[2].key = '\0';
+	se[2].d_color = TERM_L_DARK;
+	se[2].l_color = TERM_WHITE;
 	i = get_selection(se, 3, 5, 2, 18, 20, subrace_detail);
 	set_subrace(cr_ptr, i, TRUE);
 
@@ -4200,6 +4234,13 @@ static bool get_player_subrace_dragon(creature_type *cr_ptr)
 	strcpy(se[11].cap, race_info[RACE_CHAOS_LINEAGE].title);
 	se[11].code = RACE_CHAOS_LINEAGE;
 
+	for(i = 0; i < 12; i++)
+	{
+		se[i].d_color = TERM_L_DARK;
+		se[i].l_color = TERM_WHITE;
+	}
+
+
 	i = get_selection(se, 12, 5, 2, 18, 20, subrace_detail);
 	set_subrace(cr_ptr, i, TRUE);
 
@@ -4221,6 +4262,8 @@ static bool get_player_sex(creature_type *cr_ptr)
 		strcpy(se[i].cap, sex_info[i].title);
 		se[i].code = i;
 		se[i].key = '\0';
+		se[i].d_color = TERM_L_DARK;
+		se[i].l_color = TERM_WHITE;
 	}
 	cr_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
 
@@ -4242,6 +4285,8 @@ static bool get_player_class(creature_type *cr_ptr)
 		strcpy(ce[i].cap, class_info[i].title);
 		ce[i].code = i;
 		ce[i].key = '\0';
+		ce[i].d_color = TERM_L_DARK;
+		ce[i].l_color = TERM_WHITE;
 	}
 	cr_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
@@ -4264,6 +4309,8 @@ static bool get_player_patron(creature_type *cr_ptr)
 			strcpy(pt[n].cap, r_name + r_info[i].name);
 			pt[n].code = i;
 			pt[n].key = '\0';
+			pt[n].d_color = TERM_L_DARK;
+			pt[n].l_color = TERM_WHITE;
 			n++; 
 		}
 		if(n == 400) break;
@@ -4290,6 +4337,8 @@ static bool get_player_chara(creature_type *cr_ptr)
 			strcpy(ce[n].cap, chara_info[i].title);
 			ce[n].code = i;
 			ce[n].key = '\0';
+			ce[n].d_color = TERM_L_DARK;
+			ce[n].l_color = TERM_WHITE;
 			n++;
 		}
 	}

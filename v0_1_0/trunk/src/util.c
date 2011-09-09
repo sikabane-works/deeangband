@@ -5549,17 +5549,17 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 			put_str("|" ,y+i, x-1);
 			put_str("|" ,y+i, x+w);
 			if(offset >= num) continue; 
-			sprintf(buf, "[%c]", 'a'+i);
+			sprintf(buf, "[%c]", se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
 			if(offset == se)
 			{
 				c_put_str(TERM_WHITE, ">>", y+i, x);
-				c_put_str(TERM_L_GREEN, buf, y+i, x+2);
-				c_put_str(TERM_WHITE, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(TERM_WHITE, buf, y+i, x+2);
+				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+5);
 			}
 			else
 			{
-				c_put_str(TERM_GREEN, buf, y+i, x+2);
-				c_put_str(TERM_L_DARK, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(TERM_L_DARK, buf, y+i, x+2);
+				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+5);
 			}
 		}
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
@@ -5576,7 +5576,11 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 		if (se >= num) se = num - 1;
 
 		if (c == '\r') return se_ptr[se].code;
-		if (c >= 'a' && c < 'a' + h) return se_ptr[h*(page-1)+c-'a'].code;
+		if (c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
+		for (i = 0; i < num; i++)
+		{
+			if(se_ptr[i].key && se_ptr[i].key == c) se_ptr[i].code;
+		}
 
 		page = se / h + 1;
 
