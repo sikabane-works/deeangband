@@ -784,6 +784,15 @@ static void wr_player(creature_type *cr_ptr)
 	wr_byte(cr_ptr->action);
 	wr_byte(cr_ptr->wait_report_score);
 
+	/* Write death */
+	wr_byte(cr_ptr->is_dead);
+
+	/* Write feeling */
+	wr_byte(cr_ptr->feeling);
+
+	/* Turn of last "feeling" */
+	wr_s32b(cr_ptr->feeling_turn);
+
 }
 
 /*
@@ -834,24 +843,13 @@ static void wr_extra(creature_type *cr_ptr)
 	wr_u32b(seed_flavor);
 	wr_u32b(seed_town);
 
-
 	/* Special stuff */
 	wr_u16b(panic_save);
 	wr_u16b(total_winner);
 	wr_u16b(noscore);
 
-
-	/* Write death */
-	wr_byte(cr_ptr->is_dead);
-
-	/* Write feeling */
-	wr_byte(cr_ptr->feeling);
-
 	/* Turn when level began */
 	wr_s32b(old_turn);
-
-	/* Turn of last "feeling" */
-	wr_s32b(cr_ptr->feeling_turn);
 
 	/* Current turn */
 	wr_s32b(turn);

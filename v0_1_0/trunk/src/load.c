@@ -1440,6 +1440,30 @@ static void rd_player(creature_type *cr_ptr)
 	rd_byte(&cr_ptr->action);
 	rd_byte((byte *)&cr_ptr->wait_report_score);
 
+	/* Read "death" */
+	rd_byte(&tmp8u);
+	cr_ptr->is_dead = tmp8u;
+
+	/* Read "feeling" */
+	rd_byte(&cr_ptr->feeling);
+
+	switch (cr_ptr->start_race)
+	{
+	case RACE_VAMPIRE:
+	case RACE_SKELETON:
+	case RACE_ZOMBIE:
+	case RACE_LICH:
+		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
+		break;
+	default:
+		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
+		break;
+	}
+	dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
+
+	/* Turn of last "feeling" */
+	rd_s32b(&cr_ptr->feeling_turn);
+
 }
 
 /*
@@ -1509,33 +1533,8 @@ static void rd_extra(creature_type *cr_ptr)
 	rd_u16b(&total_winner);
 	rd_u16b(&noscore);
 
-
-	/* Read "death" */
-	rd_byte(&tmp8u);
-	cr_ptr->is_dead = tmp8u;
-
-	/* Read "feeling" */
-	rd_byte(&cr_ptr->feeling);
-
-	switch (cr_ptr->start_race)
-	{
-	case RACE_VAMPIRE:
-	case RACE_SKELETON:
-	case RACE_ZOMBIE:
-	case RACE_LICH:
-		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-		break;
-	default:
-		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-		break;
-	}
-	dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-
 	/* Turn when level began */
 	rd_s32b(&old_turn);
-
-	/* Turn of last "feeling" */
-	rd_s32b(&cr_ptr->feeling_turn);
 
 	/* Current turn */
 	rd_s32b(&turn);
