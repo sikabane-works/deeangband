@@ -2053,12 +2053,11 @@ static void birth_quit(void)
  */
 static void put_initial_status(creature_type *cr_ptr)
 {
-	cptr race;
-	char cls_name[80];
-	cls_name[0] = '\0';
-	race = get_intelligent_race_name(cr_ptr);
+	cptr race, cls;
+
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
+		race = get_intelligent_race_name(cr_ptr);
 #ifdef JP
 		put_str("Ží‘°  :", 1, 1);
 #else
@@ -2069,25 +2068,13 @@ static void put_initial_status(creature_type *cr_ptr)
 
 	if(cr_ptr->cls_idx != CLASS_NONE)
 	{
+		cls = get_class_desc(cr_ptr);
 #ifdef JP
 		put_str("E‹Æ  :", 2, 1);
 #else
 		put_str("Class :", 2, 1);
 #endif
-		strcat(cls_name, class_info[cr_ptr->cls_idx].title);
-		if(cr_ptr->realm1 != REALM_NONE)
-		{
-			strcat(cls_name, "(");
-			strcat(cls_name, realm_names[cr_ptr->realm1]);
-			if(cr_ptr->realm2 != REALM_NONE)
-			{
-				strcat(cls_name, ",");
-				strcat(cls_name, realm_names[cr_ptr->realm2]);
-			}
-			strcat(cls_name, ")");
-		}
-
-		c_put_str(TERM_L_BLUE, cls_name, 2, 9);
+		c_put_str(TERM_L_BLUE, cls, 2, 9);
 	}
 
 	if(cr_ptr->patron_idx != PATRON_NONE)

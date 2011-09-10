@@ -6464,7 +6464,7 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	intelligent_race *rcr_ptr = &race_info[cr_ptr->irace_idx];
 	name[0] = '\0';
 
-	if(cr_ptr->irace_idx == RACE_NONE) return name;
+	if(cr_ptr->irace_idx == RACE_NONE) return format("");
 
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
 		strcat(name, "q¬“×r‚Éâq‚ê‚½");
@@ -6538,6 +6538,29 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 
 	return format("%s", name);
 }
+
+
+cptr get_class_desc(creature_type *cr_ptr){
+	int i;
+	char name[80];
+	name[0] = '\0';
+
+	strcat(name, class_info[cr_ptr->cls_idx].title);
+	if(cr_ptr->realm1 != REALM_NONE)
+	{
+		strcat(name, "(");
+		strcat(name, realm_names[cr_ptr->realm1]);
+		if(cr_ptr->realm2 != REALM_NONE)
+		{
+			strcat(name, ",");
+			strcat(name, realm_names[cr_ptr->realm2]);
+		}
+		strcat(name, ")");
+	}
+
+	return format("%s", name);
+}
+
 
 bool can_equip(creature_type* cr_ptr, int k_idx)
 {
