@@ -6453,7 +6453,6 @@ void set_subrace(creature_type *cr_ptr, int n, bool b)
 	unsigned int a = n;
 	if(b) cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] | (0x01 << (a % 32));
 	else cr_ptr->sub_race[a / 32] = cr_ptr->sub_race[a / 32] & !(0x01 << (a % 32));
-
 }
 
 
