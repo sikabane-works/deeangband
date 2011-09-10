@@ -6498,13 +6498,3 @@ cptr get_class_desc(creature_type *cr_ptr){
 	return format("%s", name);
 }
 
-
-bool can_equip(creature_type* cr_ptr, int k_idx)
-{
-//	return (cr_ptr->possible_equipment & (1 << (k_idx - INVEN_PACK - 1))) ? TRUE : FALSE;
-	if(cr_ptr->possible_equipment & (1 << (k_idx - INVEN_PACK - 1)))
-		return TRUE;
-	else
-		return FALSE;
-
-}

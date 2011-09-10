@@ -2,7 +2,7 @@
 #include "angband.h"
 
 
-bool can_use_equipment_slot(creature_type *cr_ptr, int i)
+bool can_equip(creature_type *cr_ptr, int i)
 {
 	if(i == INVEN_1STARM && cr_ptr->num_hand < 1) return FALSE;
 	if(i == INVEN_2NDARM && cr_ptr->num_hand < 2) return FALSE;

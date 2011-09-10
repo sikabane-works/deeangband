@@ -843,7 +843,7 @@ extern void do_cmd_use(creature_type *cr_ptr);
 extern void do_cmd_magic_eater(creature_type *cr_ptr, bool only_browse);
 
 /* creature.c */
-extern bool can_use_equipment_slot(creature_type *cr_ptr, int i);
+extern bool can_equip(creature_type *cr_ptr, int i);
 extern bool is_player(creature_type *cr_ptr);
 extern void set_sex(creature_type *cr_ptr);
 extern void set_height_weight(creature_type *cr_ptr);
@@ -1441,7 +1441,6 @@ extern bool get_subrace(creature_type *cr_ptr, int n);
 extern void set_subrace(creature_type *cr_ptr, int n, bool b);
 extern cptr get_intelligent_race_name(creature_type *cr_ptr);
 extern cptr get_class_desc(creature_type *cr_ptr);
-extern bool can_equip(creature_type* cr_ptr, int k_idx);
 
 
 /* effects.c */

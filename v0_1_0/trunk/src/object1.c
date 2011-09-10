@@ -4938,7 +4938,7 @@ static void prepare_label_string(creature_type *cr_ptr, char *label, int mode)
 	{
 		int index;
 		char c;
-		if(!can_use_equipment_slot(cr_ptr, i + offset)) continue;
+		if(!can_equip(cr_ptr, i + offset)) continue;
 
 		c = alphabet_chars[j];
 
@@ -5193,7 +5193,7 @@ int show_equip(int target_item, creature_type *cr_ptr)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		if(!can_use_equipment_slot(cr_ptr, i)) continue;
+		if(!can_equip(cr_ptr, i)) continue;
 
 		/* Is this item acceptable? */
 		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr)) &&
