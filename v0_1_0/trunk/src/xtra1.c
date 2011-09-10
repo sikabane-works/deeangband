@@ -6465,6 +6465,8 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 	intelligent_race *rcr_ptr = &race_info[cr_ptr->irace_idx];
 	name[0] = '\0';
 
+	if(cr_ptr->irace_idx == RACE_NONE) return name;
+
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
 		strcat(name, "q¬“×r‚Éâq‚ê‚½");
 
@@ -6473,7 +6475,6 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 
 	if(get_subrace(cr_ptr, RACE_SKELETON))
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
-
 
 	switch(cr_ptr->irace_idx){
 		case RACE_HUMAN:
@@ -6524,11 +6525,16 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 				if(get_subrace(cr_ptr, i)){
 					strcat(name, "ƒn[ƒt");
 					strcat(name, race_info[i].title);
-					strcat(name, "‚Ì");
 				}
 			}
 			strcat(name, race_info[cr_ptr->irace_idx].title);
 		break;
+	}
+
+	if(cr_ptr->sex != SEX_UNDEFINED)
+	{
+		strcat(name, "‚Ì");
+		strcat(name, sex_info[cr_ptr->sex].title);
 	}
 
 	return format("%s", name);

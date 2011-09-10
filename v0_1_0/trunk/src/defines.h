@@ -836,6 +836,7 @@
 #define SEX_MALE                1
 #define SEX_INTERSEX            2
 #define SEX_NONE                3
+#define SEX_UNDEFINED           255
 
 
 /*

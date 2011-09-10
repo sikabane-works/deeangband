@@ -2053,6 +2053,8 @@ static void birth_quit(void)
  */
 static void put_initial_status(creature_type *cr_ptr)
 {
+	cptr race;
+	race = get_intelligent_race_name(cr_ptr);
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
 #ifdef JP
@@ -2060,7 +2062,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #else
 		put_str("Race  :", 1, 1);
 #endif
-		c_put_str(TERM_L_BLUE, race_info[cr_ptr->irace_idx].title, 1, 8);
+		c_put_str(TERM_L_BLUE, race, 1, 8);
 	}
 
 	if(cr_ptr->cls_idx != CLASS_NONE)
@@ -5639,6 +5641,7 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	cr_ptr->stigmatic = TRUE;
 
 	cr_ptr->irace_idx = RACE_NONE;
+	cr_ptr->sex = SEX_UNDEFINED;
 	cr_ptr->cls_idx = CLASS_NONE;
 	cr_ptr->chara_idx = CHARA_NONE;
 	cr_ptr->patron_idx = PATRON_NONE;
@@ -5660,15 +5663,19 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+
 	if(cr_ptr->irace_idx == RACE_ELDAR)
 	{
+		put_initial_status(cr_ptr);
 		i = get_player_subrace_eldar(cr_ptr);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 
+
 	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
 	{
+		put_initial_status(cr_ptr);
 		i = get_player_subrace_dragon(cr_ptr);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
