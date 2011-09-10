@@ -1608,14 +1608,14 @@ static struct
 	{ 1, 16, 30, "“Š±"},
 	{16, 19, 12, "‰Á‘¬ "},
 	{ 1, 19, 14, "‚`‚b"},
-	{25,  4, 15, "ƒŒƒxƒ‹"},
+	{25,  6, 15, "ƒŒƒxƒ‹"},
 	{33, 10, 21, "ŒoŒ±’l"},
 	{33, 11, 21, "Å‘åŒoŒ±"},
 	{33, 12, 21, "ŽŸƒŒƒxƒ‹"},
 	{33, 13, 21, "ŠŽ‹à"},
 	{57, 10, 21, "“ú•t"},
-	{25,  5, 15, "‚g‚o"},
-	{41,  5, 15, "‚l‚o"},
+	{25,  7, 15, "‚g‚o"},
+	{41,  7, 15, "‚l‚o"},
 	{57, 11, 21, "ƒvƒŒƒCŽžŠÔ"},
 	{33, 15, -1, "‘ÅŒ‚UŒ‚  :"},
 	{33, 16, -1, "ŽËŒ‚UŒ‚  :"},
@@ -1637,15 +1637,15 @@ static struct
 	{ 1,  2, -1, "E‹Æ: "},
 	{ 1,  5, -1, ""},
 	{ 1,  3, -1, "Žå_: "},
-	{25,  3, 13, "”N—î"},
-	{58,  1, 15, "g’·"},
-	{58,  2, 15, "‘Ìd"},
-	{39,  3,  8, "g•ª"},
+	{25,  5, 13, "”N—î"},
+	{58,  1, 20, "g‘Ì"},
+	{58,  2, 15, ""},
+	{39,  5,  8, "g•ª"},
 	{ 1,  8, 51, "‘®«"},
 	{29, 14, 21, "‹­‰»“x"},
 	{29, 16, 21, "ŽŸƒŒƒxƒ‹"},
-	{48,  3, 8,  "‘ÌŠi"},
-	{41,  4, 15, "_Ši "},
+	{48,  5, 8,  "‘ÌŠi"},
+	{41,  6, 15, "_Ši "},
 	{57, 19, -1, "Œ@í”\—Í  :"},
 	{ 1,   8,  9, "‘P"},
 	{ 12,  8,  9, "ˆ«"},
@@ -3814,6 +3814,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 	char	buf[80];
 	char	tmp[64];
+	char	tmp2[64];
 
 	intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
 	player_class *cl_ptr = &class_info[cr_ptr->cls_idx];
@@ -3883,8 +3884,23 @@ void display_player(int mode, creature_type *cr_ptr)
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
 		}
 
-		display_player_one_line(ENTRY_HEIGHT, format("%dcm" ,(int)cr_ptr->ht), TERM_L_BLUE);
-		display_player_one_line(ENTRY_WEIGHT, format("%dkg" ,(int)cr_ptr->wt), TERM_L_BLUE);
+		if(cr_ptr->ht > 1000000)
+			sprintf(tmp, "%2d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
+		else if(cr_ptr->ht > 10000)
+			sprintf(tmp, "%4dm ", cr_ptr->ht / 1000);
+		else if(cr_ptr->ht > 1000)
+			sprintf(tmp, "%2d.%1dm ", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
+		else
+			sprintf(tmp, "%4dcm", cr_ptr->ht);
+
+		if(cr_ptr->ht > 10000)
+			sprintf(tmp2, "%2d.%1dt ", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
+		else if(cr_ptr->ht > 1000)
+			sprintf(tmp2, "%1d.%2dt ", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
+		else
+			sprintf(tmp2, "%4dkg", cr_ptr->wt);
+
+		display_player_one_line(ENTRY_HEIGHT, format("%s/%s" ,(int)tmp, tmp2), TERM_L_BLUE);
 
 		if(cr_ptr->irace_idx != RACE_NONE)
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
