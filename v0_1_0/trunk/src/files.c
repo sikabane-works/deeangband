@@ -1608,7 +1608,7 @@ static struct
 	{ 1, 16, 30, "“Š±"},
 	{16, 19, 12, "‰Á‘¬ "},
 	{ 1, 19, 14, "‚`‚b"},
-	{ 1,  6, 12, "ƒŒƒxƒ‹"},
+	{ 1,  6, 13, "ƒŒƒxƒ‹"},
 	{33, 10, 21, "ŒoŒ±’l"},
 	{33, 11, 21, "Å‘åŒoŒ±"},
 	{33, 12, 21, "ŽŸƒŒƒxƒ‹"},
@@ -1645,7 +1645,7 @@ static struct
 	{29, 14, 21, "‹­‰»“x"},
 	{29, 16, 21, "ŽŸƒŒƒxƒ‹"},
 	{34,  7, 23, "‘ÌŠi"},
-	{15,  6, 15, "_Ši "},
+	{16,  6, 17, "_Ši "},
 	{57, 19, -1, "Œ@í”\—Í  :"},
 	{1,   8,  9, "‘P"},
 	{12,  8,  9, "ˆ«"},
@@ -3972,21 +3972,41 @@ void display_player(int mode, creature_type *cr_ptr)
 		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos_rank), TERM_VIOLET);
 		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance_rank), TERM_L_GREEN);
 
-		if(cr_ptr->ht > 1000000)
-			sprintf(tmp, "%2d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
+		if     (cr_ptr->ht > 100000000)
+			sprintf(tmp, "%dkm", cr_ptr->ht / 100000);
+		else if(cr_ptr->ht > 10000000)
+			sprintf(tmp, "%d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
+		else if(cr_ptr->ht > 1000000)
+			sprintf(tmp, "%d.%2dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 1000);
+		else if(cr_ptr->ht > 100000)
+			sprintf(tmp, "%dm", cr_ptr->ht / 100);
 		else if(cr_ptr->ht > 10000)
-			sprintf(tmp, "%4dm", cr_ptr->ht / 1000);
+			sprintf(tmp, "%d.%1dm", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
 		else if(cr_ptr->ht > 1000)
-			sprintf(tmp, "%2d.%1dm", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
+			sprintf(tmp, "%d.%2dm", cr_ptr->ht / 100, (cr_ptr->ht % 100));
 		else
-			sprintf(tmp, "%4dcm", cr_ptr->ht);
+			sprintf(tmp, "%dcm", cr_ptr->ht);
 
-		if(cr_ptr->ht > 10000)
-			sprintf(tmp2, "%2d.%1dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
-		else if(cr_ptr->ht > 1000)
-			sprintf(tmp2, "%1d.%2dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
+		if     (cr_ptr->wt > 10000000000000)
+			sprintf(tmp2, "%dMt", cr_ptr->wt / 1000000000000);
+		else if(cr_ptr->wt > 1000000000000)
+			sprintf(tmp2, "%d.%1dMt", cr_ptr->wt / 1000000000, (cr_ptr->wt % 1000000000) / 100000000);
+		else if(cr_ptr->wt > 100000000000)
+			sprintf(tmp2, "%d.%2dMt", cr_ptr->wt / 1000000000, (cr_ptr->wt % 1000000000) / 10000000);
+		else if(cr_ptr->wt > 10000000000)
+			sprintf(tmp2, "%dMt", cr_ptr->wt / 1000000000);
+		else if(cr_ptr->wt > 100000000)
+			sprintf(tmp2, "%d.%1dkt", cr_ptr->wt / 1000000, (cr_ptr->wt % 1000000) / 100000);
+		else if(cr_ptr->wt > 10000000)
+			sprintf(tmp2, "%d.%2dkt", cr_ptr->wt / 1000000, (cr_ptr->wt % 1000000) / 10000);
+		else if(cr_ptr->wt > 1000000)
+			sprintf(tmp2, "%dt", cr_ptr->wt / 1000);
+		else if(cr_ptr->wt > 10000)
+			sprintf(tmp2, "%d.%1dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
+		else if(cr_ptr->wt > 1000)
+			sprintf(tmp2, "%d.%2dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
 		else
-			sprintf(tmp2, "%4dkg", cr_ptr->wt);
+			sprintf(tmp2, "%dkg", cr_ptr->wt);
 
 		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", cr_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
