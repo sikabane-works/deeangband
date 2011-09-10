@@ -749,61 +749,6 @@ static void prt_status(creature_type *cr_ptr)
 }
 
 
-
-/*
- * Prints "title", including "wizard" or "winner" as needed.
- */
-static void prt_title(creature_type *cr_ptr)
-{
-	cptr p = "";
-	char str[14];
-
-	/* Wizard */
-	if (wizard)
-	{
-#ifdef JP
-		/* 英日切り替え機能 称号 */
-		p = "[ウィザード]";
-#else
-		p = "[=-WIZARD-=]";
-#endif
-
-	}
-
-	/* Winner */
-	else if (total_winner || (cr_ptr->lev > PY_MAX_LEVEL))
-	{
-		if (arena_number > MAX_ARENA_MONS + 2)
-		{
-#ifdef JP
-			/* 英日切り替え機能 称号 */
-			p = "*真・勝利者*";
-#else
-			p = "*TRUEWINNER*";
-#endif
-		}
-		else
-		{
-#ifdef JP
-			/* 英日切り替え機能 称号 */
-			p = "***勝利者***";
-#else
-			p = "***WINNER***";
-#endif
-		}
-	}
-
-	/* Normal */
-	else
-	{
-		my_strcpy(str, player_title[cr_ptr->cls_idx][(cr_ptr->lev - 1) / 6], sizeof(str));
-		p = str;
-	}
-
-	prt_field(p, ROW_TITLE, COL_TITLE);
-}
-
-
 /*
  * Prints level
  */
@@ -1717,6 +1662,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 	int i;
 
 	/* Race and Class */
+/*
 	if (cr_ptr->mimic_form)
 		prt_field(mimic_info[cr_ptr->mimic_form].title, ROW_RACE, COL_RACE);
 	else
@@ -1725,9 +1671,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 		my_strcpy(str, race_info[cr_ptr->irace_idx].title, sizeof(str));
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
-
-	/* Title */
-	prt_title(cr_ptr);
+*/
 
 	/* Level/Experience */
 	prt_level(cr_ptr);
@@ -6148,15 +6092,9 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_MISC))
 	{
 		play_redraw &= ~(PR_MISC);
-		prt_field(race_info[cr_ptr->irace_idx].title, ROW_RACE, COL_RACE);
+//		prt_field(race_info[cr_ptr->irace_idx].title, ROW_RACE, COL_RACE);
 /*		prt_field(class_info[cr_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 
-	}
-
-	if (play_redraw & (PR_TITLE))
-	{
-		play_redraw &= ~(PR_TITLE);
-		prt_title(cr_ptr);
 	}
 
 	if (play_redraw & (PR_LEV))
@@ -6541,7 +6479,6 @@ cptr get_intelligent_race_name(creature_type *cr_ptr){
 
 
 cptr get_class_desc(creature_type *cr_ptr){
-	int i;
 	char name[80];
 	name[0] = '\0';
 

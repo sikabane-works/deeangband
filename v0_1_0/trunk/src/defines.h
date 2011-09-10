@@ -1132,14 +1132,14 @@
  * That leaves a "border" around the "stat" values.
  */
 
-#define ROW_RACE                1
-#define COL_RACE                0       /* <race name> */
+//#define ROW_RACE                1
+//#define COL_RACE                0       /* <race name> */
 
 /*#define ROW_CLASS               2 */
 /*#define COL_CLASS               0 */      /* <class name> */
 
-#define ROW_TITLE               2
-#define COL_TITLE               0       /* <title> or <mode> */
+//#define ROW_TITLE               2
+//#define COL_TITLE               0       /* <title> or <mode> */
 
 /*#define ROW_CHARA		4 */
 /*#define COL_CHARA      	0*/	/* <CHARA> */
@@ -1150,41 +1150,41 @@
 #define ROW_DUNGEON             22
 #define COL_DUNGEON             0       /* dungeon */
 
-#define ROW_LEVEL               3
+#define ROW_LEVEL               1
 #define COL_LEVEL               0       /* "LEVEL xxxxxx" */
 
-#define ROW_EXP                 4
+#define ROW_EXP                 2
 #define COL_EXP                 0       /* "EXP xxxxxxxx" */
 
-#define ROW_GOLD                5
+#define ROW_GOLD                3
 #define COL_GOLD                0       /* "AU xxxxxxxxx" */
 
-#define ROW_EQUIPPY             6
+#define ROW_EQUIPPY             4
 #define COL_EQUIPPY             0       /* equippy chars */
 
-#define ROW_STAT                7
+#define ROW_STAT                6
 #define COL_STAT                0       /* "xxx   xxxxxx" */
 
-#define ROW_AC                  13
+#define ROW_AC                  12
 #define COL_AC                  0       /* "Cur AC xxxxx" */
 
-#define ROW_HPMP                14
+#define ROW_HPMP                13
 #define COL_HPMP                0
 
-#define ROW_CURHP               14
+#define ROW_CURHP               13
 #define COL_CURHP               0       /* "Cur HP xxxxx" */
 
-#define ROW_CURSP               15
+#define ROW_CURSP               14
 #define COL_CURSP               0       /* "Cur SP xxxxx" */
 
-#define ROW_RIDING_INFO          16
-#define COL_RIDING_INFO          0       /* "xxxxxxxxxxxx" */
+#define ROW_RIDING_INFO         15
+#define COL_RIDING_INFO         0       /* "xxxxxxxxxxxx" */
 
-#define ROW_INFO                17
+#define ROW_INFO                16
 #define COL_INFO                0       /* "xxxxxxxxxxxx" */
 
 #define ROW_MAP                 0
-#define COL_MAP                  12
+#define COL_MAP                 12
 
 #define ROW_CUT                 18
 #define COL_CUT                 0       /* <cut> */

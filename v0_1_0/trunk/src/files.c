@@ -2807,8 +2807,8 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 /* Mode flags for displaying player flags */
 #define DP_CURSE   0x01
 #define DP_IMM     0x02
+#define DP_TWO_LINES 0x04
 #define DP_WP      0x08
-
 
 /*
  * Equippy chars
@@ -2847,14 +2847,19 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 		}
 
 		/* Dump */
-		Term_putch(x + i - INVEN_1STARM, y, a, c);
+		if(mode & DP_TWO_LINES)
+			Term_putch(i >= 12 + INVEN_1STARM ? x + i - 12 - INVEN_1STARM : x + i - INVEN_1STARM,
+			           i >= 12 + INVEN_1STARM ? y + 1 : y,
+					   a, c);
+		else
+			Term_putch(x + i - INVEN_1STARM, y, a, c);
 	}
 }
 
 
 void print_equippy(creature_type *cr_ptr)
 {
-	display_player_equippy(ROW_EQUIPPY, COL_EQUIPPY, 0, cr_ptr);
+	display_player_equippy(ROW_EQUIPPY, COL_EQUIPPY, DP_TWO_LINES, cr_ptr);
 }
 
 /*
@@ -6902,7 +6907,7 @@ static void print_tomb(creature_type *cr_ptr)
 		/* Normal */
 		else
 		{
-			p =  player_title[cr_ptr->cls_idx][(cr_ptr->lev - 1) / 6];
+			p = class_info[cr_ptr->cls_idx].title;
 		}
 
 		center_string(buf, cr_ptr->name);
