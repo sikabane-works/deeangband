@@ -6548,11 +6548,11 @@ cptr get_class_desc(creature_type *cr_ptr){
 	strcat(name, class_info[cr_ptr->cls_idx].title);
 	if(cr_ptr->realm1 != REALM_NONE)
 	{
-		strcat(name, "(");
+		strcat(name, " (");
 		strcat(name, realm_names[cr_ptr->realm1]);
 		if(cr_ptr->realm2 != REALM_NONE)
 		{
-			strcat(name, ",");
+			strcat(name, ", ");
 			strcat(name, realm_names[cr_ptr->realm2]);
 		}
 		strcat(name, ")");

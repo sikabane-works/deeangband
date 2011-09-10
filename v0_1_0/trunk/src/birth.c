@@ -4203,7 +4203,7 @@ static int get_intelligent_race(creature_type *cr_ptr)
 
 	i = get_selection(se, n, 5, 2, 18, 20, race_detail);
 
-	if(i > 0)
+	if(i >= 0)
 	{
 		cr_ptr->irace_idx = i;
 		return 0;
