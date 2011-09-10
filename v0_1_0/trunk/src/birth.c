@@ -3884,87 +3884,74 @@ void race_detail(int code)
 	int i, pena = 0;
 	char buf[100], temp[58*18];
 	cptr t;
-	put_str("                                                      " , base, 24);
-	put_str("                                                      " , base+1, 24);
-	put_str("                                                      " , base+2, 24);
 
-	if(code >= 0)
-	{
-#ifdef JP
-		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-		put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
-		put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
-#else
-		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-		put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
-		put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
-#endif
-
-		for(i = 0; i < 10; i++)
-			if(race_info[code].lev > race_unreached_level_penalty[i])
-				pena++;
-
-		sprintf(buf, "%+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+4d%% ",
-			race_info[code].r_adj[0]-pena, race_info[code].r_adj[0],
-			race_info[code].r_adj[1]-pena, race_info[code].r_adj[1],
-			race_info[code].r_adj[2]-pena, race_info[code].r_adj[2],
-			race_info[code].r_adj[3]-pena, race_info[code].r_adj[3],
-			race_info[code].r_adj[4]-pena, race_info[code].r_adj[4],
-			race_info[code].r_adj[5]-pena, race_info[code].r_adj[5],
-			(race_info[code].r_exp - 100));
-		c_put_str(TERM_L_BLUE, buf, base+2, 24);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 26);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 34);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 42);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 50);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 58);
-		c_put_str(TERM_L_WHITE, "=>", base+2, 66);
+	for (i = 0; i < 22; i++)
+		prt("                                                                       ", base + i, 24);
+	if(code < 0) return;
 
 #ifdef JP
-		put_str("äÓëbÉåÉxÉã:   äÓëbê_äi:", base, 53);
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
+	put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
 #else
-		put_str("Base Level:   Base DR :", base, 53);
+	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
+	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
-		sprintf(buf, "%2d", race_info[code].lev);
-		c_put_str(TERM_L_BLUE, buf, base, 64);
+	for(i = 0; i < 10; i++)
+		if(race_info[code].lev > race_unreached_level_penalty[i])
+			pena++;
 
-		if(race_info[code].dr >= 0)
-		{
-			sprintf(buf, "%2d", race_info[code].dr);
-			c_put_str(TERM_L_BLUE, buf, base, 76);
-		}
-		else
-			c_put_str(TERM_L_DARK, "--", base, 76);
-	}
+	sprintf(buf, "%+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+4d%% ",
+		race_info[code].r_adj[0]-pena, race_info[code].r_adj[0],
+		race_info[code].r_adj[1]-pena, race_info[code].r_adj[1],
+		race_info[code].r_adj[2]-pena, race_info[code].r_adj[2],
+		race_info[code].r_adj[3]-pena, race_info[code].r_adj[3],
+		race_info[code].r_adj[4]-pena, race_info[code].r_adj[4],
+		race_info[code].r_adj[5]-pena, race_info[code].r_adj[5],
+		(race_info[code].r_exp - 100));
+	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 26);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 34);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 42);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 50);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 58);
+	c_put_str(TERM_L_WHITE, "=>", base+2, 66);
 
-	if(code >= 0)
+#ifdef JP
+	put_str("äÓëbÉåÉxÉã:   äÓëbê_äi:", base, 53);
+#else
+	put_str("Base Level:   Base DR :", base, 53);
+#endif
+
+	sprintf(buf, "%2d", race_info[code].lev);
+	c_put_str(TERM_L_BLUE, buf, base, 64);
+
+	if(race_info[code].dr >= 0)
 	{
-
-		roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
-		t = temp;
-		e = FALSE;
-		for (i = 0; i < 18; i++)
-		{
-			if(!e)
-				if(t[0] == 0) e = TRUE;
-
-			if(e)
-			{
-				prt("                                                                       ", base+4 + i, 24);
-			}
-			else
-			{
-				prt(t, base+4 + i, 24);
-				t += strlen(t) + 1;
-			}
-		}
+		sprintf(buf, "%2d", race_info[code].dr);
+		c_put_str(TERM_L_BLUE, buf, base, 76);
 	}
 	else
+		c_put_str(TERM_L_DARK, "--", base, 76);
+
+	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
+	t = temp;
+	e = FALSE;
+	for (i = 0; i < 18; i++)
 	{
-		for (i = 0; i < 18; i++)
+		if(!e)
+			if(t[0] == 0) e = TRUE;
+
+		if(e)
 		{
 			prt("                                                                       ", base+4 + i, 24);
+		}
+		else
+		{
+			prt(t, base+4 + i, 24);
+			t += strlen(t) + 1;
 		}
 	}
 }
@@ -3984,11 +3971,11 @@ void subrace_detail(int code)
 		put_str("                                                  " , base+2, 24);
 #ifdef JP
 		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-		put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
+		put_str("ÇÃïõéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
 		put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
 #else
 		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-		put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
+		put_str("'s Sub-Race modification", base, 24+strlen(race_info[code].title));
 		put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
@@ -4047,6 +4034,14 @@ void class_detail(int code)
 	put_str("                                                      " , base, 24);
 	put_str("                                                      " , base+1, 24);
 	put_str("                                                      " , base+2, 24);
+
+	for (i = 0; i < 18; i++)
+	{
+		prt("                                                                       ", base+4 + i, 24);
+	}
+
+	if(code < 0) return;
+
 #ifdef JP
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
 	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(class_info[code].title));
@@ -4074,11 +4069,6 @@ void class_detail(int code)
 	{
 		if(!e)
 			if(t[0] == 0) e = TRUE;
-
-		if(e)
-		{
-			prt("                                                                       ", base+4 + i, 24);
-		}
 		else
 		{
 			prt(t, base+4 + i, 24);
@@ -4095,9 +4085,11 @@ void chara_detail(int code)
 	int i, pena = 0;
 	char buf[100], temp[58*18];
 	cptr t;
-	put_str("                                                  " , base, 24);
-	put_str("                                                  " , base+1, 24);
-	put_str("                                                  " , base+2, 24);
+
+	for (i = 0; i < 22; i++)
+		prt("                                                                       ", base + i, 24);
+	if(code < 0) return;
+
 #ifdef JP
 	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
 	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(chara_info[code].title));
@@ -4125,11 +4117,6 @@ void chara_detail(int code)
 	{
 		if(!e)
 			if(t[0] == 0) e = TRUE;
-
-		if(e)
-		{
-			prt("                                                                       ", base+4 + i, 24);
-		}
 		else
 		{
 			prt(t, base+4 + i, 24);
@@ -4146,9 +4133,10 @@ void realm_detail(int code)
 	int i, pena = 0;
 	char temp[58*18];
 	cptr t;
-	put_str("                                                  " , base, 24);
-	put_str("                                                  " , base+1, 24);
-	put_str("                                                  " , base+2, 24);
+
+	for (i = 0; i < 22; i++)
+		prt("                                                                       ", base + i, 24);
+	if(code < 0) return;
 
 	roff_to_buf(realm_jouhou[technic2magic(code)-1], 56, temp, sizeof(temp));
 	t = temp;
@@ -4158,15 +4146,8 @@ void realm_detail(int code)
 		if(!e)
 			if(t[0] == 0) e = TRUE;
 
-		if(e)
-		{
-			prt("                                                                       ", base+4 + i, 24);
-		}
-		else
-		{
-			prt(t, base+4 + i, 24);
-			t += strlen(t) + 1;
-		}
+		prt(t, base+4 + i, 24);
+		t += strlen(t) + 1;
 	}
 }
 
@@ -4439,22 +4420,68 @@ static bool get_player_subrace_dragon(creature_type *cr_ptr)
  */
 static bool get_player_sex(creature_type *cr_ptr)
 {
-	int i;
-	selection se[MAX_SEXES];
+	int i, n;
+	selection se[MAX_SEXES + 3];
 
-	for (i = 0; i < MAX_SEXES; i++)
+	for (i = 0, n = 0; i < MAX_SEXES; i++)
 	{
-		strcpy(se[i].cap, sex_info[i].title);
-		se[i].code = i;
-		se[i].key = '\0';
-		se[i].d_color = TERM_L_DARK;
-		se[i].l_color = TERM_WHITE;
+		strcpy(se[n].cap, sex_info[i].title);
+		se[n].code = i;
+		se[n].key = '\0';
+		se[n].d_color = TERM_L_DARK;
+		se[n].l_color = TERM_WHITE;
+		n++;
 	}
 
-	cr_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
+#if JP
+	strcpy(se[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
 
-	/* Success */
-	return 0;
+#if JP
+	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(se, n, 5, 2, 18, 20, NULL);
+
+	if(i >= 0)
+	{
+		cr_ptr->sex = i;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		set_subrace(cr_ptr, se[randint0(4)].code, TRUE);
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
 }
 
 
@@ -4463,21 +4490,69 @@ static bool get_player_sex(creature_type *cr_ptr)
  */
 static bool get_player_class(creature_type *cr_ptr)
 {
-	int i;
-	selection ce[MAX_CLASS];
+	int i, n;
+	selection ce[MAX_CLASS+3];
 
-	for (i = 0; i < MAX_CLASS; i++)
+	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
 		strcpy(ce[i].cap, class_info[i].title);
 		ce[i].code = i;
 		ce[i].key = '\0';
 		ce[i].d_color = TERM_L_DARK;
 		ce[i].l_color = TERM_WHITE;
+		n++;
 	}
-	cr_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
-	/* Success */
-	return 0;
+#if JP
+	strcpy(ce[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(ce[n].cap, "Random");
+#endif
+	ce[n].code = -1;
+	ce[n].key = '*';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(ce[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(ce[n].cap, "Back to start");
+#endif
+	ce[n].code = -2;
+	ce[n].key = 'S';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(ce[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(ce[n].cap, "Quit game");
+#endif
+	ce[n].code = -3;
+	ce[n].key = 'Q';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
+
+	if(i >= 0)
+	{
+		cr_ptr->cls_idx = i;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		cr_ptr->cls_idx = ce[randint0(n - 3)].code;
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+
 }
 
 /*
@@ -4486,7 +4561,7 @@ static bool get_player_class(creature_type *cr_ptr)
 static bool get_player_patron(creature_type *cr_ptr)
 {
 	int i, n;
-	selection pt[400];
+	selection pt[400+3];
 
 	for (i = 0, n = 0; i < max_m_idx; i++)
 	{
@@ -4501,10 +4576,57 @@ static bool get_player_patron(creature_type *cr_ptr)
 		}
 		if(n == 400) break;
 	}
-	cr_ptr->patron_idx = get_selection(pt, n, 5, 2, 18, 60, NULL);
 
-	/* Success */
-	return 0;
+#if JP
+	strcpy(pt[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(pt[n].cap, "Random");
+#endif
+	pt[n].code = -1;
+	pt[n].key = '*';
+	pt[n].d_color = TERM_UMBER;
+	pt[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(pt[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(pt[n].cap, "Back to start");
+#endif
+	pt[n].code = -2;
+	pt[n].key = 'S';
+	pt[n].d_color = TERM_UMBER;
+	pt[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(pt[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(pt[n].cap, "Quit game");
+#endif
+	pt[n].code = -3;
+	pt[n].key = 'Q';
+	pt[n].d_color = TERM_UMBER;
+	pt[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(pt, n, 5, 2, 18, 76, NULL);
+
+	if(i >= 0)
+	{
+		cr_ptr->patron_idx = i;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		cr_ptr->patron_idx = pt[randint0(n - 3)].code;
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+
 }
 
 
@@ -4514,7 +4636,7 @@ static bool get_player_patron(creature_type *cr_ptr)
 static bool get_player_chara(creature_type *cr_ptr)
 {
 	int i, n;
-	selection ce[MAX_CHARA];
+	selection ce[MAX_CHARA + 3];
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
@@ -4528,7 +4650,56 @@ static bool get_player_chara(creature_type *cr_ptr)
 			n++;
 		}
 	}
-	cr_ptr->chara_idx = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
+
+#if JP
+	strcpy(ce[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(ce[n].cap, "Random");
+#endif
+	ce[n].code = -1;
+	ce[n].key = '*';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(ce[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(ce[n].cap, "Back to start");
+#endif
+	ce[n].code = -2;
+	ce[n].key = 'S';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(ce[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(ce[n].cap, "Quit game");
+#endif
+	ce[n].code = -3;
+	ce[n].key = 'Q';
+	ce[n].d_color = TERM_UMBER;
+	ce[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(ce, n, 5, 2, 18, 20, NULL);
+
+	if(i >= 0)
+	{
+		cr_ptr->chara_idx = i;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		cr_ptr->chara_idx = ce[randint0(n - 3)].code;
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
 
 	/* Success */
 	return 0;
