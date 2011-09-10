@@ -3078,7 +3078,7 @@ static void display_player_flag_info(creature_type *cr_ptr)
 	col = 1;
 
 	display_player_equippy(row-2, col+8, 0, cr_ptr);
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+8);
 
 #ifdef JP
 display_flag_aux(row+0, col, "ëœé_  :", TR_RES_ACID, &f, 0, cr_ptr);
@@ -3116,11 +3116,11 @@ display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0, cr_ptr);
 	/*** Set 2 ***/
 
 	row = 12;
-	col = 26;
+	col = 41;
 
 	display_player_equippy(row-2, col+8, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+8);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+8);
 
 #ifdef JP
 display_flag_aux(row+0, col, "ëœçåâπ:", TR_RES_SOUND, &f, 0, cr_ptr);
@@ -3149,12 +3149,14 @@ display_flag_aux(row+9, col, "ó‚ãCÉI:", TR_SH_COLD, &f, 0, cr_ptr);
 
 	/*** Set 3 ***/
 
+/*
+
 	row = 12;
 	col = 51;
 
 	display_player_equippy(row-2, col+12, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
 
 #ifdef JP
 display_flag_aux(row+0, col, "â¡ë¨      :", TR_SPEED, &f, 0, cr_ptr);
@@ -3179,6 +3181,8 @@ display_flag_aux(row+9, col, "éÙÇ¢      :", 0, &f, DP_CURSE, cr_ptr);
 	display_flag_aux(row+8, col, "Perm Lite :", TR_LITE, &f, 0, cr_ptr);
 	display_flag_aux(row+9, col, "Cursed    :", 0, &f, DP_CURSE, cr_ptr);
 #endif
+
+*/
 
 }
 
@@ -3281,7 +3285,7 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	col = col + 12 + 7;
 
 	display_player_equippy(row-2, col+12, 0, cr_ptr);
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+12);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
 
 #ifdef JP
 	display_flag_aux(row+ 0, col, "ÉeÉåÉpÉVÅ[:", TR_TELEPATHY, &f, 0, cr_ptr);
@@ -3333,7 +3337,7 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 
 	display_player_equippy(row-2, col+14, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row-1, col+14);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+14);
 
 #ifdef JP
 	display_flag_aux(row+ 0, col, "í«â¡çUåÇ    :", TR_BLOWS, &f, 0, cr_ptr);
@@ -3379,74 +3383,6 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 
 
 /*
- * Special display, part 2a
- */
-static void display_player_misc_info(creature_type *cr_ptr)
-{
-	char	buf[80];
-	char	tmp[80];
-
-	/* Display basics */
-#ifdef JP
-put_str("ñºëO:", 1, 1);
-put_str("éÌë∞:", 2, 1);
-put_str("ê´ï :", 3, 1);
-put_str("êEã∆:", 4, 1);
-put_str("éÂê_:", 5, 1);
-#else
-	put_str("Name  :", 1, 1);
-	put_str("Race  :", 2, 1);
-	put_str("Sex   :", 3, 1);
-	put_str("Class :", 4, 1);
-	put_str("Patron:", 5, 1);
-#endif
-
-	tmp[0] = '\0';
-	if(cr_ptr->chara_idx != CHARA_NONE){
-		strcpy(tmp, chara_info[cr_ptr->chara_idx].title);
-
-#ifdef JP
-		if(chara_info[cr_ptr->chara_idx].no == 1)
-			strcat(tmp,"ÇÃ");
-#else
-			strcat(tmp," ");
-#endif
-	}
-
-	strcat(tmp,cr_ptr->name);
-
-	c_put_str(TERM_L_BLUE, tmp, 1, 7);
-	if(cr_ptr->irace_idx != RACE_NONE) c_put_str(TERM_L_BLUE, get_intelligent_race_name(cr_ptr), 2, 7);
-	else c_put_str(TERM_L_DARK, "--", 2, 7);
-	if(cr_ptr->sex != SEX_NONE) c_put_str(TERM_L_BLUE, sex_info[cr_ptr->sex].title, 3, 7);
-	else c_put_str(TERM_L_DARK, sex_info[cr_ptr->sex].title, 3, 7);
-	if(cr_ptr->cls_idx != CLASS_NONE) c_put_str(TERM_L_BLUE, class_info[cr_ptr->cls_idx].title, 4, 7);
-	else c_put_str(TERM_L_DARK, "--", 4, 7);
-	if(cr_ptr->patron_idx != PATRON_NONE) c_put_str(TERM_L_BLUE, r_name + r_info[cr_ptr->patron_idx].name, 5, 7);
-	else c_put_str(TERM_L_DARK, "--", 5, 7);
-
-	/* Display extras */
-#ifdef JP
-put_str("ÉåÉxÉã:", 6, 1);
-put_str("ÇgÇo  :", 7, 1);
-put_str("ÇlÇo  :", 8, 1);
-#else
-	put_str("Level :", 6, 1);
-	put_str("Hits  :", 7, 1);
-	put_str("Mana  :", 8, 1);
-#endif
-
-
-	(void)sprintf(buf, "%d/%d", (int)cr_ptr->lev, (int)cr_ptr->max_lev);
-	c_put_str(TERM_L_BLUE, buf, 6, 9);
-	(void)sprintf(buf, "%d/%d", (int)cr_ptr->chp, (int)cr_ptr->mhp);
-	c_put_str(TERM_L_BLUE, buf, 7, 9);
-	(void)sprintf(buf, "%d/%d", (int)cr_ptr->csp, (int)cr_ptr->msp);
-	c_put_str(TERM_L_BLUE, buf, 8, 9);
-}
-
-
-/*
  * Special display, part 2b
  *
  * How to print out the modifications and sustains.
@@ -3476,7 +3412,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 	stat_col = 3;
 
 	/* Row */
-	row = 3;
+	row = 2;
 
 	/* Print out the labels for the columns */
 #ifdef JP
@@ -3635,7 +3571,7 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 	col = stat_col + 41;
 
 	/* Header and Footer */
-	c_put_str(TERM_WHITE, "abcdefghijkl@", row, col);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row, col);
 #ifdef JP
 c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
 #else
@@ -4204,7 +4140,6 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
 		/* Dump the info */
-		//display_player_misc_info(cr_ptr);
 		display_player_stat_info(cr_ptr);
 		display_player_flag_info(cr_ptr);
 	}
