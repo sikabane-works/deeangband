@@ -5579,7 +5579,7 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 		if (c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
 		for (i = 0; i < num; i++)
 		{
-			if(se_ptr[i].key && se_ptr[i].key == c) se_ptr[i].code;
+			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
 		}
 
 		page = se / h + 1;

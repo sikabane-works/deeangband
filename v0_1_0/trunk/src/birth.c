@@ -3976,51 +3976,65 @@ void subrace_detail(int code)
 	int i, pena = 0;
 	char buf[100], temp[58*18];
 	cptr t;
-	put_str("                                                  " , base, 24);
-	put_str("                                                  " , base+1, 24);
-	put_str("                                                  " , base+2, 24);
+
+	if(code >= 0)
+	{
+		put_str("                                                  " , base, 24);
+		put_str("                                                  " , base+1, 24);
+		put_str("                                                  " , base+2, 24);
 #ifdef JP
-	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
-	put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
+		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+		put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(race_info[code].title));
+		put_str("òróÕ    ímî\    å´Ç≥    äÌóp    ëœãv    ñ£óÕ     åoå±   ", base+1, 24);
 #else
-	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
-	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
+		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
+		put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
+		put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
-	for(i = 0; i < 10; i++)
-		if(race_info[code].lev > race_unreached_level_penalty[i])
-			pena++;
+		for(i = 0; i < 10; i++)
+			if(race_info[code].lev > race_unreached_level_penalty[i])
+				pena++;
 
-	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
-		race_info[code].r_s_adj[0],
-		race_info[code].r_s_adj[1],
-		race_info[code].r_s_adj[2],
-		race_info[code].r_s_adj[3],
-		race_info[code].r_s_adj[4],
-		race_info[code].r_s_adj[5],
-		(race_info[code].r_s_exp - 100));
-	c_put_str(TERM_L_BLUE, buf, base+2, 24);
+		sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
+			race_info[code].r_s_adj[0],
+			race_info[code].r_s_adj[1],
+			race_info[code].r_s_adj[2],
+			race_info[code].r_s_adj[3],
+			race_info[code].r_s_adj[4],
+			race_info[code].r_s_adj[5],
+			(race_info[code].r_s_exp - 100));
+		c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
-	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
-	t = temp;
-	e = FALSE;
-	for (i = 0; i < 18; i++)
-	{
-		if(!e)
-			if(t[0] == 0) e = TRUE;
-
-		if(e)
+		roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
+		t = temp;
+		e = FALSE;
+		for (i = 0; i < 18; i++)
 		{
-			prt("                                                                       ", base+4 + i, 24);
-		}
-		else
-		{
-			prt(t, base+4 + i, 24);
-			t += strlen(t) + 1;
+			if(!e)
+				if(t[0] == 0) e = TRUE;
+
+			if(e)
+			{
+				prt("                                                                       ", base+4 + i, 24);
+			}
+			else
+			{
+				prt(t, base+4 + i, 24);
+				t += strlen(t) + 1;
+			}
 		}
 	}
+	else
+	{
+		put_str("                                                      " , base, 24);
+		put_str("                                                      " , base+1, 24);
+		put_str("                                                      " , base+2, 24);
+		for (i = 0; i < 18; i++)
+			prt("                                                                       ", base+4 + i, 24);
+	}
+
+
 }
 
 void class_detail(int code)
@@ -4030,9 +4044,9 @@ void class_detail(int code)
 	int i, pena = 0;
 	char buf[100], temp[58*18];
 	cptr t;
-	put_str("                                                  " , base, 24);
-	put_str("                                                  " , base+1, 24);
-	put_str("                                                  " , base+2, 24);
+	put_str("                                                      " , base, 24);
+	put_str("                                                      " , base+1, 24);
+	put_str("                                                      " , base+2, 24);
 #ifdef JP
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
 	put_str("ÇÃéÂéÌë∞èCê≥", base, 24+strlen(class_info[code].title));
@@ -4164,7 +4178,7 @@ void realm_detail(int code)
 static int get_intelligent_race(creature_type *cr_ptr)
 {
 	int     n, i;
-	selection se[MAX_RACES];
+	selection se[MAX_RACES + 3];
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
@@ -4235,29 +4249,79 @@ static int get_intelligent_race(creature_type *cr_ptr)
  */
 static bool get_player_subrace_eldar(creature_type *cr_ptr)
 {
-	int     i;
-	selection se[3];
+	int     i, n = 0;
+	selection se[3 + 3];
 
-	strcpy(se[0].cap, race_info[RACE_TELERI_LINEAGE].title);
-	se[0].code = RACE_TELERI_LINEAGE;
-	se[0].key = '\0';
-	se[0].d_color = TERM_L_DARK;
-	se[0].l_color = TERM_WHITE;
-	strcpy(se[1].cap, race_info[RACE_NOLDOR_LINEAGE].title);
-	se[1].code = RACE_NOLDOR_LINEAGE;
-	se[1].key = '\0';
-	se[1].d_color = TERM_L_DARK;
-	se[1].l_color = TERM_WHITE;
-	strcpy(se[2].cap, race_info[RACE_VANYAR_LINEAGE].title);
-	se[2].code = RACE_VANYAR_LINEAGE;
-	se[2].key = '\0';
-	se[2].d_color = TERM_L_DARK;
-	se[2].l_color = TERM_WHITE;
-	i = get_selection(se, 3, 5, 2, 18, 20, subrace_detail);
-	set_subrace(cr_ptr, i, TRUE);
+	strcpy(se[n].cap, race_info[RACE_TELERI_LINEAGE].title);
+	se[n].code = RACE_TELERI_LINEAGE;
+	se[n].key = '\0';
+	se[n].d_color = TERM_L_DARK;
+	se[n].l_color = TERM_WHITE;
+	n++;
 
-	/* Success */
-	return TRUE;
+	strcpy(se[n].cap, race_info[RACE_NOLDOR_LINEAGE].title);
+	se[n].code = RACE_NOLDOR_LINEAGE;
+	se[n].key = '\0';
+	se[n].d_color = TERM_L_DARK;
+	se[n].l_color = TERM_WHITE;
+	n++;
+
+	strcpy(se[n].cap, race_info[RACE_VANYAR_LINEAGE].title);
+	se[n].code = RACE_VANYAR_LINEAGE;
+	se[n].key = '\0';
+	se[n].d_color = TERM_L_DARK;
+	se[n].l_color = TERM_WHITE;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+
+	if(i >= 0)
+	{
+		set_subrace(cr_ptr, i, TRUE);
+		return 0;
+	}
+	if(i == -1)
+	{
+		set_subrace(cr_ptr, se[randint0(3)].code, TRUE);
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
 
 }
 
@@ -4267,43 +4331,103 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr)
  */
 static bool get_player_subrace_dragon(creature_type *cr_ptr)
 {
-	int     i;
-	selection se[12];
+	int     i, n = 0;
+	selection se[15];
 
-	strcpy(se[0].cap, race_info[RACE_RED_LINEAGE].title);
-	se[0].code = RACE_RED_LINEAGE;
-	strcpy(se[1].cap, race_info[RACE_WHITE_LINEAGE].title);
-	se[1].code = RACE_WHITE_LINEAGE;
-	strcpy(se[2].cap, race_info[RACE_BLUE_LINEAGE].title);
-	se[2].code = RACE_BLUE_LINEAGE;
-	strcpy(se[3].cap, race_info[RACE_BLACK_LINEAGE].title);
-	se[3].code = RACE_BLACK_LINEAGE;
-	strcpy(se[4].cap, race_info[RACE_GREEN_LINEAGE].title);
-	se[4].code = RACE_GREEN_LINEAGE;
-	strcpy(se[5].cap, race_info[RACE_CHROMATIC_LINEAGE].title);
-	se[5].code = RACE_CHROMATIC_LINEAGE;
-	strcpy(se[6].cap, race_info[RACE_BRONZE_LINEAGE].title);
-	se[6].code = RACE_BRONZE_LINEAGE;
-	strcpy(se[7].cap, race_info[RACE_GOLD_LINEAGE].title);
-	se[7].code = RACE_GOLD_LINEAGE;
-	strcpy(se[8].cap, race_info[RACE_CRYSTAL_LINEAGE].title);
-	se[8].code = RACE_CRYSTAL_LINEAGE;
-	strcpy(se[9].cap, race_info[RACE_LAW_LINEAGE].title);
-	se[9].code = RACE_LAW_LINEAGE;
-	strcpy(se[10].cap, race_info[RACE_BALANCE_LINEAGE].title);
-	se[10].code = RACE_BALANCE_LINEAGE;
-	strcpy(se[11].cap, race_info[RACE_CHAOS_LINEAGE].title);
-	se[11].code = RACE_CHAOS_LINEAGE;
+	strcpy(se[n].cap, race_info[RACE_RED_LINEAGE].title);
+	se[n].code = RACE_RED_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_WHITE_LINEAGE].title);
+	se[n].code = RACE_WHITE_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_BLUE_LINEAGE].title);
+	se[n].code = RACE_BLUE_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_BLACK_LINEAGE].title);
+	se[n].code = RACE_BLACK_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_GREEN_LINEAGE].title);
+	se[n].code = RACE_GREEN_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_CHROMATIC_LINEAGE].title);
+	se[n].code = RACE_CHROMATIC_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_BRONZE_LINEAGE].title);
+	se[n].code = RACE_BRONZE_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_GOLD_LINEAGE].title);
+	se[n].code = RACE_GOLD_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_CRYSTAL_LINEAGE].title);
+	se[n].code = RACE_CRYSTAL_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_LAW_LINEAGE].title);
+	se[n].code = RACE_LAW_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_BALANCE_LINEAGE].title);
+	se[n].code = RACE_BALANCE_LINEAGE;
+	n++;
+	strcpy(se[n].cap, race_info[RACE_CHAOS_LINEAGE].title);
+	n++;
+	se[n].code = RACE_CHAOS_LINEAGE;
 
 	for(i = 0; i < 12; i++)
 	{
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
+		se[i].key = '\0';
 	}
 
+#if JP
+	strcpy(se[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
 
-	i = get_selection(se, 12, 5, 2, 18, 20, subrace_detail);
-	set_subrace(cr_ptr, i, TRUE);
+#if JP
+	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+	i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+
+	if(i >= 0)
+	{
+		set_subrace(cr_ptr, i, TRUE);
+		return 0;
+	}
+	if(i == -1)
+	{
+		set_subrace(cr_ptr, se[randint0(12)].code, TRUE);
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+
 
 	/* Success */
 	return TRUE;
@@ -4326,10 +4450,11 @@ static bool get_player_sex(creature_type *cr_ptr)
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
 	}
+
 	cr_ptr->sex = get_selection(se, MAX_SEXES, 5, 2, 18, 20, NULL);
 
 	/* Success */
-	return TRUE;
+	return 0;
 }
 
 
@@ -4352,7 +4477,7 @@ static bool get_player_class(creature_type *cr_ptr)
 	cr_ptr->cls_idx = get_selection(ce, MAX_CLASS, 5, 2, 18, 20, class_detail);
 
 	/* Success */
-	return TRUE;
+	return 0;
 }
 
 /*
@@ -4379,7 +4504,7 @@ static bool get_player_patron(creature_type *cr_ptr)
 	cr_ptr->patron_idx = get_selection(pt, n, 5, 2, 18, 60, NULL);
 
 	/* Success */
-	return TRUE;
+	return 0;
 }
 
 
@@ -4406,7 +4531,7 @@ static bool get_player_chara(creature_type *cr_ptr)
 	cr_ptr->chara_idx = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
 
 	/* Success */
-	return TRUE;
+	return 0;
 }
 
 #ifdef ALLOW_AUTOROLLER
@@ -5364,30 +5489,50 @@ static bool player_birth_aux(creature_type *cr_ptr)
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	if(cr_ptr->irace_idx == RACE_ELDAR)
+	{
+		i = get_player_subrace_eldar(cr_ptr);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
+	}
 
-	if(cr_ptr->irace_idx == RACE_ELDAR) get_player_subrace_eldar(cr_ptr);
-	if(cr_ptr->irace_idx == RACE_DRACONIAN) get_player_subrace_dragon(cr_ptr);
-	if(cr_ptr->irace_idx == RACE_DRAGON) get_player_subrace_dragon(cr_ptr);
-
-	clear_from(0);
-	put_initial_status(cr_ptr);
-	get_player_sex(cr_ptr);
-
-	clear_from(0);
-	put_initial_status(cr_ptr);
-	get_player_class(cr_ptr);
-
-	clear_from(0);
-	put_initial_status(cr_ptr);
-	get_player_patron(cr_ptr);
+	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
+	{
+		i = get_player_subrace_dragon(cr_ptr);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
+	}
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	get_player_realms(cr_ptr);
+	i = get_player_sex(cr_ptr);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	get_player_chara(cr_ptr);
+	i = get_player_class(cr_ptr);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
+	clear_from(0);
+	put_initial_status(cr_ptr);
+	i = get_player_patron(cr_ptr);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
+	clear_from(0);
+	put_initial_status(cr_ptr);
+	i = get_player_realms(cr_ptr);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
+	clear_from(0);
+	put_initial_status(cr_ptr);
+	i = get_player_chara(cr_ptr);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
 
 	screen_save();
 
