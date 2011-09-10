@@ -1608,14 +1608,14 @@ static struct
 	{ 1, 16, 30, "“Š±"},
 	{16, 19, 12, "‰Á‘¬ "},
 	{ 1, 19, 14, "‚`‚b"},
-	{25,  6, 15, "ƒŒƒxƒ‹"},
+	{ 1,  6, 12, "ƒŒƒxƒ‹"},
 	{33, 10, 21, "ŒoŒ±’l"},
 	{33, 11, 21, "Å‘åŒoŒ±"},
 	{33, 12, 21, "ŽŸƒŒƒxƒ‹"},
 	{33, 13, 21, "ŠŽ‹à"},
 	{57, 10, 21, "“ú•t"},
-	{25,  7, 15, "‚g‚o"},
-	{41,  7, 15, "‚l‚o"},
+	{1,   7, 17, "‚g‚o"},
+	{19,  7, 13, "‚l‚o"},
 	{57, 11, 21, "ƒvƒŒƒCŽžŠÔ"},
 	{33, 15, -1, "‘ÅŒ‚UŒ‚  :"},
 	{33, 16, -1, "ŽËŒ‚UŒ‚  :"},
@@ -1631,28 +1631,28 @@ static struct
 	{ 1, 17, 25, "ŽËŒ‚‰ñ”"},
 	{ 1, 13, 25, "•½‹Ïƒ_ƒ[ƒW"},
 	{57, 20, -1, "ÔŠOüŽ‹—Í:"},
-	{ 1,  0, -1, "–¼‘O: "},
+	{ 1,  1, -1, "–¼‘O: "},
 	{ 1,  3, -1, ""},
-	{ 1,  1, -1, "Ží‘°: "},
-	{ 1,  2, -1, "E‹Æ: "},
+	{ 1,  2, -1, "Ží‘°: "},
+	{ 1,  3, -1, "E‹Æ: "},
 	{ 1,  5, -1, ""},
-	{ 1,  3, -1, "Žå_: "},
-	{25,  5, 13, "”N—î"},
-	{58,  1, 20, "g‘Ì"},
+	{ 1,  4, -1, "Žå_: "},
+	{43,  6, 13, "”N—î"},
+	{58,  1, 21, ""},
 	{58,  2, 15, ""},
-	{39,  5,  8, "g•ª"},
+	{34,  6,  8, "g•ª"},
 	{ 1,  8, 51, "‘®«"},
 	{29, 14, 21, "‹­‰»“x"},
 	{29, 16, 21, "ŽŸƒŒƒxƒ‹"},
-	{48,  5, 8,  "‘ÌŠi"},
-	{41,  6, 15, "_Ši "},
+	{34,  7, 23, "‘ÌŠi"},
+	{15,  6, 15, "_Ši "},
 	{57, 19, -1, "Œ@í”\—Í  :"},
-	{ 1,   8,  9, "‘P"},
-	{ 12,  8,  9, "ˆ«"},
-	{ 23,  8,  9, "’˜"},
-	{ 34,  8,  9, "¬“×"},
-	{ 47,  8,  9, "“V”‰"},
-	{ 1,  4,  -1, "Œ ”\: "},
+	{1,   8,  9, "‘P"},
+	{12,  8,  9, "ˆ«"},
+	{23,  8,  9, "’˜"},
+	{34,  8,  9, "¬“×"},
+	{47,  8,  9, "“V”‰"},
+	{1,  5,  -1, "Œ ”\: "},
 };
 #else
 = {
@@ -3884,24 +3884,6 @@ void display_player(int mode, creature_type *cr_ptr)
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
 		}
 
-		if(cr_ptr->ht > 1000000)
-			sprintf(tmp, "%2d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
-		else if(cr_ptr->ht > 10000)
-			sprintf(tmp, "%4dm ", cr_ptr->ht / 1000);
-		else if(cr_ptr->ht > 1000)
-			sprintf(tmp, "%2d.%1dm ", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
-		else
-			sprintf(tmp, "%4dcm", cr_ptr->ht);
-
-		if(cr_ptr->ht > 10000)
-			sprintf(tmp2, "%2d.%1dt ", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
-		else if(cr_ptr->ht > 1000)
-			sprintf(tmp2, "%1d.%2dt ", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
-		else
-			sprintf(tmp2, "%4dkg", cr_ptr->wt);
-
-		display_player_one_line(ENTRY_HEIGHT, format("%s/%s" ,(int)tmp, tmp2), TERM_L_BLUE);
-
 		if(cr_ptr->irace_idx != RACE_NONE)
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 		else
@@ -3912,19 +3894,19 @@ void display_player(int mode, creature_type *cr_ptr)
 
 		/* Dump hit point */
 		if (cr_ptr->chp >= cr_ptr->mhp) 
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_L_GREEN);
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_L_GREEN);
 		else if (cr_ptr->chp > (cr_ptr->mhp * hitpoint_warn) / 10) 
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_YELLOW);
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_HP, format("%5d/%5d", cr_ptr->chp , cr_ptr->mhp), TERM_RED);
+			display_player_one_line(ENTRY_HP, format("%6d/%6d", cr_ptr->chp , cr_ptr->mhp), TERM_RED);
 
 		/* Dump mana power */
 		if (cr_ptr->csp >= cr_ptr->msp) 
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_L_GREEN);
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_L_GREEN);
 		else if (cr_ptr->csp > (cr_ptr->msp * mana_warn) / 10) 
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_YELLOW);
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_YELLOW);
 		else
-			display_player_one_line(ENTRY_SP, format("%5d/%5d", cr_ptr->csp , cr_ptr->msp), TERM_RED);
+			display_player_one_line(ENTRY_SP, format("%4d/%4d", cr_ptr->csp , cr_ptr->msp), TERM_RED);
 
 
 		if(cr_ptr->dr < 0){
@@ -3990,7 +3972,23 @@ void display_player(int mode, creature_type *cr_ptr)
 		display_player_one_line(ENTRY_CHAOS,  format("%3d" ,cr_ptr->chaos_rank), TERM_VIOLET);
 		display_player_one_line(ENTRY_BALANCE,format("%3d" ,cr_ptr->balance_rank), TERM_L_GREEN);
 
-		display_player_one_line(ENTRY_SIZE, format("%d", cr_ptr->size), TERM_L_BLUE);
+		if(cr_ptr->ht > 1000000)
+			sprintf(tmp, "%2d.%1dkm", cr_ptr->ht / 100000, (cr_ptr->ht % 100000) / 10000);
+		else if(cr_ptr->ht > 10000)
+			sprintf(tmp, "%4dm", cr_ptr->ht / 1000);
+		else if(cr_ptr->ht > 1000)
+			sprintf(tmp, "%2d.%1dm", cr_ptr->ht / 100, (cr_ptr->ht % 100) / 10);
+		else
+			sprintf(tmp, "%4dcm", cr_ptr->ht);
+
+		if(cr_ptr->ht > 10000)
+			sprintf(tmp2, "%2d.%1dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 100);
+		else if(cr_ptr->ht > 1000)
+			sprintf(tmp2, "%1d.%2dt", cr_ptr->wt / 1000, (cr_ptr->wt % 1000) / 10);
+		else
+			sprintf(tmp2, "%4dkg", cr_ptr->wt);
+
+		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", cr_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
 
 
