@@ -3457,7 +3457,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 
 	/* Column */
-	stat_col = 3;
+	stat_col = 0;
 
 	/* Row */
 	row = 2;
@@ -4318,6 +4318,64 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 
 	/* Display flags (part 2) */
 	display_player(3, cr_ptr);
+
+	/* Dump part of the screen */
+	for (y = 1; y < 22; y++)
+	{
+		/* Dump each row */
+		for (x = 0; x < 79; x++)
+		{
+			/* Get the attr/char */
+			(void)(Term_what(x, y, &a, &c));
+
+			/* Dump it (Ignore equippy tile graphic) */
+			if (a < 128)
+				buf[x] = c;
+			else
+				buf[x] = ' ';
+		}
+
+		/* End the string */
+		buf[x] = '\0';
+
+		/* Kill trailing spaces */
+		while ((x > 0) && (buf[x-1] == ' ')) buf[--x] = '\0';
+
+		/* End the row */
+		fprintf(fff, "%s\n", buf);
+	}
+
+	/* Display flags (part 3) */
+	display_player(4, cr_ptr);
+
+	/* Dump part of the screen */
+	for (y = 1; y < 22; y++)
+	{
+		/* Dump each row */
+		for (x = 0; x < 79; x++)
+		{
+			/* Get the attr/char */
+			(void)(Term_what(x, y, &a, &c));
+
+			/* Dump it (Ignore equippy tile graphic) */
+			if (a < 128)
+				buf[x] = c;
+			else
+				buf[x] = ' ';
+		}
+
+		/* End the string */
+		buf[x] = '\0';
+
+		/* Kill trailing spaces */
+		while ((x > 0) && (buf[x-1] == ' ')) buf[--x] = '\0';
+
+		/* End the row */
+		fprintf(fff, "%s\n", buf);
+	}
+
+	/* Display flags (part 4) */
+	display_player(5, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
