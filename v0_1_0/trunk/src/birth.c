@@ -2110,7 +2110,7 @@ static void show_help(cptr helpfile)
 /*
  * Choose from one of the available magical realms
  */
-static int choose_realm(s32b choices)
+static int choose_realm(s32b choices, bool auto_m)
 {
 	int i;
 	selection re[MAX_REALM + 3];
@@ -2281,8 +2281,11 @@ static int choose_realm(s32b choices)
 	put_str ("Note: The realm of magic will determine which spells you can learn.", 23, 5);
 #endif
 */
+	if(!auto_m)
+		i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
+	else
+		return re[randint0(n-3)].code;
 
-	i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
 	if (i >= 0) return i;
 	else if (i == -1) return re[randint0(n-3)].code;
 	else return i;
@@ -2293,7 +2296,7 @@ static int choose_realm(s32b choices)
 /*
  * Choose the magical realms
  */
-static bool get_player_realms(creature_type *cr_ptr)
+static bool get_player_realms(creature_type *cr_ptr, bool auto_m)
 {
 	int i;
 
@@ -2302,7 +2305,7 @@ static bool get_player_realms(creature_type *cr_ptr)
 	/* Select the first realm */
 	cr_ptr->realm1 = REALM_NONE;
 	cr_ptr->realm2 = 255;
-	i = choose_realm(realm_choices1[cr_ptr->cls_idx]);
+	i = choose_realm(realm_choices1[cr_ptr->cls_idx], auto_m);
 
 	if(i == -2)
 		return -2;
@@ -2315,7 +2318,7 @@ static bool get_player_realms(creature_type *cr_ptr)
 		
 	/* Select the second realm */
 	cr_ptr->realm2 = REALM_NONE;
-	i = choose_realm(realm_choices2[cr_ptr->cls_idx]);
+	i = choose_realm(realm_choices2[cr_ptr->cls_idx], auto_m);
 	if(i == -2)
 		return -2;
 	else if(i == -3)
@@ -4211,7 +4214,7 @@ void realm_detail(int code)
 /*
  * Player race
  */
-static int get_intelligent_race(creature_type *cr_ptr)
+static int get_intelligent_race(creature_type *cr_ptr, bool auto_m)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
@@ -4262,7 +4265,14 @@ static int get_intelligent_race(creature_type *cr_ptr)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(se, n, 5, 2, 18, 20, race_detail);
+	if(!auto_m)
+		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
+	else
+	{
+		cr_ptr->irace_idx = se[randint0(n - 3)].code;
+		return 0;
+	}
+
 
 	if(i >= 0)
 	{
@@ -4283,7 +4293,7 @@ static int get_intelligent_race(creature_type *cr_ptr)
 /*
  * Player SubRace(Eldar)
  */
-static bool get_player_subrace_eldar(creature_type *cr_ptr)
+static bool get_player_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 {
 	int     i, n = 0;
 	selection se[3 + 3];
@@ -4342,7 +4352,13 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	if(!auto_m)
+		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	else
+	{
+		set_subrace(cr_ptr, se[randint0(3)].code, TRUE);
+		return 0;
+	}
 
 	if(i >= 0)
 	{
@@ -4365,7 +4381,7 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr)
 /*
  * Player SubRace(Dragon & Draconian)
  */
-static bool get_player_subrace_dragon(creature_type *cr_ptr)
+static bool get_player_subrace_dragon(creature_type *cr_ptr, bool auto_m)
 {
 	int     i, n = 0;
 	selection se[15];
@@ -4447,7 +4463,13 @@ static bool get_player_subrace_dragon(creature_type *cr_ptr)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	if(!auto_m)
+		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	else
+	{
+		set_subrace(cr_ptr, se[randint0(12)].code, TRUE);
+		return 0;
+	}
 
 	if(i >= 0)
 	{
@@ -4473,7 +4495,7 @@ static bool get_player_subrace_dragon(creature_type *cr_ptr)
 /*
  * Player sex
  */
-static bool get_player_sex(creature_type *cr_ptr)
+static bool get_player_sex(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
@@ -4521,7 +4543,13 @@ static bool get_player_sex(creature_type *cr_ptr)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(se, n, 5, 2, 18, 20, NULL);
+	if(!auto_m)
+		i = get_selection(se, n, 5, 2, 18, 20, NULL);
+	else
+	{
+		cr_ptr->sex = se[randint0(4)].code;
+		return 0;
+	}
 
 	if(i >= 0)
 	{
@@ -4543,7 +4571,7 @@ static bool get_player_sex(creature_type *cr_ptr)
 /*
  * Player class
  */
-static bool get_player_class(creature_type *cr_ptr)
+static bool get_player_class(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CLASS+3];
@@ -4591,7 +4619,14 @@ static bool get_player_class(creature_type *cr_ptr)
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
+	if(!auto_m)
+		i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
+	else
+	{
+		cr_ptr->cls_idx = ce[randint0(n - 3)].code;
+		return 0;
+	}
+
 
 	if(i >= 0)
 	{
@@ -4613,7 +4648,7 @@ static bool get_player_class(creature_type *cr_ptr)
 /*
  * Player patron
  */
-static bool get_player_patron(creature_type *cr_ptr)
+static bool get_player_patron(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n = 0;
 	selection pt[400+3];
@@ -4693,7 +4728,13 @@ static bool get_player_patron(creature_type *cr_ptr)
 	pt[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(pt, n, 5, 2, 18, 76, NULL);
+	if(!auto_m)
+		i = get_selection(pt, n, 5, 2, 18, 76, NULL);
+	else
+	{
+		cr_ptr->patron_idx = pt[randint0(n - 3)].code;
+		return 0;
+	}
 
 	if(i >= 0)
 	{
@@ -4716,7 +4757,7 @@ static bool get_player_patron(creature_type *cr_ptr)
 /*
  * Player Chara
  */
-static bool get_player_chara(creature_type *cr_ptr)
+static bool get_player_chara(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
@@ -4767,7 +4808,13 @@ static bool get_player_chara(creature_type *cr_ptr)
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-	i = get_selection(ce, n, 5, 2, 18, 20, NULL);
+	if(!auto_m)
+		i = get_selection(ce, n, 5, 2, 18, 20, NULL);
+	else
+	{
+		cr_ptr->chara_idx = ce[randint0(n - 3)].code;
+		return 0;
+	}
 
 	if(i >= 0)
 	{
@@ -5691,7 +5738,7 @@ static void edit_history(creature_type *cr_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool unique_birth_aux(creature_type *cr_ptr)
+static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 {
 	int i;
 
@@ -5699,6 +5746,7 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 
 	bool flag = FALSE;
 	bool prev = FALSE;
+	bool auto_m = FALSE;
 
 	char c;
 
@@ -5711,6 +5759,9 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 	char b2 = ']';
 
 	char buf[80];
+
+	if(flags & UB_AUTO) auto_m = TRUE;
+
 
 
 	/*** Intro ***/
@@ -5739,15 +5790,14 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 	clear_from(0);
 	put_initial_status(cr_ptr);
 
-	i = get_intelligent_race(cr_ptr);
+	i = get_intelligent_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
-
 
 	if(cr_ptr->irace_idx == RACE_ELDAR)
 	{
 		put_initial_status(cr_ptr);
-		i = get_player_subrace_eldar(cr_ptr);
+		i = get_player_subrace_eldar(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
@@ -5756,43 +5806,46 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
 	{
 		put_initial_status(cr_ptr);
-		i = get_player_subrace_dragon(cr_ptr);
+		i = get_player_subrace_dragon(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	i = get_player_sex(cr_ptr);
+	i = get_player_sex(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	i = get_player_class(cr_ptr);
+	i = get_player_class(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	i = get_player_patron(cr_ptr);
+	i = get_player_patron(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	i = get_player_realms(cr_ptr);
+	i = get_player_realms(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 	clear_from(0);
 	put_initial_status(cr_ptr);
-	i = get_player_chara(cr_ptr);
+	i = get_player_chara(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 
 	screen_save();
+
+	if(!auto_m)
+	{
 
 #ifdef JP
 	do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
@@ -5831,6 +5884,8 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 	/* Reset turn; before auto-roll and after choosing race */
 	init_turn(cr_ptr);
 
+	}
+
 	/*** Generate ***/
 
 	/* Roll */
@@ -5840,7 +5895,7 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 
 		col = 42;
 
-		if (autoroller || autochara)
+		if (!auto_m && (autoroller || autochara))
 		{
 			Term_clear();
 
@@ -5874,7 +5929,7 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 		}
 
 		/* Feedback */
-		if (autoroller)
+		if (!auto_m && autoroller)
 		{
 			/* Label */
 #ifdef JP
@@ -5921,7 +5976,7 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 		}
 
 		/* Auto-roll */
-		while (autoroller || autochara)
+		while (!auto_m && (autoroller || autochara))
 		{
 			bool accept = TRUE;
 
@@ -6020,7 +6075,7 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 			}
 		}
 
-		if (autoroller || autochara) sound(SOUND_LEVEL);
+		if (!auto_m && (autoroller || autochara)) sound(SOUND_LEVEL);
 
 		/* Flush input */
 		flush();
@@ -6396,7 +6451,7 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (unique_birth_aux(cr_ptr)) break;
+			if (unique_birth_aux(cr_ptr, flag)) break;
 
 			/* Wipe the player */
 			player_wipe(cr_ptr);
@@ -6411,9 +6466,9 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 	message_add("  ");
 
 #ifdef JP
-	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- 新規ゲーム開始 --------");
+	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ユニーク作成 --------");
 #else
-	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- Start New Game --------");
+	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- Create Unique --------");
 #endif
 	do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
 
