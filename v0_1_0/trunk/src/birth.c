@@ -2110,7 +2110,7 @@ static void show_help(cptr helpfile)
 /*
  * Choose from one of the available magical realms
  */
-static byte choose_realm(s32b choices)
+static int choose_realm(s32b choices)
 {
 	int i;
 	selection re[MAX_REALM + 3];
@@ -2235,6 +2235,9 @@ static byte choose_realm(s32b choices)
 		re[n].l_color = TERM_WHITE;
 		n++;
 	}
+	
+	if(n <= 0) return REALM_NONE;
+
 
 #if JP
 	strcpy(re[n].cap, "ƒ‰ƒ“ƒ_ƒ€");
@@ -2279,15 +2282,10 @@ static byte choose_realm(s32b choices)
 #endif
 */
 
-	if(n > 0)
-	{
-		i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
-		if (i >= 0) return i;
-		else if (i == -1) return re[randint0(n-3)].code;
-		else return i;
-	}
-	else
-		return REALM_NONE;
+	i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
+	if (i >= 0) return i;
+	else if (i == -1) return re[randint0(n-3)].code;
+	else return i;
 
 }
 
@@ -2297,27 +2295,33 @@ static byte choose_realm(s32b choices)
  */
 static bool get_player_realms(creature_type *cr_ptr)
 {
+	int i;
+
 	put_initial_status(cr_ptr);
 
 	/* Select the first realm */
 	cr_ptr->realm1 = REALM_NONE;
 	cr_ptr->realm2 = 255;
-	cr_ptr->realm1 = choose_realm(realm_choices1[cr_ptr->cls_idx]);
+	i = choose_realm(realm_choices1[cr_ptr->cls_idx]);
 
-	if(cr_ptr->realm1 == -2)
+	if(i == -2)
 		return -2;
-	if(cr_ptr->realm1 == -3)
+	else if(i == -3)
 		return -3;
+	else
+		cr_ptr->realm1 = i;
 
 	put_initial_status(cr_ptr);
 		
 	/* Select the second realm */
 	cr_ptr->realm2 = REALM_NONE;
-	cr_ptr->realm2 = choose_realm(realm_choices2[cr_ptr->cls_idx]);
-	if(cr_ptr->realm1 == -2)
+	i = choose_realm(realm_choices2[cr_ptr->cls_idx]);
+	if(i == -2)
 		return -2;
-	if(cr_ptr->realm1 == -3)
+	else if(i == -3)
 		return -3;
+	else
+		cr_ptr->realm2 = i;
 
 	return (TRUE);
 }
@@ -4526,7 +4530,7 @@ static bool get_player_sex(creature_type *cr_ptr)
 	}
 	else if(i == -1)
 	{
-		set_subrace(cr_ptr, se[randint0(4)].code, TRUE);
+		cr_ptr->sex = se[randint0(4)].code;
 		return 0;
 	}
 	else
