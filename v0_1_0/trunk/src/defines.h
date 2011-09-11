@@ -4960,9 +4960,11 @@ extern int PlayerUID;
 #define NAME_ORC    6
 
 /*
- * Uniqu birth flag
+ * Unique birth flag
  */
-#define UB_AUTO 0x00
+#define UB_PLAYER    0x01
+#define UB_STIGMATIC 0x02
+#define UB_AUTO      0x04
 
 
 

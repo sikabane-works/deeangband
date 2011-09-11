@@ -6866,7 +6866,7 @@ quit("セーブファイルが壊れています");
 		seed_town = randint0(0x10000000);
 
 		/* Roll up a new character */
-		unique_birth(cr_ptr, 0, FALSE);
+		unique_birth(cr_ptr, 0, UB_PLAYER | UB_STIGMATIC);
 
 		counts_write(2,0);
 		cr_ptr->count = 0;

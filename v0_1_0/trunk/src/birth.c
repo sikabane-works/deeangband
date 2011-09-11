@@ -5719,7 +5719,6 @@ static bool unique_birth_aux(creature_type *cr_ptr)
 	Term_clear();
 
 	/* Title everything */
-	cr_ptr->stigmatic = TRUE;
 
 	cr_ptr->irace_idx = RACE_NONE;
 	cr_ptr->sex = SEX_UNDEFINED;
@@ -6384,6 +6383,9 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 
 	/* Wipe the player */
 	player_wipe(cr_ptr);
+
+	if(flag & UB_PLAYER) cr_ptr->player = TRUE;
+	if(flag & UB_STIGMATIC) cr_ptr->stigmatic = TRUE;
 
 	/* Create a new character */
 
