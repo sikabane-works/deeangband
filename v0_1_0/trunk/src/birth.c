@@ -4132,6 +4132,7 @@ void realm_detail(int code)
 
 	for (i = 0; i < 22; i++)
 		prt("                                                                       ", base + i, 24);
+
 	if(code < 0) return;
 
 	roff_to_buf(realm_jouhou[technic2magic(code)-1], 56, temp, sizeof(temp));
@@ -4141,9 +4142,11 @@ void realm_detail(int code)
 	{
 		if(!e)
 			if(t[0] == 0) e = TRUE;
-
-		prt(t, base+4 + i, 24);
-		t += strlen(t) + 1;
+		else
+		{
+			prt(t, base + i, 24);
+			t += strlen(t) + 1;
+		}
 	}
 }
 
