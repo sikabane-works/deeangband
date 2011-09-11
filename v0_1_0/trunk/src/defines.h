@@ -4959,6 +4959,13 @@ extern int PlayerUID;
 #define NAME_HUMAN  5
 #define NAME_ORC    6
 
+/*
+ * Uniqu birth flag
+ */
+#define UB_AUTO 0x00
+
+
+
 #ifdef JP
 #define JVERB_AND 1
 #define JVERB_TO  2

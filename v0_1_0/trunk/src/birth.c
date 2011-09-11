@@ -6369,7 +6369,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void unique_birth(creature_type *cr_ptr)
+void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 {
 	int i, j;
 	char buf[80];
