@@ -2975,8 +2975,7 @@ typedef struct {
 /*
  * Helper function, see below
  */
-static void display_flag_aux(int row, int col, cptr header,
-				    int flag1, all_player_flags *f, u16b mode, creature_type *cr_ptr)
+static void display_flag_aux(int row, int col, cptr header, int flag1, all_player_flags *f, u16b mode, creature_type *cr_ptr)
 {
 	int     i;
 	bool    vuln = FALSE;
@@ -3051,6 +3050,12 @@ static void display_flag_aux(int row, int col, cptr header,
 
 	/* Vulnerability */
 	if (vuln) c_put_str(TERM_RED, "v", row, col + 1);
+
+	if(flag1 >= TR_RES_ACID && flag1 <= TR_RES_DISEN)
+	{
+		c_put_str(TERM_YELLOW, "x1.00", row, col + 2);
+	}
+
 }
 
 
@@ -3078,9 +3083,9 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 	col = 1;
 
 	display_player_equippy(row-2, col+8, 0, cr_ptr);
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+8);
 
 #ifdef JP
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ ‘¹ŠQ", row-1, col+8);
 display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_RES_ACID, &f, 0, cr_ptr);
 display_flag_aux(row+0, col, "‘ÏŽ_  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
 display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_RES_ELEC, &f, 0, cr_ptr);
@@ -3096,6 +3101,7 @@ display_flag_aux(row+7, col, "‘Ï”j•Ð:", TR_RES_SHARDS, &f, 0, cr_ptr);
 display_flag_aux(row+8, col, "‘Ï–Ó–Ú:", TR_RES_BLIND, &f, 0, cr_ptr);
 display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 #else
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ Dam", row-1, col+8);
 	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, cr_ptr);
 	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, cr_ptr);
 	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, cr_ptr);
@@ -3120,9 +3126,9 @@ display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 
 	display_player_equippy(row-2, col+8, 0, cr_ptr);
 
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+8);
 
 #ifdef JP
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ ‘¹ŠQ", row-1, col+8);
 display_flag_aux(row+0, col, "‘ÏŒ‰¹:", TR_RES_SOUND, &f, 0, cr_ptr);
 display_flag_aux(row+1, col, "‘Ï’n–:", TR_RES_NETHER, &f, 0, cr_ptr);
 display_flag_aux(row+2, col, "‘Ïˆö¬:", TR_RES_NEXUS, &f, 0, cr_ptr);
@@ -3130,6 +3136,7 @@ display_flag_aux(row+3, col, "‘ÏƒJƒI:", TR_RES_CHAOS, &f, 0, cr_ptr);
 display_flag_aux(row+4, col, "‘Ï—ò‰»:", TR_RES_DISEN, &f, 0, cr_ptr);
 display_flag_aux(row+5, col, "‘Ï‹°•|:", TR_RES_FEAR, &f, 0, cr_ptr);
 #else
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@ Dam", row-1, col+8);
 	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, cr_ptr);
 	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, cr_ptr);
 	display_flag_aux(row+2, col, "Nexus :", TR_RES_NEXUS, &f, 0, cr_ptr);
