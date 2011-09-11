@@ -2995,7 +2995,7 @@ static void display_flag_aux(int row, int col, cptr header,
 	col += strlen(header) + 1;
 
 	/* Weapon flags need only two column */
-	if (mode & DP_WP) max_i = INVEN_2NDARM + 1;
+	if (mode & DP_WP) max_i = INVEN_6THARM + 1;
 	else max_i = INVEN_TOTAL;
 
 	/* Check equipment */
@@ -3372,16 +3372,6 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
 	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
 	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+10, col, "ónâ      :", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+11, col, "ìdåÇ      :", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+12, col, "èƒä¸      :", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+13, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+14, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+15, col, "êÿÇÍñ°    :", TR_VORPAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+16, col, "ínêk      :", TR_IMPACT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+17, col, "ãzåå      :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+18, col, "ÉJÉIÉXå¯â :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+19, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
 #else
 	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
 	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), cr_ptr);
@@ -3403,18 +3393,39 @@ static void display_player_flag_info4(creature_type *cr_ptr)
 	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), cr_ptr);
 	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP, cr_ptr);
 	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), cr_ptr);
-	display_flag_aux(row+10, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+11, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+12, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+13, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+14, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+15, col, "Sharpness :", TR_VORPAL, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+16, col, "Quake     :", TR_IMPACT, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+17, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+18, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
-	display_flag_aux(row+19, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
 #endif
 
+
+	/*** Set 2 ***/
+
+	row = 3;
+	col = 25;
+
+	c_put_str(TERM_WHITE, "abcdef@", row-1, col+12);
+
+#ifdef JP
+	display_flag_aux(row, col, "ónâ      :", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+1, col, "ìdåÇ      :", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+2, col, "èƒä¸      :", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+3, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+4, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+5, col, "êÿÇÍñ°    :", TR_VORPAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+6, col, "ínêk      :", TR_IMPACT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+7, col, "ãzåå      :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+8, col, "ÉJÉIÉXå¯â :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+9, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
+#else
+	display_flag_aux(row, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+1, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+2, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+3, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+4, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+5, col, "Sharpness :", TR_VORPAL, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+6, col, "Quake     :", TR_IMPACT, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+7, col, "Vampiric  :", TR_VAMPIRIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+8, col, "Chaotic   :", TR_CHAOTIC, &f, DP_WP, cr_ptr);
+	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
+#endif
 
 }
 
