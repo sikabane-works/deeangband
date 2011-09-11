@@ -5685,13 +5685,13 @@ static void edit_history(creature_type *cr_ptr)
 
 
 /*
- * Helper function for 'player_birth()'
+ * Helper function for 'unique_birth()'
  *
  * The delay may be reduced, but is recommended to keep players
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool player_birth_aux(creature_type *cr_ptr)
+static bool unique_birth_aux(creature_type *cr_ptr)
 {
 	int i;
 
@@ -6369,7 +6369,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void player_birth(creature_type *cr_ptr)
+void unique_birth(creature_type *cr_ptr)
 {
 	int i, j;
 	char buf[80];
@@ -6394,7 +6394,7 @@ void player_birth(creature_type *cr_ptr)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (player_birth_aux(cr_ptr)) break;
+			if (unique_birth_aux(cr_ptr)) break;
 
 			/* Wipe the player */
 			player_wipe(cr_ptr);
