@@ -1293,17 +1293,16 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_byte(&cr_ptr->fy);
 	rd_byte(&cr_ptr->fx);
 
-	/* Read the player_hp array */
-	rd_u16b(&tmp16u);
 
-	/* Incompatible save files */
+	/* Read creature's HP array */
+
+	rd_u16b(&tmp16u);
 	if (tmp16u > PY_MAX_LEVEL)
-	{
-	#ifdef JP
-	note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
-		#else
 		note(format("Too many (%u) hitpoint entries!", tmp16u));
-	#endif
+
+	for (i = 0; i < tmp16u; i++)
+	{
+		rd_s16b(&cr_ptr->player_hp[i]);
 	}
 
 
@@ -1342,14 +1341,6 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->csp_frac);
 
 	rd_s16b(&cr_ptr->max_plv);
-
-
-	/* Read the player_hp array */
-	for (i = 0; i < tmp16u; i++)
-	{
-		rd_s16b(&cr_ptr->player_hp[i]);
-	}
-
 
 	/* Repair maximum player level XXX XXX XXX */
 	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;

@@ -635,7 +635,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_string(cr_ptr->died_from);
 	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
-		for (i = 0; i < 4; i++)
+	for (i = 0; i < 4; i++)
 	{
 		wr_string(cr_ptr->history[i]);
 	}
@@ -644,6 +644,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->species_idx);
 	wr_s16b(cr_ptr->irace_idx);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
+
 	wr_s16b(cr_ptr->monster_ego_idx);
 	wr_byte(cr_ptr->cls_idx);
 	wr_byte(cr_ptr->chara_idx);
