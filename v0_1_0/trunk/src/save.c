@@ -675,6 +675,9 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->exp_frac);
 	wr_s16b(cr_ptr->lev);
 
+	wr_byte(cr_ptr->fy);
+	wr_byte(cr_ptr->fx);
+
 	tmp16u = PY_MAX_LEVEL;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)

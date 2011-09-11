@@ -1290,6 +1290,9 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->exp_frac);
 	rd_s16b(&cr_ptr->lev);
 
+	rd_byte(&cr_ptr->fy);
+	rd_byte(&cr_ptr->fx);
+
 	/* Read the player_hp array */
 	rd_u16b(&tmp16u);
 
