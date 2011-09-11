@@ -2358,6 +2358,8 @@ static void load_prev_data(creature_type *cr_ptr, bool swap)
 	cr_ptr->mhp = cr_ptr->player_hp[0];
 	cr_ptr->chp = cr_ptr->player_hp[0];
 
+	cr_ptr->csp = cr_ptr->msp;
+
 	cr_ptr->patron_idx = previous_char.patron_idx;
 
 	/* Load the history */

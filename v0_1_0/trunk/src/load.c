@@ -1237,6 +1237,7 @@ static void rd_creature(creature_type *cr_ptr)
 	char buf[1024];
 
 	byte tmp8u;
+	u16b tmp16u;
 
 	rd_byte(&cr_ptr->player);
 	rd_byte(&cr_ptr->stigmatic);
@@ -1289,6 +1290,20 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->exp_frac);
 	rd_s16b(&cr_ptr->lev);
 
+	/* Read the player_hp array */
+	rd_u16b(&tmp16u);
+
+	/* Incompatible save files */
+	if (tmp16u > PY_MAX_LEVEL)
+	{
+	#ifdef JP
+	note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
+		#else
+		note(format("Too many (%u) hitpoint entries!", tmp16u));
+	#endif
+	}
+
+
 	for (i = 0; i < 8; i++) rd_s32b(&cr_ptr->authority[i]);
 	for (i = 0; i < 64; i++) rd_s16b(&cr_ptr->spell_exp[i]);
 	for (i = 0; i < 5; i++) for (j = 0; j < 64; j++) rd_s16b(&cr_ptr->weapon_exp[i][j]);
@@ -1324,6 +1339,14 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->csp_frac);
 
 	rd_s16b(&cr_ptr->max_plv);
+
+
+	/* Read the player_hp array */
+	for (i = 0; i < tmp16u; i++)
+	{
+		rd_s16b(&cr_ptr->player_hp[i]);
+	}
+
 
 	/* Repair maximum player level XXX XXX XXX */
 	if (cr_ptr->max_plv < cr_ptr->lev) cr_ptr->max_plv = cr_ptr->lev;

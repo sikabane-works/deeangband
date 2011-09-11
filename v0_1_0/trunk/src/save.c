@@ -626,6 +626,7 @@ static void save_quick_start(void)
 static void wr_creature(creature_type *cr_ptr)
 {
 	int i,j;
+	u16b tmp16u;
 
 	wr_byte(cr_ptr->player);
 	wr_byte(cr_ptr->stigmatic);
@@ -673,6 +674,13 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->exp);
 	wr_u32b(cr_ptr->exp_frac);
 	wr_s16b(cr_ptr->lev);
+
+	tmp16u = PY_MAX_LEVEL;
+	wr_u16b(tmp16u);
+	for (i = 0; i < tmp16u; i++)
+	{
+		wr_s16b(cr_ptr->player_hp[i]);
+	}
 
 	for (i = 0; i < 8; i++) wr_s32b(cr_ptr->authority[i]);
 	for (i = 0; i < 64; i++) wr_s16b(cr_ptr->spell_exp[i]);
