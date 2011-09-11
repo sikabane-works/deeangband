@@ -4615,21 +4615,49 @@ static bool get_player_class(creature_type *cr_ptr)
  */
 static bool get_player_patron(creature_type *cr_ptr)
 {
-	int i, n;
+	int i, n = 0;
 	selection pt[400+3];
 
-	for (i = 0, n = 0; i < max_m_idx; i++)
+	switch(cr_ptr->irace_idx)
 	{
-		if((r_info[i].flags1 & RF1_UNIQUE) && r_info[i].dr >= 5)
+
+	case RACE_AMBERITE: 
+
+		strcpy(pt[n].cap, r_name + r_info[MON_UNICORN_ORD].name);
+		pt[n].code = MON_UNICORN_ORD;
+		pt[n].key = '\0';
+		pt[n].d_color = TERM_L_DARK;
+		pt[n].l_color = TERM_WHITE;
+		n++; 
+		break;
+
+	case RACE_CHAOSIAN:
+
+		strcpy(pt[n].cap, r_name + r_info[MON_SERPENT].name);
+		pt[n].code = MON_SERPENT;
+		pt[n].key = '\0';
+		pt[n].d_color = TERM_L_DARK;
+		pt[n].l_color = TERM_WHITE;
+		n++; 
+		break;
+
+
+	default:
+		for (i = 0; i < max_m_idx; i++)
 		{
+			if(!(r_info[i].flags1 & RF1_UNIQUE)) continue;		
+			if(r_info[i].dr < 5) continue;
+	
 			strcpy(pt[n].cap, r_name + r_info[i].name);
 			pt[n].code = i;
 			pt[n].key = '\0';
 			pt[n].d_color = TERM_L_DARK;
 			pt[n].l_color = TERM_WHITE;
 			n++; 
+		
+			if(n == 400) break;
 		}
-		if(n == 400) break;
+		break;
 	}
 
 #if JP
