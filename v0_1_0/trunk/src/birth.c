@@ -6100,7 +6100,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		while (TRUE)
 		{
 			/* Calculate the bonuses and hitpoints */
-			cr_ptr->update |= (PU_BONUS | PU_HP);
+			cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
 
 			/* Update stuff */
 			update_stuff(cr_ptr, TRUE);
@@ -6110,6 +6110,8 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 
 			/* Fully rested */
 			cr_ptr->csp = cr_ptr->msp;
+
+			if(auto_m) break;
 
 			/* Display the player */
 			display_player(mode, cr_ptr);
@@ -6211,7 +6213,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		}
 
 		/* Are we done? */
-		if (c == '\r' || c == '\n' || c == ESCAPE) break;
+		if (auto_m || c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
 		save_prev_data(cr_ptr, &previous_char);
@@ -6221,21 +6223,26 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		prev = TRUE;
 	}
 
+	if(!auto_m)
+	{
 	/* Clear prompt */
-	clear_from(23);
+		clear_from(23);
 
 	/* Get a name, recolor it, prepare savefile */
-	get_name(cr_ptr);
+		get_name(cr_ptr);
 
 	/* Process the player name */
-	process_player_name(creating_savefile);
+		process_player_name(creating_savefile);
 
 	/*** Edit character background ***/
-	edit_history(cr_ptr);
+		edit_history(cr_ptr);
 
 	/*** Finish up ***/
+	}
 
 	get_max_stats(cr_ptr);
+
+	if(auto_m) return (TRUE);
 
 
 	/* Prompt for it */
@@ -6244,7 +6251,6 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 #else
 	prt("['Q'uit, 'S'tart over, or Enter to continue]", 23, 10);
 #endif
-
 
 	/* Get a key */
 	c = inkey();
@@ -6255,9 +6261,10 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	/* Start over */
 	if (c == 'S') return (FALSE);
 
-
 	/* Initialize random quests */
 	init_dungeon_quests();
+
+	/* TODO */
 
 	/* Knowledge Main Dungeon and Towns */
 	/* Telmola */
