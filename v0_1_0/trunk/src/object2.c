@@ -1320,6 +1320,26 @@ s32b object_value_real(object_type *o_ptr)
 	}
 
 
+	switch(o_ptr->tval)
+	{
+	case TV_BOOTS:
+	case TV_GLOVES:
+	case TV_HELM:
+	case TV_CROWN:
+	case TV_SHIELD:
+	case TV_CLOAK:
+	case TV_SOFT_ARMOR:
+	case TV_HARD_ARMOR:
+	case TV_DRAG_ARMOR:
+		if(o_ptr->fitting_size != ITEM_FREE_SIZE)
+		{
+			value = value * o_ptr->fitting_size / 10 * o_ptr->fitting_size / 10 ;
+		}
+		break;
+
+	}
+
+
 	/* Analyze the item */
 	switch (o_ptr->tval)
 	{

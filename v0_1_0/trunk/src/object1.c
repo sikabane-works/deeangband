@@ -3969,7 +3969,7 @@ prt("[‰½‚©ƒL[‚ð‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
 
 
 /*
- * Convert an cr_ptr->inventory index into a one character label
+ * Convert an inventory index into a one character label
  * Note that the label does NOT distinguish inven/equip.
  */
 char index_to_label(creature_type *cr_ptr, int i)
