@@ -1442,6 +1442,8 @@ struct creature_type
 	bool mighty_throw;
 	bool see_nocto;		/* Noctovision */
 
+	s32b regist_rate[RR_MAX]; 
+
 	s16b to_dd[MAX_HANDS]; /* Extra dice/sides */
 	s16b to_ds[MAX_HANDS];
 	s16b to_ar[MAX_HANDS]; /* Active rate*/

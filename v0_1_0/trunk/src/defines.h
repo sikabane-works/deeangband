@@ -3585,6 +3585,22 @@
 #define TR_FLAG_MAX            120
 #define TR_FLAG_SIZE           4
 
+#define RR_RES_ACID            0
+#define RR_RES_ELEC            1
+#define RR_RES_FIRE            2
+#define RR_RES_COLD            3
+#define RR_RES_POIS            4
+#define RR_RES_LITE            5
+#define RR_RES_DARK            6
+#define RR_RES_BLIND           7
+#define RR_RES_CONF            8
+#define RR_RES_SOUND           9
+#define RR_RES_SHARDS          10
+#define RR_RES_NETHER          11
+#define RR_RES_NEXUS           12
+#define RR_RES_CHAOS           13
+#define RR_RES_DISEN           14
+#define RR_MAX                 15
 
 
 #define TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
