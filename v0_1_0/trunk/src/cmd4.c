@@ -8240,13 +8240,15 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					for(i = 0; i < max_unique; i++)
 						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
+/*TODO
 							for(j = INVEN_1STARM; j <= INVEN_FEET; j++)
 							{
 								identify_item(p_ptr, &u_info[i].inventory[j]);
 								u_info[i].inventory[j].ident |= (IDENT_MENTAL);
 							}
-							u_info[i].update = PU_BONUS | PU_HP | PU_MANA;
-							update_stuff(&u_info[i], FALSE);
+							*/
+							//u_info[i].update = PU_BONUS | PU_HP | PU_MANA;
+							//update_stuff(&u_info[i], FALSE);
 
 							display_creature_dump(&u_info[i]);
 							redraw = TRUE;

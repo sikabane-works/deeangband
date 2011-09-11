@@ -1476,8 +1476,6 @@ static void rd_creature(creature_type *cr_ptr)
 
 	/* Update */
 	calc_bonuses(cr_ptr, FALSE);
-	cr_ptr->update = PU_BONUS | PU_HP | PU_MANA;
-	update_stuff(cr_ptr, FALSE);
 }
 
 /*
