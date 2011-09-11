@@ -642,9 +642,9 @@ static void wr_creature(creature_type *cr_ptr)
 
 	/* Race/Class/Gender/Spells */
 	wr_s16b(cr_ptr->species_idx);
+	wr_s16b(cr_ptr->ap_species_idx);
 	wr_s16b(cr_ptr->irace_idx);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
-
 	wr_s16b(cr_ptr->monster_ego_idx);
 	wr_byte(cr_ptr->cls_idx);
 	wr_byte(cr_ptr->chara_idx);
@@ -711,6 +711,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->oldpy);
 
 	wr_s32b(cr_ptr->mhp);
+	wr_s32b(cr_ptr->mmhp);
 	wr_s32b(cr_ptr->chp);
 	wr_u32b(cr_ptr->chp_frac);
 

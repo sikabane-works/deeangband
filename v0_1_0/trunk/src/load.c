@@ -1255,6 +1255,7 @@ static void rd_creature(creature_type *cr_ptr)
 
 	/* Class/Race/CHARA/Gender/Spells */
 	rd_s16b(&cr_ptr->species_idx);
+	rd_s16b(&cr_ptr->ap_species_idx);
 	rd_s16b(&cr_ptr->irace_idx);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
 	rd_s16b(&cr_ptr->monster_ego_idx);
@@ -1333,6 +1334,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->oldpy);
 
 	rd_s32b(&cr_ptr->mhp);
+	rd_s32b(&cr_ptr->mmhp);
 	rd_s32b(&cr_ptr->chp);
 	rd_u32b(&cr_ptr->chp_frac);
 
