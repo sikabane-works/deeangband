@@ -2112,7 +2112,8 @@ static void show_help(cptr helpfile)
  */
 static byte choose_realm(s32b choices)
 {
-	selection re[MAX_REALM];
+	int i;
+	selection re[MAX_REALM + 3];
 	int picks[VALID_REALM] = {0};
 	int n = 0;
 
@@ -2235,6 +2236,40 @@ static byte choose_realm(s32b choices)
 		n++;
 	}
 
+#if JP
+	strcpy(re[n].cap, "ƒ‰ƒ“ƒ_ƒ€");
+#else
+	strcpy(re[n].cap, "Random");
+#endif
+	re[n].code = -1;
+	re[n].key = '*';
+	re[n].d_color = TERM_UMBER;
+	re[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(re[n].cap, "Å‰‚É–ß‚é");
+#else
+	strcpy(re[n].cap, "Back to start");
+#endif
+	re[n].code = -2;
+	re[n].key = 'S';
+	re[n].d_color = TERM_UMBER;
+	re[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(re[n].cap, "I—¹‚·‚é");
+#else
+	strcpy(re[n].cap, "Quit game");
+#endif
+	re[n].code = -3;
+	re[n].key = 'Q';
+	re[n].d_color = TERM_UMBER;
+	re[n].l_color = TERM_L_UMBER;
+	n++;
+
+
 	/* Extra info */
 /*
 #ifdef JP
@@ -2245,9 +2280,15 @@ static byte choose_realm(s32b choices)
 */
 
 	if(n > 0)
-		return get_selection(re, n, 5, 2, 18, 20, realm_detail);
+	{
+		i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
+		if (i >= 0) return i;
+		else if (i == -1) return re[randint0(n-3)].code;
+		else return i;
+	}
 	else
 		return REALM_NONE;
+
 }
 
 
@@ -2256,16 +2297,27 @@ static byte choose_realm(s32b choices)
  */
 static bool get_player_realms(creature_type *cr_ptr)
 {
+	put_initial_status(cr_ptr);
 
 	/* Select the first realm */
 	cr_ptr->realm1 = REALM_NONE;
 	cr_ptr->realm2 = 255;
-
 	cr_ptr->realm1 = choose_realm(realm_choices1[cr_ptr->cls_idx]);
 
+	if(cr_ptr->realm1 == -2)
+		return -2;
+	if(cr_ptr->realm1 == -3)
+		return -3;
+
+	put_initial_status(cr_ptr);
+		
 	/* Select the second realm */
 	cr_ptr->realm2 = REALM_NONE;
 	cr_ptr->realm2 = choose_realm(realm_choices2[cr_ptr->cls_idx]);
+	if(cr_ptr->realm1 == -2)
+		return -2;
+	if(cr_ptr->realm1 == -3)
+		return -3;
 
 	return (TRUE);
 }
