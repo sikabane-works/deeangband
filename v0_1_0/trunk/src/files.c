@@ -3057,7 +3057,7 @@ static void display_flag_aux(int row, int col, cptr header,
 /*
  * Special display, part 1
  */
-static void display_player_flag_info(creature_type *cr_ptr)
+static void display_player_flag_info1(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3129,10 +3129,6 @@ display_flag_aux(row+2, col, "耐因混:", TR_RES_NEXUS, &f, 0, cr_ptr);
 display_flag_aux(row+3, col, "耐カオ:", TR_RES_CHAOS, &f, 0, cr_ptr);
 display_flag_aux(row+4, col, "耐劣化:", TR_RES_DISEN, &f, 0, cr_ptr);
 display_flag_aux(row+5, col, "耐恐怖:", TR_RES_FEAR, &f, 0, cr_ptr);
-display_flag_aux(row+6, col, "反射  :", TR_REFLECT, &f, 0, cr_ptr);
-display_flag_aux(row+7, col, "火炎オ:", TR_SH_FIRE, &f, 0, cr_ptr);
-display_flag_aux(row+8, col, "電気オ:", TR_SH_ELEC, &f, 0, cr_ptr);
-display_flag_aux(row+9, col, "冷気オ:", TR_SH_COLD, &f, 0, cr_ptr);
 #else
 	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, cr_ptr);
 	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, cr_ptr);
@@ -3140,49 +3136,7 @@ display_flag_aux(row+9, col, "冷気オ:", TR_SH_COLD, &f, 0, cr_ptr);
 	display_flag_aux(row+3, col, "Chaos :", TR_RES_CHAOS, &f, 0, cr_ptr);
 	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0, cr_ptr);
 	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "Reflct:", TR_REFLECT, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "AuFire:", TR_SH_FIRE, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "AuElec:", TR_SH_ELEC, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "AuCold:", TR_SH_COLD, &f, 0, cr_ptr);
 #endif
-
-
-	/*** Set 3 ***/
-
-/*
-
-	row = 12;
-	col = 51;
-
-	display_player_equippy(row-2, col+12, 0, cr_ptr);
-
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
-
-#ifdef JP
-display_flag_aux(row+0, col, "加速      :", TR_SPEED, &f, 0, cr_ptr);
-display_flag_aux(row+1, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, cr_ptr);
-display_flag_aux(row+2, col, "透明体視認:", TR_SEE_INVIS, &f, 0, cr_ptr);
-display_flag_aux(row+3, col, "経験値保持:", TR_HOLD_LIFE, &f, 0, cr_ptr);
-display_flag_aux(row+4, col, "警告      :", TR_WARNING, &f, 0, cr_ptr);
-display_flag_aux(row+5, col, "遅消化    :", TR_SLOW_DIGEST, &f, 0, cr_ptr);
-display_flag_aux(row+6, col, "急回復    :", TR_REGEN, &f, 0, cr_ptr);
-display_flag_aux(row+7, col, "浮遊      :", TR_LEVITATION, &f, 0, cr_ptr);
-display_flag_aux(row+8, col, "永遠光源  :", TR_LITE, &f, 0, cr_ptr);
-display_flag_aux(row+9, col, "呪い      :", 0, &f, DP_CURSE, cr_ptr);
-#else
-	display_flag_aux(row+0, col, "Speed     :", TR_SPEED, &f, 0, cr_ptr);
-	display_flag_aux(row+1, col, "FreeAction:", TR_FREE_ACT, &f, 0, cr_ptr);
-	display_flag_aux(row+2, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, cr_ptr);
-	display_flag_aux(row+3, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, cr_ptr);
-	display_flag_aux(row+4, col, "Warning   :", TR_WARNING, &f, 0, cr_ptr);
-	display_flag_aux(row+5, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, cr_ptr);
-	display_flag_aux(row+6, col, "Regene.   :", TR_REGEN, &f, 0, cr_ptr);
-	display_flag_aux(row+7, col, "Levitation:", TR_LEVITATION, &f, 0, cr_ptr);
-	display_flag_aux(row+8, col, "Perm Lite :", TR_LITE, &f, 0, cr_ptr);
-	display_flag_aux(row+9, col, "Cursed    :", 0, &f, DP_CURSE, cr_ptr);
-#endif
-
-*/
 
 }
 
@@ -3190,7 +3144,68 @@ display_flag_aux(row+9, col, "呪い      :", 0, &f, DP_CURSE, cr_ptr);
 /*
  * Special display, part 2
  */
-static void display_player_other_flag_info(creature_type *cr_ptr)
+static void display_player_flag_info2(creature_type *cr_ptr)
+{
+	int row;
+	int col;
+
+	all_player_flags f;
+
+	/* Extract flags and store */
+	player_flags(f.player_flags, cr_ptr);
+	tim_player_flags(f.tim_player_flags, cr_ptr);
+	player_immunity(f.player_imm, cr_ptr);
+	tim_player_immunity(f.tim_player_imm, cr_ptr);
+	known_obj_immunity(f.known_obj_imm, cr_ptr);
+	player_vuln_flags(f.player_vuln, cr_ptr);
+
+	/*** Set 3 ***/
+
+	row = 3;
+	col = 1;
+
+	display_player_equippy(row-2, col+12, 0, cr_ptr);
+
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
+
+#ifdef JP
+	display_flag_aux(row+0, col, "反射      :", TR_REFLECT, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "電気オーラ:", TR_SH_ELEC, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, cr_ptr);
+	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "透明体視認:", TR_SEE_INVIS, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "経験値保持:", TR_HOLD_LIFE, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "警告      :", TR_WARNING, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "遅消化    :", TR_SLOW_DIGEST, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "急回復    :", TR_REGEN, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "浮遊      :", TR_LEVITATION, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "永遠光源  :", TR_LITE, &f, 0, cr_ptr);
+	display_flag_aux(row+13, col, "呪い      :", 0, &f, DP_CURSE, cr_ptr);
+#else
+	display_flag_aux(row+0, col, "Reflct    :", TR_REFLECT, &f, 0, cr_ptr);
+	display_flag_aux(row+1, col, "AuraFire  :", TR_SH_FIRE, &f, 0, cr_ptr);
+	display_flag_aux(row+2, col, "AuraElec  :", TR_SH_ELEC, &f, 0, cr_ptr);
+	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, cr_ptr);
+	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, cr_ptr);
+	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, cr_ptr);
+	display_flag_aux(row+6, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, cr_ptr);
+	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, cr_ptr);
+	display_flag_aux(row+8, col, "Warning   :", TR_WARNING, &f, 0, cr_ptr);
+	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "Levitation:", TR_LEVITATION, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, cr_ptr);
+	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, cr_ptr);
+#endif
+
+}
+
+/*
+ * Special display, part 3
+ */
+static void display_player_flag_info3(creature_type *cr_ptr)
 {
 	int row;
 	int col;
@@ -3212,7 +3227,129 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 
 	display_player_equippy(row-2, col+12, DP_WP, cr_ptr);
 
-	c_put_str(TERM_WHITE, "ab@", row-1, col+12);
+	/*** Set 2 ***/
+
+	row = 3;
+	col = 1;
+
+	display_player_equippy(row-2, col+12, 0, cr_ptr);
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
+
+#ifdef JP
+	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "無生物ESP :", TR_ESP_NONLIVING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "善良ESP   :", TR_ESP_GOOD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "不死ESP   :", TR_ESP_UNDEAD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "悪魔ESP   :", TR_ESP_DEMON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 6, col, "龍ESP     :", TR_ESP_DRAGON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "人間ESP   :", TR_ESP_HUMAN, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "動物ESP   :", TR_ESP_ANIMAL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "オークESP :", TR_ESP_ORC, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "トロルESP :", TR_ESP_TROLL, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "巨人ESP   :", TR_ESP_GIANT, &f, 0, cr_ptr);
+
+	display_flag_aux(row+13, col, "腕力維持  :", TR_SUST_STR, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "知力維持  :", TR_SUST_INT, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "賢さ維持  :", TR_SUST_WIS, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "器用維持  :", TR_SUST_DEX, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "耐久維持  :", TR_SUST_CON, &f, 0, cr_ptr);
+	display_flag_aux(row+18, col, "魅力維持  :", TR_SUST_CHR, &f, 0, cr_ptr);
+#else
+	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, cr_ptr);
+	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, cr_ptr);
+
+	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, cr_ptr);
+	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, cr_ptr);
+	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, cr_ptr);
+#endif
+
+
+	/*** Set 3 ***/
+
+	row = 3;
+	col = 41;
+
+	display_player_equippy(row-2, col+14, 0, cr_ptr);
+
+	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+14);
+
+#ifdef JP
+	display_flag_aux(row+ 0, col, "追加攻撃    :", TR_BLOWS, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "採掘        :", TR_TUNNEL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "赤外線視力  :", TR_INFRA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "魔法道具支配:", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "隠密        :", TR_STEALTH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "探索        :", TR_SEARCH, &f, 0, cr_ptr);
+
+	display_flag_aux(row+ 7, col, "乗馬        :", TR_RIDING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "投擲        :", TR_THROW, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "祝福        :", TR_BLESSED, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "反テレポート:", TR_NO_TELE, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "反魔法      :", TR_NO_MAGIC, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "消費魔力減少:", TR_DEC_MANA, &f, 0, cr_ptr);
+
+	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "反感        :", TR_AGGRAVATE, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "太古の怨念  :", TR_TY_CURSE, &f, 0, cr_ptr);
+#else
+	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, cr_ptr);
+	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, cr_ptr);
+	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, cr_ptr);
+	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
+	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, cr_ptr);
+	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, cr_ptr);
+
+	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, cr_ptr);
+	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0, cr_ptr);
+	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0, cr_ptr);
+	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, cr_ptr);
+	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0, cr_ptr);
+	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, cr_ptr);
+
+	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, cr_ptr);
+	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, cr_ptr);
+	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, cr_ptr);
+	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0, cr_ptr);
+#endif
+
+}
+
+static void display_player_flag_info4(creature_type *cr_ptr)
+{
+	int row;
+	int col;
+
+	all_player_flags f;
+
+	/* Extract flags and store */
+	player_flags(f.player_flags, cr_ptr);
+	tim_player_flags(f.tim_player_flags, cr_ptr);
+	player_immunity(f.player_imm, cr_ptr);
+	tim_player_immunity(f.tim_player_imm, cr_ptr);
+	known_obj_immunity(f.known_obj_imm, cr_ptr);
+	player_vuln_flags(f.player_vuln, cr_ptr);
+
+	/*** Set 1 ***/
+
+	row = 3;
+	col = 1;
+
+	c_put_str(TERM_WHITE, "abcdef@", row-1, col+12);
 
 #ifdef JP
 	display_flag_aux(row+ 0, col, "邪悪 倍打 :", TR_SLAY_EVIL, &f, DP_WP, cr_ptr);
@@ -3278,106 +3415,6 @@ static void display_player_other_flag_info(creature_type *cr_ptr)
 	display_flag_aux(row+19, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, cr_ptr);
 #endif
 
-
-	/*** Set 2 ***/
-
-	row = 3;
-	col = col + 12 + 7;
-
-	display_player_equippy(row-2, col+12, 0, cr_ptr);
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+12);
-
-#ifdef JP
-	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "無生物ESP :", TR_ESP_NONLIVING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "善良ESP   :", TR_ESP_GOOD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "不死ESP   :", TR_ESP_UNDEAD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "悪魔ESP   :", TR_ESP_DEMON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 6, col, "龍ESP     :", TR_ESP_DRAGON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 7, col, "人間ESP   :", TR_ESP_HUMAN, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "動物ESP   :", TR_ESP_ANIMAL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "オークESP :", TR_ESP_ORC, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "トロルESP :", TR_ESP_TROLL, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "巨人ESP   :", TR_ESP_GIANT, &f, 0, cr_ptr);
-
-	display_flag_aux(row+13, col, "腕力維持  :", TR_SUST_STR, &f, 0, cr_ptr);
-	display_flag_aux(row+14, col, "知力維持  :", TR_SUST_INT, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "賢さ維持  :", TR_SUST_WIS, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "器用維持  :", TR_SUST_DEX, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "耐久維持  :", TR_SUST_CON, &f, 0, cr_ptr);
-	display_flag_aux(row+18, col, "魅力維持  :", TR_SUST_CHR, &f, 0, cr_ptr);
-#else
-	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, cr_ptr);
-	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, cr_ptr);
-
-	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, cr_ptr);
-	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, cr_ptr);
-	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, cr_ptr);
-#endif
-
-
-	/*** Set 3 ***/
-
-	row = 3;
-	col = col + 12 + 17;
-
-	display_player_equippy(row-2, col+14, 0, cr_ptr);
-
-	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row-1, col+14);
-
-#ifdef JP
-	display_flag_aux(row+ 0, col, "追加攻撃    :", TR_BLOWS, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "採掘        :", TR_TUNNEL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "赤外線視力  :", TR_INFRA, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "魔法道具支配:", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "隠密        :", TR_STEALTH, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "探索        :", TR_SEARCH, &f, 0, cr_ptr);
-
-	display_flag_aux(row+ 7, col, "乗馬        :", TR_RIDING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "投擲        :", TR_THROW, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "祝福        :", TR_BLESSED, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "反テレポート:", TR_NO_TELE, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "反魔法      :", TR_NO_MAGIC, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "消費魔力減少:", TR_DEC_MANA, &f, 0, cr_ptr);
-
-	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "反感        :", TR_AGGRAVATE, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "太古の怨念  :", TR_TY_CURSE, &f, 0, cr_ptr);
-#else
-	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, cr_ptr);
-	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, cr_ptr);
-	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, cr_ptr);
-	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, cr_ptr);
-	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, cr_ptr);
-	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, cr_ptr);
-
-	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, cr_ptr);
-	display_flag_aux(row+ 8, col, "Throw       :", TR_THROW, &f, 0, cr_ptr);
-	display_flag_aux(row+ 9, col, "Blessed     :", TR_BLESSED, &f, 0, cr_ptr);
-	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, cr_ptr);
-	display_flag_aux(row+11, col, "Anti Magic  :", TR_NO_MAGIC, &f, 0, cr_ptr);
-	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, cr_ptr);
-
-	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, cr_ptr);
-	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, cr_ptr);
-	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, cr_ptr);
-	display_flag_aux(row+17, col, "TY Curse    :", TR_TY_CURSE, &f, 0, cr_ptr);
-#endif
 
 }
 
@@ -3747,7 +3784,8 @@ c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
  * Mode 1 = standard display with history
  * Mode 2 = summary of various things
  * Mode 3 = summary of various things (part 2)
- * Mode 4 = mutations
+ * Mode 4 = summary of various things (part 3)
+ * Mode 5 = mutations
  */
 void display_player(int mode, creature_type *cr_ptr)
 {
@@ -3765,9 +3803,9 @@ void display_player(int mode, creature_type *cr_ptr)
 
 	/* XXX XXX XXX */
 	if ((cr_ptr->muta1 || cr_ptr->muta2 || cr_ptr->muta3) && display_mutations)
-		mode = (mode % 5);
+		mode = (mode % 7);
 	else
-		mode = (mode % 4);
+		mode = (mode % 6);
 
 	/* Erase screen */
 	clear_from(0);
@@ -4141,16 +4179,26 @@ void display_player(int mode, creature_type *cr_ptr)
 
 		/* Dump the info */
 		display_player_stat_info(cr_ptr);
-		display_player_flag_info(cr_ptr);
+		display_player_flag_info1(cr_ptr);
 	}
 
 	/* Special */
 	else if (mode == 3)
 	{
-		display_player_other_flag_info(cr_ptr);
+		display_player_flag_info2(cr_ptr);
 	}
 
 	else if (mode == 4)
+	{
+		display_player_flag_info3(cr_ptr);
+	}
+
+	else if (mode == 5)
+	{
+		display_player_flag_info4(cr_ptr);
+	}
+
+	else if (mode == 6)
 	{
 		do_cmd_knowledge_mutations(cr_ptr);
 	}

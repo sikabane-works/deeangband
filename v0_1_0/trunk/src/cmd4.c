@@ -1248,7 +1248,7 @@ void do_cmd_change_name(creature_type *cr_ptr)
 		/* Display the player */
 		display_player(mode, cr_ptr);
 
-		if (mode == 4)
+		if (mode == 6)
 		{
 			mode = 0;
 			display_player(mode, cr_ptr);
