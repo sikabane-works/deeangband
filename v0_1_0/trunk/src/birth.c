@@ -2055,35 +2055,35 @@ static void put_initial_status(creature_type *cr_ptr)
 {
 	cptr race, cls;
 
+#ifdef JP
+		put_str("種族  :                                                                         ", 1, 1);
+#else
+		put_str("Race  :                                                                         ", 1, 1);
+#endif
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
 		race = desc_creature_race_name(cr_ptr);
-#ifdef JP
-		put_str("種族  :", 1, 1);
-#else
-		put_str("Race  :", 1, 1);
-#endif
 		c_put_str(TERM_L_BLUE, race, 1, 9);
 	}
 
+#ifdef JP
+		put_str("職業  :                                                                         ", 2, 1);
+#else
+		put_str("Class :                                                                         ", 2, 1);
+#endif
 	if(cr_ptr->cls_idx != CLASS_NONE)
 	{
 		cls = get_class_desc(cr_ptr);
-#ifdef JP
-		put_str("職業  :", 2, 1);
-#else
-		put_str("Class :", 2, 1);
-#endif
 		c_put_str(TERM_L_BLUE, cls, 2, 9);
 	}
 
+#ifdef JP
+		put_str("主神  :                                                                         ", 3, 1);
+#else
+		put_str("Patron:                                                                         ", 3, 1);
+#endif
 	if(cr_ptr->patron_idx != PATRON_NONE)
 	{
-#ifdef JP
-		put_str("主神  :", 3, 1);
-#else
-		put_str("Patron:", 3, 1);
-#endif
 		c_put_str(TERM_L_BLUE, r_name + r_info[cr_ptr->patron_idx].name, 3, 9);
 	}
 
@@ -2296,11 +2296,19 @@ static int choose_realm(s32b choices, bool auto_m)
 /*
  * Choose the magical realms
  */
-static bool get_player_realms(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_realms(creature_type *cr_ptr, bool auto_m)
 {
 	int i;
 
-	if(!auto_m) put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+#if JP
+		put_str("領域を選択して下さい:", 0, 0);
+#else
+		put_str("Select a realm:", 0, 0);
+#endif
+		put_initial_status(cr_ptr);
+	}
 
 	/* Select the first realm */
 	cr_ptr->realm1 = REALM_NONE;
@@ -2314,7 +2322,15 @@ static bool get_player_realms(creature_type *cr_ptr, bool auto_m)
 	else
 		cr_ptr->realm1 = i;
 
-	if(!auto_m) put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+#if JP
+		put_str("領域を選択して下さい:", 0, 0);
+#else
+		put_str("Select a realm:", 0, 0);
+#endif
+		put_initial_status(cr_ptr);
+	}
 		
 	/* Select the second realm */
 	cr_ptr->realm2 = REALM_NONE;
@@ -4515,9 +4531,9 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 }
 
 /*
- * Player sex
+ * Creature sex
  */
-static bool get_player_sex(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
@@ -4566,7 +4582,14 @@ static bool get_player_sex(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("性別を選択して下さい:", 0, 0);
+#else
+		put_str("Select a sex:", 0, 0);
+#endif
 		i = get_selection(se, n, 5, 2, 18, 20, NULL);
+	}
 	else
 	{
 		cr_ptr->sex = se[randint0(4)].code;
@@ -4593,7 +4616,7 @@ static bool get_player_sex(creature_type *cr_ptr, bool auto_m)
 /*
  * Player class
  */
-static bool get_player_class(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CLASS+3];
@@ -4642,7 +4665,15 @@ static bool get_player_class(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("職業を選択して下さい:", 0, 0);
+#else
+		put_str("Select a class:", 0, 0);
+#endif
+		put_initial_status(cr_ptr);
 		i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
+	}
 	else
 	{
 		cr_ptr->cls_idx = ce[randint0(n - 3)].code;
@@ -4670,7 +4701,7 @@ static bool get_player_class(creature_type *cr_ptr, bool auto_m)
 /*
  * Player patron
  */
-static bool get_player_patron(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n = 0;
 	selection pt[400+3];
@@ -4751,7 +4782,15 @@ static bool get_player_patron(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("主神を選択して下さい:", 0, 0);
+#else
+		put_str("Select a patron:", 0, 0);
+#endif
+		put_initial_status(cr_ptr);
 		i = get_selection(pt, n, 5, 2, 18, 76, NULL);
+	}
 	else
 	{
 		cr_ptr->patron_idx = pt[randint0(n - 3)].code;
@@ -4779,7 +4818,7 @@ static bool get_player_patron(creature_type *cr_ptr, bool auto_m)
 /*
  * Player Chara
  */
-static bool get_player_chara(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_chara(creature_type *cr_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
@@ -4831,7 +4870,15 @@ static bool get_player_chara(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("性格を選択して下さい:", 0, 0);
+#else
+		put_str("Select a personality:", 0, 0);
+#endif
+		put_initial_status(cr_ptr);
 		i = get_selection(ce, n, 5, 2, 18, 20, NULL);
+	}
 	else
 	{
 		cr_ptr->chara_idx = ce[randint0(n - 3)].code;
@@ -5838,7 +5885,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_player_sex(cr_ptr, auto_m);
+	i = get_creature_sex(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5847,7 +5894,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_player_class(cr_ptr, auto_m);
+	i = get_creature_class(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5856,7 +5903,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_player_patron(cr_ptr, auto_m);
+	i = get_creature_patron(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5865,7 +5912,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_player_realms(cr_ptr, auto_m);
+	i = get_creature_realms(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5874,7 +5921,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_player_chara(cr_ptr, auto_m);
+	i = get_creature_chara(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
