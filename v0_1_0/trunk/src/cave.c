@@ -4482,7 +4482,7 @@ void wiz_lite(creature_type *cr_ptr, bool ninja)
 /*
  * Forget the dungeon map (ala "Thinking of Maud...").
  */
-void wiz_dark(void)
+void wiz_dark(creature_type *cr_ptr)
 {
 	int i, y, x;
 
@@ -4530,13 +4530,13 @@ void wiz_dark(void)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the view and lite */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

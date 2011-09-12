@@ -3710,7 +3710,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		if ((!cr_ptr->blind && !no_lite()) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if (dun_level && (d_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark();
+		if (dun_level && (d_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
 
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff(cr_ptr);
