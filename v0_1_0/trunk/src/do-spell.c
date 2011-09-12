@@ -10565,7 +10565,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 	
-					update_mon(m_idx, TRUE);
+					update_mon(cr_ptr, m_idx, TRUE);
 					lite_spot(cr_ptr, oy, ox);
 					lite_spot(cr_ptr, ty, tx);
 	
@@ -11024,7 +11024,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				m_ptr->fy = ny;
 				m_ptr->fx = nx;
 	
-				update_mon(m_idx, TRUE);
+				update_mon(cr_ptr, m_idx, TRUE);
 	
 				/* Redraw the old spot */
 				lite_spot(cr_ptr, y, x);

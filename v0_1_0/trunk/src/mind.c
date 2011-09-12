@@ -1147,7 +1147,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 
-					update_mon(m_idx, TRUE);
+					update_mon(cr_ptr, m_idx, TRUE);
 					lite_spot(cr_ptr, oy, ox);
 					lite_spot(cr_ptr, ty, tx);
 
@@ -1703,7 +1703,7 @@ msg_print("その方向にはモンスターはいません。");
 		(void)set_paralyzed(&m_list[m_idx], 0);
 
 		/* Update the monster (new location) */
-		update_mon(m_idx, TRUE);
+		update_mon(cr_ptr, m_idx, TRUE);
 
 		/* Redraw the old grid */
 		lite_spot(cr_ptr, target_row, target_col);

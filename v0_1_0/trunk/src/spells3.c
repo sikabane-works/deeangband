@@ -140,7 +140,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	reset_target(cr_ptr);
 
 	/* Update the monster (new location) */
-	update_mon(m_idx, TRUE);
+	update_mon(cr_ptr, m_idx, TRUE);
 
 	/* Redraw the old grid */
 	lite_spot(cr_ptr, oy, ox);
@@ -240,7 +240,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	m_ptr->fx = nx;
 
 	/* Update the monster (new location) */
-	update_mon(m_idx, TRUE);
+	update_mon(p_ptr, m_idx, TRUE);
 
 	/* Redraw the old grid */
 	lite_spot(p_ptr, oy, ox);

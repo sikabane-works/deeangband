@@ -2547,7 +2547,7 @@ msg_format("%^s%s", m_name, monmessage);
 					y_ptr->fx = ox;
 
 					/* Update the old monster */
-					update_mon(c_ptr->m_idx, TRUE);
+					update_mon(cr_ptr, c_ptr->m_idx, TRUE);
 				}
 
 				/* Hack -- Update the new location */
@@ -2558,7 +2558,7 @@ msg_format("%^s%s", m_name, monmessage);
 				m_ptr->fx = nx;
 
 				/* Update the monster */
-				update_mon(m_idx, TRUE);
+				update_mon(cr_ptr, m_idx, TRUE);
 
 				/* Redraw the old grid */
 				lite_spot(cr_ptr, oy, ox);
@@ -3605,7 +3605,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 			/* Now you feel very close to this pet. */
 			m_ptr->parent_m_idx = 0;
 		}
-		update_mon(m_idx, FALSE);
+		update_mon(p_ptr, m_idx, FALSE);
 		lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 	}
 	if (m_idx == p_ptr->riding) p_ptr->update |= PU_BONUS;

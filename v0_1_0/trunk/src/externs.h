@@ -1029,7 +1029,7 @@ extern void monster_desc_ego(char *desc, creature_type *m_ptr, species_type *r_p
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro);
-extern void update_mon(int m_idx, bool full);
+extern void update_mon(creature_type *cr_ptr, int m_idx, bool full);
 extern void update_monsters(bool full);
 extern bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u32b mode);
 extern bool place_monster(int y, int x, u32b mode);

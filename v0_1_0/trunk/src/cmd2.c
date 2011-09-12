@@ -3865,7 +3865,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							m_ptr->fy = ny;
 
 							/* Update the monster (new location) */
-							update_mon(c_ptr->m_idx, TRUE);
+							update_mon(cr_ptr, c_ptr->m_idx, TRUE);
 
 							lite_spot(cr_ptr, ny, nx);
 							lite_spot(cr_ptr, oy, ox);

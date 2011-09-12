@@ -2475,7 +2475,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
  * way).  Note that "moves" includes "appears" and "disappears".
  */
 //TODO  Marge to calc_bonuses
-void update_mon(int m_idx, bool full)
+void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 {
 	creature_type *m_ptr = &m_list[m_idx];
 
@@ -2496,14 +2496,14 @@ void update_mon(int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (d_info[dungeon_type].flags1 & DF1_DARKNESS) && !p_ptr->see_nocto;
+	bool in_darkness = (d_info[dungeon_type].flags1 & DF1_DARKNESS) && !cr_ptr->see_nocto;
 
 	/* Do disturb? */
 	if (disturb_high)
 	{
 		species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
 
-		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= p_ptr->lev)
+		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= cr_ptr->lev)
 			do_disturb = TRUE;
 	}
 
@@ -2511,8 +2511,8 @@ void update_mon(int m_idx, bool full)
 	if (full)
 	{
 		/* Distance components */
-		int dy = (p_ptr->fy > fy) ? (p_ptr->fy - fy) : (fy - p_ptr->fy);
-		int dx = (p_ptr->fx > fx) ? (p_ptr->fx - fx) : (fx - p_ptr->fx);
+		int dy = (cr_ptr->fy > fy) ? (cr_ptr->fy - fy) : (fy - cr_ptr->fy);
+		int dx = (cr_ptr->fx > fx) ? (cr_ptr->fx - fx) : (fx - cr_ptr->fx);
 
 		/* Approximate distance */
 		d = (dy > dx) ? (dy + (dx>>1)) : (dx + (dy>>1));
@@ -2543,12 +2543,12 @@ void update_mon(int m_idx, bool full)
 	{
 		if (!in_darkness || (d <= MAX_SIGHT / 4))
 		{
-			if (p_ptr->special_defense & KATA_MUSOU)
+			if (cr_ptr->special_defense & KATA_MUSOU)
 			{
 				/* Detectable */
 				flag = TRUE;
 
-				if (is_original_ap(m_ptr) && !p_ptr->image)
+				if (is_original_ap(m_ptr) && !cr_ptr->image)
 				{
 					/* Hack -- Memorize mental flags */
 					if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);
@@ -2558,13 +2558,13 @@ void update_mon(int m_idx, bool full)
 
 			/* Basic telepathy */
 			/* Snipers get telepathy when they concentrate deeper */
-			else if (p_ptr->telepathy)
+			else if (cr_ptr->telepathy)
 			{
 				/* Empty mind, no telepathy */
 				if (r_ptr->flags2 & (RF2_EMPTY_MIND))
 				{
 					/* Memorize flags */
-					if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+					if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
@@ -2576,7 +2576,7 @@ void update_mon(int m_idx, bool full)
 						/* Detectable */
 						flag = TRUE;
 
-						if (is_original_ap(m_ptr) && !p_ptr->image)
+						if (is_original_ap(m_ptr) && !cr_ptr->image)
 						{
 							/* Memorize flags */
 							r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
@@ -2594,7 +2594,7 @@ void update_mon(int m_idx, bool full)
 					/* Detectable */
 					flag = TRUE;
 
-					if (is_original_ap(m_ptr) && !p_ptr->image)
+					if (is_original_ap(m_ptr) && !cr_ptr->image)
 					{
 						/* Hack -- Memorize mental flags */
 						if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);
@@ -2604,106 +2604,106 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_animal) && (r_ptr->flags3 & (RF3_ANIMAL)))
+			if ((cr_ptr->esp_animal) && (r_ptr->flags3 & (RF3_ANIMAL)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_ANIMAL);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ANIMAL);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_undead) && (r_ptr->flags3 & (RF3_UNDEAD)))
+			if ((cr_ptr->esp_undead) && (r_ptr->flags3 & (RF3_UNDEAD)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_UNDEAD);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_demon) && (r_ptr->flags3 & (RF3_DEMON)))
+			if ((cr_ptr->esp_demon) && (r_ptr->flags3 & (RF3_DEMON)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_orc) && (r_ptr->flags3 & (RF3_ORC)))
+			if ((cr_ptr->esp_orc) && (r_ptr->flags3 & (RF3_ORC)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_troll) && (r_ptr->flags3 & (RF3_TROLL)))
+			if ((cr_ptr->esp_troll) && (r_ptr->flags3 & (RF3_TROLL)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_giant) && (r_ptr->flags3 & (RF3_GIANT)))
+			if ((cr_ptr->esp_giant) && (r_ptr->flags3 & (RF3_GIANT)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_GIANT);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GIANT);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_dragon) && (r_ptr->flags3 & (RF3_DRAGON)))
+			if ((cr_ptr->esp_dragon) && (r_ptr->flags3 & (RF3_DRAGON)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_DRAGON);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DRAGON);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_human) && (r_ptr->flags2 & (RF2_HUMAN)))
+			if ((cr_ptr->esp_human) && (r_ptr->flags2 & (RF2_HUMAN)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags2 |= (RF2_HUMAN);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_HUMAN);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_evil) && (r_ptr->flags3 & (RF3_EVIL)))
+			if ((cr_ptr->esp_evil) && (r_ptr->flags3 & (RF3_EVIL)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_EVIL);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_good) && (r_ptr->flags3 & (RF3_GOOD)))
+			if ((cr_ptr->esp_good) && (r_ptr->flags3 & (RF3_GOOD)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_GOOD);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GOOD);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_nonliving) &&
+			if ((cr_ptr->esp_nonliving) &&
 			    ((r_ptr->flags3 & (RF3_DEMON | RF3_UNDEAD | RF3_NONLIVING)) == RF3_NONLIVING))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
 			}
 
 			/* Magical sensing */
-			if ((p_ptr->esp_unique) && (r_ptr->flags1 & (RF1_UNIQUE)))
+			if ((cr_ptr->esp_unique) && (r_ptr->flags1 & (RF1_UNIQUE)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !p_ptr->image) r_ptr->r_flags1 |= (RF1_UNIQUE);
+				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags1 |= (RF1_UNIQUE);
 			}
 		}
 
 		/* Normal line of sight, and not blind */
-		if (player_has_los_bold(fy, fx) && !p_ptr->blind)
+		if (player_has_los_bold(fy, fx) && !cr_ptr->blind)
 		{
 			bool do_invisible = FALSE;
 			bool do_cold_blood = FALSE;
 
 			/* Snipers can see targets in darkness when they concentrate deeper */
-			if (p_ptr->concent >= CONCENT_RADAR_THRESHOLD)
+			if (cr_ptr->concent >= CONCENT_RADAR_THRESHOLD)
 			{
 				/* Easy to see */
 				easy = flag = TRUE;
 			}
 
 			/* Use "infravision" */
-			if (d <= p_ptr->see_infra)
+			if (d <= cr_ptr->see_infra)
 			{
 				/* Handle "cold blooded" monsters */
 				if ((r_ptr->flags2 & (RF2_COLD_BLOOD | RF2_AURA_FIRE)) == RF2_COLD_BLOOD)
@@ -2721,7 +2721,7 @@ void update_mon(int m_idx, bool full)
 			}
 
 			/* Use "illumination" */
-			if (player_can_see_bold(p_ptr, fy, fx))
+			if (player_can_see_bold(cr_ptr, fy, fx))
 			{
 				/* Handle "invisible" monsters */
 				if (r_ptr->flags2 & (RF2_INVISIBLE))
@@ -2730,7 +2730,7 @@ void update_mon(int m_idx, bool full)
 					do_invisible = TRUE;
 
 					/* See invisible */
-					if (p_ptr->see_inv)
+					if (cr_ptr->see_inv)
 					{
 						/* Easy to see */
 						easy = flag = TRUE;
@@ -2748,7 +2748,7 @@ void update_mon(int m_idx, bool full)
 			/* Visible */
 			if (flag)
 			{
-				if (is_original_ap(m_ptr) && !p_ptr->image)
+				if (is_original_ap(m_ptr) && !cr_ptr->image)
 				{
 					/* Memorize flags */
 					if (do_invisible) r_ptr->r_flags2 |= (RF2_INVISIBLE);
@@ -2769,14 +2769,14 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = TRUE;
 
 			/* Draw the monster */
-			lite_spot(p_ptr, fy, fx);
+			lite_spot(cr_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
-			if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if (cr_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (cr_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
-			if (!p_ptr->image)
+			if (!cr_ptr->image)
 			{
 				if ((m_ptr->ap_species_idx == MON_KAGE) && (r_info[MON_KAGE].r_sights < MAX_SHORT))
 					r_info[MON_KAGE].r_sights++;
@@ -2787,11 +2787,11 @@ void update_mon(int m_idx, bool full)
 			/* Eldritch Horror */
 			if (r_info[m_ptr->ap_species_idx].flags2 & RF2_ELDRITCH_HORROR)
 			{
-				sanity_blast(p_ptr, m_ptr, FALSE);
+				sanity_blast(cr_ptr, m_ptr, FALSE);
 			}
 
 			/* Disturb on appearance */
-			if (disturb_near && (projectable(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx) && projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)))
+			if (disturb_near && (projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)))
 			{
 				if (disturb_pets || is_hostile(m_ptr))
 					disturb(1, 0);
@@ -2809,11 +2809,11 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = FALSE;
 
 			/* Erase the monster */
-			lite_spot(p_ptr, fy, fx);
+			lite_spot(cr_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
-			if (p_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if (cr_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (cr_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Disturb on disappearance */
 			if (do_disturb)
@@ -2880,7 +2880,7 @@ void update_monsters(bool full)
 		if (!m_ptr->species_idx) continue;
 
 		/* Update the monster */
-		update_mon(i, full);
+		update_mon(p_ptr, i, full);
 	}
 }
 
@@ -3000,7 +3000,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 
 	m_ptr->species_idx = species_idx;
 	m_ptr->ap_species_idx = species_idx;
-	update_mon(m_idx, FALSE);
+	update_mon(p_ptr, m_idx, FALSE);
 	lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 
 	if(monster_ego_idx == MONEGO_NONE)
@@ -3658,7 +3658,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		watcher_ptr->update |= (PU_MON_LITE);
 
 	/* Update the monster */
-	update_mon(c_ptr->m_idx, TRUE);
+	update_mon(p_ptr, c_ptr->m_idx, TRUE);
 
 	/* Count the monsters on the level */
 	real_r_ptr(m_ptr)->cur_num++;
