@@ -4543,8 +4543,16 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 		strcpy(se[n].cap, sex_info[i].title);
 		se[n].code = i;
 		se[n].key = '\0';
-		se[n].d_color = TERM_L_DARK;
-		se[n].l_color = TERM_WHITE;
+		if(race_info[cr_ptr->irace_idx].sex_flag & (0x01 << i))
+		{
+			se[n].d_color = TERM_L_DARK;
+			se[n].l_color = TERM_WHITE;
+		}
+		else
+		{
+			se[n].d_color = TERM_RED;
+			se[n].l_color = TERM_L_RED;
+		}
 		n++;
 	}
 
@@ -4584,9 +4592,9 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 	if(!auto_m)
 	{
 #if JP
-		put_str("性別を選択して下さい:", 0, 0);
+		put_str("性別を選択して下さい(赤字の性別には種族ペナルティがかかります):", 0, 0);
 #else
-		put_str("Select a sex:", 0, 0);
+		put_str("Select a sex(Red entries have race penalty) ", 0, 0);
 #endif
 		i = get_selection(se, n, 5, 2, 18, 20, NULL);
 	}
@@ -4628,6 +4636,16 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 		ce[i].key = '\0';
 		ce[i].d_color = TERM_L_DARK;
 		ce[i].l_color = TERM_WHITE;
+		if(race_info[cr_ptr->irace_idx].choice & (0x01 << i))
+		{
+			ce[n].d_color = TERM_GREEN;
+			ce[n].l_color = TERM_L_GREEN;
+		}
+		else
+		{
+			ce[n].d_color = TERM_L_DARK;
+			ce[n].l_color = TERM_WHITE;
+		}
 		n++;
 	}
 
@@ -4667,9 +4685,9 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 	if(!auto_m)
 	{
 #if JP
-		put_str("職業を選択して下さい:", 0, 0);
+		put_str("職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):", 0, 0);
 #else
-		put_str("Select a class:", 0, 0);
+		put_str("Select a class(Any green entries have race bonus):", 0, 0);
 #endif
 		put_initial_status(cr_ptr);
 		i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
