@@ -2118,7 +2118,7 @@ void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 
 
 
-void sanity_blast(creature_type *m_ptr, bool necro)
+void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 {
 	bool happened = FALSE;
 	int power = 100;
@@ -2157,12 +2157,12 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 
 		if (randint1(100) > power) return;
 
-		if (saving_throw(p_ptr->skill_rob - power))
+		if (saving_throw(watcher_ptr->skill_rob - power))
 		{
 			return; /* Save, no adverse effects */
 		}
 
-		if (p_ptr->image)
+		if (watcher_ptr->image)
 		{
 			/* Something silly happens... */
 #ifdef JP
@@ -2177,7 +2177,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 			if (one_in_(3))
 			{
 				msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-				p_ptr->image = p_ptr->image + (s16b)randint1(r_ptr->level);
+				watcher_ptr->image = watcher_ptr->image + (s16b)randint1(r_ptr->level);
 			}
 
 			return; /* Never mind; we can't see it clearly enough */
@@ -2185,7 +2185,7 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 
 		/* Something frightening happens... */
 
-		if (race_is_(p_ptr, RACE_IMP) || race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 		{
 #ifdef JP
 			msg_format("%s%sの顔が垣間見えた。",
@@ -2209,16 +2209,16 @@ void sanity_blast(creature_type *m_ptr, bool necro)
 		r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 		/* Demon characters are unaffected */
-		if (race_is_(p_ptr, RACE_IMP) || race_is_(p_ptr, RACE_DEMON) || race_is_(p_ptr, RACE_BALROG) || (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
+		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
 
 		if (wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */
-		if (race_is_(p_ptr, RACE_SKELETON) || race_is_(p_ptr, RACE_ZOMBIE)
-			|| race_is_(p_ptr, RACE_VAMPIRE) || race_is_(p_ptr, RACE_LICH) ||
-		    (mimic_info[p_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD))
+		if (race_is_(watcher_ptr, RACE_SKELETON) || race_is_(watcher_ptr, RACE_ZOMBIE)
+			|| race_is_(watcher_ptr, RACE_VAMPIRE) || race_is_(watcher_ptr, RACE_LICH) ||
+		    (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD))
 		{
-			if (saving_throw(25 + p_ptr->lev)) return;
+			if (saving_throw(25 + watcher_ptr->lev)) return;
 		}
 	}
 	else
@@ -2231,51 +2231,51 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	}
 
-	if (!saving_throw(p_ptr->skill_rob - power)) /* Mind blast */
+	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Mind blast */
 	{
-		if (!p_ptr->resist_conf)
+		if (!watcher_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!p_ptr->resist_chaos && one_in_(3))
+		if (!watcher_ptr->resist_chaos && one_in_(3))
 		{
-			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_rob - power)) /* Lose int & wis */
+	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Lose int & wis */
 	{
-		do_dec_stat(p_ptr, A_INT);
-		do_dec_stat(p_ptr, A_WIS);
+		do_dec_stat(watcher_ptr, A_INT);
+		do_dec_stat(watcher_ptr, A_WIS);
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_rob - power)) /* Brain smash */
+	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Brain smash */
 	{
-		if (!p_ptr->resist_conf)
+		if (!watcher_ptr->resist_conf)
 		{
-			(void)set_confused(p_ptr, p_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!p_ptr->free_act)
+		if (!watcher_ptr->free_act)
 		{
-			(void)set_paralyzed(p_ptr, p_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
 		}
-		while (randint0(100) > p_ptr->skill_rob)
-			(void)do_dec_stat(p_ptr, A_INT);
-		while (randint0(100) > p_ptr->skill_rob)
-			(void)do_dec_stat(p_ptr, A_WIS);
-		if (!p_ptr->resist_chaos)
+		while (randint0(100) > watcher_ptr->skill_rob)
+			(void)do_dec_stat(watcher_ptr, A_INT);
+		while (randint0(100) > watcher_ptr->skill_rob)
+			(void)do_dec_stat(watcher_ptr, A_WIS);
+		if (!watcher_ptr->resist_chaos)
 		{
-			(void)set_image(p_ptr, p_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
-	if (!saving_throw(p_ptr->skill_rob - power)) /* Amnesia */
+	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Amnesia */
 	{
 
-		if (lose_all_info(p_ptr))
+		if (lose_all_info(watcher_ptr))
 #ifdef JP
 msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 #else
@@ -2285,15 +2285,15 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		return;
 	}
 
-	if (saving_throw(p_ptr->skill_rob - power))
+	if (saving_throw(watcher_ptr->skill_rob - power))
 	{
 		return;
 	}
 
 	/* Else gain permanent insanity */
-	if ((p_ptr->muta3 & MUT3_MORONIC) && /*(p_ptr->muta2 & MUT2_BERS_RAGE) &&*/
-		((p_ptr->muta2 & MUT2_COWARDICE) || (p_ptr->resist_fear)) &&
-		((p_ptr->muta2 & MUT2_HALLU) || (p_ptr->resist_chaos)))
+	if ((watcher_ptr->muta3 & MUT3_MORONIC) && /*(watcher_ptr->muta2 & MUT2_BERS_RAGE) &&*/
+		((watcher_ptr->muta2 & MUT2_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		((watcher_ptr->muta2 & MUT2_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2304,9 +2304,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		switch (randint1(21))
 		{
 			case 1:
-				if (!(p_ptr->muta3 & MUT3_MORONIC) && one_in_(5))
+				if (!(watcher_ptr->muta3 & MUT3_MORONIC) && one_in_(5))
 				{
-					if ((p_ptr->stat_use[A_INT] < 4) && (p_ptr->stat_use[A_WIS] < 4))
+					if ((watcher_ptr->stat_use[A_INT] < 4) && (watcher_ptr->stat_use[A_WIS] < 4))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
@@ -2323,7 +2323,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (p_ptr->muta3 & MUT3_HYPER_INT)
+					if (watcher_ptr->muta3 & MUT3_HYPER_INT)
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2331,9 +2331,9 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						p_ptr->muta3 &= ~(MUT3_HYPER_INT);
+						watcher_ptr->muta3 &= ~(MUT3_HYPER_INT);
 					}
-					p_ptr->muta3 |= MUT3_MORONIC;
+					watcher_ptr->muta3 |= MUT3_MORONIC;
 					happened = TRUE;
 				}
 				break;
@@ -2347,7 +2347,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			case 9:
 			case 10:
 			case 11:
-				if (!(p_ptr->muta2 & MUT2_COWARDICE) && !p_ptr->resist_fear)
+				if (!(watcher_ptr->muta2 & MUT2_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2357,7 +2357,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (p_ptr->muta3 & MUT3_FEARLESS)
+					if (watcher_ptr->muta3 & MUT3_FEARLESS)
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2365,10 +2365,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						p_ptr->muta3 &= ~(MUT3_FEARLESS);
+						watcher_ptr->muta3 &= ~(MUT3_FEARLESS);
 					}
 
-					p_ptr->muta2 |= MUT2_COWARDICE;
+					watcher_ptr->muta2 |= MUT2_COWARDICE;
 					happened = TRUE;
 				}
 				break;
@@ -2382,7 +2382,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			case 19:
 			case 20:
 			case 21:
-				if (!(p_ptr->muta2 & MUT2_HALLU) && !p_ptr->resist_chaos)
+				if (!(watcher_ptr->muta2 & MUT2_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2390,12 +2390,12 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					p_ptr->muta2 |= MUT2_HALLU;
+					watcher_ptr->muta2 |= MUT2_HALLU;
 					happened = TRUE;
 				}
 				break;
 			default:
-				if (!(p_ptr->muta2 & MUT2_BERS_RAGE))
+				if (!(watcher_ptr->muta2 & MUT2_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2403,15 +2403,15 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					p_ptr->muta2 |= MUT2_BERS_RAGE;
+					watcher_ptr->muta2 |= MUT2_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
 		}
 	}
 
-	p_ptr->update |= PU_BONUS;
-	handle_stuff(p_ptr);
+	watcher_ptr->update |= PU_BONUS;
+	handle_stuff(watcher_ptr);
 }
 
 
@@ -2787,7 +2787,7 @@ void update_mon(int m_idx, bool full)
 			/* Eldritch Horror */
 			if (r_info[m_ptr->ap_species_idx].flags2 & RF2_ELDRITCH_HORROR)
 			{
-				sanity_blast(m_ptr, FALSE);
+				sanity_blast(p_ptr, m_ptr, FALSE);
 			}
 
 			/* Disturb on appearance */

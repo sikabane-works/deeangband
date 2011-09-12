@@ -1223,7 +1223,7 @@ msg_print("カオス的な効果を発生した！");
 		{
 			if ((sval == 3) && one_in_(2))
 			{
-				sanity_blast(0, TRUE);
+				sanity_blast(cr_ptr, 0, TRUE);
 			}
 			else
 			{
