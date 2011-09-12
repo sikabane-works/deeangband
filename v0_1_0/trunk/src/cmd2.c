@@ -3576,7 +3576,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			note_spot(cr_ptr, ny, nx);
 
 			/* Redraw */
-			lite_spot(ny, nx);
+			lite_spot(cr_ptr, ny, nx);
 		}
 
 		/* The player can see the (on screen) missile */
@@ -3590,7 +3590,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			move_cursor_relative(ny, nx);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
-			lite_spot(ny, nx);
+			lite_spot(cr_ptr, ny, nx);
 			Term_fresh();
 		}
 
@@ -3617,7 +3617,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			note_spot(cr_ptr, ny, nx);
 
 			/* Redraw */
-			lite_spot(ny, nx);
+			lite_spot(cr_ptr, ny, nx);
 		}
 
 		/* Save the old location */
@@ -3781,7 +3781,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					note_spot(cr_ptr, ny, nx);
 
 					/* Redraw */
-					lite_spot(ny, nx);
+					lite_spot(cr_ptr, ny, nx);
 				}
 
 				/* Hit the monster, check for death */
@@ -3867,8 +3867,8 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 							/* Update the monster (new location) */
 							update_mon(c_ptr->m_idx, TRUE);
 
-							lite_spot(ny, nx);
-							lite_spot(oy, ox);
+							lite_spot(cr_ptr, ny, nx);
+							lite_spot(cr_ptr, oy, ox);
 
 							Term_fresh();
 							Term_xtra(TERM_XTRA_DELAY, msec);
@@ -4316,7 +4316,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			move_cursor_relative(ny[cur_dis], nx[cur_dis]);
 			Term_fresh();
 			Term_xtra(TERM_XTRA_DELAY, msec);
-			lite_spot(ny[cur_dis], nx[cur_dis]);
+			lite_spot(cr_ptr, ny[cur_dis], nx[cur_dis]);
 			Term_fresh();
 		}
 
@@ -4567,7 +4567,7 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 					move_cursor_relative(ny[i], nx[i]);
 					Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
-					lite_spot(ny[i], nx[i]);
+					lite_spot(cr_ptr, ny[i], nx[i]);
 					Term_fresh();
 				}
 				else

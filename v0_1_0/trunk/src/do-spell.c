@@ -10566,8 +10566,8 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					m_ptr->fx = tx;
 	
 					update_mon(m_idx, TRUE);
-					lite_spot(oy, ox);
-					lite_spot(ty, tx);
+					lite_spot(cr_ptr, oy, ox);
+					lite_spot(cr_ptr, ty, tx);
 	
 					if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 						cr_ptr->update |= (PU_MON_LITE);
@@ -11027,10 +11027,10 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				update_mon(m_idx, TRUE);
 	
 				/* Redraw the old spot */
-				lite_spot(y, x);
+				lite_spot(cr_ptr, y, x);
 	
 				/* Redraw the new spot */
-				lite_spot(ny, nx);
+				lite_spot(cr_ptr, ny, nx);
 	
 				/* Player can move forward? */
 				if (player_can_enter(cr_ptr, c_ptr->feat, 0))

@@ -1780,10 +1780,10 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 		cr_ptr->fx = sx;
 
 		/* Redraw the old spot */
-		lite_spot(oy, ox);
+		lite_spot(cr_ptr, oy, ox);
 
 		/* Redraw the new spot */
-		lite_spot(cr_ptr->fy, cr_ptr->fx);
+		lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 		/* Check for new panel */
 		verify_panel(cr_ptr);

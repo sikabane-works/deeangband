@@ -775,7 +775,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				obvious = TRUE;
 			}
@@ -812,7 +812,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				obvious = TRUE;
 			}
@@ -835,7 +835,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				note_spot(aimer_ptr, y, x);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				/* Check line of sight */
 				if (known && have_flag(mimic_f_ptr->flags, FF_OPEN))
@@ -939,7 +939,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 			note_spot(aimer_ptr, y, x);
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(p_ptr, y, x);
 
 			break;
 		}
@@ -1018,7 +1018,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				note_spot(aimer_ptr, y, x);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				update_local_illumination(aimer_ptr, y, x);
 
@@ -1083,7 +1083,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				}
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				update_local_illumination(aimer_ptr, y, x);
 
@@ -1238,7 +1238,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 	}
 
-	lite_spot(y, x);
+	lite_spot(p_ptr, y, x);
 	/* Return "Anything seen?" */
 	return (obvious);
 }
@@ -1665,7 +1665,7 @@ msg_format("%s‚Í%s", o_name, note_kill);
 				}
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 			}
 		}
 	}
@@ -6246,7 +6246,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 	if (m_ptr->species_idx) update_mon(c_ptr->m_idx, FALSE);
 
 	/* Redraw the monster grid */
-	lite_spot(y, x);
+	lite_spot(p_ptr, y, x);
 
 
 	/* Update monster recall window */
@@ -8230,7 +8230,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * if they were being projected at a more distant destination.  This means
  * that "ball" spells will *always* explode.
  *
- * Note that we must call "handle_stuff(cr_ptr)" after affecting terrain features
+ * Note that we must call "handle_stuff(p_ptr)" after affecting terrain features
  * in the blast radius, in case the "illumination" of the grid was changed,
  * and "update_view()" and "update_monsters()" need to be called.
  */
@@ -8442,7 +8442,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
-					lite_spot(y, x);
+					lite_spot(p_ptr, y, x);
 					/*if (fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
@@ -8579,7 +8579,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
-					lite_spot(y, x);
+					lite_spot(p_ptr, y, x);
 					/*if (fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
@@ -8723,7 +8723,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				move_cursor_relative(y, x);
 				/*if (fresh_before)*/ Term_fresh();
 				Term_xtra(TERM_XTRA_DELAY, msec);
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 				/*if (fresh_before)*/ Term_fresh();
 
 				/* Display "beam" grids */
@@ -8913,7 +8913,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				/* Hack -- Erase if needed */
 				if (panel_contains(y, x) && player_has_los_bold(y, x))
 				{
-					lite_spot(y, x);
+					lite_spot(p_ptr, y, x);
 				}
 			}
 

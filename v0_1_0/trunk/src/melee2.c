@@ -2330,7 +2330,7 @@ msg_format("%^s%s", m_name, monmessage);
 				c_ptr->mimic = 0;
 
 				note_spot(cr_ptr, ny, nx);
-				lite_spot(ny, nx);
+				lite_spot(cr_ptr, ny, nx);
 
 				if (!m_ptr->species_idx) return;
 				/* Allow movement */
@@ -2561,10 +2561,10 @@ msg_format("%^s%s", m_name, monmessage);
 				update_mon(m_idx, TRUE);
 
 				/* Redraw the old grid */
-				lite_spot(oy, ox);
+				lite_spot(cr_ptr, oy, ox);
 
 				/* Redraw the new grid */
-				lite_spot(ny, nx);
+				lite_spot(cr_ptr, ny, nx);
 			}
 			else
 			{
@@ -2847,7 +2847,7 @@ msg_format("%^s%s", m_name, monmessage);
  * When the player is resting, virtually 90% of the processor time is spent
  * in this function, and its children, "process_monster()" and "make_move()".
  *
- * Most of the rest of the time is spent in "update_view()" and "lite_spot()",
+ * Most of the rest of the time is spent in "update_view()" and "lite_spot(cr_ptr, )",
  * especially when the player is running.
  *
  * Note the special "MFLAG_BORN" flag, which allows us to ignore "fresh"
@@ -3606,7 +3606,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 			m_ptr->parent_m_idx = 0;
 		}
 		update_mon(m_idx, FALSE);
-		lite_spot(m_ptr->fy, m_ptr->fx);
+		lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 	}
 	if (m_idx == p_ptr->riding) p_ptr->update |= PU_BONUS;
 }

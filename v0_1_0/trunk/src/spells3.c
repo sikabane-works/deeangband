@@ -143,10 +143,10 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
-	lite_spot(oy, ox);
+	lite_spot(cr_ptr, oy, ox);
 
 	/* Redraw the new grid */
-	lite_spot(ny, nx);
+	lite_spot(cr_ptr, ny, nx);
 
 	if (r_info[cr_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
@@ -243,10 +243,10 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	update_mon(m_idx, TRUE);
 
 	/* Redraw the old grid */
-	lite_spot(oy, ox);
+	lite_spot(p_ptr, oy, ox);
 
 	/* Redraw the new grid */
-	lite_spot(ny, nx);
+	lite_spot(p_ptr, ny, nx);
 
 	if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
@@ -2044,7 +2044,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	return TRUE;
 }
@@ -2074,7 +2074,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Redraw */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	update_local_illumination(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
@@ -2107,7 +2107,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	note_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 	
 	/* Redraw */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	return TRUE;
 }

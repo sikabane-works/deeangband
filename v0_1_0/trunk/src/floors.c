@@ -576,7 +576,7 @@ static void place_pet(void)
 
 			/* Update the monster */
 			update_mon(m_idx, TRUE);
-			lite_spot(cy, cx);
+			lite_spot(p_ptr, cy, cx);
 
 			/* Pre-calculated in precalc_cur_num_of_pet() */
 			/* r_ptr->cur_num++; */

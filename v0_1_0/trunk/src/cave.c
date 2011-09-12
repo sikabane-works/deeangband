@@ -413,7 +413,7 @@ static bool check_local_illumination(creature_type *cr_ptr, int y, int x)
 \
 		/* Notice and redraw */ \
 		note_spot((WHO), (Y), (X)); \
-		lite_spot((Y), (X)); \
+		lite_spot(cr_ptr, (Y), (X)); \
 	} \
 }
 
@@ -1611,7 +1611,7 @@ void display_dungeon(creature_type *cr_ptr)
  *
  * This function should only be called on "legal" grids
  */
-void lite_spot(int y, int x)
+void lite_spot(creature_type *cr_ptr, int y, int x)
 {
 	/* Redraw if on screen */
 	if (panel_contains(y, x) && in_bounds2(y, x))
@@ -1623,14 +1623,14 @@ void lite_spot(int y, int x)
 		char tc;
 
 		/* Examine the grid */
-		map_info(p_ptr, y, x, &a, &c, &ta, &tc);
+		map_info(cr_ptr, y, x, &a, &c, &ta, &tc);
 
 		/* Hack -- fake monochrome */
 		if (!use_graphics)
 		{
 			if (world_monster) a = TERM_DARK;
-			else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
-			else if (p_ptr->wraith_form) a = TERM_L_DARK;
+			else if (IS_INVULN(cr_ptr) || world_player) a = TERM_WHITE;
+			else if (cr_ptr->wraith_form) a = TERM_L_DARK;
 
 		}
 
@@ -1647,8 +1647,8 @@ void lite_spot(int y, int x)
  * Prints the map of the dungeon
  *
  * Note that, for efficiency, we contain an "optimized" version
- * of both "lite_spot()" and "print_rel()", and that we use the
- * "lite_spot()" function to display the player grid, if needed.
+ * of both "lite_spot(cr_ptr, )" and "print_rel()", and that we use the
+ * "lite_spot(cr_ptr, )" function to display the player grid, if needed.
  */
 void prt_map(creature_type *cr_ptr)
 {
@@ -1722,7 +1722,7 @@ void prt_map(creature_type *cr_ptr)
 	}
 
 	/* Display player */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Restore the cursor */
 	(void)Term_set_cursor(v);
@@ -2520,7 +2520,7 @@ void forget_lite(void)
 		cave[y][x].info &= ~(CAVE_LITE);
 
 		/* Redraw */
-		/* lite_spot(y, x); Perhaps don't need? */
+		/* lite_spot(cr_ptr, y, x); Perhaps don't need? */
 	}
 
 	/* None left */
@@ -2987,7 +2987,7 @@ static void mon_dark_hack(creature_type *cr_ptr, int y, int x)
  *
  * The CAVE_TEMP and CAVE_XTRA flag are used to store the state during the
  * updating.  Only squares in view of the player, whos state
- * changes are drawn via lite_spot().
+ * changes are drawn via lite_spot(cr_ptr, ).
  */
 void update_mon_lite(creature_type *cr_ptr)
 {
@@ -3363,7 +3363,7 @@ void forget_view(void)
 		/* if (!panel_contains(y, x)) continue; */
 
 		/* Update the screen */
-		/* lite_spot(y, x); Perhaps don't need? */
+		/* lite_spot(cr_ptr, y, x); Perhaps don't need? */
 	}
 
 	/* None left */
@@ -4074,7 +4074,7 @@ void delayed_visual_update(void)
 		if (c_ptr->info & CAVE_NOTE) note_spot(p_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(p_ptr, y, x);
 
 		/* Hack -- Visual update of monster on this grid */
 		if (c_ptr->m_idx) update_mon(c_ptr->m_idx, FALSE);
@@ -4613,7 +4613,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 	note_spot(cr_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(y, x);
+	lite_spot(cr_ptr, y, x);
 
 	/* Check if los has changed */
 	if (old_los ^ have_flag(f_ptr->flags, FF_LOS))
@@ -4652,7 +4652,7 @@ void cave_set_feat(creature_type *cr_ptr, int y, int x, int feat)
 				note_spot(cr_ptr, yy, xx);
 
 				/* Redraw */
-				lite_spot(yy, xx);
+				lite_spot(cr_ptr, yy, xx);
 			}
 
 			update_local_illumination(cr_ptr, yy, xx);
@@ -4804,7 +4804,7 @@ void remove_mirror(int y, int x)
 	note_spot(p_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(y, x);
+	lite_spot(p_ptr, y, x);
 }
 
 

@@ -304,7 +304,7 @@ void delete_species_idx(creature_type *cr_ptr)
 
 		/*
 		 * o_ptr->held_m_idx is needed in delete_object_idx()
-		 * to prevent calling lite_spot()
+		 * to prevent calling lite_spot(cr_ptr, )
 		 */
 
 		/* Delete the object */
@@ -322,7 +322,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	m_cnt--;
 
 	/* Visual update */
-	lite_spot(y, x);
+	lite_spot(cr_ptr, y, x);
 
 	/* Update some things */
 	if (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
@@ -2769,7 +2769,7 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = TRUE;
 
 			/* Draw the monster */
-			lite_spot(fy, fx);
+			lite_spot(p_ptr, fy, fx);
 
 			/* Update health bar as needed */
 			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
@@ -2809,7 +2809,7 @@ void update_mon(int m_idx, bool full)
 			m_ptr->ml = FALSE;
 
 			/* Erase the monster */
-			lite_spot(fy, fx);
+			lite_spot(p_ptr, fy, fx);
 
 			/* Update health bar as needed */
 			if (p_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
@@ -3001,7 +3001,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	m_ptr->species_idx = species_idx;
 	m_ptr->ap_species_idx = species_idx;
 	update_mon(m_idx, FALSE);
-	lite_spot(m_ptr->fy, m_ptr->fx);
+	lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 
 	if(monster_ego_idx == MONEGO_NONE)
 	{
@@ -3781,7 +3781,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 		c_ptr->mimic = 0;
 
 		note_spot(watcher_ptr, y, x);
-		lite_spot(y, x);
+		lite_spot(p_ptr, y, x);
 	}
 
 	//strcpy(m_ptr->name, r_name + r_ptr->name);

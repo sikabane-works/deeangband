@@ -3543,7 +3543,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 					c_ptr->info &= ~(CAVE_UNSAFE);
 
 					/* Redraw */
-					lite_spot(y, x);
+					lite_spot(p_ptr, y, x);
 				}
 			}
 
@@ -3557,7 +3557,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 				c_ptr->info |= (CAVE_MARK);
 
 				/* Redraw */
-				lite_spot(y, x);
+				lite_spot(p_ptr, y, x);
 
 				/* Obvious */
 				detect = TRUE;
@@ -3705,7 +3705,7 @@ bool detect_objects_gold(creature_type *cr_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(cr_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -3772,7 +3772,7 @@ bool detect_objects_normal(creature_type *cr_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(cr_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -3870,7 +3870,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 			o_ptr->marked |= OM_FOUND;
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(cr_ptr, y, x);
 
 			/* Detect */
 			detect = TRUE;
@@ -4934,7 +4934,7 @@ bool probing(void)
 					m_ptr->mflag2 &= ~(MFLAG2_KAGE);
 
 				m_ptr->ap_species_idx = m_ptr->species_idx;
-				lite_spot(m_ptr->fy, m_ptr->fx);
+				lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
 			}
 			/* Get "the monster" or "something" */
 			monster_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
@@ -5735,10 +5735,10 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 						update_mon(m_idx, TRUE);
 
 						/* Redraw the old grid */
-						lite_spot(yy, xx);
+						lite_spot(p_ptr, yy, xx);
 
 						/* Redraw the new grid */
-						lite_spot(sy, sx);
+						lite_spot(p_ptr, sy, sx);
 					}
 				}
 			}
@@ -6023,7 +6023,7 @@ static void cave_temp_room_lite(void)
 		note_spot(p_ptr, y, x);
 
 		/* Redraw */
-		lite_spot(y, x);
+		lite_spot(p_ptr, y, x);
 
 		update_local_illumination(p_ptr, y, x);
 	}
@@ -6107,7 +6107,7 @@ static void cave_temp_room_unlite(void)
 			}
 
 			/* Redraw */
-			lite_spot(y, x);
+			lite_spot(p_ptr, y, x);
 
 			update_local_illumination(p_ptr, y, x);
 		}

@@ -5148,7 +5148,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
-	lite_spot(cr_ptr->fy, cr_ptr->fx);
+	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 }
 
 
