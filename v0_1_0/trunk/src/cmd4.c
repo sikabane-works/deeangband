@@ -5011,7 +5011,7 @@ static cptr do_cmd_feeling_text_lucky[11] =
  * Note that "feeling" is set to zero unless some time has passed.
  * Note that this is done when the level is GENERATED, not entered.
  */
-void do_cmd_feeling(void)
+void do_cmd_feeling(creature_type *cr_ptr)
 {
 	/* No useful feeling in quests */
 	if (inside_quest && !random_quest_number(dun_level))
@@ -5067,13 +5067,13 @@ void do_cmd_feeling(void)
 	}
 
 	/* Display the feeling */
-	if (p_ptr->muta3 & MUT3_GOOD_LUCK)
-		msg_print(do_cmd_feeling_text_lucky[p_ptr->feeling]);
-	else if (p_ptr->chara_idx == CHARA_COMBAT ||
-		 p_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON)
-		msg_print(do_cmd_feeling_text_combat[p_ptr->feeling]);
+	if (cr_ptr->muta3 & MUT3_GOOD_LUCK)
+		msg_print(do_cmd_feeling_text_lucky[cr_ptr->feeling]);
+	else if (cr_ptr->chara_idx == CHARA_COMBAT ||
+		 cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON)
+		msg_print(do_cmd_feeling_text_combat[cr_ptr->feeling]);
 	else
-		msg_print(do_cmd_feeling_text[p_ptr->feeling]);
+		msg_print(do_cmd_feeling_text[cr_ptr->feeling]);
 }
 
 

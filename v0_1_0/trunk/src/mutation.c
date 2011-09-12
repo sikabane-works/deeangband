@@ -3315,7 +3315,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 	{
 		case MUT1_SPIT_ACID:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			mutation_stop_mouth(p_ptr);
+			mutation_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_print("Ž_‚ð“f‚«‚©‚¯‚½...");
 #else
@@ -3327,7 +3327,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case MUT1_BR_FIRE:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			mutation_stop_mouth(p_ptr);
+			mutation_stop_mouth(cr_ptr);
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Í‰Î‰Š‚ÌƒuƒŒƒX‚ð“f‚¢‚½...");
 #else
@@ -3401,7 +3401,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
 
-				mutation_stop_mouth(p_ptr);
+				mutation_stop_mouth(cr_ptr);
 
 				if (!(c_ptr->m_idx))
 				{
@@ -3480,7 +3480,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				f_ptr = &f_info[c_ptr->feat];
 				mimic_f_ptr = &f_info[get_feat_mimic(c_ptr)];
 
-				mutation_stop_mouth(p_ptr);
+				mutation_stop_mouth(cr_ptr);
 
 				if (!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
 				{
@@ -3568,7 +3568,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case MUT1_SHRIEK:
-			mutation_stop_mouth(p_ptr);
+			mutation_stop_mouth(cr_ptr);
 			(void)fire_ball(GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_monsters(NULL);
 			break;

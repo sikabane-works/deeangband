@@ -4696,7 +4696,7 @@ static void store_process_command(creature_type *guest_ptr)
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			do_cmd_feeling();
+			do_cmd_feeling(p_ptr);
 			break;
 		}
 

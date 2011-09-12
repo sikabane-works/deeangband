@@ -3731,7 +3731,7 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	cr_ptr->feeling = new_feeling;
 
 	/* Announce feeling */
-	do_cmd_feeling();
+	do_cmd_feeling(cr_ptr);
 
 	/* Update the level indicator */
 	play_redraw |= (PR_DEPTH);
@@ -5318,7 +5318,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			if (!wild_mode) do_cmd_feeling();
+			if (!wild_mode) do_cmd_feeling(cr_ptr);
 			break;
 		}
 
@@ -6278,7 +6278,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 
 	if (quest_num && (is_fixed_quest_idx(quest_num) &&
 	    !( quest_num == QUEST_SERPENT ||
-	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling();
+	    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(cr_ptr);
 
 	if (inside_battle)
 	{
