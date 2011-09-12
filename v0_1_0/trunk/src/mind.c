@@ -847,7 +847,7 @@ static bool cast_mindcrafter_spell(creature_type *cr_ptr, int spell)
 	case 0:   /* Precog */
 		if (plev > 44)
 		{
-			wiz_lite(FALSE);
+			wiz_lite(cr_ptr, FALSE);
 		}
 		else if (plev > 19)
 			map_area(DETECT_RAD_MAP);
@@ -1531,7 +1531,7 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 	case 1:
 		if (plev > 44)
 		{
-			wiz_lite(TRUE);
+			wiz_lite(cr_ptr, TRUE);
 		}
 		detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
 		if (plev > 4)

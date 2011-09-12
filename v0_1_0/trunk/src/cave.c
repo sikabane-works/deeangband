@@ -4387,7 +4387,7 @@ void map_area(int range)
  * since this would prevent the use of "view_torch_grids" as a method to
  * keep track of what grids have been observed directly.
  */
-void wiz_lite(bool ninja)
+void wiz_lite(creature_type *cr_ptr, bool ninja)
 {
 	int i, y, x;
 	s16b feat;
@@ -4464,7 +4464,7 @@ void wiz_lite(bool ninja)
 	}
 
 	/* Update the monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4472,9 +4472,9 @@ void wiz_lite(bool ninja)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (cr_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_GLOW) set_superstealth(cr_ptr, FALSE);
 	}
 }
 
