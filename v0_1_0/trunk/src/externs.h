@@ -668,6 +668,10 @@ extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);
 extern void realm_detail(int code);
+extern void init_dungeon_quests(void);
+extern void save_prev_data(creature_type *cr_ptr, birther *birther_ptr);
+extern void load_prev_data(creature_type *cr_ptr, bool swap);
+
 
 /* cave.c */
 extern int distance(int y1, int x1, int y2, int x2);

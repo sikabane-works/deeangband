@@ -18,6 +18,7 @@
 static bool load = TRUE;
 static int wild_regen = 20;
 
+
 /*
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
  */
@@ -6654,7 +6655,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
  */
 void play_game(creature_type *cr_ptr, bool new_game)
 {
-	int i;
+	int i, j;
 	bool load_game = TRUE;
 
 #ifdef CHUUKEI
@@ -6867,6 +6868,111 @@ quit("セーブファイルが壊れています");
 
 		/* Roll up a new character */
 		unique_birth(cr_ptr, 0, UB_PLAYER | UB_STIGMATIC);
+
+		/* Initialize random quests */
+		init_dungeon_quests();
+
+		/* Knowledge Main Dungeon and Towns */
+		/* Telmola */
+		/* TODO */
+		wilderness[67][61].known = TRUE;
+		wilderness[67][62].known = TRUE;
+		wilderness[67][63].known = TRUE;
+		wilderness[68][61].known = TRUE;
+		wilderness[68][62].known = TRUE;
+		wilderness[68][63].known = TRUE;
+		wilderness[69][61].known = TRUE;
+		wilderness[69][62].known = TRUE;
+		wilderness[69][63].known = TRUE;
+
+		/* Morivant */
+		wilderness[63][85].known = TRUE;
+		wilderness[63][86].known = TRUE;
+		wilderness[63][87].known = TRUE;
+		wilderness[64][85].known = TRUE;
+		wilderness[64][86].known = TRUE;
+		wilderness[64][87].known = TRUE;
+		wilderness[65][85].known = TRUE;
+		wilderness[65][86].known = TRUE;
+		wilderness[65][87].known = TRUE;
+
+		/* Telmola */
+		wilderness[92][66].known = TRUE;
+		wilderness[92][67].known = TRUE;
+		wilderness[92][68].known = TRUE;
+		wilderness[93][66].known = TRUE;
+		wilderness[93][67].known = TRUE;
+		wilderness[93][68].known = TRUE;
+		wilderness[94][66].known = TRUE;
+		wilderness[94][67].known = TRUE;
+		wilderness[94][68].known = TRUE;
+
+		/* LugBuruz */
+		wilderness[61][75].known = TRUE;
+		wilderness[61][76].known = TRUE;
+		wilderness[61][77].known = TRUE;
+		wilderness[62][75].known = TRUE;
+		wilderness[62][76].known = TRUE;
+		wilderness[62][77].known = TRUE;
+		wilderness[63][75].known = TRUE;
+		wilderness[63][76].known = TRUE;
+		wilderness[63][77].known = TRUE;
+
+		/* Texorami */
+		wilderness[36][168].known = TRUE;
+		wilderness[36][169].known = TRUE;
+		wilderness[36][170].known = TRUE;
+		wilderness[37][168].known = TRUE;
+		wilderness[37][169].known = TRUE;
+		wilderness[37][170].known = TRUE;
+		wilderness[38][168].known = TRUE;
+		wilderness[38][169].known = TRUE;
+		wilderness[38][170].known = TRUE;
+
+		/* Dungeon of Doom */
+		wilderness[51][96].known = TRUE;
+		wilderness[51][97].known = TRUE;
+		wilderness[51][98].known = TRUE;
+		wilderness[52][96].known = TRUE;
+		wilderness[52][97].known = TRUE;
+		wilderness[52][98].known = TRUE;
+		wilderness[53][96].known = TRUE;
+		wilderness[53][97].known = TRUE;
+		wilderness[53][98].known = TRUE;
+
+		/* Save character data for quick start */
+		save_prev_data(cr_ptr, &previous_char);
+		previous_char.quick_ok = TRUE;
+
+		/* Init the shops */
+		for (i = 1; i < max_towns; i++)
+		{
+			town_num = i;
+			process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
+			for (j = 0; j < MAX_STORES; j++)
+			{
+				/* Initialize */
+				store_init(i, j);
+			}
+		}
+
+		/* Init Uniques*/
+		birth_uniques();
+
+		/* Generate the random seeds for the wilderness */
+		seed_wilderness();
+
+		/* Give beastman a mutation at character birth */
+		if (cr_ptr->irace_idx == RACE_BEASTMAN) hack_mutation = TRUE;
+		else hack_mutation = FALSE;
+
+		/* Set the message window flag as default */
+		if (!window_flag[1])
+			window_flag[1] |= PW_MESSAGE;
+
+		/* Set the inv/equip window flag as default */
+		if (!window_flag[2])
+			window_flag[2] |= PW_INVEN;
 
 		counts_write(2,0);
 		cr_ptr->count = 0;
