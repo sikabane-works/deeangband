@@ -4367,28 +4367,28 @@ cptr mention_use(creature_type *cr_ptr, int i)
  * Return a string describing how a given item is being worn.
  * Currently, only used for items in the equipment, not p_ptr->inventory.
  */
-cptr describe_use(int i)
+cptr describe_use(creature_type *cr_ptr, int i)
 {
 	cptr p;
 
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((p_ptr->ryoute && p_ptr->migite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (left_hander ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((cr_ptr->ryoute && cr_ptr->migite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (left_hander ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
-		case INVEN_1STARM:  p = p_ptr->heavy_wield[0] ? "just lifting" : (p_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((p_ptr->ryoute && p_ptr->hidarite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (left_hander ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "‰^”À’†‚Ì" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (left_hander ? "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é" : "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
 #else
-		case INVEN_2NDARM:  p = p_ptr->heavy_wield[1] ? "just lifting" : (p_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
+		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_BOW:   p = (adj_str_hold[p_ptr->stat_ind[A_STR]] < p_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
+		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
 #else
-		case INVEN_BOW:   p = (adj_str_hold[p_ptr->stat_ind[A_STR]] < p_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
 #endif
 
 #ifdef JP

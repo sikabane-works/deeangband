@@ -170,7 +170,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	{
 #ifdef JP
 msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-describe_use(slot),o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
+describe_use(cr_ptr, slot),o_name, index_to_label(cr_ptr, slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
 			   o_name, index_to_label(cr_ptr, slot), describe_use(slot),

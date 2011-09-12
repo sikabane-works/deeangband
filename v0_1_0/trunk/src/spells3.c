@@ -2874,9 +2874,9 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
 #endif
 	}
 	else if (item >= 0)
@@ -3062,9 +3062,9 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	if (item >= INVEN_1STARM)
 	{
 #ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s(%c)。", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
 #else
-		msg_format("%^s: %s (%c).", describe_use(item), o_name, index_to_label(cr_ptr, item));
+		msg_format("%^s: %s (%c).", describe_use(cr_ptr, item), o_name, index_to_label(cr_ptr, item));
 #endif
 
 

@@ -398,10 +398,10 @@ void do_cmd_wield(creature_type *cr_ptr)
 		/* Message */
 #ifdef JP
 		msg_format("%s%s‚Íô‚í‚ê‚Ä‚¢‚é‚æ‚¤‚¾B",
-			   describe_use(slot) , o_name );
+			   describe_use(cr_ptr, slot) , o_name );
 #else
 		msg_format("The %s you are %s appears to be cursed.",
-			   o_name, describe_use(slot));
+			   o_name, describe_use(cr_ptr, slot));
 #endif
 
 		/* Cancel the command */
