@@ -1535,11 +1535,16 @@ struct birther
 {
 	s16b sex;         /* Sex index */
 	s16b irace_idx;        /* Race index */
+	s16b species_idx;			    /* Monster race index */
+	s16b monster_ego_idx;		    /* Monster ego index */
+	s16b ap_species_idx;		    /* Monster race appearance index */
 	u32b sub_race[8];    /* Sub-Race index */
+	s16b patron_idx;
 	byte cls_idx;       /* Class index */
 	byte chara_idx;     /* CHARA index */
 	byte realm1;       /* First magic realm */
 	byte realm2;       /* Second magic realm */
+	u32b authority[8];      /* Autority flags*/
 
 	s32b age;
 	s32b ht;
@@ -1552,7 +1557,7 @@ struct birther
 	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
 	s16b player_hp[PY_MAX_LEVEL];
 
-	s16b patron_idx;
+	s32b karmas[MAX_KARMA];
 
 	char history[4][60];
 

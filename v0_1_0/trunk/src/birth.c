@@ -2356,6 +2356,8 @@ void save_prev_data(creature_type *cr_ptr, birther *birther_ptr)
 	/* Save the data */
 	birther_ptr->sex = cr_ptr->sex;
 	birther_ptr->irace_idx = cr_ptr->irace_idx;
+	birther_ptr->species_idx = cr_ptr->species_idx;
+	birther_ptr->ap_species_idx = cr_ptr->ap_species_idx;
 	birther_ptr->cls_idx = cr_ptr->cls_idx;
 	birther_ptr->chara_idx = cr_ptr->chara_idx;
 	birther_ptr->realm1 = cr_ptr->realm1;
@@ -2381,12 +2383,17 @@ void save_prev_data(creature_type *cr_ptr, birther *birther_ptr)
 
 	birther_ptr->patron_idx = cr_ptr->patron_idx;
 
-
 	/* Save the history */
 	for (i = 0; i < 4; i++)
 	{
 		strcpy(birther_ptr->history[i], cr_ptr->history[i]);
 	}
+
+	for (i = 0; i < 8; i++)
+	{
+		birther_ptr->authority[i] = cr_ptr->authority[i];
+	}
+
 }
 
 
@@ -2408,6 +2415,8 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	/* Load the data */
 	cr_ptr->sex = previous_char.sex;
 	cr_ptr->irace_idx = previous_char.irace_idx;
+	cr_ptr->species_idx = previous_char.species_idx;
+	cr_ptr->ap_species_idx = previous_char.ap_species_idx;
 	cr_ptr->cls_idx = previous_char.cls_idx;
 	cr_ptr->chara_idx = previous_char.chara_idx;
 	cr_ptr->realm1 = previous_char.realm1;
@@ -2441,6 +2450,11 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	for (i = 0; i < 4; i++)
 	{
 		strcpy(cr_ptr->history[i], previous_char.history[i]);
+	}
+
+	for (i = 0; i < 8; i++)
+	{
+		cr_ptr->authority[i] = previous_char.authority[i];
 	}
 
 	/*** Save the previous data ***/
