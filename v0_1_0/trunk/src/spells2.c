@@ -151,6 +151,16 @@ sprintf(Dummy, "Œ»Ý‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
 #endif
 	}
 
+	if(cr_ptr->is_dead)
+	{
+#ifdef JP
+		info[i++] = "‚ ‚È‚½‚ÍŽ€‚ñ‚Å‚¢‚é";
+#else
+		info[i++] = "You are dead. ";
+#endif
+	}
+		
+
 	percent = calc_punishment_slay(cr_ptr, ALIGNMENT_GOOD);
 	if(percent > 100)
 	{

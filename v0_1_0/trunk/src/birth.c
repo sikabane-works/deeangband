@@ -2300,7 +2300,7 @@ static bool get_player_realms(creature_type *cr_ptr, bool auto_m)
 {
 	int i;
 
-	put_initial_status(cr_ptr);
+	if(!auto_m) put_initial_status(cr_ptr);
 
 	/* Select the first realm */
 	cr_ptr->realm1 = REALM_NONE;
@@ -2314,7 +2314,7 @@ static bool get_player_realms(creature_type *cr_ptr, bool auto_m)
 	else
 		cr_ptr->realm1 = i;
 
-	put_initial_status(cr_ptr);
+	if(!auto_m) put_initial_status(cr_ptr);
 		
 	/* Select the second realm */
 	cr_ptr->realm2 = REALM_NONE;
@@ -5788,7 +5788,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	cr_ptr->sub_race[7] = 0x0;
 
 	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m) put_initial_status(cr_ptr);
 
 	i = get_intelligent_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
@@ -5811,38 +5811,53 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		if(i == -3) birth_quit();
 	}
 
-	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
 	i = get_player_sex(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
 	i = get_player_class(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
 	i = get_player_patron(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
 	i = get_player_realms(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	clear_from(0);
-	put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
 	i = get_player_chara(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-
-	screen_save();
+	if(!auto_m)
+		screen_save();
 
 	if(!auto_m)
 	{
@@ -6080,7 +6095,6 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 		/* Flush input */
 		flush();
 
-
 		/*** Display ***/
 
 		/* Mode */
@@ -6261,81 +6275,6 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	/* Start over */
 	if (c == 'S') return (FALSE);
 
-	/* Initialize random quests */
-	init_dungeon_quests();
-
-	/* TODO */
-
-	/* Knowledge Main Dungeon and Towns */
-	/* Telmola */
-	wilderness[67][61].known = TRUE;
-	wilderness[67][62].known = TRUE;
-	wilderness[67][63].known = TRUE;
-	wilderness[68][61].known = TRUE;
-	wilderness[68][62].known = TRUE;
-	wilderness[68][63].known = TRUE;
-	wilderness[69][61].known = TRUE;
-	wilderness[69][62].known = TRUE;
-	wilderness[69][63].known = TRUE;
-
-	/* Morivant */
-	wilderness[63][85].known = TRUE;
-	wilderness[63][86].known = TRUE;
-	wilderness[63][87].known = TRUE;
-	wilderness[64][85].known = TRUE;
-	wilderness[64][86].known = TRUE;
-	wilderness[64][87].known = TRUE;
-	wilderness[65][85].known = TRUE;
-	wilderness[65][86].known = TRUE;
-	wilderness[65][87].known = TRUE;
-
-	/* Telmola */
-	wilderness[92][66].known = TRUE;
-	wilderness[92][67].known = TRUE;
-	wilderness[92][68].known = TRUE;
-	wilderness[93][66].known = TRUE;
-	wilderness[93][67].known = TRUE;
-	wilderness[93][68].known = TRUE;
-	wilderness[94][66].known = TRUE;
-	wilderness[94][67].known = TRUE;
-	wilderness[94][68].known = TRUE;
-
-	/* LugBuruz */
-	wilderness[61][75].known = TRUE;
-	wilderness[61][76].known = TRUE;
-	wilderness[61][77].known = TRUE;
-	wilderness[62][75].known = TRUE;
-	wilderness[62][76].known = TRUE;
-	wilderness[62][77].known = TRUE;
-	wilderness[63][75].known = TRUE;
-	wilderness[63][76].known = TRUE;
-	wilderness[63][77].known = TRUE;
-
-	/* Texorami */
-	wilderness[36][168].known = TRUE;
-	wilderness[36][169].known = TRUE;
-	wilderness[36][170].known = TRUE;
-	wilderness[37][168].known = TRUE;
-	wilderness[37][169].known = TRUE;
-	wilderness[37][170].known = TRUE;
-	wilderness[38][168].known = TRUE;
-	wilderness[38][169].known = TRUE;
-	wilderness[38][170].known = TRUE;
-
-	/* Gungeon of Doom */
-	wilderness[51][96].known = TRUE;
-	wilderness[51][97].known = TRUE;
-	wilderness[51][98].known = TRUE;
-	wilderness[52][96].known = TRUE;
-	wilderness[52][97].known = TRUE;
-	wilderness[52][98].known = TRUE;
-	wilderness[53][96].known = TRUE;
-	wilderness[53][97].known = TRUE;
-	wilderness[53][98].known = TRUE;
-
-	/* Save character data for quick start */
-	save_prev_data(cr_ptr, &previous_char);
-	previous_char.quick_ok = TRUE;
 
 	/* Accept */
 	return (TRUE);
@@ -6516,6 +6455,82 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 	sprintf(buf,"                            choose %s.", chara_info[cr_ptr->chara_idx].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
+
+	/* Initialize random quests */
+	init_dungeon_quests();
+
+	/* TODO */
+
+	/* Knowledge Main Dungeon and Towns */
+	/* Telmola */
+	wilderness[67][61].known = TRUE;
+	wilderness[67][62].known = TRUE;
+	wilderness[67][63].known = TRUE;
+	wilderness[68][61].known = TRUE;
+	wilderness[68][62].known = TRUE;
+	wilderness[68][63].known = TRUE;
+	wilderness[69][61].known = TRUE;
+	wilderness[69][62].known = TRUE;
+	wilderness[69][63].known = TRUE;
+
+	/* Morivant */
+	wilderness[63][85].known = TRUE;
+	wilderness[63][86].known = TRUE;
+	wilderness[63][87].known = TRUE;
+	wilderness[64][85].known = TRUE;
+	wilderness[64][86].known = TRUE;
+	wilderness[64][87].known = TRUE;
+	wilderness[65][85].known = TRUE;
+	wilderness[65][86].known = TRUE;
+	wilderness[65][87].known = TRUE;
+
+	/* Telmola */
+	wilderness[92][66].known = TRUE;
+	wilderness[92][67].known = TRUE;
+	wilderness[92][68].known = TRUE;
+	wilderness[93][66].known = TRUE;
+	wilderness[93][67].known = TRUE;
+	wilderness[93][68].known = TRUE;
+	wilderness[94][66].known = TRUE;
+	wilderness[94][67].known = TRUE;
+	wilderness[94][68].known = TRUE;
+
+	/* LugBuruz */
+	wilderness[61][75].known = TRUE;
+	wilderness[61][76].known = TRUE;
+	wilderness[61][77].known = TRUE;
+	wilderness[62][75].known = TRUE;
+	wilderness[62][76].known = TRUE;
+	wilderness[62][77].known = TRUE;
+	wilderness[63][75].known = TRUE;
+	wilderness[63][76].known = TRUE;
+	wilderness[63][77].known = TRUE;
+
+	/* Texorami */
+	wilderness[36][168].known = TRUE;
+	wilderness[36][169].known = TRUE;
+	wilderness[36][170].known = TRUE;
+	wilderness[37][168].known = TRUE;
+	wilderness[37][169].known = TRUE;
+	wilderness[37][170].known = TRUE;
+	wilderness[38][168].known = TRUE;
+	wilderness[38][169].known = TRUE;
+	wilderness[38][170].known = TRUE;
+
+	/* Gungeon of Doom */
+	wilderness[51][96].known = TRUE;
+	wilderness[51][97].known = TRUE;
+	wilderness[51][98].known = TRUE;
+	wilderness[52][96].known = TRUE;
+	wilderness[52][97].known = TRUE;
+	wilderness[52][98].known = TRUE;
+	wilderness[53][96].known = TRUE;
+	wilderness[53][97].known = TRUE;
+	wilderness[53][98].known = TRUE;
+
+	/* Save character data for quick start */
+	save_prev_data(cr_ptr, &previous_char);
+	previous_char.quick_ok = TRUE;
 
 	/* Init the shops */
 	for (i = 1; i < max_towns; i++)
