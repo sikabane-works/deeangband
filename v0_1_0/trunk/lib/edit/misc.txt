@@ -16,7 +16,7 @@ M:WY:161
 M:R:1130
 
 # Maximum number of monsters in re_info.txt
-M:RE:14
+M:RE:18
 
 # Maximum number of items in k_info.txt
 M:K:681

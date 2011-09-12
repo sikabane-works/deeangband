@@ -50,5 +50,21 @@ E:dammy
 S:0:1:1:0:0:4
 
 N:13:ƒTƒCƒY‰Â•Ï‚Ì
-E:variable size 
+E:Variable size 
+S:0:0:0:0:0:0
+
+N:14:‘æˆê‚Ìæ‚èèqª•r‚Ì
+E:First Rider 'Conquest'
+S:0:0:0:0:0:0
+
+N:15:‘æ“ñ‚Ìæ‚èèqí‘ˆr‚Ì
+E:Second Rider 'War'
+S:0:0:0:0:0:0
+
+N:16:‘æO‚Ìæ‚èèq‹Qé[r‚Ì
+E:Second Rider 'Famine'
+S:0:0:0:0:0:0
+
+N:17:‘æl‚Ìæ‚èèq€r‚Ì
+E:Second Rider 'Famine'
 S:0:0:0:0:0:0
