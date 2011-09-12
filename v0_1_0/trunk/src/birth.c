@@ -4328,6 +4328,112 @@ static int get_creature_race(creature_type *cr_ptr, bool auto_m)
 	}
 }
 
+
+/*
+ * Creature sub-race
+ */
+static int get_creature_subrace(creature_type *cr_ptr, bool auto_m)
+{
+	int     n = 0, i;
+	selection se[MAX_RACES + 3];
+
+#if JP
+	strcpy(se[n].cap, "èÉååéÌ");
+#else
+	strcpy(se[n].cap, "Pure Breed");
+#endif
+	se[n].code = -4;
+	se[n].key = '\0';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+	for (i = 0; i < MAX_RACES; i++)
+	{
+		if(race_crossing[cr_ptr->irace_idx][i] > 0 && cr_ptr->irace_idx != i)
+		{
+			strcpy(se[n].cap, race_info[i].title);
+			se[n].code = i;
+			se[n].key = '\0';
+			se[n].d_color = TERM_L_DARK;
+			se[n].l_color = TERM_WHITE;
+			n++;
+		}
+	}
+
+#if JP
+	strcpy(se[n].cap, "ÉâÉìÉ_ÉÄ");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "èIóπÇ∑ÇÈ");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+
+	if(!auto_m)
+	{
+#if JP
+		put_str("ïõéÌë∞ÇëIëÇµÇƒâ∫Ç≥Ç¢:", 0, 0);
+#else
+		put_str("Select a sub-race:", 0, 0);
+#endif
+		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
+	}
+	else
+	{
+		set_subrace(cr_ptr, se[randint0(n-3)].code, TRUE);
+		return 0;
+	}
+
+
+	if(i >= 0)
+	{
+		set_subrace(cr_ptr, i, TRUE);
+		return 0;
+	}
+	else if(i == -4)
+	{
+		return 0;
+	}
+	else if(i == -1)
+	{
+		int t = randint0(n-3);
+		if(t == -4) return 0;
+		set_subrace(cr_ptr, se[t].code, TRUE);
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+}
+
+
 /*
  * Player SubRace(Eldar)
  */
@@ -5888,8 +5994,12 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	cr_ptr->sub_race[6] = 0x0;
 	cr_ptr->sub_race[7] = 0x0;
 
-	clear_from(0);
-	if(!auto_m) put_initial_status(cr_ptr);
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
+
 
 	i = get_creature_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
@@ -5897,20 +6007,25 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 
 	if(cr_ptr->irace_idx == RACE_ELDAR)
 	{
-		put_initial_status(cr_ptr);
+		if(!auto_m) put_initial_status(cr_ptr);
 		i = get_creature_subrace_eldar(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 
-
 	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
 	{
-		put_initial_status(cr_ptr);
+		if(!auto_m) put_initial_status(cr_ptr);
 		i = get_creature_subrace_dragonbone(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
+
+	if(!auto_m) put_initial_status(cr_ptr);
+	i = get_creature_subrace(cr_ptr, auto_m);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
 
 	if(!auto_m)
 	{
