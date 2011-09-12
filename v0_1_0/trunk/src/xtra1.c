@@ -6395,7 +6395,7 @@ void set_subrace(creature_type *cr_ptr, int n, bool b)
 
 
 /* Return Race Name */
-cptr get_intelligent_race_name(creature_type *cr_ptr){
+cptr desc_creature_race_name(creature_type *cr_ptr){
 	int i;
 	bool subflag;
 	char name[80];

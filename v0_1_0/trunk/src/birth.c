@@ -2057,7 +2057,7 @@ static void put_initial_status(creature_type *cr_ptr)
 
 	if(cr_ptr->irace_idx != RACE_NONE)
 	{
-		race = get_intelligent_race_name(cr_ptr);
+		race = desc_creature_race_name(cr_ptr);
 #ifdef JP
 		put_str("種族  :", 1, 1);
 #else
@@ -4212,9 +4212,9 @@ void realm_detail(int code)
 
 
 /*
- * Player race
+ * Creature race
  */
-static int get_intelligent_race(creature_type *cr_ptr, bool auto_m)
+static int get_creature_race(creature_type *cr_ptr, bool auto_m)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
@@ -4265,8 +4265,16 @@ static int get_intelligent_race(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
+
 	if(!auto_m)
+	{
+#if JP
+		put_str("種族を選択して下さい:", 0, 0);
+#else
+		put_str("Select a race:", 0, 0);
+#endif
 		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
+	}
 	else
 	{
 		cr_ptr->irace_idx = se[randint0(n - 3)].code;
@@ -4293,7 +4301,7 @@ static int get_intelligent_race(creature_type *cr_ptr, bool auto_m)
 /*
  * Player SubRace(Eldar)
  */
-static bool get_player_subrace_eldar(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 {
 	int     i, n = 0;
 	selection se[3 + 3];
@@ -4353,7 +4361,14 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("エルダールの副種族を選択して下さい:", 0, 0);
+#else
+		put_str("Select a sub-race of Eldar:", 0, 0);
+#endif
 		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	}
 	else
 	{
 		set_subrace(cr_ptr, se[randint0(3)].code, TRUE);
@@ -4379,9 +4394,9 @@ static bool get_player_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 
 
 /*
- * Player SubRace(Dragon & Draconian)
+ * Creature SubRace(Dragon & Draconian)
  */
-static bool get_player_subrace_dragon(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 {
 	int     i, n = 0;
 	selection se[15];
@@ -4464,7 +4479,14 @@ static bool get_player_subrace_dragon(creature_type *cr_ptr, bool auto_m)
 	n++;
 
 	if(!auto_m)
+	{
+#if JP
+		put_str("竜族の副種族を選択して下さい:", 0, 0);
+#else
+		put_str("Select a sub-race of Dragonbone:", 0, 0);
+#endif
 		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail);
+	}
 	else
 	{
 		set_subrace(cr_ptr, se[randint0(12)].code, TRUE);
@@ -5790,14 +5812,14 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	clear_from(0);
 	if(!auto_m) put_initial_status(cr_ptr);
 
-	i = get_intelligent_race(cr_ptr, auto_m);
+	i = get_creature_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
 	if(cr_ptr->irace_idx == RACE_ELDAR)
 	{
 		put_initial_status(cr_ptr);
-		i = get_player_subrace_eldar(cr_ptr, auto_m);
+		i = get_creature_subrace_eldar(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
@@ -5806,7 +5828,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
 	{
 		put_initial_status(cr_ptr);
-		i = get_player_subrace_dragon(cr_ptr, auto_m);
+		i = get_creature_subrace_dragonbone(cr_ptr, auto_m);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
