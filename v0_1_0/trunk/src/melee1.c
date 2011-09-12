@@ -237,7 +237,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 		/* Stop if player is dead or gone */
 		if (!tar_ptr->playing || tar_ptr->is_dead) break;
-		if (distance(p_ptr->fy, p_ptr->fx, atk_ptr->fy, atk_ptr->fx) > 1) break;
+		if (distance(tar_ptr->fy, tar_ptr->fx, atk_ptr->fy, atk_ptr->fx) > 1) break;
 
 		/* Handle "leaving" */
 		if (tar_ptr->leaving) break;
@@ -1069,7 +1069,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (!o_ptr->k_idx) continue;
 
 						/* Skip artifacts */
-						if (object_is_artifact(p_ptr, o_ptr)) continue;
+						if (object_is_artifact(tar_ptr, o_ptr)) continue;
 
 						/* Get a description */
 						object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
@@ -1077,12 +1077,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)を%s盗まれた！",
-							   o_name, index_to_label(p_ptr, i),
+							   o_name, index_to_label(tar_ptr, i),
 							   ((o_ptr->number > 1) ? "一つ" : ""));
 #else
 						msg_format("%sour %s (%c) was stolen!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(p_ptr, i));
+							   o_name, index_to_label(tar_ptr, i));
 #endif
 
 						/* Make an object */
@@ -1170,12 +1170,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						/* Message */
 #ifdef JP
 						msg_format("%s(%c)を%s食べられてしまった！",
-							  o_name, index_to_label(p_ptr, i),
+							  o_name, index_to_label(tar_ptr, i),
 							  ((o_ptr->number > 1) ? "一つ" : ""));
 #else
 						msg_format("%sour %s (%c) was eaten!",
 							   ((o_ptr->number > 1) ? "One of y" : "Y"),
-							   o_name, index_to_label(p_ptr, i));
+							   o_name, index_to_label(tar_ptr, i));
 #endif
 
 
@@ -2061,9 +2061,9 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 							r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_RES_SHAR_MASK);
 					}
 
-					if (is_mirror_grid(&cave[p_ptr->fy][p_ptr->fx]))
+					if (is_mirror_grid(&cave[tar_ptr->fy][tar_ptr->fx]))
 					{
-						teleport_player(p_ptr, 10, 0L);
+						teleport_player(tar_ptr, 10, 0L);
 					}
 				}
 
@@ -2177,7 +2177,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 							for (j = 0; j < 4; j++)
 							{
 								o_ptr = &tar_ptr->inventory[typ[j][0]];
-								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(p_ptr, o_ptr))
+								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(tar_ptr, o_ptr))
 									project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}

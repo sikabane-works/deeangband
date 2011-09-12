@@ -497,7 +497,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

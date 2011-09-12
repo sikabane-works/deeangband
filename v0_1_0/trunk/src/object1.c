@@ -5634,7 +5634,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 
 #ifdef ALLOW_EASY_FLOOR /* TNB */
 
-	if (easy_floor || use_menu) return get_item_floor(cp, pmt, str, mode);
+	if (easy_floor || use_menu) return get_item_floor(cr_ptr, cp, pmt, str, mode);
 
 #endif /* ALLOW_EASY_FLOOR -- TNB */
 
@@ -6659,10 +6659,10 @@ int show_floor(int target_item, int y, int x, int *min_width)
 }
 
 /*
- * This version of get_item(p_ptr, ) is called by get_item(p_ptr, ) when
+ * This version of get_item() is called by get_item() when
  * the easy_floor is on.
  */
-bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
+bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 {
 	char n1 = ' ', n2 = ' ', which = ' ';
 
@@ -6718,7 +6718,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			if (prev_tag && command_cmd)
 			{
 				/* Scan all objects in the grid */
-				floor_num = scan_floor(floor_list, p_ptr->fy, p_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
 
 				/* Look up the tag */
 				if (get_tag_floor(&k, prev_tag, floor_list, floor_num))
@@ -6739,7 +6739,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Validate the item */
-			else if (item_tester_okay(p_ptr, &o_list[0 - (*cp)]))
+			else if (item_tester_okay(cr_ptr, &o_list[0 - (*cp)]))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6757,9 +6757,9 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			if (prev_tag && command_cmd)
 			{
 				/* Look up the tag and validate the item */
-				if (!get_tag(p_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
+				if (!get_tag(cr_ptr, &k, prev_tag, (*cp >= INVEN_1STARM) ? USE_EQUIP : USE_INVEN)) /* Reject */;
 				else if ((k < INVEN_1STARM) ? !inven : !equip) /* Reject */;
-				else if (!get_item_okay(p_ptr, k)) /* Reject */;
+				else if (!get_item_okay(cr_ptr, k)) /* Reject */;
 				else
 				{
 					/* Accept that choice */
@@ -6778,7 +6778,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			}
 
 			/* Verify the item */
-			else if (get_item_okay(p_ptr, *cp))
+			else if (get_item_okay(cr_ptr, *cp))
 			{
 				/* Forget restrictions */
 				item_tester_tval = 0;
@@ -6805,21 +6805,21 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	item = FALSE;
 
 
-	/* Full p_ptr->inventory */
+	/* Full cr_ptr->inventory */
 	i1 = 0;
 	i2 = INVEN_PACK - 1;
 
-	/* Forbid p_ptr->inventory */
+	/* Forbid cr_ptr->inventory */
 	if (!inven) i2 = -1;
 	else if (use_menu)
 	{
 		for (j = 0; j < INVEN_PACK; j++)
-			if (item_tester_okay(p_ptr, &p_ptr->inventory[j])) max_inven++;
+			if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j])) max_inven++;
 	}
 
-	/* Restrict p_ptr->inventory indexes */
-	while ((i1 <= i2) && (!get_item_okay(p_ptr, i1))) i1++;
-	while ((i1 <= i2) && (!get_item_okay(p_ptr, i2))) i2--;
+	/* Restrict cr_ptr->inventory indexes */
+	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i1))) i1++;
+	while ((i1 <= i2) && (!get_item_okay(cr_ptr, i2))) i2--;
 
 
 	/* Full equipment */
@@ -6831,21 +6831,21 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	else if (use_menu)
 	{
 		for (j = INVEN_1STARM; j < INVEN_TOTAL; j++)
-			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(p_ptr, &p_ptr->inventory[j])) max_equip++;
-		if (p_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
+			if (select_ring_slot ? is_ring_slot(j) : item_tester_okay(cr_ptr, &cr_ptr->inventory[j])) max_equip++;
+		if (cr_ptr->ryoute && !item_tester_no_ryoute) max_equip++;
 	}
 
 	/* Restrict equipment indexes */
-	while ((e1 <= e2) && (!get_item_okay(p_ptr, e1))) e1++;
-	while ((e1 <= e2) && (!get_item_okay(p_ptr, e2))) e2--;
+	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e1))) e1++;
+	while ((e1 <= e2) && (!get_item_okay(cr_ptr, e2))) e2--;
 
-	if (equip && p_ptr->ryoute && !item_tester_no_ryoute)
+	if (equip && cr_ptr->ryoute && !item_tester_no_ryoute)
 	{
-		if (p_ptr->migite)
+		if (cr_ptr->migite)
 		{
 			if (e2 < INVEN_2NDARM) e2 = INVEN_2NDARM;
 		}
-		else if (p_ptr->hidarite) e1 = INVEN_1STARM;
+		else if (cr_ptr->hidarite) e1 = INVEN_1STARM;
 	}
 
 
@@ -6856,10 +6856,10 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	if (floor)
 	{
 		/* Scan all objects in the grid */
-		floor_num = scan_floor(floor_list, p_ptr->fy, p_ptr->fx, 0x03);
+		floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
 	}
 
-	/* Accept p_ptr->inventory */
+	/* Accept inventory */
 	if (i1 <= i2) allow_inven = TRUE;
 
 	/* Accept equipment */
@@ -6871,7 +6871,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 	/* Require at least one legal choice */
 	if (!allow_inven && !allow_equip && !allow_floor)
 	{
-		/* Cancel p_ptr->command_see */
+		/* Cancel cr_ptr->command_see */
 		command_see = FALSE;
 
 		/* Oops */
@@ -6896,7 +6896,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			command_wrk = (USE_EQUIP);
 		}
 
-		/* Use p_ptr->inventory if allowed */
+		/* Use cr_ptr->inventory if allowed */
 		else if (allow_inven)
 		{
 			command_wrk = (USE_INVEN);
@@ -6966,7 +6966,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 		/* Redraw windows */
 		window_stuff();
 
-		/* p_ptr->inventory screen */
+		/* cr_ptr->inventory screen */
 		if (command_wrk == (USE_INVEN))
 		{
 			/* Extract the legal requests */
@@ -6974,7 +6974,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, p_ptr);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr);
 		}
 
 		/* Equipment screen */
@@ -6985,7 +6985,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, p_ptr);
+			if (command_see) get_item_label = show_equip(menu_line, cr_ptr);
 		}
 
 		/* Floor screen */
@@ -6999,10 +6999,10 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			n2 = I2A(k - floor_top);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_floor(menu_line, p_ptr->fy, p_ptr->fx, &min_width);
+			if (command_see) get_item_label = show_floor(menu_line, cr_ptr->fy, cr_ptr->fx, &min_width);
 		}
 
-		/* Viewing p_ptr->inventory */
+		/* Viewing cr_ptr->inventory */
 		if (command_wrk == (USE_INVEN))
 		{
 			/* Begin the prompt */
@@ -7020,7 +7020,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(p_ptr, i1), index_to_label(p_ptr, i2));
+					index_to_label(cr_ptr, i1), index_to_label(cr_ptr, i2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -7092,7 +7092,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 #else
 				sprintf(tmp_val, " %c-%c,'(',')',",
 #endif
-					index_to_label(p_ptr, e1), index_to_label(p_ptr, e2));
+					index_to_label(cr_ptr, e1), index_to_label(cr_ptr, e2));
 
 				/* Append */
 				strcat(out_val, tmp_val);
@@ -7419,14 +7419,14 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				else
 				{
 					/* Validate the item */
-					if (!get_item_okay(p_ptr, get_item_label))
+					if (!get_item_okay(cr_ptr, get_item_label))
 					{
 						bell();
 						break;
 					}
 
 					/* Allow player to "refuse" certain actions */
-					if (!get_item_allow(p_ptr, get_item_label))
+					if (!get_item_allow(cr_ptr, get_item_label))
 					{
 						done = TRUE;
 						break;
@@ -7494,7 +7494,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			case '+':
 			{
 				int i, o_idx;
-				cave_type *c_ptr = &cave[p_ptr->fy][p_ptr->fx];
+				cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 
 				if (command_wrk != (USE_FLOOR)) break;
 
@@ -7516,7 +7516,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				o_list[i].next_o_idx = o_idx;
 
 				/* Re-scan floor list */ 
-				floor_num = scan_floor(floor_list, p_ptr->fy, p_ptr->fx, 0x03);
+				floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
 
 				/* Hack -- Fix screen */
 				if (command_see)
@@ -7605,7 +7605,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(p_ptr, k))
+						if (!get_item_allow(cr_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7643,7 +7643,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				if (command_wrk != USE_FLOOR)
 				{
 					/* Look up the tag */
-					if (!get_tag(p_ptr, &k, which, command_wrk))
+					if (!get_tag(cr_ptr, &k, which, command_wrk))
 					{
 						bell();
 						break;
@@ -7657,7 +7657,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Validate the item */
-					if (!get_item_okay(p_ptr, k))
+					if (!get_item_okay(cr_ptr, k))
 					{
 						bell();
 						break;
@@ -7679,7 +7679,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(p_ptr, k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7699,7 +7699,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 			case '\n':
 			case '\r':
 			{
-				/* Choose "default" p_ptr->inventory item */
+				/* Choose "default" cr_ptr->inventory item */
 				if (command_wrk == (USE_INVEN))
 				{
 					k = ((i1 == i2) ? i1 : -1);
@@ -7720,7 +7720,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 						k = 0 - floor_list[0];
 
 						/* Allow player to "refuse" certain actions */
-						if (!get_item_allow(p_ptr, k))
+						if (!get_item_allow(cr_ptr, k))
 						{
 							done = TRUE;
 							break;
@@ -7735,14 +7735,14 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Validate the item */
-				if (!get_item_okay(p_ptr, k))
+				if (!get_item_okay(cr_ptr, k))
 				{
 					bell();
 					break;
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(p_ptr, k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
@@ -7777,7 +7777,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					bool not_found = FALSE;
 
 					/* Look up the alphabetical tag */
-					if (!get_tag(p_ptr, &k, which, command_wrk))
+					if (!get_tag(cr_ptr, &k, which, command_wrk))
 					{
 						not_found = TRUE;
 					}
@@ -7789,7 +7789,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 					}
 
 					/* Validate the item */
-					else if (!get_item_okay(p_ptr, k))
+					else if (!get_item_okay(cr_ptr, k))
 					{
 						not_found = TRUE;
 					}
@@ -7829,12 +7829,12 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				ver = isupper(which);
 				which = tolower(which);
 
-				/* Convert letter to p_ptr->inventory index */
+				/* Convert letter to cr_ptr->inventory index */
 				if (command_wrk == (USE_INVEN))
 				{
 					if (which == '(') k = i1;
 					else if (which == ')') k = i2;
-					else k = label_to_inven(p_ptr, which);
+					else k = label_to_inven(cr_ptr, which);
 				}
 
 				/* Convert letter to equipment index */
@@ -7842,7 +7842,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				{
 					if (which == '(') k = e1;
 					else if (which == ')') k = e2;
-					else k = label_to_equip(p_ptr, which);
+					else k = label_to_equip(cr_ptr, which);
 				}
 
 				/* Convert letter to floor index */
@@ -7862,7 +7862,7 @@ bool get_item_floor(int *cp, cptr pmt, cptr str, int mode)
 				}
 
 				/* Validate the item */
-				if ((command_wrk != USE_FLOOR) && !get_item_okay(p_ptr, k))
+				if ((command_wrk != USE_FLOOR) && !get_item_okay(cr_ptr, k))
 				{
 					bell();
 					break;
@@ -7881,7 +7881,7 @@ if (ver && !verify("–{“–‚É", k))
 				}
 
 				/* Allow player to "refuse" certain actions */
-				if (!get_item_allow(p_ptr, k))
+				if (!get_item_allow(cr_ptr, k))
 				{
 					done = TRUE;
 					break;
