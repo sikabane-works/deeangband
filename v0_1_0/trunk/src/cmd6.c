@@ -4532,7 +4532,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				msg_print("Your cloak glows deep blue...");
 #endif
 
-				sleep_monsters_touch();
+				sleep_monsters_touch(cr_ptr);
 				o_ptr->timeout = 55;
 				break;
 			}

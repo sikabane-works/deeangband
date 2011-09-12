@@ -530,7 +530,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 16: case 17:
 		wall_breaker(cr_ptr);
 	case 18:
-		sleep_monsters_touch();
+		sleep_monsters_touch(cr_ptr);
 		break;
 	case 19:
 	case 20:
@@ -768,7 +768,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's Temperance.");
 #endif
 
-		sleep_monsters_touch();
+		sleep_monsters_touch(cr_ptr);
 	}
 	else if (die < 80)
 	{
@@ -8248,7 +8248,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				sleep_monsters_touch();
+				sleep_monsters_touch(cr_ptr);
 			}
 		}
 		break;

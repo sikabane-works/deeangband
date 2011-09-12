@@ -2354,7 +2354,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows deep blue...");
 #endif
 
-			sleep_monsters_touch();
+			sleep_monsters_touch(cr_ptr);
 			o_ptr->timeout = 55;
 			break;
 		}
