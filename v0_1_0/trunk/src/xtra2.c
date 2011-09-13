@@ -1934,7 +1934,7 @@ void panel_bounds_center(void)
 /*
  * Map resizing whenever the main term changes size
  */
-void resize_map(void)
+void resize_map(creature_type *cr_ptr)
 {
 	/* Only if the dungeon exists */
 	if (!character_dungeon) return;
@@ -1947,25 +1947,25 @@ void resize_map(void)
 	panel_row_min = cur_hgt;
 	panel_col_min = cur_wid;
 				
-	verify_panel(p_ptr);
+	verify_panel(cr_ptr);
 
 	/* Update stuff */
-	p_ptr->update |= (PU_TORCH | PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->update |= (PU_TORCH | PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Forget lite/view */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Hack -- update */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 	
 	/* Redraw */
 	Term_redraw();
@@ -1974,7 +1974,7 @@ void resize_map(void)
 	 * Waiting command;
 	 * Place the cursor on the player
 	 */
-	if (can_save) move_cursor_relative(p_ptr->fy, p_ptr->fx);
+	if (can_save) move_cursor_relative(cr_ptr->fy, cr_ptr->fx);
 
 	/* Refresh */
 	Term_fresh();

@@ -5335,89 +5335,89 @@ void update_smart_learn(creature_type *cr_ptr, int what)
 	switch (what)
 	{
 	case DRS_ACID:
-		if (p_ptr->resist_acid) cr_ptr->smart |= (SM_RES_ACID);
-		if (IS_OPPOSE_ACID(p_ptr)) cr_ptr->smart |= (SM_OPP_ACID);
-		if (p_ptr->immune_acid) cr_ptr->smart |= (SM_IMM_ACID);
+		if (player_ptr->resist_acid) cr_ptr->smart |= (SM_RES_ACID);
+		if (IS_OPPOSE_ACID(player_ptr)) cr_ptr->smart |= (SM_OPP_ACID);
+		if (player_ptr->immune_acid) cr_ptr->smart |= (SM_IMM_ACID);
 		break;
 
 	case DRS_ELEC:
-		if (p_ptr->resist_elec) cr_ptr->smart |= (SM_RES_ELEC);
-		if (IS_OPPOSE_ELEC(p_ptr)) cr_ptr->smart |= (SM_OPP_ELEC);
-		if (p_ptr->immune_elec) cr_ptr->smart |= (SM_IMM_ELEC);
+		if (player_ptr->resist_elec) cr_ptr->smart |= (SM_RES_ELEC);
+		if (IS_OPPOSE_ELEC(player_ptr)) cr_ptr->smart |= (SM_OPP_ELEC);
+		if (player_ptr->immune_elec) cr_ptr->smart |= (SM_IMM_ELEC);
 		break;
 
 	case DRS_FIRE:
-		if (p_ptr->resist_fire) cr_ptr->smart |= (SM_RES_FIRE);
-		if (IS_OPPOSE_FIRE(p_ptr)) cr_ptr->smart |= (SM_OPP_FIRE);
-		if (p_ptr->immune_fire) cr_ptr->smart |= (SM_IMM_FIRE);
+		if (player_ptr->resist_fire) cr_ptr->smart |= (SM_RES_FIRE);
+		if (IS_OPPOSE_FIRE(player_ptr)) cr_ptr->smart |= (SM_OPP_FIRE);
+		if (player_ptr->immune_fire) cr_ptr->smart |= (SM_IMM_FIRE);
 		break;
 
 	case DRS_COLD:
-		if (p_ptr->resist_cold) cr_ptr->smart |= (SM_RES_COLD);
-		if (IS_OPPOSE_COLD(p_ptr)) cr_ptr->smart |= (SM_OPP_COLD);
-		if (p_ptr->immune_cold) cr_ptr->smart |= (SM_IMM_COLD);
+		if (player_ptr->resist_cold) cr_ptr->smart |= (SM_RES_COLD);
+		if (IS_OPPOSE_COLD(player_ptr)) cr_ptr->smart |= (SM_OPP_COLD);
+		if (player_ptr->immune_cold) cr_ptr->smart |= (SM_IMM_COLD);
 		break;
 
 	case DRS_POIS:
-		if (p_ptr->resist_pois) cr_ptr->smart |= (SM_RES_POIS);
-		if (IS_OPPOSE_POIS(p_ptr)) cr_ptr->smart |= (SM_OPP_POIS);
+		if (player_ptr->resist_pois) cr_ptr->smart |= (SM_RES_POIS);
+		if (IS_OPPOSE_POIS(player_ptr)) cr_ptr->smart |= (SM_OPP_POIS);
 		break;
 
 
 	case DRS_NETH:
-		if (p_ptr->resist_neth) cr_ptr->smart |= (SM_RES_NETH);
+		if (player_ptr->resist_neth) cr_ptr->smart |= (SM_RES_NETH);
 		break;
 
 	case DRS_LITE:
-		if (p_ptr->resist_lite) cr_ptr->smart |= (SM_RES_LITE);
+		if (player_ptr->resist_lite) cr_ptr->smart |= (SM_RES_LITE);
 		break;
 
 	case DRS_DARK:
-		if (p_ptr->resist_dark) cr_ptr->smart |= (SM_RES_DARK);
+		if (player_ptr->resist_dark) cr_ptr->smart |= (SM_RES_DARK);
 		break;
 
 	case DRS_FEAR:
-		if (p_ptr->resist_fear) cr_ptr->smart |= (SM_RES_FEAR);
+		if (player_ptr->resist_fear) cr_ptr->smart |= (SM_RES_FEAR);
 		break;
 
 	case DRS_CONF:
-		if (p_ptr->resist_conf) cr_ptr->smart |= (SM_RES_CONF);
+		if (player_ptr->resist_conf) cr_ptr->smart |= (SM_RES_CONF);
 		break;
 
 	case DRS_CHAOS:
-		if (p_ptr->resist_chaos) cr_ptr->smart |= (SM_RES_CHAOS);
+		if (player_ptr->resist_chaos) cr_ptr->smart |= (SM_RES_CHAOS);
 		break;
 
 	case DRS_DISEN:
-		if (p_ptr->resist_disen) cr_ptr->smart |= (SM_RES_DISEN);
+		if (player_ptr->resist_disen) cr_ptr->smart |= (SM_RES_DISEN);
 		break;
 
 	case DRS_BLIND:
-		if (p_ptr->resist_blind) cr_ptr->smart |= (SM_RES_BLIND);
+		if (player_ptr->resist_blind) cr_ptr->smart |= (SM_RES_BLIND);
 		break;
 
 	case DRS_NEXUS:
-		if (p_ptr->resist_nexus) cr_ptr->smart |= (SM_RES_NEXUS);
+		if (player_ptr->resist_nexus) cr_ptr->smart |= (SM_RES_NEXUS);
 		break;
 
 	case DRS_SOUND:
-		if (p_ptr->resist_sound) cr_ptr->smart |= (SM_RES_SOUND);
+		if (player_ptr->resist_sound) cr_ptr->smart |= (SM_RES_SOUND);
 		break;
 
 	case DRS_SHARD:
-		if (p_ptr->resist_shard) cr_ptr->smart |= (SM_RES_SHARD);
+		if (player_ptr->resist_shard) cr_ptr->smart |= (SM_RES_SHARD);
 		break;
 
 	case DRS_FREE:
-		if (p_ptr->free_act) cr_ptr->smart |= (SM_IMM_FREE);
+		if (player_ptr->free_act) cr_ptr->smart |= (SM_IMM_FREE);
 		break;
 
 	case DRS_MANA:
-		if (!p_ptr->msp) cr_ptr->smart |= (SM_IMM_MANA);
+		if (!player_ptr->msp) cr_ptr->smart |= (SM_IMM_MANA);
 		break;
 
 	case DRS_REFLECT:
-		if (p_ptr->reflect) cr_ptr-> smart |= (SM_IMM_REFLECT);
+		if (player_ptr->reflect) cr_ptr-> smart |= (SM_IMM_REFLECT);
 		break;
 	}
 }

@@ -1527,7 +1527,7 @@ extern void monster_death(creature_type *cr_ptr, bool drop_item);
 extern int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int dam, cptr hit_from, cptr note, int monspell);
 extern void get_screen_size(int *wid_p, int *hgt_p);
 extern void panel_bounds_center(void);
-extern void resize_map(void);
+extern void resize_map(creature_type *cr_ptr);
 extern void redraw_window(void);
 extern bool change_panel(int dy, int dx);
 extern void verify_panel(creature_type *cr_ptr);
