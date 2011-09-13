@@ -1064,19 +1064,19 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
 /*
  * Choose "logical" directions for monster movement
  */
-static bool get_moves(int m_idx, int *mm)
+static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 {
 	creature_type *m_ptr = &m_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
-	int          y2 = p_ptr->fy;
-	int          x2 = p_ptr->fx;
+	int          y2 = cr_ptr->fy;
+	int          x2 = cr_ptr->fx;
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(m_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((m_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[m_ptr->fy][m_ptr->fx].cost > 2));
-	bool         can_pass_wall = ((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall));
+	bool         can_pass_wall = ((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
 	if (!will_run && m_ptr->target_y)
@@ -1098,7 +1098,7 @@ static bool get_moves(int m_idx, int *mm)
 
 	if (!done && !will_run && is_hostile(m_ptr) &&
 	    (r_ptr->flags1 & RF1_FRIENDS) &&
-	    ((los(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, p_ptr->fy, p_ptr->fx)) ||
+	    ((los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
 	    (cave[m_ptr->fy][m_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
@@ -1113,8 +1113,8 @@ static bool get_moves(int m_idx, int *mm)
 			/* Count room grids next to player */
 			for (i = 0; i < 8; i++)
 			{
-				int xx = p_ptr->fx + ddx_ddd[i];
-				int yy = p_ptr->fy + ddy_ddd[i];
+				int xx = cr_ptr->fx + ddx_ddd[i];
+				int yy = cr_ptr->fy + ddy_ddd[i];
 
 				if (!in_bounds2(yy, xx)) continue;
 
@@ -1127,12 +1127,12 @@ static bool get_moves(int m_idx, int *mm)
 					room++;
 				}
 			}
-			if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_ROOM) room -= 2;
+			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_ROOM) room -= 2;
 			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
 
 			/* Not in a room and strong player */
-			if (room < (8 * (p_ptr->chp + p_ptr->csp)) /
-			    (p_ptr->mhp + p_ptr->msp))
+			if (room < (8 * (cr_ptr->chp + cr_ptr->csp)) /
+			    (cr_ptr->mhp + cr_ptr->msp))
 			{
 				/* Find hiding place */
 				if (find_hiding(m_idx, &y, &x)) done = TRUE;
@@ -1148,15 +1148,15 @@ static bool get_moves(int m_idx, int *mm)
 			for (i = 0; i < 8; i++)
 			{
 				/* Pick squares near player (semi-randomly) */
-				y2 = p_ptr->fy + ddy_ddd[(m_idx + i) & 7];
-				x2 = p_ptr->fx + ddx_ddd[(m_idx + i) & 7];
+				y2 = cr_ptr->fy + ddy_ddd[(m_idx + i) & 7];
+				x2 = cr_ptr->fx + ddx_ddd[(m_idx + i) & 7];
 
 				/* Already there? */
 				if ((m_ptr->fy == y2) && (m_ptr->fx == x2))
 				{
 					/* Attack the player */
-					y2 = p_ptr->fy;
-					x2 = p_ptr->fx;
+					y2 = cr_ptr->fy;
+					x2 = cr_ptr->fx;
 
 					break;
 				}
@@ -2041,7 +2041,7 @@ msg_format("%^s%s", m_name, monmessage);
 				}
 
 				/* Find the player */
-				(void)get_moves(m_idx, mm);
+				(void)get_moves(m_idx, player_ptr, mm);
 
 				/* Restore the leash */
 				cr_ptr->pet_follow_distance = dis;
@@ -2062,7 +2062,7 @@ msg_format("%^s%s", m_name, monmessage);
 	else
 	{
 		/* Logical moves, may do nothing */
-		if (!get_moves(m_idx, mm)) return;
+		if (!get_moves(m_idx, player_ptr, mm)) return;
 	}
 
 	/* Assume nothing */
