@@ -705,7 +705,7 @@ extern void clear_mon_lite(void);
 extern void delayed_visual_update(void);
 extern void forget_flow(void);
 extern void update_flow(void);
-extern void update_smell(void);
+extern void update_smell(creature_type *cr_ptr);
 extern void map_area(int range);
 extern void wiz_lite(creature_type *cr_ptr, bool ninja);
 extern void wiz_dark(creature_type *cr_ptr);

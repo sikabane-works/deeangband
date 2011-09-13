@@ -6144,7 +6144,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	}
 
 	/* Update scent trail */
-	update_smell();
+	update_smell(cr_ptr);
 }
 
 

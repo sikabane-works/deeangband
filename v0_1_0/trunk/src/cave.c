@@ -4242,7 +4242,7 @@ static int scent_when = 0;
  * Whenever the age count loops, most of the scent trail is erased and 
  * the age of the remainder is recalculated.
  */
-void update_smell(void)
+void update_smell(creature_type *cr_ptr)
 {
 	int i, j;
 	int y, x;
@@ -4283,8 +4283,8 @@ void update_smell(void)
 			cave_type *c_ptr;
 
 			/* Translate table to map grids */
-			y = i + p_ptr->fy - 2;
-			x = j + p_ptr->fx - 2;
+			y = i + cr_ptr->fy - 2;
+			x = j + cr_ptr->fx - 2;
 
 			/* Check Bounds */
 			if (!in_bounds(y, x)) continue;
