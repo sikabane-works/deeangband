@@ -1919,7 +1919,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			msg_print("Too many pets to control at once!");
 #endif
 			msg_print(NULL);
-			do_cmd_pet_dismiss();
+			do_cmd_pet_dismiss(cr_ptr);
 
 			upkeep_factor = calculate_upkeep(cr_ptr);
 

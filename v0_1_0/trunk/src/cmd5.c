@@ -1485,7 +1485,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 		return 0;
 }
 
-void do_cmd_pet_dismiss(void)
+void do_cmd_pet_dismiss(creature_type *cr_ptr)
 {
 	creature_type	*m_ptr;
 	bool		all_pets = FALSE;
@@ -1531,7 +1531,7 @@ void do_cmd_pet_dismiss(void)
 		m_ptr = &m_list[pet_ctr];
 
 		delete_this = FALSE;
-		kakunin = ((pet_ctr == p_ptr->riding) || (m_ptr->nickname));
+		kakunin = ((pet_ctr == cr_ptr->riding) || (m_ptr->nickname));
 		monster_desc(friend_name, m_ptr, MD_ASSUME_VISIBLE);
 
 		if (!all_pets)
@@ -1540,7 +1540,7 @@ void do_cmd_pet_dismiss(void)
 			health_track(pet_ctr);
 
 			/* Hack -- handle stuff */
-			handle_stuff(p_ptr);
+			handle_stuff(cr_ptr);
 
 #ifdef JP
 			sprintf(buf, "%s‚ð•ú‚µ‚Ü‚·‚©H [Yes/No/Unnamed (%d‘Ì)]", friend_name, max_pet - i);
@@ -1596,7 +1596,7 @@ void do_cmd_pet_dismiss(void)
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
 			}
 
-			if (pet_ctr == p_ptr->riding)
+			if (pet_ctr == cr_ptr->riding)
 			{
 #ifdef JP
 				msg_format("%s‚©‚ç~‚è‚½B", friend_name);
@@ -1604,10 +1604,10 @@ void do_cmd_pet_dismiss(void)
 				msg_format("You have got off %s. ", friend_name);
 #endif
 
-				p_ptr->riding = 0;
+				cr_ptr->riding = 0;
 
 				/* Update the monsters */
-				p_ptr->update |= (PU_BONUS | PU_MONSTERS);
+				cr_ptr->update |= (PU_BONUS | PU_MONSTERS);
 				play_redraw |= (PR_EXTRA | PR_UHEALTH);
 			}
 
@@ -2606,7 +2606,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 #endif
 				break;
 			}
-			do_cmd_pet_dismiss();
+			do_cmd_pet_dismiss(cr_ptr);
 			(void)calculate_upkeep(cr_ptr);
 			break;
 		}
