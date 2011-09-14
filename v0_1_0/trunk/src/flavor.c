@@ -1896,7 +1896,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 	if (object_is_smith(p_ptr, o_ptr))
 	{
-		t = object_desc_str(t, format("’b–èŽt%s‚Ì", p_ptr->name));
+		if(!o_ptr->creater_idx)
+			t = object_desc_str(t, format("’b–èŽt%s‚Ì", p_ptr->name));
+		else
+			t = object_desc_str(t, format("%s‚Ì", r_name + r_info[o_ptr->creater_idx].name));
 	}
 
 	/* “`à‚ÌƒAƒCƒeƒ€A–¼‚Ì‚ ‚éƒAƒCƒeƒ€‚Ì–¼‘O‚ð•t‰Á‚·‚é */
@@ -2062,7 +2065,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #else
 	if (object_is_smith(p_ptr, o_ptr))
 	{
-		t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
+		if(!o_ptr->creater_idx)
+			t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
+		else
+			t = object_desc_str(t, format(" of %s", r_name + r_info[o_ptr->creater_idx].name));
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */
