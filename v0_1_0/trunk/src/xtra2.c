@@ -1407,7 +1407,7 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * Get the coefficient first, and multiply (potentially huge) base
  * experience point of a monster later.
  */
-void get_exp_from_mon(int dam, creature_type *m_ptr)
+void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
 {
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
@@ -1427,7 +1427,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 	new_exp = r_ptr->level * SPEED_TO_ENERGY(m_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
-	div_l = (p_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
+	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
 
 	/* Use (average mhp * 2) as a denominator */
 	if (!(r_ptr->flags1 & RF1_FORCE_MAXHP))
@@ -1459,7 +1459,7 @@ void get_exp_from_mon(int dam, creature_type *m_ptr)
 	s64b_mul(&new_exp, &new_exp_frac, 0, r_ptr->mexp);
 
 	/* Gain experience */
-	gain_exp_64(p_ptr, new_exp, new_exp_frac);
+	gain_exp_64(atk_ptr, new_exp, new_exp_frac);
 }
 
 
@@ -1510,7 +1510,7 @@ int mon_take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
 
-		get_exp_from_mon(expdam, &exp_mon);
+		get_exp_from_mon(atk_ptr, expdam, &exp_mon);
 
 		/* Genocided by chaos patron */
 		//TODO check
@@ -1805,9 +1805,9 @@ msg_format("%s‚ÌŽñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", m_name);
 
 		/* Prevent bug of chaos patron's reward */
 		if (r_ptr->flags7 & RF7_KILL_EXP)
-			get_exp_from_mon((long)exp_mon.mmhp*2, &exp_mon);
+			get_exp_from_mon(atk_ptr, (long)exp_mon.mmhp*2, &exp_mon);
 		else
-			get_exp_from_mon(((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
+			get_exp_from_mon(atk_ptr, ((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
 
 		/* Not afraid */
 		fear = FALSE;
