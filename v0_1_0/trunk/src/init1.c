@@ -291,7 +291,7 @@ static cptr r_info_flags1[] =
 	"DROP_GOOD",
 	"DROP_GREAT",
 	"INTERSEX",
-	"XXX3"
+	"NO_DEVOTEE"
 };
 
 /*

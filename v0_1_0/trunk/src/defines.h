@@ -3802,7 +3802,7 @@
 #define RF1_DROP_GOOD           0x10000000  /* Drop good items */
 #define RF1_DROP_GREAT          0x20000000  /* Drop great items */
 #define RF1_INTERSEX            0x40000000  /* Inter Sex */
-#define RF1_XXX3                0x80000000  /* XXX */
+#define RF1_NO_DEVOTEE          0x80000000  /* Deity Has No Devotee */
 
 /*
  * New monster race bit flags
