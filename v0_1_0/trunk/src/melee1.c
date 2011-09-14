@@ -56,7 +56,7 @@ static int monster_critical(int dice, int sides, int dam)
  * Always miss 5% of the time, Always hit 5% of the time.
  * Otherwise, match monster power against player armor.
  */
-static int check_hit(int power, int level, int stun)
+static int check_hit(creature_type *tar_ptr, int power, int level, int stun)
 {
 	int i, k, ac;
 
@@ -72,8 +72,8 @@ static int check_hit(int power, int level, int stun)
 	i = (power + (level * 3));
 
 	/* Total armor */
-	ac = p_ptr->ac + p_ptr->to_a;
-	if (p_ptr->special_attack & ATTACK_SUIKEN) ac += (p_ptr->lev * 2);
+	ac = tar_ptr->ac + tar_ptr->to_a;
+	if (tar_ptr->special_attack & ATTACK_SUIKEN) ac += (tar_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
 	if ((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
@@ -251,7 +251,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		ac = tar_ptr->ac + tar_ptr->to_a;
 
 		/* Monster hits player */
-		if (!effect || check_hit(power, rlev, atk_ptr->stun))
+		if (!effect || check_hit(tar_ptr, power, rlev, atk_ptr->stun))
 		{
 			/* Always disturbing */
 			disturb(1, 0);
