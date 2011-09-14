@@ -5364,7 +5364,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case KTRL('T'):
 		{
-			do_cmd_time();
+			do_cmd_time(cr_ptr);
 			break;
 		}
 
