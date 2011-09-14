@@ -4205,7 +4205,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 			case ' ':
 			case '\r':
 			{
-				if (target_set(p_ptr, TARGET_KILL)) dir = 5;
+				if (target_set(cr_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
@@ -4236,7 +4236,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (p_ptr->confused)
+	if (cr_ptr->confused)
 	{
 		/* XXX XXX XXX */
 		/* Random direction */

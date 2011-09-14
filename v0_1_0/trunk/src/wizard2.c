@@ -493,7 +493,7 @@ static void do_cmd_wiz_change(creature_type *cr_ptr)
 	do_cmd_wiz_change_aux(cr_ptr);
 
 	/* Redraw everything */
-	do_cmd_redraw();
+	do_cmd_redraw(cr_ptr);
 }
 
 

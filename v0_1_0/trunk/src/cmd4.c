@@ -1157,7 +1157,7 @@ void do_cmd_nikki(void)
  * selecting various things, such as graphics mode, so it must call
  * the "TERM_XTRA_REACT" hook before redrawing the windows.
  */
-void do_cmd_redraw(void)
+void do_cmd_redraw(creature_type *cr_ptr)
 {
 	int j;
 
@@ -1169,23 +1169,23 @@ void do_cmd_redraw(void)
 
 
 	/* Combine and Reorder the pack (later) */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	cr_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 
 	/* Update torch */
-	p_ptr->update |= (PU_TORCH);
+	cr_ptr->update |= (PU_TORCH);
 
 	/* Update stuff */
-	p_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
+	cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
 
 	/* Forget lite/view */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 
 	/* Update monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	cr_ptr->update |= (PU_MONSTERS);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1199,9 +1199,9 @@ void do_cmd_redraw(void)
 	update_playtime();
 
 	/* Hack -- update */
-	handle_stuff(p_ptr);
+	handle_stuff(cr_ptr);
 
-	if (p_ptr->irace_idx == RACE_ANDROID) calc_android_exp(p_ptr);
+	if (cr_ptr->irace_idx == RACE_ANDROID) calc_android_exp(cr_ptr);
 
 
 	/* Redraw every window */
@@ -4481,7 +4481,7 @@ void do_cmd_visuals(void)
 	/* Restore the screen */
 	screen_load();
 
-	if (need_redraw) do_cmd_redraw();
+	if (need_redraw) do_cmd_redraw(cr_ptr);
 }
 
 
@@ -6420,7 +6420,7 @@ void do_cmd_save_screen(void)
 	if (html_dump)
 	{
 		do_cmd_save_screen_html();
-		do_cmd_redraw();
+		do_cmd_redraw(cr_ptr);
 	}
 
 	/* Do we use a special screendump function ? */
@@ -10288,7 +10288,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 	/* Restore the screen */
 	screen_load();
 
-	if (need_redraw) do_cmd_redraw();
+	if (need_redraw) do_cmd_redraw(cr_ptr);
 }
 
 
