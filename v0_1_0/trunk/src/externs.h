@@ -684,7 +684,7 @@ extern bool los(int y1, int x1, int y2, int x2);
 extern void update_local_illumination(creature_type *cr_ptr, int y, int x);
 extern bool player_can_see_bold(creature_type *viewer_ptr, int y, int x);
 extern bool cave_valid_bold(int y, int x);
-extern bool no_lite(void);
+extern bool no_lite(creature_type *cr_ptr);
 extern void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX]);
 extern void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp);
 extern void move_cursor_relative(int row, int col);

@@ -580,9 +580,9 @@ bool player_can_see_bold(creature_type *viewer_ptr, int y, int x)
 /*
  * Returns true if the player's grid is dark
  */
-bool no_lite(void)
+bool no_lite(creature_type *cr_ptr)
 {
-	return (!player_can_see_bold(p_ptr, p_ptr->fy, p_ptr->fx));
+	return (!player_can_see_bold(cr_ptr, cr_ptr->fy, cr_ptr->fx));
 }
 
 

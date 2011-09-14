@@ -438,7 +438,7 @@ void do_cmd_gain_hissatsu(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	if (cr_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite(cr_ptr))
 	{
 #ifdef JP
 msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");

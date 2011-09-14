@@ -876,7 +876,7 @@ static bool do_cmd_open_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 		i = cr_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite()) i = i / 10;
+		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
 		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 		/* Extract the difficulty */
@@ -1099,7 +1099,7 @@ static bool do_cmd_open_aux(creature_type *cr_ptr, int y, int x)
 		i = cr_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite()) i = i / 10;
+		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
 		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
@@ -1801,7 +1801,7 @@ bool easy_open_door(creature_type *cr_ptr, int y, int x)
 		i = cr_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (cr_ptr->blind || no_lite()) i = i / 10;
+		if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
 		if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 		/* Extract the lock power */
@@ -1891,7 +1891,7 @@ static bool do_cmd_disarm_chest(creature_type *cr_ptr, int y, int x, s16b o_idx)
 	i = cr_ptr->skill_dis;
 
 	/* Penalize some conditions */
-	if (cr_ptr->blind || no_lite()) i = i / 10;
+	if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
 	if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */
@@ -2020,7 +2020,7 @@ static bool do_cmd_disarm_aux(int y, int x, int dir)
 	energy_use = 100;
 
 	/* Penalize some conditions */
-	if (cr_ptr->blind || no_lite()) i = i / 10;
+	if (cr_ptr->blind || no_lite(cr_ptr)) i = i / 10;
 	if (cr_ptr->confused || cr_ptr->image) i = i / 10;
 
 	/* Extract the difficulty */

@@ -703,7 +703,7 @@ void search(creature_type *cr_ptr)
 	chance = cr_ptr->skill_srh;
 
 	/* Penalize various conditions */
-	if (cr_ptr->blind || no_lite()) chance = chance / 10;
+	if (cr_ptr->blind || no_lite(cr_ptr)) chance = chance / 10;
 	if (cr_ptr->confused || cr_ptr->image) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
@@ -3707,7 +3707,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if ((!cr_ptr->blind && !no_lite()) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if ((!cr_ptr->blind && !no_lite(cr_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
 		if (dun_level && (d_info[dungeon_type].flags1 & DF1_FORGET)) wiz_dark(cr_ptr);
@@ -5295,7 +5295,7 @@ static bool travel_test(creature_type *cr_ptr)
 	}
 
 	/* Cannot travel when blind */
-	if (cr_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite(cr_ptr))
 	{
 #ifdef JP
 		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");

@@ -678,7 +678,7 @@ msg_print("–{‚ð“Ç‚Þ‚±‚Æ‚ª‚Å‚«‚È‚¢I");
 		return;
 	}
 
-	if (cr_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite(cr_ptr))
 	{
 #ifdef JP
 msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
@@ -999,7 +999,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 	}
 
 	/* Require lite */
-	if (cr_ptr->blind || no_lite())
+	if (cr_ptr->blind || no_lite(cr_ptr))
 	{
 		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(FALSE);
 		else

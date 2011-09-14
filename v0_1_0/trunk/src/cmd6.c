@@ -2256,7 +2256,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 
 		return;
 	}
-	if (no_lite())
+	if (no_lite(cr_ptr))
 	{
 #ifdef JP
 		msg_print("明かりがないので、暗くて読めない。");
@@ -6729,7 +6729,7 @@ msg_print("目が見えない。");
 
 				return;
 			}
-			if (no_lite())
+			if (no_lite(cr_ptr))
 			{
 #ifdef JP
 msg_print("明かりがないので、暗くて読めない。");
