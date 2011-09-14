@@ -4481,7 +4481,7 @@ void do_cmd_visuals(void)
 	/* Restore the screen */
 	screen_load();
 
-	if (need_redraw) do_cmd_redraw(cr_ptr);
+	if (need_redraw) do_cmd_redraw(p_ptr);
 }
 
 
@@ -6420,7 +6420,7 @@ void do_cmd_save_screen(void)
 	if (html_dump)
 	{
 		do_cmd_save_screen_html();
-		do_cmd_redraw(cr_ptr);
+		do_cmd_redraw(p_ptr);
 	}
 
 	/* Do we use a special screendump function ? */

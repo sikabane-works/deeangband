@@ -2793,13 +2793,13 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	/* Hex bonuses */
 	if (cr_ptr->realm1 == REALM_HEX)
 	{
-		if (hex_spelling(p_ptr, HEX_DEMON_AURA))
+		if (hex_spelling(cr_ptr, HEX_DEMON_AURA))
 		{
 			add_flag(flgs, TR_SH_FIRE);
 			add_flag(flgs, TR_REGEN);
 		}
-		if (hex_spelling(p_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
-		if (hex_spelling(p_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
+		if (hex_spelling(cr_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
+		if (hex_spelling(cr_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
 	}
 }
 

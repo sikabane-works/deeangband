@@ -367,6 +367,9 @@ static void rd_item(object_type *o_ptr)
 		o_ptr->art_name = quark_add(buf);
 	}
 	else o_ptr->art_name = 0;
+
+	if (flags & SAVE_ITEM_CREATER) rd_s16b(&o_ptr->creater_idx);
+	else o_ptr->art_name = 0;
 }
 
 /*

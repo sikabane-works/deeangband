@@ -121,6 +121,7 @@ static void wr_item(object_type *o_ptr)
 	if (o_ptr->feeling) flags |= SAVE_ITEM_FEELING;
 	if (o_ptr->inscription) flags |= SAVE_ITEM_INSCRIPTION;
 	if (o_ptr->art_name) flags |= SAVE_ITEM_ART_NAME;
+	if (o_ptr->creater_idx) flags |= SAVE_ITEM_CREATER;
 
 	/*** Item save flags ***/
 	wr_u32b(flags);
@@ -179,6 +180,8 @@ static void wr_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_INSCRIPTION) wr_string(quark_str(o_ptr->inscription));
 	if (flags & SAVE_ITEM_ART_NAME) wr_string(quark_str(o_ptr->art_name));
+
+	if (flags & SAVE_ITEM_CREATER) wr_s16b(o_ptr->creater_idx);
 }
 
 
