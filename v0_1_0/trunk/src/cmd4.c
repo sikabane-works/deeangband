@@ -9954,7 +9954,7 @@ static void do_cmd_knowledge_home(void)
 #ifdef JP
 			fprintf(fff, "  [ 我が家のアイテム ]\n");
 #else
-			fprintf(fff, "  [Home p_ptr->inventory]\n");
+			fprintf(fff, "  [Home inventory]\n");
 #endif
 
 			/* Dump all available items */
@@ -9997,7 +9997,7 @@ static void do_cmd_knowledge_home(void)
 #ifdef JP
 	show_file(TRUE, file_name, "我が家のアイテム", 0, 0);
 #else
-	show_file(TRUE, file_name, "Home p_ptr->inventory", 0, 0);
+	show_file(TRUE, file_name, "Home inventory", 0, 0);
 #endif
 
 
@@ -10314,7 +10314,7 @@ void do_cmd_checkquest(void)
 /*
  * Display the time and date
  */
-void do_cmd_time(void)
+void do_cmd_time(creature_type *cr_ptr)
 {
 	int day, hour, min, full, start, end, num;
 	char desc[1024];
@@ -10356,7 +10356,7 @@ void do_cmd_time(void)
 
 
 	/* Find the path */
-	if (!randint0(10) || p_ptr->image)
+	if (!randint0(10) || cr_ptr->image)
 	{
 #ifdef JP
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timefun_j.txt");
