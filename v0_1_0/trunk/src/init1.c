@@ -49,26 +49,6 @@
 
 /*** Monster CSV List ***/
 
-static cptr r_info_csv_list[] =
-{
-	"NAME",
-	"E_NAME",
-	"STR",
-	"INT",
-	"WIS",
-	"DEX",
-	"CON",
-	"CHA",
-};
-
-#define R_INFO_NAME			0
-#define R_INFO_E_NAME		1
-#define R_INFO_STR			2
-#define R_INFO_INT			3
-#define R_INFO_WIS			4
-#define R_INFO_DEX			5
-#define R_INFO_CON			6
-#define R_INFO_CHA			7
 
 /*
  * Monster Blow Methods
@@ -2704,6 +2684,61 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 	return (1);
 }
 
+#define R_INFO_CSV_COLUMNS 9
+static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"NAME",
+	"E_NAME",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
+};
+static int r_info_csv_code[R_INFO_CSV_COLUMNS];
+
+#define R_INFO_ID			0
+#define R_INFO_NAME			1
+#define R_INFO_E_NAME		2
+#define R_INFO_STR			3
+#define R_INFO_INT			4
+#define R_INFO_WIS			5
+#define R_INFO_DEX			6
+#define R_INFO_CON			7
+#define R_INFO_CHA			8
+
+
+errr parse_r_csv(char *buf, header *head)
+{
+
+	int i;
+	for(i = 0; i < R_INFO_CSV_COLUMNS; i++)
+	{
+		switch(r_info_csv_code[i])
+		{
+		case R_INFO_NAME:
+			break;
+		case R_INFO_E_NAME:
+			break;
+		case R_INFO_STR:
+			break;
+		case R_INFO_INT:
+			break;
+		case R_INFO_WIS:
+			break;
+		case R_INFO_DEX:
+			break;
+		case R_INFO_CON:
+			break;
+		case R_INFO_CHA:
+			break;
+		default:
+			return (1); /* Error */
+		}
+	}
+}
 
 /*
  * Initialize the "r_info" array, by parsing an ascii "template" file
