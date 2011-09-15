@@ -3208,7 +3208,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	energy_use = 100;
 
 	if (!atk_ptr->migite && !atk_ptr->hidarite &&
-	    !(atk_ptr->muta2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
+	    !(atk_ptr->trait2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
 	{
 #ifdef JP
 		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(atk_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
@@ -3409,15 +3409,15 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if ((atk_ptr->muta2 & MUT2_HORNS) && !mdeath)
+		if ((atk_ptr->trait2 & MUT2_HORNS) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, MUT2_HORNS, &fear, &mdeath);
-		if ((atk_ptr->muta2 & MUT2_BEAK) && !mdeath)
+		if ((atk_ptr->trait2 & MUT2_BEAK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, MUT2_BEAK, &fear, &mdeath);
-		if ((atk_ptr->muta2 & MUT2_SCOR_TAIL) && !mdeath)
+		if ((atk_ptr->trait2 & MUT2_SCOR_TAIL) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, MUT2_SCOR_TAIL, &fear, &mdeath);
-		if ((atk_ptr->muta2 & MUT2_TRUNK) && !mdeath)
+		if ((atk_ptr->trait2 & MUT2_TRUNK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, MUT2_TRUNK, &fear, &mdeath);
-		if ((atk_ptr->muta2 & MUT2_TENTACLES) && !mdeath)
+		if ((atk_ptr->trait2 & MUT2_TENTACLES) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, MUT2_TENTACLES, &fear, &mdeath);
 	}
 
@@ -4117,7 +4117,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
-		    ((cr_ptr->muta2 & MUT2_BERS_RAGE) && cr_ptr->shero)) &&
+		    ((cr_ptr->trait2 & MUT2_BERS_RAGE) && cr_ptr->shero)) &&
 		    pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */

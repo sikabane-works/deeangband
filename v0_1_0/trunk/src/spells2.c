@@ -840,9 +840,9 @@ info[i++] = "‚ ‚È‚½‚Í‘f‘‚­ˆÚ“®‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
 			break;
 	}
 
-	if (cr_ptr->muta1)
+	if (cr_ptr->trait1)
 	{
-		if (cr_ptr->muta1 & MUT1_SPIT_ACID)
+		if (cr_ptr->trait1 & MUT1_SPIT_ACID)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í_‚ğ‚«‚©‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X1)";
@@ -851,7 +851,7 @@ info[i++] = "‚ ‚È‚½‚Í_‚ğ‚«‚©‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X1)";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_BR_FIRE)
+		if (cr_ptr->trait1 & MUT1_BR_FIRE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‰Š‚ÌƒuƒŒƒX‚ğ“f‚­‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
@@ -860,7 +860,7 @@ info[i++] = "‚ ‚È‚½‚Í‰Š‚ÌƒuƒŒƒX‚ğ“f‚­‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_HYPN_GAZE)
+		if (cr_ptr->trait1 & MUT1_HYPN_GAZE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÌáÉ‚İ‚ÍÃ–°Œø‰Ê‚ğ‚à‚ÂB";
@@ -869,7 +869,7 @@ info[i++] = "‚ ‚È‚½‚ÌáÉ‚İ‚ÍÃ–°Œø‰Ê‚ğ‚à‚ÂB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_TELEKINES)
+		if (cr_ptr->trait1 & MUT1_TELEKINES)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í”O“®—Í‚ğ‚à‚Á‚Ä‚¢‚éB";
@@ -878,7 +878,7 @@ info[i++] = "‚ ‚È‚½‚Í”O“®—Í‚ğ‚à‚Á‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_VTELEPORT)
+		if (cr_ptr->trait1 & MUT1_VTELEPORT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚ÅƒeƒŒƒ|[ƒg‚Å‚«‚éB";
@@ -887,7 +887,7 @@ info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚ÅƒeƒŒƒ|[ƒg‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_MIND_BLST)
+		if (cr_ptr->trait1 & MUT1_MIND_BLST)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¸_UŒ‚‚ğs‚¦‚éB(ƒ_ƒ[ƒW 3`12d3)";
@@ -896,7 +896,7 @@ info[i++] = "‚ ‚È‚½‚Í¸_UŒ‚‚ğs‚¦‚éB(ƒ_ƒ[ƒW 3`12d3)";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_RADIATION)
+		if (cr_ptr->trait1 & MUT1_RADIATION)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚Å‹­‚¢•úËü‚ğ”­¶‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
@@ -905,7 +905,7 @@ info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚Å‹­‚¢•úËü‚ğ”­¶‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒ
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_VAMPIRISM)
+		if (cr_ptr->trait1 & MUT1_VAMPIRISM)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹zŒŒ‹S‚Ì‚æ‚¤‚É“G‚©‚ç¶–½—Í‚ğ‹zû‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
@@ -914,7 +914,7 @@ info[i++] = "‚ ‚È‚½‚Í‹zŒŒ‹S‚Ì‚æ‚¤‚É“G‚©‚ç¶–½—Í‚ğ‹zû‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_SMELL_MET)
+		if (cr_ptr->trait1 & MUT1_SMELL_MET)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹ß‚­‚É‚ ‚é‹M‹à‘®‚ğ‚©‚¬•ª‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -923,7 +923,7 @@ info[i++] = "‚ ‚È‚½‚Í‹ß‚­‚É‚ ‚é‹M‹à‘®‚ğ‚©‚¬•ª‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_SMELL_MON)
+		if (cr_ptr->trait1 & MUT1_SMELL_MON)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹ß‚­‚Ìƒ‚ƒ“ƒXƒ^[‚Ì‘¶İ‚ğ‚©‚¬•ª‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -932,7 +932,7 @@ info[i++] = "‚ ‚È‚½‚Í‹ß‚­‚Ìƒ‚ƒ“ƒXƒ^[‚Ì‘¶İ‚ğ‚©‚¬•ª‚¯‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_BLINK)
+		if (cr_ptr->trait1 & MUT1_BLINK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í’Z‚¢‹——£‚ğƒeƒŒƒ|[ƒg‚Å‚«‚éB";
@@ -941,7 +941,7 @@ info[i++] = "‚ ‚È‚½‚Í’Z‚¢‹——£‚ğƒeƒŒƒ|[ƒg‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_EAT_ROCK)
+		if (cr_ptr->trait1 & MUT1_EAT_ROCK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íd‚¢Šâ‚ğH‚×‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -950,7 +950,7 @@ info[i++] = "‚ ‚È‚½‚Íd‚¢Šâ‚ğH‚×‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_SWAP_POS)
+		if (cr_ptr->trait1 & MUT1_SWAP_POS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‘¼‚ÌÒ‚ÆêŠ‚ğ“ü‚ê‘Ö‚í‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -959,7 +959,7 @@ info[i++] = "‚ ‚È‚½‚Í‘¼‚ÌÒ‚ÆêŠ‚ğ“ü‚ê‘Ö‚í‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_SHRIEK)
+		if (cr_ptr->trait1 & MUT1_SHRIEK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íg‚Ì–Ñ‚à‚æ‚¾‚Â‹©‚Ñº‚ğ”­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
@@ -968,7 +968,7 @@ info[i++] = "‚ ‚È‚½‚Íg‚Ì–Ñ‚à‚æ‚¾‚Â‹©‚Ñº‚ğ”­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_ILLUMINE)
+		if (cr_ptr->trait1 & MUT1_ILLUMINE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í–¾‚é‚¢Œõ‚ğ•ú‚Â‚±‚Æ‚ª‚Å‚«‚éB";
@@ -977,7 +977,7 @@ info[i++] = "‚ ‚È‚½‚Í–¾‚é‚¢Œõ‚ğ•ú‚Â‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_DET_CURSE)
+		if (cr_ptr->trait1 & MUT1_DET_CURSE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í×ˆ«‚È–‚–@‚ÌŠëŒ¯‚ğŠ´‚¶‚Æ‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -986,7 +986,7 @@ info[i++] = "‚ ‚È‚½‚Í×ˆ«‚È–‚–@‚ÌŠëŒ¯‚ğŠ´‚¶‚Æ‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_BERSERK)
+		if (cr_ptr->trait1 & MUT1_BERSERK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚Å‹¶—í“¬ó‘Ô‚É‚È‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -995,7 +995,7 @@ info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓv‚Å‹¶—í“¬ó‘Ô‚É‚È‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_POLYMORPH)
+		if (cr_ptr->trait1 & MUT1_POLYMORPH)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓu‚Å•Ï‰»‚Å‚«‚éB";
@@ -1004,7 +1004,7 @@ info[i++] = "‚ ‚È‚½‚Í©•ª‚ÌˆÓu‚Å•Ï‰»‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_MIDAS_TCH)
+		if (cr_ptr->trait1 & MUT1_MIDAS_TCH)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í’ÊíƒAƒCƒeƒ€‚ğ‹à‚É•Ï‚¦‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1013,7 +1013,7 @@ info[i++] = "‚ ‚È‚½‚Í’ÊíƒAƒCƒeƒ€‚ğ‹à‚É•Ï‚¦‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_GROW_MOLD)
+		if (cr_ptr->trait1 & MUT1_GROW_MOLD)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍüˆÍ‚ÉƒLƒmƒR‚ğ¶‚â‚·‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1022,7 +1022,7 @@ info[i++] = "‚ ‚È‚½‚ÍüˆÍ‚ÉƒLƒmƒR‚ğ¶‚â‚·‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_RESIST)
+		if (cr_ptr->trait1 & MUT1_RESIST)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŒ³‘f‚ÌUŒ‚‚É‘Î‚µ‚Äg‚ğd‚­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1031,7 +1031,7 @@ info[i++] = "‚ ‚È‚½‚ÍŒ³‘f‚ÌUŒ‚‚É‘Î‚µ‚Äg‚ğd‚­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_EARTHQUAKE)
+		if (cr_ptr->trait1 & MUT1_EARTHQUAKE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍüˆÍ‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚ğ•ö‰ó‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1040,7 +1040,7 @@ info[i++] = "‚ ‚È‚½‚ÍüˆÍ‚Ìƒ_ƒ“ƒWƒ‡ƒ“‚ğ•ö‰ó‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_EAT_MAGIC)
+		if (cr_ptr->trait1 & MUT1_EAT_MAGIC)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í–‚–@‚ÌƒGƒlƒ‹ƒM[‚ğ©•ª‚Ì•¨‚Æ‚µ‚Äg—p‚Å‚«‚éB";
@@ -1049,7 +1049,7 @@ info[i++] = "‚ ‚È‚½‚Í–‚–@‚ÌƒGƒlƒ‹ƒM[‚ğ©•ª‚Ì•¨‚Æ‚µ‚Äg—p‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_WEIGH_MAG)
+		if (cr_ptr->trait1 & MUT1_WEIGH_MAG)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í©•ª‚É‰e‹¿‚ğ—^‚¦‚é–‚–@‚Ì—Í‚ğŠ´‚¶‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1058,7 +1058,7 @@ info[i++] = "‚ ‚È‚½‚Í©•ª‚É‰e‹¿‚ğ—^‚¦‚é–‚–@‚Ì—Í‚ğŠ´‚¶‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_STERILITY)
+		if (cr_ptr->trait1 & MUT1_STERILITY)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍW’c“I¶B•s”\‚ğ‹N‚±‚·‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1067,7 +1067,7 @@ info[i++] = "‚ ‚È‚½‚ÍW’c“I¶B•s”\‚ğ‹N‚±‚·‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_PANIC_HIT)
+		if (cr_ptr->trait1 & MUT1_PANIC_HIT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍUŒ‚‚µ‚½Œãg‚ğç‚é‚½‚ß“¦‚°‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1076,7 +1076,7 @@ info[i++] = "‚ ‚È‚½‚ÍUŒ‚‚µ‚½Œãg‚ğç‚é‚½‚ß“¦‚°‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_DAZZLE)
+		if (cr_ptr->trait1 & MUT1_DAZZLE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¬—‚Æ–Ó–Ú‚ğˆø‚«‹N‚±‚·•úË”\‚ğ”­¶‚·‚é‚±‚Æ‚ª‚Å‚«‚éB ";
@@ -1085,7 +1085,7 @@ info[i++] = "‚ ‚È‚½‚Í¬—‚Æ–Ó–Ú‚ğˆø‚«‹N‚±‚·•úË”\‚ğ”­¶‚·‚é‚±‚Æ‚ª‚Å‚«‚éB ";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_LASER_EYE)
+		if (cr_ptr->trait1 & MUT1_LASER_EYE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í–Ú‚©‚çƒŒ[ƒU[Œõü‚ğ”­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)";
@@ -1094,7 +1094,7 @@ info[i++] = "‚ ‚È‚½‚Í–Ú‚©‚çƒŒ[ƒU[Œõü‚ğ”­‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X2)
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_RECALL)
+		if (cr_ptr->trait1 & MUT1_RECALL)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŠX‚Æƒ_ƒ“ƒWƒ‡ƒ“‚ÌŠÔ‚ğs‚«—ˆ‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1103,7 +1103,7 @@ info[i++] = "‚ ‚È‚½‚ÍŠX‚Æƒ_ƒ“ƒWƒ‡ƒ“‚ÌŠÔ‚ğs‚«—ˆ‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_BANISH)
+		if (cr_ptr->trait1 & MUT1_BANISH)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í×ˆ«‚Èƒ‚ƒ“ƒXƒ^[‚ğ’n–‚É—‚Æ‚·‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1112,7 +1112,7 @@ info[i++] = "‚ ‚È‚½‚Í×ˆ«‚Èƒ‚ƒ“ƒXƒ^[‚ğ’n–‚É—‚Æ‚·‚±‚Æ‚ª‚Å‚«‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_COLD_TOUCH)
+		if (cr_ptr->trait1 & MUT1_COLD_TOUCH)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í“G‚ğG‚Á‚Ä“€‚ç‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X3)";
@@ -1121,7 +1121,7 @@ info[i++] = "‚ ‚È‚½‚Í“G‚ğG‚Á‚Ä“€‚ç‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB(ƒ_ƒ[ƒW ƒŒƒxƒ‹X3)";
 #endif
 
 		}
-		if (cr_ptr->muta1 & MUT1_LAUNCHER)
+		if (cr_ptr->trait1 & MUT1_LAUNCHER)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍƒAƒCƒeƒ€‚ğ—Í‹­‚­“Š‚°‚é‚±‚Æ‚ª‚Å‚«‚éB";
@@ -1132,9 +1132,9 @@ info[i++] = "‚ ‚È‚½‚ÍƒAƒCƒeƒ€‚ğ—Í‹­‚­“Š‚°‚é‚±‚Æ‚ª‚Å‚«‚éB";
 		}
 	}
 
-	if (cr_ptr->muta2)
+	if (cr_ptr->trait2)
 	{
-		if (cr_ptr->muta2 & MUT2_BERS_RAGE)
+		if (cr_ptr->trait2 & MUT2_BERS_RAGE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹¶ím‰»‚Ì”­ì‚ğ‹N‚±‚·B";
@@ -1143,7 +1143,7 @@ info[i++] = "‚ ‚È‚½‚Í‹¶ím‰»‚Ì”­ì‚ğ‹N‚±‚·B";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_COWARDICE)
+		if (cr_ptr->trait2 & MUT2_COWARDICE)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍX‰°•a‚É‚È‚éB";
@@ -1152,7 +1152,7 @@ info[i++] = "‚ ‚È‚½‚ÍX‰°•a‚É‚È‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_RTELEPORT)
+		if (cr_ptr->trait2 & MUT2_RTELEPORT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íƒ‰ƒ“ƒ_ƒ€‚ÉƒeƒŒƒ|[ƒg‚·‚éB";
@@ -1161,7 +1161,7 @@ info[i++] = "‚ ‚È‚½‚Íƒ‰ƒ“ƒ_ƒ€‚ÉƒeƒŒƒ|[ƒg‚·‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_ALCOHOL)
+		if (cr_ptr->trait2 & MUT2_ALCOHOL)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì‘Ì‚ÍƒAƒ‹ƒR[ƒ‹‚ğ•ª”å‚·‚éB";
@@ -1170,7 +1170,7 @@ info[i++] = "‚ ‚È‚½‚Ì‘Ì‚ÍƒAƒ‹ƒR[ƒ‹‚ğ•ª”å‚·‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_HALLU)
+		if (cr_ptr->trait2 & MUT2_HALLU)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŒ¶Šo‚ğˆø‚«‹N‚±‚·¸_ö—‚ÉN‚³‚ê‚Ä‚¢‚éB";
@@ -1179,7 +1179,7 @@ info[i++] = "‚ ‚È‚½‚ÍŒ¶Šo‚ğˆø‚«‹N‚±‚·¸_ö—‚ÉN‚³‚ê‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_FLATULENT)
+		if (cr_ptr->trait2 & MUT2_FLATULENT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í§Œä‚Å‚«‚È‚¢‹­—ó‚È››‚ğ‚±‚­B";
@@ -1188,7 +1188,7 @@ info[i++] = "‚ ‚È‚½‚Í§Œä‚Å‚«‚È‚¢‹­—ó‚È››‚ğ‚±‚­B";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_PROD_MANA)
+		if (cr_ptr->trait2 & MUT2_PROD_MANA)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í§Œä•s”\‚È–‚–@‚ÌƒGƒlƒ‹ƒM[‚ğ”­‚µ‚Ä‚¢‚éB";
@@ -1197,7 +1197,7 @@ info[i++] = "‚ ‚È‚½‚Í§Œä•s”\‚È–‚–@‚ÌƒGƒlƒ‹ƒM[‚ğ”­‚µ‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_ATT_DEMON)
+		if (cr_ptr->trait2 & MUT2_ATT_DEMON)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íƒf[ƒ‚ƒ“‚ğˆø‚«‚Â‚¯‚éB";
@@ -1206,7 +1206,7 @@ info[i++] = "‚ ‚È‚½‚Íƒf[ƒ‚ƒ“‚ğˆø‚«‚Â‚¯‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_SCOR_TAIL)
+		if (cr_ptr->trait2 & MUT2_SCOR_TAIL)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍƒTƒ\ƒŠ‚ÌK”ö‚ª¶‚¦‚Ä‚¢‚éB(“ÅAƒ_ƒ[ƒW 3d7)";
@@ -1215,7 +1215,7 @@ info[i++] = "‚ ‚È‚½‚ÍƒTƒ\ƒŠ‚ÌK”ö‚ª¶‚¦‚Ä‚¢‚éB(“ÅAƒ_ƒ[ƒW 3d7)";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_HORNS)
+		if (cr_ptr->trait2 & MUT2_HORNS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŠp‚ª¶‚¦‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d6)";
@@ -1224,7 +1224,7 @@ info[i++] = "‚ ‚È‚½‚ÍŠp‚ª¶‚¦‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d6)";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_BEAK)
+		if (cr_ptr->trait2 & MUT2_BEAK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍƒNƒ`ƒoƒV‚ª¶‚¦‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d4)";
@@ -1233,7 +1233,7 @@ info[i++] = "‚ ‚È‚½‚ÍƒNƒ`ƒoƒV‚ª¶‚¦‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d4)";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_SPEED_FLUX)
+		if (cr_ptr->trait2 & MUT2_SPEED_FLUX)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íƒ‰ƒ“ƒ_ƒ€‚É‘‚­“®‚¢‚½‚è’x‚­“®‚¢‚½‚è‚·‚éB";
@@ -1242,7 +1242,7 @@ info[i++] = "‚ ‚È‚½‚Íƒ‰ƒ“ƒ_ƒ€‚É‘‚­“®‚¢‚½‚è’x‚­“®‚¢‚½‚è‚·‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_BANISH_ALL)
+		if (cr_ptr->trait2 & MUT2_BANISH_ALL)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍX‹ß‚­‚Ìƒ‚ƒ“ƒXƒ^[‚ğÁ–Å‚³‚¹‚éB";
@@ -1251,7 +1251,7 @@ info[i++] = "‚ ‚È‚½‚ÍX‹ß‚­‚Ìƒ‚ƒ“ƒXƒ^[‚ğÁ–Å‚³‚¹‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_EAT_LIGHT)
+		if (cr_ptr->trait2 & MUT2_EAT_LIGHT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍXüˆÍ‚ÌŒõ‚ğ‹zû‚µ‚Ä‰h—{‚É‚·‚éB";
@@ -1260,7 +1260,7 @@ info[i++] = "‚ ‚È‚½‚ÍXüˆÍ‚ÌŒõ‚ğ‹zû‚µ‚Ä‰h—{‚É‚·‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_TRUNK)
+		if (cr_ptr->trait2 & MUT2_TRUNK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍÛ‚Ì‚æ‚¤‚È•@‚ğ‚Á‚Ä‚¢‚éB(ƒ_ƒ[ƒW 1d4)";
@@ -1269,7 +1269,7 @@ info[i++] = "‚ ‚È‚½‚ÍÛ‚Ì‚æ‚¤‚È•@‚ğ‚Á‚Ä‚¢‚éB(ƒ_ƒ[ƒW 1d4)";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_ATT_ANIMAL)
+		if (cr_ptr->trait2 & MUT2_ATT_ANIMAL)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í“®•¨‚ğˆø‚«‚Â‚¯‚éB";
@@ -1278,7 +1278,7 @@ info[i++] = "‚ ‚È‚½‚Í“®•¨‚ğˆø‚«‚Â‚¯‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_TENTACLES)
+		if (cr_ptr->trait2 & MUT2_TENTACLES)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í×ˆ«‚ÈGè‚ğ‚Á‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d5)";
@@ -1287,7 +1287,7 @@ info[i++] = "‚ ‚È‚½‚Í×ˆ«‚ÈGè‚ğ‚Á‚Ä‚¢‚éB(ƒ_ƒ[ƒW 2d5)";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_RAW_CHAOS)
+		if (cr_ptr->trait2 & MUT2_RAW_CHAOS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚µ‚Î‚µ‚ÎƒƒJƒIƒX‚É•ï‚Ü‚ê‚éB";
@@ -1296,7 +1296,7 @@ info[i++] = "‚ ‚È‚½‚Í‚µ‚Î‚µ‚ÎƒƒJƒIƒX‚É•ï‚Ü‚ê‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_NORMALITY)
+		if (cr_ptr->trait2 & MUT2_NORMALITY)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í•ÏˆÙ‚µ‚Ä‚¢‚½‚ªA‰ñ•œ‚µ‚Ä‚«‚Ä‚¢‚éB";
@@ -1305,7 +1305,7 @@ info[i++] = "‚ ‚È‚½‚Í•ÏˆÙ‚µ‚Ä‚¢‚½‚ªA‰ñ•œ‚µ‚Ä‚«‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_WRAITH)
+		if (cr_ptr->trait2 & MUT2_WRAITH)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì“÷‘Ì‚Í—H‘Ì‰»‚µ‚½‚èÀ‘Ì‰»‚µ‚½‚è‚·‚éB";
@@ -1314,7 +1314,7 @@ info[i++] = "‚ ‚È‚½‚Ì“÷‘Ì‚Í—H‘Ì‰»‚µ‚½‚èÀ‘Ì‰»‚µ‚½‚è‚·‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_POLY_WOUND)
+		if (cr_ptr->trait2 & MUT2_POLY_WOUND)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÌŒ’N‚ÍƒJƒIƒX‚Ì—Í‚É‰e‹¿‚ğó‚¯‚éB";
@@ -1323,7 +1323,7 @@ info[i++] = "‚ ‚È‚½‚ÌŒ’N‚ÍƒJƒIƒX‚Ì—Í‚É‰e‹¿‚ğó‚¯‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_WASTING)
+		if (cr_ptr->trait2 & MUT2_WASTING)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŠã‚·‚é‹°‚ë‚µ‚¢•a‹C‚É‚©‚©‚Á‚Ä‚¢‚éB";
@@ -1332,7 +1332,7 @@ info[i++] = "‚ ‚È‚½‚ÍŠã‚·‚é‹°‚ë‚µ‚¢•a‹C‚É‚©‚©‚Á‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_ATT_DRAGON)
+		if (cr_ptr->trait2 & MUT2_ATT_DRAGON)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íƒhƒ‰ƒSƒ“‚ğˆø‚«‚Â‚¯‚éB";
@@ -1341,7 +1341,7 @@ info[i++] = "‚ ‚È‚½‚Íƒhƒ‰ƒSƒ“‚ğˆø‚«‚Â‚¯‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_WEIRD_MIND)
+		if (cr_ptr->trait2 & MUT2_WEIRD_MIND)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì¸_‚Íƒ‰ƒ“ƒ_ƒ€‚ÉŠg‘å‚µ‚½‚èk¬‚µ‚½‚è‚µ‚Ä‚¢‚éB";
@@ -1350,7 +1350,7 @@ info[i++] = "‚ ‚È‚½‚Ì¸_‚Íƒ‰ƒ“ƒ_ƒ€‚ÉŠg‘å‚µ‚½‚èk¬‚µ‚½‚è‚µ‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_NAUSEA)
+		if (cr_ptr->trait2 & MUT2_NAUSEA)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ìˆİ‚Í”ñí‚É—‚¿’…‚«‚ª‚È‚¢B";
@@ -1359,7 +1359,7 @@ info[i++] = "‚ ‚È‚½‚Ìˆİ‚Í”ñí‚É—‚¿’…‚«‚ª‚È‚¢B";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_CHAOS_GIFT)
+		if (cr_ptr->trait2 & MUT2_CHAOS_GIFT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍƒJƒIƒX‚ÌçŒìˆ«–‚‚©‚ç–J”ü‚ğ‚¤‚¯‚Æ‚éB";
@@ -1368,7 +1368,7 @@ info[i++] = "‚ ‚È‚½‚ÍƒJƒIƒX‚ÌçŒìˆ«–‚‚©‚ç–J”ü‚ğ‚¤‚¯‚Æ‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_WALK_SHAD)
+		if (cr_ptr->trait2 & MUT2_WALK_SHAD)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚µ‚Î‚µ‚Î‘¼‚Ìu‰ev‚É–À‚¢‚ŞB";
@@ -1377,7 +1377,7 @@ info[i++] = "‚ ‚È‚½‚Í‚µ‚Î‚µ‚Î‘¼‚Ìu‰ev‚É–À‚¢‚ŞB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_WARNING)
+		if (cr_ptr->trait2 & MUT2_WARNING)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í“G‚ÉŠÖ‚·‚éŒx‚ğŠ´‚¶‚éB";
@@ -1386,7 +1386,7 @@ info[i++] = "‚ ‚È‚½‚Í“G‚ÉŠÖ‚·‚éŒx‚ğŠ´‚¶‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_INVULN)
+		if (cr_ptr->trait2 & MUT2_INVULN)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍX•‰‚¯’m‚ç‚¸‚È‹C•ª‚É‚È‚éB";
@@ -1395,7 +1395,7 @@ info[i++] = "‚ ‚È‚½‚ÍX•‰‚¯’m‚ç‚¸‚È‹C•ª‚É‚È‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_SP_TO_HP)
+		if (cr_ptr->trait2 & MUT2_SP_TO_HP)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍXŒŒ‚ª‹Ø“÷‚É‚Ç‚Á‚Æ—¬‚ê‚éB";
@@ -1404,7 +1404,7 @@ info[i++] = "‚ ‚È‚½‚ÍXŒŒ‚ª‹Ø“÷‚É‚Ç‚Á‚Æ—¬‚ê‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_HP_TO_SP)
+		if (cr_ptr->trait2 & MUT2_HP_TO_SP)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍX“ª‚ÉŒŒ‚ª‚Ç‚Á‚Æ—¬‚ê‚éB";
@@ -1413,7 +1413,7 @@ info[i++] = "‚ ‚È‚½‚ÍX“ª‚ÉŒŒ‚ª‚Ç‚Á‚Æ—¬‚ê‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta2 & MUT2_DISARM)
+		if (cr_ptr->trait2 & MUT2_DISARM)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚æ‚­‚Â‚Ü‚Ã‚¢‚Ä•¨‚ğ—‚Æ‚·B";
@@ -1424,9 +1424,9 @@ info[i++] = "‚ ‚È‚½‚Í‚æ‚­‚Â‚Ü‚Ã‚¢‚Ä•¨‚ğ—‚Æ‚·B";
 		}
 	}
 
-	if (cr_ptr->muta3)
+	if (cr_ptr->trait3)
 	{
-		if (cr_ptr->muta3 & MUT3_HYPER_STR)
+		if (cr_ptr->trait3 & MUT3_HYPER_STR)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í’´l“I‚É‹­‚¢B(˜r—Í+4)";
@@ -1435,7 +1435,7 @@ info[i++] = "‚ ‚È‚½‚Í’´l“I‚É‹­‚¢B(˜r—Í+4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_PUNY)
+		if (cr_ptr->trait3 & MUT3_PUNY)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹•ã‚¾B(˜r—Í-4)";
@@ -1444,7 +1444,7 @@ info[i++] = "‚ ‚È‚½‚Í‹•ã‚¾B(˜r—Í-4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_HYPER_INT)
+		if (cr_ptr->trait3 & MUT3_HYPER_INT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì”]‚Í¶‘ÌƒRƒ“ƒsƒ…[ƒ^‚¾B(’m”\•Œ«‚³+4)";
@@ -1453,7 +1453,7 @@ info[i++] = "‚ ‚È‚½‚Ì”]‚Í¶‘ÌƒRƒ“ƒsƒ…[ƒ^‚¾B(’m”\•Œ«‚³+4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_MORONIC)
+		if (cr_ptr->trait3 & MUT3_MORONIC)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¸_”–ã‚¾B(’m”\•Œ«‚³-4)";
@@ -1462,7 +1462,7 @@ info[i++] = "‚ ‚È‚½‚Í¸_”–ã‚¾B(’m”\•Œ«‚³-4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_RESILIENT)
+		if (cr_ptr->trait3 & MUT3_RESILIENT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í”ñí‚Éƒ^ƒt‚¾B(‘Ï‹v+4)";
@@ -1471,7 +1471,7 @@ info[i++] = "‚ ‚È‚½‚Í”ñí‚Éƒ^ƒt‚¾B(‘Ï‹v+4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_XTRA_FAT)
+		if (cr_ptr->trait3 & MUT3_XTRA_FAT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹É’[‚É‘¾‚Á‚Ä‚¢‚éB(‘Ï‹v+2,ƒXƒs[ƒh-2)";
@@ -1480,7 +1480,7 @@ info[i++] = "‚ ‚È‚½‚Í‹É’[‚É‘¾‚Á‚Ä‚¢‚éB(‘Ï‹v+2,ƒXƒs[ƒh-2)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_ALBINO)
+		if (cr_ptr->trait3 & MUT3_ALBINO)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍƒAƒ‹ƒrƒm‚¾B(‘Ï‹v-4)";
@@ -1489,7 +1489,7 @@ info[i++] = "‚ ‚È‚½‚ÍƒAƒ‹ƒrƒm‚¾B(‘Ï‹v-4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_FLESH_ROT)
+		if (cr_ptr->trait3 & MUT3_FLESH_ROT)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì“÷‘Ì‚Í•…”s‚µ‚Ä‚¢‚éB(‘Ï‹v-2,–£—Í-1)";
@@ -1498,7 +1498,7 @@ info[i++] = "‚ ‚È‚½‚Ì“÷‘Ì‚Í•…”s‚µ‚Ä‚¢‚éB(‘Ï‹v-2,–£—Í-1)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_SILLY_VOI)
+		if (cr_ptr->trait3 & MUT3_SILLY_VOI)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ìº‚ÍŠÔ”²‚¯‚ÈƒL[ƒL[º‚¾B(–£—Í-4)";
@@ -1507,7 +1507,7 @@ info[i++] = "‚ ‚È‚½‚Ìº‚ÍŠÔ”²‚¯‚ÈƒL[ƒL[º‚¾B(–£—Í-4)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_BLANK_FAC)
+		if (cr_ptr->trait3 & MUT3_BLANK_FAC)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚Ì‚Á‚Ø‚ç‚Ú‚¤‚¾B(–£—Í-1)";
@@ -1516,7 +1516,7 @@ info[i++] = "‚ ‚È‚½‚Í‚Ì‚Á‚Ø‚ç‚Ú‚¤‚¾B(–£—Í-1)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_ILL_NORM)
+		if (cr_ptr->trait3 & MUT3_ILL_NORM)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŒ¶‰e‚É•¢‚í‚ê‚Ä‚¢‚éB";
@@ -1525,7 +1525,7 @@ info[i++] = "‚ ‚È‚½‚ÍŒ¶‰e‚É•¢‚í‚ê‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_XTRA_EYES)
+		if (cr_ptr->trait3 & MUT3_XTRA_EYES)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í—]•ª‚É“ñ‚Â‚Ì–Ú‚ğ‚Á‚Ä‚¢‚éB(’Tõ+15)";
@@ -1534,7 +1534,7 @@ info[i++] = "‚ ‚È‚½‚Í—]•ª‚É“ñ‚Â‚Ì–Ú‚ğ‚Á‚Ä‚¢‚éB(’Tõ+15)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_MAGIC_RES)
+		if (cr_ptr->trait3 & MUT3_MAGIC_RES)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í–‚–@‚Ö‚Ì‘Ï«‚ğ‚à‚Á‚Ä‚¢‚éB";
@@ -1543,7 +1543,7 @@ info[i++] = "‚ ‚È‚½‚Í–‚–@‚Ö‚Ì‘Ï«‚ğ‚à‚Á‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_XTRA_NOIS)
+		if (cr_ptr->trait3 & MUT3_XTRA_NOIS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í•Ï‚È‰¹‚ğ”­‚µ‚Ä‚¢‚éB(‰B–§-3)";
@@ -1552,7 +1552,7 @@ info[i++] = "‚ ‚È‚½‚Í•Ï‚È‰¹‚ğ”­‚µ‚Ä‚¢‚éB(‰B–§-3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_INFRAVIS)
+		if (cr_ptr->trait3 & MUT3_INFRAVIS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‘f°‚ç‚µ‚¢ÔŠOü‹—Í‚ğ‚Á‚Ä‚¢‚éB(+3)";
@@ -1561,7 +1561,7 @@ info[i++] = "‚ ‚È‚½‚Í‘f°‚ç‚µ‚¢ÔŠOü‹—Í‚ğ‚Á‚Ä‚¢‚éB(+3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_XTRA_LEGS)
+		if (cr_ptr->trait3 & MUT3_XTRA_LEGS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í—]•ª‚É“ñ–{‚Ì‘«‚ª¶‚¦‚Ä‚¢‚éB(‰Á‘¬+3)";
@@ -1570,7 +1570,7 @@ info[i++] = "‚ ‚È‚½‚Í—]•ª‚É“ñ–{‚Ì‘«‚ª¶‚¦‚Ä‚¢‚éB(‰Á‘¬+3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_SHORT_LEG)
+		if (cr_ptr->trait3 & MUT3_SHORT_LEG)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì‘«‚Í’Z‚¢“Ë‹N‚¾B(‰Á‘¬-3)";
@@ -1579,7 +1579,7 @@ info[i++] = "‚ ‚È‚½‚Ì‘«‚Í’Z‚¢“Ë‹N‚¾B(‰Á‘¬-3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_ELEC_TOUC)
+		if (cr_ptr->trait3 & MUT3_ELEC_TOUC)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÌŒŒŠÇ‚É‚Í“d—¬‚ª—¬‚ê‚Ä‚¢‚éB";
@@ -1588,7 +1588,7 @@ info[i++] = "‚ ‚È‚½‚ÌŒŒŠÇ‚É‚Í“d—¬‚ª—¬‚ê‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_FIRE_BODY)
+		if (cr_ptr->trait3 & MUT3_FIRE_BODY)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì‘Ì‚Í‰Š‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB";
@@ -1596,7 +1596,7 @@ info[i++] = "‚ ‚È‚½‚Ì‘Ì‚Í‰Š‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB";
 			info[i++] = "Your body is enveloped in flames.";
 #endif
 		}
-		if (cr_ptr->muta3 & MUT3_WART_SKIN)
+		if (cr_ptr->trait3 & MUT3_WART_SKIN)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì”§‚ÍƒCƒ{‚É”í‚í‚ê‚Ä‚¢‚éB(–£—Í-2, AC+5)";
@@ -1605,7 +1605,7 @@ info[i++] = "‚ ‚È‚½‚Ì”§‚ÍƒCƒ{‚É”í‚í‚ê‚Ä‚¢‚éB(–£—Í-2, AC+5)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_SCALES)
+		if (cr_ptr->trait3 & MUT3_SCALES)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì”§‚Í—Ø‚É‚È‚Á‚Ä‚¢‚éB(–£—Í-1, AC+10)";
@@ -1614,7 +1614,7 @@ info[i++] = "‚ ‚È‚½‚Ì”§‚Í—Ø‚É‚È‚Á‚Ä‚¢‚éB(–£—Í-1, AC+10)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_IRON_SKIN)
+		if (cr_ptr->trait3 & MUT3_IRON_SKIN)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì”§‚Í“S‚Å‚Å‚«‚Ä‚¢‚éB(Ší—p-1, AC+25)";
@@ -1623,7 +1623,7 @@ info[i++] = "‚ ‚È‚½‚Ì”§‚Í“S‚Å‚Å‚«‚Ä‚¢‚éB(Ší—p-1, AC+25)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_WINGS)
+		if (cr_ptr->trait3 & MUT3_WINGS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‰H‚ğ‚Á‚Ä‚¢‚éB";
@@ -1632,19 +1632,19 @@ info[i++] = "‚ ‚È‚½‚Í‰H‚ğ‚Á‚Ä‚¢‚éB";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_FEARLESS)
+		if (cr_ptr->trait3 & MUT3_FEARLESS)
 		{
 			/* Unnecessary */
 		}
-		if (cr_ptr->muta3 & MUT3_REGEN)
+		if (cr_ptr->trait3 & MUT3_REGEN)
 		{
 			/* Unnecessary */
 		}
-		if (cr_ptr->muta3 & MUT3_ESP)
+		if (cr_ptr->trait3 & MUT3_ESP)
 		{
 			/* Unnecessary */
 		}
-		if (cr_ptr->muta3 & MUT3_LIMBER)
+		if (cr_ptr->trait3 & MUT3_LIMBER)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì‘Ì‚Í”ñí‚É‚µ‚È‚â‚©‚¾B(Ší—p+3)";
@@ -1653,7 +1653,7 @@ info[i++] = "‚ ‚È‚½‚Ì‘Ì‚Í”ñí‚É‚µ‚È‚â‚©‚¾B(Ší—p+3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_ARTHRITIS)
+		if (cr_ptr->trait3 & MUT3_ARTHRITIS)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚¢‚Â‚àŠÖß‚É’É‚İ‚ğŠ´‚¶‚Ä‚¢‚éB(Ší—p-3)";
@@ -1662,7 +1662,7 @@ info[i++] = "‚ ‚È‚½‚Í‚¢‚Â‚àŠÖß‚É’É‚İ‚ğŠ´‚¶‚Ä‚¢‚éB(Ší—p-3)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_VULN_ELEM)
+		if (cr_ptr->trait3 & MUT3_VULN_ELEM)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍŒ³‘f‚ÌUŒ‚‚Éã‚¢B";
@@ -1671,7 +1671,7 @@ info[i++] = "‚ ‚È‚½‚ÍŒ³‘f‚ÌUŒ‚‚Éã‚¢B";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_MOTION)
+		if (cr_ptr->trait3 & MUT3_MOTION)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì“®ì‚Í³Šm‚Å—Í‹­‚¢B(‰B–§+1)";
@@ -1680,7 +1680,7 @@ info[i++] = "‚ ‚È‚½‚Ì“®ì‚Í³Šm‚Å—Í‹­‚¢B(‰B–§+1)";
 #endif
 
 		}
-		if (cr_ptr->muta3 & MUT3_GOOD_LUCK)
+		if (cr_ptr->trait3 & MUT3_GOOD_LUCK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í”’‚¢ƒI[ƒ‰‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB";
@@ -1688,7 +1688,7 @@ info[i++] = "‚ ‚È‚½‚Í”’‚¢ƒI[ƒ‰‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB";
 			info[i++] = "There is a white aura surrounding you.";
 #endif
 		}
-		if (cr_ptr->muta3 & MUT3_BAD_LUCK)
+		if (cr_ptr->trait3 & MUT3_BAD_LUCK)
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í•‚¢ƒI[ƒ‰‚É‚Â‚Â‚Ü‚ê‚Ä‚¢‚éB";

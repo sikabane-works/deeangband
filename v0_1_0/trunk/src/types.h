@@ -1234,9 +1234,9 @@ struct creature_type
 	s16b multishadow;       /* Timed -- Multi-shadow */
 	s16b dustrobe;          /* Timed -- Robe of dust */
 
-	u32b muta1;
-	u32b muta2;
-	u32b muta3;
+	u32b trait1;
+	u32b trait2;
+	u32b trait3;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];

@@ -3253,9 +3253,9 @@ static void player_wipe(creature_type *cr_ptr)
 	battle_monsters();
 
 	/* Reset mutations */
-	cr_ptr->muta1 = 0;
-	cr_ptr->muta2 = 0;
-	cr_ptr->muta3 = 0;
+	cr_ptr->trait1 = 0;
+	cr_ptr->trait2 = 0;
+	cr_ptr->trait3 = 0;
 
 	/* Reset karmas*/
 	for (i = 0; i < 8; i++) cr_ptr->karmas[i]=0;

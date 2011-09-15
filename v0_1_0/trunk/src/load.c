@@ -1417,9 +1417,9 @@ static void rd_creature(creature_type *cr_ptr)
 		cr_ptr->dustrobe = 0;
 
 		cr_ptr->patron_idx = ((cr_ptr->age + cr_ptr->sc) % MAX_PATRON);
-		cr_ptr->muta1 = 0;
-		cr_ptr->muta2 = 0;
-		cr_ptr->muta3 = 0;
+		cr_ptr->trait1 = 0;
+		cr_ptr->trait2 = 0;
+		cr_ptr->trait3 = 0;
 	}
 	else
 	{
@@ -1445,9 +1445,9 @@ static void rd_creature(creature_type *cr_ptr)
 		rd_s16b(&cr_ptr->multishadow);
 		rd_s16b(&cr_ptr->dustrobe);
 		rd_s16b(&cr_ptr->patron_idx);
-		rd_u32b(&cr_ptr->muta1);
-		rd_u32b(&cr_ptr->muta2);
-		rd_u32b(&cr_ptr->muta3);
+		rd_u32b(&cr_ptr->trait1);
+		rd_u32b(&cr_ptr->trait2);
+		rd_u32b(&cr_ptr->trait3);
 
 		for (i = 0; i < MAX_KARMA; i++)
 			rd_s32b(&cr_ptr->karmas[i]);

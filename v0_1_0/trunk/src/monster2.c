@@ -2291,9 +2291,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((watcher_ptr->muta3 & MUT3_MORONIC) && /*(watcher_ptr->muta2 & MUT2_BERS_RAGE) &&*/
-		((watcher_ptr->muta2 & MUT2_COWARDICE) || (watcher_ptr->resist_fear)) &&
-		((watcher_ptr->muta2 & MUT2_HALLU) || (watcher_ptr->resist_chaos)))
+	if ((watcher_ptr->trait3 & MUT3_MORONIC) && /*(watcher_ptr->trait2 & MUT2_BERS_RAGE) &&*/
+		((watcher_ptr->trait2 & MUT2_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		((watcher_ptr->trait2 & MUT2_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2304,7 +2304,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		switch (randint1(21))
 		{
 			case 1:
-				if (!(watcher_ptr->muta3 & MUT3_MORONIC) && one_in_(5))
+				if (!(watcher_ptr->trait3 & MUT3_MORONIC) && one_in_(5))
 				{
 					if ((watcher_ptr->stat_use[A_INT] < 4) && (watcher_ptr->stat_use[A_WIS] < 4))
 					{
@@ -2323,7 +2323,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (watcher_ptr->muta3 & MUT3_HYPER_INT)
+					if (watcher_ptr->trait3 & MUT3_HYPER_INT)
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2331,9 +2331,9 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						watcher_ptr->muta3 &= ~(MUT3_HYPER_INT);
+						watcher_ptr->trait3 &= ~(MUT3_HYPER_INT);
 					}
-					watcher_ptr->muta3 |= MUT3_MORONIC;
+					watcher_ptr->trait3 |= MUT3_MORONIC;
 					happened = TRUE;
 				}
 				break;
@@ -2347,7 +2347,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			case 9:
 			case 10:
 			case 11:
-				if (!(watcher_ptr->muta2 & MUT2_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!(watcher_ptr->trait2 & MUT2_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2357,7 +2357,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (watcher_ptr->muta3 & MUT3_FEARLESS)
+					if (watcher_ptr->trait3 & MUT3_FEARLESS)
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2365,10 +2365,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						watcher_ptr->muta3 &= ~(MUT3_FEARLESS);
+						watcher_ptr->trait3 &= ~(MUT3_FEARLESS);
 					}
 
-					watcher_ptr->muta2 |= MUT2_COWARDICE;
+					watcher_ptr->trait2 |= MUT2_COWARDICE;
 					happened = TRUE;
 				}
 				break;
@@ -2382,7 +2382,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			case 19:
 			case 20:
 			case 21:
-				if (!(watcher_ptr->muta2 & MUT2_HALLU) && !watcher_ptr->resist_chaos)
+				if (!(watcher_ptr->trait2 & MUT2_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2390,12 +2390,12 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					watcher_ptr->muta2 |= MUT2_HALLU;
+					watcher_ptr->trait2 |= MUT2_HALLU;
 					happened = TRUE;
 				}
 				break;
 			default:
-				if (!(watcher_ptr->muta2 & MUT2_BERS_RAGE))
+				if (!(watcher_ptr->trait2 & MUT2_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2403,7 +2403,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					watcher_ptr->muta2 |= MUT2_BERS_RAGE;
+					watcher_ptr->trait2 |= MUT2_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
