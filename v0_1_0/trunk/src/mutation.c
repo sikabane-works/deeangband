@@ -29,7 +29,7 @@ bool gain_random_mutation(creature_type *cr_ptr, int choose_mut)
 		{
 		case 1: case 2: case 3: case 4:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SPIT_ACID;
+			muta_which = TRAIT1_SPIT_ACID;
 #ifdef JP
 muta_desc = "é_ÇìfÇ≠î\óÕÇìæÇΩÅB";
 #else
@@ -39,7 +39,7 @@ muta_desc = "é_ÇìfÇ≠î\óÕÇìæÇΩÅB";
 			break;
 		case 5: case 6: case 7:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BR_FIRE;
+			muta_which = TRAIT1_BR_FIRE;
 #ifdef JP
 muta_desc = "âŒÇìfÇ≠î\óÕÇìæÇΩÅB";
 #else
@@ -49,7 +49,7 @@ muta_desc = "âŒÇìfÇ≠î\óÕÇìæÇΩÅB";
 			break;
 		case 8: case 9:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_HYPN_GAZE;
+			muta_which = TRAIT1_HYPN_GAZE;
 #ifdef JP
 muta_desc = "ç√ñ∞ä·ÇÃî\óÕÇìæÇΩÅB";
 #else
@@ -59,7 +59,7 @@ muta_desc = "ç√ñ∞ä·ÇÃî\óÕÇìæÇΩÅB";
 			break;
 		case 10: case 11:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_TELEKINES;
+			muta_which = TRAIT1_TELEKINES;
 #ifdef JP
 muta_desc = "ï®ëÃÇîOìÆóÕÇ≈ìÆÇ©Ç∑î\óÕÇìæÇΩÅB";
 #else
@@ -69,7 +69,7 @@ muta_desc = "ï®ëÃÇîOìÆóÕÇ≈ìÆÇ©Ç∑î\óÕÇìæÇΩÅB";
 			break;
 		case 12: case 13: case 14:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_VTELEPORT;
+			muta_which = TRAIT1_VTELEPORT;
 #ifdef JP
 muta_desc = "é©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ∑ÇÈî\óÕÇìæÇΩÅB";
 #else
@@ -79,7 +79,7 @@ muta_desc = "é©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ∑ÇÈî\óÕÇìæÇΩÅB";
 			break;
 		case 15: case 16:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_MIND_BLST;
+			muta_which = TRAIT1_MIND_BLST;
 #ifdef JP
 muta_desc = "ê∏ê_çUåÇÇÃî\óÕÇìæÇΩÅB";
 #else
@@ -89,7 +89,7 @@ muta_desc = "ê∏ê_çUåÇÇÃî\óÕÇìæÇΩÅB";
 			break;
 		case 17: case 18:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RADIATION;
+			muta_which = TRAIT1_RADIATION;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕã≠Ç¢ï˙éÀê¸Çî≠ê∂ÇµénÇﬂÇΩÅB";
 #else
@@ -99,7 +99,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕã≠Ç¢ï˙éÀê¸Çî≠ê∂ÇµénÇﬂÇΩÅB";
 			break;
 		case 19: case 20:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_VAMPIRISM;
+			muta_which = TRAIT1_VAMPIRISM;
 #ifdef JP
 muta_desc = "ê∂ñΩóÕÇãzé˚Ç≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -109,7 +109,7 @@ muta_desc = "ê∂ñΩóÕÇãzé˚Ç≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 21: case 22: case 23:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SMELL_MET;
+			muta_which = TRAIT1_SMELL_MET;
 #ifdef JP
 muta_desc = "ã‡ëÆÇÃìıÇ¢ÇökÇ¨ï™ÇØÇÁÇÍÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -119,7 +119,7 @@ muta_desc = "ã‡ëÆÇÃìıÇ¢ÇökÇ¨ï™ÇØÇÁÇÍÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 24: case 25: case 26: case 27:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SMELL_MON;
+			muta_which = TRAIT1_SMELL_MON;
 #ifdef JP
 muta_desc = "ÉÇÉìÉXÉ^Å[ÇÃèLÇ¢ÇökÇ¨ï™ÇØÇÁÇÍÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -129,7 +129,7 @@ muta_desc = "ÉÇÉìÉXÉ^Å[ÇÃèLÇ¢ÇökÇ¨ï™ÇØÇÁÇÍÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 28: case 29: case 30:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BLINK;
+			muta_which = TRAIT1_BLINK;
 #ifdef JP
 muta_desc = "ãﬂãóó£ÉeÉåÉ|Å[ÉgÇÃî\óÕÇìæÇΩÅB";
 #else
@@ -139,7 +139,7 @@ muta_desc = "ãﬂãóó£ÉeÉåÉ|Å[ÉgÇÃî\óÕÇìæÇΩÅB";
 			break;
 		case 31: case 32:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EAT_ROCK;
+			muta_which = TRAIT1_EAT_ROCK;
 #ifdef JP
 muta_desc = "ï«Ç™î¸ñ°ÇµÇªÇ§Ç…å©Ç¶ÇÈÅB";
 #else
@@ -149,7 +149,7 @@ muta_desc = "ï«Ç™î¸ñ°ÇµÇªÇ§Ç…å©Ç¶ÇÈÅB";
 			break;
 		case 33: case 34:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SWAP_POS;
+			muta_which = TRAIT1_SWAP_POS;
 #ifdef JP
 muta_desc = "ëºêlÇÃåCÇ≈àÍÉ}ÉCÉãï‡Ç≠ÇÊÇ§Ç»ãCï™Ç™Ç∑ÇÈÅB";
 #else
@@ -159,7 +159,7 @@ muta_desc = "ëºêlÇÃåCÇ≈àÍÉ}ÉCÉãï‡Ç≠ÇÊÇ§Ç»ãCï™Ç™Ç∑ÇÈÅB";
 			break;
 		case 35: case 36: case 37:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SHRIEK;
+			muta_which = TRAIT1_SHRIEK;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃê∫ÇÕëäìñã≠Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -169,7 +169,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃê∫ÇÕëäìñã≠Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 38: case 39: case 40:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_ILLUMINE;
+			muta_which = TRAIT1_ILLUMINE;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕåıÇËãPÇ¢ÇƒïîâÆÇñæÇÈÇ≠Ç∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -179,7 +179,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕåıÇËãPÇ¢ÇƒïîâÆÇñæÇÈÇ≠Ç∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 41: case 42:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_DET_CURSE;
+			muta_which = TRAIT1_DET_CURSE;
 #ifdef JP
 muta_desc = "é◊à´Ç»ñÇñ@Çä¥ímÇ≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -189,7 +189,7 @@ muta_desc = "é◊à´Ç»ñÇñ@Çä¥ímÇ≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 43: case 44: case 45:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BERSERK;
+			muta_which = TRAIT1_BERSERK;
 #ifdef JP
 muta_desc = "êßå‰Ç≈Ç´ÇÈåÉèÓÇä¥Ç∂ÇÈÅB";
 #else
@@ -199,7 +199,7 @@ muta_desc = "êßå‰Ç≈Ç´ÇÈåÉèÓÇä¥Ç∂ÇÈÅB";
 			break;
 		case 46:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_POLYMORPH;
+			muta_which = TRAIT1_POLYMORPH;
 #ifdef JP
 muta_desc = "ëÃÇ™ïœàŸÇµÇ‚Ç∑Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -209,7 +209,7 @@ muta_desc = "ëÃÇ™ïœàŸÇµÇ‚Ç∑Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 47: case 48:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_MIDAS_TCH;
+			muta_which = TRAIT1_MIDAS_TCH;
 #ifdef JP
 muta_desc = "ÅuÉ~É_ÉXâ§ÇÃéËÅvÇÃî\óÕÇìæÇΩÅB";/*ÉgÉDÅ[ÉÄÉåÉCÉ_Å[ÉXÇ…Ç†ÇËÇ‹ÇµÇΩÇÀÅB */
 #else
@@ -219,7 +219,7 @@ muta_desc = "ÅuÉ~É_ÉXâ§ÇÃéËÅvÇÃî\óÕÇìæÇΩÅB";/*ÉgÉDÅ[ÉÄÉåÉCÉ_Å[ÉXÇ…Ç†ÇËÇ‹ÇµÇΩÇÀÅ
 			break;
 		case 49:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_GROW_MOLD;
+			muta_which = TRAIT1_GROW_MOLD;
 #ifdef JP
 muta_desc = "ìÀëRÉJÉrÇ…êeÇµÇ›ÇäoÇ¶ÇΩÅB";
 #else
@@ -229,7 +229,7 @@ muta_desc = "ìÀëRÉJÉrÇ…êeÇµÇ›ÇäoÇ¶ÇΩÅB";
 			break;
 		case 50: case 51: case 52:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RESIST;
+			muta_which = TRAIT1_RESIST;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕé©ï™é©êgÇéÁÇÍÇÈãCÇ™Ç∑ÇÈÅB";
 #else
@@ -239,7 +239,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕé©ï™é©êgÇéÁÇÍÇÈãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 53: case 54: case 55:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EARTHQUAKE;
+			muta_which = TRAIT1_EARTHQUAKE;
 #ifdef JP
 muta_desc = "É_ÉìÉWÉáÉìÇîjâÛÇ∑ÇÈî\óÕÇìæÇΩÅB";
 #else
@@ -249,7 +249,7 @@ muta_desc = "É_ÉìÉWÉáÉìÇîjâÛÇ∑ÇÈî\óÕÇìæÇΩÅB";
 			break;
 		case 56:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EAT_MAGIC;
+			muta_which = TRAIT1_EAT_MAGIC;
 #ifdef JP
 muta_desc = "ñÇñ@ÇÃÉAÉCÉeÉÄÇ™î¸ñ°ÇªÇ§Ç…å©Ç¶ÇÈÅB";
 #else
@@ -259,7 +259,7 @@ muta_desc = "ñÇñ@ÇÃÉAÉCÉeÉÄÇ™î¸ñ°ÇªÇ§Ç…å©Ç¶ÇÈÅB";
 			break;
 		case 57: case 58:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_WEIGH_MAG;
+			muta_which = TRAIT1_WEIGH_MAG;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕé¸àÕÇ…Ç†ÇÈñÇñ@ÇÇÊÇËó«Ç≠óùâÇ≈Ç´ÇÈãCÇ™Ç∑ÇÈÅB";
 #else
@@ -269,7 +269,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕé¸àÕÇ…Ç†ÇÈñÇñ@ÇÇÊÇËó«Ç≠óùâÇ≈Ç´ÇÈãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 59:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_STERILITY;
+			muta_which = TRAIT1_STERILITY;
 #ifdef JP
 muta_desc = "é¸ÇËÇÃëSÇƒÇÃé“Ç…ì™í…ÇãNÇ±Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB";
 #else
@@ -279,7 +279,7 @@ muta_desc = "é¸ÇËÇÃëSÇƒÇÃé“Ç…ì™í…ÇãNÇ±Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB";
 			break;
 		case 60: case 61:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_PANIC_HIT;
+			muta_which = TRAIT1_PANIC_HIT;
 #ifdef JP
 muta_desc = "ìÀëRÅAìDñ_ÇÃãCï™Ç™ï™Ç©ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -289,7 +289,7 @@ muta_desc = "ìÀëRÅAìDñ_ÇÃãCï™Ç™ï™Ç©ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 62: case 63: case 64:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_DAZZLE;
+			muta_which = TRAIT1_DAZZLE;
 #ifdef JP
 muta_desc = "·øÇ¢ëMåıÇî≠Ç∑ÇÈî\óÕÇìæÇΩÅB";
 #else
@@ -299,7 +299,7 @@ muta_desc = "·øÇ¢ëMåıÇî≠Ç∑ÇÈî\óÕÇìæÇΩÅB";
 			break;
 		case 65: case 66: case 67:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_LASER_EYE;
+			muta_which = TRAIT1_LASER_EYE;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃñ⁄ÇÕàÍèuèƒÇØïtÇ¢ÇΩÅB";
 #else
@@ -309,7 +309,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃñ⁄ÇÕàÍèuèƒÇØïtÇ¢ÇΩÅB";
 			break;
 		case 68: case 69:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RECALL;
+			muta_which = TRAIT1_RECALL;
 #ifdef JP
 muta_desc = "è≠ÇµÇæÇØÉzÅ[ÉÄÉVÉbÉNÇ…Ç»Ç¡ÇΩÇ™ÅAÇ∑ÇÆíºÇ¡ÇΩÅB";
 #else
@@ -319,7 +319,7 @@ muta_desc = "è≠ÇµÇæÇØÉzÅ[ÉÄÉVÉbÉNÇ…Ç»Ç¡ÇΩÇ™ÅAÇ∑ÇÆíºÇ¡ÇΩÅB";
 			break;
 		case 70:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BANISH;
+			muta_which = TRAIT1_BANISH;
 #ifdef JP
 muta_desc = "ê_êπÇ»ì{ÇËÇÃóÕÇ…ñûÇΩÇ≥ÇÍÇΩÅB";
 #else
@@ -329,7 +329,7 @@ muta_desc = "ê_êπÇ»ì{ÇËÇÃóÕÇ…ñûÇΩÇ≥ÇÍÇΩÅB";
 			break;
 		case 71: case 72:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_COLD_TOUCH;
+			muta_which = TRAIT1_COLD_TOUCH;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃóºéËÇÕÇ∆ÇƒÇ‡ó‚ÇΩÇ≠Ç»Ç¡ÇΩÅB";
 #else
@@ -339,7 +339,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃóºéËÇÕÇ∆ÇƒÇ‡ó‚ÇΩÇ≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 73: case 74:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_LAUNCHER;
+			muta_which = TRAIT1_LAUNCHER;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃï®ÇìäÇ∞ÇÈéËÇÕÇ©Ç»ÇËã≠Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -349,7 +349,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃï®ÇìäÇ∞ÇÈéËÇÕÇ©Ç»ÇËã≠Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 75:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BERS_RAGE;
+			muta_which = TRAIT2_BERS_RAGE;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕã∂ñ\âªÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅI";
 #else
@@ -359,7 +359,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕã∂ñ\âªÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅI";
 			break;
 		case 76:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_COWARDICE;
+			muta_which = TRAIT2_COWARDICE;
 #ifdef JP
 muta_desc = "êMÇ∂ÇÁÇÍÇ»Ç¢Ç≠ÇÁÇ¢â∞ïaÇ…Ç»Ç¡ÇΩÅI";
 #else
@@ -369,7 +369,7 @@ muta_desc = "êMÇ∂ÇÁÇÍÇ»Ç¢Ç≠ÇÁÇ¢â∞ïaÇ…Ç»Ç¡ÇΩÅI";
 			break;
 		case 77:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_RTELEPORT;
+			muta_which = TRAIT2_RTELEPORT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃà íuÇÕîÒèÌÇ…ïsämíËÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -379,7 +379,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃà íuÇÕîÒèÌÇ…ïsämíËÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 78:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ALCOHOL;
+			muta_which = TRAIT2_ALCOHOL;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇ∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -389,7 +389,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇ∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 79:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HALLU;
+			muta_which = TRAIT2_HALLU;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕå∂äoÇà¯Ç´ãNÇ±Ç∑ê∏ê_çˆóêÇ…êNÇ≥ÇÍÇΩÅB";
 #else
@@ -399,7 +399,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕå∂äoÇà¯Ç´ãNÇ±Ç∑ê∏ê_çˆóêÇ…êNÇ≥ÇÍÇΩÅB";
 			break;
 		case 80:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_FLATULENT;
+			muta_which = TRAIT2_FLATULENT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ã≠óÛÇ»õõÇÇ±Ç≠ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -409,7 +409,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ã≠óÛÇ»õõÇÇ±Ç≠ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 81: case 82:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SCOR_TAIL;
+			muta_which = TRAIT2_SCOR_TAIL;
 #ifdef JP
 muta_desc = "ÉTÉ\ÉäÇÃêKîˆÇ™ê∂Ç¶ÇƒÇ´ÇΩÅI";
 #else
@@ -419,7 +419,7 @@ muta_desc = "ÉTÉ\ÉäÇÃêKîˆÇ™ê∂Ç¶ÇƒÇ´ÇΩÅI";
 			break;
 		case 83: case 84:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HORNS;
+			muta_which = TRAIT2_HORNS;
 #ifdef JP
 muta_desc = "äzÇ…äpÇ™ê∂Ç¶ÇΩÅI";
 #else
@@ -429,7 +429,7 @@ muta_desc = "äzÇ…äpÇ™ê∂Ç¶ÇΩÅI";
 			break;
 		case 85: case 86:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BEAK;
+			muta_which = TRAIT2_BEAK;
 #ifdef JP
 muta_desc = "å˚Ç™âsÇ≠ã≠Ç¢ÉNÉ`ÉoÉVÇ…ïœâªÇµÇΩÅI";
 #else
@@ -439,7 +439,7 @@ muta_desc = "å˚Ç™âsÇ≠ã≠Ç¢ÉNÉ`ÉoÉVÇ…ïœâªÇµÇΩÅI";
 			break;
 		case 87: case 88:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_DEMON;
+			muta_which = TRAIT2_ATT_DEMON;
 #ifdef JP
 muta_desc = "à´ñÇÇà¯Ç´ïtÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -449,7 +449,7 @@ muta_desc = "à´ñÇÇà¯Ç´ïtÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 89:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_PROD_MANA;
+			muta_which = TRAIT2_PROD_MANA;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ê∂Ç∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -459,7 +459,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ê∂Ç∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 90: case 91:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SPEED_FLUX;
+			muta_which = TRAIT2_SPEED_FLUX;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÁNüTéøÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -469,7 +469,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÁNüTéøÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 92: case 93:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BANISH_ALL;
+			muta_which = TRAIT2_BANISH_ALL;
 #ifdef JP
 muta_desc = "ã∞ÇÎÇµÇ¢óÕÇ™Ç†Ç»ÇΩÇÃîwå„Ç…êˆÇÒÇ≈Ç¢ÇÈãCÇ™Ç∑ÇÈÅB";
 #else
@@ -479,7 +479,7 @@ muta_desc = "ã∞ÇÎÇµÇ¢óÕÇ™Ç†Ç»ÇΩÇÃîwå„Ç…êˆÇÒÇ≈Ç¢ÇÈãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 94:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_EAT_LIGHT;
+			muta_which = TRAIT2_EAT_LIGHT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉEÉìÉSÉäÉAÉìÉgÇ…äÔñ≠Ç»êeÇµÇ›ÇäoÇ¶ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -489,7 +489,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉEÉìÉSÉäÉAÉìÉgÇ…äÔñ≠Ç»êeÇµÇ›ÇäoÇ¶ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 95: case 96:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_TRUNK;
+			muta_which = TRAIT2_TRUNK;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃï@ÇÕêLÇ—Çƒè€ÇÃï@ÇÃÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -499,7 +499,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃï@ÇÕêLÇ—Çƒè€ÇÃï@ÇÃÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 97:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_ANIMAL;
+			muta_which = TRAIT2_ATT_ANIMAL;
 #ifdef JP
 muta_desc = "ìÆï®Çà¯Ç´ïtÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -509,7 +509,7 @@ muta_desc = "ìÆï®Çà¯Ç´ïtÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 98:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_TENTACLES;
+			muta_which = TRAIT2_TENTACLES;
 #ifdef JP
 muta_desc = "é◊à´Ç»êGéËÇ™ëÃÇÃóºë§Ç…ê∂Ç¶ÇƒÇ´ÇΩÅB";
 #else
@@ -519,7 +519,7 @@ muta_desc = "é◊à´Ç»êGéËÇ™ëÃÇÃóºë§Ç…ê∂Ç¶ÇƒÇ´ÇΩÅB";
 			break;
 		case 99:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_RAW_CHAOS;
+			muta_which = TRAIT2_RAW_CHAOS;
 #ifdef JP
 muta_desc = "é¸àÕÇÃãÛä‘Ç™ïsà¿íËÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -529,7 +529,7 @@ muta_desc = "é¸àÕÇÃãÛä‘Ç™ïsà¿íËÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 100: case 101: case 102:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_NORMALITY;
+			muta_which = TRAIT2_NORMALITY;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕäÔñ≠Ç»ÇŸÇ«ïÅí Ç…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -539,7 +539,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕäÔñ≠Ç»ÇŸÇ«ïÅí Ç…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 103:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WRAITH;
+			muta_which = TRAIT2_WRAITH;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕóHëÃâªÇµÇΩÇËé¿ëÃâªÇµÇΩÇËÇ∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -549,7 +549,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕóHëÃâªÇµÇΩÇËé¿ëÃâªÇµÇΩÇËÇ∑ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 104:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_POLY_WOUND;
+			muta_which = TRAIT2_POLY_WOUND;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃóÕÇ™å√Ç¢èùÇ…ì¸ÇËçûÇÒÇ≈Ç≠ÇÈÇÃÇä¥Ç∂ÇΩÅB";
 #else
@@ -559,7 +559,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃóÕÇ™å√Ç¢èùÇ…ì¸ÇËçûÇÒÇ≈Ç≠ÇÈÇÃÇä¥Ç∂ÇΩÅB";
 			break;
 		case 105:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WASTING;
+			muta_which = TRAIT2_WASTING;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕìÀëRÇ®ÇºÇ‹ÇµÇ¢êäé„ïaÇ…Ç©Ç©Ç¡ÇΩÅB";
 #else
@@ -569,7 +569,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕìÀëRÇ®ÇºÇ‹ÇµÇ¢êäé„ïaÇ…Ç©Ç©Ç¡ÇΩÅB";
 			break;
 		case 106:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_DRAGON;
+			muta_which = TRAIT2_ATT_DRAGON;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉhÉâÉSÉìÇà¯Ç´Ç¬ÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -579,7 +579,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉhÉâÉSÉìÇà¯Ç´Ç¬ÇØÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 107: case 108:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WEIRD_MIND;
+			muta_which = TRAIT2_WEIRD_MIND;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃévçlÇÕìÀëRÇ®Ç©ÇµÇ»ï˚å¸Ç…å¸Ç´énÇﬂÇΩÅB";
 #else
@@ -589,7 +589,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃévçlÇÕìÀëRÇ®Ç©ÇµÇ»ï˚å¸Ç…å¸Ç´énÇﬂÇΩÅB";
 			break;
 		case 109:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_NAUSEA;
+			muta_which = TRAIT2_NAUSEA;
 #ifdef JP
 muta_desc = "à›ë‹Ç™ÉsÉNÉsÉNÇµÇÕÇ∂ÇﬂÇΩÅB";
 #else
@@ -602,7 +602,7 @@ muta_desc = "à›ë‹Ç™ÉsÉNÉsÉNÇµÇÕÇ∂ÇﬂÇΩÅB";
 			if (cr_ptr->cls_idx != CLASS_CHAOS_WARRIOR)
 			{
 				muta_class = &(cr_ptr->trait2);
-				muta_which = MUT2_CHAOS_GIFT;
+				muta_which = TRAIT2_CHAOS_GIFT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃéÁåÏà´ñÇÇÃíçà”Çé‰Ç≠ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -613,7 +613,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃéÁåÏà´ñÇÇÃíçà”Çé‰Ç≠ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 112:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WALK_SHAD;
+			muta_which = TRAIT2_WALK_SHAD;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕåªé¿Ç™éÜÇÃÇÊÇ§Ç…îñÇ¢Ç∆ä¥Ç∂ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -623,7 +623,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕåªé¿Ç™éÜÇÃÇÊÇ§Ç…îñÇ¢Ç∆ä¥Ç∂ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 113: case 114:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WARNING;
+			muta_which = TRAIT2_WARNING;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕìÀëRÉpÉâÉmÉCÉAÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -633,7 +633,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕìÀëRÉpÉâÉmÉCÉAÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 115:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_INVULN;
+			muta_which = TRAIT2_INVULN;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕèjïüÇ≥ÇÍÅAñ≥ìGèÛë‘Ç…Ç»ÇÈî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -643,7 +643,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕèjïüÇ≥ÇÍÅAñ≥ìGèÛë‘Ç…Ç»ÇÈî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 116: case 117:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SP_TO_HP;
+			muta_which = TRAIT2_SP_TO_HP;
 #ifdef JP
 muta_desc = "ñÇñ@ÇÃé°ñ¸ÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -653,7 +653,7 @@ muta_desc = "ñÇñ@ÇÃé°ñ¸ÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 118:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HP_TO_SP;
+			muta_which = TRAIT2_HP_TO_SP;
 #ifdef JP
 muta_desc = "í…Ç›Çî∫Ç§ê∏ê_ñæóƒâªÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -663,7 +663,7 @@ muta_desc = "í…Ç›Çî∫Ç§ê∏ê_ñæóƒâªÇÃî≠çÏÇãNÇ±Ç∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 119:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_DISARM;
+			muta_which = TRAIT2_DISARM;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃãrÇÕí∑Ç≥Ç™élî{Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -673,7 +673,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃãrÇÕí∑Ç≥Ç™élî{Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 120: case 121: case 122:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_HYPER_STR;
+			muta_which = TRAIT3_HYPER_STR;
 #ifdef JP
 muta_desc = "í¥êlìIÇ…ã≠Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -683,7 +683,7 @@ muta_desc = "í¥êlìIÇ…ã≠Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 123: case 124: case 125:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_PUNY;
+			muta_which = TRAIT3_PUNY;
 #ifdef JP
 muta_desc = "ãÿì˜Ç™é„Ç¡ÇƒÇµÇ‹Ç¡ÇΩ...";
 #else
@@ -693,7 +693,7 @@ muta_desc = "ãÿì˜Ç™é„Ç¡ÇƒÇµÇ‹Ç¡ÇΩ...";
 			break;
 		case 126: case 127: case 128:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_HYPER_INT;
+			muta_which = TRAIT3_HYPER_INT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃî]ÇÕê∂ëÃÉRÉìÉsÉÖÅ[É^Ç…êiâªÇµÇΩÅI";
 #else
@@ -703,7 +703,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃî]ÇÕê∂ëÃÉRÉìÉsÉÖÅ[É^Ç…êiâªÇµÇΩÅI";
 			break;
 		case 129: case 130: case 131:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MORONIC;
+			muta_which = TRAIT3_MORONIC;
 #ifdef JP
 muta_desc = "î]Ç™àﬁèkÇµÇƒÇµÇ‹Ç¡ÇΩ...";
 #else
@@ -713,7 +713,7 @@ muta_desc = "î]Ç™àﬁèkÇµÇƒÇµÇ‹Ç¡ÇΩ...";
 			break;
 		case 132: case 133:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_RESILIENT;
+			muta_which = TRAIT3_RESILIENT;
 #ifdef JP
 muta_desc = "ï¿äOÇÍÇƒÉ^ÉtÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -723,7 +723,7 @@ muta_desc = "ï¿äOÇÍÇƒÉ^ÉtÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 134: case 135:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_FAT;
+			muta_which = TRAIT3_XTRA_FAT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕãCéùÇøà´Ç¢Ç≠ÇÁÇ¢ëæÇ¡ÇΩÅI";
 #else
@@ -733,7 +733,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕãCéùÇøà´Ç¢Ç≠ÇÁÇ¢ëæÇ¡ÇΩÅI";
 			break;
 		case 136: case 137:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ALBINO;
+			muta_which = TRAIT3_ALBINO;
 #ifdef JP
 muta_desc = "ÉAÉãÉrÉmÇ…Ç»Ç¡ÇΩÅIé„Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈ...";
 #else
@@ -743,7 +743,7 @@ muta_desc = "ÉAÉãÉrÉmÇ…Ç»Ç¡ÇΩÅIé„Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈ...";
 			break;
 		case 138: case 139: case 140:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FLESH_ROT;
+			muta_which = TRAIT3_FLESH_ROT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃì˜ëÃÇÕïÖîsÇ∑ÇÈïaãCÇ…êNÇ≥ÇÍÇΩÅI";
 #else
@@ -753,7 +753,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃì˜ëÃÇÕïÖîsÇ∑ÇÈïaãCÇ…êNÇ≥ÇÍÇΩÅI";
 			break;
 		case 141: case 142:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SILLY_VOI;
+			muta_which = TRAIT3_SILLY_VOI;
 #ifdef JP
 muta_desc = "ê∫Ç™ä‘î≤ÇØÇ»ÉLÅ[ÉLÅ[ê∫Ç…Ç»Ç¡ÇΩÅI";
 #else
@@ -763,7 +763,7 @@ muta_desc = "ê∫Ç™ä‘î≤ÇØÇ»ÉLÅ[ÉLÅ[ê∫Ç…Ç»Ç¡ÇΩÅI";
 			break;
 		case 143: case 144:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_BLANK_FAC;
+			muta_which = TRAIT3_BLANK_FAC;
 #ifdef JP
 muta_desc = "ÇÃÇ¡ÇÿÇÁÇ⁄Ç§Ç…Ç»Ç¡ÇΩÅI";
 #else
@@ -773,7 +773,7 @@ muta_desc = "ÇÃÇ¡ÇÿÇÁÇ⁄Ç§Ç…Ç»Ç¡ÇΩÅI";
 			break;
 		case 145:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ILL_NORM;
+			muta_which = TRAIT3_ILL_NORM;
 #ifdef JP
 muta_desc = "êSÇÃà¿ÇÁÇÆå∂âeÇâfÇµèoÇ∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -783,7 +783,7 @@ muta_desc = "êSÇÃà¿ÇÁÇÆå∂âeÇâfÇµèoÇ∑ÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 146: case 147: case 148:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_EYES;
+			muta_which = TRAIT3_XTRA_EYES;
 #ifdef JP
 muta_desc = "êVÇΩÇ…ìÒÇ¬ÇÃñ⁄Ç™èoóàÇΩÅI";
 #else
@@ -793,7 +793,7 @@ muta_desc = "êVÇΩÇ…ìÒÇ¬ÇÃñ⁄Ç™èoóàÇΩÅI";
 			break;
 		case 149: case 150:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MAGIC_RES;
+			muta_which = TRAIT3_MAGIC_RES;
 #ifdef JP
 muta_desc = "ñÇñ@Ç÷ÇÃëœê´Ç™Ç¬Ç¢ÇΩÅB";
 #else
@@ -803,7 +803,7 @@ muta_desc = "ñÇñ@Ç÷ÇÃëœê´Ç™Ç¬Ç¢ÇΩÅB";
 			break;
 		case 151: case 152: case 153:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_NOIS;
+			muta_which = TRAIT3_XTRA_NOIS;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕäÔñ≠Ç»âπÇóßÇƒénÇﬂÇΩÅI";
 #else
@@ -813,7 +813,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕäÔñ≠Ç»âπÇóßÇƒénÇﬂÇΩÅI";
 			break;
 		case 154: case 155: case 156:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_INFRAVIS;
+			muta_which = TRAIT3_INFRAVIS;
 #ifdef JP
 muta_desc = "ê‘äOê¸éãóÕÇ™ëùÇµÇΩÅB";
 #else
@@ -823,7 +823,7 @@ muta_desc = "ê‘äOê¸éãóÕÇ™ëùÇµÇΩÅB";
 			break;
 		case 157: case 158:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_LEGS;
+			muta_which = TRAIT3_XTRA_LEGS;
 #ifdef JP
 muta_desc = "êVÇΩÇ…ìÒñ{ÇÃë´Ç™ê∂Ç¶ÇƒÇ´ÇΩÅI";
 #else
@@ -833,7 +833,7 @@ muta_desc = "êVÇΩÇ…ìÒñ{ÇÃë´Ç™ê∂Ç¶ÇƒÇ´ÇΩÅI";
 			break;
 		case 159: case 160:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SHORT_LEG;
+			muta_which = TRAIT3_SHORT_LEG;
 #ifdef JP
 muta_desc = "ë´Ç™íZÇ¢ìÀãNÇ…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
 #else
@@ -843,7 +843,7 @@ muta_desc = "ë´Ç™íZÇ¢ìÀãNÇ…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
 			break;
 		case 161: case 162:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ELEC_TOUC;
+			muta_which = TRAIT3_ELEC_TOUC;
 #ifdef JP
 muta_desc = "ååä«Çìdó¨Ç™ó¨ÇÍénÇﬂÇΩÅI";
 #else
@@ -853,7 +853,7 @@ muta_desc = "ååä«Çìdó¨Ç™ó¨ÇÍénÇﬂÇΩÅI";
 			break;
 		case 163: case 164:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FIRE_BODY;
+			muta_which = TRAIT3_FIRE_BODY;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃëÃÇÕâäÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB";
 #else
@@ -863,7 +863,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃëÃÇÕâäÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB";
 			break;
 		case 165: case 166: case 167:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_WART_SKIN;
+			muta_which = TRAIT3_WART_SKIN;
 #ifdef JP
 muta_desc = "ãCéùÇøà´Ç¢ÉCÉ{ÉCÉ{Ç™ëÃíÜÇ…Ç≈Ç´ÇΩÅI";
 #else
@@ -873,7 +873,7 @@ muta_desc = "ãCéùÇøà´Ç¢ÉCÉ{ÉCÉ{Ç™ëÃíÜÇ…Ç≈Ç´ÇΩÅI";
 			break;
 		case 168: case 169: case 170:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SCALES;
+			muta_which = TRAIT3_SCALES;
 #ifdef JP
 muta_desc = "îßÇ™çïÇ¢óÿÇ…ïœÇÌÇ¡ÇΩÅI";
 #else
@@ -883,7 +883,7 @@ muta_desc = "îßÇ™çïÇ¢óÿÇ…ïœÇÌÇ¡ÇΩÅI";
 			break;
 		case 171: case 172:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_IRON_SKIN;
+			muta_which = TRAIT3_IRON_SKIN;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃîßÇÕìSÇ…Ç»Ç¡ÇΩÅI";
 #else
@@ -893,7 +893,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃîßÇÕìSÇ…Ç»Ç¡ÇΩÅI";
 			break;
 		case 173: case 174:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_WINGS;
+			muta_which = TRAIT3_WINGS;
 #ifdef JP
 muta_desc = "îwíÜÇ…âHÇ™ê∂Ç¶ÇΩÅB";
 #else
@@ -903,7 +903,7 @@ muta_desc = "îwíÜÇ…âHÇ™ê∂Ç¶ÇΩÅB";
 			break;
 		case 175: case 176: case 177:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FEARLESS;
+			muta_which = TRAIT3_FEARLESS;
 #ifdef JP
 muta_desc = "äÆëSÇ…ï|ÇÍímÇÁÇ∏Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -913,7 +913,7 @@ muta_desc = "äÆëSÇ…ï|ÇÍímÇÁÇ∏Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 178: case 179:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_REGEN;
+			muta_which = TRAIT3_REGEN;
 #ifdef JP
 muta_desc = "ã}ë¨Ç…âÒïúÇµénÇﬂÇΩÅB";
 #else
@@ -923,7 +923,7 @@ muta_desc = "ã}ë¨Ç…âÒïúÇµénÇﬂÇΩÅB";
 			break;
 		case 180: case 181:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ESP;
+			muta_which = TRAIT3_ESP;
 #ifdef JP
 muta_desc = "ÉeÉåÉpÉVÅ[ÇÃî\óÕÇìæÇΩÅI";
 #else
@@ -933,7 +933,7 @@ muta_desc = "ÉeÉåÉpÉVÅ[ÇÃî\óÕÇìæÇΩÅI";
 			break;
 		case 182: case 183: case 184:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_LIMBER;
+			muta_which = TRAIT3_LIMBER;
 #ifdef JP
 muta_desc = "ãÿì˜Ç™ÇµÇ»Ç‚Ç©Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -943,7 +943,7 @@ muta_desc = "ãÿì˜Ç™ÇµÇ»Ç‚Ç©Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 185: case 186: case 187:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ARTHRITIS;
+			muta_which = TRAIT3_ARTHRITIS;
 #ifdef JP
 muta_desc = "ä÷êﬂÇ™ìÀëRí…Ç›èoÇµÇΩÅB";
 #else
@@ -954,7 +954,7 @@ muta_desc = "ä÷êﬂÇ™ìÀëRí…Ç›èoÇµÇΩÅB";
 		case 188:
 			if (cr_ptr->chara_idx == CHARA_LUCKY) break;
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_BAD_LUCK;
+			muta_which = TRAIT3_BAD_LUCK;
 #ifdef JP
 muta_desc = "à´à”Ç…ñûÇøÇΩçïÇ¢ÉIÅ[ÉâÇ™Ç†Ç»ÇΩÇÇ∆ÇËÇ‹Ç¢ÇΩ...";
 #else
@@ -964,7 +964,7 @@ muta_desc = "à´à”Ç…ñûÇøÇΩçïÇ¢ÉIÅ[ÉâÇ™Ç†Ç»ÇΩÇÇ∆ÇËÇ‹Ç¢ÇΩ...";
 			break;
 		case 189:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_VULN_ELEM;
+			muta_which = TRAIT3_VULN_ELEM;
 #ifdef JP
 muta_desc = "ñ≠Ç…ñ≥ñhîıÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -974,7 +974,7 @@ muta_desc = "ñ≠Ç…ñ≥ñhîıÇ…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 190: case 191: case 192:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MOTION;
+			muta_which = TRAIT3_MOTION;
 #ifdef JP
 muta_desc = "ëÃÇÃìÆçÏÇ™ÇÊÇËê≥ämÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -984,7 +984,7 @@ muta_desc = "ëÃÇÃìÆçÏÇ™ÇÊÇËê≥ämÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 193:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_GOOD_LUCK;
+			muta_which = TRAIT3_GOOD_LUCK;
 #ifdef JP
 muta_desc = "éúîﬂê[Ç¢îíÇ¢ÉIÅ[ÉâÇ™Ç†Ç»ÇΩÇÇ∆ÇËÇ‹Ç¢ÇΩ...";
 #else
@@ -1027,11 +1027,11 @@ msg_print("ïÅí Ç…Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB");
 		*/
 		if(!choose_mut){
 			if (cr_ptr->irace_idx == RACE_VAMPIRE &&
-			  !(cr_ptr->trait1 & MUT1_HYPN_GAZE) &&
+			  !(cr_ptr->trait1 & TRAIT1_HYPN_GAZE) &&
 			   (randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->trait1);
-				muta_which = MUT1_HYPN_GAZE;
+				muta_which = TRAIT1_HYPN_GAZE;
 #ifdef JP
 muta_desc = "ä·Ç™å∂òfìIÇ…Ç»Ç¡ÇΩ...";
 #else
@@ -1041,11 +1041,11 @@ muta_desc = "ä·Ç™å∂òfìIÇ…Ç»Ç¡ÇΩ...";
 			}
 
 			else if (cr_ptr->irace_idx == RACE_IMP &&
-				 !(cr_ptr->trait2 & MUT2_HORNS) &&
+				 !(cr_ptr->trait2 & TRAIT2_HORNS) &&
 				 (randint1(10) < 7))
 			  {
 				muta_class = &(cr_ptr->trait2);
-				muta_which = MUT2_HORNS;
+				muta_which = TRAIT2_HORNS;
 #ifdef JP
 muta_desc = "äpÇ™äzÇ©ÇÁê∂Ç¶ÇƒÇ´ÇΩÅI";
 #else
@@ -1055,11 +1055,11 @@ muta_desc = "äpÇ™äzÇ©ÇÁê∂Ç¶ÇƒÇ´ÇΩÅI";
 			}
 
 			else if (cr_ptr->irace_idx == RACE_YEEK &&
-				!(cr_ptr->trait1 & MUT1_SHRIEK) &&
+				!(cr_ptr->trait1 & TRAIT1_SHRIEK) &&
 				(randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->trait1);
-				muta_which = MUT1_SHRIEK;
+				muta_which = TRAIT1_SHRIEK;
 #ifdef JP
 muta_desc = "ê∫éøÇ™Ç©Ç»ÇËã≠Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1069,11 +1069,11 @@ muta_desc = "ê∫éøÇ™Ç©Ç»ÇËã≠Ç≠Ç»Ç¡ÇΩÅB";
 			}
 
 			else if (cr_ptr->irace_idx == RACE_BEASTMAN &&
-				!(cr_ptr->trait1 & MUT1_POLYMORPH) &&
+				!(cr_ptr->trait1 & TRAIT1_POLYMORPH) &&
 				(randint1(10) < 2))
 			{
 				muta_class = &(cr_ptr->trait1);
-				muta_which = MUT1_POLYMORPH;
+				muta_which = TRAIT1_POLYMORPH;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃì˜ëÃÇÕïœâªÇ≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅA";
 #else
@@ -1083,11 +1083,11 @@ muta_desc = "Ç†Ç»ÇΩÇÃì˜ëÃÇÕïœâªÇ≈Ç´ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅA";
 			}
 
 			else if (cr_ptr->irace_idx == RACE_MIND_FLAYER &&
-				!(cr_ptr->trait2 & MUT2_TENTACLES) &&
+				!(cr_ptr->trait2 & TRAIT2_TENTACLES) &&
 				(randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->trait2);
-				muta_which = MUT2_TENTACLES;
+				muta_which = TRAIT2_TENTACLES;
 #ifdef JP
 muta_desc = "é◊à´Ç»êGéËÇ™å˚ÇÃé¸ÇËÇ…ê∂Ç¶ÇΩÅB";
 #else
@@ -1107,9 +1107,9 @@ msg_print("ìÀëRïœàŸÇµÇΩÅI");
 
 		if (muta_class == &(cr_ptr->trait3))
 		{
-			if (muta_which == MUT3_PUNY)
+			if (muta_which == TRAIT3_PUNY)
 			{
-				if (cr_ptr->trait3 & MUT3_HYPER_STR)
+				if (cr_ptr->trait3 & TRAIT3_HYPER_STR)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§í¥êlìIÇ…ã≠Ç≠ÇÕÇ»Ç¢ÅI");
@@ -1117,12 +1117,12 @@ msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§í¥êlìIÇ…ã≠Ç≠ÇÕÇ»Ç¢ÅI");
 					msg_print("You no longer feel super-strong!");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_HYPER_STR);
+					cr_ptr->trait3 &= ~(TRAIT3_HYPER_STR);
 				}
 			}
-			else if (muta_which == MUT3_HYPER_STR)
+			else if (muta_which == TRAIT3_HYPER_STR)
 			{
-				if (cr_ptr->trait3 & MUT3_PUNY)
+				if (cr_ptr->trait3 & TRAIT3_PUNY)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§ãïé„Ç≈ÇÕÇ»Ç¢ÅI");
@@ -1130,12 +1130,12 @@ msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§ãïé„Ç≈ÇÕÇ»Ç¢ÅI");
 					msg_print("You no longer feel puny!");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_PUNY);
+					cr_ptr->trait3 &= ~(TRAIT3_PUNY);
 				}
 			}
-			else if (muta_which == MUT3_MORONIC)
+			else if (muta_which == TRAIT3_MORONIC)
 			{
-				if (cr_ptr->trait3 & MUT3_HYPER_INT)
+				if (cr_ptr->trait3 & TRAIT3_HYPER_INT)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÃî]ÇÕÇ‡Ç§ê∂ëÃÉRÉìÉsÉÖÅ[É^Ç≈ÇÕÇ»Ç¢ÅB");
@@ -1143,12 +1143,12 @@ msg_print("Ç†Ç»ÇΩÇÃî]ÇÕÇ‡Ç§ê∂ëÃÉRÉìÉsÉÖÅ[É^Ç≈ÇÕÇ»Ç¢ÅB");
 					msg_print("Your brain is no longer a living computer.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_HYPER_INT);
+					cr_ptr->trait3 &= ~(TRAIT3_HYPER_INT);
 				}
 			}
-			else if (muta_which == MUT3_HYPER_INT)
+			else if (muta_which == TRAIT3_HYPER_INT)
 			{
-				if (cr_ptr->trait3 & MUT3_MORONIC)
+				if (cr_ptr->trait3 & TRAIT3_MORONIC)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§ê∏ê_îñé„Ç≈ÇÕÇ»Ç¢ÅB");
@@ -1156,12 +1156,12 @@ msg_print("Ç†Ç»ÇΩÇÕÇ‡Ç§ê∏ê_îñé„Ç≈ÇÕÇ»Ç¢ÅB");
 					msg_print("You are no longer moronic.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_MORONIC);
+					cr_ptr->trait3 &= ~(TRAIT3_MORONIC);
 				}
 			}
-			else if (muta_which == MUT3_IRON_SKIN)
+			else if (muta_which == TRAIT3_IRON_SKIN)
 			{
-				if (cr_ptr->trait3 & MUT3_SCALES)
+				if (cr_ptr->trait3 & TRAIT3_SCALES)
 				{
 #ifdef JP
 msg_print("óÿÇ™Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1169,9 +1169,9 @@ msg_print("óÿÇ™Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You lose your scales.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_SCALES);
+					cr_ptr->trait3 &= ~(TRAIT3_SCALES);
 				}
-				if (cr_ptr->trait3 & MUT3_FLESH_ROT)
+				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
 				{
 #ifdef JP
 msg_print("ì˜ëÃÇ™ïÖóêÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1179,9 +1179,9 @@ msg_print("ì˜ëÃÇ™ïÖóêÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("Your flesh rots no longer.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_FLESH_ROT);
+					cr_ptr->trait3 &= ~(TRAIT3_FLESH_ROT);
 				}
-				if (cr_ptr->trait3 & MUT3_WART_SKIN)
+				if (cr_ptr->trait3 & TRAIT3_WART_SKIN)
 				{
 #ifdef JP
 msg_print("îßÇÃÉCÉ{ÉCÉ{Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1189,13 +1189,13 @@ msg_print("îßÇÃÉCÉ{ÉCÉ{Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You lose your warts.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_WART_SKIN);
+					cr_ptr->trait3 &= ~(TRAIT3_WART_SKIN);
 				}
 			}
-			else if (muta_which == MUT3_WART_SKIN || muta_which == MUT3_SCALES
-				|| muta_which == MUT3_FLESH_ROT)
+			else if (muta_which == TRAIT3_WART_SKIN || muta_which == TRAIT3_SCALES
+				|| muta_which == TRAIT3_FLESH_ROT)
 			{
-				if (cr_ptr->trait3 & MUT3_IRON_SKIN)
+				if (cr_ptr->trait3 & TRAIT3_IRON_SKIN)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÃîßÇÕÇ‡Ç§ìSÇ≈ÇÕÇ»Ç¢ÅB");
@@ -1203,12 +1203,12 @@ msg_print("Ç†Ç»ÇΩÇÃîßÇÕÇ‡Ç§ìSÇ≈ÇÕÇ»Ç¢ÅB");
 					msg_print("Your skin is no longer made of steel.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_IRON_SKIN);
+					cr_ptr->trait3 &= ~(TRAIT3_IRON_SKIN);
 				}
 			}
-			else if (muta_which == MUT3_FEARLESS)
+			else if (muta_which == TRAIT3_FEARLESS)
 			{
-				if (cr_ptr->trait2 & MUT2_COWARDICE)
+				if (cr_ptr->trait2 & TRAIT2_COWARDICE)
 				{
 #ifdef JP
 msg_print("â∞ïaÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1216,12 +1216,12 @@ msg_print("â∞ïaÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You are no longer cowardly.");
 #endif
 
-					cr_ptr->trait2 &= ~(MUT2_COWARDICE);
+					cr_ptr->trait2 &= ~(TRAIT2_COWARDICE);
 				}
 			}
-			else if (muta_which == MUT3_FLESH_ROT)
+			else if (muta_which == TRAIT3_FLESH_ROT)
 			{
-				if (cr_ptr->trait3 & MUT3_REGEN)
+				if (cr_ptr->trait3 & TRAIT3_REGEN)
 				{
 #ifdef JP
 msg_print("ã}ë¨Ç…âÒïúÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1229,12 +1229,12 @@ msg_print("ã}ë¨Ç…âÒïúÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You stop regenerating.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_REGEN);
+					cr_ptr->trait3 &= ~(TRAIT3_REGEN);
 				}
 			}
-			else if (muta_which == MUT3_REGEN)
+			else if (muta_which == TRAIT3_REGEN)
 			{
-				if (cr_ptr->trait3 & MUT3_FLESH_ROT)
+				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
 				{
 #ifdef JP
 msg_print("ì˜ëÃÇ™ïÖóêÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1242,12 +1242,12 @@ msg_print("ì˜ëÃÇ™ïÖóêÇµÇ»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("Your flesh stops rotting.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_FLESH_ROT);
+					cr_ptr->trait3 &= ~(TRAIT3_FLESH_ROT);
 				}
 			}
-			else if (muta_which == MUT3_LIMBER)
+			else if (muta_which == TRAIT3_LIMBER)
 			{
-				if (cr_ptr->trait3 & MUT3_ARTHRITIS)
+				if (cr_ptr->trait3 & TRAIT3_ARTHRITIS)
 				{
 #ifdef JP
 msg_print("ä÷êﬂÇ™í…Ç≠Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1255,12 +1255,12 @@ msg_print("ä÷êﬂÇ™í…Ç≠Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("Your joints stop hurting.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_ARTHRITIS);
+					cr_ptr->trait3 &= ~(TRAIT3_ARTHRITIS);
 				}
 			}
-			else if (muta_which == MUT3_ARTHRITIS)
+			else if (muta_which == TRAIT3_ARTHRITIS)
 			{
-				if (cr_ptr->trait3 & MUT3_LIMBER)
+				if (cr_ptr->trait3 & TRAIT3_LIMBER)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÕÇµÇ»Ç‚Ç©Ç≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1268,15 +1268,15 @@ msg_print("Ç†Ç»ÇΩÇÕÇµÇ»Ç‚Ç©Ç≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You no longer feel limber.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_LIMBER);
+					cr_ptr->trait3 &= ~(TRAIT3_LIMBER);
 				}
 			}
 		}
 		else if (muta_class == &(cr_ptr->trait2))
 		{
-			if (muta_which == MUT2_COWARDICE)
+			if (muta_which == TRAIT2_COWARDICE)
 			{
-				if (cr_ptr->trait3 & MUT3_FEARLESS)
+				if (cr_ptr->trait3 & TRAIT3_FEARLESS)
 				{
 #ifdef JP
 msg_print("ã∞ÇÍímÇÁÇ∏Ç≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1284,12 +1284,12 @@ msg_print("ã∞ÇÍímÇÁÇ∏Ç≈Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You no longer feel fearless.");
 #endif
 
-					cr_ptr->trait3 &= ~(MUT3_FEARLESS);
+					cr_ptr->trait3 &= ~(TRAIT3_FEARLESS);
 				}
 			}
-			if (muta_which == MUT2_BEAK)
+			if (muta_which == TRAIT2_BEAK)
 			{
-				if (cr_ptr->trait2 & MUT2_TRUNK)
+				if (cr_ptr->trait2 & TRAIT2_TRUNK)
 				{
 #ifdef JP
 msg_print("Ç†Ç»ÇΩÇÃï@ÇÕÇ‡Ç§è€ÇÃï@ÇÃÇÊÇ§Ç≈ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1297,12 +1297,12 @@ msg_print("Ç†Ç»ÇΩÇÃï@ÇÕÇ‡Ç§è€ÇÃï@ÇÃÇÊÇ§Ç≈ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("Your nose is no longer elephantine.");
 #endif
 
-					cr_ptr->trait2 &= ~(MUT2_TRUNK);
+					cr_ptr->trait2 &= ~(TRAIT2_TRUNK);
 				}
 			}
-			if (muta_which == MUT2_TRUNK)
+			if (muta_which == TRAIT2_TRUNK)
 			{
-				if (cr_ptr->trait2 & MUT2_BEAK)
+				if (cr_ptr->trait2 & TRAIT2_BEAK)
 				{
 #ifdef JP
 msg_print("çdÇ¢ÉNÉ`ÉoÉVÇ™Ç»Ç≠Ç»Ç¡ÇΩÅB");
@@ -1310,7 +1310,7 @@ msg_print("çdÇ¢ÉNÉ`ÉoÉVÇ™Ç»Ç≠Ç»Ç¡ÇΩÅB");
 					msg_print("You no longer have a hard beak.");
 #endif
 
-					cr_ptr->trait2 &= ~(MUT2_BEAK);
+					cr_ptr->trait2 &= ~(TRAIT2_BEAK);
 				}
 			}
 		}
@@ -1339,7 +1339,7 @@ bool lose_mutation(creature_type *cr_ptr, int choose_mut)
 		{
 		case 1: case 2: case 3: case 4:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SPIT_ACID;
+			muta_which = TRAIT1_SPIT_ACID;
 #ifdef JP
 muta_desc = "é_ÇêÅÇ´Ç©ÇØÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1349,7 +1349,7 @@ muta_desc = "é_ÇêÅÇ´Ç©ÇØÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 5: case 6: case 7:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BR_FIRE;
+			muta_which = TRAIT1_BR_FIRE;
 #ifdef JP
 muta_desc = "âäÇÃÉuÉåÉXÇìfÇ≠î\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1359,7 +1359,7 @@ muta_desc = "âäÇÃÉuÉåÉXÇìfÇ≠î\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 8: case 9:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_HYPN_GAZE;
+			muta_which = TRAIT1_HYPN_GAZE;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃñ⁄ÇÕÇ¬Ç‹ÇÁÇ»Ç¢ñ⁄Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -1369,7 +1369,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃñ⁄ÇÕÇ¬Ç‹ÇÁÇ»Ç¢ñ⁄Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 10: case 11:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_TELEKINES;
+			muta_which = TRAIT1_TELEKINES;
 #ifdef JP
 muta_desc = "îOìÆóÕÇ≈ï®ÇìÆÇ©Ç∑î\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1379,7 +1379,7 @@ muta_desc = "îOìÆóÕÇ≈ï®ÇìÆÇ©Ç∑î\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 12: case 13: case 14:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_VTELEPORT;
+			muta_which = TRAIT1_VTELEPORT;
 #ifdef JP
 muta_desc = "é©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ∑ÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1389,7 +1389,7 @@ muta_desc = "é©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ∑ÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 15: case 16:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_MIND_BLST;
+			muta_which = TRAIT1_MIND_BLST;
 #ifdef JP
 muta_desc = "ê∏ê_çUåÇÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1399,7 +1399,7 @@ muta_desc = "ê∏ê_çUåÇÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 17: case 18:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RADIATION;
+			muta_which = TRAIT1_RADIATION;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕï˙éÀî\Çî≠ê∂ÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1409,7 +1409,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕï˙éÀî\Çî≠ê∂ÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 19: case 20:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_VAMPIRISM;
+			muta_which = TRAIT1_VAMPIRISM;
 #ifdef JP
 muta_desc = "ãzååÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1419,7 +1419,7 @@ muta_desc = "ãzååÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 21: case 22: case 23:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SMELL_MET;
+			muta_which = TRAIT1_SMELL_MET;
 #ifdef JP
 muta_desc = "ã‡ëÆÇÃèLÇ¢ÇökÇ∞Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1429,7 +1429,7 @@ muta_desc = "ã‡ëÆÇÃèLÇ¢ÇökÇ∞Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 24: case 25: case 26: case 27:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SMELL_MON;
+			muta_which = TRAIT1_SMELL_MON;
 #ifdef JP
 muta_desc = "ïsåâÇ»ÉÇÉìÉXÉ^Å[ÇÃèLÇ¢ÇökÇ∞Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1439,7 +1439,7 @@ muta_desc = "ïsåâÇ»ÉÇÉìÉXÉ^Å[ÇÃèLÇ¢ÇökÇ∞Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 28: case 29: case 30:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BLINK;
+			muta_which = TRAIT1_BLINK;
 #ifdef JP
 muta_desc = "ãﬂãóó£ÉeÉåÉ|Å[ÉgÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1449,7 +1449,7 @@ muta_desc = "ãﬂãóó£ÉeÉåÉ|Å[ÉgÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 31: case 32:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EAT_ROCK;
+			muta_which = TRAIT1_EAT_ROCK;
 #ifdef JP
 muta_desc = "ï«ÇÕî¸ñ°ÇµÇªÇ§Ç…å©Ç¶Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1459,7 +1459,7 @@ muta_desc = "ï«ÇÕî¸ñ°ÇµÇªÇ§Ç…å©Ç¶Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 33: case 34:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SWAP_POS;
+			muta_which = TRAIT1_SWAP_POS;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕé©ï™ÇÃåCÇ…óØÇ‹ÇÈä¥Ç∂Ç™Ç∑ÇÈÅB";
 #else
@@ -1469,7 +1469,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕé©ï™ÇÃåCÇ…óØÇ‹ÇÈä¥Ç∂Ç™Ç∑ÇÈÅB";
 			break;
 		case 35: case 36: case 37:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_SHRIEK;
+			muta_which = TRAIT1_SHRIEK;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃê∫éøÇÕé„Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1479,7 +1479,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃê∫éøÇÕé„Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 38: case 39: case 40:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_ILLUMINE;
+			muta_which = TRAIT1_ILLUMINE;
 #ifdef JP
 muta_desc = "ïîâÆÇñæÇÈÇ≠è∆ÇÁÇ∑Ç±Ç∆Ç™èoóàÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1489,7 +1489,7 @@ muta_desc = "ïîâÆÇñæÇÈÇ≠è∆ÇÁÇ∑Ç±Ç∆Ç™èoóàÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 41: case 42:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_DET_CURSE;
+			muta_which = TRAIT1_DET_CURSE;
 #ifdef JP
 muta_desc = "é◊à´Ç»ñÇñ@Çä¥Ç∂ÇÁÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1499,7 +1499,7 @@ muta_desc = "é◊à´Ç»ñÇñ@Çä¥Ç∂ÇÁÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 43: case 44: case 45:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BERSERK;
+			muta_which = TRAIT1_BERSERK;
 #ifdef JP
 muta_desc = "êßå‰Ç≈Ç´ÇÈåÉèÓÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1509,7 +1509,7 @@ muta_desc = "êßå‰Ç≈Ç´ÇÈåÉèÓÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 46:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_POLYMORPH;
+			muta_which = TRAIT1_POLYMORPH;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃëÃÇÕà¿íËÇµÇΩÇÊÇ§Ç…å©Ç¶ÇÈÅB";
 #else
@@ -1519,7 +1519,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃëÃÇÕà¿íËÇµÇΩÇÊÇ§Ç…å©Ç¶ÇÈÅB";
 			break;
 		case 47: case 48:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_MIDAS_TCH;
+			muta_which = TRAIT1_MIDAS_TCH;
 #ifdef JP
 muta_desc = "É~É_ÉXÇÃéËÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1529,7 +1529,7 @@ muta_desc = "É~É_ÉXÇÃéËÇÃî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 49:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_GROW_MOLD;
+			muta_which = TRAIT1_GROW_MOLD;
 #ifdef JP
 muta_desc = "ìÀëRÉJÉrÇ™åôÇ¢Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -1539,7 +1539,7 @@ muta_desc = "ìÀëRÉJÉrÇ™åôÇ¢Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 50: case 51: case 52:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RESIST;
+			muta_which = TRAIT1_RESIST;
 #ifdef JP
 muta_desc = "èùÇ¬Ç´à’Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -1549,7 +1549,7 @@ muta_desc = "èùÇ¬Ç´à’Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 53: case 54: case 55:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EARTHQUAKE;
+			muta_which = TRAIT1_EARTHQUAKE;
 #ifdef JP
 muta_desc = "É_ÉìÉWÉáÉìÇâÛÇ∑î\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1559,7 +1559,7 @@ muta_desc = "É_ÉìÉWÉáÉìÇâÛÇ∑î\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 56:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_EAT_MAGIC;
+			muta_which = TRAIT1_EAT_MAGIC;
 #ifdef JP
 muta_desc = "ñÇñ@ÇÃÉAÉCÉeÉÄÇÕÇ‡Ç§î¸ñ°ÇµÇªÇ§Ç…å©Ç¶Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1569,7 +1569,7 @@ muta_desc = "ñÇñ@ÇÃÉAÉCÉeÉÄÇÕÇ‡Ç§î¸ñ°ÇµÇªÇ§Ç…å©Ç¶Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 57: case 58:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_WEIGH_MAG;
+			muta_which = TRAIT1_WEIGH_MAG;
 #ifdef JP
 muta_desc = "ñÇóÕÇä¥Ç∂ÇÁÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1579,7 +1579,7 @@ muta_desc = "ñÇóÕÇä¥Ç∂ÇÁÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 59:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_STERILITY;
+			muta_which = TRAIT1_STERILITY;
 #ifdef JP
 muta_desc = "ÇΩÇ≠Ç≥ÇÒÇÃà¿ìgÇÃìfëßÇ™ï∑Ç±Ç¶ÇΩÅB";
 #else
@@ -1589,7 +1589,7 @@ muta_desc = "ÇΩÇ≠Ç≥ÇÒÇÃà¿ìgÇÃìfëßÇ™ï∑Ç±Ç¶ÇΩÅB";
 			break;
 		case 60: case 61:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_PANIC_HIT;
+			muta_which = TRAIT1_PANIC_HIT;
 #ifdef JP
 muta_desc = "Ç†ÇøÇ±ÇøÇ÷íµÇ◊ÇÈãCï™Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1599,7 +1599,7 @@ muta_desc = "Ç†ÇøÇ±ÇøÇ÷íµÇ◊ÇÈãCï™Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 62: case 63: case 64:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_DAZZLE;
+			muta_which = TRAIT1_DAZZLE;
 #ifdef JP
 muta_desc = "Ç‹ÇŒÇ‰Ç¢ëMåıÇî≠Ç∑ÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 #else
@@ -1609,7 +1609,7 @@ muta_desc = "Ç‹ÇŒÇ‰Ç¢ëMåıÇî≠Ç∑ÇÈî\óÕÇé∏Ç¡ÇΩÅB";
 			break;
 		case 65: case 66: case 67:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_LASER_EYE;
+			muta_which = TRAIT1_LASER_EYE;
 #ifdef JP
 muta_desc = "ä·Ç™è≠ÇµÇÃä‘èƒÇ´ïtÇ¢ÇƒÅAí…Ç›Ç™òaÇÁÇ¢ÇæÅB";
 #else
@@ -1619,7 +1619,7 @@ muta_desc = "ä·Ç™è≠ÇµÇÃä‘èƒÇ´ïtÇ¢ÇƒÅAí…Ç›Ç™òaÇÁÇ¢ÇæÅB";
 			break;
 		case 68: case 69:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_RECALL;
+			muta_which = TRAIT1_RECALL;
 #ifdef JP
 muta_desc = "è≠ÇµÇÃä‘ÉzÅ[ÉÄÉVÉbÉNÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -1629,7 +1629,7 @@ muta_desc = "è≠ÇµÇÃä‘ÉzÅ[ÉÄÉVÉbÉNÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 70:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_BANISH;
+			muta_which = TRAIT1_BANISH;
 #ifdef JP
 muta_desc = "ê_êπÇ»ì{ÇËÇÃóÕÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1639,7 +1639,7 @@ muta_desc = "ê_êπÇ»ì{ÇËÇÃóÕÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 71: case 72:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_COLD_TOUCH;
+			muta_which = TRAIT1_COLD_TOUCH;
 #ifdef JP
 muta_desc = "éËÇ™ígÇ©Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1649,7 +1649,7 @@ muta_desc = "éËÇ™ígÇ©Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 73: case 74:
 			muta_class = &(cr_ptr->trait1);
-			muta_which = MUT1_LAUNCHER;
+			muta_which = TRAIT1_LAUNCHER;
 #ifdef JP
 muta_desc = "ï®ÇìäÇ∞ÇÈéËÇ™é„Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -1659,7 +1659,7 @@ muta_desc = "ï®ÇìäÇ∞ÇÈéËÇ™é„Ç≠Ç»Ç¡ÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 75:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BERS_RAGE;
+			muta_which = TRAIT2_BERS_RAGE;
 #ifdef JP
 muta_desc = "ã•ñ\âªÇÃî≠çÏÇ…Ç≥ÇÁÇ≥ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -1669,7 +1669,7 @@ muta_desc = "ã•ñ\âªÇÃî≠çÏÇ…Ç≥ÇÁÇ≥ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 76:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_COWARDICE;
+			muta_which = TRAIT2_COWARDICE;
 #ifdef JP
 muta_desc = "Ç‡Ç§êMÇ∂Ç™ÇΩÇ¢ÇŸÇ«â∞ïaÇ≈ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -1679,7 +1679,7 @@ muta_desc = "Ç‡Ç§êMÇ∂Ç™ÇΩÇ¢ÇŸÇ«â∞ïaÇ≈ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 77:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_RTELEPORT;
+			muta_which = TRAIT2_RTELEPORT;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÃà íuÇÕÇÊÇËämíËìIÇ…Ç»Ç¡ÇΩÅB";
 #else
@@ -1689,7 +1689,7 @@ muta_desc = "Ç†Ç»ÇΩÇÃà íuÇÕÇÊÇËämíËìIÇ…Ç»Ç¡ÇΩÅB";
 			break;
 		case 78:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ALCOHOL;
+			muta_which = TRAIT2_ALCOHOL;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇµÇ»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -1699,7 +1699,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇµÇ»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 79:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HALLU;
+			muta_which = TRAIT2_HALLU;
 #ifdef JP
 muta_desc = "å∂äoÇÇ–Ç´ãNÇ±Ç∑ê∏ê_è·äQÇãNÇ±Ç≥Ç»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -1709,7 +1709,7 @@ muta_desc = "å∂äoÇÇ–Ç´ãNÇ±Ç∑ê∏ê_è·äQÇãNÇ±Ç≥Ç»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 80:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_FLATULENT;
+			muta_which = TRAIT2_FLATULENT;
 #ifdef JP
 muta_desc = "Ç‡Ç§ã≠óÛÇ»õõÇÕÇ±Ç©Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1719,7 +1719,7 @@ muta_desc = "Ç‡Ç§ã≠óÛÇ»õõÇÕÇ±Ç©Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 81: case 82:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SCOR_TAIL;
+			muta_which = TRAIT2_SCOR_TAIL;
 #ifdef JP
 muta_desc = "ÉTÉ\ÉäÇÃêKîˆÇ™Ç»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -1729,7 +1729,7 @@ muta_desc = "ÉTÉ\ÉäÇÃêKîˆÇ™Ç»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 83: case 84:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HORNS;
+			muta_which = TRAIT2_HORNS;
 #ifdef JP
 muta_desc = "äzÇ©ÇÁäpÇ™è¡Ç¶ÇΩÅI";
 #else
@@ -1739,7 +1739,7 @@ muta_desc = "äzÇ©ÇÁäpÇ™è¡Ç¶ÇΩÅI";
 			break;
 		case 85: case 86:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BEAK;
+			muta_which = TRAIT2_BEAK;
 #ifdef JP
 muta_desc = "å˚Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅI";
 #else
@@ -1749,7 +1749,7 @@ muta_desc = "å˚Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅI";
 			break;
 		case 87: case 88:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_DEMON;
+			muta_which = TRAIT2_ATT_DEMON;
 #ifdef JP
 muta_desc = "ÉfÅ[ÉÇÉìÇà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1759,7 +1759,7 @@ muta_desc = "ÉfÅ[ÉÇÉìÇà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 89:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_PROD_MANA;
+			muta_which = TRAIT2_PROD_MANA;
 #ifdef JP
 muta_desc = "êßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ê∂ÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1769,7 +1769,7 @@ muta_desc = "êßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ê∂ÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 90: case 91:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SPEED_FLUX;
+			muta_which = TRAIT2_SPEED_FLUX;
 #ifdef JP
 muta_desc = "ÁNüTéøÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1779,7 +1779,7 @@ muta_desc = "ÁNüTéøÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 92: case 93:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_BANISH_ALL;
+			muta_which = TRAIT2_BANISH_ALL;
 #ifdef JP
 muta_desc = "îwå„Ç…ã∞ÇÎÇµÇ¢óÕÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1789,7 +1789,7 @@ muta_desc = "îwå„Ç…ã∞ÇÎÇµÇ¢óÕÇä¥Ç∂Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 94:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_EAT_LIGHT;
+			muta_which = TRAIT2_EAT_LIGHT;
 #ifdef JP
 muta_desc = "ê¢äEÇ™ñæÇÈÇ¢Ç∆ä¥Ç∂ÇÈÅB";
 #else
@@ -1799,7 +1799,7 @@ muta_desc = "ê¢äEÇ™ñæÇÈÇ¢Ç∆ä¥Ç∂ÇÈÅB";
 			break;
 		case 95: case 96:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_TRUNK;
+			muta_which = TRAIT2_TRUNK;
 #ifdef JP
 muta_desc = "ï@Ç™ïÅí ÇÃí∑Ç≥Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -1809,7 +1809,7 @@ muta_desc = "ï@Ç™ïÅí ÇÃí∑Ç≥Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 97:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_ANIMAL;
+			muta_which = TRAIT2_ATT_ANIMAL;
 #ifdef JP
 muta_desc = "ìÆï®Çà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1819,7 +1819,7 @@ muta_desc = "ìÆï®Çà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 98:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_TENTACLES;
+			muta_which = TRAIT2_TENTACLES;
 #ifdef JP
 muta_desc = "êGéËÇ™è¡Ç¶ÇΩÅB";
 #else
@@ -1829,7 +1829,7 @@ muta_desc = "êGéËÇ™è¡Ç¶ÇΩÅB";
 			break;
 		case 99:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_RAW_CHAOS;
+			muta_which = TRAIT2_RAW_CHAOS;
 #ifdef JP
 muta_desc = "é¸àÕÇÃãÛä‘Ç™à¿íËÇµÇΩãCÇ™Ç∑ÇÈÅB";
 #else
@@ -1839,7 +1839,7 @@ muta_desc = "é¸àÕÇÃãÛä‘Ç™à¿íËÇµÇΩãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 100: case 101: case 102:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_NORMALITY;
+			muta_which = TRAIT2_NORMALITY;
 #ifdef JP
 muta_desc = "ïÅí Ç…äÔñ≠Ç»ä¥Ç∂Ç™Ç∑ÇÈÅB";
 #else
@@ -1849,7 +1849,7 @@ muta_desc = "ïÅí Ç…äÔñ≠Ç»ä¥Ç∂Ç™Ç∑ÇÈÅB";
 			break;
 		case 103:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WRAITH;
+			muta_which = TRAIT2_WRAITH;
 #ifdef JP
 muta_desc = "Ç†Ç»ÇΩÇÕï®éøê¢äEÇ…ÇµÇ¡Ç©ÇËë∂ç›ÇµÇƒÇ¢ÇÈÅB";
 #else
@@ -1859,7 +1859,7 @@ muta_desc = "Ç†Ç»ÇΩÇÕï®éøê¢äEÇ…ÇµÇ¡Ç©ÇËë∂ç›ÇµÇƒÇ¢ÇÈÅB";
 			break;
 		case 104:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_POLY_WOUND;
+			muta_which = TRAIT2_POLY_WOUND;
 #ifdef JP
 muta_desc = "å√Ç¢èùÇ©ÇÁÉJÉIÉXÇÃóÕÇ™ãéÇ¡ÇƒÇ¢Ç¡ÇΩÅB";
 #else
@@ -1869,7 +1869,7 @@ muta_desc = "å√Ç¢èùÇ©ÇÁÉJÉIÉXÇÃóÕÇ™ãéÇ¡ÇƒÇ¢Ç¡ÇΩÅB";
 			break;
 		case 105:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WASTING;
+			muta_which = TRAIT2_WASTING;
 #ifdef JP
 muta_desc = "Ç®ÇºÇ‹ÇµÇ¢êäé„ïaÇ™é°Ç¡ÇΩÅI";
 #else
@@ -1879,7 +1879,7 @@ muta_desc = "Ç®ÇºÇ‹ÇµÇ¢êäé„ïaÇ™é°Ç¡ÇΩÅI";
 			break;
 		case 106:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_ATT_DRAGON;
+			muta_which = TRAIT2_ATT_DRAGON;
 #ifdef JP
 muta_desc = "ÉhÉâÉSÉìÇà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1889,7 +1889,7 @@ muta_desc = "ÉhÉâÉSÉìÇà¯Ç´äÒÇπÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 107: case 108:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WEIRD_MIND;
+			muta_which = TRAIT2_WEIRD_MIND;
 #ifdef JP
 muta_desc = "évçlÇ™ëﬁã¸Ç»ï˚å¸Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -1899,7 +1899,7 @@ muta_desc = "évçlÇ™ëﬁã¸Ç»ï˚å¸Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 109:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_NAUSEA;
+			muta_which = TRAIT2_NAUSEA;
 #ifdef JP
 muta_desc = "à›Ç™·zùπÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1909,7 +1909,7 @@ muta_desc = "à›Ç™·zùπÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 110: case 111:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_CHAOS_GIFT;
+			muta_which = TRAIT2_CHAOS_GIFT;
 #ifdef JP
 muta_desc = "ç¨ì◊ÇÃê_ÅXÇÃãªñ°Çé‰Ç©Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1919,7 +1919,7 @@ muta_desc = "ç¨ì◊ÇÃê_ÅXÇÃãªñ°Çé‰Ç©Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 112:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WALK_SHAD;
+			muta_which = TRAIT2_WALK_SHAD;
 #ifdef JP
 muta_desc = "ï®éøê¢äEÇ…ïﬂÇÁÇÌÇÍÇƒÇ¢ÇÈãCÇ™Ç∑ÇÈÅB";
 #else
@@ -1929,7 +1929,7 @@ muta_desc = "ï®éøê¢äEÇ…ïﬂÇÁÇÌÇÍÇƒÇ¢ÇÈãCÇ™Ç∑ÇÈÅB";
 			break;
 		case 113: case 114:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_WARNING;
+			muta_which = TRAIT2_WARNING;
 #ifdef JP
 muta_desc = "ÉpÉâÉmÉCÉAÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1939,7 +1939,7 @@ muta_desc = "ÉpÉâÉmÉCÉAÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 115:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_INVULN;
+			muta_which = TRAIT2_INVULN;
 #ifdef JP
 muta_desc = "ñ≥ìGèÛë‘ÇÃî≠çÏÇãNÇ±Ç≥Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1949,7 +1949,7 @@ muta_desc = "ñ≥ìGèÛë‘ÇÃî≠çÏÇãNÇ±Ç≥Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 116: case 117:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_SP_TO_HP;
+			muta_which = TRAIT2_SP_TO_HP;
 #ifdef JP
 muta_desc = "ñÇñ@ÇÃé°ñ¸ÇÃî≠çÏÇ…èPÇÌÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1959,7 +1959,7 @@ muta_desc = "ñÇñ@ÇÃé°ñ¸ÇÃî≠çÏÇ…èPÇÌÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 118:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_HP_TO_SP;
+			muta_which = TRAIT2_HP_TO_SP;
 #ifdef JP
 muta_desc = "í…Ç›Çî∫Ç§ê∏ê_ñæóƒâªÇÃî≠çÏÇ…èPÇÌÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -1969,7 +1969,7 @@ muta_desc = "í…Ç›Çî∫Ç§ê∏ê_ñæóƒâªÇÃî≠çÏÇ…èPÇÌÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 119:
 			muta_class = &(cr_ptr->trait2);
-			muta_which = MUT2_DISARM;
+			muta_which = TRAIT2_DISARM;
 #ifdef JP
 muta_desc = "ãrÇ™å≥ÇÃëÂÇ´Ç≥Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -1979,7 +1979,7 @@ muta_desc = "ãrÇ™å≥ÇÃëÂÇ´Ç≥Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 120: case 121: case 122:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_HYPER_STR;
+			muta_which = TRAIT3_HYPER_STR;
 #ifdef JP
 muta_desc = "ãÿì˜Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -1989,7 +1989,7 @@ muta_desc = "ãÿì˜Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 123: case 124: case 125:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_PUNY;
+			muta_which = TRAIT3_PUNY;
 #ifdef JP
 muta_desc = "ãÿì˜Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -1999,7 +1999,7 @@ muta_desc = "ãÿì˜Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 126: case 127: case 128:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_HYPER_INT;
+			muta_which = TRAIT3_HYPER_INT;
 #ifdef JP
 muta_desc = "î]Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -2009,7 +2009,7 @@ muta_desc = "î]Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 129: case 130: case 131:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MORONIC;
+			muta_which = TRAIT3_MORONIC;
 #ifdef JP
 muta_desc = "î]Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -2019,7 +2019,7 @@ muta_desc = "î]Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 132: case 133:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_RESILIENT;
+			muta_which = TRAIT3_RESILIENT;
 #ifdef JP
 muta_desc = "ïÅí ÇÃè‰ïvÇ≥Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -2029,7 +2029,7 @@ muta_desc = "ïÅí ÇÃè‰ïvÇ≥Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 134: case 135:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_FAT;
+			muta_which = TRAIT3_XTRA_FAT;
 #ifdef JP
 muta_desc = "äÔê’ìIÇ»É_ÉCÉGÉbÉgÇ…ê¨å˜ÇµÇΩÅI";
 #else
@@ -2039,7 +2039,7 @@ muta_desc = "äÔê’ìIÇ»É_ÉCÉGÉbÉgÇ…ê¨å˜ÇµÇΩÅI";
 			break;
 		case 136: case 137:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ALBINO;
+			muta_which = TRAIT3_ALBINO;
 #ifdef JP
 muta_desc = "ÉAÉãÉrÉmÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -2049,7 +2049,7 @@ muta_desc = "ÉAÉãÉrÉmÇ≈Ç»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 138: case 139: case 140:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FLESH_ROT;
+			muta_which = TRAIT3_FLESH_ROT;
 #ifdef JP
 muta_desc = "ì˜ëÃÇïÖîsÇ≥ÇπÇÈïaãCÇ™é°Ç¡ÇΩÅI";
 #else
@@ -2059,7 +2059,7 @@ muta_desc = "ì˜ëÃÇïÖîsÇ≥ÇπÇÈïaãCÇ™é°Ç¡ÇΩÅI";
 			break;
 		case 141: case 142:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SILLY_VOI;
+			muta_which = TRAIT3_SILLY_VOI;
 #ifdef JP
 muta_desc = "ê∫éøÇ™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -2069,7 +2069,7 @@ muta_desc = "ê∫éøÇ™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 143: case 144:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_BLANK_FAC;
+			muta_which = TRAIT3_BLANK_FAC;
 #ifdef JP
 muta_desc = "äÁÇ…ñ⁄ï@Ç™ñﬂÇ¡ÇΩÅB";
 #else
@@ -2079,7 +2079,7 @@ muta_desc = "äÁÇ…ñ⁄ï@Ç™ñﬂÇ¡ÇΩÅB";
 			break;
 		case 145:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ILL_NORM;
+			muta_which = TRAIT3_ILL_NORM;
 #ifdef JP
 muta_desc = "êSÇ™à¿ÇÁÇÆå∂âeÇâfÇµèoÇ≥Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2089,7 +2089,7 @@ muta_desc = "êSÇ™à¿ÇÁÇÆå∂âeÇâfÇµèoÇ≥Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 146: case 147: case 148:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_EYES;
+			muta_which = TRAIT3_XTRA_EYES;
 #ifdef JP
 muta_desc = "ó]ï™Ç»ñ⁄Ç™è¡Ç¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 #else
@@ -2099,7 +2099,7 @@ muta_desc = "ó]ï™Ç»ñ⁄Ç™è¡Ç¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 			break;
 		case 149: case 150:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MAGIC_RES;
+			muta_which = TRAIT3_MAGIC_RES;
 #ifdef JP
 muta_desc = "ñÇñ@Ç…é„Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2109,7 +2109,7 @@ muta_desc = "ñÇñ@Ç…é„Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 151: case 152: case 153:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_NOIS;
+			muta_which = TRAIT3_XTRA_NOIS;
 #ifdef JP
 muta_desc = "äÔñ≠Ç»âπÇóßÇƒÇ»Ç≠Ç»Ç¡ÇΩÅI";
 #else
@@ -2119,7 +2119,7 @@ muta_desc = "äÔñ≠Ç»âπÇóßÇƒÇ»Ç≠Ç»Ç¡ÇΩÅI";
 			break;
 		case 154: case 155: case 156:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_INFRAVIS;
+			muta_which = TRAIT3_INFRAVIS;
 #ifdef JP
 muta_desc = "ê‘äOê¸éãóÕÇ™óéÇøÇΩÅB";
 #else
@@ -2129,7 +2129,7 @@ muta_desc = "ê‘äOê¸éãóÕÇ™óéÇøÇΩÅB";
 			break;
 		case 157: case 158:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_XTRA_LEGS;
+			muta_which = TRAIT3_XTRA_LEGS;
 #ifdef JP
 muta_desc = "ó]ï™Ç»ãrÇ™è¡Ç¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 #else
@@ -2139,7 +2139,7 @@ muta_desc = "ó]ï™Ç»ãrÇ™è¡Ç¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 			break;
 		case 159: case 160:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SHORT_LEG;
+			muta_which = TRAIT3_SHORT_LEG;
 #ifdef JP
 muta_desc = "ãrÇÃí∑Ç≥Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 #else
@@ -2149,7 +2149,7 @@ muta_desc = "ãrÇÃí∑Ç≥Ç™ïÅí Ç…ñﬂÇ¡ÇΩÅB";
 			break;
 		case 161: case 162:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ELEC_TOUC;
+			muta_which = TRAIT3_ELEC_TOUC;
 #ifdef JP
 muta_desc = "ëÃÇìdó¨Ç™ó¨ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2159,7 +2159,7 @@ muta_desc = "ëÃÇìdó¨Ç™ó¨ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 163: case 164:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FIRE_BODY;
+			muta_which = TRAIT3_FIRE_BODY;
 #ifdef JP
 muta_desc = "ëÃÇ™âäÇ…ïÔÇ‹ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2169,7 +2169,7 @@ muta_desc = "ëÃÇ™âäÇ…ïÔÇ‹ÇÍÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 165: case 166: case 167:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_WART_SKIN;
+			muta_which = TRAIT3_WART_SKIN;
 #ifdef JP
 muta_desc = "ÉCÉ{ÉCÉ{Ç™è¡Ç¶ÇΩÅI";
 #else
@@ -2179,7 +2179,7 @@ muta_desc = "ÉCÉ{ÉCÉ{Ç™è¡Ç¶ÇΩÅI";
 			break;
 		case 168: case 169: case 170:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_SCALES;
+			muta_which = TRAIT3_SCALES;
 #ifdef JP
 muta_desc = "óÿÇ™è¡Ç¶ÇΩÅI";
 #else
@@ -2189,7 +2189,7 @@ muta_desc = "óÿÇ™è¡Ç¶ÇΩÅI";
 			break;
 		case 171: case 172:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_IRON_SKIN;
+			muta_which = TRAIT3_IRON_SKIN;
 #ifdef JP
 muta_desc = "îßÇ™ì˜Ç…Ç‡Ç«Ç¡ÇΩÅI";
 #else
@@ -2199,7 +2199,7 @@ muta_desc = "îßÇ™ì˜Ç…Ç‡Ç«Ç¡ÇΩÅI";
 			break;
 		case 173: case 174:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_WINGS;
+			muta_which = TRAIT3_WINGS;
 #ifdef JP
 muta_desc = "îwíÜÇÃâHç™Ç™éÊÇÍóéÇøÇΩÅB";
 #else
@@ -2209,7 +2209,7 @@ muta_desc = "îwíÜÇÃâHç™Ç™éÊÇÍóéÇøÇΩÅB";
 			break;
 		case 175: case 176: case 177:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_FEARLESS;
+			muta_which = TRAIT3_FEARLESS;
 #ifdef JP
 muta_desc = "çƒÇ—ã∞ï|Çä¥Ç∂ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 #else
@@ -2219,7 +2219,7 @@ muta_desc = "çƒÇ—ã∞ï|Çä¥Ç∂ÇÈÇÊÇ§Ç…Ç»Ç¡ÇΩÅB";
 			break;
 		case 178: case 179:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_REGEN;
+			muta_which = TRAIT3_REGEN;
 #ifdef JP
 muta_desc = "ã}ë¨âÒïúÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2229,7 +2229,7 @@ muta_desc = "ã}ë¨âÒïúÇµÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 180: case 181:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ESP;
+			muta_which = TRAIT3_ESP;
 #ifdef JP
 muta_desc = "ÉeÉåÉpÉVÅ[ÇÃî\óÕÇé∏Ç¡ÇΩÅI";
 #else
@@ -2239,7 +2239,7 @@ muta_desc = "ÉeÉåÉpÉVÅ[ÇÃî\óÕÇé∏Ç¡ÇΩÅI";
 			break;
 		case 182: case 183: case 184:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_LIMBER;
+			muta_which = TRAIT3_LIMBER;
 #ifdef JP
 muta_desc = "ãÿì˜Ç™çdÇ≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2249,7 +2249,7 @@ muta_desc = "ãÿì˜Ç™çdÇ≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 185: case 186: case 187:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_ARTHRITIS;
+			muta_which = TRAIT3_ARTHRITIS;
 #ifdef JP
 muta_desc = "ä÷êﬂÇ™í…Ç≠Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2259,7 +2259,7 @@ muta_desc = "ä÷êﬂÇ™í…Ç≠Ç»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 188:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_BAD_LUCK;
+			muta_which = TRAIT3_BAD_LUCK;
 #ifdef JP
 muta_desc = "çïÇ¢ÉIÅ[ÉâÇÕâQä™Ç¢Çƒè¡Ç¶ÇΩÅB";
 #else
@@ -2269,7 +2269,7 @@ muta_desc = "çïÇ¢ÉIÅ[ÉâÇÕâQä™Ç¢Çƒè¡Ç¶ÇΩÅB";
 			break;
 		case 189:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_VULN_ELEM;
+			muta_which = TRAIT3_VULN_ELEM;
 #ifdef JP
 muta_desc = "ñ≥ñhîıÇ»ä¥Ç∂ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2279,7 +2279,7 @@ muta_desc = "ñ≥ñhîıÇ»ä¥Ç∂ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅB";
 			break;
 		case 190: case 191: case 192:
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_MOTION;
+			muta_which = TRAIT3_MOTION;
 #ifdef JP
 muta_desc = "ìÆçÏÇÃê≥ämÇ≥Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB";
 #else
@@ -2290,7 +2290,7 @@ muta_desc = "ìÆçÏÇÃê≥ämÇ≥Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB";
 		case 193:
 			if (cr_ptr->chara_idx == CHARA_LUCKY) break;
 			muta_class = &(cr_ptr->trait3);
-			muta_which = MUT3_GOOD_LUCK;
+			muta_which = TRAIT3_GOOD_LUCK;
 #ifdef JP
 muta_desc = "îíÇ¢ÉIÅ[ÉâÇÕãPÇ¢Çƒè¡Ç¶ÇΩÅB";
 #else
@@ -2336,7 +2336,7 @@ void dump_mutations(creature_type *cr_ptr, FILE *OutFile)
 
 	if (cr_ptr->trait1)
 	{
-		if (cr_ptr->trait1 & MUT1_SPIT_ACID)
+		if (cr_ptr->trait1 & TRAIT1_SPIT_ACID)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé_ÇêÅÇ´Ç©ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB(É_ÉÅÅ[ÉW ÉåÉxÉãX1)\n");
@@ -2345,7 +2345,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé_ÇêÅÇ´Ç©ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB(É_ÉÅÅ[ÉW ÉåÉxÉãX1)\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_BR_FIRE)
+		if (cr_ptr->trait1 & TRAIT1_BR_FIRE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕâäÇÃÉuÉåÉXÇìfÇ≠Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB(É_ÉÅÅ[ÉW ÉåÉxÉãX2)\n");
@@ -2354,7 +2354,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕâäÇÃÉuÉåÉXÇìfÇ≠Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB(É_ÉÅÅ[ÉW ÉåÉxÉãX2)\n")
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_HYPN_GAZE)
+		if (cr_ptr->trait1 & TRAIT1_HYPN_GAZE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃ·…Ç›ÇÕç√ñ∞å¯â ÇÇ‡Ç¬ÅB\n");
@@ -2363,7 +2363,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃ·…Ç›ÇÕç√ñ∞å¯â ÇÇ‡Ç¬ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_TELEKINES)
+		if (cr_ptr->trait1 & TRAIT1_TELEKINES)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕîOìÆóÕÇÇ‡Ç¡ÇƒÇ¢ÇÈÅB\n");
@@ -2372,7 +2372,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕîOìÆóÕÇÇ‡Ç¡ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_VTELEPORT)
+		if (cr_ptr->trait1 & TRAIT1_VTELEPORT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ≈Ç´ÇÈÅB\n");
@@ -2381,7 +2381,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ÉeÉåÉ|Å[ÉgÇ≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_MIND_BLST)
+		if (cr_ptr->trait1 & TRAIT1_MIND_BLST)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕìGÇê∏ê_çUåÇÇ≈Ç´ÇÈÅB\n");
@@ -2390,7 +2390,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕìGÇê∏ê_çUåÇÇ≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_RADIATION)
+		if (cr_ptr->trait1 & TRAIT1_RADIATION)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ï˙éÀî\Çî≠ê∂Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2399,7 +2399,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ï˙éÀî\Çî≠ê∂Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_VAMPIRISM)
+		if (cr_ptr->trait1 & TRAIT1_VAMPIRISM)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕãzååãSÇÃÇÊÇ§Ç…ìGÇ©ÇÁê∂ñΩóÕÇãzé˚Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2408,7 +2408,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕãzååãSÇÃÇÊÇ§Ç…ìGÇ©ÇÁê∂ñΩóÕÇãzé˚Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n"
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_SMELL_MET)
+		if (cr_ptr->trait1 & TRAIT1_SMELL_MET)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕãﬂÇ≠Ç…Ç†ÇÈãMã‡ëÆÇÇ©Ç¨ï™ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2417,7 +2417,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕãﬂÇ≠Ç…Ç†ÇÈãMã‡ëÆÇÇ©Ç¨ï™ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_SMELL_MON)
+		if (cr_ptr->trait1 & TRAIT1_SMELL_MON)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕãﬂÇ≠ÇÃÉÇÉìÉXÉ^Å[ÇÃë∂ç›ÇÇ©Ç¨ï™ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2426,7 +2426,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕãﬂÇ≠ÇÃÉÇÉìÉXÉ^Å[ÇÃë∂ç›ÇÇ©Ç¨ï™ÇØÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_BLINK)
+		if (cr_ptr->trait1 & TRAIT1_BLINK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕíZÇ¢ãóó£ÇÉeÉåÉ|Å[ÉgÇ≈Ç´ÇÈÅB\n");
@@ -2435,7 +2435,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕíZÇ¢ãóó£ÇÉeÉåÉ|Å[ÉgÇ≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_EAT_ROCK)
+		if (cr_ptr->trait1 & TRAIT1_EAT_ROCK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕçdÇ¢ä‚ÇêHÇ◊ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2444,7 +2444,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕçdÇ¢ä‚ÇêHÇ◊ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_SWAP_POS)
+		if (cr_ptr->trait1 & TRAIT1_SWAP_POS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕëºÇÃé“Ç∆èÍèäÇì¸ÇÍë÷ÇÌÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2453,7 +2453,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕëºÇÃé“Ç∆èÍèäÇì¸ÇÍë÷ÇÌÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_SHRIEK)
+		if (cr_ptr->trait1 & TRAIT1_SHRIEK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕêgÇÃñ—Ç‡ÇÊÇæÇ¬ã©Ç—ê∫Çî≠Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2462,7 +2462,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕêgÇÃñ—Ç‡ÇÊÇæÇ¬ã©Ç—ê∫Çî≠Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_ILLUMINE)
+		if (cr_ptr->trait1 & TRAIT1_ILLUMINE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕñæÇÈÇ¢åıÇï˙Ç¬Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2471,7 +2471,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕñæÇÈÇ¢åıÇï˙Ç¬Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_DET_CURSE)
+		if (cr_ptr->trait1 & TRAIT1_DET_CURSE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»ñÇñ@ÇÃäÎåØÇä¥Ç∂Ç∆ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2480,7 +2480,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»ñÇñ@ÇÃäÎåØÇä¥Ç∂Ç∆ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_BERSERK)
+		if (cr_ptr->trait1 & TRAIT1_BERSERK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ã∂óêêÌì¨èÛë‘Ç…Ç»ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2489,7 +2489,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”évÇ≈ã∂óêêÌì¨èÛë‘Ç…Ç»ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_POLYMORPH)
+		if (cr_ptr->trait1 & TRAIT1_POLYMORPH)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”éuÇ≈ïœâªÇ≈Ç´ÇÈÅB\n");
@@ -2498,7 +2498,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™ÇÃà”éuÇ≈ïœâªÇ≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_MIDAS_TCH)
+		if (cr_ptr->trait1 & TRAIT1_MIDAS_TCH)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕí èÌÉAÉCÉeÉÄÇã‡Ç…ïœÇ¶ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2507,7 +2507,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕí èÌÉAÉCÉeÉÄÇã‡Ç…ïœÇ¶ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_GROW_MOLD)
+		if (cr_ptr->trait1 & TRAIT1_GROW_MOLD)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé¸àÕÇ…ÉLÉmÉRÇê∂Ç‚Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2516,7 +2516,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé¸àÕÇ…ÉLÉmÉRÇê∂Ç‚Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_RESIST)
+		if (cr_ptr->trait1 & TRAIT1_RESIST)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕå≥ëfÇÃçUåÇÇ…ëŒÇµÇƒêgÇçdÇ≠Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2525,7 +2525,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕå≥ëfÇÃçUåÇÇ…ëŒÇµÇƒêgÇçdÇ≠Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_EARTHQUAKE)
+		if (cr_ptr->trait1 & TRAIT1_EARTHQUAKE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé¸àÕÇÃÉ_ÉìÉWÉáÉìÇïˆâÛÇ≥ÇπÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2534,7 +2534,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé¸àÕÇÃÉ_ÉìÉWÉáÉìÇïˆâÛÇ≥ÇπÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_EAT_MAGIC)
+		if (cr_ptr->trait1 & TRAIT1_EAT_MAGIC)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕñÇñ@ÇÃÉGÉlÉãÉMÅ[Çé©ï™ÇÃï®Ç∆ÇµÇƒégópÇ≈Ç´ÇÈÅB\n");
@@ -2543,7 +2543,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕñÇñ@ÇÃÉGÉlÉãÉMÅ[Çé©ï™ÇÃï®Ç∆ÇµÇƒégópÇ≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_WEIGH_MAG)
+		if (cr_ptr->trait1 & TRAIT1_WEIGH_MAG)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™Ç…âeãøÇó^Ç¶ÇÈñÇñ@ÇÃóÕÇä¥Ç∂ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2552,7 +2552,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé©ï™Ç…âeãøÇó^Ç¶ÇÈñÇñ@ÇÃóÕÇä¥Ç∂ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_STERILITY)
+		if (cr_ptr->trait1 & TRAIT1_STERILITY)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕèWícìIê∂êBïsî\ÇãNÇ±Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2561,7 +2561,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕèWícìIê∂êBïsî\ÇãNÇ±Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_PANIC_HIT)
+		if (cr_ptr->trait1 & TRAIT1_PANIC_HIT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕçUåÇÇµÇΩå„êgÇéÁÇÈÇΩÇﬂì¶Ç∞ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2570,7 +2570,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕçUåÇÇµÇΩå„êgÇéÁÇÈÇΩÇﬂì¶Ç∞ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_DAZZLE)
+		if (cr_ptr->trait1 & TRAIT1_DAZZLE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕç¨óêÇ∆ñ”ñ⁄Çà¯Ç´ãNÇ±Ç∑ï˙éÀî\Çî≠ê∂Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB \n");
@@ -2579,7 +2579,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕç¨óêÇ∆ñ”ñ⁄Çà¯Ç´ãNÇ±Ç∑ï˙éÀî\Çî≠ê∂Ç∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB 
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_LASER_EYE)
+		if (cr_ptr->trait1 & TRAIT1_LASER_EYE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕñ⁄Ç©ÇÁÉåÅ[ÉUÅ[åıê¸Çî≠éÀÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2588,7 +2588,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕñ⁄Ç©ÇÁÉåÅ[ÉUÅ[åıê¸Çî≠éÀÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_RECALL)
+		if (cr_ptr->trait1 & TRAIT1_RECALL)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕäXÇ∆É_ÉìÉWÉáÉìÇÃä‘ÇçsÇ´óàÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2597,7 +2597,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕäXÇ∆É_ÉìÉWÉáÉìÇÃä‘ÇçsÇ´óàÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_BANISH)
+		if (cr_ptr->trait1 & TRAIT1_BANISH)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»ÉÇÉìÉXÉ^Å[ÇínçñÇ…óéÇ∆Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2606,7 +2606,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»ÉÇÉìÉXÉ^Å[ÇínçñÇ…óéÇ∆Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_COLD_TOUCH)
+		if (cr_ptr->trait1 & TRAIT1_COLD_TOUCH)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕï®ÇêGÇ¡ÇƒìÄÇÁÇπÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2615,7 +2615,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕï®ÇêGÇ¡ÇƒìÄÇÁÇπÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait1 & MUT1_LAUNCHER)
+		if (cr_ptr->trait1 & TRAIT1_LAUNCHER)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉAÉCÉeÉÄÇóÕã≠Ç≠ìäÇ∞ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
@@ -2628,7 +2628,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉAÉCÉeÉÄÇóÕã≠Ç≠ìäÇ∞ÇÈÇ±Ç∆Ç™Ç≈Ç´ÇÈÅB\n");
 
 	if (cr_ptr->trait2)
 	{
-		if (cr_ptr->trait2 & MUT2_BERS_RAGE)
+		if (cr_ptr->trait2 & TRAIT2_BERS_RAGE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕã∂êÌémâªÇÃî≠çÏÇãNÇ±Ç∑ÅB\n");
@@ -2637,7 +2637,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕã∂êÌémâªÇÃî≠çÏÇãNÇ±Ç∑ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_COWARDICE)
+		if (cr_ptr->trait2 & TRAIT2_COWARDICE)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXâ∞ïaÇ…Ç»ÇÈÅB\n");
@@ -2646,7 +2646,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXâ∞ïaÇ…Ç»ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_RTELEPORT)
+		if (cr_ptr->trait2 & TRAIT2_RTELEPORT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉâÉìÉ_ÉÄÇ…ÉeÉåÉ|Å[ÉgÇ∑ÇÈÅB\n");
@@ -2655,7 +2655,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉâÉìÉ_ÉÄÇ…ÉeÉåÉ|Å[ÉgÇ∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_ALCOHOL)
+		if (cr_ptr->trait2 & TRAIT2_ALCOHOL)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇ∑ÇÈÅB\n");
@@ -2664,7 +2664,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕÉAÉãÉRÅ[ÉãÇï™îÂÇ∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_HALLU)
+		if (cr_ptr->trait2 & TRAIT2_HALLU)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕå∂äoÇà¯Ç´ãNÇ±Ç∑ê∏ê_çˆóêÇ…êNÇ≥ÇÍÇƒÇ¢ÇÈÅB\n");
@@ -2673,7 +2673,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕå∂äoÇà¯Ç´ãNÇ±Ç∑ê∏ê_çˆóêÇ…êNÇ≥ÇÍÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_FLATULENT)
+		if (cr_ptr->trait2 & TRAIT2_FLATULENT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕêßå‰Ç≈Ç´Ç»Ç¢ã≠óÛÇ»õõÇÇ±Ç≠ÅB\n");
@@ -2682,7 +2682,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕêßå‰Ç≈Ç´Ç»Ç¢ã≠óÛÇ»õõÇÇ±Ç≠ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_PROD_MANA)
+		if (cr_ptr->trait2 & TRAIT2_PROD_MANA)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ÇµÇƒÇ¢ÇÈÅB\n");
@@ -2691,7 +2691,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕêßå‰ïsî\Ç»ñÇñ@ÇÃÉGÉlÉãÉMÅ[Çî≠ÇµÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_ATT_DEMON)
+		if (cr_ptr->trait2 & TRAIT2_ATT_DEMON)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉfÅ[ÉÇÉìÇà¯Ç´Ç¬ÇØÇÈÅB\n");
@@ -2700,7 +2700,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉfÅ[ÉÇÉìÇà¯Ç´Ç¬ÇØÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_SCOR_TAIL)
+		if (cr_ptr->trait2 & TRAIT2_SCOR_TAIL)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉTÉ\ÉäÇÃêKîˆÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(ì≈ÅAÉ_ÉÅÅ[ÉW 3d7)\n");
@@ -2709,7 +2709,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉTÉ\ÉäÇÃêKîˆÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(ì≈ÅAÉ_ÉÅÅ[ÉW 3d7)\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_HORNS)
+		if (cr_ptr->trait2 & TRAIT2_HORNS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕäpÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d6)\n");
@@ -2718,7 +2718,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕäpÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d6)\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_BEAK)
+		if (cr_ptr->trait2 & TRAIT2_BEAK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉNÉ`ÉoÉVÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d4)\n");
@@ -2727,7 +2727,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉNÉ`ÉoÉVÇ™ê∂Ç¶ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_SPEED_FLUX)
+		if (cr_ptr->trait2 & TRAIT2_SPEED_FLUX)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉâÉìÉ_ÉÄÇ…ëÅÇ≠ìÆÇ¢ÇΩÇËíxÇ≠ìÆÇ¢ÇΩÇËÇ∑ÇÈÅB\n");
@@ -2736,7 +2736,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉâÉìÉ_ÉÄÇ…ëÅÇ≠ìÆÇ¢ÇΩÇËíxÇ≠ìÆÇ¢ÇΩÇËÇ∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_BANISH_ALL)
+		if (cr_ptr->trait2 & TRAIT2_BANISH_ALL)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXãﬂÇ≠ÇÃÉÇÉìÉXÉ^Å[Çè¡ñ≈Ç≥ÇπÇÈÅB\n");
@@ -2745,7 +2745,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXãﬂÇ≠ÇÃÉÇÉìÉXÉ^Å[Çè¡ñ≈Ç≥ÇπÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_EAT_LIGHT)
+		if (cr_ptr->trait2 & TRAIT2_EAT_LIGHT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXé¸àÕÇÃåıÇãzé˚ÇµÇƒâhó{Ç…Ç∑ÇÈÅB\n");
@@ -2754,7 +2754,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXé¸àÕÇÃåıÇãzé˚ÇµÇƒâhó{Ç…Ç∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_TRUNK)
+		if (cr_ptr->trait2 & TRAIT2_TRUNK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕè€ÇÃÇÊÇ§Ç»ï@ÇéùÇ¡ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 1d4)\n");
@@ -2763,7 +2763,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕè€ÇÃÇÊÇ§Ç»ï@ÇéùÇ¡ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 1d4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_ATT_ANIMAL)
+		if (cr_ptr->trait2 & TRAIT2_ATT_ANIMAL)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕìÆï®Çà¯Ç´Ç¬ÇØÇÈÅB\n");
@@ -2772,7 +2772,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕìÆï®Çà¯Ç´Ç¬ÇØÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_TENTACLES)
+		if (cr_ptr->trait2 & TRAIT2_TENTACLES)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»êGéËÇéùÇ¡ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d5)\n");
@@ -2781,7 +2781,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕé◊à´Ç»êGéËÇéùÇ¡ÇƒÇ¢ÇÈÅB(É_ÉÅÅ[ÉW 2d5)\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_RAW_CHAOS)
+		if (cr_ptr->trait2 & TRAIT2_RAW_CHAOS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇµÇŒÇµÇŒèÉÉJÉIÉXÇ…ïÔÇ‹ÇÍÇÈÅB\n");
@@ -2790,7 +2790,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇµÇŒÇµÇŒèÉÉJÉIÉXÇ…ïÔÇ‹ÇÍÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_NORMALITY)
+		if (cr_ptr->trait2 & TRAIT2_NORMALITY)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕïœàŸÇµÇƒÇ¢ÇΩÇ™ÅAâÒïúÇµÇƒÇ´ÇƒÇ¢ÇÈÅB\n");
@@ -2799,7 +2799,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕïœàŸÇµÇƒÇ¢ÇΩÇ™ÅAâÒïúÇµÇƒÇ´ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_WRAITH)
+		if (cr_ptr->trait2 & TRAIT2_WRAITH)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃì˜ëÃÇÕóHëÃâªÇµÇΩÇËé¿ëÃâªÇµÇΩÇËÇ∑ÇÈÅB\n");
@@ -2808,7 +2808,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃì˜ëÃÇÕóHëÃâªÇµÇΩÇËé¿ëÃâªÇµÇΩÇËÇ∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_POLY_WOUND)
+		if (cr_ptr->trait2 & TRAIT2_POLY_WOUND)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃåíçNÇÕÉJÉIÉXÇÃóÕÇ…âeãøÇéÛÇØÇÈÅB\n");
@@ -2817,7 +2817,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃåíçNÇÕÉJÉIÉXÇÃóÕÇ…âeãøÇéÛÇØÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_WASTING)
+		if (cr_ptr->trait2 & TRAIT2_WASTING)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕêäé„Ç∑ÇÈã∞ÇÎÇµÇ¢ïaãCÇ…Ç©Ç©Ç¡ÇƒÇ¢ÇÈÅB\n");
@@ -2826,7 +2826,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕêäé„Ç∑ÇÈã∞ÇÎÇµÇ¢ïaãCÇ…Ç©Ç©Ç¡ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_ATT_DRAGON)
+		if (cr_ptr->trait2 & TRAIT2_ATT_DRAGON)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉhÉâÉSÉìÇà¯Ç´Ç¬ÇØÇÈÅB\n");
@@ -2835,7 +2835,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉhÉâÉSÉìÇà¯Ç´Ç¬ÇØÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_WEIRD_MIND)
+		if (cr_ptr->trait2 & TRAIT2_WEIRD_MIND)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃê∏ê_ÇÕÉâÉìÉ_ÉÄÇ…ägëÂÇµÇΩÇËèkè¨ÇµÇΩÇËÇµÇƒÇ¢ÇÈÅB\n");
@@ -2844,7 +2844,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃê∏ê_ÇÕÉâÉìÉ_ÉÄÇ…ägëÂÇµÇΩÇËèkè¨ÇµÇΩÇËÇµÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_NAUSEA)
+		if (cr_ptr->trait2 & TRAIT2_NAUSEA)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃà›ÇÕîÒèÌÇ…óéÇøíÖÇ´Ç™Ç»Ç¢ÅB\n");
@@ -2853,7 +2853,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃà›ÇÕîÒèÌÇ…óéÇøíÖÇ´Ç™Ç»Ç¢ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_CHAOS_GIFT)
+		if (cr_ptr->trait2 & TRAIT2_CHAOS_GIFT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃéÁåÏà´ñÇÇ©ÇÁñJî¸ÇÇ§ÇØÇ∆ÇÈÅB\n");
@@ -2862,7 +2862,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉJÉIÉXÇÃéÁåÏà´ñÇÇ©ÇÁñJî¸ÇÇ§ÇØÇ∆ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_WALK_SHAD)
+		if (cr_ptr->trait2 & TRAIT2_WALK_SHAD)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇµÇŒÇµÇŒëºÇÃÅuâeÅvÇ…ñ¿Ç¢çûÇﬁÅB\n");
@@ -2871,7 +2871,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇµÇŒÇµÇŒëºÇÃÅuâeÅvÇ…ñ¿Ç¢çûÇﬁÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_WARNING)
+		if (cr_ptr->trait2 & TRAIT2_WARNING)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕìGÇ…ä÷Ç∑ÇÈåxçêÇä¥Ç∂ÇÈÅB\n");
@@ -2880,7 +2880,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕìGÇ…ä÷Ç∑ÇÈåxçêÇä¥Ç∂ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_INVULN)
+		if (cr_ptr->trait2 & TRAIT2_INVULN)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXïâÇØímÇÁÇ∏Ç»ãCï™Ç…Ç»ÇÈÅB\n");
@@ -2889,7 +2889,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXïâÇØímÇÁÇ∏Ç»ãCï™Ç…Ç»ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_SP_TO_HP)
+		if (cr_ptr->trait2 & TRAIT2_SP_TO_HP)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXååÇ™ãÿì˜Ç…Ç«Ç¡Ç∆ó¨ÇÍÇÈÅB\n");
@@ -2898,7 +2898,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXååÇ™ãÿì˜Ç…Ç«Ç¡Ç∆ó¨ÇÍÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_HP_TO_SP)
+		if (cr_ptr->trait2 & TRAIT2_HP_TO_SP)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXì™Ç…ååÇ™Ç«Ç¡Ç∆ó¨ÇÍÇÈÅB\n");
@@ -2907,7 +2907,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕéûÅXì™Ç…ååÇ™Ç«Ç¡Ç∆ó¨ÇÍÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait2 & MUT2_DISARM)
+		if (cr_ptr->trait2 & TRAIT2_DISARM)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇÊÇ≠Ç¬Ç‹Ç√Ç¢Çƒï®ÇóéÇ∆Ç∑ÅB\n");
@@ -2920,7 +2920,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇÊÇ≠Ç¬Ç‹Ç√Ç¢Çƒï®ÇóéÇ∆Ç∑ÅB\n");
 
 	if (cr_ptr->trait3)
 	{
-		if (cr_ptr->trait3 & MUT3_HYPER_STR)
+		if (cr_ptr->trait3 & TRAIT3_HYPER_STR)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕí¥êlìIÇ…ã≠Ç¢ÅB(òróÕ+4)\n");
@@ -2929,7 +2929,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕí¥êlìIÇ…ã≠Ç¢ÅB(òróÕ+4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_PUNY)
+		if (cr_ptr->trait3 & TRAIT3_PUNY)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕãïé„ÇæÅB(òróÕ-4)\n");
@@ -2938,7 +2938,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕãïé„ÇæÅB(òróÕ-4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_HYPER_INT)
+		if (cr_ptr->trait3 & TRAIT3_HYPER_INT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃî]ÇÕê∂ëÃÉRÉìÉsÉÖÅ[É^ÇæÅB(ímî\Åïå´Ç≥+4)\n");
@@ -2947,7 +2947,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃî]ÇÕê∂ëÃÉRÉìÉsÉÖÅ[É^ÇæÅB(ímî\Åïå´Ç≥+4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_MORONIC)
+		if (cr_ptr->trait3 & TRAIT3_MORONIC)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕê∏ê_îñé„ÇæÅB(ímî\Åïå´Ç≥-4)\n");
@@ -2956,7 +2956,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕê∏ê_îñé„ÇæÅB(ímî\Åïå´Ç≥-4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_RESILIENT)
+		if (cr_ptr->trait3 & TRAIT3_RESILIENT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕíeóÕê´Ç…ïxÇÒÇ≈Ç¢ÇÈÅB(ëœãv+4)\n");
@@ -2965,7 +2965,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕíeóÕê´Ç…ïxÇÒÇ≈Ç¢ÇÈÅB(ëœãv+4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_XTRA_FAT)
+		if (cr_ptr->trait3 & TRAIT3_XTRA_FAT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕã…í[Ç…ëæÇ¡ÇƒÇ¢ÇÈÅB(ëœãv+2,ÉXÉsÅ[Éh-2)\n");
@@ -2974,7 +2974,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕã…í[Ç…ëæÇ¡ÇƒÇ¢ÇÈÅB(ëœãv+2,ÉXÉsÅ[Éh-2)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_ALBINO)
+		if (cr_ptr->trait3 & TRAIT3_ALBINO)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉAÉãÉrÉmÇæÅB(ëœãv-4)\n");
@@ -2983,7 +2983,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉAÉãÉrÉmÇæÅB(ëœãv-4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_FLESH_ROT)
+		if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃì˜ëÃÇÕïÖîsÇµÇƒÇ¢ÇÈÅB(ëœãv-2,ñ£óÕ-1)\n");
@@ -2992,7 +2992,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃì˜ëÃÇÕïÖîsÇµÇƒÇ¢ÇÈÅB(ëœãv-2,ñ£óÕ-1)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_SILLY_VOI)
+		if (cr_ptr->trait3 & TRAIT3_SILLY_VOI)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃê∫ÇÕä‘î≤ÇØÇ»ÉLÅ[ÉLÅ[ê∫ÇæÅB(ñ£óÕ-4)\n");
@@ -3001,7 +3001,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃê∫ÇÕä‘î≤ÇØÇ»ÉLÅ[ÉLÅ[ê∫ÇæÅB(ñ£óÕ-4)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_BLANK_FAC)
+		if (cr_ptr->trait3 & TRAIT3_BLANK_FAC)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇÃÇ¡ÇÿÇÁÇ⁄Ç§ÇæÅB(ñ£óÕ-1)\n");
@@ -3010,7 +3010,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇÃÇ¡ÇÿÇÁÇ⁄Ç§ÇæÅB(ñ£óÕ-1)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_ILL_NORM)
+		if (cr_ptr->trait3 & TRAIT3_ILL_NORM)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕå∂âeÇ…ï¢ÇÌÇÍÇƒÇ¢ÇÈÅB\n");
@@ -3019,7 +3019,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕå∂âeÇ…ï¢ÇÌÇÍÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_XTRA_EYES)
+		if (cr_ptr->trait3 & TRAIT3_XTRA_EYES)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕó]ï™Ç…ìÒÇ¬ÇÃñ⁄ÇéùÇ¡ÇƒÇ¢ÇÈÅB(íTçı+15)\n");
@@ -3028,7 +3028,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕó]ï™Ç…ìÒÇ¬ÇÃñ⁄ÇéùÇ¡ÇƒÇ¢ÇÈÅB(íTçı+15)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_MAGIC_RES)
+		if (cr_ptr->trait3 & TRAIT3_MAGIC_RES)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕñÇñ@Ç÷ÇÃëœê´ÇÇ‡Ç¡ÇƒÇ¢ÇÈÅB\n");
@@ -3037,7 +3037,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕñÇñ@Ç÷ÇÃëœê´ÇÇ‡Ç¡ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_XTRA_NOIS)
+		if (cr_ptr->trait3 & TRAIT3_XTRA_NOIS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕïœÇ»âπÇî≠ÇµÇƒÇ¢ÇÈÅB(âBñß-3)\n");
@@ -3046,7 +3046,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕïœÇ»âπÇî≠ÇµÇƒÇ¢ÇÈÅB(âBñß-3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_INFRAVIS)
+		if (cr_ptr->trait3 & TRAIT3_INFRAVIS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕëfê∞ÇÁÇµÇ¢ê‘äOê¸éãóÕÇéùÇ¡ÇƒÇ¢ÇÈÅB(+3)\n");
@@ -3055,7 +3055,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕëfê∞ÇÁÇµÇ¢ê‘äOê¸éãóÕÇéùÇ¡ÇƒÇ¢ÇÈÅB(+3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_XTRA_LEGS)
+		if (cr_ptr->trait3 & TRAIT3_XTRA_LEGS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕó]ï™Ç…ìÒñ{ÇÃë´Ç™ê∂Ç¶ÇƒÇ¢ÇÈÅB(â¡ë¨+3)\n");
@@ -3064,7 +3064,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕó]ï™Ç…ìÒñ{ÇÃë´Ç™ê∂Ç¶ÇƒÇ¢ÇÈÅB(â¡ë¨+3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_SHORT_LEG)
+		if (cr_ptr->trait3 & TRAIT3_SHORT_LEG)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃë´ÇÕíZÇ¢ìÀãNÇæÅB(â¡ë¨-3)\n");
@@ -3073,7 +3073,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃë´ÇÕíZÇ¢ìÀãNÇæÅB(â¡ë¨-3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_ELEC_TOUC)
+		if (cr_ptr->trait3 & TRAIT3_ELEC_TOUC)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃååä«Ç…ÇÕìdó¨Ç™ó¨ÇÍÇƒÇ¢ÇÈÅB\n");
@@ -3082,7 +3082,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃååä«Ç…ÇÕìdó¨Ç™ó¨ÇÍÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_FIRE_BODY)
+		if (cr_ptr->trait3 & TRAIT3_FIRE_BODY)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕâäÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB\n");
@@ -3091,7 +3091,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕâäÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_WART_SKIN)
+		if (cr_ptr->trait3 & TRAIT3_WART_SKIN)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕÉCÉ{Ç…îÌÇÌÇÍÇƒÇ¢ÇÈÅB(ñ£óÕ-2, AC+5)\n");
@@ -3100,7 +3100,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕÉCÉ{Ç…îÌÇÌÇÍÇƒÇ¢ÇÈÅB(ñ£óÕ-2, AC+5)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_SCALES)
+		if (cr_ptr->trait3 & TRAIT3_SCALES)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕóÿÇ…Ç»Ç¡ÇƒÇ¢ÇÈÅB(ñ£óÕ-1, AC+10)\n");
@@ -3109,7 +3109,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕóÿÇ…Ç»Ç¡ÇƒÇ¢ÇÈÅB(ñ£óÕ-1, AC+10)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_IRON_SKIN)
+		if (cr_ptr->trait3 & TRAIT3_IRON_SKIN)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕìSÇ≈Ç≈Ç´ÇƒÇ¢ÇÈÅB(äÌóp-1, AC+25)\n");
@@ -3118,7 +3118,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃîßÇÕìSÇ≈Ç≈Ç´ÇƒÇ¢ÇÈÅB(äÌóp-1, AC+25)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_WINGS)
+		if (cr_ptr->trait3 & TRAIT3_WINGS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕâHÇéùÇ¡ÇƒÇ¢ÇÈÅB\n");
@@ -3127,7 +3127,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕâHÇéùÇ¡ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_FEARLESS)
+		if (cr_ptr->trait3 & TRAIT3_FEARLESS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕëSÇ≠ã∞ï|Çä¥Ç∂Ç»Ç¢ÅB\n");
@@ -3136,7 +3136,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕëSÇ≠ã∞ï|Çä¥Ç∂Ç»Ç¢ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_REGEN)
+		if (cr_ptr->trait3 & TRAIT3_REGEN)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕã}ë¨Ç…âÒïúÇ∑ÇÈÅB\n");
@@ -3145,7 +3145,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕã}ë¨Ç…âÒïúÇ∑ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_ESP)
+		if (cr_ptr->trait3 & TRAIT3_ESP)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉeÉåÉpÉVÅ[ÇéùÇ¡ÇƒÇ¢ÇÈÅB\n");
@@ -3154,7 +3154,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÉeÉåÉpÉVÅ[ÇéùÇ¡ÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_LIMBER)
+		if (cr_ptr->trait3 & TRAIT3_LIMBER)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕîÒèÌÇ…ÇµÇ»Ç‚Ç©ÇæÅB(äÌóp+3)\n");
@@ -3163,7 +3163,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃëÃÇÕîÒèÌÇ…ÇµÇ»Ç‚Ç©ÇæÅB(äÌóp+3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_ARTHRITIS)
+		if (cr_ptr->trait3 & TRAIT3_ARTHRITIS)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇ¢Ç¬Ç‡ä÷êﬂÇ…í…Ç›Çä¥Ç∂ÇƒÇ¢ÇÈÅB(äÌóp-3)\n");
@@ -3172,7 +3172,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕÇ¢Ç¬Ç‡ä÷êﬂÇ…í…Ç›Çä¥Ç∂ÇƒÇ¢ÇÈÅB(äÌóp-3)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_VULN_ELEM)
+		if (cr_ptr->trait3 & TRAIT3_VULN_ELEM)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕå≥ëfÇÃçUåÇÇ…é„Ç¢ÅB\n");
@@ -3181,7 +3181,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕå≥ëfÇÃçUåÇÇ…é„Ç¢ÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_MOTION)
+		if (cr_ptr->trait3 & TRAIT3_MOTION)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÃìÆçÏÇÕê≥ämÇ≈óÕã≠Ç¢ÅB(âBñß+1)\n");
@@ -3190,7 +3190,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÃìÆçÏÇÕê≥ämÇ≈óÕã≠Ç¢ÅB(âBñß+1)\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_GOOD_LUCK)
+		if (cr_ptr->trait3 & TRAIT3_GOOD_LUCK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕîíÇ¢ÉIÅ[ÉâÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB\n");
@@ -3199,7 +3199,7 @@ fprintf(OutFile, " Ç†Ç»ÇΩÇÕîíÇ¢ÉIÅ[ÉâÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB\n");
 #endif
 
 		}
-		if (cr_ptr->trait3 & MUT3_BAD_LUCK)
+		if (cr_ptr->trait3 & TRAIT3_BAD_LUCK)
 		{
 #ifdef JP
 fprintf(OutFile, " Ç†Ç»ÇΩÇÕçïÇ¢ÉIÅ[ÉâÇ…Ç¬Ç¬Ç‹ÇÍÇƒÇ¢ÇÈÅB\n");
@@ -3313,7 +3313,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 	switch (power)
 	{
-		case MUT1_SPIT_ACID:
+		case TRAIT1_SPIT_ACID:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(cr_ptr);
 #ifdef JP
@@ -3325,7 +3325,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			fire_ball(GF_ACID, dir, lvl, 1 + (lvl / 30));
 			break;
 
-		case MUT1_BR_FIRE:
+		case TRAIT1_BR_FIRE:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(cr_ptr);
 #ifdef JP
@@ -3337,7 +3337,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			fire_ball(GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
 			break;
 
-		case MUT1_HYPN_GAZE:
+		case TRAIT1_HYPN_GAZE:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("Ç†Ç»ÇΩÇÃñ⁄ÇÕå∂òfìIÇ…Ç»Ç¡ÇΩ...");
@@ -3348,7 +3348,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			(void)charm_monster(dir, lvl);
 			break;
 
-		case MUT1_TELEKINES:
+		case TRAIT1_TELEKINES:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("èWíÜÇµÇƒÇ¢ÇÈ...");
@@ -3359,7 +3359,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			fetch(cr_ptr, dir, lvl * 10, TRUE);
 			break;
 
-		case MUT1_VTELEPORT:
+		case TRAIT1_VTELEPORT:
 #ifdef JP
 			msg_print("èWíÜÇµÇƒÇ¢ÇÈ...");
 #else
@@ -3369,7 +3369,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			teleport_player(cr_ptr, 10 + 4 * lvl, 0L);
 			break;
 
-		case MUT1_MIND_BLST:
+		case TRAIT1_MIND_BLST:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("èWíÜÇµÇƒÇ¢ÇÈ...");
@@ -3380,7 +3380,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			fire_bolt(GF_PSI, dir, damroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
-		case MUT1_RADIATION:
+		case TRAIT1_RADIATION:
 #ifdef JP
 			msg_print("ëÃÇ©ÇÁï˙éÀî\Ç™î≠ê∂ÇµÇΩÅI");
 #else
@@ -3390,7 +3390,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			fire_ball(GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
 			break;
 
-		case MUT1_VAMPIRISM:
+		case TRAIT1_VAMPIRISM:
 			{
 				int x, y, dummy;
 				cave_type *c_ptr;
@@ -3453,21 +3453,21 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_SMELL_MET:
+		case TRAIT1_SMELL_MET:
 			mutation_stop_mouth(cr_ptr);
 			(void)detect_treasure(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		case MUT1_SMELL_MON:
+		case TRAIT1_SMELL_MON:
 			mutation_stop_mouth(cr_ptr);
 			(void)detect_monsters_normal(cr_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		case MUT1_BLINK:
+		case TRAIT1_BLINK:
 			teleport_player(cr_ptr, 10, 0L);
 			break;
 
-		case MUT1_EAT_ROCK:
+		case TRAIT1_EAT_ROCK:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -3556,7 +3556,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_SWAP_POS:
+		case TRAIT1_SWAP_POS:
 			project_length = -1;
 			if (!get_aim_dir(cr_ptr, &dir))
 			{
@@ -3567,17 +3567,17 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			project_length = 0;
 			break;
 
-		case MUT1_SHRIEK:
+		case TRAIT1_SHRIEK:
 			mutation_stop_mouth(cr_ptr);
 			(void)fire_ball(GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_monsters(NULL);
 			break;
 
-		case MUT1_ILLUMINE:
+		case TRAIT1_ILLUMINE:
 			(void)lite_area(cr_ptr, damroll(2, (lvl / 2)), (lvl / 10) + 1);
 			break;
 
-		case MUT1_DET_CURSE:
+		case TRAIT1_DET_CURSE:
 			{
 				int i;
 
@@ -3593,13 +3593,13 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_BERSERK:
+		case TRAIT1_BERSERK:
 			(void)set_shero(cr_ptr, randint1(25) + 25, FALSE);
 			(void)hp_player(cr_ptr, 30);
 			(void)set_afraid(cr_ptr, 0);
 			break;
 
-		case MUT1_POLYMORPH:
+		case TRAIT1_POLYMORPH:
 #ifdef JP
 			if (!get_check("ïœêgÇµÇ‹Ç∑ÅBÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH")) return FALSE;
 #else
@@ -3608,12 +3608,12 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			do_poly_self(cr_ptr);
 			break;
 
-		case MUT1_MIDAS_TCH:
+		case TRAIT1_MIDAS_TCH:
 			if (!alchemy(cr_ptr)) return FALSE;
 			break;
 
 		/* Summon pet molds around the player */
-		case MUT1_GROW_MOLD:
+		case TRAIT1_GROW_MOLD:
 			{
 				int i;
 				for (i = 0; i < 8; i++)
@@ -3623,7 +3623,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_RESIST:
+		case TRAIT1_RESIST:
 			{
 				int num = lvl / 10;
 				int dur = randint1(20) + 20;
@@ -3656,19 +3656,19 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_EARTHQUAKE:
+		case TRAIT1_EARTHQUAKE:
 			(void)earthquake(cr_ptr->fy, cr_ptr->fx, 10);
 			break;
 
-		case MUT1_EAT_MAGIC:
+		case TRAIT1_EAT_MAGIC:
 			if (!eat_magic(cr_ptr, cr_ptr->lev * 2)) return FALSE;
 			break;
 
-		case MUT1_WEIGH_MAG:
+		case TRAIT1_WEIGH_MAG:
 			report_magics(cr_ptr);
 			break;
 
-		case MUT1_STERILITY:
+		case TRAIT1_STERILITY:
 			/* Fake a population explosion. */
 #ifdef JP
 			msg_print("ìÀëRì™Ç™í…Ç≠Ç»Ç¡ÇΩÅI");
@@ -3681,7 +3681,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			num_repro += MAX_REPRO;
 			break;
 
-		case MUT1_PANIC_HIT:
+		case TRAIT1_PANIC_HIT:
 			{
 				int x, y;
 
@@ -3712,22 +3712,22 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_DAZZLE:
+		case TRAIT1_DAZZLE:
 			stun_monsters(lvl * 4);
 			confuse_monsters(lvl * 4);
 			turn_monsters(lvl * 4);
 			break;
 
-		case MUT1_LASER_EYE:
+		case TRAIT1_LASER_EYE:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			fire_beam(GF_LITE, dir, 2 * lvl);
 			break;
 
-		case MUT1_RECALL:
+		case TRAIT1_RECALL:
 			if (!word_of_recall(cr_ptr)) return FALSE;
 			break;
 
-		case MUT1_BANISH:
+		case TRAIT1_BANISH:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -3790,7 +3790,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		case MUT1_COLD_TOUCH:
+		case TRAIT1_COLD_TOUCH:
 			{
 				int x, y;
 				cave_type *c_ptr;
@@ -3814,8 +3814,8 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			}
 			break;
 
-		/* XXX_XXX_XXX Hack!  MUT1_LAUNCHER is negative, see above */
-		case 3: /* MUT1_LAUNCHER */
+		/* XXX_XXX_XXX Hack!  TRAIT1_LAUNCHER is negative, see above */
+		case 3: /* TRAIT1_LAUNCHER */
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
 			if (!do_cmd_throw_aux(cr_ptr, 2 + lvl / 40, FALSE, 0)) return FALSE;
 			break;

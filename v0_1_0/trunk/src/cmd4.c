@@ -5067,7 +5067,7 @@ void do_cmd_feeling(creature_type *cr_ptr)
 	}
 
 	/* Display the feeling */
-	if (cr_ptr->trait3 & MUT3_GOOD_LUCK)
+	if (cr_ptr->trait3 & TRAIT3_GOOD_LUCK)
 		msg_print(do_cmd_feeling_text_lucky[cr_ptr->feeling]);
 	else if (cr_ptr->chara_idx == CHARA_COMBAT ||
 		 cr_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON)

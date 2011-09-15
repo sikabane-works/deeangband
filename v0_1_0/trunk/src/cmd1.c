@@ -1905,7 +1905,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 	switch (attack)
 	{
-		case MUT2_SCOR_TAIL:
+		case TRAIT2_SCOR_TAIL:
 			dss = 3;
 			ddd = 7;
 			n_weight = 5;
@@ -1916,7 +1916,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case MUT2_HORNS:
+		case TRAIT2_HORNS:
 			dss = 2;
 			ddd = 6;
 			n_weight = 15;
@@ -1927,7 +1927,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case MUT2_BEAK:
+		case TRAIT2_BEAK:
 			dss = 2;
 			ddd = 4;
 			n_weight = 5;
@@ -1938,7 +1938,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case MUT2_TRUNK:
+		case TRAIT2_TRUNK:
 			dss = 1;
 			ddd = 4;
 			n_weight = 35;
@@ -1949,7 +1949,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case MUT2_TENTACLES:
+		case TRAIT2_TENTACLES:
 			dss = 2;
 			ddd = 5;
 			n_weight = 5;
@@ -2016,19 +2016,19 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		/* Damage, check for fear and mdeath */
 		switch (attack)
 		{
-			case MUT2_SCOR_TAIL:
+			case TRAIT2_SCOR_TAIL:
 				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
-			case MUT2_HORNS:
+			case TRAIT2_HORNS:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case MUT2_BEAK:
+			case TRAIT2_BEAK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case MUT2_TRUNK:
+			case TRAIT2_TRUNK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case MUT2_TENTACLES:
+			case TRAIT2_TENTACLES:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
@@ -3208,7 +3208,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	energy_use = 100;
 
 	if (!atk_ptr->migite && !atk_ptr->hidarite &&
-	    !(atk_ptr->trait2 & (MUT2_HORNS | MUT2_BEAK | MUT2_SCOR_TAIL | MUT2_TRUNK | MUT2_TENTACLES)))
+	    !(atk_ptr->trait2 & (TRAIT2_HORNS | TRAIT2_BEAK | TRAIT2_SCOR_TAIL | TRAIT2_TRUNK | TRAIT2_TENTACLES)))
 	{
 #ifdef JP
 		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(atk_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
@@ -3409,16 +3409,16 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if ((atk_ptr->trait2 & MUT2_HORNS) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, MUT2_HORNS, &fear, &mdeath);
-		if ((atk_ptr->trait2 & MUT2_BEAK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, MUT2_BEAK, &fear, &mdeath);
-		if ((atk_ptr->trait2 & MUT2_SCOR_TAIL) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, MUT2_SCOR_TAIL, &fear, &mdeath);
-		if ((atk_ptr->trait2 & MUT2_TRUNK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, MUT2_TRUNK, &fear, &mdeath);
-		if ((atk_ptr->trait2 & MUT2_TENTACLES) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, MUT2_TENTACLES, &fear, &mdeath);
+		if ((atk_ptr->trait2 & TRAIT2_HORNS) && !mdeath)
+			natural_attack(atk_ptr, tar_ptr, TRAIT2_HORNS, &fear, &mdeath);
+		if ((atk_ptr->trait2 & TRAIT2_BEAK) && !mdeath)
+			natural_attack(atk_ptr, tar_ptr, TRAIT2_BEAK, &fear, &mdeath);
+		if ((atk_ptr->trait2 & TRAIT2_SCOR_TAIL) && !mdeath)
+			natural_attack(atk_ptr, tar_ptr, TRAIT2_SCOR_TAIL, &fear, &mdeath);
+		if ((atk_ptr->trait2 & TRAIT2_TRUNK) && !mdeath)
+			natural_attack(atk_ptr, tar_ptr, TRAIT2_TRUNK, &fear, &mdeath);
+		if ((atk_ptr->trait2 & TRAIT2_TENTACLES) && !mdeath)
+			natural_attack(atk_ptr, tar_ptr, TRAIT2_TENTACLES, &fear, &mdeath);
 	}
 
 
@@ -4117,7 +4117,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
-		    ((cr_ptr->trait2 & MUT2_BERS_RAGE) && cr_ptr->shero)) &&
+		    ((cr_ptr->trait2 & TRAIT2_BERS_RAGE) && cr_ptr->shero)) &&
 		    pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
