@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 10
+#define VER_PATCH 11
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -228,9 +228,16 @@
 #define REW_SER_DEMO    35
 #define REW_SER_MONS    36
 
-/* Chaos mutations */
+/* TRAITS */
 
-/* "Activatable" mutations must be in TRAIT1_* */
+/* TRAIT TYPES */
+#define TRAITTYPE_MUTATION            0
+#define TRAITTYPE_UNDEAD              10
+#define TRAITTYPE_ELDAR_LINGAGE       20
+#define TRAITTYPE_DRAGONBONE_LINGAGE  21
+#define TRAITTYPE_GREAT_ANCESTOR      22
+
+/* TRAIT1_* */
 #define TRAIT1_SPIT_ACID                  0x00000001L
 #define TRAIT1_BR_FIRE                    0x00000002L
 #define TRAIT1_HYPN_GAZE                  0x00000004L
@@ -264,7 +271,7 @@
 #define TRAIT1_COLD_TOUCH                 0x40000000L
 #define TRAIT1_LAUNCHER                   0x80000000L
 
-/* Randomly activating mutations must be TRAIT2_* */
+/* TRAIT2_* */
 #define TRAIT2_BERS_RAGE                  0x00000001L
 #define TRAIT2_COWARDICE                  0x00000002L
 #define TRAIT2_RTELEPORT                  0x00000004L /* Random teleport, instability */
@@ -299,9 +306,7 @@
 #define TRAIT2_DISARM                     0x80000000L
 
 
-
-/* Other mutations will be mainly in TRAIT3_* */
-
+/* TRAIT3_* */
 #define TRAIT3_HYPER_STR                  0x00000001L
 #define TRAIT3_PUNY                       0x00000002L
 #define TRAIT3_HYPER_INT                  0x00000004L

@@ -1420,6 +1420,11 @@ static void rd_creature(creature_type *cr_ptr)
 		cr_ptr->trait1 = 0;
 		cr_ptr->trait2 = 0;
 		cr_ptr->trait3 = 0;
+		cr_ptr->trait4 = 0;
+		cr_ptr->trait5 = 0;
+		cr_ptr->trait6 = 0;
+		cr_ptr->trait7 = 0;
+		cr_ptr->trait8 = 0;
 	}
 	else
 	{
@@ -1448,6 +1453,11 @@ static void rd_creature(creature_type *cr_ptr)
 		rd_u32b(&cr_ptr->trait1);
 		rd_u32b(&cr_ptr->trait2);
 		rd_u32b(&cr_ptr->trait3);
+		rd_u32b(&cr_ptr->trait4);
+		rd_u32b(&cr_ptr->trait5);
+		rd_u32b(&cr_ptr->trait6);
+		rd_u32b(&cr_ptr->trait7);
+		rd_u32b(&cr_ptr->trait8);
 
 		for (i = 0; i < MAX_KARMA; i++)
 			rd_s32b(&cr_ptr->karmas[i]);

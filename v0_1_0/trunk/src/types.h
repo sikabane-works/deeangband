@@ -1237,6 +1237,11 @@ struct creature_type
 	u32b trait1;
 	u32b trait2;
 	u32b trait3;
+	u32b trait4;
+	u32b trait5;
+	u32b trait6;
+	u32b trait7;
+	u32b trait8;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
@@ -1960,3 +1965,10 @@ typedef struct karma_type {
 } karma_type;
 
 
+typedef struct trait_type {
+	cptr title;			/* Name */
+#ifdef JP
+	cptr E_title;		/* English Name */
+#endif
+	byte type;			/* Trait Type*/
+} trait_type;
