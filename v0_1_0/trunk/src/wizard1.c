@@ -1840,15 +1840,15 @@ static void spoil_mon_desc(cptr fname)
 		for(j = A_STR; j <= A_CHR; j++)
 		{
 			stat[j] = r_ptr->stat[j] / 10;
-			if(r_ptr->i_race != RACE_NONE)
-				stat[j] += race_info[r_ptr->i_race].r_adj[j];
-			if(r_ptr->i_class != CLASS_NONE)
-				stat[j] += class_info[r_ptr->i_class].c_adj[j];
+			if(r_ptr->irace_idx != RACE_NONE)
+				stat[j] += race_info[r_ptr->irace_idx].r_adj[j];
+			if(r_ptr->cls_idx != CLASS_NONE)
+				stat[j] += class_info[r_ptr->cls_idx].c_adj[j];
 			/* TODO
-			if(r_ptr->i_faith != PATRON_NONE)
-				stat[j] += player_patrons[r_ptr->i_class].p_adj[j];*/
-			if(r_ptr->i_chara != CHARA_NONE)
-				stat[j] += chara_info[r_ptr->i_chara].a_adj[j];
+			if(r_ptr->patron_idx != PATRON_NONE)
+				stat[j] += player_patrons[r_ptr->cls_idx].p_adj[j];*/
+			if(r_ptr->chara_idx != CHARA_NONE)
+				stat[j] += chara_info[r_ptr->chara_idx].a_adj[j];
 		}
 
 		if(r_ptr->flags2 & RF2_STUPID){
@@ -1987,10 +1987,10 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->i_race < MAX_RACES)
+		else if(r_ptr->irace_idx < MAX_RACES)
 		{
 			strcat(trait, "/Ží‘°:");
-			strcat(trait, race_info[r_ptr->i_race].title);
+			strcat(trait, race_info[r_ptr->irace_idx].title);
 		}
 
 		if(r_ptr->flagse & RFE_CLASS_EGO) 
@@ -2003,10 +2003,10 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->i_class < MAX_CLASS)
+		else if(r_ptr->cls_idx < MAX_CLASS)
 		{
 			strcat(trait, "/E‹Æ:");
-			strcat(trait, class_info[r_ptr->i_class].title);
+			strcat(trait, class_info[r_ptr->cls_idx].title);
 		}
 
 		if(r_ptr->flagse & RFE_CHARA_EGO) 
@@ -2019,10 +2019,10 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->i_chara < MAX_CHARA)
+		else if(r_ptr->chara_idx < MAX_CHARA)
 		{
 			strcat(trait, "/«Ši:");
-			strcat(trait, chara_info[r_ptr->i_chara].title);
+			strcat(trait, chara_info[r_ptr->chara_idx].title);
 		}
 
 		if(r_ptr->flagse & RFE_PATRON_EGO) 
@@ -2035,10 +2035,10 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->i_faith < MAX_PATRON)
+		else if(r_ptr->patron_idx < MAX_PATRON)
 		{
 			strcat(trait, "/Žå_:");
-			strcat(trait, r_name + r_info[r_ptr->i_faith].name);
+			strcat(trait, r_name + r_info[r_ptr->patron_idx].name);
 		}
 
 		if(r_ptr->flagse & RFE_FORCE_LESSER) 

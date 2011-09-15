@@ -3328,8 +3328,8 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 	else
 	{
-		rpr_ptr = &race_info[r_ptr->i_race];
-		rpr_selected = r_ptr->i_race;
+		rpr_ptr = &race_info[r_ptr->irace_idx];
+		rpr_selected = r_ptr->irace_idx;
 	}
 
 	// set class
@@ -3341,7 +3341,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 	else
 	{
-		rpc_selected = r_ptr->i_class;
+		rpc_selected = r_ptr->cls_idx;
 	}
 
 	// set character
@@ -3353,7 +3353,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 	else
 	{
-		rps_selected = r_ptr->i_chara;
+		rps_selected = r_ptr->chara_idx;
 	}
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
@@ -3813,9 +3813,9 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	/* Save the categories */
 	m_ptr->species_idx = species_idx;
 	m_ptr->monster_ego_idx = 0;
-	m_ptr->irace_idx = (s16b)r_ptr->i_race;
-	m_ptr->cls_idx = (byte)r_ptr->i_class;
-	m_ptr->chara_idx = (byte)r_ptr->i_chara;
+	m_ptr->irace_idx = (s16b)r_ptr->irace_idx;
+	m_ptr->cls_idx = (byte)r_ptr->cls_idx;
+	m_ptr->chara_idx = (byte)r_ptr->chara_idx;
 	m_ptr->ap_species_idx = species_idx;
 
 	/* MISC parameter*/

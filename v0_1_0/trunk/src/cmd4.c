@@ -5477,7 +5477,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		else if (cls != 255)
 		{
-			if (r_ptr->i_class != cls) continue;
+			if (r_ptr->cls_idx != cls) continue;
 		}
 
 		else if (ego == 1)

@@ -2879,10 +2879,10 @@ errr parse_r_info(char *buf, header *head)
 	{
 		int i_race, i_class, i_faith, i_chara, magic1, magic2;
 		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara, &magic1, &magic2)) return (1);
-		r_ptr->i_race = i_race;
-		r_ptr->i_class = i_class;
-		r_ptr->i_faith = i_faith;
-		r_ptr->i_chara = i_chara;
+		r_ptr->irace_idx = i_race;
+		r_ptr->cls_idx = i_class;
+		r_ptr->patron_idx = i_faith;
+		r_ptr->chara_idx = i_chara;
 		r_ptr->magic1 = magic1;
 		r_ptr->magic2 = magic2;
 	}

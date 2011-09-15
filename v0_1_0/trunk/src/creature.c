@@ -384,14 +384,14 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	size = calc_monster_standard_size(mr_ptr);
 
 	dice = size >= 10 ? 5 + size / 2 : size;
-	if (mr_ptr->i_race != RACE_NONE)
-		dice += race_info[mr_ptr->i_race].r_mhp;
-	if (mr_ptr->i_class == CLASS_SORCERER)
+	if (mr_ptr->irace_idx != RACE_NONE)
+		dice += race_info[mr_ptr->irace_idx].r_mhp;
+	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
-	if (mr_ptr->i_class != CLASS_NONE)
-		dice += class_info[mr_ptr->i_class].c_mhp;
-	if (mr_ptr->i_chara != CHARA_NONE)
-		dice += chara_info[mr_ptr->i_chara].a_mhp;
+	if (mr_ptr->cls_idx != CLASS_NONE)
+		dice += class_info[mr_ptr->cls_idx].c_mhp;
+	if (mr_ptr->chara_idx != CHARA_NONE)
+		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
 	con_p = mr_ptr->stat[A_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;
