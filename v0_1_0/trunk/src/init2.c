@@ -439,8 +439,7 @@ static void init_header(header *head, int num, int len)
  * Note that we let each entry have a unique "name" and "text" string,
  * even if the string happens to be empty (everyone has a unique '\0').
  */
-static errr init_info(cptr filename, header *head,
-		      void **info, char **name, char **text, char **tag)
+static errr init_info(cptr filename, header *head, void **info, char **name, char **text, char **tag)
 {
 	int fd;
 
@@ -677,6 +676,8 @@ static errr init_info(cptr filename, header *head,
 	/* Success */
 	return (0);
 }
+
+
 
 
 /*

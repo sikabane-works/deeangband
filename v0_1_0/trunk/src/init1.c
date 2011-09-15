@@ -47,7 +47,28 @@
 #include "init.h"
 
 
-/*** Helper arrays for parsing ascii template files ***/
+/*** Monster CSV List ***/
+
+static cptr r_info_csv_list[] =
+{
+	"NAME",
+	"E_NAME",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
+};
+
+#define R_INFO_NAME			0
+#define R_INFO_E_NAME		1
+#define R_INFO_STR			2
+#define R_INFO_INT			3
+#define R_INFO_WIS			4
+#define R_INFO_DEX			5
+#define R_INFO_CON			6
+#define R_INFO_CHA			7
 
 /*
  * Monster Blow Methods
@@ -2682,8 +2703,6 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 	/* Failure */
 	return (1);
 }
-
-
 
 
 /*
