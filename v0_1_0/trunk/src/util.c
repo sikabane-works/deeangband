@@ -529,6 +529,101 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 }
 
 
+
+
+/*
+ * my_fgets_csv
+ */
+errr my_fgets_csv(FILE *fff, char *buf, huge n, char delimiter, char enclosure)
+{
+	huge i = 0;
+
+	char *s;
+
+	char tmp[1024];
+
+	/* Read a line */
+	if (fgets(tmp, 1024, fff))
+	{
+		/* Convert weirdness */
+		for (s = tmp; *s; s++)
+		{
+#if defined(MACINTOSH) || defined(MACH_O_CARBON)
+
+			/*
+			 * Be nice to the Macintosh, where a file can have Mac or Unix
+			 * end of line, especially since the introduction of OS X.
+			 * MPW tools were also very tolerant to the Unix EOL.
+			 */
+			if (*s == '\r') *s = '\n';
+
+#endif /* MACINTOSH || MACH_O_CARBON */
+
+			/* Handle newline */
+			if (*s == '\n')
+			{
+				/* Terminate */
+				buf[i] = '\0';
+
+				/* Success */
+				return (0);
+			}
+
+			/* Handle tabs */
+			else if (*s == '\t')
+			{
+				/* Hack -- require room */
+				if (i + 8 >= n) break;
+
+				/* Append a space */
+				buf[i++] = ' ';
+
+				/* Append some more spaces */
+				while (0 != (i % 8)) buf[i++] = ' ';
+			}
+
+#ifdef JP
+			else if (iskanji(*s))
+			{
+				if (!s[1]) break;
+				buf[i++] = *s++;
+				buf[i++] = *s;
+			}
+
+			/* ”¼Šp‚©‚È‚É‘Î‰ž */
+			else if (iskana(*s))
+			{
+				buf[i++] = *s;
+				if (i >= n) break;
+			}
+#endif
+			/* Handle printables */
+			else if (isprint(*s))
+			{
+				/* Copy */
+				buf[i++] = *s;
+
+				/* Check length */
+				if (i >= n) break;
+			}
+		}
+		/* No newline character, but terminate */
+		buf[i] = '\0';
+
+		/* Success */
+		return (0);
+	}
+
+	/* Nothing */
+	buf[0] = '\0';
+
+	/* Failure */
+	return (1);
+}
+
+
+
+
 /*
  * Hack -- replacement for "fputs()"
  *

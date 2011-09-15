@@ -2738,6 +2738,8 @@ errr parse_r_csv(char *buf, header *head)
 			return (1); /* Error */
 		}
 	}
+
+	return (0);
 }
 
 /*
