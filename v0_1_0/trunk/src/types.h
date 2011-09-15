@@ -293,12 +293,43 @@ struct mbe_info_type
  * monster recall (no knowledge of spells, etc).  All of the "recall"
  * fields have a special prefix to aid in searching for them.
  */
-
-
+/*
+ * A structure to hold "rolled" information
+ */
 typedef struct species_type species_type;
 
 struct species_type
 {
+	s16b sex;         /* Sex index */
+	s16b irace_idx;        /* Race index */
+	s16b species_idx;			    /* Monster race index */
+	s16b monster_ego_idx;		    /* Monster ego index */
+	s16b ap_species_idx;		    /* Monster race appearance index */
+	u32b sub_race[8];    /* Sub-Race index */
+	s16b patron_idx;
+	byte cls_idx;       /* Class index */
+	byte chara_idx;     /* CHARA index */
+	byte realm1;       /* First magic realm */
+	byte realm2;       /* Second magic realm */
+	u32b authority[8];      /* Autority flags*/
+
+	s32b age;
+	s32b ht;
+	s32b wt;
+	s16b sc;
+
+	s32b au;
+
+	s16b stat_max[6];	/* Current "maximal" stat values */
+	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
+	s16b player_hp[PY_MAX_LEVEL];
+
+	s32b karmas[MAX_KARMA];
+
+	char history[4][60];
+
+	bool quick_ok;
+
 	u32b name;				/* Name (offset) */
 #ifdef JP
 	u32b E_name;                    /* ‰pŒê–¼ (offset) */
@@ -317,8 +348,6 @@ struct species_type
 
 	s16b stat[6];		/* Current modified stats */
 	s16b dr;			/* Divine Rank */
-	u32b age;			/* Age */
-	u16b sc;			/* Social Class */
 
 	s16b ac;				/* Armour Class */
 
@@ -413,8 +442,9 @@ struct species_type
 	u32b magic1;
 	u32b magic2;
 
-
 };
+
+
 
 /*
  * Information about "monster_ego"
@@ -1525,45 +1555,6 @@ struct creature_type
 
 	species_blow blow[4];	/* Up to four blows per round */
 
-};
-
-
-/*
- * A structure to hold "rolled" information
- */
-typedef struct birther birther;
-
-struct birther
-{
-	s16b sex;         /* Sex index */
-	s16b irace_idx;        /* Race index */
-	s16b species_idx;			    /* Monster race index */
-	s16b monster_ego_idx;		    /* Monster ego index */
-	s16b ap_species_idx;		    /* Monster race appearance index */
-	u32b sub_race[8];    /* Sub-Race index */
-	s16b patron_idx;
-	byte cls_idx;       /* Class index */
-	byte chara_idx;     /* CHARA index */
-	byte realm1;       /* First magic realm */
-	byte realm2;       /* Second magic realm */
-	u32b authority[8];      /* Autority flags*/
-
-	s32b age;
-	s32b ht;
-	s32b wt;
-	s16b sc;
-
-	s32b au;
-
-	s16b stat_max[6];	/* Current "maximal" stat values */
-	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
-	s16b player_hp[PY_MAX_LEVEL];
-
-	s32b karmas[MAX_KARMA];
-
-	char history[4][60];
-
-	bool quick_ok;
 };
 
 

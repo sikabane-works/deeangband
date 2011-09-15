@@ -471,7 +471,7 @@ extern u32b play_window;		/* Window Redraws (bit flags) */
 extern bool wizard;		      /* (Player Only) wizard mode */
 
 
-extern birther previous_char;
+extern species_type previous_char;
 extern vault_type *v_info;
 extern char *v_name;
 extern char *v_text;
@@ -670,7 +670,7 @@ extern void class_detail(int code);
 extern void chara_detail(int code);
 extern void realm_detail(int code);
 extern void init_dungeon_quests(void);
-extern void save_prev_data(creature_type *cr_ptr, birther *birther_ptr);
+extern void save_prev_data(creature_type *cr_ptr, species_type *species_ptr);
 extern void load_prev_data(creature_type *cr_ptr, bool swap);
 
 

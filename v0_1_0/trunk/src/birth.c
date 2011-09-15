@@ -2349,49 +2349,49 @@ static bool get_creature_realms(creature_type *cr_ptr, bool auto_m)
 /*
  * Save the current data for later
  */
-void save_prev_data(creature_type *cr_ptr, birther *birther_ptr)
+void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 {
 	int i;
 
 	/* Save the data */
-	birther_ptr->sex = cr_ptr->sex;
-	birther_ptr->irace_idx = cr_ptr->irace_idx;
-	birther_ptr->species_idx = cr_ptr->species_idx;
-	birther_ptr->ap_species_idx = cr_ptr->ap_species_idx;
-	birther_ptr->cls_idx = cr_ptr->cls_idx;
-	birther_ptr->chara_idx = cr_ptr->chara_idx;
-	birther_ptr->realm1 = cr_ptr->realm1;
-	birther_ptr->realm2 = cr_ptr->realm2;
-	birther_ptr->age = cr_ptr->age;
-	birther_ptr->ht = cr_ptr->ht;
-	birther_ptr->wt = cr_ptr->wt;
-	birther_ptr->sc = cr_ptr->sc;
-	birther_ptr->au = cr_ptr->au;
+	species_ptr->sex = cr_ptr->sex;
+	species_ptr->irace_idx = cr_ptr->irace_idx;
+	species_ptr->species_idx = cr_ptr->species_idx;
+	species_ptr->ap_species_idx = cr_ptr->ap_species_idx;
+	species_ptr->cls_idx = cr_ptr->cls_idx;
+	species_ptr->chara_idx = cr_ptr->chara_idx;
+	species_ptr->realm1 = cr_ptr->realm1;
+	species_ptr->realm2 = cr_ptr->realm2;
+	species_ptr->age = cr_ptr->age;
+	species_ptr->ht = cr_ptr->ht;
+	species_ptr->wt = cr_ptr->wt;
+	species_ptr->sc = cr_ptr->sc;
+	species_ptr->au = cr_ptr->au;
 
 	/* Save the stats */
 	for (i = 0; i < 6; i++)
 	{
-		birther_ptr->stat_max[i] = cr_ptr->stat_max[i];
-		birther_ptr->stat_max_max[i] = cr_ptr->stat_max_max[i];
+		species_ptr->stat_max[i] = cr_ptr->stat_max[i];
+		species_ptr->stat_max_max[i] = cr_ptr->stat_max_max[i];
 	}
 
 	/* Save the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		birther_ptr->player_hp[i] = cr_ptr->player_hp[i];
+		species_ptr->player_hp[i] = cr_ptr->player_hp[i];
 	}
 
-	birther_ptr->patron_idx = cr_ptr->patron_idx;
+	species_ptr->patron_idx = cr_ptr->patron_idx;
 
 	/* Save the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(birther_ptr->history[i], cr_ptr->history[i]);
+		strcpy(species_ptr->history[i], cr_ptr->history[i]);
 	}
 
 	for (i = 0; i < 8; i++)
 	{
-		birther_ptr->authority[i] = cr_ptr->authority[i];
+		species_ptr->authority[i] = cr_ptr->authority[i];
 	}
 
 }
@@ -2404,7 +2404,7 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 {
 	int i;
 
-	birther	temp;
+	species_type temp;
 
 	/*** Save the current data ***/
 	if (swap) save_prev_data(cr_ptr, &temp);
@@ -2460,7 +2460,7 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	/*** Save the previous data ***/
 	if (swap)
 	{
-		COPY(&previous_char, &temp, birther);
+		COPY(&previous_char, &temp, species_type);
 	}
 }
 
