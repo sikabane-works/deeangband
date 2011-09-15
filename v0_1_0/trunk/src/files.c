@@ -2013,7 +2013,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	/* Dump Day */
 	{
 		int day, hour, min;
-		extract_day_hour_min(&day, &hour, &min);
+		extract_day_hour_min(cr_ptr, &day, &hour, &min);
 
 #ifdef JP
 		if (day < MAX_DAYS) sprintf(buf, "%d“ú–Ú %2d:%02d", day, hour, min);

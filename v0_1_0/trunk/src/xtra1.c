@@ -151,7 +151,7 @@ bool is_daytime(void)
 /*
  * Extract day, hour, min
  */
-void extract_day_hour_min(int *day, int *hour, int *min)
+void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
 {
 	const s32b A_DAY = TURNS_PER_TICK * TOWN_DAWN;
 	s32b turn_in_today = (turn + A_DAY / 4) % A_DAY;
@@ -182,7 +182,7 @@ void prt_time(void)
 	/* Dump 13 spaces to clear */
 	c_put_str(TERM_WHITE, "             ", ROW_DAY, COL_DAY);
 
-	extract_day_hour_min(&day, &hour, &min);
+	extract_day_hour_min(p_ptr, &day, &hour, &min);
 
 	/* Dump the info itself */
 #ifdef JP
@@ -6317,7 +6317,7 @@ void window_stuff(void)
 
 
 /*
- * Handle "p_ptr->update" and "play_redraw" and "play_window"
+ * Handle "update" and "play_redraw" and "play_window"
  */
 void handle_stuff(creature_type *cr_ptr)
 {

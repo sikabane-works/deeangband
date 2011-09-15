@@ -2814,7 +2814,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				s32b oldturn = turn;
 				int prev_day, prev_hour, prev_min;
 
-				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
+				extract_day_hour_min(cr_ptr, &prev_day, &prev_hour, &prev_min);
 #ifdef JP
 				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "宿屋に泊まった。");
 #else
