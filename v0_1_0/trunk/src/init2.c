@@ -432,9 +432,251 @@ static void init_header(header *head, int num, int len)
 	head->info_size = head->info_num * head->info_len;
 }
 
+/*
+ * Initialize the "*_info.csv" array
+ */
+
+static errr init_info_csv(cptr filename, header *head, void **info, char **name, char **text, char **tag)
+{
+	int fd;
+
+	int mode = 0644;
+
+	errr err = 1;
+
+	FILE *fp;
+
+	/* General buffer */
+	char buf[1024];
+
+
+#ifdef ALLOW_TEMPLATES
+
+	/*** Load the binary image file ***/
+
+	/* Build the filename */
+#ifdef JP
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
+#else
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
+#endif
+
+
+	/* Attempt to open the "raw" file */
+	fd = fd_open(buf, O_RDONLY);
+
+	/* Process existing "raw" file */
+	if (fd >= 0)
+	{
+#ifdef CHECK_MODIFICATION_TIME
+
+		err = check_modification_date(fd, format("%s.csv", filename));
+
+#endif /* CHECK_MODIFICATION_TIME */
+
+		/* Attempt to parse the "raw" file */
+		if (!err)
+			err = init_info_raw(fd, head);
+
+		/* Close it */
+		(void)fd_close(fd);
+	}
+
+	/* Do we have to parse the *.csv file? */
+	if (err)
+	{
+		/*** Make the fake arrays ***/
+
+		/* Allocate the "*_info" array */
+		C_MAKE(head->info_ptr, head->info_size, char);
+
+		/* Hack -- make "fake" arrays */
+		if (name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
+		if (text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if (tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
+
+		if (info) (*info) = head->info_ptr;
+		if (name) (*name) = head->name_ptr;
+		if (text) (*text) = head->text_ptr;
+		if (tag)  (*tag)  = head->tag_ptr;
+
+		/*** Load the ascii template file ***/
+
+		/* Build the filename */
+
+		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.csv", filename));
+
+		/* Open the file */
+		fp = my_fopen(buf, "r");
+
+		/* Parse it */
+#ifdef JP
+		if (!fp) quit(format("'%s.csv'ファイルをオープンできません。", filename));
+#else
+		if (!fp) quit(format("Cannot open '%s.csv' file.", filename));
+#endif
+
+		/* Parse the file */
+		err = init_info_txt(fp, buf, head, head->parse_info_txt);
+
+		/* Close it */
+		my_fclose(fp);
+
+		/* Errors */
+		if (err)
+		{
+			cptr oops;
+
+#ifdef JP
+			/* Error string */
+			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
+
+			/* Oops */
+			msg_format("'%s.csv'ファイルの %d 行目にエラー。", filename, error_line);
+			msg_format("レコード %d は '%s' エラーがあります。", error_idx, oops);
+			msg_format("構文 '%s'。", buf);
+			msg_print(NULL);
+
+			/* Quit */
+			quit(format("'%s.csv'ファイルにエラー", filename));
+#else
+			/* Error string */
+			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
+
+			/* Oops */
+			msg_format("Error %d at line %d of '%s.csv'.", err, error_line, filename);
+			msg_format("Record %d contains a '%s' error.", error_idx, oops);
+			msg_format("Parsing '%s'.", buf);
+			msg_print(NULL);
+
+			/* Quit */
+			quit(format("Error in '%s.csv' file.", filename));
+#endif
+
+		}
+
+
+		/*** Make final retouch on fake tags ***/
+
+		if (head->retouch)
+		{
+			(*head->retouch)(head);
+		}
+
+
+		/*** Dump the binary image file ***/
+
+		/* File type is "DATA" */
+		FILE_TYPE(FILE_TYPE_DATA);
+
+		/* Build the filename */
+#ifdef JP
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
+#else
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
+#endif
+
+		/* Grab permissions */
+		safe_setuid_grab();
+
+		/* Kill the old file */
+		(void)fd_kill(buf);
+
+		/* Attempt to create the raw file */
+		fd = fd_make(buf, mode);
+
+		/* Drop permissions */
+		safe_setuid_drop();
+
+		/* Dump to the file */
+		if (fd >= 0)
+		{
+			/* Dump it */
+			fd_write(fd, (cptr)(head), head->head_size);
+
+			/* Dump the "*_info" array */
+			fd_write(fd, head->info_ptr, head->info_size);
+
+			/* Dump the "*_name" array */
+			fd_write(fd, head->name_ptr, head->name_size);
+
+			/* Dump the "*_text" array */
+			fd_write(fd, head->text_ptr, head->text_size);
+
+			/* Dump the "*_tag" array */
+			fd_write(fd, head->tag_ptr, head->tag_size);
+
+			/* Close */
+			(void)fd_close(fd);
+		}
+
+
+		/*** Kill the fake arrays ***/
+
+		/* Free the "*_info" array */
+		C_KILL(head->info_ptr, head->info_size, char);
+
+		/* Hack -- Free the "fake" arrays */
+		if (name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
+		if (text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if (tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
+
+#endif	/* ALLOW_TEMPLATES */
+
+
+		/*** Load the binary image file ***/
+
+		/* Build the filename */
+#ifdef JP
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
+#else
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
+#endif
+
+
+		/* Attempt to open the "raw" file */
+		fd = fd_open(buf, O_RDONLY);
+
+		/* Process existing "raw" file */
+#ifdef JP
+		if (fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
+#else
+		if (fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
+#endif
+
+
+		/* Attempt to parse the "raw" file */
+		err = init_info_raw(fd, head);
+
+		/* Close it */
+		(void)fd_close(fd);
+
+		/* Error */
+#ifdef JP
+		if (err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
+#else
+		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
+#endif
+
+#ifdef ALLOW_TEMPLATES
+	}
+#endif
+
+	if (info) (*info) = head->info_ptr;
+	if (name) (*name) = head->name_ptr;
+	if (text) (*text) = head->text_ptr;
+	if (tag)  (*tag)  = head->tag_ptr;
+
+	/* Success */
+	return (0);
+}
+
+
+
+
 
 /*
- * Initialize the "*_info" array
+ * Initialize the "*_info.txt" array
  *
  * Note that we let each entry have a unique "name" and "text" string,
  * even if the string happens to be empty (everyone has a unique '\0').
@@ -2663,6 +2905,10 @@ cptr get_check_sum(void)
 		      m_head.v_extra, 
 		      s_head.v_extra, 
 		      v_head.v_extra);
+}
+
+static errr get_csv_line()
+{
 }
 
 static errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure)
