@@ -1211,10 +1211,15 @@ static void load_quick_start(void)
 	rd_byte(&previous_char.chara_idx);
 	rd_byte(&previous_char.realm1);
 	rd_byte(&previous_char.realm2);
-
 	rd_s32b(&previous_char.age);
-	rd_s32b(&previous_char.ht);
-	rd_s32b(&previous_char.wt);
+	rd_s32b(&previous_char.m_b_ht);
+	rd_s32b(&previous_char.m_m_ht);
+	rd_s32b(&previous_char.f_b_ht);
+	rd_s32b(&previous_char.f_m_ht);
+	rd_s32b(&previous_char.m_b_wt);
+	rd_s32b(&previous_char.m_m_wt);
+	rd_s32b(&previous_char.f_b_wt);
+	rd_s32b(&previous_char.f_m_wt);
 	rd_s16b(&previous_char.sc);
 	rd_s32b(&previous_char.au);
 

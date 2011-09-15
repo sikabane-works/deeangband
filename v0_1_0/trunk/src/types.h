@@ -300,6 +300,12 @@ typedef struct species_type species_type;
 
 struct species_type
 {
+	u32b name;				/* Name (offset) */
+#ifdef JP
+	u32b E_name;                    /* ‰pŒê–¼ (offset) */
+#endif
+	u32b text;				/* Text (offset) */
+
 	s16b species_idx;			    /* Species index */
 	s16b ap_species_idx;		    /* Species appearance index */
 
@@ -316,8 +322,6 @@ struct species_type
 	u32b authority[8];      /* Autority flags*/
 
 	s32b age;
-	s32b ht;
-	s32b wt;
 	s16b sc;
 
 	s32b au;
@@ -331,12 +335,6 @@ struct species_type
 	char history[4][60];
 
 	bool quick_ok;
-
-	u32b name;				/* Name (offset) */
-#ifdef JP
-	u32b E_name;                    /* ‰pŒê–¼ (offset) */
-#endif
-	u32b text;				/* Text (offset) */
 
 	u32b m_b_ht;		/* base height (males) */
 	u32b m_m_ht;		/* mod height (males) */

@@ -2363,8 +2363,14 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	species_ptr->realm1 = cr_ptr->realm1;
 	species_ptr->realm2 = cr_ptr->realm2;
 	species_ptr->age = cr_ptr->age;
-	species_ptr->ht = cr_ptr->ht;
-	species_ptr->wt = cr_ptr->wt;
+	species_ptr->m_b_ht = cr_ptr->ht;
+	species_ptr->m_m_ht = 0;
+	species_ptr->f_b_ht = cr_ptr->ht;
+	species_ptr->f_m_ht = 0;
+	species_ptr->m_b_wt = cr_ptr->wt;
+	species_ptr->m_m_wt = 0;
+	species_ptr->f_b_wt = cr_ptr->wt;
+	species_ptr->f_m_wt = 0;
 	species_ptr->sc = cr_ptr->sc;
 	species_ptr->au = cr_ptr->au;
 
@@ -2422,8 +2428,8 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	cr_ptr->realm1 = previous_char.realm1;
 	cr_ptr->realm2 = previous_char.realm2;
 	cr_ptr->age = previous_char.age;
-	cr_ptr->ht = previous_char.ht;
-	cr_ptr->wt = previous_char.wt;
+	cr_ptr->ht = previous_char.m_b_ht;
+	cr_ptr->wt = previous_char.m_b_wt;
 	cr_ptr->sc = previous_char.sc;
 	cr_ptr->au = previous_char.au;
 

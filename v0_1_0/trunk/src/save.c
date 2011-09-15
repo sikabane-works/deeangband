@@ -603,8 +603,14 @@ static void save_quick_start(void)
 	wr_byte(previous_char.realm2);
 
 	wr_s32b(previous_char.age);
-	wr_s32b(previous_char.ht);
-	wr_s32b(previous_char.wt);
+	wr_s32b(previous_char.m_b_ht);
+	wr_s32b(previous_char.m_m_ht);
+	wr_s32b(previous_char.f_b_ht);
+	wr_s32b(previous_char.f_m_ht);
+	wr_s32b(previous_char.m_b_wt);
+	wr_s32b(previous_char.m_m_wt);
+	wr_s32b(previous_char.f_b_wt);
+	wr_s32b(previous_char.f_m_wt);
 	wr_s16b(previous_char.sc);
 	wr_s32b(previous_char.au);
 
