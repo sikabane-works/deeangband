@@ -437,9 +437,6 @@ struct species_type
 	/* u32b r_flags7; */			/* Observed racial flags */
 	u32b r_flagsr;			/* Observed racial resistance flags */
 
-	u32b magic1;
-	u32b magic2;
-
 };
 
 

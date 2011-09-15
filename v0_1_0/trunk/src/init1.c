@@ -2883,8 +2883,8 @@ errr parse_r_info(char *buf, header *head)
 		r_ptr->cls_idx = i_class;
 		r_ptr->patron_idx = i_faith;
 		r_ptr->chara_idx = i_chara;
-		r_ptr->magic1 = magic1;
-		r_ptr->magic2 = magic2;
+		r_ptr->realm1 = magic1;
+		r_ptr->realm2 = magic2;
 	}
 
 
