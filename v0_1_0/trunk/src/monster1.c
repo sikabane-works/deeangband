@@ -1723,42 +1723,42 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat[0]/10));
+				    r_ptr->stat_max[0]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの知力、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat[1]/10));
+				    r_ptr->stat_max[1]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの賢さ、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat[2]/10));
+				    r_ptr->stat_max[2]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの器用さ、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat[3]/10));
+				    r_ptr->stat_max[3]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの耐久力、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat[4]/10));
+				    r_ptr->stat_max[4]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの魅力",
 #else
 			hooked_roff(format(" CHA:%d  ",
 #endif
-				    r_ptr->stat[5]/10));
+				    r_ptr->stat_max[5]/10));
 
 #ifdef JP
 			hooked_roff(format("を持つ。"));

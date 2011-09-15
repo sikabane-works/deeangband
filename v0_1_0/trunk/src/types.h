@@ -326,7 +326,7 @@ struct species_type
 
 	s32b au;
 
-	s16b stat_max[6];	/* Current "maximal" stat values */
+	s16b stat_max[6];		/* Current modified stats */
 	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
 	s16b player_hp[PY_MAX_LEVEL];
 
@@ -346,7 +346,6 @@ struct species_type
 	u32b f_b_wt;		/* base weight (females) */
 	u32b f_m_wt;		/* mod weight (females) */
 
-	s16b stat[6];		/* Current modified stats */
 	s16b dr;			/* Divine Rank */
 
 	s16b ac;				/* Armour Class */

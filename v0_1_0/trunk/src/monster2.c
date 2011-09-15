@@ -3057,12 +3057,12 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (m_ptr->mhp < 1) m_ptr->mhp = 1;
 	m_ptr->chp = (long)(m_ptr->chp * m_ptr->mmhp) / oldmhp;
 
-	m_ptr->stat_use[0] = r_ptr->stat[0];
-	m_ptr->stat_use[1] = r_ptr->stat[1];
-	m_ptr->stat_use[2] = r_ptr->stat[2];
-	m_ptr->stat_use[3] = r_ptr->stat[3];
-	m_ptr->stat_use[4] = r_ptr->stat[4];
-	m_ptr->stat_use[5] = r_ptr->stat[5];
+	m_ptr->stat_use[0] = r_ptr->stat_max[0];
+	m_ptr->stat_use[1] = r_ptr->stat_max[1];
+	m_ptr->stat_use[2] = r_ptr->stat_max[2];
+	m_ptr->stat_use[3] = r_ptr->stat_max[3];
+	m_ptr->stat_use[4] = r_ptr->stat_max[4];
+	m_ptr->stat_use[5] = r_ptr->stat_max[5];
 
 	if(m_ptr->monster_ego_idx != MONEGO_NONE){
 		m_ptr->stat_use[0] += re_info[monster_ego_idx].stat[0];

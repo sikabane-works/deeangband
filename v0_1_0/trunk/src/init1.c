@@ -2803,12 +2803,12 @@ errr parse_r_info(char *buf, header *head)
 		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
 				&sa,&ia,&wa,&da,&ca,&cha)) return (1);
 		
-		r_ptr->stat[A_STR] = sa * 10;
-		r_ptr->stat[A_INT] = ia * 10;
-		r_ptr->stat[A_WIS] = wa * 10;
-		r_ptr->stat[A_DEX] = da * 10;
-		r_ptr->stat[A_CON] = ca * 10;
-		r_ptr->stat[A_CHR] = cha * 10;
+		r_ptr->stat_max[A_STR] = sa * 10;
+		r_ptr->stat_max[A_INT] = ia * 10;
+		r_ptr->stat_max[A_WIS] = wa * 10;
+		r_ptr->stat_max[A_DEX] = da * 10;
+		r_ptr->stat_max[A_CON] = ca * 10;
+		r_ptr->stat_max[A_CHR] = cha * 10;
 	}
 
 	/* Process 'G' for "Graphics" (one line only) */

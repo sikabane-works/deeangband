@@ -86,7 +86,7 @@ void set_status(creature_type *cr_ptr)
 		if(cr_ptr->species_idx != MON_NONE)
 		{
 			species_type *r_ptr = &r_info[cr_ptr->species_idx]; 
-			cr_ptr->stat_use[i] = r_ptr->stat[i];
+			cr_ptr->stat_use[i] = r_ptr->stat_max[i];
 		}
 
 		if(cr_ptr->monster_ego_idx != MONEGO_NONE){
@@ -393,7 +393,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	if (mr_ptr->chara_idx != CHARA_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
-	con_p = mr_ptr->stat[A_CON] / 10 - 3;
+	con_p = mr_ptr->stat_max[A_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;
 
 	bonus = ((int)(adj_con_mhp[con_p]) - 128) * num / 4;

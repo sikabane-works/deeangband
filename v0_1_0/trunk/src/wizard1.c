@@ -1839,7 +1839,7 @@ static void spoil_mon_desc(cptr fname)
 		/* Base Status */
 		for(j = A_STR; j <= A_CHR; j++)
 		{
-			stat[j] = r_ptr->stat[j] / 10;
+			stat[j] = r_ptr->stat_max[j] / 10;
 			if(r_ptr->irace_idx != RACE_NONE)
 				stat[j] += race_info[r_ptr->irace_idx].r_adj[j];
 			if(r_ptr->cls_idx != CLASS_NONE)
@@ -2427,9 +2427,9 @@ static void spoil_mon_info(cptr fname)
 
 		/* Base Status */
 		sprintf(buf, "\n=== STR:%2d INT:%2d WIS:%2d DEX:%2d CON:%2d CHR:%2d\n=== ",
-		        r_ptr->stat[A_STR] / 10, r_ptr->stat[A_INT] / 10,
-		        r_ptr->stat[A_WIS] / 10, r_ptr->stat[A_DEX] / 10,
-		        r_ptr->stat[A_CON] / 10, r_ptr->stat[A_CHR] / 10);
+		        r_ptr->stat_max[A_STR] / 10, r_ptr->stat_max[A_INT] / 10,
+		        r_ptr->stat_max[A_WIS] / 10, r_ptr->stat_max[A_DEX] / 10,
+		        r_ptr->stat_max[A_CON] / 10, r_ptr->stat_max[A_CHR] / 10);
 		spoil_out(buf);
 
 
