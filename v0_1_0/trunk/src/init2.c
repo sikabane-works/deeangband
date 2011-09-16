@@ -1020,7 +1020,7 @@ static errr init_r_info_csv(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	r_head.parse_info_txt = parse_r_info;
+	r_head.parse_info_txt = parse_r_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
@@ -2928,7 +2928,7 @@ cptr get_check_sum(void)
 		      v_head.v_extra);
 }
 
-static errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure)
+errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure)
 {
 	int offset = 0, n = 0;
 	char *p;
@@ -2944,7 +2944,7 @@ static errr get_split_offset(int *split_offset, int *split_size, char *buf, int 
 		}
 		offset += 1;
 	}
-	if(n != field_num) return (1);
+	if(n != field_num + 1) return (1);
 
 	for(n = 0; n < field_num; n++)
 	{

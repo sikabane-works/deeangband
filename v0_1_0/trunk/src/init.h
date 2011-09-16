@@ -101,6 +101,8 @@ struct header
 	void (*retouch)(header *head);
 };
 
+extern errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure);
+
 extern errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
 extern errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
 
@@ -118,7 +120,7 @@ extern errr parse_d_info(char *buf, header *head);
 extern errr parse_s_info(char *buf, header *head);
 extern errr parse_m_info(char *buf, header *head);
 
-extern errr parse_r_csv(char *buf, header *head);
+extern errr parse_r_info_csv(char *buf, header *head);
 
 /*
  * Error tracking

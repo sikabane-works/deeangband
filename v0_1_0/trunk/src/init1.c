@@ -2754,10 +2754,13 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 #define R_INFO_CHA			8
 
 
-errr parse_r_csv(char *buf, header *head)
+errr parse_r_info_csv(char *buf, header *head)
 {
-
+	int split[80], size[80], p;
 	int i;
+
+	if(get_split_offset(split, size, buf, 45, ',', '"')) return (1);
+
 	for(i = 0; i < R_INFO_CSV_COLUMNS; i++)
 	{
 		switch(r_info_csv_code[i])
