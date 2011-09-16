@@ -2751,8 +2751,8 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"AGE",
 	"SC",
 	"DV",
-	"SPV",
-	"IS",
+	"SP",
+	"VIS",
 	"AC",
 	"ALERT",
 	"STR",
@@ -2777,6 +2777,7 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"ACTION",
 	"DESCRIPTION",
 };
+
 static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 
 #define R_INFO_ID			0
@@ -2828,35 +2829,138 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 errr parse_r_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i;
+	int i, j;
+	char tmp[20000];
 
 	if(get_split_offset(split, size, buf, 45, ',', '"')) return (1);
 
-	for(i = 0; i < R_INFO_CSV_COLUMNS; i++)
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+	if(!strcmp(tmp, r_info_csv_list[0]))
 	{
-		switch(r_info_csv_code[i])
+		r_info_csv_code[0] = R_INFO_ID;
+		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
 		{
-		case R_INFO_NAME:
-			break;
-		case R_INFO_E_NAME:
-			break;
-		case R_INFO_STR:
-			break;
-		case R_INFO_INT:
-			break;
-		case R_INFO_WIS:
-			break;
-		case R_INFO_DEX:
-			break;
-		case R_INFO_CON:
-			break;
-		case R_INFO_CHA:
-			break;
-		default:
-			return (1); /* Error */
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < R_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, r_info_csv_list[j]))
+				{
+					r_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == R_INFO_CSV_COLUMNS) return (1); /* ERROR */
 		}
 	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		scanf("%d", &n);
 
+		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+
+			switch(r_info_csv_code[i])
+			{
+			case R_INFO_NAME:
+				break;
+			case R_INFO_E_NAME:
+				break;
+			case R_INFO_SYM:
+				break;
+			case R_INFO_COL:
+				break;
+			case R_INFO_RACE:
+				break;
+			case R_INFO_CLASS:
+				break;
+			case R_INFO_PATRON:
+				break;
+			case R_INFO_CHARA:
+				break;
+			case R_INFO_RELM1:
+				break;
+			case R_INFO_RELM2:
+				break;
+			case R_INFO_LEV:
+				break;
+			case R_INFO_RARE:
+				break;
+			case R_INFO_Z:
+				break;
+			case R_INFO_EXP:
+				break;
+			case R_INFO_N_EXP:
+				break;
+			case R_INFO_N_MIN:
+				break;
+			case R_INFO_AGE:
+				break;
+			case R_INFO_SC:
+				break;
+			case R_INFO_DV:
+				break;
+			case R_INFO_SPV:
+				break;
+			case R_INFO_IS:
+				break;
+			case R_INFO_AC:
+				break;
+			case R_INFO_ALERT:
+				break;
+			case R_INFO_STR:
+				break;
+			case R_INFO_INT:
+				break;
+			case R_INFO_WIS:
+				break;
+			case R_INFO_DEX:
+				break;
+			case R_INFO_CON:
+				break;
+			case R_INFO_CHA:
+				break;
+			case R_INFO_M_HB:
+				break;
+			case R_INFO_M_HM:
+				break;
+			case R_INFO_M_WB:
+				break;
+			case R_INFO_M_WM:
+				break;
+			case R_INFO_F_HB:
+				break;
+			case R_INFO_F_HM:
+				break;
+			case R_INFO_F_WB:
+				break;
+			case R_INFO_F_WM:
+				break;
+			case R_INFO_BATTLE:
+				break;
+			case R_INFO_UNDERLING:
+				break;
+			case R_INFO_ARTIFACT:
+				break;
+			case R_INFO_COMMENT:
+				break;
+			case R_INFO_FLAG:
+				break;
+			case R_INFO_ACTION:
+				break;
+			case R_INFO_DESCRIPTION:
+				break;
+			default:
+				return (1); /* Error */
+			}
+		}
+	}
 	return (0);
 }
 
