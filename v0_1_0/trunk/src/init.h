@@ -101,8 +101,8 @@ struct header
 	void (*retouch)(header *head);
 };
 
-extern errr init_info_txt(FILE *fp, char *buf, header *head,
-			  parse_info_txt_func parse_info_txt_line);
+extern errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
+extern errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line);
 
 #ifdef ALLOW_TEMPLATES
 extern errr parse_z_info(char *buf, header *head);

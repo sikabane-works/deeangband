@@ -1162,6 +1162,50 @@ errr init_info_txt(FILE *fp, char *buf, header *head,
 }
 
 
+
+/*
+ * Initialize an "*_info" array, by parsing an ascii "template" file
+ */
+errr init_info_csv(FILE *fp, char *buf, header *head,
+		   parse_info_txt_func parse_info_txt_line)
+{
+	errr err;
+
+	/* Just before the first record */
+	error_idx = -1;
+
+	/* Just before the first line */
+	error_line = 0;
+
+
+	/* Prepare the "fake" stuff */
+	head->name_size = 0;
+	head->text_size = 0;
+	head->tag_size = 0;
+
+	/* Parse */
+	while (0 == my_fgets_csv(fp, buf, 1024, '"'))
+	{
+		/* Skip comments and blank lines */
+		if (!buf[0] || (buf[0] == '#')) continue;
+
+		/* Parse the line */
+		if ((err = (*parse_info_txt_line)(buf, head)) != 0)
+			return (err);
+	}
+
+
+	/* Complete the "name" and "text" sizes */
+	if (head->name_size) head->name_size++;
+	if (head->text_size) head->text_size++;
+
+	/* Success */
+	return (0);
+}
+
+
+
+
 /*
  * Initialize the "v_info" array, by parsing an ascii "template" file
  */

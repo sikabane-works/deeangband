@@ -436,7 +436,7 @@ static void init_header(header *head, int num, int len)
  * Initialize the "*_info.csv" array
  */
 
-static errr init_info_csv(cptr filename, header *head, void **info, char **name, char **text, char **tag)
+static errr init_info2(cptr filename, header *head, void **info, char **name, char **text, char **tag)
 {
 	int fd;
 
@@ -517,7 +517,7 @@ static errr init_info_csv(cptr filename, header *head, void **info, char **name,
 #endif
 
 		/* Parse the file */
-		err = init_info_txt(fp, buf, head, head->parse_info_txt);
+		err = init_info_csv(fp, buf, head, head->parse_info_txt);
 
 		/* Close it */
 		my_fclose(fp);
@@ -1011,7 +1011,28 @@ static errr init_e_info(void)
 /*
  * Initialize the "r_info" array
  */
-static errr init_r_info(void)
+static errr init_r_info_csv(void)
+{
+
+	/* Init the header */
+	init_header(&r_head, max_species_idx, sizeof(species_type));
+
+#ifdef ALLOW_TEMPLATES
+
+	/* Save a pointer to the parsing function */
+	r_head.parse_info_txt = parse_r_info;
+
+#endif /* ALLOW_TEMPLATES */
+
+	return init_info2("r_info", &r_head, (void*)&r_info, &r_name, &r_text, NULL);
+
+}
+
+
+/*
+ *  Old r_info by text
+ */
+static errr init_r_info_txt(void)
 {
 
 	/* Init the header */
@@ -2725,10 +2746,10 @@ if (init_misc()) quit("その他の変数を初期化できません");
 	/* Initialize monster info */
 #ifdef JP
 	note("[データの初期化中... (モンスター)]");
-	if (init_r_info()) quit("モンスター初期化不能");
+	if (init_r_info_csv()) quit("モンスター初期化不能");
 #else
 	note("[Initializing arrays... (monsters)]");
-	if (init_r_info()) quit("Cannot initialize monsters");
+	if (init_r_info_csv()) quit("Cannot initialize monsters");
 #endif
 
 	/* Initialize monster ego info */

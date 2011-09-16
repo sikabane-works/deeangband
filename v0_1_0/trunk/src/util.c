@@ -609,7 +609,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			}
 		}
 
-		if(enc_num % 2) break;
+		if(!(enc_num % 2)) break;
 	}
 	
 
