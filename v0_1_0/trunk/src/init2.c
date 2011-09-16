@@ -2945,17 +2945,16 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 		offset += 1;
 	}
 	if(n != field_num + 1) return (1);
-
 	for(n = 0; n < field_num; n++)
 	{
-		if(n == field_num - 1) p = memchr(buf, enclosure, offset - split_offset[n]);
-		else                   p = memchr(buf, enclosure, split_offset[n+1] - split_offset[n]);
+		if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);
+		else                   p = memchr(buf + split_offset[n], enclosure, split_offset[n+1] - split_offset[n]);
 
 		if(p)
 		{
-			split_offset[n] = (int)(p - buf);
-			if(n == field_num - 1) p = memchr(buf, enclosure, offset - split_offset[n]);
-			else                   p = memchr(buf, enclosure, split_offset[n+1] - split_offset[n]);
+			split_offset[n] = (int)(p - buf + 1);
+			if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);
+			else                   p = memchr(buf + split_offset[n], enclosure, split_offset[n+1] - split_offset[n]);
 
 			if(!p) return(1);
 			else
