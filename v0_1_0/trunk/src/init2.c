@@ -2907,10 +2907,6 @@ cptr get_check_sum(void)
 		      v_head.v_extra);
 }
 
-static errr get_csv_line()
-{
-}
-
 static errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure)
 {
 	int offset = 0, n = 0;

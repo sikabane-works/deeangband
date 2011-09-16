@@ -534,16 +534,16 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 /*
  * my_fgets_csv
  */
-errr my_fgets_csv(FILE *fff, char *buf, huge n, char delimiter, char enclosure)
+errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 {
 	huge i = 0;
+	int enc_num = 0;
 
 	char *s;
 
-	char tmp[1024];
+	char tmp[65536];
 
-	/* Read a line */
-	if (fgets(tmp, 1024, fff))
+	while(fgets(tmp, 65536, fff))
 	{
 		/* Convert weirdness */
 		for (s = tmp; *s; s++)
@@ -559,14 +559,15 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char delimiter, char enclosure)
 
 #endif /* MACINTOSH || MACH_O_CARBON */
 
+			if (*s == enclosure)
+				enc_num++;
+
 			/* Handle newline */
 			if (*s == '\n')
 			{
-				/* Terminate */
+				/* Temporary Terminate */
 				buf[i] = '\0';
-
-				/* Success */
-				return (0);
+				break;
 			}
 
 			/* Handle tabs */
@@ -607,18 +608,20 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char delimiter, char enclosure)
 				if (i >= n) break;
 			}
 		}
-		/* No newline character, but terminate */
-		buf[i] = '\0';
 
-		/* Success */
-		return (0);
+		if(enc_num % 2) break;
 	}
+	
 
-	/* Nothing */
-	buf[0] = '\0';
 
-	/* Failure */
-	return (1);
+
+	/* No newline character, but terminate */
+	buf[i] = '\0';
+
+	/* Success or Failure*/
+	if(enc_num % 2) return(1);
+	else return (0);
+
 }
 
 
