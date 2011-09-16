@@ -2935,7 +2935,7 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 
 	split_offset[0] = 0; 
 	n++;
-	while(buf[offset] || n <= field_num)
+	while(buf[offset] && n <= field_num)
 	{
 		if(buf[offset] == delimiter)
 		{
@@ -2944,7 +2944,7 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 		}
 		offset += 1;
 	}
-	if(n != field_num + 1) return (1);
+//	if(n != field_num + 1) return (1);
 	for(n = 0; n < field_num; n++)
 	{
 		if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);

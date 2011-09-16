@@ -2853,13 +2853,14 @@ errr parse_r_info_csv(char *buf, header *head)
 			}
 			if(j == R_INFO_CSV_COLUMNS) return (1); /* ERROR */
 		}
+		return 0;
 	}
 	else
 	{
 		int n;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
-		scanf("%d", &n);
+		sscanf(tmp, "%d", &n);
 
 		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
 		{
