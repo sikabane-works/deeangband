@@ -1184,7 +1184,7 @@ errr init_info_csv(FILE *fp, char *buf, header *head,
 	head->tag_size = 0;
 
 	/* Parse */
-	while (0 == my_fgets_csv(fp, buf, 1024, '"'))
+	while (0 == my_fgets_csv(fp, buf, 65536, '"'))
 	{
 		/* Skip comments and blank lines */
 		if (!buf[0] || (buf[0] == '#')) continue;

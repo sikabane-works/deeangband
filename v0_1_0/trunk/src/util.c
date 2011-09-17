@@ -541,7 +541,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 
 	char *s;
 
-	char tmp[65536];
+	char tmp[65535];
 
 	while(fgets(tmp, 65536, fff))
 	{
@@ -566,7 +566,6 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			if (*s == '\n')
 			{
 				/* Temporary Terminate */
-				buf[i] = '\0';
 				break;
 			}
 
