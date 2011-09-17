@@ -2843,6 +2843,7 @@ errr parse_r_info_csv(char *buf, header *head)
 	int id, tval, sval, prob, num, side, offset;
 	int split[80], size[80];
 	int i, j, k;
+	char *s, *t;
 	char tmp[20000], nt[80];
 
 	if(get_split_offset(split, size, buf, 45, ',', '"')){
@@ -3051,10 +3052,33 @@ errr parse_r_info_csv(char *buf, header *head)
 					if(tmp[offset]) offset++;
 				}
 				break;
+
 			case R_INFO_COMMENT:
 				/* Nothing */
 				break;
+
 			case R_INFO_FLAG:
+				/* Find the end of this entry */
+				/* Parse every entry textually */
+
+				for (s = tmp; *s; ){
+
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
+
+					/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|' || *t == '\n') t++;
+					}
+
+					/* Parse this entry */
+					if (0 != grab_one_basic_flag(&r_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
+
+					/* Start the next entry */
+					s = t;
+				}
+
 				break;
 			case R_INFO_ACTION:
 				break;
