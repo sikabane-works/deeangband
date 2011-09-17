@@ -608,18 +608,17 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			}
 		}
 
-		if(!(enc_num % 2)) break;
+		if(!(enc_num % 2))
+		{
+			/* Success */
+			buf[i] = '\0';
+			return 0;
+		}
 	}
 	
-
-
-
-	/* No newline character, but terminate */
+	/* Failure */
 	buf[i] = '\0';
-
-	/* Success or Failure*/
-	if(enc_num % 2) return(1);
-	else return (0);
+	return(1);
 
 }
 

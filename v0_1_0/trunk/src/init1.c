@@ -47,6 +47,14 @@
 #include "init.h"
 
 
+static void note(cptr str)
+{
+	Term_erase(0, 23, 255);
+	Term_putstr(20, 23, -1, TERM_WHITE, str);
+	Term_fresh();
+}
+
+
 /*** Monster CSV List ***/
 
 
@@ -1184,16 +1192,17 @@ errr init_info_csv(FILE *fp, char *buf, header *head,
 	head->tag_size = 0;
 
 	/* Parse */
+/*
 	while (0 == my_fgets_csv(fp, buf, 65536, '"'))
 	{
-		/* Skip comments and blank lines */
+		// Skip comments and blank lines
 		if (!buf[0] || (buf[0] == '#')) continue;
 
-		/* Parse the line */
+		// Parse the line
 		if ((err = (*parse_info_txt_line)(buf, head)) != 0)
 			return (err);
 	}
-
+*/
 
 	/* Complete the "name" and "text" sizes */
 	if (head->name_size) head->name_size++;
@@ -2830,7 +2839,7 @@ errr parse_r_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j;
-	char tmp[20000];
+	char tmp[20000], nt[80];
 
 	if(get_split_offset(split, size, buf, 45, ',', '"')){
 		return (1);
@@ -2860,12 +2869,15 @@ errr parse_r_info_csv(char *buf, header *head)
 	}
 	else
 	{
-		/*
 		int n;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize Monster:%d]", n);
 
+		note(nt);
+
+		/*
 		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
 		{
 			

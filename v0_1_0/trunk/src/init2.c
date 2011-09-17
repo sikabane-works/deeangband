@@ -2688,88 +2688,37 @@ void init_angband(void)
 	/*** Initialize some arrays ***/
 
 	/* Initialize misc. values */
-#ifdef JP
-note("[変数を初期化しています...(その他)");
-#else
 	note("[Initializing values... (misc)]");
-#endif
-
-#ifdef JP
-if (init_misc()) quit("その他の変数を初期化できません");
-#else
 	if (init_misc()) quit("Cannot initialize misc. values");
-#endif
-
 
 	/* Initialize feature info */
-#ifdef JP
-	note("[データの初期化中... (地形)]");
-	if (init_f_info()) quit("地形初期化不能");
-	if (init_feat_variables()) quit("地形初期化不能(Feat Variables)");
-#else
 	note("[Initializing arrays... (features)]");
 	if (init_f_info()) quit("Cannot initialize features");
 	if (init_feat_variables()) quit("Cannot initialize features");
-#endif
-
 
 	/* Initialize object info */
-#ifdef JP
-	note("[データの初期化中... (アイテム)]");
-	if (init_k_info()) quit("アイテム初期化不能");
-#else
 	note("[Initializing arrays... (objects)]");
 	if (init_k_info()) quit("Cannot initialize objects");
-#endif
-
 
 	/* Initialize artifact info */
-#ifdef JP
-	note("[データの初期化中... (伝説のアイテム)]");
-	if (init_a_info()) quit("伝説のアイテム初期化不能");
-#else
 	note("[Initializing arrays... (artifacts)]");
 	if (init_a_info()) quit("Cannot initialize artifacts");
-#endif
-
 
 	/* Initialize ego-item info */
-#ifdef JP
-	note("[データの初期化中... (名のあるアイテム)]");
-	if (init_e_info()) quit("名のあるアイテム初期化不能");
-#else
 	note("[Initializing arrays... (ego-items)]");
 	if (init_e_info()) quit("Cannot initialize ego-items");
-#endif
-
 
 	/* Initialize monster info */
-#ifdef JP
-	note("[データの初期化中... (モンスター)]");
-	if (init_r_info_csv()) quit("モンスター初期化不能");
-#else
 	note("[Initializing arrays... (monsters)]");
 	if (init_r_info_csv()) quit("Cannot initialize monsters");
-#endif
 
 	/* Initialize monster ego info */
-#ifdef JP
-	note("[データの初期化中... (モンスターエゴ)]");
-	if (init_re_info()) quit("モンスターエゴ初期化不能");
-#else
 	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
-#endif
-
 
 	/* Initialize dungeon info */
-#ifdef JP
-	note("[データの初期化中... (ダンジョン)]");
-	if (init_d_info()) quit("ダンジョン初期化不能");
-#else
 	note("[Initializing arrays... (dungeon)]");
 	if (init_d_info()) quit("Cannot initialize dungeon");
-#endif
 	{
 		int i;
 		for (i = 1; i < max_d_idx; i++)
@@ -2778,96 +2727,35 @@ if (init_misc()) quit("その他の変数を初期化できません");
 	}
 
 	/* Initialize magic info */
-#ifdef JP
-	note("[データの初期化中... (魔法)]");
-	if (init_m_info()) quit("魔法初期化不能");
-#else
 	note("[Initializing arrays... (magic)]");
 	if (init_m_info()) quit("Cannot initialize magic");
-#endif
 
 	/* Initialize weapon_exp info */
-#ifdef JP
-	note("[データの初期化中... (熟練度)]");
-	if (init_s_info()) quit("熟練度初期化不能");
-#else
 	note("[Initializing arrays... (skill)]");
 	if (init_s_info()) quit("Cannot initialize skill");
-#endif
 
 	/* Initialize wilderness array */
-#ifdef JP
-note("[配列を初期化しています... (荒野)]");
-#else
 	note("[Initializing arrays... (wilderness)]");
-#endif
-
-#ifdef JP
-if (init_wilderness()) quit("荒野を初期化できません");
-#else
 	if (init_wilderness()) quit("Cannot initialize wilderness");
-#endif
-
 
 	/* Initialize town array */
-#ifdef JP
-note("[配列を初期化しています... (街)]");
-#else
 	note("[Initializing arrays... (towns)]");
-#endif
-
-#ifdef JP
-if (init_towns()) quit("街を初期化できません");
-#else
 	if (init_towns()) quit("Cannot initialize towns");
-#endif
-
 
 	/* Initialize building array */
-#ifdef JP
-note("[配列を初期化しています... (建物)]");
-#else
 	note("[Initializing arrays... (buildings)]");
-#endif
-
-#ifdef JP
-if (init_buildings()) quit("建物を初期化できません");
-#else
 	if (init_buildings()) quit("Cannot initialize buildings");
-#endif
-
 
 	/* Initialize quest array */
-#ifdef JP
-note("[配列を初期化しています... (クエスト)]");
-#else
 	note("[Initializing arrays... (quests)]");
-#endif
-
-#ifdef JP
-if (init_quests()) quit("クエストを初期化できません");
-#else
 	if (init_quests()) quit("Cannot initialize quests");
-#endif
 
-
-	/* Initialize vault info */
-#ifdef JP
-	if (init_v_info()) quit("vault 初期化不能");
-#else
+	note("[Initializing arrays... (vaults)]");
 	if (init_v_info()) quit("Cannot initialize vaults");
-#endif
-
 
 	/* Initialize some other arrays */
-#ifdef JP
-	note("[データの初期化中... (その他)]");
-	if (init_other()) quit("その他のデータ初期化不能");
-#else
 	note("[Initializing arrays... (other)]");
 	if (init_other()) quit("Cannot initialize other stuff");
-#endif
-
 
 	/* Initialize some other arrays */
 #ifdef JP
