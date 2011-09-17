@@ -3060,7 +3060,6 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_FLAG:
 				/* Find the end of this entry */
 				/* Parse every entry textually */
-
 				for (s = tmp; *s; ){
 
 					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
@@ -3080,8 +3079,43 @@ errr parse_r_info_csv(char *buf, header *head)
 				}
 
 				break;
+
 			case R_INFO_ACTION:
+				/* Parse every entry */
+				for (s = tmp; *s; )
+				{
+					/* Find the end of this entry */
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
+
+					/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while ((*t == ' ') || (*t == '|') || (*t == '\n')) t++;
+					}
+
+					/* XXX XXX XXX Hack -- Read spell frequency */
+					if (1 == sscanf(s, "1_IN_%d", &k))
+					{
+						/* Extract a "frequency" */
+						r_info[n].freq_spell = 100 / k;
+
+							/* Start at next entry */
+						s = t;
+
+						/* Continue */
+						continue;
+					}
+
+						/* Parse this entry */
+					if (0 != grab_one_spell_flag(&r_info[n], s)) return (5);
+
+						/* Start the next entry */
+					s = t;
+				}
+
 				break;
+
 			case R_INFO_DESCRIPTION:
 				if (!add_text(&r_info[n].text, head, tmp, TRUE))
 					return (7);
