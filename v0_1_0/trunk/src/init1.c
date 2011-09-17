@@ -2841,6 +2841,7 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 errr parse_r_info_csv(char *buf, header *head)
 {
 	int id, tval, sval, prob, num, side, offset;
+	int n1, n2;
 	int split[80], size[80];
 	int i, j, k;
 	char *s, *t;
@@ -3015,8 +3016,69 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_F_WM:
 				if(sscanf(tmp, "%d", &r_info[n].f_m_wt) != 1) return (1);
 				break;
-			case R_INFO_BATTLE:
+
+			case R_INFO_BATTLE:				
+				offset = 0;
+				k = 0;
+				while(tmp[offset]) {
+
+					if (k == 4) return (1);
+
+					/* Analyze the first field */
+					for (s = t = tmp + offset; *t && (*t != ':') && (*t != '\n'); t++) /* loop */;
+
+					/* Terminate the field (if necessary) */
+					if (*t == ':') *t++ = '\0';
+					if (*t == '\n') *t = '\0';
+
+					/* Analyze the method */
+					for (n1 = 0; r_info_blow_method[n1]; n1++)
+					{
+						if (streq(s, r_info_blow_method[n1])) break;
+					}
+
+					/* Invalid method */
+					if (!r_info_blow_method[n1]) return (1);
+
+					/* Analyze the second field */
+					for (s = t; *t && (*t != ':') && (*t != '\n'); t++) /* loop */;
+
+					/* Terminate the field (if necessary) */
+					if (*t == ':') *t++ = '\0';
+					if (*t == '\n') *t = '\0';
+
+					/* Analyze effect */
+					for (n2 = 0; r_info_blow_effect[n2]; n2++)
+					{
+						if (streq(s, r_info_blow_effect[n2])) break;
+					}
+
+					/* Invalid effect */
+					if (!r_info_blow_effect[n2]) return (1);
+
+					/* Analyze the third field */
+					for (s = t; *t && (*t != 'd'); t++) /* loop */;
+
+					/* Terminate the field (if necessary) */
+					if (*t == 'd') *t++ = '\0';
+
+					/* Save the method */
+					r_info[n].blow[k].method = n1;
+
+					/* Save the effect */
+					r_info[n].blow[k].effect = n2;
+
+					/* Extract the damage dice and sides */
+					r_info[n].blow[k].d_dice = atoi(s);
+					r_info[n].blow[k].d_side = atoi(t);
+
+					k++;
+
+					while(tmp[offset] != '\n' && tmp[offset]) offset++;
+					if(tmp[offset]) offset++;
+				}
 				break;
+
 			case R_INFO_UNDERLING:
 				offset = 0;
 				k = 0;
