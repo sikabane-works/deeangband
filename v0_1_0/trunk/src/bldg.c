@@ -1897,6 +1897,7 @@ void battle_monsters(void)
 				default:
 					break;
 			}
+			if(power[i] <= 0) power[i] = 1;
 			total += power[i];
 		}
 		for (i=0;i<4;i++)

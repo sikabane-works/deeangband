@@ -2812,7 +2812,7 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 #define R_INFO_AGE			17
 #define R_INFO_SC			18
 #define R_INFO_DV			19
-#define R_INFO_SPV			20
+#define R_INFO_SP			20
 #define R_INFO_IS			21
 #define R_INFO_AC			22
 #define R_INFO_ALERT		23
@@ -2846,6 +2846,7 @@ errr parse_r_info_csv(char *buf, header *head)
 	int i, j, k;
 	char *s, *t;
 	char tmp[20000], nt[80];
+	int b;
 
 	if(get_split_offset(split, size, buf, 45, ',', '"')){
 		return (1);
@@ -2962,8 +2963,9 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_DV:
 				if(sscanf(tmp, "%d", &r_info[n].dr) != 1) return (1);
 				break;
-			case R_INFO_SPV:
-				if(sscanf(tmp, "%d", &r_info[n].speed) != 1) return (1);
+			case R_INFO_SP:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].speed = (byte)b;
 				break;
 			case R_INFO_IS:
 				if(sscanf(tmp, "%d", &r_info[n].sleep) != 1) return (1);
