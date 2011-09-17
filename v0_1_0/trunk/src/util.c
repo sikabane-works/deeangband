@@ -541,9 +541,9 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 
 	char *s;
 
-	char tmp[65535];
+	char tmp[20000];
 
-	while(fgets(tmp, 65536, fff))
+	while(fgets(tmp, 20000, fff))
 	{
 		/* Convert weirdness */
 		for (s = tmp; *s; s++)
@@ -565,6 +565,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			/* Handle newline */
 			if (*s == '\n')
 			{
+				buf[i++] = *s++;
 				/* Temporary Terminate */
 				break;
 			}

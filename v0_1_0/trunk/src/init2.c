@@ -447,7 +447,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	FILE *fp;
 
 	/* General buffer */
-	char buf[1024];
+	char buf[20000];
 
 
 #ifdef ALLOW_TEMPLATES
@@ -2710,6 +2710,7 @@ void init_angband(void)
 
 	/* Initialize monster info */
 	note("[Initializing arrays... (monsters)]");
+	// if (init_r_info_txt()) quit("Cannot initialize monsters");
 	if (init_r_info_csv()) quit("Cannot initialize monsters");
 
 	/* Initialize monster ego info */

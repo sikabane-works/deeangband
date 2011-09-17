@@ -1174,8 +1174,7 @@ errr init_info_txt(FILE *fp, char *buf, header *head,
 /*
  * Initialize an "*_info" array, by parsing an ascii "template" file
  */
-errr init_info_csv(FILE *fp, char *buf, header *head,
-		   parse_info_txt_func parse_info_txt_line)
+errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_info_txt_line)
 {
 	errr err;
 	char nt[80];
@@ -1206,7 +1205,7 @@ errr init_info_csv(FILE *fp, char *buf, header *head,
 			return (err);
 	}
 
-	sprintf(nt, "Monster: %d", i);
+	sprintf(nt, "CSV Line:%d", i);
 	note(nt);
 	/* Complete the "name" and "text" sizes */
 	if (head->name_size) head->name_size++;
@@ -2841,8 +2840,9 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 
 errr parse_r_info_csv(char *buf, header *head)
 {
+	int id, num, side, offset;
 	int split[80], size[80];
-	int i, j;
+	int i, j, k;
 	char tmp[20000], nt[80];
 
 	if(get_split_offset(split, size, buf, 45, ',', '"')){
@@ -2879,6 +2879,10 @@ errr parse_r_info_csv(char *buf, header *head)
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Monster:%d]", n);
 
+		r_info[n].species_idx = n;
+		r_info[n].ap_species_idx = n;
+
+
 		note(nt);
 
 		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
@@ -2891,17 +2895,25 @@ errr parse_r_info_csv(char *buf, header *head)
 			switch(r_info_csv_code[i])
 			{
 			case R_INFO_NAME:
-				// Store the name
-				if (!add_name(&r_info[n].name, head, tmp)) return (7);
+#if JP
+				if (!add_name(&r_info[n].name, head, tmp))
+					return (7);
+#endif
 				break;
 			case R_INFO_E_NAME:
-				if (!add_name(&r_info[n].E_name, head, tmp)) return (7);
+#if JP
+				if (!add_name(&r_info[n].E_name, head, tmp))
+					return (7);
+#else
+				if (!add_name(&r_info[n].name, head, tmp))
+					return (7);
+#endif
 				break;
 			case R_INFO_SYM:
 				r_info[n].d_char = tmp[0];
 				break;
 			case R_INFO_COL:
-				r_info[n].d_attr = tmp[0];
+				r_info[n].d_attr = color_char_to_attr(tmp[0]);
 				break;
 			case R_INFO_RACE:
 				if(sscanf(tmp, "%d", &r_info[n].irace_idx) != 1) return (1);
@@ -2928,6 +2940,7 @@ errr parse_r_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &r_info[n].rarity) != 1) return (1);
 				break;
 			case R_INFO_Z:
+				/* Nothing */
 				break;
 			case R_INFO_EXP:
 				if(sscanf(tmp, "%d", &r_info[n].mexp) != 1) return (1);
@@ -3004,16 +3017,35 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_BATTLE:
 				break;
 			case R_INFO_UNDERLING:
+				offset = 0;
+				k = 0;
+				while(tmp[offset]) {
+					if (3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return(1);		
+
+					if (k == MAX_UNDERLINGS) return (1);
+
+					r_info[n].underling_id[k] = id;
+					r_info[n].underling_d_num[k] = num;
+					r_info[n].underling_d_side[k] = side;
+					k++;
+					while(tmp[offset] != '\n' && tmp[offset]) offset++;
+					if(tmp[offset]) offset++;
+				}
+
 				break;
+
 			case R_INFO_ARTIFACT:
 				break;
 			case R_INFO_COMMENT:
+				/* Nothing */
 				break;
 			case R_INFO_FLAG:
 				break;
 			case R_INFO_ACTION:
 				break;
 			case R_INFO_DESCRIPTION:
+				if (!add_text(&r_info[n].text, head, tmp, TRUE))
+					return (7);
 				break;
 			default:
 				return (1); // Error

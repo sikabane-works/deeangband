@@ -1,4 +1,38 @@
 "ID","NAME","E_NAME","SYM","COL","RACE","CLASS","PATRON","CHARA","RELM1","RELM2","LEV","RARE","Z","EXP","N_EXP","N_MIN","AGE","SC","DV","SP","VIS","AC","ALERT","STR","INT","WIS","DEX","CON","CHA","M_HB","M_HM","M_WB","M_WM","F_HB","F_HM","F_WB","F_WM","BATTLE","UNDERLING","ARTIFACT","COMMENT","FLAG","ACTION","DESCRIPTION",,,,,,,
+969,"水竜『エイブラ』","Eibra the Water Dragon","D","b",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
+CLAW:HURT:8d12
+CLAW:HURT:8d12
+BITE:ACID:10d12",,,,"UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|CAN_FLY|POWERFUL|DRAGON|EVIL|IM_POIS|NO_CONF|NO_SLEEP|CAN_SWIM|RES_WATE|NO_FEAR|NO_STUN|RIDING","1_IN_3|BRAIN_SMASH|BR_ACID|BA_WATE","$One of the ancient dragons of Lodoss, it came from the depths of the ocean 
+$to cause destruction.
+ロードスの古代竜の一匹で、破壊を巻き起こすため深海からやってくる。",,,,,,,
+820,"アヴァロンの主『コーウィン』","Corwin, Lord of Avalon","p","r",8,3,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,183,0,76,0,183,0,76,0,"HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:LOSE_CON:10d15","1088:5d8
+1088:15d8","55:0:0:100
+72:0:0:100","JZ#
+JZ#コーウィン。九王子。アンバーシリーズ主人公。
+JZ#アヴァロンは、アンバーにほど近い”影”の世界の
+JZ#一つであり、コーウィンの影の一つはアンバーを離れて
+JZ#アヴァロンの王となり統治していた事があった。
+JZ#黒と銀がテーマカラー。銀のバラでできた
+JZ#マントを留める金具がトレードマーク。
+JZ#(この描写はトランプの絵柄) by 藤岡さん
+JZ#(コメント)訳は 久留さん
+JZ#アンバーの王子の一人で、「アンバーの九王子」～「混沌の宮廷」の主人公。","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|POWERFUL|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|SCARE|CONF|TPORT|TELE_TO|S_MONSTER|DRAIN_MANA|CAUSE_3|BO_ACID|BO_MANA|HOLD|BA_FIRE|BA_COLD|TRAPS|TELE_AWAY|HEAL|BRAIN_SMASH|BA_WATE|BA_NETH|FORGET|BO_WATE|BO_NETH|CAUSE_4|DARKNESS|S_MONSTERS|BO_PLAS|S_ANGEL|PSY_SPEAR","$Corwin is one of the most feared and respected Amberites; his skill 
+$and cunning are well known. ""Green eyes, black hair, dressed in black 
+$and silver, yes. (Corwin) had on a cloak and it was slightly furled 
+$as by a wind. (He) had on black boots, like Eric's, and (he) too bore a 
+$blade, only (his) was heavier, though not quite as long as (Eric's). 
+$(He) had (his) gloves on and they were silver and scaled. The clasp 
+$at (his) neck was cast in the form of a silver rose.""
+コーウィンは最も畏怖されているアンバーの王子であり、彼の技量と狡知は
+有名だ。
+「緑の目、黒い髪、黒と銀の装服、そうだ。マントを羽織っているが、それが風
+で少しめくれている。エリックのように、黒いブーツ。そして僕も剣を釣って
+いる。ただ、ぼくの方が重く、かれのほど長くない。手袋をはめているが、そ
+れは銀で、小札作りになっている。首の留め金は、銀色のバラの鋳物。」
+（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.47）",,,,,,,
 773,"狂える芸術家『ブランド』","Brand, the Mad Artist","p","v",8,1,31,255,0,0,99,5,0,59000,0,0,0,0,25,125,100,0,0,28,28,28,28,28,28,175,0,67,0,0,0,0,0,"HIT:UN_BONUS:6d8
 HIT:UN_BONUS:6d8
 HIT:CONFUSE:5d5
@@ -3753,8 +3787,7 @@ JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HO
 $Something big and black and ropy, just squatting there, waiting, 
 $with ropy arms squirming and reaching... It came crawling up the 
 $hillside... and it was the black thing of my dreams... that black, 
-$ropy, slimy jelly tree-thing out of the woods. It crawled up and it 
-$flowed up on its hoofs and mouths and snaky arms.""
+$ropy, slimy jelly tree-thing out of the woods. It crawled up and it $flowed up on its hoofs and mouths and snaky arms.""
 ３～６メートルの、のたうつ巨大な塊であり、
 ロープのような黒い触肢で形作られている。
 塊の表面にはシワの寄ったいくつもの大きな口がついており、
@@ -5363,33 +5396,6 @@ TOUCH:CONFUSE",,"98:0:0:100",,"UNIQUE|MALE|CAN_SPEAK|POWERFUL|RES_TELE|HAS_LITE_
 $was thwarted, turned to black magic and became a deadly necromancer.
 クリングゾールは聖杯の騎士団に加わる望みを断たれ、黒魔術
 に没頭し恐ろしい死霊術師となった。（ワーグナー「パルジファル」）",,,,,,,
-820,"アヴァロンの主『コーウィン』","Corwin, Lord of Avalon","p","r",8,3,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,183,0,76,0,183,0,76,0,"HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:LOSE_CON:10d15","1088:5d8","55:0:0:100
-72:0:0:100","JZ#
-JZ#コーウィン。九王子。アンバーシリーズ主人公。
-JZ#アヴァロンは、アンバーにほど近い”影”の世界の
-JZ#一つであり、コーウィンの影の一つはアンバーを離れて
-JZ#アヴァロンの王となり統治していた事があった。
-JZ#黒と銀がテーマカラー。銀のバラでできた
-JZ#マントを留める金具がトレードマーク。
-JZ#(この描写はトランプの絵柄) by 藤岡さん
-JZ#(コメント)訳は 久留さん
-JZ#アンバーの王子の一人で、「アンバーの九王子」～「混沌の宮廷」の主人公。","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|POWERFUL|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|SCARE|CONF|TPORT|TELE_TO|S_MONSTER|DRAIN_MANA|CAUSE_3|BO_ACID|BO_MANA|HOLD|BA_FIRE|BA_COLD|TRAPS|TELE_AWAY|HEAL|BRAIN_SMASH|BA_WATE|BA_NETH|FORGET|BO_WATE|BO_NETH|CAUSE_4|DARKNESS|S_MONSTERS|BO_PLAS|S_ANGEL|PSY_SPEAR","$Corwin is one of the most feared and respected Amberites; his skill 
-$and cunning are well known. ""Green eyes, black hair, dressed in black 
-$and silver, yes. (Corwin) had on a cloak and it was slightly furled 
-$as by a wind. (He) had on black boots, like Eric's, and (he) too bore a 
-$blade, only (his) was heavier, though not quite as long as (Eric's). 
-$(He) had (his) gloves on and they were silver and scaled. The clasp 
-$at (his) neck was cast in the form of a silver rose.""
-コーウィンは最も畏怖されているアンバーの王子であり、彼の技量と狡知は
-有名だ。
-「緑の目、黒い髪、黒と銀の装服、そうだ。マントを羽織っているが、それが風
-で少しめくれている。エリックのように、黒いブーツ。そして僕も剣を釣って
-いる。ただ、ぼくの方が重く、かれのほど長くない。手袋をはめているが、そ
-れは銀で、小札作りになっている。首の留め金は、銀色のバラの鋳物。」
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.47）",,,,,,,
 821,"『エンペラー・クイルスルグ』","The Emperor Quylthulg","Q","y",97,255,255,255,0,0,78,4,0,20000,0,0,0,0,14,130,30,0,0,0,0,0,0,28,0,8765,0,5755580,0,8765,0,5755580,0,,,,"J0#","UNIQUE|DROP_CORPSE|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|NEVER_BLOW|ONLY_ITEM|DROP_4D2|INVISIBLE|STUPID|ANIMAL|EVIL|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_2|BRAIN_SMASH|S_HI_UNDEAD|S_HI_DRAGON","$A huge seething mass of flesh with a rudimentary intelligence, the Emperor 
 $Quylthulg changes colours in front of your eyes.  Pulsating first one 
 $colour then the next, it knows only it must bring help to protect itself.
@@ -6508,12 +6514,6 @@ BITE:COLD:10d12",,,,"UNIQUE|DROP_CORPSE|FRIENDLY|FORCE_SLEEP|FORCE_MAXHP|RES_TEL
 $its evil counterparts.
 ロードスの古代竜の中で最も年輪と叡智を重ねたドラゴンで、
 邪悪な存在から土地を守っている。",,,,,,,
-969,"水竜『エイブラ』","Eibra the Water Dragon","D","b",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
-CLAW:HURT:8d12
-CLAW:HURT:8d12
-BITE:ACID:10d12",,,,"UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|CAN_FLY|POWERFUL|DRAGON|EVIL|IM_POIS|NO_CONF|NO_SLEEP|CAN_SWIM|RES_WATE|NO_FEAR|NO_STUN|RIDING","1_IN_3|BRAIN_SMASH|BR_ACID|BA_WATE","$One of the ancient dragons of Lodoss, it came from the depths of the ocean 
-$to cause destruction.
-ロードスの古代竜の一匹で、破壊を巻き起こすため深海からやってくる。",,,,,,,
 970,"邪竜『ナース』","Narse the Black Dragon","D","s",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
 CLAW:HURT:8d12
 CLAW:HURT:8d12

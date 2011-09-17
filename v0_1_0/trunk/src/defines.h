@@ -367,7 +367,7 @@
  * Size of memory reserved for initialization of some arrays
  */
 #define FAKE_NAME_SIZE  40 * 1024L
-#define FAKE_TEXT_SIZE 150 * 1024L
+#define FAKE_TEXT_SIZE 350 * 1024L
 #define FAKE_TAG_SIZE   10 * 1024L
 
 
