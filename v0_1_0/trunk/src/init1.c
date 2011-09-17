@@ -2840,7 +2840,7 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 
 errr parse_r_info_csv(char *buf, header *head)
 {
-	int id, num, side, offset;
+	int id, tval, sval, prob, num, side, offset;
 	int split[80], size[80];
 	int i, j, k;
 	char tmp[20000], nt[80];
@@ -3035,6 +3035,21 @@ errr parse_r_info_csv(char *buf, header *head)
 				break;
 
 			case R_INFO_ARTIFACT:
+				offset = 0;
+				k = 0;
+				while(tmp[offset]) {
+					if (4 != sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) return(1);		
+
+					if (k == MAX_UNDERLINGS) return (1);
+
+					r_info[n].artifact_id[k] = id;
+					r_info[n].artifact_tval[k] = tval;
+					r_info[n].artifact_sval[k] = sval;
+					r_info[n].artifact_prob[k] = prob;
+					k++;
+					while(tmp[offset] != '\n' && tmp[offset]) offset++;
+					if(tmp[offset]) offset++;
+				}
 				break;
 			case R_INFO_COMMENT:
 				/* Nothing */
