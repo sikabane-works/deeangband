@@ -2930,27 +2930,32 @@ cptr get_check_sum(void)
 
 errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_num, char delimiter, char enclosure)
 {
-	int offset = 0, n = 0;
+	int offset = 0, n = 0, e = 0;
 	char *p;
 
 	split_offset[0] = 0; 
 	n++;
 	while(buf[offset] && n <= field_num)
 	{
-		if(buf[offset] == delimiter)
+		if(buf[offset] == enclosure) e++;
+		if(buf[offset] == delimiter && !(e % 2))
 		{
 			split_offset[n] = offset + 1;
 			n++;
 		}
 		offset += 1;
 	}
-//	if(n != field_num + 1) return (1);
+	if(n != field_num)
+	{
+		return (1);
+	}
+
 	for(n = 0; n < field_num; n++)
 	{
 		if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);
 		else                   p = memchr(buf + split_offset[n], enclosure, split_offset[n+1] - split_offset[n]);
 
-		if(p)
+		if(p) // Have enclosure
 		{
 			split_offset[n] = (int)(p - buf + 1);
 			if(n == field_num - 1) p = memchr(buf + split_offset[n], enclosure, offset - split_offset[n]);
@@ -2962,13 +2967,14 @@ errr get_split_offset(int *split_offset, int *split_size, char *buf, int field_n
 				split_size[n] = (int)(p - buf) - split_offset[n];
 			}
 		}
-		else
+		else // No have enclosure
 		{
-			if(n == field_num - 1) split_size[n] = offset - split_offset[n];
-			else                   split_size[n] = split_offset[n+1] - split_offset[n];
+			if(n == field_num - 1) split_size[n] = offset - split_offset[n] - 1;
+			else                   split_size[n] = split_offset[n+1] - split_offset[n] - 1;
 		}
 
 	}
+
 
 	return 0;
 }

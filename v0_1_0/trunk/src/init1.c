@@ -2832,10 +2832,13 @@ errr parse_r_info_csv(char *buf, header *head)
 	int i, j;
 	char tmp[20000];
 
-	if(get_split_offset(split, size, buf, 45, ',', '"')) return (1);
+	if(get_split_offset(split, size, buf, 45, ',', '"')){
+		return (1);
+	}
 
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
+
 	if(!strcmp(tmp, r_info_csv_list[0]))
 	{
 		r_info_csv_code[0] = R_INFO_ID;
@@ -2857,6 +2860,7 @@ errr parse_r_info_csv(char *buf, header *head)
 	}
 	else
 	{
+		/*
 		int n;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
@@ -2864,8 +2868,10 @@ errr parse_r_info_csv(char *buf, header *head)
 
 		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
 		{
-			strncpy(tmp, buf + split[i], size[i]);
-			tmp[size[i]] = '\0';
+			
+			//strncpy(tmp, buf + split[i], size[i]);
+			//tmp[size[i]] = '\0';
+			
 
 			switch(r_info_csv_code[i])
 			{
@@ -2958,9 +2964,10 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_DESCRIPTION:
 				break;
 			default:
-				return (1); /* Error */
+				return (1); // Error
 			}
 		}
+		*/
 	}
 	return (0);
 }
