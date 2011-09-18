@@ -939,6 +939,38 @@ static cptr d_info_flags1[] =
 	"LAKE_ACID"
 };
 
+static cptr r_info_authority_flags[] =
+{
+	"FIRE1",
+	"FIRE2",
+	"FIRE3",
+	"FIRE4",
+	"WATER1",
+	"WATER2",
+	"WATER3",
+	"WATER4",
+	"EARTH1",
+	"EARTH2",
+	"EARTH3",
+	"EARTH4",
+	"WIND1",
+	"WIND2",
+	"WIND3",
+	"WIND4",
+	"LIGHT1",
+	"LIGHT2",
+	"LIGHT3",
+	"DARK1",
+	"DARK2",
+	"DARK3",
+	"ORDER1",
+	"ORDER2",
+	"ORDER3",
+	"CHAOS1",
+	"CHAOS2",
+	"CHAOS3",
+};
+
 
 /*
  * Add a text to the text-storage and store offset to it.
@@ -2740,7 +2772,7 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 	return (1);
 }
 
-#define R_INFO_CSV_COLUMNS 45
+#define R_INFO_CSV_COLUMNS 46
 static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2788,6 +2820,7 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"FLAG",
 	"ACTION",
 	"DESCRIPTION",
+	"AUTHORITY",
 };
 
 static int r_info_csv_code[R_INFO_CSV_COLUMNS];
@@ -2837,6 +2870,7 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 #define R_INFO_FLAG			42
 #define R_INFO_ACTION		43
 #define R_INFO_DESCRIPTION	44
+#define R_INFO_AUTHORITY    45
 
 errr parse_r_info_csv(char *buf, header *head)
 {
@@ -2848,7 +2882,7 @@ errr parse_r_info_csv(char *buf, header *head)
 	char tmp[20000], nt[80];
 	int b;
 
-	if(get_split_offset(split, size, buf, 45, ',', '"')){
+	if(get_split_offset(split, size, buf, R_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
 	}
 
@@ -3259,6 +3293,10 @@ errr parse_r_info_csv(char *buf, header *head)
 			case R_INFO_DESCRIPTION:
 				if (!add_text(&r_info[n].text, head, tmp, TRUE))
 					return (7);
+				break;
+
+			case R_INFO_AUTHORITY:
+
 				break;
 
 			default:
