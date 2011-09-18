@@ -2897,12 +2897,14 @@ errr parse_r_info_csv(char *buf, header *head)
 
 			switch(r_info_csv_code[i])
 			{
+
 			case R_INFO_NAME:
 #if JP
 				if (!add_name(&r_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
+
 			case R_INFO_E_NAME:
 #if JP
 				if (!add_name(&r_info[n].E_name, head, tmp))
@@ -2912,111 +2914,179 @@ errr parse_r_info_csv(char *buf, header *head)
 					return (7);
 #endif
 				break;
+
 			case R_INFO_SYM:
 				r_info[n].d_char = tmp[0];
+				r_info[n].x_char = tmp[0];
 				break;
+
 			case R_INFO_COL:
 				r_info[n].d_attr = color_char_to_attr(tmp[0]);
+				r_info[n].x_attr = color_char_to_attr(tmp[0]);
 				break;
+
 			case R_INFO_RACE:
-				if(sscanf(tmp, "%d", &r_info[n].irace_idx) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].irace_idx = (s16b)b;
 				break;
+
 			case R_INFO_CLASS:
-				if(sscanf(tmp, "%d", &r_info[n].cls_idx) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].cls_idx = (byte)b;
 				break;
+
 			case R_INFO_PATRON:
-				if(sscanf(tmp, "%d", &r_info[n].patron_idx) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].patron_idx = (s16b)b;
 				break;
+
 			case R_INFO_CHARA:
-				if(sscanf(tmp, "%d", &r_info[n].chara_idx) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].chara_idx = (byte)b;
 				break;
+
 			case R_INFO_RELM1:
-				if(sscanf(tmp, "%d", &r_info[n].realm1) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].realm1 = (byte)b;
 				break;
+
 			case R_INFO_RELM2:
-				if(sscanf(tmp, "%d", &r_info[n].realm2) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].realm2 = (byte)b;
 				break;
+
 			case R_INFO_LEV:
-				if(sscanf(tmp, "%d", &r_info[n].level) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].level = (byte)b;
 				break;
+
 			case R_INFO_RARE:
-				if(sscanf(tmp, "%d", &r_info[n].rarity) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].rarity = (byte)b;
 				break;
+
 			case R_INFO_Z:
 				/* Nothing */
 				break;
+
 			case R_INFO_EXP:
-				if(sscanf(tmp, "%d", &r_info[n].mexp) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].mexp = (s32b)b;
 				break;
+
 			case R_INFO_N_EXP:
-				if(sscanf(tmp, "%d", &r_info[n].next_exp) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].next_exp = (u32b)b;
 				break;
+
 			case R_INFO_N_MIN:
-				if(sscanf(tmp, "%d", &r_info[n].next_species_idx) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].next_species_idx = (s16b)b;
 				break;
+
 			case R_INFO_AGE:
-				if(sscanf(tmp, "%d", &r_info[n].age) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].age = (s32b)b;
 				break;
+
 			case R_INFO_SC:
-				if(sscanf(tmp, "%d", &r_info[n].sc) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].sc = (s16b)b;
 				break;
+
 			case R_INFO_DV:
-				if(sscanf(tmp, "%d", &r_info[n].dr) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].dr = (s16b)b;
 				break;
+
 			case R_INFO_SP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				r_info[n].speed = (byte)b;
 				break;
+
 			case R_INFO_IS:
-				if(sscanf(tmp, "%d", &r_info[n].sleep) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].sleep = (s16b)b;
 				break;
+
 			case R_INFO_AC:
-				if(sscanf(tmp, "%d", &r_info[n].ac) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].ac = (s16b)b;
 				break;
+
 			case R_INFO_ALERT:
-				if(sscanf(tmp, "%d", &r_info[n].aaf) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].aaf = (byte)b;
 				break;
+
 			case R_INFO_STR:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_STR]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_STR] = (s16b)b;
 				break;
+
 			case R_INFO_INT:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_INT]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_INT] = (s16b)b;
 				break;
+
 			case R_INFO_WIS:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_WIS]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_WIS] = (s16b)b;
 				break;
+
 			case R_INFO_DEX:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_DEX]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_DEX] = (s16b)b;
 				break;
+
 			case R_INFO_CON:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_CON]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_CON] = (s16b)b;
 				break;
+
 			case R_INFO_CHA:
-				if(sscanf(tmp, "%d", &r_info[n].stat_max[A_CHR]) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].stat_max[A_CHR] = (s16b)b;
 				break;
+
 			case R_INFO_M_HB:
-				if(sscanf(tmp, "%d", &r_info[n].m_b_ht) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].m_b_ht = (s16b)b;
 				break;
+
 			case R_INFO_M_HM:
-				if(sscanf(tmp, "%d", &r_info[n].m_m_ht) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].m_m_ht = (s16b)b;
 				break;
+
 			case R_INFO_M_WB:
-				if(sscanf(tmp, "%d", &r_info[n].m_b_wt) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].m_b_wt = (s16b)b;
 				break;
+
 			case R_INFO_M_WM:
-				if(sscanf(tmp, "%d", &r_info[n].m_m_wt) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].m_m_wt = (s16b)b;
 				break;
+
 			case R_INFO_F_HB:
-				if(sscanf(tmp, "%d", &r_info[n].f_b_ht) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].f_b_ht = (s16b)b;
 				break;
+
 			case R_INFO_F_HM:
-				if(sscanf(tmp, "%d", &r_info[n].f_m_ht) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].f_m_ht = (s16b)b;
 				break;
+
 			case R_INFO_F_WB:
-				if(sscanf(tmp, "%d", &r_info[n].f_b_wt) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].f_b_wt = (s16b)b;
 				break;
+
 			case R_INFO_F_WM:
-				if(sscanf(tmp, "%d", &r_info[n].f_m_wt) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].f_m_wt = (s16b)b;
 				break;
 
 			case R_INFO_BATTLE:				
@@ -3184,6 +3254,7 @@ errr parse_r_info_csv(char *buf, header *head)
 				if (!add_text(&r_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
+
 			default:
 				return (1); // Error
 			}
