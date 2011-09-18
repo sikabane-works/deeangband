@@ -698,7 +698,7 @@ static cptr r_info_flagse[] =
 /*
  * Monster authority flags
  */
-static cptr r_info_auth[] =
+static cptr r_info_auth1[] =
 {
 	"FIRE1",
 	"FIRE2",
@@ -937,38 +937,6 @@ static cptr d_info_flags1[] =
 	"DARKNESS",
 	"LAKE_POISON",
 	"LAKE_ACID"
-};
-
-static cptr r_info_authority_flags[] =
-{
-	"FIRE1",
-	"FIRE2",
-	"FIRE3",
-	"FIRE4",
-	"WATER1",
-	"WATER2",
-	"WATER3",
-	"WATER4",
-	"EARTH1",
-	"EARTH2",
-	"EARTH3",
-	"EARTH4",
-	"WIND1",
-	"WIND2",
-	"WIND3",
-	"WIND4",
-	"LIGHT1",
-	"LIGHT2",
-	"LIGHT3",
-	"DARK1",
-	"DARK2",
-	"DARK3",
-	"ORDER1",
-	"ORDER2",
-	"ORDER3",
-	"CHAOS1",
-	"CHAOS2",
-	"CHAOS3",
 };
 
 
@@ -2749,6 +2717,26 @@ static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 /*
  * Grab one (spell) flag in a species_type from a textual string
  */
+static errr grab_one_authority_flag(species_type *r_ptr, cptr what)
+{
+	if (grab_one_flag(&r_ptr->authority[0], r_info_auth1, what) == 0)
+		return 0;
+
+	/* Oops */
+#ifdef JP
+	msg_format("未知のモンスター・フラグ '%s'。", what);
+#else
+	msg_format("Unknown monster flag '%s'.", what);
+#endif
+
+	/* Failure */
+	return (1);
+}
+
+
+/*
+ * Grab one (spell) flag in a species_type from a textual string
+ */
 static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 {
 	if (grab_one_flag(&r_ptr->flags4, r_info_flags4, what) == 0)
@@ -2767,10 +2755,10 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 	msg_format("Unknown monster flag '%s'.", what);
 #endif
 
-
 	/* Failure */
 	return (1);
 }
+
 
 #define R_INFO_CSV_COLUMNS 46
 static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
@@ -3296,6 +3284,25 @@ errr parse_r_info_csv(char *buf, header *head)
 				break;
 
 			case R_INFO_AUTHORITY:
+				/* Parse every entry */
+				for (s = tmp; *s; )
+				{
+					// Find the end of this entry
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t); // loop
+
+					// Nuke and skip any dividers
+					if (*t)
+					{
+						*t++ = '\0';
+						while ((*t == ' ') || (*t == '|') || (*t == '\n')) t++;
+					}
+
+					// Parse this entry
+					if (0 != grab_one_authority_flag(&r_info[n], s)) return (5);
+
+					// Start the next entry
+					s = t;
+				}
 
 				break;
 
