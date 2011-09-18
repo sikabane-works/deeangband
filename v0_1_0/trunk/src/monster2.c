@@ -3522,6 +3522,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Get a new monster record */
 	m_ptr = &m_list[c_ptr->m_idx];
+	m_ptr->id = c_ptr->m_idx;
 
 	if(r_ptr->flags1 & RF1_UNIQUE)
 	{

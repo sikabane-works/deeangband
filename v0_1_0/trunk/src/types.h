@@ -1097,6 +1097,8 @@ typedef struct creature_type creature_type;
 
 struct creature_type
 {
+	u16b id;
+
 	char name[128];
 
 	byte player;	/* Player Flag */

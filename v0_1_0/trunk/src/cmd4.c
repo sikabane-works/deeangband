@@ -8235,7 +8235,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			case 'd':
 				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
 				{
-					int i, j;
+					int i;//, j;
 
 					for(i = 0; i < max_unique; i++)
 						if(mon_idx[mon_cur] == u_info[i].species_idx)

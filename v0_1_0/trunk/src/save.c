@@ -637,6 +637,8 @@ static void wr_creature(creature_type *cr_ptr)
 	int i,j;
 	u16b tmp16u;
 
+	wr_u16b(cr_ptr->id);
+
 	wr_byte(cr_ptr->player);
 	wr_byte(cr_ptr->stigmatic);
 
