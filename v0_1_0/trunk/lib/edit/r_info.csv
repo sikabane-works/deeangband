@@ -1,79 +1,4 @@
 "ID","NAME","E_NAME","SYM","COL","RACE","CLASS","PATRON","CHARA","RELM1","RELM2","LEV","RARE","Z","EXP","N_EXP","N_MIN","AGE","SC","DV","SP","VIS","AC","ALERT","STR","INT","WIS","DEX","CON","CHA","M_HB","M_HM","M_WB","M_WM","F_HB","F_HM","F_WB","F_WM","BATTLE","UNDERLING","ARTIFACT","COMMENT","FLAG","ACTION","AUTHORITY","DESCRIPTION",,,,,,,
-969,"水竜『エイブラ』","Eibra the Water Dragon","D","b",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
-CLAW:HURT:8d12
-CLAW:HURT:8d12
-BITE:ACID:10d12",,,,"UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|CAN_FLY|POWERFUL|DRAGON|EVIL|IM_POIS|NO_CONF|NO_SLEEP|CAN_SWIM|RES_WATE|NO_FEAR|NO_STUN|RIDING","1_IN_3|BRAIN_SMASH|BR_ACID|BA_WATE","WATER2","$One of the ancient dragons of Lodoss, it came from the depths of the ocean 
-$to cause destruction.
-ロードスの古代竜の一匹で、破壊を巻き起こすため深海からやってくる。",,,,,,,
-820,"アヴァロンの主『コーウィン』","Corwin, Lord of Avalon","p","r",8,3,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,183,0,76,0,183,0,76,0,"HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:LOSE_CON:10d15","1088:5d8
-1088:15d8","55:0:0:100
-72:0:0:100","JZ#
-JZ#コーウィン。九王子。アンバーシリーズ主人公。
-JZ#アヴァロンは、アンバーにほど近い”影”の世界の
-JZ#一つであり、コーウィンの影の一つはアンバーを離れて
-JZ#アヴァロンの王となり統治していた事があった。
-JZ#黒と銀がテーマカラー。銀のバラでできた
-JZ#マントを留める金具がトレードマーク。
-JZ#(この描写はトランプの絵柄) by 藤岡さん
-JZ#(コメント)訳は 久留さん
-JZ#アンバーの王子の一人で、「アンバーの九王子」～「混沌の宮廷」の主人公。","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|POWERFUL|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|SCARE|CONF|TPORT|TELE_TO|S_MONSTER|DRAIN_MANA|CAUSE_3|BO_ACID|BO_MANA|HOLD|BA_FIRE|BA_COLD|TRAPS|TELE_AWAY|HEAL|BRAIN_SMASH|BA_WATE|BA_NETH|FORGET|BO_WATE|BO_NETH|CAUSE_4|DARKNESS|S_MONSTERS|BO_PLAS|S_ANGEL|PSY_SPEAR","ORDER3","$Corwin is one of the most feared and respected Amberites; his skill 
-$and cunning are well known. ""Green eyes, black hair, dressed in black 
-$and silver, yes. (Corwin) had on a cloak and it was slightly furled 
-$as by a wind. (He) had on black boots, like Eric's, and (he) too bore a 
-$blade, only (his) was heavier, though not quite as long as (Eric's). 
-$(He) had (his) gloves on and they were silver and scaled. The clasp 
-$at (his) neck was cast in the form of a silver rose.""
-コーウィンは最も畏怖されているアンバーの王子であり、彼の技量と狡知は
-有名だ。
-「緑の目、黒い髪、黒と銀の装服、そうだ。マントを羽織っているが、それが風
-で少しめくれている。エリックのように、黒いブーツ。そして僕も剣を釣って
-いる。ただ、ぼくの方が重く、かれのほど長くない。手袋をはめているが、そ
-れは銀で、小札作りになっている。首の留め金は、銀色のバラの鋳物。」
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.47）",,,,,,,
-773,"狂える芸術家『ブランド』","Brand, the Mad Artist","p","v",8,1,31,255,0,0,99,5,0,59000,0,0,0,0,25,125,100,0,0,28,28,28,28,28,28,175,0,67,0,0,0,0,0,"HIT:UN_BONUS:6d8
-HIT:UN_BONUS:6d8
-HIT:CONFUSE:5d5
-HIT:UN_POWER:5d5",,"84:0:0:100
-126:0:0:100","JZ#ブランド。アンバーの九王子の一人。
-JZ#失踪していたが、アンバーを支える魔力について
-JZ#理解を深めるにしたがい、現存のアンバーを消し、
-JZ#自分自身の望む新世界をつくりだすという狂気に
-JZ#狩られてコーウィンと対決する。
-JZ#(この描写はトランプの絵柄) by 藤岡さん
-JZ#Z (コメント)訳は 久留さん
-D'ang# D'angの多元宇宙では、全てがアンバーと混沌のみを
-D'ang# 起源にしている訳ではないことが幸いして、
-D'ang# アンバー前半シリーズのような行為に出ることなく、
-D'ang# 他の宇宙を「素材」にしつつも、大人しく自分の芸術にいそしんでいる。
-D'ang# とは言え、アンバーの宮廷内で最も暗躍している立場でもあるかも知れない。","UNIQUE|MALE|ATTR_MULTI|CAN_SPEAK|AMBERITE|ATTR_ANY|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|HUMAN|SMART|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO","1_IN_2|BLIND|CONF|TPORT|BLINK|BA_FIRE|BA_COLD|DRAIN_MANA|CAUSE_4|BA_ACID|TELE_AWAY|MIND_BLAST|TRAPS|HEAL|HASTE|BRAIN_SMASH|BA_CHAO|BA_DARK|PSY_SPEAR","ORDER3 | CHAOS3","$...a figure both 
-$like Bleys and (Corwin). (Corwin's) features, though smaller, his eyes, 
-$Bleys' hair, beardless. He wore a riding suit of green and sat atop a white 
-$horse... There was a quality of both strength and weakness, questing and 
-$abandonment about him.
-ブランドはアンバーの王子の中でも陰鬱な雰囲気を漂わせた、芸術肌の知恵者だ。
-その独創性あふれる芸術の数々はおぞましくも、見る者を捕らえて放さぬ魔性がある。
-彼の創造の志向はどす黒く破滅的ですらあるが、
-今のところ彼は自分の影や他の宇宙でそれを表現するのみで十分に満足しているようだ。
-「ブレイズとぼく自身の両方に似た男。顔かたちは、ちょっと小さいがぼくのも
-の。目はぼく、髪はブレイズ。顎ひげはない。緑色の乗馬服を着て、白馬にま
-たがり…かれには強さと弱さ、探求と放棄の両方の性格がある。」
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.48）",,,,,,,
-772,"再興者『オローリン』","Olorin the Reviver","p","v",45,2,255,3,0,0,50,7,0,35000,0,0,0,0,3,120,101,0,0,23,23,23,23,23,23,189,0,77,0,189,0,77,0,"HIT:UN_BONUS:6d8
-HIT:UN_BONUS:6d8
-HIT:TERRIFY:5d5
-HIT:TERRIFY:5d5",,"131:0:0:100
-10:0:0:100","JZ#","UNIQUE|MALE|CAN_SPEAK|DROP_CORPSE|QUESTOR|HAS_LITE_2|HUMAN|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|GOOD|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP","1_IN_2|HEAL|HASTE|TPORT|TELE_AWAY|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|TRAPS|BA_FIRE|BO_FIRE|BO_PLAS|BO_MANA|PSY_SPEAR|S_MONSTER|S_ANGEL|S_DRAGON|S_KIN",,"この賢者こそは、真に邪悪な存在であることを志したあなたが滅ぼすべき宿敵である。
-彼は己が語るところの「真の歴史」に中で『白のガンダルフ』を名乗り、
-その大いなる立役者の一人となるべき人物であった。
-このアルダの創世主に遣わされた忠実なる下僕は
-メルコールの秘儀により破綻した本来の歴史をヴァラール達以上に知る存在であり、
-〈混沌〉に穢れたアルダを復旧し、全てを正しき物語により戻すべく死力を尽くしている。
-だが、悪にこそ真の美徳と力が備わること信じる者にとって、
-それは失笑ものの足掻きに過ぎないだろう。
-この賢しいばかりの愚者を嬲り殺し、その力の源たるアノールを奪い取れ！",,,,,,,
 0,"プレイヤー","Player","@","w",0,0,0,0,0,0,0,1,0,0,0,0,0,0,-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"
 #J0#",,,,"”test”",,,,,,,
 1,"浮浪児","Urchin","t","D",0,11,255,255,0,0,0,2,0,0,10,14,0,1,-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
@@ -4827,6 +4752,47 @@ HIT:HURT:5d5",,"2:0:0:100
 今や彼はアウレの下僕であった頃の同僚アンナタールに劣らぬ支配者の一人であり、
 善悪の彼岸の中で、技術と芸能、戦争と交易を司る神として、
 多元宇宙に広く影響を与える存在になったのだ。",,,,,,,
+772,"再興者『オローリン』","Olorin the Reviver","p","v",45,2,255,3,0,0,50,7,0,35000,0,0,0,0,3,120,101,0,0,23,23,23,23,23,23,189,0,77,0,189,0,77,0,"HIT:UN_BONUS:6d8
+HIT:UN_BONUS:6d8
+HIT:TERRIFY:5d5
+HIT:TERRIFY:5d5",,"131:0:0:100
+10:0:0:100","JZ#","UNIQUE|MALE|CAN_SPEAK|DROP_CORPSE|QUESTOR|HAS_LITE_2|HUMAN|FORCE_SLEEP|FORCE_MAXHP|REFLECTING|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|GOOD|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP","1_IN_2|HEAL|HASTE|TPORT|TELE_AWAY|BLIND|CONF|SCARE|CAUSE_4|BRAIN_SMASH|FORGET|TRAPS|BA_FIRE|BO_FIRE|BO_PLAS|BO_MANA|PSY_SPEAR|S_MONSTER|S_ANGEL|S_DRAGON|S_KIN",,"この賢者こそは、真に邪悪な存在であることを志したあなたが滅ぼすべき宿敵である。
+彼は己が語るところの「真の歴史」に中で『白のガンダルフ』を名乗り、
+その大いなる立役者の一人となるべき人物であった。
+このアルダの創世主に遣わされた忠実なる下僕は
+メルコールの秘儀により破綻した本来の歴史をヴァラール達以上に知る存在であり、
+〈混沌〉に穢れたアルダを復旧し、全てを正しき物語により戻すべく死力を尽くしている。
+だが、悪にこそ真の美徳と力が備わること信じる者にとって、
+それは失笑ものの足掻きに過ぎないだろう。
+この賢しいばかりの愚者を嬲り殺し、その力の源たるアノールを奪い取れ！",,,,,,,
+773,"狂える芸術家『ブランド』","Brand, the Mad Artist","p","v",8,1,31,255,0,0,99,5,0,59000,0,0,0,0,25,125,100,0,0,28,28,28,28,28,28,175,0,67,0,0,0,0,0,"HIT:UN_BONUS:6d8
+HIT:UN_BONUS:6d8
+HIT:CONFUSE:5d5
+HIT:UN_POWER:5d5",,"84:0:0:100
+126:0:0:100","JZ#ブランド。アンバーの九王子の一人。
+JZ#失踪していたが、アンバーを支える魔力について
+JZ#理解を深めるにしたがい、現存のアンバーを消し、
+JZ#自分自身の望む新世界をつくりだすという狂気に
+JZ#狩られてコーウィンと対決する。
+JZ#(この描写はトランプの絵柄) by 藤岡さん
+JZ#Z (コメント)訳は 久留さん
+D'ang# D'angの多元宇宙では、全てがアンバーと混沌のみを
+D'ang# 起源にしている訳ではないことが幸いして、
+D'ang# アンバー前半シリーズのような行為に出ることなく、
+D'ang# 他の宇宙を「素材」にしつつも、大人しく自分の芸術にいそしんでいる。
+D'ang# とは言え、アンバーの宮廷内で最も暗躍している立場でもあるかも知れない。","UNIQUE|MALE|ATTR_MULTI|CAN_SPEAK|AMBERITE|ATTR_ANY|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|HUMAN|SMART|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO","1_IN_2|BLIND|CONF|TPORT|BLINK|BA_FIRE|BA_COLD|DRAIN_MANA|CAUSE_4|BA_ACID|TELE_AWAY|MIND_BLAST|TRAPS|HEAL|HASTE|BRAIN_SMASH|BA_CHAO|BA_DARK|PSY_SPEAR","ORDER3 | CHAOS3","$...a figure both 
+$like Bleys and (Corwin). (Corwin's) features, though smaller, his eyes, 
+$Bleys' hair, beardless. He wore a riding suit of green and sat atop a white 
+$horse... There was a quality of both strength and weakness, questing and 
+$abandonment about him.
+ブランドはアンバーの王子の中でも陰鬱な雰囲気を漂わせた、芸術肌の知恵者だ。
+その独創性あふれる芸術の数々はおぞましくも、見る者を捕らえて放さぬ魔性がある。
+彼の創造の志向はどす黒く破滅的ですらあるが、
+今のところ彼は自分の影や他の宇宙でそれを表現するのみで十分に満足しているようだ。
+「ブレイズとぼく自身の両方に似た男。顔かたちは、ちょっと小さいがぼくのも
+の。目はぼく、髪はブレイズ。顎ひげはない。緑色の乗馬服を着て、白馬にま
+たがり…かれには強さと弱さ、探求と放棄の両方の性格がある。」
+（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.48）",,,,,,,
 774,"シャドウ・ロード","Shadowlord","G","b",44,255,255,255,0,0,62,2,0,22500,0,0,0,0,2,120,20,150,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:EXP_80:6d12
 HIT:DR_MANA:5d10
 HIT:LOSE_STR:4d6
@@ -5259,7 +5225,40 @@ $shapes, though the dominant form is that of a huge dog.  You feel very
 $uncertain all of a sudden.
 素早く動く渦のような存在だ。それは色も大きさも形も常に変化しているが、
 大体は犬のような姿をしている。それと戦っていると突如何がなんだか分からなく
-なってくる。",,,,"冥王『モルゴス』
+なってくる。",,,,,,,
+812,"ワープ・デーモン","Warp demon","U","o",44,255,255,255,0,0,76,1,0,15000,0,0,0,0,3,120,30,100,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:14d11
+HIT:UN_POWER:14d11",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|INVISIBLE|DROP_GOOD|DROP_60|DROP_1D2|SMART|PASS_WALL|RES_NEXU|RES_NETH|NONLIVING|CAN_FLY|EVIL|IM_POIS|IM_ELEC|IM_COLD|IM_FIRE|DEMON","1_IN_4|HEAL|TPORT|S_DEMON|BRAIN_SMASH|DRAIN_MANA|BR_PLAS",,"$A huge demon who guards the cross-dimensional gateways.
+巨大な悪魔で、次元の扉を守っている。",,,,,,,
+813,"王位簒奪者『エリック』","Eric the Usurper","p","R",8,5,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,185,0,80,0,185,0,80,0,"HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:EAT_ITEM:10d15",,,"JZ#
+JZ#エリック。九王子のなかでオベロン失踪後
+JZ#弟のコーウィンを退け、最初に即位する。
+JZ#物の怪の攻撃と、火薬を持ち込んだ
+JZ#コーウィンに破れ、”審判の宝石”による
+JZ#衰弱で命を落とす。
+JZ#(この描写はトランプの絵柄) by 藤岡さん
+JZ#(コメント)訳は 久留さん","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|EVIL|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|BLIND|S_MONSTER|DRAIN_MANA|S_MONSTERS|SCARE|CONF|TPORT|TELE_TO|CAUSE_3|BO_ACID|HOLD|BA_FIRE|TRAPS|TELE_AWAY|BRAIN_SMASH|FORGET|BO_WATE|CAUSE_4|BO_NETH|DARKNESS|S_ANGEL|S_DEMON|PSY_SPEAR",,"$When Oberon disappeared, Eric seized the opportunity and claimed 
+$the throne, eliminating those who would have opposed him. ""Handsome by 
+$anyone's standards, his hair was so dark, as to be almost blue. His beard 
+$curled around the mouth that always smiled, and he was dressed simply in a 
+$leather jacket and leggings, a plain cloak, high black boots, and he wore 
+$a red sword belt bearing a long silvery saber and clasped with a ruby, 
+$and his high cloak, collar round his head was lined with red and the 
+$trimmings of his sleeves matched it. His hands, thumbs hooked behind 
+$his belt, were terribly strong and prominent. A pair of black gloves 
+$jutted from his belt near his right tip.""
+オベロンが姿を消した時、エリックはその機会を逃さず
+敵対するであろう者達を抹殺し、自分の王位を主張した。
+「だれの標準からみてもハンサムで、髪は青いといえるほど黒い。いつも微笑し
+ている口のまわりに、ひげがカールしている。質素な身なりで、なめし革のジ
+ャケットに脚絆。飾りのないマント、長い黒いブーツ。そして、赤い剣帯に長
+い銀のサーベル。ルビーを１個つけた留金、首のまわりの高いマントの襟には
+黒い縁取りがあり、袖口の飾りもそれに調和している。親指をベルトにひっか
+けてあるその手は恐ろしく強そうで、ベルトの尻近くには黒い手袋がはさんで
+ある。」
+（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、pp.46-47）",,,,"冥王『モルゴス』
 #J0#
 #J0#＊angbandは基本的に第一紀の話です。モルゴスが存在するのですから。この時
 #J0#『冥王』と言うとモルゴスを指し、サウロンは飽くまで冥王モルゴスの部下に過ぎ
@@ -5293,39 +5292,6 @@ D:ウルク達にはまことの命が吹き込まれ、サウロンやバルログ達には新たなる力が宿った
 D:その後全ての力を使い果たした彼は、多元宇宙の根源たる『混沌のサーペント』に飲み込まれ、
 D:その顕現の一つとなった。〈混沌〉に歪んだ鉄獄の深遠に無我のまま徘徊する黒い影。
 D:彼の表情は伝承の通り恐ろしくいかめしいが、奇妙な充足に満ちている。"
-812,"ワープ・デーモン","Warp demon","U","o",44,255,255,255,0,0,76,1,0,15000,0,0,0,0,3,120,30,100,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:14d11
-HIT:UN_POWER:14d11",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|INVISIBLE|DROP_GOOD|DROP_60|DROP_1D2|SMART|PASS_WALL|RES_NEXU|RES_NETH|NONLIVING|CAN_FLY|EVIL|IM_POIS|IM_ELEC|IM_COLD|IM_FIRE|DEMON","1_IN_4|HEAL|TPORT|S_DEMON|BRAIN_SMASH|DRAIN_MANA|BR_PLAS",,"$A huge demon who guards the cross-dimensional gateways.
-巨大な悪魔で、次元の扉を守っている。",,,,,,,
-813,"王位簒奪者『エリック』","Eric the Usurper","p","R",8,5,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,185,0,80,0,185,0,80,0,"HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:HURT:10d15
-HIT:EAT_ITEM:10d15",,,"JZ#
-JZ#エリック。九王子のなかでオベロン失踪後
-JZ#弟のコーウィンを退け、最初に即位する。
-JZ#物の怪の攻撃と、火薬を持ち込んだ
-JZ#コーウィンに破れ、”審判の宝石”による
-JZ#衰弱で命を落とす。
-JZ#(この描写はトランプの絵柄) by 藤岡さん
-JZ#(コメント)訳は 久留さん","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|EVIL|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|BLIND|S_MONSTER|DRAIN_MANA|S_MONSTERS|SCARE|CONF|TPORT|TELE_TO|CAUSE_3|BO_ACID|HOLD|BA_FIRE|TRAPS|TELE_AWAY|BRAIN_SMASH|FORGET|BO_WATE|CAUSE_4|BO_NETH|DARKNESS|S_ANGEL|S_DEMON|PSY_SPEAR",,"$When Oberon disappeared, Eric seized the opportunity and claimed 
-$the throne, eliminating those who would have opposed him. ""Handsome by 
-$anyone's standards, his hair was so dark, as to be almost blue. His beard 
-$curled around the mouth that always smiled, and he was dressed simply in a 
-$leather jacket and leggings, a plain cloak, high black boots, and he wore 
-$a red sword belt bearing a long silvery saber and clasped with a ruby, 
-$and his high cloak, collar round his head was lined with red and the 
-$trimmings of his sleeves matched it. His hands, thumbs hooked behind 
-$his belt, were terribly strong and prominent. A pair of black gloves 
-$jutted from his belt near his right tip.""
-オベロンが姿を消した時、エリックはその機会を逃さず
-敵対するであろう者達を抹殺し、自分の王位を主張した。
-「だれの標準からみてもハンサムで、髪は青いといえるほど黒い。いつも微笑し
-ている口のまわりに、ひげがカールしている。質素な身なりで、なめし革のジ
-ャケットに脚絆。飾りのないマント、長い黒いブーツ。そして、赤い剣帯に長
-い銀のサーベル。ルビーを１個つけた留金、首のまわりの高いマントの襟には
-黒い縁取りがあり、袖口の飾りもそれに調和している。親指をベルトにひっか
-けてあるその手は恐ろしく強そうで、ベルトの尻近くには黒い手袋がはさんで
-ある。」
-（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、pp.46-47）",,,,,,,
 814,"蛇たちの父『イグ』","Yig, Father of Serpents","R","g",106,255,255,255,0,0,76,1,0,37500,0,0,0,0,11,130,100,123,15,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CLAW:POISON:8d10
 CLAW:POISON:8d10
 CRUSH:HURT:8d15
@@ -5396,6 +5362,34 @@ TOUCH:CONFUSE",,"98:0:0:100",,"UNIQUE|MALE|CAN_SPEAK|POWERFUL|RES_TELE|HAS_LITE_
 $was thwarted, turned to black magic and became a deadly necromancer.
 クリングゾールは聖杯の騎士団に加わる望みを断たれ、黒魔術
 に没頭し恐ろしい死霊術師となった。（ワーグナー「パルジファル」）",,,,,,,
+820,"アヴァロンの主『コーウィン』","Corwin, Lord of Avalon","p","r",8,3,31,255,0,0,96,3,0,56000,0,0,0,0,23,130,100,0,15,28,28,28,28,28,28,183,0,76,0,183,0,76,0,"HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:HURT:10d15
+HIT:LOSE_CON:10d15","1088:5d8
+1088:15d8","55:0:0:100
+72:0:0:100","JZ#
+JZ#コーウィン。九王子。アンバーシリーズ主人公。
+JZ#アヴァロンは、アンバーにほど近い”影”の世界の
+JZ#一つであり、コーウィンの影の一つはアンバーを離れて
+JZ#アヴァロンの王となり統治していた事があった。
+JZ#黒と銀がテーマカラー。銀のバラでできた
+JZ#マントを留める金具がトレードマーク。
+JZ#(この描写はトランプの絵柄) by 藤岡さん
+JZ#(コメント)訳は 久留さん
+JZ#アンバーの王子の一人で、「アンバーの九王子」～「混沌の宮廷」の主人公。","UNIQUE|MALE|CAN_SPEAK|SMART|AMBERITE|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_60|DROP_90|ONLY_ITEM|POWERFUL|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|REGENERATE","1_IN_4|SCARE|CONF|TPORT|TELE_TO|S_MONSTER|DRAIN_MANA|CAUSE_3|BO_ACID|BO_MANA|HOLD|BA_FIRE|BA_COLD|TRAPS|TELE_AWAY|HEAL|BRAIN_SMASH|BA_WATE|BA_NETH|FORGET|BO_WATE|BO_NETH|CAUSE_4|DARKNESS|S_MONSTERS|BO_PLAS|S_ANGEL|PSY_SPEAR","ORDER3","$Corwin is one of the most feared and respected Amberites; his skill 
+$and cunning are well known. ""Green eyes, black hair, dressed in black 
+$and silver, yes. (Corwin) had on a cloak and it was slightly furled 
+$as by a wind. (He) had on black boots, like Eric's, and (he) too bore a 
+$blade, only (his) was heavier, though not quite as long as (Eric's). 
+$(He) had (his) gloves on and they were silver and scaled. The clasp 
+$at (his) neck was cast in the form of a silver rose.""
+コーウィンは最も畏怖されているアンバーの王子であり、彼の技量と狡知は
+有名だ。
+「緑の目、黒い髪、黒と銀の装服、そうだ。マントを羽織っているが、それが風
+で少しめくれている。エリックのように、黒いブーツ。そして僕も剣を釣って
+いる。ただ、ぼくの方が重く、かれのほど長くない。手袋をはめているが、そ
+れは銀で、小札作りになっている。首の留め金は、銀色のバラの鋳物。」
+（ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房、p.47）",,,,,,,
 821,"『エンペラー・クイルスルグ』","The Emperor Quylthulg","Q","y",97,255,255,255,0,0,78,4,0,20000,0,0,0,0,14,130,30,0,0,0,0,0,0,28,0,8765,0,5755580,0,8765,0,5755580,0,,,,"J0#","UNIQUE|DROP_CORPSE|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|NEVER_BLOW|ONLY_ITEM|DROP_4D2|INVISIBLE|STUPID|ANIMAL|EVIL|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_2|BRAIN_SMASH|S_HI_UNDEAD|S_HI_DRAGON",,"$A huge seething mass of flesh with a rudimentary intelligence, the Emperor 
 $Quylthulg changes colours in front of your eyes.  Pulsating first one 
 $colour then the next, it knows only it must bring help to protect itself.
@@ -6514,6 +6508,12 @@ BITE:COLD:10d12",,,,"UNIQUE|DROP_CORPSE|FRIENDLY|FORCE_SLEEP|FORCE_MAXHP|RES_TEL
 $its evil counterparts.
 ロードスの古代竜の中で最も年輪と叡智を重ねたドラゴンで、
 邪悪な存在から土地を守っている。",,,,,,,
+969,"水竜『エイブラ』","Eibra the Water Dragon","D","b",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
+CLAW:HURT:8d12
+CLAW:HURT:8d12
+BITE:ACID:10d12",,,,"UNIQUE|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|CAN_FLY|POWERFUL|DRAGON|EVIL|IM_POIS|NO_CONF|NO_SLEEP|CAN_SWIM|RES_WATE|NO_FEAR|NO_STUN|RIDING","1_IN_3|BRAIN_SMASH|BR_ACID|BA_WATE","WATER2","$One of the ancient dragons of Lodoss, it came from the depths of the ocean 
+$to cause destruction.
+ロードスの古代竜の一匹で、破壊を巻き起こすため深海からやってくる。",,,,,,,
 970,"邪竜『ナース』","Narse the Black Dragon","D","s",58,255,255,255,0,0,60,7,0,22500,0,0,0,0,7,125,20,150,100,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:8d12
 CLAW:HURT:8d12
 CLAW:HURT:8d12
@@ -7254,14 +7254,14 @@ PUNCH:HURT:10d15
 PUNCH:TERRIFY:30d1
 KICK:SUPERHURT:10d15",,,,"UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,"彼の性格は自惚れと傲慢さに満ちて歪みきっている。しかしあらゆる奥義を体得し、
 さらに自らの手で生み出すことのできる点において、彼は本物の実力者だ。",,,,,,,
-1109,"本宮封神流継承者『本宮利之』","Toshiyuki Motomiya, the successor of Moyomiya-Housin-Ryu","p","w",0,19,255,0,0,0,1,15,0,3,0,0,0,1,-1,132,10,0,10,8,6,6,7,10,16,173,0,58,0,173,0,58,0,"SLASH:HURT
+1109,"本宮封神流継承者『本宮利之』","Toshiyuki Motomiya, the Successor of Moyomiya-Housin-Ryu","p","w",0,19,255,0,0,0,1,15,0,3,0,0,0,1,-1,132,10,0,10,8,6,6,7,10,16,173,0,58,0,173,0,58,0,"SLASH:HURT
 SLASH:HURT
 SLASH:HURT",,,"D'ang# ＠の溜まり場、戦士スレよりネタを拝借。皆様には日頃より多謝。","UNIQUE|HUMAN|DROP_SKELETON|DROP_CORPSE|STUPID",,,"彼は平安時代から続く「封魔の血」を引く戦士で、
 最強の古流剣術「本宮封神流」の継承者だそうだ。さらに潜在能力が開放されると、
 鬼の手と直死の魔眼が使えるようになる設定だそうだが、これはまだ秘密らしい。
 「本宮封神流奥義の壱、超級覇王封禁烈破撃滅剣！」
 ＜ＦＯＮＴ　ＳＩＺＥ＝＋５＞シュヴァアアアアアッ！！！！＜／ＦＯＮＴ＞",,,,,,,
-1110,"伝説の超サイヤ人『ブロリー』","Blory, the legendary SUPER-Saiyan.","p","U",38,8,255,5,0,0,74,14,0,13500,0,0,0,1,13,140,30,0,15,28,28,28,28,28,28,253,0,315,0,253,0,315,0,"HIT:SHATTER:20d10
+1110,"伝説の超サイヤ人『ブロリー』","Blory, the Legendary SUPER-Saiyan.","p","U",38,8,255,5,0,0,74,14,0,13500,0,0,0,1,13,140,30,0,15,28,28,28,28,28,28,253,0,315,0,253,0,315,0,"HIT:SHATTER:20d10
 HIT:SHATTER:20d10
 HIT:SHATTER:20d10
 HIT:SHATTER:20d10",,,,"UNIQUE|MALE|CAN_SPEAK|RES_TELE|DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|KILL_WALL|HUMAN|ONLY_ITEM|DROP_4D2|DROP_GOOD|MOVE_BODY|EVIL|REGENERATE|OPEN_DOOR|BASH_DOOR|RES_WALL","1_IN_8|TELE_TO|BO_MANA",,"彼は1000年に一人現れると言われる、伝説の超サイヤ人その人だ。",,,,,,,
@@ -7289,7 +7289,7 @@ KICK:SUPERHURT:15d15",,,"D'ang 追加北斗系ユニーク、聖帝サウザー。","UNIQUE|MALE|
 PUNCH:HURT:15d15
 PUNCH:TERRIFY:30d1
 KICK:SUPERHURT:15d15",,,"D'ang 追加北斗系ユニーク。様をつけろよデコスケ野郎！","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
-1117,"カサンドラの獄長『ウイグル』","Uighur, warden of Cassandra","p","W",0,8,255,5,0,0,38,5,0,30000,0,0,0,0,0,123,50,0,10,19,19,19,19,19,19,303,0,209,0,303,0,209,0,"HIT:HURT:3d8
+1117,"カサンドラの獄長『ウイグル』","Uighur, Warden of Cassandra","p","W",0,8,255,5,0,0,38,5,0,30000,0,0,0,0,0,123,50,0,10,19,19,19,19,19,19,303,0,209,0,303,0,209,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang 追加北斗系ユニーク。","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
 1118,"ＧＯＬＡＮの指導者『カーネル』","the Coronel of GOLAN","p","W",0,8,255,5,0,0,32,5,0,30000,0,0,0,0,0,123,50,0,10,16,16,16,16,16,16,192,0,82,0,192,0,82,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang 追加北斗系ユニーク。","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
@@ -7304,18 +7304,18 @@ HIT:HURT:3d8",,,"D'ang ファルコムのダンジョンＲＰＧ「ダイナソア」の主人公
 彼の持つ聖剣テスタロッサが彼の悲しみと覚悟を共に抱いている。",,,,,,,
 1121,"探求者『ディー』","Dee, Explorler","p","W",0,3,255,4,0,0,31,5,0,30000,0,0,0,0,0,123,50,0,10,16,16,16,16,16,16,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang ディーのＬＩＧＨＴエンド版","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|GOOD|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
-1122,"暗殺者の王『ディー』","Dee, king of assassin ","p","W",0,3,255,4,0,0,52,5,0,30000,0,0,0,0,2,123,50,0,10,23,23,23,23,23,23,179,0,68,0,179,0,68,0,"HIT:HURT:3d8
+1122,"暗殺者の王『ディー』","Dee, King of Assassin ","p","W",0,3,255,4,0,0,52,5,0,30000,0,0,0,0,2,123,50,0,10,23,23,23,23,23,23,179,0,68,0,179,0,68,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang ディーのＤＡＲＫエンド版","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
-1123,"トゥルカイアの巫女『クレール』","Clare, shaman lady of Turucire","h","W",20,2,255,3,0,0,32,5,0,30000,0,0,0,0,0,123,50,170,10,16,16,16,16,16,16,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
+1123,"トゥルカイアの巫女『クレール』","Clare, Shaman lady of Turucire","h","W",20,2,255,3,0,0,32,5,0,30000,0,0,0,0,0,123,50,170,10,16,16,16,16,16,16,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang クレールのＬＩＧＨＴエンド版","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|GOOD|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
 1124,"神の塔の主『クレール』","Clare, Mistress of the Victim Tower","h","W",20,2,255,3,0,0,58,5,0,30000,0,0,0,0,7,123,50,170,10,28,28,28,28,28,28,0,0,0,0,172,0,61,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang Brandish VT
 4 より クレールのＤＡＲＫエンド版","UNIQUE|FEMALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,"翡翠色の髪をした妙齢のエルフに見える彼女だが、
 近づこうとする者全てに向けられる殺気と魔力は、火を見るより明らかだ。
 しかもその身はうっすらと光と共に少しずつ盛り上がっているような…",,,,,,,
-1125,"贖罪者『キエン』","Quien, the atonement","p","W",20,0,255,3,0,0,35,5,0,30000,0,0,0,0,0,123,50,0,10,18,18,18,18,18,18,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
+1125,"贖罪者『キエン』","Quien, the Atonement","p","W",20,0,255,3,0,0,35,5,0,30000,0,0,0,0,0,123,50,0,10,18,18,18,18,18,18,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang キエンのＬＩＧＨＴエンド版","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|GOOD|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
-1126,"光の獣『キエン』","Quien, shining beast","p","W",20,0,255,3,0,0,60,5,0,30000,0,0,0,0,4,123,50,0,10,28,28,28,28,28,28,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
+1126,"光の獣『キエン』","Quien, Shining beast","p","W",20,0,255,3,0,0,60,5,0,30000,0,0,0,0,4,123,50,0,10,28,28,28,28,28,28,172,0,60,0,172,0,60,0,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"D'ang キエンのＤＡＲＫエンド版","UNIQUE|MALE|CAN_SPEAK|SMART|REFLECTING|HAS_LITE_2|HUMAN|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|DROP_2D2|DROP_1D2|DROP_GOOD|ONLY_ITEM|CAN_SWIM|EVIL|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_3|CAUSE_3|TELE_TO",,,,,,,,,
 1127,"グレーター・ウルク","Greater Uruk","o","w",27,255,255,255,0,0,55,1,0,10000,0,0,0,0,4,110,20,0,20,23,23,23,23,23,23,230,10,135,3,220,10,125,3,"SHOOT:HURT:3d5
 HIT:HURT:3d5
@@ -7325,3 +7325,31 @@ HIT:HURT:3d5",,,"J0#","MALE|FORCE_MAXHP|FRIENDS|DROP_60|OPEN_DOOR|BASH_DOOR|DROP
 その四方の定命の者から各々に神と崇められている。",,,,,,,
 1128,"深淵オーガ","Abyss ogre","O","v",30,255,255,255,0,0,51,1,0,3200,0,0,0,0,1,110,20,0,30,25,25,25,25,25,25,320,10,451,3,301,10,431,3,"HIT:HURT:3d8
 HIT:HURT:3d8",,,"J0#","FRIENDS|DROP_60|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EVIL|GIANT",,,"冥府で罪人の裁きを執行すると言われる、恐るべきオーガだ。",,,,,,,
+1129,"丈高き『マエズロス』","Maedhros, the Tall","h","R",11,255,255,255,0,0,65,2,0,40000,0,0,0,95,9,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1130,"伶人『マグロール』","Maglor, the Mighty Singer","h","R",11,255,255,255,0,0,65,2,0,40000,0,0,0,95,9,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1131,"金髪の『ケレゴルム』","Celegorm, the Fair","h","R",11,255,255,255,0,0,72,2,0,40000,0,0,0,95,13,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1132,"黒髪の『カランシア』","Caranthir, the Dark","h","R",11,255,255,255,0,0,72,2,0,40000,0,0,0,95,12,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1134,"ノルドールの技巧者『クルフィン』","Curufin, the Crafty of Noldor","h","R",11,255,255,255,0,0,72,2,0,40000,0,0,0,95,14,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1135,"富貴なる『アムロド』","Amrod, Upward-Exalted","h","R",11,255,255,255,0,0,60,2,0,40000,0,0,0,95,6,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
+1136,"銅頭の『アムラス』","Amras, Copper-Topped","h","R",11,255,255,255,0,0,60,2,0,40000,0,0,0,95,7,140,100,130,15,28,28,28,28,28,28,222,0,125,0,222,0,125,0,"SLASH:HURT:8d15
+SLASH:HURT:8d15
+HIT:HURT:15d15
+HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RES_TELE|HAS_LITE_2|POWERFUL|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP|HUMAN|DROP_3D2|DROP_GREAT|DROP_60|DROP_90|ONLY_ITEM|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE","1_IN_4|SCARE|TPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BO_FIRE|BA_LITE|DISPEL",,,,,,,,,
