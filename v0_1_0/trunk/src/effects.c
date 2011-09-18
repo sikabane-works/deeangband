@@ -5846,8 +5846,8 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Extract monster name */
 			monster_desc(m_name, tar_ptr, MD_TRUE_NAME);
 	
-			/* Don't kill Amberites */
-			if ((r_ptr->flags3 & RF3_AMBERITE) && one_in_(2))
+			// Don't kill Amberites
+			if ((tar_ptr->irace_idx == RACE_AMBERITE) && one_in_(2))
 			{
 				int curses = 1 + randint1(3);
 				bool stop_ty = FALSE;
