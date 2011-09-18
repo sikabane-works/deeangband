@@ -6978,13 +6978,14 @@ void call_chaos(creature_type *cr_ptr)
  */
 bool activate_ty_curse(creature_type *cr_ptr, bool stop_ty, int *count)
 {
-	int     i = 0;
+	int     i = 0, j;
 
 	int flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 
+	j = randint1(34);
 	do
 	{
-		switch (randint1(34))
+		switch (j)
 		{
 		case 28: case 29:
 			if (!(*count))
