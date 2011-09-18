@@ -3860,6 +3860,9 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
 
+	for(i = 0; i < 8;i++)
+		m_ptr->authority[i] = r_ptr->authority[i];
+
 	/* Equipment */
 	calc_bonuses(m_ptr, FALSE);
 	mon_equip(m_ptr);
