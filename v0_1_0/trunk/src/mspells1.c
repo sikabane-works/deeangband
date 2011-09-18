@@ -627,7 +627,7 @@ msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚Ì%s‚ð‚Æ‚è‚Ü‚¢‚½...", cr_ptr->name, o_name
 
 		o_ptr->feeling = FEEL_NONE;
 	}
-	p_ptr->update |= (PU_BONUS);
+	cr_ptr->update |= (PU_BONUS);
 }
 
 

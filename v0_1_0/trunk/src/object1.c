@@ -5556,10 +5556,10 @@ bool can_get_item(creature_type *cr_ptr)
  * All "item_tester" restrictions are cleared before this function returns.
  *
  * The user is allowed to choose acceptable items from the equipment,
- * p_ptr->inventory, or floor, respectively, if the proper flag was given,
+ * inventory, or floor, respectively, if the proper flag was given,
  * and there are any acceptable items in that location.
  *
- * The equipment or p_ptr->inventory are displayed (even if no acceptable
+ * The equipment or inventory are displayed (even if no acceptable
  * items are in that location) if the proper flag was given.
  *
  * If there are no acceptable items available anywhere, and "str" is
@@ -5568,10 +5568,10 @@ bool can_get_item(creature_type *cr_ptr)
  *
  * Note that the user must press "-" to specify the item on the floor,
  * and there is no way to "examine" the item on the floor, while the
- * use of "capital" letters will "examine" an p_ptr->inventory/equipment item,
+ * use of "capital" letters will "examine" an inventory/equipment item,
  * and prompt for its use.
  *
- * If a legal item is selected from the p_ptr->inventory, we save it in "cp"
+ * If a legal item is selected from the inventory, we save it in "cp"
  * directly (0 to 35), and return TRUE.
  *
  * If a legal item is selected from the floor, we save it in "cp" as
@@ -5582,7 +5582,7 @@ bool can_get_item(creature_type *cr_ptr)
  *
  * If no item is selected, we do nothing to "cp", and return FALSE.
  *
- * Global "p_ptr->command_new" is used when viewing the p_ptr->inventory or equipment
+ * Global "p_ptr->command_new" is used when viewing the inventory or equipment
  * to allow the user to enter a command while viewing those screens, and
  * also to induce "auto-enter" of stores, and other such stuff.
  *
@@ -5590,7 +5590,7 @@ bool can_get_item(creature_type *cr_ptr)
  * out in "browse" mode.  It is cleared before this function returns.
  *
  * Global "p_ptr->command_wrk" is used to choose between equip/inven listings.
- * If it is TRUE then we are viewing p_ptr->inventory, else equipment.
+ * If it is TRUE then we are viewing inventory, else equipment.
  *
  * We always erase the prompt when we are done, leaving a blank line,
  * or a warning message, if appropriate, if no items are available.
@@ -6556,7 +6556,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 	/* Default length */
 	len = MAX((*min_width), 20);
 
-	/* Scan for objects in the grid, using item_tester_okay(p_ptr, ) */
+	/* Scan for objects in the grid, using item_tester_okay() */
 	floor_num = scan_floor(floor_list, y, x, 0x03);
 
 	/* Display the floor objects */

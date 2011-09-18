@@ -2713,8 +2713,7 @@ void init_angband(void)
 	// if (init_r_info_txt()) quit("Cannot initialize monsters");
 	if (init_r_info_csv()) quit("Cannot initialize monsters");
 
-	/* Initialize monster ego info */
-	note("[Initializing arrays... (monster's ego)]");
+	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
 
 	/* Initialize dungeon info */
