@@ -24,7 +24,7 @@
 /*
  * Calculate the direction to the next enemy
  */
-static bool get_enemy_dir(int m_idx, int *mm)
+static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 {
 	int i;
 	int x = 0, y = 0;
@@ -37,7 +37,7 @@ static bool get_enemy_dir(int m_idx, int *mm)
 
 	creature_type *t_ptr;
 
-	if (riding_t_m_idx && creature_bold(p_ptr, m_ptr->fy, m_ptr->fx))
+	if (riding_t_m_idx && creature_bold(cr_ptr, m_ptr->fy, m_ptr->fx))
 	{
 		y = m_list[riding_t_m_idx].fy;
 		x = m_list[riding_t_m_idx].fx;
@@ -75,17 +75,17 @@ static bool get_enemy_dir(int m_idx, int *mm)
 			if (is_pet(m_ptr))
 			{
 				/* Hack -- only fight away from player */
-				if (p_ptr->pet_follow_distance < 0)
+				if (cr_ptr->pet_follow_distance < 0)
 				{
 					/* No fighting near player */
-					if (t_ptr->cdis <= (0 - p_ptr->pet_follow_distance))
+					if (t_ptr->cdis <= (0 - cr_ptr->pet_follow_distance))
 					{
 						continue;
 					}
 				}
 				/* Hack -- no fighting away from player */
 				else if ((m_ptr->cdis < t_ptr->cdis) &&
-							(t_ptr->cdis > p_ptr->pet_follow_distance))
+							(t_ptr->cdis > cr_ptr->pet_follow_distance))
 				{
 					continue;
 				}
@@ -97,8 +97,8 @@ static bool get_enemy_dir(int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Monster must be projectable if we can't pass through walls */
-			if (((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) ||
-			    ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding)))
+			if (((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
+			    ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
 				if (!in_disintegration_range(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -2026,7 +2026,7 @@ msg_format("%^s%s", m_name, monmessage);
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 
 		/* Look for an enemy */
-		if (!get_enemy_dir(m_idx, mm))
+		if (!get_enemy_dir(cr_ptr, m_idx, mm))
 		{
 			/* Find the player if necessary */
 			if (avoid || lonely || distant)
@@ -2056,7 +2056,7 @@ msg_format("%^s%s", m_name, monmessage);
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 
 		/* Look for an enemy */
-		get_enemy_dir(m_idx, mm);
+		get_enemy_dir(cr_ptr, m_idx, mm);
 	}
 	/* Normal movement */
 	else
