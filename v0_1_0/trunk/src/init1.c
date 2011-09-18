@@ -3021,32 +3021,38 @@ errr parse_r_info_csv(char *buf, header *head)
 
 			case R_INFO_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_STR] = (s16b)b;
+				r_info[n].stat_max[A_STR] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_STR] = (s16b)b * 10;
 				break;
 
 			case R_INFO_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_INT] = (s16b)b;
+				r_info[n].stat_max[A_INT] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_INT] = (s16b)b * 10;
 				break;
 
 			case R_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_WIS] = (s16b)b;
+				r_info[n].stat_max[A_WIS] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_WIS] = (s16b)b * 10;
 				break;
 
 			case R_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_DEX] = (s16b)b;
+				r_info[n].stat_max[A_DEX] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_DEX] = (s16b)b * 10;
 				break;
 
 			case R_INFO_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_CON] = (s16b)b;
+				r_info[n].stat_max[A_CON] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_CON] = (s16b)b * 10;
 				break;
 
 			case R_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_CHR] = (s16b)b;
+				r_info[n].stat_max[A_CHR] = (s16b)b * 10;
+				r_info[n].stat_max_max[A_CHR] = (s16b)b * 10;
 				break;
 
 			case R_INFO_M_HB:
