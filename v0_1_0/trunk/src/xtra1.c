@@ -2421,39 +2421,29 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 	object_type	*o_ptr;
 
-	if ((cr_ptr->cls_idx == CLASS_MINDCRAFTER) ||
-	    (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) ||
-	    (cr_ptr->cls_idx == CLASS_BLUE_MAGE))
+	levels = cr_ptr->lev;
+
+	switch(cr_ptr->cls_idx)
 	{
-		levels = cr_ptr->lev;
-	}
-	else
-	{
-		/* Extract "effective" player level */
-		levels = (cr_ptr->lev - m_info[cr_ptr->realm1].spell_first) + 1;
-	}
+		case CLASS_SAMURAI:
+			msp = (adj_mag_mana[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] + 10) * 2;
+			if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
+			break;
 
-	if (cr_ptr->cls_idx == CLASS_SAMURAI)
-	{
-		msp = (adj_mag_mana[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] + 10) * 2;
-		if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
-	}
-	else
-	{
-		/* Extract total mana */
-		msp = adj_mag_mana[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] * (levels+3) / 4;
+		default:
+			/* Extract total mana */
+			msp = adj_mag_mana[cr_ptr->stat_ind[A_INT]] * (levels+3) / 4;
 
-		/* Hack -- usually add one mana */
-		if (msp) msp++;
+			/* Hack -- usually add one mana */
+			msp++;
 
-		if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
+			if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
 
-		if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp/2;
+			if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp / 2;
 
-		/* Hack: High mages have a 25% mana bonus */
-		if (msp && (cr_ptr->cls_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
-
-		if (msp && (cr_ptr->cls_idx == CLASS_SORCERER)) msp += msp*(25+cr_ptr->lev)/100;
+			/* Hack: High mages have a 25% mana bonus */
+			if (msp && (cr_ptr->cls_idx == CLASS_MAGE)) msp += msp / 6;
+			if (msp && (cr_ptr->cls_idx == CLASS_HIGH_MAGE)) msp += msp / 4;
 	}
 
 	/* Only mages are affected */
