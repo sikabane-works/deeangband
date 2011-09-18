@@ -5501,6 +5501,18 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	tar_ptr->chp -= damage;
 	if(tar_ptr->chp < 0) tar_ptr->is_dead = TRUE;
 
+	if(is_player(tar_ptr))
+	{
+		/* Display the hitpoints */
+		play_redraw |= (PR_HP);
+
+		/* Window stuff */
+		play_window |= (PW_PLAYER);
+
+		handle_stuff(tar_ptr);
+	}
+
+	// Dying Process
 	if(tar_ptr->is_dead)
 	{
 		// Don't kill Amberites
@@ -5511,9 +5523,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			int count = 0;
 
 	#ifdef JP
-			msg_format("%^s‚Í‹°‚ë‚µ‚¢ŒŒ‚ÌŽô‚¢‚ð%^s‚É‚©‚¯‚½I", tar_name, atk_name);
+			msg_format("%^s‚ÍŽ€‚ÌŠÔÛ‚É‹°‚ë‚µ‚¢ŒŒ‚ÌŽô‚¢‚ð%^s‚É‚©‚¯‚½I", tar_name, atk_name);
 	#else
-			msg_format("%^s puts a terrible blood curse on %^s!", tar_name, atk_name);
+			msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", tar_name, atk_name);
 	#endif
 			curse_equipment(atk_ptr, 100, 50);	
 			do
@@ -5522,23 +5534,14 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 			while (--curses);
 		}
+
+
 	}
 
 	if(damage_type == DAMAGE_GENO && tar_ptr->chp < 0)
 	{
 		damage += tar_ptr->chp;
 		tar_ptr->chp = 0;
-	}
-
-	if(is_player(tar_ptr))
-	{
-		/* Display the hitpoints */
-		play_redraw |= (PR_HP);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
-
-		handle_stuff(tar_ptr);
 	}
 
 	if(is_player(tar_ptr))
@@ -6123,7 +6126,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 
 	/* Hitpoint warning */
-	if (is_player(tar_ptr) && tar_ptr->chp < warning)
+	if (is_player(tar_ptr) && tar_ptr->chp < warning && !tar_ptr->is_dead)
 	{
 		/* Hack -- bell on first notice */
 		if (old_chp > warning) bell();
