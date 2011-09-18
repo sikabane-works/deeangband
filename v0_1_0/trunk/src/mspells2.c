@@ -814,7 +814,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 
 		if (t_idx == player_ptr->riding) dispel_player(player_ptr);
-		dispel_monster_status(t_idx);
+		//TODO dispel_monster_status(t_idx);
 
 		break;
 

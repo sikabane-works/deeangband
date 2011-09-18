@@ -1725,7 +1725,8 @@ msg_format("%^s‚ª‚©‚ñ‚‚¢‹àØ‚èº‚ð‚ ‚°‚½B", m_name);
 			else msg_format("%^s invokes a dispel magic.", m_name);
 #endif
 			dispel_player(target_ptr);
-			if (target_ptr->riding) dispel_monster_status(target_ptr->riding);
+			//TODO
+			//if (target_ptr->riding) dispel_monster_status(target_ptr->riding);
 
 #ifdef JP
 			if ((target_ptr->chara_idx == CHARA_COMBAT) || (target_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))

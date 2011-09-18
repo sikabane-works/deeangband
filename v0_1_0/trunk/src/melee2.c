@@ -3389,9 +3389,8 @@ void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 }
 
 
-void dispel_monster_status(int m_idx)
+void dispel_monster_status(creature_type *cr_ptr)
 {
-	creature_type *cr_ptr = &m_list[m_idx];
 	char         m_name[80];
 
 	monster_desc(m_name, cr_ptr, 0);

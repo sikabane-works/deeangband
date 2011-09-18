@@ -975,7 +975,7 @@ extern void process_monsters(creature_type *cr_ptr);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void mproc_init(void);
 extern void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx);
-extern void dispel_monster_status(int m_idx);
+extern void dispel_monster_status(creature_type *cr_pt);
 extern u32b get_curse(int power, object_type *o_ptr);
 extern void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance);
 extern void mon_take_hit_mon(creature_type *cr_ptr, int damage, bool *fear, cptr note, int who);
