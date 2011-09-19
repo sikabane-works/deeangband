@@ -1489,6 +1489,19 @@ static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
 			}
 			break;
 		}
+
+		case STORE_ART:
+		{
+			/* Analyze the type */
+			switch (o_ptr->tval)
+			{
+				case TV_STATUE:
+					break;
+				default:
+					return (FALSE);
+			}
+		}		
+
 	}
 
 	/* XXX XXX XXX Ignore "worthless" items */
@@ -3681,7 +3694,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 					}
 
-					/* New guest_ptr->inventory */
+					/* New inventory */
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */

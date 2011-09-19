@@ -157,6 +157,7 @@
 #define STORE_HOME      7
 #define STORE_BOOK      8
 #define STORE_MUSEUM    9
+#define STORE_ART      10
 
 
 #define BUILDING_NON_MEMBER 0
@@ -957,7 +958,6 @@
 #define RACE_NOLDOR_LINEAGE    74
 #define RACE_TELERI_LINEAGE    75
 #define RACE_NAZGUL            76
-
 #define RACE_ANT               77
 #define RACE_BAT               78
 #define RACE_CENTIPETE         79
