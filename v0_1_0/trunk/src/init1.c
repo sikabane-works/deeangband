@@ -545,7 +545,7 @@ static cptr r_info_flags8[] =
 {
 	"WILD_ONLY",
 	"WILD_TOWN",
-	"XXX8X02",
+	"CITIZEN",
 	"WILD_SHORE",
 	"WILD_OCEAN",
 	"WILD_WASTE",

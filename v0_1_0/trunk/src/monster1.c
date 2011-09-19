@@ -3169,7 +3169,7 @@ static bool mon_hook_town(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if (r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL))
+	if (r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL | RF8_CITIZEN))
 		return TRUE;
 	else
 		return FALSE;
@@ -3499,8 +3499,8 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 		return TRUE;
 	}
 
-	if ((r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL))
-	    && (s_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL)))
+	if ((r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL | RF8_CITIZEN))
+	    && (s_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL | RF8_CITIZEN)))
 	{
 		if (!is_pet(m_ptr) && !is_pet(n_ptr)) return FALSE;
 	}

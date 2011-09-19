@@ -4018,7 +4018,7 @@
  */
 #define RF8_WILD_ONLY           0x00000001
 #define RF8_WILD_TOWN           0x00000002
-#define RF8_XXX8X02             0x00000004
+#define RF8_CITIZEN             0x00000004
 #define RF8_WILD_SHORE          0x00000008
 #define RF8_WILD_OCEAN          0x00000010
 #define RF8_WILD_WASTE          0x00000020
