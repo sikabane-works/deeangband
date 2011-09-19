@@ -5472,7 +5472,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		else if (grp_amberite)
 		{
-			if (!(r_ptr->flags3 & RF3_AMBERITE)) continue;
+			if (r_ptr->irace_idx != RACE_AMBERITE) continue;
 		}
 
 		else if (cls != 255)

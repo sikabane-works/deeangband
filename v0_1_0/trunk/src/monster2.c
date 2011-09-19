@@ -796,7 +796,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_AMBERITES:
 		{
-			okay = (r_ptr->flags3 & (RF3_AMBERITE)) ? TRUE : FALSE;
+			okay = (r_ptr->irace_idx == RACE_AMBERITE) ? TRUE : FALSE;
 			break;
 		}
 

@@ -3856,7 +3856,7 @@
 #define RF3_UNDEAD          0x00000020  /* Undead */
 #define RF3_EVIL            0x00000040  /* Evil */
 #define RF3_ANIMAL          0x00000080  /* Animal */
-#define RF3_AMBERITE        0x00000100  /* TY: Amberite */
+#define RF3_PUELLA_MAGI     0x00000100  /* TY: Amberite -> Deskull: Puella Magi*/
 #define RF3_GOOD            0x00000200  /* Good */
 #define RF3_AURA_COLD       0x00000400  /* Freezes in melee */
 #define RF3_NONLIVING       0x00000800  /* TY: Non-Living (?) */

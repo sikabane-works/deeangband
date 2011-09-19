@@ -355,7 +355,7 @@ static cptr r_info_flags3[] =
 	"UNDEAD",
 	"EVIL",
 	"ANIMAL",
-	"AMBERITE",
+	"PUELLA_MAGI",
 	"GOOD",
 	"AURA_COLD",
 	"NONLIVING",
