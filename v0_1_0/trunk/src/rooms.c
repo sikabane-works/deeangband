@@ -1704,7 +1704,7 @@ static bool vault_aux_dragon(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require dragon */
-	if (!(r_ptr->flags3 & RF3_DRAGON)) return (FALSE);
+	if (!is_dragon_species(r_ptr)) return (FALSE);
 
 	/* Hack -- Require correct "breath attack" */
 	if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);

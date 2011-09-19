@@ -2629,8 +2629,8 @@ msg_format("%^s%s", m_name, monmessage);
 					monster_desc(m_name, m_ptr, MD_INDEF_HIDDEN);
 
 					/* React to objects that hurt the monster */
-					if (have_flag(flgs, TR_SLAY_DRAGON)) flg3 |= (RF3_DRAGON);
-					if (have_flag(flgs, TR_KILL_DRAGON)) flg3 |= (RF3_DRAGON);
+					//if (have_flag(flgs, TR_SLAY_DRAGON)) flg3 |= (RF3_DRAGON);
+					//if (have_flag(flgs, TR_KILL_DRAGON)) flg3 |= (RF3_DRAGON);
 					//if (have_flag(flgs, TR_SLAY_TROLL))  flg3 |= (RF3_TROLL);
 					//if (have_flag(flgs, TR_KILL_TROLL))  flg3 |= (RF3_TROLL);
 					if (have_flag(flgs, TR_SLAY_GIANT))  flg3 |= (RF3_GIANT);

@@ -772,7 +772,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_DRAGON:
 		{
-			okay = (r_ptr->flags3 & RF3_DRAGON);
+			okay = is_dragon_species(r_ptr);
 			break;
 		}
 
@@ -885,7 +885,7 @@ static bool summon_specific_aux(int species_idx)
 		{
 			okay = ((r_ptr->flags3 & (RF3_ANIMAL)) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
-			       !(r_ptr->flags3 & (RF3_DRAGON)) &&
+			       !is_dragon_species(r_ptr) &&
 			       !(r_ptr->flags3 & (RF3_EVIL)) &&
 			       !(r_ptr->flags3 & (RF3_UNDEAD)) &&
 			       !(r_ptr->flags3 & (RF3_DEMON)) &&
@@ -2640,7 +2640,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&m_list[m_idx])))
 			{
 				flag = TRUE;
-//				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
 			}
 
 			/* Magical sensing */
@@ -2651,10 +2651,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_dragon) && (r_ptr->flags3 & (RF3_DRAGON)))
+			if ((cr_ptr->esp_dragon) && is_dragon_species(r_ptr))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DRAGON);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DRAGON);
 			}
 
 			/* Magical sensing */

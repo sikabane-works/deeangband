@@ -682,3 +682,15 @@ bool is_troll_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_TROLL || sp_ptr->irace_idx == RACE_OLOG) return TRUE;
 	return FALSE;
 }
+
+bool is_dragon_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_DRAGON || cr_ptr->irace_idx == RACE_DRACONIAN) return TRUE;
+	return FALSE;
+}
+
+bool is_dragon_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_DRAGON || sp_ptr->irace_idx == RACE_DRACONIAN) return TRUE;
+	return FALSE;
+}

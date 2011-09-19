@@ -350,7 +350,7 @@ static cptr r_info_flags3[] =
 	"XXX",
 	"XXX",
 	"GIANT",
-	"DRAGON",
+	"XXX",
 	"DEMON",
 	"UNDEAD",
 	"EVIL",
