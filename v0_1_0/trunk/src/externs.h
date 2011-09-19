@@ -853,6 +853,7 @@ extern bool is_player(creature_type *cr_ptr);
 extern void set_sex(creature_type *cr_ptr);
 extern void set_height_weight(creature_type *cr_ptr);
 extern void set_status(creature_type *cr_ptr);
+extern void set_expfact(creature_type *cr_ptr);
 extern void set_bodysize(creature_type *cr_ptr);
 extern void set_hitdice(creature_type *cr_ptr);
 extern void set_enemy_maxhp(creature_type *cr_ptr);

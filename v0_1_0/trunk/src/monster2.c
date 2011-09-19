@@ -3849,9 +3849,8 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	m_ptr->nickname = 0;
 
 	/* Set Monster's Level and EXP*/
-	m_ptr->expfact = 100;
-	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[m_ptr->irace_idx].r_exp - 100);
-	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += class_info[m_ptr->cls_idx].c_exp;
+	set_expfact(m_ptr);
+
 	m_ptr->lev = 1;
 	m_ptr->exp = r_ptr->mexp;
 	check_experience(m_ptr);

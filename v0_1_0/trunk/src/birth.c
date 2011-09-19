@@ -2628,18 +2628,8 @@ void get_max_stats(creature_type *cr_ptr)
  */
 static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 {
-	int i;
 
-	/* Experience factor */
-	if (cr_ptr->irace_idx == RACE_ANDROID) cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp;
-	else {
-		cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp + class_info[cr_ptr->cls_idx].c_exp;
-		for(i = 0; i < MAX_RACES; i++)
-			if(get_subrace(cr_ptr, i)) cr_ptr->expfact += race_info[i].r_s_exp;
-	}
-
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->irace_idx == RACE_KLACKON) || (cr_ptr->irace_idx == RACE_SPRITE)))
-		cr_ptr->expfact -= 15;
+	set_expfact(cr_ptr);
 
 	/* Reset record of race/realm changes */
 	cr_ptr->start_race = cr_ptr->irace_idx;

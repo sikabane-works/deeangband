@@ -3158,14 +3158,16 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
 
 	/* Level Limit */
+	/* ... EXPFACT has no relation at level limit ...
 	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
 		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
+	*/
 
 	if (cr_ptr->dr >= 0)
-		cr_ptr->max_lev = i + cr_ptr->dr;
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
 	else
-		cr_ptr->max_lev = i;
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	/* Base infravision (purely racial) */
 	cr_ptr->see_infra = tmp_rcr_ptr->infra;

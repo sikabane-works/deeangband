@@ -215,6 +215,21 @@ void set_height_weight(creature_type *cr_ptr)
 
 }
 
+// Experience factor
+void set_expfact(creature_type *cr_ptr)
+{
+	int i;
+	if (cr_ptr->irace_idx == RACE_ANDROID) cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp;
+	else {
+		cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp + class_info[cr_ptr->cls_idx].c_exp;
+		for(i = 0; i < MAX_RACES; i++)
+			if(get_subrace(cr_ptr, i)) cr_ptr->expfact += race_info[i].r_s_exp;
+	}
+
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->irace_idx == RACE_KLACKON) || (cr_ptr->irace_idx == RACE_SPRITE)))
+		cr_ptr->expfact -= 15;
+}
+
 
 /* Calculate body size */
 void set_bodysize(creature_type * cr_ptr)
