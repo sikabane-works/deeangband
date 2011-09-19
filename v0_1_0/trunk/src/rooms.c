@@ -1639,7 +1639,7 @@ static bool vault_aux_orc(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require orc */
-	if (!(r_ptr->flags3 & RF3_ORC)) return (FALSE);
+	if (!is_orc_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
 	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);

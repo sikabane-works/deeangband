@@ -347,7 +347,7 @@ static cptr r_info_flags2[] =
  */
 static cptr r_info_flags3[] =
 {
-	"ORC",
+	"XXX",
 	"TROLL",
 	"GIANT",
 	"DRAGON",

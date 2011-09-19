@@ -2625,10 +2625,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_orc) && (r_ptr->flags3 & (RF3_ORC)))
+			if ((cr_ptr->esp_orc) && (is_orc_creature(&m_list[m_idx])))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
 			}
 
 			/* Magical sensing */

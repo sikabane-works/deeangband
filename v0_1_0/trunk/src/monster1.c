@@ -228,7 +228,8 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	if (r_ptr->r_tkills || know_everything)
 	{
 		/* Know "race" flags */
-		if (r_ptr->flags3 & RF3_ORC)      flags3 |= (RF3_ORC);
+		//TODO
+		//if (r_ptr->flags3 & RF3_ORC)      flags3 |= (RF3_ORC);
 		if (r_ptr->flags3 & RF3_TROLL)    flags3 |= (RF3_TROLL);
 		if (r_ptr->flags3 & RF3_GIANT)    flags3 |= (RF3_GIANT);
 		if (r_ptr->flags3 & RF3_DRAGON)   flags3 |= (RF3_DRAGON);
@@ -706,7 +707,7 @@ if (flags3 & RF3_UNDEAD)          hook_c_roff(TERM_VIOLET, "アンデッドの");
 #endif
 
 
-	if ((flags3 & (RF3_DRAGON | RF3_DEMON | RF3_GIANT | RF3_TROLL | RF3_ORC)) || (flags2 & (RF2_QUANTUM | RF2_HUMAN)))
+	if ((flags3 & (RF3_DRAGON | RF3_DEMON | RF3_GIANT | RF3_TROLL)) || (flags2 & (RF2_QUANTUM | RF2_HUMAN)))
 	{
 	/* Describe the "race" */
 #ifdef JP
@@ -731,12 +732,6 @@ if (flags3 & RF3_GIANT)    hook_c_roff(TERM_L_UMBER, "ジャイアント");
 if (flags3 & RF3_TROLL)    hook_c_roff(TERM_BLUE, "トロル");
 #else
 		if (flags3 & RF3_TROLL)    hook_c_roff(TERM_BLUE, " troll");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_ORC)      hook_c_roff(TERM_UMBER, "オーク");
-#else
-		if (flags3 & RF3_ORC)      hook_c_roff(TERM_UMBER, " orc");
 #endif
 
 #ifdef JP

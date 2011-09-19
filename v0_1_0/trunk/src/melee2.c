@@ -2635,8 +2635,9 @@ msg_format("%^s%s", m_name, monmessage);
 					if (have_flag(flgs, TR_KILL_TROLL))  flg3 |= (RF3_TROLL);
 					if (have_flag(flgs, TR_SLAY_GIANT))  flg3 |= (RF3_GIANT);
 					if (have_flag(flgs, TR_KILL_GIANT))  flg3 |= (RF3_GIANT);
-					if (have_flag(flgs, TR_SLAY_ORC))    flg3 |= (RF3_ORC);
-					if (have_flag(flgs, TR_KILL_ORC))    flg3 |= (RF3_ORC);
+					//TODO
+					//if (have_flag(flgs, TR_SLAY_ORC))    flg3 |= (RF3_ORC);
+					//if (have_flag(flgs, TR_KILL_ORC))    flg3 |= (RF3_ORC);
 					if (have_flag(flgs, TR_SLAY_DEMON))  flg3 |= (RF3_DEMON);
 					if (have_flag(flgs, TR_KILL_DEMON))  flg3 |= (RF3_DEMON);
 					if (have_flag(flgs, TR_SLAY_UNDEAD)) flg3 |= (RF3_UNDEAD);

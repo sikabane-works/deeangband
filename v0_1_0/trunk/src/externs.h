@@ -866,6 +866,8 @@ extern int  set_inventory_fitting_rate(creature_type *cr_ptr, object_type *o_ptr
 extern void estimate_enemy_hp(species_type *mr_ptr, int *result);
 extern void set_resistance(creature_type *cr_ptr);
 extern void initialize_skill(creature_type *cr_ptr);
+extern bool is_orc_creature(creature_type *cr_ptr);
+extern bool is_orc_species(species_type *sp_ptr);
 
 
 /* do-spell.c */

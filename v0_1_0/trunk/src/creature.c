@@ -643,3 +643,15 @@ void initialize_skill(creature_type *cr_ptr)
 		cr_ptr->skill_exp[i] = s_info[tmp_cls].s_start[i];
 
 }
+
+bool is_orc_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_ORC || cr_ptr->irace_idx == RACE_URUK) return TRUE;
+	return FALSE;
+}
+
+bool is_orc_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_ORC || sp_ptr->irace_idx == RACE_URUK) return TRUE;
+	return FALSE;
+}

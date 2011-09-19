@@ -3848,7 +3848,7 @@
 /*
  * New monster race bit flags
  */
-#define RF3_ORC             0x00000001  /* Orc */
+#define RF3_XXX1            0x00000001  // Orc -> Deskull: None
 #define RF3_TROLL           0x00000002  /* Troll */
 #define RF3_GIANT           0x00000004  /* Giant */
 #define RF3_DRAGON          0x00000008  /* Dragon */
@@ -3856,7 +3856,7 @@
 #define RF3_UNDEAD          0x00000020  /* Undead */
 #define RF3_EVIL            0x00000040  /* Evil */
 #define RF3_ANIMAL          0x00000080  /* Animal */
-#define RF3_PUELLA_MAGI     0x00000100  /* TY: Amberite -> Deskull: Puella Magi*/
+#define RF3_PUELLA_MAGI     0x00000100  // TY: Amberite -> Deskull: Puella Magi
 #define RF3_GOOD            0x00000200  /* Good */
 #define RF3_AURA_COLD       0x00000400  /* Freezes in melee */
 #define RF3_NONLIVING       0x00000800  /* TY: Non-Living (?) */
