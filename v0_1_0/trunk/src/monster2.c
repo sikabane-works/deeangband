@@ -760,7 +760,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_DEMON:
 		{
-			okay = (r_ptr->flags3 & RF3_DEMON);
+			okay = is_demon_species(r_ptr);
 			break;
 		}
 
@@ -793,9 +793,9 @@ static bool summon_specific_aux(int species_idx)
 		case SUMMON_HI_DEMON:
 		{
 			okay = (((r_ptr->d_char == 'U') ||
-				 (r_ptr->d_char == 'H') ||
-				 (r_ptr->d_char == 'B')) &&
-				(r_ptr->flags3 & RF3_DEMON)) ? TRUE : FALSE;
+				    (r_ptr->d_char == 'H') ||
+				    (r_ptr->d_char == 'B')) &&
+		  		    is_demon_species(r_ptr)) ? TRUE : FALSE;
 			break;
 		}
 
@@ -888,7 +888,7 @@ static bool summon_specific_aux(int species_idx)
 			       !is_dragon_species(r_ptr) &&
 			       !(r_ptr->flags3 & (RF3_EVIL)) &&
 			       !(r_ptr->flags3 & (RF3_UNDEAD)) &&
-			       !(r_ptr->flags3 & (RF3_DEMON)) &&
+			       !is_demon_species(r_ptr) &&
 			       !(r_ptr->flags2 & (RF2_MULTIPLY)) &&
 			       !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
 			break;
@@ -1011,7 +1011,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_ARMAGE_EVIL:
 		{
-			okay = ((r_ptr->flags3 & RF3_DEMON) ||
+			okay = ((is_demon_species(r_ptr)) ||
 				(r_ptr->d_char == 'A' && (r_ptr->flags3 & RF3_EVIL)));
 			break;
 		}
@@ -2623,10 +2623,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_demon) && (r_ptr->flags3 & (RF3_DEMON)))
+			if ((cr_ptr->esp_demon) && (is_demon_species(r_ptr)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
+				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
 			}
 
 			/* Magical sensing */
@@ -2680,7 +2680,8 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_nonliving) &&
-			    ((r_ptr->flags3 & (RF3_DEMON | RF3_UNDEAD | RF3_NONLIVING)) == RF3_NONLIVING))
+			    ((r_ptr->flags3 & (RF3_UNDEAD | RF3_NONLIVING)) == RF3_NONLIVING) &&
+				!is_demon_species(r_ptr) )
 			{
 				flag = TRUE;
 				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);

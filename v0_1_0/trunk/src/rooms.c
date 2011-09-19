@@ -1730,7 +1730,7 @@ static bool vault_aux_demon(int species_idx)
 	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
 
 	/* Require demon */
-	if (!(r_ptr->flags3 & RF3_DEMON)) return (FALSE);
+	if (!is_demon_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

@@ -233,7 +233,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 		//if (r_ptr->flags3 & RF3_TROLL)    flags3 |= (RF3_TROLL);
 		if (r_ptr->flags3 & RF3_GIANT)    flags3 |= (RF3_GIANT);
 		//if (r_ptr->flags3 & RF3_DRAGON)   flags3 |= (RF3_DRAGON);
-		if (r_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
+		//if (r_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
 		if (r_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
 		if (r_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
 		if (r_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
@@ -3561,10 +3561,11 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, s
 bool monster_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
-	if (r_ptr->flags3 & (RF3_DEMON | RF3_UNDEAD | RF3_NONLIVING))
-		return FALSE;
-	else
-		return TRUE;
+	if (r_ptr->flags3 & (RF3_UNDEAD | RF3_NONLIVING)) return FALSE;
+
+	if (is_demon_species(r_ptr)) return FALSE;
+
+	return TRUE;
 }
 
 

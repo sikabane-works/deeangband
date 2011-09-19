@@ -3852,7 +3852,7 @@
 #define RF3_XXX2            0x00000002  /* Troll */
 #define RF3_GIANT           0x00000004  /* Giant */
 #define RF3_XXX4          0x00000008  /* Dragon */
-#define RF3_DEMON           0x00000010  /* Demon */
+#define RF3_XXX5           0x00000010  /* Demon */
 #define RF3_UNDEAD          0x00000020  /* Undead */
 #define RF3_EVIL            0x00000040  /* Evil */
 #define RF3_ANIMAL          0x00000080  /* Animal */

@@ -419,7 +419,7 @@ CLAW:POISON:1d4",,,"JZ#","OPEN_DOOR|BASH_DOOR|FRIENDS|NO_CONF|NO_SLEEP|UNDEAD|EV
 127,"森蜘蛛","Wood spider","S","U",98,255,255,255,0,0,7,3,0,15,100,277,0,0,-1,120,8,16,80,11,11,11,11,11,11,180,20,53,10,180,20,53,10,"BITE:HURT:1d4
 STING:POISON:1d5",,,"J0#","FRIENDS|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|WILD_WOOD|ANIMAL|IM_POIS",,,"$It scuttles towards you.
 それは一目散に冒険者に向かってくる。",,,,,,,
-128,"古代の死霊","Manes","u","R",52,255,255,255,0,0,7,2,0,16,0,0,0,0,-1,110,20,32,30,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d10",,,"J0#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_FIRE|NO_FEAR",,,"$It is a minor but aggressive demon.
+128,"古代の死霊","Manes","u","R",52,255,255,255,0,0,7,2,0,16,0,0,0,0,-1,110,20,32,30,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d10",,,"J0#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|NO_FEAR",,,"$It is a minor but aggressive demon.
 それは下級だが攻撃的なデーモンだ。",,,,,,,
 129,"充血アイ","Bloodshot eye","e","r",80,255,255,255,0,0,7,3,0,15,0,0,0,0,-1,110,2,6,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"GAZE:BLIND:2d7",,,"J0#","NEVER_MOVE|CAN_FLY|DROP_CORPSE|HURT_LITE|NO_FEAR|EAT_BLIND","1_IN_7|DRAIN_MANA",,"$A disembodied eye, bloodshot and nasty.
 体を持たない、血走っていて忌まわしい目玉だ。",,,,,,,
@@ -472,7 +472,7 @@ HIT:HURT:2d6
 TOUCH:EAT_GOLD
 TOUCH:EAT_ITEM",,"221:0:0:10","JZ#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|HUMAN|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|WILD_WOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|DROP_SKELETON|DROP_CORPSE|EAT_GIVE_DEX|EAT_LOSE_WIS","1_IN_5|SHOOT|HEAL|TRAPS",,"$The legendary archer steals from the rich (you qualify).
 この伝説の射手は金持ち（あなたは合格）から金を盗む",,,,,,,
-139,"ナーグリング","Nurgling","u","U",43,255,14,255,0,0,8,2,0,19,0,0,0,0,-1,110,20,32,30,11,11,11,11,11,11,182,0,83,0,0,0,0,0,"BITE:DISEASE:1d9",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|IM_POIS|EVIL|DEMON|IM_FIRE|NO_FEAR",,,"$It is a minor demon servitor of Nurgle. It looks like a hairless 
+139,"ナーグリング","Nurgling","u","U",43,255,14,255,0,0,8,2,0,19,0,0,0,0,-1,110,20,32,30,11,11,11,11,11,11,182,0,83,0,0,0,0,0,"BITE:DISEASE:1d9",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|IM_POIS|EVIL|IM_FIRE|NO_FEAR",,,"$It is a minor demon servitor of Nurgle. It looks like a hairless 
 $teddy bear, with twisted eyes and rotting, ghoulish skin.
 それは<ナーグル>の配下の低級悪魔だ。毛のないテディベアのようで、
 目は歪み、肌は腐敗して死鬼のようだ。",,,,,,,
@@ -518,7 +518,7 @@ BITE:HURT:7d1",,,"JZ#","ANIMAL|CAN_FLY|WILD_WOOD|WILD_MOUNTAIN|DROP_CORPSE",,,"$
 HIT:HURT:10d4
 HIT:HURT:10d4
 HIT:HURT:10d4",,,"J0#","UNIQUE|MALE|CAN_SPEAK|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|ESCORT|EAT_POISONOUS|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_POIS|RES_DARK","1_IN_9|SCARE|CAUSE_1",,"彼は神代まで遡る数多の功をウトゥムノの神々に称えられ、冥府の王ゴスモグより同じ名乗りを許される名誉を授かった伝説のウルクだ。彼の分厚い甲冑のそこかしこには、彼に敗れたエルダールの勇者の首と頭骨が無数に吊り下げられ、その鉄槌は常に負け犬と臆病者の新鮮な血肉に塗れている。",,,,,,,
-148,"レムレース","Lemure","u","o",43,255,255,255,0,0,8,3,0,16,150,280,0,0,-1,110,20,32,30,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d9",,,"J0#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_FIRE|NO_FEAR",,,"$It is the larval form of a major demon.
+148,"レムレース","Lemure","u","o",43,255,255,255,0,0,8,3,0,16,150,280,0,0,-1,110,20,32,30,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d9",,,"J0#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|NO_FEAR",,,"$It is the larval form of a major demon.
 それは上級デーモンの幼生形態だ。",,,,,,,
 149,"丘オーク","Hill orc","o","s",26,255,255,255,0,0,8,1,0,25,0,0,0,0,-1,110,20,0,30,13,10,10,13,13,10,180,13,75,5,170,13,65,5,"HIT:HURT:1d11",,,"J0#","MALE|FRIENDS|DROP_60|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|EVIL|HURT_LITE|RES_DARK|CLASS_EGO",,,"彼らは困難な環境に耐え忍び、異種族と熾烈な生存競争を繰り広げるオークの一部族だ。",,,,,,,
 150,"追い剥ぎ","Bandit","p","D",0,3,255,255,0,0,8,2,0,26,100,199,0,0,-1,110,20,0,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:2d6
@@ -534,7 +534,7 @@ HIT:HURT:1d12",,,"JZ#","PASS_WALL|NO_SLEEP|FRIENDS|COLD_BLOOD|NONLIVING|NO_FEAR|
 半分物質で、半分幻影のモンスターだ。",,,,,,,
 153,"グレムリン","Gremlin","u","u",43,255,255,255,0,0,8,3,0,6,0,0,0,0,-1,110,30,30,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:EAT_FOOD:1d2
 CLAW:EAT_FOOD:1d2
-BITE:EAT_FOOD:1d4",,,"JZ#","MULTIPLY|IM_POIS|RES_DARK|HURT_LITE|EVIL|DEMON|OPEN_DOOR|TAKE_ITEM|CAN_SWIM",,,"$Don't splash water on them, and don't feed them after midnight!
+BITE:EAT_FOOD:1d4",,,"JZ#","MULTIPLY|IM_POIS|RES_DARK|HURT_LITE|EVIL|OPEN_DOOR|TAKE_ITEM|CAN_SWIM",,,"$Don't splash water on them, and don't feed them after midnight!
 水を掛けたり、真夜中を過ぎてから餌をやってはいけない！",,,,,,,
 154,"イエティ","Yeti","Y","w",102,255,255,255,0,0,9,3,0,30,100,983,0,0,-1,110,20,24,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:HURT:1d3
 CLAW:HURT:1d3
@@ -735,7 +735,7 @@ CLAW:HURT:1d3
 CRUSH:HURT:1d10",,,"JZ#","EVIL|ANIMAL|OPEN_DOOR|BASH_DOOR|DROP_CORPSE",,,"$A bizarre bear-creature with the claws and the face of an owl.
 奇怪な熊型のモンスターで、フクロウの爪と顔を持っている。",,,,,,,
 189,"ブルーホラー","Blue horror","u","B",43,255,255,255,0,0,10,3,0,25,200,242,0,0,-1,110,20,35,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:TERRIFY:1d8
-CLAW:TERRIFY:1d8",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_FIRE|NO_FEAR|NO_CONF",,,"$An ugly screaming little demon servant of Tzeentch.
+CLAW:TERRIFY:1d8",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|NO_FEAR|NO_CONF",,,"$An ugly screaming little demon servant of Tzeentch.
 ティーンチのしもべの、叫ぶ醜い小型の悪魔だ。",,,,,,,
 190,"毛むくじゃらモルド","Hairy mold","m","U",85,255,255,255,0,0,10,2,0,32,80,192,0,0,-1,110,2,15,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"SPORE:POISON:1d3",,,"J0#","NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a strange hairy growth on the dungeon floor.
 それはダンジョンの床に生えている奇妙なカビで毛が生えている。",,,,,,,
@@ -749,7 +749,7 @@ BITE:HURT:1d10",,,"JZ#","BASH_DOOR|WILD_WOOD|WILD_MOUNTAIN|DROP_CORPSE|ANIMAL|WI
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"J0#","FORCE_MAXHP|FORCE_SLEEP|CAN_FLY|DROP_CORPSE|DROP_60|BASH_DOOR|EAT_BLIND|RES_LITE|RES_DARK","1_IN_11|CONF|SCARE|BR_LITE|BR_DARK",,"$A small relative of the dragon that inhabits dark caves.
 暗い洞窟に生息するドラゴンの小型の近隣種だ。",,,,,,,
-194,"テング","Tengu","u","b",43,255,255,255,0,0,10,1,0,40,0,0,0,0,-1,120,20,32,30,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8",,,"J0#","OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_FIRE|NO_FEAR|RES_TELE|CAN_FLY","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TPORT",,"$It is a fast-moving demon that blinks quickly in and out of existence; no 
+194,"テング","Tengu","u","b",43,255,255,255,0,0,10,1,0,40,0,0,0,0,-1,120,20,32,30,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8",,,"J0#","OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|NO_FEAR|RES_TELE|CAN_FLY","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TPORT",,"$It is a fast-moving demon that blinks quickly in and out of existence; no 
 $other demon matches its teleporting mastery.
 それは動きの素早いデーモンで、瞬時に消えたり現れたりする。このテレポート
 の技術はデーモンの中でも秀でている。",,,,,,,
@@ -994,7 +994,7 @@ J0#","MALE|WILD_WOOD|HAS_LITE_2|HUMAN|FORCE_SLEEP|DROP_1D2|DROP_SKELETON|DROP_CO
 自然との調和を目指す修行僧だ。オーム。",,,,,,,
 242,"ピンク・ホラー","Pink horror","u","R",43,255,255,255,0,0,16,3,0,64,0,0,0,0,-1,110,20,35,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:TERRIFY:1d8
 CLAW:TERRIFY:1d8
-BITE:CONFUSE:1d6",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_FIRE|NO_FEAR|NO_CONF","1_IN_8|CONF|SCARE",,"$An ugly screaming little demon servant of Tzeentch.
+BITE:CONFUSE:1d6",,,"JZ#","FRIENDS|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|NO_FEAR|NO_CONF","1_IN_8|CONF|SCARE",,"$An ugly screaming little demon servant of Tzeentch.
 ティーンチのしもべの、叫ぶ醜い小型の悪魔だ。",,,,,,,
 243,"クローカー","Cloaker","(","g",90,255,255,255,0,0,13,5,0,30,0,0,0,0,-1,130,20,40,0,13,13,13,13,13,13,165,10,55,3,165,10,55,3,"HIT:PARALYZE:5d5
 HIT:TERRIFY:5d5",,,"JZ#","NEVER_MOVE|NONLIVING|NO_FEAR|STUPID|COLD_BLOOD|CHAR_MULTI|NO_CONF|NO_SLEEP|EVIL|IM_COLD|FORCE_MAXHP|IM_ELEC|IM_POIS",,,"$It resembles a normal cloak until some poor fool ventures too close! 
@@ -1075,7 +1075,7 @@ HIT:HURT:1d8",,,"J0#","COLD_BLOOD|BASH_DOOR|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|HURT
 HIT:HURT:2d8",,,"J0#","RAND_25|WILD_MOUNTAIN|DROP_CORPSE|FRIENDS|DROP_60|OPEN_DOOR|BASH_DOOR|EVIL|GIANT",,,"強力な角を生やした人型の生物で、黒い肌と強い腕力を持っている。",,,,,,,
 263,"閾に棲む者","Dweller on the threshold","Y","s",102,255,255,255,0,0,15,5,0,50,0,0,0,0,-1,110,30,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"GAZE:PARALYZE
 GAZE:TERRIFY
-GAZE:CONFUSE",,,,"NEVER_MOVE|DROP_60|EVIL|DEMON|DROP_CORPSE|EAT_MANA|EAT_CONF|IM_POIS|IM_COLD|IM_FIRE|NO_FEAR|NO_CONF|NO_SLEEP","1_IN_6|BO_ACID|S_MONSTER|SCARE|DRAIN_MANA",,"$A creature like a giant purple Buddha with lots of teeth.
+GAZE:CONFUSE",,,,"NEVER_MOVE|DROP_60|EVIL|DROP_CORPSE|EAT_MANA|EAT_CONF|IM_POIS|IM_COLD|IM_FIRE|NO_FEAR|NO_CONF|NO_SLEEP","1_IN_6|BO_ACID|S_MONSTER|SCARE|DRAIN_MANA",,"$A creature like a giant purple Buddha with lots of teeth.
 $It cleans them with the bones of sorcerors.
 魔法使いを好んで食べるゴリラ形の謎の守護者だ。
 「大きくて丸々と太った姿が僕の道を塞いでいた。コウモリの耳を
@@ -1104,7 +1104,7 @@ CRUSH:SUPERHURT:8d3",,,"JZ#","RAND_25|IM_COLD|RES_WATE|AQUATIC|ANIMAL|WILD_ALL|R
 ようだ。",,,,,,,
 268,"<ナーグル>の疫病人間","Plaguebearer of Nurgle","z","o",52,255,255,255,0,0,15,2,0,75,0,0,0,0,-1,110,20,50,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:DISEASE:2d5
 CLAW:DISEASE:2d5
-BUTT:HURT:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|OPEN_DOOR|BASH_DOOR|IM_COLD|EVIL|DEMON|UNDEAD|IM_POIS|RES_NETH|NONLIVING","1_IN_8|SCARE|S_ANT|CAUSE_2|SLOW",,"$An unfortunate individual, who was killed by the incurable 
+BUTT:HURT:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|OPEN_DOOR|BASH_DOOR|IM_COLD|EVIL|UNDEAD|IM_POIS|RES_NETH|NONLIVING","1_IN_8|SCARE|S_ANT|CAUSE_2|SLOW",,"$An unfortunate individual, who was killed by the incurable 
 $disease known as Nurgle's Rot, and was transformed into a 
 $rotting demon zombie. It has but one eye, and a single 
 $pale horn in its forehead.
@@ -1169,7 +1169,7 @@ BITE:HURT:2d3",,,"J0#","FORCE_MAXHP|DROP_CORPSE|CAN_FLY|RIDING|BASH_DOOR|ANIMAL|
 その体は半分がライオンで、半分がワシだ。それは冒険者の方へ威嚇的に
 飛んでくる。",,,,,,,
 280,"ホムンクルス","Homonculous","u","U",43,255,255,255,0,0,15,3,0,40,200,294,0,0,-1,110,20,32,30,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"HIT:PARALYZE:1d2
-HIT:HURT:1d10",,,"J0#","OPEN_DOOR|BASH_DOOR|NONLIVING|CAN_FLY|EVIL|DEMON|IM_FIRE|NO_FEAR",,,"$It is a small demonic spirit full of malevolence.
+HIT:HURT:1d10",,,"J0#","OPEN_DOOR|BASH_DOOR|NONLIVING|CAN_FLY|EVIL|IM_FIRE|NO_FEAR",,,"$It is a small demonic spirit full of malevolence.
 それは悪意に満ちあふれた小さなデーモンの精霊だ。",,,,,,,
 281,"ノーム・メイジ","Gnome mage","h","R",4,255,255,255,0,0,15,2,0,40,0,0,0,0,-1,110,20,20,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"HIT:HURT:1d5",,,"J0#","MALE|HAS_LITE_1|FORCE_SLEEP|FRIENDS|DROP_60|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|EVIL","1_IN_4|BLINK|DARKNESS|BO_COLD|S_MONSTER",,"$A mage of short stature.
 背の低いメイジだ。",,,,,,,
@@ -1233,13 +1233,13 @@ J0#
 J0#(コメント)
 J0#「クァジット」とも読むという指摘を受けたが、私は jnethack で「クアシト」
 J0# という呼び名に親しんでいたので、こうしてある。
-J0#","FORCE_SLEEP|CAN_FLY|RAND_25|ONLY_ITEM|DROP_1D2|SMART|INVISIBLE|BASH_DOOR|EVIL|DEMON|IM_FIRE|NONLIVING","1_IN_10|BLINK|TPORT|TELE_TO|TELE_LEVEL|BLIND|CONF|SCARE",,"$The chaotic evil master's favourite pet.
+J0#","FORCE_SLEEP|CAN_FLY|RAND_25|ONLY_ITEM|DROP_1D2|SMART|INVISIBLE|BASH_DOOR|EVIL|IM_FIRE|NONLIVING","1_IN_10|BLINK|TPORT|TELE_TO|TELE_LEVEL|BLIND|CONF|SCARE",,"$The chaotic evil master's favourite pet.
 カオティック・エビル・マスターのお気に入りのペットだ。",,,,,,,
 295,"スフィンクス","Sphinx","H","o",86,255,255,255,0,0,17,2,0,80,0,0,0,0,-1,110,20,80,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:HURT:2d6
 CLAW:HURT:2d6",,,"JZ#","FORCE_SLEEP|RIDING|ONLY_GOLD|DROP_1D2|CAN_FLY|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|WILD_MOUNTAIN|ANIMAL","1_IN_11|SCARE|CONF",,"$It will eat you if you cannot answer its riddle.
 そのなぞなぞに答えられなかったらあなたは食べられてしまうだろう。",,,,,,,
 296,"インプ","Imp","u","r",43,255,255,255,0,0,17,2,0,55,1000,566,0,0,-1,110,20,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"HIT:POISON:3d4
-HIT:POISON:3d4",,,"J0#","FORCE_SLEEP|CAN_FLY|RAND_25|ONLY_ITEM|DROP_1D2|SMART|INVISIBLE|COLD_BLOOD|BASH_DOOR|EVIL|DEMON|IM_FIRE|RES_TELE","1_IN_10|BLINK|TPORT|TELE_TO|TELE_LEVEL|BLIND|CONF|SCARE|BO_FIRE",,"$The lawful evil master's favourite pet.
+HIT:POISON:3d4",,,"J0#","FORCE_SLEEP|CAN_FLY|RAND_25|ONLY_ITEM|DROP_1D2|SMART|INVISIBLE|COLD_BLOOD|BASH_DOOR|EVIL|IM_FIRE|RES_TELE","1_IN_10|BLINK|TPORT|TELE_TO|TELE_LEVEL|BLIND|CONF|SCARE|BO_FIRE",,"$The lawful evil master's favourite pet.
 ローフル・エビル・マスターのお気に入りのペットだ。",,,,,,,
 297,"森トロル","Forest troll","T","G",28,255,255,255,0,0,17,1,0,70,500,401,0,0,-1,110,20,50,40,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"HIT:HURT:1d4
 HIT:HURT:1d4
@@ -1337,7 +1337,7 @@ $of several different kinds of creature.
 カオスに歪められた、本当に忌まわしい存在で、何種類かの
 生物の混ざった姿だ。",,,,,,,
 319,"<スラーネッシュ>の女悪魔","Daemonette of Slaanesh","u","R",43,6,13,255,0,0,18,2,0,75,0,0,0,0,-1,120,20,50,30,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:CONFUSE:3d5
-CLAW:CONFUSE:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|FEMALE|OPEN_DOOR|BASH_DOOR|IM_COLD|NO_CONF|NO_SLEEP|EVIL|DEMON|IM_POIS|IM_FIRE","1_IN_8|SCARE|S_DEMON|CAUSE_2|CONF|BO_FIRE|BO_COLD",,"$It is minor female demon, vaguely human-like, but with crab-like 
+CLAW:CONFUSE:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|FEMALE|OPEN_DOOR|BASH_DOOR|IM_COLD|NO_CONF|NO_SLEEP|EVIL|IM_POIS|IM_FIRE","1_IN_8|SCARE|S_DEMON|CAUSE_2|CONF|BO_FIRE|BO_COLD",,"$It is minor female demon, vaguely human-like, but with crab-like 
 $pincers instead of hands. She wears a rather indecent skimpy 
 $leather bikini, moves quickly and casts deadly spells!
 下級の女性型悪魔で、概ね人間型をしているが、手の代わりに
@@ -1533,7 +1533,7 @@ HIT:HURT:3d5",,,"J0#","UNIQUE|MALE|CAN_SPEAK|FORCE_MAXHP|DROP_SKELETON|DROP_CORP
 多くのウルクの上将の場合、対峙した者だけが死を覚悟しなければならないが、
 彼の場合は周囲の敵も味方も死を覚悟しなければならない。",,,,,,,
 357,"アーチ=ヴァイル","Arch-vile","u","W",43,6,255,255,0,0,21,1,0,300,0,0,0,0,-1,125,100,30,0,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:HURT:3d9
-CLAW:HURT:3d9",,,"JZ#","RAND_50|EVIL|DEMON|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|COLD_BLOOD|IM_FIRE|RES_NETH|NO_CONF|NO_SLEEP|NONLIVING|NO_STUN","1_IN_3|BA_FIRE|ANIM_DEAD",,"$A pale, corpse-like lesser demon, who moves very fast and spawns evil 
+CLAW:HURT:3d9",,,"JZ#","RAND_50|EVIL|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|COLD_BLOOD|IM_FIRE|RES_NETH|NO_CONF|NO_SLEEP|NONLIVING|NO_STUN","1_IN_3|BA_FIRE|ANIM_DEAD",,"$A pale, corpse-like lesser demon, who moves very fast and spawns evil 
 $everywhere.
 青白い死体のような下級悪魔で、非常に素早く動き回り、
 そこらじゅうに悪を生み出す。",,,,,,,
@@ -1607,7 +1607,7 @@ HIT:HURT:10d5",,,"J0#","UNIQUE|MALE|CAN_SPEAK|FORCE_MAXHP|DROP_SKELETON|DROP_COR
 374,"<コーン>の腐肉犬","Fleshhound of Khorne","C","R",92,255,12,255,0,0,23,3,0,150,0,0,0,0,-1,120,15,30,70,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"CLAW:HURT:4d1
 CLAW:HURT:4d1
 BITE:HURT:6d1
-BITE:HURT:6d1",,,"JZ#","BASH_DOOR|DEMON|NO_STUN|NO_FEAR|ANIMAL|EVIL|IM_FIRE|NO_SLEEP|NO_CONF|RES_NETH|RES_NEXU|RES_DISE|RES_PLAS",,,"$A revolting canine creature, a huge demon hound with a somewhat 
+BITE:HURT:6d1",,,"JZ#","BASH_DOOR|NO_STUN|NO_FEAR|ANIMAL|EVIL|IM_FIRE|NO_SLEEP|NO_CONF|RES_NETH|RES_NEXU|RES_DISE|RES_PLAS",,,"$A revolting canine creature, a huge demon hound with a somewhat 
 $reptilian head.
 不快な犬形の生物で、爬虫類のような頭部をした悪魔の猟犬だ。",,,,,,,
 375,"ダークエルフ・ワーロック","Dark elven warlock","h","v",10,1,255,255,0,0,23,1,0,75,20000,657,0,0,-1,120,20,16,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
@@ -1882,7 +1882,7 @@ SPIT:FIRE:4d5",,,"J0#","WEIRD_MIND|BASH_DOOR|WILD_VOLCANO|DROP_CORPSE|ANIMAL|IM_
 それは火炎に取り巻かれた巨大な甲虫だ。",,,,,,,
 422,"<ナーグル>の妖獣","Beast of Nurgle","q","o",86,255,14,255,0,0,27,2,0,100,0,0,0,0,-1,110,14,50,30,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"TOUCH:POISON:3d3
 TOUCH:DISEASE:3d3
-BITE:ACID:4d5",,,"JZ#","WEIRD_MIND|BASH_DOOR|IM_ACID|IM_POIS|DEMON|EVIL|IM_FIRE|CAN_SWIM",,,"$It walks on four legs, but mostly resembles a slug-shaped jelly. 
+BITE:ACID:4d5",,,"JZ#","WEIRD_MIND|BASH_DOOR|IM_ACID|IM_POIS|EVIL|IM_FIRE|CAN_SWIM",,,"$It walks on four legs, but mostly resembles a slug-shaped jelly. 
 $It even has two disgusting antennae in its head. Yecch!
 腐敗と疫病の神<ナーグル>の下僕。
 それは四つ足で歩くが、見かけはナメクジの形をしたゼリーのようだ。
@@ -1897,7 +1897,7 @@ CLAW:POISON:3d3
 BITE:HURT:1d6",,,"J0#","FRIENDS|DROP_60|WILD_WOOD|WILD_MOUNTAIN|WILD_SWAMP|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|EAT_POISONOUS|REGENERATE|EVIL",,,"$A powerful troll form.  Venom drips from its needlelike claws.
 屈強なトロルで、その針の様な爪からは毒液がしたたり落ちている。",,,,,,,
 425,"<ティーンチ>の火炎悪魔","Flamer of Tzeentch",",","R",43,255,15,255,0,0,27,2,0,500,0,0,0,0,-1,110,10,70,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"ENGULF:FIRE:3d6
-ENGULF:FIRE:3d6",,,"JZ#","FORCE_SLEEP|BASH_DOOR|IM_FIRE|IM_POIS|AURA_FIRE|DEMON|EVIL|RES_PLAS|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING","1_IN_3|BO_FIRE|BA_FIRE",,"$It looks like an inverted mushroom, with two flexible arms.
+ENGULF:FIRE:3d6",,,"JZ#","FORCE_SLEEP|BASH_DOOR|IM_FIRE|IM_POIS|AURA_FIRE|EVIL|RES_PLAS|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING","1_IN_3|BO_FIRE|BA_FIRE",,"$It looks like an inverted mushroom, with two flexible arms.
 変化と混沌の神<ティーンチ>の下僕だ。
 逆さになったキノコに似ていて、二本の柔軟な腕がある。",,,,,,,
 426,"ローパー","Roper","#","D",90,255,255,255,0,0,27,5,0,235,0,0,0,0,-1,115,30,60,255,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CRUSH:PARALYZE:3d5
@@ -2063,7 +2063,7 @@ $clean, and you are the biggest spot of dirt in sight.
 452,"深き者","Deep one","u","g",46,255,255,255,0,0,28,5,0,150,0,0,0,0,-1,120,20,50,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:POISON:2d4
 CLAW:POISON:2d4
 BITE:HURT:4d4",,,"JZ#
-JZ#引用は久留さん、解説は NeSYS さんによる","FRIENDS|WILD_SHORE|DROP_CORPSE|RAND_25|EAT_POISONOUS|DROP_60|DROP_90|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|EVIL|DEMON|IM_FIRE|IM_COLD|IM_POIS|RES_WATE",,,"$""I thought their predominant color was a greyish-green, 
+JZ#引用は久留さん、解説は NeSYS さんによる","FRIENDS|WILD_SHORE|DROP_CORPSE|RAND_25|EAT_POISONOUS|DROP_60|DROP_90|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_WATE",,,"$""I thought their predominant color was a greyish-green, 
 $though they had white bellies. They were mostly shiny and 
 $slippery, but the ridges of their backs were scaly. Their 
 $forms vaguely suggested the anthropoid, while their heads were 
@@ -2577,7 +2577,7 @@ $for a battle.
 獲物を求めている。",,,,,,,
 528,"ガーゴイル","Gargoyle","u","s",43,255,255,255,0,0,34,2,0,110,0,0,0,0,-1,110,10,50,15,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"CLAW:HURT:2d6
 CLAW:HURT:2d6
-BITE:HURT:1d6",,,"JZ#","DROP_60|ONLY_GOLD|EVIL|DEMON|FRIENDS|HURT_LITE|WILD_MOUNTAIN|WILD_WASTE|IM_POIS|IM_FIRE|IM_COLD|IM_ELEC|HURT_ROCK|NONLIVING","1_IN_12|BR_ELEC|BR_FIRE",,"$A weird demon creature with a stone-like skin.
+BITE:HURT:1d6",,,"JZ#","DROP_60|ONLY_GOLD|EVIL|FRIENDS|HURT_LITE|WILD_MOUNTAIN|WILD_WASTE|IM_POIS|IM_FIRE|IM_COLD|IM_ELEC|HURT_ROCK|NONLIVING","1_IN_12|BR_ELEC|BR_FIRE",,"$A weird demon creature with a stone-like skin.
 羽の生えた、石の肌をした悪魔だ。",,,,,,,
 529,"陰気なレプラコーン","Malicious leprechaun","h","v",15,255,255,255,0,0,35,4,0,85,500,700,0,0,-1,120,8,13,8,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"TOUCH:EAT_GOLD
 TOUCH:EAT_ITEM",,,,"MULTIPLY|INVISIBLE|RAND_25|TAKE_ITEM|COLD_BLOOD|HURT_LITE|EVIL|OPEN_DOOR|MALE|HAS_LITE_1","1_IN_6|BLINK|TPORT|TELE_TO|CAUSE_1",,"$This little creature has a fiendish gleam in its eyes.
@@ -2836,7 +2836,7 @@ $and paralyzes them, to be slowly digested later.
 麻痺させてからゆっくりと消化する。",,,,,,,
 566,"ボダック","Bodak","u","D",43,255,255,255,0,0,36,2,0,750,0,0,0,0,-1,110,10,68,90,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"HIT:FIRE:4d6
 HIT:FIRE:4d6
-GAZE:EXP_20",,,"J0#","FORCE_SLEEP|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|AURA_FIRE|NONLIVING|EVIL|DEMON|IM_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_4|BO_FIRE|BA_FIRE|S_DEMON",,"$It is a humanoid form composed of flames and hatred.
+GAZE:EXP_20",,,"J0#","FORCE_SLEEP|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|AURA_FIRE|NONLIVING|EVIL|IM_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_4|BO_FIRE|BA_FIRE|S_DEMON",,"$It is a humanoid form composed of flames and hatred.
 それは火炎と憎悪によって作られた人間のような姿をしたモンスターだ。",,,,,,,
 567,"時限爆弾","Time bomb",0,"w",90,255,255,255,0,0,36,5,0,50,0,0,0,0,-1,130,30,40,0,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"EXPLODE:TIME:30d2",,,"JZ#","CHAR_CLEAR|ATTR_CLEAR|NEVER_MOVE|FORCE_MAXHP|EMPTY_MIND|INVISIBLE|COLD_BLOOD|RES_TIME|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It was left here to be used against intruders.
 それは侵入者に対して使用するために置かれている。",,,,,,,
@@ -2852,7 +2852,7 @@ JZ#Ｈ・Ｐ・ラヴクラフトの「狂気の山にて」に登場。
 JZ#十億年前に地球に飛来し、一時は高度な文明を築きましたが、ショゴス
 JZ#の叛乱、クトゥルフ一族やミ＝ゴウとの闘争によって衰退しました。
 JZ#身体は樽型で翼と５本の腕を有し、頭部はヒトデのような形状です。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|NONLIVING|DEMON|IM_POIS|IM_ACID|NO_CONF|NO_SLEEP|RES_TELE|CAN_SWIM","1_IN_4|SCARE|TELE_AWAY|BA_NUKE|CAUSE_3|BA_POIS|CONF|S_DEMON|S_UNDEAD",,"$""...some ridged barrel-shaped objects with thin 
+JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|NONLIVING|IM_POIS|IM_ACID|NO_CONF|NO_SLEEP|RES_TELE|CAN_SWIM","1_IN_4|SCARE|TELE_AWAY|BA_NUKE|CAUSE_3|BA_POIS|CONF|S_DEMON|S_UNDEAD",,"$""...some ridged barrel-shaped objects with thin 
 $horizontal arms radiating spoke-like from a central ring and with 
 $vertical knobs or bulbs projecting from the head and base of the 
 $barrel. Each of these knobs was the hub of a system of five long, 
@@ -2885,7 +2885,7 @@ HIT:HURT:2d6",,,"JZ#","MALE|HUMAN|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DRO
 572,"『グレーター地獄魔法おばけキノコ=クイルスルグ人間』","The Greater Hell Magic Mushroom Were-Quylthulg","Q","s",97,255,255,255,0,0,36,3,0,2500,0,0,0,0,0,120,50,80,50,17,17,17,17,17,17,800,30,7000,3,1000,30,7000,3,"GAZE:EXP_VAMP:4d8
 GAZE:EXP_VAMP:4d8
 CRUSH:ACID:8d8
-CRUSH:ACID:8d8",,,"JZ#","FORCE_MAXHP|FORCE_SLEEP|UNIQUE|NO_STUN|NO_CONF|NO_SLEEP|EVIL|IM_ACID|IM_ELEC|IM_FIRE|IM_POIS|IM_COLD|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|SMART|NONLIVING|RES_TELE|KILL_WALL|ELDRITCH_HORROR|BASH_DOOR|DEMON|COLD_BLOOD|ANIMAL|CAN_SWIM|DROP_GOOD|DROP_GREAT|ONLY_ITEM|DROP_2D2","1_IN_3|BLINK|SLOW|SCARE|DARKNESS|HEAL|ANIM_DEAD|TPORT|TELE_AWAY|HASTE|S_MONSTER|DRAIN_MANA|S_UNDEAD|S_DEMON|S_DRAGON|S_KIN",,"$This unholy abomination will crush you too. Flee while you can! 
+CRUSH:ACID:8d8",,,"JZ#","FORCE_MAXHP|FORCE_SLEEP|UNIQUE|NO_STUN|NO_CONF|NO_SLEEP|EVIL|IM_ACID|IM_ELEC|IM_FIRE|IM_POIS|IM_COLD|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|SMART|NONLIVING|RES_TELE|KILL_WALL|ELDRITCH_HORROR|BASH_DOOR|COLD_BLOOD|ANIMAL|CAN_SWIM|DROP_GOOD|DROP_GREAT|ONLY_ITEM|DROP_2D2","1_IN_3|BLINK|SLOW|SCARE|DARKNESS|HEAL|ANIM_DEAD|TPORT|TELE_AWAY|HASTE|S_MONSTER|DRAIN_MANA|S_UNDEAD|S_DEMON|S_DRAGON|S_KIN",,"$This unholy abomination will crush you too. Flee while you can! 
 この不浄な災いもまたあなたを押し潰すだろう。今のうちに逃げろ！",,,,,,,
 573,"ヘンドレイク公『ボレル』","Lord Borel of Hendrake","p","v",9,0,30,255,0,0,94,2,0,53000,0,0,0,0,22,133,25,0,10,28,28,28,28,28,28,187,0,83,0,187,0,83,0,"HIT:HURT:36d6
 HIT:HURT:36d6
@@ -3033,7 +3033,7 @@ JZ#Ｈ・Ｐ・ラヴクラフトの「ダゴン」に登場し、「インスマウスの影」
 JZ#でも言及されています。
 JZ#古代ペリシテ人にも崇拝されていた半人半魚の神で。クトゥルフに
 JZ#仕える深きものどもの総帥的存在です。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|EVIL|DEMON|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP","1_IN_7|S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID",,"$The king of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
+JZ#引用は久留さん、解説は NeSYS さんによる","ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP","1_IN_7|S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID",,"$The king of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 $darted like a stupendous monster of nightmares...""
 ディープワンがサイズ・年齢の面で大きく成長したもの。
 並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。
@@ -3047,7 +3047,7 @@ CLAW:POISON:8d4
 BITE:HURT:8d8",,,"JZ#
 JZ#母なるハイドラ（ヒュドラ）
 JZ#Ｈ・Ｐ・ラヴクラフトの「インスマウスの影」で言及されています。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|EVIL|DEMON|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FEMALE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP","1_IN_7|S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID",,"$The queen of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
+JZ#引用は久留さん、解説は NeSYS さんによる","ESCORT|DROP_60|DROP_90|DROP_1D2|DROP_GOOD|ONLY_ITEM|DROP_CORPSE|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FEMALE|FORCE_SLEEP|FORCE_MAXHP|NO_CONF|NO_SLEEP","1_IN_7|S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID",,"$The queen of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 $darted like a stupendous monster of nightmares...""
 ディープワンがサイズ・年齢の面で大きく成長したもの。
 並外れて大きな体を持ち、下半身は脚が退化して魚のようになっている。
@@ -3127,7 +3127,7 @@ JZ#夜鬼（夜妖、夜のゴーント）
 JZ#Ｈ・Ｐ・ラヴクラフトの「幻夢境カダスを求めて」に登場。
 JZ#夢の国でノーデンスに仕える生物で、ゴム状の身体に蝙蝠の翼とねじ
 JZ#れた角を持ち、顔は有りません。シャンタク鳥と対立し、グールとは
-JZ#友好的です。 by 久留さん","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_60|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|DEMON|IM_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_7|BLIND|CONF|BO_FIRE",,"$""Shocking and uncouth black things with smooth, oily, whale-like 
+JZ#友好的です。 by 久留さん","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_60|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|IM_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_7|BLIND|CONF|BO_FIRE",,"$""Shocking and uncouth black things with smooth, oily, whale-like 
 $surfaces, unpleasant horns that curved inward toward each other, 
 $bat wings whose beating made no sound, ugly prehensile paws, and 
 $barbed tails that lashed needlessly and disquietingly. And worst 
@@ -3146,7 +3146,7 @@ $blankness where a face ought to be.""
 609,"地獄の公爵","Baron of hell","U","U",44,5,255,255,0,0,38,3,0,3000,0,0,0,0,0,110,10,130,40,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:HURT:11d2
 CLAW:HURT:11d2
 CLAW:HURT:22d1",,,"JZ#
-JZ#本当は Lord:公爵  Baron:男爵 ですが、語感からこっちに。","IM_POIS|OPEN_DOOR|BASH_DOOR|MALE|RES_PLAS|NONLIVING|IM_FIRE|NO_CONF|NO_SLEEP|EVIL|DEMON|FORCE_MAXHP|RES_TELE","1_IN_2|BO_PLAS",,"$A minor demon lord with a goat's head, tough to kill.
+JZ#本当は Lord:公爵  Baron:男爵 ですが、語感からこっちに。","IM_POIS|OPEN_DOOR|BASH_DOOR|MALE|RES_PLAS|NONLIVING|IM_FIRE|NO_CONF|NO_SLEEP|EVIL|FORCE_MAXHP|RES_TELE","1_IN_2|BO_PLAS",,"$A minor demon lord with a goat's head, tough to kill.
 山羊の頭を持つ低位の魔王で、簡単には倒せない。",,,,,,,
 610,"『スキュラ』","Scylla","M","G",58,255,255,255,0,0,39,2,0,3500,0,0,0,0,2,125,20,90,20,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BITE:POISON:10d3
 BITE:POISON:10d3
@@ -3427,11 +3427,11 @@ $really believe in witches, do you?
 しかし君は魔女なんか信じていないんだろう？",,,,,,,
 648,"撲殺の悪魔","Clubber demon","U","s",43,0,255,255,0,0,40,2,0,1000,0,0,0,0,0,110,20,50,80,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
 HIT:SUPERHURT:8d10
-HIT:SUPERHURT:8d10",,,,"FORCE_SLEEP|FORCE_MAXHP|FRIENDS|ONLY_ITEM|DROP_60|OPEN_DOOR|BASH_DOOR|POWERFUL|NONLIVING|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_8|BLIND|CONF",,"$It is a demon swinging wildly with two clubs.
+HIT:SUPERHURT:8d10",,,,"FORCE_SLEEP|FORCE_MAXHP|FRIENDS|ONLY_ITEM|DROP_60|OPEN_DOOR|BASH_DOOR|POWERFUL|NONLIVING|EVIL|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_8|BLIND|CONF",,"$It is a demon swinging wildly with two clubs.
 二本の棍棒を乱暴に振り回す悪魔だ。",,,,,,,
 649,"デス・クアシト","Death quasit","u","w",43,255,255,255,0,0,40,3,0,1000,0,0,0,0,0,130,20,80,0,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BITE:LOSE_DEX:3d6
 CLAW:HURT:3d3
-CLAW:HURT:3d3",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_2D2|DROP_4D2|NONLIVING|SMART|INVISIBLE|PASS_WALL|CAN_FLY|EVIL|DEMON|IM_FIRE|IM_POIS|RES_TELE|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_10|BLIND|CONF|SCARE|CAUSE_3|FORGET|S_DEMON",,"$It is a demon of small stature, but its armoured frame moves with 
+CLAW:HURT:3d3",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_2D2|DROP_4D2|NONLIVING|SMART|INVISIBLE|PASS_WALL|CAN_FLY|EVIL|IM_FIRE|IM_POIS|RES_TELE|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_10|BLIND|CONF|SCARE|CAUSE_3|FORGET|S_DEMON",,"$It is a demon of small stature, but its armoured frame moves with 
 $lightning speed and its powers make it a tornado of death and destruction.
 それは小さな彫像のデーモンだ。その動きは堅い体からは想像もつかない
 電光石火のスピードで、その力は死と破壊の竜巻を巻き起こす。",,,,,,,
@@ -3446,7 +3446,7 @@ HIT:LOSE_STR:4d4
 TOUCH:EXP_80:8d1",,,"JZ#
 JZ#ストリガルドワー。ロレーヌという”影”の中の国で
 JZ#コーウィンを襲った混沌の怪物。角、翼を持ち、黒いルーンの剣を
-JZ#持っている。 by 藤岡さん ","UNIQUE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|MOVE_BODY|NONLIVING|OPEN_DOOR|BASH_DOOR|IM_POIS|IM_COLD|DEMON|EVIL","1_IN_3|CAUSE_3|HOLD|SCARE|BLIND|BO_ACID|S_DEMON|FORGET|BO_NETH|MIND_BLAST|DARKNESS",,"$A demon from the Courts of Chaos.  According to Corwin, 
+JZ#持っている。 by 藤岡さん ","UNIQUE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|MOVE_BODY|NONLIVING|OPEN_DOOR|BASH_DOOR|IM_POIS|IM_COLD|EVIL","1_IN_3|CAUSE_3|HOLD|SCARE|BLIND|BO_ACID|S_DEMON|FORGET|BO_NETH|MIND_BLAST|DARKNESS",,"$A demon from the Courts of Chaos.  According to Corwin, 
 $'it was well over six feet in height, with great branches of antlers 
 $growing out of its forehead.  Nude, its flesh was a uniform ash-gray 
 $in color.  It appeared to be sexless, and it had gray, leathery wings 
@@ -3530,7 +3530,7 @@ JZ#バイアキー（バイアクヘー）
 JZ#オーガスト・ダーレスの連作「永劫の探究」などに登場。
 JZ#ハスターに仕える生物で、蝙蝠に似た翼により宇宙空間を飛翔する能力
 JZ#を有しています。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|FORCE_MAXHP|FRIENDS|ONLY_ITEM|DROP_2D2|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_9|BO_FIRE|S_DEMON|CONF",,"$""There flapped rhythmically a horde of tame, trained, hybrid 
+JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|FORCE_MAXHP|FRIENDS|ONLY_ITEM|DROP_2D2|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_9|BO_FIRE|S_DEMON|CONF",,"$""There flapped rhythmically a horde of tame, trained, hybrid 
 $winged things... not altogether crows, nor moles, nor buzzards, 
 $nor ants, nor decomposed human beings, but something I cannot 
 $and must not recall.""
@@ -3577,7 +3577,7 @@ BITE:ACID:6d6",,,"JZ#
 JZ#ツァトゥグァの落とし子
 JZ#ゼリア・ビショップの「俘囚の塚」で言及される異生物です。
 JZ#地下の暗黒世界ン・カイに棲む不定形の生物で、ツァトゥグァを崇拝し
-JZ#ています。 by 久留さん","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|NONLIVING|ONLY_ITEM|DROP_90|REGENERATE|RES_TELE|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_SWIM|EVIL|DEMON|NO_CONF|NO_SLEEP|HURT_FIRE|IM_POIS","1_IN_9|BO_FIRE|BO_ACID|S_DEMON|MIND_BLAST|DARKNESS",,"$""...living things that oozed along stone channels... 
+JZ#ています。 by 久留さん","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|NONLIVING|ONLY_ITEM|DROP_90|REGENERATE|RES_TELE|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_SWIM|EVIL|NO_CONF|NO_SLEEP|HURT_FIRE|IM_POIS","1_IN_9|BO_FIRE|BO_ACID|S_DEMON|MIND_BLAST|DARKNESS",,"$""...living things that oozed along stone channels... 
 $But they were not toads like Tsathoggua himself. Far worse -- 
 $they were amorphous lumps of viscous black slime that took 
 $temporary shapes for various purposes.""
@@ -3592,7 +3592,7 @@ CRUSH:HURT:9d4",,,"JZ#
 JZ#忌まわしき狩人
 JZ#Ｈ・Ｐ・ラヴクラフトの「幻夢境カダスを求めて」に登場。
 JZ#ナイアルラトホテップに仕える不定形の妖鬼です、by 久留さん
-JZ#解説は NeSYS さん","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_1D2|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|DEMON|HURT_LITE|IM_POIS|IM_FIRE|RES_DARK|NO_CONF|NO_SLEEP","1_IN_9|BLIND|CONF|S_DEMON|BR_DARK",,"$""And in the air there were great viperine creatures, 
+JZ#解説は NeSYS さん","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_1D2|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|HURT_LITE|IM_POIS|IM_FIRE|RES_DARK|NO_CONF|NO_SLEEP","1_IN_9|BLIND|CONF|S_DEMON|BR_DARK",,"$""And in the air there were great viperine creatures, 
 $which had curiously distorted heads, and grotesquely great 
 $clawed appendages, supporting themselves with ease by the aid 
 $of black rubbery wings of singularly monstrous dimensions.""
@@ -3621,7 +3621,7 @@ $evil enchantments.
 665,"シャドウ・デーモン","Shadow demon","G","v",44,255,255,255,0,0,42,3,0,425,0,0,0,0,0,120,30,30,20,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"TOUCH:EXP_80
 TOUCH:DR_MANA:2d10
 CLAW:LOSE_INT:1d10
-CLAW:LOSE_WIS:1d10",,,"JZ#","FORCE_SLEEP|CAN_FLY|ONLY_ITEM|DROP_1D2|POWERFUL|REGENERATE|HURT_LITE|SELF_DARK_1|INVISIBLE|COLD_BLOOD|PASS_WALL|FRIENDS|RES_NETH|EVIL|DEMON|IM_COLD|IM_POIS|NO_CONF|RES_DARK|NO_SLEEP","1_IN_8|BO_NETH",,"$A mighty spirit of darkness of vaguely humanoid form.  Razor-edged claws 
+CLAW:LOSE_WIS:1d10",,,"JZ#","FORCE_SLEEP|CAN_FLY|ONLY_ITEM|DROP_1D2|POWERFUL|REGENERATE|HURT_LITE|SELF_DARK_1|INVISIBLE|COLD_BLOOD|PASS_WALL|FRIENDS|RES_NETH|EVIL|IM_COLD|IM_POIS|NO_CONF|RES_DARK|NO_SLEEP","1_IN_8|BO_NETH",,"$A mighty spirit of darkness of vaguely humanoid form.  Razor-edged claws 
 $reach out to end your life as it glides towards you, seeking to suck the 
 $energy from your soul to feed its power.
 ぼんやりとした人間のような姿をした強力な暗黒の精霊だ。滑るように近づいては、
@@ -3677,7 +3677,7 @@ BUTT:HURT:8d6",,,"JZ#
 JZ#Juggernaut とはヒンズー教のヴィシュヌ神のこと。
 JZ#インドの祭りで巨大な山車にヴィシュヌの像をのせてねり歩く。
 JZ#転じて巨大なトレーラートラックの意味や、避けられない
-JZ#災いなどの意味もある。","BASH_DOOR|REFLECTING|KILL_ITEM|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|DEMON|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING|EVIL|RIDING",,,"$A great, vicious beast whose flesh is made of steel and whose 
+JZ#災いなどの意味もある。","BASH_DOOR|REFLECTING|KILL_ITEM|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING|EVIL|RIDING",,,"$A great, vicious beast whose flesh is made of steel and whose 
 $blood is fire. It charges at you ignoring everything else.
 巨大な悪意に満ちた獣で、肉体は鉄、血は炎でできている。
 他の全てを無視してあなたに突進してくるだろう。",,,,,,,
@@ -3708,7 +3708,7 @@ $itself in unearthly shadows.
 CRUSH:HURT:5d6
 BITE:LOSE_STR:1d6
 BITE:LOSE_STR:1d6",,,"JZ#
-JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_1D2|NONLIVING|CAN_SWIM|OPEN_DOOR|BASH_DOOR|POWERFUL|HURT_LITE|EVIL|DEMON|IM_FIRE|RES_DARK|NO_CONF|NO_SLEEP|RES_TELE","1_IN_9|BLIND|CAUSE_2|S_DEMON|HEAL",,"$""Something black in the road, something that wasn't a tree. 
+JZ#引用は久留さん、解説は NeSYS さんによる","FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_1D2|NONLIVING|CAN_SWIM|OPEN_DOOR|BASH_DOOR|POWERFUL|HURT_LITE|EVIL|IM_FIRE|RES_DARK|NO_CONF|NO_SLEEP|RES_TELE","1_IN_9|BLIND|CAUSE_2|S_DEMON|HEAL",,"$""Something black in the road, something that wasn't a tree. 
 $Something big and black and ropy, just squatting there, waiting, 
 $with ropy arms squirming and reaching... It came crawling up the 
 $hillside... and it was the black thing of my dreams... that black, 
@@ -3773,7 +3773,7 @@ JZ#丘からの恐怖チャウグナール・ファウグン
 JZ#フランク・ベルナップ・ロングの「恐怖の山」に登場。
 JZ#象のような鼻と触手の付いた巨大な耳をもち、口からは巨大な牙が
 JZ#はえており、人間の血を吸う神です。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","UNIQUE|CAN_SPEAK|EVIL|DEMON|FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|ELDRITCH_HORROR|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|HURT_ROCK|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_6|HOLD|CAUSE_4|CONF|SCARE|FORGET|BRAIN_SMASH|MIND_BLAST|CAUSE_3|S_DEMON|S_MONSTERS",,"$""The ears were webbed and tentacled, the trunk terminated in 
+JZ#引用は久留さん、解説は NeSYS さんによる","UNIQUE|CAN_SPEAK|EVIL|FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|ELDRITCH_HORROR|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|HURT_ROCK|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_6|HOLD|CAUSE_4|CONF|SCARE|FORGET|BRAIN_SMASH|MIND_BLAST|CAUSE_3|S_DEMON|S_MONSTERS",,"$""The ears were webbed and tentacled, the trunk terminated in 
 $a huge flaring disk at least a foot in diameter... Its forelimbs 
 $were bent stiffly at the elbow, and its hands... rested palms 
 $upward on its lap.""
@@ -3818,7 +3818,7 @@ JZ#魔法を得意とし、その魔力でトールやロキらの一行を翻弄しました。 by 久留さん","
 その魔力でトールやロキらの一行を翻弄したこともある。",,,,,,,
 684,"塵の中を歩くもの『クァチル・ウタウス』","Quachil Uttaus, Treader of the Dust","z","D",52,255,255,255,0,0,44,3,0,20000,0,0,0,0,7,120,30,80,15,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:HURT:50d1
 TOUCH:TIME:1d50
-TOUCH:TIME:1d50",,,"JZ# 解説は NeSYS さん","ESCORT|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_GOOD|KILL_BODY|DROP_GREAT|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|DEMON|REGENERATE","1_IN_3|BR_TIME|SLOW|HASTE|HEAL",,"$""It was a figure no larger than a young child, but sere and 
+TOUCH:TIME:1d50",,,"JZ# 解説は NeSYS さん","ESCORT|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_GOOD|KILL_BODY|DROP_GREAT|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|REGENERATE","1_IN_3|BR_TIME|SLOW|HASTE|HEAL",,"$""It was a figure no larger than a young child, but sere and 
 $shriveled as some millenial mummy. Its hairless head, its 
 $unfeatured face, borne on a neck of skeleton thinness, were 
 $lined with a thousand reticulated wrinkles. The body was like 
@@ -3842,7 +3842,7 @@ JZ#ショゴス
 JZ#Ｈ・Ｐ・ラヴクラフトの「狂気の山にて」に登場。
 JZ#古きものが創造した奴隷生物ですが、後に叛乱を起こして古きものどの
 JZ#の衰退の一因となりました。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","REGENERATE|KILL_ITEM|CAN_SPEAK|BASH_DOOR|EVIL|DEMON|NO_CONF|NO_FEAR|NO_SLEEP|KILL_BODY|CAN_SWIM|RES_DARK|VARIABLE_SIZE_EGO|FORCE_MAXHP|FORCE_SLEEP|HURT_LITE|POWERFUL|ELDRITCH_HORROR|IM_ACID|IM_FIRE|RES_PLAS|IM_POIS|IM_COLD|IM_ELEC|RES_TELE",,,"$""The nightmare, plastic column of fetid, black iridescence oozed 
+JZ#引用は久留さん、解説は NeSYS さんによる","REGENERATE|KILL_ITEM|CAN_SPEAK|BASH_DOOR|EVIL|NO_CONF|NO_FEAR|NO_SLEEP|KILL_BODY|CAN_SWIM|RES_DARK|VARIABLE_SIZE_EGO|FORCE_MAXHP|FORCE_SLEEP|HURT_LITE|POWERFUL|ELDRITCH_HORROR|IM_ACID|IM_FIRE|RES_PLAS|IM_POIS|IM_COLD|IM_ELEC|RES_TELE",,,"$""The nightmare, plastic column of fetid, black iridescence oozed 
 $tightly onward... A shapeless congerie of protoplasmic bubbles, 
 $faintly self-luminous and with myriads of temporary eyes forming 
 $and unforming as pustules of greenish light all over the 
@@ -4186,7 +4186,7 @@ JZ#(コメント)訳は 閑丸さん","FORCE_SLEEP|COLD_BLOOD|EMPTY_MIND|PASS_WALL|RAND_50
 719,"ニカデーモン","Nycadaemon","U","o",44,255,255,255,0,0,50,3,0,10000,100000,812,0,0,0,120,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"TOUCH:TERRIFY
 CLAW:HURT:6d6
 CLAW:HURT:6d6
-CLAW:HURT:6d6",,,,"FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|NONLIVING|REGENERATE|IM_ACID|IM_COLD|IM_FIRE|CAN_FLY|NO_SLEEP|NO_STUN|NO_CONF|EVIL|DEMON|INVISIBLE|KILL_WALL|ONLY_ITEM|DROP_1D2|DROP_GOOD","1_IN_4|HOLD|BLINK|CONF|S_DEMON|BRAIN_SMASH|BR_NETH",,"$A loathsome, sturdy, winged, horned demon, with talons that could tear 
+CLAW:HURT:6d6",,,,"FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|NONLIVING|REGENERATE|IM_ACID|IM_COLD|IM_FIRE|CAN_FLY|NO_SLEEP|NO_STUN|NO_CONF|EVIL|INVISIBLE|KILL_WALL|ONLY_ITEM|DROP_1D2|DROP_GOOD","1_IN_4|HOLD|BLINK|CONF|S_DEMON|BRAIN_SMASH|BR_NETH",,"$A loathsome, sturdy, winged, horned demon, with talons that could tear 
 $a stone wall down
 禍々しく、頑強で、翼を持ち、角が生えた悪魔で、その爪は石の壁をも切り裂く。",,,,,,,
 720,"グレーター・バルログ","Greater Balrog","U","R",57,255,255,255,0,0,50,3,0,13000,0,0,0,0,3,120,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
@@ -4198,12 +4198,12 @@ JZ#Ｊ・Ｒ・Ｒ・トールキンの「指輪物語」に登場。
 JZ#メルコールの召使いになったマイアールが悪鬼と化したもので、中つ
 JZ#国の言葉で「力強き悪鬼」を意味します。メルコールの支配が終わる
 JZ#とともにほとんど絶滅しましたが、一部がモリヤで復活していました。 by 久留さん
-JZ#Jangband にはいなかったんですね。意外。 by 板倉","FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL","1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
+JZ#Jangband にはいなかったんですね。意外。 by 板倉","FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|EVIL|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL","1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
 それは全身が炎で覆われた屈強な人間型のモンスターだ。",,,,,,,
 721,"メンデスの山羊","Goat of Mendes","q","D",44,255,255,255,0,0,50,3,0,6666,0,0,0,0,0,120,30,66,40,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"GAZE:TERRIFY
 BUTT:HURT:6d6
 BITE:EXP_40
-BITE:LOSE_CON",,,,"EVIL|DEMON|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|NONLIVING|NO_CONF|NO_SLEEP|HURT_LITE|IM_FIRE|IM_COLD|RES_DARK","1_IN_4|BLIND|CONF|BRAIN_SMASH|SCARE|ANIM_DEAD|BA_NETH|FORGET|S_UNDEAD|DRAIN_MANA|S_DEMON|CAUSE_4|BA_COLD",,"$It is a demonic creature from the lowest hell, vaguely resembling a 
+BITE:LOSE_CON",,,,"EVIL|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|NONLIVING|NO_CONF|NO_SLEEP|HURT_LITE|IM_FIRE|IM_COLD|RES_DARK","1_IN_4|BLIND|CONF|BRAIN_SMASH|SCARE|ANIM_DEAD|BA_NETH|FORGET|S_UNDEAD|DRAIN_MANA|S_DEMON|CAUSE_4|BA_COLD",,"$It is a demonic creature from the lowest hell, vaguely resembling a 
 $large black he-goat.
 地獄の最下層から来た悪魔で、大きな黒い山羊のような姿をしている。
 （デニス・ホイートリー、『黒魔団』、
@@ -4606,7 +4606,7 @@ $a frightful gelatinous mass.""
 761,"ナイアルラトホテップの化身『アフトゥ』","Ahtu, Avatar of Nyarlathotep","#","D",105,255,255,255,0,0,56,3,0,22500,0,0,0,0,9,130,30,120,15,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:13d13
 CRUSH:FIRE:10d10
 CRUSH:HURT:13d13
-CRUSH:FIRE:10d10",,,"JZ#引用は久留さん","FORCE_SLEEP|FORCE_MAXHP|UNIQUE|CAN_SPEAK|ONLY_ITEM|DROP_4D2|DROP_GOOD|MOVE_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|NONLIVING|ELDRITCH_HORROR","1_IN_6|BR_FIRE|S_DEMON|CAUSE_4|BR_PLAS|BR_NETH|BRAIN_SMASH|S_UNDEAD|BA_DARK",,"$""Higher already than the giants of the forest ringing it, the 
+CRUSH:FIRE:10d10",,,"JZ#引用は久留さん","FORCE_SLEEP|FORCE_MAXHP|UNIQUE|CAN_SPEAK|ONLY_ITEM|DROP_4D2|DROP_GOOD|MOVE_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|NONLIVING|ELDRITCH_HORROR","1_IN_6|BR_FIRE|S_DEMON|CAUSE_4|BR_PLAS|BR_NETH|BRAIN_SMASH|S_UNDEAD|BA_DARK",,"$""Higher already than the giants of the forest ringing it, the 
 $fifty-foot-thick column... sprouted a ring of tendrils, ruddy and 
 $golden and glittering overall with inclusions of quartz.""
 「土から生じた太さ50フィートの円柱状のものが、周りを囲んでいる森
@@ -4929,7 +4929,7 @@ CRUSH:HURT:3d20",,,"JZ#
 JZ#グラーキ
 JZ#クトゥルフ神話に登場しますが、詳細は不明です（「グラーキの
 JZ#黙示録」という書名はしばしば言及されます）。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","UNIQUE|CAN_SPEAK|ATTR_MULTI|ELDRITCH_HORROR|RES_NEXU|RES_WATE|CAN_SWIM|REGENERATE|FORCE_SLEEP|FORCE_MAXHP|EVIL|SMART|DEMON|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|NO_SLEEP|NO_CONF|NO_STUN|IM_POIS|IM_COLD|IM_ACID","1_IN_5|BA_WATE|S_HYDRA|S_DRAGON|S_DEMON|SCARE|BLIND|CONF|CAUSE_4|BR_POIS",,"$""From an oval body protruded countless thin, pointed spines of 
+JZ#引用は久留さん、解説は NeSYS さんによる","UNIQUE|CAN_SPEAK|ATTR_MULTI|ELDRITCH_HORROR|RES_NEXU|RES_WATE|CAN_SWIM|REGENERATE|FORCE_SLEEP|FORCE_MAXHP|EVIL|SMART|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|NO_SLEEP|NO_CONF|NO_STUN|IM_POIS|IM_COLD|IM_ACID","1_IN_5|BA_WATE|S_HYDRA|S_DRAGON|S_DEMON|SCARE|BLIND|CONF|CAUSE_4|BR_POIS",,"$""From an oval body protruded countless thin, pointed spines of 
 $multi-colored metal; at the more rounded end of the oval a 
 $circular, thick-lipped mouth formed the center of a spongy 
 $face, from which rose three yellow eyes on thin stalks. Around 
@@ -5325,7 +5325,7 @@ $spreading uncontrollably and destroying everything in its path.
 816,"サイバーデーモン","Cyberdemon","U","u",44,255,255,255,0,0,77,4,0,30000,0,0,0,0,2,120,90,90,90,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:1d50
 HIT:HURT:1d50
 HIT:HURT:1d50
-HIT:HURT:1d50",,,"JZ#","RAND_25|EVIL|DEMON|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING","1_IN_4|ROCKET",,"$Reverbrant metal steps announce the arrival of this huge creature, 
+HIT:HURT:1d50",,,"JZ#","RAND_25|EVIL|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING","1_IN_4|ROCKET",,"$Reverbrant metal steps announce the arrival of this huge creature, 
 $half demon half machine. It has an unsurpassable firepower.
 響き渡る金属的な足音がこの巨大な、半悪魔半機械の怪物の
 到来を告げる。その火力には何者もかなわない。",,,,,,,
@@ -5465,7 +5465,7 @@ CRUSH:HURT:15d15
 CRUSH:HURT:15d15",,,"JZ#
 JZ#シアエガ
 JZ#クトゥルフ神話に登場しますが、詳細は不明です。 by 久留さん
-JZ#解説は NeSYS さん","UNIQUE|CAN_SPEAK|RES_TELE|ELDRITCH_HORROR|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|SMART|SELF_DARK_1|SELF_DARK_2|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|DEMON|IM_ACID|IM_ELEC|RES_DARK|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|TELE_AWAY|BLIND|HOLD|SCARE|BRAIN_SMASH|BR_DARK|BA_DARK|BR_NETH|HAND_DOOM|FORGET|S_HI_UNDEAD|S_DEMON|S_MONSTERS|S_HYDRA",,"$""...it was a gigantic eye staring down at them. Around the eye, 
+JZ#解説は NeSYS さん","UNIQUE|CAN_SPEAK|RES_TELE|ELDRITCH_HORROR|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|SMART|SELF_DARK_1|SELF_DARK_2|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_ACID|IM_ELEC|RES_DARK|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|TELE_AWAY|BLIND|HOLD|SCARE|BRAIN_SMASH|BR_DARK|BA_DARK|BR_NETH|HAND_DOOM|FORGET|S_HI_UNDEAD|S_DEMON|S_MONSTERS|S_HYDRA",,"$""...it was a gigantic eye staring down at them. Around the eye, 
 $the sky split; deep clefts opened through which the darkness 
 $began to ooze, a darkness blacker than the night, which crawled 
 $down as a set of slimy tentacles, taking on more form, more 
@@ -5485,7 +5485,7 @@ $and a green-glowing eye.""
 827,"風の帝王『パズズ』","Pazuzu, Lord of Air","B","w",44,255,255,255,0,0,82,2,0,30000,0,0,0,0,12,140,40,125,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:ELEC:12d12
 HIT:ELEC:12d12
 HIT:ELEC:12d12
-HIT:ELEC:12d12",,,"J0#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|OPEN_DOOR|BASH_DOOR|EVIL|DEMON|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL","1_IN_3|MIND_BLAST|BO_ELEC|BO_MANA|BA_ELEC|PSY_SPEAR",,"$A winged humanoid from the Planes of Hell, Pazuzu grins inhumanely at you 
+HIT:ELEC:12d12",,,"J0#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|OPEN_DOOR|BASH_DOOR|EVIL|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL","1_IN_3|MIND_BLAST|BO_ELEC|BO_MANA|BA_ELEC|PSY_SPEAR",,"$A winged humanoid from the Planes of Hell, Pazuzu grins inhumanely at you 
 $as he decides your fate.
 地獄界から現れた、羽を持った人間型のモンスターであるパズズは、冒険者の運命
 を勝手に決めつけては残酷に笑いかける。",,,,,,,
@@ -5495,7 +5495,7 @@ CRUSH:HURT:12d12
 CRUSH:HURT:12d12",,,"JZ#
 JZ#風に乗りて歩むものイタカ
 JZ#オーガスト・ダーレスの「風に乗りて歩むもの」という小説に登場。
-JZ#インディアンの伝説におけるウェンディゴに相当します。 by 久留さん","UNIQUE|CAN_SPEAK|ESCORT|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|AURA_ELEC|INVISIBLE|OPEN_DOOR|BASH_DOOR|NONLIVING|EVIL|DEMON|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL","1_IN_3|BO_MANA|SCARE|BR_COLD|S_DEMON|BO_ELEC|BA_ELEC|PSY_SPEAR|MIND_BLAST|CAUSE_4|BA_CHAO|BA_WATE|S_HI_UNDEAD|S_KIN",,"$The Wendigo, moving so fast that you can see little except two 
+JZ#インディアンの伝説におけるウェンディゴに相当します。 by 久留さん","UNIQUE|CAN_SPEAK|ESCORT|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|AURA_ELEC|INVISIBLE|OPEN_DOOR|BASH_DOOR|NONLIVING|EVIL|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL","1_IN_3|BO_MANA|SCARE|BR_COLD|S_DEMON|BO_ELEC|BA_ELEC|PSY_SPEAR|MIND_BLAST|CAUSE_4|BA_CHAO|BA_WATE|S_HI_UNDEAD|S_KIN",,"$The Wendigo, moving so fast that you can see little except two 
 $glowing eyes burning with hatred. ""The stars had been blotted out... 
 $the great cloud which had obscured the the sky looked curiously 
 $like the outline of a great man. And... where the top of 
@@ -5529,7 +5529,7 @@ $underworld.  Flee his wrath!
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,"$A duke of hell, in the flesh.
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,"$A duke of hell, in the flesh.
 地獄の公爵で、これは肉体に宿った姿だ。",,,,,,,
 832,"『ゴヂラ』","Godzilla","R","g",106,255,255,255,0,0,84,2,0,35000,0,0,0,0,7,130,50,185,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CLAW:POISON:5d10
 CLAW:POISON:5d10
@@ -5544,7 +5544,7 @@ TOUCH:DISEASE:11d11
 TOUCH:ACID:11d11
 TOUCH:POISON:11d11",,,"JZ#
 JZ#クラーク・アシュトン・スミスの「七つの呪い」という小説に登場
-JZ#した不定形の神です。 by 久留さん","ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|EVIL|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|DEMON|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN","1_IN_6|S_MONSTERS|S_DEMON|S_HI_DRAGON|S_HI_UNDEAD|HEAL|TELE_AWAY|TPORT|CAUSE_4|BRAIN_SMASH|DRAIN_MANA|BR_NUKE|BR_POIS|BR_CHAO|BR_NEXU|ANIM_DEAD",,"$""...in the pool [there was] a grayish, horrid mass that nearly choked 
+JZ#した不定形の神です。 by 久留さん","ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|EVIL|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN","1_IN_6|S_MONSTERS|S_DEMON|S_HI_DRAGON|S_HI_UNDEAD|HEAL|TELE_AWAY|TPORT|CAUSE_4|BRAIN_SMASH|DRAIN_MANA|BR_NUKE|BR_POIS|BR_CHAO|BR_NEXU|ANIM_DEAD",,"$""...in the pool [there was] a grayish, horrid mass that nearly choked 
 $it from rim to rim. Here, it seemed, was the ultimate source of all 
 $miscreation and abomination. For the gray mass quobbed and quivered, 
 $and swelled perpetually; and from it, in manifold fission, were 
@@ -5583,7 +5583,7 @@ CLAW:ACID:1d30
 TOUCH:UN_POWER:1d10
 CRUSH:UN_BONUS:2d33",,,"JZ#
 JZ#Ｈ・Ｐ・ラヴクラフトの「狂気の山にて」などで言及されています。 by 久留さん
-JZ#引用は久留さん、解説は NeSYS さんによる","RAND_25|KILL_ITEM|OPEN_DOOR|BASH_DOOR|RES_NETH|ELDRITCH_HORROR|DROP_1D2|DROP_2D2|DROP_90|ONLY_ITEM|FORCE_SLEEP|FORCE_MAXHP|EVIL|DEMON|IM_POIS|IM_COLD|IM_ACID|IM_ELEC|RES_TELE|NONLIVING|POWERFUL|IM_FIRE|CAN_SWIM|NO_CONF|DROP_GOOD","1_IN_3|SCARE|CONF|S_DEMON|S_UNDEAD|DRAIN_MANA|BR_ACID|BR_FIRE|TPORT|S_MONSTERS|BRAIN_SMASH|BR_NETH|HEAL|MIND_BLAST|BA_NUKE|ANIM_DEAD",,"$The last remnants of sanity threaten to leave your brain as you 
+JZ#引用は久留さん、解説は NeSYS さんによる","RAND_25|KILL_ITEM|OPEN_DOOR|BASH_DOOR|RES_NETH|ELDRITCH_HORROR|DROP_1D2|DROP_2D2|DROP_90|ONLY_ITEM|FORCE_SLEEP|FORCE_MAXHP|EVIL|IM_POIS|IM_COLD|IM_ACID|IM_ELEC|RES_TELE|NONLIVING|POWERFUL|IM_FIRE|CAN_SWIM|NO_CONF|DROP_GOOD","1_IN_3|SCARE|CONF|S_DEMON|S_UNDEAD|DRAIN_MANA|BR_ACID|BR_FIRE|TPORT|S_MONSTERS|BRAIN_SMASH|BR_NETH|HEAL|MIND_BLAST|BA_NUKE|ANIM_DEAD",,"$The last remnants of sanity threaten to leave your brain as you 
 $behold this titanic bat-winged, octopus-headed unholy abomination. 
 $""They all lay in stone houses in their great city of R'lyeh, 
 $preserved by the spells of mighty Cthulhu for a glorious 
@@ -5609,7 +5609,7 @@ HIT:FIRE:6d11
 HIT:SUPERHURT:6d11",,"78:0:0:100","JZ#
 JZ#火の巨人スルト
 JZ#北欧神話において世界の南の彼方のムスペルスヘイムに棲む巨人。
-JZ#ラグナロクでは最後に炎の剣で世界樹を焼き尽くしました。 by 久留さん","UNIQUE|SELF_LITE_2|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|RES_NETH|RES_PLAS|MALE|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|EVIL|AURA_FIRE|DEMON|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|CAN_SPEAK|IM_FIRE|NO_CONF|NO_SLEEP|IM_POIS|HURT_COLD|GIANT","1_IN_5|BR_FIRE|BR_PLAS|BLIND|TELE_TO|S_KIN|S_HI_UNDEAD|HAND_DOOM|TELE_AWAY|S_CYBER|S_DEMON",,"$Surtur is also one of the most ancient of all creatures. He is a demonic 
+JZ#ラグナロクでは最後に炎の剣で世界樹を焼き尽くしました。 by 久留さん","UNIQUE|SELF_LITE_2|FORCE_SLEEP|FORCE_MAXHP|RES_TELE|RES_NETH|RES_PLAS|MALE|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|EVIL|AURA_FIRE|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|CAN_SPEAK|IM_FIRE|NO_CONF|NO_SLEEP|IM_POIS|HURT_COLD|GIANT","1_IN_5|BR_FIRE|BR_PLAS|BLIND|TELE_TO|S_KIN|S_HI_UNDEAD|HAND_DOOM|TELE_AWAY|S_CYBER|S_DEMON",,"$Surtur is also one of the most ancient of all creatures. He is a demonic 
 $giant of fire, who is destined to set the nine worlds afire with his 
 $accursed sword of doom on the day of Ragnarok.
 北欧神話において世界の南の彼方のムスペルスヘイムに棲む巨人。
@@ -5627,7 +5627,7 @@ $and immune to magic.  Fear its anger, for its devastation is unmatched!
 839,"白炎のバルログ『ルンゴルシン』","Lungorthin, the Balrog of White Fire","U","w",57,3,255,255,0,0,85,2,0,37000,0,0,0,0,12,130,20,125,80,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:FIRE:8d12
 HIT:FIRE:8d12
 CRUSH:SUPERHURT:8d12
-TOUCH:UN_POWER",,"71:0:0:100","J0#","UNIQUE|MALE|SELF_LITE_1|SELF_LITE_2|AURA_FIRE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|CONF|SCARE|BR_FIRE|S_DEMON|S_HI_UNDEAD",,"$A massive form cloaked in flame.  Lungorthin stares balefully at you with 
+TOUCH:UN_POWER",,"71:0:0:100","J0#","UNIQUE|MALE|SELF_LITE_1|SELF_LITE_2|AURA_FIRE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|CONF|SCARE|BR_FIRE|S_DEMON|S_HI_UNDEAD",,"$A massive form cloaked in flame.  Lungorthin stares balefully at you with 
 $eyes that smoulder red.  The dungeon floor where he stands is scorched by 
 $the heat of his body.
 彼はその身に炎をまとった堂々たる姿をしている。ルンゴルシンは赤く煙ったその
@@ -5643,14 +5643,14 @@ $enormous wolf inhabited with a human spirit.  He is chief of all his kind.
 841,"『シュマ=ゴラス』","Shuma-Gorath","e","G",80,255,255,255,0,0,88,3,0,47000,0,0,0,0,12,130,50,150,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:HURT:12d12
 CRUSH:HURT:12d12
 GAZE:LOSE_INT:2d12
-GAZE:LOSE_WIS:2d12",,,"JZ#","ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|EVIL|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|DEMON|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL","1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR",,"$Shuma-Gorath is one of the immortal lords of chaos. The true form of 
+GAZE:LOSE_WIS:2d12",,,"JZ#","ONLY_ITEM|DROP_1D2|CAN_SWIM|DROP_GOOD|DROP_GREAT|CAN_SPEAK|EVIL|UNIQUE|NEVER_MOVE|FORCE_MAXHP|FORCE_SLEEP|IM_ACID|IM_POIS|IM_COLD|IM_ELEC|RES_NETH|RES_WATE|RES_NEXU|NO_FEAR|NO_CONF|NO_SLEEP|SMART|ELDRITCH_HORROR|RES_CHAO|COLD_BLOOD|RES_DISE|NO_STUN|POWERFUL","1_IN_2|FORGET|HEAL|HAND_DOOM|BA_MANA|TPORT|TELE_AWAY|TELE_LEVEL|CONF|BLIND|BRAIN_SMASH|DRAIN_MANA|S_MONSTERS|S_KIN|S_CYBER|S_HOUND|S_HYDRA|S_DEMON|S_UNIQUE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|DISPEL|PSY_SPEAR",,"$Shuma-Gorath is one of the immortal lords of chaos. The true form of 
 $this blasphemous horror is a huge, all-seeing eye surrounded by tentacles.
 『シュマ=ゴラス』は不死なる混沌の神の一人である。この冒涜的な恐怖
 の真の姿は、触手に囲まれた、全てを見通す巨大な眼である。",,,,,,,
 842,"緑色の火焔『トゥールスチャ』","Tulzscha, the Green Flame","E","G",105,255,255,255,0,0,89,4,0,45000,0,0,0,0,11,130,90,100,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:2d50
 HIT:HURT:2d50
 HIT:HURT:2d50
-HIT:HURT:2d50",,,"JZ#","RAND_25|EVIL|DEMON|AURA_FIRE|AURA_COLD|ELDRITCH_HORROR|DROP_2D2|DROP_4D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING|IM_COLD|IM_ACID|IM_ELEC|RES_NEXU|RES_NETH|RES_PLAS|REGENERATE|UNIQUE|SELF_LITE_2","1_IN_3|BR_NEXU|BR_NETH|BR_COLD|BR_FIRE",,"$""A belching column of sick greenish flame... spouting volcanically 
+HIT:HURT:2d50",,,"JZ#","RAND_25|EVIL|AURA_FIRE|AURA_COLD|ELDRITCH_HORROR|DROP_2D2|DROP_4D2|DROP_GOOD|ONLY_ITEM|RES_TELE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING|IM_COLD|IM_ACID|IM_ELEC|RES_NEXU|RES_NETH|RES_PLAS|REGENERATE|UNIQUE|SELF_LITE_2","1_IN_3|BR_NEXU|BR_NETH|BR_COLD|BR_FIRE",,"$""A belching column of sick greenish flame... spouting volcanically 
 $from the depths profound and inconceivable, casting no shadows as 
 $healthy flame should, and coating the nitrous stone with a nasty, 
 $venomous verdigris. For all that seething combustion no warmth 
@@ -5668,7 +5668,7 @@ $lay, but only the clamminess of death and corruption.""
 HIT:HURT:2d50
 HIT:HURT:2d50
 HIT:HURT:2d50",,,"JZ# J.Romero という人から。日本語で逆にすると...
-JZ# ロメロＪ...だめじゃん","RAND_25|EVIL|DEMON|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|DROP_GREAT|UNIQUE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING","1_IN_3|ROCKET|S_CYBER",,"$The mightiest of Cyberdemons, their lord and ruler.
+JZ# ロメロＪ...だめじゃん","RAND_25|EVIL|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|DROP_GREAT|UNIQUE|IM_POIS|IM_FIRE|FORCE_SLEEP|FORCE_MAXHP|NONLIVING","1_IN_3|ROCKET|S_CYBER",,"$The mightiest of Cyberdemons, their lord and ruler.
 最強のサイバーデーモンで、彼らの王であり支配者である。",,,,,,,
 844,"不死なる『カシェイ』","Kaschei the Immortal","L","v",55,255,255,255,0,0,74,3,0,45000,0,0,0,0,9,130,100,100,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:6d8
 HIT:UN_BONUS:6d8
@@ -5729,7 +5729,7 @@ BITE:LOSE_STR:10d2
 BITE:LOSE_CON:10d2",,,"JZ#
 JZ#森の黒山羊シュブ＝ニグラス
 JZ#クトゥルフ神話における豊饒の女神です。作中で言及される事は多い
-JZ#のですが、この女神が物語の中心となる事は滅多にありません。 by 久留さん","UNIQUE|CAN_SPEAK|FEMALE|ELDRITCH_HORROR|AURA_ELEC|RES_TELE|ATTR_MULTI|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|ATTR_ANY|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|NONLIVING|CAN_FLY|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|DEMON|AURA_COLD|EVIL|IM_ACID|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO",,,"$This horrendous outer god looks like a writhing cloudy mass filled 
+JZ#のですが、この女神が物語の中心となる事は滅多にありません。 by 久留さん","UNIQUE|CAN_SPEAK|FEMALE|ELDRITCH_HORROR|AURA_ELEC|RES_TELE|ATTR_MULTI|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|ATTR_ANY|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|NONLIVING|CAN_FLY|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|AURA_COLD|EVIL|IM_ACID|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP|RES_CHAO",,,"$This horrendous outer god looks like a writhing cloudy mass filled 
 $with mouths and tentacles.
 ムー大陸の時代から崇拝されてきた邪悪な豊穣の女神。
 姿を目撃された事は少ないが、泡立ち、ただれた巨大な雲状の塊であると言う。
@@ -5767,7 +5767,7 @@ JZ#Ｈ・Ｐ・ラヴクラフトの「ナイアルラトホテップ」「幻夢境カダスを求めて」
 JZ#「闇に這うもの」など多数の作品に登場。
 JZ#神々の使者として、ある時はエジプトのファラオの如き予言者、ある時は顔
 JZ#の無いスフィンクス、ある時は黒い翼と三つの燃える眼をもつ怪物と、様々
-JZ#な姿で出現し、人類を破滅へ導こうとします。 by 久留さん","UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|RES_TELE|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|DEMON|RES_NEXU|RES_CHAO|SHAPECHANGER|ATTR_MULTI|ATTR_ANY|MALE|AURA_ELEC|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_GREAT|DROP_90|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|AURA_COLD|EVIL|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|POWERFUL","1_IN_4|HEAL|SCARE|BRAIN_SMASH|BR_FIRE|S_HOUND",,"$Nyarlathothep is the messenger, the heart and the soul of the outer gods. 
+JZ#な姿で出現し、人類を破滅へ導こうとします。 by 久留さん","UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|RES_TELE|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|PASS_WALL|RES_NEXU|RES_CHAO|SHAPECHANGER|ATTR_MULTI|ATTR_ANY|MALE|AURA_ELEC|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_GREAT|DROP_90|SMART|OPEN_DOOR|BASH_DOOR|REGENERATE|AURA_COLD|EVIL|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|POWERFUL","1_IN_4|HEAL|SCARE|BRAIN_SMASH|BR_FIRE|S_HOUND",,"$Nyarlathothep is the messenger, the heart and the soul of the outer gods. 
 $He is a shapechanger capable of assuming thousands of nightmarish forms.
 $One of them looks like this: ""A tall, slim figure with the young face of 
 $an antique pharaoh, gay with prismatic robes and crowned with a 
@@ -5790,7 +5790,7 @@ CRAWL:ACID:35d5",,,"JZ#
 JZ#奇怪な原子核の混沌アザトート
 JZ#クトゥルフ神話における最高神ですが、やはり物語の中心となる事は
 JZ#滅多にありません。“奇怪な原子核の混沌”はＨ・Ｐ・ラヴクラフト
-JZ#の「闇に囁くもの」におけるアザトートの表現です。 by 久留さん","UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|DEMON|AURA_FIRE|AURA_ELEC|ATTR_MULTI|ESCORTS|ESCORT|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|EVIL|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_3|TELE_AWAY|TELE_TO|TELE_LEVEL|TPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM",,"$""That last amorphous blight of nethermost confusion which 
+JZ#の「闇に囁くもの」におけるアザトートの表現です。 by 久留さん","UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|AURA_ELEC|ATTR_MULTI|ESCORTS|ESCORT|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|ONLY_ITEM|DROP_4D2|DROP_GOOD|DROP_90|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|EVIL|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_3|TELE_AWAY|TELE_TO|TELE_LEVEL|TPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM",,"$""That last amorphous blight of nethermost confusion which 
 $blasphemes and bubbles at the centre of all infinity -- 
 $the boundless daemon sultan Azathoth, whose name no lips 
 $dare speak aloud, and who gnaws hungrily in inconceivable, 
@@ -5840,7 +5840,7 @@ $uses its power of complete disintegration, the day of Ragnarok is near.
 856,"冥府の大元帥『ゴスモグ』","Gothmog, the Arch Marshal of Infernal Region","U","R",57,4,255,255,0,0,89,1,0,48000,0,0,0,0,18,137,100,231,0,28,28,28,28,28,28,1731,0,40031,0,1731,0,40031,0,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 CRUSH:SUPERHURT:8d12
-TOUCH:UN_POWER",,"212:0:0:100","J0#","UNIQUE|MALE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|DEMON|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_3|BR_DISI|BO_MANA",,"彼はバルログという、かつてのマイアに比する者でありながら、
+TOUCH:UN_POWER",,"212:0:0:100","J0#","UNIQUE|MALE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_3|BR_DISI|BO_MANA",,"彼はバルログという、かつてのマイアに比する者でありながら、
 アルダの創世の歌、アイヌリンダレには加わっていなかったとされる存在だ。
 一説によれば彼は冥王メルコールの実の長子であり、
 バルログの中でも抜きん出た力の持ち主であることがその仮説を強く裏付けている。
@@ -5851,7 +5851,7 @@ CLAW:UN_BONUS:15d2
 TOUCH:DISEASE:100d1",,,"JZ#
 JZ#偉大なるクトゥルフ（ク・リトル・リトル、クトゥルー）
 JZ#Ｈ・Ｐ・ラヴクラフトの「クトゥルフの呼び声」などに登場する神。
-JZ#現在は海底のルルイエの都に封印されて復活の時を待っています。 by 久留さん","UNIQUE|CAN_SPEAK|DEMON|ELDRITCH_HORROR|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|SMART|RES_PLAS|RES_NEXU|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|REGENERATE|RES_NETH|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_GREAT|RES_DISE|RES_CHAO|RES_DARK|RES_TELE|CAN_SWIM|EVIL|IM_FIRE|IM_POIS|IM_ELEC|IM_ACID|NO_CONF|NO_SLEEP","1_IN_3|BLIND|CONF|SCARE|BR_FIRE|S_KIN|S_DEMON|S_HI_UNDEAD|S_CYBER",,"$This creature is death incarnate. ""A monster of vaguely anthropoid 
+JZ#現在は海底のルルイエの都に封印されて復活の時を待っています。 by 久留さん","UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|NONLIVING|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|SMART|RES_PLAS|RES_NEXU|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|REGENERATE|RES_NETH|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_1D2|DROP_GOOD|DROP_GREAT|RES_DISE|RES_CHAO|RES_DARK|RES_TELE|CAN_SWIM|EVIL|IM_FIRE|IM_POIS|IM_ELEC|IM_ACID|NO_CONF|NO_SLEEP","1_IN_3|BLIND|CONF|SCARE|BR_FIRE|S_KIN|S_DEMON|S_HI_UNDEAD|S_CYBER",,"$This creature is death incarnate. ""A monster of vaguely anthropoid 
 $outline, but with an octopus-like head whose face was a mass of 
 $feelers, a scaly, rubbery-looking body, prodigious claws on hind 
 $fore feet, and long, narrow wings behind. This thing... was a 
@@ -5951,7 +5951,7 @@ SPORE:TERRIFY:2d4",,,,"NEVER_MOVE|STUPID|WEIRD_MIND|ATTR_MULTI|ATTR_ANY|QUANTUM|
 TOUCH:UN_BONUS:10d10
 TOUCH:LOSE_ALL:10d10
 TOUCH:EXP_80:10d10",,"8:0:0:100
-90:0:0:100",,"UNIQUE|FORCE_SLEEP|ONLY_ITEM|DROP_90|FORCE_MAXHP|DROP_GOOD|DROP_GREAT|REFLECTING|INVISIBLE|COLD_BLOOD|KILL_EXP|SMART|REGENERATE|POWERFUL|AURA_FIRE|ATTR_MULTI|EVIL|DEMON|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP","1_IN_2|BR_NETH|BR_TIME|BA_MANA|BO_MANA|HAND_DOOM|HEAL|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|DISPEL",,"彼はアンバーと混沌の血統を色濃く保ち、双方の技に長けた随一の魔術師だ。",,,,,,,
+90:0:0:100",,"UNIQUE|FORCE_SLEEP|ONLY_ITEM|DROP_90|FORCE_MAXHP|DROP_GOOD|DROP_GREAT|REFLECTING|INVISIBLE|COLD_BLOOD|KILL_EXP|SMART|REGENERATE|POWERFUL|AURA_FIRE|ATTR_MULTI|EVIL|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP","1_IN_2|BR_NETH|BR_TIME|BA_MANA|BO_MANA|HAND_DOOM|HEAL|S_DEMON|S_HI_UNDEAD|S_HI_DRAGON|DISPEL",,"彼はアンバーと混沌の血統を色濃く保ち、双方の技に長けた随一の魔術師だ。",,,,,,,
 865,"ロゥフ","Lourph","S","u",98,255,255,255,0,0,39,7,0,3333,0,0,0,0,-1,140,200,110,0,19,19,19,19,19,19,250,20,101,10,250,20,101,10,"BITE:PARALYZE:5d5
 BITE:PARALYZE:5d5
 BITE:POISON:7d5
@@ -5967,7 +5967,7 @@ $ never satisfied.
 866,"カァウ","Caaws","E","D",93,255,255,255,0,0,82,6,0,70000,0,0,0,0,13,120,100,176,0,28,28,28,28,28,28,1750,0,19302,0,1750,0,19302,0,"TOUCH:UN_POWER:13d13
 TOUCH:UN_BONUS:13d13
 TOUCH:LOSE_ALL:13d13
-TOUCH:DR_MANA:100d100",,,,"FORCE_MAXHP|NEVER_MOVE|STUPID|KILL_EXP|CAN_SWIM|CAN_FLY|NONLIVING|COLD_BLOOD|WEIRD_MIND|REGENERATE|KILL_BODY|AURA_COLD|EVIL|DEMON|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP|WILD_WASTE|WILD_SWAMP","1_IN_5|HEAL|INVULNER|DISPEL",,"$A thing like a massive, jet black oyster with four groping tendrils.
+TOUCH:DR_MANA:100d100",,,,"FORCE_MAXHP|NEVER_MOVE|STUPID|KILL_EXP|CAN_SWIM|CAN_FLY|NONLIVING|COLD_BLOOD|WEIRD_MIND|REGENERATE|KILL_BODY|AURA_COLD|EVIL|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_CONF|NO_STUN|NO_SLEEP|WILD_WASTE|WILD_SWAMP","1_IN_5|HEAL|INVULNER|DISPEL",,"$A thing like a massive, jet black oyster with four groping tendrils.
 $  Born of nether, it need not chase its prey, content to seeth
 $ in the darkness until some unfortunate creature wanders too close.
 四本の触腕をもった巨大な漆黒の牡蛎のような怪物だ。冥界で生まれた
@@ -6281,7 +6281,7 @@ $of gills.
 920,"『デモゴルゴン』","The Demogorgon","U","u",44,6,255,255,0,0,75,2,0,37000,0,0,0,0,13,125,30,140,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:LOSE_CON:5d10
 HIT:LOSE_CON:5d10
 CRUSH:HURT:12d12
-TOUCH:UN_POWER:3d5",,,,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|DEMON|IM_FIRE|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_3|BLIND|CONF|SCARE|BA_DARK|BO_NETH|BR_NETH|BR_DARK|BR_NUKE|BR_POIS|HAND_DOOM|S_DEMON|S_KIN|DISPEL",,"その名を口にするだけで破滅をもたらすほどの恐るべきデーモンであり、
+TOUCH:UN_POWER:3d5",,,,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|IM_FIRE|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_3|BLIND|CONF|SCARE|BA_DARK|BO_NETH|BR_NETH|BR_DARK|BR_NUKE|BR_POIS|HAND_DOOM|S_DEMON|S_KIN|DISPEL",,"その名を口にするだけで破滅をもたらすほどの恐るべきデーモンであり、
 地獄の軍勢の指揮官であると言われている。",,,,,,,
 921,"最古にして父なきもの『トム・ボンバディル』","Tom Bombadil, the oldest and fatherless","p","B",45,11,255,255,0,0,56,8,0,1500,0,0,0,0,3,150,25,0,1,28,28,28,28,28,28,173,0,64,0,173,0,64,0,,,,,"RAND_25|REFLECTING|FORCE_SLEEP|CAN_SPEAK|REGENERATE|AURA_ELEC|BASH_DOOR|KILL_BODY|GOOD|FRIENDLY|NONLIVING|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_STUN|NO_CONF|NO_SLEEP|CAN_FLY","1_IN_1|HOLD|BLIND|CONF|SCARE|SLOW",,,,,,,,,
 922,"ピカチャウ","Electric rat","r","y",87,255,255,255,0,0,24,2,0,200,0,0,0,0,-1,110,20,10,40,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"CLAW:ELEC:1d5
@@ -6318,7 +6318,7 @@ $He is plotting to conquer the Mushroom Kingdom.
 929,"巨大サイバーワイアーム天使悪魔リッチ","Greater Cyber Wyrm Angel Daemon Lich","N","W",96,255,255,255,0,0,87,50,0,40000,0,0,0,0,17,150,50,200,1,28,28,28,28,28,28,1000,0,1000000,0,1000,0,1000000,0,"SHOW:SHATTER:1d200
 INSULT:EXP_VAMP:1d200
 DROOL:UN_POWER:1d100
-WAIL:DR_MANA:1d100",,,,"DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ATTR_MULTI|RAND_25|RAND_50|RIDING|ONLY_ITEM|DROP_60|DROP_90|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|STUPID|SMART|CAN_SPEAK|REFLECTING|INVISIBLE|COLD_BLOOD|EMPTY_MIND|WEIRD_MIND|REGENERATE|SHAPECHANGER|ATTR_ANY|POWERFUL|AURA_FIRE|AURA_ELEC|OPEN_DOOR|BASH_DOOR|PASS_WALL|KILL_WALL|TAKE_ITEM|KILL_ITEM|GIANT|DEMON|UNDEAD|EVIL|ANIMAL|GOOD|AURA_COLD|NONLIVING|HURT_ROCK|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|HUMAN|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_STUN|NO_CONF|NO_SLEEP|CAN_SWIM|CAN_FLY|UNIQUE2|WILD_SHORE|WILD_OCEAN|WILD_WASTE|WILD_WOOD|WILD_VOLCANO|WILD_MOUNTAIN|WILD_GRASS|WILD_ALL|SELF_LITE_1|SELF_LITE_2","1_IN_3|SHRIEK|DISPEL|ROCKET|SHOOT|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BA_NUKE|BR_NUKE|BA_CHAO|BR_DISI|BA_ACID|BA_ELEC|BA_FIRE|BA_COLD|BA_POIS|BA_NETH|BA_WATE|BA_MANA|BA_DARK|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|CAUSE_1|CAUSE_2|CAUSE_3|CAUSE_4|BO_ACID|BO_ELEC|BO_FIRE|BO_COLD|BO_NETH|BO_WATE|BO_MANA|BO_PLAS|BO_ICEE|MISSILE|BLIND|CONF|SLOW|HOLD|HASTE|HAND_DOOM|HEAL|INVULNER|BLINK|TPORT|WORLD|TELE_TO|TELE_AWAY|TELE_LEVEL|PSY_SPEAR|DARKNESS|TRAPS|FORGET|ANIM_DEAD|S_KIN|S_CYBER|S_MONSTER|S_MONSTERS|S_ANT|S_SPIDER|S_HOUND|S_HYDRA|S_DEMON|S_UNDEAD|S_DRAGON|S_HI_UNDEAD|S_AMBERITES|S_UNIQUE|BA_LITE",,,,,,,,,
+WAIL:DR_MANA:1d100",,,,"DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ATTR_MULTI|RAND_25|RAND_50|RIDING|ONLY_ITEM|DROP_60|DROP_90|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|STUPID|SMART|CAN_SPEAK|REFLECTING|INVISIBLE|COLD_BLOOD|EMPTY_MIND|WEIRD_MIND|REGENERATE|SHAPECHANGER|ATTR_ANY|POWERFUL|AURA_FIRE|AURA_ELEC|OPEN_DOOR|BASH_DOOR|PASS_WALL|KILL_WALL|TAKE_ITEM|KILL_ITEM|GIANT|UNDEAD|EVIL|ANIMAL|GOOD|AURA_COLD|NONLIVING|HURT_ROCK|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|HUMAN|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_STUN|NO_CONF|NO_SLEEP|CAN_SWIM|CAN_FLY|UNIQUE2|WILD_SHORE|WILD_OCEAN|WILD_WASTE|WILD_WOOD|WILD_VOLCANO|WILD_MOUNTAIN|WILD_GRASS|WILD_ALL|SELF_LITE_1|SELF_LITE_2","1_IN_3|SHRIEK|DISPEL|ROCKET|SHOOT|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BA_NUKE|BR_NUKE|BA_CHAO|BR_DISI|BA_ACID|BA_ELEC|BA_FIRE|BA_COLD|BA_POIS|BA_NETH|BA_WATE|BA_MANA|BA_DARK|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|CAUSE_1|CAUSE_2|CAUSE_3|CAUSE_4|BO_ACID|BO_ELEC|BO_FIRE|BO_COLD|BO_NETH|BO_WATE|BO_MANA|BO_PLAS|BO_ICEE|MISSILE|BLIND|CONF|SLOW|HOLD|HASTE|HAND_DOOM|HEAL|INVULNER|BLINK|TPORT|WORLD|TELE_TO|TELE_AWAY|TELE_LEVEL|PSY_SPEAR|DARKNESS|TRAPS|FORGET|ANIM_DEAD|S_KIN|S_CYBER|S_MONSTER|S_MONSTERS|S_ANT|S_SPIDER|S_HOUND|S_HYDRA|S_DEMON|S_UNDEAD|S_DRAGON|S_HI_UNDEAD|S_AMBERITES|S_UNIQUE|BA_LITE",,,,,,,,,
 930,"超人ロックのクローン","Clone of Locke the Superman","p","G",0,9,255,255,0,0,65,30,0,18000,0,0,0,0,3,130,100,0,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:14d14
 HIT:HURT:14d14
 HIT:HURT:14d14
@@ -6387,7 +6387,7 @@ $for a life of everlasting torment.
 940,"レッサー・バルログ","Lesser Balrog","U","R",57,255,255,255,0,0,44,3,0,8000,30000,720,0,0,2,120,20,50,80,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:4d6
 HIT:FIRE:2d6
-HIT:HURT:5d5",,,,"FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_1|ONLY_ITEM|DROP_1D2|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|CONF|BR_FIRE|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
+HIT:HURT:5d5",,,,"FORCE_SLEEP|FORCE_MAXHP|SELF_LITE_1|ONLY_ITEM|DROP_1D2|DROP_2D2|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|IM_FIRE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|CONF|BR_FIRE|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
 それは全身が炎で覆われた屈強な人間型のモンスターだ。",,,,,,,
 941,"執政家の長兄『ボロミア』","Boromir, elder son of the steward family.","p","D",6,0,255,5,0,0,35,4,0,18000,0,0,0,0,0,125,40,0,0,18,18,18,18,18,18,192,0,91,0,192,0,91,0,"HIT:HURT:13d5
 HIT:HURT:13d5
@@ -6414,11 +6414,11 @@ TOUCH:ACID:3d3",,,,"NEVER_MOVE|COLD_BLOOD|CAN_SWIM|IM_ELEC|IM_ACID|IM_POIS|NO_FE
 945,"怒りの魔王『炎のバイケタル』","Biketal of Fire","U","r",44,5,255,255,0,0,73,2,0,32000,0,0,0,0,11,125,50,160,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 TOUCH:DISEASE:20d4
-CRUSH:HURT:50d4",,,,"UNIQUE|FORCE_MAXHP|EVIL|FORCE_SLEEP|CAN_SPEAK|DEMON|ONLY_ITEM|DROP_3D2|DROP_1D2|DROP_GOOD|KILL_BODY|IM_FIRE|IM_ELEC|IM_POIS|POWERFUL|ESCORT|SELF_LITE_2|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE","1_IN_3|BR_FIRE|DISPEL|BR_POIS|BO_PLAS|BR_PLAS|BA_FIRE|CONF|SCARE|HOLD|S_DEMON|HEAL",,,,,,,,,
+CRUSH:HURT:50d4",,,,"UNIQUE|FORCE_MAXHP|EVIL|FORCE_SLEEP|CAN_SPEAK|ONLY_ITEM|DROP_3D2|DROP_1D2|DROP_GOOD|KILL_BODY|IM_FIRE|IM_ELEC|IM_POIS|POWERFUL|ESCORT|SELF_LITE_2|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE","1_IN_3|BR_FIRE|DISPEL|BR_POIS|BO_PLAS|BR_PLAS|BA_FIRE|CONF|SCARE|HOLD|S_DEMON|HEAL",,,,,,,,,
 946,"静の魔王『氷のジシスル』","Jisisl of Ice","U","B",44,5,255,255,0,0,67,2,0,30000,0,0,0,0,10,125,80,120,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:COLD:9d12
 HIT:COLD:9d12
 TOUCH:DISEASE:20d4
-CRUSH:HURT:40d4",,,,"UNIQUE|FORCE_MAXHP|FORCE_SLEEP|CAN_SPEAK|DEMON|ONLY_ITEM|DROP_3D2|DROP_1D2|DROP_GOOD|MOVE_BODY|IM_COLD|IM_ELEC|IM_POIS|POWERFUL|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE","1_IN_3|BR_COLD|DISPEL|BR_POIS|BA_COLD|BO_ICEE|CONF|SCARE|HOLD|S_DEMON",,,,,,,,,
+CRUSH:HURT:40d4",,,,"UNIQUE|FORCE_MAXHP|FORCE_SLEEP|CAN_SPEAK|ONLY_ITEM|DROP_3D2|DROP_1D2|DROP_GOOD|MOVE_BODY|IM_COLD|IM_ELEC|IM_POIS|POWERFUL|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE","1_IN_3|BR_COLD|DISPEL|BR_POIS|BA_COLD|BO_ICEE|CONF|SCARE|HOLD|S_DEMON",,,,,,,,,
 947,"盗賊『プアー』","Poor, the Thief","p","b",0,255,255,255,0,0,25,3,0,500,0,0,0,0,-1,105,20,0,50,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"HIT:HURT:5d10
 HIT:HURT:5d10
 CRUSH:SUPERHURT:30d2",,,,"UNIQUE|DROP_CORPSE|FORCE_MAXHP|CAN_SPEAK|HUMAN|MALE|EVIL|ONLY_ITEM|DROP_1D2|DROP_60|DROP_GOOD|NO_SLEEP|NO_CONF|BASH_DOOR",,,,,,,,,,
@@ -6821,7 +6821,7 @@ CLAW:HURT:2d5
 BITE:HURT:3d6",,,,"WEIRD_MIND|BASH_DOOR|FRIENDS|DROP_SKELETON|DROP_CORPSE|ANIMAL|EVIL|WILD_WOOD|WILD_MOUNTAIN",,,"$These bears are followers of Red Helm.
 『赤カブト』の配下の熊だ。",,,,,,,
 1029,"ベビーサタン","Demonite","u","v",43,255,255,255,0,0,20,2,0,250,0,0,0,0,-1,115,30,50,10,14,14,14,14,14,14,104,0,31,0,0,0,0,0,"CLAW:HURT:3d5
-CLAW:HURT:3d5",,,,"OPEN_DOOR|DEMON|CAN_SPEAK|NONLIVING|EVIL|RAND_25|IM_COLD|IM_FIRE|IM_POIS|CAN_SWIM","1_IN_6|BR_COLD",,"$A demon small in stature whose face you can't help but love.
+CLAW:HURT:3d5",,,,"OPEN_DOOR|CAN_SPEAK|NONLIVING|EVIL|RAND_25|IM_COLD|IM_FIRE|IM_POIS|CAN_SWIM","1_IN_6|BR_COLD",,"$A demon small in stature whose face you can't help but love.
 憎めない顔をした小柄な悪魔だ。",,,,,,,
 1030,"南蛮王『孟獲』","Meng Huo, the King of Southerings","p","o",5,0,255,1,0,0,22,2,0,250,0,0,0,0,0,110,20,0,20,14,14,14,14,14,14,238,0,142,0,238,0,142,0,"HIT:HURT:1d15
 HIT:HURT:1d15
@@ -7220,7 +7220,7 @@ $Flee while you can!
 1100,"ドゥリンの禍『ランデルドゥン』","Randeludun, the Durin's Bane","U","R",57,255,255,255,0,0,50,1,0,13000,0,0,0,0,5,120,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:5d6
 HIT:FIRE:6d2
-HIT:HURT:6d5",,,,"FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|UNIQUE|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|QUESTOR|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|EVIL|DEMON|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL","1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
+HIT:HURT:6d5",,,,"FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|UNIQUE|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|QUESTOR|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|EVIL|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL","1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON",,"$It is a massive humanoid demon wreathed in flames.
 それは全身が炎で覆われた屈強な人間型のモンスターだ。",,,,,,,
 1101,"プルトニウムのクリーピングコイン","Creeping Plutonium coins","$","v",90,255,255,255,0,0,44,5,0,450,0,0,0,0,0,125,5,50,10,19,19,19,19,19,19,170,0,60,0,0,0,0,0,"BITE:POISON:3d4
 TOUCH:POISON:3d5
@@ -7357,77 +7357,77 @@ HIT:SUPERHURT:15d10",,"60:0:0:100","D'angband追加ユニーク","UNIQUE|MALE|SMART|RE
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1138,"血の神『コーン』","Khorne, Blood God","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1139,"腐敗の翁『ナーグル』","Nurgle, Father of Disease and Decay","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1137,"仄暗き皇子『スラーネッシュ』","Slaanesh, Dark Prince","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1138,"老獪なる『スローター』","Slorter the Old","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1139,"混沌の公爵『アリオッチ』","Arioch, Duke of Chaos","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1140,"剣の女王『キシオムバーグ』","Xiombarg, Queen of Swords","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1141,"剣の王『マベロード』","Mabelrode, King of Swords","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1142,"処刑者『ハイオンハーン』","Hionhurn the Executioner","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1143,"刈入れ人『チャードロス』","Chardros the Reaper","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1144,"冷酷なる『バラン』","Balaan the Grim","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1145,"絶望の貴婦人『エクオル』","Eequor, Blue Lady of Chaos","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1146,"秘密を囁く者『ピアレー』","Pyaray, Whisperer of Impossible Secrets","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1147,"乞食の神『ナージャン』","Narjan, God of Beggers","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1148,"道化師『バロ』","Balo the Jester","U","r",44,5,255,255,0,0,84,2,0,42500,0,0,0,0,20,140,20,150,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_VAMP:1d15
 GAZE:TERRIFY:1d15
 TOUCH:FIRE:4d5
 TOUCH:UN_POWER:4d5",,,"JZ#
-JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|DEMON|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
+JZ#ゲーテの「ファウスト」に登場した悪魔です。 by 久留さん","MALE|UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|FORCE_MAXHP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|IM_FIRE|RES_PLAS|RES_NETH|AURA_FIRE|NO_CONF|NO_SLEEP|NONLIVING|EVIL|IM_COLD|IM_POIS","1_IN_3|TELE_TO|SCARE|HOLD|BRAIN_SMASH|S_DEMON|S_HI_UNDEAD|S_UNDEAD|BR_FIRE|BR_NETH|S_CYBER|HAND_DOOM|ANIM_DEAD",,,,,,,,,
 1149,"見習魔法少女","Novice puella magi","z","y",0,9,1157,255,0,0,4,2,0,18,600,1055,0,0,-1,110,20,0,5,10,10,10,10,10,10,170,0,60,0,160,0,50,0,"HIT:HURT:1d9",,,,"FEMALE|DROP_60|WILD_ALL|RACE_EGO|MALE|OPEN_DOOR|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|NO_CONF|NO_SLEEP|PUELLA_MAGI","1_IN_12|BLIND|SLOW|CONF|SCARE",,"$A novice in the arts of mind over matter.
 精神の技を習い始めた見習いだ。",,,,,,,
 1150,"魔法少女","Puella magi","z","y",0,9,1157,255,0,0,22,2,0,50,5000,1056,0,0,-1,110,20,0,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
@@ -7471,7 +7471,7 @@ $others, who slavishly follow him into battle when he calls them.
 自身ばかりか他人の精神をも操って隷属させ、戦闘の最中に呼び寄せる。",,,,,,,
 1156,"キュウべぇ","Kyubey","u","w",43,255,1157,255,0,0,40,3,0,1000,0,0,0,0,0,130,20,80,0,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BITE:LOSE_DEX:3d6
 CLAW:HURT:3d3
-CLAW:HURT:3d3",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_2D2|DROP_4D2|NONLIVING|SMART|INVISIBLE|PASS_WALL|CAN_FLY|EVIL|DEMON|IM_FIRE|IM_POIS|RES_TELE|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_10|BLIND|CONF|SCARE|CAUSE_3|FORGET|S_DEMON",,"$It is a demon of small stature, but its armoured frame moves with 
+CLAW:HURT:3d3",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_2D2|DROP_4D2|NONLIVING|SMART|INVISIBLE|PASS_WALL|CAN_FLY|EVIL|IM_FIRE|IM_POIS|RES_TELE|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_10|BLIND|CONF|SCARE|CAUSE_3|FORGET|S_DEMON",,"$It is a demon of small stature, but its armoured frame moves with 
 $lightning speed and its powers make it a tornado of death and destruction.
 それは小さな彫像のデーモンだ。その動きは堅い体からは想像もつかない
 電光石火のスピードで、その力は死と破壊の竜巻を巻き起こす。",,,,,,,

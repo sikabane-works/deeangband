@@ -694,3 +694,15 @@ bool is_dragon_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_DRAGON || sp_ptr->irace_idx == RACE_DRACONIAN) return TRUE;
 	return FALSE;
 }
+
+bool is_demon_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_IMP || cr_ptr->irace_idx == RACE_DEMON || cr_ptr->irace_idx == RACE_BALROG) return TRUE;
+	return FALSE;
+}
+
+bool is_demon_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_IMP || sp_ptr->irace_idx == RACE_DEMON || sp_ptr->irace_idx == RACE_BALROG) return TRUE;
+	return FALSE;
+}

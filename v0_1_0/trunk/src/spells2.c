@@ -4370,21 +4370,20 @@ cptr desc_monsters = "変なモンスター";
 	{
 		switch (match_flag)
 		{
-			case RF3_DEMON:
-#ifdef JP
-desc_monsters = "デーモン";
-#else
-				desc_monsters = "demons";
-#endif
-
-				break;
 			case RF3_UNDEAD:
 #ifdef JP
-desc_monsters = "アンデッド";
+				desc_monsters = "アンデッド";
 #else
 				desc_monsters = "the undead";
 #endif
 
+				break;
+			default:
+#ifdef JP
+				desc_monsters = "敵";
+#else
+				desc_monsters = "the enemy";
+#endif
 				break;
 		}
 

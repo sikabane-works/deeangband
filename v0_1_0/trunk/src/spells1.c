@@ -2309,7 +2309,7 @@ note = "には耐性がある。";
 				dam *= 3; dam /= randint1(6) + 6;
 				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flagsr |= (RFR_RES_CHAO);
 			}
-			else if ((r_ptr->flags3 & RF3_DEMON) && one_in_(3))
+			else if (is_demon_species(r_ptr) && one_in_(3))
 			{
 #ifdef JP
 				note = "はいくらか耐性を示した。";
@@ -2318,7 +2318,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
 			}
 			else
 			{
@@ -2836,7 +2836,8 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
+				if (r_ptr->flags3 & (RF3_UNDEAD) && 
+					 is_demon_species(r_ptr) &&
 				    (r_ptr->level > who_ptr->lev / 2) &&
 				    one_in_(2))
 				{
@@ -2972,7 +2973,8 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
+				if (r_ptr->flags3 & (RF3_UNDEAD) &&
+					 is_demon_species(r_ptr) &&
 				     (r_ptr->level > who_ptr->lev / 2) &&
 				     (one_in_(2)))
 				{
@@ -3151,7 +3153,8 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if ((r_ptr->flags3 & (RF3_UNDEAD | RF3_DEMON)) &&
+				if ((r_ptr->flags3 & (RF3_UNDEAD)) &&
+					is_demon_species(r_ptr) &&
 				    (r_ptr->level > who_ptr->lev / 2) &&
 				    (one_in_(2)))
 				{
@@ -3309,7 +3312,7 @@ note = "があなたに隷属した。";
 			{
 				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
-					if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
+					//TODO if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					if (r_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
@@ -3348,7 +3351,7 @@ note = "があなたに隷属した。";
 			{
 				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
-					if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
+					//TODO if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					if (r_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
@@ -3955,7 +3958,7 @@ note = "は既にあなたの奴隷だ！";
 
 			/* Attempt a saving throw */
 			if ((r_ptr->flags1 & RF1_QUESTOR) ||
-			  (!(r_ptr->flags3 & RF3_DEMON)) ||
+			  (!is_demon_species(r_ptr)) ||
 			    (m_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4879,13 +4882,13 @@ note_dies = "はドロドロに溶けた！";
 				break;
 			}
 			/* Only affect demons */
-			if (r_ptr->flags3 & (RF3_DEMON))
+			if (is_demon_species(r_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
 
 				/* Message */
 #ifdef JP
