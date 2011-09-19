@@ -670,94 +670,11 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 #endif
 
 
-		/* Describe the "quality" */
+/*TODO: DESC*/
 #ifdef JP
-if (flags2 & RF2_ELDRITCH_HORROR) hook_c_roff(TERM_VIOLET, "狂気を誘う");/*nuke me*/
+		hooked_roff("クリーチャー");
 #else
-		if (flags2 & RF2_ELDRITCH_HORROR) hook_c_roff(TERM_VIOLET, " sanity-blasting");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_ANIMAL)          hook_c_roff(TERM_L_GREEN, "自然界の");
-#else
-		if (flags3 & RF3_ANIMAL)          hook_c_roff(TERM_L_GREEN, " natural");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_EVIL)            hook_c_roff(TERM_L_DARK, "邪悪なる");
-#else
-		if (flags3 & RF3_EVIL)            hook_c_roff(TERM_L_DARK, " evil");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_GOOD)            hook_c_roff(TERM_YELLOW, "善良な");
-#else
-		if (flags3 & RF3_GOOD)            hook_c_roff(TERM_YELLOW, " good");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_UNDEAD)          hook_c_roff(TERM_VIOLET, "アンデッドの");
-#else
-		if (flags3 & RF3_UNDEAD)          hook_c_roff(TERM_VIOLET, " undead");
-#endif
-#ifdef JP
-		if (r_ptr->irace_idx == RACE_AMBERITE)        hook_c_roff(TERM_VIOLET, "アンバーの王族の");
-#else
-		if (r_ptr->irace_idx == RACE_AMBERITE)        hook_c_roff(TERM_VIOLET, " Amberite");
-#endif
-
-
-	if ((flags3 & (RF3_DRAGON | RF3_DEMON | RF3_GIANT | RF3_TROLL)) || (flags2 & (RF2_QUANTUM | RF2_HUMAN)))
-	{
-	/* Describe the "race" */
-#ifdef JP
-     if (flags3 & RF3_DRAGON)   hook_c_roff(TERM_ORANGE, "ドラゴン");
-#else
-		     if (flags3 & RF3_DRAGON)   hook_c_roff(TERM_ORANGE, " dragon");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_DEMON)    hook_c_roff(TERM_VIOLET, "デーモン");
-#else
-		if (flags3 & RF3_DEMON)    hook_c_roff(TERM_VIOLET, " demon");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_GIANT)    hook_c_roff(TERM_L_UMBER, "ジャイアント");
-#else
-		if (flags3 & RF3_GIANT)    hook_c_roff(TERM_L_UMBER, " giant");
-#endif
-
-#ifdef JP
-if (flags3 & RF3_TROLL)    hook_c_roff(TERM_BLUE, "トロル");
-#else
-		if (flags3 & RF3_TROLL)    hook_c_roff(TERM_BLUE, " troll");
-#endif
-
-#ifdef JP
-if (flags2 & RF2_HUMAN) hook_c_roff(TERM_L_WHITE, "人間");
-#else
-		if (flags2 & RF2_HUMAN) hook_c_roff(TERM_L_WHITE, " human");
-#endif
-
-#ifdef JP
-if (flags2 & RF2_QUANTUM)  hook_c_roff(TERM_VIOLET, "量子生物");
-#else
-		if (flags2 & RF2_QUANTUM)  hook_c_roff(TERM_VIOLET, " quantum creature");
-#endif
-
-	}
-#ifdef JP
-		else if(flags3 & RF3_PUELLA_MAGI)
-			hooked_roff("魔法少女");
-#else
-		else if(flags3 & RF3_PUELLA_MAGI)
-			else hooked_roff(" puella magi");
-#endif
-#ifdef JP
-		else hooked_roff("モンスター");
-#else
-		else hooked_roff(" creature");
+		hooked_roff(" creature");
 #endif
 
 
