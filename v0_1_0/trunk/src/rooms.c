@@ -1660,7 +1660,7 @@ static bool vault_aux_troll(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require troll */
-	if (!(r_ptr->flags3 & RF3_TROLL)) return (FALSE);
+	if (is_troll_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
 	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);

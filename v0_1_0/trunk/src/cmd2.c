@@ -3122,26 +3122,26 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			}
 
 			/* Slay Troll */
-			if ((have_flag(flgs, TR_SLAY_TROLL)) &&
-			    (r_ptr->flags3 & RF3_TROLL))
+			if (have_flag(flgs, TR_SLAY_TROLL) && is_troll_creature(tar_ptr))
 			{
+				/*TODO
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
-
+				*/
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Troll */
-			if ((have_flag(flgs, TR_KILL_TROLL)) &&
-			    (r_ptr->flags3 & RF3_TROLL))
+			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(tar_ptr))
 			{
+				/*TODO
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
 					r_ptr->r_flags3 |= RF3_TROLL;
 				}
-
+				*/
 				if (mult < 30) mult = 30;
 			}
 

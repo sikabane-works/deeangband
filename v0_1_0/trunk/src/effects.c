@@ -5092,7 +5092,6 @@ msg_print("‚ª‚æ‚èŒy‚¢‚à‚Ì‚É•Ï‰»‚µ‚½B");
  */
 void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 {
-	int i;
 	cptr title = race_info[new_race].title;
 	int  old_race = cr_ptr->irace_idx;
 

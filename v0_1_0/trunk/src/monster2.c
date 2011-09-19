@@ -2637,10 +2637,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_troll) && (r_ptr->flags3 & (RF3_TROLL)))
+			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&m_list[m_idx])))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
+//				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
 			}
 
 			/* Magical sensing */

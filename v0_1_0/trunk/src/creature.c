@@ -670,3 +670,15 @@ bool is_orc_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_ORC || sp_ptr->irace_idx == RACE_URUK) return TRUE;
 	return FALSE;
 }
+
+bool is_troll_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_TROLL || cr_ptr->irace_idx == RACE_OLOG) return TRUE;
+	return FALSE;
+}
+
+bool is_troll_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_TROLL || sp_ptr->irace_idx == RACE_OLOG) return TRUE;
+	return FALSE;
+}
