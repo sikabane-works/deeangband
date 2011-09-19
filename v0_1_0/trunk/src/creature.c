@@ -706,3 +706,15 @@ bool is_demon_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_IMP || sp_ptr->irace_idx == RACE_DEMON || sp_ptr->irace_idx == RACE_BALROG) return TRUE;
 	return FALSE;
 }
+
+bool is_giant_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_IMP || cr_ptr->irace_idx == RACE_DEMON || cr_ptr->irace_idx == RACE_BALROG) return TRUE;
+	return FALSE;
+}
+
+bool is_giant_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_GIANT || sp_ptr->irace_idx == RACE_CYCLOPS || sp_ptr->irace_idx == RACE_TITAN) return TRUE;
+	return FALSE;
+}

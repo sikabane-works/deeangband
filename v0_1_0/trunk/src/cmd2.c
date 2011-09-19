@@ -3144,24 +3144,22 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			}
 
 			/* Slay Giant */
-			if ((have_flag(flgs, TR_SLAY_GIANT)) &&
-			    (r_ptr->flags3 & RF3_GIANT))
+			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_GIANT;
+					//TODO r_ptr->r_flags3 |= RF3_GIANT;
 				}
 
 				if (mult < 20) mult = 20;
 			}
 
 			/* Kill Giant */
-			if ((have_flag(flgs, TR_KILL_GIANT)) &&
-			    (r_ptr->flags3 & RF3_GIANT))
+			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_GIANT;
+					//TODO r_ptr->r_flags3 |= RF3_GIANT;
 				}
 
 				if (mult < 30) mult = 30;

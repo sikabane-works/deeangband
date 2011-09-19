@@ -1681,7 +1681,7 @@ static bool vault_aux_giant(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require giant */
-	if (!(r_ptr->flags3 & RF3_GIANT)) return (FALSE);
+	if (!is_giant_species(r_ptr)) return (FALSE);
 
 	if (r_ptr->flags3 & RF3_GOOD) return (FALSE);
 

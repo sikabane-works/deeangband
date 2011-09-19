@@ -871,10 +871,12 @@ extern bool is_orc_creature(creature_type *cr_ptr);
 extern bool is_troll_creature(creature_type *cr_ptr);
 extern bool is_dragon_creature(creature_type *cr_ptr);
 extern bool is_demon_creature(creature_type *cr_ptr);
+extern bool is_giant_creature(creature_type *cr_ptr);
 extern bool is_orc_species(species_type *sp_ptr);
 extern bool is_troll_species(species_type *sp_ptr);
 extern bool is_dragon_species(species_type *sp_ptr);
 extern bool is_demon_species(species_type *sp_ptr);
+extern bool is_giant_species(species_type *sp_ptr);
 
 
 /* do-spell.c */

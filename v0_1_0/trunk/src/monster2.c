@@ -2644,10 +2644,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_giant) && (r_ptr->flags3 & (RF3_GIANT)))
+			if ((cr_ptr->esp_giant) && is_giant_species(r_ptr))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GIANT);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GIANT);
 			}
 
 			/* Magical sensing */
