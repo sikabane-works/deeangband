@@ -4370,14 +4370,6 @@ cptr desc_monsters = "変なモンスター";
 	{
 		switch (match_flag)
 		{
-			case RF3_UNDEAD:
-#ifdef JP
-				desc_monsters = "アンデッド";
-#else
-				desc_monsters = "the undead";
-#endif
-
-				break;
 			default:
 #ifdef JP
 				desc_monsters = "敵";
@@ -4863,7 +4855,7 @@ bool mass_genocide_undead(int power, bool player_cast)
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
 
-		if (!(r_ptr->flags3 & RF3_UNDEAD)) continue;
+		if (!is_undead_species(r_ptr)) continue;
 
 		/* Skip distant monsters */
 		if (m_ptr->cdis > MAX_SIGHT) continue;

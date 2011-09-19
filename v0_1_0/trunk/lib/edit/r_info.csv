@@ -230,7 +230,7 @@ HIT:HURT:8d6",,,"J0#","UNIQUE|MALE|CAN_SWIM|DROP_SKELETON|DROP_CORPSE|FORCE_MAXH
 与えられた運命に抗えぬ苦悶の戦士となっている。",,,,,,,
 64,"グリーン・ウーズ","Green ooze","j","g",83,255,255,255,0,0,3,2,0,5,15,99,0,0,-1,120,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,"CRAWL:ACID:1d7",,,"J0#","RAND_50|RAND_25|DROP_90|STUPID|EMPTY_MIND|IM_ACID|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO",,,"$It's green and it's oozing.
 それは緑色をしたシミのような生物だ。",,,,,,,
-65,"ポルターガイスト","Poltergeist","G","s",100,255,255,255,0,0,3,1,0,9,10,133,0,0,-1,130,8,15,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,"TOUCH:TERRIFY",,,"J0#","RAND_50|RAND_25|CAN_FLY|DROP_60|DROP_90|INVISIBLE|COLD_BLOOD|PASS_WALL|TAKE_ITEM|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_15|BLINK",,"$It is a ghastly, ghostly form.
+65,"ポルターガイスト","Poltergeist","G","s",100,255,255,255,0,0,3,1,0,9,10,133,0,0,-1,130,8,15,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,"TOUCH:TERRIFY",,,"J0#","RAND_50|RAND_25|CAN_FLY|DROP_60|DROP_90|INVISIBLE|COLD_BLOOD|PASS_WALL|TAKE_ITEM|EVIL|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_15|BLINK",,"$It is a ghastly, ghostly form.
 それは恐ろしげな幽霊のような姿をしている。",,,,,,,
 66,"イエロー・ゼリー","Yellow jelly","j","y",83,255,255,255,0,0,3,1,0,13,20,73,0,0,-1,120,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,"TOUCH:POISON:1d7",,,"J0#","NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO","1_IN_15|DRAIN_MANA",,"$It's a large pile of yellow flesh.
 それは黄色い肉のような物質の塊だ。",,,,,,,
@@ -328,7 +328,7 @@ DROOL",,,"JZ#","EVIL|OPEN_DOOR|BASH_DOOR|DROP_90|DROP_SKELETON",,,"$Drooling, in
 よだれを垂らしている昆虫型のエイリアンで、気持ち悪い習性を持っている。",,,,,,,
 99,"ブルー・ウーズ","Blue ooze","j","b",83,255,255,255,0,0,5,1,0,7,0,0,0,0,-1,110,8,16,80,10,10,10,10,10,10,100,30,100,3,100,30,100,3,"CRAWL:COLD:1d8",,,"J0#","RAND_50|RAND_25|DROP_60|STUPID|EMPTY_MIND|CAN_SWIM|IM_COLD|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO",,,"$It's blue and it's oozing.
 それは青色をしたシミのような生物だ。",,,,,,,
-100,"緑の食いしん坊ゴースト","Green glutton ghost","G","g",100,255,255,255,0,0,5,1,0,15,15,133,0,0,-1,130,10,20,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,"TOUCH:EAT_FOOD:1d1",,,"J0#","RAND_50|RAND_25|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|RES_NETH|NO_CONF|NO_SLEEP",,,"$It is a very ugly green ghost with a voracious appetite.
+100,"緑の食いしん坊ゴースト","Green glutton ghost","G","g",100,255,255,255,0,0,5,1,0,15,15,133,0,0,-1,130,10,20,10,10,10,10,10,10,10,165,10,55,3,165,10,55,3,"TOUCH:EAT_FOOD:1d1",,,"J0#","RAND_50|RAND_25|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|RES_NETH|NO_CONF|NO_SLEEP",,,"$It is a very ugly green ghost with a voracious appetite.
 それは尽きることのない旺盛な食欲を持った、緑色の醜いゴーストだ。",,,,,,,
 101,"グリーン・ゼリー","Green jelly","j","g",83,255,255,255,0,0,5,1,0,18,40,131,0,0,-1,120,2,1,99,10,10,10,10,10,10,100,30,100,3,100,30,100,3,"TOUCH:ACID:1d4",,,"J0#","NEVER_MOVE|STUPID|EMPTY_MIND|CAN_SWIM|IM_ACID|HURT_LITE|NO_CONF|NO_SLEEP|NO_FEAR|VARIABLE_SIZE_EGO",,,"$It is a large pile of pulsing green flesh.
 それは脈打つ緑色の肉のような物質の塊だ。",,,,,,,
@@ -364,7 +364,7 @@ HIT:HURT:1d6",,,"J0#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|HAS_LITE_2|ONLY_ITEM|
 111,"ニーベルング","Nibelung","h","D",14,255,255,255,0,0,6,1,0,6,0,0,0,0,-1,110,20,12,5,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
 TOUCH:EAT_GOLD",,,"JZ#","MALE|FRIENDS|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK|RES_DISE|DROP_SKELETON|DROP_CORPSE",,,"$Night dwarfs collecting new riches for their master, Alberich. 
 夜のドワーフで、彼らの主人アルベリヒのために富を集めている。",,,,,,,
-112,"喉を絞める手","Disembodied hand that strangled people","z","g",52,255,255,255,0,0,6,2,0,20,0,0,0,0,-1,130,30,15,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CRUSH:HURT:1d10",,,"JZ#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_POIS|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$Even today, nobody knows where it lurks... 
+112,"喉を絞める手","Disembodied hand that strangled people","z","g",52,255,255,255,0,0,6,2,0,20,0,0,0,0,-1,130,30,15,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CRUSH:HURT:1d10",,,"JZ#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_POIS|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$Even today, nobody knows where it lurks... 
 今日でさえ、それがどこに潜んでいるのか誰も知らない。",,,,,,,
 113,"ブラウン・モルド","Brown mold","m","u",85,255,255,255,0,0,6,1,0,20,50,146,0,0,-1,110,2,12,99,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"SPORE:CONFUSE:1d5",,,"J0#","NEVER_MOVE|STUPID|EMPTY_MIND|IM_POIS|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR",,,"$A strange brown growth on the dungeon floor.
 ダンジョンの床に生えている奇妙な茶色のカビだ。",,,,,,,
@@ -409,11 +409,11 @@ HIT:HURT:4d5
 HIT:HURT:4d5",,,"D'ang#","UNIQUE|MALE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|GOOD|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,,,,,,,,
 124,"窖に潜むもの","Crypt Creep","s","D",53,255,255,255,0,0,7,2,0,25,0,0,0,0,-1,110,20,12,14,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:HURT:1d3
 CLAW:HURT:1d3
-BITE:POISON",,,,"RAND_25|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|FRIENDS|EVIL|UNDEAD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|HURT_LITE","1_IN_10|CAUSE_1|S_UNDEAD",,"$Frightening skeletal figures in black robes. 
+BITE:POISON",,,,"RAND_25|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|FRIENDS|EVIL|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|HURT_LITE","1_IN_10|CAUSE_1|S_UNDEAD",,"$Frightening skeletal figures in black robes. 
 黒装束に身を包んだ恐ろしげな骸骨の姿だ。
 （ロバート・ブロック「窖に潜むもの」）",,,,,,,
 125,"腐った死体","Rotting corpse","z","R",52,255,255,255,0,0,7,1,0,15,50,229,0,0,-1,110,20,20,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:POISON:1d4
-CLAW:POISON:1d4",,,"JZ#","OPEN_DOOR|BASH_DOOR|FRIENDS|NO_CONF|NO_SLEEP|UNDEAD|EVIL|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD|WEIRD_MIND",,,"$Corpses awakened from their sleep by dark sorceries. 
+CLAW:POISON:1d4",,,"JZ#","OPEN_DOOR|BASH_DOOR|FRIENDS|NO_CONF|NO_SLEEP|EVIL|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD|WEIRD_MIND",,,"$Corpses awakened from their sleep by dark sorceries. 
 暗黒魔術により眠りを覚まされた死体だ。",,,,,,,
 126,"洞窟オーク","Cave orc","o","U",26,255,255,255,0,0,7,1,0,20,0,0,0,0,-1,110,20,0,30,12,10,10,12,12,10,180,13,75,5,170,13,65,5,"HIT:HURT:1d9",,,"J0#","MALE|FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EVIL|HURT_LITE|RES_DARK|CLASS_EGO",,,"彼らはしばしば洞窟の深層に大集団で見受けられる、西の地では最も典型的に見受けられるオークだ。",,,,,,,
 127,"森蜘蛛","Wood spider","S","U",98,255,255,255,0,0,7,3,0,15,100,277,0,0,-1,120,8,16,80,11,11,11,11,11,11,180,20,53,10,180,20,53,10,"BITE:HURT:1d4
@@ -432,7 +432,7 @@ BITE:LOSE_STR:1d5",,,"JZ#","FEMALE|CAN_SWIM|WILD_SHORE|RAND_25|DROP_60|TAKE_ITEM
 それはドロドロしてベトベトした酸に満ちている小さなモンスターだ。",,,,,,,
 133,"浮遊霊","Lost soul","G","u",100,255,255,255,0,0,7,2,0,18,150,231,0,0,-1,110,12,10,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:2d3
 TOUCH:LOSE_WIS
-TOUCH:DR_MANA:1d6",,,"J0#","RAND_50|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|IM_COLD|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|DRAIN_MANA",,"$It is almost insubstantial.
+TOUCH:DR_MANA:1d6",,,"J0#","RAND_50|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|IM_COLD|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|DRAIN_MANA",,"$It is almost insubstantial.
 それはほとんど実体を持っていない。",,,,,,,
 134,"暗黒トカゲ","Night lizard","R","b",106,255,255,255,0,0,7,2,0,35,200,249,0,0,-1,110,20,16,30,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"BITE:HURT:1d8
 BITE:HURT:1d8",,,"J0#","ANIMAL|CAN_SWIM|WILD_ALL|DROP_CORPSE",,,"$It is a black lizard with overlapping scales and a powerful jaw.
@@ -679,7 +679,7 @@ HIT:HURT:1d8",,,"J0#","UNIQUE|MALE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP
 彼は父親にそっくりだ！彼はいくつかの強力な呪文を使いこなす。",,,,,,,
 181,"グラーキの奴隷","Servant of Glaaki","z","G",52,255,255,255,0,0,10,1,0,25,0,0,0,0,-1,110,20,20,20,12,12,12,12,12,12,170,10,60,2,170,10,60,2,"CRUSH:HURT:1d8
 CLAW:DISEASE:1d3",,,"JZ#
-JZ#引用は久留さん、解説は NeSYS さんによる","OPEN_DOOR|BASH_DOOR|FRIENDS|HURT_LITE|NO_CONF|NO_SLEEP|UNDEAD|EVIL|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD","1_IN_12|CAUSE_1|SCARE",,"$""...the hand of a corpse -- bloodless and skeletal, and with 
+JZ#引用は久留さん、解説は NeSYS さんによる","OPEN_DOOR|BASH_DOOR|FRIENDS|HURT_LITE|NO_CONF|NO_SLEEP|EVIL|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD","1_IN_12|CAUSE_1|SCARE",,"$""...the hand of a corpse -- bloodless and skeletal, and with 
 $impossibly long, cracked nails.""
 「グラーキ」のトゲによって作られたアンデッドモンスター。
 元は人間だったため、従者になって間も無いうちは何とか人間に見えるが、時間
@@ -795,7 +795,7 @@ $a point of some sort.""
 証明するには十分だった。」
 （ロジャー・ゼラズニイ、岡部宏之訳「アンバーの九王子」早川書房）",,,,,,,
 202,"死体の塊","Undead mass","j","u",83,255,255,255,0,0,10,2,0,33,0,0,0,0,-1,110,70,12,5,12,12,12,12,12,12,100,30,100,3,100,30,100,3,"TOUCH:DISEASE:1d6
-TOUCH:LOSE_CON:1d6",,,"JZ#","UNDEAD|EMPTY_MIND|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR|HURT_LITE|RES_NETH|COLD_BLOOD|EVIL|NEVER_MOVE|MULTIPLY|VARIABLE_SIZE_EGO",,,"$A sickening mound of decaying flesh, bones, hands and so on. It seems to 
+TOUCH:LOSE_CON:1d6",,,"JZ#","EMPTY_MIND|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR|HURT_LITE|RES_NETH|COLD_BLOOD|EVIL|NEVER_MOVE|MULTIPLY|VARIABLE_SIZE_EGO",,,"$A sickening mound of decaying flesh, bones, hands and so on. It seems to 
 $be growing.
 腐った肉、骨、手などの吐き気をもよおす塊だ。それは大きくなっている
 ように見える。",,,,,,,
@@ -936,10 +936,10 @@ J0# 訳してある。四大元素の「土水火風」というのは日本語の方がなじみがあると
 J0# いう判断です。
 J0#","RAND_50|RAND_25|NONLIVING|EMPTY_MIND|INVISIBLE|COLD_BLOOD|BASH_DOOR|EVIL|IM_POIS|CAN_FLY|NO_CONF|NO_SLEEP|NO_FEAR",,,"$A whirlwind of sentient air.
 知能を持った旋風だ。",,,,,,,
-228,"スケルトン","Skeleton human","s","w",53,255,255,255,0,0,12,1,0,38,0,0,0,0,-1,110,20,30,30,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8",,,"J0#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is an animated human skeleton.
+228,"スケルトン","Skeleton human","s","w",53,255,255,255,0,0,12,1,0,38,0,0,0,0,-1,110,20,30,30,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8",,,"J0#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is an animated human skeleton.
 生命を吹き込まれた人間の骸骨だ。",,,,,,,
 229,"ゾンビ","Zombified human","z","s",52,255,255,255,0,0,12,1,0,34,0,0,0,0,-1,110,20,24,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d4
-HIT:HURT:1d4",,,"J0#","WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a shambling human corpse dropping chunks of flesh behind it.
+HIT:HURT:1d4",,,"J0#","WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a shambling human corpse dropping chunks of flesh behind it.
 肉を落としながらよろめき歩く人間の死骸だ。",,,,,,,
 230,"トラ","Tiger","f","o",81,255,255,255,0,0,12,2,0,40,500,339,0,0,-1,120,40,40,0,13,13,13,13,13,13,165,10,55,3,165,10,55,3,"CLAW:HURT:1d8
 CLAW:HURT:1d8
@@ -949,7 +949,7 @@ $towards you, ready to pounce.
 毛皮を持ち、冒険者に飛びかかろうと忍び寄ってくる。",,,,,,,
 231,"唸るスピリット","Moaning spirit","G","U",100,255,255,255,0,0,12,2,0,44,600,477,0,0,-1,120,14,20,10,13,13,13,13,13,13,165,10,55,3,165,10,55,3,"WAIL:TERRIFY
 TOUCH:LOSE_DEX:1d8
-TOUCH:DR_MANA:1d8",,,"J0#","FORCE_SLEEP|RAND_25|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|SCARE",,"$A ghostly apparition that shrieks horribly.
+TOUCH:DR_MANA:1d8",,,"J0#","FORCE_SLEEP|RAND_25|DROP_60|DROP_90|CAN_FLY|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|SCARE",,"$A ghostly apparition that shrieks horribly.
 恐ろしげに唸る幽霊だ。",,,,,,,
 232,"おどろしきバンダースナッチ","Frumious bandersnatch","c","b",82,255,255,255,0,0,12,2,0,40,600,395,0,0,-1,120,12,30,30,13,13,13,13,13,13,165,10,55,3,165,10,55,3,"BITE:HURT:2d4
 BITE:HURT:2d4
@@ -1104,7 +1104,7 @@ CRUSH:SUPERHURT:8d3",,,"JZ#","RAND_25|IM_COLD|RES_WATE|AQUATIC|ANIMAL|WILD_ALL|R
 ようだ。",,,,,,,
 268,"<ナーグル>の疫病人間","Plaguebearer of Nurgle","z","o",52,255,255,255,0,0,15,2,0,75,0,0,0,0,-1,110,20,50,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:DISEASE:2d5
 CLAW:DISEASE:2d5
-BUTT:HURT:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|OPEN_DOOR|BASH_DOOR|IM_COLD|EVIL|UNDEAD|IM_POIS|RES_NETH|NONLIVING","1_IN_8|SCARE|S_ANT|CAUSE_2|SLOW",,"$An unfortunate individual, who was killed by the incurable 
+BUTT:HURT:3d5",,,"JZ#","FORCE_MAXHP|DROP_60|OPEN_DOOR|BASH_DOOR|IM_COLD|EVIL|IM_POIS|RES_NETH|NONLIVING","1_IN_8|SCARE|S_ANT|CAUSE_2|SLOW",,"$An unfortunate individual, who was killed by the incurable 
 $disease known as Nurgle's Rot, and was transformed into a 
 $rotting demon zombie. It has but one eye, and a single 
 $pale horn in its forehead.
@@ -1134,7 +1134,7 @@ J0#","FORCE_SLEEP|FRIENDS|SELF_LITE_1|SELF_LITE_2|BASH_DOOR|ANIMAL|RES_LITE","1_
 $form.
 巨大な犬の形をした空気の穴だ。どんな光もその姿を照らし出すことはできない。",,,,,,,
 273,"浮遊髑髏","Flying skull","s","s",53,255,255,255,0,0,15,3,0,50,0,0,0,0,-1,110,30,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"BITE:POISON:1d3
-BITE:LOSE_STR:1d4",,,"JZ#","UNDEAD|EVIL|IM_POIS|IM_COLD|WEIRD_MIND|NO_FEAR|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|DROP_60|BASH_DOOR|FRIENDS|COLD_BLOOD",,,"$A skullpack animated by necromantic spells.
+BITE:LOSE_STR:1d4",,,"JZ#","EVIL|IM_POIS|IM_COLD|WEIRD_MIND|NO_FEAR|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|DROP_60|BASH_DOOR|FRIENDS|COLD_BLOOD",,,"$A skullpack animated by necromantic spells.
 死霊術の呪文により動いている髑髏だ。",,,,,,,
 274,"ミ=ゴウ","Mi-Go","I","R",94,255,255,255,0,0,15,2,0,80,0,0,0,0,-1,120,20,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"STING:POISON:1d4
 BITE:LOSE_STR:1d2",,,"JZ#","IM_POIS|IM_COLD|COLD_BLOOD|ANIMAL|EVIL|NO_SLEEP|NO_CONF|CAN_FLY|DROP_SKELETON","1_IN_6|CONF|S_MONSTER|S_DEMON",,"$""They were pinkish things about five feet long; with crustaceous 
@@ -1369,7 +1369,7 @@ KICK:HURT:9d1
 BITE:HURT:6d2",,,"JZ#
 JZ#ガースト
 JZ#Ｈ・Ｐ・ラヴクラフトの「幻夢境カダスを求めて」に登場。
-JZ#カンガルーのように長い後脚で跳ねる生物です。 by 久留さん","DROP_60|NO_SLEEP|NO_CONF|UNDEAD|EVIL|IM_POIS|IM_COLD|COLD_BLOOD|HURT_LITE|RES_NETH|CAN_SWIM|ELDRITCH_HORROR|BASH_DOOR|OPEN_DOOR",,,"$A repulsive being which leaps on long hind legs like a kangaroo. 
+JZ#カンガルーのように長い後脚で跳ねる生物です。 by 久留さん","DROP_60|NO_SLEEP|NO_CONF|EVIL|IM_POIS|IM_COLD|COLD_BLOOD|HURT_LITE|RES_NETH|CAN_SWIM|ELDRITCH_HORROR|BASH_DOOR|OPEN_DOOR",,,"$A repulsive being which leaps on long hind legs like a kangaroo. 
 $Its face is curiously human despite the absence of a nose, a 
 $forehead, and ""other important particulars"".
 カンガルーのような長い後脚で飛び跳ねるむかつくような生き物。奇妙
@@ -1547,12 +1547,12 @@ BITE:POISON:5d5",,,"JZ#","WEIRD_MIND|BASH_DOOR|AQUATIC|IM_POIS|RES_WATE|NO_STUN|
 361,"キャリオン","Carrion","B","W",91,255,255,255,0,0,15,1,0,50,0,0,0,0,-1,115,20,50,50,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"CLAW:HURT:4d3
 CLAW:HURT:4d3
 BITE:HURT:4d3",,,"JZ#
-JZ#carrion:腐肉 と carry on の意味があるのかな？","FORCE_MAXHP|CAN_FLY|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|ANIMAL|UNDEAD|RIDING|NO_CONF|NO_SLEEP|NO_FEAR|IM_ACID|IM_FIRE|IM_POIS|RES_NETH",,,"$A mummified, undead great avian creature, who now serves as 
+JZ#carrion:腐肉 と carry on の意味があるのかな？","FORCE_MAXHP|CAN_FLY|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|ANIMAL|RIDING|NO_CONF|NO_SLEEP|NO_FEAR|IM_ACID|IM_FIRE|IM_POIS|RES_NETH",,,"$A mummified, undead great avian creature, who now serves as 
 $a steed for mighty undead creatures.
 ミイラ化したアンデッドの飛行生物で、強力なアンデッドモンスターに乗物として
 仕えている。",,,,,,,
 362,"ミイラ・オーク","Mummified orc","z","u",52,255,255,255,0,0,21,1,0,56,0,0,0,0,-1,110,20,28,75,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"HIT:HURT:2d4
-HIT:HURT:2d4",,,"J0#","DROP_90|WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is an orcish figure covered in wrappings.
+HIT:HURT:2d4",,,"J0#","DROP_90|WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is an orcish figure covered in wrappings.
 体中を包帯で覆われたオーク型のモンスターだ。",,,,,,,
 363,"シャチ","Killer whale","l","w",84,255,255,255,0,0,22,1,0,85,0,0,0,0,-1,115,12,55,30,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"BITE:HURT:8d3
 BITE:HURT:8d3",,,"JZ#
@@ -1627,7 +1627,7 @@ J0#","MALE|DROP_SKELETON|DROP_CORPSE|HUMAN|DROP_2D2|EAT_GIVE_DEX|EAT_LOSE_WIS|TA
 378,"ホワイト・キラービートル","Killer white beetle","K","w",94,255,255,255,0,0,23,1,0,85,1000,421,0,0,-1,110,14,55,30,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"BITE:HURT:4d5",,,"J0#","RAND_25|WEIRD_MIND|BASH_DOOR|WILD_ALL|DROP_CORPSE|ANIMAL|CAN_FLY",,,"$It is looking for prey.
 それは生け贄を探している。",,,,,,,
 379,"アイス・スケルトン","Ice skeleton","s","w",53,255,255,255,0,0,23,1,0,70,0,0,0,0,-1,110,20,34,60,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"CLAW:COLD:2d3
-CLAW:COLD:2d3",,,"JZ#","ONLY_ITEM|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a skeleton covered in frost.
+CLAW:COLD:2d3",,,"JZ#","ONLY_ITEM|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a skeleton covered in frost.
 それは冷気に覆われた骸骨だ。",,,,,,,
 380,"ウンバールの『アンガマイテ』","Angamaite of Umbar","p","u",6,3,255,255,0,0,24,2,0,400,0,0,0,0,-1,110,25,0,25,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
 HIT:HURT:4d6
@@ -1636,7 +1636,7 @@ HIT:HURT:4d6",,,"J0#","UNIQUE|MALE|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|FORCE_SLE
 西方国の人間を忌み嫌っている黒きヌメノール人だ。",,,,,,,
 381,"コウコ","Kouko","W","G",100,255,255,255,0,0,24,1,0,140,1000,416,0,0,-1,110,20,30,30,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
-TOUCH:EXP_20",,,,"FORCE_SLEEP|RAND_25|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_10|SCARE|DRAIN_MANA",,"$It is a ghostly apparition with a humanoid form.
+TOUCH:EXP_20",,,,"FORCE_SLEEP|RAND_25|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_10|SCARE|DRAIN_MANA",,"$It is a ghostly apparition with a humanoid form.
 それは人間のような姿をした幽霊だ。",,,,,,,
 382,"ニーベルング族の『ミーメ』","Mime, the Nibelung","h","u",14,3,255,255,0,0,24,2,0,300,0,0,0,0,-1,110,20,80,10,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d6
 HIT:HURT:3d6
@@ -1692,10 +1692,10 @@ BITE:HURT:3d6
 BITE:HURT:3d6",,,"JZ#","FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|MOVE_BODY|DROP_CORPSE|ANIMAL|RIDING",,,"$A horror from prehistory, reawakened by chaos.
 それは混沌の力によって呼び起こされた有史以前の恐怖だ。",,,,,,,
 390,"ミイラ","Mummified human","z","U",52,255,255,255,0,0,24,1,0,70,4000,522,0,0,-1,110,20,34,60,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:2d4
-HIT:HURT:2d4",,,"J0#","ONLY_ITEM|DROP_90|WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a human form encased in mouldy wrappings.
+HIT:HURT:2d4",,,"J0#","ONLY_ITEM|DROP_90|WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$It is a human form encased in mouldy wrappings.
 それは黴びた包帯に包まれている人間型のモンスターだ。",,,,,,,
 391,"バンパイア・バット","Vampire bat","b","D",78,255,255,255,0,0,24,2,0,150,0,0,0,0,-1,120,12,40,50,14,14,14,14,14,14,35,2,6,1,35,2,6,1,"BITE:EXP_40:1d4
-BITE:EXP_40:1d4",,,"J0#","RAND_50|COLD_BLOOD|REGENERATE|CAN_FLY|EVIL|ANIMAL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$An undead bat that flies at your neck hungrily.
+BITE:EXP_40:1d4",,,"J0#","RAND_50|COLD_BLOOD|REGENERATE|CAN_FLY|EVIL|ANIMAL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"$An undead bat that flies at your neck hungrily.
 アンデッドのコウモリで、冒険者の首筋に吸い付こうと飛びかかってくる。",,,,,,,
 392,"ウンバールの『サンガハイアンド』","Sangahyando of Umbar","p","o",6,0,255,255,0,0,24,2,0,400,0,0,0,0,-1,110,25,0,25,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
 HIT:HURT:4d6
@@ -1709,7 +1709,7 @@ TOUCH:EAT_ITEM",,,"JZ#","ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|DROP_GREAT|DROP_CO
 誰も「それ」を見た者はいない。",,,,,,,
 394,"バンシー","Banshee","G","W",100,255,255,255,0,0,24,2,0,60,600,477,0,0,-1,120,20,24,10,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"WAIL:TERRIFY
 TOUCH:EXP_20
-TOUCH:DR_MANA:2d6",,,"J0#","FEMALE|RAND_50|DROP_1D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|DRAIN_MANA",,"$It is a ghostly woman's form that wails mournfully.
+TOUCH:DR_MANA:2d6",,,"J0#","FEMALE|RAND_50|DROP_1D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|TPORT|DRAIN_MANA",,"$It is a ghostly woman's form that wails mournfully.
 それは悲しげに泣き叫ぶ、女性の姿をしたゴーストだ。",,,,,,,
 395,"キャリオン・クローラー","Carrion crawler","c","g",82,255,255,255,0,0,25,2,0,60,0,0,0,0,-1,110,15,40,10,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"STING:PARALYZE:2d6
 STING:PARALYZE:2d6",,,"J0#","RAND_25|WEIRD_MIND|BASH_DOOR|DROP_SKELETON|ANIMAL|IM_POIS",,,"$A hideous centipede covered in slime and with glowing tentacles around its 
@@ -1798,7 +1798,7 @@ $on four, and sometimes on six.""
 409,"力の亡者『カリス』","Kharis the Powerslave","z","u",52,1,255,255,0,0,26,4,0,500,0,0,0,0,0,110,20,40,40,16,16,16,16,16,16,201,0,83,0,0,0,0,0,"GAZE:TERRIFY
 HIT:DISEASE:6d6
 CLAW:LOSE_CON:2d6
-CLAW:LOSE_CON:2d6",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|UNDEAD|EVIL|ESCORTS|ESCORT|FORCE_MAXHP|COLD_BLOOD|IM_POIS|IM_COLD|RES_NETH|NO_FEAR|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|RES_TELE","1_IN_5|TRAPS|CAUSE_3|DARKNESS|S_UNDEAD|SCARE|SLOW|S_KIN|ANIM_DEAD",,"$He is out to have a revenge on you who have desecrated his tomb.
+CLAW:LOSE_CON:2d6",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|EVIL|ESCORTS|ESCORT|FORCE_MAXHP|COLD_BLOOD|IM_POIS|IM_COLD|RES_NETH|NO_FEAR|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|RES_TELE","1_IN_5|TRAPS|CAUSE_3|DARKNESS|S_UNDEAD|SCARE|SLOW|S_KIN|ANIM_DEAD",,"$He is out to have a revenge on you who have desecrated his tomb.
 彼は自分の墓を汚したあなたに復讐するため甦った。",,,,,,,
 410,"風早彦『グワイヒア』","Gwaihir the Windlord","B","u",91,255,255,255,0,0,40,1,0,8000,0,0,0,0,3,142,20,65,20,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:HURT:15d5
 CLAW:HURT:15d5
@@ -1835,7 +1835,7 @@ HIT:HURT:3d8",,,"J0#","FRIENDS|DROP_60|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EVIL",,,"
 勤めを果たしているといわれている。",,,,,,,
 416,"ホワイト・レイス","White wraith","W","w",100,255,255,255,0,0,26,1,0,175,2000,554,0,0,-1,110,20,40,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
-TOUCH:EXP_20",,,"J0#","FORCE_SLEEP|DROP_1D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|SCARE|CAUSE_2|DARKNESS",,"$It is a tangible but ghostly form made of white fog.
+TOUCH:EXP_20",,,"J0#","FORCE_SLEEP|DROP_1D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|SCARE|CAUSE_2|DARKNESS",,"$It is a tangible but ghostly form made of white fog.
 それは実体があるように見えるが、実際は白い霧でできた幽霊のようなものだ。",,,,,,,
 417,"天使","Angel","A","b",42,255,255,255,0,0,26,4,0,220,2000,456,0,0,0,110,30,60,255,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
 HIT:HURT:3d4
@@ -1852,7 +1852,7 @@ JZ#グール（食屍鬼）
 JZ#Ｈ・Ｐ・ラヴクラフトの「ピックマンのモデル」などに登場。
 JZ#顔は犬に似ており、肌は灰色のゴムのようです。人間の子を浚って
 JZ#自分たちの子と取り替える事も有ります。 by 久留さん
-JZ#解説は NeSYS さん","DROP_60|OPEN_DOOR|BASH_DOOR|CAN_SWIM|RES_NETH|EVIL|UNDEAD|FRIENDS|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE","1_IN_9|SCARE|HOLD",,"$Flesh is falling off in chunks from this decaying abomination.
+JZ#解説は NeSYS さん","DROP_60|OPEN_DOOR|BASH_DOOR|CAN_SWIM|RES_NETH|EVIL|FRIENDS|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE","1_IN_9|SCARE|HOLD",,"$Flesh is falling off in chunks from this decaying abomination.
 この腐敗した凶々しい者の体からは腐肉の塊がしたたり落ちている。
 完全な人間の形をしているわけではないが、限りなく人間に良く似ている場合も
 ある。
@@ -1943,7 +1943,7 @@ JZ#ました。 by 久留さん","UNIQUE|MALE|CAN_SPEAK|WILD_SWAMP|WILD_SHORE|FORCE_MAXH
 432,"バンパイア","Vampire","V","W",54,255,255,255,0,0,27,1,0,175,2000,520,0,0,-1,110,20,45,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
 BITE:EXP_VAMP:1d8
-TOUCH:DR_MANA:1d10",,,"J0#","FORCE_SLEEP|COLD_BLOOD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|REGENERATE|CAN_FLY|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_9|TELE_TO|HOLD|SCARE|CAUSE_2|MIND_BLAST|FORGET|DARKNESS",,"$It is a humanoid with an aura of power.  You notice a sharp set of front 
+TOUCH:DR_MANA:1d10",,,"J0#","FORCE_SLEEP|COLD_BLOOD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|REGENERATE|CAN_FLY|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_9|TELE_TO|HOLD|SCARE|CAUSE_2|MIND_BLAST|FORGET|DARKNESS",,"$It is a humanoid with an aura of power.  You notice a sharp set of front 
 $teeth.
 それは力のオーラをまとった人間型のモンスターだ。鋭い二本の前歯に
 すぐに気が付くだろう。",,,,,,,
@@ -1997,7 +1997,7 @@ $reptile skin.
 439,"地獄への階段","Stairway to hell",">","W",90,255,255,255,0,0,28,5,0,125,0,0,0,0,-1,120,90,40,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"WAIL:UN_BONUS
 WAIL:EXP_20
 WAIL:EAT_GOLD
-WAIL:EAT_ITEM",,,"JZ#","CHAR_MULTI|COLD_BLOOD|EVIL|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING|UNDEAD|FORCE_MAXHP|IM_FIRE|IM_ELEC|IM_POIS|IM_ACID|NEVER_MOVE|RES_NETH","1_IN_15|S_DEMON|SHRIEK",,"$Often found in graveyards.
+WAIL:EAT_ITEM",,,"JZ#","CHAR_MULTI|COLD_BLOOD|EVIL|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING|FORCE_MAXHP|IM_FIRE|IM_ELEC|IM_POIS|IM_ACID|NEVER_MOVE|RES_NETH","1_IN_15|S_DEMON|SHRIEK",,"$Often found in graveyards.
 墓場でしばしば発見できる。",,,,,,,
 440,"五首ヒドラ","5-headed hydra","M","g",58,255,255,255,0,0,28,2,0,350,3500,614,0,0,-1,120,20,80,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"BITE:POISON:4d4
 BITE:POISON:4d4
@@ -2185,7 +2185,7 @@ D'ang# スケルトン・トロルより差し替え","UNIQUE|MALE|CAN_SPEAK|DROP_SKELETON|DROP
 466,"骸骨ティラノサウルス","Skeletal tyrannosaurus","R","w",106,255,255,255,0,0,30,2,0,225,40000,705,0,0,-1,120,20,55,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:HURT:1d8
 CLAW:HURT:1d8
 BITE:LOSE_CON:4d6
-GAZE:TERRIFY",,,"JZ#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|ANIMAL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|RIDING",,,"$It is the skeleton of a tyrannosaurus, animated by dark dweomers.
+GAZE:TERRIFY",,,"JZ#","COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|ANIMAL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|RIDING",,,"$It is the skeleton of a tyrannosaurus, animated by dark dweomers.
 邪悪な魔法により動いているティラノサウルスの骸骨だ。",,,,,,,
 467,"『ジョーズ』","Jaws","l","w",84,255,255,255,0,0,30,2,0,500,0,0,0,0,-1,120,10,80,12,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"BITE:HURT:11d2
 BITE:HURT:22d1
@@ -2204,7 +2204,7 @@ D:ソロンドールは超自然的な存在の使いで、大鷲たちの王だ。","CAN_FLY|UNIQUE|ESCORT
 それはエネルギーが火花をたてている巨大なアリだ。",,,,,,,
 470,"墓ワイト","Grave wight","W","b",100,255,255,255,0,0,30,1,0,325,1500,499,0,0,-1,110,20,50,30,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:1d7
 HIT:HURT:1d7
-TOUCH:EXP_20",,,"J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_1D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|SCARE|CAUSE_3|DARKNESS",,"$It is a ghostly form with eyes that haunt you.
+TOUCH:EXP_20",,,"J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_1D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|SCARE|CAUSE_3|DARKNESS",,"$It is a ghostly form with eyes that haunt you.
 それは幽霊のような存在で、その目はいつまでも冒険者を睨み付けている。",,,,,,,
 471,"シャドウ・ドレイク","Shadow drake","d","D",58,255,255,255,0,0,23,3,0,700,15000,643,0,0,-1,110,25,50,30,19,19,19,19,19,19,540,30,1800,10,540,30,1800,10,"CLAW:HURT:2d4
 CLAW:HURT:2d4
@@ -2253,7 +2253,7 @@ $yellow fangs and ran from the top to the tally.""
 477,"ゴースト","Ghost","G","w",100,255,255,255,0,0,31,1,0,350,800,508,0,0,-1,120,20,30,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"WAIL:TERRIFY
 TOUCH:EXP_20
 CLAW:LOSE_WIS:1d10
-TOUCH:DR_MANA:2d8",,,"J0#","FORCE_SLEEP|RAND_25|DROP_60|DROP_1D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|IM_COLD|CAN_FLY|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|DRAIN_MANA",,"$You don't believe in them.
+TOUCH:DR_MANA:2d8",,,"J0#","FORCE_SLEEP|RAND_25|DROP_60|DROP_1D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|IM_COLD|CAN_FLY|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|DRAIN_MANA",,"$You don't believe in them.
 あなたはその存在を信じていない。",,,,,,,
 478,"死番虫","Death watch beetle","K","B",94,255,255,255,0,0,31,3,0,190,2000,586,0,0,-1,110,16,60,30,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"BITE:HURT:5d4
 WAIL:TERRIFY:5d6",,,"J0#
@@ -2289,7 +2289,7 @@ $this creature can also harm you with ranged attacks.
 483,"食屍鬼の王","Ghoulking","z","D",52,255,255,255,0,0,32,2,0,340,0,0,0,0,0,120,20,60,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:LOSE_STR:3d4
 CLAW:DISEASE:3d4
 CLAW:DISEASE:3d4
-BITE:PARALYZE:3d5",,,"JZ#","DROP_60|OPEN_DOOR|BASH_DOOR|CAN_SWIM|DROP_1D2|FORCE_MAXHP|ESCORT|FORCE_SLEEP|EVIL|UNDEAD|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE|RES_NETH","1_IN_7|SCARE|HOLD|DARKNESS|S_UNDEAD|ANIM_DEAD",,"$Flesh is falling off in chunks from this decaying abomination.
+BITE:PARALYZE:3d5",,,"JZ#","DROP_60|OPEN_DOOR|BASH_DOOR|CAN_SWIM|DROP_1D2|FORCE_MAXHP|ESCORT|FORCE_SLEEP|EVIL|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE|RES_NETH","1_IN_7|SCARE|HOLD|DARKNESS|S_UNDEAD|ANIM_DEAD",,"$Flesh is falling off in chunks from this decaying abomination.
 この腐敗した凶々しい者の体からは腐肉の塊がしたたり落ちている。
 完全な人間の形をしているわけではないが、限りなく人間に良く似ている場合も
 ある。
@@ -2399,7 +2399,7 @@ J0#(コメント)
 J0# これについては他のワイト(grave wight, forest wigth, emperor wight) との統一
 J0# から塚ワイトとしている。塚人とすると他を「墓人」「森人」などとしなければ
 J0# 統一がとれなくなるから。
-J0#","FORCE_SLEEP|FRIENDS|DROP_60|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|HOLD|SCARE|CAUSE_2|DARKNESS",,"$It is a ghostly nightmare of an entity.
+J0#","FORCE_SLEEP|FRIENDS|DROP_60|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_8|HOLD|SCARE|CAUSE_2|DARKNESS",,"$It is a ghostly nightmare of an entity.
 それは実体を持った悪夢のような幽霊だ。",,,,,,,
 500,"ドワーフの勇士『ギムリ』","Gimli, the hero of dwarf","h","b",2,0,255,255,0,0,40,2,0,325,0,0,0,0,0,130,20,50,20,19,19,19,19,19,19,151,0,68,0,151,0,68,0,"HIT:HURT:10d10
 HIT:HURT:10d10
@@ -2449,14 +2449,14 @@ JZ#に殺されました。 by 久留さん","UNIQUE|MALE|CAN_SPEAK|FORCE_MAXHP|WILD_ALL|DRO
 大きくて、逞しくて、力強い巨人で金に強欲だ。",,,,,,,
 507,"ログルス・ゴースト","Logrus ghost","G","r",100,255,255,255,0,0,33,3,0,350,0,0,0,0,0,120,20,30,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"WAIL:TERRIFY
 TOUCH:EXP_40
-CLAW:LOSE_INT:1d10",,,"JZ#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|CAN_FLY|NO_CONF|NO_SLEEP|ATTR_MULTI|ATTR_ANY","1_IN_15|BLIND|HOLD|DRAIN_MANA|FORGET",,"$An almost life-like creature which is nothing more than a phantom 
+CLAW:LOSE_INT:1d10",,,"JZ#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|CAN_FLY|NO_CONF|NO_SLEEP|ATTR_MULTI|ATTR_ANY","1_IN_15|BLIND|HOLD|DRAIN_MANA|FORGET",,"$An almost life-like creature which is nothing more than a phantom 
 $created by the Logrus.
 ほとんど生き物のようだが、実は「ログルス」により作られた
 幻影にすぎない。",,,,,,,
 508,"スペクター","Spectre","G","G",100,255,255,255,0,0,33,3,0,350,1500,534,0,0,-1,120,20,30,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"WAIL:TERRIFY
 TOUCH:EXP_40
 CLAW:LOSE_WIS:5d5
-TOUCH:DR_MANA:2d10",,,"J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|CAN_FLY|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|DRAIN_MANA|FORGET",,"$A phantasmal shrieking spirit.  Its wail drives the intense cold of pure 
+TOUCH:DR_MANA:2d10",,,"J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|CAN_FLY|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|DRAIN_MANA|FORGET",,"$A phantasmal shrieking spirit.  Its wail drives the intense cold of pure 
 $evil deep within your body.
 幻のような泣き叫ぶ魂だ。その悲鳴を聞くと、純粋な邪悪がもたらす強烈な冷気が
 体の芯まで入り込んでくる。",,,,,,,
@@ -2491,7 +2491,7 @@ BITE:HURT:4d4
 BITE:HURT:4d4",,,"JZ#","FORCE_SLEEP|FRIENDS|BASH_DOOR|ATTR_MULTI|ANIMAL|NO_CONF|NO_SLEEP|SELF_LITE_2|IM_ELEC|IM_POIS|IM_ACID|IM_FIRE|IM_COLD","1_IN_5|BR_ACID|BR_POIS|BR_COLD|BR_FIRE|BR_ELEC",,"$Shimmering in rainbow hues, this hound is beautiful and deadly. 
 虹色に輝くこのハウンドは美しく、しかも非常に危険だ。",,,,,,,
 514,"ナイトストーカー","Night stalker","E","w",93,255,255,255,0,0,34,3,0,310,0,0,0,0,-1,130,20,46,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"GAZE:HURT:6d6
-GAZE:HURT:6d6",,,"JZ#","RAND_50|INVISIBLE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|IM_COLD|IM_POIS|UNDEAD|IM_ELEC|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING",,,"$It is impossible to define its form but its violence is legendary.
+GAZE:HURT:6d6",,,"JZ#","RAND_50|INVISIBLE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|CAN_FLY|EVIL|IM_COLD|IM_POIS|IM_ELEC|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|NONLIVING",,,"$It is impossible to define its form but its violence is legendary.
 その姿を定義するのは不可能なことだが、その残忍さは伝説的ですらある。",,,,,,,
 515,"キャリオン・クローラー","Carrion crawler","c","g",82,255,255,255,0,0,34,2,0,100,0,0,0,0,-1,110,15,40,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"STING:PARALYZE:2d6
 STING:PARALYZE:2d6",,,"J0#","RAND_25|FRIENDS|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|ANIMAL|IM_POIS",,,"$A hideous centipede covered in slime and with glowing tentacles around its 
@@ -2521,7 +2521,7 @@ $into a Living Trump.
 518,"リッチ","Lich","L","w",55,255,255,255,0,0,34,3,0,800,4000,577,0,0,0,110,20,60,60,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"TOUCH:EXP_40
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d8
-TOUCH:LOSE_DEX:2d8",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_1D2|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLINK|TELE_TO|TELE_AWAY|BLIND|HOLD|SLOW|SCARE|CAUSE_3|DRAIN_MANA|BRAIN_SMASH",,"$It is a skeletal form dressed in robes.  It radiates vastly evil power.
+TOUCH:LOSE_DEX:2d8",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_1D2|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLINK|TELE_TO|TELE_AWAY|BLIND|HOLD|SLOW|SCARE|CAUSE_3|DRAIN_MANA|BRAIN_SMASH",,"$It is a skeletal form dressed in robes.  It radiates vastly evil power.
 それはローブに身を包んだ骸骨のようだ。それは邪悪な力を広範囲に渡って
 放射している。",,,,,,,
 519,"ガス・スポア","Gas spore","e","g",80,255,255,255,0,0,34,4,0,100,0,0,0,0,-1,110,30,1,5,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"EXPLODE:DISEASE:40d2",,,,"FORCE_SLEEP|STUPID|CAN_FLY|NO_CONF|NO_SLEEP|NO_FEAR",,,"$From a distance, this creature is often mistaken for the 
@@ -2533,19 +2533,19 @@ $much more dangerous beholder.
 520,"マスター・バンパイア","Master vampire","V","s",54,255,255,255,0,0,34,3,0,750,5000,623,0,0,-1,110,20,60,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:1d10
 BITE:EXP_VAMP:1d11
 BITE:EXP_VAMP:1d11
-TOUCH:DR_MANA:2d8",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|CAN_FLY|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|TELE_TO|HOLD|CONF|SCARE|CAUSE_3|MIND_BLAST|FORGET|DARKNESS|BO_NETH",,"$It is a humanoid form dressed in robes.  Power emanates from its chilling 
+TOUCH:DR_MANA:2d8",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|CAN_FLY|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|TELE_TO|HOLD|CONF|SCARE|CAUSE_3|MIND_BLAST|FORGET|DARKNESS|BO_NETH",,"$It is a humanoid form dressed in robes.  Power emanates from its chilling 
 $frame.
 それはローブに身を包んだ人間のような姿をしている。冷気を持ったその体から
 は力のオーラが放射されている。",,,,,,,
 521,"東洋の吸血鬼","Oriental vampire","V","g",54,255,255,255,0,0,34,3,0,750,0,0,0,0,-1,110,20,60,10,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
 BITE:EXP_VAMP:1d8
-TOUCH:DR_MANA:2d9",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|DROP_4D2|CAN_FLY|RES_NETH|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|INVISIBLE|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_6|TELE_TO|HOLD|CONF|SCARE|CAUSE_3|MIND_BLAST|FORGET|DARKNESS|BO_NETH",,"$The oriental vampire is a mist-like creature.
+TOUCH:DR_MANA:2d9",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|DROP_4D2|CAN_FLY|RES_NETH|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|INVISIBLE|PASS_WALL|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_6|TELE_TO|HOLD|CONF|SCARE|CAUSE_3|MIND_BLAST|FORGET|DARKNESS|BO_NETH",,"$The oriental vampire is a mist-like creature.
 東洋の吸血鬼は霧のような生き物だ。",,,,,,,
 522,"王のミイラ","Greater mummy","z","W",52,255,255,255,0,0,34,3,0,800,0,0,0,0,0,110,30,68,255,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:LOSE_CON:1d6
 CLAW:DISEASE:1d6
 GAZE:EXP_VAMP:3d4
-GAZE:TERRIFY:1d4",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|NO_FEAR|EVIL|UNDEAD|COLD_BLOOD|ONLY_ITEM|DROP_1D2|DROP_2D2|RES_TELE|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|HEAL|HASTE|BLIND|SCARE|S_UNDEAD|ANIM_DEAD|BA_POIS|BA_NETH|BA_COLD|DRAIN_MANA|MIND_BLAST|CAUSE_3|DARKNESS|FORGET",,"$Once a powerful ruler, now an even more powerful undead menace.
+GAZE:TERRIFY:1d4",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|NO_FEAR|EVIL|COLD_BLOOD|ONLY_ITEM|DROP_1D2|DROP_2D2|RES_TELE|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|HEAL|HASTE|BLIND|SCARE|S_UNDEAD|ANIM_DEAD|BA_POIS|BA_NETH|BA_COLD|DRAIN_MANA|MIND_BLAST|CAUSE_3|DARKNESS|FORGET",,"$Once a powerful ruler, now an even more powerful undead menace.
 かつては強力な支配者であったが、今ではさらに強力なアンデッドの
 強敵になっている。",,,,,,,
 523,"<コーン>の血戮悪魔","Bloodletter of Khorne","U","r",44,0,12,255,0,0,34,1,0,450,0,0,0,0,0,110,20,40,30,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"HIT:EXP_20:13d1
@@ -2607,7 +2607,7 @@ HIT:POISON:3d4",,,"J0#","MALE|DROP_1D2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CO
 533,"首なし幽霊","Headless ghost","G","u",100,255,255,255,0,0,35,3,0,550,0,0,0,0,-1,120,20,30,10,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"TOUCH:TERRIFY
 TOUCH:EXP_40
 CLAW:LOSE_INT:5d5
-CLAW:LOSE_WIS:5d5",,,"JZ#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|CAN_FLY|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|DRAIN_MANA|SCARE|BO_COLD|FORGET",,"$A phantasmal apparition with no head
+CLAW:LOSE_WIS:5d5",,,"JZ#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_90|DROP_2D2|CAN_FLY|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|DRAIN_MANA|SCARE|BO_COLD|FORGET",,"$A phantasmal apparition with no head
 頭の無い幽霊のような姿だ。",,,,,,,
 534,"ドリード","Dread","G","o",100,255,255,255,0,0,35,2,0,600,6000,690,0,0,-1,120,20,30,10,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"HIT:HURT:6d6
 HIT:HURT:6d6
@@ -2615,7 +2615,7 @@ HIT:LOSE_STR:3d4",,,"J0#
 J0#
 J0#(コメント)
 J0# 「ドレッド」という読み方も聞きました。根拠もなく「ドリード」を選択しました
-J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_60|DROP_2D2|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|CAN_FLY|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|CONF|DRAIN_MANA|BO_NETH",,"$It is a form that screams its presence against the eye.  Death incarnate, 
+J0#","FORCE_SLEEP|RAND_25|ONLY_ITEM|DROP_60|DROP_2D2|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|CAN_FLY|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|CONF|DRAIN_MANA|BO_NETH",,"$It is a form that screams its presence against the eye.  Death incarnate, 
 $its hideous black body seems to struggle against reality as the universe 
 $itself struggles to banish it.
 それを見れば誰でも叫び声をあげたくなるような存在感を持っている。
@@ -2767,18 +2767,18 @@ $and decay...""
 553,"パターン・ゴースト","Pattern ghost","G","D",100,255,255,255,0,0,36,3,0,400,0,0,0,0,0,120,30,30,20,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"TOUCH:EXP_80
 TOUCH:DR_MANA:2d10
 CLAW:LOSE_INT:1d10
-CLAW:LOSE_WIS:1d10",,,,"FORCE_SLEEP|ONLY_ITEM|DROP_1D2|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_5|FORGET|MIND_BLAST",,"$An almost life-like creature which is nothing more than a phantom 
+CLAW:LOSE_WIS:1d10",,,,"FORCE_SLEEP|ONLY_ITEM|DROP_1D2|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_5|FORGET|MIND_BLAST",,"$An almost life-like creature which is nothing more than a phantom 
 $created by the Pattern.
 ほとんど生き物のようだが、実は「パターン」により作られた
 幻影にすぎない。",,,,,,,
 554,"グレイ・レイス","Grey wraith","W","s",100,255,255,255,0,0,36,1,0,700,5000,607,0,0,-1,110,20,50,10,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"HIT:HURT:1d10
 HIT:HURT:1d10
-TOUCH:EXP_40",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|UNDEAD|HURT_LITE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_7|HOLD|SCARE|CAUSE_3|DARKNESS",,"$A tangible but ghostly form, made of grey fog.  The air around it feels 
+TOUCH:EXP_40",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|HURT_LITE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_7|HOLD|SCARE|CAUSE_3|DARKNESS",,"$A tangible but ghostly form, made of grey fog.  The air around it feels 
 $deathly cold.
 それは実体があるように見えるが、実際は灰色の霧でできた幽霊のようなものだ。
 その回りには死のような冷たさの大気が充満している。",,,,,,,
 555,"レヴナント","Revenant","W","u",100,255,255,255,0,0,36,1,0,800,0,0,0,0,-1,125,30,70,5,17,17,17,17,17,17,170,0,60,0,160,0,50,0,"HIT:HURT:2d10
-HIT:HURT:2d10",,,,"FORCE_SLEEP|FORCE_MAXHP|REGENERATE|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|EVIL|UNDEAD|HURT_LITE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_4|BO_FIRE",,"$Back from the grave, to wreak vengeance upon the living. A gaunt, tall, 
+HIT:HURT:2d10",,,,"FORCE_SLEEP|FORCE_MAXHP|REGENERATE|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|EVIL|HURT_LITE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP","1_IN_4|BO_FIRE",,"$Back from the grave, to wreak vengeance upon the living. A gaunt, tall, 
 $skeletal figure wearing a ruined plate mail.
 生ける者たちへ復讐するために墓から甦った亡霊だ。
 気味の悪い、背の高い骸骨の姿で
@@ -2919,7 +2919,7 @@ $in the Courts of Chaos for assassination.
 577,"窖の怪物","Crypt thing","L","B",55,255,255,255,0,0,37,3,0,2000,10000,658,0,0,0,120,20,60,60,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"TOUCH:EXP_40
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d10
-TOUCH:LOSE_DEX:2d10",,,,"FORCE_SLEEP|FORCE_MAXHP|DROP_1D2|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TELE_LEVEL|CAUSE_3|DRAIN_MANA|BRAIN_SMASH",,"$It is a skeletal form dressed in robes. 
+TOUCH:LOSE_DEX:2d10",,,,"FORCE_SLEEP|FORCE_MAXHP|DROP_1D2|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TELE_LEVEL|CAUSE_3|DRAIN_MANA|BRAIN_SMASH",,"$It is a skeletal form dressed in robes. 
 $It looks evil and devious...
 襤褸を纏った骸骨のような姿をしている、邪悪で捻曲がった亡者だ。",,,,,,,
 578,"虹色の蝶人","Chaos butterfly","I","G",43,255,255,255,0,0,37,2,0,1000,0,0,0,0,-1,120,40,60,10,18,18,18,18,18,18,170,0,60,0,160,0,50,0,"CLAW:HURT:3d7
@@ -3099,7 +3099,7 @@ GAZE:DR_MANA:2d12",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|RES_TELE|CAN_FLY|BASH_DOOR|D
 604,"エンペラー・ワイト","Emperor wight","W","y",100,255,255,255,0,0,38,2,0,1600,0,0,0,0,0,120,20,40,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:1d12
 HIT:HURT:1d12
 TOUCH:EXP_80
-TOUCH:EXP_80",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_4D2|CAN_FLY|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|HOLD|SCARE|CAUSE_3|BO_NETH",,"$Your life force is torn from your body as this powerful unearthly being 
+TOUCH:EXP_80",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_4D2|CAN_FLY|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|HOLD|SCARE|CAUSE_3|BO_NETH",,"$Your life force is torn from your body as this powerful unearthly being 
 $approaches.
 この強力なあの世の者が近づいてくると、自分の魂が肉体から引き裂かれるようだ。",,,,,,,
 605,"熾天使","Seraph","A","w",42,255,255,255,0,0,38,4,0,1800,8000,661,0,0,4,120,30,68,255,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
@@ -3117,7 +3117,7 @@ HIT:FIRE:6d6",,,"JZ#","UNIQUE|SELF_LITE_2|FORCE_SLEEP|FORCE_MAXHP|RAND_25|CAN_SP
 607,"ブラック・レイス","Black wraith","W","D",100,255,255,255,0,0,38,2,0,1700,5000,612,0,0,-1,120,20,55,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:1d12
 HIT:HURT:1d12
 TOUCH:EXP_40
-TOUCH:EXP_40",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_1D2|DROP_2D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_7|BLIND|HOLD|SCARE|CAUSE_3|BO_NETH",,"$A figure that seems made of void, its strangely human shape is cloaked in 
+TOUCH:EXP_40",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_1D2|DROP_2D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_7|BLIND|HOLD|SCARE|CAUSE_3|BO_NETH",,"$A figure that seems made of void, its strangely human shape is cloaked in 
 $shadow.  It reaches out at you.
 影をまとった人間のような姿で、真空でできているかのような奇妙な外見
 をしている。それは冒険者の方に手をさしのべている。",,,,,,,
@@ -3161,14 +3161,14 @@ JZ#ていまいます。 by 久留さん","FORCE_SLEEP|UNIQUE|CAN_SWIM|FORCE_MAXHP|ONLY_GOL
 611,"リッチの修行僧","Monastic lich","L","u",55,255,255,255,0,0,39,2,0,5000,0,0,0,0,0,120,30,80,30,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"KICK:HURT:24d1
 HIT:HURT:24d1
 CLAW:EXP_80:4d2
-CLAW:LOSE_DEX:4d2",,,,"FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|ANIM_DEAD",,"$A skeletal form wrapped in priestly robes.  Before its un-death, it 
+CLAW:LOSE_DEX:4d2",,,,"FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|ANIM_DEAD",,"$A skeletal form wrapped in priestly robes.  Before its un-death, it 
 $was a monk in an evil order...
 僧侶の法衣に身を包んだ骸骨のような姿だ。アンデッドになる前は
 邪悪な教義に仕えるモンクであった。",,,,,,,
 612,"冥界レイス","Nether wraith","W","R",100,255,255,255,0,0,39,2,0,1700,0,0,0,0,-1,120,20,55,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:1d12
 HIT:HURT:1d12
 TOUCH:EXP_80
-TOUCH:EXP_80",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_90|DROP_4D2|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|BLIND|SCARE|CAUSE_3|MIND_BLAST|DARKNESS|BO_NETH",,"$A form that hurts the eye, death permeates the air around it.  As it nears 
+TOUCH:EXP_80",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|ONLY_ITEM|DROP_90|DROP_4D2|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_6|BLIND|SCARE|CAUSE_3|MIND_BLAST|DARKNESS|BO_NETH",,"$A form that hurts the eye, death permeates the air around it.  As it nears 
 $you, a coldness saps your soul.
 それは目の毒になるような姿をしていて、死の予感を辺りの空気に振りまいている。
 それが近づいてくると冷気によって魂が徐々に弱っていく。",,,,,,,
@@ -3275,7 +3275,7 @@ BITE:HURT:3d4",,,"J0#","FORCE_MAXHP|ONLY_ITEM|DROP_1D2|WILD_MOUNTAIN|WILD_WOOD|W
 622,"ナイトメア","Night mare","q","v",86,255,255,255,0,0,39,3,0,2900,0,0,0,0,-1,120,30,85,0,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BITE:DR_MANA:4d6
 HIT:HURT:3d8
 HIT:HURT:3d8
-HIT:CONFUSE:6d6",,,"J0#","FORCE_MAXHP|ONLY_GOLD|DROP_2D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RIDING",,,"$A fearsome skeletal horse with glowing eyes, that watch you with little 
+HIT:CONFUSE:6d6",,,"J0#","FORCE_MAXHP|ONLY_GOLD|DROP_2D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RIDING",,,"$A fearsome skeletal horse with glowing eyes, that watch you with little 
 $more than a hatred of all that lives. Flying hooves don't touch the 
 $ground...
 恐ろしい骸骨の馬で、その燃える目は全ての生ある者への憎悪を持ってしか
@@ -3283,7 +3283,7 @@ $ground...
 623,"バンパイア・ロード","Vampire lord","V","b",54,255,255,255,0,0,39,3,0,1800,20000,1058,0,0,0,120,20,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
 BITE:EXP_VAMP:4d6
-TOUCH:DR_MANA:4d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_TELE|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_7|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|DARKNESS|BO_NETH",,"$A foul wind chills your bones as this ghastly figure approaches.
+TOUCH:DR_MANA:4d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_TELE|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_7|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|DARKNESS|BO_NETH",,"$A foul wind chills your bones as this ghastly figure approaches.
 この死人のような存在が近づいてくると、汚れた風が冒険者の背筋を震わせる。",,,,,,,
 624,"古代ブラック・ドラゴン","Ancient black dragon","D","D",58,255,255,255,0,0,44,1,0,2500,100000,1066,0,0,0,120,20,90,70,27,27,27,27,27,27,1500,30,1100000,10,1500,30,1100000,10,"CLAW:HURT:4d9
 CLAW:HURT:4d9
@@ -3473,7 +3473,7 @@ JZ#(コメント)訳は 閑丸さん","FRIENDS|DROP_60|DROP_90|OPEN_DOOR|BASH_DOOR|DROP_SK
 654,"闇の審判『ファイア』","Judge Fire","s","r",53,255,255,255,0,0,41,3,0,12000,0,0,0,0,0,120,90,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:FIRE:5d5
 HIT:FIRE:5d5
 GAZE:EXP_80
-WAIL:TERRIFY",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|SELF_LITE_1|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|POWERFUL|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|HURT_COLD|IM_POIS|IM_FIRE|RES_PLAS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|CAUSE_3|BO_FIRE|BA_FIRE|BR_FIRE|BO_PLAS|DARKNESS|S_MONSTER|S_DEMON|S_UNDEAD|TPORT|BLINK|SCARE",,"$One of the Dark Judges, he has come to punish your crime of living. 
+WAIL:TERRIFY",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|SELF_LITE_1|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|POWERFUL|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|HURT_COLD|IM_POIS|IM_FIRE|RES_PLAS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|CAUSE_3|BO_FIRE|BA_FIRE|BR_FIRE|BO_PLAS|DARKNESS|S_MONSTER|S_DEMON|S_UNDEAD|TPORT|BLINK|SCARE",,"$One of the Dark Judges, he has come to punish your crime of living. 
 $He looks like a skeleton enveloped in flames.
 『ダーク・ジャッジ』の一人で、あなたの生きているという罪を罰する
 ためにやってきた。彼は炎に包まれた骸骨のように見える。",,,,,,,
@@ -3508,7 +3508,7 @@ $without organs or members...""
 656,"闇の審判『モーティス』","Judge Mortis","z","G",52,255,255,255,0,0,41,3,0,13000,0,0,0,0,0,120,90,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:POISON:5d5
 HIT:DISEASE:5d5
 TOUCH:LOSE_ALL
-TOUCH:EXP_80",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|HURT_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLIND|SCARE|CAUSE_3|BO_ACID|BO_NETH|BR_POIS|BR_NETH|BLINK|TPORT|ANIM_DEAD|S_UNDEAD",,"$Another Dark Judge, he is a rotting humanoid with a cow's skull as 
+TOUCH:EXP_80",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|HURT_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLIND|SCARE|CAUSE_3|BO_ACID|BO_NETH|BR_POIS|BR_NETH|BLINK|TPORT|ANIM_DEAD|S_UNDEAD",,"$Another Dark Judge, he is a rotting humanoid with a cow's skull as 
 $his head.
 『ダーク・ジャッジ』の一人で、頭が牛の頭骨になっている腐乱した
 怪人だ。",,,,,,,
@@ -3521,7 +3521,7 @@ $from his slender frame.
 658,"マスターリッチ","Master lich","L","W",55,255,255,255,0,0,41,2,0,10000,30000,742,0,0,1,120,20,80,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"TOUCH:EXP_80
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_UNDEAD",,"$A skeletal form wrapped in robes.  Powerful magic crackles along its bony 
+TOUCH:LOSE_DEX:2d12",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_UNDEAD",,"$A skeletal form wrapped in robes.  Powerful magic crackles along its bony 
 $fingers.
 ローブに身を包んだ骸骨だ。骨ばった指の先には強力な魔力が火花をあげている。",,,,,,,
 659,"バイアクヘー","Byakhee","U","D",43,255,255,255,0,0,41,3,0,1500,0,0,0,0,0,110,20,40,80,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:LOSE_STR:3d4
@@ -3610,7 +3610,7 @@ $of black rubbery wings of singularly monstrous dimensions.""
 664,"アンデッド・ビホルダー","Undead beholder","e","s",80,255,255,255,0,0,42,4,0,6000,40000,781,0,0,0,120,30,100,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"GAZE:EXP_40
 GAZE:PARALYZE
 GAZE:LOSE_INT:2d6
-GAZE:DR_MANA:4d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|RES_TELE|HAS_DARK_1|COLD_BLOOD|BASH_DOOR|EVIL|UNDEAD|CAN_FLY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_2|SLOW|CAUSE_4|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|FORGET|BO_MANA|ANIM_DEAD|S_UNDEAD",,"$A disembodied eye, floating in the air.  Black nether storms rage around 
+GAZE:DR_MANA:4d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|RES_TELE|HAS_DARK_1|COLD_BLOOD|BASH_DOOR|EVIL|CAN_FLY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_2|SLOW|CAUSE_4|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|FORGET|BO_MANA|ANIM_DEAD|S_UNDEAD",,"$A disembodied eye, floating in the air.  Black nether storms rage around 
 $its bloodshot pupil and light seems to bend as it sucks its power from the 
 $very air around it.  Your soul chills as it drains your vitality for its 
 $evil enchantments.
@@ -3628,7 +3628,7 @@ $energy from your soul to feed its power.
 その剃刀のような爪で冒険者の生命を奪い、力を得るためにその魂を吸い取る。",,,,,,,
 666,"アイアン・リッチ","Iron lich","L","s",55,255,255,255,0,0,42,4,0,9000,0,0,0,0,0,120,30,100,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BUTT:COLD:3d6
 BUTT:FIRE:3d6
-BUTT:ELEC:3d6",,,,"FORCE_SLEEP|FORCE_MAXHP|REFLECTING|COLD_BLOOD|BASH_DOOR|CAN_FLY|EVIL|UNDEAD|SMART|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|RES_TELE|ONLY_ITEM|DROP_60|DROP_GOOD|NO_CONF|NO_SLEEP","1_IN_2|BA_WATE|BR_FIRE|BO_ICEE|BA_ELEC|BA_COLD|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_UNDEAD",,"$It is a huge, twisted grey skull floating through the air. Its cold eyes 
+BUTT:ELEC:3d6",,,,"FORCE_SLEEP|FORCE_MAXHP|REFLECTING|COLD_BLOOD|BASH_DOOR|CAN_FLY|EVIL|SMART|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|RES_TELE|ONLY_ITEM|DROP_60|DROP_GOOD|NO_CONF|NO_SLEEP","1_IN_2|BA_WATE|BR_FIRE|BO_ICEE|BA_ELEC|BA_COLD|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_UNDEAD",,"$It is a huge, twisted grey skull floating through the air. Its cold eyes 
 $burn with hatred towards all who live.
 それは宙に浮いた巨大で、捻じ曲げられた灰色の髑髏だ。その冷たい目は
 全ての命ある物への憎しみに燃えている。",,,,,,,
@@ -3638,7 +3638,7 @@ HIT:LOSE_STR:3d4",,,"J0#
 J0#
 J0#(コメント)
 J0# 「ドレッド」という読み方も聞きました。根拠もなく「ドリード」を選択しました
-J0#","FORCE_SLEEP|RAND_25|FRIENDS|CAN_FLY|ONLY_ITEM|DROP_60|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|CONF|DRAIN_MANA|BO_NETH",,"$It is a form that screams its presence against the eye.  Death incarnate, 
+J0#","FORCE_SLEEP|RAND_25|FRIENDS|CAN_FLY|ONLY_ITEM|DROP_60|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_15|BLIND|HOLD|CONF|DRAIN_MANA|BO_NETH",,"$It is a form that screams its presence against the eye.  Death incarnate, 
 $its hideous black body seems to struggle against reality as the universe 
 $itself struggles to banish it.
 それを見れば誰でも叫び声をあげたくなるような存在感を持っている。
@@ -3668,7 +3668,7 @@ $steals only for the challenge.
 影から力を得て、この泥棒の王は挑戦のためだけに盗みをする。",,,,,,,
 671,"ゼファーロード","Zephyr Lord","W","v",100,255,255,255,0,0,43,2,0,3000,0,0,0,0,0,125,20,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:EXP_20:8d2
 HIT:LOSE_STR:8d2
-HIT:LOSE_CON:8d2",,,,"MALE|ATTR_MULTI|UNDEAD|EVIL|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|IM_FIRE|IM_COLD|IM_ACID|IM_ELEC|IM_POIS|RES_NETH|ONLY_ITEM|DROP_90|DROP_4D2|SMART|OPEN_DOOR|BASH_DOOR|NO_STUN|NO_CONF|NO_SLEEP","1_IN_5|SHRIEK|S_HOUND",,"$An undead master of the vicious Zephyr hounds.
+HIT:LOSE_CON:8d2",,,,"MALE|ATTR_MULTI|EVIL|FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|IM_FIRE|IM_COLD|IM_ACID|IM_ELEC|IM_POIS|RES_NETH|ONLY_ITEM|DROP_90|DROP_4D2|SMART|OPEN_DOOR|BASH_DOOR|NO_STUN|NO_CONF|NO_SLEEP","1_IN_5|SHRIEK|S_HOUND",,"$An undead master of the vicious Zephyr hounds.
 厄介なゼファーハウンド達を支配するアンデッドだ。",,,,,,,
 672,"<コーン>のジャガーノート","Juggernaut of Khorne","g","D",44,255,255,255,0,0,43,3,0,2500,0,0,0,0,0,120,12,90,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"BUTT:HURT:8d6
 CRUSH:HURT:10d6
@@ -3688,7 +3688,7 @@ CRUSH:SUPERHURT:4d6",,,"J0#","FRIENDS|DROP_CORPSE|BASH_DOOR|ANIMAL|RIDING",,,"$A
 674,"闇の審判『フィアー』","Judge Fear","W","D",100,255,255,255,0,0,43,4,0,12000,0,0,0,0,0,120,90,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"GAZE:TERRIFY
 GAZE:EXP_40
 GAZE:DR_MANA:4d8
-GAZE:HURT:2d20",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|MIND_BLAST|BRAIN_SMASH|S_UNDEAD|DRAIN_MANA|FORGET|ANIM_DEAD",,"$A Dark Judge, reputedly so frightening that his gaze can kill.
+GAZE:HURT:2d20",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|MIND_BLAST|BRAIN_SMASH|S_UNDEAD|DRAIN_MANA|FORGET|ANIM_DEAD",,"$A Dark Judge, reputedly so frightening that his gaze can kill.
 『ダーク・ジャッジ』の一人で、睨んだだけで殺すその悪名高い恐ろしさ
 で知られる。",,,,,,,
 675,"古代万色ドラゴン","Ancient multi-hued dragon","D","v",58,255,255,255,0,0,48,1,0,13000,300000,790,0,0,1,120,20,100,70,27,27,27,27,27,27,1500,30,1100000,10,1500,30,1100000,10,"CLAW:HURT:4d12
@@ -3761,7 +3761,7 @@ $reduced to rubble as Quaker advances.
 岩石となってしまう。",,,,,,,
 680,"死のレプラコーン","Death leprechaun","h","D",15,255,255,255,0,0,44,6,0,85,0,0,0,0,-1,120,8,13,8,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"TOUCH:EXP_40:1d10
 TOUCH:EAT_GOLD
-TOUCH:EAT_ITEM",,,"JZ#","MULTIPLY|INVISIBLE|RAND_25|TAKE_ITEM|COLD_BLOOD|SMART|HURT_LITE|EVIL|OPEN_DOOR|MALE|UNDEAD|RES_NETH|HAS_LITE_1","1_IN_6|BLINK|TPORT|TELE_TO|CAUSE_3|ANIM_DEAD",,"$Nasty undead little creatures.  They are chanting the name of the 
+TOUCH:EAT_ITEM",,,"JZ#","MULTIPLY|INVISIBLE|RAND_25|TAKE_ITEM|COLD_BLOOD|SMART|HURT_LITE|EVIL|OPEN_DOOR|MALE|RES_NETH|HAS_LITE_1","1_IN_6|BLINK|TPORT|TELE_TO|CAUSE_3|ANIM_DEAD",,"$Nasty undead little creatures.  They are chanting the name of the 
 $sinister wizard who created them: 'Bruce! Bruce..!'
 やっかいな小型のアンデッドだ。彼らは自分たちを造った
 邪悪な魔法使いの名を連呼している。「ブルース！ブルース！…」",,,,,,,
@@ -3818,7 +3818,7 @@ JZ#魔法を得意とし、その魔力でトールやロキらの一行を翻弄しました。 by 久留さん","
 その魔力でトールやロキらの一行を翻弄したこともある。",,,,,,,
 684,"塵の中を歩くもの『クァチル・ウタウス』","Quachil Uttaus, Treader of the Dust","z","D",52,255,255,255,0,0,44,3,0,20000,0,0,0,0,7,120,30,80,15,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:HURT:50d1
 TOUCH:TIME:1d50
-TOUCH:TIME:1d50",,,"JZ# 解説は NeSYS さん","ESCORT|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_GOOD|KILL_BODY|DROP_GREAT|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|REGENERATE","1_IN_3|BR_TIME|SLOW|HASTE|HEAL",,"$""It was a figure no larger than a young child, but sere and 
+TOUCH:TIME:1d50",,,"JZ# 解説は NeSYS さん","ESCORT|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_GOOD|KILL_BODY|DROP_GREAT|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|EVIL|REGENERATE","1_IN_3|BR_TIME|SLOW|HASTE|HEAL",,"$""It was a figure no larger than a young child, but sere and 
 $shriveled as some millenial mummy. Its hairless head, its 
 $unfeatured face, borne on a neck of skeleton thinness, were 
 $lined with a thousand reticulated wrinkles. The body was like 
@@ -3868,7 +3868,7 @@ $mocking cry -- 'Tekeli-li! Tekeli-li!'""
 686,"闇の審判『デス』","Judge Death","W","D",100,255,255,255,0,0,44,3,0,14000,0,0,0,0,0,120,90,90,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CLAW:POISON:10d5
 CLAW:POISON:10d5
 CLAW:EXP_40:10d1
-GAZE:TERRIFY",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_ELEC|IM_COLD|RES_NETH|HURT_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_4|BA_FIRE|BA_NETH|ANIM_DEAD|S_MONSTERS|S_UNDEAD|S_HI_UNDEAD|DRAIN_MANA",,"$The most powerful Dark Judge, whose touch means death.
+GAZE:TERRIFY",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_ELEC|IM_COLD|RES_NETH|HURT_FIRE|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_4|BA_FIRE|BA_NETH|ANIM_DEAD|S_MONSTERS|S_UNDEAD|S_HI_UNDEAD|DRAIN_MANA",,"$The most powerful Dark Judge, whose touch means death.
 最強の『ダーク・ジャッジ』で、その手は死を意味する。",,,,,,,
 687,"風の女王『アリエル』","Ariel, Queen of Air","E","B",93,255,255,255,0,0,44,4,0,8000,0,0,0,0,2,130,12,50,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
 HIT:CONFUSE:1d4
@@ -3891,7 +3891,7 @@ $spells.
 690,"ドリードマスター","Dreadmaster","G","o",100,255,255,255,0,0,44,2,0,8000,30000,774,0,0,0,120,20,100,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:6d6
 HIT:HURT:6d6
 HIT:LOSE_STR:3d4
-HIT:LOSE_STR:3d4",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|RAND_25|ONLY_ITEM|DROP_1D2|DROP_4D2|CAN_FLY|SMART|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|NO_CONF|RES_NETH|NO_SLEEP","1_IN_9|TELE_LEVEL|BLIND|HOLD|CONF|CAUSE_4|DRAIN_MANA|BO_NETH|S_UNDEAD",,"$It is an unlife of power almost unequaled.  An affront to existence, its 
+HIT:LOSE_STR:3d4",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|RAND_25|ONLY_ITEM|DROP_1D2|DROP_4D2|CAN_FLY|SMART|TAKE_ITEM|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|IM_POIS|NO_CONF|RES_NETH|NO_SLEEP","1_IN_9|TELE_LEVEL|BLIND|HOLD|CONF|CAUSE_4|DRAIN_MANA|BO_NETH|S_UNDEAD",,"$It is an unlife of power almost unequaled.  An affront to existence, its 
 $very touch abuses and disrupts the flow of life, and its unearthly limbs, 
 $of purest black, crush rock and flesh with ease.
 それは比類なき強力さを誇る魂のないモンスターで、存在自体がこの世界に対する
@@ -3930,7 +3930,7 @@ $out of nowhere to take his place.
 694,"灰色の掠奪者","Lesser black reaver","L","D",55,255,255,255,0,0,45,3,0,12000,100000,798,0,0,1,120,20,120,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:4d8
 HIT:UN_BONUS:4d8
 HIT:LOSE_STR:4d6
-HIT:LOSE_STR:4d6",,,,"FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_2D2|DROP_GOOD|CAN_SWIM|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|RES_NETH|RES_TELE|NO_CONF|NO_SLEEP|KILL_WALL|NO_FEAR","1_IN_3|TELE_TO|BLIND|HOLD|CONF|CAUSE_3|DRAIN_MANA|MIND_BLAST|BA_NETH|ANIM_DEAD",,"$A humanoid form, black as night, advancing steadily and unstoppably.
+HIT:LOSE_STR:4d6",,,,"FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_2D2|DROP_GOOD|CAN_SWIM|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_DARK|RES_NETH|RES_TELE|NO_CONF|NO_SLEEP|KILL_WALL|NO_FEAR","1_IN_3|TELE_TO|BLIND|HOLD|CONF|CAUSE_3|DRAIN_MANA|MIND_BLAST|BA_NETH|ANIM_DEAD",,"$A humanoid form, black as night, advancing steadily and unstoppably.
 人間のような姿、闇のように黒く、ためらうことなく進み、決して止まる
 ことはない。",,,,,,,
 695,"『ゾス=オムモグ』","Zoth-Ommog","R","u",106,255,255,255,0,0,45,4,0,18000,0,0,0,0,8,120,12,50,50,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"CRUSH:HURT:25d3
@@ -3960,7 +3960,7 @@ HIT:EXP_80:8d6
 HIT:EXP_80:8d6",,,"JZ#
 JZ#Ｊ・Ｒ・Ｒ・トールキンの「指輪物語」に登場。
 JZ#かつては人間でしたが、冥王サウロンの指輪を受け取って使用した
-JZ#ために、サウロンに隷属する幽鬼となってしまいました。 by 久留さん","MALE|FORCE_MAXHP|NAZGUL|ONLY_ITEM|DROP_2D2|DROP_GOOD|RES_TELE|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|SMART|EVIL|UNDEAD|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|SCARE|HOLD|DRAIN_MANA|BR_NETH",,"$A tall black cloaked Ringwraith, radiating an aura of fear.
+JZ#ために、サウロンに隷属する幽鬼となってしまいました。 by 久留さん","MALE|FORCE_MAXHP|NAZGUL|ONLY_ITEM|DROP_2D2|DROP_GOOD|RES_TELE|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|SMART|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|SCARE|HOLD|DRAIN_MANA|BR_NETH",,"$A tall black cloaked Ringwraith, radiating an aura of fear.
 背の高い黒ずくめの指輪の幽鬼で、恐怖のオーラを発している。
 「かれらの蒼白い顔には鋭い無慈悲な目が燃えていました。
 黒いマントの下には灰色の長衣をまとっていました。灰色の顔には銀
@@ -3995,7 +3995,7 @@ $carrying explosives and making terrorist strikes...
 701,"ドラコリッチ","Dracolich","D","B",58,255,255,255,0,0,46,2,0,18000,0,0,0,0,0,120,25,120,30,21,21,21,21,21,21,1500,30,1100000,10,1500,30,1100000,10,"CLAW:HURT:4d12
 CLAW:HURT:4d12
 BITE:EXP_80:3d6
-BITE:EXP_VAMP:3d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|RES_TELE|COLD_BLOOD|CAN_FLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RIDING","1_IN_6|CONF|SCARE|BR_COLD|BR_NETH",,"$The skeletal form of a once-great dragon, enchanted by magic most 
+BITE:EXP_VAMP:3d6",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|RES_TELE|COLD_BLOOD|CAN_FLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RIDING","1_IN_6|CONF|SCARE|BR_COLD|BR_NETH",,"$The skeletal form of a once-great dragon, enchanted by magic most 
 $perilous.  Its animated form strikes with speed and drains life from its 
 $prey to satisfy its hunger.
 古代の偉大なドラゴンの骸骨に、最も危険な魔法によって生命を吹き込んだものだ。
@@ -4211,7 +4211,7 @@ $large black he-goat.
 722,"ナイトウィング","Nightwing","W","D",100,255,255,255,0,0,50,4,0,6000,0,0,0,0,0,120,20,120,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"TOUCH:POISON:3d5
 TOUCH:POISON:3d5
 HIT:UN_BONUS:6d8
-HIT:DR_MANA:5d10",,,"J0#","FORCE_SLEEP|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_TELE|RES_NETH|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$Everywhere colours seem paler and the air chiller.  At the centre of the 
+HIT:DR_MANA:5d10",,,"J0#","FORCE_SLEEP|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_TELE|RES_NETH|EVIL|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$Everywhere colours seem paler and the air chiller.  At the centre of the 
 $cold stands a mighty figure.  Its wings envelop you in the chill of death 
 $as the nightwing reaches out to draw you into oblivion.  Your muscles sag 
 $and your mind loses all will to fight as you stand in awe of this mighty 
@@ -4347,7 +4347,7 @@ GAZE:TERRIFY:5d10",,,"JZ#
 JZ#黄衣の王
 JZ#ロバート・Ｗ・チェンバースの一連の作品で言及される戯曲の登場
 JZ#人物と思われますが、詳細は不明です。 by 久留さん
-JZ#解説は NeSYS さん","UNIQUE|MALE|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_2|S_DEMON|S_UNDEAD|S_KIN|SCARE|CAUSE_3|CAUSE_4|ANIM_DEAD|TELE_AWAY|TPORT|BRAIN_SMASH|CONF",,"$The King in Yellow is an Avatar of Hastur: ""He has no 
+JZ#解説は NeSYS さん","UNIQUE|MALE|CAN_SPEAK|ATTR_MULTI|ATTR_ANY|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_2|S_DEMON|S_UNDEAD|S_KIN|SCARE|CAUSE_3|CAUSE_4|ANIM_DEAD|TELE_AWAY|TPORT|BRAIN_SMASH|CONF",,"$The King in Yellow is an Avatar of Hastur: ""He has no 
 $face, and is twice as tall as a man. He wears pointed shoes under 
 $his tattered, fantastically colored robes, and a streamer of silk 
 $appears to fall from the pointed tip of his hood. At times he appears 
@@ -4382,7 +4382,7 @@ $with disdainful ease.
 738,"東夷『カムル』","Khamul the Easterling","W","D",76,255,255,255,0,0,53,3,0,22000,0,0,0,0,2,120,90,100,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:HURT:10d10
 HIT:HURT:5d5
 TOUCH:EXP_40
-TOUCH:EXP_40",,,"J0#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_2|TELE_LEVEL|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|BO_MANA|BA_FIRE|BA_COLD|BA_NETH|ANIM_DEAD|S_UNDEAD|S_KIN",,"$A warrior-king of the East.  Khamul is a powerful opponent, his skill in 
+TOUCH:EXP_40",,,"J0#","UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_2|TELE_LEVEL|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|BO_MANA|BA_FIRE|BA_COLD|BA_NETH|ANIM_DEAD|S_UNDEAD|S_KIN",,"$A warrior-king of the East.  Khamul is a powerful opponent, his skill in 
 $combat awesome and his form twisted by evil cunning.
 東方の戦士の王であるカルムはやっかいな強敵であり、その戦闘能力には恐るべき
 ものがある。その姿は邪悪なずる賢さでねじ曲がっている。",,,,,,,
@@ -4435,7 +4435,7 @@ $its wrath!
 742,"デミリッチ","Demilich","L","U",55,255,255,255,0,0,54,2,0,12500,80000,776,0,0,2,120,20,100,50,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"TOUCH:EXP_VAMP:1d12
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:4d12
-TOUCH:LOSE_DEX:4d12",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_1D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_HI_UNDEAD|S_UNDEAD|FORGET|TPORT|HEAL|ANIM_DEAD",,"$A lich who is partially immaterial, on its way to a new, ethereal form.
+TOUCH:LOSE_DEX:4d12",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|ONLY_ITEM|DROP_2D2|DROP_1D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_HI_UNDEAD|S_UNDEAD|FORGET|TPORT|HEAL|ANIM_DEAD",,"$A lich who is partially immaterial, on its way to a new, ethereal form.
 部分的に非物質化したリッチで、霊的な存在に生まれ変わる過程にある。",,,,,,,
 743,"『火の鳥』","The Phoenix","B","r",91,255,255,255,0,0,86,3,0,50000,0,0,0,0,17,120,60,130,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:FIRE:12d6
 BITE:FIRE:12d6
@@ -4451,7 +4451,7 @@ $skin and melts your armour.
 744,"ナイトクローラー","Nightcrawler","W","D",100,255,255,255,0,0,54,4,0,8100,0,0,0,0,0,120,20,160,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"STING:LOSE_CON:8d8
 STING:LOSE_CON:8d8
 BITE:ACID:10d10
-BITE:ACID:10d10",,,"J0#","FORCE_SLEEP|SMART|KILL_WALL|CAN_SWIM|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_FIRE|IM_COLD|IM_POIS|RES_DARK|RES_TELE|HURT_LITE|RES_NETH|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|BR_NETH|S_UNDEAD",,"$This intensely evil creature bears the form of a gargantuan black worm.  
+BITE:ACID:10d10",,,"J0#","FORCE_SLEEP|SMART|KILL_WALL|CAN_SWIM|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_DARK|RES_TELE|HURT_LITE|RES_NETH|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|BR_NETH|S_UNDEAD",,"$This intensely evil creature bears the form of a gargantuan black worm.  
 $Its gaping maw is a void of blackness, acid drips from its steely hide.  
 $It is like nothing you have ever seen before, and a terrible chill runs 
 $down your spine as you face it.
@@ -4496,19 +4496,19 @@ $dreadful fury... melting basaltic rocks like butter under a blowtorch.""
 748,"手のドルジ","Hand druj","s","y",55,255,255,255,0,0,55,4,0,6000,20000,749,0,0,2,130,20,110,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,,,,"J0#
 J0#(コメント)
 J0# 「ダルージ」という読み方も聞きました。これは字数から「ドルジ」に。
-J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|NEVER_BLOW|RES_TELE|SMART|COLD_BLOOD|CAN_SWIM|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_1|TELE_AWAY|BLIND|CONF|SCARE|CAUSE_3|FORGET|DARKNESS|DISPEL",,"$A skeletal hand floating in the air, motionless except for its flexing 
+J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|NEVER_BLOW|RES_TELE|SMART|COLD_BLOOD|CAN_SWIM|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_1|TELE_AWAY|BLIND|CONF|SCARE|CAUSE_3|FORGET|DARKNESS|DISPEL",,"$A skeletal hand floating in the air, motionless except for its flexing 
 $fingers.
 それは宙に浮かぶ手の骨で、指が滑らかに動く他には身動きをしない。",,,,,,,
 749,"目のドルジ","Eye druj","s","r",55,255,255,255,0,0,55,4,0,12000,50000,750,0,0,2,130,20,90,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"GAZE:EXP_80
 GAZE:EXP_80
 GAZE:DR_MANA:5d10
-GAZE:DR_MANA:5d10",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|RES_TELE|SMART|COLD_BLOOD|EVIL|UNDEAD|CAN_SWIM|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_1|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$A bloodshot eyeball floating in the air, you'd be forgiven for assuming it 
+GAZE:DR_MANA:5d10",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|RES_TELE|SMART|COLD_BLOOD|EVIL|CAN_SWIM|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR","1_IN_1|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$A bloodshot eyeball floating in the air, you'd be forgiven for assuming it 
 $harmless.
 それは宙に浮かぶ血走った目玉だ。無害だと思ったのも無理はないが…。",,,,,,,
 750,"頭蓋のドルジ","Skull druj","s","o",55,255,255,255,0,0,65,4,0,12500,0,0,0,0,3,130,20,120,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:EXP_80:4d4
 BITE:PARALYZE:4d4
 BITE:LOSE_INT:4d4
-BITE:LOSE_WIS:4d4",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|RES_TELE|SMART|COLD_BLOOD|EVIL|UNDEAD|CAN_SWIM|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1","1_IN_1|SLOW|CAUSE_4|MIND_BLAST|BRAIN_SMASH|TRAPS|BO_PLAS|BO_NETH|BA_WATE|S_UNDEAD",,"$A glowing skull possessed by sorcerous power.  It need not move, but 
+BITE:LOSE_WIS:4d4",,,"J0#","FORCE_SLEEP|FORCE_MAXHP|NEVER_MOVE|RES_TELE|SMART|COLD_BLOOD|EVIL|CAN_SWIM|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1","1_IN_1|SLOW|CAUSE_4|MIND_BLAST|BRAIN_SMASH|TRAPS|BO_PLAS|BO_NETH|BA_WATE|S_UNDEAD",,"$A glowing skull possessed by sorcerous power.  It need not move, but 
 $merely blast you with mighty magic.
 それは発光する頭蓋骨で、ソーサラーの力によって動かされている。
 動く必要がなく、強力な魔法で攻撃してくるのみである。",,,,,,,
@@ -4538,7 +4538,7 @@ $seething form.
 755,"吸血鬼の使者『スリングウェシル』","Thuringwethil, the Vampire Messenger","V","D",57,255,255,255,0,0,72,4,0,23000,0,0,0,0,14,130,20,145,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"BITE:DR_MANA:8d8
 BITE:EXP_VAMP:8d8
 HIT:CONFUSE:6d6
-HIT:CONFUSE:6d6",,,"J0#","UNIQUE|FEMALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|EVIL|UNDEAD|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN",,"$Chief messenger between Sauron and Morgoth, she is surely the most deadly 
+HIT:CONFUSE:6d6",,,"J0#","UNIQUE|FEMALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN",,"$Chief messenger between Sauron and Morgoth, she is surely the most deadly 
 $of her vampire race.  At first she is charming to meet, but her wings and 
 $eyes give away her true form.
 サウロンとモルゴスの間を取り持つ使者達の隊長であるスリングウェシルは、
@@ -4564,7 +4564,7 @@ JZ#神話として発展させ、Ｈ・Ｐ・ラヴクラフトの「闇に囁くもの」
 JZ#で言及された事からクトゥルフ神話に組み込まれました。
 JZ#ヒアデス星団の暗黒星セラエノのハリ湖に棲んでおり、星間宇宙
 JZ#を飛翔する能力を持ちます。 by 久留さん
-JZ#解説は NeSYS さん","UNIQUE|ELDRITCH_HORROR|CAN_SWIM|EVIL|UNDEAD|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|AURA_ELEC|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|NONLIVING|RES_NETH|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_WATE|S_DEMON|HASTE|TPORT|TELE_AWAY|TELE_TO|HEAL|BR_DARK|BR_NETH",,"$Its form is partially that of a 
+JZ#解説は NeSYS さん","UNIQUE|ELDRITCH_HORROR|CAN_SWIM|EVIL|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|AURA_ELEC|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|NONLIVING|RES_NETH|IM_COLD|IM_POIS|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_WATE|S_DEMON|HASTE|TPORT|TELE_AWAY|TELE_TO|HEAL|BR_DARK|BR_NETH",,"$Its form is partially that of a 
 $reptile, partially that of a gigantic octopus. It will destroy you.
 ヒヤデス星団のセラエノという星に棲む旧支配者。
 アルデバランの近く、「黒きハリ湖」に棲むとも言われる。
@@ -4715,7 +4715,7 @@ $only the spaces between them.""
 768,"ナイトウォーカー","Nightwalker","W","D",100,255,255,255,0,0,59,4,0,15000,0,0,0,0,0,130,20,175,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:10d10
 HIT:UN_BONUS:10d10
 HIT:UN_BONUS:7d7
-HIT:UN_BONUS:7d7",,,"J0#","FORCE_SLEEP|ONLY_ITEM|DROP_4D2|DROP_GOOD|CAN_SWIM|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_TELE|EVIL|UNDEAD|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$A huge giant garbed in black, more massive than a titan and stronger than 
+HIT:UN_BONUS:7d7",,,"J0#","FORCE_SLEEP|ONLY_ITEM|DROP_4D2|DROP_GOOD|CAN_SWIM|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|RES_TELE|EVIL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|BLIND|SCARE|BRAIN_SMASH|BO_MANA|BO_NETH|BA_NETH|S_UNDEAD",,"$A huge giant garbed in black, more massive than a titan and stronger than 
 $a dragon.  With terrible blows, it breaks your armour from your back, 
 $leaving you defenseless against its evil wrath.  It can smell your fear, 
 $and you in turn smell the awful stench of death as this ghastly figure 
@@ -4796,7 +4796,7 @@ $abandonment about him.
 774,"シャドウ・ロード","Shadowlord","G","b",44,255,255,255,0,0,62,2,0,22500,0,0,0,0,2,120,20,150,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:EXP_80:6d12
 HIT:DR_MANA:5d10
 HIT:LOSE_STR:4d6
-GAZE:TERRIFY:4d6",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SELF_DARK_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|UNDEAD|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|HOLD|DRAIN_MANA|BLIND|S_UNDEAD|CONF|SCARE|TELE_TO|TPORT|BRAIN_SMASH|ANIM_DEAD|BA_NETH|DARKNESS|SHRIEK",,"$An aura of hatred, cowardice and falsehood surrounds you as this 
+GAZE:TERRIFY:4d6",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SELF_DARK_2|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|INVISIBLE|COLD_BLOOD|TAKE_ITEM|PASS_WALL|EVIL|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|HOLD|DRAIN_MANA|BLIND|S_UNDEAD|CONF|SCARE|TELE_TO|TPORT|BRAIN_SMASH|ANIM_DEAD|BA_NETH|DARKNESS|SHRIEK",,"$An aura of hatred, cowardice and falsehood surrounds you as this 
 $cloaked figure floats towards you.
 この浮遊する影があなたに忍び寄るにつれ、憎しみと臆病さと虚偽の
 オーラがあなたを包み込む。",,,,,,,
@@ -4810,7 +4810,7 @@ $resembles a gargantuan octopus and its evil is almost tangible.
 776,"アーチリッチ","Archlich","L","B",55,255,255,255,0,0,64,2,0,20000,0,0,0,0,4,120,20,120,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"TOUCH:EXP_VAMP:1d16
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:8d12
-TOUCH:LOSE_DEX:8d12",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_1D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|PASS_WALL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_HI_UNDEAD|S_UNDEAD|FORGET|TPORT|HEAL|S_KIN|S_DEMON|BA_NETH|ANIM_DEAD|DISPEL",,"$A lich who has reached its ultimate evolutionary stage: a completely 
+TOUCH:LOSE_DEX:8d12",,,"JZ#","FORCE_SLEEP|FORCE_MAXHP|SMART|RES_TELE|CAN_FLY|ONLY_ITEM|DROP_4D2|DROP_1D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|PASS_WALL|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|S_HI_UNDEAD|S_UNDEAD|FORGET|TPORT|HEAL|S_KIN|S_DEMON|BA_NETH|ANIM_DEAD|DISPEL",,"$A lich who has reached its ultimate evolutionary stage: a completely 
 $immaterial state.
 進化の最終段階に達したリッチで、完全に非物質化している。",,,,,,,
 777,"猫の女神『バスト』","Bast, Goddess of Cats","f","o",81,255,255,255,0,0,62,3,0,30500,0,0,0,0,9,130,100,200,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:CONFUSE:12d12
@@ -4850,7 +4850,7 @@ HIT:CONFUSE:8d8",,,"JZ#暗黒の公子ヴラド・ドラキュラ
 JZ#ブラム・ストーカーの「吸血鬼ドラキュラ」で有名になった吸血鬼
 JZ#ですね。
 JZ#“ヴラド・ドラキュラ”という呼び方はあまり見かけませんが…… by 久留さん
-JZ#名前は閑丸さんによる","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|EVIL|UNDEAD|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN|DARKNESS|BA_DARK",,"$The most feared of all vampires, the Prince of Darkness himself.
+JZ#名前は閑丸さんによる","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_NETH|RES_DARK|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_NETH|S_KIN|DARKNESS|BA_DARK",,"$The most feared of all vampires, the Prince of Darkness himself.
 ヴァンパイアの中で最も恐れられている、闇の貴公子その人である。",,,,,,,
 781,"究極ビホルダー","Ultimate beholder","e","o",80,255,255,255,0,0,66,4,0,18000,0,0,0,0,3,120,30,80,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_40:2d5
 GAZE:LOSE_INT:2d6
@@ -4990,7 +4990,7 @@ $She is certainly the loveliest, most civilized of (all Amberites).""
 792,"ドリードロード『ツエラクス』","Tselakus, the Dreadlord","G","R",44,255,255,255,0,0,68,2,0,35000,0,0,0,0,7,130,20,150,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:10d10
 HIT:HURT:10d10
 HIT:LOSE_STR:4d6
-HIT:LOSE_STR:4d6",,,"J0#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|CAN_FLY|HAS_DARK_2|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|UNDEAD|IM_COLD|RES_NETH|AURA_COLD|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|CONF|BA_DARK|BA_NETH|S_AMBERITES|S_HI_UNDEAD|S_KIN",,"$This huge affront to existence twists and tears at the fabric of space.
+HIT:LOSE_STR:4d6",,,"J0#","UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|CAN_FLY|HAS_DARK_2|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|EVIL|IM_COLD|RES_NETH|AURA_COLD|IM_POIS|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|CONF|BA_DARK|BA_NETH|S_AMBERITES|S_HI_UNDEAD|S_KIN",,"$This huge affront to existence twists and tears at the fabric of space.
 $Darkness itself recoils from the touch of Tselakus as he leaves a trail
 $of death and destruction. Mighty claws rend reality as he
 $annihilates all in his path to your soul!
@@ -5063,7 +5063,7 @@ HIT:LOSE_STR:4d6",,,"J0#
 J0#
 J0#(コメント)
 J0# 名前は monotone さんの考案です。
-J0#","FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SWIM|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_DARK|RES_NETH|RES_TELE|NO_CONF|NO_SLEEP|KILL_WALL|NO_FEAR","1_IN_3|TELE_TO|BLIND|HOLD|CONF|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_MANA|BA_NETH|S_UNDEAD",,"$A humanoid form, black as night, advancing steadily and unstoppably.  
+J0#","FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SWIM|ONLY_ITEM|DROP_1D2|DROP_2D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|EVIL|IM_COLD|IM_POIS|RES_DARK|RES_NETH|RES_TELE|NO_CONF|NO_SLEEP|KILL_WALL|NO_FEAR","1_IN_3|TELE_TO|BLIND|HOLD|CONF|CAUSE_3|CAUSE_4|DRAIN_MANA|BRAIN_SMASH|BA_MANA|BA_NETH|S_UNDEAD",,"$A humanoid form, black as night, advancing steadily and unstoppably.  
 $Flee!
 人間のような姿、闇のように黒く、ためらうことなく進み、決して止まる
 ことはない。恐ろしい！",,,,,,,
@@ -5105,7 +5105,7 @@ TOUCH:DR_MANA:6d16",,,"JZ#","PASS_WALL|NO_CONF|NO_SLEEP|NONLIVING|IM_ACID|CAN_FL
 804,"エンペラー・リッチ『ベクナ』","Vecna, the Emperor Lich","L","y",55,255,255,255,0,0,83,2,0,30000,0,0,0,0,15,130,20,85,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"TOUCH:EXP_80
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,"J0#","UNIQUE|MALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD",,"$He is a highly cunning, extremely magical being, spoken of in legends.  
+TOUCH:LOSE_DEX:2d12",,,"J0#","UNIQUE|MALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD",,"$He is a highly cunning, extremely magical being, spoken of in legends.  
 $This ancient shadow of death wilts any living thing it passes.
 彼は伝説として語られるほどの、秀でたずる賢さと強力な魔力を持った
 モンスターだ。この古代の死の影は近づく生物はなんでも溶かしてしまう。",,,,,,,
@@ -5451,7 +5451,7 @@ $laughed.""
 825,"『アングマールの魔王』","The Witch-King of Angmar","W","D",76,5,255,255,0,0,80,3,0,42000,0,0,0,0,12,130,90,120,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:10d10
 HIT:HURT:10d10
 HIT:EXP_80:5d10
-TOUCH:DR_MANA:6d10",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_2|TELE_AWAY|BLIND|HOLD|SCARE|CAUSE_3|BRAIN_SMASH|BO_MANA|BA_NETH|PSY_SPEAR|S_KIN|S_HI_UNDEAD|S_HI_DRAGON|S_MONSTERS|ANIM_DEAD",,"$The Chief of the Ringwraiths.  A fell being of devastating power.  His 
+TOUCH:DR_MANA:6d10",,,"JZ#","UNIQUE|MALE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_2|TELE_AWAY|BLIND|HOLD|SCARE|CAUSE_3|BRAIN_SMASH|BO_MANA|BA_NETH|PSY_SPEAR|S_KIN|S_HI_UNDEAD|S_HI_DRAGON|S_MONSTERS|ANIM_DEAD",,"$The Chief of the Ringwraiths.  A fell being of devastating power.  His 
 $spells are lethal and his combat blows crushingly hard.  He moves at 
 $speed, and commands legions of evil to do his bidding.  It is said that he 
 $is fated never to die by the hand of mortal man.
@@ -5519,7 +5519,7 @@ JZ#従えている。 by 藤岡さん","FORCE_SLEEP|FORCE_MAXHP|DROP_CORPSE|RAND_25|FRIEND
 830,"骸骨の帝王『カントラス』","Cantoras, the Skeletal Lord","s","B",55,1,255,255,0,0,84,2,0,45000,0,0,0,0,13,140,20,120,80,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"GAZE:EXP_80
 GAZE:EXP_80
 TOUCH:POISON:3d5
-TOUCH:POISON:3d5",,,"J0#","UNIQUE|MALE|CAN_SPEAK|DROP_SKELETON|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|POWERFUL","1_IN_1|TELE_TO|SLOW|SCARE|CAUSE_4|BRAIN_SMASH|BO_ICEE|BO_MANA|BA_WATE|BA_NETH|S_HI_UNDEAD|ANIM_DEAD|PSY_SPEAR",,"$A legion of evil undead druj animating the skeleton of a once mighty 
+TOUCH:POISON:3d5",,,"J0#","UNIQUE|MALE|CAN_SPEAK|DROP_SKELETON|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_FIRE|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR|POWERFUL","1_IN_1|TELE_TO|SLOW|SCARE|CAUSE_4|BRAIN_SMASH|BO_ICEE|BO_MANA|BA_WATE|BA_NETH|S_HI_UNDEAD|ANIM_DEAD|PSY_SPEAR",,"$A legion of evil undead druj animating the skeleton of a once mighty 
 $sorcerer.  His power is devastating and his speed unmatched in the 
 $underworld.  Flee his wrath!
 かつて偉大なソーサラーだった者の骸骨に生命を吹き込んでできた、邪悪の
@@ -5673,7 +5673,7 @@ JZ# ロメロＪ...だめじゃん","RAND_25|EVIL|DROP_2D2|DROP_GOOD|ONLY_ITEM|RES_TELE|D
 844,"不死なる『カシェイ』","Kaschei the Immortal","L","v",55,255,255,255,0,0,74,3,0,45000,0,0,0,0,9,130,100,100,0,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:UN_BONUS:6d8
 HIT:UN_BONUS:6d8
 HIT:HURT:5d10
-HIT:DR_MANA:10d10",,,"JZ#","UNIQUE|MALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|TPORT|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BA_MANA|BO_MANA|BA_FIRE|DISPEL|PSY_SPEAR|S_MONSTERS|S_DEMON|S_HI_UNDEAD|HAND_DOOM|ANIM_DEAD",,"$A stench of corruption and decay surrounds this sorcerer, who has clearly 
+HIT:DR_MANA:10d10",,,"JZ#","UNIQUE|MALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ONLY_ITEM|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|DROP_GREAT|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_3|TPORT|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BA_MANA|BO_MANA|BA_FIRE|DISPEL|PSY_SPEAR|S_MONSTERS|S_DEMON|S_HI_UNDEAD|HAND_DOOM|ANIM_DEAD",,"$A stench of corruption and decay surrounds this sorcerer, who has clearly 
 $risen from the grave to continue his foul plots and schemes.
 腐敗と汚濁の悪臭を漂わせるこの魔法使いは、その忌まわしい計画と陰謀を続行
 しようと墓から蘇ってきた。",,,,,,,
@@ -6033,7 +6033,7 @@ $He is poor at treating women.
 874,"幽体ワイアーム","Spectral Wyrm","D","w",58,255,255,255,0,0,77,4,0,35000,0,0,0,0,7,130,40,200,255,28,28,28,28,28,28,3000,200,2287000,500,3000,200,2287000,500,"CLAW:HURT:10d12
 CLAW:HURT:10d12
 CLAW:HURT:10d12
-BITE:UN_BONUS:8d8",,,,"FORCE_MAXHP|EVIL|UNDEAD|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|POWERFUL|MOVE_BODY|PASS_WALL|INVISIBLE|NO_CONF|NO_SLEEP|RES_TELE|IM_POIS|IM_COLD|RES_NETH|RES_NEXU|RES_DISE|RIDING","1_IN_3|BR_NEXU|BR_NETH|BR_DISE|S_HI_DRAGON|SCARE|BLINK|SHRIEK",,"$The tortured soul of a once powerful wyrm.
+BITE:UN_BONUS:8d8",,,,"FORCE_MAXHP|EVIL|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_3D2|DROP_4D2|DROP_GOOD|POWERFUL|MOVE_BODY|PASS_WALL|INVISIBLE|NO_CONF|NO_SLEEP|RES_TELE|IM_POIS|IM_COLD|RES_NETH|RES_NEXU|RES_DISE|RIDING","1_IN_3|BR_NEXU|BR_NETH|BR_DISE|S_HI_DRAGON|SCARE|BLINK|SHRIEK",,"$The tortured soul of a once powerful wyrm.
 かつて強大な力を誇っていたワイアームの怨霊だ。",,,,,,,
 875,"ストームトロル","Storm troll","T","b",28,255,255,255,0,0,51,2,0,3500,0,0,0,0,0,120,20,110,100,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:ELEC:3d10
 BITE:HURT:1d22
@@ -6053,7 +6053,7 @@ $seeks livelier prey.
 878,"『ディオ・ブランドー』","Dio Brando","V","y",54,9,255,4,0,0,66,4,0,33333,0,0,0,0,7,130,20,166,10,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CLAW:EXP_VAMP:10d10
 CLAW:EXP_VAMP:10d10
 SPIT:BLIND:10d10
-HIT:LOSE_CON:10d10",,"146:0:0:100",,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TIME|RES_TELE|REFLECTING","1_IN_4|SCARE|S_KIN|WORLD|TELE_TO",,"石仮面の力で不死の吸血鬼となったディオは冒険者を餌としか見ていない。
+HIT:LOSE_CON:10d10",,"146:0:0:100",,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|SMART|CAN_SPEAK|CAN_FLY|AURA_COLD|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP|RES_TIME|RES_TELE|REFLECTING","1_IN_4|SCARE|S_KIN|WORLD|TELE_TO",,"石仮面の力で不死の吸血鬼となったディオは冒険者を餌としか見ていない。
 『ザ・ワールド』に気をつけろ！「奴のスタンドの正体は分からないが、
 至近距離でしか使えないことは確かだッ」",,,,,,,
 879,"王蟲","Ohmu","w","g",89,255,255,255,0,0,60,20,0,2300,0,0,0,0,3,110,20,90,30,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"CRUSH:SUPERHURT:8d6",,,,"IM_FIRE|RES_PLAS|IM_COLD|IM_POIS|RES_TELE|KILL_WALL|CAN_SWIM|DROP_CORPSE|MOVE_BODY|FORCE_MAXHP|ONLY_GOLD|DROP_2D2|DROP_3D2","1_IN_3|SPECIAL",,"怒りに狂った王蟲の群は障気をまき散らしながら突進してくる。",,,,,,,
@@ -6090,7 +6090,7 @@ TOUCH:ACID:2d3",,,,"NEVER_MOVE|COLD_BLOOD|CAN_SWIM|IM_ELEC|IM_ACID|IM_POIS|NO_FE
 穏やかな水たまりだ。",,,,,,,
 886,"闇のエルフの影","Dark elven shade","h","w",10,1,255,255,0,0,51,2,0,6000,0,0,0,0,0,130,20,50,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"TOUCH:EXP_VAMP:1d16
 TOUCH:DR_MANA:3d10
-TOUCH:LOSE_DEX:8d8TOUCH:LOSE_INT:8d8",,,,"MALE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_4D2|SMART|INVISIBLE|COLD_BLOOD|UNDEAD|EVIL|HURT_LITE|RES_NETH|RES_DARK|NO_CONF|NO_SLEEP","1_IN_2|HEAL|BLINK|BLIND|CONF|CAUSE_3|DARKNESS|ANIM_DEAD|SHRIEK|TELE_AWAY|BA_DARK|DRAIN_MANA|S_MONSTER|S_UNDEAD|S_DEMON|S_KIN",,"$A dark elven figure that glows with an inner light.
+TOUCH:LOSE_DEX:8d8TOUCH:LOSE_INT:8d8",,,,"MALE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_4D2|SMART|INVISIBLE|COLD_BLOOD|EVIL|HURT_LITE|RES_NETH|RES_DARK|NO_CONF|NO_SLEEP","1_IN_2|HEAL|BLINK|BLIND|CONF|CAUSE_3|DARKNESS|ANIM_DEAD|SHRIEK|TELE_AWAY|BA_DARK|DRAIN_MANA|S_MONSTER|S_UNDEAD|S_DEMON|S_KIN",,"$A dark elven figure that glows with an inner light.
 内部から光を発する暗いエルフの影だ。",,,,,,,
 887,"魔力ハウンド","Mana hound","Z","B",103,255,255,255,0,0,35,4,0,900,0,0,0,0,-1,120,30,100,0,18,18,18,18,18,18,165,10,55,3,165,10,55,3,"BITE:HURT:25d1
 BITE:HURT:25d1
@@ -6231,7 +6231,7 @@ TOUCH:PARALYZE:3d3",,,,"NEVER_MOVE|ONLY_GOLD|DROP_1D2|DROP_90|MULTIPLY|EMPTY_MIN
 912,"宙に浮かぶ宝珠","Floating orb","*","B",93,255,255,255,0,0,15,2,0,50,0,0,0,0,-1,120,25,25,5,14,14,14,14,14,14,170,0,60,0,160,0,50,0,,,,,"NEVER_BLOW|NEVER_MOVE|NO_SLEEP|NO_FEAR|NO_CONF|CAN_FLY|IM_COLD|IM_FIRE|IM_POIS|IM_ACID|ONLY_ITEM|DROP_60|NONLIVING","1_IN_1|MISSILE",,"$A metallic ball floating in the air, that turns to track you with evil
 $intent.
 空中に浮ぶ金属製の宝珠だ。邪悪な意思を持ち、常にあなたに攻撃の狙いを付けている。",,,,,,,
-913,"アンデッド・チョウチンアンコウ","Undead devilfish","l","v",84,255,255,255,0,0,15,250,0,75,0,0,0,0,-1,105,10,20,5,14,14,14,14,14,14,170,0,60,0,160,0,50,0,,,,"削除予定","NEVER_BLOW|ATTR_MULTI|AQUATIC|INVISIBLE|NO_CONF|UNDEAD|DROP_CORPSE|RES_WATE|RES_NETH|RES_TIME|EVIL","1_IN_8|BR_NETH|BR_DISE|BR_TIME|BR_NEXU|BR_POIS",,"$A devilfish brought back from the dead.
+913,"アンデッド・チョウチンアンコウ","Undead devilfish","l","v",84,255,255,255,0,0,15,250,0,75,0,0,0,0,-1,105,10,20,5,14,14,14,14,14,14,170,0,60,0,160,0,50,0,,,,"削除予定","NEVER_BLOW|ATTR_MULTI|AQUATIC|INVISIBLE|NO_CONF|DROP_CORPSE|RES_WATE|RES_NETH|RES_TIME|EVIL","1_IN_8|BR_NETH|BR_DISE|BR_TIME|BR_NEXU|BR_POIS",,"$A devilfish brought back from the dead.
 死から蘇ったチョウチンアンコウだ。",,,,,,,
 914,"ホビット『牛うなり』","Bullroarer the Hobbit","h","b",3,3,255,1,0,0,13,255,0,90,0,0,0,0,0,120,16,8,10,13,13,13,13,13,13,145,0,40,0,145,0,40,0,"HIT:HURT:4d6
 HIT:HURT:4d6
@@ -6318,7 +6318,7 @@ $He is plotting to conquer the Mushroom Kingdom.
 929,"巨大サイバーワイアーム天使悪魔リッチ","Greater Cyber Wyrm Angel Daemon Lich","N","W",96,255,255,255,0,0,87,50,0,40000,0,0,0,0,17,150,50,200,1,28,28,28,28,28,28,1000,0,1000000,0,1000,0,1000000,0,"SHOW:SHATTER:1d200
 INSULT:EXP_VAMP:1d200
 DROOL:UN_POWER:1d100
-WAIL:DR_MANA:1d100",,,,"DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ATTR_MULTI|RAND_25|RAND_50|RIDING|ONLY_ITEM|DROP_60|DROP_90|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|STUPID|SMART|CAN_SPEAK|REFLECTING|INVISIBLE|COLD_BLOOD|EMPTY_MIND|WEIRD_MIND|REGENERATE|SHAPECHANGER|ATTR_ANY|POWERFUL|AURA_FIRE|AURA_ELEC|OPEN_DOOR|BASH_DOOR|PASS_WALL|KILL_WALL|TAKE_ITEM|KILL_ITEM|UNDEAD|EVIL|ANIMAL|GOOD|AURA_COLD|NONLIVING|HURT_ROCK|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|HUMAN|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_STUN|NO_CONF|NO_SLEEP|CAN_SWIM|CAN_FLY|UNIQUE2|WILD_SHORE|WILD_OCEAN|WILD_WASTE|WILD_WOOD|WILD_VOLCANO|WILD_MOUNTAIN|WILD_GRASS|WILD_ALL|SELF_LITE_1|SELF_LITE_2","1_IN_3|SHRIEK|DISPEL|ROCKET|SHOOT|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BA_NUKE|BR_NUKE|BA_CHAO|BR_DISI|BA_ACID|BA_ELEC|BA_FIRE|BA_COLD|BA_POIS|BA_NETH|BA_WATE|BA_MANA|BA_DARK|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|CAUSE_1|CAUSE_2|CAUSE_3|CAUSE_4|BO_ACID|BO_ELEC|BO_FIRE|BO_COLD|BO_NETH|BO_WATE|BO_MANA|BO_PLAS|BO_ICEE|MISSILE|BLIND|CONF|SLOW|HOLD|HASTE|HAND_DOOM|HEAL|INVULNER|BLINK|TPORT|WORLD|TELE_TO|TELE_AWAY|TELE_LEVEL|PSY_SPEAR|DARKNESS|TRAPS|FORGET|ANIM_DEAD|S_KIN|S_CYBER|S_MONSTER|S_MONSTERS|S_ANT|S_SPIDER|S_HOUND|S_HYDRA|S_DEMON|S_UNDEAD|S_DRAGON|S_HI_UNDEAD|S_AMBERITES|S_UNIQUE|BA_LITE",,,,,,,,,
+WAIL:DR_MANA:1d100",,,,"DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ELDRITCH_HORROR|ATTR_MULTI|RAND_25|RAND_50|RIDING|ONLY_ITEM|DROP_60|DROP_90|DROP_1D2|DROP_2D2|DROP_3D2|DROP_4D2|DROP_GOOD|STUPID|SMART|CAN_SPEAK|REFLECTING|INVISIBLE|COLD_BLOOD|EMPTY_MIND|WEIRD_MIND|REGENERATE|SHAPECHANGER|ATTR_ANY|POWERFUL|AURA_FIRE|AURA_ELEC|OPEN_DOOR|BASH_DOOR|PASS_WALL|KILL_WALL|TAKE_ITEM|KILL_ITEM|EVIL|ANIMAL|GOOD|AURA_COLD|NONLIVING|HURT_ROCK|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|HUMAN|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|NO_FEAR|NO_STUN|NO_CONF|NO_SLEEP|CAN_SWIM|CAN_FLY|UNIQUE2|WILD_SHORE|WILD_OCEAN|WILD_WASTE|WILD_WOOD|WILD_VOLCANO|WILD_MOUNTAIN|WILD_GRASS|WILD_ALL|SELF_LITE_1|SELF_LITE_2","1_IN_3|SHRIEK|DISPEL|ROCKET|SHOOT|BR_ACID|BR_ELEC|BR_FIRE|BR_COLD|BR_POIS|BR_NETH|BR_LITE|BR_DARK|BR_CONF|BR_SOUN|BR_CHAO|BR_DISE|BR_NEXU|BR_TIME|BR_INER|BR_GRAV|BR_SHAR|BR_PLAS|BR_WALL|BR_MANA|BA_NUKE|BR_NUKE|BA_CHAO|BR_DISI|BA_ACID|BA_ELEC|BA_FIRE|BA_COLD|BA_POIS|BA_NETH|BA_WATE|BA_MANA|BA_DARK|DRAIN_MANA|MIND_BLAST|BRAIN_SMASH|CAUSE_1|CAUSE_2|CAUSE_3|CAUSE_4|BO_ACID|BO_ELEC|BO_FIRE|BO_COLD|BO_NETH|BO_WATE|BO_MANA|BO_PLAS|BO_ICEE|MISSILE|BLIND|CONF|SLOW|HOLD|HASTE|HAND_DOOM|HEAL|INVULNER|BLINK|TPORT|WORLD|TELE_TO|TELE_AWAY|TELE_LEVEL|PSY_SPEAR|DARKNESS|TRAPS|FORGET|ANIM_DEAD|S_KIN|S_CYBER|S_MONSTER|S_MONSTERS|S_ANT|S_SPIDER|S_HOUND|S_HYDRA|S_DEMON|S_UNDEAD|S_DRAGON|S_HI_UNDEAD|S_AMBERITES|S_UNIQUE|BA_LITE",,,,,,,,,
 930,"超人ロックのクローン","Clone of Locke the Superman","p","G",0,9,255,255,0,0,65,30,0,18000,0,0,0,0,3,130,100,0,20,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"HIT:HURT:14d14
 HIT:HURT:14d14
 HIT:HURT:14d14
@@ -6380,7 +6380,7 @@ $He stares at you menacingly.
 939,"ディアの『ホアルムラス』","Hoarmurath of Dir","W","D",76,255,255,255,0,0,52,3,0,20000,0,0,0,0,9,120,90,100,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:HURT:10d10
 HIT:HURT:5d5
 TOUCH:EXP_80
-WAIL:TERRIFY",,,,"UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|MIND_BLAST|BO_COLD|BA_COLD|BA_NETH|S_UNDEAD|S_HI_UNDEAD",,"$A Ringwraith powerful in fell sorcery, he yearns for the life he has lost 
+WAIL:TERRIFY",,,,"UNIQUE|MALE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|SMART|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|MIND_BLAST|BO_COLD|BA_COLD|BA_NETH|S_UNDEAD|S_HI_UNDEAD",,"$A Ringwraith powerful in fell sorcery, he yearns for the life he has lost 
 $for a life of everlasting torment.
 堕落した魔法使いである強力な指輪の幽鬼だ。彼は魂を失って永劫の苦しみの中に
 いるため、新たな魂を心から渇望している。",,,,,,,
@@ -6585,7 +6585,7 @@ BITE:ELEC:6d8",,,,"BASH_DOOR|CAN_FLY|AURA_ELEC|SELF_LITE_2|ANIMAL|IM_ELEC|DROP_C
 982,"デュラハン","Durahan","p","v",0,5,255,255,0,0,45,3,0,3900,0,0,0,0,-1,120,30,0,0,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:EXP_80:3d6
 HIT:HURT:5d8
 HIT:HURT:5d8
-HIT:CONFUSE:6d8",,,,"FORCE_MAXHP|COLD_BLOOD|OPEN_DOOR|CAN_FLY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_5|BLIND|HOLD|SCARE|CAUSE_4|BO_NETH|S_UNDEAD",,"この不吉なモンスターは自分の首を脇に抱え、死を告げにやってくる。",,,,,,,
+HIT:CONFUSE:6d8",,,,"FORCE_MAXHP|COLD_BLOOD|OPEN_DOOR|CAN_FLY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP","1_IN_5|BLIND|HOLD|SCARE|CAUSE_4|BO_NETH|S_UNDEAD",,"この不吉なモンスターは自分の首を脇に抱え、死を告げにやってくる。",,,,,,,
 983,"ヒバゴン","Hibagon","Y","r",102,255,255,255,0,0,14,10,0,30,400,343,0,0,-1,110,20,30,60,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"CLAW:HURT:1d7
 CLAW:HURT:1d7
 BITE:HURT:2d7",,,,"OPEN_DOOR|BASH_DOOR|WILD_MOUNTAIN|DROP_CORPSE|ANIMAL",,,"広島県の比婆山一帯に現れる「サルに似ているが、サルよりも大きな」謎の動物。",,,,,,,
@@ -6683,7 +6683,7 @@ $Mitsukuni of the Yellow Gate, Grand Duke of Mito
 1003,"ゴースト『Ｑ』","The Ghost 'Q'","G","w",100,255,255,7,0,0,15,9,0,150,0,0,0,0,-1,140,10,30,10,14,14,14,14,14,14,150,0,30,0,0,0,0,0,"TOUCH:EAT_FOOD:1d1
 TOUCH:EAT_FOOD:1d1
 TOUCH:EAT_FOOD:1d1
-TOUCH:EAT_FOOD:1d1",,,,"UNIQUE|MALE|CAN_SWIM|CAN_FLY|RAND_50|RAND_25|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_90|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|RES_NETH|UNDEAD|NO_SLEEP",,,"$He has only three hair. He is careless, but kind, and always a bit hungry.
+TOUCH:EAT_FOOD:1d1",,,,"UNIQUE|MALE|CAN_SWIM|CAN_FLY|RAND_50|RAND_25|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_90|DROP_GOOD|INVISIBLE|COLD_BLOOD|PASS_WALL|RES_NETH|NO_SLEEP",,,"$He has only three hair. He is careless, but kind, and always a bit hungry.
 毛が三本しかないんだよ。ずっこけなんだ優しい奴さ。
 いつもおなかを空かせているんだよ。",,,,,,,
 1004,"異世界からの勇者『ピップ』","Pip, the Braver from Another World","p","u",0,5,255,0,0,0,35,5,0,1800,0,0,0,0,-1,110,20,0,15,18,18,18,18,18,18,176,0,67,0,0,0,0,0,"HIT:HURT:4d5
@@ -6714,7 +6714,7 @@ HIT:HURT:2d5",,,,"MALE|DROP_CORPSE|DROP_SKELETON|HAS_LITE_2|FORCE_SLEEP|FORCE_MA
 1009,"ウォウズの犬王『ドワール』","Dwar, Dog Lord of Waw","W","D",76,255,255,255,0,0,44,3,0,13000,0,0,0,0,0,120,90,90,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:5d5
 HIT:HURT:5d5
 BITE:EXP_40:2d4
-WAIL:TERRIFY",,,,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_FIRE|IM_COLD|RES_NETH|RES_DARK|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|BA_FIRE|BA_NETH|S_MONSTERS|S_UNDEAD|S_HOUND",,"$Dwar had a special affinity for dogs in life, and can still command them 
+WAIL:TERRIFY",,,,"UNIQUE|MALE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_FIRE|IM_COLD|RES_NETH|RES_DARK|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|BA_FIRE|BA_NETH|S_MONSTERS|S_UNDEAD|S_HOUND",,"$Dwar had a special affinity for dogs in life, and can still command them 
 $at will.  He howls manically as he reaches out to destroy you.
 ドワールは生まれたときから特別に犬に好かれる性質を持っていた人間で、
 望みのままに犬に命令を与えることができる。冒険者を倒そうと近寄りながら、
@@ -6727,7 +6727,7 @@ $And you will win The Can of Toys!
 $And you will win The Can of Toys!
 金なら1匹、銀なら5匹でもれなくおもちゃのカンヅメが当たります。",,,,,,,
 1012,"自縛霊","Jibaku ghost","G","W",100,255,255,255,0,0,8,2,0,20,0,0,0,0,-1,110,12,10,10,11,11,11,11,11,11,170,10,60,3,160,10,50,3,"HIT:HURT:2d5
-TOUCH:LOSE_WIS",,,,"NEVER_MOVE|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|RACE_EGO|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP",,,"$A lost soul of an adventurer still lingering in this world.
+TOUCH:LOSE_WIS",,,,"NEVER_MOVE|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|RACE_EGO|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP",,,"$A lost soul of an adventurer still lingering in this world.
 この世に未練がある冒険者の魂のなれの果てだ。",,,,,,,
 1013,"『ロレント』","Rolento","p","u",0,4,255,4,0,0,38,7,0,4000,0,0,0,0,0,150,70,0,4,19,19,19,19,19,19,180,0,81,0,0,0,0,0,"HIT:HURT:8d4
 KICK:HURT:8d4",,,"
@@ -6797,7 +6797,7 @@ $and he seems to have studied magic too, and is a master of setting traps.
 1025,"三途の川の渡し守『カロン』","Charon, Boatman of the Styx","W","D",100,255,255,255,0,0,54,3,0,25000,0,0,0,0,3,120,30,100,10,23,23,23,23,23,23,193,0,71,0,0,0,0,0,"WAIL:LOSE_ALL
 TOUCH:UN_POWER
 HIT:EXP_80:8d12
-HIT:EXP_80:8d12",,,,"UNIQUE|MALE|SMART|FORCE_SLEEP|FORCE_MAXHP|ONLY_GOLD|DROP_3D2|DROP_4D2|COLD_BLOOD|PASS_WALL|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_STUN|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|DARKNESS|BO_ICEE|BO_NETH|BA_COLD|BA_NETH|BA_WATE|S_UNDEAD",,"$The ferryman across the river Styx to the land of the dead. 
+HIT:EXP_80:8d12",,,,"UNIQUE|MALE|SMART|FORCE_SLEEP|FORCE_MAXHP|ONLY_GOLD|DROP_3D2|DROP_4D2|COLD_BLOOD|PASS_WALL|OPEN_DOOR|BASH_DOOR|MOVE_BODY|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_STUN|NO_CONF|NO_SLEEP|RES_TELE","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|DARKNESS|BO_ICEE|BO_NETH|BA_COLD|BA_NETH|BA_WATE|S_UNDEAD",,"$The ferryman across the river Styx to the land of the dead. 
 $He wishes to receive payment for your entry.
 三途の川の死者の国への渡し守だ。
 あなたを乗せて渡し賃をもらおうと考えている。",,,,,,,
@@ -6969,7 +6969,7 @@ HIT:HURT:2d10",,,,"FRIENDS|DROP_60|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EVIL|RES_DARK
 1058,"エルダー・バンパイア","Elder vampire","V","B",54,255,255,255,0,0,54,3,0,7500,0,0,0,0,0,120,20,90,10,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
 HIT:HURT:4d6
 BITE:EXP_VAMP:6d8
-BITE:DR_MANA:6d8",,,,"FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_TELE|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BA_NETH|BRAIN_SMASH|DARKNESS|BO_NETH|S_UNDEAD",,"$A terrible robed undead figure, this creature has existed in its 
+BITE:DR_MANA:6d8",,,,"FORCE_SLEEP|FORCE_MAXHP|CAN_FLY|DROP_60|DROP_4D2|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|REGENERATE|RES_TELE|EVIL|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_3|BLIND|HOLD|SCARE|CAUSE_3|CAUSE_4|DRAIN_MANA|BA_NETH|BRAIN_SMASH|DARKNESS|BO_NETH|S_UNDEAD",,"$A terrible robed undead figure, this creature has existed in its 
 $unlife for many centuries by stealing the life of others. It can 
 $summon the very shades of its victims from beyond the grave to 
 $come enslaved to its aid. 
@@ -6977,7 +6977,7 @@ $come enslaved to its aid.
 来たのだろう。その犠牲になった者達の霊を、その死体横たわる墓地から
 奴隷が如く呼び寄せることもできるのだ。",,,,,,,
 1059,"イークの大統領『ノボータ・ケシータ』","Noborta Kesyta, the Yeek President","y","w",34,11,255,255,0,0,0,255,0,0,0,0,0,95,-1,109,50,15,4,11,10,8,11,10,12,163,0,55,0,163,0,55,0,"HIT:EAT_GOLD:1d3",,,"JZ#
-F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |","UNIQUE|MALE|CAN_SPEAK|UNDEAD|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|OPEN_DOOR|BASH_DOOR|RES_NETH|NO_CONF|NO_SLEEP","1_IN_4|TELE_AWAY",,"$He weighs 127 kg. He is the president of some remote country. 
+F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |","UNIQUE|MALE|CAN_SPEAK|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|OPEN_DOOR|BASH_DOOR|RES_NETH|NO_CONF|NO_SLEEP","1_IN_4|TELE_AWAY",,"$He weighs 127 kg. He is the president of some remote country. 
 彼は全ての街に一億ゴールド寄付した。",,,,,,,
 1060,"『森トロル』","Mori Troll","T","G",28,11,255,255,0,0,0,255,0,0,0,0,0,95,-1,109,50,15,4,10,10,10,10,10,10,175,0,103,0,175,0,103,0,"HIT:HURT:1d3",,,"F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |","UNIQUE|MALE|CAN_SPEAK|HUMAN|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,"$Brazen faced this creature is more impudent than normal troll.
 面の皮は普通のトロルよりも厚い。",,,,,,,
@@ -7033,7 +7033,7 @@ her head.
 1068,"混沌のサマ師『ディオニソス』","Dionysus, the Munchkin of Chaos","G","g",100,255,255,255,0,0,55,11,0,10000,0,0,0,0,3,154,100,162,40,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"SHOOT:HURT:16d6
 SLASH:EXP_VAMP:6d8
 SLASH:EXP_VAMP:6d8
-TOUCH:EAT_ITEM",,,,"UNIQUE|MALE|CAN_FLY|RAND_25|RAND_50|FORCE_MAXHP|CAN_SPEAK|SMART|REGENERATE|NO_CONF|NO_STUN|IM_ACID|IM_ELEC|IM_FIRE|IM_POIS|IM_COLD|RES_LITE|RES_NETH|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|TAKE_ITEM|DROP_CORPSE|INVISIBLE|PASS_WALL|UNDEAD|EVIL","1_IN_2|SHOOT|TELE_AWAY|TPORT|HASTE|BLINK|HEAL",,"$He is one of the greatest trickster. Even greatest warrior cannot
+TOUCH:EAT_ITEM",,,,"UNIQUE|MALE|CAN_FLY|RAND_25|RAND_50|FORCE_MAXHP|CAN_SPEAK|SMART|REGENERATE|NO_CONF|NO_STUN|IM_ACID|IM_ELEC|IM_FIRE|IM_POIS|IM_COLD|RES_LITE|RES_NETH|RES_SHAR|RES_SOUN|RES_CHAO|RES_NEXU|RES_DISE|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|TAKE_ITEM|DROP_CORPSE|INVISIBLE|PASS_WALL|EVIL","1_IN_2|SHOOT|TELE_AWAY|TPORT|HASTE|BLINK|HEAL",,"$He is one of the greatest trickster. Even greatest warrior cannot
 $ defeat him, and his storm of holy might arrows from the dark have
 $ defeated numerous victims.
 彼はこの世界で最も偉大ないかさま師だ。いかなる剣の達人も彼に深い傷を
@@ -7478,7 +7478,7 @@ $lightning speed and its powers make it a tornado of death and destruction.
 1157,"円環の女神『まどか』","Madoka, Goddess of Circle","L","y",55,255,1157,255,0,0,83,2,0,30000,0,0,0,0,15,130,20,85,50,28,28,28,28,28,28,170,0,60,0,160,0,50,0,"TOUCH:EXP_80
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,"J0#","UNIQUE|FEMALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|UNDEAD|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI","1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD",,"$He is a highly cunning, extremely magical being, spoken of in legends.  
+TOUCH:LOSE_DEX:2d12",,,"J0#","UNIQUE|FEMALE|DROP_SKELETON|CAN_SPEAK|RES_TELE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|POWERFUL|ONLY_ITEM|DROP_2D2|DROP_4D2|DROP_GOOD|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|EVIL|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI","1_IN_2|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD",,"$He is a highly cunning, extremely magical being, spoken of in legends.  
 $This ancient shadow of death wilts any living thing it passes.
 彼は伝説として語られるほどの、秀でたずる賢さと強力な魔力を持った
 モンスターだ。この古代の死の影は近づく生物はなんでも溶かしてしまう。",,,,,,,

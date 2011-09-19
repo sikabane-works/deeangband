@@ -334,24 +334,22 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			}
 
 			/* Slay Undead */
-			if ((have_flag(flgs, TR_SLAY_UNDEAD)) &&
-			    (r_ptr->flags3 & RF3_UNDEAD))
+			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_UNDEAD;
+					//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
 
 				if (mult < 30) mult = 30;
 			}
 
 			/* Execute Undead */
-			if ((have_flag(flgs, TR_KILL_UNDEAD)) &&
-			    (r_ptr->flags3 & RF3_UNDEAD))
+			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_UNDEAD;
+					//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
 				}
 
 				if (mult < 50) mult = 50;
@@ -643,11 +641,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			}
 			if (mode == HISSATSU_UNDEAD)
 			{
-				if (r_ptr->flags3 & RF3_UNDEAD)
+				if (is_undead_creature(tar_ptr))
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags3 |= RF3_UNDEAD;
+						//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
 					}
 					if (mult == 10) mult = 70;
 					else if (mult < 140) mult = MIN(140, mult+60);
@@ -2333,7 +2331,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (r_ptr->flags3 & RF3_NO_STUN) resist_stun += 66;
 				if (r_ptr->flags3 & RF3_NO_CONF) resist_stun += 33;
 				if (r_ptr->flags3 & RF3_NO_SLEEP) resist_stun += 33;
-				if ((r_ptr->flags3 & RF3_UNDEAD) || (r_ptr->flags3 & RF3_NONLIVING))
+				if (is_undead_creature(m_ptr) || (r_ptr->flags3 & RF3_NONLIVING))
 					resist_stun += 66;
 
 				if (cr_ptr->special_defense & KAMAE_BYAKKO)

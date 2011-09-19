@@ -454,7 +454,8 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		bool vs_ninja = (player_ptr->cls_idx == CLASS_NINJA) && !is_hostile(t_ptr);
 
 		if (vs_ninja &&
-		    !(r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) &&
+		    !(r_ptr->flags3 & RF3_HURT_LITE) &&
+			!is_undead_species(r_ptr) && 
 		    !(r_ptr->flags7 & RF7_DARK_MASK))
 			can_use_lite_area = TRUE;
 

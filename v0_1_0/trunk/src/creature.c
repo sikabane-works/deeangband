@@ -718,3 +718,17 @@ bool is_giant_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_GIANT || sp_ptr->irace_idx == RACE_CYCLOPS || sp_ptr->irace_idx == RACE_TITAN) return TRUE;
 	return FALSE;
 }
+
+bool is_undead_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_ZOMBIE || cr_ptr->irace_idx == RACE_SKELETON || cr_ptr->irace_idx == RACE_VAMPIRE) return TRUE;
+	if(cr_ptr->irace_idx == RACE_LICH || cr_ptr->irace_idx == RACE_NAZGUL) return TRUE;
+	return FALSE;
+}
+
+bool is_undead_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_ZOMBIE || sp_ptr->irace_idx == RACE_SKELETON || sp_ptr->irace_idx == RACE_VAMPIRE) return TRUE;
+	if(sp_ptr->irace_idx == RACE_LICH || sp_ptr->irace_idx == RACE_NAZGUL) return TRUE;
+	return FALSE;
+}

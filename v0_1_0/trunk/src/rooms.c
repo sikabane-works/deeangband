@@ -1498,7 +1498,7 @@ static bool vault_aux_undead(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require Undead */
-	if (!(r_ptr->flags3 & (RF3_UNDEAD))) return (FALSE);
+	if (!is_undead_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1642,7 +1642,7 @@ static bool vault_aux_orc(int species_idx)
 	if (!is_orc_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
-	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);
+	if (is_undead_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1663,7 +1663,7 @@ static bool vault_aux_troll(int species_idx)
 	if (is_troll_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
-	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);
+	if (is_undead_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1686,7 +1686,7 @@ static bool vault_aux_giant(int species_idx)
 	if (r_ptr->flags3 & RF3_GOOD) return (FALSE);
 
 	/* Decline undead */
-	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);
+	if (is_undead_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1710,7 +1710,7 @@ static bool vault_aux_dragon(int species_idx)
 	if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
 
 	/* Decline undead */
-	if (r_ptr->flags3 & RF3_UNDEAD) return (FALSE);
+	if (is_undead_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

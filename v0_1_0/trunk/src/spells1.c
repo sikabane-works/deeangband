@@ -2202,7 +2202,7 @@ note = "には耐性がある。";
 			}
 			if (r_ptr->flagsr & RFR_RES_NETH)
 			{
-				if (r_ptr->flags3 & RF3_UNDEAD)
+				if (is_undead_species(r_ptr))
 				{
 #ifdef JP
 					note = "には完全な耐性がある。";
@@ -2211,7 +2211,7 @@ note = "には耐性がある。";
 #endif
 
 					dam = 0;
-					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 				}
 				else
 				{
@@ -2836,7 +2836,7 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (r_ptr->flags3 & (RF3_UNDEAD) && 
+				if (is_undead_species(r_ptr) && 
 					 is_demon_species(r_ptr) &&
 				    (r_ptr->level > who_ptr->lev / 2) &&
 				    one_in_(2))
@@ -2973,7 +2973,7 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (r_ptr->flags3 & (RF3_UNDEAD) &&
+				if (is_undead_species(r_ptr) &&
 					 is_demon_species(r_ptr) &&
 				     (r_ptr->level > who_ptr->lev / 2) &&
 				     (one_in_(2)))
@@ -3153,7 +3153,7 @@ note_dies = "は蒸発した！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if ((r_ptr->flags3 & (RF3_UNDEAD)) &&
+				if (is_undead_species(r_ptr) &&
 					is_demon_species(r_ptr) &&
 				    (r_ptr->level > who_ptr->lev / 2) &&
 				    (one_in_(2)))
@@ -3313,7 +3313,7 @@ note = "があなたに隷属した。";
 				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
 					//TODO if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
-					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					//if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					if (r_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
 
@@ -3352,7 +3352,7 @@ note = "があなたに隷属した。";
 				if (is_original_ap_and_seen(who_ptr, m_ptr))
 				{
 					//TODO if (r_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
-					if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					//if (r_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					if (r_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
 
@@ -3883,7 +3883,7 @@ note = "は突然友好的になったようだ！";
 
 			/* Attempt a saving throw */
 			if ((r_ptr->flags1 & RF1_QUESTOR) ||
-			  (!(r_ptr->flags3 & RF3_UNDEAD)) ||
+			  (!is_undead_species(r_ptr)) ||
 			    (m_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4426,7 +4426,7 @@ note_dies = "はドロドロに溶けた！";
 		case GF_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
-			if (r_ptr->flags3 & (RF3_UNDEAD))
+			if (is_undead_species(r_ptr))
 			{
 				bool resists_tele = FALSE;
 
@@ -4459,7 +4459,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 					do_dist = dam;
 				}
 			}
@@ -4586,13 +4586,13 @@ note = "には耐性がある！";
 				break;
 			}
 			/* Only affect undead */
-			if (r_ptr->flags3 & (RF3_UNDEAD))
+			if (is_undead_species(r_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4719,13 +4719,13 @@ note = "には効果がなかった！";
 				break;
 			}
 			/* Only affect undead */
-			if (r_ptr->flags3 & (RF3_UNDEAD))
+			if (is_undead_species(r_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
 
 				/* Message */
 #ifdef JP

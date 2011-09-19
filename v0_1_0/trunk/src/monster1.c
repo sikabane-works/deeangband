@@ -234,7 +234,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 		//if (r_ptr->flags3 & RF3_GIANT)    flags3 |= (RF3_GIANT);
 		//if (r_ptr->flags3 & RF3_DRAGON)   flags3 |= (RF3_DRAGON);
 		//if (r_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
-		if (r_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
+		//if (r_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
 		if (r_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
 		if (r_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
 		if (r_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
@@ -1383,7 +1383,7 @@ if (flags6 & (RF6_TELE_LEVEL))      {vp[vn] = "テレポート・レベル";color[vn++] =
 
 	if (flags6 & (RF6_DARKNESS))
 	{
-		if ((cr_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_UNDEAD | RF3_HURT_LITE)) || (r_ptr->flags7 & RF7_DARK_MASK))
+		if ((cr_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_HURT_LITE)) || is_undead_species(r_ptr) || (r_ptr->flags7 & RF7_DARK_MASK))
 		{
 #ifdef JP
 			vp[vn] =  "暗闇"; color[vn++] = TERM_L_DARK;
@@ -3561,7 +3561,7 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, s
 bool monster_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
-	if (r_ptr->flags3 & (RF3_UNDEAD | RF3_NONLIVING)) return FALSE;
+	if (r_ptr->flags3 & RF3_NONLIVING || is_undead_species(r_ptr)) return FALSE;
 
 	if (is_demon_species(r_ptr)) return FALSE;
 

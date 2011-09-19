@@ -766,7 +766,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_UNDEAD:
 		{
-			okay = (r_ptr->flags3 & RF3_UNDEAD);
+			okay = is_undead_species(r_ptr);
 			break;
 		}
 
@@ -887,7 +887,7 @@ static bool summon_specific_aux(int species_idx)
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
 			       !is_dragon_species(r_ptr) &&
 			       !(r_ptr->flags3 & (RF3_EVIL)) &&
-			       !(r_ptr->flags3 & (RF3_UNDEAD)) &&
+			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
 			       !(r_ptr->flags2 & (RF2_MULTIPLY)) &&
 			       !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
@@ -2616,14 +2616,14 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_undead) && (r_ptr->flags3 & (RF3_UNDEAD)))
+			if ((cr_ptr->esp_undead) && is_undead_species(r_ptr))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_UNDEAD);
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_demon) && (is_demon_species(r_ptr)))
+			if ((cr_ptr->esp_demon) && is_demon_species(r_ptr))
 			{
 				flag = TRUE;
 				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
@@ -2679,9 +2679,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_nonliving) &&
-			    ((r_ptr->flags3 & (RF3_UNDEAD | RF3_NONLIVING)) == RF3_NONLIVING) &&
-				!is_demon_species(r_ptr) )
+			if ((cr_ptr->esp_nonliving) && (r_ptr->flags3 & RF3_NONLIVING) && !is_undead_species(r_ptr) && !is_demon_species(r_ptr)) 
 			{
 				flag = TRUE;
 				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
