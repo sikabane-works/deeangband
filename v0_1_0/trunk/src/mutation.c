@@ -13,7 +13,7 @@
 #include "angband.h"
 
 
-bool gain_random_mutation(creature_type *cr_ptr, int choose_mut)
+bool gain_random_mutation(creature_type *cr_ptr, int choose_mut, bool messsage)
 {
 	int     attempts_left = 20;
 	cptr    muta_desc = "";
@@ -1010,9 +1010,9 @@ muta_desc = "慈悲深い白いオーラがあなたをとりまいた...";
 	if (!muta_chosen)
 	{
 #ifdef JP
-msg_print("普通になった気がする。");
+if(messsage) msg_print("普通になった気がする。");
 #else
-		msg_print("You feel normal.");
+		if(messsage) msg_print("You feel normal.");
 #endif
 
 		return FALSE;
@@ -1097,12 +1097,12 @@ muta_desc = "邪悪な触手が口の周りに生えた。";
 			}
 		}
 #ifdef JP
-msg_print("突然変異した！");
+		if(messsage) msg_print("突然変異した！");
 #else
-		msg_print("You mutate!");
+		if(messsage) msg_print("You mutate!");
 #endif
 
-		msg_print(muta_desc);
+		if(messsage) msg_print(muta_desc);
 		*muta_class |= muta_which;
 
 		if (muta_class == &(cr_ptr->trait3))
@@ -1112,9 +1112,9 @@ msg_print("突然変異した！");
 				if (cr_ptr->trait3 & TRAIT3_HYPER_STR)
 				{
 #ifdef JP
-msg_print("あなたはもう超人的に強くはない！");
+if(messsage) msg_print("あなたはもう超人的に強くはない！");
 #else
-					msg_print("You no longer feel super-strong!");
+					if(messsage) msg_print("You no longer feel super-strong!");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_HYPER_STR);
@@ -1125,9 +1125,9 @@ msg_print("あなたはもう超人的に強くはない！");
 				if (cr_ptr->trait3 & TRAIT3_PUNY)
 				{
 #ifdef JP
-msg_print("あなたはもう虚弱ではない！");
+if(messsage) msg_print("あなたはもう虚弱ではない！");
 #else
-					msg_print("You no longer feel puny!");
+					if(messsage) msg_print("You no longer feel puny!");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_PUNY);
@@ -1138,9 +1138,9 @@ msg_print("あなたはもう虚弱ではない！");
 				if (cr_ptr->trait3 & TRAIT3_HYPER_INT)
 				{
 #ifdef JP
-msg_print("あなたの脳はもう生体コンピュータではない。");
+if(messsage) msg_print("あなたの脳はもう生体コンピュータではない。");
 #else
-					msg_print("Your brain is no longer a living computer.");
+					if(messsage) msg_print("Your brain is no longer a living computer.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_HYPER_INT);
@@ -1151,9 +1151,9 @@ msg_print("あなたの脳はもう生体コンピュータではない。");
 				if (cr_ptr->trait3 & TRAIT3_MORONIC)
 				{
 #ifdef JP
-msg_print("あなたはもう精神薄弱ではない。");
+if(messsage) msg_print("あなたはもう精神薄弱ではない。");
 #else
-					msg_print("You are no longer moronic.");
+					if(messsage) msg_print("You are no longer moronic.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_MORONIC);
@@ -1164,9 +1164,9 @@ msg_print("あなたはもう精神薄弱ではない。");
 				if (cr_ptr->trait3 & TRAIT3_SCALES)
 				{
 #ifdef JP
-msg_print("鱗がなくなった。");
+if(messsage) msg_print("鱗がなくなった。");
 #else
-					msg_print("You lose your scales.");
+					if(messsage) msg_print("You lose your scales.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_SCALES);
@@ -1174,9 +1174,9 @@ msg_print("鱗がなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
 				{
 #ifdef JP
-msg_print("肉体が腐乱しなくなった。");
+if(messsage) msg_print("肉体が腐乱しなくなった。");
 #else
-					msg_print("Your flesh rots no longer.");
+					if(messsage) msg_print("Your flesh rots no longer.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_FLESH_ROT);
@@ -1184,9 +1184,9 @@ msg_print("肉体が腐乱しなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_WART_SKIN)
 				{
 #ifdef JP
-msg_print("肌のイボイボがなくなった。");
+if(messsage) msg_print("肌のイボイボがなくなった。");
 #else
-					msg_print("You lose your warts.");
+					if(messsage) msg_print("You lose your warts.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_WART_SKIN);
@@ -1198,9 +1198,9 @@ msg_print("肌のイボイボがなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_IRON_SKIN)
 				{
 #ifdef JP
-msg_print("あなたの肌はもう鉄ではない。");
+if(messsage) msg_print("あなたの肌はもう鉄ではない。");
 #else
-					msg_print("Your skin is no longer made of steel.");
+					if(messsage) msg_print("Your skin is no longer made of steel.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_IRON_SKIN);
@@ -1211,9 +1211,9 @@ msg_print("あなたの肌はもう鉄ではない。");
 				if (cr_ptr->trait2 & TRAIT2_COWARDICE)
 				{
 #ifdef JP
-msg_print("臆病でなくなった。");
+if(messsage) msg_print("臆病でなくなった。");
 #else
-					msg_print("You are no longer cowardly.");
+					if(messsage) msg_print("You are no longer cowardly.");
 #endif
 
 					cr_ptr->trait2 &= ~(TRAIT2_COWARDICE);
@@ -1224,9 +1224,9 @@ msg_print("臆病でなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_REGEN)
 				{
 #ifdef JP
-msg_print("急速に回復しなくなった。");
+if(messsage) msg_print("急速に回復しなくなった。");
 #else
-					msg_print("You stop regenerating.");
+					if(messsage) msg_print("You stop regenerating.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_REGEN);
@@ -1237,9 +1237,9 @@ msg_print("急速に回復しなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
 				{
 #ifdef JP
-msg_print("肉体が腐乱しなくなった。");
+if(messsage) msg_print("肉体が腐乱しなくなった。");
 #else
-					msg_print("Your flesh stops rotting.");
+					if(messsage) msg_print("Your flesh stops rotting.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_FLESH_ROT);
@@ -1250,9 +1250,9 @@ msg_print("肉体が腐乱しなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_ARTHRITIS)
 				{
 #ifdef JP
-msg_print("関節が痛くなくなった。");
+if(messsage) msg_print("関節が痛くなくなった。");
 #else
-					msg_print("Your joints stop hurting.");
+					if(messsage) msg_print("Your joints stop hurting.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_ARTHRITIS);
@@ -1263,9 +1263,9 @@ msg_print("関節が痛くなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_LIMBER)
 				{
 #ifdef JP
-msg_print("あなたはしなやかでなくなった。");
+if(messsage) msg_print("あなたはしなやかでなくなった。");
 #else
-					msg_print("You no longer feel limber.");
+					if(messsage) msg_print("You no longer feel limber.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_LIMBER);
@@ -1279,9 +1279,9 @@ msg_print("あなたはしなやかでなくなった。");
 				if (cr_ptr->trait3 & TRAIT3_FEARLESS)
 				{
 #ifdef JP
-msg_print("恐れ知らずでなくなった。");
+if(messsage) msg_print("恐れ知らずでなくなった。");
 #else
-					msg_print("You no longer feel fearless.");
+					if(messsage) msg_print("You no longer feel fearless.");
 #endif
 
 					cr_ptr->trait3 &= ~(TRAIT3_FEARLESS);
@@ -1292,9 +1292,9 @@ msg_print("恐れ知らずでなくなった。");
 				if (cr_ptr->trait2 & TRAIT2_TRUNK)
 				{
 #ifdef JP
-msg_print("あなたの鼻はもう象の鼻のようではなくなった。");
+if(messsage) msg_print("あなたの鼻はもう象の鼻のようではなくなった。");
 #else
-					msg_print("Your nose is no longer elephantine.");
+					if(messsage) msg_print("Your nose is no longer elephantine.");
 #endif
 
 					cr_ptr->trait2 &= ~(TRAIT2_TRUNK);
@@ -1305,9 +1305,9 @@ msg_print("あなたの鼻はもう象の鼻のようではなくなった。");
 				if (cr_ptr->trait2 & TRAIT2_BEAK)
 				{
 #ifdef JP
-msg_print("硬いクチバシがなくなった。");
+if(messsage) msg_print("硬いクチバシがなくなった。");
 #else
-					msg_print("You no longer have a hard beak.");
+					if(messsage) msg_print("You no longer have a hard beak.");
 #endif
 
 					cr_ptr->trait2 &= ~(TRAIT2_BEAK);

@@ -1399,7 +1399,7 @@ msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ª¡‚Á‚½B");
 				{
 					if (one_in_(2))
 					{
-						if(gain_random_mutation(cr_ptr, 0)) ident = TRUE;
+						if(gain_random_mutation(cr_ptr, 0, TRUE)) ident = TRUE;
 					}
 					else if (lose_mutation(cr_ptr, 0)) ident = TRUE;
 				} while(!ident || one_in_(2));

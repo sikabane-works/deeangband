@@ -45,7 +45,8 @@ void check_experience(creature_type *cr_ptr)
 	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
 
 	/* Redraw experience */
-	play_redraw |= (PR_EXP);
+	if(is_player(cr_ptr))
+		play_redraw |= (PR_EXP);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -101,12 +102,14 @@ void check_experience(creature_type *cr_ptr)
 		sound(SOUND_LEVEL);
 
 		/* Message */
+		if(is_player(cr_ptr))
+		{
 #ifdef JP
-msg_format("レベル %d にようこそ。", cr_ptr->lev);
+			msg_format("レベル %d にようこそ。", cr_ptr->lev);
 #else
-		msg_format("Welcome to level %d.", cr_ptr->lev);
-
+			msg_format("Welcome to level %d.", cr_ptr->lev);
 #endif
+		}
 
 		/* Update some stuff */
 		cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA | PU_SPELLS);
@@ -129,60 +132,68 @@ msg_format("レベル %d にようこそ。", cr_ptr->lev);
 		{
 			if(!(cr_ptr->max_plv % 10))
 			{
-				int choice;
-				screen_save();
-				while(1)
+				if(is_player(cr_ptr))
 				{
-					int n;
-					char tmp[32];
-
-#ifdef JP
-					cnv_stat(cr_ptr->stat_max[0], tmp);
-					prt(format("        a) 腕力 (現在値 %s)", tmp), 2, 14);
-					cnv_stat(cr_ptr->stat_max[1], tmp);
-					prt(format("        b) 知能 (現在値 %s)", tmp), 3, 14);
-					cnv_stat(cr_ptr->stat_max[2], tmp);
-					prt(format("        c) 賢さ (現在値 %s)", tmp), 4, 14);
-					cnv_stat(cr_ptr->stat_max[3], tmp);
-					prt(format("        d) 器用 (現在値 %s)", tmp), 5, 14);
-					cnv_stat(cr_ptr->stat_max[4], tmp);
-					prt(format("        e) 耐久 (現在値 %s)", tmp), 6, 14);
-					cnv_stat(cr_ptr->stat_max[5], tmp);
-					prt(format("        f) 魅力 (現在値 %s)", tmp), 7, 14);
-					prt("", 8, 14);
-					prt("        どの能力値を上げますか？", 1, 14);
-#else
-					cnv_stat(cr_ptr->stat_max[0], tmp);
-					prt(format("        a) Str (cur %s)", tmp), 2, 14);
-					cnv_stat(cr_ptr->stat_max[1], tmp);
-					prt(format("        b) Int (cur %s)", tmp), 3, 14);
-					cnv_stat(cr_ptr->stat_max[2], tmp);
-					prt(format("        c) Wis (cur %s)", tmp), 4, 14);
-					cnv_stat(cr_ptr->stat_max[3], tmp);
-					prt(format("        d) Dex (cur %s)", tmp), 5, 14);
-					cnv_stat(cr_ptr->stat_max[4], tmp);
-					prt(format("        e) Con (cur %s)", tmp), 6, 14);
-					cnv_stat(cr_ptr->stat_max[5], tmp);
-					prt(format("        f) Chr (cur %s)", tmp), 7, 14);
-					prt("", 8, 14);
-					prt("        Which stat do you want to raise?", 1, 14);
-#endif
+					int choice;
+					screen_save();
 					while(1)
 					{
-						choice = inkey();
-						if ((choice >= 'a') && (choice <= 'f')) break;
-					}
-					for(n = 0; n < 6; n++)
-						if (n != choice - 'a')
-							prt("",n+2,14);
+						int n;
+						char tmp[32];
+
 #ifdef JP
-					if (get_check("よろしいですか？")) break;
+						cnv_stat(cr_ptr->stat_max[0], tmp);
+						prt(format("        a) 腕力 (現在値 %s)", tmp), 2, 14);
+						cnv_stat(cr_ptr->stat_max[1], tmp);
+						prt(format("        b) 知能 (現在値 %s)", tmp), 3, 14);
+						cnv_stat(cr_ptr->stat_max[2], tmp);
+						prt(format("        c) 賢さ (現在値 %s)", tmp), 4, 14);
+						cnv_stat(cr_ptr->stat_max[3], tmp);
+						prt(format("        d) 器用 (現在値 %s)", tmp), 5, 14);
+						cnv_stat(cr_ptr->stat_max[4], tmp);
+						prt(format("        e) 耐久 (現在値 %s)", tmp), 6, 14);
+						cnv_stat(cr_ptr->stat_max[5], tmp);
+						prt(format("        f) 魅力 (現在値 %s)", tmp), 7, 14);
+						prt("", 8, 14);
+						prt("        どの能力値を上げますか？", 1, 14);
 #else
-					if (get_check("Are you sure? ")) break;
+						cnv_stat(cr_ptr->stat_max[0], tmp);
+						prt(format("        a) Str (cur %s)", tmp), 2, 14);
+						cnv_stat(cr_ptr->stat_max[1], tmp);
+						prt(format("        b) Int (cur %s)", tmp), 3, 14);
+						cnv_stat(cr_ptr->stat_max[2], tmp);
+						prt(format("        c) Wis (cur %s)", tmp), 4, 14);
+						cnv_stat(cr_ptr->stat_max[3], tmp);
+						prt(format("        d) Dex (cur %s)", tmp), 5, 14);
+						cnv_stat(cr_ptr->stat_max[4], tmp);
+						prt(format("        e) Con (cur %s)", tmp), 6, 14);
+						cnv_stat(cr_ptr->stat_max[5], tmp);
+						prt(format("        f) Chr (cur %s)", tmp), 7, 14);
+						prt("", 8, 14);
+						prt("        Which stat do you want to raise?", 1, 14);
 #endif
+
+						while(1)
+						{
+							choice = inkey();
+							if ((choice >= 'a') && (choice <= 'f')) break;
+						}
+						for(n = 0; n < 6; n++)
+							if (n != choice - 'a')
+								prt("",n+2,14);
+#ifdef JP
+						if (get_check("よろしいですか？")) break;
+#else
+						if (get_check("Are you sure? ")) break;
+#endif
+					}
+					do_inc_stat(cr_ptr, choice - 'a');
+					screen_load();
 				}
-				do_inc_stat(cr_ptr, choice - 'a');
-				screen_load();
+				else
+				{
+					do_inc_stat(cr_ptr, randint0(6));
+				}
 			}
 			else if(!(cr_ptr->max_plv % 2))
 				do_inc_stat(cr_ptr, randint0(6));
@@ -190,13 +201,16 @@ msg_format("レベル %d にようこそ。", cr_ptr->lev);
 
 		if (level_mutation)
 		{
-#ifdef JP
-msg_print("あなたは変わった気がする...");
-#else
-			msg_print("You feel different...");
-#endif
 
-			(void)gain_random_mutation(cr_ptr, 0);
+			if(is_player(cr_ptr))
+			{
+#ifdef JP
+				msg_print("あなたは変わった気がする...");
+#else
+				msg_print("You feel different...");
+#endif
+			}
+			(void)gain_random_mutation(cr_ptr, 0, is_player(cr_ptr));
 			level_mutation = FALSE;
 		}
 
@@ -4138,7 +4152,7 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 			r_name + r_info[cr_ptr->patron_idx].name);
 #endif
 
-		(void)gain_random_mutation(cr_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0, TRUE);
 #ifdef JP
 		reward = "変異した。";
 #else

@@ -2201,7 +2201,7 @@ void do_cmd_view_map(void)
 
 	/* Note */
 #ifdef JP
-prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
+	prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
 #else
 	prt("Please wait...", 0, 0);
 #endif

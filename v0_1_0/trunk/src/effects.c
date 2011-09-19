@@ -5320,7 +5320,7 @@ msg_format("%s‚Ì\¬‚ª•Ï‰»‚µ‚½I", cr_ptr->irace_idx == RACE_ANDROID ? "‹@ŠB" : 
 	while ((power > randint0(15)) && one_in_(3))
 	{
 		power -= 7;
-		(void)gain_random_mutation(cr_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0, TRUE);
 	}
 
 	if (power > randint0(5))

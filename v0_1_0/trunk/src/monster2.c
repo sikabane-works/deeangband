@@ -534,6 +534,7 @@ void compact_monsters(int size)
 void birth_uniques(void)
 {
 	int i, j;
+	char buf[80];
 
 	int t = sizeof(creature_type);
 
@@ -551,6 +552,10 @@ void birth_uniques(void)
 
 	for(i = 0; i < max_species_idx; i++)
 	{
+		sprintf(buf, "Please Wait ... Unique Making[%d]", i);
+		prt(buf, 0, 0);
+		Term_fresh();
+
 		if(r_info[i].flags1 & RF1_UNIQUE)
 		{
 			creature_type *cr_ptr = &u_info[j]; 
@@ -3844,11 +3849,12 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	m_ptr->nickname = 0;
 
 	/* Set Monster's Level and EXP*/
-	m_ptr->lev = d_level_to_c_level[r_ptr->level];
 	m_ptr->expfact = 100;
 	if(m_ptr->irace_idx != RACE_NONE) m_ptr->expfact += (race_info[m_ptr->irace_idx].r_exp - 100);
 	if(m_ptr->cls_idx != CLASS_NONE) m_ptr->expfact += class_info[m_ptr->cls_idx].c_exp;
-	m_ptr->exp = player_exp[m_ptr->lev];
+	m_ptr->lev = 1;
+	m_ptr->exp = r_ptr->mexp;
+	check_experience(m_ptr);
 
 	initialize_skill(m_ptr);
 
@@ -3865,6 +3871,7 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 
 	/* Equipment */
 	calc_bonuses(m_ptr, FALSE);
+
 	mon_equip(m_ptr);
 
 	/* Underlings */

@@ -2031,7 +2031,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Mutation */
 	case 'M':
-		(void)gain_random_mutation(cr_ptr, command_arg);
+		(void)gain_random_mutation(cr_ptr, command_arg, TRUE);
 		break;
 
 	/* Specific reward */

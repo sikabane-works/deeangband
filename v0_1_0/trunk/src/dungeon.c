@@ -5549,7 +5549,7 @@ msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
 		msg_print("You feel different!");
 #endif
 
-		(void)gain_random_mutation(cr_ptr, 0);
+		(void)gain_random_mutation(cr_ptr, 0, TRUE);
 		hack_mutation = FALSE;
 	}
 

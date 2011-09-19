@@ -6785,7 +6785,7 @@ static bool project_p(creature_type *aimer_ptr, creature_type *who_ptr, cptr who
 						msg_print("Your body is twisted by chaos!");
 #endif
 
-						(void)gain_random_mutation(aimer_ptr, 0);
+						(void)gain_random_mutation(aimer_ptr, 0, TRUE);
 					}
 				}
 				if (!aimer_ptr->resist_neth && !aimer_ptr->resist_chaos)

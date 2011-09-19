@@ -2794,8 +2794,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 		/* レベルアップの時は上昇量を表示する */
 		if ((level_up == 1) && (mhp > cr_ptr->mhp))
 		{
-			if(message) msg_format("最大ヒット・ポイントが %d 増加した！",
-				   (mhp - cr_ptr->mhp) );
+			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - cr_ptr->mhp) );
 		}
 #endif
 		/* Save the new max-hitpoints */
@@ -5926,7 +5925,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_BONUS))
 	{
 		cr_ptr->update &= ~(PU_BONUS);
-		calc_bonuses(cr_ptr, TRUE);
+		calc_bonuses(cr_ptr, message);
 	}
 
 	if (cr_ptr->update & (PU_TORCH))
@@ -6312,7 +6311,7 @@ void window_stuff(void)
 void handle_stuff(creature_type *cr_ptr)
 {
 	/* Update stuff */
-	if (cr_ptr->update) update_stuff(cr_ptr, TRUE);
+	if (cr_ptr->update) update_stuff(cr_ptr, is_player(cr_ptr));
 
 	/* Redraw stuff */
 	if (play_redraw) redraw_stuff(cr_ptr);
