@@ -852,6 +852,14 @@ char *re_text;
 
 
 /*
+ * The store arrays
+ */
+store_type *st_info;
+char *st_name;
+char *st_text;
+
+
+/*
  * The dungeon arrays
  */
 dungeon_info_type *d_info;
@@ -1084,6 +1092,11 @@ u16b max_species_idx;
  * Maximum number of monsters in re_info.txt
  */
 u16b max_monster_ego_idx;
+
+/*
+ * Maximum number of monsters in st_info.txt
+ */
+u16b max_store_idx;
 
 /*
  * Maximum number of items in k_info.txt

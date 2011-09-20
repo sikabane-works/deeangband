@@ -298,6 +298,7 @@ header a_head;
 header e_head;
 header r_head;
 header re_head;
+header st_head;
 header d_head;
 header s_head;
 header m_head;
@@ -1068,6 +1069,25 @@ static errr init_re_info(void)
 
 	return init_info("re_info", &re_head,
 			 (void*)&re_info, &re_name, &re_text, NULL);
+}
+
+/*
+ * Initialize the "st_info" array
+ */
+static errr init_st_info(void)
+{
+	/* Init the header */
+	init_header(&st_head, max_store_idx, sizeof(store_type));
+
+#ifdef ALLOW_TEMPLATES
+
+	/* Save a pointer to the parsing function */
+	st_head.parse_info_txt = parse_st_info;
+
+#endif /* ALLOW_TEMPLATES */
+
+	return init_info("st_info", &st_head,
+			 (void*)&st_info, &st_name, &st_text, NULL);
 }
 
 
@@ -2715,6 +2735,9 @@ void init_angband(void)
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
+
+	/* Initialize store info */	note("[Initializing arrays... (store)]");
+	if (init_st_info()) quit("Cannot initialize monster's ego");
 
 	/* Initialize dungeon info */
 	note("[Initializing arrays... (dungeon)]");

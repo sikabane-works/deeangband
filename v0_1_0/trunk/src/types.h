@@ -764,6 +764,9 @@ typedef struct store_type store_type;
 
 struct store_type
 {
+	cptr name;
+	cptr E_name;
+
 	byte type;				/* Store type */
 
 	byte owner;				/* Owner index */

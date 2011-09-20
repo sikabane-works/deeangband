@@ -3789,6 +3789,85 @@ errr parse_re_info(char *buf, header *head)
 }
 
 
+errr parse_st_info(char *buf, header *head)
+{
+	int i;
+	char *s;
+
+	/* Current entry */
+	static store_type *st_ptr = NULL;
+
+	/* Process 'N' for "New/Number/Name" */
+	if (buf[0] == 'N')
+	{
+		/* Find the colon before the name */
+		s = my_strchr(buf+2, ':');
+
+			/* Verify that colon */
+		if (!s) return (1);
+
+		/* Nuke the colon, advance to the name */
+		*s++ = '\0';
+#ifdef JP
+		/* Paranoia -- require a name */
+		if (!*s) return (1);
+#endif
+
+		/* Get the index */
+		i = atoi(buf+2);
+
+
+		/* Verify information */
+		if (i < error_idx) return (4);
+
+		/* Verify information */
+		if (i >= head->info_num) return (2);
+
+		/* Save the index */
+		error_idx = i;
+
+		/* Point at the "info" */
+		st_ptr = &re_info[i];
+		st_ptr->name = 0;
+#ifdef JP
+		/* Store the name */
+		if (!add_name(&st_ptr->name, head, s)) return (7);
+#endif
+	}
+
+	/* There better be a current r_ptr */
+	else if (!st_ptr) return (3);
+
+#ifdef JP
+	/* ‰pŒê–¼‚ð“Ç‚Þƒ‹[ƒ`ƒ“‚ð’Ç‰Á */
+	/* 'E' ‚©‚çŽn‚Ü‚és‚Í‰pŒê–¼ */
+	else if (buf[0] == 'E')
+	{
+		/* Acquire the Text */
+		s = buf+2;
+
+		/* Store the name */
+		if (!add_name(&st_ptr->E_name, head, s)) return (7);
+	}
+#else
+	else if (buf[0] == 'E')
+	{
+		/* Acquire the Text */
+		s = buf+2;
+
+		/* Store the name */
+		if (!add_name(&st_ptr->name, head, s)) return (7);
+	}
+#endif
+
+	/* Oops */
+	else return (6);
+
+
+	/* Success */
+	return (0);
+}
+
 
 
 /*
@@ -5056,6 +5135,16 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				/* Maximum wild_y_size */
 				if (zz[0][1] == 'Y')
 					max_wild_y = atoi(zz[1]);
+			}
+
+						/* Maximum species_idx */
+			else if (zz[0][0] == 'S')
+			{
+				/* Maximum species_idx */
+				if (zz[0][1] == 'T')
+				{
+					max_store_idx = atoi(zz[1]);
+				}
 			}
 
 			return (0);
