@@ -3827,7 +3827,7 @@ errr parse_st_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		st_ptr = &re_info[i];
+		st_ptr = &st_info[i];
 		st_ptr->name = 0;
 #ifdef JP
 		/* Store the name */

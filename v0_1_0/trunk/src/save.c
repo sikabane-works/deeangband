@@ -1572,6 +1572,7 @@ static bool wr_savefile_new(void)
 	tmp16u = MAX_STORES;
 	wr_u16b(tmp16u);
 
+	//TODO : delete
 	/* Dump the stores of all towns */
 	for (i = 1; i < max_towns; i++)
 	{
@@ -1580,6 +1581,12 @@ static bool wr_savefile_new(void)
 			wr_store(&town[i].store[j]);
 		}
 	}
+
+	wr_u16b(max_store_idx);
+	for(i = 1; i < max_store_idx; i++)
+			wr_store(&st_info[i]);
+
+
 
 	/* Write the pet command settings */
 	wr_s16b(p_ptr->pet_follow_distance);

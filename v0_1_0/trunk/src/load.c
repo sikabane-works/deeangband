@@ -933,21 +933,13 @@ static void home_carry(store_type *st_ptr, object_type *o_ptr)
 }
 
 
-/*
- * Read a store
- */
-static errr rd_store(int town_number, int store_number)
+static errr rd_store_aux(store_type *st_ptr, int store_number)
 {
-	store_type *st_ptr;
-
 	int j;
-
 	byte own;
 	s16b num;
 
 	bool sort = FALSE;
-
-	st_ptr = &town[town_number].store[store_number];
 
 	/* Read the basic info */
 	rd_s32b(&st_ptr->store_open);
@@ -998,8 +990,17 @@ static errr rd_store(int town_number, int store_number)
 
 	/* Success */
 	return (0);
+
 }
 
+
+/*
+ * Read a store
+ */
+static errr rd_store(int town_number, int store_number)
+{
+	return rd_store_aux(&town[town_number].store[store_number], store_number);
+}
 
 
 /*
@@ -2555,6 +2556,11 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 			if (rd_store(i, j)) return (22);
 		}
 	}
+
+	rd_u16b(&max_store_idx);
+	for(i = 1; i < max_store_idx; i++)
+			rd_store_aux(&st_info[i], 0);
+
 
 	rd_s16b(&cr_ptr->pet_follow_distance);
 	rd_s16b(&cr_ptr->pet_extra_flags);
