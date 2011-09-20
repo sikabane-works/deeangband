@@ -3795,7 +3795,7 @@ errr parse_st_info(char *buf, header *head)
 	char *s;
 
 	/* Current entry */
-	static store_type *st_ptr = NULL;
+	static store_pre_type *st_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
 	if (buf[0] == 'N')

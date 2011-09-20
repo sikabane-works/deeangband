@@ -791,6 +791,17 @@ struct store_type
 };
 
 
+typedef struct store_pre_type store_pre_type;
+
+struct store_pre_type
+{
+	u32b name;
+	u32b E_name;
+
+	int owner_id;
+};
+
+
 /*
  * The "name" of spell 'N' is stored as spell_names[X][N],
  * where X is 0 for mage-spells and 1 for priest-spells.

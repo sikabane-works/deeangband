@@ -854,7 +854,7 @@ char *re_text;
 /*
  * The store arrays
  */
-store_type *st_info;
+store_pre_type *st_info;
 char *st_name;
 char *st_text;
 
