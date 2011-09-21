@@ -6944,7 +6944,7 @@ quit("セーブファイルが壊れています");
 		save_prev_data(cr_ptr, &previous_char);
 		previous_char.quick_ok = TRUE;
 
-		/* Init the shops */
+		/* Init the shops (TODO: Delete older)*/
 		for (i = 1; i < max_towns; i++)
 		{
 			town_num = i;
@@ -6956,8 +6956,11 @@ quit("セーブファイルが壊れています");
 			}
 		}
 
-		/* Init Uniques*/
+		/* Init Uniques */
 		birth_uniques();
+
+		/* Init Stores */
+		init_stores();
 
 		/* Generate the random seeds for the wilderness */
 		seed_wilderness();

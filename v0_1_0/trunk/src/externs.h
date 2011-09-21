@@ -447,6 +447,7 @@ extern s16b max_floor_id;
 extern u32b saved_floor_file_sign;
 extern object_type *o_list;
 extern creature_type *m_list;
+extern store_type *st_list;
 extern creature_type **mproc_list[MAX_MTIMED];
 extern s16b mproc_max[MAX_MTIMED];
 extern u16b max_towns;
@@ -542,6 +543,7 @@ extern u16b max_e_idx;
 extern u16b max_d_idx;
 extern u16b max_o_idx;
 extern u16b max_m_idx;
+extern u16b max_st_idx;
 extern s32b max_wild_x;
 extern s32b max_wild_y;
 

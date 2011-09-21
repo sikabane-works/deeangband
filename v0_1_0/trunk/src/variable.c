@@ -681,6 +681,18 @@ object_type *o_list;
 creature_type *m_list;
 
 /*
+ * The array of uniques [max_unique]
+ */
+creature_type *u_info;
+
+/*
+ * The array of stores [max_st_idx]
+ */
+store_type *st_list;
+
+
+
+/*
  * The array to process dungeon monsters [max_m_idx]
  */
 creature_type **mproc_list[MAX_MTIMED];
@@ -1139,9 +1151,13 @@ u16b max_o_idx;
  */
 u16b max_m_idx;
 
+/*
+ * Maximum number of monsters in the world
+ */
+u16b max_st_idx;
+
 
 u16b max_unique;
-creature_type *u_info;
 
 /*
  * Maximum size of the wilderness
