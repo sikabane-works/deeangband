@@ -4732,6 +4732,9 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 	case BACT_NOTHING:
 		/* Do nothing */
 		break;
+	case BACT_STORE:
+		do_cmd_store2(cr_ptr, &st_list[0]);
+		break;
 	case BACT_RESEARCH_ITEM:
 		paid = identify_fully(cr_ptr, FALSE);
 		break;
