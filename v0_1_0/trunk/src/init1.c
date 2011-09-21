@@ -3789,13 +3789,16 @@ errr parse_re_info(char *buf, header *head)
 }
 
 
-#define ST_INFO_CSV_COLUMNS 4
+#define ST_INFO_CSV_COLUMNS 7
 static cptr st_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"NAME",
 	"E_NAME",
 	"OWNER",
+	"SIZE",
+	"WEALTH",
+	"FLAGS",
 };
 
 static int st_info_csv_code[R_INFO_CSV_COLUMNS];
@@ -3804,17 +3807,15 @@ static int st_info_csv_code[R_INFO_CSV_COLUMNS];
 #define ST_INFO_NAME		1
 #define ST_INFO_E_NAME		2
 #define ST_INFO_OWNER		3
+#define ST_INFO_SIZE		4
+#define ST_INFO_WEALTH		5
+#define ST_INFO_FLAGS		6
 
 errr parse_st_info_csv(char *buf, header *head)
 {
-//	int id, tval, sval, prob, num, side, offset;
-//	int n1, n2;
 	int split[80], size[80];
-//	int i, j, k;
-//	char *s, *t;
 	int i, j;
 	char tmp[10000], nt[80];
-	int b;
 
 	if(get_split_offset(split, size, buf, ST_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -3879,6 +3880,22 @@ errr parse_st_info_csv(char *buf, header *head)
 					return (7);
 #endif
 				break;
+
+			case ST_INFO_OWNER:
+				break;
+
+			case ST_INFO_SIZE:
+				break;
+
+			case ST_INFO_WEALTH:
+				break;
+
+			case ST_INFO_FLAGS:
+				break;
+
+			default:
+				return 1;
+
 			}
 		}
 		
