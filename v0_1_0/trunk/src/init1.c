@@ -3789,82 +3789,100 @@ errr parse_re_info(char *buf, header *head)
 }
 
 
-errr parse_st_info(char *buf, header *head)
+#define ST_INFO_CSV_COLUMNS 4
+static cptr st_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
-	int i;
-	char *s;
+	"ID",
+	"NAME",
+	"E_NAME",
+	"OWNER",
+};
 
-	/* Current entry */
-	static store_pre_type *st_ptr = NULL;
+static int st_info_csv_code[R_INFO_CSV_COLUMNS];
 
-	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
-	{
-		/* Find the colon before the name */
-		s = my_strchr(buf+2, ':');
+#define ST_INFO_ID			0
+#define ST_INFO_NAME		1
+#define ST_INFO_E_NAME		2
+#define ST_INFO_OWNER		3
 
-			/* Verify that colon */
-		if (!s) return (1);
+errr parse_st_info_csv(char *buf, header *head)
+{
+//	int id, tval, sval, prob, num, side, offset;
+//	int n1, n2;
+	int split[80], size[80];
+//	int i, j, k;
+//	char *s, *t;
+	int i, j;
+	char tmp[10000], nt[80];
+	int b;
 
-		/* Nuke the colon, advance to the name */
-		*s++ = '\0';
-#ifdef JP
-		/* Paranoia -- require a name */
-		if (!*s) return (1);
-#endif
-
-		/* Get the index */
-		i = atoi(buf+2);
-
-
-		/* Verify information */
-		if (i < error_idx) return (4);
-
-		/* Verify information */
-		if (i >= head->info_num) return (2);
-
-		/* Save the index */
-		error_idx = i;
-
-		/* Point at the "info" */
-		st_ptr = &st_info[i];
-		st_ptr->name = 0;
-#ifdef JP
-		/* Store the name */
-		if (!add_name(&st_ptr->name, head, s)) return (7);
-#endif
+	if(get_split_offset(split, size, buf, ST_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
 	}
 
-	/* There better be a current r_ptr */
-	else if (!st_ptr) return (3);
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
 
-#ifdef JP
-	/* ‰pŒê–¼‚ð“Ç‚Þƒ‹[ƒ`ƒ“‚ð’Ç‰Á */
-	/* 'E' ‚©‚çŽn‚Ü‚és‚Í‰pŒê–¼ */
-	else if (buf[0] == 'E')
+	if(!strcmp(tmp, st_info_csv_list[0]))
 	{
-		/* Acquire the Text */
-		s = buf+2;
-
-		/* Store the name */
-		if (!add_name(&st_ptr->E_name, head, s)) return (7);
+		st_info_csv_code[0] = ST_INFO_ID;
+		for(i = 1; i < ST_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < ST_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, st_info_csv_list[j]))
+				{
+					st_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == ST_INFO_CSV_COLUMNS) return (1); /* ERROR */
+		}
+		return 0;
 	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize Monster:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < ST_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(st_info_csv_code[i])
+			{
+
+			case ST_INFO_NAME:
+#if JP
+				if (!add_name(&st_info[n].name, head, tmp))
+					return (7);
+#endif
+				break;
+
+			case ST_INFO_E_NAME:
+#if JP
+				if (!add_name(&st_info[n].E_name, head, tmp))
+					return (7);
 #else
-	else if (buf[0] == 'E')
-	{
-		/* Acquire the Text */
-		s = buf+2;
-
-		/* Store the name */
-		if (!add_name(&st_ptr->name, head, s)) return (7);
-	}
+				if (!add_name(&st_info[n].name, head, tmp))
+					return (7);
 #endif
-
-	/* Oops */
-	else return (6);
-
-
-	/* Success */
+				break;
+			}
+		}
+		
+	}
 	return (0);
 }
 

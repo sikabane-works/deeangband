@@ -116,12 +116,12 @@ extern errr parse_a_info(char *buf, header *head);
 extern errr parse_e_info(char *buf, header *head);
 extern errr parse_r_info(char *buf, header *head);
 extern errr parse_re_info(char *buf, header *head);
-extern errr parse_st_info(char *buf, header *head);
 extern errr parse_d_info(char *buf, header *head);
 extern errr parse_s_info(char *buf, header *head);
 extern errr parse_m_info(char *buf, header *head);
 
 extern errr parse_r_info_csv(char *buf, header *head);
+extern errr parse_st_info_csv(char *buf, header *head);
 
 /*
  * Error tracking
