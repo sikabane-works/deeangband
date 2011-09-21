@@ -65,8 +65,8 @@ B:$0:A:0:Request quest:0:0:q:6:0
 B:0:A:0:クエスト:0:0:q:6:0
 B:$0:A:1:Resize Armor:0:0:r:47:0
 B:0:A:1:装備のサイズを修正する:0:0:r:47:0
-B:$0:A:2:Trading Street:0:0:s:48:0
-B:0:A:2:交易所:0:0:s:48:0
+B:$0:A:2:Trading Street:0:0:s:48:0:0
+B:0:A:2:交易所:0:0:s:48:0:666
 
 
 B:$1:N:The Eight Arrow Inn:Carefully Olfamble Lv-3 DR-None:Half-Elf Yeek

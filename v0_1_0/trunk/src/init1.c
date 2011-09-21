@@ -4631,7 +4631,8 @@ static errr parse_line_building(char *buf)
 		/* Building Action */
 		case 'A':
 		{
-			if (tokenize(s + 2, 8, zz, 0) >= 7)
+			int num;
+			if ((num = tokenize(s + 2, 8, zz, 0)) >= 7)
 			{
 				/* Index of the action */
 				int action_index = atoi(zz[0]);
@@ -4653,6 +4654,10 @@ static errr parse_line_building(char *buf)
 
 				/* Action restriction */
 				building[index].action_restr[action_index] = atoi(zz[6]);
+
+				/* Action restriction */
+				if(num >= 8) building[index].action_misc[action_index] = atoi(zz[7]);
+
 
 				break;
 			}
