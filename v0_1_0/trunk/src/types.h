@@ -798,7 +798,10 @@ struct store_pre_type
 	u32b name;
 	u32b E_name;
 
-	int owner_id;
+	s16b owner_id;
+	u16b size;
+	s32b wealth;
+	u32b flags;
 };
 
 

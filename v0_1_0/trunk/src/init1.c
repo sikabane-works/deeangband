@@ -941,6 +941,17 @@ static cptr d_info_flags1[] =
 
 
 /*
+ *  Store Flags
+ */
+static cptr st_info_flags[] =
+{
+	"YOUR_HOME",
+	"MUSEUM",
+	"BLACK_MARKET",
+};
+
+
+/*
  * Add a text to the text-storage and store offset to it.
  *
  * Returns FALSE when there isn't enough space available to store
@@ -2673,6 +2684,27 @@ errr parse_e_info(char *buf, header *head)
 
 
 /*
+ * Grab store flag in a species_type from a textual string
+ */
+static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
+{
+	if (grab_one_flag(&stp_ptr->flags, st_info_flags, what) == 0)
+		return 0;
+
+	/* Oops */
+#ifdef JP
+	msg_format("未知の店フラグ '%s'。", what);
+#else
+	msg_format("Unknown store flag '%s'.", what);
+#endif
+
+
+	/* Failure */
+	return (1);
+
+}
+
+/*
  * Grab one (basic) flag in a species_type from a textual string
  */
 static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
@@ -3814,8 +3846,9 @@ static int st_info_csv_code[R_INFO_CSV_COLUMNS];
 errr parse_st_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j;
+	int i, j, b;
 	char tmp[10000], nt[80];
+	char *s, *t;
 
 	if(get_split_offset(split, size, buf, ST_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -3849,7 +3882,7 @@ errr parse_st_info_csv(char *buf, header *head)
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize Monster:%d]", n);
+		sprintf(nt, "[Initialize Store:%d]", n);
 
 
 		note(nt);
@@ -3882,15 +3915,38 @@ errr parse_st_info_csv(char *buf, header *head)
 				break;
 
 			case ST_INFO_OWNER:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				st_info[n].owner_id = (s16b)b;
 				break;
 
 			case ST_INFO_SIZE:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				st_info[n].size = (u16b)b;
 				break;
 
 			case ST_INFO_WEALTH:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				st_info[n].wealth = (s32b)b;
 				break;
 
 			case ST_INFO_FLAGS:
+				for (s = tmp; *s; ){
+
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
+
+					/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|' || *t == '\n') t++;
+					}
+
+					/* Parse this entry */
+					if (0 != grab_store_flag(&st_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
+
+					/* Start the next entry */
+					s = t;
+				}
 				break;
 
 			default:
