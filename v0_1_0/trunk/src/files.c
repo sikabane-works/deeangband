@@ -4138,9 +4138,9 @@ void display_player(int mode, creature_type *cr_ptr)
 					/* Must be done before doing INIT_SHOW_TEXT */
 					for (i = 0; i < 10; i++)
 					{
-						quest_text[i][0] = '\0';
+						questp_text[i][0] = '\0';
 					}
-					quest_text_line = 0;
+					questp_text_line = 0;
 
 					/* Get the quest text */
 					init_flags = INIT_SHOW_TEXT;

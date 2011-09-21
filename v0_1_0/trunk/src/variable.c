@@ -852,11 +852,12 @@ char *re_text;
 
 
 /*
- * The store arrays
+ * The store pre arrays
  */
-store_pre_type *st_info;
-char *st_name;
-char *st_text;
+store_pre_type *stp_info;
+char *stp_name;
+char *stp_text;
+
 
 
 /*
@@ -1094,7 +1095,7 @@ u16b max_species_idx;
 u16b max_monster_ego_idx;
 
 /*
- * Maximum number of monsters in st_info.txt
+ * Maximum number of monsters in stp_info.txt
  */
 u16b max_store_idx;
 
@@ -1156,12 +1157,12 @@ quest_type *quest;
 /*
  * Quest text
  */
-char quest_text[10][80];
+char questp_text[10][80];
 
 /*
  * Current line of the quest text
  */
-int quest_text_line;
+int questp_text_line;
 
 /*
  * Default spell color table (quark index)

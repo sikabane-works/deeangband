@@ -3030,8 +3030,8 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			int j;
 
 			/* Clear the text */
-			for (j = 0; j < 10; j++) quest_text[j][0] = '\0';
-			quest_text_line = 0;
+			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
+			questp_text_line = 0;
 
 			inside_quest = c_ptr->special;
 

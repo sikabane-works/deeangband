@@ -2940,10 +2940,10 @@ static void get_questinfo(int questnum)
 	/* Clear the text */
 	for (i = 0; i < 10; i++)
 	{
-		quest_text[i][0] = '\0';
+		questp_text[i][0] = '\0';
 	}
 
-	quest_text_line = 0;
+	questp_text_line = 0;
 
 	/* Set the quest number temporary */
 	old_quest = inside_quest;
@@ -2970,7 +2970,7 @@ sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
 
 	for (i = 0; i < 10; i++)
 	{
-		c_put_str(TERM_YELLOW, quest_text[i], i + 8, 0);
+		c_put_str(TERM_YELLOW, questp_text[i], i + 8, 0);
 	}
 }
 

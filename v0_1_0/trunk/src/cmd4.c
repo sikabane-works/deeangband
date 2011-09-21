@@ -9440,8 +9440,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 			int j;
 
 			/* Clear the text */
-			for (j = 0; j < 10; j++) quest_text[j][0] = '\0';
-			quest_text_line = 0;
+			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
+			questp_text_line = 0;
 
 			inside_quest = i;
 
@@ -9557,9 +9557,9 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				fprintf(fff, "\n");
 				j = 0;
 
-				while (quest_text[j][0] && j < 10)
+				while (questp_text[j][0] && j < 10)
 				{
-					fprintf(fff, "    %s\n", quest_text[j]);
+					fprintf(fff, "    %s\n", questp_text[j]);
 					j++;
 				}
 				fprintf(fff, "\n");

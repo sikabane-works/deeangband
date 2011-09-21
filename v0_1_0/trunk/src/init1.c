@@ -943,7 +943,7 @@ static cptr d_info_flags1[] =
 /*
  *  Store Flags
  */
-static cptr st_info_flags[] =
+static cptr stp_info_flags[] =
 {
 	"YOUR_HOME",
 	"MUSEUM",
@@ -2688,7 +2688,7 @@ errr parse_e_info(char *buf, header *head)
  */
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
-	if (grab_one_flag(&stp_ptr->flags, st_info_flags, what) == 0)
+	if (grab_one_flag(&stp_ptr->flags, stp_info_flags, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -3822,7 +3822,7 @@ errr parse_re_info(char *buf, header *head)
 
 
 #define ST_INFO_CSV_COLUMNS 7
-static cptr st_info_csv_list[ST_INFO_CSV_COLUMNS] =
+static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"NAME",
@@ -3833,7 +3833,7 @@ static cptr st_info_csv_list[ST_INFO_CSV_COLUMNS] =
 	"FLAGS",
 };
 
-static int st_info_csv_code[R_INFO_CSV_COLUMNS];
+static int stp_info_csv_code[R_INFO_CSV_COLUMNS];
 
 #define ST_INFO_ID			0
 #define ST_INFO_NAME		1
@@ -3843,7 +3843,7 @@ static int st_info_csv_code[R_INFO_CSV_COLUMNS];
 #define ST_INFO_WEALTH		5
 #define ST_INFO_FLAGS		6
 
-errr parse_st_info_csv(char *buf, header *head)
+errr parse_stp_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j, b;
@@ -3857,18 +3857,18 @@ errr parse_st_info_csv(char *buf, header *head)
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, st_info_csv_list[0]))
+	if(!strcmp(tmp, stp_info_csv_list[0]))
 	{
-		st_info_csv_code[0] = ST_INFO_ID;
+		stp_info_csv_code[0] = ST_INFO_ID;
 		for(i = 1; i < ST_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			for(j = 1; j < ST_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, st_info_csv_list[j]))
+				if(!strcmp(tmp, stp_info_csv_list[j]))
 				{
-					st_info_csv_code[i] = j;
+					stp_info_csv_code[i] = j;
 					break;
 				}
 			}
@@ -3894,39 +3894,39 @@ errr parse_st_info_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			
 
-			switch(st_info_csv_code[i])
+			switch(stp_info_csv_code[i])
 			{
 
 			case ST_INFO_NAME:
 #if JP
-				if (!add_name(&st_info[n].name, head, tmp))
+				if (!add_name(&stp_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
 			case ST_INFO_E_NAME:
 #if JP
-				if (!add_name(&st_info[n].E_name, head, tmp))
+				if (!add_name(&stp_info[n].E_name, head, tmp))
 					return (7);
 #else
-				if (!add_name(&st_info[n].name, head, tmp))
+				if (!add_name(&stp_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
 			case ST_INFO_OWNER:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				st_info[n].owner_id = (s16b)b;
+				stp_info[n].owner_id = (s16b)b;
 				break;
 
 			case ST_INFO_SIZE:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				st_info[n].size = (u16b)b;
+				stp_info[n].size = (u16b)b;
 				break;
 
 			case ST_INFO_WEALTH:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				st_info[n].wealth = (s32b)b;
+				stp_info[n].wealth = (s32b)b;
 				break;
 
 			case ST_INFO_FLAGS:
@@ -3942,7 +3942,7 @@ errr parse_st_info_csv(char *buf, header *head)
 					}
 
 					/* Parse this entry */
-					if (0 != grab_store_flag(&st_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
+					if (0 != grab_store_flag(&stp_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
 
 					/* Start the next entry */
 					s = t;
@@ -5050,8 +5050,8 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 		{
 			if (init_flags & INIT_SHOW_TEXT)
 			{
-				strcpy(quest_text[quest_text_line], zz[2]);
-				quest_text_line++;
+				strcpy(questp_text[questp_text_line], zz[2]);
+				questp_text_line++;
 			}
 
 			return (0);

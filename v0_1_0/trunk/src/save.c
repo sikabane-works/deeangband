@@ -1585,7 +1585,7 @@ static bool wr_savefile_new(void)
 	/*
 	wr_u16b(max_store_idx);
 	for(i = 1; i < max_store_idx; i++)
-			wr_store(&st_info[i]);
+			wr_store(&stp_info[i]);
 	*/
 
 

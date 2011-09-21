@@ -495,9 +495,9 @@ extern char *r_text;
 extern monster_ego *re_info;
 extern char *re_name;
 extern char *re_text;
-extern store_pre_type *st_info;
-extern char *st_name;
-extern char *st_text;
+extern store_pre_type *stp_info;
+extern char *stp_name;
+extern char *stp_text;
 extern dungeon_info_type *d_info;
 extern char *d_name;
 extern char *d_text;
@@ -550,8 +550,8 @@ extern u16b max_unique;
 extern creature_type *u_info;
 
 extern quest_type *quest;
-extern char quest_text[10][80];
-extern int quest_text_line;
+extern char questp_text[10][80];
+extern int questp_text_line;
 extern s16b gf_color[MAX_GF];
 extern int init_flags;
 extern int highscore_fd;
@@ -1350,6 +1350,7 @@ extern void store_shuffle(creature_type *cr_ptr, int which);
 extern void store_maint(creature_type *cr_ptr, int town_num, int store_num);
 extern void store_init(int town_num, int store_num);
 extern void move_to_black_market(object_type * o_ptr);
+extern void init_stores(void);
 
 /* bldg.c */
 extern bool get_nightmare(int species_idx);

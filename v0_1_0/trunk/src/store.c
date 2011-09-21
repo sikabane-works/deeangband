@@ -5408,3 +5408,33 @@ void move_to_black_market(object_type *o_ptr)
 
 	object_wipe(o_ptr); /* Don't leave a bogus object behind... */
 }
+
+
+void init_stores(void)
+{
+	/*
+	int i, j;
+	char buf[80];
+
+
+	C_MAKE(st_info, max_store_idx, store_type);
+	C_WIPE(st_info, max_store_idx, store_type);
+	j = 0;
+
+
+	for(i = 0; i < max_species_idx; i++)
+	{
+		sprintf(buf, "Please Wait ... Unique Making[%d]", i);
+		prt(buf, 0, 0);
+		Term_fresh();
+
+		if(r_info[i].flags1 & RF1_UNIQUE)
+		{
+			creature_type *cr_ptr = &u_info[j]; 
+			create_monster(cr_ptr, i, MONEGO_NONE, 0);
+			j++;
+		}
+	}
+//	C_KILL(u_info, max_unique, creature_type);
+*/
+}

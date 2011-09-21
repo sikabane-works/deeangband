@@ -2560,7 +2560,7 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	/*
 	rd_u16b(&max_store_idx);
 	for(i = 1; i < max_store_idx; i++)
-			rd_store_aux(&st_info[i], 0);
+			rd_store_aux(&stp_info[i], 0);
 	*/
 
 

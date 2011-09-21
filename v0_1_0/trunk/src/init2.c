@@ -1072,9 +1072,9 @@ static errr init_re_info(void)
 }
 
 /*
- * Initialize the "st_info" array
+ * Initialize the "stp_info" array
  */
-static errr init_st_info_csv(void)
+static errr init_stp_info_csv(void)
 {
 	/* Init the header */
 	init_header(&st_head, max_store_idx, sizeof(store_type));
@@ -1082,11 +1082,11 @@ static errr init_st_info_csv(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	st_head.parse_info_txt = parse_st_info_csv;
+	st_head.parse_info_txt = parse_stp_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("st_info", &st_head, (void*)&st_info, &st_name, &st_text, NULL);
+	return init_info2("stp_info", &st_head, (void*)&stp_info, &stp_name, &stp_text, NULL);
 
 /*
 	init_header(&r_head, max_species_idx, sizeof(species_type));
@@ -2743,7 +2743,7 @@ void init_angband(void)
 	if (init_re_info()) quit("Cannot initialize monster's ego");
 
 	/* Initialize store info */	note("[Initializing arrays... (store)]");
-	if (init_st_info_csv()) quit("Cannot initialize monster's ego");
+	if (init_stp_info_csv()) quit("Cannot initialize monster's ego");
 
 	/* Initialize dungeon info */
 	note("[Initializing arrays... (dungeon)]");
