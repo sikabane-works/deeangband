@@ -2557,11 +2557,13 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 		}
 	}
 
-	/*
-	rd_u16b(&max_store_idx);
-	for(i = 1; i < max_store_idx; i++)
-			rd_store_aux(&stp_info[i], 0);
-	*/
+	rd_u16b(&max_st_idx);
+
+	C_MAKE(u_info, max_unique, creature_type);
+	C_WIPE(u_info, max_unique, creature_type);
+
+	for(i = 1; i < max_st_idx; i++)
+			rd_store_aux(&st_list[i], 0);
 
 
 	rd_s16b(&cr_ptr->pet_follow_distance);
