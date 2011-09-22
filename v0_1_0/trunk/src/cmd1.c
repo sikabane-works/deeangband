@@ -3399,7 +3399,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(!mdeath)
 	{
-		special_melee(atk_ptr, tar_ptr);
+//		special_melee(atk_ptr, tar_ptr);
 	}
 
 	/* Mutations which yield extra 'natural' attacks */
