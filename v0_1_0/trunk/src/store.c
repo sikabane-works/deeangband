@@ -5784,15 +5784,13 @@ void init_stores(void)
 	int i, j;
 	char buf[80];
 
-
+	max_st_idx = max_store_idx;
 	C_MAKE(st_list, max_st_idx, store_type);
 	C_WIPE(st_list, max_st_idx, store_type);
 	j = 0;
 
-
 	for(i = 0; i < max_store_idx; i++)
 	{
-		store_pre_type *stp_ptr = &stp_info[i]; 
 		sprintf(buf, "Please Wait ... Store Initialize[%d]", i);
 		prt(buf, 0, 0);
 		Term_fresh();
@@ -5804,7 +5802,7 @@ void init_stores(void)
 }
 
 
-void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
+static void store_create2b(store_type *st_ptr, store_pre_type *stp_ptr)
 {
 	int i, j, tries, level;
 	int size;
@@ -5927,4 +5925,73 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 }
 
 
+void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
+{
+	int i, j, k, s, t;
 
+	st_ptr->owner = 0;
+	st_ptr->owner_id = stp_ptr->owner_id;
+
+	/* Activate the new owner */
+	ot_ptr = &owners[0][0];
+
+
+	/* Initialize the store */
+	st_ptr->store_open = 0;
+	st_ptr->insult_cur = 0;
+	st_ptr->good_buy = 0;
+	st_ptr->bad_buy = 0;
+
+	/* Nothing in stock */
+	st_ptr->stock_num = 0;
+
+	/*
+	 * MEGA-HACK - Last visit to store is
+	 * BEFORE player birth to enable store restocking
+	 */
+	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
+	st_ptr->stock_size = stp_ptr->size;
+
+
+	/* Allocate the stock */
+	C_MAKE(st_ptr->stock, st_ptr->stock_size, object_type);
+
+	/* Assume full table */
+	st_ptr->table_size = STORE_CHOICES;
+
+	/* Allocate the stock */
+	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
+
+
+	// Scan the choices
+	/*
+	for (k = 0; k < STORE_CHOICES; k++)
+	{
+		int k_idx;
+
+		// Extract the tval/sval codes
+		int tv = store_table[j][k][0];
+		int sv = store_table[j][k][1];
+
+		// Look for it
+		for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+		{
+			object_kind *k_ptr = &k_info[k_idx];
+
+			// Found a match
+			if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+		}
+
+		// Catch errors
+		if (k_idx == max_k_idx) continue;
+
+		// Add that item index to the table
+		st_ptr->table[st_ptr->table_num++] = k_idx;
+	}
+	*/
+	// Clear any old items
+	for (k = 0; k < st_ptr->stock_size; k++)
+	{
+		object_wipe(&st_ptr->stock[k]);
+	}
+}
