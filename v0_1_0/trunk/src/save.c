@@ -1582,8 +1582,9 @@ static bool wr_savefile_new(void)
 		}
 	}
 
+
 	wr_u16b(max_st_idx);
-	for(i = 1; i < max_st_idx; i++)
+	for(i = 0; i < max_st_idx; i++)
 			wr_store(&st_list[i]);
 
 
