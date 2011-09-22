@@ -2011,7 +2011,7 @@ static void store_delete(void)
  *
  * Should we check for "permission" to have the given item?
  */
-static void store_create(creature_type *cr_ptr)
+static void store_create(void)
 {
 	int i, j, tries, level;
 	int size;
@@ -2096,7 +2096,7 @@ static void store_create(creature_type *cr_ptr)
 		apply_magic(q_ptr, level, AM_NO_FIXED_ART);
 
 		/* Require valid object */
-		if (!store_will_buy(cr_ptr, q_ptr)) continue;
+		if (!store_will_buy(NULL, q_ptr)) continue;
 
 		/* Hack -- Charge lite's */
 		if (q_ptr->tval == TV_LITE)
@@ -3698,7 +3698,7 @@ msg_format("%sÇ $%ldÇ≈çwì¸ÇµÇ‹ÇµÇΩÅB", o_name, (long)price);
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
-						store_maint(guest_ptr, town_num, cur_store_num);
+						store_maint(town_num, cur_store_num);
 					}
 
 					/* Start over */
@@ -4849,7 +4849,7 @@ void do_cmd_store(creature_type *cr_ptr)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(cr_ptr, town_num, which);
+			store_maint(town_num, which);
 
 		/* Save the visit */
 		town[town_num].store[which].last_visit = turn;
@@ -5214,7 +5214,7 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(cr_ptr, town_num, which);
+			store_maint(town_num, which);
 
 		/* Save the visit */
 		town[town_num].store[which].last_visit = turn;
@@ -5618,7 +5618,7 @@ void store_shuffle(creature_type *cr_ptr, int which)
 /*
  * Maintain the inventory at the stores.
  */
-void store_maint(creature_type *cr_ptr, int town_num, int store_num)
+void store_maint(int town_num, int store_num)
 {
 	int 		j;
 
@@ -5691,7 +5691,7 @@ void store_maint(creature_type *cr_ptr, int town_num, int store_num)
 	if (j >= st_ptr->stock_size) j = st_ptr->stock_size - 1;
 
 	/* Acquire some new items */
-	while (st_ptr->stock_num < j) store_create(cr_ptr);
+	while (st_ptr->stock_num < j) store_create();
 }
 
 
@@ -5797,8 +5797,148 @@ void init_stores(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 
-		//create_monster(cr_ptr, i, MONEGO_NONE, 0);
+
 	}
 //	C_KILL(u_info, max_unique, creature_type);
 
 }
+
+
+static void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
+{
+	int i, j, tries, level;
+	int size;
+
+	object_type forge;
+	object_type *q_ptr;
+
+	//TODO:Debug
+
+	/* Paranoia -- no room left */
+	if (st_ptr->stock_num >= st_ptr->stock_size) return;
+
+
+	/* Hack -- consider up to four items */
+	for (tries = 0; tries < 4; tries++)
+	{
+		/* Black Market */
+		if (cur_store_num == STORE_BLACK)
+		{
+			/* Pick a level for object/magic */
+			level = 25 + randint0(25);
+
+			/* Random item (usually of given level) */
+			i = get_obj_num(level, 0);
+
+			/* Handle failure */
+			if (!i) continue;
+		}
+
+		/* Normal Store */
+		else
+		{
+			/* Hack -- Pick an item to sell */
+			i = st_ptr->table[randint0(st_ptr->table_num)];
+
+			/* Hack -- fake level for apply_magic() */
+			level = rand_range(1, STORE_OBJ_LEVEL);
+		}
+
+
+		/* Get local object */
+		q_ptr = &forge;
+
+		/* Set Standard Item Size */
+
+
+		if(randint0(10) < 9){
+			int s = 0, t = 0;
+			for(j = 0; j < MAX_RACES; j++)
+				t += race_population[j];
+
+			s = randint0(t);
+			for(j = 0; j < MAX_RACES; j++)
+			{
+				if(race_population[j] != 0)
+				{
+					s -= race_population[j];
+					if(s <= 0) break;
+				}
+			}
+			size = calc_race_standard_size(&race_info[j]);
+		}
+		else
+		{
+			size = calc_race_standard_size(&race_info[owners[cur_store_num][st_ptr->owner].owner_race]);
+		}
+
+		if (cur_store_num == STORE_BLACK){
+			size = size * (70 + randint0(60)) / 100;
+		}
+		else{
+			size = size * (80 + randint0(40)) / 100;
+		}
+
+		object_prep(q_ptr, i, size);
+
+
+		/* Create a new object of the chosen kind */
+
+
+		/* Apply some "low-level" magic (no artifacts) */
+		apply_magic(q_ptr, level, AM_NO_FIXED_ART);
+
+		/* Require valid object */
+		if (!store_will_buy(NULL, q_ptr)) continue;
+
+		/* Hack -- Charge lite's */
+		if (q_ptr->tval == TV_LITE)
+		{
+			if (q_ptr->sval == SV_LITE_TORCH) q_ptr->xtra4 = FUEL_TORCH / 2;
+			if (q_ptr->sval == SV_LITE_LANTERN) q_ptr->xtra4 = FUEL_LAMP / 2;
+		}
+
+
+		/* The item is "known" */
+		object_known(q_ptr);
+
+		/* Mark it storebought */
+		q_ptr->ident |= IDENT_STORE;
+
+		/* Mega-Hack -- no chests in stores */
+		if (q_ptr->tval == TV_CHEST) continue;
+
+		/* Prune the black market */
+		if (cur_store_num == STORE_BLACK)
+		{
+			/* Hack -- No "crappy" items */
+			if (black_market_crap(q_ptr)) continue;
+
+			/* Hack -- No "cheap" items */
+			if (object_value(q_ptr) < 10) continue;
+
+			/* No "worthless" items */
+			/* if (object_value(q_ptr) <= 0) continue; */
+		}
+
+		/* Prune normal stores */
+		else
+		{
+			/* No "worthless" items */
+			if (object_value(q_ptr) <= 0) continue;
+		}
+
+
+		/* Mass produce and/or Apply discount */
+		mass_produce(q_ptr);
+
+		/* Attempt to carry the (known) item */
+		(void)store_carry(q_ptr);
+
+		/* Definitely done */
+		break;
+	}
+}
+
+
+
