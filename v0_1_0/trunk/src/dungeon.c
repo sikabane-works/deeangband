@@ -6956,11 +6956,11 @@ quit("セーブファイルが壊れています");
 			}
 		}
 
-		/* Init Uniques */
-		birth_uniques();
-
 		/* Init Stores */
 		init_stores();
+
+		/* Init Uniques */
+		birth_uniques();
 
 		/* Generate the random seeds for the wilderness */
 		seed_wilderness();

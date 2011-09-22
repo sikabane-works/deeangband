@@ -5796,7 +5796,7 @@ void init_stores(void)
 		sprintf(buf, "Please Wait ... Store Initialize[%d]", i);
 		prt(buf, 0, 0);
 		Term_fresh();
-
+		store_create2(&st_list[i], &stp_info[i]);
 
 	}
 //	C_KILL(u_info, max_unique, creature_type);
@@ -5804,7 +5804,7 @@ void init_stores(void)
 }
 
 
-static void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
+void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 {
 	int i, j, tries, level;
 	int size;
@@ -5812,7 +5812,21 @@ static void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	object_type forge;
 	object_type *q_ptr;
 
-	//TODO:Debug
+	// store_type_pre to store_type
+	st_ptr->name = stp_ptr->name;
+	st_ptr->E_name = stp_ptr->E_name;
+	st_ptr->owner_id = stp_ptr->owner_id;
+	st_ptr->owner = 0; // Dammy
+	st_ptr->bad_buy = 0;
+	st_ptr->good_buy = 0;
+	st_ptr->insult_cur = 0;
+	st_ptr->last_visit = 0;
+	st_ptr->stock = 0;
+	st_ptr->stock_num = stp_ptr->size;
+	st_ptr->stock_size = 0;
+	st_ptr->store_open = 0;
+	st_ptr->type = 1;
+
 
 	/* Paranoia -- no room left */
 	if (st_ptr->stock_num >= st_ptr->stock_size) return;
@@ -5849,35 +5863,7 @@ static void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 		q_ptr = &forge;
 
 		/* Set Standard Item Size */
-
-
-		if(randint0(10) < 9){
-			int s = 0, t = 0;
-			for(j = 0; j < MAX_RACES; j++)
-				t += race_population[j];
-
-			s = randint0(t);
-			for(j = 0; j < MAX_RACES; j++)
-			{
-				if(race_population[j] != 0)
-				{
-					s -= race_population[j];
-					if(s <= 0) break;
-				}
-			}
-			size = calc_race_standard_size(&race_info[j]);
-		}
-		else
-		{
-			size = calc_race_standard_size(&race_info[owners[cur_store_num][st_ptr->owner].owner_race]);
-		}
-
-		if (cur_store_num == STORE_BLACK){
-			size = size * (70 + randint0(60)) / 100;
-		}
-		else{
-			size = size * (80 + randint0(40)) / 100;
-		}
+		size = 10;
 
 		object_prep(q_ptr, i, size);
 
