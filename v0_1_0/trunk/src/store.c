@@ -5188,6 +5188,8 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	bool        need_redraw_store_inv; /* To redraw missiles damage and prices in store */
 	int w, h;
 
+	screen_save();
+
 	/* Extract the store code */
 	which = 0;
 
@@ -5213,13 +5215,6 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 		/* Save the visit */
 		town[town_num].store[which].last_visit = turn;
 	}
-
-	/* Forget the lite */
-	forget_lite();
-
-	/* Forget the view */
-	forget_view();
-
 
 	/* Hack -- Character is in "icky" mode */
 	character_icky = TRUE;
@@ -5509,11 +5504,6 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	/* Flush messages XXX XXX XXX */
 	msg_print(NULL);
 
-
-	/* Clear the screen */
-	Term_clear();
-
-
 	/* Update everything */
 	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 	cr_ptr->update |= (PU_MONSTERS);
@@ -5526,6 +5516,9 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+
+	screen_load();
+
 }
 
 
