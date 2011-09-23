@@ -5180,7 +5180,7 @@ void do_cmd_store(creature_type *cr_ptr)
 
 
 
-void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
+void store_process(creature_type *cr_ptr, store_type *st_ptr)
 {
 	int         which;
 	int         maintain_num;
@@ -5188,10 +5188,11 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	bool        need_redraw_store_inv; /* To redraw missiles damage and prices in store */
 	int w, h;
 
-	screen_save();
 
 	/* Extract the store code */
 	which = 0;
+
+	Term_clear();
 
 	/* Get term size */
 	Term_get_size(&w, &h);
@@ -5260,9 +5261,9 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 
 		/* Basic commands */
 #ifdef JP
-		prt(" ESC) Œš•¨‚©‚ço‚é", 21 + xtra_stock, 0);
+		prt(" ESC) “X‚ðo‚é", 21 + xtra_stock, 0);
 #else
-		prt(" ESC) Exit from Building.", 21 + xtra_stock, 0);
+		prt(" ESC) Exit from Store.", 21 + xtra_stock, 0);
 #endif
 
 
@@ -5504,20 +5505,20 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	/* Flush messages XXX XXX XXX */
 	msg_print(NULL);
 
-	/* Update everything */
+	/*
+	// Update everything
 	cr_ptr->update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
 	cr_ptr->update |= (PU_MONSTERS);
 
-	/* Redraw entire screen */
+	// Redraw entire screen
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 
-	/* Redraw map */
+	// Redraw map
 	play_redraw |= (PR_MAP);
 
-	/* Window stuff */
+	// Window stuff
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-	screen_load();
+	*/
 
 }
 

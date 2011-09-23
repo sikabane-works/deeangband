@@ -4733,7 +4733,8 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		/* Do nothing */
 		break;
 	case BACT_STORE:
-		do_cmd_store2(cr_ptr, &st_list[bldg->action_misc[i]]);
+		store_process(cr_ptr, &st_list[bldg->action_misc[i]]);
+		show_building(cr_ptr, bldg);
 		break;
 	case BACT_RESEARCH_ITEM:
 		paid = identify_fully(cr_ptr, FALSE);
