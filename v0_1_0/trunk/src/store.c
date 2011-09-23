@@ -2353,7 +2353,7 @@ static void display_entry(creature_type *cr_ptr, int pos)
  * Displays a store's inventory 		-RAK-
  * All prices are listed as "per individual object".  -BEN-
  */
-static void display_inventory(creature_type *cr_ptr)
+static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
 {
 	int i, k;
 
@@ -2435,7 +2435,7 @@ static void store_prt_gold(creature_type *cr_ptr)
 /*
  * Displays store (after clearing screen)		-RAK-
  */
-static void display_store(creature_type *cr_ptr)
+static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 {
 	char buf[80];
 
@@ -2508,7 +2508,7 @@ static void display_store(creature_type *cr_ptr)
 	/* Normal stores */
 	else
 	{
-		cptr store_name = (f_name + f_info[cur_store_feat].name);
+		cptr store_name = "STORE";//(f_name + f_info[cur_store_feat].name);
 		cptr owner_name = (ot_ptr->owner_name);
 		cptr race_name = race_info[ot_ptr->owner_race].title;
 
@@ -2552,7 +2552,7 @@ static void display_store(creature_type *cr_ptr)
 	store_prt_gold(cr_ptr);
 
 	/* Draw in the inventory */
-	display_inventory(cr_ptr);
+	display_inventory(cr_ptr, st_ptr);
 }
 
 
@@ -3705,7 +3705,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 					store_top = 0;
 
 					/* Redraw everything */
-					display_inventory(guest_ptr);
+					display_inventory(guest_ptr, st_ptr);
 				}
 
 				/* The item is gone */
@@ -3715,7 +3715,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 					if (store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
 					/* Redraw everything */
-					display_inventory(guest_ptr);
+					display_inventory(guest_ptr, st_ptr);
 				}
 
 				/* Item is still here */
@@ -3778,7 +3778,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		if (i == st_ptr->stock_num)
 		{
 			/* Redraw everything */
-			if (combined_or_reordered) display_inventory(guest_ptr);
+			if (combined_or_reordered) display_inventory(guest_ptr, st_ptr);
 
 			/* Redraw the item */
 			else display_entry(guest_ptr, item);
@@ -3794,7 +3794,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			else if (store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
 			/* Redraw everything */
-			display_inventory(guest_ptr);
+			display_inventory(guest_ptr, st_ptr);
 		}
 	}
 
@@ -4090,7 +4090,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 			if (item_pos >= 0)
 			{
 				store_top = (item_pos / store_bottom) * store_bottom;
-				display_inventory(cr_ptr);
+				display_inventory(cr_ptr, st_ptr);
 			}
 		}
 	}
@@ -4154,7 +4154,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		if (item_pos >= 0)
 		{
 			store_top = (item_pos / store_bottom) * store_bottom;
-			display_inventory(cr_ptr);
+			display_inventory(cr_ptr, st_ptr);
 		}
 	}
 	/* Player is at home */
@@ -4187,7 +4187,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		if (item_pos >= 0)
 		{
 			store_top = (item_pos / store_bottom) * store_bottom;
-			display_inventory(cr_ptr);
+			display_inventory(cr_ptr, st_ptr);
 		}
 	}
 
@@ -4377,7 +4377,7 @@ static void museum_remove_object(creature_type *cr_ptr)
 	else if (store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
 	/* Redraw everything */
-	display_inventory(cr_ptr);
+	display_inventory(cr_ptr, st_ptr);
 
 	return;
 }
@@ -4397,7 +4397,7 @@ static bool leave_store = FALSE;
  * must disable some commands which are allowed in the dungeon
  * but not in the stores, to prevent chaos.
  */
-static void store_process_command(creature_type *guest_ptr)
+static void store_process_command(creature_type *guest_ptr, store_type *st_ptr)
 {
 #ifdef ALLOW_REPEAT /* TNB */
 
@@ -4438,7 +4438,7 @@ static void store_process_command(creature_type *guest_ptr)
 					store_top = ((st_ptr->stock_num - 1 )/store_bottom) * store_bottom;
 				if ( (cur_store_num == STORE_HOME) && (powerup_home == FALSE) )
 					if ( store_top >= store_bottom ) store_top = store_bottom;
-				display_inventory(guest_ptr);
+				display_inventory(guest_ptr, st_ptr);
 			}
 			break;
 		}
@@ -4476,7 +4476,7 @@ static void store_process_command(creature_type *guest_ptr)
 					if (store_top >= st_ptr->stock_num) store_top = 0;
 				}
 
-				display_inventory(guest_ptr);
+				display_inventory(guest_ptr, st_ptr);
 			}
 			break;
 		}
@@ -4485,7 +4485,7 @@ static void store_process_command(creature_type *guest_ptr)
 		case KTRL('R'):
 		{
 			do_cmd_redraw(guest_ptr);
-			display_store(guest_ptr);
+			display_store(guest_ptr, st_ptr);
 			break;
 		}
 
@@ -4630,7 +4630,7 @@ static void store_process_command(creature_type *guest_ptr)
 			town_num = old_town_num;
 			do_cmd_change_name(guest_ptr);
 			town_num = inner_town_num;
-			display_store(guest_ptr);
+			display_store(guest_ptr, st_ptr);
 			break;
 		}
 
@@ -4686,7 +4686,7 @@ static void store_process_command(creature_type *guest_ptr)
 			do_cmd_options();
 			(void)combine_and_reorder_home(STORE_HOME);
 			do_cmd_redraw(guest_ptr);
-			display_store(guest_ptr);
+			display_store(guest_ptr, st_ptr);
 			break;
 		}
 
@@ -4893,7 +4893,7 @@ void do_cmd_store(creature_type *cr_ptr)
 	store_top = 0;
 
 	/* Display the store */
-	display_store(cr_ptr);
+	display_store(cr_ptr, st_ptr);
 
 	/* Do not leave */
 	leave_store = FALSE;
@@ -5008,7 +5008,7 @@ void do_cmd_store(creature_type *cr_ptr)
 		request_command(TRUE);
 
 		/* Process the command */
-		store_process_command(cr_ptr);
+		store_process_command(cr_ptr, st_ptr);
 
 		/*
 		 * Hack -- To redraw missiles damage and prices in store
@@ -5119,14 +5119,14 @@ void do_cmd_store(creature_type *cr_ptr)
 				if (item_pos >= 0)
 				{
 					store_top = (item_pos / store_bottom) * store_bottom;
-					display_inventory(cr_ptr);
+					display_inventory(cr_ptr, st_ptr);
 				}
 			}
 		}
 
 		/* Hack -- Redisplay store prices if charisma changes */
 		/* Hack -- Redraw missiles damage if player changes bow */
-		if (need_redraw_store_inv) display_inventory(cr_ptr);
+		if (need_redraw_store_inv) display_inventory(cr_ptr, st_ptr);
 
 		/* Hack -- get kicked out of the store */
 		if (st_ptr->store_open >= turn) leave_store = TRUE;
@@ -5186,7 +5186,6 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	int         which;
 	int         maintain_num;
 	int         i;
-	cave_type   *c_ptr;
 	bool        need_redraw_store_inv; /* To redraw missiles damage and prices in store */
 	int w, h;
 
@@ -5199,10 +5198,6 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	/* Calculate stocks per 1 page */
 	xtra_stock = MIN(14+26, ((h > 24) ? (h - 24) : 0));
 	store_bottom = MIN_STOCK + xtra_stock;
-
-	/* Access the player grid */
-	c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
-
 
 	/* Calculate the number of store maintainances since the last visit */
 	maintain_num = (turn - town[town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
@@ -5246,9 +5241,6 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	/* Save the store number */
 	cur_store_num = which;
 
-	/* Hack -- save the store feature */
-	cur_store_feat = c_ptr->feat;
-
 	/* Save the store and owner pointers */
 	ot_ptr = &owners[0][0];
 
@@ -5257,7 +5249,7 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 	store_top = 0;
 
 	/* Display the store */
-	display_store(cr_ptr);
+	display_store(cr_ptr, st_ptr);
 
 	/* Do not leave */
 	leave_store = FALSE;
@@ -5372,7 +5364,7 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 		request_command(TRUE);
 
 		/* Process the command */
-		store_process_command(cr_ptr);
+		store_process_command(cr_ptr, st_ptr);
 
 		/*
 		 * Hack -- To redraw missiles damage and prices in store
@@ -5483,14 +5475,14 @@ void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr)
 				if (item_pos >= 0)
 				{
 					store_top = (item_pos / store_bottom) * store_bottom;
-					display_inventory(cr_ptr);
+					display_inventory(cr_ptr, st_ptr);
 				}
 			}
 		}
 
 		/* Hack -- Redisplay store prices if charisma changes */
 		/* Hack -- Redraw missiles damage if player changes bow */
-		if (need_redraw_store_inv) display_inventory(cr_ptr);
+		if (need_redraw_store_inv) display_inventory(cr_ptr, st_ptr);
 
 		/* Hack -- get kicked out of the store */
 		if (st_ptr->store_open >= turn) leave_store = TRUE;
@@ -5927,7 +5919,7 @@ static void store_create2b(store_type *st_ptr, store_pre_type *stp_ptr)
 
 void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 {
-	int i, j, k, s, t;
+	int k;
 
 	st_ptr->owner = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;

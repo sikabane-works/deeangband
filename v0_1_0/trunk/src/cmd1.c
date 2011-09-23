@@ -3138,6 +3138,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 				/* Message */
 #ifdef JP
+
 				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", m_name, a_name);
 #else
 				msg_format("%^s misses %s.", m_name, a_name);
