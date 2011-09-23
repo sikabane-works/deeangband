@@ -1425,6 +1425,9 @@ s16b get_mon_num(int level)
 		/* Access the actual race */
 		r_ptr = &r_info[species_idx];
 
+		/* Citizens doesn't wander. */
+		if (r_ptr->flags8 & (RF8_CITIZEN)) continue;
+
 		if (!inside_battle && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
