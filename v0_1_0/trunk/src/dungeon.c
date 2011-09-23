@@ -2517,25 +2517,6 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 		banish_monsters(100);
-		if (!dun_level && town_num)
-		{
-			int n;
-
-			/* Pick a random shop (except home) */
-			do
-			{
-				n = randint0(MAX_STORES);
-			}
-			while ((n == STORE_HOME) || (n == STORE_MUSEUM));
-
-#ifdef JP
-			msg_print("店の主人が丘に向かって走っている！");
-#else
-			msg_print("You see one of the shopkeepers running for the hills!");
-#endif
-
-			store_shuffle(cr_ptr, n);
-		}
 		msg_print(NULL);
 	}
 
@@ -4052,22 +4033,6 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 
 					/* Skip non-store features */
 					if (!have_flag(f_ptr->flags, FF_STORE)) continue;
-
-					/* Verify store type */
-					if (f_ptr->subtype == n)
-					{
-						/* Message */
-#ifdef JP
-						if (cheat_xtra) msg_format("%sの店主をシャッフルします。", f_name + f_ptr->name);
-#else
-						if (cheat_xtra) msg_format("Shuffle a Shopkeeper of %s.", f_name + f_ptr->name);
-#endif
-
-						/* Shuffle it */
-						store_shuffle(cr_ptr, n);
-
-						break;
-					}
 				}
 			}
 		}

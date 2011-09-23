@@ -1349,7 +1349,7 @@ extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u3
 extern bool combine_and_reorder_home(int store_num);
 extern void do_cmd_store(creature_type *cr_ptr);
 extern void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr);
-extern void store_shuffle(creature_type *cr_ptr, int which);
+extern void store_shuffle(store_type *st_ptr, creature_type *cr_ptr, int which);
 extern void store_maint(int town_num, int store_num);
 extern void store_init(int town_num, int store_num);
 extern void move_to_black_market(object_type * o_ptr);
