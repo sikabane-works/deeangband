@@ -5239,7 +5239,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	/* Save the store and owner pointers */
 	ot_ptr = &owners[0][0];
 
-
 	/* Start at the beginning */
 	store_top = 0;
 
@@ -5248,6 +5247,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 	/* Do not leave */
 	leave_store = FALSE;
+
 
 	/* Interact with player */
 	while (!leave_store)
@@ -5483,24 +5483,25 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		if (st_ptr->store_open >= turn) leave_store = TRUE;
 	}
 
-	town_num = old_town_num;
+//	town_num = old_town_num;
+
 
 	/* Free turn XXX XXX XXX */
 	energy_use = 100;
 
 
 	/* Hack -- Character is no longer in "icky" mode */
-	character_icky = FALSE;
+	//character_icky = FALSE;
 
 
 	/* Hack -- Cancel automatic command */
-	command_new = 0;
+	//command_new = 0;
 
 	/* Hack -- Cancel "see" mode */
-	command_see = FALSE;
+	//command_see = FALSE;
 
 	/* Allow expanding macros */
-	get_com_no_macros = FALSE;
+	//get_com_no_macros = FALSE;
 
 	/* Flush messages XXX XXX XXX */
 	msg_print(NULL);
@@ -5520,6 +5521,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	*/
 
+	return;
 }
 
 
