@@ -1514,9 +1514,9 @@ static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Combine and reorder items in the home
  */
-bool combine_and_reorder_home(int store_num)
+bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 {
-	store_type *st_ptr;
+
 	int         i, j, k;
 	s32b        o_value;
 	object_type forge, *o_ptr, *j_ptr;
@@ -1765,7 +1765,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	/* Insert the new item */
 	st_ptr->stock[slot] = *o_ptr;
 
-	(void)combine_and_reorder_home(cur_store_num);
+	(void)combine_and_reorder_home(st_ptr, cur_store_num);
 
 	/* Return the location */
 	return (slot);
@@ -3770,7 +3770,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 		store_item_increase(st_ptr, item, -amt);
 		store_item_optimize(st_ptr, item);
 
-		combined_or_reordered = combine_and_reorder_home(STORE_HOME);
+		combined_or_reordered = combine_and_reorder_home(st_ptr, STORE_HOME);
 
 		/* Hack -- Item is still here */
 		if (i == st_ptr->stock_num)
@@ -4364,7 +4364,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *cr_ptr)
 	store_item_increase(st_ptr, item, -o_ptr->number);
 	store_item_optimize(st_ptr, item);
 
-	(void)combine_and_reorder_home(STORE_MUSEUM);
+	(void)combine_and_reorder_home(st_ptr, STORE_MUSEUM);
 
 	/* The item is gone */
 
@@ -4682,7 +4682,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		case '=':
 		{
 			do_cmd_options();
-			(void)combine_and_reorder_home(STORE_HOME);
+			(void)combine_and_reorder_home(st_ptr, STORE_HOME);
 			do_cmd_redraw(guest_ptr);
 			display_store(guest_ptr, st_ptr);
 			break;

@@ -5259,7 +5259,7 @@ msg_print("アリーナが魔法を吸収した！");
 		case '=':
 		{
 			do_cmd_options();
-			(void)combine_and_reorder_home(STORE_HOME);
+			//TODO (void)combine_and_reorder_home(st_ptr, STORE_HOME);
 			do_cmd_redraw(cr_ptr);
 			break;
 		}
@@ -7146,8 +7146,8 @@ quit("セーブファイルが壊れています");
 		m_ptr->energy_need = ENERGY_NEED() + ENERGY_NEED();
 	}
 
-	(void)combine_and_reorder_home(STORE_HOME);
-	(void)combine_and_reorder_home(STORE_MUSEUM);
+	//TODO (void)combine_and_reorder_home(st_ptr, STORE_HOME);
+	//TODO (void)combine_and_reorder_home(st_ptr, STORE_MUSEUM);
 
 	/* Process */
 	while (TRUE)

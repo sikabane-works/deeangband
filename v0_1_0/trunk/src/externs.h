@@ -1346,7 +1346,7 @@ extern bool mirror_tunnel(creature_type *cr_ptr);
 extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode);
 
 /* store.c */
-extern bool combine_and_reorder_home(int store_num);
+extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);
 extern void do_cmd_store(creature_type *cr_ptr);
 extern void do_cmd_store2(creature_type *cr_ptr, store_type *st_ptr);
 extern void store_shuffle(store_type *st_ptr, creature_type *cr_ptr, int which);
