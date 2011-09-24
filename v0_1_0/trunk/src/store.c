@@ -298,18 +298,33 @@ static cptr comment_6[MAX_COMMENT_6] =
 
 };
 
+static bool is_black_market(store_type *st_ptr)
+{
+	return (TRUE);
+}
+
+static bool is_home(store_type *st_ptr)
+{
+	return (FALSE);
+}
+
+static bool is_museum(store_type *st_ptr)
+{
+	return (FALSE);
+}
+
 
 
 /*
  * Successful haggle.
  */
-static void say_comment_1(void)
+static void say_comment_1(store_type *st_ptr)
 {
 	char rumour[1024];
 
 #ifdef JP
 	/* ブラックマーケットのときは別のメッセージを出す */
-	if ( cur_store_num == STORE_BLACK ) {
+	if ( is_black_market(st_ptr) ) {
 		msg_print(comment_1_B[randint0(MAX_COMMENT_1)]);
 	}
 	else{
@@ -343,7 +358,7 @@ if (!get_rnd_line_jonly("rumors_j.txt", 0, rumour, 10))
 /*
  * Continue haggling (player is buying)
  */
-static void say_comment_2(s32b value, int annoyed)
+static void say_comment_2(store_type *st_ptr, s32b value, int annoyed)
 {
 	char	tmp_val[80];
 
@@ -363,7 +378,7 @@ static void say_comment_2(s32b value, int annoyed)
 		/* Formatted message */
 #ifdef JP
 		/* ブラックマーケットの時は別のメッセージを出す */
-		if ( cur_store_num == STORE_BLACK ){
+		if ( is_black_market(st_ptr) ){
 			msg_format(comment_2b_B[randint0(MAX_COMMENT_2B)], tmp_val);
 		}
 		else{
@@ -380,7 +395,7 @@ static void say_comment_2(s32b value, int annoyed)
 /*
  * Continue haggling (player is selling)
  */
-static void say_comment_3(s32b value, int annoyed)
+static void say_comment_3(store_type *st_ptr, s32b value, int annoyed)
 {
 	char	tmp_val[80];
 
@@ -400,7 +415,7 @@ static void say_comment_3(s32b value, int annoyed)
 		/* Formatted message */
 #ifdef JP
 		/* ブラックマーケットの時は別のメッセージを出す */
-		if ( cur_store_num == STORE_BLACK ){
+		if ( is_black_market(st_ptr) ){
 			msg_format(comment_3b_B[randint0(MAX_COMMENT_3B)], tmp_val);
 		}
 		else{
@@ -417,11 +432,11 @@ static void say_comment_3(s32b value, int annoyed)
 /*
  * Kick 'da bum out.					-RAK-
  */
-static void say_comment_4(void)
+static void say_comment_4(store_type *st_ptr)
 {
 #ifdef JP
 	/* ブラックマーケットの時は別のメッセージを出す */
-	if ( cur_store_num == STORE_BLACK ){
+	if ( is_black_market(st_ptr) ){
 		msg_print(comment_4a_B[randint0(MAX_COMMENT_4A)]);
 		msg_print(comment_4b_B[randint0(MAX_COMMENT_4B)]);
 	}
@@ -440,11 +455,11 @@ static void say_comment_4(void)
 /*
  * You are insulting me
  */
-static void say_comment_5(void)
+static void say_comment_5(store_type *st_ptr)
 {
 #ifdef JP
 	/* ブラックマーケットの時は別のメッセージを出す */
-	if ( cur_store_num == STORE_BLACK ){
+	if ( is_black_market(st_ptr) ){
 		msg_print(comment_5_B[randint0(MAX_COMMENT_5)]);
 	}
 	else{
@@ -887,8 +902,9 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
 		if (adjust > 100) adjust = 100;
 
 		/* Mega-Hack -- Black market sucks */
-		if (cur_store_num == STORE_BLACK)
-			price = price / 2;
+		//TODO
+		//if (is_black_market(st_ptr))
+		//	price = price / 2;
 
 		/* Compute the final price (with rounding) */
 		/* Hack -- prevent underflow */
@@ -905,8 +921,9 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
 		if (adjust < 100) adjust = 100;
 
 		/* Mega-Hack -- Black market sucks */
-		if (cur_store_num == STORE_BLACK)
-			price = price * 2;
+		//TODO
+		//if (cur_store_num == STORE_BLACK)
+		//	price = price * 2;
 
 		/* Compute the final price (with rounding) */
 		/* Hack -- prevent overflow */
@@ -2661,7 +2678,7 @@ static int increase_insults(store_type *st_ptr)
 	if (st_ptr->insult_cur > ot_ptr->insult_max)
 	{
 		/* Complain */
-		say_comment_4();
+		say_comment_4(st_ptr);
 
 		/* Reset insults */
 		st_ptr->insult_cur = 0;
@@ -2699,7 +2716,7 @@ static int haggle_insults(store_type *st_ptr)
 	if (increase_insults(st_ptr)) return (TRUE);
 
 	/* Display and flush insult */
-	say_comment_5();
+	say_comment_5(st_ptr);
 
 	/* Still okay */
 	return (FALSE);
@@ -3094,7 +3111,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_ty
 
 							  (long)last_offer);
 				put_str(out_val, 1, 39);
-				say_comment_2(cur_ask, annoyed);
+				say_comment_2(st_ptr, cur_ask, annoyed);
 			}
 		}
 	}
@@ -3334,7 +3351,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *
 #endif
 
 				put_str(out_val, 1, 39);
-				say_comment_3(cur_ask, annoyed);
+				say_comment_3(st_ptr, cur_ask, annoyed);
 			}
 		}
 	}
@@ -3580,7 +3597,7 @@ msg_format("%s(%c)を購入する。", o_name, I2A(item));
 			if (guest_ptr->au >= price)
 			{
 				/* Say "okay" */
-				say_comment_1();
+				say_comment_1(st_ptr);
 
 				/* Make a sound */
 				sound(SOUND_BUY);
@@ -4002,7 +4019,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 		if (choice == 0)
 		{
 			/* Say "okay" */
-			say_comment_1();
+			say_comment_1(st_ptr);
 
 			/* Make a sound */
 			sound(SOUND_SELL);
@@ -5854,3 +5871,4 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 		object_wipe(&st_ptr->stock[k]);
 	}
 }
+
