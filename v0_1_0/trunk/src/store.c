@@ -1954,7 +1954,7 @@ static void store_item_optimize(store_type *st_ptr, int item)
  * Crap is defined as any item that is "available" elsewhere
  * Based on a suggestion by "Lee Vogt" <lvogt@cig.mcel.mot.com>
  */
-static bool black_market_crap(object_type *o_ptr)
+static bool black_market_crap(store_type *st_ptr, object_type *o_ptr)
 {
 	int 	i, j;
 
@@ -1969,8 +1969,8 @@ static bool black_market_crap(object_type *o_ptr)
 	/* Check all stores */
 	for (i = 0; i < MAX_STORES; i++)
 	{
-		if (i == STORE_HOME) continue;
-		if (i == STORE_MUSEUM) continue;
+		if (is_home(st_ptr)) continue;
+		if (is_museum(st_ptr)) continue;
 
 		/* Check every item in the store */
 		for (j = 0; j < town[town_num].store[i].stock_num; j++)
@@ -2137,10 +2137,10 @@ static void store_create(store_type *st_ptr)
 		if (q_ptr->tval == TV_CHEST) continue;
 
 		/* Prune the black market */
-		if (cur_store_num == STORE_BLACK)
+		if (is_black_market(st_ptr))
 		{
 			/* Hack -- No "crappy" items */
-			if (black_market_crap(q_ptr)) continue;
+			if (black_market_crap(st_ptr, q_ptr)) continue;
 
 			/* Hack -- No "cheap" items */
 			if (object_value(q_ptr) < 10) continue;
@@ -5643,7 +5643,7 @@ void store_maint(store_type *st_ptr)
 			object_type *o_ptr = &st_ptr->stock[j];
 
 			/* Destroy crappy items */
-			if (black_market_crap(o_ptr))
+			if (black_market_crap(st_ptr, o_ptr))
 			{
 				/* Destroy the item */
 				store_item_increase(st_ptr, j, 0 - o_ptr->number);
