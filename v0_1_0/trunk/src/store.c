@@ -1301,10 +1301,10 @@ static bool is_blessed(object_type *o_ptr)
  *
  * Note that a shop-keeper must refuse to buy "worthless" items
  */
-static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
+static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Hack -- The Home is simple */
-	if ((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM)) return (TRUE);
+	if (is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
 	// TODO
 	return TRUE;
 
@@ -2117,7 +2117,7 @@ static void store_create(store_type *st_ptr)
 		apply_magic(q_ptr, level, AM_NO_FIXED_ART);
 
 		/* Require valid object */
-		if (!store_will_buy(NULL, q_ptr)) continue;
+		if (!store_will_buy(st_ptr, NULL, q_ptr)) continue;
 
 		/* Hack -- Charge lite's */
 		if (q_ptr->tval == TV_LITE)
@@ -3868,7 +3868,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 	item_tester_no_ryoute = TRUE;
 	/* Only allow items the store will buy */
-	item_tester_hook = store_will_buy;
+//TODO	item_tester_hook = store_will_buy;
 
 	/* Get an item */
 	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */
