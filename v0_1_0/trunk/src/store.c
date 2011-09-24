@@ -3696,7 +3696,7 @@ msg_format("%s‚ğ $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", o_name, (long)price);
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
-						store_maint(town_num, cur_store_num);
+						store_maint(st_ptr);
 					}
 
 					/* Start over */
@@ -4848,7 +4848,7 @@ void do_cmd_store(creature_type *cr_ptr)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(town_num, which);
+			store_maint(&town[town_num].store[which]);
 
 		/* Save the visit */
 		town[town_num].store[which].last_visit = turn;
@@ -5211,7 +5211,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(town_num, which);
+			store_maint(st_ptr);
 
 		/* Save the visit */
 		town[town_num].store[which].last_visit = turn;
@@ -5596,18 +5596,16 @@ void store_shuffle(store_type *st_ptr, creature_type *cr_ptr, int which)
 /*
  * Maintain the inventory at the stores.
  */
-void store_maint(int town_num, int store_num)
+void store_maint(store_type *st_ptr)
 {
 	int 		j;
-	store_type *st_ptr;
-	cur_store_num = store_num;
+	//TODO
+	int store_num = 1;
+	cur_store_num = 1;
 
 	/* Ignore home */
 	if (store_num == STORE_HOME) return;
 	if (store_num == STORE_MUSEUM) return;
-
-	/* Activate that store */
-	st_ptr = &town[town_num].store[store_num];
 
 	/* Activate the owner */
 	ot_ptr = &owners[store_num][st_ptr->owner];
