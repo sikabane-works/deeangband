@@ -791,6 +791,7 @@ struct store_type
 	object_type *stock;		/* Stock -- Actual stock items */
 
 	u32b flags;
+	s32b wealth;
 };
 
 

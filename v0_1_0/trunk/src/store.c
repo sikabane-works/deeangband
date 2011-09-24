@@ -2539,14 +2539,11 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 		cptr race_name = race_info[r_info[st_ptr->owner_id].irace_idx].title;
 
 		/* Put the owner name and race */
-		sprintf(buf, "[%s]", store_name);
-		put_str(buf, 2, 5);
+		sprintf(buf, "[%s](%ld)", store_name, (long)st_ptr->wealth);
+		put_str(buf, 2, 3);
 		sprintf(buf, "%s (%s)", owner_name, race_name);
 		put_str(buf, 3, 5);
 
-		/* Show the max price in the store (above prices) */
-		//TODO sprintf(buf, "[%s] (%ld)", stp_name + st_ptr->name, (long)st_ptr->wealth);
-		//prt(buf, 2, 1);
 
 		/* Label the item descriptions */
 #ifdef JP
@@ -5197,43 +5194,9 @@ void store_maint(store_type *st_ptr)
 	while (st_ptr->stock_num < j) store_create(st_ptr);
 }
 
-
-/*
- * Initialize the stores (Old)
- */
-void store_init(store_type *st_ptr)
-{
-	int k;
-
-	// TODO
-	int store_num = 1;
-	cur_store_num = store_num;
-
-	/* Initialize the store */
-	st_ptr->store_open = 0;
-	st_ptr->insult_cur = 0;
-	st_ptr->good_buy = 0;
-	st_ptr->bad_buy = 0;
-
-	/* Nothing in stock */
-	st_ptr->stock_num = 0;
-
-	/*
-	 * MEGA-HACK - Last visit to store is
-	 * BEFORE player birth to enable store restocking
-	 */
-	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
-	/* Clear any old items */
-	for (k = 0; k < st_ptr->stock_size; k++)
-	{
-		object_wipe(&st_ptr->stock[k]);
-	}
-}
-
-
 void move_to_black_market(object_type *o_ptr)
 {
-	store_type *st_ptr;
+//	store_type *st_ptr;
 	/* Not in town */
 	if (!town_num) return;
 
@@ -5263,7 +5226,6 @@ void init_stores(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 		store_create2(&st_list[i], &stp_info[i]);
-		store_init(&st_list[i]);
 
 	}
 //	C_KILL(u_info, max_unique, creature_type);
@@ -5278,6 +5240,7 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 
 	st_ptr->type = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;
+	st_ptr->wealth = stp_ptr->wealth;
 
 	/* Initialize the store */
 	st_ptr->store_open = 0;
