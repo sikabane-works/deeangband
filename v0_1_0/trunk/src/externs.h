@@ -81,7 +81,6 @@ extern int adj_dr_ac[];
 extern byte adj_chr_chm[];
 extern byte blows_table[12][12];
 extern arena_type arena_info[MAX_ARENA_MONS + 2];
-extern owner_type owners[MAX_STORES][MAX_OWNERS];
 extern byte extract_energy[200];
 extern s32b player_exp[PY_MAX_LEVEL];
 extern s32b player_exp_a[PY_MAX_LEVEL];

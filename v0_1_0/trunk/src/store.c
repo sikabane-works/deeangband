@@ -18,7 +18,6 @@ static int cur_store_num = 0;
 static int store_top = 0;
 static int store_bottom = 0;
 static int xtra_stock = 0;
-static owner_type *ot_ptr = NULL;
 static s16b old_town_num = 0;
 static s16b inner_town_num = 0;
 #define RUMOR_CHANCE 8
@@ -886,7 +885,8 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
 
 
 	/* Compute the racial factor */
-	factor = rgold_adj[ot_ptr->owner_race][cr_ptr->irace_idx];
+	//TODO
+	factor = 100;
 
 	/* Add in the charisma factor */
 	factor += adj_chr_gold[cr_ptr->stat_ind[A_CHR]];
@@ -2032,7 +2032,7 @@ static void store_delete(store_type *st_ptr)
  */
 static void store_create(store_type *st_ptr)
 {
-	int i, j, tries, level;
+	int i, tries, level;
 	int size;
 
 	object_type forge;
@@ -2330,7 +2330,8 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		if (o_ptr->ident & (IDENT_FIXED))
 		{
 			/* Extract the "minimum" price */
-			x = price_item(cr_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
+			//TODO
+			x = price_item(cr_ptr, o_ptr, 120, FALSE);
 
 			/* Actually draw the price (not fixed) */
 #ifdef JP
@@ -2346,7 +2347,8 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		else if (!manual_haggle)
 		{
 			/* Extract the "minimum" price */
-			x = price_item(cr_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
+			//TODO
+			x = price_item(cr_ptr, o_ptr, 120, FALSE);
 
 			/* Hack -- Apply Sales Tax if needed */
 			if (!noneedtobargain(st_ptr, x)) x += x / 10;
@@ -2360,7 +2362,8 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 		else
 		{
 			/* Extrect the "maximum" price */
-			x = price_item(cr_ptr, o_ptr, ot_ptr->max_inflate, FALSE);
+			//TODO
+			x = price_item(cr_ptr, o_ptr, 120, FALSE);
 
 			/* Actually draw the price (not fixed) */
 			(void)sprintf(out_val, "%9ld  ", (long)x);
@@ -2530,16 +2533,16 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	else
 	{
 		cptr store_name = "STORE";//(f_name + f_info[cur_store_feat].name);
-		cptr owner_name = (ot_ptr->owner_name);
-		cptr race_name = race_info[ot_ptr->owner_race].title;
+		cptr owner_name = r_name + r_info[st_ptr->owner_id].name;
+		cptr race_name = race_info[r_info[st_ptr->owner_id].irace_idx].title;
 
 		/* Put the owner name and race */
 		sprintf(buf, "%s (%s)", owner_name, race_name);
 		put_str(buf, 3, 5);
 
 		/* Show the max price in the store (above prices) */
-		sprintf(buf, "[%s] (%ld)", stp_name + st_ptr->name, (long)(ot_ptr->max_cost));
-		prt(buf, 2, 1);
+		//TODO sprintf(buf, "[%s] (%ld)", stp_name + st_ptr->name, (long)st_ptr->wealth);
+		//prt(buf, 2, 1);
 
 		/* Label the item descriptions */
 #ifdef JP
@@ -2675,7 +2678,7 @@ static int increase_insults(store_type *st_ptr)
 	st_ptr->insult_cur++;
 
 	/* Become insulted */
-	if (st_ptr->insult_cur > ot_ptr->insult_max)
+	if (st_ptr->insult_cur > 12) //ot_ptr->insult_max)
 	{
 		/* Complain */
 		say_comment_4(st_ptr);
@@ -2942,8 +2945,9 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_ty
 
 
 	/* Extract the starting offer and the final offer */
-	cur_ask = price_item(cr_ptr, o_ptr, ot_ptr->max_inflate, FALSE);
-	final_ask = price_item(cr_ptr, o_ptr, ot_ptr->min_inflate, FALSE);
+	//TODO
+	cur_ask = price_item(cr_ptr, o_ptr, 150, FALSE);
+	final_ask = price_item(cr_ptr, o_ptr, 150, FALSE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(st_ptr, final_ask);
@@ -3000,12 +3004,12 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *cr_ptr, object_ty
 
 
 	/* Haggle parameters */
-	min_per = ot_ptr->haggle_per;
+	min_per = 100; //ot_ptr->haggle_per;
 	max_per = min_per * 3;
 
 	/* Mega-Hack -- artificial "last offer" value */
 	last_offer = object_value(o_ptr) * o_ptr->number;
-	last_offer = last_offer * (200 - (int)(ot_ptr->max_inflate)) / 100L;
+	last_offer = last_offer / 2;
 	if (last_offer <= 0) last_offer = 1;
 
 	/* No offer yet */
@@ -3154,14 +3158,14 @@ static bool sell_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *
 
 
 	/* Obtain the starting offer and the final offer */
-	cur_ask = price_item(cr_ptr, o_ptr, ot_ptr->max_inflate, TRUE);
-	final_ask = price_item(cr_ptr, o_ptr, ot_ptr->min_inflate, TRUE);
+	cur_ask = price_item(cr_ptr, o_ptr, 120, TRUE);
+	final_ask = price_item(cr_ptr, o_ptr, 100, TRUE);
 
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(st_ptr, final_ask);
 
 	/* Get the owner's payout limit */
-	purse = (s32b)(ot_ptr->max_cost);
+	purse = (s32b)30000; //TODO (ot_ptr->max_cost);
 
 	/* No need to haggle */
 	if (noneed || !manual_haggle || (final_ask >= purse))
@@ -3235,12 +3239,12 @@ static bool sell_haggle(store_type *st_ptr, creature_type *cr_ptr, object_type *
 	/* XXX XXX XXX Display commands */
 
 	/* Haggling parameters */
-	min_per = ot_ptr->haggle_per;
+	min_per = 100; //TOFO ot_ptr->haggle_per;
 	max_per = min_per * 3;
 
 	/* Mega-Hack -- artificial "last offer" value */
 	last_offer = object_value(o_ptr) * o_ptr->number;
-	last_offer = last_offer * ot_ptr->max_inflate / 100L;
+	last_offer = last_offer * 3 / 2; //TODO ot_ptr->max_inflate / 100L;
 
 	/* No offer yet */
 	offer = 0;
@@ -3487,7 +3491,7 @@ msg_print("そんなにアイテムを持てない。");
 	}
 
 	/* Determine the "best" price (per item) */
-	best = price_item(guest_ptr, j_ptr, ot_ptr->min_inflate, FALSE);
+	best = price_item(guest_ptr, j_ptr, 100, FALSE); //TODO
 
 	/* Find out how many the player wants */
 	if (o_ptr->number > 1)
@@ -4875,7 +4879,6 @@ void do_cmd_store(creature_type *cr_ptr)
 
 	/* Save the store and owner pointers */
 	st_ptr = &town[town_num].store[cur_store_num];
-	ot_ptr = &owners[cur_store_num][st_ptr->owner];
 
 
 	/* Start at the beginning */
@@ -5225,9 +5228,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	/* Save the store number */
 	cur_store_num = which;
 
-	/* Save the store and owner pointers */
-	ot_ptr = &owners[0][0];
-
 	/* Start at the beginning */
 	store_top = 0;
 
@@ -5528,9 +5528,6 @@ void store_maint(store_type *st_ptr)
 	if (is_home(st_ptr)) return;
 	if (is_museum(st_ptr)) return;
 
-	/* Activate the owner */
-	ot_ptr = &owners[store_num][st_ptr->owner];
-
 	/* Store keeper forgives the player */
 	st_ptr->insult_cur = 0;
 
@@ -5597,47 +5594,11 @@ void store_maint(store_type *st_ptr)
  */
 void store_init(store_type *st_ptr)
 {
-	int i, k, s, t;
+	int k;
 
 	// TODO
 	int store_num = 1;
 	cur_store_num = store_num;
-
-	/* Activate that store */
-
-	/* Population Bias*/
-	t = 0;
-
-	for(i = 0; i < MAX_OWNERS; i++)
-		t += race_population[owners[store_num][i].owner_race];
-
-	/* Pick an owner */
-	while(1)
-	{
-		st_ptr->owner = 255;
-		s = randint0(t);
-		for(i = 0; i < MAX_OWNERS; i++)
-		{
-			if(race_population[owners[store_num][i].owner_race] == 0) continue;
-			s -= race_population[owners[store_num][i].owner_race];
-			if(s <= 0){
-				st_ptr->owner = i;
-				break;
-			}
-		}
-		if(st_ptr->owner == 255) st_ptr->owner = (byte)randint0(MAX_OWNERS);
-
-		for (i = 1;i < max_towns; i++)
-		{
-			if (i == town_num) continue;
-			if (st_ptr->owner == town[i].store[store_num].owner) break;
-		}
-		if (i == max_towns) break;
-	}
-
-	/* Activate the new owner */
-	ot_ptr = &owners[store_num][st_ptr->owner];
-
 
 	/* Initialize the store */
 	st_ptr->store_open = 0;
@@ -5709,10 +5670,6 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	st_ptr->type = 0;
 	st_ptr->owner = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;
-
-	/* Activate the new owner */
-	ot_ptr = &owners[0][0];
-
 
 	/* Initialize the store */
 	st_ptr->store_open = 0;

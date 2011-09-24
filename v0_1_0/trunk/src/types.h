@@ -735,25 +735,26 @@ struct quest_type
 /*
  * A store owner
  */
+/*
 typedef struct owner_type owner_type;
 
 struct owner_type
 {
-	cptr owner_name;	/* Name */
+	cptr owner_name;	// Name
 
-	s16b max_cost;		/* Purse limit */
+	s16b max_cost;		// Purse limit
 
-	byte max_inflate;	/* Inflation (max) */
-	byte min_inflate;	/* Inflation (min) */
+	byte max_inflate;	// Inflation (max)
+	byte min_inflate;	// Inflation (min)
 
-	byte haggle_per;	/* Haggle unit */
+	byte haggle_per;	// Haggle unit
 
-	byte insult_max;	/* Insult limit */
+	byte insult_max;	// Insult limit
 
-	byte owner_race;	/* Owner race */
+	byte owner_race;	// Owner race
 };
 
-
+/*
 
 
 /*
