@@ -2534,11 +2534,13 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	/* Normal stores */
 	else
 	{
-		cptr store_name = "STORE";//(f_name + f_info[cur_store_feat].name);
+		cptr store_name = (cptr)(stp_name + st_ptr->name);
 		cptr owner_name = r_name + r_info[st_ptr->owner_id].name;
 		cptr race_name = race_info[r_info[st_ptr->owner_id].irace_idx].title;
 
 		/* Put the owner name and race */
+		sprintf(buf, "[%s]", store_name);
+		put_str(buf, 2, 5);
 		sprintf(buf, "%s (%s)", owner_name, race_name);
 		put_str(buf, 3, 5);
 
