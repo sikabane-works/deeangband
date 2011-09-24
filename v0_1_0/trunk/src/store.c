@@ -5239,7 +5239,7 @@ void move_to_black_market(object_type *o_ptr)
 
 	o_ptr->ident |= IDENT_STORE;
 
-	(void)store_carry(st_ptr, o_ptr);
+//	(void)store_carry(st_ptr, o_ptr);
 
 	object_wipe(o_ptr); /* Don't leave a bogus object behind... */
 }
@@ -5336,5 +5336,7 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	{
 		object_wipe(&st_ptr->stock[k]);
 	}
+
+	st_ptr->flags = stp_ptr->flags;
 }
 

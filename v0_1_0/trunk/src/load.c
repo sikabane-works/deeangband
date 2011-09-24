@@ -933,7 +933,7 @@ static void home_carry(store_type *st_ptr, object_type *o_ptr)
 }
 
 
-static errr rd_store_aux(store_type *st_ptr, int store_number)
+static errr rd_store(store_type *st_ptr)
 {
 	int j;
 	s16b own;
@@ -952,6 +952,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 
 	/* Read last visit */
 	rd_s32b(&st_ptr->last_visit);
+	rd_u32b(&st_ptr->flags);
 
 	/* Extract the owner (see above) */
 	st_ptr->owner_id = own;
@@ -973,7 +974,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 		rd_item(q_ptr);
 
 		/* Acquire valid items */
-		if (st_ptr->stock_num < (store_number == STORE_HOME ? (STORE_INVEN_MAX) * 10 : (store_number == STORE_MUSEUM ? (STORE_INVEN_MAX) * 50 : STORE_INVEN_MAX)))
+		if (st_ptr->stock_num < st_ptr->stock_size)
 		{
 			int k;
 			if (sort)
@@ -2084,7 +2085,6 @@ static errr rd_dungeon(void)
 static errr rd_savefile_new_aux(creature_type *cr_ptr)
 {
 	int i, j;
-	int town_count;
 
 	s32b wild_x_size;
 	s32b wild_y_size;
@@ -2546,7 +2546,7 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	C_MAKE(st_list, max_st_idx, store_type);
 	C_WIPE(st_list, max_st_idx, store_type);
 	for(i = 0; i < max_st_idx; i++)
-			rd_store_aux(&st_list[i], 0);
+			rd_store(&st_list[i]);
 
 
 	rd_s16b(&cr_ptr->pet_follow_distance);
