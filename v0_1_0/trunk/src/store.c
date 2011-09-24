@@ -2538,7 +2538,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 		put_str(buf, 3, 5);
 
 		/* Show the max price in the store (above prices) */
-		sprintf(buf, "[%s] (%ld)", store_name, (long)(ot_ptr->max_cost));
+		sprintf(buf, "[%s] (%ld)", stp_name + st_ptr->name, (long)(ot_ptr->max_cost));
 		prt(buf, 2, 1);
 
 		/* Label the item descriptions */
@@ -5753,7 +5753,6 @@ void store_init(store_type *st_ptr)
 	 * BEFORE player birth to enable store restocking
 	 */
 	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
-
 	/* Clear any old items */
 	for (k = 0; k < st_ptr->stock_size; k++)
 	{
@@ -5805,6 +5804,9 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 {
 	int k;
 
+	st_ptr->name = stp_ptr->name;
+
+	st_ptr->type = 0;
 	st_ptr->owner = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;
 
@@ -5866,6 +5868,7 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	}
 	*/
 	// Clear any old items
+
 	for (k = 0; k < st_ptr->stock_size; k++)
 	{
 		object_wipe(&st_ptr->stock[k]);
