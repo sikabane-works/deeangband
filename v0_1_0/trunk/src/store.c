@@ -4802,7 +4802,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	store_bottom = MIN_STOCK + xtra_stock;
 
 	/* Calculate the number of store maintainances since the last visit */
-//	maintain_num = (turn - town[town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
+	maintain_num = (turn - st_ptr->last_visit) / (TURNS_PER_TICK * STORE_TICKS);
 
 	/* Maintain the store max. 10 times */
 	if (maintain_num > 10) maintain_num = 10;

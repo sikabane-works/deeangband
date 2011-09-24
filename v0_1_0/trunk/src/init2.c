@@ -1757,6 +1757,8 @@ static errr init_misc(void)
  */
 static errr init_towns(void)
 {
+	C_MAKE(town, max_towns, town_type);
+
 	return 0;
 }
 

@@ -2914,7 +2914,7 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 {
 	int i,j;
 
-	store_type  *st_ptr;
+	//store_type  *st_ptr;
 	object_type *q_ptr;
 
 	char buf[1024];
