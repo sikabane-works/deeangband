@@ -1049,7 +1049,7 @@ static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 		case TV_WAND:
 		case TV_STAFF:
 		{
-			if ((cur_store_num == STORE_BLACK) && one_in_(3))
+			if (is_black_market(st_ptr) && one_in_(3))
 			{
 				if (cost < 1601L) size += damroll(1, 5);
 				else if (cost < 3201L) size += damroll(1, 3);
@@ -1214,12 +1214,12 @@ static int store_check_num(store_type *st_ptr, object_type *o_ptr)
 	object_type *j_ptr;
 
 	/* The "home" acts like the player */
-	if ((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM))
+	if (is_home(st_ptr) || is_museum(st_ptr))
 	{
 		bool old_stack_force_notes = stack_force_notes;
 		bool old_stack_force_costs = stack_force_costs;
 
-		if (cur_store_num != STORE_HOME)
+		if (is_home(st_ptr))
 		{
 			stack_force_notes = FALSE;
 			stack_force_costs = FALSE;
@@ -1234,7 +1234,7 @@ static int store_check_num(store_type *st_ptr, object_type *o_ptr)
 			/* Can the new object be combined with the old one? */
 			if (object_similar(j_ptr, o_ptr))
 			{
-				if (cur_store_num != STORE_HOME)
+				if (is_home(st_ptr))
 				{
 					stack_force_notes = old_stack_force_notes;
 					stack_force_costs = old_stack_force_costs;
@@ -1244,7 +1244,7 @@ static int store_check_num(store_type *st_ptr, object_type *o_ptr)
 			}
 		}
 
-		if (cur_store_num != STORE_HOME)
+		if (is_home(st_ptr))
 		{
 			stack_force_notes = old_stack_force_notes;
 			stack_force_costs = old_stack_force_costs;
@@ -1270,7 +1270,7 @@ static int store_check_num(store_type *st_ptr, object_type *o_ptr)
 	 * オプション powerup_home が設定されていると
 	 * 我が家が 20 ページまで使える
 	 */
-	if ((cur_store_num == STORE_HOME) && ( powerup_home == FALSE )) {
+	if (is_home(st_ptr) && ( powerup_home == FALSE )) {
 		if (st_ptr->stock_num < ((st_ptr->stock_size) / 10)) {
 			return 1;
 		}
@@ -1710,7 +1710,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	bool old_stack_force_notes = stack_force_notes;
 	bool old_stack_force_costs = stack_force_costs;
 
-	if (cur_store_num != STORE_HOME)
+	if (is_home(st_ptr))
 	{
 		stack_force_notes = FALSE;
 		stack_force_costs = FALSE;
@@ -1728,7 +1728,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 			/* Save the new number of items */
 			object_absorb(j_ptr, o_ptr);
 
-			if (cur_store_num != STORE_HOME)
+			if (is_home(st_ptr))
 			{
 				stack_force_notes = old_stack_force_notes;
 				stack_force_costs = old_stack_force_costs;
@@ -1739,7 +1739,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 		}
 	}
 
-	if (cur_store_num != STORE_HOME)
+	if (!is_home(st_ptr))
 	{
 		stack_force_notes = old_stack_force_notes;
 		stack_force_costs = old_stack_force_costs;
@@ -1751,7 +1751,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	 *           我が家が 20 ページまで使える
 	 */
 	/* No space? */
-	if ((cur_store_num != STORE_HOME) || (powerup_home == TRUE)) {
+	if (!is_home(st_ptr) || (powerup_home == TRUE)) {
 		if (st_ptr->stock_num >= st_ptr->stock_size) {
 			return (-1);
 		}
@@ -2048,7 +2048,7 @@ static void store_create(store_type *st_ptr)
 	for (tries = 0; tries < 4; tries++)
 	{
 		/* Black Market */
-		if (cur_store_num == STORE_BLACK)
+		if (is_black_market(st_ptr))
 		{
 			/* Pick a level for object/magic */
 			level = 25 + randint0(25);
@@ -2269,7 +2269,7 @@ static void display_entry(store_type *st_ptr, creature_type *cr_ptr, int pos)
 	}
 
 	/* Describe an item in the home */
-	if ((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM))
+	if (is_home(st_ptr) || is_museum(st_ptr))
 	{
 		maxwid = 75;
 
@@ -2420,11 +2420,11 @@ static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
 
 	}
 
-	if (cur_store_num == STORE_HOME || cur_store_num == STORE_MUSEUM)
+	if (is_home(st_ptr) || is_museum(st_ptr))
 	{
 		k = st_ptr->stock_size;
 
-		if (cur_store_num == STORE_HOME && !powerup_home) k /= 10;
+		if (is_home(st_ptr) && !powerup_home) k /= 10;
 #ifdef JP
 		put_str(format("アイテム数:  %4d/%4d", st_ptr->stock_num, k), 19 + xtra_stock, 27);
 #else
@@ -2465,7 +2465,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	Term_clear();
 
 	/* The "Home" is special */
-	if (cur_store_num == STORE_HOME)
+	if (is_home(st_ptr))
 	{
 		/* Put the owner name */
 #ifdef JP
@@ -2496,7 +2496,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	}
 
 	/* The "Home" is special */
-	else if (cur_store_num == STORE_MUSEUM)
+	else if (is_museum(st_ptr))
 	{
 		/* Put the owner name */
 #ifdef JP
@@ -2581,7 +2581,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 /*
  * Get the ID of a store item and return its value	-RAK-
  */
-static int get_stock(int *com_val, cptr pmt, int i, int j)
+static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 {
 	char	command;
 	char	out_val[160];
@@ -2614,7 +2614,7 @@ static int get_stock(int *com_val, cptr pmt, int i, int j)
 	hi = (j > 25) ? toupper(I2A(j - 26)) : I2A(j);
 #ifdef JP
 	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s",
-		(((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM)) ? "アイテム" : "商品"), 
+		((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), 
 				  lo, hi, pmt);
 #else
 	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s",
@@ -3386,7 +3386,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 	char out_val[160];
 
-	if (cur_store_num == STORE_MUSEUM)
+	if (is_museum(st_ptr))
 	{
 #ifdef JP
 		msg_print("博物館から取り出すことはできません。");
@@ -3399,7 +3399,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* Empty? */
 	if (st_ptr->stock_num <= 0)
 	{
-		if (cur_store_num == STORE_HOME)
+		if (is_home(st_ptr))
 #ifdef JP
 			msg_print("我が家には何も置いてありません。");
 #else
@@ -3426,19 +3426,17 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* Prompt */
 #ifdef JP
 	/* ブラックマーケットの時は別のメッセージ */
-	switch( cur_store_num ) {
-		case 7:
-			sprintf(out_val, "どのアイテムを取りますか? ");
-			break;
-		case 6:
-			sprintf(out_val, "どれ? ");
-			break;
-		default:
-			sprintf(out_val, "どの品物が欲しいんだい? ");
-			break;
+	if (is_home(st_ptr))
+	{
+		sprintf(out_val, "どのアイテムを取り出しますか？");
+	}
+	else
+	{
+		sprintf(out_val, "どの品物が欲しいんだい？");
 	}
 #else
-	if (cur_store_num == STORE_HOME)
+
+	if (is_home(st_ptr))
 	{
 		sprintf(out_val, "Which item do you want to take? ");
 	}
@@ -3450,7 +3448,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 
 	/* Get the item number to be bought */
-	if (!get_stock(&item, out_val, 0, i - 1)) return;
+	if (!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
 	item = item + store_top;
@@ -3495,7 +3493,7 @@ msg_print("そんなにアイテムを持てない。");
 	if (o_ptr->number > 1)
 	{
 		/* Hack -- note cost of "fixed" items */
-		if ((cur_store_num != STORE_HOME) &&
+		if (!is_home(st_ptr) &&
 		    (o_ptr->ident & IDENT_FIXED))
 		{
 #ifdef JP
@@ -3541,7 +3539,7 @@ msg_format("一つにつき $%ldです。", (long)(best));
 	}
 
 	/* Attempt to buy it */
-	if (cur_store_num != STORE_HOME)
+	if (!is_home(st_ptr))
 	{
 		/* Fixed price, quick buy */
 		if (o_ptr->ident & (IDENT_FIXED))
@@ -3677,41 +3675,12 @@ msg_format("%sを $%ldで購入しました。", o_name, (long)price);
 				/* Store is empty */
 				if (st_ptr->stock_num == 0)
 				{
-					/* Shuffle */
-					if (one_in_(STORE_SHUFFLE))
-					{
-						char buf[80];
-						/* Message */
+					/* Message */
 #ifdef JP
-						msg_print("店主は引退した。");
+					msg_print("店主は新たな在庫を取り出した。");
 #else
-						msg_print("The shopkeeper retires.");
+					msg_print("The shopkeeper brings out some new stock.");
 #endif
-
-
-						/* Shuffle the store */
-						store_shuffle(st_ptr, guest_ptr, cur_store_num);
-
-						prt("",3,0);
-						sprintf(buf, "%s (%s)",
-							ot_ptr->owner_name, race_info[ot_ptr->owner_race].title);
-						put_str(buf, 3, 10);
-						sprintf(buf, "%s (%ld)",
-							(f_name + f_info[cur_store_feat].name), (long)(ot_ptr->max_cost));
-						prt(buf, 3, 50);
-					}
-
-					/* Maintain */
-					else
-					{
-						/* Message */
-#ifdef JP
-						msg_print("店主は新たな在庫を取り出した。");
-#else
-						msg_print("The shopkeeper brings out some new stock.");
-#endif
-
-					}
 
 					/* New inventory */
 					for (i = 0; i < 10; i++)
@@ -3844,14 +3813,14 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 
 	/* Prepare a prompt */
-	if (cur_store_num == STORE_HOME)
+	if (is_home(st_ptr))
 #ifdef JP
 	q = "どのアイテムを置きますか? ";
 #else
 		q = "Drop which item? ";
 #endif
 
-	else if (cur_store_num == STORE_MUSEUM)
+	else if (is_museum(st_ptr))
 #ifdef JP
 	q = "どのアイテムを寄贈しますか? ";
 #else
@@ -3963,7 +3932,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	object_desc(o_name, q_ptr, 0);
 
 	/* Remove any inscription, feeling for stores */
-	if ((cur_store_num != STORE_HOME) && (cur_store_num != STORE_MUSEUM))
+	if (!is_home(st_ptr) && !is_museum(st_ptr))
 	{
 		q_ptr->inscription = 0;
 		q_ptr->feeling = FEEL_NONE;
@@ -3972,14 +3941,14 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 	/* Is there room in the store (or the home?) */
 	if (!store_check_num(st_ptr, q_ptr))
 	{
-		if (cur_store_num == STORE_HOME)
+		if (is_home(st_ptr))
 #ifdef JP
 			msg_print("我が家にはもう置く場所がない。");
 #else
 			msg_print("Your home is full.");
 #endif
 
-		else if (cur_store_num == STORE_MUSEUM)
+		else if (is_museum(st_ptr))
 #ifdef JP
 			msg_print("博物館はもう満杯だ。");
 #else
@@ -3998,7 +3967,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 
 	/* Real store */
-	if ((cur_store_num != STORE_HOME) && (cur_store_num != STORE_MUSEUM))
+	if (!is_home(st_ptr) && !is_home(st_ptr))
 	{
 		/* Describe the transaction */
 #ifdef JP
@@ -4115,7 +4084,7 @@ msg_format("%sを $%ldで売却しました。", o_name, (long)price);
 	}
 
 	/* Player is at museum */
-	else if (cur_store_num == STORE_MUSEUM)
+	else if (is_museum(st_ptr))
 	{
 		char o2_name[MAX_NLEN];
 		object_desc(o2_name, q_ptr, OD_NAME_ONLY);
@@ -4233,14 +4202,14 @@ static void store_examine(store_type *st_ptr)
 	/* Empty? */
 	if (st_ptr->stock_num <= 0)
 	{
-		if (cur_store_num == STORE_HOME)
+		if (is_home(st_ptr))
 #ifdef JP
 			msg_print("我が家には何も置いてありません。");
 #else
 			msg_print("Your home is empty.");
 #endif
 
-		else if (cur_store_num == STORE_MUSEUM)
+		else if (is_museum(st_ptr))
 #ifdef JP
 			msg_print("博物館には何も置いてありません。");
 #else
@@ -4273,7 +4242,7 @@ sprintf(out_val, "どれを調べますか？");
 
 
 	/* Get the item number to be examined */
-	if (!get_stock(&item, out_val, 0, i - 1)) return;
+	if (!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
 	item = item + store_top;
@@ -4355,7 +4324,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *cr_ptr)
 #endif
 
 	/* Get the item number to be removed */
-	if (!get_stock(&item, out_val, 0, i - 1)) return;
+	if (!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
 	item = item + store_top;
@@ -4455,7 +4424,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 				store_top -= store_bottom;
 				if ( store_top < 0 )
 					store_top = ((st_ptr->stock_num - 1 )/store_bottom) * store_bottom;
-				if ( (cur_store_num == STORE_HOME) && (powerup_home == FALSE) )
+				if ( is_home(st_ptr) && (powerup_home == FALSE) )
 					if ( store_top >= store_bottom ) store_top = store_bottom;
 				display_inventory(guest_ptr, st_ptr);
 			}
@@ -4481,7 +4450,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 				 * 隠しオプション(powerup_home)がセットされていないときは
 				 * 我が家では 2 ページまでしか表示しない
 				 */
-				if ((cur_store_num == STORE_HOME) && 
+				if (is_home(st_ptr) && 
 				    (powerup_home == FALSE) && 
 					(st_ptr->stock_num >= STORE_INVEN_MAX))
 				{
@@ -4776,7 +4745,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 		/* Hack -- Unknown command */
 		default:
 		{
-			if ((cur_store_num == STORE_MUSEUM) && (command_cmd == 'r'))
+			if (is_museum(st_ptr) && (command_cmd == 'r'))
 			{
 				museum_remove_object(st_ptr, guest_ptr);
 			}
@@ -5233,9 +5202,8 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
 			store_maint(st_ptr);
-
 		/* Save the visit */
-		town[town_num].store[which].last_visit = turn;
+		st_ptr->last_visit = turn;
 	}
 
 	/* Hack -- Character is in "icky" mode */
@@ -5302,7 +5270,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		}
 
 		/* Home commands */
-		if (cur_store_num == STORE_HOME)
+		if (is_home(st_ptr))
 		{
 #ifdef JP
 			prt("g) アイテムを取る", 21 + xtra_stock, 27);
@@ -5316,7 +5284,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 		}
 
 		/* Museum commands */
-		else if (cur_store_num == STORE_MUSEUM)
+		else if (is_museum(st_ptr))
 		{
 #ifdef JP
 			prt("d) アイテムを置く", 21 + xtra_stock, 27);
@@ -5405,16 +5373,16 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 			object_type *o_ptr = &cr_ptr->inventory[item];
 
 			/* Hack -- Flee from the store */
-			if (cur_store_num != STORE_HOME)
+			if (!is_home(st_ptr))
 			{
 				/* Message */
 #ifdef JP
-				if (cur_store_num == STORE_MUSEUM)
+				if (is_museum(st_ptr))
 					msg_print("ザックからアイテムがあふれそうなので、あわてて博物館から出た...");
 				else
 					msg_print("ザックからアイテムがあふれそうなので、あわてて店から出た...");
 #else
-				if (cur_store_num == STORE_MUSEUM)
+				if (is_museum(st_ptr))
 					msg_print("Your pack is so full that you flee the Museum...");
 				else
 					msg_print("Your pack is so full that you flee the store...");
@@ -5543,74 +5511,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	*/
 
 	return;
-}
-
-
-void store_shuffle(store_type *st_ptr, creature_type *cr_ptr, int which)
-{
-	int i, j;
-
-
-	/* Ignore home */
-	if (which == STORE_HOME) return;
-	if (which == STORE_MUSEUM) return;
-
-
-	/* Save the store index */
-	cur_store_num = which;
-
-	/* Activate that store */
-	st_ptr = &town[town_num].store[cur_store_num];
-
-	j = st_ptr->owner;
-	/* Pick a new owner */
-	while(1)
-	{
-		st_ptr->owner = (byte)randint0(MAX_OWNERS);
-		if (j == st_ptr->owner) continue;
-		for (i = 1;i < max_towns; i++)
-		{
-			if (i == town_num) continue;
-			if (st_ptr->owner == town[i].store[cur_store_num].owner) break;
-		}
-		if (i == max_towns) break;
-	}
-
-	/* Activate the new owner */
-	ot_ptr = &owners[cur_store_num][st_ptr->owner];
-
-
-	/* Reset the owner data */
-	st_ptr->insult_cur = 0;
-	st_ptr->store_open = 0;
-	st_ptr->good_buy = 0;
-	st_ptr->bad_buy = 0;
-
-
-	/* Hack -- discount all the items */
-	for (i = 0; i < st_ptr->stock_num; i++)
-	{
-		object_type *o_ptr;
-
-		/* Get the item */
-		o_ptr = &st_ptr->stock[i];
-
-		if (!object_is_artifact(cr_ptr, o_ptr))
-		{
-			/* Hack -- Sell all non-artifact old items for "half price" */
-			o_ptr->discount = 50;
-
-			/* Hack -- Items are no longer "fixed price" */
-			o_ptr->ident &= ~(IDENT_FIXED);
-
-			/* Mega-Hack -- Note that the item is "on sale" */
-#ifdef JP
-			o_ptr->inscription = quark_add("売出中");
-#else
-			o_ptr->inscription = quark_add("on sale");
-#endif
-		}
-	}
 }
 
 
