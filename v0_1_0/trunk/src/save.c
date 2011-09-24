@@ -432,6 +432,7 @@ static void wr_store(store_type *st_ptr)
 
 	/* Save the stock size */
 	wr_s16b(st_ptr->stock_num);
+	wr_s16b(st_ptr->stock_size);
 
 	/* Save the "haggle" info */
 	wr_s16b(st_ptr->good_buy);
@@ -1569,10 +1570,9 @@ static bool wr_savefile_new(void)
 	wr_u16b(tmp16u);
 
 	wr_u16b(max_st_idx);
+
 	for(i = 0; i < max_st_idx; i++)
 			wr_store(&st_list[i]);
-
-
 
 	/* Write the pet command settings */
 	wr_s16b(p_ptr->pet_follow_distance);

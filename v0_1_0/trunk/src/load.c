@@ -946,6 +946,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 	rd_s16b(&st_ptr->insult_cur);
 	rd_s16b(&own);
 	rd_s16b(&num);
+	rd_s16b(&st_ptr->stock_size);
 	rd_s16b(&st_ptr->good_buy);
 	rd_s16b(&st_ptr->bad_buy);
 
@@ -955,6 +956,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 	/* Extract the owner (see above) */
 	st_ptr->owner_id = own;
 
+	C_MAKE(st_ptr->stock, st_ptr->stock_size, object_type);
 	/* Read the items */
 	for (j = 0; j < num; j++)
 	{
@@ -991,15 +993,6 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 	/* Success */
 	return (0);
 
-}
-
-
-/*
- * Read a store
- */
-static errr rd_store(int town_number, int store_number)
-{
-//	return rd_store_aux(&town[town_number].store[store_number], store_number);
 }
 
 
@@ -2545,9 +2538,11 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 
 	/* Read number of towns */
 	rd_u16b(&tmp16u);
-	town_count = tmp16u;
+	max_towns = tmp16u;
+	C_MAKE(town, max_towns, town_type);
 
 	rd_u16b(&max_st_idx);
+
 	C_MAKE(st_list, max_st_idx, store_type);
 	C_WIPE(st_list, max_st_idx, store_type);
 	for(i = 0; i < max_st_idx; i++)
