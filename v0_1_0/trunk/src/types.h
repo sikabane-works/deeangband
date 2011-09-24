@@ -770,7 +770,6 @@ struct store_type
 
 	byte type;				/* Store type */
 
-	byte owner;				/* Owner index */
 	s16b owner_id;			/* New Owner index */
 	byte extra;				/* Unused for now */
 

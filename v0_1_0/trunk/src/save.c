@@ -428,7 +428,7 @@ static void wr_store(store_type *st_ptr)
 	wr_s16b(st_ptr->insult_cur);
 
 	/* Save the current owner */
-	wr_byte(st_ptr->owner);
+	wr_s16b(st_ptr->owner_id);
 
 	/* Save the stock size */
 	wr_s16b(st_ptr->stock_num);

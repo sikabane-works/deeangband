@@ -5273,7 +5273,6 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	st_ptr->name = stp_ptr->name;
 
 	st_ptr->type = 0;
-	st_ptr->owner = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;
 
 	/* Initialize the store */

@@ -936,7 +936,7 @@ static void home_carry(store_type *st_ptr, object_type *o_ptr)
 static errr rd_store_aux(store_type *st_ptr, int store_number)
 {
 	int j;
-	byte own;
+	s16b own;
 	s16b num;
 
 	bool sort = FALSE;
@@ -944,7 +944,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 	/* Read the basic info */
 	rd_s32b(&st_ptr->store_open);
 	rd_s16b(&st_ptr->insult_cur);
-	rd_byte(&own);
+	rd_s16b(&own);
 	rd_s16b(&num);
 	rd_s16b(&st_ptr->good_buy);
 	rd_s16b(&st_ptr->bad_buy);
@@ -953,7 +953,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
 	rd_s32b(&st_ptr->last_visit);
 
 	/* Extract the owner (see above) */
-	st_ptr->owner = own;
+	st_ptr->owner_id = own;
 
 	/* Read the items */
 	for (j = 0; j < num; j++)
