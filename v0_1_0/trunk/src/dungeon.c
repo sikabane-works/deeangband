@@ -4687,7 +4687,7 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			if (!wild_mode) do_cmd_store(cr_ptr);
+			msg_print("Old Store System was disabled...");
 			break;
 		}
 

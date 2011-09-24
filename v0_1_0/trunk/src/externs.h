@@ -1346,7 +1346,6 @@ extern bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u3
 
 /* store.c */
 extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);
-extern void do_cmd_store(creature_type *cr_ptr);
 extern void store_process(creature_type *cr_ptr, store_type *st_ptr);
 extern void store_maint(store_type *st_ptr);
 extern void store_init(store_type *st_ptr);
