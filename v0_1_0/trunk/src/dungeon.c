@@ -6917,7 +6917,7 @@ quit("セーブファイルが壊れています");
 			for (j = 0; j < MAX_STORES; j++)
 			{
 				/* Initialize */
-				store_init(i, j);
+				store_init(&town[town_num].store[j]);
 			}
 		}
 

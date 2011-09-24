@@ -5672,17 +5672,17 @@ void store_maint(store_type *st_ptr)
 
 
 /*
- * Initialize the stores
+ * Initialize the stores (Old)
  */
-void store_init(int town_num, int store_num)
+void store_init(store_type *st_ptr)
 {
-	store_type *st_ptr;
 	int i, k, s, t;
 
+	// TODO
+	int store_num = 1;
 	cur_store_num = store_num;
 
 	/* Activate that store */
-	st_ptr = &town[town_num].store[store_num];
 
 	/* Population Bias*/
 	t = 0;
@@ -5756,7 +5756,7 @@ void move_to_black_market(object_type *o_ptr)
 	object_wipe(o_ptr); /* Don't leave a bogus object behind... */
 }
 
-
+// Create store from store_pre data.
 void init_stores(void)
 {
 	int i, j;
@@ -5778,130 +5778,6 @@ void init_stores(void)
 //	C_KILL(u_info, max_unique, creature_type);
 
 }
-
-
-static void store_create2b(store_type *st_ptr, store_pre_type *stp_ptr)
-{
-	int i, tries, level;
-	int size;
-
-	object_type forge;
-	object_type *q_ptr;
-
-	// store_type_pre to store_type
-	st_ptr->name = stp_ptr->name;
-	st_ptr->E_name = stp_ptr->E_name;
-	st_ptr->owner_id = stp_ptr->owner_id;
-	st_ptr->owner = 0; // Dammy
-	st_ptr->bad_buy = 0;
-	st_ptr->good_buy = 0;
-	st_ptr->insult_cur = 0;
-	st_ptr->last_visit = 0;
-	st_ptr->stock = 0;
-	st_ptr->stock_num = stp_ptr->size;
-	st_ptr->stock_size = 0;
-	st_ptr->store_open = 0;
-	st_ptr->type = 1;
-
-
-	/* Paranoia -- no room left */
-	if (st_ptr->stock_num >= st_ptr->stock_size) return;
-
-
-	/* Hack -- consider up to four items */
-	for (tries = 0; tries < 4; tries++)
-	{
-		/* Black Market */
-		if (cur_store_num == STORE_BLACK)
-		{
-			/* Pick a level for object/magic */
-			level = 25 + randint0(25);
-
-			/* Random item (usually of given level) */
-			i = get_obj_num(level, 0);
-
-			/* Handle failure */
-			if (!i) continue;
-		}
-
-		/* Normal Store */
-		else
-		{
-			/* Hack -- Pick an item to sell */
-			i = st_ptr->table[randint0(st_ptr->table_num)];
-
-			/* Hack -- fake level for apply_magic() */
-			level = rand_range(1, STORE_OBJ_LEVEL);
-		}
-
-
-		/* Get local object */
-		q_ptr = &forge;
-
-		/* Set Standard Item Size */
-		size = 10;
-
-		object_prep(q_ptr, i, size);
-
-
-		/* Create a new object of the chosen kind */
-
-
-		/* Apply some "low-level" magic (no artifacts) */
-		apply_magic(q_ptr, level, AM_NO_FIXED_ART);
-
-		/* Require valid object */
-		if (!store_will_buy(NULL, q_ptr)) continue;
-
-		/* Hack -- Charge lite's */
-		if (q_ptr->tval == TV_LITE)
-		{
-			if (q_ptr->sval == SV_LITE_TORCH) q_ptr->xtra4 = FUEL_TORCH / 2;
-			if (q_ptr->sval == SV_LITE_LANTERN) q_ptr->xtra4 = FUEL_LAMP / 2;
-		}
-
-
-		/* The item is "known" */
-		object_known(q_ptr);
-
-		/* Mark it storebought */
-		q_ptr->ident |= IDENT_STORE;
-
-		/* Mega-Hack -- no chests in stores */
-		if (q_ptr->tval == TV_CHEST) continue;
-
-		/* Prune the black market */
-		if (cur_store_num == STORE_BLACK)
-		{
-			/* Hack -- No "crappy" items */
-			if (black_market_crap(q_ptr)) continue;
-
-			/* Hack -- No "cheap" items */
-			if (object_value(q_ptr) < 10) continue;
-
-			/* No "worthless" items */
-			/* if (object_value(q_ptr) <= 0) continue; */
-		}
-
-		/* Prune normal stores */
-		else
-		{
-			/* No "worthless" items */
-			if (object_value(q_ptr) <= 0) continue;
-		}
-
-
-		/* Mass produce and/or Apply discount */
-		mass_produce(q_ptr);
-
-		/* Attempt to carry the (known) item */
-		(void)store_carry(st_ptr, q_ptr);
-
-		/* Definitely done */
-		break;
-	}
-}
-
 
 void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 {
