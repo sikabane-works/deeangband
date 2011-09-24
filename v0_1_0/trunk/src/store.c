@@ -1288,6 +1288,8 @@ static bool store_will_buy(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Hack -- The Home is simple */
 	if ((cur_store_num == STORE_HOME) || (cur_store_num == STORE_MUSEUM)) return (TRUE);
+	// TODO
+	return TRUE;
 
 	/* Switch on the store */
 	switch (cur_store_num)
@@ -2057,7 +2059,7 @@ static void store_create(store_type *st_ptr)
 
 		/* Set Standard Item Size */
 
-
+		/*
 		if(randint0(10) < 9){
 			int s = 0, t = 0;
 			for(j = 0; j < MAX_RACES; j++)
@@ -2084,7 +2086,9 @@ static void store_create(store_type *st_ptr)
 		}
 		else{
 			size = size * (80 + randint0(40)) / 100;
-		}
+		}*/
+
+		size = 10;
 
 		object_prep(q_ptr, i, size);
 
@@ -5600,7 +5604,7 @@ void store_maint(store_type *st_ptr)
 {
 	int 		j;
 	//TODO
-	int store_num = 1;
+	int store_num = st_ptr->type;
 	cur_store_num = 1;
 
 	/* Ignore home */
@@ -5773,6 +5777,7 @@ void init_stores(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 		store_create2(&st_list[i], &stp_info[i]);
+		store_init(&st_list[i]);
 
 	}
 //	C_KILL(u_info, max_unique, creature_type);
