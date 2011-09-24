@@ -1544,7 +1544,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 	bool        old_stack_force_notes = stack_force_notes;
 	bool        old_stack_force_costs = stack_force_costs;
 
-	st_ptr = &town[1].store[store_num];
 	if (store_num != STORE_HOME)
 	{
 		stack_force_notes = FALSE;
@@ -1956,7 +1955,7 @@ static void store_item_optimize(store_type *st_ptr, int item)
  */
 static bool black_market_crap(store_type *st_ptr, object_type *o_ptr)
 {
-	int 	i, j;
+//	int 	i, j;
 
 	/* Ego items are never crap */
 	if (object_is_ego(o_ptr)) return (FALSE);
@@ -1967,20 +1966,23 @@ static bool black_market_crap(store_type *st_ptr, object_type *o_ptr)
 	if (o_ptr->to_d > 0) return (FALSE);
 
 	/* Check all stores */
+	//TODO
+/*	
 	for (i = 0; i < MAX_STORES; i++)
 	{
 		if (is_home(st_ptr)) continue;
 		if (is_museum(st_ptr)) continue;
 
-		/* Check every item in the store */
+		// Check every item in the store
 		for (j = 0; j < town[town_num].store[i].stock_num; j++)
 		{
 			object_type *j_ptr = &town[town_num].store[i].stock[j];
 
-			/* Duplicate item "type", assume crappy */
+			// Duplicate item "type", assume crappy
 			if (o_ptr->k_idx == j_ptr->k_idx) return (TRUE);
 		}
 	}
+*/
 
 	/* Assume okay */
 	return (FALSE);
@@ -4800,7 +4802,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	store_bottom = MIN_STOCK + xtra_stock;
 
 	/* Calculate the number of store maintainances since the last visit */
-	maintain_num = (turn - town[town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
+//	maintain_num = (turn - town[town_num].store[which].last_visit) / (TURNS_PER_TICK * STORE_TICKS);
 
 	/* Maintain the store max. 10 times */
 	if (maintain_num > 10) maintain_num = 10;
@@ -5233,7 +5235,7 @@ void move_to_black_market(object_type *o_ptr)
 	/* Not in town */
 	if (!town_num) return;
 
-	st_ptr = &town[town_num].store[STORE_BLACK];
+//	st_ptr = &town[town_num].store[STORE_BLACK];
 
 	o_ptr->ident |= IDENT_STORE;
 

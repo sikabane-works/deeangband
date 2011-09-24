@@ -5303,16 +5303,19 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
  */
 static void dump_aux_home_museum(FILE *fff)
 {
-	char o_name[MAX_NLEN];
-	store_type  *st_ptr;
+//	char o_name[MAX_NLEN];
+//	store_type  *st_ptr;
 
 	/* Do we need it?? */
 	/* process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x); */
 
 	/* Print the home */
+	//TODO
+	
+	/*
 	st_ptr = &town[1].store[STORE_HOME];
 
-	/* Home -- if anything there */
+	// Home -- if anything there
 	if (st_ptr->stock_num)
 	{
 		int i;
@@ -5324,7 +5327,7 @@ static void dump_aux_home_museum(FILE *fff)
 		fprintf(fff, "  [Home inventory]\n");
 #endif
 
-		/* Dump all available items */
+		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 			if ((i % 12) == 0)
@@ -5337,15 +5340,15 @@ static void dump_aux_home_museum(FILE *fff)
 			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
 		}
 
-		/* Add an empty line */
+		// Add an empty line
 		fprintf(fff, "\n\n");
 	}
 
 
-	/* Print the home */
+	// Print the home
 	st_ptr = &town[1].store[STORE_MUSEUM];
 
-	/* Home -- if anything there */
+	// Home -- if anything there
 	if (st_ptr->stock_num)
 	{
 		int i;
@@ -5357,7 +5360,7 @@ static void dump_aux_home_museum(FILE *fff)
 		fprintf(fff, "  [Museum]\n");
 #endif
 
-		/* Dump all available items */
+		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 #ifdef JP
@@ -5372,9 +5375,12 @@ static void dump_aux_home_museum(FILE *fff)
 
 		}
 
-		/* Add an empty line */
+		// Add an empty line
 		fprintf(fff, "\n\n");
 	}
+	*/
+
+
 }
 
 
@@ -7131,9 +7137,10 @@ static void print_tomb(creature_type *cr_ptr)
  */
 static void show_info(void)
 {
-	int             i, j, k, l;
+//	int             i, j, k, l;
+	int i;
 	object_type		*o_ptr;
-	store_type		*st_ptr;
+//	store_type		*st_ptr;
 
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -7148,23 +7155,25 @@ static void show_info(void)
 		object_known(o_ptr);
 	}
 
+	/*
 	for (i = 1; i < max_towns; i++)
 	{
 		st_ptr = &town[i].store[STORE_HOME];
 
-		/* Hack -- Know everything in the home */
+		// Hack -- Know everything in the home
 		for (j = 0; j < st_ptr->stock_num; j++)
 		{
 			o_ptr = &st_ptr->stock[j];
 
-			/* Skip non-objects */
+			// Skip non-objects
 			if (!o_ptr->k_idx) continue;
 
-			/* Aware and Known */
+			// Aware and Known
 			object_aware(o_ptr);
 			object_known(o_ptr);
 		}
 	}
+	*/
 
 	/* Hack -- Recalculate bonuses */
 	p_ptr->update |= (PU_BONUS);
@@ -7271,38 +7280,40 @@ prt("持っていたアイテム: -続く-", 0, 0);
 	}
 
 	/* Homes in the different towns */
+	//TODO
+	/*
 	for (l = 1; l < max_towns; l++)
 	{
 		st_ptr = &town[l].store[STORE_HOME];
 
-		/* Home -- if anything there */
+		// Home -- if anything there
 		if (st_ptr->stock_num)
 		{
-			/* Display contents of the home */
+			// Display contents of the home
 			for (k = 0, i = 0; i < st_ptr->stock_num; k++)
 			{
-				/* Clear screen */
+				// Clear screen
 				Term_clear();
 
-				/* Show 12 items */
+				// Show 12 items
 				for (j = 0; (j < 12) && (i < st_ptr->stock_num); j++, i++)
 				{
 					char o_name[MAX_NLEN];
 					char tmp_val[80];
 
-					/* Acquire item */
+					// Acquire item
 					o_ptr = &st_ptr->stock[i];
 
-					/* Print header, clear line */
+					// Print header, clear line
 					sprintf(tmp_val, "%c) ", I2A(j));
 					prt(tmp_val, j+2, 4);
 
-					/* Display object description */
+					// Display object description
 					object_desc(o_name, o_ptr, 0);
 					c_put_str(tval_to_attr[o_ptr->tval], o_name, j+2, 7);
 				}
 
-				/* Caption */
+				// Caption
 #ifdef JP
 prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
 #else
@@ -7310,11 +7321,12 @@ prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
 #endif
 
 
-				/* Wait for it */
+				// Wait for it
 				if (inkey() == ESCAPE) return;
 			}
 		}
 	}
+	*/
 }
 
 

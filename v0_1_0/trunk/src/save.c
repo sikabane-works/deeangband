@@ -1568,21 +1568,6 @@ static bool wr_savefile_new(void)
 	tmp16u = max_towns;
 	wr_u16b(tmp16u);
 
-	/* Note the stores */
-	tmp16u = MAX_STORES;
-	wr_u16b(tmp16u);
-
-	//TODO : delete
-	/* Dump the stores of all towns */
-	for (i = 1; i < max_towns; i++)
-	{
-		for (j = 0; j < MAX_STORES; j++)
-		{
-			wr_store(&town[i].store[j]);
-		}
-	}
-
-
 	wr_u16b(max_st_idx);
 	for(i = 0; i < max_st_idx; i++)
 			wr_store(&st_list[i]);

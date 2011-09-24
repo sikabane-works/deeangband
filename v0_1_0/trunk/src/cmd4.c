@@ -6099,7 +6099,7 @@ static void do_cmd_knowledge_inven(void)
 
 	char file_name[1024];
 
-	store_type  *st_ptr;
+//	store_type  *st_ptr;
 
 	byte tval;
 	int i = 0;
@@ -6150,6 +6150,8 @@ static void do_cmd_knowledge_inven(void)
 			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
 		}
 
+//TODO
+/*
 		st_ptr = &town[1].store[STORE_HOME];
 #ifdef JP
 		strcpy(where, "‰Æ");
@@ -6161,6 +6163,7 @@ static void do_cmd_knowledge_inven(void)
 		{
 			do_cmd_knowledge_inven_aux(fff, &st_ptr->stock[i], &j, tval, where);
 		}
+*/
 	}
 
 	/* Close the file */
@@ -9921,10 +9924,10 @@ static void do_cmd_knowledge_home(void)
 {
 	FILE *fff;
 
-	int i;
+//	int i;
 	char file_name[1024];
-	store_type  *st_ptr;
-	char o_name[MAX_NLEN];
+//	store_type  *st_ptr;
+//	char o_name[MAX_NLEN];
 	cptr		paren = ")";
 
 	process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x);
@@ -9941,25 +9944,27 @@ static void do_cmd_knowledge_home(void)
 		return;
 	}
 
+//TODO
+/*
 	if (fff)
 	{
-		/* Print all homes in the different towns */
+		// Print all homes in the different towns
 		st_ptr = &town[1].store[STORE_HOME];
 
-		/* Home -- if anything there */
+		// Home -- if anything there
 		if (st_ptr->stock_num)
 		{
 #ifdef JP
 			int x = 1;
 #endif
-			/* Header with name of the town */
+			// Header with name of the town
 #ifdef JP
 			fprintf(fff, "  [ ‰ä‚ª‰Æ‚ÌƒAƒCƒeƒ€ ]\n");
 #else
 			fprintf(fff, "  [Home inventory]\n");
 #endif
 
-			/* Dump all available items */
+			// Dump all available items
 			for (i = 0; i < st_ptr->stock_num; i++)
 			{
 #ifdef JP
@@ -9975,7 +9980,7 @@ static void do_cmd_knowledge_home(void)
 					char *t;
 					for (n = 0, t = o_name; n < 80-3; n++, t++)
 						if(iskanji(*t)) {t++; n++;}
-					if (n == 81-3) n = 79-3; /* ÅŒã‚ªŠ¿Žš”¼•ª */
+					if (n == 81-3) n = 79-3; // ÅŒã‚ªŠ¿Žš”¼•ª
 
 					fprintf(fff, "%c%s %.*s\n", I2A(i%12), paren, n, o_name);
 					fprintf(fff, "   %.77s\n", o_name+n);
@@ -9987,10 +9992,11 @@ static void do_cmd_knowledge_home(void)
 
 			}
 
-			/* Add an empty line */
+			// Add an empty line
 			fprintf(fff, "\n\n");
 		}
 	}
+*/
 
 	/* Close the file */
 	my_fclose(fff);

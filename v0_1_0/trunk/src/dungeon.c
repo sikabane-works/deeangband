@@ -6620,7 +6620,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
  */
 void play_game(creature_type *cr_ptr, bool new_game)
 {
-	int i, j;
+	int i; //j;
 	bool load_game = TRUE;
 
 #ifdef CHUUKEI
@@ -6908,18 +6908,6 @@ quit("セーブファイルが壊れています");
 		/* Save character data for quick start */
 		save_prev_data(cr_ptr, &previous_char);
 		previous_char.quick_ok = TRUE;
-
-		/* Init the shops (TODO: Delete older)*/
-		for (i = 1; i < max_towns; i++)
-		{
-			town_num = i;
-			process_dungeon_file("t_info.txt", 0, 0, MAX_HGT, MAX_WID);
-			for (j = 0; j < MAX_STORES; j++)
-			{
-				/* Initialize */
-				store_init(&town[town_num].store[j]);
-			}
-		}
 
 		/* Init Stores */
 		init_stores();
@@ -7397,7 +7385,7 @@ s32b turn_real(creature_type *cr_ptr, s32b hoge)
  */
 void prevent_turn_overflow(creature_type *cr_ptr)
 {
-	int rollback_days, i, j;
+	int rollback_days;//, i, j;
 	s32b rollback_turns;
 
 	if (turn < turn_limit) return;
@@ -7414,6 +7402,8 @@ void prevent_turn_overflow(creature_type *cr_ptr)
 	if (cr_ptr->feeling_turn > rollback_turns) cr_ptr->feeling_turn -= rollback_turns;
 	else cr_ptr->feeling_turn = 1;
 
+	/*TODO  */
+	/*
 	for (i = 1; i < max_towns; i++)
 	{
 		for (j = 0; j < MAX_STORES; j++)
@@ -7433,4 +7423,5 @@ void prevent_turn_overflow(creature_type *cr_ptr)
 			}
 		}
 	}
+	*/
 }

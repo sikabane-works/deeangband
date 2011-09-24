@@ -2958,20 +2958,24 @@ void spoil_random_artifact(creature_type *cr_ptr, cptr fname)
 		}
 
 		/* random artifacts in home */
+		/*
 		st_ptr = &town[1].store[STORE_HOME];
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 			q_ptr = &st_ptr->stock[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}
+		*/
 
 		/* random artifacts in museum */
+		/*
 		st_ptr = &town[1].store[STORE_MUSEUM];
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 			q_ptr = &st_ptr->stock[i];
 			spoil_random_artifact_aux(q_ptr, j);
 		}
+		*/
 	}
 
 	/* Check for errors */

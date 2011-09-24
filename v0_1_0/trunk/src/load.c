@@ -999,7 +999,7 @@ static errr rd_store_aux(store_type *st_ptr, int store_number)
  */
 static errr rd_store(int town_number, int store_number)
 {
-	return rd_store_aux(&town[town_number].store[store_number], store_number);
+//	return rd_store_aux(&town[town_number].store[store_number], store_number);
 }
 
 
@@ -2546,16 +2546,6 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	/* Read number of towns */
 	rd_u16b(&tmp16u);
 	town_count = tmp16u;
-
-	/* Read the stores */
-	rd_u16b(&tmp16u);
-	for (i = 1; i < town_count; i++)
-	{
-		for (j = 0; j < tmp16u; j++)
-		{
-			if (rd_store(i, j)) return (22);
-		}
-	}
 
 	rd_u16b(&max_st_idx);
 	C_MAKE(st_list, max_st_idx, store_type);

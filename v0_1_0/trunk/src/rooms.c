@@ -2769,7 +2769,7 @@ static void build_vault(int yval, int xval, int ymax, int xmax, cptr data,
 				/* Black market in a dungeon */
 			case 'S':
 				set_cave_feat(y, x, feat_black_market);
-				store_init(&town[NO_TOWN].store[STORE_BLACK]);
+				//store_init(&town[NO_TOWN].store[STORE_BLACK]);
 				break;
 
 				/* The Pattern */

@@ -1696,8 +1696,6 @@ struct town_type
 {
 	char        name[32];
 	u32b        seed;      /* Seed for RNG */
-	store_type	*store;    /* The stores [MAX_STORES] */
-	byte        numstores;
 };
 
 /* Dungeons */
