@@ -942,7 +942,7 @@ static s32b price_item(creature_type *cr_ptr, object_type *o_ptr, int greed, boo
  * Certain "cheap" objects should be created in "piles"
  * Some objects can be sold at a "discount" (in small piles)
  */
-static void mass_produce(object_type *o_ptr)
+static void mass_produce(store_type *st_ptr, object_type *o_ptr)
 {
 	int size = 1;
 	int discount = 0;
@@ -2158,7 +2158,7 @@ static void store_create(store_type *st_ptr)
 
 
 		/* Mass produce and/or Apply discount */
-		mass_produce(q_ptr);
+		mass_produce(st_ptr, q_ptr);
 
 		/* Attempt to carry the (known) item */
 		(void)store_carry(st_ptr, q_ptr);
@@ -3872,7 +3872,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 	/* Get an item */
 	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */
-	if (cur_store_num == STORE_HOME)
+	if (is_home(st_ptr))
 	{
 #ifdef JP
 		s = "置けるアイテムを持っていません。";
@@ -3880,7 +3880,7 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 		s = "You don't have any item to drop.";
 #endif
 	}
-	else if (cur_store_num == STORE_MUSEUM)
+	else if (is_museum(st_ptr))
 	{
 #ifdef JP
 		s = "寄贈できるアイテムを持っていません。";
@@ -5625,8 +5625,8 @@ void store_maint(store_type *st_ptr)
 	cur_store_num = 1;
 
 	/* Ignore home */
-	if (store_num == STORE_HOME) return;
-	if (store_num == STORE_MUSEUM) return;
+	if (is_home(st_ptr)) return;
+	if (is_museum(st_ptr)) return;
 
 	/* Activate the owner */
 	ot_ptr = &owners[store_num][st_ptr->owner];
@@ -5635,7 +5635,7 @@ void store_maint(store_type *st_ptr)
 	st_ptr->insult_cur = 0;
 
 	/* Mega-Hack -- prune the black market */
-	if (store_num == STORE_BLACK)
+	if (is_black_market(st_ptr))
 	{
 		/* Destroy crappy black market items */
 		for (j = st_ptr->stock_num - 1; j >= 0; j--)
