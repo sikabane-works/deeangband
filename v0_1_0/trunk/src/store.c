@@ -5691,10 +5691,10 @@ static void store_set_table(store_type *st_ptr)
 	st_ptr->table_size = 0;
 
 	if(st_ptr->flags & ST1_GENERAL)
-		st_ptr->table += STABLE_GENERAL_MAX;
+		st_ptr->table_size += STABLE_GENERAL_MAX;
 
 	if(st_ptr->flags & ST1_ARTS)
-		st_ptr->table += STABLE_ARTS_MAX;
+		st_ptr->table_size += STABLE_ARTS_MAX;
 
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
@@ -5780,6 +5780,7 @@ void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 	 */
 	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
 	st_ptr->stock_size = stp_ptr->size;
+	st_ptr->flags = stp_ptr->flags;
 
 	/* Set Table*/
 	store_set_table(st_ptr);
@@ -5791,7 +5792,6 @@ void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 		object_wipe(&st_ptr->stock[k]);
 	}
 
-	st_ptr->flags = stp_ptr->flags;
 }
 
 
