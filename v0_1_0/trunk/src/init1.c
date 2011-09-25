@@ -949,7 +949,8 @@ static cptr stp_info_flags[] =
 	"MUSEUM",
 	"BLACK_MARKET",
 	"GENERAL",
-	"ARTS",
+	"SCULPTURE",
+	"PAINT",
 };
 
 

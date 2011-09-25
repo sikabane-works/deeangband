@@ -163,17 +163,12 @@
 #define ST1_MUSEUM				0x00000002
 #define ST1_BLACK_MARKET		0x00000004
 #define ST1_GENERAL				0x00000008
-#define ST1_ARTS				0x00000010
-
+#define ST1_SCULPTURE			0x00000010
+#define ST1_PAINT				0x00000020
 
 #define BUILDING_NON_MEMBER 0
 #define BUILDING_MEMBER     1
 #define BUILDING_OWNER      2
-
-/*
- * Total number of owners per store (see "store.c", etc)
- */
-#define MAX_OWNERS      32
 
 /*
  * Maximum number of creature "sex" types (see "table.c", etc)
@@ -2173,6 +2168,7 @@
 #define SV_MITHRIL_STATUE		8
 #define SV_ORNATE_STATUE		9
 #define SV_DAKIMAKURA			10
+#define SV_OIL_PAINT			11
 #define SV_PHOTO				50
 
 /* The "sval" codes for TV_CORPSE */

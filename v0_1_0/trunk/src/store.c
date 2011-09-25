@@ -87,8 +87,8 @@ static byte general_store_table[STABLE_GENERAL_MAX][2] =
 	{ TV_DIGGING, SV_SHOVEL },
 };
 
-#define STABLE_ARTS_MAX 13
-static byte arts_table[13][2] =
+#define STABLE_SCULPTURE_MAX 13
+static byte sculpture_table[STABLE_SCULPTURE_MAX][2] =
 {
 	{TV_STATUE, SV_WOODEN_STATUE},
 	{TV_STATUE, SV_WOODEN_STATUE},
@@ -104,6 +104,22 @@ static byte arts_table[13][2] =
 
 	{TV_STATUE, SV_ORNATE_STATUE},
 	{TV_STATUE, SV_DAKIMAKURA},
+	{TV_STATUE, SV_PHOTO},
+};
+
+#define STABLE_PAINT_MAX 10
+static byte paint_table[STABLE_PAINT_MAX][2] =
+{
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_OIL_PAINT},
+	{TV_STATUE, SV_PHOTO},
 	{TV_STATUE, SV_PHOTO},
 };
 
@@ -1795,7 +1811,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 	/* Black Market is simple too */
 	if (is_black_market(st_ptr)) return (TRUE);
 
-	if(st_ptr->flags & ST1_ARTS)
+	if(st_ptr->flags & ST1_SCULPTURE)
 	{
 		switch (o_ptr->tval)
 		{
@@ -5693,8 +5709,11 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_GENERAL)
 		st_ptr->table_size += STABLE_GENERAL_MAX;
 
-	if(st_ptr->flags & ST1_ARTS)
-		st_ptr->table_size += STABLE_ARTS_MAX;
+	if(st_ptr->flags & ST1_SCULPTURE)
+		st_ptr->table_size += STABLE_SCULPTURE_MAX;
+
+	if(st_ptr->flags & ST1_PAINT)
+		st_ptr->table_size += STABLE_PAINT_MAX;
 
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
@@ -5725,15 +5744,41 @@ static void store_set_table(store_type *st_ptr)
 		}
 	}
 
-	if(st_ptr->flags & ST1_ARTS)
+	if(st_ptr->flags & ST1_SCULPTURE)
 	{
-		for (k = 0; k < STABLE_ARTS_MAX; k++)
+		for (k = 0; k < STABLE_SCULPTURE_MAX; k++)
 		{
 			int k_idx;
 
 			// Extract the tval/sval codes
-			int tv = arts_table[k][0];
-			int sv = arts_table[k][1];
+			int tv = sculpture_table[k][0];
+			int sv = sculpture_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_PAINT)
+	{
+		for (k = 0; k < STABLE_PAINT_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = paint_table[k][0];
+			int sv = paint_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
