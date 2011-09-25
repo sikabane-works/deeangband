@@ -2009,7 +2009,7 @@ static void store_delete(store_type *st_ptr)
  *
  * Should we check for "permission" to have the given item?
  */
-static void store_create(store_type *st_ptr)
+static void store_replacement(store_type *st_ptr)
 {
 	int i, tries, level;
 	int size;
@@ -5159,7 +5159,7 @@ void store_maint(store_type *st_ptr)
 	if (j >= st_ptr->stock_size) j = st_ptr->stock_size - 1;
 
 	/* Acquire some new items */
-//	while (st_ptr->stock_num < j) store_create(st_ptr);
+	while (st_ptr->stock_num < j) store_replacement(st_ptr);
 }
 
 void move_to_black_market(object_type *o_ptr)
@@ -5193,14 +5193,14 @@ void init_stores(void)
 		sprintf(buf, "Please Wait ... Store Initialize[%d]", i);
 		prt(buf, 0, 0);
 		Term_fresh();
-		store_create2(&st_list[i], &stp_info[i]);
+		store_create(&st_list[i], &stp_info[i]);
 
 	}
 //	C_KILL(u_info, max_unique, creature_type);
 
 }
 
-void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
+void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 {
 	int k;
 

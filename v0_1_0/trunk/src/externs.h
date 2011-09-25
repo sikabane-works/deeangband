@@ -1350,7 +1350,7 @@ extern void store_process(creature_type *cr_ptr, store_type *st_ptr);
 extern void store_maint(store_type *st_ptr);
 extern void move_to_black_market(object_type * o_ptr);
 extern void init_stores(void);
-extern void store_create2(store_type *st_ptr, store_pre_type *stp_ptr);
+extern void store_create(store_type *st_ptr, store_pre_type *stp_ptr);
 
 /* bldg.c */
 extern bool get_nightmare(int species_idx);
