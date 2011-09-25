@@ -4002,42 +4002,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		}
 	}
 
-	/* While in the dungeon (vanilla_town or lite_town mode only) */
-	else if ((vanilla_town || (lite_town && !inside_quest && !inside_battle && !inside_arena)) && dun_level)
-	{
-		/*** Shuffle the Storekeepers ***/
-
-		/* Chance is only once a day (while in dungeon) */
-		if (!(turn % (TURNS_PER_TICK * STORE_TICKS)))
-		{
-			/* Sometimes, shuffle the shop-keepers */
-			if (one_in_(STORE_SHUFFLE))
-			{
-				int n, i;
-
-				/* Pick a random shop (except home and museum) */
-				do
-				{
-					n = randint0(MAX_STORES);
-				}
-				while ((n == STORE_HOME) || (n == STORE_MUSEUM));
-
-				/* Check every feature */
-				for (i = 1; i < max_f_idx; i++)
-				{
-					/* Access the index */
-					feature_type *f_ptr = &f_info[i];
-
-					/* Skip empty index */
-					if (!f_ptr->name) continue;
-
-					/* Skip non-store features */
-					if (!have_flag(f_ptr->flags, FF_STORE)) continue;
-				}
-			}
-		}
-	}
-
+	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/
 
 	/*** Process the monsters ***/
 

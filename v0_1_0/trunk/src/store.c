@@ -3065,7 +3065,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 		cptr race_name = race_info[r_info[st_ptr->owner_id].irace_idx].title;
 
 		/* Put the owner name and race */
-		sprintf(buf, "[%s](%ld)", store_name, (long)st_ptr->wealth);
+		sprintf(buf, "[%s](%ld - %d/%d)", store_name, (long)st_ptr->wealth, st_ptr->stock_num, st_ptr->stock_size);
 		put_str(buf, 2, 3);
 		sprintf(buf, "%s (%s)", owner_name, race_name);
 		put_str(buf, 3, 5);
@@ -4217,7 +4217,7 @@ msg_format("%sÇ $%ldÇ≈çwì¸ÇµÇ‹ÇµÇΩÅB", o_name, (long)price);
 					for (i = 0; i < 10; i++)
 					{
 						/* Maintain the store */
-						store_maint(st_ptr);
+						store_maintenance(st_ptr);
 					}
 
 					/* Start over */
@@ -5331,7 +5331,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 	{
 		/* Maintain the store */
 		for (i = 0; i < maintain_num; i++)
-			store_maint(st_ptr);
+			store_maintenance(st_ptr);
 		/* Save the visit */
 		st_ptr->last_visit = turn;
 	}
@@ -5370,6 +5370,8 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 		/* Clear */
 		clear_from(20 + xtra_stock);
+		display_store(cr_ptr, st_ptr);
+
 
 
 		/* Basic commands */
@@ -5641,9 +5643,11 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 /*
  * Maintain the inventory at the stores.
  */
-void store_maint(store_type *st_ptr)
+void store_maintenance(store_type *st_ptr)
 {
 	int j;
+	int max = st_ptr->stock_size * STORE_MAX_KEEP_PERCENT / 100;
+	int min = st_ptr->stock_size * STORE_MIN_KEEP_PERCENT / 100;
 
 	/* Ignore home */
 	if (is_home(st_ptr)) return;
@@ -5678,10 +5682,10 @@ void store_maint(store_type *st_ptr)
 	j = j - randint1(STORE_TURNOVER);
 
 	/* Never keep more than "STORE_MAX_KEEP" slots */
-	if (j > STORE_MAX_KEEP) j = STORE_MAX_KEEP;
+	if (j > max) j = max;
 
 	/* Always "keep" at least "STORE_MIN_KEEP" items */
-	if (j < STORE_MIN_KEEP) j = STORE_MIN_KEEP;
+	if (j < min) j = min;
 
 	/* Hack -- prevent "underflow" */
 	if (j < 0) j = 0;
@@ -5697,10 +5701,10 @@ void store_maint(store_type *st_ptr)
 	j = j + randint1(STORE_TURNOVER);
 
 	/* Never keep more than "STORE_MAX_KEEP" slots */
-	if (j > STORE_MAX_KEEP) j = STORE_MAX_KEEP;
+	if (j > max) j = max;
 
 	/* Always "keep" at least "STORE_MIN_KEEP" items */
-	if (j < STORE_MIN_KEEP) j = STORE_MIN_KEEP;
+	if (j < min) j = min;
 
 	/* Hack -- prevent "overflow" */
 	if (j >= st_ptr->stock_size) j = st_ptr->stock_size - 1;
