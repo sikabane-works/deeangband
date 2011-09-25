@@ -957,6 +957,7 @@ static errr rd_store(store_type *st_ptr)
 	/* Read last visit */
 	rd_s32b(&st_ptr->last_visit);
 	rd_u32b(&st_ptr->flags);
+	rd_byte(&st_ptr->level);
 
 	/* Extract the owner (see above) */
 	st_ptr->owner_id = own;

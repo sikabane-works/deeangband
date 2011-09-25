@@ -2030,7 +2030,7 @@ static void store_create(store_type *st_ptr)
 		if (is_black_market(st_ptr))
 		{
 			/* Pick a level for object/magic */
-			level = 25 + randint0(25);
+			level = rand_range(st_ptr->level / 2, st_ptr->level);
 
 			/* Random item (usually of given level) */
 			i = get_obj_num(level, 0);
@@ -2046,7 +2046,7 @@ static void store_create(store_type *st_ptr)
 			i = st_ptr->table[randint0(st_ptr->table_num)];
 
 			/* Hack -- fake level for apply_magic() */
-			level = rand_range(1, STORE_OBJ_LEVEL);
+			level = rand_range(1, st_ptr->level);
 		}
 
 
@@ -5159,7 +5159,7 @@ void store_maint(store_type *st_ptr)
 	if (j >= st_ptr->stock_size) j = st_ptr->stock_size - 1;
 
 	/* Acquire some new items */
-	while (st_ptr->stock_num < j) store_create(st_ptr);
+//	while (st_ptr->stock_num < j) store_create(st_ptr);
 }
 
 void move_to_black_market(object_type *o_ptr)
@@ -5209,6 +5209,7 @@ void store_create2(store_type *st_ptr, store_pre_type *stp_ptr)
 	st_ptr->type = 0;
 	st_ptr->owner_id = stp_ptr->owner_id;
 	st_ptr->wealth = stp_ptr->wealth;
+	st_ptr->level = stp_ptr->level;
 
 	/* Initialize the store */
 	st_ptr->store_open = 0;

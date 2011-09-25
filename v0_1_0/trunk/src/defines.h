@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 18
+#define VER_PATCH 19
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -511,7 +511,6 @@
  */
 #define STORE_INVEN_MAX 24              /* Max number of discrete objs in inven */
 #define STORE_CHOICES   48              /* Number of items to choose stock from */
-#define STORE_OBJ_LEVEL 5               /* Magic Level for normal stores */
 #define STORE_TURNOVER  9               /* Normal shop turnover, per day */
 #define STORE_MIN_KEEP  6               /* Min slots to "always" keep full */
 #define STORE_MAX_KEEP  18              /* Max slots to "always" keep full */

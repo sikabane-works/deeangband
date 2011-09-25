@@ -3823,7 +3823,7 @@ errr parse_re_info(char *buf, header *head)
 }
 
 
-#define ST_INFO_CSV_COLUMNS 7
+#define ST_INFO_CSV_COLUMNS 8
 static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3833,6 +3833,7 @@ static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
 	"SIZE",
 	"WEALTH",
 	"FLAGS",
+	"LEVEL",
 };
 
 static int stp_info_csv_code[R_INFO_CSV_COLUMNS];
@@ -3844,6 +3845,7 @@ static int stp_info_csv_code[R_INFO_CSV_COLUMNS];
 #define ST_INFO_SIZE		4
 #define ST_INFO_WEALTH		5
 #define ST_INFO_FLAGS		6
+#define ST_INFO_LEVEL		7
 
 errr parse_stp_info_csv(char *buf, header *head)
 {
@@ -3929,6 +3931,11 @@ errr parse_stp_info_csv(char *buf, header *head)
 			case ST_INFO_WEALTH:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				stp_info[n].wealth = (s32b)b;
+				break;
+
+			case ST_INFO_LEVEL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				stp_info[n].level = (byte)b;
 				break;
 
 			case ST_INFO_FLAGS:

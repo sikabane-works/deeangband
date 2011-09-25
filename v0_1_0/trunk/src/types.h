@@ -792,6 +792,7 @@ struct store_type
 
 	u32b flags;
 	s32b wealth;
+	byte level;
 };
 
 
@@ -806,6 +807,7 @@ struct store_pre_type
 	u16b size;
 	s32b wealth;
 	u32b flags;
+	byte level;
 };
 
 

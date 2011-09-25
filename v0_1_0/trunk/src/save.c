@@ -443,6 +443,7 @@ static void wr_store(store_type *st_ptr)
 
 	wr_s32b(st_ptr->last_visit);
 	wr_u32b(st_ptr->flags);
+	wr_byte(st_ptr->level);
 
 	/* Save the stock */
 	for (j = 0; j < st_ptr->stock_num; j++)
