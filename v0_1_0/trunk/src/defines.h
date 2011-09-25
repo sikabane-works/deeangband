@@ -159,6 +159,10 @@
 #define STORE_MUSEUM    9
 #define STORE_ART      10
 
+#define ST1_YOUR_HOME			0x00000001
+#define ST1_MUSEUM				0x00000002
+#define ST1_BLACK_MARKET		0x00000004
+
 
 #define BUILDING_NON_MEMBER 0
 #define BUILDING_MEMBER     1

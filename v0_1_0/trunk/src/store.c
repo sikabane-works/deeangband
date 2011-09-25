@@ -299,17 +299,17 @@ static cptr comment_6[MAX_COMMENT_6] =
 
 static bool is_black_market(store_type *st_ptr)
 {
-	return (TRUE);
+	return (st_ptr->flags & ST1_BLACK_MARKET);
 }
 
 static bool is_home(store_type *st_ptr)
 {
-	return (FALSE);
+	return (st_ptr->flags & ST1_YOUR_HOME);
 }
 
 static bool is_museum(store_type *st_ptr)
 {
-	return (FALSE);
+	return (st_ptr->flags & ST1_MUSEUM);
 }
 
 

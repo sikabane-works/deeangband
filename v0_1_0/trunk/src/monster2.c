@@ -3851,7 +3851,7 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	m_ptr->nickname = 0;
 
 	/* Set Monster's Level and EXP*/
-	set_expfact(m_ptr);
+	//TODO set_expfact(m_ptr);
 
 	m_ptr->lev = 1;
 	m_ptr->exp = r_ptr->mexp;

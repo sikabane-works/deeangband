@@ -60,17 +60,17 @@ F:c:BUILDING_2:3:0:0:0:0:NONE:0
 ############### Buildings ###############
 
 B:$0:N:Yeek's Cran Union:Speaker Baalefitton Lv-10 DR-None:Half-Orc Yeek
-B:0:N:イークの氏族議会:議長『バーレフィットン』 レベル10 神格無:オーク混血のイーク
+B:0:N:イークの氏族議会:『バーレフィットン』 レベル10 神格無:オーク混血のイーク
 B:$0:A:0:Request quest:0:0:q:6:0
 B:0:A:0:クエスト:0:0:q:6:0
 B:$0:A:1:Resize Armor:0:0:r:47:0
 B:0:A:1:装備のサイズを修正する:0:0:r:47:0
-B:$0:A:2:Trading Street:0:0:s:48:0:0
-B:0:A:2:交易所:0:0:s:48:0:1
+B:$0:A:2:Trading Street:0:0:s:48:0:2
+B:0:A:2:交易所:0:0:s:48:0:2
 
 
 B:$1:N:The Eight Arrow Inn:Carefully Olfamble Lv-3 DR-None:Half-Elf Yeek
-B:1:N:旅の宿『八本矢亭』:緻密な『オルファンブル』 レベル3 神格無:エルフ混血のイーク
+B:1:N:旅の宿『八本矢亭』:『オルファンブル』 レベル3 神格無:エルフ混血のイーク
 B:$1:A:0:Rest for the night:20:20:r:17:0
 B:1:A:0:一泊する:20:20:r:17:0
 B:$1:A:1:buy Food and drink:1:1:f:18:1
@@ -79,15 +79,19 @@ B:$1:A:2:Listen for rumors:5:5:u:19:0
 B:1:A:2:噂を聞く:5:5:u:19:0
 B:$1:A:3:Teleport to other town:500:500:m:42:0
 B:1:A:3:他の町へ移動:500:500:m:42:0
+B:$1:A:4:General Store:0:0:v:48:0:4
+B:1:A:4:雑貨:0:0:v:48:0:4
 
 B:$2:N:Priest's Lodge:Depraved Priestess Aidelith Lv-14 DR-None:Human
-B:2:N:僧房:生臭尼僧『アイデリス』 レベル14 神格無:人間
+B:2:N:僧房:『アイデリス』 レベル14 神格無:人間
 B:$2:A:0:Identify item:100:100:i:44:0
 B:2:A:0:アイテム鑑定:100:100:i:44:0
-B:$2:A:2:Research item:1200:1200:a:1:0
+B:$2:A:1:Research item:1200:1200:a:1:0
 B:2:A:1:アイテム調査:1200:1200:a:1:0
-B:$2:A:1:Listen for rumors:5:5:u:19:0
-B:2:A:2:噂を聞く:5:5:u:19:0
+B:$2:A:2:Listen for rumors:5:5:u:19:0
+B:2:A:2:噂を聞く:5:5:s:19:0
+B:$2:A:3:Canteen:0:0:u:48:0:3
+B:2:A:3:酒保:0:0:u:48:0:3
 
 
 
