@@ -14,7 +14,7 @@
 
 #define MIN_STOCK 12
 
-static int cur_store_num = 0;
+//static int cur_store_num = 0;
 static int store_top = 0;
 static int store_bottom = 0;
 static int xtra_stock = 0;
@@ -1308,13 +1308,9 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 	// TODO
 	return TRUE;
 
-	/* Switch on the store */
-	switch (cur_store_num)
-	{
-		/* General Store */
+	/*
 		case STORE_GENERAL:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_POTION:
@@ -1330,7 +1326,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 				case TV_BOLT:
 				case TV_DIGGING:
 				case TV_CLOAK:
-				case TV_BOTTLE: /* 'Green', recycling Angband */
+				case TV_BOTTLE:
 				case TV_FIGURINE:
 				case TV_STATUE:
 				case TV_CAPTURE:
@@ -1342,10 +1338,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		/* Armoury */
 		case STORE_ARMOURY:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_BOOTS:
@@ -1364,10 +1358,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		/* Weapon Shop */
 		case STORE_WEAPON:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_SHOT:
@@ -1390,10 +1382,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		/* Temple */
 		case STORE_TEMPLE:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_LIFE_BOOK:
@@ -1409,16 +1399,12 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 				{
 					species_type *r_ptr = &r_info[o_ptr->pval];
 
-					/* Decline evil */
 					if (!(r_ptr->flags3 & RF3_EVIL))
 					{
-						/* Accept good */
 						if (r_ptr->flags3 & RF3_GOOD) break;
 
-						/* Accept animals */
 						if (r_ptr->flags3 & RF3_ANIMAL) break;
 
-						/* Accept mimics */
 						if (my_strchr("?!", r_ptr->d_char)) break;
 					}
 				}
@@ -1433,10 +1419,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		/* Alchemist */
 		case STORE_ALCHEMIST:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_SCROLL:
@@ -1448,10 +1432,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		/* Magic Shop */
 		case STORE_MAGIC:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_SORCERY_BOOK:
@@ -1483,10 +1465,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			}
 			break;
 		}
-		/* Bookstore Shop */
 		case STORE_BOOK:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_SORCERY_BOOK:
@@ -1510,7 +1490,6 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 
 		case STORE_ART:
 		{
-			/* Analyze the type */
 			switch (o_ptr->tval)
 			{
 				case TV_STATUE:
@@ -1518,9 +1497,8 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 				default:
 					return (FALSE);
 			}
-		}		
-
-	}
+		}
+	*/
 
 	/* XXX XXX XXX Ignore "worthless" items */
 	if (object_value(o_ptr) <= 0) return (FALSE);
@@ -1783,7 +1761,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 	/* Insert the new item */
 	st_ptr->stock[slot] = *o_ptr;
 
-	(void)combine_and_reorder_home(st_ptr, cur_store_num);
+	//(void)combine_and_reorder_home(st_ptr, cur_store_num);
 
 	/* Return the location */
 	return (slot);
@@ -4781,15 +4759,10 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
  */
 void store_process(creature_type *cr_ptr, store_type *st_ptr)
 {
-	int         which;
 	int         maintain_num;
 	int         i;
 	bool        need_redraw_store_inv; /* To redraw missiles damage and prices in store */
 	int w, h;
-
-
-	/* Extract the store code */
-	which = 0;
 
 	Term_clear();
 
@@ -4830,9 +4803,6 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 	/* Do not expand macros */
 	get_com_no_macros = TRUE;
-
-	/* Save the store number */
-	cur_store_num = which;
 
 	/* Start at the beginning */
 	store_top = 0;
@@ -5128,7 +5098,6 @@ void store_maint(store_type *st_ptr)
 	int 		j;
 	//TODO
 	int store_num = st_ptr->type;
-	cur_store_num = 1;
 
 	/* Ignore home */
 	if (is_home(st_ptr)) return;
