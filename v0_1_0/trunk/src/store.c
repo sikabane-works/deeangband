@@ -14,7 +14,6 @@
 
 #define MIN_STOCK 12
 
-//static int cur_store_num = 0;
 static int store_top = 0;
 static int store_bottom = 0;
 static int xtra_stock = 0;
@@ -1305,39 +1304,53 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 {
 	/* Hack -- The Home is simple */
 	if (is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
-	// TODO
-	return TRUE;
 
-	/*
-		case STORE_GENERAL:
+	/* XXX XXX XXX Ignore "worthless" items */
+	if (object_value(o_ptr) <= 0) return (FALSE);
+
+	/* Black Market is simple too */
+	if (is_black_market(st_ptr)) return (TRUE);
+
+	if(st_ptr->flags & ST1_ARTS)
+	{
+		switch (o_ptr->tval)
 		{
-			switch (o_ptr->tval)
-			{
-				case TV_POTION:
-					if (o_ptr->sval != SV_POTION_WATER) return FALSE;
-
-				case TV_WHISTLE:
-				case TV_FOOD:
-				case TV_LITE:
-				case TV_FLASK:
-				case TV_SPIKE:
-				case TV_SHOT:
-				case TV_ARROW:
-				case TV_BOLT:
-				case TV_DIGGING:
-				case TV_CLOAK:
-				case TV_BOTTLE:
-				case TV_FIGURINE:
-				case TV_STATUE:
-				case TV_CAPTURE:
-				case TV_CARD:
+			case TV_STATUE:
+				return (TRUE);
+			default:
 				break;
-				default:
-				return (FALSE);
-			}
-			break;
 		}
+	}
 
+	if(st_ptr->flags & ST1_GENERAL)
+	{
+		switch (o_ptr->tval)
+		{
+			case TV_POTION:
+				if (o_ptr->sval != SV_POTION_WATER) break;
+
+			case TV_WHISTLE:
+			case TV_FOOD:
+			case TV_LITE:
+			case TV_FLASK:
+			case TV_SPIKE:
+			case TV_SHOT:
+			case TV_ARROW:
+			case TV_BOLT:
+			case TV_DIGGING:
+			case TV_CLOAK:
+			case TV_BOTTLE:
+			case TV_FIGURINE:
+			case TV_STATUE:
+			case TV_CAPTURE:
+			case TV_CARD:
+				return TRUE;
+			default:
+				break;
+		}
+	}
+
+/*
 		case STORE_ARMOURY:
 		{
 			switch (o_ptr->tval)
@@ -1488,23 +1501,9 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 			break;
 		}
 
-		case STORE_ART:
-		{
-			switch (o_ptr->tval)
-			{
-				case TV_STATUE:
-					break;
-				default:
-					return (FALSE);
-			}
-		}
 	*/
 
-	/* XXX XXX XXX Ignore "worthless" items */
-	if (object_value(o_ptr) <= 0) return (FALSE);
-
-	/* Assume okay */
-	return (TRUE);
+	return FALSE;
 }
 
 

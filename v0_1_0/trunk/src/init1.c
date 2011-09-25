@@ -948,6 +948,8 @@ static cptr stp_info_flags[] =
 	"YOUR_HOME",
 	"MUSEUM",
 	"BLACK_MARKET",
+	"GENERAL",
+	"ARTS",
 };
 
 

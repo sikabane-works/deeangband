@@ -81,6 +81,8 @@ B:$1:A:3:Teleport to other town:500:500:m:42:0
 B:1:A:3:‘¼‚Ì’¬‚ÖˆÚ“®:500:500:m:42:0
 B:$1:A:4:General Store:0:0:v:48:0:4
 B:1:A:4:G‰İ:0:0:v:48:0:4
+B:$1:A:5:Staying Artist:0:0:x:48:0:5
+B:1:A:5:•”‰®Z‚İ‚ÌŠGt:0:0:x:48:0:5
 
 B:$2:N:Priest's Lodge:Depraved Priestess Aidelith Lv-14 DR-None:Human
 B:2:N:‘m–[:wƒAƒCƒfƒŠƒXx ƒŒƒxƒ‹14 _Ši–³:lŠÔ
