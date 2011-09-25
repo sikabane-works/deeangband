@@ -937,7 +937,7 @@ static errr rd_store(store_type *st_ptr)
 {
 	int j;
 	s16b own;
-	s16b num;
+	s16b num, num2;
 
 	bool sort = FALSE;
 
@@ -951,6 +951,8 @@ static errr rd_store(store_type *st_ptr)
 	rd_s16b(&own);
 	rd_s16b(&num);
 	rd_s16b(&st_ptr->stock_size);
+	rd_s16b(&num2);
+	rd_s16b(&st_ptr->table_size);
 	rd_s16b(&st_ptr->good_buy);
 	rd_s16b(&st_ptr->bad_buy);
 
@@ -995,6 +997,13 @@ static errr rd_store(store_type *st_ptr)
 			}
 		}
 	}
+
+	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
+	for (j = 0; j < num2; j++)
+	{
+		rd_s16b(&st_ptr->table[j]);
+	}
+
 
 	/* Success */
 	return (0);

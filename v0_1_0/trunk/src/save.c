@@ -437,6 +437,10 @@ static void wr_store(store_type *st_ptr)
 	wr_s16b(st_ptr->stock_num);
 	wr_s16b(st_ptr->stock_size);
 
+	/* Save the table size */
+	wr_s16b(st_ptr->table_num);
+	wr_s16b(st_ptr->table_size);
+
 	/* Save the "haggle" info */
 	wr_s16b(st_ptr->good_buy);
 	wr_s16b(st_ptr->bad_buy);
@@ -451,6 +455,14 @@ static void wr_store(store_type *st_ptr)
 		/* Save each item in stock */
 		wr_item(&st_ptr->stock[j]);
 	}
+
+	/* Save the stock */
+	for (j = 0; j < st_ptr->table_num; j++)
+	{
+		/* Save each item in stock */
+		wr_s16b(&st_ptr->table);
+	}
+
 }
 
 
