@@ -942,6 +942,10 @@ static errr rd_store(store_type *st_ptr)
 	bool sort = FALSE;
 
 	/* Read the basic info */
+
+	rd_u32b(&st_ptr->name);
+	rd_s32b(&st_ptr->wealth);
+
 	rd_s32b(&st_ptr->store_open);
 	rd_s16b(&st_ptr->insult_cur);
 	rd_s16b(&own);

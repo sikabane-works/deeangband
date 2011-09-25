@@ -421,6 +421,9 @@ static void wr_store(store_type *st_ptr)
 {
 	int j;
 
+	wr_u32b(st_ptr->name);
+	wr_s32b(st_ptr->wealth);
+
 	/* Save the "open" counter */
 	wr_u32b(st_ptr->store_open);
 
