@@ -25,10 +25,94 @@ static s16b inner_town_num = 0;
 /*
  * Hack -- Objects sold in the stores -- by tval/sval pair.
  */
+
+// General Store Tanle
+
+#define STABLE_GENERAL_MAX 50
+static byte general_store_table[STABLE_GENERAL_MAX][2] =
+{
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_BISCUIT },
+	{ TV_FOOD, SV_FOOD_JERKY },
+	{ TV_FOOD, SV_FOOD_JERKY },
+	{ TV_FOOD, SV_FOOD_PINT_OF_WINE },
+	{ TV_FOOD, SV_FOOD_PINT_OF_ALE },
+
+	{ TV_LITE, SV_LITE_TORCH },
+	{ TV_LITE, SV_LITE_TORCH },
+	{ TV_LITE, SV_LITE_TORCH },
+	{ TV_LITE, SV_LITE_TORCH },
+	{ TV_LITE, SV_LITE_LANTERN },
+	{ TV_LITE, SV_LITE_LANTERN },
+	{ TV_FLASK, 0 },
+	{ TV_FLASK, 0 },
+	{ TV_FLASK, 0 },
+	{ TV_FLASK, 0 },
+
+	{ TV_FLASK, 0 },
+	{ TV_FLASK, 0 },
+	{ TV_SPIKE, 0 },
+	{ TV_SPIKE, 0 },
+	{ TV_SHOT, SV_AMMO_NORMAL },
+	{ TV_ARROW, SV_AMMO_NORMAL },
+	{ TV_BOLT, SV_AMMO_NORMAL },
+	{ TV_DIGGING, SV_SHOVEL },
+	{ TV_DIGGING, SV_PICK },
+	{ TV_CLOAK, SV_CLOAK },
+
+	{ TV_CLOAK, SV_CLOAK },
+	{ TV_CLOAK, SV_FUR_CLOAK },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_FOOD, SV_FOOD_RATION },
+	{ TV_POTION, SV_POTION_WATER },
+	{ TV_POTION, SV_POTION_WATER },
+	{ TV_LITE, SV_LITE_LANTERN },
+	{ TV_LITE, SV_LITE_LANTERN },
+
+	{ TV_FOOD, SV_FOOD_WAYBREAD },
+	{ TV_FOOD, SV_FOOD_WAYBREAD },
+	{ TV_CAPTURE, 0 },
+	{ TV_CAPTURE, 0 },
+	{ TV_FIGURINE, 0 },
+	{ TV_FIGURINE, 0 },
+	{ TV_SHOT, SV_AMMO_NORMAL },
+	{ TV_ARROW, SV_AMMO_NORMAL },
+	{ TV_BOLT, SV_AMMO_NORMAL },
+	{ TV_DIGGING, SV_SHOVEL },
+};
+
+#define STABLE_ARTS_MAX 13
+static byte arts_table[13][2] =
+{
+	{TV_STATUE, SV_WOODEN_STATUE},
+	{TV_STATUE, SV_WOODEN_STATUE},
+	{TV_STATUE, SV_CLAY_STATUE},
+	{TV_STATUE, SV_STONE_STATUE},
+	{TV_STATUE, SV_IRON_STATUE},
+
+	{TV_STATUE, SV_COPPER_STATUE},
+	{TV_STATUE, SV_SILVER_STATUE},
+	{TV_STATUE, SV_GOLDEN_STATUE},
+	{TV_STATUE, SV_IVORY_STATUE},
+	{TV_STATUE, SV_MITHRIL_STATUE},
+
+	{TV_STATUE, SV_ORNATE_STATUE},
+	{TV_STATUE, SV_DAKIMAKURA},
+	{TV_STATUE, SV_PHOTO},
+};
+
+
+/*
 static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 {
 	{
-		/* General Store */
+		// General Store
 
 		{ TV_FOOD, SV_FOOD_RATION },
 		{ TV_FOOD, SV_FOOD_RATION },
@@ -92,7 +176,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 	},
 
 	{
-		/* Armoury */
+		// Armoury
 
 		{ TV_BOOTS, SV_PAIR_OF_SOFT_LEATHER_BOOTS },
 		{ TV_BOOTS, SV_PAIR_OF_SOFT_LEATHER_BOOTS },
@@ -156,7 +240,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 	},
 
 	{
-		/* Weaponsmith */
+		// Weaponsmith
 
 		{ TV_SWORD, SV_DAGGER },
 		{ TV_SWORD, SV_MAIN_GAUCHE },
@@ -220,7 +304,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 	},
 
 	{
-		/* Temple */
+		// Temple
 
 		{ TV_HAFTED, SV_NUNCHAKU },
 		{ TV_HAFTED, SV_QUARTERSTAFF },
@@ -285,7 +369,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 	},
 
 	{
-		/* Alchemy shop */
+		// Alchemy shop
 
 		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_HIT },
 		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_DAM },
@@ -328,7 +412,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
 
 		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },  /* Yep, occasionally! */
+		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
 		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
 		{ TV_SCROLL, SV_SCROLL_LIGHT },
 
@@ -350,7 +434,7 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 	},
 
 	{
-		/* Magic-User store */
+		// Magic-User store
 
 		{ TV_RING, SV_RING_PROTECTION },
 		{ TV_RING, SV_RING_LEVITATION_FALL },
@@ -415,167 +499,8 @@ static byte store_table[MAX_STORES][STORE_CHOICES][2] =
 
 	},
 
-	{
-		/* Black Market (unused) */
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 }
-	},
-
-	{
-		/* Home (unused) */
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 }
-	},
-
-	{
-		/* Bookstore */
-		{ TV_SORCERY_BOOK, 0 },
-		{ TV_SORCERY_BOOK, 0 },
-		{ TV_SORCERY_BOOK, 1 },
-		{ TV_SORCERY_BOOK, 1 },
-
-		{ TV_NATURE_BOOK, 0 },
-		{ TV_NATURE_BOOK, 0 },
-		{ TV_NATURE_BOOK, 1 },
-		{ TV_NATURE_BOOK, 1 },
-
-		{ TV_CHAOS_BOOK, 0 },
-		{ TV_CHAOS_BOOK, 0 },
-		{ TV_CHAOS_BOOK, 1 },
-		{ TV_CHAOS_BOOK, 1 },
-
-		{ TV_DEATH_BOOK, 0 },
-		{ TV_DEATH_BOOK, 0 },
-		{ TV_DEATH_BOOK, 1 },
-		{ TV_DEATH_BOOK, 1 },
-
-		{ TV_TRUMP_BOOK, 0 },		/* +16 */
-		{ TV_TRUMP_BOOK, 0 },
-		{ TV_TRUMP_BOOK, 1 },
-		{ TV_TRUMP_BOOK, 1 },
-
-		{ TV_ARCANE_BOOK, 0 },
-		{ TV_ARCANE_BOOK, 1 },
-		{ TV_ARCANE_BOOK, 2 },
-		{ TV_ARCANE_BOOK, 3 },
-
-		{ TV_CRAFT_BOOK, 0 },
-		{ TV_CRAFT_BOOK, 0 },
-		{ TV_CRAFT_BOOK, 1 },
-		{ TV_CRAFT_BOOK, 1 },
-
-		{ TV_DAEMON_BOOK, 0 },
-		{ TV_DAEMON_BOOK, 0 },
-		{ TV_DAEMON_BOOK, 1 },
-		{ TV_DAEMON_BOOK, 1 },
-
-		{ TV_MUSIC_BOOK, 0 },
-		{ TV_MUSIC_BOOK, 0 },
-		{ TV_MUSIC_BOOK, 1 },
-		{ TV_MUSIC_BOOK, 1 },
-
-		{ TV_HEX_BOOK, 0 },
-		{ TV_HEX_BOOK, 0 },
-		{ TV_HEX_BOOK, 1 },
-		{ TV_HEX_BOOK, 1 },
-	},
-
-	{
-		/* Museum (unused) */
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 },
-		{ 0, 0 }
-	}
 };
+*/
 
 
 #define RUMOR_CHANCE 8
@@ -5755,11 +5680,84 @@ void init_stores(void)
 
 }
 
+
+
+static void store_set_table(store_type *st_ptr)
+{
+	int k;
+
+	/* Assume full table */
+	st_ptr->table_num = 0;
+	st_ptr->table_size = 0;
+
+	if(st_ptr->flags & ST1_GENERAL)
+		st_ptr->table += STABLE_GENERAL_MAX;
+
+	if(st_ptr->flags & ST1_ARTS)
+		st_ptr->table += STABLE_ARTS_MAX;
+
+	/* Allocate the stock */
+	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
+
+	if(st_ptr->flags & ST1_GENERAL)
+	{
+		for (k = 0; k < STABLE_GENERAL_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = general_store_table[k][0];
+			int sv = general_store_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_ARTS)
+	{
+		for (k = 0; k < STABLE_ARTS_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = arts_table[k][0];
+			int sv = arts_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+
+}
+
 void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 {
-	int j, k;
+	int k;
 
-	j = st_ptr->type;
 	st_ptr->name = stp_ptr->name;
 
 	st_ptr->type = 0;
@@ -5783,42 +5781,11 @@ void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
 	st_ptr->stock_size = stp_ptr->size;
 
+	/* Set Table*/
+	store_set_table(st_ptr);
 
 	/* Allocate the stock */
 	C_MAKE(st_ptr->stock, st_ptr->stock_size, object_type);
-
-	/* Assume full table */
-	st_ptr->table_size = STORE_CHOICES;
-
-	/* Allocate the stock */
-	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
-
-	for (k = 0; k < STORE_CHOICES; k++)
-	{
-		int k_idx;
-
-		// Extract the tval/sval codes
-		int tv = store_table[j][k][0];
-		int sv = store_table[j][k][1];
-
-		// Look for it
-		for (k_idx = 1; k_idx < max_k_idx; k_idx++)
-		{
-			object_kind *k_ptr = &k_info[k_idx];
-
-			// Found a match
-			if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
-		}
-
-		// Catch errors
-		if (k_idx == max_k_idx) continue;
-
-		// Add that item index to the table
-		st_ptr->table[st_ptr->table_num++] = k_idx;
-	}
-
-	// Clear any old items
-
 	for (k = 0; k < st_ptr->stock_size; k++)
 	{
 		object_wipe(&st_ptr->stock[k]);
@@ -5826,4 +5793,5 @@ void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 
 	st_ptr->flags = stp_ptr->flags;
 }
+
 
