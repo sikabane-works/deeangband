@@ -8638,12 +8638,15 @@ byte race_crossing[MAX_RACES][MAX_RACES]=
 	};
 
 
-byte start_town[START_WILDERNESS_MAX][2] =
+starting_type starting_point[STARTING_MAX] =
 {
-	{123,  53},
-	{ 71, 134},
-	{ 93,  67},
-	{118,  68},
-	{135, 134},
-	{ 25,  27},
+	{0, 0, 123,  53},
+	{0, 0,  71, 134},
+	{0, 0,  93,  67},
+	{0, 0, 118,  68},
+	{0, 0, 135, 134},
+	{0, 0,  25,  27},
 };
+
+
+

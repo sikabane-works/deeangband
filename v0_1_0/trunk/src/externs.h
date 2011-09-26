@@ -1858,4 +1858,5 @@ extern bool magic_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool multiply_barrier(creature_type *cr_ptr, int m_idx);
 
 
-extern byte start_town[START_WILDERNESS_MAX][2];
+
+extern starting_type starting_point[STARTING_MAX];

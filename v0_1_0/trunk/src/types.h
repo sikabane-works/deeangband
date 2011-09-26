@@ -1996,3 +1996,12 @@ typedef struct trait_type {
 #endif
 	byte type;			/* Trait Type*/
 } trait_type;
+
+
+typedef struct starting_type {
+	s16b dungeon;
+	s16b floor;
+	s16b wilderness_y;
+	s16b wilderness_x;
+} starting_type;
+

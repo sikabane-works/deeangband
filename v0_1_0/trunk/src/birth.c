@@ -6586,9 +6586,9 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 			player_wipe(cr_ptr);
 		}
 
-		i = randint0(START_WILDERNESS_MAX);
-		previous_char.start_wy = start_town[i][0];	
-		previous_char.start_wx = start_town[i][1];
+		i = randint0(STARTING_MAX);
+		previous_char.start_wy = starting_point[i].wilderness_y;	
+		previous_char.start_wx = starting_point[i].wilderness_x;
 		wilderness_x = previous_char.start_wx;
 		wilderness_y = previous_char.start_wy;
 

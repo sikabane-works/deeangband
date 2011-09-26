@@ -119,7 +119,7 @@
 /*
  * Start Wilderness
  */
-#define START_WILDERNESS_MAX	6
+#define STARTING_MAX	6
 
 /*
  * Quest constants
@@ -534,7 +534,6 @@
 /*
  * Misc constants
  */
-#define MAX_STARTING_POINTS 20       /* Maximum Number of Starting Points */
 #define TOWN_DAWN          10000    /* Number of ticks from dawn to dawn XXX */
 #define TURNS_PER_TICK     10L      /* Number of energy-gain-turns per ticks */
 #define MAX_DAYS           20000    /* Maximum days */
