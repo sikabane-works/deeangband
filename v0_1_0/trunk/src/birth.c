@@ -5007,6 +5007,98 @@ static bool get_creature_chara(creature_type *cr_ptr, bool auto_m)
 	return 0;
 }
 
+
+/*
+ * Player Starting Point
+ */
+static bool get_starting_point(species_type *sp_ptr, bool auto_m)
+{
+	int i, j, n;
+	selection se[STARTING_MAX + 3];
+
+	for (i = 0, n = 0; i < STARTING_MAX; i++)
+	{
+		strcpy(se[n].cap, starting_point[i].name);
+		se[n].code = i;
+		se[n].key = '\0';
+		se[n].d_color = TERM_L_DARK;
+		se[n].l_color = TERM_WHITE;
+		n++;
+	}
+
+#if JP
+	strcpy(se[n].cap, "ランダム");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "最初に戻る");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "終了する");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+	if(!auto_m)
+	{
+#if JP
+		put_str("開始地点を選択して下さい:", 0, 0);
+#else
+		put_str("Select a starting point:", 0, 0);
+#endif
+		i = get_selection(se, n, 5, 2, 18, 20, NULL);
+	}
+	else
+	{
+		j = se[randint0(n - 3)].code;
+		sp_ptr->start_wy = starting_point[j].wilderness_y;
+		sp_ptr->start_wx = starting_point[j].wilderness_x;
+		return 0;
+	}
+
+	if(i >= 0)
+	{
+		sp_ptr->start_wy = starting_point[i].wilderness_y;
+		sp_ptr->start_wx = starting_point[i].wilderness_x;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		j = se[randint0(n - 3)].code;
+		sp_ptr->start_wy = starting_point[j].wilderness_y;
+		sp_ptr->start_wx = starting_point[j].wilderness_x;
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+
+	/* Success */
+	return 0;
+}
+
+
 #ifdef ALLOW_AUTOROLLER
 static bool get_stat_limits(creature_type *cr_ptr)
 {
@@ -5910,7 +6002,7 @@ static void edit_history(creature_type *cr_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
+static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b flags)
 {
 	int i;
 
@@ -6037,7 +6129,14 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	//TODO Select Start Point
+	if(!auto_m)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
+	i = get_starting_point(&previous_char, auto_m);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
 
 	if(!auto_m)
 		screen_save();
@@ -6552,7 +6651,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void unique_birth(creature_type *cr_ptr, int id, u32b flag)
+void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 {
 	int i;
 	char buf[80];
@@ -6568,8 +6667,8 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 	/* Wipe the player */
 	player_wipe(cr_ptr);
 
-	if(flag & UB_PLAYER) cr_ptr->player = TRUE;
-	if(flag & UB_STIGMATIC) cr_ptr->stigmatic = TRUE;
+	if(flags & UB_PLAYER) cr_ptr->player = TRUE;
+	if(flags & UB_STIGMATIC) cr_ptr->stigmatic = TRUE;
 
 	/* Create a new character */
 
@@ -6580,15 +6679,12 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (unique_birth_aux(cr_ptr, flag)) break;
+			if (unique_birth_aux(cr_ptr, &previous_char, flags)) break;
 
 			/* Wipe the player */
 			player_wipe(cr_ptr);
 		}
 
-		i = randint0(STARTING_MAX);
-		previous_char.start_wy = starting_point[i].wilderness_y;	
-		previous_char.start_wx = starting_point[i].wilderness_x;
 		wilderness_x = previous_char.start_wx;
 		wilderness_y = previous_char.start_wy;
 

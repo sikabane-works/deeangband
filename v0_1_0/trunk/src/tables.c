@@ -8642,9 +8642,9 @@ starting_type starting_point[STARTING_MAX] =
 {
 	{
 #if JP
-		"Dammy",
+		"ウルウリスト",
 #endif
-		"Dammy",
+		"Ulurlist",
 		0, 0, 123,  53, 0, 0
 	},
 	{
@@ -8656,9 +8656,9 @@ starting_type starting_point[STARTING_MAX] =
 	},
 	{
 #if JP
-		"Dammy",
+		"アングウィル",
 #endif
-		"Dammy",
+		"Angwil",
 		0, 0,  93,  67, 0, 0
 	},
 	{

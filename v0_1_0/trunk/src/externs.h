@@ -663,7 +663,7 @@ extern void do_cmd_edit_autopick(creature_type *cr_ptr);
 
 /* birth.c */
 extern void add_history_from_pref_line(cptr t);
-extern void unique_birth(creature_type *cr_ptr, int id, u32b flag);
+extern void unique_birth(creature_type *cr_ptr, int id, u32b flags);
 extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern void player_outfit(creature_type *cr_ptr);
