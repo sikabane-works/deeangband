@@ -5079,54 +5079,6 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 		return parse_line_wilderness(buf, ymin, xmin, ymax, xmax, y, x);
 	}
 
-	/* Process "P:<y>:<x>" -- player position */
-	else if (buf[0] == 'P')
-	{
-		if (init_flags & INIT_CREATE_DUNGEON)
-		{
-			if (tokenize(buf + 2, 2, zz, 0) == 2)
-			{
-				int panels_x, panels_y;
-
-				/* Hack - Set the dungeon size */
-				panels_y = (*y / SCREEN_HGT);
-				if (*y % SCREEN_HGT) panels_y++;
-				cur_hgt = panels_y * SCREEN_HGT;
-
-				panels_x = (*x / SCREEN_WID);
-				if (*x % SCREEN_WID) panels_x++;
-				cur_wid = panels_x * SCREEN_WID;
-
-				/* Assume illegal panel */
-				panel_row_min = cur_hgt;
-				panel_col_min = cur_wid;
-
-				/* Place player in a quest level */
-				if (inside_quest)
-				{
-					int y, x;
-
-					/* Delete the monster (if any) */
-					delete_monster(p_ptr->fy, p_ptr->fx);
-
-					y = atoi(zz[0]);
-					x = atoi(zz[1]);
-
-					p_ptr->fy = y;
-					p_ptr->fx = x;
-				}
-				/* Place player in the town */
-				else if (!p_ptr->oldpx && !p_ptr->oldpy)
-				{
-					p_ptr->oldpy = atoi(zz[0]);
-					p_ptr->oldpx = atoi(zz[1]);
-				}
-			}
-		}
-
-		return (0);
-	}
-
 	/* Process "B:<Index>:<Command>:..." -- Building definition */
 	else if (buf[0] == 'B')
 	{
