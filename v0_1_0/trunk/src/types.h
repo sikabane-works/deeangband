@@ -1999,9 +1999,15 @@ typedef struct trait_type {
 
 
 typedef struct starting_type {
+	char name[80];
+#ifdef JP
+	char E_name[80];
+#endif
 	s16b dungeon;
 	s16b floor;
 	s16b wilderness_y;
 	s16b wilderness_x;
+	s16b py;
+	s16b px;
 } starting_type;
 

@@ -8640,12 +8640,48 @@ byte race_crossing[MAX_RACES][MAX_RACES]=
 
 starting_type starting_point[STARTING_MAX] =
 {
-	{0, 0, 123,  53},
-	{0, 0,  71, 134},
-	{0, 0,  93,  67},
-	{0, 0, 118,  68},
-	{0, 0, 135, 134},
-	{0, 0,  25,  27},
+	{
+#if JP
+		"Dammy",
+#endif
+		"Dammy",
+		0, 0, 123,  53, 0, 0
+	},
+	{
+#if JP
+		"イェーキン",
+#endif
+		"Yiyeeken",
+		0, 0,  71, 134, 0, 0
+	},
+	{
+#if JP
+		"Dammy",
+#endif
+		"Dammy",
+		0, 0,  93,  67, 0, 0
+	},
+	{
+#if JP
+		"Dammy",
+#endif
+		"Dammy",
+		0, 0, 118,  68, 0, 0
+	},
+	{
+#if JP
+		"Dammy",
+#endif
+		"Dammy",
+		0, 0, 135, 134, 0, 0
+	},
+	{
+#if JP
+		"Dammy",
+#endif
+		"Dammy",
+		0, 0,  25,  27, 0, 0
+	},
 };
 
 
