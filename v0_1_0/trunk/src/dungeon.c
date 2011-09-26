@@ -7290,10 +7290,8 @@ quit("セーブファイルが壊れています");
 					}
 					else
 					{
-						int i;
-						i = randint0(START_WILDERNESS_MAX);
-						wilderness_y = start_town[i][0];
-						wilderness_x = start_town[i][1];
+						wilderness_y = previous_char.start_wy;
+						wilderness_x = previous_char.start_wx;
 
 						cr_ptr->oldpy = 95;
 						cr_ptr->oldpx = 95;

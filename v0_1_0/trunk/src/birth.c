@@ -6036,6 +6036,8 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	//TODO Select Start Point
+
 	if(!auto_m)
 		screen_save();
 
@@ -6466,8 +6468,6 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
  */
 static bool ask_quick_start(creature_type *cr_ptr)
 {
-	
-	int i;
 
 	/* Doesn't have previous data */
 	if (!previous_char.quick_ok) return FALSE;
@@ -6521,10 +6521,8 @@ static bool ask_quick_start(creature_type *cr_ptr)
 	init_dungeon_quests();
 	init_turn(cr_ptr);
 
-	//TODO :Legal Select
-	i = randint0(START_WILDERNESS_MAX);
-	wilderness_y = start_town[i][0];
-	wilderness_x = start_town[i][1];
+	wilderness_y = previous_char.start_wy;
+	wilderness_x = previous_char.start_wx;
 
 	/* Calc hitdice, but don't roll */
 	get_extra(cr_ptr, FALSE);
@@ -6555,6 +6553,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  */
 void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 {
+	int i;
 	char buf[80];
 
 	playtime = 0;
@@ -6585,6 +6584,13 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flag)
 			/* Wipe the player */
 			player_wipe(cr_ptr);
 		}
+
+		i = randint0(START_WILDERNESS_MAX);
+		previous_char.start_wy = start_town[i][0];	
+		previous_char.start_wx = start_town[i][1];
+		wilderness_x = previous_char.start_wx;
+		wilderness_y = previous_char.start_wy;
+
 	}
 
 	/* Note player birth in the message recall */
