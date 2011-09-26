@@ -395,6 +395,10 @@ static void wr_lore(int species_idx)
 
 	/* Later (?) */
 	wr_byte(0);
+
+	wr_s16b(r_ptr->start_wx);
+	wr_s16b(r_ptr->start_wy);
+
 }
 
 
@@ -460,7 +464,7 @@ static void wr_store(store_type *st_ptr)
 	for (j = 0; j < st_ptr->table_num; j++)
 	{
 		/* Save each item in stock */
-		wr_s16b(&st_ptr->table);
+		wr_s16b(st_ptr->table[j]);
 	}
 
 }

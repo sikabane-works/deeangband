@@ -862,6 +862,8 @@ static void rd_lore(int species_idx)
 	r_ptr->r_flags6 &= r_ptr->flags6;
 	r_ptr->r_flagsr &= r_ptr->flagsr;
 
+	rd_s16b(&r_ptr->start_wx);
+	rd_s16b(&r_ptr->start_wy);
 }
 
 

@@ -2373,6 +2373,8 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	species_ptr->f_m_wt = 0;
 	species_ptr->sc = cr_ptr->sc;
 	species_ptr->au = cr_ptr->au;
+	//species_ptr->start_wx;
+	//species_ptr->start_wy;
 
 	/* Save the stats */
 	for (i = 0; i < 6; i++)
