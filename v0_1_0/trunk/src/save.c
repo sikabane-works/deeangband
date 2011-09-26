@@ -612,48 +612,48 @@ static void wr_ghost(void)
 /*
  * Save quick start data
  */
-static void save_quick_start(void)
+static void save_quick_start(species_type *sp_ptr)
 {
 	int i;
 
-	wr_s16b(previous_char.sex);
-	wr_s16b(previous_char.irace_idx);
-	for (i = 0; i < 8; i++) wr_u32b(previous_char.sub_race[i]);
-	wr_byte(previous_char.cls_idx);
-	wr_byte(previous_char.chara_idx);
-	wr_byte(previous_char.realm1);
-	wr_byte(previous_char.realm2);
+	wr_s16b(sp_ptr->sex);
+	wr_s16b(sp_ptr->irace_idx);
+	for (i = 0; i < 8; i++) wr_u32b(sp_ptr->sub_race[i]);
+	wr_byte(sp_ptr->cls_idx);
+	wr_byte(sp_ptr->chara_idx);
+	wr_byte(sp_ptr->realm1);
+	wr_byte(sp_ptr->realm2);
 
-	wr_s32b(previous_char.age);
-	wr_s32b(previous_char.m_b_ht);
-	wr_s32b(previous_char.m_m_ht);
-	wr_s32b(previous_char.f_b_ht);
-	wr_s32b(previous_char.f_m_ht);
-	wr_s32b(previous_char.m_b_wt);
-	wr_s32b(previous_char.m_m_wt);
-	wr_s32b(previous_char.f_b_wt);
-	wr_s32b(previous_char.f_m_wt);
-	wr_s16b(previous_char.sc);
-	wr_s32b(previous_char.au);
-	wr_s16b(previous_char.start_wx);
-	wr_s16b(previous_char.start_wy);
+	wr_s32b(sp_ptr->age);
+	wr_s32b(sp_ptr->m_b_ht);
+	wr_s32b(sp_ptr->m_m_ht);
+	wr_s32b(sp_ptr->f_b_ht);
+	wr_s32b(sp_ptr->f_m_ht);
+	wr_s32b(sp_ptr->m_b_wt);
+	wr_s32b(sp_ptr->m_m_wt);
+	wr_s32b(sp_ptr->f_b_wt);
+	wr_s32b(sp_ptr->f_m_wt);
+	wr_s16b(sp_ptr->sc);
+	wr_s32b(sp_ptr->au);
+	wr_s16b(sp_ptr->start_wx);
+	wr_s16b(sp_ptr->start_wy);
 
-	for (i = 0; i < 6; i++) wr_s16b(previous_char.stat_max[i]);
-	for (i = 0; i < 6; i++) wr_s16b(previous_char.stat_max_max[i]);
+	for (i = 0; i < 6; i++) wr_s16b(sp_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) wr_s16b(sp_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(previous_char.player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(sp_ptr->player_hp[i]);
 
-	wr_s16b(previous_char.patron_idx);
+	wr_s16b(sp_ptr->patron_idx);
 
-	for (i = 0; i < 4; i++) wr_string(previous_char.history[i]);
+	for (i = 0; i < 4; i++) wr_string(sp_ptr->history[i]);
 
 	/* UNUSED : Was number of random quests */
 	wr_byte(0);
 
 	/* No quick start after using debug mode or cheat options */
-	if (noscore) previous_char.quick_ok = FALSE;
+	if (noscore) sp_ptr->quick_ok = FALSE;
 
-	wr_byte((byte)previous_char.quick_ok);
+	wr_byte((byte)sp_ptr->quick_ok);
 }
 
 static void wr_creature(creature_type *cr_ptr)
@@ -865,7 +865,7 @@ static void wr_extra(void)
 	byte tmp8u;
 
 
-	save_quick_start();
+	save_quick_start(&previous_char);
 
 
 	for (i = 0; i < MAX_KUBI; i++)
