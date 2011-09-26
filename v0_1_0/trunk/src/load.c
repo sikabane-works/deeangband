@@ -1210,47 +1210,47 @@ static void rd_ghost(void)
 /*
  * Save quick start data
  */
-static void load_quick_start(void)
+static void load_quick_start(species_type *sp_ptr)
 {
 	byte tmp8u;
 	int i;
 
-	rd_s16b(&previous_char.sex);
-	rd_s16b(&previous_char.irace_idx);
-	for (i = 0; i < 8; i++) rd_u32b(&previous_char.sub_race[i]);
-	rd_byte(&previous_char.cls_idx);
-	rd_byte(&previous_char.chara_idx);
-	rd_byte(&previous_char.realm1);
-	rd_byte(&previous_char.realm2);
-	rd_s32b(&previous_char.age);
-	rd_s32b(&previous_char.m_b_ht);
-	rd_s32b(&previous_char.m_m_ht);
-	rd_s32b(&previous_char.f_b_ht);
-	rd_s32b(&previous_char.f_m_ht);
-	rd_s32b(&previous_char.m_b_wt);
-	rd_s32b(&previous_char.m_m_wt);
-	rd_s32b(&previous_char.f_b_wt);
-	rd_s32b(&previous_char.f_m_wt);
-	rd_s16b(&previous_char.sc);
-	rd_s32b(&previous_char.au);
-	rd_s16b(&previous_char.start_wx);
-	rd_s16b(&previous_char.start_wy);
+	rd_s16b(&sp_ptr->sex);
+	rd_s16b(&sp_ptr->irace_idx);
+	for (i = 0; i < 8; i++) rd_u32b(&sp_ptr->sub_race[i]);
+	rd_byte(&sp_ptr->cls_idx);
+	rd_byte(&sp_ptr->chara_idx);
+	rd_byte(&sp_ptr->realm1);
+	rd_byte(&sp_ptr->realm2);
+	rd_s32b(&sp_ptr->age);
+	rd_s32b(&sp_ptr->m_b_ht);
+	rd_s32b(&sp_ptr->m_m_ht);
+	rd_s32b(&sp_ptr->f_b_ht);
+	rd_s32b(&sp_ptr->f_m_ht);
+	rd_s32b(&sp_ptr->m_b_wt);
+	rd_s32b(&sp_ptr->m_m_wt);
+	rd_s32b(&sp_ptr->f_b_wt);
+	rd_s32b(&sp_ptr->f_m_wt);
+	rd_s16b(&sp_ptr->sc);
+	rd_s32b(&sp_ptr->au);
+	rd_s16b(&sp_ptr->start_wx);
+	rd_s16b(&sp_ptr->start_wy);
 
 
-	for (i = 0; i < 6; i++) rd_s16b(&previous_char.stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&previous_char.stat_max_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&sp_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&sp_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&previous_char.player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&sp_ptr->player_hp[i]);
 
-	rd_s16b(&previous_char.patron_idx);
+	rd_s16b(&sp_ptr->patron_idx);
 
-	for (i = 0; i < 4; i++) rd_string(previous_char.history[i], sizeof(previous_char.history[i]));
+	for (i = 0; i < 4; i++) rd_string(sp_ptr->history[i], sizeof(sp_ptr->history[i]));
 
 	/* UNUSED : Was number of random quests */
 	rd_byte(&tmp8u);
 
 	rd_byte(&tmp8u);
-	previous_char.quick_ok = (bool)tmp8u;
+	sp_ptr->quick_ok = (bool)tmp8u;
 }
 
 static void rd_creature(creature_type *cr_ptr)
@@ -1542,7 +1542,7 @@ static void rd_extra(void)
 	s16b tmp16s;
 	byte max;
 
-	load_quick_start();
+	load_quick_start(&previous_char);
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{
