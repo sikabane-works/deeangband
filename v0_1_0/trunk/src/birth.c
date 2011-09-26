@@ -6464,6 +6464,9 @@ static bool unique_birth_aux(creature_type *cr_ptr, u32b flags)
  */
 static bool ask_quick_start(creature_type *cr_ptr)
 {
+	
+	int i;
+
 	/* Doesn't have previous data */
 	if (!previous_char.quick_ok) return FALSE;
 
@@ -6516,9 +6519,10 @@ static bool ask_quick_start(creature_type *cr_ptr)
 	init_dungeon_quests();
 	init_turn(cr_ptr);
 
-	/*TODO: 当面はイェーキンからのみスタート、いずれ指定された都市を選ぶように指定。 */
-	wilderness_x = 134;
-	wilderness_y = 71;
+	//TODO :Legal Select
+	i = randint0(START_WILDERNESS_MAX);
+	wilderness_y = start_town[i][0];
+	wilderness_x = start_town[i][1];
 
 	/* Calc hitdice, but don't roll */
 	get_extra(cr_ptr, FALSE);
