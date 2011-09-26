@@ -635,6 +635,8 @@ static void save_quick_start(void)
 	wr_s32b(previous_char.f_m_wt);
 	wr_s16b(previous_char.sc);
 	wr_s32b(previous_char.au);
+	wr_s16b(previous_char.start_wx);
+	wr_s16b(previous_char.start_wy);
 
 	for (i = 0; i < 6; i++) wr_s16b(previous_char.stat_max[i]);
 	for (i = 0; i < 6; i++) wr_s16b(previous_char.stat_max_max[i]);

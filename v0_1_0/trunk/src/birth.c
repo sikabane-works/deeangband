@@ -2373,8 +2373,6 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	species_ptr->f_m_wt = 0;
 	species_ptr->sc = cr_ptr->sc;
 	species_ptr->au = cr_ptr->au;
-	//species_ptr->start_wx;
-	//species_ptr->start_wy;
 
 	/* Save the stats */
 	for (i = 0; i < 6; i++)
@@ -2434,6 +2432,9 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	cr_ptr->wt = previous_char.m_b_wt;
 	cr_ptr->sc = previous_char.sc;
 	cr_ptr->au = previous_char.au;
+
+	wilderness_x = previous_char.start_wx;
+	wilderness_y = previous_char.start_wy;
 
 	/* Load the stats */
 	for (i = 0; i < 6; i++)

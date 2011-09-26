@@ -1233,6 +1233,9 @@ static void load_quick_start(void)
 	rd_s32b(&previous_char.f_m_wt);
 	rd_s16b(&previous_char.sc);
 	rd_s32b(&previous_char.au);
+	rd_s16b(&previous_char.start_wx);
+	rd_s16b(&previous_char.start_wy);
+
 
 	for (i = 0; i < 6; i++) rd_s16b(&previous_char.stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&previous_char.stat_max_max[i]);
