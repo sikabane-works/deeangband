@@ -2406,7 +2406,7 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 /*
  * Load the previous data
  */
-void load_prev_data(creature_type *cr_ptr, bool swap)
+void load_prev_data(creature_type *cr_ptr, species_type *sp_ptr, bool swap)
 {
 	int i;
 
@@ -2419,51 +2419,51 @@ void load_prev_data(creature_type *cr_ptr, bool swap)
 	/*** Load the previous data ***/
 
 	/* Load the data */
-	cr_ptr->sex = previous_char.sex;
-	cr_ptr->irace_idx = previous_char.irace_idx;
-	cr_ptr->species_idx = previous_char.species_idx;
-	cr_ptr->ap_species_idx = previous_char.ap_species_idx;
-	cr_ptr->cls_idx = previous_char.cls_idx;
-	cr_ptr->chara_idx = previous_char.chara_idx;
-	cr_ptr->realm1 = previous_char.realm1;
-	cr_ptr->realm2 = previous_char.realm2;
-	cr_ptr->age = previous_char.age;
-	cr_ptr->ht = previous_char.m_b_ht;
-	cr_ptr->wt = previous_char.m_b_wt;
-	cr_ptr->sc = previous_char.sc;
-	cr_ptr->au = previous_char.au;
+	cr_ptr->sex = sp_ptr->sex;
+	cr_ptr->irace_idx = sp_ptr->irace_idx;
+	cr_ptr->species_idx = sp_ptr->species_idx;
+	cr_ptr->ap_species_idx = sp_ptr->ap_species_idx;
+	cr_ptr->cls_idx = sp_ptr->cls_idx;
+	cr_ptr->chara_idx = sp_ptr->chara_idx;
+	cr_ptr->realm1 = sp_ptr->realm1;
+	cr_ptr->realm2 = sp_ptr->realm2;
+	cr_ptr->age = sp_ptr->age;
+	cr_ptr->ht = sp_ptr->m_b_ht;
+	cr_ptr->wt = sp_ptr->m_b_wt;
+	cr_ptr->sc = sp_ptr->sc;
+	cr_ptr->au = sp_ptr->au;
 
-	wilderness_x = previous_char.start_wx;
-	wilderness_y = previous_char.start_wy;
+	wilderness_x = sp_ptr->start_wx;
+	wilderness_y = sp_ptr->start_wy;
 
 	/* Load the stats */
 	for (i = 0; i < 6; i++)
 	{
-		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = previous_char.stat_max[i];
-		cr_ptr->stat_max_max[i] = previous_char.stat_max_max[i];
+		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = sp_ptr->stat_max[i];
+		cr_ptr->stat_max_max[i] = sp_ptr->stat_max_max[i];
 	}
 
 	/* Load the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		cr_ptr->player_hp[i] = previous_char.player_hp[i];
+		cr_ptr->player_hp[i] = sp_ptr->player_hp[i];
 	}
 	cr_ptr->mhp = cr_ptr->player_hp[0];
 	cr_ptr->chp = cr_ptr->player_hp[0];
 
 	cr_ptr->csp = cr_ptr->msp;
 
-	cr_ptr->patron_idx = previous_char.patron_idx;
+	cr_ptr->patron_idx = sp_ptr->patron_idx;
 
 	/* Load the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(cr_ptr->history[i], previous_char.history[i]);
+		strcpy(cr_ptr->history[i], sp_ptr->history[i]);
 	}
 
 	for (i = 0; i < 8; i++)
 	{
-		cr_ptr->authority[i] = previous_char.authority[i];
+		cr_ptr->authority[i] = sp_ptr->authority[i];
 	}
 
 	/*** Save the previous data ***/
@@ -6465,7 +6465,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 			/* Previous character */
 			if (prev && (c == 'p'))
 			{
-				load_prev_data(cr_ptr, TRUE);
+				load_prev_data(cr_ptr, &previous_char, TRUE);
 				continue;
 			}
 
@@ -6617,7 +6617,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
 		}
 	}
 
-	load_prev_data(cr_ptr, FALSE);
+	load_prev_data(cr_ptr, &previous_char, FALSE);
 	init_dungeon_quests();
 	init_turn(cr_ptr);
 
