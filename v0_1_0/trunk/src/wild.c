@@ -1109,6 +1109,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 	/* Leaving */
 	cr_ptr->leaving = TRUE;
 
+	//TODO
 	wilderness[wilderness_y][wilderness_x].known = TRUE;
 	wilderness[wilderness_y - 1][wilderness_x - 1].known = TRUE;
 	wilderness[wilderness_y + 1][wilderness_x + 1].known = TRUE;

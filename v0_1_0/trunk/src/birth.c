@@ -2664,9 +2664,6 @@ static void get_history(creature_type *cr_ptr)
 
 	char buf[240];
 
-	wilderness_x = 134;
-	wilderness_y = 71;
-
 	/* Clear the previous history strings */
 	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';
 
