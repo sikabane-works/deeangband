@@ -2469,7 +2469,7 @@ void load_prev_data(creature_type *cr_ptr, species_type *sp_ptr, bool swap)
 	/*** Save the previous data ***/
 	if (swap)
 	{
-		COPY(&previous_char, &temp, species_type);
+		COPY(sp_ptr, &temp, species_type);
 	}
 }
 
@@ -6653,7 +6653,6 @@ static bool ask_quick_start(creature_type *cr_ptr)
  */
 void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 {
-	int i;
 	char buf[80];
 
 	playtime = 0;

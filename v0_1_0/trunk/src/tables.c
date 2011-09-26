@@ -8663,23 +8663,23 @@ starting_type starting_point[STARTING_MAX] =
 	},
 	{
 #if JP
-		"Dammy",
+		"シラ",
 #endif
-		"Dammy",
+		"Sila",
 		0, 0, 118,  68, 0, 0
 	},
 	{
 #if JP
-		"Dammy",
+		"キセダラバジ",
 #endif
-		"Dammy",
+		"Cixedarbazi",
 		0, 0, 135, 134, 0, 0
 	},
 	{
 #if JP
-		"Dammy",
+		"ドゥードリン",
 #endif
-		"Dammy",
+		"Doodrine",
 		0, 0,  25,  27, 0, 0
 	},
 };
