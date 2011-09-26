@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 20
+#define VER_PATCH 21
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -114,6 +114,12 @@
  * old .. 198
  */
 #define MAX_WID         240
+
+
+/*
+ * Start Wilderness
+ */
+#define START_WILDERNESS_MAX	6
 
 /*
  * Quest constants
@@ -573,22 +579,22 @@
 /*
  * Commands
  */
-#define PET_DISMISS		1
-#define PET_TARGET		2
-#define PET_STAY_CLOSE		3
-#define PET_FOLLOW_ME		4
+#define PET_DISMISS				1
+#define PET_TARGET				2
+#define PET_STAY_CLOSE			3
+#define PET_FOLLOW_ME			4
 #define PET_SEEK_AND_DESTROY	5
-#define PET_ALLOW_SPACE		6
-#define PET_STAY_AWAY		7
+#define PET_ALLOW_SPACE			6
+#define PET_STAY_AWAY			7
 #define PET_OPEN_DOORS          8
-#define PET_TAKE_ITEMS		9
-#define PET_TELEPORT		10
-#define PET_ATTACK_SPELL	11
-#define PET_SUMMON_SPELL	12
-#define PET_BALL_SPELL		13
-#define PET_RIDING		14
-#define PET_NAME		15
-#define PET_RYOUTE		16
+#define PET_TAKE_ITEMS			9
+#define PET_TELEPORT			10
+#define PET_ATTACK_SPELL		11
+#define PET_SUMMON_SPELL		12
+#define PET_BALL_SPELL			13
+#define PET_RIDING				14
+#define PET_NAME				15
+#define PET_RYOUTE				16
 
 /*
  * Follow distances

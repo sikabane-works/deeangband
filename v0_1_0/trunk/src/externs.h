@@ -452,8 +452,6 @@ extern s16b mproc_max[MAX_MTIMED];
 extern u16b max_towns;
 extern town_type *town;
 extern byte race_population[MAX_RACES];
-extern u16b start_wilderness_x[MAX_STARTING_POINTS];
-extern u16b start_wilderness_y[MAX_STARTING_POINTS];
 extern u16b start_point_size;
 extern s16b alloc_kind_size;
 extern alloc_entry *alloc_kind_table;
@@ -1859,3 +1857,5 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool magic_barrier(creature_type *cast_ptr, creature_type *tar_ptr);
 extern bool multiply_barrier(creature_type *cr_ptr, int m_idx);
 
+
+extern byte start_town[START_WILDERNESS_MAX][2];

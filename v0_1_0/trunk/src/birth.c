@@ -2664,39 +2664,8 @@ static void get_history(creature_type *cr_ptr)
 
 	char buf[240];
 
-	i = 0;
-	switch(i){
-		case 0:
-			wilderness_x = 134;
-			wilderness_y = 71;
-			break;
-		case 1:
-			wilderness_x = 27;
-			wilderness_y = 25;
-			break;
-		case 2:
-			wilderness_x = 137;
-			wilderness_y = 100;
-			break;
-		case 3:
-			wilderness_x = 169;
-			wilderness_y = 37;
-			break;
-		case 4:
-			wilderness_x = 53;
-			wilderness_y = 123;
-			break;
-		case 5:
-			wilderness_x = 68;
-			wilderness_y = 118;
-			break;
-		case 6:
-			wilderness_x = 134;
-			wilderness_y = 135;
-			break;
-		default:
-			break;
-	};
+	wilderness_x = 134;
+	wilderness_y = 71;
 
 	/* Clear the previous history strings */
 	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';

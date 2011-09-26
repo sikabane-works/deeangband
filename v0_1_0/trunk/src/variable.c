@@ -707,8 +707,6 @@ u16b max_towns;
 /*
  * Starting Town wilderness coodinate
  */
-u16b start_wilderness_x[MAX_STARTING_POINTS];
-u16b start_wilderness_y[MAX_STARTING_POINTS];
 u16b start_point_size;
 
 /*

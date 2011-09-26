@@ -7290,11 +7290,11 @@ quit("セーブファイルが壊れています");
 					}
 					else
 					{
-						/*TODO: 当分はイェーキンからのみスタート */
-						//wilderness_x = 10;
-						//wilderness_y = 34;
-						wilderness_x = 134;
-						wilderness_y = 71;
+						int i;
+						i = randint0(START_WILDERNESS_MAX);
+						wilderness_y = start_town[i][0];
+						wilderness_x = start_town[i][1];
+
 						cr_ptr->oldpy = 95;
 						cr_ptr->oldpx = 95;
 					}
