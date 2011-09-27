@@ -507,10 +507,8 @@ static void breath(int y, int x, creature_type *cr_ptr, int typ, int dam_hp, int
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
-
 	/* Determine the radius of the blast */
-	if ((rad < 1) && breath) rad = (r_ptr->flags2 & (RF2_POWERFUL)) ? 3 : 2;
+	if ((rad < 1) && breath) rad = (cr_ptr->flags2 & (RF2_POWERFUL)) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
