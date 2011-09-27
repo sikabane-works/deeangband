@@ -732,3 +732,8 @@ bool is_undead_species(species_type *sp_ptr)
 	if(sp_ptr->irace_idx == RACE_LICH || sp_ptr->irace_idx == RACE_NAZGUL) return TRUE;
 	return FALSE;
 }
+
+bool is_powerful(creature_type *cr_ptr)
+{
+	return cr_ptr->flags2 & (RF2_POWERFUL);
+}

@@ -216,6 +216,16 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 		info[i++] = Dummy2[4];
 	}
 
+	if (is_powerful(cr_ptr))
+	{
+#ifdef JP
+			info[i++] = "あなたはあらゆるレイシャルパワーを強力に扱うことができる。";
+#else
+			info[i++] = "You can use every racial power strongly.";
+#endif
+
+	}
+
 
 	/* Racial powers... */
 	if (cr_ptr->mimic_form)
