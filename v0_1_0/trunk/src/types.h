@@ -1642,21 +1642,22 @@ typedef struct building_type building_type;
 
 struct building_type
 {
-	char name[60];                  /* proprietor name */
-	char owner_name[60];            /* proprietor name */
-	char owner_race[60];            /* proprietor race */
+	char name[60];                  // proprietor name
+	char owner_name[60];            // proprietor name
+	char owner_race[60];            // proprietor race
+	s16b owner_id;                  // owner_id
 
-	char act_names[8][30];          /* action names */
-	s32b member_costs[8];           /* Costs for class members of building */
-	s32b other_costs[8];		    /* Costs for nonguild members */
-	char letters[8];                /* action letters */
-	s16b actions[8];                /* action codes */
-	s16b action_restr[8];           /* action restrictions */
-	s16b action_misc[8];            /* action misc */
+	char act_names[8][30];          // action names
+	s32b member_costs[8];           // Costs for class members of building
+	s32b other_costs[8];		    // Costs for nonguild members
+	char letters[8];                // action letters
+	s16b actions[8];                // action codes
+	s16b action_restr[8];           // action restrictions
+	s16b action_misc[8];            // action misc
 
-	s16b member_class[MAX_CLASS];   /* which classes are part of guild */
-	s16b member_race[MAX_RACES];    /* which classes are part of guild */
-	s16b member_realm[MAX_MAGIC+1]; /* which realms are part of guild */
+	s16b member_class[MAX_CLASS];   // which classes are part of guild
+	s16b member_race[MAX_RACES];    // which classes are part of guild
+	s16b member_realm[MAX_MAGIC+1]; // which realms are part of guild
 };
 
 
