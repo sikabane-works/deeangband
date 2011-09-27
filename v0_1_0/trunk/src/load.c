@@ -1408,76 +1408,51 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->oppose_pois);
 	rd_s16b(&cr_ptr->tsuyoshi);
 
-	/* Old savefiles do not have the following fields... */
-	if ((z_major == 2) && (z_minor == 0) && (z_patch == 6))
-	{
-		cr_ptr->tim_esp = 0;
-		cr_ptr->wraith_form = 0;
-		cr_ptr->resist_magic = 0;
-		cr_ptr->tim_regen = 0;
-		cr_ptr->kabenuke = 0;
-		cr_ptr->tim_stealth = 0;
-		cr_ptr->tim_levitation = 0;
-		cr_ptr->tim_sh_touki = 0;
-		cr_ptr->lightspeed = 0;
-		cr_ptr->tsubureru = 0;
-		cr_ptr->tim_res_nether = 0;
-		cr_ptr->tim_res_time = 0;
-		cr_ptr->mimic_form = 0;
-		cr_ptr->tim_mimic = 0;
-		cr_ptr->tim_sh_fire = 0;
+	rd_s16b(&cr_ptr->tim_esp);
+	rd_s16b(&cr_ptr->wraith_form);
+	rd_s16b(&cr_ptr->resist_magic);
+	rd_s16b(&cr_ptr->tim_regen);
+	rd_s16b(&cr_ptr->kabenuke);
+	rd_s16b(&cr_ptr->tim_stealth);
+	rd_s16b(&cr_ptr->tim_levitation);
+	rd_s16b(&cr_ptr->tim_sh_touki);
+	rd_s16b(&cr_ptr->lightspeed);
+	rd_s16b(&cr_ptr->tsubureru);
+	rd_s16b(&cr_ptr->magicdef);
+	rd_s16b(&cr_ptr->tim_res_nether);
+	rd_s16b(&cr_ptr->tim_res_time);
+	rd_byte(&cr_ptr->mimic_form);
+	rd_s16b(&cr_ptr->tim_mimic);
+	rd_s16b(&cr_ptr->tim_sh_fire);
+	rd_s16b(&cr_ptr->tim_sh_holy);
+	rd_s16b(&cr_ptr->tim_eyeeye);
+	rd_s16b(&cr_ptr->tim_reflect);
+	rd_s16b(&cr_ptr->multishadow);
+	rd_s16b(&cr_ptr->dustrobe);
+	rd_s16b(&cr_ptr->patron_idx);
+	rd_u32b(&cr_ptr->trait1);
+	rd_u32b(&cr_ptr->trait2);
+	rd_u32b(&cr_ptr->trait3);
+	rd_u32b(&cr_ptr->trait4);
+	rd_u32b(&cr_ptr->trait5);
+	rd_u32b(&cr_ptr->trait6);
+	rd_u32b(&cr_ptr->trait7);
+	rd_u32b(&cr_ptr->trait8);
 
-		/* by henkma */
-		cr_ptr->tim_reflect = 0;
-		cr_ptr->multishadow = 0;
-		cr_ptr->dustrobe = 0;
+	rd_u32b(&cr_ptr->flags1);
+	rd_u32b(&cr_ptr->flags2);
+	rd_u32b(&cr_ptr->flags3);
+	rd_u32b(&cr_ptr->flags4);
+	rd_u32b(&cr_ptr->flags5);
+	rd_u32b(&cr_ptr->flags6);
+	rd_u32b(&cr_ptr->flags7);
+	rd_u32b(&cr_ptr->flags8);
+	rd_u32b(&cr_ptr->flags9);
+	rd_u32b(&cr_ptr->flagsr);
+	rd_u32b(&cr_ptr->flagse);
 
-		cr_ptr->patron_idx = ((cr_ptr->age + cr_ptr->sc) % MAX_PATRON);
-		cr_ptr->trait1 = 0;
-		cr_ptr->trait2 = 0;
-		cr_ptr->trait3 = 0;
-		cr_ptr->trait4 = 0;
-		cr_ptr->trait5 = 0;
-		cr_ptr->trait6 = 0;
-		cr_ptr->trait7 = 0;
-		cr_ptr->trait8 = 0;
-	}
-	else
-	{
-		rd_s16b(&cr_ptr->tim_esp);
-		rd_s16b(&cr_ptr->wraith_form);
-		rd_s16b(&cr_ptr->resist_magic);
-		rd_s16b(&cr_ptr->tim_regen);
-		rd_s16b(&cr_ptr->kabenuke);
-		rd_s16b(&cr_ptr->tim_stealth);
-		rd_s16b(&cr_ptr->tim_levitation);
-		rd_s16b(&cr_ptr->tim_sh_touki);
-		rd_s16b(&cr_ptr->lightspeed);
-		rd_s16b(&cr_ptr->tsubureru);
-		rd_s16b(&cr_ptr->magicdef);
-		rd_s16b(&cr_ptr->tim_res_nether);
-		rd_s16b(&cr_ptr->tim_res_time);
-		rd_byte(&cr_ptr->mimic_form);
-		rd_s16b(&cr_ptr->tim_mimic);
-		rd_s16b(&cr_ptr->tim_sh_fire);
-		rd_s16b(&cr_ptr->tim_sh_holy);
-		rd_s16b(&cr_ptr->tim_eyeeye);
-		rd_s16b(&cr_ptr->tim_reflect);
-		rd_s16b(&cr_ptr->multishadow);
-		rd_s16b(&cr_ptr->dustrobe);
-		rd_s16b(&cr_ptr->patron_idx);
-		rd_u32b(&cr_ptr->trait1);
-		rd_u32b(&cr_ptr->trait2);
-		rd_u32b(&cr_ptr->trait3);
-		rd_u32b(&cr_ptr->trait4);
-		rd_u32b(&cr_ptr->trait5);
-		rd_u32b(&cr_ptr->trait6);
-		rd_u32b(&cr_ptr->trait7);
-		rd_u32b(&cr_ptr->trait8);
-
-		for (i = 0; i < MAX_KARMA; i++)
-			rd_s32b(&cr_ptr->karmas[i]);
-	}
+	for (i = 0; i < MAX_KARMA; i++)
+		rd_s32b(&cr_ptr->karmas[i]);
 
 	/* Calc the regeneration modifier for mutations */
 	mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);

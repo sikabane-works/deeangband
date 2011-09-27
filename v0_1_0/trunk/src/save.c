@@ -817,6 +817,8 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->dustrobe);
 
 	wr_s16b(cr_ptr->patron_idx);
+
+
 	wr_u32b(cr_ptr->trait1);
 	wr_u32b(cr_ptr->trait2);
 	wr_u32b(cr_ptr->trait3);
@@ -825,6 +827,18 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->trait6);
 	wr_u32b(cr_ptr->trait7);
 	wr_u32b(cr_ptr->trait8);
+
+	wr_u32b(cr_ptr->flags1);
+	wr_u32b(cr_ptr->flags2);
+	wr_u32b(cr_ptr->flags3);
+	wr_u32b(cr_ptr->flags4);
+	wr_u32b(cr_ptr->flags5);
+	wr_u32b(cr_ptr->flags6);
+	wr_u32b(cr_ptr->flags7);
+	wr_u32b(cr_ptr->flags8);
+	wr_u32b(cr_ptr->flags9);
+	wr_u32b(cr_ptr->flagsr);
+	wr_u32b(cr_ptr->flagse);
 
 	for (i = 0; i < MAX_KARMA; i++)
 		wr_s32b(cr_ptr->karmas[i]);
