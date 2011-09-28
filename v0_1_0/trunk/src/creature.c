@@ -352,7 +352,7 @@ s16b calc_monster_standard_size(species_type * mr_ptr){
 		tmpht = mr_ptr->m_b_ht;
 		tmpwt = mr_ptr->m_b_wt;
 	}
-	else if (mr_ptr->flags1 & RF1_FEMALE)
+	else if (is_female_species(mr_ptr))
 	{
 		tmpht = mr_ptr->f_b_ht;
 		tmpwt = mr_ptr->f_b_wt;

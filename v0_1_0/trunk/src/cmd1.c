@@ -3228,7 +3228,7 @@ bool py_attack(creature_type *atk_ptr, int y, int x, int mode)
 		health_track(c_ptr->m_idx);
 	}
 
-	if ((r_ptr->flags1 & RF1_FEMALE) &&
+	if (is_female_creature(tar_ptr) &&
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image || !tar_ptr->ml))
 	{
 		if ((atk_ptr->inventory[INVEN_1STARM].name1 == ART_ZANTETSU) || (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_ZANTETSU))

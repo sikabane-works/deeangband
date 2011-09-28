@@ -7677,7 +7677,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 				}
 				else if (buf[2] == 'F')
 				{
-					if (r_info[entry].flags1 & RF1_FEMALE) break;
+					if (is_female_species(&r_info[entry])) break;
 				}
 				/* Get the monster number */
 				else if (sscanf(&(buf[2]), "%d", &test) != EOF)

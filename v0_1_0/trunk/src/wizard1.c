@@ -1934,7 +1934,7 @@ static void spoil_mon_desc(cptr fname)
 			tmpht = r_ptr->m_b_ht;
 			tmpwt = r_ptr->m_b_wt;
 		}
-		else if (r_ptr->flags1 & RF1_FEMALE)
+		else if (is_female_species(r_ptr))
 		{
 			tmpht = r_ptr->f_b_ht;
 			tmpwt = r_ptr->f_b_wt;
