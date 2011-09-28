@@ -26,7 +26,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	/* Determine the radius of the blast */
-	if (rad < 1 && breath) rad = (r_ptr->flags2 & RF2_POWERFUL) ? 3 : 2;
+	if (rad < 1 && breath) rad = (is_powerful_species(r_ptr)) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
@@ -579,7 +579,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			    (f6 & RF6_BREATH_MASK))
 			{
 				/* Expected breath radius */
-				int rad = (r_ptr->flags2 & RF2_POWERFUL) ? 3 : 2;
+				int rad = (is_powerful_species(r_ptr)) ? 3 : 2;
 
 				if (!breath_direct(tar_ptr->fy, tar_ptr->fx, t_ptr->fy, t_ptr->fx, rad, 0, TRUE))
 				{
@@ -1932,7 +1932,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (randint1(rlev * 3) + 15) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (randint1(rlev * 3) + 15) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_breath_monst(m_idx, y, x, GF_ACID, dam, 2, FALSE, MS_BALL_ACID, learnable);
 
 		break;
@@ -1970,7 +1970,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (randint1(rlev * 3 / 2) + 8) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (randint1(rlev * 3 / 2) + 8) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_breath_monst(m_idx, y, x, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
 
 		break;
@@ -2025,7 +2025,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (randint1(rlev * 7 / 2) + 10) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (randint1(rlev * 7 / 2) + 10) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_breath_monst(m_idx, y, x, GF_FIRE, dam, 2, FALSE, MS_BALL_FIRE, learnable);
 
 		break;
@@ -2063,7 +2063,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (randint1(rlev * 3 / 2) + 10) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (randint1(rlev * 3 / 2) + 10) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_breath_monst(m_idx, y, x, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
 
 		break;
@@ -2101,7 +2101,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = damroll(12, 2) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = damroll(12, 2) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_breath_monst(m_idx, y, x, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
 
 		break;
@@ -2139,7 +2139,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = 50 + damroll(10, 10) + (rlev * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1));
+		dam = 50 + damroll(10, 10) + (rlev * ((is_powerful_species(r_ptr)) ? 2 : 1));
 		monst_breath_monst(m_idx, y, x, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
 
 		break;
@@ -2183,7 +2183,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = ((r_ptr->flags2 & RF2_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
+		dam = ((is_powerful_species(r_ptr)) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
 		monst_breath_monst(m_idx, y, x, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
 
 		break;
@@ -2431,7 +2431,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (damroll(7, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (damroll(7, 8) + (rlev / 3)) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_bolt_monst(m_idx, y, x, GF_ACID,
 				 dam, MS_BOLT_ACID, learnable);
 
@@ -2456,7 +2456,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (damroll(4, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (damroll(4, 8) + (rlev / 3)) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_bolt_monst(m_idx, y, x, GF_ELEC,
 				 dam, MS_BOLT_ELEC, learnable);
 
@@ -2481,7 +2481,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (damroll(9, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (damroll(9, 8) + (rlev / 3)) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_bolt_monst(m_idx, y, x, GF_FIRE,
 				 dam, MS_BOLT_FIRE, learnable);
 
@@ -2506,7 +2506,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (damroll(6, 8) + (rlev / 3)) * ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 1);
+		dam = (damroll(6, 8) + (rlev / 3)) * ((is_powerful_species(r_ptr)) ? 2 : 1);
 		monst_bolt_monst(m_idx, y, x, GF_COLD,
 				 dam, MS_BOLT_COLD, learnable);
 
@@ -2569,7 +2569,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = 30 + damroll(5, 5) + (rlev * 4) / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3);
+		dam = 30 + damroll(5, 5) + (rlev * 4) / ((is_powerful_species(r_ptr)) ? 2 : 3);
 		monst_bolt_monst(m_idx, y, x, GF_NETHER,
 				 dam, MS_BOLT_NETHER, learnable);
 
@@ -2594,7 +2594,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = damroll(10, 10) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
+		dam = damroll(10, 10) + (rlev * 3 / ((is_powerful_species(r_ptr)) ? 2 : 3));
 		monst_bolt_monst(m_idx, y, x, GF_WATER,
 				 dam, MS_BOLT_WATER, learnable);
 
@@ -2644,7 +2644,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = 10 + damroll(8, 7) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
+		dam = 10 + damroll(8, 7) + (rlev * 3 / ((is_powerful_species(r_ptr)) ? 2 : 3));
 		monst_bolt_monst(m_idx, y, x, GF_PLASMA,
 				 dam, MS_BOLT_PLASMA, learnable);
 
@@ -2669,7 +2669,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = damroll(6, 6) + (rlev * 3 / ((r_ptr->flags2 & RF2_POWERFUL) ? 2 : 3));
+		dam = damroll(6, 6) + (rlev * 3 / ((is_powerful_species(r_ptr)) ? 2 : 3));
 		monst_bolt_monst(m_idx, y, x, GF_ICE,
 				 dam, MS_BOLT_ICE, learnable);
 
@@ -3502,7 +3502,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		dam = (r_ptr->flags2 & RF2_POWERFUL) ? (randint1(rlev * 2) + 180) : (randint1(rlev * 3 / 2) + 120);
+		dam = (is_powerful_species(r_ptr)) ? (randint1(rlev * 2) + 180) : (randint1(rlev * 3 / 2) + 120);
 		monst_beam_monst(m_idx, y, x, GF_PSY_SPEAR,
 				 dam, MS_PSY_SPEAR, learnable);
 		break;

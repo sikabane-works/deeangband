@@ -1867,7 +1867,7 @@ static void spoil_mon_desc(cptr fname)
 			stat[A_CHR] += 5;		
 		}
 
-		if(r_ptr->flags2 & RF2_POWERFUL){
+		if(is_powerful_species(r_ptr)){
 			for(j = A_STR; j <= A_CHR; j++)
 			{
 				stat[j] += 2;

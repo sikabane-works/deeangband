@@ -733,7 +733,19 @@ bool is_undead_species(species_type *sp_ptr)
 	return FALSE;
 }
 
-bool is_powerful(creature_type *cr_ptr)
+bool is_unique(creature_type *cr_ptr)
 {
-	return cr_ptr->flags2 & (RF2_POWERFUL);
+	return (cr_ptr->flags1 & RF1_UNIQUE) || cr_ptr->stigmatic;
+}
+
+bool is_powerful_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_POWERFUL) return TRUE;
+	else return FALSE;
+}
+
+bool is_powerful_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_POWERFUL) return TRUE;
+	else return FALSE;
 }
