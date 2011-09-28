@@ -2062,16 +2062,16 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
  *
  * If no "weapon" is available, then "punch" the monster one time.
  */
-static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
 	cave_type       *c_ptr = &cave[y][x];
 
-	species_type    *r_ptr = &r_info[m_ptr->species_idx];
+	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
 
 	/* Access the weapon */
-	object_type     *o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
+	object_type     *o_ptr = &atk_ptr->inventory[INVEN_1STARM + hand];
 
 	char            a_name[80];
 	char            m_name[80];
@@ -2093,29 +2093,29 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	int             drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[TR_FLAG_SIZE]; /* A massive hack -- life-draining weapons */
 	bool            is_human = (r_ptr->d_char == 'p');
-	bool            is_lowlevel = (r_ptr->level < (cr_ptr->lev - 15));
+	bool            is_lowlevel = (r_ptr->level < (atk_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;
 
-	switch (cr_ptr->cls_idx)
+	switch (atk_ptr->cls_idx)
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (have_weapon(cr_ptr, INVEN_1STARM + hand) && !cr_ptr->icky_wield[hand])
+		if (have_weapon(atk_ptr, INVEN_1STARM + hand) && !atk_ptr->icky_wield[hand])
 		{
-			int tmp = cr_ptr->lev * 6 + (cr_ptr->skill_stl + 10) * 4;
-			if (cr_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
-			if (cr_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
-			if (r_ptr->level > (cr_ptr->lev * cr_ptr->lev / 20 + 10)) tmp /= 3;
-			if (m_ptr->paralyzed && m_ptr->ml)
+			int tmp = atk_ptr->lev * 6 + (atk_ptr->skill_stl + 10) * 4;
+			if (atk_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+			if (atk_ptr->cursed & TRC_AGGRAVATE) tmp /= 2;
+			if (r_ptr->level > (atk_ptr->lev * atk_ptr->lev / 20 + 10)) tmp /= 3;
+			if (tar_ptr->paralyzed && tar_ptr->ml)
 			{
 				/* Can't backstab creatures that we can't see, right? */
 				backstab = TRUE;
 			}
-			else if ((cr_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && m_ptr->ml && !(m_ptr->resist_ultimate))
+			else if ((atk_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && tar_ptr->ml && !(tar_ptr->resist_ultimate))
 			{
 				fuiuchi = TRUE;
 			}
-			else if (m_ptr->afraid && m_ptr->ml)
+			else if (tar_ptr->afraid && tar_ptr->ml)
 			{
 				stab_fleeing = TRUE;
 			}
@@ -2125,81 +2125,81 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 	case CLASS_BERSERKER:
-		if ((empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM) && !cr_ptr->riding) monk_attack = TRUE;
+		if ((empty_hands(atk_ptr, TRUE) & EMPTY_HAND_RARM) && !atk_ptr->riding) monk_attack = TRUE;
 		break;
 	}
 
 	if (!o_ptr->k_idx) /* Empty hand */
 	{
-		if ((r_ptr->level + 10) > cr_ptr->lev)
+		if ((r_ptr->level + 10) > atk_ptr->lev)
 		{
-			if (cr_ptr->skill_exp[GINOU_SUDE] < s_info[cr_ptr->cls_idx].s_max[GINOU_SUDE])
+			if (atk_ptr->skill_exp[GINOU_SUDE] < s_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
 			{
-				if (cr_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
-					cr_ptr->skill_exp[GINOU_SUDE] += 40;
-				else if ((cr_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
-					cr_ptr->skill_exp[GINOU_SUDE] += 5;
-				else if ((cr_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19))
-					cr_ptr->skill_exp[GINOU_SUDE] += 1;
-				else if ((cr_ptr->lev > 34))
-					if (one_in_(3)) cr_ptr->skill_exp[GINOU_SUDE] += 1;
-				cr_ptr->update |= (PU_BONUS);
+				if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
+					atk_ptr->skill_exp[GINOU_SUDE] += 40;
+				else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_SKILLED))
+					atk_ptr->skill_exp[GINOU_SUDE] += 5;
+				else if ((atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19))
+					atk_ptr->skill_exp[GINOU_SUDE] += 1;
+				else if ((atk_ptr->lev > 34))
+					if (one_in_(3)) atk_ptr->skill_exp[GINOU_SUDE] += 1;
+				atk_ptr->update |= (PU_BONUS);
 			}
 		}
 	}
-	else if (object_is_melee_weapon(cr_ptr, o_ptr))
+	else if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
-		if ((r_ptr->level + 10) > cr_ptr->lev)
+		if ((r_ptr->level + 10) > atk_ptr->lev)
 		{
-			int tval = cr_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
-			int sval = cr_ptr->inventory[INVEN_1STARM+hand].sval;
-			int now_exp = cr_ptr->weapon_exp[tval][sval];
-			if (now_exp < s_info[cr_ptr->cls_idx].w_max[tval][sval])
+			int tval = atk_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
+			int sval = atk_ptr->inventory[INVEN_1STARM+hand].sval;
+			int now_exp = atk_ptr->weapon_exp[tval][sval];
+			if (now_exp < s_info[atk_ptr->cls_idx].w_max[tval][sval])
 			{
 				int amount = 0;
 				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
 				else if (now_exp < WEAPON_EXP_SKILLED) amount = 10;
-				else if ((now_exp < WEAPON_EXP_EXPERT) && (cr_ptr->lev > 19)) amount = 1;
-				else if ((cr_ptr->lev > 34) && one_in_(2)) amount = 1;
-				cr_ptr->weapon_exp[tval][sval] += amount;
-				cr_ptr->update |= (PU_BONUS);
+				else if ((now_exp < WEAPON_EXP_EXPERT) && (atk_ptr->lev > 19)) amount = 1;
+				else if ((atk_ptr->lev > 34) && one_in_(2)) amount = 1;
+				atk_ptr->weapon_exp[tval][sval] += amount;
+				atk_ptr->update |= (PU_BONUS);
 			}
 		}
 	}
 
 	/* Disturb the monster */
-	(void)set_paralyzed(m_ptr, 0);
+	(void)set_paralyzed(tar_ptr, 0);
 
 	/* Extract monster name (or "it") */
-	monster_desc(a_name, cr_ptr, 0);
-	monster_desc(m_name, m_ptr, 0);
+	monster_desc(a_name, atk_ptr, 0);
+	monster_desc(m_name, tar_ptr, 0);
 
 	/* Calculate the "attack quality" */
-	bonus = cr_ptr->to_h[hand] + o_ptr->to_h;
-	chance = (cr_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
+	bonus = atk_ptr->to_h[hand] + o_ptr->to_h;
+	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if (mode == HISSATSU_IAI) chance += 60;
-	if (cr_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
+	if (atk_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
 
-	if (cr_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
+	if (atk_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
 	zantetsu_mukou = ((o_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
 	e_j_mukou = ((o_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
 
 	if ((mode == HISSATSU_KYUSHO) || (mode == HISSATSU_MINEUCHI) || (mode == HISSATSU_3DAN) || (mode == HISSATSU_IAI)) num_blow = 1;
-	else if (mode == HISSATSU_COLD) num_blow = cr_ptr->num_blow[hand]+2;
-	else num_blow = cr_ptr->num_blow[hand];
+	else if (mode == HISSATSU_COLD) num_blow = atk_ptr->num_blow[hand]+2;
+	else num_blow = atk_ptr->num_blow[hand];
 
 	/* Hack -- DOKUBARI always hit once */
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) num_blow = 1;
 
 	/* Attack once for each legal blow */
-	while ((num++ < num_blow) && !cr_ptr->is_dead)
+	while ((num++ < num_blow) && !atk_ptr->is_dead)
 	{
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
 			int n = 1;
 
-			if (cr_ptr->migite && cr_ptr->hidarite)
+			if (atk_ptr->migite && atk_ptr->hidarite)
 			{
 				n *= 2;
 			}
@@ -2210,8 +2210,8 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 			success_hit = one_in_(n);
 		}
-		else if ((cr_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(m_ptr->resist_ultimate))) success_hit = TRUE;
-		else success_hit = test_hit_norm(cr_ptr, chance,  m_ptr->ac + m_ptr->to_a, m_ptr->ml);
+		else if ((atk_ptr->cls_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !(tar_ptr->resist_ultimate))) success_hit = TRUE;
+		else success_hit = test_hit_norm(atk_ptr, chance,  tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml);
 
 		if (mode == HISSATSU_MAJIN)
 		{
@@ -2306,7 +2306,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Vampiric drain */
-			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(cr_ptr, HEX_VAMP_BLADE))
+			if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(atk_ptr, HEX_VAMP_BLADE))
 			{
 				/* Only drain "living" monsters */
 				if (monster_living(r_ptr))
@@ -2315,7 +2315,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					can_drain = FALSE;
 			}
 
-			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(cr_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+			if ((have_flag(flgs, TR_VORPAL) || hex_spelling(atk_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 				vorpal_cut = TRUE;
 			else vorpal_cut = FALSE;
 
@@ -2331,32 +2331,32 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (r_ptr->flags3 & RF3_NO_STUN) resist_stun += 66;
 				if (r_ptr->flags3 & RF3_NO_CONF) resist_stun += 33;
 				if (r_ptr->flags3 & RF3_NO_SLEEP) resist_stun += 33;
-				if (is_undead_creature(m_ptr) || (r_ptr->flags3 & RF3_NONLIVING))
+				if (is_undead_creature(tar_ptr) || (r_ptr->flags3 & RF3_NONLIVING))
 					resist_stun += 66;
 
-				if (cr_ptr->special_defense & KAMAE_BYAKKO)
-					max_times = (cr_ptr->lev < 3 ? 1 : cr_ptr->lev / 3);
-				else if (cr_ptr->special_defense & KAMAE_SUZAKU)
+				if (atk_ptr->special_defense & KAMAE_BYAKKO)
+					max_times = (atk_ptr->lev < 3 ? 1 : atk_ptr->lev / 3);
+				else if (atk_ptr->special_defense & KAMAE_SUZAKU)
 					max_times = 1;
-				else if (cr_ptr->special_defense & KAMAE_GENBU)
+				else if (atk_ptr->special_defense & KAMAE_GENBU)
 					max_times = 1;
 				else
-					max_times = (cr_ptr->lev < 7 ? 1 : cr_ptr->lev / 7);
+					max_times = (atk_ptr->lev < 7 ? 1 : atk_ptr->lev / 7);
 				/* Attempt 'times' */
 				for (times = 0; times < max_times; times++)
 				{
 					do
 					{
 						ma_ptr = &ma_blows[randint0(MAX_MA)];
-						if ((cr_ptr->cls_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+						if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
 						else min_level = ma_ptr->min_level;
 					}
-					while ((min_level > cr_ptr->lev) ||
-					       (randint1(cr_ptr->lev) < ma_ptr->chance));
+					while ((min_level > atk_ptr->lev) ||
+					       (randint1(atk_ptr->lev) < ma_ptr->chance));
 
 					/* keep the highest level attack available we found */
 					if ((ma_ptr->min_level > old_ptr->min_level) &&
-					    !cr_ptr->stun && !cr_ptr->confused)
+					    !atk_ptr->stun && !atk_ptr->confused)
 					{
 						old_ptr = ma_ptr;
 
@@ -2375,10 +2375,10 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 				}
 
-				if (cr_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+				if (atk_ptr->cls_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 				else min_level = ma_ptr->min_level;
-				k = damroll(ma_ptr->dd + cr_ptr->to_dd[hand], ma_ptr->ds + cr_ptr->to_ds[hand]);
-				if (cr_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
+				k = damroll(ma_ptr->dd + atk_ptr->to_dd[hand], ma_ptr->ds + atk_ptr->to_ds[hand]);
+				if (atk_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
 				if (ma_ptr->effect == MA_KNEE)
 				{
@@ -2424,16 +2424,16 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format(ma_ptr->desc, a_name, m_name);
 				}
 
-				if (cr_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
-				if ((cr_ptr->cls_idx == CLASS_FORCETRAINER) && (cr_ptr->magic_num1[0]))
+				if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
+				if ((atk_ptr->cls_idx == CLASS_FORCETRAINER) && (atk_ptr->magic_num1[0]))
 				{
-					weight += (cr_ptr->magic_num1[0]/30);
+					weight += (atk_ptr->magic_num1[0]/30);
 					if (weight > 20) weight = 20;
 				}
 
-				k = critical_norm(cr_ptr, cr_ptr->lev * weight, min_level, k, cr_ptr->to_h[0], 0);
+				k = critical_norm(atk_ptr, atk_ptr->lev * weight, min_level, k, atk_ptr->to_h[0], 0);
 
-				if ((special_effect == MA_KNEE) && ((k + cr_ptr->to_d[hand]) < m_ptr->chp))
+				if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
 #ifdef JP
 					msg_format("%^sは苦痛にうめいている！", m_name);
@@ -2445,11 +2445,11 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					resist_stun /= 3;
 				}
 
-				else if ((special_effect == MA_SLOW) && ((k + cr_ptr->to_d[hand]) < m_ptr->chp))
+				else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
 					if (!(r_ptr->flags1 & RF1_UNIQUE) &&
-					    (randint1(cr_ptr->lev) > r_ptr->level) &&
-					    m_ptr->speed > 60)
+					    (randint1(atk_ptr->lev) > r_ptr->level) &&
+					    tar_ptr->speed > 60)
 					{
 #ifdef JP
 						msg_format("%^sは足をひきずり始めた。", m_name);
@@ -2457,15 +2457,15 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						msg_format("%^s starts limping slower.", m_name);
 #endif
 
-						m_ptr->speed -= 10;
+						tar_ptr->speed -= 10;
 					}
 				}
 
-				if (stun_effect && ((k + cr_ptr->to_d[hand]) < m_ptr->chp))
+				if (stun_effect && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
-					if (cr_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
+					if (atk_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 					{
-						if (set_stun(&m_list[c_ptr->m_idx], stun_effect + m_ptr->stun))
+						if (set_stun(&m_list[c_ptr->m_idx], stun_effect + tar_ptr->stun))
 						{
 #ifdef JP
 							msg_format("%^sはフラフラになった。", m_name);
@@ -2488,30 +2488,30 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			/* Handle normal weapon */
 			else if (o_ptr->k_idx)
 			{
-				k = damroll(o_ptr->dd + cr_ptr->to_dd[hand], o_ptr->ds + cr_ptr->to_ds[hand]);
-				k = tot_dam_aux(cr_ptr, o_ptr, k, m_ptr, mode, FALSE);
+				k = damroll(o_ptr->dd + atk_ptr->to_dd[hand], o_ptr->ds + atk_ptr->to_ds[hand]);
+				k = tot_dam_aux(atk_ptr, o_ptr, k, tar_ptr, mode, FALSE);
 
 				if (backstab)
 				{
-					k *= (3 + (cr_ptr->lev / 20));
+					k *= (3 + (atk_ptr->lev / 20));
 				}
 				else if (fuiuchi)
 				{
-					k = k*(5+(cr_ptr->lev*2/25))/2;
+					k = k*(5+(atk_ptr->lev*2/25))/2;
 				}
 				else if (stab_fleeing)
 				{
 					k = (3 * k) / 2;
 				}
 
-				if ((cr_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
+				if ((atk_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
 					 (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 				{
 					do_quake = TRUE;
 				}
 
 				if ((!(o_ptr->tval == TV_SWORD) || !(o_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-					k = critical_norm(cr_ptr, o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
+					k = critical_norm(atk_ptr, o_ptr->weight, o_ptr->to_h, k, atk_ptr->to_h[hand], mode);
 
 				drain_result = k;
 
@@ -2558,7 +2558,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					k *= mult;
 
 					/* Ouch! */
-					if (((m_ptr->resist_ultimate) ? k/100 : k) > m_ptr->chp)
+					if (((tar_ptr->resist_ultimate) ? k/100 : k) > tar_ptr->chp)
 					{
 #ifdef JP
 						msg_format("%sを真っ二つにした！", m_name);
@@ -2597,12 +2597,12 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Apply the player damage bonuses */
-			k += cr_ptr->to_d[hand];
-			drain_result += cr_ptr->to_d[hand];
+			k += atk_ptr->to_d[hand];
+			drain_result += atk_ptr->to_d[hand];
 
 			if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 			if ((mode == HISSATSU_SEKIRYUKA) && !monster_living(r_ptr)) k = 0;
-			if ((mode == HISSATSU_SEKIRYUKA) && !cr_ptr->cut) k /= 2;
+			if ((mode == HISSATSU_SEKIRYUKA) && !atk_ptr->cut) k /= 2;
 
 			/* No negative damage */
 			if (k < 0) k = 0;
@@ -2634,15 +2634,15 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 			if (mode == HISSATSU_MINEUCHI)
 			{
-				int tmp = (10 + randint1(15) + cr_ptr->lev / 5);
+				int tmp = (10 + randint1(15) + atk_ptr->lev / 5);
 
 				k = 0;
-				anger_monster(m_ptr);
+				anger_monster(tar_ptr);
 
 				if (!(r_ptr->flags3 & (RF3_NO_STUN)))
 				{
 					/* Get stunned */
-					if (m_ptr->stun)
+					if (tar_ptr->stun)
 					{
 #ifdef JP
 						msg_format("%sはひどくもうろうとした。", m_name);
@@ -2662,7 +2662,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 
 					/* Apply stun */
-					(void)set_stun(&m_list[c_ptr->m_idx], m_ptr->stun + tmp);
+					(void)set_stun(&m_list[c_ptr->m_idx], tar_ptr->stun + tmp);
 				}
 				else
 				{
@@ -2675,12 +2675,12 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Modify the damage */
-			k = mon_damage_mod(m_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
+			k = mon_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
 			if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 			{
 				if ((randint1(randint1(r_ptr->level/7)+5) == 1) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2))
 				{
-					k = m_ptr->chp + 1;
+					k = tar_ptr->chp + 1;
 #ifdef JP
 					msg_format("%sの急所を突き刺した！", m_name);
 #else
@@ -2689,7 +2689,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				}
 				else k = 1;
 			}
-			else if ((cr_ptr->cls_idx == CLASS_NINJA) && have_weapon(cr_ptr, INVEN_1STARM + hand) && !cr_ptr->icky_wield[hand] && ((cr_ptr->cur_lite <= 0) || one_in_(7)))
+			else if ((atk_ptr->cls_idx == CLASS_NINJA) && have_weapon(atk_ptr, INVEN_1STARM + hand) && !atk_ptr->icky_wield[hand] && ((atk_ptr->cur_lite <= 0) || one_in_(7)))
 			{
 				if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 				{
@@ -2701,11 +2701,11 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("You critically injured %s!", m_name);
 #endif
 				}
-				else if (((m_ptr->chp < m_ptr->mhp/2) && one_in_((cr_ptr->num_blow[0]+cr_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2)))
+				else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2)))
 				{
-					if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_UNIQUE2) || (m_ptr->chp >= m_ptr->mhp/2))
+					if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_UNIQUE2) || (tar_ptr->chp >= tar_ptr->mhp/2))
 					{
-						k = MAX(k*5, m_ptr->chp/2);
+						k = MAX(k*5, tar_ptr->chp/2);
 						drain_result *= 2;
 #ifdef JP
 						msg_format("%sに致命傷を負わせた！", m_name);
@@ -2715,7 +2715,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 					else
 					{
-						k = m_ptr->chp + 1;
+						k = tar_ptr->chp + 1;
 #ifdef JP
 						msg_format("刃が%sの急所を貫いた！", m_name);
 #else
@@ -2728,29 +2728,29 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			/* Complex message */
 			if (wizard || cheat_xtra)
 			{
-				msg_format("DAM:%d HP:%d->%d", k, m_ptr->chp, m_ptr->chp - k);
+				msg_format("DAM:%d HP:%d->%d", k, tar_ptr->chp, tar_ptr->chp - k);
 			}
 
 			if (k <= 0) can_drain = FALSE;
 
-			if (drain_result > m_ptr->chp)
-				drain_result = m_ptr->chp;
+			if (drain_result > tar_ptr->chp)
+				drain_result = tar_ptr->chp;
 
 			/* Damage, check for fear and death */
-			take_hit(cr_ptr, m_ptr, 0, k, NULL, NULL, -1);
-			if(m_ptr->is_dead);
+			take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1);
+			if(tar_ptr->is_dead);
 			{
 				*mdeath = TRUE;
-				if ((cr_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
+				if ((atk_ptr->cls_idx == CLASS_BERSERKER) && energy_use)
 				{
-					if (cr_ptr->migite && cr_ptr->hidarite)
+					if (atk_ptr->migite && atk_ptr->hidarite)
 					{
-						if (hand) energy_use = energy_use*3/5+energy_use*num*2/(cr_ptr->num_blow[hand]*5);
-						else energy_use = energy_use*num*3/(cr_ptr->num_blow[hand]*5);
+						if (hand) energy_use = energy_use*3/5+energy_use*num*2/(atk_ptr->num_blow[hand]*5);
+						else energy_use = energy_use*num*3/(atk_ptr->num_blow[hand]*5);
 					}
 					else
 					{
-						energy_use = energy_use*num/cr_ptr->num_blow[hand];
+						energy_use = energy_use*num/atk_ptr->num_blow[hand];
 					}
 				}
 				if ((o_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
@@ -2763,9 +2763,9 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 			}
 
 			/* Anger the monster */
-			if (k > 0) anger_monster(m_ptr);
+			if (k > 0) anger_monster(tar_ptr);
 
-			touch_zap_player(cr_ptr, m_ptr);
+			touch_zap_player(atk_ptr, tar_ptr);
 
 			/* Are we draining it?  A little note: If the monster is
 			dead, the drain does not work... */
@@ -2807,7 +2807,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						drain_heal = damroll(2, drain_result / 6);
 
 						/* Hex */
-						if (hex_spelling(cr_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+						if (hex_spelling(atk_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 						if (cheat_xtra)
 						{
@@ -2844,26 +2844,26 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 							drain_heal = (drain_heal * mutant_regenerate_mod) / 100;
 
-							hp_player(cr_ptr, drain_heal);
+							hp_player(atk_ptr, drain_heal);
 							/* We get to keep some of it! */
 						}
 					}
 				}
-				m_ptr->mhp -= (k+7)/8;
-				if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
-				if (m_ptr->mhp < 1) m_ptr->mhp = 1;
+				tar_ptr->mhp -= (k+7)/8;
+				if (tar_ptr->chp > tar_ptr->mhp) tar_ptr->chp = tar_ptr->mhp;
+				if (tar_ptr->mhp < 1) tar_ptr->mhp = 1;
 				weak = TRUE;
 			}
 			can_drain = FALSE;
 			drain_result = 0;
 
 			/* Confusion attack */
-			if ((cr_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(cr_ptr, HEX_CONFUSION))
+			if ((atk_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(atk_ptr, HEX_CONFUSION))
 			{
 				/* Cancel glowing hands */
-				if (cr_ptr->special_attack & ATTACK_CONFUSE)
+				if (atk_ptr->special_attack & ATTACK_CONFUSE)
 				{
-					cr_ptr->special_attack &= ~(ATTACK_CONFUSE);
+					atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
 #ifdef JP
 					msg_print("手の輝きがなくなった。");
 #else
@@ -2876,7 +2876,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				/* Confuse the monster */
 				if (r_ptr->flags3 & RF3_NO_CONF)
 				{
-					if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
+					if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
 
 #ifdef JP
 					msg_format("%^sには効果がなかった。", m_name);
@@ -2902,7 +2902,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					msg_format("%^s appears confused.", m_name);
 #endif
 
-					(void)set_confused(&m_list[c_ptr->m_idx], m_ptr->confused + 10 + randint0(cr_ptr->lev) / 5);
+					(void)set_confused(&m_list[c_ptr->m_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
 				}
 			}
 
@@ -2914,7 +2914,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				{
 					if (r_ptr->flags1 & RF1_UNIQUE)
 					{
-						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^sには効果がなかった。", m_name);
 #else
@@ -2925,7 +2925,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^sは抵抗力を持っている！", m_name);
 #else
@@ -2955,7 +2955,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				if (!(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) &&
 				    !(r_ptr->flagsr & RFR_EFF_RES_CHAO_MASK))
 				{
-					if (polymorph_monster(cr_ptr, y, x))
+					if (polymorph_monster(atk_ptr, y, x))
 					{
 #ifdef JP
 						msg_format("%^sは変化した！", m_name);
@@ -2976,35 +2976,35 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					}
 
 					/* Hack -- Get new monster */
-					m_ptr = &m_list[c_ptr->m_idx];
+					tar_ptr = &m_list[c_ptr->m_idx];
 
 					/* Oops, we need a different name... */
-					monster_desc(m_name, m_ptr, 0);
+					monster_desc(m_name, tar_ptr, 0);
 
 					/* Hack -- Get new race */
-					r_ptr = &r_info[m_ptr->species_idx];
+					r_ptr = &r_info[tar_ptr->species_idx];
 				}
 			}
 			else if (o_ptr->name1 == ART_G_HAMMER)
 			{
-				creature_type *m_ptr = &m_list[c_ptr->m_idx];
+				creature_type *tar_ptr = &m_list[c_ptr->m_idx];
 
-				if (m_ptr->hold_o_idx)
+				if (tar_ptr->hold_o_idx)
 				{
-					object_type *q_ptr = &o_list[m_ptr->hold_o_idx];
+					object_type *q_ptr = &o_list[tar_ptr->hold_o_idx];
 					char o_name[MAX_NLEN];
 
 					object_desc(o_name, q_ptr, OD_NAME_ONLY);
 					q_ptr->held_m_idx = 0;
 					q_ptr->marked = OM_TOUCHED;
-					m_ptr->hold_o_idx = q_ptr->next_o_idx;
+					tar_ptr->hold_o_idx = q_ptr->next_o_idx;
 					q_ptr->next_o_idx = 0;
 #ifdef JP
 					msg_format("%sを奪った。", o_name);
 #else
 					msg_format("You snatched %s.", o_name);
 #endif
-					inven_carry(cr_ptr, q_ptr);
+					inven_carry(atk_ptr, q_ptr);
 				}
 			}
 		}
@@ -3039,13 +3039,13 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 				/* Extract the flags */
 				object_flags(o_ptr, flgs);
 
-				k = damroll(o_ptr->dd + cr_ptr->to_dd[hand], o_ptr->ds + cr_ptr->to_ds[hand]);
+				k = damroll(o_ptr->dd + atk_ptr->to_dd[hand], o_ptr->ds + atk_ptr->to_ds[hand]);
 				{
 					int mult;
-					switch (cr_ptr->mimic_form)
+					switch (atk_ptr->mimic_form)
 					{
 					case MIMIC_NONE:
-						switch (cr_ptr->irace_idx)
+						switch (atk_ptr->irace_idx)
 						{
 							case RACE_YEEK:
 							case RACE_KLACKON:
@@ -3081,20 +3081,20 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 						mult = 10;break;
 					}
 
-					if (!(cr_ptr->resist_acid || IS_OPPOSE_ACID(cr_ptr) || cr_ptr->immune_acid) && (mult < 25))
+					if (!(atk_ptr->resist_acid || IS_OPPOSE_ACID(atk_ptr) || atk_ptr->immune_acid) && (mult < 25))
 						mult = 25;
-					if (!(cr_ptr->resist_elec || IS_OPPOSE_ELEC(cr_ptr) || cr_ptr->immune_elec) && (mult < 25))
+					if (!(atk_ptr->resist_elec || IS_OPPOSE_ELEC(atk_ptr) || atk_ptr->immune_elec) && (mult < 25))
 						mult = 25;
-					if (!(cr_ptr->resist_fire || IS_OPPOSE_FIRE(cr_ptr) || cr_ptr->immune_fire) && (mult < 25))
+					if (!(atk_ptr->resist_fire || IS_OPPOSE_FIRE(atk_ptr) || atk_ptr->immune_fire) && (mult < 25))
 						mult = 25;
-					if (!(cr_ptr->resist_cold || IS_OPPOSE_COLD(cr_ptr) || cr_ptr->immune_cold) && (mult < 25))
+					if (!(atk_ptr->resist_cold || IS_OPPOSE_COLD(atk_ptr) || atk_ptr->immune_cold) && (mult < 25))
 						mult = 25;
-					if (!(cr_ptr->resist_pois || IS_OPPOSE_POIS(cr_ptr)) && (mult < 25))
+					if (!(atk_ptr->resist_pois || IS_OPPOSE_POIS(atk_ptr)) && (mult < 25))
 						mult = 25;
 
-					if ((cr_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (cr_ptr->csp > (cr_ptr->msp / 30)))
+					if ((atk_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (atk_ptr->csp > (atk_ptr->msp / 30)))
 					{
-						cr_ptr->csp -= (1+(cr_ptr->msp / 30));
+						atk_ptr->csp -= (1+(atk_ptr->msp / 30));
 						play_redraw |= (PR_MANA);
 						mult = mult * 3 / 2 + 20;
 					}
@@ -3102,7 +3102,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 					k /= 10;
 				}
 
-				k = critical_norm(cr_ptr, o_ptr->weight, o_ptr->to_h, k, cr_ptr->to_h[hand], mode);
+				k = critical_norm(atk_ptr, o_ptr->weight, o_ptr->to_h, k, atk_ptr->to_h[hand], mode);
 				if (one_in_(6))
 				{
 					int mult = 2;
@@ -3119,14 +3119,14 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 
 					k *= mult;
 				}
-				k += (cr_ptr->to_d[hand] + o_ptr->to_d);
+				k += (atk_ptr->to_d[hand] + o_ptr->to_d);
 
 				if (k < 0) k = 0;
 
 #ifdef JP
-				take_hit(NULL, cr_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
+				take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
 #else
-				take_hit(NULL, cr_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+				take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
 				redraw_stuff(p_ptr);
@@ -3162,7 +3162,7 @@ static void py_attack_aux(creature_type *cr_ptr, creature_type *m_ptr, int y, in
 	/* Mega-Hack -- apply earthquake brand */
 	if (do_quake)
 	{
-		earthquake(cr_ptr->fy, cr_ptr->fx, 10);
+		earthquake(atk_ptr->fy, atk_ptr->fx, 10);
 		if (!cave[y][x].m_idx) *mdeath = TRUE;
 	}
 }

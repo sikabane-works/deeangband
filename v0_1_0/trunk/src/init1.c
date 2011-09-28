@@ -2795,7 +2795,7 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 }
 
 
-#define R_INFO_CSV_COLUMNS 46
+#define R_INFO_CSV_COLUMNS 47
 static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2844,6 +2844,7 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"ACTION",
 	"DESCRIPTION",
 	"AUTHORITY",
+	"SEX",
 };
 
 static int r_info_csv_code[R_INFO_CSV_COLUMNS];
@@ -2894,6 +2895,7 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 #define R_INFO_ACTION		43
 #define R_INFO_DESCRIPTION	44
 #define R_INFO_AUTHORITY    45
+#define R_INFO_SEX          46
 
 errr parse_r_info_csv(char *buf, header *head)
 {
@@ -3339,6 +3341,11 @@ errr parse_r_info_csv(char *buf, header *head)
 					s = t;
 				}
 
+				break;
+
+			case R_INFO_SEX:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].sex = (s16b)b;
 				break;
 
 			default:
