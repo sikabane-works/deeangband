@@ -3783,7 +3783,7 @@
  */
 #define RF1_UNIQUE              0x00000001  /* Unique Monster */
 #define RF1_QUESTOR             0x00000002  /* Quest Monster */
-#define RF1_MALE                0x00000004  /* Male gender */
+#define RF1_XXX2                0x00000004  /* Male gender */
 #define RF1_FEMALE              0x00000008  /* Female gender */
 #define RF1_CHAR_CLEAR          0x00000010  /* Absorbs symbol */
 #define RF1_SHAPECHANGER        0x00000020  /* TY: shapechanger */

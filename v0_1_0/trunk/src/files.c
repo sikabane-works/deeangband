@@ -7673,7 +7673,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 				}
 				else if (buf[2] == 'M')
 				{
-					if (r_info[entry].flags1 & RF1_MALE) break;
+					if (is_male_species(&r_info[entry])) break;
 				}
 				else if (buf[2] == 'F')
 				{

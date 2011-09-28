@@ -211,12 +211,12 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 	/* Extract a gender (if applicable) */
 	if (r_ptr->flags1 & RF1_FEMALE) msex = 2;
-	else if (r_ptr->flags1 & RF1_MALE) msex = 1;
+	else if (is_male_species(r_ptr)) msex = 1;
 
 	/* Assume some "obvious" flags */
 	if (r_ptr->flags1 & RF1_UNIQUE)  flags1 |= (RF1_UNIQUE);
 	if (r_ptr->flags1 & RF1_QUESTOR) flags1 |= (RF1_QUESTOR);
-	if (r_ptr->flags1 & RF1_MALE)    flags1 |= (RF1_MALE);
+	//if (r_ptr->flags1 & RF1_MALE)    flags1 |= (RF1_MALE);
 	if (r_ptr->flags1 & RF1_FEMALE)  flags1 |= (RF1_FEMALE);
 
 	/* Assume some "creation" flags */

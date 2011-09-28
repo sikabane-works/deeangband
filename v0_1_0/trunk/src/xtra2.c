@@ -2732,9 +2732,9 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 #endif
 
 #ifdef JP
-		else if (ap_r_ptr->flags1 & (RF1_MALE)) s1 = "”Þ‚Í";
+		else if (is_male_creature(cr_ptr)) s1 = "”Þ‚Í";
 #else
-		else if (ap_r_ptr->flags1 & (RF1_MALE)) s1 = "He is ";
+		else if (is_male_creature(cr_ptr)) s1 = "He is ";
 #endif
 
 

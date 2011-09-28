@@ -2382,7 +2382,7 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 
 				if (ma_ptr->effect == MA_KNEE)
 				{
-					if (r_ptr->flags1 & RF1_MALE)
+					if (is_male_creature(tar_ptr))
 					{
 #ifdef JP
 						msg_format("%s‚Í%s‚É‹à“I•GR‚è‚ğ‚­‚ç‚í‚µ‚½I", a_name, m_name);

@@ -886,6 +886,10 @@ extern bool is_undead_species(species_type *sp_ptr);
 extern bool is_human_species(species_type *sp_ptr);
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
+extern bool is_male_creature(creature_type *cr_ptr);
+extern bool is_male_species(species_type *sp_ptr);
+extern bool is_female_creature(creature_type *cr_ptr);
+extern bool is_female_species(species_type *sp_ptr);
 
 
 /* do-spell.c */

@@ -43,6 +43,8 @@ void set_sex(creature_type *cr_ptr)
 
 	mr_ptr = &r_info[cr_ptr->species_idx]; 
 
+	cr_ptr->sex = mr_ptr->sex;
+/*
 	if(mr_ptr->flags1 & RF1_MALE)
 	{
 		cr_ptr->sex = SEX_MALE;
@@ -72,7 +74,7 @@ void set_sex(creature_type *cr_ptr)
 			else cr_ptr->sex = SEX_MALE;
 		}
 	}
-
+*/
 }
 
 void set_status(creature_type *cr_ptr)
@@ -345,7 +347,7 @@ s16b calc_race_standard_size(intelligent_race * ir_ptr){
 s16b calc_monster_standard_size(species_type * mr_ptr){
 	int tmpht, tmpwt;
 
-	if(mr_ptr->flags1 & RF1_MALE)
+	if(is_male_species(mr_ptr))
 	{
 		tmpht = mr_ptr->m_b_ht;
 		tmpwt = mr_ptr->m_b_wt;
@@ -764,10 +766,20 @@ bool is_human_creature(creature_type *cr_ptr)
 
 bool is_male_species(species_type *sp_ptr)
 {
-	return FALSE;
+	return sp_ptr->sex & SEX_MALE;
 }
 
 bool is_male_creature(creature_type *cr_ptr)
 {
-	return FALSE;
+	return cr_ptr->sex & SEX_MALE;
+}
+
+bool is_female_species(species_type *sp_ptr)
+{
+	return sp_ptr->sex & SEX_FEMALE;
+}
+
+bool is_female_creature(creature_type *cr_ptr)
+{
+	return cr_ptr->sex & SEX_FEMALE;
 }

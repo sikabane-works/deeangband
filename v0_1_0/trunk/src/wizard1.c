@@ -1929,7 +1929,7 @@ static void spoil_mon_desc(cptr fname)
 
 		/* height & weight & size */
 
-		if(r_ptr->flags1 & RF1_MALE)
+		if(is_male_species(r_ptr))
 		{
 			tmpht = r_ptr->m_b_ht;
 			tmpwt = r_ptr->m_b_wt;
