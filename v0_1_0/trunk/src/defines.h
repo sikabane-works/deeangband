@@ -842,10 +842,10 @@
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */
-#define SEX_FEMALE              0
-#define SEX_MALE                1
-#define SEX_INTERSEX            2
-#define SEX_NONE                3
+#define SEX_NONE                0x00
+#define SEX_FEMALE              0x01
+#define SEX_MALE                0x02
+#define SEX_INTERSEX            0x03
 #define SEX_UNDEFINED           255
 
 

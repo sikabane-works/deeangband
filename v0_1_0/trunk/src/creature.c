@@ -761,3 +761,13 @@ bool is_human_creature(creature_type *cr_ptr)
 	if(cr_ptr->irace_idx == RACE_HUMAN || cr_ptr->irace_idx == RACE_BARBARIAN || cr_ptr->irace_idx == RACE_DUNADAN) return TRUE;
 	return FALSE;
 }
+
+bool is_male_species(species_type *sp_ptr)
+{
+	return FALSE;
+}
+
+bool is_male_creature(creature_type *cr_ptr)
+{
+	return FALSE;
+}
