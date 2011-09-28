@@ -271,8 +271,8 @@ static cptr r_info_flags1[] =
 {
 	"UNIQUE",
 	"QUESTOR",
-	"MALE",
-	"FEMALE",
+	"XXX",
+	"XXX",
 	"CHAR_CLEAR",
 	"SHAPECHANGER",
 	"ATTR_CLEAR",
