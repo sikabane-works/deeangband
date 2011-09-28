@@ -3960,7 +3960,7 @@ HIT:EXP_80:8d6
 HIT:EXP_80:8d6",,,"JZ#
 JZ#Ｊ・Ｒ・Ｒ・トールキンの「指輪物語」に登場。
 JZ#かつては人間でしたが、冥王サウロンの指輪を受け取って使用した
-JZ#ために、サウロンに隷属する幽鬼となってしまいました。 by 久留さん","MALE|FORCE_MAXHP|NAZGUL|ONLY_ITEM|DROP_2D2|DROP_GOOD|RES_TELE|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|SMART|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|SCARE|HOLD|DRAIN_MANA|BR_NETH",,"$A tall black cloaked Ringwraith, radiating an aura of fear.
+JZ#ために、サウロンに隷属する幽鬼となってしまいました。 by 久留さん","MALE|FORCE_MAXHP|ONLY_ITEM|DROP_2D2|DROP_GOOD|RES_TELE|RES_DARK|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|MOVE_BODY|RES_NETH|SMART|EVIL|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_4|SCARE|HOLD|DRAIN_MANA|BR_NETH",,"$A tall black cloaked Ringwraith, radiating an aura of fear.
 背の高い黒ずくめの指輪の幽鬼で、恐怖のオーラを発している。
 「かれらの蒼白い顔には鋭い無慈悲な目が燃えていました。
 黒いマントの下には灰色の長衣をまとっていました。灰色の顔には銀

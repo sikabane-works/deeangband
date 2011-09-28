@@ -508,7 +508,7 @@ static cptr r_info_flags7[] =
 	"CAN_SWIM",
 	"CAN_FLY",
 	"FRIENDLY",
-	"NAZGUL",
+	"XXX",
 	"UNIQUE2",
 	"RIDING",
 	"KAGE",
