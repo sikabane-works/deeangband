@@ -2186,7 +2186,7 @@ note("メッセージをロードしました");
 		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->flags7 & RF7_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (r_ptr->irace_idx == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
 	}
 
 	/* Monster Memory */

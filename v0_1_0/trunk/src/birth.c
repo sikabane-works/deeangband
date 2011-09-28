@@ -3111,7 +3111,7 @@ static void player_wipe(creature_type *cr_ptr)
 		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->flags7 & RF7_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (r_ptr->irace_idx == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
 
 		/* Clear visible kills in this life */
 		r_ptr->r_pkills = 0;

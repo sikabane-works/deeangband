@@ -3429,7 +3429,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & (RF7_NAZGUL | RF7_UNIQUE2)))
+			if ((inside_arena) || is_pet(m_ptr) || (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->irace_idx == RACE_NAZGUL)|| (r_ptr->flags7 & RF7_UNIQUE2))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -3795,7 +3795,7 @@ note = "は動けなくなった！";
 				break;
 			}
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3878,7 +3878,7 @@ note = "は突然友好的になったようだ！";
 				break;
 			}
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3953,7 +3953,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -4031,7 +4031,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -4127,7 +4127,7 @@ msg_format("%sを見つめた。",m_name);
 				break;
 			}
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))
+			if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5365,7 +5365,7 @@ note_dies = "はドロドロに溶けた！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(m_ptr)) ||
-			    (r_ptr->flags1 & (RF1_UNIQUE)) || (r_ptr->flags7 & (RF7_NAZGUL)) || (r_ptr->flags7 & (RF7_UNIQUE2)) || (r_ptr->flags1 & RF1_QUESTOR) || m_ptr->parent_m_idx)
+			    (r_ptr->flags1 & (RF1_UNIQUE)) || (r_ptr->irace_idx == RACE_NAZGUL) || (r_ptr->flags7 & (RF7_UNIQUE2)) || (r_ptr->flags1 & RF1_QUESTOR) || m_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",m_name);
@@ -5800,7 +5800,7 @@ note = "には効果がなかった。";
 	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->flags7 & RF7_NAZGUL)) && !inside_battle)
+	if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->irace_idx == RACE_NAZGUL)) && !inside_battle)
 	{
 		if (who_ptr != who_ptr && (dam > m_ptr->chp)) dam = m_ptr->chp;
 	}

@@ -1432,7 +1432,7 @@ s16b get_mon_num(int level)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
 			if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
-			     (r_ptr->flags7 & (RF7_NAZGUL))) &&
+			     (r_ptr->irace_idx == RACE_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
 				continue;
@@ -3421,7 +3421,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	{
 		/* Hack -- "unique" monsters must be "unique" */
 		if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
-		     (r_ptr->flags7 & (RF7_NAZGUL))) &&
+		     (r_ptr->irace_idx == RACE_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -3518,7 +3518,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 
-	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
 	c_ptr->m_idx = m_pop();
@@ -3676,7 +3676,7 @@ msg_print("守りのルーンが壊れた！");
 	 * A unique monster move from old saved floor.
 	 */
 	if (character_dungeon &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)))
+	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)))
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
@@ -4492,10 +4492,10 @@ static bool summon_specific_okay(int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_NAZGUL)) &&
+	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)) &&
 	    monster_has_hostile_align(NULL, 10, -10, r_ptr))
 		return FALSE;
 

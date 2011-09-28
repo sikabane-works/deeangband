@@ -644,7 +644,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 
 		/* Memorize location of the unique monster */
 		if ((r_ptr->flags1 & RF1_UNIQUE) ||
-		    (r_ptr->flags7 & RF7_NAZGUL))
+		    (r_ptr->irace_idx == RACE_NAZGUL))
 		{
 			r_ptr->floor_id = cur_floor_id;
 		}
@@ -908,7 +908,7 @@ void leave_floor(creature_type *cr_ptr)
 
 		/* Ignore unique monsters */
 		if ((r_ptr->flags1 & RF1_UNIQUE) ||
-		    (r_ptr->flags7 & RF7_NAZGUL)) continue;
+		    (r_ptr->irace_idx == RACE_NAZGUL)) continue;
 
 		/* Delete non-unique quest monsters */
 		delete_species_idx(&m_list[i]);
@@ -1235,7 +1235,7 @@ void change_floor(creature_type *cr_ptr)
 
 				/* Ignore non-unique */
 				if (!(r_ptr->flags1 & RF1_UNIQUE) &&
-				    !(r_ptr->flags7 & RF7_NAZGUL)) continue;
+				    !(r_ptr->irace_idx == RACE_NAZGUL)) continue;
 
 				/* Appear at a different floor? */
 				if (r_ptr->floor_id != new_floor_id)
