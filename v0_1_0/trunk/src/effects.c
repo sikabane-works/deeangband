@@ -762,6 +762,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 	{
 		if (cr_ptr->afraid)
 		{
+			
 #ifdef JP
 			msg_print("‚â‚Á‚Æ‹°•|‚ğU‚è•¥‚Á‚½B");
 #else

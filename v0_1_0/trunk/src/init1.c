@@ -338,7 +338,7 @@ static cptr r_info_flags2[] =
 	"SEX_F15",
 	"SEX_F10",
 	"SEX_F3",
-	"HUMAN",
+	"XXX",
 	"QUANTUM"
 };
 

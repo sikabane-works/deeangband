@@ -3025,11 +3025,11 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 
 			/* Slay Human */
 			if ((have_flag(flgs, TR_SLAY_HUMAN)) &&
-			    (r_ptr->flags2 & RF2_HUMAN))
+			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags2 |= RF2_HUMAN;
+					//TODO r_ptr->r_flags2 |= RF2_HUMAN;
 				}
 
 				if (mult < 17) mult = 17;
@@ -3037,11 +3037,11 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 
 			/* Kill Human */
 			if ((have_flag(flgs, TR_KILL_HUMAN)) &&
-			    (r_ptr->flags2 & RF2_HUMAN))
+			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags2 |= RF2_HUMAN;
+					//TODO r_ptr->r_flags2 |= RF2_HUMAN;
 				}
 
 				if (mult < 27) mult = 27;

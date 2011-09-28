@@ -749,3 +749,15 @@ bool is_powerful_species(species_type *sp_ptr)
 	if(sp_ptr->flags2 & RF2_POWERFUL) return TRUE;
 	else return FALSE;
 }
+
+bool is_human_species(species_type *sp_ptr)
+{
+	if(sp_ptr->irace_idx == RACE_HUMAN || sp_ptr->irace_idx == RACE_BARBARIAN || sp_ptr->irace_idx == RACE_DUNADAN) return TRUE;
+	return FALSE;
+}
+
+bool is_human_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->irace_idx == RACE_HUMAN || cr_ptr->irace_idx == RACE_BARBARIAN || cr_ptr->irace_idx == RACE_DUNADAN) return TRUE;
+	return FALSE;
+}

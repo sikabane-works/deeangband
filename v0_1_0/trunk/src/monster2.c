@@ -2661,10 +2661,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_human) && (r_ptr->flags2 & (RF2_HUMAN)))
+			if ((cr_ptr->esp_human) && (is_human_species(r_ptr)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_HUMAN);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_HUMAN);
 			}
 
 			/* Magical sensing */

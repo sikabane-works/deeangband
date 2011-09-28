@@ -876,12 +876,14 @@ extern bool is_dragon_creature(creature_type *cr_ptr);
 extern bool is_demon_creature(creature_type *cr_ptr);
 extern bool is_giant_creature(creature_type *cr_ptr);
 extern bool is_undead_creature(creature_type *cr_ptr);
+extern bool is_human_creature(creature_type *cr_ptr);
 extern bool is_orc_species(species_type *sp_ptr);
 extern bool is_troll_species(species_type *sp_ptr);
 extern bool is_dragon_species(species_type *sp_ptr);
 extern bool is_demon_species(species_type *sp_ptr);
 extern bool is_giant_species(species_type *sp_ptr);
 extern bool is_undead_species(species_type *sp_ptr);
+extern bool is_human_species(species_type *sp_ptr);
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
 

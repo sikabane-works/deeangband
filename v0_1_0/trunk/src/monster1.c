@@ -239,7 +239,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 		if (r_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
 		if (r_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
 		if (r_ptr->flags3 & RF3_PUELLA_MAGI) flags3 |= (RF3_PUELLA_MAGI);
-		if (r_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
+		//if (r_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
 
 		/* Know 'quantum' flag */
 		if (r_ptr->flags2 & RF2_QUANTUM)  flags2 |= (RF2_QUANTUM);
