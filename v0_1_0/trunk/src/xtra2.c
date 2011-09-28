@@ -712,20 +712,19 @@ cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
 void monster_death(creature_type *cr_ptr, bool drop_item)
 {
 	int i, j, y, x;
+	species_type *r_ptr = &r_info[cr_ptr->species_idx];
 
 	int dump_item = 0;
 	int dump_gold = 0;
 
 	int number = 0;
 
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
-
-	bool visible = ((cr_ptr->ml && !p_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE));
+	bool visible = ((cr_ptr->ml && !p_ptr->image) || (cr_ptr->flags1 & RF1_UNIQUE));
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = (!(r_ptr->flags1 & RF1_ONLY_ITEM));
-	bool do_item = (!(r_ptr->flags1 & RF1_ONLY_GOLD));
+	bool do_gold = (!(cr_ptr->flags1 & RF1_ONLY_ITEM));
+	bool do_item = (!(cr_ptr->flags1 & RF1_ONLY_GOLD));
 	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
 	int force_coin = get_coin_type(cr_ptr->species_idx);
 
@@ -739,7 +738,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	if (world_monster && &m_list[world_monster] == cr_ptr) world_monster = 0;
 
 	/* Notice changes in view */
-	if (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (cr_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 	{
 		/* Update some things */
 		p_ptr->update |= (PU_MON_LITE);
@@ -760,12 +759,12 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	/* Let monsters explode! */
 	for (i = 0; i < 4; i++)
 	{
-		if (r_ptr->blow[i].method == RBM_EXPLODE)
+		if (cr_ptr->blow[i].method == RBM_EXPLODE)
 		{
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-			int typ = mbe_info[r_ptr->blow[i].effect].explode_type;
-			int d_dice = r_ptr->blow[i].d_dice;
-			int d_side = r_ptr->blow[i].d_side;
+			int typ = mbe_info[cr_ptr->blow[i].effect].explode_type;
+			int d_dice = cr_ptr->blow[i].d_dice;
+			int d_side = cr_ptr->blow[i].d_side;
 			int damage = damroll(d_dice, d_side);
 
 			//TODO
@@ -778,7 +777,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	{
 		//TODO
 		//choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
-		r_ptr = &r_info[cr_ptr->species_idx];
+		//r_ptr = &r_info[cr_ptr->species_idx];
 	}
 
 	/* Check for quest completion */
@@ -852,8 +851,8 @@ msg_print("地面に落とされた。");
 
 
 	/* Drop a dead corpse? */
-	if (one_in_(r_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
-	    (r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
+	if (one_in_(cr_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
+	    (cr_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
 	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
@@ -863,13 +862,13 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!(r_ptr->flags9 & RF9_DROP_SKELETON))
+		if (!(cr_ptr->flags9 & RF9_DROP_SKELETON))
 			corpse = TRUE;
-		else if ((r_ptr->flags9 & RF9_DROP_CORPSE) && (r_ptr->flags1 & RF1_UNIQUE))
+		else if ((cr_ptr->flags9 & RF9_DROP_CORPSE) && (cr_ptr->flags1 & RF1_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (r_ptr->flags9 & RF9_DROP_CORPSE)
+		else if (cr_ptr->flags9 & RF9_DROP_CORPSE)
 		{
 			/* Lots of damage in one blow */
 			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
@@ -899,8 +898,8 @@ msg_print("地面に落とされた。");
 	/* Drop objects being carried */
 	monster_drop_carried_objects(cr_ptr);
 
-	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	if (cr_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+	if (cr_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
 	switch (cr_ptr->species_idx)
 	{
@@ -1258,7 +1257,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if ((r_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
+		if ((cr_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1306,7 +1305,7 @@ msg_print("地面に落とされた。");
 		}
 	}
 
-	if (cloned && !(r_ptr->flags1 & RF1_UNIQUE))
+	if (cloned && !(cr_ptr->flags1 & RF1_UNIQUE))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
 	if (is_pet(cr_ptr) || inside_battle || inside_arena)
@@ -1367,7 +1366,7 @@ msg_print("地面に落とされた。");
 	}
 
 	/* Only process "Quest Monsters" */
-	if (!(r_ptr->flags1 & RF1_QUESTOR)) return;
+	if (!(cr_ptr->flags1 & RF1_QUESTOR)) return;
 	if (inside_battle) return;
 }
 
