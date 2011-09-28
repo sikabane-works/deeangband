@@ -5358,8 +5358,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	// for Player
 	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
 
-	monster_desc(atk_name, atk_ptr, MD_TRUE_NAME);
-	monster_desc(tar_name, tar_ptr, MD_TRUE_NAME);
+	if(atk_ptr) monster_desc(atk_name, atk_ptr, MD_TRUE_NAME);
+	else atk_name[0] = '\0';
+	if(tar_ptr) monster_desc(tar_name, tar_ptr, MD_TRUE_NAME);
+	else tar_name[0] = '\0';
 
 	COPY(&exp_mon, tar_ptr, creature_type);
 
