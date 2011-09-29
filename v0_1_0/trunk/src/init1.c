@@ -694,6 +694,113 @@ static cptr r_info_flags11[] =
 	"XXX",
 };
 
+static cptr r_info_flags12[] =
+{
+	"SPIT_ACID",
+	"BR_FIRE",
+	"HYPN_GAZE",
+	"TELEKINES",
+	"VTELEPORT",
+	"MIND_BLST",
+	"RADIATION",
+	"VAMPIRISM",
+	"SMELL_MET",
+	"SMELL_MON",
+	"BLINK",
+	"EAT_ROCK",
+	"SWAP_POS",
+	"SHRIEK",
+	"ILLUMINE",
+	"DET_CURSE",
+	"BERSERK",
+	"POLYMORPH",
+	"MIDAS_TCH",
+	"GROW_MOLD",
+	"RESIST",
+	"EARTHQUAKE",
+	"EAT_MAGIC",
+	"WEIGH_MAG",
+	"STERILITY",
+	"PANIC_HIT",
+	"DAZZLE",
+	"LASER_EYE",
+	"RECALL",
+	"BANISH",
+	"COLD_TOUCH",
+	"LAUNCHER",
+};
+
+static cptr r_info_flags13[] =
+{
+	"BERS_RAGE",
+	"COWARDICE",
+	"RTELEPORT",
+	"ALCOHOL",
+	"HALLU",
+	"FLATULENT",
+	"SCOR_TAIL",
+	"HORNS",
+	"BEAK ",
+	"ATT_DEMON",
+	"PROD_MANA",
+	"SPEED_FLUX",
+	"BANISH_ALL",
+	"EAT_LIGHT",
+	"TRUNK",
+	"ATT_ANIMAL",
+	"TENTACLES",
+	"RAW_CHAOS",
+	"NORMALITY",
+	"WRAITH",
+	"POLY_WOUND",
+	"WASTING",
+	"ATT_DRAGON",
+	"WEIRD_MIND",
+	"NAUSEA",
+	"CHAOS_GIFT",
+	"WALK_SHAD",
+	"WARNING",
+	"INVULN",
+	"SP_TO_HP",
+	"HP_TO_SP",
+	"DISARM",
+};
+
+static cptr r_info_flags14[] =
+{
+	"HYPER_STR",
+	"PUNY",
+	"HYPER_INT",
+	"MORONIC",
+	"RESILIENT",
+	"XTRA_FAT",
+	"ALBINO",
+	"FLESH_ROT",
+	"SILLY_VOI",
+	"BLANK_FAC",
+	"ILL_NORM",
+	"XTRA_EYES",
+	"MAGIC_RES",
+	"XTRA_NOIS",
+	"INFRAVIS",
+	"XTRA_LEGS",
+	"SHORT_LEG",
+	"ELEC_TOUC",
+	"FIRE_BODY",
+	"WART_SKIN",
+	"SCALES",
+	"IRON_SKIN",
+	"WINGS",
+	"FEARLESS",
+	"REGEN",
+	"ESP",
+	"LIMBER",
+	"ARTHRITIS",
+	"BAD_LUCK",
+	"VULN_ELEM",
+	"MOTION",
+	"GOOD_LUCK",
+};
 
 /*
  * Monster authority flags
@@ -2736,6 +2843,12 @@ static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 	if (grab_one_flag(&r_ptr->flags11, r_info_flags11, what) == 0)
 		return 0;
 
+	if (grab_one_flag(&r_ptr->flags13, r_info_flags13, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&r_ptr->flags14, r_info_flags14, what) == 0)
+		return 0;
+
 	/* Oops */
 #ifdef JP
 	msg_format("未知のモンスター・フラグ '%s'。", what);
@@ -2781,6 +2894,9 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 		return 0;
 
 	if (grab_one_flag(&r_ptr->flags6, r_info_flags6, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&r_ptr->flags12, r_info_flags12, what) == 0)
 		return 0;
 
 	/* Oops */
