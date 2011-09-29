@@ -415,6 +415,8 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 bool set_blind(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
+	char name[100];
+	monster_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
@@ -424,22 +426,22 @@ bool set_blind(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->blind)
+		if (!cr_ptr->blind && is_seen(player_ptr, cr_ptr))
 		{
 			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
-msg_print("センサーをやられた！");
+				msg_format("%sのセンサーが不能に陥った。", name);
 #else
-				msg_print("You are blind!");
+				msg_format("%s %s blind。", name, is_player(cr_ptr) ? "are" : "is");
 #endif
 			}
 			else
 			{
 #ifdef JP
-msg_print("目が見えなくなってしまった！");
+				msg_format("%sは視力を失った。", name);
 #else
-				msg_print("You are blind!");
+				msg_format("%s %s blind。", name, is_player(cr_ptr) ? "are" : "is");
 #endif
 			}
 
@@ -450,22 +452,22 @@ msg_print("目が見えなくなってしまった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->blind)
+		if (cr_ptr->blind && is_seen(player_ptr, cr_ptr))
 		{
 			if (cr_ptr->irace_idx == RACE_ANDROID)
 			{
 #ifdef JP
-msg_print("センサーが復旧した。");
+				msg_format("%sのセンサーが復旧した。", name);
 #else
-				msg_print("You can see again.");
+				msg_format("%s can see again.", name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-msg_print("やっと目が見えるようになった。");
+				msg_format("は視界を取り戻した。", name);
 #else
-				msg_print("You can see again.");
+				msg_format("%s can see again.", name);
 #endif
 			}
 
