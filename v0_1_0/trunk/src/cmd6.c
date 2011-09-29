@@ -1342,7 +1342,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			do_cmd_rerate(cr_ptr, FALSE);
 			get_max_stats(cr_ptr);
 			cr_ptr->update |= PU_BONUS;
-			if (cr_ptr->trait1 || cr_ptr->trait2 || cr_ptr->trait3)
+			if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
 			{
 #ifdef JP
 msg_print("全ての突然変異が治った。");
@@ -1350,7 +1350,7 @@ msg_print("全ての突然変異が治った。");
 				msg_print("You are cured of all mutations.");
 #endif
 
-				cr_ptr->trait1 = cr_ptr->trait2 = cr_ptr->trait3 = 0;
+				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 				cr_ptr->update |= PU_BONUS;
 				handle_stuff(cr_ptr);
 				mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
@@ -1381,7 +1381,7 @@ msg_print("「オクレ兄さん！」");
 			break;
 		
 		case SV_POTION_POLYMORPH:
-			if ((cr_ptr->trait1 || cr_ptr->trait2 || cr_ptr->trait3) && one_in_(23))
+			if ((cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14) && one_in_(23))
 			{
 #ifdef JP
 msg_print("全ての突然変異が治った。");
@@ -1389,7 +1389,7 @@ msg_print("全ての突然変異が治った。");
 				msg_print("You are cured of all mutations.");
 #endif
 
-				cr_ptr->trait1 = cr_ptr->trait2 = cr_ptr->trait3 = 0;
+				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 				cr_ptr->update |= PU_BONUS;
 				handle_stuff(cr_ptr);
 			}

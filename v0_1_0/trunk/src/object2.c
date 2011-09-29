@@ -4242,12 +4242,12 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 	if ((p_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > d_info[dungeon_type].obj_great))
 		f2 = d_info[dungeon_type].obj_great;
 
-	if (p_ptr->trait3 & TRAIT3_GOOD_LUCK)
+	if (p_ptr->flags14 & RF14_GOOD_LUCK)
 	{
 		f1 += 5;
 		f2 += 2;
 	}
-	else if(p_ptr->trait3 & TRAIT3_BAD_LUCK)
+	else if(p_ptr->flags14 & RF14_BAD_LUCK)
 	{
 		f1 -= 5;
 		f2 -= 2;
@@ -4314,7 +4314,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 	{
 		/* Roll for an artifact */
 		if (make_artifact(o_ptr)) break;
-		if ((p_ptr->trait3 & TRAIT3_GOOD_LUCK) && one_in_(77))
+		if ((p_ptr->flags14 & RF14_GOOD_LUCK) && one_in_(77))
 		{
 			if (make_artifact(o_ptr)) break;
 		}
@@ -6509,7 +6509,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			if (p_ptr->trait3 & TRAIT3_VULN_ELEM) dam *= 2;
+			if (p_ptr->flags14 & RF14_VULN_ELEM) dam *= 2;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (race_is_(p_ptr, RACE_ANDROID)) dam += dam / 3;
 			if (p_ptr->resist_elec) dam = (dam + 2) / 3;
@@ -6531,7 +6531,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			if (p_ptr->trait3 & TRAIT3_VULN_ELEM) dam *= 2;
+			if (p_ptr->flags14 & RF14_VULN_ELEM) dam *= 2;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_acid) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_ACID(p_ptr)) dam = (dam + 2) / 3;
@@ -6547,7 +6547,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			if (p_ptr->trait3 & TRAIT3_VULN_ELEM) dam *= 2;
+			if (p_ptr->flags14 & RF14_VULN_ELEM) dam *= 2;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_cold) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_COLD(p_ptr)) dam = (dam + 2) / 3;
@@ -6562,7 +6562,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			if (p_ptr->trait3 & TRAIT3_VULN_ELEM) dam *= 2;
+			if (p_ptr->flags14 & RF14_VULN_ELEM) dam *= 2;
 			if (race_is_(p_ptr, RACE_ENT)) dam += dam / 3;
 			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_fire) dam = (dam + 2) / 3;

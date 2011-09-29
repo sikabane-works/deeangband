@@ -2184,11 +2184,11 @@ static void display_player_various(creature_type * cr_ptr)
 
 	object_type		*o_ptr;
 
-	if (cr_ptr->trait2 & TRAIT2_HORNS)     muta_att++;
-	if (cr_ptr->trait2 & TRAIT2_SCOR_TAIL) muta_att++;
-	if (cr_ptr->trait2 & TRAIT2_BEAK)      muta_att++;
-	if (cr_ptr->trait2 & TRAIT2_TRUNK)     muta_att++;
-	if (cr_ptr->trait2 & TRAIT2_TENTACLES) muta_att++;
+	if (cr_ptr->flags13 & RF13_HORNS)     muta_att++;
+	if (cr_ptr->flags13 & RF13_SCOR_TAIL) muta_att++;
+	if (cr_ptr->flags13 & RF13_BEAK)      muta_att++;
+	if (cr_ptr->flags13 & RF13_TRUNK)     muta_att++;
+	if (cr_ptr->flags13 & RF13_TENTACLES) muta_att++;
 
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
@@ -2570,52 +2570,52 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 
 	/* Mutations */
-	if (cr_ptr->trait3)
+	if (cr_ptr->flags14)
 	{
-		if (cr_ptr->trait3 & TRAIT3_FLESH_ROT)
+		if (cr_ptr->flags14 & RF14_FLESH_ROT)
 		{
 			remove_flag(flgs, TR_REGEN);
 		}
 
-		if ((cr_ptr->trait3 & TRAIT3_XTRA_FAT) ||
-			(cr_ptr->trait3 & TRAIT3_XTRA_LEGS) ||
-			(cr_ptr->trait3 & TRAIT3_SHORT_LEG))
+		if ((cr_ptr->flags14 & RF14_XTRA_FAT) ||
+			(cr_ptr->flags14 & RF14_XTRA_LEGS) ||
+			(cr_ptr->flags14 & RF14_SHORT_LEG))
 		{
 			add_flag(flgs, TR_SPEED);
 		}
 
-		if (cr_ptr->trait3  & TRAIT3_ELEC_TOUC)
+		if (cr_ptr->flags14  & RF14_ELEC_TOUC)
 		{
 			add_flag(flgs, TR_SH_ELEC);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_FIRE_BODY)
+		if (cr_ptr->flags14 & RF14_FIRE_BODY)
 		{
 			add_flag(flgs, TR_SH_FIRE);
 			add_flag(flgs, TR_LITE);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_WINGS)
+		if (cr_ptr->flags14 & RF14_WINGS)
 		{
 			add_flag(flgs, TR_LEVITATION);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_FEARLESS)
+		if (cr_ptr->flags14 & RF14_FEARLESS)
 		{
 			add_flag(flgs, TR_RES_FEAR);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_REGEN)
+		if (cr_ptr->flags14 & RF14_REGEN)
 		{
 			add_flag(flgs, TR_REGEN);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_ESP)
+		if (cr_ptr->flags14 & RF14_ESP)
 		{
 			add_flag(flgs, TR_TELEPATHY);
 		}
 
-		if (cr_ptr->trait3 & TRAIT3_MOTION)
+		if (cr_ptr->flags14 & RF14_MOTION)
 		{
 			add_flag(flgs, TR_FREE_ACT);
 		}
@@ -2942,7 +2942,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if ((cr_ptr->trait3 & TRAIT3_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if ((cr_ptr->flags14 & RF14_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);
@@ -3710,43 +3710,43 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 		c = '.';
 
 		/* Mutations ... */
-		if (cr_ptr->trait3 || cr_ptr->tsuyoshi)
+		if (cr_ptr->flags14 || cr_ptr->tsuyoshi)
 		{
 			int dummy = 0;
 
 			if (stat == A_STR)
 			{
-				if (cr_ptr->trait3 & TRAIT3_HYPER_STR) dummy += 4;
-				if (cr_ptr->trait3 & TRAIT3_PUNY) dummy -= 4;
+				if (cr_ptr->flags14 & RF14_HYPER_STR) dummy += 4;
+				if (cr_ptr->flags14 & RF14_PUNY) dummy -= 4;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == A_WIS || stat == A_INT)
 			{
-				if (cr_ptr->trait3 & TRAIT3_HYPER_INT) dummy += 4;
-				if (cr_ptr->trait3 & TRAIT3_MORONIC) dummy -= 4;
+				if (cr_ptr->flags14 & RF14_HYPER_INT) dummy += 4;
+				if (cr_ptr->flags14 & RF14_MORONIC) dummy -= 4;
 			}
 			else if (stat == A_DEX)
 			{
-				if (cr_ptr->trait3 & TRAIT3_IRON_SKIN) dummy -= 1;
-				if (cr_ptr->trait3 & TRAIT3_LIMBER) dummy += 3;
-				if (cr_ptr->trait3 & TRAIT3_ARTHRITIS) dummy -= 3;
+				if (cr_ptr->flags14 & RF14_IRON_SKIN) dummy -= 1;
+				if (cr_ptr->flags14 & RF14_LIMBER) dummy += 3;
+				if (cr_ptr->flags14 & RF14_ARTHRITIS) dummy -= 3;
 			}
 			else if (stat == A_CON)
 			{
-				if (cr_ptr->trait3 & TRAIT3_RESILIENT) dummy += 4;
-				if (cr_ptr->trait3 & TRAIT3_XTRA_FAT) dummy += 2;
-				if (cr_ptr->trait3 & TRAIT3_ALBINO) dummy -= 4;
-				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT) dummy -= 2;
+				if (cr_ptr->flags14 & RF14_RESILIENT) dummy += 4;
+				if (cr_ptr->flags14 & RF14_XTRA_FAT) dummy += 2;
+				if (cr_ptr->flags14 & RF14_ALBINO) dummy -= 4;
+				if (cr_ptr->flags14 & RF14_FLESH_ROT) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == A_CHR)
 			{
-				if (cr_ptr->trait3 & TRAIT3_SILLY_VOI) dummy -= 4;
-				if (cr_ptr->trait3 & TRAIT3_BLANK_FAC) dummy -= 1;
-				if (cr_ptr->trait3 & TRAIT3_FLESH_ROT) dummy -= 1;
-				if (cr_ptr->trait3 & TRAIT3_SCALES) dummy -= 1;
-				if (cr_ptr->trait3 & TRAIT3_WART_SKIN) dummy -= 2;
-				if (cr_ptr->trait3 & TRAIT3_ILL_NORM) dummy = 0;
+				if (cr_ptr->flags14 & RF14_SILLY_VOI) dummy -= 4;
+				if (cr_ptr->flags14 & RF14_BLANK_FAC) dummy -= 1;
+				if (cr_ptr->flags14 & RF14_FLESH_ROT) dummy -= 1;
+				if (cr_ptr->flags14 & RF14_SCALES) dummy -= 1;
+				if (cr_ptr->flags14 & RF14_WART_SKIN) dummy -= 2;
+				if (cr_ptr->flags14 & RF14_ILL_NORM) dummy = 0;
 			}
 
 			/* Boost */
@@ -3820,7 +3820,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 
 	/* XXX XXX XXX */
-	if ((cr_ptr->trait1 || cr_ptr->trait2 || cr_ptr->trait3) && display_mutations)
+	if ((cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14) && display_mutations)
 		mode = (mode % 7);
 	else
 		mode = (mode % 6);
@@ -5230,7 +5230,7 @@ static void dump_aux_karmas(creature_type *cr_ptr, FILE *fff)
  */
 static void dump_aux_mutations(creature_type *cr_ptr, FILE *fff)
 {
-	if (cr_ptr->trait1 || cr_ptr->trait2 || cr_ptr->trait3)
+	if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
 	{
 #ifdef JP
 		fprintf(fff, "\n\n  [“Ë‘R•ÏˆÙ]\n\n");

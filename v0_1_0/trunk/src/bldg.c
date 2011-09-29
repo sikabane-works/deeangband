@@ -2647,9 +2647,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((cr_ptr->trait3 & TRAIT3_MORONIC) && (cr_ptr->trait2 & TRAIT2_BERS_RAGE) &&
-		((cr_ptr->trait2 & TRAIT2_COWARDICE) || (cr_ptr->resist_fear)) &&
-		((cr_ptr->trait2 & TRAIT2_HALLU) || (cr_ptr->resist_chaos)))
+	if ((cr_ptr->flags14 & RF14_MORONIC) && (cr_ptr->flags13 & RF13_BERS_RAGE) &&
+		((cr_ptr->flags13 & RF13_COWARDICE) || (cr_ptr->resist_fear)) &&
+		((cr_ptr->flags13 & RF13_HALLU) || (cr_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2661,7 +2661,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!(cr_ptr->trait3 & TRAIT3_MORONIC))
+				if (!(cr_ptr->flags14 & RF14_MORONIC))
 				{
 					if ((cr_ptr->stat_use[A_INT] < 4) && (cr_ptr->stat_use[A_WIS] < 4))
 					{
@@ -2680,7 +2680,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (cr_ptr->trait3 & TRAIT3_HYPER_INT)
+					if (cr_ptr->flags14 & RF14_HYPER_INT)
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2688,16 +2688,16 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						cr_ptr->trait3 &= ~(TRAIT3_HYPER_INT);
+						cr_ptr->flags14 &= ~(RF14_HYPER_INT);
 					}
-					cr_ptr->trait3 |= TRAIT3_MORONIC;
+					cr_ptr->flags14 |= RF14_MORONIC;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 2:
 			{
-				if (!(cr_ptr->trait2 & TRAIT2_COWARDICE) && !cr_ptr->resist_fear)
+				if (!(cr_ptr->flags13 & RF13_COWARDICE) && !cr_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2707,7 +2707,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (cr_ptr->trait3 & TRAIT3_FEARLESS)
+					if (cr_ptr->flags14 & RF14_FEARLESS)
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2715,17 +2715,17 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						cr_ptr->trait3 &= ~(TRAIT3_FEARLESS);
+						cr_ptr->flags14 &= ~(RF14_FEARLESS);
 					}
 
-					cr_ptr->trait2 |= TRAIT2_COWARDICE;
+					cr_ptr->flags13 |= RF13_COWARDICE;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 3:
 			{
-				if (!(cr_ptr->trait2 & TRAIT2_HALLU) && !cr_ptr->resist_chaos)
+				if (!(cr_ptr->flags13 & RF13_HALLU) && !cr_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2733,14 +2733,14 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					cr_ptr->trait2 |= TRAIT2_HALLU;
+					cr_ptr->flags13 |= RF13_HALLU;
 					happened = TRUE;
 				}
 				break;
 			}
 			default:
 			{
-				if (!(cr_ptr->trait2 & TRAIT2_BERS_RAGE))
+				if (!(cr_ptr->flags13 & RF13_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2748,7 +2748,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					cr_ptr->trait2 |= TRAIT2_BERS_RAGE;
+					cr_ptr->flags13 |= RF13_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
@@ -4893,10 +4893,10 @@ msg_print("お金が足りません！");
 		break;
 	}
 	case BACT_LOSE_MUTATION:
-		if (cr_ptr->trait1 || cr_ptr->trait2 ||
-		    (cr_ptr->trait3 & ~TRAIT3_GOOD_LUCK) ||
+		if (cr_ptr->flags12 || cr_ptr->flags13 ||
+		    (cr_ptr->flags14 & ~RF14_GOOD_LUCK) ||
 		    (cr_ptr->chara_idx != CHARA_LUCKY &&
-		     (cr_ptr->trait3 & TRAIT3_GOOD_LUCK)))
+		     (cr_ptr->flags14 & RF14_GOOD_LUCK)))
 		{
 			while(!lose_mutation(cr_ptr, 0));
 			paid = TRUE;
@@ -4964,7 +4964,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (cr_ptr->trait2 & TRAIT2_CHAOS_GIFT))
+		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (cr_ptr->flags13 & RF13_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", r_name + r_info[cr_ptr->patron_idx].name);

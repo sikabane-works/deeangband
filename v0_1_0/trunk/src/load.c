@@ -1430,14 +1430,6 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->multishadow);
 	rd_s16b(&cr_ptr->dustrobe);
 	rd_s16b(&cr_ptr->patron_idx);
-	rd_u32b(&cr_ptr->trait1);
-	rd_u32b(&cr_ptr->trait2);
-	rd_u32b(&cr_ptr->trait3);
-	rd_u32b(&cr_ptr->trait4);
-	rd_u32b(&cr_ptr->trait5);
-	rd_u32b(&cr_ptr->trait6);
-	rd_u32b(&cr_ptr->trait7);
-	rd_u32b(&cr_ptr->trait8);
 
 	rd_u32b(&cr_ptr->flags1);
 	rd_u32b(&cr_ptr->flags2);
@@ -1450,6 +1442,14 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->flags9);
 	rd_u32b(&cr_ptr->flags10);
 	rd_u32b(&cr_ptr->flags11);
+	rd_u32b(&cr_ptr->flags12);
+	rd_u32b(&cr_ptr->flags13);
+	rd_u32b(&cr_ptr->flags14);
+	rd_u32b(&cr_ptr->flags15);
+	rd_u32b(&cr_ptr->flags16);
+	rd_u32b(&cr_ptr->flags17);
+	rd_u32b(&cr_ptr->flags18);
+	rd_u32b(&cr_ptr->flags19);
 
 	for (i = 0; i < MAX_KARMA; i++)
 		rd_s32b(&cr_ptr->karmas[i]);

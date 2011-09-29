@@ -850,7 +850,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 #endif
 
 		do_cmd_rerate(cr_ptr, FALSE);
-		if (cr_ptr->trait1 || cr_ptr->trait2 || cr_ptr->trait3)
+		if (cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14)
 		{
 #ifdef JP
 			msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ªŽ¡‚Á‚½B");
@@ -858,7 +858,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 			msg_print("You are cured of all mutations.");
 #endif
 
-			cr_ptr->trait1 = cr_ptr->trait2 = cr_ptr->trait3 = 0;
+			cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 			cr_ptr->update |= PU_BONUS;
 			handle_stuff(cr_ptr);
 		}

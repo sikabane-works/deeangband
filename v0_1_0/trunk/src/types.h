@@ -381,8 +381,16 @@ struct species_type
 	u32b flags7;			/* Flags 7 (movement related abilities) */
 	u32b flags8;			/* Flags 8 (wilderness info) */
 	u32b flags9;			/* Flags 9 (drops info) */
-	u32b flags10;			/* Flags R (resistances info) */
-	u32b flags11;			/* Flags E (ego info) */
+	u32b flags10;			/* Flags 10 (resistances info) */
+	u32b flags11;			/* Flags 11 (ego info) */
+	u32b flags12;
+	u32b flags13;
+	u32b flags14;
+	u32b flags15;
+	u32b flags16;
+	u32b flags17;
+	u32b flags18;
+	u32b flags19;
 
 	species_blow blow[4];	/* Up to four blows per round */
 
@@ -1259,15 +1267,6 @@ struct creature_type
 	s16b multishadow;       /* Timed -- Multi-shadow */
 	s16b dustrobe;          /* Timed -- Robe of dust */
 
-	u32b trait1;
-	u32b trait2;
-	u32b trait3;
-	u32b trait4;
-	u32b trait5;
-	u32b trait6;
-	u32b trait7;
-	u32b trait8;
-
 	u32b flags1;			/* Flags 1 (general) */
 	u32b flags2;			/* Flags 2 (abilities) */
 	u32b flags3;			/* Flags 3 (race/resist) */
@@ -1279,6 +1278,14 @@ struct creature_type
 	u32b flags9;			/* Flags 9 (drops info) */
 	u32b flags10;			/* Flags R (resistances info) */
 	u32b flags11;			/* Flags E (ego info) */
+	u32b flags12;
+	u32b flags13;
+	u32b flags14;
+	u32b flags15;
+	u32b flags16;
+	u32b flags17;
+	u32b flags18;
+	u32b flags19;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
