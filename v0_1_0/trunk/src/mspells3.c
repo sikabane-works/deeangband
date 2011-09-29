@@ -1359,11 +1359,11 @@ msg_print("無傷の球の呪文を唱えた。");
 		m_ptr = &m_list[cave[target_row][target_col].m_idx];
 		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
-		if (r_ptr->flagsr & RFR_RES_TELE)
+		if (r_ptr->flags10 & RFR_RES_TELE)
 		{
 			if ((r_ptr->flags1 & (RF1_UNIQUE)) || (m_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags10 |= RFR_RES_TELE;
 #ifdef JP
 				msg_format("%sには効果がなかった！", m_name);
 #else
@@ -1374,7 +1374,7 @@ msg_print("無傷の球の呪文を唱えた。");
 			}
 			else if (r_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+				if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags10 |= RFR_RES_TELE;
 #ifdef JP
 				msg_format("%sには耐性がある！", m_name);
 #else
@@ -1419,7 +1419,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You gesture at %^s's feet.", m_name);
 #endif
 
-		if ((r_ptr->flagsr & (RFR_EFF_RES_NEXU_MASK | RFR_RES_TELE)) ||
+		if ((r_ptr->flags10 & (RFR_EFF_RES_NEXU_MASK | RFR_RES_TELE)) ||
 			(r_ptr->flags1 & RF1_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP

@@ -6631,7 +6631,7 @@ msg_print("失敗した。");
 
 	(void)set_paralyzed(m_ptr, 0);
 
-	if (r_ptr->flagsr & RFR_RES_TELE)
+	if (r_ptr->flags10 & RFR_RES_TELE)
 	{
 #ifdef JP
 		msg_print("テレポートを邪魔された！");
@@ -6639,7 +6639,7 @@ msg_print("失敗した。");
 		msg_print("Your teleportation is blocked!");
 #endif
 
-		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+		if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags10 |= RFR_RES_TELE;
 
 		/* Failure */
 		return FALSE;

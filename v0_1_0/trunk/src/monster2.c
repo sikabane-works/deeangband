@@ -1114,9 +1114,9 @@ static bool restrict_monster_to_dungeon(int species_idx)
 			if ((d_ptr->mflags9 & r_ptr->flags9) != d_ptr->mflags9)
 				return FALSE;
 		}
-		if (d_ptr->mflagsr)
+		if (d_ptr->mflags10)
 		{
-			if ((d_ptr->mflagsr & r_ptr->flagsr) != d_ptr->mflagsr)
+			if ((d_ptr->mflags10 & r_ptr->flags10) != d_ptr->mflags10)
 				return FALSE;
 		}
 		for (a = 0; a < 5; a++)
@@ -1170,9 +1170,9 @@ static bool restrict_monster_to_dungeon(int species_idx)
 			if ((d_ptr->mflags9 & r_ptr->flags9) != d_ptr->mflags9)
 				return TRUE;
 		}
-		if (d_ptr->mflagsr)
+		if (d_ptr->mflags10)
 		{
-			if ((d_ptr->mflagsr & r_ptr->flagsr) != d_ptr->mflagsr)
+			if ((d_ptr->mflags10 & r_ptr->flags10) != d_ptr->mflags10)
 				return TRUE;
 		}
 		for (a = 0; a < 5; a++)
@@ -1190,7 +1190,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 		if (r_ptr->flags7 & d_ptr->mflags7) return TRUE;
 		if (r_ptr->flags8 & d_ptr->mflags8) return TRUE;
 		if (r_ptr->flags9 & d_ptr->mflags9) return TRUE;
-		if (r_ptr->flagsr & d_ptr->mflagsr) return TRUE;
+		if (r_ptr->flags10 & d_ptr->mflags10) return TRUE;
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return TRUE;
 
@@ -1206,7 +1206,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 		if (r_ptr->flags7 & d_ptr->mflags7) return FALSE;
 		if (r_ptr->flags8 & d_ptr->mflags8) return FALSE;
 		if (r_ptr->flags9 & d_ptr->mflags9) return FALSE;
-		if (r_ptr->flagsr & d_ptr->mflagsr) return FALSE;
+		if (r_ptr->flags10 & d_ptr->mflags10) return FALSE;
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return FALSE;
 
@@ -1932,7 +1932,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != CHARA_NONE && (r_ptr->flagse & RFE_CHARA_EGO)){
+	if(m_ptr->chara_idx != CHARA_NONE && (r_ptr->flags11 & RFE_CHARA_EGO)){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -1942,7 +1942,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->irace_idx != RACE_NONE && (r_ptr->flagse & RFE_RACE_EGO)){
+	if(m_ptr->irace_idx != RACE_NONE && (r_ptr->flags11 & RFE_RACE_EGO)){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->irace_idx].title);
 		(void)strcat(desc, "‚Ì");
@@ -1969,7 +1969,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, r_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != CLASS_NONE && (r_ptr->flagse & RFE_CLASS_EGO)){
+	if(m_ptr->cls_idx != CLASS_NONE && (r_ptr->flags11 & RFE_CLASS_EGO)){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
@@ -2050,8 +2050,8 @@ int lore_do_probe(int species_idx)
 		    (r_ptr->flags5 & (1L << i))) n++;
 		if (!(r_ptr->r_flags6 & (1L << i)) &&
 		    (r_ptr->flags6 & (1L << i))) n++;
-		if (!(r_ptr->r_flagsr & (1L << i)) &&
-		    (r_ptr->flagsr & (1L << i))) n++;
+		if (!(r_ptr->r_flags10 & (1L << i)) &&
+		    (r_ptr->flags10 & (1L << i))) n++;
 
 		/* r_flags7 is actually unused */
 #if 0
@@ -2067,7 +2067,7 @@ int lore_do_probe(int species_idx)
 	r_ptr->r_flags4 = r_ptr->flags4;
 	r_ptr->r_flags5 = r_ptr->flags5;
 	r_ptr->r_flags6 = r_ptr->flags6;
-	r_ptr->r_flagsr = r_ptr->flagsr;
+	r_ptr->r_flags10 = r_ptr->flags10;
 
 	/* r_flags7 is actually unused */
 	/* r_ptr->r_flags7 = r_ptr->flags7; */
@@ -3310,13 +3310,13 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 	if(monster_ego_idx == MONEGO_NORMAL)
 	{
-		if(r_ptr->flagse & RFE_FORCE_LESSER){
+		if(r_ptr->flags11 & RFE_FORCE_LESSER){
 			int n;
 			n = rand_range(MONEGO_LESSER_FROM, MONEGO_LESSER_TO);
 			re_ptr = &re_info[n];
 			re_selected = n;
 		}
-		else if (r_ptr->flagse & RFE_VARIABLE_SIZE_EGO)
+		else if (r_ptr->flags11 & RFE_VARIABLE_SIZE_EGO)
 		{
 			re_selected = MONEGO_VARIABLE_SIZE;
 		}
@@ -3326,7 +3326,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set intelligence race
-	if (r_ptr->flagse & RFE_RACE_EGO)
+	if (r_ptr->flags11 & RFE_RACE_EGO)
 	{
 		int n;
 		n = rand_range(RACE_HUMAN, RACE_GNOME);
@@ -3340,7 +3340,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set class
-	if (r_ptr->flagse & RFE_CLASS_EGO)
+	if (r_ptr->flags11 & RFE_CLASS_EGO)
 	{
 		int n;
 		n = rand_range(CLASS_WARRIOR, CLASS_PALADIN);
@@ -3352,7 +3352,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set character
-	if (r_ptr->flagse & RFE_CHARA_EGO)
+	if (r_ptr->flags11 & RFE_CHARA_EGO)
 	{
 		int n;
 		n = rand_range(CHARA_FUTUU, CHARA_NAMAKE);
@@ -3876,8 +3876,8 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	m_ptr->flags7 = r_ptr->flags7;
 	m_ptr->flags8 = r_ptr->flags8;
 	m_ptr->flags9 = r_ptr->flags9;
-	m_ptr->flagsr = r_ptr->flagsr;
-	m_ptr->flagse = r_ptr->flagse;
+	m_ptr->flags10 = r_ptr->flags10;
+	m_ptr->flags11 = r_ptr->flags11;
 
 	for(i = 0; i < 8;i++)
 		m_ptr->authority[i] = r_ptr->authority[i];

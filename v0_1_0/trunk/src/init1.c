@@ -622,7 +622,7 @@ static cptr r_info_flags9[] =
 /*
  * Monster race flags - Resistances
  */
-static cptr r_info_flagsr[] =
+static cptr r_info_flags10[] =
 {
 	"IM_ACID",
 	"IM_ELEC",
@@ -658,7 +658,7 @@ static cptr r_info_flagsr[] =
 	"XXX",
 };
 
-static cptr r_info_flagse[] =
+static cptr r_info_flags11[] =
 {
 	"FORCE_LESSER_EGO",
 	"RACE_EGO",
@@ -2730,10 +2730,10 @@ static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 	if (grab_one_flag(&r_ptr->flags9, r_info_flags9, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flagsr, r_info_flagsr, what) == 0)
+	if (grab_one_flag(&r_ptr->flags10, r_info_flags10, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flagse, r_info_flagse, what) == 0)
+	if (grab_one_flag(&r_ptr->flags11, r_info_flags11, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -4020,7 +4020,7 @@ static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
 	if (grab_one_flag(&d_ptr->mflags9, r_info_flags9, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflagsr, r_info_flagsr, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags10, r_info_flags10, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -5776,8 +5776,8 @@ void write_r_info_txt(void)
 		f_ptr[6] = r_ptr->flags7; n_ptr[6] = r_info_flags7;
 		f_ptr[7] = r_ptr->flags8; n_ptr[7] = r_info_flags8;
 		f_ptr[8] = r_ptr->flags9; n_ptr[8] = r_info_flags9;
-		f_ptr[9] = r_ptr->flagsr; n_ptr[9] = r_info_flagsr;
-		f_ptr[10] = r_ptr->flagse; n_ptr[10] = r_info_flagse;
+		f_ptr[9] = r_ptr->flags10; n_ptr[9] = r_info_flags10;
+		f_ptr[10] = r_ptr->flags11; n_ptr[10] = r_info_flags11;
 
 		/* Write New/Number/Name */
 		fprintf(fff, "N:%d:%s\n", z + 1, r_name + r_ptr->name);

@@ -384,7 +384,7 @@ static void wr_lore(int species_idx)
 	wr_u32b(r_ptr->r_flags4);
 	wr_u32b(r_ptr->r_flags5);
 	wr_u32b(r_ptr->r_flags6);
-	wr_u32b(r_ptr->r_flagsr);
+	wr_u32b(r_ptr->r_flags10);
 
 
 	/* Monster limit per level */
@@ -837,8 +837,8 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->flags7);
 	wr_u32b(cr_ptr->flags8);
 	wr_u32b(cr_ptr->flags9);
-	wr_u32b(cr_ptr->flagsr);
-	wr_u32b(cr_ptr->flagse);
+	wr_u32b(cr_ptr->flags10);
+	wr_u32b(cr_ptr->flags11);
 
 	for (i = 0; i < MAX_KARMA; i++)
 		wr_s32b(cr_ptr->karmas[i]);

@@ -2658,7 +2658,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 					/* The object cannot be picked up by the monster */
 					if (object_is_artifact(cr_ptr, o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||
-					    ((~(r_ptr->flagsr) & flgr) && !(m_ptr->resist_ultimate)))
+					    ((~(r_ptr->flags10) & flgr) && !(m_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */
 						if (do_take && (r_ptr->flags2 & RF2_STUPID))
@@ -2881,7 +2881,7 @@ void process_monsters(creature_type *cr_ptr)
 	u32b    old_r_flags4 = 0L;
 	u32b    old_r_flags5 = 0L;
 	u32b    old_r_flags6 = 0L;
-	u32b    old_r_flagsr = 0L;
+	u32b    old_r_flags10 = 0L;
 
 	byte    old_r_blows0 = 0;
 	byte    old_r_blows1 = 0;
@@ -2911,7 +2911,7 @@ void process_monsters(creature_type *cr_ptr)
 		old_r_flags4 = r_ptr->r_flags4;
 		old_r_flags5 = r_ptr->r_flags5;
 		old_r_flags6 = r_ptr->r_flags6;
-		old_r_flagsr = r_ptr->r_flagsr;
+		old_r_flags10 = r_ptr->r_flags10;
 
 		/* Memorize blows */
 		old_r_blows0 = r_ptr->r_blows[0];
@@ -3060,7 +3060,7 @@ void process_monsters(creature_type *cr_ptr)
 			(old_r_flags4 != r_ptr->r_flags4) ||
 			(old_r_flags5 != r_ptr->r_flags5) ||
 			(old_r_flags6 != r_ptr->r_flags6) ||
-			(old_r_flagsr != r_ptr->r_flagsr) ||
+			(old_r_flags10 != r_ptr->r_flags10) ||
 			(old_r_blows0 != r_ptr->r_blows[0]) ||
 			(old_r_blows1 != r_ptr->r_blows[1]) ||
 			(old_r_blows2 != r_ptr->r_blows[2]) ||

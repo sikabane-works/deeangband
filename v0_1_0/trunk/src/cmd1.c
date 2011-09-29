@@ -492,11 +492,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_ACID) || ((atk_ptr->special_attack & (ATTACK_ACID)) && !thrown))
 			{
 				/* Notice immunity */
-				if (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK)
+				if (r_ptr->flags10 & RFR_EFF_IM_ACID_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ACID_MASK);
+						r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_ACID_MASK);
 					}
 				}
 
@@ -511,11 +511,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_ELEC) || ((atk_ptr->special_attack & (ATTACK_ELEC)) && !thrown) || (mode == HISSATSU_ELEC))
 			{
 				/* Notice immunity */
-				if (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK)
+				if (r_ptr->flags10 & RFR_EFF_IM_ELEC_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_ELEC_MASK);
+						r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_ELEC_MASK);
 					}
 				}
 
@@ -539,11 +539,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_FIRE) || ((atk_ptr->special_attack & (ATTACK_FIRE)) && !thrown) || (mode == HISSATSU_FIRE))
 			{
 				/* Notice immunity */
-				if (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK)
+				if (r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK);
+						r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK);
 					}
 				}
 
@@ -578,11 +578,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_COLD) || ((atk_ptr->special_attack & (ATTACK_COLD)) && !thrown) || (mode == HISSATSU_COLD))
 			{
 				/* Notice immunity */
-				if (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK)
+				if (r_ptr->flags10 & RFR_EFF_IM_COLD_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_COLD_MASK);
+						r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_COLD_MASK);
 					}
 				}
 				/* Otherwise, take the damage */
@@ -616,11 +616,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_POIS) || ((atk_ptr->special_attack & (ATTACK_POIS)) && !thrown) || (mode == HISSATSU_POISON))
 			{
 				/* Notice immunity */
-				if (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK)
+				if (r_ptr->flags10 & RFR_EFF_IM_POIS_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flagsr |= (r_ptr->flagsr & RFR_EFF_IM_POIS_MASK);
+						r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_POIS_MASK);
 					}
 				}
 
@@ -2910,11 +2910,11 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			{
 				bool resists_tele = FALSE;
 
-				if (r_ptr->flagsr & RFR_RES_TELE)
+				if (r_ptr->flags10 & RFR_RES_TELE)
 				{
 					if (r_ptr->flags1 & RF1_UNIQUE)
 					{
-						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags10 |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^sには効果がなかった。", m_name);
 #else
@@ -2925,7 +2925,7 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flagsr |= RFR_RES_TELE;
+						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags10 |= RFR_RES_TELE;
 #ifdef JP
 						msg_format("%^sは抵抗力を持っている！", m_name);
 #else
@@ -2953,7 +2953,7 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 			{
 				if (!(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) &&
-				    !(r_ptr->flagsr & RFR_EFF_RES_CHAO_MASK))
+				    !(r_ptr->flags10 & RFR_EFF_RES_CHAO_MASK))
 				{
 					if (polymorph_monster(atk_ptr, y, x))
 					{
@@ -4229,7 +4229,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_LAVA) && !(riding_r_ptr->flagsr & RFR_EFF_IM_FIRE_MASK))
+		else if (have_flag(f_ptr->flags, FF_LAVA) && !(riding_r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK))
 		{
 #ifdef JP
 			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);

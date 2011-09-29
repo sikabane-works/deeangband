@@ -455,7 +455,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 				 * totally unkillable suckers...
 				 */
 				if ((r_ptr->flags6 & RF6_TPORT) &&
-				    !(r_ptr->flagsr & RFR_RES_TELE))
+				    !(r_ptr->flags10 & RFR_RES_TELE))
 				{
 					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}
@@ -493,7 +493,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 				 * totally unkillable suckers...
 				 */
 				if ((r_ptr->flags6 & RF6_TPORT) &&
-				    !(r_ptr->flagsr & RFR_RES_TELE))
+				    !(r_ptr->flags10 & RFR_RES_TELE))
 				{
 					if (!cr_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
 				}

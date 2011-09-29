@@ -1422,7 +1422,7 @@ static bool build_type4(void)
 	(mon_hook_dungeon(I) && \
 	 !(r_info[I].flags1 & RF1_UNIQUE) && \
 	 !(r_info[I].flags7 & RF7_UNIQUE2) && \
-	 !(r_info[I].flagsr & RFR_RES_ALL) && \
+	 !(r_info[I].flags10 & RFR_RES_ALL) && \
 	 !(r_info[I].flags7 & RF7_AQUATIC))
 
 

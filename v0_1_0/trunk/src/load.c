@@ -775,7 +775,7 @@ static void rd_creature_old(creature_type *cr_ptr)
 	if ((R_PTR)->r_flags3 & (RF3)) \
 	{ \
 		(R_PTR)->r_flags3 &= ~(RF3); \
-		(R_PTR)->r_flagsr |= (RFR); \
+		(R_PTR)->r_flags10 |= (RFR); \
 	} \
 }
 
@@ -783,7 +783,7 @@ static void rd_creature_old(creature_type *cr_ptr)
 {\
 	if ((R_PTR)->r_flags4 & (RF4_BR)) \
 	{ \
-		(R_PTR)->r_flagsr |= (RFR); \
+		(R_PTR)->r_flags10 |= (RFR); \
 	} \
 }
 
@@ -842,7 +842,7 @@ static void rd_lore(int species_idx)
 	rd_u32b(&r_ptr->r_flags4);
 	rd_u32b(&r_ptr->r_flags5);
 	rd_u32b(&r_ptr->r_flags6);
-	rd_u32b(&r_ptr->r_flagsr);
+	rd_u32b(&r_ptr->r_flags10);
 
 	/* Read the "Racial" monster limit per level */
 	rd_byte(&r_ptr->max_num);
@@ -860,7 +860,7 @@ static void rd_lore(int species_idx)
 	r_ptr->r_flags4 &= r_ptr->flags4;
 	r_ptr->r_flags5 &= r_ptr->flags5;
 	r_ptr->r_flags6 &= r_ptr->flags6;
-	r_ptr->r_flagsr &= r_ptr->flagsr;
+	r_ptr->r_flags10 &= r_ptr->flags10;
 
 	rd_s16b(&r_ptr->start_wx);
 	rd_s16b(&r_ptr->start_wy);
@@ -1448,8 +1448,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->flags7);
 	rd_u32b(&cr_ptr->flags8);
 	rd_u32b(&cr_ptr->flags9);
-	rd_u32b(&cr_ptr->flagsr);
-	rd_u32b(&cr_ptr->flagse);
+	rd_u32b(&cr_ptr->flags10);
+	rd_u32b(&cr_ptr->flags11);
 
 	for (i = 0; i < MAX_KARMA; i++)
 		rd_s32b(&cr_ptr->karmas[i]);
