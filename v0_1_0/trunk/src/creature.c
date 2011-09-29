@@ -586,47 +586,47 @@ void set_resistance(creature_type *cr_ptr)
 	if(cr_ptr->species_idx != 0)
 	{
 		species_type *mr_ptr = &r_info[cr_ptr->species_idx];
-		if(mr_ptr->flags10 & RFR_IM_ACID)
+		if(mr_ptr->flags10 & RF10_IM_ACID)
 			cr_ptr->resist_acid = TRUE;
-		if(mr_ptr->flags10 & RFR_IM_ELEC)
+		if(mr_ptr->flags10 & RF10_IM_ELEC)
 			cr_ptr->resist_elec = TRUE;
-		if(mr_ptr->flags10 & RFR_IM_FIRE)
+		if(mr_ptr->flags10 & RF10_IM_FIRE)
 			cr_ptr->resist_fire = TRUE;
-		if(mr_ptr->flags10 & RFR_IM_COLD)
+		if(mr_ptr->flags10 & RF10_IM_COLD)
 			cr_ptr->resist_cold = TRUE;
-		if(mr_ptr->flags10 & RFR_IM_POIS)
+		if(mr_ptr->flags10 & RF10_IM_POIS)
 			cr_ptr->resist_pois = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_LITE)
+		if(mr_ptr->flags10 & RF10_RES_LITE)
 			cr_ptr->resist_lite = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_DARK)
+		if(mr_ptr->flags10 & RF10_RES_DARK)
 			cr_ptr->resist_dark = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_NETH)
+		if(mr_ptr->flags10 & RF10_RES_NETH)
 			cr_ptr->resist_neth = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_WATE)
+		if(mr_ptr->flags10 & RF10_RES_WATE)
 			cr_ptr->resist_water = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_PLAS)
+		if(mr_ptr->flags10 & RF10_RES_PLAS)
 			cr_ptr->resist_plazma = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_SHAR)
+		if(mr_ptr->flags10 & RF10_RES_SHAR)
 			cr_ptr->resist_shard = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_SOUN)
+		if(mr_ptr->flags10 & RF10_RES_SOUN)
 			cr_ptr->resist_sound = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_CHAO)
+		if(mr_ptr->flags10 & RF10_RES_CHAO)
 			cr_ptr->resist_chaos = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_NEXU)
+		if(mr_ptr->flags10 & RF10_RES_NEXU)
 			cr_ptr->resist_nexus = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_DISE)
+		if(mr_ptr->flags10 & RF10_RES_DISE)
 			cr_ptr->resist_disen = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_WALL)
+		if(mr_ptr->flags10 & RF10_RES_WALL)
 			cr_ptr->resist_force = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_INER)
+		if(mr_ptr->flags10 & RF10_RES_INER)
 			cr_ptr->resist_inertia = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_TIME)
+		if(mr_ptr->flags10 & RF10_RES_TIME)
 			cr_ptr->resist_time = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_GRAV)
+		if(mr_ptr->flags10 & RF10_RES_GRAV)
 			cr_ptr->resist_gravity = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_ALL)
+		if(mr_ptr->flags10 & RF10_RES_ALL)
 			cr_ptr->resist_ultimate = TRUE;
-		if(mr_ptr->flags10 & RFR_RES_TELE)
+		if(mr_ptr->flags10 & RF10_RES_TELE)
 			cr_ptr->resist_tele = TRUE;
 	}
 

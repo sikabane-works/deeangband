@@ -2650,11 +2650,11 @@ msg_format("%^s%s", m_name, monmessage);
 					if (have_flag(flgs, TR_KILL_GOOD))   flg3 |= (RF3_GOOD);
 					//if (have_flag(flgs, TR_SLAY_HUMAN))  flg2 |= (RF2_HUMAN);
 					//if (have_flag(flgs, TR_KILL_HUMAN))  flg2 |= (RF2_HUMAN);
-					if (have_flag(flgs, TR_BRAND_ACID))  flgr |= (RFR_IM_ACID);
-					if (have_flag(flgs, TR_BRAND_ELEC))  flgr |= (RFR_IM_ELEC);
-					if (have_flag(flgs, TR_BRAND_FIRE))  flgr |= (RFR_IM_FIRE);
-					if (have_flag(flgs, TR_BRAND_COLD))  flgr |= (RFR_IM_COLD);
-					if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RFR_IM_POIS);
+					if (have_flag(flgs, TR_BRAND_ACID))  flgr |= (RF10_IM_ACID);
+					if (have_flag(flgs, TR_BRAND_ELEC))  flgr |= (RF10_IM_ELEC);
+					if (have_flag(flgs, TR_BRAND_FIRE))  flgr |= (RF10_IM_FIRE);
+					if (have_flag(flgs, TR_BRAND_COLD))  flgr |= (RF10_IM_COLD);
+					if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RF10_IM_POIS);
 
 					/* The object cannot be picked up by the monster */
 					if (object_is_artifact(cr_ptr, o_ptr) || (r_ptr->flags3 & flg3) || (r_ptr->flags2 & flg2) ||

@@ -1947,131 +1947,131 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	/* Collect immunities */
 	vn = 0;
 #ifdef JP
-	if (flags10 & RFR_IM_ACID) {vp[vn] = "酸";color[vn++] = TERM_GREEN;}
+	if (flags10 & RF10_IM_ACID) {vp[vn] = "酸";color[vn++] = TERM_GREEN;}
 #else
-	if (flags10 & RFR_IM_ACID) {vp[vn] = "acid";color[vn++] = TERM_GREEN;}
+	if (flags10 & RF10_IM_ACID) {vp[vn] = "acid";color[vn++] = TERM_GREEN;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_IM_ELEC) {vp[vn] = "稲妻";color[vn++] = TERM_BLUE;}
+	if (flags10 & RF10_IM_ELEC) {vp[vn] = "稲妻";color[vn++] = TERM_BLUE;}
 #else
-	if (flags10 & RFR_IM_ELEC) {vp[vn] = "lightning";color[vn++] = TERM_BLUE;}
+	if (flags10 & RF10_IM_ELEC) {vp[vn] = "lightning";color[vn++] = TERM_BLUE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_IM_FIRE) {vp[vn] = "炎";color[vn++] = TERM_RED;}
+	if (flags10 & RF10_IM_FIRE) {vp[vn] = "炎";color[vn++] = TERM_RED;}
 #else
-	if (flags10 & RFR_IM_FIRE) {vp[vn] = "fire";color[vn++] = TERM_RED;}
+	if (flags10 & RF10_IM_FIRE) {vp[vn] = "fire";color[vn++] = TERM_RED;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_IM_COLD) {vp[vn] = "冷気";color[vn++] = TERM_L_WHITE;}
+	if (flags10 & RF10_IM_COLD) {vp[vn] = "冷気";color[vn++] = TERM_L_WHITE;}
 #else
-	if (flags10 & RFR_IM_COLD) {vp[vn] = "cold";color[vn++] = TERM_L_WHITE;}
+	if (flags10 & RF10_IM_COLD) {vp[vn] = "cold";color[vn++] = TERM_L_WHITE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_IM_POIS) {vp[vn] = "毒";color[vn++] = TERM_L_GREEN;}
+	if (flags10 & RF10_IM_POIS) {vp[vn] = "毒";color[vn++] = TERM_L_GREEN;}
 #else
-	if (flags10 & RFR_IM_POIS) {vp[vn] = "poison";color[vn++] = TERM_L_GREEN;}
+	if (flags10 & RF10_IM_POIS) {vp[vn] = "poison";color[vn++] = TERM_L_GREEN;}
 #endif
 
 
 	/* Collect resistances */
 #ifdef JP
-	if (flags10 & RFR_RES_LITE) {vp[vn] = "閃光";color[vn++] = TERM_YELLOW;}
+	if (flags10 & RF10_RES_LITE) {vp[vn] = "閃光";color[vn++] = TERM_YELLOW;}
 #else
-	if (flags10 & RFR_RES_LITE) {vp[vn] = "light";color[vn++] = TERM_YELLOW;}
+	if (flags10 & RF10_RES_LITE) {vp[vn] = "light";color[vn++] = TERM_YELLOW;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_DARK) {vp[vn] = "暗黒";color[vn++] = TERM_L_DARK;}
+	if (flags10 & RF10_RES_DARK) {vp[vn] = "暗黒";color[vn++] = TERM_L_DARK;}
 #else
-	if (flags10 & RFR_RES_DARK) {vp[vn] = "dark";color[vn++] = TERM_L_DARK;}
+	if (flags10 & RF10_RES_DARK) {vp[vn] = "dark";color[vn++] = TERM_L_DARK;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_NETH) {vp[vn] = "地獄";color[vn++] = TERM_L_DARK;}
+	if (flags10 & RF10_RES_NETH) {vp[vn] = "地獄";color[vn++] = TERM_L_DARK;}
 #else
-	if (flags10 & RFR_RES_NETH) {vp[vn] = "nether";color[vn++] = TERM_L_DARK;}
+	if (flags10 & RF10_RES_NETH) {vp[vn] = "nether";color[vn++] = TERM_L_DARK;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_WATE) {vp[vn] = "水";color[vn++] = TERM_BLUE;}
+	if (flags10 & RF10_RES_WATE) {vp[vn] = "水";color[vn++] = TERM_BLUE;}
 #else
-	if (flags10 & RFR_RES_WATE) {vp[vn] = "water";color[vn++] = TERM_BLUE;}
+	if (flags10 & RF10_RES_WATE) {vp[vn] = "water";color[vn++] = TERM_BLUE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_PLAS) {vp[vn] = "プラズマ";color[vn++] = TERM_L_RED;}
+	if (flags10 & RF10_RES_PLAS) {vp[vn] = "プラズマ";color[vn++] = TERM_L_RED;}
 #else
-	if (flags10 & RFR_RES_PLAS) {vp[vn] = "plasma";color[vn++] = TERM_L_RED;}
+	if (flags10 & RF10_RES_PLAS) {vp[vn] = "plasma";color[vn++] = TERM_L_RED;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_SHAR) {vp[vn] = "破片";color[vn++] = TERM_L_UMBER;}
+	if (flags10 & RF10_RES_SHAR) {vp[vn] = "破片";color[vn++] = TERM_L_UMBER;}
 #else
-	if (flags10 & RFR_RES_SHAR) {vp[vn] = "shards";color[vn++] = TERM_L_UMBER;}
+	if (flags10 & RF10_RES_SHAR) {vp[vn] = "shards";color[vn++] = TERM_L_UMBER;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_SOUN) {vp[vn] = "轟音";color[vn++] = TERM_ORANGE;}
+	if (flags10 & RF10_RES_SOUN) {vp[vn] = "轟音";color[vn++] = TERM_ORANGE;}
 #else
-	if (flags10 & RFR_RES_SOUN) {vp[vn] = "sound";color[vn++] = TERM_ORANGE;}
+	if (flags10 & RF10_RES_SOUN) {vp[vn] = "sound";color[vn++] = TERM_ORANGE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_CHAO) {vp[vn] = "カオス";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_CHAO) {vp[vn] = "カオス";color[vn++] = TERM_VIOLET;}
 #else
-	if (flags10 & RFR_RES_CHAO) {vp[vn] = "chaos";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_CHAO) {vp[vn] = "chaos";color[vn++] = TERM_VIOLET;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_NEXU) {vp[vn] = "因果混乱";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_NEXU) {vp[vn] = "因果混乱";color[vn++] = TERM_VIOLET;}
 #else
-	if (flags10 & RFR_RES_NEXU) {vp[vn] = "nexus";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_NEXU) {vp[vn] = "nexus";color[vn++] = TERM_VIOLET;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_DISE) {vp[vn] = "劣化";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_DISE) {vp[vn] = "劣化";color[vn++] = TERM_VIOLET;}
 #else
-	if (flags10 & RFR_RES_DISE) {vp[vn] = "disenchantment";color[vn++] = TERM_VIOLET;}
+	if (flags10 & RF10_RES_DISE) {vp[vn] = "disenchantment";color[vn++] = TERM_VIOLET;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_WALL) {vp[vn] = "フォース";color[vn++] = TERM_UMBER;}
+	if (flags10 & RF10_RES_WALL) {vp[vn] = "フォース";color[vn++] = TERM_UMBER;}
 #else
-	if (flags10 & RFR_RES_WALL) {vp[vn] = "force";color[vn++] = TERM_UMBER;}
+	if (flags10 & RF10_RES_WALL) {vp[vn] = "force";color[vn++] = TERM_UMBER;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_INER) {vp[vn] = "遅鈍";color[vn++] = TERM_SLATE;}
+	if (flags10 & RF10_RES_INER) {vp[vn] = "遅鈍";color[vn++] = TERM_SLATE;}
 #else
-	if (flags10 & RFR_RES_INER) {vp[vn] = "inertia";color[vn++] = TERM_SLATE;}
+	if (flags10 & RF10_RES_INER) {vp[vn] = "inertia";color[vn++] = TERM_SLATE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_TIME) {vp[vn] = "時間逆転";color[vn++] = TERM_L_BLUE;}
+	if (flags10 & RF10_RES_TIME) {vp[vn] = "時間逆転";color[vn++] = TERM_L_BLUE;}
 #else
-	if (flags10 & RFR_RES_TIME) {vp[vn] = "time";color[vn++] = TERM_L_BLUE;}
+	if (flags10 & RF10_RES_TIME) {vp[vn] = "time";color[vn++] = TERM_L_BLUE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_GRAV) {vp[vn] = "重力";color[vn++] = TERM_SLATE;}
+	if (flags10 & RF10_RES_GRAV) {vp[vn] = "重力";color[vn++] = TERM_SLATE;}
 #else
-	if (flags10 & RFR_RES_GRAV) {vp[vn] = "gravity";color[vn++] = TERM_SLATE;}
+	if (flags10 & RF10_RES_GRAV) {vp[vn] = "gravity";color[vn++] = TERM_SLATE;}
 #endif
 
 #ifdef JP
-	if (flags10 & RFR_RES_ALL) {vp[vn] = "あらゆる攻撃";color[vn++] = TERM_YELLOW;}
+	if (flags10 & RF10_RES_ALL) {vp[vn] = "あらゆる攻撃";color[vn++] = TERM_YELLOW;}
 #else
-	if (flags10 & RFR_RES_ALL) {vp[vn] = "all";color[vn++] = TERM_YELLOW;}
+	if (flags10 & RF10_RES_ALL) {vp[vn] = "all";color[vn++] = TERM_YELLOW;}
 #endif
 
 #ifdef JP
-	if ((flags10 & RFR_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RFR_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
 #endif
 
 
@@ -2166,9 +2166,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 #ifdef JP
-	if ((flags10 & RFR_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RFR_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
 #endif
 
 	/* Describe non-effects */
@@ -3252,7 +3252,7 @@ static bool mon_hook_lava(int species_idx)
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
-	if (((r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK) ||
+	if (((r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK) ||
 	     (r_ptr->flags7 & RF7_CAN_FLY)) &&
 	    !(r_ptr->flags3 & RF3_AURA_COLD))
 		return TRUE;
@@ -3446,7 +3446,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		if (!(r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK)) return FALSE;
+		if (!(r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)) return FALSE;
 	}
 
 	return TRUE;

@@ -1945,27 +1945,27 @@ static void spoil_mon_desc(cptr fname)
 			tmpwt = r_ptr->m_b_wt;
 		}
 
-		if(r_ptr->flags11 & RFE_RACE_EGO | r_ptr->flags11 & RFE_VARIABLE_SIZE_EGO) sprintf(ht, "----");
+		if(r_ptr->flags11 & RF11_RACE_EGO | r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(ht, "----");
 		else if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
-		if(r_ptr->flags11 & RFE_RACE_EGO | r_ptr->flags11 & RFE_VARIABLE_SIZE_EGO) sprintf(wt, "----");
+		if(r_ptr->flags11 & RF11_RACE_EGO | r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(wt, "----");
 		else if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
 		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
 		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
 		tmpsize = calc_bodysize(tmpht, tmpwt);
 
-		if(r_ptr->flags11 & RFE_RACE_EGO) sprintf(size, "B%+2d ", tmpsize - 10);
-		else if(r_ptr->flags11 & RFE_VARIABLE_SIZE_EGO) sprintf(size, "%3d+", tmpsize);
+		if(r_ptr->flags11 & RF11_RACE_EGO) sprintf(size, "B%+2d ", tmpsize - 10);
+		else if(r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(size, "%3d+", tmpsize);
 		else  sprintf(size, "%4d ", tmpsize);
 
 		/* Experience */
 		sprintf(exp, "%ld", (long)(r_ptr->mexp));
 
 		/* Hack -- use visual instead */
-		if(r_ptr->flags11 & RFE_RACE_EGO)
+		if(r_ptr->flags11 & RF11_RACE_EGO)
 		{
 			sprintf(exp, "%s ---", attr_to_text(r_ptr));
 		}
@@ -1977,7 +1977,7 @@ static void spoil_mon_desc(cptr fname)
 		/* Trait */
 		trait[0] = '\0';
 
-		if(r_ptr->flags11 & RFE_RACE_EGO) 
+		if(r_ptr->flags11 & RF11_RACE_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -1993,7 +1993,7 @@ static void spoil_mon_desc(cptr fname)
 			strcat(trait, race_info[r_ptr->irace_idx].title);
 		}
 
-		if(r_ptr->flags11 & RFE_CLASS_EGO) 
+		if(r_ptr->flags11 & RF11_CLASS_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2009,7 +2009,7 @@ static void spoil_mon_desc(cptr fname)
 			strcat(trait, class_info[r_ptr->cls_idx].title);
 		}
 
-		if(r_ptr->flags11 & RFE_CHARA_EGO) 
+		if(r_ptr->flags11 & RF11_CHARA_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2025,7 +2025,7 @@ static void spoil_mon_desc(cptr fname)
 			strcat(trait, chara_info[r_ptr->chara_idx].title);
 		}
 
-		if(r_ptr->flags11 & RFE_PATRON_EGO) 
+		if(r_ptr->flags11 & RF11_PATRON_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2041,7 +2041,7 @@ static void spoil_mon_desc(cptr fname)
 			strcat(trait, r_name + r_info[r_ptr->patron_idx].name);
 		}
 
-		if(r_ptr->flags11 & RFE_FORCE_LESSER) 
+		if(r_ptr->flags11 & RF11_FORCE_LESSER) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2051,7 +2051,7 @@ static void spoil_mon_desc(cptr fname)
 #endif
 		}
 
-		if(r_ptr->flags11 & RFE_VARIABLE_SIZE_EGO) 
+		if(r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP

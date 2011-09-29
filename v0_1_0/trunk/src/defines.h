@@ -245,108 +245,6 @@
 #define TRAITTYPE_DRAGONBONE_LINGAGE  21
 #define TRAITTYPE_GREAT_ANCESTOR      22
 
-/* RF12_* */
-#define RF12_SPIT_ACID                  0x00000001L
-#define RF12_BR_FIRE                    0x00000002L
-#define RF12_HYPN_GAZE                  0x00000004L
-#define RF12_TELEKINES                  0x00000008L
-#define RF12_VTELEPORT                  0x00000010L /* Voluntary teleport */
-#define RF12_MIND_BLST                  0x00000020L
-#define RF12_RADIATION                  0x00000040L
-#define RF12_VAMPIRISM                  0x00000080L
-#define RF12_SMELL_MET                  0x00000100L
-#define RF12_SMELL_MON                  0x00000200L
-#define RF12_BLINK                      0x00000400L
-#define RF12_EAT_ROCK                   0x00000800L
-#define RF12_SWAP_POS                   0x00001000L
-#define RF12_SHRIEK                     0x00002000L
-#define RF12_ILLUMINE                   0x00004000L
-#define RF12_DET_CURSE                  0x00008000L
-#define RF12_BERSERK                    0x00010000L
-#define RF12_POLYMORPH                  0x00020000L
-#define RF12_MIDAS_TCH                  0x00040000L
-#define RF12_GROW_MOLD                  0x00080000L
-#define RF12_RESIST                     0x00100000L
-#define RF12_EARTHQUAKE                 0x00200000L
-#define RF12_EAT_MAGIC                  0x00400000L
-#define RF12_WEIGH_MAG                  0x00800000L
-#define RF12_STERILITY                  0x01000000L
-#define RF12_PANIC_HIT                  0x02000000L
-#define RF12_DAZZLE                     0x04000000L
-#define RF12_LASER_EYE                  0x08000000L
-#define RF12_RECALL                     0x10000000L
-#define RF12_BANISH                     0x20000000L
-#define RF12_COLD_TOUCH                 0x40000000L
-#define RF12_LAUNCHER                   0x80000000L
-
-/* RF13_* */
-#define RF13_BERS_RAGE                  0x00000001L
-#define RF13_COWARDICE                  0x00000002L
-#define RF13_RTELEPORT                  0x00000004L /* Random teleport, instability */
-#define RF13_ALCOHOL                    0x00000008L
-#define RF13_HALLU                      0x00000010L
-#define RF13_FLATULENT                  0x00000020L
-#define RF13_SCOR_TAIL                  0x00000040L
-#define RF13_HORNS                      0x00000080L
-#define RF13_BEAK                       0x00000100L
-#define RF13_ATT_DEMON                  0x00000200L
-#define RF13_PROD_MANA                  0x00000400L
-#define RF13_SPEED_FLUX                 0x00000800L
-#define RF13_BANISH_ALL                 0x00001000L
-#define RF13_EAT_LIGHT                  0x00002000L
-#define RF13_TRUNK                      0x00004000L
-#define RF13_ATT_ANIMAL                 0x00008000L
-#define RF13_TENTACLES                  0x00010000L
-#define RF13_RAW_CHAOS                  0x00020000L
-#define RF13_NORMALITY                  0x00040000L
-#define RF13_WRAITH                     0x00080000L
-#define RF13_POLY_WOUND                 0x00100000L
-#define RF13_WASTING                    0x00200000L
-#define RF13_ATT_DRAGON                 0x00400000L
-#define RF13_WEIRD_MIND                 0x00800000L
-#define RF13_NAUSEA                     0x01000000L
-#define RF13_CHAOS_GIFT                 0x02000000L
-#define RF13_WALK_SHAD                  0x04000000L
-#define RF13_WARNING                    0x08000000L
-#define RF13_INVULN                     0x10000000L
-#define RF13_SP_TO_HP                   0x20000000L
-#define RF13_HP_TO_SP                   0x40000000L
-#define RF13_DISARM                     0x80000000L
-
-
-/* RF14_* */
-#define RF14_HYPER_STR                  0x00000001L
-#define RF14_PUNY                       0x00000002L
-#define RF14_HYPER_INT                  0x00000004L
-#define RF14_MORONIC                    0x00000008L
-#define RF14_RESILIENT                  0x00000010L
-#define RF14_XTRA_FAT                   0x00000020L
-#define RF14_ALBINO                     0x00000040L
-#define RF14_FLESH_ROT                  0x00000080L
-#define RF14_SILLY_VOI                  0x00000100L
-#define RF14_BLANK_FAC                  0x00000200L
-#define RF14_ILL_NORM                   0x00000400L
-#define RF14_XTRA_EYES                  0x00000800L
-#define RF14_MAGIC_RES                  0x00001000L
-#define RF14_XTRA_NOIS                  0x00002000L
-#define RF14_INFRAVIS                   0x00004000L
-#define RF14_XTRA_LEGS                  0x00008000L
-#define RF14_SHORT_LEG                  0x00010000L
-#define RF14_ELEC_TOUC                  0x00020000L
-#define RF14_FIRE_BODY                  0x00040000L
-#define RF14_WART_SKIN                  0x00080000L
-#define RF14_SCALES                     0x00100000L
-#define RF14_IRON_SKIN                  0x00200000L
-#define RF14_WINGS                      0x00400000L
-#define RF14_FEARLESS                   0x00800000L
-#define RF14_REGEN                      0x01000000L
-#define RF14_ESP                        0x02000000L
-#define RF14_LIMBER                     0x04000000L
-#define RF14_ARTHRITIS                  0x08000000L
-#define RF14_BAD_LUCK                   0x10000000L
-#define RF14_VULN_ELEM                  0x20000000L
-#define RF14_MOTION                     0x40000000L
-#define RF14_GOOD_LUCK                  0x80000000L
 
 
 /* Monk martial arts... */
@@ -4073,50 +3971,153 @@
 
 /*
  * Monster bit flags of racial resistances
- * Note: Resist confusion was merged to RFR_NO_CONF
+ * Note: Resist confusion was merged to RF10_NO_CONF
  */
-#define RFR_IM_ACID         0x00000001  /* Resist acid */
-#define RFR_IM_ELEC         0x00000002  /* Resist elec */
-#define RFR_IM_FIRE         0x00000004  /* Resist fire */
-#define RFR_IM_COLD         0x00000008  /* Resist cold */
-#define RFR_IM_POIS         0x00000010  /* Resist poison */
-#define RFR_RES_LITE        0x00000020  /* Resist lite */
-#define RFR_RES_DARK        0x00000040  /* Resist dark */
-#define RFR_RES_NETH        0x00000080  /* Resist nether */
-#define RFR_RES_WATE        0x00000100  /* Resist water */
-#define RFR_RES_PLAS        0x00000200  /* Resist plasma */
-#define RFR_RES_SHAR        0x00000400  /* Resist shards */
-#define RFR_RES_SOUN        0x00000800  /* Resist sound */
-#define RFR_RES_CHAO        0x00001000  /* Resist chaos */
-#define RFR_RES_NEXU        0x00002000  /* Resist nexus */
-#define RFR_RES_DISE        0x00004000  /* Resist disenchantment */
-#define RFR_RES_WALL        0x00008000  /* Resist force */
-#define RFR_RES_INER        0x00010000  /* Resist inertia */
-#define RFR_RES_TIME        0x00020000  /* Resist time */
-#define RFR_RES_GRAV        0x00040000  /* Resist gravity */
-#define RFR_RES_ALL         0x00080000  /* Resist all */
-#define RFR_RES_TELE        0x00100000  /* Resist teleportation */
-#define RFR_XXX21           0x00200000
-#define RFR_XXX22           0x00400000
-#define RFR_XXX23           0x00800000
-#define RFR_XXX24           0x01000000
-#define RFR_XXX25           0x02000000
-#define RFR_XXX26           0x04000000
-#define RFR_XXX27           0x08000000
-#define RFR_XXX28           0x10000000
-#define RFR_XXX29           0x20000000
-#define RFR_XXX30           0x40000000
-#define RFR_XXX31           0x80000000
+#define RF10_IM_ACID         0x00000001  /* Resist acid */
+#define RF10_IM_ELEC         0x00000002  /* Resist elec */
+#define RF10_IM_FIRE         0x00000004  /* Resist fire */
+#define RF10_IM_COLD         0x00000008  /* Resist cold */
+#define RF10_IM_POIS         0x00000010  /* Resist poison */
+#define RF10_RES_LITE        0x00000020  /* Resist lite */
+#define RF10_RES_DARK        0x00000040  /* Resist dark */
+#define RF10_RES_NETH        0x00000080  /* Resist nether */
+#define RF10_RES_WATE        0x00000100  /* Resist water */
+#define RF10_RES_PLAS        0x00000200  /* Resist plasma */
+#define RF10_RES_SHAR        0x00000400  /* Resist shards */
+#define RF10_RES_SOUN        0x00000800  /* Resist sound */
+#define RF10_RES_CHAO        0x00001000  /* Resist chaos */
+#define RF10_RES_NEXU        0x00002000  /* Resist nexus */
+#define RF10_RES_DISE        0x00004000  /* Resist disenchantment */
+#define RF10_RES_WALL        0x00008000  /* Resist force */
+#define RF10_RES_INER        0x00010000  /* Resist inertia */
+#define RF10_RES_TIME        0x00020000  /* Resist time */
+#define RF10_RES_GRAV        0x00040000  /* Resist gravity */
+#define RF10_RES_ALL         0x00080000  /* Resist all */
+#define RF10_RES_TELE        0x00100000  /* Resist teleportation */
+#define RF10_XXX21           0x00200000
+#define RF10_XXX22           0x00400000
+#define RF10_XXX23           0x00800000
+#define RF10_XXX24           0x01000000
+#define RF10_XXX25           0x02000000
+#define RF10_XXX26           0x04000000
+#define RF10_XXX27           0x08000000
+#define RF10_XXX28           0x10000000
+#define RF10_XXX29           0x20000000
+#define RF10_XXX30           0x40000000
+#define RF10_XXX31           0x80000000
 
 /*
  * Monster Ego flags
  */
-#define RFE_FORCE_LESSER       0x00000001
-#define RFE_RACE_EGO           0x00000002
-#define RFE_CLASS_EGO          0x00000004
-#define RFE_PATRON_EGO         0x00000008
-#define RFE_CHARA_EGO          0x00000010
-#define RFE_VARIABLE_SIZE_EGO  0x00000020
+#define RF11_FORCE_LESSER       0x00000001
+#define RF11_RACE_EGO           0x00000002
+#define RF11_CLASS_EGO          0x00000004
+#define RF11_PATRON_EGO         0x00000008
+#define RF11_CHARA_EGO          0x00000010
+#define RF11_VARIABLE_SIZE_EGO  0x00000020
+
+/* RF12_* */
+#define RF12_SPIT_ACID                  0x00000001L
+#define RF12_BR_FIRE                    0x00000002L
+#define RF12_HYPN_GAZE                  0x00000004L
+#define RF12_TELEKINES                  0x00000008L
+#define RF12_VTELEPORT                  0x00000010L /* Voluntary teleport */
+#define RF12_MIND_BLST                  0x00000020L
+#define RF12_RADIATION                  0x00000040L
+#define RF12_VAMPIRISM                  0x00000080L
+#define RF12_SMELL_MET                  0x00000100L
+#define RF12_SMELL_MON                  0x00000200L
+#define RF12_BLINK                      0x00000400L
+#define RF12_EAT_ROCK                   0x00000800L
+#define RF12_SWAP_POS                   0x00001000L
+#define RF12_SHRIEK                     0x00002000L
+#define RF12_ILLUMINE                   0x00004000L
+#define RF12_DET_CURSE                  0x00008000L
+#define RF12_BERSERK                    0x00010000L
+#define RF12_POLYMORPH                  0x00020000L
+#define RF12_MIDAS_TCH                  0x00040000L
+#define RF12_GROW_MOLD                  0x00080000L
+#define RF12_RESIST                     0x00100000L
+#define RF12_EARTHQUAKE                 0x00200000L
+#define RF12_EAT_MAGIC                  0x00400000L
+#define RF12_WEIGH_MAG                  0x00800000L
+#define RF12_STERILITY                  0x01000000L
+#define RF12_PANIC_HIT                  0x02000000L
+#define RF12_DAZZLE                     0x04000000L
+#define RF12_LASER_EYE                  0x08000000L
+#define RF12_RECALL                     0x10000000L
+#define RF12_BANISH                     0x20000000L
+#define RF12_COLD_TOUCH                 0x40000000L
+#define RF12_LAUNCHER                   0x80000000L
+
+/* RF13_* */
+#define RF13_BERS_RAGE                  0x00000001L
+#define RF13_COWARDICE                  0x00000002L
+#define RF13_RTELEPORT                  0x00000004L /* Random teleport, instability */
+#define RF13_ALCOHOL                    0x00000008L
+#define RF13_HALLU                      0x00000010L
+#define RF13_FLATULENT                  0x00000020L
+#define RF13_SCOR_TAIL                  0x00000040L
+#define RF13_HORNS                      0x00000080L
+#define RF13_BEAK                       0x00000100L
+#define RF13_ATT_DEMON                  0x00000200L
+#define RF13_PROD_MANA                  0x00000400L
+#define RF13_SPEED_FLUX                 0x00000800L
+#define RF13_BANISH_ALL                 0x00001000L
+#define RF13_EAT_LIGHT                  0x00002000L
+#define RF13_TRUNK                      0x00004000L
+#define RF13_ATT_ANIMAL                 0x00008000L
+#define RF13_TENTACLES                  0x00010000L
+#define RF13_RAW_CHAOS                  0x00020000L
+#define RF13_NORMALITY                  0x00040000L
+#define RF13_WRAITH                     0x00080000L
+#define RF13_POLY_WOUND                 0x00100000L
+#define RF13_WASTING                    0x00200000L
+#define RF13_ATT_DRAGON                 0x00400000L
+#define RF13_WEIRD_MIND                 0x00800000L
+#define RF13_NAUSEA                     0x01000000L
+#define RF13_CHAOS_GIFT                 0x02000000L
+#define RF13_WALK_SHAD                  0x04000000L
+#define RF13_WARNING                    0x08000000L
+#define RF13_INVULN                     0x10000000L
+#define RF13_SP_TO_HP                   0x20000000L
+#define RF13_HP_TO_SP                   0x40000000L
+#define RF13_DISARM                     0x80000000L
+
+
+/* RF14_* */
+#define RF14_HYPER_STR                  0x00000001L
+#define RF14_PUNY                       0x00000002L
+#define RF14_HYPER_INT                  0x00000004L
+#define RF14_MORONIC                    0x00000008L
+#define RF14_RESILIENT                  0x00000010L
+#define RF14_XTRA_FAT                   0x00000020L
+#define RF14_ALBINO                     0x00000040L
+#define RF14_FLESH_ROT                  0x00000080L
+#define RF14_SILLY_VOI                  0x00000100L
+#define RF14_BLANK_FAC                  0x00000200L
+#define RF14_ILL_NORM                   0x00000400L
+#define RF14_XTRA_EYES                  0x00000800L
+#define RF14_MAGIC_RES                  0x00001000L
+#define RF14_XTRA_NOIS                  0x00002000L
+#define RF14_INFRAVIS                   0x00004000L
+#define RF14_XTRA_LEGS                  0x00008000L
+#define RF14_SHORT_LEG                  0x00010000L
+#define RF14_ELEC_TOUC                  0x00020000L
+#define RF14_FIRE_BODY                  0x00040000L
+#define RF14_WART_SKIN                  0x00080000L
+#define RF14_SCALES                     0x00100000L
+#define RF14_IRON_SKIN                  0x00200000L
+#define RF14_WINGS                      0x00400000L
+#define RF14_FEARLESS                   0x00800000L
+#define RF14_REGEN                      0x01000000L
+#define RF14_ESP                        0x02000000L
+#define RF14_LIMBER                     0x04000000L
+#define RF14_ARTHRITIS                  0x08000000L
+#define RF14_BAD_LUCK                   0x10000000L
+#define RF14_VULN_ELEM                  0x20000000L
+#define RF14_MOTION                     0x40000000L
+#define RF14_GOOD_LUCK                  0x80000000L
 
 
 
@@ -4295,14 +4296,14 @@
 /*
  * Hack -- effective elemental and poison immunity mask
  */
-#define RFR_EFF_IM_ACID_MASK  (RFR_IM_ACID | RFR_RES_ALL)
-#define RFR_EFF_IM_ELEC_MASK  (RFR_IM_ELEC | RFR_RES_ALL)
-#define RFR_EFF_IM_FIRE_MASK  (RFR_IM_FIRE | RFR_RES_ALL)
-#define RFR_EFF_IM_COLD_MASK  (RFR_IM_COLD | RFR_RES_ALL)
-#define RFR_EFF_IM_POIS_MASK  (RFR_IM_POIS | RFR_RES_ALL)
-#define RFR_EFF_RES_SHAR_MASK (RFR_RES_SHAR | RFR_RES_ALL)
-#define RFR_EFF_RES_CHAO_MASK (RFR_RES_CHAO | RFR_RES_ALL)
-#define RFR_EFF_RES_NEXU_MASK (RFR_RES_NEXU | RFR_RES_ALL)
+#define RF10_EFF_IM_ACID_MASK  (RF10_IM_ACID | RF10_RES_ALL)
+#define RF10_EFF_IM_ELEC_MASK  (RF10_IM_ELEC | RF10_RES_ALL)
+#define RF10_EFF_IM_FIRE_MASK  (RF10_IM_FIRE | RF10_RES_ALL)
+#define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
+#define RF10_EFF_IM_POIS_MASK  (RF10_IM_POIS | RF10_RES_ALL)
+#define RF10_EFF_RES_SHAR_MASK (RF10_RES_SHAR | RF10_RES_ALL)
+#define RF10_EFF_RES_CHAO_MASK (RF10_RES_CHAO | RF10_RES_ALL)
+#define RF10_EFF_RES_NEXU_MASK (RF10_RES_NEXU | RF10_RES_ALL)
 
 
 #define MR1_SINKA 0x01

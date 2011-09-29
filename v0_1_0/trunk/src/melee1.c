@@ -1947,7 +1947,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 			{
 				if (tar_ptr->sh_fire && alive && !tar_ptr->is_dead)
 				{
-					if (!(r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK))
+					if (!(r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK))
 					{
 						int dam = damroll(2, 6);
 
@@ -1970,13 +1970,13 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_FIRE_MASK);
+							r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 					}
 				}
 
 				if (tar_ptr->sh_elec && alive && !tar_ptr->is_dead)
 				{
-					if (!(r_ptr->flags10 & RFR_EFF_IM_ELEC_MASK))
+					if (!(r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK))
 					{
 						int dam = damroll(2, 6);
 
@@ -1999,13 +1999,13 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_ELEC_MASK);
+							r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 					}
 				}
 
 				if (tar_ptr->sh_cold && alive && !tar_ptr->is_dead)
 				{
-					if (!(r_ptr->flags10 & RFR_EFF_IM_COLD_MASK))
+					if (!(r_ptr->flags10 & RF10_EFF_IM_COLD_MASK))
 					{
 						int dam = damroll(2, 6);
 
@@ -2028,14 +2028,14 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_IM_COLD_MASK);
+							r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
 					}
 				}
 
 				/* by henkma */
 				if (tar_ptr->dustrobe && alive && !tar_ptr->is_dead)
 				{
-					if (!(r_ptr->flags10 & RFR_EFF_RES_SHAR_MASK))
+					if (!(r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK))
 					{
 						int dam = damroll(2, 6);
 
@@ -2058,7 +2058,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (r_ptr->flags10 & RFR_EFF_RES_SHAR_MASK);
+							r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 					}
 
 					if (is_mirror_grid(&cave[tar_ptr->fy][tar_ptr->fx]))
@@ -2096,7 +2096,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 						else
 						{
 							if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-								r_ptr->r_flags10 |= RFR_RES_ALL;
+								r_ptr->r_flags10 |= RF10_RES_ALL;
 						}
 					}
 				}
@@ -2126,7 +2126,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= RFR_RES_ALL;
+							r_ptr->r_flags10 |= RF10_RES_ALL;
 					}
 				}
 
@@ -2135,7 +2135,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					int dam = 1;
 					object_type *o_ptr = &tar_ptr->inventory[INVEN_1STARM];
 
-					if (!(atk_ptr->resist_ultimate || r_ptr->flags10 & RFR_RES_DARK))
+					if (!(atk_ptr->resist_ultimate || r_ptr->flags10 & RF10_RES_DARK))
 					{
 						if (o_ptr->k_idx)
 						{
@@ -2185,7 +2185,7 @@ msg_format("%sは体力を回復したようだ。", atk_name);
 					else
 					{
 						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (RFR_RES_ALL | RFR_RES_DARK);
+							r_ptr->r_flags10 |= (RF10_RES_ALL | RF10_RES_DARK);
 					}
 				}
 			}
