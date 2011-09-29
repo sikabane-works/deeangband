@@ -350,7 +350,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 		{
 			if (cr_ptr->tim_mimic > v) return FALSE;
 		}
-		else if ((!cr_ptr->tim_mimic) || (cr_ptr->mimic_form != p))
+		else if (((!cr_ptr->tim_mimic) || (cr_ptr->mimic_form != p)) && is_seen(player_ptr, cr_ptr))
 		{
 
 //TODO:MESSAGE
@@ -367,7 +367,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_mimic)
+		if (cr_ptr->tim_mimic && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 			msg_print("変身が解けた。");
@@ -523,7 +523,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->confused)
+		if (!cr_ptr->confused && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("あなたは混乱した！");
@@ -584,7 +584,7 @@ msg_print("あなたは混乱した！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->confused)
+		if (cr_ptr->confused && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("やっと混乱がおさまった。");
@@ -666,10 +666,10 @@ bool set_poisoned(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->poisoned)
+		if (!cr_ptr->poisoned && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("毒に侵されてしまった！");
+			msg_print("毒に侵されてしまった！");
 #else
 			msg_print("You are poisoned!");
 #endif
@@ -681,10 +681,10 @@ msg_print("毒に侵されてしまった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->poisoned)
+		if (cr_ptr->poisoned && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("やっと毒の痛みがなくなった。");
+			msg_print("やっと毒の痛みがなくなった。");
 #else
 			msg_print("You are no longer poisoned.");
 #endif
@@ -858,7 +858,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->paralyzed)
+		if (!cr_ptr->paralyzed && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("体が麻痺してしまった！");
@@ -880,7 +880,7 @@ msg_print("体が麻痺してしまった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->paralyzed)
+		if (cr_ptr->paralyzed && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("やっと動けるようになった。");
@@ -983,7 +983,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	if (v)
 	{
 		set_tsuyoshi(cr_ptr, 0, TRUE);
-		if (!cr_ptr->image)
+		if (!cr_ptr->image && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("ワーオ！何もかも虹色に見える！");
@@ -1002,7 +1002,7 @@ msg_print("ワーオ！何もかも虹色に見える！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->image)
+		if (cr_ptr->image && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("やっとはっきりと物が見えるようになった。");
@@ -1068,7 +1068,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->fast > v) return FALSE;
 		}
-		else if (!IS_FAST(cr_ptr) && !cr_ptr->lightspeed)
+		else if (!IS_FAST(cr_ptr) && !cr_ptr->lightspeed && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("素早く動けるようになった！");
@@ -1083,10 +1083,10 @@ msg_print("素早く動けるようになった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->fast && !cr_ptr->lightspeed && !music_singing(cr_ptr, MUSIC_SPEED) && !music_singing(cr_ptr, MUSIC_SHERO))
+		if (cr_ptr->fast && !cr_ptr->lightspeed && !music_singing(cr_ptr, MUSIC_SPEED) && !music_singing(cr_ptr, MUSIC_SHERO) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("動きの素早さがなくなったようだ。");
+			msg_print("動きの素早さがなくなったようだ。");
 #else
 			msg_print("You feel yourself slow down.");
 #endif
@@ -1170,7 +1170,7 @@ bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->lightspeed > v) return FALSE;
 		}
-		else if (!cr_ptr->lightspeed)
+		else if (!cr_ptr->lightspeed && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("非常に素早く動けるようになった！");
@@ -1185,7 +1185,7 @@ msg_print("非常に素早く動けるようになった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->lightspeed)
+		if (cr_ptr->lightspeed && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("動きの素早さがなくなったようだ。");
@@ -1239,7 +1239,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->slow > v) return FALSE;
 		}
-		else if (!cr_ptr->slow)
+		else if (!cr_ptr->slow && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("体の動きが遅くなってしまった！");
@@ -1254,7 +1254,7 @@ msg_print("体の動きが遅くなってしまった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->slow)
+		if (cr_ptr->slow && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("動きの遅さがなくなったようだ。");
@@ -1341,10 +1341,10 @@ bool set_shield(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->shield > v) return FALSE;
 		}
-		else if (!cr_ptr->shield)
+		else if (!cr_ptr->shield && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("肌が石になった。");
+			msg_print("肌が石になった。");
 #else
 			msg_print("Your skin turns to stone.");
 #endif
@@ -1356,10 +1356,10 @@ msg_print("肌が石になった。");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->shield)
+		if (cr_ptr->shield && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("肌が元に戻った。");
+			msg_print("肌が元に戻った。");
 #else
 			msg_print("Your skin returns to normal.");
 #endif
@@ -1411,10 +1411,10 @@ bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tsubureru > v) return FALSE;
 		}
-		else if (!cr_ptr->tsubureru)
+		else if (!cr_ptr->tsubureru && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("横に伸びた。");
+			msg_print("横に伸びた。");
 #else
 			msg_print("Your body expands horizontally.");
 #endif
@@ -1426,10 +1426,10 @@ msg_print("横に伸びた。");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tsubureru)
+		if (cr_ptr->tsubureru && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("もう横に伸びていない。");
+			msg_print("もう横に伸びていない。");
 #else
 			msg_print("Your body returns to normal.");
 #endif
@@ -1481,7 +1481,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->magicdef > v) return FALSE;
 		}
-		else if (!cr_ptr->magicdef)
+		else if (!cr_ptr->magicdef && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 			msg_print("魔法の防御力が増したような気がする。");
@@ -1496,7 +1496,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (cr_ptr->magicdef)
+		if (cr_ptr->magicdef && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 			msg_print("魔法の防御力が元に戻った。");
@@ -1551,7 +1551,7 @@ bool set_blessed(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->blessed > v) return FALSE;
 		}
-		else if (!IS_BLESSED(cr_ptr))
+		else if (!IS_BLESSED(cr_ptr) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("高潔な気分になった！");
@@ -1566,7 +1566,7 @@ msg_print("高潔な気分になった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->blessed && !music_singing(cr_ptr, MUSIC_BLESS))
+		if (cr_ptr->blessed && !music_singing(cr_ptr, MUSIC_BLESS) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("高潔な気分が消え失せた。");
@@ -1620,7 +1620,7 @@ bool set_hero(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->hero > v) return FALSE;
 		}
-		else if (!IS_HERO(cr_ptr))
+		else if (!IS_HERO(cr_ptr) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("ヒーローになった気がする！");
@@ -1635,7 +1635,7 @@ msg_print("ヒーローになった気がする！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->hero && !music_singing(cr_ptr, MUSIC_HERO) && !music_singing(cr_ptr, MUSIC_SHERO))
+		if (cr_ptr->hero && !music_singing(cr_ptr, MUSIC_HERO) && !music_singing(cr_ptr, MUSIC_SHERO) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("ヒーローの気分が消え失せた。");
@@ -1693,7 +1693,7 @@ bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 		{
 			if (cr_ptr->shero > v) return FALSE;
 		}
-		else if (!cr_ptr->shero)
+		else if (!cr_ptr->shero && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("殺戮マシーンになった気がする！");
@@ -1708,7 +1708,7 @@ msg_print("殺戮マシーンになった気がする！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->shero)
+		if (cr_ptr->shero && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("野蛮な気持ちが消え失せた。");
@@ -1765,7 +1765,7 @@ bool set_protevil(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->protevil > v) return FALSE;
 		}
-		else if (!cr_ptr->protevil)
+		else if (!cr_ptr->protevil && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("邪悪なる存在から守られているような感じがする！");
@@ -1780,7 +1780,7 @@ msg_print("邪悪なる存在から守られているような感じがする！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->protevil)
+		if (cr_ptr->protevil && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("邪悪なる存在から守られている感じがなくなった。");
@@ -1830,7 +1830,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->wraith_form > v) return FALSE;
 		}
-		else if (!cr_ptr->wraith_form)
+		else if (!cr_ptr->wraith_form && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("物質界を離れて幽鬼のような存在になった！");
@@ -1854,7 +1854,7 @@ msg_print("物質界を離れて幽鬼のような存在になった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->wraith_form)
+		if (cr_ptr->wraith_form && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("不透明になった感じがする。");
@@ -1921,7 +1921,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->invuln > v) return FALSE;
 		}
-		else if (!IS_INVULN(cr_ptr))
+		else if (!IS_INVULN(cr_ptr) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("無敵だ！");
@@ -1945,7 +1945,7 @@ msg_print("無敵だ！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->invuln && !music_singing(cr_ptr, MUSIC_INVULN))
+		if (cr_ptr->invuln && !music_singing(cr_ptr, MUSIC_INVULN) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("無敵ではなくなった。");
@@ -2047,7 +2047,7 @@ bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_esp > v) return FALSE;
 		}
-		else if (!IS_TIM_ESP(cr_ptr))
+		else if (!IS_TIM_ESP(cr_ptr) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("意識が広がった気がする！");
@@ -2062,7 +2062,7 @@ msg_print("意識が広がった気がする！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_esp && !music_singing(cr_ptr, MUSIC_MIND))
+		if (cr_ptr->tim_esp && !music_singing(cr_ptr, MUSIC_MIND) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("意識は元に戻った。");
@@ -2119,7 +2119,7 @@ bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_invis > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_invis)
+		else if (!cr_ptr->tim_invis && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("目が非常に敏感になった気がする！");
@@ -2134,7 +2134,7 @@ msg_print("目が非常に敏感になった気がする！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_invis)
+		if (cr_ptr->tim_invis && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("目の敏感さがなくなったようだ。");
@@ -2191,7 +2191,7 @@ bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_infra > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_infra)
+		else if (!cr_ptr->tim_infra && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("目がランランと輝き始めた！");
@@ -2206,7 +2206,7 @@ msg_print("目がランランと輝き始めた！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_infra)
+		if (cr_ptr->tim_infra && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("目の輝きがなくなった。");
@@ -2263,7 +2263,7 @@ bool set_tim_regen(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_regen > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_regen)
+		else if (!cr_ptr->tim_regen && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("回復力が上がった！");
@@ -2278,7 +2278,7 @@ msg_print("回復力が上がった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_regen)
+		if (cr_ptr->tim_regen && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("素早く回復する感じがなくなった。");
@@ -2332,7 +2332,7 @@ bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_stealth > v) return FALSE;
 		}
-		else if (!IS_TIM_STEALTH(cr_ptr))
+		else if (!IS_TIM_STEALTH(cr_ptr) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("足音が小さくなった！");
@@ -2347,7 +2347,7 @@ msg_print("足音が小さくなった！");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_stealth && !music_singing(cr_ptr, MUSIC_STEALTH))
+		if (cr_ptr->tim_stealth && !music_singing(cr_ptr, MUSIC_STEALTH) && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("足音が大きくなった。");
@@ -2395,20 +2395,26 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 		{
 			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_MNLT)
 			{
+				if(is_seen(player_ptr, cr_ptr))
+				{
 #ifdef JP
-				msg_print("敵の目から薄い影の中に覆い隠された。");
+					msg_print("敵の目から薄い影の中に覆い隠された。");
 #else
-				msg_print("You are mantled in weak shadow from ordinary eyes.");
+					msg_print("You are mantled in weak shadow from ordinary eyes.");
 #endif
+				}
 				cr_ptr->monlite = cr_ptr->old_monlite = TRUE;
 			}
 			else
 			{
+				if(is_seen(player_ptr, cr_ptr))
+				{
 #ifdef JP
 				msg_print("敵の目から影の中に覆い隠された！");
 #else
 				msg_print("You are mantled in shadow from ordinary eyes!");
 #endif
+				}
 				cr_ptr->monlite = cr_ptr->old_monlite = FALSE;
 			}
 
@@ -2424,11 +2430,14 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	{
 		if (cr_ptr->special_defense & NINJA_S_STEALTH)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-			msg_print("再び敵の目にさらされるようになった。");
+				msg_print("再び敵の目にさらされるようになった。");
 #else
-			msg_print("You are exposed to common sight once more.");
+				msg_print("You are exposed to common sight once more.");
 #endif
+			}
 
 			notice = TRUE;
 
@@ -2470,10 +2479,10 @@ bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_levitation > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_levitation)
+		else if (!cr_ptr->tim_levitation && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("体が宙に浮き始めた。");
+			msg_print("体が宙に浮き始めた。");
 #else
 			msg_print("You begin to fly!");
 #endif
@@ -2485,10 +2494,10 @@ msg_print("体が宙に浮き始めた。");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_levitation)
+		if (cr_ptr->tim_levitation && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-msg_print("もう宙に浮かべなくなった。");
+			msg_print("もう宙に浮かべなくなった。");
 #else
 			msg_print("You stop flying.");
 #endif
@@ -2539,7 +2548,7 @@ bool set_tim_sh_touki(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_sh_touki > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_sh_touki)
+		else if (!cr_ptr->tim_sh_touki && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("体が闘気のオーラで覆われた。");
@@ -2554,7 +2563,7 @@ msg_print("体が闘気のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_sh_touki)
+		if (cr_ptr->tim_sh_touki && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("闘気が消えた。");
@@ -2605,7 +2614,7 @@ bool set_tim_sh_fire(creature_type *cr_ptr, int v, bool do_dec)
 		{
 			if (cr_ptr->tim_sh_fire > v) return FALSE;
 		}
-		else if (!cr_ptr->tim_sh_fire)
+		else if (!cr_ptr->tim_sh_fire && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("体が炎のオーラで覆われた。");
@@ -2620,7 +2629,7 @@ msg_print("体が炎のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (cr_ptr->tim_sh_fire)
+		if (cr_ptr->tim_sh_fire && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 msg_print("炎のオーラが消えた。");
@@ -2676,12 +2685,14 @@ bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->tim_sh_holy)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体が聖なるオーラで覆われた。");
+				msg_print("体が聖なるオーラで覆われた。");
 #else
-			msg_print("You have enveloped by holy aura!");
+				msg_print("You have enveloped by holy aura!");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2691,12 +2702,14 @@ msg_print("体が聖なるオーラで覆われた。");
 	{
 		if (cr_ptr->tim_sh_holy)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("聖なるオーラが消えた。");
+				msg_print("聖なるオーラが消えた。");
 #else
-			msg_print("Holy aura disappeared.");
+				msg_print("Holy aura disappeared.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2746,12 +2759,15 @@ bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->tim_eyeeye)
 		{
+
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("法の守り手になった気がした！");
+			msg_print("法の守り手になった気がした！");
 #else
 			msg_print("You feel like a keeper of commandments!");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2761,11 +2777,14 @@ msg_print("法の守り手になった気がした！");
 	{
 		if (cr_ptr->tim_eyeeye)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("懲罰を執行することができなくなった。");
+				msg_print("懲罰を執行することができなくなった。");
 #else
-			msg_print("You no longer feel like a keeper.");
+				msg_print("You no longer feel like a keeper.");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -2816,11 +2835,14 @@ bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->resist_magic)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("魔法への耐性がついた。");
+				msg_print("魔法への耐性がついた。");
 #else
-			msg_print("You have been protected from magic!");
+				msg_print("You have been protected from magic!");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -2831,12 +2853,14 @@ msg_print("魔法への耐性がついた。");
 	{
 		if (cr_ptr->resist_magic)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("魔法に弱くなった。");
+				msg_print("魔法に弱くなった。");
 #else
-msg_print("You are no longer protected from magic.");
+				msg_print("You are no longer protected from magic.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2885,12 +2909,14 @@ bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->tim_reflect)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体の表面が滑かになった気がする。");
+				msg_print("体の表面が滑かになった気がする。");
 #else
-			msg_print("Your body becames smooth.");
+				msg_print("Your body becames smooth.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2900,11 +2926,14 @@ msg_print("体の表面が滑かになった気がする。");
 	{
 		if (cr_ptr->tim_reflect)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体の表面が滑かでなくなった。");
+				msg_print("体の表面が滑かでなくなった。");
 #else
-			msg_print("Your body is no longer smooth.");
+				msg_print("Your body is no longer smooth.");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -2954,12 +2983,14 @@ bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->multishadow)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("あなたの周りに幻影が生まれた。");
+				msg_print("あなたの周りに幻影が生まれた。");
 #else
-			msg_print("Your Shadow enveloped you.");
+				msg_print("Your Shadow enveloped you.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -2969,12 +3000,14 @@ msg_print("あなたの周りに幻影が生まれた。");
 	{
 		if (cr_ptr->multishadow)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("幻影が消えた。");
+				msg_print("幻影が消えた。");
 #else
-			msg_print("Your Shadow disappears.");
+				msg_print("Your Shadow disappears.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -3023,12 +3056,14 @@ bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->dustrobe)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体が鏡のオーラで覆われた。");
+				msg_print("体が鏡のオーラで覆われた。");
 #else
-			msg_print("You were enveloped by mirror shards.");
+				msg_print("You were enveloped by mirror shards.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -3039,10 +3074,13 @@ msg_print("体が鏡のオーラで覆われた。");
 		if (cr_ptr->dustrobe)
 		{
 #ifdef JP
-msg_print("鏡のオーラが消えた。");
+			if(is_seen(player_ptr, cr_ptr))
+			{
+			msg_print("鏡のオーラが消えた。");
 #else
 			msg_print("The mirror shards disappear.");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -3092,11 +3130,14 @@ bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->kabenuke)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体が半物質の状態になった。");
+				msg_print("体が半物質の状態になった。");
 #else
-			msg_print("You became ethereal form.");
+				msg_print("You became ethereal form.");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -3107,12 +3148,14 @@ msg_print("体が半物質の状態になった。");
 	{
 		if (cr_ptr->kabenuke)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("体が物質化した。");
+				msg_print("体が物質化した。");
 #else
-			msg_print("You are no longer in an ethereal form.");
+				msg_print("You are no longer in an ethereal form.");
 #endif
-
+			}
 			notice = TRUE;
 		}
 	}
@@ -3158,11 +3201,14 @@ bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 		}
 		else if (!cr_ptr->tsuyoshi)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("「オクレ兄さん！」");
+			msg_print("「オクレ兄さん！」");
 #else
 			msg_print("Brother OKURE!");
 #endif
+			}
 
 			notice = TRUE;
 		}
@@ -3173,11 +3219,14 @@ msg_print("「オクレ兄さん！」");
 	{
 		if (cr_ptr->tsuyoshi)
 		{
+			if(is_seen(player_ptr, cr_ptr))
+			{
 #ifdef JP
-msg_print("肉体が急速にしぼんでいった。");
+				msg_print("肉体が急速にしぼんでいった。");
 #else
-			msg_print("Your body had quickly shriveled.");
+				msg_print("Your body had quickly shriveled.");
 #endif
+			}
 
 			(void)dec_stat(cr_ptr, A_CON, 20, TRUE);
 			(void)dec_stat(cr_ptr, A_STR, 20, TRUE);
@@ -3225,47 +3274,69 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 	if ((cr_ptr->special_attack & (ATTACK_ACID)) && (attack_type != ATTACK_ACID))
 	{
 		cr_ptr->special_attack &= ~(ATTACK_ACID);
+
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("酸で攻撃できなくなった。");
+			msg_print("酸で攻撃できなくなった。");
 #else
-		msg_print("Your temporary acidic brand fades away.");
+			msg_print("Your temporary acidic brand fades away.");
 #endif
+		}
+
 	}
+
 	if ((cr_ptr->special_attack & (ATTACK_ELEC)) && (attack_type != ATTACK_ELEC))
 	{
 		cr_ptr->special_attack &= ~(ATTACK_ELEC);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("電撃で攻撃できなくなった。");
+			msg_print("電撃で攻撃できなくなった。");
 #else
-		msg_print("Your temporary electrical brand fades away.");
+			msg_print("Your temporary electrical brand fades away.");
 #endif
+		}	
 	}
+
 	if ((cr_ptr->special_attack & (ATTACK_FIRE)) && (attack_type != ATTACK_FIRE))
 	{
 		cr_ptr->special_attack &= ~(ATTACK_FIRE);
+
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("火炎で攻撃できなくなった。");
+			msg_print("火炎で攻撃できなくなった。");
 #else
-		msg_print("Your temporary fiery brand fades away.");
+			msg_print("Your temporary fiery brand fades away.");
 #endif
+		}
 	}
+
 	if ((cr_ptr->special_attack & (ATTACK_COLD)) && (attack_type != ATTACK_COLD))
 	{
 		cr_ptr->special_attack &= ~(ATTACK_COLD);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("冷気で攻撃できなくなった。");
+			msg_print("冷気で攻撃できなくなった。");
 #else
-		msg_print("Your temporary frost brand fades away.");
+			msg_print("Your temporary frost brand fades away.");
 #endif
+		}
 	}
+
 	if ((cr_ptr->special_attack & (ATTACK_POIS)) && (attack_type != ATTACK_POIS))
 	{
 		cr_ptr->special_attack &= ~(ATTACK_POIS);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("毒で攻撃できなくなった。");
+			msg_print("毒で攻撃できなくなった。");
 #else
-		msg_print("Your temporary poison brand fades away.");
+			msg_print("Your temporary poison brand fades away.");
 #endif
+		}
 	}
 
 	if ((v) && (attack_type))
@@ -3277,8 +3348,10 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 		cr_ptr->ele_attack = v;
 
 		/* Message. */
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_format("%sで攻撃できるようになった！",
+			msg_format("%sで攻撃できるようになった！",
 			     ((attack_type == ATTACK_ACID) ? "酸" :
 			      ((attack_type == ATTACK_ELEC) ? "電撃" :
 			       ((attack_type == ATTACK_FIRE) ? "火炎" : 
@@ -3286,7 +3359,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 				 ((attack_type == ATTACK_POIS) ? "毒" : 
 					"(なし)"))))));
 #else
-		msg_format("For a while, the blows you deal will %s",
+			msg_format("For a while, the blows you deal will %s",
 			     ((attack_type == ATTACK_ACID) ? "melt with acid!" :
 			      ((attack_type == ATTACK_ELEC) ? "shock your foes!" :
 			       ((attack_type == ATTACK_FIRE) ? "burn with fire!" : 
@@ -3294,6 +3367,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 				 ((attack_type == ATTACK_POIS) ? "poison your enemies!" : 
 					"do nothing special."))))));
 #endif
+		}
 	}
 
 	/* Disturb */
@@ -3324,47 +3398,62 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 	if ((cr_ptr->special_defense & (DEFENSE_ACID)) && (immune_type != DEFENSE_ACID))
 	{
 		cr_ptr->special_defense &= ~(DEFENSE_ACID);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("酸の攻撃で傷つけられるようになった。。");
+			msg_print("酸の攻撃で傷つけられるようになった。。");
 #else
-		msg_print("You are no longer immune to acid.");
+			msg_print("You are no longer immune to acid.");
 #endif
+		}
 	}
 	if ((cr_ptr->special_defense & (DEFENSE_ELEC)) && (immune_type != DEFENSE_ELEC))
 	{
 		cr_ptr->special_defense &= ~(DEFENSE_ELEC);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("電撃の攻撃で傷つけられるようになった。。");
+			msg_print("電撃の攻撃で傷つけられるようになった。。");
 #else
-		msg_print("You are no longer immune to electricity.");
+			msg_print("You are no longer immune to electricity.");
 #endif
+		}
 	}
 	if ((cr_ptr->special_defense & (DEFENSE_FIRE)) && (immune_type != DEFENSE_FIRE))
 	{
 		cr_ptr->special_defense &= ~(DEFENSE_FIRE);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("火炎の攻撃で傷つけられるようになった。。");
+			msg_print("火炎の攻撃で傷つけられるようになった。。");
 #else
-		msg_print("You are no longer immune to fire.");
+			msg_print("You are no longer immune to fire.");
 #endif
+		}
 	}
 	if ((cr_ptr->special_defense & (DEFENSE_COLD)) && (immune_type != DEFENSE_COLD))
 	{
 		cr_ptr->special_defense &= ~(DEFENSE_COLD);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("冷気の攻撃で傷つけられるようになった。。");
+			msg_print("冷気の攻撃で傷つけられるようになった。。");
 #else
-		msg_print("You are no longer immune to cold.");
+			msg_print("You are no longer immune to cold.");
 #endif
+		}
 	}
 	if ((cr_ptr->special_defense & (DEFENSE_POIS)) && (immune_type != DEFENSE_POIS))
 	{
 		cr_ptr->special_defense &= ~(DEFENSE_POIS);
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_print("毒の攻撃で傷つけられるようになった。。");
+			msg_print("毒の攻撃で傷つけられるようになった。。");
 #else
-		msg_print("You are no longer immune to poison.");
+			msg_print("You are no longer immune to poison.");
 #endif
+		}
 	}
 
 	if ((v) && (immune_type))
@@ -3376,8 +3465,10 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 		cr_ptr->ele_immune = v;
 
 		/* Message. */
+		if(is_seen(player_ptr, cr_ptr))
+		{
 #ifdef JP
-		msg_format("%sの攻撃を受けつけなくなった！",
+			msg_format("%sの攻撃を受けつけなくなった！",
 			     ((immune_type == DEFENSE_ACID) ? "酸" :
 			      ((immune_type == DEFENSE_ELEC) ? "電撃" :
 			       ((immune_type == DEFENSE_FIRE) ? "火炎" : 
@@ -3385,7 +3476,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 				 ((immune_type == DEFENSE_POIS) ? "毒" : 
 					"(なし)"))))));
 #else
-		msg_format("For a while, You are immune to %s",
+			msg_format("For a while, You are immune to %s",
 			     ((immune_type == DEFENSE_ACID) ? "acid!" :
 			      ((immune_type == DEFENSE_ELEC) ? "electricity!" :
 			       ((immune_type == DEFENSE_FIRE) ? "fire!" : 
@@ -3393,6 +3484,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 				 ((immune_type == DEFENSE_POIS) ? "poison!" : 
 					"do nothing special."))))));
 #endif
+		}
 	}
 
 	/* Disturb */
