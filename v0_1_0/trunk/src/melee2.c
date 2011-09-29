@@ -2804,31 +2804,6 @@ msg_format("%^s%s", m_name, monmessage);
 		if (did_kill_wall) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 	}
 
-
-	/* Hack -- get "bold" if out of options */
-	if (!do_turn && !do_move && m_ptr->afraid && aware)
-	{
-		/* No longer afraid */
-		(void)set_afraid(m_ptr, 0);
-
-		/* Message if seen */
-		if (see_m)
-		{
-			char m_name[80];
-
-			/* Acquire the monster name */
-			monster_desc(m_name, m_ptr, 0);
-
-			/* Dump a message */
-#ifdef JP
-			msg_format("%^s‚Íí‚¢‚ðŒˆˆÓ‚µ‚½I", m_name);
-#else
-			msg_format("%^s turns to fight!", m_name);
-#endif
-		}
-
-		/* XXX XXX XXX Actually do something now (?) */
-	}
 }
 
 /*
@@ -3320,30 +3295,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		if (set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->species_idx].level / 20 + 1)))
-		{
-			/* Visual note */
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-#ifndef JP
-				char m_poss[80];
-
-				/* Acquire the monster possessive */
-				monster_desc(m_poss, cr_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
-#endif
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚Í—E‹C‚ðŽæ‚è–ß‚µ‚½B", m_name);
-#else
-				msg_format("%^s recovers %s courage.", m_name, m_poss);
-#endif
-			}
-		}
+		set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_INVULNER:
