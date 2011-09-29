@@ -3205,92 +3205,25 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
-		if (set_fast(cr_ptr, cr_ptr->fast - 1, FALSE))
-		{
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚Í‚à‚¤‰Á‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);
-#else
-				msg_format("%^s is no longer fast.", m_name);
-#endif
-			}
-		}
+		set_fast(cr_ptr, cr_ptr->fast - 1, FALSE);
 		break;
 
 	case MTIMED_SLOW:
 		/* Reduce by one, note if expires */
-		if (set_slow(cr_ptr, cr_ptr->slow - 1, FALSE))
-		{
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚Í‚à‚¤Œ¸‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);
-#else
-				msg_format("%^s is no longer slow.", m_name);
-#endif
-			}
-		}
+		set_slow(cr_ptr, cr_ptr->slow - 1, FALSE);
 		break;
 
 	case MTIMED_STUNNED:
 	{
 		int rlev = r_info[cr_ptr->species_idx].level;
-
 		/* Recover from stun */
-		if (set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1)))
-		{
-			/* Message if visible */
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚ÍNOó‘Ô‚©‚ç—§‚¿’¼‚Á‚½B", m_name);
-#else
-				msg_format("%^s is no longer stunned.", m_name);
-#endif
-			}
-		}
+		set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1));
 		break;
 	}
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		if (set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->species_idx].level / 20 + 1)))
-		{
-			/* Message if visible */
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚Í¬—‚©‚ç—§‚¿’¼‚Á‚½B", m_name);
-#else
-				msg_format("%^s is no longer confused.", m_name);
-#endif
-			}
-		}
+		set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_MONFEAR:
@@ -3299,24 +3232,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 		break;
 
 	case MTIMED_INVULNER:
-		/* Reduce by one, note if expires */
-		if (set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE))
-		{
-			if (is_seen(watcher_ptr, cr_ptr))
-			{
-				char m_name[80];
-
-				/* Acquire the monster name */
-				monster_desc(m_name, cr_ptr, 0);
-
-				/* Dump a message */
-#ifdef JP
-				msg_format("%^s‚Í‚à‚¤–³“G‚Å‚È‚¢B", m_name);
-#else
-				msg_format("%^s is no longer invulnerable.", m_name);
-#endif
-			}
-		}
+		set_invuln(cr_ptr, cr_ptr->invuln - 1, TRUE);
 		break;
 	}
 }
