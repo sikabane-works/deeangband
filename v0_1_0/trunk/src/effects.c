@@ -731,7 +731,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!cr_ptr->afraid)
+		if (!cr_ptr->afraid && is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
 			msg_format("%s‚Í‹°•|‚ÉŠ×‚Á‚½I", name);
@@ -742,9 +742,9 @@ bool set_afraid(creature_type *cr_ptr, int v)
 			if (cr_ptr->special_defense & KATA_MASK)
 			{
 #ifdef JP
-				msg_print("Œ^‚ª•ö‚ê‚½B");
+				msg_format("%s‚ÌŒ^‚ª•ö‚ê‚½B", name);
 #else
-				msg_print("Your posture gets loose.");
+				msg_format("%s%s posture gets loose.", name, is_player(cr_ptr) ? "r": "'s");
 #endif
 				cr_ptr->special_defense &= ~(KATA_MASK);
 				cr_ptr->update |= (PU_BONUS);
@@ -762,13 +762,13 @@ bool set_afraid(creature_type *cr_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (cr_ptr->afraid)
+		if (cr_ptr->afraid && is_seen(player_ptr, cr_ptr))
 		{
 			
 #ifdef JP
-			msg_print("‚â‚Á‚Æ‹°•|‚ğU‚è•¥‚Á‚½B");
+			msg_format("%s‚Í‹°•|‚ğU‚è•¥‚Á‚½B", name);
 #else
-			msg_print("You feel bolder now.");
+			msg_format("%s feel%s bolder now.", name, is_player(cr_ptr) ? "" : "s" );
 #endif
 
 			notice = TRUE;
