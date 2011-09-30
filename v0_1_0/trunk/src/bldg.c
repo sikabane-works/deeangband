@@ -23,7 +23,7 @@ static bool is_owner(creature_type *cr_ptr, building_type *bldg)
 		return (TRUE);
 	}
 
-	if (bldg->member_race[cr_ptr->irace_idx] == BUILDING_OWNER)
+	if (bldg->member_race[cr_ptr->race_idx1] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
@@ -45,7 +45,7 @@ static bool is_member(creature_type *cr_ptr, building_type *bldg)
 		return (TRUE);
 	}
 
-	if (bldg->member_race[cr_ptr->irace_idx])
+	if (bldg->member_race[cr_ptr->race_idx1])
 	{
 		return (TRUE);
 	}
@@ -1679,7 +1679,7 @@ static bool vault_aux_battle(int species_idx)
 
 	/* Decline unique monsters */
 /*	if (r_ptr->flags1 & (RF1_UNIQUE)) return (FALSE); */
-/*	if (r_ptr->irace_idx == RACE_NAZGUL) return (FALSE); */
+/*	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE); */
 
 	if (r_ptr->flags1 & (RF1_NEVER_MOVE)) return (FALSE);
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) return (FALSE);
@@ -2552,7 +2552,7 @@ void have_nightmare(creature_type *cr_ptr, int species_idx)
 
 	if (!cr_ptr->mimic_form)
 	{
-		switch (cr_ptr->irace_idx)
+		switch (cr_ptr->race_idx1)
 		{
 		/* Demons may make a saving throw */
 		case RACE_IMP:

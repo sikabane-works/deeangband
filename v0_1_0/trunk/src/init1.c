@@ -3102,7 +3102,7 @@ errr parse_r_info_csv(char *buf, header *head)
 
 			case R_INFO_RACE:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].irace_idx = (s16b)b;
+				r_info[n].race_idx1 = (s16b)b;
 				break;
 
 			case R_INFO_CLASS:
@@ -3666,7 +3666,7 @@ errr parse_r_info(char *buf, header *head)
 	{
 		int i_race, i_class, i_faith, i_chara, magic1, magic2;
 		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d", &i_race, &i_class, &i_faith, &i_chara, &magic1, &magic2)) return (1);
-		r_ptr->irace_idx = i_race;
+		r_ptr->race_idx1 = i_race;
 		r_ptr->cls_idx = i_class;
 		r_ptr->patron_idx = i_faith;
 		r_ptr->chara_idx = i_chara;
@@ -5001,7 +5001,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (r_info[monster_index].irace_idx == RACE_NAZGUL)
+				else if (r_info[monster_index].race_idx1 == RACE_NAZGUL)
 				{
 					if (r_info[monster_index].cur_num == r_info[monster_index].max_num)
 					{
@@ -5578,9 +5578,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			else if (streq(b+1, "RACE"))
 			{
 #ifdef JP
-				v = race_info[p_ptr->irace_idx].E_title;
+				v = race_info[p_ptr->race_idx1].E_title;
 #else
-				v = race_info[p_ptr->irace_idx].title;
+				v = race_info[p_ptr->race_idx1].title;
 #endif
 			}
 

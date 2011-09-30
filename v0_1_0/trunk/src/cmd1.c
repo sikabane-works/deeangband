@@ -3045,7 +3045,7 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 					switch (atk_ptr->mimic_form)
 					{
 					case MIMIC_NONE:
-						switch (atk_ptr->irace_idx)
+						switch (atk_ptr->race_idx1)
 						{
 							case RACE_YEEK:
 							case RACE_KLACKON:

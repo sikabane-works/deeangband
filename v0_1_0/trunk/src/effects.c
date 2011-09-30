@@ -434,7 +434,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (cr_ptr->irace_idx == RACE_ANDROID)
+				if (cr_ptr->race_idx1 == RACE_ANDROID)
 				{
 #ifdef JP
 					msg_format("%sのセンサーが不能に陥った。", name);
@@ -463,7 +463,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (cr_ptr->irace_idx == RACE_ANDROID)
+				if (cr_ptr->race_idx1 == RACE_ANDROID)
 				{
 #ifdef JP
 					msg_format("%sのセンサーが復旧した。", name);
@@ -4265,10 +4265,10 @@ bool set_cut(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
-	if ((cr_ptr->irace_idx == RACE_GOLEM ||
-	    cr_ptr->irace_idx == RACE_SKELETON ||
-	    cr_ptr->irace_idx == RACE_LICH ||
-		(cr_ptr->irace_idx == RACE_ZOMBIE && cr_ptr->lev > 11)) &&
+	if ((cr_ptr->race_idx1 == RACE_GOLEM ||
+	    cr_ptr->race_idx1 == RACE_SKELETON ||
+	    cr_ptr->race_idx1 == RACE_LICH ||
+		(cr_ptr->race_idx1 == RACE_ZOMBIE && cr_ptr->lev > 11)) &&
 	    !cr_ptr->mimic_form)
 		v = 0;
 
@@ -4494,7 +4494,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 			if(is_seen(player_ptr, cr_ptr))
 			{
 #ifdef JP
-				msg_format("やっと%s。", cr_ptr->irace_idx == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
+				msg_format("やっと%s。", cr_ptr->race_idx1 == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
 #else
 				msg_print("You are no longer bleeding.");
 #endif
@@ -5454,7 +5454,7 @@ void do_poly_wounds(creature_type *cr_ptr)
 void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 {
 	cptr title = race_info[new_race].title;
-	int  old_race = cr_ptr->irace_idx;
+	int  old_race = cr_ptr->race_idx1;
 
 	if(is_seen(player_ptr, cr_ptr))
 	{
@@ -5465,15 +5465,15 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 #endif
 	}
 
-	if (cr_ptr->irace_idx < 32)
+	if (cr_ptr->race_idx1 < 32)
 	{
-		cr_ptr->old_race1 |= 1L << cr_ptr->irace_idx;
+		cr_ptr->old_race1 |= 1L << cr_ptr->race_idx1;
 	}
 	else
 	{
-		cr_ptr->old_race2 |= 1L << (cr_ptr->irace_idx-32);
+		cr_ptr->old_race2 |= 1L << (cr_ptr->race_idx1-32);
 	}
-	cr_ptr->irace_idx = new_race;
+	cr_ptr->race_idx1 = new_race;
 
 	/* Experience factor */
 	set_expfact(cr_ptr);
@@ -5483,9 +5483,9 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 
 	/* Hitdice */
 	if (cr_ptr->cls_idx == CLASS_SORCERER)
-		cr_ptr->hitdice = race_info[cr_ptr->irace_idx].r_mhp/2 + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp/2 + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 	else
-		cr_ptr->hitdice = race_info[cr_ptr->irace_idx].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
+		cr_ptr->hitdice = race_info[cr_ptr->race_idx1].r_mhp + class_info[cr_ptr->cls_idx].c_mhp + chara_info[cr_ptr->chara_idx].a_mhp;
 
 	do_cmd_rerate(cr_ptr, FALSE);
 
@@ -5499,7 +5499,7 @@ void change_race(creature_type *cr_ptr, int new_race, cptr effect_msg)
 	handle_stuff(cr_ptr);
 
 	/* Load an autopick preference file */
-	if (old_race != cr_ptr->irace_idx) autopick_load_pref(FALSE);
+	if (old_race != cr_ptr->race_idx1) autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
 	lite_spot(cr_ptr, cr_ptr->fy, cr_ptr->fx);
@@ -5519,7 +5519,7 @@ void do_poly_self(creature_type *cr_ptr)
 #endif
 	}
 
-	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->irace_idx != RACE_ANDROID))
+	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->race_idx1 != RACE_ANDROID))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -5620,14 +5620,14 @@ void do_poly_self(creature_type *cr_ptr)
 		else
 			goalexpfact = 100 + 3 * randint0(power);
 
-		if(race_info[cr_ptr->irace_idx].dr == -1)
+		if(race_info[cr_ptr->race_idx1].dr == -1)
 		{
 			do
 			{
 				new_race = randint0(MAX_RACES);
 				expfact = race_info[new_race].r_exp;
 			}
-			while (((new_race == cr_ptr->irace_idx) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
+			while (((new_race == cr_ptr->race_idx1) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
 
 			change_race(cr_ptr, new_race, effect_msg);
 		}
@@ -5644,7 +5644,7 @@ void do_poly_self(creature_type *cr_ptr)
 		if(is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-			msg_format("%sの構成が変化した！", cr_ptr->irace_idx == RACE_ANDROID ? "機械" : "内臓");
+			msg_format("%sの構成が変化した！", cr_ptr->race_idx1 == RACE_ANDROID ? "機械" : "内臓");
 #else
 			msg_print("Your internal organs are rearranged!");
 #endif
@@ -5880,7 +5880,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	if(tar_ptr->is_dead)
 	{
 		// Don't kill Amberites
-		if ((tar_ptr->irace_idx == RACE_AMBERITE) && one_in_(1))
+		if ((tar_ptr->race_idx1 == RACE_AMBERITE) && one_in_(1))
 		{
 			int curses = 1 + randint1(3);
 			bool stop_ty = FALSE;
@@ -5913,7 +5913,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		/* Dead player */
 		if (tar_ptr->chp < 0)
 		{
-			bool android = (tar_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
+			bool android = (tar_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
 	
 	#ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
 			if (!cheat_save)
@@ -6215,7 +6215,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				}
 	
 				/* When the player kills a Nazgul, it stays dead */
-				else if (r_ptr->irace_idx == RACE_NAZGUL) r_ptr->max_num--;
+				else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num--;
 			}
 	
 			/* Count all monsters killed */
@@ -6545,7 +6545,7 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 {
 	if (cr_ptr->is_dead) return;
 
-	if (cr_ptr->irace_idx == RACE_ANDROID) return;
+	if (cr_ptr->race_idx1 == RACE_ANDROID) return;
 
 	/* Gain some experience */
 	s64b_add(&(cr_ptr->exp), &(cr_ptr->exp_frac), amount, amount_frac);
@@ -6577,7 +6577,7 @@ void calc_android_exp(creature_type *cr_ptr)
 	u32b total_exp = 0;
 	if (cr_ptr->is_dead) return;
 
-	if (cr_ptr->irace_idx != RACE_ANDROID) return;
+	if (cr_ptr->race_idx1 != RACE_ANDROID) return;
 
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
@@ -6673,7 +6673,7 @@ void calc_android_exp(creature_type *cr_ptr)
  */
 void lose_exp(creature_type *cr_ptr, s32b amount)
 {
-	if (cr_ptr->irace_idx == RACE_ANDROID) return;
+	if (cr_ptr->race_idx1 == RACE_ANDROID) return;
 
 	/* Never drop below zero experience */
 	if (amount > cr_ptr->exp) amount = cr_ptr->exp;
@@ -6693,7 +6693,7 @@ void lose_exp(creature_type *cr_ptr, s32b amount)
 bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (cr_ptr->irace_idx == RACE_ANDROID) return FALSE;
+	if (cr_ptr->race_idx1 == RACE_ANDROID) return FALSE;
 
 	if (cr_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{

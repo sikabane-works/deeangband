@@ -1840,8 +1840,8 @@ static void spoil_mon_desc(cptr fname)
 		for(j = A_STR; j <= A_CHR; j++)
 		{
 			stat[j] = r_ptr->stat_max[j] / 10;
-			if(r_ptr->irace_idx != RACE_NONE)
-				stat[j] += race_info[r_ptr->irace_idx].r_adj[j];
+			if(r_ptr->race_idx1 != RACE_NONE)
+				stat[j] += race_info[r_ptr->race_idx1].r_adj[j];
 			if(r_ptr->cls_idx != CLASS_NONE)
 				stat[j] += class_info[r_ptr->cls_idx].c_adj[j];
 			/* TODO
@@ -1987,10 +1987,10 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->irace_idx < MAX_RACES)
+		else if(r_ptr->race_idx1 < MAX_RACES)
 		{
 			strcat(trait, "/Ží‘°:");
-			strcat(trait, race_info[r_ptr->irace_idx].title);
+			strcat(trait, race_info[r_ptr->race_idx1].title);
 		}
 
 		if(r_ptr->flags11 & RF11_CLASS_EGO) 

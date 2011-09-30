@@ -1666,7 +1666,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 
 					/* Damage CON (10% chance)*/
-					if ((randint1(100) < 11) && (tar_ptr->irace_idx != RACE_ANDROID))
+					if ((randint1(100) < 11) && (tar_ptr->race_idx1 != RACE_ANDROID))
 					{
 						/* 1% chance for perm. damage */
 						bool perm = one_in_(10);
@@ -1693,7 +1693,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						{
 							case 1: case 2: case 3: case 4: case 5:
 							{
-								if (tar_ptr->irace_idx == RACE_ANDROID) break;
+								if (tar_ptr->race_idx1 == RACE_ANDROID) break;
 #ifdef JP
 								msg_print("l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB");
 #else
@@ -1787,7 +1787,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 					else
 					{
-						switch (tar_ptr->irace_idx)
+						switch (tar_ptr->race_idx1)
 						{
 						case RACE_ZOMBIE:
 						case RACE_VAMPIRE:

@@ -3003,7 +3003,7 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	{
 		cptr store_name = (cptr)(stp_name + st_ptr->name);
 		cptr owner_name = r_name + r_info[st_ptr->owner_id].name;
-		cptr race_name = race_info[r_info[st_ptr->owner_id].irace_idx].title;
+		cptr race_name = race_info[r_info[st_ptr->owner_id].race_idx1].title;
 
 		/* Put the owner name and race */
 		sprintf(buf, "[%s](%ld - %d/%d)", store_name, (long)st_ptr->wealth, st_ptr->stock_num, st_ptr->stock_size);

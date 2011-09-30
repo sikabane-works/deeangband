@@ -1517,7 +1517,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 
 	if (leave_special)
 	{
-		if (cr_ptr->irace_idx == RACE_DEMON)
+		if (cr_ptr->race_idx1 == RACE_DEMON)
 		{
 			if (o_ptr->tval == TV_CORPSE &&
 			    o_ptr->sval == SV_CORPSE &&
@@ -5862,9 +5862,9 @@ static bool do_editor_command(creature_type *cr_ptr, text_body_type *tb, int com
 		/* Conditional Expression for Class and Race */
 		sprintf(expression, "?:[AND [EQU $RACE %s] [EQU $CLASS %s] [GEQ $LEVEL %02d]]", 
 #ifdef JP
-			race_info[cr_ptr->irace_idx].E_title, class_info[cr_ptr->cls_idx].E_title,
+			race_info[cr_ptr->race_idx1].E_title, class_info[cr_ptr->cls_idx].E_title,
 #else
-			race_info[cr_ptr->irace_idx].title, class_info[cr_ptr->cls_idx].title,
+			race_info[cr_ptr->race_idx1].title, class_info[cr_ptr->cls_idx].title,
 #endif
 			cr_ptr->lev
 			);

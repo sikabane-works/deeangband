@@ -530,7 +530,7 @@ errr top_twenty(void)
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
-	sprintf(the_score.p_r, "%2d", p_ptr->irace_idx);
+	sprintf(the_score.p_r, "%2d", p_ptr->race_idx1);
 	sprintf(the_score.p_c, "%2d", p_ptr->cls_idx);
 	sprintf(the_score.p_a, "%2d", p_ptr->chara_idx);
 
@@ -652,7 +652,7 @@ msg_print("スコア・ファイルが使用できません。");
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
-	sprintf(the_score.p_r, "%2d", p_ptr->irace_idx);
+	sprintf(the_score.p_r, "%2d", p_ptr->race_idx1);
 	sprintf(the_score.p_c, "%2d", p_ptr->cls_idx);
 	sprintf(the_score.p_a, "%2d", p_ptr->chara_idx);
 
@@ -758,10 +758,10 @@ msg_print("スコア・ファイルが使用できません。");
 
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-	    race_info[cr_ptr->irace_idx].title,cr_ptr->name, cr_ptr->lev);
+	    race_info[cr_ptr->race_idx1].title,cr_ptr->name, cr_ptr->lev);
 #else
 	sprintf(out_val, "You) %s the %s (Level %2d)",
-	    cr_ptr->name, race_info[cr_ptr->irace_idx].title, cr_ptr->lev);
+	    cr_ptr->name, race_info[cr_ptr->race_idx1].title, cr_ptr->lev);
 #endif
 
 	prt(out_val, (m + 8), 0);
@@ -857,14 +857,14 @@ msg_print("スコア・ファイルが使用できません。");
 	}
 
 	/* add player if qualified */
-	if ((p_ptr->irace_idx == race_num) && (p_ptr->lev >= lastlev))
+	if ((p_ptr->race_idx1 == race_num) && (p_ptr->lev >= lastlev))
 	{
 #ifdef JP
 	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-		     race_info[p_ptr->irace_idx].title,p_ptr->name, p_ptr->lev);
+		     race_info[p_ptr->race_idx1].title,p_ptr->name, p_ptr->lev);
 #else
 		sprintf(out_val, "You) %s the %s (Level %3d)",
-		    p_ptr->name, race_info[p_ptr->irace_idx].title, p_ptr->lev);
+		    p_ptr->name, race_info[p_ptr->race_idx1].title, p_ptr->lev);
 #endif
 
 		prt(out_val, (m + 8), 0);

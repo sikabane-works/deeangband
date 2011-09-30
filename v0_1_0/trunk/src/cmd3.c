@@ -427,7 +427,7 @@ sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
 		if (!get_check(dummy)) return;
 	}
 
-	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) && (cr_ptr->irace_idx != RACE_VAMPIRE) && (cr_ptr->irace_idx != RACE_ANDROID))
+	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) && (cr_ptr->race_idx1 != RACE_VAMPIRE) && (cr_ptr->race_idx1 != RACE_ANDROID))
 	{
 		char dummy[MAX_NLEN+80];
 
@@ -799,7 +799,7 @@ msg_print("クエストを達成した！");
 	}
 
 	/* The Stone Mask make the player turn into a vampire! */
-	if ((o_ptr->name1 == ART_STONEMASK) && (cr_ptr->irace_idx != RACE_VAMPIRE) && (cr_ptr->irace_idx != RACE_ANDROID))
+	if ((o_ptr->name1 == ART_STONEMASK) && (cr_ptr->race_idx1 != RACE_VAMPIRE) && (cr_ptr->race_idx1 != RACE_ANDROID))
 	{
 		/* Turn into a vampire */
 		change_race(cr_ptr, RACE_VAMPIRE, "");
@@ -1318,7 +1318,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	{
 		bool gain_expr = FALSE;
 
-		if (cr_ptr->irace_idx == RACE_ANDROID)
+		if (cr_ptr->race_idx1 == RACE_ANDROID)
 		{
 		}
 		else if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_BERSERKER))

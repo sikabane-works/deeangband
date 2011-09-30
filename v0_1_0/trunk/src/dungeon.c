@@ -2998,7 +2998,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (cr_ptr->irace_idx != RACE_ANDROID && 
+		if (cr_ptr->race_idx1 != RACE_ANDROID && 
 			((cr_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
 			cr_ptr->exp -= (cr_ptr->lev+1)/2;
@@ -6413,7 +6413,7 @@ static void load_all_pref_files(creature_type *cr_ptr)
 	process_pref_file(buf);
 
 	/* Access the "race" pref file */
-	sprintf(buf, "%s.prf", race_info[cr_ptr->irace_idx].title);
+	sprintf(buf, "%s.prf", race_info[cr_ptr->race_idx1].title);
 
 	/* Process that file */
 	process_pref_file(buf);
@@ -6563,7 +6563,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 		r_ptr = &r_info[today_mon];
 
 		if (r_ptr->flags1 & RF1_UNIQUE) continue;
-		if ((r_ptr->irace_idx == RACE_NAZGUL) && (r_ptr->flags7 & RF7_UNIQUE2)) continue;
+		if ((r_ptr->race_idx1 == RACE_NAZGUL) && (r_ptr->flags7 & RF7_UNIQUE2)) continue;
 		if (r_ptr->flags2 & RF2_MULTIPLY) continue;
 		if ((r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) != (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
@@ -6884,7 +6884,7 @@ quit("セーブファイルが壊れています");
 		seed_wilderness();
 
 		/* Give beastman a mutation at character birth */
-		if (cr_ptr->irace_idx == RACE_BEASTMAN) hack_mutation = TRUE;
+		if (cr_ptr->race_idx1 == RACE_BEASTMAN) hack_mutation = TRUE;
 		else hack_mutation = FALSE;
 
 		/* Set the message window flag as default */
@@ -7081,7 +7081,7 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enforce "delayed death" */
 	if (cr_ptr->chp < 0) cr_ptr->is_dead = TRUE;
 
-	if (cr_ptr->irace_idx == RACE_ANDROID) calc_android_exp(cr_ptr);
+	if (cr_ptr->race_idx1 == RACE_ANDROID) calc_android_exp(cr_ptr);
 
 	if (new_game && ((cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{

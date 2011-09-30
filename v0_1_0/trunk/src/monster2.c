@@ -801,7 +801,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_AMBERITES:
 		{
-			okay = (r_ptr->irace_idx == RACE_AMBERITE) ? TRUE : FALSE;
+			okay = (r_ptr->race_idx1 == RACE_AMBERITE) ? TRUE : FALSE;
 			break;
 		}
 
@@ -1432,7 +1432,7 @@ s16b get_mon_num(int level)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
 			if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
-			     (r_ptr->irace_idx == RACE_NAZGUL)) &&
+			     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
 				continue;
@@ -1942,12 +1942,12 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->irace_idx != RACE_NONE && (r_ptr->flags11 & RF11_RACE_EGO)){
+	if(m_ptr->race_idx1 != RACE_NONE && (r_ptr->flags11 & RF11_RACE_EGO)){
 #ifdef JP
-		(void)strcat(desc, race_info[m_ptr->irace_idx].title);
+		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "の");
 #else
-		(void)strcat(desc, race_info[m_ptr->irace_idx].title);
+		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "'s ");
 #endif
 	}
@@ -3203,7 +3203,7 @@ static void mon_equip(creature_type *m_ptr)
 		}
 	}
 
-	if(m_ptr->irace_idx != RACE_NONE)
+	if(m_ptr->race_idx1 != RACE_NONE)
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
@@ -3335,8 +3335,8 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 	else
 	{
-		rpr_ptr = &race_info[r_ptr->irace_idx];
-		rpr_selected = r_ptr->irace_idx;
+		rpr_ptr = &race_info[r_ptr->race_idx1];
+		rpr_selected = r_ptr->race_idx1;
 	}
 
 	// set class
@@ -3421,7 +3421,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	{
 		/* Hack -- "unique" monsters must be "unique" */
 		if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
-		     (r_ptr->irace_idx == RACE_NAZGUL)) &&
+		     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -3518,7 +3518,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 
-	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
 	c_ptr->m_idx = m_pop();
@@ -3676,7 +3676,7 @@ msg_print("守りのルーンが壊れた！");
 	 * A unique monster move from old saved floor.
 	 */
 	if (character_dungeon &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)))
+	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)))
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
@@ -3821,7 +3821,7 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	/* Save the categories */
 	m_ptr->species_idx = species_idx;
 	m_ptr->monster_ego_idx = 0;
-	m_ptr->irace_idx = (s16b)r_ptr->irace_idx;
+	m_ptr->race_idx1 = (s16b)r_ptr->race_idx1;
 	m_ptr->cls_idx = (byte)r_ptr->cls_idx;
 	m_ptr->chara_idx = (byte)r_ptr->chara_idx;
 	m_ptr->ap_species_idx = species_idx;
@@ -4492,10 +4492,10 @@ static bool summon_specific_okay(int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)) &&
+	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	    monster_has_hostile_align(NULL, 10, -10, r_ptr))
 		return FALSE;
 
@@ -5453,7 +5453,7 @@ int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int i, r = INVEN_NULL;
 
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
 		switch(o_ptr->tval)
 		{

@@ -30,7 +30,7 @@ bool can_equip(creature_type *cr_ptr, int i)
 
 bool is_player(creature_type *cr_ptr)
 {
-	return (cr_ptr == p_ptr); 
+	return (cr_ptr == player_ptr && cr_ptr->player); 
 }
 
 
@@ -95,9 +95,9 @@ void set_status(creature_type *cr_ptr)
 			cr_ptr->stat_use[i] += re_info[cr_ptr->monster_ego_idx].stat[i];
 		}
 
-		if(cr_ptr->irace_idx != RACE_NONE)
+		if(cr_ptr->race_idx1 != RACE_NONE)
 		{
-			cr_ptr->stat_use[i] += race_info[cr_ptr->irace_idx].r_adj[i] * 10;
+			cr_ptr->stat_use[i] += race_info[cr_ptr->race_idx1].r_adj[i] * 10;
 		}	
 
 		if(cr_ptr->stat_use[i] < 30) cr_ptr->stat_use[i] = 30;
@@ -150,9 +150,9 @@ void set_height_weight(creature_type *cr_ptr)
 		}
 
 	}
-	else if(cr_ptr->irace_idx != RACE_NONE)
+	else if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		ir_ptr = &race_info[cr_ptr->irace_idx]; 
+		ir_ptr = &race_info[cr_ptr->race_idx1]; 
 
 		if (cr_ptr->sex == SEX_MALE)
 		{
@@ -221,14 +221,14 @@ void set_height_weight(creature_type *cr_ptr)
 void set_expfact(creature_type *cr_ptr)
 {
 	int i;
-	if (cr_ptr->irace_idx == RACE_ANDROID) cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp;
+	if (cr_ptr->race_idx1 == RACE_ANDROID) cr_ptr->expfact = race_info[cr_ptr->race_idx1].r_exp;
 	else {
-		cr_ptr->expfact = race_info[cr_ptr->irace_idx].r_exp + class_info[cr_ptr->cls_idx].c_exp;
+		cr_ptr->expfact = race_info[cr_ptr->race_idx1].r_exp + class_info[cr_ptr->cls_idx].c_exp;
 		for(i = 0; i < MAX_RACES; i++)
 			if(get_subrace(cr_ptr, i)) cr_ptr->expfact += race_info[i].r_s_exp;
 	}
 
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->irace_idx == RACE_KLACKON) || (cr_ptr->irace_idx == RACE_SPRITE)))
+	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_NINJA)) && ((cr_ptr->race_idx1 == RACE_KLACKON) || (cr_ptr->race_idx1 == RACE_SPRITE)))
 		cr_ptr->expfact -= 15;
 }
 
@@ -244,8 +244,8 @@ void set_bodysize(creature_type * cr_ptr)
 void set_hitdice(creature_type * cr_ptr)
 {
 	cr_ptr->hitdice = cr_ptr->size >= 10 ? 5 + cr_ptr->size / 2 : cr_ptr->size;
-	if (cr_ptr->irace_idx != RACE_NONE)
-		cr_ptr->hitdice += race_info[cr_ptr->irace_idx].r_mhp;
+	if (cr_ptr->race_idx1 != RACE_NONE)
+		cr_ptr->hitdice += race_info[cr_ptr->race_idx1].r_mhp;
 	if (cr_ptr->cls_idx == CLASS_SORCERER)
 		cr_ptr->hitdice /= 2;
 	if (cr_ptr->cls_idx != CLASS_NONE)
@@ -401,8 +401,8 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	size = calc_monster_standard_size(mr_ptr);
 
 	dice = size >= 10 ? 5 + size / 2 : size;
-	if (mr_ptr->irace_idx != RACE_NONE)
-		dice += race_info[mr_ptr->irace_idx].r_mhp;
+	if (mr_ptr->race_idx1 != RACE_NONE)
+		dice += race_info[mr_ptr->race_idx1].r_mhp;
 	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
 	if (mr_ptr->cls_idx != CLASS_NONE)
@@ -434,9 +434,9 @@ void set_resistance(creature_type *cr_ptr)
 {
 	int i;
 
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		intelligent_race *ir_ptr = &race_info[cr_ptr->irace_idx];
+		intelligent_race *ir_ptr = &race_info[cr_ptr->race_idx1];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			cr_ptr->resist_acid = TRUE;
 		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
@@ -663,75 +663,75 @@ void initialize_skill(creature_type *cr_ptr)
 
 bool is_orc_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_ORC || cr_ptr->irace_idx == RACE_URUK) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_ORC || cr_ptr->race_idx1 == RACE_URUK) return TRUE;
 	return FALSE;
 }
 
 bool is_orc_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_ORC || sp_ptr->irace_idx == RACE_URUK) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_ORC || sp_ptr->race_idx1 == RACE_URUK) return TRUE;
 	return FALSE;
 }
 
 bool is_troll_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_TROLL || cr_ptr->irace_idx == RACE_OLOG) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_TROLL || cr_ptr->race_idx1 == RACE_OLOG) return TRUE;
 	return FALSE;
 }
 
 bool is_troll_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_TROLL || sp_ptr->irace_idx == RACE_OLOG) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_TROLL || sp_ptr->race_idx1 == RACE_OLOG) return TRUE;
 	return FALSE;
 }
 
 bool is_dragon_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_DRAGON || cr_ptr->irace_idx == RACE_DRACONIAN) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_DRAGON || cr_ptr->race_idx1 == RACE_DRACONIAN) return TRUE;
 	return FALSE;
 }
 
 bool is_dragon_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_DRAGON || sp_ptr->irace_idx == RACE_DRACONIAN) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_DRAGON || sp_ptr->race_idx1 == RACE_DRACONIAN) return TRUE;
 	return FALSE;
 }
 
 bool is_demon_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_IMP || cr_ptr->irace_idx == RACE_DEMON || cr_ptr->irace_idx == RACE_BALROG) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_IMP || cr_ptr->race_idx1 == RACE_DEMON || cr_ptr->race_idx1 == RACE_BALROG) return TRUE;
 	return FALSE;
 }
 
 bool is_demon_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_IMP || sp_ptr->irace_idx == RACE_DEMON || sp_ptr->irace_idx == RACE_BALROG) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_IMP || sp_ptr->race_idx1 == RACE_DEMON || sp_ptr->race_idx1 == RACE_BALROG) return TRUE;
 	return FALSE;
 }
 
 bool is_giant_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_IMP || cr_ptr->irace_idx == RACE_DEMON || cr_ptr->irace_idx == RACE_BALROG) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_IMP || cr_ptr->race_idx1 == RACE_DEMON || cr_ptr->race_idx1 == RACE_BALROG) return TRUE;
 	return FALSE;
 }
 
 bool is_giant_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_GIANT || sp_ptr->irace_idx == RACE_CYCLOPS || sp_ptr->irace_idx == RACE_TITAN) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_GIANT || sp_ptr->race_idx1 == RACE_CYCLOPS || sp_ptr->race_idx1 == RACE_TITAN) return TRUE;
 	return FALSE;
 }
 
 bool is_undead_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_ZOMBIE || cr_ptr->irace_idx == RACE_SKELETON || cr_ptr->irace_idx == RACE_VAMPIRE) return TRUE;
-	if(cr_ptr->irace_idx == RACE_LICH || cr_ptr->irace_idx == RACE_NAZGUL) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_ZOMBIE || cr_ptr->race_idx1 == RACE_SKELETON || cr_ptr->race_idx1 == RACE_VAMPIRE) return TRUE;
+	if(cr_ptr->race_idx1 == RACE_LICH || cr_ptr->race_idx1 == RACE_NAZGUL) return TRUE;
 	return FALSE;
 }
 
 bool is_undead_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_ZOMBIE || sp_ptr->irace_idx == RACE_SKELETON || sp_ptr->irace_idx == RACE_VAMPIRE) return TRUE;
-	if(sp_ptr->irace_idx == RACE_LICH || sp_ptr->irace_idx == RACE_NAZGUL) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_ZOMBIE || sp_ptr->race_idx1 == RACE_SKELETON || sp_ptr->race_idx1 == RACE_VAMPIRE) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_LICH || sp_ptr->race_idx1 == RACE_NAZGUL) return TRUE;
 	return FALSE;
 }
 
@@ -754,14 +754,13 @@ bool is_powerful_species(species_type *sp_ptr)
 
 bool is_human_species(species_type *sp_ptr)
 {
-	if(sp_ptr->irace_idx == RACE_HUMAN || sp_ptr->irace_idx == RACE_BARBARIAN || sp_ptr->irace_idx == RACE_DUNADAN) return TRUE;
+	if(sp_ptr->race_idx1 == RACE_HUMAN || sp_ptr->race_idx1 == RACE_BARBARIAN || sp_ptr->race_idx1 == RACE_DUNADAN) return TRUE;
 	return FALSE;
 }
 
 bool is_human_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->irace_idx == RACE_HUMAN || cr_ptr->irace_idx == RACE_BARBARIAN || cr_ptr->irace_idx == RACE_DUNADAN) return TRUE;
-	return FALSE;
+	return (cr_ptr->race_idx1 == RACE_HUMAN || cr_ptr->race_idx1 == RACE_BARBARIAN || cr_ptr->race_idx1 == RACE_DUNADAN);
 }
 
 bool is_male_species(species_type *sp_ptr)

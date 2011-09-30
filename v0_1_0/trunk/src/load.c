@@ -592,7 +592,7 @@ static void rd_creature_old(creature_type *cr_ptr)
 	/* Read the monster race */
 	rd_s16b(&cr_ptr->species_idx);
 	rd_s16b(&cr_ptr->monster_ego_idx);
-	rd_s16b(&cr_ptr->irace_idx);
+	rd_s16b(&cr_ptr->race_idx1);
 	rd_byte(&cr_ptr->cls_idx);
 	rd_byte(&cr_ptr->chara_idx);
 
@@ -1216,7 +1216,7 @@ static void load_quick_start(species_type *sp_ptr)
 	int i;
 
 	rd_s16b(&sp_ptr->sex);
-	rd_s16b(&sp_ptr->irace_idx);
+	rd_s16b(&sp_ptr->race_idx1);
 	for (i = 0; i < 8; i++) rd_u32b(&sp_ptr->sub_race[i]);
 	rd_byte(&sp_ptr->cls_idx);
 	rd_byte(&sp_ptr->chara_idx);
@@ -1280,7 +1280,7 @@ static void rd_creature(creature_type *cr_ptr)
 	/* Class/Race/CHARA/Gender/Spells */
 	rd_s16b(&cr_ptr->species_idx);
 	rd_s16b(&cr_ptr->ap_species_idx);
-	rd_s16b(&cr_ptr->irace_idx);
+	rd_s16b(&cr_ptr->race_idx1);
 	for (i = 0; i < 8; i++) rd_u32b(&cr_ptr->sub_race[i]);
 	rd_s16b(&cr_ptr->monster_ego_idx);
 	rd_byte(&cr_ptr->cls_idx);
@@ -2186,7 +2186,7 @@ note("メッセージをロードしました");
 		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->irace_idx == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
 	}
 
 	/* Monster Memory */

@@ -445,7 +445,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	/* Verify */
 	if (tmp_long < 0) tmp_long = 0L;
 
-	if (cr_ptr->irace_idx != RACE_ANDROID)
+	if (cr_ptr->race_idx1 != RACE_ANDROID)
 	{
 		/* Save */
 		cr_ptr->max_exp = tmp_long;

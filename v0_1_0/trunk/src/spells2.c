@@ -259,7 +259,7 @@ sprintf(Dummy, "‚ ‚È‚½‚Í“G‚©‚ç %d-%d HP ‚Ì¶–½—Í‚ð‹zŽû‚Å‚«‚éB(%d MP)",
 	}
 	else
 	{
-	switch (cr_ptr->irace_idx)
+	switch (cr_ptr->race_idx1)
 	{
 		case RACE_NIBELUNG:
 		case RACE_DWARF:

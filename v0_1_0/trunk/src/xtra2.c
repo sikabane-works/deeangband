@@ -23,7 +23,7 @@ void check_experience(creature_type *cr_ptr)
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (cr_ptr->irace_idx == RACE_ANDROID ? TRUE : FALSE);
+	bool android = (cr_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
 	int  old_lev = cr_ptr->lev;
 
 	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
@@ -89,7 +89,7 @@ void check_experience(creature_type *cr_ptr)
 			{
 				level_reward = TRUE;
 			}
-			if (cr_ptr->irace_idx == RACE_BEASTMAN)
+			if (cr_ptr->race_idx1 == RACE_BEASTMAN)
 			{
 				if (one_in_(5)) level_mutation = TRUE;
 			}
@@ -2334,7 +2334,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((p_ptr->lev >= p_ptr->max_plv) || (p_ptr->irace_idx == RACE_ANDROID))
+	if ((p_ptr->lev >= p_ptr->max_plv) || (p_ptr->race_idx1 == RACE_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;
@@ -4112,7 +4112,7 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 	else if (!(cr_ptr->lev % 13)) nasty_chance = 3;
 	else if (!(cr_ptr->lev % 14)) nasty_chance = 12;
 
-	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->irace_idx != RACE_MELNIBONE)
+	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->race_idx1 != RACE_MELNIBONE)
 		type = randint1(20); /* Allow the 'nasty' effects */
 	else
 		type = randint1(15) + 5; /* Or disallow them */
@@ -4121,7 +4121,7 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 	if (type > 20) type = 20;
 	type--;
 
-	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->irace_idx == RACE_MELNIBONE && type == REW_POLY_SLF)
+	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
 		 type = REW_IGNORE;
 		
 
@@ -4136,7 +4136,7 @@ sprintf(wrath_reason, "%sの怒り",
 
 	/*TODO
 	effect = player_patrons[cr_ptr->patron_idx].rewards[type];
-	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->irace_idx == RACE_MELNIBONE && effect == REW_POLY_SLF)
+	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && effect == REW_POLY_SLF)
 		 effect = REW_IGNORE;
 	*/
     effect = REW_IGNORE;
@@ -4199,7 +4199,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (cr_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->race_idx1 == RACE_ANDROID)
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4240,7 +4240,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (cr_ptr->irace_idx == RACE_ANDROID)
+			if (cr_ptr->race_idx1 == RACE_ANDROID)
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");

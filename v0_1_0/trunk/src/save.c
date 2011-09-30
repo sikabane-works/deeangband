@@ -219,7 +219,7 @@ static void wr_creature_old(creature_type *cr_ptr)
 	/*** Write only un-obvious elements ***/
 	wr_s16b(cr_ptr->species_idx);
 	wr_s16b(cr_ptr->monster_ego_idx);
-	wr_s16b(cr_ptr->irace_idx);
+	wr_s16b(cr_ptr->race_idx1);
 
 	wr_byte(cr_ptr->cls_idx);
 	wr_byte(cr_ptr->chara_idx);
@@ -617,7 +617,7 @@ static void save_quick_start(species_type *sp_ptr)
 	int i;
 
 	wr_s16b(sp_ptr->sex);
-	wr_s16b(sp_ptr->irace_idx);
+	wr_s16b(sp_ptr->race_idx1);
 	for (i = 0; i < 8; i++) wr_u32b(sp_ptr->sub_race[i]);
 	wr_byte(sp_ptr->cls_idx);
 	wr_byte(sp_ptr->chara_idx);
@@ -678,7 +678,7 @@ static void wr_creature(creature_type *cr_ptr)
 	/* Race/Class/Gender/Spells */
 	wr_s16b(cr_ptr->species_idx);
 	wr_s16b(cr_ptr->ap_species_idx);
-	wr_s16b(cr_ptr->irace_idx);
+	wr_s16b(cr_ptr->race_idx1);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
 	wr_s16b(cr_ptr->monster_ego_idx);
 	wr_byte(cr_ptr->cls_idx);

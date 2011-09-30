@@ -3894,7 +3894,7 @@ static bool item_monster_okay(int species_idx)
 	if (r_ptr->flags1 & RF1_UNIQUE) return (FALSE);
 	if (r_ptr->flags7 & RF7_KAGE) return (FALSE);
 	if (r_ptr->flags7 & RF10_RES_ALL) return (FALSE);
-	if (r_ptr->irace_idx == RACE_NAZGUL) return (FALSE);
+	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);
 	if (r_ptr->flags1 & RF1_FORCE_DEPTH) return (FALSE);
 	if (r_ptr->flags7 & RF7_UNIQUE2) return (FALSE);
 
@@ -6666,7 +6666,7 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			switch (p_ptr->irace_idx)
+			switch (p_ptr->race_idx1)
 			{
 			case RACE_GOLEM:
 			case RACE_SKELETON:

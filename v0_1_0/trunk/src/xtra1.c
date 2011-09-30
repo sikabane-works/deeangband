@@ -803,7 +803,7 @@ static void prt_exp(creature_type *cr_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(cr_ptr->irace_idx == RACE_ANDROID))
+	if ((!exp_need)||(cr_ptr->race_idx1 == RACE_ANDROID))
 	{
 #ifdef JP
 	(void)sprintf(out_val, "%7ld", (long)cr_ptr->exp);
@@ -830,11 +830,11 @@ static void prt_exp(creature_type *cr_ptr)
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
 #ifdef JP
-		if (cr_ptr->irace_idx == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
+		if (cr_ptr->race_idx1 == RACE_ANDROID) put_str("‹­‰» ", ROW_EXP, 0);
 		else put_str("ŒoŒ± ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 5);
 #else
-		if (cr_ptr->irace_idx == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
+		if (cr_ptr->race_idx1 == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
 #endif
@@ -1668,7 +1668,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 	else
 	{
 		char str[14];
-		my_strcpy(str, race_info[cr_ptr->irace_idx].title, sizeof(str));
+		my_strcpy(str, race_info[cr_ptr->race_idx1].title, sizeof(str));
 		prt_field(str, ROW_RACE, COL_RACE);
 	}
 */
@@ -2427,7 +2427,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 	{
 		case CLASS_SAMURAI:
 			msp = (adj_mag_mana[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] + 10) * 2;
-			if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
+			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
 			break;
 
 		default:
@@ -2437,7 +2437,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 			/* Hack -- usually add one mana */
 			msp++;
 
-			if (msp) msp += (msp * race_info[cr_ptr->irace_idx].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
+			if (msp) msp += (msp * race_info[cr_ptr->race_idx1].r_adj[m_info[cr_ptr->realm1].spell_stat] / 20);
 
 			if (msp && (cr_ptr->chara_idx == CHARA_MUNCHKIN)) msp += msp / 2;
 
@@ -3152,7 +3152,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->no_flowed = FALSE;
 
 	if (cr_ptr->mimic_form) tmp_rcr_ptr = &mimic_info[cr_ptr->mimic_form];
-	else tmp_rcr_ptr = &race_info[cr_ptr->irace_idx];
+	else tmp_rcr_ptr = &race_info[cr_ptr->race_idx1];
 
 	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
@@ -3191,19 +3191,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->irace_idx].r_dis);
-		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->irace_idx].r_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->irace_idx].r_sav);
-		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->irace_idx].r_sav);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->irace_idx].r_sav);
-		cr_ptr->skill_stl += race_info[cr_ptr->irace_idx].r_stl;
-		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->irace_idx].r_srh);
-		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->irace_idx].r_fos);
-		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->irace_idx].r_thn);
-		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->irace_idx].r_thb);
-		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->irace_idx].r_thb);
+		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_dis);
+		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_dev);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_sav);
+		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_sav);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_sav);
+		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_stl;
+		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_srh);
+		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_fos);
+		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race_idx1].r_thn);
+		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_thb);
+		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_thb);
 	}
 
 	for(i = 0; i < MAX_RACES; i++)
@@ -3512,7 +3512,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		set_resistance(cr_ptr);
 
-		switch (cr_ptr->irace_idx)
+		switch (cr_ptr->race_idx1)
 		{
 		case RACE_SPRITE:
 			cr_ptr->levitation = TRUE;
@@ -3565,11 +3565,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/***** Sub Races ****/
 
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
 		for(i = 0; i < 10; i++)
 		{
-			if(race_info[cr_ptr->irace_idx].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
+			if(race_info[cr_ptr->race_idx1].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
 			{
 				cr_ptr->stat_add[A_STR]--;
 				cr_ptr->stat_add[A_INT]--;
@@ -3659,7 +3659,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->hold_life = TRUE;
 		if (cr_ptr->cls_idx != CLASS_NINJA) cr_ptr->lite = TRUE;
 
-		if ((cr_ptr->irace_idx != RACE_KLACKON) && (cr_ptr->irace_idx != RACE_SPRITE))
+		if ((cr_ptr->race_idx1 != RACE_KLACKON) && (cr_ptr->race_idx1 != RACE_SPRITE))
 			/* Munchkin become faster */
 			new_speed += (cr_ptr->lev) / 10 + 5;
 	}
@@ -3673,7 +3673,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(cr_ptr->irace_idx != RACE_NONE) cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
+		if(cr_ptr->race_idx1 != RACE_NONE) cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
 
 		for(j = 0; j < MAX_RACES; j++)
 			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
@@ -4367,10 +4367,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 
 	/* Golems also get an intrinsic AC bonus */
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		cr_ptr->to_a += race_info[cr_ptr->irace_idx].ac_base + (race_info[cr_ptr->irace_idx].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
-		cr_ptr->dis_to_a += race_info[cr_ptr->irace_idx].ac_base + (race_info[cr_ptr->irace_idx].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
 	}
 
 	/* Hex bonuses */
@@ -5573,8 +5573,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->immune_cold) cr_ptr->resist_cold = TRUE;
 
 	/* Set Possible Equipment*/
-	if(cr_ptr->irace_idx != RACE_NONE)
-		cr_ptr->possible_equipment = race_info[cr_ptr->irace_idx].possible_equipment;
+	if(cr_ptr->race_idx1 != RACE_NONE)
+		cr_ptr->possible_equipment = race_info[cr_ptr->race_idx1].possible_equipment;
 	else
 		cr_ptr->possible_equipment = 0;
 
@@ -5589,7 +5589,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* calc alignments and bonuses */
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
 		cr_ptr->good    = tmp_rcr_ptr->good;
 		cr_ptr->evil    = tmp_rcr_ptr->evil;
@@ -6083,7 +6083,7 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_MISC))
 	{
 		play_redraw &= ~(PR_MISC);
-//		prt_field(race_info[cr_ptr->irace_idx].title, ROW_RACE, COL_RACE);
+//		prt_field(race_info[cr_ptr->race_idx1].title, ROW_RACE, COL_RACE);
 /*		prt_field(class_info[cr_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
 
 	}
@@ -6390,10 +6390,10 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 	int i;
 	bool subflag;
 	char name[80];
-	intelligent_race *rcr_ptr = &race_info[cr_ptr->irace_idx];
+	intelligent_race *rcr_ptr = &race_info[cr_ptr->race_idx1];
 	name[0] = '\0';
 
-	if(cr_ptr->irace_idx == RACE_NONE) return format("");
+	if(cr_ptr->race_idx1 == RACE_NONE) return format("");
 
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
 		strcat(name, "q¬“×r‚Éâq‚ê‚½");
@@ -6404,7 +6404,7 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 	if(get_subrace(cr_ptr, RACE_SKELETON))
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
-	switch(cr_ptr->irace_idx){
+	switch(cr_ptr->race_idx1){
 		case RACE_HUMAN:
 			subflag = FALSE;
 			for(i = 0; i < MAX_RACES; i++)
@@ -6419,7 +6419,7 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 					strcat(name, race_info[i].title);
 				}
 			}
-			if(!subflag) strcat(name, race_info[cr_ptr->irace_idx].title);
+			if(!subflag) strcat(name, race_info[cr_ptr->race_idx1].title);
 		break;
 		case RACE_GOLEM:
 		case RACE_ANDROID:
@@ -6435,7 +6435,7 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 					strcat(name, "Œ^");
 				}
 			}
-			strcat(name, race_info[cr_ptr->irace_idx].title);
+			strcat(name, race_info[cr_ptr->race_idx1].title);
 		break;
 		default:
 			for(i = 0; i < MAX_RACES; i++)
@@ -6455,7 +6455,7 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 					strcat(name, race_info[i].title);
 				}
 			}
-			strcat(name, race_info[cr_ptr->irace_idx].title);
+			strcat(name, race_info[cr_ptr->race_idx1].title);
 		break;
 	}
 

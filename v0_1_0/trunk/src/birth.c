@@ -2060,7 +2060,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #else
 		put_str("Race  :                                                                         ", 1, 1);
 #endif
-	if(cr_ptr->irace_idx != RACE_NONE)
+	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
 		race = desc_creature_race_name(cr_ptr);
 		c_put_str(TERM_L_BLUE, race, 1, 9);
@@ -2355,7 +2355,7 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 
 	/* Save the data */
 	species_ptr->sex = cr_ptr->sex;
-	species_ptr->irace_idx = cr_ptr->irace_idx;
+	species_ptr->race_idx1 = cr_ptr->race_idx1;
 	species_ptr->species_idx = cr_ptr->species_idx;
 	species_ptr->ap_species_idx = cr_ptr->ap_species_idx;
 	species_ptr->cls_idx = cr_ptr->cls_idx;
@@ -2420,7 +2420,7 @@ void load_prev_data(creature_type *cr_ptr, species_type *sp_ptr, bool swap)
 
 	/* Load the data */
 	cr_ptr->sex = sp_ptr->sex;
-	cr_ptr->irace_idx = sp_ptr->irace_idx;
+	cr_ptr->race_idx1 = sp_ptr->race_idx1;
 	cr_ptr->species_idx = sp_ptr->species_idx;
 	cr_ptr->ap_species_idx = sp_ptr->ap_species_idx;
 	cr_ptr->cls_idx = sp_ptr->cls_idx;
@@ -2635,7 +2635,7 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 	set_expfact(cr_ptr);
 
 	/* Reset record of race/realm changes */
-	cr_ptr->start_race = cr_ptr->irace_idx;
+	cr_ptr->start_race = cr_ptr->race_idx1;
 	cr_ptr->old_race1 = 0L;
 	cr_ptr->old_race2 = 0L;
 	cr_ptr->old_realm = 0;
@@ -2677,7 +2677,7 @@ static void get_history(creature_type *cr_ptr)
 	social_class = randint1(4);
 
 	/* Starting place */
-	switch (cr_ptr->irace_idx)
+	switch (cr_ptr->race_idx1)
 	{
 		case RACE_AMBERITE:
 		{
@@ -2916,7 +2916,7 @@ static void get_history(creature_type *cr_ptr)
 static void get_ahw(creature_type *cr_ptr)
 {
 	/* Get character's age */
-	cr_ptr->age = race_info[cr_ptr->irace_idx].b_age + randint1(race_info[cr_ptr->irace_idx].m_age);
+	cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + randint1(race_info[cr_ptr->race_idx1].m_age);
 
 	/* Get character's height and weight */
 	set_height_weight(cr_ptr);
@@ -2952,7 +2952,7 @@ static void get_money(creature_type *cr_ptr)
 		gold /= 2;
 	else if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (cr_ptr->irace_idx == RACE_ANDROID) gold /= 5;
+	if (cr_ptr->race_idx1 == RACE_ANDROID) gold /= 5;
 
 	/* Save the gold */
 	cr_ptr->au = gold;
@@ -2980,7 +2980,7 @@ static void birth_put_stats(creature_type *cr_ptr)
 		for (i = 0; i < 6; i++)
 		{
 			/* Race/Class bonus */
-			j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
+			j = race_info[cr_ptr->race_idx1].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 			/* Obtain the current stat */
 			m = adjust_stat(cr_ptr->stat_max[i], j);
@@ -3111,7 +3111,7 @@ static void player_wipe(creature_type *cr_ptr)
 		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->irace_idx == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
 
 		/* Clear visible kills in this life */
 		r_ptr->r_pkills = 0;
@@ -3350,10 +3350,10 @@ void init_dungeon_quests(void)
  */
 static void init_turn(creature_type *cr_ptr)
 {
-	if ((cr_ptr->irace_idx == RACE_VAMPIRE) ||
-	    (cr_ptr->irace_idx == RACE_SKELETON) ||
-	    (cr_ptr->irace_idx == RACE_ZOMBIE) ||
-	    (cr_ptr->irace_idx == RACE_LICH))
+	if ((cr_ptr->race_idx1 == RACE_VAMPIRE) ||
+	    (cr_ptr->race_idx1 == RACE_SKELETON) ||
+	    (cr_ptr->race_idx1 == RACE_ZOMBIE) ||
+	    (cr_ptr->race_idx1 == RACE_LICH))
 	{
 		/* Undead start just after midnight */
 		turn = (TURNS_PER_TICK*3 * TOWN_DAWN) / 4 + 1;
@@ -3687,7 +3687,7 @@ void player_outfit(creature_type *cr_ptr)
 	q_ptr = &forge;
 
 	/* Give the player some food */
-	switch (cr_ptr->irace_idx)
+	switch (cr_ptr->race_idx1)
 	{
 	case RACE_VAMPIRE:
 		/* Nothing! */
@@ -3759,7 +3759,7 @@ void player_outfit(creature_type *cr_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((cr_ptr->irace_idx == RACE_VAMPIRE) && (cr_ptr->cls_idx != CLASS_NINJA))
+	if ((cr_ptr->race_idx1 == RACE_VAMPIRE) && (cr_ptr->cls_idx != CLASS_NINJA))
 	{
 		/* Hack -- Give the player scrolls of DARKNESS! */
 		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
@@ -3890,18 +3890,18 @@ void player_outfit(creature_type *cr_ptr)
 		tv = player_init[cr_ptr->cls_idx][i][0];
 		sv = player_init[cr_ptr->cls_idx][i][1];
 
-		if ((cr_ptr->irace_idx == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
+		if ((cr_ptr->race_idx1 == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
 		/* Hack to initialize spellbooks */
 		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + cr_ptr->realm1 - 1;
 		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + cr_ptr->realm2 - 1;
 
 		else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
-		    cr_ptr->irace_idx == RACE_BARBARIAN)
+		    cr_ptr->race_idx1 == RACE_BARBARIAN)
 			/* Barbarians do not need a ring of resist fear */
 			sv = SV_RING_SUSTAIN_STR;
 
 		else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
-		    cr_ptr->irace_idx == RACE_MIND_FLAYER)
+		    cr_ptr->race_idx1 == RACE_MIND_FLAYER)
 		  {
 			tv = TV_POTION;
 			sv = SV_POTION_RESTORE_MANA;
@@ -4272,19 +4272,19 @@ static int get_creature_race(creature_type *cr_ptr, bool auto_m)
 	}
 	else
 	{
-		cr_ptr->irace_idx = se[randint0(n - 3)].code;
+		cr_ptr->race_idx1 = se[randint0(n - 3)].code;
 		return 0;
 	}
 
 
 	if(i >= 0)
 	{
-		cr_ptr->irace_idx = i;
+		cr_ptr->race_idx1 = i;
 		return 0;
 	}
 	else if(i == -1)
 	{
-		cr_ptr->irace_idx = se[randint0(n - 3)].code;
+		cr_ptr->race_idx1 = se[randint0(n - 3)].code;
 		return 0;
 	}
 	else
@@ -4315,7 +4315,7 @@ static int get_creature_subrace(creature_type *cr_ptr, bool auto_m)
 
 	for (i = 0; i < MAX_RACES; i++)
 	{
-		if(race_crossing[cr_ptr->irace_idx][i] > 0 && cr_ptr->irace_idx != i)
+		if(race_crossing[cr_ptr->race_idx1][i] > 0 && cr_ptr->race_idx1 != i)
 		{
 			strcpy(se[n].cap, race_info[i].title);
 			se[n].code = i;
@@ -4628,7 +4628,7 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 		strcpy(se[n].cap, sex_info[i].title);
 		se[n].code = i;
 		se[n].key = '\0';
-		if(race_info[cr_ptr->irace_idx].sex_flag & (0x01 << i))
+		if(race_info[cr_ptr->race_idx1].sex_flag & (0x01 << i))
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
@@ -4721,7 +4721,7 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 		ce[i].key = '\0';
 		ce[i].d_color = TERM_L_DARK;
 		ce[i].l_color = TERM_WHITE;
-		if(race_info[cr_ptr->irace_idx].choice & (0x01 << i))
+		if(race_info[cr_ptr->race_idx1].choice & (0x01 << i))
 		{
 			ce[n].d_color = TERM_GREEN;
 			ce[n].l_color = TERM_L_GREEN;
@@ -4809,7 +4809,7 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 	int i, n = 0;
 	selection pt[400+3];
 
-	switch(cr_ptr->irace_idx)
+	switch(cr_ptr->race_idx1)
 	{
 
 	case RACE_AMBERITE: 
@@ -5134,7 +5134,7 @@ static bool get_stat_limits(creature_type *cr_ptr)
 		cval[i] = 3;
 
 		/* Race/Class bonus */
-		j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
+		j = race_info[cr_ptr->race_idx1].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -5187,7 +5187,7 @@ static bool get_stat_limits(creature_type *cr_ptr)
 
 		/* Prepare a prompt */
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
-			stat_names[i], cval[i], race_info[cr_ptr->irace_idx].r_adj[i], class_info[cr_ptr->cls_idx].c_adj[i],
+			stat_names[i], cval[i], race_info[cr_ptr->race_idx1].r_adj[i], class_info[cr_ptr->cls_idx].c_adj[i],
 			chara_info[cr_ptr->chara_idx].a_adj[i], inp, cur);
 		
 		/* Dump the prompt */
@@ -5224,7 +5224,7 @@ static bool get_stat_limits(creature_type *cr_ptr)
 			else
 			{
 				/* Race/Class bonus */
-				j = race_info[cr_ptr->irace_idx].r_adj[cs] + class_info[cr_ptr->cls_idx].c_adj[cs] + chara_info[cr_ptr->chara_idx].a_adj[cs];
+				j = race_info[cr_ptr->race_idx1].r_adj[cs] + class_info[cr_ptr->cls_idx].c_adj[cs] + chara_info[cr_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
 				m = adjust_stat(cval[cs], j);
@@ -5251,7 +5251,7 @@ static bool get_stat_limits(creature_type *cr_ptr)
 				
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
-					stat_names[cs], cval[cs], race_info[cr_ptr->irace_idx].r_adj[cs],
+					stat_names[cs], cval[cs], race_info[cr_ptr->race_idx1].r_adj[cs],
 					class_info[cr_ptr->cls_idx].c_adj[cs], chara_info[cr_ptr->chara_idx].a_adj[cs], inp);
 				c_put_str(TERM_YELLOW, cur, 14 + cs, 10);
 			}
@@ -5402,13 +5402,13 @@ static bool get_chara_limits(creature_type *cr_ptr)
 	
 	if (cr_ptr->sex == SEX_MALE)
 	{
-		max_percent = (int)(race_info[cr_ptr->irace_idx].m_b_ht+race_info[cr_ptr->irace_idx].m_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->irace_idx].m_b_ht);
-		min_percent = (int)(race_info[cr_ptr->irace_idx].m_b_ht-race_info[cr_ptr->irace_idx].m_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->irace_idx].m_b_ht);
+		max_percent = (int)(race_info[cr_ptr->race_idx1].m_b_ht+race_info[cr_ptr->race_idx1].m_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->race_idx1].m_b_ht);
+		min_percent = (int)(race_info[cr_ptr->race_idx1].m_b_ht-race_info[cr_ptr->race_idx1].m_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->race_idx1].m_b_ht);
 	}
 	else
 	{
-		max_percent = (int)(race_info[cr_ptr->irace_idx].f_b_ht+race_info[cr_ptr->irace_idx].f_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->irace_idx].f_b_ht);
-		min_percent = (int)(race_info[cr_ptr->irace_idx].f_b_ht-race_info[cr_ptr->irace_idx].f_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->irace_idx].f_b_ht);
+		max_percent = (int)(race_info[cr_ptr->race_idx1].f_b_ht+race_info[cr_ptr->race_idx1].f_m_ht*4-1) * 100 / (int)(race_info[cr_ptr->race_idx1].f_b_ht);
+		min_percent = (int)(race_info[cr_ptr->race_idx1].f_b_ht-race_info[cr_ptr->race_idx1].f_m_ht*4+1) * 100 / (int)(race_info[cr_ptr->race_idx1].f_b_ht);
 	}
 	
 #ifdef JP
@@ -5426,27 +5426,27 @@ static bool get_chara_limits(creature_type *cr_ptr)
 		switch (i)
 		{
 		case 0:	/* Minimum age */
-			m = race_info[cr_ptr->irace_idx].b_age + 1;
+			m = race_info[cr_ptr->race_idx1].b_age + 1;
 			break;
 		case 1:	/* Maximum age */
-			m = race_info[cr_ptr->irace_idx].b_age + race_info[cr_ptr->irace_idx].m_age;
+			m = race_info[cr_ptr->race_idx1].b_age + race_info[cr_ptr->race_idx1].m_age;
 			break;
 
 		case 2:	/* Minimum height */
-			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->irace_idx].m_b_ht-race_info[cr_ptr->irace_idx].m_m_ht*4+1;
-			else m = race_info[cr_ptr->irace_idx].f_b_ht-race_info[cr_ptr->irace_idx].f_m_ht*4+1;
+			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->race_idx1].m_b_ht-race_info[cr_ptr->race_idx1].m_m_ht*4+1;
+			else m = race_info[cr_ptr->race_idx1].f_b_ht-race_info[cr_ptr->race_idx1].f_m_ht*4+1;
 			break;
 		case 3:	/* Maximum height */
-			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->irace_idx].m_b_ht+race_info[cr_ptr->irace_idx].m_m_ht*4-1;
-			else m = race_info[cr_ptr->irace_idx].f_b_ht+race_info[cr_ptr->irace_idx].f_m_ht*4-1;
+			if (cr_ptr->sex == SEX_MALE) m = race_info[cr_ptr->race_idx1].m_b_ht+race_info[cr_ptr->race_idx1].m_m_ht*4-1;
+			else m = race_info[cr_ptr->race_idx1].f_b_ht+race_info[cr_ptr->race_idx1].f_m_ht*4-1;
 			break;
 		case 4:	/* Minimum weight */
-			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->irace_idx].m_b_wt * min_percent / 100) - (race_info[cr_ptr->irace_idx].m_m_wt * min_percent / 75) +1;
-			else m = (race_info[cr_ptr->irace_idx].f_b_wt * min_percent / 100) - (race_info[cr_ptr->irace_idx].f_m_wt * min_percent / 75) +1;
+			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->race_idx1].m_b_wt * min_percent / 100) - (race_info[cr_ptr->race_idx1].m_m_wt * min_percent / 75) +1;
+			else m = (race_info[cr_ptr->race_idx1].f_b_wt * min_percent / 100) - (race_info[cr_ptr->race_idx1].f_m_wt * min_percent / 75) +1;
 			break;
 		case 5:	/* Maximum weight */
-			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->irace_idx].m_b_wt * max_percent / 100) + (race_info[cr_ptr->irace_idx].m_m_wt * max_percent / 75) -1;
-			else m = (race_info[cr_ptr->irace_idx].f_b_wt * max_percent / 100) + (race_info[cr_ptr->irace_idx].f_m_wt * max_percent / 75) -1;
+			if (cr_ptr->sex == SEX_MALE) m = (race_info[cr_ptr->race_idx1].m_b_wt * max_percent / 100) + (race_info[cr_ptr->race_idx1].m_m_wt * max_percent / 75) -1;
+			else m = (race_info[cr_ptr->race_idx1].f_b_wt * max_percent / 100) + (race_info[cr_ptr->race_idx1].f_m_wt * max_percent / 75) -1;
 			break;
 		case 6:	/* Minimum social class */
 			m = 1;
@@ -6035,7 +6035,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 
 	/* Title everything */
 
-	cr_ptr->irace_idx = RACE_NONE;
+	cr_ptr->race_idx1 = RACE_NONE;
 	cr_ptr->sex = SEX_UNDEFINED;
 	cr_ptr->cls_idx = CLASS_NONE;
 	cr_ptr->chara_idx = CHARA_NONE;
@@ -6062,7 +6062,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(cr_ptr->irace_idx == RACE_ELDAR)
+	if(cr_ptr->race_idx1 == RACE_ELDAR)
 	{
 		if(!auto_m) put_initial_status(cr_ptr);
 		i = get_creature_subrace_eldar(cr_ptr, auto_m);
@@ -6070,7 +6070,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 		if(i == -3) birth_quit();
 	}
 
-	if(cr_ptr->irace_idx == RACE_DRACONIAN || cr_ptr->irace_idx == RACE_DRAGON) 
+	if(cr_ptr->race_idx1 == RACE_DRACONIAN || cr_ptr->race_idx1 == RACE_DRAGON) 
 	{
 		if(!auto_m) put_initial_status(cr_ptr);
 		i = get_creature_subrace_dragonbone(cr_ptr, auto_m);
@@ -6261,7 +6261,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 				put_str(stat_names[i], 3+i, col);
 
 				/* Race/Class bonus */
-				j = race_info[cr_ptr->irace_idx].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
+				j = race_info[cr_ptr->race_idx1].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 				/* Obtain the current stat */
 				m = adjust_stat(stat_limit[i], j);
@@ -6711,9 +6711,9 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
 #ifdef JP
-	sprintf(buf,"                            種族に%sを選択した。", race_info[cr_ptr->irace_idx].title);
+	sprintf(buf,"                            種族に%sを選択した。", race_info[cr_ptr->race_idx1].title);
 #else
-	sprintf(buf,"                            choose %s race.", race_info[cr_ptr->irace_idx].title);
+	sprintf(buf,"                            choose %s race.", race_info[cr_ptr->race_idx1].title);
 #endif
 	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 
@@ -6752,12 +6752,12 @@ void dump_yourself(creature_type *cr_ptr, FILE *fff)
 
 	if (!fff) return;
 
-	roff_to_buf(race_jouhou[cr_ptr->irace_idx], 78, temp, sizeof(temp));
+	roff_to_buf(race_jouhou[cr_ptr->race_idx1], 78, temp, sizeof(temp));
 	fprintf(fff, "\n\n");
 #ifdef JP
-	fprintf(fff, "種族: %s\n", race_info[cr_ptr->irace_idx].title);
+	fprintf(fff, "種族: %s\n", race_info[cr_ptr->race_idx1].title);
 #else
-	fprintf(fff, "Race: %s\n", race_info[cr_ptr->irace_idx].title);
+	fprintf(fff, "Race: %s\n", race_info[cr_ptr->race_idx1].title);
 #endif
 	t = temp;
 	for (i = 0; i < 10; i++)

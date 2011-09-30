@@ -257,7 +257,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	if (cr_ptr->chp < 0)
 	{
 		if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ||
-		    (r_ptr->irace_idx == RACE_NAZGUL)) &&
+		    (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 		    !inside_battle)
 		{
 			cr_ptr->chp = 1;
@@ -1608,7 +1608,7 @@ static void process_monster(creature_type *cr_ptr, int m_idx)
 		mon_take_hit_mon(m_ptr, 1, &fear, " explodes into tiny shreds.", m_idx);
 #endif
 
-	if ((is_pet(m_ptr) || is_friendly(m_ptr)) && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)) && !inside_battle)
+	if ((is_pet(m_ptr) || is_friendly(m_ptr)) && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
@@ -1742,7 +1742,7 @@ static void process_monster(creature_type *cr_ptr, int m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(m_ptr) &&
-	    ((((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->irace_idx == RACE_NAZGUL)) &&
+	    ((((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	      monster_has_hostile_align(NULL, 10, -10, r_ptr))
 	     || (m_ptr->resist_ultimate)))
 	{
