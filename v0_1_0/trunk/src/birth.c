@@ -4307,7 +4307,7 @@ static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
 #else
 	strcpy(se[n].cap, "Pure Breed");
 #endif
-	se[n].code = -4;
+	se[n].code = cr_ptr->race_idx1;
 	se[n].key = '\0';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -4381,15 +4381,10 @@ static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
 		cr_ptr->race_idx2 = i;
 		return 0;
 	}
-	else if(i == -4)
-	{
-		return 0;
-	}
 	else if(i == -1)
 	{
 		int t = randint0(n-3);
-		if(t == -4) return 0;
-			cr_ptr->race_idx2 = se[t].code;
+		cr_ptr->race_idx2 = se[t].code;
 		return 0;
 	}
 	else
@@ -6036,6 +6031,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	/* Title everything */
 
 	cr_ptr->race_idx1 = RACE_NONE;
+	cr_ptr->race_idx2 = RACE_NONE;
 	cr_ptr->sex = SEX_UNDEFINED;
 	cr_ptr->cls_idx = CLASS_NONE;
 	cr_ptr->chara_idx = CHARA_NONE;

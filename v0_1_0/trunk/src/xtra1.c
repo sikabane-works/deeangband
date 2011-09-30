@@ -6404,6 +6404,9 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 	if(get_subrace(cr_ptr, RACE_SKELETON))
 		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
+	if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
+		strcat(name, "ƒŒŒŽí");
+
 	switch(cr_ptr->race_idx1){
 		case RACE_HUMAN:
 			subflag = FALSE;
