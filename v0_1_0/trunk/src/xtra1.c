@@ -6385,15 +6385,15 @@ void set_subrace(creature_type *cr_ptr, int n, bool b)
 }
 
 
+
 /* Return Race Name */
-cptr desc_creature_race_name(creature_type *cr_ptr){
-	int i;
-	bool subflag;
+cptr desc_race_name(creature_type *cr_ptr){
 	char name[80];
 	intelligent_race *rcr_ptr = &race_info[cr_ptr->race_idx1];
 	name[0] = '\0';
 
 	if(cr_ptr->race_idx1 == RACE_NONE) return format("");
+	else if(cr_ptr->race_idx2 == RACE_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
 	if(get_subrace(cr_ptr, RACE_BEASTMAN))
 		strcat(name, "〈混沌〉に穢れた");
@@ -6404,63 +6404,14 @@ cptr desc_creature_race_name(creature_type *cr_ptr){
 	if(get_subrace(cr_ptr, RACE_SKELETON))
 		strcat(name, "肉の朽ちかかった");
 
-	if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
-		strcat(name, "純血種");
+	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
+		strcat(name, "ハーフ");
 
-	switch(cr_ptr->race_idx1){
-		case RACE_HUMAN:
-			subflag = FALSE;
-			for(i = 0; i < MAX_RACES; i++)
-			{
-				if(i == RACE_HUMAN) continue;
-				if(i == RACE_BEASTMAN) continue;
-				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
-				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE) continue;
-				if(get_subrace(cr_ptr, i)){
-					subflag = TRUE;
-					strcat(name, "ハーフ");
-					strcat(name, race_info[i].title);
-				}
-			}
-			if(!subflag) strcat(name, race_info[cr_ptr->race_idx1].title);
-		break;
-		case RACE_GOLEM:
-		case RACE_ANDROID:
-			
-			for(i = 0; i < MAX_RACES; i++)
-			{
-				if(i == RACE_HUMAN) continue;
-				if(i == RACE_BEASTMAN) continue;
-				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
-				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE) continue;
-				if(get_subrace(cr_ptr, i)){
-					strcat(name, race_info[i].title);
-					strcat(name, "型");
-				}
-			}
-			strcat(name, race_info[cr_ptr->race_idx1].title);
-		break;
-		default:
-			for(i = 0; i < MAX_RACES; i++)
-			{
-				if(i == RACE_HUMAN) continue;
-				if(i == RACE_BEASTMAN) continue;
-				if(i >= RACE_VANYAR_LINEAGE && i <= RACE_TELERI_LINEAGE) continue;
-				if(i >= RACE_RED_LINEAGE && i <= RACE_CHAOS_LINEAGE)
-				{
-					if(get_subrace(cr_ptr, i)){
-						strcat(name, race_info[i].title);
-					}
-					continue;
-				}
-				if(get_subrace(cr_ptr, i)){
-					strcat(name, "ハーフ");
-					strcat(name, race_info[i].title);
-				}
-			}
-			strcat(name, race_info[cr_ptr->race_idx1].title);
-		break;
-	}
+	if(cr_ptr->race_idx1 != RACE_HUMAN || cr_ptr->race_idx1 == cr_ptr->race_idx2)
+		strcat(name, race_info[cr_ptr->race_idx1].title);
+
+	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
+		strcat(name, race_info[cr_ptr->race_idx2].title);
 
 	if(cr_ptr->sex != SEX_UNDEFINED)
 	{

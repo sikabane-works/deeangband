@@ -1469,7 +1469,7 @@ extern bool heavy_armor(creature_type *cr_ptr);
 extern s16b calc_rank(s32b align);
 extern bool get_subrace(creature_type *cr_ptr, int n);
 extern void set_subrace(creature_type *cr_ptr, int n, bool b);
-extern cptr desc_creature_race_name(creature_type *cr_ptr);
+extern cptr desc_race_name(creature_type *cr_ptr);
 extern cptr get_class_desc(creature_type *cr_ptr);
 
 

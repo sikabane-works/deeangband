@@ -3845,7 +3845,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		}
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(cr_ptr->race_idx1 != RACE_NONE) display_player_one_line(ENTRY_RACE, desc_creature_race_name(cr_ptr), TERM_L_BLUE);
+		if(cr_ptr->race_idx1 != RACE_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
 		if(cr_ptr->cls_idx != CLASS_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);

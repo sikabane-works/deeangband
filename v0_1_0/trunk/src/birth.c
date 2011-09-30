@@ -2062,7 +2062,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #endif
 	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		race = desc_creature_race_name(cr_ptr);
+		race = desc_race_name(cr_ptr);
 		c_put_str(TERM_L_BLUE, race, 1, 9);
 	}
 
