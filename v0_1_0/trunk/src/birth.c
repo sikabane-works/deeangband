@@ -4209,7 +4209,7 @@ void realm_detail(int code)
 /*
  * Creature race
  */
-static int get_creature_race(creature_type *cr_ptr, bool auto_m)
+static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
@@ -4297,7 +4297,7 @@ static int get_creature_race(creature_type *cr_ptr, bool auto_m)
 /*
  * Creature sub-race
  */
-static int get_creature_subrace(creature_type *cr_ptr, bool auto_m)
+static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
 {
 	int     n = 0, i;
 	selection se[MAX_RACES + 3];
@@ -4371,14 +4371,14 @@ static int get_creature_subrace(creature_type *cr_ptr, bool auto_m)
 	}
 	else
 	{
-		set_subrace(cr_ptr, se[randint0(n-3)].code, TRUE);
+		cr_ptr->race_idx2 = se[randint0(n-3)].code;
 		return 0;
 	}
 
 
 	if(i >= 0)
 	{
-		set_subrace(cr_ptr, i, TRUE);
+		cr_ptr->race_idx2 = i;
 		return 0;
 	}
 	else if(i == -4)
@@ -4389,7 +4389,7 @@ static int get_creature_subrace(creature_type *cr_ptr, bool auto_m)
 	{
 		int t = randint0(n-3);
 		if(t == -4) return 0;
-		set_subrace(cr_ptr, se[t].code, TRUE);
+			cr_ptr->race_idx2 = se[t].code;
 		return 0;
 	}
 	else
@@ -6058,7 +6058,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	}
 
 
-	i = get_creature_race(cr_ptr, auto_m);
+	i = get_creature_first_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -6079,10 +6079,18 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	}
 
 	if(!auto_m) put_initial_status(cr_ptr);
-	i = get_creature_subrace(cr_ptr, auto_m);
+	i = get_creature_second_race(cr_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	// race_idx swap
+	if(cr_ptr->race_idx1 > cr_ptr->race_idx2)
+	{
+		int t;
+		t = cr_ptr->race_idx1;
+		cr_ptr->race_idx1 = cr_ptr->race_idx2;
+		cr_ptr->race_idx2 = cr_ptr->race_idx1;
+	}
 
 	if(!auto_m)
 	{
