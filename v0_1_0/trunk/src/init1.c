@@ -356,7 +356,7 @@ static cptr r_info_flags3[] =
 	"XXX",
 	"XXX",
 	"PUELLA_MAGI",
-	"GOOD",
+	"XXX",
 	"AURA_COLD",
 	"NONLIVING",
 	"HURT_LITE",
