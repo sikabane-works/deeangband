@@ -3757,7 +3757,7 @@
 #define RF3_XXX4            0x00000008  /* Dragon */
 #define RF3_XXX5            0x00000010  /* Demon */
 #define RF3_XXX6            0x00000020  /* Undead */
-#define RF3_EVIL            0x00000040  /* Evil */
+#define RF3_XXX7            0x00000040  /* Evil */
 #define RF3_ANIMAL          0x00000080  /* Animal */
 #define RF3_PUELLA_MAGI     0x00000100  // TY: Amberite -> Deskull: Puella Magi
 #define RF3_GOOD            0x00000200  /* Good */

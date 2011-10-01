@@ -268,14 +268,15 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 
 			/* Slay Evil & Good*/
 			if ((have_flag(flgs, TR_SLAY_EVIL)) &&
-			    (r_ptr->flags3 & RF3_EVIL))
+			    is_enemy_of_good_creature(tar_ptr))
 			{
+				int t;
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_EVIL;
+					//TODO r_ptr->r_flags3 |= RF3_EVIL;
 				}
-
-				if (mult < 20) mult = 20;
+				t = calc_punishment_slay(tar_ptr, ALIGNMENT_GOOD) / 10;
+				if (mult < t) mult = t;
 			}
 			else if ((have_flag(flgs, TR_SLAY_GOOD)) &&
 			    (r_ptr->flags3 & RF3_GOOD))
@@ -289,14 +290,15 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 
 			/* Execute Evil & Good */
 			if ((have_flag(flgs, TR_KILL_EVIL)) &&
-			    (r_ptr->flags3 & RF3_EVIL))
+			    is_enemy_of_good_creature(tar_ptr))
 			{
+				int t;
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_EVIL;
+					//TODO r_ptr->r_flags3 |= RF3_EVIL;
 				}
-
-				if (mult < 35) mult = 35;
+				t = (calc_punishment_slay(tar_ptr, ALIGNMENT_GOOD) / 10 - 10) * 2 + 10;
+				if (mult < t) mult = t;
 			}
 			else if ((have_flag(flgs, TR_KILL_GOOD)) &&
 			    (r_ptr->flags3 & RF3_GOOD))
@@ -634,7 +636,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 					if (mult < 25) mult = 25;
 				}
 			}
-			if ((mode == HISSATSU_ZANMA) && !monster_living(r_ptr) && (r_ptr->flags3 & RF3_EVIL))
+			if ((mode == HISSATSU_ZANMA) && !monster_living(r_ptr) && is_enemy_of_good_creature(tar_ptr))
 			{
 				if (mult < 15) mult = 25;
 				else if (mult < 50) mult = MIN(50, mult+20);
@@ -2607,7 +2609,7 @@ static void py_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y,
 			/* No negative damage */
 			if (k < 0) k = 0;
 
-			if ((mode == HISSATSU_ZANMA) && !(!monster_living(r_ptr) && (r_ptr->flags3 & RF3_EVIL)))
+			if ((mode == HISSATSU_ZANMA) && !(!monster_living(r_ptr) && is_enemy_of_good_creature(tar_ptr)))
 			{
 				k = 0;
 			}

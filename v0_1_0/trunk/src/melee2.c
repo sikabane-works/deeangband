@@ -2644,8 +2644,8 @@ msg_format("%^s%s", m_name, monmessage);
 					//if (have_flag(flgs, TR_KILL_UNDEAD)) flg3 |= (RF3_UNDEAD);
 					if (have_flag(flgs, TR_SLAY_ANIMAL)) flg3 |= (RF3_ANIMAL);
 					if (have_flag(flgs, TR_KILL_ANIMAL)) flg3 |= (RF3_ANIMAL);
-					if (have_flag(flgs, TR_SLAY_EVIL))   flg3 |= (RF3_EVIL);
-					if (have_flag(flgs, TR_KILL_EVIL))   flg3 |= (RF3_EVIL);
+					//if (have_flag(flgs, TR_SLAY_EVIL))   flg3 |= (RF3_EVIL);
+					//if (have_flag(flgs, TR_KILL_EVIL))   flg3 |= (RF3_EVIL);
 					if (have_flag(flgs, TR_SLAY_GOOD))   flg3 |= (RF3_GOOD);
 					if (have_flag(flgs, TR_KILL_GOOD))   flg3 |= (RF3_GOOD);
 					//if (have_flag(flgs, TR_SLAY_HUMAN))  flg2 |= (RF2_HUMAN);
@@ -3427,12 +3427,12 @@ void monster_gain_exp(int m_idx, int s_idx)
 		set_speed(m_ptr);
 
 		/* Sub-alignment of a monster */
-		if (!is_pet(m_ptr) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
+		if (!is_pet(m_ptr) && !((r_ptr->flags3 & RF3_GOOD) & is_enemy_of_good_species(r_ptr)))
 			m_ptr->sub_align = old_sub_align;
 		else
 		{
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
-			if (r_ptr->flags3 & RF3_EVIL) m_ptr->sub_align |= SUB_ALIGN_EVIL;
+			if (is_enemy_of_good_species(r_ptr)) m_ptr->sub_align |= SUB_ALIGN_EVIL;
 			if (r_ptr->flags3 & RF3_GOOD) m_ptr->sub_align |= SUB_ALIGN_GOOD;
 		}
 

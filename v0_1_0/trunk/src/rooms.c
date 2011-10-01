@@ -1459,7 +1459,7 @@ static bool vault_aux_jelly(int species_idx)
 	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
 
 	/* Also decline evil jellies (like death molds and shoggoths) */
-	if (r_ptr->flags3 & (RF3_EVIL)) return (FALSE);
+	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 
 	/* Require icky thing, jelly, mold, or mushroom */
 	if (!my_strchr("ijm,", r_ptr->d_char)) return (FALSE);
@@ -1523,7 +1523,7 @@ static bool vault_aux_chapel_g(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if (r_ptr->flags3 & (RF3_EVIL)) return (FALSE);
+	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 	if ((species_idx == MON_A_GOLD) || (species_idx == MON_A_SILVER)) return (FALSE);
 
 	/* Require "priest" or Angel */
@@ -1618,7 +1618,7 @@ static bool vault_aux_symbol_g(int species_idx)
 
 	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
 
-	if (r_ptr->flags3 & (RF3_EVIL)) return (FALSE);
+	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 
 	/* Decline incorrect symbol */
 	if (r_ptr->d_char != vault_aux_char) return (FALSE);
@@ -2231,7 +2231,7 @@ static bool build_type5(void)
 		if (!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (r_ptr->flags3 & RF3_EVIL) align.sub_align |= SUB_ALIGN_EVIL;
+		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
 
 		nest_mon_info[i].species_idx = species_idx;
@@ -2452,7 +2452,7 @@ static bool build_type6(void)
 		if (!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (r_ptr->flags3 & RF3_EVIL) align.sub_align |= SUB_ALIGN_EVIL;
+		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
@@ -5729,7 +5729,7 @@ static bool build_type13(void)
 		if (!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (r_ptr->flags3 & RF3_EVIL) align.sub_align |= SUB_ALIGN_EVIL;
+		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;

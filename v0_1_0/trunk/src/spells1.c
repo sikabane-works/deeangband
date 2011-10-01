@@ -2111,7 +2111,7 @@ note = "には完全な耐性がある。";
 
 				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
 			}
-			else if (r_ptr->flags3 & RF3_EVIL)
+			else if (is_enemy_of_good_species(r_ptr))
 			{
 				dam *= 2;
 #ifdef JP
@@ -2120,7 +2120,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
 			}
 			else
 			{
@@ -2225,7 +2225,7 @@ note = "には耐性がある。";
 				}
 				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags10 |= (RF10_RES_NETH);
 			}
-			else if (r_ptr->flags3 & RF3_EVIL)
+			else if (is_enemy_of_good_species(r_ptr))
 			{
 				dam /= 2;
 #ifdef JP
@@ -2234,7 +2234,7 @@ note = "には耐性がある。";
 				note = " resists somewhat.";
 #endif
 
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 			}
 			break;
 		}
@@ -3687,7 +3687,7 @@ note = "は眠り込んでしまった！";
 			}
 			/* Attempt a saving throw */
 			if ((r_ptr->flags1 & RF1_UNIQUE) ||
-			    !(r_ptr->flags3 & RF3_EVIL) ||
+			    !(is_enemy_of_good_creature(m_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -4481,7 +4481,7 @@ note = "には耐性がある！";
 		case GF_AWAY_EVIL:
 		{
 			/* Only affect evil */
-			if (r_ptr->flags3 & (RF3_EVIL))
+			if (is_enemy_of_good_creature(m_ptr))
 			{
 				bool resists_tele = FALSE;
 
@@ -4514,7 +4514,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+					//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 					do_dist = dam;
 				}
 			}
@@ -4634,13 +4634,13 @@ note = "には耐性がある！";
 				break;
 			}
 			/* Only affect evil */
-			if (r_ptr->flags3 & (RF3_EVIL))
+			if (is_enemy_of_good_creature(m_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4761,13 +4761,13 @@ note = "には効果がなかった！";
 				break;
 			}
 			/* Only affect evil */
-			if (r_ptr->flags3 & (RF3_EVIL))
+			if (is_enemy_of_good_creature(m_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Message */
 #ifdef JP

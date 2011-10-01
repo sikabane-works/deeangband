@@ -474,10 +474,10 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		break;
 	case SP_HOLYNESS:
-		if (r_ptr->flags3 & RF3_EVIL)
+		if (is_enemy_of_good_creature(m_ptr))
 		{
 			int n = 12 + (cr_ptr->concent * 3);
-			if (seen) r_ptr->r_flags3 |= RF3_EVIL;
+			//TODO if (seen) r_ptr->r_flags3 |= RF3_EVIL;
 			if (r_ptr->flags3 & (RF3_HURT_LITE))
 			{
 				n += (cr_ptr->concent * 3);

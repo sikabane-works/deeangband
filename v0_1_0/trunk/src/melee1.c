@@ -259,12 +259,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 			/* Hack -- Apply "protection from evil" */
 			if ((tar_ptr->protevil > 0) &&
-			    (r_ptr->flags3 & RF3_EVIL) &&
+			    is_enemy_of_good_creature(tar_ptr) &&
 			    (tar_ptr->lev >= rlev) &&
 			    ((randint0(100) + tar_ptr->lev) > 50))
 			{
 				/* Remember the Evil-ness */
-				if (is_original_ap_and_seen(tar_ptr, atk_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+				//TODO if (is_original_ap_and_seen(tar_ptr, atk_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
 
 				/* Message */
 #ifdef JP
@@ -2069,7 +2069,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 
 				if (tar_ptr->tim_sh_holy && alive && !tar_ptr->is_dead)
 				{
-					if (r_ptr->flags3 & RF3_EVIL)
+					if (is_enemy_of_good_creature(tar_ptr))
 					{
 						if (!(atk_ptr->resist_ultimate))
 						{
@@ -2090,8 +2090,8 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 								blinked = FALSE;
 								alive = FALSE;
 							}
-							if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-								r_ptr->r_flags3 |= RF3_EVIL;
+							if (is_original_ap_and_seen(tar_ptr, atk_ptr));
+								// TODO r_ptr->r_flags3 |= RF3_EVIL;
 						}
 						else
 						{

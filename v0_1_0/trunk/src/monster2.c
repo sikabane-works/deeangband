@@ -754,7 +754,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_ANGEL:
 		{
-			okay = (r_ptr->d_char == 'A' && ((r_ptr->flags3 & RF3_EVIL) || (r_ptr->flags3 & RF3_GOOD)));
+			okay = (r_ptr->d_char == 'A' && (is_enemy_of_good_species(r_ptr) || (r_ptr->flags3 & RF3_GOOD)));
 			break;
 		}
 
@@ -886,7 +886,7 @@ static bool summon_specific_aux(int species_idx)
 			okay = ((r_ptr->flags3 & (RF3_ANIMAL)) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
 			       !is_dragon_species(r_ptr) &&
-			       !(r_ptr->flags3 & (RF3_EVIL)) &&
+			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
 			       !(r_ptr->flags2 & (RF2_MULTIPLY)) &&
@@ -1012,7 +1012,7 @@ static bool summon_specific_aux(int species_idx)
 		case SUMMON_ARMAGE_EVIL:
 		{
 			okay = ((is_demon_species(r_ptr)) ||
-				(r_ptr->d_char == 'A' && (r_ptr->flags3 & RF3_EVIL)));
+				(r_ptr->d_char == 'A' && is_enemy_of_good_species(r_ptr)));
 			break;
 		}
 	}
@@ -2668,10 +2668,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_evil) && (r_ptr->flags3 & (RF3_EVIL)))
+			if ((cr_ptr->esp_evil) && is_enemy_of_good_creature(cr_ptr))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_EVIL);
+//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_EVIL);
 			}
 
 			/* Magical sensing */
@@ -2945,8 +2945,8 @@ static bool monster_hook_chameleon(int species_idx)
 	if (!(old_r_ptr->flags7 & RF7_CHAMELEON))
 	{
 		if ((old_r_ptr->flags3 & RF3_GOOD) && !(r_ptr->flags3 & RF3_GOOD)) return FALSE;
-		if ((old_r_ptr->flags3 & RF3_EVIL) && !(r_ptr->flags3 & RF3_EVIL)) return FALSE;
-		if (!(old_r_ptr->flags3 & (RF3_GOOD | RF3_EVIL)) && (r_ptr->flags3 & (RF3_GOOD | RF3_EVIL))) return FALSE;
+		if (is_enemy_of_good_species(r_ptr) && !is_enemy_of_good_species(r_ptr)) return FALSE;
+		if (!((old_r_ptr->flags3 & RF3_GOOD) && is_enemy_of_good_species(r_ptr)) && ((r_ptr->flags3 & RF3_GOOD) && is_enemy_of_good_species(r_ptr))) return FALSE;
 	}
 
 	/* Born now */
@@ -3029,10 +3029,10 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (born)
 	{
 		/* Sub-alignment of a chameleon */
-		if (r_ptr->flags3 & (RF3_EVIL | RF3_GOOD))
+		if ((r_ptr->flags3 & RF3_GOOD) && is_enemy_of_good_species(r_ptr))
 		{
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
-			if (r_ptr->flags3 & RF3_EVIL) m_ptr->sub_align |= SUB_ALIGN_EVIL;
+			if (is_enemy_of_good_species(r_ptr)) m_ptr->sub_align |= SUB_ALIGN_EVIL;
 			if (r_ptr->flags3 & RF3_GOOD) m_ptr->sub_align |= SUB_ALIGN_GOOD;
 		}
 		return;
@@ -3557,12 +3557,12 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	/* Sub-alignment of a monster */
-	if (!is_player(who_ptr) && !(r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)))
+	if (!is_player(who_ptr) && !((r_ptr->flags3 & RF3_GOOD) && is_enemy_of_good_creature(who_ptr)))
 		m_ptr->sub_align = who_ptr->sub_align;
 	else
 	{
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
-		if (r_ptr->flags3 & RF3_EVIL) m_ptr->sub_align |= SUB_ALIGN_EVIL;
+		if (is_enemy_of_good_creature(m_ptr)) m_ptr->sub_align |= SUB_ALIGN_EVIL;
 		if (r_ptr->flags3 & RF3_GOOD) m_ptr->sub_align |= SUB_ALIGN_GOOD;
 	}
 

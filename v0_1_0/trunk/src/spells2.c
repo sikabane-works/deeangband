@@ -4063,12 +4063,12 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
-		if (r_ptr->flags3 & RF3_EVIL)
+		if (is_enemy_of_good_creature(m_ptr))
 		{
 			if (is_original_ap(m_ptr))
 			{
 				/* Take note that they are evil */
-				r_ptr->r_flags3 |= (RF3_EVIL);
+				//r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Update monster recall window */
 				if (cr_ptr->species_type_idx == m_ptr->species_idx)
@@ -4945,6 +4945,7 @@ bool probing(void)
 			if (m_ptr->slow) speed -= 10;
 
 			/* Get the monster's alignment */
+/* TODO
 #ifdef JP
 			if ((r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) == (RF3_EVIL | RF3_GOOD)) align = "‘Pˆ«";
 			else if (r_ptr->flags3 & RF3_EVIL) align = "×ˆ«";
@@ -4962,6 +4963,8 @@ bool probing(void)
 			else if (m_ptr->sub_align & SUB_ALIGN_GOOD) align = "neutral(good)";
 			else align = "neutral";
 #endif
+*/
+			align = "----";
 
 #ifdef JP
 			if(m_ptr->sex == SEX_MALE) sex = "’j«";
