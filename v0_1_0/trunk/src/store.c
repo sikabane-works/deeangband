@@ -1916,7 +1916,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 					{
 						if (r_ptr->flags3 & RF3_GOOD) break;
 
-						if (r_ptr->flags3 & RF3_ANIMAL) break;
+						if (is_animal_species(r_ptr)) break;
 
 						if (my_strchr("?!", r_ptr->d_char)) break;
 					}

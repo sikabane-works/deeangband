@@ -2977,11 +2977,11 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 		{
 			/* Slay Animal */
 			if ((have_flag(flgs, TR_SLAY_ANIMAL)) &&
-			    (r_ptr->flags3 & RF3_ANIMAL))
+			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_ANIMAL;
+					//r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
 
 				if (mult < 17) mult = 17;
@@ -2989,11 +2989,11 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 
 			/* Kill Animal */
 			if ((have_flag(flgs, TR_KILL_ANIMAL)) &&
-			    (r_ptr->flags3 & RF3_ANIMAL))
+			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_ANIMAL;
+					//r_ptr->r_flags3 |= RF3_ANIMAL;
 				}
 
 				if (mult < 27) mult = 27;

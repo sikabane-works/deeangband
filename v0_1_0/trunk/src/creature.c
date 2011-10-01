@@ -733,6 +733,18 @@ bool is_undead_species(species_type *sp_ptr)
 	return FALSE;
 }
 
+bool is_animal_creature(creature_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
+bool is_animal_species(species_type *sp_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
 bool is_unique(creature_type *cr_ptr)
 {
 	return (cr_ptr->flags1 & RF1_UNIQUE) || cr_ptr->stigmatic;

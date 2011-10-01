@@ -233,7 +233,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 		//if (sp_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
 		//if (sp_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
 		if (sp_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
-		if (sp_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
+		//if (sp_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
 		if (sp_ptr->flags3 & RF3_PUELLA_MAGI) flags3 |= (RF3_PUELLA_MAGI);
 		//if (sp_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
 

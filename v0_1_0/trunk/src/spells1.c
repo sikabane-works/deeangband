@@ -2821,7 +2821,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 
 			}
 			else if ((r_ptr->flags2 & (RF2_STUPID | RF2_WEIRD_MIND)) ||
-			         (r_ptr->flags3 & RF3_ANIMAL) ||
+			         is_animal_creature(m_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
@@ -2958,7 +2958,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 
 			}
 			else if ((r_ptr->flags2 & (RF2_STUPID | RF2_WEIRD_MIND)) ||
-			         (r_ptr->flags3 & RF3_ANIMAL) ||
+			         is_animal_creature(m_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
@@ -4036,7 +4036,7 @@ note = "‚ÍŠù‚É‚ ‚È‚½‚Ì“z—ê‚¾I";
 
 			/* Attempt a saving throw */
 			if ((r_ptr->flags1 & (RF1_QUESTOR)) ||
-			  (!(r_ptr->flags3 & (RF3_ANIMAL))) ||
+			    (!is_animal_creature(m_ptr)) ||
 			    (m_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (r_ptr->flags3 & (RF3_NO_CONF)) ||
 				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))

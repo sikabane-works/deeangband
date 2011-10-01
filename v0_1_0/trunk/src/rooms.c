@@ -1480,7 +1480,7 @@ static bool vault_aux_animal(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* Require "animal" flag */
-	if (!(r_ptr->flags3 & (RF3_ANIMAL))) return (FALSE);
+	if (!is_animal_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

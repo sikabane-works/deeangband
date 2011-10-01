@@ -877,13 +877,13 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_ANIMAL:
 		{
-			okay = (r_ptr->flags3 & (RF3_ANIMAL));
+			okay = is_animal_species(r_ptr);
 			break;
 		}
 
 		case SUMMON_ANIMAL_RANGER:
 		{
-			okay = ((r_ptr->flags3 & (RF3_ANIMAL)) &&
+			okay = (is_animal_species(r_ptr) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
 			       !is_dragon_species(r_ptr) &&
 			       !(is_enemy_of_good_species(r_ptr)) &&
@@ -2612,10 +2612,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_animal) && (r_ptr->flags3 & (RF3_ANIMAL)))
+			if ((cr_ptr->esp_animal) && is_animal_creature(cr_ptr))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ANIMAL);
+				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ANIMAL);
 			}
 
 			/* Magical sensing */

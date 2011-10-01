@@ -1105,7 +1105,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	 * Animal packs try to get the player out of corridors
 	 * (...unless they can move through walls -- TY)
 	 */
-		if ((r_ptr->flags3 & RF3_ANIMAL) && !can_pass_wall &&
+		if (is_animal_creature(m_ptr) && !can_pass_wall &&
 			 !(r_ptr->flags2 & RF2_KILL_WALL))
 		{
 			int i, room = 0;
@@ -2642,8 +2642,8 @@ msg_format("%^s%s", m_name, monmessage);
 					//if (have_flag(flgs, TR_KILL_DEMON))  flg3 |= (RF3_DEMON);
 					//if (have_flag(flgs, TR_SLAY_UNDEAD)) flg3 |= (RF3_UNDEAD);
 					//if (have_flag(flgs, TR_KILL_UNDEAD)) flg3 |= (RF3_UNDEAD);
-					if (have_flag(flgs, TR_SLAY_ANIMAL)) flg3 |= (RF3_ANIMAL);
-					if (have_flag(flgs, TR_KILL_ANIMAL)) flg3 |= (RF3_ANIMAL);
+					//if (have_flag(flgs, TR_SLAY_ANIMAL)) flg3 |= (RF3_ANIMAL);
+					//if (have_flag(flgs, TR_KILL_ANIMAL)) flg3 |= (RF3_ANIMAL);
 					//if (have_flag(flgs, TR_SLAY_EVIL))   flg3 |= (RF3_EVIL);
 					//if (have_flag(flgs, TR_KILL_EVIL))   flg3 |= (RF3_EVIL);
 					if (have_flag(flgs, TR_SLAY_GOOD))   flg3 |= (RF3_GOOD);
