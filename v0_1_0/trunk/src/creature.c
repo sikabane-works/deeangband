@@ -780,3 +780,58 @@ bool is_female_creature(creature_type *cr_ptr)
 {
 	return cr_ptr->sex & SEX_FEMALE;
 }
+
+bool is_enemy_of_evil_creature(creature_type *cr_ptr)
+{
+	return calc_punishment_slay(cr_ptr, ALIGNMENT_EVIL) > 100;
+}
+
+bool is_enemy_of_evil_species(species_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
+bool is_enemy_of_good_creature(creature_type *cr_ptr)
+{
+	return calc_punishment_slay(cr_ptr, ALIGNMENT_GOOD) > 100;
+}
+
+bool is_enemy_of_good_species(species_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
+bool is_enemy_of_order_creature(creature_type *cr_ptr)
+{
+	return calc_punishment_slay(cr_ptr, ALIGNMENT_ORDER) > 100;
+}
+
+bool is_enemy_of_order_species(species_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
+bool is_enemy_of_chaos_creature(creature_type *cr_ptr)
+{
+	return calc_punishment_slay(cr_ptr, ALIGNMENT_CHAOS) > 100;
+}
+
+bool is_enemy_of_chaos_species(species_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
+
+bool is_enemy_of_balance_creature(creature_type *cr_ptr)
+{
+	return calc_punishment_slay(cr_ptr, ALIGNMENT_BALANCE) > 100;
+}
+
+bool is_enemy_of_balance_species(species_type *cr_ptr)
+{
+	//TODO
+	return FALSE;
+}
