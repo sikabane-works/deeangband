@@ -297,6 +297,7 @@ header k_head;
 header a_head;
 header e_head;
 header r_head;
+header rc_head;
 header re_head;
 header st_head;
 header d_head;
@@ -1096,7 +1097,26 @@ static errr init_stp_info_csv(void)
 
 }
 
+/*
+ * Initialize the "rc_info" array
+ */
+static errr init_rc_info(void)
+{
+	/* Init the header */
+	init_header(&rc_head, MAX_RACES, sizeof(race_type));
 
+#ifdef ALLOW_TEMPLATES
+
+	/* Save a pointer to the parsing function */
+//	rc_head.parse_info_txt = parse_rc_info;
+
+#endif /* ALLOW_TEMPLATES */
+
+//	return init_info("rc_info", &rc_head,
+//(void*)&a_info, &a_name, &a_text, NULL);
+
+	return 0;
+}
 
 /*
  * Initialize the "d_info" array
@@ -2097,8 +2117,12 @@ void init_angband(void)
 	note("[Initializing arrays... (ego-items)]");
 	if (init_e_info()) quit("Cannot initialize ego-items");
 
-	/* Initialize monster info */
-	note("[Initializing arrays... (monsters)]");
+	/* Initialize race info */
+	note("[Initializing arrays... (races)]");
+	if (init_rc_info()) quit("Cannot initialize races");
+
+	/* Initialize creature info */
+	note("[Initializing arrays... (creatures)]");
 	// if (init_r_info_txt()) quit("Cannot initialize monsters");
 	if (init_r_info_csv()) quit("Cannot initialize monsters");
 

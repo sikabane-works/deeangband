@@ -844,14 +844,26 @@ ego_item_type *e_info;
 char *e_name;
 char *e_text;
 
-
 /*
- * The monster race arrays
+ * The creature species arrays
  */
 species_type *r_info;
 char *r_name;
 char *r_text;
 
+/*
+ * The race arrays
+ */
+race_type *rc_info;
+char *rc_name;
+char *rc_text;
+
+/*
+ * The artifact arrays
+ */
+artifact_type *a_info;
+char *a_name;
+char *a_text;
 
 /*
  * The monster ego arrays
@@ -1135,7 +1147,7 @@ u16b max_a_idx;
 u16b max_e_idx;
 
 /*
- * Maximum number of dungeon in e_info.txt
+ * Maximum number of dungeon in d_info.txt
  */
 u16b max_d_idx;
 
@@ -1155,6 +1167,9 @@ u16b max_m_idx;
 u16b max_st_idx;
 
 
+/*
+ * Maximum number of uniques in the world
+ */
 u16b max_unique;
 
 /*
