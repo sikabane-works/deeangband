@@ -1089,12 +1089,6 @@ static errr init_stp_info_csv(void)
 
 	return init_info2("stp_info", &st_head, (void*)&stp_info, &stp_name, &stp_text, NULL);
 
-/*
-	init_header(&r_head, max_species_idx, sizeof(species_type));
-	r_head.parse_info_txt = parse_r_info_csv;
-	return init_info2("r_info", &r_head, (void*)&r_info, &r_name, &r_text, NULL);
-	*/
-
 }
 
 /*
@@ -1108,15 +1102,14 @@ static errr init_rc_info(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-//	rc_head.parse_info_txt = parse_rc_info;
+	rc_head.parse_info_txt = parse_rc_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-//	return init_info("rc_info", &rc_head,
-//(void*)&a_info, &a_name, &a_text, NULL);
-
-	return 0;
+	return init_info2("rc_info", &rc_head, (void*)&rc_info, &rc_name, &rc_text, NULL);
 }
+
+
 
 /*
  * Initialize the "d_info" array

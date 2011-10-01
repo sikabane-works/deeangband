@@ -121,6 +121,7 @@ extern errr parse_s_info(char *buf, header *head);
 extern errr parse_m_info(char *buf, header *head);
 
 extern errr parse_r_info_csv(char *buf, header *head);
+extern errr parse_rc_info_csv(char *buf, header *head);
 extern errr parse_stp_info_csv(char *buf, header *head);
 
 /*
