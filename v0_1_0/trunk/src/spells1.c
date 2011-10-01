@@ -2070,7 +2070,7 @@ note = "には耐性がある。";
 				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (r_ptr->flags3 & RF3_GOOD)
+			if (is_enemy_of_evil_creature(m_ptr))
 			{
 				dam *= 2;
 #ifdef JP
@@ -2079,7 +2079,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				//TODOif (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 			}
 			break;
 		}
@@ -2100,7 +2100,7 @@ note = "はひどい痛手を受けた。";
 				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (r_ptr->flags3 & RF3_GOOD)
+			if (is_enemy_of_evil_creature(m_ptr))
 			{
 				dam = 0;
 #ifdef JP
@@ -2109,9 +2109,9 @@ note = "には完全な耐性がある。";
 				note = " is immune.";
 #endif
 
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
 			}
-			else if (is_enemy_of_good_species(r_ptr))
+			else if (is_enemy_of_good_creature(m_ptr))
 			{
 				dam *= 2;
 #ifdef JP
@@ -4802,13 +4802,13 @@ note = "には効果がなかった！";
 				break;
 			}
 			/* Only affect good */
-			if (r_ptr->flags3 & (RF3_GOOD))
+			if (is_enemy_of_evil_creature(m_ptr))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 
 				/* Message */
 #ifdef JP
@@ -5685,7 +5685,7 @@ note = "には効果がなかった！";
 			bool success = FALSE;
 			if (seen) obvious = TRUE;
 
-			if ((r_ptr->flags3 & (RF3_GOOD)) && !inside_arena)
+			if (is_enemy_of_evil_creature(m_ptr) && !inside_arena)
 			{
 				if (r_ptr->flags3 & (RF3_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;
@@ -5725,7 +5725,7 @@ note = "には効果がなかった！";
 					(void)set_fast(&m_list[c_ptr->m_idx], m_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
-					if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+					//TODO if (is_original_ap_and_seen(who_ptr, m_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
 					success = TRUE;
 				}
 			}

@@ -279,11 +279,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (mult < t) mult = t;
 			}
 			else if ((have_flag(flgs, TR_SLAY_GOOD)) &&
-			    (r_ptr->flags3 & RF3_GOOD))
+			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_GOOD;
+					//TODO r_ptr->r_flags3 |= RF3_GOOD;
 				}
 				if (mult < 20) mult = 20;
 			}
@@ -301,11 +301,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (mult < t) mult = t;
 			}
 			else if ((have_flag(flgs, TR_KILL_GOOD)) &&
-			    (r_ptr->flags3 & RF3_GOOD))
+			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_GOOD;
+					//TODO r_ptr->r_flags3 |= RF3_GOOD;
 				}
 
 				if (mult < 35) mult = 35;
@@ -480,11 +480,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 
 			/* Hex - Slay Good (Runesword) */
 			if (hex_spelling(atk_ptr, HEX_RUNESWORD) &&
-			    (r_ptr->flags3 & RF3_GOOD))
+			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_GOOD;
+					//TODO r_ptr->r_flags3 |= RF3_GOOD;
 				}
 
 				if (mult < 20) mult = 20;

@@ -795,7 +795,9 @@ bool is_female_creature(creature_type *cr_ptr)
 
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {
-	return calc_punishment_slay(cr_ptr, ALIGNMENT_EVIL) > 100;
+	//TODO
+	// return calc_punishment_slay(cr_ptr, ALIGNMENT_EVIL) > 100;
+	return FALSE;
 }
 
 bool is_enemy_of_evil_species(species_type *cr_ptr)

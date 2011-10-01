@@ -1414,13 +1414,13 @@ void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 	if (inc)
 	{
 		total_friends++;
-		if (r_ptr->flags3 & RF3_GOOD) friend_align += r_ptr->level;
+		if (is_enemy_of_evil_creature(m_ptr)) friend_align += r_ptr->level;
 		if (is_enemy_of_good_creature(m_ptr)) friend_align -= r_ptr->level;
 	}
 	else
 	{
 		total_friends--;
-		if (r_ptr->flags3 & RF3_GOOD) friend_align -= r_ptr->level;
+		if (is_enemy_of_evil_creature(m_ptr)) friend_align -= r_ptr->level;
 		if (is_enemy_of_good_creature(m_ptr)) friend_align += r_ptr->level;
 	}
 
@@ -1468,7 +1468,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 				total_friend_levels += r_ptr->level;
 
 			/* Determine pet alignment */
-			if (r_ptr->flags3 & RF3_GOOD) friend_align += r_ptr->level;
+			if (is_enemy_of_evil_species(r_ptr)) friend_align += r_ptr->level;
 			if (is_enemy_of_good_species(r_ptr)) friend_align -= r_ptr->level;
 		}
 	}

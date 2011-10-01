@@ -232,7 +232,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 		//if (sp_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
 		//if (sp_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
 		//if (sp_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
-		if (sp_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
+		//if (sp_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
 		//if (sp_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
 		if (sp_ptr->flags3 & RF3_PUELLA_MAGI) flags3 |= (RF3_PUELLA_MAGI);
 		//if (sp_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
@@ -3346,7 +3346,7 @@ void set_pet(creature_type *m_ptr)
 	check_quest_completion(p_ptr, m_ptr);
 
 	m_ptr->smart |= SM_PET;
-	if (!((r_info[m_ptr->species_idx].flags3 & RF3_GOOD) && is_enemy_of_good_creature(m_ptr)))
+	if (!(is_enemy_of_evil_creature(m_ptr) && is_enemy_of_good_creature(m_ptr)))
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 }
 
@@ -3535,7 +3535,7 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, s
 
 	/* Racial alignment flags */
 	if (is_enemy_of_good_creature(m_ptr)) sub_align2 |= SUB_ALIGN_EVIL;
-	if (r_ptr->flags3 & RF3_GOOD) sub_align2 |= SUB_ALIGN_GOOD;
+	if (is_enemy_of_evil_creature(m_ptr)) sub_align2 |= SUB_ALIGN_GOOD;
 
 	if (check_hostile_align(sub_align1, sub_align2)) return TRUE;
 

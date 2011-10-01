@@ -1596,7 +1596,7 @@ static bool vault_aux_symbol_e(int species_idx)
 
 	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
 
-	if (r_ptr->flags3 & (RF3_GOOD)) return (FALSE);
+	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
 	/* Decline incorrect symbol */
 	if (r_ptr->d_char != vault_aux_char) return (FALSE);
@@ -1683,7 +1683,7 @@ static bool vault_aux_giant(int species_idx)
 	/* Require giant */
 	if (!is_giant_species(r_ptr)) return (FALSE);
 
-	if (r_ptr->flags3 & RF3_GOOD) return (FALSE);
+	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
 	if (is_undead_species(r_ptr)) return (FALSE);
@@ -2232,7 +2232,7 @@ static bool build_type5(void)
 
 		/* Note the alignment */
 		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
+		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		nest_mon_info[i].species_idx = species_idx;
 		nest_mon_info[i].used = FALSE;
@@ -2453,7 +2453,7 @@ static bool build_type6(void)
 
 		/* Note the alignment */
 		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
+		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}
@@ -5730,7 +5730,7 @@ static bool build_type13(void)
 
 		/* Note the alignment */
 		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (r_ptr->flags3 & RF3_GOOD) align.sub_align |= SUB_ALIGN_GOOD;
+		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}
