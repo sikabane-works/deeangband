@@ -1,5 +1,5 @@
 "ID","NAME","E_NAME","SYM","COL","RACE1","RACE2","SEX","CLASS","PATRON","CHARA","RELM1","RELM2","LEV","RARE","Z","EXP","N_EXP","N_MIN","AGE","SC","DV","SP","VIS","AC","ALERT","STR","INT","WIS","DEX","CON","CHA","M_HB","M_HM","M_WB","M_WM","F_HB","F_HM","F_WB","F_WM","BATTLE","UNDERLING","ARTIFACT","COMMENT","FLAG","ACTION","AUTHORITY","DESCRIPTION",,,,,,,
-0,"ÉvÉåÉCÉÑÅ[","Player","@","w",0,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"
+0,"Åq‡ÄàÛÅrÇÃé“","Stigmatic One","@","w",0,0,3,0,0,0,0,0,0,1,0,0,0,0,0,0,-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"
 #J0#",,,,"ÅhtestÅh",,,,,,,
 1,"ïÇòQéô","Urchin","t","D",0,0,1,11,255,255,0,0,0,2,0,0,10,14,0,1,-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
 TOUCH:EAT_GOLD",,,"J0#","SEX_F50|EVIL|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO|RACE_EGO",,,"$they look squalid and thoroughly revolting.

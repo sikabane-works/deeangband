@@ -124,14 +124,10 @@ static void hooked_roff(cptr str)
  * left edge of the screen, on a cleared line, in which the recall is
  * to take place.  One extra blank line is left after the recall.
  */
-static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
+static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 {
-	species_type    *r_ptr = &r_info[species_idx];
-
 	bool            old = FALSE;
-
 	int             m, n, r;
-
 	cptr            p, q;
 
 #ifdef JP
@@ -142,7 +138,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	int             msex = 0;
 
 	bool nightmare = ironman_nightmare && !(mode & 0x02);
-	int speed = nightmare ? r_ptr->speed + 5 : r_ptr->speed;
+	int speed = nightmare ? sp_ptr->speed + 5 : sp_ptr->speed;
 
 	bool            breath = FALSE;
 	bool            magic = FALSE;
@@ -165,18 +161,18 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	bool know_everything = FALSE;
 
 	/* Obtain a copy of the "known" number of drops */
-	drop_gold = r_ptr->r_drop_gold;
-	drop_item = r_ptr->r_drop_item;
+	drop_gold = sp_ptr->r_drop_gold;
+	drop_item = sp_ptr->r_drop_item;
 
 	/* Obtain a copy of the "known" flags */
-	flags1 = (r_ptr->flags1 & r_ptr->r_flags1);
-	flags2 = (r_ptr->flags2 & r_ptr->r_flags2);
-	flags3 = (r_ptr->flags3 & r_ptr->r_flags3);
-	flags4 = (r_ptr->flags4 & r_ptr->r_flags4);
-	flags5 = (r_ptr->flags5 & r_ptr->r_flags5);
-	flags6 = (r_ptr->flags6 & r_ptr->r_flags6);
-	flags7 = (r_ptr->flags7 & r_ptr->flags7);
-	flags10 = (r_ptr->flags10 & r_ptr->r_flags10);
+	flags1 = (sp_ptr->flags1 & sp_ptr->r_flags1);
+	flags2 = (sp_ptr->flags2 & sp_ptr->r_flags2);
+	flags3 = (sp_ptr->flags3 & sp_ptr->r_flags3);
+	flags4 = (sp_ptr->flags4 & sp_ptr->r_flags4);
+	flags5 = (sp_ptr->flags5 & sp_ptr->r_flags5);
+	flags6 = (sp_ptr->flags6 & sp_ptr->r_flags6);
+	flags7 = (sp_ptr->flags7 & sp_ptr->flags7);
+	flags10 = (sp_ptr->flags10 & sp_ptr->r_flags10);
 
 	/* cheat_know or research_mon() */
 	if (cheat_know || (mode & 0x01))
@@ -187,66 +183,66 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	{
 		/* Hack -- maximal drops */
 		drop_gold = drop_item =
-		(((r_ptr->flags1 & RF1_DROP_4D2) ? 8 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_3D2) ? 6 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_2D2) ? 4 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_1D2) ? 2 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_90)  ? 1 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_60)  ? 1 : 0));
+		(((sp_ptr->flags1 & RF1_DROP_4D2) ? 8 : 0) +
+		 ((sp_ptr->flags1 & RF1_DROP_3D2) ? 6 : 0) +
+		 ((sp_ptr->flags1 & RF1_DROP_2D2) ? 4 : 0) +
+		 ((sp_ptr->flags1 & RF1_DROP_1D2) ? 2 : 0) +
+		 ((sp_ptr->flags1 & RF1_DROP_90)  ? 1 : 0) +
+		 ((sp_ptr->flags1 & RF1_DROP_60)  ? 1 : 0));
 
 		/* Hack -- but only "valid" drops */
-		if (r_ptr->flags1 & RF1_ONLY_GOLD) drop_item = 0;
-		if (r_ptr->flags1 & RF1_ONLY_ITEM) drop_gold = 0;
+		if (sp_ptr->flags1 & RF1_ONLY_GOLD) drop_item = 0;
+		if (sp_ptr->flags1 & RF1_ONLY_ITEM) drop_gold = 0;
 
 		/* Hack -- know all the flags */
-		flags1 = r_ptr->flags1;
-		flags2 = r_ptr->flags2;
-		flags3 = r_ptr->flags3;
-		flags4 = r_ptr->flags4;
-		flags5 = r_ptr->flags5;
-		flags6 = r_ptr->flags6;
-		flags10 = r_ptr->flags10;
+		flags1 = sp_ptr->flags1;
+		flags2 = sp_ptr->flags2;
+		flags3 = sp_ptr->flags3;
+		flags4 = sp_ptr->flags4;
+		flags5 = sp_ptr->flags5;
+		flags6 = sp_ptr->flags6;
+		flags10 = sp_ptr->flags10;
 	}
 
 
 	/* Extract a gender (if applicable) */
-	if (is_female_species(r_ptr)) msex = 2;
-	else if (is_male_species(r_ptr)) msex = 1;
+	if (is_female_species(sp_ptr)) msex = 2;
+	else if (is_male_species(sp_ptr)) msex = 1;
 
 	/* Assume some "obvious" flags */
-	if (r_ptr->flags1 & RF1_UNIQUE)  flags1 |= (RF1_UNIQUE);
-	if (r_ptr->flags1 & RF1_QUESTOR) flags1 |= (RF1_QUESTOR);
-	//if (r_ptr->flags1 & RF1_MALE)    flags1 |= (RF1_MALE);
-	//if (r_ptr->flags1 & RF1_FEMALE)  flags1 |= (RF1_FEMALE);
+	if (sp_ptr->flags1 & RF1_UNIQUE)  flags1 |= (RF1_UNIQUE);
+	if (sp_ptr->flags1 & RF1_QUESTOR) flags1 |= (RF1_QUESTOR);
+	//if (sp_ptr->flags1 & RF1_MALE)    flags1 |= (RF1_MALE);
+	//if (sp_ptr->flags1 & RF1_FEMALE)  flags1 |= (RF1_FEMALE);
 
 	/* Assume some "creation" flags */
-	if (r_ptr->flags1 & RF1_FRIENDS) flags1 |= (RF1_FRIENDS);
-	if (r_ptr->flags1 & RF1_ESCORT)  flags1 |= (RF1_ESCORT);
-	if (r_ptr->flags1 & RF1_ESCORTS) flags1 |= (RF1_ESCORTS);
+	if (sp_ptr->flags1 & RF1_FRIENDS) flags1 |= (RF1_FRIENDS);
+	if (sp_ptr->flags1 & RF1_ESCORT)  flags1 |= (RF1_ESCORT);
+	if (sp_ptr->flags1 & RF1_ESCORTS) flags1 |= (RF1_ESCORTS);
 
 	/* Killing a monster reveals some properties */
-	if (r_ptr->r_tkills || know_everything)
+	if (sp_ptr->r_tkills || know_everything)
 	{
 		/* Know "race" flags */
 		//TODO
-		//if (r_ptr->flags3 & RF3_ORC)      flags3 |= (RF3_ORC);
-		//if (r_ptr->flags3 & RF3_TROLL)    flags3 |= (RF3_TROLL);
-		//if (r_ptr->flags3 & RF3_GIANT)    flags3 |= (RF3_GIANT);
-		//if (r_ptr->flags3 & RF3_DRAGON)   flags3 |= (RF3_DRAGON);
-		//if (r_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
-		//if (r_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
-		if (r_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
-		if (r_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
-		if (r_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
-		if (r_ptr->flags3 & RF3_PUELLA_MAGI) flags3 |= (RF3_PUELLA_MAGI);
-		//if (r_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
+		//if (sp_ptr->flags3 & RF3_ORC)      flags3 |= (RF3_ORC);
+		//if (sp_ptr->flags3 & RF3_TROLL)    flags3 |= (RF3_TROLL);
+		//if (sp_ptr->flags3 & RF3_GIANT)    flags3 |= (RF3_GIANT);
+		//if (sp_ptr->flags3 & RF3_DRAGON)   flags3 |= (RF3_DRAGON);
+		//if (sp_ptr->flags3 & RF3_DEMON)    flags3 |= (RF3_DEMON);
+		//if (sp_ptr->flags3 & RF3_UNDEAD)   flags3 |= (RF3_UNDEAD);
+		if (sp_ptr->flags3 & RF3_EVIL)     flags3 |= (RF3_EVIL);
+		if (sp_ptr->flags3 & RF3_GOOD)     flags3 |= (RF3_GOOD);
+		if (sp_ptr->flags3 & RF3_ANIMAL)   flags3 |= (RF3_ANIMAL);
+		if (sp_ptr->flags3 & RF3_PUELLA_MAGI) flags3 |= (RF3_PUELLA_MAGI);
+		//if (sp_ptr->flags2 & RF2_HUMAN)    flags2 |= (RF2_HUMAN);
 
 		/* Know 'quantum' flag */
-		if (r_ptr->flags2 & RF2_QUANTUM)  flags2 |= (RF2_QUANTUM);
+		if (sp_ptr->flags2 & RF2_QUANTUM)  flags2 |= (RF2_QUANTUM);
 
 		/* Know "forced" flags */
-		if (r_ptr->flags1 & RF1_FORCE_DEPTH) flags1 |= (RF1_FORCE_DEPTH);
-		if (r_ptr->flags1 & RF1_FORCE_MAXHP) flags1 |= (RF1_FORCE_MAXHP);
+		if (sp_ptr->flags1 & RF1_FORCE_DEPTH) flags1 |= (RF1_FORCE_DEPTH);
+		if (sp_ptr->flags1 & RF1_FORCE_MAXHP) flags1 |= (RF1_FORCE_MAXHP);
 	}
 
 	/* For output_monster_spoiler() */
@@ -260,18 +256,18 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	if (flags1 & RF1_UNIQUE)
 	{
 		/* Hack -- Determine if the unique is "dead" */
-		bool dead = (r_ptr->max_num == 0) ? TRUE : FALSE;
+		bool dead = (sp_ptr->max_num == 0) ? TRUE : FALSE;
 
 		/* We've been killed... */
-		if (r_ptr->r_deaths)
+		if (sp_ptr->r_deaths)
 		{
 			/* Killed ancestors */
 #ifdef JP
 			hooked_roff(format("%^sはあなたの先祖を %d 人葬っている",
-					   wd_he[msex], r_ptr->r_deaths));
+					   wd_he[msex], sp_ptr->r_deaths));
 #else
 			hooked_roff(format("%^s has slain %d of your ancestors",
-					   wd_he[msex], r_ptr->r_deaths));
+					   wd_he[msex], sp_ptr->r_deaths));
 #endif
 
 
@@ -282,7 +278,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 				hooked_roff(format("が、すでに仇討ちは果たしている！"));
 #else
 				hooked_roff(format(", but you have avenged %s!  ",
-					    plural(r_ptr->r_deaths, "him", "them")));
+					    plural(sp_ptr->r_deaths, "him", "them")));
 #endif
 
 			}
@@ -294,7 +290,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 				hooked_roff(format("のに、まだ仇討ちを果たしていない。"));
 #else
 				hooked_roff(format(", who %s unavenged.  ",
-					    plural(r_ptr->r_deaths, "remains", "remain")));
+					    plural(sp_ptr->r_deaths, "remains", "remain")));
 #endif
 
 			}
@@ -318,38 +314,38 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	}
 
 	/* Not unique, but killed us */
-	else if (r_ptr->r_deaths)
+	else if (sp_ptr->r_deaths)
 	{
 		/* Dead ancestors */
 #ifdef JP
 		hooked_roff(format("このモンスターはあなたの先祖を %d 人葬っている",
-			    r_ptr->r_deaths ));
+			    sp_ptr->r_deaths ));
 #else
 		hooked_roff(format("%d of your ancestors %s been killed by this creature, ",
-			    r_ptr->r_deaths, plural(r_ptr->r_deaths, "has", "have")));
+			    sp_ptr->r_deaths, plural(sp_ptr->r_deaths, "has", "have")));
 #endif
 
 
 		/* Some kills this life */
-		if (r_ptr->r_pkills)
+		if (sp_ptr->r_pkills)
 		{
 #ifdef JP
-			hooked_roff(format("が、あなたはこのモンスターを少なくとも %d 体は倒している。", r_ptr->r_pkills));
+			hooked_roff(format("が、あなたはこのモンスターを少なくとも %d 体は倒している。", sp_ptr->r_pkills));
 #else
-			hooked_roff(format("and you have exterminated at least %d of the creatures.  ", r_ptr->r_pkills));
+			hooked_roff(format("and you have exterminated at least %d of the creatures.  ", sp_ptr->r_pkills));
 #endif
 
 		}
 
 		/* Some kills past lives */
-		else if (r_ptr->r_tkills)
+		else if (sp_ptr->r_tkills)
 		{
 #ifdef JP
 			hooked_roff(format("が、%sはこのモンスターを少なくとも %d 体は倒している。",
-				    "あなたの先祖", r_ptr->r_tkills));
+				    "あなたの先祖", sp_ptr->r_tkills));
 #else
 			hooked_roff(format("and %s have exterminated at least %d of the creatures.  ",
-				    "your ancestors", r_ptr->r_tkills));
+				    "your ancestors", sp_ptr->r_tkills));
 #endif
 
 		}
@@ -373,23 +369,23 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	else
 	{
 		/* Killed some this life */
-		if (r_ptr->r_pkills)
+		if (sp_ptr->r_pkills)
 		{
 #ifdef JP
-			hooked_roff(format("あなたはこのモンスターを少なくとも %d 体は殺している。", r_ptr->r_pkills));
+			hooked_roff(format("あなたはこのモンスターを少なくとも %d 体は殺している。", sp_ptr->r_pkills));
 #else
-			hooked_roff(format("You have killed at least %d of these creatures.  ", r_ptr->r_pkills));
+			hooked_roff(format("You have killed at least %d of these creatures.  ", sp_ptr->r_pkills));
 #endif
 
 		}
 
 		/* Killed some last life */
-		else if (r_ptr->r_tkills)
+		else if (sp_ptr->r_tkills)
 		{
 #ifdef JP
-			hooked_roff(format("あなたの先祖はこのモンスターを少なくとも %d 体は殺している。", r_ptr->r_tkills));
+			hooked_roff(format("あなたの先祖はこのモンスターを少なくとも %d 体は殺している。", sp_ptr->r_tkills));
 #else
-			hooked_roff(format("Your ancestors have killed at least %d of these creatures.  ", r_ptr->r_tkills));
+			hooked_roff(format("Your ancestors have killed at least %d of these creatures.  ", sp_ptr->r_tkills));
 #endif
 
 		}
@@ -410,7 +406,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 	/* Descriptions */
 	{
-		cptr tmp = r_text + r_ptr->text;
+		cptr tmp = r_text + sp_ptr->text;
 
 		if (tmp[0])
 		{
@@ -422,7 +418,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 		}
 	}
 
-	if (species_idx == MON_KAGE)
+	if (sp_ptr->species_idx == MON_KAGE)
 	{
 		/* All done */
 		hooked_roff("\n");
@@ -434,7 +430,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	old = FALSE;
 
 	/* Describe location */
-	if (r_ptr->level == 0)
+	if (sp_ptr->level == 0)
 	{
 #ifdef JP
 		hooked_roff(format("%^sは町に住み", wd_he[msex]));
@@ -444,7 +440,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 		old = TRUE;
 	}
-	else if (r_ptr->r_tkills || know_everything)
+	else if (sp_ptr->r_tkills || know_everything)
 	{
 		if (depth_in_feet)
 		{
@@ -454,7 +450,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 			hooked_roff(format("%^s is normally found at depths of %d feet",
 #endif
 
-				    wd_he[msex], r_ptr->level * 50));
+				    wd_he[msex], sp_ptr->level * 50));
 		}
 		else
 		{
@@ -464,14 +460,14 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 			hooked_roff(format("%^s is normally found on dungeon level %d",
 #endif
 
-				    wd_he[msex], r_ptr->level));
+				    wd_he[msex], sp_ptr->level));
 		}
 		old = TRUE;
 	}
 
 
 	/* Describe movement */
-	if (species_idx == MON_CHAMELEON)
+	if (sp_ptr->species_idx == MON_CHAMELEON)
 	{
 #ifdef JP
 		hooked_roff("、他のモンスターに化ける。");
@@ -653,7 +649,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 
 	/* Describe experience if known */
-	if (r_ptr->r_tkills || know_everything)
+	if (sp_ptr->r_tkills || know_everything)
 	{
 		/* Introduction */
 #ifdef JP
@@ -671,11 +667,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 
 /*TODO: DESC*/
-#ifdef JP
-		hooked_roff("クリーチャー");
-#else
-		hooked_roff(" creature");
-#endif
+		hooked_roff(desc_race_name(pl_ptr));
 
 
 #ifdef JP
@@ -686,23 +678,23 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 			long i, j;
 
 #ifdef JP
-			i = cr_ptr->lev;
+			i = pl_ptr->lev;
 			hooked_roff(format(" %lu レベルのキャラクタにとって", (long)i));
 
-			i = (long)r_ptr->mexp * r_ptr->level / (cr_ptr->max_plv+2);
-			j = ((((long)r_ptr->mexp * r_ptr->level % (cr_ptr->max_plv+2)) *
-			       (long)1000 / (cr_ptr->max_plv+2) + 5) / 10);
+			i = (long)sp_ptr->mexp * sp_ptr->level / (pl_ptr->max_plv+2);
+			j = ((((long)sp_ptr->mexp * sp_ptr->level % (pl_ptr->max_plv+2)) *
+			       (long)1000 / (pl_ptr->max_plv+2) + 5) / 10);
 
 			hooked_roff(format(" 約%ld.%02ld ポイントの経験となる。",
 				(long)i, (long)j ));
 #else
 			/* calculate the integer exp part */
-			i = (long)r_ptr->mexp * r_ptr->level / (cr_ptr->max_plv+2);
+			i = (long)sp_ptr->mexp * sp_ptr->level / (pl_ptr->max_plv+2);
 
 			/* calculate the fractional exp part scaled by 100, */
 			/* must use long arithmetic to avoid overflow  */
-			j = ((((long)r_ptr->mexp * r_ptr->level % (cr_ptr->max_plv+2)) *
-			       (long)1000 / (cr_ptr->max_plv+2) + 5) / 10);
+			j = ((((long)sp_ptr->mexp * sp_ptr->level % (pl_ptr->max_plv+2)) *
+			       (long)1000 / (pl_ptr->max_plv+2) + 5) / 10);
 
 			/* Mention the experience */
 			hooked_roff(format(" is worth about %ld.%02ld point%s",
@@ -711,15 +703,15 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 
 			/* Take account of annoying English */
 			p = "th";
-			i = cr_ptr->lev % 10;
-			if ((cr_ptr->lev / 10) == 1) /* nothing */;
+			i = pl_ptr->lev % 10;
+			if ((pl_ptr->lev / 10) == 1) /* nothing */;
 			else if (i == 1) p = "st";
 			else if (i == 2) p = "nd";
 			else if (i == 3) p = "rd";
 
 			/* Take account of "leading vowels" in numbers */
 			q = "";
-			i = cr_ptr->lev;
+			i = pl_ptr->lev;
 			if ((i == 8) || (i == 11) || (i == 18)) q = "n";
 
 			/* Mention the dependance on the player's level */
@@ -798,7 +790,7 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 	}
 
 	/* Describe escorts */
-	if ((flags1 & RF1_ESCORT) || (flags1 & RF1_ESCORTS) || (r_ptr->underling_id[0] != 0))
+	if ((flags1 & RF1_ESCORT) || (flags1 & RF1_ESCORTS) || (sp_ptr->underling_id[0] != 0))
 	{
 	    int i = 0;
 #ifdef JP
@@ -808,13 +800,13 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 #endif
         wd_he[msex]));
 
-		while(r_ptr->underling_id[i] != 0)
+		while(sp_ptr->underling_id[i] != 0)
 		{
-			char *name = r_name + r_info[r_ptr->underling_id[i]].name;
+			char *name = r_name + r_info[sp_ptr->underling_id[i]].name;
 #ifdef JP
-			hooked_roff(format("、「%s」が %dd%d 体", name, r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]));
+			hooked_roff(format("、「%s」が %dd%d 体", name, sp_ptr->underling_d_num[i], sp_ptr->underling_d_side[i]));
 #else
-			hooked_roff(format(", %dd%d %s", r_ptr->underling_d_num[i], r_ptr->underling_d_side[i], name));
+			hooked_roff(format(", %dd%d %s", sp_ptr->underling_d_num[i], sp_ptr->underling_d_side[i], name));
 #endif
 			i++;
 		}
@@ -822,11 +814,11 @@ static void roff_aux(creature_type *cr_ptr, int species_idx, int mode)
 		if ((flags1 & RF1_ESCORT) || (flags1 & RF1_ESCORTS))
 		{
 #ifdef JP
-			if(r_ptr->underling_id[0] != 0)
+			if(sp_ptr->underling_id[0] != 0)
 				hooked_roff(format("そして"));
 			hooked_roff(format("多くの同族"));
 #else
-			if(r_ptr->underling_id[0] != 0)
+			if(sp_ptr->underling_id[0] != 0)
 				hooked_roff(format(" and"));
 			hooked_roff(format(" some the same races"));
 #endif
@@ -1383,7 +1375,7 @@ if (flags6 & (RF6_TELE_LEVEL))      {vp[vn] = "テレポート・レベル";color[vn++] =
 
 	if (flags6 & (RF6_DARKNESS))
 	{
-		if ((cr_ptr->cls_idx != CLASS_NINJA) || (r_ptr->flags3 & (RF3_HURT_LITE)) || is_undead_species(r_ptr) || (r_ptr->flags7 & RF7_DARK_MASK))
+		if ((pl_ptr->cls_idx != CLASS_NINJA) || (sp_ptr->flags3 & (RF3_HURT_LITE)) || is_undead_species(sp_ptr) || (sp_ptr->flags7 & RF7_DARK_MASK))
 		{
 #ifdef JP
 			vp[vn] =  "暗闇"; color[vn++] = TERM_L_DARK;
@@ -1583,10 +1575,10 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	if (breath || magic)
 	{
 		/* Total casting */
-		m = r_ptr->r_cast_spell;
+		m = sp_ptr->r_cast_spell;
 
 		/* Average frequency */
-		n = r_ptr->freq_spell;
+		n = sp_ptr->freq_spell;
 
 		/* Describe the spell frequency */
 		if (m > 100 || know_everything)
@@ -1621,7 +1613,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	}
 
 	/* Describe monster "toughness" */
-	if (know_armour(species_idx))
+	if (know_armour(sp_ptr->species_idx))
 	{
 		/* Armor */
 #ifdef JP
@@ -1630,7 +1622,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 		hooked_roff(format("%^s has an base armor rating of %d",
 #endif
 
-			    wd_he[msex], r_ptr->ac));
+			    wd_he[msex], sp_ptr->ac));
 
 		/* Maximized hitpoints */
 		//TODO::Reconstruct HP Expression. 
@@ -1642,42 +1634,42 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat_max[0]/10));
+				    sp_ptr->stat_max[0]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの知力、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat_max[1]/10));
+				    sp_ptr->stat_max[1]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの賢さ、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat_max[2]/10));
+				    sp_ptr->stat_max[2]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの器用さ、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat_max[3]/10));
+				    sp_ptr->stat_max[3]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの耐久力、",
 #else
 			hooked_roff(format(" STR:%d  ",
 #endif
-				    r_ptr->stat_max[4]/10));
+				    sp_ptr->stat_max[4]/10));
 
 #ifdef JP
 			hooked_roff(format("%dの魅力",
 #else
 			hooked_roff(format(" CHA:%d  ",
 #endif
-				    r_ptr->stat_max[5]/10));
+				    sp_ptr->stat_max[5]/10));
 
 #ifdef JP
 			hooked_roff(format("を持つ。"));
@@ -2069,9 +2061,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 #ifdef JP
-	if ((flags10 & RF10_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RF10_RES_TELE) && !(r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
 #endif
 
 
@@ -2113,23 +2105,23 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	}
 
 
-	if ((r_ptr->r_xtra1 & MR1_SINKA) || know_everything)
+	if ((sp_ptr->r_xtra1 & MR1_SINKA) || know_everything)
 	{
-		if (r_ptr->next_species_idx)
+		if (sp_ptr->next_species_idx)
 		{
 #ifdef JP
 			hooked_roff(format("%^sは経験を積むと、", wd_he[msex]));
 #else
 			hooked_roff(format("%^s will evolve into ", wd_he[msex]));
 #endif
-			hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[r_ptr->next_species_idx].name));
+			hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[sp_ptr->next_species_idx].name));
 #ifdef JP
 			hooked_roff(format("に進化する。"));
 #else
 			hooked_roff(format(" when %s gets enugh experience.  ", wd_he[msex]));
 #endif
 		}
-		else if (!(r_ptr->flags1 & RF1_UNIQUE))
+		else if (!(sp_ptr->flags1 & RF1_UNIQUE))
 		{
 #ifdef JP
 			hooked_roff(format("%sは進化しない。", wd_he[msex]));
@@ -2166,9 +2158,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 #ifdef JP
-	if ((flags10 & RF10_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RF10_RES_TELE) && (r_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
 #endif
 
 	/* Describe non-effects */
@@ -2210,13 +2202,13 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 
 
 	/* Do we know how aware it is? */
-	if ((((int)r_ptr->r_wake * (int)r_ptr->r_wake) > r_ptr->sleep) ||
-		  (r_ptr->r_ignore == MAX_UCHAR) ||
-	    (r_ptr->sleep == 0 && r_ptr->r_tkills >= 10) || know_everything)
+	if ((((int)sp_ptr->r_wake * (int)sp_ptr->r_wake) > sp_ptr->sleep) ||
+		  (sp_ptr->r_ignore == MAX_UCHAR) ||
+	    (sp_ptr->sleep == 0 && sp_ptr->r_tkills >= 10) || know_everything)
 	{
 		cptr act;
 
-		if (r_ptr->sleep > 200)
+		if (sp_ptr->sleep > 200)
 		{
 #ifdef JP
 			act = "を無視しがちであるが";
@@ -2225,7 +2217,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 95)
+		else if (sp_ptr->sleep > 95)
 		{
 #ifdef JP
 			act = "に対してほとんど注意を払わないが";
@@ -2234,7 +2226,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 75)
+		else if (sp_ptr->sleep > 75)
 		{
 #ifdef JP
 			act = "に対してあまり注意を払わないが";
@@ -2243,7 +2235,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 45)
+		else if (sp_ptr->sleep > 45)
 		{
 #ifdef JP
 			act = "を見過ごしがちであるが";
@@ -2252,7 +2244,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 25)
+		else if (sp_ptr->sleep > 25)
 		{
 #ifdef JP
 			act = "をほんの少しは見ており";
@@ -2261,7 +2253,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 10)
+		else if (sp_ptr->sleep > 10)
 		{
 #ifdef JP
 			act = "をしばらくは見ており";
@@ -2270,7 +2262,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 5)
+		else if (sp_ptr->sleep > 5)
 		{
 #ifdef JP
 			act = "を幾分注意深く見ており";
@@ -2279,7 +2271,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 3)
+		else if (sp_ptr->sleep > 3)
 		{
 #ifdef JP
 			act = "を注意深く見ており";
@@ -2288,7 +2280,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 1)
+		else if (sp_ptr->sleep > 1)
 		{
 #ifdef JP
 			act = "をかなり注意深く見ており";
@@ -2297,7 +2289,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
-		else if (r_ptr->sleep > 0)
+		else if (sp_ptr->sleep > 0)
 		{
 #ifdef JP
 			act = "を警戒しており";
@@ -2318,10 +2310,10 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 
 #ifdef JP
 		hooked_roff(format("%^sは侵入者%s、 %d フィート先から侵入者に気付くことがある。",
-		     wd_he[msex], act, 10 * r_ptr->aaf));
+		     wd_he[msex], act, 10 * sp_ptr->aaf));
 #else
 		hooked_roff(format("%^s %s intruders, which %s may notice from %d feet.  ",
-			    wd_he[msex], act, wd_he[msex], 10 * r_ptr->aaf));
+			    wd_he[msex], act, wd_he[msex], 10 * sp_ptr->aaf));
 #endif
 
 	}
@@ -2472,11 +2464,11 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 	for (n = 0, m = 0; m < 4; m++)
 	{
 		/* Skip non-attacks */
-		if (!r_ptr->blow[m].method) continue;
-		if (r_ptr->blow[m].method == RBM_SHOOT) continue;
+		if (!sp_ptr->blow[m].method) continue;
+		if (sp_ptr->blow[m].method == RBM_SHOOT) continue;
 
 		/* Count known attacks */
-		if (r_ptr->r_blows[m] || know_everything) n++;
+		if (sp_ptr->r_blows[m] || know_everything) n++;
 	}
 
 	/* Examine (and count) the actual attacks */
@@ -2485,17 +2477,17 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 		int method, effect, d1, d2;
 
 		/* Skip non-attacks */
-		if (!r_ptr->blow[m].method) continue;
-		if (r_ptr->blow[m].method == RBM_SHOOT) continue;
+		if (!sp_ptr->blow[m].method) continue;
+		if (sp_ptr->blow[m].method == RBM_SHOOT) continue;
 
 		/* Skip unknown attacks */
-		if (!r_ptr->r_blows[m] && !know_everything) continue;
+		if (!sp_ptr->r_blows[m] && !know_everything) continue;
 
 		/* Extract the attack info */
-		method = r_ptr->blow[m].method;
-		effect = r_ptr->blow[m].effect;
-		d1 = r_ptr->blow[m].d_dice;
-		d2 = r_ptr->blow[m].d_side;
+		method = sp_ptr->blow[m].method;
+		effect = sp_ptr->blow[m].effect;
+		d1 = sp_ptr->blow[m].d_dice;
+		d2 = sp_ptr->blow[m].d_side;
 
 		/* No method yet */
 		p = NULL;
@@ -2854,7 +2846,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 		/***若干表現を変更 ita ***/
 
 			/* Describe damage (if known) */
-		if (d1 && d2 && (know_everything || know_damage(species_idx, m)))
+		if (d1 && d2 && (know_everything || know_damage(sp_ptr->species_idx, m)))
 		  {
 		    
 		    /* Display the damage */
@@ -2963,7 +2955,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
 	 * Notice "Quest" monsters, but only if you
 	 * already encountered the monster.
 	 */
-	if ((flags1 & RF1_QUESTOR) && ((r_ptr->r_sights) && (r_ptr->max_num) && ((species_idx == MON_OBERON) || (species_idx == MON_SERPENT))))
+	if ((flags1 & RF1_QUESTOR) && ((sp_ptr->r_sights) && (sp_ptr->max_num) && ((sp_ptr->species_idx == MON_OBERON) || (sp_ptr->species_idx == MON_SERPENT))))
 	{
 #ifdef JP
 		hook_c_roff(TERM_VIOLET, "あなたはこのモンスターを殺したいという強い欲望を感じている...");
@@ -3067,7 +3059,7 @@ void screen_roff(int species_idx, int mode)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(p_ptr, species_idx, mode);
+	roff_aux(p_ptr, &r_info[species_idx], mode);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3096,7 +3088,7 @@ void display_roff(int species_idx)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(p_ptr, species_idx, 0);
+	roff_aux(p_ptr, &r_info[species_idx], 0);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3112,7 +3104,7 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 	hook_c_roff = roff_func;
 
 	/* Recall monster */
-	roff_aux(p_ptr, species_idx, 0x03);
+	roff_aux(p_ptr, &r_info[species_idx], 0x03);
 }
 
 
