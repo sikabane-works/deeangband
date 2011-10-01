@@ -2911,7 +2911,7 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 }
 
 
-#define R_INFO_CSV_COLUMNS 47
+#define R_INFO_CSV_COLUMNS 48
 static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -2919,7 +2919,8 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"E_NAME",
 	"SYM",
 	"COL",
-	"RACE",
+	"RACE1",
+	"RACE2",
 	"CLASS",
 	"PATRON",
 	"CHARA",
@@ -2970,48 +2971,49 @@ static int r_info_csv_code[R_INFO_CSV_COLUMNS];
 #define R_INFO_E_NAME		2
 #define R_INFO_SYM			3
 #define R_INFO_COL			4
-#define R_INFO_RACE			5
-#define R_INFO_CLASS		6
-#define R_INFO_PATRON		7
-#define R_INFO_CHARA		8
-#define R_INFO_RELM1		9
-#define R_INFO_RELM2		10
-#define R_INFO_LEV			11
-#define R_INFO_RARE			12
-#define R_INFO_Z			13
-#define R_INFO_EXP			14
-#define R_INFO_N_EXP		15
-#define R_INFO_N_MIN		16
-#define R_INFO_AGE			17
-#define R_INFO_SC			18
-#define R_INFO_DV			19
-#define R_INFO_SP			20
-#define R_INFO_IS			21
-#define R_INFO_AC			22
-#define R_INFO_ALERT		23
-#define R_INFO_STR			24
-#define R_INFO_INT			25
-#define R_INFO_WIS			26
-#define R_INFO_DEX			27
-#define R_INFO_CON			28
-#define R_INFO_CHA			29
-#define R_INFO_M_HB			30
-#define R_INFO_M_HM			31
-#define R_INFO_M_WB			32
-#define R_INFO_M_WM			33
-#define R_INFO_F_HB			34
-#define R_INFO_F_HM			35
-#define R_INFO_F_WB			36
-#define R_INFO_F_WM			37
-#define R_INFO_BATTLE		38
-#define R_INFO_UNDERLING	39
-#define R_INFO_ARTIFACT		40
-#define R_INFO_COMMENT		41
-#define R_INFO_FLAG			42
-#define R_INFO_ACTION		43
-#define R_INFO_DESCRIPTION	44
-#define R_INFO_AUTHORITY    45
-#define R_INFO_SEX          46
+#define R_INFO_RACE1		5
+#define R_INFO_RACE2		6
+#define R_INFO_CLASS		7
+#define R_INFO_PATRON		8
+#define R_INFO_CHARA		9
+#define R_INFO_RELM1		10
+#define R_INFO_RELM2		11
+#define R_INFO_LEV			12
+#define R_INFO_RARE			13
+#define R_INFO_Z			14
+#define R_INFO_EXP			15
+#define R_INFO_N_EXP		16
+#define R_INFO_N_MIN		17
+#define R_INFO_AGE			18
+#define R_INFO_SC			19
+#define R_INFO_DV			20
+#define R_INFO_SP			21
+#define R_INFO_IS			22
+#define R_INFO_AC			23
+#define R_INFO_ALERT		24
+#define R_INFO_STR			25
+#define R_INFO_INT			26
+#define R_INFO_WIS			27
+#define R_INFO_DEX			28
+#define R_INFO_CON			29
+#define R_INFO_CHA			30
+#define R_INFO_M_HB			31
+#define R_INFO_M_HM			32
+#define R_INFO_M_WB			33
+#define R_INFO_M_WM			34
+#define R_INFO_F_HB			35
+#define R_INFO_F_HM			36
+#define R_INFO_F_WB			37
+#define R_INFO_F_WM			38
+#define R_INFO_BATTLE		39
+#define R_INFO_UNDERLING	40
+#define R_INFO_ARTIFACT		41
+#define R_INFO_COMMENT		42
+#define R_INFO_FLAG			43
+#define R_INFO_ACTION		44
+#define R_INFO_DESCRIPTION	45
+#define R_INFO_AUTHORITY    46
+#define R_INFO_SEX          47
 
 errr parse_r_info_csv(char *buf, header *head)
 {
@@ -3100,9 +3102,14 @@ errr parse_r_info_csv(char *buf, header *head)
 				r_info[n].x_attr = color_char_to_attr(tmp[0]);
 				break;
 
-			case R_INFO_RACE:
+			case R_INFO_RACE1:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				r_info[n].race_idx1 = (s16b)b;
+				break;
+
+			case R_INFO_RACE2:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				r_info[n].race_idx2 = (s16b)b;
 				break;
 
 			case R_INFO_CLASS:
