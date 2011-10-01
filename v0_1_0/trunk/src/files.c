@@ -2425,7 +2425,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 	else if(cr_ptr->race_idx1 != RACE_NONE)
 	{		
-		intelligent_race *ir_ptr = &race_info[cr_ptr->race_idx1];
+		race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			add_flag(flgs, TR_RES_ACID);
 		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
@@ -2483,7 +2483,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		for(i = 0; i < MAX_RACES; i++)
 		{
 			if(get_subrace(cr_ptr, i)){
-				intelligent_race *ir_ptr = &race_info[i];
+				race_type *ir_ptr = &race_info[i];
 				if(ir_ptr->sub_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_acid)
 					add_flag(flgs, TR_RES_ACID);
 				if(ir_ptr->sub_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_elec)
@@ -3813,7 +3813,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	char	tmp[64];
 	char	tmp2[64];
 
-	intelligent_race *ir_ptr = &race_info[cr_ptr->race_idx1];
+	race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 	player_class *cl_ptr = &class_info[cr_ptr->cls_idx];
 	player_chara *ch_ptr = &chara_info[cr_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];

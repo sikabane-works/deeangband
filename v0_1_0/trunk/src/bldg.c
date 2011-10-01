@@ -1700,6 +1700,8 @@ static bool vault_aux_battle(int species_idx)
 
 void battle_monsters(void)
 {
+	//TODO :: NEW CALCULATION
+
 	int total, i;
 	int max_dl = 0;
 	int mon_level;
@@ -1757,7 +1759,8 @@ void battle_monsters(void)
 			species_type *r_ptr = &r_info[battle_mon[i]];
 			int num_taisei = count_bits(r_ptr->flags10 & (RF10_IM_ACID | RF10_IM_ELEC | RF10_IM_FIRE | RF10_IM_COLD | RF10_IM_POIS));
 
-			power[i] = d_level_to_c_level[r_ptr->level] + 3;
+			power[i] = 3;
+
 			if (r_ptr->speed > 110)
 				power[i] = power[i] * (r_ptr->speed * 2 - 110) / 100;
 			if (r_ptr->speed < 110)

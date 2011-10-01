@@ -120,7 +120,7 @@ void set_height_weight(creature_type *cr_ptr)
 	int h_percent;  /* ‘S’·‚ª•½‹Ï‚É‚­‚ç‚×‚Ä‚Ç‚Ì‚­‚ç‚¢ˆá‚¤‚©. */
 	int ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt, tmp2;
 	double tmp;
-	intelligent_race *ir_ptr;
+	race_type *ir_ptr;
 	species_type *mr_ptr;
 
 	if(cr_ptr->species_idx != MON_NONE)
@@ -339,7 +339,7 @@ s16b calc_punishment_slay(creature_type *cr_ptr, int alignment)
 }
 
 /* Calculate body size */
-s16b calc_race_standard_size(intelligent_race * ir_ptr){
+s16b calc_race_standard_size(race_type * ir_ptr){
 	return calc_bodysize((ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2 ,
 						 (ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2);	
 }
@@ -385,6 +385,7 @@ int set_inventory_fitting_rate(creature_type *cr_ptr, object_type *o_ptr, int sl
 
 void estimate_enemy_hp(species_type *mr_ptr, int *result)
 {
+	// TODO :: NEW CALC
 	int con_p, bonus;
 	int num, size, dice;
 	int convert_lv;
@@ -393,10 +394,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 
 	if(convert_lv >= 128) convert_lv = 127;
 
-	if(mr_ptr->flags1 & RF1_UNIQUE)
-		num = d_level_to_c_level_u[convert_lv] + 2;
-	else
-		num = d_level_to_c_level[convert_lv] + 2;
+	num = 10;
 
 	size = calc_monster_standard_size(mr_ptr);
 
@@ -436,7 +434,7 @@ void set_resistance(creature_type *cr_ptr)
 
 	if(cr_ptr->race_idx1 != RACE_NONE)
 	{
-		intelligent_race *ir_ptr = &race_info[cr_ptr->race_idx1];
+		race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			cr_ptr->resist_acid = TRUE;
 		if(ir_ptr->main_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_elec)
@@ -510,7 +508,7 @@ void set_resistance(creature_type *cr_ptr)
 	for(i = 0; i < MAX_RACES; i++)
 	{
 		if(get_subrace(cr_ptr, i)){
-			intelligent_race *ir_ptr = &race_info[i];
+			race_type *ir_ptr = &race_info[i];
 			if(ir_ptr->sub_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_acid)
 				cr_ptr->resist_acid = TRUE;
 			if(ir_ptr->sub_resist.resist_elec != 0 && cr_ptr->lev >= ir_ptr->sub_resist.resist_elec)

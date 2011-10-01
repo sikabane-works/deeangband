@@ -2993,7 +2993,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	bool            riding_levitation = FALSE;
 	s16b this_o_idx, next_o_idx = 0;
 
-	intelligent_race *tmp_rcr_ptr;
+	race_type *tmp_rcr_ptr;
 
 	/* Save the old vision stuff */
 	bool old_telepathy = cr_ptr->telepathy;
@@ -6389,7 +6389,7 @@ void set_subrace(creature_type *cr_ptr, int n, bool b)
 /* Return Race Name */
 cptr desc_race_name(creature_type *cr_ptr){
 	char name[80];
-	intelligent_race *rcr_ptr = &race_info[cr_ptr->race_idx1];
+	race_type *rcr_ptr = &race_info[cr_ptr->race_idx1];
 	name[0] = '\0';
 
 	if(cr_ptr->race_idx1 == RACE_NONE) return format("");

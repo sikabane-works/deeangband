@@ -1808,12 +1808,13 @@ static void spoil_mon_desc(cptr fname)
 		}
 
 
-		/* Level */
+		/* TODO : NEW CALC Level */
+/*
 		if (r_ptr->flags1 & (RF1_UNIQUE))
 			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level_u[r_ptr->level]);
 		else
 			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level[r_ptr->level]);
-
+*/
 
 		/* Divine Rank */
 		if(r_ptr->dr >= 0)

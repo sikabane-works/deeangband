@@ -936,9 +936,9 @@ struct player_sex
  * Player racial info
  */
 
-typedef struct intelligent_race intelligent_race;
+typedef struct race_type race_type;
 
-struct intelligent_race
+struct race_type
 {
 	cptr title;			/* Type of race */
 

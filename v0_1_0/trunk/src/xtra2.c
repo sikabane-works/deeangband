@@ -1443,10 +1443,11 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
 
 	/* Use (average mhp * 2) as a denominator */
+	// TODO NEW CALC
 	if (!(r_ptr->flags1 & RF1_FORCE_MAXHP))
-		s64b_mul(&div_h, &div_l, 0, d_level_to_c_level[r_ptr->level] * (ironman_nightmare ? 2 : 1) * (m_ptr->hitdice + 1));
+		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * (m_ptr->hitdice + 1));
 	else
-		s64b_mul(&div_h, &div_l, 0, d_level_to_c_level[r_ptr->level] * (ironman_nightmare ? 2 : 1) * m_ptr->hitdice * 2);
+		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * m_ptr->hitdice * 2);
 
 	/* Special penalty in the wilderness */
 	if (!dun_level && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(r_ptr->flags1 & RF1_UNIQUE)))

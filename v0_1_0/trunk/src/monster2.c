@@ -3293,7 +3293,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 	species_type	*r_ptr = &r_info[species_idx];
 	monster_ego		*re_ptr;
-	intelligent_race		*rpr_ptr;
+	race_type		*rpr_ptr;
 
 	cptr		name = (r_name + r_ptr->name);
 
