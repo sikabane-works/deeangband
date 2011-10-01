@@ -250,24 +250,18 @@ void get_project_point(int sy, int sx, int *ty, int *tx, int flg)
 /*
  * Check should monster cast dispel spell at other monster.
  */
-static bool dispel_check_monster(int m_idx, int t_idx)
+static bool dispel_check_monster(creature_type *tar_ptr)
 {
-	creature_type *t_ptr = &m_list[t_idx];
-
 	/* Invulnabilty */
-	if (t_ptr->invuln) return TRUE;
+	if (tar_ptr->invuln) return TRUE;
 
 	/* Speed */
-	if (t_ptr->speed < 135)
+	if (tar_ptr->speed < 135)
 	{
-		if (t_ptr->fast) return TRUE;
+		if (tar_ptr->fast) return TRUE;
 	}
 
-	/* Riding monster */
-	if (t_idx == p_ptr->riding)
-	{
-		if (dispel_check(t_ptr)) return TRUE;
-	}
+	/*TODO  Riding monster */
 
 	/* No need to cast dispel spell */
 	return FALSE;
@@ -645,7 +639,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Dispel magic */
-		if ((f4 & RF4_DISPEL) && !dispel_check_monster(m_idx, t_idx))
+		if ((f4 & RF4_DISPEL) && !dispel_check_monster(tar_ptr))
 		{
 			/* Remove dispel spell */
 			f4 &= ~(RF4_DISPEL);
