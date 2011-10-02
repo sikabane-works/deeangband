@@ -4457,12 +4457,18 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SEX:
+				if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+				race_info[n].sex_flag = (byte)b;
 				break;
 
 			case RC_INFO_LEV:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].lev = (s16b)b;
 				break;
 
 			case RC_INFO_DR:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].dr = (s16b)b;
 				break;
 
 			case RC_INFO_P_STR:
@@ -4526,81 +4532,133 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_DIS:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_dis = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEV:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_dev = (s16b)b;
 				break;
 
 			case RC_INFO_P_SAV:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_sav = (s16b)b;
 				break;
 
 			case RC_INFO_P_STL:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_stl = (s16b)b;
 				break;
 
 			case RC_INFO_P_SRH:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_srh = (s16b)b;
 				break;
 
 			case RC_INFO_P_FOS:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_fos = (s16b)b;
 				break;
 
 			case RC_INFO_P_THN:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_thn = (s16b)b;
 				break;
 
 			case RC_INFO_P_THB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_thb = (s16b)b;
 				break;
 
 			case RC_INFO_P_INFRA:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].infra = (s16b)b;
 				break;
 
 			case RC_INFO_H_DIS:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_dis = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEV:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_dev = (s16b)b;
 				break;
 
 			case RC_INFO_H_SAV:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_sav = (s16b)b;
 				break;
 
 			case RC_INFO_H_STL:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_stl = (s16b)b;
 				break;
 
 			case RC_INFO_H_SRH:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_srh = (s16b)b;
 				break;
 
 			case RC_INFO_H_FOS:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_fos = (s16b)b;
 				break;
 
 			case RC_INFO_H_THN:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_thn = (s16b)b;
 				break;
 
 			case RC_INFO_H_THB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_thb = (s16b)b;
 				break;
 
 			case RC_INFO_H_INFRA:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].infra = (s16b)b;
 				break;
 
 			case RC_INFO_M_HB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].m_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_HM:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].m_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_WB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].m_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_M_WM:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].m_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_HB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].f_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_HM:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].f_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_WB:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].f_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_WM:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].f_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_P_HITD_M:
@@ -4610,18 +4668,26 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_EXP:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_exp = (s16b)b;
 				break;
 
 			case RC_INFO_H_EXP:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].r_s_exp = (s16b)b;
 				break;
 
 			case RC_INFO_SYM:
 				break;
 
 			case RC_INFO_AGE:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].b_age = (s32b)b;
 				break;
 
 			case RC_INFO_AGE_ADD:
+				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				race_info[n].m_age = (s32b)b;
 				break;
 
 			default:
