@@ -59,6 +59,122 @@ static void note(cptr str)
 
 
 /*
+ * Race Flags
+ */
+static cptr race_flags[MAX_RACES] =
+{
+	"HUMAN",
+	"ELF",
+	"DWARF",
+	"HOBBIT",
+	"GNOME",
+	"BARBARIAN",
+	"DUNADAN",
+	"MELNIBONE",
+	"AMBERITE",
+	"CHAOSIAN",
+	"DARK_ELF",
+	"ELDAR",
+	"AVARI",
+	"KOBOLD",
+	"NIBELUNG",
+	"SPRITE",
+	"S_FAIRY",
+	"WAREFOLK",
+	"SKAVEN",
+	"LIZARDMAN",
+	"BEASTMAN",
+	"MINOTAUR",
+	"NAGA",
+	"MARFOLK",
+	"CENTAUR",
+	"ENT",
+	"ORC",
+	"URUK",
+	"TROLL",
+	"OLOG",
+	"OGRE",
+	"GIANT",
+	"CYCLOPS",
+	"TITAN",
+	"YEEK",
+	"KLACKON",
+	"MIND_FLAYER",
+	"DRACONIAN",
+	"SAIYAN",
+	"KUTAR",
+	"GOLEM",
+	"ANDROID",
+	"ANGEL",
+	"IMP",
+	"DEMON",
+	"MAIAR",
+	"DEEP_ONE",
+	"ELDER_ONE",
+	"MI_GO",
+	"FLYING_POLYP",
+	"SHOGGOTH",
+	"YITH",
+	"ZOMBIE",
+	"SKELETON",
+	"VAMPIRE",
+	"LICH",
+	"ISTARI",
+	"BALROG",
+	"DRAGON",
+	"GIANT_APE",
+	"SUPER_SAIYAN",
+	"RED_LINEAGE",
+	"WHITE_LINEAGE",
+	"BLUE_LINEAGE",
+	"BLACK_LINEAGE",
+	"GREEN_LINEAGE",
+	"CHROMATIC_LINEAGE",
+	"BRONZE_LINEAGE",
+	"GOLD_LINEAGE",
+	"CRYSTAL_LINEAGE",
+	"LAW_LINEAGE",
+	"BALANCE_LINEAGE",
+	"CHAOS_LINEAGE",
+	"VANYAR_LINEAGE",
+	"NOLDOR_LINEAGE",
+	"TELERI_LINEAGE",
+	"NUZGUL",
+	"ANT",
+	"BAT",
+	"CENTIPETE",
+	"FLOATING_EYE",
+	"FELINE",
+	"ICKY",
+	"JELLY",
+	"AQUARIC_MONSTER",
+	"MOLD",
+	"QUADRUPED",
+	"RODENT",
+	"VORTEX",
+	"WORM",
+	"MIMIC",
+	"BIRD",
+	"CANINE",
+	"ELEMENTAL",
+	"INSECT",
+	"SNAKE",
+	"SHADOW",
+	"QUYLTHLUG",
+	"SPIDER",
+	"CRUSTASEA",
+	"WRAITH",
+	"XORN",
+	"YETI",
+	"ZEPHYR_HOUND",
+	"FUNGUS",
+	"GREAT_OLD_ONE",
+	"REPTILIA",
+};
+
+
+
+/*
  * Monster Blow Methods
  */
 static cptr r_info_blow_method[] =
@@ -4573,7 +4689,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_INFRA:
 				if(sscanf(tmp, "%s", &b) != 1) return (1);
-				race_info[n].infra = (s16b)b;
+				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_H_DIS:
@@ -4618,7 +4734,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 			case RC_INFO_H_INFRA:
 				if(sscanf(tmp, "%s", &b) != 1) return (1);
-				race_info[n].infra = (s16b)b;
+				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_M_HB:

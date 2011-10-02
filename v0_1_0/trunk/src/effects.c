@@ -519,15 +519,13 @@ bool set_blind(creature_type *cr_ptr, int v)
 bool set_confused(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
+	char name[100];
+	monster_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	if (cr_ptr->is_dead) return FALSE;
-
-	//TODO
-	if(is_player(cr_ptr))
-	{
 
 	/* Open */
 	if (v)
@@ -537,9 +535,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 			if(is_seen(player_ptr, cr_ptr))
 			{
 #ifdef JP
-				msg_print("あなたは混乱した！");
+				msg_format("%sは混乱した！", name);
 #else
-				msg_print("You are confused!");
+				msg_foemat("%s %s confused!" name, is_player(cr_ptr) ? "are" : "is");
 #endif
 			}
 
@@ -548,9 +546,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 				if(is_seen(player_ptr, cr_ptr))
 				{
 #ifdef JP
-					msg_print("学習が続けられない！");
+					msg_format("%sは学習が続けられない！", name);
 #else
-					msg_print("You cannot continue Learning!");
+					msg_format("%s cannot continue Learning!", name);
 #endif
 				}
 				new_mane = FALSE;
@@ -563,9 +561,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 				if(is_seen(player_ptr, cr_ptr))
 				{
 #ifdef JP
-					msg_print("構えがとけた。");
+					msg_format("%sの構えがとけた。", name);
 #else
-					msg_print("Your posture gets loose.");
+					msg_foamat("%s%s posture gets loose.", name, is_player(cr_ptr) ? "r" : "'s");
 #endif
 				}
 				cr_ptr->special_defense &= ~(KAMAE_MASK);
@@ -578,9 +576,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 				if(is_seen(player_ptr, cr_ptr))
 				{
 #ifdef JP
-					msg_print("型が崩れた。");
+					msg_format("%sの型は崩れた。", name);
 #else
-					msg_print("Your posture gets loose.");
+					msg_format("%s%s posture gets loose.", name, is_player(cr_ptr) _ "r", : "'s");
 #endif
 				}
 				cr_ptr->special_defense &= ~(KATA_MASK);
@@ -610,9 +608,9 @@ bool set_confused(creature_type *cr_ptr, int v)
 			if(is_seen(player_ptr, cr_ptr))
 			{
 #ifdef JP
-				msg_print("やっと混乱がおさまった。");
+				msg_format("%sの混乱がおさまった。", name);
 #else
-				msg_print("You feel less confused now.");
+				msg_format("%s feel%s less confused now." name, is_player(cr_ptr) ? "", "s");
 #endif
 			}
 			cr_ptr->special_attack &= ~(ATTACK_SUIKEN);
@@ -637,40 +635,6 @@ bool set_confused(creature_type *cr_ptr, int v)
 
 	/* Result */
 	return (TRUE);
-	}
-	else
-	{
-			/* Hack -- Force good values */
-	v = (v > 200) ? 200 : (v < 0) ? 0 : v;
-
-	/* Open */
-	if (v)
-	{
-		if (!cr_ptr->confused)
-		{
-			mproc_add(cr_ptr, MTIMED_CONFUSED);
-			notice = TRUE;
-		}
-	}
-
-	/* Shut */
-	else
-	{
-
-	if (cr_ptr->confused)
-		{
-			mproc_remove(cr_ptr, MTIMED_CONFUSED);
-			notice = TRUE;
-		}
-	}
-
-	/* Use the value */
-	cr_ptr->confused = v;
-
-	return notice;
-
-	}
-
 }
 
 
