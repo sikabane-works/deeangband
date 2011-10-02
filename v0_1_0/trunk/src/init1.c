@@ -4444,9 +4444,188 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 			switch(rc_info_csv_code[i])
 			{
+			case RC_INFO_ID:
+				break;
+
+			case RC_INFO_DEFINE:
+				break;
+
+			case RC_INFO_NAME:
+				break;
+
+			case RC_INFO_E_NAME:
+				break;
+
+			case RC_INFO_SEX:
+				break;
+
+			case RC_INFO_LEV:
+				break;
+
+			case RC_INFO_DR:
+				break;
+
+			case RC_INFO_P_STR:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_STR] = (s16b)b;
+				break;
+
+			case RC_INFO_P_INT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_INT] = (s16b)b;
+				break;
+
+			case RC_INFO_P_WIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_WIS] = (s16b)b;
+				break;
+
+			case RC_INFO_P_DEX:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_DEX] = (s16b)b;
+				break;
+
+			case RC_INFO_P_CON:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_CON] = (s16b)b;
+				break;
+
+			case RC_INFO_P_CHA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_adj[A_CHR] = (s16b)b;
+				break;
+
+			case RC_INFO_H_STR:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_STR] = (s16b)b;
+				break;
+
+			case RC_INFO_H_INT:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_INT] = (s16b)b;
+				break;
+
+			case RC_INFO_H_WIS:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_WIS] = (s16b)b;
+				break;
+
+			case RC_INFO_H_DEX:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_DEX] = (s16b)b;
+				break;
+
+			case RC_INFO_H_CON:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_CON] = (s16b)b;
+				break;
+
+			case RC_INFO_H_CHA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_adj[A_CHR] = (s16b)b;
+				break;
+
+			case RC_INFO_P_DIS:
+				break;
+
+			case RC_INFO_P_DEV:
+				break;
+
+			case RC_INFO_P_SAV:
+				break;
+
+			case RC_INFO_P_STL:
+				break;
+
+			case RC_INFO_P_SRH:
+				break;
+
+			case RC_INFO_P_FOS:
+				break;
+
+			case RC_INFO_P_THN:
+				break;
+
+			case RC_INFO_P_THB:
+				break;
+
+			case RC_INFO_P_INFRA:
+				break;
+
+			case RC_INFO_H_DIS:
+				break;
+
+			case RC_INFO_H_DEV:
+				break;
+
+			case RC_INFO_H_SAV:
+				break;
+
+			case RC_INFO_H_STL:
+				break;
+
+			case RC_INFO_H_SRH:
+				break;
+
+			case RC_INFO_H_FOS:
+				break;
+
+			case RC_INFO_H_THN:
+				break;
+
+			case RC_INFO_H_THB:
+				break;
+
+			case RC_INFO_H_INFRA:
+				break;
+
+			case RC_INFO_M_HB:
+				break;
+
+			case RC_INFO_M_HM:
+				break;
+
+			case RC_INFO_M_WB:
+				break;
+
+			case RC_INFO_M_WM:
+				break;
+
+			case RC_INFO_F_HB:
+				break;
+
+			case RC_INFO_F_HM:
+				break;
+
+			case RC_INFO_F_WB:
+				break;
+
+			case RC_INFO_F_WM:
+				break;
+
+			case RC_INFO_P_HITD_M:
+				break;
+
+			case RC_INFO_H_HITD_M:
+				break;
+
+			case RC_INFO_P_EXP:
+				break;
+
+			case RC_INFO_H_EXP:
+				break;
+
+			case RC_INFO_SYM:
+				break;
+
+			case RC_INFO_AGE:
+				break;
+
+			case RC_INFO_AGE_ADD:
+				break;
 
 			default:
-				return 0;
+				return 1;
 
 			}
 		}
