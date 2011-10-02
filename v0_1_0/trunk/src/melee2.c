@@ -186,6 +186,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
  * Hack, based on mon_take_hit... perhaps all monster attacks on
  * other monsters should use this?
  */
+// TODO Import some process to creature_attack
 void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int who)
 {
 	species_type	*r_ptr = &r_info[cr_ptr->species_idx];
@@ -1601,12 +1602,9 @@ static void process_monster(creature_type *cr_ptr, int m_idx)
 		}
 	}
 
-	if (m_ptr->species_idx == MON_SHURYUUDAN)
-#ifdef JP
-		mon_take_hit_mon(m_ptr, 1, &fear, "‚Í”š”­‚µ‚Ä•²X‚É‚È‚Á‚½B", m_idx);
-#else
-		mon_take_hit_mon(m_ptr, 1, &fear, " explodes into tiny shreds.", m_idx);
-#endif
+		//TODO SYURYUUDAN's Process
+//	if (m_ptr->species_idx == MON_SHURYUUDAN)
+//		creature_attack(m_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 	if ((is_pet(m_ptr) || is_friendly(m_ptr)) && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
@@ -2367,7 +2365,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				py_attack(m_ptr, ny, nx, 0);
+				creature_attack(m_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
@@ -2410,7 +2408,7 @@ msg_format("%^s%s", m_name, monmessage);
 					/* attack */
 					if (y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if (py_attack(m_ptr, ny, nx, 0)) return;
+						if (creature_attack(m_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)

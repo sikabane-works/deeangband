@@ -5436,7 +5436,7 @@ msg_format("Ç§Ç‹Ç≠ïﬂÇ‹Ç¶ÇÁÇÍÇ»Ç©Ç¡ÇΩÅB");
 		case GF_ATTACK:
 		{
 			/* Return this monster's death */
-			return py_attack(who_ptr, y, x, dam);
+			return creature_attack(who_ptr, y, x, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */

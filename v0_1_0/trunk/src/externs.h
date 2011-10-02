@@ -739,7 +739,7 @@ extern s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, cr
 extern void search(creature_type *cr_ptr);
 extern void py_pickup_aux(creature_type *cr_ptr, int o_idx);
 extern void carry(creature_type *cr_ptr, bool pickup);
-extern bool py_attack(creature_type *atk_ptr, int y, int x, int mode);
+extern bool creature_attack(creature_type *atk_ptr, int y, int x, int mode);
 extern bool pattern_seq(creature_type *cr_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode);
 extern bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode);

@@ -7574,7 +7574,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 
 		if (!creature_bold(cr_ptr, ty, tx)) teleport_player_to(ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
-		tmp_mdeath = py_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
+		tmp_mdeath = creature_attack(cr_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}

@@ -1267,7 +1267,7 @@ void do_cmd_open(creature_type *cr_ptr)
 
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Handle chests */
@@ -1438,7 +1438,7 @@ void do_cmd_close(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Close the door */
@@ -1740,7 +1740,7 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Try digging */
@@ -2199,7 +2199,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Disarm chest */
@@ -2416,7 +2416,7 @@ void do_cmd_bash(creature_type *cr_ptr)
 
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Bash a closed door */
@@ -2493,7 +2493,7 @@ void do_cmd_alter(creature_type *cr_ptr)
 		if (c_ptr->m_idx)
 		{
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Locked doors */
@@ -2645,7 +2645,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 #endif
 
 			/* Attack */
-			py_attack(cr_ptr, y, x, 0);
+			creature_attack(cr_ptr, y, x, 0);
 		}
 
 		/* Go for it */

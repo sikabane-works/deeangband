@@ -3304,8 +3304,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 						}
 					}
 
-					py_attack(tar_ptr, t_ptr->fy, t_ptr->fx, 0);
-					//mon_take_hit_mon(&m_list[t_idx], dam, &fear, extract_note_dies(real_r_ptr(t_ptr)), m_idx);
+					creature_attack(tar_ptr, t_ptr->fy, t_ptr->fx, 0);
 				}
 				break;
 			}

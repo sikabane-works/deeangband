@@ -196,7 +196,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #else
 		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", tar_name, atk_name);
 #endif
-		if (py_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if (creature_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
@@ -2300,7 +2300,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 #else
 		msg_format("Your counterattack to %s!", atk_name);
 #endif
-		py_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_COUNTER);
+		creature_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
 		/* Redraw mana */

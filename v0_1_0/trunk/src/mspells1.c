@@ -3590,8 +3590,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 							set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 						}
 
-						if (target_ptr->riding) py_attack(user_ptr, target_ptr->fy, target_ptr->fx, 0);
-						//if (target_ptr->riding) mon_take_hit_mon(&m_list[target_ptr->riding], dam, &fear, extract_note_dies(real_r_ptr(&m_list[target_ptr->riding])), m_idx);
+						if (target_ptr->riding) creature_attack(user_ptr, target_ptr->fy, target_ptr->fx, 0);
 					}
 					break;
 				}
