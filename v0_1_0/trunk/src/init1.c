@@ -4396,11 +4396,10 @@ errr parse_stp_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 52
+#define RC_INFO_CSV_COLUMNS 55
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
-	"DEFINE",
 	"NAME",
 	"E_NAME",
 	"SEX",
@@ -4451,61 +4450,68 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"SYM",
 	"AGE",
 	"AGE_ADD",
+	"P_ADD_FLAGS",
+	"H_ADD_FLAGS",
+	"P_REMOVE_FLAGS",
+	"H_REMOVE_FLAGS",
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_ID			0
-#define RC_INFO_DEFINE		1
-#define RC_INFO_NAME		2
-#define RC_INFO_E_NAME		3
-#define RC_INFO_SEX			4
-#define RC_INFO_LEV			5
-#define RC_INFO_DR			6
-#define RC_INFO_P_STR		7
-#define RC_INFO_P_INT		8
-#define RC_INFO_P_WIS		9
-#define RC_INFO_P_DEX		10
-#define RC_INFO_P_CON		11
-#define RC_INFO_P_CHA		12
-#define RC_INFO_H_STR		13
-#define RC_INFO_H_INT		14
-#define RC_INFO_H_WIS		15
-#define RC_INFO_H_DEX		16
-#define RC_INFO_H_CON		17
-#define RC_INFO_H_CHA		18
-#define RC_INFO_P_DIS		19
-#define RC_INFO_P_DEV		20
-#define RC_INFO_P_SAV		21
-#define RC_INFO_P_STL		22
-#define RC_INFO_P_SRH		23
-#define RC_INFO_P_FOS		24
-#define RC_INFO_P_THN		25
-#define RC_INFO_P_THB		26
-#define RC_INFO_P_INFRA		27
-#define RC_INFO_H_DIS		28
-#define RC_INFO_H_DEV		29
-#define RC_INFO_H_SAV		30
-#define RC_INFO_H_STL		31
-#define RC_INFO_H_SRH		32
-#define RC_INFO_H_FOS		33
-#define RC_INFO_H_THN		34
-#define RC_INFO_H_THB		35
-#define RC_INFO_H_INFRA		36
-#define RC_INFO_M_HB		37
-#define RC_INFO_M_HM		38
-#define RC_INFO_M_WB		39
-#define RC_INFO_M_WM		40
-#define RC_INFO_F_HB		41
-#define RC_INFO_F_HM		42
-#define RC_INFO_F_WB		43
-#define RC_INFO_F_WM		44
-#define RC_INFO_P_HITD_M	45
-#define RC_INFO_H_HITD_M	46
-#define RC_INFO_P_EXP		47
-#define RC_INFO_H_EXP		48
-#define RC_INFO_SYM			49
-#define RC_INFO_AGE			50
-#define RC_INFO_AGE_ADD		51
+#define RC_INFO_NAME		1
+#define RC_INFO_E_NAME		2
+#define RC_INFO_SEX			3
+#define RC_INFO_LEV			4
+#define RC_INFO_DR			5
+#define RC_INFO_P_STR		6
+#define RC_INFO_P_INT		7
+#define RC_INFO_P_WIS		8
+#define RC_INFO_P_DEX		9
+#define RC_INFO_P_CON		10
+#define RC_INFO_P_CHA		11
+#define RC_INFO_H_STR		12
+#define RC_INFO_H_INT		13
+#define RC_INFO_H_WIS		14
+#define RC_INFO_H_DEX		15
+#define RC_INFO_H_CON		16
+#define RC_INFO_H_CHA		17
+#define RC_INFO_P_DIS		18
+#define RC_INFO_P_DEV		19
+#define RC_INFO_P_SAV		20
+#define RC_INFO_P_STL		21
+#define RC_INFO_P_SRH		22
+#define RC_INFO_P_FOS		23
+#define RC_INFO_P_THN		24
+#define RC_INFO_P_THB		25
+#define RC_INFO_P_INFRA		26
+#define RC_INFO_H_DIS		27
+#define RC_INFO_H_DEV		28
+#define RC_INFO_H_SAV		29
+#define RC_INFO_H_STL		30
+#define RC_INFO_H_SRH		31
+#define RC_INFO_H_FOS		32
+#define RC_INFO_H_THN		33
+#define RC_INFO_H_THB		34
+#define RC_INFO_H_INFRA		35
+#define RC_INFO_M_HB		36
+#define RC_INFO_M_HM		37
+#define RC_INFO_M_WB		38
+#define RC_INFO_M_WM		39
+#define RC_INFO_F_HB		40
+#define RC_INFO_F_HM		41
+#define RC_INFO_F_WB		42
+#define RC_INFO_F_WM		43
+#define RC_INFO_P_HITD_M	44
+#define RC_INFO_H_HITD_M	45
+#define RC_INFO_P_EXP		46
+#define RC_INFO_H_EXP		47
+#define RC_INFO_SYM			48
+#define RC_INFO_AGE			49
+#define RC_INFO_AGE_ADD		50
+#define RC_INFO_P_ADD_FLAGS		51
+#define RC_INFO_H_ADD_FLAGS		52
+#define RC_INFO_P_REMOVE_FLAGS	53
+#define RC_INFO_H_REMOVE_FLAGS	54
 
 errr parse_rc_info_csv(char *buf, header *head)
 {
@@ -4561,9 +4567,6 @@ errr parse_rc_info_csv(char *buf, header *head)
 			switch(rc_info_csv_code[i])
 			{
 			case RC_INFO_ID:
-				break;
-
-			case RC_INFO_DEFINE:
 				break;
 
 			case RC_INFO_NAME:
@@ -4804,6 +4807,19 @@ errr parse_rc_info_csv(char *buf, header *head)
 			case RC_INFO_AGE_ADD:
 				if(sscanf(tmp, "%s", &b) != 1) return (1);
 				race_info[n].m_age = (s32b)b;
+				break;
+
+			//TODO
+			case RC_INFO_P_ADD_FLAGS:
+				break;
+
+			case RC_INFO_H_ADD_FLAGS:
+				break;
+
+			case RC_INFO_P_REMOVE_FLAGS:
+				break;
+
+			case RC_INFO_H_REMOVE_FLAGS:
 				break;
 
 			default:
