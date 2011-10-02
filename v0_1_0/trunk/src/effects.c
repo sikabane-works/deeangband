@@ -243,7 +243,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 }
 
 
-void dispel_player(creature_type *cr_ptr)
+void dispel_creature(creature_type *cr_ptr)
 {
 	(void)set_fast(cr_ptr, 0, TRUE);
 	(void)set_lightspeed(cr_ptr, 0, TRUE);

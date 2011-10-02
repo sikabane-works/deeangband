@@ -1012,7 +1012,6 @@ extern void process_monsters(creature_type *cr_ptr);
 extern int get_mproc_idx(creature_type *cr_ptr, int mproc_type);
 extern void mproc_init(void);
 extern void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx);
-extern void dispel_monster_status(creature_type *cr_pt);
 extern u32b get_curse(int power, object_type *o_ptr);
 extern void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance);
 extern void mon_take_hit_mon(creature_type *cr_ptr, int damage, bool *fear, cptr note, int who);
@@ -1489,7 +1488,7 @@ extern cptr get_class_desc(creature_type *cr_ptr);
 /* effects.c */
 extern void set_action(creature_type *cr_ptr, int typ);
 extern void reset_tim_flags(creature_type *cr_ptr);
-extern void dispel_player(creature_type *cr_ptr);
+extern void dispel_creature(creature_type *cr_ptr);
 extern bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec);
 extern bool set_blind(creature_type *cr_ptr, int v);
 extern bool set_confused(creature_type *cr_ptr, int v);

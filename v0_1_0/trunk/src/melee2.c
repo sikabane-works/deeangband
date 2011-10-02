@@ -3258,38 +3258,6 @@ void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 }
 
 
-void dispel_monster_status(creature_type *cr_ptr)
-{
-	char         m_name[80];
-
-	monster_desc(m_name, cr_ptr, 0);
-	if (set_invuln(cr_ptr, 0, TRUE))
-	{
-#ifdef JP
-		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤–³“G‚Å‚Í‚È‚¢B", m_name);
-#else
-		if (cr_ptr->ml) msg_format("%^s is no longer invulnerable.", m_name);
-#endif
-	}
-	if (set_fast(cr_ptr, 0, FALSE))
-	{
-#ifdef JP
-		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤‰Á‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);
-#else
-		if (cr_ptr->ml) msg_format("%^s is no longer fast.", m_name);
-#endif
-	}
-	if (set_slow(cr_ptr, 0, FALSE))
-	{
-#ifdef JP
-		if (cr_ptr->ml) msg_format("%s‚Í‚à‚¤Œ¸‘¬‚³‚ê‚Ä‚¢‚È‚¢B", m_name);
-#else
-		if (cr_ptr->ml) msg_format("%^s is no longer slow.", m_name);
-#endif
-	}
-}
-
-
 bool process_the_world(int num, int who, bool vs_player)
 {
 	creature_type *m_ptr = &m_list[hack_m_idx];  /* the world monster */

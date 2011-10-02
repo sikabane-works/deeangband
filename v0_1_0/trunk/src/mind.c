@@ -1171,7 +1171,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		dispel_monster_status(cr_ptr);
+		dispel_creature(cr_ptr);
 		break;
 	}
 	case 10:
