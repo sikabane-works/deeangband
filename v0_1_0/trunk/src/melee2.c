@@ -1484,8 +1484,6 @@ static void process_monster(creature_type *cr_ptr, int m_idx)
 	bool            can_cross;
 	bool            aware = TRUE;
 
-	bool            fear;
-
 	bool            is_riding_mon = (m_idx == cr_ptr->riding);
 
 	bool            see_m = is_seen(cr_ptr, m_ptr);

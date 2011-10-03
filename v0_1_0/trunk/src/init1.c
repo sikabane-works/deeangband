@@ -4396,7 +4396,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 55
+#define RC_INFO_CSV_COLUMNS 56
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4409,6 +4409,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_INT",
 	"P_WIS",
 	"P_DEX",
+
 	"P_CON",
 	"P_CHA",
 	"H_STR",
@@ -4419,6 +4420,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_CHA",
 	"P_DIS",
 	"P_DEV",
+
 	"P_SAV",
 	"P_STL",
 	"P_SRH",
@@ -4429,6 +4431,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_DIS",
 	"H_DEV",
 	"H_SAV",
+
 	"H_STL",
 	"H_SRH",
 	"H_FOS",
@@ -4439,6 +4442,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"M_HM",
 	"M_WB",
 	"M_WM",
+
 	"F_HB",
 	"F_HM",
 	"F_WB",
@@ -4449,6 +4453,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_EXP",
 	"SYM",
 	"AGE",
+
 	"AGE_ADD",
 	"P_ADD_FLAGS",
 	"H_ADD_FLAGS",
@@ -4457,6 +4462,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
+
 #define RC_INFO_ID			0
 #define RC_INFO_NAME		1
 #define RC_INFO_E_NAME		2
@@ -4467,6 +4473,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_P_INT		7
 #define RC_INFO_P_WIS		8
 #define RC_INFO_P_DEX		9
+
 #define RC_INFO_P_CON		10
 #define RC_INFO_P_CHA		11
 #define RC_INFO_H_STR		12
@@ -4477,6 +4484,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_H_CHA		17
 #define RC_INFO_P_DIS		18
 #define RC_INFO_P_DEV		19
+
 #define RC_INFO_P_SAV		20
 #define RC_INFO_P_STL		21
 #define RC_INFO_P_SRH		22
@@ -4487,6 +4495,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_H_DIS		27
 #define RC_INFO_H_DEV		28
 #define RC_INFO_H_SAV		29
+
 #define RC_INFO_H_STL		30
 #define RC_INFO_H_SRH		31
 #define RC_INFO_H_FOS		32
@@ -4497,6 +4506,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_M_HM		37
 #define RC_INFO_M_WB		38
 #define RC_INFO_M_WM		39
+
 #define RC_INFO_F_HB		40
 #define RC_INFO_F_HM		41
 #define RC_INFO_F_WB		42
@@ -4507,6 +4517,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_H_EXP		47
 #define RC_INFO_SYM			48
 #define RC_INFO_AGE			49
+
 #define RC_INFO_AGE_ADD		50
 #define RC_INFO_P_ADD_FLAGS		51
 #define RC_INFO_H_ADD_FLAGS		52
@@ -4516,8 +4527,8 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 errr parse_rc_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b;
-	char tmp[10000], nt[80];
+	int i, j, b, c;
+	char tmp[10000], nt[80], flagname[80];
 	char *s, *t;
 
 	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"')){
@@ -4529,7 +4540,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, rc_info_csv_list[0]))
 	{
-		stp_info_csv_code[0] = ST_INFO_ID;
+		stp_info_csv_code[0] = RC_INFO_ID;
 		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
@@ -4538,11 +4549,11 @@ errr parse_rc_info_csv(char *buf, header *head)
 			{
 				if(!strcmp(tmp, stp_info_csv_list[j]))
 				{
-					stp_info_csv_code[i] = j;
+					rc_info_csv_code[i] = j;
 					break;
 				}
 			}
-			if(j == ST_INFO_CSV_COLUMNS) return (1); /* ERROR */
+			if(j == RC_INFO_CSV_COLUMNS) return (11); /* ERROR */
 		}
 		return 0;
 	}
@@ -4581,12 +4592,12 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_LEV:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].lev = (s16b)b;
 				break;
 
 			case RC_INFO_DR:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].dr = (s16b)b;
 				break;
 
@@ -4651,132 +4662,132 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_DIS:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_dis = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEV:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_dev = (s16b)b;
 				break;
 
 			case RC_INFO_P_SAV:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_sav = (s16b)b;
 				break;
 
 			case RC_INFO_P_STL:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_stl = (s16b)b;
 				break;
 
 			case RC_INFO_P_SRH:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_srh = (s16b)b;
 				break;
 
 			case RC_INFO_P_FOS:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_fos = (s16b)b;
 				break;
 
 			case RC_INFO_P_THN:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_thn = (s16b)b;
 				break;
 
 			case RC_INFO_P_THB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_thb = (s16b)b;
 				break;
 
 			case RC_INFO_P_INFRA:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_H_DIS:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_dis = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEV:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_dev = (s16b)b;
 				break;
 
 			case RC_INFO_H_SAV:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_sav = (s16b)b;
 				break;
 
 			case RC_INFO_H_STL:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_stl = (s16b)b;
 				break;
 
 			case RC_INFO_H_SRH:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_srh = (s16b)b;
 				break;
 
 			case RC_INFO_H_FOS:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_fos = (s16b)b;
 				break;
 
 			case RC_INFO_H_THN:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_thn = (s16b)b;
 				break;
 
 			case RC_INFO_H_THB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_thb = (s16b)b;
 				break;
 
 			case RC_INFO_H_INFRA:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].infra = (byte)b;
 				break;
 
 			case RC_INFO_M_HB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].m_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_HM:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].m_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_M_WB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].m_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_M_WM:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].m_m_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_HB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].f_b_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_HM:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].f_m_ht = (s32b)b;
 				break;
 
 			case RC_INFO_F_WB:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].f_b_wt = (s32b)b;
 				break;
 
 			case RC_INFO_F_WM:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].f_m_wt = (s32b)b;
 				break;
 
@@ -4787,12 +4798,12 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_EXP:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_exp = (s16b)b;
 				break;
 
 			case RC_INFO_H_EXP:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].r_s_exp = (s16b)b;
 				break;
 
@@ -4800,17 +4811,35 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_AGE:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].b_age = (s32b)b;
 				break;
 
 			case RC_INFO_AGE_ADD:
-				if(sscanf(tmp, "%s", &b) != 1) return (1);
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
 				race_info[n].m_age = (s32b)b;
 				break;
 
-			//TODO
 			case RC_INFO_P_ADD_FLAGS:
+				for (s = tmp; *s; ){
+
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
+
+					/* Nuke and skip any dividers */
+					if (*t)
+					{
+						*t++ = '\0';
+						while (*t == ' ' || *t == '|' || *t == '\n') t++;
+					}
+
+					if(sscanf(s, "%s:%d:%d", &flagname, &b, &c) != 3) return (1);
+
+					/* Parse this entry */
+					if (0 != grab_one_basic_flag(&r_info[n], flagname)) return (PARSE_ERROR_INVALID_FLAG);
+
+					/* Start the next entry */
+					s = t;
+				}
 				break;
 
 			case RC_INFO_H_ADD_FLAGS:

@@ -5029,7 +5029,8 @@ extern int PlayerUID;
 #define PARSE_ERROR_OUT_OF_BOUNDS            8
 #define PARSE_ERROR_TOO_FEW_ARGUMENTS        9
 #define PARSE_ERROR_UNDEFINED_TERRAIN_TAG   10
-#define PARSE_ERROR_MAX                     11
+#define PARSE_ERROR_COLUMN				    11
+#define PARSE_ERROR_MAX                     12
 
 #define GINOU_SUDE       0
 #define GINOU_NITOURYU   1

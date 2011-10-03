@@ -269,6 +269,7 @@ cptr err_str[PARSE_ERROR_MAX] =
 	"座標範囲外",
 	"引数不足",
 	"未定義地形タグ",
+	"カラムエラー"
 #else
 	"parse error",
 	"obsolete file",
@@ -280,6 +281,7 @@ cptr err_str[PARSE_ERROR_MAX] =
 	"coordinates out of bounds",
 	"too few arguments",
 	"undefined terrain tag",
+	"column error",
 #endif
 
 };

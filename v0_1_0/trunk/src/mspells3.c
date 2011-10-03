@@ -731,7 +731,7 @@ msg_print("‚©‚ñ‚‚¢‹àØ‚èº‚ð‚ ‚°‚½B");
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		dispel_creature(&m_info[m_idx]);
+		dispel_creature(&m_list[m_idx]);
 		break;
 	}
 	case MS_ROCKET:
