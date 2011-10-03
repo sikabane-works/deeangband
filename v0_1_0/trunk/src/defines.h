@@ -3675,6 +3675,7 @@
 
 /*** Monster flag values (hard-coded) ***/
 
+#define CREATURE_FLAGS_MAX 19
 
 /*
  * New monster race bit flags

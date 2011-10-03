@@ -45,7 +45,15 @@
  */
 
 
-
+/*
+ * Creature flags
+ */
+typedef struct creature_flags creature_flags;
+struct creature_flags
+{
+	byte add_lev[CREATURE_FLAGS_MAX * 32];
+	byte remove_lev[CREATURE_FLAGS_MAX * 32];
+};
 
 
 /*
@@ -1009,10 +1017,11 @@ struct race_type
 
 	resist main_resist;
 	resist sub_resist;
+
+	creature_flags flags;
 	
 	/*    byte choice_xtra;   */
 };
-
 
 
 /*
