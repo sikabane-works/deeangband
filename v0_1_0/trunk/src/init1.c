@@ -3147,9 +3147,71 @@ static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 
 	/* Oops */
 #ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
+	msg_format("未知の固体フラグ '%s'。", what);
 #else
-	msg_format("Unknown monster flag '%s'.", what);
+	msg_format("Unknown species flag '%s'.", what);
+#endif
+
+
+	/* Failure */
+	return (1);
+}
+
+/*
+ * Grab one (basic) flag in a species_type from a textual string
+ */
+static errr grab_one_race_flag(race_type *race_ptr, cptr what)
+{
+	/*
+	if (grab_one_flag(&race_ptr->flags1, r_info_flags1, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags2, r_info_flags2, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags3, r_info_flags3, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags4, r_info_flags4, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags5, r_info_flags5, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags6, r_info_flags6, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags7, r_info_flags7, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags8, r_info_flags8, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags9, r_info_flags9, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags10, r_info_flags10, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags11, r_info_flags11, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags12, r_info_flags12, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags13, r_info_flags13, what) == 0)
+		return 0;
+
+	if (grab_one_flag(&race_ptr->flags14, r_info_flags14, what) == 0)
+		return 0;
+	*/
+	return 0;
+
+	/* Oops */
+#ifdef JP
+	msg_format("未知の種族フラグ '%s'。", what);
+#else
+	msg_format("Unknown race flag '%s'.", what);
 #endif
 
 
@@ -4400,6 +4462,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
+	"CM",
 	"NAME",
 	"E_NAME",
 	"SEX",
@@ -4408,8 +4471,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_STR",
 	"P_INT",
 	"P_WIS",
-	"P_DEX",
 
+	"P_DEX",
 	"P_CON",
 	"P_CHA",
 	"H_STR",
@@ -4419,8 +4482,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_CON",
 	"H_CHA",
 	"P_DIS",
-	"P_DEV",
 
+	"P_DEV",
 	"P_SAV",
 	"P_STL",
 	"P_SRH",
@@ -4430,8 +4493,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_INFRA",
 	"H_DIS",
 	"H_DEV",
-	"H_SAV",
 
+	"H_SAV",
 	"H_STL",
 	"H_SRH",
 	"H_FOS",
@@ -4441,8 +4504,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"M_HB",
 	"M_HM",
 	"M_WB",
-	"M_WM",
 
+	"M_WM",
 	"F_HB",
 	"F_HM",
 	"F_WB",
@@ -4452,8 +4515,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_EXP",
 	"H_EXP",
 	"SYM",
-	"AGE",
 
+	"AGE",
 	"AGE_ADD",
 	"P_ADD_FLAGS",
 	"H_ADD_FLAGS",
@@ -4464,65 +4527,66 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 
 #define RC_INFO_ID			0
-#define RC_INFO_NAME		1
-#define RC_INFO_E_NAME		2
-#define RC_INFO_SEX			3
-#define RC_INFO_LEV			4
-#define RC_INFO_DR			5
-#define RC_INFO_P_STR		6
-#define RC_INFO_P_INT		7
-#define RC_INFO_P_WIS		8
-#define RC_INFO_P_DEX		9
+#define RC_INFO_COMMON		1
+#define RC_INFO_NAME		2
+#define RC_INFO_E_NAME		3
+#define RC_INFO_SEX			4
+#define RC_INFO_LEV			5
+#define RC_INFO_DR			6
+#define RC_INFO_P_STR		7
+#define RC_INFO_P_INT		8
+#define RC_INFO_P_WIS		9
 
-#define RC_INFO_P_CON		10
-#define RC_INFO_P_CHA		11
-#define RC_INFO_H_STR		12
-#define RC_INFO_H_INT		13
-#define RC_INFO_H_WIS		14
-#define RC_INFO_H_DEX		15
-#define RC_INFO_H_CON		16
-#define RC_INFO_H_CHA		17
-#define RC_INFO_P_DIS		18
-#define RC_INFO_P_DEV		19
+#define RC_INFO_P_DEX		10
+#define RC_INFO_P_CON		11
+#define RC_INFO_P_CHA		12
+#define RC_INFO_H_STR		13
+#define RC_INFO_H_INT		14
+#define RC_INFO_H_WIS		15
+#define RC_INFO_H_DEX		16
+#define RC_INFO_H_CON		17
+#define RC_INFO_H_CHA		18
+#define RC_INFO_P_DIS		19
 
-#define RC_INFO_P_SAV		20
-#define RC_INFO_P_STL		21
-#define RC_INFO_P_SRH		22
-#define RC_INFO_P_FOS		23
-#define RC_INFO_P_THN		24
-#define RC_INFO_P_THB		25
-#define RC_INFO_P_INFRA		26
-#define RC_INFO_H_DIS		27
-#define RC_INFO_H_DEV		28
-#define RC_INFO_H_SAV		29
+#define RC_INFO_P_DEV		20
+#define RC_INFO_P_SAV		21
+#define RC_INFO_P_STL		22
+#define RC_INFO_P_SRH		23
+#define RC_INFO_P_FOS		24
+#define RC_INFO_P_THN		25
+#define RC_INFO_P_THB		26
+#define RC_INFO_P_INFRA		27
+#define RC_INFO_H_DIS		28
+#define RC_INFO_H_DEV		29
 
-#define RC_INFO_H_STL		30
-#define RC_INFO_H_SRH		31
-#define RC_INFO_H_FOS		32
-#define RC_INFO_H_THN		33
-#define RC_INFO_H_THB		34
-#define RC_INFO_H_INFRA		35
-#define RC_INFO_M_HB		36
-#define RC_INFO_M_HM		37
-#define RC_INFO_M_WB		38
-#define RC_INFO_M_WM		39
+#define RC_INFO_H_SAV		30
+#define RC_INFO_H_STL		31
+#define RC_INFO_H_SRH		32
+#define RC_INFO_H_FOS		33
+#define RC_INFO_H_THN		34
+#define RC_INFO_H_THB		35
+#define RC_INFO_H_INFRA		36
+#define RC_INFO_M_HB		37
+#define RC_INFO_M_HM		38
+#define RC_INFO_M_WB		39
 
-#define RC_INFO_F_HB		40
-#define RC_INFO_F_HM		41
-#define RC_INFO_F_WB		42
-#define RC_INFO_F_WM		43
-#define RC_INFO_P_HITD_M	44
-#define RC_INFO_H_HITD_M	45
-#define RC_INFO_P_EXP		46
-#define RC_INFO_H_EXP		47
-#define RC_INFO_SYM			48
-#define RC_INFO_AGE			49
+#define RC_INFO_M_WM		40
+#define RC_INFO_F_HB		41
+#define RC_INFO_F_HM		42
+#define RC_INFO_F_WB		43
+#define RC_INFO_F_WM		44
+#define RC_INFO_P_HITD_M	45
+#define RC_INFO_H_HITD_M	46
+#define RC_INFO_P_EXP		47
+#define RC_INFO_H_EXP		48
+#define RC_INFO_SYM			49
 
-#define RC_INFO_AGE_ADD		50
-#define RC_INFO_P_ADD_FLAGS		51
-#define RC_INFO_H_ADD_FLAGS		52
-#define RC_INFO_P_REMOVE_FLAGS	53
-#define RC_INFO_H_REMOVE_FLAGS	54
+#define RC_INFO_AGE			50
+#define RC_INFO_AGE_ADD			51
+#define RC_INFO_P_ADD_FLAGS		52
+#define RC_INFO_H_ADD_FLAGS		53
+#define RC_INFO_P_REMOVE_FLAGS	54
+#define RC_INFO_H_REMOVE_FLAGS	55
 
 errr parse_rc_info_csv(char *buf, header *head)
 {
@@ -4540,14 +4604,14 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 	if(!strcmp(tmp, rc_info_csv_list[0]))
 	{
-		stp_info_csv_code[0] = RC_INFO_ID;
+		rc_info_csv_code[0] = RC_INFO_ID;
 		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			for(j = 1; j < RC_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, stp_info_csv_list[j]))
+				if(!strcmp(tmp, rc_info_csv_list[j]))
 				{
 					rc_info_csv_code[i] = j;
 					break;
@@ -4578,6 +4642,9 @@ errr parse_rc_info_csv(char *buf, header *head)
 			switch(rc_info_csv_code[i])
 			{
 			case RC_INFO_ID:
+				break;
+
+			case RC_INFO_COMMON:
 				break;
 
 			case RC_INFO_NAME:
@@ -4823,7 +4890,8 @@ errr parse_rc_info_csv(char *buf, header *head)
 			case RC_INFO_P_ADD_FLAGS:
 				for (s = tmp; *s; ){
 
-					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
+					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
+						if(*t == ':') *t = ' ' /* loop */;
 
 					/* Nuke and skip any dividers */
 					if (*t)
@@ -4832,10 +4900,10 @@ errr parse_rc_info_csv(char *buf, header *head)
 						while (*t == ' ' || *t == '|' || *t == '\n') t++;
 					}
 
-					if(sscanf(s, "%s:%d:%d", &flagname, &b, &c) != 3) return (1);
+					if(sscanf(s, "%s %d %d", &flagname, &b, &c) != 3) return (1);
 
 					/* Parse this entry */
-					if (0 != grab_one_basic_flag(&r_info[n], flagname)) return (PARSE_ERROR_INVALID_FLAG);
+					if (0 != grab_one_race_flag(&race_info[n], flagname)) return (PARSE_ERROR_INVALID_FLAG);
 
 					/* Start the next entry */
 					s = t;
