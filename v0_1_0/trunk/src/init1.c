@@ -172,6 +172,37 @@ static cptr race_flags[MAX_RACES] =
 	"REPTILIA",
 };
 
+static cptr class_flags[MAX_CLASS]=
+{
+	"WARRIOR",
+	"MAGE ",
+	"PRIEST",
+	"ROGUE",
+	"RANGER",
+	"PALADIN",
+	"WARRIOR_MAGE",
+	"CHAOS_WARRIOR",
+	"MONK ",
+	"MINDCRAFTER",
+	"HIGH_MAGE",
+	"TOURIST",
+	"IMITATOR",
+	"BEASTMASTER",
+	"SORCERER",
+	"ARCHER",
+	"MAGIC_EATER",
+	"BARD ",
+	"RED_MAGE",
+	"SAMURAI",
+	"FORCETRAINER",
+	"BLUE_MAGE",
+	"CAVALRY",
+	"BERSERKER",
+	"SMITH",
+	"MIRROR_MASTER",
+	"NINJA",
+	"SNIPER",
+};
 
 
 /*
@@ -4458,7 +4489,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 54
+#define RC_INFO_CSV_COLUMNS 55
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4520,6 +4551,7 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"AGE_ADD",
 	"P_FLAGS",
 	"H_FLAGS",
+	"SUIT_CLASS",
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
@@ -4583,6 +4615,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_AGE_ADD		51
 #define RC_INFO_P_FLAGS		52
 #define RC_INFO_H_FLAGS		53
+#define RC_INFO_SUIT_CLASS	54
 
 errr parse_rc_info_csv(char *buf, header *head)
 {
@@ -4907,6 +4940,9 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_H_FLAGS:
+				break;
+
+			case RC_INFO_SUIT_CLASS:
 				break;
 
 			default:
