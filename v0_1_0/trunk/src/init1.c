@@ -413,7 +413,7 @@ static cptr f_info_flags[] =
 
 static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 {
-//RF1
+//CF1
 	"UNIQUE",
 	"QUESTOR",
 	"XXX",
@@ -446,7 +446,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"DROP_GREAT",
 	"XXX",
 	"NO_DEVOTEE",
-//RF2
+//CF2
 	"STUPID",
 	"SMART",
 	"CAN_SPEAK",
@@ -479,7 +479,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"SEX_F3",
 	"XXX",
 	"QUANTUM",
-//RF3
+//CF3
 	"XXX",
 	"XXX",
 	"XXX",
@@ -512,7 +512,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"NO_STUN",
 	"NO_CONF",
 	"NO_SLEEP"
-//RF4
+//CF4
 	"SHRIEK",
 	"XXX1",
 	"DISPEL",
@@ -545,7 +545,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"BR_NUKE",
 	"BA_CHAO",
 	"BR_DISI",
-//RF5
+//CF5
 	"BA_ACID",
 	"BA_ELEC",
 	"BA_FIRE",
@@ -578,7 +578,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"CONF",
 	"SLOW",
 	"HOLD"
-//RF6
+//CF6
 	"HASTE",
 	"HAND_DOOM",
 	"HEAL",
@@ -611,7 +611,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"S_HI_DRAGON",
 	"S_AMBERITES",
 	"S_UNIQUE",
-//RF7
+//CF7
 	"AQUATIC",
 	"CAN_SWIM",
 	"CAN_FLY",
@@ -644,7 +644,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX7X29",
 	"XXX7X30",
 	"XXX7X31",
-//RF8
+//CF8
 	"WILD_ONLY",
 	"WILD_TOWN",
 	"CITIZEN",
@@ -677,7 +677,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX8X29",
 	"WILD_SWAMP",
 	"WILD_ALL",
-//RF9
+//CF9
 	"DROP_CORPSE",
 	"DROP_SKELETON",
 	"EAT_BLIND",
@@ -711,7 +711,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"EAT_LOSE_CON",
 	"EAT_LOSE_CHR",
 	"EAT_DRAIN_MANA",
-//RF10
+//CF10
 	"IM_ACID",
 	"IM_ELEC",
 	"IM_FIRE",
@@ -744,7 +744,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF11
+//CF11
 	"FORCE_LESSER_EGO",
 	"RACE_EGO",
 	"CLASS_EGO",
@@ -777,7 +777,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF12
+//CF12
 	"SPIT_ACID",
 	"BR_FIRE",
 	"HYPN_GAZE",
@@ -810,7 +810,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"BANISH",
 	"COLD_TOUCH",
 	"LAUNCHER",
-//RF13
+//CF13
 	"BERS_RAGE",
 	"COWARDICE",
 	"RTELEPORT",
@@ -843,7 +843,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"SP_TO_HP",
 	"HP_TO_SP",
 	"DISARM",
-//RF14
+//CF14
 	"HYPER_STR",
 	"PUNY",
 	"HYPER_INT",
@@ -876,7 +876,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"VULN_ELEM",
 	"MOTION",
 	"GOOD_LUCK",
-//RF15
+//CF15
 	"FIRE_BRAND",
 	"COLD_BRAND",
 	"ELEC_BRAND",
@@ -909,7 +909,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF16
+//CF16
 	"XXX",
 	"XXX",
 	"XXX",
@@ -942,7 +942,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF17
+//CF17
 	"XXX",
 	"XXX",
 	"XXX",
@@ -975,7 +975,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF18
+//CF18
 	"XXX",
 	"XXX",
 	"XXX",
@@ -1008,7 +1008,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-//RF19
+//CF19
 	"XXX",
 	"XXX",
 	"XXX",

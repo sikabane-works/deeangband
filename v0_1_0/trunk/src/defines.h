@@ -6355,3 +6355,4 @@ extern int PlayerUID;
 #define CF_ELEC_BRAND		450
 #define CF_ACID_BRAND		451
 #define CF_POIS_BRAND		452
+

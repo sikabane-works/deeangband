@@ -1440,36 +1440,34 @@ int calculate_upkeep(creature_type *cr_ptr)
 	for (m_idx = m_max - 1; m_idx >=1; m_idx--)
 	{
 		creature_type *m_ptr;
-		species_type *r_ptr;
 		
 		m_ptr = &m_list[m_idx];
 		if (!m_ptr->species_idx) continue;
-		r_ptr = &r_info[m_ptr->species_idx];
 
 		if (is_pet(m_ptr))
 		{
 			total_friends++;
-			if (r_ptr->flags1 & RF1_UNIQUE)
+			if (cr_ptr->flags1 & RF1_UNIQUE)
 			{
 				if (cr_ptr->cls_idx == CLASS_CAVALRY)
 				{
 					if (cr_ptr->riding == m_idx)
-						total_friend_levels += (r_ptr->level+5)*2;
+						total_friend_levels += (m_ptr->lev+5)*2;
 					else if (!have_a_unique && (r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
-						total_friend_levels += (r_ptr->level+5)*7/2;
+						total_friend_levels += (m_ptr->lev+5)*7/2;
 					else
-						total_friend_levels += (r_ptr->level+5)*10;
+						total_friend_levels += (m_ptr->lev+5)*10;
 					have_a_unique = TRUE;
 				}
 				else
-					total_friend_levels += (r_ptr->level+5)*10;
+					total_friend_levels += (m_ptr->lev+5)*10;
 			}
 			else
-				total_friend_levels += r_ptr->level;
+				total_friend_levels += m_ptr->lev;
 
 			/* Determine pet alignment */
-			if (is_enemy_of_evil_species(r_ptr)) friend_align += r_ptr->level;
-			if (is_enemy_of_good_species(r_ptr)) friend_align -= r_ptr->level;
+			if (is_enemy_of_evil_creature(m_ptr)) friend_align += m_ptr->lev;
+			if (is_enemy_of_good_creature(m_ptr)) friend_align -= m_ptr->lev;
 		}
 	}
 	if (old_friend_align != friend_align) cr_ptr->update |= (PU_BONUS);
