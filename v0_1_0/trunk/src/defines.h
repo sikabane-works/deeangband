@@ -4145,7 +4145,11 @@
 #define RF14_MOTION                     0x40000000L
 #define RF14_GOOD_LUCK                  0x80000000L
 
-
+#define RF15_FIRE_BRAND					0x00000001L
+#define RF15_COLD_BRAND					0x00000002L
+#define	RF15_ELEC_BRAND					0x00000004L
+#define RF15_ACID_BRAND					0x00000008L
+#define RF15_POIS_BRAND					0x00000010L
 
 
 /*

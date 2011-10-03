@@ -949,13 +949,16 @@ static cptr r_info_flags14[] =
 	"GOOD_LUCK",
 };
 
+/*
+ * race flags - brand 
+ */
 static cptr r_info_flags15[] =
 {
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
+	"FIRE_BRAND",
+	"COLD_BRAND",
+	"ELEC_BRAND",
+	"ACID_BRAND",
+	"POIS_BRAND",
 	"XXX",
 	"XXX",
 	"XXX",
