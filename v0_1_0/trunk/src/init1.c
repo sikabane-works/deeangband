@@ -1978,6 +1978,24 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 	return -1;
 }
 
+static errr grab_one_creature_flag(creature_flags *cf_ptr, int num, cptr names[], cptr what, byte add, byte remove)
+{
+	int i;
+
+	/* Check flags */
+	for (i = 0; i < 32; i++)
+	{
+		if (streq(what, names[i]))
+		{
+			cf_ptr->add_lev[num * 32 + i] = add;
+			cf_ptr->remove_lev[num * 32 + i] = remove;
+			return 0;
+		}
+	}
+
+	return -1;
+}
+
 
 /*
  * Grab one flag in an feature_type from a textual string
@@ -3191,51 +3209,57 @@ static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 /*
  * Grab one (basic) flag in a species_type from a textual string
  */
-static errr grab_one_race_flag(race_type *race_ptr, cptr what)
+static errr grab_one_race_flags(creature_flags *flag_ptr, cptr what, byte add, byte remove)
 {
-	/*
-	if (grab_one_flag(&race_ptr->flags1, r_info_flags1, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 0, r_info_flags1, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags2, r_info_flags2, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 1, r_info_flags2, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags3, r_info_flags3, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 2, r_info_flags3, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags4, r_info_flags4, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 3, r_info_flags4, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags5, r_info_flags5, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 4, r_info_flags5, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags6, r_info_flags6, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 5, r_info_flags6, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags7, r_info_flags7, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 6, r_info_flags7, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags8, r_info_flags8, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 7, r_info_flags8, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags9, r_info_flags9, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 8, r_info_flags9, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags10, r_info_flags10, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 9, r_info_flags10, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags11, r_info_flags11, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 10, r_info_flags11, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags12, r_info_flags12, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 11, r_info_flags12, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags13, r_info_flags13, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 12, r_info_flags13, what, add, remove) == 0)
 		return 0;
 
-	if (grab_one_flag(&race_ptr->flags14, r_info_flags14, what) == 0)
+	if (grab_one_creature_flag(flag_ptr, 13, r_info_flags14, what, add, remove) == 0)
 		return 0;
-	*/
+
+	if (grab_one_creature_flag(flag_ptr, 14, r_info_flags15, what, add, remove) == 0)
+		return 0;
+
+	if (grab_one_creature_flag(flag_ptr, 15, r_info_flags16, what, add, remove) == 0)
+		return 0;
+
+
 	return 0;
 
 	/* Oops */
@@ -4935,11 +4959,11 @@ errr parse_rc_info_csv(char *buf, header *head)
 					/* Parse this entry */
 					if(rc_info_csv_code[i] == RC_INFO_P_FLAGS)
 					{
-						if (0 != grab_one_race_flag(&race_info[n].p_flags, flagname)) return (PARSE_ERROR_INVALID_FLAG);
+						if (0 != grab_one_race_flags(&race_info[n].p_flags, flagname, (byte)b, (byte)c)) return (PARSE_ERROR_INVALID_FLAG);
 					}
 					else
 					{
-						if (0 != grab_one_race_flag(&race_info[n].h_flags, flagname)) return (PARSE_ERROR_INVALID_FLAG);
+						if (0 != grab_one_race_flags(&race_info[n].h_flags, flagname, (byte)b, (byte)c)) return (PARSE_ERROR_INVALID_FLAG);
 					}
 
 					/* Start the next entry */
