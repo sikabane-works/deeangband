@@ -1018,7 +1018,8 @@ struct race_type
 	resist main_resist;
 	resist sub_resist;
 
-	creature_flags flags;
+	creature_flags p_flags;
+	creature_flags h_flags;
 	
 	/*    byte choice_xtra;   */
 };

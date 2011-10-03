@@ -4917,6 +4917,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_FLAGS:
+			case RC_INFO_H_FLAGS:
 				for (s = tmp; *s; ){
 
 					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
@@ -4932,15 +4933,20 @@ errr parse_rc_info_csv(char *buf, header *head)
 					if(sscanf(s, "%s %d %d", &flagname, &b, &c) != 3) return (1);
 
 					/* Parse this entry */
-					if (0 != grab_one_race_flag(&race_info[n], flagname)) return (PARSE_ERROR_INVALID_FLAG);
+					if(rc_info_csv_code[i] == RC_INFO_P_FLAGS)
+					{
+						if (0 != grab_one_race_flag(&race_info[n].p_flags, flagname)) return (PARSE_ERROR_INVALID_FLAG);
+					}
+					else
+					{
+						if (0 != grab_one_race_flag(&race_info[n].h_flags, flagname)) return (PARSE_ERROR_INVALID_FLAG);
+					}
 
 					/* Start the next entry */
 					s = t;
 				}
 				break;
 
-			case RC_INFO_H_FLAGS:
-				break;
 
 			case RC_INFO_SUIT_CLASS:
 				break;
