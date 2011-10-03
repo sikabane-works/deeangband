@@ -4458,7 +4458,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 56
+#define RC_INFO_CSV_COLUMNS 54
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4518,10 +4518,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 
 	"AGE",
 	"AGE_ADD",
-	"P_ADD_FLAGS",
-	"H_ADD_FLAGS",
-	"P_REMOVE_FLAGS",
-	"H_REMOVE_FLAGS",
+	"P_FLAGS",
+	"H_FLAGS",
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
@@ -4582,11 +4580,9 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_SYM			49
 
 #define RC_INFO_AGE			50
-#define RC_INFO_AGE_ADD			51
-#define RC_INFO_P_ADD_FLAGS		52
-#define RC_INFO_H_ADD_FLAGS		53
-#define RC_INFO_P_REMOVE_FLAGS	54
-#define RC_INFO_H_REMOVE_FLAGS	55
+#define RC_INFO_AGE_ADD		51
+#define RC_INFO_P_FLAGS		52
+#define RC_INFO_H_FLAGS		53
 
 errr parse_rc_info_csv(char *buf, header *head)
 {
@@ -4887,7 +4883,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 				race_info[n].m_age = (s32b)b;
 				break;
 
-			case RC_INFO_P_ADD_FLAGS:
+			case RC_INFO_P_FLAGS:
 				for (s = tmp; *s; ){
 
 					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
@@ -4910,13 +4906,7 @@ errr parse_rc_info_csv(char *buf, header *head)
 				}
 				break;
 
-			case RC_INFO_H_ADD_FLAGS:
-				break;
-
-			case RC_INFO_P_REMOVE_FLAGS:
-				break;
-
-			case RC_INFO_H_REMOVE_FLAGS:
+			case RC_INFO_H_FLAGS:
 				break;
 
 			default:
