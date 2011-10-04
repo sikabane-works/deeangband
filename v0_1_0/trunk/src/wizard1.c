@@ -1764,10 +1764,10 @@ static void spoil_mon_desc(cptr fname)
 	/* Scan the monsters */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &r_info[i];
+		species_type *species_ptr = &r_info[i];
 
 		/* Use that monster */
-		if (r_ptr->name) who[n++] = i;
+		if (species_ptr->name) who[n++] = i;
 	}
 
 	/* Select the sort method */
@@ -1780,21 +1780,21 @@ static void spoil_mon_desc(cptr fname)
 	/* Scan again */
 	for (i = 0; i < n; i++)
 	{
-		species_type *r_ptr = &r_info[who[i]];
+		species_type *species_ptr = &r_info[who[i]];
 
-		cptr name = (r_name + r_ptr->name);
+		cptr name = (r_name + species_ptr->name);
 
 		sprintf(id, "%5d ", who[i]);
 
-		if (r_ptr->flags7 & (RF7_KAGE)) continue;
+		if (species_ptr->flags7 & (RF7_KAGE)) continue;
 		/* Get the "name" */
 		/*
-		else if (r_ptr->flags1 & (RF1_QUESTOR))
+		else if (species_ptr->flags1 & (RF1_QUESTOR))
 		{
 			sprintf(nam, "[Q] %s", name);
 		}
 		*/
-		else if (r_ptr->flags1 & (RF1_UNIQUE))
+		else if (species_ptr->flags1 & (RF1_UNIQUE))
 		{
 			sprintf(nam, "[U] %s", name);
 		}
@@ -1810,65 +1810,65 @@ static void spoil_mon_desc(cptr fname)
 
 		/* TODO : NEW CALC Level */
 /*
-		if (r_ptr->flags1 & (RF1_UNIQUE))
-			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level_u[r_ptr->level]);
+		if (species_ptr->flags1 & (RF1_UNIQUE))
+			sprintf(lev, "%d(%d)", species_ptr->level, d_level_to_c_level_u[species_ptr->level]);
 		else
-			sprintf(lev, "%d(%d)", r_ptr->level, d_level_to_c_level[r_ptr->level]);
+			sprintf(lev, "%d(%d)", species_ptr->level, d_level_to_c_level[species_ptr->level]);
 */
 
 		/* Divine Rank */
-		if(r_ptr->dr >= 0)
-			sprintf(div, "%d", r_ptr->dr);
+		if(species_ptr->dr >= 0)
+			sprintf(div, "%d", species_ptr->dr);
 		else
 			sprintf(div, "Nr");
 		
 
 		/* Rarity */
-		sprintf(rar, "%d", r_ptr->rarity);
+		sprintf(rar, "%d", species_ptr->rarity);
 
 		/* Speed */
-		if (r_ptr->speed >= 110)
+		if (species_ptr->speed >= 110)
 		{
-			sprintf(spd, "+%d", (r_ptr->speed - 110));
+			sprintf(spd, "+%d", (species_ptr->speed - 110));
 		}
 		else
 		{
-			sprintf(spd, "-%d", (110 - r_ptr->speed));
+			sprintf(spd, "-%d", (110 - species_ptr->speed));
 		}
 		
 
 		/* Base Status */
 		for(j = A_STR; j <= A_CHR; j++)
 		{
-			stat[j] = r_ptr->stat_max[j] / 10;
-			if(r_ptr->race_idx1 != RACE_NONE)
-				stat[j] += race_info[r_ptr->race_idx1].r_adj[j];
-			if(r_ptr->cls_idx != CLASS_NONE)
-				stat[j] += class_info[r_ptr->cls_idx].c_adj[j];
+			stat[j] = species_ptr->stat_max[j] / 10;
+			if(species_ptr->race_idx1 != RACE_NONE)
+				stat[j] += race_info[species_ptr->race_idx1].r_adj[j];
+			if(species_ptr->cls_idx != CLASS_NONE)
+				stat[j] += class_info[species_ptr->cls_idx].c_adj[j];
 			/* TODO
-			if(r_ptr->patron_idx != PATRON_NONE)
-				stat[j] += player_patrons[r_ptr->cls_idx].p_adj[j];*/
-			if(r_ptr->chara_idx != CHARA_NONE)
-				stat[j] += chara_info[r_ptr->chara_idx].a_adj[j];
+			if(species_ptr->patron_idx != PATRON_NONE)
+				stat[j] += player_patrons[species_ptr->cls_idx].p_adj[j];*/
+			if(species_ptr->chara_idx != CHARA_NONE)
+				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
 
-		if(r_ptr->flags2 & RF2_STUPID){
+		if(species_ptr->flags2 & RF2_STUPID){
 			stat[A_INT] -= 4;
 			stat[A_WIS] -= 4;
 			stat[A_CHR] -= 4;
 		}
 
-		if(r_ptr->flags2 & RF2_SMART){
+		if(species_ptr->flags2 & RF2_SMART){
 			stat[A_INT] += 4;
 			stat[A_WIS] += 4;
 			stat[A_CHR] += 4;
 		}
 
-		if(r_ptr->flags2 & RF2_ELDRITCH_HORROR){
+		if(species_ptr->flags2 & RF2_ELDRITCH_HORROR){
 			stat[A_CHR] += 5;		
 		}
 
-		if(is_powerful_species(r_ptr)){
+		if(is_powerful_species(species_ptr)){
 			for(j = A_STR; j <= A_CHR; j++)
 			{
 				stat[j] += 2;
@@ -1884,42 +1884,42 @@ static void spoil_mon_desc(cptr fname)
 
 
 
-		if((r_ptr->blow[0].method == RBM_NONE || r_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && r_ptr->flags1 & RF1_NEVER_MOVE)
+		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && species_ptr->flags1 & RF1_NEVER_MOVE)
 			sprintf(sa, "--");
 		else
 			sprintf(sa, "%2d", stat[0]);
 
-		if(r_ptr->flags2 & RF2_EMPTY_MIND)
+		if(species_ptr->flags2 & RF2_EMPTY_MIND)
 			sprintf(ia, "--");
 		else
 			sprintf(ia, "%2d", stat[1]);
 
-		if(r_ptr->flags2 & RF2_EMPTY_MIND || r_ptr->flags2 & RF2_WEIRD_MIND)
+		if(species_ptr->flags2 & RF2_EMPTY_MIND || species_ptr->flags2 & RF2_WEIRD_MIND)
 			sprintf(wa, "--");
 		else
 			sprintf(wa, "%2d", stat[2]);
 
-		if((r_ptr->blow[0].method == RBM_NONE || r_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && r_ptr->flags1 & RF1_NEVER_MOVE)
+		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && species_ptr->flags1 & RF1_NEVER_MOVE)
 			sprintf(da, "--");
 		else
 			sprintf(da, "%2d", stat[3]);
 
 		sprintf(ca, "%2d", stat[4]);
 
-		if(r_ptr->flags2 & RF2_EMPTY_MIND || r_ptr->flags2 & RF2_WEIRD_MIND)
+		if(species_ptr->flags2 & RF2_EMPTY_MIND || species_ptr->flags2 & RF2_WEIRD_MIND)
 			sprintf(cha, "--");
 		else
 			sprintf(cha, "%2d", stat[5]);
 
 
 		/* Armor Class */
-		sprintf(ac, "%d", r_ptr->ac);
+		sprintf(ac, "%d", species_ptr->ac);
 
 		/* Hitpoints */
 		//TODO:: EstimateHP
-		estimate_enemy_hp(r_ptr, hpdata);
+		estimate_enemy_hp(species_ptr, hpdata);
 		sprintf(hp, "%5d", hpdata[0]);
-		if (r_ptr->dr >= 1)
+		if (species_ptr->dr >= 1)
 		{
 			sprintf(hp_desc, "(%dx%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
 		}
@@ -1930,55 +1930,55 @@ static void spoil_mon_desc(cptr fname)
 
 		/* height & weight & size */
 
-		if(is_male_species(r_ptr))
+		if(is_male_species(species_ptr))
 		{
-			tmpht = r_ptr->m_b_ht;
-			tmpwt = r_ptr->m_b_wt;
+			tmpht = species_ptr->m_b_ht;
+			tmpwt = species_ptr->m_b_wt;
 		}
-		else if (is_female_species(r_ptr))
+		else if (is_female_species(species_ptr))
 		{
-			tmpht = r_ptr->f_b_ht;
-			tmpwt = r_ptr->f_b_wt;
+			tmpht = species_ptr->f_b_ht;
+			tmpwt = species_ptr->f_b_wt;
 		}
 		else
 		{
-			tmpht = r_ptr->m_b_ht;
-			tmpwt = r_ptr->m_b_wt;
+			tmpht = species_ptr->m_b_ht;
+			tmpwt = species_ptr->m_b_wt;
 		}
 
-		if(r_ptr->flags11 & RF11_RACE_EGO | r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(ht, "----");
+		if(species_ptr->flags11 & RF11_RACE_EGO | species_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(ht, "----");
 		else if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
-		if(r_ptr->flags11 & RF11_RACE_EGO | r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(wt, "----");
+		if(species_ptr->flags11 & RF11_RACE_EGO | species_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(wt, "----");
 		else if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
 		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
 		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
 		tmpsize = calc_bodysize(tmpht, tmpwt);
 
-		if(r_ptr->flags11 & RF11_RACE_EGO) sprintf(size, "B%+2d ", tmpsize - 10);
-		else if(r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(size, "%3d+", tmpsize);
+		if(species_ptr->flags11 & RF11_RACE_EGO) sprintf(size, "B%+2d ", tmpsize - 10);
+		else if(species_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) sprintf(size, "%3d+", tmpsize);
 		else  sprintf(size, "%4d ", tmpsize);
 
 		/* Experience */
-		sprintf(exp, "%ld", (long)(r_ptr->mexp));
+		sprintf(exp, "%ld", (long)(species_ptr->mexp));
 
 		/* Hack -- use visual instead */
-		if(r_ptr->flags11 & RF11_RACE_EGO)
+		if(species_ptr->flags11 & RF11_RACE_EGO)
 		{
-			sprintf(exp, "%s ---", attr_to_text(r_ptr));
+			sprintf(exp, "%s ---", attr_to_text(species_ptr));
 		}
 		else
 		{
-			sprintf(exp, "%s [%c]", attr_to_text(r_ptr), r_ptr->d_char);
+			sprintf(exp, "%s [%c]", attr_to_text(species_ptr), species_ptr->d_char);
 		}
 
 		/* Trait */
 		trait[0] = '\0';
 
-		if(r_ptr->flags11 & RF11_RACE_EGO) 
+		if(species_ptr->flags11 & RF11_RACE_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -1988,13 +1988,13 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->race_idx1 < MAX_RACES)
+		else if(species_ptr->race_idx1 < MAX_RACES)
 		{
 			strcat(trait, "/Ží‘°:");
-			strcat(trait, race_info[r_ptr->race_idx1].title);
+			strcat(trait, race_info[species_ptr->race_idx1].title);
 		}
 
-		if(r_ptr->flags11 & RF11_CLASS_EGO) 
+		if(species_ptr->flags11 & RF11_CLASS_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2004,13 +2004,13 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->cls_idx < MAX_CLASS)
+		else if(species_ptr->cls_idx < MAX_CLASS)
 		{
 			strcat(trait, "/E‹Æ:");
-			strcat(trait, class_info[r_ptr->cls_idx].title);
+			strcat(trait, class_info[species_ptr->cls_idx].title);
 		}
 
-		if(r_ptr->flags11 & RF11_CHARA_EGO) 
+		if(species_ptr->flags11 & RF11_CHARA_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2020,13 +2020,13 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->chara_idx < MAX_CHARA)
+		else if(species_ptr->chara_idx < MAX_CHARA)
 		{
 			strcat(trait, "/«Ši:");
-			strcat(trait, chara_info[r_ptr->chara_idx].title);
+			strcat(trait, chara_info[species_ptr->chara_idx].title);
 		}
 
-		if(r_ptr->flags11 & RF11_PATRON_EGO) 
+		if(species_ptr->flags11 & RF11_PATRON_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2036,13 +2036,13 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(r_ptr->patron_idx < MAX_PATRON)
+		else if(species_ptr->patron_idx < MAX_PATRON)
 		{
 			strcat(trait, "/Žå_:");
-			strcat(trait, r_name + r_info[r_ptr->patron_idx].name);
+			strcat(trait, r_name + r_info[species_ptr->patron_idx].name);
 		}
 
-		if(r_ptr->flags11 & RF11_FORCE_LESSER) 
+		if(species_ptr->flags11 & RF11_FORCE_LESSER) 
 		{
 			strcat(trait, "/");
 #ifdef JP
@@ -2052,7 +2052,7 @@ static void spoil_mon_desc(cptr fname)
 #endif
 		}
 
-		if(r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) 
+		if(species_ptr->flags11 & RF11_VARIABLE_SIZE_EGO) 
 		{
 			strcat(trait, "/");
 #ifdef JP

@@ -1289,9 +1289,8 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 		}
 		case CLASS_CAVALRY:
 		{
-			char m_name[80];
-			creature_type *m_ptr;
-			species_type *r_ptr;
+			char steed_name[80];
+			creature_type *steed_ptr;
 			int rlev;
 
 			if (cr_ptr->riding)
@@ -1304,36 +1303,35 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				return FALSE;
 			}
 			if (!do_riding(cr_ptr, TRUE)) return TRUE;
-			m_ptr = &m_list[cr_ptr->riding];
-			r_ptr = &r_info[m_ptr->species_idx];
-			monster_desc(m_name, m_ptr, 0);
+			steed_ptr = &m_list[cr_ptr->riding];
+			monster_desc(steed_name, steed_ptr, 0);
 #ifdef JP
-			msg_format("%sに乗った。",m_name);
+			msg_format("%sに乗った。",steed_name);
 #else
-			msg_format("You ride on %s.",m_name);
+			msg_format("You ride on %s.",steed_name);
 #endif
-			if (is_pet(m_ptr)) break;
-			rlev = r_ptr->level;
-			if (r_ptr->flags1 & RF1_UNIQUE) rlev = rlev * 3 / 2;
+			if (is_pet(steed_ptr)) break;
+			rlev = steed_ptr->lev;
+			if (steed_ptr->flags1 & RF1_UNIQUE) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(cr_ptr->skill_exp[GINOU_RIDING] / 120 + cr_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !inside_arena && !inside_battle
-			    && !(r_ptr->flags7 & (RF7_GUARDIAN)) && !(r_ptr->flags1 & (RF1_QUESTOR))
+			    && !(steed_ptr->flags7 & (RF7_GUARDIAN)) && !(steed_ptr->flags1 & (RF1_QUESTOR))
 			    && (rlev < cr_ptr->lev * 3 / 2 + randint0(cr_ptr->lev / 5)))
 			{
 #ifdef JP
-				msg_format("%sを手なずけた。",m_name);
+				msg_format("%sを手なずけた。",steed_name);
 #else
-				msg_format("You tame %s.",m_name);
+				msg_format("You tame %s.",steed_name);
 #endif
-				set_pet(m_ptr);
+				set_pet(steed_ptr);
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%sに振り落とされた！",m_name);
+				msg_format("%sに振り落とされた！",steed_name);
 #else
-				msg_format("You have thrown off by %s.",m_name);
+				msg_format("You have thrown off by %s.",steed_name);
 #endif
 				rakuba(cr_ptr, 1, TRUE);
 
