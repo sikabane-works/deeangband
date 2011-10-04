@@ -1894,8 +1894,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
-	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
-	char            m_name[80];
+	char            tar_name[80];
 
 	int             dss, ddd;
 
@@ -1969,7 +1968,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	}
 
 	/* Extract monster name (or "it") */
-	monster_desc(m_name, tar_ptr, 0);
+	monster_desc(tar_name, tar_ptr, 0);
 
 
 	/* Calculate the "attack quality" */
@@ -1978,15 +1977,15 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!(r_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
+	if ((!(tar_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
 
 #ifdef JP
-		msg_format("%sを%sで攻撃した。", m_name, atk_desc);
+		msg_format("%sを%sで攻撃した。", tar_name, atk_desc);
 #else
-		msg_format("You hit %s with your %s.", m_name, atk_desc);
+		msg_format("You hit %s with your %s.", tar_name, atk_desc);
 #endif
 
 
@@ -2043,9 +2042,9 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 		/* Message */
 #ifdef JP
-			msg_format("ミス！ %sにかわされた。", m_name);
+			msg_format("ミス！ %sにかわされた。", tar_name);
 #else
-		msg_format("You miss %s.", m_name);
+		msg_format("You miss %s.", tar_name);
 #endif
 
 	}
