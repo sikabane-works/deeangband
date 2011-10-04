@@ -1806,15 +1806,15 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 	int aura_damage = 0;
-	species_type *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type *species_ptr = &r_info[tar_ptr->species_idx];
 
-	if (r_ptr->flags2 & RF2_AURA_FIRE)
+	if (tar_ptr->flags2 & RF2_AURA_FIRE)
 	{
 		if (!atk_ptr->immune_fire)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
+			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1830,18 +1830,18 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags2 |= RF2_AURA_FIRE;
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff(atk_ptr);
 		}
 	}
 
-	if (r_ptr->flags3 & RF3_AURA_COLD)
+	if (tar_ptr->flags3 & RF3_AURA_COLD)
 	{
 		if (!atk_ptr->immune_cold)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
+			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1856,18 +1856,18 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_AURA_COLD;
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff(atk_ptr);
 		}
 	}
 
-	if (r_ptr->flags2 & RF2_AURA_ELEC)
+	if (tar_ptr->flags2 & RF2_AURA_ELEC)
 	{
 		if (!atk_ptr->immune_elec)
 		{
 			char aura_dam[80];
 
-			aura_damage = damroll(1 + (r_ptr->level / 26), 1 + (r_ptr->level / 17));
+			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
 			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -1883,7 +1883,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags2 |= RF2_AURA_ELEC;
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff(atk_ptr);
 		}
 	}
