@@ -3867,6 +3867,7 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	set_hitdice(m_ptr);
 	set_enemy_maxhp(m_ptr);
 
+	//TODO process
 	m_ptr->flags1 = r_ptr->flags1;
 	m_ptr->flags2 = r_ptr->flags2;
 	m_ptr->flags3 = r_ptr->flags3;
@@ -3878,6 +3879,14 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 	m_ptr->flags9 = r_ptr->flags9;
 	m_ptr->flags10 = r_ptr->flags10;
 	m_ptr->flags11 = r_ptr->flags11;
+	m_ptr->flags12 = r_ptr->flags12;
+	m_ptr->flags13 = r_ptr->flags13;
+	m_ptr->flags14 = r_ptr->flags14;
+	m_ptr->flags15 = r_ptr->flags15;
+	m_ptr->flags16 = r_ptr->flags16;
+	m_ptr->flags17 = r_ptr->flags17;
+	m_ptr->flags18 = r_ptr->flags18;
+	m_ptr->flags19 = r_ptr->flags19;
 
 	for(i = 0; i < 8;i++)
 		m_ptr->authority[i] = r_ptr->authority[i];
