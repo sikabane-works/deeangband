@@ -44,37 +44,8 @@ void set_sex(creature_type *cr_ptr)
 	mr_ptr = &r_info[cr_ptr->species_idx]; 
 
 	cr_ptr->sex = mr_ptr->sex;
-/*
-	if(mr_ptr->flags1 & RF1_MALE)
-	{
-		cr_ptr->sex = SEX_MALE;
-	}
-	else if(mr_ptr->flags1 & RF1_FEMALE)
-	{
-		cr_ptr->sex = SEX_FEMALE;
-	}
-	else if(mr_ptr->flags1 & RF1_INTERSEX)
-	{
-		cr_ptr->sex = SEX_INTERSEX;
-	}
-	else
-	{
-		int prob = 0;
-		if(mr_ptr->flags2 & RF2_SEX_F50) prob += 50;
-		if(mr_ptr->flags2 & RF2_SEX_F25) prob += 25;
-		if(mr_ptr->flags2 & RF2_SEX_F15) prob += 15;
-		if(mr_ptr->flags2 & RF2_SEX_F10) prob += 10;
-		if(mr_ptr->flags2 & RF2_SEX_F3) prob += 3;
 
-		if(prob == 0) cr_ptr->sex = SEX_NONE;
-		else
-		{
-			int a = randint0(100);
-			if(a < prob) cr_ptr->sex = SEX_FEMALE;
-			else cr_ptr->sex = SEX_MALE;
-		}
-	}
-*/
+	//TODO non-unique's some flags effect
 }
 
 void set_status(creature_type *cr_ptr)

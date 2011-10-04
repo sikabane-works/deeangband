@@ -26,19 +26,19 @@ static FILE *fff = NULL;
 /*
  * Extract a textual representation of an attribute
  */
-static cptr attr_to_text(species_type *r_ptr)
+static cptr attr_to_text(species_type *species_ptr)
 {
 #ifdef JP000
-	if (r_ptr->flags1 & RF1_ATTR_CLEAR)    return "透明な";
-	if (r_ptr->flags1 & RF1_ATTR_MULTI)    return "万色の";
-	if (r_ptr->flags1 & RF1_ATTR_SEMIRAND) return "準ランダムな";
+	if (species_ptr->flags1 & RF1_ATTR_CLEAR)    return "透明な";
+	if (species_ptr->flags1 & RF1_ATTR_MULTI)    return "万色の";
+	if (species_ptr->flags1 & RF1_ATTR_SEMIRAND) return "準ランダムな";
 #else
-	if (r_ptr->flags1 & RF1_ATTR_CLEAR)    return "Clear";
-	if (r_ptr->flags1 & RF1_ATTR_MULTI)    return "Multi";
-	if (r_ptr->flags1 & RF1_ATTR_SEMIRAND) return "S.Rand";
+	if (species_ptr->flags1 & RF1_ATTR_CLEAR)    return "Clear";
+	if (species_ptr->flags1 & RF1_ATTR_MULTI)    return "Multi";
+	if (species_ptr->flags1 & RF1_ATTR_SEMIRAND) return "S.Rand";
 #endif
 
-	switch (r_ptr->d_attr)
+	switch (species_ptr->d_attr)
 	{
 #ifdef JP000
 	case TERM_DARK:    return "XXX";
@@ -2320,10 +2320,10 @@ static void spoil_mon_info(cptr fname)
 	/* Scan the monsters */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &r_info[i];
+		species_type *species_ptr = &r_info[i];
 
 		/* Use that monster */
-		if (r_ptr->name) who[n++] = i;
+		if (species_ptr->name) who[n++] = i;
 	}
 
 	/* Select the sort method */
@@ -2339,10 +2339,10 @@ static void spoil_mon_info(cptr fname)
 	 */
 	for (l = 0; l < n; l++)
 	{
-		species_type *r_ptr = &r_info[who[l]];
+		species_type *species_ptr = &r_info[who[l]];
 
 		/* Extract the flags */
-		flags1 = r_ptr->flags1;
+		flags1 = species_ptr->flags1;
 
 		/* Prefix */
 		/*
@@ -2365,18 +2365,18 @@ static void spoil_mon_info(cptr fname)
 
 		/* Name */
 #ifdef JP
-		sprintf(buf, "%s/%s  (", (r_name + r_ptr->name),(r_name+r_ptr->E_name));  /* ---)--- */
+		sprintf(buf, "%s/%s  (", (r_name + species_ptr->name),(r_name+species_ptr->E_name));  /* ---)--- */
 #else
-		sprintf(buf, "%s  (", (r_name + r_ptr->name));  /* ---)--- */
+		sprintf(buf, "%s  (", (r_name + species_ptr->name));  /* ---)--- */
 #endif
 
 		spoil_out(buf);
 
 		/* Color */
-		spoil_out(attr_to_text(r_ptr));
+		spoil_out(attr_to_text(species_ptr));
 
 		/* Symbol --(-- */
-		sprintf(buf, " '%c')\n", r_ptr->d_char);
+		sprintf(buf, " '%c')\n", species_ptr->d_char);
 		spoil_out(buf);
 
 
@@ -2389,38 +2389,38 @@ static void spoil_mon_info(cptr fname)
 		spoil_out(buf);
 
 		/* Level */
-		sprintf(buf, "Lev:%d  ", r_ptr->level);
+		sprintf(buf, "Lev:%d  ", species_ptr->level);
 		spoil_out(buf);
 
 		/* Rarity */
-		sprintf(buf, "Rar:%d  ", r_ptr->rarity);
+		sprintf(buf, "Rar:%d  ", species_ptr->rarity);
 		spoil_out(buf);
 
 		/* Rarity */
-		sprintf(buf, "Div:%d  ", r_ptr->dr);
+		sprintf(buf, "Div:%d  ", species_ptr->dr);
 		spoil_out(buf);
 
 		/* Speed */
-		if (r_ptr->speed >= 110)
+		if (species_ptr->speed >= 110)
 		{
-			sprintf(buf, "Spd:+%d  ", (r_ptr->speed - 110));
+			sprintf(buf, "Spd:+%d  ", (species_ptr->speed - 110));
 		}
 		else
 		{
-			sprintf(buf, "Spd:-%d  ", (110 - r_ptr->speed));
+			sprintf(buf, "Spd:-%d  ", (110 - species_ptr->speed));
 		}
 		spoil_out(buf);
 
 		/* Height and Weight */
 		spoil_out("Height:");
-		tmpht = (r_ptr->m_b_ht + r_ptr->f_b_ht) / 2;
+		tmpht = (species_ptr->m_b_ht + species_ptr->f_b_ht) / 2;
 		if(tmpht < 1000) sprintf(buf, "%dcm  ",  tmpht);
 		else if(tmpht < 1000000) sprintf(buf, "%dm   ", tmpht / 100);
 		else sprintf(buf, "%dkm  ", tmpht / 100000);
 		spoil_out(buf);
 
 		spoil_out("Weight:");
-		tmpht = (r_ptr->m_b_wt + r_ptr->f_b_wt) / 2;
+		tmpht = (species_ptr->m_b_wt + species_ptr->f_b_wt) / 2;
 		if(tmpht < 10000) sprintf(buf, "%dkg  ",  tmpht);
 		else if(tmpht < 10000000) sprintf(buf, "%dt   ", tmpht / 1000);
 		else sprintf(buf, "%dKt  ", tmpht / 1000000);
@@ -2428,14 +2428,14 @@ static void spoil_mon_info(cptr fname)
 
 		/* Base Status */
 		sprintf(buf, "\n=== STR:%2d INT:%2d WIS:%2d DEX:%2d CON:%2d CHR:%2d\n=== ",
-		        r_ptr->stat_max[A_STR] / 10, r_ptr->stat_max[A_INT] / 10,
-		        r_ptr->stat_max[A_WIS] / 10, r_ptr->stat_max[A_DEX] / 10,
-		        r_ptr->stat_max[A_CON] / 10, r_ptr->stat_max[A_CHR] / 10);
+		        species_ptr->stat_max[A_STR] / 10, species_ptr->stat_max[A_INT] / 10,
+		        species_ptr->stat_max[A_WIS] / 10, species_ptr->stat_max[A_DEX] / 10,
+		        species_ptr->stat_max[A_CON] / 10, species_ptr->stat_max[A_CHR] / 10);
 		spoil_out(buf);
 
 
 		/* Hitpoints */
-		estimate_enemy_hp(r_ptr, hpdata);
+		estimate_enemy_hp(species_ptr, hpdata);
 		if (flags1 & RF1_FORCE_MAXHP)
 		{
 			sprintf(buf, "Hp:%d (%dx%d+%d)", hpdata[0], hpdata[1], hpdata[2], hpdata[3]);
@@ -2448,17 +2448,17 @@ static void spoil_mon_info(cptr fname)
 		spoil_out(buf);
 
 		/* Armor Class */
-		sprintf(buf, "Ac:%d  ", r_ptr->ac);
+		sprintf(buf, "Ac:%d  ", species_ptr->ac);
 		spoil_out(buf);
 
 		/* Experience */
-		sprintf(buf, "Exp:%ld  ", (long)(r_ptr->mexp));
+		sprintf(buf, "Exp:%ld  ", (long)(species_ptr->mexp));
 		spoil_out(buf);
 
 		/* Size */
 		spoil_out("Size:");
-		tmpht = calc_bodysize((r_ptr->m_b_ht + r_ptr->f_b_ht) / 2,
-		                      (r_ptr->m_b_wt + r_ptr->f_b_wt) / 2);
+		tmpht = calc_bodysize((species_ptr->m_b_ht + species_ptr->f_b_ht) / 2,
+		                      (species_ptr->m_b_wt + species_ptr->f_b_wt) / 2);
 		if(tmpht < 1000) sprintf(buf, "%d  ", tmpht);
 		else sprintf(buf, "***  ", tmpht);
 		spoil_out(buf);
