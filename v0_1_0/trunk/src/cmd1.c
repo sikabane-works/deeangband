@@ -494,11 +494,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_ACID) || ((atk_ptr->special_attack & (ATTACK_ACID)) && !thrown))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_ACID_MASK)
+				if (tar_ptr->flags10 & RF10_EFF_IM_ACID_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ACID_MASK);
+						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_ACID_MASK);
 					}
 				}
 
@@ -513,11 +513,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_ELEC) || ((atk_ptr->special_attack & (ATTACK_ELEC)) && !thrown) || (mode == HISSATSU_ELEC))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK)
+				if (tar_ptr->flags10 & RF10_EFF_IM_ELEC_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
+						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 					}
 				}
 
@@ -541,18 +541,18 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_FIRE) || ((atk_ptr->special_attack & (ATTACK_FIRE)) && !thrown) || (mode == HISSATSU_FIRE))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)
+				if (tar_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
+						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 					}
 				}
 
 				/* Otherwise, take the damage */
 				else if ((have_flag(flgs, TR_BRAND_FIRE) || ((atk_ptr->special_attack & (ATTACK_FIRE)) && !thrown)) && (mode == HISSATSU_FIRE))
 				{
-					if (r_ptr->flags3 & RF3_HURT_FIRE)
+					if (tar_ptr->flags3 & RF3_HURT_FIRE)
 					{
 						if (mult < 70) mult = 70;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
@@ -564,7 +564,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				}
 				else
 				{
-					if (r_ptr->flags3 & RF3_HURT_FIRE)
+					if (tar_ptr->flags3 & RF3_HURT_FIRE)
 					{
 						if (mult < 50) mult = 50;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
@@ -580,17 +580,17 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_COLD) || ((atk_ptr->special_attack & (ATTACK_COLD)) && !thrown) || (mode == HISSATSU_COLD))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK)
+				if (tar_ptr->flags10 & RF10_EFF_IM_COLD_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
+						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
 					}
 				}
 				/* Otherwise, take the damage */
 				else if ((have_flag(flgs, TR_BRAND_COLD) || ((atk_ptr->special_attack & (ATTACK_COLD)) && !thrown)) && (mode == HISSATSU_COLD))
 				{
-					if (r_ptr->flags3 & RF3_HURT_COLD)
+					if (tar_ptr->flags3 & RF3_HURT_COLD)
 					{
 						if (mult < 70) mult = 70;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
@@ -602,7 +602,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				}
 				else
 				{
-					if (r_ptr->flags3 & RF3_HURT_COLD)
+					if (tar_ptr->flags3 & RF3_HURT_COLD)
 					{
 						if (mult < 50) mult = 50;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
@@ -618,11 +618,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_POIS) || ((atk_ptr->special_attack & (ATTACK_POIS)) && !thrown) || (mode == HISSATSU_POISON))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_POIS_MASK)
+				if (tar_ptr->flags10 & RF10_EFF_IM_POIS_MASK)
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_POIS_MASK);
+						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_POIS_MASK);
 					}
 				}
 
@@ -660,7 +660,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				int tmp = MIN(100, MAX(10, atk_ptr->cut / 10));
 				if (mult < tmp) mult = tmp;
 			}
-			if ((mode == HISSATSU_HAGAN) && (r_ptr->flags3 & RF3_HURT_ROCK))
+			if ((mode == HISSATSU_HAGAN) && (tar_ptr->flags3 & RF3_HURT_ROCK))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
