@@ -6356,3 +6356,7 @@ extern int PlayerUID;
 #define CF_ACID_BRAND		451
 #define CF_POIS_BRAND		452
 
+
+// obeserve creature flags
+#define CREATURE_OBS_RACE			100
+#define CREATURE_OBS_ALIGNMENT		110

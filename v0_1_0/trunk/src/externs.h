@@ -903,6 +903,7 @@ extern bool is_enemy_of_chaos_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_chaos_species(species_type *cr_ptr);
 extern bool is_enemy_of_balance_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_balance_species(species_type *cr_ptr);
+extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 
 
 /* do-spell.c */

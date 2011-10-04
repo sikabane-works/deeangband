@@ -821,3 +821,9 @@ bool is_enemy_of_balance_species(species_type *cr_ptr)
 	//TODO
 	return FALSE;
 }
+
+void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
+{
+	//TODO
+	return;
+}
