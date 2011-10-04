@@ -3069,7 +3069,7 @@ note_dies = "は蒸発した！";
 			do_stun = damroll((caster_lev / 20) + 3 , dam) + 1;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (r_ptr->level > 5 + randint1(dam)))
 			{
 				/* Resist */
@@ -3365,7 +3365,7 @@ note = "があなたに隷属した。";
 				obvious = FALSE;
 				dam = 0;
 			}
-			else if (((tar_ptr->flags1 & RF1_UNIQUE) &&
+			else if (((is_unique_creature(tar_ptr)) &&
 				 (randint1(888) != 666)) ||
 				 (((r_ptr->level + randint1(20)) > randint1((caster_lev / 2) + randint1(10))) &&
 				 randint1(100) != 66))
@@ -3403,7 +3403,7 @@ note = "には耐性がある！";
 			do_poly = TRUE;
 
 			/* Powerful monsters can resist */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (tar_ptr->flags1 & RF1_QUESTOR) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3584,7 +3584,7 @@ note = "が分裂した！";
 				break;
 			}
 			/* Powerful monsters can resist */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -3632,7 +3632,7 @@ note = "には効果がなかった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (tar_ptr->flags3 & RF3_NO_SLEEP) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3686,7 +3686,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    !(is_enemy_of_good_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3732,7 +3732,7 @@ note = "は動けなくなった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -3795,7 +3795,7 @@ note = "は動けなくなった！";
 				break;
 			}
 
-			if ((tar_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3878,7 +3878,7 @@ note = "は突然友好的になったようだ！";
 				break;
 			}
 
-			if ((tar_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -3953,7 +3953,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((tar_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -4031,7 +4031,7 @@ note = "は既にあなたの奴隷だ！";
 				break;
 			}
 
-			if ((tar_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -4127,7 +4127,7 @@ msg_format("%sを見つめた。",m_name);
 				break;
 			}
 
-			if ((tar_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))
+			if ((is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5031,7 +5031,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 				 (tar_ptr->flags3 & RF3_NO_CONF) ||
 				 (r_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
@@ -5107,7 +5107,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+			if ((is_unique_creature(tar_ptr)) ||
 				 (tar_ptr->flags3 & RF3_NO_CONF) ||
 				 (r_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
@@ -5329,7 +5329,7 @@ note_dies = "はドロドロに溶けた！";
 				break;
 			}
 
-			if (tar_ptr->flags1 & RF1_UNIQUE)
+			if (is_unique_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5490,7 +5490,7 @@ msg_format("うまく捕まえられなかった。");
 			if (effect == 1)
 			{
 				/* Powerful monsters can resist */
-				if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 #ifdef JP
@@ -5541,7 +5541,7 @@ note = "には効果がなかった！";
 			else if (effect == 3)
 			{
 				/* Attempt a saving throw */
-				if ((tar_ptr->flags1 & RF1_UNIQUE) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (tar_ptr->flags3 & RF3_NO_SLEEP) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{

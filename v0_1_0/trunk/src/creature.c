@@ -716,9 +716,14 @@ bool is_animal_species(species_type *sp_ptr)
 	return FALSE;
 }
 
-bool is_unique(creature_type *cr_ptr)
+bool is_unique_creature(creature_type *creature_ptr)
 {
-	return (cr_ptr->flags1 & RF1_UNIQUE) || cr_ptr->stigmatic;
+	return (creature_ptr->flags1 & RF1_UNIQUE) || creature_ptr->stigmatic;
+}
+
+bool is_unique_species(species_type *species_ptr)
+{
+	return (species_ptr->flags1 & RF1_UNIQUE);
 }
 
 bool is_powerful_creature(creature_type *cr_ptr)
@@ -827,3 +832,4 @@ void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
 	//TODO
 	return;
 }
+
