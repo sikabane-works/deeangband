@@ -5701,10 +5701,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	COPY(&exp_mon, tar_ptr, creature_type);
 
-	if (!(r_ptr->flags7 & RF7_KILL_EXP))
+	if (!(tar_ptr->flags7 & RF7_KILL_EXP))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
-		if (r_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
+		if (tar_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
 
 		get_exp_from_mon(atk_ptr, expdam, &exp_mon);
 
@@ -6153,7 +6153,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (!(tar_ptr->smart & SM_CLONED))
 			{
 				/* When the player kills a Unique, it stays dead */
-				if (r_ptr->flags1 & RF1_UNIQUE)
+				if (tar_ptr->flags1 & RF1_UNIQUE)
 				{
 					r_ptr->max_num = 0;
 	
