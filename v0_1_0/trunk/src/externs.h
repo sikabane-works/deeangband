@@ -863,7 +863,6 @@ extern void set_hitdice(creature_type *cr_ptr);
 extern void set_enemy_maxhp(creature_type *cr_ptr);
 extern void set_enemy_hp(creature_type *cr_ptr, int percentage);
 extern void set_enemy_mana(creature_type *cr_ptr, int percentage);
-extern void set_speed(creature_type *cr_ptr);
 extern s16b calc_bodysize(s32b ht, s32b wt);
 extern s16b calc_punishment_slay(creature_type *cr_ptr, int alignment);
 extern s16b calc_race_standard_size(race_type *ir_ptr);

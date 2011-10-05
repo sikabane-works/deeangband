@@ -250,30 +250,6 @@ void set_enemy_mana(creature_type *cr_ptr, int percentage)
 	cr_ptr->csp = cr_ptr->msp * percentage / 100;
 }
 
-
-/*
- * Set initial monster speed
- */
-void set_speed(creature_type *cr_ptr)
-{
-	/* Extract the monster base speed */
-	species_type* r_ptr = &r_info[cr_ptr->species_idx];
-	int speed = r_ptr->speed;
-
-	/* Hack -- small racial variety */
-	if (!(r_ptr->flags1 & RF1_UNIQUE) && !inside_arena)
-	{
-		/* Allow some small variation per monster */
-		int i = SPEED_TO_ENERGY(r_ptr->speed) / (one_in_(4) ? 3 : 10);
-		if (i) speed += rand_spread(0, i);
-	}
-
-	if (speed > 199) speed = 199;
-
-	cr_ptr->speed = speed;
-}
-
-
 s16b calc_bodysize(s32b ht, s32b wt){
 	double t = (double)ht * wt;
 	double size = 1.0f;

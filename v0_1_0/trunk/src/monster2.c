@@ -3055,9 +3055,6 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 #endif
 	}
 
-	/* Extract the monster base speed */
-	set_speed(m_ptr);
-
 	oldmhp = m_ptr->mmhp;
 
 	m_ptr->mhp = (long)(m_ptr->mhp * m_ptr->mmhp) / oldmhp;
@@ -3902,9 +3899,6 @@ int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u
 		m_ptr->underling_id[i] = r_ptr->underling_id[i];
 		m_ptr->underling_num[i] = damroll(r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]);
 	}
-
-	/* Extract the monster base speed */
-//	set_speed(m_ptr);
 
 	/* Update */
 	calc_bonuses(m_ptr, FALSE);
