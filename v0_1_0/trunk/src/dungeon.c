@@ -5399,7 +5399,7 @@ static bool monster_tsuri(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if ((r_ptr->flags7 & RF7_AQUATIC) && !(r_ptr->flags1 & RF1_UNIQUE) && my_strchr("Jjlw", r_ptr->d_char))
+	if ((r_ptr->flags7 & RF7_AQUATIC) && !is_unique_species(r_ptr) && my_strchr("Jjlw", r_ptr->d_char))
 		return TRUE;
 	else
 		return FALSE;
@@ -6503,7 +6503,7 @@ void determine_bounty_uniques(void)
 			kubi_species_idx[i] = get_mon_num(MAX_DEPTH - 1);
 			r_ptr = &r_info[kubi_species_idx[i]];
 
-			if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
+			if (!is_unique_species(r_ptr)) continue;
 
 			if (!(r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON))) continue;
 
@@ -6562,7 +6562,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 		today_mon = get_mon_num(max_dl);
 		r_ptr = &r_info[today_mon];
 
-		if (r_ptr->flags1 & RF1_UNIQUE) continue;
+		if (is_unique_species(r_ptr)) continue;
 		if ((r_ptr->race_idx1 == RACE_NAZGUL) && (r_ptr->flags7 & RF7_UNIQUE2)) continue;
 		if (r_ptr->flags2 & RF2_MULTIPLY) continue;
 		if ((r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) != (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) continue;

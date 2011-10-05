@@ -6153,7 +6153,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (!(tar_ptr->smart & SM_CLONED))
 			{
 				/* When the player kills a Unique, it stays dead */
-				if (tar_ptr->flags1 & RF1_UNIQUE)
+				if (is_unique_creature(tar_ptr))
 				{
 					r_ptr->max_num = 0;
 	
@@ -6186,7 +6186,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if ((tar_ptr->ml && !atk_ptr->image) || (r_ptr->flags1 & RF1_UNIQUE))
+			if ((tar_ptr->ml && !atk_ptr->image) || is_unique_creature(tar_ptr))
 			{
 				/* Count kills this life */
 				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_pkills < MAX_SHORT)) r_info[MON_KAGE].r_pkills++;
@@ -6238,7 +6238,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* The new law says it is illegal to live in the dungeon */
 			if (r_ptr->level != 0) innocent = FALSE;
 			
-			if ((r_ptr->flags1 & RF1_UNIQUE) && record_destroy_uniq)
+			if (is_unique_creature(tar_ptr) && record_destroy_uniq)
 			{
 				char note_buf[160];
 	#ifdef JP
@@ -6327,7 +6327,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#endif
 	
 			}
-			if ((r_ptr->flags1 & RF1_UNIQUE) && !(tar_ptr->smart & SM_CLONED) && !vanilla_town)
+			if (is_unique_creature(tar_ptr) && !(tar_ptr->smart & SM_CLONED) && !vanilla_town)
 			{
 				for (i = 0; i < MAX_KUBI; i++)
 				{
