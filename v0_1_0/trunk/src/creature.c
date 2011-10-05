@@ -702,6 +702,16 @@ bool is_unique_species(species_type *species_ptr)
 	return (species_ptr->flags1 & RF1_UNIQUE);
 }
 
+bool is_quest_creature(creature_type *creature_ptr)
+{
+	return (creature_ptr->flags1 & RF1_QUESTOR);
+}
+
+bool is_quest_species(species_type *species_ptr)
+{
+	return (species_ptr->flags1 & RF1_QUESTOR);
+}
+
 bool is_powerful_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_POWERFUL) return TRUE;
