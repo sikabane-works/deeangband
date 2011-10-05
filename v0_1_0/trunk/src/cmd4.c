@@ -5446,7 +5446,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		if (grp_unique)
 		{
-			if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
+			if (!is_unique_species(r_ptr)) continue;
 		}
 
 		else if (grp_riding)
@@ -6864,7 +6864,7 @@ static void do_cmd_knowledge_uniques(void)
 		if (!r_ptr->name) continue;
 
 		/* Require unique monsters */
-		if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
+		if (!is_unique_species(r_ptr)) continue;
 
 		/* Only display "known" uniques */
 		if (!cheat_know && !r_ptr->r_sights) continue;
@@ -7441,7 +7441,7 @@ static void do_cmd_knowledge_kill_count(void)
 		{
 			species_type *r_ptr = &r_info[kk];
 
-			if (r_ptr->flags1 & (RF1_UNIQUE))
+			if (is_unique_species(r_ptr))
 			{
 				bool dead = (r_ptr->max_num == 0);
 
@@ -7498,7 +7498,7 @@ static void do_cmd_knowledge_kill_count(void)
 	{
 		species_type *r_ptr = &r_info[who[k]];
 
-		if (r_ptr->flags1 & (RF1_UNIQUE))
+		if (is_unique_species(r_ptr))
 		{
 			bool dead = (r_ptr->max_num == 0);
 
@@ -7973,7 +7973,7 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 		if (!visual_only)
 		{
 			/* Display kills */
-			if (!(r_ptr->flags1 & RF1_UNIQUE)) put_str(format("%5d", r_ptr->r_pkills), row + i, 73);
+			if (!is_unique_species(r_ptr)) put_str(format("%5d", r_ptr->r_pkills), row + i, 73);
 #ifdef JP
 			else c_put_str((r_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (r_ptr->max_num == 0 ? "éÄñS" : "ê∂ë∂"), row + i, 74);
 #else
@@ -8236,7 +8236,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			}
 
 			case 'd':
-				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				if(cheat_know && is_unique_species(&r_info[mon_idx[mon_cur]]))
 				{
 					int i;//, j;
 
@@ -8269,7 +8269,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				}
 
 			case 'i':
-				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				if(cheat_know && (is_unique_species(&r_info[mon_idx[mon_cur]])))
 				{
 					char c;
 					int m = 0;
@@ -8302,7 +8302,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				break;
 
 			case 'e':
-				if(cheat_know && (r_info[mon_idx[mon_cur]].flags1 & RF1_UNIQUE))
+				if(cheat_know && (is_unique_species(&r_info[mon_idx[mon_cur]])))
 				{
 					char c;
 					int m = 0;
