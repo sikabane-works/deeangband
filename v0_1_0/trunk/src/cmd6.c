@@ -3911,8 +3911,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 	if (m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
 	if (m_ptr2->nickname && !m_ptr1->nickname) return FALSE;
 
-	if ((r_ptr1->flags1 & RF1_UNIQUE) && !(r_ptr2->flags1 & RF1_UNIQUE)) return TRUE;
-	if ((r_ptr2->flags1 & RF1_UNIQUE) && !(r_ptr1->flags1 & RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return TRUE;
+	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return FALSE;
 
 	if (r_ptr1->level > r_ptr2->level) return TRUE;
 	if (r_ptr2->level > r_ptr1->level) return FALSE;
@@ -5173,7 +5173,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 					r_ptr = &r_info[m_ptr->species_idx];
 
-					if(r_ptr->flags1 & RF1_UNIQUE)
+					if(is_unique_species(r_ptr))
 					{
 #ifdef JP
 						msg_format("%s． ",r_name + r_ptr->name);

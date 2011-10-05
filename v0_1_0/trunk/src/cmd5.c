@@ -1394,8 +1394,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	if (!m_ptr1->parent_m_idx && m_ptr2->parent_m_idx) return TRUE;
 	if (!m_ptr2->parent_m_idx && m_ptr1->parent_m_idx) return FALSE;
 
-	if ((r_ptr1->flags1 & RF1_UNIQUE) && !(r_ptr2->flags1 & RF1_UNIQUE)) return TRUE;
-	if ((r_ptr2->flags1 & RF1_UNIQUE) && !(r_ptr1->flags1 & RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return TRUE;
+	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return FALSE;
 
 	if (r_ptr1->level > r_ptr2->level) return TRUE;
 	if (r_ptr2->level > r_ptr1->level) return FALSE;
@@ -1447,7 +1447,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 		if (is_pet(m_ptr))
 		{
 			total_friends++;
-			if (cr_ptr->flags1 & RF1_UNIQUE)
+			if (is_unique_creature(cr_ptr))
 			{
 				if (cr_ptr->cls_idx == CLASS_CAVALRY)
 				{
@@ -2027,7 +2027,7 @@ static void do_name_pet(void)
 #endif
 			return;
 		}
-		if (r_info[m_ptr->species_idx].flags1 & RF1_UNIQUE)
+		if (is_unique_species(&r_info[m_ptr->species_idx]))
 		{
 #ifdef JP
 			msg_print("そのモンスターの名前は変えられない！");

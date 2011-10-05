@@ -3549,7 +3549,7 @@ static byte get_dungeon_feeling(void)
 		r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Unique monsters */
-		if (r_ptr->flags1 & (RF1_UNIQUE))
+		if (is_unique_species(r_ptr))
 		{
 			/* Nearly out-of-depth unique monsters */
 			if (r_ptr->level + 10 > dun_level)
@@ -6366,7 +6366,7 @@ msg_print("‡ŠJnI");
 	}
 
 	/* Inside a quest and non-unique questor? */
-	if (quest_num && !(r_info[quest[quest_num].species_idx].flags1 & RF1_UNIQUE))
+	if (quest_num && !is_unique_species(&r_info[quest[quest_num].species_idx]))
 	{
 		/* Un-mark the quest monster */
 		r_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
