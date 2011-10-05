@@ -3108,7 +3108,7 @@ static void player_wipe(creature_type *cr_ptr)
 		r_ptr->max_num = 100;
 
 		/* Hack -- Reset the max counter */
-		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
+		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
 		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
@@ -3276,7 +3276,7 @@ void determine_random_questor(quest_type *q_ptr)
 		species_idx = get_mon_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
 		r_ptr = &r_info[species_idx];
 
-		if (!(r_ptr->flags1 & RF1_UNIQUE)) continue;
+		if (!is_unique_species(r_ptr)) continue;
 
 		if (r_ptr->flags1 & RF1_QUESTOR) continue;
 
@@ -3643,7 +3643,7 @@ static bool monster_hook_human(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if (r_ptr->flags1 & (RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr)) return FALSE;
 
 	if (my_strchr("pht", r_ptr->d_char)) return TRUE;
 
@@ -4831,7 +4831,7 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 	default:
 		for (i = 0; i < max_m_idx; i++)
 		{
-			if(!(r_info[i].flags1 & RF1_UNIQUE)) continue;		
+			if(!is_unique_species(&r_info[i])) continue;		
 			if(r_info[i].dr < 5) continue;
 	
 			strcpy(pt[n].cap, r_name + r_info[i].name);

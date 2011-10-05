@@ -2572,7 +2572,7 @@ note = "には耐性がある。";
 			else
 			{
 				/* Powerful monsters can resist */
-				if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
@@ -2644,7 +2644,7 @@ note = "には耐性がある。";
 			}
 			if (tar_ptr->resist_tele)
 			{
-				if (tar_ptr->flags1 & (RF1_UNIQUE))
+				if (is_unique_creature(tar_ptr))
 				{
 					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
 #ifdef JP
@@ -2688,7 +2688,7 @@ note = "には耐性がある！";
 			{
 				/* 1. slowness */
 				/* Powerful monsters can resist */
-				if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
@@ -2710,7 +2710,7 @@ note = "には耐性がある！";
 				do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
-				if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
@@ -4193,7 +4193,7 @@ note = "を支配した。";
 			do_conf = damroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (tar_ptr->flags3 & (RF3_NO_CONF)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4239,7 +4239,7 @@ note = "には効果がなかった！";
 			do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Resist */
@@ -4432,7 +4432,7 @@ note_dies = "はドロドロに溶けた！";
 
 				if (tar_ptr->flags10 & RF10_RES_TELE)
 				{
-					if ((tar_ptr->flags1 & (RF1_UNIQUE)) || (tar_ptr->resist_ultimate))
+					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
 						if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
 #ifdef JP
@@ -4487,7 +4487,7 @@ note = "には耐性がある！";
 
 				if (tar_ptr->flags10 & RF10_RES_TELE)
 				{
-					if ((tar_ptr->flags1 & (RF1_UNIQUE)) || (tar_ptr->resist_ultimate))
+					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
 						if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
 #ifdef JP
@@ -4538,7 +4538,7 @@ note = "には耐性がある！";
 			bool resists_tele = FALSE;
 			if (tar_ptr->flags10 & RF10_RES_TELE)
 			{
-				if ((tar_ptr->flags1 & (RF1_UNIQUE)) || (tar_ptr->resist_ultimate))
+				if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 				{
 					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
 #ifdef JP
@@ -4688,7 +4688,7 @@ note = "には耐性がある！";
 			do_fear = damroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+			if ((is_unique_creature(tar_ptr)) ||
 			    (tar_ptr->flags3 & (RF3_NO_FEAR)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -5365,7 +5365,7 @@ note_dies = "はドロドロに溶けた！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(tar_ptr)) ||
-			    (tar_ptr->flags1 & (RF1_UNIQUE)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (tar_ptr->flags7 & (RF7_UNIQUE2)) || (tar_ptr->flags1 & RF1_QUESTOR) || tar_ptr->parent_m_idx)
+			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (tar_ptr->flags7 & (RF7_UNIQUE2)) || (tar_ptr->flags1 & RF1_QUESTOR) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",m_name);
@@ -5521,7 +5521,7 @@ msg_format("うまく捕まえられなかった。");
 				do_stun = damroll((who_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
-				if ((tar_ptr->flags1 & (RF1_UNIQUE)) ||
+				if ((is_unique_creature(tar_ptr)) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
@@ -5705,7 +5705,7 @@ note = "には効果がなかった！";
 
 				/* Attempt a saving throw */
 				else if ((tar_ptr->flags1 & (RF1_QUESTOR)) ||
-				    (tar_ptr->flags1 & (RF1_UNIQUE)) ||
+				    (is_unique_creature(tar_ptr)) ||
 				    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				    (who_ptr->cursed & TRC_AGGRAVATE) ||
 					 ((r_ptr->level+10) > randint1(dam)))
@@ -5792,7 +5792,7 @@ note = "には効果がなかった。";
 	if (skipped) return (FALSE);
 
 	/* "Unique" monsters cannot be polymorphed */
-	if (tar_ptr->flags1 & (RF1_UNIQUE)) do_poly = FALSE;
+	if (is_unique_creature(tar_ptr)) do_poly = FALSE;
 
 	/* Quest monsters cannot be polymorphed */
 	if (tar_ptr->flags1 & RF1_QUESTOR) do_poly = FALSE;

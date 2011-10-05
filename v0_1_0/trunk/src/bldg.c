@@ -1678,8 +1678,8 @@ static bool vault_aux_battle(int species_idx)
 /*	if (!mon_hook_dungeon(species_idx)) return FALSE; */
 
 	/* Decline unique monsters */
-/*	if (r_ptr->flags1 & (RF1_UNIQUE)) return (FALSE); */
-/*	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE); */
+	if (is_unique_species(r_ptr)) return (FALSE);
+//	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);
 
 	if (r_ptr->flags1 & (RF1_NEVER_MOVE)) return (FALSE);
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) return (FALSE);
@@ -1739,7 +1739,7 @@ void battle_monsters(void)
 				inside_battle = old_inside_battle;
 				if (!species_idx) continue;
 
-				if ((r_info[species_idx].flags1 & RF1_UNIQUE) || (r_info[species_idx].flags7 & RF7_UNIQUE2))
+				if (is_unique_species(&r_info[species_idx]) || (r_info[species_idx].flags7 & RF7_UNIQUE2))
 				{
 					if ((r_info[species_idx].level + 10) > mon_level) continue;
 				}
@@ -2487,7 +2487,7 @@ bool get_nightmare(int species_idx)
 }
 
 
-void have_nightmare(creature_type *cr_ptr, int species_idx)
+void have_nightmare(creature_type *watcher_ptr, int species_idx)
 {
 	bool happened = FALSE;
 	species_type *r_ptr = &r_info[species_idx];
@@ -2509,7 +2509,7 @@ void have_nightmare(creature_type *cr_ptr, int species_idx)
 	}
 	else power *= 2;
 
-	if (saving_throw(cr_ptr->skill_rob * 100 / power))
+	if (saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
 #ifdef JP
 		msg_format("夢の中で%sに追いかけられた。", m_name);
@@ -2521,7 +2521,7 @@ void have_nightmare(creature_type *cr_ptr, int species_idx)
 		return;
 	}
 
-	if (cr_ptr->image)
+	if (watcher_ptr->image)
 	{
 		/* Something silly happens... */
 #ifdef JP
@@ -2532,10 +2532,10 @@ void have_nightmare(creature_type *cr_ptr, int species_idx)
 
 					  funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
-		if (one_in_(3) && cr_ptr->chara_idx != CHARA_CHARGEMAN)
+		if (one_in_(3) && watcher_ptr->chara_idx != CHARA_CHARGEMAN)
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			cr_ptr->image = cr_ptr->image + (s16b)randint1(r_ptr->level);
+			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(r_ptr->level);
 		}
 
 		/* Never mind; we can't see it clearly enough */
@@ -2553,91 +2553,91 @@ void have_nightmare(creature_type *cr_ptr, int species_idx)
 
 	r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
-	if (!cr_ptr->mimic_form)
+	if (!watcher_ptr->mimic_form)
 	{
-		switch (cr_ptr->race_idx1)
+		switch (watcher_ptr->race_idx1)
 		{
 		/* Demons may make a saving throw */
 		case RACE_IMP:
 		case RACE_DEMON:
-			if (saving_throw(20 + cr_ptr->lev)) return;
+			if (saving_throw(20 + watcher_ptr->lev)) return;
 			break;
 		/* Undead may make a saving throw */
 		case RACE_SKELETON:
 		case RACE_ZOMBIE:
 		case RACE_LICH:
 		case RACE_VAMPIRE:
-			if (saving_throw(10 + cr_ptr->lev)) return;
+			if (saving_throw(10 + watcher_ptr->lev)) return;
 			break;
 		}
 	}
 	else
 	{
 		/* Demons may make a saving throw */
-		if (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)
+		if (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)
 		{
-			if (saving_throw(20 + cr_ptr->lev)) return;
+			if (saving_throw(20 + watcher_ptr->lev)) return;
 		}
 		/* Undead may make a saving throw */
-		else if (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD)
+		else if (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD)
 		{
-			if (saving_throw(10 + cr_ptr->lev)) return;
+			if (saving_throw(10 + watcher_ptr->lev)) return;
 		}
 	}
 
 	/* Mind blast */
-	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
+	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (!cr_ptr->resist_conf)
+		if (!watcher_ptr->resist_conf)
 		{
-			(void)set_confused(cr_ptr, cr_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!cr_ptr->resist_chaos && one_in_(3) && cr_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (!watcher_ptr->resist_chaos && one_in_(3) && watcher_ptr->chara_idx == CHARA_CHARGEMAN)
 		{
-			(void)set_image(cr_ptr, cr_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
 	/* Lose int & wis */
-	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
+	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		do_dec_stat(cr_ptr, A_INT);
-		do_dec_stat(cr_ptr, A_WIS);
+		do_dec_stat(watcher_ptr, A_INT);
+		do_dec_stat(watcher_ptr, A_WIS);
 		return;
 	}
 
 	/* Brain smash */
-	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
+	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (!cr_ptr->resist_conf)
+		if (!watcher_ptr->resist_conf)
 		{
-			(void)set_confused(cr_ptr, cr_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!cr_ptr->free_act)
+		if (!watcher_ptr->free_act)
 		{
-			(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
 		}
-		while (!saving_throw(cr_ptr->skill_rob))
+		while (!saving_throw(watcher_ptr->skill_rob))
 		{
-			(void)do_dec_stat(cr_ptr, A_INT);
+			(void)do_dec_stat(watcher_ptr, A_INT);
 		}
-		while (!saving_throw(cr_ptr->skill_rob))
+		while (!saving_throw(watcher_ptr->skill_rob))
 		{
-			(void)do_dec_stat(cr_ptr, A_WIS);
+			(void)do_dec_stat(watcher_ptr, A_WIS);
 		}
-		if (!cr_ptr->resist_chaos)
+		if (!watcher_ptr->resist_chaos)
 		{
-			(void)set_image(cr_ptr, cr_ptr->image + randint0(250) + 150);
+			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
 		}
 		return;
 	}
 
 
 	/* Amnesia */
-	if (!saving_throw(cr_ptr->skill_rob * 100 / power))
+	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (lose_all_info(cr_ptr))
+		if (lose_all_info(watcher_ptr))
 		{
 #ifdef JP
 msg_print("あまりの恐怖に全てのことを忘れてしまった！");
@@ -2650,9 +2650,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((cr_ptr->flags14 & RF14_MORONIC) && (cr_ptr->flags13 & RF13_BERS_RAGE) &&
-		((cr_ptr->flags13 & RF13_COWARDICE) || (cr_ptr->resist_fear)) &&
-		((cr_ptr->flags13 & RF13_HALLU) || (cr_ptr->resist_chaos)))
+	if ((watcher_ptr->flags14 & RF14_MORONIC) && (watcher_ptr->flags13 & RF13_BERS_RAGE) &&
+		((watcher_ptr->flags13 & RF13_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		((watcher_ptr->flags13 & RF13_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2664,9 +2664,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!(cr_ptr->flags14 & RF14_MORONIC))
+				if (!(watcher_ptr->flags14 & RF14_MORONIC))
 				{
-					if ((cr_ptr->stat_use[A_INT] < 4) && (cr_ptr->stat_use[A_WIS] < 4))
+					if ((watcher_ptr->stat_use[A_INT] < 4) && (watcher_ptr->stat_use[A_WIS] < 4))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
@@ -2683,7 +2683,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (cr_ptr->flags14 & RF14_HYPER_INT)
+					if (watcher_ptr->flags14 & RF14_HYPER_INT)
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2691,16 +2691,16 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						cr_ptr->flags14 &= ~(RF14_HYPER_INT);
+						watcher_ptr->flags14 &= ~(RF14_HYPER_INT);
 					}
-					cr_ptr->flags14 |= RF14_MORONIC;
+					watcher_ptr->flags14 |= RF14_MORONIC;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 2:
 			{
-				if (!(cr_ptr->flags13 & RF13_COWARDICE) && !cr_ptr->resist_fear)
+				if (!(watcher_ptr->flags13 & RF13_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2710,7 +2710,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (cr_ptr->flags14 & RF14_FEARLESS)
+					if (watcher_ptr->flags14 & RF14_FEARLESS)
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2718,17 +2718,17 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						cr_ptr->flags14 &= ~(RF14_FEARLESS);
+						watcher_ptr->flags14 &= ~(RF14_FEARLESS);
 					}
 
-					cr_ptr->flags13 |= RF13_COWARDICE;
+					watcher_ptr->flags13 |= RF13_COWARDICE;
 					happened = TRUE;
 				}
 				break;
 			}
 			case 3:
 			{
-				if (!(cr_ptr->flags13 & RF13_HALLU) && !cr_ptr->resist_chaos)
+				if (!(watcher_ptr->flags13 & RF13_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2736,14 +2736,14 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					cr_ptr->flags13 |= RF13_HALLU;
+					watcher_ptr->flags13 |= RF13_HALLU;
 					happened = TRUE;
 				}
 				break;
 			}
 			default:
 			{
-				if (!(cr_ptr->flags13 & RF13_BERS_RAGE))
+				if (!(watcher_ptr->flags13 & RF13_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2751,7 +2751,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					cr_ptr->flags13 |= RF13_BERS_RAGE;
+					watcher_ptr->flags13 |= RF13_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
@@ -2759,8 +2759,8 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 		}
 	}
 
-	cr_ptr->update |= PU_BONUS;
-	handle_stuff(cr_ptr);
+	watcher_ptr->update |= PU_BONUS;
+	handle_stuff(watcher_ptr);
 }
 
 

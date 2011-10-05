@@ -581,7 +581,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	}
 
 	if ((o_ptr->tval == TV_CORPSE || o_ptr->tval == TV_STATUE)
-	    && (r_info[o_ptr->pval].flags1 & RF1_UNIQUE))
+	    && is_unique_species(&r_info[o_ptr->pval]))
 	{
 		ADD_FLG(FLG_UNIQUE);
 	}
@@ -1250,7 +1250,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Unique monster's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE) &&
 	    ((o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_STATUE) ||
-	     !(r_info[o_ptr->pval].flags1 & RF1_UNIQUE)))
+	     !is_unique_species(&r_info[o_ptr->pval])))
 		return FALSE;
 
 	/*** Human corpse/skeletons (for Daemon magic) ***/

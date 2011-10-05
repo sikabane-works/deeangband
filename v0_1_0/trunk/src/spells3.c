@@ -5420,48 +5420,49 @@ msg_print("‰Š‚Å‹­‰»‚·‚é‚Ì‚ÉŽ¸”s‚µ‚½B");
  *
  * Note that this function is one of the more "dangerous" ones...
  */
-static s16b poly_species_idx(int species_idx)
+static s16b poly_species_idx(int pre_species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	s16b after_species_idx = pre_species_idx;
+	species_type *species_ptr = &r_info[pre_species_idx];
 
 	int i, r, lev1, lev2;
 
 	/* Hack -- Uniques/Questors never polymorph */
-	if ((r_ptr->flags1 & RF1_UNIQUE) ||
-	    (r_ptr->flags1 & RF1_QUESTOR))
-		return (species_idx);
+	if (is_unique_species(species_ptr) ||
+	    (species_ptr->flags1 & RF1_QUESTOR))
+		return (pre_species_idx);
 
 	/* Allowable range of "levels" for resulting monster */
-	lev1 = r_ptr->level - ((randint1(20) / randint1(9)) + 1);
-	lev2 = r_ptr->level + ((randint1(20) / randint1(9)) + 1);
+	lev1 = species_ptr->level - ((randint1(20) / randint1(9)) + 1);
+	lev2 = species_ptr->level + ((randint1(20) / randint1(9)) + 1);
 
 	/* Pick a (possibly new) non-unique race */
 	for (i = 0; i < 1000; i++)
 	{
 		/* Pick a new race, using a level calculation */
-		r = get_mon_num((dun_level + r_ptr->level) / 2 + 5);
+		r = get_mon_num((dun_level + species_ptr->level) / 2 + 5);
 
 		/* Handle failure */
 		if (!r) break;
 
 		/* Obtain race */
-		r_ptr = &r_info[r];
+		species_ptr = &r_info[r];
 
 		/* Ignore unique monsters */
-		if (r_ptr->flags1 & RF1_UNIQUE) continue;
+		if (is_unique_species(species_ptr)) continue;
 
 		/* Ignore monsters with incompatible levels */
-		if ((r_ptr->level < lev1) || (r_ptr->level > lev2)) continue;
+		if ((species_ptr->level < lev1) || (species_ptr->level > lev2)) continue;
 
 		/* Use that index */
-		species_idx = r;
+		after_species_idx = r;
 
 		/* Done */
 		break;
 	}
 
 	/* Result */
-	return (species_idx);
+	return (after_species_idx);
 }
 
 
