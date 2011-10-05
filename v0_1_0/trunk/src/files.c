@@ -5054,7 +5054,7 @@ static void dump_aux_monsters(FILE *fff)
  		if (!r_ptr->name) continue;
 
 		/* Unique monsters */
-		if (r_ptr->flags1 & RF1_UNIQUE)
+		if (is_unique_species(r_ptr))
 		{
 			bool dead = (r_ptr->max_num == 0);
 			if (dead)

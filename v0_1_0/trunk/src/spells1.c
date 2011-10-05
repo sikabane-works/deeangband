@@ -3136,7 +3136,7 @@ note_dies = "は蒸発した！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ||
+			if ((tar_ptr->flags1 & RF1_QUESTOR) && is_unique_creature(tar_ptr) ||
 			    (tar_ptr->flags3 & RF3_NO_CONF) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3429,7 +3429,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(tar_ptr) || (tar_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->race_idx1 == RACE_NAZGUL)|| (tar_ptr->flags7 & RF7_UNIQUE2))
+			if ((inside_arena) || is_pet(tar_ptr) || (tar_ptr->flags1 & RF1_QUESTOR) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| (tar_ptr->flags7 & RF7_UNIQUE2))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -5800,7 +5800,7 @@ note = "には効果がなかった。";
 	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if (((tar_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
+	if ((tar_ptr->flags1 & RF1_QUESTOR) || is_unique_species(r_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
 	{
 		if (who_ptr != who_ptr && (dam > tar_ptr->chp)) dam = tar_ptr->chp;
 	}

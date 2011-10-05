@@ -1794,7 +1794,7 @@ static void spoil_mon_desc(cptr fname)
 			sprintf(nam, "[Q] %s", name);
 		}
 		*/
-		else if (species_ptr->flags1 & (RF1_UNIQUE))
+		else if (is_unique_species(species_ptr))
 		{
 			sprintf(nam, "[U] %s", name);
 		}
@@ -1806,15 +1806,6 @@ static void spoil_mon_desc(cptr fname)
 			sprintf(nam, "The %s", name);
 #endif
 		}
-
-
-		/* TODO : NEW CALC Level */
-/*
-		if (species_ptr->flags1 & (RF1_UNIQUE))
-			sprintf(lev, "%d(%d)", species_ptr->level, d_level_to_c_level_u[species_ptr->level]);
-		else
-			sprintf(lev, "%d(%d)", species_ptr->level, d_level_to_c_level[species_ptr->level]);
-*/
 
 		/* Divine Rank */
 		if(species_ptr->dr >= 0)

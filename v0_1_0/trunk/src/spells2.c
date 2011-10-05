@@ -4659,7 +4659,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	if (is_pet(m_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Monsters or Quest Monsters */
-	if (r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) resist = TRUE;
+	if ((r_ptr->flags1 & RF1_QUESTOR) || is_unique_species(r_ptr)) resist = TRUE;
 
 	else if (r_ptr->flags7 & RF7_UNIQUE2) resist = TRUE;
 
@@ -5912,7 +5912,7 @@ void discharge_minion(void)
 		r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Uniques resist discharging */
-		if (r_ptr->flags1 & RF1_UNIQUE)
+		if (is_unique_species(r_ptr))
 		{
 			char m_name[80];
 			monster_desc(m_name, m_ptr, 0x00);

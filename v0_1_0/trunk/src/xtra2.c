@@ -719,7 +719,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 
 	int number = 0;
 
-	bool visible = ((cr_ptr->ml && !p_ptr->image) || (cr_ptr->flags1 & RF1_UNIQUE));
+	bool visible = ((cr_ptr->ml && !p_ptr->image) || (is_unique_creature(cr_ptr)));
 
 	u32b mo_mode = 0L;
 
@@ -851,7 +851,7 @@ msg_print("地面に落とされた。");
 
 
 	/* Drop a dead corpse? */
-	if (one_in_(cr_ptr->flags1 & RF1_UNIQUE ? 1 : 4) &&
+	if (one_in_(is_unique_creature(cr_ptr) ? 1 : 4) &&
 	    (cr_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
 	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
@@ -864,7 +864,7 @@ msg_print("地面に落とされた。");
 		 */
 		if (!(cr_ptr->flags9 & RF9_DROP_SKELETON))
 			corpse = TRUE;
-		else if ((cr_ptr->flags9 & RF9_DROP_CORPSE) && (cr_ptr->flags1 & RF1_UNIQUE))
+		else if ((cr_ptr->flags9 & RF9_DROP_CORPSE) && (is_unique_creature(cr_ptr)))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
@@ -1305,7 +1305,7 @@ msg_print("地面に落とされた。");
 		}
 	}
 
-	if (cloned && !(cr_ptr->flags1 & RF1_UNIQUE))
+	if (cloned && !(is_unique_creature(cr_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
 	if (is_pet(cr_ptr) || inside_battle || inside_arena)
@@ -1450,7 +1450,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
 		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * m_ptr->hitdice * 2);
 
 	/* Special penalty in the wilderness */
-	if (!dun_level && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(r_ptr->flags1 & RF1_UNIQUE)))
+	if (!dun_level && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(is_unique_species(r_ptr))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
@@ -2081,8 +2081,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (ap_ra_ptr && ap_rb_ptr)
 	{
 		/* Unique monsters first */
-		if ((ap_ra_ptr->flags1 & RF1_UNIQUE) && !(ap_rb_ptr->flags1 & RF1_UNIQUE)) return TRUE;
-		if (!(ap_ra_ptr->flags1 & RF1_UNIQUE) && (ap_rb_ptr->flags1 & RF1_UNIQUE)) return FALSE;
+		if (is_unique_species(ap_ra_ptr) && !is_unique_species(ap_rb_ptr)) return TRUE;
+		if (!is_unique_species(ap_ra_ptr) && is_unique_species(ap_rb_ptr)) return FALSE;
 
 		/* Shadowers first (あやしい影) */
 		if ((ma_ptr->mflag2 & MFLAG2_KAGE) && !(mb_ptr->mflag2 & MFLAG2_KAGE)) return TRUE;

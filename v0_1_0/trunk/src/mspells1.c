@@ -3833,7 +3833,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 				else
 					msg_format("%^sは魔法で%sを召喚した。",
 					m_name,
-					((r_ptr->flags1) & RF1_UNIQUE ?
+					(is_unique_creature(user_ptr) ?
 					"手下" : "仲間"));
 #else
 				if (blind)
@@ -3841,7 +3841,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 				else
 					msg_format("%^s magically summons %s %s.",
 					m_name, m_poss,
-					((r_ptr->flags1) & RF1_UNIQUE ?
+					is_unique_creature(user_ptr) ?
 					"minions" : "kin"));
 #endif
 			}
@@ -4148,7 +4148,7 @@ else msg_format("%^sが魔法で天使を召喚した！", m_name);
 			else msg_format("%^s magically summons an angel!", m_name);
 #endif
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) && !easy_band)
+			if ((is_unique_species(r_ptr)) && !easy_band)
 			{
 				num += r_ptr->level/40;
 			}

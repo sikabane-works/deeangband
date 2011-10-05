@@ -3755,7 +3755,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 				if (is_enemy_of_good_species(r_ptr) &&
 				    !(r_ptr->flags1 & RF1_QUESTOR) &&
-				    !(r_ptr->flags1 & RF1_UNIQUE) &&
+				    !(is_unique_species(r_ptr)) &&
 				    !inside_arena && !inside_quest &&
 					(r_ptr->level < randint1(cr_ptr->lev+50)) &&
 					!(m_ptr->mflag2 & MFLAG2_NOGENO))

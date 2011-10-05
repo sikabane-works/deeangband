@@ -61,7 +61,7 @@ static bool know_armour(int species_idx)
 	if (kills > 304 / (4 + level)) return (TRUE);
 
 	/* Skip non-uniques */
-	if (!(r_ptr->flags1 & RF1_UNIQUE)) return (FALSE);
+	if (!(is_unique_species(r_ptr))) return (FALSE);
 
 	/* Unique monsters */
 	if (kills > 304 / (38 + (5 * level) / 4)) return (TRUE);
@@ -95,7 +95,7 @@ static bool know_damage(int species_idx, int i)
 	if ((4 + level) * a > 80 * d) return (TRUE);
 
 	/* Skip non-uniques */
-	if (!(r_ptr->flags1 & RF1_UNIQUE)) return (FALSE);
+	if (!(is_unique_species(r_ptr))) return (FALSE);
 
 	/* Unique monsters */
 	if ((4 + level) * (2 * a) > 80 * d) return (TRUE);
@@ -210,7 +210,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 	else if (is_male_species(sp_ptr)) msex = 1;
 
 	/* Assume some "obvious" flags */
-	if (sp_ptr->flags1 & RF1_UNIQUE)  flags1 |= (RF1_UNIQUE);
+	//if (is_unique_species(sp_ptr))  flags1 |= (RF1_UNIQUE);
 	if (sp_ptr->flags1 & RF1_QUESTOR) flags1 |= (RF1_QUESTOR);
 	//if (sp_ptr->flags1 & RF1_MALE)    flags1 |= (RF1_MALE);
 	//if (sp_ptr->flags1 & RF1_FEMALE)  flags1 |= (RF1_FEMALE);
@@ -2061,9 +2061,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 #ifdef JP
-	if ((flags10 & RF10_RES_TELE) && !(sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(is_unique_species(sp_ptr))) {vp[vn] = "テレポート";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RF10_RES_TELE) && !(sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && !(is_unique_species(sp_ptr))) {vp[vn] = "teleportation";color[vn++] = TERM_ORANGE;}
 #endif
 
 
@@ -2121,7 +2121,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 			hooked_roff(format(" when %s gets enugh experience.  ", wd_he[msex]));
 #endif
 		}
-		else if (!(sp_ptr->flags1 & RF1_UNIQUE))
+		else if (!(is_unique_species(sp_ptr)))
 		{
 #ifdef JP
 			hooked_roff(format("%sは進化しない。", wd_he[msex]));
@@ -2158,9 +2158,9 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 #ifdef JP
-	if ((flags10 & RF10_RES_TELE) && (sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (is_unique_species(sp_ptr))) {vp[vn] = "テレポートされない";color[vn++] = TERM_ORANGE;}
 #else
-	if ((flags10 & RF10_RES_TELE) && (sp_ptr->flags1 & RF1_UNIQUE)) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
+	if ((flags10 & RF10_RES_TELE) && (is_unique_species(sp_ptr))) {vp[vn] = "teleported";color[vn++] = TERM_ORANGE;}
 #endif
 
 	/* Describe non-effects */
@@ -3011,7 +3011,7 @@ void roff_top(int species_idx)
 
 #ifndef JP
 	/* A title (use "The" for non-uniques) */
-	if (!(r_ptr->flags1 & RF1_UNIQUE))
+	if (!(is_unique_species(r_ptr)))
 	{
 		Term_addstr(-1, TERM_WHITE, "The ");
 	}

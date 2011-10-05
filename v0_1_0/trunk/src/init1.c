@@ -6522,7 +6522,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				old_max_num = r_info[monster_index].max_num;
 
 				/* Make alive again */
-				if (r_info[monster_index].flags1 & RF1_UNIQUE)
+				if (is_unique_species(&r_info[monster_index]))
 				{
 					r_info[monster_index].cur_num = 0;
 					r_info[monster_index].max_num = 1;
@@ -6692,7 +6692,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					q_ptr->flags  = atoi(zz[10]);
 
 				r_ptr = &r_info[q_ptr->species_idx];
-				if (r_ptr->flags1 & RF1_UNIQUE)
+				if (is_unique_species(r_ptr))
 					r_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &a_info[q_ptr->k_idx];

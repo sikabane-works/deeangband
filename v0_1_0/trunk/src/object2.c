@@ -3891,7 +3891,7 @@ static bool item_monster_okay(int species_idx)
 	species_type *r_ptr = &r_info[species_idx];
 
 	/* No uniques */
-	if (r_ptr->flags1 & RF1_UNIQUE) return (FALSE);
+	if (is_unique_species(r_ptr)) return (FALSE);
 	if (r_ptr->flags7 & RF7_KAGE) return (FALSE);
 	if (r_ptr->flags7 & RF10_RES_ALL) return (FALSE);
 	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);

@@ -1312,7 +1312,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #else
 					cptr t = r_name + r_ptr->name;
 
-					if (!(r_ptr->flags1 & RF1_UNIQUE))
+					if (!is_unique_species(r_ptr))
 					{
 						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1341,7 +1341,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #else
 			cptr t = r_name + r_ptr->name;
 
-			if (!(r_ptr->flags1 & RF1_UNIQUE))
+			if (!is_unique_species(r_ptr))
 			{
 				sprintf(tmp_val2, "%s%s", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1367,7 +1367,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 #ifdef JP
 			basenm = "#%";
 #else
-			if (r_ptr->flags1 & RF1_UNIQUE)
+			if (is_unique_species(r_ptr))
 				basenm = "& % of #";
 			else
 				basenm = "& # %";
@@ -1821,7 +1821,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* Hack -- The only one of its kind */
 		else if ((known && object_is_artifact(p_ptr, o_ptr)) ||
 		         ((o_ptr->tval == TV_CORPSE) &&
-		          (r_info[o_ptr->pval].flags1 & RF1_UNIQUE)))
+		          (is_unique_species(r_info[o_ptr->pval]))))
 		{
 			t = object_desc_str(t, "The ");
 		}

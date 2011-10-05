@@ -232,7 +232,7 @@ species_type *real_r_ptr(creature_type *m_ptr)
 	/* Extract real race */
 	if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
-		if (r_ptr->flags1 & RF1_UNIQUE)
+		if (is_unique_species(r_ptr))
 			return &r_info[MON_CHAMELEON_K];
 		else
 			return &r_info[MON_CHAMELEON];
@@ -492,7 +492,7 @@ void compact_monsters(int size)
 			if ((r_ptr->flags1 & (RF1_QUESTOR)) && (cnt < 1000)) chance = 100;
 
 			/* Try not to compact Unique Monsters */
-			if (r_ptr->flags1 & (RF1_UNIQUE)) chance = 100;
+			if (is_unique_species(r_ptr)) chance = 100;
 
 			/* All monsters get a saving throw */
 			if (randint0(100) < chance) continue;
@@ -542,7 +542,7 @@ void birth_uniques(void)
 	max_unique = 0;
 	for(i = 0; i < max_species_idx; i++)
 	{
-		if(r_info[i].flags1 & RF1_UNIQUE) max_unique++;
+		if(is_unique_species(&r_info[i])) max_unique++;
 	}
 
 	C_MAKE(u_info, max_unique, creature_type);
@@ -556,7 +556,7 @@ void birth_uniques(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 
-		if(r_info[i].flags1 & RF1_UNIQUE)
+		if(is_unique_species(&r_info[i]))
 		{
 			creature_type *cr_ptr = &u_info[j]; 
 			create_monster(cr_ptr, i, MONEGO_NONE, 0);
@@ -807,7 +807,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_UNIQUE:
 		{
-			okay = (r_ptr->flags1 & (RF1_UNIQUE)) ? TRUE : FALSE;
+			okay = (is_unique_species(r_ptr)) ? TRUE : FALSE;
 			break;
 		}
 
@@ -1431,7 +1431,7 @@ s16b get_mon_num(int level)
 		if (!inside_battle && !chameleon_change_m_idx)
 		{
 			/* Hack -- "unique" monsters must be "unique" */
-			if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
+			if (((is_unique_species(r_ptr)) ||
 			     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 			    (r_ptr->cur_num >= r_ptr->max_num))
 			{
@@ -1635,7 +1635,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			{
 				hallu_race = &r_info[randint1(max_species_idx - 1)];
 			}
-			while (!hallu_race->name || (hallu_race->flags1 & RF1_UNIQUE));
+			while (!hallu_race->name || is_unique_species(hallu_race));
 
 			strcpy(silly_name, (r_name + hallu_race->name));
 		}
@@ -1789,7 +1789,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((r_ptr->flags1 & RF1_UNIQUE) && !(p_ptr->image && !(mode & MD_IGNORE_HALLU)))
+		if ((is_unique_species(r_ptr)) && !(p_ptr->image && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if ((m_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
@@ -1890,7 +1890,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 		if ((mode & MD_IGNORE_HALLU) && (m_ptr->mflag2 & MFLAG2_CHAMELEON))
 		{
-			if (r_ptr->flags1 & RF1_UNIQUE)
+			if (is_unique_species(r_ptr))
 			{
 #ifdef JP
 				strcat(desc,"(カメレオンの王)");
@@ -2142,7 +2142,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		monster_desc(m_name, m_ptr, 0);
 
-		if (!(r_ptr->flags1 & RF1_UNIQUE))
+		if (!(is_unique_species(r_ptr)))
 		{
 			if (r_ptr->flags1 & RF1_FRIENDS)
 			power /= 2;
@@ -2689,10 +2689,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_unique) && (r_ptr->flags1 & (RF1_UNIQUE)))
+			if ((cr_ptr->esp_unique) && (is_unique_species(r_ptr)))
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags1 |= (RF1_UNIQUE);
+				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags1 |= (RF1_UNIQUE);
 			}
 		}
 
@@ -2901,7 +2901,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	creature_type *m_ptr = &m_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
 
-	if (!(r_ptr->flags1 & (RF1_UNIQUE))) return FALSE;
+	if (!(is_unique_species(r_ptr))) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 
 	if (ABS(r_ptr->level - r_info[MON_CHAMELEON_K].level) > 5) return FALSE;
@@ -2932,7 +2932,7 @@ static bool monster_hook_chameleon(int species_idx)
 	creature_type *m_ptr = &m_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
 
-	if (r_ptr->flags1 & (RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr)) return FALSE;
 	if (r_ptr->flags2 & RF2_MULTIPLY) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 	
@@ -2968,7 +2968,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	bool old_unique = FALSE;
 	int old_species_idx = m_ptr->species_idx;
 
-	if (r_info[m_ptr->species_idx].flags1 & RF1_UNIQUE)
+	if (is_unique_species(&r_info[m_ptr->species_idx]))
 		old_unique = TRUE;
 	if (old_unique && (species_idx == MON_CHAMELEON)) species_idx = MON_CHAMELEON_K;
 	r_ptr = &r_info[species_idx];
@@ -3089,7 +3089,7 @@ static bool monster_hook_tanuki(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if (r_ptr->flags1 & (RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr)) return FALSE;
 	if (r_ptr->flags2 & RF2_MULTIPLY) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 	if (r_ptr->flags7 & RF7_AQUATIC) return FALSE;
@@ -3417,7 +3417,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	if (!inside_battle)
 	{
 		/* Hack -- "unique" monsters must be "unique" */
-		if (((r_ptr->flags1 & (RF1_UNIQUE)) ||
+		if (((is_unique_species(r_ptr)) ||
 		     (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
@@ -3515,7 +3515,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 
-	if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	/* Make a new monster */
 	c_ptr->m_idx = m_pop();
@@ -3528,7 +3528,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr = &m_list[c_ptr->m_idx];
 	m_ptr->id = c_ptr->m_idx;
 
-	if(r_ptr->flags1 & RF1_UNIQUE)
+	if(is_unique_species(r_ptr))
 	{
 		int i;
 		for(i = 0; i < max_unique; i++)
@@ -3591,7 +3591,7 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if ((r_ptr->flags1 & RF1_UNIQUE) && is_player(who_ptr))
+		if ((is_unique_species(r_ptr)) && is_player(who_ptr))
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
@@ -3673,7 +3673,7 @@ msg_print("守りのルーンが壊れた！");
 	 * A unique monster move from old saved floor.
 	 */
 	if (character_dungeon &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)))
+	    ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL)))
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
@@ -3688,7 +3688,7 @@ msg_print("守りのルーンが壊れた！");
 
 	if (watcher_ptr->warning && character_dungeon)
 	{
-		if (r_ptr->flags1 & RF1_UNIQUE)
+		if (is_unique_species(r_ptr))
 		{
 			cptr color;
 			object_type *o_ptr;
@@ -4114,7 +4114,7 @@ static bool place_monster_okay(int species_idx)
 	if (z_ptr->level > r_ptr->level) return (FALSE);
 
 	/* Skip unique monsters */
-	if (z_ptr->flags1 & RF1_UNIQUE) return (FALSE);
+	if (is_unique_species(z_ptr)) return (FALSE);
 
 	/* Paranoia -- Skip identical monsters */
 	if (place_species_idx == species_idx) return (FALSE);
@@ -4300,7 +4300,7 @@ bool alloc_horde(int y, int x)
 
 		r_ptr = &r_info[species_idx];
 
-		if (r_ptr->flags1 & RF1_UNIQUE) continue;
+		if (is_unique_species(r_ptr)) continue;
 
 		if (species_idx == MON_HAGURE) continue;
 		break;
@@ -4495,10 +4495,10 @@ static bool summon_specific_okay(int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+	    ((is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	    monster_has_hostile_align(NULL, 10, -10, r_ptr))
 		return FALSE;
 

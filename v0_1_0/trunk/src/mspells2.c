@@ -2866,7 +2866,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags1 & RF1_UNIQUE)
+		if (is_unique_species(tr_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", t_name);
@@ -2919,7 +2919,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if ((tr_ptr->flags1 & RF1_UNIQUE) ||
+		if ((is_unique_species(tr_ptr)) ||
 		    (tr_ptr->flags3 & RF3_NO_STUN))
 		{
 #ifdef JP
@@ -3337,7 +3337,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		if (tr_ptr->flags10 & RF10_RES_TELE)
 		{
-			if ((tr_ptr->flags1 & RF1_UNIQUE) || (tar_ptr->resist_ultimate))
+			if ((is_unique_species(tr_ptr)) || (tar_ptr->resist_ultimate))
 			{
 				if (is_original_ap_and_seen(player_ptr, t_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
@@ -3397,7 +3397,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		if (tr_ptr->flags10 & RF10_RES_TELE)
 		{
-			if ((tr_ptr->flags1 & RF1_UNIQUE) || (tar_ptr->resist_ultimate))
+			if ((is_unique_species(tr_ptr)) || (tar_ptr->resist_ultimate))
 			{
 				if (is_original_ap_and_seen(player_ptr, t_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
@@ -3627,10 +3627,10 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 				{
 #ifdef JP
 					msg_format("%s‚ª–‚–@‚Å%s‚ð¢Š«‚µ‚½B", m_name,
-						   ((r_ptr->flags1 & RF1_UNIQUE) ? "Žè‰º" : "’‡ŠÔ"));
+						   ((is_unique_species(r_ptr)) ? "Žè‰º" : "’‡ŠÔ"));
 #else
 					msg_format("%^s magically summons %s %s.", m_name, m_poss,
-						   ((r_ptr->flags1 & RF1_UNIQUE) ? "minions" : "kin"));
+						   ((is_unique_species(r_ptr)) ? "minions" : "kin"));
 #endif
 				}
 
@@ -3982,7 +3982,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		{
 			int num = 1;
 
-			if ((r_ptr->flags1 & RF1_UNIQUE) && !easy_band)
+			if ((is_unique_species(r_ptr)) && !easy_band)
 			{
 				num += r_ptr->level/40;
 			}

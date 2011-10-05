@@ -257,9 +257,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	/* It is dead now... or is it? */
 	if (cr_ptr->chp < 0)
 	{
-		if (((r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) ||
-		    (r_ptr->race_idx1 == RACE_NAZGUL)) &&
-		    !inside_battle)
+		if (((r_ptr->flags1 & RF1_QUESTOR) && is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
 		{
 			cr_ptr->chp = 1;
 		}
@@ -1604,7 +1602,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 //	if (creature_ptr->species_idx == MON_SHURYUUDAN)
 //		creature_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(creature_ptr) || is_friendly(creature_ptr)) && ((creature_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
+	if ((is_pet(creature_ptr) || is_friendly(creature_ptr)) && (is_unique_creature(creature_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
@@ -1738,7 +1736,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(creature_ptr) &&
-	    ((((creature_ptr->flags1 & RF1_UNIQUE) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+	    (((is_unique_creature(creature_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	      monster_has_hostile_align(NULL, 10, -10, r_ptr))
 	     || (creature_ptr->resist_ultimate)))
 	{
@@ -3411,7 +3409,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 					{
 						hallu_race = &r_info[randint1(max_species_idx - 1)];
 					}
-					while (!hallu_race->name || (hallu_race->flags1 & RF1_UNIQUE));
+					while (!hallu_race->name || is_unique_species(hallu_race));
 
 #ifdef JP
 					msg_format("%sは%sに進化した。", m_name, r_name + hallu_race->name);

@@ -1999,7 +1999,7 @@ note("メッセージをロードしました");
 		/* Hack -- Reset the death counter */
 		r_ptr->max_num = 100;
 
-		if (r_ptr->flags1 & RF1_UNIQUE) r_ptr->max_num = 1;
+		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
 		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
@@ -2176,7 +2176,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 					/* Mark uniques */
 					if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
-						if (r_info[quest[i].species_idx].flags1 & RF1_UNIQUE)
+						if (is_unique_species(&r_info[quest[i].species_idx]))
 							r_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
 				}
 			}
