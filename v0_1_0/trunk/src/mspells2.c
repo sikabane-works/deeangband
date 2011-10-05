@@ -3462,7 +3462,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			if (see_t) msg_format("%^s is unaffected!", t_name);
 #endif
 		}
-		else if ((tr_ptr->flags1 & RF1_QUESTOR) ||
+		else if (is_quest_species(tr_ptr) ||
 			    (tr_ptr->level > randint1((rlev - 10) < 1 ? 1 : (rlev - 10)) + 10))
 		{
 #ifdef JP

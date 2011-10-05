@@ -5428,8 +5428,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	int i, r, lev1, lev2;
 
 	/* Hack -- Uniques/Questors never polymorph */
-	if (is_unique_species(species_ptr) ||
-	    (species_ptr->flags1 & RF1_QUESTOR))
+	if (is_unique_species(species_ptr) || is_quest_species(species_ptr))
 		return (pre_species_idx);
 
 	/* Allowable range of "levels" for resulting monster */

@@ -1366,7 +1366,7 @@ msg_print("’n–Ê‚É—‚Æ‚³‚ê‚½B");
 	}
 
 	/* Only process "Quest Monsters" */
-	if (!(cr_ptr->flags1 & RF1_QUESTOR)) return;
+	if (!is_quest_creature(cr_ptr)) return;
 	if (inside_battle) return;
 }
 

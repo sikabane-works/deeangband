@@ -1789,7 +1789,7 @@ static void spoil_mon_desc(cptr fname)
 		if (species_ptr->flags7 & (RF7_KAGE)) continue;
 		/* Get the "name" */
 		/*
-		else if (species_ptr->flags1 & (RF1_QUESTOR))
+		else if (is_quest_species(species_ptr))
 		{
 			sprintf(nam, "[Q] %s", name);
 		}

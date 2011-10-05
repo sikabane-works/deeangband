@@ -2953,7 +2953,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 			else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 			{
-				if (!(is_unique_creature(tar_ptr) | r_ptr->flags1 & (RF1_QUESTOR)) &&
+				if (!(is_unique_creature(tar_ptr) | is_quest_species(r_ptr)) &&
 				    !(r_ptr->flags10 & RF10_EFF_RES_CHAO_MASK))
 				{
 					if (polymorph_monster(atk_ptr, y, x))

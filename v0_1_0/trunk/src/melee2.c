@@ -257,7 +257,7 @@ msg_format("%^sはダメージを受けない。", m_name);
 	/* It is dead now... or is it? */
 	if (cr_ptr->chp < 0)
 	{
-		if (((r_ptr->flags1 & RF1_QUESTOR) && is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
+		if (((is_quest_species(r_ptr)) && is_unique_species(r_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
 		{
 			cr_ptr->chp = 1;
 		}
@@ -1557,7 +1557,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if (!randint0(2)) return;
 
 		/* Sometimes die */
-		if (!randint0((m_idx % 100) + 10) && !(creature_ptr->flags1 & RF1_QUESTOR))
+		if (!randint0((m_idx % 100) + 10) && !is_unique_creature(creature_ptr))
 		{
 			bool sad = FALSE;
 

@@ -4659,7 +4659,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	if (is_pet(m_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Monsters or Quest Monsters */
-	if ((r_ptr->flags1 & RF1_QUESTOR) || is_unique_species(r_ptr)) resist = TRUE;
+	if ((is_quest_species(r_ptr)) || is_unique_species(r_ptr)) resist = TRUE;
 
 	else if (r_ptr->flags7 & RF7_UNIQUE2) resist = TRUE;
 
@@ -5147,7 +5147,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 					/* Delete the monster (if any) */
 					delete_monster(y, x);
 				}
-				else if (r_ptr->flags1 & RF1_QUESTOR)
+				else if (is_quest_species(r_ptr))
 				{
 					/* Heal the monster */
 					m_ptr->chp = m_ptr->mhp;
@@ -5619,7 +5619,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 				species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 				/* Quest monsters */
-				if (r_ptr->flags1 & RF1_QUESTOR)
+				if (is_quest_species(r_ptr))
 				{
 					/* No wall on quest monsters */
 					map[16+yy-cy][16+xx-cx] = FALSE;

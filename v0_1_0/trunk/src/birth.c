@@ -3278,7 +3278,7 @@ void determine_random_questor(quest_type *q_ptr)
 
 		if (!is_unique_species(r_ptr)) continue;
 
-		if (r_ptr->flags1 & RF1_QUESTOR) continue;
+		if (!is_quest_species(r_ptr)) continue;
 
 		if (r_ptr->rarity > 100) continue;
 
@@ -3328,7 +3328,7 @@ void init_dungeon_quests(void)
 
 		/* Mark uniques */
 		quest_r_ptr = &r_info[q_ptr->species_idx];
-		quest_r_ptr->flags1 |= RF1_QUESTOR;
+		//TODO quest_r_ptr->flags1 |= RF1_QUESTOR;
 
 		q_ptr->max_num = 1;
 	}

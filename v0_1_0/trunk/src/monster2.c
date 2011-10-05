@@ -489,7 +489,7 @@ void compact_monsters(int size)
 			chance = 90;
 
 			/* Only compact "Quest" Monsters in emergencies */
-			if ((r_ptr->flags1 & (RF1_QUESTOR)) && (cnt < 1000)) chance = 100;
+			if ((is_quest_species(r_ptr)) && (cnt < 1000)) chance = 100;
 
 			/* Try not to compact Unique Monsters */
 			if (is_unique_species(r_ptr)) chance = 100;
@@ -1250,7 +1250,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
-			if (r_ptr->flags1 & RF1_QUESTOR)
+			if (is_quest_species(r_ptr))
 				continue;
 
 			if (r_ptr->flags7 & RF7_GUARDIAN)
@@ -3453,7 +3453,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
 		if ((r_ptr->flags1 & (RF1_FORCE_DEPTH)) && (dun_level < r_ptr->level) &&
-		    (!ironman_nightmare || (r_ptr->flags1 & (RF1_QUESTOR))))
+		    (!ironman_nightmare || (is_quest_species(r_ptr))))
 		{
 			if (cheat_hear)
 			{

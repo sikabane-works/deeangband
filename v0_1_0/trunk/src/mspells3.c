@@ -1420,7 +1420,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 #endif
 
 		if ((r_ptr->flags10 & (RF10_EFF_RES_NEXU_MASK | RF10_RES_TELE)) ||
-			(r_ptr->flags1 & RF1_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
+			(is_quest_species(r_ptr)) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP
 			msg_print("‚µ‚©‚µŒø‰Ê‚ª‚È‚©‚Á‚½I");

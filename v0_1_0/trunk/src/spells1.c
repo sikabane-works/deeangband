@@ -3136,7 +3136,7 @@ note_dies = "は蒸発した！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_QUESTOR) && is_unique_creature(tar_ptr) ||
+			if ((is_quest_creature(tar_ptr)) && is_unique_creature(tar_ptr) ||
 			    (tar_ptr->flags3 & RF3_NO_CONF) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -3404,7 +3404,7 @@ note = "には耐性がある！";
 
 			/* Powerful monsters can resist */
 			if ((is_unique_creature(tar_ptr)) ||
-			    (tar_ptr->flags1 & RF1_QUESTOR) ||
+			    (is_quest_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -3429,7 +3429,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(tar_ptr) || (tar_ptr->flags1 & RF1_QUESTOR) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| (tar_ptr->flags7 & RF7_UNIQUE2))
+			if ((inside_arena) || is_pet(tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| (tar_ptr->flags7 & RF7_UNIQUE2))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -3799,7 +3799,7 @@ note = "は動けなくなった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_QUESTOR) ||
+			if ((is_quest_creature(tar_ptr)) ||
 			    (tar_ptr->flags3 & RF3_NO_CONF) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
@@ -3882,7 +3882,7 @@ note = "は突然友好的になったようだ！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_QUESTOR) ||
+			if ((is_quest_creature(tar_ptr)) ||
 			  (!is_undead_species(r_ptr)) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -3957,7 +3957,7 @@ note = "は既にあなたの奴隷だ！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & RF1_QUESTOR) ||
+			if ((is_quest_creature(tar_ptr)) ||
 			  (!is_demon_species(r_ptr)) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -4035,7 +4035,7 @@ note = "は既にあなたの奴隷だ！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_QUESTOR)) ||
+			if ((is_quest_creature(tar_ptr)) ||
 			    (!is_animal_creature(tar_ptr)) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (tar_ptr->flags3 & (RF3_NO_CONF)) ||
@@ -4131,7 +4131,7 @@ msg_format("%sを見つめた。",m_name);
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((tar_ptr->flags1 & (RF1_QUESTOR)) ||
+			if ((is_quest_creature(tar_ptr)) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				 !monster_living(r_ptr) ||
 				 ((r_ptr->level+10) > randint1(dam)))
@@ -5365,7 +5365,7 @@ note_dies = "はドロドロに溶けた！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(tar_ptr)) ||
-			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (tar_ptr->flags7 & (RF7_UNIQUE2)) || (tar_ptr->flags1 & RF1_QUESTOR) || tar_ptr->parent_m_idx)
+			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (tar_ptr->flags7 & (RF7_UNIQUE2)) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",m_name);
@@ -5704,7 +5704,7 @@ note = "には効果がなかった！";
 				}
 
 				/* Attempt a saving throw */
-				else if ((tar_ptr->flags1 & (RF1_QUESTOR)) ||
+				else if ((is_quest_creature(tar_ptr)) ||
 				    (is_unique_creature(tar_ptr)) ||
 				    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 				    (who_ptr->cursed & TRC_AGGRAVATE) ||
@@ -5795,12 +5795,12 @@ note = "には効果がなかった。";
 	if (is_unique_creature(tar_ptr)) do_poly = FALSE;
 
 	/* Quest monsters cannot be polymorphed */
-	if (tar_ptr->flags1 & RF1_QUESTOR) do_poly = FALSE;
+	if (is_quest_creature(tar_ptr)) do_poly = FALSE;
 
 	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
-	if ((tar_ptr->flags1 & RF1_QUESTOR) || is_unique_species(r_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
+	if ((is_quest_creature(tar_ptr)) || is_unique_species(r_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
 	{
 		if (who_ptr != who_ptr && (dam > tar_ptr->chp)) dam = tar_ptr->chp;
 	}
