@@ -2487,25 +2487,25 @@ bool get_nightmare(int species_idx)
 }
 
 
-void have_nightmare(creature_type *watcher_ptr, int species_idx)
+void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
 	bool happened = FALSE;
-	species_type *r_ptr = &r_info[species_idx];
-	int power = r_ptr->level + 10;
+	species_type *eldritch_ptr = &r_info[eldritch_idx];
+	int power = eldritch_ptr->level + 10;
 	char m_name[80];
-	cptr desc = r_name + r_ptr->name;
+	cptr desc = r_name + eldritch_ptr->name;
 
 	/* Describe it */
 #ifndef JP
-	if (!(r_ptr->flags1 & RF1_UNIQUE))
+	if (!is_unique_species(eldritch_ptr))
 		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
 	else
 #endif
 		sprintf(m_name, "%s", desc);
 
-	if (!(r_ptr->flags1 & RF1_UNIQUE))
+	if (!is_unique_species(eldritch_ptr))
 	{
-		if (r_ptr->flags1 & RF1_FRIENDS) power /= 2;
+		if (eldritch_ptr->flags1 & RF1_FRIENDS) power /= 2;
 	}
 	else power *= 2;
 
@@ -2535,7 +2535,7 @@ void have_nightmare(creature_type *watcher_ptr, int species_idx)
 		if (one_in_(3) && watcher_ptr->chara_idx != CHARA_CHARGEMAN)
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(r_ptr->level);
+			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(eldritch_ptr->level);
 		}
 
 		/* Never mind; we can't see it clearly enough */
@@ -2551,7 +2551,7 @@ void have_nightmare(creature_type *watcher_ptr, int species_idx)
 
 				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
 
-	r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
+	eldritch_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 	if (!watcher_ptr->mimic_form)
 	{
