@@ -2448,7 +2448,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 				else if ((special_effect == MA_SLOW) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
-					if (!(r_ptr->flags1 & RF1_UNIQUE) &&
+					if (!is_unique_creature(tar_ptr) &&
 					    (randint1(atk_ptr->lev) > r_ptr->level) &&
 					    tar_ptr->speed > 60)
 					{
@@ -2679,7 +2679,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 			k = mon_damage_mod(tar_ptr, k, (bool)(((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) || ((atk_ptr->cls_idx == CLASS_BERSERKER) && one_in_(2))));
 			if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 			{
-				if ((randint1(randint1(r_ptr->level/7)+5) == 1) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2))
+				if ((randint1(randint1(r_ptr->level/7)+5) == 1) && !is_unique_creature(tar_ptr) && !(r_ptr->flags7 & RF7_UNIQUE2))
 				{
 					k = tar_ptr->chp + 1;
 #ifdef JP
@@ -2702,9 +2702,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					msg_format("You critically injured %s!", m_name);
 #endif
 				}
-				else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2)))
+				else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !(r_ptr->flags7 & RF7_UNIQUE2)))
 				{
-					if ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->flags7 & RF7_UNIQUE2) || (tar_ptr->chp >= tar_ptr->mhp/2))
+					if (is_unique_creature(tar_ptr) || (r_ptr->flags7 & RF7_UNIQUE2) || (tar_ptr->chp >= tar_ptr->mhp/2))
 					{
 						k = MAX(k*5, tar_ptr->chp/2);
 						drain_result *= 2;
@@ -2913,7 +2913,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 				if (r_ptr->flags10 & RF10_RES_TELE)
 				{
-					if (r_ptr->flags1 & RF1_UNIQUE)
+					if (is_unique_creature(tar_ptr))
 					{
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
 #ifdef JP
@@ -2953,7 +2953,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 			else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 			{
-				if (!(r_ptr->flags1 & (RF1_UNIQUE | RF1_QUESTOR)) &&
+				if (!(is_unique_creature(tar_ptr) | r_ptr->flags1 & (RF1_QUESTOR)) &&
 				    !(r_ptr->flags10 & RF10_EFF_RES_CHAO_MASK))
 				{
 					if (polymorph_monster(atk_ptr, y, x))

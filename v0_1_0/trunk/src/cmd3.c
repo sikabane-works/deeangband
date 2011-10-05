@@ -2346,10 +2346,10 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		if (!cheat_know && !r_ptr->r_sights) continue;
 
 		/* Require non-unique monsters if needed */
-		if (norm && (r_ptr->flags1 & (RF1_UNIQUE))) continue;
+		if (norm && is_unique_species(r_ptr)) continue;
 
 		/* Require unique monsters if needed */
-		if (uniq && !(r_ptr->flags1 & (RF1_UNIQUE))) continue;
+		if (uniq && !is_unique_species(r_ptr)) continue;
 
 		/* Require ridable monsters if needed */
 		if (ride && !(r_ptr->flags7 & (RF7_RIDING))) continue;

@@ -3679,7 +3679,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				if (snipe_type == SP_NEEDLE)
 				{
 					if ((randint1(randint1(r_ptr->level / (3 + cr_ptr->concent)) + (8 - cr_ptr->concent)) == 1)
-						&& !(r_ptr->flags1 & RF1_UNIQUE) && !(r_ptr->flags7 & RF7_UNIQUE2))
+						&& !is_unique_creature(m_ptr) && !(r_ptr->flags7 & RF7_UNIQUE2))
 					{
 						char m_name[80];
 
