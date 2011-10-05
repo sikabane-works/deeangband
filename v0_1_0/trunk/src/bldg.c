@@ -1960,9 +1960,9 @@ static bool kakutoujou(creature_type *cr_ptr)
 			species_type *r_ptr = &r_info[battle_mon[i]];
 
 #ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",r_name + r_ptr->name, (r_ptr->flags1 & RF1_UNIQUE) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",r_name + r_ptr->name, is_unique_species(r_ptr) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
 #else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", (r_ptr->flags1 & RF1_UNIQUE) ? "Fake " : "", r_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", is_unique_species(r_ptr) ? "Fake " : "", r_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
 #endif
 			prt(buf, 5+i, 1);
 		}
@@ -3064,7 +3064,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 
 			r_ptr = &r_info[q_ptr->species_idx];
 
-			while ((r_ptr->flags1 & RF1_UNIQUE) || (r_ptr->rarity != 1))
+			while (is_unique_species(r_ptr) || (r_ptr->rarity != 1))
 			{
 				q_ptr->species_idx = get_mon_num(q_ptr->level) + 4 + (s16b)randint1(6);
 				r_ptr = &r_info[q_ptr->species_idx];
@@ -4519,10 +4519,10 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 		/* XTRA HACK WHATSEARCH */
 		/* Require non-unique monsters if needed */
-		if (norm && (r_ptr->flags1 & (RF1_UNIQUE))) continue;
+		if (norm && is_unique_species(r_ptr)) continue;
 
 		/* Require unique monsters if needed */
-		if (uniq && !(r_ptr->flags1 & (RF1_UNIQUE))) continue;
+		if (uniq && !is_unique_species(r_ptr)) continue;
 
 		/* 名前検索 */
 		if (temp[0])

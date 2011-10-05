@@ -5386,8 +5386,8 @@ static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
 	if (r_ptr2->level > r_ptr1->level) return TRUE;
 	if (r_ptr1->level > r_ptr2->level) return FALSE;
 
-	if ((r_ptr2->flags1 & RF1_UNIQUE) && !(r_ptr1->flags1 & RF1_UNIQUE)) return TRUE;
-	if ((r_ptr1->flags1 & RF1_UNIQUE) && !(r_ptr2->flags1 & RF1_UNIQUE)) return FALSE;
+	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return TRUE;
+	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return FALSE;
 	return w1 <= w2;
 }
 
