@@ -907,6 +907,8 @@ extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
 extern bool is_quest_creature(creature_type *creature_ptr);
 extern bool is_quest_species(species_type *species_ptr);
+extern bool is_never_move_creature(creature_type *creature_ptr);
+extern bool is_never_move_species(species_type *species_ptr);
 
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);
