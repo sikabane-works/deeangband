@@ -724,6 +724,30 @@ bool is_never_move_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_random_walker_25_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF1_RAND_25) return TRUE;
+	else return FALSE;
+}
+
+bool is_random_walker_25_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF1_RAND_25) return TRUE;
+	else return FALSE;
+}
+
+bool is_random_walker_50_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF1_RAND_50) return TRUE;
+	else return FALSE;
+}
+
+bool is_random_walker_50_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF1_RAND_50) return TRUE;
+	else return FALSE;
+}
+
 
 bool is_powerful_creature(creature_type *cr_ptr)
 {
