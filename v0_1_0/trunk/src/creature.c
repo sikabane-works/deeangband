@@ -748,6 +748,18 @@ bool can_speak_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool have_eldritch_horror_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_ELDRITCH_HORROR) return TRUE;
+	else return FALSE;
+}
+
+bool have_eldritch_horror_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_ELDRITCH_HORROR) return TRUE;
+	else return FALSE;
+}
+
 bool is_random_walker_25_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags1 & RF1_RAND_25) return TRUE;

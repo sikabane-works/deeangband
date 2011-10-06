@@ -2509,7 +2509,7 @@ info[i++] = "‚»‚ê‚Í–‚–@’ïR—Í‚ğ‰º‚°‚éB";
 #else
 			info[i++] = "It is shameful.";
 #endif
-		else if ( r_ptr->flags2 & (RF2_ELDRITCH_HORROR))
+		else if (have_eldritch_horror_species(r_ptr))
 #ifdef JP
 			info[i++] = "‚»‚ê‚Í•”‰®‚Éü‚é‚Æ‹°‚¢B";
 #else

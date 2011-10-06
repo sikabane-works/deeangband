@@ -2480,7 +2480,7 @@ bool get_nightmare(int species_idx)
 	species_type *r_ptr = &r_info[species_idx];
 
 	/* Require eldritch horrors */
-	if (!(r_ptr->flags2 & (RF2_ELDRITCH_HORROR))) return (FALSE);
+	if (!have_eldritch_horror_species(r_ptr)) return (FALSE);
 
 	/* Accept this monster */
 	return (TRUE);
@@ -2551,7 +2551,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
 
-	eldritch_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
+	//TODO eldritch_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 	if (!watcher_ptr->mimic_form)
 	{

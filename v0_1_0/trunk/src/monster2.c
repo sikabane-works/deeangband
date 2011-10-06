@@ -2149,7 +2149,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (!m_ptr->ml)
 			return; /* Cannot see it for some reason */
 
-		if (!(r_ptr->flags2 & RF2_ELDRITCH_HORROR))
+		if (!have_eldritch_horror_creature(m_ptr))
 			return; /* oops */
 
 
@@ -2208,7 +2208,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 #endif
 		}
 
-		r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
+		//TODO r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
 
 		/* Demon characters are unaffected */
 		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
@@ -2786,7 +2786,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Eldritch Horror */
-			if (r_info[m_ptr->ap_species_idx].flags2 & RF2_ELDRITCH_HORROR)
+			if (have_eldritch_horror_species(&r_info[m_ptr->ap_species_idx]))
 			{
 				sanity_blast(cr_ptr, m_ptr, FALSE);
 			}

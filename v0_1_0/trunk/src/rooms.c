@@ -1750,7 +1750,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	/* Require eldritch horror */
-	if (!(r_ptr->flags2 & (RF2_ELDRITCH_HORROR))) return (FALSE);
+	if (!have_eldritch_horror_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

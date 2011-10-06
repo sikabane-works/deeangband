@@ -1855,7 +1855,7 @@ static void spoil_mon_desc(cptr fname)
 			stat[A_CHR] += 4;
 		}
 
-		if(species_ptr->flags2 & RF2_ELDRITCH_HORROR){
+		if(have_eldritch_horror_species(species_ptr)){
 			stat[A_CHR] += 5;		
 		}
 
