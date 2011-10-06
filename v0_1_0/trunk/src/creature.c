@@ -760,6 +760,18 @@ bool is_stupid_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_multiply_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF2_MULTIPLY) return TRUE;
+	else return FALSE;
+}
+
+bool is_multiply_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF2_MULTIPLY) return TRUE;
+	else return FALSE;
+}
+
 bool can_speak_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;

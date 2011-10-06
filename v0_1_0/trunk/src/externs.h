@@ -915,6 +915,8 @@ extern bool is_smart_creature(creature_type *cr_ptr);
 extern bool is_smart_species(species_type *sp_ptr);
 extern bool is_stupid_creature(creature_type *cr_ptr);
 extern bool is_stupid_species(species_type *sp_ptr);
+extern bool is_multiply_creature(creature_type *cr_ptr);
+extern bool is_multiply_species(species_type *sp_ptr);
 extern bool can_speak_creature(creature_type *cr_ptr);
 extern bool can_speak_species(species_type *sp_ptr);
 extern bool have_eldritch_horror_creature(creature_type *cr_ptr);
