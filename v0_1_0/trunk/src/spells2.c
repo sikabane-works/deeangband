@@ -5637,7 +5637,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					sn = 0;
 
 					/* Monster can move to escape the wall */
-					if (!(r_ptr->flags1 & (RF1_NEVER_MOVE)))
+					if (!(is_never_move_species(r_ptr)))
 					{
 						/* Look for safety */
 						for (i = 0; i < 8; i++)

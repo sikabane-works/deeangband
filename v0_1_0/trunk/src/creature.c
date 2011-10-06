@@ -714,13 +714,13 @@ bool is_quest_species(species_type *species_ptr)
 
 bool is_never_move_creature(creature_type *cr_ptr)
 {
-	if(cr_ptr->flags2 & RF2_POWERFUL) return TRUE;
+	if(cr_ptr->flags1 & RF1_NEVER_MOVE) return TRUE;
 	else return FALSE;
 }
 
 bool is_never_move_species(species_type *sp_ptr)
 {
-	if(sp_ptr->flags2 & RF2_POWERFUL) return TRUE;
+	if(sp_ptr->flags1 & RF1_NEVER_MOVE) return TRUE;
 	else return FALSE;
 }
 

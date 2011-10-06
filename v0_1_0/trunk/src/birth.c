@@ -3278,7 +3278,7 @@ void determine_random_questor(quest_type *q_ptr)
 
 		if (!is_unique_species(r_ptr)) continue;
 
-		if (!is_quest_species(r_ptr)) continue;
+		if (is_quest_species(r_ptr)) continue;
 
 		if (r_ptr->rarity > 100) continue;
 

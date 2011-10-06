@@ -2401,7 +2401,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 				else if (ma_ptr->effect == MA_SLOW)
 				{
-					if (!((r_ptr->flags1 & RF1_NEVER_MOVE) ||
+					if (!((is_never_move_species(r_ptr)) ||
 					    my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 					{
 #ifdef JP
@@ -3946,8 +3946,8 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	creature_type *m_ptr;
 
-	creature_type *riding_m_ptr = &m_list[cr_ptr->riding];
-	species_type *riding_r_ptr = &r_info[cr_ptr->riding ? riding_m_ptr->species_idx : 0]; /* Paranoia */
+	creature_type *steed_ptr = &m_list[cr_ptr->riding];
+	species_type *riding_r_ptr = &r_info[cr_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
 
 	char m_name[80];
 
@@ -4166,7 +4166,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	if (oktomove && cr_ptr->riding)
 	{
-		if (riding_r_ptr->flags1 & RF1_NEVER_MOVE)
+		if (is_never_move_creature(steed_ptr))
 		{
 #ifdef JP
 			msg_print("“®‚¯‚È‚¢I");
@@ -4177,12 +4177,12 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (riding_m_ptr->afraid)
+		else if (steed_ptr->afraid)
 		{
 			char m_name[80];
 
 			/* Acquire the monster name */
-			monster_desc(m_name, riding_m_ptr, 0);
+			monster_desc(m_name, steed_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -4242,10 +4242,10 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			disturb(0, 0);
 		}
 
-		if (oktomove && riding_m_ptr->stun && one_in_(2))
+		if (oktomove && steed_ptr->stun && one_in_(2))
 		{
 			char m_name[80];
-			monster_desc(m_name, riding_m_ptr, 0);
+			monster_desc(m_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ªNO‚Æ‚µ‚Ä‚¢‚Ä‚¤‚Ü‚­“®‚¯‚È‚¢I",m_name);
 #else

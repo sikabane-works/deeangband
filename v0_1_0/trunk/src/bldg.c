@@ -1681,7 +1681,7 @@ static bool vault_aux_battle(int species_idx)
 	if (is_unique_species(r_ptr)) return (FALSE);
 //	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);
 
-	if (r_ptr->flags1 & (RF1_NEVER_MOVE)) return (FALSE);
+	if (is_never_move_species(r_ptr)) return (FALSE);
 	if (r_ptr->flags2 & (RF2_MULTIPLY)) return (FALSE);
 	if (r_ptr->flags2 & (RF2_QUANTUM)) return (FALSE);
 	if (r_ptr->flags7 & (RF7_AQUATIC)) return (FALSE);
