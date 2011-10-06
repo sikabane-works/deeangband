@@ -736,6 +736,30 @@ bool is_never_blow_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_smart_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF2_SMART) return TRUE;
+	else return FALSE;
+}
+
+bool is_smart_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF2_SMART) return TRUE;
+	else return FALSE;
+}
+
+bool is_stupid_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF2_STUPID) return TRUE;
+	else return FALSE;
+}
+
+bool is_stupid_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF2_STUPID) return TRUE;
+	else return FALSE;
+}
+
 bool can_speak_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;
