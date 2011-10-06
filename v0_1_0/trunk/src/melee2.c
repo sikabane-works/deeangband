@@ -2247,8 +2247,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if (do_move && is_glyph_grid(c_ptr) &&
-		    !((creature_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
+		if (do_move && is_glyph_grid(c_ptr) && !is_never_blow_creature(creature_ptr) && creature_bold(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2281,7 +2280,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !((creature_ptr->flags1 & RF1_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
+			 !(is_never_blow_creature(creature_ptr) && creature_bold(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2333,10 +2332,10 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && creature_bold(player_ptr, ny, nx))
 		{
 			/* Some monsters never attack */
-			if (creature_ptr->flags1 & RF1_NEVER_BLOW)
+			if (is_never_blow_creature(creature_ptr))
 			{
 				/* Hack -- memorize lack of attacks */
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
+				//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2386,12 +2385,12 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if (((creature_ptr->flags2 & RF2_KILL_BODY) && !(creature_ptr->flags1 & RF1_NEVER_BLOW) &&
+			if (((creature_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_creature(creature_ptr) &&
 				 (r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
 				are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
 			{
-				if (!(creature_ptr->flags1 & RF1_NEVER_BLOW))
+				if (!is_never_blow_creature(creature_ptr))
 				{
 					if (creature_ptr->flags2 & RF2_KILL_BODY)
 					{

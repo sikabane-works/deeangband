@@ -6880,7 +6880,7 @@ bool process_warning(int xx, int yy)
 			}
 
 			/* Monster melee attacks */
-			if (!(r_ptr->flags1 & RF1_NEVER_BLOW) && !(d_info[dungeon_type].flags1 & DF1_NO_MELEE))
+			if (!(is_never_blow_species(r_ptr)) && !(d_info[dungeon_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{

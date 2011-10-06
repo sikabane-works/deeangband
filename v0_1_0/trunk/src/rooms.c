@@ -1456,7 +1456,7 @@ static bool vault_aux_jelly(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
+	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	/* Also decline evil jellies (like death molds and shoggoths) */
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
@@ -1594,7 +1594,7 @@ static bool vault_aux_symbol_e(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
+	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
@@ -1616,7 +1616,7 @@ static bool vault_aux_symbol_g(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
+	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 
@@ -1727,7 +1727,7 @@ static bool vault_aux_demon(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
+	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	/* Require demon */
 	if (!is_demon_species(r_ptr)) return (FALSE);
@@ -1747,7 +1747,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
-	if ((r_ptr->flags2 & RF2_KILL_BODY) && !(r_ptr->flags1 & RF1_NEVER_BLOW)) return (FALSE);
+	if ((r_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_species(r_ptr)) return (FALSE);
 
 	/* Require eldritch horror */
 	if (!(r_ptr->flags2 & (RF2_ELDRITCH_HORROR))) return (FALSE);
