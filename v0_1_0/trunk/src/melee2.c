@@ -1421,7 +1421,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
 	return !have_flag(f_ptr->flags, FF_GLASS) ||
-	       (r_info[m_ptr->species_idx].flags2 & RF2_STUPID) ||
+	       is_stupid_species(&r_info[m_ptr->species_idx]) ||
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
@@ -2346,10 +2346,10 @@ msg_format("%^s%s", m_name, monmessage);
 			{
 				if (!creature_ptr->confused)
 				{
-					if (!(creature_ptr->flags2 & RF2_STUPID)) do_move = FALSE;
+					if (!is_stupid_creature(creature_ptr)) do_move = FALSE;
 					else
 					{
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 					}
 				}
 			}
@@ -2406,9 +2406,9 @@ msg_format("%^s%s", m_name, monmessage);
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
 						{
 							if (creature_ptr->confused) return;
-							else if (creature_ptr->flags2 & RF2_STUPID)
+							else if (is_stupid_creature(creature_ptr))
 							{
-								if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+								//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 								return;
 							}
 						}
@@ -2651,7 +2651,7 @@ msg_format("%^s%s", m_name, monmessage);
 					    ((~(creature_ptr->flags10) & flgr) && !(creature_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */
-						if (do_take && (creature_ptr->flags2 & RF2_STUPID))
+						if (do_take && is_stupid_creature(creature_ptr))
 						{
 							/* Take note */
 							did_take_item = TRUE;

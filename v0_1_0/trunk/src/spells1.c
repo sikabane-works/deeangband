@@ -2820,7 +2820,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 
 			}
-			else if ((tar_ptr->flags2 & (RF2_STUPID | RF2_WEIRD_MIND)) ||
+			else if ((tar_ptr->flags2 & RF2_WEIRD_MIND) || is_stupid_creature(tar_ptr) ||
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
@@ -2957,7 +2957,7 @@ note_dies = "‚Íö”­‚µ‚½I";
 #endif
 
 			}
-			else if ((tar_ptr->flags2 & (RF2_STUPID | RF2_WEIRD_MIND)) ||
+			else if ((tar_ptr->flags2 & RF2_WEIRD_MIND) || is_stupid_creature(tar_ptr) || 
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{

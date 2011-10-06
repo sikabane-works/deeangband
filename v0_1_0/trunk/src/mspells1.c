@@ -62,9 +62,9 @@ static bool int_outof(species_type *r_ptr, int prob)
 /*
  * Remove the "bad" spells from a spell list
  */
-static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
+static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
 {
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
+	species_type *r_ptr = &r_info[user_ptr->species_idx];
 
 	u32b f4 = (*f4p);
 	u32b f5 = (*f5p);
@@ -74,7 +74,7 @@ static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b 
 
 
 	/* Too stupid to know anything */
-	if (r_ptr->flags2 & RF2_STUPID) return;
+	if (is_stupid_creature(user_ptr)) return;
 
 
 	/* Must be cheating or learning */
@@ -86,10 +86,10 @@ static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b 
 	{
 		/* Hack -- Occasionally forget player status */
 		/* Only save SM_FRIENDLY, SM_PET or SM_CLONED */
-		if (cr_ptr->smart && (randint0(100) < 1)) cr_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
+		if (user_ptr->smart && (randint0(100) < 1)) user_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
 
 		/* Use the memorized flags */
-		smart = cr_ptr->smart;
+		smart = user_ptr->smart;
 	}
 
 
@@ -97,40 +97,40 @@ static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b 
 	if (smart_cheat)
 	{
 		/* Know basic info */
-		if (cr_ptr->resist_acid) smart |= (SM_RES_ACID);
-		if (IS_OPPOSE_ACID(cr_ptr)) smart |= (SM_OPP_ACID);
-		if (cr_ptr->immune_acid) smart |= (SM_IMM_ACID);
-		if (cr_ptr->resist_elec) smart |= (SM_RES_ELEC);
-		if (IS_OPPOSE_ELEC(cr_ptr)) smart |= (SM_OPP_ELEC);
-		if (cr_ptr->immune_elec) smart |= (SM_IMM_ELEC);
-		if (cr_ptr->resist_fire) smart |= (SM_RES_FIRE);
-		if (IS_OPPOSE_FIRE(cr_ptr)) smart |= (SM_OPP_FIRE);
-		if (cr_ptr->immune_fire) smart |= (SM_IMM_FIRE);
-		if (cr_ptr->resist_cold) smart |= (SM_RES_COLD);
-		if (IS_OPPOSE_COLD(cr_ptr)) smart |= (SM_OPP_COLD);
-		if (cr_ptr->immune_cold) smart |= (SM_IMM_COLD);
+		if (user_ptr->resist_acid) smart |= (SM_RES_ACID);
+		if (IS_OPPOSE_ACID(user_ptr)) smart |= (SM_OPP_ACID);
+		if (user_ptr->immune_acid) smart |= (SM_IMM_ACID);
+		if (user_ptr->resist_elec) smart |= (SM_RES_ELEC);
+		if (IS_OPPOSE_ELEC(user_ptr)) smart |= (SM_OPP_ELEC);
+		if (user_ptr->immune_elec) smart |= (SM_IMM_ELEC);
+		if (user_ptr->resist_fire) smart |= (SM_RES_FIRE);
+		if (IS_OPPOSE_FIRE(user_ptr)) smart |= (SM_OPP_FIRE);
+		if (user_ptr->immune_fire) smart |= (SM_IMM_FIRE);
+		if (user_ptr->resist_cold) smart |= (SM_RES_COLD);
+		if (IS_OPPOSE_COLD(user_ptr)) smart |= (SM_OPP_COLD);
+		if (user_ptr->immune_cold) smart |= (SM_IMM_COLD);
 
 		/* Know poison info */
-		if (cr_ptr->resist_pois) smart |= (SM_RES_POIS);
-		if (IS_OPPOSE_POIS(cr_ptr)) smart |= (SM_OPP_POIS);
+		if (user_ptr->resist_pois) smart |= (SM_RES_POIS);
+		if (IS_OPPOSE_POIS(user_ptr)) smart |= (SM_OPP_POIS);
 
 		/* Know special resistances */
-		if (cr_ptr->resist_neth) smart |= (SM_RES_NETH);
-		if (cr_ptr->resist_lite) smart |= (SM_RES_LITE);
-		if (cr_ptr->resist_dark) smart |= (SM_RES_DARK);
-		if (cr_ptr->resist_fear) smart |= (SM_RES_FEAR);
-		if (cr_ptr->resist_conf) smart |= (SM_RES_CONF);
-		if (cr_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
-		if (cr_ptr->resist_disen) smart |= (SM_RES_DISEN);
-		if (cr_ptr->resist_blind) smart |= (SM_RES_BLIND);
-		if (cr_ptr->resist_nexus) smart |= (SM_RES_NEXUS);
-		if (cr_ptr->resist_sound) smart |= (SM_RES_SOUND);
-		if (cr_ptr->resist_shard) smart |= (SM_RES_SHARD);
-		if (cr_ptr->reflect) smart |= (SM_IMM_REFLECT);
+		if (user_ptr->resist_neth) smart |= (SM_RES_NETH);
+		if (user_ptr->resist_lite) smart |= (SM_RES_LITE);
+		if (user_ptr->resist_dark) smart |= (SM_RES_DARK);
+		if (user_ptr->resist_fear) smart |= (SM_RES_FEAR);
+		if (user_ptr->resist_conf) smart |= (SM_RES_CONF);
+		if (user_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
+		if (user_ptr->resist_disen) smart |= (SM_RES_DISEN);
+		if (user_ptr->resist_blind) smart |= (SM_RES_BLIND);
+		if (user_ptr->resist_nexus) smart |= (SM_RES_NEXUS);
+		if (user_ptr->resist_sound) smart |= (SM_RES_SOUND);
+		if (user_ptr->resist_shard) smart |= (SM_RES_SHARD);
+		if (user_ptr->reflect) smart |= (SM_IMM_REFLECT);
 
 		/* Know bizarre "resistances" */
-		if (cr_ptr->free_act) smart |= (SM_IMM_FREE);
-		if (!cr_ptr->msp) smart |= (SM_IMM_MANA);
+		if (user_ptr->free_act) smart |= (SM_IMM_FREE);
+		if (!user_ptr->msp) smart |= (SM_IMM_MANA);
 	}
 
 
@@ -237,7 +237,7 @@ static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b 
 
 	if (smart & (SM_RES_NETH))
 	{
-		if (race_is_(cr_ptr, RACE_LICH))
+		if (race_is_(user_ptr, RACE_LICH))
 		{
 			f4 &= ~(RF4_BR_NETH);
 			f5 &= ~(RF5_BA_NETH);
@@ -259,7 +259,7 @@ static void remove_bad_spells(creature_type *cr_ptr, u32b *f4p, u32b *f5p, u32b 
 
 	if (smart & (SM_RES_DARK))
 	{
-		if (race_is_(cr_ptr, RACE_VAMPIRE))
+		if (race_is_(user_ptr, RACE_VAMPIRE))
 		{
 			f4 &= ~(RF4_BR_DARK);
 			f5 &= ~(RF5_BA_DARK);
@@ -940,9 +940,9 @@ bool dispel_check(creature_type *cr_ptr)
  *
  * This function may well be an efficiency bottleneck.
  */
-static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
+static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 {
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
+	species_type *r_ptr = &r_info[user_ptr->species_idx];
 
 	byte escape[96], escape_num = 0;
 	byte attack[96], attack_num = 0;
@@ -961,7 +961,7 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	int i;
 
 	/* Stupid monsters choose randomly */
-	if (r_ptr->flags2 & (RF2_STUPID))
+	if (is_stupid_creature(user_ptr))
 	{
 		/* Pick at random */
 		return (spells[randint0(num)]);
@@ -1023,11 +1023,11 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	if (special_num)
 	{
 		bool success = FALSE;
-		switch(cr_ptr->species_idx)
+		switch(user_ptr->species_idx)
 		{
 			case MON_BANOR:
 			case MON_LUPART:
-				if ((cr_ptr->chp < cr_ptr->mhp / 2) && r_info[MON_BANOR].max_num && r_info[MON_LUPART].max_num) success = TRUE;
+				if ((user_ptr->chp < user_ptr->mhp / 2) && r_info[MON_BANOR].max_num && r_info[MON_LUPART].max_num) success = TRUE;
 				break;
 			default: break;
 		}
@@ -1035,14 +1035,14 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	}
 
 	/* Still hurt badly, couldn't flee, attempt to heal */
-	if (cr_ptr->chp < cr_ptr->mhp / 3 && one_in_(2))
+	if (user_ptr->chp < user_ptr->mhp / 3 && one_in_(2))
 	{
 		/* Choose heal spell if possible */
 		if (heal_num) return (heal[randint0(heal_num)]);
 	}
 
 	/* Hurt badly or afraid, attempt to flee */
-	if (((cr_ptr->chp < cr_ptr->mhp / 3) || cr_ptr->afraid) && one_in_(2))
+	if (((user_ptr->chp < user_ptr->mhp / 3) || user_ptr->afraid) && one_in_(2))
 	{
 		/* Choose escape spell if possible */
 		if (escape_num) return (escape[randint0(escape_num)]);
@@ -1052,7 +1052,7 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	if (special_num)
 	{
 		bool success = FALSE;
-		switch (cr_ptr->species_idx)
+		switch (user_ptr->species_idx)
 		{
 			case MON_OHMU:
 			case MON_BANOR:
@@ -1072,7 +1072,7 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(p_ptr->fy, p_ptr->fx, cr_ptr->fy, cr_ptr->fx) < 4) && (attack_num || (r_ptr->flags6 & RF6_TRAPS)) && (randint0(100) < 75) && !world_monster)
+	if ((distance(p_ptr->fy, p_ptr->fx, user_ptr->fy, user_ptr->fx) < 4) && (attack_num || (r_ptr->flags6 & RF6_TRAPS)) && (randint0(100) < 75) && !world_monster)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);
@@ -1089,7 +1089,7 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	if (dispel_num && one_in_(2))
 	{
 		/* Choose dispel spell if possible */
-		if (dispel_check(cr_ptr))
+		if (dispel_check(user_ptr))
 		{
 			return (dispel[randint0(dispel_num)]);
 		}
@@ -1130,21 +1130,21 @@ static int choose_attack_spell(creature_type *cr_ptr, byte spells[], byte num)
 	}
 
 	/* Cast globe of invulnerability if not already in effect */
-	if (invul_num && !cr_ptr->invuln && (randint0(100) < 50))
+	if (invul_num && !user_ptr->invuln && (randint0(100) < 50))
 	{
 		/* Choose Globe of Invulnerability */
 		return (invul[randint0(invul_num)]);
 	}
 
 	/* We're hurt (not badly), try to heal */
-	if ((cr_ptr->chp < cr_ptr->mhp * 3 / 4) && (randint0(100) < 25))
+	if ((user_ptr->chp < user_ptr->mhp * 3 / 4) && (randint0(100) < 25))
 	{
 		/* Choose heal spell if possible */
 		if (heal_num) return (heal[randint0(heal_num)]);
 	}
 
 	/* Haste self if we aren't already somewhat hasted (rarely) */
-	if (haste_num && (randint0(100) < 20) && !cr_ptr->fast)
+	if (haste_num && (randint0(100) < 20) && !user_ptr->fast)
 	{
 		/* Choose haste spell */
 		return (haste[randint0(haste_num)]);
@@ -1484,14 +1484,14 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		    !(r_ptr->flags7 & RF7_DARK_MASK))
 			can_use_lite_area = TRUE;
 
-		if (!(r_ptr->flags2 & RF2_STUPID))
+		if (!is_stupid_creature(user_ptr))
 		{
 			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !(r_ptr->flags2 & RF2_STUPID))
+	if (in_no_magic_dungeon && !is_stupid_creature(user_ptr))
 	{
 		f4 &= (RF4_NOMAGIC_MASK);
 		f5 &= (RF5_NOMAGIC_MASK);
@@ -1535,7 +1535,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	/* No spells left */
 	if (!f4 && !f5 && !f6) return (FALSE);
 
-	if (!(r_ptr->flags2 & RF2_STUPID))
+	if (!is_stupid_creature(user_ptr))
 	{
 		if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
 
@@ -1654,7 +1654,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	failrate = 25 - (rlev + 3) / 4;
 
 	/* Hack -- Stupid monsters will never fail (for jellies and such) */
-	if (r_ptr->flags2 & RF2_STUPID) failrate = 0;
+	if (is_stupid_creature(user_ptr)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
 	if (!spell_is_inate(thrown_spell)

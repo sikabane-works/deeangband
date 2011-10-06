@@ -453,14 +453,14 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		    !(r_ptr->flags7 & RF7_DARK_MASK))
 			can_use_lite_area = TRUE;
 
-		if (!(r_ptr->flags2 & RF2_STUPID))
+		if (!is_stupid_creature(tar_ptr))
 		{
 			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			else if (vs_ninja && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !(r_ptr->flags2 & RF2_STUPID))
+	if (in_no_magic_dungeon && !is_stupid_creature(tar_ptr))
 	{
 		f4 &= (RF4_NOMAGIC_MASK);
 		f5 &= (RF5_NOMAGIC_MASK);
@@ -613,7 +613,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 	/* Remove some spells if necessary */
 
-	if (!(r_ptr->flags2 & RF2_STUPID))
+	if (!is_stupid_creature(tar_ptr))
 	{
 		/* Check for a clean bolt shot */
 		if (((f4 & RF4_BOLT_MASK) ||

@@ -5994,7 +5994,7 @@ static void cave_temp_room_lite(void)
 			update_mon(p_ptr, c_ptr->m_idx, FALSE);
 
 			/* Stupid monsters rarely wake up */
-			if (r_ptr->flags2 & (RF2_STUPID)) chance = 10;
+			if (is_stupid_creature(m_ptr)) chance = 10;
 
 			/* Smart monsters always wake up */
 			if (r_ptr->flags2 & (RF2_SMART)) chance = 100;
