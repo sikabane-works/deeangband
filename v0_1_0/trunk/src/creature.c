@@ -724,6 +724,18 @@ bool is_never_move_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_never_blow_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags1 & RF1_NEVER_BLOW) return TRUE;
+	else return FALSE;
+}
+
+bool is_never_blow_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags1 & RF1_NEVER_BLOW) return TRUE;
+	else return FALSE;
+}
+
 bool is_random_walker_25_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags1 & RF1_RAND_25) return TRUE;
