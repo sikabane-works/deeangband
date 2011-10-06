@@ -182,13 +182,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 	if (know_everything)
 	{
 		/* Hack -- maximal drops */
-		drop_gold = drop_item =
-		(((sp_ptr->flags1 & RF1_DROP_4D2) ? 8 : 0) +
-		 ((sp_ptr->flags1 & RF1_DROP_3D2) ? 6 : 0) +
-		 ((sp_ptr->flags1 & RF1_DROP_2D2) ? 4 : 0) +
-		 ((sp_ptr->flags1 & RF1_DROP_1D2) ? 2 : 0) +
-		 ((sp_ptr->flags1 & RF1_DROP_90)  ? 1 : 0) +
-		 ((sp_ptr->flags1 & RF1_DROP_60)  ? 1 : 0));
+		drop_gold = drop_item = 0;
 
 		/* Hack -- but only "valid" drops */
 		if (sp_ptr->flags1 & RF1_ONLY_GOLD) drop_item = 0;
@@ -2371,6 +2365,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 
 
 		/* Great */
+/*
 		if (flags1 & RF1_DROP_GREAT)
 		{
 #ifdef JP
@@ -2380,8 +2375,10 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #endif
 
 		}
+*/
 
 		/* Good (no "n" needed) */
+/*
 		else if (flags1 & RF1_DROP_GOOD)
 		{
 #ifdef JP
@@ -2391,13 +2388,16 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 			sin = FALSE;
 #endif
 		}
+*/
 
 		/* Okay */
+/*
 		else
 		{
 			p = NULL;
 		}
-
+*/
+		p = NULL;
 
 		/* Objects */
 		if (drop_item)

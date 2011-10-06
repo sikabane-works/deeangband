@@ -3702,14 +3702,14 @@
 #define RF1_RAND_50             0x00080000  /* Moves randomly (50%) */
 #define RF1_ONLY_GOLD           0x00100000  /* Drop only gold */
 #define RF1_ONLY_ITEM           0x00200000  /* Drop only items */
-#define RF1_DROP_60             0x00400000  /* Drop an item/gold (60%) */
-#define RF1_DROP_90             0x00800000  /* Drop an item/gold (90%) */
-#define RF1_DROP_1D2            0x01000000  /* Drop 1d2 items/gold */
-#define RF1_DROP_2D2            0x02000000  /* Drop 2d2 items/gold */
-#define RF1_DROP_3D2            0x04000000  /* Drop 3d2 items/gold */
-#define RF1_DROP_4D2            0x08000000  /* Drop 4d2 items/gold */
-#define RF1_DROP_GOOD           0x10000000  /* Drop good items */
-#define RF1_DROP_GREAT          0x20000000  /* Drop great items */
+#define RF1_XXX23               0x00400000  /* Drop an item/gold (60%) */
+#define RF1_XXX24               0x00800000  /* Drop an item/gold (90%) */
+#define RF1_XXX25               0x01000000  /* Drop 1d2 items/gold */
+#define RF1_XXX26               0x02000000  /* Drop 2d2 items/gold */
+#define RF1_XXX27               0x04000000  /* Drop 3d2 items/gold */
+#define RF1_XXX28               0x08000000  /* Drop 4d2 items/gold */
+#define RF1_XXX29               0x10000000  /* Drop good items */
+#define RF1_XXX30               0x20000000  /* Drop great items */
 #define RF1_XXX31               0x40000000  /* Inter Sex */
 #define RF1_NO_DEVOTEE          0x80000000  /* Deity Has No Devotee */
 
@@ -5942,15 +5942,15 @@ extern int PlayerUID;
 #define CF_RAND_50			19
 #define CF_ONLY_GOLD		20
 #define CF_ONLY_ITEM		21
-#define CF_DROP_60			22
-#define CF_DROP_90			23
-#define CF_DROP_1D2			24
-#define CF_DROP_2D2			25
-#define CF_DROP_3D2			26
-#define CF_DROP_4D2			27
-#define CF_DROP_GOOD		28
-#define CF_DROP_GREAT		29
-#define CF_X30				30
+#define CF_1X22				22
+#define CF_1X23				23
+#define CF_1X24				24
+#define CF_1X25				25
+#define CF_1X26				26
+#define CF_1X27				27
+#define CF_1X28				28
+#define CF_1X29				29
+#define CF_1X30				30
 #define CF_NO_DEVOTEE		31
 
 #define CF_STUPID			32

@@ -2011,13 +2011,7 @@ int lore_do_probe(int species_idx)
 	}
 
 	/* Maximal drops */
-	tmp_byte =
-		(((r_ptr->flags1 & RF1_DROP_4D2) ? 8 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_3D2) ? 6 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_2D2) ? 4 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_1D2) ? 2 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_90)  ? 1 : 0) +
-		 ((r_ptr->flags1 & RF1_DROP_60)  ? 1 : 0));
+	tmp_byte = 0;
 
 	/* Only "valid" drops */
 	if (!(r_ptr->flags1 & RF1_ONLY_GOLD))
@@ -2113,8 +2107,8 @@ void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 	if (num_gold > r_ptr->r_drop_gold) r_ptr->r_drop_gold = num_gold;
 
 	/* Hack -- memorize the good/great flags */
-	if (r_ptr->flags1 & (RF1_DROP_GOOD)) r_ptr->r_flags1 |= (RF1_DROP_GOOD);
-	if (r_ptr->flags1 & (RF1_DROP_GREAT)) r_ptr->r_flags1 |= (RF1_DROP_GREAT);
+	//if (r_ptr->flags1 & (RF1_DROP_GOOD)) r_ptr->r_flags1 |= (RF1_DROP_GOOD);
+	//if (r_ptr->flags1 & (RF1_DROP_GREAT)) r_ptr->r_flags1 |= (RF1_DROP_GREAT);
 
 	/* Update monster recall window */
 	if (p_ptr->species_type_idx == cr_ptr->species_idx)
@@ -3135,21 +3129,15 @@ static void mon_equip(creature_type *m_ptr)
 	m_ptr->inven_cnt = 0;
 	m_ptr->equip_cnt = 0;
 
-	if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	//if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+	//if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
 	/* Average dungeon and monster levels */
 	object_level = (dun_level + r_ptr->level) / 2;
 
 	/* inventory */
 	number = 0;
-	/* Determine how much we can drop */
-	if ((r_ptr->flags1 & RF1_DROP_60) && (randint0(100) < 60)) number++;
-	if ((r_ptr->flags1 & RF1_DROP_90) && (randint0(100) < 90)) number++;
-	if  (r_ptr->flags1 & RF1_DROP_1D2) number += damroll(1, 2);
-	if  (r_ptr->flags1 & RF1_DROP_2D2) number += damroll(2, 2);
-	if  (r_ptr->flags1 & RF1_DROP_3D2) number += damroll(3, 2);
-	if  (r_ptr->flags1 & RF1_DROP_4D2) number += damroll(4, 2);
+	//TODO Inventory Count
 
 	if (is_pet(m_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */

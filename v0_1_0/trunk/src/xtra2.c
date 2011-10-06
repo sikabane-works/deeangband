@@ -898,8 +898,8 @@ msg_print("’n–Ê‚É—‚Æ‚³‚ê‚½B");
 	/* Drop objects being carried */
 	monster_drop_carried_objects(cr_ptr);
 
-	if (cr_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	if (cr_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	//if (cr_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+	//if (cr_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
 	switch (cr_ptr->species_idx)
 	{
