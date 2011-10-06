@@ -1875,7 +1875,7 @@ static void spoil_mon_desc(cptr fname)
 
 
 
-		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && species_ptr->flags1 & RF1_NEVER_MOVE)
+		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && is_never_move_species(species_ptr))
 			sprintf(sa, "--");
 		else
 			sprintf(sa, "%2d", stat[0]);
@@ -1890,7 +1890,7 @@ static void spoil_mon_desc(cptr fname)
 		else
 			sprintf(wa, "%2d", stat[2]);
 
-		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && species_ptr->flags1 & RF1_NEVER_MOVE)
+		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && is_never_move_species(species_ptr))
 			sprintf(da, "--");
 		else
 			sprintf(da, "%2d", stat[3]);

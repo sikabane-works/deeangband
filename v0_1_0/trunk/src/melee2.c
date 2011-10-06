@@ -1992,7 +1992,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Can't reach player - find something else to hit */
-	else if ((creature_ptr->flags1 & RF1_NEVER_MOVE) && (creature_ptr->cdis > 1))
+	else if (is_never_move_creature(creature_ptr) && (creature_ptr->cdis > 1))
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2421,7 +2421,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Push past weaker monsters (unless leaving a wall) */
-			else if ((creature_ptr->flags2 & RF2_MOVE_BODY) && !(creature_ptr->flags1 & RF1_NEVER_MOVE) &&
+			else if ((creature_ptr->flags2 & RF2_MOVE_BODY) && !is_never_move_creature(creature_ptr) &&
 				(r_ptr->mexp > z_ptr->mexp) &&
 				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
 				monster_can_cross_terrain(cave[creature_ptr->fy][creature_ptr->fx].feat, z_ptr, 0))
@@ -2505,10 +2505,10 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Some monsters never move */
-		if (do_move && (creature_ptr->flags1 & RF1_NEVER_MOVE))
+		if (do_move && is_never_move_creature(creature_ptr))
 		{
 			/* Hack -- memorize lack of moves */
-			if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
+			//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
