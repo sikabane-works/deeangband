@@ -5341,7 +5341,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	if (is_stupid_creature(learner_ptr)) return;
 
 	/* Not intelligent, only learn sometimes */
-	if (!(r_ptr->flags2 & (RF2_SMART)) && (randint0(100) < 50)) return;
+	if (!is_smart_creature(learner_ptr) && (randint0(100) < 50)) return;
 
 
 	/* XXX XXX XXX */

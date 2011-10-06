@@ -1843,18 +1843,6 @@ static void spoil_mon_desc(cptr fname)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
 
-		if(is_stupid_species(species_ptr)){
-			stat[A_INT] -= 4;
-			stat[A_WIS] -= 4;
-			stat[A_CHR] -= 4;
-		}
-
-		if(species_ptr->flags2 & RF2_SMART){
-			stat[A_INT] += 4;
-			stat[A_WIS] += 4;
-			stat[A_CHR] += 4;
-		}
-
 		if(have_eldritch_horror_species(species_ptr)){
 			stat[A_CHR] += 5;		
 		}

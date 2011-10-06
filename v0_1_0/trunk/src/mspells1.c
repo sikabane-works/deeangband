@@ -51,7 +51,7 @@
 static bool int_outof(species_type *r_ptr, int prob)
 {
 	/* Non-Smart monsters are half as "smart" */
-	if (!(r_ptr->flags2 & RF2_SMART)) prob = prob / 2;
+	if (!is_smart_species(r_ptr)) prob = prob / 2;
 
 	/* Roll the dice */
 	return (randint0(100) < prob);
@@ -1498,7 +1498,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		f6 &= (RF6_NOMAGIC_MASK);
 	}
 
-	if (r_ptr->flags2 & RF2_SMART)
+	if (is_smart_creature(user_ptr))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((user_ptr->chp < user_ptr->mhp / 10) &&

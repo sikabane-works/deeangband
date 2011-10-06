@@ -663,7 +663,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 	}
 
-	if (r_ptr->flags2 & RF2_SMART)
+	if (is_smart_creature(user_ptr))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((user_ptr->chp < user_ptr->mhp / 10) &&

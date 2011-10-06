@@ -5997,7 +5997,7 @@ static void cave_temp_room_lite(void)
 			if (is_stupid_creature(m_ptr)) chance = 10;
 
 			/* Smart monsters always wake up */
-			if (r_ptr->flags2 & (RF2_SMART)) chance = 100;
+			if (is_smart_creature(m_ptr)) chance = 100;
 
 			/* Sometimes monsters wake up */
 			if (m_ptr->paralyzed && (randint0(100) < chance))
