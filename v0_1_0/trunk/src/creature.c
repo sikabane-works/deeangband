@@ -736,6 +736,18 @@ bool is_never_blow_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool can_speak_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;
+	else return FALSE;
+}
+
+bool can_speak_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;
+	else return FALSE;
+}
+
 bool is_random_walker_25_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags1 & RF1_RAND_25) return TRUE;

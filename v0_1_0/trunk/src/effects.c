@@ -6203,7 +6203,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Extract monster name */
 			monster_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 		
-			if (r_ptr->flags2 & RF2_CAN_SPEAK)
+			if (can_speak_creature(tar_ptr))
 			{
 				char line_got[1024];
 	

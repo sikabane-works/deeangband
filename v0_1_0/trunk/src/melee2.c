@@ -1642,7 +1642,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 				if (see_m)
 				{
-					if ((creature_ptr->flags2 & RF2_CAN_SPEAK) && (creature_ptr->species_idx != MON_GRIP) && (creature_ptr->species_idx != MON_WOLF) && (creature_ptr->species_idx != MON_FANG) &&
+					if (can_speak_creature(creature_ptr) && (creature_ptr->species_idx != MON_GRIP) && (creature_ptr->species_idx != MON_WOLF) && (creature_ptr->species_idx != MON_FANG) &&
 					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
 					{
 #ifdef JP
@@ -1849,7 +1849,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Some monsters can speak */
-		if ((ap_r_ptr->flags2 & RF2_CAN_SPEAK) && aware &&
+		if (can_speak_creature(creature_ptr) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
 		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))

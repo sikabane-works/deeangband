@@ -911,6 +911,8 @@ extern bool is_never_move_creature(creature_type *creature_ptr);
 extern bool is_never_move_species(species_type *species_ptr);
 extern bool is_never_blow_creature(creature_type *creature_ptr);
 extern bool is_never_blow_species(species_type *species_ptr);
+extern bool can_speak_creature(creature_type *cr_ptr);
+extern bool can_speak_species(species_type *sp_ptr);
 extern bool is_random_walker_25_creature(creature_type *cr_ptr);
 extern bool is_random_walker_25_species(species_type *sp_ptr);
 extern bool is_random_walker_50_creature(creature_type *cr_ptr);
