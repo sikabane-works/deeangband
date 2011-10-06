@@ -1773,9 +1773,9 @@ void battle_monsters(void)
 				power[i] = power[i] * 4 / 3;
 			else if (r_ptr->flags5 & RF5_DRAIN_MANA)
 				power[i] = power[i] * 11 / 10;
-			if (r_ptr->flags1 & RF1_RAND_25)
+			if (is_random_walker_25_species(r_ptr))
 				power[i] = power[i] * 9 / 10;
-			if (r_ptr->flags1 & RF1_RAND_50)
+			if (is_random_walker_50_species(r_ptr))
 				power[i] = power[i] * 9 / 10;
 
 			switch (battle_mon[i])

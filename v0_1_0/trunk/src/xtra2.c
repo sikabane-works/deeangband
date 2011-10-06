@@ -3937,12 +3937,12 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 				dir = ddd[randint0(8)];
 			}
 		}
-		else if ((r_ptr->flags1 & RF1_RAND_50) && (r_ptr->flags1 & RF1_RAND_25) && (randint0(100) < 50))
+		else if (is_random_walker_50_species(r_ptr) && is_random_walker_25_species(r_ptr) && (randint0(100) < 50))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
 		}
-		else if ((r_ptr->flags1 & RF1_RAND_50) && (randint0(100) < 25))
+		else if (is_random_walker_50_species(r_ptr) && (randint0(100) < 25))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];

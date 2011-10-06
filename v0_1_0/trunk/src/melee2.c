@@ -1959,33 +1959,30 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* 75% random movement */
-	else if (((creature_ptr->flags1 & (RF1_RAND_50 | RF1_RAND_25)) == (RF1_RAND_50 | RF1_RAND_25)) &&
-		 (randint0(100) < 75))
+	else if (is_random_walker_25_creature(creature_ptr) && is_random_walker_50_creature(creature_ptr) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
+		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 50% random movement */
-	else if ((creature_ptr->flags1 & RF1_RAND_50) &&
-				(randint0(100) < 50))
+	else if (is_random_walker_50_creature(creature_ptr) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
+		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 25% random movement */
-	else if ((creature_ptr->flags1 & RF1_RAND_25) &&
-				(randint0(100) < 25))
+	else if (is_random_walker_25_creature(creature_ptr) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
+		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
