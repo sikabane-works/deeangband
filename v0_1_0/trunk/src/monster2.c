@@ -974,7 +974,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_GUARDIANS:
 		{
-			okay = (r_ptr->flags7 & RF7_GUARDIAN);
+			okay = (is_guardian_species(r_ptr));
 			break;
 		}
 
@@ -1253,7 +1253,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 			if (is_quest_species(r_ptr))
 				continue;
 
-			if (r_ptr->flags7 & RF7_GUARDIAN)
+			if (is_guardian_species(r_ptr))
 				continue;
 
 			/* Depth Monsters never appear out of depth */

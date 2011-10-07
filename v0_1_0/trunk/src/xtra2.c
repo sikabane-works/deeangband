@@ -1257,7 +1257,7 @@ msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 		int a_idx = 0;
 		int chance = 0;
 
-		if ((cr_ptr->flags7 & RF7_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
+		if (is_guardian_creature(cr_ptr) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
