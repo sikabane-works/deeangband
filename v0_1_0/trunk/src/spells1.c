@@ -3429,7 +3429,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| (tar_ptr->flags7 & RF7_UNIQUE2))
+			if ((inside_arena) || is_pet(tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| is_sub_unique_creature(tar_ptr))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -5365,7 +5365,7 @@ note_dies = "はドロドロに溶けた！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(tar_ptr)) ||
-			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || (tar_ptr->flags7 & (RF7_UNIQUE2)) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
+			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || is_sub_unique_creature(tar_ptr) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",m_name);

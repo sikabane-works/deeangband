@@ -1438,8 +1438,7 @@ s16b get_mon_num(int level)
 				continue;
 			}
 
-			if ((r_ptr->flags7 & (RF7_UNIQUE2)) &&
-			    (r_ptr->cur_num >= 1))
+			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1))
 			{
 				continue;
 			}
@@ -3418,7 +3417,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 			return (max_m_idx);
 		}
 
-		if ((r_ptr->flags7 & (RF7_UNIQUE2)) &&
+		if (is_sub_unique_species(r_ptr) &&
 		    (r_ptr->cur_num >= 1))
 		{
 			if (cheat_hear)

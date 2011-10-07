@@ -6564,7 +6564,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 		r_ptr = &r_info[today_mon];
 
 		if (is_unique_species(r_ptr)) continue;
-		if ((r_ptr->race_idx1 == RACE_NAZGUL) && (r_ptr->flags7 & RF7_UNIQUE2)) continue;
+		if ((r_ptr->race_idx1 == RACE_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
 		if (is_multiply_species(r_ptr)) continue;
 		if ((r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) != (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;

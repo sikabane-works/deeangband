@@ -702,6 +702,18 @@ bool is_unique_species(species_type *species_ptr)
 	return (species_ptr->flags1 & RF1_UNIQUE);
 }
 
+bool is_sub_unique_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF7_UNIQUE2) return TRUE;
+	else return FALSE;
+}
+
+bool is_sub_unique_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF7_UNIQUE2) return TRUE;
+	else return FALSE;
+}
+
 bool is_quest_creature(creature_type *creature_ptr)
 {
 	return (creature_ptr->flags1 & RF1_QUESTOR);
@@ -880,7 +892,6 @@ bool is_guardian_species(species_type *sp_ptr)
 	if(sp_ptr->flags2 & RF7_GUARDIAN) return TRUE;
 	else return FALSE;
 }
-
 
 bool is_human_species(species_type *sp_ptr)
 {

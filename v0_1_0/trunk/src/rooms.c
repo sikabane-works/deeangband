@@ -1421,7 +1421,7 @@ static bool build_type4(void)
 #define vault_monster_okay(I) \
 	(mon_hook_dungeon(I) && \
 	 !is_unique_species(&r_info[I]) && \
-	 !(r_info[I].flags7 & RF7_UNIQUE2) && \
+	 !is_sub_unique_species(&r_info[I]) && \
 	 !(r_info[I].flags10 & RF10_RES_ALL) && \
 	 !is_aquatic_species(&r_info[I]))
 

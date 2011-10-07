@@ -1739,7 +1739,7 @@ void battle_monsters(void)
 				inside_battle = old_inside_battle;
 				if (!species_idx) continue;
 
-				if (is_unique_species(&r_info[species_idx]) || (r_info[species_idx].flags7 & RF7_UNIQUE2))
+				if (is_unique_species(&r_info[species_idx]) || is_sub_unique_species(&r_info[species_idx]))
 				{
 					if ((r_info[species_idx].level + 10) > mon_level) continue;
 				}

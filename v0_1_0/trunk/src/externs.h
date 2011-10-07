@@ -914,6 +914,8 @@ extern bool is_enemy_of_balance_species(species_type *cr_ptr);
 extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
+extern bool is_sub_unique_creature(creature_type *cr_ptr);
+extern bool is_sub_unique_species(species_type *sp_ptr);
 extern bool is_quest_creature(creature_type *creature_ptr);
 extern bool is_quest_species(species_type *species_ptr);
 extern bool is_never_move_creature(creature_type *creature_ptr);

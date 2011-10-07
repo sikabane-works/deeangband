@@ -3244,7 +3244,7 @@ static bool mon_hook_quest(int species_idx)
 	if (r_ptr->flags8 & RF8_WILD_ONLY) return FALSE;
 
 	/* No random quests for aquatic monsters */
-	if (r_ptr->flags7 & RF7_AQUATIC) return FALSE;
+	if (is_aquatic_species(r_ptr)) return FALSE;
 
 	/* No random quests for multiplying monsters */
 	if (is_multiply_species(r_ptr)) return FALSE;
