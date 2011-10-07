@@ -3900,28 +3900,28 @@
 #define RF6_S_UNIQUE        0x80000000  /* Summon Unique Monster */
 
 /*
- * New monster race bit flags
+ * New Creature race bit flags
  */
-#define RF7_AQUATIC             0x00000001  /* Aquatic monster */
-#define RF7_CAN_SWIM            0x00000002  /* Monster can swim */
-#define RF7_CAN_FLY             0x00000004  /* Monster can fly */
-#define RF7_FRIENDLY            0x00000008  /* Monster is friendly */
+#define RF7_AQUATIC             0x00000001  /* Aquatic Creature */
+#define RF7_CAN_SWIM            0x00000002  /* Creature can swim */
+#define RF7_CAN_FLY             0x00000004  /* Creature can fly */
+#define RF7_FRIENDLY            0x00000008  /* Creature is friendly */
 #define RF7_XXX_5               0x00000010  /* Is a "Nazgul" unique */
 #define RF7_UNIQUE2             0x00000020  /* Fake unique */
 #define RF7_RIDING              0x00000040  /* Good for riding */
 #define RF7_KAGE                0x00000080  /* Is kage */
-#define RF7_HAS_LITE_1          0x00000100  /* Monster carries light */
-#define RF7_SELF_LITE_1         0x00000200  /* Monster lights itself */
-#define RF7_HAS_LITE_2          0x00000400  /* Monster carries light */
-#define RF7_SELF_LITE_2         0x00000800  /* Monster lights itself */
+#define RF7_HAS_LITE_1          0x00000100  /* Creature carries light */
+#define RF7_SELF_LITE_1         0x00000200  /* Creature lights itself */
+#define RF7_HAS_LITE_2          0x00000400  /* Creature carries light */
+#define RF7_SELF_LITE_2         0x00000800  /* Creature lights itself */
 #define RF7_GUARDIAN            0x00001000  /* Guardian of a dungeon */
 #define RF7_CHAMELEON           0x00002000  /* Chameleon can change */
 #define RF7_KILL_EXP            0x00004000  /* No exp until you kill it */
 #define RF7_TANUKI              0x00008000  /* Tanuki disguise */
-#define RF7_HAS_DARK_1          0x00010000  /* Monster carries darkness */
-#define RF7_SELF_DARK_1         0x00020000  /* Monster darkens itself */
-#define RF7_HAS_DARK_2          0x00040000  /* Monster carries darkness */
-#define RF7_SELF_DARK_2         0x00080000  /* Monster darkens itself */
+#define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */
+#define RF7_SELF_DARK_1         0x00020000  /* Creature darkens itself */
+#define RF7_HAS_DARK_2          0x00040000  /* Creature carries darkness */
+#define RF7_SELF_DARK_2         0x00080000  /* Creature darkens itself */
 
 /*
  * Monster race flags

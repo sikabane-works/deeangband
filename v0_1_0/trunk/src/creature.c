@@ -845,6 +845,18 @@ bool is_aquatic_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool can_fly_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF7_AQUATIC) return TRUE;
+	else return FALSE;
+}
+
+bool can_fly_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF7_AQUATIC) return TRUE;
+	else return FALSE;
+}
+
 
 bool is_human_species(species_type *sp_ptr)
 {
