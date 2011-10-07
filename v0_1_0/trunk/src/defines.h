@@ -55,6 +55,12 @@
 #define ANGBAND_2_8_1
 #define ZANGBAND
 
+
+/*
+ * Number of Trying for random search
+ */
+#define RANDOM_TRY  100000
+
 /*
  * Number of grids in each block (vertically)
  * Probably hard-coded to 11, see "generate.c"

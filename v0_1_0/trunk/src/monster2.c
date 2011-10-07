@@ -266,7 +266,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	real_r_ptr(cr_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (r_ptr->flags2 & (RF2_MULTIPLY)) num_repro--;
+	if (is_multiply_creature(cr_ptr)) num_repro--;
 
 	if (cr_ptr->paralyzed) (void)set_paralyzed(cr_ptr, 0);
 	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
@@ -889,7 +889,7 @@ static bool summon_specific_aux(int species_idx)
 			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
-			       !(r_ptr->flags2 & (RF2_MULTIPLY)) &&
+			       !is_multiply_species(r_ptr) &&
 			       !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
 			break;
 		}
@@ -2927,7 +2927,7 @@ static bool monster_hook_chameleon(int species_idx)
 	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
-	if (r_ptr->flags2 & RF2_MULTIPLY) return FALSE;
+	if (is_multiply_species(r_ptr)) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
@@ -3084,7 +3084,7 @@ static bool monster_hook_tanuki(int species_idx)
 	species_type *r_ptr = &r_info[species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
-	if (r_ptr->flags2 & RF2_MULTIPLY) return FALSE;
+	if (is_multiply_species(r_ptr)) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 	if (r_ptr->flags7 & RF7_AQUATIC) return FALSE;
 	
@@ -3665,7 +3665,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
-	if (r_ptr->flags2 & RF2_MULTIPLY) num_repro++;
+	if (is_multiply_creature(m_ptr)) num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{

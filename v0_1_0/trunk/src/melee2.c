@@ -1767,7 +1767,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 
 	/* Attempt to "multiply" if able and allowed */
-	if ((creature_ptr->flags2 & RF2_MULTIPLY) && (num_repro < MAX_REPRO))
+	if (is_multiply_creature(creature_ptr) && (num_repro < MAX_REPRO))
 	{
 		int k, y, x;
 
@@ -1795,7 +1795,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				/* Take note if visible */
 				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
-					r_ptr->r_flags2 |= (RF2_MULTIPLY);
+					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
 
 				/* Multiplying takes energy */

@@ -3247,7 +3247,7 @@ static bool mon_hook_quest(int species_idx)
 	if (r_ptr->flags7 & RF7_AQUATIC) return FALSE;
 
 	/* No random quests for multiplying monsters */
-	if (r_ptr->flags2 & RF2_MULTIPLY) return FALSE;
+	if (is_multiply_species(r_ptr)) return FALSE;
 
 	/* No quests to kill friendly monsters */
 	if (r_ptr->flags7 & RF7_FRIENDLY) return FALSE;

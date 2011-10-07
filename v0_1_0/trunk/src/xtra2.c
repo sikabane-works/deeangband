@@ -1457,7 +1457,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Special penalty for mutiply-monster */
-	if ((r_ptr->flags2 & RF2_MULTIPLY) || (m_ptr->species_idx == MON_DAWN))
+	if (is_multiply_creature(m_ptr) || (m_ptr->species_idx == MON_DAWN))
 	{
 		int monnum_penarty = r_ptr->r_akills / 400;
 		if (monnum_penarty > 8) monnum_penarty = 8;

@@ -6540,6 +6540,7 @@ void determine_bounty_uniques(void)
  */
 void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 {
+	int n = 0;
 	int max_dl = 3, i;
 	bool old_inside_battle = inside_battle;
 	species_type *r_ptr;
@@ -6557,18 +6558,19 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 	inside_battle = TRUE;
 	get_mon_num_prep(NULL, NULL);
 
-	while (1)
+	while (n < RANDOM_TRY)
 	{
 		today_mon = get_mon_num(max_dl);
 		r_ptr = &r_info[today_mon];
 
 		if (is_unique_species(r_ptr)) continue;
 		if ((r_ptr->race_idx1 == RACE_NAZGUL) && (r_ptr->flags7 & RF7_UNIQUE2)) continue;
-		if (r_ptr->flags2 & RF2_MULTIPLY) continue;
+		if (is_multiply_species(r_ptr)) continue;
 		if ((r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) != (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;
+		n++;
 	}
 
 	cr_ptr->today_mon = 0;
