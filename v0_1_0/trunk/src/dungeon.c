@@ -1754,7 +1754,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	if (cr_ptr->riding)
 	{
 		int damage;
-		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
+		if (is_aura_fire_species(&r_info[creature_list[cr_ptr->riding].species_idx]) && !cr_ptr->immune_fire)
 		{
 			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;

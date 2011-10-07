@@ -3428,7 +3428,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
 
 			/* Shallow water */
-			else if (r_ptr->flags2 & RF2_AURA_FIRE) return FALSE;
+			else if (is_aura_fire_species(r_ptr)) return FALSE;
 		}
 	}
 

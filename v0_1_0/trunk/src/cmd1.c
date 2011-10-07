@@ -1808,7 +1808,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 	int aura_damage = 0;
 	species_type *species_ptr = &r_info[tar_ptr->species_idx];
 
-	if (tar_ptr->flags2 & RF2_AURA_FIRE)
+	if (is_aura_fire_creature(tar_ptr))
 	{
 		if (!atk_ptr->immune_fire)
 		{
@@ -1830,7 +1830,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_FIRE;
+			//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff(atk_ptr);
 		}
 	}
@@ -4208,7 +4208,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		}
 		else if (have_flag(f_ptr->flags, FF_WATER) &&
 			!is_aquatic_creature(steed_ptr) &&
-			(have_flag(f_ptr->flags, FF_DEEP) || (riding_r_ptr->flags2 & RF2_AURA_FIRE)))
+			(have_flag(f_ptr->flags, FF_DEEP) || is_aura_fire_creature(steed_ptr)))
 		{
 #ifdef JP
 			msg_format("%s‚Ìã‚És‚¯‚È‚¢B", f_name + f_info[get_feat_mimic(c_ptr)].name);

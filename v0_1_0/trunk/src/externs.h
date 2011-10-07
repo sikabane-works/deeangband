@@ -889,12 +889,12 @@ extern bool is_animal_species(species_type *sp_ptr);
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
 
-extern bool is_fire_aura_creature(creature_type *cr_ptr);
-extern bool is_fire_aura_species(species_type *sp_ptr);
-extern bool is_cold_aura_creature(creature_type *cr_ptr);
-extern bool is_cold_aura_species(species_type *sp_ptr);
-extern bool is_elec_aura_creature(creature_type *cr_ptr);
-extern bool is_elec_aura_species(species_type *sp_ptr);
+extern bool is_aura_fire_creature(creature_type *cr_ptr);
+extern bool is_aura_fire_species(species_type *sp_ptr);
+extern bool is_aura_cold_creature(creature_type *cr_ptr);
+extern bool is_aura_cold_species(species_type *sp_ptr);
+extern bool is_aura_elec_creature(creature_type *cr_ptr);
+extern bool is_aura_elec_species(species_type *sp_ptr);
 
 extern bool is_aquatic_creature(creature_type *cr_ptr);
 extern bool is_aquatic_species(species_type *sp_ptr);

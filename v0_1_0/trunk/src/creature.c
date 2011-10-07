@@ -832,37 +832,37 @@ bool is_random_walker_50_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
-bool have_fire_aura_creature(creature_type *cr_ptr)
+bool is_aura_fire_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_AURA_FIRE) return TRUE;
 	else return FALSE;
 }
 
-bool have_fire_aura_species(species_type *sp_ptr)
+bool is_aura_fire_species(species_type *sp_ptr)
 {
 	if(sp_ptr->flags2 & RF2_AURA_FIRE) return TRUE;
 	else return FALSE;
 }
 
-bool have_cold_aura_creature(creature_type *cr_ptr)
+bool is_aura_cold_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags3 & RF3_AURA_COLD) return TRUE;
 	else return FALSE;
 }
 
-bool have_cold_aura_species(species_type *sp_ptr)
+bool is_aura_cold_species(species_type *sp_ptr)
 {
 	if(sp_ptr->flags3 & RF3_AURA_COLD) return TRUE;
 	else return FALSE;
 }
 
-bool have_elec_aura_creature(creature_type *cr_ptr)
+bool is_aura_elec_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_AURA_ELEC) return TRUE;
 	else return FALSE;
 }
 
-bool have_elec_aura_species(species_type *sp_ptr)
+bool is_aura_elec_species(species_type *sp_ptr)
 {
 	if(sp_ptr->flags2 & RF2_AURA_ELEC) return TRUE;
 	else return FALSE;
