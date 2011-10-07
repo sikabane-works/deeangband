@@ -4207,7 +4207,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			/* Allow moving */
 		}
 		else if (have_flag(f_ptr->flags, FF_WATER) &&
-			!(riding_r_ptr->flags7 & RF7_AQUATIC) &&
+			!is_aquatic_creature(steed_ptr) &&
 			(have_flag(f_ptr->flags, FF_DEEP) || (riding_r_ptr->flags2 & RF2_AURA_FIRE)))
 		{
 #ifdef JP
@@ -4219,7 +4219,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (!have_flag(f_ptr->flags, FF_WATER) && (riding_r_ptr->flags7 & RF7_AQUATIC))
+		else if (!have_flag(f_ptr->flags, FF_WATER) && is_aquatic_creature(steed_ptr))
 		{
 #ifdef JP
 			msg_format("%s‚©‚çã‚ª‚ê‚È‚¢B", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name);

@@ -3218,7 +3218,7 @@ static bool mon_hook_deep_water(int species_idx)
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
-	if (r_ptr->flags7 & RF7_AQUATIC)
+	if (is_aquatic_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;
@@ -3257,7 +3257,7 @@ static bool mon_hook_floor(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if (!(r_ptr->flags7 & RF7_AQUATIC) ||
+	if (!is_aquatic_species(r_ptr) ||
 	    (r_ptr->flags7 & RF7_CAN_FLY))
 		return TRUE;
 	else
@@ -3422,7 +3422,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	/* Water */
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
-		if (!(r_ptr->flags7 & RF7_AQUATIC))
+		if (!is_aquatic_species(r_ptr))
 		{
 			/* Deep water */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
@@ -3433,7 +3433,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	}
 
 	/* Aquatic monster into non-water? */
-	else if (r_ptr->flags7 & RF7_AQUATIC) return FALSE;
+	else if (is_aquatic_species(r_ptr)) return FALSE;
 
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))

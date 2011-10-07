@@ -1423,7 +1423,7 @@ static bool build_type4(void)
 	 !is_unique_species(&r_info[I]) && \
 	 !(r_info[I].flags7 & RF7_UNIQUE2) && \
 	 !(r_info[I].flags10 & RF10_RES_ALL) && \
-	 !(r_info[I].flags7 & RF7_AQUATIC))
+	 !is_aquatic_species(&r_info[I]))
 
 
 /* Race index for "monster pit (clone)" */

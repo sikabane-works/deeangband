@@ -5399,7 +5399,7 @@ static bool monster_tsuri(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
 
-	if ((r_ptr->flags7 & RF7_AQUATIC) && !is_unique_species(r_ptr) && my_strchr("Jjlw", r_ptr->d_char))
+	if (is_aquatic_species(r_ptr) && !is_unique_species(r_ptr) && my_strchr("Jjlw", r_ptr->d_char))
 		return TRUE;
 	else
 		return FALSE;

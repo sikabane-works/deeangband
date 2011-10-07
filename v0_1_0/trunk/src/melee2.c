@@ -2480,7 +2480,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_turn = TRUE;
 		}
 
-		if (must_alter_to_move && (creature_ptr->flags7 & RF7_AQUATIC))
+		if (must_alter_to_move && is_aquatic_creature(creature_ptr))
 		{
 			if (!monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0))
 			{
