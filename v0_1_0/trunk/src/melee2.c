@@ -1486,7 +1486,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
-	if (is_riding_mon && !(creature_ptr->flags7 & RF7_RIDING))
+	if (is_riding_mon && !is_riding_creature(creature_ptr))
 	{
 		if (rakuba(player_ptr, 0, TRUE))
 		{

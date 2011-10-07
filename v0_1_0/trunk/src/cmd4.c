@@ -5451,7 +5451,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		else if (grp_riding)
 		{
-			if (!(r_ptr->flags7 & RF7_RIDING)) continue;
+			if (!is_riding_species(r_ptr)) continue;
 		}
 
 		else if (grp_wanted)

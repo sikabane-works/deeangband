@@ -2352,7 +2352,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		if (uniq && !is_unique_species(r_ptr)) continue;
 
 		/* Require ridable monsters if needed */
-		if (ride && !(r_ptr->flags7 & (RF7_RIDING))) continue;
+		if (ride && !is_riding_species(r_ptr)) continue;
 
 		/* XTRA HACK WHATSEARCH */
 		if (temp[0])

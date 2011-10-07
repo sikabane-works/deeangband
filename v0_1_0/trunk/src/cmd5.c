@@ -1453,7 +1453,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 				{
 					if (cr_ptr->riding == m_idx)
 						total_friend_levels += (m_ptr->lev+5)*2;
-					else if (!have_a_unique && (r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
+					else if (!have_a_unique && is_riding_creature(m_ptr))
 						total_friend_levels += (m_ptr->lev+5)*7/2;
 					else
 						total_friend_levels += (m_ptr->lev+5)*10;
@@ -1914,7 +1914,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 			return FALSE;
 		}
-		if (!(r_info[m_ptr->species_idx].flags7 & RF7_RIDING))
+		if (!is_riding_creature(m_ptr))
 		{
 #ifdef JP
 			msg_print("そのモンスターには乗れなさそうだ。");
