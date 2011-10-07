@@ -2519,7 +2519,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			if (have_flag(f_ptr->flags, FF_TREE))
 			{
-				if (!(creature_ptr->flags7 & RF7_CAN_FLY) && !(creature_ptr->flags8 & RF8_WILD_WOOD))
+				if (!can_fly_creature(creature_ptr) && !(creature_ptr->flags8 & RF8_WILD_WOOD))
 				{
 					creature_ptr->energy_need += ENERGY_NEED();
 				}

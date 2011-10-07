@@ -4198,7 +4198,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && (riding_r_ptr->flags7 & RF7_CAN_FLY))
+		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(steed_ptr))
 		{
 			/* Allow moving */
 		}

@@ -3245,7 +3245,7 @@ static bool mon_hook_lava(int species_idx)
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
 	if (((r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK) ||
-	     (r_ptr->flags7 & RF7_CAN_FLY)) &&
+	     can_fly_species(r_ptr)) &&
 	    !(r_ptr->flags3 & RF3_AURA_COLD))
 		return TRUE;
 	else
@@ -3258,7 +3258,7 @@ static bool mon_hook_floor(int species_idx)
 	species_type *r_ptr = &r_info[species_idx];
 
 	if (!is_aquatic_species(r_ptr) ||
-	    (r_ptr->flags7 & RF7_CAN_FLY))
+	    can_fly_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;
@@ -3398,7 +3398,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	{
 		if (!(mode & CEM_RIDING))
 		{
-			if (!(r_ptr->flags7 & RF7_CAN_FLY)) return FALSE;
+			if (!can_fly_species(r_ptr)) return FALSE;
 		}
 		else
 		{
@@ -3407,7 +3407,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && (r_ptr->flags7 & RF7_CAN_FLY)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_species(r_ptr)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && (r_ptr->flags7 & RF7_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{

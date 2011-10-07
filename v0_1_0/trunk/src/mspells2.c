@@ -3262,7 +3262,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 					sound(SOUND_FALL);
 
-					if (tr_ptr->flags7 & RF7_CAN_FLY)
+					if (can_fly_species(tr_ptr))
 					{
 #ifdef JP
 						if (see_t) msg_format("%^s‚ÍÃ‚©‚É’…’n‚µ‚½B", t_name);

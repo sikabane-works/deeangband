@@ -4805,7 +4805,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		new_speed += (cr_ptr->skill_exp[GINOU_RIDING] + cr_ptr->lev *160L)/3200;
 		if (riding_m_ptr->fast) new_speed += 10;
 		if (riding_m_ptr->slow) new_speed -= 10;
-		riding_levitation = (riding_r_ptr->flags7 & RF7_CAN_FLY) ? TRUE : FALSE;
+		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
 		if ((riding_r_ptr->flags7 & RF7_CAN_SWIM) || is_aquatic_species(riding_r_ptr)) cr_ptr->can_swim = TRUE;
 
 		if (!(riding_r_ptr->flags2 & RF2_PASS_WALL)) cr_ptr->pass_wall = FALSE;
