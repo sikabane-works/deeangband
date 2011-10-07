@@ -833,6 +833,19 @@ bool is_powerful_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_aquatic_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF7_AQUATIC) return TRUE;
+	else return FALSE;
+}
+
+bool is_aquatic_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF7_AQUATIC) return TRUE;
+	else return FALSE;
+}
+
+
 bool is_human_species(species_type *sp_ptr)
 {
 	if(sp_ptr->race_idx1 == RACE_HUMAN || sp_ptr->race_idx1 == RACE_BARBARIAN || sp_ptr->race_idx1 == RACE_DUNADAN) return TRUE;

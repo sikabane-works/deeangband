@@ -888,6 +888,8 @@ extern bool is_human_species(species_type *sp_ptr);
 extern bool is_animal_species(species_type *sp_ptr);
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
+extern bool is_aquatic_creature(creature_type *cr_ptr);
+extern bool is_aquatic_species(species_type *sp_ptr);
 extern bool is_male_creature(creature_type *cr_ptr);
 extern bool is_male_species(species_type *sp_ptr);
 extern bool is_female_creature(creature_type *cr_ptr);
