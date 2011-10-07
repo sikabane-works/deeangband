@@ -3408,7 +3408,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 
 	/* "CAN" flags */
 	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_species(r_ptr)) return TRUE;
-	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && (r_ptr->flags7 & RF7_CAN_SWIM)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_species(r_ptr)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
 		if ((r_ptr->flags2 & RF2_PASS_WALL) && (!(mode & CEM_RIDING) || p_ptr->pass_wall)) return TRUE;

@@ -4806,7 +4806,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (riding_m_ptr->fast) new_speed += 10;
 		if (riding_m_ptr->slow) new_speed -= 10;
 		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
-		if ((riding_r_ptr->flags7 & RF7_CAN_SWIM) || is_aquatic_species(riding_r_ptr)) cr_ptr->can_swim = TRUE;
+		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) cr_ptr->can_swim = TRUE;
 
 		if (!(riding_r_ptr->flags2 & RF2_PASS_WALL)) cr_ptr->pass_wall = FALSE;
 		if (riding_r_ptr->flags2 & RF2_KILL_WALL) cr_ptr->kill_wall = TRUE;

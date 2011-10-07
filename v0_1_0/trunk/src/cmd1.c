@@ -4202,7 +4202,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		{
 			/* Allow moving */
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && (riding_r_ptr->flags7 & RF7_CAN_SWIM))
+		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(steed_ptr))
 		{
 			/* Allow moving */
 		}
