@@ -6082,10 +6082,9 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	// race_idx swap
 	if(cr_ptr->race_idx1 > cr_ptr->race_idx2)
 	{
-		int t;
-		t = cr_ptr->race_idx1;
-		cr_ptr->race_idx1 = cr_ptr->race_idx2;
-		cr_ptr->race_idx2 = cr_ptr->race_idx1;
+		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
+		cr_ptr->race_idx2 ^= cr_ptr->race_idx1;
+		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
 	}
 
 	if(!auto_m)
