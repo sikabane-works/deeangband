@@ -896,6 +896,8 @@ extern bool can_fly_creature(creature_type *cr_ptr);
 extern bool can_fly_species(species_type *sp_ptr);
 extern bool is_guardian_creature(creature_type *cr_ptr);
 extern bool is_guardian_species(species_type *sp_ptr);
+extern bool is_riding_creature(creature_type *cr_ptr);
+extern bool is_riding_species(species_type *sp_ptr);
 
 extern bool is_male_creature(creature_type *cr_ptr);
 extern bool is_male_species(species_type *sp_ptr);
