@@ -1730,8 +1730,8 @@ msg_print("まばゆい閃光が走った！");
 					/* Let them fight each other */
 					if (evil_idx && good_idx)
 					{
-						creature_type *evil_ptr = &m_list[evil_idx];
-						creature_type *good_ptr = &m_list[good_idx];
+						creature_type *evil_ptr = &creature_list[evil_idx];
+						creature_type *good_ptr = &creature_list[good_idx];
 						evil_ptr->target_y = good_ptr->fy;
 						evil_ptr->target_x = good_ptr->fx;
 						good_ptr->target_y = evil_ptr->fy;
@@ -2053,7 +2053,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 {
-	creature_type    *m_ptr = &m_list[m_idx];
+	creature_type    *m_ptr = &creature_list[m_idx];
 	species_type    *r_ptr = &r_info[m_ptr->species_idx];
 }
 
@@ -2466,7 +2466,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if (atk_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 					{
-						if (set_stun(&m_list[c_ptr->m_idx], stun_effect + tar_ptr->stun))
+						if (set_stun(&creature_list[c_ptr->m_idx], stun_effect + tar_ptr->stun))
 						{
 #ifdef JP
 							msg_format("%^sはフラフラになった。", m_name);
@@ -2663,7 +2663,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					}
 
 					/* Apply stun */
-					(void)set_stun(&m_list[c_ptr->m_idx], tar_ptr->stun + tmp);
+					(void)set_stun(&creature_list[c_ptr->m_idx], tar_ptr->stun + tmp);
 				}
 				else
 				{
@@ -2903,7 +2903,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					msg_format("%^s appears confused.", m_name);
 #endif
 
-					(void)set_confused(&m_list[c_ptr->m_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
+					(void)set_confused(&creature_list[c_ptr->m_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
 				}
 			}
 
@@ -2945,7 +2945,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					msg_format("%^s disappears!", m_name);
 #endif
 
-					teleport_away(&m_list[c_ptr->m_idx], 50, TELEPORT_PASSIVE);
+					teleport_away(&creature_list[c_ptr->m_idx], 50, TELEPORT_PASSIVE);
 					num = num_blow + 1; /* Can't hit it anymore! */
 					*mdeath = TRUE;
 				}
@@ -2977,7 +2977,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					}
 
 					/* Hack -- Get new monster */
-					tar_ptr = &m_list[c_ptr->m_idx];
+					tar_ptr = &creature_list[c_ptr->m_idx];
 
 					/* Oops, we need a different name... */
 					monster_desc(m_name, tar_ptr, 0);
@@ -2988,7 +2988,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 			}
 			else if (o_ptr->name1 == ART_G_HAMMER)
 			{
-				creature_type *tar_ptr = &m_list[c_ptr->m_idx];
+				creature_type *tar_ptr = &creature_list[c_ptr->m_idx];
 
 				if (tar_ptr->hold_o_idx)
 				{
@@ -3186,7 +3186,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if(one_in_(2))
 			tar_ptr = player_ptr;
 		else
-			tar_ptr = &m_list[c_ptr->m_idx];
+			tar_ptr = &creature_list[c_ptr->m_idx];
 	}
 	else if (player_ptr->fx == x && player_ptr->fy == y)
 	{
@@ -3194,7 +3194,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 	else
 	{
-		tar_ptr = &m_list[c_ptr->m_idx];
+		tar_ptr = &creature_list[c_ptr->m_idx];
 	}
 
 	r_ptr = &r_info[tar_ptr->species_idx];
@@ -3338,7 +3338,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 		if (cur < max)
 		{
-			int ridinglevel = r_info[m_list[atk_ptr->riding].species_idx].level;
+			int ridinglevel = r_info[creature_list[atk_ptr->riding].species_idx].level;
 			int targetlevel = r_ptr->level;
 			int inc = 0;
 
@@ -3600,7 +3600,7 @@ bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feature];
 
-	if (cr_ptr->riding) return monster_can_cross_terrain(feature, &r_info[m_list[cr_ptr->riding].species_idx], mode | CEM_RIDING);
+	if (cr_ptr->riding) return monster_can_cross_terrain(feature, &r_info[creature_list[cr_ptr->riding].species_idx], mode | CEM_RIDING);
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -3663,7 +3663,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 			if (om_idx > 0) /* Monster on old spot (or cr_ptr->riding) */
 			{
-				creature_type *om_ptr = &m_list[om_idx];
+				creature_type *om_ptr = &creature_list[om_idx];
 				om_ptr->fy = ny;
 				om_ptr->fx = nx;
 				update_mon(cr_ptr, om_idx, TRUE);
@@ -3671,7 +3671,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 
 			if (nm_idx > 0) /* Monster on new spot */
 			{
-				creature_type *nm_ptr = &m_list[nm_idx];
+				creature_type *nm_ptr = &creature_list[nm_idx];
 				nm_ptr->fy = oy;
 				nm_ptr->fx = ox;
 				update_mon(cr_ptr, nm_idx, TRUE);
@@ -3946,7 +3946,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	creature_type *m_ptr;
 
-	creature_type *steed_ptr = &m_list[cr_ptr->riding];
+	creature_type *steed_ptr = &creature_list[cr_ptr->riding];
 	species_type *riding_r_ptr = &r_info[cr_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
 
 	char m_name[80];
@@ -4095,7 +4095,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	}
 
 	/* Get the monster */
-	m_ptr = &m_list[c_ptr->m_idx];
+	m_ptr = &creature_list[c_ptr->m_idx];
 
 
 	if (cr_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
@@ -4899,7 +4899,7 @@ static bool run_test(creature_type *cr_ptr)
 		/* Visible monsters abort running */
 		if (c_ptr->m_idx)
 		{
-			creature_type *m_ptr = &m_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 
 			/* Visible monster */
 			if (m_ptr->ml) return (TRUE);
@@ -5320,7 +5320,7 @@ static bool travel_test(creature_type *cr_ptr)
 		/* Visible monsters abort running */
 		if (c_ptr->m_idx)
 		{
-			creature_type *m_ptr = &m_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 
 			/* Visible monster */
 			if (m_ptr->ml) return (TRUE);

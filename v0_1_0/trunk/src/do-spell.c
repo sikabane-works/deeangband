@@ -3201,7 +3201,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
-					m_ptr = &m_list[c_ptr->m_idx];
+					m_ptr = &creature_list[c_ptr->m_idx];
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
@@ -10537,7 +10537,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				int ty = y, tx = x;
 				int oy = y, ox = x;
 				int m_idx = cave[y][x].m_idx;
-				creature_type *m_ptr = &m_list[m_idx];
+				creature_type *m_ptr = &creature_list[m_idx];
 				char m_name[80];
 	
 				monster_desc(m_name, m_ptr, 0);
@@ -10839,7 +10839,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				c_ptr = &cave[y][x];
 	
 				/* Get the monster */
-				m_ptr = &m_list[c_ptr->m_idx];
+				m_ptr = &creature_list[c_ptr->m_idx];
 	
 				/* Hack -- attack monsters */
 				if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
@@ -11009,7 +11009,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				ny = y + ddy[dir];
 				nx = x + ddx[dir];
 				m_idx = c_ptr->m_idx;
-				m_ptr = &m_list[m_idx];
+				m_ptr = &creature_list[m_idx];
 	
 				/* Monster cannot move back? */
 				if (!monster_can_enter(ny, nx, &r_info[m_ptr->species_idx], 0))

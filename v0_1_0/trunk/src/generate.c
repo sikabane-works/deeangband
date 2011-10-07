@@ -1304,11 +1304,11 @@ static void battle_gen(void)
 	{
 		place_monster_aux(p_ptr, p_ptr->fy + 8 + (i/2)*4, p_ptr->fx - 2 + (i%2)*4, battle_mon[i],
 				  (PM_NO_KAGE | PM_NO_PET));
-		set_friendly(&m_list[cave[p_ptr->fy+8+(i/2)*4][p_ptr->fx-2+(i%2)*4].m_idx]);
+		set_friendly(&creature_list[cave[p_ptr->fy+8+(i/2)*4][p_ptr->fx-2+(i%2)*4].m_idx]);
 	}
 	for(i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
 
@@ -1520,10 +1520,10 @@ void clear_cave(void)
 	o_max = 1;
 	o_cnt = 0;
 
-	/* Very simplified version of wipe_m_list() */
+	/* Very simplified version of wipe_creature_list() */
 	for (i = 1; i < max_species_idx; i++)
 		r_info[i].cur_num = 0;
-	C_WIPE(m_list, m_max, creature_type);
+	C_WIPE(creature_list, m_max, creature_type);
 	m_max = 1;
 	m_cnt = 0;
 
@@ -1681,7 +1681,7 @@ if (why) msg_format("¶¬‚â‚è’¼‚µ(%s)", why);
 		wipe_o_list();
 
 		/* Wipe the monsters */
-		wipe_m_list();
+		wipe_creature_list();
 	}
 
 	/* Glow deep lava and building entrances */

@@ -443,7 +443,7 @@ extern saved_floor_type saved_floors[MAX_SAVED_FLOORS];
 extern s16b max_floor_id;
 extern u32b saved_floor_file_sign;
 extern object_type *o_list;
-extern creature_type *m_list;
+extern creature_type *creature_list;
 extern store_type *st_list;
 extern creature_type **mproc_list[MAX_MTIMED];
 extern s16b mproc_max[MAX_MTIMED];
@@ -1090,7 +1090,7 @@ extern void delete_monster(int y, int x);
 extern void compact_monsters(int size);
 extern void birth_uniques(void);
 
-extern void wipe_m_list(void);
+extern void wipe_creature_list(void);
 extern s16b m_pop(void);
 extern errr get_mon_num_prep(monster_hook_type monster_hook, monster_hook_type monster_hook2);
 extern s16b get_mon_num(int level);

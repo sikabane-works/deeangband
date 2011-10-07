@@ -460,7 +460,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 
 		if ((cave[y][x].m_idx > 0) && !((y == y2) && (x == x2)))
 		{
-			creature_type *m_ptr = &m_list[cave[y][x].m_idx];
+			creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 			if (friend == is_pet(m_ptr))
 			{
 				return (FALSE);
@@ -916,9 +916,9 @@ bool dispel_check(creature_type *cr_ptr)
 	/* Light speed */
 	if (cr_ptr->lightspeed && (cr_ptr->speed < 136)) return (TRUE);
 
-	if (cr_ptr->riding && (m_list[cr_ptr->riding].speed < 135))
+	if (cr_ptr->riding && (creature_list[cr_ptr->riding].speed < 135))
 	{
-		if (m_list[cr_ptr->riding].fast) return (TRUE);
+		if (creature_list[cr_ptr->riding].fast) return (TRUE);
 	}
 
 	/* No need to cast dispel spell */
@@ -1724,7 +1724,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			else msg_format("%^s invokes a dispel magic.", m_name);
 #endif
 			dispel_creature(target_ptr);
-			if (target_ptr->riding) dispel_creature(&m_list[target_ptr->riding]);
+			if (target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
 
 #ifdef JP
 			if ((target_ptr->chara_idx == CHARA_COMBAT) || (target_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
@@ -3318,8 +3318,8 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 			}
 
 			/* Redraw (later) if needed */
-			if (&m_list[target_ptr->health_who] == user_ptr) play_redraw |= (PR_HEALTH);
-			if (&m_list[target_ptr->riding] == user_ptr) play_redraw |= (PR_UHEALTH);
+			if (&creature_list[target_ptr->health_who] == user_ptr) play_redraw |= (PR_HEALTH);
+			if (&creature_list[target_ptr->riding] == user_ptr) play_redraw |= (PR_UHEALTH);
 
 			/* Cancel fear */
 			if (user_ptr->afraid)
@@ -3447,13 +3447,13 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					int dummy_x = user_ptr->fx;
 
 					if (inside_arena || inside_battle || !summon_possible(user_ptr->fy, user_ptr->fx)) return FALSE;
-					delete_species_idx(&m_list[cave[user_ptr->fy][user_ptr->fx].m_idx]);
+					delete_species_idx(&creature_list[cave[user_ptr->fy][user_ptr->fx].m_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
-					m_list[hack_m_idx_ii].chp = dummy_hp;
-					m_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 					summon_named_creature(0, dummy_y, dummy_x, MON_LUPART, mode);
-					m_list[hack_m_idx_ii].chp = dummy_hp;
-					m_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
 #ifdef JP
 					msg_print("『バーノール・ルパート』が分裂した！");
@@ -3475,21 +3475,21 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					if (!r_info[MON_BANOR].cur_num || !r_info[MON_LUPART].cur_num) return (FALSE);
 					for (k = 1; k < m_max; k++)
 					{
-						if (m_list[k].species_idx == MON_BANOR || m_list[k].species_idx == MON_LUPART)
+						if (creature_list[k].species_idx == MON_BANOR || creature_list[k].species_idx == MON_LUPART)
 						{
-							dummy_hp += m_list[k].chp;
-							dummy_mhp += m_list[k].mhp;
-							if (m_list[k].species_idx != user_ptr->species_idx)
+							dummy_hp += creature_list[k].chp;
+							dummy_mhp += creature_list[k].mhp;
+							if (creature_list[k].species_idx != user_ptr->species_idx)
 							{
-								dummy_y = m_list[k].fy;
-								dummy_x = m_list[k].fx;
+								dummy_y = creature_list[k].fy;
+								dummy_x = creature_list[k].fx;
 							}
-							delete_species_idx(&m_list[k]);
+							delete_species_idx(&creature_list[k]);
 						}
 					}
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANORLUPART, mode);
-					m_list[hack_m_idx_ii].chp = dummy_hp;
-					m_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
 #ifdef JP
 					msg_print("『バーノール』と『ルパート』が合体した！");

@@ -3502,7 +3502,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				}
 				else if (c_ptr->m_idx)
 				{
-					creature_type *m_ptr = &m_list[c_ptr->m_idx];
+					creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 #ifdef JP
 					msg_print("何かが邪魔しています！");
 #else
@@ -3750,7 +3750,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					break;
 				}
 
-				m_ptr = &m_list[c_ptr->m_idx];
+				m_ptr = &creature_list[c_ptr->m_idx];
 				r_ptr = &r_info[m_ptr->species_idx];
 
 				if (is_enemy_of_good_species(r_ptr) &&
@@ -3769,7 +3769,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					}
 
 					/* Delete the monster, rather than killing it. */
-					delete_species_idx(&m_list[c_ptr->m_idx]);
+					delete_species_idx(&creature_list[c_ptr->m_idx]);
 #ifdef JP
 					msg_print("その邪悪なモンスターは硫黄臭い煙とともに消え去った！");
 #else

@@ -6543,7 +6543,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				if (clone)
 				{
 					/* clone */
-					m_list[hack_m_idx_ii].smart |= SM_CLONED;
+					creature_list[hack_m_idx_ii].smart |= SM_CLONED;
 
 					/* Make alive again for real unique monster */
 					r_info[monster_index].cur_num = old_cur_num;

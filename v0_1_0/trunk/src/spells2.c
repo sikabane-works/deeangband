@@ -3917,7 +3917,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -3979,7 +3979,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4049,7 +4049,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4124,7 +4124,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4191,7 +4191,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4258,7 +4258,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4332,7 +4332,7 @@ cptr desc_monsters = "変なモンスター";
 	/* Scan monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
@@ -4447,7 +4447,7 @@ bool project_hack(int typ, int dam)
 	/* Mark all (nearby) monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4466,7 +4466,7 @@ bool project_hack(int typ, int dam)
 	/* Affect all marked monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip unmarked monsters */
 		if (!(m_ptr->mflag & (MFLAG_TEMP))) continue;
@@ -4603,7 +4603,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 	/* Aggravate everyone nearby */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type    *m_ptr = &m_list[i];
+		creature_type    *m_ptr = &creature_list[i];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4617,7 +4617,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 			/* Wake up */
 			if (m_ptr->paralyzed)
 			{
-				(void)set_paralyzed(&m_list[i], 0);
+				(void)set_paralyzed(&creature_list[i], 0);
 				sleep = TRUE;
 			}
 			if (!is_pet(m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
@@ -4652,7 +4652,7 @@ void aggravate_monsters(creature_type *cr_ptr)
 bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	bool         resist = FALSE;
 
@@ -4682,7 +4682,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 		}
 
-		delete_species_idx(&m_list[m_idx]);
+		delete_species_idx(&creature_list[m_idx]);
 	}
 
 	if (resist && player_cast)
@@ -4701,7 +4701,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 		}
 		if (m_ptr->paralyzed)
 		{
-			(void)set_paralyzed(&m_list[m_idx], 0);
+			(void)set_paralyzed(&creature_list[m_idx], 0);
 			if (m_ptr->ml)
 			{
 #ifdef JP
@@ -4783,7 +4783,7 @@ bool symbol_genocide(int power, bool player_cast)
 	/* Delete the monsters of that "type" */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
@@ -4821,7 +4821,7 @@ bool mass_genocide(int power, bool player_cast)
 	/* Delete the (nearby) monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4859,7 +4859,7 @@ bool mass_genocide_undead(int power, bool player_cast)
 	/* Delete the (nearby) monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
@@ -4903,7 +4903,7 @@ bool probing(void)
 	/* Probe all (nearby) monsters */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
@@ -5139,7 +5139,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 
 			if (c_ptr->m_idx)
 			{
-				creature_type *m_ptr = &m_list[c_ptr->m_idx];
+				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 				species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 				if (in_generate) /* In generation */
@@ -5153,7 +5153,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 					m_ptr->chp = m_ptr->mhp;
 
 					/* Try to teleport away quest monsters */
-					if (!teleport_away(&m_list[c_ptr->m_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
+					if (!teleport_away(&creature_list[c_ptr->m_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
 				}
 				else
 				{
@@ -5571,7 +5571,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			if (m_idx)
 			{
 				char m_name[80];
-				creature_type *m_ptr = &m_list[m_idx];
+				creature_type *m_ptr = &creature_list[m_idx];
 
 				/* Get the monster's real name */
 				monster_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -5615,7 +5615,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			/* Process monsters */
 			if (c_ptr->m_idx)
 			{
-				creature_type *m_ptr = &m_list[c_ptr->m_idx];
+				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 				species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 				/* Quest monsters */
@@ -5687,7 +5687,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					damage = (sn ? damroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Monster is certainly awake */
-					(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+					(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
@@ -5704,7 +5704,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 						if (c_ptr->m_idx)
 						{
-							if (record_named_pet && is_pet(&m_list[c_ptr->m_idx]) && m_list[c_ptr->m_idx].nickname)
+							if (record_named_pet && is_pet(&creature_list[c_ptr->m_idx]) && creature_list[c_ptr->m_idx].nickname)
 							{
 								char m2_name[80];
 
@@ -5889,7 +5889,7 @@ void discharge_minion(void)
 
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		if (!m_ptr->species_idx || !is_pet(m_ptr)) continue;
 		if (m_ptr->nickname) okay = FALSE;
 	}
@@ -5905,7 +5905,7 @@ void discharge_minion(void)
 	for (i = 1; i < m_max; i++)
 	{
 		int dam;
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr;
 
 		if (!m_ptr->species_idx || !is_pet(m_ptr)) continue;
@@ -5921,7 +5921,7 @@ void discharge_minion(void)
 #else
 			msg_format("%^s resists to be blasted, and run away.", m_name);
 #endif
-			delete_species_idx(&m_list[i]);
+			delete_species_idx(&creature_list[i]);
 			continue;
 		}
 		dam = m_ptr->mhp / 2;
@@ -5940,7 +5940,7 @@ void discharge_minion(void)
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
 		}
 
-		delete_species_idx(&m_list[i]);
+		delete_species_idx(&creature_list[i]);
 	}
 }
 
@@ -5986,7 +5986,7 @@ static void cave_temp_room_lite(void)
 		{
 			int chance = 25;
 
-			creature_type    *m_ptr = &m_list[c_ptr->m_idx];
+			creature_type    *m_ptr = &creature_list[c_ptr->m_idx];
 
 			species_type    *r_ptr = &r_info[m_ptr->species_idx];
 
@@ -6003,7 +6003,7 @@ static void cave_temp_room_lite(void)
 			if (m_ptr->paralyzed && (randint0(100) < chance))
 			{
 				/* Wake up! */
-				(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+				(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 
 				/* Notice the "waking up" */
 				if (m_ptr->ml)
@@ -6513,7 +6513,7 @@ bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	/* Analyze the "target" and the caster. */
-	return (project(&m_list[who], rad, y, x, dam, typ, flg, -1));
+	return (project(&creature_list[who], rad, y, x, dam, typ, flg, -1));
 }
 
 
@@ -6629,7 +6629,7 @@ msg_print("失敗した。");
 		return FALSE;
 	}
 
-	m_ptr = &m_list[c_ptr->m_idx];
+	m_ptr = &creature_list[c_ptr->m_idx];
 	r_ptr = &r_info[m_ptr->species_idx];
 
 	(void)set_paralyzed(m_ptr, 0);
@@ -7547,7 +7547,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		update_mon(cr_ptr, cave[ny][nx].m_idx, TRUE);
 
 		/* Found a monster */
-		m_ptr = &m_list[cave[ny][nx].m_idx];
+		m_ptr = &creature_list[cave[ny][nx].m_idx];
 
 		if (tm_idx != cave[ny][nx].m_idx)
 		{

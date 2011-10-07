@@ -3587,7 +3587,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			int armour;
 			cave_type *c_ptr = &cave[y][x];
 
-			creature_type *m_ptr = &m_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 			species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Check the visibility */
@@ -3614,7 +3614,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			if (cr_ptr->riding)
 			{
 				if ((cr_ptr->skill_exp[GINOU_RIDING] < s_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
-					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[m_list[cr_ptr->riding].species_idx].level)
+					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[creature_list[cr_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
 					cr_ptr->skill_exp[GINOU_RIDING] += 1;
@@ -3737,10 +3737,10 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(p_ptr, real_r_ptr(m_ptr)), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(p_ptr, real_r_ptr(m_ptr)), -1);
 
 				/* No death */
-				if(m_list[c_ptr->m_idx].species_idx != 0)
+				if(creature_list[c_ptr->m_idx].species_idx != 0)
 				{
 					/* STICK TO */
 					if (object_is_fixed_artifact(q_ptr))
@@ -3853,7 +3853,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	if (stick_to)
 	{
 		int m_idx = cave[y][x].m_idx;
-		creature_type *m_ptr = &m_list[m_idx];
+		creature_type *m_ptr = &creature_list[m_idx];
 		int o_idx = o_pop();
 
 		if (!o_idx)
@@ -4295,7 +4295,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		{
 			cave_type *c_ptr = &cave[y][x];
 
-			creature_type *m_ptr = &m_list[c_ptr->m_idx];
+			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 			species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Check the visibility */
@@ -4388,10 +4388,10 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 				}
 
 				/* Hit the monster, check for death */
-				take_hit(cr_ptr, &m_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, real_r_ptr(m_ptr)), -1);
+				take_hit(cr_ptr, &creature_list[c_ptr->m_idx], 0, tdam, NULL, extract_note_dies(cr_ptr, real_r_ptr(m_ptr)), -1);
 
 				/* No death */
-				if(m_list[c_ptr->m_idx].species_idx != 0)
+				if(creature_list[c_ptr->m_idx].species_idx != 0)
 				{
 					/* Message */
 					message_pain(c_ptr->m_idx, tdam);
@@ -4468,22 +4468,22 @@ msg_print("Ç±ÇÍÇÕÇ†Ç‹ÇËó«Ç≠Ç»Ç¢ãCÇ™Ç∑ÇÈÅB");
 
 			if (potion_smash_effect(0, y, x, q_ptr->k_idx))
 			{
-				creature_type *m_ptr = &m_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
 				if (cave[y][x].m_idx &&
-				    is_friendly(&m_list[cave[y][x].m_idx]) &&
+				    is_friendly(&creature_list[cave[y][x].m_idx]) &&
 				    !m_ptr->invuln)
 				{
 					char m_name[80];
-					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
+					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%sÇÕì{Ç¡ÇΩÅI", m_name);
 #else
 					msg_format("%^s gets angry!", m_name);
 #endif
 
-					set_hostile(&m_list[cave[y][x].m_idx]);
+					set_hostile(&creature_list[cave[y][x].m_idx]);
 				}
 			}
 			do_drop = FALSE;

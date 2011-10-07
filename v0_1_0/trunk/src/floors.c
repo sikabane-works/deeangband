@@ -359,7 +359,7 @@ static void preserve_pet(creature_type *cr_ptr)
 
 	if (cr_ptr->riding)
 	{
-		creature_type *m_ptr = &m_list[cr_ptr->riding];
+		creature_type *m_ptr = &creature_list[cr_ptr->riding];
 
 		/* Pet of other pet don't follow. */
 		if (m_ptr->parent_m_idx)
@@ -374,7 +374,7 @@ static void preserve_pet(creature_type *cr_ptr)
 			COPY(&party_mon[0], m_ptr, creature_type);
 
 			/* Delete from this floor */
-			delete_species_idx(&m_list[cr_ptr->riding]);
+			delete_species_idx(&creature_list[cr_ptr->riding]);
 		}
 	}
 
@@ -386,7 +386,7 @@ static void preserve_pet(creature_type *cr_ptr)
 	{
 		for (i = m_max - 1, num = 1; (i >= 1 && num < MAX_PARTY_MON); i--)
 		{
-			creature_type *m_ptr = &m_list[i];
+			creature_type *m_ptr = &creature_list[i];
 
 			if (!m_ptr->species_idx) continue;
 			if (!is_pet(m_ptr)) continue;
@@ -422,12 +422,12 @@ static void preserve_pet(creature_type *cr_ptr)
 				}
 			}
 
-			COPY(&party_mon[num], &m_list[i], creature_type);
+			COPY(&party_mon[num], &creature_list[i], creature_type);
 
 			num++;
 
 			/* Delete from this floor */
-			delete_species_idx(&m_list[i]);
+			delete_species_idx(&creature_list[i]);
 		}
 	}
 
@@ -435,7 +435,7 @@ static void preserve_pet(creature_type *cr_ptr)
 	{
 		for (i = m_max - 1; i >=1; i--)
 		{
-			creature_type *m_ptr = &m_list[i];
+			creature_type *m_ptr = &creature_list[i];
 			char m_name[80];
 
 			if (!m_ptr->species_idx) continue;
@@ -452,10 +452,10 @@ static void preserve_pet(creature_type *cr_ptr)
 	/* Pet of other pet may disappear. */
 	for (i = m_max - 1; i >=1; i--)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Are there its parent? */
-		if (m_ptr->parent_m_idx && !m_list[m_ptr->parent_m_idx].species_idx)
+		if (m_ptr->parent_m_idx && !creature_list[m_ptr->parent_m_idx].species_idx)
 		{
 			/* Its parent have gone, it also goes away. */
 
@@ -474,7 +474,7 @@ static void preserve_pet(creature_type *cr_ptr)
 			}
 
 			/* Delete the monster */
-			delete_species_idx(&m_list[i]);
+			delete_species_idx(&creature_list[i]);
 		}
 	}
 }
@@ -545,7 +545,7 @@ static void place_pet(void)
 
 		if (m_idx)
 		{
-			creature_type *m_ptr = &m_list[m_idx];
+			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr;
 
 			cave[cy][cx].m_idx = m_idx;
@@ -634,7 +634,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 	for (i = 1; i < m_max; i++)
 	{
 		species_type *r_ptr;
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -717,7 +717,7 @@ static void get_out_monster(void)
 
 		/*** It's a good place ***/
 
-		m_ptr = &m_list[m_idx];
+		m_ptr = &creature_list[m_idx];
 
 		/* Update the old location */
 		cave[oy][ox].m_idx = 0;
@@ -895,7 +895,7 @@ void leave_floor(creature_type *cr_ptr)
 	for (i = 1; i < m_max; i++)
 	{
 		species_type *r_ptr;
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -911,7 +911,7 @@ void leave_floor(creature_type *cr_ptr)
 		    (r_ptr->race_idx1 == RACE_NAZGUL)) continue;
 
 		/* Delete non-unique quest monsters */
-		delete_species_idx(&m_list[i]);
+		delete_species_idx(&creature_list[i]);
 	}
 
 	/* Check if there is a same item */
@@ -1211,7 +1211,7 @@ void change_floor(creature_type *cr_ptr)
 			for (i = 1; i < m_max; i++)
 			{
 				species_type *r_ptr;
-				creature_type *m_ptr = &m_list[i];
+				creature_type *m_ptr = &creature_list[i];
 
 				/* Skip dead monsters */
 				if (!m_ptr->species_idx) continue;
@@ -1241,7 +1241,7 @@ void change_floor(creature_type *cr_ptr)
 				if (r_ptr->floor_id != new_floor_id)
 				{
 					/* Disapper from here */
-					delete_species_idx(&m_list[i]);
+					delete_species_idx(&creature_list[i]);
 				}
 			}
 

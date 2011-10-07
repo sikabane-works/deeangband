@@ -1377,8 +1377,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	creature_type *m_ptr1 = &m_list[w1];
-	creature_type *m_ptr2 = &m_list[w2];
+	creature_type *m_ptr1 = &creature_list[w1];
+	creature_type *m_ptr2 = &creature_list[w2];
 	species_type *r_ptr1 = &r_info[m_ptr1->species_idx];
 	species_type *r_ptr2 = &r_info[m_ptr2->species_idx];
 
@@ -1441,7 +1441,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 	{
 		creature_type *m_ptr;
 		
-		m_ptr = &m_list[m_idx];
+		m_ptr = &creature_list[m_idx];
 		if (!m_ptr->species_idx) continue;
 
 		if (is_pet(m_ptr))
@@ -1506,7 +1506,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	/* Process the monsters (backwards) */
 	for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 	{
-		if (is_pet(&m_list[pet_ctr]))
+		if (is_pet(&creature_list[pet_ctr]))
 			who[max_pet++] = pet_ctr;
 	}
 
@@ -1526,7 +1526,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 
 		/* Access the monster */
 		pet_ctr = who[i];
-		m_ptr = &m_list[pet_ctr];
+		m_ptr = &creature_list[pet_ctr];
 
 		delete_this = FALSE;
 		kakunin = ((pet_ctr == cr_ptr->riding) || (m_ptr->nickname));
@@ -1619,7 +1619,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 			play_window |= (PW_MESSAGE);
 			window_stuff();
 
-			delete_species_idx(&m_list[pet_ctr]);
+			delete_species_idx(&creature_list[pet_ctr]);
 			Dismissed++;
 		}
 	}
@@ -1686,7 +1686,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 	int i, y, x, oy, ox;
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[80];
-	creature_type *m_ptr = &m_list[cr_ptr->riding];
+	creature_type *m_ptr = &creature_list[cr_ptr->riding];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
 
@@ -1892,7 +1892,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 			return FALSE;
 		}
 
-		m_ptr = &m_list[c_ptr->m_idx];
+		m_ptr = &creature_list[c_ptr->m_idx];
 
 		if (!c_ptr->m_idx || !m_ptr->ml)
 		{
@@ -2015,7 +2015,7 @@ static void do_name_pet(void)
 
 	if (cave[target_row][target_col].m_idx)
 	{
-		m_ptr = &m_list[cave[target_row][target_col].m_idx];
+		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
 
 		if (!is_pet(m_ptr))
 		{
@@ -2128,10 +2128,10 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 #ifdef JP
 	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "何か奇妙な物" : (r_name + r_info[m_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
+		(pet_t_m_idx ? (cr_ptr->image ? "何か奇妙な物" : (r_name + r_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
 #else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "something strange" : (r_name + r_info[m_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
+		(pet_t_m_idx ? (cr_ptr->image ? "something strange" : (r_name + r_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
 #endif
 	power_desc[num] = target_buf;
 
@@ -2592,7 +2592,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				/* Player has pet */
-				if (is_pet(&m_list[pet_ctr])) break;
+				if (is_pet(&creature_list[pet_ctr])) break;
 			}
 
 			if (!pet_ctr)
@@ -2615,7 +2615,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 			else
 			{
 				cave_type *c_ptr = &cave[target_row][target_col];
-				if (c_ptr->m_idx && (m_list[c_ptr->m_idx].ml))
+				if (c_ptr->m_idx && (creature_list[c_ptr->m_idx].ml))
 				{
 					pet_t_m_idx = cave[target_row][target_col].m_idx;
 					cr_ptr->pet_follow_distance = PET_DESTROY_DIST;
@@ -2674,7 +2674,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 				for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 				{
 					/* Access the monster */
-					m_ptr = &m_list[pet_ctr];
+					m_ptr = &creature_list[pet_ctr];
 
 					if (is_pet(m_ptr))
 					{

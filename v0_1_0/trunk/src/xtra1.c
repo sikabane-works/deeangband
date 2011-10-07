@@ -1330,7 +1330,7 @@ static void prt_speed(creature_type *cr_ptr)
 	{
 		if (cr_ptr->riding)
 		{
-			creature_type *m_ptr = &m_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[cr_ptr->riding];
 			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
 			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
@@ -1351,7 +1351,7 @@ static void prt_speed(creature_type *cr_ptr)
 	{
 		if (cr_ptr->riding)
 		{
-			creature_type *m_ptr = &m_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[cr_ptr->riding];
 			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
 			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
 			else attr = TERM_RED;
@@ -1580,7 +1580,7 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 		col = COL_INFO;
 	}
 
-	m_ptr = &m_list[health_who];
+	m_ptr = &creature_list[health_who];
 
 	/* Not tracking */
 	if (!health_who)
@@ -4789,7 +4789,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 	else
 	{
-		creature_type *riding_m_ptr = &m_list[cr_ptr->riding];
+		creature_type *riding_m_ptr = &creature_list[cr_ptr->riding];
 		species_type *riding_r_ptr = &r_info[riding_m_ptr->species_idx];
 		int speed = riding_m_ptr->speed;
 
@@ -5238,7 +5238,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 				else
 				{
-					penalty = r_info[m_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty = r_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 					penalty += 30;
 					if (penalty < 30) penalty = 30;
 				}
@@ -5277,7 +5277,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			penalty = r_info[m_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+			penalty = r_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 			penalty += 30;
 			if (penalty < 30) penalty = 30;
 		}

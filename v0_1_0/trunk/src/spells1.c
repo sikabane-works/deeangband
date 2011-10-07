@@ -1735,7 +1735,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 	cave_type *c_ptr = &cave[y][x];
 
-	creature_type *tar_ptr = &m_list[c_ptr->m_idx];
+	creature_type *tar_ptr = &creature_list[c_ptr->m_idx];
 
 	species_type *r_ptr = &r_info[tar_ptr->species_idx];
 
@@ -1806,7 +1806,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 	if (!c_ptr->m_idx) return (FALSE);
 
 	/* Never affect projector */
-	if (who_ptr != who_ptr && (&m_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
+	if (who_ptr != who_ptr && (&creature_list[c_ptr->m_idx] == who_ptr)) return (FALSE);
 	if ((c_ptr->m_idx == who_ptr->riding) && !who_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((tar_ptr->species_idx == MON_SUKE) || (tar_ptr->species_idx == MON_KAKU))) return FALSE;
 
@@ -2580,7 +2580,7 @@ note = "には耐性がある。";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_slow(&m_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
+					if (set_slow(&creature_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -2696,7 +2696,7 @@ note = "には耐性がある！";
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_slow(&m_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
+					if (set_slow(&creature_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -3467,7 +3467,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+			(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 
 			if (tar_ptr->mhp < tar_ptr->mmhp)
 			{
@@ -3494,7 +3494,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+			(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 			if (tar_ptr->stun)
 			{
 #ifdef JP
@@ -3502,7 +3502,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s is no longer stunned.", m_name);
 #endif
-				(void)set_stun(&m_list[c_ptr->m_idx], 0);
+				(void)set_stun(&creature_list[c_ptr->m_idx], 0);
 			}
 			if (tar_ptr->confused)
 			{
@@ -3511,7 +3511,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s is no longer confused.", m_name);
 #endif
-				(void)set_confused(&m_list[c_ptr->m_idx], 0);
+				(void)set_confused(&creature_list[c_ptr->m_idx], 0);
 			}
 			if (tar_ptr->afraid)
 			{
@@ -3520,7 +3520,7 @@ note = "が分裂した！";
 #else
 				if (seen_msg) msg_format("%^s recovers %s courage.", m_name, m_poss);
 #endif
-				(void)set_afraid(&m_list[c_ptr->m_idx], 0);
+				(void)set_afraid(&creature_list[c_ptr->m_idx], 0);
 			}
 
 			/* Heal */
@@ -3552,7 +3552,7 @@ note = "が分裂した！";
 			if (seen) obvious = TRUE;
 
 			/* Speed up */
-			if (set_fast(&m_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE))
+			if (set_fast(&creature_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE))
 			{
 #ifdef JP
 				note = "の動きが速くなった。";
@@ -3599,7 +3599,7 @@ note = "には効果がなかった！";
 			/* Normal monsters slow down */
 			else
 			{
-				if (set_slow(&m_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
+				if (set_slow(&creature_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
 				{
 #ifdef JP
 					note = "の動きが遅くなった。";
@@ -4967,8 +4967,8 @@ note_dies = "はドロドロに溶けた！";
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[who_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
-						if (&m_list[who_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
+						if (&creature_list[who_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[who_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (see_s_msg)
@@ -5163,7 +5163,7 @@ note_dies = "はドロドロに溶けた！";
 					do_conf = randint0(8) + 8;
 					do_stun = randint0(8) + 8;
 				}
-				(void)set_slow(&m_list[c_ptr->m_idx], tar_ptr->slow + 10, FALSE);
+				(void)set_slow(&creature_list[c_ptr->m_idx], tar_ptr->slow + 10, FALSE);
 			}
 			break;
 		}
@@ -5416,7 +5416,7 @@ note_dies = "はドロドロに溶けた！";
 					}
 				}
 
-				delete_species_idx(&m_list[c_ptr->m_idx]);
+				delete_species_idx(&creature_list[c_ptr->m_idx]);
 
 				return (TRUE);
 			}
@@ -5505,7 +5505,7 @@ msg_format("うまく捕まえられなかった。");
 				/* Normal monsters slow down */
 				else
 				{
-					if (set_slow(&m_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
+					if (set_slow(&creature_list[c_ptr->m_idx], tar_ptr->slow + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -5699,7 +5699,7 @@ note = "には効果がなかった！";
 					note = " starts moving faster.";
 #endif
 
-					(void)set_fast(&m_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE);
+					(void)set_fast(&creature_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE);
 					success = TRUE;
 				}
 
@@ -5722,7 +5722,7 @@ note = "には効果がなかった！";
 #endif
 
 					set_pet(tar_ptr);
-					(void)set_fast(&m_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE);
+					(void)set_fast(&creature_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
 					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
@@ -5853,7 +5853,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Apply stun */
-			(void)set_stun(&m_list[c_ptr->m_idx], tmp);
+			(void)set_stun(&creature_list[c_ptr->m_idx], tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -5892,7 +5892,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Apply confusion */
-			(void)set_confused(&m_list[c_ptr->m_idx], tmp);
+			(void)set_confused(&creature_list[c_ptr->m_idx], tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -5947,7 +5947,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Hack -- Get new monster */
-			tar_ptr = &m_list[c_ptr->m_idx];
+			tar_ptr = &creature_list[c_ptr->m_idx];
 
 			/* Hack -- Get new race */
 			r_ptr = &r_info[tar_ptr->species_idx];
@@ -5967,7 +5967,7 @@ note = "には効果がなかった。";
 #endif
 
 			/* Teleport */
-			teleport_away(&m_list[c_ptr->m_idx], do_dist,
+			teleport_away(&creature_list[c_ptr->m_idx], do_dist,
 						(who_ptr == who_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
 			/* Hack -- get new location */
@@ -5982,7 +5982,7 @@ note = "には効果がなかった。";
 		if (do_fear)
 		{
 			/* Set fear */
-			(void)set_afraid(&m_list[c_ptr->m_idx], tar_ptr->afraid + do_fear);
+			(void)set_afraid(&creature_list[c_ptr->m_idx], tar_ptr->afraid + do_fear);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -6002,7 +6002,7 @@ note = "には効果がなかった。";
 		if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
-		(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+		(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 
 		/* Hurt the monster */
 		tar_ptr->chp -= dam;
@@ -6033,10 +6033,10 @@ note = "には効果がなかった。";
 			//if (who_ptr != who_ptr) monster_gain_exp(who_ptr, who, tar_ptr->species_idx);
 
 			/* Generate treasure, etc */
-			monster_death(&m_list[c_ptr->m_idx], FALSE);
+			monster_death(&creature_list[c_ptr->m_idx], FALSE);
 
 			/* Delete the monster */
-			delete_species_idx(&m_list[c_ptr->m_idx]);
+			delete_species_idx(&creature_list[c_ptr->m_idx]);
 
 			if (sad)
 			{
@@ -6065,7 +6065,7 @@ note = "には効果がなかった。";
 			}
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_paralyzed(&m_list[c_ptr->m_idx], do_sleep);
+			if (do_sleep) (void)set_paralyzed(&creature_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 
@@ -6085,7 +6085,7 @@ note = "には効果がなかった。";
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
-		delete_species_idx(&m_list[c_ptr->m_idx]);
+		delete_species_idx(&creature_list[c_ptr->m_idx]);
 	}
 
 	/* If the player did it, give him experience, check fear */
@@ -6094,10 +6094,10 @@ note = "には効果がなかった。";
 		bool fear = FALSE;
 
 		/* Hurt the monster, check for fear and death */
-		take_hit(who_ptr, &m_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
+		take_hit(who_ptr, &creature_list[c_ptr->m_idx], 0, dam, NULL, note_dies, -1);
 
 		/* Damaged monster */
-		if(&m_list[c_ptr->m_idx].species_idx != 0)
+		if(&creature_list[c_ptr->m_idx].species_idx != 0)
 		{
 			/* HACK - anger the monster before showing the sleep message */
 			if (do_sleep) anger_monster(tar_ptr);
@@ -6122,7 +6122,7 @@ note = "には効果がなかった。";
 				anger_monster(tar_ptr);
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_paralyzed(&m_list[c_ptr->m_idx], do_sleep);
+			if (do_sleep) (void)set_paralyzed(&creature_list[c_ptr->m_idx], do_sleep);
 		}
 	}
 
@@ -6168,7 +6168,7 @@ msg_print("空間が歪んだ！");
 					msg_print("Space warps about you!");
 #endif
 
-					if (tar_ptr->species_idx) teleport_away(&m_list[c_ptr->m_idx], damroll(10, 10), TELEPORT_PASSIVE);
+					if (tar_ptr->species_idx) teleport_away(&creature_list[c_ptr->m_idx], damroll(10, 10), TELEPORT_PASSIVE);
 					if (one_in_(13)) count += activate_hi_summon(aimer_ptr, ty, tx, TRUE);
 					if (!one_in_(6)) break;
 				}
@@ -6359,14 +6359,14 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 	/* Player is not here */
 	if (!creature_bold(tar_ptr, y, x)) return (FALSE);
 
-	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (tar_ptr->lev*3/5+20)) && !is_player(atk_ptr) && (atk_ptr != &m_list[tar_ptr->riding]))
+	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (tar_ptr->lev*3/5+20)) && !is_player(atk_ptr) && (atk_ptr != &creature_list[tar_ptr->riding]))
 	{
 		if (kawarimi(TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
 	if (is_player(atk_ptr)) return (FALSE);
-	if (atk_ptr == &m_list[tar_ptr->riding]) return (FALSE);
+	if (atk_ptr == &creature_list[tar_ptr->riding]) return (FALSE);
 
 	if ((tar_ptr->reflect || ((tar_ptr->special_defense & KATA_FUUJIN) && !tar_ptr->blind)) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
@@ -7459,8 +7459,8 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&m_list[tar_ptr->health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
-						if (&m_list[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
+						if (&creature_list[tar_ptr->health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (atk_ptr->ml)
@@ -7739,7 +7739,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 	disturb(1, 0);
 
 
-	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && atk_ptr && (atk_ptr != &m_list[tar_ptr->riding]))
+	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && atk_ptr && (atk_ptr != &creature_list[tar_ptr->riding]))
 	{
 		(void)kawarimi(FALSE);
 	}
@@ -8491,7 +8491,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					if(project_m(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
 					if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
-					    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
+					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
 					    if (m_ptr->ml)
 					    {
@@ -8517,7 +8517,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			  notice=TRUE;
 			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
-			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
+			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -8649,7 +8649,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			(void)project_m(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
 			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
-			    creature_type *m_ptr = &m_list[cave[project_m_y][project_m_x].m_idx];
+			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
 			    if (m_ptr->ml)
 			    {
@@ -9034,7 +9034,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			/* A single bolt may be reflected */
 			if (grids <= 1)
 			{
-				creature_type *m_ptr = &m_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 				species_type *ref_ptr = &r_info[m_ptr->species_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
@@ -9077,7 +9077,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(&m_list[cave[y][x].m_idx], 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&creature_list[cave[y][x].m_idx], 0, t_y, t_x, dam, typ, flg, monspell);
 
 					/* Don't affect the monster any longer */
 					continue;
@@ -9182,7 +9182,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			/* Track if possible */
 			if (cave[y][x].m_idx > 0)
 			{
-				creature_type *m_ptr = &m_list[cave[y][x].m_idx];
+				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 
 				if (m_ptr->ml)
 				{
@@ -9276,7 +9276,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	{
 		char m_name[80];
 
-		monster_desc(m_name, &m_list[p_ptr->riding], 0);
+		monster_desc(m_name, &creature_list[p_ptr->riding], 0);
 
 		if (rakubadam_m > 0)
 		{

@@ -278,14 +278,14 @@ void delete_species_idx(creature_type *cr_ptr)
 
 
 	/* Hack -- remove target monster */
-	if (cr_ptr == &m_list[target_who]) target_who = 0;
+	if (cr_ptr == &creature_list[target_who]) target_who = 0;
 
 	/* Hack -- remove tracked monster */
-	if (cr_ptr == &m_list[p_ptr->health_who]) health_track(0);
+	if (cr_ptr == &creature_list[p_ptr->health_who]) health_track(0);
 
-	if (&m_list[pet_t_m_idx] == cr_ptr) pet_t_m_idx = 0;
-	if (&m_list[riding_t_m_idx] == cr_ptr) riding_t_m_idx = 0;
-	if (&m_list[p_ptr->riding] == cr_ptr) p_ptr->riding = 0;
+	if (&creature_list[pet_t_m_idx] == cr_ptr) pet_t_m_idx = 0;
+	if (&creature_list[riding_t_m_idx] == cr_ptr) riding_t_m_idx = 0;
+	if (&creature_list[p_ptr->riding] == cr_ptr) p_ptr->riding = 0;
 
 	/* Monster is gone */
 	cave[y][x].m_idx = 0;
@@ -344,7 +344,7 @@ void delete_monster(int y, int x)
 	c_ptr = &cave[y][x];
 
 	/* Delete the monster (if any) */
-	if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
+	if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
 }
 
 
@@ -367,7 +367,7 @@ static void compact_monsters_aux(int i1, int i2)
 
 
 	/* Old monster */
-	m_ptr = &m_list[i1];
+	m_ptr = &creature_list[i1];
 
 	/* Location */
 	y = m_ptr->fy;
@@ -412,7 +412,7 @@ static void compact_monsters_aux(int i1, int i2)
 	{
 		for (i = 1; i < m_max; i++)
 		{
-			creature_type *m2_ptr = &m_list[i];
+			creature_type *m2_ptr = &creature_list[i];
 
 			if (m2_ptr->parent_m_idx == i1)
 				m2_ptr->parent_m_idx = i2;
@@ -420,15 +420,15 @@ static void compact_monsters_aux(int i1, int i2)
 	}
 
 	/* Structure copy */
-	COPY(&m_list[i2], &m_list[i1], creature_type);
+	COPY(&creature_list[i2], &creature_list[i1], creature_type);
 
 	/* Wipe the hole */
-	(void)WIPE(&m_list[i1], creature_type);
+	(void)WIPE(&creature_list[i1], creature_type);
 
 	for (i = 0; i < MAX_MTIMED; i++)
 	{
-		int mproc_idx = get_mproc_idx(&m_list[i1], i);
-		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = &m_list[i2];
+		int mproc_idx = get_mproc_idx(&creature_list[i1], i);
+		if (mproc_idx >= 0) mproc_list[i][mproc_idx] = &creature_list[i2];
 	}
 }
 
@@ -470,7 +470,7 @@ void compact_monsters(int size)
 		/* Check all the monsters */
 		for (i = 1; i < m_max; i++)
 		{
-			creature_type *m_ptr = &m_list[i];
+			creature_type *m_ptr = &creature_list[i];
 
 			species_type *r_ptr = &r_info[m_ptr->species_idx];
 
@@ -518,7 +518,7 @@ void compact_monsters(int size)
 	for (i = m_max - 1; i >= 1; i--)
 	{
 		/* Get the i'th monster */
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip real monsters */
 		if (m_ptr->species_idx) continue;
@@ -574,7 +574,7 @@ void birth_uniques(void)
  * This is an efficient method of simulating multiple calls to the
  * "delete_monster()" function, with no visual effects.
  */
-void wipe_m_list(void)
+void wipe_creature_list(void)
 {
 	int i;
 
@@ -600,7 +600,7 @@ void wipe_m_list(void)
 	/* Delete all the monsters */
 	for (i = m_max - 1; i >= 1; i--)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -677,7 +677,7 @@ s16b m_pop(void)
 		creature_type *m_ptr;
 
 		/* Acquire monster */
-		m_ptr = &m_list[i];
+		m_ptr = &creature_list[i];
 
 		/* Skip live monsters */
 		if (m_ptr->species_idx) continue;
@@ -1812,7 +1812,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			/* Inside monster arena, and it is not your mount */
 			else if (inside_battle &&
-				 !(p_ptr->riding && (&m_list[p_ptr->riding] == m_ptr)))
+				 !(p_ptr->riding && (&creature_list[p_ptr->riding] == m_ptr)))
 			{
 				/* It is a fake unique monster */
 #ifdef JP
@@ -1878,7 +1878,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			strcat(desc,buf);
 		}
 
-		if (p_ptr->riding && (&m_list[p_ptr->riding] == m_ptr))
+		if (p_ptr->riding && (&creature_list[p_ptr->riding] == m_ptr))
 		{
 #ifdef JP
 			strcat(desc,"(乗馬中)");
@@ -2478,7 +2478,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 //TODO  Marge to calc_bonuses
 void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
@@ -2626,14 +2626,14 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_orc) && (is_orc_creature(&m_list[m_idx])))
+			if ((cr_ptr->esp_orc) && (is_orc_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
 //TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&m_list[m_idx])))
+			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
 //TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
@@ -2874,7 +2874,7 @@ void update_monsters(bool full)
 	/* Update each (live) monster */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -2891,7 +2891,7 @@ void update_monsters(bool full)
 static bool monster_hook_chameleon_lord(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
-	creature_type *m_ptr = &m_list[chameleon_change_m_idx];
+	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
@@ -2913,7 +2913,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	/* Born now */
 	else if (summon_specific_who > 0)
 	{
-		if (monster_has_hostile_align(&m_list[summon_specific_who], 0, 0, r_ptr)) return FALSE;
+		if (monster_has_hostile_align(&creature_list[summon_specific_who], 0, 0, r_ptr)) return FALSE;
 	}
 
 	return TRUE;
@@ -2922,7 +2922,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 static bool monster_hook_chameleon(int species_idx)
 {
 	species_type *r_ptr = &r_info[species_idx];
-	creature_type *m_ptr = &m_list[chameleon_change_m_idx];
+	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
@@ -2945,7 +2945,7 @@ static bool monster_hook_chameleon(int species_idx)
 	/* Born now */
 	else if (summon_specific_who > 0)
 	{
-		if (monster_has_hostile_align(&m_list[summon_specific_who], 0, 0, r_ptr)) return FALSE;
+		if (monster_has_hostile_align(&creature_list[summon_specific_who], 0, 0, r_ptr)) return FALSE;
 	}
 
 	return (*(get_monster_hook()))(species_idx);
@@ -2955,7 +2955,7 @@ static bool monster_hook_chameleon(int species_idx)
 void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_idx)
 {
 	int oldmhp;
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr;
 	char old_m_name[80];
 	bool old_unique = FALSE;
@@ -3465,7 +3465,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
 						if (cave[j2][i2].m_idx > 0)
-							if (m_list[cave[j2][i2].m_idx].species_idx == quest[hoge].species_idx)
+							if (creature_list[cave[j2][i2].m_idx].species_idx == quest[hoge].species_idx)
 								number_mon++;
 				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
 					return max_m_idx;
@@ -3512,7 +3512,7 @@ msg_print("守りのルーンが壊れた！");
 	if (!c_ptr->m_idx) return (max_m_idx);
 
 	/* Get a new monster record */
-	m_ptr = &m_list[c_ptr->m_idx];
+	m_ptr = &creature_list[c_ptr->m_idx];
 	m_ptr->id = c_ptr->m_idx;
 
 	if(is_unique_species(r_ptr))
@@ -3611,10 +3611,10 @@ msg_print("守りのルーンが壊れた！");
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
 	{
 		int val = r_ptr->sleep;
-		(void)set_paralyzed(&m_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
+		(void)set_paralyzed(&creature_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
 	}
 
-	if (mode & PM_HASTE) (void)set_fast(&m_list[c_ptr->m_idx], 100, FALSE);
+	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->m_idx], 100, FALSE);
 
 	/* Give a random starting energy */
 	if (!ironman_nightmare)
@@ -4087,7 +4087,7 @@ static int place_monster_m_idx = 0;
 static bool place_monster_okay(int species_idx)
 {
 	species_type *r_ptr = &r_info[place_species_idx];
-	creature_type *m_ptr = &m_list[place_monster_m_idx];
+	creature_type *m_ptr = &creature_list[place_monster_m_idx];
 
 	species_type *z_ptr = &r_info[species_idx];
 
@@ -4153,7 +4153,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 	i = place_monster_one(p_ptr, who_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
-	m_ptr = &m_list[i];
+	m_ptr = &creature_list[i];
 
 	i = 0;
 	while(i < MAX_UNDERLINGS && m_ptr->underling_id[i])
@@ -4227,7 +4227,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			    (r_ptr->flags1 & RF1_ESCORTS))
 			{
 				/* Place a group of monsters */
-				(void)place_monster_group(&m_list[place_monster_m_idx], ny, nx, z, mode);
+				(void)place_monster_group(&creature_list[place_monster_m_idx], ny, nx, z, mode);
 			}
 		}
 	}
@@ -4306,14 +4306,14 @@ bool alloc_horde(int y, int x)
 
 	m_idx = cave[y][x].m_idx;
 
-	if (m_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &r_info[m_list[m_idx].species_idx];
+	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &r_info[creature_list[m_idx].species_idx];
 	summon_kin_type = r_ptr->d_char;
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
 		scatter(&cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&m_list[m_idx], cy, cx, dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, dun_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4462,7 +4462,7 @@ static bool summon_specific_okay(int species_idx)
 	/* Hack -- identify the summoning monster */
 	if (summon_specific_who > 0)
 	{
-		creature_type *m_ptr = &m_list[summon_specific_who];
+		creature_type *m_ptr = &creature_list[summon_specific_who];
 
 		/* Do not summon enemies */
 
@@ -4586,7 +4586,7 @@ bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_id
  */
 bool multiply_monster(int m_idx, bool clone, u32b mode)
 {
-	creature_type	*m_ptr = &m_list[m_idx];
+	creature_type	*m_ptr = &creature_list[m_idx];
 
 	int y, x;
 
@@ -4596,14 +4596,14 @@ bool multiply_monster(int m_idx, bool clone, u32b mode)
 	if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 	/* Create a new monster (awake, no groups) */
-	if (!place_monster_aux(&m_list[m_idx], y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_monster_aux(&creature_list[m_idx], y, x, m_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
 	if (clone || (m_ptr->smart & SM_CLONED))
 	{
-		m_list[hack_m_idx_ii].smart |= SM_CLONED;
-		m_list[hack_m_idx_ii].mflag2 |= MFLAG2_NOPET;
+		creature_list[hack_m_idx_ii].smart |= SM_CLONED;
+		creature_list[hack_m_idx_ii].mflag2 |= MFLAG2_NOPET;
 	}
 
 	return TRUE;
@@ -4623,7 +4623,7 @@ void message_pain(int m_idx, int dam)
 	long oldhp, newhp, tmp;
 	int percentage;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	char m_name[80];

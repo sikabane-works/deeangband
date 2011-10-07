@@ -573,7 +573,7 @@
 /*
  * A monster can only "multiply" (reproduce) if there are fewer than 100
  * monsters on the level capable of such spontaneous reproduction.  This
- * is a hack which prevents the "m_list[]" array from exploding due to
+ * is a hack which prevents the "creature_list[]" array from exploding due to
  * reproducing monsters.  Messy, but necessary.
  */
 #define MAX_REPRO       100
@@ -4349,7 +4349,7 @@
 	 (bool)(((A)->smart & SM_FRIENDLY) ? TRUE : FALSE)
 
 #define is_friendly_idx(IDX) \
-	 (bool)((IDX) > 0 && is_friendly(&m_list[(IDX)]))
+	 (bool)((IDX) > 0 && is_friendly(&creature_list[(IDX)]))
 
 #define is_pet(A) \
 	 (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)

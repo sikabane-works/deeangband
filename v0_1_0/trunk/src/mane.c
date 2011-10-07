@@ -929,7 +929,7 @@ msg_print("–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B");
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		m_ptr = &m_list[cave[target_row][target_col].m_idx];
+		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
 		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
 		if (r_ptr->flags10 & RF10_RES_TELE)
@@ -983,7 +983,7 @@ msg_format("%s‚ðˆø‚«–ß‚µ‚½B", m_name);
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		m_ptr = &m_list[target_m_idx];
+		m_ptr = &creature_list[target_m_idx];
 		r_ptr = &r_info[m_ptr->species_idx];
 		monster_desc(m_name, m_ptr, 0);
 #ifdef JP

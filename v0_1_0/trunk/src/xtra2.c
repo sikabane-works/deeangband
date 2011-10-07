@@ -496,7 +496,7 @@ msg_print("クエストを達成した！");
 				for (i2 = 0; i2 < cur_wid; ++i2)
 					for (j2 = 0; j2 < cur_hgt; j2++)
 						if (cave[j2][i2].m_idx > 0)
-							if (is_hostile(&m_list[cave[j2][i2].m_idx])) 
+							if (is_hostile(&creature_list[cave[j2][i2].m_idx])) 
 								number_mon++;
 
 				if ((number_mon - 1) == 0)
@@ -735,7 +735,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 		&& !inside_battle && !is_pet(cr_ptr);
 
 	/* The caster is dead? */
-	if (world_monster && &m_list[world_monster] == cr_ptr) world_monster = 0;
+	if (world_monster && &creature_list[world_monster] == cr_ptr) world_monster = 0;
 
 	/* Notice changes in view */
 	if (cr_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
@@ -832,7 +832,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 		}
 	}
 
-	if (cr_ptr == &m_list[p_ptr->riding])
+	if (cr_ptr == &creature_list[p_ptr->riding])
 	{
 		if (rakuba(p_ptr, -1, FALSE))
 		{
@@ -1958,7 +1958,7 @@ void ang_sort(vptr u, vptr v, int n)
  */
 bool target_able(int m_idx)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 
 	/* Monster must be alive */
 	if (!m_ptr->species_idx) return (FALSE);
@@ -2000,7 +2000,7 @@ bool target_okay(void)
 		/* Accept reasonable targets */
 		if (target_able(target_who))
 		{
-			creature_type *m_ptr = &m_list[target_who];
+			creature_type *m_ptr = &creature_list[target_who];
 
 			/* Acquire monster location */
 			target_row = m_ptr->fy;
@@ -2060,8 +2060,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	byte *y = (byte*)(v);
 	cave_type *ca_ptr = &cave[y[a]][x[a]];
 	cave_type *cb_ptr = &cave[y[b]][x[b]];
-	creature_type *ma_ptr = &m_list[ca_ptr->m_idx];
-	creature_type *mb_ptr = &m_list[cb_ptr->m_idx];
+	creature_type *ma_ptr = &creature_list[ca_ptr->m_idx];
+	creature_type *mb_ptr = &creature_list[cb_ptr->m_idx];
 	species_type *ap_ra_ptr, *ap_rb_ptr;
 
 	/* The player grid */
@@ -2222,7 +2222,7 @@ static bool target_set_accept(creature_type *cr_ptr, int y, int x)
 	/* Visible monsters */
 	if (c_ptr->m_idx)
 	{
-		creature_type *m_ptr = &m_list[c_ptr->m_idx];
+		creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 
 		/* Visible monsters */
 		if (m_ptr->ml) return (TRUE);
@@ -2285,7 +2285,7 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			/* Require target_able monsters for "TARGET_KILL" */
 			if ((mode & (TARGET_KILL)) && !target_able(c_ptr->m_idx)) continue;
 
-			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(&m_list[c_ptr->m_idx])) continue;
+			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(&creature_list[c_ptr->m_idx])) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;
@@ -2488,9 +2488,9 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 
 	/* Actual monsters */
-	if (c_ptr->m_idx && m_list[c_ptr->m_idx].ml)
+	if (c_ptr->m_idx && creature_list[c_ptr->m_idx].ml)
 	{
-		creature_type *m_ptr = &m_list[c_ptr->m_idx];
+		creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 		species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
 		char m_name[120];
 		bool recall = FALSE;
@@ -3925,7 +3925,7 @@ if (!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	}
 	else if (cr_ptr->riding)
 	{
-		creature_type *m_ptr = &m_list[cr_ptr->riding];
+		creature_type *m_ptr = &creature_list[cr_ptr->riding];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->confused)
@@ -3964,7 +3964,7 @@ msg_print("あなたは混乱している。");
 		else
 		{
 			char m_name[80];
-			creature_type *m_ptr = &m_list[cr_ptr->riding];
+			creature_type *m_ptr = &creature_list[cr_ptr->riding];
 
 			monster_desc(m_name, m_ptr, 0);
 			if (m_ptr->confused)

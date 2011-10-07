@@ -3900,8 +3900,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	creature_type *m_ptr1 = &m_list[w1];
-	creature_type *m_ptr2 = &m_list[w2];
+	creature_type *m_ptr1 = &creature_list[w1];
+	creature_type *m_ptr2 = &creature_list[w2];
 	species_type *r_ptr1 = &r_info[m_ptr1->species_idx];
 	species_type *r_ptr2 = &r_info[m_ptr2->species_idx];
 
@@ -5166,7 +5166,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				for (i = m_max - 1; i >= 1; i--)
 				{
 					/* Access the monster */
-					m_ptr = &m_list[i];
+					m_ptr = &creature_list[i];
 
 					/* Ignore "dead" monsters */
 					if (!m_ptr->species_idx) continue;
@@ -5395,7 +5395,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				else if (cave[y][x].m_idx)
 				{
 					char m_name[80];
-					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
+					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%sが邪魔だ！", m_name);
 #else
@@ -5497,7 +5497,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				{
 					for (i = m_max - 1; i > 0; i--)
 					{
-						m_ptr = &m_list[i];
+						m_ptr = &creature_list[i];
 						if (!m_ptr->species_idx) continue;
 						if (!((m_ptr->species_idx == MON_SUKE) || (m_ptr->species_idx == MON_KAKU))) continue;
 						if (!los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx)) continue;
@@ -6373,7 +6373,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			/* Process the monsters (backwards) */
 			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
-				if (is_pet(&m_list[pet_ctr]) && (cr_ptr->riding != pet_ctr))
+				if (is_pet(&creature_list[pet_ctr]) && (cr_ptr->riding != pet_ctr))
 				  who[max_pet++] = pet_ctr;
 			}
 
@@ -6462,10 +6462,10 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				if (place_monster_aux(cr_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{
-					if (o_ptr->xtra3) m_list[hack_m_idx_ii].speed = o_ptr->xtra3;
-					if (o_ptr->xtra5) m_list[hack_m_idx_ii].mmhp = o_ptr->xtra5;
-					if (o_ptr->xtra4) m_list[hack_m_idx_ii].chp = o_ptr->xtra4;
-					m_list[hack_m_idx_ii].mhp = m_list[hack_m_idx_ii].mmhp;
+					if (o_ptr->xtra3) creature_list[hack_m_idx_ii].speed = o_ptr->xtra3;
+					if (o_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = o_ptr->xtra5;
+					if (o_ptr->xtra4) creature_list[hack_m_idx_ii].chp = o_ptr->xtra4;
+					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
 					if (o_ptr->inscription)
 					{
 						char buf[80];
@@ -6507,7 +6507,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 								s--;
 #endif
 							*s = '\0';
-							m_list[hack_m_idx_ii].nickname = quark_add(buf);
+							creature_list[hack_m_idx_ii].nickname = quark_add(buf);
 							t = quark_str(o_ptr->inscription);
 							s = buf;
 							while(*t && (*t != '#'))

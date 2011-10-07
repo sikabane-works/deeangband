@@ -564,7 +564,7 @@ void wilderness_gen(creature_type *cr_ptr)
 				{
 					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
 					{
-						if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
+						if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
 						cr_ptr->oldpy = y;
 						cr_ptr->oldpx = x;
 					}
@@ -585,7 +585,7 @@ void wilderness_gen(creature_type *cr_ptr)
 
 				if (cave_have_flag_grid(c_ptr, FF_ENTRANCE))
 				{
-					if (c_ptr->m_idx) delete_species_idx(&m_list[c_ptr->m_idx]);
+					if (c_ptr->m_idx) delete_species_idx(&creature_list[c_ptr->m_idx]);
 					cr_ptr->oldpy = y;
 					cr_ptr->oldpx = x;
 				}
@@ -1065,7 +1065,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
 		if (is_pet(m_ptr) && i != cr_ptr->riding) have_pet = TRUE;

@@ -2238,7 +2238,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 					c_ptr = &cave[y][x];
 
 					/* Get the monster */
-					m_ptr = &m_list[c_ptr->m_idx];
+					m_ptr = &creature_list[c_ptr->m_idx];
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))

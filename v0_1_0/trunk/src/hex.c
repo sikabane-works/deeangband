@@ -287,7 +287,7 @@ bool magic_barrier(creature_type *cast_ptr, creature_type *tar_ptr)
 
 bool multiply_barrier(creature_type *cr_ptr, int m_idx)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	if (!hex_spelling(cr_ptr, HEX_ANTI_MULTI)) return FALSE;

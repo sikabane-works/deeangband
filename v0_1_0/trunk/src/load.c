@@ -1658,7 +1658,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 			creature_type *m_ptr;
 
 			/* Monster */
-			m_ptr = &m_list[o_ptr->held_m_idx];
+			m_ptr = &creature_list[o_ptr->held_m_idx];
 
 			/* Build a stack */
 			o_ptr->next_o_idx = m_ptr->hold_o_idx;
@@ -1703,7 +1703,7 @@ static errr rd_saved_floor(saved_floor_type *sf_ptr)
 		if (i != m_idx) return 162;
 
 		/* Acquire monster */
-		m_ptr = &m_list[m_idx];
+		m_ptr = &creature_list[m_idx];
 
 		/* Read the monster */
 		rd_creature(m_ptr);

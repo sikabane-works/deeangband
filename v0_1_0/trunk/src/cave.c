@@ -1226,7 +1226,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 	/* Handle monsters */
 	if (c_ptr->m_idx && display_autopick == 0 )
 	{
-		creature_type *m_ptr = &m_list[c_ptr->m_idx];
+		creature_type *m_ptr = &creature_list[c_ptr->m_idx];
 
 		/* Visible monster */
 		if (m_ptr->ml)
@@ -1768,7 +1768,7 @@ void prt_path(int y, int x)
 			byte ta;
 			char tc;
 
-			if (c_ptr->m_idx && m_list[c_ptr->m_idx].ml)
+			if (c_ptr->m_idx && creature_list[c_ptr->m_idx].ml)
 			{
 				/* Determine what is there */
 				map_info(p_ptr, ny, nx, &a, &c, &ta, &tc);
@@ -3029,7 +3029,7 @@ void update_mon_lite(creature_type *cr_ptr)
 		/* Loop through monsters, adding newly lit squares to changes list */
 		for (i = 1; i < m_max; i++)
 		{
-			m_ptr = &m_list[i];
+			m_ptr = &creature_list[i];
 			r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Skip dead monsters */

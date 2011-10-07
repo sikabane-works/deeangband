@@ -528,7 +528,7 @@ struct skill_table
  * amound of memory, but they all seem rather complicated, and would
  * probably add enough code that the savings would be lost.  So for
  * these reasons, we simply store an index into the "o_list" and
- * "m_list" arrays, using "zero" when no monster/object is present.
+ * "creature_list" arrays, using "zero" when no monster/object is present.
  *
  * Note that "o_idx" is the index of the top object in a stack of
  * objects, using the "next_o_idx" field of objects (see below) to

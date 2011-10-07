@@ -22,7 +22,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	/* Determine the radius of the blast */
@@ -48,7 +48,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 		break;
 	}
 
-	(void)project(&m_list[m_idx], rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&creature_list[m_idx], rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
@@ -61,14 +61,14 @@ static void monst_bolt_monst(int m_idx, int y, int x, int typ, int dam_hp, int m
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
 
-	(void)project(&m_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&creature_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void monst_beam_monst(int m_idx, int y, int x, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU;
 
-	(void)project(&m_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(&creature_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 /*
@@ -98,7 +98,7 @@ static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
 		if (y == y2 && x == x2)
 			hit2 = TRUE;
 		else if (friend && cave[y][x].m_idx > 0 &&
-			 !are_enemies(m_ptr, &m_list[cave[y][x].m_idx]))
+			 !are_enemies(m_ptr, &creature_list[cave[y][x].m_idx]))
 		{
 			/* Friends don't shoot friends */
 			return FALSE;
@@ -296,7 +296,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 	char m_poss[160];
 #endif
 
-	creature_type *user_ptr = &m_list[m_idx];
+	creature_type *user_ptr = &creature_list[m_idx];
 	creature_type *tar_ptr = NULL;
 
 	species_type *r_ptr = &r_info[user_ptr->species_idx];
@@ -342,7 +342,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 	if (pet_t_m_idx && pet)
 	{
 		t_idx = pet_t_m_idx;
-		tar_ptr = &m_list[t_idx];
+		tar_ptr = &creature_list[t_idx];
 
 		/* Cancel if not projectable (for now) */
 		if ((m_idx == t_idx) || !projectable(user_ptr->fy, user_ptr->fx, tar_ptr->fy, tar_ptr->fx))
@@ -358,7 +358,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		if (t_idx)
 		{
-			tar_ptr = &m_list[t_idx];
+			tar_ptr = &creature_list[t_idx];
 
 			/* Cancel if neither enemy nor a given target */
 			if ((m_idx == t_idx) ||
@@ -396,7 +396,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			if (!dummy) continue;
 
 			t_idx = dummy;
-			tar_ptr = &m_list[t_idx];
+			tar_ptr = &creature_list[t_idx];
 
 			/* Skip dead monsters */
 			if (!tar_ptr->species_idx) continue;
@@ -810,7 +810,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 
 		if (t_idx == player_ptr->riding) dispel_creature(player_ptr);
-		dispel_creature(&m_list[t_idx]);
+		dispel_creature(&creature_list[t_idx]);
 
 		break;
 
@@ -3430,8 +3430,8 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		if (!resists_tele)
 		{
-			if (t_idx == player_ptr->riding) teleport_player_away(&m_list[t_idx], MAX_SIGHT * 2 + 5);
-			else teleport_away(&m_list[t_idx], MAX_SIGHT * 2 + 5, TELEPORT_PASSIVE);
+			if (t_idx == player_ptr->riding) teleport_player_away(&creature_list[t_idx], MAX_SIGHT * 2 + 5);
+			else teleport_away(&creature_list[t_idx], MAX_SIGHT * 2 + 5, TELEPORT_PASSIVE);
 		}
 
 		wake_up = TRUE;
@@ -3534,12 +3534,12 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		if (can_use_lite_area)
 		{
-			(void)project(&m_list[m_idx], 3, y, x, 0, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+			(void)project(&creature_list[m_idx], 3, y, x, 0, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 			lite_room(y, x);
 		}
 		else
 		{
-			(void)project(&m_list[m_idx], 3, y, x, 0, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, MS_DARKNESS);
+			(void)project(&creature_list[m_idx], 3, y, x, 0, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, MS_DARKNESS);
 			unlite_room(y, x);
 		}
 
@@ -3678,7 +3678,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 					msg_print("Water blew off from the ground!");
 #endif
 				}
-				project(&m_list[t_idx], 8, y, x, 3, GF_WATER_FLOW, PROJECT_GRID | PROJECT_HIDE, -1);
+				project(&creature_list[t_idx], 8, y, x, 3, GF_WATER_FLOW, PROJECT_GRID | PROJECT_HIDE, -1);
 			}
 
 			{
@@ -4247,7 +4247,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		break;
 	}
 
-	if (wake_up) (void)set_paralyzed(&m_list[t_idx], 0);
+	if (wake_up) (void)set_paralyzed(&creature_list[t_idx], 0);
 
 	if (fear && see_t)
 	{

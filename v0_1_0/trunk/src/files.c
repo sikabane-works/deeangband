@@ -1946,8 +1946,8 @@ static void display_player_middle(creature_type *cr_ptr)
 		}
 		else
 		{
-			if (m_list[cr_ptr->riding].fast) tmp_speed += 10;
-			if (m_list[cr_ptr->riding].slow) tmp_speed -= 10;
+			if (creature_list[cr_ptr->riding].fast) tmp_speed += 10;
+			if (creature_list[cr_ptr->riding].slow) tmp_speed -= 10;
 		}
 
 		if (tmp_speed)
@@ -4426,7 +4426,7 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 
 	for (i = m_max - 1; i >= 1; i--)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
 		if (!is_pet(m_ptr)) continue;

@@ -230,9 +230,9 @@ void reset_tim_flags(creature_type *cr_ptr)
 
 	if (cr_ptr->riding)
 	{
-		(void)set_fast(&m_list[cr_ptr->riding], 0, FALSE);
-		(void)set_slow(&m_list[cr_ptr->riding], 0, FALSE);
-		(void)set_invuln(&m_list[cr_ptr->riding], 0, FALSE);
+		(void)set_fast(&creature_list[cr_ptr->riding], 0, FALSE);
+		(void)set_slow(&creature_list[cr_ptr->riding], 0, FALSE);
+		(void)set_invuln(&creature_list[cr_ptr->riding], 0, FALSE);
 	}
 
 	if (cr_ptr->cls_idx == CLASS_BARD)
@@ -829,8 +829,8 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (cr_ptr->ml)
 		{
 			/* Update health bar as needed */
-			if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-			if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+			if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+			if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 		}
 
 		return TRUE;
@@ -953,8 +953,8 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	if (r_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) cr_ptr->update |= (PU_MON_LITE);
@@ -1157,7 +1157,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&m_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -1342,7 +1342,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if ((&m_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
+	if ((&creature_list[cr_ptr->riding] == cr_ptr) && !cr_ptr->leaving) cr_ptr->update |= (PU_BONUS);
 
 	return TRUE;
 
@@ -2099,8 +2099,8 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&m_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	return TRUE;
@@ -5725,8 +5725,8 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 
 		/* Redraw (later) if needed */
-		if (&m_list[atk_ptr->health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[atk_ptr->health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	/* Genocided by chaos patron */

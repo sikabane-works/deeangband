@@ -678,7 +678,7 @@ object_type *o_list;
 /*
  * The array of dungeon monsters [max_m_idx]
  */
-creature_type *m_list;
+creature_type *creature_list;
 
 /*
  * The array of uniques [max_unique]

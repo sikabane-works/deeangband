@@ -1008,7 +1008,7 @@ static void regen_monsters(creature_type *cr_ptr)
 	for (i = 1; i < m_max; i++)
 	{
 		/* Check the i'th monster */
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 
@@ -1754,9 +1754,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	if (cr_ptr->riding)
 	{
 		int damage;
-		if ((r_info[m_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
+		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_FIRE) && !cr_ptr->immune_fire)
 		{
-			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
+			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
 			if (cr_ptr->resist_fire) damage = damage / 3;
 			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
@@ -1768,9 +1768,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
+		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
 		{
-			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
+			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ANDROID)) damage += damage / 3;
 			if (cr_ptr->resist_elec) damage = damage / 3;
 			if (IS_OPPOSE_ELEC(cr_ptr)) damage = damage / 3;
@@ -1782,9 +1782,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if ((r_info[m_list[cr_ptr->riding].species_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
+		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
 		{
-			damage = r_info[m_list[cr_ptr->riding].species_idx].level / 2;
+			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (cr_ptr->resist_cold) damage = damage / 3;
 			if (IS_OPPOSE_COLD(cr_ptr)) damage = damage / 3;
 #ifdef JP
@@ -2752,7 +2752,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		for (monster = 0; monster < m_max; monster++)
 		{
-			creature_type    *m_ptr = &m_list[monster];
+			creature_type    *m_ptr = &creature_list[monster];
 			species_type    *r_ptr = &r_info[m_ptr->species_idx];
 
 			/* Paranoia -- Skip dead monsters */
@@ -3493,7 +3493,7 @@ msg_print("下に引きずり降ろされる感じがする！");
  */
 static int get_monster_crowd_number(int m_idx)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	int my = m_ptr->fy;
 	int mx = m_ptr->fx;
 	int i;
@@ -3536,7 +3536,7 @@ static byte get_dungeon_feeling(void)
 	/* Examine each monster */
 	for (i = 1; i < m_max; i++)
 	{
-		creature_type *m_ptr = &m_list[i];
+		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr;
 		int delta = 0;
 
@@ -3774,7 +3774,7 @@ static void process_world(creature_type *cr_ptr)
 			char m_name[80];
 			creature_type *wm_ptr;
 
-			wm_ptr = &m_list[win_m_idx];
+			wm_ptr = &creature_list[win_m_idx];
 
 			monster_desc(m_name, wm_ptr, 0);
 #ifdef JP
@@ -5487,7 +5487,7 @@ msg_print("何か変わった気がする！");
 	{
 		for(i = 1; i < m_max; i++)
 		{
-			creature_type *m_ptr = &m_list[i];
+			creature_type *m_ptr = &creature_list[i];
 
 			if (!m_ptr->species_idx) continue;
 
@@ -5563,7 +5563,7 @@ msg_print("何か変わった気がする！");
 				if (place_monster_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
-					monster_desc(m_name, &m_list[cave[y][x].m_idx], 0);
+					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%sが釣れた！", m_name);
 #else
@@ -5615,7 +5615,7 @@ msg_print("中断しました。");
 
 	if (cr_ptr->riding && !cr_ptr->confused && !cr_ptr->blind)
 	{
-		creature_type *m_ptr = &m_list[cr_ptr->riding];
+		creature_type *m_ptr = &creature_list[cr_ptr->riding];
 		species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 		if (m_ptr->paralyzed)
@@ -5623,7 +5623,7 @@ msg_print("中断しました。");
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_paralyzed(&m_list[cr_ptr->riding], 0);
+			(void)set_paralyzed(&creature_list[cr_ptr->riding], 0);
 
 			/* Acquire the monster name */
 			monster_desc(m_name, m_ptr, 0);
@@ -5637,7 +5637,7 @@ msg_print("中断しました。");
 		if (m_ptr->stun)
 		{
 			/* Hack -- Recover from stun */
-			if (set_stun(&m_list[cr_ptr->riding],
+			if (set_stun(&creature_list[cr_ptr->riding],
 				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->stun - 1)))
 			{
 				char m_name[80];
@@ -5657,7 +5657,7 @@ msg_print("中断しました。");
 		if (m_ptr->confused)
 		{
 			/* Hack -- Recover from confusion */
-			if (set_confused(&m_list[cr_ptr->riding],
+			if (set_confused(&creature_list[cr_ptr->riding],
 				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->confused - 1)))
 			{
 				char m_name[80];
@@ -5677,7 +5677,7 @@ msg_print("中断しました。");
 		if (m_ptr->afraid)
 		{
 			/* Hack -- Recover from fear */
-			if (set_afraid(&m_list[cr_ptr->riding],
+			if (set_afraid(&creature_list[cr_ptr->riding],
 				(randint0(r_ptr->level) < cr_ptr->skill_exp[GINOU_RIDING]) ? 0 : (m_ptr->afraid - 1)))
 			{
 				char m_name[80];
@@ -5932,7 +5932,7 @@ msg_print("中断しました。");
 					species_type *r_ptr;
 
 					/* Access monster */
-					m_ptr = &m_list[i];
+					m_ptr = &creature_list[i];
 
 					/* Skip dead monsters */
 					if (!m_ptr->species_idx) continue;
@@ -5968,7 +5968,7 @@ msg_print("中断しました。");
 					creature_type *m_ptr;
 
 					/* Access monster */
-					m_ptr = &m_list[i];
+					m_ptr = &creature_list[i];
 
 					/* Skip dead monsters */
 					if (!m_ptr->species_idx) continue;
@@ -7092,7 +7092,7 @@ quit("セーブファイルが壊れています");
 		species_type *r_ptr = &r_info[pet_species_idx];
 		place_monster_aux(cr_ptr, cr_ptr->fy, cr_ptr->fx - 1, pet_species_idx,
 				  (PM_FORCE_PET | PM_NO_KAGE));
-		m_ptr = &m_list[hack_m_idx_ii];
+		m_ptr = &creature_list[hack_m_idx_ii];
 		m_ptr->speed = r_ptr->speed;
 
 		set_enemy_maxhp(m_ptr);
@@ -7142,7 +7142,7 @@ quit("セーブファイルが壊れています");
 
 		/* Erase the old cave */
 		wipe_o_list();
-		if (!cr_ptr->is_dead) wipe_m_list();
+		if (!cr_ptr->is_dead) wipe_creature_list();
 
 
 		/* XXX XXX XXX */
@@ -7311,7 +7311,7 @@ quit("セーブファイルが壊れています");
 
 					/* Prepare next floor */
 					leave_floor(cr_ptr);
-					wipe_m_list();
+					wipe_creature_list();
 				}
 			}
 		}

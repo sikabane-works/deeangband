@@ -32,20 +32,20 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 	int start;
 	int plus = 1;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	creature_type *t_ptr;
 
 	if (riding_t_m_idx && creature_bold(cr_ptr, m_ptr->fy, m_ptr->fx))
 	{
-		y = m_list[riding_t_m_idx].fy;
-		x = m_list[riding_t_m_idx].fx;
+		y = creature_list[riding_t_m_idx].fy;
+		x = creature_list[riding_t_m_idx].fx;
 	}
 	else if (is_pet(m_ptr) && pet_t_m_idx)
 	{
-		y = m_list[pet_t_m_idx].fy;
-		x = m_list[pet_t_m_idx].fx;
+		y = creature_list[pet_t_m_idx].fy;
+		x = creature_list[pet_t_m_idx].fx;
 	}
 	else
 	{
@@ -64,7 +64,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (!dummy) continue;
 
 			t_idx = dummy;
-			t_ptr = &m_list[t_idx];
+			t_ptr = &creature_list[t_idx];
 
 			/* The monster itself isn't a target */
 			if (t_ptr == m_ptr) continue;
@@ -204,15 +204,15 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 	/* Redraw (later) if needed */
 	if (cr_ptr->ml)
 	{
-		if (&m_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&m_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	/* Wake it up */
 	(void)set_paralyzed(cr_ptr, 0);
 
 
-	if (p_ptr->riding && (cr_ptr == &m_list[p_ptr->riding])) disturb(1, 0);
+	if (p_ptr->riding && (cr_ptr == &creature_list[p_ptr->riding])) disturb(1, 0);
 
 	if (cr_ptr->invuln && randint0(PENETRATE_INVULNERABILITY))
 	{
@@ -366,15 +366,15 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 
 #endif /* ALLOW_FEAR */
 
-	if ((dam > 0) && !is_pet(cr_ptr) && !is_friendly(cr_ptr) && (&m_list[who] != cr_ptr))
+	if ((dam > 0) && !is_pet(cr_ptr) && !is_friendly(cr_ptr) && (&creature_list[who] != cr_ptr))
 	{
-		if (is_pet(&m_list[who]) && !creature_bold(cr_ptr, cr_ptr->target_y, cr_ptr->target_x))
+		if (is_pet(&creature_list[who]) && !creature_bold(cr_ptr, cr_ptr->target_y, cr_ptr->target_x))
 		{
-			set_target(cr_ptr, m_list[who].fy, m_list[who].fx);
+			set_target(cr_ptr, creature_list[who].fy, creature_list[who].fx);
 		}
 	}
 
-	if (p_ptr->riding && (&m_list[p_ptr->riding] == cr_ptr) && (dam > 0))
+	if (p_ptr->riding && (&creature_list[p_ptr->riding] == cr_ptr) && (dam > 0))
 	{
 		char m_name[80];
 
@@ -412,7 +412,7 @@ msg_format("%^s‚ÉU‚è—Ž‚Æ‚³‚ê‚½I", m_name);
  */
 static int mon_will_run(int m_idx)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 
 #ifdef ALLOW_TERROR
 
@@ -489,7 +489,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	bool can_open_door = FALSE;
 	int now_cost;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	/* Monster location */
@@ -587,7 +587,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	cave_type *c_ptr;
 	bool use_scent = FALSE;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	/* Can monster cast attack spell? */
@@ -700,7 +700,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	int score = -1;
 	int i;
 
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 
 	/* Monster location */
 	fy = m_ptr->fy;
@@ -906,7 +906,7 @@ static sint *dist_offsets_x[10] =
 */
 static bool find_safety(int m_idx, int *yp, int *xp)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -995,7 +995,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
  */
 static bool find_hiding(int m_idx, int *yp, int *xp)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 
 	int fy = m_ptr->fy;
@@ -1065,7 +1065,7 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
  */
 static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 {
-	creature_type *m_ptr = &m_list[m_idx];
+	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &r_info[m_ptr->species_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
@@ -1084,7 +1084,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 
 		/* The monster must be an enemy, and in LOS */
 		if (t_m_idx &&
-		    are_enemies(m_ptr, &m_list[t_m_idx]) &&
+		    are_enemies(m_ptr, &creature_list[t_m_idx]) &&
 		    los(m_ptr->fy, m_ptr->fx, m_ptr->target_y, m_ptr->target_x) &&
 		    projectable(m_ptr->fy, m_ptr->fx, m_ptr->target_y, m_ptr->target_x))
 		{
@@ -1453,7 +1453,7 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
  */
 static void process_monster(creature_type *player_ptr, int m_idx)
 {
-	creature_type    *creature_ptr = &m_list[m_idx];
+	creature_type    *creature_ptr = &creature_list[m_idx];
 	species_type    *r_ptr = &r_info[creature_ptr->species_idx];
 	species_type    *ap_r_ptr = &r_info[creature_ptr->ap_species_idx];
 
@@ -1494,7 +1494,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
 #else
 			char m_name[80];
-			monster_desc(m_name, &m_list[player_ptr->riding], 0);
+			monster_desc(m_name, &creature_list[player_ptr->riding], 0);
 			msg_format("You have fallen from %s.", m_name);
 #endif
 		}
@@ -1518,7 +1518,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* Are there its parent? */
-	if (creature_ptr->parent_m_idx && !m_list[creature_ptr->parent_m_idx].species_idx)
+	if (creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
 	{
 		/* Its parent have gone, it also goes away. */
 
@@ -1545,7 +1545,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Delete the monster */
-		delete_species_idx(&m_list[m_idx]);
+		delete_species_idx(&creature_list[m_idx]);
 
 		return;
 	}
@@ -1580,10 +1580,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			}
 
 			/* Generate treasure, etc */
-			monster_death(&m_list[m_idx], FALSE);
+			monster_death(&creature_list[m_idx], FALSE);
 
 			/* Delete the monster */
-			delete_species_idx(&m_list[m_idx]);
+			delete_species_idx(&creature_list[m_idx]);
 
 			if (sad)
 			{
@@ -1672,7 +1672,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				/* Check for quest completion */
 				check_quest_completion(player_ptr, creature_ptr);
 
-				delete_species_idx(&m_list[m_idx]);
+				delete_species_idx(&creature_list[m_idx]);
 
 				return;
 			}
@@ -1693,7 +1693,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		/* Handle aggravation */
 
 		/* Reset sleep counter */
-		(void)set_paralyzed(&m_list[m_idx], 0);
+		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		/* Notice the "waking up" */
 		if (creature_ptr->ml)
@@ -1793,7 +1793,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			if (multiply_monster(m_idx, FALSE, (is_pet(creature_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (m_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
+				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
 					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1822,7 +1822,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 					{
 						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
 						{
-							if (m_list[hack_m_idx_ii].ml) count++;
+							if (creature_list[hack_m_idx_ii].ml) count++;
 						}
 					}
 
@@ -1919,7 +1919,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
-			    are_enemies(creature_ptr, &m_list[t_m_idx]) &&
+			    are_enemies(creature_ptr, &creature_list[t_m_idx]) &&
 			    projectable(creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
 				counterattack = TRUE;
@@ -2095,7 +2095,7 @@ msg_format("%^s%s", m_name, monmessage);
 		can_cross = monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0);
 
 		/* Access that cave grid's contents */
-		y_ptr = &m_list[c_ptr->m_idx];
+		y_ptr = &creature_list[c_ptr->m_idx];
 
 		/* Hack -- player 'in' wall */
 		if (creature_bold(player_ptr, ny, nx))
@@ -2430,7 +2430,7 @@ msg_format("%^s%s", m_name, monmessage);
 				did_move_body = TRUE;
 
 				/* Wake up the moved monster */
-				(void)set_paralyzed(&m_list[c_ptr->m_idx], 0);
+				(void)set_paralyzed(&creature_list[c_ptr->m_idx], 0);
 
 				/* XXX XXX XXX Message */
 			}
@@ -2438,7 +2438,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 		if (is_riding_mon)
 		{
-			if (!player_ptr->riding_ryoute && !m_list[player_ptr->riding].afraid) do_move = FALSE;
+			if (!player_ptr->riding_ryoute && !creature_list[player_ptr->riding].afraid) do_move = FALSE;
 		}
 
 		if (did_kill_wall && do_move)
@@ -2894,7 +2894,7 @@ void process_monsters(creature_type *cr_ptr)
 	for (i = m_max - 1; i >= 1; i--)
 	{
 		/* Access the monster */
-		m_ptr = &m_list[i];
+		m_ptr = &creature_list[i];
 		r_ptr = &r_info[m_ptr->species_idx];
 
 		/* Handle "leaving" */
@@ -3082,7 +3082,7 @@ void mproc_init(void)
 	for (i = m_max - 1; i >= 1; i--)
 	{
 		/* Access the monster */
-		m_ptr = &m_list[i];
+		m_ptr = &creature_list[i];
 
 		/* Ignore "dead" monsters */
 		if (!m_ptr->species_idx) continue;
@@ -3251,7 +3251,7 @@ void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 
 bool process_the_world(int num, int who, bool vs_player)
 {
-	creature_type *m_ptr = &m_list[hack_m_idx];  /* the world monster */
+	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world monster */
 
 	if(world_monster) return (FALSE);
 
@@ -3341,7 +3341,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 	/* Paranoia */
 	if (m_idx <= 0 || s_idx <= 0) return;
 
-	m_ptr = &m_list[m_idx];
+	m_ptr = &creature_list[m_idx];
 
 	/* Paranoia -- Skip dead monsters */
 	if (!m_ptr->species_idx) return;

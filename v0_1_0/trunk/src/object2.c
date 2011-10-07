@@ -36,7 +36,7 @@ void excise_object_idx(int o_idx)
 		creature_type *m_ptr;
 
 		/* Monster */
-		m_ptr = &m_list[j_ptr->held_m_idx];
+		m_ptr = &creature_list[j_ptr->held_m_idx];
 
 		/* Scan all objects in the grid */
 		for (this_o_idx = m_ptr->hold_o_idx; this_o_idx; this_o_idx = next_o_idx)
@@ -264,7 +264,7 @@ static void compact_objects_aux(int i1, int i2)
 		creature_type *m_ptr;
 
 		/* Acquire monster */
-		m_ptr = &m_list[o_ptr->held_m_idx];
+		m_ptr = &creature_list[o_ptr->held_m_idx];
 
 		/* Repair monster */
 		if (m_ptr->hold_o_idx == i1)
@@ -367,7 +367,7 @@ void compact_objects(int size)
 				creature_type *m_ptr;
 
 				/* Acquire monster */
-				m_ptr = &m_list[o_ptr->held_m_idx];
+				m_ptr = &creature_list[o_ptr->held_m_idx];
 
 				/* Get the location */
 				y = m_ptr->fy;
@@ -464,7 +464,7 @@ void wipe_o_list(void)
 			creature_type *m_ptr;
 
 			/* Monster */
-			m_ptr = &m_list[o_ptr->held_m_idx];
+			m_ptr = &creature_list[o_ptr->held_m_idx];
 
 			/* Hack -- see above */
 			m_ptr->hold_o_idx = 0;
@@ -6825,7 +6825,7 @@ bool process_warning(int xx, int yy)
 
 			if (!c_ptr->m_idx) continue;
 
-			m_ptr = &m_list[c_ptr->m_idx];
+			m_ptr = &creature_list[c_ptr->m_idx];
 
 			if (m_ptr->paralyzed) continue;
 			if (!is_hostile(m_ptr)) continue;

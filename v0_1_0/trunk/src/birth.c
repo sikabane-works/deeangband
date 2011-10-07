@@ -6662,9 +6662,9 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 
 	/* 
 	 * Wipe monsters in old dungeon
-	 * This wipe destroys value of m_list[].cur_num .
+	 * This wipe destroys value of creature_list[].cur_num .
 	 */
-	wipe_m_list();
+	wipe_creature_list();
 
 	/* Wipe the player */
 	player_wipe(cr_ptr);

@@ -1108,7 +1108,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 			int ty = y, tx = x;
 			int oy = y, ox = x;
 			int m_idx = cave[y][x].m_idx;
-			creature_type *m_ptr = &m_list[m_idx];
+			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr = &r_info[m_ptr->species_idx];
 			char m_name[80];
 
@@ -1491,7 +1491,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 			c_ptr = &cave[y][x];
 
 			/* Get the monster */
-			m_ptr = &m_list[c_ptr->m_idx];
+			m_ptr = &creature_list[c_ptr->m_idx];
 
 			/* Hack -- attack monsters */
 			if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
@@ -1665,7 +1665,7 @@ msg_print("その方向にはモンスターはいません。");
 		if (m_idx == cr_ptr->riding) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
 		if (!projectable(cr_ptr->fy, cr_ptr->fx, target_row, target_col)) break;
-		m_ptr = &m_list[m_idx];
+		m_ptr = &creature_list[m_idx];
 		monster_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%sを引き戻した。", m_name);
@@ -1700,7 +1700,7 @@ msg_print("その方向にはモンスターはいません。");
 		m_ptr->fx = tx;
 
 		/* Wake the monster up */
-		(void)set_paralyzed(&m_list[m_idx], 0);
+		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		/* Update the monster (new location) */
 		update_mon(cr_ptr, m_idx, TRUE);

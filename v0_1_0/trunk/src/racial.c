@@ -1303,7 +1303,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				return FALSE;
 			}
 			if (!do_riding(cr_ptr, TRUE)) return TRUE;
-			steed_ptr = &m_list[cr_ptr->riding];
+			steed_ptr = &creature_list[cr_ptr->riding];
 			monster_desc(steed_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%s‚Éæ‚Á‚½B",steed_name);
