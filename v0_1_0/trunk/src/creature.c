@@ -928,6 +928,30 @@ bool is_kill_item_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_open_door_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_OPEN_DOOR) return TRUE;
+	else return FALSE;
+}
+
+bool is_open_door_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_OPEN_DOOR) return TRUE;
+	else return FALSE;
+}
+
+bool is_bash_door_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_BASH_DOOR) return TRUE;
+	else return FALSE;
+}
+
+bool is_bash_door_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_BASH_DOOR) return TRUE;
+	else return FALSE;
+}
+
 bool is_aquatic_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF7_AQUATIC) return TRUE;

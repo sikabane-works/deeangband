@@ -896,6 +896,10 @@ extern bool is_take_item_creature(creature_type *cr_ptr);
 extern bool is_take_item_species(species_type *sp_ptr);
 extern bool is_kill_item_creature(creature_type *cr_ptr);
 extern bool is_kill_item_species(species_type *sp_ptr);
+extern bool is_open_door_creature(creature_type *cr_ptr);
+extern bool is_open_door_species(species_type *sp_ptr);
+extern bool is_bash_door_creature(creature_type *cr_ptr);
+extern bool is_bash_door_species(species_type *sp_ptr);
 
 extern bool is_aura_fire_creature(creature_type *cr_ptr);
 extern bool is_aura_fire_species(species_type *sp_ptr);
