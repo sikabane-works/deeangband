@@ -888,6 +888,10 @@ extern bool is_human_species(species_type *sp_ptr);
 extern bool is_animal_species(species_type *sp_ptr);
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
+extern bool is_pass_wall_creature(creature_type *cr_ptr);
+extern bool is_pass_wall_species(species_type *sp_ptr);
+extern bool is_kill_wall_creature(creature_type *cr_ptr);
+extern bool is_kill_wall_species(species_type *sp_ptr);
 
 extern bool is_aura_fire_creature(creature_type *cr_ptr);
 extern bool is_aura_fire_species(species_type *sp_ptr);

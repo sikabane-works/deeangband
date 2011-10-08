@@ -880,6 +880,31 @@ bool is_powerful_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_pass_wall_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_PASS_WALL) return TRUE;
+	else return FALSE;
+}
+
+bool is_pass_wall_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_PASS_WALL) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_wall_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_KILL_WALL) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_wall_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_KILL_WALL) return TRUE;
+	else return FALSE;
+}
+
+
 bool is_aquatic_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF7_AQUATIC) return TRUE;
