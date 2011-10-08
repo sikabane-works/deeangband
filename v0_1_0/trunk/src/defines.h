@@ -6349,7 +6349,8 @@ extern int PlayerUID;
 // Flags 19
 
 
-
 // obeserve creature flags
 #define CREATURE_OBS_RACE			100
 #define CREATURE_OBS_ALIGNMENT		110
+
+#define NO_FLAGS 0 // no flags

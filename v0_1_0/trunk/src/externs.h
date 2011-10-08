@@ -937,7 +937,6 @@ extern bool is_enemy_of_chaos_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_chaos_species(species_type *cr_ptr);
 extern bool is_enemy_of_balance_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_balance_species(species_type *cr_ptr);
-extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
 extern bool is_sub_unique_creature(creature_type *cr_ptr);
@@ -962,6 +961,8 @@ extern bool is_random_walker_25_creature(creature_type *cr_ptr);
 extern bool is_random_walker_25_species(species_type *sp_ptr);
 extern bool is_random_walker_50_creature(creature_type *cr_ptr);
 extern bool is_random_walker_50_species(species_type *sp_ptr);
+extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
+extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
 
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);

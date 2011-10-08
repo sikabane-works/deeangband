@@ -1133,3 +1133,8 @@ void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
 	return;
 }
 
+void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
+{
+	flags_ptr->add_lev[type] = low;
+	flags_ptr->remove_lev[type] = high;
+}

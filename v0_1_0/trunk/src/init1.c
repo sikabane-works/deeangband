@@ -5595,13 +5595,14 @@ errr parse_rc_info_csv(char *buf, header *head)
 					{
 						//TODO
 					}
-					else if(sscanf(s, "%s %d", &flagname, &b, &c) == 2)
+					else if(sscanf(s, "%s %d", &flagname, &b) == 2)
 					{
-						//TODO
+						c = PY_MAX_LEVEL;
 					}
-					else if(sscanf(s, "%s", &flagname, &b, &c) == 1)
+					else if(sscanf(s, "%s", &flagname) == 1)
 					{
-						//TODO
+						b = 1;
+						c = PY_MAX_LEVEL;
 					}
 					else return(1);
 
