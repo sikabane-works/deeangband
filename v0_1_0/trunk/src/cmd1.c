@@ -1835,7 +1835,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (tar_ptr->flags3 & RF3_AURA_COLD)
+	if (is_aura_cold_creature(tar_ptr))
 	{
 		if (!atk_ptr->immune_cold)
 		{
@@ -1856,7 +1856,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags3 |= RF3_AURA_COLD;
+			//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags3 |= RF3_AURA_COLD;
 			handle_stuff(atk_ptr);
 		}
 	}

@@ -3246,7 +3246,7 @@ static bool mon_hook_lava(int species_idx)
 
 	if (((r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK) ||
 	     can_fly_species(r_ptr)) &&
-	    !(r_ptr->flags3 & RF3_AURA_COLD))
+	    !is_aura_cold_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;

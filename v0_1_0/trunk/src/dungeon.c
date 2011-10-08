@@ -1782,7 +1782,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags3 & RF3_AURA_COLD) && !cr_ptr->immune_cold)
+		if (is_aura_cold_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_cold)
 		{
 			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (cr_ptr->resist_cold) damage = damage / 3;
