@@ -2369,6 +2369,13 @@ static byte get_random_ego(byte slot, bool good)
 			if (value <= 0L) break;
 		}
 	}
+
+	// WARING MESSAGE
+	if(i >= max_e_idx)
+	{
+		i = 0;
+		if(cheat_hear) msg_print("WARING: Ego Selection Failed.\n");
+	}
 	return (byte)i;
 }
 

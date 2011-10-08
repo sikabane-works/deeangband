@@ -3144,9 +3144,6 @@ static void mon_equip(creature_type *m_ptr)
 	/* Drop some objects */
 	for (i = 0; i < number; i++)
 	{
-		/* Wipe the object */
-		object_wipe(&m_ptr->inventory[i]);
-
 		/* Make an object */
 		if (!make_object(&m_ptr->inventory[i], mo_mode, GON_ITEM)) continue;
 
@@ -3155,6 +3152,9 @@ static void mon_equip(creature_type *m_ptr)
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
+		/* Wipe the object */
+		object_wipe(&m_ptr->inventory[i]);
+
 		if(!r_ptr->artifact_prob[i]) break;
 
 		if(r_ptr->artifact_id[i])
