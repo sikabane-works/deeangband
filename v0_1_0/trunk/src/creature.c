@@ -904,6 +904,29 @@ bool is_kill_wall_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_take_item_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_TAKE_ITEM) return TRUE;
+	else return FALSE;
+}
+
+bool is_take_item_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_TAKE_ITEM) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_item_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_KILL_ITEM) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_item_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_KILL_ITEM) return TRUE;
+	else return FALSE;
+}
 
 bool is_aquatic_creature(creature_type *cr_ptr)
 {
