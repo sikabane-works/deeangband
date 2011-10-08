@@ -504,7 +504,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	if (now_cost == 0) now_cost = 999;
 
 	/* Can monster bash or open doors? */
-	if (r_ptr->flags2 & (RF2_BASH_DOOR | RF2_OPEN_DOOR))
+	if (is_bash_door_creature(m_ptr) || is_open_door_creature(m_ptr))
 	{
 		can_open_door = TRUE;
 	}
@@ -665,7 +665,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 		{
 			int cost;
 
-			if (r_ptr->flags2 & (RF2_BASH_DOOR | RF2_OPEN_DOOR))
+			if (is_bash_door_creature(m_ptr) || is_open_door_creature(m_ptr))
 				cost = c_ptr->dist;
 			else cost = c_ptr->cost;
 
@@ -2147,7 +2147,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Creature can open doors. */
-			if ((creature_ptr->flags2 & RF2_OPEN_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
+			if (is_bash_door_creature(creature_ptr) && have_flag(f_ptr->flags, FF_OPEN) &&
 				 (!is_pet(creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
@@ -2182,7 +2182,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Stuck doors -- attempt to bash them down if allowed */
-			if (may_bash && (creature_ptr->flags2 & RF2_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
+			if (may_bash && is_bash_door_creature(creature_ptr) && have_flag(f_ptr->flags, FF_BASH) &&
 				(!is_pet(creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
@@ -2228,7 +2228,7 @@ msg_format("%^s%s", m_name, monmessage);
 						/* Update some things */
 						player_ptr->update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 						return;
 					}
@@ -2774,10 +2774,10 @@ msg_format("%^s%s", m_name, monmessage);
 	if (is_original_ap_and_seen(player_ptr, creature_ptr))
 	{
 		/* Monster opened a door */
-		if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
+		//if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
 
 		/* Monster bashed a door */
-		if (did_bash_door) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+		//if (did_bash_door) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 		/* Monster tried to pick something up */
 		//if (did_take_item) r_ptr->r_flags2 |= (RF2_TAKE_ITEM);
