@@ -5596,7 +5596,7 @@ static bool vault_aux_trapped_pit(int species_idx)
 	if (!vault_monster_okay(species_idx)) return (FALSE);
 
 	/* No wall passing monster */
-	if ((r_ptr->flags2 & RF2_KILL_WALL) || is_pass_wall_species(r_ptr)) return (FALSE);
+	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -6001,7 +6001,7 @@ static bool vault_aux_lite(int species_idx)
 	if (!(r_ptr->flags4 & RF4_BR_LITE) && !(r_ptr->flags5 & RF5_BA_LITE)) return FALSE;
 
 	/* No wall passing monsters */
-	if ((r_ptr->flags2 & RF2_KILL_WALL) || is_pass_wall_species(r_ptr)) return FALSE;
+	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return FALSE;
 
 	/* No disintegrating monsters */
 	if (r_ptr->flags4 & RF4_BR_DISI) return FALSE;

@@ -98,7 +98,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 
 			/* Monster must be projectable if we can't pass through walls */
 			if ((is_pass_wall_creature(m_ptr) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
-			    ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != cr_ptr->riding)))
+			    (is_kill_wall_creature(m_ptr) && (m_idx != cr_ptr->riding)))
 			{
 				if (!in_disintegration_range(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -529,7 +529,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		cost = c_ptr->cost;
 
 		/* Monster cannot kill or pass walls */
-		if (!((is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) || ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding))))
+		if (!((is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) || (is_kill_wall_creature(m_ptr) && (m_idx != p_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -604,7 +604,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 
 	/* Monster can go through rocks */
 	if (is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
-	if ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding)) return (FALSE);
+	if (is_kill_wall_creature(m_ptr) && (m_idx != p_ptr->riding)) return (FALSE);
 
 	/* Monster location */
 	y1 = m_ptr->fy;
@@ -1105,7 +1105,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	 * (...unless they can move through walls -- TY)
 	 */
 		if (is_animal_creature(m_ptr) && !can_pass_wall &&
-			 !(r_ptr->flags2 & RF2_KILL_WALL))
+			 !is_kill_wall_creature(m_ptr))
 		{
 			int i, room = 0;
 
@@ -2110,7 +2110,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Monster destroys walls (and doors) */
-		else if ((creature_ptr->flags2 & RF2_KILL_WALL) &&
+		else if (is_kill_wall_creature(creature_ptr) &&
 		         (can_cross ? !have_flag(f_ptr->flags, FF_LOS) : !is_riding_mon) &&
 		         have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT) &&
 		         check_hp_for_feat_destruction(f_ptr, creature_ptr))
@@ -2466,7 +2466,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Update some things */
 				player_ptr->update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+				//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 
 				return;
 			}
@@ -2792,7 +2792,7 @@ msg_format("%^s%s", m_name, monmessage);
 		//TODO if (did_pass_wall) r_ptr->r_flags2 |= (RF2_PASS_WALL);
 
 		/* Monster destroyed a wall */
-		if (did_kill_wall) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+		//TODO if (did_kill_wall) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 	}
 
 }
