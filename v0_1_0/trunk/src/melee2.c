@@ -2578,11 +2578,11 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Take or Kill objects on the floor */
-			if (c_ptr->o_idx && (creature_ptr->flags2 & (RF2_TAKE_ITEM | RF2_KILL_ITEM)) &&
-			    (!is_pet(creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && (creature_ptr->flags2 & RF2_TAKE_ITEM))))
+			if (c_ptr->o_idx && (is_take_item_creature(creature_ptr) || is_kill_item_creature(creature_ptr)) &&
+			    (!is_pet(creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && is_take_item_creature(creature_ptr))))
 			{
 				s16b this_o_idx, next_o_idx;
-				bool do_take = (creature_ptr->flags2 & RF2_TAKE_ITEM) ? TRUE : FALSE;
+				bool do_take = is_take_item_creature(creature_ptr) ? TRUE : FALSE;
 
 				/* Scan all objects in the grid */
 				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
@@ -2780,10 +2780,10 @@ msg_format("%^s%s", m_name, monmessage);
 		if (did_bash_door) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 		/* Monster tried to pick something up */
-		if (did_take_item) r_ptr->r_flags2 |= (RF2_TAKE_ITEM);
+		//if (did_take_item) r_ptr->r_flags2 |= (RF2_TAKE_ITEM);
 
 		/* Monster tried to crush something */
-		if (did_kill_item) r_ptr->r_flags2 |= (RF2_KILL_ITEM);
+		//if (did_kill_item) r_ptr->r_flags2 |= (RF2_KILL_ITEM);
 
 		/* Monster pushed past another monster */
 		if (did_move_body) r_ptr->r_flags2 |= (RF2_MOVE_BODY);
