@@ -5889,6 +5889,7 @@ extern int PlayerUID;
  *  New Creature Flags
  */
 
+// Flags 1
 #define CF_UNIQUE			0
 #define CF_QUESTOR			1
 #define CF_NRF1XXX2			2
@@ -5922,6 +5923,7 @@ extern int PlayerUID;
 #define CF_1X30				30
 #define CF_NO_DEVOTEE		31
 
+// Flags 2
 #define CF_STUPID			32
 #define CF_SMART			33
 #define CF_CAN_SPEAK		34
@@ -5955,7 +5957,8 @@ extern int PlayerUID;
 #define CF_NRF2_XXX30		62
 #define CF_QUANTUM			63
 
-#define CF_NRF3_XXX1		64
+// Flags 3
+#define CF_HUMANOID			64
 #define CF_NRF3_XXX2		65
 #define CF_NRF3_XXX3		66
 #define CF_NRF3_XXX4		67
@@ -5988,6 +5991,7 @@ extern int PlayerUID;
 #define CF_NO_CONF			94
 #define CF_NO_SLEEP			95
 
+// Flags 4
 #define CF_SHRIEK			96
 #define CF_NRF4_XXX1		97
 #define CF_DISPEL			98
@@ -6021,6 +6025,7 @@ extern int PlayerUID;
 #define CF_BA_CHAO			126
 #define CF_BR_DISI			127
 
+// Flags 5
 #define CF_BA_ACID			128
 #define CF_BA_ELEC			129
 #define CF_BA_FIRE			130
@@ -6054,6 +6059,7 @@ extern int PlayerUID;
 #define CF_SLOW				158
 #define CF_HOLD				159
 
+// Flags 6
 #define CF_HASTE			160
 #define CF_HAND_DOOM		161
 #define CF_HEAL				162
@@ -6087,6 +6093,7 @@ extern int PlayerUID;
 #define CF_S_AMBERITES		190
 #define CF_S_UNIQUE			191
 
+// Flags 7
 #define CF_AQUATIC			192
 #define CF_CAN_SWIM			193
 #define CF_CAN_FLY			194
@@ -6108,6 +6115,7 @@ extern int PlayerUID;
 #define CF_HAS_DARK_2		210
 #define CF_SELF_DARK_2		211
 
+// Flags 8
 #define CF_WILD_ONLY		224
 #define CF_WILD_TOWN		225
 #define CF_CITIZEN			226
@@ -6121,6 +6129,7 @@ extern int PlayerUID;
 #define CF_WILD_GRASS		234
 #define CF_WILD_ALL			235
 
+// Flags 9
 #define CF_DROP_CORPSE		256
 #define CF_DROP_SKELETON	257
 #define CF_EAT_BLIND		258
@@ -6154,6 +6163,7 @@ extern int PlayerUID;
 #define CF_EAT_LOSE_CHR		286
 #define CF_EAT_DRAIN_MANA	287
 
+// Flags 10
 #define CF_IM_ACID			288
 #define CF_IM_ELEC			289
 #define CF_IM_FIRE			290
@@ -6187,6 +6197,7 @@ extern int PlayerUID;
 #define CF_NRF10_XXX30		318
 #define CF_NRF10_XXX31		319
 
+// Flags 11
 #define CF_FORCE_LESSER		320
 #define CF_RACE_EGO			321
 #define CF_CLASS_EGO		322
@@ -6220,6 +6231,7 @@ extern int PlayerUID;
 #define CF_NRF11_XXX30		350
 #define CF_NRF11_XXX31		351
 
+// Flags 12
 #define CF_SPIT_ACID		352
 #define CF_MUTE_BR_FIRE		353
 #define CF_HYPN_GAZE		354
@@ -6253,6 +6265,7 @@ extern int PlayerUID;
 #define CF_COLD_TOUCH		382
 #define CF_LAUNCHER			383
 
+// Flags 13
 #define CF_BERS_RAGE		384
 #define CF_COWARDICE		385
 #define CF_RTELEPORT		386
@@ -6286,6 +6299,7 @@ extern int PlayerUID;
 #define CF_HP_TO_SP			414
 #define CF_DISARM			415
 
+// Flags 14
 #define CF_HYPER_STR		416
 #define CF_PUNY				417
 #define CF_HYPER_INT		418
@@ -6319,11 +6333,21 @@ extern int PlayerUID;
 #define CF_MOTION			446
 #define CF_GOOD_LUCK		447
 
+// Flags 15
 #define CF_FIRE_BRAND		448
 #define CF_COLD_BRAND		449
 #define CF_ELEC_BRAND		450
 #define CF_ACID_BRAND		451
 #define CF_POIS_BRAND		452
+
+// Flags 16
+
+// Flags 17
+
+// Flags 18
+
+// Flags 19
+
 
 
 // obeserve creature flags

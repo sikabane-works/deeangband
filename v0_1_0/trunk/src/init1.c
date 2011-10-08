@@ -480,7 +480,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"QUANTUM",
 //CF3
-	"XXX",
+	"HUMANOID",
 	"XXX",
 	"XXX",
 	"XXX",
@@ -1128,7 +1128,7 @@ static cptr r_info_flags2[] =
  */
 static cptr r_info_flags3[] =
 {
-	"XXX",
+	"HUMANOID",
 	"XXX",
 	"XXX",
 	"XXX",
@@ -5591,7 +5591,19 @@ errr parse_rc_info_csv(char *buf, header *head)
 						while (*t == ' ' || *t == '|' || *t == '\n') t++;
 					}
 
-					if(sscanf(s, "%s %d %d", &flagname, &b, &c) != 3) return (1);
+					if(sscanf(s, "%s %d %d", &flagname, &b, &c) == 3)
+					{
+						//TODO
+					}
+					else if(sscanf(s, "%s %d", &flagname, &b, &c) == 2)
+					{
+						//TODO
+					}
+					else if(sscanf(s, "%s", &flagname, &b, &c) == 1)
+					{
+						//TODO
+					}
+					else return(1);
 
 					/* Parse this entry */
 					if(rc_info_csv_code[i] == RC_INFO_P_FLAGS)
