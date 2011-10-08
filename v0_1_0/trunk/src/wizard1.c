@@ -2015,11 +2015,6 @@ static void spoil_mon_desc(cptr fname)
 #endif
 
 		}
-		else if(species_ptr->patron_idx < MAX_PATRON)
-		{
-			strcat(trait, "/Žå_:");
-			strcat(trait, r_name + r_info[species_ptr->patron_idx].name);
-		}
 
 		if(species_ptr->flags11 & RF11_FORCE_LESSER) 
 		{

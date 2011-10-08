@@ -85,10 +85,6 @@ void check_experience(creature_type *cr_ptr)
 		{
 			cr_ptr->max_plv = cr_ptr->lev;
 
-			if (cr_ptr->patron_idx != PATRON_N)
-			{
-				level_reward = TRUE;
-			}
 			if (cr_ptr->race_idx1 == RACE_BEASTMAN)
 			{
 				if (one_in_(5)) level_mutation = TRUE;
@@ -4113,17 +4109,18 @@ void gain_level_reward(creature_type *cr_ptr, int chosen_reward)
 	else if (!(cr_ptr->lev % 13)) nasty_chance = 3;
 	else if (!(cr_ptr->lev % 14)) nasty_chance = 12;
 
-	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->race_idx1 != RACE_MELNIBONE)
+	//TODO	
+//	if (one_in_(nasty_chance) && cr_ptr->patron_idx != PATRON_ARIOCH && cr_ptr->race_idx1 != RACE_MELNIBONE)
 		type = randint1(20); /* Allow the 'nasty' effects */
-	else
-		type = randint1(15) + 5; /* Or disallow them */
+//	else
+//		type = randint1(15) + 5; /* Or disallow them */
 
 	if (type < 1) type = 1;
 	if (type > 20) type = 20;
 	type--;
 
-	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
-		 type = REW_IGNORE;
+//	if (cr_ptr->patron_idx == PATRON_ARIOCH && cr_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
+//		 type = REW_IGNORE;
 		
 
 #ifdef JP

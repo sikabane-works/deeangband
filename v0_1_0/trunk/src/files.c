@@ -3851,7 +3851,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->cls_idx != CLASS_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
-		if(cr_ptr->patron_idx == PATRON_NONE || cr_ptr->patron_idx == PATRON_N)
+		if(cr_ptr->patron_idx == PATRON_NONE)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
 			display_player_one_line(ENTRY_PATRON, r_name + r_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
