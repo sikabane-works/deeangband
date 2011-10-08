@@ -952,6 +952,32 @@ bool is_bash_door_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_move_body_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_MOVE_BODY) return TRUE;
+	else return FALSE;
+}
+
+bool is_move_body_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_MOVE_BODY) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_body_creature(creature_type *cr_ptr)
+{
+	if(cr_ptr->flags2 & RF2_KILL_BODY) return TRUE;
+	else return FALSE;
+}
+
+bool is_kill_body_species(species_type *sp_ptr)
+{
+	if(sp_ptr->flags2 & RF2_KILL_BODY) return TRUE;
+	else return FALSE;
+}
+
+
+
 bool is_aquatic_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF7_AQUATIC) return TRUE;
