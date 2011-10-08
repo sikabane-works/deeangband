@@ -2386,14 +2386,14 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if (((creature_ptr->flags2 & RF2_KILL_BODY) && !is_never_blow_creature(creature_ptr) &&
-				 (r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
+			if ((is_kill_body_creature(creature_ptr) && !is_never_blow_creature(creature_ptr) &&
+				(r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
-				are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
+				  are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
 			{
 				if (!is_never_blow_creature(creature_ptr))
 				{
-					if (creature_ptr->flags2 & RF2_KILL_BODY)
+					if (is_kill_body_creature(creature_ptr))
 					{
 						if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
@@ -2418,7 +2418,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Push past weaker monsters (unless leaving a wall) */
-			else if ((creature_ptr->flags2 & RF2_MOVE_BODY) && !is_never_move_creature(creature_ptr) &&
+			else if (is_move_body_creature(creature_ptr) && !is_never_move_creature(creature_ptr) &&
 				(r_ptr->mexp > z_ptr->mexp) &&
 				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
 				monster_can_cross_terrain(cave[creature_ptr->fy][creature_ptr->fx].feat, z_ptr, 0))
@@ -2786,7 +2786,7 @@ msg_format("%^s%s", m_name, monmessage);
 		//if (did_kill_item) r_ptr->r_flags2 |= (RF2_KILL_ITEM);
 
 		/* Monster pushed past another monster */
-		if (did_move_body) r_ptr->r_flags2 |= (RF2_MOVE_BODY);
+		//if (did_move_body) r_ptr->r_flags2 |= (RF2_MOVE_BODY);
 
 		/* Monster passed through a wall */
 		//TODO if (did_pass_wall) r_ptr->r_flags2 |= (RF2_PASS_WALL);
