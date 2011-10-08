@@ -97,7 +97,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Monster must be projectable if we can't pass through walls */
-			if (((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
+			if ((is_pass_wall_creature(m_ptr) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
 			    ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
 				if (!in_disintegration_range(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
@@ -529,7 +529,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		cost = c_ptr->cost;
 
 		/* Monster cannot kill or pass walls */
-		if (!(((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) || ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding))))
+		if (!((is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) || ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -603,7 +603,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	if (no_flow) return (FALSE);
 
 	/* Monster can go through rocks */
-	if ((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
+	if (is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
 	if ((r_ptr->flags2 & RF2_KILL_WALL) && (m_idx != p_ptr->riding)) return (FALSE);
 
 	/* Monster location */
@@ -1075,7 +1075,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	bool         will_run = mon_will_run(m_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((m_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[m_ptr->fy][m_ptr->fx].cost > 2));
-	bool         can_pass_wall = ((r_ptr->flags2 & RF2_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
+	bool         can_pass_wall = (is_pass_wall_creature(m_ptr) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
 	if (!will_run && m_ptr->target_y)
@@ -2130,7 +2130,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = TRUE;
 
 			/* Monster moves through walls (and doors) */
-			if ((creature_ptr->flags2 & RF2_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
+			if (is_pass_wall_creature(creature_ptr) && (!is_riding_mon || player_ptr->pass_wall) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Monster went through a wall */
@@ -2789,7 +2789,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (did_move_body) r_ptr->r_flags2 |= (RF2_MOVE_BODY);
 
 		/* Monster passed through a wall */
-		if (did_pass_wall) r_ptr->r_flags2 |= (RF2_PASS_WALL);
+		//TODO if (did_pass_wall) r_ptr->r_flags2 |= (RF2_PASS_WALL);
 
 		/* Monster destroyed a wall */
 		if (did_kill_wall) r_ptr->r_flags2 |= (RF2_KILL_WALL);

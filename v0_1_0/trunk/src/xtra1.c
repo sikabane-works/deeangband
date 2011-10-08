@@ -4808,7 +4808,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
 		if (can_swim_species(riding_r_ptr) || is_aquatic_species(riding_r_ptr)) cr_ptr->can_swim = TRUE;
 
-		if (!(riding_r_ptr->flags2 & RF2_PASS_WALL)) cr_ptr->pass_wall = FALSE;
+		if (!is_pass_wall_species(riding_r_ptr)) cr_ptr->pass_wall = FALSE;
 		if (riding_r_ptr->flags2 & RF2_KILL_WALL) cr_ptr->kill_wall = TRUE;
 
 		if (cr_ptr->skill_exp[GINOU_RIDING] < RIDING_EXP_SKILLED) j += (cr_ptr->wt * 3 * (RIDING_EXP_SKILLED - cr_ptr->skill_exp[GINOU_RIDING])) / RIDING_EXP_SKILLED;

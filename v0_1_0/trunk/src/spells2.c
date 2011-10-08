@@ -5629,7 +5629,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 				/* Most monsters cannot co-exist with rock */
 				if (!(r_ptr->flags2 & (RF2_KILL_WALL)) &&
-				    !(r_ptr->flags2 & (RF2_PASS_WALL)))
+				    !is_pass_wall_species(r_ptr))
 				{
 					char m_name[80];
 
