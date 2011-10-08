@@ -1861,7 +1861,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (tar_ptr->flags2 & RF2_AURA_ELEC)
+	if (is_aura_elec_creature(tar_ptr))
 	{
 		if (!atk_ptr->immune_elec)
 		{
@@ -1883,7 +1883,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_ELEC;
+			//if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_ELEC;
 			handle_stuff(atk_ptr);
 		}
 	}

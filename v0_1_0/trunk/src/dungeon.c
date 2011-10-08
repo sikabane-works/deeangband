@@ -1754,7 +1754,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	if (cr_ptr->riding)
 	{
 		int damage;
-		if (is_aura_fire_species(&r_info[creature_list[cr_ptr->riding].species_idx]) && !cr_ptr->immune_fire)
+		if (is_aura_fire_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_fire)
 		{
 			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
@@ -1768,7 +1768,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if ((r_info[creature_list[cr_ptr->riding].species_idx].flags2 & RF2_AURA_ELEC) && !cr_ptr->immune_elec)
+		if (is_aura_elec_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_elec)
 		{
 			damage = r_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			if (race_is_(cr_ptr, RACE_ANDROID)) damage += damage / 3;
