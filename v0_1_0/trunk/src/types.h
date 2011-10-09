@@ -401,6 +401,8 @@ struct species_type
 	u32b flags18;
 	u32b flags19;
 
+	creature_flags flags;
+
 	species_blow blow[4];	/* Up to four blows per round */
 
 	s16b next_species_idx;

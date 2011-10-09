@@ -3862,6 +3862,52 @@ static errr grab_one_race_flags(creature_flags *flag_ptr, cptr what, byte add, b
 	return (1);
 }
 
+static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
+{
+	char flagname[80];
+	char *s, *t;
+	int b, c;
+
+
+	for (s = tmp; *s; )
+	{
+
+		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
+			if(*t == ':') *t = ' ' /* loop */;
+
+		/* Nuke and skip any dividers */
+		if (*t)
+		{
+			*t++ = '\0';
+			while (*t == ' ' || *t == '|' || *t == '\n') t++;
+		}
+
+		if(sscanf(s, "%s %d %d", &flagname, &b, &c) == 3)
+		{
+			//TODO
+		}
+		else if(sscanf(s, "%s %d", &flagname, &b) == 2)
+		{
+			c = PY_MAX_LEVEL;
+		}
+		else if(sscanf(s, "%s", &flagname) == 1)
+		{
+			b = 1;
+			c = PY_MAX_LEVEL;
+		}
+		else return(1);
+
+		/* Parse this entry */
+		if (grab_one_creature_flag(flags_ptr, flagname, (byte)b, (byte)c) != 0)
+			return (PARSE_ERROR_INVALID_FLAG);
+
+		/* Start the next entry */
+		s = t;
+	}
+
+	return 0; // OK
+}
+
 
 /*
  * Grab one (spell) flag in a species_type from a textual string
@@ -5232,9 +5278,8 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 errr parse_rc_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b, c;
-	char tmp[10000], nt[80], flagname[80];
-	char *s, *t;
+	int i, j, b;
+	char tmp[10000], nt[80];
 
 	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -5529,55 +5574,20 @@ errr parse_rc_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_P_FLAGS:
-			case RC_INFO_H_FLAGS:
-				for (s = tmp; *s; ){
-
-					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
-						if(*t == ':') *t = ' ' /* loop */;
-
-					/* Nuke and skip any dividers */
-					if (*t)
-					{
-						*t++ = '\0';
-						while (*t == ' ' || *t == '|' || *t == '\n') t++;
-					}
-
-					if(sscanf(s, "%s %d %d", &flagname, &b, &c) == 3)
-					{
-						//TODO
-					}
-					else if(sscanf(s, "%s %d", &flagname, &b) == 2)
-					{
-						c = PY_MAX_LEVEL;
-					}
-					else if(sscanf(s, "%s", &flagname) == 1)
-					{
-						b = 1;
-						c = PY_MAX_LEVEL;
-					}
-					else return(1);
-
-					/* Parse this entry */
-					if(rc_info_csv_code[i] == RC_INFO_P_FLAGS)
-					{
-						if (grab_one_creature_flag(&race_info[n].p_flags, flagname, (byte)b, (byte)c) != 0) return (PARSE_ERROR_INVALID_FLAG);
-					}
-					else
-					{
-						if (grab_one_creature_flag(&race_info[n].h_flags, flagname, (byte)b, (byte)c) != 0) return (PARSE_ERROR_INVALID_FLAG);
-					}
-
-					/* Start the next entry */
-					s = t;
-				}
+				if(0 != creature_flags_splits(&race_info[n].p_flags, tmp))
+					return (1);
 				break;
 
+			case RC_INFO_H_FLAGS:
+				if(0 != creature_flags_splits(&race_info[n].h_flags, tmp))
+					return (1);
+				break;
 
 			case RC_INFO_SUIT_CLASS:
 				break;
 
 			default:
-				return 1;
+				return (1);
 
 			}
 		}
