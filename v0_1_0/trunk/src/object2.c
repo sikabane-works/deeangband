@@ -4083,18 +4083,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			int i = 1;
 			int check;
 
-			u32b match = 0;
-
 			species_type *r_ptr;
-
-			if (o_ptr->sval == SV_SKELETON)
-			{
-				match = RF9_DROP_SKELETON;
-			}
-			else if (o_ptr->sval == SV_CORPSE)
-			{
-				match = RF9_DROP_CORPSE;
-			}
 
 			/* Hack -- Remove the monster restriction */
 			get_mon_num_prep(item_monster_okay, NULL);
@@ -4112,7 +4101,8 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 				if (!r_ptr->rarity) continue;
 
 				/* Ignore corpseless monsters */
-				if (!(r_ptr->flags9 & match)) continue;
+				if (o_ptr->sval == SV_SKELETON && !is_drop_skeleton_species(r_ptr)) continue;
+				if (o_ptr->sval =- SV_CORPSE && !is_drop_corpse_species(r_ptr)) continue;
 
 				/* Prefer less out-of-depth monsters */
 				if (randint0(check)) continue;

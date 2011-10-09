@@ -6505,7 +6505,7 @@ void determine_bounty_uniques(void)
 
 			if (!is_unique_species(r_ptr)) continue;
 
-			if (!(r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON))) continue;
+			if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 
 			if (r_ptr->rarity > 100) continue;
 
@@ -6566,7 +6566,7 @@ void determine_today_mon(creature_type * cr_ptr, bool conv_old)
 		if (is_unique_species(r_ptr)) continue;
 		if ((r_ptr->race_idx1 == RACE_NAZGUL) && is_sub_unique_species(r_ptr)) continue;
 		if (is_multiply_species(r_ptr)) continue;
-		if ((r_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) != (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) continue;
+		if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;

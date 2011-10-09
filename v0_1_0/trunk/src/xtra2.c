@@ -848,7 +848,7 @@ msg_print("地面に落とされた。");
 
 	/* Drop a dead corpse? */
 	if (one_in_(is_unique_creature(cr_ptr) ? 1 : 4) &&
-	    (cr_ptr->flags9 & (RF9_DROP_CORPSE | RF9_DROP_SKELETON)) &&
+	    (is_drop_corpse_creature(cr_ptr) || is_drop_skeleton_creature(cr_ptr)) &&
 	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
@@ -858,13 +858,13 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!(cr_ptr->flags9 & RF9_DROP_SKELETON))
+		if (!is_drop_skeleton_creature(cr_ptr))
 			corpse = TRUE;
-		else if ((cr_ptr->flags9 & RF9_DROP_CORPSE) && (is_unique_creature(cr_ptr)))
+		else if (is_drop_corpse_creature(cr_ptr) && (is_unique_creature(cr_ptr)))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (cr_ptr->flags9 & RF9_DROP_CORPSE)
+		else if (is_drop_corpse_creature(cr_ptr))
 		{
 			/* Lots of damage in one blow */
 			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
