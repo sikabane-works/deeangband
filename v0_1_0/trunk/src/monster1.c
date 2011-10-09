@@ -3126,19 +3126,14 @@ bool mon_hook_dungeon(int species_idx)
 
 static bool mon_hook_ocean(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
-
-	if (r_ptr->flags8 & RF8_WILD_OCEAN)
-		return TRUE;
-	else
-		return FALSE;
+	species_type *species_ptr = &species_info[species_idx];
+	return is_wild_ocean_species(species_ptr);
 }
 
 
 static bool mon_hook_shore(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-
 	return is_wild_shore_species(species_ptr);
 }
 
@@ -3147,7 +3142,7 @@ static bool mon_hook_waste(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (r_ptr->flags8 & (RF8_WILD_WASTE) || is_wild_all_species(r_ptr))
+	if (is_wild_waste_species(r_ptr) || is_wild_all_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;
