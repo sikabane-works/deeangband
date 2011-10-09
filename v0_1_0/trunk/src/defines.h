@@ -3879,7 +3879,7 @@
 #define RF7_SELF_LITE_2         0x00000800  /* Creature lights itself */
 #define RF7_GUARDIAN            0x00001000  /* Guardian of a dungeon */
 #define RF7_CHAMELEON           0x00002000  /* Chameleon can change */
-#define RF7_KILL_EXP            0x00004000  /* No exp until you kill it */
+#define RF7_XXX27               0x00004000  /* No exp until you kill it */
 #define RF7_XXX28               0x00008000
 #define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */
 #define RF7_SELF_DARK_1         0x00020000  /* Creature darkens itself */
