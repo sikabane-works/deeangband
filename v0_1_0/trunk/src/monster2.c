@@ -3104,7 +3104,7 @@ static int initial_r_appearance(int species_idx)
 	int ap_species_idx;
 	int min = MIN(base_level-5, 50);
 
-	if (!(species_info[species_idx].flags7 & RF7_TANUKI))
+	if (is_tanuki_species(&species_info[species_idx]))
 		return species_idx;
 
 	get_mon_num_prep(monster_hook_tanuki, NULL);

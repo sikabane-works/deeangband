@@ -6135,7 +6135,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->chp < 0)
 		{
 	
-			if (species_info[tar_ptr->species_idx].flags7 & RF7_TANUKI)
+			if (is_tanuki_creature(tar_ptr))
 			{
 				/* You might have unmasked Tanuki first time */
 				r_ptr = &species_info[tar_ptr->species_idx];
