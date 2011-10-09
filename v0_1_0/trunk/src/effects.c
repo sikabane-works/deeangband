@@ -5701,7 +5701,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	COPY(&exp_mon, tar_ptr, creature_type);
 
-	if (!(tar_ptr->flags7 & RF7_KILL_EXP))
+	if (!is_kill_exp_creature(tar_ptr))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (tar_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
@@ -6375,7 +6375,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Prevent bug of chaos patron's reward */
-			if (r_ptr->flags7 & RF7_KILL_EXP)
+			if (is_kill_exp_creature(tar_ptr))
 				get_exp_from_mon(atk_ptr, (long)exp_mon.mmhp*2, &exp_mon);
 			else
 				get_exp_from_mon(atk_ptr, ((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);

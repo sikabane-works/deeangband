@@ -1210,6 +1210,16 @@ bool is_tanuki_creature(creature_type *cr_ptr)
 	return have_creature_flags(cr_ptr, CF_WILD_MOUNTAIN);	
 }
 
+bool is_kill_exp_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_KILL_EXP]);
+}
+
+bool is_kill_exp_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_KILL_EXP);	
+}
+
 
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {

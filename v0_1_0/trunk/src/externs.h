@@ -959,6 +959,8 @@ extern bool is_wild_mountain_species(species_type *sp_ptr);
 extern bool is_wild_mountain_creature(creature_type *cr_ptr);
 extern bool is_tanuki_species(species_type *sp_ptr);
 extern bool is_tanuki_creature(creature_type *cr_ptr);
+extern bool is_kill_exp_species(species_type *sp_ptr);
+extern bool is_kill_exp_creature(creature_type *cr_ptr);
 
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);

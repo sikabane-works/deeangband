@@ -3869,7 +3869,7 @@
 #define RF7_CAN_SWIM            0x00000002  /* Creature can swim */
 #define RF7_CAN_FLY             0x00000004  /* Creature can fly */
 #define RF7_FRIENDLY            0x00000008  /* Creature is friendly */
-#define RF7_XXX_5               0x00000010  /* Is a "Nazgul" unique */
+#define RF7_XXX_5               0x00000010
 #define RF7_UNIQUE2             0x00000020  /* Fake unique */
 #define RF7_RIDING              0x00000040  /* Good for riding */
 #define RF7_KAGE                0x00000080  /* Is kage */
@@ -3880,7 +3880,7 @@
 #define RF7_GUARDIAN            0x00001000  /* Guardian of a dungeon */
 #define RF7_CHAMELEON           0x00002000  /* Chameleon can change */
 #define RF7_KILL_EXP            0x00004000  /* No exp until you kill it */
-#define RF7_TANUKI              0x00008000  /* Tanuki disguise */
+#define RF7_XXX28               0x00008000
 #define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */
 #define RF7_SELF_DARK_1         0x00020000  /* Creature darkens itself */
 #define RF7_HAS_DARK_2          0x00040000  /* Creature carries darkness */
@@ -3892,11 +3892,11 @@
 #define RF8_WILD_ONLY           0x00000001
 #define RF8_WILD_TOWN           0x00000002
 #define RF8_CITIZEN             0x00000004
-#define RF8_WILD_SHORE          0x00000008
-#define RF8_WILD_OCEAN          0x00000010
-#define RF8_WILD_WASTE          0x00000020
-#define RF8_WILD_WOOD           0x00000040
-#define RF8_WILD_VOLCANO        0x00000080
+#define RF8_XXX3                0x00000008
+#define RF8_XXX4                0x00000010
+#define RF8_XXX5                0x00000020
+#define RF8_XXX6                0x00000040
+#define RF8_XXX7                0x00000080
 #define RF8_XXX8X08             0x00000100
 #define RF8_WILD_MOUNTAIN       0x00000200
 #define RF8_WILD_GRASS          0x00000400
