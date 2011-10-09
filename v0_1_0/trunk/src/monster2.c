@@ -1426,7 +1426,7 @@ s16b get_mon_num(int level)
 		r_ptr = &species_info[species_idx];
 
 		/* Citizens doesn't wander. */
-		if (r_ptr->flags8 & (RF8_CITIZEN)) continue;
+		if (is_citizen_species(r_ptr)) continue;
 
 		if (!inside_battle && !chameleon_change_m_idx)
 		{

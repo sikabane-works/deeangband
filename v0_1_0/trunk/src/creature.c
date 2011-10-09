@@ -1090,6 +1090,17 @@ bool is_drop_skeleton_species(species_type *sp_ptr)
 }
 
 
+bool is_citizen_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_CITIZEN);	
+}
+
+bool is_citizen_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_CITIZEN]);
+}
+
+
 
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {
