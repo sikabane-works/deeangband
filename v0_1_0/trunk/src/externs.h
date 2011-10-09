@@ -943,7 +943,8 @@ extern bool is_wild_town_creature(creature_type *cr_ptr);
 extern bool is_wild_town_species(species_type *sp_ptr);
 extern bool is_wild_all_creature(creature_type *cr_ptr);
 extern bool is_wild_all_species(species_type *sp_ptr);
-
+extern bool is_wild_shore_species(species_type *sp_ptr);
+extern bool is_wild_shore_creature(creature_type *cr_ptr);
 
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);

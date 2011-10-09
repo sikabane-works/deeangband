@@ -1130,6 +1130,15 @@ bool is_wild_all_species(species_type *sp_ptr)
 	return (sp_ptr->flags.add_lev[CF_WILD_ALL]);
 }
 
+bool is_wild_shore_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_SHORE]);
+}
+
+bool is_wild_shore_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_SHORE);	
+}
 
 
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)

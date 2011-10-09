@@ -3137,12 +3137,9 @@ static bool mon_hook_ocean(int species_idx)
 
 static bool mon_hook_shore(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
-	if (r_ptr->flags8 & RF8_WILD_SHORE)
-		return TRUE;
-	else
-		return FALSE;
+	return is_wild_shore_species(species_ptr);
 }
 
 
