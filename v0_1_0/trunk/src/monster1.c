@@ -3118,7 +3118,7 @@ bool mon_hook_dungeon(int species_idx)
 	{
 		dungeon_info_type *d_ptr = &d_info[dungeon_type];
 		if ((d_ptr->mflags8 & RF8_WILD_MOUNTAIN) &&
-		    (r_ptr->flags8 & RF8_WILD_MOUNTAIN)) return TRUE;
+		    is_wild_mountain_species(r_ptr)) return TRUE;
 		return FALSE;
 	}
 }
@@ -3177,22 +3177,14 @@ static bool mon_hook_volcano(int species_idx)
 static bool mon_hook_mountain(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-
-	if (r_ptr->flags8 & RF8_WILD_MOUNTAIN)
-		return TRUE;
-	else
-		return FALSE;
+	return is_wild_mountain_species(r_ptr);
 }
 
 
 static bool mon_hook_grass(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-
-	if (r_ptr->flags8 & (RF8_WILD_GRASS) || is_wild_all_species(r_ptr))
-		return TRUE;
-	else
-		return FALSE;
+	return (is_wild_grass_species(r_ptr) || is_wild_all_species(r_ptr));
 }
 
 
@@ -3401,7 +3393,7 @@ bool monster_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
 	/* Some monsters can walk on mountains */
-	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && (r_ptr->flags8 & RF8_WILD_MOUNTAIN)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_species(r_ptr)) return TRUE;
 
 	/* Water */
 	if (have_flag(f_ptr->flags, FF_WATER))

@@ -953,7 +953,10 @@ extern bool is_wild_wood_species(species_type *sp_ptr);
 extern bool is_wild_wood_creature(creature_type *cr_ptr);
 extern bool is_wild_volcano_species(species_type *sp_ptr);
 extern bool is_wild_volcano_creature(creature_type *cr_ptr);
-
+extern bool is_wild_grass_species(species_type *sp_ptr);
+extern bool is_wild_grass_creature(creature_type *cr_ptr);
+extern bool is_wild_mountain_species(species_type *sp_ptr);
+extern bool is_wild_volcano_creature(creature_type *cr_ptr);
 
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);

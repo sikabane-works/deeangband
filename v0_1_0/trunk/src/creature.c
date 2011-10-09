@@ -1180,6 +1180,27 @@ bool is_wild_volcano_creature(creature_type *cr_ptr)
 	return have_creature_flags(cr_ptr, CF_WILD_VOLCANO);	
 }
 
+bool is_wild_grass_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_GRASS]);
+}
+
+bool is_wild_grass_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_GRASS);	
+}
+
+bool is_wild_mountain_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_MOUNTAIN]);
+}
+
+bool is_wild_mountain_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_MOUNTAIN);	
+}
+
+
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {
 	//TODO

@@ -992,7 +992,7 @@ static bool summon_specific_aux(int species_idx)
 		case SUMMON_EAGLES:
 		{
 			okay = (r_ptr->d_char == 'B' &&
-				(r_ptr->flags8 & RF8_WILD_MOUNTAIN) &&
+				is_wild_mountain_species(r_ptr) &&
 				is_wild_only_species(r_ptr));
 			break;
 		}
