@@ -3250,7 +3250,7 @@ static bool mon_hook_quest(int species_idx)
 	if (is_multiply_species(r_ptr)) return FALSE;
 
 	/* No quests to kill friendly monsters */
-	if (r_ptr->flags7 & RF7_FRIENDLY) return FALSE;
+	if (is_friendly_species(r_ptr)) return FALSE;
 
 	return TRUE;
 }
@@ -3282,7 +3282,7 @@ void determine_random_questor(quest_type *q_ptr)
 
 		if (r_ptr->rarity > 100) continue;
 
-		if (r_ptr->flags7 & RF7_FRIENDLY) continue;
+		if (is_friendly_species(r_ptr)) continue;
 
 		if (r_ptr->flags7 & RF7_AQUATIC) continue;
 

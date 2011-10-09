@@ -2895,7 +2895,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 
 	if (ABS(r_ptr->level - species_info[MON_CHAMELEON_K].level) > 5) return FALSE;
 
@@ -2927,7 +2927,7 @@ static bool monster_hook_chameleon(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
@@ -3084,7 +3084,7 @@ static bool monster_hook_tanuki(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 	if (is_aquatic_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
@@ -3598,7 +3598,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		set_pet(m_ptr);
 	}
 	/* Friendly? */
-	else if ((r_ptr->flags7 & RF7_FRIENDLY) ||
+	else if (is_friendly_species(r_ptr) ||
 		 (mode & PM_FORCE_FRIENDLY)) //TODO || is_friendly_idx(who))
 	{
 		if (!monster_has_hostile_align(NULL, 0, -1, r_ptr)) set_friendly(m_ptr);
@@ -4109,7 +4109,7 @@ static bool place_monster_okay(int species_idx)
 	/* Skip different alignment */
 	if (monster_has_hostile_align(m_ptr, 0, 0, z_ptr)) return FALSE;
 
-	if (r_ptr->flags7 & RF7_FRIENDLY)
+	if (is_friendly_species(r_ptr))
 	{
 		if (monster_has_hostile_align(NULL, 1, -1, z_ptr)) return FALSE;
 	}
