@@ -1138,3 +1138,43 @@ void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
 	flags_ptr->add_lev[type] = low;
 	flags_ptr->remove_lev[type] = high;
 }
+
+bool have_creature_flags(creature_type *creature_ptr, int type)
+{
+	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
+	{
+		species_type *species_ptr = &r_info[creature_ptr->species_idx];
+		//TODO
+	}
+
+	if(creature_ptr->race_idx1 == creature_ptr->race_idx2)
+	{
+		if(race_info[creature_ptr->race_idx1].p_flags.add_lev[type] != 0 && 
+		   race_info[creature_ptr->race_idx1].p_flags.add_lev[type] <= creature_ptr->lev &&
+		   race_info[creature_ptr->race_idx1].p_flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+	else
+	{
+		if(race_info[creature_ptr->race_idx1].h_flags.add_lev[type] != 0 && 
+		   race_info[creature_ptr->race_idx1].h_flags.add_lev[type] <= creature_ptr->lev &&
+		   race_info[creature_ptr->race_idx1].h_flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+
+		if(race_info[creature_ptr->race_idx2].h_flags.add_lev[type] != 0 && 
+		   race_info[creature_ptr->race_idx2].h_flags.add_lev[type] <= creature_ptr->lev &&
+		   race_info[creature_ptr->race_idx2].h_flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+				
+	return FALSE;
+}
+
+
+
