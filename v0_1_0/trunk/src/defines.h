@@ -3729,7 +3729,7 @@
 #define RF3_XXX6            0x00000020  // Undead -> Deskull: None
 #define RF3_XXX7            0x00000040  // Evil -> Deskull: None
 #define RF3_XXX8            0x00000080  // Animal -> Deskull: None
-#define RF3_PUELLA_MAGI     0x00000100  // TY: Amberite -> Deskull: Puella Magi
+#define RF3_XXX9            0x00000100  // TY: Amberite -> Deskull: Puella Magi
 #define RF3_XXX10           0x00000200  /* Good */
 #define RF3_AURA_COLD       0x00000400  /* Freezes in melee */
 #define RF3_NONLIVING       0x00000800  /* TY: Non-Living (?) */
@@ -3878,7 +3878,7 @@
 #define RF7_HAS_LITE_2          0x00000400  /* Creature carries light */
 #define RF7_SELF_LITE_2         0x00000800  /* Creature lights itself */
 #define RF7_GUARDIAN            0x00001000  /* Guardian of a dungeon */
-#define RF7_CHAMELEON           0x00002000  /* Chameleon can change */
+#define RF7_XXX26               0x00002000  /* Chameleon can change */
 #define RF7_XXX27               0x00004000  /* No exp until you kill it */
 #define RF7_XXX28               0x00008000
 #define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */

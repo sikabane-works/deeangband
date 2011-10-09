@@ -2927,7 +2927,7 @@ static bool monster_hook_chameleon(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
-	if (r_ptr->flags7 & (RF7_CHAMELEON) || is_chameleon_species(r_ptr)) return FALSE;
+	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;

@@ -880,6 +880,7 @@ bool is_powerful_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+
 bool is_pass_wall_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->flags2 & RF2_PASS_WALL) return TRUE;
@@ -976,7 +977,15 @@ bool is_kill_body_species(species_type *sp_ptr)
 	else return FALSE;
 }
 
+bool is_puella_magi_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_PUELLA_MAGI]);
+}
 
+bool is_puella_magi_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_PUELLA_MAGI);	
+}
 
 bool is_aquatic_creature(creature_type *cr_ptr)
 {
