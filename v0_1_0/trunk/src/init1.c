@@ -422,6 +422,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"SHAPECHANGER",
 	"ATTR_CLEAR",
 	"ATTR_MULTI",
+
 	"FORCE_DEPTH",
 	"FORCE_MAXHP",
 	"FORCE_SLEEP",
@@ -430,6 +431,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"FRIENDS",
 	"ESCORT",
 	"ESCORTS",
+
 	"NEVER_BLOW",
 	"NEVER_MOVE",
 	"RAND_25",
@@ -438,6 +440,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"ONLY_ITEM",
 	"DROP_60",
 	"DROP_90",
+
 	"DROP_1D2",
 	"DROP_2D2",
 	"DROP_3D2",
@@ -455,6 +458,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"COLD_BLOOD",
 	"EMPTY_MIND",
 	"WEIRD_MIND",
+
 	"MULTIPLY",
 	"REGENERATE",
 	"CHAR_MULTI",
@@ -463,6 +467,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"ELDRITCH_HORROR",
 	"AURA_FIRE",
 	"AURA_ELEC",
+
 	"OPEN_DOOR",
 	"BASH_DOOR",
 	"PASS_WALL",
@@ -471,6 +476,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"KILL_BODY",
 	"TAKE_ITEM",
 	"KILL_ITEM",
+
 	"IGNORE_SIZE",
 	"SEX_F50",
 	"SEX_F25",
@@ -488,6 +494,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 	"XXX",
+
 	"PUELLA_MAGI",
 	"XXX",
 	"AURA_COLD",
@@ -496,6 +503,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"HURT_ROCK",
 	"HURT_FIRE",
 	"HURT_COLD",
+
 	"XXX",
 	"XXX",
 	"XXX",
@@ -504,6 +512,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 	"XXX",
+
 	"XXX",
 	"XXX",
 	"XXX",
@@ -521,6 +530,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX2",
 	"XXX3",
 	"XXX4",
+
 	"BR_ACID",
 	"BR_ELEC",
 	"BR_FIRE",
@@ -529,6 +539,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"BR_NETH",
 	"BR_LITE",
 	"BR_DARK",
+
 	"BR_CONF",
 	"BR_SOUN",
 	"BR_CHAO",
@@ -537,6 +548,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"BR_TIME",
 	"BR_INER",
 	"BR_GRAV",
+
 	"BR_SHAR",
 	"BR_PLAS",
 	"BR_WALL",
@@ -554,6 +566,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"BA_NETH",
 	"BA_WATE",
 	"BA_MANA",
+
 	"BA_DARK",
 	"DRAIN_MANA",
 	"MIND_BLAST",
@@ -562,6 +575,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"CAUSE_2",
 	"CAUSE_3",
 	"CAUSE_4",
+
 	"BO_ACID",
 	"BO_ELEC",
 	"BO_FIRE",
@@ -570,6 +584,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"BO_NETH",
 	"BO_WATE",
 	"BO_MANA",
+
 	"BO_PLAS",
 	"BO_ICEE",
 	"MISSILE",
@@ -587,6 +602,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"TPORT",
 	"WORLD",
 	"SPECIAL",
+
 	"TELE_TO",
 	"TELE_AWAY",
 	"TELE_LEVEL",
@@ -595,6 +611,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"TRAPS",
 	"FORGET",
 	"ANIM_DEAD",
+
 	"S_KIN",
 	"S_CYBER",
 	"S_MONSTER",
@@ -603,6 +620,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"S_SPIDER",
 	"S_HOUND",
 	"S_HYDRA",
+
 	"S_ANGEL",
 	"S_DEMON",
 	"S_UNDEAD",
@@ -620,6 +638,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"UNIQUE2",
 	"RIDING",
 	"KAGE",
+
 	"HAS_LITE_1",
 	"SELF_LITE_1",
 	"HAS_LITE_2",
@@ -628,6 +647,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"CHAMELEON",
 	"KILL_EXP",
 	"TANUKI",
+
 	"HAS_DARK_1",
 	"SELF_DARK_1",
 	"HAS_DARK_2",
@@ -636,6 +656,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX7X21",
 	"XXX7X22",
 	"XXX7X23",
+
 	"XXX7X24",
 	"XXX7X25",
 	"XXX7X26",
@@ -653,6 +674,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"WILD_WASTE",
 	"WILD_WOOD",
 	"WILD_VOLCANO",
+
 	"XXX8X08",
 	"WILD_MOUNTAIN",
 	"WILD_GRASS",
@@ -661,6 +683,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX8X13",
 	"XXX8X14",
 	"XXX8X15",
+
 	"XXX8X16",
 	"XXX8X17",
 	"XXX8X18",
@@ -669,6 +692,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX8X21",
 	"XXX8X22",
 	"XXX8X23",
+
 	"XXX8X24",
 	"XXX8X25",
 	"XXX8X26",
@@ -686,6 +710,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"EAT_NEXUS",
 	"EAT_BLINK",
 	"EAT_SLEEP",
+
 	"EAT_BERSERKER",
 	"EAT_ACIDIC",
 	"EAT_SPEED",
@@ -694,6 +719,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"EAT_COLD_RES",
 	"EAT_ACID_RES",
 	"EAT_ELEC_RES",
+
 	"EAT_POIS_RES",
 	"EAT_INSANITY",
 	"EAT_DRAIN_EXP",
@@ -702,6 +728,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"EAT_GIVE_INT",
 	"EAT_GIVE_WIS",
 	"EAT_GIVE_DEX",
+
 	"EAT_GIVE_CON",
 	"EAT_GIVE_CHR",
 	"EAT_LOSE_STR",
@@ -710,7 +737,6 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"EAT_LOSE_DEX",
 	"EAT_LOSE_CON",
 	"EAT_LOSE_CHR",
-	"EAT_DRAIN_MANA",
 //CF10
 	"IM_ACID",
 	"IM_ELEC",
@@ -1040,7 +1066,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 	"XXX",
-//	"XXX",
+	"XXX",
 };
 
 
