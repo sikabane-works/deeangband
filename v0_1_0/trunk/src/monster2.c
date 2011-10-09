@@ -2895,7 +2895,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
+	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
 
 	if (ABS(r_ptr->level - species_info[MON_CHAMELEON_K].level) > 5) return FALSE;
 
@@ -2905,7 +2905,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	if (!monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
-	if (!(old_r_ptr->flags7 & RF7_CHAMELEON))
+	if (!is_chameleon_species(old_r_ptr))
 	{
 		if (monster_has_hostile_align(m_ptr, 0, 0, r_ptr)) return FALSE;
 	}
@@ -2927,7 +2927,7 @@ static bool monster_hook_chameleon(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
+	if (r_ptr->flags7 & (RF7_CHAMELEON) || is_chameleon_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
@@ -2935,7 +2935,7 @@ static bool monster_hook_chameleon(int species_idx)
 	if (!monster_can_cross_terrain(cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
-	if (!(old_r_ptr->flags7 & RF7_CHAMELEON))
+	if (!is_chameleon_species(old_r_ptr))
 	{
 		if (is_enemy_of_evil_species(old_r_ptr) && !is_enemy_of_evil_species(r_ptr)) return FALSE;
 		if (is_enemy_of_good_species(old_r_ptr) && !is_enemy_of_good_species(r_ptr)) return FALSE;
@@ -3084,7 +3084,7 @@ static bool monster_hook_tanuki(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
-	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
+	if (r_ptr->flags7 & (RF7_FRIENDLY) || is_chameleon_species(r_ptr)) return FALSE;
 	if (is_aquatic_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
@@ -3571,7 +3571,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		m_ptr->parent_m_idx = 0;
 	}
 
-	if (r_ptr->flags7 & RF7_CHAMELEON)
+	if (is_chameleon_species(r_ptr))
 	{
 		choose_new_monster(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[m_ptr->species_idx];
@@ -4114,7 +4114,7 @@ static bool place_monster_okay(int species_idx)
 		if (monster_has_hostile_align(NULL, 1, -1, z_ptr)) return FALSE;
 	}
 
-	if ((r_ptr->flags7 & RF7_CHAMELEON) && !(z_ptr->flags7 & RF7_CHAMELEON))
+	if (is_chameleon_species(r_ptr) && !is_chameleon_species(z_ptr))
 		return FALSE;
 
 	/* Okay */
@@ -4489,7 +4489,7 @@ static bool summon_specific_okay(int species_idx)
 	    monster_has_hostile_align(NULL, 10, -10, r_ptr))
 		return FALSE;
 
-	if ((r_ptr->flags7 & RF7_CHAMELEON) && (d_info[dungeon_type].flags1 & DF1_CHAMELEON)) return TRUE;
+	if (is_chameleon_species(r_ptr) && (d_info[dungeon_type].flags1 & DF1_CHAMELEON)) return TRUE;
 
 	return (summon_specific_aux(species_idx));
 }

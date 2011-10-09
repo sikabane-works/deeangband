@@ -1685,7 +1685,7 @@ static bool vault_aux_battle(int species_idx)
 	if (is_multiply_species(r_ptr)) return (FALSE);
 	if (r_ptr->flags2 & (RF2_QUANTUM)) return (FALSE);
 	if (is_aquatic_species(r_ptr)) return (FALSE);
-	if (r_ptr->flags7 & (RF7_CHAMELEON)) return (FALSE);
+	if (is_chameleon_species(r_ptr)) return (FALSE);
 
 	for (i = 0; i < 4; i++)
 	{
