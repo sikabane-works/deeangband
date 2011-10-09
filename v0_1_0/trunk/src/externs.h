@@ -927,6 +927,12 @@ extern bool is_male_creature(creature_type *cr_ptr);
 extern bool is_male_species(species_type *sp_ptr);
 extern bool is_female_creature(creature_type *cr_ptr);
 extern bool is_female_species(species_type *sp_ptr);
+
+extern bool is_drop_corpse_creature(creature_type *cr_ptr);
+extern bool is_drop_corpse_species(species_type *sp_ptr);
+extern bool is_drop_skeleton_creature(creature_type *cr_ptr);
+extern bool is_drop_skeleton_species(species_type *sp_ptr);
+
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);
 extern bool is_enemy_of_good_creature(creature_type *cr_ptr);

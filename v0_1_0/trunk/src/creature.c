@@ -699,7 +699,7 @@ bool is_unique_creature(creature_type *creature_ptr)
 
 bool is_unique_species(species_type *species_ptr)
 {
-	return (species_ptr->flags1 & RF1_UNIQUE);
+	return (species_ptr->flags.add_lev[CF_UNIQUE]);
 }
 
 bool is_sub_unique_creature(creature_type *cr_ptr)
@@ -1068,6 +1068,28 @@ bool is_female_creature(creature_type *cr_ptr)
 {
 	return cr_ptr->sex & SEX_FEMALE;
 }
+
+bool is_drop_corpse_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_DROP_CORPSE);	
+}
+
+bool is_drop_corpse_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_DROP_CORPSE]);
+}
+
+bool is_drop_skeleton_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_DROP_SKELETON);	
+}
+
+bool is_drop_skeleton_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_DROP_SKELETON]);
+}
+
+
 
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {
