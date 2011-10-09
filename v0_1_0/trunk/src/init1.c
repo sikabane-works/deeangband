@@ -411,7 +411,7 @@ static cptr f_info_flags[] =
 };
 
 
-static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
+static cptr creature_info_flags[CF_FLAG_MAX] =
 {
 //CF1
 	"UNIQUE",
@@ -511,7 +511,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"NO_FEAR",
 	"NO_STUN",
 	"NO_CONF",
-	"NO_SLEEP"
+	"NO_SLEEP",
 //CF4
 	"SHRIEK",
 	"XXX1",
@@ -577,7 +577,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"BLIND",
 	"CONF",
 	"SLOW",
-	"HOLD"
+	"HOLD",
 //CF6
 	"HASTE",
 	"HAND_DOOM",
@@ -1040,7 +1040,7 @@ static cptr creature_info_flags[CREATURE_FLAGS_MAX * 32] =
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
+//	"XXX",
 };
 
 
@@ -3882,6 +3882,13 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 			while (*t == ' ' || *t == '|' || *t == '\n') t++;
 		}
 
+		if (1 == sscanf(s, "1_IN_%d", &b))
+		{
+			//TODO
+				s=t;
+				continue;
+		}
+
 		if(sscanf(s, "%s %d %d", &flagname, &b, &c) == 3)
 		{
 			//TODO
@@ -4427,62 +4434,13 @@ errr parse_r_info_csv(char *buf, header *head)
 				break;
 
 			case R_INFO_FLAG:
-				/* Find the end of this entry */
-				/* Parse every entry textually */
-				for (s = tmp; *s; ){
-
-					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
-
-					/* Nuke and skip any dividers */
-					if (*t)
-					{
-						*t++ = '\0';
-						while (*t == ' ' || *t == '|' || *t == '\n') t++;
-					}
-
-					/* Parse this entry */
-					if (0 != grab_one_basic_flag(&r_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
-
-					/* Start the next entry */
-					s = t;
-				}
-
+				if(0 != creature_flags_splits(&r_info[n].flags, tmp))
+					return (1);
 				break;
 
 			case R_INFO_ACTION:
-				/* Parse every entry */
-				for (s = tmp; *s; )
-				{
-					/* Find the end of this entry */
-					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
-
-					/* Nuke and skip any dividers */
-					if (*t)
-					{
-						*t++ = '\0';
-						while ((*t == ' ') || (*t == '|') || (*t == '\n')) t++;
-					}
-
-					/* XXX XXX XXX Hack -- Read spell frequency */
-					if (1 == sscanf(s, "1_IN_%d", &k))
-					{
-						/* Extract a "frequency" */
-						r_info[n].freq_spell = 100 / k;
-
-							/* Start at next entry */
-						s = t;
-
-						/* Continue */
-						continue;
-					}
-
-						/* Parse this entry */
-					if (0 != grab_one_spell_flag(&r_info[n], s)) return (5);
-
-						/* Start the next entry */
-					s = t;
-				}
-
+				if(0 != creature_flags_splits(&r_info[n].flags, tmp))
+					return (1);
 				break;
 
 			case R_INFO_DESCRIPTION:
