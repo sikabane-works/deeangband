@@ -41,7 +41,7 @@ void set_sex(creature_type *cr_ptr)
 {
 	species_type *mr_ptr;
 
-	mr_ptr = &r_info[cr_ptr->species_idx]; 
+	mr_ptr = &species_info[cr_ptr->species_idx]; 
 
 	cr_ptr->sex = mr_ptr->sex;
 
@@ -58,7 +58,7 @@ void set_status(creature_type *cr_ptr)
 
 		if(cr_ptr->species_idx != MON_NONE)
 		{
-			species_type *r_ptr = &r_info[cr_ptr->species_idx]; 
+			species_type *r_ptr = &species_info[cr_ptr->species_idx]; 
 			cr_ptr->stat_use[i] = r_ptr->stat_max[i];
 		}
 
@@ -96,7 +96,7 @@ void set_height_weight(creature_type *cr_ptr)
 
 	if(cr_ptr->species_idx != MON_NONE)
 	{
-		mr_ptr = &r_info[cr_ptr->species_idx]; 
+		mr_ptr = &species_info[cr_ptr->species_idx]; 
 
 		if (cr_ptr->sex == SEX_MALE)
 		{
@@ -231,7 +231,7 @@ void set_enemy_maxhp(creature_type *cr_ptr)
 	int i;
 	species_type *r_ptr;
 
-	r_ptr = &r_info[cr_ptr->species_idx];
+	r_ptr = &species_info[cr_ptr->species_idx];
 
 	cr_ptr->player_hp[0] = damroll(3, cr_ptr->hitdice);
 	for(i = 1; i < PY_MAX_LEVEL - 1; i++)
@@ -530,7 +530,7 @@ void set_resistance(creature_type *cr_ptr)
 
 	if(cr_ptr->species_idx != 0)
 	{
-		species_type *species_ptr = &r_info[cr_ptr->species_idx];
+		species_type *species_ptr = &species_info[cr_ptr->species_idx];
 		if(species_ptr->flags10 & RF10_IM_ACID)
 			cr_ptr->resist_acid = TRUE;
 		if(species_ptr->flags10 & RF10_IM_ELEC)
@@ -1143,7 +1143,7 @@ bool have_creature_flags(creature_type *creature_ptr, int type)
 {
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
 	{
-		species_type *species_ptr = &r_info[creature_ptr->species_idx];
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
 		//TODO
 	}
 

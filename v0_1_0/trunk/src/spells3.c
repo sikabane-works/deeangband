@@ -36,7 +36,7 @@ static bool cave_monster_teleportable_bold(creature_type *cr_ptr, int y, int x, 
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!monster_can_cross_terrain(c_ptr->feat, &r_info[cr_ptr->species_idx], 0)) return FALSE;
+		if (!monster_can_cross_terrain(c_ptr->feat, &species_info[cr_ptr->species_idx], 0)) return FALSE;
 	}
 
 	return TRUE;
@@ -148,7 +148,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(cr_ptr, ny, nx);
 
-	if (r_info[cr_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (species_info[cr_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 
 	return (TRUE);
@@ -248,7 +248,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(p_ptr, ny, nx);
 
-	if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 }
 
@@ -448,7 +448,7 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &creature_list[tmp_m_idx];
-				species_type *r_ptr = &r_info[m_ptr->species_idx];
+				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -486,7 +486,7 @@ void teleport_player_away(creature_type *cr_ptr, int dis)
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx) && (cr_ptr != &creature_list[tmp_m_idx]))
 			{
 				creature_type *cr_ptr = &creature_list[tmp_m_idx];
-				species_type *r_ptr = &r_info[cr_ptr->species_idx];
+				species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -843,7 +843,7 @@ int choose_dungeon(cptr note, int y, int x)
 		if (!max_dlv[i]) continue;
 		if (d_info[i].final_guardian)
 		{
-			if (!r_info[d_info[i].final_guardian].max_num) seiha = TRUE;
+			if (!species_info[d_info[i].final_guardian].max_num) seiha = TRUE;
 		}
 		else if (max_dlv[i] == d_info[i].maxdepth) seiha = TRUE;
 
@@ -4243,7 +4243,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] - 1);
 
 	if (cr_ptr->riding)
-		chance += (MAX(r_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
+		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
@@ -5423,7 +5423,7 @@ msg_print("‰Š‚Å‹­‰»‚·‚é‚Ì‚É¸”s‚µ‚½B");
 static s16b poly_species_idx(int pre_species_idx)
 {
 	s16b after_species_idx = pre_species_idx;
-	species_type *species_ptr = &r_info[pre_species_idx];
+	species_type *species_ptr = &species_info[pre_species_idx];
 
 	int i, r, lev1, lev2;
 
@@ -5445,7 +5445,7 @@ static s16b poly_species_idx(int pre_species_idx)
 		if (!r) break;
 
 		/* Obtain race */
-		species_ptr = &r_info[r];
+		species_ptr = &species_info[r];
 
 		/* Ignore unique monsters */
 		if (is_unique_species(species_ptr)) continue;

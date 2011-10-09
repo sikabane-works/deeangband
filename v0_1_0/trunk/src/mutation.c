@@ -3751,7 +3751,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				}
 
 				m_ptr = &creature_list[c_ptr->m_idx];
-				r_ptr = &r_info[m_ptr->species_idx];
+				r_ptr = &species_info[m_ptr->species_idx];
 
 				if (is_enemy_of_good_species(r_ptr) &&
 				    !(is_quest_species(r_ptr)) &&

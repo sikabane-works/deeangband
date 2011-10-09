@@ -1910,7 +1910,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 				case TV_FIGURINE:
 				case TV_STATUE:
 				{
-					species_type *r_ptr = &r_info[o_ptr->pval];
+					species_type *r_ptr = &species_info[o_ptr->pval];
 
 					if (!(r_ptr->flags3 & RF3_EVIL))
 					{
@@ -3002,8 +3002,8 @@ static void display_store(creature_type *cr_ptr, store_type *st_ptr)
 	else
 	{
 		cptr store_name = (cptr)(stp_name + st_ptr->name);
-		cptr owner_name = r_name + r_info[st_ptr->owner_id].name;
-		cptr race_name = race_info[r_info[st_ptr->owner_id].race_idx1].title;
+		cptr owner_name = r_name + species_info[st_ptr->owner_id].name;
+		cptr race_name = race_info[species_info[st_ptr->owner_id].race_idx1].title;
 
 		/* Put the owner name and race */
 		sprintf(buf, "[%s](%ld - %d/%d)", store_name, (long)st_ptr->wealth, st_ptr->stock_num, st_ptr->stock_size);

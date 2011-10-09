@@ -1109,7 +1109,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 			int oy = y, ox = x;
 			int m_idx = cave[y][x].m_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
-			species_type *r_ptr = &r_info[m_ptr->species_idx];
+			species_type *r_ptr = &species_info[m_ptr->species_idx];
 			char m_name[80];
 
 			monster_desc(m_name, m_ptr, 0);
@@ -1711,7 +1711,7 @@ msg_print("その方向にはモンスターはいません。");
 		/* Redraw the new grid */
 		lite_spot(cr_ptr, ty, tx);
 
-		if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+		if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 			cr_ptr->update |= (PU_MON_LITE);
 
 		if (m_ptr->ml)

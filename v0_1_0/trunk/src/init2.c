@@ -1013,9 +1013,9 @@ static errr init_e_info(void)
 
 
 /*
- * Initialize the "r_info" array
+ * Initialize the "species_info" array
  */
-static errr init_r_info_csv(void)
+static errr init_species_info_csv(void)
 {
 
 	/* Init the header */
@@ -1024,19 +1024,19 @@ static errr init_r_info_csv(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	r_head.parse_info_txt = parse_r_info_csv;
+	r_head.parse_info_txt = parse_species_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("r_info", &r_head, (void*)&r_info, &r_name, &r_text, NULL);
+	return init_info2("species_info", &r_head, (void*)&species_info, &r_name, &r_text, NULL);
 
 }
 
 
 /*
- *  Old r_info by text
+ *  Old species_info by text
  */
-static errr init_r_info_txt(void)
+static errr init_species_info_txt(void)
 {
 
 	/* Init the header */
@@ -1045,12 +1045,12 @@ static errr init_r_info_txt(void)
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	r_head.parse_info_txt = parse_r_info;
+	r_head.parse_info_txt = parse_species_info;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("r_info", &r_head,
-			 (void*)&r_info, &r_name, &r_text, NULL);
+	return init_info("species_info", &r_head,
+			 (void*)&species_info, &r_name, &r_text, NULL);
 
 }
 
@@ -1704,13 +1704,13 @@ static errr init_alloc(void)
 
 	tag_type *elements;
 
-	/* Allocate the "r_info" array */
+	/* Allocate the "species_info" array */
 	C_MAKE(elements, max_species_idx, tag_type);
 
 	/* Scan the monsters */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		elements[i].tag = r_info[i].level;
+		elements[i].tag = species_info[i].level;
 		elements[i].pointer = (void*)i;
 	}
 
@@ -1728,7 +1728,7 @@ static errr init_alloc(void)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
-		r_ptr = &r_info[(int)elements[i].pointer];
+		r_ptr = &species_info[(int)elements[i].pointer];
 
 		/* Count valid pairs */
 		if (r_ptr->rarity)
@@ -1750,7 +1750,7 @@ static errr init_alloc(void)
 		}
 	}
 
-	/* Free the "r_info" array */
+	/* Free the "species_info" array */
 	C_KILL(elements, max_species_idx, tag_type);
 
 #else /* SORT_R_INFO */
@@ -1775,7 +1775,7 @@ static errr init_alloc(void)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
-		r_ptr = &r_info[i];
+		r_ptr = &species_info[i];
 
 		/* Legal monsters */
 		if (r_ptr->rarity)
@@ -1816,7 +1816,7 @@ static errr init_alloc(void)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
-		r_ptr = &r_info[i];
+		r_ptr = &species_info[i];
 
 		/* Count valid pairs */
 		if (r_ptr->rarity)
@@ -2118,8 +2118,8 @@ void init_angband(void)
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (creatures)]");
-	// if (init_r_info_txt()) quit("Cannot initialize monsters");
-	if (init_r_info_csv()) quit("Cannot initialize monsters");
+	// if (init_species_info_txt()) quit("Cannot initialize monsters");
+	if (init_species_info_csv()) quit("Cannot initialize monsters");
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
@@ -2134,7 +2134,7 @@ void init_angband(void)
 		int i;
 		for (i = 1; i < max_d_idx; i++)
 			if (d_info[i].final_guardian)
-				r_info[d_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
+				species_info[d_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
 	}
 
 	/* Initialize magic info */

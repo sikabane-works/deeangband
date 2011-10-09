@@ -522,7 +522,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 	else if ((race_is_(cr_ptr, RACE_DEMON) || race_is_(cr_ptr, RACE_BALROG) ||
 		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
-		  my_strchr("pht", r_info[o_ptr->pval].d_char)))
+		  my_strchr("pht", species_info[o_ptr->pval].d_char)))
 	{
 		/* Drain vitality of humanoids */
 		char o_name[MAX_NLEN];
@@ -657,7 +657,7 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 	{
 		if (o_ptr->tval == TV_CORPSE &&
 		    o_ptr->sval == SV_CORPSE &&
-		    my_strchr("pht", r_info[o_ptr->pval].d_char))
+		    my_strchr("pht", species_info[o_ptr->pval].d_char))
 			return TRUE;
 	}
 
@@ -3902,8 +3902,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &creature_list[w1];
 	creature_type *m_ptr2 = &creature_list[w2];
-	species_type *r_ptr1 = &r_info[m_ptr1->species_idx];
-	species_type *r_ptr2 = &r_info[m_ptr2->species_idx];
+	species_type *r_ptr1 = &species_info[m_ptr1->species_idx];
+	species_type *r_ptr2 = &species_info[m_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
@@ -5171,7 +5171,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					/* Ignore "dead" monsters */
 					if (!m_ptr->species_idx) continue;
 
-					r_ptr = &r_info[m_ptr->species_idx];
+					r_ptr = &species_info[m_ptr->species_idx];
 
 					if(is_unique_species(r_ptr))
 					{
@@ -6458,7 +6458,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool success = FALSE;
 			if (!get_rep_dir2(cr_ptr, &dir)) return;
-			if (monster_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &r_info[o_ptr->pval], 0))
+			if (monster_can_enter(cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], &species_info[o_ptr->pval], 0))
 			{
 				if (place_monster_aux(cr_ptr, cr_ptr->fy + ddy[dir], cr_ptr->fx + ddx[dir], o_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
 				{

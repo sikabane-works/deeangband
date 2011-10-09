@@ -1379,8 +1379,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &creature_list[w1];
 	creature_type *m_ptr2 = &creature_list[w2];
-	species_type *r_ptr1 = &r_info[m_ptr1->species_idx];
-	species_type *r_ptr2 = &r_info[m_ptr2->species_idx];
+	species_type *r_ptr1 = &species_info[m_ptr1->species_idx];
+	species_type *r_ptr2 = &species_info[m_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
@@ -1409,7 +1409,7 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 void check_pets_num_and_align(creature_type *m_ptr, bool inc)
 {
 	s32b old_friend_align = friend_align;
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	if (inc)
 	{
@@ -1687,7 +1687,7 @@ bool rakuba(creature_type *cr_ptr, int dam, bool force)
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[80];
 	creature_type *m_ptr = &creature_list[cr_ptr->riding];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
 
 	if (!cr_ptr->riding) return FALSE;
@@ -1945,7 +1945,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 			return FALSE;
 		}
-		if (r_info[m_ptr->species_idx].level > randint1((cr_ptr->skill_exp[GINOU_RIDING] / 50 + cr_ptr->lev / 2 + 20)))
+		if (species_info[m_ptr->species_idx].level > randint1((cr_ptr->skill_exp[GINOU_RIDING] / 50 + cr_ptr->lev / 2 + 20)))
 		{
 #ifdef JP
 			msg_print("うまく乗れなかった。");
@@ -2027,7 +2027,7 @@ static void do_name_pet(void)
 #endif
 			return;
 		}
-		if (is_unique_species(&r_info[m_ptr->species_idx]))
+		if (is_unique_species(&species_info[m_ptr->species_idx]))
 		{
 #ifdef JP
 			msg_print("そのモンスターの名前は変えられない！");
@@ -2128,10 +2128,10 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 #ifdef JP
 	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "何か奇妙な物" : (r_name + r_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
+		(pet_t_m_idx ? (cr_ptr->image ? "何か奇妙な物" : (r_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
 #else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (cr_ptr->image ? "something strange" : (r_name + r_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
+		(pet_t_m_idx ? (cr_ptr->image ? "something strange" : (r_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
 #endif
 	power_desc[num] = target_buf;
 

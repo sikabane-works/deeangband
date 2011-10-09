@@ -33,7 +33,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 	int plus = 1;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	creature_type *t_ptr;
 
@@ -189,7 +189,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 // TODO Import some process to creature_attack
 void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int who)
 {
-	species_type	*r_ptr = &r_info[cr_ptr->species_idx];
+	species_type	*r_ptr = &species_info[cr_ptr->species_idx];
 
 	char m_name[160];
 
@@ -416,7 +416,7 @@ static int mon_will_run(int m_idx)
 
 #ifdef ALLOW_TERROR
 
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	u16b p_lev, m_lev;
 	u32b p_chp, p_mhp;
@@ -490,7 +490,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	int now_cost;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	/* Monster location */
 	y1 = m_ptr->fy;
@@ -588,7 +588,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	bool use_scent = FALSE;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	/* Can monster cast attack spell? */
 	if (r_ptr->flags4 & (RF4_ATTACK_MASK) ||
@@ -940,7 +940,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 			c_ptr = &cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!monster_can_cross_terrain(c_ptr->feat, &r_info[m_ptr->species_idx], (m_idx == p_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if (!monster_can_cross_terrain(c_ptr->feat, &species_info[m_ptr->species_idx], (m_idx == p_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if monsters can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
@@ -996,7 +996,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 static bool find_hiding(int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -1066,7 +1066,7 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
 static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
 	int          y2 = cr_ptr->fy;
@@ -1421,7 +1421,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
 	return !have_flag(f_ptr->flags, FF_GLASS) ||
-	       is_stupid_species(&r_info[m_ptr->species_idx]) ||
+	       is_stupid_species(&species_info[m_ptr->species_idx]) ||
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
@@ -1454,8 +1454,8 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
 static void process_monster(creature_type *player_ptr, int m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
-	species_type    *r_ptr = &r_info[creature_ptr->species_idx];
-	species_type    *ap_r_ptr = &r_info[creature_ptr->ap_species_idx];
+	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
+	species_type    *ap_r_ptr = &species_info[creature_ptr->ap_species_idx];
 
 	int             i, d, oy, ox, ny, nx;
 
@@ -1503,7 +1503,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->paralyzed)
 	{
 		choose_new_monster(m_idx, FALSE, 0, MONEGO_NONE);
-		r_ptr = &r_info[creature_ptr->species_idx];
+		r_ptr = &species_info[creature_ptr->species_idx];
 	}
 
 	/* Players hidden in shadow are almost imperceptable. -LM- */
@@ -2380,7 +2380,7 @@ msg_format("%^s%s", m_name, monmessage);
 		/* A monster is in the way */
 		if (do_move && c_ptr->m_idx)
 		{
-			species_type *z_ptr = &r_info[y_ptr->species_idx];
+			species_type *z_ptr = &species_info[y_ptr->species_idx];
 
 			/* Assume no movement */
 			do_move = FALSE;
@@ -2868,7 +2868,7 @@ void process_monsters(creature_type *cr_ptr)
 	if (cr_ptr->species_type_idx)
 	{
 		/* Acquire current monster */
-		r_ptr = &r_info[cr_ptr->species_type_idx];
+		r_ptr = &species_info[cr_ptr->species_type_idx];
 
 		/* Memorize flags */
 		old_r_flags1 = r_ptr->r_flags1;
@@ -2895,7 +2895,7 @@ void process_monsters(creature_type *cr_ptr)
 	{
 		/* Access the monster */
 		m_ptr = &creature_list[i];
-		r_ptr = &r_info[m_ptr->species_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Handle "leaving" */
 		if (cr_ptr->leaving) break;
@@ -3017,7 +3017,7 @@ void process_monsters(creature_type *cr_ptr)
 	if (cr_ptr->species_type_idx && (cr_ptr->species_type_idx == old_species_type_idx))
 	{
 		/* Acquire monster race */
-		r_ptr = &r_info[cr_ptr->species_type_idx];
+		r_ptr = &species_info[cr_ptr->species_type_idx];
 
 		/* Check for knowledge change */
 		if ((old_r_flags1 != r_ptr->r_flags1) ||
@@ -3105,7 +3105,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 	{
 	case MTIMED_CSLEEP:
 	{
-		species_type *r_ptr = &r_info[cr_ptr->species_idx];
+		species_type *r_ptr = &species_info[cr_ptr->species_idx];
 		u32b csleep_noise;
 
 		/* Assume does not wake up */
@@ -3206,7 +3206,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 
 	case MTIMED_STUNNED:
 	{
-		int rlev = r_info[cr_ptr->species_idx].level;
+		int rlev = species_info[cr_ptr->species_idx].level;
 		/* Recover from stun */
 		set_stun(cr_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (cr_ptr->stun - 1));
 		break;
@@ -3214,12 +3214,12 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		set_confused(cr_ptr, cr_ptr->confused - randint1(r_info[cr_ptr->species_idx].level / 20 + 1));
+		set_confused(cr_ptr, cr_ptr->confused - randint1(species_info[cr_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		set_afraid(cr_ptr, cr_ptr->afraid - randint1(r_info[cr_ptr->species_idx].level / 20 + 1));
+		set_afraid(cr_ptr, cr_ptr->afraid - randint1(species_info[cr_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_INVULNER:
@@ -3346,8 +3346,8 @@ void monster_gain_exp(int m_idx, int s_idx)
 	/* Paranoia -- Skip dead monsters */
 	if (!m_ptr->species_idx) return;
 
-	r_ptr = &r_info[m_ptr->species_idx];
-	s_ptr = &r_info[s_idx];
+	r_ptr = &species_info[m_ptr->species_idx];
+	s_ptr = &species_info[s_idx];
 
 	if (inside_battle) return;
 
@@ -3377,7 +3377,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 		real_r_ptr(m_ptr)->cur_num++;
 
 		m_ptr->ap_species_idx = m_ptr->species_idx;
-		r_ptr = &r_info[m_ptr->species_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
 
 		set_enemy_maxhp(m_ptr);
 		set_enemy_hp(m_ptr, old_hp * 100 / old_mhp);
@@ -3404,7 +3404,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 
 					do
 					{
-						hallu_race = &r_info[randint1(max_species_idx - 1)];
+						hallu_race = &species_info[randint1(max_species_idx - 1)];
 					}
 					while (!hallu_race->name || is_unique_species(hallu_race));
 
@@ -3424,7 +3424,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 				}
 			}
 
-			if (!p_ptr->image) r_info[old_species_idx].r_xtra1 |= MR1_SINKA;
+			if (!p_ptr->image) species_info[old_species_idx].r_xtra1 |= MR1_SINKA;
 
 			/* Now you feel very close to this pet. */
 			m_ptr->parent_m_idx = 0;

@@ -2084,7 +2084,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #endif
 	if(cr_ptr->patron_idx != PATRON_NONE)
 	{
-		c_put_str(TERM_L_BLUE, r_name + r_info[cr_ptr->patron_idx].name, 3, 9);
+		c_put_str(TERM_L_BLUE, r_name + species_info[cr_ptr->patron_idx].name, 3, 9);
 	}
 
 
@@ -3099,7 +3099,7 @@ static void player_wipe(creature_type *cr_ptr)
 	/* Reset the "monsters" */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &r_info[i];
+		species_type *r_ptr = &species_info[i];
 
 		/* Hack -- Reset the counter */
 		r_ptr->cur_num = 0;
@@ -3238,7 +3238,7 @@ static void player_wipe(creature_type *cr_ptr)
  */
 static bool mon_hook_quest(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Random quests are in the dungeon */
 	if (r_ptr->flags8 & RF8_WILD_ONLY) return FALSE;
@@ -3274,7 +3274,7 @@ void determine_random_questor(quest_type *q_ptr)
 		 * (depending on level)
 		 */
 		species_idx = get_mon_num(q_ptr->level + 5 + randint1(q_ptr->level / 10));
-		r_ptr = &r_info[species_idx];
+		r_ptr = &species_info[species_idx];
 
 		if (!is_unique_species(r_ptr)) continue;
 
@@ -3327,7 +3327,7 @@ void init_dungeon_quests(void)
 		determine_random_questor(q_ptr);
 
 		/* Mark uniques */
-		quest_r_ptr = &r_info[q_ptr->species_idx];
+		quest_r_ptr = &species_info[q_ptr->species_idx];
 		//TODO quest_r_ptr->flags1 |= RF1_QUESTOR;
 
 		q_ptr->max_num = 1;
@@ -3641,7 +3641,7 @@ static byte player_init[MAX_CLASS][3][2] =
  */
 static bool monster_hook_human(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
 
@@ -4809,7 +4809,7 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 
 	case RACE_AMBERITE: 
 
-		strcpy(pt[n].cap, r_name + r_info[MON_UNICORN_ORD].name);
+		strcpy(pt[n].cap, r_name + species_info[MON_UNICORN_ORD].name);
 		pt[n].code = MON_UNICORN_ORD;
 		pt[n].key = '\0';
 		pt[n].d_color = TERM_L_DARK;
@@ -4819,7 +4819,7 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 
 	case RACE_CHAOSIAN:
 
-		strcpy(pt[n].cap, r_name + r_info[MON_SERPENT].name);
+		strcpy(pt[n].cap, r_name + species_info[MON_SERPENT].name);
 		pt[n].code = MON_SERPENT;
 		pt[n].key = '\0';
 		pt[n].d_color = TERM_L_DARK;
@@ -4831,10 +4831,10 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 	default:
 		for (i = 0; i < max_m_idx; i++)
 		{
-			if(!is_unique_species(&r_info[i])) continue;		
-			if(r_info[i].dr < 5) continue;
+			if(!is_unique_species(&species_info[i])) continue;		
+			if(species_info[i].dr < 5) continue;
 	
-			strcpy(pt[n].cap, r_name + r_info[i].name);
+			strcpy(pt[n].cap, r_name + species_info[i].name);
 			pt[n].code = i;
 			pt[n].key = '\0';
 			pt[n].d_color = TERM_L_DARK;

@@ -2144,8 +2144,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if (*why >= 4)
 	{
 		/* Extract player kills */
-		z1 = r_info[w1].r_pkills;
-		z2 = r_info[w2].r_pkills;
+		z1 = species_info[w1].r_pkills;
+		z2 = species_info[w2].r_pkills;
 
 		/* Compare player kills */
 		if (z1 < z2) return (TRUE);
@@ -2157,8 +2157,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if (*why >= 3)
 	{
 		/* Extract total kills */
-		z1 = r_info[w1].r_tkills;
-		z2 = r_info[w2].r_tkills;
+		z1 = species_info[w1].r_tkills;
+		z2 = species_info[w2].r_tkills;
 
 		/* Compare total kills */
 		if (z1 < z2) return (TRUE);
@@ -2170,8 +2170,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if (*why >= 2)
 	{
 		/* Extract levels */
-		z1 = r_info[w1].level;
-		z2 = r_info[w2].level;
+		z1 = species_info[w1].level;
+		z2 = species_info[w2].level;
 
 		/* Compare levels */
 		if (z1 < z2) return (TRUE);
@@ -2183,8 +2183,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if (*why >= 1)
 	{
 		/* Extract experience */
-		z1 = r_info[w1].mexp;
-		z2 = r_info[w2].mexp;
+		z1 = species_info[w1].mexp;
+		z2 = species_info[w2].mexp;
 
 		/* Compare experience */
 		if (z1 < z2) return (TRUE);
@@ -2340,7 +2340,7 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 	/* Collect matching monsters */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &r_info[i];
+		species_type *r_ptr = &species_info[i];
 
 		/* Nothing to recall */
 		if (!cheat_know && !r_ptr->r_sights) continue;

@@ -1764,7 +1764,7 @@ static void spoil_mon_desc(cptr fname)
 	/* Scan the monsters */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *species_ptr = &r_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Use that monster */
 		if (species_ptr->name) who[n++] = i;
@@ -1780,7 +1780,7 @@ static void spoil_mon_desc(cptr fname)
 	/* Scan again */
 	for (i = 0; i < n; i++)
 	{
-		species_type *species_ptr = &r_info[who[i]];
+		species_type *species_ptr = &species_info[who[i]];
 
 		cptr name = (r_name + species_ptr->name);
 
@@ -2294,7 +2294,7 @@ static void spoil_mon_info(cptr fname)
 	/* Scan the monsters */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *species_ptr = &r_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Use that monster */
 		if (species_ptr->name) who[n++] = i;
@@ -2313,7 +2313,7 @@ static void spoil_mon_info(cptr fname)
 	 */
 	for (l = 0; l < n; l++)
 	{
-		species_type *species_ptr = &r_info[who[l]];
+		species_type *species_ptr = &species_info[who[l]];
 
 		/* Extract the flags */
 		flags1 = species_ptr->flags1;
@@ -2513,8 +2513,8 @@ static bool ang_sort_comp_evol_tree(vptr u, vptr v, int a, int b)
 
 	int w1 = evol_tree[a][0];
 	int w2 = evol_tree[b][0];
-	species_type *r1_ptr = &r_info[w1];
-	species_type *r2_ptr = &r_info[w2];
+	species_type *r1_ptr = &species_info[w1];
+	species_type *r2_ptr = &species_info[w2];
 
 	/* Unused */
 	(void)v;
@@ -2596,7 +2596,7 @@ static void spoil_mon_evol(cptr fname)
 	/* Step 1: Build the evolution tree */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		r_ptr = &r_info[i];
+		r_ptr = &species_info[i];
 
 		/* No evolution */
 		if (!r_ptr->next_exp) continue;
@@ -2607,7 +2607,7 @@ static void spoil_mon_evol(cptr fname)
 		do
 		{
 			evol_tree[i][n++] = r_ptr->next_species_idx;
-			r_ptr = &r_info[r_ptr->next_species_idx];
+			r_ptr = &species_info[r_ptr->next_species_idx];
 		}
 		while (r_ptr->next_exp && (n < MAX_EVOL_DEPTH));
 	}
@@ -2654,7 +2654,7 @@ static void spoil_mon_evol(cptr fname)
 		if (!species_idx) continue;
 
 		/* Trace the evolution tree */
-		r_ptr = &r_info[species_idx];
+		r_ptr = &species_info[species_idx];
 #ifdef JP
 		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", species_idx,
 			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
@@ -2666,7 +2666,7 @@ static void spoil_mon_evol(cptr fname)
 		{
 			fprintf(fff, "%*s-(%ld)-> ", n * 2, "", r_ptr->next_exp);
 			fprintf(fff, "[%d]: ", r_ptr->next_species_idx);
-			r_ptr = &r_info[r_ptr->next_species_idx];
+			r_ptr = &species_info[r_ptr->next_species_idx];
 #ifdef JP
 			fprintf(fff, "%s (ƒŒƒxƒ‹%d, '%c')\n",
 				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);

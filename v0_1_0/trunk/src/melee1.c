@@ -143,7 +143,7 @@ static cptr desc_moan[] =
 bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 
-	species_type *r_ptr = &r_info[atk_ptr->species_idx];
+	species_type *r_ptr = &species_info[atk_ptr->species_idx];
 
 	int ap_cnt;
 

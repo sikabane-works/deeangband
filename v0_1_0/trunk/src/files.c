@@ -434,7 +434,7 @@ errr process_pref_file_command(char *buf)
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
 			if (i >= max_species_idx) return 1;
-			r_ptr = &r_info[i];
+			r_ptr = &species_info[i];
 			if (n1 || (!(n2 & 0x80) && n2)) r_ptr->x_attr = n1; /* Allow TERM_DARK text */
 			if (n2) r_ptr->x_char = n2;
 			return 0;
@@ -3854,7 +3854,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->patron_idx == PATRON_NONE)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
-			display_player_one_line(ENTRY_PATRON, r_name + r_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
+			display_player_one_line(ENTRY_PATRON, r_name + species_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
 		
 
 		authority_desc(buf, cr_ptr);
@@ -4812,7 +4812,7 @@ static void dump_aux_recall(creature_type *cr_ptr, FILE *fff)
 		if (!max_dlv[y]) continue;
 		if (d_info[y].final_guardian)
 		{
-			if (!r_info[d_info[y].final_guardian].max_num) seiha = TRUE;
+			if (!species_info[d_info[y].final_guardian].max_num) seiha = TRUE;
 		}
 		else if (max_dlv[y] == d_info[y].maxdepth) seiha = TRUE;
 
@@ -4984,10 +4984,10 @@ static void dump_aux_arena(FILE *fff)
 		{
 #ifdef JP
 			fprintf(fff, "\n ì¨ãZèÍ: %dâÒêÌÇ≈%sÇÃëOÇ…îsñk\n", -arena_number,
-				r_name + r_info[arena_info[-1 - arena_number].species_idx].name);
+				r_name + species_info[arena_info[-1 - arena_number].species_idx].name);
 #else
 			fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
-				r_name + r_info[arena_info[-1 - arena_number].species_idx].name,
+				r_name + species_info[arena_info[-1 - arena_number].species_idx].name,
 				-arena_number, get_ordinal_number_suffix(-arena_number));
 #endif
 		}
@@ -5048,7 +5048,7 @@ static void dump_aux_monsters(FILE *fff)
 	/* Count monster kills */
 	for (k = 1; k < max_species_idx; k++)
 	{
-		species_type *r_ptr = &r_info[k];
+		species_type *r_ptr = &species_info[k];
 
 		/* Ignore unused index */
  		if (!r_ptr->name) continue;
@@ -5123,7 +5123,7 @@ static void dump_aux_monsters(FILE *fff)
 		/* Print top 10 */
 		for (k = uniq_total - 1; k >= 0 && k >= uniq_total - 10; k--)
 		{
-			species_type *r_ptr = &r_info[who[k]];
+			species_type *r_ptr = &species_info[who[k]];
 
 #ifdef JP
 			fprintf(fff, "  %-40s (ÉåÉxÉã%3d)\n", (r_name + r_ptr->name), r_ptr->level); 
@@ -7673,11 +7673,11 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 				}
 				else if (buf[2] == 'M')
 				{
-					if (is_male_species(&r_info[entry])) break;
+					if (is_male_species(&species_info[entry])) break;
 				}
 				else if (buf[2] == 'F')
 				{
-					if (is_female_species(&r_info[entry])) break;
+					if (is_female_species(&species_info[entry])) break;
 				}
 				/* Get the monster number */
 				else if (sscanf(&(buf[2]), "%d", &test) != EOF)

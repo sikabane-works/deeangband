@@ -847,7 +847,7 @@ char *e_text;
 /*
  * The creature species arrays
  */
-species_type *r_info;
+species_type *species_info;
 char *r_name;
 char *r_text;
 
@@ -1107,7 +1107,7 @@ building_type building[MAX_BLDG];
 u16b max_quests;
 
 /*
- * Maximum number of monsters in r_info.txt
+ * Maximum number of monsters in species_info.txt
  */
 u16b max_species_idx;
 

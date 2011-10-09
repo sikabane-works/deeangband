@@ -485,7 +485,7 @@ extern char *a_text;
 extern ego_item_type *e_info;
 extern char *e_name;
 extern char *e_text;
-extern species_type *r_info;
+extern species_type *species_info;
 extern char *r_name;
 extern char *r_text;
 extern race_type *rc_info;

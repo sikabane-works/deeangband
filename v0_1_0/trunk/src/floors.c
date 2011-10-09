@@ -536,7 +536,7 @@ static void place_pet(void)
 				for (j = 1000; j > 0; j--)
 				{
 					scatter(&cy, &cx, p_ptr->fy, p_ptr->fx, d, 0);
-					if (monster_can_enter(cy, cx, &r_info[party_mon[i].species_idx], 0)) break;
+					if (monster_can_enter(cy, cx, &species_info[party_mon[i].species_idx], 0)) break;
 				}
 				if (j) break;
 			}
@@ -586,7 +586,7 @@ static void place_pet(void)
 
 			/* Hack -- Notice new multi-hued monsters */
 			{
-				species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
+				species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 				if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER))
 					shimmer_monsters = TRUE;
 			}

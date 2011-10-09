@@ -355,7 +355,7 @@ msg_print("あなたはすべての敵に勝利した。");
 			}
 			else
 			{
-				r_ptr = &r_info[arena_info[arena_number].species_idx];
+				r_ptr = &species_info[arena_info[arena_number].species_idx];
 				name = (r_name + r_ptr->name);
 #ifdef JP
 msg_format("%s に挑戦するものはいないか？", name);
@@ -1672,7 +1672,7 @@ static bool vault_aux_battle(int species_idx)
 	int i;
 	int dam = 0;
 
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Decline town monsters */
 /*	if (!mon_hook_dungeon(species_idx)) return FALSE; */
@@ -1739,9 +1739,9 @@ void battle_monsters(void)
 				inside_battle = old_inside_battle;
 				if (!species_idx) continue;
 
-				if (is_unique_species(&r_info[species_idx]) || is_sub_unique_species(&r_info[species_idx]))
+				if (is_unique_species(&species_info[species_idx]) || is_sub_unique_species(&species_info[species_idx]))
 				{
-					if ((r_info[species_idx].level + 10) > mon_level) continue;
+					if ((species_info[species_idx].level + 10) > mon_level) continue;
 				}
 
 				for (j = 0; j < i; j++)
@@ -1751,12 +1751,12 @@ void battle_monsters(void)
 				break;
 			}
 			battle_mon[i] = species_idx;
-			if (r_info[species_idx].level < 45) tekitou = TRUE;
+			if (species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
 		for (i=0;i<4;i++)
 		{
-			species_type *r_ptr = &r_info[battle_mon[i]];
+			species_type *r_ptr = &species_info[battle_mon[i]];
 			int num_taisei = count_bits(r_ptr->flags10 & (RF10_IM_ACID | RF10_IM_ELEC | RF10_IM_FIRE | RF10_IM_COLD | RF10_IM_POIS));
 
 			power[i] = 3;
@@ -1957,7 +1957,7 @@ static bool kakutoujou(creature_type *cr_ptr)
 		for (i=0;i<4;i++)
 		{
 			char buf[80];
-			species_type *r_ptr = &r_info[battle_mon[i]];
+			species_type *r_ptr = &species_info[battle_mon[i]];
 
 #ifdef JP
 			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",r_name + r_ptr->name, is_unique_species(r_ptr) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
@@ -2079,7 +2079,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 static void today_target(creature_type *cr_ptr)
 {
 	char buf[160];
-	species_type *r_ptr = &r_info[today_mon];
+	species_type *r_ptr = &species_info[today_mon];
 
 	clear_bldg(4,18);
 #ifdef JP
@@ -2145,7 +2145,7 @@ c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
 	{
 		byte color;
 		cptr done_mark;
-		species_type *r_ptr = &r_info[(kubi_species_idx[i] > 10000 ? kubi_species_idx[i] - 10000 : kubi_species_idx[i])];
+		species_type *r_ptr = &species_info[(kubi_species_idx[i] > 10000 ? kubi_species_idx[i] - 10000 : kubi_species_idx[i])];
 
 		if (kubi_species_idx[i] > 10000)
 		{
@@ -2317,7 +2317,7 @@ static bool kankin(creature_type *cr_ptr)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
-		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name)))
+		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(r_name + species_info[o_ptr->pval].name, r_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
@@ -2329,11 +2329,11 @@ static bool kankin(creature_type *cr_ptr)
 			if (get_check(buf))
 			{
 #ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (r_info[today_mon].level * 50 + 100) * o_ptr->number);
+				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 50 + 100) * o_ptr->number);
 #else
-				msg_format("You get %ldgp.", (r_info[today_mon].level * 50 + 100) * o_ptr->number);
+				msg_format("You get %ldgp.", (species_info[today_mon].level * 50 + 100) * o_ptr->number);
 #endif
-				cr_ptr->au += (r_info[today_mon].level * 50 + 100) * o_ptr->number;
+				cr_ptr->au += (species_info[today_mon].level * 50 + 100) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
@@ -2347,7 +2347,7 @@ static bool kankin(creature_type *cr_ptr)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(r_name + r_info[o_ptr->pval].name, r_name + r_info[today_mon].name)))
+		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(r_name + species_info[o_ptr->pval].name, r_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
@@ -2359,11 +2359,11 @@ static bool kankin(creature_type *cr_ptr)
 			if (get_check(buf))
 			{
 #ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (r_info[today_mon].level * 30 + 60) * o_ptr->number);
+				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 30 + 60) * o_ptr->number);
 #else
-				msg_format("You get %ldgp.", (r_info[today_mon].level * 30 + 60) * o_ptr->number);
+				msg_format("You get %ldgp.", (species_info[today_mon].level * 30 + 60) * o_ptr->number);
 #endif
-				cr_ptr->au += (r_info[today_mon].level * 30 + 60) * o_ptr->number;
+				cr_ptr->au += (species_info[today_mon].level * 30 + 60) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
@@ -2395,11 +2395,11 @@ static bool kankin(creature_type *cr_ptr)
 
 #if 0 /* Obsoleted */
 #ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (r_info[kubi_species_idx[j]].level + 1) * 300 * o_ptr->number);
+				msg_format("賞金 %ld＄を手に入れた。", (species_info[kubi_species_idx[j]].level + 1) * 300 * o_ptr->number);
 #else
-				msg_format("You get %ldgp.", (r_info[kubi_species_idx[j]].level + 1) * 300 * o_ptr->number);
+				msg_format("You get %ldgp.", (species_info[kubi_species_idx[j]].level + 1) * 300 * o_ptr->number);
 #endif
-				cr_ptr->au += (r_info[kubi_species_idx[j]].level+1) * 300 * o_ptr->number;
+				cr_ptr->au += (species_info[kubi_species_idx[j]].level+1) * 300 * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
@@ -2477,7 +2477,7 @@ static bool kankin(creature_type *cr_ptr)
 
 bool get_nightmare(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Require eldritch horrors */
 	if (!have_eldritch_horror_species(r_ptr)) return (FALSE);
@@ -2490,7 +2490,7 @@ bool get_nightmare(int species_idx)
 void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
 	bool happened = FALSE;
-	species_type *eldritch_ptr = &r_info[eldritch_idx];
+	species_type *eldritch_ptr = &species_info[eldritch_idx];
 	int power = eldritch_ptr->level + 10;
 	char m_name[80];
 	cptr desc = r_name + eldritch_ptr->name;
@@ -3062,12 +3062,12 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 				q_ptr->species_idx = get_mon_num(q_ptr->level + 4 + randint1(6));
 			}
 
-			r_ptr = &r_info[q_ptr->species_idx];
+			r_ptr = &species_info[q_ptr->species_idx];
 
 			while (is_unique_species(r_ptr) || (r_ptr->rarity != 1))
 			{
 				q_ptr->species_idx = get_mon_num(q_ptr->level) + 4 + (s16b)randint1(6);
-				r_ptr = &r_info[q_ptr->species_idx];
+				r_ptr = &species_info[q_ptr->species_idx];
 			}
 
 			if (q_ptr->max_num == 0)
@@ -4512,7 +4512,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 	/* Collect matching monsters */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &r_info[i];
+		species_type *r_ptr = &species_info[i];
 
 		/* Empty monster */
 		if (!r_ptr->name) continue;
@@ -4970,10 +4970,10 @@ msg_print("お金が足りません！");
 		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (cr_ptr->flags13 & RF13_CHAOS_GIFT))
 		{
 #ifdef JP
-			msg_format("%sからの声が響いた。", r_name + r_info[cr_ptr->patron_idx].name);
+			msg_format("%sからの声が響いた。", r_name + species_info[cr_ptr->patron_idx].name);
 			msg_print("『よくやった、定命の者よ！』");
 #else
-			msg_format("The voice of %s booms out:", r_name + r_info[cr_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", r_name + species_info[cr_ptr->patron_idx].name);
 			msg_print("'Thou art donst well, mortal!'");
 #endif
 		}
@@ -5273,7 +5273,7 @@ static cptr find_quest[] =
 void quest_discovery(int q_idx)
 {
 	quest_type      *q_ptr = &quest[q_idx];
-	species_type    *r_ptr = &r_info[q_ptr->species_idx];
+	species_type    *r_ptr = &species_info[q_ptr->species_idx];
 	int             q_num = q_ptr->max_num;
 	char            name[80];
 

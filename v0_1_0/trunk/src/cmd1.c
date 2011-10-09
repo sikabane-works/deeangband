@@ -224,7 +224,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 {
 	int mult = 10;
 
-	species_type *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -1806,7 +1806,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 {
 	int aura_damage = 0;
-	species_type *species_ptr = &r_info[tar_ptr->species_idx];
+	species_type *species_ptr = &species_info[tar_ptr->species_idx];
 
 	if (is_aura_fire_creature(tar_ptr))
 	{
@@ -2054,7 +2054,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 {
 	creature_type    *m_ptr = &creature_list[m_idx];
-	species_type    *r_ptr = &r_info[m_ptr->species_idx];
+	species_type    *r_ptr = &species_info[m_ptr->species_idx];
 }
 
 
@@ -2069,7 +2069,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 	cave_type       *c_ptr = &cave[y][x];
 
-	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 
 	/* Access the weapon */
 	object_type     *o_ptr = &atk_ptr->inventory[INVEN_1STARM + hand];
@@ -2983,7 +2983,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					monster_desc(m_name, tar_ptr, 0);
 
 					/* Hack -- Get new race */
-					r_ptr = &r_info[tar_ptr->species_idx];
+					r_ptr = &species_info[tar_ptr->species_idx];
 				}
 			}
 			else if (o_ptr->name1 == ART_G_HAMMER)
@@ -3197,7 +3197,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 		tar_ptr = &creature_list[c_ptr->m_idx];
 	}
 
-	r_ptr = &r_info[tar_ptr->species_idx];
+	r_ptr = &species_info[tar_ptr->species_idx];
 
 
 	/* Disturb the player */
@@ -3338,7 +3338,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 		if (cur < max)
 		{
-			int ridinglevel = r_info[creature_list[atk_ptr->riding].species_idx].level;
+			int ridinglevel = species_info[creature_list[atk_ptr->riding].species_idx].level;
 			int targetlevel = r_ptr->level;
 			int inc = 0;
 
@@ -3600,7 +3600,7 @@ bool player_can_enter(creature_type *cr_ptr, s16b feature, u16b mode)
 {
 	feature_type *f_ptr = &f_info[feature];
 
-	if (cr_ptr->riding) return monster_can_cross_terrain(feature, &r_info[creature_list[cr_ptr->riding].species_idx], mode | CEM_RIDING);
+	if (cr_ptr->riding) return monster_can_cross_terrain(feature, &species_info[creature_list[cr_ptr->riding].species_idx], mode | CEM_RIDING);
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -3947,7 +3947,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	creature_type *m_ptr;
 
 	creature_type *steed_ptr = &creature_list[cr_ptr->riding];
-	species_type *riding_r_ptr = &r_info[cr_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
+	species_type *riding_r_ptr = &species_info[cr_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
 
 	char m_name[80];
 
@@ -4110,7 +4110,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	/* Hack -- attack monsters */
 	if (c_ptr->m_idx && (m_ptr->ml || p_can_enter || p_can_kill_walls))
 	{
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&

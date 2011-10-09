@@ -49,7 +49,7 @@ static cptr wd_his[3] =
  */
 static bool know_armour(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	s32b level = r_ptr->level;
 
@@ -78,7 +78,7 @@ static bool know_armour(int species_idx)
  */
 static bool know_damage(int species_idx, int i)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	s32b level = r_ptr->level;
 
@@ -796,7 +796,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 
 		while(sp_ptr->underling_id[i] != 0)
 		{
-			char *name = r_name + r_info[sp_ptr->underling_id[i]].name;
+			char *name = r_name + species_info[sp_ptr->underling_id[i]].name;
 #ifdef JP
 			hooked_roff(format("、「%s」が %dd%d 体", name, sp_ptr->underling_d_num[i], sp_ptr->underling_d_side[i]));
 #else
@@ -2108,7 +2108,7 @@ if (flags6 & (RF6_S_UNIQUE))        {vp[vn] = "ユニーク・モンスター召喚";color[v
 #else
 			hooked_roff(format("%^s will evolve into ", wd_he[msex]));
 #endif
-			hook_c_roff(TERM_YELLOW, format("%s", r_name+r_info[sp_ptr->next_species_idx].name));
+			hook_c_roff(TERM_YELLOW, format("%s", r_name+species_info[sp_ptr->next_species_idx].name));
 #ifdef JP
 			hooked_roff(format("に進化する。"));
 #else
@@ -2988,7 +2988,7 @@ case RBE_DR_MANA:  q = "魔力を奪う"; break;
  */
 void roff_top(int species_idx)
 {
-	species_type	*r_ptr = &r_info[species_idx];
+	species_type	*r_ptr = &species_info[species_idx];
 
 	byte		a1, a2;
 	char		c1, c2;
@@ -3059,7 +3059,7 @@ void screen_roff(int species_idx, int mode)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(p_ptr, &r_info[species_idx], mode);
+	roff_aux(p_ptr, &species_info[species_idx], mode);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3088,7 +3088,7 @@ void display_roff(int species_idx)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(p_ptr, &r_info[species_idx], 0);
+	roff_aux(p_ptr, &species_info[species_idx], 0);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -3104,13 +3104,13 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 	hook_c_roff = roff_func;
 
 	/* Recall monster */
-	roff_aux(p_ptr, &r_info[species_idx], 0x03);
+	roff_aux(p_ptr, &species_info[species_idx], 0x03);
 }
 
 
 bool mon_hook_dungeon(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (!(r_ptr->flags8 & RF8_WILD_ONLY))
 		return TRUE;
@@ -3126,7 +3126,7 @@ bool mon_hook_dungeon(int species_idx)
 
 static bool mon_hook_ocean(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_OCEAN)
 		return TRUE;
@@ -3137,7 +3137,7 @@ static bool mon_hook_ocean(int species_idx)
 
 static bool mon_hook_shore(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_SHORE)
 		return TRUE;
@@ -3148,7 +3148,7 @@ static bool mon_hook_shore(int species_idx)
 
 static bool mon_hook_waste(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_WASTE | RF8_WILD_ALL))
 		return TRUE;
@@ -3159,7 +3159,7 @@ static bool mon_hook_waste(int species_idx)
 
 static bool mon_hook_town(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_TOWN | RF8_WILD_ALL | RF8_CITIZEN))
 		return TRUE;
@@ -3170,7 +3170,7 @@ static bool mon_hook_town(int species_idx)
 
 static bool mon_hook_wood(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_WOOD | RF8_WILD_ALL))
 		return TRUE;
@@ -3181,7 +3181,7 @@ static bool mon_hook_wood(int species_idx)
 
 static bool mon_hook_volcano(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_VOLCANO)
 		return TRUE;
@@ -3192,7 +3192,7 @@ static bool mon_hook_volcano(int species_idx)
 
 static bool mon_hook_mountain(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & RF8_WILD_MOUNTAIN)
 		return TRUE;
@@ -3203,7 +3203,7 @@ static bool mon_hook_mountain(int species_idx)
 
 static bool mon_hook_grass(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (r_ptr->flags8 & (RF8_WILD_GRASS | RF8_WILD_ALL))
 		return TRUE;
@@ -3214,7 +3214,7 @@ static bool mon_hook_grass(int species_idx)
 
 static bool mon_hook_deep_water(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
@@ -3227,7 +3227,7 @@ static bool mon_hook_deep_water(int species_idx)
 
 static bool mon_hook_shallow_water(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
@@ -3240,7 +3240,7 @@ static bool mon_hook_shallow_water(int species_idx)
 
 static bool mon_hook_lava(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
@@ -3255,7 +3255,7 @@ static bool mon_hook_lava(int species_idx)
 
 static bool mon_hook_floor(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (!is_aquatic_species(r_ptr) ||
 	    can_fly_species(r_ptr))
@@ -3482,8 +3482,8 @@ static bool check_hostile_align(byte sub_align1, byte sub_align2)
  */
 bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
-	species_type *s_ptr = &r_info[n_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *s_ptr = &species_info[n_ptr->species_idx];
 
 	if (inside_battle)
 	{

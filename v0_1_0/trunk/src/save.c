@@ -190,7 +190,7 @@ static void wr_item(object_type *o_ptr)
  */
 static void wr_lore(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Count sights/deaths/kills */
 	wr_s16b(r_ptr->r_sights);

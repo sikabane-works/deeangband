@@ -644,7 +644,7 @@ static void image_monster(byte *ap, char *cp)
 	/* Random symbol from set above */
 	if (use_graphics)
 	{
-		species_type *r_ptr = &r_info[randint1(max_species_idx - 1)];
+		species_type *r_ptr = &species_info[randint1(max_species_idx - 1)];
 
 		*cp = r_ptr->x_char;
 		*ap = r_ptr->x_attr;
@@ -1231,7 +1231,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 		/* Visible monster */
 		if (m_ptr->ml)
 		{
-			species_type *r_ptr = &r_info[m_ptr->ap_species_idx];
+			species_type *r_ptr = &species_info[m_ptr->ap_species_idx];
 
 			feat_priority = 30;
 
@@ -1320,7 +1320,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 					{
 						if (use_graphics)
 						{
-							species_type *tmp_r_ptr = &r_info[randint1(max_species_idx - 1)];
+							species_type *tmp_r_ptr = &species_info[randint1(max_species_idx - 1)];
 							*cp = tmp_r_ptr->x_char;
 							*ap = tmp_r_ptr->x_attr;
 						}
@@ -1344,7 +1344,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 	/* Handle "player" */
 	if (creature_bold(cr_ptr, y, x))
 	{
-		species_type *r_ptr = &r_info[0];
+		species_type *r_ptr = &species_info[0];
 
 		/* Get the "player" attr */
 		*ap = r_ptr->x_attr;
@@ -3030,7 +3030,7 @@ void update_mon_lite(creature_type *cr_ptr)
 		for (i = 1; i < m_max; i++)
 		{
 			m_ptr = &creature_list[i];
-			r_ptr = &r_info[m_ptr->species_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Skip dead monsters */
 			if (!m_ptr->species_idx) continue;

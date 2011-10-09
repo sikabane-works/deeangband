@@ -1292,7 +1292,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 
 		case TV_CAPTURE:
 		{
-			species_type *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &species_info[o_ptr->pval];
 
 			if (known)
 			{
@@ -1334,7 +1334,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_FIGURINE:
 		case TV_STATUE:
 		{
-			species_type *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &species_info[o_ptr->pval];
 
 #ifdef JP
 			modstr = r_name + r_ptr->name;
@@ -1360,7 +1360,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* Corpses */
 		case TV_CORPSE:
 		{
-			species_type *r_ptr = &r_info[o_ptr->pval];
+			species_type *r_ptr = &species_info[o_ptr->pval];
 
 			modstr = r_name + r_ptr->name;
 
@@ -1821,7 +1821,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		/* Hack -- The only one of its kind */
 		else if ((known && object_is_artifact(p_ptr, o_ptr)) ||
 		         ((o_ptr->tval == TV_CORPSE) &&
-		          (is_unique_species(r_info[o_ptr->pval]))))
+		          (is_unique_species(species_info[o_ptr->pval]))))
 		{
 			t = object_desc_str(t, "The ");
 		}
@@ -1899,7 +1899,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if(!o_ptr->creater_idx)
 			t = object_desc_str(t, format("鍛冶師%sの", p_ptr->name));
 		else
-			t = object_desc_str(t, format("%sの", r_name + r_info[o_ptr->creater_idx].name));
+			t = object_desc_str(t, format("%sの", r_name + species_info[o_ptr->creater_idx].name));
 	}
 
 	/* 伝説のアイテム、名のあるアイテムの名前を付加する */
@@ -2068,7 +2068,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if(!o_ptr->creater_idx)
 			t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
 		else
-			t = object_desc_str(t, format(" of %s", r_name + r_info[o_ptr->creater_idx].name));
+			t = object_desc_str(t, format(" of %s", r_name + species_info[o_ptr->creater_idx].name));
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */

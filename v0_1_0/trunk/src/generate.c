@@ -184,7 +184,7 @@ static bool alloc_stairs(int feat, int num, int walls)
 		/* No downstairs on quest levels */
 		if (dun_level > 1 && q_idx)
 		{
-			species_type *r_ptr = &r_info[quest[q_idx].species_idx];
+			species_type *r_ptr = &species_info[quest[q_idx].species_idx];
 
 			/* The quest monster(s) is still alive? */
 			if (!(is_unique_species(r_ptr)) || 0 < r_ptr->max_num)
@@ -491,7 +491,7 @@ bool place_quest_monsters(void)
 			continue;
 		}
 
-		r_ptr = &r_info[quest[i].species_idx];
+		r_ptr = &species_info[quest[i].species_idx];
 
 		/* Hack -- "unique" monsters must be "unique" */
 		if ((is_unique_species(r_ptr)) &&
@@ -1522,7 +1522,7 @@ void clear_cave(void)
 
 	/* Very simplified version of wipe_creature_list() */
 	for (i = 1; i < max_species_idx; i++)
-		r_info[i].cur_num = 0;
+		species_info[i].cur_num = 0;
 	C_WIPE(creature_list, m_max, creature_type);
 	m_max = 1;
 	m_cnt = 0;

@@ -228,14 +228,14 @@ void reset_target(creature_type *m_ptr)
  */
 species_type *real_r_ptr(creature_type *m_ptr)
 {
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	/* Extract real race */
 	if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		if (is_unique_species(r_ptr))
-			return &r_info[MON_CHAMELEON_K];
+			return &species_info[MON_CHAMELEON_K];
 		else
-			return &r_info[MON_CHAMELEON];
+			return &species_info[MON_CHAMELEON];
 	}
 	else
 	{
@@ -252,7 +252,7 @@ species_type *real_r_ptr(creature_type *m_ptr)
 void delete_species_idx(creature_type *cr_ptr)
 {
 	int x, y;
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
 	s16b this_o_idx, next_o_idx = 0;
 
@@ -472,7 +472,7 @@ void compact_monsters(int size)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
-			species_type *r_ptr = &r_info[m_ptr->species_idx];
+			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Paranoia -- skip "dead" monsters */
 			if (!m_ptr->species_idx) continue;
@@ -542,7 +542,7 @@ void birth_uniques(void)
 	max_unique = 0;
 	for(i = 0; i < max_species_idx; i++)
 	{
-		if(is_unique_species(&r_info[i])) max_unique++;
+		if(is_unique_species(&species_info[i])) max_unique++;
 	}
 
 	C_MAKE(u_info, max_unique, creature_type);
@@ -556,7 +556,7 @@ void birth_uniques(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 
-		if(is_unique_species(&r_info[i]))
+		if(is_unique_species(&species_info[i]))
 		{
 			creature_type *cr_ptr = &u_info[j]; 
 			create_monster(cr_ptr, i, MONEGO_NONE, 0);
@@ -579,21 +579,21 @@ void wipe_creature_list(void)
 	int i;
 
 	/* Hack -- if Banor or Lupart dies, stay another dead */
-	if (!r_info[MON_BANORLUPART].max_num)
+	if (!species_info[MON_BANORLUPART].max_num)
 	{
-		if (r_info[MON_BANOR].max_num)
+		if (species_info[MON_BANOR].max_num)
 		{
-			r_info[MON_BANOR].max_num = 0;
-			r_info[MON_BANOR].r_pkills++;
-			r_info[MON_BANOR].r_akills++;
-			if (r_info[MON_BANOR].r_tkills < MAX_SHORT) r_info[MON_BANOR].r_tkills++;
+			species_info[MON_BANOR].max_num = 0;
+			species_info[MON_BANOR].r_pkills++;
+			species_info[MON_BANOR].r_akills++;
+			if (species_info[MON_BANOR].r_tkills < MAX_SHORT) species_info[MON_BANOR].r_tkills++;
 		}
-		if (r_info[MON_LUPART].max_num)
+		if (species_info[MON_LUPART].max_num)
 		{
-			r_info[MON_LUPART].max_num = 0;
-			r_info[MON_LUPART].r_pkills++;
-			r_info[MON_LUPART].r_akills++;
-			if (r_info[MON_LUPART].r_tkills < MAX_SHORT) r_info[MON_LUPART].r_tkills++;
+			species_info[MON_LUPART].max_num = 0;
+			species_info[MON_LUPART].r_pkills++;
+			species_info[MON_LUPART].r_akills++;
+			if (species_info[MON_LUPART].r_tkills < MAX_SHORT) species_info[MON_LUPART].r_tkills++;
 		}
 	}
 
@@ -620,7 +620,7 @@ void wipe_creature_list(void)
 	 */
 
 	/* Hack -- Wipe the racial counter of all monster races */
-	for (i = 1; i < max_species_idx; i++) r_info[i].cur_num = 0;
+	for (i = 1; i < max_species_idx; i++) species_info[i].cur_num = 0;
 
 	/* Reset "m_max" */
 	m_max = 1;
@@ -722,7 +722,7 @@ static bool summon_unique_okay = FALSE;
 
 static bool summon_specific_aux(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 	int okay = FALSE;
 
 	/* Check our requirements */
@@ -1033,7 +1033,7 @@ static int chameleon_change_m_idx = 0;
 static bool restrict_monster_to_dungeon(int species_idx)
 {
 	dungeon_info_type *d_ptr = &d_info[dungeon_type];
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 	byte a;
 
 	if (d_ptr->flags1 & DF1_CHAMELEON)
@@ -1239,7 +1239,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 		alloc_entry *entry = &alloc_race_table[i];
 
 		entry->prob2 = 0;
-		r_ptr = &r_info[entry->index];
+		r_ptr = &species_info[entry->index];
 
 		/* Skip monsters which don't pass the restriction */
 		if ((get_mon_num_hook && !((*get_mon_num_hook)(entry->index))) ||
@@ -1423,7 +1423,7 @@ s16b get_mon_num(int level)
 		species_idx = table[i].index;
 
 		/* Access the actual race */
-		r_ptr = &r_info[species_idx];
+		r_ptr = &species_info[species_idx];
 
 		/* Citizens doesn't wander. */
 		if (r_ptr->flags8 & (RF8_CITIZEN)) continue;
@@ -1445,8 +1445,8 @@ s16b get_mon_num(int level)
 
 			if (species_idx == MON_BANORLUPART)
 			{
-				if (r_info[MON_BANOR].cur_num > 0) continue;
-				if (r_info[MON_LUPART].cur_num > 0) continue;
+				if (species_info[MON_BANOR].cur_num > 0) continue;
+				if (species_info[MON_LUPART].cur_num > 0) continue;
 			}
 		}
 
@@ -1551,7 +1551,7 @@ s16b get_mon_num(int level)
  * If no m_ptr arg is given (?), the monster is assumed to be hidden,
  * unless the "Assume Visible" mode is requested.
  *
- * If no r_ptr arg is given, it is extracted from m_ptr and r_info
+ * If no r_ptr arg is given, it is extracted from m_ptr and species_info
  * If neither m_ptr nor r_ptr is given, the monster is assumed to
  * be neuter, singular, and hidden (unless "Assume Visible" is set),
  * in which case you may be in trouble... :-)
@@ -1606,7 +1606,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	}
 
 
-	r_ptr = &r_info[m_ptr->ap_species_idx];
+	r_ptr = &species_info[m_ptr->ap_species_idx];
 
 	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
 	if (mode & MD_TRUE_NAME) name = (r_name + real_r_ptr(m_ptr)->name);
@@ -1632,14 +1632,14 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 			do
 			{
-				hallu_race = &r_info[randint1(max_species_idx - 1)];
+				hallu_race = &species_info[randint1(max_species_idx - 1)];
 			}
 			while (!hallu_race->name || is_unique_species(hallu_race));
 
 			strcpy(silly_name, (r_name + hallu_race->name));
 		}
 
-		/* Better not strcpy it, or we could corrupt r_info... */
+		/* Better not strcpy it, or we could corrupt species_info... */
 		name = silly_name;
 	}
 
@@ -1909,7 +1909,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 		if ((mode & MD_IGNORE_HALLU) && !is_original_ap(m_ptr))
 		{
-			strcat(desc, format("(%s)", r_name + r_info[m_ptr->species_idx].name));
+			strcat(desc, format("(%s)", r_name + species_info[m_ptr->species_idx].name));
 		}
 
 		/* Handle the Possessive as a special afterthought */
@@ -1988,7 +1988,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
  */
 int lore_do_probe(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 	int i, n = 0;
 	byte tmp_byte;
 
@@ -2096,7 +2096,7 @@ int lore_do_probe(int species_idx)
  */
 void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 {
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
 	/* If the monster doesn't have original appearance, don't note */
 	if (!is_original_ap(cr_ptr)) return;
@@ -2129,7 +2129,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 	if (!necro)
 	{
 		char            m_name[80];
-		species_type    *r_ptr = &r_info[m_ptr->ap_species_idx];
+		species_type    *r_ptr = &species_info[m_ptr->ap_species_idx];
 
 		power = r_ptr->level / 2;
 
@@ -2480,7 +2480,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	bool do_disturb = disturb_move;
 
@@ -2502,7 +2502,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 	/* Do disturb? */
 	if (disturb_high)
 	{
-		species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
+		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 
 		if (ap_r_ptr->r_tkills && ap_r_ptr->level >= cr_ptr->lev)
 			do_disturb = TRUE;
@@ -2778,14 +2778,14 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			/* Hack -- Count "fresh" sightings */
 			if (!cr_ptr->image)
 			{
-				if ((m_ptr->ap_species_idx == MON_KAGE) && (r_info[MON_KAGE].r_sights < MAX_SHORT))
-					r_info[MON_KAGE].r_sights++;
+				if ((m_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
+					species_info[MON_KAGE].r_sights++;
 				else if (is_original_ap(m_ptr) && (r_ptr->r_sights < MAX_SHORT))
 					r_ptr->r_sights++;
 			}
 
 			/* Eldritch Horror */
-			if (have_eldritch_horror_species(&r_info[m_ptr->ap_species_idx]))
+			if (have_eldritch_horror_species(&species_info[m_ptr->ap_species_idx]))
 			{
 				sanity_blast(cr_ptr, m_ptr, FALSE);
 			}
@@ -2890,14 +2890,14 @@ void update_monsters(bool full)
  */
 static bool monster_hook_chameleon_lord(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
-	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
+	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
 	if (r_ptr->flags7 & (RF7_FRIENDLY | RF7_CHAMELEON)) return FALSE;
 
-	if (ABS(r_ptr->level - r_info[MON_CHAMELEON_K].level) > 5) return FALSE;
+	if (ABS(r_ptr->level - species_info[MON_CHAMELEON_K].level) > 5) return FALSE;
 
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
@@ -2921,9 +2921,9 @@ static bool monster_hook_chameleon_lord(int species_idx)
 
 static bool monster_hook_chameleon(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
-	species_type *old_r_ptr = &r_info[m_ptr->species_idx];
+	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
@@ -2961,10 +2961,10 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	bool old_unique = FALSE;
 	int old_species_idx = m_ptr->species_idx;
 
-	if (is_unique_species(&r_info[m_ptr->species_idx]))
+	if (is_unique_species(&species_info[m_ptr->species_idx]))
 		old_unique = TRUE;
 	if (old_unique && (species_idx == MON_CHAMELEON)) species_idx = MON_CHAMELEON_K;
-	r_ptr = &r_info[species_idx];
+	r_ptr = &species_info[species_idx];
 
 	monster_desc(old_m_name, m_ptr, 0);
 
@@ -2979,7 +2979,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 			get_mon_num_prep(monster_hook_chameleon, NULL);
 
 		if (old_unique)
-			level = r_info[MON_CHAMELEON_K].level;
+			level = species_info[MON_CHAMELEON_K].level;
 		else if (!dun_level)
 			level = wilderness[wilderness_y][wilderness_x].level;
 		else
@@ -2988,7 +2988,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 		if (d_info[dungeon_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
 		species_idx = get_mon_num(level);
-		r_ptr = &r_info[species_idx];
+		r_ptr = &species_info[species_idx];
 
 		chameleon_change_m_idx = 0;
 
@@ -3013,7 +3013,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	}
 
 
-	if ((r_info[old_species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK)) ||
+	if ((species_info[old_species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK)) ||
 	    (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK)))
 		p_ptr->update |= (PU_MON_LITE);
 
@@ -3080,7 +3080,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
  */
 static bool monster_hook_tanuki(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
@@ -3104,7 +3104,7 @@ static int initial_r_appearance(int species_idx)
 	int ap_species_idx;
 	int min = MIN(base_level-5, 50);
 
-	if (!(r_info[species_idx].flags7 & RF7_TANUKI))
+	if (!(species_info[species_idx].flags7 & RF7_TANUKI))
 		return species_idx;
 
 	get_mon_num_prep(monster_hook_tanuki, NULL);
@@ -3112,7 +3112,7 @@ static int initial_r_appearance(int species_idx)
 	while (--attempts)
 	{
 		ap_species_idx = get_mon_num(base_level + 10);
-		if (r_info[ap_species_idx].level >= min) return ap_species_idx;
+		if (species_info[ap_species_idx].level >= min) return ap_species_idx;
 	}
 
 	return species_idx;
@@ -3122,7 +3122,7 @@ static int initial_r_appearance(int species_idx)
 static void mon_equip(creature_type *m_ptr)
 {
 	int i, number;
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	u32b mo_mode = 0L;
 	m_ptr->total_weight = 0;
 	m_ptr->inven_cnt = 0;
@@ -3275,7 +3275,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 	creature_type	*m_ptr;
 
-	species_type	*r_ptr = &r_info[species_idx];
+	species_type	*r_ptr = &species_info[species_idx];
 	monster_ego		*re_ptr;
 	race_type		*rpr_ptr;
 
@@ -3429,8 +3429,8 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 		if (species_idx == MON_BANORLUPART)
 		{
-			if (r_info[MON_BANOR].cur_num > 0) return max_m_idx;
-			if (r_info[MON_LUPART].cur_num > 0) return max_m_idx;
+			if (species_info[MON_BANOR].cur_num > 0) return max_m_idx;
+			if (species_info[MON_LUPART].cur_num > 0) return max_m_idx;
 			if (cheat_hear)
 			{
 				msg_format("[max_m_idx: Unique monster must be unique.]");
@@ -3574,7 +3574,7 @@ msg_print("守りのルーンが壊れた！");
 	if (r_ptr->flags7 & RF7_CHAMELEON)
 	{
 		choose_new_monster(c_ptr->m_idx, TRUE, 0, MONEGO_NONE);
-		r_ptr = &r_info[m_ptr->species_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
@@ -3668,7 +3668,7 @@ msg_print("守りのルーンが壊れた！");
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
-		species_type *ap_r_ptr = &r_info[m_ptr->ap_species_idx];
+		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 		if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER))
 			shimmer_monsters = TRUE;
 	}
@@ -3796,7 +3796,7 @@ msg_print("爆発のルーンは解除された。");
 int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u32b mode)
 {
 	int i;
-	species_type	*r_ptr = &r_info[species_idx];
+	species_type	*r_ptr = &species_info[species_idx];
 	cptr		name = (r_name + r_ptr->name);
 
 
@@ -3940,7 +3940,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 
 			if (species_idx > 0)
 			{
-				species_type *r_ptr = &r_info[species_idx];
+				species_type *r_ptr = &species_info[species_idx];
 
 				/* Require empty space (if not ghostly) */
 				if (!monster_can_enter(ny, nx, r_ptr, 0))
@@ -3995,7 +3995,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
  */
 static bool place_monster_group(creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	int n, i;
 	int total = 0, extra = 0;
@@ -4086,10 +4086,10 @@ static int place_monster_m_idx = 0;
  */
 static bool place_monster_okay(int species_idx)
 {
-	species_type *r_ptr = &r_info[place_species_idx];
+	species_type *r_ptr = &species_info[place_species_idx];
 	creature_type *m_ptr = &creature_list[place_monster_m_idx];
 
-	species_type *z_ptr = &r_info[species_idx];
+	species_type *z_ptr = &species_info[species_idx];
 
 	/* Hack - Escorts have to have the same dungeon flag */
 	if (mon_hook_dungeon(place_species_idx) != mon_hook_dungeon(species_idx)) return (FALSE);
@@ -4143,7 +4143,7 @@ static bool place_monster_okay(int species_idx)
 bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
 {
 	int             i, j;
-	species_type    *r_ptr = &r_info[species_idx];
+	species_type    *r_ptr = &species_info[species_idx];
 	creature_type   *m_ptr;
 
 	if (!(mode & PM_NO_KAGE) && one_in_(333))
@@ -4223,7 +4223,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			(void)place_monster_one(p_ptr, who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
-			if ((r_info[z].flags1 & RF1_FRIENDS) ||
+			if ((species_info[z].flags1 & RF1_FRIENDS) ||
 			    (r_ptr->flags1 & RF1_ESCORTS))
 			{
 				/* Place a group of monsters */
@@ -4285,7 +4285,7 @@ bool alloc_horde(int y, int x)
 		/* Handle failure */
 		if (!species_idx) return (FALSE);
 
-		r_ptr = &r_info[species_idx];
+		r_ptr = &species_info[species_idx];
 
 		if (is_unique_species(r_ptr)) continue;
 
@@ -4306,7 +4306,7 @@ bool alloc_horde(int y, int x)
 
 	m_idx = cave[y][x].m_idx;
 
-	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &r_info[creature_list[m_idx].species_idx];
+	if (creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
 	summon_kin_type = r_ptr->d_char;
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
@@ -4332,7 +4332,7 @@ bool alloc_guardian(bool def_val)
 {
 	int guardian = d_info[dungeon_type].final_guardian;
 
-	if (guardian && (d_info[dungeon_type].maxdepth == dun_level) && (r_info[guardian].cur_num < r_info[guardian].max_num))
+	if (guardian && (d_info[dungeon_type].maxdepth == dun_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		int oy;
 		int ox;
@@ -4346,7 +4346,7 @@ bool alloc_guardian(bool def_val)
 			ox = randint1(cur_wid - 4) + 2;
 
 			/* Is it a good spot ? */
-			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &r_info[guardian], 0))
+			if (cave_empty_bold2(oy, ox) && monster_can_cross_terrain(cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
 				if (place_monster_aux(p_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
@@ -4454,7 +4454,7 @@ msg_print("警告！新たなモンスターを配置できません。小さい階ですか？");
  */
 static bool summon_specific_okay(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Hack - Only summon dungeon monsters */
 	if (!mon_hook_dungeon(species_idx)) return (FALSE);
@@ -4624,7 +4624,7 @@ void message_pain(int m_idx, int dam)
 	int percentage;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	char m_name[80];
 
@@ -5330,7 +5330,7 @@ msg_format("%^sはかすかにうめいた。", m_name);
 void update_smart_learn(creature_type *learner_ptr, int what)
 {
 
-	species_type *r_ptr = &r_info[learner_ptr->species_idx];
+	species_type *r_ptr = &species_info[learner_ptr->species_idx];
 
 
 	/* Not allowed to learn */

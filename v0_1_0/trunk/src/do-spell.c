@@ -1035,7 +1035,7 @@ static bool item_tester_offer(creature_type *cr_ptr, object_type *o_ptr)
 
 	if (o_ptr->sval != SV_CORPSE) return (FALSE);
 
-	if (my_strchr("pht", r_info[o_ptr->pval].d_char)) return (TRUE);
+	if (my_strchr("pht", species_info[o_ptr->pval].d_char)) return (TRUE);
 
 	/* Assume not okay */
 	return (FALSE);
@@ -1075,7 +1075,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 		o_ptr = &o_list[0 - item];
 	}
 
-	summon_lev = plev * 2 / 3 + r_info[o_ptr->pval].level;
+	summon_lev = plev * 2 / 3 + species_info[o_ptr->pval].level;
 
 	if (summon_specific(NULL, cr_ptr->fy, cr_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PM_ALLOW_GROUP | PM_FORCE_PET)))
 	{
@@ -10569,7 +10569,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					lite_spot(cr_ptr, oy, ox);
 					lite_spot(cr_ptr, ty, tx);
 	
-					if (r_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+					if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
 						cr_ptr->update |= (PU_MON_LITE);
 				}
 			}
@@ -10844,7 +10844,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				/* Hack -- attack monsters */
 				if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
 				{
-					if (!monster_living(&r_info[m_ptr->species_idx]))
+					if (!monster_living(&species_info[m_ptr->species_idx]))
 					{
 						char m_name[80];
 	
@@ -11012,7 +11012,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				m_ptr = &creature_list[m_idx];
 	
 				/* Monster cannot move back? */
-				if (!monster_can_enter(ny, nx, &r_info[m_ptr->species_idx], 0))
+				if (!monster_can_enter(ny, nx, &species_info[m_ptr->species_idx], 0))
 				{
 					/* -more- */
 					if (i < 2) msg_print(NULL);

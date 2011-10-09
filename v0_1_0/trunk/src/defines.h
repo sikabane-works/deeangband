@@ -4394,7 +4394,7 @@
 	 (k_info[k_info[(T)->k_idx].flavor].x_attr) : \
 	 ((!(T)->k_idx || ((T)->tval != TV_CORPSE) || ((T)->sval != SV_CORPSE) || \
 	   (k_info[(T)->k_idx].x_attr != TERM_DARK)) ? \
-	  (k_info[(T)->k_idx].x_attr) : (r_info[(T)->pval].x_attr)))
+	  (k_info[(T)->k_idx].x_attr) : (species_info[(T)->pval].x_attr)))
 
 /*
  * Return the "char" for a given item.

@@ -2961,7 +2961,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 {
 	int mult = 10;
 
-	species_type *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 
 	u32b flgs[TR_FLAG_SIZE];
 
@@ -3588,7 +3588,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			cave_type *c_ptr = &cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
-			species_type *r_ptr = &r_info[m_ptr->species_idx];
+			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->ml;
@@ -3614,7 +3614,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 			if (cr_ptr->riding)
 			{
 				if ((cr_ptr->skill_exp[GINOU_RIDING] < s_info[cr_ptr->cls_idx].s_max[GINOU_RIDING])
-					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < r_info[creature_list[cr_ptr->riding].species_idx].level)
+					&& ((cr_ptr->skill_exp[GINOU_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[cr_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
 					cr_ptr->skill_exp[GINOU_RIDING] += 1;
@@ -4296,7 +4296,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			cave_type *c_ptr = &cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->m_idx];
-			species_type *r_ptr = &r_info[m_ptr->species_idx];
+			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->ml;

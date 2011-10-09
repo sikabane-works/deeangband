@@ -1737,7 +1737,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 	creature_type *tar_ptr = &creature_list[c_ptr->m_idx];
 
-	species_type *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type *r_ptr = &species_info[tar_ptr->species_idx];
 
 	char killer[80];
 
@@ -5950,7 +5950,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 			tar_ptr = &creature_list[c_ptr->m_idx];
 
 			/* Hack -- Get new race */
-			r_ptr = &r_info[tar_ptr->species_idx];
+			r_ptr = &species_info[tar_ptr->species_idx];
 		}
 
 		/* Handle "teleport" */
@@ -6428,7 +6428,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 	{
 		/* Get the source monster */
 		/* Extract the monster level */
-		rlev = (((&r_info[atk_ptr->species_idx])->level >= 1) ? (&r_info[atk_ptr->species_idx])->level : 1);
+		rlev = (((&species_info[atk_ptr->species_idx])->level >= 1) ? (&species_info[atk_ptr->species_idx])->level : 1);
 
 		/* Get the monster name */
 		monster_desc(m_name, atk_ptr, 0);
@@ -9035,7 +9035,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			if (grids <= 1)
 			{
 				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
-				species_type *ref_ptr = &r_info[m_ptr->species_idx];
+				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&

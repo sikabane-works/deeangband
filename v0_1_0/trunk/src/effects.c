@@ -957,7 +957,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (r_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) cr_ptr->update |= (PU_MON_LITE);
+	if (species_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) cr_ptr->update |= (PU_MON_LITE);
 
 	return TRUE;
 
@@ -5677,7 +5677,7 @@ void do_poly_self(creature_type *cr_ptr)
 int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	int old_chp = tar_ptr->chp;
-	species_type    *r_ptr = &r_info[tar_ptr->species_idx];
+	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
 	creature_type    exp_mon;
 	bool fear = FALSE;
 	char atk_name[100];
@@ -5895,7 +5895,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			if (inside_arena)
 			{
-				cptr tar_name = r_name+r_info[arena_info[arena_number].species_idx].name;
+				cptr tar_name = r_name+species_info[arena_info[arena_number].species_idx].name;
 	#ifdef JP
 				msg_format("‚ ‚È‚½‚Í%s‚Ì‘O‚É”s‚ê‹Ž‚Á‚½B", tar_name);
 	#else
@@ -6135,10 +6135,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->chp < 0)
 		{
 	
-			if (r_info[tar_ptr->species_idx].flags7 & RF7_TANUKI)
+			if (species_info[tar_ptr->species_idx].flags7 & RF7_TANUKI)
 			{
 				/* You might have unmasked Tanuki first time */
-				r_ptr = &r_info[tar_ptr->species_idx];
+				r_ptr = &species_info[tar_ptr->species_idx];
 				tar_ptr->ap_species_idx = tar_ptr->species_idx;
 				if (r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
@@ -6160,21 +6160,21 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 					/* Mega-Hack -- Banor & Lupart */
 					if ((tar_ptr->species_idx == MON_BANOR) || (tar_ptr->species_idx == MON_LUPART))
 					{
-						r_info[MON_BANORLUPART].max_num = 0;
-						r_info[MON_BANORLUPART].r_pkills++;
-						r_info[MON_BANORLUPART].r_akills++;
-						if (r_info[MON_BANORLUPART].r_tkills < MAX_SHORT) r_info[MON_BANORLUPART].r_tkills++;
+						species_info[MON_BANORLUPART].max_num = 0;
+						species_info[MON_BANORLUPART].r_pkills++;
+						species_info[MON_BANORLUPART].r_akills++;
+						if (species_info[MON_BANORLUPART].r_tkills < MAX_SHORT) species_info[MON_BANORLUPART].r_tkills++;
 					}
 					else if (tar_ptr->species_idx == MON_BANORLUPART)
 					{
-						r_info[MON_BANOR].max_num = 0;
-						r_info[MON_BANOR].r_pkills++;
-						r_info[MON_BANOR].r_akills++;
-						if (r_info[MON_BANOR].r_tkills < MAX_SHORT) r_info[MON_BANOR].r_tkills++;
-						r_info[MON_LUPART].max_num = 0;
-						r_info[MON_LUPART].r_pkills++;
-						r_info[MON_LUPART].r_akills++;
-						if (r_info[MON_LUPART].r_tkills < MAX_SHORT) r_info[MON_LUPART].r_tkills++;
+						species_info[MON_BANOR].max_num = 0;
+						species_info[MON_BANOR].r_pkills++;
+						species_info[MON_BANOR].r_akills++;
+						if (species_info[MON_BANOR].r_tkills < MAX_SHORT) species_info[MON_BANOR].r_tkills++;
+						species_info[MON_LUPART].max_num = 0;
+						species_info[MON_LUPART].r_pkills++;
+						species_info[MON_LUPART].r_akills++;
+						if (species_info[MON_LUPART].r_tkills < MAX_SHORT) species_info[MON_LUPART].r_tkills++;
 					}
 				}
 	
@@ -6189,11 +6189,11 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			if ((tar_ptr->ml && !atk_ptr->image) || is_unique_creature(tar_ptr))
 			{
 				/* Count kills this life */
-				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_pkills < MAX_SHORT)) r_info[MON_KAGE].r_pkills++;
+				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
 				else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
 	
 				/* Count kills in all lives */
-				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (r_info[MON_KAGE].r_tkills < MAX_SHORT)) r_info[MON_KAGE].r_tkills++;
+				if ((tar_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_tkills < MAX_SHORT)) species_info[MON_KAGE].r_tkills++;
 				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */

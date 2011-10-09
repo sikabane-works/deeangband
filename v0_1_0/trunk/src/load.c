@@ -618,7 +618,7 @@ static void rd_lore(int species_idx)
 {
 	byte tmp8u;
 
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Count sights/deaths/kills */
 	rd_s16b(&r_ptr->r_sights);
@@ -1994,7 +1994,7 @@ note("メッセージをロードしました");
 	for (i = 0; i < max_species_idx; i++)
 	{
 		/* Access that monster */
-		species_type *r_ptr = &r_info[i];
+		species_type *r_ptr = &species_info[i];
 
 		/* Hack -- Reset the death counter */
 		r_ptr->max_num = 100;
@@ -2176,8 +2176,8 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 					/* Mark uniques */
 					if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
-						if (is_unique_species(&r_info[quest[i].species_idx]))
-							r_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
+						if (is_unique_species(&species_info[quest[i].species_idx]))
+							species_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
 				}
 			}
 			/* Ignore the empty quests from old versions */
@@ -2367,7 +2367,7 @@ note("持ち物情報を読み込むことができません");
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
-			r_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
+			species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 		}
 	}
 

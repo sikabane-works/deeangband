@@ -1420,10 +1420,10 @@ static bool build_type4(void)
  */
 #define vault_monster_okay(I) \
 	(mon_hook_dungeon(I) && \
-	 !is_unique_species(&r_info[I]) && \
-	 !is_sub_unique_species(&r_info[I]) && \
-	 !(r_info[I].flags10 & RF10_RES_ALL) && \
-	 !is_aquatic_species(&r_info[I]))
+	 !is_unique_species(&species_info[I]) && \
+	 !is_sub_unique_species(&species_info[I]) && \
+	 !(species_info[I].flags10 & RF10_RES_ALL) && \
+	 !is_aquatic_species(&species_info[I]))
 
 
 /* Race index for "monster pit (clone)" */
@@ -1451,7 +1451,7 @@ static bool vault_aux_simple(int species_idx)
  */
 static bool vault_aux_jelly(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1474,7 +1474,7 @@ static bool vault_aux_jelly(int species_idx)
  */
 static bool vault_aux_animal(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1492,7 +1492,7 @@ static bool vault_aux_animal(int species_idx)
  */
 static bool vault_aux_undead(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1518,7 +1518,7 @@ static bool vault_aux_chapel_g(int species_idx)
 
 	int i;
 
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1542,7 +1542,7 @@ static bool vault_aux_chapel_g(int species_idx)
  */
 static bool vault_aux_kennel(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1560,7 +1560,7 @@ static bool vault_aux_kennel(int species_idx)
  */
 static bool vault_aux_mimic(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1589,7 +1589,7 @@ static bool vault_aux_clone(int species_idx)
  */
 static bool vault_aux_symbol_e(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1611,7 +1611,7 @@ static bool vault_aux_symbol_e(int species_idx)
  */
 static bool vault_aux_symbol_g(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1633,7 +1633,7 @@ static bool vault_aux_symbol_g(int species_idx)
  */
 static bool vault_aux_orc(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1654,7 +1654,7 @@ static bool vault_aux_orc(int species_idx)
  */
 static bool vault_aux_troll(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1675,7 +1675,7 @@ static bool vault_aux_troll(int species_idx)
  */
 static bool vault_aux_giant(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1698,7 +1698,7 @@ static bool vault_aux_giant(int species_idx)
  */
 static bool vault_aux_dragon(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1722,7 +1722,7 @@ static bool vault_aux_dragon(int species_idx)
  */
 static bool vault_aux_demon(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1742,7 +1742,7 @@ static bool vault_aux_demon(int species_idx)
  */
 static bool vault_aux_cthulhu(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -1790,7 +1790,7 @@ static void vault_prep_symbol(void)
 	get_mon_num_prep(NULL, NULL);
 
 	/* Extract the symbol */
-	vault_aux_char = r_info[species_idx].d_char;
+	vault_aux_char = species_info[species_idx].d_char;
 }
 
 
@@ -2051,7 +2051,7 @@ static cptr pit_subtype_string(int type, bool nest)
 		switch (type)
 		{
 		case NEST_TYPE_CLONE:
-			sprintf(inner_buf, "(%s)", r_name + r_info[vault_aux_race].name);
+			sprintf(inner_buf, "(%s)", r_name + species_info[vault_aux_race].name);
 			break;
 		case NEST_TYPE_SYMBOL_GOOD:
 		case NEST_TYPE_SYMBOL_EVIL:
@@ -2115,8 +2115,8 @@ static bool ang_sort_comp_nest_mon_info(vptr u, vptr v, int a, int b)
 	nest_mon_info_type *nest_mon_info = (nest_mon_info_type *)u;
 	int w1 = nest_mon_info[a].species_idx;
 	int w2 = nest_mon_info[b].species_idx;
-	species_type *r1_ptr = &r_info[w1];
-	species_type *r2_ptr = &r_info[w2];
+	species_type *r1_ptr = &species_info[w1];
+	species_type *r2_ptr = &species_info[w2];
 	int z1, z2;
 
 	/* Unused */
@@ -2218,7 +2218,7 @@ static bool build_type5(void)
 		{
 			/* Get a (hard) monster type */
 			species_idx = get_mon_num(dun_level + 11);
-			r_ptr = &r_info[species_idx];
+			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
@@ -2358,7 +2358,7 @@ static bool build_type5(void)
 				if (nest_mon_info[i].species_idx != nest_mon_info[i + 1].species_idx) break;
 				if (!nest_mon_info[i + 1].used) break;
 			}
-			msg_print(r_name + r_info[nest_mon_info[i].species_idx].name);
+			msg_print(r_name + species_info[nest_mon_info[i].species_idx].name);
 		}
 	}
 
@@ -2439,7 +2439,7 @@ static bool build_type6(void)
 		{
 			/* Get a (hard) monster type */
 			species_idx = get_mon_num(dun_level + 11);
-			r_ptr = &r_info[species_idx];
+			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
@@ -2546,8 +2546,8 @@ static bool build_type6(void)
 			int i1 = j;
 			int i2 = j + 1;
 
-			int p1 = r_info[what[i1]].level;
-			int p2 = r_info[what[i2]].level;
+			int p1 = species_info[what[i1]].level;
+			int p2 = species_info[what[i2]].level;
 
 			/* Bubble */
 			if (p1 > p2)
@@ -2579,7 +2579,7 @@ static bool build_type6(void)
 		if (cheat_hear)
 		{
 			/* Message */
-			msg_print(r_name + r_info[what[i]].name);
+			msg_print(r_name + species_info[what[i]].name);
 		}
 	}
 
@@ -5590,7 +5590,7 @@ static bool build_type12(void)
  */
 static bool vault_aux_trapped_pit(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return (FALSE);
@@ -5716,7 +5716,7 @@ static bool build_type13(void)
 		{
 			/* Get a (hard) monster type */
 			species_idx = get_mon_num(dun_level + 0);
-			r_ptr = &r_info[species_idx];
+			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
@@ -5847,8 +5847,8 @@ static bool build_type13(void)
 			int i1 = j;
 			int i2 = j + 1;
 
-			int p1 = r_info[what[i1]].level;
-			int p2 = r_info[what[i2]].level;
+			int p1 = species_info[what[i1]].level;
+			int p2 = species_info[what[i2]].level;
 
 			/* Bubble */
 			if (p1 > p2)
@@ -5880,7 +5880,7 @@ static bool build_type13(void)
 		if (cheat_hear)
 		{
 			/* Message */
-			msg_print(r_name + r_info[what[i]].name);
+			msg_print(r_name + species_info[what[i]].name);
 		}
 	}
 
@@ -5992,7 +5992,7 @@ static bool build_type14(void)
  */
 static bool vault_aux_lite(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return FALSE;
@@ -6014,7 +6014,7 @@ static bool vault_aux_lite(int species_idx)
  */
 static bool vault_aux_shards(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the monster */
 	if (!vault_monster_okay(species_idx)) return FALSE;

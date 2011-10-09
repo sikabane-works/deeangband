@@ -581,12 +581,12 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	}
 
 	if ((o_ptr->tval == TV_CORPSE || o_ptr->tval == TV_STATUE)
-	    && is_unique_species(&r_info[o_ptr->pval]))
+	    && is_unique_species(&species_info[o_ptr->pval]))
 	{
 		ADD_FLG(FLG_UNIQUE);
 	}
 
-	if (o_ptr->tval == TV_CORPSE && my_strchr("pht", r_info[o_ptr->pval].d_char))
+	if (o_ptr->tval == TV_CORPSE && my_strchr("pht", species_info[o_ptr->pval].d_char))
 	{
 		ADD_FLG(FLG_HUMAN);
 	}
@@ -1250,13 +1250,13 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Unique monster's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE) &&
 	    ((o_ptr->tval != TV_CORPSE && o_ptr->tval != TV_STATUE) ||
-	     !is_unique_species(&r_info[o_ptr->pval])))
+	     !is_unique_species(&species_info[o_ptr->pval])))
 		return FALSE;
 
 	/*** Human corpse/skeletons (for Daemon magic) ***/
 	if (IS_FLG(FLG_HUMAN) &&
 	    (o_ptr->tval != TV_CORPSE ||
-	     !my_strchr("pht", r_info[o_ptr->pval].d_char)))
+	     !my_strchr("pht", species_info[o_ptr->pval].d_char)))
 		return FALSE;
 
 	/*** Unreadable spellbooks ***/
@@ -1521,7 +1521,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 		{
 			if (o_ptr->tval == TV_CORPSE &&
 			    o_ptr->sval == SV_CORPSE &&
-			    my_strchr("pht", r_info[o_ptr->pval].d_char))
+			    my_strchr("pht", species_info[o_ptr->pval].d_char))
 				return FALSE;
 		}
 

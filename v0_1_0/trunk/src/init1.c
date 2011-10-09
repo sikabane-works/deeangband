@@ -208,7 +208,7 @@ static cptr class_flags[MAX_CLASS]=
 /*
  * Monster Blow Methods
  */
-static cptr r_info_blow_method[] =
+static cptr species_info_blow_method[] =
 {
 	"",
 	"HIT",
@@ -243,7 +243,7 @@ static cptr r_info_blow_method[] =
 /*
  * Monster Blow Effects
  */
-static cptr r_info_blow_effect[] =
+static cptr species_info_blow_effect[] =
 {
 	"",
 	"HURT",
@@ -1048,7 +1048,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags1[] =
+static cptr species_info_flags1[] =
 {
 	"UNIQUE",
 	"QUESTOR",
@@ -1087,7 +1087,7 @@ static cptr r_info_flags1[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags2[] =
+static cptr species_info_flags2[] =
 {
 	"STUPID",
 	"SMART",
@@ -1126,7 +1126,7 @@ static cptr r_info_flags2[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags3[] =
+static cptr species_info_flags3[] =
 {
 	"HUMANOID",
 	"XXX",
@@ -1165,7 +1165,7 @@ static cptr r_info_flags3[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags4[] =
+static cptr species_info_flags4[] =
 {
 	"SHRIEK",
 	"XXX1",
@@ -1204,7 +1204,7 @@ static cptr r_info_flags4[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags5[] =
+static cptr species_info_flags5[] =
 {
 	"BA_ACID",
 	"BA_ELEC",
@@ -1243,7 +1243,7 @@ static cptr r_info_flags5[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags6[] =
+static cptr species_info_flags6[] =
 {
 	"HASTE",
 	"HAND_DOOM",
@@ -1283,7 +1283,7 @@ static cptr r_info_flags6[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags7[] =
+static cptr species_info_flags7[] =
 {
 	"AQUATIC",
 	"CAN_SWIM",
@@ -1322,7 +1322,7 @@ static cptr r_info_flags7[] =
 /*
  * Monster race flags
  */
-static cptr r_info_flags8[] =
+static cptr species_info_flags8[] =
 {
 	"WILD_ONLY",
 	"WILD_TOWN",
@@ -1362,7 +1362,7 @@ static cptr r_info_flags8[] =
 /*
  * Monster race flags - Drops
  */
-static cptr r_info_flags9[] =
+static cptr species_info_flags9[] =
 {
 	"DROP_CORPSE",
 	"DROP_SKELETON",
@@ -1403,7 +1403,7 @@ static cptr r_info_flags9[] =
 /*
  * Monster race flags - Resistances
  */
-static cptr r_info_flags10[] =
+static cptr species_info_flags10[] =
 {
 	"IM_ACID",
 	"IM_ELEC",
@@ -1439,7 +1439,7 @@ static cptr r_info_flags10[] =
 	"XXX",
 };
 
-static cptr r_info_flags11[] =
+static cptr species_info_flags11[] =
 {
 	"FORCE_LESSER_EGO",
 	"RACE_EGO",
@@ -1475,7 +1475,7 @@ static cptr r_info_flags11[] =
 	"XXX",
 };
 
-static cptr r_info_flags12[] =
+static cptr species_info_flags12[] =
 {
 	"SPIT_ACID",
 	"BR_FIRE",
@@ -1511,7 +1511,7 @@ static cptr r_info_flags12[] =
 	"LAUNCHER",
 };
 
-static cptr r_info_flags13[] =
+static cptr species_info_flags13[] =
 {
 	"BERS_RAGE",
 	"COWARDICE",
@@ -1547,7 +1547,7 @@ static cptr r_info_flags13[] =
 	"DISARM",
 };
 
-static cptr r_info_flags14[] =
+static cptr species_info_flags14[] =
 {
 	"HYPER_STR",
 	"PUNY",
@@ -1586,7 +1586,7 @@ static cptr r_info_flags14[] =
 /*
  * race flags - brand 
  */
-static cptr r_info_flags15[] =
+static cptr species_info_flags15[] =
 {
 	"FIRE_BRAND",
 	"COLD_BRAND",
@@ -1622,7 +1622,7 @@ static cptr r_info_flags15[] =
 	"XXX",
 };
 
-static cptr r_info_flags16[] =
+static cptr species_info_flags16[] =
 {
 	"XXX",
 	"XXX",
@@ -1658,7 +1658,7 @@ static cptr r_info_flags16[] =
 	"XXX",
 };
 
-static cptr r_info_flags17[] =
+static cptr species_info_flags17[] =
 {
 	"XXX",
 	"XXX",
@@ -1694,7 +1694,7 @@ static cptr r_info_flags17[] =
 	"XXX",
 };
 
-static cptr r_info_flags18[] =
+static cptr species_info_flags18[] =
 {
 	"XXX",
 	"XXX",
@@ -1730,7 +1730,7 @@ static cptr r_info_flags18[] =
 	"XXX",
 };
 
-static cptr r_info_flags19[] =
+static cptr species_info_flags19[] =
 {
 	"XXX",
 	"XXX",
@@ -1769,7 +1769,7 @@ static cptr r_info_flags19[] =
 /*
  * Monster authority flags
  */
-static cptr r_info_auth1[] =
+static cptr species_info_auth1[] =
 {
 	"FIRE1",
 	"FIRE2",
@@ -3801,34 +3801,34 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
  */
 static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
 {
-	if (grab_one_flag(&r_ptr->flags1, r_info_flags1, what) == 0)
+	if (grab_one_flag(&r_ptr->flags1, species_info_flags1, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags2, r_info_flags2, what) == 0)
+	if (grab_one_flag(&r_ptr->flags2, species_info_flags2, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags3, r_info_flags3, what) == 0)
+	if (grab_one_flag(&r_ptr->flags3, species_info_flags3, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags7, r_info_flags7, what) == 0)
+	if (grab_one_flag(&r_ptr->flags7, species_info_flags7, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags8, r_info_flags8, what) == 0)
+	if (grab_one_flag(&r_ptr->flags8, species_info_flags8, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags9, r_info_flags9, what) == 0)
+	if (grab_one_flag(&r_ptr->flags9, species_info_flags9, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags10, r_info_flags10, what) == 0)
+	if (grab_one_flag(&r_ptr->flags10, species_info_flags10, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags11, r_info_flags11, what) == 0)
+	if (grab_one_flag(&r_ptr->flags11, species_info_flags11, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags13, r_info_flags13, what) == 0)
+	if (grab_one_flag(&r_ptr->flags13, species_info_flags13, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags14, r_info_flags14, what) == 0)
+	if (grab_one_flag(&r_ptr->flags14, species_info_flags14, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -3921,7 +3921,7 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
  */
 static errr grab_one_authority_flag(species_type *r_ptr, cptr what)
 {
-	if (grab_one_flag(&r_ptr->authority[0], r_info_auth1, what) == 0)
+	if (grab_one_flag(&r_ptr->authority[0], species_info_auth1, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -3941,16 +3941,16 @@ static errr grab_one_authority_flag(species_type *r_ptr, cptr what)
  */
 static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 {
-	if (grab_one_flag(&r_ptr->flags4, r_info_flags4, what) == 0)
+	if (grab_one_flag(&r_ptr->flags4, species_info_flags4, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags5, r_info_flags5, what) == 0)
+	if (grab_one_flag(&r_ptr->flags5, species_info_flags5, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags6, r_info_flags6, what) == 0)
+	if (grab_one_flag(&r_ptr->flags6, species_info_flags6, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&r_ptr->flags12, r_info_flags12, what) == 0)
+	if (grab_one_flag(&r_ptr->flags12, species_info_flags12, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -3965,8 +3965,8 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 }
 
 
-#define R_INFO_CSV_COLUMNS 48
-static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
+#define SPECIES_INFO_CSV_COLUMNS 48
+static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"NAME",
@@ -4018,58 +4018,58 @@ static cptr r_info_csv_list[R_INFO_CSV_COLUMNS] =
 	"SEX",
 };
 
-static int r_info_csv_code[R_INFO_CSV_COLUMNS];
+static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 
-#define R_INFO_ID			0
-#define R_INFO_NAME			1
-#define R_INFO_E_NAME		2
-#define R_INFO_SYM			3
-#define R_INFO_COL			4
-#define R_INFO_RACE1		5
-#define R_INFO_RACE2		6
-#define R_INFO_CLASS		7
-#define R_INFO_PATRON		8
-#define R_INFO_CHARA		9
-#define R_INFO_RELM1		10
-#define R_INFO_RELM2		11
-#define R_INFO_LEV			12
-#define R_INFO_RARE			13
-#define R_INFO_Z			14
-#define R_INFO_EXP			15
-#define R_INFO_N_EXP		16
-#define R_INFO_N_MIN		17
-#define R_INFO_AGE			18
-#define R_INFO_SC			19
-#define R_INFO_DV			20
-#define R_INFO_SP			21
-#define R_INFO_IS			22
-#define R_INFO_AC			23
-#define R_INFO_ALERT		24
-#define R_INFO_STR			25
-#define R_INFO_INT			26
-#define R_INFO_WIS			27
-#define R_INFO_DEX			28
-#define R_INFO_CON			29
-#define R_INFO_CHA			30
-#define R_INFO_M_HB			31
-#define R_INFO_M_HM			32
-#define R_INFO_M_WB			33
-#define R_INFO_M_WM			34
-#define R_INFO_F_HB			35
-#define R_INFO_F_HM			36
-#define R_INFO_F_WB			37
-#define R_INFO_F_WM			38
-#define R_INFO_BATTLE		39
-#define R_INFO_UNDERLING	40
-#define R_INFO_ARTIFACT		41
-#define R_INFO_COMMENT		42
-#define R_INFO_FLAG			43
-#define R_INFO_ACTION		44
-#define R_INFO_DESCRIPTION	45
-#define R_INFO_AUTHORITY    46
-#define R_INFO_SEX          47
+#define SPECIES_INFO_ID			0
+#define SPECIES_INFO_NAME			1
+#define SPECIES_INFO_E_NAME		2
+#define SPECIES_INFO_SYM			3
+#define SPECIES_INFO_COL			4
+#define SPECIES_INFO_RACE1		5
+#define SPECIES_INFO_RACE2		6
+#define SPECIES_INFO_CLASS		7
+#define SPECIES_INFO_PATRON		8
+#define SPECIES_INFO_CHARA		9
+#define SPECIES_INFO_RELM1		10
+#define SPECIES_INFO_RELM2		11
+#define SPECIES_INFO_LEV			12
+#define SPECIES_INFO_RARE			13
+#define SPECIES_INFO_Z			14
+#define SPECIES_INFO_EXP			15
+#define SPECIES_INFO_N_EXP		16
+#define SPECIES_INFO_N_MIN		17
+#define SPECIES_INFO_AGE			18
+#define SPECIES_INFO_SC			19
+#define SPECIES_INFO_DV			20
+#define SPECIES_INFO_SP			21
+#define SPECIES_INFO_IS			22
+#define SPECIES_INFO_AC			23
+#define SPECIES_INFO_ALERT		24
+#define SPECIES_INFO_STR			25
+#define SPECIES_INFO_INT			26
+#define SPECIES_INFO_WIS			27
+#define SPECIES_INFO_DEX			28
+#define SPECIES_INFO_CON			29
+#define SPECIES_INFO_CHA			30
+#define SPECIES_INFO_M_HB			31
+#define SPECIES_INFO_M_HM			32
+#define SPECIES_INFO_M_WB			33
+#define SPECIES_INFO_M_WM			34
+#define SPECIES_INFO_F_HB			35
+#define SPECIES_INFO_F_HM			36
+#define SPECIES_INFO_F_WB			37
+#define SPECIES_INFO_F_WM			38
+#define SPECIES_INFO_BATTLE		39
+#define SPECIES_INFO_UNDERLING	40
+#define SPECIES_INFO_ARTIFACT		41
+#define SPECIES_INFO_COMMENT		42
+#define SPECIES_INFO_FLAG			43
+#define SPECIES_INFO_ACTION		44
+#define SPECIES_INFO_DESCRIPTION	45
+#define SPECIES_INFO_AUTHORITY    46
+#define SPECIES_INFO_SEX          47
 
-errr parse_r_info_csv(char *buf, header *head)
+errr parse_species_info_csv(char *buf, header *head)
 {
 	int id, tval, sval, prob, num, side, offset;
 	int n1, n2;
@@ -4079,29 +4079,29 @@ errr parse_r_info_csv(char *buf, header *head)
 	char tmp[20000], nt[80];
 	int b;
 
-	if(get_split_offset(split, size, buf, R_INFO_CSV_COLUMNS, ',', '"')){
+	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
 	}
 
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, r_info_csv_list[0]))
+	if(!strcmp(tmp, species_info_csv_list[0]))
 	{
-		r_info_csv_code[0] = R_INFO_ID;
-		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
+		species_info_csv_code[0] = SPECIES_INFO_ID;
+		for(i = 1; i < SPECIES_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
-			for(j = 1; j < R_INFO_CSV_COLUMNS; j++)
+			for(j = 1; j < SPECIES_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, r_info_csv_list[j]))
+				if(!strcmp(tmp, species_info_csv_list[j]))
 				{
-					r_info_csv_code[i] = j;
+					species_info_csv_code[i] = j;
 					break;
 				}
 			}
-			if(j == R_INFO_CSV_COLUMNS) return (1); /* ERROR */
+			if(j == SPECIES_INFO_CSV_COLUMNS) return (1); /* ERROR */
 		}
 		return 0;
 	}
@@ -4113,225 +4113,225 @@ errr parse_r_info_csv(char *buf, header *head)
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Monster:%d]", n);
 
-		r_info[n].species_idx = n;
-		r_info[n].ap_species_idx = n;
+		species_info[n].species_idx = n;
+		species_info[n].ap_species_idx = n;
 
 
 		note(nt);
 
-		for(i = 1; i < R_INFO_CSV_COLUMNS; i++)
+		for(i = 1; i < SPECIES_INFO_CSV_COLUMNS; i++)
 		{
 			
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			
 
-			switch(r_info_csv_code[i])
+			switch(species_info_csv_code[i])
 			{
 
-			case R_INFO_NAME:
+			case SPECIES_INFO_NAME:
 #if JP
-				if (!add_name(&r_info[n].name, head, tmp))
+				if (!add_name(&species_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
-			case R_INFO_E_NAME:
+			case SPECIES_INFO_E_NAME:
 #if JP
-				if (!add_name(&r_info[n].E_name, head, tmp))
+				if (!add_name(&species_info[n].E_name, head, tmp))
 					return (7);
 #else
-				if (!add_name(&r_info[n].name, head, tmp))
+				if (!add_name(&species_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
-			case R_INFO_SYM:
-				r_info[n].d_char = tmp[0];
-				r_info[n].x_char = tmp[0];
+			case SPECIES_INFO_SYM:
+				species_info[n].d_char = tmp[0];
+				species_info[n].x_char = tmp[0];
 				break;
 
-			case R_INFO_COL:
-				r_info[n].d_attr = color_char_to_attr(tmp[0]);
-				r_info[n].x_attr = color_char_to_attr(tmp[0]);
+			case SPECIES_INFO_COL:
+				species_info[n].d_attr = color_char_to_attr(tmp[0]);
+				species_info[n].x_attr = color_char_to_attr(tmp[0]);
 				break;
 
-			case R_INFO_RACE1:
+			case SPECIES_INFO_RACE1:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].race_idx1 = (s16b)b;
+				species_info[n].race_idx1 = (s16b)b;
 				break;
 
-			case R_INFO_RACE2:
+			case SPECIES_INFO_RACE2:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].race_idx2 = (s16b)b;
+				species_info[n].race_idx2 = (s16b)b;
 				break;
 
-			case R_INFO_CLASS:
+			case SPECIES_INFO_CLASS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].cls_idx = (byte)b;
+				species_info[n].cls_idx = (byte)b;
 				break;
 
-			case R_INFO_PATRON:
+			case SPECIES_INFO_PATRON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].patron_idx = (s16b)b;
+				species_info[n].patron_idx = (s16b)b;
 				break;
 
-			case R_INFO_CHARA:
+			case SPECIES_INFO_CHARA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].chara_idx = (byte)b;
+				species_info[n].chara_idx = (byte)b;
 				break;
 
-			case R_INFO_RELM1:
+			case SPECIES_INFO_RELM1:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].realm1 = (byte)b;
+				species_info[n].realm1 = (byte)b;
 				break;
 
-			case R_INFO_RELM2:
+			case SPECIES_INFO_RELM2:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].realm2 = (byte)b;
+				species_info[n].realm2 = (byte)b;
 				break;
 
-			case R_INFO_LEV:
+			case SPECIES_INFO_LEV:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].level = (byte)b;
+				species_info[n].level = (byte)b;
 				break;
 
-			case R_INFO_RARE:
+			case SPECIES_INFO_RARE:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].rarity = (byte)b;
+				species_info[n].rarity = (byte)b;
 				break;
 
-			case R_INFO_Z:
+			case SPECIES_INFO_Z:
 				/* Nothing */
 				break;
 
-			case R_INFO_EXP:
+			case SPECIES_INFO_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].mexp = (s32b)b;
+				species_info[n].mexp = (s32b)b;
 				break;
 
-			case R_INFO_N_EXP:
+			case SPECIES_INFO_N_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].next_exp = (u32b)b;
+				species_info[n].next_exp = (u32b)b;
 				break;
 
-			case R_INFO_N_MIN:
+			case SPECIES_INFO_N_MIN:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].next_species_idx = (s16b)b;
+				species_info[n].next_species_idx = (s16b)b;
 				break;
 
-			case R_INFO_AGE:
+			case SPECIES_INFO_AGE:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].age = (s32b)b;
+				species_info[n].age = (s32b)b;
 				break;
 
-			case R_INFO_SC:
+			case SPECIES_INFO_SC:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].sc = (s16b)b;
+				species_info[n].sc = (s16b)b;
 				break;
 
-			case R_INFO_DV:
+			case SPECIES_INFO_DV:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].dr = (s16b)b;
+				species_info[n].dr = (s16b)b;
 				break;
 
-			case R_INFO_SP:
+			case SPECIES_INFO_SP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].speed = (byte)b;
+				species_info[n].speed = (byte)b;
 				break;
 
-			case R_INFO_IS:
+			case SPECIES_INFO_IS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].sleep = (s16b)b;
+				species_info[n].sleep = (s16b)b;
 				break;
 
-			case R_INFO_AC:
+			case SPECIES_INFO_AC:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].ac = (s16b)b;
+				species_info[n].ac = (s16b)b;
 				break;
 
-			case R_INFO_ALERT:
+			case SPECIES_INFO_ALERT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].aaf = (byte)b;
+				species_info[n].aaf = (byte)b;
 				break;
 
-			case R_INFO_STR:
+			case SPECIES_INFO_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_STR] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_STR] = (s16b)b * 10;
+				species_info[n].stat_max[A_STR] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_STR] = (s16b)b * 10;
 				break;
 
-			case R_INFO_INT:
+			case SPECIES_INFO_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_INT] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_INT] = (s16b)b * 10;
+				species_info[n].stat_max[A_INT] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_INT] = (s16b)b * 10;
 				break;
 
-			case R_INFO_WIS:
+			case SPECIES_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_WIS] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_WIS] = (s16b)b * 10;
+				species_info[n].stat_max[A_WIS] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_WIS] = (s16b)b * 10;
 				break;
 
-			case R_INFO_DEX:
+			case SPECIES_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_DEX] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_DEX] = (s16b)b * 10;
+				species_info[n].stat_max[A_DEX] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_DEX] = (s16b)b * 10;
 				break;
 
-			case R_INFO_CON:
+			case SPECIES_INFO_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_CON] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_CON] = (s16b)b * 10;
+				species_info[n].stat_max[A_CON] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_CON] = (s16b)b * 10;
 				break;
 
-			case R_INFO_CHA:
+			case SPECIES_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].stat_max[A_CHR] = (s16b)b * 10;
-				r_info[n].stat_max_max[A_CHR] = (s16b)b * 10;
+				species_info[n].stat_max[A_CHR] = (s16b)b * 10;
+				species_info[n].stat_max_max[A_CHR] = (s16b)b * 10;
 				break;
 
-			case R_INFO_M_HB:
+			case SPECIES_INFO_M_HB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].m_b_ht = (s16b)b;
+				species_info[n].m_b_ht = (s16b)b;
 				break;
 
-			case R_INFO_M_HM:
+			case SPECIES_INFO_M_HM:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].m_m_ht = (s16b)b;
+				species_info[n].m_m_ht = (s16b)b;
 				break;
 
-			case R_INFO_M_WB:
+			case SPECIES_INFO_M_WB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].m_b_wt = (s16b)b;
+				species_info[n].m_b_wt = (s16b)b;
 				break;
 
-			case R_INFO_M_WM:
+			case SPECIES_INFO_M_WM:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].m_m_wt = (s16b)b;
+				species_info[n].m_m_wt = (s16b)b;
 				break;
 
-			case R_INFO_F_HB:
+			case SPECIES_INFO_F_HB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].f_b_ht = (s16b)b;
+				species_info[n].f_b_ht = (s16b)b;
 				break;
 
-			case R_INFO_F_HM:
+			case SPECIES_INFO_F_HM:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].f_m_ht = (s16b)b;
+				species_info[n].f_m_ht = (s16b)b;
 				break;
 
-			case R_INFO_F_WB:
+			case SPECIES_INFO_F_WB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].f_b_wt = (s16b)b;
+				species_info[n].f_b_wt = (s16b)b;
 				break;
 
-			case R_INFO_F_WM:
+			case SPECIES_INFO_F_WM:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].f_m_wt = (s16b)b;
+				species_info[n].f_m_wt = (s16b)b;
 				break;
 
-			case R_INFO_BATTLE:				
+			case SPECIES_INFO_BATTLE:				
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
@@ -4346,13 +4346,13 @@ errr parse_r_info_csv(char *buf, header *head)
 					if (*t == '\n') *t = '\0';
 
 					/* Analyze the method */
-					for (n1 = 0; r_info_blow_method[n1]; n1++)
+					for (n1 = 0; species_info_blow_method[n1]; n1++)
 					{
-						if (streq(s, r_info_blow_method[n1])) break;
+						if (streq(s, species_info_blow_method[n1])) break;
 					}
 
 					/* Invalid method */
-					if (!r_info_blow_method[n1]) return (1);
+					if (!species_info_blow_method[n1]) return (1);
 
 					/* Analyze the second field */
 					for (s = t; *t && (*t != ':') && (*t != '\n'); t++) /* loop */;
@@ -4362,13 +4362,13 @@ errr parse_r_info_csv(char *buf, header *head)
 					if (*t == '\n') *t = '\0';
 
 					/* Analyze effect */
-					for (n2 = 0; r_info_blow_effect[n2]; n2++)
+					for (n2 = 0; species_info_blow_effect[n2]; n2++)
 					{
-						if (streq(s, r_info_blow_effect[n2])) break;
+						if (streq(s, species_info_blow_effect[n2])) break;
 					}
 
 					/* Invalid effect */
-					if (!r_info_blow_effect[n2]) return (1);
+					if (!species_info_blow_effect[n2]) return (1);
 
 					/* Analyze the third field */
 					for (s = t; *t && (*t != 'd'); t++) /* loop */;
@@ -4377,14 +4377,14 @@ errr parse_r_info_csv(char *buf, header *head)
 					if (*t == 'd') *t++ = '\0';
 
 					/* Save the method */
-					r_info[n].blow[k].method = n1;
+					species_info[n].blow[k].method = n1;
 
 					/* Save the effect */
-					r_info[n].blow[k].effect = n2;
+					species_info[n].blow[k].effect = n2;
 
 					/* Extract the damage dice and sides */
-					r_info[n].blow[k].d_dice = atoi(s);
-					r_info[n].blow[k].d_side = atoi(t);
+					species_info[n].blow[k].d_dice = atoi(s);
+					species_info[n].blow[k].d_side = atoi(t);
 
 					k++;
 
@@ -4393,7 +4393,7 @@ errr parse_r_info_csv(char *buf, header *head)
 				}
 				break;
 
-			case R_INFO_UNDERLING:
+			case SPECIES_INFO_UNDERLING:
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
@@ -4401,9 +4401,9 @@ errr parse_r_info_csv(char *buf, header *head)
 
 					if (k == MAX_UNDERLINGS) return (1);
 
-					r_info[n].underling_id[k] = id;
-					r_info[n].underling_d_num[k] = num;
-					r_info[n].underling_d_side[k] = side;
+					species_info[n].underling_id[k] = id;
+					species_info[n].underling_d_num[k] = num;
+					species_info[n].underling_d_side[k] = side;
 					k++;
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
 					if(tmp[offset]) offset++;
@@ -4411,7 +4411,7 @@ errr parse_r_info_csv(char *buf, header *head)
 
 				break;
 
-			case R_INFO_ARTIFACT:
+			case SPECIES_INFO_ARTIFACT:
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
@@ -4419,36 +4419,36 @@ errr parse_r_info_csv(char *buf, header *head)
 
 					if (k == MAX_UNDERLINGS) return (1);
 
-					r_info[n].artifact_id[k] = id;
-					r_info[n].artifact_tval[k] = tval;
-					r_info[n].artifact_sval[k] = sval;
-					r_info[n].artifact_prob[k] = prob;
+					species_info[n].artifact_id[k] = id;
+					species_info[n].artifact_tval[k] = tval;
+					species_info[n].artifact_sval[k] = sval;
+					species_info[n].artifact_prob[k] = prob;
 					k++;
 					while(tmp[offset] != '\n' && tmp[offset]) offset++;
 					if(tmp[offset]) offset++;
 				}
 				break;
 
-			case R_INFO_COMMENT:
+			case SPECIES_INFO_COMMENT:
 				/* Nothing */
 				break;
 
-			case R_INFO_FLAG:
-				if(0 != creature_flags_splits(&r_info[n].flags, tmp))
+			case SPECIES_INFO_FLAG:
+				if(0 != creature_flags_splits(&species_info[n].flags, tmp))
 					return (1);
 				break;
 
-			case R_INFO_ACTION:
-				if(0 != creature_flags_splits(&r_info[n].flags, tmp))
+			case SPECIES_INFO_ACTION:
+				if(0 != creature_flags_splits(&species_info[n].flags, tmp))
 					return (1);
 				break;
 
-			case R_INFO_DESCRIPTION:
-				if (!add_text(&r_info[n].text, head, tmp, TRUE))
+			case SPECIES_INFO_DESCRIPTION:
+				if (!add_text(&species_info[n].text, head, tmp, TRUE))
 					return (7);
 				break;
 
-			case R_INFO_AUTHORITY:
+			case SPECIES_INFO_AUTHORITY:
 				/* Parse every entry */
 				for (s = tmp; *s; )
 				{
@@ -4463,7 +4463,7 @@ errr parse_r_info_csv(char *buf, header *head)
 					}
 
 					// Parse this entry
-					if (0 != grab_one_authority_flag(&r_info[n], s)) return (5);
+					if (0 != grab_one_authority_flag(&species_info[n], s)) return (5);
 
 					// Start the next entry
 					s = t;
@@ -4471,9 +4471,9 @@ errr parse_r_info_csv(char *buf, header *head)
 
 				break;
 
-			case R_INFO_SEX:
+			case SPECIES_INFO_SEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				r_info[n].sex = (s16b)b;
+				species_info[n].sex = (s16b)b;
 				break;
 
 			default:
@@ -4486,9 +4486,9 @@ errr parse_r_info_csv(char *buf, header *head)
 }
 
 /*
- * Initialize the "r_info" array, by parsing an ascii "template" file
+ * Initialize the "species_info" array, by parsing an ascii "template" file
  */
-errr parse_r_info(char *buf, header *head)
+errr parse_species_info(char *buf, header *head)
 {
 	int i;
 
@@ -4525,7 +4525,7 @@ errr parse_r_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		r_ptr = &r_info[i];
+		r_ptr = &species_info[i];
 
 #ifdef JP
 		/* Store the name */
@@ -4738,13 +4738,13 @@ errr parse_r_info(char *buf, header *head)
 		if (*t == ':') *t++ = '\0';
 
 		/* Analyze the method */
-		for (n1 = 0; r_info_blow_method[n1]; n1++)
+		for (n1 = 0; species_info_blow_method[n1]; n1++)
 		{
-			if (streq(s, r_info_blow_method[n1])) break;
+			if (streq(s, species_info_blow_method[n1])) break;
 		}
 
 		/* Invalid method */
-		if (!r_info_blow_method[n1]) return (1);
+		if (!species_info_blow_method[n1]) return (1);
 
 		/* Analyze the second field */
 		for (s = t; *t && (*t != ':'); t++) /* loop */;
@@ -4753,13 +4753,13 @@ errr parse_r_info(char *buf, header *head)
 		if (*t == ':') *t++ = '\0';
 
 		/* Analyze effect */
-		for (n2 = 0; r_info_blow_effect[n2]; n2++)
+		for (n2 = 0; species_info_blow_effect[n2]; n2++)
 		{
-			if (streq(s, r_info_blow_effect[n2])) break;
+			if (streq(s, species_info_blow_effect[n2])) break;
 		}
 
 		/* Invalid effect */
-		if (!r_info_blow_effect[n2]) return (1);
+		if (!species_info_blow_effect[n2]) return (1);
 
 		/* Analyze the third field */
 		for (s = t; *t && (*t != 'd'); t++) /* loop */;
@@ -4972,7 +4972,7 @@ static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
 	"LEVEL",
 };
 
-static int stp_info_csv_code[R_INFO_CSV_COLUMNS];
+static int stp_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 
 #define ST_INFO_ID			0
 #define ST_INFO_NAME		1
@@ -5579,25 +5579,25 @@ static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
  */
 static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
 {
-	if (grab_one_flag(&d_ptr->mflags1, r_info_flags1, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags1, species_info_flags1, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags2, r_info_flags2, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags2, species_info_flags2, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags3, r_info_flags3, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags3, species_info_flags3, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags7, r_info_flags7, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags7, species_info_flags7, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags8, r_info_flags8, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags8, species_info_flags8, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags9, r_info_flags9, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags9, species_info_flags9, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags10, r_info_flags10, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags10, species_info_flags10, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -5616,13 +5616,13 @@ static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
  */
 static errr grab_one_spell_monster_flag(dungeon_info_type *d_ptr, cptr what)
 {
-	if (grab_one_flag(&d_ptr->mflags4, r_info_flags4, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags4, species_info_flags4, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags5, r_info_flags5, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags5, species_info_flags5, what) == 0)
 		return 0;
 
-	if (grab_one_flag(&d_ptr->mflags6, r_info_flags6, what) == 0)
+	if (grab_one_flag(&d_ptr->mflags6, species_info_flags6, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -6450,23 +6450,23 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					monster_index = -monster_index;
 					clone = TRUE;
 				}
-				old_cur_num = r_info[monster_index].cur_num;
-				old_max_num = r_info[monster_index].max_num;
+				old_cur_num = species_info[monster_index].cur_num;
+				old_max_num = species_info[monster_index].max_num;
 
 				/* Make alive again */
-				if (is_unique_species(&r_info[monster_index]))
+				if (is_unique_species(&species_info[monster_index]))
 				{
-					r_info[monster_index].cur_num = 0;
-					r_info[monster_index].max_num = 1;
+					species_info[monster_index].cur_num = 0;
+					species_info[monster_index].max_num = 1;
 				}
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (r_info[monster_index].race_idx1 == RACE_NAZGUL)
+				else if (species_info[monster_index].race_idx1 == RACE_NAZGUL)
 				{
-					if (r_info[monster_index].cur_num == r_info[monster_index].max_num)
+					if (species_info[monster_index].cur_num == species_info[monster_index].max_num)
 					{
-						r_info[monster_index].max_num++;
+						species_info[monster_index].max_num++;
 					}
 				}
 
@@ -6478,8 +6478,8 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 					creature_list[hack_m_idx_ii].smart |= SM_CLONED;
 
 					/* Make alive again for real unique monster */
-					r_info[monster_index].cur_num = old_cur_num;
-					r_info[monster_index].max_num = old_max_num;
+					species_info[monster_index].cur_num = old_cur_num;
+					species_info[monster_index].max_num = old_max_num;
 				}
 			}
 
@@ -6623,7 +6623,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				if (num > 10)
 					q_ptr->flags  = atoi(zz[10]);
 
-				r_ptr = &r_info[q_ptr->species_idx];
+				r_ptr = &species_info[q_ptr->species_idx];
 				if (is_unique_species(r_ptr))
 					r_ptr->flags1 |= RF1_QUESTOR;
 
@@ -7279,7 +7279,7 @@ msg_format("'%s'‚ð‰ðÍ’†B", buf);
 
 
 #if 0
-void write_r_info_txt(void)
+void write_species_info_txt(void)
 {
 	int i, j, z, fc, bc;
 	int dlen, dammy1, dammy2;
@@ -7301,7 +7301,7 @@ void write_r_info_txt(void)
 
 	if (!fff) return;
 
-	fprintf(fff, "# File: r_info.txt (autogenerated)\n\n");
+	fprintf(fff, "# File: species_info.txt (autogenerated)\n\n");
 
 	fprintf(fff, "# Version stamp (required)\n\n");
 
@@ -7317,7 +7317,7 @@ void write_r_info_txt(void)
 		i = (z >= 0) ? alloc_race_table[z].index : 0;
 
 		/* Acquire the monster */
-		r_ptr = &r_info[i];
+		r_ptr = &species_info[i];
 
 		/* Ignore empty monsters */
 		if (!strlen(r_name + r_ptr->name)) continue;
@@ -7344,17 +7344,17 @@ void write_r_info_txt(void)
 		}
 
 		/* Acquire the flags */
-		f_ptr[0] = r_ptr->flags1; n_ptr[0] = r_info_flags1;
-		f_ptr[1] = r_ptr->flags2; n_ptr[1] = r_info_flags2;
-		f_ptr[2] = r_ptr->flags3; n_ptr[2] = r_info_flags3;
-		f_ptr[3] = r_ptr->flags4; n_ptr[3] = r_info_flags4;
-		f_ptr[4] = r_ptr->flags5; n_ptr[4] = r_info_flags5;
-		f_ptr[5] = r_ptr->flags6; n_ptr[5] = r_info_flags6;
-		f_ptr[6] = r_ptr->flags7; n_ptr[6] = r_info_flags7;
-		f_ptr[7] = r_ptr->flags8; n_ptr[7] = r_info_flags8;
-		f_ptr[8] = r_ptr->flags9; n_ptr[8] = r_info_flags9;
-		f_ptr[9] = r_ptr->flags10; n_ptr[9] = r_info_flags10;
-		f_ptr[10] = r_ptr->flags11; n_ptr[10] = r_info_flags11;
+		f_ptr[0] = r_ptr->flags1; n_ptr[0] = species_info_flags1;
+		f_ptr[1] = r_ptr->flags2; n_ptr[1] = species_info_flags2;
+		f_ptr[2] = r_ptr->flags3; n_ptr[2] = species_info_flags3;
+		f_ptr[3] = r_ptr->flags4; n_ptr[3] = species_info_flags4;
+		f_ptr[4] = r_ptr->flags5; n_ptr[4] = species_info_flags5;
+		f_ptr[5] = r_ptr->flags6; n_ptr[5] = species_info_flags6;
+		f_ptr[6] = r_ptr->flags7; n_ptr[6] = species_info_flags7;
+		f_ptr[7] = r_ptr->flags8; n_ptr[7] = species_info_flags8;
+		f_ptr[8] = r_ptr->flags9; n_ptr[8] = species_info_flags9;
+		f_ptr[9] = r_ptr->flags10; n_ptr[9] = species_info_flags10;
+		f_ptr[10] = r_ptr->flags11; n_ptr[10] = species_info_flags11;
 
 		/* Write New/Number/Name */
 		fprintf(fff, "N:%d:%s\n", z + 1, r_name + r_ptr->name);
@@ -7378,8 +7378,8 @@ void write_r_info_txt(void)
 			if (!b_ptr->method) break;
 
 			/* Write the blows */
-			fprintf(fff, "B:%s:%s:%dd%d\n", r_info_blow_method[b_ptr->method],
-													  r_info_blow_effect[b_ptr->effect],
+			fprintf(fff, "B:%s:%s:%dd%d\n", species_info_blow_method[b_ptr->method],
+													  species_info_blow_effect[b_ptr->effect],
 													  b_ptr->d_dice, b_ptr->d_side);
 		}
 

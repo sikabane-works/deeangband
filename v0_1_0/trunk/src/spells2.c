@@ -3918,7 +3918,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -3980,7 +3980,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4050,7 +4050,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4125,7 +4125,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4192,7 +4192,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4259,7 +4259,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4333,7 +4333,7 @@ cptr desc_monsters = "変なモンスター";
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4653,7 +4653,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool         resist = FALSE;
 
 	if (is_pet(m_ptr) && !player_cast) return FALSE;
@@ -4784,7 +4784,7 @@ bool symbol_genocide(int power, bool player_cast)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4860,7 +4860,7 @@ bool mass_genocide_undead(int power, bool player_cast)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -4904,7 +4904,7 @@ bool probing(void)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &r_info[m_ptr->species_idx];
+		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead monsters */
 		if (!m_ptr->species_idx) continue;
@@ -5140,7 +5140,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 			if (c_ptr->m_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
-				species_type *r_ptr = &r_info[m_ptr->species_idx];
+				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				if (in_generate) /* In generation */
 				{
@@ -5616,7 +5616,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			if (c_ptr->m_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->m_idx];
-				species_type *r_ptr = &r_info[m_ptr->species_idx];
+				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/* Quest monsters */
 				if (is_quest_species(r_ptr))
@@ -5909,7 +5909,7 @@ void discharge_minion(void)
 		species_type *r_ptr;
 
 		if (!m_ptr->species_idx || !is_pet(m_ptr)) continue;
-		r_ptr = &r_info[m_ptr->species_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Uniques resist discharging */
 		if (is_unique_species(r_ptr))
@@ -5988,7 +5988,7 @@ static void cave_temp_room_lite(void)
 
 			creature_type    *m_ptr = &creature_list[c_ptr->m_idx];
 
-			species_type    *r_ptr = &r_info[m_ptr->species_idx];
+			species_type    *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Update the monster */
 			update_mon(p_ptr, c_ptr->m_idx, FALSE);
@@ -6630,7 +6630,7 @@ msg_print("失敗した。");
 	}
 
 	m_ptr = &creature_list[c_ptr->m_idx];
-	r_ptr = &r_info[m_ptr->species_idx];
+	r_ptr = &species_info[m_ptr->species_idx];
 
 	(void)set_paralyzed(m_ptr, 0);
 

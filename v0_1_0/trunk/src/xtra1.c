@@ -4356,10 +4356,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Set Species Blow. */
-	cr_ptr->blow[0] = r_info[cr_ptr->species_idx].blow[0];
-	cr_ptr->blow[1] = r_info[cr_ptr->species_idx].blow[1];
-	cr_ptr->blow[2] = r_info[cr_ptr->species_idx].blow[2];
-	cr_ptr->blow[3] = r_info[cr_ptr->species_idx].blow[3];
+	cr_ptr->blow[0] = species_info[cr_ptr->species_idx].blow[0];
+	cr_ptr->blow[1] = species_info[cr_ptr->species_idx].blow[1];
+	cr_ptr->blow[2] = species_info[cr_ptr->species_idx].blow[2];
+	cr_ptr->blow[3] = species_info[cr_ptr->species_idx].blow[3];
 
 
 
@@ -4790,7 +4790,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	else
 	{
 		creature_type *riding_m_ptr = &creature_list[cr_ptr->riding];
-		species_type *riding_r_ptr = &r_info[riding_m_ptr->species_idx];
+		species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
 		int speed = riding_m_ptr->speed;
 
 		if (riding_m_ptr->speed > 110)
@@ -5238,7 +5238,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				}
 				else
 				{
-					penalty = r_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+					penalty = species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 					penalty += 30;
 					if (penalty < 30) penalty = 30;
 				}
@@ -5277,7 +5277,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		else
 		{
-			penalty = r_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
+			penalty = species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 80;
 			penalty += 30;
 			if (penalty < 30) penalty = 30;
 		}

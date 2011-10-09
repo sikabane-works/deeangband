@@ -64,7 +64,7 @@ static bool int_outof(species_type *r_ptr, int prob)
  */
 static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
 {
-	species_type *r_ptr = &r_info[user_ptr->species_idx];
+	species_type *r_ptr = &species_info[user_ptr->species_idx];
 
 	u32b f4 = (*f4p);
 	u32b f5 = (*f5p);
@@ -409,7 +409,7 @@ bool raise_possible(creature_type *m_ptr)
 				/* Known to be worthless? */
 				if (o_ptr->tval == TV_CORPSE)
 				{
-					if (!monster_has_hostile_align(m_ptr, 0, 0, &r_info[o_ptr->pval])) return TRUE;
+					if (!monster_has_hostile_align(m_ptr, 0, 0, &species_info[o_ptr->pval])) return TRUE;
 				}
 			}
 		}
@@ -831,7 +831,7 @@ static bool spell_dispel(byte spell)
  */
 bool dispel_check(creature_type *cr_ptr)
 {
-	species_type *r_ptr = &r_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
 	/* Invulnabilty (including the song) */
 	if (IS_INVULN(cr_ptr)) return (TRUE);
@@ -942,7 +942,7 @@ bool dispel_check(creature_type *cr_ptr)
  */
 static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 {
-	species_type *r_ptr = &r_info[user_ptr->species_idx];
+	species_type *r_ptr = &species_info[user_ptr->species_idx];
 
 	byte escape[96], escape_num = 0;
 	byte attack[96], attack_num = 0;
@@ -1027,7 +1027,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 		{
 			case MON_BANOR:
 			case MON_LUPART:
-				if ((user_ptr->chp < user_ptr->mhp / 2) && r_info[MON_BANOR].max_num && r_info[MON_LUPART].max_num) success = TRUE;
+				if ((user_ptr->chp < user_ptr->mhp / 2) && species_info[MON_BANOR].max_num && species_info[MON_LUPART].max_num) success = TRUE;
 				break;
 			default: break;
 		}
@@ -1291,7 +1291,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	int             k, thrown_spell = 0, rlev, failrate;
 	byte            spell[96], num = 0;
 	u32b            f4, f5, f6;
-	species_type    *r_ptr = &r_info[user_ptr->species_idx];
+	species_type    *r_ptr = &species_info[user_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP
 	char            m_poss[80];
@@ -3472,7 +3472,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 					int dummy_y = user_ptr->fy;
 					int dummy_x = user_ptr->fx;
 
-					if (!r_info[MON_BANOR].cur_num || !r_info[MON_LUPART].cur_num) return (FALSE);
+					if (!species_info[MON_BANOR].cur_num || !species_info[MON_LUPART].cur_num) return (FALSE);
 					for (k = 1; k < m_max; k++)
 					{
 						if (creature_list[k].species_idx == MON_BANOR || creature_list[k].species_idx == MON_LUPART)
@@ -3875,7 +3875,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 				{
 					int num = 2 + randint1(3);
 
-					if (r_info[MON_JORMUNGAND].cur_num < r_info[MON_JORMUNGAND].max_num && one_in_(6))
+					if (species_info[MON_JORMUNGAND].cur_num < species_info[MON_JORMUNGAND].max_num && one_in_(6))
 					{
 #ifdef JP
 						msg_print("地面から水が吹き出した！");
@@ -4270,7 +4270,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		{
 			disturb(1, 0);
 
-			if (((user_ptr->species_idx == MON_MORGOTH) || (user_ptr->species_idx == MON_SAURON) || (user_ptr->species_idx == MON_ANGMAR)) && ((r_info[MON_NAZGUL].cur_num+2) < r_info[MON_NAZGUL].max_num))
+			if (((user_ptr->species_idx == MON_MORGOTH) || (user_ptr->species_idx == MON_SAURON) || (user_ptr->species_idx == MON_ANGMAR)) && ((species_info[MON_NAZGUL].cur_num+2) < species_info[MON_NAZGUL].max_num))
 			{
 				int cy = y;
 				int cx = x;

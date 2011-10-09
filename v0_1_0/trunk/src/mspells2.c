@@ -23,7 +23,7 @@ static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 	/* Determine the radius of the blast */
 	if (rad < 1 && breath) rad = (is_powerful_species(r_ptr)) ? 3 : 2;
@@ -299,7 +299,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 	creature_type *user_ptr = &creature_list[m_idx];
 	creature_type *tar_ptr = NULL;
 
-	species_type *r_ptr = &r_info[user_ptr->species_idx];
+	species_type *r_ptr = &species_info[user_ptr->species_idx];
 	species_type *tr_ptr = NULL;
 
 	u32b f4, f5, f6;
@@ -420,7 +420,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 	/* OK -- we've got a target */
 	y = tar_ptr->fy;
 	x = tar_ptr->fx;
-	tr_ptr = &r_info[tar_ptr->species_idx];
+	tr_ptr = &species_info[tar_ptr->species_idx];
 
 	/* Forget old counter attack target */
 	reset_target(user_ptr);
@@ -3668,7 +3668,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 		case MON_SERPENT:
 		case MON_ZOMBI_SERPENT:
-			if (r_info[MON_JORMUNGAND].cur_num < r_info[MON_JORMUNGAND].max_num && one_in_(6))
+			if (species_info[MON_JORMUNGAND].cur_num < species_info[MON_JORMUNGAND].max_num && one_in_(6))
 			{
 				if (known && see_t)
 				{

@@ -904,7 +904,7 @@ static s32b object_value_base(object_type *o_ptr)
 		/* Figurines, relative to monster level */
 		case TV_FIGURINE:
 		{
-			int level = r_info[o_ptr->pval].level;
+			int level = species_info[o_ptr->pval].level;
 			if (level < 20) return level*50L;
 			else if (level < 30) return 1000+(level-20)*150L;
 			else if (level < 40) return 2500+(level-30)*350L;
@@ -914,7 +914,7 @@ static s32b object_value_base(object_type *o_ptr)
 
 		case TV_CAPTURE:
 			if (!o_ptr->pval) return 1000L;
-			else return ((r_info[o_ptr->pval].level) * 50L + 1000);
+			else return ((species_info[o_ptr->pval].level) * 50L + 1000);
 	}
 
 	/* Paranoia -- Oops */
@@ -1443,7 +1443,7 @@ s32b object_value_real(object_type *o_ptr)
 		/* Figurines, relative to monster level */
 		case TV_FIGURINE:
 		{
-			int level = r_info[o_ptr->pval].level;
+			int level = species_info[o_ptr->pval].level;
 			if (level < 20) value = level*50L;
 			else if (level < 30) value = 1000+(level-20)*150L;
 			else if (level < 40) value = 2500+(level-30)*350L;
@@ -1455,7 +1455,7 @@ s32b object_value_real(object_type *o_ptr)
 		case TV_CAPTURE:
 		{
 			if (!o_ptr->pval) value = 1000L;
-			else value = ((r_info[o_ptr->pval].level) * 50L + 1000);
+			else value = ((species_info[o_ptr->pval].level) * 50L + 1000);
 			break;
 		}
 
@@ -3895,7 +3895,7 @@ static void a_m_aux_3(object_type *o_ptr, int level, int power)
  */
 static bool item_monster_okay(int species_idx)
 {
-	species_type *r_ptr = &r_info[species_idx];
+	species_type *r_ptr = &species_info[species_idx];
 
 	/* No uniques */
 	if (is_unique_species(r_ptr)) return (FALSE);
@@ -4042,7 +4042,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 				if (!item_monster_okay(i)) continue;
 				if (i == MON_TSUCHINOKO) continue;
 
-				r_ptr = &r_info[i];
+				r_ptr = &species_info[i];
 
 				check = (dun_level < r_ptr->level) ? (r_ptr->level - dun_level) : 0;
 
@@ -4104,7 +4104,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			{
 				i = get_mon_num(dun_level);
 
-				r_ptr = &r_info[i];
+				r_ptr = &species_info[i];
 
 				check = (dun_level < r_ptr->level) ? (r_ptr->level - dun_level) : 0;
 
@@ -4149,7 +4149,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			{
 				i = randint1(max_species_idx - 1);
 
-				r_ptr = &r_info[i];
+				r_ptr = &species_info[i];
 
 				/* Ignore dead monsters */
 				if (!r_ptr->rarity) continue;
@@ -5862,8 +5862,8 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 	case TV_STATUE:
 	case TV_CORPSE:
 	case TV_CAPTURE:
-		if (r_info[o_ptr->pval].level < r_info[j_ptr->pval].level) return TRUE;
-		if ((r_info[o_ptr->pval].level == r_info[j_ptr->pval].level) && (o_ptr->pval < j_ptr->pval)) return TRUE;
+		if (species_info[o_ptr->pval].level < species_info[j_ptr->pval].level) return TRUE;
+		if ((species_info[o_ptr->pval].level == species_info[j_ptr->pval].level) && (o_ptr->pval < j_ptr->pval)) return TRUE;
 		return FALSE;
 
 	case TV_SHOT:
@@ -6499,7 +6499,7 @@ object_type *choose_warning_item(void)
 /* Calculate spell damages */
 static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int *max)
 {
-	species_type *r_ptr = &r_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	int          rlev = r_ptr->level;
 	bool         ignore_wraith_form = FALSE;
 
@@ -6837,7 +6837,7 @@ bool process_warning(int xx, int yy)
 			if (m_ptr->paralyzed) continue;
 			if (!is_hostile(m_ptr)) continue;
 
-			r_ptr = &r_info[m_ptr->species_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Monster spells (only powerful ones)*/
 			if (projectable(my, mx, yy, xx))
