@@ -935,6 +935,10 @@ extern bool is_drop_skeleton_species(species_type *sp_ptr);
 
 extern bool is_citizen_creature(creature_type *cr_ptr);
 extern bool is_citizen_species(species_type *sp_ptr);
+
+extern bool is_wild_only_creature(creature_type *cr_ptr);
+extern bool is_wild_only_species(species_type *sp_ptr);
+
 extern bool is_wild_town_creature(creature_type *cr_ptr);
 extern bool is_wild_town_species(species_type *sp_ptr);
 extern bool is_wild_all_creature(creature_type *cr_ptr);

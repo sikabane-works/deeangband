@@ -3241,7 +3241,7 @@ static bool mon_hook_quest(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Random quests are in the dungeon */
-	if (r_ptr->flags8 & RF8_WILD_ONLY) return FALSE;
+	if (is_wild_only_species(r_ptr)) return FALSE;
 
 	/* No random quests for aquatic monsters */
 	if (is_aquatic_species(r_ptr)) return FALSE;
@@ -3286,7 +3286,7 @@ void determine_random_questor(quest_type *q_ptr)
 
 		if (r_ptr->flags7 & RF7_AQUATIC) continue;
 
-		if (r_ptr->flags8 & RF8_WILD_ONLY) continue;
+		if (is_wild_only_species(r_ptr)) continue;
 
 		if (no_questor_or_bounty_uniques(species_idx)) continue;
 

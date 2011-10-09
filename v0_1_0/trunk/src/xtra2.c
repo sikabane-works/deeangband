@@ -1416,46 +1416,46 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  * Get the coefficient first, and multiply (potentially huge) base
  * experience point of a monster later.
  */
-void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
+void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 {
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[tar_ptr->species_idx];
 
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
 	u32b div_l;
 
-	if (!m_ptr->species_idx) return;
-	if (is_pet(m_ptr) || inside_battle) return;
+	if (!tar_ptr->species_idx) return;
+	if (is_pet(tar_ptr) || inside_battle) return;
 
 	/*
 	 * - Ratio of monster's level to player's level effects
 	 * - Varying speed effects
 	 * - Get a fraction in proportion of damage point
 	 */
-	new_exp = r_ptr->level * SPEED_TO_ENERGY(m_ptr->speed) * dam;
+	new_exp = species_ptr->level * SPEED_TO_ENERGY(tar_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
-	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(r_ptr->speed);
+	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
 	/* Use (average mhp * 2) as a denominator */
 	// TODO NEW CALC
-	if (!(r_ptr->flags1 & RF1_FORCE_MAXHP))
-		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * (m_ptr->hitdice + 1));
+	if (!(species_ptr->flags1 & RF1_FORCE_MAXHP))
+		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * (tar_ptr->hitdice + 1));
 	else
-		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * m_ptr->hitdice * 2);
+		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * tar_ptr->hitdice * 2);
 
 	/* Special penalty in the wilderness */
-	if (!dun_level && (!(r_ptr->flags8 & RF8_WILD_ONLY) || !(is_unique_species(r_ptr))))
+	if (!dun_level && (!is_wild_only_creature(tar_ptr) || !(is_unique_creature(tar_ptr))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Special penalty for mutiply-monster */
-	if (is_multiply_creature(m_ptr) || (m_ptr->species_idx == MON_DAWN))
+	if (is_multiply_creature(tar_ptr) || (tar_ptr->species_idx == MON_DAWN))
 	{
-		int monnum_penarty = r_ptr->r_akills / 400;
+		int monnum_penarty = species_ptr->r_akills / 400;
 		if (monnum_penarty > 8) monnum_penarty = 8;
 
 		while (monnum_penarty--)
@@ -1466,7 +1466,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr)
 	}
 
 	/* Finally multiply base experience point of the monster */
-	s64b_mul(&new_exp, &new_exp_frac, 0, r_ptr->mexp);
+	s64b_mul(&new_exp, &new_exp_frac, 0, species_ptr->mexp);
 
 	/* Gain experience */
 	gain_exp_64(atk_ptr, new_exp, new_exp_frac);

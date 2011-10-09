@@ -3112,7 +3112,7 @@ bool mon_hook_dungeon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!(r_ptr->flags8 & RF8_WILD_ONLY))
+	if (!is_wild_only_species(r_ptr))
 		return TRUE;
 	else
 	{

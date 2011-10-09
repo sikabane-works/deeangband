@@ -1100,6 +1100,16 @@ bool is_citizen_species(species_type *sp_ptr)
 	return (sp_ptr->flags.add_lev[CF_CITIZEN]);
 }
 
+bool is_wild_only_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_ONLY);	
+}
+
+bool is_wild_only_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_ONLY]);
+}
+
 bool is_wild_town_creature(creature_type *cr_ptr)
 {
 	return have_creature_flags(cr_ptr, CF_WILD_TOWN);	
