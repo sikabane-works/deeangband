@@ -1160,6 +1160,26 @@ bool is_wild_waste_creature(creature_type *cr_ptr)
 	return have_creature_flags(cr_ptr, CF_WILD_WASTE);	
 }
 
+bool is_wild_wood_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_WOOD]);
+}
+
+bool is_wild_wood_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_WOOD);	
+}
+
+bool is_wild_volcano_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_WILD_VOLCANO]);
+}
+
+bool is_wild_volcano_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_WILD_VOLCANO);	
+}
+
 bool is_enemy_of_evil_creature(creature_type *cr_ptr)
 {
 	//TODO

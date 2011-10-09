@@ -4280,7 +4280,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
 	{
-		if ((cr_ptr->cls_idx != CLASS_RANGER) && !cr_ptr->levitation && (!cr_ptr->riding || !(riding_r_ptr->flags8 & RF8_WILD_WOOD))) energy_use *= 2;
+		if ((cr_ptr->cls_idx != CLASS_RANGER) && !cr_ptr->levitation && (!cr_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
 	}
 
 #ifdef ALLOW_EASY_DISARM /* TNB */

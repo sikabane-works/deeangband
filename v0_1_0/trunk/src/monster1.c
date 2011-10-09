@@ -3163,22 +3163,14 @@ static bool mon_hook_town(int species_idx)
 static bool mon_hook_wood(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-
-	if (r_ptr->flags8 & (RF8_WILD_WOOD) || is_wild_all_species(r_ptr))
-		return TRUE;
-	else
-		return FALSE;
+	return (is_wild_wood_species(r_ptr) || is_wild_all_species(r_ptr));
 }
 
 
 static bool mon_hook_volcano(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-
-	if (r_ptr->flags8 & RF8_WILD_VOLCANO)
-		return TRUE;
-	else
-		return FALSE;
+	return is_wild_wood_species(r_ptr);
 }
 
 

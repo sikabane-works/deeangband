@@ -949,6 +949,11 @@ extern bool is_wild_ocean_species(species_type *sp_ptr);
 extern bool is_wild_ocean_creature(creature_type *cr_ptr);
 extern bool is_wild_waste_species(species_type *sp_ptr);
 extern bool is_wild_waste_creature(creature_type *cr_ptr);
+extern bool is_wild_wood_species(species_type *sp_ptr);
+extern bool is_wild_wood_creature(creature_type *cr_ptr);
+extern bool is_wild_volcano_species(species_type *sp_ptr);
+extern bool is_wild_volcano_creature(creature_type *cr_ptr);
+
 
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);
