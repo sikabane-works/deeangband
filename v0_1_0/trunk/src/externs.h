@@ -874,6 +874,8 @@ extern void initialize_skill(creature_type *cr_ptr);
 extern bool is_force_depth_creature(creature_type *cr_ptr);
 extern bool is_force_depth_species(species_type *sp_ptr);
 
+extern bool have_shoot_weapon(creature_type *cr_ptr);
+
 extern bool is_orc_creature(creature_type *cr_ptr);
 extern bool is_troll_creature(creature_type *cr_ptr);
 extern bool is_dragon_creature(creature_type *cr_ptr);
@@ -890,6 +892,10 @@ extern bool is_giant_species(species_type *sp_ptr);
 extern bool is_undead_species(species_type *sp_ptr);
 extern bool is_human_species(species_type *sp_ptr);
 extern bool is_animal_species(species_type *sp_ptr);
+
+extern bool is_quantum_creature(creature_type *cr_ptr);
+extern bool is_quantum_species(species_type *sp_ptr);
+
 extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
 extern bool is_pass_wall_creature(creature_type *cr_ptr);

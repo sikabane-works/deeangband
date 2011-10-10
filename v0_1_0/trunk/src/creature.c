@@ -702,6 +702,18 @@ bool is_animal_species(species_type *sp_ptr)
 	return FALSE;
 }
 
+bool is_quantum_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_QUANTUM);	
+}
+
+bool is_quantum_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_QUANTUM]);
+}
+
+
+
 bool is_unique_creature(creature_type *creature_ptr)
 {
 	return (creature_ptr->flags1 & RF1_UNIQUE) || creature_ptr->stigmatic;

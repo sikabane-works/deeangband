@@ -1977,7 +1977,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!(tar_ptr->flags2 & RF2_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
+	if ((!is_quantum_creature(tar_ptr) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);

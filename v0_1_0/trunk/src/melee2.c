@@ -1551,7 +1551,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* Quantum monsters are odd */
-	if (creature_ptr->flags2 & (RF2_QUANTUM))
+	if (is_quantum_creature(creature_ptr))
 	{
 		/* Sometimes skip move */
 		if (!randint0(2)) return;

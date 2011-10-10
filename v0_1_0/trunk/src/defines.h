@@ -3715,8 +3715,8 @@
 #define RF2_SEX_F15         0x08000000  /* Monster becomes female on 15% */
 #define RF2_SEX_F10         0x10000000  /* Monster becomes female on 10% */
 #define RF2_SEX_F3          0x20000000  /* Monster becomes female on 3% */
-#define RF2_XXX30           0x40000000  /* Human */
-#define RF2_QUANTUM         0x80000000  /* Monster has quantum behavior */
+#define RF2_XXX30           0x40000000
+#define RF2_XXX31           0x80000000
 
 /*
  * New monster race bit flags
