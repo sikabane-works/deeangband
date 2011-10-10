@@ -587,7 +587,7 @@ static void place_pet(void)
 			/* Hack -- Notice new multi-hued monsters */
 			{
 				species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
-				if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI | RF1_SHAPECHANGER))
+				if (ap_r_ptr->flags1 & (RF1_ATTR_MULTI) || is_shapechanger_creature(m_ptr))
 					shimmer_monsters = TRUE;
 			}
 		}

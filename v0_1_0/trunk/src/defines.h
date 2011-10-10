@@ -3653,8 +3653,8 @@
 #define RF1_XXX1                0x00000002  /* Quest Monster */
 #define RF1_XXX2                0x00000004  /* Male gender */
 #define RF1_XXX3                0x00000008  /* Female gender */
-#define RF1_CHAR_CLEAR          0x00000010  /* Absorbs symbol */
-#define RF1_SHAPECHANGER        0x00000020  /* TY: shapechanger */
+#define RF1_XXX4                0x00000010  /* Absorbs symbol */
+#define RF1_XXX5                0x00000020  /* TY: shapechanger */
 #define RF1_ATTR_CLEAR          0x00000040  /* Absorbs color */
 #define RF1_ATTR_MULTI          0x00000080  /* Changes color */
 #define RF1_XXX8                0x00000100  /* Start at "correct" depth */
@@ -3665,8 +3665,8 @@
 #define RF1_FRIENDS             0x00002000  /* Arrive with some friends */
 #define RF1_ESCORT              0x00004000  /* Arrive with an escort */
 #define RF1_ESCORTS             0x00008000  /* Arrive with some escorts */
-#define RF1_NEVER_BLOW          0x00010000  /* Never make physical blow */
-#define RF1_NEVER_MOVE          0x00020000  /* Never make physical move */
+#define RF1_XXX17               0x00010000  /* Never make physical blow */
+#define RF1_XXX18               0x00020000  /* Never make physical move */
 #define RF1_XXX19               0x00040000  /* Moves randomly (25%) */
 #define RF1_XXX20               0x00080000  /* Moves randomly (50%) */
 #define RF1_ONLY_GOLD           0x00100000  /* Drop only gold */
@@ -3685,8 +3685,8 @@
 /*
  * New monster race bit flags
  */
-#define RF2_STUPID          0x00000001  /* Monster is stupid */
-#define RF2_SMART           0x00000002  /* Monster is smart */
+#define RF2_XXX0            0x00000001  /* Monster is stupid */
+#define RF2_XXX1            0x00000002  /* Monster is smart */
 #define RF2_XXX2            0x00000004  /* TY: can speak */
 #define RF2_REFLECTING      0x00000008  /* Reflects bolts */
 #define RF2_INVISIBLE       0x00000010  /* Monster avoids vision */

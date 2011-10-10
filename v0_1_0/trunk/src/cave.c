@@ -1259,7 +1259,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				c = r_ptr->x_char;
 
 				/* Normal monsters */
-				if (!(r_ptr->flags1 & (RF1_SHAPECHANGER | RF1_ATTR_CLEAR | RF1_ATTR_MULTI | RF1_ATTR_SEMIRAND) && is_char_clear_creature(m_ptr)))
+				if (!(r_ptr->flags1 & (RF1_ATTR_CLEAR | RF1_ATTR_MULTI | RF1_ATTR_SEMIRAND) && is_shapechanger_creature(m_ptr) && is_char_clear_creature(m_ptr)))
 				{
 					/* Desired monster attr/char */
 					*ap = a;
@@ -1315,7 +1315,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 						/* Clear-char */
 						/* Do nothing */
 					}
-					else if (r_ptr->flags1 & RF1_SHAPECHANGER)
+					else if (is_shapechanger_creature(m_ptr))
 					{
 						if (use_graphics)
 						{

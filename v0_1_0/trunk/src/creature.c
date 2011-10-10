@@ -749,6 +749,16 @@ bool is_char_clear_creature(creature_type *creature_ptr)
 	return have_creature_flags(creature_ptr, CF_CHAR_CLEAR);	
 }
 
+bool is_shapechanger_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SHAPECHANGER]);
+}
+
+bool is_shapechanger_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SHAPECHANGER);	
+}
+
 bool is_char_clear_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[CF_CHAR_CLEAR]);
@@ -757,50 +767,42 @@ bool is_char_clear_species(species_type *species_ptr)
 
 bool is_never_move_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags1 & RF1_NEVER_MOVE) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_NEVER_MOVE);	
 }
 
 bool is_never_move_species(species_type *species_ptr)
 {
-	if(species_ptr->flags1 & RF1_NEVER_MOVE) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_NEVER_MOVE]);
 }
 
 bool is_never_blow_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags1 & RF1_NEVER_BLOW) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_NEVER_BLOW);	
 }
 
 bool is_never_blow_species(species_type *species_ptr)
 {
-	if(species_ptr->flags1 & RF1_NEVER_BLOW) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_NEVER_BLOW]);
 }
 
 bool is_smart_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags1 & RF2_SMART) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_SMART);	
 }
 
 bool is_smart_species(species_type *species_ptr)
 {
-	if(species_ptr->flags1 & RF2_SMART) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_SMART]);
 }
 
 bool is_stupid_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags1 & RF2_STUPID) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_STUPID);	
 }
 
 bool is_stupid_species(species_type *species_ptr)
 {
-	if(species_ptr->flags1 & RF2_STUPID) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_STUPID]);
 }
 
 bool is_multiply_creature(creature_type *creature_ptr)
