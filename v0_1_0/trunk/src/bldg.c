@@ -2505,7 +2505,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if (!is_unique_species(eldritch_ptr))
 	{
-		if (eldritch_ptr->flags1 & RF1_FRIENDS) power /= 2;
+		if(is_friends_species(eldritch_ptr)) power /= 2;
 	}
 	else power *= 2;
 

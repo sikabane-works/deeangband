@@ -1095,8 +1095,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 		}
 	}
 
-	if (!done && !will_run && is_hostile(m_ptr) &&
-	    (r_ptr->flags1 & RF1_FRIENDS) &&
+	if (!done && !will_run && is_hostile(m_ptr) && is_friends_creature(m_ptr) &&
 	    ((los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
 	    (cave[m_ptr->fy][m_ptr->fx].dist < MAX_SIGHT / 2)))
 	{

@@ -785,7 +785,6 @@ bool is_attr_semirand_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_ATTR_SEMIRAND]);
 }
 
-
 bool is_shapechanger_creature(creature_type *creature_ptr)
 {
 	return have_creature_flags(creature_ptr, CF_SHAPECHANGER);	
@@ -827,6 +826,19 @@ bool is_never_blow_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[CF_NEVER_BLOW]);
 }
+
+
+bool is_friends_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_FRIENDS);	
+}
+
+bool is_friends_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_FRIENDS]);
+}
+
+
 
 bool is_smart_creature(creature_type *creature_ptr)
 {

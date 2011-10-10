@@ -499,7 +499,7 @@ bool place_quest_monsters(void)
 
 		mode = (PM_NO_KAGE | PM_NO_PET);
 
-		if (!(r_ptr->flags1 & RF1_FRIENDS))
+		if (!is_friends_species(r_ptr))
 			mode |= PM_ALLOW_GROUP;
 
 		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)

@@ -2135,9 +2135,9 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		monster_desc(m_name, m_ptr, 0);
 
-		if (!(is_unique_species(r_ptr)))
+		if (!(is_unique_creature(m_ptr)))
 		{
-			if (r_ptr->flags1 & RF1_FRIENDS)
+			if (is_friends_creature(m_ptr))
 			power /= 2;
 		}
 		else power *= 2;
@@ -4185,7 +4185,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 	place_monster_m_idx = hack_m_idx_ii;
 
 	/* Friends for certain monsters */
-	if (r_ptr->flags1 & (RF1_FRIENDS))
+	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
 		(void)place_monster_group(who_ptr, y, x, species_idx, mode);
@@ -4222,7 +4222,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			(void)place_monster_one(p_ptr, who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
-			if ((species_info[z].flags1 & RF1_FRIENDS) ||
+			if (is_friends_species(&species_info[z]) ||
 			    (r_ptr->flags1 & RF1_ESCORTS))
 			{
 				/* Place a group of monsters */

@@ -1014,6 +1014,10 @@ extern bool is_never_move_creature(creature_type *creature_ptr);
 extern bool is_never_move_species(species_type *species_ptr);
 extern bool is_never_blow_creature(creature_type *creature_ptr);
 extern bool is_never_blow_species(species_type *species_ptr);
+
+extern bool is_friends_creature(creature_type *creature_ptr);
+extern bool is_friends_species(species_type *species_ptr);
+
 extern bool is_smart_creature(creature_type *cr_ptr);
 extern bool is_smart_species(species_type *sp_ptr);
 extern bool is_stupid_creature(creature_type *cr_ptr);
