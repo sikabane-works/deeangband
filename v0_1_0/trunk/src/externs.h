@@ -1017,6 +1017,15 @@ extern bool is_never_blow_species(species_type *species_ptr);
 
 extern bool is_friends_creature(creature_type *creature_ptr);
 extern bool is_friends_species(species_type *species_ptr);
+extern bool is_escort_creature(creature_type *creature_ptr);
+extern bool is_escort_species(species_type *species_ptr);
+extern bool is_escorts_creature(creature_type *creature_ptr);
+extern bool is_escorts_species(species_type *species_ptr);
+
+extern bool is_only_gold_creature(creature_type *creature_ptr);
+extern bool is_only_gold_species(species_type *species_ptr);
+extern bool is_only_item_creature(creature_type *creature_ptr);
+extern bool is_only_item_species(species_type *species_ptr);
 
 extern bool is_smart_creature(creature_type *cr_ptr);
 extern bool is_smart_species(species_type *sp_ptr);

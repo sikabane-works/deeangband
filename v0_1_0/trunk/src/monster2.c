@@ -2013,12 +2013,12 @@ int lore_do_probe(int species_idx)
 	tmp_byte = 0;
 
 	/* Only "valid" drops */
-	if (!(r_ptr->flags1 & RF1_ONLY_GOLD))
+	if (!is_only_gold_species(r_ptr))
 	{
 		if (r_ptr->r_drop_item != tmp_byte) n++;
 		r_ptr->r_drop_item = tmp_byte;
 	}
-	if (!(r_ptr->flags1 & RF1_ONLY_ITEM))
+	if (!is_only_item_species(r_ptr))
 	{
 		if (r_ptr->r_drop_gold != tmp_byte) n++;
 		r_ptr->r_drop_gold = tmp_byte;
@@ -4193,7 +4193,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 
 
 	/* Escorts for certain monsters */
-	if (r_ptr->flags1 & (RF1_ESCORT))
+	if (is_escort_species(r_ptr))
 	{
 		/* Set the escort index */
 		place_species_idx = species_idx;
@@ -4222,8 +4222,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			(void)place_monster_one(p_ptr, who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
-			if (is_friends_species(&species_info[z]) ||
-			    (r_ptr->flags1 & RF1_ESCORTS))
+			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
 				/* Place a group of monsters */
 				(void)place_monster_group(&creature_list[place_monster_m_idx], ny, nx, z, mode);

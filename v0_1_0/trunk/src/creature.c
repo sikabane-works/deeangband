@@ -838,6 +838,47 @@ bool is_friends_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_FRIENDS]);
 }
 
+bool is_escort_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ESCORT);	
+}
+
+bool is_escort_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ESCORT]);
+}
+
+bool is_escorts_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ESCORTS);	
+}
+
+bool is_escorts_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ESCORTS]);
+}
+
+
+bool is_only_gold_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ONLY_GOLD);	
+}
+
+bool is_only_gold_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ONLY_GOLD]);
+}
+
+bool is_only_item_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ONLY_ITEM);	
+}
+
+bool is_only_item_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ONLY_ITEM]);
+}
+
 
 
 bool is_smart_creature(creature_type *creature_ptr)
