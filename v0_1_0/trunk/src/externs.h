@@ -995,6 +995,10 @@ extern bool is_sub_unique_creature(creature_type *cr_ptr);
 extern bool is_sub_unique_species(species_type *sp_ptr);
 extern bool is_quest_creature(creature_type *creature_ptr);
 extern bool is_quest_species(species_type *species_ptr);
+
+extern bool is_char_clear_creature(creature_type *creature_ptr);
+extern bool is_char_clear_species(species_type *species_ptr);
+
 extern bool is_never_move_creature(creature_type *creature_ptr);
 extern bool is_never_move_species(species_type *species_ptr);
 extern bool is_never_blow_creature(creature_type *creature_ptr);
@@ -1007,8 +1011,8 @@ extern bool is_multiply_creature(creature_type *cr_ptr);
 extern bool is_multiply_species(species_type *sp_ptr);
 extern bool can_speak_creature(creature_type *cr_ptr);
 extern bool can_speak_species(species_type *sp_ptr);
-extern bool have_eldritch_horror_creature(creature_type *cr_ptr);
-extern bool have_eldritch_horror_species(species_type *sp_ptr);
+extern bool is_eldritch_horror_creature(creature_type *cr_ptr);
+extern bool is_eldritch_horror_species(species_type *sp_ptr);
 extern bool is_random_walker_25_creature(creature_type *cr_ptr);
 extern bool is_random_walker_25_species(species_type *sp_ptr);
 extern bool is_random_walker_50_creature(creature_type *cr_ptr);

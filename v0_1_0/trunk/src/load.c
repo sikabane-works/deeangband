@@ -2175,9 +2175,9 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					rd_byte(&quest[i].dungeon);
 
 					/* Mark uniques */
-					if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
-						if (is_unique_species(&species_info[quest[i].species_idx]))
-							species_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
+					//if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
+						//TODO if (is_unique_species(&species_info[quest[i].species_idx]))
+						//	species_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
 				}
 			}
 			/* Ignore the empty quests from old versions */
@@ -2367,7 +2367,7 @@ note("持ち物情報を読み込むことができません");
 	{
 		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 		{
-			species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
+			//TODO species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 		}
 	}
 

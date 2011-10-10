@@ -1175,7 +1175,7 @@ void leave_quest_check(creature_type *cr_ptr)
 		quest[leaving_quest].complev = (byte)cr_ptr->lev;
 		if (quest[leaving_quest].type == QUEST_TYPE_RANDOM)
 		{
-			species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
+			//TODO species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
 			if (record_rand_quest)
 				do_cmd_write_nikki(NIKKI_RAND_QUEST_F, leaving_quest, NULL);
 
@@ -3425,7 +3425,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)cr_ptr->lev;
-							species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
+							//TODO species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
 						}
 					}
 				}
@@ -6135,7 +6135,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 	if (quest_num)
 	{
 		/* Mark the quest monster */
-		species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
+		//TODO species_info[quest[quest_num].species_idx].flags1 |= RF1_QUESTOR;
 	}
 
 	/* Track maximum player level */
@@ -6369,7 +6369,7 @@ msg_print("試合開始！");
 	if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
 	{
 		/* Un-mark the quest monster */
-		species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
+		//TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;
 	}
 
 	/* Not save-and-quit and not dead? */

@@ -1843,7 +1843,7 @@ static void spoil_mon_desc(cptr fname)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
 
-		if(have_eldritch_horror_species(species_ptr)){
+		if(is_eldritch_horror_species(species_ptr)){
 			stat[A_CHR] += 5;		
 		}
 
@@ -2318,19 +2318,19 @@ static void spoil_mon_info(cptr fname)
 		/* Extract the flags */
 		flags1 = species_ptr->flags1;
 
-		/* Prefix */
+		/* TODO: Prefix */
 		/*
 		if (flags1 & (RF1_QUESTOR))
 		{
 			spoil_out("[Q] ");
 		}
 		else
-		*/
 		if (flags1 & (RF1_UNIQUE))
 		{
 			spoil_out("[U] ");
 		}
 		else
+		*/
 		{
 #ifndef JP
 			spoil_out("The ");

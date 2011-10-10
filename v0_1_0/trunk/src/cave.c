@@ -1242,7 +1242,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				if ((r_ptr->flags1 & (RF1_CHAR_CLEAR | RF1_ATTR_CLEAR)) == (RF1_CHAR_CLEAR | RF1_ATTR_CLEAR))
+				if (is_char_clear_creature(m_ptr) && (r_ptr->flags1 & (RF1_ATTR_CLEAR)) == (RF1_ATTR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1259,8 +1259,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				c = r_ptr->x_char;
 
 				/* Normal monsters */
-				if (!(r_ptr->flags1 & (RF1_CHAR_CLEAR | RF1_SHAPECHANGER | RF1_ATTR_CLEAR
-					                   | RF1_ATTR_MULTI | RF1_ATTR_SEMIRAND)))
+				if (!(r_ptr->flags1 & (RF1_SHAPECHANGER | RF1_ATTR_CLEAR | RF1_ATTR_MULTI | RF1_ATTR_SEMIRAND) && is_char_clear_creature(m_ptr)))
 				{
 					/* Desired monster attr/char */
 					*ap = a;
@@ -1271,7 +1270,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				else if ((r_ptr->flags1 & (RF1_CHAR_CLEAR | RF1_ATTR_CLEAR)) == (RF1_CHAR_CLEAR | RF1_ATTR_CLEAR))
+				else if ((r_ptr->flags1 & (RF1_ATTR_CLEAR)) == (RF1_ATTR_CLEAR) && is_char_clear_creature(m_ptr))
 				{
 					/* Do nothing */
 				}
@@ -1311,7 +1310,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 					}
 
 					/***  Monster's char  ***/
-					if ((r_ptr->flags1 & RF1_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
+					if (is_char_clear_creature(m_ptr) && (*cp != ' ') && !use_graphics)
 					{
 						/* Clear-char */
 						/* Do nothing */

@@ -2148,7 +2148,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (!m_ptr->ml)
 			return; /* Cannot see it for some reason */
 
-		if (!have_eldritch_horror_creature(m_ptr))
+		if (!is_eldritch_horror_creature(m_ptr))
 			return; /* oops */
 
 
@@ -2785,7 +2785,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Eldritch Horror */
-			if (have_eldritch_horror_species(&species_info[m_ptr->ap_species_idx]))
+			if (is_eldritch_horror_species(&species_info[m_ptr->ap_species_idx]))
 			{
 				sanity_blast(cr_ptr, m_ptr, FALSE);
 			}

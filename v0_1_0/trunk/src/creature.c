@@ -716,7 +716,7 @@ bool is_quantum_species(species_type *species_ptr)
 
 bool is_unique_creature(creature_type *creature_ptr)
 {
-	return (creature_ptr->flags1 & RF1_UNIQUE) || creature_ptr->stigmatic;
+	return have_creature_flags(creature_ptr, CF_UNIQUE);	
 }
 
 bool is_unique_species(species_type *species_ptr)
@@ -736,13 +736,24 @@ bool is_sub_unique_species(species_type *species_ptr)
 
 bool is_quest_creature(creature_type *creature_ptr)
 {
-	return (creature_ptr->flags1 & RF1_QUESTOR);
+	return have_creature_flags(creature_ptr, CF_QUESTOR);	
 }
 
 bool is_quest_species(species_type *species_ptr)
 {
-	return (species_ptr->flags1 & RF1_QUESTOR);
+	return (species_ptr->flags.add_lev[CF_QUESTOR]);
 }
+
+bool is_char_clear_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_CHAR_CLEAR);	
+}
+
+bool is_char_clear_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_CHAR_CLEAR]);
+}
+
 
 bool is_never_move_creature(creature_type *creature_ptr)
 {
@@ -794,38 +805,32 @@ bool is_stupid_species(species_type *species_ptr)
 
 bool is_multiply_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags1 & RF2_MULTIPLY) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_MULTIPLY);	
 }
 
 bool is_multiply_species(species_type *species_ptr)
 {
-	if(species_ptr->flags1 & RF2_MULTIPLY) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_MULTIPLY]);
 }
 
 bool can_speak_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_CAN_SPEAK);	
 }
 
 bool can_speak_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_CAN_SPEAK) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_CAN_SPEAK]);
 }
 
-bool have_eldritch_horror_creature(creature_type *creature_ptr)
+bool is_eldritch_horror_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_ELDRITCH_HORROR) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_ELDRITCH_HORROR);	
 }
 
-bool have_eldritch_horror_species(species_type *species_ptr)
+bool is_eldritch_horror_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_ELDRITCH_HORROR) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_ELDRITCH_HORROR]);
 }
 
 bool is_random_walker_25_creature(creature_type *creature_ptr)

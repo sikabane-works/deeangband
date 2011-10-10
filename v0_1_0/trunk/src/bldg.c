@@ -2480,7 +2480,7 @@ bool get_nightmare(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Require eldritch horrors */
-	if (!have_eldritch_horror_species(r_ptr)) return (FALSE);
+	if (!is_eldritch_horror_species(r_ptr)) return (FALSE);
 
 	/* Accept this monster */
 	return (TRUE);

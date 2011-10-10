@@ -6651,7 +6651,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 
 				r_ptr = &species_info[q_ptr->species_idx];
 				if (is_unique_species(r_ptr))
-					r_ptr->flags1 |= RF1_QUESTOR;
+					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &a_info[q_ptr->k_idx];
 				a_ptr->gen_flags |= TRG_QUESTITEM;
