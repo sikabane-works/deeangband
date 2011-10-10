@@ -3660,11 +3660,11 @@
 #define RF2_XXX8            0x00000100  /* Monster reproduces */
 #define RF2_XXX9            0x00000200  /* Monster regenerates */
 #define RF2_XXX10           0x00000400  /* (Not implemented) */
-#define RF2_ATTR_ANY        0x00000800  /* TY: Attr_any */
-#define RF2_POWERFUL        0x00001000  /* Monster has strong breath */
+#define RF2_XXX11           0x00000800  /* TY: Attr_any */
+#define RF2_XXX12           0x00001000  /* Monster has strong breath */
 #define RF2_XXX13           0x00002000  /* Sanity-blasting horror    */
-#define RF2_AURA_FIRE       0x00004000  /* Burns in melee */
-#define RF2_AURA_ELEC       0x00008000  /* Shocks in melee */
+#define RF2_XXX14           0x00004000  /* Burns in melee */
+#define RF2_XXX15           0x00008000  /* Shocks in melee */
 #define RF2_OPEN_DOOR       0x00010000  /* Monster can open doors */
 #define RF2_BASH_DOOR       0x00020000  /* Monster can bash doors */
 #define RF2_PASS_WALL       0x00040000  /* Monster can pass walls */
@@ -3695,7 +3695,7 @@
 #define RF3_XXX8            0x00000080  // Animal -> Deskull: None
 #define RF3_XXX9            0x00000100  // TY: Amberite -> Deskull: Puella Magi
 #define RF3_XXX10           0x00000200  /* Good */
-#define RF3_AURA_COLD       0x00000400  /* Freezes in melee */
+#define RF3_XXX11           0x00000400  /* Freezes in melee */
 #define RF3_NONLIVING       0x00000800  /* TY: Non-Living (?) */
 #define RF3_HURT_LITE       0x00001000  /* Hurt by lite */
 #define RF3_HURT_ROCK       0x00002000  /* Hurt by rock remover */

@@ -1027,50 +1027,42 @@ bool is_random_walker_50_species(species_type *species_ptr)
 
 bool is_aura_fire_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_AURA_FIRE) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_AURA_FIRE);	
 }
 
 bool is_aura_fire_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_AURA_FIRE) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_AURA_FIRE]);
 }
 
 bool is_aura_cold_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags3 & RF3_AURA_COLD) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_AURA_COLD);	
 }
 
 bool is_aura_cold_species(species_type *species_ptr)
 {
-	if(species_ptr->flags3 & RF3_AURA_COLD) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_AURA_COLD]);
 }
 
 bool is_aura_elec_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_AURA_ELEC) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_AURA_ELEC);	
 }
 
 bool is_aura_elec_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_AURA_ELEC) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_AURA_ELEC]);
 }
 
 bool is_powerful_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_POWERFUL) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_POWERFUL);	
 }
 
 bool is_powerful_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_POWERFUL) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_POWERFUL]);
 }
 
 

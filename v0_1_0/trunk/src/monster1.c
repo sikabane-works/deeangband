@@ -378,7 +378,7 @@ static bool mon_hook_shallow_water(int species_idx)
 
 	if (!mon_hook_dungeon(species_idx)) return FALSE;
 
-	if (r_ptr->flags2 & RF2_AURA_FIRE)
+	if (is_aura_fire_species(r_ptr))
 		return FALSE;
 	else
 		return TRUE;
