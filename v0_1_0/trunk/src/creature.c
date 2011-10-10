@@ -744,19 +744,10 @@ bool is_quest_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_QUESTOR]);
 }
 
+
 bool is_char_clear_creature(creature_type *creature_ptr)
 {
 	return have_creature_flags(creature_ptr, CF_CHAR_CLEAR);	
-}
-
-bool is_shapechanger_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[CF_SHAPECHANGER]);
-}
-
-bool is_shapechanger_creature(creature_type *creature_ptr)
-{
-	return have_creature_flags(creature_ptr, CF_SHAPECHANGER);	
 }
 
 bool is_char_clear_species(species_type *species_ptr)
@@ -764,6 +755,36 @@ bool is_char_clear_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_CHAR_CLEAR]);
 }
 
+bool is_attr_clear_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ATTR_CLEAR);	
+}
+
+bool is_attr_clear_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ATTR_CLEAR]);
+}
+
+bool is_attr_multi_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_ATTR_MULTI);	
+}
+
+bool is_attr_multi_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_ATTR_MULTI]);
+}
+
+
+bool is_shapechanger_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SHAPECHANGER);	
+}
+
+bool is_shapechanger_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SHAPECHANGER]);
+}
 
 bool is_never_move_creature(creature_type *creature_ptr)
 {

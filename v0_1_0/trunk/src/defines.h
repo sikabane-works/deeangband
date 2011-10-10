@@ -3655,8 +3655,8 @@
 #define RF1_XXX3                0x00000008  /* Female gender */
 #define RF1_XXX4                0x00000010  /* Absorbs symbol */
 #define RF1_XXX5                0x00000020  /* TY: shapechanger */
-#define RF1_ATTR_CLEAR          0x00000040  /* Absorbs color */
-#define RF1_ATTR_MULTI          0x00000080  /* Changes color */
+#define RF1_XXX6                0x00000040  /* Absorbs color */
+#define RF1_XXX7                0x00000080  /* Changes color */
 #define RF1_XXX8                0x00000100  /* Start at "correct" depth */
 #define RF1_XXX9                0x00000200  /* Start with max hitpoints */
 #define RF1_FORCE_SLEEP         0x00000400  /* Start out sleeping */
