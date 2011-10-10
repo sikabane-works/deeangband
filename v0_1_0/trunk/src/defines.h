@@ -3665,14 +3665,14 @@
 #define RF2_XXX13           0x00002000  /* Sanity-blasting horror    */
 #define RF2_XXX14           0x00004000  /* Burns in melee */
 #define RF2_XXX15           0x00008000  /* Shocks in melee */
-#define RF2_OPEN_DOOR       0x00010000  /* Monster can open doors */
-#define RF2_BASH_DOOR       0x00020000  /* Monster can bash doors */
-#define RF2_PASS_WALL       0x00040000  /* Monster can pass walls */
-#define RF2_KILL_WALL       0x00080000  /* Monster can destroy walls */
-#define RF2_MOVE_BODY       0x00100000  /* Monster can move monsters */
-#define RF2_KILL_BODY       0x00200000  /* Monster can kill monsters */
-#define RF2_TAKE_ITEM       0x00400000  /* Monster can pick up items */
-#define RF2_KILL_ITEM       0x00800000  /* Monster can crush items */
+#define RF2_XXX16           0x00010000  /* Monster can open doors */
+#define RF2_XXX17           0x00020000  /* Monster can bash doors */
+#define RF2_XXX18           0x00040000  /* Monster can pass walls */
+#define RF2_XXX19           0x00080000  /* Monster can destroy walls */
+#define RF2_XXX20           0x00100000  /* Monster can move monsters */
+#define RF2_XXX21           0x00200000  /* Monster can kill monsters */
+#define RF2_XXX22           0x00400000  /* Monster can pick up items */
+#define RF2_XXX23           0x00800000  /* Monster can crush items */
 #define RF2_XXX24           0x01000000  /* Monster doesn't have body size. */
 #define RF2_XXX25           0x02000000  /* Monster becomes female on 50% */
 #define RF2_XXX26           0x04000000  /* Monster becomes female on 25% */

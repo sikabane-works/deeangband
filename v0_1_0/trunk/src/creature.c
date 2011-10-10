@@ -1068,99 +1068,84 @@ bool is_powerful_species(species_type *species_ptr)
 
 bool is_pass_wall_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_PASS_WALL) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_PASS_WALL);	
 }
 
 bool is_pass_wall_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_PASS_WALL) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_PASS_WALL]);
 }
 
 bool is_kill_wall_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_KILL_WALL) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_KILL_WALL);	
 }
 
 bool is_kill_wall_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_KILL_WALL) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_KILL_WALL]);
 }
 
 bool is_take_item_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_TAKE_ITEM) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_TAKE_ITEM);	
 }
 
 bool is_take_item_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_TAKE_ITEM) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_TAKE_ITEM]);
 }
 
 bool is_kill_item_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_KILL_ITEM) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_KILL_ITEM);	
 }
 
 bool is_kill_item_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_KILL_ITEM) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_KILL_ITEM]);
 }
 
 bool is_open_door_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_OPEN_DOOR) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_OPEN_DOOR);	
 }
 
 bool is_open_door_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_OPEN_DOOR) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_OPEN_DOOR]);
 }
 
 bool is_bash_door_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_BASH_DOOR) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_BASH_DOOR);	
 }
 
 bool is_bash_door_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_BASH_DOOR) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_BASH_DOOR]);
 }
 
 bool is_move_body_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_MOVE_BODY) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_MOVE_BODY);	
 }
 
 bool is_move_body_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_MOVE_BODY) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_MOVE_BODY]);
 }
 
 bool is_kill_body_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF2_KILL_BODY) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_KILL_BODY);	
 }
 
 bool is_kill_body_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF2_KILL_BODY) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_KILL_BODY]);
 }
+
 
 bool is_puella_magi_species(species_type *species_ptr)
 {

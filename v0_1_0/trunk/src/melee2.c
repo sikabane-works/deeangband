@@ -2394,7 +2394,7 @@ msg_format("%^s%s", m_name, monmessage);
 				{
 					if (is_kill_body_creature(creature_ptr))
 					{
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
