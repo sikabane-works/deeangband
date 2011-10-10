@@ -3656,7 +3656,7 @@
 #define RF2_XXX4            0x00000010  /* Monster avoids vision */
 #define RF2_XXX5            0x00000020  /* Monster avoids infra */
 #define RF2_XXX6            0x00000040  /* Monster avoids telepathy */
-#define RF2_WEIRD_MIND      0x00000080  /* Monster avoids telepathy? */
+#define RF2_XXX7            0x00000080  /* Monster avoids telepathy? */
 #define RF2_XXX8            0x00000100  /* Monster reproduces */
 #define RF2_REGENERATE      0x00000200  /* Monster regenerates */
 #define RF2_CHAR_MULTI      0x00000400  /* (Not implemented) */

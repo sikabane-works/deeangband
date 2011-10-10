@@ -1873,7 +1873,7 @@ static void spoil_mon_desc(cptr fname)
 		else
 			sprintf(ia, "%2d", stat[1]);
 
-		if(is_empty_mind_species(species_ptr) || species_ptr->flags2 & RF2_WEIRD_MIND)
+		if(is_empty_mind_species(species_ptr) || is_weird_mind_species(species_ptr))
 			sprintf(wa, "--");
 		else
 			sprintf(wa, "%2d", stat[2]);
@@ -1885,7 +1885,7 @@ static void spoil_mon_desc(cptr fname)
 
 		sprintf(ca, "%2d", stat[4]);
 
-		if(is_empty_mind_species(species_ptr) || species_ptr->flags2 & RF2_WEIRD_MIND)
+		if(is_empty_mind_species(species_ptr) || is_weird_mind_species(species_ptr))
 			sprintf(cha, "--");
 		else
 			sprintf(cha, "%2d", stat[5]);

@@ -2569,7 +2569,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 				}
 
 				/* Weird mind, occasional telepathy */
-				else if (r_ptr->flags2 & (RF2_WEIRD_MIND))
+				else if (is_empty_mind_creature(m_ptr))
 				{
 					/* One in ten individuals are detectable */
 					if ((m_idx % 10) == 5)
@@ -2580,7 +2580,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 						if (is_original_ap(m_ptr) && !cr_ptr->image)
 						{
 							/* Memorize flags */
-							r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+							//TODO r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 
 							/* Hack -- Memorize mental flags */
 							//TODO if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);

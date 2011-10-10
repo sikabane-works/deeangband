@@ -2820,7 +2820,7 @@ note_dies = "は蒸発した！";
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 
 			}
-			else if ((tar_ptr->flags2 & RF2_WEIRD_MIND) || is_stupid_creature(tar_ptr) ||
+			else if (is_weird_mind_creature(tar_ptr) || is_stupid_creature(tar_ptr) ||
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
@@ -2957,7 +2957,7 @@ note_dies = "は蒸発した！";
 #endif
 
 			}
-			else if ((tar_ptr->flags2 & RF2_WEIRD_MIND) || is_stupid_creature(tar_ptr) || 
+			else if (is_weird_mind_creature(tar_ptr) || is_stupid_creature(tar_ptr) || 
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
@@ -5057,9 +5057,9 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (tar_ptr->flags2 & RF2_WEIRD_MIND)
+			else if (is_weird_mind_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -5133,9 +5133,9 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (tar_ptr->flags2 & RF2_WEIRD_MIND)
+			else if (is_weird_mind_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
