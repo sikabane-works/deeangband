@@ -3657,7 +3657,7 @@
 #define RF1_SHAPECHANGER        0x00000020  /* TY: shapechanger */
 #define RF1_ATTR_CLEAR          0x00000040  /* Absorbs color */
 #define RF1_ATTR_MULTI          0x00000080  /* Changes color */
-#define RF1_FORCE_DEPTH         0x00000100  /* Start at "correct" depth */
+#define RF1_XXX8                0x00000100  /* Start at "correct" depth */
 #define RF1_FORCE_MAXHP         0x00000200  /* Start with max hitpoints */
 #define RF1_FORCE_SLEEP         0x00000400  /* Start out sleeping */
 #define RF1_FORCE_EXTRA         0x00000800  /* Start out something */

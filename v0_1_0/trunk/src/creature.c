@@ -606,6 +606,16 @@ void initialize_skill(creature_type *cr_ptr)
 
 }
 
+bool is_force_depth_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_FORCE_DEPTH);	
+}
+
+bool is_force_depth_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_FORCE_DEPTH]);
+}
+
 bool is_orc_creature(creature_type *cr_ptr)
 {
 	if(cr_ptr->race_idx1 == RACE_ORC || cr_ptr->race_idx1 == RACE_URUK) return TRUE;

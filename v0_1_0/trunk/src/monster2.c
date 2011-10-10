@@ -1257,7 +1257,7 @@ errr get_mon_num_prep(monster_hook_type monster_hook,
 				continue;
 
 			/* Depth Monsters never appear out of depth */
-			if ((r_ptr->flags1 & (RF1_FORCE_DEPTH)) &&
+			if (is_force_depth_species(r_ptr) &&
 			    (r_ptr->level > dun_level))
 				continue;
 		}
@@ -3439,7 +3439,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 		}
 
 		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
-		if ((r_ptr->flags1 & (RF1_FORCE_DEPTH)) && (dun_level < r_ptr->level) &&
+		if (is_force_depth_species(r_ptr) && (dun_level < r_ptr->level) &&
 		    (!ironman_nightmare || (is_quest_species(r_ptr))))
 		{
 			if (cheat_hear)

@@ -3902,7 +3902,7 @@ static bool item_monster_okay(int species_idx)
 	if (is_shadow_species(r_ptr)) return (FALSE);
 	if (r_ptr->flags7 & RF10_RES_ALL) return (FALSE);
 	if (r_ptr->race_idx1 == RACE_NAZGUL) return (FALSE);
-	if (r_ptr->flags1 & RF1_FORCE_DEPTH) return (FALSE);
+	if (is_force_depth_species(r_ptr)) return (FALSE);
 	if (is_sub_unique_species(r_ptr)) return (FALSE);
 
 	/* Okay */
