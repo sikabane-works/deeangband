@@ -3653,7 +3653,7 @@
 #define RF2_XXX1            0x00000002  /* Monster is smart */
 #define RF2_XXX2            0x00000004  /* TY: can speak */
 #define RF2_XXX3            0x00000008  /* Reflects bolts */
-#define RF2_INVISIBLE       0x00000010  /* Monster avoids vision */
+#define RF2_XXX4            0x00000010  /* Monster avoids vision */
 #define RF2_COLD_BLOOD      0x00000020  /* Monster avoids infra */
 #define RF2_EMPTY_MIND      0x00000040  /* Monster avoids telepathy */
 #define RF2_WEIRD_MIND      0x00000080  /* Monster avoids telepathy? */

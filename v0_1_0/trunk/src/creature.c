@@ -931,6 +931,17 @@ bool is_invisible_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_INVISIBLE]);
 }
 
+bool is_cold_blood_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_COLD_BLOOD);	
+}
+
+bool is_cold_blood_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_COLD_BLOOD]);
+}
+
+
 bool can_speak_creature(creature_type *creature_ptr)
 {
 	return have_creature_flags(creature_ptr, CF_CAN_SPEAK);	
