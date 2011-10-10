@@ -4205,7 +4205,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
-		if (!(r_ptr->flags2 & RF2_EMPTY_MIND))
+		if (!is_empty_mind_creature(m_ptr))
 		{
 			/* Update monster recall window */
 			if (p_ptr->species_type_idx == m_ptr->species_idx)

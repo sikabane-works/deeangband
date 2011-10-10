@@ -2562,10 +2562,10 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			else if (cr_ptr->telepathy)
 			{
 				/* Empty mind, no telepathy */
-				if (r_ptr->flags2 & (RF2_EMPTY_MIND))
+				if (is_empty_mind_creature(m_ptr))
 				{
 					/* Memorize flags */
-					if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+					//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */

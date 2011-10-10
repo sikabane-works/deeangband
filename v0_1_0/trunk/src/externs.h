@@ -1039,6 +1039,8 @@ extern bool is_invisible_creature(creature_type *creature_ptr);
 extern bool is_invisible_species(species_type *species_ptr);
 extern bool is_cold_blood_creature(creature_type *creature_ptr);
 extern bool is_cold_blood_species(species_type *species_ptr);
+extern bool is_empty_mind_creature(creature_type *creature_ptr);
+extern bool is_empty_mind_species(species_type *species_ptr);
 
 extern bool can_speak_creature(creature_type *cr_ptr);
 extern bool can_speak_species(species_type *sp_ptr);

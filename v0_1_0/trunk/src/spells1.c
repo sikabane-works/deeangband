@@ -2809,7 +2809,7 @@ note_dies = "は蒸発した！";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags2 & RF2_EMPTY_MIND)
+			if (is_empty_mind_creature(tar_ptr))
 			{
 				dam = 0;
 #ifdef JP
@@ -2817,7 +2817,7 @@ note_dies = "は蒸発した！";
 #else
 				note = " is immune!";
 #endif
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 
 			}
 			else if ((tar_ptr->flags2 & RF2_WEIRD_MIND) || is_stupid_creature(tar_ptr) ||
@@ -2947,7 +2947,7 @@ note_dies = "は蒸発した！";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags2 & RF2_EMPTY_MIND)
+			if (is_empty_mind_creature(tar_ptr))
 			{
 				dam = 0;
 #ifdef JP
@@ -5047,9 +5047,9 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (tar_ptr->flags2 & RF2_EMPTY_MIND)
+			else if (is_empty_mind_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5123,9 +5123,9 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (tar_ptr->flags2 & RF2_EMPTY_MIND)
+			else if (is_empty_mind_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5458,7 +5458,7 @@ msg_format("うまく捕まえられなかった。");
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags2 & RF2_EMPTY_MIND)
+			if (is_empty_mind_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5467,7 +5467,7 @@ msg_format("うまく捕まえられなかった。");
 #endif
 				dam = 0;
 				skipped = TRUE;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
 			if (tar_ptr->paralyzed)
