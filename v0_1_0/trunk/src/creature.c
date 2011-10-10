@@ -961,6 +961,18 @@ bool is_weird_mind_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_WEIRD_MIND]);
 }
 
+bool is_regenerate_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_REGENERATE);	
+}
+
+bool is_regenerate_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_REGENERATE]);
+}
+
+
+
 
 bool can_speak_creature(creature_type *creature_ptr)
 {

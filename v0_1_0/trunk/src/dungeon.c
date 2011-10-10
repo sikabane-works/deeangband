@@ -1025,7 +1025,7 @@ static void regen_monsters(creature_type *cr_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some monsters regenerate quickly */
-			if (r_ptr->flags2 & RF2_REGENERATE) frac *= 2;
+			if (is_regenerate_creature(cr_ptr)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			m_ptr->chp += frac;
@@ -1075,7 +1075,7 @@ static void regen_captured_monsters(creature_type *cr_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some monsters regenerate quickly */
-			if (r_ptr->flags2 & RF2_REGENERATE) frac *= 2;
+			if (is_regenerate_creature(cr_ptr)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			o_ptr->xtra4 += frac;

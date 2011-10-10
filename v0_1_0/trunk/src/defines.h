@@ -939,7 +939,7 @@
 #define MAX_CLASS               28
 #define CLASS_NONE             255
 
-#define PATRON_NONE        65535
+#define PATRON_NONE			 10000
 
 
 
