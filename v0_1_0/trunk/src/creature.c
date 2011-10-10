@@ -921,6 +921,16 @@ bool is_reflecting_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_REFLECTING]);
 }
 
+bool is_invisible_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_INVISIBLE);	
+}
+
+bool is_invisible_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_INVISIBLE]);
+}
+
 bool can_speak_creature(creature_type *creature_ptr)
 {
 	return have_creature_flags(creature_ptr, CF_CAN_SPEAK);	

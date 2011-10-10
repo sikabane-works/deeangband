@@ -3931,7 +3931,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible monsters */
-		if (!(r_ptr->flags2 & RF2_INVISIBLE) || cr_ptr->see_inv)
+		if (!is_invisible_creature(m_ptr) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_monsters = TRUE;
@@ -3993,7 +3993,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible monsters */
-		if (r_ptr->flags2 & RF2_INVISIBLE)
+		if (is_invisible_creature(m_ptr))
 		{
 			/* Update monster recall window */
 			if (cr_ptr->species_type_idx == m_ptr->species_idx)

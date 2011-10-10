@@ -2724,7 +2724,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (player_can_see_bold(cr_ptr, fy, fx))
 			{
 				/* Handle "invisible" monsters */
-				if (r_ptr->flags2 & (RF2_INVISIBLE))
+				if (is_invisible_creature(m_ptr))
 				{
 					/* Take note */
 					do_invisible = TRUE;
@@ -2751,8 +2751,8 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 				if (is_original_ap(m_ptr) && !cr_ptr->image)
 				{
 					/* Memorize flags */
-					if (do_invisible) r_ptr->r_flags2 |= (RF2_INVISIBLE);
-					if (do_cold_blood) r_ptr->r_flags2 |= (RF2_COLD_BLOOD);
+					//TODO if (do_invisible) r_ptr->r_flags2 |= (RF2_INVISIBLE);
+					//TODO if (do_cold_blood) r_ptr->r_flags2 |= (RF2_COLD_BLOOD);
 				}
 			}
 		}
