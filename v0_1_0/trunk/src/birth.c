@@ -3277,17 +3277,11 @@ void determine_random_questor(quest_type *q_ptr)
 		r_ptr = &species_info[species_idx];
 
 		if (!is_unique_species(r_ptr)) continue;
-
 		if (is_quest_species(r_ptr)) continue;
-
 		if (r_ptr->rarity > 100) continue;
-
 		if (is_friendly_species(r_ptr)) continue;
-
-		if (r_ptr->flags7 & RF7_AQUATIC) continue;
-
+		if (is_aquatic_species(r_ptr)) continue;
 		if (is_wild_only_species(r_ptr)) continue;
-
 		if (no_questor_or_bounty_uniques(species_idx)) continue;
 
 		/*

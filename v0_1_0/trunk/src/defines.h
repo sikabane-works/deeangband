@@ -3667,8 +3667,8 @@
 #define RF1_ESCORTS             0x00008000  /* Arrive with some escorts */
 #define RF1_NEVER_BLOW          0x00010000  /* Never make physical blow */
 #define RF1_NEVER_MOVE          0x00020000  /* Never make physical move */
-#define RF1_RAND_25             0x00040000  /* Moves randomly (25%) */
-#define RF1_RAND_50             0x00080000  /* Moves randomly (50%) */
+#define RF1_XXX19               0x00040000  /* Moves randomly (25%) */
+#define RF1_XXX20               0x00080000  /* Moves randomly (50%) */
 #define RF1_ONLY_GOLD           0x00100000  /* Drop only gold */
 #define RF1_ONLY_ITEM           0x00200000  /* Drop only items */
 #define RF1_XXX23               0x00400000  /* Drop an item/gold (60%) */
@@ -3866,13 +3866,13 @@
  * New Creature race bit flags
  */
 #define RF7_AQUATIC             0x00000001  /* Aquatic Creature */
-#define RF7_CAN_SWIM            0x00000002  /* Creature can swim */
-#define RF7_CAN_FLY             0x00000004  /* Creature can fly */
+#define RF7_XXX_2               0x00000002  /* Creature can swim */
+#define RF7_XXX_3               0x00000004  /* Creature can fly */
 #define RF7_XXX_4               0x00000008  /* Creature is friendly */
 #define RF7_XXX_5               0x00000010
-#define RF7_UNIQUE2             0x00000020  /* Fake unique */
-#define RF7_RIDING              0x00000040  /* Good for riding */
-#define RF7_KAGE                0x00000080  /* Is kage */
+#define RF7_XXX_6               0x00000020  /* Fake unique */
+#define RF7_XXX_7               0x00000040  /* Good for riding */
+#define RF7_XXX_8               0x00000080  /* Is kage */
 #define RF7_HAS_LITE_1          0x00000100  /* Creature carries light */
 #define RF7_SELF_LITE_1         0x00000200  /* Creature lights itself */
 #define RF7_HAS_LITE_2          0x00000400  /* Creature carries light */
