@@ -2410,14 +2410,7 @@ static void spoil_mon_info(cptr fname)
 
 		/* Hitpoints */
 		estimate_enemy_hp(species_ptr, hpdata);
-		if (flags1 & RF1_FORCE_MAXHP)
-		{
-			sprintf(buf, "Hp:%d (%dx%d+%d)", hpdata[0], hpdata[1], hpdata[2], hpdata[3]);
-		}
-		else
-		{
-			sprintf(buf, "Hp:%d (%dd%d+%d)", hpdata[0], hpdata[1], hpdata[2], hpdata[3]);
-		}
+		sprintf(buf, "Hp:%d (%dx%d+%d)", hpdata[0], hpdata[1], hpdata[2], hpdata[3]);
 
 		spoil_out(buf);
 

@@ -1440,10 +1440,6 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 
 	/* Use (average mhp * 2) as a denominator */
 	// TODO NEW CALC
-	if (!(species_ptr->flags1 & RF1_FORCE_MAXHP))
-		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * (tar_ptr->hitdice + 1));
-	else
-		s64b_mul(&div_h, &div_l, 0, 10 * (ironman_nightmare ? 2 : 1) * tar_ptr->hitdice * 2);
 
 	/* Special penalty in the wilderness */
 	if (!dun_level && (!is_wild_only_creature(tar_ptr) || !(is_unique_creature(tar_ptr))))
