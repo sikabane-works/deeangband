@@ -1287,7 +1287,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 					else if (is_attr_multi_creature(m_ptr) && !use_graphics)
 					{
 						/* Multi-hued attr */
-						if (r_ptr->flags2 & RF2_ATTR_ANY) *ap = (byte_hack)randint1(15);
+						if (is_attr_any_creature(m_ptr)) *ap = (byte_hack)randint1(15);
 						else switch (randint1(7))
 						{
 						case 1: *ap = TERM_RED;     break;

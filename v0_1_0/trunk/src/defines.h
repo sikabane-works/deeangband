@@ -3658,8 +3658,8 @@
 #define RF2_XXX6            0x00000040  /* Monster avoids telepathy */
 #define RF2_XXX7            0x00000080  /* Monster avoids telepathy? */
 #define RF2_XXX8            0x00000100  /* Monster reproduces */
-#define RF2_REGENERATE      0x00000200  /* Monster regenerates */
-#define RF2_CHAR_MULTI      0x00000400  /* (Not implemented) */
+#define RF2_XXX9            0x00000200  /* Monster regenerates */
+#define RF2_XXX10           0x00000400  /* (Not implemented) */
 #define RF2_ATTR_ANY        0x00000800  /* TY: Attr_any */
 #define RF2_POWERFUL        0x00001000  /* Monster has strong breath */
 #define RF2_XXX13           0x00002000  /* Sanity-blasting horror    */

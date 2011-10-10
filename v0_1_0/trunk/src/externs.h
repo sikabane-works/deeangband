@@ -1002,6 +1002,8 @@ extern bool is_attr_clear_creature(creature_type *creature_ptr);
 extern bool is_attr_clear_species(species_type *species_ptr);
 extern bool is_attr_multi_creature(creature_type *creature_ptr);
 extern bool is_attr_multi_species(species_type *species_ptr);
+extern bool is_attr_any_creature(creature_type *creature_ptr);
+extern bool is_attr_any_species(species_type *species_ptr);
 extern bool is_attr_semirand_creature(creature_type *creature_ptr);
 extern bool is_attr_semirand_species(species_type *species_ptr);
 
