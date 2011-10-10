@@ -911,6 +911,16 @@ bool is_multiply_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_MULTIPLY]);
 }
 
+bool is_reflecting_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_REFLECTING);	
+}
+
+bool is_reflecting_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_REFLECTING]);
+}
+
 bool can_speak_creature(creature_type *creature_ptr)
 {
 	return have_creature_flags(creature_ptr, CF_CAN_SPEAK);	

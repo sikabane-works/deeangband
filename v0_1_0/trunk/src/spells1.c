@@ -9037,7 +9037,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && (ref_ptr->flags2 & RF2_REFLECTING) &&
+				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && is_reflecting_creature(m_ptr) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    (is_player(who_ptr) || dist_hack > 1) && !one_in_(10))
 				{
@@ -9070,7 +9070,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						msg_print("The attack bounces!");
 #endif
 					}
-					if (is_original_ap_and_seen(p_ptr, m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
+					//TODO if (is_original_ap_and_seen(p_ptr, m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
 
 					/* Reflected bolts randomly target either one */
 					if (creature_bold(p_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);

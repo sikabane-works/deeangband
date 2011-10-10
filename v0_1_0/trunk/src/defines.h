@@ -3649,46 +3649,10 @@
 /*
  * New monster race bit flags
  */
-#define RF1_XXX0                0x00000001  /* Unique Monster */
-#define RF1_XXX1                0x00000002  /* Quest Monster */
-#define RF1_XXX2                0x00000004  /* Male gender */
-#define RF1_XXX3                0x00000008  /* Female gender */
-#define RF1_XXX4                0x00000010  /* Absorbs symbol */
-#define RF1_XXX5                0x00000020  /* TY: shapechanger */
-#define RF1_XXX6                0x00000040  /* Absorbs color */
-#define RF1_XXX7                0x00000080  /* Changes color */
-#define RF1_XXX8                0x00000100  /* Start at "correct" depth */
-#define RF1_XXX9                0x00000200  /* Start with max hitpoints */
-#define RF1_XXX10               0x00000400  /* Start out sleeping */
-#define RF1_XXX11               0x00000800  /* Start out something */
-#define RF1_XXX12               0x00001000  /* Color is determined semi-randomly */
-#define RF1_XXX13               0x00002000  /* Arrive with some friends */
-#define RF1_XXX14               0x00004000  /* Arrive with an escort */
-#define RF1_XXX15               0x00008000  /* Arrive with some escorts */
-#define RF1_XXX16               0x00010000  /* Never make physical blow */
-#define RF1_XXX17               0x00020000  /* Never make physical move */
-#define RF1_XXX18               0x00040000  /* Moves randomly (25%) */
-#define RF1_XXX19               0x00080000  /* Moves randomly (50%) */
-#define RF1_XXX20               0x00100000  /* Drop only gold */
-#define RF1_XXX21               0x00200000  /* Drop only items */
-#define RF1_XXX22               0x00400000  /* Drop an item/gold (60%) */
-#define RF1_XXX23               0x00800000  /* Drop an item/gold (90%) */
-#define RF1_XXX24               0x01000000  /* Drop 1d2 items/gold */
-#define RF1_XXX25               0x02000000  /* Drop 2d2 items/gold */
-#define RF1_XXX26               0x04000000  /* Drop 3d2 items/gold */
-#define RF1_XXX27               0x08000000  /* Drop 4d2 items/gold */
-#define RF1_XXX28               0x10000000  /* Drop good items */
-#define RF1_XXX29               0x20000000  /* Drop great items */
-#define RF1_XXX30               0x40000000  /* Inter Sex */
-#define RF1_NO_DEVOTEE          0x80000000  /* Deity Has No Devotee */
-
-/*
- * New monster race bit flags
- */
 #define RF2_XXX0            0x00000001  /* Monster is stupid */
 #define RF2_XXX1            0x00000002  /* Monster is smart */
 #define RF2_XXX2            0x00000004  /* TY: can speak */
-#define RF2_REFLECTING      0x00000008  /* Reflects bolts */
+#define RF2_XXX3            0x00000008  /* Reflects bolts */
 #define RF2_INVISIBLE       0x00000010  /* Monster avoids vision */
 #define RF2_COLD_BLOOD      0x00000020  /* Monster avoids infra */
 #define RF2_EMPTY_MIND      0x00000040  /* Monster avoids telepathy */
