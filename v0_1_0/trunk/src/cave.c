@@ -1259,8 +1259,8 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				c = r_ptr->x_char;
 
 				/* Normal monsters */
-				if (!(r_ptr->flags1 & (RF1_ATTR_SEMIRAND) && !is_attr_multi_creature(m_ptr) &&
-					!is_shapechanger_creature(m_ptr) && !is_char_clear_creature(m_ptr) && !is_attr_clear_creature(m_ptr)))
+				if (!is_attr_semirand_creature(m_ptr) && !is_attr_multi_creature(m_ptr) &&
+					!is_shapechanger_creature(m_ptr) && !is_char_clear_creature(m_ptr) && !is_attr_clear_creature(m_ptr))
 				{
 					/* Desired monster attr/char */
 					*ap = a;
@@ -1299,7 +1299,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 						case 7: *ap = TERM_GREEN;   break;
 						}
 					}
-					else if ((r_ptr->flags1 & RF1_ATTR_SEMIRAND) && !use_graphics)
+					else if (is_attr_semirand_creature(m_ptr) && !use_graphics)
 					{
 						/* Use semi-random attr (usually mimics' colors vary) */
 						*ap = c_ptr->m_idx % 15 + 1;

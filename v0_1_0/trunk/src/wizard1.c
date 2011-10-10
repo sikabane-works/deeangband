@@ -31,11 +31,11 @@ static cptr attr_to_text(species_type *species_ptr)
 #ifdef JP000
 	if (is_attr_clear_species(species_ptr))    return "“§–¾‚È";
 	if (is_attr_multi_species(species_ptr))    return "–œF‚Ì";
-	if (species_ptr->flags1 & RF1_ATTR_SEMIRAND) return "€ƒ‰ƒ“ƒ_ƒ€‚È";
+	if (is_attr_semirand_species(species_ptr)) return "€ƒ‰ƒ“ƒ_ƒ€‚È";
 #else
 	if (is_attr_clear_species(species_ptr))    return "Clear";
 	if (is_attr_multi_species(species_ptr))    return "Multi";
-	if (species_ptr->flags1 & RF1_ATTR_SEMIRAND) return "S.Rand";
+	if (is_attr_semirand_species(species_ptr)) return "S.Rand";
 #endif
 
 	switch (species_ptr->d_attr)

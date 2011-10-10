@@ -3628,7 +3628,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	/* Force monster to wait for player, unless in Nightmare mode */
-	if ((r_ptr->flags1 & RF1_FORCE_SLEEP) && !ironman_nightmare)
+	if (is_force_sleep_creature(m_ptr) && !ironman_nightmare)
 	{
 		/* Monster is still being nice */
 		m_ptr->mflag |= (MFLAG_NICE);
