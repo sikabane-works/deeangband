@@ -1786,7 +1786,7 @@ static void spoil_mon_desc(cptr fname)
 
 		sprintf(id, "%5d ", who[i]);
 
-		if (species_ptr->flags7 & (RF7_KAGE)) continue;
+		if (is_shadow_species(species_ptr)) continue;
 		/* Get the "name" */
 		/*
 		else if (is_quest_species(species_ptr))

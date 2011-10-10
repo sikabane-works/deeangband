@@ -1209,6 +1209,16 @@ bool is_wild_mountain_creature(creature_type *cr_ptr)
 	return have_creature_flags(cr_ptr, CF_WILD_MOUNTAIN);	
 }
 
+bool is_shadow_species(species_type *sp_ptr)
+{
+	return (sp_ptr->flags.add_lev[CF_SHADOW]);
+}
+
+bool is_shadow_creature(creature_type *cr_ptr)
+{
+	return have_creature_flags(cr_ptr, CF_SHADOW);	
+}
+
 bool is_chameleon_species(species_type *sp_ptr)
 {
 	return (sp_ptr->flags.add_lev[CF_CHAMELEON]);

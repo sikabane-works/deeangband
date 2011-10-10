@@ -957,6 +957,8 @@ extern bool is_wild_grass_species(species_type *sp_ptr);
 extern bool is_wild_grass_creature(creature_type *cr_ptr);
 extern bool is_wild_mountain_species(species_type *sp_ptr);
 extern bool is_wild_mountain_creature(creature_type *cr_ptr);
+extern bool is_shadow_species(species_type *sp_ptr);
+extern bool is_shadow_creature(creature_type *cr_ptr);
 extern bool is_chameleon_species(species_type *sp_ptr);
 extern bool is_chameleon_creature(creature_type *cr_ptr);
 extern bool is_tanuki_species(species_type *sp_ptr);

@@ -6101,7 +6101,7 @@ extern int PlayerUID;
 #define CF_XXX_5			196
 #define CF_UNIQUE2			197
 #define CF_RIDING			198
-#define CF_KAGE				199
+#define CF_SHADOW			199
 #define CF_HAS_LITE_1		200
 #define CF_SELF_LITE_1		201
 #define CF_HAS_LITE_2		202
