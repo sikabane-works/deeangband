@@ -3663,7 +3663,7 @@
 #define RF3_XXX11           0x00000400  /* Freezes in melee */
 #define RF3_XXX12           0x00000800  /* TY: Non-Living (?) */
 #define RF3_XXX13           0x00001000  /* Hurt by lite */
-#define RF3_HURT_ROCK       0x00002000  /* Hurt by rock remover */
+#define RF3_XXX14           0x00002000  /* Hurt by rock remover */
 #define RF3_HURT_FIRE       0x00004000  /* Hurt badly by fire */
 #define RF3_HURT_COLD       0x00008000  /* Hurt badly by cold */
 #define RF3_XXX16           0x00010000

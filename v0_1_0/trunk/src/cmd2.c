@@ -3201,12 +3201,12 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 				/* Otherwise, take the damage */
 				else
 				{
-					if (r_ptr->flags3 & RF3_HURT_FIRE)
+					if (is_hurt_fire_creature(tar_ptr))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 						{
-							r_ptr->r_flags3 |= RF3_HURT_FIRE;
+							//TODO r_ptr->r_flags3 |= RF3_HURT_FIRE;
 						}
 					}
 					else if (mult < 17) mult = 17;

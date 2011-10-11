@@ -1938,7 +1938,7 @@ note = "‚É‚Í‚©‚È‚è‘Ï«‚ª‚ ‚éI";
 				dam /= 9;
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_FIRE);
 			}
-			else if (tar_ptr->flags3 & (RF3_HURT_FIRE))
+			else if (is_hurt_fire_creature(tar_ptr))
 			{
 #ifdef JP
 note = "‚Í‚Ð‚Ç‚¢’ÉŽè‚ð‚¤‚¯‚½B";
@@ -1947,7 +1947,7 @@ note = "‚Í‚Ð‚Ç‚¢’ÉŽè‚ð‚¤‚¯‚½B";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_FIRE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_FIRE);
 			}
 			break;
 		}
