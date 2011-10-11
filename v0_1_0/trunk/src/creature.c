@@ -1278,14 +1278,12 @@ bool can_fly_species(species_type *species_ptr)
 
 bool is_guardian_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->flags2 & RF7_GUARDIAN) return TRUE;
-	else return FALSE;
+	return have_creature_flags(creature_ptr, CF_GUARDIAN);	
 }
 
 bool is_guardian_species(species_type *species_ptr)
 {
-	if(species_ptr->flags2 & RF7_GUARDIAN) return TRUE;
-	else return FALSE;
+	return (species_ptr->flags.add_lev[CF_GUARDIAN]);
 }
 
 bool is_riding_creature(creature_type *creature_ptr)

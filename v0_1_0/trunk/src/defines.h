@@ -3758,79 +3758,14 @@
 /*
  * New Creature race bit flags
  */
-#define RF7_AQUATIC             0x00000001  /* Aquatic Creature */
-#define RF7_XXX_2               0x00000002  /* Creature can swim */
-#define RF7_XXX_3               0x00000004  /* Creature can fly */
-#define RF7_XXX_4               0x00000008  /* Creature is friendly */
-#define RF7_XXX_5               0x00000010
-#define RF7_XXX_6               0x00000020  /* Fake unique */
-#define RF7_XXX_7               0x00000040  /* Good for riding */
-#define RF7_XXX_8               0x00000080  /* Is kage */
 #define RF7_HAS_LITE_1          0x00000100  /* Creature carries light */
 #define RF7_SELF_LITE_1         0x00000200  /* Creature lights itself */
 #define RF7_HAS_LITE_2          0x00000400  /* Creature carries light */
 #define RF7_SELF_LITE_2         0x00000800  /* Creature lights itself */
-#define RF7_GUARDIAN            0x00001000  /* Guardian of a dungeon */
-#define RF7_XXX26               0x00002000  /* Chameleon can change */
-#define RF7_XXX27               0x00004000  /* No exp until you kill it */
-#define RF7_XXX28               0x00008000
 #define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */
 #define RF7_SELF_DARK_1         0x00020000  /* Creature darkens itself */
 #define RF7_HAS_DARK_2          0x00040000  /* Creature carries darkness */
 #define RF7_SELF_DARK_2         0x00080000  /* Creature darkens itself */
-
-/*
- * Monster race flags
- */
-#define RF8_WILD_ONLY           0x00000001
-#define RF8_WILD_TOWN           0x00000002
-#define RF8_CITIZEN             0x00000004
-#define RF8_XXX3                0x00000008
-#define RF8_XXX4                0x00000010
-#define RF8_XXX5                0x00000020
-#define RF8_XXX6                0x00000040
-#define RF8_XXX7                0x00000080
-#define RF8_XXX8X08             0x00000100
-#define RF8_WILD_MOUNTAIN       0x00000200
-#define RF8_WILD_GRASS          0x00000400
-#define RF8_WILD_ALL            0x80000000
-
-
-/*
- * Monster drop info
- */
-#define RF9_DROP_CORPSE         0x00000001
-#define RF9_DROP_SKELETON       0x00000002
-#define RF9_EAT_BLIND           0x00000004
-#define RF9_EAT_CONF            0x00000008
-#define RF9_EAT_MANA            0x00000010
-#define RF9_EAT_NEXUS           0x00000020
-#define RF9_EAT_SLEEP           0x00000040
-#define RF9_EAT_BERSERKER       0x00000080
-#define RF9_EAT_ACIDIC          0x00000100
-#define RF9_EAT_SPEED           0x00000200
-#define RF9_EAT_CURE            0x00000400
-#define RF9_EAT_FIRE_RES        0x00000800
-#define RF9_EAT_COLD_RES        0x00001000
-#define RF9_EAT_ACID_RES        0x00002000
-#define RF9_EAT_ELEC_RES        0x00004000
-#define RF9_EAT_POIS_RES        0x00008000
-#define RF9_EAT_INSANITY        0x00010000
-#define RF9_EAT_DRAIN_EXP       0x00020000
-#define RF9_EAT_POISONOUS       0x00040000
-#define RF9_EAT_GIVE_STR        0x00080000
-#define RF9_EAT_GIVE_INT        0x00100000
-#define RF9_EAT_GIVE_WIS        0x00200000
-#define RF9_EAT_GIVE_DEX        0x00400000
-#define RF9_EAT_GIVE_CON        0x00800000
-#define RF9_EAT_GIVE_CHR        0x01000000
-#define RF9_EAT_LOSE_STR        0x02000000
-#define RF9_EAT_LOSE_INT        0x04000000
-#define RF9_EAT_LOSE_WIS        0x08000000
-#define RF9_EAT_LOSE_DEX        0x01000000
-#define RF9_EAT_LOSE_CON        0x20000000
-#define RF9_EAT_LOSE_CHR        0x40000000
-#define RF9_EAT_DRAIN_MANA      0x80000000
 
 /*
  * Monster bit flags of racial resistances
