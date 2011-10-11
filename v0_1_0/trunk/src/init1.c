@@ -5601,68 +5601,6 @@ static errr grab_one_dungeon_flag(dungeon_info_type *d_ptr, cptr what)
 }
 
 /*
- * Grab one (basic) flag in a species_type from a textual string
- */
-static errr grab_one_basic_monster_flag(dungeon_info_type *d_ptr, cptr what)
-{
-	if (grab_one_flag(&d_ptr->mflags1, species_info_flags1, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags2, species_info_flags2, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags3, species_info_flags3, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags7, species_info_flags7, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags8, species_info_flags8, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags9, species_info_flags9, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags10, species_info_flags10, what) == 0)
-		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
-	msg_format("Unknown monster flag '%s'.", what);
-#endif
-	/* Failure */
-	return (1);
-}
-
-
-/*
- * Grab one (spell) flag in a species_type from a textual string
- */
-static errr grab_one_spell_monster_flag(dungeon_info_type *d_ptr, cptr what)
-{
-	if (grab_one_flag(&d_ptr->mflags4, species_info_flags4, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags5, species_info_flags5, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&d_ptr->mflags6, species_info_flags6, what) == 0)
-		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知のモンスター・フラグ '%s'。", what);
-#else
-	msg_format("Unknown monster flag '%s'.", what);
-#endif
-
-	/* Failure */
-	return (1);
-}
-
-/*
  * Initialize the "d_info" array, by parsing an ascii "template" file
  */
 errr parse_d_info(char *buf, header *head)
@@ -5933,40 +5871,6 @@ errr parse_d_info(char *buf, header *head)
 	{
 		if(0 != creature_flags_splits(&d_ptr->c_flags, &buf[2]))
 			return (1);
-	}
-
-	/* Process 'S' for "Spell Flags" (multiple lines) */
-	else if (buf[0] == 'S')
-	{
-		/* Parse every entry */
-		for (s = buf + 2; *s; )
-		{
-				/* Find the end of this entry */
-			for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
-
-				/* Nuke and skip any dividers */
-			if (*t)
-			{
-				*t++ = '\0';
-				while ((*t == ' ') || (*t == '|')) t++;
-			}
-
-				/* XXX XXX XXX Hack -- Read spell frequency */
-			if (1 == sscanf(s, "1_IN_%d", &i))
-			{
-				/* Start at next entry */
-				s = t;
-
-					/* Continue */
-				continue;
-			}
-
-				/* Parse this entry */
-			if (0 != grab_one_spell_monster_flag(d_ptr, s)) return (5);
-
-				/* Start the next entry */
-			s = t;
-		}
 	}
 
 	/* Process 'X' for "Vault Info"*/
