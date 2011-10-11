@@ -2331,7 +2331,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if (is_unique_creature(tar_ptr)) resist_stun += 88;
 				if (is_no_stun_creature(tar_ptr)) resist_stun += 66;
 				if (is_no_conf_creature(tar_ptr)) resist_stun += 33;
-				if (r_ptr->flags3 & RF3_NO_SLEEP) resist_stun += 33;
+				if (is_no_sleep_creature(tar_ptr)) resist_stun += 33;
 				if (is_undead_creature(tar_ptr) || is_non_living_creature(tar_ptr))
 					resist_stun += 66;
 

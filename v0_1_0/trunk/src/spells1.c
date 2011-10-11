@@ -3632,14 +3632,14 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((is_unique_creature(tar_ptr)) ||
-			    (tar_ptr->flags3 & RF3_NO_SLEEP) ||
+			if (is_unique_creature(tar_ptr) ||
+			    is_no_sleep_creature(tar_ptr) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & RF3_NO_SLEEP)
+				if (is_no_sleep_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
 				}
 
 				/* No obvious effect */
@@ -5541,14 +5541,14 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
 			else if (effect == 3)
 			{
 				/* Attempt a saving throw */
-				if ((is_unique_creature(tar_ptr)) ||
-				    (tar_ptr->flags3 & RF3_NO_SLEEP) ||
+				if (is_unique_creature(tar_ptr) ||
+				    is_no_sleep_creature(tar_ptr) ||
 				    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Memorize a flag */
-					if (tar_ptr->flags3 & RF3_NO_SLEEP)
+					if (is_no_sleep_creature(tar_ptr))
 					{
-						if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
+						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
 					}
 
 					/* No obvious effect */

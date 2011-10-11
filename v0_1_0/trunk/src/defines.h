@@ -3650,42 +3650,6 @@
 /*
  * New monster race bit flags
  */
-#define RF3_XXX1            0x00000001  // Orc -> Deskull: None
-#define RF3_XXX2            0x00000002  // Troll -> Deskull: None
-#define RF3_XXX3            0x00000004  // Giant -> Deskull: None
-#define RF3_XXX4            0x00000008  // Dragon -> Deskull: None
-#define RF3_XXX5            0x00000010  // Demon -> Deskull: None
-#define RF3_XXX6            0x00000020  // Undead -> Deskull: None
-#define RF3_XXX7            0x00000040  // Evil -> Deskull: None
-#define RF3_XXX8            0x00000080  // Animal -> Deskull: None
-#define RF3_XXX9            0x00000100  // TY: Amberite -> Deskull: Puella Magi
-#define RF3_XXX10           0x00000200  /* Good */
-#define RF3_XXX11           0x00000400  /* Freezes in melee */
-#define RF3_XXX12           0x00000800  /* TY: Non-Living (?) */
-#define RF3_XXX13           0x00001000  /* Hurt by lite */
-#define RF3_XXX14           0x00002000  /* Hurt by rock remover */
-#define RF3_XXX15           0x00004000  /* Hurt badly by fire */
-#define RF3_XXX15_2         0x00008000  /* Hurt badly by cold */
-#define RF3_XXX16           0x00010000
-#define RF3_XXX17           0x00020000
-#define RF3_XXX18           0x00040000
-#define RF3_XXX19           0x00080000
-#define RF3_XXX20           0x00100000
-#define RF3_XXX21           0x00200000
-#define RF3_XXX22           0x00400000
-#define RF3_XXX23           0x00800000
-#define RF3_XXX24           0x01000000
-#define RF3_XXX25           0x02000000
-#define RF3_XXX26           0x04000000
-#define RF3_XXX27           0x08000000
-#define RF3_XXX28           0x10000000  /* Cannot be scared */
-#define RF3_XXX29         0x20000000  /* Cannot be stunned */
-#define RF3_NO_CONF         0x40000000  /* Cannot be confused and resist confusion */
-#define RF3_NO_SLEEP        0x80000000  /* Cannot be slept */
-
-/*
- * New monster race bit flags
- */
 #define RF4_SHRIEK          0x00000001  /* Shriek for help */
 #define RF4_XXX1            0x00000002  /* XXX */
 #define RF4_DISPEL          0x00000004  /* Dispel magic */
