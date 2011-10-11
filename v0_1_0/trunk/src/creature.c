@@ -1002,6 +1002,16 @@ bool is_hurt_lite_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_HURT_LITE]);
 }
 
+bool is_hurt_rock_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HURT_ROCK);	
+}
+
+bool is_hurt_rock_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HURT_ROCK]);
+}
+
 
 
 bool can_speak_creature(creature_type *creature_ptr)

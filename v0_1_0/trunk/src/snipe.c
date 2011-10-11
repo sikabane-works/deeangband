@@ -452,10 +452,10 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		break;
 	case SP_KILL_WALL:
-		if (r_ptr->flags3 & RF3_HURT_ROCK)
+		if (is_hurt_rock_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			if (seen) r_ptr->r_flags3 |= RF3_HURT_ROCK;
+			//TODO if (seen) r_ptr->r_flags3 |= RF3_HURT_ROCK;
 			if (mult < n) mult = n;
 		}
 		else if (is_non_living_creature(m_ptr))

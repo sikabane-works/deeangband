@@ -2766,9 +2766,9 @@ note = "には耐性がある！";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags3 & RF3_HURT_ROCK)
+			if (is_hurt_rock_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
 #ifdef JP
 note = "の皮膚がただれた！";
 note_dies = "は蒸発した！";
@@ -4392,13 +4392,13 @@ note_dies = "は光を受けてしぼんでしまった！";
 				break;
 			}
 			/* Hurt by rock remover */
-			if (tar_ptr->flags3 & (RF3_HURT_ROCK))
+			if (is_hurt_rock_creature(tar_ptr))
 			{
 				/* Notice effect */
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
 
 				/* Cute little message */
 #ifdef JP

@@ -660,11 +660,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				int tmp = MIN(100, MAX(10, atk_ptr->cut / 10));
 				if (mult < tmp) mult = tmp;
 			}
-			if ((mode == HISSATSU_HAGAN) && (tar_ptr->flags3 & RF3_HURT_ROCK))
+			if ((mode == HISSATSU_HAGAN) && is_hurt_rock_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_HURT_ROCK;
+					//TODO r_ptr->r_flags3 |= RF3_HURT_ROCK;
 				}
 				if (mult == 10) mult = 40;
 				else if (mult < 60) mult = 60;
