@@ -1022,6 +1022,16 @@ bool is_hurt_fire_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_HURT_FIRE]);
 }
 
+bool is_hurt_cold_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HURT_COLD);	
+}
+
+bool is_hurt_cold_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HURT_COLD]);
+}
+
 
 
 bool can_speak_creature(creature_type *creature_ptr)

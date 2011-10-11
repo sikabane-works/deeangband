@@ -590,24 +590,24 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				/* Otherwise, take the damage */
 				else if ((have_flag(flgs, TR_BRAND_COLD) || ((atk_ptr->special_attack & (ATTACK_COLD)) && !thrown)) && (mode == HISSATSU_COLD))
 				{
-					if (tar_ptr->flags3 & RF3_HURT_COLD)
+					if (is_hurt_cold_creature(tar_ptr))
 					{
 						if (mult < 70) mult = 70;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 						{
-							r_ptr->r_flags3 |= RF3_HURT_COLD;
+							//TODO r_ptr->r_flags3 |= RF3_HURT_COLD;
 						}
 					}
 					else if (mult < 35) mult = 35;
 				}
 				else
 				{
-					if (tar_ptr->flags3 & RF3_HURT_COLD)
+					if (is_hurt_cold_creature(tar_ptr))
 					{
 						if (mult < 50) mult = 50;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 						{
-							r_ptr->r_flags3 |= RF3_HURT_COLD;
+							//TODO r_ptr->r_flags3 |= RF3_HURT_COLD;
 						}
 					}
 					else if (mult < 25) mult = 25;

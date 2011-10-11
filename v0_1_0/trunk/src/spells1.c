@@ -1979,7 +1979,7 @@ note = "にはかなり耐性がある！";
 				dam /= 9;
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
 			}
-			else if (tar_ptr->flags3 & (RF3_HURT_COLD))
+			else if (is_hurt_cold_creature(tar_ptr))
 			{
 #ifdef JP
 note = "はひどい痛手をうけた。";
@@ -1988,7 +1988,7 @@ note = "はひどい痛手をうけた。";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
 			}
 			break;
 		}
@@ -3277,7 +3277,7 @@ note = "があなたに隷属した。";
 				dam /= 9;
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
 			}
-			else if (tar_ptr->flags3 & (RF3_HURT_COLD))
+			else if (is_hurt_cold_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "はひどい痛手をうけた。";
@@ -3286,7 +3286,7 @@ note = "があなたに隷属した。";
 #endif
 
 				dam *= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
 			}
 			break;
 		}

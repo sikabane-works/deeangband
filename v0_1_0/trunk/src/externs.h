@@ -1055,6 +1055,8 @@ extern bool is_hurt_rock_creature(creature_type *creature_ptr);
 extern bool is_hurt_rock_species(species_type *species_ptr);
 extern bool is_hurt_fire_creature(creature_type *creature_ptr);
 extern bool is_hurt_fire_species(species_type *species_ptr);
+extern bool is_hurt_cold_creature(creature_type *creature_ptr);
+extern bool is_hurt_cold_species(species_type *species_ptr);
 
 extern bool can_speak_creature(creature_type *cr_ptr);
 extern bool can_speak_species(species_type *sp_ptr);
