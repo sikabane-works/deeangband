@@ -992,6 +992,15 @@ bool is_non_living_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_NONLIVING]);
 }
 
+bool is_hurt_lite_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HURT_LITE);	
+}
+
+bool is_hurt_lite_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HURT_LITE]);
+}
 
 
 

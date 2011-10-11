@@ -4277,13 +4277,13 @@ note = "には効果がなかった！";
 				break;
 			}
 			/* Hurt by light */
-			if (tar_ptr->flags3 & (RF3_HURT_LITE))
+			if (is_hurt_lite_creature(tar_ptr))
 			{
 				/* Obvious effect */
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -4335,9 +4335,9 @@ note_dies = "は光を受けてしぼんでしまった！";
 				dam *= 2; dam /= (randint1(6)+6);
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_LITE);
 			}
-			else if (tar_ptr->flags3 & (RF3_HURT_LITE))
+			else if (is_hurt_lite_creature(tar_ptr))
 			{
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 #ifdef JP
 				note = "は光に身をすくめた！";
 				note_dies = "は光を受けてしぼんでしまった！";
@@ -5630,13 +5630,13 @@ note = "には効果がなかった！";
 			if (who_ptr == who_ptr) msg_format("You take a photograph of %s.", m_name);
 #endif
 			/* Hurt by light */
-			if (tar_ptr->flags3 & (RF3_HURT_LITE))
+			if (is_hurt_lite_creature(tar_ptr))
 			{
 				/* Obvious effect */
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
