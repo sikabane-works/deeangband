@@ -2920,8 +2920,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if ((is_unique_species(tr_ptr)) ||
-		    (tr_ptr->flags3 & RF3_NO_STUN))
+		if (is_unique_species(tr_ptr) || is_no_stun_creature(tar_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", t_name);

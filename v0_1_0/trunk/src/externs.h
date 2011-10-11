@@ -1059,6 +1059,8 @@ extern bool is_hurt_cold_creature(creature_type *creature_ptr);
 extern bool is_hurt_cold_species(species_type *species_ptr);
 extern bool is_no_fear_creature(creature_type *creature_ptr);
 extern bool is_no_fear_species(species_type *species_ptr);
+extern bool is_no_stun_creature(creature_type *creature_ptr);
+extern bool is_no_stun_species(species_type *species_ptr);
 
 
 extern bool can_speak_creature(creature_type *cr_ptr);

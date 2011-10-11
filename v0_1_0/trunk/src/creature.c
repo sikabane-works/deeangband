@@ -1042,6 +1042,16 @@ bool is_no_fear_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_HURT_COLD]);
 }
 
+bool is_no_stun_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_NO_STUN);	
+}
+
+bool is_no_stun_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_NO_STUN]);
+}
+
 
 
 bool can_speak_creature(creature_type *creature_ptr)

@@ -5824,8 +5824,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 	{
 		/* Sound and Impact resisters never stun */
 		if (do_stun &&
-		    !(tar_ptr->flags10 & (RF10_RES_SOUN | RF10_RES_WALL)) &&
-		    !(tar_ptr->flags3 & RF3_NO_STUN))
+		    !(tar_ptr->flags10 & (RF10_RES_SOUN | RF10_RES_WALL)) && !is_no_stun_creature(tar_ptr))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;
