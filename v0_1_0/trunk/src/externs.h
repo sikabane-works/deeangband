@@ -933,6 +933,26 @@ extern bool is_guardian_species(species_type *sp_ptr);
 extern bool is_riding_creature(creature_type *cr_ptr);
 extern bool is_riding_species(species_type *sp_ptr);
 
+extern bool is_self_lite_1_creature(creature_type *creature_ptr);
+extern bool is_self_lite_1_species(species_type *species_ptr);
+extern bool is_self_lite_2_creature(creature_type *creature_ptr);
+extern bool is_self_lite_2_species(species_type *species_ptr);
+extern bool is_self_dark_1_creature(creature_type *creature_ptr);
+extern bool is_self_dark_1_species(species_type *species_ptr);
+extern bool is_self_dark_2_creature(creature_type *creature_ptr);
+extern bool is_self_dark_2_species(species_type *species_ptr);
+
+extern bool is_has_lite_1_creature(creature_type *creature_ptr);
+extern bool is_has_lite_1_species(species_type *species_ptr);
+extern bool is_has_lite_2_creature(creature_type *creature_ptr);
+extern bool is_has_lite_2_species(species_type *species_ptr);
+extern bool is_has_dark_1_creature(creature_type *creature_ptr);
+extern bool is_has_dark_1_species(species_type *species_ptr);
+extern bool is_has_dark_2_creature(creature_type *creature_ptr);
+extern bool is_has_dark_2_species(species_type *species_ptr);
+
+
+
 extern bool is_male_creature(creature_type *cr_ptr);
 extern bool is_male_species(species_type *sp_ptr);
 extern bool is_female_creature(creature_type *cr_ptr);

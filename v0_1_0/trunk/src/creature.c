@@ -1296,6 +1296,89 @@ bool is_riding_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_RIDING]);
 }
 
+bool is_self_lite_1_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SELF_LITE_1);	
+}
+
+bool is_self_lite_1_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SELF_LITE_1]);
+}
+
+bool is_self_lite_2_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SELF_LITE_2);	
+}
+
+bool is_self_lite_2_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SELF_LITE_2]);
+}
+
+bool is_self_dark_1_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SELF_DARK_1);	
+}
+
+bool is_self_dark_1_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SELF_DARK_1]);
+}
+
+bool is_self_dark_2_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_SELF_DARK_2);	
+}
+
+bool is_self_dark_2_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_SELF_DARK_2]);
+}
+
+bool is_has_lite_1_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HAS_LITE_1);	
+}
+
+bool is_has_lite_1_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HAS_LITE_1]);
+}
+
+bool is_has_lite_2_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HAS_LITE_2);	
+}
+
+bool is_has_lite_2_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HAS_LITE_2]);
+}
+
+bool is_has_dark_1_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HAS_DARK_1);	
+}
+
+bool is_has_dark_1_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HAS_DARK_1]);
+}
+
+bool is_has_dark_2_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HAS_DARK_2);	
+}
+
+bool is_has_dark_2_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HAS_DARK_2]);
+}
+
+
+
+
 bool is_human_species(species_type *species_ptr)
 {
 	if(species_ptr->race_idx1 == RACE_HUMAN || species_ptr->race_idx1 == RACE_BARBARIAN || species_ptr->race_idx1 == RACE_DUNADAN) return TRUE;

@@ -2763,7 +2763,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 	/* Notice changes in view */
 	if (do_move && ((creature_ptr->flags7 & (RF7_SELF_LD_MASK | RF7_HAS_DARK_1 | RF7_HAS_DARK_2))
-		|| ((creature_ptr->flags7 & (RF7_HAS_LITE_1 | RF7_HAS_LITE_2)) && !inside_battle)))
+		|| ((is_has_lite_1_creature(creature_ptr) || is_has_lite_2_creature(creature_ptr)) && !inside_battle)))
 	{
 		/* Update some things */
 		player_ptr->update |= (PU_MON_LITE);

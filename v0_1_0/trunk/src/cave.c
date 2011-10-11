@@ -3042,10 +3042,10 @@ void update_mon_lite(creature_type *cr_ptr)
 			rad = 0;
 
 			/* Note the radii are cumulative */
-			if (r_ptr->flags7 & (RF7_HAS_LITE_1 | RF7_SELF_LITE_1)) rad++;
-			if (r_ptr->flags7 & (RF7_HAS_LITE_2 | RF7_SELF_LITE_2)) rad += 2;
-			if (r_ptr->flags7 & (RF7_HAS_DARK_1 | RF7_SELF_DARK_1)) rad--;
-			if (r_ptr->flags7 & (RF7_HAS_DARK_2 | RF7_SELF_DARK_2)) rad -= 2;
+			if (is_self_lite_1_creature(m_ptr) || is_has_lite_1_creature(m_ptr)) rad++;
+			if (is_self_lite_2_creature(m_ptr) || is_has_lite_2_creature(m_ptr)) rad += 2;
+			if (is_self_dark_1_creature(m_ptr) || is_has_dark_1_creature(m_ptr)) rad--;
+			if (is_self_dark_2_creature(m_ptr) || is_has_dark_2_creature(m_ptr)) rad -= 2;
 
 			/* Exit if has no light */
 			if (!rad) continue;
