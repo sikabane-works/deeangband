@@ -2445,7 +2445,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 			}
 			else do_conf = (10 + randint1(15) + r) / (r + 1);
 			break;
@@ -3137,13 +3137,13 @@ note_dies = "は蒸発した！";
 			}
 			/* Attempt a saving throw */
 			if ((is_quest_creature(tar_ptr)) && is_unique_creature(tar_ptr) ||
-			    (tar_ptr->flags3 & RF3_NO_CONF) ||
+			    is_no_conf_creature(tar_ptr) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & RF3_NO_CONF)
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -3799,15 +3799,15 @@ note = "は動けなくなった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((is_quest_creature(tar_ptr)) ||
-			    (tar_ptr->flags3 & RF3_NO_CONF) ||
+			if (is_quest_creature(tar_ptr) ||
+			    is_no_conf_creature(tar_ptr) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & RF3_NO_CONF)
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -4035,16 +4035,16 @@ note = "は既にあなたの奴隷だ！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((is_quest_creature(tar_ptr)) ||
-			    (!is_animal_creature(tar_ptr)) ||
+			if ( is_quest_creature(tar_ptr) ||
+			    !is_animal_creature(tar_ptr) ||
 			    (tar_ptr->mflag2 & MFLAG2_NOPET) ||
-				 (tar_ptr->flags3 & (RF3_NO_CONF)) ||
-				 (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				 is_no_conf_creature(tar_ptr) ||
+				(r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & (RF3_NO_CONF))
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -4108,7 +4108,7 @@ note = "はなついた。";
 				dam -= who_ptr->karmas[vir-1]/20;
 			}
 
-			if (tar_ptr->flags3 & (RF3_NO_CONF)) dam -= 30;
+			if (is_no_conf_creature(tar_ptr)) dam -= 30;
 			if (dam < 1) dam = 1;
 #ifdef JP
 msg_format("%sを見つめた。",m_name);
@@ -4193,14 +4193,14 @@ note = "を支配した。";
 			do_conf = damroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(tar_ptr)) ||
-			    (tar_ptr->flags3 & (RF3_NO_CONF)) ||
-			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			if (is_unique_creature(tar_ptr) ||
+			    is_no_conf_creature(tar_ptr) ||
+			   (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & (RF3_NO_CONF))
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 
 				/* Resist */
@@ -5031,14 +5031,14 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(tar_ptr)) ||
-				 (tar_ptr->flags3 & RF3_NO_CONF) ||
-				 (r_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
+			if (is_unique_creature(tar_ptr) ||
+				is_no_conf_creature(tar_ptr) ||
+			   (r_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & (RF3_NO_CONF))
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5107,14 +5107,14 @@ note_dies = "はドロドロに溶けた！";
 			}
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(tar_ptr)) ||
-				 (tar_ptr->flags3 & RF3_NO_CONF) ||
+			if (is_unique_creature(tar_ptr) ||
+				is_no_conf_creature(tar_ptr) ||
 				 (r_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (tar_ptr->flags3 & (RF3_NO_CONF))
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5687,7 +5687,7 @@ note = "には効果がなかった！";
 
 			if (is_enemy_of_evil_creature(tar_ptr) && !inside_arena)
 			{
-				if (tar_ptr->flags3 & (RF3_NO_CONF)) dam -= 50;
+				if (is_no_conf_creature(tar_ptr)) dam -= 50;
 				if (dam < 1) dam = 1;
 
 				/* No need to tame your pet */
@@ -5860,7 +5860,7 @@ note = "には効果がなかった。";
 
 		/* Confusion and Chaos resisters (and sleepers) never confuse */
 		if (do_conf &&
-			 !(tar_ptr->flags3 & RF3_NO_CONF) &&
+			 !is_no_conf_creature(tar_ptr) &&
 			 !(tar_ptr->flags10 & RF10_EFF_RES_CHAO_MASK))
 		{
 			/* Obvious */

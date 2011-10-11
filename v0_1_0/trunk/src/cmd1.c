@@ -2330,7 +2330,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 				if (is_unique_creature(tar_ptr)) resist_stun += 88;
 				if (is_no_stun_creature(tar_ptr)) resist_stun += 66;
-				if (r_ptr->flags3 & RF3_NO_CONF) resist_stun += 33;
+				if (is_no_conf_creature(tar_ptr)) resist_stun += 33;
 				if (r_ptr->flags3 & RF3_NO_SLEEP) resist_stun += 33;
 				if (is_undead_creature(tar_ptr) || is_non_living_creature(tar_ptr))
 					resist_stun += 66;
@@ -2875,9 +2875,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				}
 
 				/* Confuse the monster */
-				if (r_ptr->flags3 & RF3_NO_CONF)
+				if (is_no_conf_creature(tar_ptr))
 				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
+					//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
 
 #ifdef JP
 					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", m_name);

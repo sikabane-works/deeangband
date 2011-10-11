@@ -2762,7 +2762,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Simulate blindness with confusion */
-		if (tr_ptr->flags3 & RF3_NO_CONF)
+		if (is_no_conf_creature(tar_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", t_name);
@@ -2814,7 +2814,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags3 & RF3_NO_CONF)
+		if (is_no_conf_creature(tar_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚Í˜f‚í‚³‚ê‚È‚©‚Á‚½B", t_name);

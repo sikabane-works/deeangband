@@ -3678,8 +3678,8 @@
 #define RF3_XXX25           0x02000000
 #define RF3_XXX26           0x04000000
 #define RF3_XXX27           0x08000000
-#define RF3_XXX38           0x10000000  /* Cannot be scared */
-#define RF3_NO_STUN         0x20000000  /* Cannot be stunned */
+#define RF3_XXX28           0x10000000  /* Cannot be scared */
+#define RF3_XXX29         0x20000000  /* Cannot be stunned */
 #define RF3_NO_CONF         0x40000000  /* Cannot be confused and resist confusion */
 #define RF3_NO_SLEEP        0x80000000  /* Cannot be slept */
 
