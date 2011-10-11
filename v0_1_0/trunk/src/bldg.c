@@ -1757,7 +1757,12 @@ void battle_monsters(void)
 		for (i=0;i<4;i++)
 		{
 			species_type *r_ptr = &species_info[battle_mon[i]];
-			int num_taisei = count_bits(r_ptr->flags10 & (RF10_IM_ACID | RF10_IM_ELEC | RF10_IM_FIRE | RF10_IM_COLD | RF10_IM_POIS));
+			int num_taisei = 0;
+			if(is_resist_acid_species(r_ptr)) num_taisei++;
+			if(is_resist_elec_species(r_ptr)) num_taisei++;
+			if(is_resist_fire_species(r_ptr)) num_taisei++;
+			if(is_resist_cold_species(r_ptr)) num_taisei++;
+			if(is_resist_pois_species(r_ptr)) num_taisei++;
 
 			power[i] = 3;
 

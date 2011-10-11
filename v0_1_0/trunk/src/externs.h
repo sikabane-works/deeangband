@@ -953,6 +953,14 @@ extern bool is_has_dark_2_species(species_type *species_ptr);
 
 extern bool is_resist_acid_creature(creature_type *creature_ptr);
 extern bool is_resist_acid_species(species_type *species_ptr);
+extern bool is_resist_elec_creature(creature_type *creature_ptr);
+extern bool is_resist_elec_species(species_type *species_ptr);
+extern bool is_resist_fire_creature(creature_type *creature_ptr);
+extern bool is_resist_fire_species(species_type *species_ptr);
+extern bool is_resist_cold_creature(creature_type *creature_ptr);
+extern bool is_resist_cold_species(species_type *species_ptr);
+extern bool is_resist_pois_creature(creature_type *creature_ptr);
+extern bool is_resist_pois_species(species_type *species_ptr);
 
 
 

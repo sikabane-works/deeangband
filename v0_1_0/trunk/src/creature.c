@@ -1390,6 +1390,45 @@ bool is_resist_acid_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_IM_ACID]);
 }
 
+bool is_resist_elec_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_IM_ELEC);	
+}
+
+bool is_resist_elec_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_IM_ELEC]);
+}
+
+bool is_resist_fire_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_IM_FIRE);	
+}
+
+bool is_resist_fire_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_IM_FIRE]);
+}
+
+bool is_resist_cold_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_IM_COLD);	
+}
+
+bool is_resist_cold_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_IM_COLD]);
+}
+
+bool is_resist_pois_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_IM_POIS);	
+}
+
+bool is_resist_pois_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_IM_POIS]);
+}
 
 
 
