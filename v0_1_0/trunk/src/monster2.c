@@ -2668,17 +2668,17 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_good) && is_enemy_of_evil_creature(cr_ptr))
+			if ((cr_ptr->esp_good) && is_enemy_of_evil_creature(m_ptr))
 			{
 				flag = TRUE;
 //TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GOOD);
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_nonliving) && (r_ptr->flags3 & RF3_NONLIVING) && !is_undead_species(r_ptr) && !is_demon_species(r_ptr)) 
+			if ((cr_ptr->esp_nonliving) && is_non_living_creature(m_ptr) && !is_undead_creature(m_ptr) && !is_undead_creature(m_ptr)) 
 			{
 				flag = TRUE;
-				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
+				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
 			}
 
 			/* Magical sensing */

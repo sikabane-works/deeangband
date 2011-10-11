@@ -458,10 +458,10 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 			if (seen) r_ptr->r_flags3 |= RF3_HURT_ROCK;
 			if (mult < n) mult = n;
 		}
-		else if (r_ptr->flags3 & RF3_NONLIVING)
+		else if (is_non_living_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			if (seen) r_ptr->r_flags3 |= RF3_NONLIVING;
+			//TODO if (seen) r_ptr->r_flags3 |= RF3_NONLIVING;
 			if (mult < n) mult = n;
 		}
 		break;

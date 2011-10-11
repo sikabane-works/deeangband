@@ -982,6 +982,16 @@ bool is_regenerate_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_REGENERATE]);
 }
 
+bool is_non_living_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_NONLIVING);	
+}
+
+bool is_non_living_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_NONLIVING]);
+}
+
 
 
 

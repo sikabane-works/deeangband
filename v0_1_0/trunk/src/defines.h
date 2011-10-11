@@ -3646,41 +3646,6 @@
 
 #define CREATURE_FLAGS_MAX 19
 
-/*
- * New monster race bit flags
- */
-#define RF2_XXX0            0x00000001  /* Monster is stupid */
-#define RF2_XXX1            0x00000002  /* Monster is smart */
-#define RF2_XXX2            0x00000004  /* TY: can speak */
-#define RF2_XXX3            0x00000008  /* Reflects bolts */
-#define RF2_XXX4            0x00000010  /* Monster avoids vision */
-#define RF2_XXX5            0x00000020  /* Monster avoids infra */
-#define RF2_XXX6            0x00000040  /* Monster avoids telepathy */
-#define RF2_XXX7            0x00000080  /* Monster avoids telepathy? */
-#define RF2_XXX8            0x00000100  /* Monster reproduces */
-#define RF2_XXX9            0x00000200  /* Monster regenerates */
-#define RF2_XXX10           0x00000400  /* (Not implemented) */
-#define RF2_XXX11           0x00000800  /* TY: Attr_any */
-#define RF2_XXX12           0x00001000  /* Monster has strong breath */
-#define RF2_XXX13           0x00002000  /* Sanity-blasting horror    */
-#define RF2_XXX14           0x00004000  /* Burns in melee */
-#define RF2_XXX15           0x00008000  /* Shocks in melee */
-#define RF2_XXX16           0x00010000  /* Monster can open doors */
-#define RF2_XXX17           0x00020000  /* Monster can bash doors */
-#define RF2_XXX18           0x00040000  /* Monster can pass walls */
-#define RF2_XXX19           0x00080000  /* Monster can destroy walls */
-#define RF2_XXX20           0x00100000  /* Monster can move monsters */
-#define RF2_XXX21           0x00200000  /* Monster can kill monsters */
-#define RF2_XXX22           0x00400000  /* Monster can pick up items */
-#define RF2_XXX23           0x00800000  /* Monster can crush items */
-#define RF2_XXX24           0x01000000  /* Monster doesn't have body size. */
-#define RF2_XXX25           0x02000000  /* Monster becomes female on 50% */
-#define RF2_XXX26           0x04000000  /* Monster becomes female on 25% */
-#define RF2_XXX27           0x08000000  /* Monster becomes female on 15% */
-#define RF2_XXX28           0x10000000  /* Monster becomes female on 10% */
-#define RF2_XXX29           0x20000000  /* Monster becomes female on 3% */
-#define RF2_XXX30           0x40000000
-#define RF2_XXX31           0x80000000
 
 /*
  * New monster race bit flags
@@ -3696,7 +3661,7 @@
 #define RF3_XXX9            0x00000100  // TY: Amberite -> Deskull: Puella Magi
 #define RF3_XXX10           0x00000200  /* Good */
 #define RF3_XXX11           0x00000400  /* Freezes in melee */
-#define RF3_NONLIVING       0x00000800  /* TY: Non-Living (?) */
+#define RF3_XXX12           0x00000800  /* TY: Non-Living (?) */
 #define RF3_HURT_LITE       0x00001000  /* Hurt by lite */
 #define RF3_HURT_ROCK       0x00002000  /* Hurt by rock remover */
 #define RF3_HURT_FIRE       0x00004000  /* Hurt badly by fire */

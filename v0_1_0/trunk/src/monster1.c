@@ -700,7 +700,7 @@ bool monster_has_hostile_align(creature_type *m_ptr, int pa_good, int pa_evil, s
 bool monster_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
-	if (r_ptr->flags3 & RF3_NONLIVING || is_undead_species(r_ptr)) return FALSE;
+	if (is_non_living_species(r_ptr) || is_undead_species(r_ptr)) return FALSE;
 
 	if (is_demon_species(r_ptr)) return FALSE;
 

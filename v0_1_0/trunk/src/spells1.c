@@ -3314,7 +3314,7 @@ note = "‚ª‚ ‚È‚½‚É—ê‘®‚µ‚½B";
 				{
 					//TODO if (tar_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					//if (tar_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
-					if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
+					//if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
 
 #ifdef JP
@@ -3353,7 +3353,7 @@ note = "‚ª‚ ‚È‚½‚É—ê‘®‚µ‚½B";
 				{
 					//TODO if (tar_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
 					//if (tar_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
-					if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
+					//if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
 				}
 
 #ifdef JP
