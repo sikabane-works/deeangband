@@ -1906,7 +1906,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ELEC);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ELEC);
 			}
 			break;
 		}
@@ -1936,7 +1936,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_FIRE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_FIRE);
 			}
 			else if (is_hurt_fire_creature(tar_ptr))
 			{
@@ -1968,7 +1968,7 @@ note = "はひどい痛手をうけた。";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags10 & RF10_IM_COLD)
+			if (is_resist_cold_creature(tar_ptr))
 			{
 #ifdef JP
 note = "にはかなり耐性がある！";
@@ -1977,7 +1977,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
 			}
 			else if (is_hurt_cold_creature(tar_ptr))
 			{
@@ -2018,7 +2018,7 @@ note = "にはかなり耐性がある！";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
 			}
 			break;
 		}
@@ -2048,7 +2048,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
 			}
 			else if (one_in_(3)) do_poly = TRUE;
 			break;
@@ -3266,7 +3266,7 @@ note = "があなたに隷属した。";
 				break;
 			}
 			do_stun = (randint1(15) + 1) / (r + 1);
-			if (tar_ptr->flags10 & RF10_IM_COLD)
+			if (is_resist_cold_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "にはかなり耐性がある。";
@@ -3275,7 +3275,7 @@ note = "があなたに隷属した。";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
 			}
 			else if (is_hurt_cold_creature(tar_ptr))
 			{

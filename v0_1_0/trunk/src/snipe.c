@@ -419,9 +419,9 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		break;
 	case SP_FIRE:
-		if (r_ptr->flags10 & RF10_IM_FIRE)
+		if (is_resist_fire_creature(m_ptr))
 		{
-			if (seen) r_ptr->r_flags10 |= RF10_IM_FIRE;
+			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_FIRE;
 		}
 		else
 		{
@@ -430,9 +430,9 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		break;
 	case SP_COLD:
-		if (r_ptr->flags10 & RF10_IM_COLD)
+		if (is_resist_cold_creature(m_ptr))
 		{
-			if (seen) r_ptr->r_flags10 |= RF10_IM_COLD;
+			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_COLD;
 		}
 		else
 		{
@@ -441,9 +441,9 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		}
 		break;
 	case SP_ELEC:
-		if (r_ptr->flags10 & RF10_IM_ELEC)
+		if (is_resist_elec_creature(m_ptr))
 		{
-			if (seen) r_ptr->r_flags10 |= RF10_IM_ELEC;
+			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_ELEC;
 		}
 		else
 		{
