@@ -1857,6 +1857,8 @@ struct dungeon_info_type {
 	u32b mflags9;
 	u32b mflags10;
 
+	creature_flags c_flags;
+
 	char r_char[5];		/* Monster race allowed */
 	int final_object;	/* The object you'll find at the bottom */
 	int final_artifact;	/* The artifact you'll find at the bottom */

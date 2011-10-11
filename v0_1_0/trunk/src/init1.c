@@ -5928,44 +5928,11 @@ errr parse_d_info(char *buf, header *head)
 		}
 	}
 
-	/* Process 'M' for "Basic Flags" (multiple lines) */
+	/* Process 'M' for "Creature Flags" (multiple lines) */
 	else if (buf[0] == 'M')
 	{
-		/* Parse every entry */
-		for (s = buf + 2; *s; )
-		{
-			/* Find the end of this entry */
-			for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
-
-			/* Nuke and skip any dividers */
-			if (*t)
-			{
-				*t++ = '\0';
-				while (*t == ' ' || *t == '|') t++;
-			}
-
-			/* Hack -- Read monster symbols */
-			if (!strncmp(s, "R_CHAR_", 7))
-			{
-				/* Skip "R_CHAR_" */
-				s += 7;
-
-				/* Read a string */
-				strncpy(d_ptr->r_char, s, sizeof(d_ptr->r_char));
-
-				/* Start at next entry */
-				s = t;
-
-				/* Continue */
-				continue;
-			}
-
-			/* Parse this entry */
-			if (0 != grab_one_basic_monster_flag(d_ptr, s)) return (5);
-
-			/* Start the next entry */
-			s = t;
-		}
+		if(0 != creature_flags_splits(&d_ptr->c_flags, &buf[2]))
+			return (1);
 	}
 
 	/* Process 'S' for "Spell Flags" (multiple lines) */
@@ -6019,6 +5986,12 @@ errr parse_d_info(char *buf, header *head)
 		d_ptr->vault_quest_type[i] = type;
 		d_ptr->vault_quest_probability[i] = probability;
 
+	}
+
+	else if (buf[0] == 'Y')
+	{
+		/* Read a string */
+		strncpy(d_ptr->r_char, &buf[2], sizeof(buf - 2));
 	}
 
 	/* Oops */
