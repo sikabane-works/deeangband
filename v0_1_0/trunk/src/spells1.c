@@ -2876,7 +2876,7 @@ note_dies = "は蒸発した！";
 									break;
 								case 3:
 								{
-									if (tar_ptr->flags3 & RF3_NO_FEAR)
+									if (is_no_fear_creature(tar_ptr))
 #ifdef JP
 										note = "には効果がなかった。";
 #else
@@ -3189,7 +3189,7 @@ note_dies = "は蒸発した！";
 								break;
 							default:
 							{
-								if (tar_ptr->flags3 & RF3_NO_FEAR)
+								if (is_no_fear_creature(tar_ptr))
 #ifdef JP
 									note = "には効果がなかった。";
 #else
@@ -4689,7 +4689,7 @@ note = "には耐性がある！";
 
 			/* Attempt a saving throw */
 			if ((is_unique_creature(tar_ptr)) ||
-			    (tar_ptr->flags3 & (RF3_NO_FEAR)) ||
+			    (is_no_fear_creature(tar_ptr)) ||
 			    (r_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
@@ -5732,11 +5732,11 @@ note = "には効果がなかった！";
 
 			if (!success)
 			{
-				if (!(tar_ptr->flags3 & RF3_NO_FEAR))
+				if (!is_no_fear_creature(tar_ptr))
 				{
 					do_fear = randint1(90)+10;
 				}
-				else if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_FEAR);
+				//TODO else if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_FEAR);
 			}
 
 			/* No "real" damage */

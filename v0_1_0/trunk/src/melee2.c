@@ -342,7 +342,7 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 	}
 
 	/* Sometimes a monster gets scared by damage */
-	if (!cr_ptr->afraid && !(r_ptr->flags3 & RF3_NO_FEAR))
+	if (!cr_ptr->afraid && !is_no_fear_creature(cr_ptr))
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * cr_ptr->chp) / cr_ptr->mhp;

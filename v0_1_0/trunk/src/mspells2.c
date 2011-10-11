@@ -2714,7 +2714,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags3 & RF3_NO_FEAR)
+		if (is_no_fear_creature(tar_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚Í‹°•|‚ğŠ´‚¶‚È‚¢B", t_name);
