@@ -951,6 +951,9 @@ extern bool is_has_dark_1_species(species_type *species_ptr);
 extern bool is_has_dark_2_creature(creature_type *creature_ptr);
 extern bool is_has_dark_2_species(species_type *species_ptr);
 
+extern bool is_resist_acid_creature(creature_type *creature_ptr);
+extern bool is_resist_acid_species(species_type *species_ptr);
+
 
 
 extern bool is_male_creature(creature_type *cr_ptr);

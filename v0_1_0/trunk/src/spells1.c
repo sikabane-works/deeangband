@@ -1876,7 +1876,7 @@ note = "‚É‚Í‚©‚È‚è‘Ï«‚ª‚ ‚éI";
 #endif
 
 				dam /= 9;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ACID);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ACID);
 			}
 			break;
 		}

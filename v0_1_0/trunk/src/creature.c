@@ -528,6 +528,7 @@ void set_resistance(creature_type *creature_ptr)
 		}
 	}
 
+	/*
 	if(creature_ptr->species_idx != 0)
 	{
 		species_type *species_ptr = &species_info[creature_ptr->species_idx];
@@ -574,6 +575,7 @@ void set_resistance(creature_type *creature_ptr)
 		if(species_ptr->flags10 & RF10_RES_TELE)
 			creature_ptr->resist_tele = TRUE;
 	}
+	*/
 
 }
 
@@ -1374,6 +1376,18 @@ bool is_has_dark_2_creature(creature_type *creature_ptr)
 bool is_has_dark_2_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[CF_HAS_DARK_2]);
+}
+
+
+
+bool is_resist_acid_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_IM_ACID);	
+}
+
+bool is_resist_acid_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_IM_ACID]);
 }
 
 
