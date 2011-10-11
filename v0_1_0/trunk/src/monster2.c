@@ -1066,58 +1066,14 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	if (d_ptr->special_div >= 64) return TRUE;
 	if (summon_specific_type && !(d_ptr->flags1 & DF1_CHAMELEON)) return TRUE;
 
+	/* TODO
 	switch (d_ptr->mode)
 	{
 	case DUNGEON_MODE_AND:
-		if (d_ptr->mflags1)
+		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if ((d_ptr->mflags1 & r_ptr->flags1) != d_ptr->mflags1)
-				return FALSE;
-		}
-		if (d_ptr->mflags2)
-		{
-			if ((d_ptr->mflags2 & r_ptr->flags2) != d_ptr->mflags2)
-				return FALSE;
-		}
-		if (d_ptr->mflags3)
-		{
-			if ((d_ptr->mflags3 & r_ptr->flags3) != d_ptr->mflags3)
-				return FALSE;
-		}
-		if (d_ptr->mflags4)
-		{
-			if ((d_ptr->mflags4 & r_ptr->flags4) != d_ptr->mflags4)
-				return FALSE;
-		}
-		if (d_ptr->mflags5)
-		{
-			if ((d_ptr->mflags5 & r_ptr->flags5) != d_ptr->mflags5)
-				return FALSE;
-		}
-		if (d_ptr->mflags6)
-		{
-			if ((d_ptr->mflags6 & r_ptr->flags6) != d_ptr->mflags6)
-				return FALSE;
-		}
-		if (d_ptr->mflags7)
-		{
-			if ((d_ptr->mflags7 & r_ptr->flags7) != d_ptr->mflags7)
-				return FALSE;
-		}
-		if (d_ptr->mflags8)
-		{
-			if ((d_ptr->mflags8 & r_ptr->flags8) != d_ptr->mflags8)
-				return FALSE;
-		}
-		if (d_ptr->mflags9)
-		{
-			if ((d_ptr->mflags9 & r_ptr->flags9) != d_ptr->mflags9)
-				return FALSE;
-		}
-		if (d_ptr->mflags10)
-		{
-			if ((d_ptr->mflags10 & r_ptr->flags10) != d_ptr->mflags10)
-				return FALSE;
+			if(have_one_creature_flag(&d_ptr->c_flags, a)
+				&& !have_one_creature_flag(&r_ptr->flags, a)) return FALSE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return FALSE;
@@ -1125,55 +1081,10 @@ static bool restrict_monster_to_dungeon(int species_idx)
 		return TRUE;
 
 	case DUNGEON_MODE_NAND:
-		if (d_ptr->mflags1)
+		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if ((d_ptr->mflags1 & r_ptr->flags1) != d_ptr->mflags1)
-				return TRUE;
-		}
-		if (d_ptr->mflags2)
-		{
-			if ((d_ptr->mflags2 & r_ptr->flags2) != d_ptr->mflags2)
-				return TRUE;
-		}
-		if (d_ptr->mflags3)
-		{
-			if ((d_ptr->mflags3 & r_ptr->flags3) != d_ptr->mflags3)
-				return TRUE;
-		}
-		if (d_ptr->mflags4)
-		{
-			if ((d_ptr->mflags4 & r_ptr->flags4) != d_ptr->mflags4)
-				return TRUE;
-		}
-		if (d_ptr->mflags5)
-		{
-			if ((d_ptr->mflags5 & r_ptr->flags5) != d_ptr->mflags5)
-				return TRUE;
-		}
-		if (d_ptr->mflags6)
-		{
-			if ((d_ptr->mflags6 & r_ptr->flags6) != d_ptr->mflags6)
-				return TRUE;
-		}
-		if (d_ptr->mflags7)
-		{
-			if ((d_ptr->mflags7 & r_ptr->flags7) != d_ptr->mflags7)
-				return TRUE;
-		}
-		if (d_ptr->mflags8)
-		{
-			if ((d_ptr->mflags8 & r_ptr->flags8) != d_ptr->mflags8)
-				return TRUE;
-		}
-		if (d_ptr->mflags9)
-		{
-			if ((d_ptr->mflags9 & r_ptr->flags9) != d_ptr->mflags9)
-				return TRUE;
-		}
-		if (d_ptr->mflags10)
-		{
-			if ((d_ptr->mflags10 & r_ptr->flags10) != d_ptr->mflags10)
-				return TRUE;
+			if(have_one_creature_flag(&d_ptr->c_flags, a)
+				&& !have_one_creature_flag(&r_ptr->flags, a)) return TRUE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return TRUE;
@@ -1181,37 +1092,28 @@ static bool restrict_monster_to_dungeon(int species_idx)
 		return FALSE;
 
 	case DUNGEON_MODE_OR:
-		if (r_ptr->flags1 & d_ptr->mflags1) return TRUE;
-		if (r_ptr->flags2 & d_ptr->mflags2) return TRUE;
-		if (r_ptr->flags3 & d_ptr->mflags3) return TRUE;
-		if (r_ptr->flags4 & d_ptr->mflags4) return TRUE;
-		if (r_ptr->flags5 & d_ptr->mflags5) return TRUE;
-		if (r_ptr->flags6 & d_ptr->mflags6) return TRUE;
-		if (r_ptr->flags7 & d_ptr->mflags7) return TRUE;
-		if (r_ptr->flags8 & d_ptr->mflags8) return TRUE;
-		if (r_ptr->flags9 & d_ptr->mflags9) return TRUE;
-		if (r_ptr->flags10 & d_ptr->mflags10) return TRUE;
+		for (a = 0; a < CF_FLAG_MAX; a++)
+		{
+			if(have_one_creature_flag(&d_ptr->c_flags, a)
+				&& have_one_creature_flag(&r_ptr->flags, a)) return TRUE; 
+		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return TRUE;
 
 		return FALSE;
 
 	case DUNGEON_MODE_NOR:
-		if (r_ptr->flags1 & d_ptr->mflags1) return FALSE;
-		if (r_ptr->flags2 & d_ptr->mflags2) return FALSE;
-		if (r_ptr->flags3 & d_ptr->mflags3) return FALSE;
-		if (r_ptr->flags4 & d_ptr->mflags4) return FALSE;
-		if (r_ptr->flags5 & d_ptr->mflags5) return FALSE;
-		if (r_ptr->flags6 & d_ptr->mflags6) return FALSE;
-		if (r_ptr->flags7 & d_ptr->mflags7) return FALSE;
-		if (r_ptr->flags8 & d_ptr->mflags8) return FALSE;
-		if (r_ptr->flags9 & d_ptr->mflags9) return FALSE;
-		if (r_ptr->flags10 & d_ptr->mflags10) return FALSE;
+		for (a = 0; a < CF_FLAG_MAX; a++)
+		{
+			if(have_one_creature_flag(&d_ptr->c_flags, a)
+				&& have_one_creature_flag(&r_ptr->flags, a)) return FALSE; 
+		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return FALSE;
 
 		return TRUE;
 	}
+	*/
 
 	return TRUE;
 }

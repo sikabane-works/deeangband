@@ -1846,17 +1846,6 @@ struct dungeon_info_type {
 
 	u32b flags1;		/* Flags 1 */
 
-	u32b mflags1;		/* The monster flags that are allowed */
-	u32b mflags2;
-	u32b mflags3;
-	u32b mflags4;
-	u32b mflags5;
-	u32b mflags6;
-	u32b mflags7;
-	u32b mflags8;
-	u32b mflags9;
-	u32b mflags10;
-
 	creature_flags c_flags;
 
 	char r_char[5];		/* Monster race allowed */

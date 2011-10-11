@@ -1716,6 +1716,11 @@ void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
 	flags_ptr->remove_lev[type] = high;
 }
 
+bool have_one_creature_flag(creature_flags *cf_ptr, int type)
+{
+	return cf_ptr->add_lev[type];
+}
+
 bool have_creature_flags(creature_type *creature_ptr, int type)
 {
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
