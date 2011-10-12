@@ -1419,7 +1419,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 		msg_format("You gesture at %^s's feet.", m_name);
 #endif
 
-		if (is_resist_nexu_creature(m_ptr) || is_resist_all_creature(m_ptr) || is_resist_tele_creature(m_ptr) ||
+		if (is_resist_nexu_creature(m_ptr) || is_resist_tele_creature(m_ptr) ||
 			is_quest_species(r_ptr) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP

@@ -3775,7 +3775,7 @@
 #define RF10_IM_ELEC         0x00000002  /* Resist elec */
 #define RF10_IM_FIRE         0x00000004  /* Resist fire */
 #define RF10_IM_COLD         0x00000008  /* Resist cold */
-#define RF10_IM_POIS         0x00000010  /* Resist poison */
+#define RF10_XXX4            0x00000010  /* Resist poison */
 #define RF10_RES_LITE        0x00000020  /* Resist lite */
 #define RF10_RES_DARK        0x00000040  /* Resist dark */
 #define RF10_RES_NETH        0x00000080  /* Resist nether */
@@ -4127,8 +4127,6 @@
 #define RF10_EFF_IM_ELEC_MASK  (RF10_IM_ELEC | RF10_RES_ALL)
 #define RF10_EFF_IM_FIRE_MASK  (RF10_IM_FIRE | RF10_RES_ALL)
 #define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
-#define RF10_EFF_IM_POIS_MASK  (RF10_IM_POIS | RF10_RES_ALL)
-#define RF10_EFF_RES_SHAR_MASK (RF10_RES_SHAR | RF10_RES_ALL)
 
 #define MR1_SINKA 0x01
 

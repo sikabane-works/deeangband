@@ -2353,7 +2353,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éB";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
 			}
 			break;
 		}
@@ -2383,7 +2383,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éB";
 #endif
 
 				dam /= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
 			}
 			break;
 		}
