@@ -3791,7 +3791,7 @@
 #define RF10_XXX17           0x00020000  /* Resist time */
 #define RF10_XXX18           0x00040000  /* Resist gravity */
 #define RF10_RES_ALL         0x00080000  /* Resist all */
-#define RF10_RES_TELE        0x00100000  /* Resist teleportation */
+#define RF10_XXX20           0x00100000  /* Resist teleportation */
 #define RF10_XXX21           0x00200000
 #define RF10_XXX22           0x00400000
 #define RF10_XXX23           0x00800000

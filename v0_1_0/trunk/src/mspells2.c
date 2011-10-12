@@ -3335,11 +3335,11 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags10 & RF10_RES_TELE)
+		if (is_resist_tele_creature(tar_ptr))
 		{
-			if ((is_unique_species(tr_ptr)) || (user_ptr->resist_ultimate))
+			if ((is_unique_creature(tar_ptr)) || (user_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
+				//TODO if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3353,7 +3353,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 			else if (tr_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
+				//TODO if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3395,11 +3395,11 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags10 & RF10_RES_TELE)
+		if (is_resist_tele_creature(tar_ptr))
 		{
-			if ((is_unique_species(tr_ptr)) || (user_ptr->resist_ultimate))
+			if ((is_unique_creature(tar_ptr)) || (user_ptr->resist_ultimate))
 			{
-				if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
+				//TODO if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
@@ -3413,7 +3413,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 			else if (tr_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
+				//TODO if (is_original_ap_and_seen(player_ptr, tar_ptr)) tr_ptr->r_flags10 |= RF10_RES_TELE;
 				if (see_t)
 				{
 #ifdef JP
