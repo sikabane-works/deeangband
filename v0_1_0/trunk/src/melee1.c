@@ -2090,13 +2090,13 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 								blinked = FALSE;
 								alive = FALSE;
 							}
-							if (is_original_ap_and_seen(tar_ptr, atk_ptr));
-								// TODO r_ptr->r_flags3 |= RF3_EVIL;
+							//if (is_original_ap_and_seen(tar_ptr, atk_ptr));
+								//TODO r_ptr->r_flags3 |= RF3_EVIL;
 						}
 						else
 						{
-							if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-								r_ptr->r_flags10 |= RF10_RES_ALL;
+							//if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+								//TODO r_ptr->r_flags10 |= RF10_RES_ALL;
 						}
 					}
 				}
@@ -2125,8 +2125,8 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 					}
 					else
 					{
-						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= RF10_RES_ALL;
+						//if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+							//TODO r_ptr->r_flags10 |= RF10_RES_ALL;
 					}
 				}
 
