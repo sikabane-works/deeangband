@@ -3546,9 +3546,9 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		m_ptr->mflag |= (MFLAG_BORN);
 	}
 
-	if (r_ptr->flags7 & RF7_SELF_LD_MASK)
+	if (is_self_ld_creature(m_ptr))
 		watcher_ptr->update |= (PU_MON_LITE);
-	else if ((r_ptr->flags7 & RF7_HAS_LD_MASK) && !m_ptr->paralyzed)
+	else if (is_has_ld_creature(m_ptr) && !m_ptr->paralyzed)
 		watcher_ptr->update |= (PU_MON_LITE);
 
 	/* Update the monster */

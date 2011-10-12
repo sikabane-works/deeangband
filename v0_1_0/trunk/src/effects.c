@@ -957,7 +957,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (species_info[cr_ptr->species_idx].flags7 & RF7_HAS_LD_MASK) cr_ptr->update |= (PU_MON_LITE);
+	if (is_has_ld_creature(cr_ptr)) cr_ptr->update |= (PU_MON_LITE);
 
 	return TRUE;
 
