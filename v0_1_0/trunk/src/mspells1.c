@@ -903,7 +903,7 @@ bool dispel_check(creature_type *cr_ptr)
 	/* Elemental Brands */
 	if ((cr_ptr->special_attack & ATTACK_ACID) && !is_resist_acid_creature(cr_ptr)) return (TRUE);
 	if ((cr_ptr->special_attack & ATTACK_FIRE) && !(r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)) return (TRUE);
-	if ((cr_ptr->special_attack & ATTACK_ELEC) && !(r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK)) return (TRUE);
+	if ((cr_ptr->special_attack & ATTACK_ELEC) && !is_resist_elec_creature(cr_ptr)) return (TRUE);
 	if ((cr_ptr->special_attack & ATTACK_COLD) && !(r_ptr->flags10 & RF10_EFF_IM_COLD_MASK)) return (TRUE);
 	if ((cr_ptr->special_attack & ATTACK_POIS) && !is_resist_pois_creature(cr_ptr)) return (TRUE);
 

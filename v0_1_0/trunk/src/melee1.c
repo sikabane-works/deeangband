@@ -1976,7 +1976,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 
 				if (tar_ptr->sh_elec && alive && !tar_ptr->is_dead)
 				{
-					if (!(r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK))
+					if (!is_resist_elec_creature(tar_ptr))
 					{
 						int dam = damroll(2, 6);
 
@@ -1998,8 +1998,8 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 					}
 					else
 					{
-						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
+						//TODO if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+							//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 					}
 				}
 

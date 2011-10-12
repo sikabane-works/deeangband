@@ -3771,7 +3771,7 @@
  * Monster bit flags of racial resistances
  * Note: Resist confusion was merged to RF10_NO_CONF
  */
-#define RF10_IM_ACID         0x00000001  /* Resist acid */
+#define RF10_XXX0            0x00000001  /* Resist acid */
 #define RF10_IM_ELEC         0x00000002  /* Resist elec */
 #define RF10_IM_FIRE         0x00000004  /* Resist fire */
 #define RF10_IM_COLD         0x00000008  /* Resist cold */
@@ -4123,7 +4123,6 @@
 /*
  * Hack -- effective elemental and poison immunity mask
  */
-#define RF10_EFF_IM_ELEC_MASK  (RF10_IM_ELEC | RF10_RES_ALL)
 #define RF10_EFF_IM_FIRE_MASK  (RF10_IM_FIRE | RF10_RES_ALL)
 #define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
 
