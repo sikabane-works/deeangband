@@ -2135,7 +2135,7 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 					int dam = 1;
 					object_type *o_ptr = &tar_ptr->inventory[INVEN_1STARM];
 
-					if (!(atk_ptr->resist_ultimate || r_ptr->flags10 & RF10_RES_DARK))
+					if (!is_resist_dark_creature(atk_ptr))
 					{
 						if (o_ptr->k_idx)
 						{
@@ -2184,8 +2184,8 @@ msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 					}
 					else
 					{
-						if (is_original_ap_and_seen(tar_ptr, atk_ptr))
-							r_ptr->r_flags10 |= (RF10_RES_ALL | RF10_RES_DARK);
+						//if (is_original_ap_and_seen(tar_ptr, atk_ptr))
+						//TODO	r_ptr->r_flags10 |= (RF10_RES_ALL | RF10_RES_DARK);
 					}
 				}
 			}

@@ -2179,7 +2179,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_PLAS);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_PLAS);
 			}
 			break;
 		}
@@ -2200,7 +2200,7 @@ note = "には耐性がある。";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags10 & RF10_RES_NETH)
+			if (is_resist_neth_creature(tar_ptr))
 			{
 				if (is_undead_species(r_ptr))
 				{
@@ -2223,7 +2223,7 @@ note = "には耐性がある。";
 
 					dam *= 3; dam /= randint1(6) + 6;
 				}
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NETH);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NETH);
 			}
 			else if (is_enemy_of_good_species(r_ptr))
 			{
@@ -2277,7 +2277,7 @@ note = "には耐性がある。";
 
 					dam *= 3; dam /= randint1(6) + 6;
 				}
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WATE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WATE);
 			}
 			break;
 		}
@@ -2414,7 +2414,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 2; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SOUN);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SOUN);
 			}
 			else do_stun = (10 + randint1(15) + r) / (r + 1);
 			break;
@@ -4324,7 +4324,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags10 & RF10_RES_LITE)
+			if (is_resist_lite_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -4333,7 +4333,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 #endif
 
 				dam *= 2; dam /= (randint1(6)+6);
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_LITE);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_LITE);
 			}
 			else if (is_hurt_lite_creature(tar_ptr))
 			{
@@ -4368,7 +4368,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (tar_ptr->flags10 & RF10_RES_DARK)
+			if (is_resist_dark_creature(tar_ptr))
 			{
 #ifdef JP
 				note = "には耐性がある！";
@@ -4377,7 +4377,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 #endif
 
 				dam *= 2; dam /= (randint1(6)+6);
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_DARK);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_DARK);
 			}
 			break;
 		}
