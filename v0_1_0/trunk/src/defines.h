@@ -3756,55 +3756,6 @@
 #define RF6_S_UNIQUE        0x80000000  /* Summon Unique Monster */
 
 /*
- * New Creature race bit flags
- */
-#define RF7_HAS_LITE_1          0x00000100  /* Creature carries light */
-#define RF7_SELF_LITE_1         0x00000200  /* Creature lights itself */
-#define RF7_HAS_LITE_2          0x00000400  /* Creature carries light */
-#define RF7_SELF_LITE_2         0x00000800  /* Creature lights itself */
-#define RF7_HAS_DARK_1          0x00010000  /* Creature carries darkness */
-#define RF7_SELF_DARK_1         0x00020000  /* Creature darkens itself */
-#define RF7_HAS_DARK_2          0x00040000  /* Creature carries darkness */
-#define RF7_SELF_DARK_2         0x00080000  /* Creature darkens itself */
-
-/*
- * Monster bit flags of racial resistances
- * Note: Resist confusion was merged to RF10_NO_CONF
- */
-#define RF10_XXX0            0x00000001  /* Resist acid */
-#define RF10_IM_ELEC         0x00000002  /* Resist elec */
-#define RF10_IM_FIRE         0x00000004  /* Resist fire */
-#define RF10_IM_COLD         0x00000008  /* Resist cold */
-#define RF10_RES_ALL         0x00000010  /* Resist poison */
-#define RF10_XXX5            0x00000020  /* Resist lite */
-#define RF10_XXX6            0x00000040  /* Resist dark */
-#define RF10_XXX7            0x00000080  /* Resist nether */
-#define RF10_XXX8            0x00000100  /* Resist water */
-#define RF10_XXX9            0x00000200  /* Resist plasma */
-#define RF10_XXX10           0x00000400  /* Resist shards */
-#define RF10_XXX11           0x00000800  /* Resist sound */
-#define RF10_XXX12           0x00001000  /* Resist chaos */
-#define RF10_XXX13           0x00002000  /* Resist nexus */
-#define RF10_XXX14           0x00004000  /* Resist disenchantment */
-#define RF10_XXX15           0x00008000  /* Resist force */
-#define RF10_XXX16           0x00010000  /* Resist inertia */
-#define RF10_XXX17           0x00020000  /* Resist time */
-#define RF10_XXX18           0x00040000  /* Resist gravity */
-#define RF10_XXX19           0x00080000  /* Resist all */
-#define RF10_XXX20           0x00100000  /* Resist teleportation */
-#define RF10_XXX21           0x00200000
-#define RF10_XXX22           0x00400000
-#define RF10_XXX23           0x00800000
-#define RF10_XXX24           0x01000000
-#define RF10_XXX25           0x02000000
-#define RF10_XXX26           0x04000000
-#define RF10_XXX27           0x08000000
-#define RF10_XXX28           0x10000000
-#define RF10_XXX29           0x20000000
-#define RF10_XXX30           0x40000000
-#define RF10_XXX31           0x80000000
-
-/*
  * Monster Ego flags
  */
 #define RF11_FORCE_LESSER       0x00000001
