@@ -325,7 +325,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	lite_spot(cr_ptr, y, x);
 
 	/* Update some things */
-	if (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (is_lighting_creature(cr_ptr) || r_ptr->flags7 & (RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 }
 
@@ -2915,8 +2915,8 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	}
 
 
-	if ((species_info[old_species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK)) ||
-	    (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK)))
+	if (is_lighting_species(&species_info[old_species_idx]) || (species_info[old_species_idx].flags7 & (RF7_DARK_MASK)) ||
+	    (is_lighting_species(r_ptr) || r_ptr->flags7 & (RF7_DARK_MASK)))
 		p_ptr->update |= (PU_MON_LITE);
 
 	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, TRUE);

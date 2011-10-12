@@ -1151,7 +1151,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 					lite_spot(cr_ptr, oy, ox);
 					lite_spot(cr_ptr, ty, tx);
 
-					if (r_ptr->flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+					if (is_lighting_creature(m_ptr) || r_ptr->flags7 & (RF7_DARK_MASK))
 						cr_ptr->update |= (PU_MON_LITE);
 				}
 			}
@@ -1711,8 +1711,8 @@ msg_print("その方向にはモンスターはいません。");
 		/* Redraw the new grid */
 		lite_spot(cr_ptr, ty, tx);
 
-		if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
-			cr_ptr->update |= (PU_MON_LITE);
+		if (is_lighting_creature(m_ptr) || species_info[m_ptr->species_idx].flags7 & (RF7_DARK_MASK))
+			m_ptr->update |= (PU_MON_LITE);
 
 		if (m_ptr->ml)
 		{

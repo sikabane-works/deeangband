@@ -4108,9 +4108,6 @@
 /*
  * Hack -- "torch" masks
  */
-#define RF7_LITE_MASK \
-	(RF7_HAS_LITE_1 | RF7_SELF_LITE_1 | RF7_HAS_LITE_2 | RF7_SELF_LITE_2)
-
 #define RF7_DARK_MASK \
 	(RF7_HAS_DARK_1 | RF7_SELF_DARK_1 | RF7_HAS_DARK_2 | RF7_SELF_DARK_2)
 

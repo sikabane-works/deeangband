@@ -148,7 +148,7 @@ bool teleport_away(creature_type *cr_ptr, int dis, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(cr_ptr, ny, nx);
 
-	if (species_info[cr_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (is_lighting_species(&species_info[cr_ptr->species_idx]) || species_info[cr_ptr->species_idx].flags7 & (RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 
 	return (TRUE);
@@ -248,7 +248,7 @@ void teleport_monster_to(int m_idx, int ty, int tx, int power, u32b mode)
 	/* Redraw the new grid */
 	lite_spot(p_ptr, ny, nx);
 
-	if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+	if (is_lighting_creature(m_ptr) || species_info[m_ptr->species_idx].flags7 & (RF7_DARK_MASK))
 		p_ptr->update |= (PU_MON_LITE);
 }
 

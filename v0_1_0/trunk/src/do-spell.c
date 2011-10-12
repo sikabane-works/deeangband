@@ -10569,7 +10569,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					lite_spot(cr_ptr, oy, ox);
 					lite_spot(cr_ptr, ty, tx);
 	
-					if (species_info[m_ptr->species_idx].flags7 & (RF7_LITE_MASK | RF7_DARK_MASK))
+					if (is_lighting_creature(m_ptr) || species_info[m_ptr->species_idx].flags7 & (RF7_DARK_MASK))
 						cr_ptr->update |= (PU_MON_LITE);
 				}
 			}
