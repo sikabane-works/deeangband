@@ -1758,76 +1758,77 @@ bool have_creature_flags(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-int calc_damage_type_rate(creature_type *creature_ptr, int type)
+int calc_damage(creature_type *creature_ptr, int damage, int type)
 {
+	int t;
 	switch(type)
 	{
 	case DAMAGE_TYPE_MELEE:
-		return (250 - creature_ptr->ac - creature_ptr->to_a) * 100 / 250;
+		t = (250 - creature_ptr->ac - creature_ptr->to_a) * 100 / 250;
+		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_COLD:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_ELEC:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_ACID:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_POIS:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_LITE:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_DARK:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_NETH:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_WATER:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_PLAZMA:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_SHARD:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_SOUND:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_CHAOS:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_NEXUS:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_DISEN:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_FORCE:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_INERTIA:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_TIME:
-		return 100;
+		t = 100;
 		break;
 	case DAMAGE_TYPE_GRAVITY:
-		return 100;
+		t = 100;
 		break;
 	default:
-		return 100;
+		t = 100;
 		break;
-
-
 	}	
+	return damage * t / 100;
 };
 
 

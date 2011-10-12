@@ -1825,10 +1825,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			msg_print("You are suddenly very hot!");
 #endif
 
-			if (race_is_(atk_ptr, RACE_ENT)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_FIRE(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (atk_ptr->resist_fire) aura_damage = (aura_damage + 2) / 3;
-
+			aura_damage = calc_damage(atk_ptr, aura_damage, DAMAGE_TYPE_FIRE);
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_FIRE;
 			handle_stuff(atk_ptr);
