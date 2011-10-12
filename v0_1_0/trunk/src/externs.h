@@ -961,6 +961,38 @@ extern bool is_resist_cold_creature(creature_type *creature_ptr);
 extern bool is_resist_cold_species(species_type *species_ptr);
 extern bool is_resist_pois_creature(creature_type *creature_ptr);
 extern bool is_resist_pois_species(species_type *species_ptr);
+extern bool is_resist_lite_creature(creature_type *creature_ptr);
+extern bool is_resist_lite_species(species_type *species_ptr);
+extern bool is_resist_dark_creature(creature_type *creature_ptr);
+extern bool is_resist_dark_species(species_type *species_ptr);
+extern bool is_resist_neth_creature(creature_type *creature_ptr);
+extern bool is_resist_neth_species(species_type *species_ptr);
+extern bool is_resist_wate_creature(creature_type *creature_ptr);
+extern bool is_resist_wate_species(species_type *species_ptr);
+extern bool is_resist_plas_creature(creature_type *creature_ptr);
+extern bool is_resist_plas_species(species_type *species_ptr);
+extern bool is_resist_shar_creature(creature_type *creature_ptr);
+extern bool is_resist_shar_species(species_type *species_ptr);
+extern bool is_resist_soun_creature(creature_type *creature_ptr);
+extern bool is_resist_soun_species(species_type *species_ptr);
+extern bool is_resist_chao_creature(creature_type *creature_ptr);
+extern bool is_resist_chao_species(species_type *species_ptr);
+extern bool is_resist_nexu_creature(creature_type *creature_ptr);
+extern bool is_resist_nexu_species(species_type *species_ptr);
+extern bool is_resist_dise_creature(creature_type *creature_ptr);
+extern bool is_resist_dise_species(species_type *species_ptr);
+extern bool is_resist_wall_creature(creature_type *creature_ptr);
+extern bool is_resist_wall_species(species_type *species_ptr);
+extern bool is_resist_iner_creature(creature_type *creature_ptr);
+extern bool is_resist_iner_species(species_type *species_ptr);
+extern bool is_resist_time_creature(creature_type *creature_ptr);
+extern bool is_resist_time_species(species_type *species_ptr);
+extern bool is_resist_grav_creature(creature_type *creature_ptr);
+extern bool is_resist_grav_species(species_type *species_ptr);
+extern bool is_resist_all_creature(creature_type *creature_ptr);
+extern bool is_resist_all_species(species_type *species_ptr);
+extern bool is_resist_tele_creature(creature_type *creature_ptr);
+extern bool is_resist_tele_species(species_type *species_ptr);
 
 
 
