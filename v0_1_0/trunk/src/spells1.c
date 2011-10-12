@@ -2536,7 +2536,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WALL);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WALL);
 			}
 			else do_stun = (randint1(15) + r) / (r + 1);
 			break;
@@ -2567,7 +2567,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_INER);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_INER);
 			}
 			else
 			{
@@ -2618,7 +2618,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_TIME);
+				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_TIME);
 			}
 			else do_time = (dam + 1) / 2;
 			break;
@@ -5824,7 +5824,7 @@ note = "には効果がなかった。";
 	{
 		/* Sound and Impact resisters never stun */
 		if (do_stun &&
-		    !(tar_ptr->flags10 & (RF10_RES_SOUN | RF10_RES_WALL)) && !is_no_stun_creature(tar_ptr))
+		    !(is_resist_soun_creature(tar_ptr) || is_resist_wall_creature(tar_ptr)) && !is_no_stun_creature(tar_ptr))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;

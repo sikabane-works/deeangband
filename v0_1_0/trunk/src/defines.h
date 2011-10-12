@@ -3786,9 +3786,9 @@
 #define RF10_RES_CHAO        0x00001000  /* Resist chaos */
 #define RF10_RES_NEXU        0x00002000  /* Resist nexus */
 #define RF10_RES_DISE        0x00004000  /* Resist disenchantment */
-#define RF10_RES_WALL        0x00008000  /* Resist force */
-#define RF10_RES_INER        0x00010000  /* Resist inertia */
-#define RF10_RES_TIME        0x00020000  /* Resist time */
+#define RF10_XXX15           0x00008000  /* Resist force */
+#define RF10_XXX16           0x00010000  /* Resist inertia */
+#define RF10_XXX17           0x00020000  /* Resist time */
 #define RF10_RES_GRAV        0x00040000  /* Resist gravity */
 #define RF10_RES_ALL         0x00080000  /* Resist all */
 #define RF10_RES_TELE        0x00100000  /* Resist teleportation */
