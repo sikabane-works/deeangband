@@ -953,7 +953,8 @@ extern bool is_has_dark_2_species(species_type *species_ptr);
 
 extern bool is_lighting_creature(creature_type *creature_ptr);
 extern bool is_lighting_species(species_type *species_ptr);
-
+extern bool is_darken_creature(creature_type *creature_ptr);
+extern bool is_darken_species(species_type *species_ptr);
 
 extern bool is_resist_acid_creature(creature_type *creature_ptr);
 extern bool is_resist_acid_species(species_type *species_ptr);

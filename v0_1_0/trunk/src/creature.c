@@ -1390,6 +1390,18 @@ bool is_lighting_species(species_type *species_ptr)
 		   is_has_lite_1_species(species_ptr) || is_has_lite_2_species(species_ptr);
 }
 
+bool is_darken_creature(creature_type *creature_ptr)
+{
+	return is_self_dark_1_creature(creature_ptr) || is_self_dark_2_creature(creature_ptr) ||
+		   is_has_dark_1_creature(creature_ptr) || is_has_dark_2_creature(creature_ptr);
+}
+
+bool is_darken_species(species_type *species_ptr)
+{
+	return is_self_dark_1_species(species_ptr) || is_self_dark_2_species(species_ptr) ||
+		   is_has_dark_1_species(species_ptr) || is_has_dark_2_species(species_ptr);
+}
+
 
 
 bool is_resist_acid_creature(creature_type *creature_ptr)

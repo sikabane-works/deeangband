@@ -451,7 +451,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		if (vs_ninja &&
 		    !is_hurt_lite_creature(user_ptr) &&
 			!is_undead_creature(user_ptr) && 
-		    !(r_ptr->flags7 & RF7_DARK_MASK))
+		    !is_darken_creature(user_ptr))
 			can_use_lite_area = TRUE;
 
 		if (!is_stupid_creature(user_ptr))

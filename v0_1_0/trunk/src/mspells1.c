@@ -1481,7 +1481,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		if ((target_ptr->cls_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(user_ptr) &&
 			!is_undead_creature(user_ptr) && 
-		    !(r_ptr->flags7 & RF7_DARK_MASK))
+		    !is_darken_creature(user_ptr))
 			can_use_lite_area = TRUE;
 
 		if (!is_stupid_creature(user_ptr))

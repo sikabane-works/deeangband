@@ -734,7 +734,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	if (world_monster && &creature_list[world_monster] == cr_ptr) world_monster = 0;
 
 	/* Notice changes in view */
-	if (is_lighting_creature(cr_ptr) || cr_ptr->flags7 & (RF7_DARK_MASK))
+	if (is_lighting_creature(cr_ptr) || is_darken_creature(cr_ptr))
 	{
 		/* Update some things */
 		p_ptr->update |= (PU_MON_LITE);
