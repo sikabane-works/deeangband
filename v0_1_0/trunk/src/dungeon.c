@@ -7111,6 +7111,8 @@ quit("セーブファイルが壊れています");
 		dungeon(cr_ptr, load_game);
 
 		/* Handle "cr_ptr->notice" */
+
+
 		notice_stuff(cr_ptr);
 
 		/* Hack -- prevent "icky" message */

@@ -6184,3 +6184,19 @@ extern int PlayerUID;
 #define CREATURE_OBS_ALIGNMENT		110
 
 #define NO_FLAGS 0 // no flags
+
+
+
+// Definition of Damage Type
+#define DAMAGE_MELEE         0
+#define DAMAGE_FIRE          1
+#define DAMAGE_COLD          2
+#define DAMAGE_ELEC          3
+#define DAMAGE_ACID          4
+#define DAMAGE_POIS          5
+
+
+
+
+
+

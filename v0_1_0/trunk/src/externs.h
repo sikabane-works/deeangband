@@ -1110,6 +1110,9 @@ extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int
 extern bool have_one_creature_flag(creature_flags *cf_ptr, int type);
 extern bool have_creature_flags(creature_type *creature_ptr, int type);
 
+extern int calc_damage_type_rate(creature_type *creature_ptr, int type);
+
+
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);
 extern cptr do_spell(creature_type *cr_ptr, int realm, int spell, int mode);

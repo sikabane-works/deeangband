@@ -1758,5 +1758,34 @@ bool have_creature_flags(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
+int calc_damage_type_rate(creature_type *creature_ptr, int type)
+{
+	switch(type)
+	{
+	case DAMAGE_MELEE:
+		return 100;
+		break;
+	case DAMAGE_FIRE:
+		return 100;
+		break;
+	case DAMAGE_COLD:
+		return 100;
+		break;
+	case DAMAGE_ELEC:
+		return 100;
+		break;
+	case DAMAGE_ACID:
+		return 100;
+		break;
+	case DAMAGE_POIS:
+		return 100;
+		break;
+	default:
+		return 100;
+		break;
+	}	
+};
+
+
 
 

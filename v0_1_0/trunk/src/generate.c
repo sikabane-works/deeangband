@@ -1474,6 +1474,9 @@ static bool level_gen(cptr *why)
 
 		return FALSE;
 	}
+
+
+
 	else return TRUE;
 }
 

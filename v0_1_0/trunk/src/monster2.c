@@ -1034,7 +1034,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 {
 	dungeon_info_type *d_ptr = &d_info[dungeon_type];
 	species_type *r_ptr = &species_info[species_idx];
-	byte a;
+	//byte a;
 
 	if (d_ptr->flags1 & DF1_CHAMELEON)
 	{
