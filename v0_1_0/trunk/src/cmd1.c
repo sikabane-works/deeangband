@@ -541,11 +541,11 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if (have_flag(flgs, TR_BRAND_FIRE) || ((atk_ptr->special_attack & (ATTACK_FIRE)) && !thrown) || (mode == HISSATSU_FIRE))
 			{
 				/* Notice immunity */
-				if (tar_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)
+				if (is_resist_fire_creature(tar_ptr))
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
+						//TODO r_ptr->r_flags10 |= (tar_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 					}
 				}
 
@@ -4227,7 +4227,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_LAVA) && !(riding_r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK))
+		else if (have_flag(f_ptr->flags, FF_LAVA) && !is_resist_fire_creature(steed_ptr))
 		{
 #ifdef JP
 			msg_format("%s‚Ìã‚És‚¯‚È‚¢B", f_name + f_info[get_feat_mimic(c_ptr)].name);

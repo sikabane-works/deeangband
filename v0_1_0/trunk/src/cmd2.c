@@ -3190,11 +3190,11 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if (have_flag(flgs, TR_BRAND_FIRE))
 			{
 				/* Notice immunity */
-				if (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK)
+				if (is_resist_fire_creature(tar_ptr))
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 					{
-						r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
+						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 					}
 				}
 
