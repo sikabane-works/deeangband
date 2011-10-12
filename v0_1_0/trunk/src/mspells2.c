@@ -3454,7 +3454,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (tr_ptr->flags10 & (RF10_EFF_RES_NEXU_MASK | RF10_RES_TELE))
+		if (is_resist_nexu_creature(tar_ptr) || is_resist_all_creature(tar_ptr) || is_resist_tele_creature(tar_ptr))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", t_name);

@@ -3783,13 +3783,13 @@
 #define RF10_RES_PLAS        0x00000200  /* Resist plasma */
 #define RF10_RES_SHAR        0x00000400  /* Resist shards */
 #define RF10_RES_SOUN        0x00000800  /* Resist sound */
-#define RF10_RES_CHAO        0x00001000  /* Resist chaos */
-#define RF10_RES_NEXU        0x00002000  /* Resist nexus */
-#define RF10_RES_DISE        0x00004000  /* Resist disenchantment */
+#define RF10_XXX12           0x00001000  /* Resist chaos */
+#define RF10_XXX13           0x00002000  /* Resist nexus */
+#define RF10_XXX14           0x00004000  /* Resist disenchantment */
 #define RF10_XXX15           0x00008000  /* Resist force */
 #define RF10_XXX16           0x00010000  /* Resist inertia */
 #define RF10_XXX17           0x00020000  /* Resist time */
-#define RF10_RES_GRAV        0x00040000  /* Resist gravity */
+#define RF10_XXX18           0x00040000  /* Resist gravity */
 #define RF10_RES_ALL         0x00080000  /* Resist all */
 #define RF10_RES_TELE        0x00100000  /* Resist teleportation */
 #define RF10_XXX21           0x00200000
@@ -4129,9 +4129,6 @@
 #define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
 #define RF10_EFF_IM_POIS_MASK  (RF10_IM_POIS | RF10_RES_ALL)
 #define RF10_EFF_RES_SHAR_MASK (RF10_RES_SHAR | RF10_RES_ALL)
-#define RF10_EFF_RES_CHAO_MASK (RF10_RES_CHAO | RF10_RES_ALL)
-#define RF10_EFF_RES_NEXU_MASK (RF10_RES_NEXU | RF10_RES_ALL)
-
 
 #define MR1_SINKA 0x01
 

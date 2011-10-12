@@ -2307,7 +2307,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_CHAO);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_CHAO);
 			}
 			else if (is_demon_species(r_ptr) && one_in_(3))
 			{
@@ -2476,7 +2476,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_DISE);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_DISE);
 			}
 			break;
 		}
@@ -2506,7 +2506,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NEXU);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NEXU);
 			}
 			break;
 		}
@@ -2682,7 +2682,7 @@ note = "には耐性がある！";
 
 				dam *= 3; dam /= randint1(6) + 6;
 				do_dist = 0;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_GRAV);
+				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_GRAV);
 			}
 			else
 			{
@@ -5859,9 +5859,7 @@ note = "には効果がなかった。";
 		}
 
 		/* Confusion and Chaos resisters (and sleepers) never confuse */
-		if (do_conf &&
-			 !is_no_conf_creature(tar_ptr) &&
-			 !(tar_ptr->flags10 & RF10_EFF_RES_CHAO_MASK))
+		if (do_conf && !is_no_conf_creature(tar_ptr) && !is_resist_chao_creature(tar_ptr))
 		{
 			/* Obvious */
 			if (seen) obvious = TRUE;
