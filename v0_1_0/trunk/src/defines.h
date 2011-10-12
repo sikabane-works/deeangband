@@ -6188,13 +6188,26 @@ extern int PlayerUID;
 
 
 // Definition of Damage Type
-#define DAMAGE_MELEE         0
-#define DAMAGE_FIRE          1
-#define DAMAGE_COLD          2
-#define DAMAGE_ELEC          3
-#define DAMAGE_ACID          4
-#define DAMAGE_POIS          5
-
+#define DAMAGE_TYPE_MELEE         0
+#define DAMAGE_TYPE_FIRE          1
+#define DAMAGE_TYPE_COLD          2
+#define DAMAGE_TYPE_ELEC          3
+#define DAMAGE_TYPE_ACID          4
+#define DAMAGE_TYPE_POIS          5
+#define DAMAGE_TYPE_LITE          6
+#define DAMAGE_TYPE_DARK          7
+#define DAMAGE_TYPE_NETH          8
+#define DAMAGE_TYPE_WATER         9
+#define DAMAGE_TYPE_PLAZMA       10
+#define DAMAGE_TYPE_SHARD        11
+#define DAMAGE_TYPE_SOUND        12
+#define DAMAGE_TYPE_CHAOS        13
+#define DAMAGE_TYPE_NEXUS        14
+#define DAMAGE_TYPE_DISEN        15
+#define DAMAGE_TYPE_FORCE        16
+#define DAMAGE_TYPE_INERTIA      17
+#define DAMAGE_TYPE_TIME         18
+#define DAMAGE_TYPE_GRAVITY      19
 
 
 
