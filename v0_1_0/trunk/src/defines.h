@@ -3775,7 +3775,7 @@
 #define RF10_IM_ELEC         0x00000002  /* Resist elec */
 #define RF10_IM_FIRE         0x00000004  /* Resist fire */
 #define RF10_IM_COLD         0x00000008  /* Resist cold */
-#define RF10_XXX4            0x00000010  /* Resist poison */
+#define RF10_RES_ALL         0x00000010  /* Resist poison */
 #define RF10_XXX5            0x00000020  /* Resist lite */
 #define RF10_XXX6            0x00000040  /* Resist dark */
 #define RF10_XXX7            0x00000080  /* Resist nether */
@@ -3790,7 +3790,7 @@
 #define RF10_XXX16           0x00010000  /* Resist inertia */
 #define RF10_XXX17           0x00020000  /* Resist time */
 #define RF10_XXX18           0x00040000  /* Resist gravity */
-#define RF10_RES_ALL         0x00080000  /* Resist all */
+#define RF10_XXX19           0x00080000  /* Resist all */
 #define RF10_XXX20           0x00100000  /* Resist teleportation */
 #define RF10_XXX21           0x00200000
 #define RF10_XXX22           0x00400000
@@ -4123,7 +4123,6 @@
 /*
  * Hack -- effective elemental and poison immunity mask
  */
-#define RF10_EFF_IM_ACID_MASK  (RF10_IM_ACID | RF10_RES_ALL)
 #define RF10_EFF_IM_ELEC_MASK  (RF10_IM_ELEC | RF10_RES_ALL)
 #define RF10_EFF_IM_FIRE_MASK  (RF10_IM_FIRE | RF10_RES_ALL)
 #define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
