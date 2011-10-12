@@ -4123,8 +4123,6 @@
 /*
  * Hack -- effective elemental and poison immunity mask
  */
-#define RF10_EFF_IM_COLD_MASK  (RF10_IM_COLD | RF10_RES_ALL)
-
 #define MR1_SINKA 0x01
 
 
