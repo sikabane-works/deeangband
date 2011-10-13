@@ -8262,7 +8262,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				{
 					creature_type tmp_cr;
 					C_WIPE(&tmp_cr, 1, creature_type);
-					create_monster(&tmp_cr, mon_idx[mon_cur], 0, 0);
+					create_creature(&tmp_cr, mon_idx[mon_cur], 0, 0);
 					display_creature_dump(&tmp_cr);
 					redraw = TRUE;
 					break;

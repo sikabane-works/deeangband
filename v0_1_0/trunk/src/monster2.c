@@ -559,7 +559,7 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i]))
 		{
 			creature_type *cr_ptr = &u_info[j]; 
-			create_monster(cr_ptr, i, MONEGO_NONE, 0);
+			create_creature(cr_ptr, i, MONEGO_NONE, 0);
 			j++;
 		}
 	}
@@ -3021,7 +3021,7 @@ static int initial_r_appearance(int species_idx)
 }
 
 
-static void mon_equip(creature_type *m_ptr)
+static void deal_creature_equipment(creature_type *m_ptr)
 {
 	int i, number;
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -3426,7 +3426,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 	else
 	{
-		create_monster(m_ptr, species_idx, re_selected, mode); 
+		create_creature(m_ptr, species_idx, re_selected, mode); 
 	}
 
 	/* No flags */
@@ -3694,111 +3694,111 @@ msg_print("爆発のルーンは解除された。");
 }
 
 
-int create_monster(creature_type *m_ptr, int species_idx, int monster_ego_idx, u32b mode)
+int create_creature(creature_type *creature_ptr, int species_idx, int monster_ego_idx, u32b mode)
 {
 	int i;
-	species_type	*r_ptr = &species_info[species_idx];
-	cptr		name = (r_name + r_ptr->name);
+	species_type	*species_ptr = &species_info[species_idx];
+	cptr		name = (r_name + species_ptr->name);
 
 
-	strcpy(m_ptr->name, name);
+	strcpy(creature_ptr->name, name);
 
 	/* Save the categories */
-	m_ptr->species_idx = species_idx;
-	m_ptr->monster_ego_idx = 0;
-	m_ptr->race_idx1 = (s16b)r_ptr->race_idx1;
-	m_ptr->cls_idx = (byte)r_ptr->cls_idx;
-	m_ptr->chara_idx = (byte)r_ptr->chara_idx;
-	m_ptr->ap_species_idx = species_idx;
+	creature_ptr->species_idx = species_idx;
+	creature_ptr->monster_ego_idx = 0;
+	creature_ptr->race_idx1 = (s16b)species_ptr->race_idx1;
+	creature_ptr->cls_idx = (byte)species_ptr->cls_idx;
+	creature_ptr->chara_idx = (byte)species_ptr->chara_idx;
+	creature_ptr->ap_species_idx = species_idx;
 
 	/* MISC parameter*/
-	m_ptr->age = r_ptr->age;
-	m_ptr->dr = r_ptr->dr;
-	m_ptr->sc = r_ptr->sc;
+	creature_ptr->age = species_ptr->age;
+	creature_ptr->dr = species_ptr->dr;
+	creature_ptr->sc = species_ptr->sc;
 
 	/* No flags */
-	m_ptr->mflag = 0;
-	m_ptr->mflag2 = 0;
+	creature_ptr->mflag = 0;
+	creature_ptr->mflag2 = 0;
 
 	/* No "timed status" yet */
-	m_ptr->fast = 0;
-	m_ptr->slow = 0;
-	m_ptr->blind = 0;
-	m_ptr->afraid = 0;
-	m_ptr->invuln = 0;
-	m_ptr->stun = 0;
-	m_ptr->paralyzed = 0;
-	m_ptr->confused = 0;
+	creature_ptr->fast = 0;
+	creature_ptr->slow = 0;
+	creature_ptr->blind = 0;
+	creature_ptr->afraid = 0;
+	creature_ptr->invuln = 0;
+	creature_ptr->stun = 0;
+	creature_ptr->paralyzed = 0;
+	creature_ptr->confused = 0;
 
 	/* Unknown distance */
-	m_ptr->cdis = 0;
-	reset_target(m_ptr);
-	m_ptr->nickname = 0;
+	creature_ptr->cdis = 0;
+	reset_target(creature_ptr);
+	creature_ptr->nickname = 0;
 
 	/* Set Monster's Level and EXP*/
-	set_expfact(m_ptr);
+	set_expfact(creature_ptr);
 
-	m_ptr->lev = 1;
-	m_ptr->exp = r_ptr->mexp;
-	//check_experience(m_ptr);
+	creature_ptr->lev = 1;
+	creature_ptr->exp = species_ptr->mexp;
+	//check_experience(creature_ptr);
 
-	initialize_skill(m_ptr);
+	initialize_skill(creature_ptr);
 
 	/* Set Status */
-	set_sex(m_ptr);
-	set_height_weight(m_ptr);
-	set_bodysize(m_ptr);
-	set_status(m_ptr);
-	set_hitdice(m_ptr);
-	set_enemy_maxhp(m_ptr);
+	set_sex(creature_ptr);
+	set_height_weight(creature_ptr);
+	set_bodysize(creature_ptr);
+	set_status(creature_ptr);
+	set_hitdice(creature_ptr);
+	set_enemy_maxhp(creature_ptr);
 
 	//TODO process
-	m_ptr->flags1 = r_ptr->flags1;
-	m_ptr->flags2 = r_ptr->flags2;
-	m_ptr->flags3 = r_ptr->flags3;
-	m_ptr->flags4 = r_ptr->flags4;
-	m_ptr->flags5 = r_ptr->flags5;
-	m_ptr->flags6 = r_ptr->flags6;
-	m_ptr->flags7 = r_ptr->flags7;
-	m_ptr->flags8 = r_ptr->flags8;
-	m_ptr->flags9 = r_ptr->flags9;
-	m_ptr->flags10 = r_ptr->flags10;
-	m_ptr->flags11 = r_ptr->flags11;
-	m_ptr->flags12 = r_ptr->flags12;
-	m_ptr->flags13 = r_ptr->flags13;
-	m_ptr->flags14 = r_ptr->flags14;
-	m_ptr->flags15 = r_ptr->flags15;
-	m_ptr->flags16 = r_ptr->flags16;
-	m_ptr->flags17 = r_ptr->flags17;
-	m_ptr->flags18 = r_ptr->flags18;
-	m_ptr->flags19 = r_ptr->flags19;
+	creature_ptr->flags1 = species_ptr->flags1;
+	creature_ptr->flags2 = species_ptr->flags2;
+	creature_ptr->flags3 = species_ptr->flags3;
+	creature_ptr->flags4 = species_ptr->flags4;
+	creature_ptr->flags5 = species_ptr->flags5;
+	creature_ptr->flags6 = species_ptr->flags6;
+	creature_ptr->flags7 = species_ptr->flags7;
+	creature_ptr->flags8 = species_ptr->flags8;
+	creature_ptr->flags9 = species_ptr->flags9;
+	creature_ptr->flags10 = species_ptr->flags10;
+	creature_ptr->flags11 = species_ptr->flags11;
+	creature_ptr->flags12 = species_ptr->flags12;
+	creature_ptr->flags13 = species_ptr->flags13;
+	creature_ptr->flags14 = species_ptr->flags14;
+	creature_ptr->flags15 = species_ptr->flags15;
+	creature_ptr->flags16 = species_ptr->flags16;
+	creature_ptr->flags17 = species_ptr->flags17;
+	creature_ptr->flags18 = species_ptr->flags18;
+	creature_ptr->flags19 = species_ptr->flags19;
 
 	for(i = 0; i < 8;i++)
-		m_ptr->authority[i] = r_ptr->authority[i];
+		creature_ptr->authority[i] = species_ptr->authority[i];
 
 	/* Equipment */
-	calc_bonuses(m_ptr, FALSE);
+	calc_bonuses(creature_ptr, FALSE);
 
-	mon_equip(m_ptr);
+	deal_creature_equipment(creature_ptr);
 
 	/* Underlings */
 	for(i = 0; i < MAX_UNDERLINGS; i++)
 	{
-		m_ptr->underling_id[i] = r_ptr->underling_id[i];
-		m_ptr->underling_num[i] = damroll(r_ptr->underling_d_num[i], r_ptr->underling_d_side[i]);
+		creature_ptr->underling_id[i] = species_ptr->underling_id[i];
+		creature_ptr->underling_num[i] = damroll(species_ptr->underling_d_num[i], species_ptr->underling_d_side[i]);
 	}
 
 	/* Update */
-	calc_bonuses(m_ptr, FALSE);
-	m_ptr->update = PU_BONUS | PU_HP | PU_MANA;
-	update_stuff(m_ptr, FALSE);
+	calc_bonuses(creature_ptr, FALSE);
+	creature_ptr->update = PU_BONUS | PU_HP | PU_MANA;
+	update_stuff(creature_ptr, FALSE);
 
 	/* And start out fully healthy */
-	if (m_ptr->species_idx == MON_WOUNDED_BEAR)
-		set_enemy_hp(m_ptr, 50);
+	if (creature_ptr->species_idx == MON_WOUNDED_BEAR)
+		set_enemy_hp(creature_ptr, 50);
 	else
-		set_enemy_hp(m_ptr, 100);
-	set_enemy_mana(m_ptr, 100);
+		set_enemy_hp(creature_ptr, 100);
+	set_enemy_mana(creature_ptr, 100);
 
 	/* Success */
 	return TRUE;
