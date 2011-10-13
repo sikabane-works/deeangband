@@ -3707,7 +3707,9 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->monster_ego_idx = 0;
 	creature_ptr->race_idx1 = (s16b)species_ptr->race_idx1;
+	creature_ptr->race_idx2 = (s16b)species_ptr->race_idx2;
 	creature_ptr->cls_idx = (byte)species_ptr->cls_idx;
+	creature_ptr->patron_idx = (byte)species_ptr->patron_idx;
 	creature_ptr->chara_idx = (byte)species_ptr->chara_idx;
 	creature_ptr->ap_species_idx = species_idx;
 
@@ -3740,7 +3742,7 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 
 	creature_ptr->lev = 1;
 	creature_ptr->exp = species_ptr->mexp;
-	//check_experience(creature_ptr);
+	check_experience(creature_ptr);
 
 	initialize_skill(creature_ptr);
 
@@ -3798,6 +3800,7 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 		set_enemy_hp(creature_ptr, 50);
 	else
 		set_enemy_hp(creature_ptr, 100);
+
 	set_enemy_mana(creature_ptr, 100);
 
 	/* Success */
