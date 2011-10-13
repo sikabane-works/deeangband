@@ -1152,6 +1152,8 @@ extern bool have_one_creature_flag(creature_flags *cf_ptr, int type);
 extern bool have_creature_flags(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type);
 
+extern void calc_unreached_race_level_penalty(creature_type *creature_ptr);
+
 
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);

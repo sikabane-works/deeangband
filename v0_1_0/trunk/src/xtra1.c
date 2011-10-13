@@ -3565,21 +3565,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/***** Sub Races ****/
 
-	if(cr_ptr->race_idx1 != RACE_NONE)
-	{
-		for(i = 0; i < 10; i++)
-		{
-			if(race_info[cr_ptr->race_idx1].lev > race_unreached_level_penalty[i] && cr_ptr->lev < race_unreached_level_penalty[i])
-			{
-				cr_ptr->stat_add[A_STR]--;
-				cr_ptr->stat_add[A_INT]--;
-				cr_ptr->stat_add[A_WIS]--;
-				cr_ptr->stat_add[A_DEX]--;
-				cr_ptr->stat_add[A_CON]--;
-				cr_ptr->stat_add[A_CHR]--;
-			}
-		}
-	}
+	calc_unreached_race_level_penalty(cr_ptr);
 
 	if (cr_ptr->ult_res || (cr_ptr->special_defense & KATA_MUSOU))
 	{

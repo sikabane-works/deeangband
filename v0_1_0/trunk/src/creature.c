@@ -2040,5 +2040,24 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 };
 
 
+void calc_unreached_race_level_penalty(creature_type *creature_ptr)
+{
+	int i;
+	if(creature_ptr->race_idx1 != RACE_NONE)
+	{
+		for(i = 0; i < 10; i++)
+		{
+			if(race_info[creature_ptr->race_idx1].lev > race_unreached_level_penalty[i] && creature_ptr->lev < race_unreached_level_penalty[i])
+			{
+				creature_ptr->stat_add[A_STR]--;
+				creature_ptr->stat_add[A_INT]--;
+				creature_ptr->stat_add[A_WIS]--;
+				creature_ptr->stat_add[A_DEX]--;
+				creature_ptr->stat_add[A_CON]--;
+				creature_ptr->stat_add[A_CHR]--;
+			}
+		}
+	}
+}
 
 
