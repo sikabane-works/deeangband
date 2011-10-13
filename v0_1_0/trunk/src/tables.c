@@ -2025,6 +2025,14 @@ player_sex sex_info[MAX_SEXES] =
 {
 	{
 #ifdef JP
+		"無性",
+		"ロード",
+#endif
+		"None",
+		"Lord"
+	},
+	{
+#ifdef JP
 		"女性",
 		"クイーン",
 #endif
@@ -2045,14 +2053,6 @@ player_sex sex_info[MAX_SEXES] =
 		"ロード",
 #endif
 		"InterSex",
-		"Lord"
-	},
-	{
-#ifdef JP
-		"無性",
-		"ロード",
-#endif
-		"None",
 		"Lord"
 	},
 

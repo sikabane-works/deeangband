@@ -742,15 +742,14 @@
 #define A_DEX   3
 #define A_CON   4
 #define A_CHR   5
-
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */
 #define SEX_NONE                0x00
 #define SEX_FEMALE              0x01
 #define SEX_MALE                0x02
-#define SEX_INTERSEX            0x03
-#define SEX_UNDEFINED           255
+#define SEX_INTERSEX            0x03 // (SEX_MALE || SEX_FEMALE)
+#define SEX_UNDEFINED           0xFF
 
 
 /*

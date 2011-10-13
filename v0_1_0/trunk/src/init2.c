@@ -1034,28 +1034,6 @@ static errr init_species_info_csv(void)
 
 
 /*
- *  Old species_info by text
- */
-static errr init_species_info_txt(void)
-{
-
-	/* Init the header */
-	init_header(&r_head, max_species_idx, sizeof(species_type));
-
-#ifdef ALLOW_TEMPLATES
-
-	/* Save a pointer to the parsing function */
-	r_head.parse_info_txt = parse_species_info;
-
-#endif /* ALLOW_TEMPLATES */
-
-	return init_info("species_info", &r_head,
-			 (void*)&species_info, &r_name, &r_text, NULL);
-
-}
-
-
-/*
  * Initialize the "re_info" array
  */
 static errr init_re_info(void)
@@ -2118,7 +2096,6 @@ void init_angband(void)
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (creatures)]");
-	// if (init_species_info_txt()) quit("Cannot initialize monsters");
 	if (init_species_info_csv()) quit("Cannot initialize monsters");
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");

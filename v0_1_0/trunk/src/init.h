@@ -114,7 +114,6 @@ extern void retouch_f_info(header *head);
 extern errr parse_k_info(char *buf, header *head);
 extern errr parse_a_info(char *buf, header *head);
 extern errr parse_e_info(char *buf, header *head);
-extern errr parse_species_info(char *buf, header *head);
 extern errr parse_re_info(char *buf, header *head);
 extern errr parse_d_info(char *buf, header *head);
 extern errr parse_s_info(char *buf, header *head);
