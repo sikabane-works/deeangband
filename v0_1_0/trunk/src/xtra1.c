@@ -3565,7 +3565,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	/***** Sub Races ****/
 
-	calc_unreached_race_level_penalty(cr_ptr);
+	set_unreached_race_level_penalty(cr_ptr);
 
 	if (cr_ptr->ult_res || (cr_ptr->special_defense & KATA_MUSOU))
 	{

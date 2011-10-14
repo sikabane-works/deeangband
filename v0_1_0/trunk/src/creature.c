@@ -2039,25 +2039,39 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 	return damage * t / 100;
 };
 
+int calc_base_level(creature_type *creature_ptr)
+{
+	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx1 == RACE_NONE) return 0;
+	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
+}
 
-void calc_unreached_race_level_penalty(creature_type *creature_ptr)
+int calc_unreached_race_level_penalty(int shortage_lev, int type)
 {
 	int i;
-	if(creature_ptr->race_idx1 != RACE_NONE)
+	byte race_unreached_level_penalty[STAT_MAX][10] = 
 	{
-		for(i = 0; i < 10; i++)
-		{
-			if(race_info[creature_ptr->race_idx1].lev > race_unreached_level_penalty[i] && creature_ptr->lev < race_unreached_level_penalty[i])
-			{
-				creature_ptr->stat_add[A_STR]--;
-				creature_ptr->stat_add[A_INT]--;
-				creature_ptr->stat_add[A_WIS]--;
-				creature_ptr->stat_add[A_DEX]--;
-				creature_ptr->stat_add[A_CON]--;
-				creature_ptr->stat_add[A_CHR]--;
-			}
-		}
-	}
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+		{6, 10, 14, 18, 22, 26, 30, 34, 38, 42},
+	};
+
+	for(i = 0; i < 10; i++)
+		if(race_unreached_level_penalty[type][i] > shortage_lev) break;
+
+	return i;
+}
+
+void set_unreached_race_level_penalty(creature_type *creature_ptr)
+{
+	int i, base_level;
+
+	base_level = calc_base_level(creature_ptr);
+
+	for(i = 0; i < STAT_MAX; i++)
+		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(base_level - creature_ptr->lev, i);
 }
 
 

@@ -39,7 +39,6 @@ extern int max_max_autopick;
 extern autopick_type *autopick_list;
 
 /* tables.c */
-extern byte race_unreached_level_penalty[10];
 extern s16b ddd[9];
 extern s16b ddx[10];
 extern s16b ddy[10];
@@ -1152,7 +1151,9 @@ extern bool have_one_creature_flag(creature_flags *cf_ptr, int type);
 extern bool have_creature_flags(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type);
 
-extern void calc_unreached_race_level_penalty(creature_type *creature_ptr);
+extern int calc_base_level(creature_type *cr_ptr);
+extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
+extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
 
 /* do-spell.c */

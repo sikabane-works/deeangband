@@ -3943,17 +3943,13 @@ void race_detail(int code)
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
-	for(i = 0; i < 10; i++)
-		if(race_info[code].lev > race_unreached_level_penalty[i])
-			pena++;
-
 	sprintf(buf, "%+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+4d%% ",
-		race_info[code].r_adj[0]-pena, race_info[code].r_adj[0],
-		race_info[code].r_adj[1]-pena, race_info[code].r_adj[1],
-		race_info[code].r_adj[2]-pena, race_info[code].r_adj[2],
-		race_info[code].r_adj[3]-pena, race_info[code].r_adj[3],
-		race_info[code].r_adj[4]-pena, race_info[code].r_adj[4],
-		race_info[code].r_adj[5]-pena, race_info[code].r_adj[5],
+		race_info[code].r_adj[0] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_STR), race_info[code].r_adj[0],
+		race_info[code].r_adj[1] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_INT), race_info[code].r_adj[1],
+		race_info[code].r_adj[2] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_WIS), race_info[code].r_adj[2],
+		race_info[code].r_adj[3] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_DEX), race_info[code].r_adj[3],
+		race_info[code].r_adj[4] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_CON), race_info[code].r_adj[4],
+		race_info[code].r_adj[5] - calc_unreached_race_level_penalty(race_info[code].lev - 1, A_CHR), race_info[code].r_adj[5],
 		(race_info[code].r_exp - 100));
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 	c_put_str(TERM_L_WHITE, "=>", base+2, 26);
@@ -4022,10 +4018,6 @@ void subrace_detail(int code)
 		put_str("'s Sub-Race modification", base, 24+strlen(race_info[code].title));
 		put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
-
-		for(i = 0; i < 10; i++)
-			if(race_info[code].lev > race_unreached_level_penalty[i])
-				pena++;
 
 		sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
 			race_info[code].r_s_adj[0],

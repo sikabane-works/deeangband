@@ -13,12 +13,6 @@
 #include "angband.h"
 
 
-byte race_unreached_level_penalty[10] = 
-{
-	6, 10, 14, 18, 22, 26, 30, 34, 38, 42,
-};
-
-
 
 /*
  * Global array for looping through the "keypad directions"

@@ -3527,9 +3527,7 @@ c_put_str(TERM_YELLOW, "åªç›", row, stat_col+35);
 			}
 		}
 
-		for(j = 0; j < 10; j++)
-			if(race_info[cr_ptr->race_idx1].lev > race_unreached_level_penalty[j] && cr_ptr->lev < race_unreached_level_penalty[j])
-				r_adj--;
+		r_adj -= calc_unreached_race_level_penalty(calc_base_level(cr_ptr) , i);
 		
 		if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 			/* Reduced name of stat */
