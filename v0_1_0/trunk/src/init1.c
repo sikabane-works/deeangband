@@ -2641,7 +2641,7 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 	return -1;
 }
 
-static errr grab_one_creature_flag(creature_flags *cf_ptr, cptr what, byte add, byte remove)
+static errr grab_one_creature_flag(creature_flags *cf_ptr, cptr what, byte add, byte remove, byte prob)
 {
 	int i;
 
@@ -2652,6 +2652,7 @@ static errr grab_one_creature_flag(creature_flags *cf_ptr, cptr what, byte add, 
 		{
 			cf_ptr->add_lev[i] = add;
 			cf_ptr->remove_lev[i] = remove;
+			cf_ptr->probability[i] = prob;
 			return 0;
 		}
 	}
@@ -3892,7 +3893,7 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 {
 	char flagname[80];
 	char *s, *t;
-	int b, c;
+	int b, c, prob;
 
 
 	for (s = tmp; *s; )
@@ -3930,8 +3931,15 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 		}
 		else return(1);
 
+		//TODO
+		if(sscanf(s, "[%d%]", &flagname, &prob) != 1)
+		{
+			prob = 100;
+		}
+
+
 		/* Parse this entry */
-		if (grab_one_creature_flag(flags_ptr, flagname, (byte)b, (byte)c) != 0)
+		if (grab_one_creature_flag(flags_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
 			return (PARSE_ERROR_INVALID_FLAG);
 
 		/* Start the next entry */

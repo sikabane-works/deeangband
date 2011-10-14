@@ -51,8 +51,10 @@
 typedef struct creature_flags creature_flags;
 struct creature_flags
 {
-	byte add_lev[CREATURE_FLAGS_MAX * 32];
-	byte remove_lev[CREATURE_FLAGS_MAX * 32];
+	byte add_lev[CF_FLAG_MAX];
+	byte remove_lev[CF_FLAG_MAX];
+	byte probability[CF_FLAG_MAX];
+	bool applied[CF_FLAG_MAX];
 };
 
 
