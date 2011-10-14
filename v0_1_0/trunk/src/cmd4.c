@@ -5482,13 +5482,13 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		else if (ego == 1)
 		{
-			if(!(r_ptr->flags11 & RF11_RACE_EGO))
+			if(!is_variable_race_species(r_ptr))
 				continue;
 		}
 
 		else if (ego == 2)
 		{
-			if(!(r_ptr->flags11 & RF11_CLASS_EGO)) continue;
+			if(!is_variable_class_species(r_ptr)) continue;
 		}
 
 		else

@@ -1852,6 +1852,66 @@ bool is_friendly_creature(creature_type *creature_ptr)
 	return have_creature_flags(creature_ptr, CF_WILD_MOUNTAIN);	
 }
 
+bool is_force_lesser_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_FORCE_LESSER);	
+}
+
+bool is_force_lesser_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_FORCE_LESSER]);
+}
+
+bool is_variable_race_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_RACE_EGO);	
+}
+
+bool is_variable_race_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_RACE_EGO]);
+}
+
+bool is_variable_class_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_CLASS_EGO);	
+}
+
+bool is_variable_class_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_CLASS_EGO]);
+}
+
+bool is_variable_patron_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_PATRON_EGO);	
+}
+
+bool is_variable_patron_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_PATRON_EGO]);
+}
+
+bool is_variable_chara_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_CHARA_EGO);	
+}
+
+bool is_variable_chara_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_CHARA_EGO]);
+}
+
+bool is_variable_size_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_VARIABLE_SIZE_EGO);	
+}
+
+bool is_variable_size_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_VARIABLE_SIZE_EGO]);
+}
+
 
 
 bool is_enemy_of_evil_creature(creature_type *creature_ptr)
@@ -1911,6 +1971,7 @@ bool is_enemy_of_balance_species(species_type *creature_ptr)
 	//TODO
 	return FALSE;
 }
+
 
 void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
 {

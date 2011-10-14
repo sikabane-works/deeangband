@@ -1,5 +1,7 @@
 /* Purpose: create a player character */
 
+/* 2011 Deskull modified. */
+
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
  *

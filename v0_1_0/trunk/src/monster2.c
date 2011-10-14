@@ -1833,7 +1833,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != CHARA_NONE && (r_ptr->flags11 & RF11_CHARA_EGO)){
+	if(m_ptr->chara_idx != CHARA_NONE && is_variable_chara_creature(m_ptr)){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -1843,7 +1843,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->race_idx1 != RACE_NONE && (r_ptr->flags11 & RF11_RACE_EGO)){
+	if(m_ptr->race_idx1 != RACE_NONE && is_variable_race_creature(m_ptr)){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "‚Ì");
@@ -1870,7 +1870,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, r_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != CLASS_NONE && (r_ptr->flags11 & RF11_CLASS_EGO)){
+	if(m_ptr->cls_idx != CLASS_NONE && is_variable_class_creature(m_ptr)){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
@@ -3196,13 +3196,13 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 	if(monster_ego_idx == MONEGO_NORMAL)
 	{
-		if(r_ptr->flags11 & RF11_FORCE_LESSER){
+		if(is_force_lesser_species(r_ptr)){
 			int n;
 			n = rand_range(MONEGO_LESSER_FROM, MONEGO_LESSER_TO);
 			re_ptr = &re_info[n];
 			re_selected = n;
 		}
-		else if (r_ptr->flags11 & RF11_VARIABLE_SIZE_EGO)
+		else if (is_variable_size_species(r_ptr))
 		{
 			re_selected = MONEGO_VARIABLE_SIZE;
 		}
@@ -3212,7 +3212,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set intelligence race
-	if (r_ptr->flags11 & RF11_RACE_EGO)
+	if (is_variable_race_species(r_ptr))
 	{
 		int n;
 		n = rand_range(RACE_HUMAN, RACE_GNOME);
@@ -3226,7 +3226,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set class
-	if (r_ptr->flags11 & RF11_CLASS_EGO)
+	if (is_variable_class_species(r_ptr))
 	{
 		int n;
 		n = rand_range(CLASS_WARRIOR, CLASS_PALADIN);
@@ -3238,7 +3238,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	}
 
 	// set character
-	if (r_ptr->flags11 & RF11_CHARA_EGO)
+	if (is_variable_chara_species(r_ptr))
 	{
 		int n;
 		n = rand_range(CHARA_FUTUU, CHARA_NAMAKE);

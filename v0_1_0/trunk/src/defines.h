@@ -3755,42 +3755,6 @@
 #define RF6_S_AMBERITES     0x40000000  /* Summon Amberites */
 #define RF6_S_UNIQUE        0x80000000  /* Summon Unique Monster */
 
-/*
- * Monster Ego flags
- */
-#define RF11_FORCE_LESSER       0x00000001
-#define RF11_RACE_EGO           0x00000002
-#define RF11_CLASS_EGO          0x00000004
-#define RF11_PATRON_EGO         0x00000008
-#define RF11_CHARA_EGO          0x00000010
-#define RF11_VARIABLE_SIZE_EGO  0x00000020
-#define RF11_XXX6               0x00000040
-#define RF11_XXX7               0x00000080
-#define RF11_XXX8               0x00000100
-#define RF11_XXX9               0x00000200
-#define RF11_XXX10              0x00000400
-#define RF11_XXX11              0x00000800
-#define RF11_XXX12              0x00001000
-#define RF11_XXX13              0x00002000
-#define RF11_XXX14              0x00004000
-#define RF11_XXX15              0x00008000
-#define RF11_XXX16              0x00010000
-#define RF11_XXX17              0x00020000
-#define RF11_XXX18              0x00040000
-#define RF11_XXX19              0x00080000
-#define RF11_XXX20              0x00100000
-#define RF11_XXX21              0x00200000
-#define RF11_XXX22              0x00400000
-#define RF11_XXX23              0x00800000
-#define RF11_XXX24              0x01000000
-#define RF11_XXX25              0x02000000
-#define RF11_XXX26              0x04000000
-#define RF11_XXX27              0x08000000
-#define RF11_XXX28              0x10000000
-#define RF11_XXX29              0x20000000
-#define RF11_XXX30              0x40000000
-#define RF11_XXX31              0x80000000
-
 /* Old Mutation1 */
 #define RF12_SPIT_ACID                  0x00000001L
 #define RF12_BR_FIRE                    0x00000002L
