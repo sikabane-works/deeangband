@@ -1635,9 +1635,8 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 		if (damage)
 		{
-			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
-			if (cr_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
+
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE);
 
 			if (cr_ptr->levitation) damage = damage / 5;
 
@@ -1684,8 +1683,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (damage)
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
-			if (cr_ptr->resist_pois) damage = damage / 3;
-			if (IS_OPPOSE_POIS(cr_ptr)) damage = damage / 3;
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_POIS);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1716,8 +1714,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (damage)
 		{
 			cptr name = f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name;
-			if (cr_ptr->resist_acid) damage = damage / 3;
-			if (IS_OPPOSE_ACID(cr_ptr)) damage = damage / 3;
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ACID);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1757,9 +1754,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (is_aura_fire_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_fire)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			if (race_is_(cr_ptr, RACE_ENT)) damage += damage / 3;
-			if (cr_ptr->resist_fire) damage = damage / 3;
-			if (IS_OPPOSE_FIRE(cr_ptr)) damage = damage / 3;
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE);
 #ifdef JP
 			msg_print("熱い！");
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
@@ -1771,9 +1766,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (is_aura_elec_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_elec)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			if (race_is_(cr_ptr, RACE_ANDROID)) damage += damage / 3;
-			if (cr_ptr->resist_elec) damage = damage / 3;
-			if (IS_OPPOSE_ELEC(cr_ptr)) damage = damage / 3;
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ELEC);
 #ifdef JP
 			msg_print("痛い！");
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
@@ -1785,8 +1778,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 		if (is_aura_cold_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_cold)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
-			if (cr_ptr->resist_cold) damage = damage / 3;
-			if (IS_OPPOSE_COLD(cr_ptr)) damage = damage / 3;
+			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_COLD);
 #ifdef JP
 			msg_print("冷たい！");
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
