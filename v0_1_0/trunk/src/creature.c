@@ -1913,6 +1913,19 @@ bool is_variable_size_species(species_type *species_ptr)
 }
 
 
+bool is_hyper_str_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HYPER_STR);	
+}
+
+bool is_hyper_str_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HYPER_STR]);
+}
+
+
+
+
 
 bool is_enemy_of_evil_creature(creature_type *creature_ptr)
 {

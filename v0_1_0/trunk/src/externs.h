@@ -1063,6 +1063,11 @@ extern bool is_variable_size_creature(creature_type *creature_ptr);
 extern bool is_variable_size_species(species_type *species_ptr);
 
 
+extern bool is_hyper_str_creature(creature_type *creature_ptr);
+extern bool is_hyper_str_species(species_type *species_ptr);
+
+
+
 extern bool is_enemy_of_evil_creature(creature_type *cr_ptr);
 extern bool is_enemy_of_evil_species(species_type *cr_ptr);
 extern bool is_enemy_of_good_creature(creature_type *cr_ptr);

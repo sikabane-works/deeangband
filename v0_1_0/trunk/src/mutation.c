@@ -1109,7 +1109,7 @@ muta_desc = "邪悪な触手が口の周りに生えた。";
 		{
 			if (muta_which == RF14_PUNY)
 			{
-				if (cr_ptr->flags14 & RF14_HYPER_STR)
+				if (is_hyper_str_creature(cr_ptr))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたはもう超人的に強くはない！");
@@ -2920,7 +2920,7 @@ fprintf(OutFile, " あなたはよくつまづいて物を落とす。\n");
 
 	if (cr_ptr->flags14)
 	{
-		if (cr_ptr->flags14 & RF14_HYPER_STR)
+		if (is_hyper_str_creature(cr_ptr))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは超人的に強い。(腕力+4)\n");

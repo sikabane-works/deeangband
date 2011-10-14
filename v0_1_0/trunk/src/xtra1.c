@@ -3686,7 +3686,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->flags14)
 	{
 		/* Hyper Strength */
-		if (cr_ptr->flags14 & RF14_HYPER_STR)
+		if (is_hyper_str_creature(cr_ptr))
 		{
 			cr_ptr->stat_add[STAT_STR] += 4;
 		}

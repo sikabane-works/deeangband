@@ -1436,7 +1436,7 @@ info[i++] = "あなたはよくつまづいて物を落とす。";
 
 	if (cr_ptr->flags14)
 	{
-		if (cr_ptr->flags14 & RF14_HYPER_STR)
+		if (is_hyper_str_creature(cr_ptr))
 		{
 #ifdef JP
 info[i++] = "あなたは超人的に強い。(腕力+4)";
