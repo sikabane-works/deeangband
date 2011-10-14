@@ -3892,6 +3892,7 @@ static errr grab_one_race_flags(creature_flags *flag_ptr, cptr what, byte add, b
 static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 {
 	char flagname[80];
+	char flag_aux[80];
 	char *s, *t;
 	int b, c, prob;
 
@@ -3899,8 +3900,8 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 	for (s = tmp; *s; )
 	{
 
-		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t)
-			if(*t == ':') *t = ' ' /* loop */;
+		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
+//			if(*t == ':') *t = ' ' /* loop */;
 
 		/* Nuke and skip any dividers */
 		if (*t)
@@ -3916,27 +3917,25 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 				continue;
 		}
 
-		if(sscanf(s, "%s %d %d", &flagname, &b, &c) == 3)
+		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
 		{
-			//TODO
+			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
+			{
+				c = PY_MAX_LEVEL;
+			}
+			else if(sscanf(s, "%s", &flag_aux) == 1)
+			{
+				b = 1;
+				c = PY_MAX_LEVEL;
+			}
+			else return(1);
 		}
-		else if(sscanf(s, "%s %d", &flagname, &b) == 2)
-		{
-			c = PY_MAX_LEVEL;
-		}
-		else if(sscanf(s, "%s", &flagname) == 1)
-		{
-			b = 1;
-			c = PY_MAX_LEVEL;
-		}
-		else return(1);
 
-		//TODO
-		if(sscanf(s, "[%d%]", &flagname, &prob) != 1)
+		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
 		{
+			if(sscanf(flag_aux, "%s", &flagname) != 1) return 1;
 			prob = 100;
 		}
-
 
 		/* Parse this entry */
 		if (grab_one_creature_flag(flags_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
@@ -4468,10 +4467,6 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_FLAG:
-				if(0 != creature_flags_splits(&species_info[n].flags, tmp))
-					return (1);
-				break;
-
 			case SPECIES_INFO_ACTION:
 				if(0 != creature_flags_splits(&species_info[n].flags, tmp))
 					return (1);

@@ -2,7 +2,7 @@
 0,"Åq‡ÄàÛÅrÇÃé“","Stigmatic One","@","w",0,0,"0x00",0,0,0,0,0,0,1,0,0,0,0,0,0,-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"
 #J0#",,,,"ÅhtestÅh",,,,,,,
 1,"ïÇòQéô","Urchin","t","D",0,0,"0x02",11,255,255,0,0,0,2,0,0,10,14,0,1,-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
-TOUCH:EAT_GOLD",,,"J0#","SEX_F50|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO|RACE_EGO",,,"$they look squalid and thoroughly revolting.
+TOUCH:EAT_GOLD",,,"J0#","SEX_F50|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%]|RACE_EGO",,,"$they look squalid and thoroughly revolting.
 îﬁÇÁÇÕâòÇÁÇµÇ≠Çƒñ{ìñÇ…ì™Ç…óàÇÈìzÇæÅB",,,,,,,
 2,"Ç‚ÇπÇ±ÇØÇΩîL","Scrawny cat","f","U",81,81,"0x01",255,255,255,0,0,0,3,0,0,5,62,0,0,-1,110,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,"CLAW:HURT:1d3",,,"J0#","RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON",,,"$A skinny little furball with sharp claws and a menacing look.
 âsÇ¢í‹Ç∆à£ÇÍÇ»óeñeÇéùÇ¡ÇΩÇ‚ÇπÇ±ÇØÇΩè¨Ç≥Ç»ÉlÉRÇæÅB",,,,,,,
