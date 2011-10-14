@@ -9,6 +9,7 @@
  * bldg.c as written by Ivan Tkatchev
  *
  * Changed for ZAngband by Robert Ruehlmann
+ * Changed fot D'angband by Deskull
  */
 
 #include "angband.h"

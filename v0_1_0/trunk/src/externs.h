@@ -674,7 +674,7 @@ extern void chara_detail(int code);
 extern void realm_detail(int code);
 extern void init_dungeon_quests(void);
 extern void save_prev_data(creature_type *cr_ptr, species_type *species_ptr);
-extern void load_prev_data(creature_type *cr_ptr, species_type *sp_ptr, bool swap);
+extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
 
 
 /* cave.c */

@@ -3901,7 +3901,6 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 	{
 
 		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
-//			if(*t == ':') *t = ' ' /* loop */;
 
 		/* Nuke and skip any dividers */
 		if (*t)

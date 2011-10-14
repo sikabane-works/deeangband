@@ -2406,70 +2406,70 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 /*
  * Load the previous data
  */
-void load_prev_data(creature_type *cr_ptr, species_type *sp_ptr, bool swap)
+void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap)
 {
 	int i;
 
 	species_type temp;
 
 	/*** Save the current data ***/
-	if (swap) save_prev_data(cr_ptr, &temp);
+	if (swap) save_prev_data(creature_ptr, &temp);
 
 
 	/*** Load the previous data ***/
 
 	/* Load the data */
-	cr_ptr->sex = sp_ptr->sex;
-	cr_ptr->race_idx1 = sp_ptr->race_idx1;
-	cr_ptr->species_idx = sp_ptr->species_idx;
-	cr_ptr->ap_species_idx = sp_ptr->ap_species_idx;
-	cr_ptr->cls_idx = sp_ptr->cls_idx;
-	cr_ptr->chara_idx = sp_ptr->chara_idx;
-	cr_ptr->realm1 = sp_ptr->realm1;
-	cr_ptr->realm2 = sp_ptr->realm2;
-	cr_ptr->age = sp_ptr->age;
-	cr_ptr->ht = sp_ptr->m_b_ht;
-	cr_ptr->wt = sp_ptr->m_b_wt;
-	cr_ptr->sc = sp_ptr->sc;
-	cr_ptr->au = sp_ptr->au;
+	creature_ptr->sex = species_ptr->sex;
+	creature_ptr->race_idx1 = species_ptr->race_idx1;
+	creature_ptr->species_idx = species_ptr->species_idx;
+	creature_ptr->ap_species_idx = species_ptr->ap_species_idx;
+	creature_ptr->cls_idx = species_ptr->cls_idx;
+	creature_ptr->chara_idx = species_ptr->chara_idx;
+	creature_ptr->realm1 = species_ptr->realm1;
+	creature_ptr->realm2 = species_ptr->realm2;
+	creature_ptr->age = species_ptr->age;
+	creature_ptr->ht = species_ptr->m_b_ht;
+	creature_ptr->wt = species_ptr->m_b_wt;
+	creature_ptr->sc = species_ptr->sc;
+	creature_ptr->au = species_ptr->au;
 
-	wilderness_x = sp_ptr->start_wx;
-	wilderness_y = sp_ptr->start_wy;
+	wilderness_x = species_ptr->start_wx;
+	wilderness_y = species_ptr->start_wy;
 
 	/* Load the stats */
 	for (i = 0; i < 6; i++)
 	{
-		cr_ptr->stat_cur[i] = cr_ptr->stat_max[i] = sp_ptr->stat_max[i];
-		cr_ptr->stat_max_max[i] = sp_ptr->stat_max_max[i];
+		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = species_ptr->stat_max[i];
+		creature_ptr->stat_max_max[i] = species_ptr->stat_max_max[i];
 	}
 
 	/* Load the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		cr_ptr->player_hp[i] = sp_ptr->player_hp[i];
+		creature_ptr->player_hp[i] = species_ptr->player_hp[i];
 	}
-	cr_ptr->mhp = cr_ptr->player_hp[0];
-	cr_ptr->chp = cr_ptr->player_hp[0];
+	creature_ptr->mhp = creature_ptr->player_hp[0];
+	creature_ptr->chp = creature_ptr->player_hp[0];
 
-	cr_ptr->csp = cr_ptr->msp;
+	creature_ptr->csp = creature_ptr->msp;
 
-	cr_ptr->patron_idx = sp_ptr->patron_idx;
+	creature_ptr->patron_idx = species_ptr->patron_idx;
 
 	/* Load the history */
 	for (i = 0; i < 4; i++)
 	{
-		strcpy(cr_ptr->history[i], sp_ptr->history[i]);
+		strcpy(creature_ptr->history[i], species_ptr->history[i]);
 	}
 
 	for (i = 0; i < 8; i++)
 	{
-		cr_ptr->authority[i] = sp_ptr->authority[i];
+		creature_ptr->authority[i] = species_ptr->authority[i];
 	}
 
 	/*** Save the previous data ***/
 	if (swap)
 	{
-		COPY(sp_ptr, &temp, species_type);
+		COPY(species_ptr, &temp, species_type);
 	}
 }
 
