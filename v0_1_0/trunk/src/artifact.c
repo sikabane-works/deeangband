@@ -2656,12 +2656,12 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It glows a deep green...");
 #endif
 
-			(void)do_res_stat(cr_ptr, A_STR);
-			(void)do_res_stat(cr_ptr, A_INT);
-			(void)do_res_stat(cr_ptr, A_WIS);
-			(void)do_res_stat(cr_ptr, A_DEX);
-			(void)do_res_stat(cr_ptr, A_CON);
-			(void)do_res_stat(cr_ptr, A_CHR);
+			(void)do_res_stat(cr_ptr, STAT_STR);
+			(void)do_res_stat(cr_ptr, STAT_INT);
+			(void)do_res_stat(cr_ptr, STAT_WIS);
+			(void)do_res_stat(cr_ptr, STAT_DEX);
+			(void)do_res_stat(cr_ptr, STAT_CON);
+			(void)do_res_stat(cr_ptr, STAT_CHR);
 			(void)restore_level(cr_ptr);
 			o_ptr->timeout = 750;
 			break;

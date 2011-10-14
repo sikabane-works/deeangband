@@ -1357,7 +1357,7 @@ msg_print("‘Ì‚ğˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(cr_ptr, A_CON, 15 + randint1(10), perm);
+			(void)dec_stat(cr_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
 	}
 

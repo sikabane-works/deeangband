@@ -586,7 +586,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(cr_ptr, A_STR);
+		(void)do_dec_stat(cr_ptr, STAT_STR);
 	}
 
 	/* Lose constitution */
@@ -600,7 +600,7 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
-		(void)do_dec_stat(cr_ptr, A_CON);
+		(void)do_dec_stat(cr_ptr, STAT_CON);
 	}
 
 	/* Poison */
@@ -788,12 +788,12 @@ static void chest_trap(creature_type *cr_ptr, int y, int x, s16b o_idx)
 				else if (one_in_(3)) apply_disenchant(cr_ptr, 0);
 				else if (one_in_(2))
 				{
-					(void)do_dec_stat(cr_ptr, A_STR);
-					(void)do_dec_stat(cr_ptr, A_DEX);
-					(void)do_dec_stat(cr_ptr, A_CON);
-					(void)do_dec_stat(cr_ptr, A_INT);
-					(void)do_dec_stat(cr_ptr, A_WIS);
-					(void)do_dec_stat(cr_ptr, A_CHR);
+					(void)do_dec_stat(cr_ptr, STAT_STR);
+					(void)do_dec_stat(cr_ptr, STAT_DEX);
+					(void)do_dec_stat(cr_ptr, STAT_CON);
+					(void)do_dec_stat(cr_ptr, STAT_INT);
+					(void)do_dec_stat(cr_ptr, STAT_WIS);
+					(void)do_dec_stat(cr_ptr, STAT_CHR);
 				}
 				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
 			}
@@ -2241,7 +2241,7 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 
 	/* Hack -- Bash power based on strength */
 	/* (Ranges from 3 to 20 to 100 to 200) */
-	int bash = adj_str_blow[cr_ptr->stat_ind[A_STR]];
+	int bash = adj_str_blow[cr_ptr->stat_ind[STAT_STR]];
 
 	/* Extract door power */
 	int temp = f_ptr->power;
@@ -2298,7 +2298,7 @@ static bool do_cmd_bash_aux(creature_type *cr_ptr, int y, int x, int dir)
 	}
 
 	/* Saving throw against stun */
-	else if (randint0(100) < adj_dex_safe[cr_ptr->stat_ind[A_DEX]] +
+	else if (randint0(100) < adj_dex_safe[cr_ptr->stat_ind[STAT_DEX]] +
 		 cr_ptr->lev)
 	{
 		/* Message */
@@ -3366,7 +3366,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	/* Get extra "power" from "extra might" */
 	if (cr_ptr->xtra_might) tmul++;
 
-	tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
+	tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Boost the damage */
 	tdam_base *= tmul;
@@ -4154,7 +4154,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	if ((have_flag(flgs, TR_THROW)) || boomerang) div /= 2;
 
 	/* Hack -- Distance -- Reward strength, penalize weight */
-	tdis = (adj_str_blow[cr_ptr->stat_ind[A_STR]] + 20) * mul / div;
+	tdis = (adj_str_blow[cr_ptr->stat_ind[STAT_STR]] + 20) * mul / div;
 
 	/* Max distance of 10-18 */
 	if (tdis > mul) tdis = mul;
@@ -4496,7 +4496,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 	if (return_when_thrown)
 	{
-		int back_chance = randint1(30)+20+((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
+		int back_chance = randint1(30)+20+((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (((q_ptr->name1 == ART_MJOLLNIR) || (q_ptr->name1 == ART_AEGISFANG)) && boomerang);
 

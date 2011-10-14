@@ -1622,12 +1622,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				(void)set_cut(cr_ptr, 0);
 				(void)set_blind(cr_ptr, 0);
 				(void)set_afraid(cr_ptr, 0);
-				(void)do_res_stat(cr_ptr, A_STR);
-				(void)do_res_stat(cr_ptr, A_INT);
-				(void)do_res_stat(cr_ptr, A_WIS);
-				(void)do_res_stat(cr_ptr, A_DEX);
-				(void)do_res_stat(cr_ptr, A_CON);
-				(void)do_res_stat(cr_ptr, A_CHR);
+				(void)do_res_stat(cr_ptr, STAT_STR);
+				(void)do_res_stat(cr_ptr, STAT_INT);
+				(void)do_res_stat(cr_ptr, STAT_WIS);
+				(void)do_res_stat(cr_ptr, STAT_DEX);
+				(void)do_res_stat(cr_ptr, STAT_CON);
+				(void)do_res_stat(cr_ptr, STAT_CHR);
 				(void)restore_level(cr_ptr);
 			}
 			break;
@@ -2228,7 +2228,7 @@ strcpy(power_desc[num].name, "剣の舞い");
 
 		power_desc[num].level = 40;
 		power_desc[num].cost = 75;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 35;
 		power_desc[num++].number = -3;
 		break;
@@ -2243,7 +2243,7 @@ strcpy(power_desc[num].name, "剣の舞い");
 #endif
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2260,7 +2260,7 @@ strcpy(power_desc[num].name, "魔力食い");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 1;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 25;
 		power_desc[num++].number = -3;
 		break;
@@ -2277,7 +2277,7 @@ strcpy(power_desc[num].name, "武器祝福");
 
 			power_desc[num].level = 35;
 			power_desc[num].cost = 70;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -3;
 		}
@@ -2291,7 +2291,7 @@ strcpy(power_desc[num].name, "召魂");
 
 			power_desc[num].level = 42;
 			power_desc[num].cost = 40;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 35;
 			power_desc[num++].number = -3;
 		}
@@ -2307,7 +2307,7 @@ strcpy(power_desc[num].name, "ヒット＆アウェイ");
 
 		power_desc[num].level = 8;
 		power_desc[num].cost = 12;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 14;
 		power_desc[num++].number = -3;
 		break;
@@ -2323,7 +2323,7 @@ strcpy(power_desc[num].name, "モンスター調査");
 
 		power_desc[num].level = 15;
 		power_desc[num].cost = 20;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 12;
 		power_desc[num++].number = -3;
 		break;
@@ -2340,7 +2340,7 @@ strcpy(power_desc[num].name, "ホーリー・ランス");
 
 			power_desc[num].level = 30;
 			power_desc[num].cost = 30;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 30;
 			power_desc[num++].number = -3;
 		}
@@ -2354,7 +2354,7 @@ strcpy(power_desc[num].name, "ヘル・ランス");
 
 			power_desc[num].level = 30;
 			power_desc[num].cost = 30;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 30;
 			power_desc[num++].number = -3;
 		}
@@ -2370,7 +2370,7 @@ strcpy(power_desc[num].name, "変換: ＨＰ→ＭＰ");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2381,7 +2381,7 @@ strcpy(power_desc[num].name, "変換: ＭＰ→ＨＰ");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
 		break;
@@ -2396,7 +2396,7 @@ strcpy(power_desc[num].name, "幻惑の光");
 
 		power_desc[num].level = 40;
 		power_desc[num].cost = 50;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 25;
 		power_desc[num++].number = -3;
 		break;
@@ -2411,7 +2411,7 @@ strcpy(power_desc[num].name, "構える");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2422,7 +2422,7 @@ strcpy(power_desc[num].name, "百裂拳");
 
 		power_desc[num].level = 30;
 		power_desc[num].cost = 30;
-		power_desc[num].stat = A_STR;
+		power_desc[num].stat = STAT_STR;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
 		break;
@@ -2438,7 +2438,7 @@ strcpy(power_desc[num].name, "明鏡止水");
 
 		power_desc[num].level = 15;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_WIS;
+		power_desc[num].stat = STAT_WIS;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 		break;
@@ -2453,7 +2453,7 @@ strcpy(power_desc[num].name, "写真撮影");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2464,7 +2464,7 @@ strcpy(power_desc[num].name, "真・鑑定");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 20;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
 		break;
@@ -2479,7 +2479,7 @@ strcpy(power_desc[num].name, "倍返し");
 
 		power_desc[num].level = 30;
 		power_desc[num].cost = 100;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 30;
 		power_desc[num++].number = -3;
 		break;
@@ -2494,7 +2494,7 @@ strcpy(power_desc[num].name, "生物支配");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = (cr_ptr->lev+3)/4;
-		power_desc[num].stat = A_CHR;
+		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2505,7 +2505,7 @@ strcpy(power_desc[num].name, "真・生物支配");
 
 		power_desc[num].level = 30;
 		power_desc[num].cost = (cr_ptr->lev+20)/2;
-		power_desc[num].stat = A_CHR;
+		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
 		break;
@@ -2520,7 +2520,7 @@ strcpy(power_desc[num].name, "弾/矢の製造");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2535,7 +2535,7 @@ strcpy(power_desc[num].name, "魔力の取り込み");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2550,7 +2550,7 @@ strcpy(power_desc[num].name, "歌を止める");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_CHR;
+		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2565,7 +2565,7 @@ strcpy(power_desc[num].name, "連続魔");
 
 		power_desc[num].level = 48;
 		power_desc[num].cost = 20;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2580,7 +2580,7 @@ strcpy(power_desc[num].name, "気合いため");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_WIS;
+		power_desc[num].stat = STAT_WIS;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2591,7 +2591,7 @@ strcpy(power_desc[num].name, "型");
 
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -4;
 		break;
@@ -2606,7 +2606,7 @@ strcpy(power_desc[num].name, "ラーニング");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2621,7 +2621,7 @@ strcpy(power_desc[num].name, "荒馬ならし");
 
 		power_desc[num].level = 10;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_STR;
+		power_desc[num].stat = STAT_STR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
 		break;
@@ -2636,7 +2636,7 @@ strcpy(power_desc[num].name, "帰還");
 
 		power_desc[num].level = 10;
 		power_desc[num].cost = 10;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -3;
 		break;
@@ -2651,7 +2651,7 @@ strcpy(power_desc[num].name, "鏡割り");
 
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 #ifdef JP
@@ -2662,7 +2662,7 @@ strcpy(power_desc[num].name, "静水");
 
 		power_desc[num].level = 30;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
 		break;
@@ -2677,7 +2677,7 @@ strcpy(power_desc[num].name, "目利き");
 
 		power_desc[num].level = 5;
 		power_desc[num].cost = 15;
-		power_desc[num].stat = A_INT;
+		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -3;
 		break;
@@ -2692,7 +2692,7 @@ strcpy(power_desc[num].name, "速駆け");
 
 		power_desc[num].level = 20;
 		power_desc[num].cost = 0;
-		power_desc[num].stat = A_DEX;
+		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
 		break;
@@ -2720,7 +2720,7 @@ sprintf(power_desc[num].name, "地獄/火炎のブレス (ダメージ %d)", lvl * 3);
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 10+lvl/3;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 20;
 			power_desc[num++].number = -1;
 			break;
@@ -2733,7 +2733,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 
 			power_desc[num].level = 2;
 			power_desc[num].cost = 1 + (lvl / 3);
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = -1;
 			break;
@@ -2752,7 +2752,7 @@ strcpy(power_desc[num].name, "ドアと罠 感知");
 
 			power_desc[num].level = 5;
 			power_desc[num].cost = 5;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2765,7 +2765,7 @@ strcpy(power_desc[num].name, "ドアと罠 感知");
 
 			power_desc[num].level = 10;
 			power_desc[num].cost = 5;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
 			break;
@@ -2778,7 +2778,7 @@ strcpy(power_desc[num].name, "食糧生成");
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 10;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
 			break;
@@ -2791,7 +2791,7 @@ sprintf(power_desc[num].name, "ショート・テレポート");
 
 			power_desc[num].level = 5;
 			power_desc[num].cost = 5;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2804,7 +2804,7 @@ strcpy(power_desc[num].name, "恐怖除去");
 
 			power_desc[num].level = 3;
 			power_desc[num].cost = 5;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = warrior ? 5 : 10;
 			power_desc[num++].number = -1;
 			break;
@@ -2817,7 +2817,7 @@ strcpy(power_desc[num].name, "狂戦士化");
 
 			power_desc[num].level = 10;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = warrior ? 6 : 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2830,7 +2830,7 @@ strcpy(power_desc[num].name, "狂戦士化");
 
 			power_desc[num].level = 8;
 			power_desc[num].cost = 10;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = warrior ? 6 : 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2843,7 +2843,7 @@ strcpy(power_desc[num].name, "シャドウ・シフト");
 
 			power_desc[num].level = 30;
 			power_desc[num].cost = 50;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -1;
 #ifdef JP
@@ -2854,7 +2854,7 @@ strcpy(power_desc[num].name, "パターン・ウォーク");
 
 			power_desc[num].level = 40;
 			power_desc[num].cost = 75;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -2;
 			break;
@@ -2867,7 +2867,7 @@ strcpy(power_desc[num].name, "爆発のルーン");
 
 			power_desc[num].level = 25;
 			power_desc[num].cost = 35;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = -1;
 			break;
@@ -2880,7 +2880,7 @@ strcpy(power_desc[num].name, "岩石溶解");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 10;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2893,7 +2893,7 @@ strcpy(power_desc[num].name, "スキャン・モンスター");
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 10;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2906,7 +2906,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2919,7 +2919,7 @@ strcpy(power_desc[num].name, "モンスター恐慌");
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
 			break;
@@ -2932,7 +2932,7 @@ strcpy(power_desc[num].name, "モンスター恐慌");
 
 			power_desc[num].level = 4;
 			power_desc[num].cost = 6;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 3;
 			power_desc[num++].number = -1;
 			break;
@@ -2945,7 +2945,7 @@ sprintf(power_desc[num].name, "酸の唾 (ダメージ %d)", lvl);
 
 			power_desc[num].level = 9;
 			power_desc[num].cost = 9;
-			power_desc[num].stat = A_DEX;
+			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = -1;
 			break;
@@ -2958,7 +2958,7 @@ sprintf(power_desc[num].name, "毒のダーツ (ダメージ %d)", lvl);
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 8;
-			power_desc[num].stat = A_DEX;
+			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = -1;
 			break;
@@ -2971,7 +2971,7 @@ sprintf(power_desc[num].name, "マジック・ミサイル (ダメージ %dd%d)", 3 + ((lvl -
 
 			power_desc[num].level = 2;
 			power_desc[num].cost = 2;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = -1;
 			break;
@@ -2984,7 +2984,7 @@ sprintf(power_desc[num].name, "ブレス (ダメージ %d)", lvl * 2);
 
 			power_desc[num].level = 1;
 			power_desc[num].cost = lvl;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
 			break;
@@ -2997,7 +2997,7 @@ sprintf(power_desc[num].name, "精神攻撃 (ダメージ %d)", lvl);
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = -1;
 			break;
@@ -3010,7 +3010,7 @@ sprintf(power_desc[num].name, "ファイア・ボルト/ボール (ダメージ %d)", lvl);
 
 			power_desc[num].level = 9;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = -1;
 			break;
@@ -3023,7 +3023,7 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
 			break;
@@ -3037,7 +3037,7 @@ strcpy(power_desc[num].name, "経験値復活");
 
 			power_desc[num].level = 30;
 			power_desc[num].cost = 30;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = -1;
 			break;
@@ -3050,7 +3050,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 
 			power_desc[num].level = 2;
 			power_desc[num].cost = 1 + (lvl / 3);
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = -1;
 			break;
@@ -3063,7 +3063,7 @@ strcpy(power_desc[num].name, "眠り粉");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = -1;
 			break;
@@ -3077,7 +3077,7 @@ sprintf(power_desc[num].name, "地獄/火炎のブレス (ダメージ %d)", lvl * 3);
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 10+lvl/3;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 20;
 			power_desc[num++].number = -1;
 			break;
@@ -3090,7 +3090,7 @@ strcpy(power_desc[num].name, "横に伸びる");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_CHR;
+			power_desc[num].stat = STAT_CHR;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
 			break;
@@ -3155,7 +3155,7 @@ strcpy(power_desc[num].name, "ロケット");
 				power_desc[num].cost = 60;
 				power_desc[num].fail = 18;
 			}
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num++].number = -1;
 			break;
 		default:
@@ -3177,7 +3177,7 @@ strcpy(power_desc[num].name, "酸の唾");
 
 			power_desc[num].level = 9;
 			power_desc[num].cost = 9;
-			power_desc[num].stat = A_DEX;
+			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_SPIT_ACID;
 		}
@@ -3192,7 +3192,7 @@ strcpy(power_desc[num].name, "炎のブレス");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = lvl;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = RF12_BR_FIRE;
 		}
@@ -3207,7 +3207,7 @@ strcpy(power_desc[num].name, "催眠睨み");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_CHR;
+			power_desc[num].stat = STAT_CHR;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = RF12_HYPN_GAZE;
 		}
@@ -3222,7 +3222,7 @@ strcpy(power_desc[num].name, "念動力");
 
 			power_desc[num].level = 9;
 			power_desc[num].cost = 9;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_TELEKINES;
 		}
@@ -3237,7 +3237,7 @@ strcpy(power_desc[num].name, "テレポート");
 
 			power_desc[num].level = 7;
 			power_desc[num].cost = 7;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_VTELEPORT;
 		}
@@ -3252,7 +3252,7 @@ strcpy(power_desc[num].name, "精神攻撃");
 
 			power_desc[num].level = 5;
 			power_desc[num].cost = 3;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_MIND_BLST;
 		}
@@ -3267,7 +3267,7 @@ strcpy(power_desc[num].name, "放射能");
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_RADIATION;
 		}
@@ -3282,7 +3282,7 @@ strcpy(power_desc[num].name, "吸血ドレイン");
 
 			power_desc[num].level = 2;
 			power_desc[num].cost = (1 + (lvl / 3));
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = RF12_VAMPIRISM;
 		}
@@ -3297,7 +3297,7 @@ strcpy(power_desc[num].name, "金属嗅覚");
 
 			power_desc[num].level = 3;
 			power_desc[num].cost = 2;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = RF12_SMELL_MET;
 		}
@@ -3312,7 +3312,7 @@ strcpy(power_desc[num].name, "敵臭嗅覚");
 
 			power_desc[num].level = 5;
 			power_desc[num].cost = 4;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_SMELL_MON;
 		}
@@ -3327,7 +3327,7 @@ strcpy(power_desc[num].name, "ショート・テレポート");
 
 			power_desc[num].level = 3;
 			power_desc[num].cost = 3;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = RF12_BLINK;
 		}
@@ -3342,7 +3342,7 @@ strcpy(power_desc[num].name, "岩食い");
 
 			power_desc[num].level = 8;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = RF12_EAT_ROCK;
 		}
@@ -3357,7 +3357,7 @@ strcpy(power_desc[num].name, "位置交換");
 
 			power_desc[num].level = 15;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_DEX;
+			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 16;
 			power_desc[num++].number = RF12_SWAP_POS;
 		}
@@ -3372,7 +3372,7 @@ strcpy(power_desc[num].name, "叫び");
 
 			power_desc[num].level = 20;
 			power_desc[num].cost = 14;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 16;
 			power_desc[num++].number = RF12_SHRIEK;
 		}
@@ -3387,7 +3387,7 @@ strcpy(power_desc[num].name, "照明");
 
 			power_desc[num].level = 3;
 			power_desc[num].cost = 2;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = RF12_ILLUMINE;
 		}
@@ -3402,7 +3402,7 @@ strcpy(power_desc[num].name, "呪い感知");
 
 			power_desc[num].level = 7;
 			power_desc[num].cost = 14;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_DET_CURSE;
 		}
@@ -3417,7 +3417,7 @@ strcpy(power_desc[num].name, "狂戦士化");
 
 			power_desc[num].level = 8;
 			power_desc[num].cost = 8;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_BERSERK;
 		}
@@ -3432,7 +3432,7 @@ strcpy(power_desc[num].name, "変身");
 
 			power_desc[num].level = 18;
 			power_desc[num].cost = 20;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = RF12_POLYMORPH;
 		}
@@ -3447,7 +3447,7 @@ strcpy(power_desc[num].name, "ミダスの手");
 
 			power_desc[num].level = 10;
 			power_desc[num].cost = 5;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = RF12_MIDAS_TCH;
 		}
@@ -3462,7 +3462,7 @@ strcpy(power_desc[num].name, "カビ発生");
 
 			power_desc[num].level = 1;
 			power_desc[num].cost = 6;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_GROW_MOLD;
 		}
@@ -3477,7 +3477,7 @@ strcpy(power_desc[num].name, "エレメント耐性");
 
 			power_desc[num].level = 10;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = RF12_RESIST;
 		}
@@ -3492,7 +3492,7 @@ strcpy(power_desc[num].name, "地震");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 16;
 			power_desc[num++].number = RF12_EARTHQUAKE;
 		}
@@ -3507,7 +3507,7 @@ strcpy(power_desc[num].name, "魔力食い");
 
 			power_desc[num].level = 17;
 			power_desc[num].cost = 1;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_EAT_MAGIC;
 		}
@@ -3522,7 +3522,7 @@ strcpy(power_desc[num].name, "魔力感知");
 
 			power_desc[num].level = 6;
 			power_desc[num].cost = 6;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = RF12_WEIGH_MAG;
 		}
@@ -3537,7 +3537,7 @@ strcpy(power_desc[num].name, "増殖阻止");
 
 			power_desc[num].level = 12;
 			power_desc[num].cost = 23;
-			power_desc[num].stat = A_CHR;
+			power_desc[num].stat = STAT_CHR;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = RF12_STERILITY;
 		}
@@ -3552,7 +3552,7 @@ strcpy(power_desc[num].name, "ヒット＆アウェイ");
 
 			power_desc[num].level = 10;
 			power_desc[num].cost = 12;
-			power_desc[num].stat = A_DEX;
+			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = RF12_PANIC_HIT;
 		}
@@ -3567,7 +3567,7 @@ strcpy(power_desc[num].name, "眩惑");
 
 			power_desc[num].level = 7;
 			power_desc[num].cost = 15;
-			power_desc[num].stat = A_CHR;
+			power_desc[num].stat = STAT_CHR;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = RF12_DAZZLE;
 		}
@@ -3582,7 +3582,7 @@ strcpy(power_desc[num].name, "レーザー・アイ");
 
 			power_desc[num].level = 7;
 			power_desc[num].cost = 10;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = RF12_LASER_EYE;
 		}
@@ -3597,7 +3597,7 @@ strcpy(power_desc[num].name, "帰還");
 
 			power_desc[num].level = 17;
 			power_desc[num].cost = 50;
-			power_desc[num].stat = A_INT;
+			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 16;
 			power_desc[num++].number = RF12_RECALL;
 		}
@@ -3612,7 +3612,7 @@ strcpy(power_desc[num].name, "邪悪消滅");
 
 			power_desc[num].level = 25;
 			power_desc[num].cost = 25;
-			power_desc[num].stat = A_WIS;
+			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = RF12_BANISH;
 		}
@@ -3627,7 +3627,7 @@ strcpy(power_desc[num].name, "凍結の手");
 
 			power_desc[num].level = 2;
 			power_desc[num].cost = 2;
-			power_desc[num].stat = A_CON;
+			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 11;
 			power_desc[num++].number = RF12_COLD_TOUCH;
 		}
@@ -3642,7 +3642,7 @@ strcpy(power_desc[num].name, "アイテム投げ");
 
 			power_desc[num].level = 1;
 			power_desc[num].cost = lvl;
-			power_desc[num].stat = A_STR;
+			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 6;
 			/* XXX_XXX_XXX Hack! RF12_LAUNCHER counts as negative... */
 			power_desc[num++].number = 3;

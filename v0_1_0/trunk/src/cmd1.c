@@ -1489,7 +1489,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_STR);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, STAT_STR);
 			}
 			else
 			{
@@ -1520,7 +1520,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_DEX);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, STAT_DEX);
 			}
 			else
 			{
@@ -1551,7 +1551,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 				take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, A_CON);
+				if (!(cr_ptr->multishadow && (turn & 1))) (void)do_dec_stat(cr_ptr, STAT_CON);
 			}
 			else
 			{

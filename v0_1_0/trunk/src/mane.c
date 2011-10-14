@@ -171,7 +171,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 					if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[A_DEX]] - 2) / 2;
+					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
 					if (spell.manedam) chance = chance * cr_ptr->mane_dam[i] / spell.manedam;
 
@@ -1318,7 +1318,7 @@ msg_print("‚Ü‚Ë‚ç‚ê‚é‚à‚Ì‚ª‰½‚à‚È‚¢I");
 	if (plev > spell.level) chance -= 3 * (plev - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[A_DEX]] - 2) / 2;
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[cr_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
 	if (spell.manedam) chance = chance * damage / spell.manedam;
 

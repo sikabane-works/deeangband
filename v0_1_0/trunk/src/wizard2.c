@@ -1451,12 +1451,12 @@ static void wiz_create_item(creature_type *cr_ptr)
 static void do_cmd_wiz_cure_all(creature_type *cr_ptr)
 {
 	/* Restore stats */
-	(void)res_stat(cr_ptr, A_STR);
-	(void)res_stat(cr_ptr, A_INT);
-	(void)res_stat(cr_ptr, A_WIS);
-	(void)res_stat(cr_ptr, A_CON);
-	(void)res_stat(cr_ptr, A_DEX);
-	(void)res_stat(cr_ptr, A_CHR);
+	(void)res_stat(cr_ptr, STAT_STR);
+	(void)res_stat(cr_ptr, STAT_INT);
+	(void)res_stat(cr_ptr, STAT_WIS);
+	(void)res_stat(cr_ptr, STAT_CON);
+	(void)res_stat(cr_ptr, STAT_DEX);
+	(void)res_stat(cr_ptr, STAT_CHR);
 
 	/* Restore the level */
 	(void)restore_level(cr_ptr);

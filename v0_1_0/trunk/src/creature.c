@@ -355,7 +355,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	if (mr_ptr->chara_idx != CHARA_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
-	con_p = mr_ptr->stat_max[A_CON] / 10 - 3;
+	con_p = mr_ptr->stat_max[STAT_CON] / 10 - 3;
 	if (con_p < 0) con_p = 0;
 
 	bonus = ((int)(adj_con_mhp[con_p]) - 128) * num / 4;

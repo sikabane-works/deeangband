@@ -736,13 +736,13 @@
 /*
  * Indexes of the various "stats" (hard-coded by savefiles, etc).
  */
-#define A_STR   0
-#define A_INT   1
-#define A_WIS   2
-#define A_DEX   3
-#define A_CON   4
-#define A_CHR   5
-#define STAT_MAX 6
+#define STAT_STR   0
+#define STAT_INT   1
+#define STAT_WIS   2
+#define STAT_DEX   3
+#define STAT_CON   4
+#define STAT_CHR   5
+#define STAT_MAX   6
 /*
  * Player sex constants (hard-coded by save-files, arrays, etc)
  */

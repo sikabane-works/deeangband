@@ -545,7 +545,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					else chance += (spell.level - plev);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
+					chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[STAT_INT]] - 1);
 
 					chance = mod_spell_chance_1(cr_ptr, chance);
 
@@ -558,7 +558,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 					}
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[cr_ptr->stat_ind[A_INT]];
+					minfail = adj_mag_fail[cr_ptr->stat_ind[STAT_INT]];
 
 					/* Minimum failure rate */
 					if (chance < minfail) chance = minfail;
@@ -1952,7 +1952,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
 	else chance += (spell.level - plev);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[A_INT]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[STAT_INT]] - 1);
 
 	chance = mod_spell_chance_1(cr_ptr, chance);
 
@@ -1963,7 +1963,7 @@ if (!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
 	}
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[A_INT]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[STAT_INT]];
 
 	/* Minimum failure rate */
 	if (chance < minfail) chance = minfail;
@@ -2042,7 +2042,7 @@ msg_print("‘Ì‚ðˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(cr_ptr, A_CON, 15 + randint1(10), perm);
+			(void)dec_stat(cr_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
 	}
 

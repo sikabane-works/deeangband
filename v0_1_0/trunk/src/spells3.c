@@ -4142,7 +4142,7 @@ s16b experience_of_spell(creature_type *cr_ptr, int spell, int use_realm)
  */
 int mod_need_mana(int need_mana, int spell, int realm)
 {
-#define MANA_CONST   2400
+#define MANSTAT_CONST   2400
 #define MANA_DIV        4
 #define DEC_MANA_DIV    3
 
@@ -4151,11 +4151,11 @@ int mod_need_mana(int need_mana, int spell, int realm)
 	{
 		/*
 		 * need_mana defaults if spell exp equals SPELL_EXP_EXPERT and !p_ptr->dec_mana.
-		 * MANA_CONST is used to calculate need_mana effected from spell proficiency.
+		 * MANSTAT_CONST is used to calculate need_mana effected from spell proficiency.
 		 */
-		need_mana = need_mana * (MANA_CONST + SPELL_EXP_EXPERT - experience_of_spell(p_ptr, spell, realm)) + (MANA_CONST - 1);
+		need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(p_ptr, spell, realm)) + (MANSTAT_CONST - 1);
 		need_mana *= p_ptr->dec_mana ? DEC_MANA_DIV : MANA_DIV;
-		need_mana /= MANA_CONST * MANA_DIV;
+		need_mana /= MANSTAT_CONST * MANA_DIV;
 		if (need_mana < 1) need_mana = 1;
 	}
 
@@ -4167,7 +4167,7 @@ int mod_need_mana(int need_mana, int spell, int realm)
 
 #undef DEC_MANA_DIV
 #undef MANA_DIV
-#undef MANA_CONST
+#undef MANSTAT_CONST
 
 	return need_mana;
 }
@@ -4214,7 +4214,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	int             chance, minfail;
 	magic_type      *s_ptr;
 	int             need_mana;
-	int penalty = (m_info[cr_ptr->realm1].spell_stat == A_WIS) ? 10 : 4;
+	int penalty = (m_info[cr_ptr->realm1].spell_stat == STAT_WIS) ? 10 : 4;
 
 
 	/* Paranoia -- must be literate */
@@ -4993,7 +4993,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	{
 		if ((!(double_resist || cr_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(cr_ptr, A_CHR);
+			(void)do_dec_stat(cr_ptr, STAT_CHR);
 
 		/* If any armor gets hit, defend the player */
 		if (minus_ac(cr_ptr)) dam = (dam + 1) / 2;
@@ -5036,7 +5036,7 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || cr_ptr->resist_elec)) &&
 	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, A_DEX);
+		(void)do_dec_stat(cr_ptr, STAT_DEX);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
@@ -5076,7 +5076,7 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || cr_ptr->resist_fire)) &&
 	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, A_STR);
+		(void)do_dec_stat(cr_ptr, STAT_STR);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
@@ -5115,7 +5115,7 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 
 	if ((!(double_resist || cr_ptr->resist_cold)) &&
 	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(cr_ptr, A_STR);
+		(void)do_dec_stat(cr_ptr, STAT_STR);
 
 	/* Take damage */
 	get_damage = take_hit(NULL, cr_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);

@@ -4213,10 +4213,10 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_BOW:
-			p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
+			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
 #else
 		case INVEN_BOW:
-			p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
+			p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 #endif
 
 #ifdef JP
@@ -4386,9 +4386,9 @@ cptr describe_use(creature_type *cr_ptr, int i)
 #endif
 
 #ifdef JP
-		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
+		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
 #else
-		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[A_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVEN_BOW:   p = (adj_str_hold[cr_ptr->stat_ind[STAT_STR]] < cr_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
 #endif
 
 #ifdef JP

@@ -2168,7 +2168,7 @@ msg_print("©•ª‚Ì¸_‚ğUŒ‚‚µ‚Ä‚µ‚Ü‚Á‚½I");
 
 
 			/* Reduce constitution */
-			(void)dec_stat(cr_ptr, A_WIS, 15 + randint1(10), perm);
+			(void)dec_stat(cr_ptr, STAT_WIS, 15 + randint1(10), perm);
 		}
 	}
 

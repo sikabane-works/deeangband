@@ -2607,8 +2607,8 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	/* Lose int & wis */
 	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		do_dec_stat(watcher_ptr, A_INT);
-		do_dec_stat(watcher_ptr, A_WIS);
+		do_dec_stat(watcher_ptr, STAT_INT);
+		do_dec_stat(watcher_ptr, STAT_WIS);
 		return;
 	}
 
@@ -2625,11 +2625,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		while (!saving_throw(watcher_ptr->skill_rob))
 		{
-			(void)do_dec_stat(watcher_ptr, A_INT);
+			(void)do_dec_stat(watcher_ptr, STAT_INT);
 		}
 		while (!saving_throw(watcher_ptr->skill_rob))
 		{
-			(void)do_dec_stat(watcher_ptr, A_WIS);
+			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		}
 		if (!watcher_ptr->resist_chaos)
 		{
@@ -2671,7 +2671,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			{
 				if (!(watcher_ptr->flags14 & RF14_MORONIC))
 				{
-					if ((watcher_ptr->stat_use[A_INT] < 4) && (watcher_ptr->stat_use[A_WIS] < 4))
+					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
@@ -4832,12 +4832,12 @@ msg_print("お金が足りません！");
 		paid = TRUE;
 		break;
 	case BACT_RESTORE: /* needs work */
-		if (do_res_stat(cr_ptr, A_STR)) paid = TRUE;
-		if (do_res_stat(cr_ptr, A_INT)) paid = TRUE;
-		if (do_res_stat(cr_ptr, A_WIS)) paid = TRUE;
-		if (do_res_stat(cr_ptr, A_DEX)) paid = TRUE;
-		if (do_res_stat(cr_ptr, A_CON)) paid = TRUE;
-		if (do_res_stat(cr_ptr, A_CHR)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_STR)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_INT)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_WIS)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_DEX)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_CON)) paid = TRUE;
+		if (do_res_stat(cr_ptr, STAT_CHR)) paid = TRUE;
 		break;
 	case BACT_ENCHANT_ARROWS:
 		item_tester_hook = item_tester_hook_ammo;

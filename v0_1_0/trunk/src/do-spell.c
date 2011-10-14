@@ -677,8 +677,8 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Fool.");
 #endif
 
-		do_dec_stat(cr_ptr, A_INT);
-		do_dec_stat(cr_ptr, A_WIS);
+		do_dec_stat(cr_ptr, STAT_INT);
+		do_dec_stat(cr_ptr, STAT_WIS);
 	}
 	else if (die < 30)
 	{
@@ -1794,12 +1794,12 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				do_res_stat(cr_ptr, A_STR);
-				do_res_stat(cr_ptr, A_INT);
-				do_res_stat(cr_ptr, A_WIS);
-				do_res_stat(cr_ptr, A_DEX);
-				do_res_stat(cr_ptr, A_CON);
-				do_res_stat(cr_ptr, A_CHR);
+				do_res_stat(cr_ptr, STAT_STR);
+				do_res_stat(cr_ptr, STAT_INT);
+				do_res_stat(cr_ptr, STAT_WIS);
+				do_res_stat(cr_ptr, STAT_DEX);
+				do_res_stat(cr_ptr, STAT_CON);
+				do_res_stat(cr_ptr, STAT_CHR);
 				restore_level(cr_ptr);
 			}
 		}
@@ -10065,12 +10065,12 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 #else
 				msg_print("You strewed light and beauty in the dark as you sing. You feel refreshed.");
 #endif
-				(void)do_res_stat(cr_ptr, A_STR);
-				(void)do_res_stat(cr_ptr, A_INT);
-				(void)do_res_stat(cr_ptr, A_WIS);
-				(void)do_res_stat(cr_ptr, A_DEX);
-				(void)do_res_stat(cr_ptr, A_CON);
-				(void)do_res_stat(cr_ptr, A_CHR);
+				(void)do_res_stat(cr_ptr, STAT_STR);
+				(void)do_res_stat(cr_ptr, STAT_INT);
+				(void)do_res_stat(cr_ptr, STAT_WIS);
+				(void)do_res_stat(cr_ptr, STAT_DEX);
+				(void)do_res_stat(cr_ptr, STAT_CON);
+				(void)do_res_stat(cr_ptr, STAT_CHR);
 				(void)restore_level(cr_ptr);
 			}
 		}
@@ -12259,7 +12259,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 
 				flag = TRUE;
 			}
-			for (i = A_STR; i < 6; i ++)
+			for (i = STAT_STR; i < 6; i ++)
 			{
 				if (cr_ptr->stat_cur[i] < cr_ptr->stat_max[i])
 				{

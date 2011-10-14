@@ -955,7 +955,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 					/* Saving throw (unless paralyzed) based on dex and level */
 					if (!tar_ptr->paralyzed &&
-					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[A_DEX]] +
+					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[STAT_DEX]] +
 							      tar_ptr->lev)))
 					{
 						/* Saving throw message */
@@ -1033,7 +1033,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 					/* Saving throw (unless paralyzed) based on dex and level */
 					if (!tar_ptr->paralyzed &&
-					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[A_DEX]] +
+					    (randint0(100) < (adj_dex_safe[tar_ptr->stat_ind[STAT_DEX]] +
 							      tar_ptr->lev)))
 					{
 						/* Saving throw message */
@@ -1477,7 +1477,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_STR)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_STR)) obvious = TRUE;
 
 					break;
 				}
@@ -1490,7 +1490,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_INT)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_INT)) obvious = TRUE;
 
 					break;
 				}
@@ -1503,7 +1503,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_WIS)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_WIS)) obvious = TRUE;
 
 					break;
 				}
@@ -1516,7 +1516,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_DEX)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_DEX)) obvious = TRUE;
 
 					break;
 				}
@@ -1529,7 +1529,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_CON)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_CON)) obvious = TRUE;
 
 					break;
 				}
@@ -1542,7 +1542,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stat) */
-					if (do_dec_stat(tar_ptr, A_CHR)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1555,12 +1555,12 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
 					/* Damage (stats) */
-					if (do_dec_stat(tar_ptr, A_STR)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, A_DEX)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, A_CON)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, A_INT)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, A_WIS)) obvious = TRUE;
-					if (do_dec_stat(tar_ptr, A_CHR)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_STR)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_DEX)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_CON)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_INT)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_WIS)) obvious = TRUE;
+					if (do_dec_stat(tar_ptr, STAT_CHR)) obvious = TRUE;
 
 					break;
 				}
@@ -1670,7 +1670,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					{
 						/* 1% chance for perm. damage */
 						bool perm = one_in_(10);
-						if (dec_stat(tar_ptr, A_CON, randint1(10), perm))
+						if (dec_stat(tar_ptr, STAT_CON, randint1(10), perm))
 						{
 #ifdef JP
 							msg_print("病があなたを蝕んでいる気がする。");
@@ -1711,19 +1711,19 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 								switch (stat)
 								{
 #ifdef JP
-									case A_STR: act = "強く"; break;
-									case A_INT: act = "聡明で"; break;
-									case A_WIS: act = "賢明で"; break;
-									case A_DEX: act = "器用で"; break;
-									case A_CON: act = "健康で"; break;
-									case A_CHR: act = "美しく"; break;
+									case STAT_STR: act = "強く"; break;
+									case STAT_INT: act = "聡明で"; break;
+									case STAT_WIS: act = "賢明で"; break;
+									case STAT_DEX: act = "器用で"; break;
+									case STAT_CON: act = "健康で"; break;
+									case STAT_CHR: act = "美しく"; break;
 #else
-									case A_STR: act = "strong"; break;
-									case A_INT: act = "bright"; break;
-									case A_WIS: act = "wise"; break;
-									case A_DEX: act = "agile"; break;
-									case A_CON: act = "hale"; break;
-									case A_CHR: act = "beautiful"; break;
+									case STAT_STR: act = "strong"; break;
+									case STAT_INT: act = "bright"; break;
+									case STAT_WIS: act = "wise"; break;
+									case STAT_DEX: act = "agile"; break;
+									case STAT_CON: act = "hale"; break;
+									case STAT_CHR: act = "beautiful"; break;
 #endif
 
 								}

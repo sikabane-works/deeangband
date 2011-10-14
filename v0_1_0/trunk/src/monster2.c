@@ -2149,8 +2149,8 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	if (!saving_throw(watcher_ptr->skill_rob - power)) /* Lose int & wis */
 	{
-		do_dec_stat(watcher_ptr, A_INT);
-		do_dec_stat(watcher_ptr, A_WIS);
+		do_dec_stat(watcher_ptr, STAT_INT);
+		do_dec_stat(watcher_ptr, STAT_WIS);
 		return;
 	}
 
@@ -2165,9 +2165,9 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
 		}
 		while (randint0(100) > watcher_ptr->skill_rob)
-			(void)do_dec_stat(watcher_ptr, A_INT);
+			(void)do_dec_stat(watcher_ptr, STAT_INT);
 		while (randint0(100) > watcher_ptr->skill_rob)
-			(void)do_dec_stat(watcher_ptr, A_WIS);
+			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if (!watcher_ptr->resist_chaos)
 		{
 			(void)set_image(watcher_ptr, watcher_ptr->image + randint0(250) + 150);
@@ -2209,7 +2209,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			case 1:
 				if (!(watcher_ptr->flags14 & RF14_MORONIC) && one_in_(5))
 				{
-					if ((watcher_ptr->stat_use[A_INT] < 4) && (watcher_ptr->stat_use[A_WIS] < 4))
+					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
 #ifdef JP
 msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");

@@ -2432,7 +2432,7 @@ static void calc_mana(creature_type *cr_ptr, bool message)
 
 		default:
 			/* Extract total mana */
-			msp = adj_mag_mana[cr_ptr->stat_ind[A_INT]] * (levels+3) / 4;
+			msp = adj_mag_mana[cr_ptr->stat_ind[STAT_INT]] * (levels+3) / 4;
 
 			/* Hack -- usually add one mana */
 			msp++;
@@ -2731,7 +2731,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	byte tmp_hitdice;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
-	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[A_CON]]) - 128) * cr_ptr->lev / 4;
+	bonus = ((int)(adj_con_mhp[cr_ptr->stat_ind[STAT_CON]]) - 128) * cr_ptr->lev / 4;
 
 	/* Divine Bonuses */
 	if(cr_ptr->dr >= 0){
@@ -2936,7 +2936,7 @@ u32b weight_limit(creature_type *cr_ptr)
 	u32b i;
 
 	/* Weight limit based only on strength */
-	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[A_STR]] * 50; /* Constant was 100 */
+	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 50; /* Constant was 100 */
 	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
 	/* Return the result */
@@ -3523,17 +3523,17 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (!cr_ptr->inventory[INVEN_1STARM].k_idx) 
 				cr_ptr->skill_dig += cr_ptr->lev * 10;
 			/* Ents get tougher and stronger as they age, but lose dexterity. */
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[A_STR]++;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[A_STR]++;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[A_STR]++;
+			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_STR]++;
+			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_STR]++;
+			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_STR]++;
 
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[A_DEX]--;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[A_DEX]--;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[A_DEX]--;
+			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_DEX]--;
+			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_DEX]--;
+			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_DEX]--;
 
-			if (cr_ptr->lev > 25) cr_ptr->stat_add[A_CON]++;
-			if (cr_ptr->lev > 40) cr_ptr->stat_add[A_CON]++;
-			if (cr_ptr->lev > 45) cr_ptr->stat_add[A_CON]++;
+			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_CON]++;
+			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_CON]++;
+			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_CON]++;
 			break;
 		case RACE_TROLL:
 			break;
@@ -3688,61 +3688,61 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Hyper Strength */
 		if (cr_ptr->flags14 & RF14_HYPER_STR)
 		{
-			cr_ptr->stat_add[A_STR] += 4;
+			cr_ptr->stat_add[STAT_STR] += 4;
 		}
 
 		/* Puny */
 		if (cr_ptr->flags14 & RF14_PUNY)
 		{
-			cr_ptr->stat_add[A_STR] -= 4;
+			cr_ptr->stat_add[STAT_STR] -= 4;
 		}
 
 		/* Living computer */
 		if (cr_ptr->flags14 & RF14_HYPER_INT)
 		{
-			cr_ptr->stat_add[A_INT] += 4;
-			cr_ptr->stat_add[A_WIS] += 4;
+			cr_ptr->stat_add[STAT_INT] += 4;
+			cr_ptr->stat_add[STAT_WIS] += 4;
 		}
 
 		/* Moronic */
 		if (cr_ptr->flags14 & RF14_MORONIC)
 		{
-			cr_ptr->stat_add[A_INT] -= 4;
-			cr_ptr->stat_add[A_WIS] -= 4;
+			cr_ptr->stat_add[STAT_INT] -= 4;
+			cr_ptr->stat_add[STAT_WIS] -= 4;
 		}
 
 		if (cr_ptr->flags14 & RF14_RESILIENT)
 		{
-			cr_ptr->stat_add[A_CON] += 4;
+			cr_ptr->stat_add[STAT_CON] += 4;
 		}
 
 		if (cr_ptr->flags14 & RF14_XTRA_FAT)
 		{
-			cr_ptr->stat_add[A_CON] += 2;
+			cr_ptr->stat_add[STAT_CON] += 2;
 			new_speed -= 2;
 		}
 
 		if (cr_ptr->flags14 & RF14_ALBINO)
 		{
-			cr_ptr->stat_add[A_CON] -= 4;
+			cr_ptr->stat_add[STAT_CON] -= 4;
 		}
 
 		if (cr_ptr->flags14 & RF14_FLESH_ROT)
 		{
-			cr_ptr->stat_add[A_CON] -= 2;
-			cr_ptr->stat_add[A_CHR] -= 1;
+			cr_ptr->stat_add[STAT_CON] -= 2;
+			cr_ptr->stat_add[STAT_CHR] -= 1;
 			cr_ptr->regenerate = FALSE;
 			/* Cancel innate regeneration */
 		}
 
 		if (cr_ptr->flags14 & RF14_SILLY_VOI)
 		{
-			cr_ptr->stat_add[A_CHR] -= 4;
+			cr_ptr->stat_add[STAT_CHR] -= 4;
 		}
 
 		if (cr_ptr->flags14 & RF14_BLANK_FAC)
 		{
-			cr_ptr->stat_add[A_CHR] -= 1;
+			cr_ptr->stat_add[STAT_CHR] -= 1;
 		}
 
 		if (cr_ptr->flags14 & RF14_XTRA_EYES)
@@ -3791,21 +3791,21 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (cr_ptr->flags14 & RF14_WART_SKIN)
 		{
-			cr_ptr->stat_add[A_CHR] -= 2;
+			cr_ptr->stat_add[STAT_CHR] -= 2;
 			cr_ptr->to_a += 5;
 			cr_ptr->dis_to_a += 5;
 		}
 
 		if (cr_ptr->flags14 & RF14_SCALES)
 		{
-			cr_ptr->stat_add[A_CHR] -= 1;
+			cr_ptr->stat_add[STAT_CHR] -= 1;
 			cr_ptr->to_a += 10;
 			cr_ptr->dis_to_a += 10;
 		}
 
 		if (cr_ptr->flags14 & RF14_IRON_SKIN)
 		{
-			cr_ptr->stat_add[A_DEX] -= 1;
+			cr_ptr->stat_add[STAT_DEX] -= 1;
 			cr_ptr->to_a += 25;
 			cr_ptr->dis_to_a += 25;
 		}
@@ -3832,12 +3832,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (cr_ptr->flags14 & RF14_LIMBER)
 		{
-			cr_ptr->stat_add[A_DEX] += 3;
+			cr_ptr->stat_add[STAT_DEX] += 3;
 		}
 
 		if (cr_ptr->flags14 & RF14_ARTHRITIS)
 		{
-			cr_ptr->stat_add[A_DEX] -= 3;
+			cr_ptr->stat_add[STAT_DEX] -= 3;
 		}
 
 		if (cr_ptr->flags14 & RF14_MOTION)
@@ -3848,14 +3848,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (cr_ptr->flags14 & RF14_ILL_NORM)
 		{
-			cr_ptr->stat_add[A_CHR] = 0;
+			cr_ptr->stat_add[STAT_CHR] = 0;
 		}
 	}
 
 	if (cr_ptr->tsuyoshi)
 	{
-		cr_ptr->stat_add[A_STR] += 4;
-		cr_ptr->stat_add[A_CON] += 4;
+		cr_ptr->stat_add[STAT_STR] += 4;
+		cr_ptr->stat_add[STAT_CON] += 4;
 	}
 
 	/* Scan the usable cr_ptr->inventory */
@@ -3879,12 +3879,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (o_ptr->name1 == ART_CHAINSWORD) cr_ptr->cursed |= TRC_CHAINSWORD;
 
 		/* Affect stats */
-		if (have_flag(flgs, TR_STR)) cr_ptr->stat_add[A_STR] += o_ptr->pval;
-		if (have_flag(flgs, TR_INT)) cr_ptr->stat_add[A_INT] += o_ptr->pval;
-		if (have_flag(flgs, TR_WIS)) cr_ptr->stat_add[A_WIS] += o_ptr->pval;
-		if (have_flag(flgs, TR_DEX)) cr_ptr->stat_add[A_DEX] += o_ptr->pval;
-		if (have_flag(flgs, TR_CON)) cr_ptr->stat_add[A_CON] += o_ptr->pval;
-		if (have_flag(flgs, TR_CHR)) cr_ptr->stat_add[A_CHR] += o_ptr->pval;
+		if (have_flag(flgs, TR_STR)) cr_ptr->stat_add[STAT_STR] += o_ptr->pval;
+		if (have_flag(flgs, TR_INT)) cr_ptr->stat_add[STAT_INT] += o_ptr->pval;
+		if (have_flag(flgs, TR_WIS)) cr_ptr->stat_add[STAT_WIS] += o_ptr->pval;
+		if (have_flag(flgs, TR_DEX)) cr_ptr->stat_add[STAT_DEX] += o_ptr->pval;
+		if (have_flag(flgs, TR_CON)) cr_ptr->stat_add[STAT_CON] += o_ptr->pval;
+		if (have_flag(flgs, TR_CHR)) cr_ptr->stat_add[STAT_CHR] += o_ptr->pval;
 
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    cr_ptr->skill_dev += 8*o_ptr->pval;
 
@@ -4309,27 +4309,27 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 		if (cr_ptr->special_defense & KAMAE_BYAKKO)
 		{
-			cr_ptr->stat_add[A_STR] += 2;
-			cr_ptr->stat_add[A_DEX] += 2;
-			cr_ptr->stat_add[A_CON] -= 3;
+			cr_ptr->stat_add[STAT_STR] += 2;
+			cr_ptr->stat_add[STAT_DEX] += 2;
+			cr_ptr->stat_add[STAT_CON] -= 3;
 		}
 		else if (cr_ptr->special_defense & KAMAE_SEIRYU)
 		{
 		}
 		else if (cr_ptr->special_defense & KAMAE_GENBU)
 		{
-			cr_ptr->stat_add[A_INT] -= 1;
-			cr_ptr->stat_add[A_WIS] -= 1;
-			cr_ptr->stat_add[A_DEX] -= 2;
-			cr_ptr->stat_add[A_CON] += 3;
+			cr_ptr->stat_add[STAT_INT] -= 1;
+			cr_ptr->stat_add[STAT_WIS] -= 1;
+			cr_ptr->stat_add[STAT_DEX] -= 2;
+			cr_ptr->stat_add[STAT_CON] += 3;
 		}
 		else if (cr_ptr->special_defense & KAMAE_SUZAKU)
 		{
-			cr_ptr->stat_add[A_STR] -= 2;
-			cr_ptr->stat_add[A_INT] += 1;
-			cr_ptr->stat_add[A_WIS] += 1;
-			cr_ptr->stat_add[A_DEX] += 2;
-			cr_ptr->stat_add[A_CON] -= 2;
+			cr_ptr->stat_add[STAT_STR] -= 2;
+			cr_ptr->stat_add[STAT_INT] += 1;
+			cr_ptr->stat_add[STAT_WIS] += 1;
+			cr_ptr->stat_add[STAT_DEX] += 2;
+			cr_ptr->stat_add[STAT_CON] -= 2;
 		}
 	}
 
@@ -4364,12 +4364,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		if (hex_spelling_any(cr_ptr)) cr_ptr->skill_stl -= (1 + cr_ptr->magic_num2[0]);
 		if (hex_spelling(cr_ptr, HEX_DETECT_EVIL)) cr_ptr->esp_evil = TRUE;
-		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[A_STR] += 4;
+		if (hex_spelling(cr_ptr, HEX_XTRA_MIGHT)) cr_ptr->stat_add[STAT_STR] += 4;
 		if (hex_spelling(cr_ptr, HEX_BUILDING))
 		{
-			cr_ptr->stat_add[A_STR] += 4;
-			cr_ptr->stat_add[A_DEX] += 4;
-			cr_ptr->stat_add[A_CON] += 4;
+			cr_ptr->stat_add[STAT_STR] += 4;
+			cr_ptr->stat_add[STAT_DEX] += 4;
+			cr_ptr->stat_add[STAT_CON] += 4;
 		}
 		if (hex_spelling(cr_ptr, HEX_DEMON_AURA))
 		{
@@ -4427,7 +4427,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Extract the new "stat_use" value for the stat */
 		use = modify_stat_value(cr_ptr->stat_cur[i], cr_ptr->stat_add[i]);
 
-		if ((i == A_CHR) && (cr_ptr->flags14 & RF14_ILL_NORM))
+		if ((i == STAT_CHR) && (cr_ptr->flags14 & RF14_ILL_NORM))
 		{
 			/* 10 to 18/90 charisma, guaranteed, based on level */
 			if (use < 8 + 2 * cr_ptr->lev)
@@ -4466,33 +4466,33 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_ind[i] = ind;
 
 			/* Change in CON affects Hitpoints */
-			if (i == A_CON)
+			if (i == STAT_CON)
 			{
 				cr_ptr->update |= (PU_HP);
 			}
 
 			/* Change in INT may affect Mana/Spells */
-			else if (i == A_INT)
+			else if (i == STAT_INT)
 			{
-				if (m_info[cr_ptr->sex].spell_stat == A_INT)
+				if (m_info[cr_ptr->sex].spell_stat == STAT_INT)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
 			}
 
 			/* Change in WIS may affect Mana/Spells */
-			else if (i == A_WIS)
+			else if (i == STAT_WIS)
 			{
-				if (m_info[cr_ptr->sex].spell_stat == A_WIS)
+				if (m_info[cr_ptr->sex].spell_stat == STAT_WIS)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
 			}
 
 			/* Change in WIS may affect Mana/Spells */
-			else if (i == A_CHR)
+			else if (i == STAT_CHR)
 			{
-				if (m_info[cr_ptr->sex].spell_stat == A_CHR)
+				if (m_info[cr_ptr->sex].spell_stat == STAT_CHR)
 				{
 					cr_ptr->update |= (PU_MANA | PU_SPELLS);
 				}
@@ -4810,33 +4810,33 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->action == ACTION_SEARCH) new_speed -= 10;
 
 	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
-	cr_ptr->to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_d_m  += ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->to_h_m  += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->to_h_m  += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
+	cr_ptr->to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_d_m  += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->to_h_m  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->to_h_m  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
 
 	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
-	cr_ptr->dis_to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->dis_to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->dis_to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->dis_to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->dis_to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->dis_to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
-	cr_ptr->dis_to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->dis_to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
-	cr_ptr->dis_to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128);
+	cr_ptr->dis_to_a += ((int)(adj_dex_ta[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->dis_to_d[0] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->dis_to_d[1] += ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->dis_to_h[0] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->dis_to_h[1] += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->dis_to_h_b  += ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
+	cr_ptr->dis_to_h[0] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->dis_to_h[1] += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
+	cr_ptr->dis_to_h_b  += ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128);
 
 
 	/* Obtain the "hold" value */
-	hold = adj_str_hold[cr_ptr->stat_ind[A_STR]];
+	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]];
 
 
 	/* Examine the "current bow" */
@@ -5091,7 +5091,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			div = ((o_ptr->weight < wgt) ? wgt : o_ptr->weight);
 
 			/* Access the strength vs weight */
-			str_index = (adj_str_blow[cr_ptr->stat_ind[A_STR]] * mul / div);
+			str_index = (adj_str_blow[cr_ptr->stat_ind[STAT_STR]] * mul / div);
 
 			if (cr_ptr->ryoute && !omoi) str_index++;
 			if (cr_ptr->cls_idx == CLASS_NINJA) str_index = MAX(0, str_index-1);
@@ -5100,7 +5100,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (str_index > 11) str_index = 11;
 
 			/* Index by dexterity */
-			dex_index = (adj_dex_blow[cr_ptr->stat_ind[A_DEX]]);
+			dex_index = (adj_dex_blow[cr_ptr->stat_ind[STAT_DEX]]);
 
 			/* Maximal value */
 			if (dex_index > 11) dex_index = 11;
@@ -5120,7 +5120,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			{
 				cr_ptr->num_blow[i] += (cr_ptr->lev / 23);
 			}
-			else if ((cr_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (cr_ptr->stat_ind[A_DEX] >= 30)) cr_ptr->num_blow[i] ++;
+			else if ((cr_ptr->cls_idx == CLASS_ROGUE) && (o_ptr->weight < 50) && (cr_ptr->stat_ind[STAT_DEX] >= 30)) cr_ptr->num_blow[i] ++;
 
 			if (cr_ptr->special_defense & KATA_FUUJIN) cr_ptr->num_blow[i] -= 1;
 
@@ -5276,7 +5276,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER) || (cr_ptr->cls_idx == CLASS_BERSERKER)) &&
 		(empty_hands_status & EMPTY_HAND_RARM) && !cr_ptr->hidarite)
 	{
-		int blow_base = cr_ptr->lev + adj_dex_blow[cr_ptr->stat_ind[A_DEX]];
+		int blow_base = cr_ptr->lev + adj_dex_blow[cr_ptr->stat_ind[STAT_DEX]];
 		cr_ptr->num_blow[0] = 0;
 
 		if (cr_ptr->cls_idx == CLASS_FORCETRAINER)
@@ -5440,8 +5440,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->ryoute && !omoi)
 	{
 		int bonus_to_h=0, bonus_to_d=0;
-		bonus_to_d = ((int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128)/2;
-		bonus_to_h = ((int)(adj_str_th[cr_ptr->stat_ind[A_STR]]) - 128) + ((int)(adj_dex_th[cr_ptr->stat_ind[A_DEX]]) - 128);
+		bonus_to_d = ((int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128)/2;
+		bonus_to_h = ((int)(adj_str_th[cr_ptr->stat_ind[STAT_STR]]) - 128) + ((int)(adj_dex_th[cr_ptr->stat_ind[STAT_DEX]]) - 128);
 
 		cr_ptr->to_h[default_hand] += MAX(bonus_to_h,1);
 		cr_ptr->dis_to_h[default_hand] += MAX(bonus_to_h,1);
@@ -5457,19 +5457,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (IS_TIM_STEALTH(cr_ptr)) cr_ptr->skill_stl += 99;
 
 	/* Affect Skill -- disarming (DEX and INT) */
-	cr_ptr->skill_dis += adj_dex_dis[cr_ptr->stat_ind[A_DEX]];
-	cr_ptr->skill_dis += adj_int_dis[cr_ptr->stat_ind[A_INT]];
+	cr_ptr->skill_dis += adj_dex_dis[cr_ptr->stat_ind[STAT_DEX]];
+	cr_ptr->skill_dis += adj_int_dis[cr_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- magic devices (INT) */
-	cr_ptr->skill_dev += adj_int_dev[cr_ptr->stat_ind[A_INT]];
+	cr_ptr->skill_dev += adj_int_dev[cr_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- saving throw (WIS) */
-	cr_ptr->skill_rob += (adj_sav[cr_ptr->stat_ind[A_STR]] + adj_sav[cr_ptr->stat_ind[A_CON]]);
-	cr_ptr->skill_eva += (adj_sav[cr_ptr->stat_ind[A_INT]] + adj_sav[cr_ptr->stat_ind[A_DEX]]);
-	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[A_WIS]] + adj_sav[cr_ptr->stat_ind[A_CHR]]);
+	cr_ptr->skill_rob += (adj_sav[cr_ptr->stat_ind[STAT_STR]] + adj_sav[cr_ptr->stat_ind[STAT_CON]]);
+	cr_ptr->skill_eva += (adj_sav[cr_ptr->stat_ind[STAT_INT]] + adj_sav[cr_ptr->stat_ind[STAT_DEX]]);
+	cr_ptr->skill_vol += (adj_sav[cr_ptr->stat_ind[STAT_WIS]] + adj_sav[cr_ptr->stat_ind[STAT_CHR]]);
 
 	/* Affect Skill -- digging (STR) */
-	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[A_STR]];
+	cr_ptr->skill_dig += adj_str_dig[cr_ptr->stat_ind[STAT_STR]];
 
 	/* Affect Skill -- disarming (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
@@ -6089,12 +6089,12 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_STATS))
 	{
 		play_redraw &= ~(PR_STATS);
-		prt_stat(cr_ptr, A_STR);
-		prt_stat(cr_ptr, A_INT);
-		prt_stat(cr_ptr, A_WIS);
-		prt_stat(cr_ptr, A_DEX);
-		prt_stat(cr_ptr, A_CON);
-		prt_stat(cr_ptr, A_CHR);
+		prt_stat(cr_ptr, STAT_STR);
+		prt_stat(cr_ptr, STAT_INT);
+		prt_stat(cr_ptr, STAT_WIS);
+		prt_stat(cr_ptr, STAT_DEX);
+		prt_stat(cr_ptr, STAT_CON);
+		prt_stat(cr_ptr, STAT_CHR);
 	}
 
 	if (play_redraw & (PR_STATUS))

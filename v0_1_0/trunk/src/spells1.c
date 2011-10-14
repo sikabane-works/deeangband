@@ -3764,7 +3764,7 @@ note = "‚Í“®‚¯‚È‚­‚È‚Á‚½I";
 		case GF_CHARM:
 		{
 			int vir;
-			dam += (adj_con_fix[who_ptr->stat_ind[A_CHR]] - 1);
+			dam += (adj_con_fix[who_ptr->stat_ind[STAT_CHR]] - 1);
 
 			// TODO: Add Karma of Fortune feature.
 			vir = 0;
@@ -4095,7 +4095,7 @@ note = "‚Í‚È‚Â‚¢‚½B";
 			vir = 0;
 			if (seen) obvious = TRUE;
 
-			dam += (adj_chr_chm[who_ptr->stat_ind[A_CHR]]);
+			dam += (adj_chr_chm[who_ptr->stat_ind[STAT_CHR]]);
 			vir = 0;
 			if (vir)
 			{
@@ -6545,7 +6545,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 			if ((!(double_resist || tar_ptr->resist_pois)) &&
 			     one_in_(HURT_CHANCE) && !(tar_ptr->multishadow && (turn & 1)))
 			{
-				do_dec_stat(tar_ptr, A_CON);
+				do_dec_stat(tar_ptr, STAT_CON);
 			}
 
 			get_damage = take_hit(NULL, tar_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
@@ -7109,19 +7109,19 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						switch (randint1(6))
 						{
 #ifdef JP
-							case 1: k = A_STR; act = "‹­‚­"; break;
-							case 2: k = A_INT; act = "‘–¾‚Å"; break;
-							case 3: k = A_WIS; act = "Œ«–¾‚Å"; break;
-							case 4: k = A_DEX; act = "Ší—p‚Å"; break;
-							case 5: k = A_CON; act = "Œ’N‚Å"; break;
-							case 6: k = A_CHR; act = "”ü‚µ‚­"; break;
+							case 1: k = STAT_STR; act = "‹­‚­"; break;
+							case 2: k = STAT_INT; act = "‘–¾‚Å"; break;
+							case 3: k = STAT_WIS; act = "Œ«–¾‚Å"; break;
+							case 4: k = STAT_DEX; act = "Ší—p‚Å"; break;
+							case 5: k = STAT_CON; act = "Œ’N‚Å"; break;
+							case 6: k = STAT_CHR; act = "”ü‚µ‚­"; break;
 #else
-							case 1: k = A_STR; act = "strong"; break;
-							case 2: k = A_INT; act = "bright"; break;
-							case 3: k = A_WIS; act = "wise"; break;
-							case 4: k = A_DEX; act = "agile"; break;
-							case 5: k = A_CON; act = "hale"; break;
-							case 6: k = A_CHR; act = "beautiful"; break;
+							case 1: k = STAT_STR; act = "strong"; break;
+							case 2: k = STAT_INT; act = "bright"; break;
+							case 3: k = STAT_WIS; act = "wise"; break;
+							case 4: k = STAT_DEX; act = "agile"; break;
+							case 5: k = STAT_CON; act = "hale"; break;
+							case 6: k = STAT_CHR; act = "beautiful"; break;
 #endif
 						}
 
@@ -7571,9 +7571,9 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 					(void)set_slow(tar_ptr, tar_ptr->slow + randint0(4) + 4, FALSE);
 
 					while (randint0(100 + rlev / 2) > (MAX(5, tar_ptr->skill_rob)))
-						(void)do_dec_stat(tar_ptr, A_INT);
+						(void)do_dec_stat(tar_ptr, STAT_INT);
 					while (randint0(100 + rlev / 2) > (MAX(5, tar_ptr->skill_rob)))
-						(void)do_dec_stat(tar_ptr, A_WIS);
+						(void)do_dec_stat(tar_ptr, STAT_WIS);
 
 					if (!tar_ptr->resist_chaos)
 					{

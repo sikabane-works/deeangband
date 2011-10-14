@@ -2566,12 +2566,12 @@ errr parse_m_info(char *buf, header *head)
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
-		if (streq(stat, "STR")) m_ptr->spell_stat = A_STR;
-		else if (streq(stat, "INT")) m_ptr->spell_stat = A_INT;
-		else if (streq(stat, "WIS")) m_ptr->spell_stat = A_WIS;
-		else if (streq(stat, "DEX")) m_ptr->spell_stat = A_DEX;
-		else if (streq(stat, "CON")) m_ptr->spell_stat = A_CON;
-		else if (streq(stat, "CHR")) m_ptr->spell_stat = A_CHR;
+		if (streq(stat, "STR")) m_ptr->spell_stat = STAT_STR;
+		else if (streq(stat, "INT")) m_ptr->spell_stat = STAT_INT;
+		else if (streq(stat, "WIS")) m_ptr->spell_stat = STAT_WIS;
+		else if (streq(stat, "DEX")) m_ptr->spell_stat = STAT_DEX;
+		else if (streq(stat, "CON")) m_ptr->spell_stat = STAT_CON;
+		else if (streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHR;
 		else return (5);
 
 
@@ -4283,38 +4283,38 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_STR] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_STR] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_STR] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_STR] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_INT] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_INT] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_INT] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_INT] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_WIS] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_WIS] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_WIS] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_WIS] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_DEX] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_DEX] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_DEX] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_DEX] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_CON] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_CON] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_CON] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_CON] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].stat_max[A_CHR] = (s16b)b * 10;
-				species_info[n].stat_max_max[A_CHR] = (s16b)b * 10;
+				species_info[n].stat_max[STAT_CHR] = (s16b)b * 10;
+				species_info[n].stat_max_max[STAT_CHR] = (s16b)b * 10;
 				break;
 
 			case SPECIES_INFO_M_HB:
@@ -4592,12 +4592,12 @@ errr parse_re_info(char *buf, header *head)
 		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
 				&k[0], &k[1], &k[2], &k[3], &k[4], &k[5])) return (1);
 		
-		re_ptr->stat[A_STR] = k[0];
-		re_ptr->stat[A_INT] = k[1];
-		re_ptr->stat[A_WIS] = k[2];
-		re_ptr->stat[A_DEX] = k[3];
-		re_ptr->stat[A_CON] = k[4];
-		re_ptr->stat[A_CHR] = k[5];
+		re_ptr->stat[STAT_STR] = k[0];
+		re_ptr->stat[STAT_INT] = k[1];
+		re_ptr->stat[STAT_WIS] = k[2];
+		re_ptr->stat[STAT_DEX] = k[3];
+		re_ptr->stat[STAT_CON] = k[4];
+		re_ptr->stat[STAT_CHR] = k[5];
 
 	}
 
@@ -4965,62 +4965,62 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_STR] = (s16b)b;
+				race_info[n].r_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_P_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_INT] = (s16b)b;
+				race_info[n].r_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_P_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_WIS] = (s16b)b;
+				race_info[n].r_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_DEX] = (s16b)b;
+				race_info[n].r_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_CON] = (s16b)b;
+				race_info[n].r_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_P_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[A_CHR] = (s16b)b;
+				race_info[n].r_adj[STAT_CHR] = (s16b)b;
 				break;
 
 			case RC_INFO_H_STR:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_STR] = (s16b)b;
+				race_info[n].r_s_adj[STAT_STR] = (s16b)b;
 				break;
 
 			case RC_INFO_H_INT:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_INT] = (s16b)b;
+				race_info[n].r_s_adj[STAT_INT] = (s16b)b;
 				break;
 
 			case RC_INFO_H_WIS:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_WIS] = (s16b)b;
+				race_info[n].r_s_adj[STAT_WIS] = (s16b)b;
 				break;
 
 			case RC_INFO_H_DEX:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_DEX] = (s16b)b;
+				race_info[n].r_s_adj[STAT_DEX] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_CON] = (s16b)b;
+				race_info[n].r_s_adj[STAT_CON] = (s16b)b;
 				break;
 
 			case RC_INFO_H_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[A_CHR] = (s16b)b;
+				race_info[n].r_s_adj[STAT_CHR] = (s16b)b;
 				break;
 
 			case RC_INFO_P_DIS:

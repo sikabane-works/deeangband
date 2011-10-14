@@ -1898,7 +1898,7 @@ static void display_player_middle(creature_type *cr_ptr)
 		/* Get extra "power" from "extra might" */
 		if (cr_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[A_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_td[cr_ptr->stat_ind[STAT_STR]]) - 128);
 	}
 
 
@@ -3513,13 +3513,13 @@ c_put_str(TERM_YELLOW, "Œ»Ý", row, stat_col+35);
 		{
 			switch (i)
 			{
-				case A_STR:
-				case A_CON:
+				case STAT_STR:
+				case STAT_CON:
 					if (cr_ptr->lev > 25) r_adj++;
 					if (cr_ptr->lev > 40) r_adj++;
 					if (cr_ptr->lev > 45) r_adj++;
 					break;
-				case A_DEX:
+				case STAT_DEX:
 					if (cr_ptr->lev > 25) r_adj--;
 					if (cr_ptr->lev > 40) r_adj--;
 					if (cr_ptr->lev > 45) r_adj--;
@@ -3712,24 +3712,24 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 		{
 			int dummy = 0;
 
-			if (stat == A_STR)
+			if (stat == STAT_STR)
 			{
 				if (cr_ptr->flags14 & RF14_HYPER_STR) dummy += 4;
 				if (cr_ptr->flags14 & RF14_PUNY) dummy -= 4;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
-			else if (stat == A_WIS || stat == A_INT)
+			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
 				if (cr_ptr->flags14 & RF14_HYPER_INT) dummy += 4;
 				if (cr_ptr->flags14 & RF14_MORONIC) dummy -= 4;
 			}
-			else if (stat == A_DEX)
+			else if (stat == STAT_DEX)
 			{
 				if (cr_ptr->flags14 & RF14_IRON_SKIN) dummy -= 1;
 				if (cr_ptr->flags14 & RF14_LIMBER) dummy += 3;
 				if (cr_ptr->flags14 & RF14_ARTHRITIS) dummy -= 3;
 			}
-			else if (stat == A_CON)
+			else if (stat == STAT_CON)
 			{
 				if (cr_ptr->flags14 & RF14_RESILIENT) dummy += 4;
 				if (cr_ptr->flags14 & RF14_XTRA_FAT) dummy += 2;
@@ -3737,7 +3737,7 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 				if (cr_ptr->flags14 & RF14_FLESH_ROT) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
-			else if (stat == A_CHR)
+			else if (stat == STAT_CHR)
 			{
 				if (cr_ptr->flags14 & RF14_SILLY_VOI) dummy -= 4;
 				if (cr_ptr->flags14 & RF14_BLANK_FAC) dummy -= 1;

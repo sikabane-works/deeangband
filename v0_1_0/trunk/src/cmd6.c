@@ -171,7 +171,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_STR);
+				(void)do_dec_stat(cr_ptr, STAT_STR);
 				ident = TRUE;
 				break;
 			}
@@ -184,7 +184,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_CON);
+				(void)do_dec_stat(cr_ptr, STAT_CON);
 				ident = TRUE;
 				break;
 			}
@@ -197,7 +197,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_INT);
+				(void)do_dec_stat(cr_ptr, STAT_INT);
 				ident = TRUE;
 				break;
 			}
@@ -210,7 +210,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_WIS);
+				(void)do_dec_stat(cr_ptr, STAT_WIS);
 				ident = TRUE;
 				break;
 			}
@@ -223,7 +223,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_CON);
+				(void)do_dec_stat(cr_ptr, STAT_CON);
 				ident = TRUE;
 				break;
 			}
@@ -236,7 +236,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
-				(void)do_dec_stat(cr_ptr, A_STR);
+				(void)do_dec_stat(cr_ptr, STAT_STR);
 				ident = TRUE;
 				break;
 			}
@@ -273,24 +273,24 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 
 			case SV_FOOD_RESTORE_STR:
 			{
-				if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_CON:
 			{
-				if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORING:
 			{
-				if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
-				if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
-				if (do_res_stat(cr_ptr, A_WIS)) ident = TRUE;
-				if (do_res_stat(cr_ptr, A_DEX)) ident = TRUE;
-				if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
-				if (do_res_stat(cr_ptr, A_CHR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
+				if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 				break;
 			}
 
@@ -957,37 +957,37 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, damroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
-			(void)dec_stat(cr_ptr, A_DEX, 25, TRUE);
-			(void)dec_stat(cr_ptr, A_WIS, 25, TRUE);
-			(void)dec_stat(cr_ptr, A_CON, 25, TRUE);
-			(void)dec_stat(cr_ptr, A_STR, 25, TRUE);
-			(void)dec_stat(cr_ptr, A_CHR, 25, TRUE);
-			(void)dec_stat(cr_ptr, A_INT, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_DEX, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_WIS, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CON, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_STR, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHR, 25, TRUE);
+			(void)dec_stat(cr_ptr, STAT_INT, 25, TRUE);
 			ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_STR:
-			if (do_dec_stat(cr_ptr, A_STR)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_INT:
-			if (do_dec_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_WIS:
-			if (do_dec_stat(cr_ptr, A_WIS)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_DEX:
-			if (do_dec_stat(cr_ptr, A_DEX)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CON:
-			if (do_dec_stat(cr_ptr, A_CON)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CHR:
-			if (do_dec_stat(cr_ptr, A_CHR)) ident = TRUE;
+			if (do_dec_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DETONATIONS:
@@ -1138,12 +1138,12 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)set_image(cr_ptr, 0);
 			(void)set_stun(cr_ptr, 0);
 			(void)set_cut(cr_ptr, 0);
-			(void)do_res_stat(cr_ptr, A_STR);
-			(void)do_res_stat(cr_ptr, A_CON);
-			(void)do_res_stat(cr_ptr, A_DEX);
-			(void)do_res_stat(cr_ptr, A_WIS);
-			(void)do_res_stat(cr_ptr, A_INT);
-			(void)do_res_stat(cr_ptr, A_CHR);
+			(void)do_res_stat(cr_ptr, STAT_STR);
+			(void)do_res_stat(cr_ptr, STAT_CON);
+			(void)do_res_stat(cr_ptr, STAT_DEX);
+			(void)do_res_stat(cr_ptr, STAT_WIS);
+			(void)do_res_stat(cr_ptr, STAT_INT);
+			(void)do_res_stat(cr_ptr, STAT_CHR);
 			(void)set_shero(cr_ptr, 0,TRUE);
 			update_stuff(cr_ptr, TRUE);
 			hp_player(cr_ptr, 5000);
@@ -1196,60 +1196,60 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_RES_STR:
-			if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_INT:
-			if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_WIS:
-			if (do_res_stat(cr_ptr, A_WIS)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_DEX:
-			if (do_res_stat(cr_ptr, A_DEX)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CON:
-			if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CHR:
-			if (do_res_stat(cr_ptr, A_CHR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_STR:
-			if (do_inc_stat(cr_ptr, A_STR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_INT:
-			if (do_inc_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_WIS:
-			if (do_inc_stat(cr_ptr, A_WIS)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_DEX:
-			if (do_inc_stat(cr_ptr, A_DEX)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CON:
-			if (do_inc_stat(cr_ptr, A_CON)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CHR:
-			if (do_inc_stat(cr_ptr, A_CHR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_AUGMENTATION:
-			if (do_inc_stat(cr_ptr, A_STR)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, A_INT)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, A_WIS)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, A_DEX)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, A_CON)) ident = TRUE;
-			if (do_inc_stat(cr_ptr, A_CHR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_STR)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_INT)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CON)) ident = TRUE;
+			if (do_inc_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 			break;
 
 		case SV_POTION_ENLIGHTENMENT:
@@ -1272,8 +1272,8 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 
 			msg_print(NULL);
 			wiz_lite(cr_ptr, FALSE);
-			(void)do_inc_stat(cr_ptr, A_INT);
-			(void)do_inc_stat(cr_ptr, A_WIS);
+			(void)do_inc_stat(cr_ptr, STAT_INT);
+			(void)do_inc_stat(cr_ptr, STAT_WIS);
 			(void)detect_traps(cr_ptr, DETECT_RAD_DEFAULT, TRUE);
 			(void)detect_doors(cr_ptr, DETECT_RAD_DEFAULT);
 			(void)detect_stairs(cr_ptr, DETECT_RAD_DEFAULT);
@@ -2507,7 +2507,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_THE_MAGI:
 		{
-			if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
 			if (cr_ptr->csp < cr_ptr->msp)
 			{
 				cr_ptr->csp = cr_ptr->msp;
@@ -3451,12 +3451,12 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 		case SV_ROD_RESTORATION:
 		{
 			if (restore_level(cr_ptr)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_STR)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_INT)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_WIS)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_DEX)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_CON)) ident = TRUE;
-			if (do_res_stat(cr_ptr, A_CHR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_STR)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_INT)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_WIS)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_DEX)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CON)) ident = TRUE;
+			if (do_res_stat(cr_ptr, STAT_CHR)) ident = TRUE;
 			break;
 		}
 
@@ -3838,12 +3838,12 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 			sound(SOUND_EVIL);
 
 			/* Decrease all stats (permanently) */
-			(void)dec_stat(cr_ptr, A_STR, 50, TRUE);
-			(void)dec_stat(cr_ptr, A_INT, 50, TRUE);
-			(void)dec_stat(cr_ptr, A_WIS, 50, TRUE);
-			(void)dec_stat(cr_ptr, A_DEX, 50, TRUE);
-			(void)dec_stat(cr_ptr, A_CON, 50, TRUE);
-			(void)dec_stat(cr_ptr, A_CHR, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_STR, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_INT, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_WIS, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_DEX, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CON, 50, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHR, 50, TRUE);
 
 			/* Lose some experience (permanently) */
 			cr_ptr->exp -= (cr_ptr->exp / 4);
@@ -5349,7 +5349,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 					msg_print("The Muramasa pulsates...");
 #endif
-					do_inc_stat(cr_ptr, A_STR);
+					do_inc_stat(cr_ptr, STAT_STR);
 					if (one_in_(2))
 					{
 #ifdef JP
@@ -5688,12 +5688,12 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("The jo staff glows a deep green...");
 #endif
 
-				(void)do_res_stat(cr_ptr, A_STR);
-				(void)do_res_stat(cr_ptr, A_INT);
-				(void)do_res_stat(cr_ptr, A_WIS);
-				(void)do_res_stat(cr_ptr, A_DEX);
-				(void)do_res_stat(cr_ptr, A_CON);
-				(void)do_res_stat(cr_ptr, A_CHR);
+				(void)do_res_stat(cr_ptr, STAT_STR);
+				(void)do_res_stat(cr_ptr, STAT_INT);
+				(void)do_res_stat(cr_ptr, STAT_WIS);
+				(void)do_res_stat(cr_ptr, STAT_DEX);
+				(void)do_res_stat(cr_ptr, STAT_CON);
+				(void)do_res_stat(cr_ptr, STAT_CHR);
 				(void)restore_level(cr_ptr);
 				o_ptr->timeout = 750;
 				break;

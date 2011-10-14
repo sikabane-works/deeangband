@@ -1829,7 +1829,7 @@ static void spoil_mon_desc(cptr fname)
 		
 
 		/* Base Status */
-		for(j = A_STR; j <= A_CHR; j++)
+		for(j = STAT_STR; j <= STAT_CHR; j++)
 		{
 			stat[j] = species_ptr->stat_max[j] / 10;
 			if(species_ptr->race_idx1 != RACE_NONE)
@@ -1844,17 +1844,17 @@ static void spoil_mon_desc(cptr fname)
 		}
 
 		if(is_eldritch_horror_species(species_ptr)){
-			stat[A_CHR] += 5;		
+			stat[STAT_CHR] += 5;		
 		}
 
 		if(is_powerful_species(species_ptr)){
-			for(j = A_STR; j <= A_CHR; j++)
+			for(j = STAT_STR; j <= STAT_CHR; j++)
 			{
 				stat[j] += 2;
 			}
 		}
 
-		for(j = A_STR; j <= A_CHR; j++)
+		for(j = STAT_STR; j <= STAT_CHR; j++)
 		{
 			if(stat[j] < 3) stat[j] = 3;
 		}
@@ -2402,9 +2402,9 @@ static void spoil_mon_info(cptr fname)
 
 		/* Base Status */
 		sprintf(buf, "\n=== STR:%2d INT:%2d WIS:%2d DEX:%2d CON:%2d CHR:%2d\n=== ",
-		        species_ptr->stat_max[A_STR] / 10, species_ptr->stat_max[A_INT] / 10,
-		        species_ptr->stat_max[A_WIS] / 10, species_ptr->stat_max[A_DEX] / 10,
-		        species_ptr->stat_max[A_CON] / 10, species_ptr->stat_max[A_CHR] / 10);
+		        species_ptr->stat_max[STAT_STR] / 10, species_ptr->stat_max[STAT_INT] / 10,
+		        species_ptr->stat_max[STAT_WIS] / 10, species_ptr->stat_max[STAT_DEX] / 10,
+		        species_ptr->stat_max[STAT_CON] / 10, species_ptr->stat_max[STAT_CHR] / 10);
 		spoil_out(buf);
 
 

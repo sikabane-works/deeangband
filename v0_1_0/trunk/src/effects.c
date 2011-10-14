@@ -3338,8 +3338,8 @@ bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 #endif
 			}
 
-			(void)dec_stat(cr_ptr, A_CON, 20, TRUE);
-			(void)dec_stat(cr_ptr, A_STR, 20, TRUE);
+			(void)dec_stat(cr_ptr, STAT_CON, 20, TRUE);
+			(void)dec_stat(cr_ptr, STAT_STR, 20, TRUE);
 
 			notice = TRUE;
 		}
@@ -4097,16 +4097,16 @@ bool set_stun(creature_type *cr_ptr, int v)
 
 			if (one_in_(3))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, A_INT);
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, A_WIS);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, STAT_INT);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, STAT_WIS);
 			}
 			else if (one_in_(2))
 			{
-				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, A_INT);
+				if (!cr_ptr->sustain_int) (void)do_dec_stat(cr_ptr, STAT_INT);
 			}
 			else
 			{
-				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, A_WIS);
+				if (!cr_ptr->sustain_wis) (void)do_dec_stat(cr_ptr, STAT_WIS);
 			}
 		}
 		if (cr_ptr->special_defense & KATA_MASK)
@@ -4442,7 +4442,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 #endif
 				}
 
-				do_dec_stat(cr_ptr, A_CHR);
+				do_dec_stat(cr_ptr, STAT_CHR);
 			}
 		}
 	}
@@ -5164,12 +5164,12 @@ bool do_dec_stat(creature_type *cr_ptr, int stat)
 	/* Access the "sustain" */
 	switch (stat)
 	{
-		case A_STR: if (cr_ptr->sustain_str) sust = TRUE; break;
-		case A_INT: if (cr_ptr->sustain_int) sust = TRUE; break;
-		case A_WIS: if (cr_ptr->sustain_wis) sust = TRUE; break;
-		case A_DEX: if (cr_ptr->sustain_dex) sust = TRUE; break;
-		case A_CON: if (cr_ptr->sustain_con) sust = TRUE; break;
-		case A_CHR: if (cr_ptr->sustain_chr) sust = TRUE; break;
+		case STAT_STR: if (cr_ptr->sustain_str) sust = TRUE; break;
+		case STAT_INT: if (cr_ptr->sustain_int) sust = TRUE; break;
+		case STAT_WIS: if (cr_ptr->sustain_wis) sust = TRUE; break;
+		case STAT_DEX: if (cr_ptr->sustain_dex) sust = TRUE; break;
+		case STAT_CON: if (cr_ptr->sustain_con) sust = TRUE; break;
+		case STAT_CHR: if (cr_ptr->sustain_chr) sust = TRUE; break;
 	}
 
 	/* Sustain */
@@ -5536,7 +5536,7 @@ void do_poly_self(creature_type *cr_ptr)
 			}
 
 			/* Deformities are discriminated against! */
-			(void)dec_stat(cr_ptr, A_CHR, randint1(6), TRUE);
+			(void)dec_stat(cr_ptr, STAT_CHR, randint1(6), TRUE);
 
 			if (effect_msg[0])
 			{

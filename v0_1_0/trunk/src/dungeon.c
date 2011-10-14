@@ -754,12 +754,12 @@ static bool pattern_effect(creature_type *cr_ptr)
 		(void)set_cut(cr_ptr, 0);
 		(void)set_blind(cr_ptr, 0);
 		(void)set_afraid(cr_ptr, 0);
-		(void)do_res_stat(cr_ptr, A_STR);
-		(void)do_res_stat(cr_ptr, A_INT);
-		(void)do_res_stat(cr_ptr, A_WIS);
-		(void)do_res_stat(cr_ptr, A_DEX);
-		(void)do_res_stat(cr_ptr, A_CON);
-		(void)do_res_stat(cr_ptr, A_CHR);
+		(void)do_res_stat(cr_ptr, STAT_STR);
+		(void)do_res_stat(cr_ptr, STAT_INT);
+		(void)do_res_stat(cr_ptr, STAT_WIS);
+		(void)do_res_stat(cr_ptr, STAT_DEX);
+		(void)do_res_stat(cr_ptr, STAT_CON);
+		(void)do_res_stat(cr_ptr, STAT_CHR);
 		(void)restore_level(cr_ptr);
 		(void)hp_player(cr_ptr, 1000);
 
@@ -969,7 +969,7 @@ static void regenmagic(creature_type *cr_ptr, int percent)
 	{
 		if (!cr_ptr->magic_num2[i]) continue;
 		if (cr_ptr->magic_num1[i] == ((long)cr_ptr->magic_num2[i] << 16)) continue;
-		new_mana = ((long)cr_ptr->magic_num2[i]+adj_mag_mana[A_INT]+13) * percent / 8;
+		new_mana = ((long)cr_ptr->magic_num2[i]+adj_mag_mana[STAT_INT]+13) * percent / 8;
 		cr_ptr->magic_num1[i] += new_mana;
 
 		/* Check maximum charge */
@@ -983,7 +983,7 @@ static void regenmagic(creature_type *cr_ptr, int percent)
 	{
 		if (!cr_ptr->magic_num1[i]) continue;
 		if (!cr_ptr->magic_num2[i]) continue;
-		cr_ptr->magic_num1[i] -= (long)(cr_ptr->magic_num2[i] * (adj_mag_mana[A_INT] + 10)) * EATER_ROD_CHARGE/16;
+		cr_ptr->magic_num1[i] -= (long)(cr_ptr->magic_num2[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
 		if (cr_ptr->magic_num1[i] < 0) cr_ptr->magic_num1[i] = 0;
 		wild_regen = 20;
 	}
@@ -2231,7 +2231,7 @@ static void process_world_aux_timeout(creature_type *cr_ptr)
 	/* Poison */
 	if (cr_ptr->poisoned)
 	{
-		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Apply some healing */
 		(void)set_poisoned(cr_ptr, cr_ptr->poisoned - adjust);
@@ -2240,7 +2240,7 @@ static void process_world_aux_timeout(creature_type *cr_ptr)
 	/* Stun */
 	if (cr_ptr->stun)
 	{
-		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Apply some healing */
 		(void)set_stun(cr_ptr, cr_ptr->stun - adjust);
@@ -2249,7 +2249,7 @@ static void process_world_aux_timeout(creature_type *cr_ptr)
 	/* Cut */
 	if (cr_ptr->cut)
 	{
-		int adjust = adj_con_fix[cr_ptr->stat_ind[A_CON]] + 1;
+		int adjust = adj_con_fix[cr_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Hack -- Truly "mortal" wound */
 		if (cr_ptr->cut > 1000) adjust = 0;
@@ -2638,22 +2638,22 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		switch (which_stat)
 		{
-		case A_STR:
+		case STAT_STR:
 			if (cr_ptr->sustain_str) sustained = TRUE;
 			break;
-		case A_INT:
+		case STAT_INT:
 			if (cr_ptr->sustain_int) sustained = TRUE;
 			break;
-		case A_WIS:
+		case STAT_WIS:
 			if (cr_ptr->sustain_wis) sustained = TRUE;
 			break;
-		case A_DEX:
+		case STAT_DEX:
 			if (cr_ptr->sustain_dex) sustained = TRUE;
 			break;
-		case A_CON:
+		case STAT_CON:
 			if (cr_ptr->sustain_con) sustained = TRUE;
 			break;
-		case A_CHR:
+		case STAT_CHR:
 			if (cr_ptr->sustain_chr) sustained = TRUE;
 			break;
 		default:
