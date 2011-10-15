@@ -3714,8 +3714,8 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 
 			if (stat == STAT_STR)
 			{
-				if (is_hyper_str_creature(cr_ptr)) dummy += 4;
-				if (is_puny_creature(cr_ptr)) dummy -= 4;
+				if (have_creature_flags(cr_ptr, CF_HYPER_STR)) dummy += 4;
+				if (have_creature_flags(cr_ptr, CF_PUNY)) dummy -= 4;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)

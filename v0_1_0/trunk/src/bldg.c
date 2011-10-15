@@ -2689,7 +2689,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (is_hyper_int_creature(watcher_ptr))
+					if (have_creature_flags(watcher_ptr, CF_HYPER_INT))
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");

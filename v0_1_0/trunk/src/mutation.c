@@ -1109,7 +1109,7 @@ muta_desc = "邪悪な触手が口の周りに生えた。";
 		{
 			if (muta_which == CF_PUNY)
 			{
-				if (is_hyper_str_creature(cr_ptr))
+				if (have_creature_flags(cr_ptr, CF_HYPER_STR))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたはもう超人的に強くはない！");
@@ -2920,7 +2920,7 @@ fprintf(OutFile, " あなたはよくつまづいて物を落とす。\n");
 
 	if (cr_ptr->flags14)
 	{
-		if (is_hyper_str_creature(cr_ptr))
+		if (have_creature_flags(cr_ptr, CF_HYPER_STR))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは超人的に強い。(腕力+4)\n");
@@ -2929,7 +2929,7 @@ fprintf(OutFile, " あなたは超人的に強い。(腕力+4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_PUNY)
+		if (have_creature_flags(cr_ptr, CF_PUNY))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは虚弱だ。(腕力-4)\n");
@@ -2938,7 +2938,7 @@ fprintf(OutFile, " あなたは虚弱だ。(腕力-4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_HYPER_INT)
+		if (have_creature_flags(cr_ptr, CF_HYPER_INT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの脳は生体コンピュータだ。(知能＆賢さ+4)\n");
