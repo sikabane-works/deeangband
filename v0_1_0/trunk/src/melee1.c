@@ -171,7 +171,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 	/* Not allowed to attack */
-	if (is_never_blow_creature(atk_ptr)) return (FALSE);
+	if (have_creature_flags(atk_ptr, CF_NEVER_BLOW)) return (FALSE);
 
 	if (d_info[dungeon_type].flags1 & DF1_NO_MELEE) return (FALSE);
 

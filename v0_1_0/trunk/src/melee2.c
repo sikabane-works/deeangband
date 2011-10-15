@@ -1096,7 +1096,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 		}
 	}
 
-	if (!done && !will_run && is_hostile(nonplayer_ptr) && is_friends_creature(nonplayer_ptr) &&
+	if (!done && !will_run && is_hostile(nonplayer_ptr) && have_creature_flags(nonplayer_ptr, CF_FRIENDS) &&
 	    ((los(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
 	    (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
@@ -1990,7 +1990,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Can't reach player - find something else to hit */
-	else if (is_never_move_creature(nonplayer_ptr) && (nonplayer_ptr->cdis > 1))
+	else if (have_creature_flags(nonplayer_ptr, CF_NEVER_MOVE) && (nonplayer_ptr->cdis > 1))
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2248,7 +2248,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if (do_move && is_glyph_grid(c_ptr) && !is_never_blow_creature(nonplayer_ptr) && creature_bold(player_ptr, ny, nx))
+		if (do_move && is_glyph_grid(c_ptr) && !have_creature_flags(nonplayer_ptr, CF_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2281,7 +2281,7 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !(is_never_blow_creature(nonplayer_ptr) && creature_bold(player_ptr, ny, nx)))
+			 !(have_creature_flags(nonplayer_ptr, CF_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2333,7 +2333,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && creature_bold(player_ptr, ny, nx))
 		{
 			/* Some monsters never attack */
-			if (is_never_blow_creature(nonplayer_ptr))
+			if (have_creature_flags(nonplayer_ptr, CF_NEVER_BLOW))
 			{
 				/* Hack -- memorize lack of attacks */
 				//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
@@ -2386,7 +2386,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if ((have_creature_flags(nonplayer_ptr, CF_KILL_BODY) && !is_never_blow_creature(nonplayer_ptr) &&
+			if ((have_creature_flags(nonplayer_ptr, CF_KILL_BODY) && !have_creature_flags(nonplayer_ptr, CF_NEVER_BLOW) &&
 				(r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
 				  are_enemies(nonplayer_ptr, y_ptr) ||  nonplayer_ptr->confused)
@@ -2502,7 +2502,7 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Some monsters never move */
-		if (do_move && is_never_move_creature(nonplayer_ptr))
+		if (do_move && have_creature_flags(nonplayer_ptr, CF_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
 			//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);

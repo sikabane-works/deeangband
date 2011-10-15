@@ -3562,7 +3562,7 @@ static byte get_dungeon_feeling(void)
 		}
 
 		/* Unusually crowded monsters get a little bit of rating boost */
-		if (is_friends_creature(m_ptr))
+		if (have_creature_flags(m_ptr, CF_FRIENDS))
 		{
 			if (5 <= get_monster_crowd_number(i)) delta += 1;
 		}

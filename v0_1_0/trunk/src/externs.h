@@ -1047,20 +1047,13 @@ extern bool is_attr_any_species(species_type *species_ptr);
 extern bool is_attr_semirand_species(species_type *species_ptr);
 
 extern bool is_shapechanger_species(species_type *species_ptr);
-extern bool is_shapechanger_creature(creature_type *creature_ptr);
 
-extern bool is_force_sleep_creature(creature_type *creature_ptr);
 extern bool is_force_sleep_species(species_type *species_ptr);
-extern bool is_never_move_creature(creature_type *creature_ptr);
 extern bool is_never_move_species(species_type *species_ptr);
-extern bool is_never_blow_creature(creature_type *creature_ptr);
 extern bool is_never_blow_species(species_type *species_ptr);
 
-extern bool is_friends_creature(creature_type *creature_ptr);
 extern bool is_friends_species(species_type *species_ptr);
-extern bool is_escort_creature(creature_type *creature_ptr);
 extern bool is_escort_species(species_type *species_ptr);
-extern bool is_escorts_creature(creature_type *creature_ptr);
 extern bool is_escorts_species(species_type *species_ptr);
 
 extern bool is_only_gold_creature(creature_type *creature_ptr);

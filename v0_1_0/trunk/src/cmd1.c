@@ -4163,7 +4163,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	if (oktomove && cr_ptr->riding)
 	{
-		if (is_never_move_creature(steed_ptr))
+		if (have_creature_flags(steed_ptr, CF_NEVER_MOVE))
 		{
 #ifdef JP
 			msg_print("“®‚¯‚È‚¢I");

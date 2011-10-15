@@ -2037,9 +2037,9 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		monster_desc(m_name, m_ptr, 0);
 
-		if (!(is_unique_creature(m_ptr)))
+		if (!have_creature_flags(m_ptr, CF_UNIQUE))
 		{
-			if (is_friends_creature(m_ptr))
+			if (have_creature_flags(m_ptr, CF_FRIENDS))
 			power /= 2;
 		}
 		else power *= 2;
@@ -3530,7 +3530,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 
 	/* Force monster to wait for player, unless in Nightmare mode */
-	if (is_force_sleep_creature(m_ptr) && !ironman_nightmare)
+	if (have_creature_flags(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
 	{
 		/* Monster is still being nice */
 		m_ptr->mflag |= (MFLAG_NICE);
