@@ -847,8 +847,8 @@ msg_print("地面に落とされた。");
 
 
 	/* Drop a dead corpse? */
-	if (one_in_(is_unique_creature(cr_ptr) ? 1 : 4) &&
-	    (is_drop_corpse_creature(cr_ptr) || is_drop_skeleton_creature(cr_ptr)) &&
+	if (one_in_(have_creature_flags(cr_ptr, CF_UNIQUE) ? 1 : 4) &&
+	    (have_creature_flags(cr_ptr, CF_DROP_CORPSE) || have_creature_flags(cr_ptr, CF_DROP_SKELETON)) &&
 	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
@@ -858,13 +858,13 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!is_drop_skeleton_creature(cr_ptr))
+		if (!have_creature_flags(cr_ptr, CF_DROP_SKELETON))
 			corpse = TRUE;
-		else if (is_drop_corpse_creature(cr_ptr) && (is_unique_creature(cr_ptr)))
+		else if (have_creature_flags(cr_ptr, CF_DROP_CORPSE) && have_creature_flags(cr_ptr, CF_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (is_drop_corpse_creature(cr_ptr))
+		else if (have_creature_flags(cr_ptr, CF_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
 			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
@@ -1442,14 +1442,14 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	// TODO NEW CALC
 
 	/* Special penalty in the wilderness */
-	if (!dun_level && (!is_wild_only_creature(tar_ptr) || !(is_unique_creature(tar_ptr))))
+	if (!dun_level && (!have_creature_flags(tar_ptr, CF_WILD_ONLY) || !(have_creature_flags(tar_ptr, CF_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Special penalty for mutiply-monster */
-	if (is_multiply_creature(tar_ptr) || (tar_ptr->species_idx == MON_DAWN))
+	if (have_creature_flags(tar_ptr, CF_MULTIPLY) || (tar_ptr->species_idx == MON_DAWN))
 	{
 		int monnum_penarty = species_ptr->r_akills / 400;
 		if (monnum_penarty > 8) monnum_penarty = 8;

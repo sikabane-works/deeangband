@@ -974,52 +974,31 @@ extern bool is_resist_all_species(species_type *species_ptr);
 extern bool is_resist_tele_creature(creature_type *creature_ptr);
 extern bool is_resist_tele_species(species_type *species_ptr);
 
-
-
 extern bool is_male_creature(creature_type *cr_ptr);
 extern bool is_male_species(species_type *sp_ptr);
 extern bool is_female_creature(creature_type *cr_ptr);
 extern bool is_female_species(species_type *sp_ptr);
 
-extern bool is_drop_corpse_creature(creature_type *cr_ptr);
 extern bool is_drop_corpse_species(species_type *sp_ptr);
-extern bool is_drop_skeleton_creature(creature_type *cr_ptr);
 extern bool is_drop_skeleton_species(species_type *sp_ptr);
 
-extern bool is_citizen_creature(creature_type *cr_ptr);
 extern bool is_citizen_species(species_type *sp_ptr);
 
-extern bool is_wild_only_creature(creature_type *cr_ptr);
 extern bool is_wild_only_species(species_type *sp_ptr);
-
-extern bool is_wild_town_creature(creature_type *cr_ptr);
 extern bool is_wild_town_species(species_type *sp_ptr);
-extern bool is_wild_all_creature(creature_type *cr_ptr);
 extern bool is_wild_all_species(species_type *sp_ptr);
 extern bool is_wild_shore_species(species_type *sp_ptr);
-extern bool is_wild_shore_creature(creature_type *cr_ptr);
 extern bool is_wild_ocean_species(species_type *sp_ptr);
-extern bool is_wild_ocean_creature(creature_type *cr_ptr);
 extern bool is_wild_waste_species(species_type *sp_ptr);
-extern bool is_wild_waste_creature(creature_type *cr_ptr);
 extern bool is_wild_wood_species(species_type *sp_ptr);
-extern bool is_wild_wood_creature(creature_type *cr_ptr);
 extern bool is_wild_volcano_species(species_type *sp_ptr);
-extern bool is_wild_volcano_creature(creature_type *cr_ptr);
 extern bool is_wild_grass_species(species_type *sp_ptr);
-extern bool is_wild_grass_creature(creature_type *cr_ptr);
 extern bool is_wild_mountain_species(species_type *sp_ptr);
-extern bool is_wild_mountain_creature(creature_type *cr_ptr);
 extern bool is_shadow_species(species_type *sp_ptr);
-extern bool is_shadow_creature(creature_type *cr_ptr);
 extern bool is_chameleon_species(species_type *sp_ptr);
-extern bool is_chameleon_creature(creature_type *cr_ptr);
 extern bool is_tanuki_species(species_type *sp_ptr);
-extern bool is_tanuki_creature(creature_type *cr_ptr);
 extern bool is_kill_exp_species(species_type *sp_ptr);
-extern bool is_kill_exp_creature(creature_type *cr_ptr);
 extern bool is_friendly_species(species_type *sp_ptr);
-extern bool is_friendly_creature(creature_type *cr_ptr);
 
 extern bool is_force_lesser_creature(creature_type *creature_ptr);
 extern bool is_force_lesser_species(species_type *species_ptr);

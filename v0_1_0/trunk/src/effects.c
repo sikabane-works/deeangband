@@ -5701,7 +5701,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	COPY(&exp_mon, tar_ptr, creature_type);
 
-	if (!is_kill_exp_creature(tar_ptr))
+	if (!have_creature_flags(tar_ptr, CF_KILL_EXP))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (tar_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
@@ -6135,7 +6135,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->chp < 0)
 		{
 	
-			if (is_tanuki_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_TANUKI))
 			{
 				/* You might have unmasked Tanuki first time */
 				r_ptr = &species_info[tar_ptr->species_idx];
@@ -6375,7 +6375,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Prevent bug of chaos patron's reward */
-			if (is_kill_exp_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_KILL_EXP))
 				get_exp_from_mon(atk_ptr, (long)exp_mon.mmhp*2, &exp_mon);
 			else
 				get_exp_from_mon(atk_ptr, ((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
