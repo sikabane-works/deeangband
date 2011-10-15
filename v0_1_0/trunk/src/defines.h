@@ -3824,8 +3824,6 @@
 #define RF13_DISARM                     0x80000000L
 
 /* Old Mutation3 */
-#define CF_                  0x00000001L
-#define RF14_PUNY                       0x00000002L
 #define RF14_HYPER_INT                  0x00000004L
 #define RF14_MORONIC                    0x00000008L
 #define RF14_RESILIENT                  0x00000010L

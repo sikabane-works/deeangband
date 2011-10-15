@@ -3692,7 +3692,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 
 		/* Puny */
-		if (cr_ptr->flags14 & RF14_PUNY)
+		if (is_puny_creature(cr_ptr))
 		{
 			cr_ptr->stat_add[STAT_STR] -= 4;
 		}

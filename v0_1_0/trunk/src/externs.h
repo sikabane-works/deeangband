@@ -1065,6 +1065,8 @@ extern bool is_variable_size_species(species_type *species_ptr);
 
 extern bool is_hyper_str_creature(creature_type *creature_ptr);
 extern bool is_hyper_str_species(species_type *species_ptr);
+extern bool is_puny_creature(creature_type *creature_ptr);
+extern bool is_puny_species(species_type *species_ptr);
 
 
 

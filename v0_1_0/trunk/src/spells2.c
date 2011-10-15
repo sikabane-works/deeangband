@@ -1445,7 +1445,7 @@ info[i++] = "あなたは超人的に強い。(腕力+4)";
 #endif
 
 		}
-		if (cr_ptr->flags14 & RF14_PUNY)
+		if (is_puny_creature(cr_ptr))
 		{
 #ifdef JP
 info[i++] = "あなたは虚弱だ。(腕力-4)";
