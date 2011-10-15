@@ -1000,17 +1000,11 @@ extern bool is_tanuki_species(species_type *sp_ptr);
 extern bool is_kill_exp_species(species_type *sp_ptr);
 extern bool is_friendly_species(species_type *sp_ptr);
 
-extern bool is_force_lesser_creature(creature_type *creature_ptr);
 extern bool is_force_lesser_species(species_type *species_ptr);
-extern bool is_variable_race_creature(creature_type *creature_ptr);
 extern bool is_variable_race_species(species_type *species_ptr);
-extern bool is_variable_class_creature(creature_type *creature_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);
-extern bool is_variable_patron_creature(creature_type *creature_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);
-extern bool is_variable_chara_creature(creature_type *creature_ptr);
 extern bool is_variable_chara_species(species_type *species_ptr);
-extern bool is_variable_size_creature(creature_type *creature_ptr);
 extern bool is_variable_size_species(species_type *species_ptr);
 
 

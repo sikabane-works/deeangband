@@ -1833,7 +1833,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != CHARA_NONE && is_variable_chara_creature(m_ptr)){
+	if(m_ptr->chara_idx != CHARA_NONE && have_creature_flags(m_ptr, CF_VARIABLE_CHARA)){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -1843,7 +1843,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->race_idx1 != RACE_NONE && is_variable_race_creature(m_ptr)){
+	if(m_ptr->race_idx1 != RACE_NONE && have_creature_flags(m_ptr, CF_VARIABLE_RACE)){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "‚Ì");
@@ -1870,7 +1870,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, r_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != CLASS_NONE && is_variable_class_creature(m_ptr)){
+	if(m_ptr->cls_idx != CLASS_NONE && have_creature_flags(m_ptr, CF_VARIABLE_CLASS)){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);

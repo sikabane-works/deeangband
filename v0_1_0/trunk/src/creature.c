@@ -1860,52 +1860,52 @@ bool is_force_lesser_species(species_type *species_ptr)
 
 bool is_variable_race_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RACE_EGO);	
+	return have_creature_flags(creature_ptr, CF_VARIABLE_RACE);	
 }
 
 bool is_variable_race_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_RACE_EGO]);
+	return (species_ptr->flags.add_lev[CF_VARIABLE_RACE]);
 }
 
 bool is_variable_class_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CLASS_EGO);	
+	return have_creature_flags(creature_ptr, CF_VARIABLE_CLASS);	
 }
 
 bool is_variable_class_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CLASS_EGO]);
+	return (species_ptr->flags.add_lev[CF_VARIABLE_CLASS]);
 }
 
 bool is_variable_patron_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_PATRON_EGO);	
+	return have_creature_flags(creature_ptr, CF_VARIABLE_PATRON);	
 }
 
 bool is_variable_patron_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_PATRON_EGO]);
+	return (species_ptr->flags.add_lev[CF_VARIABLE_PATRON]);
 }
 
 bool is_variable_chara_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CHARA_EGO);	
+	return have_creature_flags(creature_ptr, CF_VARIABLE_CHARA);	
 }
 
 bool is_variable_chara_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_CHARA_EGO]);
+	return (species_ptr->flags.add_lev[CF_VARIABLE_CHARA]);
 }
 
 bool is_variable_size_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_SIZE_EGO);	
+	return have_creature_flags(creature_ptr, CF_VARIABLE_SIZE);	
 }
 
 bool is_variable_size_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_VARIABLE_SIZE_EGO]);
+	return (species_ptr->flags.add_lev[CF_VARIABLE_SIZE]);
 }
 
 
