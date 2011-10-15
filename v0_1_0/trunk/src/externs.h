@@ -903,11 +903,8 @@ extern bool is_bash_door_species(species_type *sp_ptr);
 extern bool is_move_body_species(species_type *sp_ptr);
 extern bool is_kill_body_species(species_type *sp_ptr);
 
-extern bool is_aura_fire_creature(creature_type *cr_ptr);
 extern bool is_aura_fire_species(species_type *sp_ptr);
-extern bool is_aura_cold_creature(creature_type *cr_ptr);
 extern bool is_aura_cold_species(species_type *sp_ptr);
-extern bool is_aura_elec_creature(creature_type *cr_ptr);
 extern bool is_aura_elec_species(species_type *sp_ptr);
 
 extern bool is_aquatic_creature(creature_type *cr_ptr);

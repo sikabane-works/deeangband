@@ -216,7 +216,7 @@ sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 		info[i++] = Dummy2[4];
 	}
 
-	if (is_powerful_creature(cr_ptr))
+	if (have_creature_flags(cr_ptr, CF_POWERFUL))
 	{
 #ifdef JP
 			info[i++] = "あなたはあらゆるレイシャルパワーを強力に扱うことができる。";

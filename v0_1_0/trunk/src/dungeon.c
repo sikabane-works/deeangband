@@ -1750,8 +1750,9 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 	if (cr_ptr->riding)
 	{
+		creature_type *steed_ptr = &creature_list[cr_ptr->riding];
 		int damage;
-		if (is_aura_fire_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_fire)
+		if (have_creature_flags(steed_ptr, CF_AURA_FIRE) && !cr_ptr->immune_fire)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE);
@@ -1763,7 +1764,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if (is_aura_elec_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_elec)
+		if (have_creature_flags(steed_ptr, CF_AURA_ELEC) && !cr_ptr->immune_elec)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ELEC);
@@ -1775,7 +1776,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if (is_aura_cold_creature(&creature_list[cr_ptr->riding]) && !cr_ptr->immune_cold)
+		if (have_creature_flags(steed_ptr, CF_AURA_COLD) && !cr_ptr->immune_cold)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_COLD);

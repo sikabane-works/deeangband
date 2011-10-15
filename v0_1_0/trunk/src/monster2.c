@@ -2608,7 +2608,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (d <= cr_ptr->see_infra)
 			{
 				/* Handle "cold blooded" monsters */
-				if (is_cold_blood_creature(m_ptr) || !is_aura_fire_creature(m_ptr))
+				if (is_cold_blood_creature(m_ptr) || !have_creature_flags(m_ptr, CF_AURA_FIRE))
 				{
 					/* Take note */
 					do_cold_blood = TRUE;

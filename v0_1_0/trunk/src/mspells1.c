@@ -508,7 +508,7 @@ static void breath(int y, int x, creature_type *cr_ptr, int typ, int dam_hp, int
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
 	/* Determine the radius of the blast */
-	if ((rad < 1) && breath) rad = is_powerful_creature(cr_ptr) ? 3 : 2;
+	if ((rad < 1) && breath) rad = have_creature_flags(cr_ptr, CF_POWERFUL) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
@@ -2265,7 +2265,7 @@ else msg_format("%^sが放射能球を放った。", m_name);
 			else msg_format("%^s casts a ball of radiation.", m_name);
 #endif
 
-			dam = (rlev + damroll(10, 6)) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (rlev + damroll(10, 6)) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_NUKE, dam, 2, FALSE, MS_BALL_NUKE, learnable);
 			update_smart_learn(user_ptr, DRS_POIS);
 			break;
@@ -2309,7 +2309,7 @@ else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
 			else msg_format("%^s invokes a raw Logrus.", m_name);
 #endif
 
-			dam = (is_powerful_creature(user_ptr) ? (rlev * 3) : (rlev * 2))+ damroll(10, 10);
+			dam = (have_creature_flags(user_ptr, CF_POWERFUL) ? (rlev * 3) : (rlev * 2))+ damroll(10, 10);
 			breath(y, x, user_ptr, GF_CHAOS, dam, 4, FALSE, MS_BALL_CHAOS, learnable);
 			update_smart_learn(user_ptr, DRS_CHAOS);
 			break;
@@ -2354,7 +2354,7 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts an acid ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3) + 15) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (randint1(rlev * 3) + 15) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_ACID, dam, 2, FALSE, MS_BALL_ACID, learnable);
 			update_smart_learn(user_ptr, DRS_ACID);
 			break;
@@ -2376,7 +2376,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 8) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 8) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_ELEC, dam, 2, FALSE, MS_BALL_ELEC, learnable);
 			update_smart_learn(user_ptr, DRS_ELEC);
 			break;
@@ -2416,7 +2416,7 @@ else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 #endif
 			}
 
-			dam = (randint1(rlev * 7 / 2) + 10) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (randint1(rlev * 7 / 2) + 10) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_FIRE, dam, 2, FALSE, MS_BALL_FIRE, learnable);
 			update_smart_learn(user_ptr, DRS_FIRE);
 			break;
@@ -2438,7 +2438,7 @@ else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost ball.", m_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 10) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (randint1(rlev * 3 / 2) + 10) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_COLD, dam, 2, FALSE, MS_BALL_COLD, learnable);
 			update_smart_learn(user_ptr, DRS_COLD);
 			break;
@@ -2460,7 +2460,7 @@ else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 			else msg_format("%^s casts a stinking cloud.", m_name);
 #endif
 
-			dam = damroll(12, 2) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = damroll(12, 2) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			breath(y, x, user_ptr, GF_POIS, dam, 2, FALSE, MS_BALL_POIS, learnable);
 			update_smart_learn(user_ptr, DRS_POIS);
 			break;
@@ -2482,7 +2482,7 @@ else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether ball.", m_name);
 #endif
 
-			dam = 50 + damroll(10, 10) + (rlev * (is_powerful_creature(user_ptr) ? 2 : 1));
+			dam = 50 + damroll(10, 10) + (rlev * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1));
 			breath(y, x, user_ptr, GF_NETHER, dam, 2, FALSE, MS_BALL_NETHER, learnable);
 			update_smart_learn(user_ptr, DRS_NETH);
 			break;
@@ -2510,7 +2510,7 @@ msg_print("あなたは渦巻きに飲み込まれた。");
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (is_powerful_creature(user_ptr) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
+			dam = (have_creature_flags(user_ptr, CF_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
 			breath(y, x, user_ptr, GF_WATER, dam, 4, FALSE, MS_BALL_WATER, learnable);
 			break;
 		}
@@ -2733,7 +2733,7 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a acid bolt.", m_name);
 #endif
 
-			dam = (damroll(7, 8) + (rlev / 3)) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (damroll(7, 8) + (rlev / 3)) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(user_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
 			update_smart_learn(user_ptr, DRS_ACID);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -2757,7 +2757,7 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a lightning bolt.", m_name);
 #endif
 
-			dam = (damroll(4, 8) + (rlev / 3)) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (damroll(4, 8) + (rlev / 3)) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(user_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
 			update_smart_learn(user_ptr, DRS_ELEC);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -2781,7 +2781,7 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a fire bolt.", m_name);
 #endif
 
-			dam = (damroll(9, 8) + (rlev / 3)) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (damroll(9, 8) + (rlev / 3)) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(user_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
 			update_smart_learn(user_ptr, DRS_FIRE);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -2805,7 +2805,7 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a frost bolt.", m_name);
 #endif
 
-			dam = (damroll(6, 8) + (rlev / 3)) * (is_powerful_creature(user_ptr) ? 2 : 1);
+			dam = (damroll(6, 8) + (rlev / 3)) * (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 1);
 			bolt(user_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
 			update_smart_learn(user_ptr, DRS_COLD);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -2851,7 +2851,7 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 			else msg_format("%^s casts a nether bolt.", m_name);
 #endif
 
-			dam = 30 + damroll(5, 5) + (rlev * 4) / (is_powerful_creature(user_ptr) ? 2 : 3);
+			dam = 30 + damroll(5, 5) + (rlev * 4) / (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 3);
 			bolt(user_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
 			update_smart_learn(user_ptr, DRS_NETH);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -2875,7 +2875,7 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a water bolt.", m_name);
 #endif
 
-			dam = damroll(10, 10) + (rlev * 3 / (is_powerful_creature(user_ptr) ? 2 : 3));
+			dam = damroll(10, 10) + (rlev * 3 / (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(user_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2921,7 +2921,7 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 			else msg_format("%^s casts a plasma bolt.", m_name);
 #endif
 
-			dam = 10 + damroll(8, 7) + (rlev * 3 / (is_powerful_creature(user_ptr) ? 2 : 3));
+			dam = 10 + damroll(8, 7) + (rlev * 3 / (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(user_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2944,7 +2944,7 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 			else msg_format("%^s casts an ice bolt.", m_name);
 #endif
 
-			dam = damroll(6, 6) + (rlev * 3 / (is_powerful_creature(user_ptr) ? 2 : 3));
+			dam = damroll(6, 6) + (rlev * 3 / (have_creature_flags(user_ptr, CF_POWERFUL) ? 2 : 3));
 			bolt(user_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
 			update_smart_learn(user_ptr, DRS_COLD);
 			update_smart_learn(user_ptr, DRS_REFLECT);
@@ -3700,7 +3700,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 			else msg_format("%^s throw a Psycho-Spear.", m_name);
 #endif
 
-			dam = is_powerful_creature(user_ptr) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
+			dam = have_creature_flags(user_ptr, CF_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
 			beam(user_ptr, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
 			break;
 		}

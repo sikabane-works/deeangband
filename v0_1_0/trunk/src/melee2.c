@@ -2579,10 +2579,10 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Take or Kill objects on the floor */
 			if (c_ptr->o_idx && (have_creature_flags(nonplayer_ptr, CF_TAKE_ITEM) || have_creature_flags(nonplayer_ptr, CF_KILL_ITEM)) &&
-			    (!is_pet(nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && is_take_item_creature(nonplayer_ptr))))
+			    (!is_pet(nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && have_creature_flags(nonplayer_ptr, CF_TAKE_ITEM))))
 			{
 				s16b this_o_idx, next_o_idx;
-				bool do_take = is_take_item_creature(nonplayer_ptr) ? TRUE : FALSE;
+				bool do_take = have_creature_flags(nonplayer_ptr, CF_TAKE_ITEM) ? TRUE : FALSE;
 
 				/* Scan all objects in the grid */
 				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
