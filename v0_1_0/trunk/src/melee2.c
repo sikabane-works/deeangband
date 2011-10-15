@@ -2764,7 +2764,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 	/* Notice changes in view */
 	if (do_move && (is_self_ld_creature(nonplayer_ptr) || is_darken_creature(nonplayer_ptr))
-		|| ((is_has_lite_1_creature(nonplayer_ptr) || is_has_lite_2_creature(nonplayer_ptr)) && !inside_battle))
+		|| ((have_creature_flags(nonplayer_ptr, CF_HAS_LITE_1) || have_creature_flags(nonplayer_ptr, CF_HAS_LITE_2)) && !inside_battle))
 	{
 		/* Update some things */
 		player_ptr->update |= (PU_MON_LITE);

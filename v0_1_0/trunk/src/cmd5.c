@@ -1914,7 +1914,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 			return FALSE;
 		}
-		if (!is_riding_creature(m_ptr))
+		if (!have_creature_flags(m_ptr, CF_RIDING))
 		{
 #ifdef JP
 			msg_print("そのモンスターには乗れなさそうだ。");

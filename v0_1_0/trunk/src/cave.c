@@ -3042,23 +3042,24 @@ void update_mon_lite(creature_type *cr_ptr)
 			rad = 0;
 
 			/* Note the radii are cumulative */
-			if (is_self_lite_1_creature(m_ptr) || is_has_lite_1_creature(m_ptr)) rad++;
-			if (is_self_lite_2_creature(m_ptr) || is_has_lite_2_creature(m_ptr)) rad += 2;
-			if (is_self_dark_1_creature(m_ptr) || is_has_dark_1_creature(m_ptr)) rad--;
-			if (is_self_dark_2_creature(m_ptr) || is_has_dark_2_creature(m_ptr)) rad -= 2;
+			if (have_creature_flags(m_ptr, CF_SELF_LITE_1) || have_creature_flags(m_ptr, CF_HAS_LITE_1)) rad++;
+			if (have_creature_flags(m_ptr, CF_SELF_LITE_2) || have_creature_flags(m_ptr, CF_HAS_LITE_2)) rad += 2;
+			if (have_creature_flags(m_ptr, CF_SELF_DARK_1) || have_creature_flags(m_ptr, CF_HAS_DARK_1)) rad--;
+			if (have_creature_flags(m_ptr, CF_SELF_DARK_2) || have_creature_flags(m_ptr, CF_HAS_DARK_2)) rad -= 2;
 
 			/* Exit if has no light */
 			if (!rad) continue;
 			else if (rad > 0)
 			{
-				if (!(is_self_lite_1_creature(m_ptr) || is_self_lite_2_creature(m_ptr)) && (m_ptr->paralyzed || (!dun_level && is_daytime()) || inside_battle)) continue;
+				if (!(have_creature_flags(m_ptr, CF_SELF_LITE_1) || have_creature_flags(m_ptr, CF_SELF_LITE_2)) && 
+					(m_ptr->paralyzed || (!dun_level && is_daytime()) || inside_battle)) continue;
 				if (d_info[dungeon_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_mon_lite = mon_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
-				if (!(is_self_dark_1_creature(m_ptr) || is_self_dark_2_creature(m_ptr)) && (m_ptr->paralyzed || (!dun_level && !is_daytime()))) continue;
+				if (!(have_creature_flags(m_ptr, CF_SELF_DARK_1) || have_creature_flags(m_ptr, CF_SELF_DARK_2)) && (m_ptr->paralyzed || (!dun_level && !is_daytime()))) continue;
 				add_mon_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
