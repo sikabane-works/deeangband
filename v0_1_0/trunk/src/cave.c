@@ -1242,7 +1242,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				if (is_char_clear_creature(m_ptr) && is_attr_clear_creature(m_ptr))
+				if (have_creature_flags(m_ptr, CF_CHAR_CLEAR) && have_creature_flags(m_ptr, CF_ATTR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1259,8 +1259,9 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				c = r_ptr->x_char;
 
 				/* Normal monsters */
-				if (!is_attr_semirand_creature(m_ptr) && !is_attr_multi_creature(m_ptr) &&
-					!is_shapechanger_creature(m_ptr) && !is_char_clear_creature(m_ptr) && !is_attr_clear_creature(m_ptr))
+				if (!have_creature_flags(m_ptr, CF_ATTR_SEMIRAND) && !have_creature_flags(m_ptr, CF_ATTR_MULTI) &&
+					!have_creature_flags(m_ptr, CF_SHAPECHANGER) && !have_creature_flags(m_ptr, CF_CHAR_CLEAR) &&
+					!have_creature_flags(m_ptr, CF_ATTR_CLEAR))
 				{
 					/* Desired monster attr/char */
 					*ap = a;
@@ -1271,7 +1272,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				else if (is_attr_clear_creature(m_ptr) && is_char_clear_creature(m_ptr))
+				else if (have_creature_flags(m_ptr, CF_ATTR_CLEAR) && have_creature_flags(m_ptr, CF_CHAR_CLEAR))
 				{
 					/* Do nothing */
 				}
@@ -1279,15 +1280,15 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 				else
 				{
 					/***  Monster's attr  ***/
-					if (is_attr_clear_creature(m_ptr) && (*ap != TERM_DARK) && !use_graphics)
+					if (have_creature_flags(m_ptr, CF_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
 					{
 						/* Clear-attr */
 						/* Do nothing */
 					}
-					else if (is_attr_multi_creature(m_ptr) && !use_graphics)
+					else if (have_creature_flags(m_ptr, CF_ATTR_MULTI) && !use_graphics)
 					{
 						/* Multi-hued attr */
-						if (is_attr_any_creature(m_ptr)) *ap = (byte_hack)randint1(15);
+						if (have_creature_flags(m_ptr, CF_ATTR_ANY)) *ap = (byte_hack)randint1(15);
 						else switch (randint1(7))
 						{
 						case 1: *ap = TERM_RED;     break;
@@ -1299,7 +1300,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 						case 7: *ap = TERM_GREEN;   break;
 						}
 					}
-					else if (is_attr_semirand_creature(m_ptr) && !use_graphics)
+					else if (have_creature_flags(m_ptr, CF_ATTR_SEMIRAND) && !use_graphics)
 					{
 						/* Use semi-random attr (usually mimics' colors vary) */
 						*ap = c_ptr->m_idx % 15 + 1;
@@ -1311,12 +1312,12 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 					}
 
 					/***  Monster's char  ***/
-					if (is_char_clear_creature(m_ptr) && (*cp != ' ') && !use_graphics)
+					if (have_creature_flags(m_ptr, CF_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
 					{
 						/* Clear-char */
 						/* Do nothing */
 					}
-					else if (is_shapechanger_creature(m_ptr))
+					else if (have_creature_flags(m_ptr, CF_SHAPECHANGER))
 					{
 						if (use_graphics)
 						{

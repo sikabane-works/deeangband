@@ -5937,7 +5937,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 					r_ptr = &species_info[m_ptr->ap_species_idx];
 
 					/* Skip non-multi-hued monsters */
-					if (!is_attr_multi_creature(m_ptr) && !is_shapechanger_creature(m_ptr))
+					if (!have_creature_flags(m_ptr, CF_ATTR_MULTI) && !have_creature_flags(m_ptr, CF_SHAPECHANGER))
 						continue;
 
 					/* Reset the flag */

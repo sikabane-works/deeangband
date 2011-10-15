@@ -3570,7 +3570,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
-		if (is_attr_multi_creature(m_ptr) || is_shapechanger_creature(m_ptr))
+		if (have_creature_flags(m_ptr, CF_ATTR_MULTI) || have_creature_flags(m_ptr, CF_SHAPECHANGER))
 			shimmer_monsters = TRUE;
 	}
 
