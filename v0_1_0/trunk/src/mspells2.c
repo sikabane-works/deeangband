@@ -454,14 +454,14 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		    !is_darken_creature(user_ptr))
 			can_use_lite_area = TRUE;
 
-		if (!is_stupid_creature(user_ptr))
+		if (!have_creature_flags(user_ptr, CF_STUPID))
 		{
 			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			else if (vs_ninja && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !is_stupid_creature(user_ptr))
+	if (in_no_magic_dungeon && !have_creature_flags(user_ptr, CF_STUPID))
 	{
 		f4 &= (RF4_NOMAGIC_MASK);
 		f5 &= (RF5_NOMAGIC_MASK);
@@ -614,7 +614,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 
 	/* Remove some spells if necessary */
 
-	if (!is_stupid_creature(user_ptr))
+	if (!have_creature_flags(user_ptr, CF_STUPID))
 	{
 		/* Check for a clean bolt shot */
 		if (((f4 & RF4_BOLT_MASK) ||
@@ -663,7 +663,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 	}
 
-	if (is_smart_creature(user_ptr))
+	if (have_creature_flags(user_ptr, CF_SMART))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((user_ptr->chp < user_ptr->mhp / 10) &&

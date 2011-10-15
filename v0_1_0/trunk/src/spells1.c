@@ -2809,7 +2809,7 @@ note_dies = "は蒸発した！";
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (is_empty_mind_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -2820,7 +2820,7 @@ note_dies = "は蒸発した！";
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 
 			}
-			else if (is_weird_mind_creature(tar_ptr) || is_stupid_creature(tar_ptr) ||
+			else if (have_creature_flags(tar_ptr, CF_WEIRD_MIND) || have_creature_flags(tar_ptr, CF_STUPID) ||
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
@@ -2947,7 +2947,7 @@ note_dies = "は蒸発した！";
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (is_empty_mind_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -2957,7 +2957,7 @@ note_dies = "は蒸発した！";
 #endif
 
 			}
-			else if (is_weird_mind_creature(tar_ptr) || is_stupid_creature(tar_ptr) || 
+			else if (have_creature_flags(tar_ptr, CF_WEIRD_MIND) || have_creature_flags(tar_ptr, CF_STUPID) || 
 			         is_animal_creature(tar_ptr) ||
 			         (r_ptr->level > randint1(3 * dam)))
 			{
@@ -5047,7 +5047,7 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (is_empty_mind_creature(tar_ptr))
+			else if (have_creature_flags(tar_ptr, CF_EMPTY_MIND))
 			{
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
@@ -5057,7 +5057,7 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (is_weird_mind_creature(tar_ptr))
+			else if (have_creature_flags(tar_ptr, CF_WEIRD_MIND))
 			{
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
@@ -5123,7 +5123,7 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (is_empty_mind_creature(tar_ptr))
+			else if (have_creature_flags(tar_ptr, CF_EMPTY_MIND))
 			{
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 #ifdef JP
@@ -5133,7 +5133,7 @@ note_dies = "はドロドロに溶けた！";
 #endif
 				dam = 0;
 			}
-			else if (is_weird_mind_creature(tar_ptr))
+			else if (have_creature_flags(tar_ptr, CF_WEIRD_MIND))
 			{
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
 #ifdef JP
@@ -5458,7 +5458,7 @@ msg_format("うまく捕まえられなかった。");
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
 				break;
 			}
-			if (is_empty_mind_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_EMPTY_MIND))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -9034,7 +9034,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && is_reflecting_creature(m_ptr) &&
+				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && have_creature_flags(m_ptr, CF_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    (is_player(who_ptr) || dist_hack > 1) && !one_in_(10))
 				{

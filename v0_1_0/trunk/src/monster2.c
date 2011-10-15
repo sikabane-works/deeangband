@@ -266,7 +266,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	real_r_ptr(cr_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (is_multiply_creature(cr_ptr)) num_repro--;
+	if (have_creature_flags(cr_ptr, CF_MULTIPLY)) num_repro--;
 
 	if (cr_ptr->paralyzed) (void)set_paralyzed(cr_ptr, 0);
 	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
@@ -2464,14 +2464,14 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			else if (cr_ptr->telepathy)
 			{
 				/* Empty mind, no telepathy */
-				if (is_empty_mind_creature(m_ptr))
+				if (have_creature_flags(m_ptr, CF_EMPTY_MIND))
 				{
 					/* Memorize flags */
 					//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
-				else if (is_empty_mind_creature(m_ptr))
+				else if (have_creature_flags(m_ptr, CF_WEIRD_MIND))
 				{
 					/* One in ten individuals are detectable */
 					if ((m_idx % 10) == 5)
@@ -2577,7 +2577,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_nonliving) && is_non_living_creature(m_ptr) && !is_undead_creature(m_ptr) && !is_undead_creature(m_ptr)) 
+			if ((cr_ptr->esp_nonliving) && have_creature_flags(m_ptr, CF_NONLIVING) && !is_undead_creature(m_ptr)) 
 			{
 				flag = TRUE;
 				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
@@ -2608,7 +2608,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (d <= cr_ptr->see_infra)
 			{
 				/* Handle "cold blooded" monsters */
-				if (is_cold_blood_creature(m_ptr) || !have_creature_flags(m_ptr, CF_AURA_FIRE))
+				if (have_creature_flags(m_ptr, CF_COLD_BLOOD) || !have_creature_flags(m_ptr, CF_AURA_FIRE))
 				{
 					/* Take note */
 					do_cold_blood = TRUE;
@@ -2626,7 +2626,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (player_can_see_bold(cr_ptr, fy, fx))
 			{
 				/* Handle "invisible" monsters */
-				if (is_invisible_creature(m_ptr))
+				if (have_creature_flags(m_ptr, CF_INVISIBLE))
 				{
 					/* Take note */
 					do_invisible = TRUE;
@@ -3566,7 +3566,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
-	if (is_multiply_creature(m_ptr)) num_repro++;
+	if (have_creature_flags(m_ptr, CF_MULTIPLY)) num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
@@ -5240,10 +5240,10 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	if (!smart_learn) return;
 
 	/* Too stupid to learn anything */
-	if (is_stupid_creature(learner_ptr)) return;
+	if (have_creature_flags(learner_ptr, CF_STUPID)) return;
 
 	/* Not intelligent, only learn sometimes */
-	if (!is_smart_creature(learner_ptr) && (randint0(100) < 50)) return;
+	if (!have_creature_flags(learner_ptr, CF_SMART) && (randint0(100) < 50)) return;
 
 
 	/* XXX XXX XXX */

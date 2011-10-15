@@ -1767,7 +1767,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 
 	/* Attempt to "multiply" if able and allowed */
-	if (is_multiply_creature(nonplayer_ptr) && (num_repro < MAX_REPRO))
+	if (have_creature_flags(nonplayer_ptr, CF_MULTIPLY) && (num_repro < MAX_REPRO))
 	{
 		int k, y, x;
 
@@ -2347,7 +2347,7 @@ msg_format("%^s%s", m_name, monmessage);
 			{
 				if (!nonplayer_ptr->confused)
 				{
-					if (!is_stupid_creature(nonplayer_ptr)) do_move = FALSE;
+					if (!have_creature_flags(nonplayer_ptr, CF_STUPID)) do_move = FALSE;
 					else
 					{
 						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
@@ -2407,7 +2407,7 @@ msg_format("%^s%s", m_name, monmessage);
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
 						{
 							if (nonplayer_ptr->confused) return;
-							else if (is_stupid_creature(nonplayer_ptr))
+							else if (have_creature_flags(nonplayer_ptr, CF_STUPID))
 							{
 								//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 								return;
@@ -2652,7 +2652,7 @@ msg_format("%^s%s", m_name, monmessage);
 					    ((~(nonplayer_ptr->flags10) & flgr) && !(nonplayer_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */
-						if (do_take && is_stupid_creature(nonplayer_ptr))
+						if (do_take && have_creature_flags(nonplayer_ptr, CF_STUPID))
 						{
 							/* Take note */
 							did_take_item = TRUE;

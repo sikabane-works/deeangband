@@ -74,7 +74,7 @@ static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32
 
 
 	/* Too stupid to know anything */
-	if (is_stupid_creature(user_ptr)) return;
+	if (have_creature_flags(user_ptr, CF_STUPID)) return;
 
 
 	/* Must be cheating or learning */
@@ -961,7 +961,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 	int i;
 
 	/* Stupid monsters choose randomly */
-	if (is_stupid_creature(user_ptr))
+	if (have_creature_flags(user_ptr, CF_STUPID))
 	{
 		/* Pick at random */
 		return (spells[randint0(num)]);
@@ -1484,21 +1484,21 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		    !is_darken_creature(user_ptr))
 			can_use_lite_area = TRUE;
 
-		if (!is_stupid_creature(user_ptr))
+		if (!have_creature_flags(user_ptr, CF_STUPID))
 		{
 			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
-	if (in_no_magic_dungeon && !is_stupid_creature(user_ptr))
+	if (in_no_magic_dungeon && !have_creature_flags(user_ptr, CF_STUPID))
 	{
 		f4 &= (RF4_NOMAGIC_MASK);
 		f5 &= (RF5_NOMAGIC_MASK);
 		f6 &= (RF6_NOMAGIC_MASK);
 	}
 
-	if (is_smart_creature(user_ptr))
+	if (have_creature_flags(user_ptr, CF_SMART))
 	{
 		/* Hack -- allow "desperate" spells */
 		if ((user_ptr->chp < user_ptr->mhp / 10) &&
@@ -1535,7 +1535,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	/* No spells left */
 	if (!f4 && !f5 && !f6) return (FALSE);
 
-	if (!is_stupid_creature(user_ptr))
+	if (!have_creature_flags(user_ptr, CF_STUPID))
 	{
 		if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
 
@@ -1654,7 +1654,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	failrate = 25 - (rlev + 3) / 4;
 
 	/* Hack -- Stupid monsters will never fail (for jellies and such) */
-	if (is_stupid_creature(user_ptr)) failrate = 0;
+	if (have_creature_flags(user_ptr, CF_STUPID)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
 	if (!spell_is_inate(thrown_spell)

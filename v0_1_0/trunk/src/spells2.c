@@ -3931,7 +3931,7 @@ bool detect_monsters_normal(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect all non-invisible monsters */
-		if (!is_invisible_creature(m_ptr) || cr_ptr->see_inv)
+		if (!have_creature_flags(m_ptr, CF_INVISIBLE) || cr_ptr->see_inv)
 		{
 			/* Repair visibility later */
 			repair_monsters = TRUE;
@@ -3993,7 +3993,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect invisible monsters */
-		if (is_invisible_creature(m_ptr))
+		if (have_creature_flags(m_ptr, CF_INVISIBLE))
 		{
 			/* Update monster recall window */
 			if (cr_ptr->species_type_idx == m_ptr->species_idx)
@@ -4205,7 +4205,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
-		if (!is_empty_mind_creature(m_ptr))
+		if (!have_creature_flags(m_ptr, CF_EMPTY_MIND))
 		{
 			/* Update monster recall window */
 			if (p_ptr->species_type_idx == m_ptr->species_idx)
@@ -5994,10 +5994,10 @@ static void cave_temp_room_lite(void)
 			update_mon(p_ptr, c_ptr->m_idx, FALSE);
 
 			/* Stupid monsters rarely wake up */
-			if (is_stupid_creature(m_ptr)) chance = 10;
+			if (have_creature_flags(m_ptr, CF_STUPID)) chance = 10;
 
 			/* Smart monsters always wake up */
-			if (is_smart_creature(m_ptr)) chance = 100;
+			if (have_creature_flags(m_ptr, CF_SMART)) chance = 100;
 
 			/* Sometimes monsters wake up */
 			if (m_ptr->paralyzed && (randint0(100) < chance))

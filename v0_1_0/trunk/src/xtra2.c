@@ -719,8 +719,8 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = !is_only_gold_creature(cr_ptr);
-	bool do_item = !is_only_item_creature(cr_ptr);
+	bool do_gold = !have_creature_flags(cr_ptr, CF_ONLY_GOLD);
+	bool do_item = !have_creature_flags(cr_ptr, CF_ONLY_ITEM);
 	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
 	int force_coin = get_coin_type(cr_ptr->species_idx);
 

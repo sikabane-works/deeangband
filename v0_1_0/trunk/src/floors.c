@@ -582,7 +582,7 @@ static void place_pet(void)
 			/* r_ptr->cur_num++; */
 
 			/* Hack -- Count the number of "reproducers" */
-			if (is_multiply_creature(m_ptr)) num_repro++;
+			if (have_creature_flags(m_ptr, CF_MULTIPLY)) num_repro++;
 
 			/* Hack -- Notice new multi-hued monsters */
 			{
