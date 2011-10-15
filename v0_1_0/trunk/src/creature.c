@@ -704,10 +704,6 @@ bool is_animal_species(species_type *species_ptr)
 	return FALSE;
 }
 
-bool is_quantum_creature(creature_type *creature_ptr)
-{
-	return have_creature_flags(creature_ptr, CF_QUANTUM);	
-}
 
 bool is_quantum_species(species_type *species_ptr)
 {
@@ -1829,7 +1825,7 @@ bool is_tanuki_species(species_type *species_ptr)
 
 bool is_tanuki_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_MOUNTAIN);	
+	return have_creature_flags(creature_ptr, CF_TANUKI);	
 }
 
 bool is_kill_exp_species(species_type *species_ptr)
@@ -1931,6 +1927,16 @@ bool is_puny_creature(creature_type *creature_ptr)
 bool is_puny_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[CF_HYPER_STR]);
+}
+
+bool is_hyper_int_creature(creature_type *creature_ptr)
+{
+	return have_creature_flags(creature_ptr, CF_HYPER_INT);	
+}
+
+bool is_hyper_int_species(species_type *species_ptr)
+{
+	return (species_ptr->flags.add_lev[CF_HYPER_INT]);
 }
 
 

@@ -892,26 +892,15 @@ extern bool is_undead_species(species_type *sp_ptr);
 extern bool is_human_species(species_type *sp_ptr);
 extern bool is_animal_species(species_type *sp_ptr);
 
-extern bool is_quantum_creature(creature_type *cr_ptr);
 extern bool is_quantum_species(species_type *sp_ptr);
-
-extern bool is_powerful_creature(creature_type *cr_ptr);
 extern bool is_powerful_species(species_type *sp_ptr);
-extern bool is_pass_wall_creature(creature_type *cr_ptr);
 extern bool is_pass_wall_species(species_type *sp_ptr);
-extern bool is_kill_wall_creature(creature_type *cr_ptr);
 extern bool is_kill_wall_species(species_type *sp_ptr);
-extern bool is_take_item_creature(creature_type *cr_ptr);
 extern bool is_take_item_species(species_type *sp_ptr);
-extern bool is_kill_item_creature(creature_type *cr_ptr);
 extern bool is_kill_item_species(species_type *sp_ptr);
-extern bool is_open_door_creature(creature_type *cr_ptr);
 extern bool is_open_door_species(species_type *sp_ptr);
-extern bool is_bash_door_creature(creature_type *cr_ptr);
 extern bool is_bash_door_species(species_type *sp_ptr);
-extern bool is_move_body_creature(creature_type *cr_ptr);
 extern bool is_move_body_species(species_type *sp_ptr);
-extern bool is_kill_body_creature(creature_type *cr_ptr);
 extern bool is_kill_body_species(species_type *sp_ptr);
 
 extern bool is_aura_fire_creature(creature_type *cr_ptr);
@@ -1067,6 +1056,8 @@ extern bool is_hyper_str_creature(creature_type *creature_ptr);
 extern bool is_hyper_str_species(species_type *species_ptr);
 extern bool is_puny_creature(creature_type *creature_ptr);
 extern bool is_puny_species(species_type *species_ptr);
+extern bool is_hyper_int_creature(creature_type *creature_ptr);
+extern bool is_hyper_int_species(species_type *species_ptr);
 
 
 

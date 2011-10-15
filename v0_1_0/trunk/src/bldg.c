@@ -2689,7 +2689,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (watcher_ptr->flags14 & RF14_HYPER_INT)
+					if (is_hyper_int_creature(watcher_ptr))
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2697,9 +2697,9 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						watcher_ptr->flags14 &= ~(RF14_HYPER_INT);
+						//TODOwatcher_ptr->flags14 &= ~(RF14_HYPER_INT);
 					}
-					watcher_ptr->flags14 |= RF14_MORONIC;
+					//TODOwatcher_ptr->flags14 |= RF14_MORONIC;
 					happened = TRUE;
 				}
 				break;

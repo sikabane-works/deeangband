@@ -97,8 +97,8 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Monster must be projectable if we can't pass through walls */
-			if ((is_pass_wall_creature(m_ptr) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
-			    (is_kill_wall_creature(m_ptr) && (m_idx != cr_ptr->riding)))
+			if ((have_creature_flags(m_ptr, CF_PASS_WALL) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall)) ||
+			    (have_creature_flags(m_ptr, CF_KILL_WALL) && (m_idx != cr_ptr->riding)))
 			{
 				if (!in_disintegration_range(m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -489,12 +489,12 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	bool can_open_door = FALSE;
 	int now_cost;
 
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	creature_type *nonplayer_ptr = &creature_list[m_idx];
+	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Monster location */
-	y1 = m_ptr->fy;
-	x1 = m_ptr->fx;
+	y1 = nonplayer_ptr->fy;
+	x1 = nonplayer_ptr->fx;
 
 	/* Monster can already cast spell to player */
 	if (projectable(y1, x1, p_ptr->fy, p_ptr->fx)) return (FALSE);
@@ -504,7 +504,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	if (now_cost == 0) now_cost = 999;
 
 	/* Can monster bash or open doors? */
-	if (is_bash_door_creature(m_ptr) || is_open_door_creature(m_ptr))
+	if (have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) || have_creature_flags(nonplayer_ptr, CF_OPEN_DOOR))
 	{
 		can_open_door = TRUE;
 	}
@@ -529,7 +529,8 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		cost = c_ptr->cost;
 
 		/* Monster cannot kill or pass walls */
-		if (!((is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) || (is_kill_wall_creature(m_ptr) && (m_idx != p_ptr->riding))))
+		if (!((have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) ||
+			  (have_creature_flags(nonplayer_ptr, CF_KILL_WALL) && (m_idx != p_ptr->riding))))
 		{
 			if (cost == 0) continue;
 			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -587,8 +588,8 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	cave_type *c_ptr;
 	bool use_scent = FALSE;
 
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	creature_type *nonplayer_ptr = &creature_list[m_idx];
+	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Can monster cast attack spell? */
 	if (r_ptr->flags4 & (RF4_ATTACK_MASK) ||
@@ -603,12 +604,12 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	if (no_flow) return (FALSE);
 
 	/* Monster can go through rocks */
-	if (is_pass_wall_creature(m_ptr) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
-	if (is_kill_wall_creature(m_ptr) && (m_idx != p_ptr->riding)) return (FALSE);
+	if (have_creature_flags(nonplayer_ptr, CF_PASS_WALL) && ((m_idx != p_ptr->riding) || p_ptr->pass_wall)) return (FALSE);
+	if (have_creature_flags(nonplayer_ptr, CF_KILL_WALL) && (m_idx != p_ptr->riding)) return (FALSE);
 
 	/* Monster location */
-	y1 = m_ptr->fy;
-	x1 = m_ptr->fx;
+	y1 = nonplayer_ptr->fy;
+	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
 	if (player_has_los_bold(y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)) return (FALSE);
@@ -665,7 +666,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 		{
 			int cost;
 
-			if (is_bash_door_creature(m_ptr) || is_open_door_creature(m_ptr))
+			if (have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) || have_creature_flags(nonplayer_ptr, CF_BASH_DOOR))
 				cost = c_ptr->dist;
 			else cost = c_ptr->cost;
 
@@ -1065,8 +1066,8 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
  */
 static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	creature_type *nonplayer_ptr = &creature_list[m_idx];
+	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
 	int          y2 = cr_ptr->fy;
@@ -1074,37 +1075,37 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(m_idx);
 	cave_type    *c_ptr;
-	bool         no_flow = ((m_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[m_ptr->fy][m_ptr->fx].cost > 2));
-	bool         can_pass_wall = (is_pass_wall_creature(m_ptr) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
+	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
+	bool         can_pass_wall = (have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
-	if (!will_run && m_ptr->target_y)
+	if (!will_run && nonplayer_ptr->target_y)
 	{
-		int t_m_idx = cave[m_ptr->target_y][m_ptr->target_x].m_idx;
+		int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].m_idx;
 
 		/* The monster must be an enemy, and in LOS */
 		if (t_m_idx &&
-		    are_enemies(m_ptr, &creature_list[t_m_idx]) &&
-		    los(m_ptr->fy, m_ptr->fx, m_ptr->target_y, m_ptr->target_x) &&
-		    projectable(m_ptr->fy, m_ptr->fx, m_ptr->target_y, m_ptr->target_x))
+		    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
+		    los(nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
+		    projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
 			/* Extract the "pseudo-direction" */
-			y = m_ptr->fy - m_ptr->target_y;
-			x = m_ptr->fx - m_ptr->target_x;
+			y = nonplayer_ptr->fy - nonplayer_ptr->target_y;
+			x = nonplayer_ptr->fx - nonplayer_ptr->target_x;
 			done = TRUE;
 		}
 	}
 
-	if (!done && !will_run && is_hostile(m_ptr) && is_friends_creature(m_ptr) &&
-	    ((los(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
-	    (cave[m_ptr->fy][m_ptr->fx].dist < MAX_SIGHT / 2)))
+	if (!done && !will_run && is_hostile(nonplayer_ptr) && is_friends_creature(nonplayer_ptr) &&
+	    ((los(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
+	    (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
 	 * Animal packs try to get the player out of corridors
 	 * (...unless they can move through walls -- TY)
 	 */
-		if (is_animal_creature(m_ptr) && !can_pass_wall &&
-			 !is_kill_wall_creature(m_ptr))
+		if (is_animal_creature(nonplayer_ptr) && !can_pass_wall &&
+			 !have_creature_flags(nonplayer_ptr, CF_BASH_DOOR))
 		{
 			int i, room = 0;
 
@@ -1138,7 +1139,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 		}
 
 		/* Monster groups try to surround the player */
-		if (!done && (cave[m_ptr->fy][m_ptr->fx].dist < 3))
+		if (!done && (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
 		{
 			int i;
 
@@ -1150,7 +1151,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 				x2 = cr_ptr->fx + ddx_ddd[(m_idx + i) & 7];
 
 				/* Already there? */
-				if ((m_ptr->fy == y2) && (m_ptr->fx == x2))
+				if ((nonplayer_ptr->fy == y2) && (nonplayer_ptr->fx == x2))
 				{
 					/* Attack the player */
 					y2 = cr_ptr->fy;
@@ -1169,8 +1170,8 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 			}
 
 			/* Extract the new "pseudo-direction" */
-			y = m_ptr->fy - y2;
-			x = m_ptr->fx - x2;
+			y = nonplayer_ptr->fy - y2;
+			x = nonplayer_ptr->fx - x2;
 
 			/* Done */
 			done = TRUE;
@@ -1183,14 +1184,14 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 		(void)get_moves_aux(m_idx, &y2, &x2, no_flow);
 
 		/* Extract the "pseudo-direction" */
-		y = m_ptr->fy - y2;
-		x = m_ptr->fx - x2;
+		y = nonplayer_ptr->fy - y2;
+		x = nonplayer_ptr->fx - x2;
 
 		/* Not done */
 	}
 
 	/* Apply fear if possible and necessary */
-	if (is_pet(m_ptr) && will_run)
+	if (is_pet(nonplayer_ptr) && will_run)
 	{
 		/* XXX XXX Not very "smart" */
 		y = (-y), x = (-x);
@@ -1452,9 +1453,9 @@ static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_
  */
 static void process_monster(creature_type *player_ptr, int m_idx)
 {
-	creature_type    *creature_ptr = &creature_list[m_idx];
-	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
-	species_type    *ap_r_ptr = &species_info[creature_ptr->ap_species_idx];
+	creature_type    *nonplayer_ptr = &creature_list[m_idx];
+	species_type    *r_ptr = &species_info[nonplayer_ptr->species_idx];
+	species_type    *ap_r_ptr = &species_info[nonplayer_ptr->ap_species_idx];
 
 	int             i, d, oy, ox, ny, nx;
 
@@ -1483,9 +1484,9 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 
-	bool            see_m = is_seen(player_ptr, creature_ptr);
+	bool            see_m = is_seen(player_ptr, nonplayer_ptr);
 
-	if (is_riding_mon && !is_riding_creature(creature_ptr))
+	if (is_riding_mon && !is_riding_creature(nonplayer_ptr))
 	{
 		if (rakuba(player_ptr, 0, TRUE))
 		{
@@ -1499,10 +1500,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 	}
 
-	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->paralyzed)
+	if ((nonplayer_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !nonplayer_ptr->paralyzed)
 	{
 		choose_new_monster(m_idx, FALSE, 0, MONEGO_NONE);
-		r_ptr = &species_info[creature_ptr->species_idx];
+		r_ptr = &species_info[nonplayer_ptr->species_idx];
 	}
 
 	/* Players hidden in shadow are almost imperceptable. -LM- */
@@ -1517,7 +1518,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* Are there its parent? */
-	if (creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
+	if (nonplayer_ptr->parent_m_idx && !creature_list[nonplayer_ptr->parent_m_idx].species_idx)
 	{
 		/* Its parent have gone, it also goes away. */
 
@@ -1526,7 +1527,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			char m_name[80];
 
 			/* Acquire the monster name */
-			monster_desc(m_name, creature_ptr, 0);
+			monster_desc(m_name, nonplayer_ptr, 0);
 
 #ifdef JP
 			msg_format("%sは消え去った！", m_name);
@@ -1535,11 +1536,11 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #endif
 		}
 
-		if (record_named_pet && is_pet(creature_ptr) && creature_ptr->nickname)
+		if (record_named_pet && is_pet(nonplayer_ptr) && nonplayer_ptr->nickname)
 		{
 			char m_name[80];
 
-			monster_desc(m_name, creature_ptr, MD_INDEF_VISIBLE);
+			monster_desc(m_name, nonplayer_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, m_name);
 		}
 
@@ -1550,17 +1551,17 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* Quantum monsters are odd */
-	if (is_quantum_creature(creature_ptr))
+	if (have_creature_flags(nonplayer_ptr, CF_QUANTUM))
 	{
 		/* Sometimes skip move */
 		if (!randint0(2)) return;
 
 		/* Sometimes die */
-		if (!randint0((m_idx % 100) + 10) && !is_unique_creature(creature_ptr))
+		if (!randint0((m_idx % 100) + 10) && !is_unique_creature(nonplayer_ptr))
 		{
 			bool sad = FALSE;
 
-			if (is_pet(creature_ptr) && !(creature_ptr->ml))
+			if (is_pet(nonplayer_ptr) && !(nonplayer_ptr->ml))
 				sad = TRUE;
 
 			if (see_m)
@@ -1568,7 +1569,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				char m_name[80];
 
 				/* Acquire the monster name */
-				monster_desc(m_name, creature_ptr, 0);
+				monster_desc(m_name, nonplayer_ptr, 0);
 
 				/* Oops */
 #ifdef JP
@@ -1598,17 +1599,17 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 		//TODO SYURYUUDAN's Process
-//	if (creature_ptr->species_idx == MON_SHURYUUDAN)
-//		creature_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
+//	if (nonplayer_ptr->species_idx == MON_SHURYUUDAN)
+//		creature_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(creature_ptr) || is_friendly(creature_ptr)) && (is_unique_creature(creature_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
+	if ((is_pet(nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
-		if (creature_ptr->chp < creature_ptr->mhp/3)
+		if (nonplayer_ptr->chp < nonplayer_ptr->mhp/3)
 		{
 			char m_name[80];
-			monster_desc(m_name, creature_ptr, 0);
+			monster_desc(m_name, nonplayer_ptr, 0);
 
 			if (is_riding_mon && riding_pinch < 2)
 			{
@@ -1641,8 +1642,8 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 				if (see_m)
 				{
-					if (can_speak_creature(creature_ptr) && (creature_ptr->species_idx != MON_GRIP) && (creature_ptr->species_idx != MON_WOLF) && (creature_ptr->species_idx != MON_FANG) &&
-					    player_has_los_bold(creature_ptr->fy, creature_ptr->fx) && projectable(creature_ptr->fy, creature_ptr->fx, player_ptr->fy, player_ptr->fx))
+					if (can_speak_creature(nonplayer_ptr) && (nonplayer_ptr->species_idx != MON_GRIP) && (nonplayer_ptr->species_idx != MON_WOLF) && (nonplayer_ptr->species_idx != MON_FANG) &&
+					    player_has_los_bold(nonplayer_ptr->fy, nonplayer_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx))
 					{
 #ifdef JP
 						msg_format("%^s「ピンチだ！退却させてもらう！」", m_name);
@@ -1669,7 +1670,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				}
 
 				/* Check for quest completion */
-				check_quest_completion(player_ptr, creature_ptr);
+				check_quest_completion(player_ptr, nonplayer_ptr);
 
 				delete_species_idx(&creature_list[m_idx]);
 
@@ -1684,7 +1685,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* Handle "sleep" */
-	if (creature_ptr->paralyzed)
+	if (nonplayer_ptr->paralyzed)
 	{
 		/* Handle non-aggravation - Still sleeping */
 		if (!(player_ptr->cursed & TRC_AGGRAVATE)) return;
@@ -1695,12 +1696,12 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		/* Notice the "waking up" */
-		if (creature_ptr->ml)
+		if (nonplayer_ptr->ml)
 		{
 			char m_name[80];
 
 			/* Acquire the monster name */
-			monster_desc(m_name, creature_ptr, 0);
+			monster_desc(m_name, nonplayer_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -1711,14 +1712,14 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Hack -- Count the wakings */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr) && (r_ptr->r_wake < MAX_UCHAR))
+		if (is_original_ap_and_seen(player_ptr, nonplayer_ptr) && (r_ptr->r_wake < MAX_UCHAR))
 		{
 			r_ptr->r_wake++;
 		}
 	}
 
 	/* Handle "stun" */
-	if (creature_ptr->stun)
+	if (nonplayer_ptr->stun)
 	{
 		/* Sometimes skip move */
 		if (one_in_(2)) return;
@@ -1730,14 +1731,14 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 	/* No one wants to be your friend if you're aggravating */
-	if (is_friendly(creature_ptr) && (player_ptr->cursed & TRC_AGGRAVATE))
+	if (is_friendly(nonplayer_ptr) && (player_ptr->cursed & TRC_AGGRAVATE))
 		gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
-	if (is_pet(creature_ptr) &&
-	    (((is_unique_creature(creature_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
+	if (is_pet(nonplayer_ptr) &&
+	    (((is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	      monster_has_hostile_align(NULL, 10, -10, r_ptr))
-	     || (creature_ptr->resist_ultimate)))
+	     || (nonplayer_ptr->resist_ultimate)))
 	{
 		gets_angry = TRUE;
 	}
@@ -1746,10 +1747,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	if (gets_angry)
 	{
-		if (is_pet(creature_ptr) || see_m)
+		if (is_pet(nonplayer_ptr) || see_m)
 		{
 			char m_name[80];
-			monster_desc(m_name, creature_ptr, is_pet(creature_ptr) ? MD_ASSUME_VISIBLE : 0);
+			monster_desc(m_name, nonplayer_ptr, is_pet(nonplayer_ptr) ? MD_ASSUME_VISIBLE : 0);
 #ifdef JP
 			msg_format("%^sは突然敵にまわった！", m_name);
 #else
@@ -1757,16 +1758,16 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #endif
 		}
 
-		set_hostile(creature_ptr);
+		set_hostile(nonplayer_ptr);
 	}
 
 	/* Get the origin */
-	oy = creature_ptr->fy;
-	ox = creature_ptr->fx;
+	oy = nonplayer_ptr->fy;
+	ox = nonplayer_ptr->fx;
 
 
 	/* Attempt to "multiply" if able and allowed */
-	if (is_multiply_creature(creature_ptr) && (num_repro < MAX_REPRO))
+	if (is_multiply_creature(nonplayer_ptr) && (num_repro < MAX_REPRO))
 	{
 		int k, y, x;
 
@@ -1789,10 +1790,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
 		{
 			/* Try to multiply */
-			if (multiply_monster(m_idx, FALSE, (is_pet(creature_ptr) ? PM_FORCE_PET : 0)))
+			if (multiply_monster(m_idx, FALSE, (is_pet(nonplayer_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
+				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, nonplayer_ptr))
 				{
 					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1804,10 +1805,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 
-	if (creature_ptr->flags6 & RF6_SPECIAL)
+	if (nonplayer_ptr->flags6 & RF6_SPECIAL)
 	{
 		/* Hack -- Ohmu scatters molds! */
-		if (creature_ptr->species_idx == MON_OHMU)
+		if (nonplayer_ptr->species_idx == MON_OHMU)
 		{
 			if (!inside_arena && !inside_battle)
 			{
@@ -1815,17 +1816,17 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				{
 					int  k, count = 0;
 					int  rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
-					u32b p_mode = is_pet(creature_ptr) ? PM_FORCE_PET : 0L;
+					u32b p_mode = is_pet(nonplayer_ptr) ? PM_FORCE_PET : 0L;
 
 					for (k = 0; k < 6; k++)
 					{
-						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
+						if (summon_specific(nonplayer_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
 						{
 							if (creature_list[hack_m_idx_ii].ml) count++;
 						}
 					}
 
-					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
+					if (count && is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
 				}
 			}
 		}
@@ -1835,9 +1836,9 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	if (!inside_battle)
 	{
 		/* Hack! "Cyber" monster makes noise... */
-		if (creature_ptr->ap_species_idx == MON_CYBER &&
+		if (nonplayer_ptr->ap_species_idx == MON_CYBER &&
 		    one_in_(CYBERNOISE) &&
-		    !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
+		    !nonplayer_ptr->ml && (nonplayer_ptr->cdis <= MAX_SIGHT))
 		{
 			if (disturb_minor) disturb(FALSE, FALSE);
 #ifdef JP
@@ -1848,7 +1849,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Some monsters can speak */
-		if (can_speak_creature(creature_ptr) && aware &&
+		if (can_speak_creature(nonplayer_ptr) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
 		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))
@@ -1858,8 +1859,8 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			cptr filename;
 
 			/* Acquire the monster name/poss */
-			if (creature_ptr->ml)
-				monster_desc(m_name, creature_ptr, 0);
+			if (nonplayer_ptr->ml)
+				monster_desc(m_name, nonplayer_ptr, 0);
 			else
 #ifdef JP
 				strcpy(m_name, "それ");
@@ -1868,19 +1869,19 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #endif
 
 			/* Select the file for monster quotes */
-			if (creature_ptr->afraid)
+			if (nonplayer_ptr->afraid)
 #ifdef JP
 				filename = "monfear_j.txt";
 #else
 				filename = "monfear.txt";
 #endif
-			else if (is_pet(creature_ptr))
+			else if (is_pet(nonplayer_ptr))
 #ifdef JP
 				filename = "monpet_j.txt";
 #else
 				filename = "monpet.txt";
 #endif
-			else if (is_friendly(creature_ptr))
+			else if (is_friendly(nonplayer_ptr))
 #ifdef JP
 				filename = "monfrien_j.txt";
 #else
@@ -1893,7 +1894,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				filename = "monspeak.txt";
 #endif
 			/* Get the monster line */
-			if (get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
+			if (get_rnd_line(filename, nonplayer_ptr->ap_species_idx, monmessage) == 0)
 			{
 				/* Say something */
 #ifdef JP
@@ -1912,14 +1913,14 @@ msg_format("%^s%s", m_name, monmessage);
 		bool counterattack = FALSE;
 
 		/* Give priority to counter attack? */
-		if (creature_ptr->target_y)
+		if (nonplayer_ptr->target_y)
 		{
-			int t_m_idx = cave[creature_ptr->target_y][creature_ptr->target_x].m_idx;
+			int t_m_idx = cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].m_idx;
 
 			/* The monster must be an enemy, and projectable */
 			if (t_m_idx &&
-			    are_enemies(creature_ptr, &creature_list[t_m_idx]) &&
-			    projectable(creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
+			    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
+			    projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 			{
 				counterattack = TRUE;
 			}
@@ -1929,20 +1930,20 @@ msg_format("%^s%s", m_name, monmessage);
 		{
 			//TODO:Target Select
 			/* Attempt to cast a spell */
-			if (aware && make_attack_spell(creature_ptr, player_ptr)) return;
+			if (aware && make_attack_spell(nonplayer_ptr, player_ptr)) return;
 
 			/*
 			 * Attempt to cast a spell at an enemy other than the player
 			 * (may slow the game a smidgeon, but I haven't noticed.)
 			 */
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+			if (make_attack_spell(nonplayer_ptr, player_ptr)) return;
 		}
 		else
 		{
 			//TODO:Target Select
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+			if (make_attack_spell(nonplayer_ptr, player_ptr)) return;
 
-			if (aware && make_attack_spell(creature_ptr, player_ptr)) return;
+			if (aware && make_attack_spell(nonplayer_ptr, player_ptr)) return;
 		}
 	}
 
@@ -1952,44 +1953,44 @@ msg_format("%^s%s", m_name, monmessage);
 
 
 	/* Confused -- 100% random */
-	if (creature_ptr->confused || !aware)
+	if (nonplayer_ptr->confused || !aware)
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 75% random movement */
-	else if (is_random_walker_25_creature(creature_ptr) && is_random_walker_50_creature(creature_ptr) && (randint0(100) < 75))
+	else if (is_random_walker_25_creature(nonplayer_ptr) && is_random_walker_50_creature(nonplayer_ptr) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
+		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 50% random movement */
-	else if (is_random_walker_50_creature(creature_ptr) && (randint0(100) < 50))
+	else if (is_random_walker_50_creature(nonplayer_ptr) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
+		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 25% random movement */
-	else if (is_random_walker_25_creature(creature_ptr) && (randint0(100) < 25))
+	else if (is_random_walker_25_creature(nonplayer_ptr) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
+		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* Can't reach player - find something else to hit */
-	else if (is_never_move_creature(creature_ptr) && (creature_ptr->cdis > 1))
+	else if (is_never_move_creature(nonplayer_ptr) && (nonplayer_ptr->cdis > 1))
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2001,17 +2002,17 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Pets will follow the player */
-	else if (is_pet(creature_ptr))
+	else if (is_pet(nonplayer_ptr))
 	{
 		/* Are we trying to avoid the player? */
 		bool avoid = ((player_ptr->pet_follow_distance < 0) &&
-						  (creature_ptr->cdis <= (0 - player_ptr->pet_follow_distance)));
+						  (nonplayer_ptr->cdis <= (0 - player_ptr->pet_follow_distance)));
 
 		/* Do we want to find the player? */
-		bool lonely = (!avoid && (creature_ptr->cdis > player_ptr->pet_follow_distance));
+		bool lonely = (!avoid && (nonplayer_ptr->cdis > player_ptr->pet_follow_distance));
 
 		/* Should we find the player if we can't find a monster? */
-		bool distant = (creature_ptr->cdis > PET_SEEK_DIST);
+		bool distant = (nonplayer_ptr->cdis > PET_SEEK_DIST);
 
 		/* by default, move randomly */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2041,7 +2042,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Friendly monster movement */
-	else if (!is_hostile(creature_ptr))
+	else if (!is_hostile(nonplayer_ptr))
 	{
 		/* by default, move randomly */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2109,10 +2110,10 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Monster destroys walls (and doors) */
-		else if (is_kill_wall_creature(creature_ptr) &&
+		else if (have_creature_flags(nonplayer_ptr, CF_KILL_WALL) &&
 		         (can_cross ? !have_flag(f_ptr->flags, FF_LOS) : !is_riding_mon) &&
 		         have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT) &&
-		         check_hp_for_feat_destruction(f_ptr, creature_ptr))
+		         check_hp_for_feat_destruction(f_ptr, nonplayer_ptr))
 		{
 			/* Eat through walls/doors/rubble */
 			do_move = TRUE;
@@ -2129,7 +2130,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = TRUE;
 
 			/* Monster moves through walls (and doors) */
-			if (is_pass_wall_creature(creature_ptr) && (!is_riding_mon || player_ptr->pass_wall) &&
+			if (have_creature_flags(nonplayer_ptr, CF_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Monster went through a wall */
@@ -2146,8 +2147,8 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Creature can open doors. */
-			if (is_bash_door_creature(creature_ptr) && have_flag(f_ptr->flags, FF_OPEN) &&
-				 (!is_pet(creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+			if (have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
+				 (!is_pet(nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
 				if (!f_ptr->power)
@@ -2166,7 +2167,7 @@ msg_format("%^s%s", m_name, monmessage);
 				else
 				{
 					/* Try to unlock it XXX XXX XXX */
-					if (randint0(creature_ptr->chp / 10) > f_ptr->power)
+					if (randint0(nonplayer_ptr->chp / 10) > f_ptr->power)
 					{
 						/* Unlock the door */
 						cave_alter_feat(ny, nx, FF_DISARM);
@@ -2181,11 +2182,11 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Stuck doors -- attempt to bash them down if allowed */
-			if (may_bash && is_bash_door_creature(creature_ptr) && have_flag(f_ptr->flags, FF_BASH) &&
-				(!is_pet(creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+			if (may_bash && have_creature_flags(nonplayer_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
+				(!is_pet(nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
-				if (check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
+				if (check_hp_for_feat_destruction(f_ptr, nonplayer_ptr) && (randint0(nonplayer_ptr->chp / 10) > f_ptr->power))
 				{
 					/* Message */
 					if (have_flag(f_ptr->flags, FF_GLASS))
@@ -2222,12 +2223,12 @@ msg_format("%^s%s", m_name, monmessage);
 				{
 					cave_alter_feat(ny, nx, FF_BASH);
 
-					if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
+					if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
 						player_ptr->update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
 
 						return;
 					}
@@ -2247,13 +2248,13 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if (do_move && is_glyph_grid(c_ptr) && !is_never_blow_creature(creature_ptr) && creature_bold(player_ptr, ny, nx))
+		if (do_move && is_glyph_grid(c_ptr) && !is_never_blow_creature(nonplayer_ptr) && creature_bold(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(creature_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
+			if (!is_pet(nonplayer_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
 			{
 				/* Describe observable breakage */
 				if (c_ptr->info & CAVE_MARK)
@@ -2280,13 +2281,13 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 		}
 		else if (do_move && is_explosive_rune_grid(c_ptr) &&
-			 !(is_never_blow_creature(creature_ptr) && creature_bold(player_ptr, ny, nx)))
+			 !(is_never_blow_creature(nonplayer_ptr) && creature_bold(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(creature_ptr))
+			if (!is_pet(nonplayer_ptr))
 			{
 				/* Break the ward */
 				if (randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
@@ -2322,7 +2323,7 @@ msg_format("%^s%s", m_name, monmessage);
 				note_spot(player_ptr, ny, nx);
 				lite_spot(player_ptr, ny, nx);
 
-				if (!creature_ptr->species_idx) return;
+				if (!nonplayer_ptr->species_idx) return;
 				/* Allow movement */
 				do_move = TRUE;
 			}
@@ -2332,10 +2333,10 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && creature_bold(player_ptr, ny, nx))
 		{
 			/* Some monsters never attack */
-			if (is_never_blow_creature(creature_ptr))
+			if (is_never_blow_creature(nonplayer_ptr))
 			{
 				/* Hack -- memorize lack of attacks */
-				//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
+				//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2344,12 +2345,12 @@ msg_format("%^s%s", m_name, monmessage);
 			/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 			if (do_move && (d_info[dungeon_type].flags1 & DF1_NO_MELEE))
 			{
-				if (!creature_ptr->confused)
+				if (!nonplayer_ptr->confused)
 				{
-					if (!is_stupid_creature(creature_ptr)) do_move = FALSE;
+					if (!is_stupid_creature(nonplayer_ptr)) do_move = FALSE;
 					else
 					{
-						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 					}
 				}
 			}
@@ -2357,7 +2358,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				creature_attack(creature_ptr, ny, nx, 0);
+				creature_attack(nonplayer_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
@@ -2385,30 +2386,30 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if ((is_kill_body_creature(creature_ptr) && !is_never_blow_creature(creature_ptr) &&
+			if ((have_creature_flags(nonplayer_ptr, CF_KILL_BODY) && !is_never_blow_creature(nonplayer_ptr) &&
 				(r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
-				  are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
+				  are_enemies(nonplayer_ptr, y_ptr) ||  nonplayer_ptr->confused)
 			{
-				if (!is_never_blow_creature(creature_ptr))
+				if (!have_creature_flags(nonplayer_ptr, CF_NEVER_BLOW))
 				{
-					if (is_kill_body_creature(creature_ptr))
+					if (have_creature_flags(nonplayer_ptr, CF_KILL_BODY))
 					{
-						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
 					if (y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if (creature_attack(creature_ptr, ny, nx, 0)) return;
+						if (creature_attack(nonplayer_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)
 						{
-							if (creature_ptr->confused) return;
-							else if (is_stupid_creature(creature_ptr))
+							if (nonplayer_ptr->confused) return;
+							else if (is_stupid_creature(nonplayer_ptr))
 							{
-								//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+								//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
 								return;
 							}
 						}
@@ -2417,10 +2418,10 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Push past weaker monsters (unless leaving a wall) */
-			else if (is_move_body_creature(creature_ptr) && !is_never_move_creature(creature_ptr) &&
+			else if (have_creature_flags(nonplayer_ptr, CF_MOVE_BODY) && !have_creature_flags(nonplayer_ptr, CF_NEVER_MOVE) &&
 				(r_ptr->mexp > z_ptr->mexp) &&
 				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
-				monster_can_cross_terrain(cave[creature_ptr->fy][creature_ptr->fx].feat, z_ptr, 0))
+				monster_can_cross_terrain(cave[nonplayer_ptr->fy][nonplayer_ptr->fx].feat, z_ptr, 0))
 			{
 				/* Allow movement */
 				do_move = TRUE;
@@ -2460,12 +2461,12 @@ msg_format("%^s%s", m_name, monmessage);
 
 			cave_alter_feat(ny, nx, FF_HURT_DISI);
 
-			if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
+			if (!nonplayer_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
 				player_ptr->update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+				//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
 
 				return;
 			}
@@ -2479,7 +2480,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_turn = TRUE;
 		}
 
-		if (must_alter_to_move && is_aquatic_creature(creature_ptr))
+		if (must_alter_to_move && is_aquatic_creature(nonplayer_ptr))
 		{
 			if (!monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0))
 			{
@@ -2501,10 +2502,10 @@ msg_format("%^s%s", m_name, monmessage);
 		}
 
 		/* Some monsters never move */
-		if (do_move && is_never_move_creature(creature_ptr))
+		if (do_move && is_never_move_creature(nonplayer_ptr))
 		{
 			/* Hack -- memorize lack of moves */
-			//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
+			//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
@@ -2518,9 +2519,9 @@ msg_format("%^s%s", m_name, monmessage);
 
 			if (have_flag(f_ptr->flags, FF_TREE))
 			{
-				if (!can_fly_creature(creature_ptr) && !is_wild_wood_creature(creature_ptr))
+				if (!can_fly_creature(nonplayer_ptr) && !is_wild_wood_creature(nonplayer_ptr))
 				{
-					creature_ptr->energy_need += ENERGY_NEED();
+					nonplayer_ptr->energy_need += ENERGY_NEED();
 				}
 			}
 
@@ -2544,8 +2545,8 @@ msg_format("%^s%s", m_name, monmessage);
 				c_ptr->m_idx = m_idx;
 
 				/* Move the monster */
-				creature_ptr->fy = ny;
-				creature_ptr->fx = nx;
+				nonplayer_ptr->fy = ny;
+				nonplayer_ptr->fx = nx;
 
 				/* Update the monster */
 				update_mon(player_ptr, m_idx, TRUE);
@@ -2566,22 +2567,22 @@ msg_format("%^s%s", m_name, monmessage);
 			}
 
 			/* Possible disturb */
-			if (creature_ptr->ml &&
+			if (nonplayer_ptr->ml &&
 			    (disturb_move ||
-			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
+			     (disturb_near && (nonplayer_ptr->mflag & MFLAG_VIEW) && projectable(player_ptr->fy, player_ptr->fx, nonplayer_ptr->fy, nonplayer_ptr->fx)) ||
 			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
-				if (is_hostile(creature_ptr))
+				if (is_hostile(nonplayer_ptr))
 					disturb(0, 0);
 			}
 
 			/* Take or Kill objects on the floor */
-			if (c_ptr->o_idx && (is_take_item_creature(creature_ptr) || is_kill_item_creature(creature_ptr)) &&
-			    (!is_pet(creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && is_take_item_creature(creature_ptr))))
+			if (c_ptr->o_idx && (have_creature_flags(nonplayer_ptr, CF_TAKE_ITEM) || have_creature_flags(nonplayer_ptr, CF_KILL_ITEM)) &&
+			    (!is_pet(nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && is_take_item_creature(nonplayer_ptr))))
 			{
 				s16b this_o_idx, next_o_idx;
-				bool do_take = is_take_item_creature(creature_ptr) ? TRUE : FALSE;
+				bool do_take = is_take_item_creature(nonplayer_ptr) ? TRUE : FALSE;
 
 				/* Scan all objects in the grid */
 				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
@@ -2616,7 +2617,7 @@ msg_format("%^s%s", m_name, monmessage);
 					object_desc(o_name, o_ptr, 0);
 
 					/* Acquire the monster name */
-					monster_desc(m_name, creature_ptr, MD_INDEF_HIDDEN);
+					monster_desc(m_name, nonplayer_ptr, MD_INDEF_HIDDEN);
 
 					/* React to objects that hurt the monster */
 					//if (have_flag(flgs, TR_SLAY_DRAGON)) flg3 |= (RF3_DRAGON);
@@ -2647,17 +2648,17 @@ msg_format("%^s%s", m_name, monmessage);
 					//if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RF10_IM_POIS);
 
 					/* The object cannot be picked up by the monster */
-					if (object_is_artifact(player_ptr, o_ptr) || (creature_ptr->flags3 & flg3) || (creature_ptr->flags2 & flg2) ||
-					    ((~(creature_ptr->flags10) & flgr) && !(creature_ptr->resist_ultimate)))
+					if (object_is_artifact(player_ptr, o_ptr) || (nonplayer_ptr->flags3 & flg3) || (nonplayer_ptr->flags2 & flg2) ||
+					    ((~(nonplayer_ptr->flags10) & flgr) && !(nonplayer_ptr->resist_ultimate)))
 					{
 						/* Only give a message for "take_item" */
-						if (do_take && is_stupid_creature(creature_ptr))
+						if (do_take && is_stupid_creature(nonplayer_ptr))
 						{
 							/* Take note */
 							did_take_item = TRUE;
 
 							/* Describe observable situations */
-							if (creature_ptr->ml && player_can_see_bold(player_ptr, ny, nx))
+							if (nonplayer_ptr->ml && player_can_see_bold(player_ptr, ny, nx))
 							{
 								/* Dump a message */
 #ifdef JP
@@ -2699,14 +2700,14 @@ msg_format("%^s%s", m_name, monmessage);
 						o_ptr->held_m_idx = m_idx;
 
 						/* Build a stack */
-						o_ptr->next_o_idx = creature_ptr->hold_o_idx;
+						o_ptr->next_o_idx = nonplayer_ptr->hold_o_idx;
 
 						/* Carry object */
-						creature_ptr->hold_o_idx = this_o_idx;
+						nonplayer_ptr->hold_o_idx = this_o_idx;
 					}
 
 					/* Destroy the item if not a pet */
-					else if (!is_pet(creature_ptr))
+					else if (!is_pet(nonplayer_ptr))
 					{
 						/* Take note */
 						did_kill_item = TRUE;
@@ -2737,16 +2738,16 @@ msg_format("%^s%s", m_name, monmessage);
 	 *  Forward movements failed, but now received LOS attack!
 	 *  Try to flow by smell.
 	 */
-	if (player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y)
-		creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+	if (player_ptr->no_flowed && i > 2 &&  nonplayer_ptr->target_y)
+		nonplayer_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
-	if (!do_turn && !do_move && !creature_ptr->afraid && !is_riding_mon && aware)
+	if (!do_turn && !do_move && !nonplayer_ptr->afraid && !is_riding_mon && aware)
 	{
 		/* Try to cast spell again */
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 		{
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+			if (make_attack_spell(nonplayer_ptr, player_ptr)) return;
 		}
 	}
 
@@ -2762,15 +2763,15 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Notice changes in view */
-	if (do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		|| ((is_has_lite_1_creature(creature_ptr) || is_has_lite_2_creature(creature_ptr)) && !inside_battle))
+	if (do_move && (is_self_ld_creature(nonplayer_ptr) || is_darken_creature(nonplayer_ptr))
+		|| ((is_has_lite_1_creature(nonplayer_ptr) || is_has_lite_2_creature(nonplayer_ptr)) && !inside_battle))
 	{
 		/* Update some things */
 		player_ptr->update |= (PU_MON_LITE);
 	}
 
 	/* Learn things from observable monster */
-	if (is_original_ap_and_seen(player_ptr, creature_ptr))
+	if (is_original_ap_and_seen(player_ptr, nonplayer_ptr))
 	{
 		/* Monster opened a door */
 		//if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
