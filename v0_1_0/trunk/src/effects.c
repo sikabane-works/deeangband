@@ -6203,7 +6203,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Extract monster name */
 			monster_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 		
-			if (can_speak_creature(tar_ptr))
+			if (have_creature_flags(tar_ptr, CF_CAN_SPEAK))
 			{
 				char line_got[1024];
 	
@@ -6423,7 +6423,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 	
 	/* Sometimes a monster gets scared by damage */
-	if (!tar_ptr->afraid && !is_no_fear_creature(tar_ptr) && !tar_ptr->resist_fear)
+	if (!tar_ptr->afraid && !have_creature_flags(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;

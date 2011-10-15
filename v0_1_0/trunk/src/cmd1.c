@@ -2325,10 +2325,10 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				int resist_stun = 0;
 				int weight = 8;
 
-				if (is_unique_creature(tar_ptr)) resist_stun += 88;
-				if (is_no_stun_creature(tar_ptr)) resist_stun += 66;
-				if (is_no_conf_creature(tar_ptr)) resist_stun += 33;
-				if (is_no_sleep_creature(tar_ptr)) resist_stun += 33;
+				if (have_creature_flags(tar_ptr, CF_UNIQUE)) resist_stun += 88;
+				if (have_creature_flags(tar_ptr, CF_NO_STUN)) resist_stun += 66;
+				if (have_creature_flags(tar_ptr, CF_NO_CONF)) resist_stun += 33;
+				if (have_creature_flags(tar_ptr, CF_NO_SLEEP)) resist_stun += 33;
 				if (is_undead_creature(tar_ptr) || have_creature_flags(tar_ptr, CF_NONLIVING))
 					resist_stun += 66;
 
@@ -2637,7 +2637,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				k = 0;
 				anger_monster(tar_ptr);
 
-				if (!is_no_stun_creature(tar_ptr))
+				if (!have_creature_flags(tar_ptr, CF_NO_STUN))
 				{
 					/* Get stunned */
 					if (tar_ptr->stun)
@@ -2872,7 +2872,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				}
 
 				/* Confuse the monster */
-				if (is_no_conf_creature(tar_ptr))
+				if (have_creature_flags(tar_ptr, CF_NO_CONF))
 				{
 					//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
 

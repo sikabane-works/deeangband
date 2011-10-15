@@ -2050,7 +2050,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (!m_ptr->ml)
 			return; /* Cannot see it for some reason */
 
-		if (!is_eldritch_horror_creature(m_ptr))
+		if (!have_creature_flags(m_ptr, CF_ELDRITCH_HORROR))
 			return; /* oops */
 
 

@@ -342,7 +342,7 @@ msg_format("%^s‚ÍŽE‚³‚ê‚½B", m_name);
 	}
 
 	/* Sometimes a monster gets scared by damage */
-	if (!cr_ptr->afraid && !is_no_fear_creature(cr_ptr))
+	if (!cr_ptr->afraid && !have_creature_flags(cr_ptr, CF_NO_FEAR))
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * cr_ptr->chp) / cr_ptr->mhp;
@@ -1642,7 +1642,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 				if (see_m)
 				{
-					if (can_speak_creature(nonplayer_ptr) && (nonplayer_ptr->species_idx != MON_GRIP) && (nonplayer_ptr->species_idx != MON_WOLF) && (nonplayer_ptr->species_idx != MON_FANG) &&
+					if (have_creature_flags(nonplayer_ptr, CF_CAN_SPEAK) && (nonplayer_ptr->species_idx != MON_GRIP) && (nonplayer_ptr->species_idx != MON_WOLF) && (nonplayer_ptr->species_idx != MON_FANG) &&
 					    player_has_los_bold(nonplayer_ptr->fy, nonplayer_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx))
 					{
 #ifdef JP
@@ -1849,7 +1849,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Some monsters can speak */
-		if (can_speak_creature(nonplayer_ptr) && aware &&
+		if (have_creature_flags(nonplayer_ptr, CF_CAN_SPEAK) && aware &&
 		    one_in_(SPEAK_CHANCE) &&
 		    player_has_los_bold(oy, ox) &&
 		    projectable(oy, ox, player_ptr->fy, player_ptr->fx))
@@ -1960,7 +1960,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* 75% random movement */
-	else if (is_random_walker_25_creature(nonplayer_ptr) && is_random_walker_50_creature(nonplayer_ptr) && (randint0(100) < 75))
+	else if (have_creature_flags(nonplayer_ptr, CF_RAND_25) && have_creature_flags(nonplayer_ptr, CF_RAND_50) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
 		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
@@ -1970,7 +1970,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* 50% random movement */
-	else if (is_random_walker_50_creature(nonplayer_ptr) && (randint0(100) < 50))
+	else if (have_creature_flags(nonplayer_ptr, CF_RAND_50) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
 		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
@@ -1980,7 +1980,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* 25% random movement */
-	else if (is_random_walker_25_creature(nonplayer_ptr) && (randint0(100) < 25))
+	else if (have_creature_flags(nonplayer_ptr, CF_RAND_25) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
 		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;

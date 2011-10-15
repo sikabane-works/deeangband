@@ -1079,25 +1079,19 @@ extern bool is_hurt_fire_species(species_type *species_ptr);
 extern bool is_hurt_cold_creature(creature_type *creature_ptr);
 extern bool is_hurt_cold_species(species_type *species_ptr);
 
-extern bool is_no_fear_creature(creature_type *creature_ptr);
 extern bool is_no_fear_species(species_type *species_ptr);
-extern bool is_no_stun_creature(creature_type *creature_ptr);
 extern bool is_no_stun_species(species_type *species_ptr);
-extern bool is_no_conf_creature(creature_type *creature_ptr);
 extern bool is_no_conf_species(species_type *species_ptr);
-extern bool is_no_sleep_creature(creature_type *creature_ptr);
 extern bool is_no_sleep_species(species_type *species_ptr);
 
-extern bool can_speak_creature(creature_type *cr_ptr);
 extern bool can_speak_species(species_type *sp_ptr);
-extern bool is_eldritch_horror_creature(creature_type *cr_ptr);
 extern bool is_eldritch_horror_species(species_type *sp_ptr);
-extern bool is_random_walker_25_creature(creature_type *cr_ptr);
 extern bool is_random_walker_25_species(species_type *sp_ptr);
-extern bool is_random_walker_50_creature(creature_type *cr_ptr);
 extern bool is_random_walker_50_species(species_type *sp_ptr);
+
 extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
+
 extern bool have_one_creature_flag(creature_flags *cf_ptr, int type);
 extern bool have_creature_flags(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type);

@@ -2714,7 +2714,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (is_no_fear_creature(tar_ptr))
+		if (have_creature_flags(tar_ptr, CF_NO_FEAR))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^sは恐怖を感じない。", t_name);
@@ -2762,7 +2762,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 		}
 
 		/* Simulate blindness with confusion */
-		if (is_no_conf_creature(tar_ptr))
+		if (have_creature_flags(tar_ptr, CF_NO_CONF))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^sには効果がなかった。", t_name);
@@ -2814,7 +2814,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (is_no_conf_creature(tar_ptr))
+		if (have_creature_flags(tar_ptr, CF_NO_CONF))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^sは惑わされなかった。", t_name);
@@ -2920,7 +2920,7 @@ bool monst_spell_monst(creature_type *player_ptr, int m_idx)
 			}
 		}
 
-		if (is_unique_species(tr_ptr) || is_no_stun_creature(tar_ptr))
+		if (have_creature_flags(tar_ptr, CF_UNIQUE) || have_creature_flags(tar_ptr, CF_NO_STUN))
 		{
 #ifdef JP
 			if (see_t) msg_format("%^sには効果がなかった。", t_name);
