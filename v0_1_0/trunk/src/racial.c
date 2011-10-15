@@ -1316,7 +1316,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(cr_ptr->skill_exp[GINOU_RIDING] / 120 + cr_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !inside_arena && !inside_battle
-			    && !is_guardian_creature(steed_ptr) && !is_unique_creature(steed_ptr)
+			    && !have_creature_flags(steed_ptr, CF_GUARDIAN) && !have_creature_flags(steed_ptr, CF_UNIQUE)
 			    && (rlev < cr_ptr->lev * 3 / 2 + randint0(cr_ptr->lev / 5)))
 			{
 #ifdef JP

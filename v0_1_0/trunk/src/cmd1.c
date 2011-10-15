@@ -4195,16 +4195,16 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(steed_ptr))
+		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && have_creature_flags(steed_ptr, CF_CAN_FLY))
 		{
 			/* Allow moving */
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && can_swim_creature(steed_ptr))
+		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && have_creature_flags(steed_ptr, CF_CAN_SWIM))
 		{
 			/* Allow moving */
 		}
 		else if (have_flag(f_ptr->flags, FF_WATER) &&
-			!is_aquatic_creature(steed_ptr) &&
+			!have_creature_flags(steed_ptr, CF_AQUATIC) &&
 			(have_flag(f_ptr->flags, FF_DEEP) || have_creature_flags(cr_ptr, CF_AURA_FIRE)))
 		{
 #ifdef JP
@@ -4216,7 +4216,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (!have_flag(f_ptr->flags, FF_WATER) && is_aquatic_creature(steed_ptr))
+		else if (!have_flag(f_ptr->flags, FF_WATER) && have_creature_flags(steed_ptr, CF_AQUATIC))
 		{
 #ifdef JP
 			msg_format("%s‚©‚çã‚ª‚ê‚È‚¢B", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name);

@@ -2942,7 +2942,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 #else
 		msg_format("Suddenly, %s transforms!", old_m_name);
 #endif
-		if (!is_riding_creature(m_ptr))
+		if (!have_creature_flags(m_ptr, CF_RIDING))
 #ifdef JP
 			if (rakuba(p_ptr, 0, TRUE)) msg_print("ínñ Ç…óéÇ∆Ç≥ÇÍÇΩÅB");
 #else

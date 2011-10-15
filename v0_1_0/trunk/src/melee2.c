@@ -1486,7 +1486,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	bool            see_m = is_seen(player_ptr, nonplayer_ptr);
 
-	if (is_riding_mon && !is_riding_creature(nonplayer_ptr))
+	if (is_riding_mon && !have_creature_flags(nonplayer_ptr, CF_CAN_FLY))
 	{
 		if (rakuba(player_ptr, 0, TRUE))
 		{
@@ -2480,7 +2480,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_turn = TRUE;
 		}
 
-		if (must_alter_to_move && is_aquatic_creature(nonplayer_ptr))
+		if (must_alter_to_move && have_creature_flags(nonplayer_ptr, CF_AQUATIC))
 		{
 			if (!monster_can_cross_terrain(c_ptr->feat, r_ptr, is_riding_mon ? CEM_RIDING : 0))
 			{
@@ -2519,7 +2519,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			if (have_flag(f_ptr->flags, FF_TREE))
 			{
-				if (!can_fly_creature(nonplayer_ptr) && !is_wild_wood_creature(nonplayer_ptr))
+				if (!have_creature_flags(nonplayer_ptr, CF_CAN_FLY) && !have_creature_flags(nonplayer_ptr, CF_WILD_WOOD))
 				{
 					nonplayer_ptr->energy_need += ENERGY_NEED();
 				}
