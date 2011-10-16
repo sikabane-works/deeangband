@@ -4903,25 +4903,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 	}
 	case BACT_LOSE_MUTATION:
 		msg_print("(ÄÀ‘•’†)");
-/* TODO ::reimplement
-		if (cr_ptr->flags12 || cr_ptr->flags13 ||
-		    (cr_ptr->flags14 & ~RF14_GOOD_LUCK) ||
-		    (cr_ptr->chara_idx != CHARA_LUCKY &&
-		     (cr_ptr->flags14 & RF14_GOOD_LUCK)))
-		{
-			while(!lose_mutation(cr_ptr, 0));
-			paid = TRUE;
-		}
-		else
-		{
-#ifdef JP
-			msg_print("¡‚·‚×‚«“Ë‘R•ÏˆÙ‚ª–³‚¢B");
-#else
-			msg_print("You have no mutations.");
-#endif
-			msg_print(NULL);
-		}
-*/
+		/*TODO :: reimplement*/
 		break;
 	case BACT_BATTLE:
 		kakutoujou(cr_ptr);

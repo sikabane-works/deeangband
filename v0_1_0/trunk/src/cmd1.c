@@ -3404,15 +3404,15 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if ((atk_ptr->flags13 & RF13_HORNS) && !mdeath)
+		if (have_creature_flags(atk_ptr, CF_HORNS) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, RF13_HORNS, &fear, &mdeath);
-		if ((atk_ptr->flags13 & RF13_BEAK) && !mdeath)
+		if (have_creature_flags(atk_ptr, CF_BEAK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, RF13_BEAK, &fear, &mdeath);
-		if ((atk_ptr->flags13 & RF13_SCOR_TAIL) && !mdeath)
+		if (have_creature_flags(atk_ptr, CF_SCOR_TAIL) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, RF13_SCOR_TAIL, &fear, &mdeath);
-		if ((atk_ptr->flags13 & RF13_TRUNK) && !mdeath)
+		if (have_creature_flags(atk_ptr, CF_TRUNK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, RF13_TRUNK, &fear, &mdeath);
-		if ((atk_ptr->flags13 & RF13_TENTACLES) && !mdeath)
+		if (have_creature_flags(atk_ptr, CF_TENTACLES) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, RF13_TENTACLES, &fear, &mdeath);
 	}
 

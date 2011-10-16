@@ -2938,7 +2938,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if ((cr_ptr->flags14 & RF14_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if (have_creature_flags(cr_ptr, CF_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);

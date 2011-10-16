@@ -111,7 +111,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	if (!feel) return;
 
 	/* Bad luck */
-	if ((cr_ptr->flags14 & RF14_BAD_LUCK) && !randint0(13))
+	if (have_creature_flags(cr_ptr, CF_BAD_LUCK) && !randint0(13))
 	{
 		switch (feel)
 		{
@@ -447,7 +447,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
 
 		/* Good luck */
-		if ((cr_ptr->flags14 & RF14_GOOD_LUCK) && !randint0(13))
+		if (have_creature_flags(cr_ptr, CF_GOOD_LUCK) && !randint0(13))
 		{
 			heavy = TRUE;
 		}

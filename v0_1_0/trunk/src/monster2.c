@@ -2194,9 +2194,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((watcher_ptr->flags14 & RF14_MORONIC) && /*(watcher_ptr->flags13 & RF13_BERS_RAGE) &&*/
-		((watcher_ptr->flags13 & RF13_COWARDICE) || (watcher_ptr->resist_fear)) &&
-		((watcher_ptr->flags13 & RF13_HALLU) || (watcher_ptr->resist_chaos)))
+	if (have_creature_flags(watcher_ptr, CF_MORONIC) && /*(watcher_ptr->flags13 & RF13_BERS_RAGE) &&*/
+		(have_creature_flags(watcher_ptr, CF_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		(have_creature_flags(watcher_ptr, CF_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2207,7 +2207,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		switch (randint1(21))
 		{
 			case 1:
-				if (!(watcher_ptr->flags14 & RF14_MORONIC) && one_in_(5))
+				if (!have_creature_flags(watcher_ptr, CF_MORONIC) && one_in_(5))
 				{
 					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
@@ -2226,7 +2226,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (watcher_ptr->flags14 & RF14_HYPER_INT)
+					if (have_creature_flags(watcher_ptr, CF_HYPER_INT))
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2234,9 +2234,9 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						watcher_ptr->flags14 &= ~(RF14_HYPER_INT);
+						//TODO watcher_ptr->flags14 &= ~(RF14_HYPER_INT);
 					}
-					watcher_ptr->flags14 |= RF14_MORONIC;
+					//TODO watcher_ptr->flags14 |= RF14_MORONIC;
 					happened = TRUE;
 				}
 				break;
@@ -2250,7 +2250,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			case 9:
 			case 10:
 			case 11:
-				if (!(watcher_ptr->flags13 & RF13_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!have_creature_flags(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2260,7 +2260,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (watcher_ptr->flags14 & RF14_FEARLESS)
+					if (have_creature_flags(watcher_ptr, CF_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
