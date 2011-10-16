@@ -4427,7 +4427,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Extract the new "stat_use" value for the stat */
 		use = modify_stat_value(cr_ptr->stat_cur[i], cr_ptr->stat_add[i]);
 
-		if ((i == STAT_CHR) && (cr_ptr->flags14 & RF14_ILL_NORM))
+		if ((i == STAT_CHR) && (have_creature_flags(cr_ptr, CF_ILL_NORM)))
 		{
 			/* 10 to 18/90 charisma, guaranteed, based on level */
 			if (use < 8 + 2 * cr_ptr->lev)
