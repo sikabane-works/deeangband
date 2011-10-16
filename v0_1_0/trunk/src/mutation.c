@@ -1041,7 +1041,7 @@ muta_desc = "眼が幻惑的になった...";
 			}
 
 			else if (cr_ptr->race_idx1 == RACE_IMP &&
-				 !(cr_ptr->flags13 & CF_HORNS) &&
+				 !have_creature_flags(cr_ptr, CF_HORNS) &&
 				 (randint1(10) < 7))
 			  {
 				muta_class = &(cr_ptr->flags13);
@@ -1083,7 +1083,7 @@ muta_desc = "あなたの肉体は変化できるようになった、";
 			}
 
 			else if (cr_ptr->race_idx1 == RACE_MIND_FLAYER &&
-				!(cr_ptr->flags13 & CF_TENTACLES) &&
+				!have_creature_flags(cr_ptr, CF_TENTACLES) &&
 				(randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->flags13);
@@ -1208,7 +1208,7 @@ if(messsage) msg_print("あなたの肌はもう鉄ではない。");
 			}
 			else if (muta_which == CF_FEARLESS)
 			{
-				if (cr_ptr->flags13 & CF_COWARDICE)
+				if (have_creature_flags(cr_ptr, CF_COWARDICE))
 				{
 #ifdef JP
 if(messsage) msg_print("臆病でなくなった。");
@@ -1289,7 +1289,7 @@ if(messsage) msg_print("恐れ知らずでなくなった。");
 			}
 			if (muta_which == CF_BEAK)
 			{
-				if (cr_ptr->flags13 & CF_TRUNK)
+				if (have_creature_flags(cr_ptr, CF_TRUNK))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたの鼻はもう象の鼻のようではなくなった。");
@@ -1302,7 +1302,7 @@ if(messsage) msg_print("あなたの鼻はもう象の鼻のようではなくなった。");
 			}
 			if (muta_which == CF_TRUNK)
 			{
-				if (cr_ptr->flags13 & CF_BEAK)
+				if (have_creature_flags(cr_ptr, CF_BEAK))
 				{
 #ifdef JP
 if(messsage) msg_print("硬いクチバシがなくなった。");
@@ -2628,7 +2628,7 @@ fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
 
 	if (cr_ptr->flags13)
 	{
-		if (cr_ptr->flags13 & CF_BERS_RAGE)
+		if (have_creature_flags(cr_ptr, CF_BERS_RAGE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
@@ -2637,7 +2637,7 @@ fprintf(OutFile, " あなたは狂戦士化の発作を起こす。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_COWARDICE)
+		if (have_creature_flags(cr_ptr, CF_COWARDICE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々臆病になる。\n");
@@ -2646,7 +2646,7 @@ fprintf(OutFile, " あなたは時々臆病になる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_RTELEPORT)
+		if (have_creature_flags(cr_ptr, CF_RTELEPORT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはランダムにテレポートする。\n");
@@ -2655,7 +2655,7 @@ fprintf(OutFile, " あなたはランダムにテレポートする。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_ALCOHOL)
+		if (have_creature_flags(cr_ptr, CF_ALCOHOL))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体はアルコールを分泌する。\n");
@@ -2664,7 +2664,7 @@ fprintf(OutFile, " あなたの体はアルコールを分泌する。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_HALLU)
+		if (have_creature_flags(cr_ptr, CF_HALLU))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは幻覚を引き起こす精神錯乱に侵されている。\n");
@@ -2673,7 +2673,7 @@ fprintf(OutFile, " あなたは幻覚を引き起こす精神錯乱に侵されている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_FLATULENT)
+		if (have_creature_flags(cr_ptr, CF_FLATULENT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは制御できない強烈な屁をこく。\n");
@@ -2682,7 +2682,7 @@ fprintf(OutFile, " あなたは制御できない強烈な屁をこく。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_PROD_MANA)
+		if (have_creature_flags(cr_ptr, CF_PROD_MANA))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは制御不能な魔法のエネルギーを発している。\n");
@@ -2691,7 +2691,7 @@ fprintf(OutFile, " あなたは制御不能な魔法のエネルギーを発している。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_ATT_DEMON)
+		if (have_creature_flags(cr_ptr, CF_ATT_DEMON))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはデーモンを引きつける。\n");
@@ -2700,7 +2700,7 @@ fprintf(OutFile, " あなたはデーモンを引きつける。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_SCOR_TAIL)
+		if (have_creature_flags(cr_ptr, CF_SCOR_TAIL))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはサソリの尻尾が生えている。(毒、ダメージ 3d7)\n");
@@ -2709,7 +2709,7 @@ fprintf(OutFile, " あなたはサソリの尻尾が生えている。(毒、ダメージ 3d7)\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_HORNS)
+		if (have_creature_flags(cr_ptr, CF_HORNS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは角が生えている。(ダメージ 2d6)\n");
@@ -2718,7 +2718,7 @@ fprintf(OutFile, " あなたは角が生えている。(ダメージ 2d6)\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_BEAK)
+		if (have_creature_flags(cr_ptr, CF_BEAK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはクチバシが生えている。(ダメージ 2d4)\n");
@@ -2727,7 +2727,7 @@ fprintf(OutFile, " あなたはクチバシが生えている。(ダメージ 2d4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_SPEED_FLUX)
+		if (have_creature_flags(cr_ptr, CF_SPEED_FLUX))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはランダムに早く動いたり遅く動いたりする。\n");
@@ -2736,7 +2736,7 @@ fprintf(OutFile, " あなたはランダムに早く動いたり遅く動いたりする。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_BANISH_ALL)
+		if (have_creature_flags(cr_ptr, CF_BANISH_ALL))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々近くのモンスターを消滅させる。\n");
@@ -2745,7 +2745,7 @@ fprintf(OutFile, " あなたは時々近くのモンスターを消滅させる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_EAT_LIGHT)
+		if (have_creature_flags(cr_ptr, CF_EAT_LIGHT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々周囲の光を吸収して栄養にする。\n");
@@ -2754,7 +2754,7 @@ fprintf(OutFile, " あなたは時々周囲の光を吸収して栄養にする。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_TRUNK)
+		if (have_creature_flags(cr_ptr, CF_TRUNK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは象のような鼻を持っている。(ダメージ 1d4)\n");
@@ -2763,7 +2763,7 @@ fprintf(OutFile, " あなたは象のような鼻を持っている。(ダメージ 1d4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_ATT_ANIMAL)
+		if (have_creature_flags(cr_ptr, CF_ATT_ANIMAL))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは動物を引きつける。\n");
@@ -2772,7 +2772,7 @@ fprintf(OutFile, " あなたは動物を引きつける。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_TENTACLES)
+		if (have_creature_flags(cr_ptr, CF_TENTACLES))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪な触手を持っている。(ダメージ 2d5)\n");
@@ -2781,7 +2781,7 @@ fprintf(OutFile, " あなたは邪悪な触手を持っている。(ダメージ 2d5)\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_RAW_CHAOS)
+		if (have_creature_flags(cr_ptr, CF_RAW_CHAOS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはしばしば純カオスに包まれる。\n");
@@ -2790,7 +2790,7 @@ fprintf(OutFile, " あなたはしばしば純カオスに包まれる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_NORMALITY)
+		if (have_creature_flags(cr_ptr, CF_NORMALITY))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは変異していたが、回復してきている。\n");
@@ -2799,7 +2799,7 @@ fprintf(OutFile, " あなたは変異していたが、回復してきている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_WRAITH)
+		if (have_creature_flags(cr_ptr, CF_WRAITH))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肉体は幽体化したり実体化したりする。\n");
@@ -2808,7 +2808,7 @@ fprintf(OutFile, " あなたの肉体は幽体化したり実体化したりする。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_POLY_WOUND)
+		if (have_creature_flags(cr_ptr, CF_POLY_WOUND))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの健康はカオスの力に影響を受ける。\n");
@@ -2817,7 +2817,7 @@ fprintf(OutFile, " あなたの健康はカオスの力に影響を受ける。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_WASTING)
+		if (have_creature_flags(cr_ptr, CF_WASTING))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは衰弱する恐ろしい病気にかかっている。\n");
@@ -2826,7 +2826,7 @@ fprintf(OutFile, " あなたは衰弱する恐ろしい病気にかかっている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_ATT_DRAGON)
+		if (have_creature_flags(cr_ptr, CF_ATT_DRAGON))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはドラゴンを引きつける。\n");
@@ -2835,7 +2835,7 @@ fprintf(OutFile, " あなたはドラゴンを引きつける。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_WEIRD_MIND)
+		if (have_creature_flags(cr_ptr, CF_WEIRD_MIND))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの精神はランダムに拡大したり縮小したりしている。\n");
@@ -2844,7 +2844,7 @@ fprintf(OutFile, " あなたの精神はランダムに拡大したり縮小したりしている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_NAUSEA)
+		if (have_creature_flags(cr_ptr, CF_NAUSEA))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの胃は非常に落ち着きがない。\n");
@@ -2853,7 +2853,7 @@ fprintf(OutFile, " あなたの胃は非常に落ち着きがない。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_CHAOS_GIFT)
+		if (have_creature_flags(cr_ptr, CF_CHAOS_GIFT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはカオスの守護悪魔から褒美をうけとる。\n");
@@ -2862,7 +2862,7 @@ fprintf(OutFile, " あなたはカオスの守護悪魔から褒美をうけとる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_WALK_SHAD)
+		if (have_creature_flags(cr_ptr, CF_WALK_SHAD))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはしばしば他の「影」に迷い込む。\n");
@@ -2871,7 +2871,7 @@ fprintf(OutFile, " あなたはしばしば他の「影」に迷い込む。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_WARNING)
+		if (have_creature_flags(cr_ptr, CF_WARNING))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは敵に関する警告を感じる。\n");
@@ -2880,7 +2880,7 @@ fprintf(OutFile, " あなたは敵に関する警告を感じる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_INVULN)
+		if (have_creature_flags(cr_ptr, CF_INVULN))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々負け知らずな気分になる。\n");
@@ -2889,7 +2889,7 @@ fprintf(OutFile, " あなたは時々負け知らずな気分になる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_SP_TO_HP)
+		if (have_creature_flags(cr_ptr, CF_SP_TO_HP))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々血が筋肉にどっと流れる。\n");
@@ -2898,7 +2898,7 @@ fprintf(OutFile, " あなたは時々血が筋肉にどっと流れる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_HP_TO_SP)
+		if (have_creature_flags(cr_ptr, CF_HP_TO_SP))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは時々頭に血がどっと流れる。\n");
@@ -2907,7 +2907,7 @@ fprintf(OutFile, " あなたは時々頭に血がどっと流れる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags13 & CF_DISARM)
+		if (have_creature_flags(cr_ptr, CF_DISARM))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはよくつまづいて物を落とす。\n");
