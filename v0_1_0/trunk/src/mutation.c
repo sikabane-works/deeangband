@@ -1027,7 +1027,7 @@ if(messsage) msg_print("普通になった気がする。");
 		*/
 		if(!choose_mut){
 			if (cr_ptr->race_idx1 == RACE_VAMPIRE &&
-			  !(cr_ptr->flags12 & CF_HYPN_GAZE) &&
+			  !have_creature_flags(cr_ptr, CF_HYPN_GAZE) &&
 			   (randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->flags12);
@@ -1055,7 +1055,7 @@ muta_desc = "角が額から生えてきた！";
 			}
 
 			else if (cr_ptr->race_idx1 == RACE_YEEK &&
-				!(cr_ptr->flags12 & CF_SHRIEK) &&
+				!have_creature_flags(cr_ptr, CF_SHRIEK) &&
 				(randint1(10) < 7))
 			{
 				muta_class = &(cr_ptr->flags12);
@@ -1069,7 +1069,7 @@ muta_desc = "声質がかなり強くなった。";
 			}
 
 			else if (cr_ptr->race_idx1 == RACE_BEASTMAN &&
-				!(cr_ptr->flags12 & CF_POLYMORPH) &&
+				!have_creature_flags(cr_ptr, CF_POLYMORPH) &&
 				(randint1(10) < 2))
 			{
 				muta_class = &(cr_ptr->flags12);
@@ -2336,7 +2336,7 @@ void dump_mutations(creature_type *cr_ptr, FILE *OutFile)
 
 	if (cr_ptr->flags12)
 	{
-		if (cr_ptr->flags12 & CF_SPIT_ACID)
+		if (have_creature_flags(cr_ptr, CF_SPIT_ACID))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
@@ -2345,7 +2345,7 @@ fprintf(OutFile, " あなたは酸を吹きかけることができる。(ダメージ レベルX1)\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_BR_FIRE)
+		if (have_creature_flags(cr_ptr, CF_BR_FIRE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n");
@@ -2354,7 +2354,7 @@ fprintf(OutFile, " あなたは炎のブレスを吐くことができる。(ダメージ レベルX2)\n")
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_HYPN_GAZE)
+		if (have_creature_flags(cr_ptr, CF_HYPN_GAZE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
@@ -2363,7 +2363,7 @@ fprintf(OutFile, " あなたの睨みは催眠効果をもつ。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_TELEKINES)
+		if (have_creature_flags(cr_ptr, CF_TELEKINES))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは念動力をもっている。\n");
@@ -2372,7 +2372,7 @@ fprintf(OutFile, " あなたは念動力をもっている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_VTELEPORT)
+		if (have_creature_flags(cr_ptr, CF_VTELEPORT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
@@ -2381,7 +2381,7 @@ fprintf(OutFile, " あなたは自分の意思でテレポートできる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_MIND_BLST)
+		if (have_creature_flags(cr_ptr, CF_MIND_BLST))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
@@ -2390,7 +2390,7 @@ fprintf(OutFile, " あなたは敵を精神攻撃できる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_RADIATION)
+		if (have_creature_flags(cr_ptr, CF_RADIATION))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
@@ -2399,7 +2399,7 @@ fprintf(OutFile, " あなたは自分の意思で放射能を発生することができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_VAMPIRISM)
+		if (have_creature_flags(cr_ptr, CF_VAMPIRISM))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n");
@@ -2408,7 +2408,7 @@ fprintf(OutFile, " あなたは吸血鬼のように敵から生命力を吸収することができる。\n"
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_SMELL_MET)
+		if (have_creature_flags(cr_ptr, CF_SMELL_MET))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
@@ -2417,7 +2417,7 @@ fprintf(OutFile, " あなたは近くにある貴金属をかぎ分けることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_SMELL_MON)
+		if (have_creature_flags(cr_ptr, CF_SMELL_MON))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは近くのモンスターの存在をかぎ分けることができる。\n");
@@ -2426,7 +2426,7 @@ fprintf(OutFile, " あなたは近くのモンスターの存在をかぎ分けることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_BLINK)
+		if (have_creature_flags(cr_ptr, CF_BLINK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
@@ -2435,7 +2435,7 @@ fprintf(OutFile, " あなたは短い距離をテレポートできる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_EAT_ROCK)
+		if (have_creature_flags(cr_ptr, CF_EAT_ROCK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
@@ -2444,7 +2444,7 @@ fprintf(OutFile, " あなたは硬い岩を食べることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_SWAP_POS)
+		if (have_creature_flags(cr_ptr, CF_SWAP_POS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
@@ -2453,7 +2453,7 @@ fprintf(OutFile, " あなたは他の者と場所を入れ替わることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_SHRIEK)
+		if (have_creature_flags(cr_ptr, CF_SHRIEK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
@@ -2462,7 +2462,7 @@ fprintf(OutFile, " あなたは身の毛もよだつ叫び声を発することができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_ILLUMINE)
+		if (have_creature_flags(cr_ptr, CF_ILLUMINE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
@@ -2471,7 +2471,7 @@ fprintf(OutFile, " あなたは明るい光を放つことができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_DET_CURSE)
+		if (have_creature_flags(cr_ptr, CF_DET_CURSE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
@@ -2480,7 +2480,7 @@ fprintf(OutFile, " あなたは邪悪な魔法の危険を感じとることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_BERSERK)
+		if (have_creature_flags(cr_ptr, CF_BERSERK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
@@ -2489,7 +2489,7 @@ fprintf(OutFile, " あなたは自分の意思で狂乱戦闘状態になることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_POLYMORPH)
+		if (have_creature_flags(cr_ptr, CF_POLYMORPH))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
@@ -2498,7 +2498,7 @@ fprintf(OutFile, " あなたは自分の意志で変化できる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_MIDAS_TCH)
+		if (have_creature_flags(cr_ptr, CF_MIDAS_TCH))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
@@ -2507,7 +2507,7 @@ fprintf(OutFile, " あなたは通常アイテムを金に変えることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_GROW_MOLD)
+		if (have_creature_flags(cr_ptr, CF_GROW_MOLD))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
@@ -2516,7 +2516,7 @@ fprintf(OutFile, " あなたは周囲にキノコを生やすことができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_RESIST)
+		if (have_creature_flags(cr_ptr, CF_RESIST))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
@@ -2525,7 +2525,7 @@ fprintf(OutFile, " あなたは元素の攻撃に対して身を硬くすることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_EARTHQUAKE)
+		if (have_creature_flags(cr_ptr, CF_EARTHQUAKE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
@@ -2534,7 +2534,7 @@ fprintf(OutFile, " あなたは周囲のダンジョンを崩壊させることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_EAT_MAGIC)
+		if (have_creature_flags(cr_ptr, CF_EAT_MAGIC))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
@@ -2543,7 +2543,7 @@ fprintf(OutFile, " あなたは魔法のエネルギーを自分の物として使用できる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_WEIGH_MAG)
+		if (have_creature_flags(cr_ptr, CF_WEIGH_MAG))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
@@ -2552,7 +2552,7 @@ fprintf(OutFile, " あなたは自分に影響を与える魔法の力を感じることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_STERILITY)
+		if (have_creature_flags(cr_ptr, CF_STERILITY))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
@@ -2561,7 +2561,7 @@ fprintf(OutFile, " あなたは集団的生殖不能を起こすことができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_PANIC_HIT)
+		if (have_creature_flags(cr_ptr, CF_PANIC_HIT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
@@ -2570,7 +2570,7 @@ fprintf(OutFile, " あなたは攻撃した後身を守るため逃げることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_DAZZLE)
+		if (have_creature_flags(cr_ptr, CF_DAZZLE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 \n");
@@ -2579,7 +2579,7 @@ fprintf(OutFile, " あなたは混乱と盲目を引き起こす放射能を発生することができる。 
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_LASER_EYE)
+		if (have_creature_flags(cr_ptr, CF_LASER_EYE))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
@@ -2588,7 +2588,7 @@ fprintf(OutFile, " あなたは目からレーザー光線を発射することができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_RECALL)
+		if (have_creature_flags(cr_ptr, CF_RECALL))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
@@ -2597,7 +2597,7 @@ fprintf(OutFile, " あなたは街とダンジョンの間を行き来することができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_BANISH)
+		if (have_creature_flags(cr_ptr, CF_BANISH))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは邪悪なモンスターを地獄に落とすことができる。\n");
@@ -2606,7 +2606,7 @@ fprintf(OutFile, " あなたは邪悪なモンスターを地獄に落とすことができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_COLD_TOUCH)
+		if (have_creature_flags(cr_ptr, CF_COLD_TOUCH))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
@@ -2615,7 +2615,7 @@ fprintf(OutFile, " あなたは物を触って凍らせることができる。\n");
 #endif
 
 		}
-		if (cr_ptr->flags12 & CF_LAUNCHER)
+		if (have_creature_flags(cr_ptr, CF_LAUNCHER))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはアイテムを力強く投げることができる。\n");
