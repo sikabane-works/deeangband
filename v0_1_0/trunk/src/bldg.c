@@ -2656,9 +2656,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if ((watcher_ptr->flags14 & RF14_MORONIC) && (watcher_ptr->flags13 & RF13_BERS_RAGE) &&
-		((watcher_ptr->flags13 & RF13_COWARDICE) || (watcher_ptr->resist_fear)) &&
-		((watcher_ptr->flags13 & RF13_HALLU) || (watcher_ptr->resist_chaos)))
+	if (have_creature_flags(watcher_ptr, CF_MORONIC) && have_creature_flags(watcher_ptr, CF_BERS_RAGE) &&
+		(have_creature_flags(watcher_ptr, CF_COWARDICE) || watcher_ptr->resist_fear) &&
+		(have_creature_flags(watcher_ptr, CF_HALLU) || watcher_ptr->resist_chaos))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2670,7 +2670,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!(watcher_ptr->flags14 & RF14_MORONIC))
+				if (!have_creature_flags(watcher_ptr, CF_MORONIC))
 				{
 					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
@@ -2706,7 +2706,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			}
 			case 2:
 			{
-				if (!(watcher_ptr->flags13 & RF13_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!have_creature_flags(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2716,7 +2716,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (watcher_ptr->flags14 & RF14_FEARLESS)
+					if (have_creature_flags(watcher_ptr, RF14_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2734,7 +2734,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			}
 			case 3:
 			{
-				if (!(watcher_ptr->flags13 & RF13_HALLU) && !watcher_ptr->resist_chaos)
+				if (!have_creature_flags(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
