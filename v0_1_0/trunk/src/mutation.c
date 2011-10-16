@@ -1122,7 +1122,7 @@ if(messsage) msg_print("あなたはもう超人的に強くはない！");
 			}
 			else if (muta_which == CF_HYPER_STR)
 			{
-				if (cr_ptr->flags14 & CF_PUNY)
+				if (have_creature_flags(cr_ptr, CF_PUNY))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたはもう虚弱ではない！");
@@ -1135,7 +1135,7 @@ if(messsage) msg_print("あなたはもう虚弱ではない！");
 			}
 			else if (muta_which == CF_MORONIC)
 			{
-				if (cr_ptr->flags14 & CF_HYPER_INT)
+				if (have_creature_flags(cr_ptr, CF_HYPER_INT))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたの脳はもう生体コンピュータではない。");
@@ -1148,7 +1148,7 @@ if(messsage) msg_print("あなたの脳はもう生体コンピュータではない。");
 			}
 			else if (muta_which == CF_HYPER_INT)
 			{
-				if (cr_ptr->flags14 & CF_MORONIC)
+				if (have_creature_flags(cr_ptr, CF_MORONIC))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたはもう精神薄弱ではない。");
@@ -1161,7 +1161,7 @@ if(messsage) msg_print("あなたはもう精神薄弱ではない。");
 			}
 			else if (muta_which == CF_IRON_SKIN)
 			{
-				if (cr_ptr->flags14 & CF_SCALES)
+				if (have_creature_flags(cr_ptr, CF_SCALES))
 				{
 #ifdef JP
 if(messsage) msg_print("鱗がなくなった。");
@@ -1171,7 +1171,7 @@ if(messsage) msg_print("鱗がなくなった。");
 
 					cr_ptr->flags14 &= ~(CF_SCALES);
 				}
-				if (cr_ptr->flags14 & CF_FLESH_ROT)
+				if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
 				{
 #ifdef JP
 if(messsage) msg_print("肉体が腐乱しなくなった。");
@@ -1181,7 +1181,7 @@ if(messsage) msg_print("肉体が腐乱しなくなった。");
 
 					cr_ptr->flags14 &= ~(CF_FLESH_ROT);
 				}
-				if (cr_ptr->flags14 & CF_WART_SKIN)
+				if (have_creature_flags(cr_ptr, CF_WART_SKIN))
 				{
 #ifdef JP
 if(messsage) msg_print("肌のイボイボがなくなった。");
@@ -1195,7 +1195,7 @@ if(messsage) msg_print("肌のイボイボがなくなった。");
 			else if (muta_which == CF_WART_SKIN || muta_which == CF_SCALES
 				|| muta_which == CF_FLESH_ROT)
 			{
-				if (cr_ptr->flags14 & CF_IRON_SKIN)
+				if (have_creature_flags(cr_ptr, CF_IRON_SKIN))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたの肌はもう鉄ではない。");
@@ -1221,7 +1221,7 @@ if(messsage) msg_print("臆病でなくなった。");
 			}
 			else if (muta_which == CF_FLESH_ROT)
 			{
-				if (cr_ptr->flags14 & CF_REGEN)
+				if (have_creature_flags(cr_ptr, CF_REGEN))
 				{
 #ifdef JP
 if(messsage) msg_print("急速に回復しなくなった。");
@@ -1234,7 +1234,7 @@ if(messsage) msg_print("急速に回復しなくなった。");
 			}
 			else if (muta_which == CF_REGEN)
 			{
-				if (cr_ptr->flags14 & CF_FLESH_ROT)
+				if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
 				{
 #ifdef JP
 if(messsage) msg_print("肉体が腐乱しなくなった。");
@@ -1247,7 +1247,7 @@ if(messsage) msg_print("肉体が腐乱しなくなった。");
 			}
 			else if (muta_which == CF_LIMBER)
 			{
-				if (cr_ptr->flags14 & CF_ARTHRITIS)
+				if (have_creature_flags(cr_ptr, CF_ARTHRITIS))
 				{
 #ifdef JP
 if(messsage) msg_print("関節が痛くなくなった。");
@@ -1260,7 +1260,7 @@ if(messsage) msg_print("関節が痛くなくなった。");
 			}
 			else if (muta_which == CF_ARTHRITIS)
 			{
-				if (cr_ptr->flags14 & CF_LIMBER)
+				if (have_creature_flags(cr_ptr, CF_LIMBER))
 				{
 #ifdef JP
 if(messsage) msg_print("あなたはしなやかでなくなった。");
@@ -1276,7 +1276,7 @@ if(messsage) msg_print("あなたはしなやかでなくなった。");
 		{
 			if (muta_which == CF_COWARDICE)
 			{
-				if (cr_ptr->flags14 & CF_FEARLESS)
+				if (have_creature_flags(cr_ptr, CF_FEARLESS))
 				{
 #ifdef JP
 if(messsage) msg_print("恐れ知らずでなくなった。");
@@ -2947,7 +2947,7 @@ fprintf(OutFile, " あなたの脳は生体コンピュータだ。(知能＆賢さ+4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_MORONIC)
+		if (have_creature_flags(cr_ptr, CF_MORONIC))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは精神薄弱だ。(知能＆賢さ-4)\n");
@@ -2956,7 +2956,7 @@ fprintf(OutFile, " あなたは精神薄弱だ。(知能＆賢さ-4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_RESILIENT)
+		if (have_creature_flags(cr_ptr, CF_RESILIENT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は弾力性に富んでいる。(耐久+4)\n");
@@ -2965,7 +2965,7 @@ fprintf(OutFile, " あなたの体は弾力性に富んでいる。(耐久+4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_XTRA_FAT)
+		if (have_creature_flags(cr_ptr, CF_XTRA_FAT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは極端に太っている。(耐久+2,スピード-2)\n");
@@ -2974,7 +2974,7 @@ fprintf(OutFile, " あなたは極端に太っている。(耐久+2,スピード-2)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_ALBINO)
+		if (have_creature_flags(cr_ptr, CF_ALBINO))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはアルビノだ。(耐久-4)\n");
@@ -2983,7 +2983,7 @@ fprintf(OutFile, " あなたはアルビノだ。(耐久-4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_FLESH_ROT)
+		if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肉体は腐敗している。(耐久-2,魅力-1)\n");
@@ -2992,7 +2992,7 @@ fprintf(OutFile, " あなたの肉体は腐敗している。(耐久-2,魅力-1)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_SILLY_VOI)
+		if (have_creature_flags(cr_ptr, CF_SILLY_VOI))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの声は間抜けなキーキー声だ。(魅力-4)\n");
@@ -3001,7 +3001,7 @@ fprintf(OutFile, " あなたの声は間抜けなキーキー声だ。(魅力-4)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_BLANK_FAC)
+		if (have_creature_flags(cr_ptr, CF_BLANK_FAC))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはのっぺらぼうだ。(魅力-1)\n");
@@ -3010,7 +3010,7 @@ fprintf(OutFile, " あなたはのっぺらぼうだ。(魅力-1)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_ILL_NORM)
+		if (have_creature_flags(cr_ptr, CF_ILL_NORM))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは幻影に覆われている。\n");
@@ -3019,7 +3019,7 @@ fprintf(OutFile, " あなたは幻影に覆われている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_XTRA_EYES)
+		if (have_creature_flags(cr_ptr, CF_XTRA_EYES))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは余分に二つの目を持っている。(探索+15)\n");
@@ -3028,7 +3028,7 @@ fprintf(OutFile, " あなたは余分に二つの目を持っている。(探索+15)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_MAGIC_RES)
+		if (have_creature_flags(cr_ptr, CF_MAGIC_RES))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは魔法への耐性をもっている。\n");
@@ -3037,7 +3037,7 @@ fprintf(OutFile, " あなたは魔法への耐性をもっている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_XTRA_NOIS)
+		if (have_creature_flags(cr_ptr, CF_XTRA_NOIS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは変な音を発している。(隠密-3)\n");
@@ -3046,7 +3046,7 @@ fprintf(OutFile, " あなたは変な音を発している。(隠密-3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_INFRAVIS)
+		if (have_creature_flags(cr_ptr, CF_INFRAVIS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは素晴らしい赤外線視力を持っている。(+3)\n");
@@ -3055,7 +3055,7 @@ fprintf(OutFile, " あなたは素晴らしい赤外線視力を持っている。(+3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_XTRA_LEGS)
+		if (have_creature_flags(cr_ptr, CF_XTRA_LEGS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは余分に二本の足が生えている。(加速+3)\n");
@@ -3064,7 +3064,7 @@ fprintf(OutFile, " あなたは余分に二本の足が生えている。(加速+3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_SHORT_LEG)
+		if (have_creature_flags(cr_ptr, CF_SHORT_LEG))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの足は短い突起だ。(加速-3)\n");
@@ -3073,7 +3073,7 @@ fprintf(OutFile, " あなたの足は短い突起だ。(加速-3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_ELEC_TOUC)
+		if (have_creature_flags(cr_ptr, CF_ELEC_TOUC))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの血管には電流が流れている。\n");
@@ -3082,7 +3082,7 @@ fprintf(OutFile, " あなたの血管には電流が流れている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_FIRE_BODY)
+		if (have_creature_flags(cr_ptr, CF_FIRE_BODY))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は炎につつまれている。\n");
@@ -3091,7 +3091,7 @@ fprintf(OutFile, " あなたの体は炎につつまれている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_WART_SKIN)
+		if (have_creature_flags(cr_ptr, CF_WART_SKIN))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌はイボに被われている。(魅力-2, AC+5)\n");
@@ -3100,7 +3100,7 @@ fprintf(OutFile, " あなたの肌はイボに被われている。(魅力-2, AC+5)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_SCALES)
+		if (have_creature_flags(cr_ptr, CF_SCALES))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌は鱗になっている。(魅力-1, AC+10)\n");
@@ -3109,7 +3109,7 @@ fprintf(OutFile, " あなたの肌は鱗になっている。(魅力-1, AC+10)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_IRON_SKIN)
+		if (have_creature_flags(cr_ptr, CF_IRON_SKIN))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの肌は鉄でできている。(器用-1, AC+25)\n");
@@ -3118,7 +3118,7 @@ fprintf(OutFile, " あなたの肌は鉄でできている。(器用-1, AC+25)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_WINGS)
+		if (have_creature_flags(cr_ptr, CF_WINGS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは羽を持っている。\n");
@@ -3127,7 +3127,7 @@ fprintf(OutFile, " あなたは羽を持っている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_FEARLESS)
+		if (have_creature_flags(cr_ptr, CF_FEARLESS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは全く恐怖を感じない。\n");
@@ -3136,7 +3136,7 @@ fprintf(OutFile, " あなたは全く恐怖を感じない。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_REGEN)
+		if (have_creature_flags(cr_ptr, CF_REGEN))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは急速に回復する。\n");
@@ -3145,7 +3145,7 @@ fprintf(OutFile, " あなたは急速に回復する。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_ESP)
+		if (have_creature_flags(cr_ptr, CF_ESP))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはテレパシーを持っている。\n");
@@ -3154,7 +3154,7 @@ fprintf(OutFile, " あなたはテレパシーを持っている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_LIMBER)
+		if (have_creature_flags(cr_ptr, CF_LIMBER))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの体は非常にしなやかだ。(器用+3)\n");
@@ -3163,7 +3163,7 @@ fprintf(OutFile, " あなたの体は非常にしなやかだ。(器用+3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_ARTHRITIS)
+		if (have_creature_flags(cr_ptr, CF_ARTHRITIS))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたはいつも関節に痛みを感じている。(器用-3)\n");
@@ -3172,7 +3172,7 @@ fprintf(OutFile, " あなたはいつも関節に痛みを感じている。(器用-3)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_VULN_ELEM)
+		if (have_creature_flags(cr_ptr, CF_VULN_ELEM))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは元素の攻撃に弱い。\n");
@@ -3181,7 +3181,7 @@ fprintf(OutFile, " あなたは元素の攻撃に弱い。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_MOTION)
+		if (have_creature_flags(cr_ptr, CF_MOTION))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたの動作は正確で力強い。(隠密+1)\n");
@@ -3190,7 +3190,7 @@ fprintf(OutFile, " あなたの動作は正確で力強い。(隠密+1)\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_GOOD_LUCK)
+		if (have_creature_flags(cr_ptr, CF_GOOD_LUCK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは白いオーラにつつまれている。\n");
@@ -3199,7 +3199,7 @@ fprintf(OutFile, " あなたは白いオーラにつつまれている。\n");
 #endif
 
 		}
-		if (cr_ptr->flags14 & CF_BAD_LUCK)
+		if (have_creature_flags(cr_ptr, CF_BAD_LUCK))
 		{
 #ifdef JP
 fprintf(OutFile, " あなたは黒いオーラにつつまれている。\n");
