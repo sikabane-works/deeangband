@@ -3720,31 +3720,31 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
-				if (cr_ptr->flags14 & RF14_HYPER_INT) dummy += 4;
-				if (cr_ptr->flags14 & RF14_MORONIC) dummy -= 4;
+				if (have_creature_flags(cr_ptr, CF_HYPER_INT)) dummy += 4;
+				if (have_creature_flags(cr_ptr, CF_MORONIC)) dummy -= 4;
 			}
 			else if (stat == STAT_DEX)
 			{
-				if (cr_ptr->flags14 & RF14_IRON_SKIN) dummy -= 1;
-				if (cr_ptr->flags14 & RF14_LIMBER) dummy += 3;
-				if (cr_ptr->flags14 & RF14_ARTHRITIS) dummy -= 3;
+				if (have_creature_flags(cr_ptr, CF_IRON_SKIN)) dummy -= 1;
+				if (have_creature_flags(cr_ptr, CF_LIMBER)) dummy += 3;
+				if (have_creature_flags(cr_ptr, CF_ARTHRITIS)) dummy -= 3;
 			}
 			else if (stat == STAT_CON)
 			{
-				if (cr_ptr->flags14 & RF14_RESILIENT) dummy += 4;
-				if (cr_ptr->flags14 & RF14_XTRA_FAT) dummy += 2;
-				if (cr_ptr->flags14 & RF14_ALBINO) dummy -= 4;
-				if (cr_ptr->flags14 & RF14_FLESH_ROT) dummy -= 2;
+				if (have_creature_flags(cr_ptr, CF_RESILIENT)) dummy += 4;
+				if (have_creature_flags(cr_ptr, CF_XTRA_FAT)) dummy += 2;
+				if (have_creature_flags(cr_ptr, CF_ALBINO)) dummy -= 4;
+				if (have_creature_flags(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_CHR)
 			{
-				if (cr_ptr->flags14 & RF14_SILLY_VOI) dummy -= 4;
-				if (cr_ptr->flags14 & RF14_BLANK_FAC) dummy -= 1;
-				if (cr_ptr->flags14 & RF14_FLESH_ROT) dummy -= 1;
-				if (cr_ptr->flags14 & RF14_SCALES) dummy -= 1;
-				if (cr_ptr->flags14 & RF14_WART_SKIN) dummy -= 2;
-				if (cr_ptr->flags14 & RF14_ILL_NORM) dummy = 0;
+				if (have_creature_flags(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
+				if (have_creature_flags(cr_ptr, CF_BLANK_FAC)) dummy -= 1;
+				if (have_creature_flags(cr_ptr, CF_FLESH_ROT)) dummy -= 1;
+				if (have_creature_flags(cr_ptr, CF_SCALES)) dummy -= 1;
+				if (have_creature_flags(cr_ptr, CF_WART_SKIN)) dummy -= 2;
+				if (have_creature_flags(cr_ptr, CF_ILL_NORM)) dummy = 0;
 			}
 
 			/* Boost */

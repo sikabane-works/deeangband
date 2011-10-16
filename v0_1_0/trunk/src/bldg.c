@@ -2716,7 +2716,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (have_creature_flags(watcher_ptr, RF14_FEARLESS))
+					if (have_creature_flags(watcher_ptr, CF_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");

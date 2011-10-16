@@ -528,54 +528,7 @@ void set_resistance(creature_type *creature_ptr)
 		}
 	}
 
-	/*
-	if(creature_ptr->species_idx != 0)
-	{
-		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		if(species_ptr->flags10 & RF10_IM_ACID)
-			creature_ptr->resist_acid = TRUE;
-		if(species_ptr->flags10 & RF10_IM_ELEC)
-			creature_ptr->resist_elec = TRUE;
-		if(species_ptr->flags10 & RF10_IM_FIRE)
-			creature_ptr->resist_fire = TRUE;
-		if(species_ptr->flags10 & RF10_IM_COLD)
-			creature_ptr->resist_cold = TRUE;
-		if(species_ptr->flags10 & RF10_IM_POIS)
-			creature_ptr->resist_pois = TRUE;
-		if(species_ptr->flags10 & RF10_RES_LITE)
-			creature_ptr->resist_lite = TRUE;
-		if(species_ptr->flags10 & RF10_RES_DARK)
-			creature_ptr->resist_dark = TRUE;
-		if(species_ptr->flags10 & RF10_RES_NETH)
-			creature_ptr->resist_neth = TRUE;
-		if(species_ptr->flags10 & RF10_RES_WATE)
-			creature_ptr->resist_water = TRUE;
-		if(species_ptr->flags10 & RF10_RES_PLAS)
-			creature_ptr->resist_plazma = TRUE;
-		if(species_ptr->flags10 & RF10_RES_SHAR)
-			creature_ptr->resist_shard = TRUE;
-		if(species_ptr->flags10 & RF10_RES_SOUN)
-			creature_ptr->resist_sound = TRUE;
-		if(species_ptr->flags10 & RF10_RES_CHAO)
-			creature_ptr->resist_chaos = TRUE;
-		if(species_ptr->flags10 & RF10_RES_NEXU)
-			creature_ptr->resist_nexus = TRUE;
-		if(species_ptr->flags10 & RF10_RES_DISE)
-			creature_ptr->resist_disen = TRUE;
-		if(species_ptr->flags10 & RF10_RES_WALL)
-			creature_ptr->resist_force = TRUE;
-		if(species_ptr->flags10 & RF10_RES_INER)
-			creature_ptr->resist_inertia = TRUE;
-		if(species_ptr->flags10 & RF10_RES_TIME)
-			creature_ptr->resist_time = TRUE;
-		if(species_ptr->flags10 & RF10_RES_GRAV)
-			creature_ptr->resist_gravity = TRUE;
-		if(species_ptr->flags10 & RF10_RES_ALL)
-			creature_ptr->resist_ultimate = TRUE;
-		if(species_ptr->flags10 & RF10_RES_TELE)
-			creature_ptr->resist_tele = TRUE;
-	}
-	*/
+	/* TODO species setting */
 
 }
 
