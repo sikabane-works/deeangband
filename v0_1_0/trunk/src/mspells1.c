@@ -1690,8 +1690,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	/* Cast the spell. */
 	switch (thrown_spell)
 	{
-		/* RF4_SHRIEK */
-		case 96+0:
+		case CF_SHRIEK:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1704,15 +1703,13 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		/* RF4_XXX1 */
-		case 96+1:
+		case 97:
 		{
 			/* XXX XXX XXX */
 			break;
 		}
 
-		/* RF4_DISPEL */
-		case 96+2:
+		case CF_DISPEL:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -1736,8 +1733,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		/* RF4_ROCKET */
-		case 96+3:
+		case CF_ROCKET:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1759,8 +1755,7 @@ else msg_format("%^sがロケットを発射した。", m_name);
 			break;
 		}
 
-		/* RF4_SHOOT */
-		case 96+4:
+		case CF_SHOOT:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -1782,29 +1777,25 @@ else msg_format("%^sが矢を放った。", m_name);
 			break;
 		}
 
-		/* RF4_XXX2 */
-		case 96+5:
+		case 101:
 		{
 			/* XXX XXX XXX */
 			break;
 		}
 
-		/* RF4_XXX3 */
-		case 96+6:
+		case 102:
 		{
 			/* XXX XXX XXX */
 			break;
 		}
 
-		/* RF4_XXX4 */
-		case 96+7:
+		case 103:
 		{
 			/* XXX XXX XXX */
 			break;
 		}
 
-		/* RF4_BR_ACID */
-		case 96+8:
+		case CF_BR_ACID:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1825,8 +1816,7 @@ else msg_format("%^sが酸のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_ELEC */
-		case 96+9:
+		case CF_BR_ELEC:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1847,8 +1837,7 @@ else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_FIRE */
-		case 96+10:
+		case CF_BR_FIRE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1869,8 +1858,7 @@ else msg_format("%^sが火炎のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_COLD */
-		case 96+11:
+		case CF_BR_COLD:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1891,8 +1879,7 @@ else msg_format("%^sが冷気のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_POIS */
-		case 96+12:
+		case CF_BR_POIS:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1913,9 +1900,7 @@ else msg_format("%^sがガスのブレスを吐いた。", m_name);
 			break;
 		}
 
-
-		/* RF4_BR_NETH */
-		case 96+13:
+		case CF_BR_NETH:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1936,8 +1921,7 @@ else msg_format("%^sが地獄のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_LITE */
-		case 96+14:
+		case CF_BR_LITE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1958,8 +1942,7 @@ else msg_format("%^sが閃光のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_DARK */
-		case 96+15:
+		case CF_BR_DARK:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -1980,8 +1963,7 @@ else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_CONF */
-		case 96+16:
+		case CF_BR_CONF:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2002,8 +1984,7 @@ else msg_format("%^sが混乱のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_SOUN */
-		case 96+17:
+		case CF_BR_SOUN:
 		{
 			disturb(1, 0);
 			if (user_ptr->species_idx == MON_JAIAN)
@@ -2030,8 +2011,7 @@ else msg_format("%^sが轟音のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_CHAO */
-		case 96+18:
+		case CF_BR_CHAO:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2052,8 +2032,7 @@ else msg_format("%^sがカオスのブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_DISE */
-		case 96+19:
+		case CF_BR_DISE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2074,8 +2053,7 @@ else msg_format("%^sが劣化のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_NEXU */
-		case 96+20:
+		case CF_BR_NEXU:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2096,8 +2074,7 @@ else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_TIME */
-		case 96+21:
+		case CF_BR_TIME:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2117,8 +2094,7 @@ else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_INER */
-		case 96+22:
+		case CF_BR_INER:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2138,8 +2114,7 @@ else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_GRAV */
-		case 96+23:
+		case CF_BR_GRAV:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2159,8 +2134,7 @@ else msg_format("%^sが重力のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_SHAR */
-		case 96+24:
+		case CF_BR_SHAR:
 		{
 			disturb(1, 0);
 			if (user_ptr->species_idx == MON_BOTEI)
@@ -2187,8 +2161,7 @@ else msg_format("%^sが破片のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_PLAS */
-		case 96+25:
+		case CF_BR_PLAS:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2208,8 +2181,7 @@ else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_WALL */
-		case 96+26:
+		case CF_BR_WALL:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2229,8 +2201,7 @@ else msg_format("%^sがフォースのブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BR_MANA */
-		case 96+27:
+		case CF_BR_MANA:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2249,8 +2220,7 @@ else msg_format("%^sが魔力のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BA_NUKE */
-		case 96+28:
+		case CF_BA_NUKE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2271,8 +2241,7 @@ else msg_format("%^sが放射能球を放った。", m_name);
 			break;
 		}
 
-		/* RF4_BR_NUKE */
-		case 96+29:
+		case CF_BR_NUKE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2293,8 +2262,7 @@ else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
 			break;
 		}
 
-		/* RF4_BA_CHAO */
-		case 96+30:
+		case CF_BA_CHAO:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2315,8 +2283,7 @@ else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
 			break;
 		}
 
-		/* RF4_BR_DISI */
-		case 96+31:
+		case CF_BR_DISI:
 		{
 			disturb(1, 0);
 #ifdef JP

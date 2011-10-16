@@ -1787,7 +1787,6 @@ extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
 
 /* mspells2.c */
 extern void get_project_point(int sy, int sx, int *ty, int *tx, int flg);
-extern bool monst_spell_monst(creature_type *player_ptr, int m_idx);
 
 /* artifact.c */
 extern void one_sustain(object_type *o_ptr);
