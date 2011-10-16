@@ -2184,11 +2184,11 @@ static void display_player_various(creature_type * cr_ptr)
 
 	object_type		*o_ptr;
 
-	if (cr_ptr->flags13 & RF13_HORNS)     muta_att++;
-	if (cr_ptr->flags13 & RF13_SCOR_TAIL) muta_att++;
-	if (cr_ptr->flags13 & RF13_BEAK)      muta_att++;
-	if (cr_ptr->flags13 & RF13_TRUNK)     muta_att++;
-	if (cr_ptr->flags13 & RF13_TENTACLES) muta_att++;
+	if (have_creature_flags(cr_ptr, CF_HORNS))     muta_att++;
+	if (have_creature_flags(cr_ptr, CF_SCOR_TAIL)) muta_att++;
+	if (have_creature_flags(cr_ptr, CF_BEAK))      muta_att++;
+	if (have_creature_flags(cr_ptr, CF_TRUNK))     muta_att++;
+	if (have_creature_flags(cr_ptr, CF_TENTACLES)) muta_att++;
 
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
@@ -2569,56 +2569,52 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 	}
 
-	/* Mutations */
-	if (cr_ptr->flags14)
+	if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
 	{
-		if (cr_ptr->flags14 & RF14_FLESH_ROT)
-		{
-			remove_flag(flgs, TR_REGEN);
-		}
+		remove_flag(flgs, TR_REGEN);
+	}
 
-		if ((cr_ptr->flags14 & RF14_XTRA_FAT) ||
-			(cr_ptr->flags14 & RF14_XTRA_LEGS) ||
-			(cr_ptr->flags14 & RF14_SHORT_LEG))
-		{
-			add_flag(flgs, TR_SPEED);
-		}
+	if (have_creature_flags(cr_ptr, CF_XTRA_FAT) ||
+		have_creature_flags(cr_ptr, CF_XTRA_LEGS) ||
+		have_creature_flags(cr_ptr, CF_SHORT_LEG) )
+	{
+		add_flag(flgs, TR_SPEED);
+	}
 
-		if (cr_ptr->flags14  & RF14_ELEC_TOUC)
-		{
-			add_flag(flgs, TR_SH_ELEC);
-		}
+	if (have_creature_flags(cr_ptr, CF_ELEC_TOUC))
+	{
+		add_flag(flgs, TR_SH_ELEC);
+	}
 
-		if (cr_ptr->flags14 & RF14_FIRE_BODY)
-		{
-			add_flag(flgs, TR_SH_FIRE);
-			add_flag(flgs, TR_LITE);
-		}
+	if (have_creature_flags(cr_ptr, CF_FIRE_BODY))
+	{
+		add_flag(flgs, TR_SH_FIRE);
+		add_flag(flgs, TR_LITE);
+	}
 
-		if (cr_ptr->flags14 & RF14_WINGS)
-		{
-			add_flag(flgs, TR_LEVITATION);
-		}
+	if (have_creature_flags(cr_ptr, CF_WINGS))
+	{
+		add_flag(flgs, TR_LEVITATION);
+	}
 
-		if (cr_ptr->flags14 & RF14_FEARLESS)
-		{
-			add_flag(flgs, TR_RES_FEAR);
-		}
+	if (have_creature_flags(cr_ptr, CF_FEARLESS))
+	{
+		add_flag(flgs, TR_RES_FEAR);
+	}
 
-		if (cr_ptr->flags14 & RF14_REGEN)
-		{
-			add_flag(flgs, TR_REGEN);
-		}
+	if (have_creature_flags(cr_ptr, CF_REGEN))
+	{
+		add_flag(flgs, TR_REGEN);
+	}
 
-		if (cr_ptr->flags14 & RF14_ESP)
-		{
-			add_flag(flgs, TR_TELEPATHY);
-		}
+	if (have_creature_flags(cr_ptr, CF_ESP))
+	{
+		add_flag(flgs, TR_TELEPATHY);
+	}
 
-		if (cr_ptr->flags14 & RF14_MOTION)
-		{
-			add_flag(flgs, TR_FREE_ACT);
-		}
+	if (have_creature_flags(cr_ptr, CF_MOTION))
+	{
+		add_flag(flgs, TR_FREE_ACT);
 	}
 
 	if (cr_ptr->chara_idx == CHARA_CHARGEMAN)
