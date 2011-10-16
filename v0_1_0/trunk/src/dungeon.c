@@ -2296,7 +2296,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (wild_mode) return;
 
 
-	if ((cr_ptr->flags13 & RF13_BERS_RAGE) && one_in_(3000))
+	if (have_creature_flags(cr_ptr, CF_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2311,7 +2311,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		(void)set_afraid(cr_ptr, 0);
 	}
 
-	if ((cr_ptr->flags13 & RF13_COWARDICE) && (randint1(3000) == 13))
+	if (have_creature_flags(cr_ptr, CF_COWARDICE) && (randint1(3000) == 13))
 	{
 		if (!cr_ptr->resist_fear)
 		{
@@ -2326,9 +2326,9 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_RTELEPORT) && (randint1(5000) == 88))
+	if (have_creature_flags(cr_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
 	{
-		if (!cr_ptr->resist_nexus && !(cr_ptr->flags12 & RF12_VTELEPORT) &&
+		if (!cr_ptr->resist_nexus && !have_creature_flags(cr_ptr, CF_VTELEPORT) &&
 		    !cr_ptr->anti_tele)
 		{
 			disturb(0, 0);
@@ -2345,7 +2345,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_ALCOHOL) && (randint1(6400) == 321))
+	if (have_creature_flags(cr_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
 	{
 		if (!cr_ptr->resist_conf && !cr_ptr->resist_chaos)
 		{
@@ -2398,7 +2398,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_HALLU) && (randint1(6400) == 42))
+	if (have_creature_flags(cr_ptr, CF_HALLU) && (randint1(6400) == 42))
 	{
 		if (!cr_ptr->resist_chaos)
 		{
@@ -2408,7 +2408,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_FLATULENT) && (randint1(3000) == 13))
+	if (have_creature_flags(cr_ptr, CF_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(0, 0);
 
@@ -2422,7 +2422,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		fire_ball(GF_POIS, 0, cr_ptr->lev, 3);
 	}
 
-	if ((cr_ptr->flags13 & RF13_PROD_MANA) &&
+	if (have_creature_flags(cr_ptr, CF_PROD_MANA) &&
 	    !cr_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
@@ -2439,7 +2439,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		fire_ball(GF_MANA, dire, cr_ptr->lev * 2, 3);
 	}
 
-	if ((cr_ptr->flags13 & RF13_ATT_DEMON) &&
+	if (have_creature_flags(cr_ptr, CF_ATT_DEMON) &&
 	    !cr_ptr->anti_magic && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
@@ -2461,7 +2461,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_SPEED_FLUX) && one_in_(6000))
+	if (have_creature_flags(cr_ptr, CF_SPEED_FLUX) && one_in_(6000))
 	{
 		disturb(0, 0);
 		if (one_in_(2))
@@ -2500,7 +2500,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 		msg_print(NULL);
 	}
-	if ((cr_ptr->flags13 & RF13_BANISH_ALL) && one_in_(9000))
+	if (have_creature_flags(cr_ptr, CF_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2513,7 +2513,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 	}
 
-	if ((cr_ptr->flags13 & RF13_EAT_LIGHT) && one_in_(3000))
+	if (have_creature_flags(cr_ptr, CF_EAT_LIGHT) && one_in_(3000))
 	{
 		object_type *o_ptr;
 
@@ -2564,7 +2564,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		unlite_area(50, 10);
 	}
 
-	if ((cr_ptr->flags13 & RF13_ATT_ANIMAL) &&
+	if (have_creature_flags(cr_ptr, CF_ATT_ANIMAL) &&
 	    !cr_ptr->anti_magic && one_in_(7000))
 	{
 		bool pet = one_in_(3);
@@ -2585,7 +2585,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if ((cr_ptr->flags13 & RF13_RAW_CHAOS) &&
+	if (have_creature_flags(cr_ptr, CF_RAW_CHAOS) &&
 	    !cr_ptr->anti_magic && one_in_(8000))
 	{
 		disturb(0, 0);
@@ -2598,7 +2598,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		fire_ball(GF_CHAOS, 0, cr_ptr->lev, 8);
 	}
-	if ((cr_ptr->flags13 & RF13_NORMALITY) && one_in_(5000))
+	if (have_creature_flags(cr_ptr, CF_NORMALITY) && one_in_(5000))
 	{
 		if (!lose_mutation(cr_ptr, 0))
 #ifdef JP
@@ -2608,7 +2608,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if ((cr_ptr->flags13 & RF13_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
+	if (have_creature_flags(cr_ptr, CF_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2620,11 +2620,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		set_wraith_form(cr_ptr, randint1(cr_ptr->lev / 2) + (cr_ptr->lev / 2), FALSE);
 	}
-	if ((cr_ptr->flags13 & RF13_POLY_WOUND) && one_in_(3000))
+	if (have_creature_flags(cr_ptr, CF_POLY_WOUND) && one_in_(3000))
 	{
 		do_poly_wounds(cr_ptr);
 	}
-	if ((cr_ptr->flags13 & RF13_WASTING) && one_in_(3000))
+	if (have_creature_flags(cr_ptr, CF_WASTING) && one_in_(3000))
 	{
 		int which_stat = randint0(6);
 		int sustained = FALSE;
@@ -2672,7 +2672,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			(void)dec_stat(cr_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
-	if ((cr_ptr->flags13 & RF13_ATT_DRAGON) &&
+	if (have_creature_flags(cr_ptr, CF_ATT_DRAGON) &&
 	    !cr_ptr->anti_magic && one_in_(3000))
 	{
 		bool pet = one_in_(5);
@@ -2692,7 +2692,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			disturb(0, 0);
 		}
 	}
-	if ((cr_ptr->flags13 & RF13_WEIRD_MIND) && !cr_ptr->anti_magic &&
+	if (have_creature_flags(cr_ptr, CF_WEIRD_MIND) && !cr_ptr->anti_magic &&
 	    one_in_(3000))
 	{
 		if (cr_ptr->tim_esp > 0)
@@ -2716,7 +2716,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			set_tim_esp(cr_ptr, cr_ptr->lev, FALSE);
 		}
 	}
-	if ((cr_ptr->flags13 & RF13_NAUSEA) && !cr_ptr->slow_digest &&
+	if (have_creature_flags(cr_ptr, CF_NAUSEA) && !cr_ptr->slow_digest &&
 	    one_in_(9000))
 	{
 		disturb(0, 0);
@@ -2732,13 +2732,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 	}
 
-	if ((cr_ptr->flags13 & RF13_WALK_SHAD) &&
+	if (have_creature_flags(cr_ptr, CF_WALK_SHAD) &&
 	    !cr_ptr->anti_magic && one_in_(12000) && !inside_arena)
 	{
 		alter_reality(cr_ptr);
 	}
 
-	if ((cr_ptr->flags13 & RF13_WARNING) && one_in_(1000))
+	if (have_creature_flags(cr_ptr, CF_WARNING) && one_in_(1000))
 	{
 		int danger_amount = 0;
 		int monster;
@@ -2800,7 +2800,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if ((cr_ptr->flags13 & RF13_INVULN) && !cr_ptr->anti_magic &&
+	if (have_creature_flags(cr_ptr, CF_INVULN) && !cr_ptr->anti_magic &&
 	    one_in_(5000))
 	{
 		disturb(0, 0);
@@ -2813,7 +2813,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		(void)set_invuln(cr_ptr, randint1(8) + 8, FALSE);
 	}
-	if ((cr_ptr->flags13 & RF13_SP_TO_HP) && one_in_(2000))
+	if (have_creature_flags(cr_ptr, CF_SP_TO_HP) && one_in_(2000))
 	{
 		int wounds = cr_ptr->mhp - cr_ptr->chp;
 
@@ -2833,7 +2833,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if ((cr_ptr->flags13 & RF13_HP_TO_SP) && !cr_ptr->anti_magic &&
+	if (have_creature_flags(cr_ptr, CF_HP_TO_SP) && !cr_ptr->anti_magic &&
 	    one_in_(4000))
 	{
 		int wounds = cr_ptr->msp - cr_ptr->csp;
@@ -2859,7 +2859,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		}
 	}
-	if ((cr_ptr->flags13 & RF13_DISARM) && one_in_(10000))
+	if (have_creature_flags(cr_ptr, CF_DISARM) && one_in_(10000))
 	{
 		int slot = 0;
 		object_type *o_ptr = NULL;
