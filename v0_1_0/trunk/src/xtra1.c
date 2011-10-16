@@ -3636,7 +3636,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if ((cr_ptr->chara_idx == CHARA_GAMAN) || (cr_ptr->chara_idx == CHARA_CHIKARA)) cr_ptr->to_m_chance++;
 
 	/* Lucky man */
-	if (cr_ptr->chara_idx == CHARA_LUCKY) cr_ptr->flags14 |= RF14_GOOD_LUCK;
+	//TODO if (cr_ptr->chara_idx == CHARA_LUCKY) cr_ptr->flags14 |= RF14_GOOD_LUCK;
 
 	if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 	{

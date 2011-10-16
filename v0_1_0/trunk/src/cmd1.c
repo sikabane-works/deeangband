@@ -1899,7 +1899,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 	switch (attack)
 	{
-		case RF13_SCOR_TAIL:
+		case CF_SCOR_TAIL:
 			dss = 3;
 			ddd = 7;
 			n_weight = 5;
@@ -1910,7 +1910,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case RF13_HORNS:
+		case CF_HORNS:
 			dss = 2;
 			ddd = 6;
 			n_weight = 15;
@@ -1921,7 +1921,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case RF13_BEAK:
+		case CF_BEAK:
 			dss = 2;
 			ddd = 4;
 			n_weight = 5;
@@ -1932,7 +1932,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case RF13_TRUNK:
+		case CF_TRUNK:
 			dss = 1;
 			ddd = 4;
 			n_weight = 35;
@@ -1943,7 +1943,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 #endif
 
 			break;
-		case RF13_TENTACLES:
+		case CF_TENTACLES:
 			dss = 2;
 			ddd = 5;
 			n_weight = 5;
@@ -2010,19 +2010,19 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		/* Damage, check for fear and mdeath */
 		switch (attack)
 		{
-			case RF13_SCOR_TAIL:
+			case CF_SCOR_TAIL:
 				project(0, 0, tar_ptr->fy, tar_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
-			case RF13_HORNS:
+			case CF_HORNS:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case RF13_BEAK:
+			case CF_BEAK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case RF13_TRUNK:
+			case CF_TRUNK:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
-			case RF13_TENTACLES:
+			case CF_TENTACLES:
 				take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
@@ -3202,8 +3202,8 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	energy_use = 100;
 
-	if (!atk_ptr->migite && !atk_ptr->hidarite &&
-	    !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
+	if (!atk_ptr->migite && !atk_ptr->hidarite)
+	    //TODO !(atk_ptr->flags13 & (RF13_HORNS | RF13_BEAK | RF13_SCOR_TAIL | RF13_TRUNK | RF13_TENTACLES)))
 	{
 #ifdef JP
 		msg_format("%sUŒ‚‚Å‚«‚È‚¢B", (empty_hands(atk_ptr, FALSE) == EMPTY_HAND_NONE) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
@@ -3405,15 +3405,15 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	if (!mdeath)
 	{
 		if (have_creature_flags(atk_ptr, CF_HORNS) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, RF13_HORNS, &fear, &mdeath);
+			natural_attack(atk_ptr, tar_ptr, CF_HORNS, &fear, &mdeath);
 		if (have_creature_flags(atk_ptr, CF_BEAK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, RF13_BEAK, &fear, &mdeath);
+			natural_attack(atk_ptr, tar_ptr, CF_BEAK, &fear, &mdeath);
 		if (have_creature_flags(atk_ptr, CF_SCOR_TAIL) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, RF13_SCOR_TAIL, &fear, &mdeath);
+			natural_attack(atk_ptr, tar_ptr, CF_SCOR_TAIL, &fear, &mdeath);
 		if (have_creature_flags(atk_ptr, CF_TRUNK) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, RF13_TRUNK, &fear, &mdeath);
+			natural_attack(atk_ptr, tar_ptr, CF_TRUNK, &fear, &mdeath);
 		if (have_creature_flags(atk_ptr, CF_TENTACLES) && !mdeath)
-			natural_attack(atk_ptr, tar_ptr, RF13_TENTACLES, &fear, &mdeath);
+			natural_attack(atk_ptr, tar_ptr, CF_TENTACLES, &fear, &mdeath);
 	}
 
 
@@ -4112,7 +4112,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
-		    ((cr_ptr->flags13 & RF13_BERS_RAGE) && cr_ptr->shero)) &&
+		    have_creature_flags(cr_ptr, CF_BERS_RAGE) && cr_ptr->shero) &&
 		    pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */

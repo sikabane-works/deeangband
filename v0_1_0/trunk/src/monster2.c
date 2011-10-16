@@ -2194,7 +2194,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if (have_creature_flags(watcher_ptr, CF_MORONIC) && /*(watcher_ptr->flags13 & RF13_BERS_RAGE) &&*/
+	if (have_creature_flags(watcher_ptr, CF_MORONIC) &&
 		(have_creature_flags(watcher_ptr, CF_COWARDICE) || (watcher_ptr->resist_fear)) &&
 		(have_creature_flags(watcher_ptr, CF_HALLU) || (watcher_ptr->resist_chaos)))
 	{
@@ -2268,10 +2268,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						watcher_ptr->flags14 &= ~(RF14_FEARLESS);
+						//TODO watcher_ptr->flags14 &= ~(RF14_FEARLESS);
 					}
 
-					watcher_ptr->flags13 |= RF13_COWARDICE;
+					//TODO watcher_ptr->flags13 |= RF13_COWARDICE;
 					happened = TRUE;
 				}
 				break;
@@ -2285,7 +2285,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			case 19:
 			case 20:
 			case 21:
-				if (!(watcher_ptr->flags13 & RF13_HALLU) && !watcher_ptr->resist_chaos)
+				if (!have_creature_flags(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2293,12 +2293,12 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					watcher_ptr->flags13 |= RF13_HALLU;
+					//TODO watcher_ptr->flags13 |= RF13_HALLU;
 					happened = TRUE;
 				}
 				break;
 			default:
-				if (!(watcher_ptr->flags13 & RF13_BERS_RAGE))
+				if (!have_creature_flags(watcher_ptr, CF_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2306,7 +2306,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					watcher_ptr->flags13 |= RF13_BERS_RAGE;
+					//TODO watcher_ptr->flags13 |= RF13_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
