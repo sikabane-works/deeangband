@@ -2724,10 +2724,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 						msg_print("You are no longer fearless.");
 #endif
 
-						watcher_ptr->flags14 &= ~(RF14_FEARLESS);
+						//TODOwatcher_ptr->flags14 &= ~(RF14_FEARLESS);
 					}
 
-					watcher_ptr->flags13 |= RF13_COWARDICE;
+					//TODOwatcher_ptr->flags13 |= RF13_COWARDICE;
 					happened = TRUE;
 				}
 				break;
@@ -2742,14 +2742,14 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					watcher_ptr->flags13 |= RF13_HALLU;
+					//TODOwatcher_ptr->flags13 |= RF13_HALLU;
 					happened = TRUE;
 				}
 				break;
 			}
 			default:
 			{
-				if (!(watcher_ptr->flags13 & RF13_BERS_RAGE))
+				if (!have_creature_flags(watcher_ptr, CF_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2757,7 +2757,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					watcher_ptr->flags13 |= RF13_BERS_RAGE;
+					//TODO watcher_ptr->flags13 |= RF13_BERS_RAGE;
 					happened = TRUE;
 				}
 				break;
@@ -4902,6 +4902,8 @@ msg_print("お金が足りません！");
 		break;
 	}
 	case BACT_LOSE_MUTATION:
+		msg_print("(再実装中)");
+/* TODO ::reimplement
 		if (cr_ptr->flags12 || cr_ptr->flags13 ||
 		    (cr_ptr->flags14 & ~RF14_GOOD_LUCK) ||
 		    (cr_ptr->chara_idx != CHARA_LUCKY &&
@@ -4919,6 +4921,7 @@ msg_print("お金が足りません！");
 #endif
 			msg_print(NULL);
 		}
+*/
 		break;
 	case BACT_BATTLE:
 		kakutoujou(cr_ptr);
@@ -4973,7 +4976,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || (cr_ptr->flags13 & RF13_CHAOS_GIFT))
+		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || have_creature_flags(cr_ptr, CF_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", r_name + species_info[cr_ptr->patron_idx].name);
