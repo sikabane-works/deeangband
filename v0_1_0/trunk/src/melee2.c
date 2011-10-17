@@ -1805,7 +1805,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 
-	if (nonplayer_ptr->flags6 & RF6_SPECIAL)
+	if (has_cf_creature(nonplayer_ptr, RF6_SPECIAL))
 	{
 		/* Hack -- Ohmu scatters molds! */
 		if (nonplayer_ptr->species_idx == MON_OHMU)
@@ -1826,7 +1826,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 						}
 					}
 
-					if (count && is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags6 |= (RF6_SPECIAL);
+					if (count && is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_SPECIAL);
 				}
 			}
 		}

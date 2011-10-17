@@ -1936,6 +1936,7 @@ note = "‚É‚Í‚©‚È‚è‘Ï«‚ª‚ ‚éI";
 #endif
 
 				dam /= 9;
+				//reveal_creature_info(m_ptr, INFO_TYPE_RESIST);
 				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_FIRE);
 			}
 			else if (is_hurt_fire_creature(tar_ptr))

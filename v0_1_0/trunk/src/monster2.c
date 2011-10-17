@@ -2509,84 +2509,84 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if ((cr_ptr->esp_animal) && is_animal_creature(cr_ptr))
 			{
 				flag = TRUE;
-				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ANIMAL);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_undead) && is_undead_species(r_ptr))
 			{
 				flag = TRUE;
-				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_demon) && is_demon_species(r_ptr))
 			{
 				flag = TRUE;
-				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DEMON);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_orc) && (is_orc_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_ORC);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_TROLL);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_giant) && is_giant_species(r_ptr))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GIANT);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_dragon) && is_dragon_species(r_ptr))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_DRAGON);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_human) && (is_human_species(r_ptr)))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_HUMAN);
+				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_evil) && is_enemy_of_good_creature(cr_ptr))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_EVIL);
+				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_good) && is_enemy_of_evil_creature(m_ptr))
 			{
 				flag = TRUE;
-//TODO				if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_GOOD);
+				reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_nonliving) && has_cf_creature(m_ptr, CF_NONLIVING) && !is_undead_creature(m_ptr)) 
 			{
 				flag = TRUE;
-				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
+				reveal_creature_info(m_ptr, CF_NONLIVING);
 			}
 
 			/* Magical sensing */
 			if ((cr_ptr->esp_unique) && (is_unique_species(r_ptr)))
 			{
 				flag = TRUE;
-				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags1 |= (RF1_UNIQUE);
+				reveal_creature_info(m_ptr, CF_UNIQUE);
 			}
 		}
 
