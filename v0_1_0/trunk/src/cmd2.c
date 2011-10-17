@@ -2980,7 +2980,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 17) mult = 17;
 			}
@@ -2990,7 +2990,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 27) mult = 27;
 			}
@@ -3000,7 +3000,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    is_enemy_of_good_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_ALIGNMENT, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 15) mult = 15;
 			}
@@ -3010,7 +3010,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    is_enemy_of_good_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 25) mult = 25;
 			}
@@ -3020,7 +3020,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 17) mult = 17;
 			}
@@ -3030,7 +3030,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 27) mult = 27;
 			}
@@ -3039,7 +3039,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3048,7 +3048,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -3057,7 +3057,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_SLAY_DEMON)) && is_demon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3066,7 +3066,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_DEMON)) && is_demon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -3075,7 +3075,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3084,7 +3084,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -3093,7 +3093,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if (have_flag(flgs, TR_SLAY_TROLL) && is_troll_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3102,7 +3102,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -3111,7 +3111,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3120,7 +3120,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -3129,7 +3129,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_SLAY_DRAGON)) && is_dragon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}
@@ -3138,7 +3138,7 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			if ((have_flag(flgs, TR_KILL_DRAGON)) && is_dragon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					set_observance_flags(tar_ptr, CREATURE_OBS_RACE, 0);
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 
@@ -3151,17 +3151,9 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			/* Brand (Acid) */
 			if (have_flag(flgs, TR_BRAND_ACID))
 			{
-				/* Notice immunity */
-				if (is_resist_acid_creature(tar_ptr))
-				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ACID_MASK);
-					}
-				}
+				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
-				/* Otherwise, take the damage */
-				else
+				if (!is_resist_acid_creature(tar_ptr))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3170,17 +3162,9 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			/* Brand (Elec) */
 			if (have_flag(flgs, TR_BRAND_ELEC))
 			{
-				/* Notice immunity */
-				if (is_resist_elec_creature(tar_ptr))
-				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
-					}
-				}
+				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				/* Otherwise, take the damage */
-				else
+				if (!is_resist_elec_creature(tar_ptr))
 				{
 					if (mult < 17) mult = 17;
 				}
@@ -3189,25 +3173,16 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			/* Brand (Fire) */
 			if (have_flag(flgs, TR_BRAND_FIRE))
 			{
-				/* Notice immunity */
-				if (is_resist_fire_creature(tar_ptr))
-				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
-					}
-				}
+				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
-				/* Otherwise, take the damage */
-				else
+				/* Notice immunity */
+				if (!is_resist_fire_creature(tar_ptr))
 				{
 					if (is_hurt_fire_creature(tar_ptr))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-						{
-							//TODO r_ptr->r_flags3 |= RF3_HURT_FIRE;
-						}
+							reveal_creature_info(tar_ptr, CF_HURT_FIRE);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3216,24 +3191,16 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			/* Brand (Cold) */
 			if (have_flag(flgs, TR_BRAND_COLD))
 			{
-				/* Notice immunity */
-				if (is_resist_cold_creature(tar_ptr))
-				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
-					}
-				}
+				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_COLD_RATE);
+
 				/* Otherwise, take the damage */
-				else
+				if (!is_resist_cold_creature(tar_ptr))
 				{
 					if (is_hurt_cold_creature(tar_ptr))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-						{
-							//TODO r_ptr->r_flags3 |= RF3_HURT_COLD;
-						}
+							reveal_creature_info(tar_ptr, CF_HURT_COLD);
 					}
 					else if (mult < 17) mult = 17;
 				}
@@ -3242,17 +3209,9 @@ static s16b tot_dam_aux_shot(creature_type *atk_ptr, object_type *o_ptr, int tda
 			/* Brand (Poison) */
 			if (have_flag(flgs, TR_BRAND_POIS))
 			{
-				/* Notice immunity */
-				if (is_resist_pois_creature(tar_ptr))
-				{
-					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_POIS_MASK);
-					}
-				}
+				reveal_creature_info(tar_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				/* Otherwise, take the damage */
-				else
+				if (!is_resist_pois_creature(tar_ptr))
 				{
 					if (mult < 17) mult = 17;
 				}

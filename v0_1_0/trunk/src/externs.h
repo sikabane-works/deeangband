@@ -1078,7 +1078,7 @@ extern bool is_eldritch_horror_species(species_type *sp_ptr);
 extern bool is_random_walker_25_species(species_type *sp_ptr);
 extern bool is_random_walker_50_species(species_type *sp_ptr);
 
-extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
+//extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
 
 extern void reveal_species_info(species_type *species_ptr, int type);
