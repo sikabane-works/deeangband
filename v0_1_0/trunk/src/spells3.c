@@ -569,7 +569,7 @@ void teleport_away_followable(creature_type *cr_ptr)
 	{
 		bool follow = FALSE;
 
-		if (have_creature_flags(cr_ptr, CF_VTELEPORT) || (cr_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
+		if (has_cf_creature(cr_ptr, CF_VTELEPORT) || (cr_ptr->cls_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
 			u32b flgs[TR_FLAG_SIZE];
@@ -4982,7 +4982,7 @@ int acid_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (have_creature_flags(cr_ptr, CF_VULN_ELEM)) dam *= 2;
+	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (cr_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 
 	/* Resist the damage */
@@ -5026,7 +5026,7 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (have_creature_flags(cr_ptr, CF_VULN_ELEM)) dam *= 2;
+	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (cr_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 	if (race_is_(cr_ptr, RACE_ANDROID)) dam += dam / 3;
 
@@ -5066,7 +5066,7 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (have_creature_flags(cr_ptr, CF_VULN_ELEM)) dam *= 2;
+	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (race_is_(cr_ptr, RACE_ENT)) dam += dam / 3;
 	if (cr_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 
@@ -5106,7 +5106,7 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (have_creature_flags(cr_ptr, CF_VULN_ELEM)) dam *= 2;
+	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (cr_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 
 	/* Resist the damage */

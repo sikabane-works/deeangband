@@ -1800,7 +1800,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 	int aura_damage = 0;
 	species_type *species_ptr = &species_info[tar_ptr->species_idx];
 
-	if (have_creature_flags(tar_ptr, CF_AURA_FIRE))
+	if (has_cf_creature(tar_ptr, CF_AURA_FIRE))
 	{
 		if (!atk_ptr->immune_fire)
 		{
@@ -1824,7 +1824,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (have_creature_flags(tar_ptr, CF_AURA_COLD))
+	if (has_cf_creature(tar_ptr, CF_AURA_COLD))
 	{
 		if (!atk_ptr->immune_cold)
 		{
@@ -1850,7 +1850,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 		}
 	}
 
-	if (have_creature_flags(tar_ptr, CF_AURA_ELEC))
+	if (has_cf_creature(tar_ptr, CF_AURA_ELEC))
 	{
 		if (!atk_ptr->immune_elec)
 		{
@@ -1966,7 +1966,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	/* Test for hit */
-	if ((!have_creature_flags(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
+	if ((!has_cf_creature(tar_ptr, CF_QUANTUM) || !randint0(2)) && test_hit_norm(atk_ptr, chance, tar_ptr->ac + tar_ptr->to_a, tar_ptr->ml))
 	{
 		/* Sound */
 		sound(SOUND_HIT);
@@ -2317,11 +2317,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				int resist_stun = 0;
 				int weight = 8;
 
-				if (have_creature_flags(tar_ptr, CF_UNIQUE)) resist_stun += 88;
-				if (have_creature_flags(tar_ptr, CF_NO_STUN)) resist_stun += 66;
-				if (have_creature_flags(tar_ptr, CF_NO_CONF)) resist_stun += 33;
-				if (have_creature_flags(tar_ptr, CF_NO_SLEEP)) resist_stun += 33;
-				if (is_undead_creature(tar_ptr) || have_creature_flags(tar_ptr, CF_NONLIVING))
+				if (has_cf_creature(tar_ptr, CF_UNIQUE)) resist_stun += 88;
+				if (has_cf_creature(tar_ptr, CF_NO_STUN)) resist_stun += 66;
+				if (has_cf_creature(tar_ptr, CF_NO_CONF)) resist_stun += 33;
+				if (has_cf_creature(tar_ptr, CF_NO_SLEEP)) resist_stun += 33;
+				if (is_undead_creature(tar_ptr) || has_cf_creature(tar_ptr, CF_NONLIVING))
 					resist_stun += 66;
 
 				if (atk_ptr->special_defense & KAMAE_BYAKKO)
@@ -2629,7 +2629,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				k = 0;
 				anger_monster(tar_ptr);
 
-				if (!have_creature_flags(tar_ptr, CF_NO_STUN))
+				if (!has_cf_creature(tar_ptr, CF_NO_STUN))
 				{
 					/* Get stunned */
 					if (tar_ptr->stun)
@@ -2864,7 +2864,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				}
 
 				/* Confuse the monster */
-				if (have_creature_flags(tar_ptr, CF_NO_CONF))
+				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
 					//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
 
@@ -3396,15 +3396,15 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	/* Mutations which yield extra 'natural' attacks */
 	if (!mdeath)
 	{
-		if (have_creature_flags(atk_ptr, CF_HORNS) && !mdeath)
+		if (has_cf_creature(atk_ptr, CF_HORNS) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, CF_HORNS, &fear, &mdeath);
-		if (have_creature_flags(atk_ptr, CF_BEAK) && !mdeath)
+		if (has_cf_creature(atk_ptr, CF_BEAK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, CF_BEAK, &fear, &mdeath);
-		if (have_creature_flags(atk_ptr, CF_SCOR_TAIL) && !mdeath)
+		if (has_cf_creature(atk_ptr, CF_SCOR_TAIL) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, CF_SCOR_TAIL, &fear, &mdeath);
-		if (have_creature_flags(atk_ptr, CF_TRUNK) && !mdeath)
+		if (has_cf_creature(atk_ptr, CF_TRUNK) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, CF_TRUNK, &fear, &mdeath);
-		if (have_creature_flags(atk_ptr, CF_TENTACLES) && !mdeath)
+		if (has_cf_creature(atk_ptr, CF_TENTACLES) && !mdeath)
 			natural_attack(atk_ptr, tar_ptr, CF_TENTACLES, &fear, &mdeath);
 	}
 
@@ -4104,7 +4104,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(cr_ptr->confused || cr_ptr->image || !m_ptr->ml || cr_ptr->stun ||
-		    have_creature_flags(cr_ptr, CF_BERS_RAGE) && cr_ptr->shero) &&
+		    has_cf_creature(cr_ptr, CF_BERS_RAGE) && cr_ptr->shero) &&
 		    pattern_seq(cr_ptr, cr_ptr->fy, cr_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
 		{
 			/* Disturb the monster */
@@ -4155,7 +4155,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 	if (oktomove && cr_ptr->riding)
 	{
-		if (have_creature_flags(steed_ptr, CF_NEVER_MOVE))
+		if (has_cf_creature(steed_ptr, CF_NEVER_MOVE))
 		{
 #ifdef JP
 			msg_print("動けない！");
@@ -4187,17 +4187,17 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && have_creature_flags(steed_ptr, CF_CAN_FLY))
+		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_cf_creature(steed_ptr, CF_CAN_FLY))
 		{
 			/* Allow moving */
 		}
-		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && have_creature_flags(steed_ptr, CF_CAN_SWIM))
+		else if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_cf_creature(steed_ptr, CF_CAN_SWIM))
 		{
 			/* Allow moving */
 		}
 		else if (have_flag(f_ptr->flags, FF_WATER) &&
-			!have_creature_flags(steed_ptr, CF_AQUATIC) &&
-			(have_flag(f_ptr->flags, FF_DEEP) || have_creature_flags(cr_ptr, CF_AURA_FIRE)))
+			!has_cf_creature(steed_ptr, CF_AQUATIC) &&
+			(have_flag(f_ptr->flags, FF_DEEP) || has_cf_creature(cr_ptr, CF_AURA_FIRE)))
 		{
 #ifdef JP
 			msg_format("%sの上に行けない。", f_name + f_info[get_feat_mimic(c_ptr)].name);
@@ -4208,7 +4208,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			oktomove = FALSE;
 			disturb(0, 0);
 		}
-		else if (!have_flag(f_ptr->flags, FF_WATER) && have_creature_flags(steed_ptr, CF_AQUATIC))
+		else if (!have_flag(f_ptr->flags, FF_WATER) && has_cf_creature(steed_ptr, CF_AQUATIC))
 		{
 #ifdef JP
 			msg_format("%sから上がれない。", f_name + f_info[get_feat_mimic(&cave[cr_ptr->fy][cr_ptr->fx])].name);

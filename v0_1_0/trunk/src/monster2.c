@@ -266,7 +266,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	real_r_ptr(cr_ptr)->cur_num--;
 
 	/* Hack -- count the number of "reproducers" */
-	if (have_creature_flags(cr_ptr, CF_MULTIPLY)) num_repro--;
+	if (has_cf_creature(cr_ptr, CF_MULTIPLY)) num_repro--;
 
 	if (cr_ptr->paralyzed) (void)set_paralyzed(cr_ptr, 0);
 	if (cr_ptr->fast) (void)set_fast(cr_ptr, 0, FALSE);
@@ -857,8 +857,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_CYBER:
 		{
-			okay = ((r_ptr->d_char == 'U') &&
-				(r_ptr->flags4 & RF4_ROCKET));
+			okay = ((r_ptr->d_char == 'U') && has_cf(&r_ptr->flags, CF_ROCKET));
 			break;
 		}
 
@@ -1072,8 +1071,8 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	case DUNGEON_MODE_AND:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(have_one_creature_flag(&d_ptr->c_flags, a)
-				&& !have_one_creature_flag(&r_ptr->flags, a)) return FALSE; 
+			if(has_cf(&d_ptr->c_flags, a)
+				&& !has_cf(&r_ptr->flags, a)) return FALSE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return FALSE;
@@ -1083,8 +1082,8 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	case DUNGEON_MODE_NAND:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(have_one_creature_flag(&d_ptr->c_flags, a)
-				&& !have_one_creature_flag(&r_ptr->flags, a)) return TRUE; 
+			if(has_cf(&d_ptr->c_flags, a)
+				&& !has_cf(&r_ptr->flags, a)) return TRUE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] && (d_ptr->r_char[a] != r_ptr->d_char)) return TRUE;
@@ -1094,8 +1093,8 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	case DUNGEON_MODE_OR:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(have_one_creature_flag(&d_ptr->c_flags, a)
-				&& have_one_creature_flag(&r_ptr->flags, a)) return TRUE; 
+			if(has_cf(&d_ptr->c_flags, a)
+				&& has_cf(&r_ptr->flags, a)) return TRUE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return TRUE;
@@ -1105,8 +1104,8 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	case DUNGEON_MODE_NOR:
 		for (a = 0; a < CF_FLAG_MAX; a++)
 		{
-			if(have_one_creature_flag(&d_ptr->c_flags, a)
-				&& have_one_creature_flag(&r_ptr->flags, a)) return FALSE; 
+			if(has_cf(&d_ptr->c_flags, a)
+				&& has_cf(&r_ptr->flags, a)) return FALSE; 
 		}
 		for (a = 0; a < 5; a++)
 			if (d_ptr->r_char[a] == r_ptr->d_char) return FALSE;
@@ -1833,7 +1832,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != CHARA_NONE && have_creature_flags(m_ptr, CF_VARIABLE_CHARA)){
+	if(m_ptr->chara_idx != CHARA_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CHARA)){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -1843,7 +1842,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->race_idx1 != RACE_NONE && have_creature_flags(m_ptr, CF_VARIABLE_RACE)){
+	if(m_ptr->race_idx1 != RACE_NONE && has_cf_creature(m_ptr, CF_VARIABLE_RACE)){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "の");
@@ -1870,7 +1869,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, r_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != CLASS_NONE && have_creature_flags(m_ptr, CF_VARIABLE_CLASS)){
+	if(m_ptr->cls_idx != CLASS_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CLASS)){
 #ifdef JP
 		(void)strcat(desc, "の");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
@@ -2037,9 +2036,9 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		monster_desc(m_name, m_ptr, 0);
 
-		if (!have_creature_flags(m_ptr, CF_UNIQUE))
+		if (!has_cf_creature(m_ptr, CF_UNIQUE))
 		{
-			if (have_creature_flags(m_ptr, CF_FRIENDS))
+			if (has_cf_creature(m_ptr, CF_FRIENDS))
 			power /= 2;
 		}
 		else power *= 2;
@@ -2050,7 +2049,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (!m_ptr->ml)
 			return; /* Cannot see it for some reason */
 
-		if (!have_creature_flags(m_ptr, CF_ELDRITCH_HORROR))
+		if (!has_cf_creature(m_ptr, CF_ELDRITCH_HORROR))
 			return; /* oops */
 
 
@@ -2194,9 +2193,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if (have_creature_flags(watcher_ptr, CF_MORONIC) &&
-		(have_creature_flags(watcher_ptr, CF_COWARDICE) || (watcher_ptr->resist_fear)) &&
-		(have_creature_flags(watcher_ptr, CF_HALLU) || (watcher_ptr->resist_chaos)))
+	if (has_cf_creature(watcher_ptr, CF_MORONIC) &&
+		(has_cf_creature(watcher_ptr, CF_COWARDICE) || (watcher_ptr->resist_fear)) &&
+		(has_cf_creature(watcher_ptr, CF_HALLU) || (watcher_ptr->resist_chaos)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2207,7 +2206,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		switch (randint1(21))
 		{
 			case 1:
-				if (!have_creature_flags(watcher_ptr, CF_MORONIC) && one_in_(5))
+				if (!has_cf_creature(watcher_ptr, CF_MORONIC) && one_in_(5))
 				{
 					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
@@ -2226,7 +2225,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (have_creature_flags(watcher_ptr, CF_HYPER_INT))
+					if (has_cf_creature(watcher_ptr, CF_HYPER_INT))
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2250,7 +2249,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			case 9:
 			case 10:
 			case 11:
-				if (!have_creature_flags(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!has_cf_creature(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2260,7 +2259,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (have_creature_flags(watcher_ptr, CF_FEARLESS))
+					if (has_cf_creature(watcher_ptr, CF_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2285,7 +2284,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			case 19:
 			case 20:
 			case 21:
-				if (!have_creature_flags(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
+				if (!has_cf_creature(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2298,7 +2297,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 				}
 				break;
 			default:
-				if (!have_creature_flags(watcher_ptr, CF_BERS_RAGE))
+				if (!has_cf_creature(watcher_ptr, CF_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2464,14 +2463,14 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			else if (cr_ptr->telepathy)
 			{
 				/* Empty mind, no telepathy */
-				if (have_creature_flags(m_ptr, CF_EMPTY_MIND))
+				if (has_cf_creature(m_ptr, CF_EMPTY_MIND))
 				{
 					/* Memorize flags */
 					//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
-				else if (have_creature_flags(m_ptr, CF_WEIRD_MIND))
+				else if (has_cf_creature(m_ptr, CF_WEIRD_MIND))
 				{
 					/* One in ten individuals are detectable */
 					if ((m_idx % 10) == 5)
@@ -2577,7 +2576,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_nonliving) && have_creature_flags(m_ptr, CF_NONLIVING) && !is_undead_creature(m_ptr)) 
+			if ((cr_ptr->esp_nonliving) && has_cf_creature(m_ptr, CF_NONLIVING) && !is_undead_creature(m_ptr)) 
 			{
 				flag = TRUE;
 				//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags3 |= (RF3_NONLIVING);
@@ -2608,7 +2607,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (d <= cr_ptr->see_infra)
 			{
 				/* Handle "cold blooded" monsters */
-				if (have_creature_flags(m_ptr, CF_COLD_BLOOD) || !have_creature_flags(m_ptr, CF_AURA_FIRE))
+				if (has_cf_creature(m_ptr, CF_COLD_BLOOD) || !has_cf_creature(m_ptr, CF_AURA_FIRE))
 				{
 					/* Take note */
 					do_cold_blood = TRUE;
@@ -2626,7 +2625,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (player_can_see_bold(cr_ptr, fy, fx))
 			{
 				/* Handle "invisible" monsters */
-				if (have_creature_flags(m_ptr, CF_INVISIBLE))
+				if (has_cf_creature(m_ptr, CF_INVISIBLE))
 				{
 					/* Take note */
 					do_invisible = TRUE;
@@ -2942,7 +2941,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 #else
 		msg_format("Suddenly, %s transforms!", old_m_name);
 #endif
-		if (!have_creature_flags(m_ptr, CF_RIDING))
+		if (!has_cf_creature(m_ptr, CF_RIDING))
 #ifdef JP
 			if (rakuba(p_ptr, 0, TRUE)) msg_print("地面に落とされた。");
 #else
@@ -3530,7 +3529,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	/* Force monster to wait for player, unless in Nightmare mode */
-	if (have_creature_flags(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
+	if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
 	{
 		/* Monster is still being nice */
 		m_ptr->mflag |= (MFLAG_NICE);
@@ -3566,11 +3565,11 @@ msg_print("守りのルーンが壊れた！");
 		real_r_ptr(m_ptr)->floor_id = watcher_ptr->floor_id;
 
 	/* Hack -- Count the number of "reproducers" */
-	if (have_creature_flags(m_ptr, CF_MULTIPLY)) num_repro++;
+	if (has_cf_creature(m_ptr, CF_MULTIPLY)) num_repro++;
 
 	/* Hack -- Notice new multi-hued monsters */
 	{
-		if (have_creature_flags(m_ptr, CF_ATTR_MULTI) || have_creature_flags(m_ptr, CF_SHAPECHANGER))
+		if (has_cf_creature(m_ptr, CF_ATTR_MULTI) || has_cf_creature(m_ptr, CF_SHAPECHANGER))
 			shimmer_monsters = TRUE;
 	}
 
@@ -5240,10 +5239,10 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	if (!smart_learn) return;
 
 	/* Too stupid to learn anything */
-	if (have_creature_flags(learner_ptr, CF_STUPID)) return;
+	if (has_cf_creature(learner_ptr, CF_STUPID)) return;
 
 	/* Not intelligent, only learn sometimes */
-	if (!have_creature_flags(learner_ptr, CF_SMART) && (randint0(100) < 50)) return;
+	if (!has_cf_creature(learner_ptr, CF_SMART) && (randint0(100) < 50)) return;
 
 
 	/* XXX XXX XXX */

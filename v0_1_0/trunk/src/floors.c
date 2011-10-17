@@ -565,7 +565,7 @@ static void place_pet(void)
 			m_ptr->hold_o_idx = 0;
 			m_ptr->target_y = 0;
 
-			if (have_creature_flags(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
+			if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
 			{
 				/* Monster is still being nice */
 				m_ptr->mflag |= (MFLAG_NICE);
@@ -582,11 +582,11 @@ static void place_pet(void)
 			/* r_ptr->cur_num++; */
 
 			/* Hack -- Count the number of "reproducers" */
-			if (have_creature_flags(m_ptr, CF_MULTIPLY)) num_repro++;
+			if (has_cf_creature(m_ptr, CF_MULTIPLY)) num_repro++;
 
 			/* Hack -- Notice new multi-hued monsters */
 			{
-				if (have_creature_flags(m_ptr, CF_ATTR_MULTI) || have_creature_flags(m_ptr, CF_SHAPECHANGER))
+				if (has_cf_creature(m_ptr, CF_ATTR_MULTI) || has_cf_creature(m_ptr, CF_SHAPECHANGER))
 					shimmer_monsters = TRUE;
 			}
 		}

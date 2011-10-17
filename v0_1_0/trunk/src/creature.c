@@ -563,7 +563,7 @@ void initialize_skill(creature_type *creature_ptr)
 
 bool is_force_depth_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_FORCE_DEPTH);	
+	return has_cf_creature(creature_ptr, CF_FORCE_DEPTH);	
 }
 
 bool is_force_depth_species(species_type *species_ptr)
@@ -667,7 +667,7 @@ bool is_quantum_species(species_type *species_ptr)
 
 bool is_unique_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_UNIQUE);	
+	return has_cf_creature(creature_ptr, CF_UNIQUE);	
 }
 
 bool is_unique_species(species_type *species_ptr)
@@ -677,7 +677,7 @@ bool is_unique_species(species_type *species_ptr)
 
 bool is_sub_unique_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_UNIQUE2);	
+	return has_cf_creature(creature_ptr, CF_UNIQUE2);	
 }
 
 bool is_sub_unique_species(species_type *species_ptr)
@@ -687,7 +687,7 @@ bool is_sub_unique_species(species_type *species_ptr)
 
 bool is_quest_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_QUESTOR);	
+	return has_cf_creature(creature_ptr, CF_QUESTOR);	
 }
 
 bool is_quest_species(species_type *species_ptr)
@@ -698,7 +698,7 @@ bool is_quest_species(species_type *species_ptr)
 
 bool is_char_clear_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CHAR_CLEAR);	
+	return has_cf_creature(creature_ptr, CF_CHAR_CLEAR);	
 }
 
 bool is_char_clear_species(species_type *species_ptr)
@@ -708,7 +708,7 @@ bool is_char_clear_species(species_type *species_ptr)
 
 bool is_attr_clear_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ATTR_CLEAR);	
+	return has_cf_creature(creature_ptr, CF_ATTR_CLEAR);	
 }
 
 bool is_attr_clear_species(species_type *species_ptr)
@@ -718,7 +718,7 @@ bool is_attr_clear_species(species_type *species_ptr)
 
 bool is_attr_multi_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ATTR_MULTI);	
+	return has_cf_creature(creature_ptr, CF_ATTR_MULTI);	
 }
 
 bool is_attr_multi_species(species_type *species_ptr)
@@ -728,7 +728,7 @@ bool is_attr_multi_species(species_type *species_ptr)
 
 bool is_attr_any_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ATTR_ANY);	
+	return has_cf_creature(creature_ptr, CF_ATTR_ANY);	
 }
 
 bool is_attr_any_species(species_type *species_ptr)
@@ -739,7 +739,7 @@ bool is_attr_any_species(species_type *species_ptr)
 
 bool is_attr_semirand_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ATTR_SEMIRAND);	
+	return has_cf_creature(creature_ptr, CF_ATTR_SEMIRAND);	
 }
 
 bool is_attr_semirand_species(species_type *species_ptr)
@@ -749,7 +749,7 @@ bool is_attr_semirand_species(species_type *species_ptr)
 
 bool is_shapechanger_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SHAPECHANGER);	
+	return has_cf_creature(creature_ptr, CF_SHAPECHANGER);	
 }
 
 bool is_shapechanger_species(species_type *species_ptr)
@@ -760,7 +760,7 @@ bool is_shapechanger_species(species_type *species_ptr)
 
 bool is_force_sleep_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_FORCE_SLEEP);	
+	return has_cf_creature(creature_ptr, CF_FORCE_SLEEP);	
 }
 
 bool is_force_sleep_species(species_type *species_ptr)
@@ -771,7 +771,7 @@ bool is_force_sleep_species(species_type *species_ptr)
 
 bool is_never_move_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NEVER_MOVE);	
+	return has_cf_creature(creature_ptr, CF_NEVER_MOVE);	
 }
 
 bool is_never_move_species(species_type *species_ptr)
@@ -781,7 +781,7 @@ bool is_never_move_species(species_type *species_ptr)
 
 bool is_never_blow_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NEVER_BLOW);	
+	return has_cf_creature(creature_ptr, CF_NEVER_BLOW);	
 }
 
 bool is_never_blow_species(species_type *species_ptr)
@@ -792,7 +792,7 @@ bool is_never_blow_species(species_type *species_ptr)
 
 bool is_friends_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_FRIENDS);	
+	return has_cf_creature(creature_ptr, CF_FRIENDS);	
 }
 
 bool is_friends_species(species_type *species_ptr)
@@ -802,7 +802,7 @@ bool is_friends_species(species_type *species_ptr)
 
 bool is_escort_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ESCORT);	
+	return has_cf_creature(creature_ptr, CF_ESCORT);	
 }
 
 bool is_escort_species(species_type *species_ptr)
@@ -812,7 +812,7 @@ bool is_escort_species(species_type *species_ptr)
 
 bool is_escorts_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ESCORTS);	
+	return has_cf_creature(creature_ptr, CF_ESCORTS);	
 }
 
 bool is_escorts_species(species_type *species_ptr)
@@ -823,7 +823,7 @@ bool is_escorts_species(species_type *species_ptr)
 
 bool is_only_gold_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ONLY_GOLD);	
+	return has_cf_creature(creature_ptr, CF_ONLY_GOLD);	
 }
 
 bool is_only_gold_species(species_type *species_ptr)
@@ -833,7 +833,7 @@ bool is_only_gold_species(species_type *species_ptr)
 
 bool is_only_item_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ONLY_ITEM);	
+	return has_cf_creature(creature_ptr, CF_ONLY_ITEM);	
 }
 
 bool is_only_item_species(species_type *species_ptr)
@@ -845,7 +845,7 @@ bool is_only_item_species(species_type *species_ptr)
 
 bool is_smart_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SMART);	
+	return has_cf_creature(creature_ptr, CF_SMART);	
 }
 
 bool is_smart_species(species_type *species_ptr)
@@ -855,7 +855,7 @@ bool is_smart_species(species_type *species_ptr)
 
 bool is_stupid_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_STUPID);	
+	return has_cf_creature(creature_ptr, CF_STUPID);	
 }
 
 bool is_stupid_species(species_type *species_ptr)
@@ -865,7 +865,7 @@ bool is_stupid_species(species_type *species_ptr)
 
 bool is_multiply_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_MULTIPLY);	
+	return has_cf_creature(creature_ptr, CF_MULTIPLY);	
 }
 
 bool is_multiply_species(species_type *species_ptr)
@@ -875,7 +875,7 @@ bool is_multiply_species(species_type *species_ptr)
 
 bool is_reflecting_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_REFLECTING);	
+	return has_cf_creature(creature_ptr, CF_REFLECTING);	
 }
 
 bool is_reflecting_species(species_type *species_ptr)
@@ -885,7 +885,7 @@ bool is_reflecting_species(species_type *species_ptr)
 
 bool is_invisible_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_INVISIBLE);	
+	return has_cf_creature(creature_ptr, CF_INVISIBLE);	
 }
 
 bool is_invisible_species(species_type *species_ptr)
@@ -895,7 +895,7 @@ bool is_invisible_species(species_type *species_ptr)
 
 bool is_cold_blood_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_COLD_BLOOD);	
+	return has_cf_creature(creature_ptr, CF_COLD_BLOOD);	
 }
 
 bool is_cold_blood_species(species_type *species_ptr)
@@ -905,7 +905,7 @@ bool is_cold_blood_species(species_type *species_ptr)
 
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_EMPTY_MIND);	
+	return has_cf_creature(creature_ptr, CF_EMPTY_MIND);	
 }
 
 bool is_empty_mind_species(species_type *species_ptr)
@@ -915,7 +915,7 @@ bool is_empty_mind_species(species_type *species_ptr)
 
 bool is_weird_mind_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WEIRD_MIND);	
+	return has_cf_creature(creature_ptr, CF_WEIRD_MIND);	
 }
 
 bool is_weird_mind_species(species_type *species_ptr)
@@ -925,7 +925,7 @@ bool is_weird_mind_species(species_type *species_ptr)
 
 bool is_regenerate_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_REGENERATE);	
+	return has_cf_creature(creature_ptr, CF_REGENERATE);	
 }
 
 bool is_regenerate_species(species_type *species_ptr)
@@ -935,7 +935,7 @@ bool is_regenerate_species(species_type *species_ptr)
 
 bool is_non_living_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NONLIVING);	
+	return has_cf_creature(creature_ptr, CF_NONLIVING);	
 }
 
 bool is_non_living_species(species_type *species_ptr)
@@ -945,7 +945,7 @@ bool is_non_living_species(species_type *species_ptr)
 
 bool is_hurt_lite_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HURT_LITE);	
+	return has_cf_creature(creature_ptr, CF_HURT_LITE);	
 }
 
 bool is_hurt_lite_species(species_type *species_ptr)
@@ -955,7 +955,7 @@ bool is_hurt_lite_species(species_type *species_ptr)
 
 bool is_hurt_rock_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HURT_ROCK);	
+	return has_cf_creature(creature_ptr, CF_HURT_ROCK);	
 }
 
 bool is_hurt_rock_species(species_type *species_ptr)
@@ -965,7 +965,7 @@ bool is_hurt_rock_species(species_type *species_ptr)
 
 bool is_hurt_fire_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HURT_FIRE);	
+	return has_cf_creature(creature_ptr, CF_HURT_FIRE);	
 }
 
 bool is_hurt_fire_species(species_type *species_ptr)
@@ -975,7 +975,7 @@ bool is_hurt_fire_species(species_type *species_ptr)
 
 bool is_hurt_cold_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HURT_COLD);	
+	return has_cf_creature(creature_ptr, CF_HURT_COLD);	
 }
 
 bool is_hurt_cold_species(species_type *species_ptr)
@@ -985,7 +985,7 @@ bool is_hurt_cold_species(species_type *species_ptr)
 
 bool is_no_fear_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HURT_COLD);	
+	return has_cf_creature(creature_ptr, CF_HURT_COLD);	
 }
 
 bool is_no_fear_species(species_type *species_ptr)
@@ -995,7 +995,7 @@ bool is_no_fear_species(species_type *species_ptr)
 
 bool is_no_stun_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NO_STUN);	
+	return has_cf_creature(creature_ptr, CF_NO_STUN);	
 }
 
 bool is_no_stun_species(species_type *species_ptr)
@@ -1005,7 +1005,7 @@ bool is_no_stun_species(species_type *species_ptr)
 
 bool is_no_conf_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NO_CONF);	
+	return has_cf_creature(creature_ptr, CF_NO_CONF);	
 }
 
 bool is_no_conf_species(species_type *species_ptr)
@@ -1015,7 +1015,7 @@ bool is_no_conf_species(species_type *species_ptr)
 
 bool is_no_sleep_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_NO_SLEEP);	
+	return has_cf_creature(creature_ptr, CF_NO_SLEEP);	
 }
 
 bool is_no_sleep_species(species_type *species_ptr)
@@ -1027,7 +1027,7 @@ bool is_no_sleep_species(species_type *species_ptr)
 
 bool can_speak_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CAN_SPEAK);	
+	return has_cf_creature(creature_ptr, CF_CAN_SPEAK);	
 }
 
 bool can_speak_species(species_type *species_ptr)
@@ -1037,7 +1037,7 @@ bool can_speak_species(species_type *species_ptr)
 
 bool is_eldritch_horror_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_ELDRITCH_HORROR);	
+	return has_cf_creature(creature_ptr, CF_ELDRITCH_HORROR);	
 }
 
 bool is_eldritch_horror_species(species_type *species_ptr)
@@ -1047,7 +1047,7 @@ bool is_eldritch_horror_species(species_type *species_ptr)
 
 bool is_random_walker_25_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RAND_25);	
+	return has_cf_creature(creature_ptr, CF_RAND_25);	
 }
 
 bool is_random_walker_25_species(species_type *species_ptr)
@@ -1057,7 +1057,7 @@ bool is_random_walker_25_species(species_type *species_ptr)
 
 bool is_random_walker_50_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RAND_50);	
+	return has_cf_creature(creature_ptr, CF_RAND_50);	
 }
 
 bool is_random_walker_50_species(species_type *species_ptr)
@@ -1067,7 +1067,7 @@ bool is_random_walker_50_species(species_type *species_ptr)
 
 bool is_aura_fire_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_AURA_FIRE);	
+	return has_cf_creature(creature_ptr, CF_AURA_FIRE);	
 }
 
 bool is_aura_fire_species(species_type *species_ptr)
@@ -1077,7 +1077,7 @@ bool is_aura_fire_species(species_type *species_ptr)
 
 bool is_aura_cold_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_AURA_COLD);	
+	return has_cf_creature(creature_ptr, CF_AURA_COLD);	
 }
 
 bool is_aura_cold_species(species_type *species_ptr)
@@ -1087,7 +1087,7 @@ bool is_aura_cold_species(species_type *species_ptr)
 
 bool is_aura_elec_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_AURA_ELEC);	
+	return has_cf_creature(creature_ptr, CF_AURA_ELEC);	
 }
 
 bool is_aura_elec_species(species_type *species_ptr)
@@ -1097,7 +1097,7 @@ bool is_aura_elec_species(species_type *species_ptr)
 
 bool is_powerful_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_POWERFUL);	
+	return has_cf_creature(creature_ptr, CF_POWERFUL);	
 }
 
 bool is_powerful_species(species_type *species_ptr)
@@ -1108,7 +1108,7 @@ bool is_powerful_species(species_type *species_ptr)
 
 bool is_pass_wall_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_PASS_WALL);	
+	return has_cf_creature(creature_ptr, CF_PASS_WALL);	
 }
 
 bool is_pass_wall_species(species_type *species_ptr)
@@ -1118,7 +1118,7 @@ bool is_pass_wall_species(species_type *species_ptr)
 
 bool is_kill_wall_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_KILL_WALL);	
+	return has_cf_creature(creature_ptr, CF_KILL_WALL);	
 }
 
 bool is_kill_wall_species(species_type *species_ptr)
@@ -1128,7 +1128,7 @@ bool is_kill_wall_species(species_type *species_ptr)
 
 bool is_take_item_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_TAKE_ITEM);	
+	return has_cf_creature(creature_ptr, CF_TAKE_ITEM);	
 }
 
 bool is_take_item_species(species_type *species_ptr)
@@ -1138,7 +1138,7 @@ bool is_take_item_species(species_type *species_ptr)
 
 bool is_kill_item_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_KILL_ITEM);	
+	return has_cf_creature(creature_ptr, CF_KILL_ITEM);	
 }
 
 bool is_kill_item_species(species_type *species_ptr)
@@ -1148,7 +1148,7 @@ bool is_kill_item_species(species_type *species_ptr)
 
 bool is_open_door_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_OPEN_DOOR);	
+	return has_cf_creature(creature_ptr, CF_OPEN_DOOR);	
 }
 
 bool is_open_door_species(species_type *species_ptr)
@@ -1158,7 +1158,7 @@ bool is_open_door_species(species_type *species_ptr)
 
 bool is_bash_door_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_BASH_DOOR);	
+	return has_cf_creature(creature_ptr, CF_BASH_DOOR);	
 }
 
 bool is_bash_door_species(species_type *species_ptr)
@@ -1168,7 +1168,7 @@ bool is_bash_door_species(species_type *species_ptr)
 
 bool is_move_body_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_MOVE_BODY);	
+	return has_cf_creature(creature_ptr, CF_MOVE_BODY);	
 }
 
 bool is_move_body_species(species_type *species_ptr)
@@ -1178,7 +1178,7 @@ bool is_move_body_species(species_type *species_ptr)
 
 bool is_kill_body_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_KILL_BODY);	
+	return has_cf_creature(creature_ptr, CF_KILL_BODY);	
 }
 
 bool is_kill_body_species(species_type *species_ptr)
@@ -1194,7 +1194,7 @@ bool is_puella_magi_species(species_type *species_ptr)
 
 bool is_puella_magi_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_PUELLA_MAGI);	
+	return has_cf_creature(creature_ptr, CF_PUELLA_MAGI);	
 }
 
 bool is_aquatic_species(species_type *species_ptr)
@@ -1204,12 +1204,12 @@ bool is_aquatic_species(species_type *species_ptr)
 
 bool is_aquatic_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_AQUATIC);	
+	return has_cf_creature(creature_ptr, CF_AQUATIC);	
 }
 
 bool can_swim_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CAN_SWIM);	
+	return has_cf_creature(creature_ptr, CF_CAN_SWIM);	
 }
 
 bool can_swim_species(species_type *species_ptr)
@@ -1219,7 +1219,7 @@ bool can_swim_species(species_type *species_ptr)
 
 bool can_fly_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CAN_FLY);	
+	return has_cf_creature(creature_ptr, CF_CAN_FLY);	
 }
 
 bool can_fly_species(species_type *species_ptr)
@@ -1229,7 +1229,7 @@ bool can_fly_species(species_type *species_ptr)
 
 bool is_guardian_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_GUARDIAN);	
+	return has_cf_creature(creature_ptr, CF_GUARDIAN);	
 }
 
 bool is_guardian_species(species_type *species_ptr)
@@ -1239,7 +1239,7 @@ bool is_guardian_species(species_type *species_ptr)
 
 bool is_riding_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RIDING);	
+	return has_cf_creature(creature_ptr, CF_RIDING);	
 }
 
 bool is_riding_species(species_type *species_ptr)
@@ -1249,7 +1249,7 @@ bool is_riding_species(species_type *species_ptr)
 
 bool is_self_lite_1_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SELF_LITE_1);	
+	return has_cf_creature(creature_ptr, CF_SELF_LITE_1);	
 }
 
 bool is_self_lite_1_species(species_type *species_ptr)
@@ -1259,7 +1259,7 @@ bool is_self_lite_1_species(species_type *species_ptr)
 
 bool is_self_lite_2_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SELF_LITE_2);	
+	return has_cf_creature(creature_ptr, CF_SELF_LITE_2);	
 }
 
 bool is_self_lite_2_species(species_type *species_ptr)
@@ -1269,7 +1269,7 @@ bool is_self_lite_2_species(species_type *species_ptr)
 
 bool is_self_dark_1_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SELF_DARK_1);	
+	return has_cf_creature(creature_ptr, CF_SELF_DARK_1);	
 }
 
 bool is_self_dark_1_species(species_type *species_ptr)
@@ -1279,7 +1279,7 @@ bool is_self_dark_1_species(species_type *species_ptr)
 
 bool is_self_dark_2_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SELF_DARK_2);	
+	return has_cf_creature(creature_ptr, CF_SELF_DARK_2);	
 }
 
 bool is_self_dark_2_species(species_type *species_ptr)
@@ -1289,7 +1289,7 @@ bool is_self_dark_2_species(species_type *species_ptr)
 
 bool is_has_lite_1_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HAS_LITE_1);	
+	return has_cf_creature(creature_ptr, CF_HAS_LITE_1);	
 }
 
 bool is_has_lite_1_species(species_type *species_ptr)
@@ -1299,7 +1299,7 @@ bool is_has_lite_1_species(species_type *species_ptr)
 
 bool is_has_lite_2_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HAS_LITE_2);	
+	return has_cf_creature(creature_ptr, CF_HAS_LITE_2);	
 }
 
 bool is_has_lite_2_species(species_type *species_ptr)
@@ -1309,7 +1309,7 @@ bool is_has_lite_2_species(species_type *species_ptr)
 
 bool is_has_dark_1_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HAS_DARK_1);	
+	return has_cf_creature(creature_ptr, CF_HAS_DARK_1);	
 }
 
 bool is_has_dark_1_species(species_type *species_ptr)
@@ -1319,7 +1319,7 @@ bool is_has_dark_1_species(species_type *species_ptr)
 
 bool is_has_dark_2_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HAS_DARK_2);	
+	return has_cf_creature(creature_ptr, CF_HAS_DARK_2);	
 }
 
 bool is_has_dark_2_species(species_type *species_ptr)
@@ -1379,7 +1379,7 @@ bool is_has_ld_species(species_type *species_ptr)
 
 bool is_resist_acid_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_IM_ACID);	
+	return has_cf_creature(creature_ptr, CF_IM_ACID);	
 }
 
 bool is_resist_acid_species(species_type *species_ptr)
@@ -1389,7 +1389,7 @@ bool is_resist_acid_species(species_type *species_ptr)
 
 bool is_resist_elec_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_IM_ELEC);	
+	return has_cf_creature(creature_ptr, CF_IM_ELEC);	
 }
 
 bool is_resist_elec_species(species_type *species_ptr)
@@ -1399,7 +1399,7 @@ bool is_resist_elec_species(species_type *species_ptr)
 
 bool is_resist_fire_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_IM_FIRE);	
+	return has_cf_creature(creature_ptr, CF_IM_FIRE);	
 }
 
 bool is_resist_fire_species(species_type *species_ptr)
@@ -1409,7 +1409,7 @@ bool is_resist_fire_species(species_type *species_ptr)
 
 bool is_resist_cold_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_IM_COLD);	
+	return has_cf_creature(creature_ptr, CF_IM_COLD);	
 }
 
 bool is_resist_cold_species(species_type *species_ptr)
@@ -1419,7 +1419,7 @@ bool is_resist_cold_species(species_type *species_ptr)
 
 bool is_resist_pois_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_IM_POIS);	
+	return has_cf_creature(creature_ptr, CF_IM_POIS);	
 }
 
 bool is_resist_pois_species(species_type *species_ptr)
@@ -1429,7 +1429,7 @@ bool is_resist_pois_species(species_type *species_ptr)
 
 bool is_resist_lite_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_LITE);	
+	return has_cf_creature(creature_ptr, CF_RES_LITE);	
 }
 
 bool is_resist_lite_species(species_type *species_ptr)
@@ -1439,7 +1439,7 @@ bool is_resist_lite_species(species_type *species_ptr)
 
 bool is_resist_dark_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_DARK);	
+	return has_cf_creature(creature_ptr, CF_RES_DARK);	
 }
 
 bool is_resist_dark_species(species_type *species_ptr)
@@ -1449,7 +1449,7 @@ bool is_resist_dark_species(species_type *species_ptr)
 
 bool is_resist_neth_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_NETH);	
+	return has_cf_creature(creature_ptr, CF_RES_NETH);	
 }
 
 bool is_resist_neth_species(species_type *species_ptr)
@@ -1459,7 +1459,7 @@ bool is_resist_neth_species(species_type *species_ptr)
 
 bool is_resist_wate_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_WATE);	
+	return has_cf_creature(creature_ptr, CF_RES_WATE);	
 }
 
 bool is_resist_wate_species(species_type *species_ptr)
@@ -1469,7 +1469,7 @@ bool is_resist_wate_species(species_type *species_ptr)
 
 bool is_resist_plas_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_PLAS);	
+	return has_cf_creature(creature_ptr, CF_RES_PLAS);	
 }
 
 bool is_resist_plas_species(species_type *species_ptr)
@@ -1479,7 +1479,7 @@ bool is_resist_plas_species(species_type *species_ptr)
 
 bool is_resist_shar_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_SHAR);	
+	return has_cf_creature(creature_ptr, CF_RES_SHAR);	
 }
 
 bool is_resist_shar_species(species_type *species_ptr)
@@ -1489,7 +1489,7 @@ bool is_resist_shar_species(species_type *species_ptr)
 
 bool is_resist_soun_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_SOUN);	
+	return has_cf_creature(creature_ptr, CF_RES_SOUN);	
 }
 
 bool is_resist_soun_species(species_type *species_ptr)
@@ -1499,7 +1499,7 @@ bool is_resist_soun_species(species_type *species_ptr)
 
 bool is_resist_chao_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_CHAO);	
+	return has_cf_creature(creature_ptr, CF_RES_CHAO);	
 }
 
 bool is_resist_chao_species(species_type *species_ptr)
@@ -1509,7 +1509,7 @@ bool is_resist_chao_species(species_type *species_ptr)
 
 bool is_resist_nexu_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_NEXU);	
+	return has_cf_creature(creature_ptr, CF_RES_NEXU);	
 }
 
 bool is_resist_nexu_species(species_type *species_ptr)
@@ -1519,7 +1519,7 @@ bool is_resist_nexu_species(species_type *species_ptr)
 
 bool is_resist_dise_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_DISE);	
+	return has_cf_creature(creature_ptr, CF_RES_DISE);	
 }
 
 bool is_resist_dise_species(species_type *species_ptr)
@@ -1529,7 +1529,7 @@ bool is_resist_dise_species(species_type *species_ptr)
 
 bool is_resist_wall_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_WALL);	
+	return has_cf_creature(creature_ptr, CF_RES_WALL);	
 }
 
 bool is_resist_wall_species(species_type *species_ptr)
@@ -1539,7 +1539,7 @@ bool is_resist_wall_species(species_type *species_ptr)
 
 bool is_resist_iner_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_INER);	
+	return has_cf_creature(creature_ptr, CF_RES_INER);	
 }
 
 bool is_resist_iner_species(species_type *species_ptr)
@@ -1549,7 +1549,7 @@ bool is_resist_iner_species(species_type *species_ptr)
 
 bool is_resist_time_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_TIME);	
+	return has_cf_creature(creature_ptr, CF_RES_TIME);	
 }
 
 bool is_resist_time_species(species_type *species_ptr)
@@ -1559,7 +1559,7 @@ bool is_resist_time_species(species_type *species_ptr)
 
 bool is_resist_grav_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_GRAV);	
+	return has_cf_creature(creature_ptr, CF_RES_GRAV);	
 }
 
 bool is_resist_grav_species(species_type *species_ptr)
@@ -1569,7 +1569,7 @@ bool is_resist_grav_species(species_type *species_ptr)
 
 bool is_resist_all_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_ALL);	
+	return has_cf_creature(creature_ptr, CF_RES_ALL);	
 }
 
 bool is_resist_all_species(species_type *species_ptr)
@@ -1579,7 +1579,7 @@ bool is_resist_all_species(species_type *species_ptr)
 
 bool is_resist_tele_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_RES_TELE);	
+	return has_cf_creature(creature_ptr, CF_RES_TELE);	
 }
 
 bool is_resist_tele_species(species_type *species_ptr)
@@ -1622,7 +1622,7 @@ bool is_female_creature(creature_type *creature_ptr)
 
 bool is_drop_corpse_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_DROP_CORPSE);	
+	return has_cf_creature(creature_ptr, CF_DROP_CORPSE);	
 }
 
 bool is_drop_corpse_species(species_type *species_ptr)
@@ -1632,7 +1632,7 @@ bool is_drop_corpse_species(species_type *species_ptr)
 
 bool is_drop_skeleton_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_DROP_SKELETON);	
+	return has_cf_creature(creature_ptr, CF_DROP_SKELETON);	
 }
 
 bool is_drop_skeleton_species(species_type *species_ptr)
@@ -1643,7 +1643,7 @@ bool is_drop_skeleton_species(species_type *species_ptr)
 
 bool is_citizen_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CITIZEN);	
+	return has_cf_creature(creature_ptr, CF_CITIZEN);	
 }
 
 bool is_citizen_species(species_type *species_ptr)
@@ -1653,7 +1653,7 @@ bool is_citizen_species(species_type *species_ptr)
 
 bool is_wild_only_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_ONLY);	
+	return has_cf_creature(creature_ptr, CF_WILD_ONLY);	
 }
 
 bool is_wild_only_species(species_type *species_ptr)
@@ -1663,7 +1663,7 @@ bool is_wild_only_species(species_type *species_ptr)
 
 bool is_wild_town_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_TOWN);	
+	return has_cf_creature(creature_ptr, CF_WILD_TOWN);	
 }
 
 bool is_wild_town_species(species_type *species_ptr)
@@ -1673,7 +1673,7 @@ bool is_wild_town_species(species_type *species_ptr)
 
 bool is_wild_all_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_ALL);	
+	return has_cf_creature(creature_ptr, CF_WILD_ALL);	
 }
 
 bool is_wild_all_species(species_type *species_ptr)
@@ -1688,7 +1688,7 @@ bool is_wild_shore_species(species_type *species_ptr)
 
 bool is_wild_shore_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_SHORE);	
+	return has_cf_creature(creature_ptr, CF_WILD_SHORE);	
 }
 
 bool is_wild_ocean_species(species_type *species_ptr)
@@ -1698,7 +1698,7 @@ bool is_wild_ocean_species(species_type *species_ptr)
 
 bool is_wild_ocean_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_OCEAN);	
+	return has_cf_creature(creature_ptr, CF_WILD_OCEAN);	
 }
 
 bool is_wild_waste_species(species_type *species_ptr)
@@ -1708,7 +1708,7 @@ bool is_wild_waste_species(species_type *species_ptr)
 
 bool is_wild_waste_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_WASTE);	
+	return has_cf_creature(creature_ptr, CF_WILD_WASTE);	
 }
 
 bool is_wild_wood_species(species_type *species_ptr)
@@ -1718,7 +1718,7 @@ bool is_wild_wood_species(species_type *species_ptr)
 
 bool is_wild_wood_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_WOOD);	
+	return has_cf_creature(creature_ptr, CF_WILD_WOOD);	
 }
 
 bool is_wild_volcano_species(species_type *species_ptr)
@@ -1728,7 +1728,7 @@ bool is_wild_volcano_species(species_type *species_ptr)
 
 bool is_wild_volcano_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_VOLCANO);	
+	return has_cf_creature(creature_ptr, CF_WILD_VOLCANO);	
 }
 
 bool is_wild_grass_species(species_type *species_ptr)
@@ -1738,7 +1738,7 @@ bool is_wild_grass_species(species_type *species_ptr)
 
 bool is_wild_grass_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_GRASS);	
+	return has_cf_creature(creature_ptr, CF_WILD_GRASS);	
 }
 
 bool is_wild_mountain_species(species_type *species_ptr)
@@ -1748,7 +1748,7 @@ bool is_wild_mountain_species(species_type *species_ptr)
 
 bool is_wild_mountain_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_MOUNTAIN);	
+	return has_cf_creature(creature_ptr, CF_WILD_MOUNTAIN);	
 }
 
 bool is_shadow_species(species_type *species_ptr)
@@ -1758,7 +1758,7 @@ bool is_shadow_species(species_type *species_ptr)
 
 bool is_shadow_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_SHADOW);	
+	return has_cf_creature(creature_ptr, CF_SHADOW);	
 }
 
 bool is_chameleon_species(species_type *species_ptr)
@@ -1768,7 +1768,7 @@ bool is_chameleon_species(species_type *species_ptr)
 
 bool is_chameleon_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_CHAMELEON);	
+	return has_cf_creature(creature_ptr, CF_CHAMELEON);	
 }
 
 bool is_tanuki_species(species_type *species_ptr)
@@ -1778,7 +1778,7 @@ bool is_tanuki_species(species_type *species_ptr)
 
 bool is_tanuki_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_TANUKI);	
+	return has_cf_creature(creature_ptr, CF_TANUKI);	
 }
 
 bool is_kill_exp_species(species_type *species_ptr)
@@ -1788,7 +1788,7 @@ bool is_kill_exp_species(species_type *species_ptr)
 
 bool is_kill_exp_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_KILL_EXP);	
+	return has_cf_creature(creature_ptr, CF_KILL_EXP);	
 }
 
 bool is_friendly_species(species_type *species_ptr)
@@ -1798,12 +1798,12 @@ bool is_friendly_species(species_type *species_ptr)
 
 bool is_friendly_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_WILD_MOUNTAIN);	
+	return has_cf_creature(creature_ptr, CF_WILD_MOUNTAIN);	
 }
 
 bool is_force_lesser_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_FORCE_LESSER);	
+	return has_cf_creature(creature_ptr, CF_FORCE_LESSER);	
 }
 
 bool is_force_lesser_species(species_type *species_ptr)
@@ -1813,7 +1813,7 @@ bool is_force_lesser_species(species_type *species_ptr)
 
 bool is_variable_race_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_RACE);	
+	return has_cf_creature(creature_ptr, CF_VARIABLE_RACE);	
 }
 
 bool is_variable_race_species(species_type *species_ptr)
@@ -1823,7 +1823,7 @@ bool is_variable_race_species(species_type *species_ptr)
 
 bool is_variable_class_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_CLASS);	
+	return has_cf_creature(creature_ptr, CF_VARIABLE_CLASS);	
 }
 
 bool is_variable_class_species(species_type *species_ptr)
@@ -1833,7 +1833,7 @@ bool is_variable_class_species(species_type *species_ptr)
 
 bool is_variable_patron_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_PATRON);	
+	return has_cf_creature(creature_ptr, CF_VARIABLE_PATRON);	
 }
 
 bool is_variable_patron_species(species_type *species_ptr)
@@ -1843,7 +1843,7 @@ bool is_variable_patron_species(species_type *species_ptr)
 
 bool is_variable_chara_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_CHARA);	
+	return has_cf_creature(creature_ptr, CF_VARIABLE_CHARA);	
 }
 
 bool is_variable_chara_species(species_type *species_ptr)
@@ -1853,7 +1853,7 @@ bool is_variable_chara_species(species_type *species_ptr)
 
 bool is_variable_size_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_VARIABLE_SIZE);	
+	return has_cf_creature(creature_ptr, CF_VARIABLE_SIZE);	
 }
 
 bool is_variable_size_species(species_type *species_ptr)
@@ -1864,7 +1864,7 @@ bool is_variable_size_species(species_type *species_ptr)
 
 bool is_hyper_str_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HYPER_STR);	
+	return has_cf_creature(creature_ptr, CF_HYPER_STR);	
 }
 
 bool is_hyper_str_species(species_type *species_ptr)
@@ -1874,7 +1874,7 @@ bool is_hyper_str_species(species_type *species_ptr)
 
 bool is_puny_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HYPER_STR);	
+	return has_cf_creature(creature_ptr, CF_HYPER_STR);	
 }
 
 bool is_puny_species(species_type *species_ptr)
@@ -1884,7 +1884,7 @@ bool is_puny_species(species_type *species_ptr)
 
 bool is_hyper_int_creature(creature_type *creature_ptr)
 {
-	return have_creature_flags(creature_ptr, CF_HYPER_INT);	
+	return has_cf_creature(creature_ptr, CF_HYPER_INT);	
 }
 
 bool is_hyper_int_species(species_type *species_ptr)
@@ -1967,12 +1967,12 @@ void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
 	flags_ptr->remove_lev[type] = high;
 }
 
-bool have_one_creature_flag(creature_flags *cf_ptr, int type)
+bool has_cf(creature_flags *cf_ptr, int type)
 {
 	return cf_ptr->add_lev[type];
 }
 
-bool have_creature_flags(creature_type *creature_ptr, int type)
+bool has_cf_creature(creature_type *creature_ptr, int type)
 {
 	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
 	{

@@ -2184,11 +2184,11 @@ static void display_player_various(creature_type * cr_ptr)
 
 	object_type		*o_ptr;
 
-	if (have_creature_flags(cr_ptr, CF_HORNS))     muta_att++;
-	if (have_creature_flags(cr_ptr, CF_SCOR_TAIL)) muta_att++;
-	if (have_creature_flags(cr_ptr, CF_BEAK))      muta_att++;
-	if (have_creature_flags(cr_ptr, CF_TRUNK))     muta_att++;
-	if (have_creature_flags(cr_ptr, CF_TENTACLES)) muta_att++;
+	if (has_cf_creature(cr_ptr, CF_HORNS))     muta_att++;
+	if (has_cf_creature(cr_ptr, CF_SCOR_TAIL)) muta_att++;
+	if (has_cf_creature(cr_ptr, CF_BEAK))      muta_att++;
+	if (has_cf_creature(cr_ptr, CF_TRUNK))     muta_att++;
+	if (has_cf_creature(cr_ptr, CF_TENTACLES)) muta_att++;
 
 	xthn = cr_ptr->skill_thn + (cr_ptr->to_h_m * BTH_PLUS_ADJ);
 
@@ -2569,50 +2569,50 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
+	if (has_cf_creature(cr_ptr, CF_FLESH_ROT))
 	{
 		remove_flag(flgs, TR_REGEN);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_XTRA_FAT) ||
-		have_creature_flags(cr_ptr, CF_XTRA_LEGS) ||
-		have_creature_flags(cr_ptr, CF_SHORT_LEG) )
+	if (has_cf_creature(cr_ptr, CF_XTRA_FAT) ||
+		has_cf_creature(cr_ptr, CF_XTRA_LEGS) ||
+		has_cf_creature(cr_ptr, CF_SHORT_LEG) )
 	{
 		add_flag(flgs, TR_SPEED);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_ELEC_TOUC))
+	if (has_cf_creature(cr_ptr, CF_ELEC_TOUC))
 	{
 		add_flag(flgs, TR_SH_ELEC);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_FIRE_BODY))
+	if (has_cf_creature(cr_ptr, CF_FIRE_BODY))
 	{
 		add_flag(flgs, TR_SH_FIRE);
 		add_flag(flgs, TR_LITE);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_WINGS))
+	if (has_cf_creature(cr_ptr, CF_WINGS))
 	{
 		add_flag(flgs, TR_LEVITATION);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_FEARLESS))
+	if (has_cf_creature(cr_ptr, CF_FEARLESS))
 	{
 		add_flag(flgs, TR_RES_FEAR);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_REGEN))
+	if (has_cf_creature(cr_ptr, CF_REGEN))
 	{
 		add_flag(flgs, TR_REGEN);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_ESP))
+	if (has_cf_creature(cr_ptr, CF_ESP))
 	{
 		add_flag(flgs, TR_TELEPATHY);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_MOTION))
+	if (has_cf_creature(cr_ptr, CF_MOTION))
 	{
 		add_flag(flgs, TR_FREE_ACT);
 	}
@@ -2938,7 +2938,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (have_creature_flags(cr_ptr, CF_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
+	if (has_cf_creature(cr_ptr, CF_VULN_ELEM) || (cr_ptr->special_defense & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TR_RES_ACID);
 		add_flag(flgs, TR_RES_ELEC);
@@ -3710,37 +3710,37 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
 
 			if (stat == STAT_STR)
 			{
-				if (have_creature_flags(cr_ptr, CF_HYPER_STR)) dummy += 4;
-				if (have_creature_flags(cr_ptr, CF_PUNY)) dummy -= 4;
+				if (has_cf_creature(cr_ptr, CF_HYPER_STR)) dummy += 4;
+				if (has_cf_creature(cr_ptr, CF_PUNY)) dummy -= 4;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
-				if (have_creature_flags(cr_ptr, CF_HYPER_INT)) dummy += 4;
-				if (have_creature_flags(cr_ptr, CF_MORONIC)) dummy -= 4;
+				if (has_cf_creature(cr_ptr, CF_HYPER_INT)) dummy += 4;
+				if (has_cf_creature(cr_ptr, CF_MORONIC)) dummy -= 4;
 			}
 			else if (stat == STAT_DEX)
 			{
-				if (have_creature_flags(cr_ptr, CF_IRON_SKIN)) dummy -= 1;
-				if (have_creature_flags(cr_ptr, CF_LIMBER)) dummy += 3;
-				if (have_creature_flags(cr_ptr, CF_ARTHRITIS)) dummy -= 3;
+				if (has_cf_creature(cr_ptr, CF_IRON_SKIN)) dummy -= 1;
+				if (has_cf_creature(cr_ptr, CF_LIMBER)) dummy += 3;
+				if (has_cf_creature(cr_ptr, CF_ARTHRITIS)) dummy -= 3;
 			}
 			else if (stat == STAT_CON)
 			{
-				if (have_creature_flags(cr_ptr, CF_RESILIENT)) dummy += 4;
-				if (have_creature_flags(cr_ptr, CF_XTRA_FAT)) dummy += 2;
-				if (have_creature_flags(cr_ptr, CF_ALBINO)) dummy -= 4;
-				if (have_creature_flags(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
+				if (has_cf_creature(cr_ptr, CF_RESILIENT)) dummy += 4;
+				if (has_cf_creature(cr_ptr, CF_XTRA_FAT)) dummy += 2;
+				if (has_cf_creature(cr_ptr, CF_ALBINO)) dummy -= 4;
+				if (has_cf_creature(cr_ptr, CF_FLESH_ROT)) dummy -= 2;
 				if (cr_ptr->tsuyoshi) dummy += 4;
 			}
 			else if (stat == STAT_CHR)
 			{
-				if (have_creature_flags(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
-				if (have_creature_flags(cr_ptr, CF_BLANK_FAC)) dummy -= 1;
-				if (have_creature_flags(cr_ptr, CF_FLESH_ROT)) dummy -= 1;
-				if (have_creature_flags(cr_ptr, CF_SCALES)) dummy -= 1;
-				if (have_creature_flags(cr_ptr, CF_WART_SKIN)) dummy -= 2;
-				if (have_creature_flags(cr_ptr, CF_ILL_NORM)) dummy = 0;
+				if (has_cf_creature(cr_ptr, CF_SILLY_VOI)) dummy -= 4;
+				if (has_cf_creature(cr_ptr, CF_BLANK_FAC)) dummy -= 1;
+				if (has_cf_creature(cr_ptr, CF_FLESH_ROT)) dummy -= 1;
+				if (has_cf_creature(cr_ptr, CF_SCALES)) dummy -= 1;
+				if (has_cf_creature(cr_ptr, CF_WART_SKIN)) dummy -= 2;
+				if (has_cf_creature(cr_ptr, CF_ILL_NORM)) dummy = 0;
 			}
 
 			/* Boost */

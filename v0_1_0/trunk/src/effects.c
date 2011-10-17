@@ -5701,10 +5701,10 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 
 	COPY(&exp_mon, tar_ptr, creature_type);
 
-	if (!have_creature_flags(tar_ptr, CF_KILL_EXP))
+	if (!has_cf_creature(tar_ptr, CF_KILL_EXP))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
-		if (tar_ptr->flags6 & RF6_HEAL) expdam = (expdam+1) * 2 / 3;
+		if (has_cf_creature(tar_ptr, CF_HEAL)) expdam = (expdam+1) * 2 / 3;
 
 		get_exp_from_mon(atk_ptr, expdam, &exp_mon);
 
@@ -6135,7 +6135,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (tar_ptr->chp < 0)
 		{
 	
-			if (have_creature_flags(tar_ptr, CF_TANUKI))
+			if (has_cf_creature(tar_ptr, CF_TANUKI))
 			{
 				/* You might have unmasked Tanuki first time */
 				r_ptr = &species_info[tar_ptr->species_idx];
@@ -6203,7 +6203,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Extract monster name */
 			monster_desc(tar_name, tar_ptr, MD_TRUE_NAME);
 		
-			if (have_creature_flags(tar_ptr, CF_CAN_SPEAK))
+			if (has_cf_creature(tar_ptr, CF_CAN_SPEAK))
 			{
 				char line_got[1024];
 	
@@ -6375,7 +6375,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Prevent bug of chaos patron's reward */
-			if (have_creature_flags(tar_ptr, CF_KILL_EXP))
+			if (has_cf_creature(tar_ptr, CF_KILL_EXP))
 				get_exp_from_mon(atk_ptr, (long)exp_mon.mmhp*2, &exp_mon);
 			else
 				get_exp_from_mon(atk_ptr, ((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
@@ -6423,7 +6423,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	}
 	
 	/* Sometimes a monster gets scared by damage */
-	if (!tar_ptr->afraid && !have_creature_flags(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
+	if (!tar_ptr->afraid && !has_cf_creature(tar_ptr, CF_NO_FEAR) && !tar_ptr->resist_fear)
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * tar_ptr->chp) / tar_ptr->mhp;

@@ -1773,15 +1773,15 @@ void battle_monsters(void)
 				power[i] = power[i] * (r_ptr->speed - 20) / 100;
 			if (num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;
-			else if (r_ptr->flags6 & RF6_INVULNER)
+			else if (has_cf(&r_ptr->flags, CF_INVULNER))
 				power[i] = power[i] * 4 / 3;
-			else if (r_ptr->flags6 & RF6_HEAL)
+			else if (has_cf(&r_ptr->flags, CF_HEAL))
 				power[i] = power[i] * 4 / 3;
-			else if (r_ptr->flags5 & RF5_DRAIN_MANA)
+			else if (has_cf(&r_ptr->flags, CF_DRAIN_MANA))
 				power[i] = power[i] * 11 / 10;
-			if (is_random_walker_25_species(r_ptr))
+			if (has_cf(&r_ptr->flags, CF_RAND_25))
 				power[i] = power[i] * 9 / 10;
-			if (is_random_walker_50_species(r_ptr))
+			if (has_cf(&r_ptr->flags, CF_RAND_50))
 				power[i] = power[i] * 9 / 10;
 
 			switch (battle_mon[i])
@@ -2656,9 +2656,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	}
 
 	/* Else gain permanent insanity */
-	if (have_creature_flags(watcher_ptr, CF_MORONIC) && have_creature_flags(watcher_ptr, CF_BERS_RAGE) &&
-		(have_creature_flags(watcher_ptr, CF_COWARDICE) || watcher_ptr->resist_fear) &&
-		(have_creature_flags(watcher_ptr, CF_HALLU) || watcher_ptr->resist_chaos))
+	if (has_cf_creature(watcher_ptr, CF_MORONIC) && has_cf_creature(watcher_ptr, CF_BERS_RAGE) &&
+		(has_cf_creature(watcher_ptr, CF_COWARDICE) || watcher_ptr->resist_fear) &&
+		(has_cf_creature(watcher_ptr, CF_HALLU) || watcher_ptr->resist_chaos))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2670,7 +2670,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!have_creature_flags(watcher_ptr, CF_MORONIC))
+				if (!has_cf_creature(watcher_ptr, CF_MORONIC))
 				{
 					if ((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
@@ -2689,7 +2689,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 #endif
 					}
 
-					if (have_creature_flags(watcher_ptr, CF_HYPER_INT))
+					if (has_cf_creature(watcher_ptr, CF_HYPER_INT))
 					{
 #ifdef JP
 msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2706,7 +2706,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 			}
 			case 2:
 			{
-				if (!have_creature_flags(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
+				if (!has_cf_creature(watcher_ptr, CF_COWARDICE) && !watcher_ptr->resist_fear)
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2716,7 +2716,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (have_creature_flags(watcher_ptr, CF_FEARLESS))
+					if (has_cf_creature(watcher_ptr, CF_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2734,7 +2734,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			}
 			case 3:
 			{
-				if (!have_creature_flags(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
+				if (!has_cf_creature(watcher_ptr, CF_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2749,7 +2749,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 			}
 			default:
 			{
-				if (!have_creature_flags(watcher_ptr, CF_BERS_RAGE))
+				if (!has_cf_creature(watcher_ptr, CF_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -4958,7 +4958,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || have_creature_flags(cr_ptr, CF_CHAOS_GIFT))
+		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || has_cf_creature(cr_ptr, CF_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", r_name + species_info[cr_ptr->patron_idx].name);

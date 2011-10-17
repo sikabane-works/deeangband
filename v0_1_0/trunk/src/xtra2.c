@@ -719,8 +719,8 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = !have_creature_flags(cr_ptr, CF_ONLY_GOLD);
-	bool do_item = !have_creature_flags(cr_ptr, CF_ONLY_ITEM);
+	bool do_gold = !has_cf_creature(cr_ptr, CF_ONLY_GOLD);
+	bool do_item = !has_cf_creature(cr_ptr, CF_ONLY_ITEM);
 	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
 	int force_coin = get_coin_type(cr_ptr->species_idx);
 
@@ -847,8 +847,8 @@ msg_print("地面に落とされた。");
 
 
 	/* Drop a dead corpse? */
-	if (one_in_(have_creature_flags(cr_ptr, CF_UNIQUE) ? 1 : 4) &&
-	    (have_creature_flags(cr_ptr, CF_DROP_CORPSE) || have_creature_flags(cr_ptr, CF_DROP_SKELETON)) &&
+	if (one_in_(has_cf_creature(cr_ptr, CF_UNIQUE) ? 1 : 4) &&
+	    (has_cf_creature(cr_ptr, CF_DROP_CORPSE) || has_cf_creature(cr_ptr, CF_DROP_SKELETON)) &&
 	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
 	{
 		/* Assume skeleton */
@@ -858,13 +858,13 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!have_creature_flags(cr_ptr, CF_DROP_SKELETON))
+		if (!has_cf_creature(cr_ptr, CF_DROP_SKELETON))
 			corpse = TRUE;
-		else if (have_creature_flags(cr_ptr, CF_DROP_CORPSE) && have_creature_flags(cr_ptr, CF_UNIQUE))
+		else if (has_cf_creature(cr_ptr, CF_DROP_CORPSE) && has_cf_creature(cr_ptr, CF_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (have_creature_flags(cr_ptr, CF_DROP_CORPSE))
+		else if (has_cf_creature(cr_ptr, CF_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
 			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
@@ -1253,7 +1253,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (have_creature_flags(cr_ptr, CF_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
+		if (has_cf_creature(cr_ptr, CF_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1442,14 +1442,14 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	// TODO NEW CALC
 
 	/* Special penalty in the wilderness */
-	if (!dun_level && (!have_creature_flags(tar_ptr, CF_WILD_ONLY) || !(have_creature_flags(tar_ptr, CF_UNIQUE))))
+	if (!dun_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
 
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
 	/* Special penalty for mutiply-monster */
-	if (have_creature_flags(tar_ptr, CF_MULTIPLY) || (tar_ptr->species_idx == MON_DAWN))
+	if (has_cf_creature(tar_ptr, CF_MULTIPLY) || (tar_ptr->species_idx == MON_DAWN))
 	{
 		int monnum_penarty = species_ptr->r_akills / 400;
 		if (monnum_penarty > 8) monnum_penarty = 8;

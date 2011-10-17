@@ -111,7 +111,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	if (!feel) return;
 
 	/* Bad luck */
-	if (have_creature_flags(cr_ptr, CF_BAD_LUCK) && !randint0(13))
+	if (has_cf_creature(cr_ptr, CF_BAD_LUCK) && !randint0(13))
 	{
 		switch (feel)
 		{
@@ -447,7 +447,7 @@ static void sense_inventory1(creature_type *cr_ptr)
 		if ((i < INVEN_1STARM) && (0 != randint0(5))) continue;
 
 		/* Good luck */
-		if (have_creature_flags(cr_ptr, CF_GOOD_LUCK) && !randint0(13))
+		if (has_cf_creature(cr_ptr, CF_GOOD_LUCK) && !randint0(13))
 		{
 			heavy = TRUE;
 		}
@@ -1025,7 +1025,7 @@ static void regen_monsters(creature_type *cr_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some monsters regenerate quickly */
-			if (have_creature_flags(cr_ptr, CF_REGENERATE)) frac *= 2;
+			if (has_cf_creature(cr_ptr, CF_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			m_ptr->chp += frac;
@@ -1075,7 +1075,7 @@ static void regen_captured_monsters(creature_type *cr_ptr)
 			if (!frac) if (one_in_(2)) frac = 1;
 
 			/* Hack -- Some monsters regenerate quickly */
-			if (have_creature_flags(cr_ptr, CF_REGENERATE)) frac *= 2;
+			if (has_cf_creature(cr_ptr, CF_REGENERATE)) frac *= 2;
 
 			/* Hack -- Regenerate */
 			o_ptr->xtra4 += frac;
@@ -1752,7 +1752,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	{
 		creature_type *steed_ptr = &creature_list[cr_ptr->riding];
 		int damage;
-		if (have_creature_flags(steed_ptr, CF_AURA_FIRE) && !cr_ptr->immune_fire)
+		if (has_cf_creature(steed_ptr, CF_AURA_FIRE) && !cr_ptr->immune_fire)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_FIRE);
@@ -1764,7 +1764,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
-		if (have_creature_flags(steed_ptr, CF_AURA_ELEC) && !cr_ptr->immune_elec)
+		if (has_cf_creature(steed_ptr, CF_AURA_ELEC) && !cr_ptr->immune_elec)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_ELEC);
@@ -1776,7 +1776,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
-		if (have_creature_flags(steed_ptr, CF_AURA_COLD) && !cr_ptr->immune_cold)
+		if (has_cf_creature(steed_ptr, CF_AURA_COLD) && !cr_ptr->immune_cold)
 		{
 			damage = species_info[creature_list[cr_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(cr_ptr, damage, DAMAGE_TYPE_COLD);
@@ -2296,7 +2296,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (wild_mode) return;
 
 
-	if (have_creature_flags(cr_ptr, CF_BERS_RAGE) && one_in_(3000))
+	if (has_cf_creature(cr_ptr, CF_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2311,7 +2311,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		(void)set_afraid(cr_ptr, 0);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_COWARDICE) && (randint1(3000) == 13))
+	if (has_cf_creature(cr_ptr, CF_COWARDICE) && (randint1(3000) == 13))
 	{
 		if (!cr_ptr->resist_fear)
 		{
@@ -2326,9 +2326,9 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
+	if (has_cf_creature(cr_ptr, CF_RTELEPORT) && (randint1(5000) == 88))
 	{
-		if (!cr_ptr->resist_nexus && !have_creature_flags(cr_ptr, CF_VTELEPORT) &&
+		if (!cr_ptr->resist_nexus && !has_cf_creature(cr_ptr, CF_VTELEPORT) &&
 		    !cr_ptr->anti_tele)
 		{
 			disturb(0, 0);
@@ -2345,7 +2345,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
+	if (has_cf_creature(cr_ptr, CF_ALCOHOL) && (randint1(6400) == 321))
 	{
 		if (!cr_ptr->resist_conf && !cr_ptr->resist_chaos)
 		{
@@ -2398,7 +2398,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_HALLU) && (randint1(6400) == 42))
+	if (has_cf_creature(cr_ptr, CF_HALLU) && (randint1(6400) == 42))
 	{
 		if (!cr_ptr->resist_chaos)
 		{
@@ -2408,7 +2408,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_FLATULENT) && (randint1(3000) == 13))
+	if (has_cf_creature(cr_ptr, CF_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(0, 0);
 
@@ -2422,7 +2422,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		fire_ball(GF_POIS, 0, cr_ptr->lev, 3);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_PROD_MANA) &&
+	if (has_cf_creature(cr_ptr, CF_PROD_MANA) &&
 	    !cr_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
@@ -2439,7 +2439,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		fire_ball(GF_MANA, dire, cr_ptr->lev * 2, 3);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_ATT_DEMON) &&
+	if (has_cf_creature(cr_ptr, CF_ATT_DEMON) &&
 	    !cr_ptr->anti_magic && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
@@ -2461,7 +2461,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_SPEED_FLUX) && one_in_(6000))
+	if (has_cf_creature(cr_ptr, CF_SPEED_FLUX) && one_in_(6000))
 	{
 		disturb(0, 0);
 		if (one_in_(2))
@@ -2500,7 +2500,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 		msg_print(NULL);
 	}
-	if (have_creature_flags(cr_ptr, CF_BANISH_ALL) && one_in_(9000))
+	if (has_cf_creature(cr_ptr, CF_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2513,7 +2513,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_EAT_LIGHT) && one_in_(3000))
+	if (has_cf_creature(cr_ptr, CF_EAT_LIGHT) && one_in_(3000))
 	{
 		object_type *o_ptr;
 
@@ -2564,7 +2564,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		unlite_area(50, 10);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_ATT_ANIMAL) &&
+	if (has_cf_creature(cr_ptr, CF_ATT_ANIMAL) &&
 	    !cr_ptr->anti_magic && one_in_(7000))
 	{
 		bool pet = one_in_(3);
@@ -2585,7 +2585,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		}
 	}
 
-	if (have_creature_flags(cr_ptr, CF_RAW_CHAOS) &&
+	if (has_cf_creature(cr_ptr, CF_RAW_CHAOS) &&
 	    !cr_ptr->anti_magic && one_in_(8000))
 	{
 		disturb(0, 0);
@@ -2598,7 +2598,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		fire_ball(GF_CHAOS, 0, cr_ptr->lev, 8);
 	}
-	if (have_creature_flags(cr_ptr, CF_NORMALITY) && one_in_(5000))
+	if (has_cf_creature(cr_ptr, CF_NORMALITY) && one_in_(5000))
 	{
 		if (!lose_mutation(cr_ptr, 0))
 #ifdef JP
@@ -2608,7 +2608,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if (have_creature_flags(cr_ptr, CF_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
+	if (has_cf_creature(cr_ptr, CF_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
 	{
 		disturb(0, 0);
 #ifdef JP
@@ -2620,11 +2620,11 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		set_wraith_form(cr_ptr, randint1(cr_ptr->lev / 2) + (cr_ptr->lev / 2), FALSE);
 	}
-	if (have_creature_flags(cr_ptr, CF_POLY_WOUND) && one_in_(3000))
+	if (has_cf_creature(cr_ptr, CF_POLY_WOUND) && one_in_(3000))
 	{
 		do_poly_wounds(cr_ptr);
 	}
-	if (have_creature_flags(cr_ptr, CF_WASTING) && one_in_(3000))
+	if (has_cf_creature(cr_ptr, CF_WASTING) && one_in_(3000))
 	{
 		int which_stat = randint0(6);
 		int sustained = FALSE;
@@ -2672,7 +2672,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			(void)dec_stat(cr_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
-	if (have_creature_flags(cr_ptr, CF_ATT_DRAGON) &&
+	if (has_cf_creature(cr_ptr, CF_ATT_DRAGON) &&
 	    !cr_ptr->anti_magic && one_in_(3000))
 	{
 		bool pet = one_in_(5);
@@ -2692,7 +2692,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			disturb(0, 0);
 		}
 	}
-	if (have_creature_flags(cr_ptr, CF_WEIRD_MIND) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(cr_ptr, CF_WEIRD_MIND) && !cr_ptr->anti_magic &&
 	    one_in_(3000))
 	{
 		if (cr_ptr->tim_esp > 0)
@@ -2716,7 +2716,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			set_tim_esp(cr_ptr, cr_ptr->lev, FALSE);
 		}
 	}
-	if (have_creature_flags(cr_ptr, CF_NAUSEA) && !cr_ptr->slow_digest &&
+	if (has_cf_creature(cr_ptr, CF_NAUSEA) && !cr_ptr->slow_digest &&
 	    one_in_(9000))
 	{
 		disturb(0, 0);
@@ -2732,13 +2732,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (hex_spelling_any(cr_ptr)) stop_hex_spell_all(cr_ptr);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_WALK_SHAD) &&
+	if (has_cf_creature(cr_ptr, CF_WALK_SHAD) &&
 	    !cr_ptr->anti_magic && one_in_(12000) && !inside_arena)
 	{
 		alter_reality(cr_ptr);
 	}
 
-	if (have_creature_flags(cr_ptr, CF_WARNING) && one_in_(1000))
+	if (has_cf_creature(cr_ptr, CF_WARNING) && one_in_(1000))
 	{
 		int danger_amount = 0;
 		int monster;
@@ -2800,7 +2800,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 #endif
 
 	}
-	if (have_creature_flags(cr_ptr, CF_INVULN) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(cr_ptr, CF_INVULN) && !cr_ptr->anti_magic &&
 	    one_in_(5000))
 	{
 		disturb(0, 0);
@@ -2813,7 +2813,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		msg_print(NULL);
 		(void)set_invuln(cr_ptr, randint1(8) + 8, FALSE);
 	}
-	if (have_creature_flags(cr_ptr, CF_SP_TO_HP) && one_in_(2000))
+	if (has_cf_creature(cr_ptr, CF_SP_TO_HP) && one_in_(2000))
 	{
 		int wounds = cr_ptr->mhp - cr_ptr->chp;
 
@@ -2833,7 +2833,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if (have_creature_flags(cr_ptr, CF_HP_TO_SP) && !cr_ptr->anti_magic &&
+	if (has_cf_creature(cr_ptr, CF_HP_TO_SP) && !cr_ptr->anti_magic &&
 	    one_in_(4000))
 	{
 		int wounds = cr_ptr->msp - cr_ptr->csp;
@@ -2859,7 +2859,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		}
 	}
-	if (have_creature_flags(cr_ptr, CF_DISARM) && one_in_(10000))
+	if (has_cf_creature(cr_ptr, CF_DISARM) && one_in_(10000))
 	{
 		int slot = 0;
 		object_type *o_ptr = NULL;
@@ -3562,7 +3562,7 @@ static byte get_dungeon_feeling(void)
 		}
 
 		/* Unusually crowded monsters get a little bit of rating boost */
-		if (have_creature_flags(m_ptr, CF_FRIENDS))
+		if (has_cf_creature(m_ptr, CF_FRIENDS))
 		{
 			if (5 <= get_monster_crowd_number(i)) delta += 1;
 		}
@@ -5937,7 +5937,7 @@ msg_print("中断しました。");
 					r_ptr = &species_info[m_ptr->ap_species_idx];
 
 					/* Skip non-multi-hued monsters */
-					if (!have_creature_flags(m_ptr, CF_ATTR_MULTI) && !have_creature_flags(m_ptr, CF_SHAPECHANGER))
+					if (!has_cf_creature(m_ptr, CF_ATTR_MULTI) && !has_cf_creature(m_ptr, CF_SHAPECHANGER))
 						continue;
 
 					/* Reset the flag */

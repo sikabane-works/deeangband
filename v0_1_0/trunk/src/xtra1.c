@@ -3686,48 +3686,48 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->flags14)
 	{
 		/* Hyper Strength */
-		if (have_creature_flags(cr_ptr, CF_HYPER_STR))
+		if (has_cf_creature(cr_ptr, CF_HYPER_STR))
 		{
 			cr_ptr->stat_add[STAT_STR] += 4;
 		}
 
 		/* Puny */
-		if (have_creature_flags(cr_ptr, CF_PUNY))
+		if (has_cf_creature(cr_ptr, CF_PUNY))
 		{
 			cr_ptr->stat_add[STAT_STR] -= 4;
 		}
 
 		/* Living computer */
-		if (have_creature_flags(cr_ptr, CF_HYPER_INT))
+		if (has_cf_creature(cr_ptr, CF_HYPER_INT))
 		{
 			cr_ptr->stat_add[STAT_INT] += 4;
 			cr_ptr->stat_add[STAT_WIS] += 4;
 		}
 
 		/* Moronic */
-		if (have_creature_flags(cr_ptr, CF_MORONIC))
+		if (has_cf_creature(cr_ptr, CF_MORONIC))
 		{
 			cr_ptr->stat_add[STAT_INT] -= 4;
 			cr_ptr->stat_add[STAT_WIS] -= 4;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_RESILIENT))
+		if (has_cf_creature(cr_ptr, CF_RESILIENT))
 		{
 			cr_ptr->stat_add[STAT_CON] += 4;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_XTRA_FAT))
+		if (has_cf_creature(cr_ptr, CF_XTRA_FAT))
 		{
 			cr_ptr->stat_add[STAT_CON] += 2;
 			new_speed -= 2;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_ALBINO))
+		if (has_cf_creature(cr_ptr, CF_ALBINO))
 		{
 			cr_ptr->stat_add[STAT_CON] -= 4;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_FLESH_ROT))
+		if (has_cf_creature(cr_ptr, CF_FLESH_ROT))
 		{
 			cr_ptr->stat_add[STAT_CON] -= 2;
 			cr_ptr->stat_add[STAT_CHR] -= 1;
@@ -3735,118 +3735,118 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			/* Cancel innate regeneration */
 		}
 
-		if (have_creature_flags(cr_ptr, CF_SILLY_VOI))
+		if (has_cf_creature(cr_ptr, CF_SILLY_VOI))
 		{
 			cr_ptr->stat_add[STAT_CHR] -= 4;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_BLANK_FAC))
+		if (has_cf_creature(cr_ptr, CF_BLANK_FAC))
 		{
 			cr_ptr->stat_add[STAT_CHR] -= 1;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_XTRA_EYES))
+		if (has_cf_creature(cr_ptr, CF_XTRA_EYES))
 		{
 			cr_ptr->skill_fos += 15;
 			cr_ptr->skill_srh += 15;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_MAGIC_RES))
+		if (has_cf_creature(cr_ptr, CF_MAGIC_RES))
 		{
 			cr_ptr->skill_rob += (15 + (cr_ptr->lev / 5));
 			cr_ptr->skill_eva += (15 + (cr_ptr->lev / 5));
 			cr_ptr->skill_vol += (15 + (cr_ptr->lev / 5));
 		}
 
-		if (have_creature_flags(cr_ptr, CF_XTRA_NOIS))
+		if (has_cf_creature(cr_ptr, CF_XTRA_NOIS))
 		{
 			cr_ptr->skill_stl -= 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_INFRAVIS))
+		if (has_cf_creature(cr_ptr, CF_INFRAVIS))
 		{
 			cr_ptr->see_infra += 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_XTRA_LEGS))
+		if (has_cf_creature(cr_ptr, CF_XTRA_LEGS))
 		{
 			new_speed += 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_SHORT_LEG))
+		if (has_cf_creature(cr_ptr, CF_SHORT_LEG))
 		{
 			new_speed -= 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_ELEC_TOUC))
+		if (has_cf_creature(cr_ptr, CF_ELEC_TOUC))
 		{
 			cr_ptr->sh_elec = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_FIRE_BODY))
+		if (has_cf_creature(cr_ptr, CF_FIRE_BODY))
 		{
 			cr_ptr->sh_fire = TRUE;
 			cr_ptr->lite = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_WART_SKIN))
+		if (has_cf_creature(cr_ptr, CF_WART_SKIN))
 		{
 			cr_ptr->stat_add[STAT_CHR] -= 2;
 			cr_ptr->to_a += 5;
 			cr_ptr->dis_to_a += 5;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_SCALES))
+		if (has_cf_creature(cr_ptr, CF_SCALES))
 		{
 			cr_ptr->stat_add[STAT_CHR] -= 1;
 			cr_ptr->to_a += 10;
 			cr_ptr->dis_to_a += 10;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_IRON_SKIN))
+		if (has_cf_creature(cr_ptr, CF_IRON_SKIN))
 		{
 			cr_ptr->stat_add[STAT_DEX] -= 1;
 			cr_ptr->to_a += 25;
 			cr_ptr->dis_to_a += 25;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_WINGS))
+		if (has_cf_creature(cr_ptr, CF_WINGS))
 		{
 			cr_ptr->levitation = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_FEARLESS))
+		if (has_cf_creature(cr_ptr, CF_FEARLESS))
 		{
 			cr_ptr->resist_fear = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_REGEN))
+		if (has_cf_creature(cr_ptr, CF_REGEN))
 		{
 			cr_ptr->regenerate = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_ESP))
+		if (has_cf_creature(cr_ptr, CF_ESP))
 		{
 			cr_ptr->telepathy = TRUE;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_LIMBER))
+		if (has_cf_creature(cr_ptr, CF_LIMBER))
 		{
 			cr_ptr->stat_add[STAT_DEX] += 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_ARTHRITIS))
+		if (has_cf_creature(cr_ptr, CF_ARTHRITIS))
 		{
 			cr_ptr->stat_add[STAT_DEX] -= 3;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_MOTION))
+		if (has_cf_creature(cr_ptr, CF_MOTION))
 		{
 			cr_ptr->free_act = TRUE;
 			cr_ptr->skill_stl += 1;
 		}
 
-		if (have_creature_flags(cr_ptr, CF_ILL_NORM))
+		if (has_cf_creature(cr_ptr, CF_ILL_NORM))
 		{
 			cr_ptr->stat_add[STAT_CHR] = 0;
 		}
@@ -4427,7 +4427,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		/* Extract the new "stat_use" value for the stat */
 		use = modify_stat_value(cr_ptr->stat_cur[i], cr_ptr->stat_add[i]);
 
-		if ((i == STAT_CHR) && (have_creature_flags(cr_ptr, CF_ILL_NORM)))
+		if ((i == STAT_CHR) && (has_cf_creature(cr_ptr, CF_ILL_NORM)))
 		{
 			/* 10 to 18/90 charisma, guaranteed, based on level */
 			if (use < 8 + 2 * cr_ptr->lev)
