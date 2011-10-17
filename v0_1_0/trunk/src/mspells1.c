@@ -1289,7 +1289,6 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 {
 	int             k, thrown_spell = 0, rlev, failrate;
 	byte            spell[96], num = 0;
-	u32b            f4, f5, f6;
 	species_type    *r_ptr = &species_info[user_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP
@@ -1350,18 +1349,13 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	/* XXX XXX XXX Handle "track_target" option (?) */
 
 
-	/* Extract the racial spell flags */
-	f4 = r_ptr->flags4;
-	f5 = r_ptr->flags5;
-	f6 = r_ptr->flags6;
-
 	/*** require projectable player ***/
 
 	/* Check range */
 	if ((user_ptr->cdis > MAX_RANGE(target_ptr)) && !user_ptr->target_y) return (FALSE);
 
 	/* Check path for lite breath */
-	if (f4 & RF4_BR_LITE)
+	if (has_cf_creature(target_ptr, CF_BR_LITE))
 	{
 		y_br_lite = y;
 		x_br_lite = x;
@@ -1372,15 +1366,15 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 
 			if (!have_flag(f_ptr->flags, FF_LOS))
 			{
-				if (have_flag(f_ptr->flags, FF_PROJECT) && one_in_(2)) f4 &= ~(RF4_BR_LITE);
+				//TODO if (have_flag(f_ptr->flags, FF_PROJECT) && one_in_(2)) f4 &= ~(RF4_BR_LITE);
 			}
 		}
 
 		/* Check path to next grid */
-		else if (!adjacent_grid_check(user_ptr, &y_br_lite, &x_br_lite, FF_LOS, los)) f4 &= ~(RF4_BR_LITE);
+		//TODO else if (!adjacent_grid_check(user_ptr, &y_br_lite, &x_br_lite, FF_LOS, los)) f4 &= ~(RF4_BR_LITE);
 
 		/* Don't breath lite to the wall if impossible */
-		if (!(f4 & RF4_BR_LITE))
+		if (!has_cf_creature(target_ptr, CF_BR_LITE))
 		{
 			y_br_lite = 0;
 			x_br_lite = 0;
@@ -1395,10 +1389,10 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		if (!have_flag(f_ptr->flags, FF_PROJECT))
 		{
 			/* Breath disintegration to the wall if possible */
-			if ((f4 & RF4_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
+			if (has_cf_creature(target_ptr, CF_BR_DISI) && have_flag(f_ptr->flags, FF_HURT_DISI) && one_in_(2)) do_spell = DO_SPELL_BR_DISI;
 
 			/* Breath lite to the transparent wall if possible */
-			else if ((f4 & RF4_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
+			else if (has_cf_creature(target_ptr, CF_BR_LITE) && have_flag(f_ptr->flags, FF_LOS) && one_in_(2)) do_spell = DO_SPELL_BR_LITE;
 		}
 	}
 
@@ -1407,20 +1401,20 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	{
 		bool success = FALSE;
 
-		if ((f4 & RF4_BR_DISI) && (user_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
+		if (has_cf_creature(target_ptr, CF_BR_DISI) && (user_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
 		    in_disintegration_range(user_ptr->fy, user_ptr->fx, y, x) &&
 		    (one_in_(10) || (projectable(y, x, user_ptr->fy, user_ptr->fx) && one_in_(2))))
 		{
 			do_spell = DO_SPELL_BR_DISI;
 			success = TRUE;
 		}
-		else if ((f4 & RF4_BR_LITE) && (user_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
+		else if (has_cf_creature(target_ptr, CF_BR_LITE) && (user_ptr->cdis < MAX_RANGE(target_ptr)/2) &&
 		    los(user_ptr->fy, user_ptr->fx, y, x) && one_in_(5))
 		{
 			do_spell = DO_SPELL_BR_LITE;
 			success = TRUE;
 		}
-		else if ((f5 & RF5_BA_LITE) && (user_ptr->cdis <= MAX_RANGE(target_ptr)))
+		else if (has_cf_creature(target_ptr, CF_BA_LITE) && (user_ptr->cdis <= MAX_RANGE(target_ptr)))
 		{
 			int by = y, bx = x;
 			get_project_point(user_ptr->fy, user_ptr->fx, &by, &bx, 0L);
@@ -1439,9 +1433,9 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 			{
 				y = user_ptr->target_y;
 				x = user_ptr->target_x;
-				f4 &= (RF4_INDIRECT_MASK);
-				f5 &= (RF5_INDIRECT_MASK);
-				f6 &= (RF6_INDIRECT_MASK);
+				//TODO f4 &= (RF4_INDIRECT_MASK);
+				//TODO f5 &= (RF5_INDIRECT_MASK);
+				//TODO f6 &= (RF6_INDIRECT_MASK);
 				success = TRUE;
 			}
 
@@ -1454,7 +1448,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 					do_spell = DO_SPELL_BR_LITE;
 					success = TRUE;
 				}
-				else f4 |= (RF4_BR_LITE);
+				//TODO else f4 |= (RF4_BR_LITE);
 			}
 		}
 
@@ -1470,12 +1464,12 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	/* Forbid inate attacks sometimes */
 	if (no_inate)
 	{
-		f4 &= ~(RF4_NOMAGIC_MASK);
-		f5 &= ~(RF5_NOMAGIC_MASK);
-		f6 &= ~(RF6_NOMAGIC_MASK);
+		//TODO f4 &= ~(RF4_NOMAGIC_MASK);
+		//TODO f5 &= ~(RF5_NOMAGIC_MASK);
+		//TODO f6 &= ~(RF6_NOMAGIC_MASK);
 	}
 
-	if (f6 & RF6_DARKNESS)
+	if (has_cf_creature(target_ptr, CF_DARKNESS))
 	{
 		if ((target_ptr->cls_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(user_ptr) &&
@@ -1485,16 +1479,16 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 
 		if (!has_cf_creature(user_ptr, CF_STUPID))
 		{
-			if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
-			else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
+			//TODO if (d_info[dungeon_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
+			//TODO else if ((target_ptr->cls_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}
 
 	if (in_no_magic_dungeon && !has_cf_creature(user_ptr, CF_STUPID))
 	{
-		f4 &= (RF4_NOMAGIC_MASK);
-		f5 &= (RF5_NOMAGIC_MASK);
-		f6 &= (RF6_NOMAGIC_MASK);
+		//TODO f4 &= (RF4_NOMAGIC_MASK);
+		//TODO f5 &= (RF5_NOMAGIC_MASK);
+		//TODO f6 &= (RF6_NOMAGIC_MASK);
 	}
 
 	if (has_cf_creature(user_ptr, CF_SMART))
@@ -1504,101 +1498,101 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 			(randint0(100) < 50))
 		{
 			/* Require intelligent spells */
-			f4 &= (RF4_INT_MASK);
-			f5 &= (RF5_INT_MASK);
-			f6 &= (RF6_INT_MASK);
+			//TODO f4 &= (RF4_INT_MASK);
+			//TODO f5 &= (RF5_INT_MASK);
+			//TODO f6 &= (RF6_INT_MASK);
 		}
 
 		/* Hack -- decline "teleport level" in some case */
-		if ((f6 & RF6_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(target_ptr, 0))
+		if (has_cf_creature(target_ptr, CF_TELE_LEVEL) && TELE_LEVEL_IS_INEFF(target_ptr, 0))
 		{
-			f6 &= ~(RF6_TELE_LEVEL);
+			//TODO f6 &= ~(RF6_TELE_LEVEL);
 		}
 	}
 
 	/* No spells left */
-	if (!f4 && !f5 && !f6) return (FALSE);
+	//TODO if (!f4 && !f5 && !f6) return (FALSE);
 
 	/* Remove the "ineffective" spells */
-	remove_bad_spells(user_ptr, &f4, &f5, &f6);
+	//TODO remove_bad_spells(user_ptr, &f4, &f5, &f6);
 
 	if (inside_arena || inside_battle)
 	{
-		f4 &= ~(RF4_SUMMON_MASK);
-		f5 &= ~(RF5_SUMMON_MASK);
-		f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
+		//TODO f4 &= ~(RF4_SUMMON_MASK);
+		//TODO f5 &= ~(RF5_SUMMON_MASK);
+		//TODO f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
 
-		if (user_ptr->species_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
+		//TODO if (user_ptr->species_idx == MON_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
 
 	/* No spells left */
-	if (!f4 && !f5 && !f6) return (FALSE);
+	//TODO if (!f4 && !f5 && !f6) return (FALSE);
 
 	if (!has_cf_creature(user_ptr, CF_STUPID))
 	{
-		if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
+		//TODO if (!target_ptr->csp) f5 &= ~(RF5_DRAIN_MANA);
 
 		/* Check for a clean bolt shot */
-		if (((f4 & RF4_BOLT_MASK) ||
-		     (f5 & RF5_BOLT_MASK) ||
-		     (f6 & RF6_BOLT_MASK)) &&
-		    !clean_shot(user_ptr->fy, user_ptr->fx, target_ptr->fy, target_ptr->fx, FALSE))
-		{
+		//TODO if (((f4 & RF4_BOLT_MASK) ||
+		//TODO      (f5 & RF5_BOLT_MASK) ||
+		//TODO      (f6 & RF6_BOLT_MASK)) &&
+		//TODO     !clean_shot(user_ptr->fy, user_ptr->fx, target_ptr->fy, target_ptr->fx, FALSE))
+		//TODO {
 			/* Remove spells that will only hurt friends */
-			f4 &= ~(RF4_BOLT_MASK);
-			f5 &= ~(RF5_BOLT_MASK);
-			f6 &= ~(RF6_BOLT_MASK);
-		}
+		//TODO 	f4 &= ~(RF4_BOLT_MASK);
+		//TODO 	f5 &= ~(RF5_BOLT_MASK);
+		//TODO 	f6 &= ~(RF6_BOLT_MASK);
+		//TODO }
 
 		/* Check for a possible summon */
-		if (((f4 & RF4_SUMMON_MASK) ||
-		     (f5 & RF5_SUMMON_MASK) ||
-		     (f6 & RF6_SUMMON_MASK)) &&
-		    !(summon_possible(y, x)))
-		{
+		//TODO if (((f4 & RF4_SUMMON_MASK) ||
+		//TODO      (f5 & RF5_SUMMON_MASK) ||
+		//TODO      (f6 & RF6_SUMMON_MASK)) &&
+		//TODO     !(summon_possible(y, x)))
+		//TODO {
 			/* Remove summoning spells */
-			f4 &= ~(RF4_SUMMON_MASK);
-			f5 &= ~(RF5_SUMMON_MASK);
-			f6 &= ~(RF6_SUMMON_MASK);
-		}
+		//TODO 	f4 &= ~(RF4_SUMMON_MASK);
+		//TODO 	f5 &= ~(RF5_SUMMON_MASK);
+		//TODO 	f6 &= ~(RF6_SUMMON_MASK);
+		//TODO }
 
 		/* Check for a possible raise dead */
-		if ((f6 & RF6_RAISE_DEAD) && !raise_possible(user_ptr))
+		if (has_cf_creature(user_ptr, CF_RAISE_DEAD) && !raise_possible(user_ptr))
 		{
 			/* Remove raise dead spell */
-			f6 &= ~(RF6_RAISE_DEAD);
+			//TODO f6 &= ~(RF6_RAISE_DEAD);
 		}
 
 		/* Special moves restriction */
-		if (f6 & RF6_SPECIAL)
+		if (has_cf_creature(user_ptr, CF_SPECIAL))
 		{
 			if ((user_ptr->species_idx == MON_ROLENTO) && !summon_possible(y, x))
 			{
-				f6 &= ~(RF6_SPECIAL);
+				//TODO f6 &= ~(RF6_SPECIAL);
 			}
 		}
 
 		/* No spells left */
-		if (!f4 && !f5 && !f6) return (FALSE);
+		//TODO if (!f4 && !f5 && !f6) return (FALSE);
 	}
 
 	/* Extract the "inate" spells */
-	for (k = 0; k < 32; k++)
-	{
-		if (f4 & (1L << k)) spell[num++] = k + 32 * 3;
-	}
+	//TODO for (k = 0; k < 32; k++)
+	//TODO {
+	//TODO	if (f4 & (1L << k)) spell[num++] = k + 32 * 3;
+	//TODO}
 
 	/* Extract the "normal" spells */
-	for (k = 0; k < 32; k++)
-	{
-		if (f5 & (1L << k)) spell[num++] = k + 32 * 4;
-	}
+	//TODOfor (k = 0; k < 32; k++)
+	//TODO{
+	//TODO	if (f5 & (1L << k)) spell[num++] = k + 32 * 4;
+	//TODO}
 
 	/* Extract the "bizarre" spells */
-	for (k = 0; k < 32; k++)
-	{
-		if (f6 & (1L << k)) spell[num++] = k + 32 * 5;
-	}
+	//TODOfor (k = 0; k < 32; k++)
+	//TODO{
+	//TODO	if (f6 & (1L << k)) spell[num++] = k + 32 * 5;
+	//TODO}
 
 	/* No spells left */
 	if (!num) return (FALSE);
