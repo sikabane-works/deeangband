@@ -1781,7 +1781,7 @@ extern void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_p
 extern bool clean_shot(int y1, int x1, int y2, int x2, bool friend);
 extern bool summon_possible(int y1, int x1);
 extern bool raise_possible(creature_type *m_ptr);
-extern bool dispel_check(creature_type *cr_ptr);
+extern bool dispel_check(creature_type *user_ptr, creature_type *target_ptr);
 extern bool spell_is_inate(u16b spell);
 extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
 

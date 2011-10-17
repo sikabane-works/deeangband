@@ -829,96 +829,95 @@ static bool spell_dispel(byte spell)
 /*
  * Check should monster cast dispel spell.
  */
-bool dispel_check(creature_type *cr_ptr)
+bool dispel_check(creature_type *user_ptr, creature_type *tar_ptr)
 {
-	species_type *r_ptr = &species_info[cr_ptr->species_idx];
 
 	/* Invulnabilty (including the song) */
-	if (IS_INVULN(cr_ptr)) return (TRUE);
+	if (IS_INVULN(tar_ptr)) return (TRUE);
 
 	/* Wraith form */
-	if (cr_ptr->wraith_form) return (TRUE);
+	if (tar_ptr->wraith_form) return (TRUE);
 
 	/* Shield */
-	if (cr_ptr->shield) return (TRUE);
+	if (tar_ptr->shield) return (TRUE);
 
 	/* Magic defence */
-	if (cr_ptr->magicdef) return (TRUE);
+	if (tar_ptr->magicdef) return (TRUE);
 
 	/* Multi Shadow */
-	if (cr_ptr->multishadow) return (TRUE);
+	if (tar_ptr->multishadow) return (TRUE);
 
 	/* Robe of dust */
-	if (cr_ptr->dustrobe) return (TRUE);
+	if (tar_ptr->dustrobe) return (TRUE);
 
 	/* Berserk Strength */
-	if (cr_ptr->shero && (cr_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
+	if (tar_ptr->shero && (tar_ptr->cls_idx != CLASS_BERSERKER)) return (TRUE);
 
 	/* Demon Lord */
-	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
+	if (tar_ptr->mimic_form == MIMIC_DEMON_LORD) return (TRUE);
 
 	/* Elemental resistances */
-	if (r_ptr->flags4 & RF4_BR_ACID)
+	if (have_creature_flags(user_ptr, CF_BR_ACID))
 	{
-		if (!cr_ptr->immune_acid && (cr_ptr->oppose_acid || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
-		if (cr_ptr->special_defense & DEFENSE_ACID) return (TRUE);
+		if (!tar_ptr->immune_acid && (tar_ptr->oppose_acid || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
+		if (tar_ptr->special_defense & DEFENSE_ACID) return (TRUE);
 	}
 
-	if (r_ptr->flags4 & RF4_BR_FIRE)
+	if (have_creature_flags(user_ptr, CF_BR_FIRE))
 	{
-		if (!((cr_ptr->race_idx1 == RACE_DEMON || cr_ptr->race_idx1 == RACE_BALROG) && cr_ptr->lev > 44))
+		if (!((tar_ptr->race_idx1 == RACE_DEMON || tar_ptr->race_idx1 == RACE_BALROG) && user_ptr->lev > 44))
 		{
-			if (!cr_ptr->immune_fire && (cr_ptr->oppose_fire || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
-			if (cr_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
+			if (!tar_ptr->immune_fire && (tar_ptr->oppose_fire || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
+			if (tar_ptr->special_defense & DEFENSE_FIRE) return (TRUE);
 		}
 	}
 
-	if (r_ptr->flags4 & RF4_BR_ELEC)
+	if (have_creature_flags(user_ptr, CF_BR_ELEC))
 	{
-		if (!cr_ptr->immune_elec && (cr_ptr->oppose_elec || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
-		if (cr_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
+		if (!tar_ptr->immune_elec && (tar_ptr->oppose_elec || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
+		if (tar_ptr->special_defense & DEFENSE_ELEC) return (TRUE);
 	}
 
-	if (r_ptr->flags4 & RF4_BR_COLD)
+	if (have_creature_flags(user_ptr, CF_BR_COLD))
 	{
-		if (!cr_ptr->immune_cold && (cr_ptr->oppose_cold || music_singing(cr_ptr, MUSIC_RESIST))) return (TRUE);
-		if (cr_ptr->special_defense & DEFENSE_COLD) return (TRUE);
+		if (!tar_ptr->immune_cold && (tar_ptr->oppose_cold || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
+		if (tar_ptr->special_defense & DEFENSE_COLD) return (TRUE);
 	}
 
-	if (r_ptr->flags4 & (RF4_BR_POIS | RF4_BR_NUKE))
+	if (have_creature_flags(user_ptr, CF_BR_POIS) || have_creature_flags(user_ptr, CF_BR_NUKE))
 	{
-		if (!((cr_ptr->cls_idx == CLASS_NINJA) && cr_ptr->lev > 44))
+		if (!((tar_ptr->cls_idx == CLASS_NINJA) && user_ptr->lev > 44))
 		{
-			if (cr_ptr->oppose_pois || music_singing(cr_ptr, MUSIC_RESIST)) return (TRUE);
-			if (cr_ptr->special_defense & DEFENSE_POIS) return (TRUE);
+			if (tar_ptr->oppose_pois || music_singing(user_ptr, MUSIC_RESIST)) return (TRUE);
+			if (tar_ptr->special_defense & DEFENSE_POIS) return (TRUE);
 		}
 	}
 
 	/* Ultimate resistance */
-	if (cr_ptr->ult_res) return (TRUE);
+	if (tar_ptr->ult_res) return (TRUE);
 
 	/* Potion of Neo Tsuyosi special */
-	if (cr_ptr->tsuyoshi) return (TRUE);
+	if (tar_ptr->tsuyoshi) return (TRUE);
 
 	/* Elemental Brands */
-	if ((cr_ptr->special_attack & ATTACK_ACID) && !is_resist_acid_creature(cr_ptr)) return (TRUE);
-	if ((cr_ptr->special_attack & ATTACK_FIRE) && !is_resist_fire_creature(cr_ptr)) return (TRUE);
-	if ((cr_ptr->special_attack & ATTACK_ELEC) && !is_resist_elec_creature(cr_ptr)) return (TRUE);
-	if ((cr_ptr->special_attack & ATTACK_COLD) && !is_resist_cold_creature(cr_ptr)) return (TRUE);
-	if ((cr_ptr->special_attack & ATTACK_POIS) && !is_resist_pois_creature(cr_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ACID) && !is_resist_acid_creature(tar_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_FIRE) && !is_resist_fire_creature(tar_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_ELEC) && !is_resist_elec_creature(tar_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_COLD) && !is_resist_cold_creature(tar_ptr)) return (TRUE);
+	if ((tar_ptr->special_attack & ATTACK_POIS) && !is_resist_pois_creature(tar_ptr)) return (TRUE);
 
 	/* Speed */
-	if (cr_ptr->speed < 145)
+	if (tar_ptr->speed < 145)
 	{
-		if (IS_FAST(cr_ptr)) return (TRUE);
+		if (IS_FAST(tar_ptr)) return (TRUE);
 	}
 
 	/* Light speed */
-	if (cr_ptr->lightspeed && (cr_ptr->speed < 136)) return (TRUE);
+	if (tar_ptr->lightspeed && (tar_ptr->speed < 136)) return (TRUE);
 
-	if (cr_ptr->riding && (creature_list[cr_ptr->riding].speed < 135))
+	if (tar_ptr->riding && (creature_list[tar_ptr->riding].speed < 135))
 	{
-		if (creature_list[cr_ptr->riding].fast) return (TRUE);
+		if (creature_list[tar_ptr->riding].fast) return (TRUE);
 	}
 
 	/* No need to cast dispel spell */
@@ -1089,7 +1088,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 	if (dispel_num && one_in_(2))
 	{
 		/* Choose dispel spell if possible */
-		if (dispel_check(user_ptr))
+		if (dispel_check(user_ptr, player_ptr))
 		{
 			return (dispel[randint0(dispel_num)]);
 		}

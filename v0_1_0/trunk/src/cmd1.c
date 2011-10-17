@@ -382,12 +382,10 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			/* Slay Orc */
 			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(tar_ptr))
 			{
-				/*TODO
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_ORC;
+					//TODO r_ptr->r_flags3 |= RF3_ORC;
 				}
-				*/
 
 				if (mult < 30) mult = 30;
 			}
@@ -395,12 +393,10 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			/* Execute Orc */
 			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(tar_ptr))
 			{
-				/*TODO
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_ORC;
+					//TODOr_ptr->r_flags3 |= RF3_ORC;
 				}
-				*/
 
 				if (mult < 50) mult = 50;
 			}
@@ -408,12 +404,10 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			/* Slay Troll */
 			if ((have_flag(flgs, TR_SLAY_TROLL)) && is_troll_creature(tar_ptr))
 			{
-				/*
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_TROLL;
+					//TODO r_ptr->r_flags3 |= RF3_TROLL;
 				}
-				*/
 
 				if (mult < 30) mult = 30;
 			}
@@ -421,12 +415,10 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			/* Execute Troll */
 			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(tar_ptr))
 			{
-				/*TODO
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
 				{
-					r_ptr->r_flags3 |= RF3_TROLL;
+					//TODO r_ptr->r_flags3 |= RF3_TROLL;
 				}
-				*/
 
 				if (mult < 50) mult = 50;
 			}
