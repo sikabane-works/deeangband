@@ -247,9 +247,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_ANIMAL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 25) mult = 25;
 			}
@@ -259,9 +257,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    is_animal_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_ANIMAL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 40) mult = 40;
 			}
@@ -272,9 +268,8 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			{
 				int t;
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_EVIL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
+
 				t = calc_punishment_slay(tar_ptr, ALIGNMENT_GOOD) / 10;
 				if (mult < t) mult = t;
 			}
@@ -282,9 +277,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_GOOD;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 				if (mult < 20) mult = 20;
 			}
 
@@ -294,9 +287,8 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			{
 				int t;
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_EVIL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
+
 				t = (calc_punishment_slay(tar_ptr, ALIGNMENT_GOOD) / 10 - 10) * 2 + 10;
 				if (mult < t) mult = t;
 			}
@@ -304,9 +296,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_GOOD;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 
 				if (mult < 35) mult = 35;
 			}
@@ -316,9 +306,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags2 |= RF2_HUMAN;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 25) mult = 25;
 			}
@@ -328,9 +316,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    (is_human_creature(tar_ptr)))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags2 |= RF2_HUMAN;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 40) mult = 40;
 			}
@@ -339,9 +325,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -350,9 +334,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 			}
@@ -361,9 +343,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_DEMON)) && is_demon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_DEMON;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -372,9 +352,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_DEMON)) && is_demon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_DEMON;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 			}
@@ -383,9 +361,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_ORC;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -394,9 +370,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODOr_ptr->r_flags3 |= RF3_ORC;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 			}
@@ -405,9 +379,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_TROLL)) && is_troll_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_TROLL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -416,9 +388,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_TROLL;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 			}
@@ -427,9 +397,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_GIANT;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -438,9 +406,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_GIANT;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 			}
@@ -449,9 +415,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_SLAY_DRAGON)) && is_dragon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-				//TODO	r_ptr->r_flags3 |= RF3_DRAGON;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 30) mult = 30;
 			}
@@ -460,9 +424,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			if ((have_flag(flgs, TR_KILL_DRAGON)) && is_dragon_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-				//TODO	r_ptr->r_flags3 |= RF3_DRAGON;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 50) mult = 50;
 
@@ -475,9 +437,7 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 			    is_enemy_of_evil_creature(tar_ptr))
 			{
 				if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-				{
-					//TODO r_ptr->r_flags3 |= RF3_GOOD;
-				}
+					reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				if (mult < 20) mult = 20;
 			}

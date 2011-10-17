@@ -1967,6 +1967,17 @@ void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high)
 	flags_ptr->remove_lev[type] = high;
 }
 
+void reveal_species_info(species_type *species_ptr, int type)
+{
+	//TODO
+}
+
+void reveal_creature_info(creature_type *creature_ptr, int type)
+{
+	//TODO
+}
+
+
 bool has_cf(creature_flags *cf_ptr, int type)
 {
 	return cf_ptr->add_lev[type];

@@ -5997,5 +5997,8 @@ extern int PlayerUID;
 
 
 
+#define INFO_TYPE_RACE            0
+#define INFO_TYPE_ALIGNMENT       1
+
 
 

@@ -1081,6 +1081,9 @@ extern bool is_random_walker_50_species(species_type *sp_ptr);
 extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
 
+extern void reveal_species_info(species_type *species_ptr, int type);
+extern void reveal_creature_info(creature_type *creature_ptr, int type);
+
 extern bool has_cf(creature_flags *cf_ptr, int type);
 extern bool has_cf_creature(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type);

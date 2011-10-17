@@ -2557,7 +2557,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
 
-	//TODO eldritch_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
+	reveal_species_info(eldritch_ptr, CF_ELDRITCH_HORROR);
 
 	if (!watcher_ptr->mimic_form)
 	{
