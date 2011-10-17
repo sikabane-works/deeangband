@@ -3122,8 +3122,7 @@ msg_format("しかし効力を跳ね返した！");
 			break;
 		}
 
-		/* RF6_HASTE */
-		case 160+0:
+		case CF_HASTE:
 		{
 			disturb(1, 0);
 			if (blind)
@@ -3157,8 +3156,7 @@ msg_format("%^sが自分の体に念を送った。", m_name);
 			break;
 		}
 
-		/* RF6_HAND_DOOM */
-		case 160+1:
+		case CF_HAND_DOOM:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3172,8 +3170,7 @@ msg_format("%^sが<破滅の手>を放った！", m_name);
 			break;
 		}
 
-		/* RF6_HEAL */
-		case 160+2:
+		case CF_HEAL:
 		{
 			disturb(1, 0);
 
@@ -3271,8 +3268,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 			break;
 		}
 
-		/* RF6_INVULNER */
-		case 160+3:
+		case CF_INVULNER:
 		{
 			disturb(1, 0);
 
@@ -3300,8 +3296,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_BLINK */
-		case 160+4:
+		case CF_BLINK:
 		{
 			disturb(1, 0);
 			if (teleport_barrier(target_ptr, user_ptr))
@@ -3325,8 +3320,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_TPORT */
-		case 160+5:
+		case CF_TPORT:
 		{
 			disturb(1, 0);
 			if (teleport_barrier(target_ptr, user_ptr))
@@ -3349,8 +3343,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_WORLD */
-		case 160+6:
+		case CF_WORLD:
 		{
 			int who = 0;
 			disturb(1, 0);
@@ -3361,8 +3354,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_SPECIAL */
-		case 160+7:
+		case CF_SPECIAL:
 		{
 			int k;
 
@@ -3535,8 +3527,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_TELE_TO */
-		case 160+8:
+		case CF_TELE_TO:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3551,8 +3542,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 			break;
 		}
 
-		/* RF6_TELE_AWAY */
-		case 160+9:
+		case CF_TELE_AWAY:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3573,8 +3563,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 			break;
 		}
 
-		/* RF6_TELE_LEVEL */
-		case 160+10:
+		case CF_TELE_LEVEL:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3617,8 +3606,7 @@ msg_print("しかし効力を跳ね返した！");
 			break;
 		}
 
-		/* RF6_PSY_SPEAR */
-		case 160+11:
+		case CF_PSY_SPEAR:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3667,8 +3655,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 			break;
 		}
 
-		/* RF6_TRAPS */
-		case 160+13:
+		case CF_TRAPS:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3688,8 +3675,7 @@ else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 			break;
 		}
 
-		/* RF6_FORGET */
-		case 160+14:
+		case CF_FORGET:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3722,8 +3708,7 @@ msg_print("記憶が薄れてしまった。");
 			break;
 		}
 
-		/* RF6_RAISE_DEAD */
-		case 160+15:
+	case CF_RAISE_DEAD:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3741,8 +3726,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_S_KIN */
-		case 160+16:
+		case CF_S_KIN:
 		{
 			disturb(1, 0);
 			if (user_ptr->species_idx == MON_SERPENT || user_ptr->species_idx == MON_ZOMBI_SERPENT)
@@ -3864,8 +3848,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF6_S_CYBER */
-		case 160+17:
+		case CF_S_CYBER:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3890,8 +3873,7 @@ if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
 			break;
 		}
 
-		/* RF6_S_MONSTER */
-		case 160+18:
+		case CF_S_MONSTER:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3919,8 +3901,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_MONSTERS */
-		case 160+19:
+		case CF_S_MONSTERS:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3948,8 +3929,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_ANT */
-		case 160+20:
+		case CF_S_ANT:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -3977,8 +3957,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_SPIDER */
-		case 160+21:
+		case CF_S_SPIDER:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4006,8 +3985,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_HOUND */
-		case 160+22:
+		case CF_S_HOUND:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4035,8 +4013,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_HYDRA */
-		case 160+23:
+		case CF_S_HYDRA:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4064,8 +4041,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_ANGEL */
-		case 160+24:
+		case CF_S_ANGEL:
 		{
 			int num = 1;
 
@@ -4112,8 +4088,7 @@ if (blind) msg_print("多くのものが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_DEMON */
-		case 160+25:
+		case CF_S_DEMON:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4141,8 +4116,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_UNDEAD */
-		case 160+26:
+		case CF_S_UNDEAD:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4170,8 +4144,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_DRAGON */
-		case 160+27:
+		case CF_S_DRAGON:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4199,8 +4172,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 			break;
 		}
 
-		/* RF6_S_HI_UNDEAD */
-		case 160+28:
+		case CF_S_HI_UNDEAD:
 		{
 			disturb(1, 0);
 
@@ -4294,8 +4266,7 @@ msg_print("間近で何か多くのものが這い回る音が聞こえる。");
 			break;
 		}
 
-		/* RF6_S_HI_DRAGON */
-		case 160+29:
+		case CF_S_HI_DRAGON:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4326,8 +4297,7 @@ msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 			break;
 		}
 
-		/* RF6_S_AMBERITES */
-		case 160+30:
+		case CF_S_AMBERITES:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -4360,8 +4330,7 @@ msg_print("不死の者が近くに現れるのが聞こえた。");
 			break;
 		}
 
-		/* RF6_S_UNIQUE */
-		case 160+31:
+		case CF_S_UNIQUE:
 		{
 			bool uniques_are_summoned = FALSE;
 			int non_unique_type = SUMMON_HI_UNDEAD;
