@@ -5962,8 +5962,14 @@ extern int PlayerUID;
 
 // Flags 19
 
-
 #define CF_FLAG_MAX 608
+
+
+#define INFO_TYPE_RACE            1000
+#define INFO_TYPE_ALIGNMENT       1001
+
+
+
 
 // obeserve creature flags
 #define CREATURE_OBS_RACE			100
@@ -5997,8 +6003,6 @@ extern int PlayerUID;
 
 
 
-#define INFO_TYPE_RACE            0
-#define INFO_TYPE_ALIGNMENT       1
 
 
 

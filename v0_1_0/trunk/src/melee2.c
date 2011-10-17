@@ -2587,7 +2587,6 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Scan all objects in the grid */
 				for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
 				{
-					u32b flgs[TR_FLAG_SIZE], flg2 = 0L, flg3 = 0L, flgr = 0L;
 					char m_name[80], o_name[MAX_NLEN];
 
 					/* Acquire object */
@@ -2610,63 +2609,27 @@ msg_format("%^s%s", m_name, monmessage);
 						    (o_ptr->tval == TV_STATUE)) continue;
 					}
 
-					/* Extract some flags */
-					object_flags(o_ptr, flgs);
-
 					/* Acquire the object name */
 					object_desc(o_name, o_ptr, 0);
 
 					/* Acquire the monster name */
 					monster_desc(m_name, nonplayer_ptr, MD_INDEF_HIDDEN);
 
-					/* React to objects that hurt the monster */
-					//if (have_flag(flgs, TR_SLAY_DRAGON)) flg3 |= (RF3_DRAGON);
-					//if (have_flag(flgs, TR_KILL_DRAGON)) flg3 |= (RF3_DRAGON);
-					//if (have_flag(flgs, TR_SLAY_TROLL))  flg3 |= (RF3_TROLL);
-					//if (have_flag(flgs, TR_KILL_TROLL))  flg3 |= (RF3_TROLL);
-					//if (have_flag(flgs, TR_SLAY_GIANT))  flg3 |= (RF3_GIANT);
-					//if (have_flag(flgs, TR_KILL_GIANT))  flg3 |= (RF3_GIANT);
-					//TODO
-					//if (have_flag(flgs, TR_SLAY_ORC))    flg3 |= (RF3_ORC);
-					//if (have_flag(flgs, TR_KILL_ORC))    flg3 |= (RF3_ORC);
-					//if (have_flag(flgs, TR_SLAY_DEMON))  flg3 |= (RF3_DEMON);
-					//if (have_flag(flgs, TR_KILL_DEMON))  flg3 |= (RF3_DEMON);
-					//if (have_flag(flgs, TR_SLAY_UNDEAD)) flg3 |= (RF3_UNDEAD);
-					//if (have_flag(flgs, TR_KILL_UNDEAD)) flg3 |= (RF3_UNDEAD);
-					//if (have_flag(flgs, TR_SLAY_ANIMAL)) flg3 |= (RF3_ANIMAL);
-					//if (have_flag(flgs, TR_KILL_ANIMAL)) flg3 |= (RF3_ANIMAL);
-					//if (have_flag(flgs, TR_SLAY_EVIL))   flg3 |= (RF3_EVIL);
-					//if (have_flag(flgs, TR_KILL_EVIL))   flg3 |= (RF3_EVIL);
-					//if (have_flag(flgs, TR_SLAY_GOOD))   flg3 |= (RF3_GOOD);
-					//if (have_flag(flgs, TR_KILL_GOOD))   flg3 |= (RF3_GOOD);
-					//if (have_flag(flgs, TR_SLAY_HUMAN))  flg2 |= (RF2_HUMAN);
-					//if (have_flag(flgs, TR_KILL_HUMAN))  flg2 |= (RF2_HUMAN);
-					//if (have_flag(flgs, TR_BRAND_ACID))  flgr |= (RF10_IM_ACID);
-					//if (have_flag(flgs, TR_BRAND_ELEC))  flgr |= (RF10_IM_ELEC);
-					//if (have_flag(flgs, TR_BRAND_FIRE))  flgr |= (RF10_IM_FIRE);
-					//if (have_flag(flgs, TR_BRAND_COLD))  flgr |= (RF10_IM_COLD);
-					//if (have_flag(flgs, TR_BRAND_POIS))  flgr |= (RF10_IM_POIS);
-
-					/* The object cannot be picked up by the monster */
-					if (object_is_artifact(player_ptr, o_ptr) || (nonplayer_ptr->flags3 & flg3) || (nonplayer_ptr->flags2 & flg2) ||
-					    ((~(nonplayer_ptr->flags10) & flgr) && !(nonplayer_ptr->resist_ultimate)))
+					/* Only give a message for "take_item" */
+					if (do_take && has_cf_creature(nonplayer_ptr, CF_STUPID) && one_in_(3))
 					{
-						/* Only give a message for "take_item" */
-						if (do_take && has_cf_creature(nonplayer_ptr, CF_STUPID))
-						{
-							/* Take note */
-							did_take_item = TRUE;
+						/* Take note */
+						did_take_item = TRUE;
 
-							/* Describe observable situations */
-							if (nonplayer_ptr->ml && player_can_see_bold(player_ptr, ny, nx))
-							{
-								/* Dump a message */
+						/* Describe observable situations */
+						if (nonplayer_ptr->ml && player_can_see_bold(player_ptr, ny, nx))
+						{
+							/* Dump a message */
 #ifdef JP
-								msg_format("%^sは%sを拾おうとしたが、だめだった。", m_name, o_name);
+							msg_format("%^sは%sを拾おうとしたが、だめだった。", m_name, o_name);
 #else
-								msg_format("%^s tries to pick up %s, but fails.", m_name, o_name);
+							msg_format("%^s tries to pick up %s, but fails.", m_name, o_name);
 #endif
-							}
 						}
 					}
 
