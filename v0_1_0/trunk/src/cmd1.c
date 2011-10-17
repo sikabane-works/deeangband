@@ -564,9 +564,8 @@ s16b tot_dam_aux(creature_type *atk_ptr, object_type *o_ptr, int tdam, creature_
 				if (is_undead_creature(tar_ptr))
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr))
-					{
-						//TODO r_ptr->r_flags3 |= RF3_UNDEAD;
-					}
+						reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
+
 					if (mult == 10) mult = 70;
 					else if (mult < 140) mult = MIN(140, mult+60);
 				}

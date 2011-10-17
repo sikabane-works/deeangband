@@ -414,38 +414,29 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_hurt_lite_creature(m_ptr))
 		{
 			int n = 20 + cr_ptr->concent;
-			//TODO if (seen) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+			reveal_creature_info(m_ptr, CF_HURT_LITE);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_FIRE:
-		if (is_resist_fire_creature(m_ptr))
-		{
-			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_FIRE;
-		}
-		else
+		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
+		if (!is_resist_elec_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_COLD:
-		if (is_resist_cold_creature(m_ptr))
-		{
-			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_COLD;
-		}
-		else
+		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
+		if (!is_resist_cold_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 3);
 			if (mult < n) mult = n;
 		}
 		break;
 	case SP_ELEC:
-		if (is_resist_elec_creature(m_ptr))
-		{
-			//TODO if (seen) r_ptr->r_flags10 |= RF10_IM_ELEC;
-		}
-		else
+		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
+		if (!is_resist_elec_creature(m_ptr))
 		{
 			int n = 18 + (cr_ptr->concent * 4);
 			if (mult < n) mult = n;
@@ -455,13 +446,13 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_hurt_rock_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			//TODO if (seen) r_ptr->r_flags3 |= RF3_HURT_ROCK;
+			reveal_creature_info(m_ptr, CF_HURT_ROCK);
 			if (mult < n) mult = n;
 		}
 		else if (has_cf_creature(m_ptr, CF_NONLIVING))
 		{
 			int n = 15 + (cr_ptr->concent * 2);
-			//TODO if (seen) r_ptr->r_flags3 |= RF3_NONLIVING;
+			reveal_creature_info(m_ptr, CF_NONLIVING);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -469,7 +460,7 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_enemy_of_evil_creature(m_ptr))
 		{
 			int n = 15 + (cr_ptr->concent * 4);
-			//TODO if (seen) r_ptr->r_flags3 |= RF3_GOOD;
+			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 			if (mult < n) mult = n;
 		}
 		break;
@@ -477,11 +468,12 @@ int tot_dam_aux_snipe(creature_type *cr_ptr, int mult, creature_type *m_ptr)
 		if (is_enemy_of_good_creature(m_ptr))
 		{
 			int n = 12 + (cr_ptr->concent * 3);
-			//TODO if (seen) r_ptr->r_flags3 |= RF3_EVIL;
+			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
+
 			if (is_hurt_lite_creature(m_ptr))
 			{
 				n += (cr_ptr->concent * 3);
-				//TODO if (seen) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				reveal_creature_info(m_ptr, CF_HURT_LITE);
 			}
 			if (mult < n) mult = n;
 		}
