@@ -1631,15 +1631,15 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 		break;
 
 	case DO_SPELL_BR_LITE:
-		thrown_spell = 96+14; /* RF4_BR_LITE */
+		thrown_spell = CF_BR_LITE;
 		break;
 
 	case DO_SPELL_BR_DISI:
-		thrown_spell = 96+31; /* RF4_BR_DISI */
+		thrown_spell = CF_BR_DISI;
 		break;
 
 	case DO_SPELL_BA_LITE:
-		thrown_spell = 128+20; /* RF5_BA_LITE */
+		thrown_spell = CF_BA_LITE;
 		break;
 
 	default:
@@ -3626,8 +3626,7 @@ else msg_format("%^s‚ªŒõ‚ÌŒ•‚ð•ú‚Á‚½B", m_name);
 			break;
 		}
 
-		/* RF6_DARKNESS */
-		case 160+12:
+		case CF_DARKNESS:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -4383,7 +4382,7 @@ else msg_format("%^s‚ª–‚–@‚Å“Á•Ê‚È‹­“G‚ð¢Š«‚µ‚½I", m_name);
 
 	if (seen && maneable && !world_monster && (target_ptr->cls_idx == CLASS_IMITATOR))
 	{
-		if (thrown_spell != 167) /* Not RF6_SPECIAL */
+		if (thrown_spell != CF_SPECIAL)
 		{
 			if (target_ptr->mane_num == MAX_MANE)
 			{
