@@ -2304,9 +2304,7 @@ else msg_format("%^sが分解のブレスを吐いた。", m_name);
 		}
 
 
-
-		/* RF5_BA_ACID */
-		case 128+0:
+		case CF_BA_ACID:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2327,8 +2325,7 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_ELEC */
-		case 128+1:
+		case CF_BA_ELEC:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2349,8 +2346,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_FIRE */
-		case 128+2:
+		case CF_BA_FIRE:
 		{
 			disturb(1, 0);
 
@@ -2389,8 +2385,7 @@ else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_COLD */
-		case 128+3:
+		case CF_BA_COLD:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2411,8 +2406,7 @@ else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_POIS */
-		case 128+4:
+		case CF_BA_POIS:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2433,8 +2427,7 @@ else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_NETH */
-		case 128+5:
+		case CF_BA_NETH:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2455,8 +2448,7 @@ else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_WATE */
-		case 128+6:
+		case CF_BA_WATE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2482,8 +2474,7 @@ msg_print("あなたは渦巻きに飲み込まれた。");
 			break;
 		}
 
-		/* RF5_BA_MANA */
-		case 128+7:
+		case CF_BA_MANA:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2503,8 +2494,7 @@ else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_DARK */
-		case 128+8:
+		case CF_BA_DARK:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2525,8 +2515,7 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 			break;
 		}
 
-		/* RF5_DRAIN_MANA */
-		case 128+9:
+		case CF_DRAIN_MANA:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2537,8 +2526,7 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 			break;
 		}
 
-		/* RF5_MIND_BLAST */
-		case 128+10:
+		case CF_MIND_BLAST:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2566,8 +2554,7 @@ msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
 			break;
 		}
 
-		/* RF5_BRAIN_SMASH */
-		case 128+11:
+		case CF_BRAIN_SMASH:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2595,8 +2582,7 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 			break;
 		}
 
-		/* RF5_CAUSE_1 */
-		case 128+12:
+		case CF_CAUSE_1:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2617,8 +2603,7 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 			break;
 		}
 
-		/* RF5_CAUSE_2 */
-		case 128+13:
+		case CF_CAUSE_2:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2639,8 +2624,7 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
 			break;
 		}
 
-		/* RF5_CAUSE_3 */
-		case 128+14:
+		case CF_CAUSE_3:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2661,8 +2645,7 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
 			break;
 		}
 
-		/* RF5_CAUSE_4 */
-		case 128+15:
+		case CF_CAUSE_4:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2683,8 +2666,7 @@ else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m
 			break;
 		}
 
-		/* RF5_BO_ACID */
-		case 128+16:
+		case CF_BO_ACID:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2707,8 +2689,7 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_ELEC */
-		case 128+17:
+		case CF_BO_ELEC:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2731,8 +2712,7 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_FIRE */
-		case 128+18:
+		case CF_BO_FIRE:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2755,8 +2735,7 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_COLD */
-		case 128+19:
+		case CF_BO_COLD:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2779,8 +2758,7 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BA_LITE */
-		case 128+20:
+		case CF_BA_LITE:
 		{
 			disturb(1, 0);
 #ifdef JP
@@ -2801,8 +2779,7 @@ else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_NETH */
-		case 128+21:
+		case CF_BO_NETH:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2825,8 +2802,7 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_WATE */
-		case 128+22:
+		case CF_BO_WATE:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2848,8 +2824,7 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_MANA */
-		case 128+23:
+		case CF_BO_MANA:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2871,8 +2846,7 @@ else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_PLAS */
-		case 128+24:
+		case CF_BO_PLAS:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2894,8 +2868,7 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_BO_ICEE */
-		case 128+25:
+		case CF_BO_ICEE:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2918,8 +2891,7 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_MISSILE */
-		case 128+26:
+		case CF_MISSILE:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2941,8 +2913,7 @@ else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 			break;
 		}
 
-		/* RF5_SCARE */
-		case 128+27:
+		case CF_SCARE:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -2985,8 +2956,7 @@ msg_print("しかし恐怖に侵されなかった。");
 			break;
 		}
 
-		/* RF5_BLIND */
-		case 128+28:
+		case CF_BLIND:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3029,8 +2999,7 @@ msg_print("しかし効力を跳ね返した！");
 			break;
 		}
 
-		/* RF5_CONF */
-		case 128+29:
+		case CF_CONF:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3073,8 +3042,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 			break;
 		}
 
-		/* RF5_SLOW */
-		case 128+30:
+		case CF_SLOW:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
@@ -3111,8 +3079,7 @@ msg_print("しかし効力を跳ね返した！");
 			break;
 		}
 
-		/* RF5_HOLD */
-		case 128+31:
+		case CF_HOLD:
 		{
 			if (!direct) return (FALSE);
 			disturb(1, 0);
