@@ -1094,7 +1094,11 @@ extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
 extern bool has_breath_flags(creature_flags *flags_ptr);
 extern bool has_summon_flags(creature_flags *flags_ptr);
-
+extern bool has_big_ball_flags(creature_flags *flags_ptr);
+extern bool has_ball_flags(creature_flags *flags_ptr);
+extern bool has_beam_flags(creature_flags *flags_ptr);
+extern bool has_ball_flags(creature_flags *flags_ptr);
+extern bool has_intelligence_skill_flags(creature_flags *flags_ptr);
 
 
 /* do-spell.c */

@@ -2173,5 +2173,72 @@ bool has_summon_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_S_AMBERITES)) return TRUE;
 	if(has_cf(flags_ptr, CF_S_UNIQUE)) return TRUE;
 	return FALSE;
+}
 
+bool has_big_ball_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_BA_CHAO)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_DARK)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_LITE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_WATE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_MANA)) return TRUE;
+	return FALSE;
+}
+
+bool has_ball_flags(creature_flags *flags_ptr)
+{
+	if(has_big_ball_flags(flags_ptr)) return TRUE;
+	if(has_breath_flags(flags_ptr)) return TRUE;
+	if(has_cf(flags_ptr, CF_ROCKET)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_NUKE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_ACID)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_ELEC)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_FIRE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_COLD)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_POIS)) return TRUE;
+	if(has_cf(flags_ptr, CF_BA_NETH)) return TRUE;	
+	return FALSE;
+}
+
+bool has_beam_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_PSY_SPEAR)) return TRUE;	
+	return FALSE;
+}
+
+bool has_bolt_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_ROCKET)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SHOOT)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_ACID)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_ELEC)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_FIRE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_COLD)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_NETH)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_WATE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_MANA)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_PLAS)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BO_ICEE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_MISSILE)) return TRUE;	
+	return FALSE;
+}
+
+bool has_intelligence_skill_flags(creature_flags *flags_ptr)
+{
+	if(has_summon_flags(flags_ptr)) return TRUE;
+	if(has_cf(flags_ptr, CF_DISPEL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HOLD)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SLOW)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CONF)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BLIND)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SCARE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BLINK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TPORT)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TELE_LEVEL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TELE_AWAY)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HEAL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_INVULNER)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HASTE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
+	return FALSE;
 }
