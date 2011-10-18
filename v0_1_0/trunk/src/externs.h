@@ -1093,6 +1093,7 @@ extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
 extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 
 extern bool has_breath_flags(creature_flags *flags_ptr);
+extern bool has_summon_flags(creature_flags *flags_ptr);
 
 
 

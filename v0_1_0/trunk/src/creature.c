@@ -2154,3 +2154,24 @@ bool has_breath_flags(creature_flags *flags_ptr)
 	return FALSE;
 }
 
+bool has_summon_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_S_KIN)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_CYBER)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_MONSTER)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_MONSTERS)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_ANT)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_SPIDER)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_HOUND)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_HYDRA)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_ANGEL)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_DEMON)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_UNDEAD)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_DRAGON)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_HI_UNDEAD)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_HI_DRAGON)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_AMBERITES)) return TRUE;
+	if(has_cf(flags_ptr, CF_S_UNIQUE)) return TRUE;
+	return FALSE;
+
+}
