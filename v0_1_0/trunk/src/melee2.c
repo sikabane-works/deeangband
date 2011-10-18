@@ -2738,25 +2738,25 @@ msg_format("%^s%s", m_name, monmessage);
 	if (is_original_ap_and_seen(player_ptr, nonplayer_ptr))
 	{
 		/* Monster opened a door */
-		//if (did_open_door) r_ptr->r_flags2 |= (RF2_OPEN_DOOR);
+		if (did_open_door) reveal_creature_info(nonplayer_ptr, CF_OPEN_DOOR);
 
 		/* Monster bashed a door */
-		//if (did_bash_door) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+		if (did_bash_door) reveal_creature_info(nonplayer_ptr, CF_BASH_DOOR);
 
 		/* Monster tried to pick something up */
-		//if (did_take_item) r_ptr->r_flags2 |= (RF2_TAKE_ITEM);
+		if (did_take_item) reveal_creature_info(nonplayer_ptr, CF_TAKE_ITEM);
 
 		/* Monster tried to crush something */
-		//if (did_kill_item) r_ptr->r_flags2 |= (RF2_KILL_ITEM);
+		if (did_kill_item) reveal_creature_info(nonplayer_ptr, CF_KILL_ITEM);
 
 		/* Monster pushed past another monster */
-		//if (did_move_body) r_ptr->r_flags2 |= (RF2_MOVE_BODY);
+		if (did_move_body) reveal_creature_info(nonplayer_ptr, CF_MOVE_BODY);
 
 		/* Monster passed through a wall */
-		//TODO if (did_pass_wall) r_ptr->r_flags2 |= (RF2_PASS_WALL);
+		if (did_pass_wall) reveal_creature_info(nonplayer_ptr, CF_PASS_WALL);
 
 		/* Monster destroyed a wall */
-		//TODO if (did_kill_wall) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+		if (did_pass_wall) reveal_creature_info(nonplayer_ptr, CF_KILL_WALL);
 	}
 
 }

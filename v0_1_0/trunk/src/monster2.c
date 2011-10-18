@@ -2006,10 +2006,6 @@ void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 	if (num_item > r_ptr->r_drop_item) r_ptr->r_drop_item = num_item;
 	if (num_gold > r_ptr->r_drop_gold) r_ptr->r_drop_gold = num_gold;
 
-	/* Hack -- memorize the good/great flags */
-	//if (r_ptr->flags1 & (RF1_DROP_GOOD)) r_ptr->r_flags1 |= (RF1_DROP_GOOD);
-	//if (r_ptr->flags1 & (RF1_DROP_GREAT)) r_ptr->r_flags1 |= (RF1_DROP_GREAT);
-
 	/* Update monster recall window */
 	if (p_ptr->species_type_idx == cr_ptr->species_idx)
 	{
@@ -2108,7 +2104,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 #endif
 		}
 
-		//TODO r_ptr->r_flags2 |= RF2_ELDRITCH_HORROR;
+		reveal_creature_info(m_ptr, CF_ELDRITCH_HORROR);
 
 		/* Demon characters are unaffected */
 		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
@@ -2452,9 +2448,8 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 
 				if (is_original_ap(m_ptr) && !cr_ptr->image)
 				{
-					/* Hack -- Memorize mental flags */
-					//TODO if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);
-					//TODO if (r_ptr->flags2 & (RF2_STUPID)) r_ptr->r_flags2 |= (RF2_STUPID);
+					if (has_cf_creature(m_ptr, CF_SMART)) reveal_creature_info(m_ptr, CF_SMART);;
+					if (has_cf_creature(m_ptr, CF_SMART)) reveal_creature_info(m_ptr, CF_STUPID);;
 				}
 			}
 
