@@ -1978,6 +1978,7 @@ void reveal_creature_info(creature_type *creature_ptr, int type)
 }
 
 
+
 bool has_cf(creature_flags *cf_ptr, int type)
 {
 	return cf_ptr->add_lev[type];
@@ -2128,4 +2129,28 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 		creature_ptr->stat_add[i] -= calc_unreached_race_level_penalty(base_level - creature_ptr->lev, i);
 }
 
+bool has_breath_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_BR_FIRE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_COLD)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_ELEC)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_POIS)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_NETH)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_LITE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_DARK)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_CONF)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_SOUN)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_CHAO)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_NEXU)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_SHAR)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_TIME)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_INER)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_GRAV)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_PLAS)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_WALL)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_MANA)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_NUKE)) return TRUE;
+	if(has_cf(flags_ptr, CF_BR_DISI)) return TRUE;
+	return FALSE;
+}
 
