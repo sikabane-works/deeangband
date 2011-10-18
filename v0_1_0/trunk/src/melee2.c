@@ -1963,7 +1963,8 @@ msg_format("%^s%s", m_name, monmessage);
 	else if (has_cf_creature(nonplayer_ptr, CF_RAND_25) && has_cf_creature(nonplayer_ptr, CF_RAND_50) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50 | RF1_RAND_25);
+		if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_RAND_25);
+		if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1973,7 +1974,7 @@ msg_format("%^s%s", m_name, monmessage);
 	else if (has_cf_creature(nonplayer_ptr, CF_RAND_50) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_RAND_50);
+		if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1983,7 +1984,7 @@ msg_format("%^s%s", m_name, monmessage);
 	else if (has_cf_creature(nonplayer_ptr, CF_RAND_25) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
-		//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= RF1_RAND_25;
+		if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2228,7 +2229,7 @@ msg_format("%^s%s", m_name, monmessage);
 						/* Update some things */
 						player_ptr->update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_BASH_DOOR);
+						if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_BASH_DOOR);
 
 						return;
 					}
@@ -2336,7 +2337,7 @@ msg_format("%^s%s", m_name, monmessage);
 			if (has_cf_creature(nonplayer_ptr, CF_NEVER_BLOW))
 			{
 				/* Hack -- memorize lack of attacks */
-				//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_BLOW);
+				if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
@@ -2350,7 +2351,7 @@ msg_format("%^s%s", m_name, monmessage);
 					if (!has_cf_creature(nonplayer_ptr, CF_STUPID)) do_move = FALSE;
 					else
 					{
-						//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+						if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_RAND_50);
 					}
 				}
 			}

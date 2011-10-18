@@ -1744,7 +1744,8 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 
 			aura_damage = calc_damage(atk_ptr, aura_damage, DAMAGE_TYPE_FIRE);
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_FIRE;
+
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_FIRE);
 			handle_stuff(atk_ptr);
 		}
 	}
@@ -1770,7 +1771,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			if (atk_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags3 |= RF3_AURA_COLD;
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_COLD);
 			handle_stuff(atk_ptr);
 		}
 	}
@@ -1797,7 +1798,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 #endif
 
 			take_hit(NULL, atk_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			//if (is_original_ap_and_seen(atk_ptr, tar_ptr)) species_ptr->r_flags2 |= RF2_AURA_ELEC;
+			if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_AURA_ELEC);
 			handle_stuff(atk_ptr);
 		}
 	}
@@ -2791,7 +2792,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				/* Confuse the monster */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_NO_CONF;
+					if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 
 #ifdef JP
 					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", m_name);
