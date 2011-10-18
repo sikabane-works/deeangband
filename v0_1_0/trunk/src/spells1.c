@@ -1948,7 +1948,7 @@ note = "はひどい痛手をうけた。";
 #endif
 
 				dam *= 2;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_FIRE);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_FIRE);
 			}
 			break;
 		}
@@ -1989,7 +1989,7 @@ note = "はひどい痛手をうけた。";
 #endif
 
 				dam *= 2;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_COLD);
 			}
 			break;
 		}
@@ -2080,7 +2080,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				//TODOif (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 			}
 			break;
 		}
@@ -2110,7 +2110,7 @@ note = "には完全な耐性がある。";
 				note = " is immune.";
 #endif
 
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_GOOD;
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 			}
 			else if (is_enemy_of_good_creature(tar_ptr))
 			{
@@ -2121,7 +2121,7 @@ note = "はひどい痛手を受けた。";
 				note = " is hit hard.";
 #endif
 
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 			}
 			else
 			{
@@ -2212,7 +2212,7 @@ note = "には耐性がある。";
 #endif
 
 					dam = 0;
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 				}
 				else
 				{
@@ -2235,7 +2235,7 @@ note = "には耐性がある。";
 				note = " resists somewhat.";
 #endif
 
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 			}
 			break;
 		}
@@ -2319,7 +2319,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 			}
 			else
 			{
@@ -2446,7 +2446,7 @@ note = "には耐性がある。";
 #endif
 
 				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 			}
 			else do_conf = (10 + randint1(15) + r) / (r + 1);
 			break;
@@ -2764,12 +2764,12 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RESIST);
 				break;
 			}
 			if (is_hurt_rock_creature(tar_ptr))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_ROCK);
 #ifdef JP
 note = "の皮膚がただれた！";
 note_dies = "は蒸発した！";
@@ -2818,7 +2818,7 @@ note_dies = "は蒸発した！";
 #else
 				note = " is immune!";
 #endif
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_EMPTY_MIND);
 
 			}
 			else if (has_cf_creature(tar_ptr, CF_WEIRD_MIND) || has_cf_creature(tar_ptr, CF_STUPID) ||
@@ -3143,7 +3143,7 @@ note_dies = "は蒸発した！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 
 				/* Resist */
@@ -3286,7 +3286,7 @@ note = "があなたに隷属した。";
 #endif
 
 				dam *= 2;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_COLD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_COLD);
 			}
 			break;
 		}
@@ -3311,11 +3311,7 @@ note = "があなたに隷属した。";
 			if (!monster_living(r_ptr))
 			{
 				if (is_original_ap_and_seen(who_ptr, tar_ptr))
-				{
-					//TODO if (tar_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
-					//if (tar_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
-					//if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
-				}
+					 has_cf_creature(tar_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3350,11 +3346,7 @@ note = "があなたに隷属した。";
 			if (!monster_living(r_ptr))
 			{
 				if (is_original_ap_and_seen(who_ptr, tar_ptr))
-				{
-					//TODO if (tar_ptr->flags3 & RF3_DEMON) r_ptr->r_flags3 |= (RF3_DEMON);
-					//if (tar_ptr->flags3 & RF3_UNDEAD) r_ptr->r_flags3 |= (RF3_UNDEAD);
-					//if (tar_ptr->flags3 & RF3_NONLIVING) r_ptr->r_flags3 |= (RF3_NONLIVING);
-				}
+					 has_cf_creature(tar_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
 				note = "には完全な耐性がある。";
@@ -3639,7 +3631,6 @@ note = "には効果がなかった！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_SLEEP))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
 				}
 
 				/* No obvious effect */
@@ -3807,7 +3798,7 @@ note = "は動けなくなった！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 
 				/* Resist */
@@ -4044,7 +4035,7 @@ note = "は既にあなたの奴隷だ！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 
 				/* Resist */
@@ -4200,7 +4191,7 @@ note = "を支配した。";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 
 				/* Resist */
@@ -4283,7 +4274,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -4337,7 +4328,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 			}
 			else if (is_hurt_lite_creature(tar_ptr))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 #ifdef JP
 				note = "は光に身をすくめた！";
 				note_dies = "は光を受けてしぼんでしまった！";
@@ -4398,7 +4389,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_ROCK);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr))  reveal_creature_info(tar_ptr, CF_HURT_ROCK);
 
 				/* Cute little message */
 #ifdef JP
@@ -4459,7 +4450,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 					do_dist = dam;
 				}
 			}
@@ -4514,7 +4505,7 @@ note = "には耐性がある！";
 				if (!resists_tele)
 				{
 					if (seen) obvious = TRUE;
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 					do_dist = dam;
 				}
 			}
@@ -4592,7 +4583,7 @@ note = "には耐性がある！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4640,7 +4631,7 @@ note = "には耐性がある！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Apply some fear */
 				do_fear = damroll(3, (dam / 2)) + 1;
@@ -4725,7 +4716,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_UNDEAD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				/* Message */
 #ifdef JP
@@ -4767,7 +4758,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_EVIL);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Message */
 #ifdef JP
@@ -4808,7 +4799,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Message */
 #ifdef JP
@@ -4888,7 +4879,7 @@ note_dies = "はドロドロに溶けた！";
 				if (seen) obvious = TRUE;
 
 				/* Learn about type */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_DEMON);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 
 				/* Message */
 #ifdef JP

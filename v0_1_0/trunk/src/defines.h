@@ -5967,6 +5967,7 @@ extern int PlayerUID;
 
 #define INFO_TYPE_RACE            1000
 #define INFO_TYPE_ALIGNMENT       1001
+#define INFO_TYPE_RESIST          1002
 
 #define INFO_TYPE_RESIST_FIRE_RATE     1100
 #define INFO_TYPE_RESIST_COLD_RATE     1101
