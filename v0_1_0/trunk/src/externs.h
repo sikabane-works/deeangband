@@ -1099,6 +1099,10 @@ extern bool has_ball_flags(creature_flags *flags_ptr);
 extern bool has_beam_flags(creature_flags *flags_ptr);
 extern bool has_ball_flags(creature_flags *flags_ptr);
 extern bool has_intelligence_skill_flags(creature_flags *flags_ptr);
+extern bool has_riding_disable_skill_flags(creature_flags *flags_ptr);
+extern bool has_attack_skill_flags(creature_flags *flags_ptr);
+extern bool has_indirect_skill_flags(creature_flags *flags_ptr);
+extern bool has_non_magic_skill_flags(creature_flags *flags_ptr);
 
 
 /* do-spell.c */

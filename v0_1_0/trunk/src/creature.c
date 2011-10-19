@@ -2242,3 +2242,64 @@ bool has_intelligence_skill_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
 	return FALSE;
 }
+
+bool has_riding_disable_skill_flags(creature_flags *flags_ptr)
+{
+	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BLINK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TPORT)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
+	if(has_cf(flags_ptr, CF_DARKNESS)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SPECIAL)) return TRUE;	
+}
+
+
+bool has_attack_skill_flags(creature_flags *flags_ptr)
+{
+	if(has_bolt_flags(flags_ptr)) return TRUE;
+	if(has_beam_flags(flags_ptr)) return TRUE;
+	if(has_ball_flags(flags_ptr)) return TRUE;
+	if(has_cf(flags_ptr, CF_DISPEL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_DRAIN_MANA)) return TRUE;	
+	if(has_cf(flags_ptr, CF_MIND_BLAST)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BRAIN_SMASH)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CAUSE_1)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CAUSE_2)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CAUSE_3)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CAUSE_4)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SCARE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BLIND)) return TRUE;	
+	if(has_cf(flags_ptr, CF_CONF)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SLOW)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HOLD)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HAND_DOOM)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TELE_TO)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TELE_AWAY)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TELE_LEVEL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_DARKNESS)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
+	if(has_cf(flags_ptr, CF_FORGET)) return TRUE;	
+}
+
+bool has_indirect_skill_flags(creature_flags *flags_ptr)
+{
+	if(has_summon_flags(flags_ptr)) return TRUE;
+	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HASTE)) return TRUE;	
+	if(has_cf(flags_ptr, CF_HEAL)) return TRUE;	
+	if(has_cf(flags_ptr, CF_INVULNER)) return TRUE;	
+	if(has_cf(flags_ptr, CF_BLINK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_WORLD)) return TRUE;	
+	if(has_cf(flags_ptr, CF_TPORT)) return TRUE;	
+	if(has_cf(flags_ptr, CF_RAISE_DEAD)) return TRUE;	
+}
+
+bool has_non_magic_skill_flags(creature_flags *flags_ptr)
+{
+	if(has_breath_flags(flags_ptr)) return TRUE;
+	if(has_cf(flags_ptr, CF_SHRIEK)) return TRUE;	
+	if(has_cf(flags_ptr, CF_ROCKET)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SHOOT)) return TRUE;	
+	if(has_cf(flags_ptr, CF_SPECIAL)) return TRUE;	
+}
+
