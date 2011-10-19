@@ -1097,7 +1097,7 @@ extern bool has_summon_flags(creature_flags *flags_ptr);
 extern bool has_big_ball_flags(creature_flags *flags_ptr);
 extern bool has_ball_flags(creature_flags *flags_ptr);
 extern bool has_beam_flags(creature_flags *flags_ptr);
-extern bool has_ball_flags(creature_flags *flags_ptr);
+extern bool has_bolt_flags(creature_flags *flags_ptr);
 extern bool has_intelligence_skill_flags(creature_flags *flags_ptr);
 extern bool has_riding_disable_skill_flags(creature_flags *flags_ptr);
 extern bool has_attack_skill_flags(creature_flags *flags_ptr);

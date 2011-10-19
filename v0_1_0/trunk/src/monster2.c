@@ -1048,9 +1048,13 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	if (d_ptr->flags1 & DF1_NO_MELEE)
 	{
 		if (species_idx == MON_CHAMELEON) return TRUE;
-		if (!(r_ptr->flags4 & (RF4_BOLT_MASK | RF4_BEAM_MASK | RF4_BALL_MASK)) &&
-		    !(r_ptr->flags5 & (RF5_BOLT_MASK | RF5_BEAM_MASK | RF5_BALL_MASK | RF5_CAUSE_1 | RF5_CAUSE_2 | RF5_CAUSE_3 | RF5_CAUSE_4 | RF5_MIND_BLAST | RF5_BRAIN_SMASH)) &&
-		    !(r_ptr->flags6 & (RF6_BOLT_MASK | RF6_BEAM_MASK | RF6_BALL_MASK)))
+		if (!(has_bolt_flags(&r_ptr->flags) || has_beam_flags(&r_ptr->flags) || has_ball_flags(&r_ptr->flags) || 
+			has_cf(&r_ptr->flags, CF_CAUSE_1) || 
+			has_cf(&r_ptr->flags, CF_CAUSE_2) || 
+			has_cf(&r_ptr->flags, CF_CAUSE_3) || 
+			has_cf(&r_ptr->flags, CF_CAUSE_4) || 
+			has_cf(&r_ptr->flags, CF_MIND_BLAST) || 
+			has_cf(&r_ptr->flags, CF_BRAIN_SMASH)))
 			return FALSE;
 	}
 	if (d_ptr->flags1 & DF1_BEGINNER)
