@@ -592,9 +592,7 @@ static bool get_moves_aux(int m_idx, int *yp, int *xp, bool no_flow)
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Can monster cast attack spell? */
-	if (r_ptr->flags4 & (RF4_ATTACK_MASK) ||
-	    r_ptr->flags5 & (RF5_ATTACK_MASK) ||
-	    r_ptr->flags6 & (RF6_ATTACK_MASK))
+	if (has_attack_skill_flags(&r_ptr->flags))
 	{
 		/* Can move spell castable grid? */
 		if (get_moves_aux2(m_idx, yp, xp)) return (TRUE);

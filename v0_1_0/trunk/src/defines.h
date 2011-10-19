@@ -3867,24 +3867,6 @@
 	 RF6_S_AMBERITES | RF6_S_UNIQUE)
 
 /*
- * Hack -- "attack" spells
- * Including "bolt", "beam" and "ball" spells
- */
-#define RF4_ATTACK_MASK \
-	(RF4_BOLT_MASK | RF4_BEAM_MASK | RF4_BALL_MASK | RF4_DISPEL)
-
-#define RF5_ATTACK_MASK \
-	(RF5_BOLT_MASK | RF5_BEAM_MASK | RF5_BALL_MASK | \
-	 RF5_DRAIN_MANA | RF5_MIND_BLAST | RF5_BRAIN_SMASH | \
-	 RF5_CAUSE_1 | RF5_CAUSE_2 | RF5_CAUSE_3 | RF5_CAUSE_4 | \
-	 RF5_SCARE | RF5_BLIND | RF5_CONF | RF5_SLOW | RF5_HOLD)
-
-#define RF6_ATTACK_MASK \
-	(RF6_BOLT_MASK | RF6_BEAM_MASK | RF6_BALL_MASK | \
-	 RF6_HAND_DOOM | RF6_TELE_TO | RF6_TELE_AWAY | RF6_TELE_LEVEL | \
-	 RF6_DARKNESS | RF6_TRAPS | RF6_FORGET)
-
-/*
  * Hack -- effective elemental and poison immunity mask
  */
 #define MR1_SINKA 0x01
