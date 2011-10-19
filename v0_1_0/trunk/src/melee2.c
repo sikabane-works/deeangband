@@ -1803,7 +1803,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	}
 
 
-	if (has_cf_creature(nonplayer_ptr, RF6_SPECIAL))
+	if (has_cf_creature(nonplayer_ptr, CF_SPECIAL))
 	{
 		/* Hack -- Ohmu scatters molds! */
 		if (nonplayer_ptr->species_idx == MON_OHMU)
@@ -2408,7 +2408,7 @@ msg_format("%^s%s", m_name, monmessage);
 							if (nonplayer_ptr->confused) return;
 							else if (has_cf_creature(nonplayer_ptr, CF_STUPID))
 							{
-								//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_STUPID);
+								if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_STUPID);
 								return;
 							}
 						}
@@ -2465,7 +2465,7 @@ msg_format("%^s%s", m_name, monmessage);
 				/* Update some things */
 				player_ptr->update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags2 |= (RF2_KILL_WALL);
+				if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_KILL_WALL);
 
 				return;
 			}
@@ -2504,7 +2504,7 @@ msg_format("%^s%s", m_name, monmessage);
 		if (do_move && has_cf_creature(nonplayer_ptr, CF_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
-			//TODO if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) r_ptr->r_flags1 |= (RF1_NEVER_MOVE);
+			if (is_original_ap_and_seen(player_ptr, nonplayer_ptr)) reveal_creature_info(nonplayer_ptr, CF_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;

@@ -2462,7 +2462,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 				if (has_cf_creature(m_ptr, CF_EMPTY_MIND))
 				{
 					/* Memorize flags */
-					//TODO if (is_original_ap(m_ptr) && !cr_ptr->image) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+					if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_EMPTY_MIND);
 				}
 
 				/* Weird mind, occasional telepathy */
@@ -2477,11 +2477,9 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 						if (is_original_ap(m_ptr) && !cr_ptr->image)
 						{
 							/* Memorize flags */
-							//TODO r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
-
-							/* Hack -- Memorize mental flags */
-							//TODO if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);
-							//TODO if (r_ptr->flags2 & (RF2_STUPID)) r_ptr->r_flags2 |= (RF2_STUPID);
+							reveal_creature_info(m_ptr, CF_WEIRD_MIND);
+							reveal_creature_info(m_ptr, CF_SMART);
+							reveal_creature_info(m_ptr, CF_STUPID);
 						}
 					}
 				}
@@ -2495,8 +2493,8 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 					if (is_original_ap(m_ptr) && !cr_ptr->image)
 					{
 						/* Hack -- Memorize mental flags */
-						//TODO if (r_ptr->flags2 & (RF2_SMART)) r_ptr->r_flags2 |= (RF2_SMART);
-						//TODO if (r_ptr->flags2 & (RF2_STUPID)) r_ptr->r_flags2 |= (RF2_STUPID);
+						reveal_creature_info(m_ptr, CF_SMART);
+						reveal_creature_info(m_ptr, CF_STUPID);
 					}
 				}
 			}
@@ -2648,8 +2646,8 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 				if (is_original_ap(m_ptr) && !cr_ptr->image)
 				{
 					/* Memorize flags */
-					//TODO if (do_invisible) r_ptr->r_flags2 |= (RF2_INVISIBLE);
-					//TODO if (do_cold_blood) r_ptr->r_flags2 |= (RF2_COLD_BLOOD);
+					reveal_creature_info(m_ptr, CF_INVISIBLE);
+					reveal_creature_info(m_ptr, CF_COLD_BLOOD);
 				}
 			}
 		}
