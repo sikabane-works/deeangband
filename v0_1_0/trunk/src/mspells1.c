@@ -1161,28 +1161,6 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 }
 
 
-/*
- * Return TRUE if a spell is inate spell.
- */
-bool spell_is_inate(u16b spell)
-{
-	if (spell < 32 * 4) /* Set RF4 */
-	{
-		if ((1L << (spell - 32 * 3)) & RF4_NOMAGIC_MASK) return TRUE;
-	}
-	else if (spell < 32 * 5) /* Set RF5 */
-	{
-		if ((1L << (spell - 32 * 4)) & RF5_NOMAGIC_MASK) return TRUE;
-	}
-	else if (spell < 32 * 6) /* Set RF6 */
-	{
-		if ((1L << (spell - 32 * 5)) & RF6_NOMAGIC_MASK) return TRUE;
-	}
-
-	/* This spell is not "inate" */
-	return FALSE;
-}
-
 
 static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
 	int f_flag, bool (*path_check)(int, int, int, int))
@@ -1650,8 +1628,8 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	if (has_cf_creature(user_ptr, CF_STUPID)) failrate = 0;
 
 	/* Check for spell failure (inate attacks never fail) */
-	if (!spell_is_inate(thrown_spell)
-	    && (in_no_magic_dungeon || (user_ptr->stun && one_in_(2)) || (randint0(100) < failrate)))
+	// TODO Distinction of spell failure_rate
+	if ((in_no_magic_dungeon || (user_ptr->stun && one_in_(2)) || (randint0(100) < failrate)))
 	{
 		disturb(1, 0);
 		/* Message */
@@ -1665,7 +1643,8 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	}
 
 	/* Hex: Anti Magic Barrier */
-	if (!spell_is_inate(thrown_spell) && magic_barrier(target_ptr, user_ptr))
+	// TODO Distinction of spell failure_rate
+	if (magic_barrier(target_ptr, user_ptr))
 	{
 #ifdef JP
 		msg_format("反魔法バリアが%^sの呪文をかき消した。", m_name);

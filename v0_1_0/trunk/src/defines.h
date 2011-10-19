@@ -3900,23 +3900,6 @@
 	 RF6_TPORT | RF6_RAISE_DEAD)
 
 /*
- * Hack -- "non-magic" spells
- * Including "breath" spells
- */
-#define RF4_NOMAGIC_MASK \
-	(RF4_BREATH_MASK | RF4_SHRIEK | RF4_ROCKET | RF4_SHOOT)
-
-#define RF5_NOMAGIC_MASK \
-	(RF5_BREATH_MASK)
-
-#define RF6_NOMAGIC_MASK \
-	(RF6_BREATH_MASK | RF6_SPECIAL)
-
-/*
- * Hack -- "torch" masks
- */
-
-/*
  * Hack -- effective elemental and poison immunity mask
  */
 #define MR1_SINKA 0x01

@@ -2251,6 +2251,7 @@ bool has_riding_disable_skill_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
 	if(has_cf(flags_ptr, CF_DARKNESS)) return TRUE;	
 	if(has_cf(flags_ptr, CF_SPECIAL)) return TRUE;	
+	return FALSE;
 }
 
 
@@ -2279,6 +2280,7 @@ bool has_attack_skill_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_DARKNESS)) return TRUE;	
 	if(has_cf(flags_ptr, CF_TRAPS)) return TRUE;	
 	if(has_cf(flags_ptr, CF_FORGET)) return TRUE;	
+	return FALSE;
 }
 
 bool has_indirect_skill_flags(creature_flags *flags_ptr)
@@ -2292,6 +2294,7 @@ bool has_indirect_skill_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_WORLD)) return TRUE;	
 	if(has_cf(flags_ptr, CF_TPORT)) return TRUE;	
 	if(has_cf(flags_ptr, CF_RAISE_DEAD)) return TRUE;	
+	return FALSE;
 }
 
 bool has_non_magic_skill_flags(creature_flags *flags_ptr)
@@ -2301,5 +2304,12 @@ bool has_non_magic_skill_flags(creature_flags *flags_ptr)
 	if(has_cf(flags_ptr, CF_ROCKET)) return TRUE;	
 	if(has_cf(flags_ptr, CF_SHOOT)) return TRUE;	
 	if(has_cf(flags_ptr, CF_SPECIAL)) return TRUE;	
+	return FALSE;
 }
+
+bool has_magic_power(creature_type *creature_ptr)
+{
+	return TRUE;
+}
+
 

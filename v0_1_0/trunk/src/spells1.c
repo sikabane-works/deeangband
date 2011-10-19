@@ -4946,7 +4946,7 @@ note_dies = "‚Íƒhƒƒhƒ‚É—n‚¯‚½I";
 				break;
 			}
 
-			if ((tar_ptr->flags4 & ~(RF4_NOMAGIC_MASK)) || (tar_ptr->flags5 & ~(RF5_NOMAGIC_MASK)) || (tar_ptr->flags6 & ~(RF6_NOMAGIC_MASK)))
+			if (has_magic_power(tar_ptr))
 			{
 				if (who_ptr > 0)
 				{

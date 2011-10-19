@@ -1103,6 +1103,7 @@ extern bool has_riding_disable_skill_flags(creature_flags *flags_ptr);
 extern bool has_attack_skill_flags(creature_flags *flags_ptr);
 extern bool has_indirect_skill_flags(creature_flags *flags_ptr);
 extern bool has_non_magic_skill_flags(creature_flags *flags_ptr);
+extern bool has_magic_power(creature_type *creature_ptr);
 
 
 /* do-spell.c */
@@ -1797,7 +1798,6 @@ extern bool clean_shot(int y1, int x1, int y2, int x2, bool friend);
 extern bool summon_possible(int y1, int x1);
 extern bool raise_possible(creature_type *m_ptr);
 extern bool dispel_check(creature_type *user_ptr, creature_type *target_ptr);
-extern bool spell_is_inate(u16b spell);
 extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
 
 /* mspells2.c */

@@ -1042,10 +1042,7 @@ static bool restrict_monster_to_dungeon(int species_idx)
 	if (d_ptr->flags1 & DF1_NO_MAGIC)
 	{
 		if (species_idx != MON_CHAMELEON &&
-		    r_ptr->freq_spell && 
-		    !(r_ptr->flags4 & RF4_NOMAGIC_MASK) &&
-		    !(r_ptr->flags5 & RF5_NOMAGIC_MASK) &&
-		    !(r_ptr->flags6 & RF6_NOMAGIC_MASK))
+		    r_ptr->freq_spell && has_non_magic_skill_flags(&r_ptr->flags))
 			return FALSE;
 	}
 	if (d_ptr->flags1 & DF1_NO_MELEE)
