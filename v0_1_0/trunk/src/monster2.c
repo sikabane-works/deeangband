@@ -3732,10 +3732,10 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 
 	/* Set Monster's Level and EXP*/
 	set_expfact(creature_ptr);
-
 	creature_ptr->lev = 1;
 	creature_ptr->exp = species_ptr->mexp;
-	check_experience(creature_ptr);
+	creature_ptr->max_exp = species_ptr->mexp;
+	creature_ptr->max_max_exp = species_ptr->mexp;
 
 	initialize_skill(creature_ptr);
 
@@ -3772,8 +3772,6 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 		creature_ptr->authority[i] = species_ptr->authority[i];
 
 	/* Equipment */
-	calc_bonuses(creature_ptr, FALSE);
-
 	deal_creature_equipment(creature_ptr);
 
 	/* Underlings */
@@ -3787,6 +3785,9 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	calc_bonuses(creature_ptr, FALSE);
 	creature_ptr->update = PU_BONUS | PU_HP | PU_MANA;
 	update_stuff(creature_ptr, FALSE);
+
+	/* Lv Set */
+	check_experience(creature_ptr);
 
 	/* And start out fully healthy */
 	if (creature_ptr->species_idx == MON_WOUNDED_BEAR)
