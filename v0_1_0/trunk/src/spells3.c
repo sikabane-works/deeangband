@@ -448,16 +448,14 @@ void teleport_player(creature_type *cr_ptr, int dis, u32b mode)
 			if (tmp_m_idx && (cr_ptr->riding != tmp_m_idx))
 			{
 				creature_type *m_ptr = &creature_list[tmp_m_idx];
-				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if ((r_ptr->flags6 & RF6_TPORT) &&
-				    !is_resist_tele_creature(m_ptr))
+				if (has_cf_creature(m_ptr, CF_TPORT) && !is_resist_tele_creature(m_ptr))
 				{
-					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, r_ptr->level, 0L);
+					if (!m_ptr->paralyzed) teleport_monster_to(tmp_m_idx, cr_ptr->fy, cr_ptr->fx, m_ptr->lev, 0L);
 				}
 			}
 		}

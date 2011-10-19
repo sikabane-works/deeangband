@@ -1912,14 +1912,6 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 				{
 					species_type *r_ptr = &species_info[o_ptr->pval];
 
-					if (!(r_ptr->flags3 & RF3_EVIL))
-					{
-						if (r_ptr->flags3 & RF3_GOOD) break;
-
-						if (is_animal_species(r_ptr)) break;
-
-						if (my_strchr("?!", r_ptr->d_char)) break;
-					}
 				}
 				case TV_POLEARM:
 				case TV_SWORD:

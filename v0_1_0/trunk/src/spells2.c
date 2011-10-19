@@ -4945,25 +4945,7 @@ bool probing(void)
 			if (m_ptr->slow) speed -= 10;
 
 			/* Get the monster's alignment */
-/* TODO
-#ifdef JP
-			if ((r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) == (RF3_EVIL | RF3_GOOD)) align = "‘Pˆ«";
-			else if (r_ptr->flags3 & RF3_EVIL) align = "Ž×ˆ«";
-			else if (r_ptr->flags3 & RF3_GOOD) align = "‘P—Ç";
-			else if ((m_ptr->sub_align & (SUB_ALIGN_EVIL | SUB_ALIGN_GOOD)) == (SUB_ALIGN_EVIL | SUB_ALIGN_GOOD)) align = "’†—§(‘Pˆ«)";
-			else if (m_ptr->sub_align & SUB_ALIGN_EVIL) align = "’†—§(Ž×ˆ«)";
-			else if (m_ptr->sub_align & SUB_ALIGN_GOOD) align = "’†—§(‘P—Ç)";
-			else align = "’†—§";
-#else
-			if ((r_ptr->flags3 & (RF3_EVIL | RF3_GOOD)) == (RF3_EVIL | RF3_GOOD)) align = "good&evil";
-			else if (r_ptr->flags3 & RF3_EVIL) align = "evil";
-			else if (r_ptr->flags3 & RF3_GOOD) align = "good";
-			else if ((m_ptr->sub_align & (SUB_ALIGN_EVIL | SUB_ALIGN_GOOD)) == (SUB_ALIGN_EVIL | SUB_ALIGN_GOOD)) align = "neutral(good&evil)";
-			else if (m_ptr->sub_align & SUB_ALIGN_EVIL) align = "neutral(evil)";
-			else if (m_ptr->sub_align & SUB_ALIGN_GOOD) align = "neutral(good)";
-			else align = "neutral";
-#endif
-*/
+			/* TODO: New Alignment View */
 			align = "----";
 
 #ifdef JP
