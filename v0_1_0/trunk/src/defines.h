@@ -3756,21 +3756,6 @@
 #define RF6_S_UNIQUE        0x80000000  /* Summon Unique Monster */
 
 
-/*
- * Hack -- choose "intelligent" spells when desperate
- * Including "summon" spells
- */
-#define RF4_INT_MASK \
-	(RF4_SUMMON_MASK | RF4_DISPEL)
-
-#define RF5_INT_MASK \
-	(RF5_SUMMON_MASK | \
-	 RF5_HOLD | RF5_SLOW | RF5_CONF | RF5_BLIND | RF5_SCARE)
-
-#define RF6_INT_MASK \
-	(RF6_SUMMON_MASK | \
-	 RF6_BLINK | RF6_TPORT | RF6_TELE_LEVEL | RF6_TELE_AWAY | \
-	 RF6_HEAL | RF6_INVULNER | RF6_HASTE | RF6_TRAPS)
 
 /*
  * Hack -- spells that cannot be used while player riding on the monster
@@ -3851,20 +3836,6 @@
 #define RF5_BREATH_MASK 0L
 
 #define RF6_BREATH_MASK 0L
-
-/*
- * Hack -- "summon" spells
- * Currently "summon" spells are included in "intelligent" and "indirect"
- */
-#define RF4_SUMMON_MASK 0L
-
-#define RF5_SUMMON_MASK 0L
-
-#define RF6_SUMMON_MASK \
-	(RF6_S_KIN | RF6_S_CYBER | RF6_S_MONSTER | RF6_S_MONSTERS | RF6_S_ANT | \
-	 RF6_S_SPIDER | RF6_S_HOUND | RF6_S_HYDRA | RF6_S_ANGEL | RF6_S_DEMON | \
-	 RF6_S_UNDEAD | RF6_S_DRAGON | RF6_S_HI_UNDEAD | RF6_S_HI_DRAGON | \
-	 RF6_S_AMBERITES | RF6_S_UNIQUE)
 
 /*
  * Hack -- effective elemental and poison immunity mask
