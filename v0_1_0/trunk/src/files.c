@@ -4518,7 +4518,7 @@ static void dump_aux_class_special(creature_type *cr_ptr, FILE *fff)
 		for (j=1;j<6;j++)
 		{
 			col++;
-			set_rf_masks(&f4, &f5, &f6, j);
+			//TODO set_rf_masks(&f4, &f5, &f6, j);
 			switch(j)
 			{
 				case MONSPELL_TYPE_BOLT:

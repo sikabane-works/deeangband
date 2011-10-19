@@ -385,7 +385,7 @@ cptr            p = "–‚–@";
 	}
 	}
 
-	set_rf_masks(&f4, &f5, &f6, mode);
+	//TODO set_rf_masks(&f4, &f5, &f6, mode);
 
 	for (i = 0, num = 0; i < 32; i++)
 	{
@@ -2087,6 +2087,7 @@ void learn_spell(creature_type *cr_ptr, int monspell)
  */
 void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode)
 {
+		/*
 	switch (mode)
 	{
 		case MONSPELL_TYPE_BOLT:
@@ -2119,6 +2120,7 @@ void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode)
 			*f6 = RF6_ATTACK_MASK & ~(RF6_BOLT_MASK | RF6_BEAM_MASK | RF6_BALL_MASK | RF6_INDIRECT_MASK);
 			break;
 	}
+		*/
 
 	return;
 }

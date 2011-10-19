@@ -3885,21 +3885,6 @@
 	 RF6_DARKNESS | RF6_TRAPS | RF6_FORGET)
 
 /*
- * Hack -- "indirect" spells
- * Including "summon" spells
- */
-#define RF4_INDIRECT_MASK \
-	(RF4_SUMMON_MASK | RF4_SHRIEK)
-
-#define RF5_INDIRECT_MASK \
-	(RF5_SUMMON_MASK)
-
-#define RF6_INDIRECT_MASK \
-	(RF6_SUMMON_MASK | \
-	 RF6_HASTE | RF6_HEAL | RF6_INVULNER | RF6_BLINK | RF6_WORLD | \
-	 RF6_TPORT | RF6_RAISE_DEAD)
-
-/*
  * Hack -- effective elemental and poison immunity mask
  */
 #define MR1_SINKA 0x01

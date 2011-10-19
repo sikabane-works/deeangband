@@ -1222,7 +1222,7 @@ static void do_cmd_wiz_blue_mage(creature_type *cr_ptr)
 	for (j=1; j<6; j++)
 	{
 
-		set_rf_masks(&f4, &f5, &f6, j);
+		//TODO set_rf_masks(&f4, &f5, &f6, j);
 
 		for (i = 0; i < 32; i++)
 		{
