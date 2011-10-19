@@ -5998,13 +5998,13 @@ static bool vault_aux_lite(int species_idx)
 	if (!vault_monster_okay(species_idx)) return FALSE;
 
 	/* Require lite attack */
-	if (!(r_ptr->flags4 & RF4_BR_LITE) && !(r_ptr->flags5 & RF5_BA_LITE)) return FALSE;
+	if (!has_cf(&r_ptr->flags, CF_BR_LITE) && !has_cf(&r_ptr->flags, CF_BA_LITE)) return FALSE;
 
 	/* No wall passing monsters */
 	if (is_kill_wall_species(r_ptr) || is_pass_wall_species(r_ptr)) return FALSE;
 
 	/* No disintegrating monsters */
-	if (r_ptr->flags4 & RF4_BR_DISI) return FALSE;
+	if (has_cf(&r_ptr->flags, CF_BR_DISI)) return FALSE;
 
 	return TRUE;
 }
@@ -6020,7 +6020,7 @@ static bool vault_aux_shards(int species_idx)
 	if (!vault_monster_okay(species_idx)) return FALSE;
 
 	/* Require shards breath attack */
-	if (!(r_ptr->flags4 & RF4_BR_SHAR)) return FALSE;
+	if (!has_cf(&r_ptr->flags, CF_BR_SHAR)) return FALSE;
 
 	return TRUE;
 }

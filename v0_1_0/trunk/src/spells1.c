@@ -5029,7 +5029,7 @@ note_dies = "はドロドロに溶けた！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5040,7 +5040,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (has_cf_creature(tar_ptr, CF_EMPTY_MIND))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5050,7 +5050,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (has_cf_creature(tar_ptr, CF_WEIRD_MIND))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -5105,7 +5105,7 @@ note_dies = "はドロドロに溶けた！";
 				/* Memorize a flag */
 				if (has_cf_creature(tar_ptr, CF_NO_CONF))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_CONF);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5116,7 +5116,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (has_cf_creature(tar_ptr, CF_EMPTY_MIND))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -5126,7 +5126,7 @@ note_dies = "はドロドロに溶けた！";
 			}
 			else if (has_cf_creature(tar_ptr, CF_WEIRD_MIND))
 			{
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags2 |= (RF2_WEIRD_MIND);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -5539,7 +5539,7 @@ note = "には効果がなかった！";
 					/* Memorize a flag */
 					if (has_cf_creature(tar_ptr, CF_NO_SLEEP))
 					{
-						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_SLEEP);
+						if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_SLEEP);
 					}
 
 					/* No obvious effect */
@@ -5627,7 +5627,7 @@ note = "には効果がなかった！";
 				if (seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_HURT_LITE);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -5716,7 +5716,7 @@ note = "には効果がなかった！";
 					(void)set_fast(&creature_list[c_ptr->m_idx], tar_ptr->fast + 100, FALSE);
 
 					/* Learn about type */
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_GOOD);
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
 					success = TRUE;
 				}
 			}
@@ -5727,7 +5727,7 @@ note = "には効果がなかった！";
 				{
 					do_fear = randint1(90)+10;
 				}
-				//TODO else if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags3 |= (RF3_NO_FEAR);
+				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_FEAR);
 			}
 
 			/* No "real" damage */
@@ -9058,7 +9058,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						msg_print("The attack bounces!");
 #endif
 					}
-					//TODO if (is_original_ap_and_seen(p_ptr, m_ptr)) ref_ptr->r_flags2 |= RF2_REFLECTING;
+					if (is_original_ap_and_seen(who_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
 					if (creature_bold(p_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
