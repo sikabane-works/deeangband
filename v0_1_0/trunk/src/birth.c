@@ -5675,7 +5675,7 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	errr err;
 	int i, j, n;
 	char *s, *t;
-	char temp[64 * 4];
+	char temp[HISTORY_ROW * HISTORY_COL];
 	char histbuf[HISTPREF_LIMIT];
 
 #ifdef JP

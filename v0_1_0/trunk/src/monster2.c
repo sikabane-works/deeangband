@@ -3689,9 +3689,12 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 
 int create_creature(creature_type *creature_ptr, int species_idx, int monster_ego_idx, u32b mode)
 {
-	int i;
+	int i, j, n;
+	char *s, *t;
 	species_type	*species_ptr = &species_info[species_idx];
-	cptr		name = (r_name + species_ptr->name);
+	cptr name = (r_name + species_ptr->name);
+	char *history = (r_text + species_ptr->text);
+	char temp[HISTORY_ROW * HISTORY_COL];
 
 
 	strcpy(creature_ptr->name, name);
@@ -3796,6 +3799,41 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 		set_enemy_hp(creature_ptr, 100);
 
 	set_enemy_mana(creature_ptr, 100);
+
+
+	/* Clear the previous history strings */
+	for (i = 0; i < HISTORY_ROW; i++) creature_ptr->history[i][0] = '\0';
+
+	/* Skip leading spaces */
+	for (s = history; *s == ' '; s++) /* loop */;
+
+	/* Get apparent length */
+	n = strlen(s);
+
+	/* Kill trailing spaces */
+	while ((n > 0) && (s[n - 1] == ' ')) s[--n] = '\0';
+
+	roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
+	t = temp;
+	for (i = 0; i < HISTORY_ROW; i++)
+	{
+		if (t[0] == 0) break;
+		else
+		{
+			strcpy(creature_ptr->history[i], t);
+			t += strlen(t) + 1;
+		}
+	}
+
+	/* Fill the remaining spaces */
+	for (i = 0; i < HISTORY_ROW; i++)
+	{
+		for (j = 0; creature_ptr->history[i][j]; j++) /* loop */;
+
+		for (; j < HISTORY_COL - 1; j++) creature_ptr->history[i][j] = ' ';
+		creature_ptr->history[i][HISTORY_COL - 1] = '\0';
+	}
+
 
 	/* Success */
 	return TRUE;
