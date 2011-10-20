@@ -343,7 +343,7 @@ struct species_type
 
 	s32b karmas[MAX_KARMA];
 
-	char history[4][60];
+	char history[HISTORY_ROW][HISTORY_COL];
 
 	bool quick_ok;
 
