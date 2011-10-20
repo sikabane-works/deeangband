@@ -1059,7 +1059,7 @@ static void load_quick_start(species_type *sp_ptr)
 
 	rd_s16b(&sp_ptr->patron_idx);
 
-	for (i = 0; i < 4; i++) rd_string(sp_ptr->history[i], sizeof(sp_ptr->history[i]));
+	for (i = 0; i < HISTORY_ROW; i++) rd_string(sp_ptr->history[i], sizeof(sp_ptr->history[i]));
 
 	/* UNUSED : Was number of random quests */
 	rd_byte(&tmp8u);
@@ -1087,7 +1087,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_string(buf, sizeof buf);
 	if (buf[0]) cr_ptr->last_message = string_make(buf);
 
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		rd_string(cr_ptr->history[i], sizeof(cr_ptr->history[i]));
 	}

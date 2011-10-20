@@ -490,7 +490,7 @@ static void save_quick_start(species_type *sp_ptr)
 
 	wr_s16b(sp_ptr->patron_idx);
 
-	for (i = 0; i < 4; i++) wr_string(sp_ptr->history[i]);
+	for (i = 0; i < HISTORY_ROW; i++) wr_string(sp_ptr->history[i]);
 
 	/* UNUSED : Was number of random quests */
 	wr_byte(0);
@@ -515,9 +515,9 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_string(cr_ptr->died_from);
 	wr_string(cr_ptr->last_message ? cr_ptr->last_message : "");
 
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
-		wr_string(cr_ptr->history[i]);
+		wr_string(cr_ptr->history[HISTORY_ROW]);
 	}
 
 	/* Race/Class/Gender/Spells */
