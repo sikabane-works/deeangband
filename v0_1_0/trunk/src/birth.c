@@ -5798,10 +5798,10 @@ static void edit_history(creature_type *cr_ptr)
 	}
 	display_player(1, cr_ptr);
 #ifdef JP
-	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 10, 20);
+	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 2, 20);
 	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 23, 10);
 #else
-	c_put_str(TERM_L_GREEN, "(Character Background - Edit Mode)", 10, 20);
+	c_put_str(TERM_L_GREEN, "(Character Background - Edit Mode)", 2, 20);
 	put_str("[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]", 23, 10);
 #endif
 
@@ -5812,17 +5812,17 @@ static void edit_history(creature_type *cr_ptr)
 
 		for (i = 0; i < HISTORY_ROW; i++)
 		{
-			put_str(cr_ptr->history[i], i + 10, 3);
+			put_str(cr_ptr->history[i], i + 4, 3);
 		}
 #ifdef JP
 		if (iskanji2(cr_ptr->history[y], x))
-			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 10, x + 3);
+			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 4, x + 3);
 		else
 #endif
-		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 10, x + 3);
+		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 4, x + 3);
 
 		/* Place cursor just after cost of current stat */
-		Term_gotoxy(x + 3, y + 10);
+		Term_gotoxy(x + 3, y + 4);
 
 		/* Get special key code */
 		skey = inkey_special(TRUE);
@@ -5881,9 +5881,9 @@ static void edit_history(creature_type *cr_ptr)
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
 #ifdef JP
-			put_str("(キャラクターの生い立ち - 編集済み)", 9, 20);
+			put_str("(キャラクターの生い立ち - 編集済み)", 2, 20);
 #else
-			put_str("(Character Background - Edited)", 9, 20);
+			put_str("(Character Background - Edited)", 2, 20);
 #endif
 			break;
 		}
@@ -5891,15 +5891,15 @@ static void edit_history(creature_type *cr_ptr)
 		{
 			clear_from(11);
 #ifdef JP
-			put_str("(キャラクターの生い立ち)", 10, 25);
+			put_str("(キャラクターの生い立ち)", 2, 25);
 #else
-			put_str("(Character Background)", 11, 25);
+			put_str("(Character Background)", 2, 25);
 #endif
 
 			for (i = 0; i < HISTORY_ROW; i++)
 			{
 				sprintf(cr_ptr->history[i], "%s", old_history[i]);
-				put_str(cr_ptr->history[i], i + 10, 3);
+				put_str(cr_ptr->history[i], i + 4, 3);
 			}
 			break;
 		}

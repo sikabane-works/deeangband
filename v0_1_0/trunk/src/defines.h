@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 27
+#define VER_PATCH 28
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -178,8 +178,8 @@
 #define ST1_SCULPTURE			0x00000010
 #define ST1_PAINT				0x00000020
 
-#define HISTORY_ROW 12
-#define HISTORY_COL 74
+#define HISTORY_ROW 16
+#define HISTORY_COL 75
 
 
 
