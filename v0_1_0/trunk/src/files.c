@@ -4060,7 +4060,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* Display "history" info */
 		if (mode == 1)
 		{
-			char statmsg[1000];
+			char statmsg[10000];
 
 #ifdef JP
 			put_str("(キャラクターの生い立ち)", 11, 25);
@@ -4068,7 +4068,7 @@ void display_player(int mode, creature_type *cr_ptr)
 			put_str("(Character Background)", 11, 25);
 #endif
 
-			for (i = 0; i < 4; i++)
+			for (i = 0; i < HISTORY_ROW; i++)
 			{
 				put_str(cr_ptr->history[i], i + 12, 10);
 			}

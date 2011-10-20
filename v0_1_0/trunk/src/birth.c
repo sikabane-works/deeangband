@@ -2392,7 +2392,7 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	species_ptr->patron_idx = cr_ptr->patron_idx;
 
 	/* Save the history */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		strcpy(species_ptr->history[i], cr_ptr->history[i]);
 	}
@@ -2458,7 +2458,7 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	creature_ptr->patron_idx = species_ptr->patron_idx;
 
 	/* Load the history */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		strcpy(creature_ptr->history[i], species_ptr->history[i]);
 	}
@@ -2670,7 +2670,7 @@ static void get_history(creature_type *cr_ptr)
 	char buf[240];
 
 	/* Clear the previous history strings */
-	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';
+	for (i = 0; i < HISTORY_ROW; i++) cr_ptr->history[i][0] = '\0';
 
 	/* Clear the history text */
 	buf[0] = '\0';
@@ -2903,7 +2903,7 @@ static void get_history(creature_type *cr_ptr)
 	char temp[64*4];
 	roff_to_buf(s, 60, temp, sizeof(temp));
 	t = temp;
-	for(i=0 ; i<4 ; i++){
+	for(i=0 ; i<HISTORY_ROW ; i++){
 	     if(t[0]==0)break; 
 	     else {strcpy(cr_ptr->history[i], t);t += strlen(t)+1;}
 	     }
@@ -3056,7 +3056,7 @@ static void player_wipe(creature_type *cr_ptr)
 	(void)WIPE(cr_ptr, creature_type);
 
 	/* Wipe the history */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		strcpy(cr_ptr->history[i], "");
 	}
@@ -5736,7 +5736,7 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	}
 
 	/* Clear the previous history strings */
-	for (i = 0; i < 4; i++) cr_ptr->history[i][0] = '\0';
+	for (i = 0; i < HISTORY_ROW; i++) cr_ptr->history[i][0] = '\0';
 
 	/* Skip leading spaces */
 	for (s = histpref_buf; *s == ' '; s++) /* loop */;
@@ -5747,9 +5747,9 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	/* Kill trailing spaces */
 	while ((n > 0) && (s[n - 1] == ' ')) s[--n] = '\0';
 
-	roff_to_buf(s, 60, temp, sizeof(temp));
+	roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
 	t = temp;
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		if (t[0] == 0) break;
 		else
@@ -5760,12 +5760,12 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	}
 
 	/* Fill the remaining spaces */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		for (j = 0; cr_ptr->history[i][j]; j++) /* loop */;
 
-		for (; j < 59; j++) cr_ptr->history[i][j] = ' ';
-		cr_ptr->history[i][59] = '\0';
+		for (; j < HISTORY_COL - 1; j++) cr_ptr->history[i][j] = ' ';
+		cr_ptr->history[i][HISTORY_COL - 1] = '\0';
 	}
 
 	/* Kill the buffer */
@@ -5779,22 +5779,22 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
  */
 static void edit_history(creature_type *cr_ptr)
 {
-	char old_history[4][60];
+	char old_history[HISTORY_ROW][HISTORY_COL];
 	int y = 0, x = 0;
 	int i, j;
 
 	/* Edit character background */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		sprintf(old_history[i], "%s", cr_ptr->history[i]);
 	}
 	/* Turn 0 to space */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < HISTORY_ROW; i++)
 	{
 		for (j = 0; cr_ptr->history[i][j]; j++) /* loop */;
 
-		for (; j < 59; j++) cr_ptr->history[i][j] = ' ';
-		cr_ptr->history[i][59] = '\0';
+		for (; j < HISTORY_COL - 1; j++) cr_ptr->history[i][j] = ' ';
+		cr_ptr->history[i][HISTORY_COL - 1] = '\0';
 	}
 	display_player(1, cr_ptr);
 #ifdef JP
@@ -5810,16 +5810,16 @@ static void edit_history(creature_type *cr_ptr)
 		int skey;
 		char c;
 
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < HISTORY_ROW; i++)
 		{
-			put_str(cr_ptr->history[i], i + 12, 10);
+			put_str(cr_ptr->history[i], i + 12, 3);
 		}
 #ifdef JP
 		if (iskanji2(cr_ptr->history[y], x))
-			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 12, x + 10);
+			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 12, x + 3);
 		else
 #endif
-		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 12, x + 10);
+		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 12, x + 3);
 
 		/* Place cursor just after cost of current stat */
 		Term_gotoxy(x + 10, y + 12);
@@ -5834,7 +5834,7 @@ static void edit_history(creature_type *cr_ptr)
 		if (skey == SKEY_UP || c == KTRL('p'))
 		{
 			y--;
-			if (y < 0) y = 3;
+			if (y < 0) y = HISTORY_ROW - 1;
 #ifdef JP
 			if ((x > 0) && (iskanji2(cr_ptr->history[y], x-1))) x--;
 #endif
@@ -5842,7 +5842,7 @@ static void edit_history(creature_type *cr_ptr)
 		else if (skey == SKEY_DOWN || c == KTRL('n'))
 		{
 			y++;
-			if (y > 3) y = 0;
+			if (y >= HISTORY_ROW) y = 0;
 #ifdef JP
 			if ((x > 0) && (iskanji2(cr_ptr->history[y], x-1))) x--;
 #endif
@@ -5853,10 +5853,10 @@ static void edit_history(creature_type *cr_ptr)
 			if (iskanji2(cr_ptr->history[y], x)) x++;
 #endif
 			x++;
-			if (x > 58)
+			if (x > HISTORY_COL - 2)
 			{
 				x = 0;
-				if (y < 3) y++;
+				if (y < HISTORY_ROW - 1) y++;
 			}
 		}
 		else if (skey == SKEY_LEFT || c == KTRL('b'))
@@ -5867,7 +5867,7 @@ static void edit_history(creature_type *cr_ptr)
 				if (y)
 				{
 					y--;
-					x = 58;
+					x = HISTORY_ROW - 2;
 				}
 				else x = 0;
 			}
@@ -5881,7 +5881,7 @@ static void edit_history(creature_type *cr_ptr)
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
 #ifdef JP
-			put_str("(キャラクターの生い立ち - 編集済み)", 11, 20);
+			put_str("(キャラクターの生い立ち - 編集済み)", 10, 20);
 #else
 			put_str("(Character Background - Edited)", 11, 20);
 #endif
@@ -5891,15 +5891,15 @@ static void edit_history(creature_type *cr_ptr)
 		{
 			clear_from(11);
 #ifdef JP
-			put_str("(キャラクターの生い立ち)", 11, 25);
+			put_str("(キャラクターの生い立ち)", 10, 25);
 #else
 			put_str("(Character Background)", 11, 25);
 #endif
 
-			for (i = 0; i < 4; i++)
+			for (i = 0; i < HISTORY_ROW; i++)
 			{
 				sprintf(cr_ptr->history[i], "%s", old_history[i]);
-				put_str(cr_ptr->history[i], i + 12, 10);
+				put_str(cr_ptr->history[i], i + 12, 3);
 			}
 			break;
 		}
@@ -5920,7 +5920,7 @@ static void edit_history(creature_type *cr_ptr)
 				if (y)
 				{
 					y--;
-					x = 58;
+					x = HISTORY_ROW - 2;
 				}
 				else x = 0;
 			}
@@ -5948,11 +5948,11 @@ static void edit_history(creature_type *cr_ptr)
 
 			if (iskanji(c))
 			{
-				if (x > 57)
+				if (x > HISTORY_COL - 3)
 				{
 					x = 0;
 					y++;
-					if (y > 3) y = 0;
+					if (y > HISTORY_ROW - 1) y = 0;
 				}
 
 				if (iskanji2(cr_ptr->history[y], x+1))
@@ -5966,11 +5966,11 @@ static void edit_history(creature_type *cr_ptr)
 			}
 #endif
 			cr_ptr->history[y][x++] = c;
-			if (x > 58)
+			if (x > HISTORY_COL - 2)
 			{
 				x = 0;
 				y++;
-				if (y > 3) y = 0;
+				if (y >= HISTORY_ROW) y = 0;
 			}
 		}
 	} /* while (TRUE) */
