@@ -2900,8 +2900,8 @@ static void get_history(creature_type *cr_ptr)
 	while ((n > 0) && (s[n-1] == ' ')) s[--n] = '\0';
 
        {
-	char temp[64*4];
-	roff_to_buf(s, 60, temp, sizeof(temp));
+	char temp[HISTORY_COL * HISTORY_ROW];
+	roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
 	t = temp;
 	for(i=0 ; i<HISTORY_ROW ; i++){
 	     if(t[0]==0)break; 
@@ -5798,11 +5798,11 @@ static void edit_history(creature_type *cr_ptr)
 	}
 	display_player(1, cr_ptr);
 #ifdef JP
-	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 11, 20);
-	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 17, 10);
+	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 10, 20);
+	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 23, 10);
 #else
-	c_put_str(TERM_L_GREEN, "(Character Background - Edit Mode)", 11, 20);
-	put_str("[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]", 17, 10);
+	c_put_str(TERM_L_GREEN, "(Character Background - Edit Mode)", 10, 20);
+	put_str("[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]", 23, 10);
 #endif
 
 	while (TRUE)
@@ -5812,17 +5812,17 @@ static void edit_history(creature_type *cr_ptr)
 
 		for (i = 0; i < HISTORY_ROW; i++)
 		{
-			put_str(cr_ptr->history[i], i + 12, 3);
+			put_str(cr_ptr->history[i], i + 10, 3);
 		}
 #ifdef JP
 		if (iskanji2(cr_ptr->history[y], x))
-			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 12, x + 3);
+			c_put_str(TERM_L_BLUE, format("%c%c", cr_ptr->history[y][x],cr_ptr->history[y][x+1]), y + 10, x + 3);
 		else
 #endif
-		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 12, x + 3);
+		c_put_str(TERM_L_BLUE, format("%c", cr_ptr->history[y][x]), y + 10, x + 3);
 
 		/* Place cursor just after cost of current stat */
-		Term_gotoxy(x + 10, y + 12);
+		Term_gotoxy(x + 3, y + 10);
 
 		/* Get special key code */
 		skey = inkey_special(TRUE);
@@ -5881,9 +5881,9 @@ static void edit_history(creature_type *cr_ptr)
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
 #ifdef JP
-			put_str("(キャラクターの生い立ち - 編集済み)", 10, 20);
+			put_str("(キャラクターの生い立ち - 編集済み)", 9, 20);
 #else
-			put_str("(Character Background - Edited)", 11, 20);
+			put_str("(Character Background - Edited)", 9, 20);
 #endif
 			break;
 		}
@@ -5899,7 +5899,7 @@ static void edit_history(creature_type *cr_ptr)
 			for (i = 0; i < HISTORY_ROW; i++)
 			{
 				sprintf(cr_ptr->history[i], "%s", old_history[i]);
-				put_str(cr_ptr->history[i], i + 12, 3);
+				put_str(cr_ptr->history[i], i + 10, 3);
 			}
 			break;
 		}

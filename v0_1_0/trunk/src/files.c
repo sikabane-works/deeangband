@@ -4063,14 +4063,14 @@ void display_player(int mode, creature_type *cr_ptr)
 			char statmsg[10000];
 
 #ifdef JP
-			put_str("(キャラクターの生い立ち)", 11, 25);
+			put_str("(キャラクターの生い立ち)", 9, 25);
 #else
-			put_str("(Character Background)", 11, 25);
+			put_str("(Character Background)", 10, 25);
 #endif
 
 			for (i = 0; i < HISTORY_ROW; i++)
 			{
-				put_str(cr_ptr->history[i], i + 12, 10);
+				put_str(cr_ptr->history[i], i + 10, 3);
 			}
 
 			*statmsg = '\0';
@@ -4168,7 +4168,7 @@ void display_player(int mode, creature_type *cr_ptr)
 						break; 
 					else
 					{
-						put_str(t, i + 5 + 12, 10);
+						put_str(t, i + HISTORY_ROW + 10, 10);
 						t += strlen(t)+1;
 					}
 				}

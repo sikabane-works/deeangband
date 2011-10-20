@@ -517,7 +517,7 @@ static void wr_creature(creature_type *cr_ptr)
 
 	for (i = 0; i < HISTORY_ROW; i++)
 	{
-		wr_string(cr_ptr->history[HISTORY_ROW]);
+		wr_string(cr_ptr->history[i]);
 	}
 
 	/* Race/Class/Gender/Spells */
