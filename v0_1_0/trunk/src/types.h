@@ -312,9 +312,12 @@ struct species_type
 {
 	u32b name;				/* Name (offset) */
 #ifdef JP
-	u32b E_name;                    /* ‰pŒê–¼ (offset) */
+	u32b E_name;                    /* English Name (offset) */
 #endif
 	u32b text;				/* Text (offset) */
+#ifdef JP
+	u32b E_text;                    /* English Text (offset) */
+#endif
 
 	s16b species_idx;			    /* Species index */
 	s16b ap_species_idx;		    /* Species appearance index */

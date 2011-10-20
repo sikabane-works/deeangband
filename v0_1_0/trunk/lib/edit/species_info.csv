@@ -1,43 +1,24 @@
-"ID","NAME","E_NAME","SYM","COL","RACE1","RACE2","SEX","CLASS","PATRON","CHARA","RELM1","RELM2","LEV","RARE","Z","EXP","N_EXP","N_MIN","AGE","SC","DV","SP","VIS","AC","ALERT","STR","INT","WIS","DEX","CON","CHA","M_HB","M_HM","M_WB","M_WM","F_HB","F_HM","F_WB","F_WM","BATTLE","UNDERLING","ARTIFACT","COMMENT","FLAG","ACTION","AUTHORITY","DESCRIPTION",,,,,,,
+"ID","NAME","E_NAME","SYM","COL","RACE1","RACE2","SEX","CLASS","PATRON","CHARA","RELM1","RELM2","LEV","RARE","Z","EXP","N_EXP","N_MIN","AGE","SC","DV","SP","VIS","AC","ALERT","STR","INT","WIS","DEX","CON","CHA","M_HB","M_HM","M_WB","M_WM","F_HB","F_HM","F_WB","F_WM","BATTLE","UNDERLING","ARTIFACT","COMMENT","FLAG","ACTION","AUTHORITY","DESCRIPTION","E_DESCRIPTION",,,,,,
 0,"〈烙印〉の者","Stigmatic One","@","w",0,0,"0x00",0,0,0,0,0,0,1,0,0,0,0,0,0,-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"
-#J0#",,,,"”test”",,,,,,,
+#J0#",,,,,,,,,,,
 1,"浮浪児","Urchin","t","D",0,0,"0x02",11,255,255,0,0,0,2,0,0,10,14,0,1,-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
-TOUCH:EAT_GOLD",,,"J0#","SEX_F50|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%]|RACE_EGO",,,"$they look squalid and thoroughly revolting.
-彼らは汚らしくて本当に頭に来る奴だ。",,,,,,,
-2,"やせこけた猫","Scrawny cat","f","U",81,81,"0x01",255,255,255,0,0,0,3,0,0,5,62,0,0,-1,110,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,"CLAW:HURT:1d3",,,"J0#","RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON",,,"$A skinny little furball with sharp claws and a menacing look.
-鋭い爪と哀れな容貌を持ったやせこけた小さなネコだ。",,,,,,,
-3,"すずめ","Sparrow","B","U",91,91,"0x01",255,255,255,0,0,0,3,0,0,0,0,0,0,-1,110,30,1,10,4,4,4,5,4,4,15,1,1,0,15,1,1,0,"BITE:HURT:1d1",,,"JZ#","RAND_25|CAN_FLY|WILD_TOWN|WILD_ONLY|DROP_SKELETON",,,"$Utterly harmless, except when angry.
-怒らせなければ全く無害だ。",,,,,,,
+TOUCH:EAT_GOLD",,,"J0#","SEX_F50|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%]|RACE_EGO",,,"彼らは汚らしくて本当に頭に来る奴だ。","they look squalid and thoroughly revolting.",,,,,,
+2,"やせこけた猫","Scrawny cat","f","U",81,81,"0x01",255,255,255,0,0,0,3,0,0,5,62,0,0,-1,110,30,1,10,4,5,5,6,5,5,28,1,1,0,28,1,1,0,"CLAW:HURT:1d3",,,"J0#","RAND_25|WILD_GRASS|WILD_TOWN|WILD_ONLY|DROP_CORPSE|DROP_SKELETON",,,"鋭い爪と哀れな容貌を持ったやせこけた小さなネコだ。","A skinny little furball with sharp claws and a menacing look. ",,,,,,
+3,"すずめ","Sparrow","B","U",91,91,"0x01",255,255,255,0,0,0,3,0,0,0,0,0,0,-1,110,30,1,10,4,4,4,5,4,4,15,1,1,0,15,1,1,0,"BITE:HURT:1d1",,,"JZ#","RAND_25|CAN_FLY|WILD_TOWN|WILD_ONLY|DROP_SKELETON",,,"
+怒らせなければ全く無害だ。","Utterly harmless, except when angry.",,,,,,
 4,"ズアオアトリ","Chaffinch","B","r",91,91,"0x01",255,255,255,0,0,0,3,0,0,0,0,0,0,-1,110,30,1,10,4,4,4,5,4,4,16,1,1,0,16,1,1,0,"BITE:HURT:1d3",,,"JZ#
-JZ#(コメント)訳は 紫月閑丸さん","RAND_25|CAN_FLY|WILD_ONLY|WILD_WOOD|WILD_GRASS|DROP_SKELETON",,,"$Utterly harmless, except when angry.
-頭青花鶏。怒らせなければ全く無害だ。",,,,,,,
-5,"野うさぎ","Wild rabbit","r","U",87,87,"0x01",255,255,255,0,0,0,3,0,0,200,205,0,0,-1,110,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,"BITE:HURT:1d3",,,"JZ#","RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE",,,"$It is not a carnivore, but will defend itself if you stray too 
-$close.
-肉食ではないが、近付き過ぎると身を守るため攻撃してくる。",,,,,,,
+JZ#(コメント)訳は 紫月閑丸さん","RAND_25|CAN_FLY|WILD_ONLY|WILD_WOOD|WILD_GRASS|DROP_SKELETON",,,"頭青花鶏。怒らせなければ全く無害だ。","Utterly harmless, except when angry.",,,,,,
+5,"野うさぎ","Wild rabbit","r","U",87,87,"0x01",255,255,255,0,0,0,3,0,0,200,205,0,0,-1,110,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,"BITE:HURT:1d3",,,"JZ#","RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE",,,"肉食ではないが、近付き過ぎると身を守るため攻撃してくる。","It is not a carnivore, but will defend itself if you stray too close. ",,,,,,
 6,"きこり","Woodsman","p","g",0,0,"0x01",0,255,255,0,0,0,1,0,0,100,83,0,0,-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,"JZ#","SEX_F3|WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|RACE_EGO",,,"$He has an axe with a sharp and strong edge.
-鋭く頑丈な斧を持っている。",,,,,,,
-7,"みすぼらしい子犬","Scruffy little dog","C","U",92,92,"0x01",255,255,255,0,0,0,3,0,0,6,35,0,0,-1,110,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,"BITE:HURT:1d3",,,"J0#","RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY",,,"$A thin flea-ridden mutt, growling as you get close.
-ノミの住みかのようなやせた犬で、人が近づくとうなる。",,,,,,,
+HIT:HURT:1d6",,,"JZ#","SEX_F3|WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|RACE_EGO",,,"鋭く頑丈な斧を持っている。","He has an axe with a sharp and strong edge. ",,,,,,
+7,"みすぼらしい子犬","Scruffy little dog","C","U",92,92,"0x01",255,255,255,0,0,0,3,0,0,6,35,0,0,-1,110,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,"BITE:HURT:1d3",,,"J0#","RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY",,,"ノミの住みかのようなやせた犬で、人が近づくとうなる。","A thin flea-ridden mutt, growling as you get close. ",,,,,,
 8,"農夫『マゴット』","Farmer Maggot","h","w",3,3,"0x02",3,255,3,0,0,0,3,0,0,0,0,0,40,-1,110,40,10,3,12,9,8,12,12,11,92,0,21,0,92,0,21,0,"MOAN
 MOAN
 HIT:HURT:1d5","53:1d1
 54:1d1
 55:1d1","232:0:0:100","J0#
-J0#","UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,"$Before you appears a broad thick-set hobbit with a round red face. 
-$""What's wrong with old Maggot?"" asked Pippin.  ""He's a good friend to 
-$all the Brandybucks.  Of course he's a terror to trespassers, and keeps 
-$ferocious dogs -- but after all, folk down here are near the border and 
-$have to be more on their guard."" 
-丸い赤ら顔のずんぐりしたホビットが、姿を現しました。
-「マゴットじいさんがどうしたっていうんです？」と、ピピンがたずねました。
-「あのひとはブランディバック一族のだれとでも仲良くやってますよ。むろん、
-黙ってじいさんの土地に入ってくるやつらには、ひどく怖い存在だし、獰猛な犬も
-飼ってるけど---だけど、このあたりに住んでいれば,庄境にも近いし、よそより
-用心してかからなきゃならないわけですよ。」
-（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語） ",,,,,,,
-9,"泣きじゃくる白痴","Blubbering idiot","t","W",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"J0#","SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO|RACE_EGO",,,"$They tend to blubber a lot.
-彼らはいつも泣いてばかりいる。",,,,,,,
+J0#","UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,"　丸い赤ら顔のずんぐりしたホビットが、姿を現しました「マゴットじいさんがどうしたっていうんです？」と、ピピンがたずねました。「あのひとはブランディバック一族のだれとでも仲良くやってますよ。むろん、 黙ってじいさんの土地に入ってくるやつらには、ひどく怖い存在だし、獰猛な犬も 飼ってるけど---だけど、このあたりに住んでいれば,庄境にも近いし、よそより 用心してかからなきゃならないわけですよ。」（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語）","Before you appears a broad thick-set hobbit with a round red face. ""What's wrong with old Maggot?"" asked Pippin. ""He's a good friend to  $all the Brandybucks. Of course he's a terror to trespassers, and keeps ferocious dogs -- but after all, folk down here are near the border and have to be more on their guard.""",,,,,,
+9,"泣きじゃくる白痴","Blubbering idiot","t","W",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"J0#","SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO|RACE_EGO",,,"彼らはいつも泣いてばかりいる。","They tend to blubber a lot. ",,,,,,
 10,"浮浪者","Hippie","t","g",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,110,6,1,0,10,10,10,10,10,10,155,15,39,2,155,15,39,2,"DROOL",,,"JZ#
 JZ# http:
 
@@ -49,12 +30,11 @@ ja.wikipedia.org
 wiki
 %E3%83%9B%E3%83%BC%E3%83%9C%E3%83%BC
 D'ang# 個人的にアレげな存在として Hippie のが面白いと思い英訳を変えてみる。
-E:Hobo","SEX_F50|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO|RACE_EGO",,,"$Ugly doesn't begin to describe them.
-醜い奴等だが、一番の特徴はその醜さではない。",,,,,,,
-11,"わめくキチガイ","Raving lunatic","t","G",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,120,6,1,0,10,10,10,10,10,10,155,15,42,2,152,15,39,2,"DROOL",,,"JZ#","SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO|RACE_EGO",,,"$Drooling and comical, but then, what do you expect?
-よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？",,,,,,,
-12,"乞食","Beggar","t","U",0,0,"0x01",11,255,255,0,0,0,1,0,0,10,14,0,1,-1,110,10,1,40,10,10,10,10,10,10,153,15,40,2,153,15,40,2,"BEG",,,"J0#","SEX_F50|DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO|RACE_EGO",,,"$You just can't help feeling sorry for them.
-彼らを見ると、どうしても哀れだという思いを禁じ得ない。",,,,,,,
+E:Hobo","SEX_F50|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO|RACE_EGO",,,"
+醜い奴等だが、一番の特徴はその醜さではない。","Ugly doesn't begin to describe them.",,,,,,
+11,"わめくキチガイ","Raving lunatic","t","G",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,120,6,1,0,10,10,10,10,10,10,155,15,42,2,152,15,39,2,"DROOL",,,"JZ#","SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO|RACE_EGO",,,"よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？","Drooling and comical, but then, what do you expect? ",,,,,,
+12,"乞食","Beggar","t","U",0,0,"0x01",11,255,255,0,0,0,1,0,0,10,14,0,1,-1,110,10,1,40,10,10,10,10,10,10,153,15,40,2,153,15,40,2,"BEG",,,"J0#","SEX_F50|DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO|RACE_EGO",,,"
+彼らを見ると、どうしても哀れだという思いを禁じ得ない。","You just can't help feeling sorry for them.",,,,,,
 13,"うろつく病人","Prowling leper","t","u",0,0,"0x01",11,255,255,0,0,0,1,0,0,0,0,0,1,-1,110,10,1,50,10,10,10,10,10,10,156,10,42,2,151,10,39,2,"BEG
 TOUCH:DISEASE",,,"J0#
 J0#

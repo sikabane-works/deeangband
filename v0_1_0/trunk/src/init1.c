@@ -3997,7 +3997,7 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 }
 
 
-#define SPECIES_INFO_CSV_COLUMNS 48
+#define SPECIES_INFO_CSV_COLUMNS 49
 static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4048,6 +4048,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"DESCRIPTION",
 	"AUTHORITY",
 	"SEX",
+	"E_DESCRIPTION",
 };
 
 static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
@@ -4100,6 +4101,7 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define SPECIES_INFO_DESCRIPTION	45
 #define SPECIES_INFO_AUTHORITY    46
 #define SPECIES_INFO_SEX          47
+#define SPECIES_INFO_E_DESCRIPTION	48
 
 errr parse_species_info_csv(char *buf, header *head)
 {
@@ -4473,6 +4475,11 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_DESCRIPTION:
 				if (!add_text(&species_info[n].text, head, tmp, TRUE))
+					return (7);
+				break;
+
+			case SPECIES_INFO_E_DESCRIPTION:
+				if (!add_text(&species_info[n].E_text, head, tmp, TRUE))
 					return (7);
 				break;
 
