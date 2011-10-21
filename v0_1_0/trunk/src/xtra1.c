@@ -756,42 +756,21 @@ static void prt_level(creature_type *cr_ptr)
 {
 	char tmp[32];
 
-#ifdef JP
-	sprintf(tmp, "%5d", cr_ptr->lev);
-#else
-	sprintf(tmp, "%6d", cr_ptr->lev);
-#endif
-
+	sprintf(tmp, "%2d/%2d", cr_ptr->lev, cr_ptr->max_lev);
 
 	if (cr_ptr->lev >= cr_ptr->max_plv)
 	{
-#ifdef JP
-		if(cr_ptr->lev >= cr_ptr->max_lev)
-			put_str("レベル!", ROW_LEVEL, 0);
-		else
-			put_str("レベル ", ROW_LEVEL, 0);
-
-		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 7);
-#else
 		if(cr_ptr->lev >= cr_ptr->max_lev)
 			put_str("LEVEL!", ROW_LEVEL, 0);
 		else
 			put_str("LEVEL ", ROW_LEVEL, 0);
 				
-		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 6);
-#endif
-
+		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 7);
 	}
 	else
 	{
-#ifdef JP
-		put_str("xレベル", ROW_LEVEL, 0);
-		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 7);
-#else
 		put_str("Level ", ROW_LEVEL, 0);
-		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 6);
-#endif
-
+		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 7);
 	}
 }
 
@@ -805,11 +784,7 @@ static void prt_exp(creature_type *cr_ptr)
 
 	if ((!exp_need)||(cr_ptr->race_idx1 == RACE_ANDROID))
 	{
-#ifdef JP
-	(void)sprintf(out_val, "%7ld", (long)cr_ptr->exp);
-#else
-	(void)sprintf(out_val, "%8ld", (long)cr_ptr->exp);
-#endif
+		(void)sprintf(out_val, "%8ld", (long)cr_ptr->exp);
 	}
 	else
 	{
@@ -819,37 +794,21 @@ static void prt_exp(creature_type *cr_ptr)
 		}
 		else
 		{
-#ifdef JP
-			(void)sprintf(out_val, "%7ld", (long)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
-#else      
 			(void)sprintf(out_val, "%8ld", (long)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
-#endif
 		}
 	}
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
-#ifdef JP
-		if (cr_ptr->race_idx1 == RACE_ANDROID) put_str("強化 ", ROW_EXP, 0);
-		else put_str("経験 ", ROW_EXP, 0);
-		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 5);
-#else
 		if (cr_ptr->race_idx1 == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
-#endif
 
 	}
 	else
 	{
-#ifdef JP
-		put_str("x経験", ROW_EXP, 0);
-		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 5);
-#else
 		put_str("Exp ", ROW_EXP, 0);
 		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 4);
-#endif
-
 	}
 }
 
@@ -881,7 +840,7 @@ static void prt_ac(creature_type *cr_ptr)
 
 #ifdef JP
 /* AC の表示方式を変更している */
-	put_str(" ＡＣ(     )", ROW_AC, COL_AC);
+	put_str("  AC (     )", ROW_AC, COL_AC);
 	sprintf(tmp, "%5d", cr_ptr->dis_ac + cr_ptr->dis_to_a);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 6);
 #else
