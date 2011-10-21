@@ -4214,23 +4214,26 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_RACE1:
 				if(sscanf(tmp, "%d", &b) == 1)
-				{
 					species_info[n].race_idx1 = (s16b)b;
-				}
 				else 
-				{
 					if(grab_one_index(&b, race_flags, tmp)) return (1);
-				}
+					species_info[n].race_idx1 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RACE2:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].race_idx2 = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].race_idx2 = (s16b)b;
+				else 
+					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					species_info[n].race_idx2 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_CLASS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].cls_idx = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].cls_idx = (byte)b;
+				else 
+					if(grab_one_index(&b, class_flags, tmp)) return (1);
+					species_info[n].cls_idx = (byte)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
