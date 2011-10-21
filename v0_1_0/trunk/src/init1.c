@@ -2641,6 +2641,28 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 	return -1;
 }
 
+/*
+ * Grab index from a textual string
+ */
+static errr grab_one_index(int *n, cptr names[], cptr what)
+{
+	int i = 0;
+
+	/* Check flags */
+	for (; names[i]; i++)
+	{
+		if (streq(what, names[i]))
+		{
+			*n = i;
+			return 0;
+		}
+	}
+
+	return -1;
+}
+
+
+
 static errr grab_one_creature_flag(creature_flags *cf_ptr, cptr what, byte add, byte remove, byte prob)
 {
 	int i;
@@ -4191,8 +4213,14 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_RACE1:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].race_idx1 = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+				{
+					species_info[n].race_idx1 = (s16b)b;
+				}
+				else 
+				{
+					if(grab_one_index(&b, race_flags, tmp)) return (1);
+				}
 				break;
 
 			case SPECIES_INFO_RACE2:
