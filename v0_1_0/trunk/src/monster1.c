@@ -412,43 +412,43 @@ static bool mon_hook_floor(int species_idx)
 }
 
 
-monster_hook_type get_monster_hook(void)
+creature_hook_type get_creature_hook(void)
 {
 	if (!dun_level && !inside_quest)
 	{
 		switch (wilderness[wilderness_y][wilderness_x].terrain)
 		{
 		case TERRAIN_TOWN:
-			return (monster_hook_type)mon_hook_town;
+			return (creature_hook_type)mon_hook_town;
 		case TERRAIN_DEEP_WATER:
-			return (monster_hook_type)mon_hook_ocean;
+			return (creature_hook_type)mon_hook_ocean;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			return (monster_hook_type)mon_hook_shore;
+			return (creature_hook_type)mon_hook_shore;
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			return (monster_hook_type)mon_hook_waste;
+			return (creature_hook_type)mon_hook_waste;
 		case TERRAIN_GRASS:
-			return (monster_hook_type)mon_hook_grass;
+			return (creature_hook_type)mon_hook_grass;
 		case TERRAIN_TREES:
-			return (monster_hook_type)mon_hook_wood;
+			return (creature_hook_type)mon_hook_wood;
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			return (monster_hook_type)mon_hook_volcano;
+			return (creature_hook_type)mon_hook_volcano;
 		case TERRAIN_MOUNTAIN:
-			return (monster_hook_type)mon_hook_mountain;
+			return (creature_hook_type)mon_hook_mountain;
 		default:
-			return (monster_hook_type)mon_hook_dungeon;
+			return (creature_hook_type)mon_hook_dungeon;
 		}
 	}
 	else
 	{
-		return (monster_hook_type)mon_hook_dungeon;
+		return (creature_hook_type)mon_hook_dungeon;
 	}
 }
 
 
-monster_hook_type get_monster_hook2(int y, int x)
+creature_hook_type get_creature_hook2(int y, int x)
 {
 	feature_type *f_ptr = &f_info[cave[y][x].feat];
 
@@ -460,23 +460,23 @@ monster_hook_type get_monster_hook2(int y, int x)
 		/* Deep water */
 		if (have_flag(f_ptr->flags, FF_DEEP))
 		{
-			return (monster_hook_type)mon_hook_deep_water;
+			return (creature_hook_type)mon_hook_deep_water;
 		}
 
 		/* Shallow water */
 		else
 		{
-			return (monster_hook_type)mon_hook_shallow_water;
+			return (creature_hook_type)mon_hook_shallow_water;
 		}
 	}
 
 	/* Lava */
 	else if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		return (monster_hook_type)mon_hook_lava;
+		return (creature_hook_type)mon_hook_lava;
 	}
 
-	else return (monster_hook_type)mon_hook_floor;
+	else return (creature_hook_type)mon_hook_floor;
 }
 
 

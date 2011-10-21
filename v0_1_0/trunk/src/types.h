@@ -1763,7 +1763,7 @@ struct tag_type
 	void    *pointer;
 };
 
-typedef bool (*monster_hook_type)(int species_idx);
+typedef bool (*creature_hook_type)(int species_idx);
 
 
 /*

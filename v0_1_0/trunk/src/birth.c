@@ -3435,7 +3435,7 @@ static void wield_all(creature_type *cr_ptr)
 /*
  * Hook function for human corpses
  */
-bool monster_hook_human(int species_idx)
+bool creature_hook_human(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 

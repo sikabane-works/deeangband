@@ -1323,16 +1323,16 @@ static bool restrict_monster_to_dungeon(int species_idx)
 /*
  * Apply a "monster restriction function" to the "monster allocation table"
  */
-errr get_mon_num_prep(monster_hook_type monster_hook,
-					  monster_hook_type monster_hook2)
+errr get_mon_num_prep(creature_hook_type creature_hook,
+					  creature_hook_type creature_hook2)
 {
 	int i;
 
 	/* Todo: Check the hooks for non-changes */
 
 	/* Set the new hooks */
-	get_mon_num_hook = monster_hook;
-	get_mon_num2_hook = monster_hook2;
+	get_mon_num_hook = creature_hook;
+	get_mon_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -2985,7 +2985,7 @@ void update_monsters(bool full)
 /*
  * Hack -- the index of the summoning monster
  */
-static bool monster_hook_chameleon_lord(int species_idx)
+static bool creature_hook_chameleon_lord(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -3016,7 +3016,7 @@ static bool monster_hook_chameleon_lord(int species_idx)
 	return TRUE;
 }
 
-static bool monster_hook_chameleon(int species_idx)
+static bool creature_hook_chameleon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -3045,7 +3045,7 @@ static bool monster_hook_chameleon(int species_idx)
 		if (monster_has_hostile_align(&creature_list[summon_specific_who], 0, 0, r_ptr)) return FALSE;
 	}
 
-	return (*(get_monster_hook()))(species_idx);
+	return (*(get_creature_hook()))(species_idx);
 }
 
 
@@ -3071,9 +3071,9 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_mon_num_prep(monster_hook_chameleon_lord, NULL);
+			get_mon_num_prep(creature_hook_chameleon_lord, NULL);
 		else
-			get_mon_num_prep(monster_hook_chameleon, NULL);
+			get_mon_num_prep(creature_hook_chameleon, NULL);
 
 		if (old_unique)
 			level = species_info[MON_CHAMELEON_K].level;
@@ -3175,7 +3175,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 /*
  *  Hook for Tanuki
  */
-static bool monster_hook_tanuki(int species_idx)
+static bool creature_hook_tanuki(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -3187,7 +3187,7 @@ static bool monster_hook_tanuki(int species_idx)
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
-	return (*(get_monster_hook()))(species_idx);
+	return (*(get_creature_hook()))(species_idx);
 }
 
 
@@ -3204,7 +3204,7 @@ static int initial_r_appearance(int species_idx)
 	if (is_tanuki_species(&species_info[species_idx]))
 		return species_idx;
 
-	get_mon_num_prep(monster_hook_tanuki, NULL);
+	get_mon_num_prep(creature_hook_tanuki, NULL);
 
 	while (--attempts)
 	{
@@ -3253,7 +3253,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		/* Demon can drain vitality from humanoid corpse */
 
 		/* Prepare allocation table */
-		get_mon_num_prep(monster_hook_human, NULL);
+		get_mon_num_prep(creature_hook_human, NULL);
 
 		for (i = rand_range(3,4); i > 0; i--)
 		{
@@ -4552,7 +4552,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
+			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
 			if(place_monster_one(p_ptr, who_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
@@ -4593,7 +4593,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			if (!cave_empty_bold2(ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_mon_num_prep(place_monster_okay, get_monster_hook2(ny, nx));
+			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
 
 			/* Pick a random race */
 			z = get_mon_num(r_ptr->level);
@@ -4628,7 +4628,7 @@ bool place_monster(int y, int x, u32b mode)
 	int species_idx;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_monster_hook(), get_monster_hook2(y, x));
+	get_mon_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	/* Pick a monster */
 	species_idx = get_mon_num(monster_level);
@@ -4656,7 +4656,7 @@ bool alloc_horde(int y, int x)
 	int cx = x;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(get_monster_hook(), get_monster_hook2(y, x));
+	get_mon_num_prep(get_creature_hook(), get_creature_hook2(y, x));
 
 	while (--attempts)
 	{
@@ -4917,7 +4917,7 @@ bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int type, u
 	summon_unique_okay = (mode & PM_ALLOW_UNIQUE) ? TRUE : FALSE;
 
 	/* Prepare allocation table */
-	get_mon_num_prep(summon_specific_okay, get_monster_hook2(y, x));
+	get_mon_num_prep(summon_specific_okay, get_creature_hook2(y, x));
 
 	/* Pick a monster, using the level calculation */
 	species_idx = get_mon_num((dun_level + lev) / 2 + 5);
