@@ -205,6 +205,208 @@ cptr funny_comments[MAX_SAN_COMMENT] =
 
 
 /*
+ * Each player starts out with a few items, given as tval/sval pairs.
+ * In addition, he always has some food and a few torches.
+ */
+static byte class_equipment_init[MAX_CLASS][3][2] =
+{
+	{
+		/* Warrior */
+		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
+		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
+		{ TV_SWORD, SV_BROAD_SWORD }
+	},
+
+	{
+		/* Mage */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
+		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
+		{ TV_SWORD, SV_DAGGER }
+	},
+
+	{
+		/* Priest */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: for Life / Death book */
+		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
+		{ TV_HAFTED, SV_MACE }
+	},
+
+	{
+		/* Rogue */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_SWORD, SV_DAGGER }
+	},
+
+	{
+		/* Ranger */
+		{ TV_NATURE_BOOK, 0 },
+		{ TV_DEATH_BOOK, 0 },		/* Hack: for realm2 book */
+		{ TV_SWORD, SV_DAGGER }
+	},
+
+	{
+		/* Paladin */
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SCROLL, SV_SCROLL_PROTECTION_FROM_EVIL },
+		{ TV_SWORD, SV_BROAD_SWORD }
+	},
+
+	{
+		/* Warrior-Mage */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
+		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
+		{ TV_SWORD, SV_SHORT_SWORD }
+	},
+
+	{
+		/* Chaos Warrior */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: For realm1 book */
+		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
+		{ TV_SWORD, SV_BROAD_SWORD }
+	},
+
+	{
+		/* Monk */
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_POTION, SV_POTION_HEROISM }
+	},
+
+	{
+		/* Mindcrafter */
+		{ TV_POTION, SV_POTION_SPEED },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_SWORD, SV_SMALL_SWORD }
+	},
+
+	{
+		/* High Mage */
+		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
+		{ TV_RING, SV_RING_SUSTAIN_INT},
+		{ TV_SWORD, SV_DAGGER }
+	},
+
+	{
+		/* Tourist */
+		{ TV_FOOD, SV_FOOD_JERKY},
+		{ TV_SCROLL, SV_SCROLL_MAPPING },
+		{ TV_BOW, SV_SLING}
+	},
+
+	{
+		/* Imitator */
+		{ TV_POTION, SV_POTION_SPEED },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_SWORD, SV_SHORT_SWORD}
+	},
+
+	{
+		/* Beastmaster */
+		{ TV_TRUMP_BOOK, 0 },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_POLEARM, SV_SPEAR}
+	},
+
+	{
+		/* Sorcerer */
+		{ TV_HAFTED, SV_WIZSTAFF }, /* Hack: for realm1 book */
+		{ TV_RING, SV_RING_SUSTAIN_INT},
+		{ TV_WAND, SV_WAND_MAGIC_MISSILE }
+	},
+
+	{
+		/* Archer */
+		{ TV_BOW, SV_SHORT_BOW },
+		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
+		{ TV_SWORD, SV_SHORT_SWORD },
+	},
+
+	{
+		/* Magic eater */
+		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
+		{ TV_SWORD, SV_SHORT_SWORD },
+	},
+
+	{
+		/* Bard */
+		{ TV_MUSIC_BOOK, 0 },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
+		{ TV_SWORD, SV_SHORT_SWORD },
+	},
+
+	{
+		/* Red Mage */
+		{ TV_ARCANE_BOOK, 0 },
+		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR},
+		{ TV_SWORD, SV_SHORT_SWORD },
+	},
+
+	{
+		/* Samurai */
+		{ TV_HISSATSU_BOOK, 0 },
+		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
+		{ TV_SWORD, SV_BROAD_SWORD }
+	},
+
+	{
+		/* ForceTrainer */
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_POTION, SV_POTION_RESTORE_MANA }
+	},
+
+	{
+		/* Blue Mage */
+		{ TV_SOFT_ARMOR, SV_ROBE },
+		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+		{ TV_SWORD, SV_DAGGER }
+	},
+
+	{
+		/* Cavalry */
+		{ TV_BOW, SV_SHORT_BOW },
+		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
+		{ TV_POLEARM, SV_BROAD_SPEAR}
+	},
+
+	{
+		/* Berserker */
+		{ TV_POTION, SV_POTION_HEALING },
+		{ TV_HARD_ARMOR, SV_AUGMENTED_CHAIN_MAIL },
+		{ TV_POLEARM, SV_BROAD_AXE }
+	},
+
+	{
+		/* Weaponsmith */
+		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
+		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
+		{ TV_POLEARM, SV_BROAD_AXE }
+	},
+	{
+		/* Mirror-Master */
+		{ TV_POTION, SV_POTION_SPEED },
+		{ TV_RING, SV_RING_SUSTAIN_INT},
+		{ TV_SWORD, SV_DAGGER }
+	},
+	{
+		/* Ninja */
+		{ TV_POTION, SV_POTION_SPEED },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_SWORD, SV_DAGGER }
+	},
+	{
+		/* Sniper */
+		{ TV_BOW, SV_LIGHT_XBOW },
+		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+		{ TV_SWORD, SV_DAGGER }
+	},
+};
+
+
+
+/*
  * Set the target of counter attack
  */
 void set_target(creature_type *m_ptr, int y, int x)
@@ -3014,17 +3216,17 @@ static int initial_r_appearance(int species_idx)
 }
 
 
-static void deal_creature_equipment(creature_type *m_ptr)
+void deal_creature_equipment(creature_type *creature_ptr)
 {
+	int tv, sv;
+	object_type	forge;
+	object_type	*q_ptr;
 	int i, number;
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 	u32b mo_mode = 0L;
-	m_ptr->total_weight = 0;
-	m_ptr->inven_cnt = 0;
-	m_ptr->equip_cnt = 0;
-
-	//if (r_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	//if (r_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	creature_ptr->total_weight = 0;
+	creature_ptr->inven_cnt = 0;
+	creature_ptr->equip_cnt = 0;
 
 	/* Average dungeon and monster levels */
 	object_level = (dun_level + r_ptr->level) / 2;
@@ -3033,14 +3235,258 @@ static void deal_creature_equipment(creature_type *m_ptr)
 	number = 0;
 	//TODO Inventory Count
 
-	if (is_pet(m_ptr) || inside_battle || inside_arena)
+	if (is_pet(creature_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
+
+	/* Get local object */
+	q_ptr = &forge;
+
+	/* Give the player some food */
+	switch (creature_ptr->race_idx1)
+	{
+	case RACE_VAMPIRE:
+		/* Nothing! */
+		/* Vampires can drain blood of creatures */
+		break;
+
+	case RACE_DEMON:
+		/* Demon can drain vitality from humanoid corpse */
+
+		/* Prepare allocation table */
+		get_mon_num_prep(monster_hook_human, NULL);
+
+		for (i = rand_range(3,4); i > 0; i--)
+		{
+			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
+			q_ptr->pval = get_mon_num(2);
+			q_ptr->number = 1;
+			add_outfit(creature_ptr, q_ptr);
+		}
+		break;
+
+#if 0
+	case RACE_SKELETON:
+		/* Some Skeletons */
+		object_prep(q_ptr, lookup_kind(TV_SKELETON, SV_ANY), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(7, 12);
+		add_outfit(q_ptr);
+		break;
+#endif
+	case RACE_SKELETON:
+	case RACE_GOLEM:
+	case RACE_ZOMBIE:
+	case RACE_LICH:
+		/* Staff (of Nothing) */
+		object_prep(q_ptr, lookup_kind(TV_STAFF, SV_STAFF_NOTHING), ITEM_FREE_SIZE);
+		q_ptr->number = 1;
+
+		add_outfit(creature_ptr, q_ptr);
+		break;
+
+	case RACE_ENT:
+		/* Potions of Water */
+		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 23);
+		add_outfit(creature_ptr, q_ptr);
+
+		break;
+
+	case RACE_ANDROID:
+		/* Flasks of oil */
+		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
+
+		/* Fuel with oil (move pval to xtra4) */
+		apply_magic(q_ptr, 1, AM_NO_FIXED_ART);
+
+		q_ptr->number = (byte)rand_range(7, 12);
+		add_outfit(creature_ptr, q_ptr);
+
+		break;
+
+	default:
+		/* Food rations */
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(3, 7);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+
+	/* Get local object */
+	q_ptr = &forge;
+
+	if ((creature_ptr->race_idx1 == RACE_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+	{
+		/* Hack -- Give the player scrolls of DARKNESS! */
+		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
+
+		q_ptr->number = (byte)rand_range(2, 5);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx != CLASS_NINJA)
+	{
+		/* Hack -- Give the player some torches */
+		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(3, 7);
+		q_ptr->xtra4 = (s16b)rand_range(3, 7) * 500;
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+
+	/* Get local object */
+	q_ptr = &forge;
+
+	if ((creature_ptr->cls_idx == CLASS_RANGER) || (creature_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
+	{
+		/* Hack -- Give the player some arrows */
+		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 20);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	if (creature_ptr->cls_idx == CLASS_RANGER)
+	{
+		/* Hack -- Give the player some arrows */
+		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx == CLASS_ARCHER)
+	{
+		/* Hack -- Give the player some arrows */
+		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 20);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx == CLASS_HIGH_MAGE)
+	{
+		/* Hack -- Give the player some arrows */
+		object_prep(q_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
+		q_ptr->number = 1;
+		q_ptr->pval = (byte)rand_range(25, 30);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx == CLASS_SORCERER)
+	{
+		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK+MAX_MAGIC-1; i++)
+		{
+			/* Hack -- Give the player some arrows */
+			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
+			q_ptr->number = 1;
+
+			add_outfit(creature_ptr, q_ptr);
+		}
+	}
+	else if (creature_ptr->cls_idx == CLASS_TOURIST)
+	{
+		if (creature_ptr->chara_idx != CHARA_SEXY)
+		{
+			/* Hack -- Give the player some arrows */
+			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
+			q_ptr->number = (byte)rand_range(15, 20);
+
+			add_outfit(creature_ptr, q_ptr);
+		}
+
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(2, 4);
+
+		add_outfit(creature_ptr, q_ptr);
+
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(2, 4);
+
+		add_outfit(creature_ptr, q_ptr);
+
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(1, 3);
+
+		add_outfit(creature_ptr, q_ptr);
+
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(2, 4);
+
+		add_outfit(creature_ptr, q_ptr);
+
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(2, 4);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx == CLASS_NINJA)
+	{
+		/* Hack -- Give the player some arrows */
+		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 20);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if (creature_ptr->cls_idx == CLASS_SNIPER)
+	{
+		/* Hack -- Give the player some bolts */
+		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 20);
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+
+	if(creature_ptr->chara_idx == CHARA_SEXY)
+	{
+		class_equipment_init[creature_ptr->cls_idx][2][0] = TV_HAFTED;
+		class_equipment_init[creature_ptr->cls_idx][2][1] = SV_WHIP;
+	}
+
+	/* Hack -- Give the player three useful objects */
+	for (i = 0; i < 3; i++)
+	{
+		/* Look up standard equipment */
+		tv = class_equipment_init[creature_ptr->cls_idx][i][0];
+		sv = class_equipment_init[creature_ptr->cls_idx][i][1];
+
+		if ((creature_ptr->race_idx1 == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
+		/* Hack to initialize spellbooks */
+		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + creature_ptr->realm1 - 1;
+		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + creature_ptr->realm2 - 1;
+
+		else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
+		    creature_ptr->race_idx1 == RACE_BARBARIAN)
+			/* Barbarians do not need a ring of resist fear */
+			sv = SV_RING_SUSTAIN_STR;
+
+		else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
+		    creature_ptr->race_idx1 == RACE_MIND_FLAYER)
+		  {
+			tv = TV_POTION;
+			sv = SV_POTION_RESTORE_MANA;
+		  }
+
+		/* Get local object */
+		q_ptr = &forge;
+
+		/* Hack -- Give the player an object */
+		object_prep(q_ptr, lookup_kind(tv, sv), creature_ptr->size);
+
+		/* Assassins begin the game with a poisoned dagger */
+		if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->cls_idx == CLASS_ROGUE &&
+			creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
+		{
+			q_ptr->name2 = EGO_BRAND_POIS;
+		}
+
+		add_outfit(creature_ptr, q_ptr);
+	}
+
+	/* Hack -- make aware of the water */
+	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
+
 
 	/* Drop some objects */
 	for (i = 0; i < number; i++)
 	{
 		/* Make an object */
-		if (!make_object(&m_ptr->inventory[i], mo_mode, GON_ITEM)) continue;
+		if (!make_object(&creature_ptr->inventory[i], mo_mode, GON_ITEM)) continue;
 
 		/* Drop it in the dungeon */
 	}
@@ -3048,7 +3494,7 @@ static void deal_creature_equipment(creature_type *m_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Wipe the object */
-		object_wipe(&m_ptr->inventory[i]);
+		object_wipe(&creature_ptr->inventory[i]);
 
 		if(!r_ptr->artifact_prob[i]) break;
 
@@ -3062,11 +3508,11 @@ static void deal_creature_equipment(creature_type *m_ptr)
 					int r;
 					object_type ob;
 					/* Equip the artifact */
-					create_named_art(m_ptr, &ob, r_ptr->artifact_id[i]);
+					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
-					r = mon_classify_inventory(m_ptr, &ob);
+					r = mon_classify_inventory(creature_ptr, &ob);
 					if(r != INVEN_NULL)
-						m_ptr->inventory[r] = ob;
+						creature_ptr->inventory[r] = ob;
 				}
 			}
 
@@ -3075,87 +3521,87 @@ static void deal_creature_equipment(creature_type *m_ptr)
 		{
 			int r;
 			object_type ob;
-			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), m_ptr->size);
-			r = mon_classify_inventory(m_ptr, &ob);
+			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
+			r = mon_classify_inventory(creature_ptr, &ob);
 			if(r != INVEN_NULL)
-				m_ptr->inventory[r] = ob;
+				creature_ptr->inventory[r] = ob;
 		}
 	}
 
-	if(m_ptr->race_idx1 != RACE_NONE)
+	if(creature_ptr->race_idx1 != RACE_NONE)
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
-		if(!m_ptr->inventory[INVEN_1STARM].k_idx && can_equip(m_ptr, INVEN_1STARM))
+		if(!creature_ptr->inventory[INVEN_1STARM].k_idx && can_equip(creature_ptr, INVEN_1STARM))
 		{
-			if(m_ptr->cls_idx != CLASS_MONK && m_ptr->cls_idx != CLASS_FORCETRAINER)
+			if(creature_ptr->cls_idx != CLASS_MONK && creature_ptr->cls_idx != CLASS_FORCETRAINER)
 			{
-				make_object(&m_ptr->inventory[INVEN_1STARM], mo_mode, GON_ARMS | GON_UNCURSED);
-				m_ptr->inventory[INVEN_1STARM].fitting_size = m_ptr->size;
+				make_object(&creature_ptr->inventory[INVEN_1STARM], mo_mode, GON_ARMS | GON_UNCURSED);
+				creature_ptr->inventory[INVEN_1STARM].fitting_size = creature_ptr->size;
 			}
 
 		}
 
-		if(!m_ptr->inventory[INVEN_BODY].k_idx && can_equip(m_ptr, INVEN_BODY))
+		if(!creature_ptr->inventory[INVEN_BODY].k_idx && can_equip(creature_ptr, INVEN_BODY))
 		{
-			make_object(&m_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY | GON_UNCURSED);
-			m_ptr->inventory[INVEN_BODY].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_BODY].fitting_size = creature_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_OUTER].k_idx && can_equip(m_ptr, INVEN_OUTER))
+		if(!creature_ptr->inventory[INVEN_OUTER].k_idx && can_equip(creature_ptr, INVEN_OUTER))
 		{
-			make_object(&m_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER | GON_UNCURSED);
-			m_ptr->inventory[INVEN_OUTER].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_OUTER].fitting_size = creature_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_1STHEAD].k_idx && can_equip(m_ptr, INVEN_1STHEAD))
+		if(!creature_ptr->inventory[INVEN_1STHEAD].k_idx && can_equip(creature_ptr, INVEN_1STHEAD))
 		{
-			make_object(&m_ptr->inventory[INVEN_1STHEAD], mo_mode, GON_HEAD | GON_UNCURSED);
-			m_ptr->inventory[INVEN_1STHEAD].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_1STHEAD], mo_mode, GON_HEAD | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_1STHEAD].fitting_size = creature_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_1STHANDS].k_idx && can_equip(m_ptr, INVEN_1STHANDS))
+		if(!creature_ptr->inventory[INVEN_1STHANDS].k_idx && can_equip(creature_ptr, INVEN_1STHANDS))
 		{
-			make_object(&m_ptr->inventory[INVEN_1STHANDS], mo_mode, GON_HANDS | GON_UNCURSED);
-			m_ptr->inventory[INVEN_1STHANDS].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_1STHANDS], mo_mode, GON_HANDS | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_1STHANDS].fitting_size = creature_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_FEET].k_idx && can_equip(m_ptr, INVEN_FEET))
+		if(!creature_ptr->inventory[INVEN_FEET].k_idx && can_equip(creature_ptr, INVEN_FEET))
 		{
-			make_object(&m_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET | GON_UNCURSED);
-			m_ptr->inventory[INVEN_FEET].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_FEET].fitting_size = creature_ptr->size;
 		}
 
-		if(!m_ptr->inventory[INVEN_LITE].k_idx && can_equip(m_ptr, INVEN_LITE))
+		if(!creature_ptr->inventory[INVEN_LITE].k_idx && can_equip(creature_ptr, INVEN_LITE))
 		{
-			make_object(&m_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE | GON_UNCURSED);
-			m_ptr->inventory[INVEN_LITE].fitting_size = m_ptr->size;
+			make_object(&creature_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE | GON_UNCURSED);
+			creature_ptr->inventory[INVEN_LITE].fitting_size = creature_ptr->size;
 		}
 
-		if(randint0(100) < m_ptr->lev)
+		if(randint0(100) < creature_ptr->lev)
 		{
-			if(!m_ptr->inventory[INVEN_RIGHT].k_idx && can_equip(m_ptr, INVEN_RIGHT))
+			if(!creature_ptr->inventory[INVEN_RIGHT].k_idx && can_equip(creature_ptr, INVEN_RIGHT))
 			{
-				make_object(&m_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING | GON_UNCURSED);
-				m_ptr->inventory[INVEN_RIGHT].fitting_size = m_ptr->size;
+				make_object(&creature_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING | GON_UNCURSED);
+				creature_ptr->inventory[INVEN_RIGHT].fitting_size = creature_ptr->size;
 			}
 
-			if(randint0(100) < m_ptr->lev)
+			if(randint0(100) < creature_ptr->lev)
 			{
-				if(!m_ptr->inventory[INVEN_LEFT].k_idx && can_equip(m_ptr, INVEN_LEFT))
+				if(!creature_ptr->inventory[INVEN_LEFT].k_idx && can_equip(creature_ptr, INVEN_LEFT))
 				{
-					make_object(&m_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING | GON_UNCURSED);
-					m_ptr->inventory[INVEN_LEFT].fitting_size = m_ptr->size;
+					make_object(&creature_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING | GON_UNCURSED);
+					creature_ptr->inventory[INVEN_LEFT].fitting_size = creature_ptr->size;
 				}
 			}
 		}
 
-		if(randint0(100) < m_ptr->lev)
+		if(randint0(100) < creature_ptr->lev)
 		{
-			if(!m_ptr->inventory[INVEN_NECK].k_idx && can_equip(m_ptr, INVEN_NECK))
+			if(!creature_ptr->inventory[INVEN_NECK].k_idx && can_equip(creature_ptr, INVEN_NECK))
 			{
-				make_object(&m_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET | GON_UNCURSED);
-				m_ptr->inventory[INVEN_NECK].fitting_size = m_ptr->size;
+				make_object(&creature_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET | GON_UNCURSED);
+				creature_ptr->inventory[INVEN_NECK].fitting_size = creature_ptr->size;
 			}
 		}
 

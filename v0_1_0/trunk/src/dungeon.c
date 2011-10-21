@@ -7052,7 +7052,7 @@ quit("セーブファイルが壊れています");
 	/* Give startup outfit (after loading pref files) */
 	if (new_game)
 	{
-		player_outfit(cr_ptr);
+		deal_creature_equipment(cr_ptr);
 	}
 
 	/* React to changes */
