@@ -3607,6 +3607,26 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	}
 
+	if(creature_ptr->race_idx1 == RACE_BALROG)
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
+
+	if(creature_ptr->race_idx1 == RACE_ISTARI)
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
+
 }
 
 static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
