@@ -15,6 +15,39 @@
 #define REWARD_CHANCE 10
 
 
+
+/*
+ * Advance experience levels for initial creature
+ */
+void set_experience(creature_type *cr_ptr)
+{
+	bool android = (cr_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
+
+	/* Hack -- lower limit */
+	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
+	if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
+	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
+
+	/* Hack -- upper limit */
+	if (cr_ptr->exp > PY_MAX_EXP) cr_ptr->exp = PY_MAX_EXP;
+	if (cr_ptr->max_exp > PY_MAX_EXP) cr_ptr->max_exp = PY_MAX_EXP;
+	if (cr_ptr->max_max_exp > PY_MAX_EXP) cr_ptr->max_max_exp = PY_MAX_EXP;
+
+	/* Hack -- maintain "max" experience */
+	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
+
+	/* Hack -- maintain "max max" experience */
+	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
+
+	/* Gain levels while possible */
+	while ((cr_ptr->lev < cr_ptr->max_lev) &&
+	       (cr_ptr->exp >= ((android ? player_exp_a : player_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	{
+		/* Gain a level */
+		cr_ptr->lev++;
+	}
+}
+
 /*
  * Advance experience levels and print experience
  */

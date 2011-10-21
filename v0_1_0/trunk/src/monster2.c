@@ -4233,8 +4233,8 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->update = PU_BONUS | PU_HP | PU_MANA;
 	update_stuff(creature_ptr, FALSE);
 
-	/* Lv Set */
-	check_experience(creature_ptr);
+	/* Lv & Exp Set */
+	set_experience(creature_ptr);
 
 	/* And start out fully healthy */
 	if (creature_ptr->species_idx == MON_WOUNDED_BEAR)
