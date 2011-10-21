@@ -43,35 +43,6 @@ void cnv_stat(int val, char *out_val)
 	}
 }
 
-void old_cnv_stat(int val, char *out_val)
-{
-	/* Above 18 */
-	if (val > 18)
-	{
-		int bonus = (val - 18);
-
-		if (bonus >= 320)
-		{
-			sprintf(out_val, "18/%3s", "***");
-		}
-		else if (bonus >= 100)
-		{
-			sprintf(out_val, "18/%03d", bonus);
-		}
-		else
-		{
-			sprintf(out_val, " 18/%02d", bonus);
-		}
-	}
-
-	/* From 3 to 18 */
-	else
-	{
-		sprintf(out_val, "    %2d", val);
-	}
-}
-
-
 
 /*
  * Modify a stat value by a "modifier", return new value

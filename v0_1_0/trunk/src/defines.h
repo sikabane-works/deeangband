@@ -2094,6 +2094,7 @@
 #define SV_GREAT_HAMMER                 19	/* 4d6  */
 #define SV_MACE_OF_DISRUPTION           20	/* 5d8  */
 #define SV_WIZSTAFF                     21	/* 1d2  */
+#define SV_ISTARISTAFF                  22	/* 2d2  */
 #define SV_GROND                        50	/* 3d9  */
 #define SV_NAMAKE_HAMMER                63	/* 1d77 */
 
@@ -2274,6 +2275,7 @@
 #define SV_LITE_PALANTIR                 8
 #define SV_LITE_FLY_STONE                9
 #define SV_LITE_ALDA                    10
+#define SV_LITE_UDUN                    11
 
 /* The "sval" codes for TV_AMULET */
 #define SV_AMULET_DOOM                   0
