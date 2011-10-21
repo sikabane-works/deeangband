@@ -3045,7 +3045,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
-				redraw_stuff(p_ptr);
+				redraw_stuff(player_ptr);
 			}
 			else
 			{
@@ -3183,7 +3183,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 			msg_format("Your black blade greedily attacks %s!", tar_name);
 #endif
 		}
-		else if (atk_ptr->cls_idx != CLASS_BERSERKER && atk_ptr == atk_ptr)
+		else if (atk_ptr->cls_idx != CLASS_BERSERKER && is_player(atk_ptr))
 		{
 #ifdef JP
 			if (!get_check("–{“–‚ÉUŒ‚‚µ‚Ü‚·‚©H"))

@@ -3258,7 +3258,7 @@ bool process_the_world(int num, int who, bool vs_player)
 		if (p_ptr->update) update_stuff(p_ptr, TRUE);
 
 		/* Redraw stuff */
-		if (play_redraw) redraw_stuff(p_ptr);
+		if (play_redraw) redraw_stuff(player_ptr);
 
 		/* Redraw stuff */
 		if (play_window) window_stuff();

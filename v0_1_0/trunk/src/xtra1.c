@@ -1661,18 +1661,6 @@ static void prt_frame_basic(creature_type *cr_ptr)
 {
 	int i;
 
-	/* Race and Class */
-/*
-	if (cr_ptr->mimic_form)
-		prt_field(mimic_info[cr_ptr->mimic_form].title, ROW_RACE, COL_RACE);
-	else
-	{
-		char str[14];
-		my_strcpy(str, race_info[cr_ptr->race_idx1].title, sizeof(str));
-		prt_field(str, ROW_RACE, COL_RACE);
-	}
-*/
-
 	/* Level/Experience */
 	prt_level(cr_ptr);
 	prt_exp(cr_ptr);
@@ -6048,6 +6036,8 @@ void redraw_stuff(creature_type *cr_ptr)
 	}
 
 
+	prt_frame_basic(cr_ptr);
+
 	if (play_redraw & (PR_BASIC))
 	{
 		play_redraw &= ~(PR_BASIC);
@@ -6055,7 +6045,6 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_frame_basic(cr_ptr);
 		prt_time();
 		prt_dungeon();
 	}
@@ -6302,7 +6291,7 @@ void handle_stuff(creature_type *cr_ptr)
 	if (cr_ptr->update) update_stuff(cr_ptr, is_player(cr_ptr));
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff(cr_ptr);
+	if (play_redraw) redraw_stuff(player_ptr);
 
 	/* Window stuff */
 	if (play_window) window_stuff();

@@ -4122,9 +4122,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 	/* Info for Wizard Mode*/
 	if (cheat_hear)
 	{
-		msg_format("[%s L%d H%d %d/%d/%d/%d/%d/%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
-			m_ptr->chp, m_ptr->stat_ind[0]+3,m_ptr->stat_ind[1]+3, m_ptr->stat_ind[2]+3,
-			m_ptr->stat_ind[3]+3, m_ptr->stat_ind[4]+3, m_ptr->stat_ind[5]+3,
+		msg_format("[%s L%d AC%d HW%d/%d S%d]", m_ptr->name, m_ptr->lev,
 			m_ptr->ac + m_ptr->to_a, m_ptr->ht, m_ptr->wt, m_ptr->sex);
 	}
 

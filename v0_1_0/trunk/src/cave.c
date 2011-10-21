@@ -1752,7 +1752,7 @@ void prt_path(int y, int x)
 	play_redraw |= (PR_MAP);
 
 	/* Redraw stuff */
-	redraw_stuff(p_ptr);
+	redraw_stuff(player_ptr);
 
 	/* Draw path */
 	for (i = 0; i < path_n; i++)
