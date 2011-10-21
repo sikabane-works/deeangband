@@ -5436,7 +5436,7 @@ extern int PlayerUID;
 #define CF_HURT_ROCK		77
 #define CF_HURT_FIRE		78
 #define CF_HURT_COLD		79
-#define CF_N3_XXX16			80
+#define CF_AMAN				80
 #define CF_N3_XXX17			81
 #define CF_N3_XXX18			82
 #define CF_N3_XXX19			83

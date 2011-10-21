@@ -504,7 +504,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"HURT_FIRE",
 	"HURT_COLD",
 
-	"XXX",
+	"AMAN",
 	"XXX",
 	"XXX",
 	"XXX",

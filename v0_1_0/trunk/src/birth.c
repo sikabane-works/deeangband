@@ -4358,6 +4358,22 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 		n++; 
 		break;
 
+	case RACE_ISTARI:
+		for (i = 0; i < max_m_idx; i++)
+		{
+			//if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
+	
+			strcpy(pt[n].cap, r_name + species_info[i].name);
+			pt[n].code = i;
+			pt[n].key = '\0';
+			pt[n].d_color = TERM_L_DARK;
+			pt[n].l_color = TERM_WHITE;
+			n++; 
+		
+			if(n == 400) break;
+		}
+		break;
+
 
 	default:
 		for (i = 0; i < max_m_idx; i++)
