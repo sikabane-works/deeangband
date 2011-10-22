@@ -4341,28 +4341,26 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 		if(!is_unique_species(&species_info[i])) continue;		
 		if(species_info[i].dr < 5 && species_info[i].dr < calc_base_divine_rank(cr_ptr)) continue;
 		
-
-		switch(cr_ptr->race_idx1)
+		if(IS_PURE_RACE(cr_ptr, RACE_MELNIBONE))
 		{
-
-			case RACE_MELNIBONE: 
-				if(i != MON_ARIOCH) continue;
-				break;
-
-			case RACE_AMBERITE: 
-				if(i != MON_UNICORN_ORD) continue;
-				break;
-
-			case RACE_CHAOSIAN:
-				if(i != MON_SERPENT) continue;
-				break;
-
-			case RACE_ISTARI:
-				if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
-				break;
-	
+			if(i != MON_ARIOCH) continue;
 		}
-	
+
+		if(IS_PURE_RACE(cr_ptr, RACE_AMBERITE))
+		{
+			if(i != MON_UNICORN_ORD) continue;
+		}
+
+		if(IS_PURE_RACE(cr_ptr, RACE_CHAOSIAN))
+		{
+			if(i != MON_SERPENT) continue;
+		}
+
+		if(IS_PURE_RACE(cr_ptr, RACE_ISTARI))
+		{
+			if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
+		}
+
 		strcpy(pt[n].cap, r_name + species_info[i].name);
 		pt[n].code = i;
 		pt[n].key = '\0';
