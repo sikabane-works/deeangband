@@ -2096,7 +2096,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 
 int calc_base_level(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx1 == RACE_NONE) return 0;
+	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx2 == RACE_NONE) return 0;
+	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
+}
+
+int calc_base_divine_rank(creature_type *creature_ptr)
+{
+	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx2 == RACE_NONE) return 0;
 	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
 }
 

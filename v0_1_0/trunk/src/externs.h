@@ -1090,6 +1090,7 @@ extern bool has_cf_creature(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type);
 
 extern int calc_base_level(creature_type *cr_ptr);
+extern int calc_base_divine_rank(creature_type *cr_ptr);
 extern int calc_unreached_race_level_penalty(int shortage_lev, int type);
 extern void set_unreached_race_level_penalty(creature_type *creature_ptr);
 

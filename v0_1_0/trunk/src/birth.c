@@ -4335,63 +4335,44 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 	int i, n = 0;
 	selection pt[400+3];
 
-	switch(cr_ptr->race_idx1)
+
+	for (i = 0; i < max_species_idx; i++)
 	{
+		if(!is_unique_species(&species_info[i])) continue;		
+		if(species_info[i].dr < 5 && species_info[i].dr < calc_base_divine_rank(cr_ptr)) continue;
+		
 
-	case RACE_AMBERITE: 
+		switch(cr_ptr->race_idx1)
+		{
 
-		strcpy(pt[n].cap, r_name + species_info[MON_UNICORN_ORD].name);
-		pt[n].code = MON_UNICORN_ORD;
+			case RACE_MELNIBONE: 
+				if(i != MON_ARIOCH) continue;
+				break;
+
+			case RACE_AMBERITE: 
+				if(i != MON_UNICORN_ORD) continue;
+				break;
+
+			case RACE_CHAOSIAN:
+				if(i != MON_SERPENT) continue;
+				break;
+
+			case RACE_ISTARI:
+				if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
+				break;
+	
+		}
+	
+		strcpy(pt[n].cap, r_name + species_info[i].name);
+		pt[n].code = i;
 		pt[n].key = '\0';
 		pt[n].d_color = TERM_L_DARK;
 		pt[n].l_color = TERM_WHITE;
 		n++; 
-		break;
-
-	case RACE_CHAOSIAN:
-
-		strcpy(pt[n].cap, r_name + species_info[MON_SERPENT].name);
-		pt[n].code = MON_SERPENT;
-		pt[n].key = '\0';
-		pt[n].d_color = TERM_L_DARK;
-		pt[n].l_color = TERM_WHITE;
-		n++; 
-		break;
-
-	case RACE_ISTARI:
-		for (i = 0; i < max_m_idx; i++)
-		{
-			//if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
-	
-			strcpy(pt[n].cap, r_name + species_info[i].name);
-			pt[n].code = i;
-			pt[n].key = '\0';
-			pt[n].d_color = TERM_L_DARK;
-			pt[n].l_color = TERM_WHITE;
-			n++; 
 		
-			if(n == 400) break;
-		}
-		break;
-
-
-	default:
-		for (i = 0; i < max_m_idx; i++)
-		{
-			if(!is_unique_species(&species_info[i])) continue;		
-			if(species_info[i].dr < 5) continue;
-	
-			strcpy(pt[n].cap, r_name + species_info[i].name);
-			pt[n].code = i;
-			pt[n].key = '\0';
-			pt[n].d_color = TERM_L_DARK;
-			pt[n].l_color = TERM_WHITE;
-			n++; 
-		
-			if(n == 400) break;
-		}
-		break;
+		if(n == 400) break;
 	}
+
 
 #if JP
 	strcpy(pt[n].cap, "ƒ‰ƒ“ƒ_ƒ€");

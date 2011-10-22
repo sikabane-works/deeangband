@@ -4906,6 +4906,8 @@ extern int PlayerUID;
 #define MON_JIZOTAKO      1065
 #define MON_TANUKI        1067
 #define MON_LION_HEART    1097
+#define MON_ARIOCH        1142
+
 
 #define MONEGO_NONE       0
 #define MONEGO_NORMAL     65535
