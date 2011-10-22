@@ -573,62 +573,96 @@ bool is_force_depth_species(species_type *species_ptr)
 
 bool is_orc_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_ORC || creature_ptr->race_idx1 == RACE_URUK) return TRUE;
-	return FALSE;
+	if(IS_RACE(creature_ptr, RACE_ORC) ||
+	   IS_RACE(creature_ptr, RACE_URUK))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_orc_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_ORC || species_ptr->race_idx1 == RACE_URUK) return TRUE;
-	return FALSE;
+	if(IS_RACE(species_ptr, RACE_ORC) ||
+	   IS_RACE(species_ptr, RACE_URUK))
+	    return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_troll_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_TROLL || creature_ptr->race_idx1 == RACE_OLOG) return TRUE;
-	return FALSE;
+	if(IS_RACE(creature_ptr, RACE_TROLL) ||
+	   IS_RACE(creature_ptr, RACE_OLOG)) 
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_troll_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_TROLL || species_ptr->race_idx1 == RACE_OLOG) return TRUE;
-	return FALSE;
+	if(IS_RACE(species_ptr, RACE_TROLL) ||
+	   IS_RACE(species_ptr, RACE_OLOG)) 
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_dragon_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_DRAGON || creature_ptr->race_idx1 == RACE_DRACONIAN) return TRUE;
-	return FALSE;
+	if(IS_RACE(creature_ptr, RACE_DRAGON) ||
+	   IS_RACE(creature_ptr, RACE_DRACONIAN))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_dragon_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_DRAGON || species_ptr->race_idx1 == RACE_DRACONIAN) return TRUE;
-	return FALSE;
+	if(IS_RACE(species_ptr, RACE_DRAGON) ||
+	   IS_RACE(species_ptr, RACE_DRACONIAN))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_demon_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_IMP || creature_ptr->race_idx1 == RACE_DEMON || creature_ptr->race_idx1 == RACE_BALROG) return TRUE;
-	return FALSE;
+	if(IS_RACE(creature_ptr, RACE_IMP) ||
+	   IS_RACE(creature_ptr, RACE_DEMON) ||
+	   IS_RACE(creature_ptr, RACE_BALROG))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_demon_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_IMP || species_ptr->race_idx1 == RACE_DEMON || species_ptr->race_idx1 == RACE_BALROG) return TRUE;
-	return FALSE;
+	if(IS_RACE(species_ptr, RACE_IMP) ||
+	   IS_RACE(species_ptr, RACE_DEMON) ||
+	   IS_RACE(species_ptr, RACE_BALROG))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_giant_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_IMP || creature_ptr->race_idx1 == RACE_DEMON || creature_ptr->race_idx1 == RACE_BALROG) return TRUE;
-	return FALSE;
+	if(IS_RACE(creature_ptr, RACE_GIANT) ||
+	   IS_RACE(creature_ptr, RACE_CYCLOPS) ||
+	   IS_RACE(creature_ptr, RACE_TITAN))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_giant_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_GIANT || species_ptr->race_idx1 == RACE_CYCLOPS || species_ptr->race_idx1 == RACE_TITAN) return TRUE;
-	return FALSE;
+	if(IS_RACE(species_ptr, RACE_GIANT) ||
+	   IS_RACE(species_ptr, RACE_CYCLOPS) ||
+	   IS_RACE(species_ptr, RACE_TITAN))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_undead_creature(creature_type *creature_ptr)

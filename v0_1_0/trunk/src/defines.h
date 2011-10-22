@@ -5426,10 +5426,10 @@ extern int PlayerUID;
 #define CF_3_XXX2			65
 #define CF_3_XXX3			66
 #define CF_3_XXX4			67
-#define CF_3_XXX5			68
-#define CF_3_XXX6			69
-#define CF_3_XXX7			70
-#define CF_3_XXX8			71
+#define CF_ZOMBIE			68
+#define CF_SKELETON			69
+#define CF_VAMPIRE			70
+#define CF_LICH				71
 #define CF_PUELLA_MAGI		72
 #define CF_3_XXX10			73
 #define CF_AURA_COLD		74
