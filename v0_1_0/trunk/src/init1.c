@@ -202,9 +202,24 @@ static cptr class_flags[MAX_CLASS]=
 	"SNIPER",
 };
 
+static cptr realm_flags[MAX_CLASS]=
+{
+	"NONE",
+	"LIFE",
+	"SORCERY",
+	"NATURE",
+	"CHAOS",
+	"DEATH",
+	"TRUMP",
+	"ARCANE",
+	"CRAFT",
+	"DAEMON",
+	"CRUSADE",
+};
+
 
 /*
- * Monster Blow Methods
+ * Character Blow Methods
  */
 static cptr species_info_blow_method[] =
 {
@@ -4249,13 +4264,19 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_RELM1:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].realm1 = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].realm1 = (byte)b;
+				else 
+					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					species_info[n].realm1 = (byte)b;
 				break;
 
 			case SPECIES_INFO_RELM2:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].realm2 = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].realm2 = (byte)b;
+				else 
+					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					species_info[n].realm2 = (byte)b;
 				break;
 
 			case SPECIES_INFO_LEV:
