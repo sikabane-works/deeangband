@@ -3603,7 +3603,7 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 	{
 		if(race_info[i].race_category < RACE_RARELITY_UNSELECTABLE)
 		{
-			strcpy(se[n].cap, race_name + race_info[n].name);
+			strcpy(se[n].cap, race_name + race_info[i].name);
 			se[n].code = i;
 			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
