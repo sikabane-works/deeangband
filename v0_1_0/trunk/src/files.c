@@ -1637,7 +1637,7 @@ static struct
 	{ 1,  3, -1, "職業: "},
 	{ 1,  5, -1, ""},
 	{ 1,  4, -1, "主神: "},
-	{43,  6, 13, "年齢"},
+	{43,  6, 14, "年齢"},
 	{58,  1, 21, ""},
 	{58,  2, 15, ""},
 	{34,  6,  8, "身分"},
@@ -3920,7 +3920,7 @@ void display_player(int mode, creature_type *cr_ptr)
 #ifdef JP
 
 		if(cr_ptr->race_idx1 != RACE_NONE){ 
-			display_player_one_line(ENTRY_AGE, format("%d歳" ,(int)cr_ptr->age), TERM_L_BLUE);
+			display_player_one_line(ENTRY_AGE, format("%u" ,cr_ptr->age), TERM_L_BLUE);
 		}
 		else{
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
