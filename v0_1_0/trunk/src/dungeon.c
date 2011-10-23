@@ -1555,7 +1555,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 
 
 	/* (Vampires) Take damage from sunlight */
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (has_cf_creature(cr_ptr, CF_HURT_LITE))
 	{
 		if (!dun_level && !cr_ptr->resist_lite && !IS_INVULN(cr_ptr) && is_daytime())
 		{
@@ -7327,16 +7327,10 @@ quit("セーブファイルが壊れています");
 
 s32b turn_real(creature_type *cr_ptr, s32b hoge)
 {
-	switch (cr_ptr->start_race)
-	{
-	case RACE_VAMPIRE:
-	case RACE_SKELETON:
-	case RACE_ZOMBIE:
-	case RACE_LICH:
+	if(is_undead_creature(cr_ptr))
 		return hoge - (TURNS_PER_TICK * TOWN_DAWN * 3 / 4);
-	default:
+	else
 		return hoge;
-	}
 }
 
 /*

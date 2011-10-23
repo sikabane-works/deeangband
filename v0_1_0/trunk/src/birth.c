@@ -2789,26 +2789,6 @@ static void get_history(creature_type *cr_ptr)
 			chart = 98;
 			break;
 		}
-		case RACE_SKELETON:
-		{
-			chart = 102;
-			break;
-		}
-		case RACE_ZOMBIE:
-		{
-			chart = 107;
-			break;
-		}
-		case RACE_VAMPIRE:
-		{
-			chart = 113;
-			break;
-		}
-		case RACE_LICH:
-		{
-			chart = 118;
-			break;
-		}
 		case RACE_SPRITE:
 		{
 			chart = 124;
@@ -3346,10 +3326,7 @@ void init_dungeon_quests(void)
  */
 static void init_turn(creature_type *cr_ptr)
 {
-	if ((cr_ptr->race_idx1 == RACE_VAMPIRE) ||
-	    (cr_ptr->race_idx1 == RACE_SKELETON) ||
-	    (cr_ptr->race_idx1 == RACE_ZOMBIE) ||
-	    (cr_ptr->race_idx1 == RACE_LICH))
+	if (is_undead_creature(cr_ptr))
 	{
 		/* Undead start just after midnight */
 		turn = (TURNS_PER_TICK*3 * TOWN_DAWN) / 4 + 1;

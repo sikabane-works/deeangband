@@ -6023,18 +6023,20 @@ bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode
 			case RACE_ANDROID:
 				summon_kin_type = 'g';
 				break;
-			case RACE_SKELETON:
+			/*
+			case SKELETON:
 				if (one_in_(13)) summon_kin_type = 'L';
 				else summon_kin_type = 's';
 				break;
-			case RACE_ZOMBIE:
+			case ZOMBIE:
 				summon_kin_type = 'z';
 				break;
-			case RACE_VAMPIRE:
+			case VAMPIRE:
 				summon_kin_type = 'V';
 				break;
-			case RACE_LICH:
+			case LICH:
 				summon_kin_type = 'G';
+			*/
 				break;
 			case RACE_SPRITE:
 				summon_kin_type = 'I';

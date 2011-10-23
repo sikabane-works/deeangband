@@ -2315,9 +2315,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */
-		if (race_is_(watcher_ptr, RACE_SKELETON) || race_is_(watcher_ptr, RACE_ZOMBIE)
-			|| race_is_(watcher_ptr, RACE_VAMPIRE) || race_is_(watcher_ptr, RACE_LICH) ||
-		    (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD))
+		if (is_undead_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_UNDEAD))
 		{
 			if (saving_throw(25 + watcher_ptr->lev)) return;
 		}
@@ -3244,10 +3242,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	/* Give the player some food */
 	switch (creature_ptr->race_idx1)
 	{
-	case RACE_VAMPIRE:
-		/* Nothing! */
+		/* TODO Nothing! */
 		/* Vampires can drain blood of creatures */
-		break;
 
 	case RACE_DEMON:
 		/* Demon can drain vitality from humanoid corpse */
@@ -3265,23 +3261,25 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		break;
 
 #if 0
-	case RACE_SKELETON:
+		//TODO
+	case SKELETON:
 		/* Some Skeletons */
 		object_prep(q_ptr, lookup_kind(TV_SKELETON, SV_ANY), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(q_ptr);
 		break;
-#endif
-	case RACE_SKELETON:
-	case RACE_GOLEM:
-	case RACE_ZOMBIE:
-	case RACE_LICH:
+	case SKELETON:
+	case GOLEM:
+	case ZOMBIE:
+	case LICH:
 		/* Staff (of Nothing) */
 		object_prep(q_ptr, lookup_kind(TV_STAFF, SV_STAFF_NOTHING), ITEM_FREE_SIZE);
 		q_ptr->number = 1;
 
 		add_outfit(creature_ptr, q_ptr);
 		break;
+#endif
+
 
 	case RACE_ENT:
 		/* Potions of Water */
@@ -3314,7 +3312,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if ((creature_ptr->race_idx1 == RACE_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+	if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
 	{
 		/* Hack -- Give the player scrolls of DARKNESS! */
 		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);

@@ -1026,7 +1026,7 @@ if(messsage) msg_print("•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 							--- henkma
 		*/
 		if(!choose_mut){
-			if (cr_ptr->race_idx1 == RACE_VAMPIRE &&
+			if (has_cf_creature(cr_ptr, CF_VAMPIRE) &&
 			  !has_cf_creature(cr_ptr, CF_HYPN_GAZE) &&
 			   (randint1(10) < 7))
 			{

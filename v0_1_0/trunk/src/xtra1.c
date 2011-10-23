@@ -127,17 +127,13 @@ void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
 	const s32b A_DAY = TURNS_PER_TICK * TOWN_DAWN;
 	s32b turn_in_today = (turn + A_DAY / 4) % A_DAY;
 
-	switch (p_ptr->start_race)
+	if(is_undead_creature(p_ptr))
 	{
-	case RACE_VAMPIRE:
-	case RACE_SKELETON:
-	case RACE_ZOMBIE:
-	case RACE_LICH:
 		*day = (turn - A_DAY * 3 / 4) / A_DAY + 1;
-		break;
-	default:
+	}
+	else
+	{
 		*day = (turn + A_DAY / 4) / A_DAY + 1;
-		break;
 	}
 	*hour = (24 * turn_in_today / A_DAY) % 24;
 	*min = (1440 * turn_in_today / A_DAY) % 60;
@@ -3472,9 +3468,12 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 				play_redraw |= PR_STATUS;
 			}
 			break;
-		case RACE_LICH:
+		//TODOO
+		/*
+			case LICH:
 			cr_ptr->pass_wall = TRUE;
 			break;
+		*/
 		default:
 			/* Do nothing */
 			break;
@@ -6299,15 +6298,6 @@ cptr desc_race_name(creature_type *cr_ptr){
 
 	if(cr_ptr->race_idx1 == RACE_NONE) return format("");
 	else if(cr_ptr->race_idx2 == RACE_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
-
-	if(get_subrace(cr_ptr, RACE_BEASTMAN))
-		strcat(name, "q¬“×r‚Éâq‚ê‚½");
-
-	if(get_subrace(cr_ptr, RACE_ZOMBIE))
-		strcat(name, "•…”s‚É–`‚³‚ê‚½");
-
-	if(get_subrace(cr_ptr, RACE_SKELETON))
-		strcat(name, "“÷‚Ì‹€‚¿‚©‚©‚Á‚½");
 
 	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
 		strcat(name, "ƒn[ƒt");

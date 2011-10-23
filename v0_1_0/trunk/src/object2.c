@@ -6583,8 +6583,8 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 
 	case GF_LITE:
 		if (p_ptr->resist_lite) dam /= 2; /* Worst case of 4 / (d4 + 7) */
-		if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) dam *= 2;
-		else if (race_is_(p_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
+		//TODO if (race_is_(p_ptr, VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE)) dam *= 2;
+		if (race_is_(p_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
 
 		/*
 		 * Cannot use "ignore_wraith_form" strictly (for "random one damage")
@@ -6594,12 +6594,14 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		break;
 
 	case GF_DARK:
-		if (race_is_(p_ptr, RACE_VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form)
+		//TODO if (race_is_(p_ptr, VAMPIRE) || (p_ptr->mimic_form == MIMIC_VAMPIRE) || p_ptr->wraith_form)
+		/*
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
-		else if (p_ptr->resist_dark) dam /= 2; /* Worst case of 4 / (d4 + 7) */
+		*/
+		if (p_ptr->resist_dark) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		break;
 
 	case GF_SHARDS:
@@ -6619,12 +6621,15 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		break;
 
 	case GF_NETHER:
-		if (race_is_(p_ptr, RACE_LICH))
+		//TODO
+		/*
+		if (LICH)
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
-		else if (p_ptr->resist_neth) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		*/
+		if (p_ptr->resist_neth) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case GF_DISENCHANT:
@@ -6663,15 +6668,8 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		}
 		else
 		{
-			switch (p_ptr->race_idx1)
+			if(has_cf_creature(m_ptr, CF_NONLIVING) && is_undead_creature(m_ptr))
 			{
-			case RACE_GOLEM:
-			case RACE_SKELETON:
-			case RACE_ZOMBIE:
-			case RACE_VAMPIRE:
-			case RACE_DEMON:
-			case RACE_BALROG:
-			case RACE_LICH:
 				dam = 0;
 				ignore_wraith_form = TRUE;
 				break;

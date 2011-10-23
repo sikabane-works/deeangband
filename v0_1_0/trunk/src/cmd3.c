@@ -427,7 +427,9 @@ sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
 		if (!get_check(dummy)) return;
 	}
 
-	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) && (cr_ptr->race_idx1 != RACE_VAMPIRE) && (cr_ptr->race_idx1 != RACE_ANDROID))
+	if ((o_ptr->name1 == ART_STONEMASK) && object_is_known(o_ptr) &&
+		!has_cf_creature(cr_ptr, CF_VAMPIRE) && !has_cf_creature(cr_ptr, CF_LICH) &&
+		!has_cf_creature(cr_ptr, CF_SKELETON) && !has_cf_creature(cr_ptr, CF_NONLIVING))
 	{
 		char dummy[MAX_NLEN+80];
 
@@ -435,9 +437,9 @@ sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
 		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-sprintf(dummy, "%sを装備すると吸血鬼になります。よろしいですか？", o_name);
+sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name);
 #else
-		msg_format("%s will transforms you into a vampire permanently when equiped.", o_name);
+		msg_format("%s will transforms you into a true vampire permanently when equiped.", o_name);
 		sprintf(dummy, "Do you become a vampire?");
 #endif
 
@@ -799,10 +801,11 @@ msg_print("クエストを達成した！");
 	}
 
 	/* The Stone Mask make the player turn into a vampire! */
-	if ((o_ptr->name1 == ART_STONEMASK) && (cr_ptr->race_idx1 != RACE_VAMPIRE) && (cr_ptr->race_idx1 != RACE_ANDROID))
+	if ((o_ptr->name1 == ART_STONEMASK) && !has_cf_creature(cr_ptr, CF_VAMPIRE) && !has_cf_creature(cr_ptr, CF_LICH) &&
+		!has_cf_creature(cr_ptr, CF_SKELETON) && !has_cf_creature(cr_ptr, CF_NONLIVING))
 	{
 		/* Turn into a vampire */
-		change_race(cr_ptr, RACE_VAMPIRE, "");
+		// TODO: ADD Vampire Flag 
 	}
 
 	/* Recalculate bonuses */

@@ -6691,12 +6691,11 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 
 			if (tar_ptr->resist_neth)
 			{
-				if (!race_is_(tar_ptr, RACE_LICH))
-					dam *= 6; dam /= (randint1(4) + 7);
+				dam /= (randint1(4) + 7);
 			}
 			else if (!(tar_ptr->multishadow && (turn & 1))) drain_exp(tar_ptr, 200 + (tar_ptr->exp / 100), 200 + (tar_ptr->exp / 1000), 75);
 
-			if (race_is_(tar_ptr, RACE_LICH) && !(tar_ptr->multishadow && (turn & 1)))
+			if (!(tar_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
@@ -6995,7 +6994,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 				(void)set_blind(tar_ptr, tar_ptr->blind + randint1(5) + 2);
 			}
 
-			if (race_is_(tar_ptr, RACE_VAMPIRE) || (tar_ptr->mimic_form == MIMIC_VAMPIRE))
+			if (has_cf_creature(tar_ptr, CF_HURT_LITE))
 			{
 #ifdef JP
 				if (!(tar_ptr->multishadow && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
@@ -7049,7 +7048,8 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 			{
 				dam *= 4; dam /= (randint1(4) + 7);
 
-				if (race_is_(tar_ptr, RACE_VAMPIRE) || (tar_ptr->mimic_form == MIMIC_VAMPIRE) || tar_ptr->wraith_form) dam = 0;
+				//TODO Dark Immune
+				//if () dam = 0;
 			}
 			else if (!blind && !tar_ptr->resist_blind && !(tar_ptr->multishadow && (turn & 1)))
 			{
@@ -7365,32 +7365,16 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 			}
 			else
 			{
-
-			switch (tar_ptr->race_idx1)
-			{
 				/* Some races are immune */
-				case RACE_GOLEM:
-				case RACE_SKELETON:
-				case RACE_ZOMBIE:
-				case RACE_VAMPIRE:
-				case RACE_DEMON:
-				case RACE_BALROG:
-				case RACE_LICH:
-				{
+				if(is_undead_creature(tar_ptr) || is_demon_creature(tar_ptr) || has_cf_creature(tar_ptr, CF_NONLIVING))
 					dam = 0;
-					break;
-				}
-				/* Hurt a lot */
-				default:
-				{
+				else
 					get_damage = take_hit(NULL, tar_ptr, DAMAGE_ATTACK, dam, killer, NULL, monspell);
 					break;
 				}
 			}
-			}
 
 			break;
-		}
 
 		/* Drain mana */
 		case GF_DRAIN_MANA:

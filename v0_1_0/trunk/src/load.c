@@ -1294,17 +1294,13 @@ static void rd_creature(creature_type *cr_ptr)
 	/* Read "feeling" */
 	rd_byte(&cr_ptr->feeling);
 
-	switch (cr_ptr->start_race)
+	if(is_undead_creature(cr_ptr))
 	{
-	case RACE_VAMPIRE:
-	case RACE_SKELETON:
-	case RACE_ZOMBIE:
-	case RACE_LICH:
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-		break;
-	default:
+	}
+	else
+	{
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
-		break;
 	}
 	dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 

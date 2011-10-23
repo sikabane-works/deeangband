@@ -846,10 +846,7 @@
 #define RACE_FLYING_POLYP      49
 #define RACE_SHOGGOTH          50
 #define RACE_YITH              51
-#define RACE_ZOMBIE            52
-#define RACE_SKELETON          53
-#define RACE_VAMPIRE           54
-#define RACE_LICH              55
+
 #define RACE_ISTARI            56
 #define RACE_BALROG            57
 #define RACE_DRAGON            58
@@ -5668,12 +5665,12 @@ extern int PlayerUID;
 #define CF_VARIABLE_PATRON	323
 #define CF_VARIABLE_CHARA	324
 #define CF_VARIABLE_SIZE	325
-#define CF_NRF11_XXX6		326
-#define CF_NRF11_XXX7		327
-#define CF_NRF11_XXX8		328
-#define CF_NRF11_XXX9		329
-#define CF_NRF11_XXX10		330
-#define CF_NRF11_XXX11		331
+#define CF_FOOD_EATER		326
+#define CF_CORPSE_EATER		327
+#define CF_BLOOD_DRINKER	328
+#define CF_WATER_DRINKER	329
+#define CF_MAGIC_EATER		330
+#define CF_FLASE_EATER		331
 #define CF_NRF11_XXX12		332
 #define CF_NRF11_XXX13		333
 #define CF_NRF11_XXX14		334

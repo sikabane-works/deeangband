@@ -667,16 +667,26 @@ bool is_giant_species(species_type *species_ptr)
 
 bool is_undead_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_ZOMBIE || creature_ptr->race_idx1 == RACE_SKELETON || creature_ptr->race_idx1 == RACE_VAMPIRE) return TRUE;
-	if(creature_ptr->race_idx1 == RACE_LICH || creature_ptr->race_idx1 == RACE_NAZGUL) return TRUE;
-	return FALSE;
+	if(has_cf_creature(creature_ptr, CF_ZOMBIE) ||
+	   has_cf_creature(creature_ptr, CF_SKELETON) ||
+	   has_cf_creature(creature_ptr, CF_VAMPIRE) ||
+	   has_cf_creature(creature_ptr, CF_LICH) ||
+	   IS_RACE(creature_ptr, RACE_NAZGUL))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_undead_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_ZOMBIE || species_ptr->race_idx1 == RACE_SKELETON || species_ptr->race_idx1 == RACE_VAMPIRE) return TRUE;
-	if(species_ptr->race_idx1 == RACE_LICH || species_ptr->race_idx1 == RACE_NAZGUL) return TRUE;
-	return FALSE;
+	if(has_cf(&species_ptr->flags, CF_ZOMBIE) ||
+	   has_cf(&species_ptr->flags, CF_SKELETON) ||
+	   has_cf(&species_ptr->flags, CF_VAMPIRE) ||
+	   has_cf(&species_ptr->flags, CF_LICH) ||
+	   IS_RACE(species_ptr, RACE_NAZGUL))
+		return TRUE;
+	else
+		return FALSE;
 }
 
 bool is_animal_creature(creature_type *creature_ptr)

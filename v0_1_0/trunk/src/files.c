@@ -2556,10 +2556,12 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		if (cr_ptr->lev > 29)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
+		/*
 	case RACE_LICH:
 		if (cr_ptr->lev > 34)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
+		*/
 	case RACE_SPRITE:
 		if (cr_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
@@ -2900,10 +2902,12 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
+	/* TODO 
 	if (race_is_(cr_ptr, RACE_LICH))
 		add_flag(flgs, TR_RES_NETHER);
 	if (cr_ptr->mimic_form == MIMIC_VAMPIRE || race_is_(cr_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TR_RES_DARK);
+	*/
 	if (cr_ptr->mimic_form == MIMIC_DEMON_LORD)
 		add_flag(flgs, TR_RES_FIRE);
 	else if (race_is_(cr_ptr, RACE_YEEK) && cr_ptr->lev > 19)
@@ -2949,9 +2953,11 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_RES_ELEC);
 	if (race_is_(cr_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);
+	/*TODO
 	if (race_is_(cr_ptr, RACE_VAMPIRE) || race_is_(cr_ptr, RACE_S_FAIRY) ||
 	    (cr_ptr->mimic_form == MIMIC_VAMPIRE))
 		add_flag(flgs, TR_RES_LITE);
+		*/
 }
 
 
@@ -6778,11 +6784,6 @@ long total_points(void)
 		point += (arena_win * arena_win * (arena_win > 29 ? 1000 : 100));
 
 	if (ironman_downward) point *= 2;
-	if (p_ptr->cls_idx == CLASS_BERSERKER)
-	{
-		if ( p_ptr->race_idx1 == RACE_LICH )
-			point = point / 5;
-	}
 
 	if ((p_ptr->chara_idx == CHARA_MUNCHKIN) && point)
 	{

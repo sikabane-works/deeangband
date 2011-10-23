@@ -1787,16 +1787,8 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 					else
 					{
-						switch (tar_ptr->race_idx1)
+						if(has_cf_creature(tar_ptr, CF_NONLIVING) || is_undead_creature(tar_ptr) || is_demon_creature(tar_ptr))
 						{
-						case RACE_ZOMBIE:
-						case RACE_VAMPIRE:
-						case RACE_LICH:
-						case RACE_SKELETON:
-						case RACE_DEMON:
-						case RACE_BALROG:
-						case RACE_GOLEM:
-						case RACE_ANDROID:
 							resist_drain = TRUE;
 							break;
 						}

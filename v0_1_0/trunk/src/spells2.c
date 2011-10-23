@@ -475,8 +475,9 @@ info[i++] = "‚ ‚È‚½‚Í d20+30 ƒ^[ƒ“‚ÌŠÔ”§‚ğÎ‚É•Ï‰»‚³‚¹‚ç‚ê‚éB(15 MP)";
 #endif
 
 			break;
-		case RACE_ZOMBIE:
-		case RACE_SKELETON:
+/* TODO
+		case ZOMBIE:
+		case SKELETON:
 			if (plev > 29)
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¸‚Á‚½¶–½—Í‚ğ‰ñ•œ‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(30 MP)";
@@ -485,7 +486,7 @@ info[i++] = "‚ ‚È‚½‚Í¸‚Á‚½¶–½—Í‚ğ‰ñ•œ‚·‚é‚±‚Æ‚ª‚Å‚«‚éB(30 MP)";
 #endif
 
 			break;
-		case RACE_VAMPIRE:
+		case VAMPIRE:
 			if (plev > 1)
 			{
 #ifdef JP
@@ -498,7 +499,7 @@ sprintf(Dummy, "‚ ‚È‚½‚Í“G‚©‚ç %d-%d HP ‚Ì¶–½—Í‚ğ‹zû‚Å‚«‚éB(%d MP)",
 				info[i++] = Dummy;
 			}
 			break;
-		case RACE_LICH:
+		case LICH:
 			if (plev > 3)
 			{
 #ifdef JP
@@ -509,6 +510,7 @@ info[i++] = "‚ ‚È‚½‚Í‹ƒ‚«‹©‚ñ‚Å“G‚ğ‹°•|‚³‚¹‚é‚±‚Æ‚ª‚Å‚«‚éB(3 MP)";
 
 			}
 			break;
+*/
 		case RACE_SPRITE:
 			if (plev > 11)
 			{
@@ -2546,7 +2548,7 @@ info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || race_is_(cr_ptr, RACE_S_FAIRY) || (cr_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (has_cf_creature(cr_ptr, CF_HURT_LITE))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Éã‚¢B";
@@ -2556,7 +2558,8 @@ info[i++] = "‚ ‚È‚½‚Í‘MŒõ‚Éã‚¢B";
 
 	}
 
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE) || cr_ptr->wraith_form)
+	// TODO: Immune Darkness
+	/*
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
@@ -2564,8 +2567,9 @@ info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚É‘Î‚·‚éŠ®‘S‚È‚é–Æ‰u‚ğ‚Á‚Ä‚¢‚éB";
 		info[i++] = "You are completely immune to darkness.";
 #endif
 	}
+	*/
 
-	else if (cr_ptr->resist_dark)
+	if (cr_ptr->resist_dark)
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚ÍˆÃ•‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
@@ -2629,6 +2633,8 @@ info[i++] = "‚ ‚È‚½‚Íˆö‰Ê¬—‚ÌUŒ‚‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 
 	}
 
+	//TODO
+	/*
 	if (race_is_(cr_ptr, RACE_LICH))
 	{
 #ifdef JP
@@ -2638,6 +2644,8 @@ info[i++] = "‚ ‚È‚½‚Í’n–‚Ì—Í‚ğ‹zû‚Å‚«‚éB";
 #endif
 
 	}
+	*/
+
 	else if (cr_ptr->resist_neth)
 	{
 #ifdef JP

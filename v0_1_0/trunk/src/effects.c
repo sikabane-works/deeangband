@@ -4229,11 +4229,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 
 	if (cr_ptr->is_dead) return FALSE;
 
-	if ((cr_ptr->race_idx1 == RACE_GOLEM ||
-	    cr_ptr->race_idx1 == RACE_SKELETON ||
-	    cr_ptr->race_idx1 == RACE_LICH ||
-		(cr_ptr->race_idx1 == RACE_ZOMBIE && cr_ptr->lev > 11)) &&
-	    !cr_ptr->mimic_form)
+	if (is_undead_creature(cr_ptr) && has_cf_creature(cr_ptr, CF_NONLIVING))
 		v = 0;
 
 	/* Mortal wound */

@@ -2978,10 +2978,6 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 							case RACE_TITAN:
 							case RACE_CYCLOPS:
 							case RACE_IMP:
-							case RACE_SKELETON:
-							case RACE_ZOMBIE:
-							case RACE_VAMPIRE:
-							case RACE_LICH:
 							case RACE_DEMON:
 							case RACE_DRACONIAN:
 								mult = 30;break;

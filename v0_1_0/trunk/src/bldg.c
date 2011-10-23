@@ -2564,21 +2564,16 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if (!watcher_ptr->mimic_form)
 	{
-		switch (watcher_ptr->race_idx1)
+		if(is_demon_creature(watcher_ptr))
 		{
-		/* Demons may make a saving throw */
-		case RACE_IMP:
-		case RACE_DEMON:
 			if (saving_throw(20 + watcher_ptr->lev)) return;
-			break;
-		/* Undead may make a saving throw */
-		case RACE_SKELETON:
-		case RACE_ZOMBIE:
-		case RACE_LICH:
-		case RACE_VAMPIRE:
-			if (saving_throw(10 + watcher_ptr->lev)) return;
-			break;
 		}
+
+		if(is_undead_creature(watcher_ptr))
+		{
+			if (saving_throw(10 + watcher_ptr->lev)) return;
+		}
+
 	}
 	else
 	{

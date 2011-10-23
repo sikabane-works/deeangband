@@ -1987,6 +1987,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			(void)set_shield(cr_ptr, randint1(20) + 30, FALSE);
 			break;
 
+			/*
 		case RACE_SKELETON:
 		case RACE_ZOMBIE:
 #ifdef JP
@@ -2013,8 +2014,8 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				int y, x, dummy = 0;
 				cave_type *c_ptr;
 
-				/* Only works on adjacent monsters */
-				if (!get_rep_dir(cr_ptr, &dir,FALSE)) return FALSE;   /* was get_aim_dir */
+				//Only works on adjacent monsters
+				if (!get_rep_dir(cr_ptr, &dir,FALSE)) return FALSE;   // was get_aim_dir
 				y = cr_ptr->fy + ddy[dir];
 				x = cr_ptr->fx + ddx[dir];
 				c_ptr = &cave[y][x];
@@ -2038,11 +2039,11 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You grin and bare your fangs...");
 #endif
 
-				dummy = plev + randint1(plev) * MAX(1, plev / 10);   /* Dmg */
+				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
 				if (drain_life(dir, dummy))
 				{
 					if (cr_ptr->food < PY_FOOD_FULL)
-						/* No heal if we are "full" */
+						// No heal if we are "full"
 						(void)hp_player(cr_ptr, dummy);
 					else
 #ifdef JP
@@ -2051,12 +2052,12 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 						msg_print("You were not hungry.");
 #endif
 
-					/* Gain nutritional sustenance: 150/hp drained */
-					/* A Food ration gives 5000 food points (by contrast) */
-					/* Don't ever get more than "Full" this way */
-					/* But if we ARE Gorged,  it won't cure us */
+					// Gain nutritional sustenance: 150/hp drained
+					// A Food ration gives 5000 food points (by contrast)
+					// Don't ever get more than "Full" this way
+					// But if we ARE Gorged,  it won't cure us
 					dummy = cr_ptr->food + MIN(5000, 100 * dummy);
-					if (cr_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+					if (cr_ptr->food < PY_FOOD_MAX)   // Not gorged already
 						(void)set_food(cr_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
 				}
 				else
@@ -2068,8 +2069,10 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 			}
 			break;
+			*/
 
-		case RACE_LICH:
+			/*
+		case LICH:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			ratial_stop_mouth(cr_ptr);
 #ifdef JP
@@ -2080,6 +2083,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 
 			(void)fear_monster(dir, plev);
 			break;
+			*/
 
 		case RACE_SPRITE:
 #ifdef JP
@@ -2912,7 +2916,7 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			break;
 		case RACE_YEEK:
 #ifdef JP
-strcpy(power_desc[num].name, "モンスター恐慌");
+	strcpy(power_desc[num].name, "モンスター恐慌");
 #else
 			strcpy(power_desc[num].name, "Scare Monster");
 #endif
@@ -2923,7 +2927,8 @@ strcpy(power_desc[num].name, "モンスター恐慌");
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
 			break;
-		case RACE_LICH:
+/*
+		case LICH:
 #ifdef JP
 strcpy(power_desc[num].name, "モンスター恐慌");
 #else
@@ -2936,6 +2941,7 @@ strcpy(power_desc[num].name, "モンスター恐慌");
 			power_desc[num].fail = 3;
 			power_desc[num++].number = -1;
 			break;
+*/
 		case RACE_KLACKON:
 #ifdef JP
 sprintf(power_desc[num].name, "酸の唾 (ダメージ %d)", lvl);
@@ -3027,8 +3033,9 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
 			break;
-		case RACE_SKELETON:
-		case RACE_ZOMBIE:
+/*
+		case SKELETON:
+		case ZOMBIE:
 #ifdef JP
 strcpy(power_desc[num].name, "経験値復活");
 #else
@@ -3041,7 +3048,7 @@ strcpy(power_desc[num].name, "経験値復活");
 			power_desc[num].fail = 18;
 			power_desc[num++].number = -1;
 			break;
-		case RACE_VAMPIRE:
+		case VAMPIRE:
 #ifdef JP
 strcpy(power_desc[num].name, "生命力吸収");
 #else
@@ -3054,6 +3061,7 @@ strcpy(power_desc[num].name, "生命力吸収");
 			power_desc[num].fail = 9;
 			power_desc[num++].number = -1;
 			break;
+*/
 		case RACE_SPRITE:
 #ifdef JP
 strcpy(power_desc[num].name, "眠り粉");

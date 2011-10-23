@@ -396,7 +396,7 @@ static void do_cmd_eat_food_aux(creature_type *cr_ptr, int item)
 
 
 	/* Food can feed the player */
-	if (race_is_(cr_ptr, RACE_VAMPIRE) || (cr_ptr->mimic_form == MIMIC_VAMPIRE))
+	if (has_cf_creature(cr_ptr, CF_VAMPIRE))
 	{
 		/* Reduced nutritional benefit */
 		(void)set_food(cr_ptr, cr_ptr->food + (o_ptr->pval / 10));
@@ -414,11 +414,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 	}
-	else if ((race_is_(cr_ptr, RACE_SKELETON) ||
-		  race_is_(cr_ptr, RACE_GOLEM) ||
-		  race_is_(cr_ptr, RACE_ZOMBIE) ||
-		  race_is_(cr_ptr, RACE_LICH)) &&
-		 (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND))
+	else if (is_undead_creature(cr_ptr) && (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND))
 	{
 		cptr staff;
 
@@ -536,7 +532,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 		(void)set_food(cr_ptr, PY_FOOD_MAX - 1);
 	}
-	else if (race_is_(cr_ptr, RACE_SKELETON))
+	else if (has_cf_creature(cr_ptr, CF_SKELETON))
 	{
 #if 0
 		if (o_ptr->tval == TV_SKELETON ||
@@ -581,14 +577,8 @@ msg_print("食べ物がアゴを素通りして落ち、消えた！");
 
 		}
 	}
-	else if (race_is_(cr_ptr, RACE_GOLEM) ||
-		 race_is_(cr_ptr, RACE_ZOMBIE) ||
-		 race_is_(cr_ptr, RACE_ENT) ||
-		 race_is_(cr_ptr, RACE_DEMON) ||
-		 race_is_(cr_ptr, RACE_BALROG) ||
-		 race_is_(cr_ptr, RACE_ANDROID) ||
-		 race_is_(cr_ptr, RACE_LICH) ||
-		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
+	else if (has_cf_creature(cr_ptr, CF_NONLIVING) || is_undead_creature(cr_ptr) || is_demon_creature(cr_ptr) ||
+		    (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING))
 	{
 #ifdef JP
 msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
@@ -644,10 +634,7 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 	else 
 #endif
 
-	if (race_is_(cr_ptr, RACE_SKELETON) ||
-	    race_is_(cr_ptr, RACE_GOLEM) ||
-	    race_is_(cr_ptr, RACE_ZOMBIE) ||
-	    race_is_(cr_ptr, RACE_LICH))
+	if (is_undead_creature(cr_ptr))
 	{
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
@@ -824,13 +811,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!(race_is_(cr_ptr, RACE_GOLEM) ||
-			      race_is_(cr_ptr, RACE_ZOMBIE) ||
-			      race_is_(cr_ptr, RACE_DEMON) ||
-				  race_is_(cr_ptr, RACE_BALROG) ||
-			      race_is_(cr_ptr, RACE_ANDROID) ||
-				  race_is_(cr_ptr, RACE_BALROG) ||
-			      race_is_(cr_ptr, RACE_LICH) ||
+			if (!(has_cf_creature(cr_ptr, CF_NONLIVING), 
 			      (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_NONLIVING)))
 			{
 				/* Only living creatures get thirsty */
@@ -1408,7 +1389,7 @@ msg_print("全ての突然変異が治った。");
 		}
 	}
 
-	if (race_is_(cr_ptr, RACE_SKELETON))
+	if (has_cf_creature(cr_ptr, CF_SKELETON))
 	{
 #ifdef JP
 msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
@@ -1438,21 +1419,12 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	/* Potions can feed the player */
 	switch (cr_ptr->mimic_form)
 	{
+		/*TODO*/
 	case MIMIC_NONE:
 		switch (cr_ptr->race_idx1)
 		{
-			case RACE_VAMPIRE:
-				(void)set_food(cr_ptr, cr_ptr->food + (q_ptr->pval / 10));
-				break;
-			case RACE_SKELETON:
-				/* Do nothing */
-				break;
-			case RACE_GOLEM:
-			case RACE_ZOMBIE:
 			case RACE_DEMON:
 			case RACE_BALROG:
-			case RACE_LICH:
-				set_food(cr_ptr, cr_ptr->food + ((q_ptr->pval) / 20));
 				break;
 			case RACE_ANDROID:
 				if (q_ptr->tval == TV_FLASK)
@@ -2644,13 +2616,13 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Nothing happen.");
 #endif
-			if (race_is_(cr_ptr, RACE_SKELETON) || race_is_(cr_ptr, RACE_GOLEM) ||
-				race_is_(cr_ptr, RACE_ZOMBIE) || race_is_(cr_ptr, RACE_LICH))
+/* TODO
 #ifdef JP
 				msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
 #else
 				msg_print("What a waste.  It's your food!");
 #endif
+*/
 			break;
 		}
 	}

@@ -237,6 +237,7 @@ static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32
 
 	if (smart & (SM_RES_NETH))
 	{
+		/*
 		if (race_is_(user_ptr, RACE_LICH))
 		{
 			f4 &= ~(RF4_BR_NETH);
@@ -249,6 +250,7 @@ static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32
 			if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_NETH);
 			if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BO_NETH);
 		}
+		*/
 	}
 
 	if (smart & (SM_RES_LITE))
@@ -259,6 +261,7 @@ static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32
 
 	if (smart & (SM_RES_DARK))
 	{
+		/*
 		if (race_is_(user_ptr, RACE_VAMPIRE))
 		{
 			f4 &= ~(RF4_BR_DARK);
@@ -269,6 +272,7 @@ static void remove_bad_spells(creature_type *user_ptr, u32b *f4p, u32b *f5p, u32
 			if (int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_DARK);
 			if (int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_DARK);
 		}
+		*/
 	}
 
 	if (smart & (SM_RES_FEAR))
