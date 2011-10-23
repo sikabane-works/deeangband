@@ -3724,15 +3724,15 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-//		if(race_info[i].race_category)
-//		{
-			strcpy(se[n].cap, race_info[n].title);
+		if(race_info[i].race_category)
+		{
+			strcpy(se[n].cap, race_name + race_info[n].name);
 			se[n].code = i;
 			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
 			n++;
-//		}
+		}
 	}
 
 #if JP
