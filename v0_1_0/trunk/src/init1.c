@@ -4017,7 +4017,7 @@ static errr grab_one_spell_flag(species_type *r_ptr, cptr what)
 }
 
 
-#define SPECIES_INFO_CSV_COLUMNS 49
+#define SPECIES_INFO_CSV_COLUMNS 51
 static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4069,6 +4069,8 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"AUTHORITY",
 	"SEX",
 	"E_DESCRIPTION",
+	"FATHER",
+	"MOTHER",
 };
 
 static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
@@ -4122,6 +4124,8 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define SPECIES_INFO_AUTHORITY    46
 #define SPECIES_INFO_SEX          47
 #define SPECIES_INFO_E_DESCRIPTION	48
+#define SPECIES_INFO_FATHER	49
+#define SPECIES_INFO_MOTHER	50
 
 errr parse_species_info_csv(char *buf, header *head)
 {
@@ -4538,6 +4542,10 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_SEX:
 				if(sscanf(tmp, "0x%x", &b) != 1) return (1);
 				species_info[n].sex = (s16b)b;
+				break;
+
+			case SPECIES_INFO_FATHER:
+			case SPECIES_INFO_MOTHER:
 				break;
 
 			default:
