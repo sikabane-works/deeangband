@@ -852,21 +852,7 @@
 #define RACE_DRAGON            58
 #define RACE_GIANT_APE         59
 #define RACE_SUPER_SAIYAN      60
-#define RACE_RED_LINEAGE       61
-#define RACE_WHITE_LINEAGE     62
-#define RACE_BLUE_LINEAGE      63
-#define RACE_BLACK_LINEAGE     64
-#define RACE_GREEN_LINEAGE     65
-#define RACE_CHROMATIC_LINEAGE 66
-#define RACE_BRONZE_LINEAGE    67
-#define RACE_GOLD_LINEAGE      68
-#define RACE_CRYSTAL_LINEAGE   69
-#define RACE_LAW_LINEAGE       70
-#define RACE_BALANCE_LINEAGE   71
-#define RACE_CHAOS_LINEAGE     72
-#define RACE_VANYAR_LINEAGE    73
-#define RACE_NOLDOR_LINEAGE    74
-#define RACE_TELERI_LINEAGE    75
+
 #define RACE_NAZGUL            76
 #define RACE_ANT               77
 #define RACE_BAT               78
@@ -5436,6 +5422,9 @@ extern int PlayerUID;
 #define CF_HURT_FIRE		78
 #define CF_HURT_COLD		79
 #define CF_AMAN				80
+#define CF_VANYAR_LINEAGE   81
+#define CF_NOLDOR_LINEAGE   82
+#define CF_TELERI_LINEAGE   83
 #define CF_N3_XXX17			81
 #define CF_N3_XXX18			82
 #define CF_N3_XXX19			83
@@ -5671,18 +5660,20 @@ extern int PlayerUID;
 #define CF_WATER_DRINKER	329
 #define CF_MAGIC_EATER		330
 #define CF_FLASE_EATER		331
-#define CF_NRF11_XXX12		332
-#define CF_NRF11_XXX13		333
-#define CF_NRF11_XXX14		334
-#define CF_NRF11_XXX15		335
-#define CF_NRF11_XXX16		336
-#define CF_NRF11_XXX17		337
-#define CF_NRF11_XXX18		338
-#define CF_NRF11_XXX19		339
-#define CF_NRF11_XXX20		340
-#define CF_NRF11_XXX21		341
-#define CF_NRF11_XXX22		342
-#define CF_NRF11_XXX23		343
+
+#define CF_RED_LINEAGE       332
+#define CF_WHITE_LINEAGE     333
+#define CF_BLUE_LINEAGE      334
+#define CF_BLACK_LINEAGE     335
+#define CF_GREEN_LINEAGE     336
+#define CF_CHROMATIC_LINEAGE 337
+#define CF_BRONZE_LINEAGE    338
+#define CF_GOLD_LINEAGE      339
+#define CF_CRYSTAL_LINEAGE   340
+#define CF_LAW_LINEAGE       341
+#define CF_BALANCE_LINEAGE   342
+#define CF_CHAOS_LINEAGE     343
+
 #define CF_NRF11_XXX24		344
 #define CF_NRF11_XXX25		345
 #define CF_NRF11_XXX26		346

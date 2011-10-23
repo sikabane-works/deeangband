@@ -3907,6 +3907,7 @@ static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
  */
 static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 {
+/*
 	int     i, n = 0;
 	selection se[3 + 3];
 
@@ -3994,6 +3995,10 @@ static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 		return i;
 	}
 
+
+*/
+	return 0;
+
 }
 
 
@@ -4002,6 +4007,7 @@ static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
  */
 static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 {
+/*
 	int     i, n = 0;
 	selection se[15];
 
@@ -4112,7 +4118,7 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 		return i;
 	}
 
-
+*/
 	/* Success */
 	return TRUE;
 
