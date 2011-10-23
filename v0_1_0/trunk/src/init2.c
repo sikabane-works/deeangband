@@ -1074,6 +1074,7 @@ static errr init_stp_info_csv(void)
  */
 static errr init_rc_info(void)
 {
+	int i, r;
 	/* Init the header */
 	init_header(&race_head, MAX_RACES, sizeof(race_type));
 
@@ -1084,7 +1085,12 @@ static errr init_rc_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL);
+	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL);
+
+	for(i = 0; i < MAX_RACES; i++)
+		race_info[i].title = race_name + race_info[i].name;
+
+	return r;
 }
 
 
@@ -1937,7 +1943,6 @@ static void init_angband_aux(cptr why)
 void init_angband(void)
 {
 	int fd = -1;
-	int i;
 
 	int mode = 0664;
 
@@ -2092,10 +2097,6 @@ void init_angband(void)
 	/* Initialize race info */
 	note("[Initializing arrays... (races)]");
 	if (init_rc_info()) quit("Cannot initialize races");
-
-	for(i = 0; i < MAX_RACES; i++)
-	race_info[i].title = race_name + race_info[i].name;
-
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (species)]");
