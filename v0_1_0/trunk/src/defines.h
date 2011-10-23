@@ -5796,6 +5796,12 @@ extern int PlayerUID;
 #define CF_POIS_BRAND		452
 
 // Flags 16
+#define CF_SEX_REVERSE		480
+#define CF_INTERSEX			481
+#define CF_NOSEX			482
+#define CF_HOMOSEXUAL		482
+#define CF_BISEXUAL			483
+
 
 // Flags 17
 
