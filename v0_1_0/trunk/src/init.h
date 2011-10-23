@@ -120,7 +120,7 @@ extern errr parse_s_info(char *buf, header *head);
 extern errr parse_m_info(char *buf, header *head);
 
 extern errr parse_species_info_csv(char *buf, header *head);
-extern errr parse_rc_info_csv(char *buf, header *head);
+extern errr parse_race_info_csv(char *buf, header *head);
 extern errr parse_stp_info_csv(char *buf, header *head);
 
 /*
@@ -141,7 +141,7 @@ extern header f_head;
 extern header k_head;
 extern header a_head;
 extern header e_head;
-extern header r_head;
+extern header species_head;
 extern header p_head;
 extern header h_head;
 extern header b_head;

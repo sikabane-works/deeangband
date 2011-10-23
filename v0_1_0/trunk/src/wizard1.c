@@ -1782,7 +1782,7 @@ static void spoil_mon_desc(cptr fname)
 	{
 		species_type *species_ptr = &species_info[who[i]];
 
-		cptr name = (r_name + species_ptr->name);
+		cptr name = (species_name + species_ptr->name);
 
 		sprintf(id, "%5d ", who[i]);
 
@@ -2339,9 +2339,9 @@ static void spoil_mon_info(cptr fname)
 
 		/* Name */
 #ifdef JP
-		sprintf(buf, "%s/%s  (", (r_name + species_ptr->name),(r_name+species_ptr->E_name));  /* ---)--- */
+		sprintf(buf, "%s/%s  (", (species_name + species_ptr->name),(species_name+species_ptr->E_name));  /* ---)--- */
 #else
-		sprintf(buf, "%s  (", (r_name + species_ptr->name));  /* ---)--- */
+		sprintf(buf, "%s  (", (species_name + species_ptr->name));  /* ---)--- */
 #endif
 
 		spoil_out(buf);
@@ -2650,10 +2650,10 @@ static void spoil_mon_evol(cptr fname)
 		r_ptr = &species_info[species_idx];
 #ifdef JP
 		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", species_idx,
-			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+			species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #else
 		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", species_idx,
-			r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+			species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #endif
 		for (n = 1; r_ptr->next_exp; n++)
 		{
@@ -2662,10 +2662,10 @@ static void spoil_mon_evol(cptr fname)
 			r_ptr = &species_info[r_ptr->next_species_idx];
 #ifdef JP
 			fprintf(fff, "%s (ƒŒƒxƒ‹%d, '%c')\n",
-				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+				species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #else
 			fprintf(fff, "%s (Level %d, '%c')\n",
-				r_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+				species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
 #endif
 		}
 

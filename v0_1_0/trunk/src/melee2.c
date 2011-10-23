@@ -3371,17 +3371,17 @@ void monster_gain_exp(int m_idx, int s_idx)
 					while (!hallu_race->name || is_unique_species(hallu_race));
 
 #ifdef JP
-					msg_format("%sは%sに進化した。", m_name, r_name + hallu_race->name);
+					msg_format("%sは%sに進化した。", m_name, species_name + hallu_race->name);
 #else
-					msg_format("%^s evolved into %s.", m_name, r_name + hallu_race->name);
+					msg_format("%^s evolved into %s.", m_name, species_name + hallu_race->name);
 #endif
 				}
 				else
 				{
 #ifdef JP
-					msg_format("%sは%sに進化した。", m_name, r_name + r_ptr->name);
+					msg_format("%sは%sに進化した。", m_name, species_name + r_ptr->name);
 #else
-					msg_format("%^s evolved into %s.", m_name, r_name + r_ptr->name);
+					msg_format("%^s evolved into %s.", m_name, species_name + r_ptr->name);
 #endif
 				}
 			}

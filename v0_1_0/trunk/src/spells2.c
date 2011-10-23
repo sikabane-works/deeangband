@@ -5019,7 +5019,7 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 				char buf[80];
 
 				/* Get base name of monster */
-				strcpy(buf, (r_name + r_ptr->name));
+				strcpy(buf, (species_name + r_ptr->name));
 
 #ifdef JP
 				/* Note that we learnt some new flags  -Mogami- */

@@ -110,7 +110,7 @@ extern struct passwd *getpwnam(const char *name);
 /*
  * Find a default user name from the system.
  */
-void user_name(char *buf, int id)
+void usespecies_name(char *buf, int id)
 {
 	struct passwd *pw;
 
@@ -1161,7 +1161,7 @@ static int my_strnicmp(cptr a, cptr b, int n)
 }
 
 
-static void trigger_text_to_ascii(char **bufptr, cptr *strptr)
+static void triggespecies_text_to_ascii(char **bufptr, cptr *strptr)
 {
 	char *s = *bufptr;
 	cptr str = *strptr;
@@ -1183,9 +1183,9 @@ static void trigger_text_to_ascii(char **bufptr, cptr *strptr)
 	{
 		for (i=0; macro_modifier_chr[i]; i++)
 		{
-			len = strlen(macro_modifier_name[i]);
+			len = strlen(macro_modifiespecies_name[i]);
 			
-			if(!my_strnicmp(str, macro_modifier_name[i], len))
+			if(!my_strnicmp(str, macro_modifiespecies_name[i], len))
 				break;
 		}
 		if (!macro_modifier_chr[i]) break;
@@ -1196,8 +1196,8 @@ static void trigger_text_to_ascii(char **bufptr, cptr *strptr)
 	}
 	for (i = 0; i < max_macrotrigger; i++)
 	{
-		len = strlen(macro_trigger_name[i]);
-		if (!my_strnicmp(str, macro_trigger_name[i], len) && ']' == str[len])
+		len = strlen(macro_triggespecies_name[i]);
+		if (!my_strnicmp(str, macro_triggespecies_name[i], len) && ']' == str[len])
 		{
 			/* a trigger name found */
 			break;
@@ -1277,7 +1277,7 @@ void text_to_ascii(char *buf, cptr str)
 			/* Macro Trigger */
 			if (*str == '[')
 			{
-				trigger_text_to_ascii(&s, &str);
+				triggespecies_text_to_ascii(&s, &str);
 			}
 			else
 
@@ -1412,7 +1412,7 @@ static bool trigger_ascii_to_text(char **bufptr, cptr *strptr)
 			while ((tmp = my_strchr(macro_modifier_chr, *str)))
 			{
 				j = (int)(tmp - macro_modifier_chr);
-				tmp = macro_modifier_name[j];
+				tmp = macro_modifiespecies_name[j];
 				while(*tmp) *s++ = *tmp++;
 				str++;
 			}
@@ -1438,7 +1438,7 @@ static bool trigger_ascii_to_text(char **bufptr, cptr *strptr)
 	if (i == max_macrotrigger)
 		return FALSE;
 
-	tmp = macro_trigger_name[i];
+	tmp = macro_triggespecies_name[i];
 	while (*tmp) *s++ = *tmp++;
 
 	*s++ = ']';

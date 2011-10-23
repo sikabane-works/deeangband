@@ -20,7 +20,7 @@ bool object_is_shoukinkubi(creature_type *cr_ptr, object_type *o_ptr)
 	if (vanilla_town) return FALSE;
 
 	/* Today's wanted */
-	if (cr_ptr->today_mon > 0 && (streq(r_name + species_info[o_ptr->pval].name, r_name + species_info[today_mon].name))) return TRUE;
+	if (cr_ptr->today_mon > 0 && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name))) return TRUE;
 
 	/* Tsuchinoko */
 	if (o_ptr->pval == MON_TSUCHINOKO) return TRUE;

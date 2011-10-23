@@ -3919,8 +3919,8 @@ info[i++] = "‚»‚ê‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹z‚¢Žæ‚éB";
 	if ((o_ptr->tval == TV_STATUE) && (o_ptr->sval == SV_PHOTO))
 	{
 		species_type *r_ptr = &species_info[o_ptr->pval];
-		int namelen = strlen(r_name + r_ptr->name);
-		prt(format("%s: '", r_name + r_ptr->name), 1, 15);
+		int namelen = strlen(species_name + r_ptr->name);
+		prt(format("%s: '", species_name + r_ptr->name), 1, 15);
 		Term_queue_bigchar(18 + namelen, 1, r_ptr->x_attr, r_ptr->x_char, 0, 0);
 		prt("'", 1, (use_bigtile ? 20 : 19) + namelen);
 	}

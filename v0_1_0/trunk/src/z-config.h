@@ -393,7 +393,7 @@
 */
 
 /*
- * OPTION: Capitalize the "user_name" (for "default" player name)
+ * OPTION: Capitalize the "usespecies_name" (for "default" player name)
  * This option is only relevant on SET_UID machines.
  */
 #define CAPITALIZE_USER_NAME

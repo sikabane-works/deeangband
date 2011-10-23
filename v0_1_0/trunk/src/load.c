@@ -2348,7 +2348,7 @@ note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	rd_u16b(&max_st_idx);
 
 	C_MAKE(st_list, max_st_idx, store_type);
-	C_WIPE(st_list, max_st_idx, store_type);
+	//C_WIPE(st_list, max_st_idx, store_type);
 	for(i = 0; i < max_st_idx; i++)
 			rd_store(&st_list[i]);
 

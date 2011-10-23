@@ -2372,15 +2372,15 @@ void do_cmd_query_symbol(creature_type *cr_ptr)
 		  }
   
 #ifdef JP
-		  strcpy(temp2, r_name+r_ptr->E_name);
+		  strcpy(temp2, species_name+r_ptr->E_name);
 #else
-		  strcpy(temp2, r_name+r_ptr->name);
+		  strcpy(temp2, species_name+r_ptr->name);
 #endif
 		  for (xx=0; temp2[xx] && xx<80; xx++)
 		    if (isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
   
 #ifdef JP
-		  if (my_strstr(temp2, temp) || my_strstr(r_name + r_ptr->name, temp) )
+		  if (my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp) )
 #else
 		  if (my_strstr(temp2, temp))
 #endif

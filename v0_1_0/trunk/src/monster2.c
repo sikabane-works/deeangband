@@ -1713,8 +1713,8 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 	r_ptr = &species_info[m_ptr->ap_species_idx];
 
 	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
-	if (mode & MD_TRUE_NAME) name = (r_name + real_r_ptr(m_ptr)->name);
-	else name = (r_name + r_ptr->name);
+	if (mode & MD_TRUE_NAME) name = (species_name + real_r_ptr(m_ptr)->name);
+	else name = (species_name + r_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
 	if (p_ptr->image && !(mode & MD_IGNORE_HALLU))
@@ -1740,7 +1740,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 			}
 			while (!hallu_race->name || is_unique_species(hallu_race));
 
-			strcpy(silly_name, (r_name + hallu_race->name));
+			strcpy(silly_name, (species_name + hallu_race->name));
 		}
 
 		/* Better not strcpy it, or we could corrupt species_info... */
@@ -2013,7 +2013,7 @@ void monster_desc(char *desc, creature_type *m_ptr, int mode)
 
 		if ((mode & MD_IGNORE_HALLU) && !is_original_ap(m_ptr))
 		{
-			strcat(desc, format("(%s)", r_name + species_info[m_ptr->species_idx].name));
+			strcat(desc, format("(%s)", species_name + species_info[m_ptr->species_idx].name));
 		}
 
 		/* Handle the Possessive as a special afterthought */
@@ -2070,7 +2070,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 		(void)strcat(desc, re_name + re_info[m_ptr->monster_ego_idx].name);
 	}
 
-	(void)strcat(desc, r_name + r_ptr->name);
+	(void)strcat(desc, species_name + r_ptr->name);
 
 	if(m_ptr->cls_idx != CLASS_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CLASS)){
 #ifdef JP
@@ -3638,7 +3638,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	monster_ego		*re_ptr;
 	race_type		*rpr_ptr;
 
-	cptr		name = (r_name + r_ptr->name);
+	cptr		name = (species_name + r_ptr->name);
 
 	int re_selected, rpr_selected, rpc_selected, rps_selected;
 
@@ -4134,7 +4134,7 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 		lite_spot(p_ptr, y, x);
 	}
 
-	//strcpy(m_ptr->name, r_name + r_ptr->name);
+	//strcpy(m_ptr->name, species_name + r_ptr->name);
 	monster_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
@@ -4154,8 +4154,8 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	int i, j, n;
 	char *s, *t;
 	species_type	*species_ptr = &species_info[species_idx];
-	cptr name = (r_name + species_ptr->name);
-	char *history = (r_text + species_ptr->text);
+	cptr name = (species_name + species_ptr->name);
+	char *history = (species_text + species_ptr->text);
 	char temp[HISTORY_ROW * HISTORY_COL];
 
 

@@ -6239,10 +6239,10 @@ msg_print("試合開始！");
 #ifdef JP
 			msg_format("この階には%sの主である%sが棲んでいる。",
 				   d_name+d_info[dungeon_type].name, 
-				   r_name+species_info[d_info[dungeon_type].final_guardian].name);
+				   species_name+species_info[d_info[dungeon_type].final_guardian].name);
 #else
 			msg_format("%^s lives in this level as the keeper of %s.",
-					   r_name+species_info[d_info[dungeon_type].final_guardian].name, 
+					   species_name+species_info[d_info[dungeon_type].final_guardian].name, 
 					   d_name+d_info[dungeon_type].name);
 #endif
 	}
@@ -6746,7 +6746,7 @@ quit("セーブファイルが壊れています");
 	if (!new_game)
 	{
 		/* Process the player name */
-		process_player_name(FALSE);
+		process_playespecies_name(FALSE);
 	}
 
 	/* Init the RNG */

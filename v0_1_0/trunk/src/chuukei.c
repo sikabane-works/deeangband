@@ -46,7 +46,7 @@ static long time_diff;   /* ƒvƒŒƒC‘¤‚Æ‚ÌŠÔ‚Ì‚¸‚ê(‚±‚ê‚ğŒ©‚È‚ª‚çƒfƒBƒŒƒC‚ğ’²®‚
 static int browse_delay; /* •\¦‚·‚é‚Ü‚Å‚ÌŠÔ(100ms’PˆÊ)(‚±‚ÌŠÔ‚Éƒ‰ƒO‚ğ‹zû‚·‚é) */
 #ifdef CHUUKEI
 static int server_port;
-static char server_name[MAX_HOSTNAME];
+static char servespecies_name[MAX_HOSTNAME];
 #endif
 
 static int movie_fd;
@@ -291,7 +291,7 @@ static int read_chuukei_prf(cptr prf_name)
 
 	/* ‰Šú‰» */
 	server_port = -1;
-	server_name[0] = 0;
+	servespecies_name[0] = 0;
 	browse_delay = DEFAULT_DELAY;
 
 	while (0 == my_fgets(fp, buf, sizeof(buf)))
@@ -299,8 +299,8 @@ static int read_chuukei_prf(cptr prf_name)
 		/* ƒT[ƒo–¼ */
 		if (!strncmp(buf, "server:", 7))
 		{
-			strncpy(server_name, buf + 7, MAX_HOSTNAME - 1);
-			server_name[MAX_HOSTNAME - 1] = '\0';
+			strncpy(servespecies_name, buf + 7, MAX_HOSTNAME - 1);
+			servespecies_name[MAX_HOSTNAME - 1] = '\0';
 		}
 
 		/* ƒ|[ƒg”Ô† */
@@ -319,7 +319,7 @@ static int read_chuukei_prf(cptr prf_name)
 	my_fclose(fp);
 
 	/* prfƒtƒ@ƒCƒ‹‚ªŠ®‘S‚Å‚È‚¢ */
-	if (server_port == -1 || server_name[0] == 0) return (-1);
+	if (server_port == -1 || servespecies_name[0] == 0) return (-1);
 
 	return (0);
 }
@@ -356,16 +356,16 @@ int connect_chuukei_server(char *prf_name)
 	}
 #endif
 
-	printf("server = %s\nport = %d\n", server_name, server_port);
+	printf("server = %s\nport = %d\n", servespecies_name, server_port);
 
-	if ((hp = gethostbyname(server_name)) != NULL)
+	if ((hp = gethostbyname(servespecies_name)) != NULL)
 	{
 		memset(&ask, 0, sizeof(ask));
 		memcpy(&ask.sin_addr, hp->h_addr_list[0], hp->h_length);
 	}
 	else
 	{
-		if ((ask.sin_addr.s_addr=inet_addr(server_name)) == 0)
+		if ((ask.sin_addr.s_addr=inet_addr(servespecies_name)) == 0)
 		{
 			printf("Bad hostname\n");
 			return (-1);
@@ -388,7 +388,7 @@ int connect_chuukei_server(char *prf_name)
 	if (connect(sd, (struct sockaddr *)&ask, sizeof(ask)) < 0)
 	{
 		close(sd);
-		printf("Can't connect %s port %d\n", server_name, server_port);
+		printf("Can't connect %s port %d\n", servespecies_name, server_port);
 		return (-1);
 	}
 
@@ -409,7 +409,7 @@ int connect_chuukei_server(char *prf_name)
 	
 	init_buffer();
 	
-	printf("server = %s\nport = %d\n", server_name, server_port);
+	printf("server = %s\nport = %d\n", servespecies_name, server_port);
 
 
 #if TARGET_API_MAC_CARBON
@@ -428,7 +428,7 @@ int connect_chuukei_server(char *prf_name)
 #endif
 	
 	if (err == noErr) {
-		err = OTInetStringToAddress(inet_services, (char *)server_name, &response);
+		err = OTInetStringToAddress(inet_services, (char *)servespecies_name, &response);
 		
 		if (err == noErr) {
 			host_addr = response.addrs[0];
@@ -460,7 +460,7 @@ int connect_chuukei_server(char *prf_name)
 			err = OTConnect(ep, &sndCall, NULL);
 			
 			if( err != noErr ){
-				printf("Can't connect %s port %d\n", server_name, server_port);
+				printf("Can't connect %s port %d\n", servespecies_name, server_port);
 			}
 		}
 		

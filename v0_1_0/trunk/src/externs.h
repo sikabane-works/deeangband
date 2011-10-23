@@ -23,8 +23,8 @@
 extern int max_macrotrigger;
 extern cptr macro_template;
 extern cptr macro_modifier_chr;
-extern cptr macro_modifier_name[MAX_MACRO_MOD];
-extern cptr macro_trigger_name[MAX_MACRO_TRIG];
+extern cptr macro_modifiespecies_name[MAX_MACRO_MOD];
+extern cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 extern cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
 
@@ -82,7 +82,6 @@ extern byte extract_energy[200];
 extern s32b player_exp[PY_MAX_LEVEL];
 extern s32b player_exp_a[PY_MAX_LEVEL];
 extern player_sex sex_info[MAX_SEXES];
-extern race_type race_info[MAX_RACES];
 extern player_class class_info[MAX_CLASS];
 extern magic_type technic_info[NUM_TECHNIC][32];
 extern player_chara chara_info[MAX_CHARA];
@@ -97,7 +96,7 @@ extern cptr E_realm_names[];
 #endif
 extern cptr spell_names[VALID_REALM][32];
 extern int chest_traps[64];
-extern cptr color_names[16];
+extern cptr colospecies_names[16];
 extern cptr stat_names[6];
 extern cptr stat_names_reduced[6];
 extern cptr window_flag_desc[32];
@@ -485,11 +484,11 @@ extern ego_item_type *e_info;
 extern char *e_name;
 extern char *e_text;
 extern species_type *species_info;
-extern char *r_name;
-extern char *r_text;
-extern race_type *rc_info;
-extern char *rc_name;
-extern char *rc_text;
+extern char *species_name;
+extern char *species_text;
+extern race_type *race_info;
+extern char *race_name;
+extern char *race_text;
 extern monster_ego *re_info;
 extern char *re_name;
 extern char *re_text;
@@ -1145,7 +1144,7 @@ extern errr check_time(void);
 extern errr check_load(void);
 extern bool show_file(bool show_version, cptr name, cptr what, int line, int mode);
 extern void do_cmd_help(void);
-extern void process_player_name(bool sf);
+extern void process_playespecies_name(bool sf);
 extern void get_name(creature_type *cr_ptr);
 extern void do_cmd_suicide(creature_type *cr_ptr);
 extern void do_cmd_save_game(int is_autosave);
@@ -1868,7 +1867,7 @@ extern bool mutation_power_aux(creature_type *cr_ptr, u32b power);
 
 #ifdef SET_UID
 /* util.c */
-extern void user_name(char *buf, int id);
+extern void usespecies_name(char *buf, int id);
 #endif
 
 #if 0

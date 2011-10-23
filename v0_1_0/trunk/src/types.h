@@ -118,7 +118,7 @@ struct object_kind
 {
 	u32b name;			/* Name (offset) */
 	u32b text;			/* Text (offset) */
-	u32b flavor_name;		/* Flavor name (offset) */
+	u32b flavospecies_name;		/* Flavor name (offset) */
 
 	byte tval;			/* Object type */
 	byte sval;			/* Object sub type */
@@ -767,7 +767,7 @@ typedef struct owner_type owner_type;
 
 struct owner_type
 {
-	cptr owner_name;	// Name
+	cptr ownespecies_name;	// Name
 
 	s16b max_cost;		// Purse limit
 
@@ -960,6 +960,12 @@ struct race_type
 #ifdef JP
 	cptr E_title;		/* ‰pŒêŽí‘° */
 #endif
+
+	u32b name;			/* Name (offset) */
+#ifdef JP
+	u32b E_name;        /* ‰pŒê–¼ (offset) */
+#endif
+
 
 	byte race_category; /* Race Category */
 	byte rarelity;      /* Race Rarelity */
@@ -1681,7 +1687,7 @@ typedef struct building_type building_type;
 struct building_type
 {
 	char name[60];                  // proprietor name
-	char owner_name[60];            // proprietor name
+	char ownespecies_name[60];            // proprietor name
 	char owner_race[60];            // proprietor race
 	s16b owner_id;                  // owner_id
 

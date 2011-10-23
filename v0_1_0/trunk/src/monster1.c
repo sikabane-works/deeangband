@@ -135,7 +135,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 
 	/* Descriptions */
 	{
-		cptr tmp = r_text + sp_ptr->text;
+		cptr tmp = species_text + sp_ptr->text;
 
 		if (tmp[0])
 		{
@@ -189,7 +189,7 @@ void roff_top(int species_idx)
 #endif
 
 	/* Dump the name */
-	Term_addstr(-1, TERM_WHITE, (r_name + r_ptr->name));
+	Term_addstr(-1, TERM_WHITE, (species_name + r_ptr->name));
 
 	/* Append the "standard" attr/char info */
 	Term_addstr(-1, TERM_WHITE, " ('");

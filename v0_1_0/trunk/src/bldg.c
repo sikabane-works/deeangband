@@ -112,7 +112,7 @@ static void show_building(creature_type *cr_ptr, building_type* bldg)
 	Term_clear();
 	sprintf(tmp_str, "[%s]", bldg->name);
 	prt(tmp_str, 2, 1);
-	sprintf(tmp_str, "%s (%s)", bldg->owner_name, bldg->owner_race);
+	sprintf(tmp_str, "%s (%s)", bldg->ownespecies_name, bldg->owner_race);
 	prt(tmp_str, 3, 5);
 
 
@@ -357,7 +357,7 @@ msg_print("あなたはすべての敵に勝利した。");
 			else
 			{
 				r_ptr = &species_info[arena_info[arena_number].species_idx];
-				name = (r_name + r_ptr->name);
+				name = (species_name + r_ptr->name);
 #ifdef JP
 msg_format("%s に挑戦するものはいないか？", name);
 #else
@@ -1969,9 +1969,9 @@ static bool kakutoujou(creature_type *cr_ptr)
 			species_type *r_ptr = &species_info[battle_mon[i]];
 
 #ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",r_name + r_ptr->name, is_unique_species(r_ptr) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",species_name + r_ptr->name, is_unique_species(r_ptr) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
 #else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", is_unique_species(r_ptr) ? "Fake " : "", r_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", is_unique_species(r_ptr) ? "Fake " : "", species_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
 #endif
 			prt(buf, 5+i, 1);
 		}
@@ -2097,9 +2097,9 @@ c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 	prt("Wanted monster that changes from day to day", 5, 10);
 #endif
 #ifdef JP
-	sprintf(buf,"ターゲット： %s",r_name + r_ptr->name);
+	sprintf(buf,"ターゲット： %s",species_name + r_ptr->name);
 #else
-	sprintf(buf,"target: %s",r_name + r_ptr->name);
+	sprintf(buf,"target: %s",species_name + r_ptr->name);
 #endif
 	c_put_str(TERM_YELLOW, buf, 6, 10);
 #ifdef JP
@@ -2171,7 +2171,7 @@ c_put_str(TERM_YELLOW, "Wanted monsters", 6, 10);
 			done_mark = "";
 		}
 
-		c_prt(color, format("%s %s", r_name + r_ptr->name, done_mark), y+7, 10);
+		c_prt(color, format("%s %s", species_name + r_ptr->name, done_mark), y+7, 10);
 
 		y = (y+1) % 10;
 		if (!y && (i < MAX_KUBI -1))
@@ -2326,7 +2326,7 @@ static bool kankin(creature_type *cr_ptr)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		o_ptr = &cr_ptr->inventory[i];
-		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(r_name + species_info[o_ptr->pval].name, r_name + species_info[today_mon].name)))
+		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
@@ -2356,7 +2356,7 @@ static bool kankin(creature_type *cr_ptr)
 	{
 		o_ptr = &cr_ptr->inventory[i];
 
-		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(r_name + species_info[o_ptr->pval].name, r_name + species_info[today_mon].name)))
+		if ((o_ptr->tval == TV_CORPSE) && (o_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[o_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(o_name, o_ptr, 0);
@@ -2502,7 +2502,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	species_type *eldritch_ptr = &species_info[eldritch_idx];
 	int power = eldritch_ptr->level + 10;
 	char m_name[80];
-	cptr desc = r_name + eldritch_ptr->name;
+	cptr desc = species_name + eldritch_ptr->name;
 
 	/* Describe it */
 #ifndef JP
@@ -3084,7 +3084,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 			}
 
 			q_ptr->cur_num = 0;
-			name = (r_name + r_ptr->name);
+			name = (species_name + r_ptr->name);
 #ifdef JP
 msg_format("クエスト: %sを %d体倒す", name,q_ptr->max_num);
 #else
@@ -4547,15 +4547,15 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 			}
   
 #ifdef JP
-			strcpy(temp2, r_name + r_ptr->E_name);
+			strcpy(temp2, species_name + r_ptr->E_name);
 #else
-			strcpy(temp2, r_name + r_ptr->name);
+			strcpy(temp2, species_name + r_ptr->name);
 #endif
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
 				if (isupper(temp2[xx])) temp2[xx] = tolower(temp2[xx]);
 
 #ifdef JP
-			if (my_strstr(temp2, temp) || my_strstr(r_name + r_ptr->name, temp))
+			if (my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp))
 #else
 			if (my_strstr(temp2, temp))
 #endif
@@ -4959,10 +4959,10 @@ msg_print("お金が足りません！");
 		if ((cr_ptr->cls_idx == CLASS_CHAOS_WARRIOR) || has_cf_creature(cr_ptr, CF_CHAOS_GIFT))
 		{
 #ifdef JP
-			msg_format("%sからの声が響いた。", r_name + species_info[cr_ptr->patron_idx].name);
+			msg_format("%sからの声が響いた。", species_name + species_info[cr_ptr->patron_idx].name);
 			msg_print("『よくやった、定命の者よ！』");
 #else
-			msg_format("The voice of %s booms out:", r_name + species_info[cr_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", species_name + species_info[cr_ptr->patron_idx].name);
 			msg_print("'Thou art donst well, mortal!'");
 #endif
 		}
@@ -5269,7 +5269,7 @@ void quest_discovery(int q_idx)
 	/* No quest index */
 	if (!q_idx) return;
 
-	strcpy(name, (r_name + r_ptr->name));
+	strcpy(name, (species_name + r_ptr->name));
 
 	msg_print(find_quest[rand_range(0, 4)]);
 	msg_print(NULL);

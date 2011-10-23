@@ -4071,7 +4071,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 				msg_format("Figurine of %s, depth +%d%s",
 #endif
 
-							  r_name + r_ptr->name, check - 1,
+							  species_name + r_ptr->name, check - 1,
 							  !object_is_cursed(o_ptr) ? "" : " {cursed}");
 			}
 
@@ -4120,7 +4120,7 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 				msg_format("Corpse of %s, depth +%d",
 #endif
 
-							  r_name + r_ptr->name, check - 1);
+							  species_name + r_ptr->name, check - 1);
 			}
 
 			object_aware(o_ptr);
@@ -4152,9 +4152,9 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
 			if (cheat_peek)
 			{
 #ifdef JP
-				msg_format("%s‚Ì‘œ", r_name + r_ptr->name);
+				msg_format("%s‚Ì‘œ", species_name + r_ptr->name);
 #else
-				msg_format("Statue of %s", r_name + r_ptr->name);
+				msg_format("Statue of %s", species_name + r_ptr->name);
 #endif
 
 			}

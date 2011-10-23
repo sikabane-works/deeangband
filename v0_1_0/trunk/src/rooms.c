@@ -2051,7 +2051,7 @@ static cptr pit_subtype_string(int type, bool nest)
 		switch (type)
 		{
 		case NEST_TYPE_CLONE:
-			sprintf(inner_buf, "(%s)", r_name + species_info[vault_aux_race].name);
+			sprintf(inner_buf, "(%s)", species_name + species_info[vault_aux_race].name);
 			break;
 		case NEST_TYPE_SYMBOL_GOOD:
 		case NEST_TYPE_SYMBOL_EVIL:
@@ -2358,7 +2358,7 @@ static bool build_type5(void)
 				if (nest_mon_info[i].species_idx != nest_mon_info[i + 1].species_idx) break;
 				if (!nest_mon_info[i + 1].used) break;
 			}
-			msg_print(r_name + species_info[nest_mon_info[i].species_idx].name);
+			msg_print(species_name + species_info[nest_mon_info[i].species_idx].name);
 		}
 	}
 
@@ -2579,7 +2579,7 @@ static bool build_type6(void)
 		if (cheat_hear)
 		{
 			/* Message */
-			msg_print(r_name + species_info[what[i]].name);
+			msg_print(species_name + species_info[what[i]].name);
 		}
 	}
 
@@ -5880,7 +5880,7 @@ static bool build_type13(void)
 		if (cheat_hear)
 		{
 			/* Message */
-			msg_print(r_name + species_info[what[i]].name);
+			msg_print(species_name + species_info[what[i]].name);
 		}
 	}
 

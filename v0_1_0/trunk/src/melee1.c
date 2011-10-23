@@ -157,7 +157,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 	char o_name[MAX_NLEN];
 
 	char atk_name[100];
-	char tar_name[100];
+	char taspecies_name[100];
 
 	char ddesc[80];
 
@@ -184,7 +184,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 	/* Get the monster name (or "it") */
 	monster_desc(atk_name, atk_ptr, 0);
-	monster_desc(tar_name, tar_ptr, 0);
+	monster_desc(taspecies_name, tar_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
 	monster_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
@@ -192,9 +192,9 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 	if (tar_ptr->special_defense & KATA_IAI)
 	{
 #ifdef JP
-		msg_format("%s‚Í‘Šè‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ğU‚é‚Á‚½B", tar_name);
+		msg_format("%s‚Í‘Šè‚ªP‚¢‚©‚©‚é‘O‚É‘f‘‚­•Ší‚ğU‚é‚Á‚½B", taspecies_name);
 #else
-		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", tar_name, atk_name);
+		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", taspecies_name, atk_name);
 #endif
 		if (creature_attack(tar_ptr, atk_ptr->fy, atk_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
@@ -751,20 +751,20 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				}
 #ifdef JP
 				if (abbreviate == 0)
-				    msg_format("%^s‚Í%s‚ğ%s", atk_name, tar_name, act);
+				    msg_format("%^s‚Í%s‚ğ%s", atk_name, taspecies_name, act);
 				else if (abbreviate == 1)
-				    msg_format("%^s‚Í%s‚É%s", atk_name, tar_name, act);
+				    msg_format("%^s‚Í%s‚É%s", atk_name, taspecies_name, act);
 				else if (abbreviate == 2)
-				    msg_format("%^s‚Í%s‚Ì%s", atk_name, tar_name, act);
+				    msg_format("%^s‚Í%s‚Ì%s", atk_name, taspecies_name, act);
 				else if (abbreviate == 3)
-				    msg_format("%^s‚Í%s‚ÉŒü‚¯%s", atk_name, tar_name, act);
+				    msg_format("%^s‚Í%s‚ÉŒü‚¯%s", atk_name, taspecies_name, act);
 				else if (abbreviate == 4)
 				    msg_format("%^s%s", atk_name, act);
 				else /* if (abbreviate == -1) */
 				    msg_format("%s", act);
 				abbreviate = -1;/*‚Q‰ñ–ÚˆÈ~‚ÍÈ—ª */
 #else
-				msg_format("%^s %s %s", atk_name, act, do_silly_attack ? tar_name : "");
+				msg_format("%^s %s %s", atk_name, act, do_silly_attack ? taspecies_name : "");
 #endif
 			}
 

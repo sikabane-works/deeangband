@@ -5148,9 +5148,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 					if(is_unique_species(r_ptr))
 					{
 #ifdef JP
-						msg_format("%s． ",r_name + r_ptr->name);
+						msg_format("%s． ",species_name + r_ptr->name);
 #else
-						msg_format("%s. ",r_name + r_ptr->name);
+						msg_format("%s. ",species_name + r_ptr->name);
 #endif
 					}
 				}

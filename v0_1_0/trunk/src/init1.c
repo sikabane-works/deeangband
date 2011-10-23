@@ -3188,7 +3188,7 @@ errr parse_k_info(char *buf, header *head)
 			*flavor++ = '\0';
 
 			/* Store the flavor */
-			if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
+			if (!add_name(&k_ptr->flavospecies_name, head, flavor)) return (7);
 		}
 
 		/* Store the name */
@@ -3225,7 +3225,7 @@ errr parse_k_info(char *buf, header *head)
 			*flavor++ = '\0';
 
 			/* Store the flavor */
-			if (!add_name(&k_ptr->flavor_name, head, flavor)) return (7);
+			if (!add_name(&k_ptr->flavospecies_name, head, flavor)) return (7);
 		}
 
 		/* Store the name */
@@ -4922,7 +4922,7 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_H_FLAGS		53
 #define RC_INFO_SUIT_CLASS	54
 
-errr parse_rc_info_csv(char *buf, header *head)
+errr parse_race_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j, b;
@@ -4974,16 +4974,30 @@ errr parse_rc_info_csv(char *buf, header *head)
 
 			switch(rc_info_csv_code[i])
 			{
-			case RC_INFO_ID:
-				break;
 
 			case RC_INFO_COMMON:
 				break;
 
 			case RC_INFO_NAME:
+
+#if JP
+				if (!add_name(&race_info[n].name, head, tmp))
+					return (7);
+#endif
+				race_info[n].title = race_name + race_info[n].name;
 				break;
 
 			case RC_INFO_E_NAME:
+#if JP
+				if (!add_name(&race_info[n].E_name, head, tmp))
+					return (7);
+				race_info[n].E_title = race_name + race_info[n].E_name;
+
+#else
+				if (!add_name(&race_info[n].name, head, tmp))
+					return (7);
+				race_info[n].title = race_name + race_info[n].name;
+#endif
 				break;
 
 			case RC_INFO_SEX:
@@ -5777,7 +5791,7 @@ static errr parse_line_building(char *buf)
 				strcpy(building[index].name, zz[0]);
 
 				/* Name of the owner */
-				strcpy(building[index].owner_name, zz[1]);
+				strcpy(building[index].ownespecies_name, zz[1]);
 
 				/* Race of the owner */
 				strcpy(building[index].owner_race, zz[2]);
@@ -6644,9 +6658,9 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Player name */
 			else if (streq(b+1, "PLAYER"))
 			{
-				static char tmp_player_name[128];
+				static char tmp_playespecies_name[128];
 				char *pn, *tpn;
-				for (pn = p_ptr->name, tpn = tmp_player_name; *pn; pn++, tpn++)
+				for (pn = p_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
 					if (iskanji(*pn))
@@ -6659,7 +6673,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 					*tpn = my_strchr(" []", *pn) ? '_' : *pn;
 				}
 				*tpn = '\0';
-				v = tmp_player_name;
+				v = tmp_playespecies_name;
 			}
 
 			/* Town */
@@ -6872,7 +6886,7 @@ void write_species_info_txt(void)
 	fprintf(fff, "# Version stamp (required)\n\n");
 
 	/* Write Version */
-	fprintf(fff, "V:%d.%d.%d\n\n\n", r_head->v_major, r_head->v_minor, r_head->v_patch);
+	fprintf(fff, "V:%d.%d.%d\n\n\n", species_head->v_major, species_head->v_minor, species_head->v_patch);
 
 	/* Write a note */
 	fprintf(fff, "##### The Player #####\n\n");
@@ -6886,7 +6900,7 @@ void write_species_info_txt(void)
 		r_ptr = &species_info[i];
 
 		/* Ignore empty monsters */
-		if (!strlen(r_name + r_ptr->name)) continue;
+		if (!strlen(species_name + r_ptr->name)) continue;
 
 		/* Ignore useless monsters */
 		if (i && !r_ptr->speed) continue;
@@ -6923,7 +6937,7 @@ void write_species_info_txt(void)
 		f_ptr[10] = r_ptr->flags11; n_ptr[10] = species_info_flags11;
 
 		/* Write New/Number/Name */
-		fprintf(fff, "N:%d:%s\n", z + 1, r_name + r_ptr->name);
+		fprintf(fff, "N:%d:%s\n", z + 1, species_name + r_ptr->name);
 
 		/* Write Graphic */
 		fprintf(fff, "G:%c:%c\n", r_ptr->d_char, color_char[r_ptr->d_attr]);
@@ -7033,7 +7047,7 @@ void write_species_info_txt(void)
 		}
 
 		/* Acquire the description */
-		desc = r_text + r_ptr->text;
+		desc = species_text + r_ptr->text;
 		dlen = strlen(desc);
 
 		/* Write Description */

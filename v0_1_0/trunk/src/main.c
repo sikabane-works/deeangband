@@ -381,9 +381,9 @@ int main(int argc, char *argv[])
 
 	/* Acquire the "user name" as a default player name */
 #ifdef ANGBAND_2_8_1
-	user_name(p_ptr->name, player_uid);
+	usespecies_name(p_ptr->name, player_uid);
 #else /* ANGBAND_2_8_1 */
-	user_name(op_ptr->full_name, player_uid);
+	usespecies_name(op_ptr->full_name, player_uid);
 #endif /* ANGBAND_2_8_1 */
 
 #ifdef PRIVATE_USER_PATH
@@ -615,7 +615,7 @@ int main(int argc, char *argv[])
 
 
 	/* Process the player name */
-	process_player_name(TRUE);
+	process_playespecies_name(TRUE);
 
 
 

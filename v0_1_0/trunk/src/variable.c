@@ -29,8 +29,8 @@ cptr copyright[5] =
 int max_macrotrigger = 0;
 cptr macro_template = NULL;
 cptr macro_modifier_chr;
-cptr macro_modifier_name[MAX_MACRO_MOD];
-cptr macro_trigger_name[MAX_MACRO_TRIG];
+cptr macro_modifiespecies_name[MAX_MACRO_MOD];
+cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
 /* レベルアップの時に上昇量を表示するのに使う */
@@ -393,7 +393,7 @@ int player_euid;
 int player_egid;
 
 /*
- * Stripped version of "player_name"
+ * Stripped version of "playespecies_name"
  */
 char player_base[64];
 
@@ -848,15 +848,15 @@ char *e_text;
  * The creature species arrays
  */
 species_type *species_info;
-char *r_name;
-char *r_text;
+char *species_name;
+char *species_text;
 
 /*
  * The race arrays
  */
-race_type *rc_info;
-char *rc_name;
-char *rc_text;
+race_type *race_info;
+char *race_name;
+char *race_text;
 
 /*
  * The artifact arrays
@@ -872,15 +872,12 @@ monster_ego *re_info;
 char *re_name;
 char *re_text;
 
-
 /*
  * The store pre arrays
  */
 store_pre_type *stp_info;
 char *stp_name;
 char *stp_text;
-
-
 
 /*
  * The dungeon arrays
@@ -1357,7 +1354,7 @@ bool use_menu;
 #ifdef CHUUKEI
 bool chuukei_server;
 bool chuukei_client;
-char *server_name;
+char *servespecies_name;
 int server_port;
 #endif
 

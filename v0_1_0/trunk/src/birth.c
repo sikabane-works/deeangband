@@ -2086,7 +2086,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #endif
 	if(cr_ptr->patron_idx != PATRON_NONE)
 	{
-		c_put_str(TERM_L_BLUE, r_name + species_info[cr_ptr->patron_idx].name, 3, 9);
+		c_put_str(TERM_L_BLUE, species_name + species_info[cr_ptr->patron_idx].name, 3, 9);
 	}
 
 
@@ -3724,15 +3724,15 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-		if(race_info[i].race_category)
-		{
+//		if(race_info[i].race_category)
+//		{
 			strcpy(se[n].cap, race_info[n].title);
 			se[n].code = i;
 			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
 			n++;
-		}
+//		}
 	}
 
 #if JP
@@ -4344,7 +4344,7 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 			if(!has_cf(&species_info[i].flags, CF_AMAN)) continue;		
 		}
 
-		strcpy(pt[n].cap, r_name + species_info[i].name);
+		strcpy(pt[n].cap, species_name + species_info[i].name);
 		pt[n].code = i;
 		pt[n].key = '\0';
 		pt[n].d_color = TERM_L_DARK;
@@ -6040,7 +6040,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 		get_name(cr_ptr);
 
 	/* Process the player name */
-		process_player_name(creating_savefile);
+		process_playespecies_name(creating_savefile);
 
 	/*** Edit character background ***/
 		edit_history(cr_ptr);
@@ -6152,7 +6152,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
 	cr_ptr->csp = cr_ptr->msp;
 
 	/* Process the player name */
-	process_player_name(FALSE);
+	process_playespecies_name(FALSE);
 
 	return TRUE;
 }

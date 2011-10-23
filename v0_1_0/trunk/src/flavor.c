@@ -286,7 +286,7 @@ void flavor_init(void)
 		object_kind *k_ptr = &k_info[i];
 
 		/* Skip objects without flavor name */
-		if (!k_ptr->flavor_name) continue;
+		if (!k_ptr->flavospecies_name) continue;
 
 		/*
 		 * Initialize flavor index to itself
@@ -1307,10 +1307,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 				else
 				{
 #ifdef JP
-					sprintf(tmp_val2, " (%s)",r_name + r_ptr->name);
+					sprintf(tmp_val2, " (%s)",species_name + r_ptr->name);
 					modstr = tmp_val2;
 #else
-					cptr t = r_name + r_ptr->name;
+					cptr t = species_name + r_ptr->name;
 
 					if (!is_unique_species(r_ptr))
 					{
@@ -1337,9 +1337,9 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			species_type *r_ptr = &species_info[o_ptr->pval];
 
 #ifdef JP
-			modstr = r_name + r_ptr->name;
+			modstr = species_name + r_ptr->name;
 #else
-			cptr t = r_name + r_ptr->name;
+			cptr t = species_name + r_ptr->name;
 
 			if (!is_unique_species(r_ptr))
 			{
@@ -1362,7 +1362,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		{
 			species_type *r_ptr = &species_info[o_ptr->pval];
 
-			modstr = r_name + r_ptr->name;
+			modstr = species_name + r_ptr->name;
 
 #ifdef JP
 			basenm = "#%";
@@ -1422,7 +1422,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のアミュレット";
@@ -1448,7 +1448,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の指輪";
@@ -1473,7 +1473,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_STAFF:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の杖";
@@ -1491,7 +1491,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_WAND:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の魔法棒";
@@ -1509,7 +1509,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_ROD:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のロッド";
@@ -1527,7 +1527,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_SCROLL:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の巻物";
@@ -1545,7 +1545,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_POTION:
 		{
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%の薬";
@@ -1563,10 +1563,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		case TV_FOOD:
 		{
 			/* Ordinary food is "boring" */
-			if (!k_ptr->flavor_name) break;
+			if (!k_ptr->flavospecies_name) break;
 
 			/* Color the object */
-			modstr = k_name + flavor_k_ptr->flavor_name;
+			modstr = k_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
 			if (!flavor)    basenm = "%のキノコ";
@@ -1899,7 +1899,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if(!o_ptr->creater_idx)
 			t = object_desc_str(t, format("鍛冶師%sの", p_ptr->name));
 		else
-			t = object_desc_str(t, format("%sの", r_name + species_info[o_ptr->creater_idx].name));
+			t = object_desc_str(t, format("%sの", species_name + species_info[o_ptr->creater_idx].name));
 	}
 
 	/* 伝説のアイテム、名のあるアイテムの名前を付加する */
@@ -2068,7 +2068,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if(!o_ptr->creater_idx)
 			t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
 		else
-			t = object_desc_str(t, format(" of %s", r_name + species_info[o_ptr->creater_idx].name));
+			t = object_desc_str(t, format(" of %s", species_name + species_info[o_ptr->creater_idx].name));
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */

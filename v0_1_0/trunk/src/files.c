@@ -710,13 +710,13 @@ errr process_pref_file_command(char *buf)
 				/* Kill corresponding modifier names */
 				for (i = 0; i < num; i++)
 				{
-					string_free(macro_modifier_name[i]);
+					string_free(macro_modifiespecies_name[i]);
 				}
 
 				/* Kill trigger name strings */
 				for (i = 0; i < max_macrotrigger; i++)
 				{
-					string_free(macro_trigger_name[i]);
+					string_free(macro_triggespecies_name[i]);
 					string_free(macro_trigger_keycode[0][i]);
 					string_free(macro_trigger_keycode[1][i]);
 				}
@@ -744,7 +744,7 @@ errr process_pref_file_command(char *buf)
 			/* Get corresponding modifier names */
 			for (i = 0; i < num; i++)
 			{
-				macro_modifier_name[i] = string_make(zz[2+i]);
+				macro_modifiespecies_name[i] = string_make(zz[2+i]);
 			}
 		}
 
@@ -777,7 +777,7 @@ errr process_pref_file_command(char *buf)
 			*t = '\0';
 
 			/* Get a trigger name */
-			macro_trigger_name[m] = string_make(buf);
+			macro_triggespecies_name[m] = string_make(buf);
 
 			/* Get the corresponding key code */
 			macro_trigger_keycode[0][m] = string_make(zz[1]);
@@ -1023,9 +1023,9 @@ cptr process_pref_file_expr(char **sp, char *fp)
 			/* Player */
 			else if (streq(b+1, "PLAYER"))
 			{
-				static char tmp_player_name[128];
+				static char tmp_playespecies_name[128];
 				char *pn, *tpn;
-				for (pn = p_ptr->name, tpn = tmp_player_name; *pn; pn++, tpn++)
+				for (pn = p_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
 					if (iskanji(*pn))
@@ -1038,7 +1038,7 @@ cptr process_pref_file_expr(char **sp, char *fp)
 					*tpn = my_strchr(" []", *pn) ? '_' : *pn;
 				}
 				*tpn = '\0';
-				v = tmp_player_name;
+				v = tmp_playespecies_name;
 			}
 
 			/* First realm */
@@ -3899,7 +3899,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->patron_idx == PATRON_NONE)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
-			display_player_one_line(ENTRY_PATRON, r_name + species_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
+			display_player_one_line(ENTRY_PATRON, species_name + species_info[cr_ptr->patron_idx].name, TERM_L_BLUE);
 		
 
 		authority_desc(buf, cr_ptr);
@@ -5023,10 +5023,10 @@ static void dump_aux_arena(FILE *fff)
 		{
 #ifdef JP
 			fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
-				r_name + species_info[arena_info[-1 - arena_number].species_idx].name);
+				species_name + species_info[arena_info[-1 - arena_number].species_idx].name);
 #else
 			fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
-				r_name + species_info[arena_info[-1 - arena_number].species_idx].name,
+				species_name + species_info[arena_info[-1 - arena_number].species_idx].name,
 				-arena_number, get_ordinal_number_suffix(-arena_number));
 #endif
 		}
@@ -5165,9 +5165,9 @@ static void dump_aux_monsters(FILE *fff)
 			species_type *r_ptr = &species_info[who[k]];
 
 #ifdef JP
-			fprintf(fff, "  %-40s (ƒŒƒxƒ‹%3d)\n", (r_name + r_ptr->name), r_ptr->level); 
+			fprintf(fff, "  %-40s (ƒŒƒxƒ‹%3d)\n", (species_name + r_ptr->name), r_ptr->level); 
 #else
-			fprintf(fff, "  %-40s (level %3d)\n", (r_name + r_ptr->name), r_ptr->level); 
+			fprintf(fff, "  %-40s (level %3d)\n", (species_name + r_ptr->name), r_ptr->level); 
 #endif
 		}
 
@@ -6328,7 +6328,7 @@ void do_cmd_help(void)
  * Extract a clean "base name".
  * Build the savefile name if needed.
  */
-void process_player_name(bool sf)
+void process_playespecies_name(bool sf)
 {
 	int i, k = 0;
 	char old_player_base[32] = "";

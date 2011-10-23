@@ -298,8 +298,8 @@ header f_head;
 header k_head;
 header a_head;
 header e_head;
-header r_head;
-header rc_head;
+header species_head;
+header race_head;
 header re_head;
 header st_head;
 header d_head;
@@ -985,8 +985,7 @@ static errr init_a_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("a_info", &a_head,
-			 (void*)&a_info, &a_name, &a_text, NULL);
+	return init_info("a_info", &a_head, (void*)&a_info, &a_name, &a_text, NULL);
 }
 
 
@@ -1019,16 +1018,16 @@ static errr init_species_info_csv(void)
 {
 
 	/* Init the header */
-	init_header(&r_head, max_species_idx, sizeof(species_type));
+	init_header(&species_head, max_species_idx, sizeof(species_type));
 
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	r_head.parse_info_txt = parse_species_info_csv;
+	species_head.parse_info_txt = parse_species_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("species_info", &r_head, (void*)&species_info, &r_name, &r_text, NULL);
+	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL);
 
 }
 
@@ -1048,8 +1047,7 @@ static errr init_re_info(void)
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info("re_info", &re_head,
-			 (void*)&re_info, &re_name, &re_text, NULL);
+	return init_info("re_info", &re_head, (void*)&re_info, &re_name, &re_text, NULL);
 }
 
 /*
@@ -1077,16 +1075,16 @@ static errr init_stp_info_csv(void)
 static errr init_rc_info(void)
 {
 	/* Init the header */
-	init_header(&rc_head, MAX_RACES, sizeof(race_type));
+	init_header(&race_head, MAX_RACES, sizeof(race_type));
 
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	rc_head.parse_info_txt = parse_rc_info_csv;
+	race_head.parse_info_txt = parse_race_info_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
-	return init_info2("rc_info", &rc_head, (void*)&rc_info, &rc_name, &rc_text, NULL);
+	return init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL);
 }
 
 
@@ -1207,7 +1205,7 @@ errr init_buildings(void)
 	for (i = 0; i < MAX_BLDG; i++)
 	{
 		building[i].name[0] = '\0';
-		building[i].owner_name[0] = '\0';
+		building[i].ownespecies_name[0] = '\0';
 		building[i].owner_race[0] = '\0';
 
 		for (j = 0; j < 8; j++)
@@ -2095,8 +2093,8 @@ void init_angband(void)
 	if (init_rc_info()) quit("Cannot initialize races");
 
 	/* Initialize creature info */
-	note("[Initializing arrays... (creatures)]");
-	if (init_species_info_csv()) quit("Cannot initialize monsters");
+	note("[Initializing arrays... (species)]");
+	if (init_species_info_csv()) quit("Cannot initialize species");
 
 	/* Initialize monster ego info */	note("[Initializing arrays... (monster's ego)]");
 	if (init_re_info()) quit("Cannot initialize monster's ego");
@@ -2197,7 +2195,7 @@ cptr get_check_sum(void)
 		      k_head.v_extra, 
 		      a_head.v_extra, 
 		      e_head.v_extra, 
-		      r_head.v_extra, 
+		      species_head.v_extra, 
 		      d_head.v_extra, 
 		      m_head.v_extra, 
 		      s_head.v_extra, 

@@ -522,7 +522,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_RAND_QUEST_C:
 		{
 			char name[80];
-			strcpy(name, r_name+species_info[quest[num].species_idx].name);
+			strcpy(name, species_name+species_info[quest[num].species_idx].name);
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)を達成した。\n", hour, min, note_level, name);
 #else
@@ -533,7 +533,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		case NIKKI_RAND_QUEST_F:
 		{
 			char name[80];
-			strcpy(name, r_name+species_info[quest[num].species_idx].name);
+			strcpy(name, species_name+species_info[quest[num].species_idx].name);
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)から逃げ出した。\n", hour, min, note_level, name);
 #else
@@ -1276,7 +1276,7 @@ void do_cmd_change_name(creature_type *cr_ptr)
 			get_name(cr_ptr);
 
 			/* Process the player name */
-			process_player_name(FALSE);
+			process_playespecies_name(FALSE);
 		}
 
 		/* File dump */
@@ -3877,7 +3877,7 @@ void do_cmd_visuals(void)
 				if (!r_ptr->name) continue;
 
 				/* Dump a comment */
-				auto_dump_printf("# %s\n", (r_name + r_ptr->name));
+				auto_dump_printf("# %s\n", (species_name + r_ptr->name));
 
 				/* Dump the monster attr/char info */
 				auto_dump_printf("R:%d:0x%02X/0x%02X\n\n", i,
@@ -4085,11 +4085,11 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("モンスター = %d, 名前 = %-40.40s",
-						   r, (r_name + r_ptr->name)));
+						   r, (species_name + r_ptr->name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Monster = %d, Name = %-40.40s",
-						   r, (r_name + r_ptr->name)));
+						   r, (species_name + r_ptr->name)));
 #endif
 
 				/* Label the Default values */
@@ -4208,11 +4208,11 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("アイテム = %d, 名前 = %-40.40s",
-						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavor_name)));
+						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Object = %d, Name = %-40.40s",
-						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavor_name)));
+						   k, k_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
 #endif
 
 				/* Label the Default values */
@@ -4647,7 +4647,7 @@ void do_cmd_colors(void)
 				if (!kv && !rv && !gv && !bv) continue;
 
 				/* Extract the color name */
-				if (i < 16) name = color_names[i];
+				if (i < 16) name = colospecies_names[i];
 
 				/* Dump a comment */
 #ifdef JP
@@ -4707,9 +4707,9 @@ void do_cmd_colors(void)
 
 				/* Describe the color */
 #ifdef JP
-				name = ((a < 16) ? color_names[a] : "未定義");
+				name = ((a < 16) ? colospecies_names[a] : "未定義");
 #else
-				name = ((a < 16) ? color_names[a] : "undefined");
+				name = ((a < 16) ? colospecies_names[a] : "undefined");
 #endif
 
 
@@ -6952,9 +6952,9 @@ static void do_cmd_knowledge_uniques(void)
 
 		/* Print a message */
 #ifdef JP
-		fprintf(fff, "     %s (レベル%d)\n", r_name + r_ptr->name, r_ptr->level);
+		fprintf(fff, "     %s (レベル%d)\n", species_name + r_ptr->name, r_ptr->level);
 #else
-		fprintf(fff, "     %s (level %d)\n", r_name + r_ptr->name, r_ptr->level);
+		fprintf(fff, "     %s (level %d)\n", species_name + r_ptr->name, r_ptr->level);
 #endif
 	}
 
@@ -7506,7 +7506,7 @@ static void do_cmd_knowledge_kill_count(void)
 			{
 				/* Print a message */
 				fprintf(fff, "     %s\n",
-				    (r_name + r_ptr->name));
+				    (species_name + r_ptr->name));
 				Total++;
 			}
 		}
@@ -7519,25 +7519,25 @@ static void do_cmd_knowledge_kill_count(void)
 #ifdef JP
 				/* p,tは人と数える by ita */
 				if (my_strchr("pt", r_ptr->d_char))
-					fprintf(fff, "     %3d 人の %s\n", This, r_name + r_ptr->name);
+					fprintf(fff, "     %3d 人の %s\n", This, species_name + r_ptr->name);
 				else
-					fprintf(fff, "     %3d 体の %s\n", This, r_name + r_ptr->name);
+					fprintf(fff, "     %3d 体の %s\n", This, species_name + r_ptr->name);
 #else
 				if (This < 2)
 				{
-					if (my_strstr(r_name + r_ptr->name, "coins"))
+					if (my_strstr(species_name + r_ptr->name, "coins"))
 					{
-						fprintf(fff, "     1 pile of %s\n", (r_name + r_ptr->name));
+						fprintf(fff, "     1 pile of %s\n", (species_name + r_ptr->name));
 					}
 					else
 					{
-						fprintf(fff, "     1 %s\n", (r_name + r_ptr->name));
+						fprintf(fff, "     1 %s\n", (species_name + r_ptr->name));
 					}
 				}
 				else
 				{
 					char ToPlural[80];
-					strcpy(ToPlural, (r_name + r_ptr->name));
+					strcpy(ToPlural, (species_name + r_ptr->name));
 					plural_aux(ToPlural);
 					fprintf(fff, "     %d %s\n", This, ToPlural);
 				}
@@ -7952,7 +7952,7 @@ static void display_monster_list(int col, int row, int per_page, s16b mon_idx[],
 		attr = ((i + mon_top == mon_cur) ? TERM_L_BLUE : TERM_WHITE);
 
 		/* Display the name */
-		c_prt(attr, (r_name + r_ptr->name), row + i, col);
+		c_prt(attr, (species_name + r_ptr->name), row + i, col);
 
 		/* Hack -- visual_list mode */
 		if (per_page == 1)
@@ -8398,7 +8398,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		else
 		{
 			/* Flavor name */
-			strcpy(o_name, k_name + flavor_k_ptr->flavor_name);
+			strcpy(o_name, k_name + flavor_k_ptr->flavospecies_name);
 		}
 
 		/* Display the name */
@@ -9202,11 +9202,11 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 		bool listed = FALSE;
 
 #ifdef JP
-		fprintf(fff, "今日のターゲット : %s\n", (cr_ptr->today_mon ? r_name + species_info[cr_ptr->today_mon].name : "不明"));
+		fprintf(fff, "今日のターゲット : %s\n", (cr_ptr->today_mon ? species_name + species_info[cr_ptr->today_mon].name : "不明"));
 		fprintf(fff, "\n");
 		fprintf(fff, "賞金首リスト\n");
 #else
-		fprintf(fff, "Today target : %s\n", (cr_ptr->today_mon ? r_name + species_info[cr_ptr->today_mon].name : "unknown"));
+		fprintf(fff, "Today target : %s\n", (cr_ptr->today_mon ? species_name + species_info[cr_ptr->today_mon].name : "unknown"));
 		fprintf(fff, "\n");
 		fprintf(fff, "List of wanted monsters\n");
 #endif
@@ -9216,7 +9216,7 @@ static void do_cmd_knowledge_kubi(creature_type *cr_ptr)
 		{
 			if (kubi_species_idx[i] <= 10000)
 			{
-				fprintf(fff,"%s\n", r_name + species_info[kubi_species_idx[i]].name);
+				fprintf(fff,"%s\n", species_name + species_info[kubi_species_idx[i]].name);
 
 				listed = TRUE;
 			}
@@ -9473,7 +9473,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					case QUEST_TYPE_KILL_ANY_LEVEL:
 						r_ptr = &species_info[quest[i].species_idx];
 						d_ptr = &d_info[quest[i].dungeon];
-						strcpy(name, r_name + r_ptr->name);
+						strcpy(name, species_name + r_ptr->name);
 						strcpy(dungeon_name, d_name + d_ptr->name);
 
 						if (quest[i].max_num > 1)
@@ -9577,7 +9577,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				{
 					/* Print the quest info */
 					r_ptr = &species_info[quest[i].species_idx];
-					strcpy(name, r_name + r_ptr->name);
+					strcpy(name, species_name + r_ptr->name);
 
 					if (quest[i].max_num > 1)
 					{
@@ -9672,7 +9672,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 #else
 						"  %-40s (Dungeon level: %3d) - (Cancelled)\n",
 #endif
-						r_name+species_info[quest[q_idx].species_idx].name,
+						species_name+species_info[quest[q_idx].species_idx].name,
 						quest[q_idx].level);
 				}
 				else
@@ -9683,7 +9683,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 #else
 						"  %-40s (Dungeon level: %3d) - level %2d\n",
 #endif
-						r_name+species_info[quest[q_idx].species_idx].name,
+						species_name+species_info[quest[q_idx].species_idx].name,
 						quest[q_idx].level,
 						quest[q_idx].complev);
 				}
@@ -9757,10 +9757,10 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 				/* Print the quest info */
 #ifdef JP
 				sprintf(tmp_str, "  %-40s (%3d階)            - レベル%2d\n",
-					r_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
+					species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #else
 				sprintf(tmp_str, "  %-40s (Dungeon level: %3d) - level %2d\n",
-					r_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
+					species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #endif
 			}
 			else
@@ -9811,10 +9811,10 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 			/* Print the quest info */
 #ifdef JP
 			sprintf(tmp_str, "  %s (%d階, %s)\n",
-				quest[i].name, quest[i].level, r_name+species_info[quest[i].species_idx].name);
+				quest[i].name, quest[i].level, species_name+species_info[quest[i].species_idx].name);
 #else
 			sprintf(tmp_str, "  %s (%d, %s)\n",
-				quest[i].name, quest[i].level, r_name+species_info[quest[i].species_idx].name);
+				quest[i].name, quest[i].level, species_name+species_info[quest[i].species_idx].name);
 #endif
 			fprintf(fff, tmp_str);
 		}

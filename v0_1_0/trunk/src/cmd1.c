@@ -1809,7 +1809,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
-	char            tar_name[80];
+	char            taspecies_name[80];
 
 	int             dss, ddd;
 
@@ -1883,7 +1883,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	}
 
 	/* Extract monster name (or "it") */
-	monster_desc(tar_name, tar_ptr, 0);
+	monster_desc(taspecies_name, tar_ptr, 0);
 
 
 	/* Calculate the "attack quality" */
@@ -1898,9 +1898,9 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 		sound(SOUND_HIT);
 
 #ifdef JP
-		msg_format("%s‚ğ%s‚ÅUŒ‚‚µ‚½B", tar_name, atk_desc);
+		msg_format("%s‚ğ%s‚ÅUŒ‚‚µ‚½B", taspecies_name, atk_desc);
 #else
-		msg_format("You hit %s with your %s.", tar_name, atk_desc);
+		msg_format("You hit %s with your %s.", taspecies_name, atk_desc);
 #endif
 
 
@@ -1957,9 +1957,9 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 
 		/* Message */
 #ifdef JP
-			msg_format("ƒ~ƒXI %s‚É‚©‚í‚³‚ê‚½B", tar_name);
+			msg_format("ƒ~ƒXI %s‚É‚©‚í‚³‚ê‚½B", taspecies_name);
 #else
-		msg_format("You miss %s.", tar_name);
+		msg_format("You miss %s.", taspecies_name);
 #endif
 
 	}
@@ -3089,7 +3089,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	creature_type   *tar_ptr;
 	species_type    *r_ptr;
 	char			atk_name[80];
-	char            tar_name[80];
+	char            taspecies_name[80];
 
 	/* Player or Enemy */
 	if(player_ptr->fx == x && player_ptr->fy == y && c_ptr->m_idx)
@@ -3128,7 +3128,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	/* Extract attacker and target name (or "it") */
-	monster_desc(tar_name, tar_ptr, 0);
+	monster_desc(taspecies_name, tar_ptr, 0);
 	monster_desc(atk_name, atk_ptr, 0);
 
 	if (tar_ptr->ml)
@@ -3174,9 +3174,9 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if (stormbringer)
 		{
 #ifdef JP
-			msg_format("•‚¢n‚Í‹­—~‚É%s‚ğUŒ‚‚µ‚½I", tar_name);
+			msg_format("•‚¢n‚Í‹­—~‚É%s‚ğUŒ‚‚µ‚½I", taspecies_name);
 #else
-			msg_format("Your black blade greedily attacks %s!", tar_name);
+			msg_format("Your black blade greedily attacks %s!", taspecies_name);
 #endif
 		}
 		else if (atk_ptr->cls_idx != CLASS_BERSERKER && is_player(atk_ptr))
@@ -3188,9 +3188,9 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 #endif
 			{
 #ifdef JP
-				msg_format("%s‚ğUŒ‚‚·‚é‚Ì‚ğ~‚ß‚½B", tar_name);
+				msg_format("%s‚ğUŒ‚‚·‚é‚Ì‚ğ~‚ß‚½B", taspecies_name);
 #else
-				msg_format("You stop to avoid hitting %s.", tar_name);
+				msg_format("You stop to avoid hitting %s.", taspecies_name);
 #endif
 				return FALSE;
 			}
@@ -3204,9 +3204,9 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 		/* Message */
 		if (tar_ptr->ml)
 #ifdef JP
-			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", atk_name, tar_name);
+			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", atk_name, taspecies_name);
 #else
-			msg_format("%s are too afraid to attack %s!", atk_name, tar_name);
+			msg_format("%s are too afraid to attack %s!", atk_name, taspecies_name);
 #endif
 
 		else if(is_player(atk_ptr))
@@ -3295,9 +3295,9 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 		{
 			int k;
 #ifdef JP
-			msg_format("%s‚Íc“‚É‚à%s‚ğ“¥‚İ‚Â‚¯‚½I", atk_name, tar_name);
+			msg_format("%s‚Íc“‚É‚à%s‚ğ“¥‚İ‚Â‚¯‚½I", atk_name, taspecies_name);
 #else
-			msg_format("%s tranmpled %s cruelly!", atk_name, tar_name);
+			msg_format("%s tranmpled %s cruelly!", atk_name, taspecies_name);
 #endif
 			k = damroll(atk_ptr->size - tar_ptr->size, atk_ptr->size - tar_ptr->size);
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL , NULL, -1);
@@ -3339,9 +3339,9 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 		/* Message */
 #ifdef JP
-		msg_format("%^s‚Í‹°•|‚µ‚Ä“¦‚°o‚µ‚½I", tar_name);
+		msg_format("%^s‚Í‹°•|‚µ‚Ä“¦‚°o‚µ‚½I", taspecies_name);
 #else
-		msg_format("%^s flees in terror!", tar_name);
+		msg_format("%^s flees in terror!", taspecies_name);
 #endif
 
 	}
