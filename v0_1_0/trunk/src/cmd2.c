@@ -3616,7 +3616,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					char m_name[80];
 
 					/* Get "the monster" or "it" */
-					monster_desc(m_name, m_ptr, 0);
+					creature_desc(m_name, m_ptr, 0);
 
 					/* Message */
 #ifdef JP
@@ -3643,7 +3643,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 						char m_name[80];
 
 						/* Get "the monster" or "it" */
-						monster_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, m_ptr, 0);
 
 						tdam = m_ptr->chp + 1;
 #ifdef JP
@@ -3706,7 +3706,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 					{
 						char m_name[80];
 
-						monster_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, m_ptr, 0);
 
 						stick_to = TRUE;
 #ifdef JP
@@ -3731,7 +3731,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 						sound(SOUND_FLEE);
 
 						/* Get the monster name (or "it") */
-						monster_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, m_ptr, 0);
 
 						/* Message */
 #ifdef JP
@@ -4286,7 +4286,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 					char m_name[80];
 
 					/* Get "the monster" or "it" */
-					monster_desc(m_name, m_ptr, 0);
+					creature_desc(m_name, m_ptr, 0);
 
 					/* Message */
 #ifdef JP
@@ -4368,7 +4368,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 						sound(SOUND_FLEE);
 
 						/* Get the monster name (or "it") */
-						monster_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, m_ptr, 0);
 
 						/* Message */
 #ifdef JP
@@ -4435,7 +4435,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 				    !m_ptr->invuln)
 				{
 					char m_name[80];
-					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
+					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%s‚Í“{‚Á‚½I", m_name);
 #else

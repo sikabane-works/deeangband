@@ -4981,7 +4981,7 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_COMMON:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].race_category = (s16b)b;
+				race_info[n].race_category = (byte)b;
 				break;
 
 			case RC_INFO_NAME:

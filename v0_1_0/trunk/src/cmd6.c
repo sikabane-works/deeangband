@@ -5367,7 +5367,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				else if (cave[y][x].m_idx)
 				{
 					char m_name[80];
-					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
+					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%sが邪魔だ！", m_name);
 #else

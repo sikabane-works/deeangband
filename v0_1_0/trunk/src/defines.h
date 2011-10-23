@@ -2913,7 +2913,7 @@
 #define PM_MULTIPLY       0x00000400
 
 
-/* Bit flags for monster_desc() */
+/* Bit flags for creature_desc() */
 #define MD_OBJECTIVE      0x00000001 /* Objective (or Reflexive) */
 #define MD_POSSESSIVE     0x00000002 /* Possessive (or Reflexive) */
 #define MD_INDEF_HIDDEN   0x00000004 /* Use indefinites for hidden monsters ("something") */

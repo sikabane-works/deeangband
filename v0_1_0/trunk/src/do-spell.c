@@ -10540,7 +10540,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				creature_type *m_ptr = &creature_list[m_idx];
 				char m_name[80];
 	
-				monster_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, m_ptr, 0);
 	
 				for (i = 0; i < 5; i++)
 				{
@@ -10848,7 +10848,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 					{
 						char m_name[80];
 	
-						monster_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 						msg_format("%s‚É‚ÍŒø‰Ê‚ª‚È‚¢I", m_name);
 #else

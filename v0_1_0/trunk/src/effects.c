@@ -420,7 +420,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 	char name[100];
-	monster_desc(name, cr_ptr, 0);
+	creature_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
@@ -520,7 +520,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 {
 	bool notice = FALSE;
 	char name[100];
-	monster_desc(name, cr_ptr, 0);
+	creature_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
@@ -714,7 +714,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 	bool notice = FALSE;
 	bool name[80];
 
-	monster_desc(name, cr_ptr, 0);
+	creature_desc(name, cr_ptr, 0);
 
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
@@ -5690,9 +5690,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	// for Player
 	int warning = (tar_ptr->mhp * hitpoint_warn / 10);
 
-	if(atk_ptr) monster_desc(atk_name, atk_ptr, MD_TRUE_NAME);
+	if(atk_ptr) creature_desc(atk_name, atk_ptr, MD_TRUE_NAME);
 	else atk_name[0] = '\0';
-	if(tar_ptr) monster_desc(taspecies_name, tar_ptr, MD_TRUE_NAME);
+	if(tar_ptr) creature_desc(taspecies_name, tar_ptr, MD_TRUE_NAME);
 	else taspecies_name[0] = '\0';
 
 	COPY(&exp_mon, tar_ptr, creature_type);
@@ -6197,7 +6197,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			}
 	
 			/* Extract monster name */
-			monster_desc(taspecies_name, tar_ptr, MD_TRUE_NAME);
+			creature_desc(taspecies_name, tar_ptr, MD_TRUE_NAME);
 		
 			if (has_cf_creature(tar_ptr, CF_CAN_SPEAK))
 			{
@@ -6389,7 +6389,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			char taspecies_name[80];
 	
 			/* Extract monster name */
-			monster_desc(taspecies_name, tar_ptr, 0);
+			creature_desc(taspecies_name, tar_ptr, 0);
 	
 			if (tar_ptr->chp > tar_ptr->mhp/3) damage = (damage + 1) / 2;
 			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))

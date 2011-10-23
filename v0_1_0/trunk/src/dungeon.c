@@ -3769,7 +3769,7 @@ static void process_world(creature_type *cr_ptr)
 
 			wm_ptr = &creature_list[win_m_idx];
 
-			monster_desc(m_name, wm_ptr, 0);
+			creature_desc(m_name, wm_ptr, 0);
 #ifdef JP
 			msg_format("%sが勝利した！", m_name);
 #else
@@ -5556,7 +5556,7 @@ msg_print("何か変わった気がする！");
 				if (place_monster_aux(cr_ptr, y, x, species_idx, PM_NO_KAGE))
 				{
 					char m_name[80];
-					monster_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
+					creature_desc(m_name, &creature_list[cave[y][x].m_idx], 0);
 #ifdef JP
 					msg_format("%sが釣れた！", m_name);
 #else
@@ -5619,7 +5619,7 @@ msg_print("中断しました。");
 			(void)set_paralyzed(&creature_list[cr_ptr->riding], 0);
 
 			/* Acquire the monster name */
-			monster_desc(m_name, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%^sを起こした。", m_name);
 #else
@@ -5636,7 +5636,7 @@ msg_print("中断しました。");
 				char m_name[80];
 
 				/* Acquire the monster name */
-				monster_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
@@ -5656,7 +5656,7 @@ msg_print("中断しました。");
 				char m_name[80];
 
 				/* Acquire the monster name */
-				monster_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
@@ -5676,7 +5676,7 @@ msg_print("中断しました。");
 				char m_name[80];
 
 				/* Acquire the monster name */
-				monster_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, m_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP

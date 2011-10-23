@@ -703,7 +703,7 @@ void compact_monsters(int size)
 			{
 				char m_name[80];
 
-				monster_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
 				do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
@@ -1685,7 +1685,7 @@ s16b get_mon_num(int level)
  *  MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE
  *    --> Reflexive, genderized if visable ("himself") or "itself"
  */
-void monster_desc(char *desc, creature_type *m_ptr, int mode)
+void creature_desc(char *desc, creature_type *m_ptr, int mode)
 {
 	cptr            res;
 	species_type    *r_ptr;
@@ -2233,7 +2233,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		power = r_ptr->level / 2;
 
-		monster_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 
 		if (!has_cf_creature(m_ptr, CF_UNIQUE))
 		{
@@ -3061,7 +3061,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (old_unique && (species_idx == MON_CHAMELEON)) species_idx = MON_CHAMELEON_K;
 	r_ptr = &species_info[species_idx];
 
-	monster_desc(old_m_name, m_ptr, 0);
+	creature_desc(old_m_name, m_ptr, 0);
 
 	if (!species_idx)
 	{
@@ -3129,7 +3129,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	if (m_idx == p_ptr->riding)
 	{
 		char m_name[80];
-		monster_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
 #else
@@ -4135,7 +4135,7 @@ msg_print("爆発のルーンは解除された。");
 	}
 
 	//strcpy(m_ptr->name, species_name + r_ptr->name);
-	monster_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	creature_desc(m_ptr->name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)
@@ -5027,7 +5027,7 @@ void message_pain(int m_idx, int dam)
 
 
 	/* Get the monster name */
-	monster_desc(m_name, m_ptr, 0);
+	creature_desc(m_name, m_ptr, 0);
 
 	/* Notice non-damage */
 	if (dam == 0)

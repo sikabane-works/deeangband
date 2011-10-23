@@ -183,11 +183,11 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 	/* Get the monster name (or "it") */
-	monster_desc(atk_name, atk_ptr, 0);
-	monster_desc(taspecies_name, tar_ptr, 0);
+	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(taspecies_name, tar_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
-	monster_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	creature_desc(ddesc, atk_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 	if (tar_ptr->special_defense & KATA_IAI)
 	{
@@ -2244,7 +2244,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 		if (tar_ptr->riding && damage)
 		{
 			char atk_name[80];
-			monster_desc(atk_name, &creature_list[tar_ptr->riding], 0);
+			creature_desc(atk_name, &creature_list[tar_ptr->riding], 0);
 			if (rakuba(tar_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 #ifdef JP
@@ -2273,7 +2273,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 		char atk_name_self[80];
 
 		/* hisself */
-		monster_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
@@ -2284,7 +2284,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 	if ((tar_ptr->counter || (tar_ptr->special_defense & KATA_MUSOU)) && alive && !tar_ptr->is_dead && atk_ptr->ml && (tar_ptr->csp > 7))
 	{
 		char atk_name[80];
-		monster_desc(atk_name, atk_ptr, 0);
+		creature_desc(atk_name, atk_ptr, 0);
 
 		tar_ptr->csp -= 7;
 #ifdef JP

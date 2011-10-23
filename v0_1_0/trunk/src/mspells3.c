@@ -1358,7 +1358,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		if (!projectable(user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
-		monster_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 		if (is_resist_tele_creature(m_ptr))
 		{
 			if ((is_unique_creature(m_ptr)) || (m_ptr->resist_ultimate))
@@ -1412,7 +1412,7 @@ msg_format("%sを引き戻した。", m_name);
 		if (!projectable(user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[target_m_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
-		monster_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 		msg_format("%^sの足を指さした。", m_name);
 #else

@@ -1819,11 +1819,11 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 
 	/* Get the monster name (BEFORE polymorphing) */
-	monster_desc(m_name, tar_ptr, 0);
+	creature_desc(m_name, tar_ptr, 0);
 
 #ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */
-	monster_desc(m_poss, tar_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
+	creature_desc(m_poss, tar_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
 
@@ -2863,7 +2863,7 @@ note_dies = "は蒸発した！";
 					else
 					{
 						/* Injure +/- confusion */
-						monster_desc(killer, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+						creature_desc(killer, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 						take_hit(NULL, who_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
 						if (one_in_(4) && !(who_ptr->multishadow && (turn & 1)))
 						{
@@ -2999,7 +2999,7 @@ note_dies = "は蒸発した！";
 					else
 					{
 						/* Injure + mana drain */
-						monster_desc(killer, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+						creature_desc(killer, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 						if (!(who_ptr->multishadow && (turn & 1)))
 						{
 #ifdef JP
@@ -4965,7 +4965,7 @@ note_dies = "はドロドロに溶けた！";
 						if (see_s_msg)
 						{
 							/* Get the monster name */
-							monster_desc(killer, who_ptr, 0);
+							creature_desc(killer, who_ptr, 0);
 #ifdef JP
 							msg_format("%^sは気分が良さそうだ。", killer);
 #else
@@ -6006,7 +6006,7 @@ note = "には効果がなかった。";
 			/* Give detailed messages if destroyed */
 			if (known && note)
 			{
-				monster_desc(m_name, tar_ptr, MD_TRUE_NAME);
+				creature_desc(m_name, tar_ptr, MD_TRUE_NAME);
 				if (see_s_msg)
 				{
 					msg_format("%^s%s", m_name, note);
@@ -6069,7 +6069,7 @@ note = "には効果がなかった。";
 		{
 			char m2_name[80];
 
-			monster_desc(m2_name, tar_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m2_name, tar_ptr, MD_INDEF_VISIBLE);
 			do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
@@ -6419,7 +6419,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 		rlev = (((&species_info[atk_ptr->species_idx])->level >= 1) ? (&species_info[atk_ptr->species_idx])->level : 1);
 
 		/* Get the monster name */
-		monster_desc(m_name, atk_ptr, 0);
+		creature_desc(m_name, atk_ptr, 0);
 
 		/* Get the monster's real name (gotten before polymorph!) */
 		strcpy(killer, who_name);
@@ -7693,7 +7693,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 		char m_name_self[80];
 
 		/* hisself */
-		monster_desc(m_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(m_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif
@@ -8298,7 +8298,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	{
 		x1 = who_ptr->fx;
 		y1 = who_ptr->fy;
-		monster_desc(who_name, who_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(who_name, who_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 	}
 
 
@@ -9248,7 +9248,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	{
 		char m_name[80];
 
-		monster_desc(m_name, &creature_list[p_ptr->riding], 0);
+		creature_desc(m_name, &creature_list[p_ptr->riding], 0);
 
 		if (rakubadam_m > 0)
 		{

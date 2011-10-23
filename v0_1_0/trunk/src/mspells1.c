@@ -1586,11 +1586,11 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	if (target_ptr->leaving) return (FALSE);
 
 	/* Get the monster name (or "it") */
-	monster_desc(m_name, user_ptr, 0x00);
+	creature_desc(m_name, user_ptr, 0x00);
 
 #ifndef JP
 	/* Get the monster possessive ("his"/"her"/"its") */
-	monster_desc(m_poss, user_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
+	creature_desc(m_poss, user_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
 	switch (do_spell)
@@ -3484,7 +3484,7 @@ msg_format("%sÇÕñ≥èùÇÃãÖÇÃéÙï∂Çè•Ç¶ÇΩÅB", m_name);
 							char m_name_self[80];
 
 							/* hisself */
-							monster_desc(m_name_self, user_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+							creature_desc(m_name_self, user_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
 							msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif

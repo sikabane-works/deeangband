@@ -521,7 +521,7 @@ void anger_monster(creature_type *m_ptr)
 	{
 		char m_name[80];
 
-		monster_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 msg_format("%^s‚Í“{‚Á‚½I", m_name);
 #else

@@ -1734,7 +1734,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても熱くなった！");
@@ -1759,7 +1759,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても寒くなった！");
@@ -1785,7 +1785,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			aura_damage = damroll(1 + (tar_ptr->lev / 13), 1 + (tar_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			monster_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
 			if (race_is_(atk_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
@@ -1883,7 +1883,7 @@ static void natural_attack(creature_type *atk_ptr, creature_type *tar_ptr, int a
 	}
 
 	/* Extract monster name (or "it") */
-	monster_desc(taspecies_name, tar_ptr, 0);
+	creature_desc(taspecies_name, tar_ptr, 0);
 
 
 	/* Calculate the "attack quality" */
@@ -2087,8 +2087,8 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	(void)set_paralyzed(tar_ptr, 0);
 
 	/* Extract monster name (or "it") */
-	monster_desc(a_name, atk_ptr, 0);
-	monster_desc(m_name, tar_ptr, 0);
+	creature_desc(a_name, atk_ptr, 0);
+	creature_desc(m_name, tar_ptr, 0);
 
 	/* Calculate the "attack quality" */
 	bonus = atk_ptr->to_h[hand] + o_ptr->to_h;
@@ -2895,7 +2895,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					tar_ptr = &creature_list[c_ptr->m_idx];
 
 					/* Oops, we need a different name... */
-					monster_desc(m_name, tar_ptr, 0);
+					creature_desc(m_name, tar_ptr, 0);
 
 					/* Hack -- Get new race */
 					r_ptr = &species_info[tar_ptr->species_idx];
@@ -3128,8 +3128,8 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	/* Extract attacker and target name (or "it") */
-	monster_desc(taspecies_name, tar_ptr, 0);
-	monster_desc(atk_name, atk_ptr, 0);
+	creature_desc(taspecies_name, tar_ptr, 0);
+	creature_desc(atk_name, atk_ptr, 0);
 
 	if (tar_ptr->ml)
 	{
@@ -4033,7 +4033,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			(void)set_paralyzed(m_ptr, 0);
 
 			/* Extract monster name (or "it") */
-			monster_desc(m_name, m_ptr, 0);
+			creature_desc(m_name, m_ptr, 0);
 
 			if (m_ptr->ml)
 			{
@@ -4093,7 +4093,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			char m_name[80];
 
 			/* Acquire the monster name */
-			monster_desc(m_name, steed_ptr, 0);
+			creature_desc(m_name, steed_ptr, 0);
 
 			/* Dump a message */
 #ifdef JP
@@ -4156,7 +4156,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		if (oktomove && steed_ptr->stun && one_in_(2))
 		{
 			char m_name[80];
-			monster_desc(m_name, steed_ptr, 0);
+			creature_desc(m_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%sが朦朧としていてうまく動けない！",m_name);
 #else
