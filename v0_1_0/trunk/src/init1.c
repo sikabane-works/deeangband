@@ -4150,7 +4150,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	int i, j, k;
 	char *s, *t;
 	char tmp[20000], nt[80];
-	int b;
+	int b, ub;
 
 	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -4380,43 +4380,43 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_M_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].m_b_ht = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].m_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].m_m_ht = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].m_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].m_b_wt = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].m_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_M_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].m_m_wt = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].m_m_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].f_b_ht = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].f_b_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].f_m_ht = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].f_m_ht = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].f_b_wt = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].f_b_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_F_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].f_m_wt = (s16b)b;
+				if(sscanf(tmp, "%u", &ub) != 1) return (1);
+				species_info[n].f_m_wt = (u32b)ub;
 				break;
 
 			case SPECIES_INFO_BATTLE:				
