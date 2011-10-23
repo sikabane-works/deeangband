@@ -135,7 +135,7 @@ static cptr race_flags[MAX_RACES] =
 	"VANYAR_LINEAGE",
 	"NOLDOR_LINEAGE",
 	"TELERI_LINEAGE",
-	"NUZGUL",
+	"NAZGUL",
 	"ANT",
 	"BAT",
 	"CENTIPETE",
