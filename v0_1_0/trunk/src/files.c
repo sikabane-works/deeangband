@@ -3053,11 +3053,6 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	/* Vulnerability */
 	if (vuln) c_put_str(TERM_RED, "v", row, col + 1);
 
-	if(flag1 >= TR_RES_ACID && flag1 <= TR_RES_DISEN)
-	{
-		c_put_str(TERM_YELLOW, "x1.00", row, col + 2);
-	}
-
 }
 
 
@@ -3068,6 +3063,8 @@ static void display_player_flag_info1(creature_type *cr_ptr)
 {
 	int row;
 	int col;
+	char buf[80];
+	int rate;
 
 	all_player_flags f;
 
@@ -3120,6 +3117,38 @@ display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, cr_ptr);
 #endif
 
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+7, col + 33);
+
 
 	/*** Set 2 ***/
 
@@ -3146,6 +3175,22 @@ display_flag_aux(row+5, col, "‘Ï‹°•|:", TR_RES_FEAR, &f, 0, cr_ptr);
 	display_flag_aux(row+4, col, "Disnch:", TR_RES_DISEN, &f, 0, cr_ptr);
 	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, cr_ptr);
 #endif
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
 }
 

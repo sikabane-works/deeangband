@@ -2075,7 +2075,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		t = 100;
+		t = 80;
 		break;
 	case DAMAGE_TYPE_COLD:
 		t = 100;
