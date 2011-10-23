@@ -2654,6 +2654,7 @@ race_type mimic_info[] =
 #endif
 		"Default",
 		0,0,
+		0,0,
 		0, 0, 0,
 		{  0,  0,  0,  0,  0,  0 },
 		0,  0,  0,  0,  0,  10,  0,  0,
@@ -2669,6 +2670,7 @@ race_type mimic_info[] =
 		"[ˆ«–‚]",
 #endif
 		"[Demon]",
+		0,0,
 		0,0,
 
 		0, 0, 0,
@@ -2687,6 +2689,7 @@ race_type mimic_info[] =
 #endif
 		"[Demon lord]",
 		0,0,
+		0,0,
 
 		0, 0, 0,
 		{  20,  20,  20,  20,  20,  20 },
@@ -2703,6 +2706,7 @@ race_type mimic_info[] =
 		"[‹zŒŒ‹S]",
 #endif
 		"[Vampire]",
+		0,0,
 		0,0,
 
 		0, 0, 0,

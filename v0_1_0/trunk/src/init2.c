@@ -1074,7 +1074,6 @@ static errr init_stp_info_csv(void)
  */
 static errr init_rc_info(void)
 {
-	int i;
 	/* Init the header */
 	init_header(&race_head, MAX_RACES, sizeof(race_type));
 

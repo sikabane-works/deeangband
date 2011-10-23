@@ -956,14 +956,18 @@ typedef struct race_type race_type;
 struct race_type
 {
 	cptr title;			/* Type of race */
-
 #ifdef JP
-	cptr E_title;		/* ‰pŒêŽí‘° */
+	cptr E_title;		/* English */
 #endif
 
 	u32b name;			/* Name (offset) */
 #ifdef JP
-	u32b E_name;        /* ‰pŒê–¼ (offset) */
+	u32b E_name;        /* English (offset) */
+#endif
+
+	u32b text;			/* text (offset) */
+#ifdef JP
+	u32b E_text;        /* English (offset) */
 #endif
 
 

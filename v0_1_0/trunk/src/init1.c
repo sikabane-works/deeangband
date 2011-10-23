@@ -4794,7 +4794,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 55
+#define RC_INFO_CSV_COLUMNS 57
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4857,6 +4857,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_FLAGS",
 	"H_FLAGS",
 	"SUIT_CLASS",
+	"DESCRIPTION",
+	"E_DESCRIPTION",
 };
 
 static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
@@ -4921,6 +4923,8 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_P_FLAGS		52
 #define RC_INFO_H_FLAGS		53
 #define RC_INFO_SUIT_CLASS	54
+#define RC_INFO_DESCRIPTION		55
+#define RC_INFO_E_DESCRIPTION	56
 
 errr parse_race_info_csv(char *buf, header *head)
 {
@@ -4980,23 +4984,17 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_NAME:
 
-#if JP
 				if (!add_name(&race_info[n].name, head, tmp))
 					return (7);
-#endif
-				race_info[n].title = race_name + race_info[n].name;
 				break;
 
 			case RC_INFO_E_NAME:
 #if JP
 				if (!add_name(&race_info[n].E_name, head, tmp))
 					return (7);
-				race_info[n].E_title = race_name + race_info[n].E_name;
-
 #else
 				if (!add_name(&race_info[n].name, head, tmp))
 					return (7);
-				race_info[n].title = race_name + race_info[n].name;
 #endif
 				break;
 
@@ -5245,6 +5243,22 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SUIT_CLASS:
+				break;
+
+			case RC_INFO_DESCRIPTION:
+				if (!add_text(&race_info[n].text, head, tmp, TRUE))
+					return (7);
+				break;
+
+
+			case RC_INFO_E_DESCRIPTION:
+#if JP
+				if (!add_text(&race_info[n].E_text, head, tmp, TRUE))
+					return (7);
+#else
+				if (!add_text(&race_info[n].text, head, tmp, TRUE))
+					return (7);
+#endif
 				break;
 
 			default:
