@@ -1612,129 +1612,6 @@ static hist_type bg[] =
 #endif
 };
 
-static cptr race_jouhou[MAX_RACES] =
-{
-#ifdef JP
-"人間はD\'angbandの多元宇宙の中で良く〈天秤〉の力に即する形をした種族で、広義に見なせばあらゆる世界に分布しています。どんな職業でも安定した能力を発揮し、レベル上昇が最も早く潜在能力も飛び抜けています。『変愚蛮怒』までは全ての技能値が低く、標準でありながら最弱に近かった種族ですが、このバリアントでは技能値や各種セーブ値が全体的に底上げされ、中程の難易度が考慮されています。さらに最も多くの種族と混血の組み合わせを持ち、しかもその形質は全て人間側が主となります。",
-"エルフは人間と同じ位D\'angbandの多元宇宙上に広く存在する種族であり、種として〈天秤〉にもかなり近しい種族ですが、若干〈善〉と〈混沌〉の属性も備えています。彼らは知覚と知性において人間よりも優れているため、盗賊や魔法使いに向いていますが、戦士のように直接の荒事をこなすのは苦手です。また、生まれつき光に対する耐性を持っています。彼らは人間に次いで多くの混血組み合わせを持ちます。",
-"ドワーフは〈天秤〉の力を良く受けた広範に存在する種族の一つであり、〈善〉と〈秩序〉の理にも適っています。人間にくらべ幾分小柄ですが逞しく強靭です。知的能力については客観的な知的蓄積よりは、その時に応じた判断力に優れています。こっそりと物事を成し遂げる事は苦手ですが、真正面から障害に対処する前線の戦士として優れた才能を持ちます。彼らの目は盲目になることがありません。",
-"ホビット、またはハーフリングは本来非常に善良な種族ですが、皮肉なまでに〈悪〉を知らないその〈善〉はそれゆえに〈天秤〉を大きく揺るがす性質を持っています。弓や投擲に長け、探索, 解除, 知覚, 隠密行動に長けているため盗賊（自称、忍びの者）に高い適正を持ちます。また彼らはかなり良い赤外線視力を持っており、生命を直接脅かす害に対する耐性も備えています。",
-"ノームは〈天秤〉の力の中で一定の繁栄を得ている種族の一つです。人間より小柄で力仕事を苦手としますが、あらゆる知の研鑽を重ね、大抵は密やかに生きながらも異種族とも良好な関係を重ねる賢明な種族です。魔法の攻防に長け、探索, 解除, 知覚, 隠密行動でも優れています。赤外線視力を持っており、温血動物を離れた場所から見つけることができます。生まれつき麻痺に対する耐性を持っています。",
-"野蛮人は本来の人間よりも強く〈混沌〉の業に傾いている一方で、生命の原型により近い逞しさを備えた生粋にして生涯の戦士達です。恐れと言う感情を持たず、狂乱に心身を委ねる技能を持っています。反面、彼らの知的面はお世辞にも優れているとは言えず、特に魔法の技とは極めて縁遠い育ちをするために、その所産を使う事が極めて苦手です。",
-"ドゥナダンはとある人間の氏族が、その創造主と同胞のために死力を尽くして戦った功から、特別な恩寵を子孫末代にまで賜る事になったいにしえの種です。〈秩序〉と〈善〉の中にある彼らは全ての能力において本来の人間の能力を凌駕し、特に耐久力に関してはそれを維持する能力共々際立っています。しかし寿命についても数倍の長さを持つ彼らは、成年に至るまでの期間は同じでも、そこから飛びぬけた英雄となっていくために多くの研鑽を必要とします。彼らは恩寵を与えたもうたイルーヴァタール以外に信仰の対象を持ち得ず、また過去慢心から神に背いた一派は、栄華共々滅ぼされた苦い歴史を持っています。",
-"メルニボネ人は偉大な古代種族の一つです。その途方もない長さを持った歴史の後期に〈混沌〉の神の一柱アリオッチと契約を交わしたため、世界の支配者となる一方で緩やかな衰退の運命をたどっています。彼らはあらゆる能力に優れ、特に魔術の力と器用さに卓越していますが、反面彼らの長命に依存した怠惰さは、英雄としての成長を大きく遅らせがちです。彼らは種族としてアリオッチの契約に縛られているため、信仰の力を彼以外から得られないという制約も持っています。アリオッチはメルニボネ人を他の種族より比較的優遇しており、請願や与えるべき褒賞を誤魔化す事はあっても、意図的かつ一方的に害を与える事はないでしょう。",
-"アンバーの血族は、その命そのものが絶えず平行世界を生み出し続けている究極的種族です。外見そのものは人間と全くと言ってよいほど代わりませんが、その能力は世界を創造できる程の神々の力をなお圧倒します。彼らにとって〈影〉の世界を生み出す事は『パターン・ウォーク』による旅行ほどの労力に過ぎないのです。〈秩序〉の極致と言える彼らですが、アンバーの都における血族同士の権力争いは熾烈を極めており、その中で限りなく偉大なはずの生命を失う者も絶えません。プレイヤー種族として選択できるアンバーの血族は、そんな中でアンバーの都を追放され、生来の能力と記憶を失った状態で開始しなければなりません。原初の創造の源たる〈パターン〉を歩んで、その絶大な力を取り戻すには定命の者が神の座を得るよりなお困難な試練を成し遂げなければならないでしょう。",
-"混沌の血族は〈パターン〉の創造による原初の世界創造と同時に、対となる〈ログルス〉から誕生した、〈混沌〉の擬人化そのものです。多元宇宙に存在するあらゆる異形や悪魔達は彼らの持つ無数の〈影〉の一つに過ぎないと言われています。彼らはアンバーの血族に比肩する程の究極の存在ですが、知性や変身能力についてはアンバーよりさらに優れています。そんな彼らもアンバーや同族同士で飽くなき権力抗争を繰り返しており、プレイヤー種族として選択できる混沌の血族は、その争いから脱落し、力のほとんどを失った状態から再起を図らねばなりません。本来の力を取り戻すには〈ログルス〉の紋様を歩まねばならず、その儀式を成すまでにも数々の困難を待ち受けているでしょう。",
-"ダークエルフは多くの伝承において、エルフの近縁にして対立者とされる存在で〈悪〉の文化の中で〈秩序〉と〈混沌〉の入り混じる歴史を繰り返してきました。アヴァリの末裔とも言われています。魔法の知識に対する長い伝統もあり、体得的に初歩の攻撃魔法を扱うことが可能です。その鋭い視覚によって見えないものをみる能力を得ますが、それはある程度レベルが上がったときに限ります。ダークエルフは暗闇に対する耐性を持っています。",
-"エルダールは実際に血が繋がっているにせよ、平行世界の〈影〉の存在にせよ、大半のエルフの偉大な祖先であり、『神の長子』にして〈善〉の体現者、そして〈秩序〉と〈混沌〉を二律背反して備える古代種族です。彼らは大別して、ヴァンヤール、ノルドール、テレリの三つの氏族に分かれており、その選択によって若干の能力の違いがありますが、いずれも全ての能力に優れる反面、不老不死の性質から成長はゆっくりでより多くの経験を必要とします。上古の時代に星々の輝きによって目覚め、二本の巨木の輝きに惹かれた彼らは、如何なる強力な光にも傷つけられることはなく、生まれつき通常の眼には見えないものを捕捉することもできます。",
-"アヴァリはエルダールの誕生の段階から分かれた遠い従兄弟です。彼らはエルダールと同じく星の輝きによって眼を覚ましましたが、西の地の巨木の輝きに興味を抱かず、東の地に自らの手で文明を生み出す事を選びました。〈善〉なる神々の導きなく年月を過ごした彼らは、〈善〉、〈悪〉と〈秩序〉、〈混沌〉のいずれの理にも染まり、それゆえに〈天秤〉の体現者でもあります。彼らの末裔の一部がダークエルフであると言われています。彼らは閃光と暗黒双方に対する耐性を持つ上、魔術的な妨害にあっても視力を失うことがありません。また成長すれば透明なものを眼に捉えることもできるようになります。",
-"コボルドは暗黒の種族の中でも下層階級にあたるスナガ、あるいはもっと広範にはゴブリンと呼ばれる者達から派生する〈悪〉と〈混沌〉の種族の一つです。彼らは毒を持った武器を好み、毒矢（無制限に供給されます）を投げる能力を身につけることができます。コボルドはそこそこの戦士になれますが、その他のスキルは軒並み悪いです。彼らは生まれつき毒に対する耐性を持っています。",
-"ニーベルングはあらゆる小人族の近隣種であると言われますが、迫害と嫌悪の中で〈悪〉の傾向を強めた彼らは暗い洞窟に住まうことを好み、財貨に異様なまでの執着を示します。彼らは大抵のスキルをそつなくこなします。暗闇に悩まされることはなく、自らの貴重な装備を劣化させる害を、その身共々に守る能力を生まれつき持っています。",
-"スプライトは自然の中を穏やかに生きる小さな妖精の一族で、〈混沌〉にして〈善〉、そして〈天秤〉の理に適った生き方を営んでいます。その小ささ故に彼らは誰にも気づかれず密やかな動きを行う事に長け、小さな翼で罠や危険な地形をゆうゆうと切り抜けることができます。また生来から日光を好むため、光に対する耐性を持っています。身体的には極めて貧弱な種族ですが、熟練した魔法使いになるための素質は群を抜いています。高レベルではより速く飛ぶことができるようになります。",
-"影フェアリーは妖精の一種ですが、その出身の精霊界は他種族が主とする次元に存在する影の内にあり、彼ら自身影の住人にふさわしい能力と千変万化の〈混沌〉に近い特質を持っています。彼らは誰にも気づかれずに物事を成すのに極めて長け、自身の性格が起因しているのでなければ、他者の敵意を招く装備をしていても見つかりやすくなるだけで襲われる心配を持ちません。しかし、光は存在そのものが彼らにとって脅威であり、装備で耐性を補ってもなお大きなダメージを負います。",
-"ウェアフォークは、各動物本来の特徴を色濃く残したヒューマノイドであり、〈混沌〉の傾向が強いものの、概ね獣人の中でも穏やかで〈善良〉な傾向を強く備えた者達の総称です。彼らは肉体面で通常のヒューマンより優れている一方、知性面では若干の後退が見られますがそれほど著しくはありません。彼らとの混血種は、ウェアフォークの血が強い場合は単純に中間的特長を持ちますが、他種の血が濃い場合には、通常の能力には反映されず、獣化能力として形質が発現します。",
-"スケイヴンは〈混沌〉のおぞましき力で変異を遂げることで生まれた、狡猾な知性と人間並の大きさの肉体を持つ鼠型の種族です。彼らは極めて邪悪で常に腐敗した臭いをまとう醜悪な存在ですが、魔法や道具を扱う器用さに優れ、毒や病に強力な耐性を持っています。そればかりか、彼らは全身の腐敗物や毒素を常に自分の武器に塗りたくり続ける習慣を持ち、相手へ致命的な害を及ぼすことに本能的な歓喜すら抱いています。彼らは長らくに地下世界に住んでいるため暗黒にも生まれつきの耐性を持ちます。",
-"リザードマンは、爬虫類の特性を持つ中立的な属性のヒューマノイドで、ドラゴンとは根本的に異種ながらも収斂的にいくらか近しい傾向を持っています。炎や冷気に対する強い耐性を持ち、その硬いウロコはちょっとした鎧の代用になるでしょう。またほんのわずかですが、成長すると他種より素早く機敏な動きを取ることができるようになります。",
-"ビーストマンは〈混沌〉の力によって本来の生が歪められた冒涜的で嫌悪される存在です。彼らは独立した種族ではなく、人型種族が〈混沌〉によって歪められた存在、もしくは人型種族と獣の悪夢のような交配種です。よってビーストマンを主種族に選んだ場合、混沌の血族を除く副種族は歪められる前の種族、あるいは〈混沌〉が後天的に与えた類似の異形的形質を意味します。また何らかの形でビーストマンを副種族に付与されたキャラクターは、〈混沌〉に穢れた存在としてやがてビーストマンに成り果ててしまいます。彼らのおぞましい成長は常に続いており、レベルが上がるにつれ副種族と突然変異は増えていきます。〈混沌〉への盲従者である故に混乱と音に対して耐性を備えていますが、純粋なログルスはまだ彼らに対し効果を持っています。",
-"ミノタウロスは神々の〈混沌〉とした気まぐれが生み出した、牛の頭部と屈強な肉体を持つ獣人種です。彼らの角はそのまま白兵に扱えるほど鋭利で長いですが、そのため頭部を丸ごと覆うような形の装備をかぶることができません。地獄の番人としての側面も持つ彼らは邪悪な側面も備え、地獄の力に対する耐性を備えていますが、定命の存在としての側面もあるため、単純に生命力を脅かす力に対しては耐性を備えていません。",
-"ナーガは竜に近しい系譜を持つ、恐ろしくも神秘的な〈秩序〉の種族で人型の上半身と蛇型の下半身を持っています。そのため脚部には特別な防具以外を装備できませんが、最初から火と電気の耐性、一定のAC、成長すれば若干の加速を持ち、その体を生かした締め付けで敵を仕留めることができるようにもなります。他種族との混血については、ナーガの血が濃い場合は上半身のみに他種族の形質が発現し、他種族の血が濃い場合は獣人の場合を除いて、下半身は他種族の姿のまま、若干の耐性的形質だけが発現します。",
-"マーフォークは水棲の民であり、下半身は魚や水掻きの形をしています。そのため彼らは足に特別な防具以外を装備できない上、本来陸上での活動は著しく困難です。一応魔法の力で浮遊の手段を確保すればある程度緩和され、彼らはそれで事を済ませていますが、それでも陸上では若干の減速を伴います。その代わり彼らは水中では脅威の速度で活動することが可能で、各種元素の二重耐性を持てば溶岩や毒の沼の中をも自在に泳ぐことができます。多種族と混血する場合、マーフォークの血が濃い場合は上半身のみにその種族の形質が発言し、他種族の血が濃い場合は、下半身は他種族のまま、若干の水中での加速だけが確保されます。",
-"ケンタウロスは人間の上半身と主に馬などの四足獣の下半身を持つ、〈混沌〉の異形の種族です。そのため脚には特別な防具以外を装備することができませんが、最初から高い加速を持ち、しかもその速度は他の種族と比べても著しく大きく、白兵において突進能力を発揮することができます。ケンタウロスの他種族との混血は、ケンタウロスの血が濃い場合、上半身のみが他種族の特徴を備え、他種族の血が濃い場合は獣人の場合を除いて、下半身が二足のまま獣脚を供えます。脚の防具は全て装備可能になりますが、加速はかなり控えめになります。",
-"エントは非常に強く、賢い〈善〉の種族ですが、その巨大さゆえに罠の解除やこっそりと歩くことは苦手です。成長するにつれて腕力や耐久力が上がりますが、器用さは下がっていきます。彼らには大きな欠点があり、炎によって通常よりも大きなダメージを受けてしまいます。彼らは食物からほとんど栄養を摂取できませんが、代わりに薬等から水分を摂取する事で活動できます。",
-"オークは極めて好戦的な性格で、常に他種族を脅かす〈悪〉の傾向が強い種族です。お世辞にも知的とは言い難く、他種族に嫌悪されがちな姿をしていますが、戦士として生きるために必要であろう多くの資質を備えています。彼らは光に弱く、日光はまだしも不快なだけに留まるものの、強力な閃光は命を脅かす存在として常に警戒しなければなりません。一方彼らはその誕生の由来から暗黒に対する耐性を生まれもっています。",
-"ウルクはオークの上位種の総称であり、その創造主や誕生の神話、評判については複数の通説がD\'angbandの世界に存在します。ここで選択できるウルクは自らをメルコールの正嫡と称し、主君をアンナタール（サウロン）と定めるモルドールの神秘的な民です。彼等は〈悪〉と〈秩序〉に属する粗野でいかめしい野心家ですが、極めて逞しく、異種族の支配者となるには遜色ない知性と威厳を備えています。彼等の寿命は非常に長いか、全くの不死であると言われ、その分さらなる成長を果たすには多くの経験を必要とします。ウルクはメルコールの子として暗黒の力に対する耐性を生まれ持ち、オークのように光に脅かされることはありません。またどのような敵にも怯むこと無く戦うことができ、生命力吸収に対する耐性、急回復と遅消化を併せ持っています。",
-"トロルは極めて大きな体格と打たれ強さを備えた屈強な種族で、〈混沌〉にして〈悪〉の性情から常に他種族を脅かし敵対しています。彼らの知性は著しく退化しており、知覚や隠密行動にも難があります。さらにオークと同様、強い光は彼らの命を脅かす危険なものです。トロルは腕力が下がることがなく、狂気じみた闘志に自ら身を委ねて戦う能力を備えています。さらにレベルが上がると、素早く傷を癒す再生能力を手にいれ、わずかな食物でも生き抜ける遅消化能力をも体得するでしょう。",
-"オログはトロルの上位種の総称であり、ここで選択できるオログは彼らの住まう東方の冷涼な環境をそのまま体に現したような巨体と強靭さ、火炎と酸に対する耐性、急回復と遅消化を併せ持っています。トロルの弱点であった光は克服され、さらに独自のシャーマニズムが育んだ知性は彼らに一定の理性までももたらしています。彼らは自ら狂乱状態に陥る能力の他、成長すれば興奮状態や毒、出血、朦朧状態を即座に癒す能力を得ることができます。",
-"オーガは角を生やした大型の人型種族で、戦士としてこの上ない資質を持ち、また近隣種と比較すれば魔術を有効に学べるだけの知性も十分にあります。角による頭突きはとっさの戦いの中でしばしば役に立ちますが、その代わり頭を丸ごと覆う形の防具が装備できません。勇猛なばかりでなく相手を絡め取る策をも好む彼らは、レベルが上がると罠を仕掛ける能力を得ます。オークと近しい彼らは暗闇に対する耐性を持ち、トロル同様に腕力が下がることはありません。",
-"ジャイアントは自然の諸力が人の形を成して生まれたと言われる、〈秩序〉と〈混沌〉を兼ね備えた種族です。大変力強いのですが、呪文を唱えられるほど利口ではありません。その巨大な体つきもあって強力な戦闘能力を持ちますが、それ以外のことは苦手です。彼らの厚い皮膚は破片に対する耐性を持ちます。また、オーガやトロル同様腕力を下げられることがありません。",
-"サイクロプスは神々の時代から存在すると言われる、〈混沌〉の種族です。眼を一つしか持っていませんが二つ目の生物以上に良く物を見ることができます。巨大で非常に力強いのですが、知的であるとはちょっと言えません。戦闘, 射撃に優れていますが、その他の大部分のスキルは苦手です。また、轟音に対する耐性を生まれ持っています。",
-"タイタンはジャイアント以上に巨大で勇壮な姿をした大型種族です。実際に彼らの生まれ持つ能力は神秘そのものであり、一般的な創世神話の神族達は広義において、この種族かマイアに含めてよいでしょう。違いがあるとすれば、彼らはマイアと比較して〈混沌〉の種族であり、生まれつきカオスの耐性も備えています。元来から自然の力そのものの如く屈強な彼らですが、プレイヤーキャラとして選択する場合、神族同士の争いに敗れ、神の座を追われた困難な立場から始めなければなりません。",
-"イークは〈天秤〉の色濃きながらも最も哀れな知的生物です。一説によれば人間の近在種、劣化種であると言われており、しばしば人間の社会と共存していますが、いずれの場合も被支配階級に留まっています。肉体的に極めて虚弱ですが、かなり知的でいくらか賢い生物です。戦闘スキルは苦手ですが、他の分野では比較的優れています。彼らの皮膚は、時間とともに酸への耐性を増していき、レベルが十分に上がれば完全に免疫を持つようになります。",
-"クラッコンは奇怪な半知的の昆虫型生物で若干の〈天秤〉への正の傾向を除けば極めて中立的な種族です。彼らはすばらしい戦士になれますが、精神的な能力はひどく制限されています。彼らは探索を除けば大部分のスキルをそこそこにこなします。クラッコンは決して混乱させられることがなく、レベルが上がるごとに速くなります。",
-"マインドフレアは秘密主義の神秘的な古代種族です。彼らは古くから文明を築き上げてきましたが、多くの異種族を軽蔑しており、それらの精神を支配し奴隷とすることを好む〈悪〉の傾向を持ちます。その肉体的資質は決して誉められたものではありませんが、彼らの知能と賢さはどんな種族よりも強力な魔法使いとなるための素地になります。マインドフレアの知能と賢さは下がることがなく、レベルが上がれば見えないものをみる能力、テレパシー能力を獲得します。彼らは通常の食事はほとんど栄養が得られず、その名の由来の通り、生命のある種族の脳髄を食らって栄養とします。",
-"ドラコニアンはドラゴンの親戚にあたる人間型種族です。この種族を選択した場合、主種族、副種族を問わずして、いかなるドラゴンの血統かを副種族として選択する必要があります。レベルが上がるにつれ、ドラゴンとしての共通の元素耐性に加えて、血統より様々な追加耐性、そして鎧に匹敵する強靭なウロコを得ます。彼らはあらゆるスキルをそつなくこなし、翼も持っているため落とし穴や溶岩、毒の沼地などを無傷で飛び越えることができます。",
-"サイヤ人は自他共に認める戦闘民族として、同体格の異種族をはるかに凌駕する近接攻撃能力をもっています。種族として気を操り放つ能力にも長けているため、レベルが上がると素手のまま遠くの敵を攻撃できるようにもなります。しかし彼らの知性には難があり、唯一道具の使用に長けるのは異文明からそれらの資産を表面のみ略奪してきたからに過ぎません。彼らは本来特定の星から放たれる光を受けて巨大な猿に変身することが出来ますが、残念ながらD\'andbandの世界の空には該当する天体が存在しません。その代わりレベルが上がると天体の代用となる光を自ら生み出すことで大猿に変身することが可能になり、成長を重ねるとさらに高位の伝説的存在に変身することも可能です。",
-"クターとしている無表情の謎の生物で、人間以上の〈天秤〉の体現者です。彼らは外見がかわいらしいため、魅力が高いです。彼らは混乱しません。なぜなら、混乱してもクターとしているため変わりないからです。しかも、そのクターとしている外見から敵に見つかりにくいです。しかし、彼らは注意力が少ないため探索や知覚能力は悪いです。彼らはレベルが上がると横に伸びてACを上げる技を覚えますが、伸びている間は魔法防御能力は低くなってしまいます。",
-"ゴーレムは一定の材料に魔法の生命を吹き込まれて生まれる人工種族です。副種族として、いかなる種族をかたどっているかを選択することである程度能力値が変化しますが、どうあれ彼らの知性は本来の種族と比べると明らかに不十分です。そのため魔法に依存する職業は苦手ですが、戦士には非常に向いています。彼らは毒に耐性を持ち、見えないものを見ることができ、さらに麻痺知らずです。レベルが上がれば、生命力吸収の耐性も得ます。通常の食物からは栄養を摂取できませんが、代わりに魔法棒や杖から魔力を吸収して動力源にする事ができます。また、その頑丈な身体のためＡＣに大きなボーナスがつき、出血や朦朧の心配もありません。",
-"アンドロイドは機械の身体を持つ人工種族です。副種族としてどのような他種族をかたどっているかを選択することで、若干特性が変化します。かたどった元の種族と比べて魔法は苦手ですが、戦士としては非常に優れています。彼らの成長は通常の経験では成されず、身体に身につける装備に依存します。ただし、指輪、アミュレット、光源は成長に影響しません。彼らは毒、麻痺、生命吸収の耐性を持ち、ＡＣのボーナスも得られます。しかし身体に電子回路が組み込まれているため、電撃によって通常よりも大きなダメージを受けてしまいます。彼らは食物からほとんど動力を得られませんが、油で動力を得る事ができます。この種族を副種族として選んだ場合は、部分的に機械の体を持った「サイボーグ」と見なされ、腕力、器用さ、耐久のボーナスと、電撃の弱点が付加されます。",
-"天界の住人であるアルコンは〈善〉の極致と言える存在であり、多元宇宙からあらゆる〈悪〉を駆逐することこそが本来の使命です。しかしプレイヤーキャラクタとして選ぶ場合は、その輝かしい力を試練のために失った状態から開始しなければなりません。その途上〈悪〉の性質を強めて堕落した場合には、天界に戻ることを許されず、地獄の住人と成り果てるでしょう。アルコンは全てのスキルに熟達しており、強くて賢く、人を惹きつける魅力があります。さらにその完全なる肉体は閃光と劣化、あらゆる能力的衰弱に対する耐性を持ちます。眼は通常見えぬものを見通すことができ、翼で危険な地形を飛び越えることもできるでしょう。その代わり彼らの成長には非常に多くの経験が要ります。",
-"インプは地獄からやってきた〈悪〉の知的生物の総称です。彼らは多くの場合、上位の自立したフィーンドや邪悪な技を扱う魔道師の使い魔として使役されるために生み出された存在であり、より高き存在となるには種として刻み込まれた服従の性質を克服する試練を受けなければならないでしょう。インプは多くの能力面に優れており、生まれつき火の耐性と、通常眼に見えないものを捉える能力をもっています。",
-"フィーンドは多元宇宙に散在する各世界でそれぞれに創造主に抗いえる霊的能力を備え、その秩序の転覆と破壊を目論む〈悪〉の存在の総称です。プレイヤーキャラクタの初期種族として選んだ場合には、地獄の抗争に破れてロードとしての地位を失った状態から再起を図らねばなりません。彼らは武力にも知性にも優れますが、自分以外の何かに信仰を捧げることだけは極端に苦手です。",
-"マイアはアルダの神代から存在する至福の地の民であり、大いなる精霊達です。彼らの能力はあらゆる面で他の世界の神々に匹敵するものですが、プレイヤー種族として選択する際は、善なる使命のため定命の者の肉体をまとうイスタリか、創造主の意に沿わぬ存在に堕落した者としてバルログの立場から始めなければなりません。それぞれに試練を乗り越えればかつての力を取り戻すだけでなく、より上位の存在となる可能性をも秘めています。",
-"深きものは深海の種族であり、偉大なるクトゥルフや自分達の有力な父母たるダゴンやハイドラに仕える異形の民です。強靭かつ知的ではありますが、そのおぞましい容貌は多くの異種族に唾棄される原因となります。水の地形はこの種族にとっての独壇場であり、陸上よりも機敏に動くことが可能です。深きものとの混血児は、一部でインスマウス面と呼ばれる奇怪な顔つきを生まれ持ち、成長するにつれて深きものへの種族的傾向を強め、やがては純潔の深きものと全く同じ姿に変わり果ててしまいます。",
-"古のものは、一般の人型種族とは根本的に異質な文明を謳歌した古代種族です。多くの者は樽状の胴体にヒトデのような頭部を持っています。彼らは本来大いに知的な生物でありまた非常に頑健でもありますが、プレイヤーとしては長い眠りから目覚めたばかりで大きく衰弱し、周囲から迫害される状態から始めなければなりません。彼らは並の定命には耐えられない程の熱や寒さに対する抵抗があり、混乱や恐慌、盲目に陥ることがありません。またある程度成長するとテレパシー能力が発現します。",
-"ショゴスは古のものの高度なテクノロジーによって生み出された、元奉仕種族です。生まれたばかりの素の状態では不定形のために防具が一切使用できず、力も知性も極めて乏しいですが、高い耐久力とAC、酸の免疫を備えており、レベルが上昇するにつれてさらに多くの耐性と加速を身につけることができます。彼らはあらゆるアイテムを補食することが可能で、経験値も従来と異なり捕食したアイテムの価値に伴って蓄積されます。さらには特定の定命種族の死体を食べてその構造を学び、擬態することも可能です。この時ショゴスは本来の種族特性の一部を失いながらも、擬態種族の特性を上乗せで引き継ぐことができます。",
-"盲目のものは半ば生命を超え、半ば物理的制約を逃れた超常の種族です。ポリプ状の形をして宙に浮く極めて異質な肉体を持っているため、ほとんどの防具を扱えませんが、触腕でいくつもの手に持つ装備を扱い、半幽体の体は傷つきながらも壁をすり抜けることができます。彼らは精神に関わるあらゆる耐性を揃えています。プレイヤーとして始める際には、異種族との抗争の果て大きく衰弱した状態から始めなければならず、少しずつ力を取り戻していく必要があります。",
-"イスの民は多くの定命種族から「大いなる」と形容される神々しき宇宙の民です。その生命の本質は精神体のみで完結しており、肉体は取り替える仮の住みかに過ぎません。プレイヤーキャラとして扱える彼らは異種族との抗争の果てに疲弊しきっており、虚弱な定命種族に宿った状態から少しずつ本来の力を取り戻していかねばなりません。精神に関わる事に多くの耐性を持ち、時空を超えた存在であることから稀有な時間逆転耐性を生まれ持っています。",
-"ミ＝ゴウは甲殻類のような姿に菌類的な特長を持った、高い知性と特別な異能を持つ宇宙種族です。ですがプレイヤーとして選ぶ際には本来種族が持つ能力的アドバンテージを大きく失った状態から、力を通り戻していかねばなりません。幸いなことに、例え大きく力を失った状態でも、ミ＝ゴウは魔術師としては極めて高い適正を持ち、テレパシー能力を最初から所持しています。",
-"ゾンビはアンデッドの典型的な一種であり、本来生を終えた者に不浄の命を吹き込み直した邪悪な種です。その肉体は多かれ少なかれ腐敗しかかっています。この種族を主として選択する場合、必ず生命のある亜種族を一つ選択しそれを生前の種族と見なして能力値が反映されます。副種族として選択する場合には、その種族に魔法的な腐敗の病が進行していることを意味し、対応を練らなければ完全なゾンビと化します。さらに腐敗が進むと完全に肉がそぎ落とされ、スケルトンに成り果てるでしょう。ゾンビは毒、地獄、生命力吸収攻撃に耐性を持ち、レベルが上がれば冷気の耐性を獲得します。食物からほとんど栄養を摂取できませんが、代わりに魔法棒や杖から魔力を吸収してエネルギー源にする事ができます。",
-"スケルトンはアンデッドの典型的種族の一つであり、冷気に毒、破片や地獄、生命力吸収攻撃などに対する多くの耐性を持ちます。この種族を主として選択する場合、必ず生命のある亜種族を一つ選択し、それを生前の種族と見なして能力値が反映されます。また、ゾンビから肉が削げ落ちて、スケルトンと化すケースもあります。スケルトンの知性はゾンビと異なり完全に霊的なもののみで構成されるため、却って生前に近く回復します。また物体を知覚するのに眼を利用していないため、見えない物に騙されません。薬や食物の魔法的な効力は従来通り発揮できますが、効力は周囲にだだ漏れ栄養も吸収的できません。その代わりに魔法棒や杖から魔力を吸収してエネルギー源にする事ができます。",
-"アンデッドの中でも上位種にあたるヴァンパイアは、ゾンビのように肉体が朽ち行く様子もなく、元の種よりも青白く畏敬の念を呼び起こす外見をしています。またアンデッドに共通の特徴として冷気や毒、地獄と生命力吸収の脅威に耐性を持ちます。彼らは新鮮な血液に飢えており、それは近くにいる生物から血液を吸うことによってのみ満たされます。唯一日光を含めた光を致命的な弱点としますが、レベルが上がるとそれらを克服することが可能です。この種族を主として選択する場合、必ず生命のある亜種族を一つ選択し、それを生前の種族と見なして能力値が反映されます。副種族として選んだ場合は従来種の半人吸血鬼（ダンピール）とみなし概ね中間的な修正がかかります。",
-"リッチは魔道を極めた者のみが成り得る神域かつ純霊的なアンデッドであり、パターン・ゴースト、ログルス・ゴーストといった至高の種族の生霊的存在も広義としてこれに見なされます。リッチ化の進行には段階があり、生前の能力を残したデミリッチからレベルを上げてアーチリッチに至れば、生前の能力を完全に失う変わりに本格的ないくつもの長所を得ます。デミリッチの段階でもアンデッドとして冷気、毒、地獄、生命力吸収に耐性があり、ダメージつきで壁抜けを行うことができますが、アーチリッチになれば地獄の力を逆に己の生命力に変換し、破片、轟音、カオス、劣化の力にまでも耐性を持ち、完全な壁抜けとテレパシー能力を確保します。エネルギー源は杖や魔法棒などから吸収して得ます。",
-"イスタリは、至福の地の神々がアルダの『自由の民』を助けるために派遣した元マイア達です。彼らは本来持っている強大な霊的な力がしばしば善なる者すら傷つけることを危惧したため、人間に近しい肉の体をまとって労苦までも彼らと共にすることを選びました。イスタリの象徴である魔法使いの杖は、彼らの力の制約そのものでもあり、許された権限でもあります。従ってプレイヤーキャラクタとしてこの種族を選んだ場合には、本来種族がマイアでありながら『永遠の呪い』のついたイスタリの杖を強制装備した状態で始めなければなりません。マイアに戻るには一定のレベルと神格を獲得することで、永遠の呪いを解除する必要があります。",
-"バルログはアルダの神話の時代に冥王の反逆に付き従ったマイア達が、彼の近衛として破壊と殺戮を繰り広げるために取った〈力の悪鬼〉の姿です。その力の源はしばしばウドゥンの焔と呼ばれました。この邪悪な力はかつての彼らの目的に大いに貢献しましたが、神話の時代が終わって久しく、その制御を失った今にあっては忌まわしい呪縛となって彼らを縛り付けています。従ってプレイヤーキャラクタとしてこの種族を選んだ場合には、本来種族がマイアでありながら『永遠の呪い』のついたウドゥンの焔を枷として装備した状態で始めなければなりません。マイアに戻るには一定のレベルと神格を獲得することで、永遠の呪いを解除する必要があります。",
-"ドラゴンは悠久の寿命を備え、多元宇宙の中でも最も強大な力を持つ種族の一つです。もっとも合理的な力の具現体である彼らには多くの亜種が存在し、能力の傾向も多岐にわたります。",
-"ブルーツ波を受けたサイヤ人は巨大な猿に変身し、さらなる暴威を振るう事ができます。",
-"超サイヤ人はサイヤ人の中でも飛び抜けた才能や、数限りない闘いの経験を経て至る戦闘民族の完成形です。",
-"赤竜──レッドドラゴンは、悪竜クロマティックドラゴンの一派であり、強力な炎の力を生まれつきに宿しています。",
-"白竜──ホワイトドラゴンは、悪竜クロマティックドラゴンの一派であり、強力な冷気の力を生まれつきに宿しています。",
-"青竜──ブルードラゴンは、悪竜クロマティックドラゴンの一派であり、強力な雷の力を生まれつきに宿しています。",
-"黒竜──ブラックドラゴンは、悪竜クロマティックドラゴンの一派であり、その体液は強力な酸そのもので吐息は定命の者を一瞬で溶かし尽くす力を持っています。",
-"緑竜──グリーンドラゴンは、悪竜クロマティックドラゴンの一派であり、全身をめぐる強力な毒を己の活力としています。その吐息もまた、定命の者の命を奪う猛毒です。",
-"万色竜──マルチカラードラゴンは、悪竜クロマティックドラゴンの始祖ティアマト直系の強力な血筋であり、五種の悪竜全ての能力を備えた強力な種族ですが、その成長には極めて長い経験を必要とします。",
-"青銅竜──ブロンズドラゴンは、善竜メタリックドラゴンの一派であり、その吐息には他者の戦意を殺がせ、意識を混乱させる力が備わっています。",
-"金竜──ゴールドドラゴンは、善竜メタリックドラゴンの一派であり、その吐息は暴風にも近い音響となって敵を襲います。",
-"水晶竜──クリスタルドラゴンは、邪悪なドラゴンの一種であり、その吐息に混じった微粒子は、相手の肉体をずたずたに引き裂きます。",
-"秩序竜──ロードラゴンは、生まれついての〈秩序〉の力の体現者であり、恐ろしい音響と粒子の入り混じった息を吐きます。彼ら宇宙の根源に連なる種は、成長のためにより多くの経験を必要とします。",
-"天上竜──イセリアルドラゴンは、天上界に拠り所を持つ強大な竜の種族であり、光と闇の力を合わせ持っています。彼ら完全なる世界の種は、成長のためにより多くの経験を必要とします。",
-"混沌竜──カオスドラゴンは、生まれついての〈混沌〉の力の体現者であり、その吐息はあらゆるものを歪め、朽ち果てさせる力を宿しています。彼ら宇宙の根源に連なる種は、成長のためにより多くの経験を必要とします。",
-"ヴァンヤールはエルダールの中でも非の打ち所のない万能な氏族です。定命の俗な生き方を知らない彼らは怠惰ではありませんが、かといって精力的とも言えず、成長にはさらに多くの経験を必要とします。",
-"ノルドールはエルダールの三大氏族の中でも、工芸の技と武勇に優れた者達です。しかし、知的な一方で軽率な行動も目立ち、自分達より神聖で偉大な存在に対する畏敬と信心を欠く様子も多く見られます。",
-"テレリはエルダールの中でも平均的な氏族であり、突出した得手不得手は持っていません。",
-"ナズグルは幽鬼の指輪をはめることによって至る変身形態です。その肉体が半ば幽体となることで、ほとんどの攻撃を軽減し、壁をすり抜け、各種のテレパシーを取得しますが、光と水流によるダメージは増加します。また、長い間幽鬼の指輪をはめているとやがて元に戻れなくなります。幽鬼の指輪を外せるだけの神格を持たないキャラクターには確実にその運命が待っているでしょう。",
-
-
-#else
-/*TODO:: English Detail*/
-"The human is the base character.  All other races are compared to them.  Humans can choose any class and are average at everything.  Humans tend to go up levels faster than most other races because of their shorter life spans.  No racial adjustments or intrinsics occur to characters choosing human.",
-"Half-elves tend to be smarter and faster than humans, but not as strong.  Half-elves are slightly better at searching, disarming, saving throws, stealth, bows, and magic, but they are not as good at hand weapons.  Half-elves may choose any class and do not receive any intrinsic abilities.",
-"Elves are better magicians then humans, but not as good at fighting.  They tend to be smarter and faster than either humans or half-elves and also have better wisdom.  Elves are better at searching, disarming, perception, stealth, bows, and magic, but they are not as good at hand weapons.  They resist light effects intrinsically.",
-"Hobbits, or Halflings, are very good at bows, throwing, and have good saving throws.  They also are very good at searching, disarming, perception, and stealth; so they make excellent rogues, but prefer to be called burglars.  They are much weaker than humans, and no good at melee fighting.  Halflings have fair infravision, so they can detect warm creatures at a distance.  They have a strong hold on their life force, and are thus intrinsically resistant to life draining.",
-"Gnomes are smaller than dwarves but larger than Halflings.  They, like the hobbits, live in the earth in burrow-like homes.  Gnomes make excellent mages, and have very good saving throws.  They are good at searching, disarming, perception, and stealth.  They have lower strength than humans so they are not very good at fighting with hand weapons.  Gnomes have fair infra-vision, so they can detect warm-blooded creatures at a distance.  Gnomes are intrinsically protected against paralysis.",
-"Dwarves are the headstrong miners and fighters of legend.  Dwarves tend to be stronger and tougher but slower and less intelligent than humans.  Because they are so headstrong and are somewhat wise, they resist spells which are cast on them.  They are very good at searching, perception, fighting, and bows.  Dwarves  have a miserable stealth.  They can never be blinded.",
-"Half-orcs make excellent warriors, but are terrible at magic.  They are as bad as dwarves at stealth, and horrible at searching, disarming, and perception.  Half-orcs are quite ugly, and tend to pay more for goods in town.  Because of their preference to living underground to on the surface, half-orcs resist darkness attacks.",
-"Half-Trolls are incredibly strong, and have more hit points than most other races.  They are also very stupid and slow.  They are bad at searching, disarming, perception, and stealth.  They are so ugly that a Half-Orc grimaces in their presence.  They also happen to be fun to run...  Half-trolls always have their strength sustained.  At higher levels, Half-Trolls regenerate wounds automatically, and if he or her is warrior slowly.",
-"The Amberites are a reputedly immortal race, who are endowed with numerous advantages in addition to their longevity.  They are very tough and their constitution cannot be reduced, and their ability to heal wounds far surpasses that of any other race.  Having seen virtually everything, very little is new to them, and they gain levels much slower than the other races.",
-"High-elves are a race of immortal beings dating from the beginning of time.  They are masters of all skills, and are strong and intelligent, although their wisdom is sometimes suspect.  High-elves begin their lives able to see the unseen, and resist light effects just like regular elves.  However, there are few things that they have not seen already, and experience is very hard for them to gain.",
-"Barbarians are hardy men of the north.  They are fierce in combat, and their wrath is feared throughout the world.  Combat is their life: they feel no fear, and they learn to enter battle frenzy at will even sooner than half-trolls.  Barbarians are, however, suspicious of magic, which makes magic devices fairly hard for them to use. ",
-"Half-Ogres are like Half-Orcs, only more so.  They are big, bad, and stupid.  For warriors, they have all the necessary attributes, and they can even become wizards: after all, they are related to Ogre Magi, from whom they have learned the skill of setting trapped runes once their level is high enough.  Like Half-Orcs, they resist darkness, and like Half-Trolls, they have their strength sustained.",
-"Half-Giants limited intelligence makes it difficult for them to become full spellcasters, but with their huge strength they make excellent warriors.  Their thick skin makes them resistant to shards, and like Half-Ogres and Half-Trolls, they have their strength sustained.",
-"Half-mortal descendants of the mighty titans, these immensely powerful creatures put almost any other race to shame.  They may lack the fascinating special powers of certain other races, but their enhanced attributes more than make up for that.  They learn to estimate the strengths of their foes, and their love for law and order makes them resistant to the effects of Chaos.",
-"With but one eye, a Cyclops can see more than many with two eyes.  They are headstrong, and loud noises bother them very little.  They are not quite qualified for the magic using professions, but as a certain Mr.  Ulysses can testify, their accuracy with thrown rocks can be deadly...",
-"Yeeks are among the most pathetic creatures.  Fortunately, their horrible screams can scare away less confident foes, and their skin becomes more and more resistant to acid, as they gain experience.  But having said that, even a mediocre monster can wipe the proverbial floor with an unwary Yeek.",
-"Klackons are bizarre semi-intelligent ant-like insectoid creatures.  They make great fighters, but their mental abilities are severely limited.  Obedient and well-ordered, they can never be confused.  They are also very nimble, and become faster as they advance levels.  They are also very acidic, inherently resisting acid, and capable of spitting acid at higher levels. ",
-"Kobolds are a weak goblin race.  They love poisoned weapons, and can learn to throw poisoned darts (of which they carry an unlimited supply).  They are also inherently resistant to poison, although they are not one of the more powerful races.",
-"The hated and persecuted race of nocturnal dwarves, these cave-dwellers are not much bothered by darkness.  Their natural inclination to magical items has made them immune to effects which could drain away magical energy.",
-"Another dark, cave-dwelling race, likewise unhampered by darkness attacks, the Dark Elves have a long tradition and knowledge of magic.  They have an inherent magic missile attack available to them at a low level.  With their keen sight, they also learn to see invisible things as their relatives High-Elves do, but at a higher level.",
-"A humanoid race with dragon-like attributes.  As they advance levels, they gain new elemental resistances (up to Poison Resistance), and they also have a breath weapon, which becomes more powerful with experience.  The exact type of the breath weapon depends on the Draconian's class and level.  With their wings, they can easily escape any pit trap unharmed.",
-"A secretive and mysterious ancient race.  Their civilization may well be older than any other on our planet, and their intelligence and wisdom are naturally sustained, and are so great that they enable Mind Flayers to become more powerful spellcasters than any other race, even if their physical attributes are a good deal less admirable.  As they advance levels, they gain the powers of See Invisible and Telepathy.",
-"A demon-creature from the nether-world, naturally resistant to fire attacks, and capable of learning fire bolt and fire ball attacks.  They are little loved by other races, but can perform fairly well in most professions.  As they advance levels, they gain the powers of See Invisible.",
-"A Golem is an artificial creature, built from a lifeless raw material like clay, and awakened to life.  They are nearly mindless, making them useless for professions which rely on magic, but as warriors they are very tough.  They are resistant to poison, they can see invisible things, and move freely.  At higher levels, they also become resistant to attacks which threaten to drain away their life force.  Golems gain very little nutrition from ordinary food, but can absorb mana from staves and wands as their power source.  Golems also gain a natural armor class bonus from their tough body.",
-"There are two types of skeletons: the ordinary, warrior-like skeletons, and the spell-using skeletons, which are also called liches.  As undead beings, skeletons need to worry very little about poison or attacks that can drain life.  They do not really use eyes for perceiving things, and are thus not fooled by invisibility.  Their bones are resistant to sharp shrapnel, and they will quickly become resistant to cold.  Although the magical effects of these will affect the skeleton even without entering the skeleton's (non-existent) belly, the potion or food itself will fall through the skeleton's jaws, giving no nutritional benefit.  They can absorb mana from staves and wands as their energy source.",
-"Much like Skeletons, Zombies too are undead horrors: they are resistant to life-draining attacks, and can learn to restore their life-force.  Like skeletons, they become resistant to cold-based attacks (actually earlier than skeletons), resist poison and can see invisible.  While still vulnerable to cuts (unlike skeletons), Zombies are resistant to Nether.  Like Golems, they gain very little nutrition from the food of mortals, but can absorb mana from staves and wands as their energy source.",
-"One of the mightier undead creatures, the Vampire is an awe-inspiring sight.  Yet this dread creature has a serious weakness: the bright rays of sun are its bane, and it will need to flee the surface to the deep recesses of earth until the sun finally sets.  Darkness, on the other hand, only makes the Vampire stronger.  As undead, the Vampire has a firm hold on its life force, and resists nether attacks.  The Vampire also resists cold and poison based attacks.  It is, however, susceptible to its perpetual hunger for fresh blood, which can only be satiated by sucking the blood from a nearby monster.",
-"Another powerful undead creature: the LICH is a ghastly apparition, surrounded by an unearthly green glow.  They exist only partially on our plane of existence: half-corporeal, they can pass through walls, although the density of the wall will hurt them in the process of doing this.  As undead, they have a firm hold on their life force, see invisible, and resist poison and cold.  They also resist nether.  At higher levels they develop telepathic abilities.  LICHs make superb spellcasters, but their physical form is very weak.  They gain very little nutrition from the food of mortals, but can absorb mana from staves and wands as their energy source.",
-"One of the several fairy races, Sprites are very small.  They have tiny wings and can fly over traps that may open up beneath them.  They enjoy sunlight intensely, and need worry little about light based attacks.  Although physically among the weakest races, Sprites are very talented in magic, and can become highly skilled wizards.  Sprites have the special power of spraying Sleeping Dust, and at higher levels they learn to fly faster.",
-"This race is a blasphemous abomination produced by Chaos.  It is not an independent race but rather a humanoid creature, most often a human, twisted by the Chaos, or a nightmarish crossbreed of a human and a beast.  All Beastmen are accustomed to Chaos so much that they are untroubled by confusion and sound, although raw logrus can still have effects on them.  Beastmen revel in chaos, as it twists them more and more.  Beastmen are subject to mutations: when they have been created, they receive a random mutation.  After that, every time they advance a level they have a small chance of gaining yet another mutation.",
-"The Ents are a powerful race dating from the beginning of the world, oldest of all animals or plants who inhabit Arda.  Spirits of the land, they were summoned to guard the forests of Middle-earth.  Being much like trees they are very clumsy but strong, and very susceptible to fire.  They gain very little nutrition from the food of mortals, but they can absorb water from potions as their nutrition.",
-"Archons are a higher class of angels.  They are good at all skills, and are strong, wise, and are a favorite with any people.  They are able to see the unseen, and their wings allow them to safely fly over traps and other dangerous places.  However, belonging to a higher plane as they do, the experiences of this world do not leave a strong impression on them and they gain levels slowly.",
-"Balrogs are a higher class of demons.  They are strong, intelligent and tough.  They do not believe in gods, and are not suitable for priest at all.  Balrog are resistant to fire and nether, and have a firm hold on their life force.  They also eventually learn to see invisible things.  They are good at almost all skills except stealth.  They gain very little nutrition from the food of mortals, and need human corpses as sacrifices to regain their vitality.",
-"Dunedain are a race of hardy men from the West.  This elder race surpasses human abilities in every field, especially constitution.  However, being men of the world, very little is new to them, and levels are very hard for them to gain.  Their constitution cannot be reduced. ",
-"Shadow Fairies are one of the several fairy races.  They have wings, and can fly over traps that may open up beneath them.  Shadow Fairies must beware of sunlight, as they are vulnerable to bright light.  They are physically weak, but have advantages in using magic and are amazingly stealthy.  Shadow Fairies have a wonderful advantage in that they never aggravate monsters (If their equipment normally aggravates monsters, they only suffer a penalty to stealth, but if they aggravate by their personality itself, the advantage will be lost).",
-"A Kutar is an expressionless animal-like living creature.  The word 'kuta' means 'absentmindedly' or 'vacantly'.  Their absentmindedness hurts their searching and perception skills, but renders them incapable of being confused.  Their unearthly calmness and serenity make them among the most stealthy of any race.  Kutars, although expressionless, are beautiful and so have a high charisma.  Members of this race can learn to expand their body horizontally.  This increases armour class, but renders them vulnerable to magical attacks.",
-"An android is a artificial creation with a body of machinery.  They are poor at spell casting, but they make excellent warriors.  They don't acquire experience like other races, but rather gain in power as they attach new equipment to their frame.  Rings, amulets, and lights do not influence growth.  Androids are resistant to poison, can move freely, and are immune to life-draining attacks.  Moreover, because of their hard metallic bodies, they get a bonus to AC.  Androids have electronic circuits throughout their body and must beware of electric shocks.  They gain very little nutrition from the food of mortals, but they can use flasks of oil as their energy source."
-#endif
-};
 
 static cptr class_jouhou[MAX_CLASS] =
 {
@@ -3498,7 +3375,7 @@ void race_detail(int code)
 	else
 		c_put_str(TERM_L_DARK, "--", base, 76);
 
-	roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
+	roff_to_buf(race_text + race_info[code].text, 56, temp, sizeof(temp));
 	t = temp;
 	e = FALSE;
 	for (i = 0; i < 18; i++)
@@ -3551,7 +3428,7 @@ void subrace_detail(int code)
 			(race_info[code].r_s_exp - 100));
 		c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
-		roff_to_buf(race_jouhou[code], 56, temp, sizeof(temp));
+		roff_to_buf(race_text + race_info[code].text, 56, temp, sizeof(temp));
 		t = temp;
 		e = FALSE;
 		for (i = 0; i < 18; i++)
@@ -3724,7 +3601,7 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-		if(race_info[i].race_category)
+		if(race_info[i].race_category < RACE_RARELITY_UNSELECTABLE)
 		{
 			strcpy(se[n].cap, race_name + race_info[n].name);
 			se[n].code = i;
@@ -6264,7 +6141,7 @@ void dump_yourself(creature_type *cr_ptr, FILE *fff)
 
 	if (!fff) return;
 
-	roff_to_buf(race_jouhou[cr_ptr->race_idx1], 78, temp, sizeof(temp));
+	roff_to_buf(race_text + race_info[cr_ptr->race_idx1].text, 78, temp, sizeof(temp));
 	fprintf(fff, "\n\n");
 #ifdef JP
 	fprintf(fff, "種族: %s\n", race_info[cr_ptr->race_idx1].title);
