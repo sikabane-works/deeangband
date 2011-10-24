@@ -19,7 +19,7 @@ M:R:1438
 M:RE:18
 
 # Maximum number of monsters in st_info.txt
-M:ST:10
+M:ST:18
 
 # Maximum number of items in k_info.txt
 M:K:683

@@ -48,7 +48,7 @@
 
 # Town 10
 ?:[EQU $TOWN 10]
-%:t0000010.txt
+%:t_ururli.txt
 
 # Town 11
 ?:[EQU $TOWN 11]
