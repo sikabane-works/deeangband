@@ -2016,7 +2016,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Self-Knowledge */
 	case 'k':
-		self_knowledge(cr_ptr);
+		creature_knowledge(cr_ptr);
 		break;
 
 	/* Learn about objects */

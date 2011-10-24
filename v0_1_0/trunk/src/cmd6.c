@@ -1262,7 +1262,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 			(void)detect_objects_gold(cr_ptr, DETECT_RAD_DEFAULT);
 			(void)detect_objects_normal(cr_ptr, DETECT_RAD_DEFAULT);
 			identify_pack(cr_ptr);
-			self_knowledge(cr_ptr);
+			creature_knowledge(cr_ptr);
 			ident = TRUE;
 			break;
 
@@ -1274,7 +1274,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 #endif
 
 			msg_print(NULL);
-			self_knowledge(cr_ptr);
+			creature_knowledge(cr_ptr);
 			ident = TRUE;
 			break;
 

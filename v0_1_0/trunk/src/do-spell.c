@@ -2328,7 +2328,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge(cr_ptr);
+				creature_knowledge(cr_ptr);
 			}
 		}
 		break;
@@ -6924,7 +6924,7 @@ static cptr do_craft_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				self_knowledge(cr_ptr);
+				creature_knowledge(cr_ptr);
 			}
 		}
 		break;

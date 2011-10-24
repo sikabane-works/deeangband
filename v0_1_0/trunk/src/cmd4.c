@@ -8238,18 +8238,16 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			case 'd':
 				if(cheat_know && is_unique_species(&species_info[mon_idx[mon_cur]]))
 				{
-					int i;//, j;
+					int i, j;
 
 					for(i = 0; i < max_unique; i++)
 						if(mon_idx[mon_cur] == u_info[i].species_idx)
 						{
-							/*
 							for(j = INVEN_1STARM; j <= INVEN_FEET; j++)
 							{
 								identify_item(p_ptr, &u_info[i].inventory[j]);
 								u_info[i].inventory[j].ident |= (IDENT_MENTAL);
 							}
-							*/
 							u_info[i].update = PU_BONUS | PU_HP | PU_MANA;
 							update_stuff(&u_info[i], FALSE);
 
@@ -8267,6 +8265,31 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					redraw = TRUE;
 					break;
 				}
+				break;
+
+			case 'n':
+				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))
+				{
+					char c;
+					int m = 0;
+
+					int i;
+					for(i = 0; i < max_unique; i++)
+						if(mon_idx[mon_cur] == u_info[i].species_idx)
+						{
+							/* Save the screen */
+							screen_save();
+
+							creature_knowledge(&u_info[i]);
+
+							/* Restore the screen */
+							screen_load();
+							break;
+
+						}
+
+				}
+				break;
 
 			case 'i':
 				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))

@@ -27,7 +27,7 @@
  *
  * XXX XXX XXX Use the "show_file()" method, perhaps.
  */
-void self_knowledge(creature_type *cr_ptr)
+void creature_knowledge(creature_type *cr_ptr)
 {
 	int i = 0, j, k;
 
@@ -49,6 +49,8 @@ void self_knowledge(creature_type *cr_ptr)
 	int plev = cr_ptr->lev;
 
 	int percent;
+
+	Term_clear();
 
 	for (j = 0; j < TR_FLAG_SIZE; j++)
 		flgs[j] = 0L;
