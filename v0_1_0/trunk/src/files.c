@@ -3518,17 +3518,19 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 	/* Print out the labels for the columns */
 #ifdef JP
-c_put_str(TERM_WHITE, "能力", row, stat_col+1);
-c_put_str(TERM_WHITE, "  基本", row, stat_col+7);
-c_put_str(TERM_WHITE, " 種 職 信 性 装 ", row, stat_col+13);
-c_put_str(TERM_L_GREEN, "合計", row, stat_col+29);
-c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
+	c_put_str(TERM_WHITE, "能力", row, stat_col+1);
+	c_put_str(TERM_WHITE, "  基本", row, stat_col+7);
+	c_put_str(TERM_WHITE, " 限界", row, stat_col+14);
+	c_put_str(TERM_WHITE, " 種 職 信 性 装 ", row, stat_col+20);
+	c_put_str(TERM_L_GREEN, "合計", row, stat_col+36);
+	c_put_str(TERM_YELLOW, "現在", row, stat_col+42);
 #else
 	c_put_str(TERM_WHITE, "Stat", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Base", row, stat_col+7);
-	c_put_str(TERM_WHITE, "RacClaPatPerMod", row, stat_col+13);
-	c_put_str(TERM_L_GREEN, "Actual", row, stat_col+27);
-	c_put_str(TERM_YELLOW, "Current", row, stat_col+32);
+	c_put_str(TERM_WHITE, "Limit", row, stat_col+14);
+	c_put_str(TERM_WHITE, "RacClaPatPerMod", row, stat_col+20);
+	c_put_str(TERM_L_GREEN, "Actual", row, stat_col+34);
+	c_put_str(TERM_YELLOW, "Current", row, stat_col+39);
 #endif
 
 
@@ -3600,13 +3602,13 @@ c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 		if(cr_ptr->race_idx1 != RACE_NONE)
 		{
 			(void)sprintf(buf, "%+3d", r_adj);
-			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 13);
-			else if(r_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 13);
-			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 13);
+			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 20);
+			else if(r_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 20);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 20);
 		}
 		else
 		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 13);
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 20);
 		}
 
 
@@ -3615,60 +3617,60 @@ c_put_str(TERM_YELLOW, "現在", row, stat_col+35);
 			cl_adj = (int)class_info[cr_ptr->cls_idx].c_adj[i];
 
 			(void)sprintf(buf, "%+3d", cl_adj);
-			if(class_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 16);
-			else if(class_info[cr_ptr->cls_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 16);
-			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 16);
+			if(class_info[cr_ptr->cls_idx].c_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 23);
+			else if(class_info[cr_ptr->cls_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 23);
 		}
 		else
 		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 16);
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 23);
 		}
 
 		/* TODO
 		if(cr_ptr->patron_idx != PATRON_NONE)
 		{
 			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron_idx].p_adj[i]);
-			if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 19);
-			else if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 19);
-			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 19);
+			if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
+			else if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 26);
 		}
 		else
 		{
 		*/
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 19);
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
 		/*}*/
 
 		if(cr_ptr->chara_idx != CHARA_NONE)
 		{
 			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara_idx].a_adj[i]);
-			if(chara_info[cr_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 22);
-			else if(chara_info[cr_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 22);
-			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 22);
+			if(chara_info[cr_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 29);
+			else if(chara_info[cr_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 29);
+			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 29);
 		}
 		else
 		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 22);
+			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 29);
 		}
 
 		/* Actual maximal modified value */
 		cnv_stat(cr_ptr->stat_top[i], buf);
-		c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 27);
+		c_put_str(TERM_L_GREEN, buf, row + i+1, stat_col + 34);
 
 		(void)sprintf(buf, "%+3d", (int)e_adj);
-		if(e_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 25);
-		else if(e_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 25);
-		else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 25);
+		if(e_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 32);
+		else if(e_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 32);
+		else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 32);
 
 		/* Only display stat_use if not maximal */
 		if (cr_ptr->stat_use[i] < cr_ptr->stat_top[i])
 		{
 			cnv_stat(cr_ptr->stat_use[i], buf);
-			c_put_str(TERM_YELLOW, buf, row + i+1, stat_col + 33);
+			c_put_str(TERM_YELLOW, buf, row + i+1, stat_col + 40);
 		}
 	}
 
 	/* Column */
-	col = stat_col + 41;
+	col = stat_col + 49;
 
 	/* Header and Footer */
 	c_put_str(TERM_WHITE, "abcdefghijklmnopqrstuvw@", row, col);

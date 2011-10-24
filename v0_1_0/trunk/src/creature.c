@@ -80,6 +80,8 @@ void set_status(creature_type *creature_ptr)
 
 		creature_ptr->stat_cur[i] = creature_ptr->stat_use[i];
 		creature_ptr->stat_max[i] = creature_ptr->stat_use[i];
+
+		creature_ptr->stat_max_max[i] = 280;
 	}
 }
 

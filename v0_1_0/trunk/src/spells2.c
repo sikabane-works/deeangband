@@ -64,7 +64,7 @@ void creature_knowledge(creature_type *cr_ptr)
 		((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 
 #ifdef JP
-sprintf(Dummy, "現在の体力ランク : %d/100", percent);
+    sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 #else
 	sprintf(Dummy, "Your current Life Rating is %d/100.", percent);
 #endif
@@ -3165,13 +3165,13 @@ info[i++] = "あなたの武器は投げやすい。";
 	screen_save();
 
 	/* Erase the screen */
-	for (k = 1; k < 24; k++) prt("", k, 13);
+	for (k = 1; k < 24; k++) prt("", k, 3);
 
 	/* Label the information */
 #ifdef JP
-prt("        あなたの状態:", 1, 15);
+	prt("        あなたの状態:", 1, 5);
 #else
-	prt("     Your Attributes:", 1, 15);
+	prt("     Your Attributes:", 1, 5);
 #endif
 
 
@@ -3179,27 +3179,27 @@ prt("        あなたの状態:", 1, 15);
 	for (k = 2, j = 0; j < i; j++)
 	{
 		/* Show the info */
-		prt(info[j], k++, 15);
+		prt(info[j], k++, 5);
 
 		/* Every 20 entries (lines 2 to 21), start over */
 		if ((k == 22) && (j+1 < i))
 		{
 #ifdef JP
-prt("-- 続く --", k, 15);
+			prt("-- 続く --", k, 5);
 #else
-			prt("-- more --", k, 15);
+			prt("-- more --", k, 5);
 #endif
 
 			inkey();
-			for (; k > 2; k--) prt("", k, 15);
+			for (; k > 2; k--) prt("", k, 5);
 		}
 	}
 
 	/* Pause */
 #ifdef JP
-prt("[何かキーを押すとゲームに戻ります]", k, 13);
+	prt("[何かキーを押すとゲームに戻ります]", k, 3);
 #else
-	prt("[Press any key to continue]", k, 13);
+	prt("[Press any key to continue]", k, 3);
 #endif
 
 	inkey();
@@ -3471,7 +3471,7 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 	{
 		info2[i]  = report_magics_aux(cr_ptr->oppose_pois);
 #ifdef JP
-info[i++] = "あなたは毒への耐性を持っている。";
+		info[i++] = "あなたは毒への耐性を持っている。";
 #else
 		info[i++] = "You are resistant to poison";
 #endif
@@ -3482,13 +3482,13 @@ info[i++] = "あなたは毒への耐性を持っている。";
 	screen_save();
 
 	/* Erase the screen */
-	for (k = 1; k < 24; k++) prt("", k, 13);
+	for (k = 1; k < 24; k++) prt("", k, 3);
 
 	/* Label the information */
 #ifdef JP
-prt("           魔法        :", 1, 15);
+	prt("           魔法        :", 1, 5);
 #else
-	prt("     Your Current Magic:", 1, 15);
+	prt("     Your Current Magic:", 1, 5);
 #endif
 
 
@@ -3497,33 +3497,33 @@ prt("           魔法        :", 1, 15);
 	{
 		/* Show the info */
 #ifdef JP
-sprintf(Dummy, "あなたは%s%s", info[j],
+		sprintf(Dummy, "あなたは%s%s", info[j],
 #else
 		sprintf(Dummy, "%s %s.", info[j],
 #endif
 
 			report_magic_durations[info2[j]]);
-		prt(Dummy, k++, 15);
+		prt(Dummy, k++, 5);
 
 		/* Every 20 entries (lines 2 to 21), start over */
 		if ((k == 22) && (j + 1 < i))
 		{
 #ifdef JP
-prt("-- 続く --", k, 15);
+			prt("-- 続く --", k, 5);
 #else
-			prt("-- more --", k, 15);
+			prt("-- more --", k, 5);
 #endif
 
 			inkey();
-			for (; k > 2; k--) prt("", k, 15);
+			for (; k > 2; k--) prt("", k, 5);
 		}
 	}
 
 	/* Pause */
 #ifdef JP
-prt("[何かキーを押すとゲームに戻ります]", k, 13);
+	prt("[何かキーを押すとゲームに戻ります]", k, 3);
 #else
-	prt("[Press any key to continue]", k, 13);
+	prt("[Press any key to continue]", k, 3);
 #endif
 
 	inkey();

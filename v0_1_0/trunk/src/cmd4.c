@@ -8156,13 +8156,13 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 		/* Prompt */
 #ifdef JP
 		prt(format("<方向>%s%s%s, ESC",
-			(!visual_list && !visual_only) ? ", 'r'で思い出を見る" : "",
+			(!visual_list && !visual_only) ? ", 'r'でステータス" : "",
 			visual_list ? ", ENTERで決定" : ", 'v'でシンボル変更",
 			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
 			hgt - 1, 0);
 #else
 		prt(format("<dir>%s%s%s, ESC",
-			(!visual_list && !visual_only) ? ", 'r' to recall" : "",
+			(!visual_list && !visual_only) ? ", 'r' to status" : "",
 			visual_list ? ", ENTER to accept" : ", 'v' for visuals",
 			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
 			hgt - 1, 0);
@@ -8222,21 +8222,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 			case 'R':
 			case 'r':
-			{
-				/* Recall on screen */
-				if (!visual_list && !visual_only && (mon_idx[mon_cur] > 0))
-				{
-					screen_roff(mon_idx[mon_cur], 0);
-
-					(void)inkey();
-
-					redraw = TRUE;
-				}
-				break;
-			}
-
-			case 'd':
-				if(cheat_know && is_unique_species(&species_info[mon_idx[mon_cur]]))
+				if(is_unique_species(&species_info[mon_idx[mon_cur]]))
 				{
 					int i, j;
 
@@ -8253,7 +8239,6 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 
 							display_creature_dump(&u_info[i]);
 							redraw = TRUE;
-							break;
 						}
 				}
 				else
@@ -8263,7 +8248,6 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 					create_creature(&tmp_cr, mon_idx[mon_cur], 0, 0);
 					display_creature_dump(&tmp_cr);
 					redraw = TRUE;
-					break;
 				}
 				break;
 
