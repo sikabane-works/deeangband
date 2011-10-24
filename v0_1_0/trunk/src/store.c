@@ -240,6 +240,66 @@ static byte weapon_table[STABLE_WEAPON_MAX][2] =
 };
 
 
+#define STABLE_ALCHEMY_MAX 48
+static byte alchemy_table[STABLE_ALCHEMY_MAX][2] =
+{
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_HIT },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_DAM },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_LIGHT },
+
+		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
+		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
+		{ TV_SCROLL, SV_SCROLL_TELEPORT },
+		{ TV_SCROLL, SV_SCROLL_MONSTER_CONFUSION },
+		{ TV_SCROLL, SV_SCROLL_MAPPING },
+		{ TV_SCROLL, SV_SCROLL_DETECT_GOLD },
+		{ TV_SCROLL, SV_SCROLL_DETECT_ITEM },
+		{ TV_SCROLL, SV_SCROLL_DETECT_TRAP },
+
+		{ TV_SCROLL, SV_SCROLL_DETECT_INVIS },
+		{ TV_SCROLL, SV_SCROLL_RECHARGING },
+		{ TV_SCROLL, SV_SCROLL_TELEPORT },
+		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
+		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
+		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
+		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
+		{ TV_SCROLL, SV_SCROLL_TELEPORT },
+
+		{ TV_SCROLL, SV_SCROLL_TELEPORT },
+		{ TV_POTION, SV_POTION_RES_STR },
+		{ TV_POTION, SV_POTION_RES_INT },
+		{ TV_POTION, SV_POTION_RES_WIS },
+		{ TV_POTION, SV_POTION_RES_DEX },
+		{ TV_POTION, SV_POTION_RES_CON },
+		{ TV_POTION, SV_POTION_RES_CHR },
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+
+		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
+		{ TV_SCROLL, SV_SCROLL_LIGHT },
+		{ TV_POTION, SV_POTION_RES_STR },
+		{ TV_POTION, SV_POTION_RES_INT },
+		{ TV_POTION, SV_POTION_RES_WIS },
+		{ TV_POTION, SV_POTION_RES_DEX },
+
+		{ TV_POTION, SV_POTION_RES_CON },
+		{ TV_POTION, SV_POTION_RES_CHR },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
+		{ TV_SCROLL, SV_SCROLL_RECHARGING },
+		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_HIT },
+		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_DAM },
+};
+
+
+
 
 /*
 
@@ -309,70 +369,6 @@ static byte weapon_table[STABLE_WEAPON_MAX][2] =
 		{ TV_SCROLL, SV_SCROLL_STAR_REMOVE_CURSE }
 	},
 
-	{
-		// Alchemy shop
-
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_HIT },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_DAM },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_LIGHT },
-
-		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
-		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
-		{ TV_SCROLL, SV_SCROLL_TELEPORT },
-		{ TV_SCROLL, SV_SCROLL_MONSTER_CONFUSION },
-
-		{ TV_SCROLL, SV_SCROLL_MAPPING },
-		{ TV_SCROLL, SV_SCROLL_DETECT_GOLD },
-		{ TV_SCROLL, SV_SCROLL_DETECT_ITEM },
-		{ TV_SCROLL, SV_SCROLL_DETECT_TRAP },
-
-		{ TV_SCROLL, SV_SCROLL_DETECT_INVIS },
-		{ TV_SCROLL, SV_SCROLL_RECHARGING },
-		{ TV_SCROLL, SV_SCROLL_TELEPORT },
-		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
-
-		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
-		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
-		{ TV_SCROLL, SV_SCROLL_WORD_OF_RECALL },
-		{ TV_SCROLL, SV_SCROLL_TELEPORT },
-
-		{ TV_SCROLL, SV_SCROLL_TELEPORT },
-		{ TV_POTION, SV_POTION_RES_STR },
-		{ TV_POTION, SV_POTION_RES_INT },
-		{ TV_POTION, SV_POTION_RES_WIS },
-
-		{ TV_POTION, SV_POTION_RES_DEX },
-		{ TV_POTION, SV_POTION_RES_CON },
-		{ TV_POTION, SV_POTION_RES_CHR },
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-
-		{ TV_SCROLL, SV_SCROLL_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_STAR_IDENTIFY },
-		{ TV_SCROLL, SV_SCROLL_LIGHT },
-
-		{ TV_POTION, SV_POTION_RES_STR },
-		{ TV_POTION, SV_POTION_RES_INT },
-		{ TV_POTION, SV_POTION_RES_WIS },
-		{ TV_POTION, SV_POTION_RES_DEX },
-
-		{ TV_POTION, SV_POTION_RES_CON },
-		{ TV_POTION, SV_POTION_RES_CHR },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_ARMOR },
-
-		{ TV_SCROLL, SV_SCROLL_RECHARGING },
-		{ TV_SCROLL, SV_SCROLL_PHASE_DOOR },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_HIT },
-		{ TV_SCROLL, SV_SCROLL_ENCHANT_WEAPON_TO_DAM },
-
-	},
 
 	{
 		// Magic-User store
@@ -5638,6 +5634,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_WEAPON)
 		st_ptr->table_size += STABLE_WEAPON_MAX;
 
+	if(st_ptr->flags & ST1_ALCHEMY)
+		st_ptr->table_size += STABLE_ALCHEMY_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -5754,6 +5753,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = weapon_table[k][0];
 			int sv = weapon_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_ALCHEMY)
+	{
+		for (k = 0; k < STABLE_ALCHEMY_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = alchemy_table[k][0];
+			int sv = alchemy_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)

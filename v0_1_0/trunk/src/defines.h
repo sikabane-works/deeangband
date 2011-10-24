@@ -180,6 +180,7 @@
 
 #define ST1_ARMOURY				0x00000040
 #define ST1_WEAPON				0x00000080
+#define ST1_ALCHEMY				0x00000100
 
 #define HISTORY_ROW 16
 #define HISTORY_COL 75
