@@ -299,6 +299,65 @@ static byte alchemy_table[STABLE_ALCHEMY_MAX][2] =
 };
 
 
+#define STABLE_MAGIC_ITEM_MAX 48
+static byte magic_item_table[STABLE_MAGIC_ITEM_MAX][2] =
+{
+		{ TV_RING, SV_RING_PROTECTION },
+		{ TV_RING, SV_RING_LEVITATION_FALL },
+		{ TV_RING, SV_RING_PROTECTION },
+		{ TV_RING, SV_RING_RESIST_FIRE },
+		{ TV_RING, SV_RING_RESIST_COLD },
+		{ TV_AMULET, SV_AMULET_CHARISMA },
+		{ TV_RING, SV_RING_WARNING },
+		{ TV_AMULET, SV_AMULET_RESIST_ACID },
+
+		{ TV_AMULET, SV_AMULET_SEARCHING },
+		{ TV_WAND, SV_WAND_SLOW_MONSTER },
+		{ TV_WAND, SV_WAND_CONFUSE_MONSTER },
+		{ TV_WAND, SV_WAND_SLEEP_MONSTER },
+		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+		{ TV_WAND, SV_WAND_STINKING_CLOUD },
+		{ TV_WAND, SV_WAND_WONDER },
+		{ TV_WAND, SV_WAND_DISARMING },
+
+		{ TV_STAFF, SV_STAFF_LITE },
+		{ TV_STAFF, SV_STAFF_MAPPING },
+		{ TV_STAFF, SV_STAFF_DETECT_TRAP },
+		{ TV_STAFF, SV_STAFF_DETECT_DOOR },
+		{ TV_STAFF, SV_STAFF_DETECT_GOLD },
+		{ TV_STAFF, SV_STAFF_DETECT_ITEM },
+		{ TV_STAFF, SV_STAFF_DETECT_INVIS },
+		{ TV_STAFF, SV_STAFF_DETECT_EVIL },
+
+		{ TV_STAFF, SV_STAFF_TELEPORTATION },
+		{ TV_STAFF, SV_STAFF_TELEPORTATION },
+		{ TV_STAFF, SV_STAFF_TELEPORTATION },
+		{ TV_STAFF, SV_STAFF_TELEPORTATION },
+		{ TV_STAFF, SV_STAFF_IDENTIFY },
+		{ TV_STAFF, SV_STAFF_IDENTIFY },
+		{ TV_STAFF, SV_STAFF_IDENTIFY },
+		{ TV_STAFF, SV_STAFF_IDENTIFY },
+
+		{ TV_STAFF, SV_STAFF_REMOVE_CURSE },
+		{ TV_STAFF, SV_STAFF_CURE_LIGHT },
+		{ TV_STAFF, SV_STAFF_PROBING },
+		{ TV_FIGURINE, 0 },
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SORCERY_BOOK, 1 },
+		{ TV_SORCERY_BOOK, 1 },
+
+		{ TV_ARCANE_BOOK, 0 },
+		{ TV_ARCANE_BOOK, 0 },
+		{ TV_ARCANE_BOOK, 1 },
+		{ TV_ARCANE_BOOK, 1 },
+		{ TV_ARCANE_BOOK, 2 },
+		{ TV_ARCANE_BOOK, 2 },
+		{ TV_ARCANE_BOOK, 3 },
+		{ TV_ARCANE_BOOK, 3 },
+
+};
+
 
 
 /*
@@ -370,71 +429,6 @@ static byte alchemy_table[STABLE_ALCHEMY_MAX][2] =
 	},
 
 
-	{
-		// Magic-User store
-
-		{ TV_RING, SV_RING_PROTECTION },
-		{ TV_RING, SV_RING_LEVITATION_FALL },
-		{ TV_RING, SV_RING_PROTECTION },
-		{ TV_RING, SV_RING_RESIST_FIRE },
-
-		{ TV_RING, SV_RING_RESIST_COLD },
-		{ TV_AMULET, SV_AMULET_CHARISMA },
-		{ TV_RING, SV_RING_WARNING },
-		{ TV_AMULET, SV_AMULET_RESIST_ACID },
-
-		{ TV_AMULET, SV_AMULET_SEARCHING },
-		{ TV_WAND, SV_WAND_SLOW_MONSTER },
-		{ TV_WAND, SV_WAND_CONFUSE_MONSTER },
-		{ TV_WAND, SV_WAND_SLEEP_MONSTER },
-
-		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
-		{ TV_WAND, SV_WAND_STINKING_CLOUD },
-		{ TV_WAND, SV_WAND_WONDER },
-		{ TV_WAND, SV_WAND_DISARMING },
-
-		{ TV_STAFF, SV_STAFF_LITE },
-		{ TV_STAFF, SV_STAFF_MAPPING },
-		{ TV_STAFF, SV_STAFF_DETECT_TRAP },
-		{ TV_STAFF, SV_STAFF_DETECT_DOOR },
-
-		{ TV_STAFF, SV_STAFF_DETECT_GOLD },
-		{ TV_STAFF, SV_STAFF_DETECT_ITEM },
-		{ TV_STAFF, SV_STAFF_DETECT_INVIS },
-		{ TV_STAFF, SV_STAFF_DETECT_EVIL },
-
-		{ TV_STAFF, SV_STAFF_TELEPORTATION },
-		{ TV_STAFF, SV_STAFF_TELEPORTATION },
-		{ TV_STAFF, SV_STAFF_TELEPORTATION },
-		{ TV_STAFF, SV_STAFF_TELEPORTATION },
-
-		{ TV_STAFF, SV_STAFF_IDENTIFY },
-		{ TV_STAFF, SV_STAFF_IDENTIFY },
-		{ TV_STAFF, SV_STAFF_IDENTIFY },
-
-		{ TV_STAFF, SV_STAFF_IDENTIFY },
-		{ TV_STAFF, SV_STAFF_REMOVE_CURSE },
-		{ TV_STAFF, SV_STAFF_CURE_LIGHT },
-		{ TV_STAFF, SV_STAFF_PROBING },
-
-		{ TV_FIGURINE, 0 },
-
-		{ TV_SORCERY_BOOK, 0 },
-		{ TV_SORCERY_BOOK, 0 },
-		{ TV_SORCERY_BOOK, 1 },
-		{ TV_SORCERY_BOOK, 1 },
-
-		{ TV_ARCANE_BOOK, 0 },
-		{ TV_ARCANE_BOOK, 0 },
-		{ TV_ARCANE_BOOK, 1 },
-		{ TV_ARCANE_BOOK, 1 },
-
-		{ TV_ARCANE_BOOK, 2 },
-		{ TV_ARCANE_BOOK, 2 },
-		{ TV_ARCANE_BOOK, 3 },
-		{ TV_ARCANE_BOOK, 3 },
-
-	},
 
 };
 */
@@ -5637,6 +5631,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_ALCHEMY)
 		st_ptr->table_size += STABLE_ALCHEMY_MAX;
 
+	if(st_ptr->flags & ST1_MAGIC_ITEM)
+		st_ptr->table_size += STABLE_MAGIC_ITEM_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -5779,6 +5776,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = alchemy_table[k][0];
 			int sv = alchemy_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_MAGIC_ITEM)
+	{
+		for (k = 0; k < STABLE_MAGIC_ITEM_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = magic_item_table[k][0];
+			int sv = magic_item_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)

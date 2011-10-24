@@ -352,8 +352,7 @@ info[i++] = "あなたは爆発のルーンを仕掛けることができる。(35 MP)";
 		case RACE_GIANT:
 			if (plev > 19)
 #ifdef JP
-info[i++] = "あな
-たは石の壁を壊すことができる。(10 MP)";
+info[i++] = "あなたは石の壁を壊すことができる。(10 MP)";
 #else
 				info[i++] = "You can break stone walls (cost 10).";
 #endif
