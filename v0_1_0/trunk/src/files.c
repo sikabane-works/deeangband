@@ -3598,6 +3598,11 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
+
+		cnv_stat(cr_ptr->stat_max_max[i], buf);
+		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 19 - strlen(buf));
+
+
 		/* Race, class, and equipment modifiers */
 		if(cr_ptr->race_idx1 != RACE_NONE)
 		{
