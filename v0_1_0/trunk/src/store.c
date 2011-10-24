@@ -355,10 +355,36 @@ static byte magic_item_table[STABLE_MAGIC_ITEM_MAX][2] =
 		{ TV_ARCANE_BOOK, 2 },
 		{ TV_ARCANE_BOOK, 3 },
 		{ TV_ARCANE_BOOK, 3 },
-
 };
 
+#define STABLE_ORIENTAL_WEAPON_MAX 20
+static byte oriental_weapon_table[STABLE_ORIENTAL_WEAPON_MAX][2] =
+{
+	{TV_SWORD, SV_NINJATO},
+	{TV_SWORD, SV_NINJATO},
+	{TV_SWORD, SV_KATANA},
+	{TV_SWORD, SV_KATANA},
+	{TV_SWORD, SV_KATANA},
 
+	{TV_SWORD, SV_KATANA},
+	{TV_SWORD, SV_KATANA},
+	{TV_SWORD, SV_NO_DACHI},
+	{TV_SWORD, SV_NO_DACHI},
+	{TV_SWORD, SV_NO_DACHI},
+
+	{TV_POLEARM, SV_NAGINATA},
+	{TV_POLEARM, SV_NAGINATA},
+	{TV_POLEARM, SV_NAGINATA},
+	{TV_HAFTED, SV_NUNCHAKU},
+	{TV_HAFTED, SV_BO_STAFF},
+
+	{TV_HAFTED, SV_BO_STAFF},
+	{TV_HAFTED, SV_TETSUBO},
+	{TV_HAFTED, SV_TETSUBO},
+	{TV_HISSATSU_BOOK, 0 },
+	{TV_HISSATSU_BOOK, 1 },
+
+};
 
 /*
 
@@ -5634,6 +5660,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_MAGIC_ITEM)
 		st_ptr->table_size += STABLE_MAGIC_ITEM_MAX;
 
+	if(st_ptr->flags & ST1_ORIENTAL_WEAPON)
+	st_ptr->table_size += STABLE_ORIENTAL_WEAPON_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -5802,6 +5831,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = magic_item_table[k][0];
 			int sv = magic_item_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_ORIENTAL_WEAPON)
+	{
+		for (k = 0; k < STABLE_ORIENTAL_WEAPON_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = oriental_weapon_table[k][0];
+			int sv = oriental_weapon_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
