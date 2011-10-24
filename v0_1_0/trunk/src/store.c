@@ -5622,7 +5622,7 @@ void init_stores(void)
 		sprintf(buf, "Please Wait ... Store Initialize[%d]", i);
 		prt(buf, 0, 0);
 		Term_fresh();
-		store_create(&st_list[i], &stp_info[i]);
+		store_create(&st_list[i], &store_pre_info[i]);
 
 	}
 //	C_KILL(u_info, max_unique, creature_type);

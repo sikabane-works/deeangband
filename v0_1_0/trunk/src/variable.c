@@ -875,7 +875,7 @@ char *re_text;
 /*
  * The store pre arrays
  */
-store_pre_type *stp_info;
+store_pre_type *store_pre_info;
 char *stp_name;
 char *stp_text;
 
@@ -1114,7 +1114,7 @@ u16b max_species_idx;
 u16b max_monster_ego_idx;
 
 /*
- * Maximum number of monsters in stp_info.txt
+ * Maximum number of monsters in store_pre_info.txt
  */
 u16b max_store_idx;
 

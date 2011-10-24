@@ -2053,7 +2053,7 @@ static cptr d_info_flags1[] =
 /*
  *  Store Flags
  */
-static cptr stp_info_flags[] =
+static cptr store_pre_info_flags[] =
 {
 	"YOUR_HOME",
 	"MUSEUM",
@@ -3842,7 +3842,7 @@ errr parse_e_info(char *buf, header *head)
  */
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
-	if (grab_one_flag(&stp_ptr->flags, stp_info_flags, what) == 0)
+	if (grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
 		return 0;
 
 	/* Oops */
@@ -4678,7 +4678,7 @@ errr parse_re_info(char *buf, header *head)
 
 
 #define ST_INFO_CSV_COLUMNS 8
-static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
+static cptr store_pre_info_csv_list[ST_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"NAME",
@@ -4690,7 +4690,7 @@ static cptr stp_info_csv_list[ST_INFO_CSV_COLUMNS] =
 	"LEVEL",
 };
 
-static int stp_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
+static int store_pre_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 
 #define ST_INFO_ID			0
 #define ST_INFO_NAME		1
@@ -4701,7 +4701,7 @@ static int stp_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define ST_INFO_FLAGS		6
 #define ST_INFO_LEVEL		7
 
-errr parse_stp_info_csv(char *buf, header *head)
+errr parse_store_pre_info_csv(char *buf, header *head)
 {
 	int split[80], size[80];
 	int i, j, b;
@@ -4715,18 +4715,18 @@ errr parse_stp_info_csv(char *buf, header *head)
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
 
-	if(!strcmp(tmp, stp_info_csv_list[0]))
+	if(!strcmp(tmp, store_pre_info_csv_list[0]))
 	{
-		stp_info_csv_code[0] = ST_INFO_ID;
+		store_pre_info_csv_code[0] = ST_INFO_ID;
 		for(i = 1; i < ST_INFO_CSV_COLUMNS; i++)
 		{
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			for(j = 1; j < ST_INFO_CSV_COLUMNS; j++)
 			{
-				if(!strcmp(tmp, stp_info_csv_list[j]))
+				if(!strcmp(tmp, store_pre_info_csv_list[j]))
 				{
-					stp_info_csv_code[i] = j;
+					store_pre_info_csv_code[i] = j;
 					break;
 				}
 			}
@@ -4752,44 +4752,44 @@ errr parse_stp_info_csv(char *buf, header *head)
 			tmp[size[i]] = '\0';
 			
 
-			switch(stp_info_csv_code[i])
+			switch(store_pre_info_csv_code[i])
 			{
 
 			case ST_INFO_NAME:
 #if JP
-				if (!add_name(&stp_info[n].name, head, tmp))
+				if (!add_name(&store_pre_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
 			case ST_INFO_E_NAME:
 #if JP
-				if (!add_name(&stp_info[n].E_name, head, tmp))
+				if (!add_name(&store_pre_info[n].E_name, head, tmp))
 					return (7);
 #else
-				if (!add_name(&stp_info[n].name, head, tmp))
+				if (!add_name(&store_pre_info[n].name, head, tmp))
 					return (7);
 #endif
 				break;
 
 			case ST_INFO_OWNER:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				stp_info[n].owner_id = (s16b)b;
+				store_pre_info[n].owner_id = (s16b)b;
 				break;
 
 			case ST_INFO_SIZE:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				stp_info[n].size = (u16b)b;
+				store_pre_info[n].size = (u16b)b;
 				break;
 
 			case ST_INFO_WEALTH:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				stp_info[n].wealth = (s32b)b;
+				store_pre_info[n].wealth = (s32b)b;
 				break;
 
 			case ST_INFO_LEVEL:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				stp_info[n].level = (byte)b;
+				store_pre_info[n].level = (byte)b;
 				break;
 
 			case ST_INFO_FLAGS:
@@ -4805,7 +4805,7 @@ errr parse_stp_info_csv(char *buf, header *head)
 					}
 
 					/* Parse this entry */
-					if (0 != grab_store_flag(&stp_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
+					if (0 != grab_store_flag(&store_pre_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
 
 					/* Start the next entry */
 					s = t;

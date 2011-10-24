@@ -492,7 +492,7 @@ extern char *race_text;
 extern monster_ego *re_info;
 extern char *re_name;
 extern char *re_text;
-extern store_pre_type *stp_info;
+extern store_pre_type *store_pre_info;
 extern char *stp_name;
 extern char *stp_text;
 extern dungeon_info_type *d_info;
