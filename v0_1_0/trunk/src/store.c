@@ -181,81 +181,13 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_SHIELD, SV_SMALL_LEATHER_SHIELD }
 };
 
-
-
-/*
-	{
-		// Armoury
-
-		{ TV_BOOTS, SV_PAIR_OF_SOFT_LEATHER_BOOTS },
-		{ TV_BOOTS, SV_PAIR_OF_SOFT_LEATHER_BOOTS },
-		{ TV_BOOTS, SV_PAIR_OF_HARD_LEATHER_BOOTS },
-		{ TV_BOOTS, SV_PAIR_OF_HARD_LEATHER_BOOTS },
-
-		{ TV_HELM, SV_HARD_LEATHER_CAP },
-		{ TV_HELM, SV_HARD_LEATHER_CAP },
-		{ TV_HELM, SV_METAL_CAP },
-		{ TV_HELM, SV_IRON_HELM },
-
-		{ TV_SOFT_ARMOR, SV_ROBE },
-		{ TV_SOFT_ARMOR, SV_ROBE },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-
-		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR },
-		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR },
-		{ TV_SOFT_ARMOR, SV_HARD_STUDDED_LEATHER },
-		{ TV_SOFT_ARMOR, SV_HARD_STUDDED_LEATHER },
-
-		{ TV_SOFT_ARMOR, SV_RHINO_HIDE_ARMOR },
-		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL },
-		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
-		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-
-		{ TV_HARD_ARMOR, SV_DOUBLE_RING_MAIL },
-		{ TV_HARD_ARMOR, SV_AUGMENTED_CHAIN_MAIL },
-		{ TV_HARD_ARMOR, SV_BAR_CHAIN_MAIL },
-		{ TV_HARD_ARMOR, SV_DOUBLE_CHAIN_MAIL },
-
-		{ TV_HARD_ARMOR, SV_METAL_BRIGANDINE_ARMOUR },
-		{ TV_HARD_ARMOR, SV_SPLINT_MAIL },
-		{ TV_GLOVES, SV_SET_OF_LEATHER_GLOVES },
-		{ TV_GLOVES, SV_SET_OF_LEATHER_GLOVES },
-
-		{ TV_GLOVES, SV_SET_OF_GAUNTLETS },
-		{ TV_SHIELD, SV_SMALL_LEATHER_SHIELD },
-		{ TV_SHIELD, SV_LARGE_LEATHER_SHIELD },
-		{ TV_SHIELD, SV_SMALL_METAL_SHIELD },
-
-		{ TV_BOOTS, SV_PAIR_OF_HARD_LEATHER_BOOTS },
-		{ TV_BOOTS, SV_PAIR_OF_HARD_LEATHER_BOOTS },
-		{ TV_HELM, SV_HARD_LEATHER_CAP },
-		{ TV_HELM, SV_HARD_LEATHER_CAP },
-
-		{ TV_SOFT_ARMOR, SV_ROBE },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR },
-
-		{ TV_SOFT_ARMOR, SV_LEATHER_JACK },
-		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
-		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-
-		{ TV_GLOVES, SV_SET_OF_LEATHER_GLOVES },
-		{ TV_GLOVES, SV_SET_OF_GAUNTLETS },
-		{ TV_SHIELD, SV_SMALL_LEATHER_SHIELD },
-		{ TV_SHIELD, SV_SMALL_LEATHER_SHIELD }
-	},
-
-	{
-		// Weaponsmith
-
+#define STABLE_WEAPON_MAX 48
+static byte weapon_table[STABLE_WEAPON_MAX][2] =
+{
 		{ TV_SWORD, SV_DAGGER },
 		{ TV_SWORD, SV_MAIN_GAUCHE },
 		{ TV_SWORD, SV_RAPIER },
 		{ TV_SWORD, SV_SMALL_SWORD },
-
 		{ TV_SWORD, SV_SHORT_SWORD },
 		{ TV_SWORD, SV_SABRE },
 		{ TV_SWORD, SV_CUTLASS },
@@ -265,7 +197,6 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_SWORD, SV_LONG_SWORD },
 		{ TV_SWORD, SV_SCIMITAR },
 		{ TV_SWORD, SV_KATANA },
-
 		{ TV_SWORD, SV_BASTARD_SWORD },
 		{ TV_POLEARM, SV_SPEAR },
 		{ TV_POLEARM, SV_AWL_PIKE },
@@ -275,7 +206,6 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_POLEARM, SV_BEAKED_AXE },
 		{ TV_POLEARM, SV_BROAD_AXE },
 		{ TV_POLEARM, SV_LANCE },
-
 		{ TV_POLEARM, SV_BATTLE_AXE },
 		{ TV_POLEARM, SV_HATCHET },
 		{ TV_BOW, SV_SLING },
@@ -285,7 +215,6 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_SHOT, SV_AMMO_NORMAL },
 		{ TV_SHOT, SV_AMMO_NORMAL },
 		{ TV_ARROW, SV_AMMO_NORMAL },
-
 		{ TV_ARROW, SV_AMMO_NORMAL },
 		{ TV_BOLT, SV_AMMO_NORMAL },
 		{ TV_BOLT, SV_AMMO_NORMAL },
@@ -295,7 +224,6 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_BOLT, SV_AMMO_NORMAL },
 		{ TV_BOW, SV_SHORT_BOW },
 		{ TV_BOW, SV_LIGHT_XBOW },
-
 		{ TV_SWORD, SV_DAGGER },
 		{ TV_SWORD, SV_TANTO },
 		{ TV_SWORD, SV_RAPIER },
@@ -305,12 +233,16 @@ static byte armoury_table[STABLE_ARMOURY_MAX][2] =
 		{ TV_SWORD, SV_LONG_SWORD },
 		{ TV_SWORD, SV_SCIMITAR },
 		{ TV_SWORD, SV_BROAD_SWORD },
+		{ TV_HISSATSU_BOOK, 0 },
+		{ TV_HISSATSU_BOOK, 0 },
+		{ TV_HISSATSU_BOOK, 1 },
+		{ TV_HISSATSU_BOOK, 1 },
+};
 
-		{ TV_HISSATSU_BOOK, 0 },
-		{ TV_HISSATSU_BOOK, 0 },
-		{ TV_HISSATSU_BOOK, 1 },
-		{ TV_HISSATSU_BOOK, 1 },
-	},
+
+
+/*
+
 
 	{
 		// Temple
@@ -5703,6 +5635,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_ARMOURY)
 		st_ptr->table_size += STABLE_ARMOURY_MAX;
 
+	if(st_ptr->flags & ST1_WEAPON)
+		st_ptr->table_size += STABLE_WEAPON_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -5793,6 +5728,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = armoury_table[k][0];
 			int sv = armoury_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_WEAPON)
+	{
+		for (k = 0; k < STABLE_WEAPON_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = weapon_table[k][0];
+			int sv = weapon_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
