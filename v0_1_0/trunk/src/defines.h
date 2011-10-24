@@ -5431,7 +5431,7 @@ extern int PlayerUID;
 #define CF_N3_XXX17			81
 #define CF_N3_XXX18			82
 #define CF_N3_XXX19			83
-#define CF_N3_XXX20			84
+#define CF_ERU				84
 #define CF_N3_XXX21			85
 #define CF_N3_XXX22			86
 #define CF_N3_XXX23			87

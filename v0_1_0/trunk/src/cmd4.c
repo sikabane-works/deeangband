@@ -8270,7 +8270,6 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 			case 'n':
 				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))
 				{
-					char c;
 					int m = 0;
 
 					int i;

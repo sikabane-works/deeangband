@@ -524,7 +524,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
+	"ERU",
 
 	"XXX",
 	"XXX",
