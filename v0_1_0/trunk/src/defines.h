@@ -2044,10 +2044,10 @@
 /* The "sval" codes for TV_CORPSE */
 #define SV_SKELETON 			0
 #define SV_CORPSE				1
-#define SV_HEAD					1
-#define SV_HAND					1
-#define SV_FOOT					1
-#define SV_CURCUSS				1
+#define SV_HEAD					2
+#define SV_HAND					3
+#define SV_FOOT					4
+#define SV_CURCUSS				5
 
 /* The "sval" codes for TV_SHOT/TV_ARROW/TV_BOLT */
 #define SV_AMMO_LIGHT                    0	/* pebbles */
