@@ -3173,8 +3173,6 @@ strcpy(power_desc[num].name, "ロケット");
 	}
 	}
 
-	if (cr_ptr->flags12)
-	{
 		if (has_cf_creature(cr_ptr, CF_SPIT_ACID))
 		{
 #ifdef JP
@@ -3655,7 +3653,6 @@ strcpy(power_desc[num].name, "放射能");
 			/* XXX_XXX_XXX Hack! CF_LAUNCHER counts as negative... */
 			power_desc[num++].number = 3;
 		}
-	}
 
 	/* Nothing chosen yet */
 	flag = FALSE;

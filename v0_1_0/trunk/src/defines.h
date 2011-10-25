@@ -5808,40 +5808,62 @@ extern int PlayerUID;
 #define CF_BISEXUAL			483
 
 // Flags 17 (Old Racial Power)
-#define CF_SWORD_DANCING    484
-#define CF_STOPEATING       485
-#define CF_BLESS_WEAPON     486
-#define CF_EVOCATION        487
-#define CF_SCAN_CREATURE    488
-#define CF_HOLY_LANCE       490
-#define CF_HELL_LANCE       491
-#define CF_HP_TO_SP         492
-#define CF_SP_TO_HP         493
-#define CF_CONFUSING_LIGHT  494
-#define CF_POSTURE          495
-#define CF_DOUBLE_ATTACK    496
-#define CF_CLEAR_MIND       497
-#define CF_TAKE_PHOTO       498
-#define CF_IDENTIFY_TRUE    499
-#define CF_DOUBLE_REVENGE   500
-#define CF_DOMINATE_LIVE    501
-#define CF_DOMINATE_LIVES   502
-#define CF_CREATE_AMMO      503
-#define CF_ABSORB_MAGIC     504
-#define CF_STOP_SINGING     505
-#define CF_DOUBLE_MAGIC     506
-#define CF_CONCENTRATION    507
-#define CF_POSTURE2         508
-#define CF_LEARNING         509
-#define CF_RODEO            510
-#define CF_BREAK_MIRROR     511
-#define CF_MIRROR_CONC      512
-#define CF_WEAPON_JUDGE     513
-#define CF_QUICK_WALK       514
-
-
+#define CF_SWORD_DANCING    512
+#define CF_STOPEATING       513
+#define CF_BLESS_WEAPON     514
+#define CF_EVOCATION        515
+#define CF_SCAN_CREATURE    516
+#define CF_HOLY_LANCE       517
+#define CF_HELL_LANCE       518
+#define CF_HP_TO_SP         519
+#define CF_SP_TO_HP         520
+#define CF_CONFUSING_LIGHT  521
+#define CF_POSTURE          522
+#define CF_DOUBLE_ATTACK    523
+#define CF_CLEAR_MIND       524
+#define CF_TAKE_PHOTO       525
+#define CF_IDENTIFY_TRUE    526
+#define CF_DOUBLE_REVENGE   527
+#define CF_DOMINATE_LIVE    528
+#define CF_DOMINATE_LIVES   529
+#define CF_CREATE_AMMO      530
+#define CF_ABSORB_MAGIC     531
+#define CF_STOP_SINGING     532
+#define CF_DOUBLE_MAGIC     533
+#define CF_CONCENTRATION    534
+#define CF_POSTURE2         535
+#define CF_LEARNING         536
+#define CF_RODEO            537
+#define CF_BREAK_MIRROR     538
+#define CF_MIRROR_CONC      539
+#define CF_WEAPON_JUDGE     540
+#define CF_QUICK_WALK       541
+#define CF_DETECT_DOOR_TRAP 542
+#define CF_CREATE_FOOD      543
 
 // Flags 18
+#define CF_SHADOW_SHIFT     544
+#define CF_PATTERN_WALK     545
+#define CF_EXPLOSIVE_RUNE   546
+#define CF_STONE_TO_MUD     547
+#define CF_THROW_BOULDER    548
+#define CF_SCARE_MONSTER    549
+#define CF_POISON_DART      550
+#define CF_MAGIC_MISSILE    551
+#define CF_XXX552           552
+#define CF_FIRE_BOLT        553
+#define CF_FIRE_BALL        554
+#define CF_STONE_SKIN       555
+#define CF_RESTORE_LIFE     556
+#define CF_DRAIN_LIFE       557
+#define CF_SLEEPING_DUST    558
+#define CF_EXPAND_HLIZN     559
+#define CF_RAY_GUN          560
+#define CF_BLASTER          561
+#define CF_BAZOOKA          562
+#define CF_BEAM_CANNON      563
+#define CF_XXX564           564
+
 
 // Flags 19
 
