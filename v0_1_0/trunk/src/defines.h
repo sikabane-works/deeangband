@@ -5809,7 +5809,7 @@ extern int PlayerUID;
 
 // Flags 17 (Old Racial Power)
 #define CF_SWORD_DANCING    512
-#define CF_STOPEATING       513
+#define CF_STOP_HEX         513
 #define CF_BLESS_WEAPON     514
 #define CF_EVOCATION        515
 #define CF_SCAN_CREATURE    516

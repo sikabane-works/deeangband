@@ -2220,12 +2220,11 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“ÁŽê”\—Í‚ðŽg‚¦‚Ü‚¹‚ñI");
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	switch (cr_ptr->cls_idx)
-	{
-	case CLASS_WARRIOR:
+
+	if (has_cf_creature(cr_ptr, CF_SWORD_DANCING))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "Œ•‚Ì•‘‚¢");
+		strcpy(power_desc[num].name, "Œ•‚Ì•‘‚¢");
 #else
 		strcpy(power_desc[num].name, "Sword Dancing");
 #endif
@@ -2235,10 +2234,9 @@ strcpy(power_desc[num].name, "Œ•‚Ì•‘‚¢");
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 35;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_HIGH_MAGE:
-	if (cr_ptr->realm1 == REALM_HEX)
+
+	if (has_cf_creature(cr_ptr, CF_STOP_HEX))
 	{
 #ifdef JP
 		strcpy(power_desc[num].name, "‰r¥‚ð‚â‚ß‚é");
@@ -2250,45 +2248,26 @@ strcpy(power_desc[num].name, "Œ•‚Ì•‘‚¢");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_MAGE:
-	/* case CLASS_HIGH_MAGE: */
-	case CLASS_SORCERER:
-	{
-#ifdef JP
-strcpy(power_desc[num].name, "–‚—ÍH‚¢");
-#else
-		strcpy(power_desc[num].name, "Eat Magic");
-#endif
 
-		power_desc[num].level = 25;
-		power_desc[num].cost = 1;
-		power_desc[num].stat = STAT_INT;
-		power_desc[num].fail = 25;
-		power_desc[num++].number = -3;
-		break;
-	}
-	case CLASS_PRIEST:
+	if (has_cf_creature(cr_ptr, CF_BLESS_WEAPON))
 	{
-		if (is_good_realm(cr_ptr->realm1))
-		{
 #ifdef JP
 strcpy(power_desc[num].name, "•Šíj•Ÿ");
 #else
 			strcpy(power_desc[num].name, "Bless Weapon");
 #endif
-
 			power_desc[num].level = 35;
 			power_desc[num].cost = 70;
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -3;
-		}
-		else
-		{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_EVOCATION))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "¢°");
+			strcpy(power_desc[num].name, "¢°");
 #else
 			strcpy(power_desc[num].name, "Evocation");
 #endif
@@ -2298,31 +2277,14 @@ strcpy(power_desc[num].name, "¢°");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 35;
 			power_desc[num++].number = -3;
-		}
-		break;
 	}
-	case CLASS_ROGUE:
-	{
-#ifdef JP
-strcpy(power_desc[num].name, "ƒqƒbƒg•ƒAƒEƒFƒC");
-#else
-		strcpy(power_desc[num].name, "Hit and Away");
-#endif
 
-		power_desc[num].level = 8;
-		power_desc[num].cost = 12;
-		power_desc[num].stat = STAT_DEX;
-		power_desc[num].fail = 14;
-		power_desc[num++].number = -3;
-		break;
-	}
-	case CLASS_RANGER:
-	case CLASS_SNIPER:
+	if (has_cf_creature(cr_ptr, CF_SCAN_CREATURE))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "ƒ‚ƒ“ƒXƒ^[’²¸");
+		strcpy(power_desc[num].name, "ƒNƒŠ[ƒ`ƒƒ[’²¸");
 #else
-		strcpy(power_desc[num].name, "Probe Monster");
+		strcpy(power_desc[num].name, "Probe Creature");
 #endif
 
 		power_desc[num].level = 15;
@@ -2330,14 +2292,12 @@ strcpy(power_desc[num].name, "ƒ‚ƒ“ƒXƒ^[’²¸");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 12;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_PALADIN:
+
+	if (has_cf_creature(cr_ptr, CF_HOLY_LANCE))
 	{
-		if (is_good_realm(cr_ptr->realm1))
-		{
 #ifdef JP
-strcpy(power_desc[num].name, "ƒz[ƒŠ[Eƒ‰ƒ“ƒX");
+			strcpy(power_desc[num].name, "ƒz[ƒŠ[Eƒ‰ƒ“ƒX");
 #else
 			strcpy(power_desc[num].name, "Holy Lance");
 #endif
@@ -2347,13 +2307,14 @@ strcpy(power_desc[num].name, "ƒz[ƒŠ[Eƒ‰ƒ“ƒX");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 30;
 			power_desc[num++].number = -3;
-		}
-		else
-		{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_HELL_LANCE))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "ƒwƒ‹Eƒ‰ƒ“ƒX");
+		strcpy(power_desc[num].name, "ƒwƒ‹Eƒ‰ƒ“ƒX");
 #else
-			strcpy(power_desc[num].name, "Hell Lance");
+		strcpy(power_desc[num].name, "Hell Lance");
 #endif
 
 			power_desc[num].level = 30;
@@ -2361,13 +2322,12 @@ strcpy(power_desc[num].name, "ƒwƒ‹Eƒ‰ƒ“ƒX");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 30;
 			power_desc[num++].number = -3;
-		}
-		break;
 	}
-	case CLASS_WARRIOR_MAGE:
+
+	if (has_cf_creature(cr_ptr, CF_HP_TO_SP_INT))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "•ÏŠ·: ‚g‚o¨‚l‚o");
+		strcpy(power_desc[num].name, "•ÏŠ·: ‚g‚o¨‚l‚o");
 #else
 		strcpy(power_desc[num].name, "Convert HP to SP");
 #endif
@@ -2377,6 +2337,10 @@ strcpy(power_desc[num].name, "•ÏŠ·: ‚g‚o¨‚l‚o");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SP_TO_HP_INT))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "•ÏŠ·: ‚l‚o¨‚g‚o");
 #else
@@ -2388,9 +2352,9 @@ strcpy(power_desc[num].name, "•ÏŠ·: ‚l‚o¨‚g‚o");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_CHAOS_WARRIOR:
+
+	if (has_cf_creature(cr_ptr, CF_CONFUSING_LIGHT))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "Œ¶˜f‚ÌŒõ");
@@ -2403,36 +2367,37 @@ strcpy(power_desc[num].name, "Œ¶˜f‚ÌŒõ");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 25;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_MONK:
+
+	if (has_cf_creature(cr_ptr, CF_POSTURE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "\‚¦‚é");
 #else
 		strcpy(power_desc[num].name, "Assume a Posture");
 #endif
-
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_DOUBLE_ATTACK))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "•S—ôŒ");
+		strcpy(power_desc[num].name, "•S—ôŒ");
 #else
 		strcpy(power_desc[num].name, "Double Attack");
 #endif
-
 		power_desc[num].level = 30;
 		power_desc[num].cost = 30;
 		power_desc[num].stat = STAT_STR;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_MINDCRAFTER:
-	case CLASS_FORCETRAINER:
+
+	if (has_cf_creature(cr_ptr, CF_CLEAR_MIND))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "–¾‹¾Ž~…");
@@ -2445,23 +2410,26 @@ strcpy(power_desc[num].name, "–¾‹¾Ž~…");
 		power_desc[num].stat = STAT_WIS;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_TOURIST:
+
+	if (has_cf_creature(cr_ptr, CF_TAKE_PHOTO))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "ŽÊ^ŽB‰e");
 #else
 		strcpy(power_desc[num].name, "Take a Photograph");
 #endif
-
 		power_desc[num].level = 1;
 		power_desc[num].cost = 0;
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_IDENTIFY_TRUE))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "^EŠÓ’è");
+		strcpy(power_desc[num].name, "^EŠÓ’è");
 #else
 		strcpy(power_desc[num].name, "Identify True");
 #endif
@@ -2471,9 +2439,9 @@ strcpy(power_desc[num].name, "^EŠÓ’è");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_IMITATOR:
+
+	if (has_cf_creature(cr_ptr, CF_DOUBLE_REVENGE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "”{•Ô‚µ");
@@ -2486,9 +2454,9 @@ strcpy(power_desc[num].name, "”{•Ô‚µ");
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 30;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_BEASTMASTER:
+
+	if (has_cf_creature(cr_ptr, CF_DOMINATE_LIVE))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "¶•¨Žx”z");
@@ -2501,6 +2469,11 @@ strcpy(power_desc[num].name, "¶•¨Žx”z");
 		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
+	}
+
+
+	if (has_cf_creature(cr_ptr, CF_DOMINATE_LIVES))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "^E¶•¨Žx”z");
 #else
@@ -2512,9 +2485,9 @@ strcpy(power_desc[num].name, "^E¶•¨Žx”z");
 		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_ARCHER:
+
+	if (has_cf_creature(cr_ptr, CF_CREATE_AMMO))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "’e/–î‚Ì»‘¢");
@@ -2527,9 +2500,9 @@ strcpy(power_desc[num].name, "’e/–î‚Ì»‘¢");
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_MAGIC_EATER:
+
+	if (has_cf_creature(cr_ptr, CF_ABSORB_MAGIC))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "–‚—Í‚ÌŽæ‚èž‚Ý");
@@ -2542,9 +2515,9 @@ strcpy(power_desc[num].name, "–‚—Í‚ÌŽæ‚èž‚Ý");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_BARD:
+
+	if (has_cf_creature(cr_ptr, CF_STOP_SINGING))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "‰Ì‚ðŽ~‚ß‚é");
@@ -2557,9 +2530,9 @@ strcpy(power_desc[num].name, "‰Ì‚ðŽ~‚ß‚é");
 		power_desc[num].stat = STAT_CHR;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_RED_MAGE:
+
+	if (has_cf_creature(cr_ptr, CF_DOUBLE_MAGIC))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "˜A‘±–‚");
@@ -2572,9 +2545,9 @@ strcpy(power_desc[num].name, "˜A‘±–‚");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_SAMURAI:
+
+	if (has_cf_creature(cr_ptr, CF_CONCENTRATION))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "‹C‡‚¢‚½‚ß");
@@ -2587,20 +2560,24 @@ strcpy(power_desc[num].name, "‹C‡‚¢‚½‚ß");
 		power_desc[num].stat = STAT_WIS;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
+	}
+
+
+	if (has_cf_creature(cr_ptr, CF_POSTURE2))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "Œ^");
 #else
 		strcpy(power_desc[num].name, "Assume a Posture");
 #endif
-
 		power_desc[num].level = 25;
 		power_desc[num].cost = 0;
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_BLUE_MAGE:
+
+	if (has_cf_creature(cr_ptr, CF_LEARNING))
 	{
 #ifdef JP
 strcpy(power_desc[num].name, "ƒ‰[ƒjƒ“ƒO");
@@ -2613,12 +2590,12 @@ strcpy(power_desc[num].name, "ƒ‰[ƒjƒ“ƒO");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_CAVALRY:
+
+	if (has_cf_creature(cr_ptr, CF_RODEO))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "r”n‚È‚ç‚µ");
+		strcpy(power_desc[num].name, "r”n‚È‚ç‚µ");
 #else
 		strcpy(power_desc[num].name, "Rodeo");
 #endif
@@ -2628,27 +2605,12 @@ strcpy(power_desc[num].name, "r”n‚È‚ç‚µ");
 		power_desc[num].stat = STAT_STR;
 		power_desc[num].fail = 10;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_BERSERKER:
-	{
-#ifdef JP
-strcpy(power_desc[num].name, "‹AŠÒ");
-#else
-		strcpy(power_desc[num].name, "Recall");
-#endif
 
-		power_desc[num].level = 10;
-		power_desc[num].cost = 10;
-		power_desc[num].stat = STAT_DEX;
-		power_desc[num].fail = 20;
-		power_desc[num++].number = -3;
-		break;
-	}
-	case CLASS_MIRROR_MASTER:
+	if (has_cf_creature(cr_ptr, CF_BREAK_MIRROR))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "‹¾Š„‚è");
+		strcpy(power_desc[num].name, "‹¾Š„‚è");
 #else
 		strcpy(power_desc[num].name, "Break Mirrors");
 #endif
@@ -2658,23 +2620,26 @@ strcpy(power_desc[num].name, "‹¾Š„‚è");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_MIRROR_CONC))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "Ã…");
+		strcpy(power_desc[num].name, "Ã…");
 #else
 		strcpy(power_desc[num].name, "Mirror Concentration");
 #endif
-
 		power_desc[num].level = 30;
 		power_desc[num].cost = 0;
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -4;
-		break;
 	}
-	case CLASS_SMITH:
+
+	if (has_cf_creature(cr_ptr, CF_WEAPON_JUDGE))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "–Ú—˜‚«");
+		strcpy(power_desc[num].name, "–Ú—˜‚«");
 #else
 		strcpy(power_desc[num].name, "Judgment");
 #endif
@@ -2684,30 +2649,20 @@ strcpy(power_desc[num].name, "–Ú—˜‚«");
 		power_desc[num].stat = STAT_INT;
 		power_desc[num].fail = 20;
 		power_desc[num++].number = -3;
-		break;
 	}
-	case CLASS_NINJA:
+
+	if (has_cf_creature(cr_ptr, CF_QUICK_WALK))
 	{
 #ifdef JP
-strcpy(power_desc[num].name, "‘¬‹ì‚¯");
+		strcpy(power_desc[num].name, "‘¬‹ì‚¯");
 #else
 		strcpy(power_desc[num].name, "Quick Walk");
 #endif
-
 		power_desc[num].level = 20;
 		power_desc[num].cost = 0;
 		power_desc[num].stat = STAT_DEX;
 		power_desc[num].fail = 0;
 		power_desc[num++].number = -3;
-		break;
-	}
-	default:
-#ifdef JP
-strcpy(power_desc[0].name, "(‚È‚µ)");
-#else
-		strcpy(power_desc[0].name, "(none)");
-#endif
-
 	}
 
 	if (cr_ptr->mimic_form)
