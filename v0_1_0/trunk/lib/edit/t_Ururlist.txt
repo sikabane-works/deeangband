@@ -7,6 +7,8 @@ R:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:
 # Ulurlist
 # ウルリウスト
 
+F:>:ENTRANCE:0:0:0:0:0:NONE:24
+
 
 ############### Additional default terrain settings ###############
 
@@ -299,7 +301,7 @@ D:##############################################################################
 # Standard starting position for normal races
 #?:[AND [EQU $LEAVING_QUEST 0] [NOT [EQU $RACE Vampire] ] ]
 ?:[AND [EQU $LEAVING_QUEST 0] ]
-P:110:116
+P:70:76
 
 # Standard starting position for vampires (at the dungeon entrance)
 #?:[AND [EQU $LEAVING_QUEST 0] [EQU $RACE Vampire] ]

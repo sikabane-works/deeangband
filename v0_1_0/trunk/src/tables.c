@@ -5563,17 +5563,24 @@ starting_type starting_point[STARTING_MAX] =
 {
 	{
 #if JP
-		"ウルウリスト",
-#endif
-		"Ulurlist",
-		0, 0, 123,  53, 0, 0
-	},
-	{
-#if JP
 		"イェーキン",
 #endif
 		"Yiyeeken",
 		0, 0,  71, 134, 0, 0
+	},
+	{
+#if JP
+		"ドゥードリン",
+#endif
+		"Doodrine",
+		0, 0,  25,  27, 0, 0
+	},
+	{
+#if JP
+		"ウルウリスト",
+#endif
+		"Ulurlist",
+		0, 0, 123,  53, 0, 0
 	},
 	{
 #if JP
@@ -5598,10 +5605,10 @@ starting_type starting_point[STARTING_MAX] =
 	},
 	{
 #if JP
-		"ドゥードリン",
+		"端海",
 #endif
-		"Doodrine",
-		0, 0,  25,  27, 0, 0
+		"Duanhai",
+		0, 0, 100, 137, 0, 0
 	},
 };
 

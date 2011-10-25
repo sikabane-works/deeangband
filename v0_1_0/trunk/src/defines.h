@@ -125,7 +125,7 @@
 /*
  * Start Wilderness
  */
-#define STARTING_MAX	6
+#define STARTING_MAX	7
 
 /*
  * Quest constants
