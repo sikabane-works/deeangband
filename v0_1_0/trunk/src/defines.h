@@ -5755,8 +5755,8 @@ extern int PlayerUID;
 #define CF_WALK_SHAD		410
 #define CF_WARNING			411
 #define CF_INVULN			412
-#define CF_SP_TO_HP			413
-#define CF_HP_TO_SP			414
+#define CF_SP_TO_HP_INT		413
+#define CF_HP_TO_SP_INT		414
 #define CF_DISARM			415
 
 // Flags 14
@@ -5807,8 +5807,39 @@ extern int PlayerUID;
 #define CF_HOMOSEXUAL		482
 #define CF_BISEXUAL			483
 
+// Flags 17 (Old Racial Power)
+#define CF_SWORD_DANCING    484
+#define CF_STOPEATING       485
+#define CF_BLESS_WEAPON     486
+#define CF_EVOCATION        487
+#define CF_SCAN_CREATURE    488
+#define CF_HOLY_LANCE       490
+#define CF_HELL_LANCE       491
+#define CF_HP_TO_SP         492
+#define CF_SP_TO_HP         493
+#define CF_CONFUSING_LIGHT  494
+#define CF_POSTURE          495
+#define CF_DOUBLE_ATTACK    496
+#define CF_CLEAR_MIND       497
+#define CF_TAKE_PHOTO       498
+#define CF_IDENTIFY_TRUE    499
+#define CF_DOUBLE_REVENGE   500
+#define CF_DOMINATE_LIVE    501
+#define CF_DOMINATE_LIVES   502
+#define CF_CREATE_AMMO      503
+#define CF_ABSORB_MAGIC     504
+#define CF_STOP_SINGING     505
+#define CF_DOUBLE_MAGIC     506
+#define CF_CONCENTRATION    507
+#define CF_POSTURE2         508
+#define CF_LEARNING         509
+#define CF_RODEO            510
+#define CF_BREAK_MIRROR     511
+#define CF_MIRROR_CONC      512
+#define CF_WEAPON_JUDGE     513
+#define CF_QUICK_WALK       514
 
-// Flags 17
+
 
 // Flags 18
 
