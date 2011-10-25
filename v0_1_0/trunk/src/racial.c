@@ -2698,13 +2698,12 @@ strcpy(power_desc[num].name, "生命力吸収");
 			break;
 		}
 	}
-	else
+
+
+	if (has_cf_creature(cr_ptr, CF_DETECT_DOOR_TRAP))
 	{
-	switch (cr_ptr->race_idx1)
-	{
-		case RACE_DWARF:
 #ifdef JP
-strcpy(power_desc[num].name, "ドアと罠 感知");
+			strcpy(power_desc[num].name, "ドアと罠 感知");
 #else
 			strcpy(power_desc[num].name, "Detect Doors+Traps");
 #endif
@@ -2714,21 +2713,11 @@ strcpy(power_desc[num].name, "ドアと罠 感知");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_NIBELUNG:
-#ifdef JP
-strcpy(power_desc[num].name, "ドアと罠 感知");
-#else
-			strcpy(power_desc[num].name, "Detect Doors+Traps");
-#endif
+	}
 
-			power_desc[num].level = 10;
-			power_desc[num].cost = 5;
-			power_desc[num].stat = STAT_WIS;
-			power_desc[num].fail = 10;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_HOBBIT:
+
+	if (has_cf_creature(cr_ptr, CF_CREATE_FOOD))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "食糧生成");
 #else
@@ -2740,60 +2729,11 @@ strcpy(power_desc[num].name, "食糧生成");
 			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_GNOME:
-#ifdef JP
-sprintf(power_desc[num].name, "ショート・テレポート");
-#else
-			sprintf(power_desc[num].name, "Blink");
-#endif
+	}
 
-			power_desc[num].level = 5;
-			power_desc[num].cost = 5;
-			power_desc[num].stat = STAT_INT;
-			power_desc[num].fail = 12;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_ORC:
-#ifdef JP
-strcpy(power_desc[num].name, "恐怖除去");
-#else
-			strcpy(power_desc[num].name, "Remove Fear");
-#endif
 
-			power_desc[num].level = 3;
-			power_desc[num].cost = 5;
-			power_desc[num].stat = STAT_WIS;
-			power_desc[num].fail = warrior ? 5 : 10;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_TROLL:
-#ifdef JP
-strcpy(power_desc[num].name, "狂戦士化");
-#else
-			strcpy(power_desc[num].name, "Berserk");
-#endif
-
-			power_desc[num].level = 10;
-			power_desc[num].cost = 12;
-			power_desc[num].stat = STAT_STR;
-			power_desc[num].fail = warrior ? 6 : 12;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_BARBARIAN:
-#ifdef JP
-strcpy(power_desc[num].name, "狂戦士化");
-#else
-			strcpy(power_desc[num].name, "Berserk");
-#endif
-
-			power_desc[num].level = 8;
-			power_desc[num].cost = 10;
-			power_desc[num].stat = STAT_STR;
-			power_desc[num].fail = warrior ? 6 : 12;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_AMBERITE:
+	if (has_cf_creature(cr_ptr, CF_SHADOW_SHIFT))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "シャドウ・シフト");
 #else
@@ -2805,8 +2745,12 @@ strcpy(power_desc[num].name, "シャドウ・シフト");
 			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -1;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_PATTERN_WALK))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "パターン・ウォーク");
+			strcpy(power_desc[num].name, "パターン・ウォーク");
 #else
 			strcpy(power_desc[num].name, "Pattern Mindwalking");
 #endif
@@ -2816,8 +2760,10 @@ strcpy(power_desc[num].name, "パターン・ウォーク");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 50;
 			power_desc[num++].number = -2;
-			break;
-		case RACE_OGRE:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_EXPLOSIVE_RUNE))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "爆発のルーン");
 #else
@@ -2829,8 +2775,10 @@ strcpy(power_desc[num].name, "爆発のルーン");
 			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_GIANT:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_STONE_TO_MUD))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "岩石溶解");
 #else
@@ -2842,21 +2790,10 @@ strcpy(power_desc[num].name, "岩石溶解");
 			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_TITAN:
-#ifdef JP
-strcpy(power_desc[num].name, "スキャン・モンスター");
-#else
-			strcpy(power_desc[num].name, "Probing");
-#endif
+	}
 
-			power_desc[num].level = 15;
-			power_desc[num].cost = 10;
-			power_desc[num].stat = STAT_INT;
-			power_desc[num].fail = 12;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_CYCLOPS:
+	if (has_cf_creature(cr_ptr, CF_THROW_BOULDER))
+	{
 #ifdef JP
 sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 #else
@@ -2868,10 +2805,12 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			power_desc[num].stat = STAT_STR;
 			power_desc[num].fail = 12;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_YEEK:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SCARE_MONSTER))
+	{
 #ifdef JP
-	strcpy(power_desc[num].name, "モンスター恐慌");
+			strcpy(power_desc[num].name, "モンスター恐慌");
 #else
 			strcpy(power_desc[num].name, "Scare Monster");
 #endif
@@ -2881,38 +2820,12 @@ sprintf(power_desc[num].name, "岩石投げ（ダメージ %d）", (3 * lvl) / 2);
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 10;
 			power_desc[num++].number = -1;
-			break;
-/*
-		case LICH:
-#ifdef JP
-strcpy(power_desc[num].name, "モンスター恐慌");
-#else
-			strcpy(power_desc[num].name, "Scare Monster");
-#endif
+	}
 
-			power_desc[num].level = 4;
-			power_desc[num].cost = 6;
-			power_desc[num].stat = STAT_INT;
-			power_desc[num].fail = 3;
-			power_desc[num++].number = -1;
-			break;
-*/
-		case RACE_KLACKON:
+	if (has_cf_creature(cr_ptr, CF_POISON_DART))
+	{
 #ifdef JP
-sprintf(power_desc[num].name, "酸の唾 (ダメージ %d)", lvl);
-#else
-			sprintf(power_desc[num].name, "Spit Acid (dam %d)", lvl);
-#endif
-
-			power_desc[num].level = 9;
-			power_desc[num].cost = 9;
-			power_desc[num].stat = STAT_DEX;
-			power_desc[num].fail = 14;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_KOBOLD:
-#ifdef JP
-sprintf(power_desc[num].name, "毒のダーツ (ダメージ %d)", lvl);
+			sprintf(power_desc[num].name, "毒のダーツ (ダメージ %d)", lvl);
 #else
 			sprintf(power_desc[num].name, "Poison Dart (dam %d)", lvl);
 #endif
@@ -2922,60 +2835,10 @@ sprintf(power_desc[num].name, "毒のダーツ (ダメージ %d)", lvl);
 			power_desc[num].stat = STAT_DEX;
 			power_desc[num].fail = 14;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_DARK_ELF:
-#ifdef JP
-sprintf(power_desc[num].name, "マジック・ミサイル (ダメージ %dd%d)", 3 + ((lvl - 1) / 5), 4);
-#else
-			sprintf(power_desc[num].name, "Magic Missile (dm %dd%d)", 3 + ((lvl - 1) / 5), 4);
-#endif
+	}
 
-			power_desc[num].level = 2;
-			power_desc[num].cost = 2;
-			power_desc[num].stat = STAT_INT;
-			power_desc[num].fail = 9;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_DRACONIAN:
-#ifdef JP
-sprintf(power_desc[num].name, "ブレス (ダメージ %d)", lvl * 2);
-#else
-			sprintf(power_desc[num].name, "Breath Weapon (dam %d)", lvl * 2);
-#endif
-
-			power_desc[num].level = 1;
-			power_desc[num].cost = lvl;
-			power_desc[num].stat = STAT_CON;
-			power_desc[num].fail = 12;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_MIND_FLAYER:
-#ifdef JP
-sprintf(power_desc[num].name, "精神攻撃 (ダメージ %d)", lvl);
-#else
-			sprintf(power_desc[num].name, "Mind Blast (dam %d)", lvl);
-#endif
-
-			power_desc[num].level = 15;
-			power_desc[num].cost = 12;
-			power_desc[num].stat = STAT_INT;
-			power_desc[num].fail = 14;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_IMP:
-#ifdef JP
-sprintf(power_desc[num].name, "ファイア・ボルト/ボール (ダメージ %d)", lvl);
-#else
-			sprintf(power_desc[num].name, "Fire Bolt/Ball (dam %d)", lvl);
-#endif
-
-			power_desc[num].level = 9;
-			power_desc[num].cost = 15;
-			power_desc[num].stat = STAT_WIS;
-			power_desc[num].fail = 15;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_GOLEM:
+	if (has_cf_creature(cr_ptr, CF_STONE_SKIN))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 #else
@@ -2987,12 +2850,12 @@ strcpy(power_desc[num].name, "肌石化 (期間 1d20+30)");
 			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
-			break;
-/*
-		case SKELETON:
-		case ZOMBIE:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_RESTORE_LIFE))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "経験値復活");
+			strcpy(power_desc[num].name, "経験値復活");
 #else
 			strcpy(power_desc[num].name, "Restore Life");
 #endif
@@ -3002,10 +2865,12 @@ strcpy(power_desc[num].name, "経験値復活");
 			power_desc[num].stat = STAT_WIS;
 			power_desc[num].fail = 18;
 			power_desc[num++].number = -1;
-			break;
-		case VAMPIRE:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_DRAIN_LIFE))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "生命力吸収");
+			strcpy(power_desc[num].name, "生命力吸収");
 #else
 			strcpy(power_desc[num].name, "Drain Life");
 #endif
@@ -3015,9 +2880,10 @@ strcpy(power_desc[num].name, "生命力吸収");
 			power_desc[num].stat = STAT_CON;
 			power_desc[num].fail = 9;
 			power_desc[num++].number = -1;
-			break;
-*/
-		case RACE_SPRITE:
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SLEEPING_DUST))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "眠り粉");
 #else
@@ -3029,22 +2895,10 @@ strcpy(power_desc[num].name, "眠り粉");
 			power_desc[num].stat = STAT_INT;
 			power_desc[num].fail = 15;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_DEMON:
-		case RACE_BALROG:
-#ifdef JP
-sprintf(power_desc[num].name, "地獄/火炎のブレス (ダメージ %d)", lvl * 3);
-#else
-			sprintf(power_desc[num].name, "Nether or Fire Breath (dam %d)", lvl * 3);
-#endif
+	}
 
-			power_desc[num].level = 15;
-			power_desc[num].cost = 10+lvl/3;
-			power_desc[num].stat = STAT_CON;
-			power_desc[num].fail = 20;
-			power_desc[num++].number = -1;
-			break;
-		case RACE_KUTAR:
+	if (has_cf_creature(cr_ptr, CF_EXPAND_HLIZN))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "横に伸びる");
 #else
@@ -3056,34 +2910,31 @@ strcpy(power_desc[num].name, "横に伸びる");
 			power_desc[num].stat = STAT_CHR;
 			power_desc[num].fail = 8;
 			power_desc[num++].number = -1;
-			break;
-		case RACE_ANDROID:
-			if (cr_ptr->lev < 10)
-			{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_RAY_GUN))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "レイガン");
+				strcpy(power_desc[num].name, "レイガン");
 #else
 				strcpy(power_desc[num].name, "Ray Gun");
 #endif
+	}
 
-				power_desc[num].level = 1;
-				power_desc[num].cost = 7;
-				power_desc[num].fail = 8;
-			}
-			else if (cr_ptr->lev < 25)
-			{
+	if (has_cf_creature(cr_ptr, CF_BLASTER))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "ブラスター");
+				strcpy(power_desc[num].name, "ブラスター");
 #else
 				strcpy(power_desc[num].name, "Blaster");
 #endif
-
 				power_desc[num].level = 10;
 				power_desc[num].cost = 13;
 				power_desc[num].fail = 10;
-			}
-			else if (cr_ptr->lev < 35)
-			{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BAZOOKA))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "バズーカ");
 #else
@@ -3093,9 +2944,10 @@ strcpy(power_desc[num].name, "バズーカ");
 				power_desc[num].level = 25;
 				power_desc[num].cost = 26;
 				power_desc[num].fail = 12;
-			}
-			else if (cr_ptr->lev < 45)
-			{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BEAM_CANNON))
+	{
 #ifdef JP
 strcpy(power_desc[num].name, "ビームキャノン");
 #else
@@ -3105,11 +2957,12 @@ strcpy(power_desc[num].name, "ビームキャノン");
 				power_desc[num].level = 35;
 				power_desc[num].cost = 40;
 				power_desc[num].fail = 15;
-			}
-			else
-			{
+	}
+
+	if (has_cf_creature(cr_ptr, CF_ROCKET))
+	{
 #ifdef JP
-strcpy(power_desc[num].name, "ロケット");
+				strcpy(power_desc[num].name, "ロケット");
 #else
 				strcpy(power_desc[num].name, "Rocket");
 #endif
@@ -3117,15 +2970,8 @@ strcpy(power_desc[num].name, "ロケット");
 				power_desc[num].level = 45;
 				power_desc[num].cost = 60;
 				power_desc[num].fail = 18;
-			}
-			power_desc[num].stat = STAT_STR;
-			power_desc[num++].number = -1;
-			break;
-		default:
-		{
-			break;
-		}
-	}
+				power_desc[num].stat = STAT_STR;
+				power_desc[num++].number = -1;
 	}
 
 		if (has_cf_creature(cr_ptr, CF_SPIT_ACID))
