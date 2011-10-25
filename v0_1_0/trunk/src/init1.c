@@ -5448,6 +5448,25 @@ errr parse_d_info(char *buf, header *head)
 		d_ptr->nest = nest;
 	}
 
+	/* Process 'V' for "Void Portal" */
+	else if (buf[0] == 'V')
+	{
+		int level, dungeon, probability;
+
+		/* Scan for the values */
+		if (3 != sscanf(buf+2, "%d:%d:%d", &dungeon, &level, &probability)) return (1);
+
+		/* Save the values */
+		i = 0;
+		while(d_ptr->vault_quest_level[i] != 0) i++;
+		if(i >= MAX_VOID_PORTAL) return 1;
+		d_ptr->void_portal_dungeon[i] = dungeon;
+		d_ptr->void_portal_level[i] = level;
+		d_ptr->void_portal_probability[i] = probability;
+
+	}
+
+
 	/* Process 'P' for "Place Info" */
 	else if (buf[0] == 'P')
 	{

@@ -1879,6 +1879,11 @@ struct dungeon_info_type {
 	int vault_quest_level_max[MAX_DUNEGON_FORTLESS];
 	int vault_quest_type[MAX_DUNEGON_FORTLESS];
 	int vault_quest_probability[MAX_DUNEGON_FORTLESS];
+
+	int void_portal_dungeon[MAX_VOID_PORTAL];
+	int void_portal_level[MAX_VOID_PORTAL];
+	int void_portal_probability[MAX_VOID_PORTAL];
+
 };
 
 

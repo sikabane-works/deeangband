@@ -567,6 +567,7 @@
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
+#define MAX_VOID_PORTAL 10
 
 
 
