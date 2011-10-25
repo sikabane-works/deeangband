@@ -2221,6 +2221,270 @@ msg_print("混乱していて特殊能力を使えません！");
 	}
 
 
+	// Old Monster Only Spells
+
+	if (has_cf_creature(cr_ptr, CF_SHRIEK))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "叫ぶ");
+#else
+		strcpy(power_desc[num].name, "Sherik");
+#endif
+		power_desc[num++].number = CF_SHRIEK;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_DISPEL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "魔力消去");
+#else
+		strcpy(power_desc[num].name, "Dispel");
+#endif
+		power_desc[num++].number = CF_DISPEL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_ACID))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "酸のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Acid");
+#endif
+		power_desc[num++].number = CF_BR_ACID;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_ELEC))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "電撃のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Lighting");
+#endif
+		power_desc[num++].number = CF_BR_ELEC;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_FIRE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "火炎のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Fire");
+#endif
+		power_desc[num++].number = CF_BR_FIRE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_COLD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "冷気のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Cold");
+#endif
+		power_desc[num++].number = CF_BR_COLD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_POIS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "毒のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Poison");
+#endif
+		power_desc[num++].number = CF_BR_POIS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_NETH))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "地獄のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Nether");
+#endif
+		power_desc[num++].number = CF_BR_NETH;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_LITE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "閃光のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Light");
+#endif
+		power_desc[num++].number = CF_BR_NETH;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_DARK))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "暗黒のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Dark");
+#endif
+		power_desc[num++].number = CF_BR_DARK;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_CONF))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "混乱のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Confusion");
+#endif
+		power_desc[num++].number = CF_BR_CONF;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_SOUN))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "轟音のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Sound");
+#endif
+		power_desc[num++].number = CF_BR_SOUN;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_CHAO))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "混沌のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Chaos");
+#endif
+		power_desc[num++].number = CF_BR_CHAO;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_DISE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "劣化のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Disenchant");
+#endif
+		power_desc[num++].number = CF_BR_DISE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_NEXU))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "因果混乱のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Nexus");
+#endif
+		power_desc[num++].number = CF_BR_NEXU;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_TIME))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "時間逆転のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Time");
+#endif
+		power_desc[num++].number = CF_BR_TIME;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_INER))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "遅鈍のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Inartia");
+#endif
+		power_desc[num++].number = CF_BR_INER;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_GRAV))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "重力のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Gravity");
+#endif
+		power_desc[num++].number = CF_BR_GRAV;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_SHAR))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "破片のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Shard");
+#endif
+		power_desc[num++].number = CF_BR_SHAR;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_PLAS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "プラズマのブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Plasma");
+#endif
+		power_desc[num++].number = CF_BR_PLAS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_WALL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "フォースのブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Force");
+#endif
+		power_desc[num++].number = CF_BR_WALL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_MANA))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "魔力のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Mana");
+#endif
+		power_desc[num++].number = CF_BR_MANA;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_NUKE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "放射能球");
+#else
+		strcpy(power_desc[num].name, "Nuke Ball");
+#endif
+		power_desc[num++].number = CF_BA_NUKE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_NUKE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "放射能廃棄物のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Nuke");
+#endif
+		power_desc[num++].number = CF_BR_NUKE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_CHAO))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ログルス球");
+#else
+		strcpy(power_desc[num].name, "Raw Logrus");
+#endif
+		power_desc[num++].number = CF_BA_CHAO;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BR_DISI))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "分解のブレス");
+#else
+		strcpy(power_desc[num].name, "Breath Disintegrate");
+#endif
+		power_desc[num++].number = CF_BR_DISI;
+	}
+
+
+	// Old Class Racials
 	if (has_cf_creature(cr_ptr, CF_SWORD_DANCING))
 	{
 #ifdef JP
