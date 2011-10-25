@@ -2286,7 +2286,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		/* Something frightening happens... */
 
-		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
+		if (is_demon_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 		{
 #ifdef JP
 			msg_format("%s%s‚ÌŠç‚ªŠ_ŠÔŒ©‚¦‚½B",
@@ -2310,7 +2310,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		reveal_creature_info(m_ptr, CF_ELDRITCH_HORROR);
 
 		/* Demon characters are unaffected */
-		if (race_is_(watcher_ptr, RACE_IMP) || race_is_(watcher_ptr, RACE_DEMON) || race_is_(watcher_ptr, RACE_BALROG) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
+		if (is_demon_creature(watcher_ptr) || (mimic_info[watcher_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) return;
 
 		if (wizard) return;
 

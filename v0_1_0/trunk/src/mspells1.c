@@ -869,7 +869,7 @@ bool dispel_check(creature_type *user_ptr, creature_type *tar_ptr)
 
 	if (has_cf_creature(user_ptr, CF_BR_FIRE))
 	{
-		if (!((tar_ptr->race_idx1 == RACE_DEMON || tar_ptr->race_idx1 == RACE_BALROG) && user_ptr->lev > 44))
+		if (!(is_demon_creature(tar_ptr) && tar_ptr->lev > 44))
 		{
 			if (!tar_ptr->immune_fire && (tar_ptr->oppose_fire || music_singing(tar_ptr, MUSIC_RESIST))) return (TRUE);
 			if (tar_ptr->special_defense & DEFENSE_FIRE) return (TRUE);

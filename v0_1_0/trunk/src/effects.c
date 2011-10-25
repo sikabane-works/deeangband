@@ -223,8 +223,7 @@ void reset_tim_flags(creature_type *cr_ptr)
 	while(cr_ptr->energy_need < 0) cr_ptr->energy_need += ENERGY_NEED();
 	world_player = FALSE;
 
-	if (race_is_(cr_ptr, RACE_DEMON) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
-	if (race_is_(cr_ptr, RACE_BALROG) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
+	if (is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) cr_ptr->oppose_fire = 1;
 	if ((cr_ptr->cls_idx == CLASS_NINJA) && (cr_ptr->lev > 44)) cr_ptr->oppose_pois = 1;
 	if (cr_ptr->cls_idx == CLASS_BERSERKER) cr_ptr->shero = 1;
 
@@ -3766,8 +3765,7 @@ bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec)
 
 	if (cr_ptr->is_dead) return FALSE;
 
-	if ((race_is_(cr_ptr, RACE_DEMON) && (cr_ptr->lev > 44)) ||
-		(race_is_(cr_ptr, RACE_BALROG) && (cr_ptr->lev > 44)) || (cr_ptr->mimic_form == MIMIC_DEMON)) v = 1;
+	if ((is_demon_creature(cr_ptr) && (cr_ptr->lev > 44)) || (cr_ptr->mimic_form == MIMIC_DEMON)) v = 1;
 	/* Open */
 	if (v)
 	{

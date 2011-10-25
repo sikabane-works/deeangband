@@ -1517,7 +1517,7 @@ static bool is_opt_confirm_destroy(creature_type *cr_ptr, object_type *o_ptr)
 
 	if (leave_special)
 	{
-		if (cr_ptr->race_idx1 == RACE_DEMON)
+		if (is_demon_creature(cr_ptr))
 		{
 			if (o_ptr->tval == TV_CORPSE &&
 			    o_ptr->sval == SV_CORPSE &&

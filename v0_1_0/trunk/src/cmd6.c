@@ -515,7 +515,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if ((race_is_(cr_ptr, RACE_DEMON) || race_is_(cr_ptr, RACE_BALROG) ||
+	else if ((is_demon_creature(cr_ptr) ||
 		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON)) &&
 		 (o_ptr->tval == TV_CORPSE && o_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", species_info[o_ptr->pval].d_char)))
@@ -639,7 +639,7 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
-	else if (race_is_(cr_ptr, RACE_DEMON) || race_is_(cr_ptr, RACE_BALROG) ||
+	else if (is_demon_creature(cr_ptr) ||
 		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
 		if (o_ptr->tval == TV_CORPSE &&
