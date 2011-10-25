@@ -1845,7 +1845,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -1864,7 +1864,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_acid)
@@ -1894,7 +1894,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_elec)
@@ -1924,7 +1924,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_fire)
@@ -1966,7 +1966,7 @@ note = "はひどい痛手をうけた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_resist_cold_creature(tar_ptr))
@@ -2007,7 +2007,7 @@ note = "はひどい痛手をうけた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_pois)
@@ -2037,7 +2037,7 @@ note = "にはかなり耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_pois)
@@ -2068,7 +2068,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_enemy_of_evil_creature(tar_ptr))
@@ -2098,7 +2098,7 @@ note = "はひどい痛手を受けた。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_enemy_of_evil_creature(tar_ptr))
@@ -2149,7 +2149,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -2168,7 +2168,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_plazma)
@@ -2198,7 +2198,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_resist_neth_creature(tar_ptr))
@@ -2253,7 +2253,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_water)
@@ -2296,7 +2296,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_chaos)
@@ -2342,7 +2342,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_shard)
@@ -2372,7 +2372,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_shard)
@@ -2403,7 +2403,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_sound)
@@ -2434,7 +2434,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_conf)
@@ -2465,7 +2465,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_disen)
@@ -2495,7 +2495,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_nexus)
@@ -2525,7 +2525,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_force)
@@ -2556,7 +2556,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_inertia)
@@ -2607,7 +2607,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_time)
@@ -2640,7 +2640,7 @@ note = "には耐性がある。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (tar_ptr->resist_tele)
@@ -2744,7 +2744,7 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -2807,7 +2807,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (has_cf_creature(tar_ptr, CF_EMPTY_MIND))
@@ -2945,7 +2945,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (has_cf_creature(tar_ptr, CF_EMPTY_MIND))
@@ -3057,7 +3057,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (one_in_(4))
@@ -3094,7 +3094,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -3113,7 +3113,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -3133,7 +3133,7 @@ note_dies = "は蒸発した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3262,7 +3262,7 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			do_stun = (randint1(15) + 1) / (r + 1);
@@ -3305,7 +3305,7 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (!monster_living(r_ptr))
@@ -3340,7 +3340,7 @@ note = "があなたに隷属した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (!monster_living(r_ptr))
@@ -3388,7 +3388,7 @@ note = "には耐性がある！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Attempt to polymorph (see below) */
@@ -3572,7 +3572,7 @@ note = "が分裂した！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Powerful monsters can resist */
@@ -3620,7 +3620,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3673,7 +3673,7 @@ note = "は眠り込んでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3719,7 +3719,7 @@ note = "は動けなくなった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Attempt a saving throw */
@@ -3782,7 +3782,8 @@ note = "は動けなくなった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -3865,7 +3866,7 @@ note = "は突然友好的になったようだ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -3940,7 +3941,7 @@ note = "は既にあなたの奴隷だ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -4018,7 +4019,7 @@ note = "は既にあなたの奴隷だ！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -4114,7 +4115,7 @@ msg_format("%sを見つめた。",m_name);
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -4177,7 +4178,7 @@ note = "を支配した。";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			/* Get confused later */
@@ -4224,7 +4225,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			do_stun = damroll((caster_lev / 20) + 3 , (dam)) + 1;
@@ -4312,7 +4313,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_resist_lite_creature(tar_ptr))
@@ -4356,7 +4357,7 @@ note_dies = "は光を受けてしぼんでしまった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (is_resist_dark_creature(tar_ptr))
@@ -4942,7 +4943,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5017,7 +5018,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5093,7 +5094,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5178,7 +5179,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5214,7 +5215,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5250,7 +5251,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5286,7 +5287,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5316,7 +5317,7 @@ note_dies = "はドロドロに溶けた！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5446,7 +5447,7 @@ msg_format("うまく捕まえられなかった。");
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			if (has_cf_creature(tar_ptr, CF_EMPTY_MIND))
@@ -5591,7 +5592,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
@@ -5665,7 +5666,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				dam = 0;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 			break;
@@ -5747,7 +5748,7 @@ note = "には効果がなかった！";
 				note = " is immune.";
 #endif
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_ALL);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
 
