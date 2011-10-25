@@ -2647,7 +2647,7 @@ note = "には耐性がある。";
 			{
 				if (is_unique_creature(tar_ptr))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には効果がなかった。";
 #else
@@ -2658,7 +2658,7 @@ note = "には効果がなかった。";
 				}
 				else if (r_ptr->level > randint1(100))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -4426,7 +4426,7 @@ note_dies = "はドロドロに溶けた！";
 				{
 					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
-						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には効果がなかった！";
 #else
@@ -4437,7 +4437,7 @@ note = "には効果がなかった！";
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -4481,7 +4481,7 @@ note = "には耐性がある！";
 				{
 					if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 					{
-						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には効果がなかった！";
 #else
@@ -4492,7 +4492,7 @@ note = "には効果がなかった！";
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -4532,7 +4532,7 @@ note = "には耐性がある！";
 			{
 				if ((is_unique_creature(tar_ptr)) || (tar_ptr->resist_ultimate))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 					note = "には効果がなかった！";
 #else
@@ -4543,7 +4543,7 @@ note = "には耐性がある！";
 				}
 				else if (r_ptr->level > randint1(100))
 				{
-					//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 					note = "には耐性がある！";
 #else

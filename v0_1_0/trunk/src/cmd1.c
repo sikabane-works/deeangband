@@ -2830,7 +2830,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if (is_unique_creature(tar_ptr))
 					{
-						//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 						msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", m_name);
 #else
@@ -2841,7 +2841,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					}
 					else if (r_ptr->level > randint1(100))
 					{
-						//TODO if (is_original_ap_and_seen(atk_ptr, tar_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+						if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
 						msg_format("%^s‚Í’ïR—Í‚ğ‚Á‚Ä‚¢‚éI", m_name);
 #else

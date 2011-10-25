@@ -6633,8 +6633,7 @@ msg_print("Ž¸”s‚µ‚½B");
 #else
 		msg_print("Your teleportation is blocked!");
 #endif
-
-		//TODO if (is_original_ap_and_seen(p_ptr, m_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+		if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
 
 		/* Failure */
 		return FALSE;

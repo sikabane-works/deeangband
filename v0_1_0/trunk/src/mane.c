@@ -936,7 +936,7 @@ msg_print("無傷の球の呪文を唱えた。");
 		{
 			if ((is_unique_species(r_ptr)) || (m_ptr->resist_ultimate))
 			{
-				//TODO if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
 #ifdef JP
 				msg_format("%sには効果がなかった！", m_name);
 #else
@@ -947,7 +947,7 @@ msg_print("無傷の球の呪文を唱えた。");
 			}
 			else if (r_ptr->level > randint1(100))
 			{
-				//TODO if (is_original_ap_and_seen(cr_ptr, m_ptr)) r_ptr->r_flags10 |= RF10_RES_TELE;
+				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_RES_TELE);
 #ifdef JP
 				msg_format("%sには耐性がある！", m_name);
 #else
