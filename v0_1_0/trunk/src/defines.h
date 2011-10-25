@@ -2043,7 +2043,11 @@
 
 /* The "sval" codes for TV_CORPSE */
 #define SV_SKELETON 			0
-#define SV_CORPSE			1
+#define SV_CORPSE				1
+#define SV_HEAD					1
+#define SV_HAND					1
+#define SV_FOOT					1
+#define SV_CURCUSS				1
 
 /* The "sval" codes for TV_SHOT/TV_ARROW/TV_BOLT */
 #define SV_AMMO_LIGHT                    0	/* pebbles */
@@ -5258,13 +5262,6 @@ extern int PlayerUID;
 
 #define MAX_MTIMED      7
 
-//#define m_ptr->paralyzed   ((M_PTR)->paralyzed)
-//#define m_ptr->fast     ((M_PTR)->fast)
-//#define m_ptr->slow     ((M_PTR)->slow)
-//#define m_ptr->stun  ((M_PTR)->stun)
-//#define m_ptr->confused ((M_PTR)->confused)
-//#define m_ptr->afraid  ((M_PTR)->afraid)
-//#define m_ptr->invuln ((M_PTR)->invuln)
 
 /*
  * Bit flags for screen_object()
