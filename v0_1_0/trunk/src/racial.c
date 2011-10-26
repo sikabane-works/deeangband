@@ -2483,6 +2483,96 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BR_DISI;
 	}
 
+	if (has_cf_creature(cr_ptr, CF_BA_ACID))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アシッド・ボール");
+#else
+		strcpy(power_desc[num].name, "Acid Ball");
+#endif
+		power_desc[num++].number = CF_BA_ACID;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_ELEC))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "サンダー・ボール");
+#else
+		strcpy(power_desc[num].name, "Lighting Ball");
+#endif
+		power_desc[num++].number = CF_BA_ELEC;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_FIRE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ファイア・ボール");
+#else
+		strcpy(power_desc[num].name, "Fire Ball");
+#endif
+		power_desc[num++].number = CF_BA_FIRE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_COLD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アイス・ボール");
+#else
+		strcpy(power_desc[num].name, "Frost Ball");
+#endif
+		power_desc[num++].number = CF_BA_COLD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_POIS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "悪臭雲");
+#else
+		strcpy(power_desc[num].name, "Stinking Croud");
+#endif
+		power_desc[num++].number = CF_BA_COLD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_NETH))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "地獄球");
+#else
+		strcpy(power_desc[num].name, "Nether Ball");
+#endif
+		power_desc[num++].number = CF_BA_NETH;
+	}
+
+/*
+#define CF_BA_WATE			134
+#define CF_BA_MANA			135
+#define CF_BA_DARK			136
+#define CF_DRAIN_MANA		137
+#define CF_MIND_BLAST		138
+#define CF_BRAIN_SMASH		139
+#define CF_CAUSE_1			140
+#define CF_CAUSE_2			141
+#define CF_CAUSE_3			142
+#define CF_CAUSE_4			143
+#define CF_BO_ACID			144
+#define CF_BO_ELEC			145
+#define CF_BO_FIRE			146
+#define CF_BO_COLD			147
+#define CF_BA_LITE			148
+#define CF_BO_NETH			149
+#define CF_BO_WATE			150
+#define CF_BO_MANA			151
+#define CF_BO_PLAS			152
+#define CF_BO_ICEE			153
+#define CF_MISSILE			154
+#define CF_SCARE			155
+#define CF_BLIND			156
+#define CF_CONF				157
+#define CF_SLOW				158
+#define CF_HOLD				159
+*/
+
+
 
 	// Old Class Racials
 	if (has_cf_creature(cr_ptr, CF_SWORD_DANCING))
