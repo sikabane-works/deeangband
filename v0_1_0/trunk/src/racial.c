@@ -2543,35 +2543,265 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_BA_NETH;
 	}
 
-/*
-#define CF_BA_WATE			134
-#define CF_BA_MANA			135
-#define CF_BA_DARK			136
-#define CF_DRAIN_MANA		137
-#define CF_MIND_BLAST		138
-#define CF_BRAIN_SMASH		139
-#define CF_CAUSE_1			140
-#define CF_CAUSE_2			141
-#define CF_CAUSE_3			142
-#define CF_CAUSE_4			143
-#define CF_BO_ACID			144
-#define CF_BO_ELEC			145
-#define CF_BO_FIRE			146
-#define CF_BO_COLD			147
-#define CF_BA_LITE			148
-#define CF_BO_NETH			149
-#define CF_BO_WATE			150
-#define CF_BO_MANA			151
-#define CF_BO_PLAS			152
-#define CF_BO_ICEE			153
-#define CF_MISSILE			154
-#define CF_SCARE			155
-#define CF_BLIND			156
-#define CF_CONF				157
-#define CF_SLOW				158
-#define CF_HOLD				159
-*/
+	if (has_cf_creature(cr_ptr, CF_BA_WATE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ウォーター");
+#else
+		strcpy(power_desc[num].name, "Water Ball");
+#endif
+		power_desc[num++].number = CF_BA_WATE;
+	}
 
+	if (has_cf_creature(cr_ptr, CF_BA_MANA))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "魔力の嵐");
+#else
+		strcpy(power_desc[num].name, "Mana Storm");
+#endif
+		power_desc[num++].number = CF_BA_MANA;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_DARK))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "暗黒の嵐");
+#else
+		strcpy(power_desc[num].name, "Darkness Storm");
+#endif
+		power_desc[num++].number = CF_BA_DARK;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_DRAIN_MANA))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "魔力吸収");
+#else
+		strcpy(power_desc[num].name, "Drain Mana");
+#endif
+		power_desc[num++].number = CF_DRAIN_MANA;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_MIND_BLAST))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "精神攻撃");
+#else
+		strcpy(power_desc[num].name, "Mind Blast");
+#endif
+		power_desc[num++].number = CF_MIND_BLAST;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BRAIN_SMASH))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "脳攻撃");
+#else
+		strcpy(power_desc[num].name, "Brain Shash");
+#endif
+		power_desc[num++].number = CF_BRAIN_SMASH;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_CAUSE_1))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "軽症");
+#else
+		strcpy(power_desc[num].name, "Cause Light Wounds");
+#endif
+		power_desc[num++].number = CF_CAUSE_1;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_CAUSE_2))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "重症");
+#else
+		strcpy(power_desc[num].name, "Cause Heavy Wounds");
+#endif
+		power_desc[num++].number = CF_CAUSE_2;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_CAUSE_3))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "致命傷");
+#else
+		strcpy(power_desc[num].name, "Cause Critical Wounds");
+#endif
+		power_desc[num++].number = CF_CAUSE_3;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_CAUSE_4))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "秘孔を突く");
+#else
+		strcpy(power_desc[num].name, "Cause Mortal Wounds");
+#endif
+		power_desc[num++].number = CF_CAUSE_4;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_ACID))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アシッド・ボルト");
+#else
+		strcpy(power_desc[num].name, "Acid Bolt");
+#endif
+		power_desc[num++].number = CF_BO_ACID;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_ACID))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "サンダー・ボルト");
+#else
+		strcpy(power_desc[num].name, "Lightning Bolt");
+#endif
+		power_desc[num++].number = CF_BO_ACID;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_FIRE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ファイア・ボルト");
+#else
+		strcpy(power_desc[num].name, "Fire Bolt");
+#endif
+		power_desc[num++].number = CF_BO_FIRE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_COLD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アイス・ボルト");
+#else
+		strcpy(power_desc[num].name, "Frost Bolt");
+#endif
+		power_desc[num++].number = CF_BO_COLD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BA_LITE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "スター・バースト");
+#else
+		strcpy(power_desc[num].name, "starburst");
+#endif
+		power_desc[num++].number = CF_BA_LITE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_NETH))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "地獄の矢");
+#else
+		strcpy(power_desc[num].name, "Nether Bolt");
+#endif
+		power_desc[num++].number = CF_BO_NETH;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_WATE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ウォーター・ボルト");
+#else
+		strcpy(power_desc[num].name, "Water Bolt");
+#endif
+		power_desc[num++].number = CF_BO_WATE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_MANA))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "魔力の矢");
+#else
+		strcpy(power_desc[num].name, "Mana Bolt");
+#endif
+		power_desc[num++].number = CF_BO_MANA;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_PLAS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "プラズマ・ボルト");
+#else
+		strcpy(power_desc[num].name, "Plasma Bolt");
+#endif
+		power_desc[num++].number = CF_BO_PLAS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BO_ICEE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "極寒の矢");
+#else
+		strcpy(power_desc[num].name, "ICE Bolt");
+#endif
+		power_desc[num++].number = CF_BO_ICEE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_MISSILE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "マジック・ミサイル");
+#else
+		strcpy(power_desc[num].name, "Magic Missile");
+#endif
+		power_desc[num++].number = CF_MISSILE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SCARE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "恐慌");
+#else
+		strcpy(power_desc[num].name, "Scare");
+#endif
+		power_desc[num++].number = CF_SCARE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_BLIND))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "盲目");
+#else
+		strcpy(power_desc[num].name, "Blind");
+#endif
+		power_desc[num++].number = CF_BLIND;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_CONF))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "混乱");
+#else
+		strcpy(power_desc[num].name, "Confusion");
+#endif
+		power_desc[num++].number = CF_CONF;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SLOW))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "減速");
+#else
+		strcpy(power_desc[num].name, "Slow");
+#endif
+		power_desc[num++].number = CF_SLOW;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_HOLD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "スリープ");
+#else
+		strcpy(power_desc[num].name, "Sleep");
+#endif
+		power_desc[num++].number = CF_HOLD;
+	}
 
 
 	// Old Class Racials
