@@ -2908,6 +2908,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	s16b this_o_idx, next_o_idx = 0;
 
 	race_type *tmp_rcr_ptr;
+	race_type *tmp_rcr_ptr2;
 
 	/* Save the old vision stuff */
 	bool old_telepathy = cr_ptr->telepathy;
@@ -3067,6 +3068,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 	if (cr_ptr->mimic_form) tmp_rcr_ptr = &mimic_info[cr_ptr->mimic_form];
 	else tmp_rcr_ptr = &race_info[cr_ptr->race_idx1];
+	tmp_rcr_ptr2 = &race_info[cr_ptr->race_idx2];
 
 	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
@@ -3105,7 +3107,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 
-	if(cr_ptr->race_idx1 != RACE_NONE)
+	if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
 	{
 		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_dis);
 		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_dev);
@@ -3119,24 +3121,23 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_thb);
 		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_thb);
 	}
-
-	for(i = 0; i < MAX_RACES; i++)
+	else
 	{
-		if(get_subrace(cr_ptr, i)){
-			j += race_info[i].infra;
-			k++;
-			cr_ptr->skill_dis += race_info[i].r_s_dis;
-			cr_ptr->skill_dev += race_info[i].r_s_dev;
-			cr_ptr->skill_rob += race_info[i].r_s_sav;
-			cr_ptr->skill_stl += race_info[i].r_s_stl;
-			cr_ptr->skill_srh += race_info[i].r_s_srh;
-			cr_ptr->skill_fos += race_info[i].r_s_fos;
-			cr_ptr->skill_thn += race_info[i].r_s_thn;
-			cr_ptr->skill_thb += race_info[i].r_s_thb;
-			cr_ptr->skill_tht += race_info[i].r_s_thb;
-
-		}
+		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_s_dis);
+		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_s_dev);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
+		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
+		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_s_stl;
+		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_s_srh);
+		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_s_fos);
+		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race_idx1].r_s_thn);
+		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
+		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
 	}
+
+
+
 
 	if(cr_ptr->cls_idx != CLASS_NONE)
 	{
@@ -3576,10 +3577,14 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(cr_ptr->race_idx1 != RACE_NONE) cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
+		if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
+			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
+		else
+		{
+			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_s_adj[i];
+			cr_ptr->stat_add[i] += tmp_rcr_ptr2->r_s_adj[i];
+		}
 
-		for(j = 0; j < MAX_RACES; j++)
-			if(get_subrace(cr_ptr, j)) cr_ptr->stat_add[i] += race_info[j].r_s_adj[i];
 
 		if(cr_ptr->cls_idx != CLASS_NONE)
 		{
