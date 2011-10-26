@@ -1465,30 +1465,30 @@ struct creature_type
 	bool immune_fire;	/* Immunity to fire */
 	bool immune_cold;	/* Immunity to cold */
 
-	bool resist_acid;	/* Resist acid */
-	bool resist_elec;	/* Resist lightning */
-	bool resist_fire;	/* Resist fire */
-	bool resist_cold;	/* Resist cold */
-	bool resist_pois;	/* Resist poison */
+	s16b resist_acid;	/* Resist acid */
+	s16b resist_elec;	/* Resist lightning */
+	s16b resist_fire;	/* Resist fire */
+	s16b resist_cold;	/* Resist cold */
+	s16b resist_pois;	/* Resist poison */
 
 	bool resist_conf;	 /* Resist confusion */
-	bool resist_sound;	 /* Resist sound */
-	bool resist_lite;	 /* Resist light */
-	bool resist_dark;	 /* Resist darkness */
-	bool resist_chaos;	 /* Resist chaos */
-	bool resist_disen;	 /* Resist disenchant */
-	bool resist_shard;	 /* Resist shards */
-	bool resist_nexus;	 /* Resist nexus */
+	s16b resist_sound;	 /* Resist sound */
+	s16b resist_lite;	 /* Resist light */
+	s16b resist_dark;	 /* Resist darkness */
+	s16b resist_chaos;	 /* Resist chaos */
+	s16b resist_disen;	 /* Resist disenchant */
+	s16b resist_shard;	 /* Resist shards */
+	s16b resist_nexus;	 /* Resist nexus */
 	bool resist_blind;	 /* Resist blindness */
-	bool resist_neth;	 /* Resist nether */
+	s16b resist_neth;	 /* Resist nether */
 	bool resist_fear;	 /* Resist fear */
-	bool resist_time;	 /* Resist time */
-	bool resist_plazma;  /* Resist plazma */
-	bool resist_gravity; /* Resist gravity */
-	bool resist_inertia;
-	bool resist_force;   /* Resist force */
+	s16b resist_time;	 /* Resist time */
+	s16b resist_plazma;  /* Resist plazma */
+	s16b resist_gravity; /* Resist gravity */
+	s16b resist_inertia; /* Resist inartia */
+	s16b resist_force;   /* Resist force */
 	bool resist_tele;    /* Resist teleport */
-	bool resist_water;   /* Resist water */
+	s16b resist_water;   /* Resist water */
 	bool resist_ultimate;/* Resist ultimate */
 
 
