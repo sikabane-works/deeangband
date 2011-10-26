@@ -2803,6 +2803,337 @@ msg_print("混乱していて特殊能力を使えません！");
 		power_desc[num++].number = CF_HOLD;
 	}
 
+	if (has_cf_creature(cr_ptr, CF_HASTE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "加速");
+#else
+		strcpy(power_desc[num].name, "Haste");
+#endif
+		power_desc[num++].number = CF_HASTE;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_HAND_DOOM))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "破滅の手");
+#else
+		strcpy(power_desc[num].name, "Hand of Doom");
+#endif
+		power_desc[num++].number = CF_HAND_DOOM;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_HEAL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "体力回復");
+#else
+		strcpy(power_desc[num].name, "Healing");
+#endif
+		power_desc[num++].number = CF_HEAL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_INVULNER))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "無傷球");
+#else
+		strcpy(power_desc[num].name, "Make Invulnerable");
+#endif
+		power_desc[num++].number = CF_INVULNER;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_INVULNER))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "無傷球");
+#else
+		strcpy(power_desc[num].name, "Make Invulnerable");
+#endif
+		power_desc[num++].number = CF_INVULNER;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_MUTE_BLINK))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ショート・テレポート");
+#else
+		strcpy(power_desc[num].name, "Blink");
+#endif
+		power_desc[num++].number = CF_MUTE_BLINK;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TPORT))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "テレポート");
+#else
+		strcpy(power_desc[num].name, "Teleport");
+#endif
+		power_desc[num++].number = CF_TPORT;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_WORLD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ザ・ワールド");
+#else
+		strcpy(power_desc[num].name, "The World");
+#endif
+		power_desc[num++].number = CF_WORLD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_SPECIAL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "特殊行動");
+#else
+		strcpy(power_desc[num].name, "Special Action");
+#endif
+		power_desc[num++].number = CF_SPECIAL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TELE_TO))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "引きよせる");
+#else
+		strcpy(power_desc[num].name, "Teleport To");
+#endif
+		power_desc[num++].number = CF_TELE_TO;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TELE_AWAY))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "テレポート・アウェイ");
+#else
+		strcpy(power_desc[num].name, "Teleport Away");
+#endif
+		power_desc[num++].number = CF_TELE_AWAY;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TELE_LEVEL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "テレポート・レベル");
+#else
+		strcpy(power_desc[num].name, "Teleport Level");
+#endif
+		power_desc[num++].number = CF_TELE_LEVEL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_PSY_SPEAR))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "光の剣");
+#else
+		strcpy(power_desc[num].name, "Psycho Spear");
+#endif
+		power_desc[num++].number = CF_PSY_SPEAR;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_DARKNESS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "暗闇生成");
+#else
+		strcpy(power_desc[num].name, "Create Darkness");
+#endif
+		power_desc[num++].number = CF_DARKNESS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TRAPS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "トラップ生成");
+#else
+		strcpy(power_desc[num].name, "Create Traps");
+#endif
+		power_desc[num++].number = CF_TRAPS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_TRAPS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "記憶消去");
+#else
+		strcpy(power_desc[num].name, "Cause Amnesia");
+#endif
+		power_desc[num++].number = CF_TRAPS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_RAISE_DEAD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "死者復活");
+#else
+		strcpy(power_desc[num].name, "Raise Dead");
+#endif
+		power_desc[num++].number = CF_RAISE_DEAD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_KIN))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "同族召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Aid");
+#endif
+		power_desc[num++].number = CF_S_KIN;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_KIN))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "サイバーデーモン召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Cyberdemons");
+#endif
+		power_desc[num++].number = CF_S_KIN;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_MONSTER))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "クリーチャー召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Creature");
+#endif
+		power_desc[num++].number = CF_S_MONSTER;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_MONSTERS))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "クリーチャー複数召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Creatures");
+#endif
+		power_desc[num++].number = CF_S_MONSTERS;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_ANT))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アリの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Ants");
+#endif
+		power_desc[num++].number = CF_S_ANT;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_SPIDER))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "クモの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Spiders");
+#endif
+		power_desc[num++].number = CF_S_SPIDER;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_HOUND))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ハウンドの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Hounds");
+#endif
+		power_desc[num++].number = CF_S_HOUND;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_HYDRA))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ヒドラの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Hydras");
+#endif
+		power_desc[num++].number = CF_S_HYDRA;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_ANGEL))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "天使の召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Angels");
+#endif
+		power_desc[num++].number = CF_S_ANGEL;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_DEMON))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "悪魔の召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Demons");
+#endif
+		power_desc[num++].number = CF_S_DEMON;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_UNDEAD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アンデッドの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Undeads");
+#endif
+		power_desc[num++].number = CF_S_UNDEAD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_DRAGON))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ドラゴンの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Dragons");
+#endif
+		power_desc[num++].number = CF_S_DRAGON;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_HI_UNDEAD))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "上級アンデッドの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Greater Undead");
+#endif
+		power_desc[num++].number = CF_S_HI_UNDEAD;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_HI_DRAGON))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "古代ドラゴンの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Ancient Dragon");
+#endif
+		power_desc[num++].number = CF_S_HI_DRAGON;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_AMBERITES))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "アンバーの血族の召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Amberites");
+#endif
+		power_desc[num++].number = CF_S_AMBERITES;
+	}
+
+	if (has_cf_creature(cr_ptr, CF_S_UNIQUE))
+	{
+#ifdef JP
+		strcpy(power_desc[num].name, "ユニークの召喚");
+#else
+		strcpy(power_desc[num].name, "Summon Uniques");
+#endif
+		power_desc[num++].number = CF_S_UNIQUE;
+	}
+
+
 
 	// Old Class Racials
 	if (has_cf_creature(cr_ptr, CF_SWORD_DANCING))
