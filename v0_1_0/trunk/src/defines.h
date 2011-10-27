@@ -5443,7 +5443,7 @@ extern int PlayerUID;
 #define CF_N3_XXX24			88
 #define CF_N3_XXX25			89
 #define CF_N3_XXX26			90
-#define CF_N3_XXX27			91
+#define CF_NO_BLIND			91
 #define CF_NO_FEAR			92
 #define CF_NO_STUN			93
 #define CF_NO_CONF			94

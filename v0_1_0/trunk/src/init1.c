@@ -529,7 +529,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
+	"NO_BLIND",
 	"NO_FEAR",
 	"NO_STUN",
 	"NO_CONF",

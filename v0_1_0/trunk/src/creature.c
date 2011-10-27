@@ -1637,7 +1637,10 @@ bool is_resist_tele_species(species_type *species_ptr)
 
 bool is_human_species(species_type *species_ptr)
 {
-	if(species_ptr->race_idx1 == RACE_HUMAN || species_ptr->race_idx1 == RACE_BARBARIAN || species_ptr->race_idx1 == RACE_DUNADAN) return TRUE;
+	if(IS_RACE(species_ptr, RACE_HUMAN) ||
+	   IS_RACE(species_ptr, RACE_BARBARIAN) ||
+	   IS_RACE(species_ptr, RACE_DUNADAN))
+		return TRUE;
 	return FALSE;
 }
 
