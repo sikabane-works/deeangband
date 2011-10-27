@@ -5442,7 +5442,7 @@ extern int PlayerUID;
 #define CF_N3_XXX23			87
 #define CF_N3_XXX24			88
 #define CF_N3_XXX25			89
-#define CF_N3_XXX26			90
+#define CF_HOLD_LIFE		90
 #define CF_NO_BLIND			91
 #define CF_NO_FEAR			92
 #define CF_NO_STUN			93
@@ -5800,6 +5800,12 @@ extern int PlayerUID;
 #define CF_ELEC_BRAND		450
 #define CF_ACID_BRAND		451
 #define CF_POIS_BRAND		452
+#define CF_SUSTAIN_STR		453
+#define CF_SUSTAIN_INT		454
+#define CF_SUSTAIN_WIS		455
+#define CF_SUSTAIN_DEX		456
+#define CF_SUSTAIN_CON		457
+#define CF_SUSTAIN_CHE		458
 
 // Flags 16
 #define CF_SEX_REVERSE		480
@@ -5865,8 +5871,9 @@ extern int PlayerUID;
 #define CF_BEAM_CANNON      563
 #define CF_XXX564           564
 
-
 // Flags 19
+
+
 
 #define CF_FLAG_MAX 608
 
