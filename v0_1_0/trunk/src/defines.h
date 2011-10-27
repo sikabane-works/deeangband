@@ -5643,16 +5643,16 @@ extern int PlayerUID;
 #define CF_RES_GRAV			306
 #define CF_RES_ALL			307
 #define CF_RES_TELE			308
-#define CF_NRF10_XXX21		309
-#define CF_NRF10_XXX22		310
-#define CF_NRF10_XXX23		311
-#define CF_NRF10_XXX24		312
-#define CF_NRF10_XXX25		313
-#define CF_NRF10_XXX26		314
-#define CF_NRF10_XXX27		315
-#define CF_NRF10_XXX28		316
-#define CF_NRF10_XXX29		317
-#define CF_NRF10_XXX30		318
+#define CF_RES_ACID			309
+#define CF_RES_ELEC			310
+#define CF_RES_FIRE			311
+#define CF_RES_COLD			312
+#define CF_RES_POIS			313
+#define CF_OPP_ACID			314
+#define CF_OPP_ELEC			315
+#define CF_OPP_FIRE			316
+#define CF_OPP_COLD			317
+#define CF_OPP_POIS			318
 #define CF_NRF10_XXX31		319
 
 // Flags 11
