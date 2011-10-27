@@ -1460,18 +1460,11 @@ struct creature_type
 	s16b stat_add[6];	/* Modifiers to stat values */
 	s16b stat_ind[6];	/* Indexes into stat tables */
 
-	bool immune_acid;	/* Immunity to acid */
-	bool immune_elec;	/* Immunity to lightning */
-	bool immune_fire;	/* Immunity to fire */
-	bool immune_cold;	/* Immunity to cold */
-
 	s16b resist_acid;	/* Resist acid */
 	s16b resist_elec;	/* Resist lightning */
 	s16b resist_fire;	/* Resist fire */
 	s16b resist_cold;	/* Resist cold */
 	s16b resist_pois;	/* Resist poison */
-
-	bool resist_conf;	 /* Resist confusion */
 	s16b resist_sound;	 /* Resist sound */
 	s16b resist_lite;	 /* Resist light */
 	s16b resist_dark;	 /* Resist darkness */
@@ -1479,17 +1472,25 @@ struct creature_type
 	s16b resist_disen;	 /* Resist disenchant */
 	s16b resist_shard;	 /* Resist shards */
 	s16b resist_nexus;	 /* Resist nexus */
-	bool resist_blind;	 /* Resist blindness */
 	s16b resist_neth;	 /* Resist nether */
-	bool resist_fear;	 /* Resist fear */
 	s16b resist_time;	 /* Resist time */
 	s16b resist_plazma;  /* Resist plazma */
 	s16b resist_gravity; /* Resist gravity */
 	s16b resist_inertia; /* Resist inartia */
 	s16b resist_force;   /* Resist force */
-	bool resist_tele;    /* Resist teleport */
 	s16b resist_water;   /* Resist water */
+
+	bool resist_conf;	 /* Resist confusion */
+	bool resist_blind;	 /* Resist blindness */
+	bool resist_fear;	 /* Resist fear */
+	bool resist_tele;    /* Resist teleport */
 	bool resist_ultimate;/* Resist ultimate */
+
+	bool immune_acid;	/* Immunity to acid */
+	bool immune_elec;	/* Immunity to lightning */
+	bool immune_fire;	/* Immunity to fire */
+	bool immune_cold;	/* Immunity to cold */
+
 
 
 	bool reflect;       /* Reflect 'bolt' attacks */

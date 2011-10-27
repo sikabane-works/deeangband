@@ -2093,7 +2093,7 @@ bool has_cf_creature(creature_type *creature_ptr, int type)
 
 int calc_damage(creature_type *creature_ptr, int damage, int type)
 {
-	int t;
+	int t = 100;
 	switch(type)
 	{
 	case DAMAGE_TYPE_MELEE:
@@ -2101,64 +2101,58 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		t = 80;
+		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_COLD:
-		t = 100;
+		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ELEC:
-		t = 100;
+		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ACID:
-		t = 100;
+		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_POIS:
-		t = 100;
+		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_LITE:
-		t = 100;
+		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_DARK:
-		t = 100;
+		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_NETH:
-		t = 100;
+		if(creature_ptr->resist_dark > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_WATER:
-		t = 100;
+		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
 	case DAMAGE_TYPE_PLAZMA:
-		t = 100;
 		break;
 	case DAMAGE_TYPE_SHARD:
-		t = 100;
+		if(creature_ptr->resist_shard > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_SOUND:
-		t = 100;
+		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
 	case DAMAGE_TYPE_CHAOS:
-		t = 100;
+		if(creature_ptr->resist_chaos > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_NEXUS:
-		t = 100;
+		if(creature_ptr->resist_nexus > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_DISEN:
-		t = 100;
+		if(creature_ptr->resist_disen > 0) t = t*2/3;
 		break;
 	case DAMAGE_TYPE_FORCE:
-		t = 100;
 		break;
 	case DAMAGE_TYPE_INERTIA:
-		t = 100;
 		break;
 	case DAMAGE_TYPE_TIME:
-		t = 100;
 		break;
 	case DAMAGE_TYPE_GRAVITY:
-		t = 100;
 		break;
 	default:
-		t = 100;
 		break;
 	}	
 	return damage * t / 100;
