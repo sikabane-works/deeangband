@@ -1589,8 +1589,6 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("The %s scorches your undead flesh!", o_name);
 #endif
-
-
 			cave_no_regen = TRUE;
 
 			/* Get an object description */
@@ -1608,15 +1606,13 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 
 	if (have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = 0;
-		damage = randint0(50) + 20;
-		if(cr_ptr->resist_chaos) damage /= 2;
+		int damage = calc_damage(cr_ptr, randint0(50) + 20, DAMAGE_TYPE_CHAOS);;		
 #ifdef JP
-				msg_print("混沌に身を蝕まれた！");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+			msg_print("混沌に身を蝕まれた！");
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
-				msg_print("The chaos tainted you!");
-				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+			msg_print("The chaos tainted you!");
+			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}
 

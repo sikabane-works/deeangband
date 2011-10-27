@@ -6507,7 +6507,6 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		else
 		{
 			if (has_cf_creature(p_ptr, CF_VULN_ELEM)) dam *= 2;
-			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (race_is_(p_ptr, RACE_ANDROID)) dam += dam / 3;
 			if (p_ptr->resist_elec) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_ELEC(p_ptr))
@@ -6529,7 +6528,6 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		else
 		{
 			if (has_cf_creature(p_ptr, CF_VULN_ELEM)) dam *= 2;
-			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_acid) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_ACID(p_ptr)) dam = (dam + 2) / 3;
 		}
@@ -6545,7 +6543,6 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		else
 		{
 			if (has_cf_creature(p_ptr, CF_VULN_ELEM)) dam *= 2;
-			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_cold) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_COLD(p_ptr)) dam = (dam + 2) / 3;
 		}
@@ -6561,7 +6558,6 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 		{
 			if (has_cf_creature(p_ptr, CF_VULN_ELEM)) dam *= 2;
 			if (race_is_(p_ptr, RACE_ENT)) dam += dam / 3;
-			if (p_ptr->special_defense & KATA_KOUKIJIN) dam += dam / 3;
 			if (p_ptr->resist_fire) dam = (dam + 2) / 3;
 			if (IS_OPPOSE_FIRE(p_ptr)) dam = (dam + 2) / 3;
 		}
