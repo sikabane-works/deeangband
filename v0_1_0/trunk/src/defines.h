@@ -5939,5 +5939,5 @@ extern int PlayerUID;
 #define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
 #define IS_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) || (CR)->race_idx2 == (IDX))
 
-
+#define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
 

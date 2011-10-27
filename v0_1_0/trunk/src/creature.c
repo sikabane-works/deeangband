@@ -2035,13 +2035,8 @@ bool has_cf(creature_flags *cf_ptr, int type)
 
 bool has_cf_creature(creature_type *creature_ptr, int type)
 {
-	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
-	{
-		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		//TODO
-	}
 
-	if(creature_ptr->race_idx1 == creature_ptr->race_idx2)
+	if(IS_PURE(creature_ptr))
 	{
 		if(race_info[creature_ptr->race_idx1].p_flags.add_lev[type] != 0 && 
 		   race_info[creature_ptr->race_idx1].p_flags.add_lev[type] <= creature_ptr->lev &&
@@ -2066,6 +2061,32 @@ bool has_cf_creature(creature_type *creature_ptr, int type)
 			return TRUE;
 		}
 	}
+
+	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
+	{
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
+		species_ptr->flags;
+		if(species_ptr->flags.add_lev[type] != 0 && 
+		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+
+	if(creature_ptr->species_idx >= 0 && creature_ptr->species_idx < max_species_idx)
+	{
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
+		species_ptr->flags;
+		if(species_ptr->flags.add_lev[type] != 0 && 
+		   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+		   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
+		{
+			return TRUE;
+		}
+	}
+
+
 				
 	return FALSE;
 }
@@ -2145,13 +2166,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 
 int calc_base_level(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx2 == RACE_NONE) return 0;
+	if(IS_RACE(creature_ptr, RACE_NONE)) return 0;
 	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
 }
 
 int calc_base_divine_rank(creature_type *creature_ptr)
 {
-	if(creature_ptr->race_idx1 == RACE_NONE || creature_ptr->race_idx2 == RACE_NONE) return 0;
+	if(IS_RACE(creature_ptr, RACE_NONE)) return 0;
 	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
 }
 

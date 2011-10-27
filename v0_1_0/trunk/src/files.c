@@ -3541,7 +3541,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 		if (cr_ptr->mimic_form) r_adj = mimic_info[cr_ptr->mimic_form].r_adj[i];
 		else{
-			if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
+			if(IS_PURE(cr_ptr))
 				r_adj = race_info[cr_ptr->race_idx1].r_adj[i];
 			else
 			{

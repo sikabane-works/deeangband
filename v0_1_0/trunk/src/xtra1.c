@@ -3577,7 +3577,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Apply the racial modifiers */
 	for (i = 0; i < 6; i++)
 	{
-		if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
+		if(IS_PURE(cr_ptr))
 			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_adj[i];
 		else
 		{
@@ -6307,10 +6307,10 @@ cptr desc_race_name(creature_type *cr_ptr){
 	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
 		strcat(name, "ƒn[ƒt");
 
-	if(cr_ptr->race_idx1 != RACE_HUMAN || cr_ptr->race_idx1 == cr_ptr->race_idx2)
+	if(cr_ptr->race_idx1 != RACE_HUMAN || IS_PURE(cr_ptr))
 		strcat(name, race_info[cr_ptr->race_idx1].title);
 
-	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
+	if(!IS_PURE(cr_ptr))
 		strcat(name, race_info[cr_ptr->race_idx2].title);
 
 	if(cr_ptr->sex != SEX_UNDEFINED)
