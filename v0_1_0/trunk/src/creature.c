@@ -2146,9 +2146,11 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_LITE:
+		if(creature_ptr->wraith_form) t *= 2;
 		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_DARK:
+		if(creature_ptr->wraith_form) t = 0;
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_NETH:
