@@ -6503,7 +6503,7 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 {
 	if (cr_ptr->is_dead) return;
 
-	if (cr_ptr->race_idx1 == RACE_ANDROID) return;
+	if (IS_PURE_RACE(cr_ptr, RACE_ANDROID)) return;
 
 	/* Gain some experience */
 	s64b_add(&(cr_ptr->exp), &(cr_ptr->exp_frac), amount, amount_frac);

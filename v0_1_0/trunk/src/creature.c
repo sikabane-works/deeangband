@@ -193,12 +193,19 @@ void set_height_weight(creature_type *creature_ptr)
 // Experience factor
 void set_expfact(creature_type *creature_ptr)
 {
-	int i;
-	if (creature_ptr->race_idx1 == RACE_ANDROID) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
+	if (IS_RACE(creature_ptr,RACE_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
 	else {
-		creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->cls_idx].c_exp;
-		for(i = 0; i < MAX_RACES; i++)
-			if(get_subrace(creature_ptr, i)) creature_ptr->expfact += race_info[i].r_s_exp;
+		if(IS_PURE(creature_ptr))
+		{
+			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp + class_info[creature_ptr->cls_idx].c_exp;
+		}
+		else
+		{
+			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_s_exp +
+									race_info[creature_ptr->race_idx2].r_s_exp +
+									class_info[creature_ptr->cls_idx].c_exp;
+		}
+
 	}
 
 	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER) || (creature_ptr->cls_idx == CLASS_NINJA)) && ((creature_ptr->race_idx1 == RACE_KLACKON) || (creature_ptr->race_idx1 == RACE_SPRITE)))
