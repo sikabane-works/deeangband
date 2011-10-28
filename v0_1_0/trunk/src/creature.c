@@ -2101,22 +2101,44 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
-		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
+		if(creature_ptr->immune_fire)
+		{
+			t = 0;
+			break;
+		}
+		if(has_cf_creature(creature_ptr, CF_HURT_FIRE)) t *= 2;
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_COLD:
-		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
+		if(creature_ptr->immune_cold)
+		{
+			t = 0;
+			break;
+		}
+		if(has_cf_creature(creature_ptr, CF_HURT_COLD)) t *= 2;
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ELEC:
-		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
+		if(creature_ptr->immune_elec)
+		{
+			t = 0;
+			break;
+		}
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ACID:
-		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
+		if(creature_ptr->immune_acid)
+		{
+			t = 0;
+			break;
+		}
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;

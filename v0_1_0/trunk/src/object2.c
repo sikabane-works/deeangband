@@ -6499,64 +6499,29 @@ static void spell_damcalc(creature_type *m_ptr, int typ, int dam, int limit, int
 	switch (typ)
 	{
 	case GF_ELEC:
-		if (p_ptr->immune_elec)
-		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
-		}
-		else
-		{
-			if (race_is_(p_ptr, RACE_ANDROID)) dam += dam / 3;
-			if (p_ptr->resist_elec) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_ELEC(p_ptr))
-				dam = (dam + 2) / 3;
-		}
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ELEC);
+		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_POIS:
-		if (p_ptr->resist_pois) dam = (dam + 2) / 3;
-		if (IS_OPPOSE_POIS(p_ptr)) dam = (dam + 2) / 3;
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_POIS);
+		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_ACID:
-		if (p_ptr->immune_acid)
-		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
-		}
-		else
-		{
-			if (p_ptr->resist_acid) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_ACID(p_ptr)) dam = (dam + 2) / 3;
-		}
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ACID);
+		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_COLD:
 	case GF_ICE:
-		if (p_ptr->immune_cold)
-		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
-		}
-		else
-		{
-			if (p_ptr->resist_cold) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_COLD(p_ptr)) dam = (dam + 2) / 3;
-		}
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_COLD);
+		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_FIRE:
-		if (p_ptr->immune_fire)
-		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
-		}
-		else
-		{
-			if (race_is_(p_ptr, RACE_ENT)) dam += dam / 3;
-			if (p_ptr->resist_fire) dam = (dam + 2) / 3;
-			if (IS_OPPOSE_FIRE(p_ptr)) dam = (dam + 2) / 3;
-		}
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_FIRE);
+		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_PSY_SPEAR:

@@ -5053,19 +5053,8 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_FIRE(cr_ptr);
 
-	/* Totally immune */
-	if (cr_ptr->immune_fire || (dam <= 0))
-	{
-		learn_spell(cr_ptr, monspell);
-		return 0;
-	}
-
-	/* Vulnerability (Ouch!) */
-	if (race_is_(cr_ptr, RACE_ENT)) dam += dam / 3;
-
-	/* Resist the damage */
-	if (cr_ptr->resist_fire) dam = (dam + 2) / 3;
-	if (double_resist) dam = (dam + 2) / 3;
+	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_FIRE);
+	if(dam <= 0) learn_spell(cr_ptr, monspell);
 
 	if ((!(double_resist || cr_ptr->resist_fire)) &&
 	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
@@ -5091,18 +5080,8 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_COLD(cr_ptr);
 
-	/* Total immunity */
-	if (cr_ptr->immune_cold || (dam <= 0))
-	{
-		learn_spell(cr_ptr, monspell);
-		return 0;
-	}
-
-	/* Vulnerability (Ouch!) */
-
-	/* Resist the damage */
-	if (cr_ptr->resist_cold) dam = (dam + 2) / 3;
-	if (double_resist) dam = (dam + 2) / 3;
+	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_COLD);
+	if(dam <= 0) learn_spell(cr_ptr, monspell);
 
 	if ((!(double_resist || cr_ptr->resist_cold)) &&
 	    one_in_(HURT_CHANCE) && !(cr_ptr->multishadow && (turn & 1)))
