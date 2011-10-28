@@ -2093,6 +2093,7 @@ bool has_cf_creature(creature_type *creature_ptr, int type)
 
 int calc_damage(creature_type *creature_ptr, int damage, int type)
 {
+	cptr note;
 	int t = 1000;
 	switch(type)
 	{
@@ -2186,7 +2187,53 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		break;
 	default:
 		break;
-	}	
+	}
+
+
+	if(t == 0)
+	{
+#ifdef JP
+				note = "には完全な耐性がある。";
+#else
+				note = " is immune.";
+#endif
+	}
+	else if(t < 200)
+	{
+#ifdef JP
+				note = "にはかなりの耐性がある。";
+#else
+				note = " resists strongly.";
+#endif
+	}
+	else if(t < 500)
+	{
+#ifdef JP
+				note = "には耐性がある。";
+#else
+				note = " resists.";
+#endif
+	}
+	else if(t < 800)
+	{
+#ifdef JP
+				note = "にはわずかに耐性がある。";
+#else
+				note = " resists a little.";
+#endif
+	}
+	else
+	{
+#ifdef JP
+				note = "はひどい痛手を受けた。";
+#else
+				note = " is hit hard.";
+#endif
+	}
+
+	msg_format("%d%s", creature_ptr, note);
+
+
 	return damage * t / 1000;
 };
 

@@ -2307,8 +2307,8 @@ note = "には耐性がある。";
 				note = " resists.";
 #endif
 
-				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_CHAO);
+				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_CHAO);
 			}
 			else if (is_demon_species(r_ptr) && one_in_(3))
 			{
@@ -2318,7 +2318,7 @@ note = "には耐性がある。";
 				note = " resists somewhat.";
 #endif
 
-				dam *= 3; dam /= randint1(6) + 6;
+				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
 				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
 			}
 			else
@@ -2341,7 +2341,7 @@ note = "には耐性がある。";
 #else
 				note = " is immune.";
 #endif
-				dam = 0;
+				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
 				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
 				break;
 			}
@@ -2353,8 +2353,8 @@ note = "には耐性がある。";
 				note = " resists.";
 #endif
 
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
+				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
+				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_SHAR);
 			}
 			break;
 		}
