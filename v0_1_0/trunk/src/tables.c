@@ -1889,7 +1889,7 @@ byte extract_energy[200] =
 /*
  * Base experience levels, may be adjusted up for race and/or class
  */
-s32b player_exp[PY_MAX_LEVEL] =
+s32b creautre_exp[PY_MAX_LEVEL] =
 {
 	10,
 	25,
@@ -1954,7 +1954,7 @@ s32b player_exp[PY_MAX_LEVEL] =
 };
 
 
-s32b player_exp_a[PY_MAX_LEVEL] =
+s32b creautre_exp_a[PY_MAX_LEVEL] =
 {
 	20,
 	50,
@@ -2005,7 +2005,17 @@ s32b player_exp_a[PY_MAX_LEVEL] =
 	3700000L,
 	4100000L,
 	4500000L,/*50*/
-	5000000L
+	5000000L,
+	5500000L,
+	6000000L,
+	6500000L,
+	7000000L,
+	7500000L,
+	8000000L,
+	8500000L,
+	9000000L,
+	9500000L,/*60*/
+	10000000L,
 };
 
 

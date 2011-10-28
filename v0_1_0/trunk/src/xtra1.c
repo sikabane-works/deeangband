@@ -761,7 +761,7 @@ static void prt_exp(creature_type *cr_ptr)
 		}
 		else
 		{
-			(void)sprintf(out_val, "%8ld", (long)(player_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
+			(void)sprintf(out_val, "%8ld", (long)(creautre_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
 		}
 	}
 
@@ -3076,7 +3076,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Level Limit */
 	/* ... EXPFACT has no relation at level limit ...
 	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(player_exp[PY_MORTAL_LIMIT_LEVEL] < player_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
+		if(creautre_exp[PY_MORTAL_LIMIT_LEVEL] < creautre_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
 	*/
 

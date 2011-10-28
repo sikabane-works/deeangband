@@ -41,7 +41,7 @@ void set_experience(creature_type *cr_ptr)
 
 	/* Gain levels while possible */
 	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? player_exp_a : player_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	       (cr_ptr->exp >= ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
 		cr_ptr->lev++;
@@ -87,7 +87,7 @@ void check_experience(creature_type *cr_ptr)
 
 	/* Lose levels while possible */
 	while ((cr_ptr->lev > 1) &&
-		(cr_ptr->exp < ((android ? player_exp_a : player_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
+		(cr_ptr->exp < ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
 	{
 		/* Lose a level */
 		cr_ptr->lev--;
@@ -108,7 +108,7 @@ void check_experience(creature_type *cr_ptr)
 
 	/* Gain levels while possible */
 	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? player_exp_a : player_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	       (cr_ptr->exp >= ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
 		cr_ptr->lev++;
@@ -2382,7 +2382,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 
 
 	/* Total experience value for next level */
-	exp_adv = player_exp[p_ptr->lev -1] * p_ptr->expfact;
+	exp_adv = creautre_exp[p_ptr->lev -1] * p_ptr->expfact;
 	exp_adv_frac = 0;
 	s64b_div(&exp_adv, &exp_adv_frac, 0, 100);
 
