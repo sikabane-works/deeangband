@@ -2097,22 +2097,26 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 	switch(type)
 	{
 	case DAMAGE_TYPE_MELEE:
-		t = (2500 - creature_ptr->ac - creature_ptr->to_a) * 1000 / 250;
-		t = (t < 400) ? 400 : t;
+		t = (250 - creature_ptr->ac - creature_ptr->to_a) * 1000 / 2500;
+		t = (t < 40) ? 40 : t;
 		break;
 	case DAMAGE_TYPE_FIRE:
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_COLD:
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ELEC:
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 	case DAMAGE_TYPE_ACID:
+		if(has_cf_creature(creature_ptr, CF_VULN_ELEM)) t *= 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;

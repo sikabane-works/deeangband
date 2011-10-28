@@ -5023,7 +5023,6 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (race_is_(cr_ptr, RACE_ANDROID)) dam += dam / 3;
 
 	/* Resist the damage */
@@ -5062,7 +5061,6 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 	if (race_is_(cr_ptr, RACE_ENT)) dam += dam / 3;
 
 	/* Resist the damage */
@@ -5101,7 +5099,6 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (has_cf_creature(cr_ptr, CF_VULN_ELEM)) dam *= 2;
 
 	/* Resist the damage */
 	if (cr_ptr->resist_cold) dam = (dam + 2) / 3;
