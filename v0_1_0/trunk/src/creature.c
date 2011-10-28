@@ -2281,6 +2281,20 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 			break;
 		}
 		break;
+	case DAMAGE_TYPE_LOW_MANA:
+		if(creature_ptr->resist_ultimate)
+		{
+			t = 0;
+			break;
+		}
+		break;
+	case DAMAGE_TYPE_HIGH_MANA:
+		if(creature_ptr->resist_ultimate)
+		{
+			t = 0;
+			break;
+		}
+		break;
 	default:
 		if(creature_ptr->resist_ultimate)
 		{

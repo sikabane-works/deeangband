@@ -1836,18 +1836,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MISSILE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_LOW_MANA);
 			break;
 		}
 
@@ -1855,29 +1844,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_ACID:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_acid)
-			{
-#ifdef JP
-note = "にはかなり耐性がある！";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ACID);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ACID);
 			break;
 		}
 
@@ -1885,29 +1852,7 @@ note = "にはかなり耐性がある！";
 		case GF_ELEC:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_elec)
-			{
-#ifdef JP
-note = "にはかなり耐性がある！";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_ELEC);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ELEC);
 			break;
 		}
 
@@ -1915,82 +1860,14 @@ note = "にはかなり耐性がある！";
 		case GF_FIRE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_fire)
-			{
-#ifdef JP
-note = "にはかなり耐性がある！";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//reveal_creature_info(m_ptr, INFO_TYPE_RESIST);
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_FIRE);
-			}
-			else if (is_hurt_fire_creature(tar_ptr))
-			{
-#ifdef JP
-note = "はひどい痛手をうけた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				dam *= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_FIRE);
-			}
-			break;
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_FIRE);
 		}
 
 		/* Cold */
 		case GF_COLD:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_cold)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (is_resist_cold_creature(tar_ptr))
-			{
-#ifdef JP
-note = "にはかなり耐性がある！";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_COLD);
-			}
-			else if (is_hurt_cold_creature(tar_ptr))
-			{
-#ifdef JP
-note = "はひどい痛手をうけた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				dam *= 2;
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_HURT_COLD);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_COLD);
 			break;
 		}
 
@@ -1998,29 +1875,7 @@ note = "はひどい痛手をうけた。";
 		case GF_POIS:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_pois)
-			{
-#ifdef JP
-note = "にはかなり耐性がある！";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_POIS);
 			break;
 		}
 
@@ -2028,30 +1883,7 @@ note = "にはかなり耐性がある！";
 		case GF_NUKE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_pois)
-			{
-#ifdef JP
-note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_IM_POIS);
-			}
-			else if (one_in_(3)) do_poly = TRUE;
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NUKE);
 			break;
 		}
 
@@ -2059,29 +1891,7 @@ note = "には耐性がある。";
 		case GF_HELL_FIRE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (is_enemy_of_evil_creature(tar_ptr))
-			{
-				dam *= 2;
-#ifdef JP
-note = "はひどい痛手を受けた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HELL_FIRE);
 			break;
 		}
 
@@ -2089,50 +1899,7 @@ note = "はひどい痛手を受けた。";
 		case GF_HOLY_FIRE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (is_enemy_of_evil_creature(tar_ptr))
-			{
-				dam = 0;
-#ifdef JP
-note = "には完全な耐性がある。";
-#else
-				note = " is immune.";
-#endif
-
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
-			}
-			else if (is_enemy_of_good_creature(tar_ptr))
-			{
-				dam *= 2;
-#ifdef JP
-note = "はひどい痛手を受けた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
-			}
-			else
-			{
-#ifdef JP
-note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HOLY_FIRE);
 			break;
 		}
 
