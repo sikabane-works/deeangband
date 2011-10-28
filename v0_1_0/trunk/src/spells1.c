@@ -1926,29 +1926,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_PLASMA:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_plazma)
-			{
-#ifdef JP
-note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_PLAS);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HOLY_FIRE);
 			break;
 		}
 
@@ -1956,54 +1934,7 @@ note = "には耐性がある。";
 		case GF_NETHER:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_neth)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (is_resist_neth_creature(tar_ptr))
-			{
-				if (is_undead_species(r_ptr))
-				{
-#ifdef JP
-					note = "には完全な耐性がある。";
-#else
-					note = " is immune.";
-#endif
-
-					dam = 0;
-					if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
-				}
-				else
-				{
-#ifdef JP
-					note = "には耐性がある。";
-#else
-					note = " resists.";
-#endif
-
-					dam *= 3; dam /= randint1(6) + 6;
-				}
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NETH);
-			}
-			else if (is_enemy_of_good_species(r_ptr))
-			{
-				dam /= 2;
-#ifdef JP
-				note = "はいくらか耐性を示した。";
-#else
-				note = " resists somewhat.";
-#endif
-
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_ALIGNMENT);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NETH);
 			break;
 		}
 
@@ -2011,42 +1942,7 @@ note = "には耐性がある。";
 		case GF_WATER:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_water)
-			{
-				if ((tar_ptr->species_idx == MON_WATER_ELEM) || (tar_ptr->species_idx == MON_UNMAKER))
-				{
-#ifdef JP
-					note = "には完全な耐性がある。";
-#else
-					note = " is immune.";
-#endif
-
-					dam = 0;
-				}
-				else
-				{
-#ifdef JP
-					note = "には耐性がある。";
-#else
-					note = " resists.";
-#endif
-
-					dam *= 3; dam /= randint1(6) + 6;
-				}
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WATE);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_WATER);
 			break;
 		}
 
@@ -2054,45 +1950,7 @@ note = "には耐性がある。";
 		case GF_CHAOS:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_chaos)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_CHAO);
-			}
-			else if (is_demon_species(r_ptr) && one_in_(3))
-			{
-#ifdef JP
-				note = "はいくらか耐性を示した。";
-#else
-				note = " resists somewhat.";
-#endif
-
-				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
-				if (is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, INFO_TYPE_RACE);
-			}
-			else
-			{
-				do_poly = TRUE;
-				do_conf = (5 + randint1(11) + r) / (r + 1);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
 			break;
 		}
 
@@ -2100,29 +1958,7 @@ note = "には耐性がある。";
 		case GF_SHARDS:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_shard)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_SHAR);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
 			break;
 		}
 
@@ -2130,29 +1966,7 @@ note = "には耐性がある。";
 		case GF_ROCKET:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_shard)
-			{
-#ifdef JP
-				note = "はいくらか耐性を示した。";
-#else
-				note = " resists somewhat.";
-#endif
-
-				dam /= 2;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SHAR);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ROCKET);
 			break;
 		}
 
@@ -2161,30 +1975,8 @@ note = "には耐性がある。";
 		case GF_SOUND:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_sound)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 2; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_SOUN);
-			}
-			else do_stun = (10 + randint1(15) + r) / (r + 1);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SOUND);
+			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
 			break;
 		}
 

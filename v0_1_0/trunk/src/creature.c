@@ -2170,12 +2170,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_NETH:
-		if(creature_ptr->resist_ultimate)
+		if(creature_ptr->resist_ultimate || is_undead_creature(creature_ptr))
 		{
 			t = 0;
 			break;
 		}
 		if(creature_ptr->resist_dark > 0) t = t*2/3;
+		//TODO Evil x0.5
 		break;
 	case DAMAGE_TYPE_WATER:
 		if(creature_ptr->resist_ultimate)
@@ -2185,7 +2186,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		}
 		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
-	case DAMAGE_TYPE_PLAZMA:
+	case DAMAGE_TYPE_PLASMA:
 		if(creature_ptr->resist_ultimate)
 		{
 			t = 0;
@@ -2206,7 +2207,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 			t = 0;
 			break;
 		}
-		if(creature_ptr->resist_water > 0) t = t*5/9;
+		if(creature_ptr->resist_sound > 0) t = t*5/9;
+		else
+		{
+		}
 		break;
 	case DAMAGE_TYPE_CHAOS:
 		if(creature_ptr->resist_ultimate)
@@ -2266,6 +2270,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 			t = 0;
 			break;
 		}
+		//TODO Evil x2
 		break;
 	case DAMAGE_TYPE_HELL_FIRE:
 		if(creature_ptr->resist_ultimate)
@@ -2273,6 +2278,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 			t = 0;
 			break;
 		}
+		//TODO Good x2
 		break;
 	case DAMAGE_TYPE_NUKE:
 		if(creature_ptr->resist_ultimate)
@@ -2289,6 +2295,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		}
 		break;
 	case DAMAGE_TYPE_HIGH_MANA:
+		if(creature_ptr->resist_ultimate)
+		{
+			t = 0;
+			break;
+		}
+		break;
+	case DAMAGE_TYPE_ROCKET:
 		if(creature_ptr->resist_ultimate)
 		{
 			t = 0;

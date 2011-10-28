@@ -5924,7 +5924,7 @@ extern int PlayerUID;
 #define DAMAGE_TYPE_DARK          7
 #define DAMAGE_TYPE_NETH          8
 #define DAMAGE_TYPE_WATER         9
-#define DAMAGE_TYPE_PLAZMA       10
+#define DAMAGE_TYPE_PLASMA       10
 #define DAMAGE_TYPE_SHARD        11
 #define DAMAGE_TYPE_SOUND        12
 #define DAMAGE_TYPE_CHAOS        13
@@ -5939,6 +5939,7 @@ extern int PlayerUID;
 #define DAMAGE_TYPE_NUKE         22
 #define DAMAGE_TYPE_LOW_MANA     23
 #define DAMAGE_TYPE_HIGH_MANA    24
+#define DAMAGE_TYPE_ROCKET       25
 
 
 #define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
