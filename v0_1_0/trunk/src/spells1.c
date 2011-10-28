@@ -2045,29 +2045,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_NEXUS:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_nexus)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_NEXU);
-			}
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
 			break;
 		}
 
@@ -2075,31 +2053,9 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_FORCE:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_force)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_WALL);
-			}
-			else do_stun = (randint1(15) + r) / (r + 1);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
 			break;
+			//TODO else do_stun = (randint1(15) + r) / (r + 1);
 		}
 
 		/* Inertia -- breathers resist */
@@ -2157,30 +2113,8 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_TIME:
 		{
 			if (seen) obvious = TRUE;
-
-			if (tar_ptr->resist_ultimate)
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(who_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_ALL);
-				break;
-			}
-			if (tar_ptr->resist_time)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(who_ptr, tar_ptr)) r_ptr->r_flags10 |= (RF10_RES_TIME);
-			}
-			else do_time = (dam + 1) / 2;
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
+			//TODO else do_time = (dam + 1) / 2;
 			break;
 		}
 
