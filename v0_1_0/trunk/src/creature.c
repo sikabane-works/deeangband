@@ -386,12 +386,11 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 
 void set_resistance(creature_type *creature_ptr)
 {
-	int i;
+//	int i;
 	creature_flags sp_ptr = race_info[creature_ptr->race_idx1].p_flags;
 	creature_flags cf_ptr1 = race_info[creature_ptr->race_idx1].h_flags;
 	creature_flags cf_ptr2 = race_info[creature_ptr->race_idx2].h_flags;
 
-	creature_flags cf_ptr = race_info[creature_ptr->race_idx1].p_flags;
 	if(has_cf(&cf_ptr1, CF_RES_FIRE) || has_cf(&cf_ptr2, CF_RES_FIRE) || has_cf(&sp_ptr, CF_RES_FIRE)) creature_ptr->resist_fire += 1;
 	if(has_cf(&cf_ptr1, CF_RES_COLD) || has_cf(&cf_ptr2, CF_RES_COLD) || has_cf(&sp_ptr, CF_RES_COLD)) creature_ptr->resist_cold += 1;
 	if(has_cf(&cf_ptr1, CF_RES_ELEC) || has_cf(&cf_ptr2, CF_RES_ELEC) || has_cf(&sp_ptr, CF_RES_ELEC)) creature_ptr->resist_elec += 1;
@@ -2205,7 +2204,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 		break;
 	}
 
-
+/*
 	if(t == 0)
 	{
 #ifdef JP
@@ -2248,7 +2247,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type)
 	}
 
 	msg_format("%d%s", creature_ptr, note);
-
+	*/
 
 	return damage * t / 1000;
 };
