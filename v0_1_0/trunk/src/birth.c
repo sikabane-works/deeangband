@@ -2559,6 +2559,8 @@ static void get_history(creature_type *cr_ptr)
 	social_class = randint1(4);
 
 	/* Starting place */
+
+	//TODO
 	switch (cr_ptr->race_idx1)
 	{
 		case RACE_AMBERITE:
@@ -2778,7 +2780,8 @@ static void get_history(creature_type *cr_ptr)
 static void get_ahw(creature_type *cr_ptr)
 {
 	/* Get character's age */
-	cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + randint1(race_info[cr_ptr->race_idx1].m_age);
+	cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + race_info[cr_ptr->race_idx2].b_age;
+	cr_ptr->age += randint1((race_info[cr_ptr->race_idx1].m_age + race_info[cr_ptr->race_idx2].m_age)/2);
 
 	/* Get character's height and weight */
 	set_height_weight(cr_ptr);
@@ -2814,7 +2817,7 @@ static void get_money(creature_type *cr_ptr)
 		gold /= 2;
 	else if (cr_ptr->chara_idx == CHARA_MUNCHKIN)
 		gold = 10000000;
-	if (cr_ptr->race_idx1 == RACE_ANDROID) gold /= 5;
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) gold /= 5;
 
 	/* Save the gold */
 	cr_ptr->au = gold;
@@ -2842,8 +2845,12 @@ static void birth_put_stats(creature_type *cr_ptr)
 		for (i = 0; i < 6; i++)
 		{
 			/* Race/Class bonus */
-			j = race_info[cr_ptr->race_idx1].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
+			if(IS_PURE(cr_ptr))
+				j = race_info[cr_ptr->race_idx1].r_adj[i];
+			else
+				j = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
 
+			j += class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 			/* Obtain the current stat */
 			m = adjust_stat(cr_ptr->stat_max[i], j);
 
@@ -2973,7 +2980,7 @@ static void player_wipe(creature_type *cr_ptr)
 		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
 
 		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
+		else if (IS_RACE(r_ptr, RACE_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
 
 		/* Clear visible kills in this life */
 		r_ptr->r_pkills = 0;
@@ -4017,7 +4024,8 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 		strcpy(se[n].cap, sex_info[i].title);
 		se[n].code = i;
 		se[n].key = '\0';
-		if(race_info[cr_ptr->race_idx1].sex_flag & (0x01 << i))
+		if(race_info[cr_ptr->race_idx1].sex_flag & (0x01 << i) ||
+		   race_info[cr_ptr->race_idx2].sex_flag & (0x01 << i))
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
@@ -4110,7 +4118,8 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 		ce[i].key = '\0';
 		ce[i].d_color = TERM_L_DARK;
 		ce[i].l_color = TERM_WHITE;
-		if(race_info[cr_ptr->race_idx1].choice & (0x01 << i))
+		if(race_info[cr_ptr->race_idx1].choice & (0x01 << i) ||
+		   race_info[cr_ptr->race_idx2].choice & (0x01 << i))
 		{
 			ce[n].d_color = TERM_GREEN;
 			ce[n].l_color = TERM_L_GREEN;
@@ -4518,7 +4527,12 @@ static bool get_stat_limits(creature_type *cr_ptr)
 		cval[i] = 3;
 
 		/* Race/Class bonus */
-		j = race_info[cr_ptr->race_idx1].r_adj[i] + class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
+		if(IS_PURE(cr_ptr))
+			j = race_info[cr_ptr->race_idx1].r_adj[i];
+		else
+			j = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
+		
+		j += class_info[cr_ptr->cls_idx].c_adj[i] + chara_info[cr_ptr->chara_idx].a_adj[i];
 
 		/* Obtain the "maximal" stat */
 		m = adjust_stat(17, j);
@@ -4570,6 +4584,7 @@ static bool get_stat_limits(creature_type *cr_ptr)
 		}
 
 		/* Prepare a prompt */
+		//TODO
 		sprintf(buf, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s  %6s",
 			stat_names[i], cval[i], race_info[cr_ptr->race_idx1].r_adj[i], class_info[cr_ptr->cls_idx].c_adj[i],
 			chara_info[cr_ptr->chara_idx].a_adj[i], inp, cur);
