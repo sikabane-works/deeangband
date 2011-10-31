@@ -3117,35 +3117,35 @@ display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0, cr_ptr);
 	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, cr_ptr);
 #endif
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DARK, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SHARD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+7, col + 33);
 
@@ -3176,19 +3176,19 @@ display_flag_aux(row+5, col, "ëœã∞ï|:", TR_RES_FEAR, &f, 0, cr_ptr);
 	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, cr_ptr);
 #endif
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NETH, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_NEXUS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 

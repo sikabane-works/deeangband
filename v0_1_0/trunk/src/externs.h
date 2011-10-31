@@ -1086,7 +1086,7 @@ extern void reveal_creature_info(creature_type *creature_ptr, int type);
 
 extern bool has_cf(creature_flags *cf_ptr, int type);
 extern bool has_cf_creature(creature_type *creature_ptr, int type);
-extern int calc_damage(creature_type *creature_ptr, int damage, int type);
+extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 
 extern int calc_base_level(creature_type *cr_ptr);
 extern int calc_base_divine_rank(creature_type *cr_ptr);

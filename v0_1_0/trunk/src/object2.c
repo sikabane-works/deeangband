@@ -6499,28 +6499,28 @@ static void spell_dam_estimation(creature_type *m_ptr, int typ, int dam, int lim
 	switch (typ)
 	{
 	case GF_ELEC:
-		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ELEC);
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ELEC, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_POIS:
-		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_POIS);
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_POIS, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_ACID:
-		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ACID);
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_ACID, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_COLD:
 	case GF_ICE:
-		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_COLD);
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_COLD, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_FIRE:
-		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_FIRE);
+		dam = calc_damage(p_ptr, dam, DAMAGE_TYPE_FIRE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 

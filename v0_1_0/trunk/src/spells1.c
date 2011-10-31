@@ -1836,7 +1836,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_MISSILE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_LOW_MANA);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_LOW_MANA, TRUE);
 			break;
 		}
 
@@ -1844,7 +1844,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_ACID:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ACID);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ACID, TRUE);
 			break;
 		}
 
@@ -1852,7 +1852,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_ELEC:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ELEC);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ELEC, TRUE);
 			break;
 		}
 
@@ -1860,14 +1860,14 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_FIRE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_FIRE);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
 		}
 
 		/* Cold */
 		case GF_COLD:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_COLD);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
 			break;
 		}
 
@@ -1875,7 +1875,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_POIS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_POIS);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
 			break;
 		}
 
@@ -1883,7 +1883,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_NUKE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NUKE);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
 			break;
 		}
 
@@ -1891,7 +1891,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_HELL_FIRE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HELL_FIRE);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HELL_FIRE, TRUE);
 			break;
 		}
 
@@ -1899,7 +1899,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_HOLY_FIRE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HOLY_FIRE);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HOLY_FIRE, TRUE);
 			break;
 		}
 
@@ -1926,7 +1926,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_PLASMA:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_HOLY_FIRE);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_PLASMA, TRUE);
 			break;
 		}
 
@@ -1934,7 +1934,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_NETHER:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NETH);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NETH, TRUE);
 			break;
 		}
 
@@ -1942,7 +1942,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_WATER:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_WATER);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_WATER, TRUE);
 			break;
 		}
 
@@ -1950,7 +1950,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_CHAOS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_CHAOS, TRUE);
 			break;
 		}
 
@@ -1958,7 +1958,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_SHARDS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SHARD, TRUE);
 			break;
 		}
 
@@ -1966,7 +1966,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_ROCKET:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ROCKET);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_ROCKET, TRUE);
 			break;
 		}
 
@@ -1975,7 +1975,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_SOUND:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SOUND);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_SOUND, TRUE);
 			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
 			break;
 		}
@@ -2045,7 +2045,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_NEXUS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS, TRUE);
 			break;
 		}
 
@@ -2053,7 +2053,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_FORCE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_FORCE, TRUE);
 			break;
 			//TODO else do_stun = (randint1(15) + r) / (r + 1);
 		}
@@ -2113,7 +2113,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		case GF_TIME:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_NEXUS);
+			dam = calc_damage(tar_ptr, dam, DAMAGE_TYPE_TIME, TRUE);
 			//TODO else do_time = (dam + 1) / 2;
 			break;
 		}

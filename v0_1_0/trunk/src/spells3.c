@@ -5053,7 +5053,7 @@ int fire_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_FIRE(cr_ptr);
 
-	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_FIRE);
+	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
 	if(dam <= 0) learn_spell(cr_ptr, monspell);
 
 	if ((!(double_resist || cr_ptr->resist_fire)) &&
@@ -5080,7 +5080,7 @@ int cold_dam(creature_type *cr_ptr,int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_COLD(cr_ptr);
 
-	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_COLD);
+	dam = calc_damage(cr_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
 	if(dam <= 0) learn_spell(cr_ptr, monspell);
 
 	if ((!(double_resist || cr_ptr->resist_cold)) &&
