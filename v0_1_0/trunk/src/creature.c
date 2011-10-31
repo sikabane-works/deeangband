@@ -387,157 +387,38 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 void set_resistance(creature_type *creature_ptr)
 {
 	int i;
+	creature_flags sp_ptr = race_info[creature_ptr->race_idx1].p_flags;
+	creature_flags cf_ptr1 = race_info[creature_ptr->race_idx1].h_flags;
+	creature_flags cf_ptr2 = race_info[creature_ptr->race_idx2].h_flags;
 
-	if(creature_ptr->race_idx1 != RACE_NONE)
-	{
-		race_type *ir_ptr = &race_info[creature_ptr->race_idx1];
-		if(ir_ptr->main_resist.resist_acid != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_acid)
-			creature_ptr->resist_acid = TRUE;
-		if(ir_ptr->main_resist.resist_elec != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_elec)
-			creature_ptr->resist_elec = TRUE;
-		if(ir_ptr->main_resist.resist_fire != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_fire)
-			creature_ptr->resist_fire = TRUE;
-		if(ir_ptr->main_resist.resist_cold != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_cold)
-			creature_ptr->resist_cold = TRUE;
-		if(ir_ptr->main_resist.resist_pois != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_pois)
-			creature_ptr->resist_pois = TRUE;
-		if(ir_ptr->main_resist.resist_lite != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_lite)
-			creature_ptr->resist_lite = TRUE;
-		if(ir_ptr->main_resist.resist_dark != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_dark)
-			creature_ptr->resist_dark = TRUE;
-		if(ir_ptr->main_resist.resist_neth != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_neth)
-			creature_ptr->resist_neth = TRUE;
-		if(ir_ptr->main_resist.resist_water != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_water)
-			creature_ptr->resist_water = TRUE;
-		if(ir_ptr->main_resist.resist_plazma != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_plazma)
-			creature_ptr->resist_plazma = TRUE;
-		if(ir_ptr->main_resist.resist_shard != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_shard)
-			creature_ptr->resist_shard = TRUE;
-		if(ir_ptr->main_resist.resist_sound != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_sound)
-			creature_ptr->resist_sound = TRUE;
-		if(ir_ptr->main_resist.resist_chaos != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_chaos)
-			creature_ptr->resist_chaos = TRUE;
-		if(ir_ptr->main_resist.resist_nexus != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_nexus)
-			creature_ptr->resist_nexus = TRUE;
-		if(ir_ptr->main_resist.resist_disen != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_disen)
-			creature_ptr->resist_disen = TRUE;
-		if(ir_ptr->main_resist.resist_force != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_force)
-			creature_ptr->resist_force = TRUE;
-		if(ir_ptr->main_resist.resist_inertia != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_inertia)
-			creature_ptr->resist_inertia = TRUE;
-		if(ir_ptr->main_resist.resist_time != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_time)
-			creature_ptr->resist_time = TRUE;
-		if(ir_ptr->main_resist.resist_gravity != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_gravity)
-			creature_ptr->resist_gravity = TRUE;
-		if(ir_ptr->main_resist.resist_ultimate != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_ultimate)
-			creature_ptr->resist_ultimate = TRUE;
-		if(ir_ptr->main_resist.resist_tele != 0 && creature_ptr->lev >= ir_ptr->main_resist.resist_tele)
-			creature_ptr->resist_tele = TRUE;
+	creature_flags cf_ptr = race_info[creature_ptr->race_idx1].p_flags;
+	if(has_cf(&cf_ptr1, CF_RES_FIRE) || has_cf(&cf_ptr2, CF_RES_FIRE) || has_cf(&sp_ptr, CF_RES_FIRE)) creature_ptr->resist_fire += 1;
+	if(has_cf(&cf_ptr1, CF_RES_COLD) || has_cf(&cf_ptr2, CF_RES_COLD) || has_cf(&sp_ptr, CF_RES_COLD)) creature_ptr->resist_cold += 1;
+	if(has_cf(&cf_ptr1, CF_RES_ELEC) || has_cf(&cf_ptr2, CF_RES_ELEC) || has_cf(&sp_ptr, CF_RES_ELEC)) creature_ptr->resist_elec += 1;
+	if(has_cf(&cf_ptr1, CF_RES_ACID) || has_cf(&cf_ptr2, CF_RES_ACID) || has_cf(&sp_ptr, CF_RES_ACID)) creature_ptr->resist_acid += 1;
+	if(has_cf(&cf_ptr1, CF_RES_POIS) || has_cf(&cf_ptr2, CF_RES_POIS) || has_cf(&sp_ptr, CF_RES_POIS)) creature_ptr->resist_pois += 1;
+	if(has_cf(&cf_ptr1, CF_RES_LITE) || has_cf(&cf_ptr2, CF_RES_LITE) || has_cf(&sp_ptr, CF_RES_LITE)) creature_ptr->resist_lite += 1;
+	if(has_cf(&cf_ptr1, CF_RES_DARK) || has_cf(&cf_ptr2, CF_RES_DARK) || has_cf(&sp_ptr, CF_RES_DARK)) creature_ptr->resist_dark += 1;
+	if(has_cf(&cf_ptr1, CF_RES_SHAR) || has_cf(&cf_ptr2, CF_RES_SHAR) || has_cf(&sp_ptr, CF_RES_SHAR)) creature_ptr->resist_shard += 1;
+	if(has_cf(&cf_ptr1, CF_RES_SOUN) || has_cf(&cf_ptr2, CF_RES_SOUN) || has_cf(&sp_ptr, CF_RES_SOUN)) creature_ptr->resist_sound += 1;
+	if(has_cf(&cf_ptr1, CF_RES_NETH) || has_cf(&cf_ptr2, CF_RES_NETH) || has_cf(&sp_ptr, CF_RES_NETH)) creature_ptr->resist_neth += 1;
+	if(has_cf(&cf_ptr1, CF_RES_CHAO) || has_cf(&cf_ptr2, CF_RES_CHAO) || has_cf(&sp_ptr, CF_RES_CHAO)) creature_ptr->resist_chaos += 1;
+	if(has_cf(&cf_ptr1, CF_RES_DISE) || has_cf(&cf_ptr2, CF_RES_DISE) || has_cf(&sp_ptr, CF_RES_DISE)) creature_ptr->resist_disen += 1;
+	if(has_cf(&cf_ptr1, CF_RES_WALL) || has_cf(&cf_ptr2, CF_RES_WALL) || has_cf(&sp_ptr, CF_RES_WALL)) creature_ptr->resist_force += 1;
+	if(has_cf(&cf_ptr1, CF_RES_NEXU) || has_cf(&cf_ptr2, CF_RES_NEXU) || has_cf(&sp_ptr, CF_RES_NEXU)) creature_ptr->resist_nexus += 1;
+	if(has_cf(&cf_ptr1, CF_RES_INER) || has_cf(&cf_ptr2, CF_RES_INER) || has_cf(&sp_ptr, CF_RES_INER)) creature_ptr->resist_inertia += 1;
+	if(has_cf(&cf_ptr1, CF_RES_TIME) || has_cf(&cf_ptr2, CF_RES_TIME) || has_cf(&sp_ptr, CF_RES_TIME)) creature_ptr->resist_time += 1;
+	if(has_cf(&cf_ptr1, CF_RES_GRAV) || has_cf(&cf_ptr2, CF_RES_GRAV) || has_cf(&sp_ptr, CF_RES_GRAV)) creature_ptr->resist_gravity += 1;
 
-		if(ir_ptr->main_resist.free_action != 0 && creature_ptr->lev >= ir_ptr->main_resist.free_action)
-			creature_ptr->free_act = TRUE;
-		if(ir_ptr->main_resist.levitation != 0 && creature_ptr->lev >= ir_ptr->main_resist.levitation)
-			creature_ptr->levitation = TRUE;
-		if(ir_ptr->main_resist.hold_life != 0 && creature_ptr->lev >= ir_ptr->main_resist.hold_life)
-			creature_ptr->hold_life = TRUE;
-		if(ir_ptr->main_resist.regenerate != 0 && creature_ptr->lev >= ir_ptr->main_resist.regenerate)
-			creature_ptr->regenerate = TRUE;
-		if(ir_ptr->main_resist.slow_digest != 0 && creature_ptr->lev >= ir_ptr->main_resist.slow_digest)
-			creature_ptr->slow_digest = TRUE;
-		if(ir_ptr->main_resist.see_invisible != 0 && creature_ptr->lev >= ir_ptr->main_resist.see_invisible)
-			creature_ptr->see_inv = TRUE;
+	if(has_cf(&cf_ptr1, CF_RES_TELE) || has_cf(&cf_ptr2, CF_RES_TELE) || has_cf(&sp_ptr, CF_RES_TELE)) creature_ptr->resist_tele += 1;
 
-		if(ir_ptr->main_resist.sustain_str != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_str)
-			creature_ptr->sustain_str = TRUE;
-		if(ir_ptr->main_resist.sustain_int != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_int)
-			creature_ptr->sustain_int = TRUE;
-		if(ir_ptr->main_resist.sustain_wis != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_wis)
-			creature_ptr->sustain_wis = TRUE;
-		if(ir_ptr->main_resist.sustain_dex != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_dex)
-			creature_ptr->sustain_dex = TRUE;
-		if(ir_ptr->main_resist.sustain_con != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_con)
-			creature_ptr->sustain_con = TRUE;
-		if(ir_ptr->main_resist.sustain_cha != 0 && creature_ptr->lev >= ir_ptr->main_resist.sustain_cha)
-			creature_ptr->sustain_chr = TRUE;
-	}
+	if(has_cf(&cf_ptr1, CF_RES_ALL) || has_cf(&cf_ptr2, CF_RES_ALL) || has_cf(&sp_ptr, CF_RES_ALL)) creature_ptr->resist_ultimate += 1;
 
-	for(i = 0; i < MAX_RACES; i++)
-	{
-		if(get_subrace(creature_ptr, i)){
-			race_type *ir_ptr = &race_info[i];
-			if(ir_ptr->sub_resist.resist_acid != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_acid)
-				creature_ptr->resist_acid = TRUE;
-			if(ir_ptr->sub_resist.resist_elec != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_elec)
-				creature_ptr->resist_elec = TRUE;
-			if(ir_ptr->sub_resist.resist_fire != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_fire)
-				creature_ptr->resist_fire = TRUE;
-			if(ir_ptr->sub_resist.resist_cold != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_cold)
-				creature_ptr->resist_cold = TRUE;
-			if(ir_ptr->sub_resist.resist_pois != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_pois)
-				creature_ptr->resist_pois = TRUE;
-			if(ir_ptr->sub_resist.resist_lite != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_lite)
-				creature_ptr->resist_lite = TRUE;
-			if(ir_ptr->sub_resist.resist_dark != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_dark)
-				creature_ptr->resist_dark = TRUE;
-			if(ir_ptr->sub_resist.resist_neth != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_neth)
-				creature_ptr->resist_neth = TRUE;
-			if(ir_ptr->sub_resist.resist_water != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_water)
-				creature_ptr->resist_water = TRUE;
-			if(ir_ptr->sub_resist.resist_plazma != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_plazma)
-				creature_ptr->resist_plazma = TRUE;
-			if(ir_ptr->sub_resist.resist_shard != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_shard)
-				creature_ptr->resist_shard = TRUE;
-			if(ir_ptr->sub_resist.resist_sound != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_sound)
-				creature_ptr->resist_sound = TRUE;
-			if(ir_ptr->sub_resist.resist_chaos != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_chaos)
-				creature_ptr->resist_chaos = TRUE;
-			if(ir_ptr->sub_resist.resist_nexus != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_nexus)
-				creature_ptr->resist_nexus = TRUE;
-			if(ir_ptr->sub_resist.resist_disen != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_disen)
-				creature_ptr->resist_disen = TRUE;
-			if(ir_ptr->sub_resist.resist_force != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_force)
-				creature_ptr->resist_force = TRUE;
-			if(ir_ptr->sub_resist.resist_inertia != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_inertia)
-				creature_ptr->resist_inertia = TRUE;
-			if(ir_ptr->sub_resist.resist_time != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_time)
-				creature_ptr->resist_time = TRUE;
-			if(ir_ptr->sub_resist.resist_gravity != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_gravity)
-				creature_ptr->resist_gravity = TRUE;
-			if(ir_ptr->sub_resist.resist_ultimate != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_ultimate)
-				creature_ptr->resist_ultimate = TRUE;
-			if(ir_ptr->sub_resist.resist_tele != 0 && creature_ptr->lev >= ir_ptr->sub_resist.resist_tele)
-				creature_ptr->resist_tele = TRUE;
-
-			if(ir_ptr->sub_resist.free_action != 0 && creature_ptr->lev >= ir_ptr->sub_resist.free_action)
-				creature_ptr->free_act = TRUE;
-			if(ir_ptr->sub_resist.levitation != 0 && creature_ptr->lev >= ir_ptr->sub_resist.levitation)
-				creature_ptr->levitation = TRUE;
-			if(ir_ptr->sub_resist.hold_life != 0 && creature_ptr->lev >= ir_ptr->sub_resist.hold_life)
-				creature_ptr->hold_life = TRUE;
-			if(ir_ptr->sub_resist.regenerate != 0 && creature_ptr->lev >= ir_ptr->sub_resist.regenerate)
-				creature_ptr->regenerate = TRUE;
-			if(ir_ptr->sub_resist.slow_digest != 0 && creature_ptr->lev >= ir_ptr->sub_resist.slow_digest)
-				creature_ptr->slow_digest = TRUE;
-			if(ir_ptr->sub_resist.see_invisible != 0 && creature_ptr->lev >= ir_ptr->sub_resist.see_invisible)
-				creature_ptr->see_inv = TRUE;
-
-			if(ir_ptr->sub_resist.sustain_str != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_str)
-				creature_ptr->sustain_str = TRUE;
-			if(ir_ptr->sub_resist.sustain_int != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_int)
-				creature_ptr->sustain_int = TRUE;
-			if(ir_ptr->sub_resist.sustain_wis != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_wis)
-				creature_ptr->sustain_wis = TRUE;
-			if(ir_ptr->sub_resist.sustain_dex != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_dex)
-				creature_ptr->sustain_dex = TRUE;
-			if(ir_ptr->sub_resist.sustain_con != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_con)
-				creature_ptr->sustain_con = TRUE;
-			if(ir_ptr->sub_resist.sustain_cha != 0 && creature_ptr->lev >= ir_ptr->sub_resist.sustain_cha)
-				creature_ptr->sustain_chr = TRUE;
-
-		}
-	}
-
-	/* TODO species setting */
+	if(has_cf(&cf_ptr1, CF_NO_BLIND) || has_cf(&cf_ptr2, CF_NO_BLIND) || has_cf(&sp_ptr, CF_NO_BLIND)) creature_ptr->resist_blind += TRUE;
+	if(has_cf(&cf_ptr1, CF_NO_CONF) || has_cf(&cf_ptr2, CF_NO_CONF) || has_cf(&sp_ptr, CF_NO_CONF)) creature_ptr->resist_conf += TRUE;
+	if(has_cf(&cf_ptr1, CF_NO_FEAR) || has_cf(&cf_ptr2, CF_NO_FEAR) || has_cf(&sp_ptr, CF_NO_FEAR)) creature_ptr->resist_fear += TRUE;
+	if(has_cf(&cf_ptr1, CF_NO_STUN) || has_cf(&cf_ptr2, CF_NO_STUN) || has_cf(&sp_ptr, CF_NO_STUN)); //TODO
+	if(has_cf(&cf_ptr1, CF_NO_SLEEP) || has_cf(&cf_ptr2, CF_NO_SLEEP) || has_cf(&sp_ptr, CF_NO_SLEEP)); //TODO
 
 }
 
