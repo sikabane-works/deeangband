@@ -5433,15 +5433,12 @@ extern int PlayerUID;
 #define CF_VANYAR_LINEAGE   81
 #define CF_NOLDOR_LINEAGE   82
 #define CF_TELERI_LINEAGE   83
-#define CF_N3_XXX17			81
-#define CF_N3_XXX18			82
-#define CF_N3_XXX19			83
 #define CF_ERU				84
-#define CF_N3_XXX21			85
+#define CF_HURT_ELEC		85
 #define CF_N3_XXX22			86
 #define CF_N3_XXX23			87
 #define CF_N3_XXX24			88
-#define CF_N3_XXX25			89
+#define CF_NO_WOUND			89
 #define CF_HOLD_LIFE		90
 #define CF_NO_BLIND			91
 #define CF_NO_FEAR			92
