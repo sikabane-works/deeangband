@@ -1106,6 +1106,9 @@ extern bool has_indirect_skill_flags(creature_flags *flags_ptr);
 extern bool has_non_magic_skill_flags(creature_flags *flags_ptr);
 extern bool has_magic_power(creature_type *creature_ptr);
 
+extern bool has_status(creature_type *creature_ptr, int stat);
+
+
 
 /* do-spell.c */
 extern void stop_singing(creature_type *cr_ptr);

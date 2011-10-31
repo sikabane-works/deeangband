@@ -2478,4 +2478,40 @@ bool has_magic_power(creature_type *creature_ptr)
 	return TRUE;
 }
 
+bool has_status(creature_type *creature_ptr, int stat)
+{
+	switch(stat)
+	{
+		case STAT_STR:
+			return TRUE;
+			break;
+
+		case STAT_INT:
+			if(has_cf_creature(creature_ptr, CF_EMPTY_MIND)) return FALSE;
+			break;
+
+		case STAT_WIS:
+			if(has_cf_creature(creature_ptr, CF_EMPTY_MIND)) return FALSE;
+			return TRUE;
+			break;
+
+		case STAT_DEX:
+			return TRUE;
+			break;
+
+		case STAT_CON:
+			return TRUE;
+			break;
+
+		case STAT_CHR:
+			if(has_cf_creature(creature_ptr, CF_EMPTY_MIND)) return FALSE;
+			if(has_cf_creature(creature_ptr, CF_WEIRD_MIND)) return FALSE;
+			return TRUE;
+			break;
+	}
+	return FALSE;
+
+}
+
+
 
