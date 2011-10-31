@@ -3424,8 +3424,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		*/
 	}
 
-	/***** Sub Races ****/
-
 	set_unreached_race_level_penalty(cr_ptr);
 
 	if (cr_ptr->ult_res || (cr_ptr->special_defense & KATA_MUSOU))
@@ -3488,7 +3486,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 
-
 	/* Sexy Gal */
 	if (cr_ptr->chara_idx == CHARA_SEXY) cr_ptr->cursed |= (TRC_AGGRAVATE);
 	if (cr_ptr->chara_idx == CHARA_NAMAKE) cr_ptr->to_m_chance += 10;
@@ -3527,7 +3524,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_add[i] += tmp_rcr_ptr->r_s_adj[i];
 			cr_ptr->stat_add[i] += tmp_rcr_ptr2->r_s_adj[i];
 		}
-
 
 		if(cr_ptr->cls_idx != CLASS_NONE)
 		{
@@ -3884,22 +3880,24 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_IM_ELEC)) cr_ptr->immune_elec = TRUE;
 
 		/* Resistance flags */
-		if (have_flag(flgs, TR_RES_ACID))   cr_ptr->resist_acid = TRUE;
-		if (have_flag(flgs, TR_RES_ELEC))   cr_ptr->resist_elec = TRUE;
-		if (have_flag(flgs, TR_RES_FIRE))   cr_ptr->resist_fire = TRUE;
-		if (have_flag(flgs, TR_RES_COLD))   cr_ptr->resist_cold = TRUE;
-		if (have_flag(flgs, TR_RES_POIS))   cr_ptr->resist_pois = TRUE;
+		if (have_flag(flgs, TR_RES_ACID))   cr_ptr->resist_acid += 1;
+		if (have_flag(flgs, TR_RES_ELEC))   cr_ptr->resist_elec += 1;
+		if (have_flag(flgs, TR_RES_FIRE))   cr_ptr->resist_fire += 1;
+		if (have_flag(flgs, TR_RES_COLD))   cr_ptr->resist_cold += 1;
+		if (have_flag(flgs, TR_RES_POIS))   cr_ptr->resist_pois += 1;
+		if (have_flag(flgs, TR_RES_SOUND))  cr_ptr->resist_sound += 1;
+		if (have_flag(flgs, TR_RES_LITE))   cr_ptr->resist_lite += 1;
+		if (have_flag(flgs, TR_RES_DARK))   cr_ptr->resist_dark += 1;
+		if (have_flag(flgs, TR_RES_CHAOS))  cr_ptr->resist_chaos += 1;
+		if (have_flag(flgs, TR_RES_DISEN))  cr_ptr->resist_disen += 1;
+		if (have_flag(flgs, TR_RES_SHARDS)) cr_ptr->resist_shard += 1;
+		if (have_flag(flgs, TR_RES_NEXUS))  cr_ptr->resist_nexus += 1;
+		if (have_flag(flgs, TR_RES_NETHER)) cr_ptr->resist_neth += 1;
+		if (o_ptr->name2 == EGO_RING_RES_TIME) cr_ptr->resist_time += 1;
+
 		if (have_flag(flgs, TR_RES_FEAR))   cr_ptr->resist_fear = TRUE;
 		if (have_flag(flgs, TR_RES_CONF))   cr_ptr->resist_conf = TRUE;
-		if (have_flag(flgs, TR_RES_SOUND))  cr_ptr->resist_sound = TRUE;
-		if (have_flag(flgs, TR_RES_LITE))   cr_ptr->resist_lite = TRUE;
-		if (have_flag(flgs, TR_RES_DARK))   cr_ptr->resist_dark = TRUE;
-		if (have_flag(flgs, TR_RES_CHAOS))  cr_ptr->resist_chaos = TRUE;
-		if (have_flag(flgs, TR_RES_DISEN))  cr_ptr->resist_disen = TRUE;
-		if (have_flag(flgs, TR_RES_SHARDS)) cr_ptr->resist_shard = TRUE;
-		if (have_flag(flgs, TR_RES_NEXUS))  cr_ptr->resist_nexus = TRUE;
 		if (have_flag(flgs, TR_RES_BLIND))  cr_ptr->resist_blind = TRUE;
-		if (have_flag(flgs, TR_RES_NETHER)) cr_ptr->resist_neth = TRUE;
 
 		if (have_flag(flgs, TR_REFLECT))  cr_ptr->reflect = TRUE;
 		if (have_flag(flgs, TR_SH_FIRE))  cr_ptr->sh_fire = TRUE;
@@ -3918,7 +3916,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		if (o_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
 		if (o_ptr->name2 == EGO_2WEAPON) easy_2weapon = TRUE;
-		if (o_ptr->name2 == EGO_RING_RES_TIME) cr_ptr->resist_time = TRUE;
+
+
 		if (o_ptr->name2 == EGO_RING_THROW) cr_ptr->mighty_throw = TRUE;
 		if (have_flag(flgs, TR_EASY_SPELL)) cr_ptr->easy_spell = TRUE;
 		if (o_ptr->name2 == EGO_AMU_FOOL) cr_ptr->heavy_spell = TRUE;
@@ -4213,15 +4212,21 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->blow[3] = species_info[cr_ptr->species_idx].blow[3];
 
 
-
 	/* Hack -- aura of fire also provides light */
 	if (cr_ptr->sh_fire) cr_ptr->lite = TRUE;
 
-	/* Golems also get an intrinsic AC bonus */
-	if(cr_ptr->race_idx1 != RACE_NONE)
+	/* Racial AC bonus */
+	if(IS_PURE(cr_ptr))
 	{
 		cr_ptr->to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
 		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx1].ac_base + (race_info[cr_ptr->race_idx1].ac_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+	}
+	else
+	{
+		cr_ptr->to_a += race_info[cr_ptr->race_idx1].ac_s_base + (race_info[cr_ptr->race_idx1].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx1].ac_s_base + (race_info[cr_ptr->race_idx1].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->to_a += race_info[cr_ptr->race_idx2].ac_s_base + (race_info[cr_ptr->race_idx2].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
+		cr_ptr->dis_to_a += race_info[cr_ptr->race_idx2].ac_s_base + (race_info[cr_ptr->race_idx2].ac_s_plus * (cr_ptr->lev < 30 ? cr_ptr->lev : 30 ) / 30);
 	}
 
 	/* Hex bonuses */
