@@ -62,26 +62,6 @@ void set_status(creature_type *creature_ptr)
 			creature_ptr->stat_use[i] = r_ptr->stat_max[i];
 		}
 
-		if(creature_ptr->monster_ego_idx != MONEGO_NONE){
-			creature_ptr->stat_use[i] += re_info[creature_ptr->monster_ego_idx].stat[i];
-		}
-
-		if(creature_ptr->race_idx1 != RACE_NONE)
-		{
-			creature_ptr->stat_use[i] += race_info[creature_ptr->race_idx1].r_adj[i] * 10;
-		}	
-
-		if(creature_ptr->stat_use[i] < 30) creature_ptr->stat_use[i] = 30;
-		if(creature_ptr->stat_use[i] <= 180) creature_ptr->stat_use[i] /= 10;
-		else
-		{
-			creature_ptr->stat_use[i] = creature_ptr->stat_use[i] - 162;
-		}
-
-		creature_ptr->stat_cur[i] = creature_ptr->stat_use[i];
-		creature_ptr->stat_max[i] = creature_ptr->stat_use[i];
-
-		creature_ptr->stat_max_max[i] = 280;
 	}
 }
 

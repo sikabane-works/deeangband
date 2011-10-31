@@ -2933,7 +2933,6 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 			if ((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
 			{
-				u32b flgs[TR_FLAG_SIZE];
 
 				/* Sound */
 				sound(SOUND_HIT);
@@ -2948,92 +2947,12 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 #ifdef JP
 				msg_print("振り回した大鎌が自分自身に返ってきた！");
 #else
-				//TODO
 				msg_print("Your scythe returns to you!");
 #endif
 
-				/* Extract the flags */
-				object_flags(o_ptr, flgs);
+				//TODO Death Scythe damage.
 
-				k = damroll(o_ptr->dd + atk_ptr->to_dd[hand], o_ptr->ds + atk_ptr->to_ds[hand]);
-				{
-					int mult;
-					switch (atk_ptr->mimic_form)
-					{
-					case MIMIC_NONE:
-						switch (atk_ptr->race_idx1)
-						{
-							case RACE_YEEK:
-							case RACE_KLACKON:
-							case RACE_HUMAN:
-							case RACE_AMBERITE:
-							case RACE_DUNADAN:
-							case RACE_BARBARIAN:
-							case RACE_BEASTMAN:
-								mult = 25;break;
-							case RACE_ORC:
-							case RACE_TROLL:
-							case RACE_OGRE:
-							case RACE_GIANT:
-							case RACE_TITAN:
-							case RACE_CYCLOPS:
-							case RACE_IMP:
-							case RACE_DEMON:
-							case RACE_DRACONIAN:
-								mult = 30;break;
-							default:
-								mult = 10;break;
-						}
-						break;
-					case MIMIC_DEMON:
-					case MIMIC_DEMON_LORD:
-					case MIMIC_VAMPIRE:
-						mult = 30;break;
-					default:
-						mult = 10;break;
-					}
-
-					if (!(atk_ptr->resist_acid || IS_OPPOSE_ACID(atk_ptr) || atk_ptr->immune_acid) && (mult < 25))
-						mult = 25;
-					if (!(atk_ptr->resist_elec || IS_OPPOSE_ELEC(atk_ptr) || atk_ptr->immune_elec) && (mult < 25))
-						mult = 25;
-					if (!(atk_ptr->resist_fire || IS_OPPOSE_FIRE(atk_ptr) || atk_ptr->immune_fire) && (mult < 25))
-						mult = 25;
-					if (!(atk_ptr->resist_cold || IS_OPPOSE_COLD(atk_ptr) || atk_ptr->immune_cold) && (mult < 25))
-						mult = 25;
-					if (!(atk_ptr->resist_pois || IS_OPPOSE_POIS(atk_ptr)) && (mult < 25))
-						mult = 25;
-
-					if ((atk_ptr->cls_idx != CLASS_SAMURAI) && (have_flag(flgs, TR_FORCE_WEAPON)) && (atk_ptr->csp > (atk_ptr->msp / 30)))
-					{
-						atk_ptr->csp -= (1+(atk_ptr->msp / 30));
-						play_redraw |= (PR_MANA);
-						mult = mult * 3 / 2 + 20;
-					}
-					k *= mult;
-					k /= 10;
-				}
-
-				k = critical_norm(atk_ptr, o_ptr->weight, o_ptr->to_h, k, atk_ptr->to_h[hand], mode);
-				if (one_in_(6))
-				{
-					int mult = 2;
-#ifdef JP
-					msg_format("グッサリ切り裂かれた！");
-#else
-					msg_format("Your weapon cuts deep into yourself!");
-#endif
-					/* Try to increase the damage */
-					while (one_in_(4))
-					{
-						mult++;
-					}
-
-					k *= mult;
-				}
-				k += (atk_ptr->to_d[hand] + o_ptr->to_d);
-
-				if (k < 0) k = 0;
+				k = 0;
 
 #ifdef JP
 				take_hit(NULL, atk_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);

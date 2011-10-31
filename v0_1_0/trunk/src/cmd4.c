@@ -1201,7 +1201,7 @@ void do_cmd_redraw(creature_type *cr_ptr)
 	/* Hack -- update */
 	handle_stuff(cr_ptr);
 
-	if (cr_ptr->race_idx1 == RACE_ANDROID) calc_android_exp(cr_ptr);
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) calc_android_exp(cr_ptr);
 
 
 	/* Redraw every window */
@@ -5472,7 +5472,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 
 		else if (grp_amberite)
 		{
-			if (r_ptr->race_idx1 != RACE_AMBERITE) continue;
+			if (!IS_RACE(r_ptr, RACE_AMBERITE)) continue;
 		}
 
 		else if (cls != 255)
