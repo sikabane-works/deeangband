@@ -3383,70 +3383,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/***** Races ****/
-	if (cr_ptr->mimic_form)
-	{
-		switch (cr_ptr->mimic_form)
-		{
-		case MIMIC_DEMON:
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->resist_chaos = TRUE;
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->resist_fire = TRUE;
-			cr_ptr->oppose_fire = 1;
-			cr_ptr->see_inv=TRUE;
-			new_speed += 3;
-			play_redraw |= PR_STATUS;
-			cr_ptr->to_a += 10;
-			cr_ptr->dis_to_a += 10;
-			break;
-		case MIMIC_DEMON_LORD:
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->resist_chaos = TRUE;
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->immune_fire = TRUE;
-			cr_ptr->resist_acid = TRUE;
-			cr_ptr->resist_fire = TRUE;
-			cr_ptr->resist_cold = TRUE;
-			cr_ptr->resist_elec = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->resist_conf = TRUE;
-			cr_ptr->resist_disen = TRUE;
-			cr_ptr->resist_nexus = TRUE;
-			cr_ptr->resist_fear = TRUE;
-			cr_ptr->sh_fire = TRUE;
-			cr_ptr->see_inv = TRUE;
-			cr_ptr->telepathy = TRUE;
-			cr_ptr->levitation = TRUE;
-			cr_ptr->kill_wall = TRUE;
-			new_speed += 5;
-			cr_ptr->to_a += 20;
-			cr_ptr->dis_to_a += 20;
-			break;
-		case MIMIC_VAMPIRE:
-			cr_ptr->resist_dark = TRUE;
-			cr_ptr->hold_life = TRUE;
-			cr_ptr->resist_neth = TRUE;
-			cr_ptr->resist_cold = TRUE;
-			cr_ptr->resist_pois = TRUE;
-			cr_ptr->see_inv = TRUE;
-			new_speed += 3;
-			cr_ptr->to_a += 10;
-			cr_ptr->dis_to_a += 10;
-			if (cr_ptr->cls_idx != CLASS_NINJA) cr_ptr->lite = TRUE;
-			break;
-		}
-	}
-	else
+
+	// TODO: Mimic Race control to creature.c
+	if (!cr_ptr->mimic_form)
 	{
 		set_resistance(cr_ptr);
 
-		switch (cr_ptr->race_idx1)
+		if(IS_RACE(cr_ptr, RACE_SPRITE))
 		{
-		case RACE_SPRITE:
 			cr_ptr->levitation = TRUE;
 			new_speed += (cr_ptr->lev) / 10;
-			break;
-		case RACE_ENT:
+		}
+		if(IS_RACE(cr_ptr, RACE_ENT))
+		{
 			/* Ents dig like maniacs, but only with their hands. */
 			if (!cr_ptr->inventory[INVEN_1STARM].k_idx) 
 				cr_ptr->skill_dig += cr_ptr->lev * 10;
@@ -3462,36 +3411,17 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if (cr_ptr->lev > 25) cr_ptr->stat_add[STAT_CON]++;
 			if (cr_ptr->lev > 40) cr_ptr->stat_add[STAT_CON]++;
 			if (cr_ptr->lev > 45) cr_ptr->stat_add[STAT_CON]++;
-			break;
-		case RACE_TROLL:
-			break;
-		case RACE_YEEK:
-			if (cr_ptr->lev > 19) cr_ptr->immune_acid = TRUE;
-			break;
-		case RACE_KLACKON:
+		}
+		if(IS_RACE(cr_ptr, RACE_KLACKON))
+		{
 			new_speed += (cr_ptr->lev) / 10;
-			break;
-		case RACE_MIND_FLAYER:
-			if (cr_ptr->lev > 29) cr_ptr->telepathy = TRUE;
-			break;
-		case RACE_DEMON:
-		case RACE_BALROG:
-			if (cr_ptr->lev > 44)
-			{
-				cr_ptr->oppose_fire = 1;
-				play_redraw |= PR_STATUS;
-			}
-			break;
+		}
 		//TODOO
 		/*
 			case LICH:
 			cr_ptr->pass_wall = TRUE;
 			break;
 		*/
-		default:
-			/* Do nothing */
-			break;
-		}
 	}
 
 	/***** Sub Races ****/
