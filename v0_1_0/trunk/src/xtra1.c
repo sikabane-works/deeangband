@@ -6304,10 +6304,10 @@ cptr desc_race_name(creature_type *cr_ptr){
 	if(cr_ptr->race_idx1 == RACE_NONE) return format("");
 	else if(cr_ptr->race_idx2 == RACE_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
-	if(cr_ptr->race_idx1 != cr_ptr->race_idx2)
+	if(!IS_PURE(cr_ptr))
 		strcat(name, "ƒn[ƒt");
 
-	if(cr_ptr->race_idx1 != RACE_HUMAN || IS_PURE(cr_ptr))
+	if(IS_RACE(cr_ptr, RACE_HUMAN) || IS_PURE(cr_ptr))
 		strcat(name, race_info[cr_ptr->race_idx1].title);
 
 	if(!IS_PURE(cr_ptr))

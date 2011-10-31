@@ -5252,13 +5252,14 @@ static void dump_aux_race_history(creature_type *cr_ptr, FILE *fff)
 		int i;
 
 #ifdef JP
-		fprintf(fff, "\n\n ‚ ‚È‚½‚Í%s‚Æ‚µ‚Ä¶‚Ü‚ê‚½B", race_info[cr_ptr->start_race].title);
+		fprintf(fff, "\n\n ‚ ‚È‚½‚Í%s‚Æ‚µ‚Ä¶‚Ü‚ê‚½B", desc_race_name(cr_ptr));
 #else
-		fprintf(fff, "\n\n You were born as %s.", race_info[cr_ptr->start_race].title);
+		fprintf(fff, "\n\n You were born as %s.", desc_race_name(cr_ptr));
 #endif
+		//TODO
 		for (i = 0; i < MAX_RACES; i++)
 		{
-			if (cr_ptr->start_race == i) continue;
+			if (cr_ptr->start_race1 == i) continue;
 			if (i < 32)
 			{
 				if (!(cr_ptr->old_race1 & 1L << i)) continue;

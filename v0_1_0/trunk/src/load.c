@@ -1156,9 +1156,12 @@ static void rd_creature(creature_type *cr_ptr)
 
 	if (music_singing_any(cr_ptr)) cr_ptr->action = ACTION_SING;
 
-	rd_s16b(&cr_ptr->start_race);
+	rd_s16b(&cr_ptr->start_race1);
+	rd_s16b(&cr_ptr->start_race2);
 	rd_s32b(&cr_ptr->old_race1);
 	rd_s32b(&cr_ptr->old_race2);
+	rd_s32b(&cr_ptr->old_race3);
+	rd_s32b(&cr_ptr->old_race4);
 	rd_s16b(&cr_ptr->old_realm);
 
 	for (i = 0; i < MAX_MANE; i++)

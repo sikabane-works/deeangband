@@ -21,7 +21,7 @@
  */
 void set_experience(creature_type *cr_ptr)
 {
-	bool android = (cr_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
+	bool android = (IS_RACE(cr_ptr, RACE_ANDROID) ? TRUE : FALSE);
 
 	/* Hack -- lower limit */
 	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
@@ -56,7 +56,7 @@ void check_experience(creature_type *cr_ptr)
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (cr_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
+	bool android = (IS_RACE(cr_ptr, RACE_ANDROID) ? TRUE : FALSE);
 	int  old_lev = cr_ptr->lev;
 
 	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
@@ -118,9 +118,9 @@ void check_experience(creature_type *cr_ptr)
 		{
 			cr_ptr->max_plv = cr_ptr->lev;
 
-			if (cr_ptr->race_idx1 == RACE_BEASTMAN)
+			if (IS_RACE(cr_ptr, RACE_BEASTMAN))
 			{
-				if (one_in_(5)) level_mutation = TRUE;
+				if (one_in_(IS_PURE_RACE(cr_ptr, RACE_BEASTMAN) ? 4 : 7)) level_mutation = TRUE;
 			}
 			level_inc_stat = TRUE;
 
@@ -2360,7 +2360,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((p_ptr->lev >= p_ptr->max_plv) || (p_ptr->race_idx1 == RACE_ANDROID))
+	if ((p_ptr->lev >= p_ptr->max_plv) || IS_RACE(p_ptr, RACE_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;

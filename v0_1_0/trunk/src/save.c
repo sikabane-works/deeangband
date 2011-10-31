@@ -574,9 +574,12 @@ static void wr_creature(creature_type *cr_ptr)
 	for (i = 0; i < 108; i++) wr_s32b(cr_ptr->magic_num1[i]);
 	for (i = 0; i < 108; i++) wr_byte(cr_ptr->magic_num2[i]);
 
-	wr_s16b(cr_ptr->start_race);
+	wr_s16b(cr_ptr->start_race1);
+	wr_s16b(cr_ptr->start_race2);
 	wr_s32b(cr_ptr->old_race1);
 	wr_s32b(cr_ptr->old_race2);
+	wr_s32b(cr_ptr->old_race3);
+	wr_s32b(cr_ptr->old_race4);
 	wr_s16b(cr_ptr->old_realm);
 
 	for (i = 0; i < MAX_MANE; i++)

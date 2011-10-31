@@ -2235,6 +2235,7 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	/* Save the data */
 	species_ptr->sex = cr_ptr->sex;
 	species_ptr->race_idx1 = cr_ptr->race_idx1;
+	species_ptr->race_idx1 = cr_ptr->race_idx2;
 	species_ptr->species_idx = cr_ptr->species_idx;
 	species_ptr->ap_species_idx = cr_ptr->ap_species_idx;
 	species_ptr->cls_idx = cr_ptr->cls_idx;
@@ -2300,6 +2301,7 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	/* Load the data */
 	creature_ptr->sex = species_ptr->sex;
 	creature_ptr->race_idx1 = species_ptr->race_idx1;
+	creature_ptr->race_idx2 = species_ptr->race_idx2;
 	creature_ptr->species_idx = species_ptr->species_idx;
 	creature_ptr->ap_species_idx = species_ptr->ap_species_idx;
 	creature_ptr->cls_idx = species_ptr->cls_idx;
@@ -2514,7 +2516,8 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 	set_expfact(cr_ptr);
 
 	/* Reset record of race/realm changes */
-	cr_ptr->start_race = cr_ptr->race_idx1;
+	cr_ptr->start_race1 = cr_ptr->race_idx1;
+	cr_ptr->start_race2 = cr_ptr->race_idx2;
 	cr_ptr->old_race1 = 0L;
 	cr_ptr->old_race2 = 0L;
 	cr_ptr->old_realm = 0;
