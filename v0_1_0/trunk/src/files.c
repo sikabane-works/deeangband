@@ -3117,26 +3117,77 @@ display_flag_aux(row+9, col, "‘Ï¬—:", TR_RES_CONF, &f, 0, cr_ptr);
 	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, cr_ptr);
 #endif
 
+	//acid
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_ACID))
+		c_put_str(TERM_WHITE, "+", row + 0, col + 33);
+	if (cr_ptr->oppose_acid)
+		c_put_str(TERM_YELLOW, "#", row + 0, col + 33);
+	if (has_cf_creature(cr_ptr, CF_IM_ACID))
+		c_put_str(TERM_YELLOW, "*", row + 0, col * 33);
+	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ACID))
+		c_put_str(TERM_WHITE, "*", row + 0, col + 33);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
+	//elec
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_ELEC))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 33);
+	if (cr_ptr->oppose_elec)
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 33);
+	if (has_cf_creature(cr_ptr, CF_IM_ELEC))
+		c_put_str(TERM_YELLOW, "*", row + 1, col * 33);
+	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_ELEC))
+		c_put_str(TERM_WHITE, "*", row + 1, col + 33);
+	if (has_cf_creature(cr_ptr, CF_HURT_ELEC))
+		c_put_str(TERM_RED, "v", row + 1, col + 33);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
+	//fire
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
-	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
+	if (has_cf_creature(cr_ptr, CF_RES_FIRE))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 33);
+	if (cr_ptr->oppose_fire)
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 33);
+	if (has_cf_creature(cr_ptr, CF_IM_FIRE))
+		c_put_str(TERM_YELLOW, "*", row + 2, col * 33);
+	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_FIRE))
+		c_put_str(TERM_WHITE, "*", row + 2, col + 33);
+	if (has_cf_creature(cr_ptr, CF_HURT_FIRE))
+		c_put_str(TERM_RED, "v", row + 2, col + 33);
+	c_put_str(TERM_YELLOW, buf, row + 2, col + 33);
 
+	//cold
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
+	if (has_cf_creature(cr_ptr, CF_RES_COLD))
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 33);
+	if (cr_ptr->oppose_cold)
+		c_put_str((byte)(has_cf_creature(cr_ptr, CF_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 33);
+	if (has_cf_creature(cr_ptr, CF_IM_COLD))
+		c_put_str(TERM_YELLOW, "*", row + 3, col * 33);
+	if (cr_ptr->ele_immune && cr_ptr->special_defense & (DEFENSE_COLD))
+		c_put_str(TERM_WHITE, "*", row + 3, col + 33);
+	if (has_cf_creature(cr_ptr, CF_HURT_COLD))
+		c_put_str(TERM_RED, "v", row + 3, col + 33);
+	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
+	//pois
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	if (has_cf_creature(cr_ptr, CF_RES_POIS))
+		c_put_str(TERM_WHITE, "+", row + 4, col + 33);
+	if (cr_ptr->oppose_pois)
+		c_put_str(TERM_YELLOW, "#", row + 4, col + 33);
+	if (has_cf_creature(cr_ptr, CF_IM_POIS))
+		c_put_str(TERM_YELLOW, "*", row + 4, col * 33);
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
+	//lite
 	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
