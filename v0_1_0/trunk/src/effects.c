@@ -433,7 +433,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (cr_ptr->race_idx1 == RACE_ANDROID)
+				if (IS_RACE(cr_ptr, RACE_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが不能に陥った。", name);
@@ -462,7 +462,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (cr_ptr->race_idx1 == RACE_ANDROID)
+				if (IS_RACE(cr_ptr, RACE_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが復旧した。", name);
@@ -4452,7 +4452,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 			if(is_seen(player_ptr, cr_ptr))
 			{
 #ifdef JP
-				msg_format("やっと%s。", cr_ptr->race_idx1 == RACE_ANDROID ? "怪我が直った" : "出血が止まった");
+				msg_format("やっと%s。", IS_RACE(cr_ptr, RACE_ANDROID) ? "怪我が直った" : "出血が止まった");
 #else
 				msg_print("You are no longer bleeding.");
 #endif
@@ -5477,7 +5477,7 @@ void do_poly_self(creature_type *cr_ptr)
 #endif
 	}
 
-	if ((power > randint0(20)) && one_in_(3) && (cr_ptr->race_idx1 != RACE_ANDROID))
+	if ((power > randint0(20)) && one_in_(3) && (!IS_RACE(cr_ptr, RACE_ANDROID)))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -5602,7 +5602,7 @@ void do_poly_self(creature_type *cr_ptr)
 		if(is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-			msg_format("%sの構成が変化した！", cr_ptr->race_idx1 == RACE_ANDROID ? "機械" : "内臓");
+			msg_format("%sの構成が変化した！", IS_RACE(cr_ptr, RACE_ANDROID) ? "機械" : "内臓");
 #else
 			msg_print("Your internal organs are rearranged!");
 #endif
@@ -6535,7 +6535,7 @@ void calc_android_exp(creature_type *cr_ptr)
 	u32b total_exp = 0;
 	if (cr_ptr->is_dead) return;
 
-	if (cr_ptr->race_idx1 != RACE_ANDROID) return;
+	if (!IS_RACE(cr_ptr, RACE_ANDROID)) return;
 
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
@@ -6631,7 +6631,7 @@ void calc_android_exp(creature_type *cr_ptr)
  */
 void lose_exp(creature_type *cr_ptr, s32b amount)
 {
-	if (cr_ptr->race_idx1 == RACE_ANDROID) return;
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) return;
 
 	/* Never drop below zero experience */
 	if (amount > cr_ptr->exp) amount = cr_ptr->exp;
@@ -6651,7 +6651,7 @@ void lose_exp(creature_type *cr_ptr, s32b amount)
 bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (cr_ptr->race_idx1 == RACE_ANDROID) return FALSE;
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) return FALSE;
 
 	if (cr_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{

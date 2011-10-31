@@ -1982,7 +1982,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	}
 
 	/* Dump experience */
-	if (cr_ptr->race_idx1 == RACE_ANDROID) e = ENTRY_EXP_ANDR;
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
@@ -1991,18 +1991,18 @@ static void display_player_middle(creature_type *cr_ptr)
 		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (cr_ptr->race_idx1 == RACE_ANDROID)
+	if (IS_RACE(cr_ptr, RACE_ANDROID))
 		/* Nothing */;
 	else
 		display_player_one_line(ENTRY_MAX_EXP, format("%ld", cr_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (cr_ptr->race_idx1 == RACE_ANDROID) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (IS_RACE(cr_ptr, RACE_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
 	if (cr_ptr->lev >= cr_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (cr_ptr->race_idx1 == RACE_ANDROID)
+	else if (IS_RACE(cr_ptr, RACE_ANDROID))
 		display_player_one_line(e, format("%ld", (s32b)(creautre_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
 		display_player_one_line(e, format("%ld", (s32b)(creautre_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);

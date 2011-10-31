@@ -749,7 +749,7 @@ static void prt_exp(creature_type *cr_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(cr_ptr->race_idx1 == RACE_ANDROID))
+	if ((!exp_need)||(IS_RACE(cr_ptr, RACE_ANDROID)))
 	{
 		(void)sprintf(out_val, "%8ld", (long)cr_ptr->exp);
 	}
@@ -767,7 +767,7 @@ static void prt_exp(creature_type *cr_ptr)
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
-		if (cr_ptr->race_idx1 == RACE_ANDROID) put_str("Cst ", ROW_EXP, 0);
+		if (IS_RACE(cr_ptr, RACE_ANDROID)) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP ", ROW_EXP, 0);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
 
@@ -3107,7 +3107,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 
-	if(cr_ptr->race_idx1 == cr_ptr->race_idx2)
+	if(IS_PURE(cr_ptr))
 	{
 		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_dis);
 		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_dev);
@@ -3134,6 +3134,19 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_thn += (-10 + race_info[cr_ptr->race_idx1].r_s_thn);
 		cr_ptr->skill_thb += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
 		cr_ptr->skill_tht += (-10 + race_info[cr_ptr->race_idx1].r_s_thb);
+
+		cr_ptr->skill_dis += race_info[cr_ptr->race_idx2].r_s_dis;
+		cr_ptr->skill_dev += race_info[cr_ptr->race_idx2].r_s_dev;
+		cr_ptr->skill_rob += race_info[cr_ptr->race_idx2].r_s_sav;
+		cr_ptr->skill_eva += race_info[cr_ptr->race_idx2].r_s_sav;
+		cr_ptr->skill_vol += race_info[cr_ptr->race_idx2].r_s_sav;
+		cr_ptr->skill_stl += race_info[cr_ptr->race_idx2].r_s_stl;
+		cr_ptr->skill_srh += race_info[cr_ptr->race_idx2].r_s_srh;
+		cr_ptr->skill_fos += race_info[cr_ptr->race_idx2].r_s_fos;
+		cr_ptr->skill_thn += race_info[cr_ptr->race_idx2].r_s_thn;
+		cr_ptr->skill_thb += race_info[cr_ptr->race_idx2].r_s_thb;
+		cr_ptr->skill_tht += race_info[cr_ptr->race_idx2].r_s_thb;
+
 	}
 
 

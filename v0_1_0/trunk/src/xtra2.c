@@ -4226,7 +4226,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (cr_ptr->race_idx1 == RACE_ANDROID)
+			if (IS_RACE(cr_ptr, RACE_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4267,7 +4267,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (cr_ptr->race_idx1 == RACE_ANDROID)
+			if (IS_RACE(cr_ptr, RACE_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
