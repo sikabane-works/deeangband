@@ -2066,6 +2066,35 @@ static cptr store_pre_info_flags[] =
 	"GENERAL",
 	"SCULPTURE",
 	"PAINT",
+	"ORIENTAL_WEAPON",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"OTAKU",
+	"XXX",
+	"XXX",
+	"XXX",
 };
 
 

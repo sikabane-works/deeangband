@@ -44,7 +44,7 @@
 
 # Town 9
 ?:[EQU $TOWN 9]
-%:t0000009.txt
+%:t_Texorami.txt
 
 # Town 10
 ?:[EQU $TOWN 10]
