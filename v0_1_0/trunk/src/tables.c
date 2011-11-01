@@ -5573,6 +5573,13 @@ starting_type starting_point[STARTING_MAX] =
 {
 	{
 #if JP
+		"イェンダー",
+#endif
+		"Yender",
+		0, 0,  52, 97, 0, 0
+	},
+	{
+#if JP
 		"イェーキン",
 #endif
 		"Yiyeeken",
