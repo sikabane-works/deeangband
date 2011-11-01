@@ -1824,7 +1824,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *cr_ptr, object_typ
 	if (is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
 
 	/* XXX XXX XXX Ignore "worthless" items */
-	if (object_value(o_ptr) <= 0) return (FALSE);
+	//if (object_value(o_ptr) <= 0) return (FALSE);
 
 	/* Black Market is simple too */
 	if (is_black_market(st_ptr)) return (TRUE);
@@ -2300,7 +2300,7 @@ static int store_carry(store_type *st_ptr, object_type *o_ptr)
 	value = object_value(o_ptr);
 
 	/* Cursed/Worthless items "disappear" when sold */
-	if (value <= 0) return (-1);
+	//if (value <= 0) return (-1);
 
 	/* All store items are fully *identified* */
 	o_ptr->ident |= IDENT_MENTAL;
