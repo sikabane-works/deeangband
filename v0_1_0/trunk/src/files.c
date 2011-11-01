@@ -4984,21 +4984,6 @@ static void dump_aux_options(creature_type *cr_ptr, FILE *fff)
 #endif
 
 
-	if (vanilla_town)
-#ifdef JP
-		fprintf(fff, "\n å≥ëcÇÃí¨ÇÃÇ›:       ON");
-#else
-		fprintf(fff, "\n Vanilla Town:       ON");
-#endif
-
-	else if (lite_town)
-#ifdef JP
-		fprintf(fff, "\n è¨ãKñÕÇ»í¨:         ON");
-#else
-		fprintf(fff, "\n Lite Town:          ON");
-#endif
-
-
 	if (ironman_shops)
 #ifdef JP
 		fprintf(fff, "\n ìXÇ»Çµ:             ON");
@@ -5071,8 +5056,6 @@ static void dump_aux_options(creature_type *cr_ptr, FILE *fff)
  */
 static void dump_aux_arena(FILE *fff)
 {
-	if (lite_town || vanilla_town) return;
-
 	if (arena_number < 0)
 	{
 		if (arena_number <= ARENA_DEFEATED_OLD_VER)

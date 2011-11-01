@@ -990,11 +990,9 @@ void leave_floor(creature_type *cr_ptr)
 	if (!dun_level && dungeon_type)
 	{
 		cr_ptr->leaving_dungeon = TRUE;
-		if (!vanilla_town && !lite_town)
-		{
-			wilderness_y = d_info[dungeon_type].dy;
-			wilderness_x = d_info[dungeon_type].dx;
-		}
+		wilderness_y = d_info[dungeon_type].dy;
+		wilderness_x = d_info[dungeon_type].dx;
+
 		cr_ptr->recall_dungeon = dungeon_type;
 		dungeon_type = 0;
 

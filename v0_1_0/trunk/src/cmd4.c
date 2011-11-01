@@ -10159,7 +10159,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			prt("(3) 既知の生きているユニーク・モンスター の一覧", 8, 5);
 			prt("(4) 既知のモンスター                     の一覧", 9, 5);
 			prt("(5) 倒した敵の数                         の一覧", 10, 5);
-			if (!vanilla_town) prt("(6) 賞金首                               の一覧", 11, 5);
+			prt("(6) 賞金首                               の一覧", 11, 5);
 			prt("(7) 現在のペット                         の一覧", 12, 5);
 			prt("(8) 我が家のアイテム                     の一覧", 13, 5);
 			prt("(9) *鑑定*済み装備の耐性                 の一覧", 14, 5);
@@ -10246,7 +10246,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_kill_count();
 			break;
 		case '6': /* wanted */
-			if (!vanilla_town) do_cmd_knowledge_kubi(cr_ptr);
+			do_cmd_knowledge_kubi(cr_ptr);
 			break;
 		case '7': /* Pets */
 			do_cmd_knowledge_pets();

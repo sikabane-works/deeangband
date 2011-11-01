@@ -4664,7 +4664,6 @@ msg_print("ウィザードモード突入。");
 		{
 			if (!wild_mode && !dun_level && !inside_arena && !inside_quest)
 			{
-				if (vanilla_town) break;
 
 				if (ambush_flag)
 				{
@@ -7266,29 +7265,13 @@ quit("セーブファイルが壊れています");
 					inside_quest = 0;
 					if (dungeon_type) cr_ptr->recall_dungeon = dungeon_type;
 					dungeon_type = 0;
-					if (lite_town || vanilla_town)
-					{
-						wilderness_y = 1;
-						wilderness_x = 1;
-						if (vanilla_town)
-						{
-							cr_ptr->oldpy = 10;
-							cr_ptr->oldpx = 34;
-						}
-						else
-						{
-							cr_ptr->oldpy = 33;
-							cr_ptr->oldpx = 131;
-						}
-					}
-					else
-					{
-						wilderness_y = previous_char.start_wy;
-						wilderness_x = previous_char.start_wx;
 
-						cr_ptr->oldpy = 95;
-						cr_ptr->oldpx = 95;
-					}
+					// Start Point Set
+					wilderness_y = previous_char.start_wy;
+					wilderness_x = previous_char.start_wx;
+
+					cr_ptr->oldpy = 95;
+					cr_ptr->oldpx = 95;
 
 					/* Leaving */
 					wild_mode = FALSE;

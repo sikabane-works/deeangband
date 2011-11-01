@@ -4157,22 +4157,6 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &vanilla_town,                FALSE, OPT_PAGE_BIRTH, 6, 0,
-	"vanilla_town",                 "å≥ëcÇÃäX/ÉNÉGÉXÉgÇ∆çrñÏÇ»Çµ" },
-#else
-	{ &vanilla_town,                FALSE, OPT_PAGE_BIRTH, 6, 0,
-	"vanilla_town",                 "Use 'vanilla' town without quests and wilderness" },
-#endif
-
-#ifdef JP
-	{ &lite_town,                   FALSE, OPT_PAGE_BIRTH, 6, 1,
-	"lite_town",                    "è¨ãKñÕÇ»äX/çrñÏÇ»Çµ" },
-#else
-	{ &lite_town,                   FALSE, OPT_PAGE_BIRTH, 6, 1,
-	"lite_town",                    "Use 'lite' town without a wilderness" },
-#endif
-
-#ifdef JP
 	{ &ironman_shops,               FALSE, OPT_PAGE_BIRTH, 6, 2,
 	"ironman_shops",                "(ìSêlóp)ìXÇégópÇµÇ»Ç¢(*)" },
 #else

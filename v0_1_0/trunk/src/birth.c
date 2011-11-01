@@ -3089,16 +3089,8 @@ static void player_wipe(creature_type *cr_ptr)
 	for (i = 0; i < 8; i++) cr_ptr->karmas[i]=0;
 
 	/* Set the recall dungeon accordingly */
-	if (vanilla_town)
-	{
-		dungeon_type = 0;
-		cr_ptr->recall_dungeon = DUNGEON_ANGBAND;
-	}
-	else
-	{
-		dungeon_type = 0;
-		cr_ptr->recall_dungeon = DUNGEON_GALGALS;
-	}
+	dungeon_type = 0;
+	cr_ptr->recall_dungeon = DUNGEON_GALGALS;
 }
 
 

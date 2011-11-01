@@ -1034,16 +1034,6 @@ bool change_wild_mode(creature_type *cr_ptr)
 	if (cr_ptr->leaving) return FALSE;
 
 
-	if (lite_town || vanilla_town)
-	{
-#ifdef JP
-		msg_print("çrñÏÇ»ÇÒÇƒÇ»Ç¢ÅB");
-#else
-		msg_print("No global map.");
-#endif
-		return FALSE;
-	}
-
 	if (wild_mode)
 	{
 		/* Save the location in the global map */

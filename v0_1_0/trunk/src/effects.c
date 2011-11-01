@@ -6321,7 +6321,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	#endif
 	
 			}
-			if (is_unique_creature(tar_ptr) && !(tar_ptr->smart & SM_CLONED) && !vanilla_town)
+			if (is_unique_creature(tar_ptr) && !(tar_ptr->smart & SM_CLONED))
 			{
 				for (i = 0; i < MAX_KUBI; i++)
 				{

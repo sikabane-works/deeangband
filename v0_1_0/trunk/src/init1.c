@@ -6827,12 +6827,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Wilderness */
 			else if (streq(b+1, "WILDERNESS"))
 			{
-				if (vanilla_town)
-					sprintf(tmp, "NONE");
-				else if (lite_town)
-					sprintf(tmp, "LITE");
-				else
-					sprintf(tmp, "NORMAL");
+				sprintf(tmp, "NORMAL");
 				v = tmp;
 			}
 		}
