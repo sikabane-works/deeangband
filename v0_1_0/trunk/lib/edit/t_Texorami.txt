@@ -6,6 +6,20 @@ R:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:10:
 
 # Texorami
 
+P:110:116
+
+# Entrance of Yeek Cave
+F:>:ENTRANCE:0:0:0:0:0:NONE:2
+
+F:C:BUILDING_2:3:0:0:0:0:NONE:0
+
+
+B:$2:N:a:a:a
+B:2:N:G‹ƒrƒ‹:a:a
+B:$2:A:2:Listen for rumors:5:5:u:19:0
+B:2:A:2:‰\‚ğ•·‚­:5:5:s:19:0
+B:$2:A:3:Store:0:0:u:48:0:17
+B:2:A:3:“X:0:0:u:48:0:17
 
 ############### Additional default terrain settings ###############
 
