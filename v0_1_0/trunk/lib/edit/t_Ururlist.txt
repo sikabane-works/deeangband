@@ -335,17 +335,3 @@ P:47:109
 ?:[EQU $LEAVING_QUEST 33]
 P:44:109
 
-
-
-############### Additional default terrain settings ###############
-
-
-############### Quest 1 - Thieves Hideout ###############
-
-
-############### Town Layout ###############
-
-
-
-
-

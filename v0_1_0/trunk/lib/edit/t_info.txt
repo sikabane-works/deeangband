@@ -40,7 +40,7 @@
 
 # Town 8
 ?:[EQU $TOWN 8]
-%:t_DuanHa.txt
+%:t_Duanhai.txt
 
 # Town 9
 ?:[EQU $TOWN 9]

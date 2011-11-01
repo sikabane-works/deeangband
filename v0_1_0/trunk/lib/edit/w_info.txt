@@ -45,7 +45,7 @@ W:F:=:4:35
 W:F:C:12:80
 
 # Town 1
-W:E:1:1:0:1:1:YiYeekin
+W:E:1:1:0:1:1:Yiyeekin
 W:J:1:1:0:1:1:イェーキン
 
 # Town 2
@@ -73,7 +73,7 @@ W:E:7:2:30:7:1:Lugburz
 W:J:7:2:30:7:1:ルグブルズ
 
 # Town 8
-W:E:8:1:0:8:1:TangHai
+W:E:8:1:0:8:1:Duanhai
 W:J:8:1:0:8:1:端海
 
 # Town 9
