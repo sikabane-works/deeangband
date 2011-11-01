@@ -185,7 +185,7 @@
 #define ST1_ORIENTAL_WEAPON		0x00000400
 
 #define ST1_OTAKU				0x10000000
-
+#define ST1_MORGUE              0x20000000
 
 #define HISTORY_ROW 16
 #define HISTORY_COL 75

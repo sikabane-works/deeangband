@@ -2092,7 +2092,7 @@ static cptr store_pre_info_flags[] =
 	"XXX",
 	"XXX",
 	"OTAKU",
-	"XXX",
+	"MORGUE",
 	"XXX",
 	"XXX",
 };
