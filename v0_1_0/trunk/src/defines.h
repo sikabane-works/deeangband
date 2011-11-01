@@ -2043,6 +2043,8 @@
 #define SV_DAKIMAKURA			10
 #define SV_OIL_PAINT			11
 #define SV_DOUJINSHI			12
+#define SV_FS_FIGURE			13
+#define SV_FIGURE				14
 #define SV_PHOTO				50
 
 /* The "sval" codes for TV_CORPSE */
@@ -4781,7 +4783,6 @@ extern int PlayerUID;
 #define MON_G_BALROG      720
 #define MON_TIME_HOUND    725
 #define MON_PLASMA_HOUND  726
-#define MON_BULLGATES     732
 #define MON_SANTACLAUS    733
 #define MON_LORD_CHAOS    737
 #define MON_TINDALOS      739
@@ -4899,6 +4900,7 @@ extern int PlayerUID;
 #define MON_CHAMELEON     1040
 #define MON_CHAMELEON_K   1041
 #define MON_TOPAZ_MONK    1047
+#define MON_RICHARD_STOLENMAN 1054
 #define MON_NOBORTA       1059
 #define MON_MORI_TROLL    1060
 #define MON_BARNEY        1061

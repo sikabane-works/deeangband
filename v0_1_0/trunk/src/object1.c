@@ -2503,7 +2503,20 @@ info[i++] = "それは魔法抵抗力を下げる。";
 	{
 		species_type *r_ptr = &species_info[o_ptr->pval];
 
-		if (o_ptr->pval == MON_BULLGATES)
+
+		if(o_ptr->sval == SV_DAKIMAKURA)
+#ifdef JP
+			info[i++] = "それはベッドに置くと癒される。";
+#else
+			info[i++] = "It is shameful.";
+#endif	
+		else if(o_ptr->sval == SV_DOUJINSHI)
+#ifdef JP
+			info[i++] = "それは公序良俗に反している。";
+#else
+			info[i++] = "It is HENTAI.";
+#endif	
+		else if (o_ptr->pval == MON_RICHARD_STOLENMAN || o_ptr->sval == SV_FS_FIGURE || o_ptr->sval == SV_FIGURE )
 #ifdef JP
 			info[i++] = "それは部屋に飾ると恥ずかしい。";
 #else
@@ -2513,7 +2526,7 @@ info[i++] = "それは魔法抵抗力を下げる。";
 #ifdef JP
 			info[i++] = "それは部屋に飾ると恐い。";
 #else
-		info[i++] = "It is fearful.";
+			info[i++] = "It is fearful.";
 #endif
 		else
 #ifdef JP
@@ -2522,7 +2535,7 @@ info[i++] = "それは魔法抵抗力を下げる。";
 		info[i++] = "It is cheerful.";
 #endif
 	}
-	
+
 	/* Hack -- describe lite's */
 	if (o_ptr->tval == TV_LITE)
 	{

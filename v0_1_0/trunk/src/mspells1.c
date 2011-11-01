@@ -3753,7 +3753,7 @@ else msg_format("%^s‚ª€Ò•œŠˆ‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 				}
 				break;
 
-			case MON_BULLGATES:
+			case MON_RICHARD_STOLENMAN:
 				{
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
