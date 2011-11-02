@@ -460,9 +460,9 @@ sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name)
 		object_copy(switch_o_ptr, slot_o_ptr);
 		object_copy(slot_o_ptr, otmcr_ptr);
 #ifdef JP
-		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_1STARM) ? (left_hander ? "左手" : "右手") : (left_hander ? "右手" : "左手"));
+		msg_format("%sを%sに構えなおした。", switch_name, (slot == INVEN_1STARM) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手" : "左手"));
 #else
-		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_1STARM) ? (left_hander ? "left" : "right") : (left_hander ? "right" : "left"));
+		msg_format("You wield %s at %s hand.", switch_name, (slot == INVEN_1STARM) ? (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "left" : "right") : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "right" : "left"));
 #endif
 
 		slot = need_switch_wielding;
@@ -744,14 +744,14 @@ msg_print("クエストを達成した！");
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_LARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
 		else
-			act = (left_hander ? STR_WIELD_LARM : STR_WIELD_RARM);
+			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_LARM : STR_WIELD_RARM);
 		break;
 
 	case INVEN_2NDARM:
 		if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && (cr_ptr, empty_hands(cr_ptr, FALSE) == EMPTY_HAND_RARM) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 			act = STR_WIELD_ARMS;
 		else
-			act = (left_hander ? STR_WIELD_RARM : STR_WIELD_LARM);
+			act = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? STR_WIELD_RARM : STR_WIELD_LARM);
 		break;
 
 	case INVEN_BOW:
@@ -853,9 +853,9 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 #endif
 				 else
 #ifdef JP
-					msg_format("%sを%sで構えた。", o_name, (left_hander ? "左手" : "右手"));
+					msg_format("%sを%sで構えた。", o_name, (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手" : "右手"));
 #else
-					msg_format("You are wielding %s in your %s hand.", o_name, (left_hander ? "left":"right"));
+					msg_format("You are wielding %s in your %s hand.", o_name, (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "left":"right"));
 #endif
 			}
 			else

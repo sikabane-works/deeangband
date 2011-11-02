@@ -460,7 +460,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"DROP_4D2",
 	"DROP_GOOD",
 	"DROP_GREAT",
-	"XXX",
+	"LEFT_HANDER",
 	"NO_DEVOTEE",
 //CF2
 	"STUPID",

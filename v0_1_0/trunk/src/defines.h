@@ -5380,7 +5380,7 @@ extern int PlayerUID;
 #define CF_1X27				27
 #define CF_1X28				28
 #define CF_1X29				29
-#define CF_1X30				30
+#define CF_LEFT_HANDER		30
 #define CF_NO_DEVOTEE		31
 
 // Flags 2

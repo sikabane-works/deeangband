@@ -4178,7 +4178,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 	{
 #ifdef JP
 		case INVEN_1STARM:  
-			p = cr_ptr->heavy_wield[0] ? "運搬中" : ((cr_ptr->ryoute && cr_ptr->migite) ? " 両手" : (left_hander ? " 左手" : " 右手")); break;
+			p = cr_ptr->heavy_wield[0] ? "運搬中" : ((cr_ptr->ryoute && cr_ptr->migite) ? " 両手" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? " 左手" : " 右手")); break;
 #else
 		case INVEN_1STARM:
 			p = cr_ptr->heavy_wield[0] ? "Just lifting" : (cr_ptr->migite ? "Wielding" : "On arm"); break;
@@ -4186,7 +4186,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_2NDARM:
-			p = cr_ptr->heavy_wield[1] ? "運搬中" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? " 両手" : (left_hander ? " 右手" : " 左手")); break;
+			p = cr_ptr->heavy_wield[1] ? "運搬中" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? " 両手" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? " 右手" : " 左手")); break;
 #else
 		case INVEN_2NDARM:
 			p = cr_ptr->heavy_wield[1] ? "Just lifting" : (cr_ptr->hidarite ? "Wielding" : "On arm"); break;
@@ -4387,13 +4387,13 @@ cptr describe_use(creature_type *cr_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (left_hander ? "左手に装備している" : "右手に装備している")); break;
+		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->migite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
 #else
 		case INVEN_1STARM:  p = cr_ptr->heavy_wield[0] ? "just lifting" : (cr_ptr->migite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (left_hander ? "右手に装備している" : "左手に装備している")); break;
+		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "運搬中の" : ((cr_ptr->ryoute && cr_ptr->hidarite) ? "両手に装備している" : (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手に装備している" : "左手に装備している")); break;
 #else
 		case INVEN_2NDARM:  p = cr_ptr->heavy_wield[1] ? "just lifting" : (cr_ptr->hidarite ? "attacking monsters with" : "wearing on your arm"); break;
 #endif
@@ -4405,15 +4405,15 @@ cptr describe_use(creature_type *cr_ptr, int i)
 #endif
 
 #ifdef JP
-		case INVEN_RIGHT: p = (left_hander ? "左手の指にはめている" : "右手の指にはめている"); break;
+		case INVEN_RIGHT: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
 #else
-		case INVEN_RIGHT: p = (left_hander ? "wearing on your left hand" : "wearing on your right hand"); break;
+		case INVEN_RIGHT: p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 #endif
 
 #ifdef JP
-		case INVEN_LEFT:  p = (left_hander ? "右手の指にはめている" : "左手の指にはめている"); break;
+		case INVEN_LEFT:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "右手の指にはめている" : "左手の指にはめている"); break;
 #else
-		case INVEN_LEFT:  p = (left_hander ? "wearing on your right hand" : "wearing on your left hand"); break;
+		case INVEN_LEFT:  p = (has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? "wearing on your right hand" : "wearing on your left hand"); break;
 #endif
 
 #ifdef JP

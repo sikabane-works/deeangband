@@ -4197,14 +4197,6 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &left_hander,                 FALSE, OPT_PAGE_BIRTH, 6, 13,
-	"left_hander",                  "¶—˜‚«‚Å‚ ‚é" },
-#else
-	{ &left_hander,                 FALSE, OPT_PAGE_BIRTH, 6, 13,
-	"left_hander",                  "Left-Hander" },
-#endif
-
-#ifdef JP
 	{ &preserve_mode,               TRUE,  OPT_PAGE_BIRTH, 6, 14,
 	"preserve_mode",                "“`à‚ÌƒAƒCƒeƒ€‚ğæ‚è“¦‚µ‚Ä‚àÄ¶¬‚³‚ê‚é(*)" },
 #else

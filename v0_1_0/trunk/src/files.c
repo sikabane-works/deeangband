@@ -1847,12 +1847,12 @@ static void display_player_middle(creature_type *cr_ptr)
 
 	if (cr_ptr->migite)
 	{
-		display_player_melee_bonus(0, left_hander ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1, cr_ptr);
+		display_player_melee_bonus(0, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1, cr_ptr);
 	}
 
 	if (cr_ptr->hidarite)
 	{
-		display_player_melee_bonus(1, left_hander ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
+		display_player_melee_bonus(1, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
 	}
 	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
