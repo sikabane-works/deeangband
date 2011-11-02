@@ -1481,7 +1481,7 @@ s16b get_mon_num(int level)
 	if ((level > 0) && !inside_battle && !(d_info[dungeon_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth monsters */
-		if (ironman_nightmare && !randint0(pls_kakuritu))
+		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
 		{
 			/* What a bizarre calculation */
 			level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH));
@@ -3799,7 +3799,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 
 		/* Depth monsters may NOT be created out of depth, unless in Nightmare mode */
 		if (is_force_depth_species(r_ptr) && (dun_level < r_ptr->level) &&
-		    (!ironman_nightmare || (is_quest_species(r_ptr))))
+		    (!curse_of_Iluvatar || (is_quest_species(r_ptr))))
 		{
 			if (cheat_hear)
 			{
@@ -3967,7 +3967,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->paralyzed = 0;
 
 	/* Enforce sleeping if needed */
-	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !ironman_nightmare)
+	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar)
 	{
 		int val = r_ptr->sleep;
 		(void)set_paralyzed(&creature_list[c_ptr->m_idx], (val * 2) + randint1(val * 10));
@@ -3976,7 +3976,7 @@ msg_print("守りのルーンが壊れた！");
 	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->m_idx], 100, FALSE);
 
 	/* Give a random starting energy */
-	if (!ironman_nightmare)
+	if (!curse_of_Iluvatar)
 	{
 		m_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
 	}
@@ -3987,7 +3987,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 
 	/* Force monster to wait for player, unless in Nightmare mode */
-	if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !ironman_nightmare)
+	if (has_cf_creature(m_ptr, CF_FORCE_SLEEP) && !curse_of_Iluvatar)
 	{
 		/* Monster is still being nice */
 		m_ptr->mflag |= (MFLAG_NICE);

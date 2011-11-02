@@ -2936,7 +2936,7 @@ void process_monsters(creature_type *cr_ptr)
 			speed = m_ptr->speed;
 
 			/* Monsters move quickly in Nightmare mode */
-			if (ironman_nightmare) speed += 5;
+			if (curse_of_Iluvatar) speed += 5;
 
 			if (m_ptr->fast) speed += 10;
 			if (m_ptr->slow) speed -= 10;
@@ -3100,7 +3100,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 			u32b notice = randint0(1024);
 
 			/* Nightmare monsters are more alert */
-			if (ironman_nightmare) notice /= 2;
+			if (curse_of_Iluvatar) notice /= 2;
 
 			/* Hack -- See if monster "notices" player */
 			if ((notice * notice * notice) <= csleep_noise)

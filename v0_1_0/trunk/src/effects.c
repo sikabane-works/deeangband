@@ -5167,7 +5167,7 @@ bool do_dec_stat(creature_type *cr_ptr, int stat)
 	}
 
 	/* Sustain */
-	if (sust && (!ironman_nightmare || randint0(13)))
+	if (sust && (!curse_of_Iluvatar || randint0(13)))
 	{
 		/* Message */
 		if(is_seen(player_ptr, cr_ptr))
@@ -5184,7 +5184,7 @@ bool do_dec_stat(creature_type *cr_ptr, int stat)
 	}
 
 	/* Attempt to reduce the stat */
-	if (dec_stat(cr_ptr, stat, 10, (ironman_nightmare && !randint0(13))))
+	if (dec_stat(cr_ptr, stat, 10, (curse_of_Iluvatar && !randint0(13))))
 	{
 		/* Message */
 		if(is_seen(player_ptr, cr_ptr))

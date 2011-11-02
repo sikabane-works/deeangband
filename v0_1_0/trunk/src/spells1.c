@@ -6742,7 +6742,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 #endif
 
 
-			if (ironman_nightmare)
+			if (curse_of_Iluvatar)
 			{
 #ifdef JP
 				msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");

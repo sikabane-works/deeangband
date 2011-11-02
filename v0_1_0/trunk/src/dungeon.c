@@ -3364,7 +3364,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 				if (dun_level < 1) dun_level = 1;
 
 				/* Nightmare mode makes recall more dangerous */
-				if (ironman_nightmare && !randint0(666) && (dungeon_type == DUNGEON_ANGBAND))
+				if (curse_of_Iluvatar && !randint0(666) && (dungeon_type == DUNGEON_ANGBAND))
 				{
 					if (dun_level < 50)
 					{
@@ -4034,7 +4034,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 	 *
 	 * Require exact minute -- Don't activate multiple times in a minute
 	 */
-	if (ironman_nightmare && (min != prev_min))
+	if (curse_of_Iluvatar && (min != prev_min))
 	{
 		/* Every 15 minutes after 11:00 pm */
 		if ((hour == 23) && !(min % 15))

@@ -2841,7 +2841,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
 				cr_ptr->chp = cr_ptr->mhp;
 
-				if (ironman_nightmare)
+				if (curse_of_Iluvatar)
 				{
 #ifdef JP
 					msg_print("眠りに就くと恐ろしい光景が心をよぎった。");

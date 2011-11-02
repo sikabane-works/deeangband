@@ -130,7 +130,7 @@ static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
 
 	int             msex = 0;
 
-	bool nightmare = ironman_nightmare && !(mode & 0x02);
+	bool nightmare = curse_of_Iluvatar && !(mode & 0x02);
 	int speed = nightmare ? sp_ptr->speed + 5 : sp_ptr->speed;
 
 	/* Descriptions */

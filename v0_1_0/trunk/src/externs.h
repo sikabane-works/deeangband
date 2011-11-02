@@ -330,7 +330,7 @@ extern bool ironman_small_levels;	/* Always create unusually small dungeon level
 extern bool ironman_downward;	/* Disable recall and use of up stairs (*) */
 extern bool ironman_empty_levels;	/* Always create empty 'arena' levels (*) */
 extern bool ironman_rooms;	/* Always generate very unusual rooms (*) */
-extern bool ironman_nightmare;	/* Nightmare mode(it isn't even remotely fair!)(*) */
+extern bool curse_of_Iluvatar;	/* Nightmare mode(it isn't even remotely fair!)(*) */
 extern bool left_hander;	/* Left-Hander */
 extern bool preserve_mode;	/* Preserve artifacts (*) */
 extern bool autoroller;	/* Allow use of autoroller for stats (*) */

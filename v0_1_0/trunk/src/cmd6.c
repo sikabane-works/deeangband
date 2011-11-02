@@ -891,7 +891,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 #endif
 
 
-				if (ironman_nightmare)
+				if (curse_of_Iluvatar)
 				{
 #ifdef JP
 msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");

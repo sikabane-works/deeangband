@@ -4197,11 +4197,11 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &ironman_nightmare,           FALSE, OPT_PAGE_BIRTH, 6, 18,
-	"ironman_nightmare",            "(鉄人用)悪夢モード(これは全く不条理です！)(*)" },
+	{ &curse_of_Iluvatar,           FALSE, OPT_PAGE_BIRTH, 6, 18,
+	"curse_of_Iluvatar",            "(鉄人用)イルーヴァタールの呪詛(モルゴス体験)(*)" },
 #else
-	{ &ironman_nightmare,           FALSE, OPT_PAGE_BIRTH, 6, 18,
-	"ironman_nightmare",            "Nightmare mode(it isn't even remotely fair!)(*)" },
+	{ &curse_of_Iluvatar,           FALSE, OPT_PAGE_BIRTH, 6, 18,
+	"curse_of_Iluvatar",            "Curse of Iluvatar(undergo \"Morgoth\" )(*)" },
 #endif
 
 #ifdef JP

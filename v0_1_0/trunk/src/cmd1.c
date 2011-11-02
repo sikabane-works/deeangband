@@ -1544,7 +1544,7 @@ msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
 #endif
 
 
-				if (ironman_nightmare)
+				if (curse_of_Iluvatar)
 				{
 #ifdef JP
 msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
