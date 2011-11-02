@@ -4236,14 +4236,6 @@ option_type option_info[] =
 	"autochara",                    "Autoroll for weight, height and social status" },
 #endif
 
-#ifdef JP
-	{ &powerup_home,                TRUE,  OPT_PAGE_BIRTH, 4, 3,
-	"powerup_home",                 "‰ä‚ª‰Æ‚ðŠg’£‚·‚é(*)" },
-#else
-	{ &powerup_home,                TRUE,  OPT_PAGE_BIRTH, 4, 3,
-	"powerup_home",                 "Increase capacity of your home (*)" },
-#endif
-
 	/*** Easy Object Auto-Destroyer ***/
 
 #ifdef JP

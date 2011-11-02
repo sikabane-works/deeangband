@@ -1782,21 +1782,8 @@ static int store_check_num(store_type *st_ptr, object_type *o_ptr)
 		}
 	}
 
-	/* Free space is always usable */
-	/*
-	 * オプション powerup_home が設定されていると
-	 * 我が家が 20 ページまで使える
-	 */
-	if (is_home(st_ptr) && ( powerup_home == FALSE )) {
-		if (st_ptr->stock_num < ((st_ptr->stock_size) / 10)) {
-			return 1;
-		}
-	}
-	else{
-		if (st_ptr->stock_num < st_ptr->stock_size) {
-			return 1;
-		}
-	}
+	if (st_ptr->stock_num < st_ptr->stock_size)
+		return 1;
 
 	/* But there was no room at the inn... */
 	return 0;
@@ -2231,23 +2218,7 @@ static int home_carry(store_type *st_ptr, object_type *o_ptr)
 		stack_force_costs = old_stack_force_costs;
 	}
 
-	/* No space? */
-	/*
-	 * 隠し機能: オプション powerup_home が設定されていると
-	 *           我が家が 20 ページまで使える
-	 */
-	/* No space? */
-	if (!is_home(st_ptr) || (powerup_home == TRUE)) {
-		if (st_ptr->stock_num >= st_ptr->stock_size) {
-			return (-1);
-		}
-	}
-	else{
-		if (st_ptr->stock_num >= ((st_ptr->stock_size) / 10)) {
-			return (-1);
-		}
-	}
-
+	if (st_ptr->stock_num >= st_ptr->stock_size) return (-1);
 
 	/* Determine the "value" of the item */
 	value = object_value(o_ptr);
@@ -2901,7 +2872,6 @@ static void display_inventory(creature_type *cr_ptr, store_type *st_ptr)
 	{
 		k = st_ptr->stock_size;
 
-		if (is_home(st_ptr) && !powerup_home) k /= 10;
 #ifdef JP
 		put_str(format("アイテム数:  %4d/%4d", st_ptr->stock_num, k), 19 + xtra_stock, 27);
 #else
@@ -4901,8 +4871,6 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 				store_top -= store_bottom;
 				if ( store_top < 0 )
 					store_top = ((st_ptr->stock_num - 1 )/store_bottom) * store_bottom;
-				if ( is_home(st_ptr) && (powerup_home == FALSE) )
-					if ( store_top >= store_bottom ) store_top = store_bottom;
 				display_inventory(guest_ptr, st_ptr);
 			}
 			break;
@@ -4923,24 +4891,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 			else
 			{
 				store_top += store_bottom;
-				/*
-				 * 隠しオプション(powerup_home)がセットされていないときは
-				 * 我が家では 2 ページまでしか表示しない
-				 */
-				if (is_home(st_ptr) && 
-				    (powerup_home == FALSE) && 
-					(st_ptr->stock_num >= STORE_INVEN_MAX))
-				{
-					if (store_top >= (STORE_INVEN_MAX - 1))
-					{
-						store_top = 0;
-					}
-				}
-				else
-				{
-					if (store_top >= st_ptr->stock_num) store_top = 0;
-				}
-
+				if (store_top >= st_ptr->stock_num) store_top = 0;
 				display_inventory(guest_ptr, st_ptr);
 			}
 			break;

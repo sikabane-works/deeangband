@@ -335,7 +335,6 @@ extern bool left_hander;	/* Left-Hander */
 extern bool preserve_mode;	/* Preserve artifacts (*) */
 extern bool autoroller;	/* Allow use of autoroller for stats (*) */
 extern bool autochara;	/* Autoroll for weight, height and social status */
-extern bool powerup_home;	/* Increase capacity of your home (*) */
 
 
 /*** Easy Object Auto-Destroyer ***/
