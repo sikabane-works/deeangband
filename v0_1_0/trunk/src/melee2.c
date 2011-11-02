@@ -313,7 +313,7 @@ msg_format("%^s‚ÍE‚³‚ê‚½B", m_name);
 				}
 			}
 
-			monster_gain_exp(who, cr_ptr->species_idx);
+			//TODO monster_gain_exp(who, cr_ptr->species_idx);
 
 			/* Generate treasure */
 			monster_death(cr_ptr, FALSE);

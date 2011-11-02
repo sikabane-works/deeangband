@@ -1451,8 +1451,6 @@ int mon_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  */
 void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 {
-	species_type *species_ptr = &species_info[tar_ptr->species_idx];
-
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
@@ -1466,7 +1464,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	 * - Varying speed effects
 	 * - Get a fraction in proportion of damage point
 	 */
-	new_exp = species_ptr->level * SPEED_TO_ENERGY(tar_ptr->speed) * dam;
+	new_exp = tar_ptr->lev * SPEED_TO_ENERGY(tar_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
@@ -1481,21 +1479,10 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
-	/* Special penalty for mutiply-monster */
-	if (has_cf_creature(tar_ptr, CF_MULTIPLY) || (tar_ptr->species_idx == MON_DAWN))
-	{
-		int monnum_penarty = species_ptr->r_akills / 400;
-		if (monnum_penarty > 8) monnum_penarty = 8;
-
-		while (monnum_penarty--)
-		{
-			/* Divide by 4 */
-			s64b_RSHIFT(new_exp, new_exp_frac, 2);
-		}
-	}
+	//TODO Reimplement Special penalty for mutiply-monster
 
 	/* Finally multiply base experience point of the monster */
-	s64b_mul(&new_exp, &new_exp_frac, 0, species_ptr->mexp);
+	s64b_mul(&new_exp, &new_exp_frac, 0, tar_ptr->lev * tar_ptr->lev);
 
 	/* Gain experience */
 	gain_exp_64(atk_ptr, new_exp, new_exp_frac);
