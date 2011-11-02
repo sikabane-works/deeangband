@@ -3244,7 +3244,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	{
 		/* TODO Nothing! */
 		/* Vampires can drain blood of creatures */
-
 	case RACE_DEMON:
 		/* Demon can drain vitality from humanoid corpse */
 

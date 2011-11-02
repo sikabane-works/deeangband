@@ -3239,9 +3239,13 @@ display_flag_aux(row+5, col, "‘Ï‹°•|:", TR_RES_FEAR, &f, 0, cr_ptr);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_CHAOS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
+
+	rate = calc_damage(cr_ptr, 100, DAMAGE_TYPE_DISEN, FALSE);
+	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
+	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 }
 
