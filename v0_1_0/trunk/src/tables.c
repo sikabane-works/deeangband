@@ -4133,14 +4133,6 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &easy_band,                   FALSE, OPT_PAGE_BIRTH, 6, 31,
-	"easy_band",                    "初心者用簡単モード(*)" },
-#else
-	{ &easy_band,                   FALSE, OPT_PAGE_BIRTH, 6, 31,
-	"easy_band",                    "Easy Mode (*)" },
-#endif
-
-#ifdef JP
 	{ &smart_learn,                 TRUE,  OPT_PAGE_BIRTH, 1, 14,
 	"smart_learn",                  "モンスターは失敗を学習する(*)" },
 #else

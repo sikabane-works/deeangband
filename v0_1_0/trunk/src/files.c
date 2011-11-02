@@ -6882,7 +6882,6 @@ long total_points(void)
 		point = 1;
 		if (total_winner) point = 2;
 	}
-	if (easy_band) point = (0 - point);
 
 	return point;
 }

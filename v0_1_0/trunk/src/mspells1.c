@@ -1280,8 +1280,8 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	bool            do_spell = DO_SPELL_NONE;
 	int             dam = 0;
 	u32b mode = 0L;
-	int s_num_6 = (easy_band ? 2 : 6);
-	int s_num_4 = (easy_band ? 1 : 4);
+	int s_num_6 = 6;
+	int s_num_4 = 4;
 
 	/* Target location */
 	int x = target_ptr->fx;
@@ -4033,7 +4033,7 @@ else msg_format("%^sが魔法で天使を召喚した！", m_name);
 			else msg_format("%^s magically summons an angel!", m_name);
 #endif
 
-			if ((is_unique_species(r_ptr)) && !easy_band)
+			if (is_unique_species(r_ptr))
 			{
 				num += r_ptr->level/40;
 			}

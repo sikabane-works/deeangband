@@ -437,14 +437,6 @@ bool send_world_score(bool do_send)
 #ifdef WORLD_SCORE
 	if(send_score && do_send)
 	{
-		if(easy_band)
-		{
-#ifdef JP
-			msg_print("初心者モードではワールドスコアに登録できません。");
-#else
-			msg_print("Since you are in the Easy Mode, you cannot send score to world score server.");
-#endif
-		}
 #ifdef JP
 		else if(get_check_strict("スコアをスコア・サーバに登録しますか? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
 #else

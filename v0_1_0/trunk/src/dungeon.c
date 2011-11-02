@@ -1943,7 +1943,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
  */
 static void process_world_aux_timeout(creature_type *cr_ptr)
 {
-	const int dec_count = (easy_band ? 2 : 1);
+	const int dec_count = 1;
 
 	/*** Timeout Various Things ***/
 

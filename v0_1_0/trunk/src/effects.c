@@ -5733,8 +5733,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	if (tar_ptr->sutemi) damage *= 2;
 	if (tar_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
 
-	if (easy_band) damage = (damage+1)/2;
-
 	if (damage_type != DAMAGE_USELIFE)
 	{
 		/* Disturb */
