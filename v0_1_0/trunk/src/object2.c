@@ -4978,12 +4978,15 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 	if (!object_is_artifact(p_ptr, j_ptr) && (randint0(100) < chance))
 	{
 		/* Message */
+		if(player_can_see_bold(player_ptr, y, x))
+		{
 #ifdef JP
 		msg_format("%s‚Í‰ó‚ê‚ÄŽg‚¢•¨‚É‚È‚ç‚È‚­‚È‚Á‚½", o_name);
 #else
 		msg_format("The %s was broken and become%s useless.",
 			   o_name, (plural ? "" : "s"));
 #endif
+		}
 
 
 		/* Debug */
