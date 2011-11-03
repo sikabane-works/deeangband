@@ -5672,7 +5672,6 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 {
 	int old_chp = tar_ptr->chp;
 	species_type    *r_ptr = &species_info[tar_ptr->species_idx];
-	creature_type    exp_mon;
 	bool fear = FALSE;
 	char atk_name[100];
 	char taspecies_name[100];
@@ -5693,14 +5692,12 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	if(tar_ptr) creature_desc(taspecies_name, tar_ptr, MD_TRUE_NAME);
 	else taspecies_name[0] = '\0';
 
-	COPY(&exp_mon, tar_ptr, creature_type);
-
 	if (!has_cf_creature(tar_ptr, CF_KILL_EXP))
 	{
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (has_cf_creature(tar_ptr, CF_HEAL)) expdam = (expdam+1) * 2 / 3;
 
-		get_exp_from_mon(atk_ptr, expdam, &exp_mon);
+		get_exp_from_mon(atk_ptr, expdam, tar_ptr);
 
 		/* Genocided by chaos patron */
 		//TODO check
@@ -6368,9 +6365,9 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	
 			/* Prevent bug of chaos patron's reward */
 			if (has_cf_creature(tar_ptr, CF_KILL_EXP))
-				get_exp_from_mon(atk_ptr, (long)exp_mon.mmhp*2, &exp_mon);
+				get_exp_from_mon(atk_ptr, (long)tar_ptr->mhp*2, tar_ptr);
 			else
-				get_exp_from_mon(atk_ptr, ((long)exp_mon.mmhp+1L) * 9L / 10L, &exp_mon);
+				get_exp_from_mon(atk_ptr, ((long)tar_ptr->mhp+1L) * 9L / 10L, tar_ptr);
 	
 			/* Not afraid */
 			fear = FALSE;

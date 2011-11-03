@@ -1989,8 +1989,8 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	/* Access the weapon */
 	object_type     *o_ptr = &atk_ptr->inventory[INVEN_1STARM + hand];
 
-	char            a_name[80];
-	char            m_name[80];
+	char            atk_name[80];
+	char            tar_name[80];
 
 	bool            success_hit = FALSE;
 	bool            backstab = FALSE;
@@ -2087,8 +2087,8 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	(void)set_paralyzed(tar_ptr, 0);
 
 	/* Extract monster name (or "it") */
-	creature_desc(a_name, atk_ptr, 0);
-	creature_desc(m_name, tar_ptr, 0);
+	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(tar_name, tar_ptr, 0);
 
 	/* Calculate the "attack quality" */
 	bonus = atk_ptr->to_h[hand] + o_ptr->to_h;
@@ -2151,40 +2151,40 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 #ifdef JP
 				if (backstab)
 				{
-					msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", a_name, m_name);
+					msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", atk_name, tar_name);
 				}
 				else if (fuiuchi)
 				{
-					msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", a_name, m_name);
+					msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", atk_name, tar_name);
 				}
 				else if (stab_fleeing)
 				{
-					msg_format("%sは逃げる%sを背中から突き刺した！", a_name, m_name);
+					msg_format("%sは逃げる%sを背中から突き刺した！", atk_name, tar_name);
 				}
 				else if (!monk_attack)
 				{
-					msg_format("%sは%sを攻撃した。", a_name, m_name);
+					msg_format("%sは%sを攻撃した。", atk_name, tar_name);
 				}
 #else
 				if (backstab)
 				{
 					//TODO
-					msg_format("%s cruelly stab the helpless, sleeping %s!", a_name, m_name);
+					msg_format("%s cruelly stab the helpless, sleeping %s!", atk_name, tar_name);
 				}
 				else if (fuiuchi)
 				{
 					//TODO
-					msg_format("%s make surprise attack, and hit %s with a powerful blow!", a_name, m_name);
+					msg_format("%s make surprise attack, and hit %s with a powerful blow!", atk_name, tar_name);
 				}
 				else if (stab_fleeing)
 				{
 					//TODO
-					msg_format("%s backstab the fleeing %s!", a_name, m_name);
+					msg_format("%s backstab the fleeing %s!", atk_name, tar_name);
 				}
 				else if (!monk_attack)
 				{
 					//TODO
-					msg_format("%s hit %s.", a_name, m_name);
+					msg_format("%s hit %s.", atk_name, tar_name);
 				}
 #endif
 			}
@@ -2308,10 +2308,10 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 						{
 #ifdef JP
-							msg_format("%sは%sに金的膝蹴りをくらわした！", a_name, m_name);
+							msg_format("%sは%sに金的膝蹴りをくらわした！", atk_name, tar_name);
 #else
 							//TODO
-							msg_format("%s hit %s in the groin with your knee!", a_name, m_name);
+							msg_format("%s hit %s in the groin with your knee!", atk_name, tar_name);
 #endif
 
 							sound(SOUND_PAIN);
@@ -2321,7 +2321,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					else
 					{
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
-							msg_format(ma_ptr->desc, a_name, m_name);
+							msg_format(ma_ptr->desc, atk_name, tar_name);
 					}
 				}
 
@@ -2333,15 +2333,15 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 						{
 #ifdef JP
-							msg_format("%sは%sの足首に関節蹴りをくらわした！", a_name, m_name);
+							msg_format("%sは%sの足首に関節蹴りをくらわした！", atk_name, tar_name);
 #else
 							//TODO
-							msg_format("You kick %s in the ankle.", m_name);
+							msg_format("You kick %s in the ankle.", tar_name);
 #endif
 						}
 						special_effect = MA_SLOW;
 					}
-					else if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, m_name);
+					else if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, tar_name);
 				}
 				else
 				{
@@ -2350,7 +2350,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 					}
 
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, a_name, m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 				}
 
 				if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
@@ -2365,9 +2365,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
 #ifdef JP
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
 #else
-					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", tar_name);
 #endif
 
 					stun_effect = 7 + randint1(13);
@@ -2382,9 +2382,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%^sは足をひきずり始めた。", m_name);
+							msg_format("%^sは足をひきずり始めた。", tar_name);
 #else
-							msg_format("%^s starts limping slower.", m_name);
+							msg_format("%^s starts limping slower.", tar_name);
 #endif
 
 						tar_ptr->speed -= 10;
@@ -2399,18 +2399,18 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						{
 							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-								msg_format("%^sはフラフラになった。", m_name);
+								msg_format("%^sはフラフラになった。", tar_name);
 #else
-								msg_format("%^s is stunned.", m_name);
+								msg_format("%^s is stunned.", tar_name);
 #endif
 						}
 						else
 						{
 							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-								msg_format("%^sはさらにフラフラになった。", m_name);
+								msg_format("%^sはさらにフラフラになった。", tar_name);
 #else
-								msg_format("%^s is more stunned.", m_name);
+								msg_format("%^s is more stunned.", tar_name);
 #endif
 						}
 					}
@@ -2477,9 +2477,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%sをグッサリ切り裂いた！", m_name);
+							msg_format("%sをグッサリ切り裂いた！", tar_name);
 #else
-							msg_format("Your weapon cuts deep into %s!", m_name);
+							msg_format("Your weapon cuts deep into %s!", tar_name);
 #endif
 					}
 
@@ -2496,9 +2496,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%sを真っ二つにした！", m_name);
+							msg_format("%sを真っ二つにした！", tar_name);
 #else
-							msg_format("You cut %s in half!", m_name);
+							msg_format("You cut %s in half!", tar_name);
 #endif
 					}
 					else
@@ -2508,21 +2508,21 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 							{
 #ifdef JP
-								case 2: msg_format("%sを斬った！", m_name); break;
-								case 3: msg_format("%sをぶった斬った！", m_name); break;
-								case 4: msg_format("%sをメッタ斬りにした！", m_name); break;
-								case 5: msg_format("%sをメッタメタに斬った！", m_name); break;
-								case 6: msg_format("%sを刺身にした！", m_name); break;
-								case 7: msg_format("%sを斬って斬って斬りまくった！", m_name); break;
-								default: msg_format("%sを細切れにした！", m_name); break;
+								case 2: msg_format("%sを斬った！", tar_name); break;
+								case 3: msg_format("%sをぶった斬った！", tar_name); break;
+								case 4: msg_format("%sをメッタ斬りにした！", tar_name); break;
+								case 5: msg_format("%sをメッタメタに斬った！", tar_name); break;
+								case 6: msg_format("%sを刺身にした！", tar_name); break;
+								case 7: msg_format("%sを斬って斬って斬りまくった！", tar_name); break;
+								default: msg_format("%sを細切れにした！", tar_name); break;
 #else
-								case 2: msg_format("You gouge %s!", m_name); break;
-								case 3: msg_format("You maim %s!", m_name); break;
-								case 4: msg_format("You carve %s!", m_name); break;
-								case 5: msg_format("You cleave %s!", m_name); break;
-								case 6: msg_format("You smite %s!", m_name); break;
-								case 7: msg_format("You eviscerate %s!", m_name); break;
-								default: msg_format("You shred %s!", m_name); break;
+								case 2: msg_format("You gouge %s!", tar_name); break;
+								case 3: msg_format("You maim %s!", tar_name); break;
+								case 4: msg_format("You carve %s!", tar_name); break;
+								case 5: msg_format("You cleave %s!", tar_name); break;
+								case 6: msg_format("You smite %s!", tar_name); break;
+								case 7: msg_format("You eviscerate %s!", tar_name); break;
+								default: msg_format("You shred %s!", tar_name); break;
 #endif
 							}
 						}
@@ -2586,9 +2586,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%sはひどくもうろうとした。", m_name);
+							msg_format("%sはひどくもうろうとした。", tar_name);
 #else
-							msg_format("%s is more dazed.", m_name);
+							msg_format("%s is more dazed.", tar_name);
 #endif
 
 						tmp /= 2;
@@ -2597,9 +2597,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%s はもうろうとした。", m_name);
+							msg_format("%s はもうろうとした。", tar_name);
 #else
-							msg_format("%s is dazed.", m_name);
+							msg_format("%s is dazed.", tar_name);
 #endif
 					}
 
@@ -2610,9 +2610,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%s には効果がなかった。", m_name);
+						msg_format("%s には効果がなかった。", tar_name);
 #else
-						msg_format("%s is not effected.", m_name);
+						msg_format("%s is not effected.", tar_name);
 #endif
 				}
 			}
@@ -2626,9 +2626,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					k = tar_ptr->chp + 1;
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%sの急所を突き刺した！", m_name);
+						msg_format("%sの急所を突き刺した！", tar_name);
 #else
-						msg_format("You hit %s on a fatal spot!", m_name);
+						msg_format("You hit %s on a fatal spot!", tar_name);
 #endif
 				}
 				else k = 1;
@@ -2641,9 +2641,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					drain_result *= 2;
 					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("刃が%sに深々と突き刺さった！", m_name);
+						msg_format("刃が%sに深々と突き刺さった！", tar_name);
 #else
-						msg_format("You critically injured %s!", m_name);
+						msg_format("You critically injured %s!", tar_name);
 #endif
 				}
 				else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr)))
@@ -2654,9 +2654,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						drain_result *= 2;
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%sに致命傷を負わせた！", m_name);
+							msg_format("%sに致命傷を負わせた！", tar_name);
 #else
-							msg_format("You fatally injured %s!", m_name);
+							msg_format("You fatally injured %s!", tar_name);
 #endif
 					}
 					else
@@ -2664,9 +2664,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						k = tar_ptr->chp + 1;
 						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("刃が%sの急所を貫いた！", m_name);
+							msg_format("刃が%sの急所を貫いた！", tar_name);
 #else
-							msg_format("You hit %s on a fatal spot!", m_name);
+							msg_format("You hit %s on a fatal spot!", tar_name);
 #endif
 					}
 				}
@@ -2784,9 +2784,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 							{
 								if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
-									msg_format("刃が%sから生命力を吸い取った！", m_name);
+									msg_format("刃が%sから生命力を吸い取った！", tar_name);
 #else
-									msg_format("Your weapon drains life from %s!", m_name);
+									msg_format("Your weapon drains life from %s!", tar_name);
 #endif
 
 								drain_msg = FALSE;
@@ -2831,9 +2831,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", tar_name);
 #else
-						msg_format("%^s is unaffected.", m_name);
+						msg_format("%^s is unaffected.", tar_name);
 #endif
 
 				}
@@ -2841,9 +2841,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", tar_name);
 #else
-						msg_format("%^s is unaffected.", m_name);
+						msg_format("%^s is unaffected.", tar_name);
 #endif
 
 				}
@@ -2851,9 +2851,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%^sは混乱したようだ。", m_name);
+						msg_format("%^sは混乱したようだ。", tar_name);
 #else
-						msg_format("%^s appears confused.", m_name);
+						msg_format("%^s appears confused.", tar_name);
 #endif
 
 					(void)set_confused(&creature_list[c_ptr->m_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
@@ -2870,9 +2870,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
-						msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", tar_name);
 #else
-						msg_format("%^s is unaffected!", m_name);
+						msg_format("%^s is unaffected!", tar_name);
 #endif
 
 						resists_tele = TRUE;
@@ -2881,9 +2881,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if (is_original_ap_and_seen(player_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_RES_TELE);
 #ifdef JP
-						msg_format("%^sは抵抗力を持っている！", m_name);
+						msg_format("%^sは抵抗力を持っている！", tar_name);
 #else
-						msg_format("%^s resists!", m_name);
+						msg_format("%^s resists!", tar_name);
 #endif
 
 						resists_tele = TRUE;
@@ -2893,9 +2893,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if (!resists_tele)
 				{
 #ifdef JP
-					msg_format("%^sは消えた！", m_name);
+					msg_format("%^sは消えた！", tar_name);
 #else
-					msg_format("%^s disappears!", m_name);
+					msg_format("%^s disappears!", tar_name);
 #endif
 
 					teleport_away(&creature_list[c_ptr->m_idx], 50, TELEPORT_PASSIVE);
@@ -2912,9 +2912,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					if (polymorph_monster(atk_ptr, y, x))
 					{
 #ifdef JP
-						msg_format("%^sは変化した！", m_name);
+						msg_format("%^sは変化した！", tar_name);
 #else
-						msg_format("%^s changes!", m_name);
+						msg_format("%^s changes!", tar_name);
 #endif
 
 						*fear = FALSE;
@@ -2923,9 +2923,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					else
 					{
 #ifdef JP
-						msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", tar_name);
 #else
-						msg_format("%^s is unaffected.", m_name);
+						msg_format("%^s is unaffected.", tar_name);
 #endif
 					}
 
@@ -2933,7 +2933,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					tar_ptr = &creature_list[c_ptr->m_idx];
 
 					/* Oops, we need a different name... */
-					creature_desc(m_name, tar_ptr, 0);
+					creature_desc(tar_name, tar_ptr, 0);
 
 					/* Hack -- Get new race */
 					r_ptr = &species_info[tar_ptr->species_idx];
@@ -2977,9 +2977,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 				/* Message */
 #ifdef JP
-				msg_format("%sは%sの攻撃をかわした。", m_name, a_name);
+				msg_format("%sは%sの攻撃をかわした。", tar_name, atk_name);
 #else
-				msg_format("%^s misses %s.", m_name, a_name);
+				msg_format("%^s misses %s.", tar_name, atk_name);
 #endif
 				/* Message */
 #ifdef JP
@@ -3008,9 +3008,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				/* Message */
 #ifdef JP
 
-				msg_format("%sは%sの攻撃をかわした。", m_name, a_name);
+				msg_format("%sは%sの攻撃をかわした。", tar_name, atk_name);
 #else
-				msg_format("%^s misses %s.", m_name, a_name);
+				msg_format("%^s misses %s.", tar_name, atk_name);
 #endif
 			}
 		}
@@ -3022,9 +3022,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	if (weak && !(*mdeath))
 	{
 #ifdef JP
-		msg_format("%sは弱くなったようだ。", m_name);
+		msg_format("%sは弱くなったようだ。", tar_name);
 #else
-		msg_format("%^s seems weakened.", m_name);
+		msg_format("%^s seems weakened.", tar_name);
 #endif
 	}
 

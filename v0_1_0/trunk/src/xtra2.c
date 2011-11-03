@@ -1483,6 +1483,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 
 	/* Finally multiply base experience point of the monster */
 	s64b_mul(&new_exp, &new_exp_frac, 0, tar_ptr->lev * tar_ptr->lev);
+	s64b_div(&new_exp, &new_exp_frac, 0, 1 + atk_ptr->lev);
 
 	/* Gain experience */
 	gain_exp_64(atk_ptr, new_exp, new_exp_frac);
