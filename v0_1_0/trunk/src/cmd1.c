@@ -2144,45 +2144,50 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 			sound(SOUND_HIT);
 
 			/* Message */
+
+
+			if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+			{
 #ifdef JP
-			if (backstab)
-			{
-				msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", a_name, m_name);
-			}
-			else if (fuiuchi)
-			{
-				msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", a_name, m_name);
-			}
-			else if (stab_fleeing)
-			{
-				msg_format("%sは逃げる%sを背中から突き刺した！", a_name, m_name);
-			}
-			else if (!monk_attack)
-			{
-				msg_format("%sは%sを攻撃した。", a_name, m_name);
-			}
+				if (backstab)
+				{
+					msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", a_name, m_name);
+				}
+				else if (fuiuchi)
+				{
+					msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", a_name, m_name);
+				}
+				else if (stab_fleeing)
+				{
+					msg_format("%sは逃げる%sを背中から突き刺した！", a_name, m_name);
+				}
+				else if (!monk_attack)
+				{
+					msg_format("%sは%sを攻撃した。", a_name, m_name);
+				}
 #else
-			if (backstab)
-			{
-				//TODO
-				msg_format("%s cruelly stab the helpless, sleeping %s!", a_name, m_name);
-			}
-			else if (fuiuchi)
-			{
-				//TODO
-				msg_format("%s make surprise attack, and hit %s with a powerful blow!", a_name, m_name);
-			}
-			else if (stab_fleeing)
-			{
-				//TODO
-				msg_format("%s backstab the fleeing %s!", a_name, m_name);
-			}
-			else if (!monk_attack)
-			{
-				//TODO
-				msg_format("%s hit %s.", a_name, m_name);
-			}
+				if (backstab)
+				{
+					//TODO
+					msg_format("%s cruelly stab the helpless, sleeping %s!", a_name, m_name);
+				}
+				else if (fuiuchi)
+				{
+					//TODO
+					msg_format("%s make surprise attack, and hit %s with a powerful blow!", a_name, m_name);
+				}
+				else if (stab_fleeing)
+				{
+					//TODO
+					msg_format("%s backstab the fleeing %s!", a_name, m_name);
+				}
+				else if (!monk_attack)
+				{
+					//TODO
+					msg_format("%s hit %s.", a_name, m_name);
+				}
 #endif
+			}
 
 			/* Hack -- bare hands do one damage */
 			k = 1;
@@ -2300,18 +2305,24 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if (is_male_creature(tar_ptr))
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+						{
 #ifdef JP
-						msg_format("%sは%sに金的膝蹴りをくらわした！", a_name, m_name);
+							msg_format("%sは%sに金的膝蹴りをくらわした！", a_name, m_name);
 #else
-						//TODO
-						msg_format("%s hit %s in the groin with your knee!", a_name, m_name);
+							//TODO
+							msg_format("%s hit %s in the groin with your knee!", a_name, m_name);
 #endif
 
-						sound(SOUND_PAIN);
-						special_effect = MA_KNEE;
+							sound(SOUND_PAIN);
+							special_effect = MA_KNEE;
+						}
 					}
 					else
-						msg_format(ma_ptr->desc, a_name, m_name);
+					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+							msg_format(ma_ptr->desc, a_name, m_name);
+					}
 				}
 
 				else if (ma_ptr->effect == MA_SLOW)
@@ -2319,16 +2330,18 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					if (!((is_never_move_species(r_ptr)) ||
 					    my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+						{
 #ifdef JP
-						msg_format("%sは%sの足首に関節蹴りをくらわした！", a_name, m_name);
+							msg_format("%sは%sの足首に関節蹴りをくらわした！", a_name, m_name);
 #else
-						//TODO
-						msg_format("You kick %s in the ankle.", m_name);
+							//TODO
+							msg_format("You kick %s in the ankle.", m_name);
 #endif
-
+						}
 						special_effect = MA_SLOW;
 					}
-					else msg_format(ma_ptr->desc, m_name);
+					else if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, m_name);
 				}
 				else
 				{
@@ -2337,7 +2350,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 						stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 					}
 
-					msg_format(ma_ptr->desc, a_name, m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format(ma_ptr->desc, a_name, m_name);
 				}
 
 				if (atk_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
@@ -2352,9 +2365,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if ((special_effect == MA_KNEE) && ((k + atk_ptr->to_d[hand]) < tar_ptr->chp))
 				{
 #ifdef JP
-					msg_format("%^sは苦痛にうめいている！", m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^sは苦痛にうめいている！", m_name);
 #else
-					msg_format("%^s moans in agony!", m_name);
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr)) msg_format("%^s moans in agony!", m_name);
 #endif
 
 					stun_effect = 7 + randint1(13);
@@ -2367,10 +2380,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					    (randint1(atk_ptr->lev) > r_ptr->level) &&
 					    tar_ptr->speed > 60)
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%^sは足をひきずり始めた。", m_name);
+							msg_format("%^sは足をひきずり始めた。", m_name);
 #else
-						msg_format("%^s starts limping slower.", m_name);
+							msg_format("%^s starts limping slower.", m_name);
 #endif
 
 						tar_ptr->speed -= 10;
@@ -2383,18 +2397,20 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						if (set_stun(&creature_list[c_ptr->m_idx], stun_effect + tar_ptr->stun))
 						{
+							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%^sはフラフラになった。", m_name);
+								msg_format("%^sはフラフラになった。", m_name);
 #else
-							msg_format("%^s is stunned.", m_name);
+								msg_format("%^s is stunned.", m_name);
 #endif
 						}
 						else
 						{
+							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-							msg_format("%^sはさらにフラフラになった。", m_name);
+								msg_format("%^sはさらにフラフラになった。", m_name);
 #else
-							msg_format("%^s is more stunned.", m_name);
+								msg_format("%^s is more stunned.", m_name);
 #endif
 						}
 					}
@@ -2450,18 +2466,20 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 					if (o_ptr->name1 == ART_VORPAL_BLADE)
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_print("目にも止まらぬヴォーパルブレード、手錬の早業！");
+							msg_print("目にも止まらぬヴォーパルブレード、手錬の早業！");
 #else
-						msg_print("Your Vorpal Blade goes snicker-snack!");
+							msg_print("Your Vorpal Blade goes snicker-snack!");
 #endif
 					}
 					else
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%sをグッサリ切り裂いた！", m_name);
+							msg_format("%sをグッサリ切り裂いた！", m_name);
 #else
-						msg_format("Your weapon cuts deep into %s!", m_name);
+							msg_format("Your weapon cuts deep into %s!", m_name);
 #endif
 					}
 
@@ -2476,33 +2494,37 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					/* Ouch! */
 					if (((tar_ptr->resist_ultimate) ? k/100 : k) > tar_ptr->chp)
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%sを真っ二つにした！", m_name);
+							msg_format("%sを真っ二つにした！", m_name);
 #else
-						msg_format("You cut %s in half!", m_name);
+							msg_format("You cut %s in half!", m_name);
 #endif
 					}
 					else
 					{
 						switch (mult)
 						{
+							if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+							{
 #ifdef JP
-						case 2: msg_format("%sを斬った！", m_name); break;
-						case 3: msg_format("%sをぶった斬った！", m_name); break;
-						case 4: msg_format("%sをメッタ斬りにした！", m_name); break;
-						case 5: msg_format("%sをメッタメタに斬った！", m_name); break;
-						case 6: msg_format("%sを刺身にした！", m_name); break;
-						case 7: msg_format("%sを斬って斬って斬りまくった！", m_name); break;
-						default: msg_format("%sを細切れにした！", m_name); break;
+								case 2: msg_format("%sを斬った！", m_name); break;
+								case 3: msg_format("%sをぶった斬った！", m_name); break;
+								case 4: msg_format("%sをメッタ斬りにした！", m_name); break;
+								case 5: msg_format("%sをメッタメタに斬った！", m_name); break;
+								case 6: msg_format("%sを刺身にした！", m_name); break;
+								case 7: msg_format("%sを斬って斬って斬りまくった！", m_name); break;
+								default: msg_format("%sを細切れにした！", m_name); break;
 #else
-						case 2: msg_format("You gouge %s!", m_name); break;
-						case 3: msg_format("You maim %s!", m_name); break;
-						case 4: msg_format("You carve %s!", m_name); break;
-						case 5: msg_format("You cleave %s!", m_name); break;
-						case 6: msg_format("You smite %s!", m_name); break;
-						case 7: msg_format("You eviscerate %s!", m_name); break;
-						default: msg_format("You shred %s!", m_name); break;
+								case 2: msg_format("You gouge %s!", m_name); break;
+								case 3: msg_format("You maim %s!", m_name); break;
+								case 4: msg_format("You carve %s!", m_name); break;
+								case 5: msg_format("You cleave %s!", m_name); break;
+								case 6: msg_format("You smite %s!", m_name); break;
+								case 7: msg_format("You eviscerate %s!", m_name); break;
+								default: msg_format("You shred %s!", m_name); break;
 #endif
+							}
 						}
 					}
 					drain_result = drain_result * 3 / 2;
@@ -2530,20 +2552,22 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 			if (zantetsu_mukou)
 			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-				msg_print("こんな軟らかいものは切れん！");
+					msg_print("こんな軟らかいものは切れん！");
 #else
-				msg_print("You cannot cut such a elastic thing!");
+					msg_print("You cannot cut such a elastic thing!");
 #endif
 				k = 0;
 			}
 
 			if (e_j_mukou)
 			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-				msg_print("蜘蛛は苦手だ！");
+					msg_print("蜘蛛は苦手だ！");
 #else
-				msg_print("Spiders are difficult for you to deal with!");
+					msg_print("Spiders are difficult for you to deal with!");
 #endif
 				k /= 2;
 			}
@@ -2560,20 +2584,22 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					/* Get stunned */
 					if (tar_ptr->stun)
 					{
+						if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%sはひどくもうろうとした。", m_name);
+							msg_format("%sはひどくもうろうとした。", m_name);
 #else
-						msg_format("%s is more dazed.", m_name);
+							msg_format("%s is more dazed.", m_name);
 #endif
 
 						tmp /= 2;
 					}
 					else
 					{
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%s はもうろうとした。", m_name);
+							msg_format("%s はもうろうとした。", m_name);
 #else
-						msg_format("%s is dazed.", m_name);
+							msg_format("%s is dazed.", m_name);
 #endif
 					}
 
@@ -2582,10 +2608,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				}
 				else
 				{
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("%s には効果がなかった。", m_name);
+						msg_format("%s には効果がなかった。", m_name);
 #else
-					msg_format("%s is not effected.", m_name);
+						msg_format("%s is not effected.", m_name);
 #endif
 				}
 			}
@@ -2597,10 +2624,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr))
 				{
 					k = tar_ptr->chp + 1;
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("%sの急所を突き刺した！", m_name);
+						msg_format("%sの急所を突き刺した！", m_name);
 #else
-					msg_format("You hit %s on a fatal spot!", m_name);
+						msg_format("You hit %s on a fatal spot!", m_name);
 #endif
 				}
 				else k = 1;
@@ -2611,10 +2639,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					k *= 5;
 					drain_result *= 2;
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("刃が%sに深々と突き刺さった！", m_name);
+						msg_format("刃が%sに深々と突き刺さった！", m_name);
 #else
-					msg_format("You critically injured %s!", m_name);
+						msg_format("You critically injured %s!", m_name);
 #endif
 				}
 				else if (((tar_ptr->chp < tar_ptr->mhp/2) && one_in_((atk_ptr->num_blow[0]+atk_ptr->num_blow[1]+1)*10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(tar_ptr) && !is_sub_unique_creature(tar_ptr)))
@@ -2623,19 +2652,21 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					{
 						k = MAX(k*5, tar_ptr->chp/2);
 						drain_result *= 2;
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("%sに致命傷を負わせた！", m_name);
+							msg_format("%sに致命傷を負わせた！", m_name);
 #else
-						msg_format("You fatally injured %s!", m_name);
+							msg_format("You fatally injured %s!", m_name);
 #endif
 					}
 					else
 					{
 						k = tar_ptr->chp + 1;
+						if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 #ifdef JP
-						msg_format("刃が%sの急所を貫いた！", m_name);
+							msg_format("刃が%sの急所を貫いた！", m_name);
 #else
-						msg_format("You hit %s on a fatal spot!", m_name);
+							msg_format("You hit %s on a fatal spot!", m_name);
 #endif
 					}
 				}
@@ -2670,10 +2701,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					}
 				}
 				if ((o_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
+					if(is_player(atk_ptr))
 #ifdef JP
-					msg_print("またつまらぬものを斬ってしまった．．．");
+						msg_print("またつまらぬものを斬ってしまった．．．");
 #else
-					msg_print("Sigh... Another trifling thing I've cut....");
+						msg_print("Sigh... Another trifling thing I've cut....");
 #endif
 				break;
 			}
@@ -2706,10 +2738,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 						if (o_ptr->to_h != to_h || o_ptr->to_d != to_d)
 						{
+							if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
-							msg_print("妖刀は血を吸って強くなった！");
+								msg_print("妖刀は血を吸って強くなった！");
 #else
-							msg_print("Muramasa sucked blood, and became more powerful!");
+								msg_print("Muramasa sucked blood, and became more powerful!");
 #endif
 							o_ptr->to_h = to_h;
 							o_ptr->to_d = to_d;
@@ -2749,10 +2782,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 							if (drain_msg)
 							{
+								if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
-								msg_format("刃が%sから生命力を吸い取った！", m_name);
+									msg_format("刃が%sから生命力を吸い取った！", m_name);
 #else
-								msg_format("Your weapon drains life from %s!", m_name);
+									msg_format("Your weapon drains life from %s!", m_name);
 #endif
 
 								drain_msg = FALSE;
@@ -2780,10 +2814,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				if (atk_ptr->special_attack & ATTACK_CONFUSE)
 				{
 					atk_ptr->special_attack &= ~(ATTACK_CONFUSE);
+					if(is_seen(player_ptr, atk_ptr))
 #ifdef JP
-					msg_print("手の輝きがなくなった。");
+						msg_print("手の輝きがなくなった。");
 #else
-					msg_print("Your hands stop glowing.");
+						msg_print("Your hands stop glowing.");
 #endif
 					play_redraw |= (PR_STATUS);
 
@@ -2794,28 +2829,31 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				{
 					if (is_original_ap_and_seen(atk_ptr, tar_ptr)) reveal_creature_info(tar_ptr, CF_NO_CONF);
 
+					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", m_name);
 #else
-					msg_format("%^s is unaffected.", m_name);
+						msg_format("%^s is unaffected.", m_name);
 #endif
 
 				}
 				else if (randint0(100) < r_ptr->level)
 				{
+					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("%^sには効果がなかった。", m_name);
+						msg_format("%^sには効果がなかった。", m_name);
 #else
-					msg_format("%^s is unaffected.", m_name);
+						msg_format("%^s is unaffected.", m_name);
 #endif
 
 				}
 				else
 				{
+					if(is_seen(player_ptr, tar_ptr))
 #ifdef JP
-					msg_format("%^sは混乱したようだ。", m_name);
+						msg_format("%^sは混乱したようだ。", m_name);
 #else
-					msg_format("%^s appears confused.", m_name);
+						msg_format("%^s appears confused.", m_name);
 #endif
 
 					(void)set_confused(&creature_list[c_ptr->m_idx], tar_ptr->confused + 10 + randint0(atk_ptr->lev) / 5);
