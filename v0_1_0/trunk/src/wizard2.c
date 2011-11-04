@@ -466,7 +466,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	
 	/* Level Limit */
 	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(creautre_exp[PY_MORTAL_LIMIT_LEVEL] < creautre_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
+		if(creature_exp[PY_MORTAL_LIMIT_LEVEL] < creature_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
 
 	if (cr_ptr->dr >= 0)

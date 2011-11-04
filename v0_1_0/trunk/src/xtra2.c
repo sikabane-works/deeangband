@@ -41,7 +41,7 @@ void set_experience(creature_type *cr_ptr)
 
 	/* Gain levels while possible */
 	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	       (cr_ptr->exp >= ((android ? creature_exp_a : creature_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
 		cr_ptr->lev++;
@@ -87,7 +87,7 @@ void check_experience(creature_type *cr_ptr)
 
 	/* Lose levels while possible */
 	while ((cr_ptr->lev > 1) &&
-		(cr_ptr->exp < ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
+		(cr_ptr->exp < ((android ? creature_exp_a : creature_exp)[cr_ptr->lev - 2] * cr_ptr->expfact / 100L)) || cr_ptr->lev > cr_ptr->max_lev)
 	{
 		/* Lose a level */
 		cr_ptr->lev--;
@@ -108,7 +108,7 @@ void check_experience(creature_type *cr_ptr)
 
 	/* Gain levels while possible */
 	while ((cr_ptr->lev < cr_ptr->max_lev) &&
-	       (cr_ptr->exp >= ((android ? creautre_exp_a : creautre_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
+	       (cr_ptr->exp >= ((android ? creature_exp_a : creature_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
 		cr_ptr->lev++;
@@ -1455,6 +1455,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	u32b new_exp_frac;
 	s32b div_h;
 	u32b div_l;
+	int exp_limit;
 
 	if (!tar_ptr->species_idx) return;
 	if (is_pet(tar_ptr) || inside_battle) return;
@@ -1469,9 +1470,6 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	div_h = 0L;
 	div_l = (atk_ptr->max_plv+2) * SPEED_TO_ENERGY(tar_ptr->speed);
 
-	/* Use (average mhp * 2) as a denominator */
-	// TODO NEW CALC
-
 	/* Special penalty in the wilderness */
 	if (!dun_level && (!has_cf_creature(tar_ptr, CF_WILD_ONLY) || !(has_cf_creature(tar_ptr, CF_UNIQUE))))
 		s64b_mul(&div_h, &div_l, 0, 5);
@@ -1479,11 +1477,15 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	/* Do division first to prevent overflaw */
 	s64b_div(&new_exp, &new_exp_frac, div_h, div_l);
 
-	//TODO Reimplement Special penalty for mutiply-monster
-
-	/* Finally multiply base experience point of the monster */
+	/* Multiply base experience point of attacker and the target level*/
 	s64b_mul(&new_exp, &new_exp_frac, 0, tar_ptr->lev * tar_ptr->lev);
 	s64b_div(&new_exp, &new_exp_frac, 0, 1 + atk_ptr->lev);
+
+	if(atk_ptr->lev != PY_MAX_LEVEL)
+		exp_limit = (creature_exp[atk_ptr->lev+1] - creature_exp[atk_ptr->lev]) / (5 + atk_ptr->lev / 10);
+	else
+		exp_limit = (creature_exp[atk_ptr->lev] * 2) / (5 + atk_ptr->lev / 10);
+	new_exp = new_exp > exp_limit ? exp_limit : new_exp;
 
 	/* Gain experience */
 	gain_exp_64(atk_ptr, new_exp, new_exp_frac);
@@ -2370,7 +2372,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 
 
 	/* Total experience value for next level */
-	exp_adv = creautre_exp[p_ptr->lev -1] * p_ptr->expfact;
+	exp_adv = creature_exp[p_ptr->lev -1] * p_ptr->expfact;
 	exp_adv_frac = 0;
 	s64b_div(&exp_adv, &exp_adv_frac, 0, 100);
 

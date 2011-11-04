@@ -2003,9 +2003,9 @@ static void display_player_middle(creature_type *cr_ptr)
 	if (cr_ptr->lev >= cr_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
 	else if (IS_RACE(cr_ptr, RACE_ANDROID))
-		display_player_one_line(e, format("%ld", (s32b)(creautre_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
+		display_player_one_line(e, format("%ld", (s32b)(creature_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
-		display_player_one_line(e, format("%ld", (s32b)(creautre_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
+		display_player_one_line(e, format("%ld", (s32b)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 
 	/* Dump gold */
 	display_player_one_line(ENTRY_GOLD, format("%ld", cr_ptr->au), TERM_L_GREEN);
