@@ -6250,16 +6250,19 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			/* Death by physical attack -- invisible monster */
 			else if (!tar_ptr->ml)
 			{
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				{
 	#ifdef JP
-				if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
-					msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
-				else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
-					msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
-				else
-					msg_format("%sは%sを殺した。", atk_name, tar_name);
+					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+						msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
+					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+						msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
+					else
+						msg_format("%sは%sを殺した。", atk_name, tar_name);
 	#else
-					msg_format("%s have killed %s.", atk_name, tar_name);
+						msg_format("%s have killed %s.", atk_name, tar_name);
 	#endif
+				}
 	
 			}
 	
@@ -6303,27 +6306,31 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 			{
 				if(atk_ptr)
 				{
-	#ifdef JP
-					if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
-						msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
-					else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
 					{
-						msg_format("%sは%sを葬り去った。", atk_name, tar_name);
-						msg_format("%s！お許し下さい！", tar_name);
+#ifdef JP
+						if ((atk_ptr->chara_idx == CHARA_COMBAT) || (atk_ptr->inventory[INVEN_BOW].name1 == ART_CRIMSON))
+							msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
+						else if(atk_ptr->chara_idx == CHARA_CHARGEMAN)
+						{
+							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
+							msg_format("%s！お許し下さい！", tar_name);
+						}
+						else
+							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
+#else
+							msg_format("%s have slain %s.", atk_name, tar_name);
+#endif
 					}
-					else
-						msg_format("%sは%sを葬り去った。", atk_name, tar_name);
-	#else
-						msg_format("%s have slain %s.", atk_name, tar_name);
-	#endif
 				}
 				else
 				{
-	#ifdef JP
-					msg_format("%sは死んだ。", tar_name);
-	#else
-					msg_format("%s died.", tar_name);
-	#endif
+					if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+#ifdef JP
+						msg_format("%sは死んだ。", tar_name);
+#else
+						msg_format("%s died.", tar_name);
+#endif
 				}
 	
 			}
