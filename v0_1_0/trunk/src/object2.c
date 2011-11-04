@@ -1962,14 +1962,8 @@ s16b lookup_kind(int tval, int sval)
 		return bk;
 	}
 
-#if 0
 	/* Oops */
-#ifdef JP
-	msg_format("ƒAƒCƒeƒ€‚ª‚È‚¢ (%d,%d)", tval, sval);
-#else
-	msg_format("No object (%d,%d)", tval, sval);
-#endif
-#endif
+	msg_format("WARNING:: No object (%d,%d)", tval, sval);
 
 
 	/* Oops */

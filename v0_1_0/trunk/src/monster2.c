@@ -3436,43 +3436,49 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Give the player three useful objects */
-	for (i = 0; i < 3; i++)
+	if(creature_ptr->cls_idx != CLASS_NONE)
 	{
-		/* Look up standard equipment */
-		tv = class_equipment_init[creature_ptr->cls_idx][i][0];
-		sv = class_equipment_init[creature_ptr->cls_idx][i][1];
-
-		if ((creature_ptr->race_idx1 == RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
-		/* Hack to initialize spellbooks */
-		if (tv == TV_SORCERY_BOOK) tv = TV_LIFE_BOOK + creature_ptr->realm1 - 1;
-		else if (tv == TV_DEATH_BOOK) tv = TV_LIFE_BOOK + creature_ptr->realm2 - 1;
-
-		else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
-		    creature_ptr->race_idx1 == RACE_BARBARIAN)
-			/* Barbarians do not need a ring of resist fear */
-			sv = SV_RING_SUSTAIN_STR;
-
-		else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
-		    creature_ptr->race_idx1 == RACE_MIND_FLAYER)
-		  {
-			tv = TV_POTION;
-			sv = SV_POTION_RESTORE_MANA;
-		  }
-
-		/* Get local object */
-		q_ptr = &forge;
-
-		/* Hack -- Give the player an object */
-		object_prep(q_ptr, lookup_kind(tv, sv), creature_ptr->size);
-
-		/* Assassins begin the game with a poisoned dagger */
-		if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->cls_idx == CLASS_ROGUE &&
-			creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
+		for (i = 0; i < 3; i++)
 		{
-			q_ptr->name2 = EGO_BRAND_POIS;
-		}
+			/* Look up standard equipment */
+			tv = class_equipment_init[creature_ptr->cls_idx][i][0];
+			sv = class_equipment_init[creature_ptr->cls_idx][i][1];
 
-		add_outfit(creature_ptr, q_ptr);
+			if (IS_PURE_RACE(creature_ptr, RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
+
+			/* Hack to initialize spellbooks */
+			if (tv == TV_SORCERY_BOOK && creature_ptr->realm1)
+				tv = TV_LIFE_BOOK + creature_ptr->realm1 - 1;
+			else if (tv == TV_DEATH_BOOK && creature_ptr->realm2)
+				tv = TV_LIFE_BOOK + creature_ptr->realm2 - 1;
+
+			else if (tv == TV_RING && sv == SV_RING_RES_FEAR &&
+			    IS_PURE_RACE(creature_ptr, RACE_BARBARIAN))
+				/* Barbarians do not need a ring of resist fear */
+				sv = SV_RING_SUSTAIN_STR;
+
+			else if (tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
+			    IS_PURE_RACE(creature_ptr, RACE_MIND_FLAYER))
+			{
+				tv = TV_POTION;
+				sv = SV_POTION_RESTORE_MANA;
+			}
+
+			/* Get local object */
+			q_ptr = &forge;
+
+			/* Hack -- Give the player an object */
+			object_prep(q_ptr, lookup_kind(tv, sv), creature_ptr->size);
+
+			/* Assassins begin the game with a poisoned dagger */
+			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->cls_idx == CLASS_ROGUE &&
+				creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
+			{
+				q_ptr->name2 = EGO_BRAND_POIS;
+			}
+
+			add_outfit(creature_ptr, q_ptr);
+		}
 	}
 
 	/* Hack -- make aware of the water */
