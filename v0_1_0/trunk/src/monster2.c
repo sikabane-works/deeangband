@@ -3311,23 +3311,26 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
-	if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+	if (has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
-		/* Hack -- Give the player scrolls of DARKNESS! */
-		object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
+		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+		{
+			/* Hack -- Give the player scrolls of DARKNESS! */
+			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
 
-		q_ptr->number = (byte)rand_range(2, 5);
+			q_ptr->number = (byte)rand_range(2, 5);
 
-		add_outfit(creature_ptr, q_ptr);
-	}
-	else if (creature_ptr->cls_idx != CLASS_NINJA)
-	{
-		/* Hack -- Give the player some torches */
-		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(3, 7);
-		q_ptr->xtra4 = (s16b)rand_range(3, 7) * 500;
+			add_outfit(creature_ptr, q_ptr);
+		}
+		else if (creature_ptr->cls_idx != CLASS_NINJA)
+		{
+			/* Hack -- Give the player some torches */
+			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
+			q_ptr->number = (byte)rand_range(3, 7);
+			q_ptr->xtra4 = (s16b)rand_range(3, 7) * 500;
 
-		add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr);
+		}
 	}
 
 	/* Get local object */
@@ -3483,7 +3486,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	/* Hack -- make aware of the water */
 	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
-
 
 	/* Drop some objects */
 	for (i = 0; i < number; i++)
