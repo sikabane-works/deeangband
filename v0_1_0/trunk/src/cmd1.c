@@ -2049,6 +2049,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	{
 		if ((r_ptr->level + 10) > atk_ptr->lev)
 		{
+			// Matrial arts skill mastering
 			if (atk_ptr->skill_exp[GINOU_SUDE] < s_info[atk_ptr->cls_idx].s_max[GINOU_SUDE])
 			{
 				if (atk_ptr->skill_exp[GINOU_SUDE] < WEAPON_EXP_BEGINNER)
@@ -2065,6 +2066,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	}
 	else if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
+		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != CLASS_NONE)
 		{
 			int tval = atk_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
@@ -2086,11 +2088,11 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	/* Disturb the monster */
 	(void)set_paralyzed(tar_ptr, 0);
 
-	/* Extract monster name (or "it") */
+	/* Extract attacker and target name (or "it") */
 	creature_desc(atk_name, atk_ptr, 0);
 	creature_desc(tar_name, tar_ptr, 0);
 
-	/* Calculate the "attack quality" */
+	// Calculate the "attack quality"
 	bonus = atk_ptr->to_h[hand] + o_ptr->to_h;
 	chance = (atk_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if (mode == HISSATSU_IAI) chance += 60;
@@ -2105,10 +2107,10 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	else if (mode == HISSATSU_COLD) num_blow = atk_ptr->num_blow[hand]+2;
 	else num_blow = atk_ptr->num_blow[hand];
 
-	/* Hack -- DOKUBARI always hit once */
+	// Hack -- DOKUBARI always hit once
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) num_blow = 1;
 
-	/* Attack once for each legal blow */
+	// Attack once for each legal blow
 	while ((num++ < num_blow) && !atk_ptr->is_dead)
 	{
 		if (((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
@@ -2683,8 +2685,9 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 			if (drain_result > tar_ptr->chp)
 				drain_result = tar_ptr->chp;
 
-			/* Damage, check for fear and death */
+			// Damage, check for fear and death
 			take_hit(atk_ptr, tar_ptr, 0, k, NULL, NULL, -1);
+
 			if(tar_ptr->is_dead);
 			{
 				*mdeath = TRUE;

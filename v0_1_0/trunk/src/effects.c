@@ -5251,9 +5251,9 @@ bool do_inc_stat(creature_type *cr_ptr, int stat)
 		if(is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-			msg_format("ワーオ！とても%sなった！", desc_stat_pos[stat]);
+			msg_format("ワーオ！%sはとても%sなった！", cr_ptr->name, desc_stat_pos[stat]);
 #else
-			msg_format("Wow!  You feel very %s!", desc_stat_pos[stat]);
+			msg_format("Wow! %s became very %s!", cr_ptr->name, desc_stat_pos[stat]);
 #endif
 		}
 
