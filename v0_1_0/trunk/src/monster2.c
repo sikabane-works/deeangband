@@ -3239,14 +3239,16 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
-	/* Give the player some food */
-	switch (creature_ptr->race_idx1)
+	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
 	{
-		/* TODO Nothing! */
-		/* Vampires can drain blood of creatures */
-	case RACE_DEMON:
-		/* Demon can drain vitality from humanoid corpse */
+		/* Food rations */
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(3, 7);
 
+		add_outfit(creature_ptr, q_ptr);
+	}
+	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
+	{
 		/* Prepare allocation table */
 		get_mon_num_prep(creature_hook_human, NULL);
 
@@ -3257,38 +3259,16 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			q_ptr->number = 1;
 			add_outfit(creature_ptr, q_ptr);
 		}
-		break;
-
-#if 0
-		//TODO
-	case SKELETON:
-		/* Some Skeletons */
-		object_prep(q_ptr, lookup_kind(TV_SKELETON, SV_ANY), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(q_ptr);
-		break;
-	case SKELETON:
-	case GOLEM:
-	case ZOMBIE:
-	case LICH:
-		/* Staff (of Nothing) */
-		object_prep(q_ptr, lookup_kind(TV_STAFF, SV_STAFF_NOTHING), ITEM_FREE_SIZE);
-		q_ptr->number = 1;
-
-		add_outfit(creature_ptr, q_ptr);
-		break;
-#endif
-
-
-	case RACE_ENT:
+	}
+	else if(has_cf_creature(creature_ptr, CF_WATER_DRINKER))
+	{
 		/* Potions of Water */
 		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 23);
 		add_outfit(creature_ptr, q_ptr);
-
-		break;
-
-	case RACE_ANDROID:
+	}
+	else if(has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
+	{
 		/* Flasks of oil */
 		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
 
@@ -3297,16 +3277,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 		q_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(creature_ptr, q_ptr);
-
-		break;
-
-	default:
-		/* Food rations */
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(3, 7);
-
-		add_outfit(creature_ptr, q_ptr);
 	}
+
 
 	/* Get local object */
 	q_ptr = &forge;
