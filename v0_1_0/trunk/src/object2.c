@@ -5875,7 +5875,7 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 
 
 /*
- * Add an item to the players p_ptr->inventory, and return the slot used.
+ * Add an item to the players inventory, and return the slot used.
  *
  * If the new item can combine with an existing item in the p_ptr->inventory,
  * it will do so, using "object_similar()" and "object_absorb()", else,

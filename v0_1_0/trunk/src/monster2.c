@@ -3289,9 +3289,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		{
 			/* Hack -- Give the player scrolls of DARKNESS! */
 			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
-
 			q_ptr->number = (byte)rand_range(2, 5);
-
 			add_outfit(creature_ptr, q_ptr);
 		}
 		else if (creature_ptr->cls_idx != CLASS_NINJA)
@@ -3299,7 +3297,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			/* Hack -- Give the player some torches */
 			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(3, 7);
-			q_ptr->xtra4 = (s16b)rand_range(3, 7) * 500;
+			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
 
 			add_outfit(creature_ptr, q_ptr);
 		}
@@ -3505,7 +3503,31 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		}
 	}
 
-	if(creature_ptr->race_idx1 != RACE_NONE)
+	if(IS_RACE(creature_ptr, RACE_BALROG))
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		object_aware(&ob);
+		object_known(&ob);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
+
+	if(IS_RACE(creature_ptr, RACE_ISTARI))
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		object_aware(&ob);
+		object_known(&ob);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
+
+	if(IS_RACE(creature_ptr, RACE_NONE))
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
@@ -3581,29 +3603,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 				creature_ptr->inventory[INVEN_NECK].fitting_size = creature_ptr->size;
 			}
 		}
-
 	}
-
-	if(creature_ptr->race_idx1 == RACE_BALROG)
-	{
-		int r;
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
-		creature_ptr->inventory[r] = ob;
-	}
-
-	if(creature_ptr->race_idx1 == RACE_ISTARI)
-	{
-		int r;
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
-		creature_ptr->inventory[r] = ob;
-	}
-
 }
 
 static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
