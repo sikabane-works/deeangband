@@ -2710,6 +2710,8 @@ static errr grab_one_index(int *n, cptr names[], cptr what)
 		return 0;
 	}
 
+	if(names == NULL) return -1;
+
 	/* Check flags */
 	for (; names[i]; i++)
 	{
@@ -4303,15 +4305,20 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_PATRON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].patron_idx = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].patron_idx = (s16b)b;
+				else 
+					if(grab_one_index(&b, NULL, tmp)) return (1);
+					species_info[n].patron_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_CHARA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].chara_idx = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_info[n].chara_idx = (byte)b;
+				else 
+					if(grab_one_index(&b, NULL, tmp)) return (1);
+					species_info[n].chara_idx = (byte)b;
 				break;
-
 			case SPECIES_INFO_RELM1:
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (byte)b;
