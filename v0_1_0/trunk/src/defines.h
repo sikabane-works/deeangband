@@ -672,7 +672,7 @@
 #define REALM_MUSIC        16
 #define REALM_HISSATSU     17
 #define REALM_HEX          18
-#define MAX_REALM          18
+#define MAX_REALM          19
 
 #define VALID_REALM        (MAX_REALM + MAX_MAGIC - MIN_TECHNIC + 1)
 #define NUM_TECHNIC        (MAX_REALM - MIN_TECHNIC + 1)

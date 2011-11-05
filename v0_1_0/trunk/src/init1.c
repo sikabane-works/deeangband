@@ -202,7 +202,7 @@ static cptr class_flags[MAX_CLASS]=
 	"SNIPER",
 };
 
-static cptr realm_flags[MAX_CLASS]=
+static cptr realm_flags[MAX_REALM]=
 {
 	"NONE",
 	"LIFE",
@@ -214,7 +214,16 @@ static cptr realm_flags[MAX_CLASS]=
 	"ARCANE",
 	"CRAFT",
 	"DAEMON",
+
 	"CRUSADE",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
 };
 
 
@@ -4301,7 +4310,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (byte)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp)) return (1);
 					species_info[n].realm1 = (byte)b;
 				break;
 
@@ -4309,7 +4318,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm2 = (byte)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp)) return (1);
 					species_info[n].realm2 = (byte)b;
 				break;
 

@@ -4150,8 +4150,8 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->chara_idx = (byte)species_ptr->chara_idx;
 	creature_ptr->ap_species_idx = species_idx;
 
-	//creature_ptr->realm1 = species_ptr->realm1;
-	//creature_ptr->realm2 = species_ptr->realm2;
+	creature_ptr->realm1 = species_ptr->realm1;
+	creature_ptr->realm2 = species_ptr->realm2;
 
 
 	/* MISC parameter*/
