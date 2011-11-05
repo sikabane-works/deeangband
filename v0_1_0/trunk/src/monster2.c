@@ -347,7 +347,7 @@ static byte class_equipment_init[MAX_CLASS][3][2] =
 		/* Samurai */
 		{ TV_HISSATSU_BOOK, 0 },
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_SWORD, SV_BROAD_SWORD }
+		{ TV_SWORD, SV_KATANA }
 	},
 
 	{
