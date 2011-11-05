@@ -326,13 +326,13 @@ struct species_type
 	s16b race_idx2;                 /* Race index 2*/
 	u32b sub_race[8];               /* Sub-Race index */
 	s16b sex;                       /* Sex index */
-	byte cls_idx;                   /* Class index */
+	s16b cls_idx;                   /* Class index */
 	s16b patron_idx;
-	byte chara_idx;                 /* CHARA index */
+	s16b chara_idx;                 /* Chara index */
 	s16b monster_ego_idx;		    /* Monster ego index */
 
-	byte realm1;       /* First magic realm */
-	byte realm2;       /* Second magic realm */
+	s16b realm1;       /* First magic realm */
+	s16b realm2;       /* Second magic realm */
 	u32b authority[8];      /* Autority flags*/
 
 	s32b age;
@@ -1179,12 +1179,12 @@ struct creature_type
 	u32b authority[8];      /* Autority flags*/
 	s16b sex;				/* Sex index */
 	bool sexual_penalty;	/* Sexual penalty flag*/
-	byte cls_idx;		    /* Class index */
+	s16b cls_idx;		    /* Class index */
 	bool cls_bonus;	        /* Class bonus flag*/
-	byte chara_idx;		    /* chara index */
+	s16b chara_idx;		    /* chara index */
 	s16b patron_idx;		/* Patron index */
-	byte realm1;            /* First magic realm */
-	byte realm2;            /* Second magic realm */
+	s16b realm1;            /* First magic realm */
+	s16b realm2;            /* Second magic realm */
 	byte oops;			    /* Unused */
 
 	s16b hitdice;		/* Hit dice */

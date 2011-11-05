@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 30
+#define VER_PATCH 31
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -750,7 +750,7 @@
 
 
 // VARIABLE index for race, class, character and so on.
-#define INDEX_VARIABLE 255
+#define INDEX_VARIABLE  30000
 
 /*
  * Indexes of the various "stats" (hard-coded by savefiles, etc).

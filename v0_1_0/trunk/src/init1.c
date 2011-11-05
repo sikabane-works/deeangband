@@ -4298,10 +4298,10 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_CLASS:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].cls_idx = (byte)b;
+					species_info[n].cls_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, class_flags, tmp)) return (1);
-					species_info[n].cls_idx = (byte)b;
+					species_info[n].cls_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
@@ -4314,25 +4314,25 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_CHARA:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].chara_idx = (byte)b;
+					species_info[n].chara_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp)) return (1);
-					species_info[n].chara_idx = (byte)b;
+					species_info[n].chara_idx = (s16b)b;
 				break;
 			case SPECIES_INFO_RELM1:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].realm1 = (byte)b;
+					species_info[n].realm1 = (s16b)b;
 				else 
 					if(grab_one_index(&b, realm_flags, tmp)) return (1);
-					species_info[n].realm1 = (byte)b;
+					species_info[n].realm1 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RELM2:
 				if(sscanf(tmp, "%d", &b) == 1)
-					species_info[n].realm2 = (byte)b;
+					species_info[n].realm2 = (s16b)b;
 				else 
 					if(grab_one_index(&b, realm_flags, tmp)) return (1);
-					species_info[n].realm2 = (byte)b;
+					species_info[n].realm2 = (s16b)b;
 				break;
 
 			case SPECIES_INFO_LEV:

@@ -464,10 +464,10 @@ static void save_quick_start(species_type *sp_ptr)
 	wr_s16b(sp_ptr->race_idx1);
 	wr_s16b(sp_ptr->race_idx2);
 	for (i = 0; i < 8; i++) wr_u32b(sp_ptr->sub_race[i]);
-	wr_byte(sp_ptr->cls_idx);
-	wr_byte(sp_ptr->chara_idx);
-	wr_byte(sp_ptr->realm1);
-	wr_byte(sp_ptr->realm2);
+	wr_s16b(sp_ptr->cls_idx);
+	wr_s16b(sp_ptr->chara_idx);
+	wr_s16b(sp_ptr->realm1);
+	wr_s16b(sp_ptr->realm2);
 
 	wr_s32b(sp_ptr->age);
 	wr_s32b(sp_ptr->m_b_ht);
@@ -527,11 +527,11 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->race_idx2);
 	for (i = 0; i < 8; i++) wr_u32b(cr_ptr->sub_race[i]);
 	wr_s16b(cr_ptr->monster_ego_idx);
-	wr_byte(cr_ptr->cls_idx);
-	wr_byte(cr_ptr->chara_idx);
+	wr_s16b(cr_ptr->cls_idx);
+	wr_s16b(cr_ptr->chara_idx);
 	wr_s16b(cr_ptr->sex);
-	wr_byte(cr_ptr->realm1);
-	wr_byte(cr_ptr->realm2);
+	wr_s16b(cr_ptr->realm1);
+	wr_s16b(cr_ptr->realm2);
 
 	wr_s16b(cr_ptr->hitdice);
 	wr_u16b(cr_ptr->expfact);
