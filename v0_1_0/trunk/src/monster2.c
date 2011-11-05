@@ -3469,7 +3469,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Wipe the object */
-		object_wipe(&creature_ptr->inventory[i]);
+		if(!(&creature_ptr->inventory[i])) break;
 
 		if(!r_ptr->artifact_prob[i]) break;
 
