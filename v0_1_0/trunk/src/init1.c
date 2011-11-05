@@ -2704,6 +2704,12 @@ static errr grab_one_index(int *n, cptr names[], cptr what)
 {
 	int i = 0;
 
+	if(streq(what, "VARIABLE"))
+	{
+		*n = INDEX_VARIABLE;
+		return 0;
+	}
+
 	/* Check flags */
 	for (; names[i]; i++)
 	{

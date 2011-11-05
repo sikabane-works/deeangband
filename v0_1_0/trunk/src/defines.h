@@ -748,6 +748,10 @@
 #define INVEN_FORCE     1111
 #define INVEN_NULL      2000
 
+
+// VARIABLE index for race, class, character and so on.
+#define INDEX_VARIABLE 255
+
 /*
  * Indexes of the various "stats" (hard-coded by savefiles, etc).
  */
