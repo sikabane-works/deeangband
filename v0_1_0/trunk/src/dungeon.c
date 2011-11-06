@@ -6790,14 +6790,14 @@ quit("セーブファイルが壊れています");
 		world_wipe();
 
 		/* Roll up a new character */
-		creature_birth(cr_ptr, 0, UB_PLAYER | UB_STIGMATIC);
+		creature_birth(cr_ptr, &settled_player_species, UB_PLAYER | UB_STIGMATIC);
 
 		/* Initialize random quests */
 		init_dungeon_quests();
 
 		/* Save character data for quick start */
-		save_prev_data(cr_ptr, &previous_char);
-		previous_char.quick_ok = TRUE;
+		save_prev_data(cr_ptr, &settled_player_species);
+		settled_player_species.quick_ok = TRUE;
 
 		/* Init Stores */
 		init_stores();
@@ -7202,8 +7202,8 @@ quit("セーブファイルが壊れています");
 					dungeon_type = 0;
 
 					// Start Point Set
-					wilderness_y = previous_char.start_wy;
-					wilderness_x = previous_char.start_wx;
+					wilderness_y = settled_player_species.start_wy;
+					wilderness_x = settled_player_species.start_wx;
 
 					cr_ptr->oldpy = 95;
 					cr_ptr->oldpx = 95;

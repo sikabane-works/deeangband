@@ -5388,7 +5388,7 @@ static void edit_history(creature_type *cr_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b flags)
+static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b flags)
 {
 	int i;
 
@@ -5511,7 +5511,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_starting_point(&previous_char, auto_m);
+	i = get_starting_point(&settled_player_species, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5842,7 +5842,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 			/* Previous character */
 			if (prev && (c == 'p'))
 			{
-				load_prev_data(cr_ptr, &previous_char, TRUE);
+				load_prev_data(cr_ptr, &settled_player_species, TRUE);
 				continue;
 			}
 
@@ -5889,8 +5889,8 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 		if (auto_m || c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
-		save_prev_data(cr_ptr, &previous_char);
-		previous_char.quick_ok = FALSE;
+		save_prev_data(cr_ptr, &settled_player_species);
+		settled_player_species.quick_ok = FALSE;
 
 		/* Note that a previous roll exists */
 		prev = TRUE;
@@ -5947,7 +5947,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
 {
 
 	/* Doesn't have previous data */
-	if (!previous_char.quick_ok) return FALSE;
+	if (!settled_player_species.quick_ok) return FALSE;
 
 
 	/* Clear screen */
@@ -5994,12 +5994,12 @@ static bool ask_quick_start(creature_type *cr_ptr)
 		}
 	}
 
-	load_prev_data(cr_ptr, &previous_char, FALSE);
+	load_prev_data(cr_ptr, &settled_player_species, FALSE);
 	init_dungeon_quests();
 	init_turn(cr_ptr);
 
-	wilderness_y = previous_char.start_wy;
-	wilderness_x = previous_char.start_wx;
+	wilderness_y = settled_player_species.start_wy;
+	wilderness_x = settled_player_species.start_wx;
 
 	/* Calc hitdice, but don't roll */
 	get_extra(cr_ptr, FALSE);
@@ -6028,7 +6028,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void creature_birth(creature_type *cr_ptr, int id, u32b flags)
+void creature_birth(creature_type *cr_ptr, species_type *species_ptr, u32b flags)
 {
 	char buf[80];
 
@@ -6055,14 +6055,14 @@ void creature_birth(creature_type *cr_ptr, int id, u32b flags)
 		while (1)
 		{
 			/* Roll up a new character */
-			if (unique_birth_aux(cr_ptr, &previous_char, flags)) break;
+			if (creature_birth_aux(cr_ptr, &settled_player_species, flags)) break;
 
 			/* Wipe the player */
 			creature_wipe(cr_ptr);
 		}
 
-		wilderness_x = previous_char.start_wx;
-		wilderness_y = previous_char.start_wy;
+		wilderness_x = settled_player_species.start_wx;
+		wilderness_y = settled_player_species.start_wy;
 
 	}
 

@@ -730,7 +730,7 @@ static void wr_extra(void)
 	byte tmp8u;
 
 
-	save_quick_start(&previous_char);
+	save_quick_start(&settled_player_species);
 
 
 	for (i = 0; i < MAX_KUBI; i++)

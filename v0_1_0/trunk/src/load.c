@@ -1336,7 +1336,7 @@ static void rd_extra(void)
 	s16b tmp16s;
 	byte max;
 
-	load_quick_start(&previous_char);
+	load_quick_start(&settled_player_species);
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{

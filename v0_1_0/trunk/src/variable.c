@@ -791,7 +791,7 @@ s32b wilderness_y = 0;
  * The last character rolled,
  * holded for quick start
  */
-species_type previous_char;
+species_type settled_player_species;
 
 
 /*
