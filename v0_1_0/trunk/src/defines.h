@@ -5349,7 +5349,7 @@ extern int PlayerUID;
 // Flags 1
 #define CF_UNIQUE			0
 #define CF_QUESTOR			1
-#define CF_NRF1XXX2			2
+#define CF_STIGMATIC		2
 #define CF_NRF1XXX3			3
 #define CF_CHAR_CLEAR		4
 #define CF_SHAPECHANGER		5

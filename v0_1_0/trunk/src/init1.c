@@ -438,7 +438,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 //CF1
 	"UNIQUE",
 	"QUESTOR",
-	"XXX",
+	"STIGMATIC",
 	"XXX",
 	"CHAR_CLEAR",
 	"SHAPECHANGER",
