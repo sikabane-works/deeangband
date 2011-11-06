@@ -2912,7 +2912,7 @@ static void k_info_reset(void)
 /*
  * Clear all the global "character" data
  */
-static void player_wipe(creature_type *cr_ptr)
+static void creature_wipe(creature_type *cr_ptr)
 {
 	int i;
 
@@ -6063,7 +6063,7 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 	wipe_creature_list();
 
 	/* Wipe the player */
-	player_wipe(cr_ptr);
+	creature_wipe(cr_ptr);
 
 	if(flags & UB_PLAYER) cr_ptr->player = TRUE;
 	if(flags & UB_STIGMATIC) cr_ptr->stigmatic = TRUE;
@@ -6080,7 +6080,7 @@ void unique_birth(creature_type *cr_ptr, int id, u32b flags)
 			if (unique_birth_aux(cr_ptr, &previous_char, flags)) break;
 
 			/* Wipe the player */
-			player_wipe(cr_ptr);
+			creature_wipe(cr_ptr);
 		}
 
 		wilderness_x = previous_char.start_wx;
