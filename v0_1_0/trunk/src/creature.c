@@ -58,7 +58,7 @@ void set_status(creature_type *creature_ptr)
 	{
 		creature_ptr->stat_use[i] = 100;
 
-		if(creature_ptr->species_idx != MON_NONE)
+		if(creature_ptr->species_idx != MON_STIGMATIC_ONE)
 		{
 			species_type *r_ptr = &species_info[creature_ptr->species_idx]; 
 			creature_ptr->stat_use[i] = r_ptr->stat_max[i];
@@ -94,7 +94,7 @@ void set_height_weight(creature_type *creature_ptr)
 	race_type *ir_ptr;
 	species_type *mr_ptr;
 
-	if(creature_ptr->species_idx != MON_NONE)
+	if(creature_ptr->species_idx != MON_STIGMATIC_ONE)
 	{
 		mr_ptr = &species_info[creature_ptr->species_idx]; 
 

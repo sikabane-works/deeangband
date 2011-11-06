@@ -6028,7 +6028,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void creature_birth(creature_type *cr_ptr, species_type *species_ptr, u32b flags)
+void creature_birth(creature_type *cr_ptr, species_type *base_sp_ptr, species_type *settled_sp_ptr, u32b flags)
 {
 	char buf[80];
 
@@ -6055,7 +6055,7 @@ void creature_birth(creature_type *cr_ptr, species_type *species_ptr, u32b flags
 		while (1)
 		{
 			/* Roll up a new character */
-			if (creature_birth_aux(cr_ptr, &settled_player_species, flags)) break;
+			if (creature_birth_aux(cr_ptr, settled_sp_ptr, flags)) break;
 
 			/* Wipe the player */
 			creature_wipe(cr_ptr);

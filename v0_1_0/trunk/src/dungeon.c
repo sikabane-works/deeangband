@@ -6790,7 +6790,7 @@ quit("セーブファイルが壊れています");
 		world_wipe();
 
 		/* Roll up a new character */
-		creature_birth(cr_ptr, &settled_player_species, UB_PLAYER | UB_STIGMATIC);
+		creature_birth(cr_ptr, &species_info[MON_STIGMATIC_ONE], &settled_player_species, UB_PLAYER | UB_STIGMATIC);
 
 		/* Initialize random quests */
 		init_dungeon_quests();

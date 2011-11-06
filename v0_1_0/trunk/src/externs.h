@@ -657,7 +657,7 @@ extern void do_cmd_edit_autopick(creature_type *cr_ptr);
 
 /* birth.c */
 extern void add_history_from_pref_line(cptr t);
-extern void creature_birth(creature_type *cr_ptr, species_type *species_ptr, u32b flags);
+extern void creature_birth(creature_type *cr_ptr, species_type *base_sp_ptr, species_type *settled_sp_ptr, u32b flags);
 extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
