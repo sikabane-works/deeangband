@@ -5656,10 +5656,10 @@ extern int PlayerUID;
 
 // Flags 11
 #define CF_FORCE_LESSER		320
-#define CF_VARIABLE_RACE	321
-#define CF_VARIABLE_CLASS	322
-#define CF_VARIABLE_PATRON	323
-#define CF_VARIABLE_CHARA	324
+#define CF_11_1				321
+#define CF_11_2				322
+#define CF_11_3				323
+#define CF_11_4				324
 #define CF_VARIABLE_SIZE	325
 
 #define CF_FOOD_EATER		326

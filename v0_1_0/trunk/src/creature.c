@@ -1745,44 +1745,24 @@ bool is_force_lesser_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[CF_FORCE_LESSER]);
 }
 
-bool is_variable_race_creature(creature_type *creature_ptr)
-{
-	return has_cf_creature(creature_ptr, CF_VARIABLE_RACE);	
-}
-
 bool is_variable_race_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_VARIABLE_RACE]);
-}
-
-bool is_variable_class_creature(creature_type *creature_ptr)
-{
-	return has_cf_creature(creature_ptr, CF_VARIABLE_CLASS);	
+	return IS_RACE(species_ptr, INDEX_VARIABLE);
 }
 
 bool is_variable_class_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_VARIABLE_CLASS]);
-}
-
-bool is_variable_patron_creature(creature_type *creature_ptr)
-{
-	return has_cf_creature(creature_ptr, CF_VARIABLE_PATRON);	
+	return species_ptr->cls_idx == INDEX_VARIABLE;
 }
 
 bool is_variable_patron_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_VARIABLE_PATRON]);
-}
-
-bool is_variable_chara_creature(creature_type *creature_ptr)
-{
-	return has_cf_creature(creature_ptr, CF_VARIABLE_CHARA);	
+	return species_ptr->patron_idx == INDEX_VARIABLE;
 }
 
 bool is_variable_chara_species(species_type *species_ptr)
 {
-	return (species_ptr->flags.add_lev[CF_VARIABLE_CHARA]);
+	return species_ptr->chara_idx == INDEX_VARIABLE;
 }
 
 bool is_variable_size_creature(creature_type *creature_ptr)

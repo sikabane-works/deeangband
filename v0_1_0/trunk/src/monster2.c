@@ -2035,7 +2035,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CHARA)){
+	if(r_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -2045,7 +2045,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->race_idx1 != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_RACE)){
+	if(m_ptr->race_idx1 == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "‚Ì");
@@ -2072,7 +2072,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, species_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CLASS)){
+	if(m_ptr->cls_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
