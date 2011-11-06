@@ -943,7 +943,6 @@
 #define CLASS_SNIPER            27
 
 #define MAX_CLASS               28
-#define CLASS_NONE             255
 
 
 #define CHARA_FUTUU	  0

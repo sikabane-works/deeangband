@@ -1963,7 +1963,7 @@ s16b lookup_kind(int tval, int sval)
 	}
 
 	/* Oops */
-	msg_format("WARNING:: No object (%d,%d)", tval, sval);
+	msg_format("WARNING:: No object (TV=%d,SV=%d)", tval, sval);
 
 
 	/* Oops */

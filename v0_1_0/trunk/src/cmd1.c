@@ -2067,7 +2067,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	else if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
 		// Weapon skill mastering
-		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != CLASS_NONE)
+		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
 		{
 			int tval = atk_ptr->inventory[INVEN_1STARM+hand].tval - TV_WEAPON_BEGIN;
 			int sval = atk_ptr->inventory[INVEN_1STARM+hand].sval;

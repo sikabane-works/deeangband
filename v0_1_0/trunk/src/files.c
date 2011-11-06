@@ -3678,7 +3678,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 
 
-		if(cr_ptr->cls_idx != CLASS_NONE)
+		if(cr_ptr->cls_idx != INDEX_NONE)
 		{
 			cl_adj = (int)class_info[cr_ptr->cls_idx].c_adj[i];
 
@@ -3961,7 +3961,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->race_idx1 != RACE_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
-		if(cr_ptr->cls_idx != CLASS_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
+		if(cr_ptr->cls_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
 		if(cr_ptr->patron_idx == INDEX_NONE)

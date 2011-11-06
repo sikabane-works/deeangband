@@ -2072,7 +2072,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 
 	(void)strcat(desc, species_name + r_ptr->name);
 
-	if(m_ptr->cls_idx != CLASS_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CLASS)){
+	if(m_ptr->cls_idx != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CLASS)){
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
@@ -3409,7 +3409,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Give the player three useful objects */
-	if(creature_ptr->cls_idx != CLASS_NONE)
+	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
 		for (i = 0; i < 3; i++)
 		{
@@ -3627,7 +3627,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	rpr_ptr = NULL;
 	re_selected = MONEGO_NONE;
 	rpr_selected = RACE_NONE;
-	rpc_selected = CLASS_NONE;
+	rpc_selected = INDEX_NONE;
 	rps_selected = INDEX_NONE;
 
 	if(monster_ego_idx == MONEGO_NORMAL)

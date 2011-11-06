@@ -226,7 +226,7 @@ void set_hitdice(creature_type * creature_ptr)
 		creature_ptr->hitdice += race_info[creature_ptr->race_idx1].r_mhp;
 	if (creature_ptr->cls_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
-	if (creature_ptr->cls_idx != CLASS_NONE)
+	if (creature_ptr->cls_idx != INDEX_NONE)
 		creature_ptr->hitdice += class_info[creature_ptr->cls_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
@@ -357,7 +357,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 		dice += race_info[mr_ptr->race_idx1].r_mhp;
 	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
-	if (mr_ptr->cls_idx != CLASS_NONE)
+	if (mr_ptr->cls_idx != INDEX_NONE)
 		dice += class_info[mr_ptr->cls_idx].c_mhp;
 	if (mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
@@ -423,7 +423,7 @@ void initialize_skill(creature_type *creature_ptr)
 {
 	int i,j, tmp_cls;
 
-	if(creature_ptr->cls_idx != CLASS_NONE)
+	if(creature_ptr->cls_idx != INDEX_NONE)
 		tmp_cls = creature_ptr->cls_idx;
 	else
 		tmp_cls = CLASS_TOURIST;
