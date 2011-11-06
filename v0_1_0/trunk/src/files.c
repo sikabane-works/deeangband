@@ -3693,7 +3693,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		}
 
 		/* TODO
-		if(cr_ptr->patron_idx != PATRON_NONE)
+		if(cr_ptr->patron_idx != INDEX_NONE)
 		{
 			(void)sprintf(buf, "%+3d", (int)player_patrons[cr_ptr->patron_idx].p_adj[i]);
 			if(player_patrons[cr_ptr->patron_idx].p_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 26);
@@ -3964,7 +3964,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		if(cr_ptr->cls_idx != CLASS_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
-		if(cr_ptr->patron_idx == PATRON_NONE)
+		if(cr_ptr->patron_idx == INDEX_NONE)
 			display_player_one_line(ENTRY_PATRON, "------", TERM_L_DARK);
 		else
 			display_player_one_line(ENTRY_PATRON, species_name + species_info[cr_ptr->patron_idx].name, TERM_L_BLUE);

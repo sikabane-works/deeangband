@@ -1837,7 +1837,7 @@ static void spoil_mon_desc(cptr fname)
 			if(species_ptr->cls_idx != CLASS_NONE)
 				stat[j] += class_info[species_ptr->cls_idx].c_adj[j];
 			/* TODO
-			if(species_ptr->patron_idx != PATRON_NONE)
+			if(species_ptr->patron_idx != INDEX_NONE)
 				stat[j] += player_patrons[species_ptr->cls_idx].p_adj[j];*/
 			if(species_ptr->chara_idx != CHARA_NONE)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];

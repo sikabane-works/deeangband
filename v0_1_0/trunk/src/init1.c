@@ -2709,6 +2709,11 @@ static errr grab_one_index(int *n, cptr names[], cptr what)
 		*n = INDEX_VARIABLE;
 		return 0;
 	}
+	else if(streq(what, "NONE"))
+	{
+		*n = INDEX_NONE;
+		return 0;
+	}
 
 	if(names == NULL) return -1;
 

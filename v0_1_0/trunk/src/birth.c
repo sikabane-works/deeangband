@@ -1961,7 +1961,7 @@ static void put_initial_status(creature_type *cr_ptr)
 #else
 		put_str("Patron:                                                                         ", 3, 1);
 #endif
-	if(cr_ptr->patron_idx != PATRON_NONE)
+	if(cr_ptr->patron_idx != INDEX_NONE)
 	{
 		c_put_str(TERM_L_BLUE, species_name + species_info[cr_ptr->patron_idx].name, 3, 9);
 	}
@@ -5431,7 +5431,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	cr_ptr->sex = SEX_UNDEFINED;
 	cr_ptr->cls_idx = CLASS_NONE;
 	cr_ptr->chara_idx = CHARA_NONE;
-	cr_ptr->patron_idx = PATRON_NONE;
+	cr_ptr->patron_idx = INDEX_NONE;
 	cr_ptr->realm1 = REALM_NONE;
 	cr_ptr->realm2 = REALM_NONE;
 	cr_ptr->sub_race[0] = 0x0;

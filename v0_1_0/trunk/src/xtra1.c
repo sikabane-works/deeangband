@@ -3196,7 +3196,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_tht += chara_info[cr_ptr->chara_idx].a_thb;
 	}
 
-	if(cr_ptr->patron_idx != PATRON_NONE)
+	if(cr_ptr->patron_idx != INDEX_NONE)
 	{
 		/*TODO
 		cr_ptr->skill_dis += player_patrons[cr_ptr->patron_idx].p_dis;
@@ -3535,7 +3535,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
 /*TODO
-		if(cr_ptr->patron_idx != PATRON_NONE)
+		if(cr_ptr->patron_idx != INDEX_NONE)
 			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron_idx].p_adj[i];
 */
 

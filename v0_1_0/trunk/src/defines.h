@@ -750,7 +750,8 @@
 
 
 // VARIABLE index for race, class, character and so on.
-#define INDEX_VARIABLE  30000
+#define INDEX_NONE      30000
+#define INDEX_VARIABLE  30001
 
 /*
  * Indexes of the various "stats" (hard-coded by savefiles, etc).
@@ -943,9 +944,6 @@
 
 #define MAX_CLASS               28
 #define CLASS_NONE             255
-
-#define PATRON_NONE			 10000
-
 
 
 #define CHARA_FUTUU	  0
