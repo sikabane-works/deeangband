@@ -1832,7 +1832,7 @@ static void spoil_mon_desc(cptr fname)
 		for(j = STAT_STR; j <= STAT_CHR; j++)
 		{
 			stat[j] = species_ptr->stat_max[j] / 10;
-			if(species_ptr->race_idx1 != RACE_NONE)
+			if(species_ptr->race_idx1 != INDEX_NONE)
 				stat[j] += race_info[species_ptr->race_idx1].r_adj[j];
 			if(species_ptr->cls_idx != INDEX_NONE)
 				stat[j] += class_info[species_ptr->cls_idx].c_adj[j];

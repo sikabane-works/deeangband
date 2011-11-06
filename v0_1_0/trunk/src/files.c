@@ -2423,7 +2423,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			break;
 		}
 	}
-	else if(cr_ptr->race_idx1 != RACE_NONE)
+	else if(cr_ptr->race_idx1 != INDEX_NONE)
 	{		
 		race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
@@ -3665,7 +3665,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 
 
 		/* Race, class, and equipment modifiers */
-		if(cr_ptr->race_idx1 != RACE_NONE)
+		if(cr_ptr->race_idx1 != INDEX_NONE)
 		{
 			(void)sprintf(buf, "%+3d", r_adj);
 			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 20);
@@ -3958,7 +3958,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		}
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(cr_ptr->race_idx1 != RACE_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
+		if(cr_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(cr_ptr), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
 		if(cr_ptr->cls_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(cr_ptr), TERM_L_BLUE);
@@ -3987,14 +3987,14 @@ void display_player(int mode, creature_type *cr_ptr)
 		/* D'angband(mertle scale).*/
 #ifdef JP
 
-		if(cr_ptr->race_idx1 != RACE_NONE){ 
+		if(cr_ptr->race_idx1 != INDEX_NONE){ 
 			display_player_one_line(ENTRY_AGE, format("%u" ,cr_ptr->age), TERM_L_BLUE);
 		}
 		else{
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
 		}
 
-		if(cr_ptr->race_idx1 != RACE_NONE)
+		if(cr_ptr->race_idx1 != INDEX_NONE)
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 		else
 			display_player_one_line(ENTRY_SOCIAL, "---", TERM_L_DARK);
@@ -4039,7 +4039,7 @@ void display_player(int mode, creature_type *cr_ptr)
 
 #else
 
-		if(cr_ptr->race_idx1 != RACE_NONE){ 
+		if(cr_ptr->race_idx1 != INDEX_NONE){ 
 			display_player_one_line(ENTRY_AGE, format("%d" ,(unsigned int)cr_ptr->age), TERM_L_BLUE);
 		}
 		else{
@@ -4049,7 +4049,7 @@ void display_player(int mode, creature_type *cr_ptr)
 		display_player_one_line(ENTRY_HEIGHT, format("%d" ,(int)((cr_ptr->ht*100)/254)), TERM_L_BLUE);
 		display_player_one_line(ENTRY_WEIGHT, format("%d" ,(int)((cr_ptr->wt*10000)/4536)), TERM_L_BLUE);
 
-		if(cr_ptr->race_idx1 != RACE_NONE){ 
+		if(cr_ptr->race_idx1 != INDEX_NONE){ 
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)cr_ptr->sc), TERM_L_BLUE);
 		}
 		else{

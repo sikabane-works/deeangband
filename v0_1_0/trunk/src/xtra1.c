@@ -5429,7 +5429,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if (cr_ptr->immune_cold) cr_ptr->resist_cold = TRUE;
 
 	/* Set Possible Equipment*/
-	if(cr_ptr->race_idx1 != RACE_NONE)
+	if(cr_ptr->race_idx1 != INDEX_NONE)
 		cr_ptr->possible_equipment = race_info[cr_ptr->race_idx1].possible_equipment;
 	else
 		cr_ptr->possible_equipment = 0;
@@ -5445,7 +5445,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* calc alignments and bonuses */
-	if(cr_ptr->race_idx1 != RACE_NONE)
+	if(cr_ptr->race_idx1 != INDEX_NONE)
 	{
 		cr_ptr->good    = tmp_rcr_ptr->good;
 		cr_ptr->evil    = tmp_rcr_ptr->evil;
@@ -6249,8 +6249,8 @@ cptr desc_race_name(creature_type *cr_ptr){
 	race_type *rcr_ptr = &race_info[cr_ptr->race_idx1];
 	name[0] = '\0';
 
-	if(cr_ptr->race_idx1 == RACE_NONE) return format("");
-	else if(cr_ptr->race_idx2 == RACE_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
+	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
+	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
 	if(!IS_PURE(cr_ptr))
 		strcat(name, "ÉnÅ[Ét");

@@ -121,7 +121,7 @@ void set_height_weight(creature_type *creature_ptr)
 		}
 
 	}
-	else if(creature_ptr->race_idx1 != RACE_NONE)
+	else if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
 		ir_ptr = &race_info[creature_ptr->race_idx1]; 
 
@@ -222,7 +222,7 @@ void set_bodysize(creature_type * creature_ptr)
 void set_hitdice(creature_type * creature_ptr)
 {
 	creature_ptr->hitdice = creature_ptr->size >= 10 ? 5 + creature_ptr->size / 2 : creature_ptr->size;
-	if (creature_ptr->race_idx1 != RACE_NONE)
+	if (creature_ptr->race_idx1 != INDEX_NONE)
 		creature_ptr->hitdice += race_info[creature_ptr->race_idx1].r_mhp;
 	if (creature_ptr->cls_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
@@ -353,7 +353,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	size = calc_monster_standard_size(mr_ptr);
 
 	dice = size >= 10 ? 5 + size / 2 : size;
-	if (mr_ptr->race_idx1 != RACE_NONE)
+	if (mr_ptr->race_idx1 != INDEX_NONE)
 		dice += race_info[mr_ptr->race_idx1].r_mhp;
 	if (mr_ptr->cls_idx == CLASS_SORCERER)
 		dice /= 2;
@@ -2254,13 +2254,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 
 int calc_base_level(creature_type *creature_ptr)
 {
-	if(IS_RACE(creature_ptr, RACE_NONE)) return 0;
+	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
 	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
 }
 
 int calc_base_divine_rank(creature_type *creature_ptr)
 {
-	if(IS_RACE(creature_ptr, RACE_NONE)) return 0;
+	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
 	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
 }
 

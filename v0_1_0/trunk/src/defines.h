@@ -902,8 +902,6 @@
 #define RACE_GREAT_OLD_ONE     86
 #define RACE_REPTILIA          87
 
-#define RACE_NONE             255
-
 /*
  * Maximum number of player "race" types (see "table.c", etc)
  */

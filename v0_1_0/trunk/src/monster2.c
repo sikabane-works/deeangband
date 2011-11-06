@@ -2045,7 +2045,7 @@ void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 #endif
 	}
 
-	if(m_ptr->race_idx1 != RACE_NONE && has_cf_creature(m_ptr, CF_VARIABLE_RACE)){
+	if(m_ptr->race_idx1 != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_RACE)){
 #ifdef JP
 		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "‚Ì");
@@ -3527,7 +3527,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		creature_ptr->inventory[r] = ob;
 	}
 
-	if(IS_RACE(creature_ptr, RACE_NONE))
+	if(IS_RACE(creature_ptr, INDEX_NONE))
 	{
   		mo_mode = mo_mode | AM_UNCURSED;
 
@@ -3626,7 +3626,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	re_ptr = NULL;
 	rpr_ptr = NULL;
 	re_selected = MONEGO_NONE;
-	rpr_selected = RACE_NONE;
+	rpr_selected = INDEX_NONE;
 	rpc_selected = INDEX_NONE;
 	rps_selected = INDEX_NONE;
 
@@ -5823,7 +5823,7 @@ int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
 {
 	int i, r = INVEN_NULL;
 
-	if(cr_ptr->race_idx1 != RACE_NONE)
+	if(cr_ptr->race_idx1 != INDEX_NONE)
 	{
 		switch(o_ptr->tval)
 		{
