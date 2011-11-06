@@ -228,7 +228,7 @@ void set_hitdice(creature_type * creature_ptr)
 		creature_ptr->hitdice /= 2;
 	if (creature_ptr->cls_idx != CLASS_NONE)
 		creature_ptr->hitdice += class_info[creature_ptr->cls_idx].c_mhp;
-	if(creature_ptr->chara_idx != CHARA_NONE)
+	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
 	return;	
 }
@@ -359,7 +359,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 		dice /= 2;
 	if (mr_ptr->cls_idx != CLASS_NONE)
 		dice += class_info[mr_ptr->cls_idx].c_mhp;
-	if (mr_ptr->chara_idx != CHARA_NONE)
+	if (mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
 	con_p = mr_ptr->stat_max[STAT_CON] / 10 - 3;

@@ -2035,7 +2035,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
 {
 
-	if(m_ptr->chara_idx != CHARA_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CHARA)){
+	if(m_ptr->chara_idx != INDEX_NONE && has_cf_creature(m_ptr, CF_VARIABLE_CHARA)){
 #ifdef JP
 		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
 		if(chara_info[m_ptr->chara_idx].no)
@@ -3628,7 +3628,7 @@ static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr,
 	re_selected = MONEGO_NONE;
 	rpr_selected = RACE_NONE;
 	rpc_selected = CLASS_NONE;
-	rps_selected = CHARA_NONE;
+	rps_selected = INDEX_NONE;
 
 	if(monster_ego_idx == MONEGO_NORMAL)
 	{

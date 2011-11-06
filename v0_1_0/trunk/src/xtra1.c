@@ -2661,7 +2661,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 		else tmp_hitdice = (byte)mimic_info[cr_ptr->mimic_form].r_mhp;
 
 		if (cr_ptr->cls_idx != CLASS_NONE) tmp_hitdice += class_info[cr_ptr->cls_idx].c_mhp;
-		if (cr_ptr->chara_idx != CHARA_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
+		if (cr_ptr->chara_idx != INDEX_NONE) tmp_hitdice += chara_info[cr_ptr->chara_idx].a_mhp;
 
 		mhp = mhp * tmp_hitdice / cr_ptr->hitdice;
 	}
@@ -3181,7 +3181,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_tht += class_info[CLASS_TOURIST].c_thb;
 	}
 
-	if(cr_ptr->chara_idx != CHARA_NONE)
+	if(cr_ptr->chara_idx != INDEX_NONE)
 	{
 		cr_ptr->skill_dis += chara_info[cr_ptr->chara_idx].a_dis;
 		cr_ptr->skill_dev += chara_info[cr_ptr->chara_idx].a_dev;
@@ -3531,7 +3531,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			if(cr_ptr->cls_bonus) cr_ptr->stat_add[i] += class_info[cr_ptr->cls_idx].c_adj_b[i];
 		}
 
-		if(cr_ptr->chara_idx != CHARA_NONE)
+		if(cr_ptr->chara_idx != INDEX_NONE)
 			cr_ptr->stat_add[i] += chara_info[cr_ptr->chara_idx].a_adj[i];
 
 /*TODO
@@ -5345,13 +5345,13 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dis += (class_info[cr_ptr->cls_idx].x_dis * cr_ptr->lev / 10);
 	else cr_ptr->skill_dis += (class_info[CLASS_TOURIST].x_dis * cr_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara_idx].a_dis * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dis += (chara_info[cr_ptr->chara_idx].a_dis * cr_ptr->lev / 50);
 
 	/* Affect Skill -- magic devices (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_dev += (class_info[cr_ptr->cls_idx].x_dev * cr_ptr->lev / 10);
 	else cr_ptr->skill_dev += (class_info[CLASS_TOURIST].x_dev * cr_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara_idx].a_dev * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_dev += (chara_info[cr_ptr->chara_idx].a_dev * cr_ptr->lev / 50);
 
 	/* Affect Skill -- saving throw (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_rob += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
@@ -5361,9 +5361,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_vol += (class_info[cr_ptr->cls_idx].x_sav * cr_ptr->lev / 10);
 	else cr_ptr->skill_rob += (class_info[CLASS_TOURIST].x_sav * cr_ptr->lev / 10);
 
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_eva += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_rob += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_eva += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_vol += (chara_info[cr_ptr->chara_idx].a_sav * cr_ptr->lev / 50);
 
 	/* Affect Skill -- stealth (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_stl += (class_info[cr_ptr->cls_idx].x_stl * cr_ptr->lev / 10);
@@ -5380,17 +5380,17 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Affect Skill -- combat (normal) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thn += (class_info[cr_ptr->cls_idx].x_thn * cr_ptr->lev / 10);
 	else cr_ptr->skill_thn += (class_info[CLASS_TOURIST].x_thn * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara_idx].a_thn * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thn += (chara_info[cr_ptr->chara_idx].a_thn * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (shooting) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_thb += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
 	else cr_ptr->skill_thb += (class_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_thb += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 	/* Affect Skill -- combat (throwing) (Level, by Class) */
 	if(cr_ptr->cls_idx != CLASS_NONE) cr_ptr->skill_tht += (class_info[cr_ptr->cls_idx].x_thb * cr_ptr->lev / 10);
 	else cr_ptr->skill_tht += (class_info[CLASS_TOURIST].x_thb * cr_ptr->lev / 10);
-	if(cr_ptr->chara_idx != CHARA_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
+	if(cr_ptr->chara_idx != INDEX_NONE) cr_ptr->skill_tht += (chara_info[cr_ptr->chara_idx].a_thb * cr_ptr->lev / 50);
 
 
 	if ((race_is_(cr_ptr, RACE_S_FAIRY)) && (cr_ptr->chara_idx != CHARA_SEXY) && (cr_ptr->cursed & TRC_AGGRAVATE))

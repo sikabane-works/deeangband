@@ -968,8 +968,6 @@
 
 #define MAX_CHARA       19
 
-#define CHARA_NONE     255
-
 
 #define AUTHORITY_FIRE1   0
 #define AUTHORITY_FIRE2   1

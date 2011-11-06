@@ -3706,7 +3706,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
 		/*}*/
 
-		if(cr_ptr->chara_idx != CHARA_NONE)
+		if(cr_ptr->chara_idx != INDEX_NONE)
 		{
 			(void)sprintf(buf, "%+3d", (int)chara_info[cr_ptr->chara_idx].a_adj[i]);
 			if(chara_info[cr_ptr->chara_idx].a_adj[i] > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 29);
@@ -3945,7 +3945,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	if (mode == 0)
 	{
 		/* Name, Sex, Race, Class */
-		if(cr_ptr->chara_idx != CHARA_NONE){ 
+		if(cr_ptr->chara_idx != INDEX_NONE){ 
 #ifdef JP
 			sprintf(tmp, "%s%s%s", chara_info[cr_ptr->chara_idx].title, chara_info[cr_ptr->chara_idx].no == 1 ? "‚Ì":"", cr_ptr->name);
 #else

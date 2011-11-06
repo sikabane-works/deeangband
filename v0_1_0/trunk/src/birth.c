@@ -5430,7 +5430,7 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	cr_ptr->race_idx2 = RACE_NONE;
 	cr_ptr->sex = SEX_UNDEFINED;
 	cr_ptr->cls_idx = CLASS_NONE;
-	cr_ptr->chara_idx = CHARA_NONE;
+	cr_ptr->chara_idx = INDEX_NONE;
 	cr_ptr->patron_idx = INDEX_NONE;
 	cr_ptr->realm1 = REALM_NONE;
 	cr_ptr->realm2 = REALM_NONE;
