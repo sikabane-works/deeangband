@@ -1492,42 +1492,6 @@ static cptr species_info_flags10[] =
 	"XXX",
 };
 
-static cptr species_info_flags11[] =
-{
-	"FORCE_LESSER_EGO",
-	"RACE_EGO",
-	"CLASS_EGO",
-	"PATRON_EGO",
-	"CHARA_EGO",
-	"VARIABLE_SIZE_EGO",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-};
-
 static cptr species_info_flags12[] =
 {
 	"SPIT_ACID",
@@ -3914,52 +3878,6 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 
 }
 
-/*
- * Grab one (basic) flag in a species_type from a textual string
- */
-static errr grab_one_basic_flag(species_type *r_ptr, cptr what)
-{
-	if (grab_one_flag(&r_ptr->flags1, species_info_flags1, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags2, species_info_flags2, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags3, species_info_flags3, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags7, species_info_flags7, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags8, species_info_flags8, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags9, species_info_flags9, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags10, species_info_flags10, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags11, species_info_flags11, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags13, species_info_flags13, what) == 0)
-		return 0;
-
-	if (grab_one_flag(&r_ptr->flags14, species_info_flags14, what) == 0)
-		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知の固体フラグ '%s'。", what);
-#else
-	msg_format("Unknown species flag '%s'.", what);
-#endif
-
-
-	/* Failure */
-	return (1);
-}
 
 /*
  * Grab one (basic) flag in a species_type from a textual string
