@@ -6787,10 +6787,10 @@ quit("セーブファイルが壊れています");
 		seed_town = randint0(0x10000000);
 
 		// Initialize General Gamedata
-		wipe_world();
+		world_wipe();
 
 		/* Roll up a new character */
-		unique_birth(cr_ptr, 0, UB_PLAYER | UB_STIGMATIC);
+		creature_birth(cr_ptr, 0, UB_PLAYER | UB_STIGMATIC);
 
 		/* Initialize random quests */
 		init_dungeon_quests();
@@ -7294,8 +7294,29 @@ void prevent_turn_overflow(creature_type *cr_ptr)
 	*/
 }
 
-void wipe_world()
+void world_wipe()
 {
+	int i;
+
+	// Set the recall dungeon accordingly
+	dungeon_type = 0;
+
+	// Reset monster arena
+	battle_monsters();
+
+	// Wipe the quests
+	for (i = 0; i < max_quests; i++)
+	{
+		quest[i].status = QUEST_STATUS_UNTAKEN;
+
+		quest[i].cur_num = 0;
+		quest[i].max_num = 0;
+		quest[i].type = 0;
+		quest[i].level = 0;
+		quest[i].species_idx = 0;
+		quest[i].complev = 0;
+	}
+
 	/* Knowledge Main Dungeon and Towns */
 	/* Telmola */
 	/* TODO */

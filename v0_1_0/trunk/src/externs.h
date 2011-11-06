@@ -657,7 +657,7 @@ extern void do_cmd_edit_autopick(creature_type *cr_ptr);
 
 /* birth.c */
 extern void add_history_from_pref_line(cptr t);
-extern void unique_birth(creature_type *cr_ptr, int id, u32b flags);
+extern void creature_birth(creature_type *cr_ptr, int id, u32b flags);
 extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
@@ -670,7 +670,7 @@ extern void realm_detail(int code);
 extern void init_dungeon_quests(void);
 extern void save_prev_data(creature_type *cr_ptr, species_type *species_ptr);
 extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
-extern void wipe_world(void);
+extern void world_wipe(void);
 
 /* cave.c */
 extern int distance(int y1, int x1, int y2, int x2);

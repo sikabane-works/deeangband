@@ -2928,19 +2928,6 @@ static void creature_wipe(creature_type *cr_ptr)
 		strcpy(cr_ptr->history[i], "");
 	}
 
-	/* Wipe the quests */
-	for (i = 0; i < max_quests; i++)
-	{
-		quest[i].status = QUEST_STATUS_UNTAKEN;
-
-		quest[i].cur_num = 0;
-		quest[i].max_num = 0;
-		quest[i].type = 0;
-		quest[i].level = 0;
-		quest[i].species_idx = 0;
-		quest[i].complev = 0;
-	}
-
 	/* No weight */
 	cr_ptr->total_weight = 0;
 
@@ -3077,20 +3064,28 @@ static void creature_wipe(creature_type *cr_ptr)
 	/* Bounty */
 	cr_ptr->today_mon = 0;
 
-	/* Reset monster arena */
-	battle_monsters();
-
-	/* Reset mutations */
-	cr_ptr->flags12 = 0;
-	cr_ptr->flags13 = 0;
-	cr_ptr->flags14 = 0;
-
 	/* Reset karmas*/
-	for (i = 0; i < 8; i++) cr_ptr->karmas[i]=0;
+	for (i = 0; i < 8; i++) cr_ptr->karmas[i] = 0;
 
-	/* Set the recall dungeon accordingly */
-	dungeon_type = 0;
 	cr_ptr->recall_dungeon = DUNGEON_GALGALS;
+
+	cr_ptr->race_idx1 = INDEX_NONE;
+	cr_ptr->race_idx2 = INDEX_NONE;
+	cr_ptr->sex = SEX_UNDEFINED;
+	cr_ptr->cls_idx = INDEX_NONE;
+	cr_ptr->chara_idx = INDEX_NONE;
+	cr_ptr->patron_idx = INDEX_NONE;
+	cr_ptr->realm1 = REALM_NONE;
+	cr_ptr->realm2 = REALM_NONE;
+	cr_ptr->sub_race[0] = 0x0;
+	cr_ptr->sub_race[1] = 0x0;
+	cr_ptr->sub_race[2] = 0x0;
+	cr_ptr->sub_race[3] = 0x0;
+	cr_ptr->sub_race[4] = 0x0;
+	cr_ptr->sub_race[5] = 0x0;
+	cr_ptr->sub_race[6] = 0x0;
+	cr_ptr->sub_race[7] = 0x0;
+
 }
 
 
@@ -5387,7 +5382,7 @@ static void edit_history(creature_type *cr_ptr)
 
 
 /*
- * Helper function for 'unique_birth()'
+ * Helper function for 'creature_birth()'
  *
  * The delay may be reduced, but is recommended to keep players
  * from continuously rolling up characters, which can be VERY
@@ -5425,23 +5420,6 @@ static bool unique_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b f
 	Term_clear();
 
 	/* Title everything */
-
-	cr_ptr->race_idx1 = INDEX_NONE;
-	cr_ptr->race_idx2 = INDEX_NONE;
-	cr_ptr->sex = SEX_UNDEFINED;
-	cr_ptr->cls_idx = INDEX_NONE;
-	cr_ptr->chara_idx = INDEX_NONE;
-	cr_ptr->patron_idx = INDEX_NONE;
-	cr_ptr->realm1 = REALM_NONE;
-	cr_ptr->realm2 = REALM_NONE;
-	cr_ptr->sub_race[0] = 0x0;
-	cr_ptr->sub_race[1] = 0x0;
-	cr_ptr->sub_race[2] = 0x0;
-	cr_ptr->sub_race[3] = 0x0;
-	cr_ptr->sub_race[4] = 0x0;
-	cr_ptr->sub_race[5] = 0x0;
-	cr_ptr->sub_race[6] = 0x0;
-	cr_ptr->sub_race[7] = 0x0;
 
 	if(!auto_m)
 	{
@@ -6050,7 +6028,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void unique_birth(creature_type *cr_ptr, int id, u32b flags)
+void creature_birth(creature_type *cr_ptr, int id, u32b flags)
 {
 	char buf[80];
 
