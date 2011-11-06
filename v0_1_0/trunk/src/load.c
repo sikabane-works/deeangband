@@ -1058,6 +1058,8 @@ static void load_quick_start(species_type *sp_ptr)
 	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&sp_ptr->player_hp[i]);
 
 	rd_s16b(&sp_ptr->patron_idx);
+	rd_s16b(&sp_ptr->father_idx);
+	rd_s16b(&sp_ptr->mother_idx);
 
 	for (i = 0; i < HISTORY_ROW; i++) rd_string(sp_ptr->history[i], sizeof(sp_ptr->history[i]));
 
@@ -1249,6 +1251,8 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->multishadow);
 	rd_s16b(&cr_ptr->dustrobe);
 	rd_s16b(&cr_ptr->patron_idx);
+	rd_s16b(&cr_ptr->father_idx);
+	rd_s16b(&cr_ptr->mother_idx);
 
 	rd_u32b(&cr_ptr->flags1);
 	rd_u32b(&cr_ptr->flags2);

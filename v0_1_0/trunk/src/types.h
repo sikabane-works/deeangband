@@ -328,6 +328,8 @@ struct species_type
 	s16b sex;                       /* Sex index */
 	s16b cls_idx;                   /* Class index */
 	s16b patron_idx;
+	s16b father_idx;
+	s16b mother_idx;
 	s16b chara_idx;                 /* Chara index */
 	s16b monster_ego_idx;		    /* Monster ego index */
 
@@ -1183,6 +1185,8 @@ struct creature_type
 	bool cls_bonus;	        /* Class bonus flag*/
 	s16b chara_idx;		    /* chara index */
 	s16b patron_idx;		/* Patron index */
+	s16b father_idx;
+	s16b mother_idx;
 	s16b realm1;            /* First magic realm */
 	s16b realm2;            /* Second magic realm */
 	byte oops;			    /* Unused */

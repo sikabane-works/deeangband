@@ -489,6 +489,8 @@ static void save_quick_start(species_type *sp_ptr)
 	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(sp_ptr->player_hp[i]);
 
 	wr_s16b(sp_ptr->patron_idx);
+	wr_s16b(sp_ptr->father_idx);
+	wr_s16b(sp_ptr->mother_idx);
 
 	for (i = 0; i < HISTORY_ROW; i++) wr_string(sp_ptr->history[i]);
 
@@ -666,6 +668,8 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->dustrobe);
 
 	wr_s16b(cr_ptr->patron_idx);
+	wr_s16b(cr_ptr->father_idx);
+	wr_s16b(cr_ptr->mother_idx);
 
 	wr_u32b(cr_ptr->flags1);
 	wr_u32b(cr_ptr->flags2);

@@ -4147,6 +4147,8 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->race_idx2 = species_ptr->race_idx2;
 	creature_ptr->cls_idx = (byte)species_ptr->cls_idx;
 	creature_ptr->patron_idx = species_ptr->patron_idx;
+	creature_ptr->father_idx = species_ptr->father_idx;
+	creature_ptr->mother_idx = species_ptr->mother_idx;
 	creature_ptr->chara_idx = (byte)species_ptr->chara_idx;
 	creature_ptr->ap_species_idx = species_idx;
 
