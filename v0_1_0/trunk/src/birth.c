@@ -4098,10 +4098,16 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 /*
  * Player class
  */
-static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CLASS+3];
+
+	if(sp_ptr->cls_idx != INDEX_VARIABLE)
+	{
+		cr_ptr->cls_idx = sp_ptr->cls_idx;
+		return 0;
+	}
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
@@ -4122,6 +4128,12 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 			ce[n].l_color = TERM_WHITE;
 		}
 		n++;
+	}
+
+	if(auto_m)
+	{
+		cr_ptr->cls_idx = ce[randint0(n)].code;
+		return 0;
 	}
 
 #if JP
@@ -4157,22 +4169,13 @@ static bool get_creature_class(creature_type *cr_ptr, bool auto_m)
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
-	{
 #if JP
-		put_str("職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):", 0, 0);
+	put_str("職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):", 0, 0);
 #else
-		put_str("Select a class(Any green entries have race bonus):", 0, 0);
+	put_str("Select a class(Any green entries have race bonus):", 0, 0);
 #endif
-		put_initial_status(cr_ptr);
-		i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
-	}
-	else
-	{
-		cr_ptr->cls_idx = ce[randint0(n - 3)].code;
-		return 0;
-	}
-
+	put_initial_status(cr_ptr);
+	i = get_selection(ce, n, 5, 2, 18, 20, class_detail);
 
 	if(i >= 0)
 	{
@@ -5418,15 +5421,11 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 	if(flags & UB_AUTO) auto_m = TRUE;
 
 
-	// Clear screen
-
-	Term_clear();
-
-
 	// Race
 
 	if(!auto_m)
 	{
+	Term_clear();
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
@@ -5482,7 +5481,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_class(cr_ptr, auto_m);
+	i = get_creature_class(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
