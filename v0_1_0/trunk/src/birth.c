@@ -3682,10 +3682,16 @@ static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, 
 /*
  * Creature sub-race
  */
-static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
+static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int     n = 0, i;
 	selection se[MAX_RACES + 3];
+
+	if(sp_ptr->race_idx2 != INDEX_VARIABLE)
+	{
+		cr_ptr->race_idx2 = sp_ptr->race_idx2;
+		return 0;
+	}
 
 #if JP
 	strcpy(se[n].cap, "ƒŒŒí");
@@ -3744,22 +3750,18 @@ static int get_creature_second_race(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-
-	if(!auto_m)
+	if(auto_m)
 	{
-#if JP
-		put_str("•›í‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-		put_str("Select a sub-race:", 0, 0);
-#endif
-		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
-	}
-	else
-	{
-		cr_ptr->race_idx2 = se[randint0(n-3)].code;
+		cr_ptr->race_idx2 = se[randint0(n)].code;
 		return 0;
 	}
 
+#if JP
+		put_str("‘æ“ñí‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
+#else
+		put_str("Select second race:", 0, 0);
+#endif
+		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
 
 	if(i >= 0)
 	{
@@ -5434,7 +5436,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 	if(i == -3) birth_quit();
 
 	if(!auto_m) put_initial_status(cr_ptr);
-	i = get_creature_second_race(cr_ptr, auto_m);
+	i = get_creature_second_race(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
