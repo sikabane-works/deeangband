@@ -3591,10 +3591,16 @@ void realm_detail(int code)
 /*
  * Creature race
  */
-static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
+static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
+
+	if(sp_ptr->race_idx1 != INDEX_VARIABLE)
+	{
+		cr_ptr->race_idx1 = sp_ptr->race_idx1;
+		return 0;
+	}
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
@@ -3607,6 +3613,12 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 			se[n].l_color = TERM_WHITE;
 			n++;
 		}
+	}
+
+	if(auto_m)
+	{
+		cr_ptr->race_idx1 = se[randint0(n)].code;
+		return 0;
 	}
 
 #if JP
@@ -3642,22 +3654,13 @@ static int get_creature_first_race(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-
-	if(!auto_m)
-	{
 #if JP
-		put_str("í‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
+	put_str("í‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
 #else
-		put_str("Select a race:", 0, 0);
+	put_str("Select a race:", 0, 0);
 #endif
-		i = get_selection(se, n, 5, 2, 18, 20, race_detail);
-	}
-	else
-	{
-		cr_ptr->race_idx1 = se[randint0(n - 3)].code;
-		return 0;
-	}
 
+	i = get_selection(se, n, 5, 2, 18, 20, race_detail);
 
 	if(i >= 0)
 	{
@@ -5388,7 +5391,7 @@ static void edit_history(creature_type *cr_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b flags)
+static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, species_type *sp_res_ptr, u32b flags)
 {
 	int i;
 
@@ -5413,13 +5416,12 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b
 	if(flags & UB_AUTO) auto_m = TRUE;
 
 
+	// Clear screen
 
-	/*** Intro ***/
-
-	/* Clear screen */
 	Term_clear();
 
-	/* Title everything */
+
+	// Race
 
 	if(!auto_m)
 	{
@@ -5427,11 +5429,25 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b
 		put_initial_status(cr_ptr);
 	}
 
-
-	i = get_creature_first_race(cr_ptr, auto_m);
+	i = get_creature_first_race(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	if(!auto_m) put_initial_status(cr_ptr);
+	i = get_creature_second_race(cr_ptr, auto_m);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
+	// race_idx swap
+	if(cr_ptr->race_idx1 > cr_ptr->race_idx2)
+	{
+		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
+		cr_ptr->race_idx2 ^= cr_ptr->race_idx1;
+		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
+	}
+
+
+/*
 	if(cr_ptr->race_idx1 == RACE_ELDAR)
 	{
 		if(!auto_m) put_initial_status(cr_ptr);
@@ -5447,19 +5463,8 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, u32b
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
+*/
 
-	if(!auto_m) put_initial_status(cr_ptr);
-	i = get_creature_second_race(cr_ptr, auto_m);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
-
-	// race_idx swap
-	if(cr_ptr->race_idx1 > cr_ptr->race_idx2)
-	{
-		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
-		cr_ptr->race_idx2 ^= cr_ptr->race_idx1;
-		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
-	}
 
 	if(!auto_m)
 	{
@@ -6055,7 +6060,7 @@ void creature_birth(creature_type *cr_ptr, species_type *base_sp_ptr, species_ty
 		while (1)
 		{
 			/* Roll up a new character */
-			if (creature_birth_aux(cr_ptr, settled_sp_ptr, flags)) break;
+			if (creature_birth_aux(cr_ptr, base_sp_ptr, settled_sp_ptr, flags)) break;
 
 			/* Wipe the player */
 			creature_wipe(cr_ptr);
