@@ -4197,11 +4197,16 @@ static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool
 /*
  * Player patron
  */
-static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int i, n = 0;
 	selection pt[400+3];
 
+	if(sp_ptr->patron_idx != INDEX_VARIABLE)
+	{
+		cr_ptr->patron_idx = sp_ptr->patron_idx;
+		return 0;
+	}
 
 	for (i = 0; i < max_species_idx; i++)
 	{
@@ -4272,21 +4277,19 @@ static bool get_creature_patron(creature_type *cr_ptr, bool auto_m)
 	pt[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(auto_m)
 	{
-#if JP
-		put_str("主神を選択して下さい:", 0, 0);
-#else
-		put_str("Select a patron:", 0, 0);
-#endif
-		put_initial_status(cr_ptr);
-		i = get_selection(pt, n, 5, 2, 18, 76, NULL);
-	}
-	else
-	{
-		cr_ptr->patron_idx = pt[randint0(n - 3)].code;
+		cr_ptr->patron_idx = pt[randint0(n)].code;
 		return 0;
 	}
+
+#if JP
+	put_str("主神を選択して下さい:", 0, 0);
+#else
+	put_str("Select a patron:", 0, 0);
+#endif
+	put_initial_status(cr_ptr);
+	i = get_selection(pt, n, 5, 2, 18, 76, NULL);
 
 	if(i >= 0)
 	{
@@ -5490,7 +5493,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_patron(cr_ptr, auto_m);
+	i = get_creature_patron(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
