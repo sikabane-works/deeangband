@@ -3527,6 +3527,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					if(grab_one_index(&b, NULL, tmp)) return (1);
 				species_info[n].chara_idx = (s16b)b;
 				break;
+
 			case SPECIES_INFO_RELM1:
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (s16b)b;
@@ -3825,7 +3826,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_SEX:
-				if(sscanf(tmp, "0x%x", &b) != 1) return (1);
+				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp)) return (1);
 				species_info[n].sex = (s16b)b;
 				break;
 

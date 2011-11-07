@@ -4006,10 +4006,16 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 /*
  * Creature sex
  */
-static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
+
+	if(sp_ptr->sex != INDEX_VARIABLE)
+	{
+		cr_ptr->sex = sp_ptr->sex;
+		return 0;
+	}
 
 	for (i = 0, n = 0; i < MAX_SEXES; i++)
 	{
@@ -4063,20 +4069,19 @@ static bool get_creature_sex(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(auto_m)
 	{
+		cr_ptr->sex = se[randint0(4)].code;
+		return 0;
+	}
+
 #if JP
 		put_str("性別を選択して下さい(赤字の性別には種族ペナルティがかかります):", 0, 0);
 #else
 		put_str("Select a sex(Red entries have race penalty) ", 0, 0);
 #endif
 		i = get_selection(se, n, 5, 2, 18, 20, NULL);
-	}
-	else
-	{
-		cr_ptr->sex = se[randint0(4)].code;
-		return 0;
-	}
+
 
 	if(i >= 0)
 	{
@@ -5475,7 +5480,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_sex(cr_ptr, auto_m);
+	i = get_creature_sex(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
