@@ -1989,7 +1989,7 @@ static void show_help(cptr helpfile)
 /*
  * Choose from one of the available magical realms
  */
-static int choose_realm(s32b choices, bool auto_m)
+static int choose_realm(s32b choices, bool npc)
 {
 	int i;
 	selection re[MAX_REALM + 3];
@@ -2160,7 +2160,7 @@ static int choose_realm(s32b choices, bool auto_m)
 	put_str ("Note: The realm of magic will determine which spells you can learn.", 23, 5);
 #endif
 */
-	if(!auto_m)
+	if(!npc)
 		i = get_selection(re, n, 5, 2, 18, 20, realm_detail);
 	else
 		return re[randint0(n-3)].code;
@@ -2175,11 +2175,11 @@ static int choose_realm(s32b choices, bool auto_m)
 /*
  * Choose the magical realms
  */
-static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int i;
 
-	if(!auto_m)
+	if(!npc)
 	{
 #if JP
 		put_str("領域を選択して下さい:", 0, 0);
@@ -2199,7 +2199,7 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 	{
 		cr_ptr->realm1 = REALM_NONE;
 		cr_ptr->realm2 = 255;
-		i = choose_realm(realm_choices1[cr_ptr->cls_idx], auto_m);
+		i = choose_realm(realm_choices1[cr_ptr->cls_idx], npc);
 
 		if(i == -2)
 			return -2;
@@ -2209,7 +2209,7 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 			cr_ptr->realm1 = i;
 	}
 
-	if(!auto_m)
+	if(!npc)
 	{
 #if JP
 		put_str("領域を選択して下さい:", 0, 0);
@@ -2228,7 +2228,7 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 		
 		/* Select the second realm */
 		cr_ptr->realm2 = REALM_NONE;
-		i = choose_realm(realm_choices2[cr_ptr->cls_idx], auto_m);
+		i = choose_realm(realm_choices2[cr_ptr->cls_idx], npc);
 		if(i == -2)
 			return -2;
 		else if(i == -3)
@@ -3459,7 +3459,7 @@ void realm_detail(int code)
 /*
  * Creature race
  */
-static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
@@ -3483,7 +3483,7 @@ static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, 
 		}
 	}
 
-	if(auto_m)
+	if(npc)
 	{
 		cr_ptr->race_idx1 = se[randint0(n)].code;
 		return 0;
@@ -3550,7 +3550,7 @@ static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, 
 /*
  * Creature sub-race
  */
-static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int     n = 0, i;
 	selection se[MAX_RACES + 3];
@@ -3618,7 +3618,7 @@ static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr,
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(auto_m)
+	if(npc)
 	{
 		cr_ptr->race_idx2 = se[randint0(n)].code;
 		return 0;
@@ -3652,7 +3652,7 @@ static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr,
 /*
  * Player SubRace(Eldar)
  */
-static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool npc)
 {
 /*
 	int     i, n = 0;
@@ -3712,7 +3712,7 @@ static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(!npc)
 	{
 #if JP
 		put_str("エルダールの副種族を選択して下さい:", 0, 0);
@@ -3752,7 +3752,7 @@ static bool get_creature_subrace_eldar(creature_type *cr_ptr, bool auto_m)
 /*
  * Creature SubRace(Dragon & Draconian)
  */
-static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool npc)
 {
 /*
 	int     i, n = 0;
@@ -3835,7 +3835,7 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(!npc)
 	{
 #if JP
 		put_str("竜族の副種族を選択して下さい:", 0, 0);
@@ -3874,7 +3874,7 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool auto_m)
 /*
  * Creature sex
  */
-static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
@@ -3937,7 +3937,7 @@ static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool a
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(auto_m)
+	if(npc)
 	{
 		cr_ptr->sex = se[randint0(4)].code;
 		return 0;
@@ -3971,7 +3971,7 @@ static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool a
 /*
  * Player class
  */
-static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int i, n;
 	selection ce[MAX_CLASS+3];
@@ -4003,7 +4003,7 @@ static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool
 		n++;
 	}
 
-	if(auto_m)
+	if(npc)
 	{
 		cr_ptr->cls_idx = ce[randint0(n)].code;
 		return 0;
@@ -4070,7 +4070,7 @@ static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool
 /*
  * Player patron
  */
-static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int i, n = 0;
 	selection pt[400+3];
@@ -4150,7 +4150,7 @@ static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, boo
 	pt[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(auto_m)
+	if(npc)
 	{
 		cr_ptr->patron_idx = pt[randint0(n)].code;
 		return 0;
@@ -4185,7 +4185,7 @@ static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, boo
 /*
  * Player Chara
  */
-static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
+static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
@@ -4242,7 +4242,7 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(!npc)
 	{
 		cr_ptr->chara_idx = ce[randint0(n)].code;
 		return 0;
@@ -4279,7 +4279,7 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 /*
  * Player Starting Point
  */
-static bool get_starting_point(species_type *sp_ptr, bool auto_m)
+static bool get_starting_point(species_type *sp_ptr, bool npc)
 {
 	int i, j, n;
 	selection se[STARTING_MAX + 3];
@@ -4327,7 +4327,7 @@ static bool get_starting_point(species_type *sp_ptr, bool auto_m)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(!auto_m)
+	if(!npc)
 	{
 #if JP
 		put_str("開始地点を選択して下さい:", 0, 0);
@@ -5283,7 +5283,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	bool flag = FALSE;
 	bool prev = FALSE;
-	bool auto_m = FALSE;
+	bool npc = FALSE;
 
 	char c;
 
@@ -5301,26 +5301,26 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	species_type *sp_ptr = &species_info[species_idx];
 
-	if(flags & UB_AUTO) auto_m = TRUE;
+	if(flags & UB_AUTO) npc = TRUE;
 
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
 
 	// Race
 
-	if(!auto_m)
+	if(!npc)
 	{
 	Term_clear();
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
 
-	i = get_creature_first_race(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_first_race(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m) put_initial_status(cr_ptr);
-	i = get_creature_second_race(cr_ptr, sp_ptr, auto_m);
+	if(!npc) put_initial_status(cr_ptr);
+	i = get_creature_second_race(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5336,73 +5336,73 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 /*
 	if(cr_ptr->race_idx1 == RACE_ELDAR)
 	{
-		if(!auto_m) put_initial_status(cr_ptr);
-		i = get_creature_subrace_eldar(cr_ptr, auto_m);
+		if(!npc) put_initial_status(cr_ptr);
+		i = get_creature_subrace_eldar(cr_ptr, npc);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 
 	if(cr_ptr->race_idx1 == RACE_DRACONIAN || cr_ptr->race_idx1 == RACE_DRAGON) 
 	{
-		if(!auto_m) put_initial_status(cr_ptr);
-		i = get_creature_subrace_dragonbone(cr_ptr, auto_m);
+		if(!npc) put_initial_status(cr_ptr);
+		i = get_creature_subrace_dragonbone(cr_ptr, npc);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 */
 
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_sex(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_sex(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_class(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_class(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_patron(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_patron(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_realms(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_realms(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_chara(cr_ptr, sp_ptr, auto_m);
+	i = get_creature_chara(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!auto_m)
+	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_starting_point(&settled_player_species, auto_m);
+	i = get_starting_point(&settled_player_species, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5414,10 +5414,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->dr = sp_ptr->dr;
 
 
-	if(!auto_m)
+	if(!npc)
 		screen_save();
 
-	if(!auto_m)
+	if(!npc)
 	{
 
 #ifdef JP
@@ -5468,7 +5468,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 		col = 42;
 
-		if (!auto_m && (autoroller || autochara))
+		if (!npc && (autoroller || autochara))
 		{
 			Term_clear();
 
@@ -5502,7 +5502,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Feedback */
-		if (!auto_m && autoroller)
+		if (!npc && autoroller)
 		{
 			/* Label */
 #ifdef JP
@@ -5549,7 +5549,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Auto-roll */
-		while (!auto_m && (autoroller || autochara))
+		while (!npc && (autoroller || autochara))
 		{
 			bool accept = TRUE;
 
@@ -5648,7 +5648,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			}
 		}
 
-		if (!auto_m && (autoroller || autochara)) sound(SOUND_LEVEL);
+		if (!npc && (autoroller || autochara)) sound(SOUND_LEVEL);
 
 		/* Flush input */
 		flush();
@@ -5686,7 +5686,15 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			calc_bonuses(cr_ptr, FALSE);
 			set_experience(cr_ptr);
 
-			if(auto_m) break;
+			/* And start out fully healthy */
+			if (cr_ptr->species_idx == MON_WOUNDED_BEAR)
+				set_enemy_hp(cr_ptr, 50);
+			else
+				set_enemy_hp(cr_ptr, 100);
+
+			set_enemy_mana(cr_ptr, 100);
+
+			if(npc) break;
 
 			/* Display the player */
 			display_player(mode, cr_ptr);
@@ -5788,7 +5796,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Are we done? */
-		if (auto_m || c == '\r' || c == '\n' || c == ESCAPE) break;
+		if (npc || c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
 		save_prev_data(cr_ptr, &settled_player_species);
@@ -5798,7 +5806,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		prev = TRUE;
 	}
 
-	if(!auto_m)
+	if(!npc)
 	{
 	/* Clear prompt *
 		clear_from(23);
@@ -5817,7 +5825,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	get_max_stats(cr_ptr);
 
-	if(auto_m) return (TRUE);
+	if(npc) return (TRUE);
 
 
 	/* Prompt for it */

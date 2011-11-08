@@ -835,7 +835,7 @@ static void prt_hp(creature_type *cr_ptr)
 	put_str("HP", ROW_CURHP, COL_CURHP);
 
 	/* 現在のヒットポイント */
-	sprintf(tmp, "%4ld", cr_ptr->chp);
+	sprintf(tmp, "%5ld", cr_ptr->chp);
 
 	if (cr_ptr->chp >= cr_ptr->mhp)
 	{
@@ -850,16 +850,16 @@ static void prt_hp(creature_type *cr_ptr)
 		color = TERM_RED;
 	}
 
-	c_put_str(color, tmp, ROW_CURHP, COL_CURHP+3);
+	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 2);
 
 	/* 区切り */
-	put_str( "/", ROW_CURHP, COL_CURHP + 7 );
+	put_str("/", ROW_CURHP, COL_CURHP + 7);
 
 	/* 最大ヒットポイント */
-	sprintf(tmp, "%4ld", cr_ptr->mhp);
+	sprintf(tmp, "%5ld", cr_ptr->mhp);
 	color = TERM_L_GREEN;
 
-	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 8 );
+	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 8);
 }
 
 
