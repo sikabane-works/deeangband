@@ -2175,7 +2175,7 @@ static int choose_realm(s32b choices, bool auto_m)
 /*
  * Choose the magical realms
  */
-static bool get_creature_realms(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int i;
 
@@ -2190,16 +2190,24 @@ static bool get_creature_realms(creature_type *cr_ptr, bool auto_m)
 	}
 
 	/* Select the first realm */
-	cr_ptr->realm1 = REALM_NONE;
-	cr_ptr->realm2 = 255;
-	i = choose_realm(realm_choices1[cr_ptr->cls_idx], auto_m);
 
-	if(i == -2)
-		return -2;
-	else if(i == -3)
-		return -3;
+	if(sp_ptr->realm1 != INDEX_VARIABLE)
+	{
+		cr_ptr->realm1 = sp_ptr->realm1;
+	}
 	else
-		cr_ptr->realm1 = i;
+	{
+		cr_ptr->realm1 = REALM_NONE;
+		cr_ptr->realm2 = 255;
+		i = choose_realm(realm_choices1[cr_ptr->cls_idx], auto_m);
+
+		if(i == -2)
+			return -2;
+		else if(i == -3)
+			return -3;
+		else
+			cr_ptr->realm1 = i;
+	}
 
 	if(!auto_m)
 	{
@@ -2210,16 +2218,24 @@ static bool get_creature_realms(creature_type *cr_ptr, bool auto_m)
 #endif
 		put_initial_status(cr_ptr);
 	}
-		
-	/* Select the second realm */
-	cr_ptr->realm2 = REALM_NONE;
-	i = choose_realm(realm_choices2[cr_ptr->cls_idx], auto_m);
-	if(i == -2)
-		return -2;
-	else if(i == -3)
-		return -3;
+
+	if(sp_ptr->realm2 != INDEX_VARIABLE)
+	{
+		cr_ptr->realm2 = sp_ptr->realm2;
+	}
 	else
-		cr_ptr->realm2 = i;
+	{
+		
+		/* Select the second realm */
+		cr_ptr->realm2 = REALM_NONE;
+		i = choose_realm(realm_choices2[cr_ptr->cls_idx], auto_m);
+		if(i == -2)
+			return -2;
+		else if(i == -3)
+			return -3;
+		else
+			cr_ptr->realm2 = i;
+	}
 
 	return (TRUE);
 }
@@ -4317,10 +4333,16 @@ static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, boo
 /*
  * Player Chara
  */
-static bool get_creature_chara(creature_type *cr_ptr, bool auto_m)
+static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool auto_m)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
+
+	if(sp_ptr->chara_idx != INDEX_VARIABLE)
+	{
+		cr_ptr->chara_idx = sp_ptr->chara_idx;
+		return 0;
+	}
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
@@ -4370,19 +4392,17 @@ static bool get_creature_chara(creature_type *cr_ptr, bool auto_m)
 
 	if(!auto_m)
 	{
-#if JP
-		put_str("«Ši‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-		put_str("Select a personality:", 0, 0);
-#endif
-		put_initial_status(cr_ptr);
-		i = get_selection(ce, n, 5, 2, 18, 20, NULL);
-	}
-	else
-	{
-		cr_ptr->chara_idx = ce[randint0(n - 3)].code;
+		cr_ptr->chara_idx = ce[randint0(n)].code;
 		return 0;
 	}
+
+#if JP
+	put_str("«Ši‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
+#else
+	put_str("Select a personality:", 0, 0);
+#endif
+	put_initial_status(cr_ptr);
+	i = get_selection(ce, n, 5, 2, 18, 20, NULL);
 
 	if(i >= 0)
 	{
@@ -5507,7 +5527,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_realms(cr_ptr, auto_m);
+	i = get_creature_realms(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5516,7 +5536,7 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_chara(cr_ptr, auto_m);
+	i = get_creature_chara(cr_ptr, sp_ptr, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
