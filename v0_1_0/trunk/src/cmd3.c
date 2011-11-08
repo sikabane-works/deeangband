@@ -1340,7 +1340,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 			}
 		}
 
-		if (gain_expr && (cr_ptr->exp < PY_MAX_EXP))
+		if (gain_expr && (cr_ptr->exp < CREATURE_MAX_EXP))
 		{
 			s32b tester_exp = cr_ptr->max_exp / 20;
 			if (tester_exp > 10000) tester_exp = 10000;

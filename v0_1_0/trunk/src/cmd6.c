@@ -1280,7 +1280,7 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 
 		case SV_POTION_EXPERIENCE:
 			if (IS_RACE(cr_ptr, RACE_ANDROID)) break;
-			if (cr_ptr->exp < PY_MAX_EXP)
+			if (cr_ptr->exp < CREATURE_MAX_EXP)
 			{
 				s32b ee = (cr_ptr->exp / 2) + 10;
 				if (ee > 100000L) ee = 100000L;

@@ -29,9 +29,9 @@ void set_experience(creature_type *cr_ptr)
 	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
 
 	/* Hack -- upper limit */
-	if (cr_ptr->exp > PY_MAX_EXP) cr_ptr->exp = PY_MAX_EXP;
-	if (cr_ptr->max_exp > PY_MAX_EXP) cr_ptr->max_exp = PY_MAX_EXP;
-	if (cr_ptr->max_max_exp > PY_MAX_EXP) cr_ptr->max_max_exp = PY_MAX_EXP;
+	if (cr_ptr->exp > CREATURE_MAX_EXP) cr_ptr->exp = CREATURE_MAX_EXP;
+	if (cr_ptr->max_exp > CREATURE_MAX_EXP) cr_ptr->max_exp = CREATURE_MAX_EXP;
+	if (cr_ptr->max_max_exp > CREATURE_MAX_EXP) cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	/* Hack -- maintain "max" experience */
 	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
@@ -67,9 +67,9 @@ void check_experience(creature_type *cr_ptr)
 	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
 
 	/* Hack -- upper limit */
-	if (cr_ptr->exp > PY_MAX_EXP) cr_ptr->exp = PY_MAX_EXP;
-	if (cr_ptr->max_exp > PY_MAX_EXP) cr_ptr->max_exp = PY_MAX_EXP;
-	if (cr_ptr->max_max_exp > PY_MAX_EXP) cr_ptr->max_max_exp = PY_MAX_EXP;
+	if (cr_ptr->exp > CREATURE_MAX_EXP) cr_ptr->exp = CREATURE_MAX_EXP;
+	if (cr_ptr->max_exp > CREATURE_MAX_EXP) cr_ptr->max_exp = CREATURE_MAX_EXP;
+	if (cr_ptr->max_max_exp > CREATURE_MAX_EXP) cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	/* Hack -- maintain "max" experience */
 	if (cr_ptr->exp > cr_ptr->max_exp) cr_ptr->max_exp = cr_ptr->exp;
@@ -4224,7 +4224,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 				msg_print("But, nothing happen.");
 #endif
 			}
-			else if (cr_ptr->exp < PY_MAX_EXP)
+			else if (cr_ptr->exp < CREATURE_MAX_EXP)
 			{
 				s32b ee = (cr_ptr->exp / 2) + 10;
 				if (ee > 100000L) ee = 100000L;

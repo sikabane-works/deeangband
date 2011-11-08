@@ -4142,6 +4142,8 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 
 	/* Save the categories */
 	creature_ptr->species_idx = species_idx;
+	creature_ptr->ap_species_idx = species_idx;
+
 	creature_ptr->monster_ego_idx = 0;
 	creature_ptr->race_idx1 = species_ptr->race_idx1;
 	creature_ptr->race_idx2 = species_ptr->race_idx2;
@@ -4150,7 +4152,6 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->father_idx = species_ptr->father_idx;
 	creature_ptr->mother_idx = species_ptr->mother_idx;
 	creature_ptr->chara_idx = (byte)species_ptr->chara_idx;
-	creature_ptr->ap_species_idx = species_idx;
 
 	creature_ptr->realm1 = species_ptr->realm1;
 	creature_ptr->realm2 = species_ptr->realm2;
@@ -4185,7 +4186,7 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	creature_ptr->lev = 1;
 	creature_ptr->exp = species_ptr->exp;
 	creature_ptr->max_exp = species_ptr->exp;
-	creature_ptr->max_max_exp = PY_MAX_EXP;
+	creature_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	initialize_skill(creature_ptr);
 

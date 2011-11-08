@@ -5420,16 +5420,15 @@ static void edit_history(creature_type *cr_ptr)
 
 
 /*
- * Helper function for 'creature_birth()'
+ * Helper function for 'generate_creature()'
  *
  * The delay may be reduced, but is recommended to keep players
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, species_type *sp_res_ptr, u32b flags)
+static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, species_type *sp_res_ptr, u32b flags)
 {
 	int i;
-
 	int mode = 0;
 
 	bool flag = FALSE;
@@ -5437,6 +5436,8 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 	bool auto_m = FALSE;
 
 	char c;
+
+
 
 #if 0
 	char p1 = '(';
@@ -5448,7 +5449,12 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 
 	char buf[80];
 
+	species_type *sp_ptr = &species_info[species_idx];
+
 	if(flags & UB_AUTO) auto_m = TRUE;
+
+	cr_ptr->species_idx = species_idx;
+	cr_ptr->ap_species_idx = species_idx;
 
 
 	// Race
@@ -5551,11 +5557,11 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-
+	set_expfact(cr_ptr);
+	cr_ptr->lev = 1;
 	cr_ptr->exp = sp_ptr->exp;
 	cr_ptr->max_exp = sp_ptr->exp;
-	cr_ptr->max_max_exp = PY_MAX_EXP;
-
+	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 
 	set_experience(cr_ptr);
 
@@ -6073,7 +6079,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void creature_birth(creature_type *cr_ptr, species_type *base_sp_ptr, species_type *settled_sp_ptr, u32b flags)
+void generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_sp_ptr, u32b flags)
 {
 	char buf[80];
 
@@ -6100,7 +6106,7 @@ void creature_birth(creature_type *cr_ptr, species_type *base_sp_ptr, species_ty
 		while (1)
 		{
 			/* Roll up a new character */
-			if (creature_birth_aux(cr_ptr, base_sp_ptr, settled_sp_ptr, flags)) break;
+			if (generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags)) break;
 
 			/* Wipe the player */
 			creature_wipe(cr_ptr);

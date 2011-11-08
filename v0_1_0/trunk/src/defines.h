@@ -597,7 +597,7 @@
 /*
  * Player constants
  */
-#define PY_MAX_EXP      99999999L       /* Maximum exp */
+#define CREATURE_MAX_EXP      99999999L       /* Maximum exp */
 #define PY_MAX_GOLD     999999999L      /* Maximum gold */
 #define PY_MAX_LEVEL    60              /* Maximum level */
 #define PY_MORTAL_LIMIT_LEVEL 30        /* Limit Level of Mortal */

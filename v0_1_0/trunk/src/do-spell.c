@@ -881,7 +881,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the World.");
 #endif
 
-		if (cr_ptr->exp < PY_MAX_EXP)
+		if (cr_ptr->exp < CREATURE_MAX_EXP)
 		{
 			s32b ee = (cr_ptr->exp / 25) + 1;
 			if (ee > 5000) ee = 5000;
