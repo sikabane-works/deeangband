@@ -2582,7 +2582,7 @@ static void get_history(creature_type *cr_ptr)
 	{
 	}
 
-	if(species_info->sc) cr_ptr->sc = species_info->sc;
+	if(species_ptr->sc) cr_ptr->sc = species_info->sc;
 	else
 	{
 		cr_ptr->sc = damroll(4, 20);
@@ -2598,28 +2598,41 @@ static void get_history(creature_type *cr_ptr)
 	/* Kill trailing spaces */
 
 	while ((n > 0) && (s[n-1] == ' ')) s[--n] = '\0';
-
-       {
-	char temp[HISTORY_COL * HISTORY_ROW];
-	roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
-	t = temp;
-	for(i=0 ; i<HISTORY_ROW ; i++){
-	     if(t[0]==0)break; 
-	     else {strcpy(cr_ptr->history[i], t);t += strlen(t)+1;}
-	     }
-       }
+	{
+		char temp[HISTORY_COL * HISTORY_ROW];
+		roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
+		t = temp;
+		for(i = 0 ; i < HISTORY_ROW ; i++){
+			if(t[0] == 0)break; 
+			else {
+				strcpy(cr_ptr->history[i], t);
+				t += strlen(t) + 1;
+			}
+		}
+	}
 }
 
 
 /*
  * Computes character's age, height, and weight
  * by henkma
+ * Modified by deskull in D'angband.
  */
 static void get_ahw(creature_type *cr_ptr)
 {
-	/* Get character's age */
-	cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + race_info[cr_ptr->race_idx2].b_age;
-	cr_ptr->age += randint1((race_info[cr_ptr->race_idx1].m_age + race_info[cr_ptr->race_idx2].m_age)/2);
+	species_type *sp_ptr = &species_info[cr_ptr->species_idx];
+
+	if(!sp_ptr->age)
+	{
+		/* Get character's age */
+		cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + race_info[cr_ptr->race_idx2].b_age;
+		cr_ptr->age += randint1((race_info[cr_ptr->race_idx1].m_age + race_info[cr_ptr->race_idx2].m_age)/2);
+	}
+	else
+	{
+		cr_ptr->age = sp_ptr->age;
+	}
+
 
 	/* Get character's height and weight */
 	set_height_weight(cr_ptr);
