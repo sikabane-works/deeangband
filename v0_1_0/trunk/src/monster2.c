@@ -4183,9 +4183,9 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 	/* Set Monster's Level and EXP*/
 	set_expfact(creature_ptr);
 	creature_ptr->lev = 1;
-	creature_ptr->exp = species_ptr->mexp;
-	creature_ptr->max_exp = species_ptr->mexp;
-	creature_ptr->max_max_exp = species_ptr->mexp;
+	creature_ptr->exp = species_ptr->exp;
+	creature_ptr->max_exp = species_ptr->exp;
+	creature_ptr->max_max_exp = PY_MAX_EXP;
 
 	initialize_skill(creature_ptr);
 

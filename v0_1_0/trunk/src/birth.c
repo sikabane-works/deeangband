@@ -2251,14 +2251,17 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	/* Save the data */
 	species_ptr->sex = cr_ptr->sex;
 	species_ptr->race_idx1 = cr_ptr->race_idx1;
-	species_ptr->race_idx1 = cr_ptr->race_idx2;
+	species_ptr->race_idx2 = cr_ptr->race_idx2;
 	species_ptr->species_idx = cr_ptr->species_idx;
 	species_ptr->ap_species_idx = cr_ptr->ap_species_idx;
 	species_ptr->cls_idx = cr_ptr->cls_idx;
 	species_ptr->chara_idx = cr_ptr->chara_idx;
 	species_ptr->realm1 = cr_ptr->realm1;
 	species_ptr->realm2 = cr_ptr->realm2;
+	species_ptr->exp = cr_ptr->exp;
 	species_ptr->age = cr_ptr->age;
+	species_ptr->sc = cr_ptr->sc;
+	species_ptr->au = cr_ptr->au;
 	species_ptr->m_b_ht = cr_ptr->ht;
 	species_ptr->m_m_ht = 0;
 	species_ptr->f_b_ht = cr_ptr->ht;
@@ -2267,8 +2270,6 @@ void save_prev_data(creature_type *cr_ptr, species_type *species_ptr)
 	species_ptr->m_m_wt = 0;
 	species_ptr->f_b_wt = cr_ptr->wt;
 	species_ptr->f_m_wt = 0;
-	species_ptr->sc = cr_ptr->sc;
-	species_ptr->au = cr_ptr->au;
 
 	/* Save the stats */
 	for (i = 0; i < 6; i++)
@@ -2324,11 +2325,12 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	creature_ptr->chara_idx = species_ptr->chara_idx;
 	creature_ptr->realm1 = species_ptr->realm1;
 	creature_ptr->realm2 = species_ptr->realm2;
+	creature_ptr->exp = species_ptr->exp;
 	creature_ptr->age = species_ptr->age;
-	creature_ptr->ht = species_ptr->m_b_ht;
-	creature_ptr->wt = species_ptr->m_b_wt;
 	creature_ptr->sc = species_ptr->sc;
 	creature_ptr->au = species_ptr->au;
+	creature_ptr->ht = species_ptr->m_b_ht;
+	creature_ptr->wt = species_ptr->m_b_wt;
 
 	wilderness_x = species_ptr->start_wx;
 	wilderness_y = species_ptr->start_wy;
@@ -5548,6 +5550,15 @@ static bool creature_birth_aux(creature_type *cr_ptr, species_type *sp_ptr, spec
 	i = get_starting_point(&settled_player_species, auto_m);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
+
+
+	cr_ptr->exp = sp_ptr->exp;
+	cr_ptr->max_exp = sp_ptr->exp;
+	cr_ptr->max_max_exp = PY_MAX_EXP;
+
+
+	set_experience(cr_ptr);
+
 
 	if(!auto_m)
 		screen_save();

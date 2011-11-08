@@ -3560,7 +3560,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].mexp = (s32b)b;
+				species_info[n].exp = (s32b)b;
 				break;
 
 			case SPECIES_INFO_N_EXP:
@@ -6284,7 +6284,7 @@ void write_species_info_txt(void)
 														  r_ptr->aaf, r_ptr->ac, r_ptr->sleep);
 
 		/* Write more information */
-		fprintf(fff, "W:%d:%d:%d:%ld\n", r_ptr->level, r_ptr->rarity, r_ptr->extra, r_ptr->mexp);
+		fprintf(fff, "W:%d:%d:%d:%ld\n", r_ptr->level, r_ptr->rarity, r_ptr->extra, r_ptr->exp);
 
 		/* Write Blows */
 		for(j = 0; j < 4; j++)

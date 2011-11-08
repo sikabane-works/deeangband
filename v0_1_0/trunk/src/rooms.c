@@ -2135,8 +2135,8 @@ static bool ang_sort_comp_nest_mon_info(vptr u, vptr v, int a, int b)
 	if (r1_ptr->level > r2_ptr->level) return FALSE;
 
 	/* Compare experience */
-	if (r1_ptr->mexp < r2_ptr->mexp) return TRUE;
-	if (r1_ptr->mexp > r2_ptr->mexp) return FALSE;
+	if (r1_ptr->exp < r2_ptr->exp) return TRUE;
+	if (r1_ptr->exp > r2_ptr->exp) return FALSE;
 
 	/* Compare indexes */
 	return w1 <= w2;

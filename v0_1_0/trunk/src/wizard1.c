@@ -1942,7 +1942,7 @@ static void spoil_mon_desc(cptr fname)
 		else  sprintf(size, "%4d ", tmpsize);
 
 		/* Experience */
-		sprintf(exp, "%ld", (long)(species_ptr->mexp));
+		sprintf(exp, "%ld", (long)(species_ptr->exp));
 
 		/* Hack -- use visual instead */
 		if(is_variable_race_species(species_ptr))
@@ -2419,7 +2419,7 @@ static void spoil_mon_info(cptr fname)
 		spoil_out(buf);
 
 		/* Experience */
-		sprintf(buf, "Exp:%ld  ", (long)(species_ptr->mexp));
+		sprintf(buf, "Exp:%ld  ", (long)(species_ptr->exp));
 		spoil_out(buf);
 
 		/* Size */
@@ -2521,8 +2521,8 @@ static bool ang_sort_comp_evol_tree(vptr u, vptr v, int a, int b)
 	if (r1_ptr->level > r2_ptr->level) return FALSE;
 
 	/* Sort by monster experience */
-	if (r1_ptr->mexp < r2_ptr->mexp) return TRUE;
-	if (r1_ptr->mexp > r2_ptr->mexp) return FALSE;
+	if (r1_ptr->exp < r2_ptr->exp) return TRUE;
+	if (r1_ptr->exp > r2_ptr->exp) return FALSE;
 
 	/* Compare indexes */
 	return w1 <= w2;

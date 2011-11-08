@@ -2186,8 +2186,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if (*why >= 1)
 	{
 		/* Extract experience */
-		z1 = species_info[w1].mexp;
-		z2 = species_info[w2].mexp;
+		z1 = species_info[w1].exp;
+		z2 = species_info[w2].exp;
 
 		/* Compare experience */
 		if (z1 < z2) return (TRUE);

@@ -2386,7 +2386,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Attack 'enemies' */
 			if ((has_cf_creature(nonplayer_ptr, CF_KILL_BODY) && !has_cf_creature(nonplayer_ptr, CF_NEVER_BLOW) &&
-				(r_ptr->mexp * r_ptr->level > z_ptr->mexp * z_ptr->level) &&
+				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->m_idx != player_ptr->riding)) ||
 				  are_enemies(nonplayer_ptr, y_ptr) ||  nonplayer_ptr->confused)
 			{
@@ -2418,7 +2418,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Push past weaker monsters (unless leaving a wall) */
 			else if (has_cf_creature(nonplayer_ptr, CF_MOVE_BODY) && !has_cf_creature(nonplayer_ptr, CF_NEVER_MOVE) &&
-				(r_ptr->mexp > z_ptr->mexp) &&
+				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->m_idx != player_ptr->riding) &&
 				monster_can_cross_terrain(cave[nonplayer_ptr->fy][nonplayer_ptr->fx].feat, z_ptr, 0))
 			{
@@ -3315,7 +3315,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 
 	if (!r_ptr->next_exp) return;
 
-	new_exp = s_ptr->mexp * s_ptr->level / (r_ptr->level + 2);
+	new_exp = s_ptr->exp * s_ptr->level / (r_ptr->level + 2);
 	if (m_idx == p_ptr->riding) new_exp = (new_exp + 1) / 2;
 	if (!dun_level) new_exp /= 5;
 	m_ptr->exp += new_exp;

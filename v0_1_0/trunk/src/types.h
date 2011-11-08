@@ -382,7 +382,7 @@ struct species_type
 	u16b artifact_sval[INVEN_TOTAL];
 	u16b artifact_prob[INVEN_TOTAL];
 
-	s32b mexp;				/* Exp value for kill */
+	s32b exp;				/* Exp value for kill */
 
 	s16b extra;				/* Unused (for now) */
 

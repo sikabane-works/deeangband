@@ -2366,7 +2366,7 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 
 
 	/* The monster's experience point (assuming average monster speed) */
-	exp_mon = ap_r_ptr->mexp * ap_r_ptr->level;
+	exp_mon = ap_r_ptr->exp * ap_r_ptr->level;
 	exp_mon_frac = 0;
 	s64b_div(&exp_mon, &exp_mon_frac, 0, (p_ptr->max_plv + 2));
 
