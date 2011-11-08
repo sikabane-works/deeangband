@@ -1142,7 +1142,7 @@ extern errr check_time(void);
 extern errr check_load(void);
 extern bool show_file(bool show_version, cptr name, cptr what, int line, int mode);
 extern void do_cmd_help(void);
-extern void process_playespecies_name(bool sf);
+extern void process_creature_name(bool sf, creature_type *creature_ptr);
 extern void get_name(creature_type *cr_ptr);
 extern void do_cmd_suicide(creature_type *cr_ptr);
 extern void do_cmd_save_game(int is_autosave);

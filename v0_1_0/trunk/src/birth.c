@@ -5952,14 +5952,14 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	if(!auto_m)
 	{
-	/* Clear prompt */
+	/* Clear prompt *
 		clear_from(23);
 
 	/* Get a name, recolor it, prepare savefile */
 		get_name(cr_ptr);
 
 	/* Process the player name */
-		process_playespecies_name(creating_savefile);
+		process_creature_name(creating_savefile, cr_ptr);
 
 	/*** Edit character background ***/
 		edit_history(cr_ptr);
@@ -6071,7 +6071,7 @@ static bool ask_quick_start(creature_type *cr_ptr)
 	cr_ptr->csp = cr_ptr->msp;
 
 	/* Process the player name */
-	process_playespecies_name(FALSE);
+	process_creature_name(FALSE, cr_ptr);
 
 	return TRUE;
 }

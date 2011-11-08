@@ -615,7 +615,7 @@ int main(int argc, char *argv[])
 
 
 	/* Process the player name */
-	process_playespecies_name(TRUE);
+	process_creature_name(TRUE);
 
 
 

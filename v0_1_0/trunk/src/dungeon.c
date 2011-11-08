@@ -6741,7 +6741,7 @@ quit("セーブファイルが壊れています");
 	if (!new_game)
 	{
 		/* Process the player name */
-		process_playespecies_name(FALSE);
+		process_creature_name(FALSE, cr_ptr);
 	}
 
 	/* Init the RNG */

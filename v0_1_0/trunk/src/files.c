@@ -6380,7 +6380,7 @@ void do_cmd_help(void)
  * Extract a clean "base name".
  * Build the savefile name if needed.
  */
-void process_playespecies_name(bool sf)
+void process_creature_name(bool sf, creature_type *creature_ptr)
 {
 	int i, k = 0;
 	char old_player_base[32] = "";
@@ -6390,38 +6390,38 @@ void process_playespecies_name(bool sf)
 	/* Cannot be too long */
 #if defined(MACINTOSH) || defined(MSDOS) || defined(USE_EMX) || defined(AMIGA) || defined(ACORN) || defined(VM)
 #ifdef MSDOS
-	if (strlen(p_ptr->name) > 8)
+	if (strlen(creature_ptr->name) > 8)
 #else
-	if (strlen(p_ptr->name) > 15)
+	if (strlen(creature_ptr->name) > 15)
 #endif
 	{
 		/* Name too long */
 #ifdef JP
-quit_fmt("'%s'という名前は長すぎます！", p_ptr->name);
+quit_fmt("'%s'という名前は長すぎます！", creature_ptr->name);
 #else
-		quit_fmt("The name '%s' is too long!", p_ptr->name);
+		quit_fmt("The name '%s' is too long!", creature_ptr->name);
 #endif
 
 	}
 #endif
 
 	/* Cannot contain "icky" characters */
-	for (i = 0; p_ptr->name[i]; i++)
+	for (i = 0; creature_ptr->name[i]; i++)
 	{
 		/* No control characters */
 #ifdef JP
-		if (iskanji(p_ptr->name[i])){i++;continue;}
-		if (iscntrl( (unsigned char)p_ptr->name[i]))
+		if (iskanji(creature_ptr->name[i])){i++;continue;}
+		if (iscntrl( (unsigned char)creature_ptr->name[i]))
 #else
-		if (iscntrl(p_ptr->name[i]))
+		if (iscntrl(creature_ptr->name[i]))
 #endif
 
 		{
 			/* Illegal characters */
 #ifdef JP
-quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->name);
+quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_ptr->name);
 #else
-			quit_fmt("The name '%s' contains control chars!", p_ptr->name);
+			quit_fmt("The name '%s' contains control chars!", creature_ptr->name);
 #endif
 
 		}
@@ -6431,12 +6431,12 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->nam
 #ifdef MACINTOSH
 
 	/* Extract "useful" letters */
-	for (i = 0; p_ptr->name[i]; i++)
+	for (i = 0; creature_ptr->name[i]; i++)
 	{
 #ifdef JP
-		unsigned char c = p_ptr->name[i];
+		unsigned char c = creature_ptr->name[i];
 #else
-		char c = p_ptr->name[i];
+		char c = creature_ptr->name[i];
 #endif
 
 
@@ -6450,21 +6450,21 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->nam
 #else
 
 	/* Extract "useful" letters */
-	for (i = 0; p_ptr->name[i]; i++)
+	for (i = 0; creature_ptr->name[i]; i++)
 	{
 #ifdef JP
-		unsigned char c = p_ptr->name[i];
+		unsigned char c = creature_ptr->name[i];
 #else
-		char c = p_ptr->name[i];
+		char c = creature_ptr->name[i];
 #endif
 
 		/* Accept some letters */
 #ifdef JP
 		if(iskanji(c)){
-		  if(k + 2 >= sizeof(player_base) || !p_ptr->name[i+1]) break;
+		  if(k + 2 >= sizeof(player_base) || !creature_ptr->name[i+1]) break;
 		  player_base[k++] = c;
 		  i++;
-		  player_base[k++] = p_ptr->name[i];
+		  player_base[k++] = creature_ptr->name[i];
 		}
 #ifdef SJIS
 		else if (iskana(c)) player_base[k++] = c;
@@ -6472,7 +6472,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->nam
 		else
 #endif
 		/* Convert path separator to underscore */
-		if (!strncmp(PATH_SEP, p_ptr->name+i, strlen(PATH_SEP))){
+		if (!strncmp(PATH_SEP, creature_ptr->name+i, strlen(PATH_SEP))){
 			player_base[k++] = '_';
 			i += strlen(PATH_SEP);
 		}
@@ -6499,7 +6499,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", p_ptr->nam
 	player_base[k] = '\0';
 
 	/* Require a "base" name */
-	if (!player_base[0]) strcpy(player_base, "PLAYER");
+	if (!player_base[0]) strcpy(player_base, species_name + species_info[creature_ptr->species_idx].name);
 
 
 #ifdef SAVEFILE_MUTABLE
@@ -6589,7 +6589,7 @@ void get_name(creature_type *cr_ptr)
 	if (0 == strlen(cr_ptr->name))
 	{
 		/* Use default name */
-		strcpy(cr_ptr->name, "PLAYER");
+		strcpy(cr_ptr->name, species_name + species_info[cr_ptr->species_idx].name);
 	}
 
 	strcpy(tmp,chara_info[cr_ptr->chara_idx].title);
