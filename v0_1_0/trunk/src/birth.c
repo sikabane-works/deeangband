@@ -2561,11 +2561,12 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
  */
 static void get_history(creature_type *cr_ptr)
 {
-	int i, n, chart, roll, social_class;
+	int i, n, chart, roll;
 
 	char *s, *t;
 
 	char buf[240];
+	species_type *species_ptr = &species_info[cr_ptr->species_idx];
 
 	/* Clear the previous history strings */
 	for (i = 0; i < HISTORY_ROW; i++) cr_ptr->history[i][0] = '\0';
@@ -2573,201 +2574,20 @@ static void get_history(creature_type *cr_ptr)
 	/* Clear the history text */
 	buf[0] = '\0';
 
-	/* Initial social class */
-	social_class = randint1(4);
-
-	/* Starting place */
-
-	//TODO
-	switch (cr_ptr->race_idx1)
+	/* History  */
+	if(*(species_text + species_ptr->text))
 	{
-		case RACE_AMBERITE:
-		{
-			chart = 67;
-			break;
-		}
-		case RACE_HUMAN:
-		case RACE_BARBARIAN:
-		case RACE_DUNADAN:
-		{
-			chart = 1;
-			break;
-		}
-		case RACE_ELF:
-		case RACE_ELDAR:
-		{
-			chart = 7;
-			break;
-		}
-		case RACE_HOBBIT:
-		{
-			chart = 10;
-			break;
-		}
-		case RACE_GNOME:
-		{
-			chart = 13;
-			break;
-		}
-		case RACE_DWARF:
-		{
-			chart = 16;
-			break;
-		}
-		case RACE_ORC:
-		{
-			chart = 19;
-			break;
-		}
-		case RACE_TROLL:
-		{
-			chart = 22;
-			break;
-		}
-		case RACE_DARK_ELF:
-		{
-			chart = 69;
-			break;
-		}
-		case RACE_OGRE:
-		{
-			chart = 74;
-			break;
-		}
-		case RACE_GIANT:
-		{
-			chart = 75;
-			break;
-		}
-		case RACE_TITAN:
-		{
-			chart = 76;
-			break;
-		}
-		case RACE_CYCLOPS:
-		{
-			chart = 77;
-			break;
-		}
-		case RACE_YEEK:
-		{
-			chart = 78;
-			break;
-		}
-		case RACE_KOBOLD:
-		{
-			chart = 82;
-			break;
-		}
-		case RACE_KLACKON:
-		{
-			chart = 84;
-			break;
-		}
-		case RACE_NIBELUNG:
-		{
-			chart = 87;
-			break;
-		}
-		case RACE_DRACONIAN:
-		{
-			chart = 89;
-			break;
-		}
-		case RACE_MIND_FLAYER:
-		{
-			chart = 92;
-			break;
-		}
-		case RACE_IMP:
-		{
-			chart = 94;
-			break;
-		}
-		case RACE_GOLEM:
-		{
-			chart = 98;
-			break;
-		}
-		case RACE_SPRITE:
-		{
-			chart = 124;
-			break;
-		}
-		case RACE_BEASTMAN:
-		{
-			chart = 129;
-			break;
-		}
-		case RACE_ENT:
-		{
-			chart = 137;
-			break;
-		}
-		case RACE_ANGEL:
-		{
-			chart = 142;
-			break;
-		}
-		case RACE_DEMON:
-		{
-			chart = 145;
-			break;
-		}
-		case RACE_S_FAIRY:
-		{
-			chart = 148;
-			break;
-		}
-		case RACE_KUTAR:
-		{
-			chart = 154;
-			break;
-		}
-		case RACE_ANDROID:
-		{
-			chart = 155;
-			break;
-		}
-		default:
-		{
-			chart = 0;
-			break;
-		}
+	}
+	else
+	{
 	}
 
-
-	/* Process the history */
-	while (chart)
+	if(species_info->sc) cr_ptr->sc = species_info->sc;
+	else
 	{
-		/* Start over */
-		i = 0;
-
-		/* Roll for nobility */
-		roll = randint1(100);
-
-
-		/* Access the proper entry in the table */
-		while ((chart != bg[i].chart) || (roll > bg[i].roll)) i++;
-
-		/* Acquire the textual history */
-		(void)strcat(buf, bg[i].info);
-
-		/* Add in the social class */
-		social_class += (int)(bg[i].bonus) - 50;
-
-		/* Enter the next chart */
-		chart = bg[i].next;
+		cr_ptr->sc = damroll(4, 20);
+		if(one_in_(10)) cr_ptr->sc += damroll(1, 60);
 	}
-
-
-	/* Verify social class */
-	if (social_class > 100) social_class = 100;
-	else if (social_class < 1) social_class = 1;
-
-	/* Save the social class */
-	cr_ptr->sc = social_class;
-
 
 	/* Skip leading spaces */
 	for (s = buf; *s == ' '; s++) /* loop */;
@@ -5456,7 +5276,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
 
-
 	// Race
 
 	if(!auto_m)
@@ -5563,10 +5382,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->max_exp = sp_ptr->exp;
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 	cr_ptr->dr = sp_ptr->dr;
-
-	calc_bonuses(cr_ptr, FALSE);
-
-	set_experience(cr_ptr);
 
 
 	if(!auto_m)
@@ -5837,6 +5652,9 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 			/* Fully rested */
 			cr_ptr->csp = cr_ptr->msp;
+
+			calc_bonuses(cr_ptr, FALSE);
+			set_experience(cr_ptr);
 
 			if(auto_m) break;
 
