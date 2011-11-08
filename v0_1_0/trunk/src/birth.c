@@ -2561,12 +2561,14 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
  */
 static void get_history(creature_type *cr_ptr)
 {
-	int i, n, chart, roll;
-
+	int i, j, n;
 	char *s, *t;
 
 	char buf[240];
 	species_type *species_ptr = &species_info[cr_ptr->species_idx];
+	char *history = (species_text + species_ptr->text);
+	char temp[HISTORY_ROW * HISTORY_COL];
+
 
 	/* Clear the previous history strings */
 	for (i = 0; i < HISTORY_ROW; i++) cr_ptr->history[i][0] = '\0';
@@ -2574,12 +2576,48 @@ static void get_history(creature_type *cr_ptr)
 	/* Clear the history text */
 	buf[0] = '\0';
 
+	/* Skip leading spaces */
+	for (s = buf; *s == ' '; s++) /* loop */;
+
+	/* Get apparent length */
+	n = strlen(s);
+
 	/* History  */
-	if(*(species_text + species_ptr->text))
+	if(history)
 	{
-	}
-	else
-	{
+		/* Clear the previous history strings */
+		for (i = 0; i < HISTORY_ROW; i++) cr_ptr->history[i][0] = '\0';
+
+		/* Skip leading spaces */
+		for (s = history; *s == ' '; s++) /* loop */;
+
+		/* Get apparent length */
+		n = strlen(s);
+
+		/* Kill trailing spaces */
+		while ((n > 0) && (s[n - 1] == ' ')) s[--n] = '\0';
+
+		roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
+		t = temp;
+		for (i = 0; i < HISTORY_ROW; i++)
+		{
+			if (t[0] == 0) break;
+			else
+			{
+				strcpy(cr_ptr->history[i], t);
+				t += strlen(t) + 1;
+			}
+		}
+
+		/* Fill the remaining spaces */
+		for (i = 0; i < HISTORY_ROW; i++)
+		{
+			for (j = 0; cr_ptr->history[i][j]; j++) /* loop */;
+
+			for (; j < HISTORY_COL - 1; j++) cr_ptr->history[i][j] = ' ';
+			cr_ptr->history[i][HISTORY_COL - 1] = '\0';
+		}
+
 	}
 
 	if(species_ptr->sc) cr_ptr->sc = species_info->sc;
@@ -2589,27 +2627,6 @@ static void get_history(creature_type *cr_ptr)
 		if(one_in_(10)) cr_ptr->sc += damroll(1, 60);
 	}
 
-	/* Skip leading spaces */
-	for (s = buf; *s == ' '; s++) /* loop */;
-
-	/* Get apparent length */
-	n = strlen(s);
-
-	/* Kill trailing spaces */
-
-	while ((n > 0) && (s[n-1] == ' ')) s[--n] = '\0';
-	{
-		char temp[HISTORY_COL * HISTORY_ROW];
-		roff_to_buf(s, HISTORY_COL, temp, sizeof(temp));
-		t = temp;
-		for(i = 0 ; i < HISTORY_ROW ; i++){
-			if(t[0] == 0)break; 
-			else {
-				strcpy(cr_ptr->history[i], t);
-				t += strlen(t) + 1;
-			}
-		}
-	}
 }
 
 
