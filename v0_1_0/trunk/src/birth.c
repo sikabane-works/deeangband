@@ -5562,6 +5562,9 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->exp = sp_ptr->exp;
 	cr_ptr->max_exp = sp_ptr->exp;
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
+	cr_ptr->dr = sp_ptr->dr;
+
+	calc_bonuses(cr_ptr, FALSE);
 
 	set_experience(cr_ptr);
 

@@ -23,12 +23,12 @@ void set_experience(creature_type *cr_ptr)
 {
 	bool android = (IS_RACE(cr_ptr, RACE_ANDROID) ? TRUE : FALSE);
 
-	/* Hack -- lower limit */
+	// Hack -- lower limit
 	if (cr_ptr->exp < 0) cr_ptr->exp = 0;
 	if (cr_ptr->max_exp < 0) cr_ptr->max_exp = 0;
 	if (cr_ptr->max_max_exp < 0) cr_ptr->max_max_exp = 0;
 
-	/* Hack -- upper limit */
+	// Hack -- upper limit
 	if (cr_ptr->exp > CREATURE_MAX_EXP) cr_ptr->exp = CREATURE_MAX_EXP;
 	if (cr_ptr->max_exp > CREATURE_MAX_EXP) cr_ptr->max_exp = CREATURE_MAX_EXP;
 	if (cr_ptr->max_max_exp > CREATURE_MAX_EXP) cr_ptr->max_max_exp = CREATURE_MAX_EXP;
