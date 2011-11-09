@@ -5301,23 +5301,36 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	// Race Select
 
-	if(!auto_generate)
+	if(sp_ptr->race_idx1 == INDEX_VARIABLE)
 	{
-		Term_clear();
-		clear_from(0);
-		put_initial_status(cr_ptr);
+		if(!auto_generate)
+		{
+			Term_clear();
+			clear_from(0);
+			put_initial_status(cr_ptr);
+		}
+		i = get_creature_first_race(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
+	}
+	else
+	{
+		cr_ptr->race_idx1 = sp_ptr->race_idx1;
 	}
 
-	i = get_creature_first_race(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	if(sp_ptr->race_idx2 == INDEX_VARIABLE)
+	{
+		if(!auto_generate)
+			put_initial_status(cr_ptr);
 
-	if(!auto_generate)
-		put_initial_status(cr_ptr);
-
-	i = get_creature_second_race(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+		i = get_creature_second_race(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
+	}
+	else
+	{
+		cr_ptr->race_idx2 = sp_ptr->race_idx2;
+	}
 
 	// race_idx swap
 	if(cr_ptr->race_idx1 > cr_ptr->race_idx2)
@@ -5334,40 +5347,61 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Sex Select
 	//
 
-	if(!auto_generate)
+	if(sp_ptr->sex == INDEX_VARIABLE)
 	{
-		clear_from(0);
-		put_initial_status(cr_ptr);
+		if(!auto_generate)
+		{
+			clear_from(0);
+			put_initial_status(cr_ptr);
+		}
+		i = get_creature_sex(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
 	}
-	i = get_creature_sex(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	else
+	{
+		cr_ptr->sex = sp_ptr->sex;
+	}
 
 	//
 	// Class Select
 	//
 
-	if(!auto_generate)
+	if(sp_ptr->cls_idx == INDEX_VARIABLE)
 	{
-		clear_from(0);
-		put_initial_status(cr_ptr);
+		if(!auto_generate)
+		{
+			clear_from(0);
+			put_initial_status(cr_ptr);
+		}
+		i = get_creature_class(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
 	}
-	i = get_creature_class(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
-
+	else
+	{
+		cr_ptr->cls_idx = sp_ptr->cls_idx;
+	}
+	
 	//
 	// Patron Select
 	//
 
-	if(!auto_generate)
+	if(sp_ptr->patron_idx == INDEX_VARIABLE)
 	{
-		clear_from(0);
-		put_initial_status(cr_ptr);
+		if(!auto_generate)
+		{
+			clear_from(0);
+			put_initial_status(cr_ptr);
+		}
+		i = get_creature_patron(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
 	}
-	i = get_creature_patron(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	else
+	{
+		cr_ptr->patron_idx = sp_ptr->patron_idx;
+	}
 
 	//
 	// Realm Select
