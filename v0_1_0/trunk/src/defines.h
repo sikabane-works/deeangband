@@ -4437,6 +4437,7 @@ extern int PlayerUID;
  */
 #define GC_PLAYER  0x01
 #define GC_AUTO    0x02
+#define GC_AVERAGE 0x04
 
 
 

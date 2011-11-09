@@ -761,7 +761,7 @@ void birth_uniques(void)
 		if(is_unique_species(&species_info[i]))
 		{
 			species_type sp_ptr;
-			generate_creature(&u_info[j], i, &sp_ptr, 0);
+			generate_creature(&u_info[j], i, &sp_ptr, GC_AUTO);
 			j++;
 		}
 	}
@@ -3862,7 +3862,8 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	}
 	else
 	{
-		create_creature(m_ptr, species_idx, re_selected, mode); 
+		species_type sp;
+		generate_creature(m_ptr, species_idx, &sp, GC_AUTO); 
 	}
 
 	/* No flags */

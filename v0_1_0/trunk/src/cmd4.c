@@ -8244,8 +8244,9 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 				else
 				{
 					creature_type tmp_cr;
+					species_type sp;
 					C_WIPE(&tmp_cr, 1, creature_type);
-					create_creature(&tmp_cr, mon_idx[mon_cur], 0, 0);
+					generate_creature(&tmp_cr, i, &sp, GC_AUTO | GC_AVERAGE);
 					display_creature_dump(&tmp_cr);
 					redraw = TRUE;
 				}
