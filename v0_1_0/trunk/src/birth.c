@@ -5302,11 +5302,11 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
 
-	// Race
+	// Race Select
 
 	if(!npc)
 	{
-	Term_clear();
+		Term_clear();
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
@@ -5328,7 +5328,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
 	}
 
-// TODO Race Trait
+	// TODO Race Trait
+
+
+	//
+	// Sex Select
+	//
 
 	if(!npc)
 	{
@@ -5339,6 +5344,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	//
+	// Class Select
+	//
+
 	if(!npc)
 	{
 		clear_from(0);
@@ -5347,6 +5356,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	i = get_creature_class(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
+
+	//
+	// Patron Select
+	//
 
 	if(!npc)
 	{
@@ -5357,6 +5370,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	//
+	// Realm Select
+	//
+
 	if(!npc)
 	{
 		clear_from(0);
@@ -5365,6 +5382,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	i = get_creature_realms(cr_ptr, sp_ptr, npc);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
+
+	//
+	// Character Select
+	//
 
 	if(!npc)
 	{
@@ -5375,65 +5396,65 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
+	//
+	// Starting Point
+	//
+
 	if(!npc)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
+		i = get_starting_point(&settled_player_species, npc);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
 	}
-	i = get_starting_point(&settled_player_species, npc);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
 
-	set_expfact(cr_ptr);
 	cr_ptr->lev = 1;
 	cr_ptr->exp = sp_ptr->exp;
 	cr_ptr->max_exp = sp_ptr->exp;
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 	cr_ptr->dr = sp_ptr->dr;
 
-
-	if(!npc)
-		screen_save();
-
 	if(!npc)
 	{
+		screen_save();
 
 #ifdef JP
-	do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
+		do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
 #else
-	do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
+		do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
 #endif
 
-	screen_load();
+		screen_load();
 
 #ifdef ALLOW_AUTOROLLER
 
-	/*** Autoroll ***/
+		/*** Autoroll ***/
 
-	if (autoroller || autochara)
-	{
-		/* Clear fields */
-		auto_round = 0L;
-	}
+		if (autoroller || autochara)
+		{
+			/* Clear fields */
+			auto_round = 0L;
+		}
 
-	/* Initialize */
-	if (autoroller)
-	{
-		if (!get_stat_limits(cr_ptr)) return FALSE;
-	}
+		/* Initialize */
+		if (autoroller)
+		{
+			if (!get_stat_limits(cr_ptr)) return FALSE;
+		}
 
-	if (autochara)
-	{
-		if (!get_chara_limits(cr_ptr)) return FALSE;
-	}
+		if (autochara)
+		{
+			if (!get_chara_limits(cr_ptr)) return FALSE;
+		}
 
 #endif /* ALLOW_AUTOROLLER */
 
-	/* Clear */
-	clear_from(0);
+		/* Clear */
+		clear_from(0);
 
-	/* Reset turn; before auto-roll and after choosing race */
-	init_turn(cr_ptr);
+		/* Reset turn; before auto-roll and after choosing race */
+		init_turn(cr_ptr);
 
 	}
 
