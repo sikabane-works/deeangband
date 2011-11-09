@@ -760,8 +760,8 @@ void birth_uniques(void)
 
 		if(is_unique_species(&species_info[i]))
 		{
-			creature_type *cr_ptr = &u_info[j]; 
-			create_creature(cr_ptr, i, MONEGO_NONE, 0);
+			species_type sp_ptr;
+			generate_creature(&u_info[j], i, &sp_ptr, 0);
 			j++;
 		}
 	}

@@ -6789,8 +6789,30 @@ quit("セーブファイルが壊れています");
 		// Initialize General Gamedata
 		world_wipe();
 
-		/* Roll up a new character */
-		generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER | GC_AUTO);
+		/* 
+		 * Wipe monsters in old dungeon
+		 * This wipe destroys value of creature_list[].cur_num .
+		 */
+		wipe_creature_list();
+
+		/* Quick start? */
+		if (!ask_quick_start(cr_ptr))
+		{
+		/* No, normal start */
+			while (1)
+			{
+				/* Roll up a new character */
+				if(generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER | GC_AUTO)) break;
+
+				/* Wipe the player */
+				creature_wipe(cr_ptr);
+			}
+			wilderness_x = settled_player_species.start_wx;
+			wilderness_y = settled_player_species.start_wy;
+		}
+
+
+
 
 		/* Initialize random quests */
 		init_dungeon_quests();

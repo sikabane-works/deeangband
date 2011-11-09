@@ -2776,7 +2776,7 @@ static void k_info_reset(void)
 /*
  * Clear all the global "character" data
  */
-static void creature_wipe(creature_type *cr_ptr)
+void creature_wipe(creature_type *cr_ptr)
 {
 	int i;
 
@@ -5846,11 +5846,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	return (TRUE);
 }
 
-
 /*
  * Ask whether the player use Quick Start or not.
  */
-static bool ask_quick_start(creature_type *cr_ptr)
+bool ask_quick_start(creature_type *cr_ptr)
 {
 
 	/* Doesn't have previous data */
@@ -5935,17 +5934,11 @@ static bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-void generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_sp_ptr, u32b flags)
+int generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_sp_ptr, u32b flags)
 {
 	char buf[80];
 
 	playtime = 0;
-
-	/* 
-	 * Wipe monsters in old dungeon
-	 * This wipe destroys value of creature_list[].cur_num .
-	 */
-	wipe_creature_list();
 
 	/* Wipe the player */
 	creature_wipe(cr_ptr);
@@ -5956,77 +5949,78 @@ void generate_creature(creature_type *cr_ptr, int species_idx, species_type *set
 	}
 
 	/* Create a new character */
+	if (generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags)) return 1;
 
-	/* Quick start? */
-	if (!ask_quick_start(cr_ptr))
+	if(flags & GC_PLAYER)
 	{
-		/* No, normal start */
-		while (1)
-		{
-			/* Roll up a new character */
-			if (generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags)) break;
+		/* Note player birth in the message recall */
+		message_add(" ");
+		message_add("  ");
+		message_add("====================");
+		message_add(" ");
+		message_add("  ");
 
-			/* Wipe the player */
-			creature_wipe(cr_ptr);
+	#ifdef JP
+		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ユニーク作成 --------");
+	#else
+		do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- Create Unique --------");
+	#endif
+		do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
+
+	#ifdef JP
+		sprintf(buf,"                            性別に%sを選択した。", sex_info[cr_ptr->sex].title);
+	#else
+		sprintf(buf,"                            choose %s personality.", sex_info[cr_ptr->sex].title);
+	#endif
+		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
+
+		if(IS_PURE(cr_ptr))
+		{
+	#ifdef JP
+			sprintf(buf,"                            種族に%sを選択した。", race_info[cr_ptr->race_idx1].title);
+	#else
+			sprintf(buf,"                            choose %s race.", race_info[cr_ptr->race_idx1].title);
+	#endif
+		}
+		else
+		{
+	#ifdef JP
+			sprintf(buf,"                            種族に%sと%sの混血を選択した。",
+				race_info[cr_ptr->race_idx1].title, race_info[cr_ptr->race_idx2].title);
+	#else
+			sprintf(buf,"                            choose %s and %s races.",
+				race_info[cr_ptr->race_idx1].title, race_info[cr_ptr->race_idx2].title);
+	#endif
+		}
+		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
+
+	#ifdef JP
+		sprintf(buf,"                            職業に%sを選択した。", class_info[cr_ptr->cls_idx].title);
+	#else
+		sprintf(buf,"                            choose %s class.", class_info[cr_ptr->cls_idx].title);
+	#endif
+		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
+
+		if (cr_ptr->realm1)
+		{
+	#ifdef JP
+			sprintf(buf,"                            魔法の領域に%s%sを選択した。",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format("と%s",realm_names[cr_ptr->realm2]) : "");
+	#else
+			sprintf(buf,"                            choose %s%s realm.",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format(" realm and %s",realm_names[cr_ptr->realm2]) : "");
+	#endif
+			do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
 		}
 
-		wilderness_x = settled_player_species.start_wx;
-		wilderness_y = settled_player_species.start_wy;
-
-	}
-
-	/* Note player birth in the message recall */
-	message_add(" ");
-	message_add("  ");
-	message_add("====================");
-	message_add(" ");
-	message_add("  ");
-
-#ifdef JP
-	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- ユニーク作成 --------");
-#else
-	do_cmd_write_nikki(NIKKI_GAMESTART, 1, "-------- Create Unique --------");
-#endif
-	do_cmd_write_nikki(NIKKI_HIGAWARI, 0, NULL);
-
-#ifdef JP
-	sprintf(buf,"                            性別に%sを選択した。", sex_info[cr_ptr->sex].title);
-#else
-	sprintf(buf,"                            choose %s personality.", sex_info[cr_ptr->sex].title);
-#endif
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
-
-#ifdef JP
-	sprintf(buf,"                            種族に%sを選択した。", race_info[cr_ptr->race_idx1].title);
-#else
-	sprintf(buf,"                            choose %s race.", race_info[cr_ptr->race_idx1].title);
-#endif
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
-
-#ifdef JP
-	sprintf(buf,"                            職業に%sを選択した。", class_info[cr_ptr->cls_idx].title);
-#else
-	sprintf(buf,"                            choose %s class.", class_info[cr_ptr->cls_idx].title);
-#endif
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
-
-	if (cr_ptr->realm1)
-	{
-#ifdef JP
-		sprintf(buf,"                            魔法の領域に%s%sを選択した。",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format("と%s",realm_names[cr_ptr->realm2]) : "");
-#else
-		sprintf(buf,"                            choose %s%s realm.",realm_names[cr_ptr->realm1], cr_ptr->realm2 ? format(" realm and %s",realm_names[cr_ptr->realm2]) : "");
-#endif
+	#ifdef JP
+		sprintf(buf,"                            性格に%sを選択した。", chara_info[cr_ptr->chara_idx].title);
+	#else
+		sprintf(buf,"                            choose %s.", chara_info[cr_ptr->chara_idx].title);
+	#endif
 		do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
+
 	}
 
-#ifdef JP
-	sprintf(buf,"                            性格に%sを選択した。", chara_info[cr_ptr->chara_idx].title);
-#else
-	sprintf(buf,"                            choose %s.", chara_info[cr_ptr->chara_idx].title);
-#endif
-	do_cmd_write_nikki(NIKKI_BUNSHOU, 1, buf);
-
+	return 0;
 }
 
 
