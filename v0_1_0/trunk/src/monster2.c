@@ -4242,11 +4242,11 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 
 	/* And start out fully healthy */
 	if (creature_ptr->species_idx == MON_WOUNDED_BEAR)
-		set_enemy_hp(creature_ptr, 50);
+		set_creature_hp_percent(creature_ptr, 50);
 	else
-		set_enemy_hp(creature_ptr, 100);
+		set_creature_hp_percent(creature_ptr, 100);
 
-	set_enemy_mana(creature_ptr, 100);
+	set_creature_sp_percent(creature_ptr, 100);
 
 
 	/* Clear the previous history strings */

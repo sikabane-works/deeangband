@@ -3342,7 +3342,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 		r_ptr = &species_info[m_ptr->species_idx];
 
 		set_enemy_maxhp(m_ptr);
-		set_enemy_hp(m_ptr, old_hp * 100 / old_mhp);
+		set_creature_hp_percent(m_ptr, old_hp * 100 / old_mhp);
 
 		/* Sub-alignment of a monster */
 		if (!is_pet(m_ptr) && !(is_enemy_of_evil_species(r_ptr) & is_enemy_of_good_species(r_ptr)))

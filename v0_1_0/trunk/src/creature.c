@@ -247,12 +247,12 @@ void set_enemy_maxhp(creature_type *creature_ptr)
 	return;
 }
 
-void set_enemy_hp(creature_type *creature_ptr, int percentage)
+void set_creature_hp_percent(creature_type *creature_ptr, int percentage)
 {
 	creature_ptr->chp = creature_ptr->mhp * percentage / 100;
 }
 
-void set_enemy_mana(creature_type *creature_ptr, int percentage)
+void set_creature_sp_percent(creature_type *creature_ptr, int percentage)
 {
 	creature_ptr->csp = creature_ptr->msp * percentage / 100;
 }

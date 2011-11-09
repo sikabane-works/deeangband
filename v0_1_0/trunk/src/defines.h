@@ -4433,11 +4433,9 @@ extern int PlayerUID;
 #define NAME_ORC    6
 
 /*
- * Unique birth flag
+ * Generate Creature Flag
  */
-#define UB_PLAYER    0x01
-#define UB_STIGMATIC 0x02
-#define UB_AUTO      0x04
+#define GC_PLAYER  0x01
 
 
 

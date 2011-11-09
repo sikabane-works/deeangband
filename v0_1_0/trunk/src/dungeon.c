@@ -6790,7 +6790,7 @@ quit("セーブファイルが壊れています");
 		world_wipe();
 
 		/* Roll up a new character */
-		generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, UB_PLAYER | UB_STIGMATIC);
+		generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER);
 
 		/* Initialize random quests */
 		init_dungeon_quests();
@@ -6979,12 +6979,6 @@ quit("セーブファイルが壊れています");
 	/* Load the "pref" files */
 	load_all_pref_files(cr_ptr);
 
-	/* Give startup outfit (after loading pref files) */
-	if (new_game)
-	{
-		deal_creature_equipment(cr_ptr);
-	}
-
 	/* React to changes */
 
 	Term_xtra(TERM_XTRA_REACT, 0);
@@ -7019,7 +7013,7 @@ quit("セーブファイルが壊れています");
 		m_ptr->speed = r_ptr->speed;
 
 		set_enemy_maxhp(m_ptr);
-		set_enemy_hp(m_ptr, 100);
+		set_creature_hp_percent(m_ptr, 100);
 
 		m_ptr->energy_need = ENERGY_NEED() + ENERGY_NEED();
 	}

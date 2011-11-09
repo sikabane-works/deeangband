@@ -5297,7 +5297,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	species_type *sp_ptr = &species_info[species_idx];
 
-	if(flags & UB_AUTO) npc = TRUE;
+	if(!(flags & GC_PLAYER)) npc = TRUE;
 
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
@@ -5328,25 +5328,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		cr_ptr->race_idx1 ^= cr_ptr->race_idx2;
 	}
 
-
-/*
-	if(cr_ptr->race_idx1 == RACE_ELDAR)
-	{
-		if(!npc) put_initial_status(cr_ptr);
-		i = get_creature_subrace_eldar(cr_ptr, npc);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
-	}
-
-	if(cr_ptr->race_idx1 == RACE_DRACONIAN || cr_ptr->race_idx1 == RACE_DRAGON) 
-	{
-		if(!npc) put_initial_status(cr_ptr);
-		i = get_creature_subrace_dragonbone(cr_ptr, npc);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
-	}
-*/
-
+// TODO Race Trait
 
 	if(!npc)
 	{
@@ -5673,22 +5655,18 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			/* Update stuff */
 			update_stuff(cr_ptr, TRUE);
 
-			/* Fully healed */
-			cr_ptr->chp = cr_ptr->mhp;
-
-			/* Fully rested */
-			cr_ptr->csp = cr_ptr->msp;
-
+			deal_creature_equipment(cr_ptr);
 			calc_bonuses(cr_ptr, FALSE);
+
 			set_experience(cr_ptr);
+			calc_bonuses(cr_ptr, FALSE);
 
 			/* And start out fully healthy */
 			if (cr_ptr->species_idx == MON_WOUNDED_BEAR)
-				set_enemy_hp(cr_ptr, 50);
+				set_creature_hp_percent(cr_ptr, 50);
 			else
-				set_enemy_hp(cr_ptr, 100);
-
-			set_enemy_mana(cr_ptr, 100);
+				set_creature_hp_percent(cr_ptr, 100);
+			set_creature_sp_percent(cr_ptr, 100);
 
 			if(npc) break;
 
@@ -5949,8 +5927,10 @@ void generate_creature(creature_type *cr_ptr, int species_idx, species_type *set
 	/* Wipe the player */
 	creature_wipe(cr_ptr);
 
-	if(flags & UB_PLAYER) cr_ptr->player = TRUE;
-	if(flags & UB_STIGMATIC) cr_ptr->stigmatic = TRUE;
+	if(flags & GC_PLAYER)
+	{
+		cr_ptr->player = TRUE;
+	}
 
 	/* Create a new character */
 
