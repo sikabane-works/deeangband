@@ -5451,7 +5451,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 	cr_ptr->dr = sp_ptr->dr;
 
-	if(!auto_generate)
+	if(player)
 	{
 		screen_save();
 
@@ -5491,7 +5491,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 		/* Reset turn; before auto-roll and after choosing race */
 		init_turn(cr_ptr);
-
 	}
 
 	/*** Generate ***/
@@ -5713,7 +5712,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			update_stuff(cr_ptr, TRUE);
 
 			deal_creature_equipment(cr_ptr);
-			calc_bonuses(cr_ptr, FALSE);
 
 			set_experience(cr_ptr);
 			calc_bonuses(cr_ptr, FALSE);
