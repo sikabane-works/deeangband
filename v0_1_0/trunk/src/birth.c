@@ -5705,16 +5705,17 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		/* Input loop */
 		while (TRUE)
 		{
-			/* Calculate the bonuses and hitpoints */
-			cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
-
-			/* Update stuff */
-			update_stuff(cr_ptr, TRUE);
 
 			deal_creature_equipment(cr_ptr);
 
 			set_experience(cr_ptr);
 			calc_bonuses(cr_ptr, FALSE);
+
+			/* Calculate the bonuses and hitpoints */
+			cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
+
+			/* Update stuff */
+			update_stuff(cr_ptr, FALSE);
 
 			/* And start out fully healthy */
 			if (cr_ptr->species_idx == MON_WOUNDED_BEAR)

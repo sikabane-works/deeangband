@@ -6802,7 +6802,7 @@ quit("セーブファイルが壊れています");
 			while (1)
 			{
 				/* Roll up a new character */
-				if(generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER | GC_AUTO)) break;
+				if(generate_creature(cr_ptr, 0, &settled_player_species, GC_PLAYER)) break;
 
 				/* Wipe the player */
 				creature_wipe(cr_ptr);
