@@ -2540,8 +2540,6 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 	cr_ptr->old_race2 = 0L;
 	cr_ptr->old_realm = 0;
 
-	cr_ptr->dr = -1;
-
 	initialize_skill(cr_ptr);
 
 	set_bodysize(cr_ptr);
@@ -2550,8 +2548,6 @@ static void get_extra(creature_type *cr_ptr, bool roll_hitdice)
 	/* Roll for hit point unless quick-start */
 	if (roll_hitdice) do_cmd_rerate_aux(cr_ptr);
 
-	/* Initial hitpoints */
-	cr_ptr->mhp = cr_ptr->player_hp[0];
 
 }
 
