@@ -6790,7 +6790,7 @@ quit("セーブファイルが壊れています");
 		world_wipe();
 
 		/* Roll up a new character */
-		generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER);
+		generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER | GC_AUTO);
 
 		/* Initialize random quests */
 		init_dungeon_quests();

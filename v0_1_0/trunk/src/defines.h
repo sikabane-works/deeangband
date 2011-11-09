@@ -4436,6 +4436,7 @@ extern int PlayerUID;
  * Generate Creature Flag
  */
 #define GC_PLAYER  0x01
+#define GC_AUTO    0x02
 
 
 

@@ -5279,11 +5279,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	bool flag = FALSE;
 	bool prev = FALSE;
-	bool npc = FALSE;
+	bool player = flags & GC_PLAYER;
+	bool auto_generate = flags & GC_AUTO;
 
 	char c;
-
-
 
 #if 0
 	char p1 = '(';
@@ -5297,26 +5296,26 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	species_type *sp_ptr = &species_info[species_idx];
 
-	if(!(flags & GC_PLAYER)) npc = TRUE;
-
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
 
 	// Race Select
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		Term_clear();
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
 
-	i = get_creature_first_race(cr_ptr, sp_ptr, npc);
+	i = get_creature_first_race(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
-	if(!npc) put_initial_status(cr_ptr);
-	i = get_creature_second_race(cr_ptr, sp_ptr, npc);
+	if(!auto_generate)
+		put_initial_status(cr_ptr);
+
+	i = get_creature_second_race(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5335,12 +5334,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Sex Select
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_sex(cr_ptr, sp_ptr, npc);
+	i = get_creature_sex(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5348,12 +5347,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Class Select
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_class(cr_ptr, sp_ptr, npc);
+	i = get_creature_class(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5361,12 +5360,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Patron Select
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_patron(cr_ptr, sp_ptr, npc);
+	i = get_creature_patron(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5374,12 +5373,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Realm Select
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_realms(cr_ptr, sp_ptr, npc);
+	i = get_creature_realms(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5387,12 +5386,12 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Character Select
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_chara(cr_ptr, sp_ptr, npc);
+	i = get_creature_chara(cr_ptr, sp_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5400,11 +5399,14 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Starting Point
 	//
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		clear_from(0);
 		put_initial_status(cr_ptr);
-		i = get_starting_point(&settled_player_species, npc);
+	}
+	if(player)
+	{
+		i = get_starting_point(&settled_player_species, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
@@ -5415,7 +5417,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
 	cr_ptr->dr = sp_ptr->dr;
 
-	if(!npc)
+	if(!auto_generate)
 	{
 		screen_save();
 
@@ -5467,7 +5469,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 		col = 42;
 
-		if (!npc && (autoroller || autochara))
+		if (!auto_generate && (autoroller || autochara))
 		{
 			Term_clear();
 
@@ -5501,7 +5503,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Feedback */
-		if (!npc && autoroller)
+		if (!auto_generate && autoroller)
 		{
 			/* Label */
 #ifdef JP
@@ -5548,7 +5550,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Auto-roll */
-		while (!npc && (autoroller || autochara))
+		while (!auto_generate && (autoroller || autochara))
 		{
 			bool accept = TRUE;
 
@@ -5647,7 +5649,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			}
 		}
 
-		if (!npc && (autoroller || autochara)) sound(SOUND_LEVEL);
+		if (!auto_generate && (autoroller || autochara)) sound(SOUND_LEVEL);
 
 		/* Flush input */
 		flush();
@@ -5689,7 +5691,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 				set_creature_hp_percent(cr_ptr, 100);
 			set_creature_sp_percent(cr_ptr, 100);
 
-			if(npc) break;
+			if(auto_generate) break;
 
 			/* Display the player */
 			display_player(mode, cr_ptr);
@@ -5791,7 +5793,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		}
 
 		/* Are we done? */
-		if (npc || c == '\r' || c == '\n' || c == ESCAPE) break;
+		if (auto_generate || c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
 		save_prev_data(cr_ptr, &settled_player_species);
@@ -5801,7 +5803,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		prev = TRUE;
 	}
 
-	if(!npc)
+	if(!auto_generate)
 	{
 	/* Clear prompt *
 		clear_from(23);
@@ -5820,7 +5822,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	get_max_stats(cr_ptr);
 
-	if(npc) return (TRUE);
+	if(auto_generate) return (TRUE);
 
 
 	/* Prompt for it */
