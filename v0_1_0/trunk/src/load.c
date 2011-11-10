@@ -611,75 +611,6 @@ static errr rd_inventory_r(creature_type *cr_ptr)
 #define RF4_BR_GRAV         0x00800000  /* Breathe Gravity */
 #define RF4_BR_SHAR         0x01000000  /* Breathe Shards */
 #define RF4_BR_WALL         0x04000000  /* Breathe Force */
-/*
- * Read the monster lore
- */
-static void rd_lore(int species_idx)
-{
-	byte tmp8u;
-
-	species_type *r_ptr = &species_info[species_idx];
-
-	/* Count sights/deaths/kills */
-	rd_s16b(&r_ptr->r_sights);
-	rd_s16b(&r_ptr->r_deaths);
-	rd_s16b(&r_ptr->r_pkills);
-	rd_s16b(&r_ptr->r_akills);
-	rd_s16b(&r_ptr->r_tkills);
-
-	/* Count wakes and ignores */
-	rd_byte(&r_ptr->r_wake);
-	rd_byte(&r_ptr->r_ignore);
-
-	/* Extra stuff */
-	rd_byte(&r_ptr->r_xtra1);
-	rd_byte(&r_ptr->r_xtra2);
-
-	/* Count drops */
-	rd_byte(&r_ptr->r_drop_gold);
-	rd_byte(&r_ptr->r_drop_item);
-
-	/* Count spells */
-	rd_byte(&tmp8u);
-	rd_byte(&r_ptr->r_cast_spell);
-
-	/* Count blows of each type */
-	rd_byte(&r_ptr->r_blows[0]);
-	rd_byte(&r_ptr->r_blows[1]);
-	rd_byte(&r_ptr->r_blows[2]);
-	rd_byte(&r_ptr->r_blows[3]);
-
-	/* Memorize flags */
-	rd_u32b(&r_ptr->r_flags1);
-	rd_u32b(&r_ptr->r_flags2);
-	rd_u32b(&r_ptr->r_flags3);
-	rd_u32b(&r_ptr->r_flags4);
-	rd_u32b(&r_ptr->r_flags5);
-	rd_u32b(&r_ptr->r_flags6);
-	rd_u32b(&r_ptr->r_flags10);
-
-	/* Read the "Racial" monster limit per level */
-	rd_byte(&r_ptr->max_num);
-
-	/* Location in saved floor */
-	rd_s16b(&r_ptr->floor_id);
-
-	/* Later (?) */
-	rd_byte(&tmp8u);
-
-	/* Repair the lore flags */
-	r_ptr->r_flags1 &= r_ptr->flags1;
-	r_ptr->r_flags2 &= r_ptr->flags2;
-	r_ptr->r_flags3 &= r_ptr->flags3;
-	r_ptr->r_flags4 &= r_ptr->flags4;
-	r_ptr->r_flags5 &= r_ptr->flags5;
-	r_ptr->r_flags6 &= r_ptr->flags6;
-	r_ptr->r_flags10 &= r_ptr->flags10;
-
-	rd_s16b(&r_ptr->start_wx);
-	rd_s16b(&r_ptr->start_wy);
-}
-
 
 
 
@@ -1322,6 +1253,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_u32b(&cr_ptr->count);
 
 	/* Update */
+	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
 }
 
@@ -2008,33 +1940,13 @@ note("メッセージをロードしました");
 		else if (r_ptr->race_idx1 == RACE_NAZGUL) r_ptr->max_num = MAX_NAZGUL_NUM;
 	}
 
-	/* Monster Memory */
-	rd_u16b(&tmp16u);
-
-	/* Incompatible save files */
-	if (tmp16u > max_species_idx)
-	{
-#ifdef JP
-note(format("モンスターの種族が多すぎる(%u)！", tmp16u));
-#else
-		note(format("Too many (%u) monster races!", tmp16u));
-#endif
-
-		return (21);
-	}
-
-	/* Read the available records */
-	for (i = 0; i < tmp16u; i++)
-	{
-		/* Read the lore */
-		rd_lore(i);
-	}
-
+	/* TODO NEW CREATURE LORE
 #ifdef JP
 note(format("モンスターの思い出をロードしました:%u", tmp16u));
 #else
 	if (arg_fiddle) note("Loaded Monster Memory");
 #endif
+	*/
 
 
 	/* Unique monsters */

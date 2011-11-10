@@ -186,67 +186,6 @@ static void wr_item(object_type *o_ptr)
 
 
 /*
- * Write a "lore" record
- */
-static void wr_lore(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	/* Count sights/deaths/kills */
-	wr_s16b(r_ptr->r_sights);
-	wr_s16b(r_ptr->r_deaths);
-	wr_s16b(r_ptr->r_pkills);
-	wr_s16b(r_ptr->r_akills);
-	wr_s16b(r_ptr->r_tkills);
-
-	/* Count wakes and ignores */
-	wr_byte(r_ptr->r_wake);
-	wr_byte(r_ptr->r_ignore);
-
-	/* Extra stuff */
-	wr_byte(r_ptr->r_xtra1);
-	wr_byte(r_ptr->r_xtra2);
-
-	/* Count drops */
-	wr_byte(r_ptr->r_drop_gold);
-	wr_byte(r_ptr->r_drop_item);
-
-	/* Count spells */
-	wr_byte(0); /* unused now */
-	wr_byte(r_ptr->r_cast_spell);
-
-	/* Count blows of each type */
-	wr_byte(r_ptr->r_blows[0]);
-	wr_byte(r_ptr->r_blows[1]);
-	wr_byte(r_ptr->r_blows[2]);
-	wr_byte(r_ptr->r_blows[3]);
-
-	/* Memorize flags */
-	wr_u32b(r_ptr->r_flags1);
-	wr_u32b(r_ptr->r_flags2);
-	wr_u32b(r_ptr->r_flags3);
-	wr_u32b(r_ptr->r_flags4);
-	wr_u32b(r_ptr->r_flags5);
-	wr_u32b(r_ptr->r_flags6);
-	wr_u32b(r_ptr->r_flags10);
-
-
-	/* Monster limit per level */
-	wr_byte(r_ptr->max_num);
-
-	/* Location in saved floor */
-	wr_s16b(r_ptr->floor_id);
-
-	/* Later (?) */
-	wr_byte(0);
-
-	wr_s16b(r_ptr->start_wx);
-	wr_s16b(r_ptr->start_wy);
-
-}
-
-
-/*
  * Write an "xtra" record
  */
 static void wr_xtra(int k_idx)
@@ -1300,12 +1239,6 @@ static bool wr_savefile_new(void)
 	{
 		wr_string(message_str((s16b)i));
 	}
-
-
-	/* Dump the monster lore */
-	tmp16u = max_species_idx;
-	wr_u16b(tmp16u);
-	for (i = 0; i < tmp16u; i++) wr_lore(i);
 
 	/* Unique monsters */
 	wr_u16b(max_unique);
