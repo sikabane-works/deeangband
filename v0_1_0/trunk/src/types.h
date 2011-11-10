@@ -1171,11 +1171,12 @@ struct creature_type
 	s16b oldpy;		/* Previous player location -KMW- */
 	s16b oldpx;		/* Previous player location -KMW- */
 
-	s16b race_idx1;			    /* Intelligence race index */
-	s16b race_idx2;			    /* Intelligence race index */
-	s16b species_idx;			    /* Monster race index */
-	s16b monster_ego_idx;		    /* Monster ego index */
-	s16b ap_species_idx;		    /* Monster race appearance index */
+	s16b race_idx1;			    // Intelligence race index //
+	s16b race_idx2;			    // Intelligence race index //
+	s16b species_idx;			// Species index //
+	s16b ap_species_idx;		// Species appearance index //
+	s16b monster_ego_idx;		// Ego index //
+	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    /* Sub-alignment for a neutral monster */
 	u32b sub_race[8];       /* Sub-Race flags */
 	u32b authority[8];      /* Autority flags*/

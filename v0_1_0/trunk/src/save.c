@@ -470,6 +470,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->monster_ego_idx);
 	wr_s16b(cr_ptr->cls_idx);
 	wr_s16b(cr_ptr->chara_idx);
+	wr_s16b(cr_ptr->starting_idx);
 	wr_s16b(cr_ptr->sex);
 	wr_s16b(cr_ptr->realm1);
 	wr_s16b(cr_ptr->realm2);

@@ -1034,6 +1034,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->monster_ego_idx);
 	rd_s16b(&cr_ptr->cls_idx);
 	rd_s16b(&cr_ptr->chara_idx);
+	rd_s16b(&cr_ptr->starting_idx);
 	rd_s16b(&cr_ptr->sex);
 	rd_s16b(&cr_ptr->realm1);
 	rd_s16b(&cr_ptr->realm2);
