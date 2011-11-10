@@ -4079,8 +4079,9 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 		case TV_POLEARM:
 		case TV_SWORD:
 		{
-			if (!cr_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_1STARM);
-			if (cr_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_1STARM);
+			if(!can_equip(cr_ptr, INVEN_1STARM)) return -1;
+			if(!cr_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_1STARM);
+			if(cr_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_1STARM);
 			return (INVEN_2NDARM);
 		}
 
@@ -4088,6 +4089,7 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 		case TV_CARD:
 		case TV_SHIELD:
 		{
+			if(!can_equip(cr_ptr, INVEN_1STARM)) return -1;
 			if (!cr_ptr->inventory[INVEN_2NDARM].k_idx) return (INVEN_2NDARM);
 			if (cr_ptr->inventory[INVEN_1STARM].k_idx) return (INVEN_2NDARM);
 			return (INVEN_1STARM);
@@ -4095,12 +4097,14 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 
 		case TV_BOW:
 		{
+			if(!can_equip(cr_ptr, INVEN_BOW)) return -1;
 			return (INVEN_BOW);
 		}
 
 		case TV_RING:
 		{
 			/* Use the right hand first */
+			if(!can_equip(cr_ptr, INVEN_RIGHT) && !can_equip(cr_ptr, INVEN_LEFT)) return -1;
 			if (!cr_ptr->inventory[INVEN_RIGHT].k_idx) return (INVEN_RIGHT);
 
 			/* Use the left hand for swapping (by default) */
@@ -4109,11 +4113,13 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 
 		case TV_AMULET:
 		{
+			if(!can_equip(cr_ptr, INVEN_NECK)) return -1;
 			return (INVEN_NECK);
 		}
 
 		case TV_LITE:
 		{
+			if(!can_equip(cr_ptr, INVEN_LITE)) return -1;
 			return (INVEN_LITE);
 		}
 
@@ -4121,17 +4127,20 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 		case TV_HARD_ARMOR:
 		case TV_SOFT_ARMOR:
 		{
+			if(!can_equip(cr_ptr, INVEN_BODY)) return -1;
 			return (INVEN_BODY);
 		}
 
 		case TV_CLOAK:
 		{
+			if(!can_equip(cr_ptr, INVEN_OUTER)) return -1;
 			return (INVEN_OUTER);
 		}
 
 		case TV_CROWN:
 		case TV_HELM:
 		{
+			if(!can_equip(cr_ptr, INVEN_1STHEAD)) return -1;
 			if      (!cr_ptr->inventory[INVEN_1STHEAD].k_idx) return (INVEN_1STHEAD);
 			else if (!cr_ptr->inventory[INVEN_2NDHEAD].k_idx && cr_ptr->num_head > 1) return (INVEN_2NDHEAD);
 			else if (!cr_ptr->inventory[INVEN_3RDHEAD].k_idx && cr_ptr->num_head > 2) return (INVEN_3RDHEAD);
@@ -4140,22 +4149,26 @@ s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr)
 
 		case TV_GLOVES:
 		{
+			if(!can_equip(cr_ptr, INVEN_1STHANDS)) return -1;
 			return (INVEN_1STHANDS);
 		}
 
 		case TV_BOOTS:
 		{
+			if(!can_equip(cr_ptr, INVEN_FEET)) return -1;
 			return (INVEN_FEET);
 		}
 
 		case TV_TAIL:
 		{
+			if(!can_equip(cr_ptr, INVEN_TAIL)) return -1;
 			return (INVEN_TAIL);
 		}
 
 		case TV_INSTRUMENT:
 		case TV_WHISTLE:
 		{
+			if(!can_equip(cr_ptr, INVEN_INSTRUMENT)) return -1;
 			return (INVEN_INSTRUMENT);
 		}
 

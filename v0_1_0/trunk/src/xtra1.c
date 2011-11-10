@@ -3067,15 +3067,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	else tmp_rcr_ptr = &race_info[cr_ptr->race_idx1];
 	tmp_rcr_ptr2 = &race_info[cr_ptr->race_idx2];
 
-	/* Body Size */
 	cr_ptr->size = body_size = calc_bodysize(cr_ptr->ht, cr_ptr->wt);
-
-	/* Level Limit */
-	/* ... EXPFACT has no relation at level limit ...
-	for(i = 1; i < PY_MORTAL_LIMIT_LEVEL; i++)
-		if(creature_exp[PY_MORTAL_LIMIT_LEVEL] < creature_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
-			break;
-	*/
 
 	/* Base infravision (purely racial) */
 	cr_ptr->see_infra = tmp_rcr_ptr->infra;
@@ -4578,8 +4570,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		cr_ptr->to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
 		cr_ptr->dis_to_h[default_hand] += (cr_ptr->skill_exp[GINOU_SUDE]) / 200;
-		cr_ptr->to_d[default_hand] += cr_ptr->size * (100 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
-		cr_ptr->dis_to_d[default_hand] += cr_ptr->size * (100 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		cr_ptr->to_d[default_hand] += cr_ptr->size * (10 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
+		cr_ptr->dis_to_d[default_hand] += cr_ptr->size * (10 + (cr_ptr->skill_exp[GINOU_SUDE]) / 200) / 100;
 	}
 
 	if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
