@@ -5098,8 +5098,20 @@ int show_inven(int target_item, creature_type *cr_ptr)
 		k++;
 	}
 
+
 	/* Find the column to start in */
 	col = (len > wid - 4) ? 0 : (wid - len - 1);
+
+	if(!k)
+	{
+#if JP
+		put_str("[‰½‚à‚Á‚Ä‚¢‚È‚¢]", 1, wid - 20);
+#else
+		put_str(" [No item.] ", 1, wid - 13);
+#endif
+		return 0;
+	}
+
 
 	/* Output each entry */
 	for (j = 0; j < k; j++)
@@ -5120,6 +5132,7 @@ int show_inven(int target_item, creature_type *cr_ptr)
 #ifdef JP
 				strcpy(tmp_val, "t");
 #else
+
 				strcpy(tmp_val, "> ");
 #endif
 				target_item_label = i;
@@ -5277,6 +5290,16 @@ int show_equip(int target_item, creature_type *cr_ptr)
 
 		/* Advance the entry */
 		k++;
+	}
+
+	if(!k)
+	{
+#if JP
+		put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, wid - 22);
+#else
+		put_str(" [No equipment.] ", 1, wid - 18);
+#endif
+		return 0;
 	}
 
 	/* Hack -- Find a column to start in */
