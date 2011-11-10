@@ -89,6 +89,10 @@ void check_experience(creature_type *cr_ptr)
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
 
+	if (cr_ptr->dr >= 0)
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
+	else
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	/* Lose levels while possible */
 	while ((cr_ptr->lev > 1) &&

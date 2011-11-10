@@ -463,11 +463,6 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	if (tmp_int < -1) tmp_int = -1;
 	if (tmp_int > 30) tmp_int = 30;
 	cr_ptr->dr = tmp_int;
-	
-	if (cr_ptr->dr >= 0)
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
-	else
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	check_experience(cr_ptr);
 

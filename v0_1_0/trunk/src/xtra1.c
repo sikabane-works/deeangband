@@ -751,17 +751,17 @@ static void prt_exp(creature_type *cr_ptr)
 
 	if ((!exp_need)||(IS_RACE(cr_ptr, RACE_ANDROID)))
 	{
-		(void)sprintf(out_val, "%8ld", (long)cr_ptr->exp);
+		(void)sprintf(out_val, "%9ld", (long)cr_ptr->exp);
 	}
 	else
 	{
 		if (cr_ptr->lev >= cr_ptr->max_lev)
 		{
-			(void)sprintf(out_val, "********");
+			(void)sprintf(out_val, "*********");
 		}
 		else
 		{
-			(void)sprintf(out_val, "%8ld", (long)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
+			(void)sprintf(out_val, "%9ld", (long)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L) - cr_ptr->exp);
 		}
 	}
 
@@ -882,7 +882,7 @@ static void prt_sp(creature_type *cr_ptr)
 #endif
 
 	/* 現在のマジックポイント */
-	sprintf(tmp, "%4ld", cr_ptr->csp);
+	sprintf(tmp, "%5ld", cr_ptr->csp);
 
 	if (cr_ptr->csp >= cr_ptr->msp)
 	{
@@ -897,13 +897,13 @@ static void prt_sp(creature_type *cr_ptr)
 		color = TERM_RED;
 	}
 
-	c_put_str(color, tmp, ROW_CURSP, COL_CURSP+3);
+	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 2);
 
 	/* 区切り */
 	put_str( "/", ROW_CURSP, COL_CURSP + 7 );
 
 	/* 最大マジックポイント */
-	sprintf(tmp, "%4ld", cr_ptr->msp);
+	sprintf(tmp, "%5d", cr_ptr->msp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 8);
@@ -2938,9 +2938,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	/* Clear the stat modifiers */
 	for (i = 0; i < 6; i++) cr_ptr->stat_add[i] = 0;
 
-	/* Level Limit */
-	cr_ptr->max_lev = 0;
-
 	/* Clear the Displayed/Real armor class */
 	cr_ptr->dis_ac = cr_ptr->ac = 0;
 
@@ -3079,11 +3076,6 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(creature_exp[PY_MORTAL_LIMIT_LEVEL] < creature_exp[i + 1] * (cr_ptr->expfact - 50) / 100L)
 			break;
 	*/
-
-	if (cr_ptr->dr >= 0)
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
-	else
-		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
 	/* Base infravision (purely racial) */
 	cr_ptr->see_infra = tmp_rcr_ptr->infra;
