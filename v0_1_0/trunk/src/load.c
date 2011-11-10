@@ -1040,6 +1040,7 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->realm2);
 
 	rd_s16b(&cr_ptr->camp);
+	rd_s16b(&cr_ptr->master);
 
 	/* Special Race/Class info */
 	rd_s16b(&cr_ptr->hitdice);

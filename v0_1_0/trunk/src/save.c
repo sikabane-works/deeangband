@@ -476,6 +476,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s16b(cr_ptr->realm2);
 
 	wr_s16b(cr_ptr->camp);
+	wr_s16b(cr_ptr->master);
 
 	wr_s16b(cr_ptr->hitdice);
 	wr_u16b(cr_ptr->expfact);
