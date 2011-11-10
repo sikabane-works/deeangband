@@ -39,6 +39,11 @@ void set_experience(creature_type *cr_ptr)
 	/* Hack -- maintain "max max" experience */
 	if (cr_ptr->max_exp > cr_ptr->max_max_exp) cr_ptr->max_max_exp = cr_ptr->max_exp;
 
+	if (cr_ptr->dr >= 0)
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + cr_ptr->dr;
+	else
+		cr_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
+
 	/* Gain levels while possible */
 	while ((cr_ptr->lev < cr_ptr->max_lev) &&
 	       (cr_ptr->exp >= ((android ? creature_exp_a : creature_exp)[cr_ptr->lev-1] * cr_ptr->expfact / 100L)))

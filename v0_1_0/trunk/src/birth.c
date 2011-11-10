@@ -5702,20 +5702,20 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 			cr_ptr->iven_fitting_rate[i] = 100;
 
+
 		/* Input loop */
 		while (TRUE)
 		{
 
-			deal_creature_equipment(cr_ptr);
-
 			set_experience(cr_ptr);
+			deal_creature_equipment(cr_ptr);
 			calc_bonuses(cr_ptr, FALSE);
 
-			/* Calculate the bonuses and hitpoints */
+			// Calculate the bonuses and hitpoints
+			// Update stuff 
 			cr_ptr->update |= (PU_BONUS | PU_HP | PU_MANA);
-
-			/* Update stuff */
 			update_stuff(cr_ptr, FALSE);
+
 
 			/* And start out fully healthy */
 			if (cr_ptr->species_idx == MON_WOUNDED_BEAR)
