@@ -49,7 +49,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 1
-#define VER_PATCH 34
+#define VER_PATCH 35
 #define VER_EXTRA 0
 
 #define ANGBAND_2_8_1
@@ -4660,7 +4660,7 @@ extern int PlayerUID;
 #define MS_S_UNIQUE       95
 
 
-#define MON_STIGMATIC_ONE          0
+#define MON_STIGMATIC_ONE 0
 #define MON_BEGGAR        12
 #define MON_LEPER         13
 #define MON_BLACK_MARKET  14

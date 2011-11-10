@@ -6802,7 +6802,7 @@ quit("セーブファイルが壊れています");
 			while (1)
 			{
 				/* Roll up a new character */
-				if(generate_creature(cr_ptr, MON_SERPENT, &settled_player_species, GC_PLAYER)) break;
+				if(generate_creature(cr_ptr, MON_STIGMATIC_ONE, &settled_player_species, GC_PLAYER)) break;
 
 				/* Wipe the player */
 				creature_wipe(cr_ptr);
@@ -6810,9 +6810,6 @@ quit("セーブファイルが壊れています");
 			wilderness_x = settled_player_species.start_wx;
 			wilderness_y = settled_player_species.start_wy;
 		}
-
-
-
 
 		/* Initialize random quests */
 		init_dungeon_quests();
