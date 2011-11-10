@@ -2849,11 +2849,14 @@ u32b weight_limit(creature_type *cr_ptr)
 {
 	u32b i;
 
-	/* Weight limit based only on strength */
-	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 50; /* Constant was 100 */
+	// Weight limit based only on strength
+	// Constant was 100
+	i = (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 25;
+	i *= cr_ptr->size / 10 * cr_ptr->size / 10 * cr_ptr->size / 10;
+	i += (u32b)adj_str_wgt[cr_ptr->stat_ind[STAT_STR]] * 25;
 	if (cr_ptr->cls_idx == CLASS_BERSERKER) i = i * 3 / 2;
 
-	/* Return the result */
+	// Return the result
 	return i;
 }
 
