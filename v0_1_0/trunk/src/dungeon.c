@@ -3533,7 +3533,7 @@ static byte get_dungeon_feeling(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Ignore pet */
-		if (is_pet(m_ptr)) continue;
+		if (is_pet(player_ptr, m_ptr)) continue;
 
 		r_ptr = &species_info[m_ptr->species_idx];
 

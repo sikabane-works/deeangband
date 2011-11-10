@@ -1662,7 +1662,7 @@ static void do_cmd_wiz_zap(creature_type *cr_ptr)
 		/* Delete nearby monsters */
 		if (m_ptr->cdis <= MAX_SIGHT)
 		{
-			if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+			if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
 				char m_name[80];
 
@@ -1694,7 +1694,7 @@ static void do_cmd_wiz_zap_all(creature_type *cr_ptr)
 		/* Skip the mount */
 		if (i == cr_ptr->riding) continue;
 
-		if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
 			char m_name[80];
 

@@ -1058,7 +1058,7 @@ bool change_wild_mode(creature_type *cr_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
-		if (is_pet(m_ptr) && i != cr_ptr->riding) have_pet = TRUE;
+		if (is_pet(player_ptr, m_ptr) && i != cr_ptr->riding) have_pet = TRUE;
 		if (m_ptr->paralyzed) continue;
 		if (m_ptr->cdis > MAX_SIGHT) continue;
 		if (!is_hostile(m_ptr)) continue;

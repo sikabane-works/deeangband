@@ -770,7 +770,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	object_type *q_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !inside_arena
-		&& !inside_battle && !is_pet(cr_ptr);
+		&& !inside_battle && !is_pet(player_ptr, cr_ptr);
 
 	/* The caster is dead? */
 	if (world_monster && &creature_list[world_monster] == cr_ptr) world_monster = 0;
@@ -786,7 +786,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	y = cr_ptr->fy;
 	x = cr_ptr->fx;
 
-	if (record_named_pet && is_pet(cr_ptr) && cr_ptr->nickname)
+	if (record_named_pet && is_pet(player_ptr, cr_ptr) && cr_ptr->nickname)
 	{
 		char m_name[80];
 
@@ -822,7 +822,7 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 	check_quest_completion(p_ptr, cr_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (inside_arena && !is_pet(cr_ptr))
+	if (inside_arena && !is_pet(player_ptr, cr_ptr))
 	{
 		p_ptr->exit_bldg = TRUE;
 
@@ -891,7 +891,7 @@ msg_print("地面に落とされた。");
 	/* Drop a dead corpse? */
 	if (one_in_(has_cf_creature(cr_ptr, CF_UNIQUE) ? 1 : 4) &&
 	    (has_cf_creature(cr_ptr, CF_DROP_CORPSE) || has_cf_creature(cr_ptr, CF_DROP_SKELETON)) &&
-	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(cr_ptr))))
+	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(player_ptr, cr_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -950,7 +950,7 @@ msg_print("地面に落とされた。");
 			for (i = 0; i < 2; i++)
 			{
 				int wy = y, wx = x;
-				bool pet = is_pet(cr_ptr);
+				bool pet = is_pet(player_ptr, cr_ptr);
 				u32b mode = 0L;
 
 				if (pet) mode |= PM_FORCE_PET;
@@ -1024,7 +1024,7 @@ msg_print("地面に落とされた。");
 			{
 				int wy = y, wx = x;
 				int attempts = 100;
-				bool pet = is_pet(cr_ptr);
+				bool pet = is_pet(player_ptr, cr_ptr);
 
 				do
 				{
@@ -1346,7 +1346,7 @@ msg_print("地面に落とされた。");
 	if (cloned && !(is_unique_creature(cr_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(cr_ptr) || inside_battle || inside_arena)
+	if (is_pet(player_ptr, cr_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1467,7 +1467,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	int exp_limit;
 
 	if (!tar_ptr->species_idx) return;
-	if (is_pet(tar_ptr) || inside_battle) return;
+	if (is_pet(player_ptr, tar_ptr) || inside_battle) return;
 
 	/*
 	 * - Ratio of monster's level to player's level effects
@@ -1846,7 +1846,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 		/* Full information is not needed */
 		attitude = "";
 	}
-	else if (is_pet(m_ptr))
+	else if (is_pet(player_ptr, m_ptr))
 	{
 #ifdef JP
 		attitude = ", ペット";
@@ -2309,7 +2309,7 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			/* Require target_able monsters for "TARGET_KILL" */
 			if ((mode & (TARGET_KILL)) && !target_able(c_ptr->m_idx)) continue;
 
-			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(&creature_list[c_ptr->m_idx])) continue;
+			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(player_ptr, &creature_list[c_ptr->m_idx])) continue;
 
 			/* Save the location */
 			temp_x[temp_n] = x;

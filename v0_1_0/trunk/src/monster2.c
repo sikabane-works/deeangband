@@ -514,7 +514,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	}
 
 
-	if (is_pet(cr_ptr)) check_pets_num_and_align(cr_ptr, FALSE);
+	if (is_pet(player_ptr, cr_ptr)) check_pets_num_and_align(cr_ptr, FALSE);
 
 
 	/* Wipe the Monster */
@@ -610,7 +610,7 @@ static void compact_monsters_aux(int i1, int i2)
 	if (p_ptr->health_who == i1) health_track(i2);
 
 	/* Hack -- Update parent index */
-	if (is_pet(m_ptr))
+	if (is_pet(player_ptr, m_ptr))
 	{
 		for (i = 1; i < m_max; i++)
 		{
@@ -699,7 +699,7 @@ void compact_monsters(int size)
 			/* All monsters get a saving throw */
 			if (randint0(100) < chance) continue;
 
-			if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+			if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
 				char m_name[80];
 
@@ -1871,7 +1871,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 	else
 	{
 		/* Tanuki? */
-		if (is_pet(m_ptr) && !is_original_ap(m_ptr))
+		if (is_pet(player_ptr, m_ptr) && !is_original_ap(m_ptr))
 		{
 #ifdef JP
 			char *t;
@@ -1952,7 +1952,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 		else
 		{
 			/* Definite monsters need a definite article */
-			if (is_pet(m_ptr))
+			if (is_pet(player_ptr, m_ptr))
 #ifdef JP
 				(void)strcpy(desc, "‚ ‚È‚½‚Ì");
 #else
@@ -2253,7 +2253,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 
 
-		if (is_pet(m_ptr))
+		if (is_pet(player_ptr, m_ptr))
 			return; /* Pet eldritch horrors are safe most of the time */
 
 		if (randint1(100) > power) return;
@@ -3091,7 +3091,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 		if (!species_idx) return;
 	}
 
-	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
 
 	m_ptr->species_idx = species_idx;
 	m_ptr->ap_species_idx = species_idx;
@@ -3112,7 +3112,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
 		p_ptr->update |= (PU_MON_LITE);
 
-	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
+	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
 
 	if (born)
 	{
@@ -3233,7 +3233,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	number = 0;
 	//TODO Inventory Count
 
-	if (is_pet(creature_ptr) || inside_battle || inside_arena)
+	if (is_pet(player_ptr, creature_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
 
 	/* Get local object */
@@ -3899,7 +3899,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	m_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
-	if (!is_player(who_ptr) && is_pet(who_ptr))
+	if (!is_player(who_ptr) && is_pet(player_ptr, who_ptr))
 	{
 		mode |= PM_FORCE_PET;
 		//TODO Parent Set

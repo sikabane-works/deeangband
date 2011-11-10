@@ -487,7 +487,7 @@ void set_friendly(creature_type *m_ptr)
 
 void set_pet(creature_type *m_ptr)
 {
-	if (!is_pet(m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
+	if (!is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, TRUE);
 
 	/* Check for quest completion */
 	check_quest_completion(p_ptr, m_ptr);
@@ -504,7 +504,7 @@ void set_hostile(creature_type *m_ptr)
 {
 	if (inside_battle) return;
 
-	if (is_pet(m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
+	if (is_pet(player_ptr, m_ptr)) check_pets_num_and_align(m_ptr, FALSE);
 
 	m_ptr->smart &= ~SM_PET;
 	m_ptr->smart &= ~SM_FRIENDLY;
@@ -634,14 +634,14 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 
 	if (inside_battle)
 	{
-		if (is_pet(m_ptr) || is_pet(n_ptr)) return FALSE;
+		if (is_pet(player_ptr, m_ptr) || is_pet(player_ptr, n_ptr)) return FALSE;
 		return TRUE;
 	}
 
 	if ((is_wild_all_species(r_ptr) || is_wild_town_species(r_ptr) || is_citizen_species(r_ptr))
 	    && (is_wild_all_species(r_ptr) || is_wild_town_species(r_ptr) || is_citizen_species(s_ptr)))
 	{
-		if (!is_pet(m_ptr) && !is_pet(n_ptr)) return FALSE;
+		if (!is_pet(player_ptr, m_ptr) && !is_pet(player_ptr, n_ptr)) return FALSE;
 	}
 
 	/* Friendly vs. opposite aligned normal or pet */

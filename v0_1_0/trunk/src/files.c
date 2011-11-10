@@ -4536,7 +4536,7 @@ static void dump_aux_pet(creature_type *cr_ptr, FILE *fff)
 		creature_type *m_ptr = &creature_list[i];
 
 		if (!m_ptr->species_idx) continue;
-		if (!is_pet(m_ptr)) continue;
+		if (!is_pet(player_ptr, m_ptr)) continue;
 		pet_settings = TRUE;
 		if (!m_ptr->nickname && (cr_ptr->riding != i)) continue;
 		if (!pet)

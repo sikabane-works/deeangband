@@ -4630,13 +4630,13 @@ void aggravate_monsters(creature_type *cr_ptr)
 				(void)set_paralyzed(&creature_list[i], 0);
 				sleep = TRUE;
 			}
-			if (!is_pet(m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
+			if (!is_pet(player_ptr, m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
 		}
 
 		/* Speed up monsters in line of sight */
 		if (player_has_los_bold(m_ptr->fy, m_ptr->fx))
 		{
-			if (!is_pet(m_ptr))
+			if (!is_pet(player_ptr, m_ptr))
 			{
 				(void)set_fast(m_ptr, m_ptr->fast + 100, FALSE);
 				speed = TRUE;
@@ -4666,7 +4666,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool         resist = FALSE;
 
-	if (is_pet(m_ptr) && !player_cast) return FALSE;
+	if (is_pet(player_ptr, m_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Monsters or Quest Monsters */
 	if ((is_quest_species(r_ptr)) || is_unique_species(r_ptr)) resist = TRUE;
@@ -4684,7 +4684,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 	/* Delete the monster */
 	else
 	{
-		if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
 			char m_name[80];
 
@@ -4721,7 +4721,7 @@ bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spe
 #endif
 			}
 		}
-		if (is_friendly(m_ptr) && !is_pet(m_ptr))
+		if (is_friendly(m_ptr) && !is_pet(player_ptr, m_ptr))
 		{
 			if (see_m)
 			{
@@ -5149,7 +5149,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 				}
 				else
 				{
-					if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+					if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
 						char m_name[80];
 
@@ -5696,7 +5696,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 						if (c_ptr->m_idx)
 						{
-							if (record_named_pet && is_pet(&creature_list[c_ptr->m_idx]) && creature_list[c_ptr->m_idx].nickname)
+							if (record_named_pet && is_pet(player_ptr, &creature_list[c_ptr->m_idx]) && creature_list[c_ptr->m_idx].nickname)
 							{
 								char m2_name[80];
 
@@ -5882,7 +5882,7 @@ void discharge_minion(void)
 	for (i = 1; i < m_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		if (!m_ptr->species_idx || !is_pet(m_ptr)) continue;
+		if (!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
 		if (m_ptr->nickname) okay = FALSE;
 	}
 	if (!okay || p_ptr->riding)
@@ -5900,7 +5900,7 @@ void discharge_minion(void)
 		creature_type *m_ptr = &creature_list[i];
 		species_type *r_ptr;
 
-		if (!m_ptr->species_idx || !is_pet(m_ptr)) continue;
+		if (!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
 		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Uniques resist discharging */
@@ -7215,7 +7215,7 @@ int summon_cyber(creature_type *cr_ptr, int y, int x)
 
 	/* Summoned by a monster */
 	if (cr_ptr)
-		if (is_pet(cr_ptr)) mode |= PM_FORCE_PET;
+		if (is_pet(player_ptr, cr_ptr)) mode |= PM_FORCE_PET;
 
 	if (max_cyber > 4) max_cyber = 4;
 

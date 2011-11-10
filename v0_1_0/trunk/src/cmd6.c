@@ -6345,7 +6345,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			/* Process the monsters (backwards) */
 			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
-				if (is_pet(&creature_list[pet_ctr]) && (cr_ptr->riding != pet_ctr))
+				if (is_pet(player_ptr, &creature_list[pet_ctr]) && (cr_ptr->riding != pet_ctr))
 				  who[max_pet++] = pet_ctr;
 			}
 

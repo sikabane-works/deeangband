@@ -82,7 +82,7 @@ static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
 	int grid_n = 0;
 	u16b grid_g[512];
 
-	bool friend = is_pet(m_ptr);
+	bool friend = is_pet(player_ptr, m_ptr);
 
 	/* Check the projection path */
 	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, PROJECT_THRU);

@@ -3509,7 +3509,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					msg_print("There's something in the way!");
 #endif
 
-					if (!m_ptr->ml || !is_pet(m_ptr)) creature_attack(cr_ptr, y, x, 0);
+					if (!m_ptr->ml || !is_pet(player_ptr, m_ptr)) creature_attack(cr_ptr, y, x, 0);
 					break;
 				}
 				else if (have_flag(f_ptr->flags, FF_TREE))
@@ -3760,7 +3760,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					(r_ptr->level < randint1(cr_ptr->lev+50)) &&
 					!(m_ptr->mflag2 & MFLAG2_NOGENO))
 				{
-					if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+					if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
 						char m_name[80];
 

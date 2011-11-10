@@ -1565,7 +1565,7 @@ msg_print("カチッと音がした！");
 					int i;
 					u32b mode = 0L;
 
-					if (is_player(who_ptr) || is_pet(who_ptr))
+					if (is_player(who_ptr) || is_pet(player_ptr, who_ptr))
 						mode |= PM_FORCE_PET;
 
 					for (i = 0; i < o_ptr->number ; i++)
@@ -2914,7 +2914,7 @@ note = "には効果がなかった。";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((inside_arena) || is_pet(tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| is_sub_unique_creature(tar_ptr))
+			if ((inside_arena) || is_pet(player_ptr, tar_ptr) || (is_quest_creature(tar_ptr)) || is_unique_creature(tar_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)|| is_sub_unique_creature(tar_ptr))
 			{
 #ifdef JP
 note = "には効果がなかった。";
@@ -4849,7 +4849,7 @@ note_dies = "はドロドロに溶けた！";
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
-			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(tar_ptr)) ||
+			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, tar_ptr)) ||
 			    (is_unique_creature(tar_ptr)) || (r_ptr->race_idx1 == RACE_NAZGUL) || is_sub_unique_creature(tar_ptr) || (is_quest_creature(tar_ptr)) || tar_ptr->parent_m_idx)
 			{
 #ifdef JP
@@ -4861,7 +4861,7 @@ note_dies = "はドロドロに溶けた！";
 				break;
 			}
 
-			if (is_pet(tar_ptr)) nokori_hp = tar_ptr->mhp * 4L;
+			if (is_pet(player_ptr, tar_ptr)) nokori_hp = tar_ptr->mhp * 4L;
 			else if ((who_ptr->cls_idx == CLASS_BEASTMASTER) && monster_living(r_ptr))
 				nokori_hp = (tar_ptr->mhp * 3 / 10) > (who_ptr->lev * 2) ? (tar_ptr->mhp * 3 / 10) : (who_ptr->lev * 2);
 			else
@@ -5176,7 +5176,7 @@ note = "には効果がなかった！";
 				if (dam < 1) dam = 1;
 
 				/* No need to tame your pet */
-				if (is_pet(tar_ptr))
+				if (is_pet(player_ptr, tar_ptr))
 				{
 #ifdef JP
 					note = "の動きが速くなった。";
@@ -5494,7 +5494,7 @@ note = "には効果がなかった。";
 		{
 			bool sad = FALSE;
 
-			if (is_pet(tar_ptr) && !(tar_ptr->ml))
+			if (is_pet(player_ptr, tar_ptr) && !(tar_ptr->ml))
 				sad = TRUE;
 
 			/* Give detailed messages if destroyed */
@@ -5559,7 +5559,7 @@ note = "には効果がなかった。";
 		if (seen_msg) msg_print("The Mangy looking leper is healed!");
 #endif
 
-		if (record_named_pet && is_pet(tar_ptr) && tar_ptr->nickname)
+		if (record_named_pet && is_pet(player_ptr, tar_ptr) && tar_ptr->nickname)
 		{
 			char m2_name[80];
 
@@ -5741,7 +5741,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		play_window |= (PW_MONSTER);
 	}
 
-	if ((dam > 0) && !is_pet(tar_ptr) && !is_friendly(tar_ptr))
+	if ((dam > 0) && !is_pet(player_ptr, tar_ptr) && !is_friendly(tar_ptr))
 	{
 		if (who_ptr == who_ptr)
 		{
@@ -5750,7 +5750,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 				set_target(tar_ptr, monster_target_y, monster_target_x);
 			}
 		}
-		else if ((who_ptr != who_ptr) && is_pet(who_ptr) && !creature_bold(tar_ptr, tar_ptr->target_y, tar_ptr->target_x))
+		else if ((who_ptr != who_ptr) && is_pet(player_ptr, who_ptr) && !creature_bold(tar_ptr, tar_ptr->target_y, tar_ptr->target_x))
 		{
 			set_target(tar_ptr, who_ptr->fy, who_ptr->fx);
 		}

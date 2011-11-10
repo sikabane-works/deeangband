@@ -465,7 +465,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 		if ((cave[y][x].m_idx > 0) && !((y == y2) && (x == x2)))
 		{
 			creature_type *m_ptr = &creature_list[cave[y][x].m_idx];
-			if (friend == is_pet(m_ptr))
+			if (friend == is_pet(player_ptr, m_ptr))
 			{
 				return (FALSE);
 			}

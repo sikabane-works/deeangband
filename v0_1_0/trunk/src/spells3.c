@@ -788,7 +788,7 @@ void teleport_level(creature_type *cr_ptr, int m_idx)
 		/* Check for quest completion */
 		check_quest_completion(cr_ptr, m_ptr);
 
-		if (record_named_pet && is_pet(m_ptr) && m_ptr->nickname)
+		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
 			char m2_name[80];
 
@@ -5464,7 +5464,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 
 		/* Get the monsters attitude */
 		if (is_friendly(m_ptr)) mode |= PM_FORCE_FRIENDLY;
-		if (is_pet(m_ptr)) mode |= PM_FORCE_PET;
+		if (is_pet(player_ptr, m_ptr)) mode |= PM_FORCE_PET;
 		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
 
 		/* Mega-hack -- ignore held objects */

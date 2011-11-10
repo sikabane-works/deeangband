@@ -7361,7 +7361,7 @@ static void do_cmd_knowledge_pets(void)
 		if (!m_ptr->species_idx) continue;
 
 		/* Calculate "upkeep" for pets */
-		if (is_pet(m_ptr))
+		if (is_pet(player_ptr, m_ptr))
 		{
 			t_friends++;
 			creature_desc(pet_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);

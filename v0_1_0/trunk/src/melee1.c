@@ -229,7 +229,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		/* Hack -- no more attacks */
 		if (!method) break;
 
-		if (is_pet(atk_ptr) && (is_unique_species(r_ptr)) && (method == RBM_EXPLODE))
+		if (is_pet(player_ptr, atk_ptr) && (is_unique_species(r_ptr)) && (method == RBM_EXPLODE))
 		{
 			method = RBM_HIT;
 			d_dice /= 10;

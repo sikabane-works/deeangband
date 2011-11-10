@@ -42,7 +42,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 		y = creature_list[riding_t_m_idx].fy;
 		x = creature_list[riding_t_m_idx].fx;
 	}
-	else if (is_pet(m_ptr) && pet_t_m_idx)
+	else if (is_pet(player_ptr, m_ptr) && pet_t_m_idx)
 	{
 		y = creature_list[pet_t_m_idx].fy;
 		x = creature_list[pet_t_m_idx].fx;
@@ -72,7 +72,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
 			/* Paranoia -- Skip dead monsters */
 			if (!t_ptr->species_idx) continue;
 
-			if (is_pet(m_ptr))
+			if (is_pet(player_ptr, m_ptr))
 			{
 				/* Hack -- only fight away from player */
 				if (cr_ptr->pet_follow_distance < 0)
@@ -366,9 +366,9 @@ msg_format("%^sÇÕéEÇ≥ÇÍÇΩÅB", m_name);
 
 #endif /* ALLOW_FEAR */
 
-	if ((dam > 0) && !is_pet(cr_ptr) && !is_friendly(cr_ptr) && (&creature_list[who] != cr_ptr))
+	if ((dam > 0) && !is_pet(player_ptr, cr_ptr) && !is_friendly(cr_ptr) && (&creature_list[who] != cr_ptr))
 	{
-		if (is_pet(&creature_list[who]) && !creature_bold(cr_ptr, cr_ptr->target_y, cr_ptr->target_x))
+		if (is_pet(player_ptr, &creature_list[who]) && !creature_bold(cr_ptr, cr_ptr->target_y, cr_ptr->target_x))
 		{
 			set_target(cr_ptr, creature_list[who].fy, creature_list[who].fx);
 		}
@@ -426,7 +426,7 @@ static int mon_will_run(int m_idx)
 #endif
 
 	/* Friends can be commanded to avoid the player */
-	if (is_pet(m_ptr))
+	if (is_pet(player_ptr, m_ptr))
 	{
 		/* Are we trying to avoid the player? */
 		return ((p_ptr->pet_follow_distance < 0) &&
@@ -1189,7 +1189,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	}
 
 	/* Apply fear if possible and necessary */
-	if (is_pet(nonplayer_ptr) && will_run)
+	if (is_pet(player_ptr, nonplayer_ptr) && will_run)
 	{
 		/* XXX XXX Not very "smart" */
 		y = (-y), x = (-x);
@@ -1534,7 +1534,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #endif
 		}
 
-		if (record_named_pet && is_pet(nonplayer_ptr) && nonplayer_ptr->nickname)
+		if (record_named_pet && is_pet(player_ptr, nonplayer_ptr) && nonplayer_ptr->nickname)
 		{
 			char m_name[80];
 
@@ -1559,7 +1559,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		{
 			bool sad = FALSE;
 
-			if (is_pet(nonplayer_ptr) && !(nonplayer_ptr->ml))
+			if (is_pet(player_ptr, nonplayer_ptr) && !(nonplayer_ptr->ml))
 				sad = TRUE;
 
 			if (see_m)
@@ -1600,7 +1600,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 //	if (nonplayer_ptr->species_idx == MON_SHURYUUDAN)
 //		creature_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
 
-	if ((is_pet(nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
+	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
 		static int riding_pinch = 0;
 
@@ -1733,7 +1733,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
-	if (is_pet(nonplayer_ptr) &&
+	if (is_pet(player_ptr, nonplayer_ptr) &&
 	    (((is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
 	      monster_has_hostile_align(NULL, 10, -10, r_ptr))
 	     || (nonplayer_ptr->resist_ultimate)))
@@ -1745,10 +1745,10 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 	if (gets_angry)
 	{
-		if (is_pet(nonplayer_ptr) || see_m)
+		if (is_pet(player_ptr, nonplayer_ptr) || see_m)
 		{
 			char m_name[80];
-			creature_desc(m_name, nonplayer_ptr, is_pet(nonplayer_ptr) ? MD_ASSUME_VISIBLE : 0);
+			creature_desc(m_name, nonplayer_ptr, is_pet(player_ptr, nonplayer_ptr) ? MD_ASSUME_VISIBLE : 0);
 #ifdef JP
 			msg_format("%^sÇÕìÀëRìGÇ…Ç‹ÇÌÇ¡ÇΩÅI", m_name);
 #else
@@ -1788,7 +1788,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
 		{
 			/* Try to multiply */
-			if (multiply_monster(m_idx, FALSE, (is_pet(nonplayer_ptr) ? PM_FORCE_PET : 0)))
+			if (multiply_monster(m_idx, FALSE, (is_pet(player_ptr, nonplayer_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
 				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, nonplayer_ptr))
@@ -1814,7 +1814,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				{
 					int  k, count = 0;
 					int  rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
-					u32b p_mode = is_pet(nonplayer_ptr) ? PM_FORCE_PET : 0L;
+					u32b p_mode = is_pet(player_ptr, nonplayer_ptr) ? PM_FORCE_PET : 0L;
 
 					for (k = 0; k < 6; k++)
 					{
@@ -1873,7 +1873,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 #else
 				filename = "monfear.txt";
 #endif
-			else if (is_pet(nonplayer_ptr))
+			else if (is_pet(player_ptr, nonplayer_ptr))
 #ifdef JP
 				filename = "monpet_j.txt";
 #else
@@ -2001,7 +2001,7 @@ msg_format("%^s%s", m_name, monmessage);
 	}
 
 	/* Pets will follow the player */
-	else if (is_pet(nonplayer_ptr))
+	else if (is_pet(player_ptr, nonplayer_ptr))
 	{
 		/* Are we trying to avoid the player? */
 		bool avoid = ((player_ptr->pet_follow_distance < 0) &&
@@ -2147,7 +2147,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Creature can open doors. */
 			if (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
-				 (!is_pet(nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+				 (!is_pet(player_ptr, nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
 				if (!f_ptr->power)
@@ -2182,7 +2182,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Stuck doors -- attempt to bash them down if allowed */
 			if (may_bash && has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
-				(!is_pet(nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
+				(!is_pet(player_ptr, nonplayer_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
 				if (check_hp_for_feat_destruction(f_ptr, nonplayer_ptr) && (randint0(nonplayer_ptr->chp / 10) > f_ptr->power))
@@ -2253,7 +2253,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(nonplayer_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
+			if (!is_pet(player_ptr, nonplayer_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
 			{
 				/* Describe observable breakage */
 				if (c_ptr->info & CAVE_MARK)
@@ -2286,7 +2286,7 @@ msg_format("%^s%s", m_name, monmessage);
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(nonplayer_ptr))
+			if (!is_pet(player_ptr, nonplayer_ptr))
 			{
 				/* Break the ward */
 				if (randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
@@ -2578,7 +2578,7 @@ msg_format("%^s%s", m_name, monmessage);
 
 			/* Take or Kill objects on the floor */
 			if (c_ptr->o_idx && (has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM) || has_cf_creature(nonplayer_ptr, CF_KILL_ITEM)) &&
-			    (!is_pet(nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM))))
+			    (!is_pet(player_ptr, nonplayer_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM))))
 			{
 				s16b this_o_idx, next_o_idx;
 				bool do_take = has_cf_creature(nonplayer_ptr, CF_TAKE_ITEM) ? TRUE : FALSE;
@@ -2669,7 +2669,7 @@ msg_format("%^s%s", m_name, monmessage);
 					}
 
 					/* Destroy the item if not a pet */
-					else if (!is_pet(nonplayer_ptr))
+					else if (!is_pet(player_ptr, nonplayer_ptr))
 					{
 						/* Take note */
 						did_kill_item = TRUE;
@@ -2896,7 +2896,7 @@ void process_monsters(creature_type *cr_ptr)
 		test = FALSE;
 
 		/* Handle "sensing radius" */
-		if (m_ptr->cdis <= (is_pet(m_ptr) ? (r_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+		if (m_ptr->cdis <= (is_pet(player_ptr, m_ptr) ? (r_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
 		{
 			/* We can "sense" the player */
 			test = TRUE;
@@ -3081,7 +3081,7 @@ static void process_monsters_mtimed_aux(creature_type *watcher_ptr, creature_typ
 		if (cr_ptr->cdis < AAF_LIMIT)
 		{
 			/* Handle "sensing radius" */
-			if (cr_ptr->cdis <= (is_pet(cr_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+			if (cr_ptr->cdis <= (is_pet(player_ptr, cr_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
 			{
 				/* We may wake up */
 				test = TRUE;
@@ -3345,7 +3345,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 		set_creature_hp_percent(m_ptr, old_hp * 100 / old_mhp);
 
 		/* Sub-alignment of a monster */
-		if (!is_pet(m_ptr) && !(is_enemy_of_evil_species(r_ptr) & is_enemy_of_good_species(r_ptr)))
+		if (!is_pet(player_ptr, m_ptr) && !(is_enemy_of_evil_species(r_ptr) & is_enemy_of_good_species(r_ptr)))
 			m_ptr->sub_align = old_sub_align;
 		else
 		{
@@ -3356,7 +3356,7 @@ void monster_gain_exp(int m_idx, int s_idx)
 
 		m_ptr->exp = 0;
 
-		if (is_pet(m_ptr) || m_ptr->ml)
+		if (is_pet(player_ptr, m_ptr) || m_ptr->ml)
 		{
 			if (!ignore_unview || player_can_see_bold(p_ptr, m_ptr->fy, m_ptr->fx))
 			{

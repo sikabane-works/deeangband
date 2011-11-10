@@ -1444,7 +1444,7 @@ int calculate_upkeep(creature_type *cr_ptr)
 		m_ptr = &creature_list[m_idx];
 		if (!m_ptr->species_idx) continue;
 
-		if (is_pet(m_ptr))
+		if (is_pet(player_ptr, m_ptr))
 		{
 			total_friends++;
 			if (is_unique_creature(cr_ptr))
@@ -1506,7 +1506,7 @@ void do_cmd_pet_dismiss(creature_type *cr_ptr)
 	/* Process the monsters (backwards) */
 	for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 	{
-		if (is_pet(&creature_list[pet_ctr]))
+		if (is_pet(player_ptr, &creature_list[pet_ctr]))
 			who[max_pet++] = pet_ctr;
 	}
 
@@ -1904,7 +1904,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 
 			return FALSE;
 		}
-		if (!is_pet(m_ptr) && !force)
+		if (!is_pet(player_ptr, m_ptr) && !force)
 		{
 #ifdef JP
 			msg_print("そのモンスターはペットではありません。");
@@ -2017,7 +2017,7 @@ static void do_name_pet(void)
 	{
 		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
 
-		if (!is_pet(m_ptr))
+		if (!is_pet(player_ptr, m_ptr))
 		{
 			/* Message */
 #ifdef JP
@@ -2592,7 +2592,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 			for (pet_ctr = m_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
 				/* Player has pet */
-				if (is_pet(&creature_list[pet_ctr])) break;
+				if (is_pet(player_ptr, &creature_list[pet_ctr])) break;
 			}
 
 			if (!pet_ctr)
@@ -2676,7 +2676,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 					/* Access the monster */
 					m_ptr = &creature_list[pet_ctr];
 
-					if (is_pet(m_ptr))
+					if (is_pet(player_ptr, m_ptr))
 					{
 						monster_drop_carried_objects(m_ptr);
 					}

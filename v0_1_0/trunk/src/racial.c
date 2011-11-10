@@ -1310,7 +1310,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 			msg_format("You ride on %s.",steed_name);
 #endif
-			if (is_pet(steed_ptr)) break;
+			if (is_pet(player_ptr, steed_ptr)) break;
 			rlev = steed_ptr->lev;
 			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;

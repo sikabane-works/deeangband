@@ -389,7 +389,7 @@ static void preserve_pet(creature_type *cr_ptr)
 			creature_type *m_ptr = &creature_list[i];
 
 			if (!m_ptr->species_idx) continue;
-			if (!is_pet(m_ptr)) continue;
+			if (!is_pet(player_ptr, m_ptr)) continue;
 			if (i == cr_ptr->riding) continue;
 
 			if (reinit_wilderness)
@@ -439,7 +439,7 @@ static void preserve_pet(creature_type *cr_ptr)
 			char m_name[80];
 
 			if (!m_ptr->species_idx) continue;
-			if (!is_pet(m_ptr)) continue;
+			if (!is_pet(player_ptr, m_ptr)) continue;
 			if (!m_ptr->nickname) continue;
 			if (cr_ptr->riding == i) continue;
 
@@ -1213,7 +1213,7 @@ void change_floor(creature_type *cr_ptr)
 				/* Skip dead monsters */
 				if (!m_ptr->species_idx) continue;
 
-				if (!is_pet(m_ptr))
+				if (!is_pet(player_ptr, m_ptr))
 				{
 					/* Restore HP */
 					m_ptr->chp = m_ptr->mhp = m_ptr->mmhp;

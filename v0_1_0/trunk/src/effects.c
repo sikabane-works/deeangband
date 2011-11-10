@@ -6361,7 +6361,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				int dummy_x = tar_ptr->fx;
 				u32b mode = 0L;
 	
-				if (is_pet(tar_ptr)) mode |= PM_FORCE_PET;
+				if (is_pet(player_ptr, tar_ptr)) mode |= PM_FORCE_PET;
 	
 				/* Delete the monster */
 				delete_species_idx(tar_ptr);

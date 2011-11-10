@@ -3776,11 +3776,11 @@
 #define is_friendly_idx(IDX) \
 	 (bool)((IDX) > 0 && is_friendly(&creature_list[(IDX)]))
 
-#define is_pet(A) \
+#define is_pet(B, A) \
 	 (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)
 
 #define is_hostile(A) \
-	 (bool)((is_friendly(A) || is_pet(A)) ? FALSE : TRUE)
+	 (bool)((is_friendly(A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
 
 /* Hack -- Determine monster race appearance index is same as race index */
 #define is_original_ap(A) \
@@ -5946,3 +5946,6 @@ extern int PlayerUID;
 
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
 
+
+#define CAMP_PLAYER   0
+#define CAMP_DUNGEON  1
