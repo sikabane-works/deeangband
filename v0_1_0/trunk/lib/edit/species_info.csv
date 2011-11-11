@@ -2,7 +2,7 @@
 0,"〈烙印〉の者","Stigmatic One","@","w","VARIABLE","VARIABLE","VARIABLE","VARIABLE","VARIABLE","VARIABLE","VARIABLE","VARIABLE",0,1,0,0,0,0,0,0,"NONE","NONE",-1,0,0,0,0,10,10,10,10,10,10,170,0,60,0,160,0,50,0,,,,"STIGMATIC",,,,,"J0#
 D'ang#
 ＠さんに設定を与えてみた",,,,,
-1,"浮浪児","Urchin","t","D","HUMAN","HUMAN","0x02","TOURIST","NONE",0,0,0,0,2,0,0,10,14,0,1,"NONE","NONE",-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
+1,"浮浪児","Urchin","t","D","VARIABLE","VARIABLE","VARIABLE","TOURIST","NONE","VARIABLE",0,0,0,2,0,0,10,14,0,1,"NONE","NONE",-1,110,4,1,40,8,6,6,7,6,4,136,10,26,4,130,10,22,4,"BEG
 TOUCH:EAT_GOLD",,,"WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON|FORCE_LESSER_EGO[80%]",,,"彼らは汚らしくて本当に頭に来る奴だ。","they look squalid and thoroughly revolting.","J0#
 D'and#
 エゴ名がつくために名称を縮めるUrchin単体でもクソガキ位の意味はもつらしい。",,,,,
@@ -12,7 +12,7 @@ D'and#
 4,"ズアオアトリ","Chaffinch","B","r","BIRD","BIRD","0x01","BLUE_MAGE","NONE",0,0,0,0,3,0,3,0,0,0,1,"NONE","NONE",-1,110,30,1,10,4,4,4,5,4,4,16,1,1,0,16,1,1,0,"BITE:HURT:1d3",,,"RAND_25|CAN_FLY|WILD_ONLY|WILD_WOOD|WILD_GRASS|DROP_SKELETON",,,"頭青花鶏。怒らせなければ全く無害だ。","Utterly harmless, except when angry.","JZ#(コメント)
 訳は 紫月閑丸さん",,,,,
 5,"野うさぎ","Wild rabbit","r","U","RODENT","RODENT","0x01","BLUE_MAGE","NONE",0,0,0,0,3,0,3,200,205,0,1,"NONE","NONE",-1,110,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,"BITE:HURT:1d3",,,"RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE",,,"肉食ではないが、近付き過ぎると身を守るため攻撃してくる。","It is not a carnivore, but will defend itself if you stray too close. ","JZ#",,,,,
-6,"きこり","Woodsman","p","g","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,18,100,83,0,1,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
+6,"きこり","Woodsman","p","g","VARIABLE","VARIABLE","0x01","WARRIOR","NONE","VARIABLE",0,0,0,1,0,18,100,83,0,1,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,"SEX_F3|WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,"鋭く頑丈な斧を持っている。","He has an axe with a sharp and strong edge. ","JZ#",,,,,
 7,"みすぼらしい子犬","Scruffy little dog","C","U","CANINE","CANINE","0x01","BLUE_MAGE","NONE",0,0,0,0,3,0,0,6,35,0,1,"NONE","NONE",-1,110,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,"BITE:HURT:1d3",,,"RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY",,,"ノミの住みかのようなやせた犬で、人が近づくとうなる。","A thin flea-ridden mutt, growling as you get close. ","J0#",,,,,
 8,"農夫『マゴット』","Farmer Maggot","h","w","HOBBIT","HOBBIT","0x02","ROGUE","NONE",3,"SORCERY",0,0,3,0,24,0,0,101,29,"NONE","NONE",-1,110,40,10,3,12,9,8,12,12,11,92,0,21,0,92,0,21,0,"MOAN
@@ -21,38 +21,38 @@ HIT:HURT:1d5","53:1d1
 54:1d1
 55:1d1","232:0:0:100","UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,"　丸い赤ら顔のずんぐりしたホビットが、姿を現しました「マゴットじいさんがどうしたっていうんです？」と、ピピンがたずねました。「あのひとはブランディバック一族のだれとでも仲良くやってますよ。むろん、 黙ってじいさんの土地に入ってくるやつらには、ひどく怖い存在だし、獰猛な犬も 飼ってるけど---だけど、このあたりに住んでいれば,庄境にも近いし、よそより 用心してかからなきゃならないわけですよ。」（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語）","Before you appears a broad thick-set hobbit with a round red face. ""What's wrong with old Maggot?"" asked Pippin. ""He's a good friend to  $all the Brandybucks. Of course he's a terror to trespassers, and keeps ferocious dogs -- but after all, folk down here are near the border and have to be more on their guard.""","J0#
 J0#",,,,,
-9,"泣きじゃくる白痴","Blubbering idiot","t","W","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO",,,"彼らはいつも泣いてばかりいる。","They tend to blubber a lot. ","J0#",,,,,
-10,"浮浪者","Hippie","t","g","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,5,0,0,0,1,"NONE","NONE",-1,110,6,1,0,10,10,10,10,10,10,155,15,39,2,155,15,39,2,"DROOL",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"
+9,"泣きじゃくる白痴","Blubbering idiot","t","W","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO",,,"彼らはいつも泣いてばかりいる。","They tend to blubber a lot. ","J0#",,,,,
+10,"浮浪者","Hippie","t","g","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,5,0,0,0,1,"NONE","NONE",-1,110,6,1,0,10,10,10,10,10,10,155,15,39,2,155,15,39,2,"DROOL",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"
 醜い奴等だが、一番の特徴はその醜さではない。","Ugly doesn't begin to describe them.","http://www.hobo.org を参照。日本人にはよく分からない。
 D'ang#
 上のは2011年現在消滅、最近のWikipediaにホーボーの解説が出ている。
 http://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%83%9C%E3%83%BC
 個人的意向から英訳をHippieに変えた。",,,,,
-11,"わめくキチガイ","Raving lunatic","t","G","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,120,6,1,0,10,10,10,10,10,10,155,15,42,2,152,15,39,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO",,,"よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？","Drooling and comical, but then, what do you expect? ","JZ#",,,,,
-12,"乞食","Beggar","t","U","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,3,10,14,0,1,"NONE","NONE",-1,110,10,1,40,10,10,10,10,10,10,153,15,40,2,153,15,40,2,"BEG",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO",,,"
+11,"わめくキチガイ","Raving lunatic","t","G","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,120,6,1,0,10,10,10,10,10,10,155,15,42,2,152,15,39,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO",,,"よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？","Drooling and comical, but then, what do you expect? ","JZ#",,,,,
+12,"乞食","Beggar","t","U","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,3,10,14,0,1,"NONE","NONE",-1,110,10,1,40,10,10,10,10,10,10,153,15,40,2,153,15,40,2,"BEG",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO",,,"
 彼らを見ると、どうしても哀れだという思いを禁じ得ない。","You just can't help feeling sorry for them.","JO#
 D'ang#
 名称を短縮",,,,,
-13,"うろつく病人","Prowling leper","t","u","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,50,10,10,10,10,10,10,156,10,42,2,151,10,39,2,"BEG
+13,"うろつく病人","Prowling leper","t","u","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,50,10,10,10,10,10,10,156,10,42,2,151,10,39,2,"BEG
 TOUCH:DISEASE",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER_EGO",,,"彼に触るのは危険な気がする。","You feel it isn't safe to touch him. ","J0#(コメント)
 「ライ病」という言葉は問題がある、という指摘を受けた。
 私は知識不足でそのことに関しては判断しかねるが、気になる人がいるのならあえて、「ライ病」とする必要もないであろうと思い「病人」にした。
 J0# * leper = ライ病患者
 D'ang#
 名称を短縮",,,,,
-14,"闇市の仕入れ人","Agent of black market","t","D","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,3,10,44,0,1,"NONE","NONE",-1,110,10,8,99,10,10,10,10,10,10,158,10,47,2,152,10,40,2,"HIT:HURT:1d6
+14,"闇市の仕入れ人","Agent of black market","t","D","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,3,10,44,0,1,"NONE","NONE",-1,110,10,8,99,10,10,10,10,10,10,158,10,47,2,152,10,40,2,"HIT:HURT:1d6
 TOUCH:EAT_ITEM",,,"SEX_F25|DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼はブラックマーケットの商品を「拾って」来る。油断した冒険者から...","He 'finds' new wares for the Black Market. From unwary adventurers... 
 ...","JZ#",,,,,
-15,"鬱陶しい酔っぱらい","Singing, happy drunk","t","y","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,110,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,"BEG",,,"SEX_F10|HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"誰でも彼に会えば、酔いを覚ましてあげたいような気になる。","He makes you glad to be sober.
+15,"鬱陶しい酔っぱらい","Singing, happy drunk","t","y","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,110,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,"BEG",,,"SEX_F10|HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"誰でも彼に会えば、酔いを覚ましてあげたいような気になる。","He makes you glad to be sober.
 ","J0#",,,,,
-16,"あてどない商人","Aimless merchant","t","o","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,255,10,10,10,10,10,10,160,10,53,2,152,10,47,2,"HIT:HURT:1d5",,,"SEX_F10|HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO",,,"町をふらつく典型的なクズで、財布をじゃらじゃらさせて、魅力のアミュレット
+16,"あてどない商人","Aimless merchant","t","o","VARIABLE","VARIABLE","0x01","TOURIST","NONE","VARIABLE",0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,255,10,10,10,10,10,10,160,10,53,2,152,10,47,2,"HIT:HURT:1d5",,,"SEX_F10|HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO",,,"町をふらつく典型的なクズで、財布をじゃらじゃらさせて、魅力のアミュレット
 を買おうと町を探し回っている。","The typical ponce around town, with purse jingling, and looking for more 
 amulets of adornment to buy.
 
 ","J0#",,,,,
-17,"貧乏傭兵","Mean mercenary","t","R","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,13,8,43,0,1,"NONE","NONE",-1,110,10,20,250,10,10,10,10,10,10,161,10,53,2,156,10,44,2,"HIT:HURT:1d10",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"仕事が見つからないことが彼をいっそう貧しくしている。","No job is too low for him.
+17,"貧乏傭兵","Mean mercenary","t","R","VARIABLE","VARIABLE","0x01","WARRIOR","NONE","VARIABLE",0,0,0,1,0,13,8,43,0,1,"NONE","NONE",-1,110,10,20,250,10,10,10,10,10,10,161,10,53,2,156,10,44,2,"HIT:HURT:1d10",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"仕事が見つからないことが彼をいっそう貧しくしている。","No job is too low for him.
 ","J0#",,,,,
-18,"戦傷兵","Battle scarred veteran","t","r","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,17,8,43,0,1,"NONE","NONE",-1,110,10,30,250,10,10,10,10,10,10,163,10,48,2,155,10,44,2,"HIT:HURT:2d6",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼は見知らぬ人に優しく接したりはしない。","He doesn't take to strangers kindly.
+18,"戦傷兵","Battle scarred veteran","t","r","VARIABLE","VARIABLE","0x01","WARRIOR","NONE","VARIABLE",0,0,0,1,0,17,8,43,0,1,"NONE","NONE",-1,110,10,30,250,10,10,10,10,10,10,163,10,48,2,155,10,44,2,"HIT:HURT:2d6",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼は見知らぬ人に優しく接したりはしない。","He doesn't take to strangers kindly.
 ","J0# 
 訳は都々目さんによる",,,,,
 19,"鳩『ポッポ』","Hato Poppo","B","s","WAREFOLK","WAREFOLK","0x02","TOURIST","NONE",3,0,0,0,4,0,24,0,0,0,95,"NONE","NONE",-1,111,50,15,4,10,10,10,10,10,10,178,0,72,0,178,0,72,0,"HIT:HURT:1d3",,,"UNIQUE|CAN_SPEAK|FRIENDLY|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP|EMPTY_MIND",,,,,"#D'ang
@@ -1057,7 +1057,7 @@ BITE:POISON:1d8",,,"FRIENDS|CAN_FLY|FORCE_MAXHP|IM_COLD|IM_ELEC|IM_POIS|WEIRD_MI
 ","JZ#",,,,,
 236,"ブラウン・キラービートル","Killer brown beetle","K","u","INSECT","INSECT","0x01","BLUE_MAGE","NONE",0,0,0,13,2,0,38,400,378,0,0,"NONE","NONE",-1,110,10,40,30,13,13,13,13,13,13,165,10,55,3,165,10,55,3,"BITE:HURT:3d4",,,"WEIRD_MIND|BASH_DOOR|CAN_FLY|DROP_CORPSE",,,"それは頑丈な甲羅を持った邪悪な昆虫だ。","It is a vicious insect with a tough carapace.
 ","J0#",,,,,
-237,"イークの大王『ボルドール』","Boldor, King of the Yeeks","y","v","YEEK","YEEK","0x02","PALADIN","NONE",0,0,0,18,255,0,200,0,0,0,0,"NONE","NONE",0,120,18,24,10,14,18,19,13,15,13,173,0,65,0,0,0,0,0,"HIT:HURT:1d9
+237,"イークの大王『ボルドール』","Boldor, King of the Yeeks","y","v","YEEK","YEEK","0x02","PALADIN","NONE",0,0,0,18,255,0,1673,0,0,0,0,"NONE","NONE",0,120,18,24,10,14,18,19,13,15,13,173,0,65,0,0,0,0,0,"HIT:HURT:1d9
 HIT:HURT:1d9
 HIT:HURT:1d8",,,"UNIQUE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|HAS_LITE_2|ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|DROP_CORPSE|IM_ACID","1_IN_2|HEAL|BLINK|TPORT|BLIND|SLOW|S_KIN",,"彼は魔法と執政に長けたイークとは思えぬイークの王であったが、
 己の種としての限界に苦しみ、狂気に染まった。","
@@ -1247,7 +1247,7 @@ form.
 273,"浮遊髑髏","Flying skull","s","s","HUMAN","HUMAN","0x01","BLUE_MAGE","NONE",0,0,0,15,3,0,50,0,0,0,0,"NONE","NONE",-1,110,30,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"BITE:POISON:1d3
 BITE:LOSE_STR:1d4",,,"SKELETON|IM_POIS|IM_COLD|WEIRD_MIND|NO_FEAR|CAN_FLY|RES_NETH|NO_CONF|NO_SLEEP|DROP_60|BASH_DOOR|FRIENDS|COLD_BLOOD",,,"死霊術の呪文により動いている髑髏だ。","A skullpack animated by necromantic spells.
 ","JZ#",,,,,
-274,"ミ=ゴウ","Mi-Go","I","R","INSECT","INSECT","0x01","BLUE_MAGE","NONE",0,0,0,15,2,0,80,0,0,0,0,"NONE","NONE",-1,120,20,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"STING:POISON:1d4
+274,"ミ=ゴウ","Mi-Go","I","R","MI_GO","MI_GO","0x01","BLUE_MAGE","NONE",0,0,0,15,2,0,80,0,0,0,0,"NONE","NONE",-1,120,20,30,20,14,14,14,14,14,14,165,10,55,3,165,10,55,3,"STING:POISON:1d4
 BITE:LOSE_STR:1d2",,,"IM_POIS|IM_COLD|COLD_BLOOD|NO_SLEEP|NO_CONF|CAN_FLY|DROP_SKELETON","1_IN_6|CONF|S_MONSTER|S_DEMON",,"「それはピンクがかった 1.5m 程度の大きさの甲殻類の体をしていて、
 異常な数の背びれのような膜状の羽と、関節のあるいくつかの足が生えている。
 頭があるべき場所には渦巻き状の楕円体があり、多数の短い触角で覆われて
@@ -3766,7 +3766,7 @@ CRUSH:ACID:8d4",,,"FORCE_SLEEP|ATTR_MULTI|ATTR_ANY|MULTIPLY|RAND_25|RES_NEXU|AUR
 JZ#by 久留さん",,,,,
 627,"地獄の鉄槌","Hammer of hell","\","v","MIMIC","MIMIC","0x01","BLUE_MAGE","NONE",0,0,0,24,5,0,1000,0,0,0,0,"NONE","NONE",-1,100,30,40,0,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"CRUSH:SUPERHURT:30d1",,,"COLD_BLOOD|NO_SLEEP|NO_CONF|NO_FEAR|NO_STUN|NONLIVING|IM_ACID|IM_COLD|IM_POIS|RES_NETH|RES_DARK|BASH_DOOR",,,"犠牲者の装備と魂を固めて、地獄の鉄床で鍛えてできた禍々しい鉄槌だ。","A foul iron hammer forged with body and souls of victims on the infernal anvil.
 ",,,,,,
-628,"呪われし『マレキス』","Malekith the Accursed","h","v","DARK_ELF","DARK_ELF","0x02","BLUE_MAGE","NONE",0,0,0,40,2,0,7500,0,0,0,0,"NONE","NONE",0,125,20,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:12d9
+628,"呪われし『マレキス』","Malekith the Accursed","h","v","DARK_ELF","AVARI","0x02","BLUE_MAGE","NONE",0,0,0,40,2,0,7500,0,0,0,0,"NONE","NONE",0,125,20,70,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:12d9
 HIT:HURT:12d9",,,"REGENERATE|UNIQUE|CAN_SPEAK|FORCE_SLEEP|FORCE_MAXHP|DROP_CORPSE|ONLY_ITEM|DROP_90|DROP_4D2|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK|NO_CONF|NO_SLEEP|NO_STUN","1_IN_2|HEAL|TELE_TO|BLIND|CONF|CAUSE_3|DARKNESS|FORGET|HOLD|S_MONSTER|S_MONSTERS|S_DEMON|TPORT|BA_NETH|MIND_BLAST|S_KIN",,"最も古くから生きていて、最も強力なダークエルフのうちの一人である
 『マレキス』は、悪に身を捧げた魔法の達人である。顔の左半分は
 青白く、右半分は黒い。髪は長くて白い。","One of the oldest and most powerful dark elves, Malekith is a master 
@@ -3820,14 +3820,14 @@ BITE:FIRE:3d6
 BITE:FIRE:3d6
 BITE:FIRE:3d6",,,"FORCE_SLEEP|WILD_SHORE|WILD_SWAMP|ONLY_GOLD|DROP_2D2|DROP_4D2|CAN_SWIM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|DROP_CORPSE|IM_FIRE|RIDING","1_IN_4|SCARE|BO_FIRE|BR_FIRE",,"煙を立ち昇らせる九つの首を持った奇妙な雑種の爬虫類だ。","A strange reptilian hybrid with nine smouldering heads.
 ","J0#",,,,,
-636,"エンチャントレス","Enchantress","p","y","HUMAN","HUMAN","0x01","MAGE","NONE",0,0,0,40,4,0,2100,0,0,0,0,"NONE","NONE",0,130,20,0,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:2d6
+636,"エンチャントレス","Enchantress","p","y","VARIABLE","VARIABLE","0x01","MAGE","NONE",0,"TRUMP","VARIABLE",40,4,0,2100,0,0,0,0,"NONE","NONE",0,130,20,0,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:2d6
 HIT:HURT:2d6
 HIT:HURT:2d8",,,"FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_2D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|NO_CONF|NO_SLEEP","1_IN_2|BLIND|S_DRAGON",,"この逃げ足の速い女性の魔術師はドラゴンに特別に好かれており、
 常にドラゴンと一緒に戦う。","This elusive female spellcaster has a special affinity for dragons, whom 
 she rarely fights without.
 
 ","J0#",,,,,
-637,"アーチプリースト","Archpriest","p","b","HUMAN","HUMAN","0x01","ROGUE","NONE",0,0,0,40,2,0,1800,8000,689,0,0,"NONE","NONE",0,120,20,0,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
+637,"アーチプリースト","Archpriest","p","b","VARIABLE","VARIABLE","0x01","PRIEST","NONE",0,"VARIABLE","VARIABLE",40,2,0,1800,8000,689,0,0,"NONE","NONE",0,120,20,0,10,19,19,19,19,19,19,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
 HIT:HURT:3d4
 HIT:HURT:3d5",,,"HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_90|DROP_2D2|SMART|OPEN_DOOR|BASH_DOOR|NO_CONF|NO_SLEEP","1_IN_2|HEAL|BLIND|HOLD|CONF|CAUSE_3|ANIM_DEAD|S_MONSTER|S_UNDEAD",,"黒装束に身を包んだ邪悪なプリーストだ。哀れな冒険者の体に刺の付いたメイスを
 狂ったように打ちつけながらも、強力な効果を持った恐ろしい祈りを唱えてくる。","An evil priest, dressed all in black.  Deadly spells hit you at an 
