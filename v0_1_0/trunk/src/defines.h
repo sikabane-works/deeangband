@@ -3465,8 +3465,9 @@
 #define TR_ESP_UNIQUE          115
 #define TR_FULL_NAME           116
 #define TR_FIXED_FLAVOR        117
+#define TR_NO_LIMIT_LITE       120
 
-#define TR_FLAG_MAX            120
+#define TR_FLAG_MAX            121
 #define TR_FLAG_SIZE           4
 
 #define RR_RES_ACID            0
@@ -3503,7 +3504,7 @@
 #define TRG_RANDOM_CURSE0       0x00002000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE1       0x00004000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE2       0x00008000L     /* Item is Random Cursed */
-#define TRG_NO_LIGHT_LIMIT      0x00008000L     /* Item is no limit light */
+#define TRG_NO_LIMIT_LITE       0x00008000L     /* Item is no limit light */
 
 
 #define MAX_CURSE 17
