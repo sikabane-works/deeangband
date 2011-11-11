@@ -3222,6 +3222,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	int i, number;
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 	u32b mo_mode = 0L;
+
 	creature_ptr->total_weight = 0;
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
@@ -3286,6 +3287,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			q_ptr->number = (byte)rand_range(2, 5);
 			add_outfit(creature_ptr, q_ptr);
 		}
+
 		else if (creature_ptr->cls_idx != CLASS_NINJA)
 		{
 			// Hack -- Give the player some torches
@@ -3298,19 +3300,14 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		object_aware(&ob);
-		object_known(&ob);
-		add_outfit(creature_ptr, &ob);
+		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		add_outfit(creature_ptr, q_ptr);
 	}
+
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
 	{
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		object_aware(&ob);
-		object_known(&ob);
-		add_outfit(creature_ptr, &ob);
+		object_prep(q_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		add_outfit(creature_ptr, q_ptr);
 	}
 
 
@@ -3471,9 +3468,9 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	//
 	// Item depend on species_info
 	//
+	/*
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		/* Wipe the object */
 		if(!(&creature_ptr->inventory[i])) break;
 
 		if(!r_ptr->artifact_prob[i]) break;
@@ -3487,7 +3484,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 				{
 					int r;
 					object_type ob;
-					/* Equip the artifact */
+					// Equip the artifact
 					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
 					r = wield_slot(creature_ptr, &ob);
@@ -3503,6 +3500,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			add_outfit(creature_ptr, &ob);
 		}
 	}
+	*/
 
 
 }

@@ -4186,11 +4186,6 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 	int i, n;
 	selection ce[MAX_CHARA + 3];
 
-	if(sp_ptr->chara_idx != INDEX_VARIABLE)
-	{
-		cr_ptr->chara_idx = sp_ptr->chara_idx;
-		return 0;
-	}
 
 	for (i = 0, n = 0; i < MAX_CHARA; i++)
 	{
@@ -4203,6 +4198,12 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 			ce[n].l_color = TERM_WHITE;
 			n++;
 		}
+	}
+
+	if(npc)
+	{
+		cr_ptr->chara_idx = ce[randint0(n)].code;
+		return 0;
 	}
 
 #if JP
@@ -4237,12 +4238,6 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
-
-	if(!npc)
-	{
-		cr_ptr->chara_idx = ce[randint0(n)].code;
-		return 0;
-	}
 
 #if JP
 	put_str("«Ši‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
@@ -5420,14 +5415,21 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Character Select
 	//
 
-	if(!auto_generate)
+	if(sp_ptr->chara_idx == INDEX_VARIABLE)
 	{
-		clear_from(0);
-		put_initial_status(cr_ptr);
+		if(!auto_generate)
+		{
+			clear_from(0);
+			put_initial_status(cr_ptr);
+		}
+		i = get_creature_chara(cr_ptr, sp_ptr, auto_generate);
+		if(i == -2) return (FALSE);
+		if(i == -3) birth_quit();
 	}
-	i = get_creature_chara(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	else
+	{
+		cr_ptr->chara_idx = sp_ptr->chara_idx;
+	}
 
 	//
 	// Starting Point
