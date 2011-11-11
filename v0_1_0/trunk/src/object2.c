@@ -2041,8 +2041,6 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
 
-	// No Limit Lite
-	if (k_ptr->gen_flags & (TRG_NO_LIMIT_LITE)) add_flag(o_ptr->art_flags, TR_NO_LIMIT_LITE);
 
 }
 

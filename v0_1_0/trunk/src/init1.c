@@ -1262,6 +1262,7 @@ static cptr k_info_flags[] =
 
 	"SLAY_GOOD",
 	"KILL_GOOD",
+	"NO_LIMIT_LITE",
 
 };
 
