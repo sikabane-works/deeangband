@@ -3874,6 +3874,7 @@ static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool n
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
+	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
 
 	if(sp_ptr->sex != INDEX_VARIABLE)
 	{
@@ -3883,11 +3884,11 @@ static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool n
 
 	for (i = 0, n = 0; i < MAX_SEXES; i++)
 	{
-		strcpy(se[n].cap, sex_info[i].title);
-		se[n].code = i;
+		strcpy(se[n].cap, sex_info[list[i]].title);
+		se[n].code = list[i];
 		se[n].key = '\0';
-		if(race_info[cr_ptr->race_idx1].sex_flag & (0x01 << i) ||
-		   race_info[cr_ptr->race_idx2].sex_flag & (0x01 << i))
+		if(race_info[cr_ptr->race_idx1].sex_flag & (0x01 << list[i]) ||
+		   race_info[cr_ptr->race_idx2].sex_flag & (0x01 << list[i]))
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;

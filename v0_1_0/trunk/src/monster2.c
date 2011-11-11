@@ -3227,6 +3227,11 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
 
+	for(i = 0; i < INVEN_TOTAL; i++)
+	{
+		object_wipe(&creature_ptr->inventory[i]);
+	}
+
 	// TODO:  
 	object_level = creature_ptr->lev * 2;
 
@@ -3273,7 +3278,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 		/* Fuel with oil (move pval to xtra4) */
 		apply_magic(q_ptr, 1, AM_NO_FIXED_ART);
-
 		q_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(creature_ptr, q_ptr);
 	}
@@ -3298,14 +3302,22 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		}
 	}
 
+	return;
+
+	q_ptr = &forge;
+
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
+		q_ptr = &forge;
+
 		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
 		add_outfit(creature_ptr, q_ptr);
 	}
 
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
 	{
+		q_ptr = &forge;
+
 		object_prep(q_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
 		add_outfit(creature_ptr, q_ptr);
 	}
@@ -3322,6 +3334,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	if (creature_ptr->cls_idx == CLASS_RANGER)
 	{
+		q_ptr = &forge;
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
 		add_outfit(creature_ptr, q_ptr);
@@ -3329,6 +3342,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	else if (creature_ptr->cls_idx == CLASS_ARCHER)
 	{
+		q_ptr = &forge;
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
@@ -3337,6 +3351,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	else if (creature_ptr->cls_idx == CLASS_HIGH_MAGE)
 	{
 		/* Hack -- Give the player some arrows */
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_WAND, SV_WAND_MAGIC_MISSILE), ITEM_FREE_SIZE);
 		q_ptr->number = 1;
 		q_ptr->pval = (byte)rand_range(25, 30);
@@ -3347,6 +3362,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	{
 		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK+MAX_MAGIC-1; i++)
 		{
+			q_ptr = &forge;
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
 			q_ptr->number = 1;
@@ -3358,6 +3374,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	{
 		if (creature_ptr->chara_idx != CHARA_SEXY)
 		{
+			q_ptr = &forge;
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(15, 20);
@@ -3365,34 +3382,35 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			add_outfit(creature_ptr, q_ptr);
 		}
 
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-
 		add_outfit(creature_ptr, q_ptr);
 
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-
 		add_outfit(creature_ptr, q_ptr);
 
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(1, 3);
-
 		add_outfit(creature_ptr, q_ptr);
 
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-
 		add_outfit(creature_ptr, q_ptr);
 
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-
 		add_outfit(creature_ptr, q_ptr);
 	}
 	else if (creature_ptr->cls_idx == CLASS_NINJA)
 	{
 		/* Hack -- Give the player some arrows */
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
@@ -3401,6 +3419,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	else if (creature_ptr->cls_idx == CLASS_SNIPER)
 	{
 		/* Hack -- Give the player some bolts */
+		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
