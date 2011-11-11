@@ -3226,19 +3226,17 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
 
-	/* Average dungeon and monster levels */
-	object_level = (dun_level + r_ptr->level) / 2;
+	// TODO:  
+	object_level = creature_ptr->lev * 2;
 
 	/* inventory */
 	number = 0;
-	//TODO Inventory Count
-
-	if (is_pet(player_ptr, creature_ptr) || inside_battle || inside_arena)
-		number = 0; /* Pets drop no stuff */
+	// TODO Inventory Count
 
 	/* Get local object */
 	q_ptr = &forge;
 
+	// Food depend on creature_flags
 	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
 	{
 		/* Food rations */
@@ -3279,54 +3277,70 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		add_outfit(creature_ptr, q_ptr);
 	}
 
-
-	/* Get local object */
-	q_ptr = &forge;
-
 	if (has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
 		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
 		{
-			/* Hack -- Give the player scrolls of DARKNESS! */
+			// Hack -- Give the player scrolls of DARKNESS!
 			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(2, 5);
 			add_outfit(creature_ptr, q_ptr);
 		}
 		else if (creature_ptr->cls_idx != CLASS_NINJA)
 		{
-			/* Hack -- Give the player some torches */
+			// Hack -- Give the player some torches
 			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(3, 7);
 			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
-
 			add_outfit(creature_ptr, q_ptr);
 		}
 	}
 
-	/* Get local object */
-	q_ptr = &forge;
+	if(IS_RACE(creature_ptr, RACE_BALROG))
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		object_aware(&ob);
+		object_known(&ob);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
+	if(IS_RACE(creature_ptr, RACE_ISTARI))
+	{
+		int r;
+		object_type ob;
+		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		object_aware(&ob);
+		object_known(&ob);
+		r = mon_classify_inventory(creature_ptr, &ob);
+		if(r != INVEN_NULL)
+		creature_ptr->inventory[r] = ob;
+	}
 
+
+	// Item depend on Class
 	if ((creature_ptr->cls_idx == CLASS_RANGER) || (creature_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
-
 		add_outfit(creature_ptr, q_ptr);
 	}
+
 	if (creature_ptr->cls_idx == CLASS_RANGER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
-
 		add_outfit(creature_ptr, q_ptr);
 	}
+
 	else if (creature_ptr->cls_idx == CLASS_ARCHER)
 	{
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
-
 		add_outfit(creature_ptr, q_ptr);
 	}
 	else if (creature_ptr->cls_idx == CLASS_HIGH_MAGE)
@@ -3402,12 +3416,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		add_outfit(creature_ptr, q_ptr);
 	}
 
-	if(creature_ptr->chara_idx == CHARA_SEXY)
-	{
-		class_equipment_init[creature_ptr->cls_idx][2][0] = TV_HAFTED;
-		class_equipment_init[creature_ptr->cls_idx][2][1] = SV_WHIP;
-	}
-
 	/* Hack -- Give the player three useful objects */
 	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
@@ -3454,18 +3462,21 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		}
 	}
 
+
+	// Item depend on Character
+
+	if(creature_ptr->chara_idx == CHARA_SEXY)
+	{
+		class_equipment_init[creature_ptr->cls_idx][2][0] = TV_HAFTED;
+		class_equipment_init[creature_ptr->cls_idx][2][1] = SV_WHIP;
+	}
+
 	/* Hack -- make aware of the water */
 	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
 
-	/* Drop some objects */
-	for (i = 0; i < number; i++)
-	{
-		/* Make an object */
-		if (!make_object(&creature_ptr->inventory[i], mo_mode, GON_ITEM)) continue;
-
-		/* Drop it in the dungeon */
-	}
-
+	//
+	// Item depend on species_info
+	//
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		/* Wipe the object */
@@ -3503,107 +3514,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		}
 	}
 
-	if(IS_RACE(creature_ptr, RACE_BALROG))
-	{
-		int r;
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		object_aware(&ob);
-		object_known(&ob);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
-		creature_ptr->inventory[r] = ob;
-	}
 
-	if(IS_RACE(creature_ptr, RACE_ISTARI))
-	{
-		int r;
-		object_type ob;
-		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		object_aware(&ob);
-		object_known(&ob);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
-		creature_ptr->inventory[r] = ob;
-	}
-
-	if(IS_RACE(creature_ptr, INDEX_NONE))
-	{
-  		mo_mode = mo_mode | AM_UNCURSED;
-
-		if(!creature_ptr->inventory[INVEN_1STARM].k_idx && can_equip(creature_ptr, INVEN_1STARM))
-		{
-			if(creature_ptr->cls_idx != CLASS_MONK && creature_ptr->cls_idx != CLASS_FORCETRAINER)
-			{
-				make_object(&creature_ptr->inventory[INVEN_1STARM], mo_mode, GON_ARMS | GON_UNCURSED);
-				creature_ptr->inventory[INVEN_1STARM].fitting_size = creature_ptr->size;
-			}
-
-		}
-
-		if(!creature_ptr->inventory[INVEN_BODY].k_idx && can_equip(creature_ptr, INVEN_BODY))
-		{
-			make_object(&creature_ptr->inventory[INVEN_BODY], mo_mode, GON_BODY | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_BODY].fitting_size = creature_ptr->size;
-		}
-
-		if(!creature_ptr->inventory[INVEN_OUTER].k_idx && can_equip(creature_ptr, INVEN_OUTER))
-		{
-			make_object(&creature_ptr->inventory[INVEN_OUTER], mo_mode, GON_OUTER | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_OUTER].fitting_size = creature_ptr->size;
-		}
-
-		if(!creature_ptr->inventory[INVEN_1STHEAD].k_idx && can_equip(creature_ptr, INVEN_1STHEAD))
-		{
-			make_object(&creature_ptr->inventory[INVEN_1STHEAD], mo_mode, GON_HEAD | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_1STHEAD].fitting_size = creature_ptr->size;
-		}
-
-		if(!creature_ptr->inventory[INVEN_1STHANDS].k_idx && can_equip(creature_ptr, INVEN_1STHANDS))
-		{
-			make_object(&creature_ptr->inventory[INVEN_1STHANDS], mo_mode, GON_HANDS | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_1STHANDS].fitting_size = creature_ptr->size;
-		}
-
-		if(!creature_ptr->inventory[INVEN_FEET].k_idx && can_equip(creature_ptr, INVEN_FEET))
-		{
-			make_object(&creature_ptr->inventory[INVEN_FEET], mo_mode, GON_FEET | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_FEET].fitting_size = creature_ptr->size;
-		}
-
-		if(!creature_ptr->inventory[INVEN_LITE].k_idx && can_equip(creature_ptr, INVEN_LITE))
-		{
-			make_object(&creature_ptr->inventory[INVEN_LITE], mo_mode, GON_LITE | GON_UNCURSED);
-			creature_ptr->inventory[INVEN_LITE].fitting_size = creature_ptr->size;
-		}
-
-		if(randint0(100) < creature_ptr->lev)
-		{
-			if(!creature_ptr->inventory[INVEN_RIGHT].k_idx && can_equip(creature_ptr, INVEN_RIGHT))
-			{
-				make_object(&creature_ptr->inventory[INVEN_RIGHT], mo_mode, GON_RING | GON_UNCURSED);
-				creature_ptr->inventory[INVEN_RIGHT].fitting_size = creature_ptr->size;
-			}
-
-			if(randint0(100) < creature_ptr->lev)
-			{
-				if(!creature_ptr->inventory[INVEN_LEFT].k_idx && can_equip(creature_ptr, INVEN_LEFT))
-				{
-					make_object(&creature_ptr->inventory[INVEN_LEFT], mo_mode, GON_RING | GON_UNCURSED);
-					creature_ptr->inventory[INVEN_LEFT].fitting_size = creature_ptr->size;
-				}
-			}
-		}
-
-		if(randint0(100) < creature_ptr->lev)
-		{
-			if(!creature_ptr->inventory[INVEN_NECK].k_idx && can_equip(creature_ptr, INVEN_NECK))
-			{
-				make_object(&creature_ptr->inventory[INVEN_NECK], mo_mode, GON_AMULET | GON_UNCURSED);
-				creature_ptr->inventory[INVEN_NECK].fitting_size = creature_ptr->size;
-			}
-		}
-	}
 }
 
 static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
