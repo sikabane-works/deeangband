@@ -3298,25 +3298,19 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
-		int r;
 		object_type ob;
 		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
 		object_aware(&ob);
 		object_known(&ob);
-		r = wield_slot(creature_ptr, &ob);
-		if(r != -1)
-		creature_ptr->inventory[r] = ob;
+		add_outfit(creature_ptr, &ob);
 	}
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
 	{
-		int r;
 		object_type ob;
 		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
 		object_aware(&ob);
 		object_known(&ob);
-		r = wield_slot(creature_ptr, &ob);
-		if(r != -1)
-		creature_ptr->inventory[r] = ob;
+		add_outfit(creature_ptr, &ob);
 	}
 
 
@@ -3497,20 +3491,16 @@ void deal_creature_equipment(creature_type *creature_ptr)
 					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
 					r = wield_slot(creature_ptr, &ob);
-					if(r != -1)
-						creature_ptr->inventory[r] = ob;
+					add_outfit(creature_ptr, &ob);
 				}
 			}
 
 		}
 		else
 		{
-			int r;
 			object_type ob;
 			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
-			r = wield_slot(creature_ptr, &ob);
-			if(r != -1)
-				creature_ptr->inventory[r] = ob;
+			add_outfit(creature_ptr, &ob);
 		}
 	}
 
