@@ -3303,8 +3303,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		object_prep(&ob, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
 		object_aware(&ob);
 		object_known(&ob);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
+		r = wield_slot(creature_ptr, &ob);
+		if(r != -1)
 		creature_ptr->inventory[r] = ob;
 	}
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
@@ -3314,8 +3314,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		object_prep(&ob, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
 		object_aware(&ob);
 		object_known(&ob);
-		r = mon_classify_inventory(creature_ptr, &ob);
-		if(r != INVEN_NULL)
+		r = wield_slot(creature_ptr, &ob);
+		if(r != -1)
 		creature_ptr->inventory[r] = ob;
 	}
 
@@ -3496,8 +3496,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 					/* Equip the artifact */
 					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
-					r = mon_classify_inventory(creature_ptr, &ob);
-					if(r != INVEN_NULL)
+					r = wield_slot(creature_ptr, &ob);
+					if(r != -1)
 						creature_ptr->inventory[r] = ob;
 				}
 			}
@@ -3508,8 +3508,8 @@ void deal_creature_equipment(creature_type *creature_ptr)
 			int r;
 			object_type ob;
 			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
-			r = mon_classify_inventory(creature_ptr, &ob);
-			if(r != INVEN_NULL)
+			r = wield_slot(creature_ptr, &ob);
+			if(r != -1)
 				creature_ptr->inventory[r] = ob;
 		}
 	}
@@ -5731,86 +5731,6 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	}
 }
 
-/*
- * Equipment classifiy for monster
- */
-int mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr)
-{
-	int i, r = INVEN_NULL;
-
-	if(cr_ptr->race_idx1 != INDEX_NONE)
-	{
-		switch(o_ptr->tval)
-		{
-		case TV_DIGGING:
-		case TV_SWORD:
-		case TV_HAFTED:
-		case TV_POLEARM:
-		case TV_SHIELD:
-		case TV_CARD:
-			if(!cr_ptr->inventory[INVEN_1STARM].k_idx)      r = INVEN_1STARM;
-			else if(!cr_ptr->inventory[INVEN_2NDARM].k_idx) r = INVEN_2NDARM;
-			break;
-
-		case TV_AMULET:
-			if(!cr_ptr->inventory[INVEN_NECK].k_idx)      r = INVEN_NECK;
-			break;
-
-		case TV_RING: 
-			if(!cr_ptr->inventory[INVEN_RIGHT].k_idx)     r = INVEN_RIGHT;
-			else if(!cr_ptr->inventory[INVEN_LEFT].k_idx) r = INVEN_LEFT;
-			break;
-
-		case TV_BOOTS:
-			if(!cr_ptr->inventory[INVEN_FEET].k_idx)      r = INVEN_FEET;
-			break;
-
-		case TV_GLOVES:
-			if(!cr_ptr->inventory[INVEN_1STHANDS].k_idx)     r = INVEN_1STHANDS;
-			break;
-
-		case TV_HELM:
-		case TV_CROWN:
-			if(!cr_ptr->inventory[INVEN_1STHEAD].k_idx)      r = INVEN_1STHEAD;
-			break;
-
-		case TV_BOW:
-			if(!cr_ptr->inventory[INVEN_BOW].k_idx)       r = INVEN_BOW;
-			break;
-
-		case TV_CLOAK:
-			if(!cr_ptr->inventory[INVEN_OUTER].k_idx)     r = INVEN_OUTER;
-			break;
-
-		case TV_SOFT_ARMOR:
-		case TV_HARD_ARMOR:
-		case TV_DRAG_ARMOR:
-			if(!cr_ptr->inventory[INVEN_BODY].k_idx)      r = INVEN_BODY;
-			break;
-
-		case TV_LITE:
-			if(!cr_ptr->inventory[INVEN_LITE].k_idx)      r = INVEN_LITE;
-			break;
-		}
-	}
-
-	if(r == INVEN_NULL)
-	{
-		for(i = 0; i < INVEN_PACK; i++)
-		{
-			if(!cr_ptr->inventory[i].k_idx)
-				r = i;
-		}
-	}
-
-	return r;
-}
-
-
-
-/*
- * Place the player in the dungeon XXX XXX
- */
 bool player_place(int y, int x)
 {
 	/* Paranoia XXX XXX */

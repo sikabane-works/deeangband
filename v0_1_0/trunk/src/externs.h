@@ -1280,7 +1280,6 @@ extern bool summon_specific(creature_type *cr_ptr, int y1, int x1, int lev, int 
 extern bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int species_idx, u32b mode);
 extern bool multiply_monster(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
-extern int  mon_classify_inventory(creature_type *cr_ptr, object_type *o_ptr);
 extern void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_idx);
 extern bool player_place(int y, int x);
 extern void monster_drop_carried_objects(creature_type *m_ptr);
