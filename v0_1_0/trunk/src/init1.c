@@ -1284,7 +1284,7 @@ static cptr k_info_gen_flags[] =
 	"RANDOM_CURSE0",
 	"RANDOM_CURSE1",
 	"RANDOM_CURSE2",
-	"XXX",
+	"NO_LIGHT_LIMIT",
 	"XXX",
 	"XXX",
 	"XXX",

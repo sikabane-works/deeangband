@@ -3302,10 +3302,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		}
 	}
 
-	return;
-
-	q_ptr = &forge;
-
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
 		q_ptr = &forge;
@@ -3321,6 +3317,12 @@ void deal_creature_equipment(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
 		add_outfit(creature_ptr, q_ptr);
 	}
+
+
+	return;
+
+	q_ptr = &forge;
+
 
 
 	// Item depend on Class

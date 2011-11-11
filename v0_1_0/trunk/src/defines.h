@@ -3499,10 +3499,11 @@
 #define TRG_XTRA_RES            0x00000200L     /* Extra resistance */
 #define TRG_CURSED              0x00000400L     /* Item is Cursed */
 #define TRG_HEAVY_CURSE         0x00000800L     /* Item is Heavily Cursed */
-#define TRG_DIVINE_CURSE         0x00001000L     /* Item is Perma Cursed */
+#define TRG_DIVINE_CURSE        0x00001000L     /* Item is Perma Cursed */
 #define TRG_RANDOM_CURSE0       0x00002000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE1       0x00004000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE2       0x00008000L     /* Item is Random Cursed */
+#define TRG_NO_LIGHT_LIMIT      0x00008000L     /* Item is no limit light */
 
 
 #define MAX_CURSE 17

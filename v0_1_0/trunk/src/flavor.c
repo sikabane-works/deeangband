@@ -2628,7 +2628,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 
 		/* Hack -- Process Lanterns/Torches */
-		if ((o_ptr->tval == TV_LITE) && (!(object_is_fixed_artifact(o_ptr) || (o_ptr->sval == SV_LITE_FEANOR))))
+		if (o_ptr->tval == TV_LITE)
 		{
 			/* Hack -- Turns of light for normal lites */
 #ifdef JP
