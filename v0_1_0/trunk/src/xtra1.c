@@ -2778,7 +2778,7 @@ static void calc_torch(creature_type *cr_ptr)
 				cr_ptr->cur_lite += 2;
 			}
 
-			else if (o_ptr->sval == SV_LITE_FEANOR)
+			else if (o_ptr->sval == SV_LITE_FEANOR || o_ptr->sval == SV_LITE_UDUN)
 			{
 				cr_ptr->cur_lite += 3;
 			}
