@@ -2228,7 +2228,7 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 		
 		/* Select the second realm */
 		cr_ptr->realm2 = REALM_NONE;
-		i = choose_realm(realm_choices2[cr_ptr->cls_idx], npc);
+		i = choose_realm(realm_choices2[cr_ptr->cls_idx] & ~(1 << (cr_ptr->realm1 - 1)), npc);
 		if(i == -2)
 			return -2;
 		else if(i == -3)
@@ -5295,6 +5295,11 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	cr_ptr->species_idx = species_idx;
 	cr_ptr->ap_species_idx = species_idx;
 
+	/* Wipe the player */
+	creature_wipe(cr_ptr);
+
+	if(flags & GC_PLAYER) cr_ptr->player = TRUE;
+
 	// Race Select
 
 	if(sp_ptr->race_idx1 == INDEX_VARIABLE)
@@ -5378,7 +5383,20 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	{
 		cr_ptr->cls_idx = sp_ptr->cls_idx;
 	}
-	
+
+	//
+	// Realm Select
+	//
+
+	if(!auto_generate)
+	{
+		clear_from(0);
+		put_initial_status(cr_ptr);
+	}
+	i = get_creature_realms(cr_ptr, sp_ptr, auto_generate);
+	if(i == -2) return (FALSE);
+	if(i == -3) birth_quit();
+
 	//
 	// Patron Select
 	//
@@ -5398,19 +5416,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	{
 		cr_ptr->patron_idx = sp_ptr->patron_idx;
 	}
-
-	//
-	// Realm Select
-	//
-
-	if(!auto_generate)
-	{
-		clear_from(0);
-		put_initial_status(cr_ptr);
-	}
-	i = get_creature_realms(cr_ptr, sp_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
 
 	//
 	// Character Select
@@ -5975,14 +5980,6 @@ int generate_creature(creature_type *cr_ptr, int species_idx, species_type *sett
 	char buf[80];
 
 	playtime = 0;
-
-	/* Wipe the player */
-	creature_wipe(cr_ptr);
-
-	if(flags & GC_PLAYER)
-	{
-		cr_ptr->player = TRUE;
-	}
 
 	/* Create a new character */
 	while (!generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags));

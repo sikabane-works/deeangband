@@ -3323,8 +3323,6 @@ void deal_creature_equipment(creature_type *creature_ptr)
 
 	q_ptr = &forge;
 
-
-
 	// Item depend on Class
 	if ((creature_ptr->cls_idx == CLASS_RANGER) || (creature_ptr->cls_idx == CLASS_CAVALRY), ITEM_FREE_SIZE)
 	{

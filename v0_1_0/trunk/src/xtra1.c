@@ -6239,20 +6239,44 @@ cptr desc_race_name(creature_type *cr_ptr){
 	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
 	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
-	if(!IS_PURE(cr_ptr))
-		strcat(name, "ƒn[ƒt");
-
-	if(IS_RACE(cr_ptr, RACE_HUMAN) || IS_PURE(cr_ptr))
+	if(IS_PURE(cr_ptr))
+	{
+#if JP
+		strcat(name, "ƒŒŒŽí‚Ì");
+#else
+		strcat(name, "Pure-blooded ");
+		strcat(name, sex_info[cr_ptr->sex].title);
+		strcat(name, " ");
+#endif
 		strcat(name, race_info[cr_ptr->race_idx1].title);
+	}
+	else
+	{
 
-	if(!IS_PURE(cr_ptr))
+#if !JP
+		strcat(name, sex_info[cr_ptr->sex].title);
+		strcat(name, "Mixed ");
+#endif
+		strcat(name, race_info[cr_ptr->race_idx1].title);
+#if JP
+		strcat(name, "‚Æ");
+#else
+		strcat(name, "and ");
+#endif
 		strcat(name, race_info[cr_ptr->race_idx2].title);
+#if JP
+		strcat(name, "‚Ì¬ŒŒŽ™");
+#endif
+	}
 
+#if JP
 	if(cr_ptr->sex != SEX_UNDEFINED)
 	{
-		strcat(name, "‚Ì");
+		strcat(name, "(");
 		strcat(name, sex_info[cr_ptr->sex].title);
+		strcat(name, ")");
 	}
+#endif
 
 	return format("%s", name);
 }
