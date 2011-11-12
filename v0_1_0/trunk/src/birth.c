@@ -5985,7 +5985,7 @@ int generate_creature(creature_type *cr_ptr, int species_idx, species_type *sett
 	}
 
 	/* Create a new character */
-	if (generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags)) return 1;
+	while (!generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags));
 
 	if(flags & GC_PLAYER)
 	{

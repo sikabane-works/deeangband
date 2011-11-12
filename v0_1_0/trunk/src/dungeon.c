@@ -6799,14 +6799,8 @@ quit("セーブファイルが壊れています");
 		if (!ask_quick_start(cr_ptr))
 		{
 		/* No, normal start */
-			while (1)
-			{
-				/* Roll up a new character */
-				if(generate_creature(cr_ptr, MON_STIGMATIC_ONE, &settled_player_species, GC_PLAYER)) break;
-
-				/* Wipe the player */
-				creature_wipe(cr_ptr);
-			}
+			/* Roll up a new character */
+			generate_creature(cr_ptr, MON_STIGMATIC_ONE, &settled_player_species, GC_PLAYER);
 			wilderness_x = settled_player_species.start_wx;
 			wilderness_y = settled_player_species.start_wy;
 		}
