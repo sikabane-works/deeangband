@@ -5797,7 +5797,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			/* Toggle the display */
 			if ((c == 'H') || (c == 'h'))
 			{
-				mode = ((mode != 0) ? 0 : 1);
+				((mode >= 3) ? mode = 0 : mode++);
 				continue;
 			}
 

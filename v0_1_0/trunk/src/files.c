@@ -3912,11 +3912,14 @@ c_put_str(TERM_L_GREEN, "”\—ÍC³", row - 1, col);
  * The top one and bottom two lines are left blank.
  *
  * Mode 0 = standard display with skills
- * Mode 1 = standard display with history
- * Mode 2 = summary of various things
- * Mode 3 = summary of various things (part 2)
- * Mode 4 = summary of various things (part 3)
- * Mode 5 = mutations
+ * Mode 1 = history
+ * Mode 2 = equipment
+ * Mode 3 = inventory
+ * Mode 4 = summary of various things (part 1)
+ * Mode 5 = summary of various things (part 2)
+ * Mode 6 = summary of various things (part 3)
+ * Mode 7 = summary of various things (part 4)
+ * Mode 8 = mutations
  */
 void display_player(int mode, creature_type *cr_ptr)
 {
@@ -3933,10 +3936,10 @@ void display_player(int mode, creature_type *cr_ptr)
 
 
 	/* XXX XXX XXX */
-	if ((cr_ptr->flags12 || cr_ptr->flags13 || cr_ptr->flags14) && display_mutations)
-		mode = (mode % 7);
+	if (display_mutations)
+		mode = (mode % 9);
 	else
-		mode = (mode % 6);
+		mode = (mode % 8);
 
 	/* Erase screen */
 	clear_from(0);
@@ -4297,8 +4300,20 @@ void display_player(int mode, creature_type *cr_ptr)
 		}
 	}
 
-	/* Special */
 	else if (mode == 2)
+	{
+		/* Display the inventory */
+		(void)show_equip(0, cr_ptr);		
+	}
+
+	else if (mode == 3)
+	{
+		/* Display the inventory */
+		(void)show_inven(0, cr_ptr);		
+	}
+
+	/* Special */
+	else if (mode == 4)
 	{
 		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
 
@@ -4308,22 +4323,22 @@ void display_player(int mode, creature_type *cr_ptr)
 	}
 
 	/* Special */
-	else if (mode == 3)
+	else if (mode == 5)
 	{
 		display_player_flag_info2(cr_ptr);
 	}
 
-	else if (mode == 4)
+	else if (mode == 6)
 	{
 		display_player_flag_info3(cr_ptr);
 	}
 
-	else if (mode == 5)
+	else if (mode == 7)
 	{
 		display_player_flag_info4(cr_ptr);
 	}
 
-	else if (mode == 6)
+	else if (mode == 8)
 	{
 		do_cmd_knowledge_mutations(cr_ptr);
 	}

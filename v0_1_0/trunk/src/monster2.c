@@ -3435,6 +3435,9 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	q_ptr->number = (byte)rand_range(15, 23);
 	add_outfit(creature_ptr, q_ptr);
 
+	object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
+	q_ptr->number = (byte)rand_range(15, 23);
+	add_outfit(creature_ptr, q_ptr);
 
 	return;
 
