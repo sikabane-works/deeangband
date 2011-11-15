@@ -8288,7 +8288,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							/* Save the screen */
 							screen_save();
 
-							(void)show_inven(0, &u_info[i]);
+							(void)show_inven(0, &u_info[i], TRUE);
 							/* Forever */
 							while (1)
 							{
@@ -8321,7 +8321,7 @@ static void do_cmd_knowledge_monsters(bool *need_redraw, bool visual_only, int d
 							/* Save the screen */
 							screen_save();
 
-							(void)show_equip(0, &u_info[i]);
+							(void)show_equip(0, &u_info[i], TRUE);
 							/* Forever */
 							while (1)
 							{

@@ -2672,7 +2672,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				prt(out_val, 0, 0);
 
 
-				(void)show_inven(0, m_ptr);
+				(void)show_inven(0, m_ptr, TRUE);
 				/* Forever */
 				while (1)
 				{
@@ -2716,7 +2716,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				prt(out_val, 0, 0);
 
 
-				(void)show_equip(0, m_ptr);
+				(void)show_equip(0, m_ptr, TRUE);
 				/* Forever */
 				while (1)
 				{

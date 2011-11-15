@@ -3357,7 +3357,7 @@ void deal_creature_equipment(creature_type *creature_ptr)
 	}
 	else if (creature_ptr->cls_idx == CLASS_SORCERER)
 	{
-		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK+MAX_MAGIC-1; i++)
+		for (i = TV_LIFE_BOOK; i <= TV_LIFE_BOOK + MAX_MAGIC - 1; i++)
 		{
 			q_ptr = &forge;
 			/* Hack -- Give the player some arrows */

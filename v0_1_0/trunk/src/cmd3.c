@@ -39,7 +39,7 @@ void do_cmd_inven(creature_type *cr_ptr)
 	item_tester_full = TRUE;
 
 	/* Display the inventory */
-	(void)show_inven(0, cr_ptr);
+	(void)show_inven(0, cr_ptr, TRUE);
 
 	/* Hack -- hide empty slots */
 	item_tester_full = FALSE;
@@ -114,7 +114,7 @@ void do_cmd_equip(creature_type *cr_ptr)
 	item_tester_full = TRUE;
 
 	/* Display the equipment */
-	(void)show_equip(0, cr_ptr);
+	(void)show_equip(0, cr_ptr, TRUE);
 
 	/* Hack -- undo the hack above */
 	item_tester_full = FALSE;
