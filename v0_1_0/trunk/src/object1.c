@@ -5032,7 +5032,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 	char            inven_label[52 + 1];
 
 	/* Starting column */
-	col = command_gap;
+	col = 999;
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
@@ -5200,7 +5200,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 	if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
 
 	/* Save the new column */
-	command_gap = col;
+	//command_gap = col;
 
 	return target_item_label;
 }
@@ -5225,7 +5225,7 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 	char            equip_label[52 + 1];
 
 	/* Starting column */
-	col = command_gap;
+	col = 999;
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
@@ -5288,7 +5288,6 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 
 		/* Increase length for weight (if needed) */
 		if (show_weights) l += 9;
-
 		if (show_item_graph) l += 2;
 
 		/* Maintain the max-length */
@@ -5425,9 +5424,6 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 
 	/* Make a "shadow" below the list (only if needed) */
 	if (j && (j < 23)) prt("", j + 1, col ? col - 2 : col);
-
-	/* Save the new column */
-	command_gap = col;
 
 	return target_item_label;
 }
