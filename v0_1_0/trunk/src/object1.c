@@ -5178,7 +5178,6 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 			cur_col += 2;
 		}
 
-
 		/* Display the entry itself */
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col);
 

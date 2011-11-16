@@ -6712,6 +6712,12 @@ quit("セーブファイルが壊れています");
 		quit(0);
 	}
 
+	/* Reset the visual mappings */
+	reset_visuals();
+
+	/* Load the "pref" files */
+	load_all_pref_files(cr_ptr);
+
 	creating_savefile = new_game;
 
 	/* Nothing loaded */
@@ -6985,12 +6991,6 @@ quit("セーブファイルが壊れています");
 
 	/* Start game */
 	cr_ptr->playing = TRUE;
-
-	/* Reset the visual mappings */
-	reset_visuals();
-
-	/* Load the "pref" files */
-	load_all_pref_files(cr_ptr);
 
 	/* React to changes */
 

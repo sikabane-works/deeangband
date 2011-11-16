@@ -4310,6 +4310,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	else if (mode == 3)
 	{
 		/* Display the inventory */
+
 		(void)show_inven(0, cr_ptr, FALSE);		
 	}
 
