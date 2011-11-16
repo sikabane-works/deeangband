@@ -3423,25 +3423,6 @@ void deal_item(creature_type *creature_ptr)
 		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
-	object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
-	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr, FALSE);
-
-	object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
-	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr, FALSE);
-
-	object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_HEAVY), ITEM_FREE_SIZE);
-	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr, FALSE);
-
-	object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
-	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr, FALSE);
-
-	return;
-
-
 	/* Hack -- Give the player three useful objects */
 	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
@@ -3488,6 +3469,7 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
+	return;
 
 	// Item depend on Character
 
