@@ -3249,7 +3249,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(3, 7);
 
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
 	{
@@ -3261,7 +3261,7 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
 			q_ptr->pval = get_mon_num(2);
 			q_ptr->number = 1;
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 	}
 	else if(has_cf_creature(creature_ptr, CF_WATER_DRINKER))
@@ -3269,7 +3269,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Potions of Water */
 		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 23);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 	else if(has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
 	{
@@ -3279,7 +3279,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Fuel with oil (move pval to xtra4) */
 		apply_magic(q_ptr, 1, AM_NO_FIXED_ART);
 		q_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 
 	if (has_cf_creature(creature_ptr, CF_HUMANOID))
@@ -3289,7 +3289,7 @@ void deal_item(creature_type *creature_ptr)
 			// Hack -- Give the player scrolls of DARKNESS!
 			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(2, 5);
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 
 		else if (creature_ptr->cls_idx != CLASS_NINJA)
@@ -3298,7 +3298,7 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(3, 7);
 			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 	}
 
@@ -3307,7 +3307,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr = &forge;
 
 		object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
@@ -3315,7 +3315,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr = &forge;
 
 		object_prep(q_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
 	q_ptr = &forge;
@@ -3326,7 +3326,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
 	if (creature_ptr->cls_idx == CLASS_RANGER)
@@ -3334,7 +3334,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr = &forge;
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
 	else if (creature_ptr->cls_idx == CLASS_ARCHER)
@@ -3343,7 +3343,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Hack -- Give the player some arrows */
 		object_prep(q_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 	else if (creature_ptr->cls_idx == CLASS_HIGH_MAGE)
 	{
@@ -3353,7 +3353,7 @@ void deal_item(creature_type *creature_ptr)
 		q_ptr->number = 1;
 		q_ptr->pval = (byte)rand_range(25, 30);
 
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 	else if (creature_ptr->cls_idx == CLASS_SORCERER)
 	{
@@ -3364,7 +3364,7 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
 			q_ptr->number = 1;
 
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 	}
 	else if (creature_ptr->cls_idx == CLASS_TOURIST)
@@ -3376,33 +3376,33 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(q_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
 			q_ptr->number = (byte)rand_range(15, 20);
 
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 
 		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 
 		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 
 		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(1, 3);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 
 		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 
 		q_ptr = &forge;
 		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 	else if (creature_ptr->cls_idx == CLASS_NINJA)
 	{
@@ -3411,7 +3411,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 	else if (creature_ptr->cls_idx == CLASS_SNIPER)
 	{
@@ -3420,24 +3420,24 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		q_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, q_ptr);
+		add_outfit(creature_ptr, q_ptr, TRUE);
 	}
 
 	object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr);
+	add_outfit(creature_ptr, q_ptr, FALSE);
 
 	object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr);
+	add_outfit(creature_ptr, q_ptr, FALSE);
 
 	object_prep(q_ptr, lookup_kind(TV_BOLT, SV_AMMO_HEAVY), ITEM_FREE_SIZE);
 	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr);
+	add_outfit(creature_ptr, q_ptr, FALSE);
 
 	object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 	q_ptr->number = (byte)rand_range(15, 23);
-	add_outfit(creature_ptr, q_ptr);
+	add_outfit(creature_ptr, q_ptr, FALSE);
 
 	return;
 
@@ -3484,7 +3484,7 @@ void deal_item(creature_type *creature_ptr)
 				q_ptr->name2 = EGO_BRAND_POIS;
 			}
 
-			add_outfit(creature_ptr, q_ptr);
+			add_outfit(creature_ptr, q_ptr, FALSE);
 		}
 	}
 

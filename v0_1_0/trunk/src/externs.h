@@ -664,7 +664,7 @@ extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
 extern void dump_yourself(creature_type *cr_ptr, FILE *fff);
-extern void add_outfit(creature_type *cr_ptr, object_type *o_ptr);
+extern void add_outfit(creature_type *cr_ptr, object_type *o_ptr, bool equip);
 extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);
