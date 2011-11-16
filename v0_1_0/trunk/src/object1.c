@@ -5111,10 +5111,11 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 	if(!k)
 	{
 #if JP
-		put_str("[‰½‚à‚Á‚Ä‚¢‚È‚¢]", 1, wid - 20);
+		put_str("[‰½‚à‚Á‚Ä‚¢‚È‚¢]", 1, right_set ? wid - 20 : 1);
 #else
-		put_str(" [No item.] ", 1, wid - 13);
+		put_str(" [No inventory.] ", 1, right_set ? wid - 13 : 1);
 #endif
+
 		return 0;
 	}
 
@@ -5191,7 +5192,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 			(void)sprintf(tmp_val, "%3d.%1d lb", wgt / 10, wgt % 10);
 #endif
 
-			prt(tmp_val, j + 1, wid - 9);
+			prt(tmp_val, j + 1, right_set ? wid - 9 : len + 3);
 		}
 	}
 
@@ -5231,7 +5232,6 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 
 	/* Maximal length */
 	len = wid - col - 1;
-
 
 	/* Scan the equipment list */
 	for (k = 0, i = INVEN_1STARM; i < INVEN_TOTAL; i++)
@@ -5301,9 +5301,9 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 	if(!k)
 	{
 #if JP
-		put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, wid - 22);
+		put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, right_set ? wid - 22 : 1);
 #else
-		put_str(" [No equipment.] ", 1, wid - 18);
+		put_str(" [No equipment.] ", 1, right_set ? wid - 18 : 1);
 #endif
 		return 0;
 	}
@@ -5419,7 +5419,7 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 			(void)sprintf(tmp_val, "%3d.%d lb", wgt / 10, wgt % 10);
 #endif
 
-			prt(tmp_val, j + 1, wid - 9);
+			prt(tmp_val, j + 1, right_set ? wid - 9 : len + 3);
 		}
 	}
 

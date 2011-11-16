@@ -4188,9 +4188,9 @@ void display_player(int mode, creature_type *cr_ptr)
 		char statmsg[10000];
 
 #ifdef JP
-		put_str("(キャラクターの生い立ち)", 2, 25);
+		put_str("(クリーチャーのプロフィール)", 2, 25);
 #else
-		put_str("(Character Background)", 2, 25);
+		put_str("(Creature Profile)", 2, 25);
 #endif
 
 		for (i = 0; i < HISTORY_ROW; i++)
