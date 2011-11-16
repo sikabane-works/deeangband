@@ -3935,6 +3935,7 @@ void display_player(int mode, creature_type *cr_ptr)
 	player_sex *se_ptr = &sex_info[cr_ptr->sex];
 
 
+
 	/* XXX XXX XXX */
 	if (display_mutations)
 		mode = (mode % 9);

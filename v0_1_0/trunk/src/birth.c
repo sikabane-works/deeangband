@@ -4962,9 +4962,9 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	char histbuf[HISTPREF_LIMIT];
 
 #ifdef JP
-	if (!get_check("生い立ち設定ファイルをロードしますか? ")) return FALSE;
+	if (!get_check("プロフィールファイルをロードしますか? ")) return FALSE;
 #else
-	if (!get_check("Load background history preference file? ")) return FALSE;
+	if (!get_check("Load profile preference file? ")) return FALSE;
 #endif
 
 	/* Prepare the buffer */
@@ -4992,9 +4992,9 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	if (err)
 	{
 #ifdef JP
-		msg_print("生い立ち設定ファイルの読み込みに失敗しました。");
+		msg_print("プロフィールファイルの読み込みに失敗しました。");
 #else
-		msg_print("Failed to load background history preference.");
+		msg_print("Failed to load profile preference.");
 #endif
 		msg_print(NULL);
 
@@ -5006,9 +5006,9 @@ static bool do_cmd_histpref(creature_type *cr_ptr)
 	else if (!histpref_buf[0])
 	{
 #ifdef JP
-		msg_print("有効な生い立ち設定はこのファイルにありません。");
+		msg_print("有効なプロフィールはこのファイルにありません。");
 #else
-		msg_print("There does not exist valid background history preference.");
+		msg_print("There does not exist valid profile preference.");
 #endif
 		msg_print(NULL);
 
@@ -5081,10 +5081,10 @@ static void edit_history(creature_type *cr_ptr)
 	}
 	display_player(1, cr_ptr);
 #ifdef JP
-	c_put_str(TERM_L_GREEN, "(キャラクターの生い立ち - 編集モード)", 2, 20);
+	c_put_str(TERM_L_GREEN, "(クリーチャーのプロフィール - 編集モード)", 2, 20);
 	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 23, 10);
 #else
-	c_put_str(TERM_L_GREEN, "(Character Background - Edit Mode)", 2, 20);
+	c_put_str(TERM_L_GREEN, "(Creature Profile - Edit Mode)", 2, 20);
 	put_str("[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]", 23, 10);
 #endif
 
@@ -5164,9 +5164,9 @@ static void edit_history(creature_type *cr_ptr)
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
 #ifdef JP
-			put_str("(キャラクターの生い立ち - 編集済み)", 2, 20);
+			put_str("(クリーチャーのプロフィール - 編集済み)", 2, 20);
 #else
-			put_str("(Character Background - Edited)", 2, 20);
+			put_str("(Creature Profile - Edited)", 2, 20);
 #endif
 			break;
 		}
@@ -5174,9 +5174,9 @@ static void edit_history(creature_type *cr_ptr)
 		{
 			clear_from(2);
 #ifdef JP
-			put_str("(キャラクターの生い立ち)", 2, 25);
+			put_str("(クリーチャーのプロフィール)", 2, 25);
 #else
-			put_str("(Character Background)", 2, 25);
+			put_str("(Creature Profile)", 2, 25);
 #endif
 
 			for (i = 0; i < HISTORY_ROW; i++)
@@ -5703,6 +5703,9 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		/* Roll for base hitpoints */
 		get_extra(cr_ptr, TRUE);
 
+		// Deal Item
+		deal_item(cr_ptr);
+
 		/* Roll for gold */
 		get_money(cr_ptr);
 
@@ -5716,7 +5719,6 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		{
 
 			set_experience(cr_ptr);
-			deal_creature_equipment(cr_ptr);
 			calc_bonuses(cr_ptr, FALSE);
 
 			// Calculate the bonuses and hitpoints

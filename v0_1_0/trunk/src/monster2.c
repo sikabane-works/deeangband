@@ -3214,7 +3214,7 @@ static int initial_r_appearance(int species_idx)
 }
 
 
-void deal_creature_equipment(creature_type *creature_ptr)
+void deal_item(creature_type *creature_ptr)
 {
 	int tv, sv;
 	object_type	forge;
@@ -4158,7 +4158,7 @@ int create_creature(creature_type *creature_ptr, int species_idx, int monster_eg
 		creature_ptr->authority[i] = species_ptr->authority[i];
 
 	/* Equipment */
-	deal_creature_equipment(creature_ptr);
+	deal_item(creature_ptr);
 
 	/* Underlings */
 	for(i = 0; i < MAX_UNDERLINGS; i++)
