@@ -5687,6 +5687,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		get_extra(cr_ptr, TRUE);
 
 		// Deal Item
+		calc_bonuses(cr_ptr, FALSE);
 		deal_item(cr_ptr);
 
 		/* Roll for gold */

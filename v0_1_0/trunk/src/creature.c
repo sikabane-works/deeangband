@@ -4,7 +4,6 @@
 
 bool can_equip(creature_type *creature_ptr, int i)
 {
-	if(!has_cf_creature(creature_ptr, CF_HUMANOID)) return FALSE;
 
 	if(i == INVEN_1STARM && creature_ptr->num_hand < 1) return FALSE;
 	if(i == INVEN_2NDARM && creature_ptr->num_hand < 2) return FALSE;
