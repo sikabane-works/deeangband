@@ -500,7 +500,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		/* Describe charges in the pack */
 		if (item >= 0)
 		{
-			inven_item_charges(item);
+			inven_item_charges(cr_ptr, item);
 		}
 
 		/* Describe charges on the floor */
@@ -2806,7 +2806,7 @@ static void do_cmd_use_staff_aux(creature_type *cr_ptr, int item)
 	/* Describe charges in the pack */
 	if (item >= 0)
 	{
-		inven_item_charges(item);
+		inven_item_charges(cr_ptr, item);
 	}
 
 	/* Describe charges on the floor */
@@ -3295,7 +3295,7 @@ static void do_cmd_aim_wand_aux(creature_type *cr_ptr, int item)
 	/* Describe the charges in the pack */
 	if (item >= 0)
 	{
-		inven_item_charges(item);
+		inven_item_charges(cr_ptr, item);
 	}
 
 	/* Describe the charges on the floor */

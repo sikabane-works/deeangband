@@ -5475,9 +5475,9 @@ void place_trap(int y, int x)
 /*
  * Describe the charges on an item in the p_ptr->inventory.
  */
-void inven_item_charges(int item)
+void inven_item_charges(creature_type *cr_ptr, int item)
 {
-	object_type *o_ptr = &p_ptr->inventory[item];
+	object_type *o_ptr = &cr_ptr->inventory[item];
 
 	/* Require staff/wand */
 	if ((o_ptr->tval != TV_STAFF) && (o_ptr->tval != TV_WAND)) return;
