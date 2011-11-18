@@ -604,7 +604,7 @@ msg_print("¶Ò‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Destroy a food on the floor */
@@ -745,7 +745,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Reduce and describe floor item */
@@ -2181,7 +2181,7 @@ msg_print("Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I");
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Destroy a scroll on the floor */

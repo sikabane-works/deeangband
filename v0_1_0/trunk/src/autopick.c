@@ -1642,7 +1642,7 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 		if (item >= 0)
 		{
 			inven_item_increase(cr_ptr, item, -(o_ptr->number));
-			inven_item_optimize(item);
+			inven_item_optimize(cr_ptr, item);
 		}
 
 		/* Eliminate the item (from the floor) */
@@ -1670,7 +1670,7 @@ void autopick_delayed_alter(creature_type *cr_ptr)
 
 	/* 
 	 * Scan inventry in reverse order to prevent
-	 * skipping after inven_item_optimize()
+	 * skipping after inven_item_optimize(cr_ptr, )
 	 */
 	for (item = INVEN_TOTAL - 1; item >= 0 ; item--)
 		autopick_delayed_alter_aux(cr_ptr, item);

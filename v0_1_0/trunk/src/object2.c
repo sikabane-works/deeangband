@@ -5601,9 +5601,9 @@ void inven_item_increase(creature_type *cr_ptr, int item, int num)
 /*
  * Erase an inventory slot if it has no more items
  */
-void inven_item_optimize(int item)
+void inven_item_optimize(creature_type *cr_ptr, int item)
 {
-	object_type *o_ptr = &p_ptr->inventory[item];
+	object_type *o_ptr = &cr_ptr->inventory[item];
 
 	/* Only optimize real items */
 	if (!o_ptr->k_idx) return;
@@ -5617,17 +5617,17 @@ void inven_item_optimize(int item)
 		int i;
 
 		/* One less item */
-		p_ptr->inven_cnt--;
+		cr_ptr->inven_cnt--;
 
 		/* Slide everything down */
 		for (i = item; i < INVEN_PACK; i++)
 		{
 			/* Structure copy */
-			p_ptr->inventory[i] = p_ptr->inventory[i+1];
+			cr_ptr->inventory[i] = cr_ptr->inventory[i+1];
 		}
 
 		/* Erase the "final" slot */
-		object_wipe(&p_ptr->inventory[i]);
+		object_wipe(&cr_ptr->inventory[i]);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);
@@ -5637,19 +5637,19 @@ void inven_item_optimize(int item)
 	else
 	{
 		/* One less item */
-		p_ptr->equip_cnt--;
+		cr_ptr->equip_cnt--;
 
 		/* Erase the empty slot */
-		object_wipe(&p_ptr->inventory[item]);
+		object_wipe(&cr_ptr->inventory[item]);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Recalculate torch */
-		p_ptr->update |= (PU_TORCH);
+		cr_ptr->update |= (PU_TORCH);
 
 		/* Recalculate mana XXX */
-		p_ptr->update |= (PU_MANA);
+		cr_ptr->update |= (PU_MANA);
 
 		/* Window stuff */
 		play_window |= (PW_EQUIP);
@@ -6108,7 +6108,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 
 	/* Modify, Optimize */
 	inven_item_increase(cr_ptr, item, -amt);
-	inven_item_optimize(item);
+	inven_item_optimize(cr_ptr, item);
 
 	/* Carry the object */
 	slot = inven_carry(cr_ptr, q_ptr);
@@ -6191,7 +6191,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	/* Modify, Describe, Optimize */
 	inven_item_increase(cr_ptr, item, -amt);
 	inven_item_describe(item);
-	inven_item_optimize(item);
+	inven_item_optimize(cr_ptr, item);
 }
 
 

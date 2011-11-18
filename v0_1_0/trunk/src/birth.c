@@ -3098,7 +3098,7 @@ static void wield_all(creature_type *cr_ptr)
 		if (item >= 0) 
 		{ 
 			inven_item_increase(cr_ptr, item, -1); 
-			inven_item_optimize(item); 
+			inven_item_optimize(cr_ptr, item); 
 		} 
  
 		/* Decrease the item (from the floor) */ 

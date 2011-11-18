@@ -219,7 +219,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		{
 			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
-			inven_item_optimize(item);
+			inven_item_optimize(cr_ptr, item);
 		}
 		else
 		{
@@ -287,7 +287,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		{
 			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
-			inven_item_optimize(item);
+			inven_item_optimize(cr_ptr, item);
 		}
 		else
 		{
@@ -416,7 +416,7 @@ s = "魔力を取り込めるアイテムがない。";
 	{
 		inven_item_increase(cr_ptr, item, -999);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */

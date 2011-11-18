@@ -699,7 +699,7 @@ msg_print("クエストを達成した！");
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Decrease the item (from the floor) */
@@ -848,7 +848,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 				object_copy(new_o_ptr, o_ptr);
 				cr_ptr->total_weight += o_ptr->weight;
 				inven_item_increase(cr_ptr, INVEN_2NDARM, -((int)o_ptr->number));
-				inven_item_optimize(INVEN_2NDARM);
+				inven_item_optimize(cr_ptr, INVEN_2NDARM);
 				if (object_allow_two_hands_wielding(cr_ptr, o_ptr) && CAN_TWO_HANDS_WIELDING(cr_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", o_name);
@@ -893,7 +893,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 			object_copy(new_o_ptr, o_ptr);
 			cr_ptr->total_weight += o_ptr->weight;
 			inven_item_increase(cr_ptr, INVEN_1STARM, -((int)o_ptr->number));
-			inven_item_optimize(INVEN_1STARM);
+			inven_item_optimize(cr_ptr, INVEN_1STARM);
 #ifdef JP
 			msg_format("%sを持ち替えた。", o_name);
 #else
@@ -1310,7 +1310,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	{
 		inven_item_increase(cr_ptr, item, -amt);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */
@@ -1773,7 +1773,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Decrease the item (from the floor) */
@@ -1907,7 +1907,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	{
 		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Decrease the item (from the floor) */

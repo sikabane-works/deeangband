@@ -2354,7 +2354,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 	{
 		inven_item_increase(cr_ptr, item, -amt);
 		inven_item_describe(item);
-		inven_item_optimize(item);
+		inven_item_optimize(cr_ptr, item);
 	}
 
 	/* Eliminate the item (from the floor) */
@@ -3399,7 +3399,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				{
 					inven_item_increase(cr_ptr, item, -1);
 					inven_item_describe(item);
-					inven_item_optimize(item);
+					inven_item_optimize(cr_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
@@ -3435,7 +3435,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				{
 					inven_item_increase(cr_ptr, item, -999);
 					inven_item_describe(item);
-					inven_item_optimize(item);
+					inven_item_optimize(cr_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
@@ -4872,7 +4872,7 @@ o_name, index_to_label(cr_ptr, i),
 
 				/* Destroy "amt" items */
 				inven_item_increase(cr_ptr, i, -amt);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 
 				/* Count the casualties */
 				k += amt;
@@ -5867,7 +5867,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 				{
 					inven_item_increase(cr_ptr, item, -1);
 					inven_item_describe(item);
-					inven_item_optimize(item);
+					inven_item_optimize(cr_ptr, item);
 				}
 
 				/* Reduce and describe floor item */
@@ -5903,7 +5903,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				{
 					inven_item_increase(cr_ptr, item, -999);
 					inven_item_describe(item);
-					inven_item_optimize(item);
+					inven_item_optimize(cr_ptr, item);
 				}
 
 				/* Reduce and describe floor item */

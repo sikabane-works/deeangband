@@ -2255,7 +2255,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2286,7 +2286,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2317,7 +2317,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2346,7 +2346,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2376,7 +2376,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
 		}
@@ -2412,7 +2412,7 @@ static bool kankin(creature_type *cr_ptr)
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 				kubi_species_idx[j] += 10000;
 
 				change = TRUE;
@@ -2421,7 +2421,7 @@ static bool kankin(creature_type *cr_ptr)
 				/* Hand it first */
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
-				inven_item_optimize(i);
+				inven_item_optimize(cr_ptr, i);
 
 				kubi_species_idx[j] += 10000;
 
