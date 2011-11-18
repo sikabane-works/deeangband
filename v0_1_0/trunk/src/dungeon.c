@@ -19,6 +19,23 @@ static bool load = TRUE;
 static int wild_regen = 20;
 
 
+static void k_info_reset(void)
+{
+	int i;
+
+	/* Reset the "objects" */
+	for (i = 1; i < max_k_idx; i++)
+	{
+		object_kind *k_ptr = &k_info[i];
+
+		/* Reset "tried" */
+		k_ptr->tried = FALSE;
+
+		/* Reset "aware" */
+		k_ptr->aware = FALSE;
+	}
+}
+
 /*
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
  */
@@ -6794,6 +6811,9 @@ quit("セーブファイルが壊れています");
 
 		// Initialize General Gamedata
 		world_wipe();
+
+		// Initialize Item Awareness
+		k_info_reset();
 
 		/* 
 		 * Wipe monsters in old dungeon
