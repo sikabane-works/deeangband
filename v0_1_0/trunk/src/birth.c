@@ -3155,6 +3155,7 @@ void add_outfit(creature_type *cr_ptr, object_type *o_ptr, bool equip)
 	}
 	slot = inven_carry(cr_ptr, o_ptr);
 
+
 	/* Auto-inscription */
 	autopick_alter_item(cr_ptr, slot, FALSE);
 
@@ -5274,11 +5275,11 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	species_type *sp_ptr = &species_info[species_idx];
 
-	cr_ptr->species_idx = species_idx;
-	cr_ptr->ap_species_idx = species_idx;
-
 	/* Wipe the player */
 	creature_wipe(cr_ptr);
+
+	cr_ptr->species_idx = species_idx;
+	cr_ptr->ap_species_idx = species_idx;
 
 	if(flags & GC_PLAYER) cr_ptr->player = TRUE;
 
