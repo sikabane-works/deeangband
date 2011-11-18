@@ -2018,7 +2018,8 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	o_ptr->number = 1;
 
 	/* Default weight */
-	o_ptr->weight = k_ptr->weight * o_ptr->fitting_size / 10 * o_ptr->fitting_size / 10;
+	if(o_ptr->fitting_size) o_ptr->weight = k_ptr->weight * o_ptr->fitting_size / 10 * o_ptr->fitting_size / 10;
+	else o_ptr->weight = k_ptr->weight;
 
 	/* Default magic */
 	o_ptr->to_h = k_ptr->to_h;
@@ -4335,7 +4336,8 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 		o_ptr->to_a = a_ptr->to_a;
 		o_ptr->to_h = a_ptr->to_h;
 		o_ptr->to_d = a_ptr->to_d;
-		o_ptr->weight = a_ptr->weight * a_ptr->fitting_size / 10 * a_ptr->fitting_size / 10;
+		if(o_ptr->fitting_size) o_ptr->weight = a_ptr->weight * a_ptr->fitting_size / 10 * a_ptr->fitting_size / 10;
+		else o_ptr->weight = a_ptr->weight;
 
 		/* Hack -- extract the "broken" flag */
 		if (!a_ptr->cost) o_ptr->ident |= (IDENT_BROKEN);
@@ -5597,7 +5599,7 @@ void inven_item_increase(int item, int num)
 
 
 /*
- * Erase an p_ptr->inventory slot if it has no more items
+ * Erase an inventory slot if it has no more items
  */
 void inven_item_optimize(int item)
 {

@@ -2276,7 +2276,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	if (o_ptr->ac) show_armour = TRUE;
 
 	/* Fitting Size */
-	if (show_armour)
+//	if (show_armour)
 	{
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, f1);
