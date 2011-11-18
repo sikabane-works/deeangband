@@ -3159,7 +3159,7 @@ void add_outfit(creature_type *cr_ptr, object_type *o_ptr, bool equip)
 	autopick_alter_item(cr_ptr, slot, FALSE);
 
 	/* Now try wielding everything */ 
-	if(is_player(cr_ptr)) wield_all(cr_ptr); 
+	wield_all(cr_ptr); 
 }
 
 
