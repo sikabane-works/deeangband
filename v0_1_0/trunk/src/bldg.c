@@ -2254,7 +2254,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += 1000000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
@@ -2285,7 +2285,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += 200000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
@@ -2316,7 +2316,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += 100000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
@@ -2345,7 +2345,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += (species_info[today_mon].level * 50 + 100) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
@@ -2375,7 +2375,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += (species_info[today_mon].level * 30 + 60) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 			}
 			change = TRUE;
@@ -2411,7 +2411,7 @@ static bool kankin(creature_type *cr_ptr)
 				cr_ptr->au += (species_info[kubi_species_idx[j]].level+1) * 300 * o_ptr->number;
 				play_redraw |= (PR_GOLD);
 				inven_item_increase(i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 				kubi_species_idx[j] += 10000;
 
@@ -2420,7 +2420,7 @@ static bool kankin(creature_type *cr_ptr)
 
 				/* Hand it first */
 				inven_item_increase(cr_ptr, i, -o_ptr->number);
-				inven_item_describe(i);
+				inven_item_describe(cr_ptr, i);
 				inven_item_optimize(cr_ptr, i);
 
 				kubi_species_idx[j] += 10000;

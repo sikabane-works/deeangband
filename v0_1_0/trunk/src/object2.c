@@ -5514,11 +5514,11 @@ void inven_item_charges(creature_type *cr_ptr, int item)
 
 
 /*
- * Describe an item in the p_ptr->inventory.
+ * Describe an item in the inventory.
  */
-void inven_item_describe(int item)
+void inven_item_describe(creature_type *cr_ptr, int item)
 {
-	object_type *o_ptr = &p_ptr->inventory[item];
+	object_type *o_ptr = &cr_ptr->inventory[item];
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
@@ -6190,7 +6190,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 	/* Modify, Describe, Optimize */
 	inven_item_increase(cr_ptr, item, -amt);
-	inven_item_describe(item);
+	inven_item_describe(cr_ptr, item);
 	inven_item_optimize(cr_ptr, item);
 }
 

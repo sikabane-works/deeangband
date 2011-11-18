@@ -4507,7 +4507,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 			/* Take the item from the player, describe the result */
 			inven_item_increase(cr_ptr, item, -amt);
-			inven_item_describe(item);
+			inven_item_describe(cr_ptr, item);
 
 			/* If items remain, auto-inscribe before optimizing */
 			if (o_ptr->number > 0)
@@ -4576,7 +4576,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		/* Take it from the players cr_ptr->inventory */
 		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 
 		/* Handle stuff */
@@ -4609,7 +4609,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", o_name, (long)price);
 
 		/* Take it from the players cr_ptr->inventory */
 		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 
 		/* Handle stuff */
@@ -5469,7 +5469,7 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 
 				/* Remove it from the players cr_ptr->inventory */
 				inven_item_increase(cr_ptr, item, -255);
-				inven_item_describe(item);
+				inven_item_describe(cr_ptr, item);
 				inven_item_optimize(cr_ptr, item);
 
 				/* Handle stuff */

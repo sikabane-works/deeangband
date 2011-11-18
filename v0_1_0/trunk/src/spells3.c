@@ -2353,7 +2353,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
@@ -3398,7 +3398,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				if (item >= 0)
 				{
 					inven_item_increase(cr_ptr, item, -1);
-					inven_item_describe(item);
+					inven_item_describe(cr_ptr, item);
 					inven_item_optimize(cr_ptr, item);
 				}
 
@@ -3434,7 +3434,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				if (item >= 0)
 				{
 					inven_item_increase(cr_ptr, item, -999);
-					inven_item_describe(item);
+					inven_item_describe(cr_ptr, item);
 					inven_item_optimize(cr_ptr, item);
 				}
 
@@ -5866,7 +5866,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 				if (item >= 0)
 				{
 					inven_item_increase(cr_ptr, item, -1);
-					inven_item_describe(item);
+					inven_item_describe(cr_ptr, item);
 					inven_item_optimize(cr_ptr, item);
 				}
 
@@ -5902,7 +5902,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				if (item >= 0)
 				{
 					inven_item_increase(cr_ptr, item, -999);
-					inven_item_describe(item);
+					inven_item_describe(cr_ptr, item);
 					inven_item_optimize(cr_ptr, item);
 				}
 

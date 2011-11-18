@@ -1309,7 +1309,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -amt);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
@@ -1772,7 +1772,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
@@ -1906,7 +1906,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 

@@ -1342,7 +1342,7 @@ extern s16b choose_random_trap(void);
 extern void disclose_grid(int y, int x);
 extern void place_trap(int y, int x);
 extern void inven_item_charges(creature_type *cr_ptr, int item);
-extern void inven_item_describe(int item);
+extern void inven_item_describe(creature_type *cr_ptr, int item);
 extern void inven_item_increase(creature_type *cr_ptr, int item, int num);
 extern void inven_item_optimize(creature_type *cr_ptr, int item);
 extern void floor_item_charges(int item);

@@ -603,7 +603,7 @@ msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
@@ -744,7 +744,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
@@ -2180,7 +2180,7 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -1);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 

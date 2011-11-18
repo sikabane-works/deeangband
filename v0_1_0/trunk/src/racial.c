@@ -218,7 +218,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		if (item >= 0)
 		{
 			inven_item_increase(cr_ptr, item, -1);
-			inven_item_describe(item);
+			inven_item_describe(cr_ptr, item);
 			inven_item_optimize(cr_ptr, item);
 		}
 		else
@@ -286,7 +286,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		if (item >= 0)
 		{
 			inven_item_increase(cr_ptr, item, -1);
-			inven_item_describe(item);
+			inven_item_describe(cr_ptr, item);
 			inven_item_optimize(cr_ptr, item);
 		}
 		else
@@ -415,7 +415,7 @@ s = "魔力を取り込めるアイテムがない。";
 	if (item >= 0)
 	{
 		inven_item_increase(cr_ptr, item, -999);
-		inven_item_describe(item);
+		inven_item_describe(cr_ptr, item);
 		inven_item_optimize(cr_ptr, item);
 	}
 
