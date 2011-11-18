@@ -602,7 +602,7 @@ msg_print("¶Ò‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 	/* Destroy a food in the pack */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -1);
+		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}
@@ -743,7 +743,7 @@ static void do_cmd_quaff_potion_aux(creature_type *cr_ptr, int item)
 	/* Reduce and describe cr_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -1);
+		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}
@@ -2179,7 +2179,7 @@ msg_print("Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I");
 	/* Destroy a scroll in the pack */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -1);
+		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}

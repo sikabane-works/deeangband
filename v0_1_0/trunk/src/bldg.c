@@ -2253,7 +2253,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 				cr_ptr->au += 1000000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 			}
@@ -2284,7 +2284,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 				cr_ptr->au += 200000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 			}
@@ -2315,7 +2315,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 				cr_ptr->au += 100000L * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 			}
@@ -2344,7 +2344,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 				cr_ptr->au += (species_info[today_mon].level * 50 + 100) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 			}
@@ -2374,7 +2374,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif
 				cr_ptr->au += (species_info[today_mon].level * 30 + 60) * o_ptr->number;
 				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 			}
@@ -2419,7 +2419,7 @@ static bool kankin(creature_type *cr_ptr)
 #endif /* Obsoleted */
 
 				/* Hand it first */
-				inven_item_increase(i, -o_ptr->number);
+				inven_item_increase(cr_ptr, i, -o_ptr->number);
 				inven_item_describe(i);
 				inven_item_optimize(i);
 

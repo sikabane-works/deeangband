@@ -2664,7 +2664,7 @@ void do_cmd_spike(creature_type *cr_ptr)
 			cave_alter_feat(y, x, FF_SPIKE);
 
 			/* Use up, and describe, a single spike, from the bottom */
-			inven_item_increase(item, -1);
+			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
 			inven_item_optimize(item);
 		}
@@ -3409,7 +3409,7 @@ void do_cmd_fire_aux(creature_type *cr_ptr, int item, object_type *j_ptr)
 	/* Reduce and describe cr_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -1);
+		inven_item_increase(cr_ptr, item, -1);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}
@@ -4151,7 +4151,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	/* Reduce and describe cr_ptr->inventory */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -1);
+		inven_item_increase(cr_ptr, item, -1);
 		if (!return_when_thrown)
 			inven_item_describe(item);
 		inven_item_optimize(item);

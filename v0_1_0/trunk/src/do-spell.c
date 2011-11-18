@@ -1095,7 +1095,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 		/* Decrease the item (from the pack) */
 		if (item >= 0)
 		{
-			inven_item_increase(item, -1);
+			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
 			inven_item_optimize(item);
 		}

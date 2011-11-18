@@ -1641,7 +1641,7 @@ static void autopick_delayed_alter_aux(creature_type *cr_ptr, int item)
 		/* Eliminate the item (from the pack) */
 		if (item >= 0)
 		{
-			inven_item_increase(item, -(o_ptr->number));
+			inven_item_increase(cr_ptr, item, -(o_ptr->number));
 			inven_item_optimize(item);
 		}
 

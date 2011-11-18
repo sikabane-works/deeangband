@@ -5450,7 +5450,7 @@ static void pack_overflow(creature_type *cr_ptr)
 		(void)drop_near(o_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 		/* Modify, Describe, Optimize */
-		inven_item_increase(INVEN_PACK, -255);
+		inven_item_increase(cr_ptr, INVEN_PACK, -255);
 		inven_item_describe(INVEN_PACK);
 		inven_item_optimize(INVEN_PACK);
 

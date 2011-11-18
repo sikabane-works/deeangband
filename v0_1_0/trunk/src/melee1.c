@@ -1126,7 +1126,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						}
 
 						/* Steal the items */
-						inven_item_increase(i, -1);
+						inven_item_increase(tar_ptr, i, -1);
 						inven_item_optimize(i);
 
 						/* Obvious */
@@ -1180,7 +1180,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 
 						/* Steal the items */
-						inven_item_increase(i, -1);
+						inven_item_increase(tar_ptr, i, -1);
 						inven_item_optimize(i);
 
 						/* Obvious */

@@ -5545,11 +5545,11 @@ void inven_item_describe(int item)
 
 
 /*
- * Increase the "number" of an item in the p_ptr->inventory
+ * Increase the "number" of an item in the inventory
  */
-void inven_item_increase(int item, int num)
+void inven_item_increase(creature_type *cr_ptr, int item, int num)
 {
-	object_type *o_ptr = &p_ptr->inventory[item];
+	object_type *o_ptr = &cr_ptr->inventory[item];
 
 	/* Apply */
 	num += o_ptr->number;
@@ -5568,29 +5568,29 @@ void inven_item_increase(int item, int num)
 		o_ptr->number += num;
 
 		/* Add the weight */
-		p_ptr->total_weight += (num * o_ptr->weight);
+		cr_ptr->total_weight += (num * o_ptr->weight);
 
 		/* Recalculate bonuses */
-		p_ptr->update |= (PU_BONUS);
+		cr_ptr->update |= (PU_BONUS);
 
 		/* Recalculate mana XXX */
-		p_ptr->update |= (PU_MANA);
+		cr_ptr->update |= (PU_MANA);
 
 		/* Combine the pack */
-		p_ptr->notice |= (PN_COMBINE);
+		cr_ptr->notice |= (PN_COMBINE);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
-		if (!o_ptr->number && p_ptr->ele_attack)
+		if (!o_ptr->number && cr_ptr->ele_attack)
 		{
 			if ((item == INVEN_1STARM) || (item == INVEN_2NDARM))
 			{
-				if (!have_weapon(p_ptr, INVEN_1STARM + INVEN_2NDARM - item))
+				if (!have_weapon(cr_ptr, INVEN_1STARM + INVEN_2NDARM - item))
 				{
 					/* Clear all temporary elemental brands */
-					set_ele_attack(p_ptr, 0, 0);
+					set_ele_attack(cr_ptr, 0, 0);
 				}
 			}
 		}
@@ -6107,7 +6107,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	}
 
 	/* Modify, Optimize */
-	inven_item_increase(item, -amt);
+	inven_item_increase(cr_ptr, item, -amt);
 	inven_item_optimize(item);
 
 	/* Carry the object */
@@ -6189,7 +6189,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	(void)drop_near(q_ptr, 0, cr_ptr->fy, cr_ptr->fx);
 
 	/* Modify, Describe, Optimize */
-	inven_item_increase(item, -amt);
+	inven_item_increase(cr_ptr, item, -amt);
 	inven_item_describe(item);
 	inven_item_optimize(item);
 }

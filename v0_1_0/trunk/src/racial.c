@@ -217,7 +217,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		if (item >= 0)
 		{
-			inven_item_increase(item, -1);
+			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
 			inven_item_optimize(item);
 		}
@@ -285,7 +285,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 
 		if (item >= 0)
 		{
-			inven_item_increase(item, -1);
+			inven_item_increase(cr_ptr, item, -1);
 			inven_item_describe(item);
 			inven_item_optimize(item);
 		}
@@ -414,7 +414,7 @@ s = "魔力を取り込めるアイテムがない。";
 	/* Eliminate the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -999);
+		inven_item_increase(cr_ptr, item, -999);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}

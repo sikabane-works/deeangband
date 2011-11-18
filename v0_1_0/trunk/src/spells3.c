@@ -2352,7 +2352,7 @@ msg_format("%sを＄%d の金に変えた。", o_name, price);
 	/* Eliminate the item (from the pack) */
 	if (item >= 0)
 	{
-		inven_item_increase(item, -amt);
+		inven_item_increase(cr_ptr, item, -amt);
 		inven_item_describe(item);
 		inven_item_optimize(item);
 	}
@@ -2709,7 +2709,7 @@ bool artifact_scroll(creature_type *cr_ptr)
 
 			if (item >= 0)
 			{
-				inven_item_increase(item, 1-(o_ptr->number));
+				inven_item_increase(cr_ptr, item, 1-(o_ptr->number));
 			}
 			else
 			{
@@ -3397,7 +3397,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(item, -1);
+					inven_item_increase(cr_ptr, item, -1);
 					inven_item_describe(item);
 					inven_item_optimize(item);
 				}
@@ -3433,7 +3433,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(item, -999);
+					inven_item_increase(cr_ptr, item, -999);
 					inven_item_describe(item);
 					inven_item_optimize(item);
 				}
@@ -4871,7 +4871,7 @@ o_name, index_to_label(cr_ptr, i),
 				reduce_charges(o_ptr, amt);
 
 				/* Destroy "amt" items */
-				inven_item_increase(i, -amt);
+				inven_item_increase(cr_ptr, i, -amt);
 				inven_item_optimize(i);
 
 				/* Count the casualties */
@@ -5865,7 +5865,7 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", o_name);
 				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(item, -1);
+					inven_item_increase(cr_ptr, item, -1);
 					inven_item_describe(item);
 					inven_item_optimize(item);
 				}
@@ -5901,7 +5901,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", o_name);
 				/* Reduce and describe cr_ptr->inventory */
 				if (item >= 0)
 				{
-					inven_item_increase(item, -999);
+					inven_item_increase(cr_ptr, item, -999);
 					inven_item_describe(item);
 					inven_item_optimize(item);
 				}
