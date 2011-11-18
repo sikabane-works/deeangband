@@ -3148,15 +3148,18 @@ void add_outfit(creature_type *cr_ptr, object_type *o_ptr, bool equip)
 {
 	s16b slot;
 
-	object_aware(o_ptr);
-	object_known(o_ptr);
+	if(is_player(cr_ptr))
+	{
+		object_aware(o_ptr);
+		object_known(o_ptr);
+	}
 	slot = inven_carry(cr_ptr, o_ptr);
 
 	/* Auto-inscription */
 	autopick_alter_item(cr_ptr, slot, FALSE);
 
 	/* Now try wielding everything */ 
-	//wield_all(cr_ptr); 
+	if(is_player(cr_ptr)) wield_all(cr_ptr); 
 }
 
 
