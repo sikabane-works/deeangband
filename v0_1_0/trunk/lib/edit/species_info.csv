@@ -9152,11 +9152,11 @@ HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE
 1330,"偉大なる『ブガービイ』","Buggerby the Great","p","g","GNOME","GNOME","0x02","MAGE","NONE",0,0,0,0,1,0,0,0,0,0,0,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,,,"JZ#",,,,,
 1331,"赤毛の『ペンネール』","Penner the Red Heir","y","g","YEEK","YEEK","0x02","MAGE","NONE",0,0,0,0,1,0,0,0,0,0,0,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,,,"JZ#",,,,,
+HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,"　イークの中でも最も腕っ節優れたレッド・イークの一人だ。特に彼の赤毛は鮮やかで印象深く、それをまとう彼自身も自信に満ち溢れた態度を取っている。",,"JZ#",,,,,
 1332,"魔法少女『リンボ＝リンカ』","Limbo-Linka the Magical Girl","H","g","BEASTMAN","BEASTMAN","0x01","MAGE","NONE",0,0,0,0,1,0,45100,0,0,0,0,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,,,"JZ#",,,,,
 1333,"学士『グラカス』","Gulacuz the Bachelor","o","g","URUK","URUK","0x02","MAGE","NONE",0,0,0,0,1,0,8217,0,0,43,76,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,"UNIQUE|ALBINO",,,"大柄でこそはあるが、ウルクとは思えないほどに柔弱で白い肌をした青年だ。そこそこの名家の出で将来は無難に約束されているらしい。",,"JZ#",,,,,
+HIT:HURT:1d6",,,"UNIQUE|CITIZEN|ALBINO",,,"　大柄でこそはあるが、およそ異種族が抱くウルクとは正反対の文人肌をした青年だ。そこそこの名家の出で将来は無難に約束されているらしい。",,"JZ#",,,,,
 1334,"『ガミジンさん』","Mr.Gamygyn","p","g","DEMON","DEMON","0x02","MAGE","NONE",0,0,0,0,1,0,0,0,0,0,0,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
 HIT:HURT:1d6",,,"UNIQUE|CITIZEN|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,"　ガミジンさんはとってもフレンドリーで優しい悪魔だ。悪魔祓いをやったり、Ｋマートの店員だったり、地獄の公務員だったり、ダンジョンの奥であなたにサブマシンガンを提供してくれたりする。
 　「てめーら人間だって人間が人間を裁いてるじゃねーか！悪魔だからってナメるとぶっ殺すぞ！」「ご、ご、ご、ごめんなさい！」「わかってくれればそれでいいんだ♪」（『妹が作った痛いＲＰＧ「吸精鬼エロキュラ」』高橋邦子）",,"JZ#",,,,,
