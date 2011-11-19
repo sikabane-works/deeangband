@@ -2604,12 +2604,12 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 					update_playtime();
 
 					/* Display the player */
-					display_player(m, m_ptr);
+					display_creature_status(m, m_ptr);
 
 					if (m == 4)
 					{
 						m = 0;
-						display_player(m, m_ptr);
+						display_creature_status(m, m_ptr);
 					}
 
 					/* Prompt */
@@ -5702,12 +5702,12 @@ void display_creature_dump(creature_type *cr_ptr)
 		update_playtime();
 
 		/* Display the player */
-		display_player(m, cr_ptr);
+		display_creature_status(m, cr_ptr);
 
 		if (m == 4)
 		{
 			m = 0;
-			display_player(m, cr_ptr);
+			display_creature_status(m, cr_ptr);
 		}
 
 		/* Prompt */

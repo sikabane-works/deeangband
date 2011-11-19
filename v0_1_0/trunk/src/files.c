@@ -3921,7 +3921,7 @@ c_put_str(TERM_L_GREEN, "能力修正", row - 1, col);
  * Mode 7 = summary of various things (part 4)
  * Mode 8 = mutations
  */
-void display_player(int mode, creature_type *cr_ptr)
+void display_creature_status(int mode, creature_type *cr_ptr)
 {
 	int i;
 
@@ -4350,7 +4350,7 @@ void display_player(int mode, creature_type *cr_ptr)
 /*
  *
  */
-static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
+static void dump_aux_display_creature_status(creature_type *cr_ptr, FILE *fff)
 {
 	int x, y;
 	byte a;
@@ -4358,7 +4358,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	char		buf[1024];
 
 	/* Display player */
-	display_player(0, cr_ptr);
+	display_creature_status(0, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4389,7 +4389,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display history */
-	display_player(1, cr_ptr);
+	display_creature_status(1, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 10; y < 19; y++)
@@ -4417,7 +4417,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 1) */
-	display_player(2, cr_ptr);
+	display_creature_status(2, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 2; y < 22; y++)
@@ -4448,7 +4448,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	fprintf(fff, "\n");
 
 	/* Display flags (part 2) */
-	display_player(3, cr_ptr);
+	display_creature_status(3, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4477,7 +4477,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display flags (part 3) */
-	display_player(4, cr_ptr);
+	display_creature_status(4, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -4506,7 +4506,7 @@ static void dump_aux_display_player(creature_type *cr_ptr, FILE *fff)
 	}
 
 	/* Display flags (part 4) */
-	display_player(5, cr_ptr);
+	display_creature_status(5, cr_ptr);
 
 	/* Dump part of the screen */
 	for (y = 1; y < 22; y++)
@@ -5507,7 +5507,7 @@ errr make_character_dump(creature_type *cr_ptr, FILE *fff)
 
 	update_playtime();
 
-	dump_aux_display_player(cr_ptr, fff);
+	dump_aux_display_creature_status(cr_ptr, fff);
 	dump_aux_last_message(cr_ptr, fff);
 	dump_aux_options(cr_ptr, fff);
 	dump_aux_recall(cr_ptr, fff);
@@ -6578,7 +6578,7 @@ quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_p
 /*
  * Gets a name for the character, reacting to name changes.
  *
- * Assumes that "display_player(0, p_ptr)" has just been called
+ * Assumes that "display_creature_status(0, p_ptr)" has just been called
  *
  * Perhaps we should NOT ask for a name (at "birth()") on
  * Unix machines?  XXX XXX
@@ -7334,7 +7334,7 @@ put_str("ファイルネーム: ", 23, 0);
 	update_playtime();
 
 	/* Display player */
-	display_player(0, p_ptr);
+	display_creature_status(0, p_ptr);
 
 	/* Prompt for inventory */
 #ifdef JP

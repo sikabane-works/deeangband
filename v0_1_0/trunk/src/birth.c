@@ -2692,7 +2692,7 @@ static void get_money(creature_type *cr_ptr)
 /*
  * Display stat values, subset of "put_stats()"
  *
- * See 'display_player()' for screen layout constraints.
+ * See 'display_creature_status()' for screen layout constraints.
  */
 static void birth_put_stats(creature_type *cr_ptr)
 {
@@ -5062,7 +5062,7 @@ static void edit_history(creature_type *cr_ptr)
 		for (; j < HISTORY_COL - 1; j++) cr_ptr->history[i][j] = ' ';
 		cr_ptr->history[i][HISTORY_COL - 1] = '\0';
 	}
-	display_player(1, cr_ptr);
+	display_creature_status(1, cr_ptr);
 #ifdef JP
 	c_put_str(TERM_L_GREEN, "(クリーチャーのプロフィール - 編集モード)", 2, 20);
 	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 23, 10);
@@ -5721,7 +5721,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			if(auto_generate) break;
 
 			/* Display the player */
-			display_player(mode, cr_ptr);
+			display_creature_status(mode, cr_ptr);
 
 			/* Prepare a prompt (must squeeze everything in) */
 			Term_gotoxy(2, 23);

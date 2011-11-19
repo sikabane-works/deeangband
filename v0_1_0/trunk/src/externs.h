@@ -1129,7 +1129,7 @@ extern void prevent_turn_overflow(creature_type *cr_ptr);
 extern void safe_setuid_drop(void);
 extern void safe_setuid_grab(void);
 extern s16b tokenize(char *buf, s16b num, char **tokens, int mode);
-extern void display_player(int mode, creature_type *cr_ptr);
+extern void display_creature_status(int mode, creature_type *cr_ptr);
 extern errr make_character_dump(creature_type *cr_ptr, FILE *fff);
 extern errr file_character(cptr name);
 extern errr process_pref_file_command(char *buf);

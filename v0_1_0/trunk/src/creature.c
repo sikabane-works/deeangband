@@ -2490,5 +2490,32 @@ bool has_status(creature_type *creature_ptr, int stat)
 
 }
 
+creature_type *search_creature_info(int species_idx)
+{
+	static creature_type tmp_cr;
+	int i;
+
+	if(is_unique_species(&species_info[species_idx]))
+	{
+		for(i = 0; i < max_unique; i++)
+		{
+			if(species_idx == u_info[i].species_idx)
+			{
+				u_info[i].update = PU_BONUS | PU_HP | PU_MANA;
+				update_stuff(&u_info[i], FALSE);
+				return &u_info[i];
+			}
+		}
+
+		return NULL;
+	}
+	else
+	{
+		species_type sp;
+		C_WIPE(&tmp_cr, 1, creature_type);
+		generate_creature(&tmp_cr, species_idx, &sp, GC_AUTO | GC_AVERAGE);
+		return &tmp_cr;
+	}
 
 
+}

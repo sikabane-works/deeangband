@@ -1246,12 +1246,12 @@ void do_cmd_change_name(creature_type *cr_ptr)
 		update_playtime();
 
 		/* Display the player */
-		display_player(mode, cr_ptr);
+		display_creature_status(mode, cr_ptr);
 
 		if (mode == 8)
 		{
 			mode = 0;
-			display_player(mode, cr_ptr);
+			display_creature_status(mode, cr_ptr);
 		}
 
 		/* Prompt */

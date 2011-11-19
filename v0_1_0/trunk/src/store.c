@@ -4926,6 +4926,60 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 			break;
 		}
 
+		/* Look at owner */
+		case 'l':
+		{
+			char c;
+			int mode = 0;
+
+
+			//creature_type *cr_ptr = 
+			while (1)
+			{
+				update_playtime();
+
+				/* Display the player */
+				//display_creature_status(mode, cr_ptr);
+
+				if (mode == 8)
+				{
+					mode = 0;
+					//display_creature_status(mode, cr_ptr);
+				}
+
+				/* Prompt */
+#ifdef JP
+				Term_putstr(2, 23, -1, TERM_WHITE,
+					    "['h'でモード変更, ESCで終了]");
+#else
+				Term_putstr(2, 23, -1, TERM_WHITE,
+						"['h' to change mode, or ESC]");
+#endif
+				/* Query */
+				c = inkey();
+
+				/* Exit */
+				if (c == ESCAPE) break;
+
+				/* Toggle mode */
+				else if (c == 'h')
+				{
+					mode++;
+				}
+
+				/* Oops */
+				else
+				{
+					bell();
+				}
+
+				/* Flush messages */
+				msg_print(NULL);
+
+				break;
+			}
+		}
+
 		/* Ignore return */
 		case '\r':
 		{
@@ -5327,10 +5381,12 @@ void store_process(creature_type *cr_ptr, store_type *st_ptr)
 			prt("p) 商品を買う", 21 + xtra_stock, 30);
 			prt("s) アイテムを売る", 22 + xtra_stock, 30);
 			prt("x) 商品を調べる", 23 + xtra_stock,30);
+			prt("l) 店主の様子を伺う", 23 + xtra_stock,56);
 #else
 			prt("p) Purchase an item.", 21 + xtra_stock, 30);
 			prt("s) Sell an item.", 22 + xtra_stock, 30);
 			prt("x) eXamine an item in the shop", 23 + xtra_stock,30);
+			prt("l) Lock at the owner", 23 + xtra_stock,56);
 #endif
 		}
 

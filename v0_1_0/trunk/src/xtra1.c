@@ -1766,7 +1766,7 @@ static void fix_player(void)
 		update_playtime();
 
 		/* Display player */
-		display_player(0, p_ptr);
+		display_creature_status(0, p_ptr);
 
 		/* Fresh */
 		Term_fresh();
