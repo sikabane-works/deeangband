@@ -5368,9 +5368,9 @@ static cptr monster_group_char[] =
 
 
 /*
- * hook function to sort monsters by level
+ * hook function to sort creatures by level
  */
-static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
+static bool ang_sort_comp_creature_level(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
 
@@ -5390,6 +5390,28 @@ static bool ang_sort_comp_monster_level(vptr u, vptr v, int a, int b)
 	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return FALSE;
 	return w1 <= w2;
 }
+
+static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
+{
+	u16b *who = (u16b*)(u);
+
+	int w1 = who[a];
+	int w2 = who[b];
+
+	species_type *r_ptr1 = &species_info[w1];
+	species_type *r_ptr2 = &species_info[w2];
+
+	/* Unused */
+	(void)v;
+
+	if (r_ptr2->exp > r_ptr1->exp) return TRUE;
+	if (r_ptr1->exp > r_ptr2->exp) return FALSE;
+
+	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return TRUE;
+	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return FALSE;
+	return w1 <= w2;
+}
+
 
 /*
  * Build a list of monster indexes in the given group. Return the number
@@ -5508,7 +5530,7 @@ static int collect_monsters(int grp_cur, s16b mon_idx[], byte mode)
 	mon_idx[mon_cnt] = -1;
 
 	/* Select the sort method */
-	ang_sort_comp = ang_sort_comp_monster_level;
+	ang_sort_comp = ang_sort_comp_creature_exp;
 	ang_sort_swap = ang_sort_swap_hook;
 
 	/* Sort by monster level */
