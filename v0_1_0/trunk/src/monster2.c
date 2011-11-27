@@ -3242,6 +3242,41 @@ void deal_item(creature_type *creature_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
+	//
+	// Item depend on species_info
+	//
+	for(i = 0; i < INVEN_TOTAL; i++)
+	{
+		if(!(&creature_ptr->inventory[i])) break;
+		if(!r_ptr->artifact_prob[i]) break;
+
+		if(r_ptr->artifact_id[i])
+		{
+			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
+			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || wizard))
+			{
+				if (!a_ptr->cur_num)
+				{
+					int r;
+					object_type ob;
+					// Equip the artifact
+					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
+					a_ptr->cur_num = 1;
+					r = wield_slot(creature_ptr, &ob);
+					add_outfit(creature_ptr, &ob, TRUE);
+				}
+			}
+
+		}
+		else
+		{
+			object_type ob;
+			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
+			add_outfit(creature_ptr, &ob, TRUE);
+		}
+	}
+
+
 	// Food depend on creature_flags
 	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
 	{
@@ -3481,44 +3516,6 @@ void deal_item(creature_type *creature_ptr)
 
 	/* Hack -- make aware of the water */
 	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
-
-	//
-	// Item depend on species_info
-	//
-	/*
-	for(i = 0; i < INVEN_TOTAL; i++)
-	{
-		if(!(&creature_ptr->inventory[i])) break;
-
-		if(!r_ptr->artifact_prob[i]) break;
-
-		if(r_ptr->artifact_id[i])
-		{
-			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
-			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || wizard))
-			{
-				if (!a_ptr->cur_num)
-				{
-					int r;
-					object_type ob;
-					// Equip the artifact
-					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
-					a_ptr->cur_num = 1;
-					r = wield_slot(creature_ptr, &ob);
-					add_outfit(creature_ptr, &ob);
-				}
-			}
-
-		}
-		else
-		{
-			object_type ob;
-			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
-			add_outfit(creature_ptr, &ob);
-		}
-	}
-	*/
-
 
 }
 
