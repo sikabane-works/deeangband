@@ -1006,18 +1006,6 @@
  * That leaves a "border" around the "stat" values.
  */
 
-//#define ROW_RACE                1
-//#define COL_RACE                0       /* <race name> */
-
-/*#define ROW_CLASS               2 */
-/*#define COL_CLASS               0 */      /* <class name> */
-
-//#define ROW_TITLE               2
-//#define COL_TITLE               0       /* <title> or <mode> */
-
-/*#define ROW_CHARA		4 */
-/*#define COL_CHARA      	0*/	/* <CHARA> */
-
 #define ROW_DAY                 21
 #define COL_DAY                 0       /* day */
 

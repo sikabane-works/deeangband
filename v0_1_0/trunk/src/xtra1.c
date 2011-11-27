@@ -5937,9 +5937,6 @@ void redraw_stuff(creature_type *cr_ptr)
 	if (play_redraw & (PR_MISC))
 	{
 		play_redraw &= ~(PR_MISC);
-//		prt_field(race_info[cr_ptr->race_idx1].title, ROW_RACE, COL_RACE);
-/*		prt_field(class_info[cr_ptr->cls_idx].title, ROW_CLASS, COL_CLASS); */
-
 	}
 
 	if (play_redraw & (PR_LEV))
