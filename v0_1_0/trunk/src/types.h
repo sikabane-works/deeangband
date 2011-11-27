@@ -91,7 +91,6 @@ struct feature_type
 
 	u16b priority;            /* Map priority */
 	s16b destroyed;           /* Default destroyed state */
-
 	feature_state state[MAX_FEAT_STATES];
 
 	byte subtype;

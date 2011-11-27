@@ -1046,7 +1046,7 @@
 #define COL_INFO                0       /* "xxxxxxxxxxxx" */
 
 #define ROW_MAP                 0
-#define COL_MAP                 12
+#define COL_MAP                 15
 
 #define ROW_CUT                 18
 #define COL_CUT                 0       /* <cut> */
