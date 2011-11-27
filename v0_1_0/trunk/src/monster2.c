@@ -3397,9 +3397,9 @@ void deal_item(creature_type *creature_ptr)
 			q_ptr = &forge;
 			/* Hack -- Give the player some arrows */
 			object_prep(q_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
-			q_ptr->number = 1;
-
+			q_ptr->number = (byte)rand_range(1, creature_ptr->lev / 8);
 			add_outfit(creature_ptr, q_ptr, FALSE);
+
 		}
 	}
 	else if (creature_ptr->cls_idx == CLASS_TOURIST)
