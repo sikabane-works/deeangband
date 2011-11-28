@@ -3213,6 +3213,60 @@ static int initial_r_appearance(int species_idx)
 	return species_idx;
 }
 
+static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
+{
+	int min, max, tv;
+	object_type forge;
+	object_type *q_ptr;
+
+	q_ptr = &forge;
+	tv = TV_LIFE_BOOK + realm - 1;
+
+	// First Book
+	min = (creature_ptr->lev > 15 ? 2 : 1);
+	max = (min + creature_ptr->lev / 10);
+	object_prep(q_ptr, lookup_kind(tv, 0), ITEM_FREE_SIZE);
+	q_ptr->number = (byte)rand_range(min, max);
+	add_outfit(creature_ptr, q_ptr, FALSE);
+
+	// Second Book
+	if(creature_ptr->lev > 10 || one_in_(50))
+	{
+		min = (creature_ptr->lev > 22 ? 2 : 1);
+		max = (min + creature_ptr->lev / 17);
+		object_prep(q_ptr, lookup_kind(tv, 1), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, q_ptr, FALSE);
+	}
+
+	// Third Book
+	if(creature_ptr->lev > 32 || one_in_(300))
+	{
+		min = (creature_ptr->lev > 41 ? 2 : 1);
+		max = (min + creature_ptr->lev / 37);
+		object_prep(q_ptr, lookup_kind(tv, 2), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, q_ptr, FALSE);
+	}
+
+	// Fourth Book
+	if(creature_ptr->lev > 44 || one_in_(1000))
+	{
+		min = (creature_ptr->lev > 48 ? 2 : 1);
+		max = (min + creature_ptr->lev / 50);
+		object_prep(q_ptr, lookup_kind(tv, 3), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, q_ptr, FALSE);
+	}
+
+}
+
+static void deal_magic_book(creature_type *creature_ptr)
+{
+	if(creature_ptr->realm1 != REALM_NONE) deal_magic_book_aux(creature_ptr, creature_ptr->realm1);
+	if(creature_ptr->realm2 != REALM_NONE) deal_magic_book_aux(creature_ptr, creature_ptr->realm2);
+}
+
 
 void deal_item(creature_type *creature_ptr)
 {
@@ -3276,6 +3330,9 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
+	// Dealing MagicBook
+	deal_magic_book(creature_ptr);
+
 
 	// Food depend on creature_flags
 	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
@@ -3286,6 +3343,7 @@ void deal_item(creature_type *creature_ptr)
 
 		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
+
 	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
 	{
 		/* Prepare allocation table */
