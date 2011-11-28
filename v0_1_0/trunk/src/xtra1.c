@@ -1940,7 +1940,7 @@ static void fix_monster(creature_type *cr_ptr)
 /*
  * Hack -- display object recall in sub-windows
  */
-static void fix_object(void)
+static void fix_object(creature_type *creature_ptr)
 {
 	int j;
 
@@ -1959,7 +1959,7 @@ static void fix_object(void)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (p_ptr->object_kind_idx) display_koff(p_ptr, p_ptr->object_kind_idx);
+		if (creature_ptr->object_kind_idx) display_koff(creature_ptr, creature_ptr->object_kind_idx);
 
 		/* Fresh */
 		Term_fresh();
@@ -6153,7 +6153,7 @@ void window_stuff(void)
 	if (play_window & (PW_OBJECT))
 	{
 		play_window &= ~(PW_OBJECT);
-		fix_object();
+		fix_object(p_ptr);
 	}
 }
 
