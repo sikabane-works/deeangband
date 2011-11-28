@@ -4134,7 +4134,7 @@ static u16b flow_y = 0;
  * We do not need a priority queue because the cost from grid
  * to grid is always "one" and we process them in order.
  */
-void update_flow(void)
+void update_flow(creature_type *creature_ptr)
 {
 	int x, y, d;
 	int flow_head = 1;
@@ -4161,12 +4161,12 @@ void update_flow(void)
 	}
 
 	/* Save player position */
-	flow_y = p_ptr->fy;
-	flow_x = p_ptr->fx;
+	flow_y = creature_ptr->fy;
+	flow_x = creature_ptr->fx;
 
 	/* Add the player's grid to the queue */
-	temp_y[0] = p_ptr->fy;
-	temp_x[0] = p_ptr->fx;
+	temp_y[0] = creature_ptr->fy;
+	temp_x[0] = creature_ptr->fx;
 
 	/* Now process the queue */
 	while (flow_head != flow_tail)
@@ -4193,7 +4193,7 @@ void update_flow(void)
 			x = tx + ddx_ddd[d];
 
 			/* Ignore player's grid */
-			if (creature_bold(p_ptr, y, x)) continue;
+			if (creature_bold(creature_ptr, y, x)) continue;
 
 			c_ptr = &cave[y][x];
 

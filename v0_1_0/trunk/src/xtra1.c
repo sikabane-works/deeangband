@@ -5844,7 +5844,7 @@ void update_stuff(creature_type *cr_ptr, bool message)
 	if (cr_ptr->update & (PU_FLOW))
 	{
 		cr_ptr->update &= ~(PU_FLOW);
-		update_flow();
+		update_flow(cr_ptr);
 	}
 
 	if (cr_ptr->update & (PU_DISTANCE))
