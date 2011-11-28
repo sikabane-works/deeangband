@@ -1874,7 +1874,7 @@ static void fix_overhead(void)
 /*
  * Hack -- display dungeon view in sub-windows
  */
-static void fix_dungeon(void)
+static void fix_dungeon(creature_type *creature_ptr)
 {
 	int j;
 
@@ -1893,7 +1893,7 @@ static void fix_dungeon(void)
 		Term_activate(angband_term[j]);
 
 		/* Redraw dungeon view */
-		display_dungeon(p_ptr);
+		display_dungeon(creature_ptr);
 
 		/* Fresh */
 		Term_fresh();
