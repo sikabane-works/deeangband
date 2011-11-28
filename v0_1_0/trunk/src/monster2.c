@@ -3467,6 +3467,24 @@ static void deal_magic_book(creature_type *creature_ptr)
 	if(creature_ptr->realm2 != REALM_NONE) deal_magic_book_aux(creature_ptr, creature_ptr->realm2);
 }
 
+static void deal_potion(creature_type *creature_ptr)
+{
+	int min, max;
+	object_type forge;
+	object_type *q_ptr;
+	q_ptr = &forge;
+
+	if((creature_ptr->lev >= 3 || one_in_(5)) && creature_ptr->lev <= 12)
+	{
+		min = (1 + creature_ptr->lev / 10);
+		max = (min + creature_ptr->lev * 2 / 3);
+		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_CURE_LIGHT), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(min, max);
+		add_outfit(creature_ptr, q_ptr, FALSE);
+	}
+
+}
+
 
 void deal_item(creature_type *creature_ptr)
 {
@@ -3532,6 +3550,9 @@ void deal_item(creature_type *creature_ptr)
 
 	// Dealing MagicBook
 	deal_magic_book(creature_ptr);
+
+	// Dealing Potion
+	deal_potion(creature_ptr);
 
 
 	// Food depend on creature_flags
