@@ -208,111 +208,217 @@ cptr funny_comments[MAX_SAN_COMMENT] =
  * Each player starts out with a few items, given as tval/sval pairs.
  * In addition, he always has some food and a few torches.
  */
-static byte class_equipment_init[MAX_CLASS][3][2] =
+static byte class_equipment_init[MAX_CLASS][10][2] =
 {
 	{
 		/* Warrior */
 		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_SWORD, SV_BROAD_SWORD }
+		{ TV_SWORD, SV_BROAD_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Mage */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+
 	},
 
 	{
 		/* Priest */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: for Life / Death book */
 		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
-		{ TV_HAFTED, SV_MACE }
+		{ TV_HAFTED, SV_MACE },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Rogue */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Ranger */
 		{ TV_NATURE_BOOK, 0 },
 		{ TV_DEATH_BOOK, 0 },		/* Hack: for realm2 book */
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Paladin */
 		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SCROLL, SV_SCROLL_PROTECTION_FROM_EVIL },
-		{ TV_SWORD, SV_BROAD_SWORD }
+		{ TV_SWORD, SV_BROAD_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Warrior-Mage */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
-		{ TV_SWORD, SV_SHORT_SWORD }
+		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Chaos Warrior */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: For realm1 book */
 		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
-		{ TV_SWORD, SV_BROAD_SWORD }
+		{ TV_SWORD, SV_BROAD_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Monk */
 		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POTION, SV_POTION_HEROISM }
+		{ TV_POTION, SV_POTION_HEROISM },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Mindcrafter */
 		{ TV_POTION, SV_POTION_SPEED },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_SMALL_SWORD }
+		{ TV_SWORD, SV_SMALL_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* High Mage */
 		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Tourist */
 		{ TV_FOOD, SV_FOOD_JERKY},
 		{ TV_SCROLL, SV_SCROLL_MAPPING },
-		{ TV_BOW, SV_SLING}
+		{ TV_BOW, SV_SLING},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Imitator */
 		{ TV_POTION, SV_POTION_SPEED },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_SHORT_SWORD}
+		{ TV_SWORD, SV_SHORT_SWORD},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Beastmaster */
 		{ TV_TRUMP_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POLEARM, SV_SPEAR}
+		{ TV_POLEARM, SV_SPEAR},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Sorcerer */
 		{ TV_HAFTED, SV_WIZSTAFF }, /* Hack: for realm1 book */
 		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_WAND, SV_WAND_MAGIC_MISSILE }
+		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
@@ -320,6 +426,13 @@ static byte class_equipment_init[MAX_CLASS][3][2] =
 		{ TV_BOW, SV_SHORT_BOW },
 		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
@@ -327,6 +440,13 @@ static byte class_equipment_init[MAX_CLASS][3][2] =
 		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
@@ -334,6 +454,13 @@ static byte class_equipment_init[MAX_CLASS][3][2] =
 		{ TV_MUSIC_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
@@ -341,66 +468,139 @@ static byte class_equipment_init[MAX_CLASS][3][2] =
 		{ TV_ARCANE_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Samurai */
 		{ TV_HISSATSU_BOOK, 0 },
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_SWORD, SV_KATANA }
+		{ TV_SWORD, SV_KATANA },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* ForceTrainer */
 		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POTION, SV_POTION_RESTORE_MANA }
+		{ TV_POTION, SV_POTION_RESTORE_MANA },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Blue Mage */
 		{ TV_SOFT_ARMOR, SV_ROBE },
 		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Cavalry */
 		{ TV_BOW, SV_SHORT_BOW },
 		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
-		{ TV_POLEARM, SV_BROAD_SPEAR}
+		{ TV_POLEARM, SV_BROAD_SPEAR},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Berserker */
 		{ TV_POTION, SV_POTION_HEALING },
 		{ TV_HARD_ARMOR, SV_AUGMENTED_CHAIN_MAIL },
-		{ TV_POLEARM, SV_BROAD_AXE }
+		{ TV_POLEARM, SV_BROAD_AXE },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 
 	{
 		/* Weaponsmith */
 		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_POLEARM, SV_BROAD_AXE }
+		{ TV_POLEARM, SV_BROAD_AXE },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
+
 	{
 		/* Mirror-Master */
 		{ TV_POTION, SV_POTION_SPEED },
 		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
+
 	{
 		/* Ninja */
 		{ TV_POTION, SV_POTION_SPEED },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
+
 	{
 		/* Sniper */
 		{ TV_BOW, SV_LIGHT_XBOW },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER }
+		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
 	},
 };
 
@@ -3519,7 +3719,7 @@ void deal_item(creature_type *creature_ptr)
 	/* Hack -- Give the player three useful objects */
 	if(creature_ptr->cls_idx != INDEX_NONE)
 	{
-		for (i = 0; i < 3; i++)
+		for (i = 0; i < 10; i++)
 		{
 			/* Look up standard equipment */
 			tv = class_equipment_init[creature_ptr->cls_idx][i][0];
