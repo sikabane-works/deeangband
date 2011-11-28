@@ -5757,7 +5757,7 @@ void notice_stuff(creature_type *cr_ptr)
 	if (cr_ptr->notice & (PN_COMBINE))
 	{
 		cr_ptr->notice &= ~(PN_COMBINE);
-		combine_pack();
+		combine_pack(cr_ptr);
 	}
 
 	/* Reorder the pack */

@@ -6202,7 +6202,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
  *
  * Note special handling of the "overflow" slot
  */
-void combine_pack(void)
+void combine_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
 	object_type     *o_ptr;
@@ -6217,7 +6217,7 @@ void combine_pack(void)
 		for (i = INVEN_PACK; i > 0; i--)
 		{
 			/* Get the item */
-			o_ptr = &p_ptr->inventory[i];
+			o_ptr = &creature_ptr->inventory[i];
 
 			/* Skip empty items */
 			if (!o_ptr->k_idx) continue;
@@ -6228,7 +6228,7 @@ void combine_pack(void)
 				int max_num;
 
 				/* Get the item */
-				j_ptr = &p_ptr->inventory[j];
+				j_ptr = &creature_ptr->inventory[j];
 
 				/* Skip empty items */
 				if (!j_ptr->k_idx) continue;
@@ -6251,17 +6251,17 @@ void combine_pack(void)
 						object_absorb(j_ptr, o_ptr);
 
 						/* One object is gone */
-						p_ptr->inven_cnt--;
+						creature_ptr->inven_cnt--;
 
 						/* Slide everything down */
 						for (k = i; k < INVEN_PACK; k++)
 						{
 							/* Structure copy */
-							p_ptr->inventory[k] = p_ptr->inventory[k+1];
+							creature_ptr->inventory[k] = creature_ptr->inventory[k+1];
 						}
 
 						/* Erase the "final" slot */
-						object_wipe(&p_ptr->inventory[k]);
+						object_wipe(&creature_ptr->inventory[k]);
 					}
 					else
 					{
