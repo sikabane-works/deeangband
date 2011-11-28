@@ -2659,22 +2659,23 @@ static void get_money(creature_type *cr_ptr)
 {
 	int i, gold;
 
-	/* Social Class determines starting gold */
-	gold = (cr_ptr->sc * 6) + randint1(100) + 300;
+	// Starting gold
+	gold = randint1(100) + 300;
+
 	if (cr_ptr->cls_idx == CLASS_TOURIST)
 	  gold += 2000;
 
-	/* Process the stats */
+	// Process the stats
 	for (i = 0; i < 6; i++)
 	{
-		/* Mega-Hack -- reduce gold for high stats */
+		// Mega-Hack -- reduce gold for high stats
 		if (cr_ptr->stat_max[i] >= 18 + 50) gold -= 300;
 		else if (cr_ptr->stat_max[i] >= 18 + 20) gold -= 200;
 		else if (cr_ptr->stat_max[i] > 18) gold -= 150;
 		else gold -= (cr_ptr->stat_max[i] - 8) * 10;
 	}
 
-	/* Minimum 100 gold */
+	// Minimum 100 gold 
 	if (gold < 100) gold = 100;
 
 	if (cr_ptr->chara_idx == CHARA_NAMAKE)
@@ -2683,7 +2684,10 @@ static void get_money(creature_type *cr_ptr)
 		gold = 10000000;
 	if (IS_RACE(cr_ptr, RACE_ANDROID)) gold /= 5;
 
-	/* Save the gold */
+	// Level and social class calc
+	gold += cr_ptr->sc * (cr_ptr->lev * cr_ptr->lev + 5) / 2;
+
+	// Save the gold
 	cr_ptr->au = gold;
 }
 
