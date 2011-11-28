@@ -1355,7 +1355,7 @@ extern s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr);
 extern s16b inven_takeoff(creature_type *cr_ptr, int item, int amt);
 extern void inven_drop(creature_type *cr_ptr, int item, int amt);
 extern void combine_pack(creature_type *creature_ptr);
-extern void reorder_pack(void);
+extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(int k_idx);
 extern object_type *choose_warning_item(void);
 extern bool process_warning(int xx, int yy);

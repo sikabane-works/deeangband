@@ -6317,7 +6317,7 @@ void combine_pack(creature_type *creature_ptr)
  *
  * Note special handling of the "overflow" slot
  */
-void reorder_pack(void)
+void reorder_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
 	s32b            o_value;
@@ -6331,10 +6331,10 @@ void reorder_pack(void)
 	for (i = 0; i < INVEN_PACK; i++)
 	{
 		/* Mega-Hack -- allow "proper" over-flow */
-		if ((i == INVEN_PACK) && (p_ptr->inven_cnt == INVEN_PACK)) break;
+		if ((i == INVEN_PACK) && (creature_ptr->inven_cnt == INVEN_PACK)) break;
 
 		/* Get the item */
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
 		if (!o_ptr->k_idx) continue;
@@ -6345,7 +6345,7 @@ void reorder_pack(void)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_PACK; j++)
 		{
-			if (object_sort_comp(o_ptr, o_value, &p_ptr->inventory[j])) break;
+			if (object_sort_comp(o_ptr, o_value, &creature_ptr->inventory[j])) break;
 		}
 
 		/* Never move down */
@@ -6358,17 +6358,17 @@ void reorder_pack(void)
 		q_ptr = &forge;
 
 		/* Save a copy of the moving item */
-		object_copy(q_ptr, &p_ptr->inventory[i]);
+		object_copy(q_ptr, &creature_ptr->inventory[i]);
 
 		/* Slide the objects */
 		for (k = i; k > j; k--)
 		{
 			/* Slide the item */
-			object_copy(&p_ptr->inventory[k], &p_ptr->inventory[k-1]);
+			object_copy(&creature_ptr->inventory[k], &creature_ptr->inventory[k-1]);
 		}
 
 		/* Insert the moving item */
-		object_copy(&p_ptr->inventory[j], q_ptr);
+		object_copy(&creature_ptr->inventory[j], q_ptr);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN);

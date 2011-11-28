@@ -5764,7 +5764,7 @@ void notice_stuff(creature_type *cr_ptr)
 	if (cr_ptr->notice & (PN_REORDER))
 	{
 		cr_ptr->notice &= ~(PN_REORDER);
-		reorder_pack();
+		reorder_pack(cr_ptr);
 	}
 }
 
