@@ -6389,7 +6389,7 @@ void reorder_pack(creature_type *creature_ptr)
  *
  * Include list of usable spells for readible books
  */
-void display_koff(int k_idx)
+void display_koff(creature_type *creature_ptr, int k_idx)
 {
 	int y;
 
@@ -6428,15 +6428,15 @@ void display_koff(int k_idx)
 	use_realm = tval2realm(q_ptr->tval);
 
 	/* Warriors are illiterate */
-	if (p_ptr->realm1 || p_ptr->realm2)
+	if (creature_ptr->realm1 || creature_ptr->realm2)
 	{
-		if ((use_realm != p_ptr->realm1) && (use_realm != p_ptr->realm2)) return;
+		if ((use_realm != creature_ptr->realm1) && (use_realm != creature_ptr->realm2)) return;
 	}
 	else
 	{
-		if ((p_ptr->cls_idx != CLASS_SORCERER) && (p_ptr->cls_idx != CLASS_RED_MAGE)) return;
+		if ((creature_ptr->cls_idx != CLASS_SORCERER) && (creature_ptr->cls_idx != CLASS_RED_MAGE)) return;
 		if (!is_magic(use_realm)) return;
-		if ((p_ptr->cls_idx == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
+		if ((creature_ptr->cls_idx == CLASS_RED_MAGE) && (use_realm != REALM_ARCANE) && (sval > 1)) return;
 	}
 
 	/* Display spells in readible books */
@@ -6457,7 +6457,7 @@ void display_koff(int k_idx)
 		}
 
 		/* Print spells */
-		print_spells(p_ptr, 0, spells, num, 2, 0, use_realm);
+		print_spells(creature_ptr, 0, spells, num, 2, 0, use_realm);
 	}
 }
 

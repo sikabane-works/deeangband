@@ -1959,7 +1959,7 @@ static void fix_object(void)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (p_ptr->object_kind_idx) display_koff(p_ptr->object_kind_idx);
+		if (p_ptr->object_kind_idx) display_koff(p_ptr, p_ptr->object_kind_idx);
 
 		/* Fresh */
 		Term_fresh();
