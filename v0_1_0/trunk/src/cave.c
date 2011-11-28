@@ -1829,7 +1829,7 @@ static cptr simplify_list[][2] =
 #endif
 };
 
-static void display_shortened_item_name(object_type *o_ptr, int y)
+static void display_shortened_item_name(creature_type *watcher_ptr, object_type *o_ptr, int y)
 {
 	char buf[MAX_NLEN];
 	char *c = buf;
@@ -1839,7 +1839,7 @@ static void display_shortened_item_name(object_type *o_ptr, int y)
 	object_desc(buf, o_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
 	attr = tval_to_attr[o_ptr->tval % 128];
 
-	if (p_ptr->image)
+	if (watcher_ptr->image)
 	{
 		attr = TERM_WHITE;
 #ifdef JP
@@ -2130,7 +2130,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 
 	  if (match_autopick != -1)
 #if 1
-		  display_shortened_item_name(autopick_obj, y);
+		  display_shortened_item_name(watcher_ptr, autopick_obj, y);
 #else
 	  {
 		  char buf[13] = "\0";

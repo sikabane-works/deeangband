@@ -6139,7 +6139,7 @@ void window_stuff(void)
 	if (play_window & (PW_DUNGEON))
 	{
 		play_window &= ~(PW_DUNGEON);
-		fix_dungeon();
+		fix_dungeon(p_ptr);
 	}
 
 	/* Display monster recall */
