@@ -5123,7 +5123,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Full dungeon map */
 		case 'M':
 		{
-			do_cmd_view_map();
+			do_cmd_view_map(cr_ptr);
 			break;
 		}
 

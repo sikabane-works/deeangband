@@ -2192,7 +2192,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
  *
  * Currently, the "player" is displayed on the map.  XXX XXX XXX
  */
-void do_cmd_view_map(void)
+void do_cmd_view_map(creature_type *creature_ptr)
 {
 	int cy, cx;
 
@@ -2216,7 +2216,7 @@ void do_cmd_view_map(void)
 	display_autopick = 0;
 
 	/* Display the map */
-	display_map(p_ptr, &cy, &cx);
+	display_map(creature_ptr, &cy, &cx);
 
 	/* Wait for it */
 	if(max_autopick && !wild_mode)
@@ -2262,7 +2262,7 @@ void do_cmd_view_map(void)
 			else
 				display_autopick &= ~flag;
 			/* Display the map */
-			display_map(p_ptr, &cy, &cx);
+			display_map(creature_ptr, &cy, &cx);
 		}
 		
 		display_autopick = 0;
