@@ -1655,6 +1655,8 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 	/* Require identical object types */
 	if (o_ptr->k_idx != j_ptr->k_idx) return 0;
 
+	if (o_ptr->fitting_size != o_ptr->fitting_size || 
+		o_ptr->to_size != o_ptr->to_size) return 0;
 
 	/* Analyze the items */
 	switch (o_ptr->tval)
