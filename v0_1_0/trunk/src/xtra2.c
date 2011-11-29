@@ -2606,7 +2606,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 					/* Display the player */
 					display_creature_status(m, m_ptr);
 
-					if (m == 4)
+					if (m == MAX_PLAYER_STAUS_DISPLAY)
 					{
 						m = 0;
 						display_creature_status(m, m_ptr);
@@ -5626,7 +5626,7 @@ void display_creature_dump(creature_type *cr_ptr)
 		/* Display the player */
 		display_creature_status(m, cr_ptr);
 
-		if (m == 4)
+		if (m == MAX_PLAYER_STAUS_DISPLAY)
 		{
 			m = 0;
 			display_creature_status(m, cr_ptr);

@@ -190,11 +190,12 @@
 #define HISTORY_ROW 16
 #define HISTORY_COL 75
 
-
-
 #define BUILDING_NON_MEMBER 0
 #define BUILDING_MEMBER     1
 #define BUILDING_OWNER      2
+
+
+#define MAX_PLAYER_STAUS_DISPLAY 8
 
 /*
  * Maximum number of creature "sex" types (see "table.c", etc)

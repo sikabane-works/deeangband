@@ -4941,7 +4941,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 				/* Display the player */
 				//display_creature_status(mode, cr_ptr);
 
-				if (mode == 8)
+				if (mode == MAX_PLAYER_STAUS_DISPLAY)
 				{
 					mode = 0;
 					//display_creature_status(mode, cr_ptr);

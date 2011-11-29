@@ -1248,7 +1248,7 @@ void do_cmd_change_name(creature_type *cr_ptr)
 		/* Display the player */
 		display_creature_status(mode, cr_ptr);
 
-		if (mode == 8)
+		if (mode == MAX_PLAYER_STAUS_DISPLAY)
 		{
 			mode = 0;
 			display_creature_status(mode, cr_ptr);
