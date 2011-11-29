@@ -1946,7 +1946,7 @@ note("メッセージをロードしました");
 
 	/* TODO NEW CREATURE LORE
 #ifdef JP
-note(format("モンスターの思い出をロードしました:%u", tmp16u));
+	note(format("モンスターの思い出をロードしました:%u", tmp16u));
 #else
 	if (arg_fiddle) note("Loaded Monster Memory");
 #endif
