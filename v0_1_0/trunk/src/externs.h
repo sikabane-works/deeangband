@@ -1359,7 +1359,7 @@ extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(creature_type *creature_ptr, int k_idx);
 extern object_type *choose_warning_item(void);
 extern bool process_warning(int xx, int yy);
-extern void do_cmd_kaji(bool only_browse);
+extern void do_cmd_kaji(creature_type *creature_ptr, bool only_browse);
 
 /* racial.c */
 extern bool gain_magic(creature_type *cr_ptr);

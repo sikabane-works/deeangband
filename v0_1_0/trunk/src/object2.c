@@ -7758,7 +7758,7 @@ static int choose_essence(void)
 	return mode;
 }
 
-static void add_essence(int mode)
+static void add_essence(creature_type *creature_ptr, int mode)
 {
 	int item, max_num = 0;
 	int i;
@@ -7924,7 +7924,7 @@ static void add_essence(int mode)
 					if (es_ptr->essence != -1)
 					{
 						strcat(dummy, format("(%s)", essence_name[es_ptr->essence]));
-						if (p_ptr->magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
+						if (creature_ptr->magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
 					}
 					else
 					{
@@ -7936,8 +7936,8 @@ static void add_essence(int mode)
 #else
 							strcat(dummy, "(brand fire + res.fire)");
 #endif
-							if (p_ptr->magic_num1[TR_BRAND_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_BRAND_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_ELEC:
 #ifdef JP
@@ -7945,8 +7945,8 @@ static void add_essence(int mode)
 #else
 							strcat(dummy, "(brand elec. + res. elec.)");
 #endif
-							if (p_ptr->magic_num1[TR_BRAND_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_BRAND_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_COLD:
 #ifdef JP
@@ -7954,8 +7954,8 @@ static void add_essence(int mode)
 #else
 							strcat(dummy, "(brand cold + res. cold)");
 #endif
-							if (p_ptr->magic_num1[TR_BRAND_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_BRAND_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_RESISTANCE:
 #ifdef JP
@@ -7963,10 +7963,10 @@ static void add_essence(int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (p_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SUSTAIN:
 #ifdef JP
@@ -7974,10 +7974,10 @@ static void add_essence(int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (p_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (p_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						}
 					}
@@ -7986,7 +7986,7 @@ static void add_essence(int mode)
 
 					if (es_ptr->essence != -1)
 					{
-						sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)p_ptr->magic_num1[es_ptr->essence]);
+						sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->magic_num1[es_ptr->essence]);
 					}
 					else
 					{
@@ -8083,12 +8083,12 @@ static void add_essence(int mode)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -8097,7 +8097,7 @@ static void add_essence(int mode)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if ((mode != 10) && (object_is_artifact(p_ptr, o_ptr) || object_is_smith(p_ptr, o_ptr)))
+	if ((mode != 10) && (object_is_artifact(creature_ptr, o_ptr) || object_is_smith(creature_ptr, o_ptr)))
 	{
 #ifdef JP
 		msg_print("そのアイテムはこれ以上改良できない。");
@@ -8124,7 +8124,7 @@ static void add_essence(int mode)
 
 	if (es_ptr->essence != -1)
 	{
-		if (p_ptr->magic_num1[es_ptr->essence] < use_essence)
+		if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
 		{
 #ifdef JP
 			msg_print("エッセンスが足りない。");
@@ -8176,7 +8176,7 @@ static void add_essence(int mode)
 				char tmp[80];
 				char tmp_val[160];
 				int pval;
-				int limit = MIN(5, p_ptr->magic_num1[es_ptr->essence]/es_ptr->value);
+				int limit = MIN(5, creature_ptr->magic_num1[es_ptr->essence]/es_ptr->value);
 
 #ifdef JP
 				sprintf(tmp, "いくつ付加しますか？ (1-%d): ", limit);
@@ -8198,7 +8198,7 @@ static void add_essence(int mode)
 #endif
 			}
 
-			if (p_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
 			{
 #ifdef JP
 				msg_print("エッセンスが足りない。");
@@ -8216,12 +8216,12 @@ static void add_essence(int mode)
 
 			strcpy(tmp_val, "1");
 #ifdef JP
-			if (!get_string(format("いくつ付加しますか？ (1-%d):", p_ptr->lev/7+3), tmp_val, 2)) return;
+			if (!get_string(format("いくつ付加しますか？ (1-%d):", creature_ptr->lev/7+3), tmp_val, 2)) return;
 #else
-			if (!get_string(format("Enchant how many? (1-%d):", p_ptr->lev/7+3), tmp_val, 2)) return;
+			if (!get_string(format("Enchant how many? (1-%d):", creature_ptr->lev/7+3), tmp_val, 2)) return;
 #endif
 			val = atoi(tmp_val);
-			if (val > p_ptr->lev/7+3) val = p_ptr->lev/7+3;
+			if (val > creature_ptr->lev/7+3) val = creature_ptr->lev/7+3;
 			else if (val < 1) val = 1;
 			use_essence *= val;
 #ifdef JP
@@ -8229,7 +8229,7 @@ static void add_essence(int mode)
 #else
 			msg_format("It will take %d essences.", use_essence);
 #endif
-			if (p_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if (creature_ptr->magic_num1[es_ptr->essence] < use_essence)
 			{
 #ifdef JP
 				msg_print("エッセンスが足りない。");
@@ -8244,10 +8244,10 @@ static void add_essence(int mode)
 			o_ptr->to_h += get_to_h;
 			o_ptr->to_d += get_to_d;
 		}
-		p_ptr->magic_num1[es_ptr->essence] -= use_essence;
+		creature_ptr->magic_num1[es_ptr->essence] -= use_essence;
 		if (es_ptr->add == ESSENCE_ATTACK)
 		{
-			if ((o_ptr->to_h >= p_ptr->lev/5+5) && (o_ptr->to_d >= p_ptr->lev/5+5))
+			if ((o_ptr->to_h >= creature_ptr->lev/5+5) && (o_ptr->to_d >= creature_ptr->lev/5+5))
 			{
 #ifdef JP
 				msg_print("改良に失敗した。");
@@ -8259,13 +8259,13 @@ static void add_essence(int mode)
 			}
 			else
 			{
-				if (o_ptr->to_h < p_ptr->lev/5+5) o_ptr->to_h++;
-				if (o_ptr->to_d < p_ptr->lev/5+5) o_ptr->to_d++;
+				if (o_ptr->to_h < creature_ptr->lev/5+5) o_ptr->to_h++;
+				if (o_ptr->to_d < creature_ptr->lev/5+5) o_ptr->to_d++;
 			}
 		}
 		else if (es_ptr->add == ESSENCE_AC)
 		{
-			if (o_ptr->to_a >= p_ptr->lev/5+5)
+			if (o_ptr->to_a >= creature_ptr->lev/5+5)
 			{
 #ifdef JP
 				msg_print("改良に失敗した。");
@@ -8277,7 +8277,7 @@ static void add_essence(int mode)
 			}
 			else
 			{
-				if (o_ptr->to_a < p_ptr->lev/5+5) o_ptr->to_a++;
+				if (o_ptr->to_a < creature_ptr->lev/5+5) o_ptr->to_a++;
 			}
 		}
 		else
@@ -8292,43 +8292,43 @@ static void add_essence(int mode)
 		switch(es_ptr->add)
 		{
 		case ESSENCE_SH_FIRE:
-			if ((p_ptr->magic_num1[TR_BRAND_FIRE] < use_essence) || (p_ptr->magic_num1[TR_RES_FIRE] < use_essence))
+			if ((creature_ptr->magic_num1[TR_BRAND_FIRE] < use_essence) || (creature_ptr->magic_num1[TR_RES_FIRE] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			p_ptr->magic_num1[TR_BRAND_FIRE] -= use_essence;
-			p_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
+			creature_ptr->magic_num1[TR_BRAND_FIRE] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
 			break;
 		case ESSENCE_SH_ELEC:
-			if ((p_ptr->magic_num1[TR_BRAND_ELEC] < use_essence) || (p_ptr->magic_num1[TR_RES_ELEC] < use_essence))
+			if ((creature_ptr->magic_num1[TR_BRAND_ELEC] < use_essence) || (creature_ptr->magic_num1[TR_RES_ELEC] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			p_ptr->magic_num1[TR_BRAND_ELEC] -= use_essence;
-			p_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
+			creature_ptr->magic_num1[TR_BRAND_ELEC] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
 			break;
 		case ESSENCE_SH_COLD:
-			if ((p_ptr->magic_num1[TR_BRAND_COLD] < use_essence) || (p_ptr->magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->magic_num1[TR_BRAND_COLD] < use_essence) || (creature_ptr->magic_num1[TR_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			p_ptr->magic_num1[TR_BRAND_COLD] -= use_essence;
-			p_ptr->magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->magic_num1[TR_BRAND_COLD] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_COLD] -= use_essence;
 			break;
 		case ESSENCE_RESISTANCE:
 		case ESSENCE_SUSTAIN:
-			if ((p_ptr->magic_num1[TR_RES_ACID] < use_essence) || (p_ptr->magic_num1[TR_RES_ELEC] < use_essence) || (p_ptr->magic_num1[TR_RES_FIRE] < use_essence) || (p_ptr->magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->magic_num1[TR_RES_ACID] < use_essence) || (creature_ptr->magic_num1[TR_RES_ELEC] < use_essence) || (creature_ptr->magic_num1[TR_RES_FIRE] < use_essence) || (creature_ptr->magic_num1[TR_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			p_ptr->magic_num1[TR_RES_ACID] -= use_essence;
-			p_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
-			p_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
-			p_ptr->magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_ACID] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_ELEC] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_FIRE] -= use_essence;
+			creature_ptr->magic_num1[TR_RES_COLD] -= use_essence;
 			break;
 		}
 		if (!success)
@@ -8362,14 +8362,14 @@ static void add_essence(int mode)
 #endif
 
 	/* Combine the pack */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	creature_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
 }
 
 
-static void erase_essence(void)
+static void erase_essence(creature_type *creature_ptr)
 {
 	int item;
 	cptr q, s;
@@ -8388,12 +8388,12 @@ static void erase_essence(void)
 	s = "You have nothing to remove essence.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -8429,13 +8429,13 @@ static void erase_essence(void)
 #endif
 
 	/* Combine the pack */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	creature_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
 }
 
-void do_cmd_kaji(bool only_browse)
+void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 {
 	int mode = 0;
 	char choice;
@@ -8444,7 +8444,7 @@ void do_cmd_kaji(bool only_browse)
 
 	if (!only_browse)
 	{
-		if (p_ptr->confused)
+		if (creature_ptr->confused)
 		{
 #ifdef JP
 			msg_print("混乱していて作業できない！");
@@ -8454,7 +8454,7 @@ void do_cmd_kaji(bool only_browse)
 
 			return;
 		}
-		if (p_ptr->blind)
+		if (creature_ptr->blind)
 		{
 #ifdef JP
 			msg_print("目が見えなくて作業できない！");
@@ -8464,7 +8464,7 @@ void do_cmd_kaji(bool only_browse)
 
 			return;
 		}
-		if (p_ptr->image)
+		if (creature_ptr->image)
 		{
 #ifdef JP
 			msg_print("うまく見えなくて作業できない！");
@@ -8613,13 +8613,13 @@ void do_cmd_kaji(bool only_browse)
 	{
 		case 1: display_essence();break;
 		case 2: drain_essence();break;
-		case 3: erase_essence();break;
+		case 3: erase_essence(creature_ptr);break;
 		case 4:
 			mode = choose_essence();
 			if (mode == 0)
 				break;
-			add_essence(mode);
+			add_essence(creature_ptr, mode);
 			break;
-		case 5: add_essence(10);break;
+		case 5: add_essence(creature_ptr, 10);break;
 	}
 }

@@ -4785,7 +4785,7 @@ msg_print("ウィザードモード突入。");
 			     (cr_ptr->cls_idx == CLASS_MIRROR_MASTER) 
 			     ) do_cmd_mind_browse(cr_ptr);
 			else if (cr_ptr->cls_idx == CLASS_SMITH)
-				do_cmd_kaji(TRUE);
+				do_cmd_kaji(cr_ptr, TRUE);
 			else if (cr_ptr->cls_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(cr_ptr, TRUE);
 			else if (cr_ptr->cls_idx == CLASS_SNIPER)
@@ -4895,7 +4895,7 @@ msg_print("ウィザードモード突入。");
 					else if (cr_ptr->cls_idx == CLASS_BLUE_MAGE)
 						do_cmd_cast_learned(cr_ptr);
 					else if (cr_ptr->cls_idx == CLASS_SMITH)
-						do_cmd_kaji(FALSE);
+						do_cmd_kaji(cr_ptr, FALSE);
 					else if (cr_ptr->cls_idx == CLASS_SNIPER)
 						do_cmd_snipe(cr_ptr);
 					else
