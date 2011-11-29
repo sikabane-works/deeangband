@@ -4767,7 +4767,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 					teleport_player(cr_ptr, 222, 0L);
 					break;
 				case 11: case 12:
-					(void)stair_creation();
+					(void)stair_creation(cr_ptr);
 					break;
 				default:
 #ifdef JP

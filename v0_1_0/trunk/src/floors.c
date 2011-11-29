@@ -1418,7 +1418,7 @@ void change_floor(creature_type *cr_ptr)
  * Create stairs at or move previously created stairs into the player
  * location.
  */
-void stair_creation(void)
+void stair_creation(creature_type *creature_ptr)
 {
 	saved_floor_type *sf_ptr;
 	saved_floor_type *dest_sf_ptr;
@@ -1449,7 +1449,7 @@ void stair_creation(void)
 	}
 
 	/* Artifacts resists */
-	if (!cave_valid_bold(p_ptr->fy, p_ptr->fx))
+	if (!cave_valid_bold(creature_ptr->fy, creature_ptr->fx))
 	{
 #ifdef JP
 		msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -1461,17 +1461,17 @@ void stair_creation(void)
 	}
 
 	/* Destroy all objects in the grid */
-	delete_object(p_ptr->fy, p_ptr->fx);
+	delete_object(creature_ptr->fy, creature_ptr->fx);
 
 	/* Extract current floor data */
-	sf_ptr = get_sf_ptr(p_ptr->floor_id);
+	sf_ptr = get_sf_ptr(creature_ptr->floor_id);
 
 	/* Paranoia */
 	if (!sf_ptr)
 	{
 		/* No floor id? -- Create now! */
-		p_ptr->floor_id = get_new_floor_id();
-		sf_ptr = get_sf_ptr(p_ptr->floor_id);
+		creature_ptr->floor_id = get_new_floor_id();
+		sf_ptr = get_sf_ptr(creature_ptr->floor_id);
 	} 
 
 	/* Choose randomly */
@@ -1509,7 +1509,7 @@ void stair_creation(void)
 
 				/* Remove old stairs */
 				c_ptr->special = 0;
-				cave_set_feat(p_ptr, y, x, floor_type[randint0(100)]);
+				cave_set_feat(creature_ptr, y, x, floor_type[randint0(100)]);
 			}
 		}
 	}
@@ -1533,18 +1533,18 @@ void stair_creation(void)
 	/* Create a staircase */
 	if (up)
 	{
-		cave_set_feat(p_ptr, p_ptr->fy, p_ptr->fx,
+		cave_set_feat(creature_ptr, creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && (dest_sf_ptr->dun_level <= dun_level - 2)) ?
 			feat_state(feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
-		cave_set_feat(p_ptr, p_ptr->fy, p_ptr->fx,
+		cave_set_feat(creature_ptr, creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && (dest_sf_ptr->dun_level >= dun_level + 2)) ?
 			feat_state(feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 
 
 	/* Connect this stairs to the destination */
-	cave[p_ptr->fy][p_ptr->fx].special = dest_floor_id;
+	cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
