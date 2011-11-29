@@ -506,7 +506,7 @@ void precalc_cur_num_of_pet(void)
 /*
  * Place preserved pet monsters on new floor
  */
-static void place_pet(void)
+static void place_pet(creature_type *creature_ptr)
 {
 	int i;
 	int max_num = wild_mode ? 1 : MAX_PARTY_MON;
@@ -520,11 +520,11 @@ static void place_pet(void)
 		if (i == 0)
 		{
 			m_idx = m_pop();
-			p_ptr->riding = m_idx;
+			creature_ptr->riding = m_idx;
 			if (m_idx)
 			{
-				cy = p_ptr->fy;
-				cx = p_ptr->fx;
+				cy = creature_ptr->fy;
+				cx = creature_ptr->fx;
 			}
 		}
 		else
@@ -535,7 +535,7 @@ static void place_pet(void)
 			{
 				for (j = 1000; j > 0; j--)
 				{
-					scatter(&cy, &cx, p_ptr->fy, p_ptr->fx, d, 0);
+					scatter(&cy, &cx, creature_ptr->fy, creature_ptr->fx, d, 0);
 					if (monster_can_enter(cy, cx, &species_info[party_mon[i].species_idx], 0)) break;
 				}
 				if (j) break;
@@ -575,8 +575,8 @@ static void place_pet(void)
 			}
 
 			/* Update the monster */
-			update_mon(p_ptr, m_idx, TRUE);
-			lite_spot(p_ptr, cy, cx);
+			update_mon(creature_ptr, m_idx, TRUE);
+			lite_spot(creature_ptr, cy, cx);
 
 			/* Pre-calculated in precalc_cur_num_of_pet() */
 			/* r_ptr->cur_num++; */
@@ -1386,7 +1386,7 @@ void change_floor(creature_type *cr_ptr)
 	}
 
 	/* Place preserved pet monsters */
-	place_pet();
+	place_pet(cr_ptr);
 
 	/* Hack -- maintain unique and artifacts */
 	update_unique_artifact(new_floor_id);
