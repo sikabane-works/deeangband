@@ -8708,7 +8708,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		if (!visual_only)
 		{
 			/* Mega Hack -- track this object */
-			if (object_cnt) object_kind_track(object_idx[object_cur]);
+			if (object_cnt) object_kind_track(p_ptr, object_idx[object_cur]);
 
 			/* The "current" object changed */
 			if (object_old != object_idx[object_cur])

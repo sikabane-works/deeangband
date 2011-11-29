@@ -5010,10 +5010,10 @@ void species_type_track(int species_idx)
 /*
  * Hack -- track the given object kind
  */
-void object_kind_track(int k_idx)
+void object_kind_track(creature_type *creature_ptr, int k_idx)
 {
 	/* Save this monster ID */
-	p_ptr->object_kind_idx = k_idx;
+	creature_ptr->object_kind_idx = k_idx;
 
 	/* Window stuff */
 	play_window |= (PW_OBJECT);

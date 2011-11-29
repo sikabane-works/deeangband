@@ -528,7 +528,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 	use_realm = tval2realm(o_ptr->tval);
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(cr_ptr, o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff(cr_ptr);
@@ -777,7 +777,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	}
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(cr_ptr, o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1103,7 +1103,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 
 
 	/* Track the object kind */
-	object_kind_track(o_ptr->k_idx);
+	object_kind_track(cr_ptr, o_ptr->k_idx);
 
 	/* Hack -- Handle stuff */
 	handle_stuff(cr_ptr);
