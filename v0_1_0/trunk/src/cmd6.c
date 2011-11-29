@@ -4777,7 +4777,7 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 #endif
 
 					{
-						if (autosave_l) do_cmd_save_game(TRUE);
+						if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
 
 						/* Leaving */
 						cr_ptr->leaving = TRUE;

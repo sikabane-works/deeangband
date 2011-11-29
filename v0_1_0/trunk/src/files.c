@@ -6742,7 +6742,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 /*
  * Save the game
  */
-void do_cmd_save_game(int is_autosave)
+void do_cmd_save_game(creature_type *creature_ptr, int is_autosave)
 {
 	/* Autosaves do not disturb */
 	if (is_autosave)
@@ -6764,7 +6764,7 @@ msg_print("自動セーブ中");
 	msg_print(NULL);
 
 	/* Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(creature_ptr);
 
 	/* Message */
 #ifdef JP
@@ -6779,9 +6779,9 @@ prt("ゲームをセーブしています...", 0, 0);
 
 	/* The player is not dead */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "(セーブ)");
+(void)strcpy(creature_ptr->died_from, "(セーブ)");
 #else
-	(void)strcpy(p_ptr->died_from, "(saved)");
+	(void)strcpy(creature_ptr->died_from, "(saved)");
 #endif
 
 
@@ -6818,16 +6818,16 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
 
 	/* Note that the player is not dead */
 #ifdef JP
-(void)strcpy(p_ptr->died_from, "(元気に生きている)");
+(void)strcpy(creature_ptr->died_from, "(元気に生きている)");
 #else
-	(void)strcpy(p_ptr->died_from, "(alive and well)");
+	(void)strcpy(creature_ptr->died_from, "(alive and well)");
 #endif
 
 	/* HACK -- don't get sanity blast on updating view */
 	hack_mind = FALSE;
 
 	/* Update stuff */
-	update_stuff(p_ptr, TRUE);
+	update_stuff(creature_ptr, TRUE);
 
 	/* Initialize monster process */
 	mproc_init();
@@ -7643,7 +7643,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 	else
 	{
 		/* Save the game */
-		do_cmd_save_game(FALSE);
+		do_cmd_save_game(cr_ptr, FALSE);
 
 		/* Prompt for scores XXX XXX XXX */
 #ifdef JP

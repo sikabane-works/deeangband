@@ -3573,7 +3573,7 @@ static void process_menus(WORD wCmd)
 
 				/* Save the game */
 #ifdef ZANGBAND
-				do_cmd_save_game(FALSE);
+				do_cmd_save_game(p_ptr, FALSE);
 #else /* ZANGBAND */
 				do_cmd_save_game();
 #endif /* ZANGBAND */

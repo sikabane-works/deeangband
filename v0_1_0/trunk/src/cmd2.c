@@ -116,7 +116,7 @@ void do_cmd_go_up(creature_type *cr_ptr)
 	/* Hack -- take a turn */
 	energy_use = 100;
 
-	if (autosave_l) do_cmd_save_game(TRUE);
+	if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
 
 	/* For a random quest */
 	if (inside_quest &&
@@ -304,7 +304,7 @@ void do_cmd_go_down(creature_type *cr_ptr)
 		/* Hack -- take a turn */
 		energy_use = 100;
 
-		if (autosave_l) do_cmd_save_game(TRUE);
+		if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
 
 		/* Go down */
 		if (have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;

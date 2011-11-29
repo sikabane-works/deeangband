@@ -1540,7 +1540,7 @@ static void do_cmd_wiz_jump(creature_type *cr_ptr)
 	/* Accept request */
 	msg_format("You jump to dungeon level %d.", command_arg);
 
-	if (autosave_l) do_cmd_save_game(TRUE);
+	if (autosave_l) do_cmd_save_game(cr_ptr, TRUE);
 
 	/* Change level */
 	dun_level = command_arg;
