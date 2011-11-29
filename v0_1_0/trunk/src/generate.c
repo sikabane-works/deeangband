@@ -1020,7 +1020,7 @@ static bool cave_gen(void)
 	}
 
 	/* Determine the character location */
-	if (!new_player_spot()) return FALSE;
+	if (!new_player_spot(p_ptr)) return FALSE;
 
 	if (!place_quest_monsters()) return FALSE;
 

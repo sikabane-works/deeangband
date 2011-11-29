@@ -19,7 +19,7 @@
 /*
  * Returns random co-ordinates for player/monster/object
  */
-bool new_player_spot(void)
+bool new_player_spot(creature_type *creature_ptr)
 {
 	int	y, x;
 	int max_attempts = 10000;
@@ -55,7 +55,7 @@ bool new_player_spot(void)
 			/* Refuse to start on anti-teleport grids in dungeon */
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
-		if (!player_can_enter(p_ptr, c_ptr->feat, 0)) continue;
+		if (!player_can_enter(creature_ptr, c_ptr->feat, 0)) continue;
 		if (!in_bounds(y, x)) continue;
 
 		/* Refuse to start on anti-teleport grids */
@@ -69,8 +69,8 @@ bool new_player_spot(void)
 		return FALSE;
 
 	/* Save the new player grid */
-	p_ptr->fy = y;
-	p_ptr->fx = x;
+	creature_ptr->fy = y;
+	creature_ptr->fx = x;
 
 	return TRUE;
 }

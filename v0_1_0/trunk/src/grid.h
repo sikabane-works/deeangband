@@ -237,7 +237,7 @@
 
 /* Externs */
 
-extern bool new_player_spot(void);
+extern bool new_player_spot(creature_type *creature_ptr);
 
 extern void place_random_stairs(int y, int x);
 extern void place_random_door(int y, int x, bool room);
