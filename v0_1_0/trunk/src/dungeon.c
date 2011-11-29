@@ -5307,7 +5307,7 @@ msg_print("アリーナが魔法を吸収した！");
 		case KTRL('X'):
 		case SPECIAL_KEY_QUIT:
 		{
-			do_cmd_save_and_exit();
+			do_cmd_save_and_exit(cr_ptr);
 			break;
 		}
 

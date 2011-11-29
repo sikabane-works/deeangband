@@ -6840,12 +6840,12 @@ prt("ゲームをセーブしています... 失敗！", 0, 0);
 /*
  * Save the game and exit
  */
-void do_cmd_save_and_exit(void)
+void do_cmd_save_and_exit(creature_type *creature_ptr)
 {
-	p_ptr->playing = FALSE;
+	creature_ptr->playing = FALSE;
 
 	/* Leaving */
-	p_ptr->leaving = TRUE;
+	creature_ptr->leaving = TRUE;
 #ifdef JP
 	do_cmd_write_nikki(NIKKI_GAMESTART, 0, "----ゲーム中断----");
 #else
