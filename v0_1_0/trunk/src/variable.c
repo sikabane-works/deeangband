@@ -36,6 +36,8 @@ cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 /* レベルアップの時に上昇量を表示するのに使う */
 int level_up = 0;
 
+s16b health_who = 0;	/* Health bar trackee */
+
 /* 
  *  List for auto-picker/destroyer entries
  */

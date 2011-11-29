@@ -204,7 +204,7 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 	/* Redraw (later) if needed */
 	if (cr_ptr->ml)
 	{
-		if (&creature_list[p_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
 		if (&creature_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 

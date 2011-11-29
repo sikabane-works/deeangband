@@ -31,6 +31,8 @@ extern cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 /* 日本語版機能追加で使う */
 extern int level_up;
 
+extern s16b health_who;
+
 /* 
  *  List for auto-picker/destroyer entries
  */

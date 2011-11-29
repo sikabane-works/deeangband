@@ -920,7 +920,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							atk_ptr->chp += heal;
 
 							/* Redraw (later) if needed */
-							//TODO if (&m_info[tar_ptr->health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
+							//TODO if (&m_info[health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
 							//if (&m_info[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
 
 							/* Uncharge */
@@ -1805,7 +1805,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						//TODO if (tar_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+						//TODO if (health_who == m_idx) play_redraw |= (PR_HEALTH);
 						//TODO if (tar_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */

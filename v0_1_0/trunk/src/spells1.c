@@ -2967,7 +2967,7 @@ note = "が分裂した！";
 			if (!dam)
 			{
 				/* Redraw (later) if needed */
-				if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+				if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
 				if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 				break;
 			}
@@ -3015,7 +3015,7 @@ note = "が分裂した！";
 			if (tar_ptr->chp > tar_ptr->mhp) tar_ptr->chp = tar_ptr->mhp;
 
 			/* Redraw (later) if needed */
-			if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+			if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
 			if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Message */
@@ -4452,7 +4452,7 @@ note_dies = "はドロドロに溶けた！";
 						if (who_ptr->chp > who_ptr->mhp) who_ptr->chp = who_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&creature_list[who_ptr->health_who] == who_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[health_who] == who_ptr) play_redraw |= (PR_HEALTH);
 						if (&creature_list[who_ptr->riding] == who_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
@@ -5480,7 +5480,7 @@ note = "には効果がなかった。";
 	else if (who_ptr != who_ptr)
 	{
 		/* Redraw (later) if needed */
-		if (who_ptr->health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
+		if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
 		if (who_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
@@ -5720,7 +5720,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 	if (inside_battle)
 	{
-		who_ptr->health_who = c_ptr->m_idx;
+		health_who = c_ptr->m_idx;
 		play_redraw |= (PR_HEALTH);
 		redraw_stuff(player_ptr);
 	}
@@ -6925,7 +6925,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						if (atk_ptr->chp > atk_ptr->mhp) atk_ptr->chp = atk_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&creature_list[tar_ptr->health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
+						if (&creature_list[health_who] == atk_ptr) play_redraw |= (PR_HEALTH);
 						if (&creature_list[tar_ptr->riding] == atk_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */

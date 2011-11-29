@@ -828,7 +828,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (cr_ptr->ml)
 		{
 			/* Update health bar as needed */
-			if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+			if (&creature_list[health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
 			if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 		}
 
@@ -952,7 +952,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
 		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
@@ -2098,7 +2098,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	if (cr_ptr->ml)
 	{
 		/* Update health bar as needed */
-		if (&creature_list[cr_ptr->health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
 		if (&creature_list[cr_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
@@ -5716,7 +5716,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		}
 
 		/* Redraw (later) if needed */
-		if (&creature_list[atk_ptr->health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[health_who] == tar_ptr) play_redraw |= (PR_HEALTH);
 		if (&creature_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 

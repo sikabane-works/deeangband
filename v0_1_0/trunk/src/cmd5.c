@@ -1975,7 +1975,7 @@ bool do_riding(creature_type *cr_ptr, bool force)
 		cr_ptr->riding = c_ptr->m_idx;
 
 		/* Hack -- remove tracked monster */
-		if (cr_ptr->riding == cr_ptr->health_who) health_track(0);
+		if (cr_ptr->riding == health_who) health_track(0);
 	}
 
 	energy_use = 100;

@@ -5442,7 +5442,7 @@ bool polymorph_monster(creature_type *cr_ptr, int y, int x)
 	int new_species_idx;
 	int old_species_idx = m_ptr->species_idx;
 	bool targeted = (target_who == c_ptr->m_idx) ? TRUE : FALSE;
-	bool health_tracked = (cr_ptr->health_who == c_ptr->m_idx) ? TRUE : FALSE;
+	bool health_tracked = (health_who == c_ptr->m_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
 	if (inside_arena || inside_battle) return (FALSE);

@@ -683,7 +683,7 @@ void delete_species_idx(creature_type *cr_ptr)
 	if (cr_ptr == &creature_list[target_who]) target_who = 0;
 
 	/* Hack -- remove tracked monster */
-	if (cr_ptr == &creature_list[p_ptr->health_who]) health_track(0);
+	if (cr_ptr == &creature_list[health_who]) health_track(0);
 
 	if (&creature_list[pet_t_m_idx] == cr_ptr) pet_t_m_idx = 0;
 	if (&creature_list[riding_t_m_idx] == cr_ptr) riding_t_m_idx = 0;
@@ -807,7 +807,7 @@ static void compact_monsters_aux(int i1, int i2)
 	if (p_ptr->riding == i1) p_ptr->riding = i2;
 
 	/* Hack -- Update the health bar */
-	if (p_ptr->health_who == i1) health_track(i2);
+	if (health_who == i1) health_track(i2);
 
 	/* Hack -- Update parent index */
 	if (is_pet(player_ptr, m_ptr))
@@ -3067,7 +3067,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			lite_spot(cr_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if (cr_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
 			if (cr_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
@@ -3107,7 +3107,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			lite_spot(cr_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if (cr_ptr->health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if (health_who == m_idx) play_redraw |= (PR_HEALTH);
 			if (cr_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Disturb on disappearance */

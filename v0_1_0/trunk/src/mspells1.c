@@ -3225,7 +3225,7 @@ msg_format("%^s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", m_name);
 			}
 
 			/* Redraw (later) if needed */
-			if (&creature_list[target_ptr->health_who] == user_ptr) play_redraw |= (PR_HEALTH);
+			if (&creature_list[health_who] == user_ptr) play_redraw |= (PR_HEALTH);
 			if (&creature_list[target_ptr->riding] == user_ptr) play_redraw |= (PR_UHEALTH);
 
 			/* Cancel fear */

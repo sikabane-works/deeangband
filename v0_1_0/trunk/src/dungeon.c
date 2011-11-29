@@ -1051,7 +1051,7 @@ static void regen_monsters(creature_type *cr_ptr)
 			if (m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
 			/* Redraw (later) if needed */
-			if (cr_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+			if (health_who == i) play_redraw |= (PR_HEALTH);
 			if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 		}
 	}
@@ -6010,7 +6010,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							/* Update the monster */
 							update_mon(cr_ptr, i, FALSE);
 
-							if (cr_ptr->health_who == i) play_redraw |= (PR_HEALTH);
+							if (health_who == i) play_redraw |= (PR_HEALTH);
 							if (cr_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */

@@ -1489,7 +1489,6 @@ static void prt_stun(creature_type *cr_ptr)
  */
 static void health_redraw(creature_type *cr_ptr, bool riding)
 {
-	s16b health_who;
 	int row, col;
 	creature_type *m_ptr;
 
@@ -1501,7 +1500,6 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 	}
 	else
 	{
-		health_who = cr_ptr->health_who;
 		row = ROW_INFO;
 		col = COL_INFO;
 	}

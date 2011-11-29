@@ -4985,7 +4985,7 @@ void health_track(int m_idx)
 	if (m_idx && m_idx == p_ptr->riding) return;
 
 	/* Track a new guy */
-	p_ptr->health_who = m_idx;
+	health_who = m_idx;
 
 	/* Redraw (later) */
 	play_redraw |= (PR_HEALTH);
