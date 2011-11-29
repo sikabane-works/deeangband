@@ -2546,7 +2546,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				screen_save();
 
 				/* Recall on screen */
-				screen_roff(m_ptr->ap_species_idx, 0);
+				screen_roff(m_ptr);
 
 				/* Hack -- Complete the prompt (again) */
 #ifdef JP

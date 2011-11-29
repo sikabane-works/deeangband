@@ -1228,7 +1228,7 @@ extern void mproc_remove(creature_type *cr_ptr, int mproc_type);
 
 /* monster1.c */
 extern void roff_top(int species_idx);
-extern void screen_roff(int species_idx, int mode);
+extern void screen_roff(creature_type *creature_ptr);
 extern void display_roff(int species_idx);
 extern void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str));
 extern void create_name(int type, char *name);

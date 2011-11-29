@@ -4634,7 +4634,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'évÇ¢èo, ' 'Ç≈ë±çs, ESC]");
 				handle_stuff(cr_ptr);
 
 				/* know every thing mode */
-				screen_roff(species_idx, 0x01);
+				//screen_roff(species_idx);
 				notpicked = FALSE;
 
 				/* XTRA HACK REMEMBEspecies_idx */

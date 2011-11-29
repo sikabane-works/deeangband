@@ -219,21 +219,62 @@ void roff_top(int species_idx)
 /*
  * Hack -- describe the given monster race at the top of the screen
  */
-void screen_roff(int species_idx, int mode)
+void screen_roff(creature_type *creature_ptr)
 {
+	char c;
+	int m = 0;
+
 	/* Flush messages */
 	msg_print(NULL);
 
 	/* Begin recall */
 	Term_erase(0, 1, 255);
 
-	hook_c_roff = c_roff;
+	/* Forever */
+	while (1)
+	{
+		update_playtime();
 
-	/* Recall monster */
-	roff_aux(p_ptr, &species_info[species_idx], mode);
+		/* Display the player */
+		display_creature_status(m, creature_ptr);
 
-	/* Describe monster */
-	roff_top(species_idx);
+		if (m == MAX_PLAYER_STAUS_DISPLAY)
+		{
+			m = 0;
+			display_creature_status(m, creature_ptr);
+		}
+
+		/* Prompt */
+#ifdef JP
+		Term_putstr(2, 23, -1, TERM_WHITE,
+		    "['h'でモード変更, ESCで終了]");
+#else
+		Term_putstr(2, 23, -1, TERM_WHITE,
+			"['h' to change mode, or ESC]");
+#endif
+
+
+		/* Query */
+		c = inkey();
+
+		/* Exit */
+		if (c == ESCAPE) break;
+
+		/* Toggle mode */
+		else if (c == 'h')
+		{
+			m++;
+		}
+
+		/* Oops */
+		else
+		{
+			bell();
+		}
+
+		/* Flush messages */
+		msg_print(NULL);
+	}
 }
 
 
