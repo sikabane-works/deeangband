@@ -2590,71 +2590,12 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			/* Command */
 			query = inkey();
 
-			/* Hidden commands */
-			if (query == 'd' && cheat_know){
-				char c;
-				int m = 0;
+			/* Normal commands */
+			if (query != 'r') break;
 
-				/* Save the screen */
-				screen_save();
-
-				/* Forever */
-				while (1)
-				{
-					update_playtime();
-
-					/* Display the player */
-					display_creature_status(m, m_ptr);
-
-					if (m == MAX_PLAYER_STAUS_DISPLAY)
-					{
-						m = 0;
-						display_creature_status(m, m_ptr);
-					}
-
-					/* Prompt */
-#ifdef JP
-					Term_putstr(2, 23, -1, TERM_WHITE,
-					    "['h'でモード変更, ESCで終了]");
-#else
-					Term_putstr(2, 23, -1, TERM_WHITE,
-						"['h' to change mode, or ESC]");
-#endif
-
-
-					/* Query */
-						c = inkey();
-
-					/* Exit */
-						if (c == ESCAPE) break;
-
-					/* Toggle mode */
-						else if (c == 'h')
-						{
-							m++;
-						}
-
-					/* Oops */
-						else
-						{
-							bell();
-						}
-
-						/* Flush messages */
-						msg_print(NULL);
-					}
-
-					/* Restore the screen */
-					screen_load();
-
-				}
-
-				/* Normal commands */
-				if (query != 'r') break;
-
-				/* Toggle recall */
-				recall = TRUE;
-			}
+			/* Toggle recall */
+			recall = TRUE;
+		}
 
 
 		/* Always stop at "normal" keys */
@@ -3144,7 +3085,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
  * This command will cancel any old target, even if used from
  * inside the "look" command.
  */
-bool target_set(creature_type *aimer_ptr , int mode)
+bool target_set(creature_type *aimer_ptr, int mode)
 {
 	int		i, d, m, t, bd;
 	int		y = aimer_ptr->fy;
