@@ -304,7 +304,7 @@ void prepare_change_floor_mode(u32b mode)
 /*
  * Builds the dead end
  */
-static void build_dead_end(void)
+static void build_dead_end(creature_type *creature_ptr)
 {
 	int x,y;
 
@@ -329,11 +329,11 @@ static void build_dead_end(void)
 	}
 
 	/* Place at center of the floor */
-	p_ptr->fy = cur_hgt / 2;
-	p_ptr->fx = cur_wid / 2;
+	creature_ptr->fy = cur_hgt / 2;
+	creature_ptr->fx = cur_wid / 2;
 
 	/* Give one square */
-	place_floor_bold(p_ptr->fy, p_ptr->fx);
+	place_floor_bold(creature_ptr->fy, creature_ptr->fx);
 
 	wipe_generate_cave_flags();
 }
@@ -1294,7 +1294,7 @@ void change_floor(creature_type *cr_ptr)
 #endif
 
 				/* Create simple dead end */
-				build_dead_end();
+				build_dead_end(cr_ptr);
 
 				/* Break connection */
 				if (change_floor_mode & CFM_UP)
