@@ -7415,9 +7415,9 @@ static void display_essence(creature_type *creature_ptr)
 	return;
 }
 
-static void drain_essence(void)
+static void drain_essence(creature_type *creature_ptr)
 {
-	int drain_value[sizeof(p_ptr->magic_num1) / sizeof(s32b)];
+	int drain_value[sizeof(creature_ptr->magic_num1) / sizeof(s32b)];
 	int i, item;
 	int dec = 4;
 	bool observe = FALSE;
@@ -7443,12 +7443,12 @@ static void drain_essence(void)
 	s = "You have nothing you can extract from.";
 #endif
 
-	if (!get_item(p_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &creature_ptr->inventory[item];
 	}
 
 	/* Get the item (on the floor) */
@@ -7457,7 +7457,7 @@ static void drain_essence(void)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if (object_is_known(o_ptr) && !object_is_nameless(p_ptr, o_ptr))
+	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
 		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -7512,7 +7512,7 @@ static void drain_essence(void)
 	o_ptr->marked=marked;
 	o_ptr->number = number;
 	if (o_ptr->tval == TV_DRAG_ARMOR) o_ptr->timeout = old_timeout;
-	if (item >= 0) p_ptr->total_weight += (o_ptr->weight*o_ptr->number - weight*number);
+	if (item >= 0) creature_ptr->total_weight += (o_ptr->weight*o_ptr->number - weight*number);
 	o_ptr->ident |= (IDENT_MENTAL);
 	object_aware(o_ptr);
 	object_known(o_ptr);
@@ -7586,7 +7586,7 @@ static void drain_essence(void)
 	{
 		drain_value[TR_DEX] += 20;
 	}
-	if (object_is_weapon_ammo(p_ptr, o_ptr))
+	if (object_is_weapon_ammo(creature_ptr, o_ptr))
 	{
 		if (old_ds > o_ptr->ds) drain_value[TR_ES_ATTACK] += (old_ds-o_ptr->ds)*10;
 
@@ -7628,15 +7628,15 @@ static void drain_essence(void)
 			if (!essence_name[i][0]) continue;
 			if (!drain_value[i]) continue;
 
-			p_ptr->magic_num1[i] += drain_value[i];
-			p_ptr->magic_num1[i] = MIN(20000, p_ptr->magic_num1[i]);
+			creature_ptr->magic_num1[i] += drain_value[i];
+			creature_ptr->magic_num1[i] = MIN(20000, creature_ptr->magic_num1[i]);
 			msg_print(NULL);
 			msg_format("%s...%d", essence_name[i], drain_value[i]);
 		}
 	}
 
 	/* Combine the pack */
-	p_ptr->notice |= (PN_COMBINE | PN_REORDER);
+	creature_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 	/* Window stuff */
 	play_window |= (PW_INVEN);
@@ -8612,7 +8612,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 	switch(mode)
 	{
 		case 1: display_essence(creature_ptr);break;
-		case 2: drain_essence();break;
+		case 2: drain_essence(creature_ptr);break;
 		case 3: erase_essence(creature_ptr);break;
 		case 4:
 			mode = choose_essence();
