@@ -3738,7 +3738,7 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Give the player three useful objects */
-	if(creature_ptr->cls_idx != INDEX_NONE)
+	if(creature_ptr->cls_idx != INDEX_NONE && has_cf_creature(creature_ptr, CF_HUMANOID))
 	{
 		for (i = 0; i < 10; i++)
 		{
