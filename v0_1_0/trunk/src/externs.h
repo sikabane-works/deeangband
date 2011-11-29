@@ -1282,7 +1282,7 @@ extern bool summon_named_creature(creature_type *cr_ptr, int oy, int ox, int spe
 extern bool multiply_monster(int m_idx, bool clone, u32b mode);
 extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_idx);
-extern bool player_place(int y, int x);
+extern bool creature_place(creature_type *creature_ptr, int y, int x);
 extern void monster_drop_carried_objects(creature_type *m_ptr);
 
 /* object1.c */

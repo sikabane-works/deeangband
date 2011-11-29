@@ -1155,7 +1155,7 @@ static void build_arena(void)
 	j = xval;
 	cave[i][j].feat = f_tag_to_index("ARENA_GATE");
 	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	player_place(i, j);
+	creature_place(p_ptr, i, j);
 }
 
 
@@ -1262,7 +1262,7 @@ static void build_battle(void)
 	j = xval;
 	cave[i][j].feat = f_tag_to_index("BUILDING_3");
 	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	player_place(i, j);
+	creature_place(p_ptr, i, j);
 }
 
 

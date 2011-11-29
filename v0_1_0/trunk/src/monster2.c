@@ -5845,14 +5845,14 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 	}
 }
 
-bool player_place(int y, int x)
+bool creature_place(creature_type *creature_ptr, int y, int x)
 {
 	/* Paranoia XXX XXX */
 	if (cave[y][x].m_idx != 0) return FALSE;
 
 	/* Save player location */
-	p_ptr->fy = y;
-	p_ptr->fx = x;
+	creature_ptr->fy = y;
+	creature_ptr->fx = x;
 
 	/* Success */
 	return TRUE;

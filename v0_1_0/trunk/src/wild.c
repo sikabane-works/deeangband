@@ -594,7 +594,7 @@ void wilderness_gen(creature_type *cr_ptr)
 		cr_ptr->teleport_town = FALSE;
 	}
 
-	player_place(cr_ptr->oldpy, cr_ptr->oldpx);
+	creature_place(cr_ptr, cr_ptr->oldpy, cr_ptr->oldpx);
 	/* cr_ptr->leaving_dungeon = FALSE;*/
 
 
