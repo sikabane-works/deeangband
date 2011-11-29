@@ -7385,7 +7385,7 @@ static cptr essence_name[] =
 #endif
 
 
-static void display_essence(void)
+static void display_essence(creature_type *creature_ptr)
 {
 	int i, num = 0;
 
@@ -7402,7 +7402,7 @@ static void display_essence(void)
 	for (i = 0; essence_name[i]; i++)
 	{
 		if (!essence_name[i][0]) continue;
-		prt(format("%-11s %5d", essence_name[i], p_ptr->magic_num1[i]), 2+num%21, 8+num/21*22);
+		prt(format("%-11s %5d", essence_name[i], creature_ptr->magic_num1[i]), 2+num%21, 8+num/21*22);
 		num++;
 	}
 #ifdef JP
@@ -8611,7 +8611,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 	switch(mode)
 	{
-		case 1: display_essence();break;
+		case 1: display_essence(creature_ptr);break;
 		case 2: drain_essence();break;
 		case 3: erase_essence(creature_ptr);break;
 		case 4:
