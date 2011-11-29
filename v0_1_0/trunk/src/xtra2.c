@@ -3267,7 +3267,7 @@ bool target_set(creature_type *aimer_ptr , int mode)
 			y = temp_y[m];
 			x = temp_x[m];
 
-			if (!(mode & TARGET_LOOK)) prt_path(y, x);
+			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
 			c_ptr = &cave[y][x];
@@ -3511,7 +3511,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 		{
 			bool move_fast = FALSE;
 
-			if (!(mode & TARGET_LOOK)) prt_path(y, x);
+			if (!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
 
 			/* Access */
 			c_ptr = &cave[y][x];

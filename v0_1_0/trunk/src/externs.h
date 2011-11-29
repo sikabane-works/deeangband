@@ -693,7 +693,7 @@ extern void note_spot(creature_type *cr_ptr, int y, int x);
 extern void display_dungeon(creature_type *cr_ptr);
 extern void lite_spot(creature_type *cr_ptr, int y, int x);
 extern void prt_map(creature_type *cr_ptr);
-extern void prt_path(int y, int x);
+extern void prt_path(creature_type *creature_ptr, int y, int x);
 extern void display_map(creature_type *cr_ptr, int *cy, int *cx);
 extern void do_cmd_view_map(creature_type *creature_ptr);
 extern void forget_lite(void);

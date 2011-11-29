@@ -1734,7 +1734,7 @@ void prt_map(creature_type *cr_ptr)
 /*
  * print project path
  */
-void prt_path(int y, int x)
+void prt_path(creature_type *creature_ptr, int y, int x)
 {
 	int i;
 	int path_n;
@@ -1746,7 +1746,7 @@ void prt_path(int y, int x)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(p_ptr)), p_ptr->fy, p_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(creature_ptr, path_g, (project_length ? project_length : MAX_RANGE(creature_ptr)), creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -1772,7 +1772,7 @@ void prt_path(int y, int x)
 			if (c_ptr->m_idx && creature_list[c_ptr->m_idx].ml)
 			{
 				/* Determine what is there */
-				map_info(p_ptr, ny, nx, &a, &c, &ta, &tc);
+				map_info(creature_ptr, ny, nx, &a, &c, &ta, &tc);
 
 				if (!is_ascii_graphics(a))
 					a = default_color;
@@ -1785,8 +1785,8 @@ void prt_path(int y, int x)
 			if (!use_graphics)
 			{
 				if (world_monster) a = TERM_DARK;
-				else if (IS_INVULN(p_ptr) || world_player) a = TERM_WHITE;
-				else if (p_ptr->wraith_form) a = TERM_L_DARK;
+				else if (IS_INVULN(creature_ptr) || world_player) a = TERM_WHITE;
+				else if (creature_ptr->wraith_form) a = TERM_L_DARK;
 			}
 
 			c = '*';
