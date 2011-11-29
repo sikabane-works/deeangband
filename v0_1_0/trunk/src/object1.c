@@ -5474,17 +5474,17 @@ void toggle_inven_equip(void)
  *
  * The item can be negative to mean "item on floor".
  */
-static bool verify(cptr prompt, int item)
+static bool verify(creature_type *cr_ptr, cptr prompt, int item)
 {
 	char        o_name[MAX_NLEN];
 	char        out_val[MAX_NLEN+20];
 	object_type *o_ptr;
 
 
-	/* p_ptr->inventory */
+	/* inventory */
 	if (item >= 0)
 	{
-		o_ptr = &p_ptr->inventory[item];
+		o_ptr = &cr_ptr->inventory[item];
 	}
 
 	/* Floor */
@@ -5548,7 +5548,7 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 		{
 			/* Verify the choice */
 #ifdef JP
-if (!verify("本当に", item)) return (FALSE);
+if (!verify(cr_ptr, "本当に", item)) return (FALSE);
 #else
 			if (!verify("Really try", item)) return (FALSE);
 #endif
@@ -6267,7 +6267,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
 
 						/* Verify the item (if required) */
 #ifdef JP
-if (other_query_flag && !verify("本当に", k)) continue;
+if (other_query_flag && !verify(cr_ptr, "本当に", k)) continue;
 #else
 						if (other_query_flag && !verify("Try", k)) continue;
 #endif
@@ -6449,7 +6449,7 @@ if (other_query_flag && !verify("本当に", k)) continue;
 
 				/* Verify the item */
 #ifdef JP
-if (ver && !verify("本当に", k))
+if (ver && !verify(cr_ptr, "本当に", k))
 #else
 				if (ver && !verify("Try", k))
 #endif
@@ -7928,7 +7928,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 				/* Verify the item */
 #ifdef JP
-if (ver && !verify("本当に", k))
+if (ver && !verify(cr_ptr, "本当に", k))
 #else
 				if (ver && !verify("Try", k))
 #endif

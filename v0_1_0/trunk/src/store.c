@@ -4933,7 +4933,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 			int mode = 0;
 
 
-			//creature_type *cr_ptr = 
+			//creature_type *cr_ptr =
 			while (1)
 			{
 				update_playtime();
