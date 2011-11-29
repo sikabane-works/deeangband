@@ -380,7 +380,7 @@ static bool player_has_no_spellbooks(creature_type *cr_ptr)
 }
 
 
-static void confirm_use_force(bool browse_only)
+static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 {
 	int  item;
 	char which;
@@ -390,7 +390,7 @@ static void confirm_use_force(bool browse_only)
 	/* Get the item index */
 	if (repeat_pull(&item) && (item == INVEN_FORCE))
 	{
-		browse_only ? do_cmd_mind_browse(p_ptr) : do_cmd_mind(p_ptr);
+		browse_only ? do_cmd_mind_browse(creature_ptr) : do_cmd_mind(creature_ptr);
 		return;
 	}
 
@@ -427,7 +427,7 @@ static void confirm_use_force(bool browse_only)
 
 	if (which == 'w')
 	{
-		browse_only ? do_cmd_mind_browse(p_ptr) : do_cmd_mind(p_ptr);
+		browse_only ? do_cmd_mind_browse(creature_ptr) : do_cmd_mind(creature_ptr);
 	}
 }
 
@@ -474,7 +474,7 @@ void do_cmd_browse(creature_type *cr_ptr)
 	{
 		if (player_has_no_spellbooks(cr_ptr))
 		{
-			confirm_use_force(TRUE);
+			confirm_use_force(cr_ptr, TRUE);
 			return;
 		}
 		select_the_force = TRUE;
@@ -1001,7 +1001,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 	/* Require lite */
 	if (cr_ptr->blind || no_lite(cr_ptr))
 	{
-		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(FALSE);
+		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) confirm_use_force(cr_ptr, FALSE);
 		else
 		{
 #ifdef JP
@@ -1047,7 +1047,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 	{
 		if (player_has_no_spellbooks(cr_ptr))
 		{
-			confirm_use_force(FALSE);
+			confirm_use_force(cr_ptr, FALSE);
 			return;
 		}
 		select_the_force = TRUE;
