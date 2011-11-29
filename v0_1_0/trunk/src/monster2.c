@@ -3745,6 +3745,7 @@ void deal_item(creature_type *creature_ptr)
 			/* Look up standard equipment */
 			tv = class_equipment_init[creature_ptr->cls_idx][i][0];
 			sv = class_equipment_init[creature_ptr->cls_idx][i][1];
+			if(tv == 0) continue;
 
 			if (IS_PURE_RACE(creature_ptr, RACE_ANDROID) && ((tv == TV_SOFT_ARMOR) || (tv == TV_HARD_ARMOR))) continue;
 
