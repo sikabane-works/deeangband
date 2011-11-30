@@ -4582,10 +4582,10 @@ void display_inven(creature_type *cr_ptr)
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
 
 		/* Is this item "acceptable"? */
-		if (item_tester_okay(p_ptr, o_ptr))
+		if (item_tester_okay(cr_ptr, o_ptr))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(p_ptr, i);
+			tmp_val[0] = index_to_label(cr_ptr, i);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';

@@ -1514,7 +1514,7 @@ void wipe_generate_cave_flags(void)
 /*
  *  Clear and empty the cave
  */
-void clear_cave(void)
+void clear_cave(creature_type *player_ptr)
 {
 	int x, y, i;
 
@@ -1570,7 +1570,7 @@ void clear_cave(void)
 	}
 
 	/* Mega-Hack -- no player yet */
-	p_ptr->fx = p_ptr->fy = 0;
+	player_ptr->fx = player_ptr->fy = 0;
 
 	/* Set the base level */
 	base_level = dun_level;
@@ -1603,7 +1603,7 @@ void generate_cave(void)
 		cptr why = NULL;
 
 		/* Clear and empty the cave */
-		clear_cave();
+		clear_cave(p_ptr);
 
 		/* Build the arena -KMW- */
 		if (inside_arena)

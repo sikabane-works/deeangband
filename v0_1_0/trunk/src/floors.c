@@ -309,7 +309,7 @@ static void build_dead_end(creature_type *creature_ptr)
 	int x,y;
 
 	/* Clear and empty the cave */
-	clear_cave();
+	clear_cave(creature_ptr);
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(0);

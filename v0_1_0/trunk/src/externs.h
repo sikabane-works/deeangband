@@ -1188,7 +1188,7 @@ extern void stair_creation(creature_type *creature_ptr);
 /* generate.c */
 extern bool place_quest_monsters(void);
 extern void wipe_generate_cave_flags(void);
-extern void clear_cave(void);
+extern void clear_cave(creature_type *player_ptr);
 extern void generate_cave(void);
 
 /* init1.c */
