@@ -1162,7 +1162,7 @@ static void build_arena(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void arena_gen(void)
+static void arena_gen(creature_type *player_ptr)
 {
 	int y, x;
 	int qy = 0;
@@ -1195,9 +1195,9 @@ static void arena_gen(void)
 		}
 	}
 
-	build_arena(p_ptr);
+	build_arena(player_ptr);
 
-	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[arena_number].species_idx,
+	place_monster_aux(player_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
 }
 
@@ -1609,7 +1609,7 @@ void generate_cave(void)
 		if (inside_arena)
 		{
 			/* Small arena */
-			arena_gen();
+			arena_gen(p_ptr);
 		}
 
 		/* Build the battle -KMW- */
