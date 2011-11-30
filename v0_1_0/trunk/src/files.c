@@ -7665,7 +7665,7 @@ prt("リターンキーか ESC キーを押して下さい。", 0, 40);
 	highscore_fd = -1;
 
 	/* Kill all temporal files */
-	clear_saved_floor_files();
+	clear_saved_floor_files(cr_ptr);
 
 	/* Allow suspending now */
 	signals_handle_tstp();

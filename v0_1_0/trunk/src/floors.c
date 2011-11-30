@@ -120,7 +120,7 @@ void init_saved_floors(bool force)
  * Kill temporal files
  * Should be called just before the game quit.
  */
-void clear_saved_floor_files(void)
+void clear_saved_floor_files(creature_type *player_ptr)
 {
 	char floor_savefile[1024];
 	int i;
@@ -138,7 +138,7 @@ void clear_saved_floor_files(void)
 
 		/* No temporal file */
 		if (!sf_ptr->floor_id) continue;
-		if (sf_ptr->floor_id == p_ptr->floor_id) continue;
+		if (sf_ptr->floor_id == player_ptr->floor_id) continue;
 
 		/* File name */
 		sprintf(floor_savefile, "%s.F%02d", savefile, i);
