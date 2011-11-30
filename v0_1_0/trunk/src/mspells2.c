@@ -74,7 +74,7 @@ static void monst_beam_monst(int m_idx, int y, int x, int typ, int dam_hp, int m
 /*
  * Determine if a beam spell will hit the target.
  */
-static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
+static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x2, creature_type *user_ptr)
 {
 	bool hit2 = FALSE;
 	int i, y, x;
@@ -82,10 +82,10 @@ static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
 	int grid_n = 0;
 	u16b grid_g[512];
 
-	bool friend = is_pet(player_ptr, m_ptr);
+	bool friend = is_pet(player_ptr, user_ptr);
 
 	/* Check the projection path */
-	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, PROJECT_THRU);
+	grid_n = project_path(target_ptr, grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, PROJECT_THRU);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -98,13 +98,13 @@ static bool direct_beam(int y1, int x1, int y2, int x2, creature_type *m_ptr)
 		if (y == y2 && x == x2)
 			hit2 = TRUE;
 		else if (friend && cave[y][x].m_idx > 0 &&
-			 !are_enemies(m_ptr, &creature_list[cave[y][x].m_idx]))
+			 !are_enemies(user_ptr, &creature_list[cave[y][x].m_idx]))
 		{
 			/* Friends don't shoot friends */
 			return FALSE;
 		}
 
-		if (friend && creature_bold(p_ptr, y, x))
+		if (friend && creature_bold(target_ptr, y, x))
 			return FALSE;
 	}
 	if (!hit2)
