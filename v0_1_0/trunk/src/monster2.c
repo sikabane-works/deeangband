@@ -3591,7 +3591,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
 
 		/* Fuel with oil (move pval to xtra4) */
-		apply_magic(q_ptr, 1, AM_NO_FIXED_ART);
+		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART);
 		q_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(creature_ptr, q_ptr, FALSE);
 	}

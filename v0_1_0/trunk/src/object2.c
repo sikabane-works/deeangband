@@ -4216,11 +4216,11 @@ static void a_m_aux_4(object_type *o_ptr, int level, int power)
  * "good" and "great" arguments are false.  As a total hack, if "great" is
  * true, then the item gets 3 extra "attempts" to become an artifact.
  */
-void apply_magic(object_type *o_ptr, int lev, u32b mode)
+void apply_magic(creature_type *player_ptr, object_type *o_ptr, int lev, u32b mode)
 {
 	int i, rolls, f1, f2, power;
 
-	if (p_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(p_ptr->lev/2+10);
+	if (player_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(player_ptr->lev/2+10);
 
 	/* Maximum "level" for various things */
 	if (lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1;
@@ -4235,15 +4235,15 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 	f2 = f1 * 2 / 3;
 
 	/* Maximal chance of being "great" */
-	if ((p_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > d_info[dungeon_type].obj_great))
+	if ((player_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > d_info[dungeon_type].obj_great))
 		f2 = d_info[dungeon_type].obj_great;
 
-	if (has_cf_creature(p_ptr, CF_GOOD_LUCK))
+	if (has_cf_creature(player_ptr, CF_GOOD_LUCK))
 	{
 		f1 += 5;
 		f2 += 2;
 	}
-	else if(has_cf_creature(p_ptr, CF_BAD_LUCK))
+	else if(has_cf_creature(player_ptr, CF_BAD_LUCK))
 	{
 		f1 -= 5;
 		f2 -= 2;
@@ -4310,7 +4310,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 	{
 		/* Roll for an artifact */
 		if (make_artifact(o_ptr)) break;
-		if (has_cf_creature(p_ptr, CF_GOOD_LUCK) && one_in_(77))
+		if (has_cf_creature(player_ptr, CF_GOOD_LUCK) && one_in_(77))
 		{
 			if (make_artifact(o_ptr)) break;
 		}
@@ -4327,7 +4327,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 
 		/* Hack -- Memorize location of artifact in saved floors */
 		if (character_dungeon)
-			a_ptr->floor_id = p_ptr->floor_id;
+			a_ptr->floor_id = player_ptr->floor_id;
 
 		/* Extract the other fields */
 		o_ptr->pval = a_ptr->pval;
@@ -4432,7 +4432,7 @@ void apply_magic(object_type *o_ptr, int lev, u32b mode)
 
 	if ((o_ptr->tval == TV_SOFT_ARMOR) &&
 	    (o_ptr->sval == SV_ABUNAI_MIZUGI) &&
-	    (p_ptr->chara_idx == CHARA_SEXY))
+	    (player_ptr->chara_idx == CHARA_SEXY))
 	{
 		o_ptr->pval = 3;
 		add_flag(o_ptr->art_flags, TR_STR);
@@ -4703,7 +4703,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode)
 	}
 
 	/* Apply magic (allow artifacts) */
-	apply_magic(j_ptr, object_level, mode);
+	apply_magic(p_ptr, j_ptr, object_level, mode);
 
 	/* Hack -- generate multiple spikes/missiles */
 	switch (j_ptr->tval)

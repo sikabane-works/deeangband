@@ -5467,7 +5467,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 				}
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(o_ptr, base_level, AM_NO_FIXED_ART | AM_GOOD);
+				apply_magic(p_ptr, o_ptr, base_level, AM_NO_FIXED_ART | AM_GOOD);
 
 				drop_here(o_ptr, *y, *x);
 			}
