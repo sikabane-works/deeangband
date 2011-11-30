@@ -1110,7 +1110,7 @@ void change_floor(creature_type *cr_ptr)
 	    !(change_floor_mode & CFM_FIRST_FLOOR))
 	{
 		/* Create cave */
-		generate_cave();
+		generate_cave(cr_ptr);
 
 		/* Paranoia -- No new saved floor */
 
@@ -1309,7 +1309,7 @@ void change_floor(creature_type *cr_ptr)
 			else
 			{
 				/* Newly create cave */
-				generate_cave();
+				generate_cave(cr_ptr);
 			}
 
 			/* Record last visit turn */

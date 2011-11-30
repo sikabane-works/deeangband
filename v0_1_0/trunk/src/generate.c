@@ -1588,7 +1588,7 @@ void clear_cave(creature_type *player_ptr)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_cave(void)
+void generate_cave(creature_type *player_ptr)
 {
 	int num;
 
@@ -1603,13 +1603,13 @@ void generate_cave(void)
 		cptr why = NULL;
 
 		/* Clear and empty the cave */
-		clear_cave(p_ptr);
+		clear_cave(player_ptr);
 
 		/* Build the arena -KMW- */
 		if (inside_arena)
 		{
 			/* Small arena */
-			arena_gen(p_ptr);
+			arena_gen(player_ptr);
 		}
 
 		/* Build the battle -KMW- */
@@ -1628,8 +1628,8 @@ void generate_cave(void)
 		else if (!dun_level)
 		{
 			/* Make the wilderness */
-			if (wild_mode) wilderness_gen_small(p_ptr);
-			else wilderness_gen(p_ptr);
+			if (wild_mode) wilderness_gen_small(player_ptr);
+			else wilderness_gen(player_ptr);
 
 		}
 
@@ -1691,7 +1691,7 @@ if (why) msg_format("¶¬‚â‚è’¼‚µ(%s)", why);
 	glow_deep_lava_and_bldg();
 
 	/* Reset flag */
-	p_ptr->enter_dungeon = FALSE;
+	player_ptr->enter_dungeon = FALSE;
 
 	wipe_generate_cave_flags();
 }
