@@ -3211,7 +3211,7 @@ void process_monsters_mtimed(creature_type *cr_ptr, int mtimed_idx)
 }
 
 
-bool process_the_world(int num, int who, bool vs_player)
+bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {
 	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world monster */
 
@@ -3242,20 +3242,20 @@ bool process_the_world(int num, int who, bool vs_player)
 	/* This monster cast spells */
 	world_monster = hack_m_idx;
 
-	if (vs_player) do_cmd_redraw(p_ptr);
+	if (vs_player) do_cmd_redraw(player_ptr);
 
 	while(num--)
 	{
 		if(!m_ptr->species_idx) break;
-		process_monster(p_ptr, world_monster);
+		process_monster(player_ptr, world_monster);
 
 		reset_target(m_ptr);
 
 		/* Notice stuff */
-		if (p_ptr->notice) notice_stuff(p_ptr);
+		if (player_ptr->notice) notice_stuff(player_ptr);
 
 		/* Update stuff */
-		if (p_ptr->update) update_stuff(p_ptr, TRUE);
+		if (player_ptr->update) update_stuff(player_ptr, TRUE);
 
 		/* Redraw stuff */
 		if (play_redraw) redraw_stuff(player_ptr);
@@ -3271,13 +3271,13 @@ bool process_the_world(int num, int who, bool vs_player)
 	play_redraw |= (PR_MAP);
 
 	/* Update monsters */
-	p_ptr->update |= (PU_MONSTERS);
+	player_ptr->update |= (PU_MONSTERS);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	world_monster = 0;
-	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)))
+	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP
 		msg_print("u‚Í“®‚«‚¾‚·cv");
@@ -3287,7 +3287,7 @@ bool process_the_world(int num, int who, bool vs_player)
 		msg_print(NULL);
 	}
 
-	handle_stuff(p_ptr);
+	handle_stuff(player_ptr);
 
 	return (TRUE);
 }

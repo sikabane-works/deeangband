@@ -3326,7 +3326,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 			if(user_ptr->species_idx == MON_DIO) who = 1;
 			else if(user_ptr->species_idx == MON_WONG) who = 3;
 			dam = who;
-			if (!process_the_world(randint1(2)+2, who, TRUE)) return (FALSE);
+			if (!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
 			break;
 		}
 
