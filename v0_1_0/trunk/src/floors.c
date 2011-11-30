@@ -750,7 +750,7 @@ static void get_out_monster(void)
  * the one of the floors connected by the one of the stairs in the
  * current floor.
  */
-static void locate_connected_stairs(saved_floor_type *sf_ptr)
+static void locate_connected_stairs(creature_type *creature_ptr, saved_floor_type *sf_ptr)
 {
 	int x, y, sx = 0, sy = 0;
 	int x_table[20];
@@ -821,8 +821,8 @@ static void locate_connected_stairs(saved_floor_type *sf_ptr)
 	if (sx)
 	{
 		/* Already fixed */
-		p_ptr->fy = sy;
-		p_ptr->fx = sx;
+		creature_ptr->fy = sy;
+		creature_ptr->fx = sx;
 	}
 	else if (!num)
 	{
@@ -830,7 +830,7 @@ static void locate_connected_stairs(saved_floor_type *sf_ptr)
 		prepare_change_floor_mode(CFM_RAND_PLACE | CFM_NO_RETURN);
 
 		/* Mega Hack -- It's not the stairs you enter.  Disable it.  */
-		if (!feat_uses_special(cave[p_ptr->fy][p_ptr->fx].feat)) cave[p_ptr->fy][p_ptr->fx].special = 0;
+		if (!feat_uses_special(cave[creature_ptr->fy][creature_ptr->fx].feat)) cave[creature_ptr->fy][creature_ptr->fx].special = 0;
 	}
 	else
 	{
@@ -838,8 +838,8 @@ static void locate_connected_stairs(saved_floor_type *sf_ptr)
 		i = randint0(num);
 
 		/* Point stair location */
-		p_ptr->fy = y_table[i];
-		p_ptr->fx = x_table[i];
+		creature_ptr->fy = y_table[i];
+		creature_ptr->fx = x_table[i];
 	}
 }
 
@@ -934,7 +934,7 @@ void leave_floor(creature_type *cr_ptr)
 	/* Choose random stairs */
 	if ((change_floor_mode & CFM_RAND_CONNECT) && cr_ptr->floor_id)
 	{
-		locate_connected_stairs(sf_ptr);
+		locate_connected_stairs(cr_ptr, sf_ptr);
 	}
 
 	/* Extract new dungeon level */
