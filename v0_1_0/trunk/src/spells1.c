@@ -5515,7 +5515,7 @@ note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
 			//if (who_ptr != who_ptr) monster_gain_exp(who_ptr, who, tar_ptr->species_idx);
 
 			/* Generate treasure, etc */
-			monster_death(&creature_list[c_ptr->m_idx], FALSE);
+			monster_death(aimer_ptr, &creature_list[c_ptr->m_idx], FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(&creature_list[c_ptr->m_idx]);

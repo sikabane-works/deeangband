@@ -315,8 +315,8 @@ msg_format("%^s‚ÍE‚³‚ê‚½B", m_name);
 
 			//TODO monster_gain_exp(who, cr_ptr->species_idx);
 
-			/* Generate treasure */
-			monster_death(cr_ptr, FALSE);
+			/* Generate treasure TODO*/
+			monster_death(p_ptr, cr_ptr, FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(cr_ptr);
@@ -1578,7 +1578,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 			}
 
 			/* Generate treasure, etc */
-			monster_death(&creature_list[m_idx], FALSE);
+			monster_death(player_ptr, &creature_list[m_idx], FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(&creature_list[m_idx]);

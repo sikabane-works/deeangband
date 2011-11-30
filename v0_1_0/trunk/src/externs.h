@@ -1764,7 +1764,7 @@ extern void set_experience(creature_type *cr_ptr);
 extern void check_experience(creature_type *cr_ptr);
 extern void check_quest_completion(creature_type *cr_ptr, creature_type *m_ptr);
 extern cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr);
-extern void monster_death(creature_type *cr_ptr, bool drop_item);
+extern void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item);
 extern void get_screen_size(int *wid_p, int *hgt_p);
 extern void panel_bounds_center(void);
 extern void resize_map(void);

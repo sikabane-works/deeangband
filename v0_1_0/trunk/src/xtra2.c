@@ -747,62 +747,62 @@ cptr extract_note_dies(creature_type *cr_ptr, species_type *r_ptr)
  * Note that monsters can now carry objects, and when a monster dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
-void monster_death(creature_type *cr_ptr, bool drop_item)
+void monster_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
 {
 	int i, j, y, x;
-	species_type *r_ptr = &species_info[cr_ptr->species_idx];
+	species_type *r_ptr = &species_info[killed_ptr->species_idx];
 
 	int dump_item = 0;
 	int dump_gold = 0;
 
 	int number = 0;
 
-	bool visible = ((cr_ptr->ml && !p_ptr->image) || (is_unique_creature(cr_ptr)));
+	bool visible = ((killed_ptr->ml && !slayer_ptr->image) || (is_unique_creature(killed_ptr)));
 
 	u32b mo_mode = 0L;
 
-	bool do_gold = !has_cf_creature(cr_ptr, CF_ONLY_GOLD);
-	bool do_item = !has_cf_creature(cr_ptr, CF_ONLY_ITEM);
-	bool cloned = (cr_ptr->smart & SM_CLONED) ? TRUE : FALSE;
-	int force_coin = get_coin_type(cr_ptr->species_idx);
+	bool do_gold = !has_cf_creature(killed_ptr, CF_ONLY_GOLD);
+	bool do_item = !has_cf_creature(killed_ptr, CF_ONLY_ITEM);
+	bool cloned = (killed_ptr->smart & SM_CLONED) ? TRUE : FALSE;
+	int force_coin = get_coin_type(killed_ptr->species_idx);
 
 	object_type forge;
 	object_type *q_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !inside_arena
-		&& !inside_battle && !is_pet(player_ptr, cr_ptr);
+		&& !inside_battle && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
-	if (world_monster && &creature_list[world_monster] == cr_ptr) world_monster = 0;
+	if (world_monster && &creature_list[world_monster] == killed_ptr) world_monster = 0;
 
 	/* Notice changes in view */
-	if (is_lighting_creature(cr_ptr) || is_darken_creature(cr_ptr))
+	if (is_lighting_creature(killed_ptr) || is_darken_creature(killed_ptr))
 	{
 		/* Update some things */
-		p_ptr->update |= (PU_MON_LITE);
+		slayer_ptr->update |= (PU_MON_LITE);
 	}
 
 	/* Get the location */
-	y = cr_ptr->fy;
-	x = cr_ptr->fx;
+	y = killed_ptr->fy;
+	x = killed_ptr->fx;
 
-	if (record_named_pet && is_pet(player_ptr, cr_ptr) && cr_ptr->nickname)
+	if (record_named_pet && is_pet(player_ptr, killed_ptr) && killed_ptr->nickname)
 	{
 		char m_name[80];
 
-		creature_desc(m_name, cr_ptr, MD_INDEF_VISIBLE);
+		creature_desc(m_name, killed_ptr, MD_INDEF_VISIBLE);
 		do_cmd_write_nikki(NIKKI_NAMED_PET, 3, m_name);
 	}
 
 	/* Let monsters explode! */
 	for (i = 0; i < 4; i++)
 	{
-		if (cr_ptr->blow[i].method == RBM_EXPLODE)
+		if (killed_ptr->blow[i].method == RBM_EXPLODE)
 		{
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-			int typ = mbe_info[cr_ptr->blow[i].effect].explode_type;
-			int d_dice = cr_ptr->blow[i].d_dice;
-			int d_side = cr_ptr->blow[i].d_side;
+			int typ = mbe_info[killed_ptr->blow[i].effect].explode_type;
+			int d_dice = killed_ptr->blow[i].d_dice;
+			int d_side = killed_ptr->blow[i].d_side;
 			int damage = damroll(d_dice, d_side);
 
 			//TODO
@@ -811,20 +811,20 @@ void monster_death(creature_type *cr_ptr, bool drop_item)
 		}
 	}
 
-	if (cr_ptr->mflag2 & MFLAG2_CHAMELEON)
+	if (killed_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		//TODO
 		//choose_new_monster(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
-		//r_ptr = &species_info[cr_ptr->species_idx];
+		//r_ptr = &species_info[killed_ptr->species_idx];
 	}
 
 	/* Check for quest completion */
-	check_quest_completion(p_ptr, cr_ptr);
+	check_quest_completion(slayer_ptr, killed_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (inside_arena && !is_pet(player_ptr, cr_ptr))
+	if (inside_arena && !is_pet(player_ptr, killed_ptr))
 	{
-		p_ptr->exit_bldg = TRUE;
+		slayer_ptr->exit_bldg = TRUE;
 
 		if (arena_number > MAX_ARENA_MONS)
 		{
@@ -851,7 +851,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Prepare to make a prize */
 			object_prep(q_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
-			apply_magic(cr_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -864,15 +864,15 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			char m_name[80];
 			
 			/* Extract monster name */
-			creature_desc(m_name, cr_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(m_name, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(NIKKI_ARENA, arena_number, m_name);
 		}
 	}
 
-	if (cr_ptr == &creature_list[p_ptr->riding])
+	if (killed_ptr == &creature_list[slayer_ptr->riding])
 	{
-		if (rakuba(p_ptr, -1, FALSE))
+		if (rakuba(slayer_ptr, -1, FALSE))
 		{
 #ifdef JP
 msg_print("地面に落とされた。");
@@ -884,14 +884,14 @@ msg_print("地面に落とされた。");
 
 	/* Drop Inventory */
 	for(i = 0; i < INVEN_TOTAL; i++) {
-		if(cr_ptr->inventory[i].k_idx) (void)drop_near(&cr_ptr->inventory[i], 25, y, x);
+		if(killed_ptr->inventory[i].k_idx) (void)drop_near(&killed_ptr->inventory[i], 25, y, x);
 	}
 
 
 	/* Drop a dead corpse? */
-	if (one_in_(has_cf_creature(cr_ptr, CF_UNIQUE) ? 1 : 4) &&
-	    (has_cf_creature(cr_ptr, CF_DROP_CORPSE) || has_cf_creature(cr_ptr, CF_DROP_SKELETON)) &&
-	    !(inside_arena || inside_battle || cloned || ((cr_ptr->species_idx == today_mon) && is_pet(player_ptr, cr_ptr))))
+	if (one_in_(has_cf_creature(killed_ptr, CF_UNIQUE) ? 1 : 4) &&
+	    (has_cf_creature(killed_ptr, CF_DROP_CORPSE) || has_cf_creature(killed_ptr, CF_DROP_SKELETON)) &&
+	    !(inside_arena || inside_battle || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -900,16 +900,16 @@ msg_print("地面に落とされた。");
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!has_cf_creature(cr_ptr, CF_DROP_SKELETON))
+		if (!has_cf_creature(killed_ptr, CF_DROP_SKELETON))
 			corpse = TRUE;
-		else if (has_cf_creature(cr_ptr, CF_DROP_CORPSE) && has_cf_creature(cr_ptr, CF_UNIQUE))
+		else if (has_cf_creature(killed_ptr, CF_DROP_CORPSE) && has_cf_creature(killed_ptr, CF_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (has_cf_creature(cr_ptr, CF_DROP_CORPSE))
+		else if (has_cf_creature(killed_ptr, CF_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
-			if ((0 - ((cr_ptr->mhp) / 4)) > cr_ptr->chp)
+			if ((0 - ((killed_ptr->mhp) / 4)) > killed_ptr->chp)
 			{
 				if (one_in_(5)) corpse = TRUE;
 			}
@@ -925,21 +925,21 @@ msg_print("地面に落とされた。");
 		/* Prepare to make an object */
 		object_prep(q_ptr, lookup_kind(TV_CORPSE, (corpse ? SV_CORPSE : SV_SKELETON)), ITEM_FREE_SIZE);
 
-		apply_magic(cr_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+		apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
 
-		q_ptr->pval = cr_ptr->species_idx;
+		q_ptr->pval = killed_ptr->species_idx;
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
 	}
 
 	/* Drop objects being carried */
-	monster_drop_carried_objects(cr_ptr);
+	monster_drop_carried_objects(killed_ptr);
 
-	//if (cr_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
-	//if (cr_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
+	//if (killed_ptr->flags1 & RF1_DROP_GOOD) mo_mode |= AM_GOOD;
+	//if (killed_ptr->flags1 & RF1_DROP_GREAT) mo_mode |= AM_GREAT;
 
-	switch (cr_ptr->species_idx)
+	switch (killed_ptr->species_idx)
 	{
 	case MON_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
@@ -950,7 +950,7 @@ msg_print("地面に落とされた。");
 			for (i = 0; i < 2; i++)
 			{
 				int wy = y, wx = x;
-				bool pet = is_pet(player_ptr, cr_ptr);
+				bool pet = is_pet(player_ptr, killed_ptr);
 				u32b mode = 0L;
 
 				if (pet) mode |= PM_FORCE_PET;
@@ -958,7 +958,7 @@ msg_print("地面に落とされた。");
 
 				if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
 				{
-					if (player_can_see_bold(cr_ptr, wy, wx))
+					if (player_can_see_bold(killed_ptr, wy, wx))
 						notice = TRUE;
 				}
 				*/
@@ -983,7 +983,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Blade of Chaos */
 			object_prep(q_ptr, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS), ITEM_FREE_SIZE);
 
-			apply_magic(cr_ptr, q_ptr, object_level, AM_NO_FIXED_ART | mo_mode);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | mo_mode);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1024,7 +1024,7 @@ msg_print("地面に落とされた。");
 			{
 				int wy = y, wx = x;
 				int attempts = 100;
-				bool pet = is_pet(player_ptr, cr_ptr);
+				bool pet = is_pet(player_ptr, killed_ptr);
 
 				do
 				{
@@ -1040,7 +1040,7 @@ msg_print("地面に落とされた。");
 					/*TODO
 					if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
 					{
-						if (player_can_see_bold(cr_ptr, wy, wx))
+						if (player_can_see_bold(killed_ptr, wy, wx))
 #ifdef JP
 							msg_print("新たな戦士が現れた！");
 #else
@@ -1068,7 +1068,7 @@ msg_print("地面に落とされた。");
 	case MON_MORGOTH:
 	case MON_ONE_RING:
 		/* Reward for "lazy" player */
-		if (p_ptr->chara_idx == CHARA_NAMAKE)
+		if (slayer_ptr->chara_idx == CHARA_NAMAKE)
 		{
 			int a_idx = 0;
 			artifact_type *a_ptr = NULL;
@@ -1095,12 +1095,12 @@ msg_print("地面に落とされた。");
 			while (a_ptr->cur_num);
 
 			/* Create the artifact */
-			if (drop_named_art(cr_ptr, a_idx, y, x))
+			if (drop_named_art(killed_ptr, a_idx, y, x))
 			{
 				a_ptr->cur_num = 1;
 
 				/* Hack -- Memorize location of artifact in saved floors */
-				if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
+				if (character_dungeon) a_ptr->floor_id = slayer_ptr->floor_id;
 			}
 			else if (!preserve_mode) a_ptr->cur_num = 1;
 		}
@@ -1119,7 +1119,7 @@ msg_print("地面に落とされた。");
 		q_ptr->name1 = ART_GROND;
 
 		/* Mega-Hack -- Actually create "Grond" */
-		apply_magic(cr_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
+		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
@@ -1134,7 +1134,7 @@ msg_print("地面に落とされた。");
 		q_ptr->name1 = ART_CHAOS;
 
 		/* Mega-Hack -- Actually create "Chaos" */
-		apply_magic(cr_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
+		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
@@ -1156,8 +1156,8 @@ msg_print("地面に落とされた。");
 
 	case MON_A_GOLD:
 	case MON_A_SILVER:
-		if (drop_chosen_item && ((cr_ptr->species_idx == MON_A_GOLD) ||
-		     ((cr_ptr->species_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((killed_ptr->species_idx == MON_A_GOLD) ||
+		     ((killed_ptr->species_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
 			/* Get local object */
 			q_ptr = &forge;
@@ -1165,7 +1165,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Can of Toys */
 			object_prep(q_ptr, lookup_kind(TV_CHEST, SV_CHEST_KANDUME), ITEM_FREE_SIZE);
 
-			apply_magic(cr_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1267,7 +1267,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '|':
-			if (cr_ptr->species_idx != MON_STORMBRINGER)
+			if (killed_ptr->species_idx != MON_STORMBRINGER)
 			{
 				/* Get local object */
 				q_ptr = &forge;
@@ -1295,7 +1295,7 @@ msg_print("地面に落とされた。");
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_cf_creature(cr_ptr, CF_GUARDIAN) && (d_info[dungeon_type].final_guardian == cr_ptr->species_idx))
+		if (has_cf_creature(killed_ptr, CF_GUARDIAN) && (d_info[dungeon_type].final_guardian == killed_ptr->species_idx))
 		{
 			int k_idx = d_info[dungeon_type].final_object ? d_info[dungeon_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1308,12 +1308,12 @@ msg_print("地面に落とされた。");
 				if (!a_ptr->cur_num)
 				{
 					/* Create the artifact */
-					if (drop_named_art(cr_ptr, a_idx, y, x))
+					if (drop_named_art(killed_ptr, a_idx, y, x))
 					{
 						a_ptr->cur_num = 1;
 
 						/* Hack -- Memorize location of artifact in saved floors */
-						if (character_dungeon) a_ptr->floor_id = p_ptr->floor_id;
+						if (character_dungeon) a_ptr->floor_id = slayer_ptr->floor_id;
 					}
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
@@ -1330,7 +1330,7 @@ msg_print("地面に落とされた。");
 				/* Prepare to make a reward */
 				object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
-				apply_magic(cr_ptr, q_ptr, object_level, AM_NO_FIXED_ART | AM_GOOD);
+				apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | AM_GOOD);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);
@@ -1343,10 +1343,10 @@ msg_print("地面に落とされた。");
 		}
 	}
 
-	if (cloned && !(is_unique_creature(cr_ptr)))
+	if (cloned && !(is_unique_creature(killed_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, cr_ptr) || inside_battle || inside_arena)
+	if (is_pet(player_ptr, killed_ptr) || inside_battle || inside_arena)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1400,11 +1400,11 @@ msg_print("地面に落とされた。");
 	if (visible && (dump_item || dump_gold))
 	{
 		/* Take notes on treasure */
-		lore_treasure(cr_ptr, dump_item, dump_gold);
+		lore_treasure(killed_ptr, dump_item, dump_gold);
 	}
 
 	/* Only process "Quest Monsters" */
-	if (!is_quest_creature(cr_ptr)) return;
+	if (!is_quest_creature(killed_ptr)) return;
 	if (inside_battle) return;
 }
 
