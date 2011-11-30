@@ -1105,7 +1105,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 /*
  * Builds the arena after it is entered -KMW-
  */
-static void build_arena(void)
+static void build_arena(creature_type *player_ptr)
 {
 	int yval, y_height, y_depth, xval, x_left, x_right;
 	register int i, j;
@@ -1155,7 +1155,7 @@ static void build_arena(void)
 	j = xval;
 	cave[i][j].feat = f_tag_to_index("ARENA_GATE");
 	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(p_ptr, i, j);
+	creature_place(player_ptr, i, j);
 }
 
 
@@ -1195,7 +1195,7 @@ static void arena_gen(void)
 		}
 	}
 
-	build_arena();
+	build_arena(p_ptr);
 
 	place_monster_aux(p_ptr, p_ptr->fy + 5, p_ptr->fx, arena_info[arena_number].species_idx,
 	    (PM_NO_KAGE | PM_NO_PET));
