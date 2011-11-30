@@ -469,7 +469,7 @@ static void try_door(int y, int x)
 
 
 /* Place quest monsters */
-bool place_quest_monsters(void)
+bool place_quest_monsters(creature_type *player_ptr)
 {
 	int i;
 
@@ -525,7 +525,7 @@ bool place_quest_monsters(void)
 
 					if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
 					if (!monster_can_enter(y, x, r_ptr, 0)) continue;
-					if (distance(y, x, p_ptr->fy, p_ptr->fx) < 10) continue;
+					if (distance(y, x, player_ptr->fy, player_ptr->fx) < 10) continue;
 					if (c_ptr->info & CAVE_ICKY) continue;
 					else break;
 				}
@@ -534,7 +534,7 @@ bool place_quest_monsters(void)
 				if (!l) return FALSE;
 
 				/* Try to place the monster */
-				if (place_monster_aux(p_ptr, y, x, quest[i].species_idx, mode))
+				if (place_monster_aux(player_ptr, y, x, quest[i].species_idx, mode))
 				{
 					/* Success */
 					break;
@@ -1022,7 +1022,7 @@ static bool cave_gen(void)
 	/* Determine the character location */
 	if (!new_player_spot(p_ptr)) return FALSE;
 
-	if (!place_quest_monsters()) return FALSE;
+	if (!place_quest_monsters(p_ptr)) return FALSE;
 
 	/* Basic "amount" */
 	k = (dun_level / 3);
