@@ -278,7 +278,7 @@ static bool alloc_stairs(int feat, int num, int walls)
 /*
  * Allocates some objects (using "place" and "type")
  */
-static void alloc_object(int set, int typ, int num)
+static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 {
 	int y = 0, x = 0, k;
 	int dummy = 0;
@@ -307,7 +307,7 @@ static void alloc_object(int set, int typ, int num)
 			if (!is_floor_grid(c_ptr) || c_ptr->o_idx || c_ptr->m_idx) continue;
 
 			/* Avoid player location */
-			if (creature_bold(p_ptr, y, x)) continue;
+			if (creature_bold(player_ptr, y, x)) continue;
 
 			/* Check for "room" */
 			room = (cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
@@ -1064,7 +1064,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	/* Place some traps in the dungeon *	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
 	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
-	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
+	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(p_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	/* Mega Hack -- No object at first level of deeper dungeon */
 	if (p_ptr->enter_dungeon && dun_level > 1)
@@ -1074,11 +1074,11 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	}
 
 	/* Put some objects in rooms */
-	alloc_object(ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
+	alloc_object(p_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
 
 	/* Put some objects/gold in the dungeon */
-	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
-	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
+	alloc_object(p_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
+	alloc_object(p_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
 	/* Set back to default */
 	object_level = base_level;
