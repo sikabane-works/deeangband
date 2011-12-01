@@ -2175,7 +2175,7 @@ static int choose_realm(s32b choices, bool npc)
 /*
  * Choose the magical realms
  */
-static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static bool get_creature_realms(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int i;
 
@@ -2191,9 +2191,9 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 
 	/* Select the first realm */
 
-	if(sp_ptr->realm1 != INDEX_VARIABLE)
+	if(species_ptr->realm1 != INDEX_VARIABLE)
 	{
-		cr_ptr->realm1 = sp_ptr->realm1;
+		cr_ptr->realm1 = species_ptr->realm1;
 	}
 	else
 	{
@@ -2219,9 +2219,9 @@ static bool get_creature_realms(creature_type *cr_ptr, species_type *sp_ptr, boo
 		put_initial_status(cr_ptr);
 	}
 
-	if(sp_ptr->realm2 != INDEX_VARIABLE)
+	if(species_ptr->realm2 != INDEX_VARIABLE)
 	{
-		cr_ptr->realm2 = sp_ptr->realm2;
+		cr_ptr->realm2 = species_ptr->realm2;
 	}
 	else
 	{
