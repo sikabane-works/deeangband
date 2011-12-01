@@ -791,9 +791,9 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
 
 
 /* Is this grid "darkened" by monster? */
-#define darkened_grid(C) \
+#define darkened_grid(PLAYER, C) \
 	((((C)->info & (CAVE_VIEW | CAVE_LITE | CAVE_MNLT | CAVE_MNDK)) == (CAVE_VIEW | CAVE_MNDK)) && \
-	!p_ptr->see_nocto)
+	!(PLAYER)->see_nocto)
 
 
 /*
@@ -966,7 +966,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(c_ptr))
+			else if (darkened_grid(cr_ptr, c_ptr))
 			{
 				/* Unsafe cave grid -- idea borrowed from Unangband */
 				feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
@@ -1057,7 +1057,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(c_ptr) && !cr_ptr->blind)
+			else if (darkened_grid(cr_ptr, c_ptr) && !cr_ptr->blind)
 			{
 				if (have_flag(f_ptr->flags, FF_LOS) && have_flag(f_ptr->flags, FF_PROJECT))
 				{
