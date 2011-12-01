@@ -410,7 +410,7 @@ msg_format("%^s‚ÉU‚è—Ž‚Æ‚³‚ê‚½I", m_name);
  * Note that this function is responsible for about one to five percent
  * of the processor use in normal conditions...
  */
-static int mon_will_run(int m_idx)
+static int mon_will_run(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
@@ -429,8 +429,8 @@ static int mon_will_run(int m_idx)
 	if (is_pet(player_ptr, m_ptr))
 	{
 		/* Are we trying to avoid the player? */
-		return ((p_ptr->pet_follow_distance < 0) &&
-				  (m_ptr->cdis <= (0 - p_ptr->pet_follow_distance)));
+		return ((creature_ptr->pet_follow_distance < 0) &&
+				  (m_ptr->cdis <= (0 - creature_ptr->pet_follow_distance)));
 	}
 
 	/* Keep monsters from running too far away */
@@ -445,7 +445,7 @@ static int mon_will_run(int m_idx)
 	if (m_ptr->cdis <= 5) return (FALSE);
 
 	/* Examine player power (level) */
-	p_lev = p_ptr->lev;
+	p_lev = creature_ptr->lev;
 
 	/* Examine monster power (level plus morale) */
 	m_lev = r_ptr->level + (m_idx & 0x08) + 25;
@@ -455,8 +455,8 @@ static int mon_will_run(int m_idx)
 	if (m_lev + 4 <= p_lev) return (TRUE);
 
 	/* Examine player health */
-	p_chp = p_ptr->chp;
-	p_mhp = p_ptr->mhp;
+	p_chp = creature_ptr->chp;
+	p_mhp = creature_ptr->mhp;
 
 	/* Examine monster health */
 	m_chp = m_ptr->chp;
@@ -1062,19 +1062,19 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
 /*
  * Choose "logical" directions for monster movement
  */
-static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
+static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 	int          y, ay, x, ax;
 	int          move_val = 0;
-	int          y2 = cr_ptr->fy;
-	int          x2 = cr_ptr->fx;
+	int          y2 = player_ptr->fy;
+	int          x2 = player_ptr->fx;
 	bool         done = FALSE;
-	bool         will_run = mon_will_run(m_idx);
+	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
-	bool         can_pass_wall = (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != cr_ptr->riding) || cr_ptr->pass_wall));
+	bool         can_pass_wall = (has_cf_creature(nonplayer_ptr, CF_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
 
 	/* Counter attack to an enemy monster */
 	if (!will_run && nonplayer_ptr->target_y)
@@ -1095,7 +1095,7 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 	}
 
 	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_cf_creature(nonplayer_ptr, CF_FRIENDS) &&
-	    ((los(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, cr_ptr->fy, cr_ptr->fx)) ||
+	    ((los(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
 	    (cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
@@ -1110,8 +1110,8 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 			/* Count room grids next to player */
 			for (i = 0; i < 8; i++)
 			{
-				int xx = cr_ptr->fx + ddx_ddd[i];
-				int yy = cr_ptr->fy + ddy_ddd[i];
+				int xx = player_ptr->fx + ddx_ddd[i];
+				int yy = player_ptr->fy + ddy_ddd[i];
 
 				if (!in_bounds2(yy, xx)) continue;
 
@@ -1124,12 +1124,12 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 					room++;
 				}
 			}
-			if (cave[cr_ptr->fy][cr_ptr->fx].info & CAVE_ROOM) room -= 2;
+			if (cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
 			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
 
 			/* Not in a room and strong player */
-			if (room < (8 * (cr_ptr->chp + cr_ptr->csp)) /
-			    (cr_ptr->mhp + cr_ptr->msp))
+			if (room < (8 * (player_ptr->chp + player_ptr->csp)) /
+			    (player_ptr->mhp + player_ptr->msp))
 			{
 				/* Find hiding place */
 				if (find_hiding(m_idx, &y, &x)) done = TRUE;
@@ -1145,15 +1145,15 @@ static bool get_moves(int m_idx, creature_type *cr_ptr, int *mm)
 			for (i = 0; i < 8; i++)
 			{
 				/* Pick squares near player (semi-randomly) */
-				y2 = cr_ptr->fy + ddy_ddd[(m_idx + i) & 7];
-				x2 = cr_ptr->fx + ddx_ddd[(m_idx + i) & 7];
+				y2 = player_ptr->fy + ddy_ddd[(m_idx + i) & 7];
+				x2 = player_ptr->fx + ddx_ddd[(m_idx + i) & 7];
 
 				/* Already there? */
 				if ((nonplayer_ptr->fy == y2) && (nonplayer_ptr->fx == x2))
 				{
 					/* Attack the player */
-					y2 = cr_ptr->fy;
-					x2 = cr_ptr->fx;
+					y2 = player_ptr->fy;
+					x2 = player_ptr->fx;
 
 					break;
 				}
