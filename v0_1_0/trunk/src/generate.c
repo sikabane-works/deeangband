@@ -689,7 +689,7 @@ static void gen_caverns_and_lakes(void)
  *
  * Note that "dun_body" adds about 4000 bytes of memory to the stack.
  */
-static bool cave_gen(void)
+static bool cave_gen(creature_type *player_ptr)
 {
 	int i, k, y, x;
 
@@ -1020,9 +1020,9 @@ static bool cave_gen(void)
 	}
 
 	/* Determine the character location */
-	if (!new_player_spot(p_ptr)) return FALSE;
+	if (!new_player_spot(player_ptr)) return FALSE;
 
-	if (!place_quest_monsters(p_ptr)) return FALSE;
+	if (!place_quest_monsters(player_ptr)) return FALSE;
 
 	/* Basic "amount" */
 	k = (dun_level / 3);
@@ -1064,21 +1064,21 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	/* Place some traps in the dungeon *	alloc_object(ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
 	/* Put some rubble in corridors (except NO_CAVE dungeon (Castle)) */
-	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(p_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
+	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	/* Mega Hack -- No object at first level of deeper dungeon */
-	if (p_ptr->enter_dungeon && dun_level > 1)
+	if (player_ptr->enter_dungeon && dun_level > 1)
 	{
 		/* No stair scum! */
 		object_level = 1;
 	}
 
 	/* Put some objects in rooms */
-	alloc_object(p_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
+	alloc_object(player_ptr, ALLOC_SET_ROOM, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ROOM, 3));
 
 	/* Put some objects/gold in the dungeon */
-	alloc_object(p_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
-	alloc_object(p_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
+	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
+	alloc_object(player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
 	/* Set back to default */
 	object_level = base_level;
@@ -1464,7 +1464,7 @@ static bool level_gen(cptr *why)
 	}
 
 	/* Make a dungeon */
-	if (!cave_gen())
+	if (!cave_gen(p_ptr))
 	{
 #ifdef JP
 *why = "ダンジョン生成に失敗";
