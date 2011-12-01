@@ -689,7 +689,7 @@ static void gen_caverns_and_lakes(void)
  *
  * Note that "dun_body" adds about 4000 bytes of memory to the stack.
  */
-static bool cave_gen(void)
+static bool cave_gen(creature_type *player_ptr)
 {
 	int i, k, y, x;
 
@@ -1067,7 +1067,7 @@ msg_format("モンスター数基本値を %d から %d に減らします", small_tester, i);
 	if (!(d_info[dungeon_type].flags1 & DF1_NO_CAVE)) alloc_object(ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	/* Mega Hack -- No object at first level of deeper dungeon */
-	if (p_ptr->enter_dungeon && dun_level > 1)
+	if (player_ptr->enter_dungeon && dun_level > 1)
 	{
 		/* No stair scum! */
 		object_level = 1;
@@ -1464,7 +1464,7 @@ static bool level_gen(cptr *why)
 	}
 
 	/* Make a dungeon */
-	if (!cave_gen())
+	if (!cave_gen(p_ptr))
 	{
 #ifdef JP
 *why = "ダンジョン生成に失敗";
