@@ -4654,11 +4654,10 @@ static bool kind_is_good(int k_idx)
  *
  * We assume that the given object has been "wiped".
  */
-bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode)
+bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 {
 	int prob, base;
 	byte obj_level;
-
 
 	/* Chance of "special object" */
 	prob = ((mode & AM_GOOD) ? 10 : 1000);
@@ -4771,7 +4770,7 @@ void place_object(int y, int x, u32b mode)
 	object_wipe(q_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(q_ptr, mode, 0)) return;
+	if (!make_object(q_ptr, mode, 0, object_level)) return;
 
 
 	/* Make an object */
@@ -5344,7 +5343,7 @@ void acquirement(int y1, int x1, int num, bool great, bool known)
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if (!make_object(i_ptr, mode, 0)) continue;
+		if (!make_object(i_ptr, mode, 0, object_level)) continue;
 
 		if (known)
 		{

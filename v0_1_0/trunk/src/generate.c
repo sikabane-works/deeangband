@@ -285,7 +285,7 @@ static void alloc_object(creature_type *player_ptr, int set, int typ, int num)
 	cave_type *c_ptr;
 
 	/* A small level has few objects. */
-	num = num * cur_hgt * cur_wid / (MAX_HGT*MAX_WID) +1;
+	num = num * cur_hgt * cur_wid / (MAX_HGT * MAX_WID) +1;
 
 	/* Place some objects */
 	for (k = 0; k < num; k++)

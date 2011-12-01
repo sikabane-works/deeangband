@@ -1333,7 +1333,7 @@ extern void object_wipe(object_type *o_ptr);
 extern void object_prep(object_type *o_ptr, int k_idx, int size);
 extern void object_copy(object_type *o_ptr, object_type *j_ptr);
 extern void apply_magic(creature_type *player_ptr, object_type *o_ptr, int lev, u32b mode);
-extern bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode);
+extern bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level);
 extern void place_object(int y, int x, u32b mode);
 extern bool make_gold(object_type *j_ptr, int value);
 extern void place_gold(int y, int x);

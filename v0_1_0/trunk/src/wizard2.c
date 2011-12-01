@@ -1102,7 +1102,7 @@ static void wiz_statistics(object_type *o_ptr)
 			object_wipe(q_ptr);
 
 			/* Create an object */
-			make_object(q_ptr, mode, 0);
+			make_object(q_ptr, mode, 0, object_level);
 
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
