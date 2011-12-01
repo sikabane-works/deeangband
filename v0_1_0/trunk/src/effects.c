@@ -6566,9 +6566,9 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 
 		if (is_pet(player_ptr, m_ptr) || m_ptr->ml)
 		{
-			if (!ignore_unview || player_can_see_bold(p_ptr, m_ptr->fy, m_ptr->fx))
+			if (!ignore_unview || player_can_see_bold(player_ptr, m_ptr->fy, m_ptr->fx))
 			{
-				if (p_ptr->image)
+				if (player_ptr->image)
 				{
 					species_type *hallu_race;
 
@@ -6594,16 +6594,16 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 				}
 			}
 
-			if (!p_ptr->image) species_info[old_species_idx].r_xtra1 |= MR1_SINKA;
+			if (!player_ptr->image) species_info[old_species_idx].r_xtra1 |= MR1_SINKA;
 
 			// Now you feel very close to this pet.
 			m_ptr->parent_m_idx = 0;
 		}
-		update_mon(p_ptr, m_idx, FALSE);
-		lite_spot(p_ptr, m_ptr->fy, m_ptr->fx);
+		update_mon(player_ptr, m_idx, FALSE);
+		lite_spot(player_ptr, m_ptr->fy, m_ptr->fx);
 	}
 
-	if (m_idx == p_ptr->riding) p_ptr->update |= PU_BONUS;
+	if (m_idx == player_ptr->riding) player_ptr->update |= PU_BONUS;
 	*/
 
 

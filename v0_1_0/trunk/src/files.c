@@ -1746,38 +1746,38 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 }
 
 
-static void display_player_melee_bonus(int hand, int hand_entry, creature_type *cr_ptr)
+static void display_player_melee_bonus(creature_type *creature_ptr, int hand, int hand_entry)
 {
 	char buf[160];
-	int show_tohit = cr_ptr->dis_to_h[hand];
-	int show_todam = cr_ptr->dis_to_d[hand];
-	int show_activerate = cr_ptr->to_ar[hand];
+	int show_tohit = creature_ptr->dis_to_h[hand];
+	int show_todam = creature_ptr->dis_to_d[hand];
+	int show_activerate = creature_ptr->to_ar[hand];
 	int show_blows;
-	int blows = cr_ptr->num_blow[hand];
+	int blows = creature_ptr->num_blow[hand];
 	int damage, basedam, av_dam;
 	u32b flgs[TR_FLAG_SIZE];
 	object_type *o_ptr;
 	
-	damage = cr_ptr->dis_to_d[hand] * 100;
-	if (((cr_ptr->cls_idx == CLASS_MONK) || (cr_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
+	damage = creature_ptr->dis_to_d[hand] * 100;
+	if (((creature_ptr->cls_idx == CLASS_MONK) || (creature_ptr->cls_idx == CLASS_FORCETRAINER)) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
-		int level = cr_ptr->lev;
-		if (cr_ptr->cls_idx == CLASS_FORCETRAINER) level = MAX(1, level - 3);
-		if (cr_ptr->special_defense & KAMAE_BYAKKO)
+		int level = creature_ptr->lev;
+		if (creature_ptr->cls_idx == CLASS_FORCETRAINER) level = MAX(1, level - 3);
+		if (creature_ptr->special_defense & KAMAE_BYAKKO)
 			basedam = monk_ave_damage[level][1];
-		else if (cr_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
+		else if (creature_ptr->special_defense & (KAMAE_GENBU | KAMAE_SUZAKU))
 			basedam = monk_ave_damage[level][2];
 		else
 			basedam = monk_ave_damage[level][0];
 	}
 	else
 	{
-		o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
+		o_ptr = &creature_ptr->inventory[INVEN_1STARM + hand];
 		/* Average damage per round */
 		if (o_ptr->k_idx)
 		{
 			if (object_is_known(o_ptr)) damage += o_ptr->to_d * 100;
-			basedam = ((o_ptr->dd + cr_ptr->to_dd[hand]) * (o_ptr->ds + cr_ptr->to_ds[hand] + 1)) * 50;
+			basedam = ((o_ptr->dd + creature_ptr->to_dd[hand]) * (o_ptr->ds + creature_ptr->to_ds[hand] + 1)) * 50;
 			object_flags_known(o_ptr, flgs);
 			if ((o_ptr->ident & IDENT_MENTAL) && ((o_ptr->name1 == ART_VORPAL_BLADE) || (o_ptr->name1 == ART_CHAINSWORD)))
 			{
@@ -1791,7 +1791,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 				basedam *= 11;
 				basedam /= 9;
 			}
-			if ((cr_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (cr_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
+			if ((creature_ptr->cls_idx != CLASS_SAMURAI) && have_flag(flgs, TR_FORCE_WEAPON) && (creature_ptr->csp > (o_ptr->dd * o_ptr->ds / 5)))
 				basedam = basedam * 7 / 2;
 		}
 		else basedam = 0;
@@ -1801,7 +1801,7 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	av_dam = blows * damage / 100 * show_activerate / 100;
 	show_blows = blows * show_activerate;
 
-	o_ptr = &cr_ptr->inventory[INVEN_1STARM + hand];
+	o_ptr = &creature_ptr->inventory[INVEN_1STARM + hand];
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) damage = 1;
 	if (damage < 0) damage = 0;
 
@@ -1813,9 +1813,9 @@ static void display_player_melee_bonus(int hand, int hand_entry, creature_type *
 	sprintf(buf, "(%+4d,%+4d)x%2d.%02d:%4d", show_tohit, show_todam, show_blows / 100, show_blows % 100, av_dam);
 
 	/* Dump the bonuses to hit/dam */
-	if (!have_weapon(p_ptr, INVEN_1STARM) && !have_weapon(p_ptr, INVEN_2NDARM))
+	if (!have_weapon(creature_ptr, INVEN_1STARM) && !have_weapon(creature_ptr, INVEN_2NDARM))
 		display_player_one_line(ENTRY_BARE_HAND, buf, TERM_L_BLUE);
-	else if (cr_ptr->ryoute)
+	else if (creature_ptr->ryoute)
 		display_player_one_line(ENTRY_TWO_HANDS, buf, TERM_L_BLUE);
 	else
 		display_player_one_line(hand_entry, buf, TERM_L_BLUE);
@@ -1847,12 +1847,12 @@ static void display_player_middle(creature_type *cr_ptr)
 
 	if (cr_ptr->migite)
 	{
-		display_player_melee_bonus(0, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1, cr_ptr);
+		display_player_melee_bonus(cr_ptr, 0, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
 	}
 
 	if (cr_ptr->hidarite)
 	{
-		display_player_melee_bonus(1, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2, cr_ptr);
+		display_player_melee_bonus(cr_ptr, 1, has_cf_creature(cr_ptr, CF_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
 	}
 	else if ((cr_ptr->cls_idx == CLASS_MONK) && (empty_hands(cr_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
