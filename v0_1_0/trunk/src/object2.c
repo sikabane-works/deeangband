@@ -2733,7 +2733,7 @@ static void add_esp_weak(object_type *o_ptr, bool extra)
  * Hack -- note special processing for crown/helm
  * Hack -- note special processing for robe of permanence
  */
-static void a_m_aux_2(object_type *o_ptr, int level, int power)
+static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
 	int toac1 = randint1(5) + m_bonus(5, level);
 
@@ -2777,7 +2777,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 		case TV_DRAG_ARMOR:
 		{
 			if (one_in_(50) || (power > 2)) /* power > 2 is debug only */
-				create_artifact(p_ptr, o_ptr, FALSE);
+				create_artifact(creature_ptr, o_ptr, FALSE);
 
 			/* Mention the item */
 			if (cheat_peek) object_mention(o_ptr);
@@ -2813,7 +2813,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 
@@ -2871,7 +2871,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_2NDARM, TRUE);
@@ -2904,7 +2904,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_1STHANDS, TRUE);
@@ -2933,7 +2933,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_FEET, TRUE);
@@ -2964,7 +2964,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -3023,7 +3023,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -3070,7 +3070,7 @@ static void a_m_aux_2(object_type *o_ptr, int level, int power)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(p_ptr, o_ptr, FALSE);
+					create_artifact(creature_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_OUTER, TRUE);
@@ -4408,7 +4408,7 @@ void apply_magic(creature_type *player_ptr, object_type *o_ptr, int lev, u32b mo
 			     ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||
 			     ((o_ptr->tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
 			     ((o_ptr->tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)))
-				a_m_aux_2(o_ptr, lev, power);
+				a_m_aux_2(player_ptr, o_ptr, lev, power);
 #else
 			if (power) a_m_aux_2(o_ptr, lev, power);
 #endif
