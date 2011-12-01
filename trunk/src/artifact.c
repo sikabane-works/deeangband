@@ -1966,9 +1966,9 @@ bool create_artifact(object_type *o_ptr, bool a_scroll)
 }
 
 
-bool activate_random_artifact(object_type * o_ptr)
+bool activate_random_artifact(creature_type *user_ptr, object_type * o_ptr)
 {
-	int plev = p_ptr->lev;
+	int plev = user_ptr->lev;
 	int k, dir, dummy = 0;
 
 	if (!o_ptr->art_name) return FALSE; /* oops? */
@@ -2244,7 +2244,7 @@ bool activate_random_artifact(object_type * o_ptr)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						py_attack(p_ptr, y, x, 0);
+						py_attack(user_ptr, y, x, 0);
 				}
 			}
 			o_ptr->timeout = 250;
@@ -2300,7 +2300,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It floods the area with goodness...");
 #endif
 
-			dispel_evil(p_ptr->lev * 5);
+			dispel_evil(user_ptr->lev * 5);
 			o_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
@@ -2313,7 +2313,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It floods the area with evil...");
 #endif
 
-			dispel_good(p_ptr->lev * 5);
+			dispel_good(user_ptr->lev * 5);
 			o_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
@@ -2370,8 +2370,8 @@ bool activate_random_artifact(object_type * o_ptr)
 
 		case ACT_TERROR:
 		{
-			turn_monsters(40 + p_ptr->lev);
-			o_ptr->timeout = 3 * (p_ptr->lev + 10);
+			turn_monsters(40 + user_ptr->lev);
+			o_ptr->timeout = 3 * (user_ptr->lev + 10);
 			break;
 		}
 
@@ -2618,7 +2618,7 @@ bool activate_random_artifact(object_type * o_ptr)
 #endif
 
 			hp_player(damroll(4, 8));
-			(void)set_cut((p_ptr->cut / 2) - 50);
+			(void)set_cut((user_ptr->cut / 2) - 50);
 			o_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
 		}
@@ -2735,7 +2735,7 @@ bool activate_random_artifact(object_type * o_ptr)
 			msg_print("It lets out a shrill wail...");
 #endif
 
-			k = 3 * p_ptr->lev;
+			k = 3 * user_ptr->lev;
 			(void)set_protevil(randint1(25) + k, FALSE);
 			o_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
