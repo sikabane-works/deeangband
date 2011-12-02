@@ -3799,7 +3799,7 @@ void deal_item(creature_type *creature_ptr)
 
 }
 
-static int place_monster_one(creature_type *watcher_ptr, creature_type *who_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
+static int place_monster_one(creature_type *watcher_ptr, creature_type *summoner_ptr, int y, int x, int species_idx, int monster_ego_idx, u32b mode)
 {
 	/* Access the location */
 	cave_type		*c_ptr = &cave[y][x];
@@ -4064,17 +4064,17 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->mflag2 = 0;
 
 	/* Hack -- Appearance transfer */
-	if ((mode & PM_MULTIPLY) && !is_player(who_ptr) && !is_original_ap(who_ptr))
+	if ((mode & PM_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
-		m_ptr->ap_species_idx = who_ptr->ap_species_idx;
+		m_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
 
 		/* Hack -- Shadower spawns Shadower */
-		if (who_ptr->mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
+		if (summoner_ptr->mflag2 & MFLAG2_KAGE) m_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
 	/* Sub-alignment of a monster */
-	if (!is_player(who_ptr) && !(is_enemy_of_evil_creature(who_ptr) && is_enemy_of_good_creature(who_ptr)))
-		m_ptr->sub_align = who_ptr->sub_align;
+	if (!is_player(summoner_ptr) && !(is_enemy_of_evil_creature(summoner_ptr) && is_enemy_of_good_creature(summoner_ptr)))
+		m_ptr->sub_align = summoner_ptr->sub_align;
 	else
 	{
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
@@ -4092,7 +4092,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
-	if (!is_player(who_ptr) && is_pet(player_ptr, who_ptr))
+	if (!is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
 		mode |= PM_FORCE_PET;
 		//TODO Parent Set
@@ -4110,7 +4110,7 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if ((is_unique_species(r_ptr)) && is_player(who_ptr))
+		if ((is_unique_species(r_ptr)) && is_player(summoner_ptr))
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
@@ -4550,7 +4550,7 @@ static bool place_monster_okay(int species_idx)
  * Note the use of the new "monster allocation table" code to restrict
  * the "get_mon_num()" function to "legal" escort types.
  */
-bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
+bool place_monster_aux(creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
 {
 	int             i, j;
 	species_type    *r_ptr = &species_info[species_idx];
@@ -4560,7 +4560,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 		mode |= PM_KAGE;
 
 	/* Place one monster, or fail */
-	i = place_monster_one(p_ptr, who_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
+	i = place_monster_one(p_ptr, summoner_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if (i == max_m_idx) return (FALSE);
 
 	m_ptr = &creature_list[i];
@@ -4581,7 +4581,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 
 			/* Prepare allocation table */
 			get_mon_num_prep(place_monster_okay, get_creature_hook2(ny, nx));
-			if(place_monster_one(p_ptr, who_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
+			if(place_monster_one(p_ptr, summoner_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_m_idx);
 				n++;
 		}
 		m_ptr->underling_num[i] -= n;
@@ -4599,7 +4599,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
-		(void)place_monster_group(p_ptr, who_ptr, y, x, species_idx, mode);
+		(void)place_monster_group(p_ptr, summoner_ptr, y, x, species_idx, mode);
 	}
 
 
@@ -4630,7 +4630,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			if (!z) break;
 
 			/* Place a single escort */
-			(void)place_monster_one(p_ptr, who_ptr, ny, nx, z, MONEGO_NORMAL, mode);
+			(void)place_monster_one(p_ptr, summoner_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			/* Place a "group" of escorts if needed */
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
