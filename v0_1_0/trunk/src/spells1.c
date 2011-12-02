@@ -1261,7 +1261,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
  *
  * We return "TRUE" if the effect of the projection is "obvious".
  */
-static bool project_o(creature_type *who_ptr, int r, int y, int x, int dam, int typ)
+static bool project_o(creature_type *user_ptr, int r, int y, int x, int dam, int typ)
 {
 	cave_type *c_ptr = &cave[y][x];
 
@@ -1562,7 +1562,7 @@ msg_print("カチッと音がした！");
 					int i;
 					u32b mode = 0L;
 
-					if (is_player(who_ptr) || is_pet(player_ptr, who_ptr))
+					if (is_player(user_ptr) || is_pet(player_ptr, user_ptr))
 						mode |= PM_FORCE_PET;
 
 					for (i = 0; i < o_ptr->number ; i++)
@@ -1581,7 +1581,7 @@ note_kill = "灰になった。";
 							continue;
 						}
 /*TODO
-						else if (summon_named_creature(who_ptr, y, x, o_ptr->pval, mode))
+						else if (summon_named_creature(user_ptr, y, x, o_ptr->pval, mode))
 						{
 #ifdef JP
 note_kill = "生き返った。";
