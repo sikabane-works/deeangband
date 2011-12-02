@@ -2633,9 +2633,9 @@ static void get_history(creature_type *cr_ptr)
  */
 static void get_ahw(creature_type *cr_ptr)
 {
-	species_type *sp_ptr = &species_info[cr_ptr->species_idx];
+	species_type *species_ptr = &species_info[cr_ptr->species_idx];
 
-	if(!sp_ptr->age)
+	if(!species_ptr->age)
 	{
 		/* Get character's age */
 		cr_ptr->age = race_info[cr_ptr->race_idx1].b_age + race_info[cr_ptr->race_idx2].b_age;
@@ -2643,7 +2643,7 @@ static void get_ahw(creature_type *cr_ptr)
 	}
 	else
 	{
-		cr_ptr->age = sp_ptr->age;
+		cr_ptr->age = species_ptr->age;
 	}
 
 
@@ -3442,14 +3442,14 @@ void realm_detail(int code)
 /*
  * Creature race
  */
-static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static int get_creature_first_race(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int     n, i;
 	selection se[MAX_RACES + 3];
 
-	if(sp_ptr->race_idx1 != INDEX_VARIABLE)
+	if(species_ptr->race_idx1 != INDEX_VARIABLE)
 	{
-		cr_ptr->race_idx1 = sp_ptr->race_idx1;
+		cr_ptr->race_idx1 = species_ptr->race_idx1;
 		return 0;
 	}
 
@@ -3533,14 +3533,14 @@ static int get_creature_first_race(creature_type *cr_ptr, species_type *sp_ptr, 
 /*
  * Creature sub-race
  */
-static int get_creature_second_race(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static int get_creature_second_race(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int     n = 0, i;
 	selection se[MAX_RACES + 3];
 
-	if(sp_ptr->race_idx2 != INDEX_VARIABLE)
+	if(species_ptr->race_idx2 != INDEX_VARIABLE)
 	{
-		cr_ptr->race_idx2 = sp_ptr->race_idx2;
+		cr_ptr->race_idx2 = species_ptr->race_idx2;
 		return 0;
 	}
 
@@ -3857,15 +3857,15 @@ static bool get_creature_subrace_dragonbone(creature_type *cr_ptr, bool npc)
 /*
  * Creature sex
  */
-static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static bool get_creature_sex(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
 
-	if(sp_ptr->sex != INDEX_VARIABLE)
+	if(species_ptr->sex != INDEX_VARIABLE)
 	{
-		cr_ptr->sex = sp_ptr->sex;
+		cr_ptr->sex = species_ptr->sex;
 		return 0;
 	}
 
@@ -3955,14 +3955,14 @@ static bool get_creature_sex(creature_type *cr_ptr, species_type *sp_ptr, bool n
 /*
  * Player class
  */
-static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static bool get_creature_class(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n;
 	selection ce[MAX_CLASS+3];
 
-	if(sp_ptr->cls_idx != INDEX_VARIABLE)
+	if(species_ptr->cls_idx != INDEX_VARIABLE)
 	{
-		cr_ptr->cls_idx = sp_ptr->cls_idx;
+		cr_ptr->cls_idx = species_ptr->cls_idx;
 		return 0;
 	}
 
@@ -4054,14 +4054,14 @@ static bool get_creature_class(creature_type *cr_ptr, species_type *sp_ptr, bool
 /*
  * Player patron
  */
-static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static bool get_creature_patron(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n = 0;
 	selection pt[400+3];
 
-	if(sp_ptr->patron_idx != INDEX_VARIABLE)
+	if(species_ptr->patron_idx != INDEX_VARIABLE)
 	{
-		cr_ptr->patron_idx = sp_ptr->patron_idx;
+		cr_ptr->patron_idx = species_ptr->patron_idx;
 		return 0;
 	}
 
@@ -4169,7 +4169,7 @@ static bool get_creature_patron(creature_type *cr_ptr, species_type *sp_ptr, boo
 /*
  * Player Chara
  */
-static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool npc)
+static bool get_creature_chara(creature_type *cr_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n;
 	selection ce[MAX_CHARA + 3];
@@ -4258,7 +4258,7 @@ static bool get_creature_chara(creature_type *cr_ptr, species_type *sp_ptr, bool
 /*
  * Player Starting Point
  */
-static bool get_starting_point(species_type *sp_ptr, bool npc)
+static bool get_starting_point(species_type *species_ptr, bool npc)
 {
 	int i, j, n;
 	selection se[STARTING_MAX + 3];
@@ -4318,22 +4318,22 @@ static bool get_starting_point(species_type *sp_ptr, bool npc)
 	else
 	{
 		j = se[randint0(n - 3)].code;
-		sp_ptr->start_wy = starting_point[j].wilderness_y;
-		sp_ptr->start_wx = starting_point[j].wilderness_x;
+		species_ptr->start_wy = starting_point[j].wilderness_y;
+		species_ptr->start_wx = starting_point[j].wilderness_x;
 		return 0;
 	}
 
 	if(i >= 0)
 	{
-		sp_ptr->start_wy = starting_point[i].wilderness_y;
-		sp_ptr->start_wx = starting_point[i].wilderness_x;
+		species_ptr->start_wy = starting_point[i].wilderness_y;
+		species_ptr->start_wx = starting_point[i].wilderness_x;
 		return 0;
 	}
 	else if(i == -1)
 	{
 		j = se[randint0(n - 3)].code;
-		sp_ptr->start_wy = starting_point[j].wilderness_y;
-		sp_ptr->start_wx = starting_point[j].wilderness_x;
+		species_ptr->start_wy = starting_point[j].wilderness_y;
+		species_ptr->start_wx = starting_point[j].wilderness_x;
 		return 0;
 	}
 	else
@@ -5277,7 +5277,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	char buf[80];
 
-	species_type *sp_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Wipe the player */
 	creature_wipe(cr_ptr);
@@ -5289,7 +5289,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 
 	// Race Select
 
-	if(sp_ptr->race_idx1 == INDEX_VARIABLE)
+	if(species_ptr->race_idx1 == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 		{
@@ -5297,27 +5297,27 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 			clear_from(0);
 			put_initial_status(cr_ptr);
 		}
-		i = get_creature_first_race(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_first_race(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->race_idx1 = sp_ptr->race_idx1;
+		cr_ptr->race_idx1 = species_ptr->race_idx1;
 	}
 
-	if(sp_ptr->race_idx2 == INDEX_VARIABLE)
+	if(species_ptr->race_idx2 == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 			put_initial_status(cr_ptr);
 
-		i = get_creature_second_race(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_second_race(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->race_idx2 = sp_ptr->race_idx2;
+		cr_ptr->race_idx2 = species_ptr->race_idx2;
 	}
 
 	// race_idx swap
@@ -5335,40 +5335,40 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Sex Select
 	//
 
-	if(sp_ptr->sex == INDEX_VARIABLE)
+	if(species_ptr->sex == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 		{
 			clear_from(0);
 			put_initial_status(cr_ptr);
 		}
-		i = get_creature_sex(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_sex(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->sex = sp_ptr->sex;
+		cr_ptr->sex = species_ptr->sex;
 	}
 
 	//
 	// Class Select
 	//
 
-	if(sp_ptr->cls_idx == INDEX_VARIABLE)
+	if(species_ptr->cls_idx == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 		{
 			clear_from(0);
 			put_initial_status(cr_ptr);
 		}
-		i = get_creature_class(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_class(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->cls_idx = sp_ptr->cls_idx;
+		cr_ptr->cls_idx = species_ptr->cls_idx;
 	}
 
 	//
@@ -5380,7 +5380,7 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 		clear_from(0);
 		put_initial_status(cr_ptr);
 	}
-	i = get_creature_realms(cr_ptr, sp_ptr, auto_generate);
+	i = get_creature_realms(cr_ptr, species_ptr, auto_generate);
 	if(i == -2) return (FALSE);
 	if(i == -3) birth_quit();
 
@@ -5388,40 +5388,40 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	// Patron Select
 	//
 
-	if(sp_ptr->patron_idx == INDEX_VARIABLE)
+	if(species_ptr->patron_idx == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 		{
 			clear_from(0);
 			put_initial_status(cr_ptr);
 		}
-		i = get_creature_patron(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_patron(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->patron_idx = sp_ptr->patron_idx;
+		cr_ptr->patron_idx = species_ptr->patron_idx;
 	}
 
 	//
 	// Character Select
 	//
 
-	if(sp_ptr->chara_idx == INDEX_VARIABLE)
+	if(species_ptr->chara_idx == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
 		{
 			clear_from(0);
 			put_initial_status(cr_ptr);
 		}
-		i = get_creature_chara(cr_ptr, sp_ptr, auto_generate);
+		i = get_creature_chara(cr_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
 	else
 	{
-		cr_ptr->chara_idx = sp_ptr->chara_idx;
+		cr_ptr->chara_idx = species_ptr->chara_idx;
 	}
 
 	//
@@ -5441,10 +5441,10 @@ static bool generate_creature_aux(creature_type *cr_ptr, int species_idx, specie
 	}
 
 	cr_ptr->lev = 1;
-	cr_ptr->exp = sp_ptr->exp;
-	cr_ptr->max_exp = sp_ptr->exp;
+	cr_ptr->exp = species_ptr->exp;
+	cr_ptr->max_exp = species_ptr->exp;
 	cr_ptr->max_max_exp = CREATURE_MAX_EXP;
-	cr_ptr->dr = sp_ptr->dr;
+	cr_ptr->dr = species_ptr->dr;
 
 	if(player)
 	{
@@ -5966,14 +5966,14 @@ bool ask_quick_start(creature_type *cr_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-int generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_sp_ptr, u32b flags)
+int generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_species_ptr, u32b flags)
 {
 	char buf[80];
 
 	playtime = 0;
 
 	/* Create a new character */
-	while (!generate_creature_aux(cr_ptr, species_idx, settled_sp_ptr, flags));
+	while (!generate_creature_aux(cr_ptr, species_idx, settled_species_ptr, flags));
 
 	if(flags & GC_PLAYER)
 	{

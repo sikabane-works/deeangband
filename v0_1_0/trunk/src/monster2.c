@@ -960,8 +960,8 @@ void birth_uniques(void)
 
 		if(is_unique_species(&species_info[i]))
 		{
-			species_type sp_ptr;
-			generate_creature(&u_info[j], i, &sp_ptr, GC_AUTO);
+			species_type species_ptr;
+			generate_creature(&u_info[j], i, &species_ptr, GC_AUTO);
 			j++;
 		}
 	}

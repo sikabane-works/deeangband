@@ -124,18 +124,18 @@ static void hooked_roff(cptr str)
  * left edge of the screen, on a cleared line, in which the recall is
  * to take place.  One extra blank line is left after the recall.
  */
-static void roff_aux(creature_type *pl_ptr, species_type *sp_ptr, int mode)
+static void roff_aux(creature_type *pl_ptr, species_type *species_ptr, int mode)
 {
 	bool            old = FALSE;
 
 	int             msex = 0;
 
 	bool nightmare = curse_of_Iluvatar && !(mode & 0x02);
-	int speed = nightmare ? sp_ptr->speed + 5 : sp_ptr->speed;
+	int speed = nightmare ? species_ptr->speed + 5 : species_ptr->speed;
 
 	/* Descriptions */
 	{
-		cptr tmp = species_text + sp_ptr->text;
+		cptr tmp = species_text + species_ptr->text;
 
 		if (tmp[0])
 		{

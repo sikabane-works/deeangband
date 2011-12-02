@@ -395,51 +395,51 @@ static void wr_ghost(void)
 /*
  * Save quick start data
  */
-static void save_quick_start(species_type *sp_ptr)
+static void save_quick_start(species_type *species_ptr)
 {
 	int i;
 
-	wr_s16b(sp_ptr->sex);
-	wr_s16b(sp_ptr->race_idx1);
-	wr_s16b(sp_ptr->race_idx2);
-	for (i = 0; i < 8; i++) wr_u32b(sp_ptr->sub_race[i]);
-	wr_s16b(sp_ptr->cls_idx);
-	wr_s16b(sp_ptr->chara_idx);
-	wr_s16b(sp_ptr->realm1);
-	wr_s16b(sp_ptr->realm2);
+	wr_s16b(species_ptr->sex);
+	wr_s16b(species_ptr->race_idx1);
+	wr_s16b(species_ptr->race_idx2);
+	for (i = 0; i < 8; i++) wr_u32b(species_ptr->sub_race[i]);
+	wr_s16b(species_ptr->cls_idx);
+	wr_s16b(species_ptr->chara_idx);
+	wr_s16b(species_ptr->realm1);
+	wr_s16b(species_ptr->realm2);
 
-	wr_s32b(sp_ptr->age);
-	wr_s32b(sp_ptr->m_b_ht);
-	wr_s32b(sp_ptr->m_m_ht);
-	wr_s32b(sp_ptr->f_b_ht);
-	wr_s32b(sp_ptr->f_m_ht);
-	wr_s32b(sp_ptr->m_b_wt);
-	wr_s32b(sp_ptr->m_m_wt);
-	wr_s32b(sp_ptr->f_b_wt);
-	wr_s32b(sp_ptr->f_m_wt);
-	wr_s16b(sp_ptr->sc);
-	wr_s32b(sp_ptr->au);
-	wr_s16b(sp_ptr->start_wx);
-	wr_s16b(sp_ptr->start_wy);
+	wr_s32b(species_ptr->age);
+	wr_s32b(species_ptr->m_b_ht);
+	wr_s32b(species_ptr->m_m_ht);
+	wr_s32b(species_ptr->f_b_ht);
+	wr_s32b(species_ptr->f_m_ht);
+	wr_s32b(species_ptr->m_b_wt);
+	wr_s32b(species_ptr->m_m_wt);
+	wr_s32b(species_ptr->f_b_wt);
+	wr_s32b(species_ptr->f_m_wt);
+	wr_s16b(species_ptr->sc);
+	wr_s32b(species_ptr->au);
+	wr_s16b(species_ptr->start_wx);
+	wr_s16b(species_ptr->start_wy);
 
-	for (i = 0; i < 6; i++) wr_s16b(sp_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) wr_s16b(sp_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(sp_ptr->player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(species_ptr->player_hp[i]);
 
-	wr_s16b(sp_ptr->patron_idx);
-	wr_s16b(sp_ptr->father_idx);
-	wr_s16b(sp_ptr->mother_idx);
+	wr_s16b(species_ptr->patron_idx);
+	wr_s16b(species_ptr->father_idx);
+	wr_s16b(species_ptr->mother_idx);
 
-	for (i = 0; i < HISTORY_ROW; i++) wr_string(sp_ptr->history[i]);
+	for (i = 0; i < HISTORY_ROW; i++) wr_string(species_ptr->history[i]);
 
 	/* UNUSED : Was number of random quests */
 	wr_byte(0);
 
 	/* No quick start after using debug mode or cheat options */
-	if (noscore) sp_ptr->quick_ok = FALSE;
+	if (noscore) species_ptr->quick_ok = FALSE;
 
-	wr_byte((byte)sp_ptr->quick_ok);
+	wr_byte((byte)species_ptr->quick_ok);
 }
 
 static void wr_creature(creature_type *cr_ptr)

@@ -661,7 +661,7 @@ extern void do_cmd_edit_autopick(creature_type *cr_ptr);
 extern void add_history_from_pref_line(cptr t);
 extern void creature_wipe(creature_type *cr_ptr);
 extern bool ask_quick_start(creature_type *cr_ptr);
-extern int generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_sp_ptr, u32b flags);
+extern int generate_creature(creature_type *cr_ptr, int species_idx, species_type *settled_species_ptr, u32b flags);
 extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
@@ -870,7 +870,7 @@ extern void set_resistance(creature_type *cr_ptr);
 extern void initialize_skill(creature_type *cr_ptr);
 
 extern bool is_force_depth_creature(creature_type *cr_ptr);
-extern bool is_force_depth_species(species_type *sp_ptr);
+extern bool is_force_depth_species(species_type *species_ptr);
 
 extern bool have_shoot_weapon(creature_type *cr_ptr);
 
@@ -882,35 +882,35 @@ extern bool is_giant_creature(creature_type *cr_ptr);
 extern bool is_undead_creature(creature_type *cr_ptr);
 extern bool is_human_creature(creature_type *cr_ptr);
 extern bool is_animal_creature(creature_type *cr_ptr);
-extern bool is_orc_species(species_type *sp_ptr);
-extern bool is_troll_species(species_type *sp_ptr);
-extern bool is_dragon_species(species_type *sp_ptr);
-extern bool is_demon_species(species_type *sp_ptr);
-extern bool is_giant_species(species_type *sp_ptr);
-extern bool is_undead_species(species_type *sp_ptr);
-extern bool is_human_species(species_type *sp_ptr);
-extern bool is_animal_species(species_type *sp_ptr);
+extern bool is_orc_species(species_type *species_ptr);
+extern bool is_troll_species(species_type *species_ptr);
+extern bool is_dragon_species(species_type *species_ptr);
+extern bool is_demon_species(species_type *species_ptr);
+extern bool is_giant_species(species_type *species_ptr);
+extern bool is_undead_species(species_type *species_ptr);
+extern bool is_human_species(species_type *species_ptr);
+extern bool is_animal_species(species_type *species_ptr);
 
-extern bool is_quantum_species(species_type *sp_ptr);
-extern bool is_powerful_species(species_type *sp_ptr);
-extern bool is_pass_wall_species(species_type *sp_ptr);
-extern bool is_kill_wall_species(species_type *sp_ptr);
-extern bool is_take_item_species(species_type *sp_ptr);
-extern bool is_kill_item_species(species_type *sp_ptr);
-extern bool is_open_door_species(species_type *sp_ptr);
-extern bool is_bash_door_species(species_type *sp_ptr);
-extern bool is_move_body_species(species_type *sp_ptr);
-extern bool is_kill_body_species(species_type *sp_ptr);
+extern bool is_quantum_species(species_type *species_ptr);
+extern bool is_powerful_species(species_type *species_ptr);
+extern bool is_pass_wall_species(species_type *species_ptr);
+extern bool is_kill_wall_species(species_type *species_ptr);
+extern bool is_take_item_species(species_type *species_ptr);
+extern bool is_kill_item_species(species_type *species_ptr);
+extern bool is_open_door_species(species_type *species_ptr);
+extern bool is_bash_door_species(species_type *species_ptr);
+extern bool is_move_body_species(species_type *species_ptr);
+extern bool is_kill_body_species(species_type *species_ptr);
 
-extern bool is_aura_fire_species(species_type *sp_ptr);
-extern bool is_aura_cold_species(species_type *sp_ptr);
-extern bool is_aura_elec_species(species_type *sp_ptr);
+extern bool is_aura_fire_species(species_type *species_ptr);
+extern bool is_aura_cold_species(species_type *species_ptr);
+extern bool is_aura_elec_species(species_type *species_ptr);
 
-extern bool is_aquatic_species(species_type *sp_ptr);
-extern bool can_swim_species(species_type *sp_ptr);
-extern bool can_fly_species(species_type *sp_ptr);
-extern bool is_guardian_species(species_type *sp_ptr);
-extern bool is_riding_species(species_type *sp_ptr);
+extern bool is_aquatic_species(species_type *species_ptr);
+extern bool can_swim_species(species_type *species_ptr);
+extern bool can_fly_species(species_type *species_ptr);
+extern bool is_guardian_species(species_type *species_ptr);
+extern bool is_riding_species(species_type *species_ptr);
 
 extern bool is_self_lite_1_species(species_type *species_ptr);
 extern bool is_self_lite_2_species(species_type *species_ptr);
@@ -974,30 +974,30 @@ extern bool is_resist_tele_creature(creature_type *creature_ptr);
 extern bool is_resist_tele_species(species_type *species_ptr);
 
 extern bool is_male_creature(creature_type *cr_ptr);
-extern bool is_male_species(species_type *sp_ptr);
+extern bool is_male_species(species_type *species_ptr);
 extern bool is_female_creature(creature_type *cr_ptr);
-extern bool is_female_species(species_type *sp_ptr);
+extern bool is_female_species(species_type *species_ptr);
 
-extern bool is_drop_corpse_species(species_type *sp_ptr);
-extern bool is_drop_skeleton_species(species_type *sp_ptr);
+extern bool is_drop_corpse_species(species_type *species_ptr);
+extern bool is_drop_skeleton_species(species_type *species_ptr);
 
-extern bool is_citizen_species(species_type *sp_ptr);
+extern bool is_citizen_species(species_type *species_ptr);
 
-extern bool is_wild_only_species(species_type *sp_ptr);
-extern bool is_wild_town_species(species_type *sp_ptr);
-extern bool is_wild_all_species(species_type *sp_ptr);
-extern bool is_wild_shore_species(species_type *sp_ptr);
-extern bool is_wild_ocean_species(species_type *sp_ptr);
-extern bool is_wild_waste_species(species_type *sp_ptr);
-extern bool is_wild_wood_species(species_type *sp_ptr);
-extern bool is_wild_volcano_species(species_type *sp_ptr);
-extern bool is_wild_grass_species(species_type *sp_ptr);
-extern bool is_wild_mountain_species(species_type *sp_ptr);
-extern bool is_shadow_species(species_type *sp_ptr);
-extern bool is_chameleon_species(species_type *sp_ptr);
-extern bool is_tanuki_species(species_type *sp_ptr);
-extern bool is_kill_exp_species(species_type *sp_ptr);
-extern bool is_friendly_species(species_type *sp_ptr);
+extern bool is_wild_only_species(species_type *species_ptr);
+extern bool is_wild_town_species(species_type *species_ptr);
+extern bool is_wild_all_species(species_type *species_ptr);
+extern bool is_wild_shore_species(species_type *species_ptr);
+extern bool is_wild_ocean_species(species_type *species_ptr);
+extern bool is_wild_waste_species(species_type *species_ptr);
+extern bool is_wild_wood_species(species_type *species_ptr);
+extern bool is_wild_volcano_species(species_type *species_ptr);
+extern bool is_wild_grass_species(species_type *species_ptr);
+extern bool is_wild_mountain_species(species_type *species_ptr);
+extern bool is_shadow_species(species_type *species_ptr);
+extern bool is_chameleon_species(species_type *species_ptr);
+extern bool is_tanuki_species(species_type *species_ptr);
+extern bool is_kill_exp_species(species_type *species_ptr);
+extern bool is_friendly_species(species_type *species_ptr);
 
 extern bool is_force_lesser_species(species_type *species_ptr);
 extern bool is_variable_race_species(species_type *species_ptr);
@@ -1024,7 +1024,7 @@ extern bool is_enemy_of_balance_species(species_type *cr_ptr);
 extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
 extern bool is_sub_unique_creature(creature_type *cr_ptr);
-extern bool is_sub_unique_species(species_type *sp_ptr);
+extern bool is_sub_unique_species(species_type *species_ptr);
 extern bool is_quest_creature(creature_type *creature_ptr);
 extern bool is_quest_species(species_type *species_ptr);
 
@@ -1047,9 +1047,9 @@ extern bool is_escorts_species(species_type *species_ptr);
 extern bool is_only_gold_species(species_type *species_ptr);
 extern bool is_only_item_species(species_type *species_ptr);
 
-extern bool is_smart_species(species_type *sp_ptr);
-extern bool is_stupid_species(species_type *sp_ptr);
-extern bool is_multiply_species(species_type *sp_ptr);
+extern bool is_smart_species(species_type *species_ptr);
+extern bool is_stupid_species(species_type *species_ptr);
+extern bool is_multiply_species(species_type *species_ptr);
 extern bool is_reflecting_species(species_type *species_ptr);
 extern bool is_invisible_species(species_type *species_ptr);
 extern bool is_cold_blood_species(species_type *species_ptr);
@@ -1072,10 +1072,10 @@ extern bool is_no_stun_species(species_type *species_ptr);
 extern bool is_no_conf_species(species_type *species_ptr);
 extern bool is_no_sleep_species(species_type *species_ptr);
 
-extern bool can_speak_species(species_type *sp_ptr);
-extern bool is_eldritch_horror_species(species_type *sp_ptr);
-extern bool is_random_walker_25_species(species_type *sp_ptr);
-extern bool is_random_walker_50_species(species_type *sp_ptr);
+extern bool can_speak_species(species_type *species_ptr);
+extern bool is_eldritch_horror_species(species_type *species_ptr);
+extern bool is_random_walker_25_species(species_type *species_ptr);
+extern bool is_random_walker_50_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_creature_flags(creature_flags *flags_ptr, int type, int low, int high);
