@@ -992,7 +992,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
  *
  * Return TRUE if a good location is available.
  */
-static bool find_hiding(int m_idx, int *yp, int *xp)
+static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -1027,10 +1027,10 @@ static bool find_hiding(int m_idx, int *yp, int *xp)
 			if (!monster_can_enter(y, x, r_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
-			if (!projectable(p_ptr->fy, p_ptr->fx, y, x) && clean_shot(fy, fx, y, x, FALSE))
+			if (!projectable(player_ptr->fy, player_ptr->fx, y, x) && clean_shot(fy, fx, y, x, FALSE))
 			{
 				/* Calculate distance from player */
-				dis = distance(y, x, p_ptr->fy, p_ptr->fx);
+				dis = distance(y, x, player_ptr->fy, player_ptr->fx);
 
 				/* Remember if closer than previous */
 				if (dis < gdis && dis >= 2)
@@ -1132,7 +1132,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			    (player_ptr->mhp + player_ptr->msp))
 			{
 				/* Find hiding place */
-				if (find_hiding(m_idx, &y, &x)) done = TRUE;
+				if (find_hiding(player_ptr, m_idx, &y, &x)) done = TRUE;
 			}
 		}
 
