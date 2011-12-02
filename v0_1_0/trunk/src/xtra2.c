@@ -2352,19 +2352,19 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 /*
  * Evaluate number of kill needed to gain level
  */
-static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
+static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_type *target_ptr)
 {
-	species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
+	species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
 	u32b num;
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((p_ptr->lev >= p_ptr->max_plv) || IS_RACE(p_ptr, RACE_ANDROID))
+	if ((player_ptr->lev >= player_ptr->max_plv) || IS_RACE(player_ptr, RACE_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;
 	}
-	else if (!ap_r_ptr->r_tkills || (m_ptr->mflag2 & MFLAG2_KAGE))
+	else if (!ap_r_ptr->r_tkills || (target_ptr->mflag2 & MFLAG2_KAGE))
 	{
 		if (!wizard)
 		{
@@ -2377,16 +2377,16 @@ static void evaluate_monster_exp(char *buf, creature_type *m_ptr)
 	/* The monster's experience point (assuming average monster speed) */
 	exp_mon = ap_r_ptr->exp * ap_r_ptr->level;
 	exp_mon_frac = 0;
-	s64b_div(&exp_mon, &exp_mon_frac, 0, (p_ptr->max_plv + 2));
+	s64b_div(&exp_mon, &exp_mon_frac, 0, (player_ptr->max_plv + 2));
 
 
 	/* Total experience value for next level */
-	exp_adv = creature_exp[p_ptr->lev -1] * p_ptr->expfact;
+	exp_adv = creature_exp[player_ptr->lev -1] * player_ptr->expfact;
 	exp_adv_frac = 0;
 	s64b_div(&exp_adv, &exp_adv_frac, 0, 100);
 
 	/* Experience value need to get */
-	s64b_sub(&exp_adv, &exp_adv_frac, p_ptr->exp, p_ptr->exp_frac);
+	s64b_sub(&exp_adv, &exp_adv_frac, player_ptr->exp, player_ptr->exp_frac);
 
 
 	/* You need to kill at least one monster to get any experience */
@@ -2574,7 +2574,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			/*** Normal ***/
 
 			/* Describe, and prompt for recall */
-			evaluate_monster_exp(acount, m_ptr);
+			evaluate_monster_exp(cr_ptr, acount, m_ptr);
 
 #ifdef JP
 			sprintf(out_val, "[%s]%s%s(%s)%s%s [rév %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
