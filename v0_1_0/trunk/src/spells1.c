@@ -1278,9 +1278,6 @@ static bool project_o(creature_type *who_ptr, int r, int y, int x, int dam, int 
 	bool is_potion = FALSE;
 
 
-	/* XXX XXX XXX */
-	who_ptr = who_ptr ? who_ptr : 0;
-
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
 
@@ -7703,7 +7700,7 @@ void breath_shape(u16b *path_g, int dist, int *pgrids, byte *gx, byte *gy, byte 
  * in the blast radius, in case the "illumination" of the grid was changed,
  * and "update_view()" and "update_monsters()" need to be called.
  */
-bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
+bool project(creature_type *user_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	int i, t, dist;
 
@@ -7783,16 +7780,16 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	}
 
 	/* Start at monster */
-	if(!who_ptr)
+	if(!user_ptr)
 	{
 		x1 = x;
 		y1 = y;
 	}
 	else
 	{
-		x1 = who_ptr->fx;
-		y1 = who_ptr->fy;
-		creature_desc(who_name, who_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		x1 = user_ptr->fx;
+		y1 = user_ptr->fy;
+		creature_desc(who_name, user_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 	}
 
 
@@ -7854,7 +7851,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	/* Calculate the projection path */
 
-	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(who_ptr)), y1, x1, y2, x2, flg);
+	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(user_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
 	handle_stuff(p_ptr);
@@ -7949,13 +7946,13 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				remove_mirror(player_ptr, y,x);
 				next_mirror( &oy,&ox,y,x );
 
-				path_n = i+project_path(p_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, oy, ox, flg);
+				path_n = i+project_path(p_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_m(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
-					if(is_player(who_ptr) && (project_m_n==1) && !jump ){
+					if(project_m(p_ptr, user_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
+					if(is_player(user_ptr) && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -7969,7 +7966,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 					    }
 					  }
 					}
-					(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER);
+					(void)project_f(p_ptr, user_ptr,0,y,x,dam,GF_SEEKER);
 				}
 				last_i = i;
 			}
@@ -7979,9 +7976,9 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_m(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
+			if(project_m(p_ptr, user_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
-			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
+			if(is_player(user_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -7995,7 +7992,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SEEKER);
+			(void)project_f(p_ptr, user_ptr,0,y,x,dam,GF_SEEKER);
 		}
 		return notice;
 	}
@@ -8093,18 +8090,18 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_f(p_ptr, user_ptr,0,y,x,dam,GF_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x  , flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y-1, x+1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y  , x+1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x  , flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, y+1, x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y-1, x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y-1, x  , flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y-1, x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y  , x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y  , x+1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y+1, x-1, flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y+1, x  , flg);
+				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(user_ptr)), y, x, y+1, x+1, flg);
 			}
 		}
 		for( i = 0; i < path_n ; i++ )
@@ -8112,8 +8109,8 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_m(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
-			if(is_player(who_ptr) && (project_m_n==1) && !jump ){
+			(void)project_m(p_ptr, user_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
+			if(is_player(user_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
 
@@ -8127,7 +8124,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			    }
 			  }
 			}
-			(void)project_f(p_ptr, who_ptr,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_f(p_ptr, user_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -8250,7 +8247,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 	project_length = 0;
 
 	/* If we found a "target", explode there */
-	if (dist <= MAX_RANGE(who_ptr))
+	if (dist <= MAX_RANGE(user_ptr))
 	{
 		/* Mega-Hack -- remove the final "beam" grid */
 		if ((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
@@ -8401,8 +8398,8 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (!is_player(who_ptr)) ? is_seen(p_ptr, who_ptr) :
-			(is_player(who_ptr) ? TRUE : (player_can_see_bold(p_ptr, y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)));
+		see_s_msg = (!is_player(user_ptr)) ? is_seen(p_ptr, user_ptr) :
+			(is_player(user_ptr) ? TRUE : (player_can_see_bold(p_ptr, y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)));
 	}
 
 
@@ -8428,12 +8425,12 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if (project_f(p_ptr, who_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if (project_f(p_ptr, user_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if (project_f(p_ptr, who_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_f(p_ptr, user_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -8505,7 +8502,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
 				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
-				    (is_player(who_ptr) || dist_hack > 1) && !one_in_(10))
+				    (is_player(user_ptr) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
 					int max_attempts = 10;
@@ -8536,7 +8533,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 						msg_print("The attack bounces!");
 #endif
 					}
-					if (is_original_ap_and_seen(who_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
+					if (is_original_ap_and_seen(user_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
 					if (creature_bold(p_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
@@ -8634,12 +8631,12 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the monster in the grid */
-			if (project_m(p_ptr, who_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
+			if (project_m(p_ptr, user_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
 		}
 
 
 		/* Player affected one monster (without "jumping") */
-		if (is_player(who_ptr) && (project_m_n == 1) && !jump)
+		if (is_player(user_ptr) && (project_m_n == 1) && !jump)
 		{
 			/* Location */
 			x = project_m_x;
@@ -8734,7 +8731,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 			}
 
 			/* Affect the player */
-			if (project_p(who_ptr, p_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
+			if (project_p(user_ptr, p_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
 		}
 	}
 

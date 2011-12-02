@@ -4403,7 +4403,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_monster_group(creature_type *player_ptr, creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_monster_group(creature_type *player_ptr, creature_type *summoner_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -4469,7 +4469,7 @@ static bool place_monster_group(creature_type *player_ptr, creature_type *who_pt
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(player_ptr, who_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(player_ptr, summoner_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
