@@ -187,13 +187,13 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
  * other monsters should use this?
  */
 // TODO Import some process to creature_attack
-void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int who)
+void mon_take_hit_mon(creature_type *player_ptr, creature_type *cr_ptr, int dam, bool *fear, cptr note, int who)
 {
 	species_type	*r_ptr = &species_info[cr_ptr->species_idx];
 
 	char m_name[160];
 
-	bool seen = is_seen(p_ptr, cr_ptr);
+	bool seen = is_seen(player_ptr, cr_ptr);
 
 	/* Can the player be aware of this attack? */
 	bool known = (cr_ptr->cdis <= MAX_SIGHT);
@@ -205,14 +205,14 @@ void mon_take_hit_mon(creature_type *cr_ptr, int dam, bool *fear, cptr note, int
 	if (cr_ptr->ml)
 	{
 		if (&creature_list[health_who] == cr_ptr) play_redraw |= (PR_HEALTH);
-		if (&creature_list[p_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
+		if (&creature_list[player_ptr->riding] == cr_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
 	/* Wake it up */
 	(void)set_paralyzed(cr_ptr, 0);
 
 
-	if (p_ptr->riding && (cr_ptr == &creature_list[p_ptr->riding])) disturb(1, 0);
+	if (player_ptr->riding && (cr_ptr == &creature_list[player_ptr->riding])) disturb(1, 0);
 
 	if (cr_ptr->invuln && randint0(PENETRATE_INVULNERABILITY))
 	{
@@ -316,7 +316,7 @@ msg_format("%^sは殺された。", m_name);
 			//TODO monster_gain_exp(who, cr_ptr->species_idx);
 
 			/* Generate treasure TODO*/
-			monster_death(p_ptr, cr_ptr, FALSE);
+			monster_death(player_ptr, cr_ptr, FALSE);
 
 			/* Delete the monster */
 			delete_species_idx(cr_ptr);
@@ -374,7 +374,7 @@ msg_format("%^sは殺された。", m_name);
 		}
 	}
 
-	if (p_ptr->riding && (&creature_list[p_ptr->riding] == cr_ptr) && (dam > 0))
+	if (player_ptr->riding && (&creature_list[player_ptr->riding] == cr_ptr) && (dam > 0))
 	{
 		char m_name[80];
 
@@ -382,7 +382,7 @@ msg_format("%^sは殺された。", m_name);
 		creature_desc(m_name, cr_ptr, 0);
 
 		if (cr_ptr->chp > cr_ptr->mhp/3) dam = (dam + 1) / 2;
-		if (rakuba(p_ptr, (dam > 200) ? 200 : dam, FALSE))
+		if (rakuba(player_ptr, (dam > 200) ? 200 : dam, FALSE))
 		{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
