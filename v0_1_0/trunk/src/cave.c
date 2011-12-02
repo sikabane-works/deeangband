@@ -4783,7 +4783,7 @@ void cave_alter_feat(int y, int x, int action)
 
 
 /* Remove a mirror */
-void remove_mirror(int y, int x)
+void remove_mirror(creature_type *player_ptr, int y, int x)
 {
 	cave_type *c_ptr = &cave[y][x];
 
@@ -4797,16 +4797,16 @@ void remove_mirror(int y, int x)
 		if (!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
 
 		/* Update the monster */
-		if (c_ptr->m_idx) update_mon(p_ptr, c_ptr->m_idx, FALSE);
+		if (c_ptr->m_idx) update_mon(player_ptr, c_ptr->m_idx, FALSE);
 
-		update_local_illumination(p_ptr, y, x);
+		update_local_illumination(player_ptr, y, x);
 	}
 
 	/* Notice */
-	note_spot(p_ptr, y, x);
+	note_spot(player_ptr, y, x);
 
 	/* Redraw */
-	lite_spot(p_ptr, y, x);
+	lite_spot(player_ptr, y, x);
 }
 
 

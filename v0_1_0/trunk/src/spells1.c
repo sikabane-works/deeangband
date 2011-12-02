@@ -1110,7 +1110,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				msg_print("The mirror was crashed!");
 #endif
 				sound(SOUND_GLASS);
-				remove_mirror(y, x);
+				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
@@ -1146,7 +1146,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 				msg_print("The mirror was crashed!");
 #endif
 				sound(SOUND_GLASS);
-				remove_mirror(y, x);
+				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
@@ -1176,7 +1176,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 		{
 			/* Destroy mirror/glyph */
 			if (is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
-				remove_mirror(y, x);
+				remove_mirror(player_ptr, y, x);
 
 			/* Permanent features don't get effect */
 			/* But not protect monsters and other objects */
@@ -7946,7 +7946,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				monster_target_y=(s16b)y;
 				monster_target_x=(s16b)x;
 
-				remove_mirror(y,x);
+				remove_mirror(player_ptr, y,x);
 				next_mirror( &oy,&ox,y,x );
 
 				path_n = i+project_path(p_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(who_ptr)), y, x, oy, ox, flg);
@@ -8088,7 +8088,7 @@ bool project(creature_type *who_ptr, int rad, int y, int x, int dam, int typ, in
 				monster_target_y=(s16b)y;
 				monster_target_x=(s16b)x;
 
-				remove_mirror(y,x);
+				remove_mirror(player_ptr, y,x);
 				for( j = 0; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
@@ -8914,7 +8914,7 @@ bool binding_field( int dam )
 #else
 		msg_print("The field broke a mirror");
 #endif	
-		remove_mirror(point_y[0],point_x[0]);
+		remove_mirror(player_ptr, point_y[0],point_x[0]);
 	}
 
 	return TRUE;
@@ -8935,7 +8935,7 @@ void seal_of_mirror( int dam )
 				{
 					if( !cave[y][x].m_idx )
 					{
-						remove_mirror(y,x);
+						remove_mirror(player_ptr, y,x);
 					}
 				}
 			}

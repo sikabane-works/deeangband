@@ -7590,7 +7590,7 @@ void remove_all_mirrors(bool explode)
 		{
 			if (is_mirror_grid(&cave[y][x]))
 			{
-				remove_mirror(y, x);
+				remove_mirror(player_ptr, y, x);
 				if (explode)
 					project(0, 2, y, x, p_ptr->lev / 2 + 5, GF_SHARDS,
 						(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
