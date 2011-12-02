@@ -903,7 +903,7 @@ static sint *dist_offsets_x[10] =
 *
 * Return TRUE if a safe location is available.
 */
-static bool find_safety(int m_idx, int *yp, int *xp)
+static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
@@ -939,7 +939,7 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 			c_ptr = &cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!monster_can_cross_terrain(c_ptr->feat, &species_info[m_ptr->species_idx], (m_idx == p_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if (!monster_can_cross_terrain(c_ptr->feat, &species_info[m_ptr->species_idx], (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if monsters can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
@@ -952,10 +952,10 @@ static bool find_safety(int m_idx, int *yp, int *xp)
 			}
 
 			/* Check for absence of shot (more or less) */
-			if (!projectable(p_ptr->fy, p_ptr->fx, y, x))
+			if (!projectable(avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
 			{
 				/* Calculate distance from player */
-				dis = distance(y, x, p_ptr->fy, p_ptr->fx);
+				dis = distance(y, x, avoid_target_ptr->fy, avoid_target_ptr->fx);
 
 				/* Remember if further than previous */
 				if (dis > gdis)
@@ -1202,7 +1202,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			int tmp_y = (-y);
 
 			/* Try to find safe place */
-			if (find_safety(m_idx, &y, &x))
+			if (find_safety(player_ptr, m_idx, &y, &x))
 			{
 				/* Attempt to avoid the player */
 				if (!no_flow)
