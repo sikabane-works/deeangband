@@ -1206,7 +1206,7 @@ static void arena_gen(creature_type *player_ptr)
 /*
  * Builds the arena after it is entered -KMW-
  */
-static void build_battle(void)
+static void build_battle(creature_type *player_ptr)
 {
 	int yval, y_height, y_depth, xval, x_left, x_right;
 	register int i, j;
@@ -1262,7 +1262,7 @@ static void build_battle(void)
 	j = xval;
 	cave[i][j].feat = f_tag_to_index("BUILDING_3");
 	cave[i][j].info |= (CAVE_GLOW | CAVE_MARK);
-	creature_place(p_ptr, i, j);
+	creature_place(player_ptr, i, j);
 }
 
 
@@ -1298,7 +1298,7 @@ static void battle_gen(void)
 		}
 	}
 
-	build_battle();
+	build_battle(p_ptr);
 
 	for(i=0;i<4;i++)
 	{

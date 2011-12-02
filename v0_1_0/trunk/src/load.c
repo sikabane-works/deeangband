@@ -955,50 +955,50 @@ static void rd_ghost(void)
 /*
  * Save quick start data
  */
-static void load_quick_start(species_type *sp_ptr)
+static void load_quick_start(species_type *species_ptr)
 {
 	byte tmp8u;
 	int i;
 
-	rd_s16b(&sp_ptr->sex);
-	rd_s16b(&sp_ptr->race_idx1);
-	rd_s16b(&sp_ptr->race_idx2);
-	for (i = 0; i < 8; i++) rd_u32b(&sp_ptr->sub_race[i]);
-	rd_s16b(&sp_ptr->cls_idx);
-	rd_s16b(&sp_ptr->chara_idx);
-	rd_s16b(&sp_ptr->realm1);
-	rd_s16b(&sp_ptr->realm2);
-	rd_s32b(&sp_ptr->age);
-	rd_s32b(&sp_ptr->m_b_ht);
-	rd_s32b(&sp_ptr->m_m_ht);
-	rd_s32b(&sp_ptr->f_b_ht);
-	rd_s32b(&sp_ptr->f_m_ht);
-	rd_s32b(&sp_ptr->m_b_wt);
-	rd_s32b(&sp_ptr->m_m_wt);
-	rd_s32b(&sp_ptr->f_b_wt);
-	rd_s32b(&sp_ptr->f_m_wt);
-	rd_s16b(&sp_ptr->sc);
-	rd_s32b(&sp_ptr->au);
-	rd_s16b(&sp_ptr->start_wx);
-	rd_s16b(&sp_ptr->start_wy);
+	rd_s16b(&species_ptr->sex);
+	rd_s16b(&species_ptr->race_idx1);
+	rd_s16b(&species_ptr->race_idx2);
+	for (i = 0; i < 8; i++) rd_u32b(&species_ptr->sub_race[i]);
+	rd_s16b(&species_ptr->cls_idx);
+	rd_s16b(&species_ptr->chara_idx);
+	rd_s16b(&species_ptr->realm1);
+	rd_s16b(&species_ptr->realm2);
+	rd_s32b(&species_ptr->age);
+	rd_s32b(&species_ptr->m_b_ht);
+	rd_s32b(&species_ptr->m_m_ht);
+	rd_s32b(&species_ptr->f_b_ht);
+	rd_s32b(&species_ptr->f_m_ht);
+	rd_s32b(&species_ptr->m_b_wt);
+	rd_s32b(&species_ptr->m_m_wt);
+	rd_s32b(&species_ptr->f_b_wt);
+	rd_s32b(&species_ptr->f_m_wt);
+	rd_s16b(&species_ptr->sc);
+	rd_s32b(&species_ptr->au);
+	rd_s16b(&species_ptr->start_wx);
+	rd_s16b(&species_ptr->start_wy);
 
 
-	for (i = 0; i < 6; i++) rd_s16b(&sp_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&sp_ptr->stat_max_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max[i]);
+	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&sp_ptr->player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&species_ptr->player_hp[i]);
 
-	rd_s16b(&sp_ptr->patron_idx);
-	rd_s16b(&sp_ptr->father_idx);
-	rd_s16b(&sp_ptr->mother_idx);
+	rd_s16b(&species_ptr->patron_idx);
+	rd_s16b(&species_ptr->father_idx);
+	rd_s16b(&species_ptr->mother_idx);
 
-	for (i = 0; i < HISTORY_ROW; i++) rd_string(sp_ptr->history[i], sizeof(sp_ptr->history[i]));
+	for (i = 0; i < HISTORY_ROW; i++) rd_string(species_ptr->history[i], sizeof(species_ptr->history[i]));
 
 	/* UNUSED : Was number of random quests */
 	rd_byte(&tmp8u);
 
 	rd_byte(&tmp8u);
-	sp_ptr->quick_ok = (bool)tmp8u;
+	species_ptr->quick_ok = (bool)tmp8u;
 }
 
 static void rd_creature(creature_type *cr_ptr)
