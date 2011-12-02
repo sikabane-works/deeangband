@@ -4403,7 +4403,7 @@ static bool mon_scatter(int species_idx, int *yp, int *xp, int y, int x, int max
 /*
  * Attempt to place a "group" of monsters around the given location
  */
-static bool place_monster_group(creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_monster_group(creature_type *player_ptr, creature_type *who_ptr, int y, int x, int species_idx, u32b mode)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -4469,7 +4469,7 @@ static bool place_monster_group(creature_type *who_ptr, int y, int x, int specie
 			if (!cave_empty_bold2(my, mx)) continue;
 
 			/* Attempt to place another monster */
-			if (place_monster_one(p_ptr, who_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
+			if (place_monster_one(player_ptr, who_ptr, my, mx, species_idx, MONEGO_NORMAL, mode) != max_m_idx)
 			{
 				/* Add it to the "hack" set */
 				hack_y[hack_n] = my;
@@ -4599,7 +4599,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 	if (is_friends_species(r_ptr))
 	{
 		/* Attempt to place a group */
-		(void)place_monster_group(who_ptr, y, x, species_idx, mode);
+		(void)place_monster_group(p_ptr, who_ptr, y, x, species_idx, mode);
 	}
 
 
@@ -4636,7 +4636,7 @@ bool place_monster_aux(creature_type *who_ptr, int y, int x, int species_idx, u3
 			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
 			{
 				/* Place a group of monsters */
-				(void)place_monster_group(&creature_list[place_monster_m_idx], ny, nx, z, mode);
+				(void)place_monster_group(p_ptr, &creature_list[place_monster_m_idx], ny, nx, z, mode);
 			}
 		}
 	}
