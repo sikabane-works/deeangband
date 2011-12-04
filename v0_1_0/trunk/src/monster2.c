@@ -3519,7 +3519,6 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	// TODO:  
-
 	object_level = creature_ptr->lev * 2;
 
 	/* inventory */
@@ -3528,6 +3527,12 @@ void deal_item(creature_type *creature_ptr)
 
 	/* Get local object */
 	q_ptr = &forge;
+
+	for(i = 0; i < creature_ptr->sc / 10; i++)
+	{
+		make_object(q_ptr, 0, 0, object_level);
+		add_outfit(creature_ptr, q_ptr, FALSE);
+	}
 
 	//
 	// Item depend on species_info
@@ -3544,12 +3549,10 @@ void deal_item(creature_type *creature_ptr)
 			{
 				if (!a_ptr->cur_num)
 				{
-					int r;
 					object_type ob;
 					// Equip the artifact
 					create_named_art(creature_ptr, &ob, species_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
-					r = wield_slot(creature_ptr, &ob);
 					add_outfit(creature_ptr, &ob, TRUE);
 				}
 			}
@@ -3796,7 +3799,7 @@ void deal_item(creature_type *creature_ptr)
 				q_ptr->name2 = EGO_BRAND_POIS;
 			}
 
-			add_outfit(creature_ptr, q_ptr, FALSE);
+			add_outfit(creature_ptr, q_ptr, TRUE);
 		}
 	}
 

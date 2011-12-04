@@ -2990,6 +2990,8 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
 							else add_esp_weak(o_ptr, FALSE);
 						}
 						break;
+					case 0:
+						break;
 					default:/* not existing crown (wisdom,lite, etc...) */
 						ok_flag = FALSE;
 					}
@@ -3046,6 +3048,8 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
 							if (one_in_(2)) add_esp_strong(o_ptr);
 							else add_esp_weak(o_ptr, FALSE);
 						}
+						break;
+					case 0:
 						break;
 					default:/* not existing helm (Magi, Might, etc...)*/
 						ok_flag = FALSE;
