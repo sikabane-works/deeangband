@@ -3485,12 +3485,14 @@ static void deal_potion(creature_type *creature_ptr)
 
 }
 
-static u32b calc_deal_item_rank(creature_type *creature_ptr)
+static u32b calc_deal_item_rank(creature_type *creature_ptr, object_type *object_ptr)
 {
 	u32b ret = AM_UNCURSED;
 	int prob = randint0(100);
 	int dealing_value = creature_ptr->lev * 10 + creature_ptr->sc * 5 + creature_ptr->dr * 30;
 	dealing_value = dealing_value < 0 ? 0 : dealing_value;
+	if(object_ptr->tval == TV_RING) dealing_value /= 3;
+	if(object_ptr->tval == TV_AMULET) dealing_value /= 3;
 	if((dealing_value - 100) / 2 > prob) ret |= AM_GOOD;    // 100-300
 	if((dealing_value - 200) / 3 > prob) ret |= AM_GREAT;   // 200-500
 	if((dealing_value - 400) / 4 > prob) ret |= AM_SPECIAL; // 400-800
@@ -3815,7 +3817,8 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if(creature_ptr->inventory[i].k_idx)
 		{
-			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, calc_deal_item_rank(creature_ptr));
+			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
+				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]));
 		}
 	}
 
