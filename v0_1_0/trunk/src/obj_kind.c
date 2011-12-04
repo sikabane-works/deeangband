@@ -99,8 +99,10 @@ bool object_is_favorite(creature_type *cr_ptr, object_type *o_ptr)
  * Rare weapons/aromors
  * including Blade of Chaos, Dragon armors, etc.
  */
-bool object_is_rare(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_rare(creature_type *creature_ptr, object_type *o_ptr)
 {
+	// creature_ptr currently null
+
 	switch(o_ptr->tval)
 	{
 	case TV_HAFTED:
