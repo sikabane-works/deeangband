@@ -4220,7 +4220,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 {
 	int i, rolls, f1, f2, power;
 
-	if (player_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(player_ptr->lev / 2 + 10);
+	if (owner_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(owner_ptr->lev / 2 + 10);
 
 	/* Maximum "level" for various things */
 	if (lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1;
@@ -4235,15 +4235,15 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	f2 = f1 * 2 / 3;
 
 	/* Maximal chance of being "great" */
-	if ((player_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > d_info[dungeon_type].obj_great))
+	if ((owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > d_info[dungeon_type].obj_great))
 		f2 = d_info[dungeon_type].obj_great;
 
-	if (has_cf_creature(player_ptr, CF_GOOD_LUCK))
+	if (has_cf_creature(owner_ptr, CF_GOOD_LUCK))
 	{
 		f1 += 5;
 		f2 += 2;
 	}
-	else if(has_cf_creature(player_ptr, CF_BAD_LUCK))
+	else if(has_cf_creature(owner_ptr, CF_BAD_LUCK))
 	{
 		f1 -= 5;
 		f2 -= 2;
@@ -4310,7 +4310,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	{
 		/* Roll for an artifact */
 		if (make_artifact(o_ptr)) break;
-		if (has_cf_creature(player_ptr, CF_GOOD_LUCK) && one_in_(77))
+		if (has_cf_creature(owner_ptr, CF_GOOD_LUCK) && one_in_(77))
 		{
 			if (make_artifact(o_ptr)) break;
 		}
@@ -4327,7 +4327,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 
 		/* Hack -- Memorize location of artifact in saved floors */
 		if (character_dungeon)
-			a_ptr->floor_id = player_ptr->floor_id;
+			a_ptr->floor_id = owner_ptr->floor_id;
 
 		/* Extract the other fields */
 		o_ptr->pval = a_ptr->pval;
@@ -4371,19 +4371,19 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			if (power) a_m_aux_1(player_ptr, o_ptr, lev, power);
+			if (power) a_m_aux_1(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 
 		case TV_POLEARM:
 		{
-			if (power && !(o_ptr->sval == SV_DEATH_SCYTHE)) a_m_aux_1(player_ptr, o_ptr, lev, power);
+			if (power && !(o_ptr->sval == SV_DEATH_SCYTHE)) a_m_aux_1(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 
 		case TV_SWORD:
 		{
-			if (power && !(o_ptr->sval == SV_DOKUBARI)) a_m_aux_1(player_ptr, o_ptr, lev, power);
+			if (power && !(o_ptr->sval == SV_DOKUBARI)) a_m_aux_1(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 
@@ -4408,7 +4408,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 			     ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||
 			     ((o_ptr->tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
 			     ((o_ptr->tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)))
-				a_m_aux_2(player_ptr, o_ptr, lev, power);
+				a_m_aux_2(owner_ptr, o_ptr, lev, power);
 #else
 			if (power) a_m_aux_2(o_ptr, lev, power);
 #endif
@@ -4419,20 +4419,20 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		case TV_AMULET:
 		{
 			if (!power && (randint0(100) < 50)) power = -1;
-			a_m_aux_3(player_ptr, o_ptr, lev, power);
+			a_m_aux_3(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 
 		default:
 		{
-			a_m_aux_4(player_ptr, o_ptr, lev, power);
+			a_m_aux_4(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 	}
 
 	if ((o_ptr->tval == TV_SOFT_ARMOR) &&
 	    (o_ptr->sval == SV_ABUNAI_MIZUGI) &&
-	    (player_ptr->chara_idx == CHARA_SEXY))
+	    (owner_ptr->chara_idx == CHARA_SEXY))
 	{
 		o_ptr->pval = 3;
 		add_flag(o_ptr->art_flags, TR_STR);

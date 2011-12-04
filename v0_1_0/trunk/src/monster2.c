@@ -3485,6 +3485,18 @@ static void deal_potion(creature_type *creature_ptr)
 
 }
 
+static u32b calc_deal_item_rank(creature_type *creature_ptr)
+{
+	u32b ret = AM_UNCURSED;
+	int prob = randint0(100);
+	int dealing_value = creature_ptr->lev * 10 + creature_ptr->sc * 5 + creature_ptr->dr * 30;
+	dealing_value = dealing_value < 0 ? 0 : dealing_value;
+	if((dealing_value - 100) / 2 > prob) ret |= AM_GOOD;    // 100-300
+	if((dealing_value - 200) / 3 > prob) ret |= AM_GREAT;   // 200-500
+	if((dealing_value - 400) / 4 > prob) ret |= AM_SPECIAL; // 400-800
+	return ret;
+}
+
 
 void deal_item(creature_type *creature_ptr)
 {
@@ -3492,7 +3504,7 @@ void deal_item(creature_type *creature_ptr)
 	object_type	forge;
 	object_type	*q_ptr;
 	int i, number;
-	species_type *r_ptr = &species_info[creature_ptr->species_idx];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	u32b mo_mode = 0L;
 
 	creature_ptr->total_weight = 0;
@@ -3505,6 +3517,7 @@ void deal_item(creature_type *creature_ptr)
 	}
 
 	// TODO:  
+
 	object_level = creature_ptr->lev * 2;
 
 	/* inventory */
@@ -3520,19 +3533,19 @@ void deal_item(creature_type *creature_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!(&creature_ptr->inventory[i])) break;
-		if(!r_ptr->artifact_prob[i]) break;
+		if(!species_ptr->artifact_prob[i]) break;
 
-		if(r_ptr->artifact_id[i])
+		if(species_ptr->artifact_id[i])
 		{
-			artifact_type *a_ptr = &a_info[r_ptr->artifact_id[i]];
-			if ((r_ptr->artifact_id[i] > 0) && ((randint0(100) < r_ptr->artifact_prob[i]) || wizard))
+			artifact_type *a_ptr = &a_info[species_ptr->artifact_id[i]];
+			if ((species_ptr->artifact_id[i] > 0) && ((randint0(100) < species_ptr->artifact_prob[i]) || wizard))
 			{
 				if (!a_ptr->cur_num)
 				{
 					int r;
 					object_type ob;
 					// Equip the artifact
-					create_named_art(creature_ptr, &ob, r_ptr->artifact_id[i]);
+					create_named_art(creature_ptr, &ob, species_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
 					r = wield_slot(creature_ptr, &ob);
 					add_outfit(creature_ptr, &ob, TRUE);
@@ -3543,7 +3556,7 @@ void deal_item(creature_type *creature_ptr)
 		else
 		{
 			object_type ob;
-			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
+			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
 			apply_magic(creature_ptr, &ob, creature_ptr->lev, 0);
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
@@ -3802,10 +3815,9 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if(creature_ptr->inventory[i].k_idx)
 		{
-			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, AM_UNCURSED);
+			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, calc_deal_item_rank(creature_ptr));
 		}
 	}
-
 
 	return;
 
