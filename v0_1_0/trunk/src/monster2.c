@@ -3544,6 +3544,7 @@ void deal_item(creature_type *creature_ptr)
 		{
 			object_type ob;
 			object_prep(&ob, lookup_kind(r_ptr->artifact_tval[i], r_ptr->artifact_sval[i]), creature_ptr->size);
+			apply_magic(creature_ptr, &ob, creature_ptr->lev, 0);
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
 	}
