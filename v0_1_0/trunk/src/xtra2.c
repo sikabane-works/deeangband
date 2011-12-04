@@ -1754,7 +1754,7 @@ void verify_panel(creature_type *cr_ptr)
 	panel_col_min = pcol_min;
 
 	/* Hack -- optional disturb on "panel change" */
-	if (disturb_panel && !center_player) disturb(0, 0);
+	if (disturb_panel && !center_player) disturb(player_ptr, 0, 0);
 
 	/* Recalculate the boundaries */
 	panel_bounds_center();

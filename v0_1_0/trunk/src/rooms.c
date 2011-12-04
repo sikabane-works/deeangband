@@ -450,7 +450,6 @@ static bool find_space(int *y, int *x, int height, int width)
 	 */
 	check_room_boundary(*x - width / 2 - 1, *y - height / 2 - 1, *x + (width - 1) / 2 + 1, *y + (height - 1) / 2 + 1);
 
-
 	/* Success. */
 	return TRUE;
 }
@@ -476,7 +475,6 @@ static bool find_space(int *y, int *x, int height, int width)
  *  13 -- trapped monster pits
  *  14 -- trapped room
  */
-
 
 /*
  * Type 1 -- normal rectangular rooms
@@ -521,14 +519,11 @@ static bool build_type1(void)
 	/* Choose lite or dark */
 	light = ((dun_level <= randint1(25)) && !(d_info[dungeon_type].flags1 & DF1_DARKNESS));
 
-
 	/* Get corner values */
 	y1 = yval - ysize / 2;
 	x1 = xval - xsize / 2;
 	y2 = yval + (ysize - 1) / 2;
 	x2 = xval + (xsize - 1) / 2;
-
-
 
 	/* Place a full floor under the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -557,7 +552,6 @@ static bool build_type1(void)
 		c_ptr = &cave[y2 + 1][x];
 		place_outer_grid(c_ptr);
 	}
-
 
 	/* Hack -- Occasional curtained room */
 	if (curtain && (y2 - y1 > 2) && (x2 - x1 > 2))

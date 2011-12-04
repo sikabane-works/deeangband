@@ -1824,7 +1824,7 @@ static bool project_m(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 #endif
 
 
-	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) disturb(1, 0);
+	if (who_ptr->riding && (c_ptr->m_idx == who_ptr->riding)) disturb(player_ptr, 1, 0);
 
 	/* Analyze the damage type */
 	switch (typ)
@@ -5887,7 +5887,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 
 		project(0, 0, t_y, t_x, dam, typ, (PROJECT_STOP|PROJECT_KILL|PROJECT_REFLECTABLE), monspell);
 
-		disturb(1, 0);
+		disturb(player_ptr, 1, 0);
 		return TRUE;
 	}
 
@@ -7199,7 +7199,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 
 
 	/* Disturb */
-	disturb(1, 0);
+	disturb(player_ptr, 1, 0);
 
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && atk_ptr && (atk_ptr != &creature_list[tar_ptr->riding]))

@@ -393,7 +393,7 @@ bool set_mimic(creature_type *cr_ptr, int v, int p, bool do_dec)
 
 	/* Disturb */
 	if (disturb_state)
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 	/* Redraw title */
 	play_redraw |= (PR_BASIC | PR_STATUS);
@@ -493,7 +493,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Fully update the visuals */
 	cr_ptr->update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
@@ -627,7 +627,7 @@ bool set_confused(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -695,7 +695,7 @@ bool set_poisoned(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -789,7 +789,7 @@ bool set_afraid(creature_type *cr_ptr, int v)
 		if (!notice) return (FALSE);
 
 		/* Disturb */
-		if (disturb_state) disturb(0, 0);
+		if (disturb_state) disturb(player_ptr, 0, 0);
 
 		/* Handle stuff */
 		handle_stuff(cr_ptr);
@@ -908,7 +908,7 @@ bool set_paralyzed(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Redraw the state */
 	play_redraw |= (PR_STATE);
@@ -1035,7 +1035,7 @@ bool set_image(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -1117,7 +1117,7 @@ bool set_fast(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1225,7 +1225,7 @@ bool set_lightspeed(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1300,7 +1300,7 @@ bool set_slow(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1411,7 +1411,7 @@ bool set_shield(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1487,7 +1487,7 @@ bool set_tsubureru(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1563,7 +1563,7 @@ bool set_magicdef(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1639,7 +1639,7 @@ bool set_blessed(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1713,7 +1713,7 @@ bool set_hero(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1792,7 +1792,7 @@ bool set_shero(creature_type *cr_ptr,  int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -1869,7 +1869,7 @@ bool set_protevil(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -1958,7 +1958,7 @@ bool set_wraith_form(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2057,7 +2057,7 @@ bool set_invuln(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2169,7 +2169,7 @@ bool set_tim_esp(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2248,7 +2248,7 @@ bool set_tim_invis(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2325,7 +2325,7 @@ bool set_tim_infra(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2403,7 +2403,7 @@ bool set_tim_regen(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2478,7 +2478,7 @@ bool set_tim_stealth(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2562,7 +2562,7 @@ bool set_superstealth(creature_type *cr_ptr, bool set)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Result */
 	return (TRUE);
@@ -2625,7 +2625,7 @@ bool set_tim_levitation(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2694,7 +2694,7 @@ msg_print("闘気が消えた。");
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -2760,7 +2760,7 @@ msg_print("炎のオーラが消えた。");
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2833,7 +2833,7 @@ bool set_tim_sh_holy(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2909,7 +2909,7 @@ bool set_tim_eyeeye(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -2984,7 +2984,7 @@ bool set_resist_magic(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3058,7 +3058,7 @@ bool set_tim_reflect(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3131,7 +3131,7 @@ bool set_multishadow(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3205,7 +3205,7 @@ bool set_dustrobe(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3279,7 +3279,7 @@ bool set_kabenuke(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3354,7 +3354,7 @@ bool set_tsuyoshi(creature_type *cr_ptr, int v, bool do_dec)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -3480,7 +3480,7 @@ bool set_ele_attack(creature_type *cr_ptr, u32b attack_type, int v)
 	}
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3597,7 +3597,7 @@ bool set_ele_immune(creature_type *cr_ptr, u32b immune_type, int v)
 	}
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3672,7 +3672,7 @@ bool set_oppose_acid(creature_type *cr_ptr, int v, bool do_dec)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3743,7 +3743,7 @@ bool set_oppose_elec(creature_type *cr_ptr, int v, bool do_dec)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3816,7 +3816,7 @@ bool set_oppose_fire(creature_type *cr_ptr, int v, bool do_dec)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3886,7 +3886,7 @@ bool set_oppose_cold(creature_type *cr_ptr, int v, bool do_dec)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -3957,7 +3957,7 @@ bool set_oppose_pois(creature_type *cr_ptr, int v, bool do_dec)
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Handle stuff */
 	handle_stuff(cr_ptr);
@@ -4152,7 +4152,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 #endif
 			}
 
-			if (disturb_state) disturb(0, 0);
+			if (disturb_state) disturb(player_ptr, 0, 0);
 			break;
 		}
 
@@ -4167,7 +4167,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -4458,7 +4458,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 #endif
 			}
 
-			if (disturb_state) disturb(0, 0);
+			if (disturb_state) disturb(player_ptr, 0, 0);
 			break;
 		}
 
@@ -4473,7 +4473,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -4754,7 +4754,7 @@ bool set_food(creature_type *cr_ptr, int v)
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -5733,7 +5733,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 	if (damage_type != DAMAGE_USELIFE)
 	{
 		/* Disturb */
-		disturb(1, 0);
+		disturb(player_ptr, 1, 0);
 		if (auto_more)
 		{
 			now_damaged = TRUE;
@@ -6833,7 +6833,7 @@ msg_print("あらゆることに対する耐性が薄れた気がする。");
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -6898,7 +6898,7 @@ msg_print("地獄の力に対する耐性が薄れた気がする。");
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);
@@ -6963,7 +6963,7 @@ msg_print("時間逆転の力に対する耐性が薄れた気がする。");
 	if (!notice) return (FALSE);
 
 	/* Disturb */
-	if (disturb_state) disturb(0, 0);
+	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Recalculate bonuses */
 	cr_ptr->update |= (PU_BONUS);

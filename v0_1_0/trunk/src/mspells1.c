@@ -1635,7 +1635,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	// TODO Distinction of spell failure_rate
 	if ((in_no_magic_dungeon || (user_ptr->stun && one_in_(2)) || (randint0(100) < failrate)))
 	{
-		disturb(1, 0);
+		disturb(player_ptr, 1, 0);
 		/* Message */
 #ifdef JP
 		msg_format("%^sは呪文を唱えようとしたが失敗した。", m_name);
@@ -1668,7 +1668,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 	{
 		case CF_SHRIEK:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 msg_format("%^sがかん高い金切り声をあげた。", m_name);
 #else
@@ -1688,7 +1688,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 		case CF_DISPEL:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 			if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 			else msg_format("%^sが魔力消去の呪文を念じた。", m_name);
@@ -1711,7 +1711,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 
 		case CF_ROCKET:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かを射った。", m_name);
 #else
@@ -1734,7 +1734,7 @@ else msg_format("%^sがロケットを発射した。", m_name);
 		case CF_SHOOT:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが奇妙な音を発した。", m_name);
 #else
@@ -1773,7 +1773,7 @@ else msg_format("%^sが矢を放った。", m_name);
 
 		case CF_BR_ACID:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1794,7 +1794,7 @@ else msg_format("%^sが酸のブレスを吐いた。", m_name);
 
 		case CF_BR_ELEC:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1815,7 +1815,7 @@ else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
 
 		case CF_BR_FIRE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1836,7 +1836,7 @@ else msg_format("%^sが火炎のブレスを吐いた。", m_name);
 
 		case CF_BR_COLD:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1857,7 +1857,7 @@ else msg_format("%^sが冷気のブレスを吐いた。", m_name);
 
 		case CF_BR_POIS:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1878,7 +1878,7 @@ else msg_format("%^sがガスのブレスを吐いた。", m_name);
 
 		case CF_BR_NETH:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1899,7 +1899,7 @@ else msg_format("%^sが地獄のブレスを吐いた。", m_name);
 
 		case CF_BR_LITE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1920,7 +1920,7 @@ else msg_format("%^sが閃光のブレスを吐いた。", m_name);
 
 		case CF_BR_DARK:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1941,7 +1941,7 @@ else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
 
 		case CF_BR_CONF:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -1962,7 +1962,7 @@ else msg_format("%^sが混乱のブレスを吐いた。", m_name);
 
 		case CF_BR_SOUN:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (user_ptr->species_idx == MON_JAIAN)
 #ifdef JP
 				msg_format("「ボォエ～～～～～～」");
@@ -1989,7 +1989,7 @@ else msg_format("%^sが轟音のブレスを吐いた。", m_name);
 
 		case CF_BR_CHAO:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2010,7 +2010,7 @@ else msg_format("%^sがカオスのブレスを吐いた。", m_name);
 
 		case CF_BR_DISE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2031,7 +2031,7 @@ else msg_format("%^sが劣化のブレスを吐いた。", m_name);
 
 		case CF_BR_NEXU:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2052,7 +2052,7 @@ else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
 
 		case CF_BR_TIME:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2072,7 +2072,7 @@ else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
 
 		case CF_BR_INER:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2092,7 +2092,7 @@ else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
 
 		case CF_BR_GRAV:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2112,7 +2112,7 @@ else msg_format("%^sが重力のブレスを吐いた。", m_name);
 
 		case CF_BR_SHAR:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (user_ptr->species_idx == MON_BOTEI)
 #ifdef JP
 				msg_format("「ボ帝ビルカッター！！！」");
@@ -2139,7 +2139,7 @@ else msg_format("%^sが破片のブレスを吐いた。", m_name);
 
 		case CF_BR_PLAS:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2159,7 +2159,7 @@ else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
 
 		case CF_BR_WALL:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2179,7 +2179,7 @@ else msg_format("%^sがフォースのブレスを吐いた。", m_name);
 
 		case CF_BR_MANA:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2198,7 +2198,7 @@ else msg_format("%^sが魔力のブレスを吐いた。", m_name);
 
 		case CF_BA_NUKE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2219,7 +2219,7 @@ else msg_format("%^sが放射能球を放った。", m_name);
 
 		case CF_BR_NUKE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2240,7 +2240,7 @@ else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
 
 		case CF_BA_CHAO:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが恐ろしげにつぶやいた。", m_name);
 #else
@@ -2261,7 +2261,7 @@ else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
 
 		case CF_BR_DISI:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
@@ -2282,7 +2282,7 @@ else msg_format("%^sが分解のブレスを吐いた。", m_name);
 
 		case CF_BA_ACID:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2303,7 +2303,7 @@ else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
 
 		case CF_BA_ELEC:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2324,7 +2324,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 		case CF_BA_FIRE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 			if (user_ptr->species_idx == MON_ROLENTO)
 			{
@@ -2363,7 +2363,7 @@ else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 
 		case CF_BA_COLD:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2384,7 +2384,7 @@ else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 
 		case CF_BA_POIS:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2405,7 +2405,7 @@ else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 
 		case CF_BA_NETH:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2426,7 +2426,7 @@ else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 
 		case CF_BA_WATE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2452,7 +2452,7 @@ msg_print("あなたは渦巻きに飲み込まれた。");
 
 		case CF_BA_MANA:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
@@ -2472,7 +2472,7 @@ else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
 
 		case CF_BA_DARK:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
@@ -2494,7 +2494,7 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 		case CF_DRAIN_MANA:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 			dam = (randint1(rlev) / 2) + 1;
 			breath(y, x, user_ptr, GF_DRAIN_MANA, dam, 0, FALSE, MS_DRAIN_MANA, learnable);
@@ -2505,7 +2505,7 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 		case CF_MIND_BLAST:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (!seen)
 			{
 #ifdef JP
@@ -2533,7 +2533,7 @@ msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
 		case CF_BRAIN_SMASH:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (!seen)
 			{
 #ifdef JP
@@ -2561,7 +2561,7 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 		case CF_CAUSE_1:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2582,7 +2582,7 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 		case CF_CAUSE_2:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2603,7 +2603,7 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
 		case CF_CAUSE_3:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かを大声で叫んだ。", m_name);
 #else
@@ -2624,7 +2624,7 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
 		case CF_CAUSE_4:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", m_name);
 #else
@@ -2645,7 +2645,7 @@ else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m
 		case CF_BO_ACID:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2668,7 +2668,7 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 		case CF_BO_ELEC:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2691,7 +2691,7 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 		case CF_BO_FIRE:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2714,7 +2714,7 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 		case CF_BO_COLD:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2736,7 +2736,7 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 
 		case CF_BA_LITE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
@@ -2758,7 +2758,7 @@ else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
 		case CF_BO_NETH:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2781,7 +2781,7 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 		case CF_BO_WATE:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2803,7 +2803,7 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 		case CF_BO_MANA:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2825,7 +2825,7 @@ else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 		case CF_BO_PLAS:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2847,7 +2847,7 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 		case CF_BO_ICEE:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2870,7 +2870,7 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 		case CF_MISSILE:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2892,7 +2892,7 @@ else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 		case CF_SCARE:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", m_name);
 #else
@@ -2935,7 +2935,7 @@ msg_print("しかし恐怖に侵されなかった。");
 		case CF_BLIND:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -2978,7 +2978,7 @@ msg_print("しかし効力を跳ね返した！");
 		case CF_CONF:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", m_name);
 #else
@@ -3021,7 +3021,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 		case CF_SLOW:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 msg_format("%^sがあなたの筋力を吸い取ろうとした！", m_name);
 #else
@@ -3058,7 +3058,7 @@ msg_print("しかし効力を跳ね返した！");
 		case CF_HOLD:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3100,7 +3100,7 @@ msg_format("しかし効力を跳ね返した！");
 
 		case CF_HASTE:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (blind)
 			{
 #ifdef JP
@@ -3135,7 +3135,7 @@ msg_format("%^sが自分の体に念を送った。", m_name);
 		case CF_HAND_DOOM:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 msg_format("%^sが<破滅の手>を放った！", m_name);
 #else
@@ -3148,7 +3148,7 @@ msg_format("%^sが<破滅の手>を放った！", m_name);
 
 		case CF_HEAL:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 			/* Message */
 			if (blind)
@@ -3246,7 +3246,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 
 		case CF_INVULNER:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 			/* Message */
 			if (!seen)
@@ -3274,7 +3274,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 
 		case CF_BLINK:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (teleport_barrier(target_ptr, user_ptr))
 			{
 #ifdef JP
@@ -3298,7 +3298,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 
 		case CF_TPORT:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (teleport_barrier(target_ptr, user_ptr))
 			{
 #ifdef JP
@@ -3322,7 +3322,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		case CF_WORLD:
 		{
 			int who = 0;
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if(user_ptr->species_idx == MON_DIO) who = 1;
 			else if(user_ptr->species_idx == MON_WONG) who = 3;
 			dam = who;
@@ -3334,7 +3334,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		{
 			int k;
 
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			switch (user_ptr->species_idx)
 			{
 			case MON_OHMU:
@@ -3429,7 +3429,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			default:
 				if (r_ptr->d_char == 'B')
 				{
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 					if (one_in_(3) || !direct)
 					{
 #ifdef JP
@@ -3506,7 +3506,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 		case CF_TELE_TO:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 msg_format("%^sがあなたを引き戻した。", m_name);
 #else
@@ -3521,7 +3521,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 		case CF_TELE_AWAY:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 			msg_format("%^sにテレポートさせられた。", m_name);
 
@@ -3542,7 +3542,7 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 		case CF_TELE_LEVEL:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", m_name);
 #else
@@ -3585,7 +3585,7 @@ msg_print("しかし効力を跳ね返した！");
 		case CF_PSY_SPEAR:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3606,7 +3606,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 		case CF_DARKNESS:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3632,7 +3632,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 
 		case CF_TRAPS:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", m_name);
 #else
@@ -3653,7 +3653,7 @@ else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 		case CF_FORGET:
 		{
 			if (!direct) return (FALSE);
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
 #else
@@ -3685,7 +3685,7 @@ msg_print("記憶が薄れてしまった。");
 
 	case CF_RAISE_DEAD:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3703,7 +3703,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 
 		case CF_S_KIN:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 			if (user_ptr->species_idx == MON_SERPENT || user_ptr->species_idx == MON_ZOMBI_SERPENT)
 			{
 #ifdef JP
@@ -3825,7 +3825,7 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 
 		case CF_S_CYBER:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3850,7 +3850,7 @@ if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
 
 		case CF_S_MONSTER:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3878,7 +3878,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 
 		case CF_S_MONSTERS:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3906,7 +3906,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 
 		case CF_S_ANT:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3934,7 +3934,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 
 		case CF_S_SPIDER:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3962,7 +3962,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 
 		case CF_S_HOUND:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -3990,7 +3990,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 
 		case CF_S_HYDRA:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4020,7 +4020,7 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		{
 			int num = 1;
 
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4065,7 +4065,7 @@ if (blind) msg_print("多くのものが間近に現れた音がする。");
 
 		case CF_S_DEMON:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4093,7 +4093,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 
 		case CF_S_UNDEAD:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4121,7 +4121,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 
 		case CF_S_DRAGON:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4149,7 +4149,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 
 		case CF_S_HI_UNDEAD:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 			if (((user_ptr->species_idx == MON_MORGOTH) || (user_ptr->species_idx == MON_SAURON) || (user_ptr->species_idx == MON_ANGMAR)) && ((species_info[MON_NAZGUL].cur_num+2) < species_info[MON_NAZGUL].max_num))
 			{
@@ -4243,7 +4243,7 @@ msg_print("間近で何か多くのものが這い回る音が聞こえる。");
 
 		case CF_S_HI_DRAGON:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4274,7 +4274,7 @@ msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 
 		case CF_S_AMBERITES:
 		{
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
@@ -4310,7 +4310,7 @@ msg_print("不死の者が近くに現れるのが聞こえた。");
 			bool uniques_are_summoned = FALSE;
 			int non_unique_type = SUMMON_HI_UNDEAD;
 
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else

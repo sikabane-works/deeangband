@@ -8074,7 +8074,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Pick up gold */
 		if (o_ptr->tval == TV_GOLD)

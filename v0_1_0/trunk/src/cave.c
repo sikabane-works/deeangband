@@ -5030,7 +5030,7 @@ void object_kind_track(creature_type *creature_ptr, int k_idx)
  *
  * All disturbance cancels repeated commands, resting, and running.
  */
-void disturb(int stop_search, int unused_flag)
+void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 {
 	/* Unused */
 	unused_flag = unused_flag;
@@ -5049,10 +5049,10 @@ void disturb(int stop_search, int unused_flag)
 	}
 
 	/* Cancel Resting */
-	if ((p_ptr->action == ACTION_REST) || (p_ptr->action == ACTION_FISH) || (stop_search && (p_ptr->action == ACTION_SEARCH)))
+	if ((player_ptr->action == ACTION_REST) || (player_ptr->action == ACTION_FISH) || (stop_search && (player_ptr->action == ACTION_SEARCH)))
 	{
 		/* Cancel */
-		set_action(p_ptr, ACTION_NONE);
+		set_action(player_ptr, ACTION_NONE);
 	}
 
 	/* Cancel running */
@@ -5062,13 +5062,13 @@ void disturb(int stop_search, int unused_flag)
 		running = 0;
 
 		/* Check for new panel if appropriate */
-		if (center_player && !center_running) verify_panel(p_ptr);
+		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		p_ptr->update |= (PU_TORCH);
+		player_ptr->update |= (PU_TORCH);
 
 		/* Update monster flow */
-		p_ptr->update |= (PU_FLOW);
+		player_ptr->update |= (PU_FLOW);
 	}
 
 #ifdef TRAVEL
@@ -5078,10 +5078,10 @@ void disturb(int stop_search, int unused_flag)
 		travel.run = 0;
 
 		/* Check for new panel if appropriate */
-		if (center_player && !center_running) verify_panel(p_ptr);
+		if (center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		p_ptr->update |= (PU_TORCH);
+		player_ptr->update |= (PU_TORCH);
 	}
 #endif
 

@@ -3089,7 +3089,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (disturb_near && (projectable(m_ptr->fy, m_ptr->fx, cr_ptr->fy, cr_ptr->fx) && projectable(cr_ptr->fy, cr_ptr->fx, m_ptr->fy, m_ptr->fx)))
 			{
 				if (disturb_pets || is_hostile(m_ptr))
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 			}
 		}
 	}
@@ -3114,7 +3114,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(m_ptr))
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 			}
 		}
 	}
@@ -3133,7 +3133,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(m_ptr))
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 			}
 		}
 	}
@@ -3152,7 +3152,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			if (do_disturb)
 			{
 				if (disturb_pets || is_hostile(m_ptr))
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 			}
 		}
 	}

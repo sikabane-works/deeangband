@@ -1286,7 +1286,7 @@ void do_cmd_open(creature_type *cr_ptr)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -1450,7 +1450,7 @@ void do_cmd_close(creature_type *cr_ptr)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -1752,7 +1752,7 @@ void do_cmd_tunnel(creature_type *cr_ptr)
 	}
 
 	/* Cancel repetition unless we can continue */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2218,7 +2218,7 @@ void do_cmd_disarm(creature_type *cr_ptr)
 	}
 
 	/* Cancel repeat unless told not to */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2428,7 +2428,7 @@ void do_cmd_bash(creature_type *cr_ptr)
 	}
 
 	/* Unless valid action taken, cancel bash */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2540,7 +2540,7 @@ void do_cmd_alter(creature_type *cr_ptr)
 	}
 
 	/* Cancel repetition unless we can continue */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2749,7 +2749,7 @@ void do_cmd_walk(creature_type *cr_ptr, bool pickup)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(0, 0);
+	if (!more) disturb(player_ptr, 0, 0);
 }
 
 

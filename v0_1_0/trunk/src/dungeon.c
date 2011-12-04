@@ -177,7 +177,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	}
 
 	/* Stop everything */
-	if (disturb_minor) disturb(0, 0);
+	if (disturb_minor) disturb(player_ptr, 0, 0);
 
 	/* Get an object description */
 	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -1134,7 +1134,7 @@ static void notice_lite_change(creature_type *cr_ptr, object_type *o_ptr)
 	/* The light is now out */
 	else if (o_ptr->xtra4 == 0)
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 msg_print("明かりが消えてしまった！");
 #else
@@ -1154,7 +1154,7 @@ msg_print("明かりが消えてしまった！");
 		if ((o_ptr->xtra4 < 50) && (!(o_ptr->xtra4 % 5))
 		    && (turn % (TURNS_PER_TICK*2)))
 		{
-			if (disturb_minor) disturb(0, 0);
+			if (disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
 msg_print("明かりが微かになってきている。");
 #else
@@ -1167,7 +1167,7 @@ msg_print("明かりが微かになってきている。");
 	/* The light is getting dim */
 	else if ((o_ptr->xtra4 < 100) && (!(o_ptr->xtra4 % 10)))
 	{
-		if (disturb_minor) disturb(0, 0);
+		if (disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
 msg_print("明かりが微かになってきている。");
 #else
@@ -1377,7 +1377,7 @@ static void recharged_notice(object_type *o_ptr)
 				msg_format("Your %s is recharged.", o_name);
 #endif
 
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Done. */
 			return;
@@ -2311,7 +2311,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 	if (has_cf_creature(cr_ptr, CF_BERS_RAGE) && one_in_(3000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("ウガァァア！");
 		msg_print("激怒の発作に襲われた！");
@@ -2328,7 +2328,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	{
 		if (!cr_ptr->resist_fear)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 #ifdef JP
 			msg_print("とても暗い... とても恐い！");
 #else
@@ -2344,7 +2344,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		if (!cr_ptr->resist_nexus && !has_cf_creature(cr_ptr, CF_VTELEPORT) &&
 		    !cr_ptr->anti_tele)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Teleport player */
 #ifdef JP
@@ -2362,7 +2362,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	{
 		if (!cr_ptr->resist_conf && !cr_ptr->resist_chaos)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
 #ifdef JP
 			msg_print("いひきがもーろーとひてきたきがふる...ヒック！");
@@ -2415,7 +2415,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	{
 		if (!cr_ptr->resist_chaos)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
 			(void)set_image(cr_ptr, cr_ptr->image + randint0(50) + 20);
 		}
@@ -2423,7 +2423,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 	if (has_cf_creature(cr_ptr, CF_FLATULENT) && (randint1(3000) == 13))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 #ifdef JP
 		msg_print("ブゥーーッ！おっと。");
@@ -2439,7 +2439,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	    !cr_ptr->anti_magic && one_in_(9000))
 	{
 		int dire = 0;
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("魔法のエネルギーが突然あなたの中に流れ込んできた！エネルギーを解放しなければならない！");
 #else
@@ -2470,13 +2470,13 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You have attracted a demon!");
 #endif
 
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 	}
 
 	if (has_cf_creature(cr_ptr, CF_SPEED_FLUX) && one_in_(6000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 		if (one_in_(2))
 		{
 #ifdef JP
@@ -2515,7 +2515,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	}
 	if (has_cf_creature(cr_ptr, CF_BANISH_ALL) && one_in_(9000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("突然ほとんど孤独になった気がする。");
 #else
@@ -2594,14 +2594,14 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You have attracted an animal!");
 #endif
 
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 	}
 
 	if (has_cf_creature(cr_ptr, CF_RAW_CHAOS) &&
 	    !cr_ptr->anti_magic && one_in_(8000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("周りの空間が歪んでいる気がする！");
 #else
@@ -2623,7 +2623,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	}
 	if (has_cf_creature(cr_ptr, CF_WRAITH) && !cr_ptr->anti_magic && one_in_(3000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("非物質化した！");
 #else
@@ -2674,7 +2674,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 
 		if (!sustained)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 #ifdef JP
 			msg_print("自分が衰弱していくのが分かる！");
 #else
@@ -2702,7 +2702,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 			msg_print("You have attracted a dragon!");
 #endif
 
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 	}
 	if (has_cf_creature(cr_ptr, CF_WEIRD_MIND) && !cr_ptr->anti_magic &&
@@ -2732,7 +2732,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (has_cf_creature(cr_ptr, CF_NAUSEA) && !cr_ptr->slow_digest &&
 	    one_in_(9000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("胃が痙攣し、食事を失った！");
 #else
@@ -2816,7 +2816,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 	if (has_cf_creature(cr_ptr, CF_INVULN) && !cr_ptr->anti_magic &&
 	    one_in_(5000))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("無敵な気がする！");
 #else
@@ -2877,7 +2877,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		int slot = 0;
 		object_type *o_ptr = NULL;
 
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("足がもつれて転んだ！");
 		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, randint1(cr_ptr->wt / 6), "転倒", NULL, -1);
@@ -2972,7 +2972,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			if (get_check_strict("Teleport? ", CHECK_OKAY_CANCEL))
 #endif
 			{
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 				teleport_player(cr_ptr, 50, 0L);
 			}
 			else
@@ -2982,7 +2982,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 #else
 				msg_format("You can inscribe {.} on your %s to disable random teleportation. ", o_name);
 #endif
-				disturb(1, 0);
+				disturb(player_ptr, 1, 0);
 			}
 		}
 		/* Make a chainsword noise */
@@ -2995,7 +2995,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			if (!get_rnd_line("chainswd.txt", 0, noise))
 #endif
 				msg_print(noise);
-			disturb(FALSE, FALSE);
+			disturb(player_ptr, FALSE, FALSE);
 		}
 		/* TY Curse */
 		if ((cr_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
@@ -3082,7 +3082,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				msg_format("Your %s have attracted an animal!", o_name);
 #endif
 
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 			}
 		}
 		/* Call demon */
@@ -3099,7 +3099,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				msg_format("Your %s have attracted a demon!", o_name);
 #endif
 
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 			}
 		}
 		/* Call dragon */
@@ -3117,14 +3117,14 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 				msg_format("Your %s have attracted an animal!", o_name);
 #endif
 
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 			}
 		}
 		if ((cr_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
 		{
 			if (!cr_ptr->resist_fear)
 			{
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 #ifdef JP
 				msg_print("とても暗い... とても恐い！");
 #else
@@ -3137,7 +3137,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		/* Teleport player */
 		if ((cr_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !cr_ptr->anti_tele)
 		{
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Teleport player */
 			teleport_player(cr_ptr, 40, TELEPORT_PASSIVE);
@@ -3339,7 +3339,7 @@ static void process_world_aux_movement(creature_type *cr_ptr)
 		if (!cr_ptr->word_recall)
 		{
 			/* Disturbing! */
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
 			if (dun_level || inside_quest)
@@ -3458,7 +3458,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 		if (!cr_ptr->alter_reality)
 		{
 			/* Disturbing! */
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
 			if (!quest_number(dun_level) && dun_level)
@@ -3724,7 +3724,7 @@ static void update_dungeon_feeling(creature_type *cr_ptr)
 	play_redraw |= (PR_DEPTH);
 
 	/* Disturb */
-	if (disturb_minor) disturb(0, 0);
+	if (disturb_minor) disturb(player_ptr, 0, 0);
 }
 
 
@@ -3844,7 +3844,7 @@ static void process_world(creature_type *cr_ptr)
 			if (closing_flag <= 2)
 			{
 				/* Disturb */
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 
 				/* Count warnings */
 				closing_flag++;
@@ -4057,7 +4057,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		if ((hour == 23) && !(min % 15))
 		{
 			/* Disturbing */
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			switch (min / 15)
 			{
@@ -4100,7 +4100,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 		{
 			int count = 0;
 
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 #ifdef JP
 			msg_print("遠くで鐘が何回も鳴り、死んだような静けさの中へ消えていった。");
 #else
@@ -4164,7 +4164,7 @@ msg_print("今、アングバンドへの門が閉ざされました。");
 				msg_print("You faint from the lack of food.");
 #endif
 
-				disturb(1, 0);
+				disturb(player_ptr, 1, 0);
 
 				/* Hack -- faint (bypass free action) */
 				(void)set_paralyzed(cr_ptr, cr_ptr->paralyzed + 1 + randint0(5));
@@ -5427,7 +5427,7 @@ static void pack_overflow(creature_type *cr_ptr)
 		o_ptr = &cr_ptr->inventory[INVEN_PACK];
 
 		/* Disturbing */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Warning */
 #ifdef JP
@@ -5585,7 +5585,7 @@ msg_print("何か変わった気がする！");
 				msg_print("Damn!  The fish stole your bait!");
 #endif
 			}
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 	}
 
@@ -5605,7 +5605,7 @@ msg_print("何か変わった気がする！");
 				flush();
 
 				/* Disturb */
-				disturb(0, 0);
+				disturb(player_ptr, 0, 0);
 
 				/* Hack -- Show a Message */
 #ifdef JP
@@ -6131,7 +6131,7 @@ static void dungeon(creature_type *cr_ptr, bool load_game)
 
 
 	/* Disturb */
-	disturb(1, 0);
+	disturb(player_ptr, 1, 0);
 
 	/* Get index of current quest (if any) */
 	quest_num = quest_number(dun_level);

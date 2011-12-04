@@ -725,7 +725,7 @@ extern void scatter(int *yp, int *xp, int y, int x, int d, int mode);
 extern void health_track(int m_idx);
 extern void species_type_track(int species_idx);
 extern void object_kind_track(creature_type *creature_ptr, int k_idx);
-extern void disturb(int stop_search, int flush_output);
+extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(void);
 
 /* cmd1.c */

@@ -646,7 +646,7 @@ void search(creature_type *cr_ptr)
 #endif
 
 					/* Disturb */
-					disturb(0, 0);
+					disturb(player_ptr, 0, 0);
 				}
 
 				/* Secret door */
@@ -663,7 +663,7 @@ void search(creature_type *cr_ptr)
 					disclose_grid(y, x);
 
 					/* Disturb */
-					disturb(0, 0);
+					disturb(player_ptr, 0, 0);
 				}
 
 				/* Scan all objects in the grid */
@@ -697,7 +697,7 @@ void search(creature_type *cr_ptr)
 						object_known(o_ptr);
 
 						/* Notice it */
-						disturb(0, 0);
+						disturb(player_ptr, 0, 0);
 					}
 				}
 			}
@@ -871,7 +871,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Count non-gold objects */
 		floor_num++;
@@ -916,7 +916,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Pick up gold */
 		if (o_ptr->tval == TV_GOLD)
@@ -1064,7 +1064,7 @@ static void hit_trap(creature_type *cr_ptr, bool break_trap)
 #endif
 
 	/* Disturb the player */
-	disturb(0, 0);
+	disturb(player_ptr, 0, 0);
 
 	cave_alter_feat(y, x, FF_HIT_TRAP);
 
@@ -3072,7 +3072,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 
 	/* Disturb the player */
-	disturb(0, 0);
+	disturb(player_ptr, 0, 0);
 
 	energy_use = 100;
 
@@ -3637,7 +3637,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	if (have_flag(f_ptr->flags, FF_STORE))
 	{
 		/* Disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		energy_use = 0;
 		/* Hack -- Enter store */
@@ -3648,7 +3648,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	else if (have_flag(f_ptr->flags, FF_BLDG))
 	{
 		/* Disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		energy_use = 0;
 		/* Hack -- Enter building */
@@ -3659,7 +3659,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	else if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 	{
 		/* Disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		energy_use = 0;
 		/* Hack -- Enter quest level */
@@ -3696,7 +3696,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 	else if (have_flag(f_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MPE_STAYING))
 	{
 		/* Disturb */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Hidden trap */
 		if (c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET))
@@ -3737,7 +3737,7 @@ bool move_creature_effect(creature_type *cr_ptr, int ny, int nx, u32b mpe_mode)
 #endif
 			}
 
-			if (disturb_trap_detect) disturb(0, 0);
+			if (disturb_trap_detect) disturb(player_ptr, 0, 0);
 		}
 	}
 
@@ -4046,7 +4046,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 #endif
 			energy_use = 0;
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 		else if (steed_ptr->afraid)
 		{
@@ -4062,12 +4062,12 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			msg_format("%^s is too scared to control.", m_name);
 #endif
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 		else if (cr_ptr->riding_ryoute)
 		{
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 		else if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_cf_creature(steed_ptr, CF_CAN_FLY))
 		{
@@ -4088,7 +4088,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 #endif
 			energy_use = 0;
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 		else if (!have_flag(f_ptr->flags, FF_WATER) && has_cf_creature(steed_ptr, CF_AQUATIC))
 		{
@@ -4099,7 +4099,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 #endif
 			energy_use = 0;
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 		else if (have_flag(f_ptr->flags, FF_LAVA) && !is_resist_fire_creature(steed_ptr))
 		{
@@ -4110,7 +4110,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 #endif
 			energy_use = 0;
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 
 		if (oktomove && steed_ptr->stun && one_in_(2))
@@ -4123,7 +4123,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			msg_format("You cannot control stunned %s!",m_name);
 #endif
 			oktomove = FALSE;
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 		}
 	}
 
@@ -4179,7 +4179,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		oktomove = FALSE;
 
 		/* Disturb the player */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		/* Notice things in the dark */
 		if (!(c_ptr->info & CAVE_MARK) && !player_can_see_bold(cr_ptr, y, x))
@@ -4278,7 +4278,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		}
 
 		/* To avoid a loop with running */
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 
 		oktomove = FALSE;
 	}
@@ -5061,7 +5061,7 @@ void run_step(creature_type *cr_ptr, int dir)
 #endif
 
 			/* Disturb */
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Done */
 			return;
@@ -5078,7 +5078,7 @@ void run_step(creature_type *cr_ptr, int dir)
 		if (run_test(cr_ptr))
 		{
 			/* Disturb */
-			disturb(0, 0);
+			disturb(player_ptr, 0, 0);
 
 			/* Done */
 			return;
@@ -5106,7 +5106,7 @@ void run_step(creature_type *cr_ptr, int dir)
 	{
 		cr_ptr->run_py = 0;
 		cr_ptr->run_px = 0;
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 	}
 }
 
@@ -5225,7 +5225,7 @@ void travel_step(creature_type *cr_ptr)
 			msg_print("No route is found!");
 #endif
 		}
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 		return;
 	}
 
@@ -5244,7 +5244,7 @@ void travel_step(creature_type *cr_ptr)
 	/* Close door */
 	if (!easy_open && is_closed_door(cave[cr_ptr->fy+ddy[dir]][cr_ptr->fx+ddx[dir]].feat))
 	{
-		disturb(0, 0);
+		disturb(player_ptr, 0, 0);
 		return;
 	}
 

@@ -254,7 +254,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		if (!effect || check_hit(tar_ptr, power, rlev, atk_ptr->stun))
 		{
 			/* Always disturbing */
-			disturb(1, 0);
+			disturb(player_ptr, 1, 0);
 
 
 			/* Hack -- Apply "protection from evil" */
@@ -2206,7 +2206,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 				if (atk_ptr->ml)
 				{
 					/* Disturbing */
-					disturb(1, 0);
+					disturb(player_ptr, 1, 0);
 
 					/* Message */
 #ifdef JP

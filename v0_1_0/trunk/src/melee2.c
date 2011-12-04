@@ -212,7 +212,7 @@ void mon_take_hit_mon(creature_type *player_ptr, creature_type *cr_ptr, int dam,
 	(void)set_paralyzed(cr_ptr, 0);
 
 
-	if (player_ptr->riding && (cr_ptr == &creature_list[player_ptr->riding])) disturb(1, 0);
+	if (player_ptr->riding && (cr_ptr == &creature_list[player_ptr->riding])) disturb(player_ptr, 1, 0);
 
 	if (cr_ptr->invuln && randint0(PENETRATE_INVULNERABILITY))
 	{
@@ -1617,7 +1617,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 				msg_format("%^s seems to be in so much pain, and trying to escape from your restriction.", m_name);
 #endif
 				riding_pinch++;
-				disturb(1, 0);
+				disturb(player_ptr, 1, 0);
 			}
 			else
 			{
@@ -1838,7 +1838,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 		    one_in_(CYBERNOISE) &&
 		    !nonplayer_ptr->ml && (nonplayer_ptr->cdis <= MAX_SIGHT))
 		{
-			if (disturb_minor) disturb(FALSE, FALSE);
+			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
 #ifdef JP
 			msg_print("dŒú‚È‘«‰¹‚ª•·‚±‚¦‚½B");
 #else
@@ -2202,7 +2202,7 @@ msg_format("%^s%s", m_name, monmessage);
 #endif
 
 					/* Disturb (sometimes) */
-					if (disturb_minor) disturb(0, 0);
+					if (disturb_minor) disturb(player_ptr, 0, 0);
 
 					/* The door was bashed open */
 					did_bash_door = TRUE;
@@ -2573,7 +2573,7 @@ msg_format("%^s%s", m_name, monmessage);
 			{
 				/* Disturb */
 				if (is_hostile(nonplayer_ptr))
-					disturb(0, 0);
+					disturb(player_ptr, 0, 0);
 			}
 
 			/* Take or Kill objects on the floor */
