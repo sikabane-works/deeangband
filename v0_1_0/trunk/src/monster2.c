@@ -3785,8 +3785,6 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
-	return;
-
 	// Item depend on Character
 
 	if(creature_ptr->chara_idx == CHARA_SEXY)
@@ -3797,6 +3795,19 @@ void deal_item(creature_type *creature_ptr)
 
 	/* Hack -- make aware of the water */
 	k_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
+
+
+	/* Apply Magic */
+	for(i = INVEN_1STARM; i < INVEN_TOTAL; i++)
+	{
+		if(creature_ptr->inventory[i].k_idx)
+		{
+			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, AM_UNCURSED);
+		}
+	}
+
+
+	return;
 
 }
 

@@ -4216,11 +4216,11 @@ static void a_m_aux_4(creature_type *creature_ptr, object_type *o_ptr, int level
  * "good" and "great" arguments are false.  As a total hack, if "great" is
  * true, then the item gets 3 extra "attempts" to become an artifact.
  */
-void apply_magic(creature_type *player_ptr, object_type *o_ptr, int lev, u32b mode)
+void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode)
 {
 	int i, rolls, f1, f2, power;
 
-	if (player_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(player_ptr->lev/2+10);
+	if (player_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(player_ptr->lev / 2 + 10);
 
 	/* Maximum "level" for various things */
 	if (lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1;
