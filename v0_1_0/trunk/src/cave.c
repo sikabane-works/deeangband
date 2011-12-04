@@ -615,7 +615,7 @@ bool cave_valid_bold(int y, int x)
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Forbid artifact grids */
-		if (object_is_artifact(p_ptr, o_ptr)) return (FALSE);
+		if (object_is_artifact(o_ptr)) return (FALSE);
 	}
 
 	/* Accept */

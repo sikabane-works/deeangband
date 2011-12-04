@@ -6686,7 +6686,7 @@ void calc_android_exp(creature_type *cr_ptr)
 		if (value > 5000000L) value = 5000000L;
 		if ((o_ptr->tval == TV_DRAG_ARMOR) || (o_ptr->tval == TV_CARD)) level /= 2;
 
-		if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr) ||
+		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr) ||
 		    (o_ptr->tval == TV_DRAG_ARMOR) ||
 		    ((o_ptr->tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM)) ||
 		    ((o_ptr->tval == TV_SHIELD) && (o_ptr->sval == SV_DRAGON_SHIELD)) ||

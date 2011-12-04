@@ -1532,7 +1532,7 @@ s32b object_value(object_type *o_ptr)
 bool can_player_destroy_object(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Artifacts cannot be destroyed */
-	if (!object_is_artifact(cr_ptr, o_ptr)) return TRUE;
+	if (!object_is_artifact(o_ptr)) return TRUE;
 
 	/* If object is unidentified, makes fake inscription */
 	if (!object_is_known(o_ptr))
@@ -1790,7 +1790,7 @@ int object_similar_part(object_type *o_ptr, object_type *j_ptr)
 			if (o_ptr->pval != j_ptr->pval) return 0;
 
 			/* Artifacts never stack */
-			if (object_is_artifact(p_ptr, o_ptr) || object_is_artifact(p_ptr, j_ptr)) return 0;
+			if (object_is_artifact(o_ptr) || object_is_artifact(j_ptr)) return 0;
 
 			/* Require identical "ego-item" names */
 			if (o_ptr->name2 != j_ptr->name2) return 0;
@@ -4978,7 +4978,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Handle normal "breakage" */
-	if (!object_is_artifact(p_ptr, j_ptr) && (randint0(100) < chance))
+	if (!object_is_artifact(j_ptr) && (randint0(100) < chance))
 	{
 		/* Message */
 		if(player_can_see_bold(player_ptr, y, x))
@@ -5098,7 +5098,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 
 
 	/* Handle lack of space */
-	if (!flag && !object_is_artifact(p_ptr, j_ptr))
+	if (!flag && !object_is_artifact(j_ptr))
 	{
 		/* Message */
 #ifdef JP
@@ -8100,7 +8100,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if ((mode != 10) && (object_is_artifact(creature_ptr, o_ptr) || object_is_smith(creature_ptr, o_ptr)))
+	if ((mode != 10) && (object_is_artifact(o_ptr) || object_is_smith(creature_ptr, o_ptr)))
 	{
 #ifdef JP
 		msg_print("そのアイテムはこれ以上改良できない。");

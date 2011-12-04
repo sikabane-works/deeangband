@@ -549,7 +549,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 		}
 
 		/* Artifact */
-		else if (object_is_artifact(cr_ptr, o_ptr))
+		else if (object_is_artifact(o_ptr))
 			ADD_FLG(FLG_ARTIFACT);
 
 		/* Non-ego, non-artifact */
@@ -1096,7 +1096,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Artifact object ***/
 	if (IS_FLG(FLG_ARTIFACT))
 	{
-		if (!object_is_known(o_ptr) || !object_is_artifact(cr_ptr, o_ptr))
+		if (!object_is_known(o_ptr) || !object_is_artifact(o_ptr))
 			return FALSE;
 	}
 
@@ -1974,7 +1974,7 @@ bool autopick_autoregister(creature_type *cr_ptr, object_type *o_ptr)
 	}
 
 	/* Known to be an artifact? */
-	if ((object_is_known(o_ptr) && object_is_artifact(cr_ptr, o_ptr)) ||
+	if ((object_is_known(o_ptr) && object_is_artifact(o_ptr)) ||
 	    ((o_ptr->ident & IDENT_SENSE) &&
 	     (o_ptr->feeling == FEEL_TERRIBLE || o_ptr->feeling == FEEL_SPECIAL)))
 	{

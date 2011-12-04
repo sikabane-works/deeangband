@@ -1100,7 +1100,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 
 
 	/* Artifacts have 71% chance to resist */
-	if (object_is_artifact(cr_ptr, o_ptr) && (randint0(100) < 71))
+	if (object_is_artifact(o_ptr) && (randint0(100) < 71))
 	{
 		/* Message */
 #ifdef JP
@@ -1369,7 +1369,7 @@ s = "強化できる武器がない。";
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
 	/* TY: You _can_ modify broken items (if you're silly enough) */
-	if (o_ptr->k_idx && !object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) &&
 	    !((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DOKUBARI)) &&
 	    !((o_ptr->tval == TV_POLEARM) && (o_ptr->sval == SV_DEATH_SCYTHE)) &&
@@ -2410,7 +2410,7 @@ bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag)
 {
 	int     i, chance, prob;
 	bool    res = FALSE;
-	bool    a = object_is_artifact(cr_ptr, o_ptr);
+	bool    a = object_is_artifact(o_ptr);
 	bool    force = (eflag & ENCH_FORCE);
 
 
@@ -2658,7 +2658,7 @@ bool artifact_scroll(creature_type *user_ptr)
 		  ((o_ptr->number > 1) ? "" : "s"));
 #endif
 
-	if (object_is_artifact(user_ptr, o_ptr))
+	if (object_is_artifact(o_ptr))
 	{
 #ifdef JP
 		msg_format("%sは既に伝説のアイテムです！", o_name  );
@@ -3570,7 +3570,7 @@ msg_format("%s は既に祝福されている。",
 		return TRUE;
 	}
 
-	if (!(object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
+	if (!(object_is_artifact(o_ptr) || object_is_ego(o_ptr)) || one_in_(3))
 	{
 		/* Describe */
 #ifdef JP
@@ -3701,7 +3701,7 @@ s = "磨く盾がありません。";
 	/* Extract the flags */
 	object_flags(o_ptr, flgs);
 
-	if (o_ptr->k_idx && !object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) &&
+	if (o_ptr->k_idx && !object_is_artifact(o_ptr) && !object_is_ego(o_ptr) &&
 	    !object_is_cursed(o_ptr) && (o_ptr->sval != SV_MIRROR_SHIELD))
 	{
 #ifdef JP
@@ -4816,7 +4816,7 @@ int inven_damage(creature_type *cr_ptr, inven_func typ, int perc)
 		if (!o_ptr->k_idx) continue;
 
 		/* Hack -- for now, skip artifacts */
-		if (object_is_artifact(cr_ptr, o_ptr)) continue;
+		if (object_is_artifact(o_ptr)) continue;
 
 		/* Give this item slot a shot at death */
 		if ((*typ)(o_ptr))
@@ -5188,7 +5188,7 @@ bool curse_armor(creature_type *cr_ptr)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if (object_is_artifact(cr_ptr, o_ptr) && (randint0(100) < 50))
+	if (object_is_artifact(o_ptr) && (randint0(100) < 50))
 	{
 		/* Cool */
 #ifdef JP
@@ -5267,7 +5267,7 @@ bool curse_weapon(bool force, int slot)
 	object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw */
-	if (object_is_artifact(p_ptr, o_ptr) && (randint0(100) < 50) && !force)
+	if (object_is_artifact(o_ptr) && (randint0(100) < 50) && !force)
 	{
 		/* Cool */
 #ifdef JP
@@ -5341,7 +5341,7 @@ bool brand_bolts(creature_type *cr_ptr)
 		if (o_ptr->tval != TV_BOLT) continue;
 
 		/* Skip artifacts and ego-items */
-		if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
+		if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
 			continue;
 
 		/* Skip cursed/broken items */

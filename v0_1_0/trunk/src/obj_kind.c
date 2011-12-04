@@ -297,7 +297,7 @@ bool object_is_smith(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is artifact
  */
-bool object_is_artifact(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_artifact(object_type *o_ptr)
 {
 	if (object_is_fixed_artifact(o_ptr) || o_ptr->art_name) return TRUE;
 
@@ -317,7 +317,7 @@ bool object_is_artifact_aux(object_type *o_ptr)
  */
 bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (!object_is_artifact(cr_ptr, o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(cr_ptr, o_ptr))
+	if (!object_is_artifact(o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(cr_ptr, o_ptr))
 		return TRUE;
 
 	return FALSE;

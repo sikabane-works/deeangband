@@ -11573,7 +11573,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(cr_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s ‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½B", o_name);
@@ -11614,7 +11614,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);
@@ -12039,7 +12039,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(cr_ptr, o_ptr) || have_flag(f, TR_BLESSED)))
+				(object_is_artifact(o_ptr) || have_flag(f, TR_BLESSED)))
 			{
 #ifdef JP
 				msg_format("%s ‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½B", o_name);
@@ -12080,7 +12080,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 #endif
 				o_ptr->curse_flags |= (TRC_CURSED);
 
-				if (object_is_artifact(cr_ptr, o_ptr) || object_is_ego(o_ptr))
+				if (object_is_artifact(o_ptr) || object_is_ego(o_ptr))
 				{
 
 					if (one_in_(3)) o_ptr->curse_flags |= (TRC_HEAVY_CURSE);

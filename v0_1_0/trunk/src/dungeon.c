@@ -39,10 +39,11 @@ static void k_info_reset(void)
 /*
  * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
  */
+//TODO
 static byte value_check_aux1(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Artifacts */
-	if (object_is_artifact(cr_ptr, o_ptr))
+	if (object_is_artifact(o_ptr))
 	{
 		/* Cursed/Broken */
 		if (object_is_cursed(o_ptr) || object_is_broken(o_ptr)) return FEEL_TERRIBLE;
@@ -92,7 +93,7 @@ static byte value_check_aux2(creature_type *cr_ptr, object_type *o_ptr)
 	if (object_is_broken(o_ptr)) return FEEL_BROKEN;
 
 	/* Artifacts -- except cursed/broken ones */
-	if (object_is_artifact(cr_ptr, o_ptr)) return FEEL_UNCURSED;
+	if (object_is_artifact(o_ptr)) return FEEL_UNCURSED;
 
 	/* Ego-Items -- except cursed/broken ones */
 	if (object_is_ego(o_ptr)) return FEEL_UNCURSED;
@@ -3617,7 +3618,7 @@ static byte get_dungeon_feeling(void)
 		}
 
 		/* Artifacts */
-		if (object_is_artifact(p_ptr, o_ptr))
+		if (object_is_artifact(o_ptr))
 		{
 			s32b cost = object_value_real(o_ptr);
 

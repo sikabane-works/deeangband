@@ -1977,7 +1977,7 @@ extern bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_p
 extern bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_is_smith(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_artifact(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_artifact(object_type *o_ptr);
 extern bool object_is_artifact_aux(object_type *o_ptr);
 extern bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr);

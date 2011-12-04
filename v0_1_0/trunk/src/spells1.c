@@ -1306,7 +1306,7 @@ static bool project_o(creature_type *user_ptr, int r, int y, int x, int dam, int
 		object_flags(o_ptr, flgs);
 
 		/* Check for artifact */
-		if (object_is_artifact(p_ptr, o_ptr)) is_art = TRUE;
+		if (object_is_artifact(o_ptr)) is_art = TRUE;
 
 		/* Analyze the type */
 		switch (typ)

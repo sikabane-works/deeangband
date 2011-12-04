@@ -6038,7 +6038,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
 	    || ((tval == TV_HELM) && (o_ptr->sval == SV_DRAGON_HELM))
 	    || ((tval == TV_GLOVES) && (o_ptr->sval == SV_SET_OF_DRAGON_GLOVES))
 	    || ((tval == TV_BOOTS) && (o_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE))
-	    || object_is_artifact(p_ptr, o_ptr))
+	    || object_is_artifact(o_ptr))
 	{
 		int i = 0;
 		object_desc(o_name, o_ptr, OD_NAME_ONLY);

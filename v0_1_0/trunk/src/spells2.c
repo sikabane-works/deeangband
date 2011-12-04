@@ -3861,7 +3861,7 @@ bool detect_objects_magic(creature_type *cr_ptr, int range)
 		tv = o_ptr->tval;
 
 		/* Artifacts, misc magic items, or enchanted wearables */
-		if (object_is_artifact(cr_ptr, o_ptr) ||
+		if (object_is_artifact(o_ptr) ||
 			object_is_ego(o_ptr) ||
 		    (tv == TV_WHISTLE) ||
 		    (tv == TV_AMULET) ||
