@@ -2385,7 +2385,7 @@ static byte get_random_ego(byte slot, bool good)
  * Hack -- note special base damage dice boosting
  * Hack -- note special processing for weapon/digger
  */
-static void a_m_aux_1(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
+static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, int power)
 {
 	int tohit1 = randint1(5) + m_bonus(5, level);
 	int todam1 = randint1(5) + m_bonus(5, level);
@@ -2445,7 +2445,7 @@ static void a_m_aux_1(creature_type *creature_ptr, object_type *o_ptr, int level
 			if (power > 1)
 			{
 				if (one_in_(30) || (power > 2)) /* power > 2 is debug only */
-					create_artifact(creature_ptr, o_ptr, FALSE);
+					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
 					o_ptr->name2 = EGO_DIGGING;
@@ -2478,7 +2478,7 @@ static void a_m_aux_1(creature_type *creature_ptr, object_type *o_ptr, int level
 			{
 				if (one_in_(40) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(creature_ptr, o_ptr, FALSE);
+					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
 				}
 				while (1)
@@ -2604,7 +2604,7 @@ static void a_m_aux_1(creature_type *creature_ptr, object_type *o_ptr, int level
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
 				{
-					create_artifact(creature_ptr, o_ptr, FALSE);
+					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
 				}
 				o_ptr->name2 = get_random_ego(INVEN_BOW, TRUE);
@@ -2623,7 +2623,7 @@ static void a_m_aux_1(creature_type *creature_ptr, object_type *o_ptr, int level
 			{
 				if (power > 2) /* power > 2 is debug only */
 				{
-					create_artifact(creature_ptr, o_ptr, FALSE);
+					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
 				}
 

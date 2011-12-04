@@ -25,13 +25,6 @@
  */
 #define ACTIVATION_CHANCE 3
 
-
-/*
- * Use for biased artifact creation
- */
-static int artifact_bias;
-
-
 /*
  * Choose one random sustain
  */
@@ -206,9 +199,9 @@ static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 }
 
 
-static void random_plus(creature_type *cr_ptr, object_type * o_ptr)
+static void random_plus(creature_type *owner_ptr, object_type * o_ptr, int artifact_bias)
 {
-	int this_type = (object_is_weapon_ammo(cr_ptr, o_ptr) ? 23 : 19);
+	int this_type = (object_is_weapon_ammo(owner_ptr, o_ptr) ? 23 : 19);
 
 	switch (artifact_bias)
 	{
@@ -408,7 +401,7 @@ static void random_plus(creature_type *cr_ptr, object_type * o_ptr)
 		add_flag(o_ptr->art_flags, TR_TUNNEL);
 		break;
 	case 22: case 23:
-		if (o_ptr->tval == TV_BOW) random_plus(cr_ptr, o_ptr);
+		if (o_ptr->tval == TV_BOW) random_plus(owner_ptr, o_ptr, artifact_bias);
 		else
 		{
 			add_flag(o_ptr->art_flags, TR_BLOWS);
@@ -420,7 +413,7 @@ static void random_plus(creature_type *cr_ptr, object_type * o_ptr)
 }
 
 
-static void random_resistance(object_type * o_ptr)
+static void random_resistance(object_type * o_ptr, int artifact_bias)
 {
 	switch (artifact_bias)
 	{
@@ -584,7 +577,7 @@ static void random_resistance(object_type * o_ptr)
 	{
 		case 1:
 			if (!one_in_(WEIRD_LUCK))
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			else
 			{
 				add_flag(o_ptr->art_flags, TR_IM_ACID);
@@ -594,7 +587,7 @@ static void random_resistance(object_type * o_ptr)
 			break;
 		case 2:
 			if (!one_in_(WEIRD_LUCK))
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			else
 			{
 				add_flag(o_ptr->art_flags, TR_IM_ELEC);
@@ -604,7 +597,7 @@ static void random_resistance(object_type * o_ptr)
 			break;
 		case 3:
 			if (!one_in_(WEIRD_LUCK))
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			else
 			{
 				add_flag(o_ptr->art_flags, TR_IM_COLD);
@@ -614,7 +607,7 @@ static void random_resistance(object_type * o_ptr)
 			break;
 		case 4:
 			if (!one_in_(WEIRD_LUCK))
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			else
 			{
 				add_flag(o_ptr->art_flags, TR_IM_FIRE);
@@ -714,7 +707,7 @@ static void random_resistance(object_type * o_ptr)
 			if (o_ptr->tval >= TV_CLOAK && o_ptr->tval <= TV_HARD_ARMOR)
 				add_flag(o_ptr->art_flags, TR_SH_ELEC);
 			else
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ELEC;
 			break;
@@ -722,7 +715,7 @@ static void random_resistance(object_type * o_ptr)
 			if (o_ptr->tval >= TV_CLOAK && o_ptr->tval <= TV_HARD_ARMOR)
 				add_flag(o_ptr->art_flags, TR_SH_FIRE);
 			else
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			if (!artifact_bias)
 				artifact_bias = BIAS_FIRE;
 			break;
@@ -731,13 +724,13 @@ static void random_resistance(object_type * o_ptr)
 			    o_ptr->tval == TV_HELM || o_ptr->tval == TV_HARD_ARMOR)
 				add_flag(o_ptr->art_flags, TR_REFLECT);
 			else
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			break;
 		case 42:
 			if (o_ptr->tval >= TV_CLOAK && o_ptr->tval <= TV_HARD_ARMOR)
 				add_flag(o_ptr->art_flags, TR_SH_COLD);
 			else
-				random_resistance(o_ptr);
+				random_resistance(o_ptr, artifact_bias);
 			if (!artifact_bias)
 				artifact_bias = BIAS_COLD;
 			break;
@@ -746,7 +739,7 @@ static void random_resistance(object_type * o_ptr)
 
 
 
-static void random_misc(creature_type *cr_ptr, object_type * o_ptr)
+static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact_bias)
 {
 	switch (artifact_bias)
 	{
@@ -894,7 +887,7 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr)
 		case 25:
 		case 26:
 			if (object_is_armour(cr_ptr, o_ptr))
-				random_misc(cr_ptr, o_ptr);
+				random_misc(cr_ptr, o_ptr, artifact_bias);
 			else
 			{
 				o_ptr->to_a = 4 + (s16b)randint1(11);
@@ -1005,8 +998,9 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr)
 }
 
 
-static void random_slay(object_type *o_ptr)
+static void random_slay(object_type *o_ptr, int artifact_bias)
 {
+
 	if (o_ptr->tval == TV_BOW)
 	{
 		switch (randint1(6))
@@ -1198,7 +1192,7 @@ static void random_slay(object_type *o_ptr)
 					artifact_bias = BIAS_WARRIOR;
 			}
 			else
-				random_slay(o_ptr);
+				random_slay(o_ptr, artifact_bias);
 			break;
 		case 20:
 			add_flag(o_ptr->art_flags, TR_IMPACT);
@@ -1260,7 +1254,7 @@ static void random_slay(object_type *o_ptr)
 }
 
 
-static void give_activation_power(object_type *o_ptr)
+static void give_activation_power(object_type *o_ptr, int artifact_bias)
 {
 	int type = 0, chance = 0;
 
@@ -1536,7 +1530,7 @@ static void give_activation_power(object_type *o_ptr)
 }
 
 
-static void get_random_name(char *return_name, bool armour, int power)
+static void get_random_name(char *return_name, bool armour, int power, int artifact_bias)
 {
 	int prob = randint1(100);
 
@@ -1627,12 +1621,12 @@ static void get_random_name(char *return_name, bool armour, int power)
 }
 
 
-bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
+bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll)
 {
 	char    new_name[1024];
 	int     has_pval = 0;
 	int     powers = randint1(5) + 1;
-	int     max_type = (object_is_weapon_ammo(cr_ptr,o_ptr) ? 7 : 5);
+	int     max_type = (object_is_weapon_ammo(owner_ptr, o_ptr) ? 7 : 5);
 	int     power_level;
 	s32b    total_flags;
 	bool    a_cursed = FALSE;
@@ -1640,7 +1634,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 	int i;
 
 	/* Reset artifact bias */
-	artifact_bias = 0;
+	int artifact_bias = 0;
 
 	/* Nuke enchantments */
 	o_ptr->name1 = 0;
@@ -1651,9 +1645,9 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 
 	if (o_ptr->pval) has_pval = TRUE;
 
-	if (a_scroll && one_in_(4))
+	if (a_scroll && one_in_(4) && owner_ptr)
 	{
-		switch (cr_ptr->cls_idx)
+		switch (owner_ptr->cls_idx)
 		{
 			case CLASS_WARRIOR:
 			case CLASS_BERSERKER:
@@ -1751,11 +1745,11 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 		switch (randint1(max_type))
 		{
 			case 1: case 2:
-				random_plus(cr_ptr, o_ptr);
+				random_plus(owner_ptr, o_ptr, artifact_bias);
 				has_pval = TRUE;
 				break;
 			case 3: case 4:
-				if (one_in_(2) && object_is_weapon_ammo(cr_ptr, o_ptr) && (o_ptr->tval != TV_BOW))
+				if (one_in_(2) && object_is_weapon_ammo(owner_ptr, o_ptr) && (o_ptr->tval != TV_BOW))
 				{
 					if (a_cursed && !one_in_(13)) break;
 					if (one_in_(13))
@@ -1768,13 +1762,13 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 					}
 				}
 				else
-					random_resistance(o_ptr);
+					random_resistance(o_ptr, artifact_bias);
 				break;
 			case 5:
-				random_misc(cr_ptr, o_ptr);
+				random_misc(owner_ptr, o_ptr, artifact_bias);
 				break;
 			case 6: case 7:
-				random_slay(o_ptr);
+				random_slay(o_ptr, artifact_bias);
 				break;
 			default:
 				if (wizard) msg_print("Switch error in create_artifact!");
@@ -1812,9 +1806,9 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 	}
 
 	/* give it some plusses... */
-	if (object_is_armour(cr_ptr, o_ptr))
+	if (object_is_armour(owner_ptr, o_ptr))
 		o_ptr->to_a += (s16b)randint1(o_ptr->to_a > 19 ? 1 : 20 - o_ptr->to_a);
-	else if (object_is_weapon_ammo(cr_ptr, o_ptr))
+	else if (object_is_weapon_ammo(owner_ptr, o_ptr))
 	{
 		o_ptr->to_h += (s16b)randint1(o_ptr->to_h > 19 ? 1 : 20 - o_ptr->to_h);
 		o_ptr->to_d += (s16b)randint1(o_ptr->to_d > 19 ? 1 : 20 - o_ptr->to_d);
@@ -1830,16 +1824,16 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 	total_flags = flag_cost(o_ptr, o_ptr->pval);
 	if (cheat_peek) msg_format("%ld", total_flags);
 
-	if (a_cursed) curse_artifact(cr_ptr, o_ptr);
+	if (a_cursed) curse_artifact(owner_ptr, o_ptr);
 
 	if (!a_cursed &&
-	    one_in_(object_is_armour(cr_ptr, o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
+	    one_in_(object_is_armour(owner_ptr, o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
 	{
 		o_ptr->xtra2 = 0;
-		give_activation_power(o_ptr);
+		give_activation_power(o_ptr, artifact_bias);
 	}
 
-	if (object_is_armour(cr_ptr, o_ptr))
+	if (object_is_armour(owner_ptr, o_ptr))
 	{
 		while ((o_ptr->to_d+o_ptr->to_h) > 20)
 		{
@@ -1881,7 +1875,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 		remove_flag(o_ptr->art_flags, TR_BRAND_COLD);
 	}
 
-	if (!object_is_weapon_ammo(cr_ptr, o_ptr))
+	if (!object_is_weapon_ammo(owner_ptr, o_ptr))
 	{
 		/* For armors */
 		if (a_cursed) power_level = 0;
@@ -1940,7 +1934,7 @@ bool create_artifact(creature_type *cr_ptr, object_type *o_ptr, bool a_scroll)
 	}
 	else
 	{
-		get_random_name(new_name, object_is_armour(cr_ptr, o_ptr), power_level);
+		get_random_name(new_name, object_is_armour(owner_ptr, o_ptr), power_level, artifact_bias);
 	}
 
 	if (cheat_xtra)
