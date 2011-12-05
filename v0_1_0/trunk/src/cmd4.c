@@ -6115,7 +6115,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *o_ptr, int *j, by
 /*
  * Display *ID* ed weapons/armors's resistances
  */
-static void do_cmd_knowledge_inven(void)
+static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 {
 	FILE *fff;
 
@@ -6159,7 +6159,7 @@ static void do_cmd_knowledge_inven(void)
 #endif
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
-			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
+			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
 #ifdef JP
@@ -6169,7 +6169,7 @@ static void do_cmd_knowledge_inven(void)
 #endif
 		for (i = 0; i < INVEN_PACK; i++)
 		{
-			do_cmd_knowledge_inven_aux(fff, &p_ptr->inventory[i], &j, tval, where);
+			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
 //TODO
@@ -10278,7 +10278,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			do_cmd_knowledge_home();
 			break;
 		case '9': /* Resist list */
-			do_cmd_knowledge_inven();
+			do_cmd_knowledge_inven(cr_ptr);
 			break;
 		case '0': /* Feature list */
 			{
