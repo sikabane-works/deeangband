@@ -639,6 +639,7 @@ static bool item_tester_hook_eatable(creature_type *cr_ptr, object_type *o_ptr)
 		if (o_ptr->tval == TV_STAFF || o_ptr->tval == TV_WAND)
 			return TRUE;
 	}
+
 	else if (is_demon_creature(cr_ptr) ||
 		 (mimic_info[cr_ptr->mimic_form].MIMIC_FLAGS & MIMIC_IS_DEMON))
 	{
