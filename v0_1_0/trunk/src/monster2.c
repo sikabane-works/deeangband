@@ -4279,7 +4279,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 				color = "white";
 #endif
 
-			o_ptr = choose_warning_item();
+			o_ptr = choose_warning_item(watcher_ptr);
 			if (o_ptr)
 			{
 				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));

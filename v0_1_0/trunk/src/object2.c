@@ -6184,9 +6184,9 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 
 	/* Message */
 #ifdef JP
-	msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", o_name, index_to_label(p_ptr, item));
+	msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", o_name, index_to_label(cr_ptr, item));
 #else
-	msg_format("You drop %s (%c).", o_name, index_to_label(p_ptr, item));
+	msg_format("You drop %s (%c).", o_name, index_to_label(cr_ptr, item));
 #endif
 
 
@@ -6465,20 +6465,20 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 }
 
 /* Choose one of items that have warning flag */
-object_type *choose_warning_item(void)
+object_type *choose_warning_item(creature_type *user_ptr)
 {
 	int i;
 	int choices[INVEN_TOTAL - INVEN_1STARM];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning ability */
-	if (!p_ptr->warning) return NULL;
+	if (!user_ptr->warning) return NULL;
 
-	/* Search p_ptr->inventory */
+	/* Search inventory */
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &user_ptr->inventory[i];
 
 		object_flags(o_ptr, flgs);
 		if (have_flag(flgs, TR_WARNING))
@@ -6489,7 +6489,7 @@ object_type *choose_warning_item(void)
 	}
 
 	/* Choice one of them */
-	return number ? &p_ptr->inventory[choices[randint0(number)]] : NULL;
+	return number ? &user_ptr->inventory[choices[randint0(number)]] : NULL;
 }
 
 /* Calculate spell damages */
@@ -6869,7 +6869,7 @@ bool process_warning(int xx, int yy)
 
 		if (dam_max > p_ptr->chp / 2)
 		{
-			object_type *o_ptr = choose_warning_item();
+			object_type *o_ptr = choose_warning_item(player_ptr);
 
 			if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -6893,7 +6893,7 @@ bool process_warning(int xx, int yy)
 	if (((!easy_disarm && is_trap(c_ptr->feat))
 	    || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
-		object_type *o_ptr = choose_warning_item();
+		object_type *o_ptr = choose_warning_item(player_ptr);
 
 		if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP

@@ -5013,7 +5013,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
 
 
 /*
- * Display the p_ptr->inventory.
+ * Display the inventory.
  *
  * Hack -- do not display "trailing" empty slots
  */
@@ -5585,7 +5585,7 @@ static bool get_item_okay(creature_type *cr_ptr, int i, bool (*hook)(creature_ty
 
 
 /*
- * Determine whether get_item(p_ptr, ) can get some item or not
+ * Determine whether get_item() can get some item or not
  * assuming mode = (USE_EQUIP | USE_INVEN | USE_FLOOR).
  */
 bool can_get_item(creature_type *cr_ptr)
@@ -5593,7 +5593,7 @@ bool can_get_item(creature_type *cr_ptr)
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
-		if (item_tester_okay(p_ptr, &cr_ptr->inventory[j], NULL))
+		if (item_tester_okay(cr_ptr, &cr_ptr->inventory[j], NULL))
 			return TRUE;
 
 	floor_num = scan_floor(floor_list, cr_ptr->fy, cr_ptr->fx, 0x03);
@@ -6628,7 +6628,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		/* Save the index */
 		out_index[k] = i;
 
-		/* Acquire p_ptr->inventory color */
+		/* Acquire inventory color */
 		out_color[k] = tval_to_attr[o_ptr->tval & 0x7F];
 
 		/* Save the object description */
