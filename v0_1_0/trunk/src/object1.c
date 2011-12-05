@@ -5692,7 +5692,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 
 #ifdef ALLOW_EASY_FLOOR /* TNB */
 
-	if (easy_floor || use_menu) return get_item_floor(cr_ptr, cp, pmt, str, mode);
+	if (easy_floor || use_menu) return get_item_floor(cr_ptr, cp, pmt, str, mode, hook);
 
 #endif /* ALLOW_EASY_FLOOR -- TNB */
 
@@ -6720,9 +6720,8 @@ int show_floor(int target_item, int y, int x, int *min_width)
  * This version of get_item() is called by get_item() when
  * the easy_floor is on.
  */
-bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode)
+bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
-	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
 	char n1 = ' ', n2 = ' ', which = ' ';
 
