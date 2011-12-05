@@ -5342,7 +5342,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Save "screen dump" */
 		case ')':
 		{
-			do_cmd_save_screen();
+			do_cmd_save_screen(cr_ptr);
 			break;
 		}
 

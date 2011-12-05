@@ -5987,7 +5987,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 				if (get_check_strict("Dump the screen? ", CHECK_NO_HISTORY))
 	#endif
 				{
-					do_cmd_save_screen();
+					do_cmd_save_screen(player_ptr);
 				}
 	
 				flush();

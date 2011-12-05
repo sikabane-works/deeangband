@@ -6399,7 +6399,7 @@ void (*screendump_aux)(void) = NULL;
 /*
  * Hack -- save a screen dump to a file
  */
-void do_cmd_save_screen(void)
+void do_cmd_save_screen(creature_type *player_ptr)
 {
 	bool old_use_graphics = use_graphics;
 	bool html_dump = FALSE;
@@ -6439,13 +6439,13 @@ void do_cmd_save_screen(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff(p_ptr);
+		handle_stuff(player_ptr);
 	}
 
 	if (html_dump)
 	{
 		do_cmd_save_screen_html();
-		do_cmd_redraw(p_ptr);
+		do_cmd_redraw(player_ptr);
 	}
 
 	/* Do we use a special screendump function ? */
@@ -6565,7 +6565,7 @@ void do_cmd_save_screen(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff(p_ptr);
+		handle_stuff(player_ptr);
 	}
 }
 
