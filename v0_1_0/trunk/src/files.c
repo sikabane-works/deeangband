@@ -7236,7 +7236,7 @@ static void print_tomb(creature_type *cr_ptr)
 /*
  * Display some character info
  */
-static void show_info(void)
+static void show_info(creature_type *creature_ptr)
 {
 //	int             i, j, k, l;
 	int i;
@@ -7246,7 +7246,7 @@ static void show_info(void)
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		o_ptr = &p_ptr->inventory[i];
+		o_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -7277,10 +7277,10 @@ static void show_info(void)
 	*/
 
 	/* Hack -- Recalculate bonuses */
-	p_ptr->update |= (PU_BONUS);
+	creature_ptr->update |= (PU_BONUS);
 
 	/* Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(creature_ptr);
 
 	/* Flush all input keys */
 	flush();
@@ -7334,7 +7334,7 @@ put_str("ファイルネーム: ", 23, 0);
 	update_playtime();
 
 	/* Display player */
-	display_creature_status(0, p_ptr);
+	display_creature_status(0, creature_ptr);
 
 	/* Prompt for inventory */
 #ifdef JP
@@ -7351,11 +7351,11 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	/* Show equipment and inventory */
 
 	/* Equipment -- if any */
-	if (p_ptr->equip_cnt)
+	if (creature_ptr->equip_cnt)
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_equip(0, p_ptr, FALSE, NULL);
+		(void)show_equip(0, creature_ptr, FALSE, NULL);
 #ifdef JP
 prt("装備していたアイテム: -続く-", 0, 0);
 #else
@@ -7366,11 +7366,11 @@ prt("装備していたアイテム: -続く-", 0, 0);
 	}
 
 	/* inventory -- if any */
-	if (p_ptr->inven_cnt)
+	if (creature_ptr->inven_cnt)
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_inven(0, p_ptr, FALSE, NULL);
+		(void)show_inven(0, creature_ptr, FALSE, NULL);
 #ifdef JP
 prt("持っていたアイテム: -続く-", 0, 0);
 #else
@@ -7537,7 +7537,7 @@ msg_print("途中終了のためスコアが記録されません。");
  *
  * This function is called only from "main.c" and "signals.c".
  */
-void close_game(creature_type *cr_ptr)
+void close_game(creature_type *player_ptr)
 {
 	char buf[1024];
 	bool do_send = TRUE;
@@ -7545,7 +7545,7 @@ void close_game(creature_type *cr_ptr)
 /*	cptr p = "[i:キャラクタの情報, f:ファイル書き出し, t:スコア, x:*鑑定*, ESC:ゲーム終了]"; */
 
 	/* Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(player_ptr);
 
 	/* Flush the messages */
 	msg_print(NULL);
@@ -7575,7 +7575,7 @@ void close_game(creature_type *cr_ptr)
 	safe_setuid_drop();
 
 	/* Handle death */
-	if (p_ptr->is_dead)
+	if (player_ptr->is_dead)
 	{
 		/* Handle retirement */
 		if (total_winner) kingly();
@@ -7597,12 +7597,12 @@ if (!save_player()) msg_print("セーブ失敗！");
 		else do_send = FALSE;
 
 		/* You are dead */
-		print_tomb(p_ptr);
+		print_tomb(player_ptr);
 
 		flush();
 
 		/* Show more info */
-		show_info();
+		show_info(player_ptr);
 
 		/* Clear screen */
 		Term_clear();
@@ -7617,8 +7617,8 @@ if (!save_player()) msg_print("セーブ失敗！");
 				if (get_check_strict("Stand by for later score registration? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
 #endif
 				{
-					p_ptr->wait_report_score = TRUE;
-					p_ptr->is_dead = FALSE;
+					player_ptr->wait_report_score = TRUE;
+					player_ptr->is_dead = FALSE;
 #ifdef JP
 					if (!save_player()) msg_print("セーブ失敗！");
 #else
@@ -7626,7 +7626,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 #endif
 				}
 			}
-			if (!p_ptr->wait_report_score)
+			if (!player_ptr->wait_report_score)
 				(void)top_twenty();
 		}
 		else if (highscore_fd >= 0)
@@ -7643,7 +7643,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 	else
 	{
 		/* Save the game */
-		do_cmd_save_game(cr_ptr, FALSE);
+		do_cmd_save_game(player_ptr, FALSE);
 
 		/* Prompt for scores XXX XXX XXX */
 #ifdef JP
@@ -7665,7 +7665,7 @@ prt("リターンキーか ESC キーを押して下さい。", 0, 40);
 	highscore_fd = -1;
 
 	/* Kill all temporal files */
-	clear_saved_floor_files(cr_ptr);
+	clear_saved_floor_files(player_ptr);
 
 	/* Allow suspending now */
 	signals_handle_tstp();
