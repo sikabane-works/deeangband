@@ -5209,7 +5209,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 /*
  * Display the equipment.
  */
-int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
+int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
 	int             i, j, k, l;
 	int             col, cur_col, len;
@@ -5240,7 +5240,7 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set)
 		if(!can_equip(cr_ptr, i)) continue;
 
 		/* Is this item acceptable? */
-		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr, NULL)) &&
+		if (!(select_ring_slot ? is_ring_slot(i) : item_tester_okay(cr_ptr, o_ptr, hook)) &&
 		    (!((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute) ||
 		     item_tester_no_ryoute)) continue;
 
@@ -5967,7 +5967,7 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		else
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE);
+			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Viewing cr_ptr->inventory */
@@ -7044,7 +7044,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(e2 - INVEN_1STARM);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE);
+			if (command_see) get_item_label = show_equip(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Floor screen */

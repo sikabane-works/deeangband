@@ -4304,7 +4304,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	else if (mode == 2)
 	{
 		/* Display the inventory */
-		(void)show_equip(0, cr_ptr, FALSE);		
+		(void)show_equip(0, cr_ptr, FALSE, NULL);		
 	}
 
 	else if (mode == 3)
@@ -7355,7 +7355,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_equip(0, p_ptr, FALSE);
+		(void)show_equip(0, p_ptr, FALSE, NULL);
 #ifdef JP
 prt("装備していたアイテム: -続く-", 0, 0);
 #else

@@ -114,7 +114,7 @@ void do_cmd_equip(creature_type *cr_ptr)
 	item_tester_full = TRUE;
 
 	/* Display the equipment */
-	(void)show_equip(0, cr_ptr, TRUE);
+	(void)show_equip(0, cr_ptr, TRUE, NULL);
 
 	/* Hack -- undo the hack above */
 	item_tester_full = FALSE;
