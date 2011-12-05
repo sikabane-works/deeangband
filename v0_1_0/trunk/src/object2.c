@@ -7434,7 +7434,6 @@ static void drain_essence(creature_type *creature_ptr)
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
 		drain_value[i] = 0;
 
-	item_tester_hook = object_is_weapon_armour_ammo;
 	item_tester_no_ryoute = TRUE;
 
 	/* Get an item */
@@ -7446,7 +7445,7 @@ static void drain_essence(creature_type *creature_ptr)
 	s = "You have nothing you can extract from.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -7763,6 +7762,7 @@ static int choose_essence(void)
 
 static void add_essence(creature_type *creature_ptr, int mode)
 {
+	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 	int item, max_num = 0;
 	int i;
 	bool flag,redraw;
@@ -8086,7 +8086,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -8380,8 +8380,6 @@ static void erase_essence(creature_type *creature_ptr)
 	char o_name[MAX_NLEN];
 	u32b flgs[TR_FLAG_SIZE];
 
-	item_tester_hook = object_is_smith;
-
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムのエッセンスを消去しますか？";
@@ -8391,7 +8389,7 @@ static void erase_essence(creature_type *creature_ptr)
 	s = "You have nothing to remove essence.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

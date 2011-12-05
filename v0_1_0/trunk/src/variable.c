@@ -1001,14 +1001,6 @@ byte item_tester_tval;
 
 
 /*
- * Here is a "hook" used during calls to "get_item(p_ptr, )" and
- * "show_inven()" and "show_equip()", and the choice window routines.
- */
-bool (*item_tester_hook)(creature_type*, object_type*);
-
-
-
-/*
  * Current "comp" function for ang_sort()
  */
 bool (*ang_sort_comp)(vptr u, vptr v, int a, int b);

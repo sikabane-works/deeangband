@@ -4283,8 +4283,6 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 
 
 	item_tester_no_ryoute = TRUE;
-	/* Only allow items the store will buy */
-//TODO	item_tester_hook = store_will_buy;
 
 	/* Get an item */
 	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */
@@ -4313,7 +4311,8 @@ static void store_sell(store_type *st_ptr, creature_type *cr_ptr)
 #endif
 	}
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	// TODO: Restrict store will buy
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

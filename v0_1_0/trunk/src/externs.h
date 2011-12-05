@@ -514,7 +514,6 @@ extern cptr ANGBAND_DIR_XTRA;
 extern bool item_tester_full;
 extern bool item_tester_no_ryoute;
 extern byte item_tester_tval;
-extern bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 extern bool (*ang_sort_comp)(vptr u, vptr v, int a, int b);
 extern void (*ang_sort_swap)(vptr u, vptr v, int a, int b);
 extern creature_hook_type get_mon_num_hook;
@@ -1300,14 +1299,14 @@ extern s16b wield_slot(creature_type *cr_ptr, object_type *o_ptr);
 extern cptr mention_use(creature_type *cr_ptr, int i);
 extern cptr describe_use(creature_type *cr_ptr, int i);
 extern bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const byte book_sval);
-extern bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr);
+extern bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));
 extern void display_inven(creature_type *cr_ptr);
 extern void display_equip(creature_type *cr_ptr);
 extern int show_inven(int target_item, creature_type *cr_ptr, bool right_set);
 extern int show_equip(int target_item, creature_type *cr_ptr, bool right_set);
 extern void toggle_inven_equip(void);
 extern bool can_get_item(creature_type *cr_ptr);
-extern bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode);
+extern bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr));
 
 /* object2.c */
 extern void excise_object_idx(int o_idx);
@@ -1981,6 +1980,7 @@ extern bool object_is_artifact(object_type *o_ptr);
 extern bool object_is_artifact_aux(object_type *o_ptr);
 extern bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr);
+extern bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr);
 
 /* wild.c */
 extern void set_floor_and_wall(byte type);

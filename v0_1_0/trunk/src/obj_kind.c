@@ -198,7 +198,7 @@ bool object_is_ammo(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is armour
  */
-bool object_is_armour(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_armour(creature_type *creature_ptr, object_type *o_ptr)
 {
 	if (TV_ARMOR_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_ARMOR_END) return TRUE;
 
@@ -332,4 +332,16 @@ bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr)
 	if (object_is_melee_weapon(cr_ptr, o_ptr) && ((o_ptr->weight > 99) || (o_ptr->tval == TV_POLEARM))) return TRUE;
 
 	return FALSE;
+}
+
+
+/*
+ * Hook to determine if an object is readable
+ */
+bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
+{
+	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);
+
+	/* Assume not */
+	return (FALSE);
 }

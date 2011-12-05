@@ -667,9 +667,6 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	/* Restrict choices to food */
-	item_tester_hook = item_tester_hook_eatable;
-
 	/* Get an item */
 #ifdef JP
 	q = "どれを食べますか? ";
@@ -679,7 +676,7 @@ void do_cmd_eat_food(creature_type *cr_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable)) return;
 
 	/* Eat the object */
 	do_cmd_eat_food_aux(cr_ptr, item);
@@ -1498,9 +1495,6 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	/* Restrict choices to potions */
-	item_tester_hook = item_tester_hook_quaff;
-
 	/* Get an item */
 #ifdef JP
 	q = "どの薬を飲みますか? ";
@@ -1510,7 +1504,7 @@ void do_cmd_quaff_potion(creature_type *cr_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff)) return;
 
 	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(cr_ptr, item);
@@ -2194,18 +2188,6 @@ msg_print("巻物は煙を立てて消え去った！");
 }
 
 
-/*
- * Hook to determine if an object is readable
- */
-static bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
-{
-	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);
-
-	/* Assume not */
-	return (FALSE);
-}
-
-
 void do_cmd_read_scroll(creature_type *cr_ptr)
 {
 	object_type *o_ptr;
@@ -2249,10 +2231,6 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 		return;
 	}
 
-
-	/* Restrict choices to scrolls */
-	item_tester_hook = item_tester_hook_readable;
-
 	/* Get an item */
 #ifdef JP
 	q = "どの巻物を読みますか? ";
@@ -2262,7 +2240,7 @@ void do_cmd_read_scroll(creature_type *cr_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2839,7 +2817,7 @@ void do_cmd_use_staff(creature_type *cr_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
 
 	do_cmd_use_staff_aux(cr_ptr, item);
 }
@@ -3328,7 +3306,7 @@ void do_cmd_aim_wand(creature_type *cr_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Aim the wand */
 	do_cmd_aim_wand_aux(cr_ptr, item);
@@ -3761,7 +3739,7 @@ void do_cmd_zap_rod(creature_type *cr_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Zap the rod */
 	do_cmd_zap_rod_aux(cr_ptr, item);
@@ -6532,7 +6510,6 @@ void do_cmd_activate(creature_type *cr_ptr)
 
 	item_tester_no_ryoute = TRUE;
 	/* Prepare the hook */
-	item_tester_hook = item_tester_hook_activate;
 
 	/* Get an item */
 #ifdef JP
@@ -6543,7 +6520,7 @@ void do_cmd_activate(creature_type *cr_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate)) return;
 
 	/* Activate the item */
 	do_cmd_activate_aux(cr_ptr, item);
@@ -6618,8 +6595,6 @@ void do_cmd_use(creature_type *cr_ptr)
 	}
 
 	item_tester_no_ryoute = TRUE;
-	/* Prepare the hook */
-	item_tester_hook = item_tester_hook_use;
 
 	/* Get an item */
 #ifdef JP
@@ -6630,7 +6605,7 @@ s = "使えるものがありません。";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

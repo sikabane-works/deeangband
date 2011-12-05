@@ -1053,7 +1053,6 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 	int summon_lev;
 	object_type *o_ptr;
 
-	item_tester_hook = item_tester_offer;
 #ifdef JP
 	q = "どの死体を捧げますか? ";
 	s = "捧げられる死体を持っていない。";
@@ -1061,7 +1060,7 @@ static bool cast_summon_greater_demon(creature_type *cr_ptr)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -11551,7 +11550,6 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			object_type *o_ptr;
 			u32b f[TR_FLAG_SIZE];
 
-			item_tester_hook = item_tester_hook_weapon_except_bow;
 #ifdef JP
 			q = "どれを呪いますか？";
 			s = "武器を装備していない。";
@@ -11560,7 +11558,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			s = "You wield no weapons.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12017,7 +12015,6 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			object_type *o_ptr;
 			u32b f[TR_FLAG_SIZE];
 
-			item_tester_hook = object_is_armour;
 #ifdef JP
 			q = "どれを呪いますか？";
 			s = "防具を装備していない。";
@@ -12026,7 +12023,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_is_armour)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);
@@ -12312,8 +12309,6 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			char *s, *q;
 			u32b f[TR_FLAG_SIZE];
 			object_type *o_ptr;
-
-			item_tester_hook = item_tester_hook_cursed;
 #ifdef JP
 			q = "どの装備品から吸収しますか？";
 			s = "呪われたアイテムを装備していない。";
@@ -12322,7 +12317,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			s = "You have no cursed equipment.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
 			object_flags(o_ptr, f);

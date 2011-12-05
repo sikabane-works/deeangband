@@ -1237,7 +1237,7 @@ s = "調べるアイテムがありません。";
 	s = "You have nothing appropriate.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

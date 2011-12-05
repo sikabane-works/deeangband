@@ -230,9 +230,6 @@ void do_cmd_wield(creature_type *cr_ptr)
 		set_action(cr_ptr, ACTION_NONE);
 	}
 
-	/* Restrict the choices */
-	item_tester_hook = item_tester_hook_wear;
-
 	/* Get an item */
 #ifdef JP
 	q = "‚Ç‚ê‚ð‘•”õ‚µ‚Ü‚·‚©? ";
@@ -242,7 +239,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	s = "You have nothing you can wear or wield.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -270,7 +267,6 @@ void do_cmd_wield(creature_type *cr_ptr)
 		if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
 		{
 			/* Restrict the choices */
-			item_tester_hook = item_tester_hook_melee_weapon;
 			item_tester_no_ryoute = TRUE;
 
 			/* Choose a weapon from the equipment only */
@@ -282,7 +278,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 			s = "Oops.";
 #endif
 
-			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_melee_weapon)) return;
 			if (slot == INVEN_1STARM) need_switch_wielding = INVEN_2NDARM;
 		}
 
@@ -292,8 +288,6 @@ void do_cmd_wield(creature_type *cr_ptr)
 		else if (cr_ptr->inventory[INVEN_1STARM].k_idx && !object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[INVEN_1STARM]) &&
 		         cr_ptr->inventory[INVEN_2NDARM].k_idx && !object_is_melee_weapon(cr_ptr, &cr_ptr->inventory[INVEN_2NDARM]))
 		{
-			/* Restrict the choices */
-			item_tester_hook = item_tester_hook_mochikae;
 
 			/* Choose a hand */
 #ifdef JP
@@ -304,7 +298,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 			s = "Oops.";
 #endif
 
-			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
 		}
 		break;
 
@@ -335,8 +329,6 @@ void do_cmd_wield(creature_type *cr_ptr)
 		/* Both arms are already used */
 		else if (cr_ptr->inventory[INVEN_2NDARM].k_idx && cr_ptr->inventory[INVEN_1STARM].k_idx)
 		{
-			/* Restrict the choices */
-			item_tester_hook = item_tester_hook_mochikae;
 
 			/* Choose a hand */
 #ifdef JP
@@ -347,7 +339,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 			s = "Oops.";
 #endif
 
-			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP))) return;
+			if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), item_tester_hook_mochikae)) return;
 			if ((slot == INVEN_2NDARM) && !have_weapon(cr_ptr, INVEN_1STARM))
 				need_switch_wielding = INVEN_1STARM;
 		}
@@ -383,7 +375,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		select_ring_slot = TRUE;
 		item_tester_no_ryoute = TRUE;
 
-		if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP)))
+		if (!get_item(cr_ptr, &slot, q, s, (USE_EQUIP), NULL))
 		{
 			select_ring_slot = FALSE;
 			return;
@@ -930,7 +922,7 @@ void do_cmd_takeoff(creature_type *cr_ptr)
 	s = "You are not wearing anything to take off.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1062,7 +1054,7 @@ void do_cmd_drop(creature_type *cr_ptr)
 	s = "You have nothing to drop.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1182,7 +1174,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	s = "You have nothing to destroy.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1388,7 +1380,7 @@ void do_cmd_observe(creature_type *cr_ptr)
 	s = "You have nothing to examine.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1459,7 +1451,7 @@ void do_cmd_uninscribe(creature_type *cr_ptr)
 	s = "You have nothing to un-inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1533,7 +1525,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 	s = "You have nothing to inscribe.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1694,10 +1686,6 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 
 	cptr q, s;
 
-
-	/* Restrict the choices */
-	item_tester_hook = item_tester_refill_lantern;
-
 	/* Get an item */
 #ifdef JP
 	q = "‚Ç‚Ì–û‚Â‚Ú‚©‚ç’‚¬‚Ü‚·‚©? ";
@@ -1707,7 +1695,7 @@ static void do_cmd_refill_lamp(creature_type *cr_ptr)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1815,10 +1803,6 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 
 	cptr q, s;
 
-
-	/* Restrict the choices */
-	item_tester_hook = item_tester_refill_torch;
-
 	/* Get an item */
 #ifdef JP
 	q = "‚Ç‚Ì¼–¾‚Å–¾‚©‚è‚ð‹­‚ß‚Ü‚·‚©? ";
@@ -1828,7 +1812,7 @@ static void do_cmd_refill_torch(creature_type *cr_ptr)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

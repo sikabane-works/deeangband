@@ -3417,8 +3417,6 @@ static bool compare_weapons(creature_type *cr_ptr)
 	object_copy(&orig_weapon, i_ptr);
 
 	item_tester_no_ryoute = TRUE;
-	/* Only compare melee weapons */
-	item_tester_hook = item_tester_hook_melee_weapon;
 
 	/* Get the first weapon */
 #ifdef JP
@@ -3429,7 +3427,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_melee_weapon))
 	{
 		screen_load();
 		return (FALSE);
@@ -3442,8 +3440,6 @@ s = "比べるものがありません。";
 	clear_bldg(0, 22);
 
 	item_tester_no_ryoute = TRUE;
-	/* Only compare melee weapons */
-	item_tester_hook = item_tester_hook_melee_weapon;
 
 	/* Get the second weapon */
 #ifdef JP
@@ -3454,7 +3450,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN)))
+	if (!get_item(cr_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_melee_weapon))
 	{
 		screen_load();
 		return (FALSE);
@@ -3661,7 +3657,7 @@ static bool resize_item(creature_type *cr_ptr)
 	s = "You have nothing to resize.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
 	o_ptr = &cr_ptr->inventory[item];
 	value = object_value(o_ptr) / 5;
 
@@ -3761,7 +3757,7 @@ static bool enchant_item(creature_type *cr_ptr, int cost, int to_hit, int to_dam
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	o_ptr = &cr_ptr->inventory[item];
@@ -3884,10 +3880,6 @@ prt("  再充填の費用はアイテムの種類によります。", 6, 0);
 	prt("  The prices of recharge depend on the type.", 6, 0);
 #endif
 
-
-	/* Only accept legal items */
-	item_tester_hook = item_tester_hook_recharge;
-
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムに魔力を充填しますか? ";
@@ -3897,7 +3889,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -4785,15 +4777,15 @@ msg_print("お金が足りません！");
 		paid = compare_weapons(cr_ptr);
 		break;
 	case BACT_ENCHANT_WEAPON:
-		item_tester_hook = object_allow_enchant_melee_weapon;
+		//TODO item_tester_hook = object_allow_enchant_melee_weapon;
 		enchant_item(cr_ptr, bcost, 1, 1, 0);
 		break;
 	case BACT_ENCHANT_ARMOR:
-		item_tester_hook = object_is_armour;
+		//TODO item_tester_hook = object_is_armour;
 		enchant_item(cr_ptr, bcost, 0, 0, 1);
 		break;
 	case BACT_RESIZE_ARMOR:
-		item_tester_hook = object_is_armour;
+		//TODO item_tester_hook = object_is_armour;
 		resize_item(cr_ptr);
 		break;
 	case BACT_RECHARGE:
@@ -4839,7 +4831,7 @@ msg_print("お金が足りません！");
 		if (do_res_stat(cr_ptr, STAT_CHR)) paid = TRUE;
 		break;
 	case BACT_ENCHANT_ARROWS:
-		item_tester_hook = item_tester_hook_ammo;
+		//TODO item_tester_hook = item_tester_hook_ammo;
 		enchant_item(cr_ptr, bcost, 1, 1, 0);
 		break;
 	case BACT_ENCHANT_BOW:

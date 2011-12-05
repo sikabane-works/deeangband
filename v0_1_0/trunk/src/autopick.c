@@ -3318,7 +3318,7 @@ static object_type *choose_object(creature_type *cr_ptr, cptr q, cptr s)
 {
 	int item;
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP))) return NULL;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), NULL)) return NULL;
 
 	/* Get the item (in the pack) */
 	if (item >= 0) return &cr_ptr->inventory[item];

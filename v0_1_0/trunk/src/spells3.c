@@ -1339,7 +1339,6 @@ void brand_weapon(creature_type *cr_ptr, int brand_type)
 
 
 	/* Assume enchant weapon */
-	item_tester_hook = object_allow_enchant_melee_weapon;
 	item_tester_no_ryoute = TRUE;
 
 	/* Get an item */
@@ -1351,7 +1350,7 @@ s = "強化できる武器がない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2252,7 +2251,7 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2519,13 +2518,14 @@ bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac)
 	char        o_name[MAX_NLEN];
 	cptr        q, s;
 
+	bool (*item_tester_hook)(creature_type *, object_type *);
 
 	/* Assume enchant weapon */
-	item_tester_hook = object_allow_enchant_weapon;
 	item_tester_no_ryoute = TRUE;
 
 	/* Enchant armor if requested */
 	if (num_ac) item_tester_hook = object_is_armour;
+	else item_tester_hook = object_allow_enchant_weapon;
 
 	/* Get an item */
 #ifdef JP
@@ -2536,7 +2536,7 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2619,9 +2619,6 @@ bool artifact_scroll(creature_type *user_ptr)
 
 	item_tester_no_ryoute = TRUE;
 
-	/* Enchant weapon/armour */
-	item_tester_hook = item_tester_hook_nameless_weapon_armour;
-
 	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを強化しますか? ";
@@ -2631,7 +2628,7 @@ bool artifact_scroll(creature_type *user_ptr)
 	s = "You have nothing to enchant.";
 #endif
 
-	if (!get_item(user_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(user_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2810,6 +2807,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	char            o_name[MAX_NLEN];
 	cptr            q, s;
 	bool old_known;
+	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
 	item_tester_no_ryoute = TRUE;
 
@@ -2847,7 +2845,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2911,8 +2909,11 @@ bool mundane_spell(creature_type *cr_ptr, bool only_equip)
 	int             item;
 	object_type     *o_ptr;
 	cptr            q, s;
+	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
 	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo;
+	else item_tester_hook = NULL;
+
 	item_tester_no_ryoute = TRUE;
 
 	/* Get an item */
@@ -2924,7 +2925,7 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -2994,6 +2995,8 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	cptr            q, s;
 	bool old_known;
 
+	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
+
 	item_tester_no_ryoute = TRUE;
 	if (only_equip)
 		item_tester_hook = item_tester_hook_identify_fully_weapon_armour;
@@ -3029,7 +3032,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3146,9 +3149,6 @@ bool recharge(creature_type *cr_ptr, int power)
 	cptr q, s;
 	char o_name[MAX_NLEN];
 
-	/* Only accept legal items */
-	item_tester_hook = item_tester_hook_recharge;
-
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムに魔力を充填しますか? ";
@@ -3158,7 +3158,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -3473,9 +3473,6 @@ bool bless_weapon(creature_type *cr_ptr)
 
 	item_tester_no_ryoute = TRUE;
 
-	/* Bless only weapons */
-	item_tester_hook = object_is_weapon;
-
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムを祝福しますか？";
@@ -3485,7 +3482,7 @@ s = "祝福できる武器がありません。";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -3679,7 +3676,7 @@ s = "磨く盾がありません。";
 	s = "You have weapon to pulish.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL))
 		return FALSE;
 
 	/* Get the item (in the pack) */
@@ -5106,8 +5103,6 @@ bool rustproof(creature_type *cr_ptr)
 	cptr        q, s;
 
 	item_tester_no_ryoute = TRUE;
-	/* Select a piece of armour */
-	item_tester_hook = object_is_armour;
 
 	/* Get an item */
 #ifdef JP
@@ -5118,7 +5113,7 @@ s = "錆止めできるものがありません。";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -5618,8 +5613,6 @@ bool eat_magic(creature_type *cr_ptr, int power)
 	cptr q, s;
 	char o_name[MAX_NLEN];
 
-	item_tester_hook = item_tester_hook_recharge;
-
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムから魔力を吸収しますか？";
@@ -5629,7 +5622,7 @@ s = "魔力を吸収できるアイテムがありません。";
 	s = "You have nothing to drain.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return FALSE;
 
 	if (item >= 0)
 	{

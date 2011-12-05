@@ -172,8 +172,6 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		cptr q, s;
 		s16b slot;
 
-		item_tester_hook = item_tester_hook_convertible;
-
 		/* Get an item */
 #ifdef JP
 		q = "どのアイテムから作りますか？ ";
@@ -182,7 +180,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -240,8 +238,6 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		cptr q, s;
 		s16b slot;
 
-		item_tester_hook = item_tester_hook_convertible;
-
 		/* Get an item */
 #ifdef JP
 		q = "どのアイテムから作りますか？ ";
@@ -250,7 +246,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q = "Convert which item? ";
 		s = "You have no item to convert.";
 #endif
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return FALSE;
+		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible)) return FALSE;
 
 		/* Get the item (in the pack) */
 		if (item >= 0)
@@ -313,9 +309,6 @@ bool gain_magic(creature_type *cr_ptr)
 	object_type *o_ptr;
 	char o_name[MAX_NLEN];
 
-	/* Only accept legal items */
-	item_tester_hook = item_tester_hook_recharge;
-
 	/* Get an item */
 #ifdef JP
 q = "どのアイテムの魔力を取り込みますか? ";
@@ -325,7 +318,7 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return (FALSE);
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

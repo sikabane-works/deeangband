@@ -480,10 +480,6 @@ void do_cmd_browse(creature_type *cr_ptr)
 		select_the_force = TRUE;
 	}
 
-	/* Restrict choices to "useful" books */
-	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->realm1].spell_book;
-	else item_tester_hook = item_tester_learn_spell;
-
 	/* Get an item */
 #ifdef JP
 	q = "どの本を読みますか? ";
@@ -497,7 +493,10 @@ void do_cmd_browse(creature_type *cr_ptr)
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
+	/* Restrict choices to "useful" books */
+	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->realm1].spell_book;
+
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable))
 	{
 		select_the_force = FALSE;
 		return;
@@ -732,7 +731,6 @@ msg_format("新しい%sを覚えることはできない！", p);
 
 	/* Restrict choices to "useful" books */
 	if (cr_ptr->realm2 == REALM_NONE) item_tester_tval = m_info[cr_ptr->realm1].spell_book;
-	else item_tester_hook = item_tester_learn_spell;
 
 	/* Get an item */
 #ifdef JP
@@ -747,7 +745,7 @@ s = "読める本がない。";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR))) return;
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_spell)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -1071,7 +1069,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 	s = "You have no spell books!";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
 	{
 		select_the_force = FALSE;
 		return;

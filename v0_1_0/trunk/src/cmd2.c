@@ -3918,7 +3918,7 @@ void do_cmd_fire(creature_type *cr_ptr)
 	s = "You have nothing to fire.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR)))
+	if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL))
 	{
 		flush();
 		return;
@@ -4007,7 +4007,6 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 	{
 		if (have_weapon(cr_ptr, INVEN_1STARM) && have_weapon(cr_ptr, INVEN_2NDARM))
 		{
-			item_tester_hook = item_tester_hook_boomerang;
 #ifdef JP
 			q = "Ç«ÇÃïêäÌÇìäÇ∞Ç‹Ç∑Ç©? ";
 			s = "ìäÇ∞ÇÈïêäÌÇ™Ç»Ç¢ÅB";
@@ -4016,7 +4015,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 			s = "You have nothing to throw.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP)))
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang))
 			{
 				flush();
 				return FALSE;
@@ -4036,7 +4035,7 @@ bool do_cmd_throw_aux(creature_type *cr_ptr, int mult, bool boomerang, int shuri
 		s = "You have nothing to throw.";
 #endif
 
-		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP)))
+		if (!get_item(cr_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang))
 		{
 			flush();
 			return FALSE;
