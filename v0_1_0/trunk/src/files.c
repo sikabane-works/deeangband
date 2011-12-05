@@ -4311,7 +4311,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 	{
 		/* Display the inventory */
 
-		(void)show_inven(0, cr_ptr, FALSE);		
+		(void)show_inven(0, cr_ptr, FALSE, NULL);		
 	}
 
 	/* Special */
@@ -7370,7 +7370,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 	{
 		Term_clear();
 		item_tester_full = TRUE;
-		(void)show_inven(0, p_ptr, FALSE);
+		(void)show_inven(0, p_ptr, FALSE, NULL);
 #ifdef JP
 prt("持っていたアイテム: -続く-", 0, 0);
 #else

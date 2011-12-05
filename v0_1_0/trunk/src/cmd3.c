@@ -39,7 +39,7 @@ void do_cmd_inven(creature_type *cr_ptr)
 	item_tester_full = TRUE;
 
 	/* Display the inventory */
-	(void)show_inven(0, cr_ptr, TRUE);
+	(void)show_inven(0, cr_ptr, TRUE, NULL);
 
 	/* Hack -- hide empty slots */
 	item_tester_full = FALSE;

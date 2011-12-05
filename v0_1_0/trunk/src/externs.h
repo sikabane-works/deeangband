@@ -1302,7 +1302,7 @@ extern bool check_book_realm(creature_type *cr_ptr, const byte book_tval, const 
 extern bool item_tester_okay(creature_type *cr_ptr, object_type *o_ptr, bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr));
 extern void display_inven(creature_type *cr_ptr);
 extern void display_equip(creature_type *cr_ptr);
-extern int show_inven(int target_item, creature_type *cr_ptr, bool right_set);
+extern int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr));
 extern int show_equip(int target_item, creature_type *cr_ptr, bool right_set);
 extern void toggle_inven_equip(void);
 extern bool can_get_item(creature_type *cr_ptr);

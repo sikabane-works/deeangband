@@ -5017,7 +5017,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
+int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr))
 {
 	int             i, j, k, l, z = 0;
 	int             col, cur_col, len;
@@ -5061,7 +5061,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 		o_ptr = &cr_ptr->inventory[i];
 
 		/* Is this item acceptable? */
-		if (!item_tester_okay(p_ptr, o_ptr, NULL)) continue;
+		if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
 
 		/* Describe the object */
 		object_desc(o_name, o_ptr, 0);
@@ -5154,7 +5154,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set)
 		else
 		{
 			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", index_to_label(p_ptr, i));
+			sprintf(tmp_val, "%c)", index_to_label(cr_ptr, i));
 		}
 
 		/* Clear the line with the (possibly indented) index */
@@ -5548,7 +5548,7 @@ static bool get_item_allow(creature_type *cr_ptr, int item)
 		{
 			/* Verify the choice */
 #ifdef JP
-if (!verify(cr_ptr, "本当に", item)) return (FALSE);
+			if (!verify(cr_ptr, "本当に", item)) return (FALSE);
 #else
 			if (!verify("Really try", item)) return (FALSE);
 #endif
@@ -5956,11 +5956,11 @@ bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool
 		window_stuff();
 
 
-		/* cr_ptr->inventory screen */
+		/* inventory screen */
 		if (!command_wrk)
 		{
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Equipment screen */
@@ -7033,7 +7033,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 			n2 = I2A(i2);
 
 			/* Redraw if needed */
-			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE);
+			if (command_see) get_item_label = show_inven(menu_line, cr_ptr, TRUE, hook);
 		}
 
 		/* Equipment screen */
@@ -7485,7 +7485,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 					}
 
 					/* Allow player to "refuse" certain actions */
-					if (!get_item_allow(cr_ptr, get_item_label, hook))
+					if (!get_item_allow(cr_ptr, get_item_label))
 					{
 						done = TRUE;
 						break;
@@ -7929,7 +7929,7 @@ bool get_item_floor(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode
 
 				/* Verify the item */
 #ifdef JP
-if (ver && !verify(cr_ptr, "本当に", k))
+				if (ver && !verify(cr_ptr, "本当に", k))
 #else
 				if (ver && !verify("Try", k))
 #endif
