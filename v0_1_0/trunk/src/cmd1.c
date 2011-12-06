@@ -901,7 +901,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 #endif
 
 		screen_save();
-		n = get_selection(se, i, 1, 16, 18, max_len + 10, NULL);
+		n = get_selection(se, i, 2, 23, 20, max_len + 10, NULL);
 		screen_load();
 
 	}
