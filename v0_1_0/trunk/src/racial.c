@@ -2154,7 +2154,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire a rocket.");
 #endif
-				fire_rocket(GF_ROCKET, dir, plev * 5, 2);
+				fire_rocket(cr_ptr, GF_ROCKET, dir, plev * 5, 2);
 			}
 			break;
 

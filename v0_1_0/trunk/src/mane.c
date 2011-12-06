@@ -328,7 +328,7 @@ else msg_print("ロケットを発射した。");
 			else msg_print("You fire a rocket.");
 #endif
 		
-			fire_rocket(GF_ROCKET, dir, damage, 2);
+			fire_rocket(cr_ptr, GF_ROCKET, dir, damage, 2);
 		break;
 	case MS_SHOOT:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;

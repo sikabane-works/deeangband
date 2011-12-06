@@ -743,7 +743,7 @@ msg_print("ロケットを発射した。");
 			msg_print("You fire a rocket.");
 #endif
 		damage = hp / 4;
-			fire_rocket(GF_ROCKET, dir, damage, 2);
+			fire_rocket(user_ptr, GF_ROCKET, dir, damage, 2);
 		break;
 	case MS_SHOOT:
 	{

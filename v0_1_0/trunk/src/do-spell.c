@@ -3919,7 +3919,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 				msg_print("You launch a rocket!");
 #endif
 
-				fire_rocket(GF_ROCKET, dir, dam, rad);
+				fire_rocket(cr_ptr, GF_ROCKET, dir, dam, rad);
 			}
 		}
 		break;

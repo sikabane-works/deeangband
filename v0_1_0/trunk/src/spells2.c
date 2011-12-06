@@ -6442,15 +6442,15 @@ bool fire_ball(int typ, int dir, int dam, int rad)
  * Allow "target" mode to pass over monsters
  * Affect grids, objects, and monsters
  */
-bool fire_rocket(int typ, int dir, int dam, int rad)
+bool fire_rocket(creature_type *user_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	/* Use the given direction */
-	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = p_ptr->fy + 99 * ddy[dir];
+	tx = user_ptr->fx + 99 * ddx[dir];
+	ty = user_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())

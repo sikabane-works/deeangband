@@ -3093,7 +3093,7 @@ msg_print("ロケットを発射した！");
 			msg_print("You launch a rocket!");
 #endif
 
-			fire_rocket(GF_ROCKET, dir, 250 + cr_ptr->lev * 3, 2);
+			fire_rocket(cr_ptr, GF_ROCKET, dir, 250 + cr_ptr->lev * 3, 2);
 			ident = TRUE;
 			break;
 		}
