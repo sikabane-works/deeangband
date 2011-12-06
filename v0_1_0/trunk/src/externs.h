@@ -1667,7 +1667,7 @@ extern void cnv_stat(int val, char *out_val);
 extern s16b modify_stat_value(int value, int amount);
 extern bool is_daytime(void);
 extern void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min);
-extern void prt_time(void);
+extern void prt_time(creature_type *player_ptr);
 extern cptr map_name(void);
 extern u32b weight_limit(creature_type *cr_ptr);
 extern bool have_weapon(creature_type *cr_ptr, int i);

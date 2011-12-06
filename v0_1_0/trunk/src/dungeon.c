@@ -5503,7 +5503,7 @@ msg_print("何か変わった気がする！");
 			/* Update the monster */
 			update_mon(cr_ptr, i, FALSE);
 		}
-		prt_time();
+		prt_time(cr_ptr);
 	}
 
 	/* Give the player some energy */
@@ -5514,7 +5514,7 @@ msg_print("何か変わった気がする！");
 
 	/* No turn yet */
 	if (cr_ptr->energy_need > 0) return;
-	if (!command_rep) prt_time();
+	if (!command_rep) prt_time(cr_ptr);
 
 	/*** Check for interupts ***/
 

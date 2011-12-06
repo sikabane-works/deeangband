@@ -127,7 +127,7 @@ void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
 	const s32b A_DAY = TURNS_PER_TICK * TOWN_DAWN;
 	s32b turn_in_today = (turn + A_DAY / 4) % A_DAY;
 
-	if(is_undead_creature(p_ptr))
+	if(is_undead_creature(cr_ptr))
 	{
 		*day = (turn - A_DAY * 3 / 4) / A_DAY + 1;
 	}
@@ -142,14 +142,14 @@ void extract_day_hour_min(creature_type *cr_ptr, int *day, int *hour, int *min)
 /*
  * Print time
  */
-void prt_time(void)
+void prt_time(creature_type *player_ptr)
 {
 	int day, hour, min;
 
 	/* Dump 13 spaces to clear */
 	c_put_str(TERM_WHITE, "             ", ROW_DAY, COL_DAY);
 
-	extract_day_hour_min(p_ptr, &day, &hour, &min);
+	extract_day_hour_min(player_ptr, &day, &hour, &min);
 
 	/* Dump the info itself */
 #ifdef JP
@@ -5918,7 +5918,7 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_time();
+		prt_time(cr_ptr);
 		prt_dungeon();
 	}
 
