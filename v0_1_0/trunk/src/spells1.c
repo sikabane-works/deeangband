@@ -5732,7 +5732,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 
 
 	/* Update monster recall window */
-	if ((who_ptr->species_type_idx == tar_ptr->species_idx) && (seen || !tar_ptr->species_idx))
+	if ((species_window_idx == tar_ptr->species_idx) && (seen || !tar_ptr->species_idx))
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);

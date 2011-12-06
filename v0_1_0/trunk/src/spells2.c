@@ -4006,7 +4006,7 @@ bool detect_monsters_invis(creature_type *cr_ptr, int range)
 		if (has_cf_creature(m_ptr, CF_INVISIBLE))
 		{
 			/* Update monster recall window */
-			if (cr_ptr->species_type_idx == m_ptr->species_idx)
+			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4081,7 +4081,7 @@ bool detect_monsters_evil(creature_type *cr_ptr, int range)
 				//r_ptr->r_flags3 |= (RF3_EVIL);
 
 				/* Update monster recall window */
-				if (cr_ptr->species_type_idx == m_ptr->species_idx)
+				if (species_window_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
 					play_window |= (PW_MONSTER);
@@ -4151,7 +4151,7 @@ bool detect_monsters_nonliving(creature_type *cr_ptr, int range)
 		if (!monster_living(r_ptr))
 		{
 			/* Update monster recall window */
-			if (cr_ptr->species_type_idx == m_ptr->species_idx)
+			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4218,7 +4218,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 		if (!has_cf_creature(m_ptr, CF_EMPTY_MIND))
 		{
 			/* Update monster recall window */
-			if (p_ptr->species_type_idx == m_ptr->species_idx)
+			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4285,7 +4285,7 @@ bool detect_monsters_string(creature_type *cr_ptr, int range, cptr Match)
 		if (my_strchr(Match, r_ptr->d_char))
 		{
 			/* Update monster recall window */
-			if (cr_ptr->species_type_idx == m_ptr->species_idx)
+			if (species_window_idx == m_ptr->species_idx)
 			{
 				/* Window stuff */
 				play_window |= (PW_MONSTER);
@@ -4365,7 +4365,7 @@ cptr desc_monsters = "•Ï‚Èƒ‚ƒ“ƒXƒ^[";
 				r_ptr->r_flags3 |= (match_flag);
 
 				/* Update monster recall window */
-				if (cr_ptr->species_type_idx == m_ptr->species_idx)
+				if (species_window_idx == m_ptr->species_idx)
 				{
 					/* Window stuff */
 					play_window |= (PW_MONSTER);

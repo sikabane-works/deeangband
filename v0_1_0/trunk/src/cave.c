@@ -4999,7 +4999,7 @@ void health_track(int m_idx)
 void species_type_track(int species_idx)
 {
 	/* Save this monster ID */
-	p_ptr->species_type_idx = species_idx;
+	species_window_idx = species_idx;
 
 	/* Window stuff */
 	play_window |= (PW_MONSTER);

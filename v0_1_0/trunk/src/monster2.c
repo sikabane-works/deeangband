@@ -2378,7 +2378,7 @@ int lore_do_probe(int species_idx)
 	r_ptr->r_xtra1 |= MR1_SINKA;
 
 	/* Update monster recall window */
-	if (p_ptr->species_type_idx == species_idx)
+	if (species_window_idx == species_idx)
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);
@@ -2414,7 +2414,7 @@ void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold)
 	if (num_gold > r_ptr->r_drop_gold) r_ptr->r_drop_gold = num_gold;
 
 	/* Update monster recall window */
-	if (p_ptr->species_type_idx == cr_ptr->species_idx)
+	if (species_window_idx == cr_ptr->species_idx)
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);

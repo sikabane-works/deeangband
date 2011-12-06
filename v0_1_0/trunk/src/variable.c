@@ -788,6 +788,8 @@ s16b arena_number = 0;		/* monster number in arena -KMW- */
 s32b wilderness_x = 0;	/* Coordinates in the wilderness */
 s32b wilderness_y = 0;
 
+s16b species_window_idx;	/* Species info trackee */
+
 
 /*
  * The last character rolled,

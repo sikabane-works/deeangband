@@ -1920,7 +1920,7 @@ static void fix_monster(creature_type *cr_ptr)
 		Term_activate(angband_term[j]);
 
 		/* Display monster race info */
-		if (cr_ptr->species_type_idx) display_roff(cr_ptr->species_type_idx);
+		if (species_window_idx) display_roff(species_window_idx);
 
 		/* Fresh */
 		Term_fresh();

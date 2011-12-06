@@ -1386,8 +1386,6 @@ struct creature_type
 	bool teleport_town;
 	bool enter_dungeon;     /* Just enter the dungeon */
 
-	s16b species_type_idx;	/* Monster race trackee */
-
 	s16b object_kind_idx;	/* Object kind trackee */
 
 	s16b new_spells;	/* Number of spells available */

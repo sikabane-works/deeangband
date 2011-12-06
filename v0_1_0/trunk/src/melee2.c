@@ -2804,7 +2804,7 @@ void process_monsters(creature_type *cr_ptr)
 	creature_type    *m_ptr;
 	species_type    *r_ptr;
 
-	int             old_species_type_idx;
+	int             old_species_window_idx;
 
 	u32b    old_r_flags1 = 0L;
 	u32b    old_r_flags2 = 0L;
@@ -2827,13 +2827,13 @@ void process_monsters(creature_type *cr_ptr)
 	mon_fight = FALSE;
 
 	/* Memorize old race */
-	old_species_type_idx = cr_ptr->species_type_idx;
+	old_species_window_idx = species_window_idx;
 
 	/* Acquire knowledge */
-	if (cr_ptr->species_type_idx)
+	if (species_window_idx)
 	{
 		/* Acquire current monster */
-		r_ptr = &species_info[cr_ptr->species_type_idx];
+		r_ptr = &species_info[species_window_idx];
 
 		/* Memorize flags */
 		old_r_flags1 = r_ptr->r_flags1;
@@ -2979,10 +2979,10 @@ void process_monsters(creature_type *cr_ptr)
 
 
 	/* Tracking a monster race (the same one we were before) */
-	if (cr_ptr->species_type_idx && (cr_ptr->species_type_idx == old_species_type_idx))
+	if (species_window_idx && (species_window_idx == old_species_window_idx))
 	{
 		/* Acquire monster race */
-		r_ptr = &species_info[cr_ptr->species_type_idx];
+		r_ptr = &species_info[species_window_idx];
 
 		/* Check for knowledge change */
 		if ((old_r_flags1 != r_ptr->r_flags1) ||

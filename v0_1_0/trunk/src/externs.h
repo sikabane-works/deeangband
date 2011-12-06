@@ -1928,6 +1928,8 @@ extern s16b arena_number;		/* monster number in arena -KMW- */
 extern s32b wilderness_x;	/* Coordinates in the wilderness */
 extern s32b wilderness_y;
 
+extern s16b species_window_idx;	/* Species info trackee */
+
 
 /* cmd2.c */
 extern bool easy_open_door(creature_type *cr_ptr, int y, int x);
