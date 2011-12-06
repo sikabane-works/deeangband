@@ -943,7 +943,7 @@ bool dispel_check(creature_type *user_ptr, creature_type *tar_ptr)
  *
  * This function may well be an efficiency bottleneck.
  */
-static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
+static int choose_attack_spell(creature_type *user_ptr, creature_type *target_ptr, byte spells[], byte num)
 {
 	species_type *r_ptr = &species_info[user_ptr->species_idx];
 
@@ -1075,7 +1075,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if ((distance(p_ptr->fy, p_ptr->fx, user_ptr->fy, user_ptr->fx) < 4) && (attack_num || has_cf(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !world_monster)
+	if ((distance(target_ptr->fy, target_ptr->fx, user_ptr->fy, user_ptr->fx) < 4) && (attack_num || has_cf(&r_ptr->flags, CF_TRAPS)) && (randint0(100) < 75) && !world_monster)
 	{
 		/* Choose tactical spell */
 		if (tactic_num) return (tactic[randint0(tactic_num)]);
@@ -1092,7 +1092,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 	if (dispel_num && one_in_(2))
 	{
 		/* Choose dispel spell if possible */
-		if (dispel_check(user_ptr, player_ptr))
+		if (dispel_check(user_ptr, target_ptr))
 		{
 			return (dispel[randint0(dispel_num)]);
 		}
@@ -1106,7 +1106,7 @@ static int choose_attack_spell(creature_type *user_ptr, byte spells[], byte num)
 	}
 
 	/* Attack spell (most of the time) */
-	if (IS_INVULN(p_ptr))
+	if (IS_INVULN(target_ptr))
 	{
 		if (psy_spe_num && (randint0(100) < 50))
 		{
@@ -1600,7 +1600,7 @@ bool make_attack_spell(creature_type *user_ptr, creature_type *target_ptr)
 			int attempt = 10;
 			while (attempt--)
 			{
-				thrown_spell = choose_attack_spell(user_ptr, spell, num);
+				thrown_spell = choose_attack_spell(user_ptr, target_ptr, spell, num);
 				if (thrown_spell) break;
 			}
 		}
