@@ -728,16 +728,16 @@ static void prt_level(creature_type *cr_ptr)
 	if (cr_ptr->lev >= cr_ptr->max_plv)
 	{
 		if(cr_ptr->lev >= cr_ptr->max_lev)
-			put_str("LEVEL!", ROW_LEVEL, 0);
+			put_str("LV!", ROW_LEVEL, 0);
 		else
-			put_str("LEVEL ", ROW_LEVEL, 0);
+			put_str("LV ", ROW_LEVEL, 0);
 				
-		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 7);
+		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 3);
 	}
 	else
 	{
-		put_str("Level ", ROW_LEVEL, 0);
-		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 7);
+		put_str("Lv ", ROW_LEVEL, 0);
+		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 3);
 	}
 }
 
@@ -768,7 +768,7 @@ static void prt_exp(creature_type *cr_ptr)
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
 		if (IS_RACE(cr_ptr, RACE_ANDROID)) put_str("Cst ", ROW_EXP, 0);
-		else put_str("EXP ", ROW_EXP, 0);
+		else put_str("EXP ", ROW_EXP, COL_EXP);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
 
 	}
