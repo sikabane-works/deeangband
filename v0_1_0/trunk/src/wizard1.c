@@ -2257,7 +2257,6 @@ static void spoil_mon_info(cptr fname)
 {
 	char buf[1024];
 	int i, l, n = 0;
-	u32b flags1;
 	int tmpht;
 	int hpdata[4];
 
@@ -2314,9 +2313,6 @@ static void spoil_mon_info(cptr fname)
 	for (l = 0; l < n; l++)
 	{
 		species_type *species_ptr = &species_info[who[l]];
-
-		/* Extract the flags */
-		flags1 = species_ptr->flags1;
 
 		/* TODO: Prefix */
 		/*

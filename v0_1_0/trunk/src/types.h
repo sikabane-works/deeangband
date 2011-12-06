@@ -388,26 +388,6 @@ struct species_type
 
 	byte freq_spell;		/* Spell frequency */
 
-	u32b flags1;			/* Flags 1 (general) */
-	u32b flags2;			/* Flags 2 (abilities) */
-	u32b flags3;			/* Flags 3 (race/resist) */
-	u32b flags4;			/* Flags 4 (inate/breath) */
-	u32b flags5;			/* Flags 5 (normal spells) */
-	u32b flags6;			/* Flags 6 (special spells) */
-	u32b flags7;			/* Flags 7 (movement related abilities) */
-	u32b flags8;			/* Flags 8 (wilderness info) */
-	u32b flags9;			/* Flags 9 (drops info) */
-	u32b flags10;			/* Flags 10 (resistances info) */
-	u32b flags11;			/* Flags 11 (ego info) */
-	u32b flags12;
-	u32b flags13;
-	u32b flags14;
-	u32b flags15;
-	u32b flags16;
-	u32b flags17;
-	u32b flags18;
-	u32b flags19;
-
 	creature_flags flags;
 
 	species_blow blow[4];	/* Up to four blows per round */

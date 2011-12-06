@@ -1701,7 +1701,7 @@ static bool vault_aux_dragon(int species_idx)
 	if (!is_dragon_species(r_ptr)) return (FALSE);
 
 	/* Hack -- Require correct "breath attack" */
-	if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
+	//TODO if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
 
 	/* Decline undead */
 	if (is_undead_species(r_ptr)) return (FALSE);

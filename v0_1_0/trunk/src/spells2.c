@@ -4356,7 +4356,8 @@ cptr desc_monsters = "•Ï‚Èƒ‚ƒ“ƒXƒ^[";
 		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil monsters */
-		if (r_ptr->flags3 & (match_flag))
+		//TODO if (r_ptr->flags3 & (match_flag))
+		if(1)
 		{
 			if (is_original_ap(m_ptr))
 			{

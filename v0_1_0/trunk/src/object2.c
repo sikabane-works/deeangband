@@ -6795,9 +6795,11 @@ bool process_warning(int xx, int yy)
 			{
 				int breath_dam_div3 = m_ptr->chp / 3;
 				int breath_dam_div6 = m_ptr->chp / 6;
-				u32b f4 = r_ptr->flags4;
-				u32b f5 = r_ptr->flags5;
-				u32b f6 = r_ptr->flags6;
+
+				// TODO
+				u32b f4 = 0;
+				u32b f5 = 0;
+				u32b f6 = 0;
 
 				if (!(d_info[dungeon_type].flags1 & DF1_NO_MAGIC))
 				{

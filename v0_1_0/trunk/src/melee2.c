@@ -1124,8 +1124,11 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 					room++;
 				}
 			}
+
+			/* TODO
 			if (cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
 			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
+			*/
 
 			/* Not in a room and strong player */
 			if (room < (8 * (player_ptr->chp + player_ptr->csp)) /

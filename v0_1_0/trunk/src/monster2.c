@@ -1290,8 +1290,8 @@ static bool summon_specific_aux(int species_idx)
 			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
-			       !is_multiply_species(r_ptr) &&
-			       !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
+			       !is_multiply_species(r_ptr));// &&
+			       //TODO !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
 			break;
 		}
 
@@ -2333,6 +2333,7 @@ int lore_do_probe(int species_idx)
 	r_ptr->r_cast_spell = MAX_UCHAR;
 
 	/* Count unknown flags */
+	/*
 	for (i = 0; i < 32; i++)
 	{
 		if (!(r_ptr->r_flags1 & (1L << i)) &&
@@ -2350,14 +2351,16 @@ int lore_do_probe(int species_idx)
 		if (!(r_ptr->r_flags10 & (1L << i)) &&
 		    (r_ptr->flags10 & (1L << i))) n++;
 
-		/* r_flags7 is actually unused */
 #if 0
 		if (!(r_ptr->r_flags7 & (1L << i)) &&
 		    (r_ptr->flags7 & (1L << i))) n++;
 #endif
 	}
+	*/
+
 
 	/* Know all the flags */
+/*
 	r_ptr->r_flags1 = r_ptr->flags1;
 	r_ptr->r_flags2 = r_ptr->flags2;
 	r_ptr->r_flags3 = r_ptr->flags3;
@@ -2365,6 +2368,7 @@ int lore_do_probe(int species_idx)
 	r_ptr->r_flags5 = r_ptr->flags5;
 	r_ptr->r_flags6 = r_ptr->flags6;
 	r_ptr->r_flags10 = r_ptr->flags10;
+*/
 
 	/* r_flags7 is actually unused */
 	/* r_ptr->r_flags7 = r_ptr->flags7; */
@@ -2928,7 +2932,7 @@ void update_mon(creature_type *cr_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if ((cr_ptr->esp_troll) && (r_ptr->flags3 && is_troll_creature(&creature_list[m_idx])))
+			if ((cr_ptr->esp_troll) && (is_troll_creature(&creature_list[m_idx])))
 			{
 				flag = TRUE;
 				reveal_creature_info(m_ptr, INFO_TYPE_RACE);
