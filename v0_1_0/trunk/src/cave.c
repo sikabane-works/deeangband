@@ -1380,7 +1380,7 @@ static int panel_col_of(int col)
 {
 	col -= panel_col_min;
 	if (use_bigtile) col *= 2;
-	return col + 13; 
+	return col + 22; 
 }
 
 
