@@ -830,6 +830,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 	int i, n;
 	selection se[100];
+	int max_len = 0;
 
 	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
@@ -881,22 +882,27 @@ void carry(creature_type *cr_ptr, bool pickup)
 
 	if(floor_num >= 2)
 	{
-		for (i = 0, n = 0; i < floor_num; i++)
+		for (i = 0; i < floor_num; i++)
 		{
 			object_desc(o_name, &o_list[i], 0);
-			strcpy(se[n].cap, o_name);
-			se[n].code = 0;
-			se[n].key = '\0';
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
+			n = strlen(o_name);
+			max_len = max_len > n ? max_len : n;
+			strcpy(se[i].cap, o_name);
+			se[i].code = 0;
+			se[i].key = '\0';
+			se[i].d_color = TERM_L_DARK;
+			se[i].l_color = TERM_WHITE;
 		}
+
 #if JP
-		put_str("拾うアイテムを選択して下さい:", 0, 0);
+		msg_print("拾うアイテムを選択して下さい。");
 #else
-		put_str("Select which items take up:", 0, 0);
+		msg_print("Select which items take up.");
 #endif
 
-		i = get_selection(se, n, 5, 2, 18, 20, NULL);
+		screen_save();
+		n = get_selection(se, i, 1, 16, 18, max_len + 10, NULL);
+		screen_load();
 
 	}
 
