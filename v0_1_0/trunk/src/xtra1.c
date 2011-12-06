@@ -727,16 +727,12 @@ static void prt_level(creature_type *cr_ptr)
 
 	if (cr_ptr->lev >= cr_ptr->max_plv)
 	{
-		if(cr_ptr->lev >= cr_ptr->max_lev)
-			put_str("LEV", ROW_LEVEL, 0);
-		else
-			put_str("Lev", ROW_LEVEL, 0);
-				
+		put_str("LEV", ROW_LEVEL, 0);				
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 3);
 	}
 	else
 	{
-		put_str("Lv ", ROW_LEVEL, 0);
+		put_str("lev", ROW_LEVEL, 0);
 		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 3);
 	}
 }

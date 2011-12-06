@@ -221,9 +221,9 @@ static cptr realm_flags[MAX_REALM]=
 	"XXX",
 	"XXX",
 	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
+	"MUSIC",
+	"HISSATSU",
+	"HEX",
 };
 
 
