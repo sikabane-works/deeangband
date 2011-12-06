@@ -8168,7 +8168,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		{
 			/* Message */
 #ifdef JP
-			msg_format("%d 個のアイテムの山がある。", floor_num);
+			msg_format("%d 種のアイテムが置いてある。", floor_num);
 #else
 			msg_format("You see a pile of %d items.", floor_num);
 #endif

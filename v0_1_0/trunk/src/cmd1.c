@@ -828,6 +828,8 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 void carry(creature_type *cr_ptr, bool pickup)
 {
 	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+	int i, n;
+	selection se[100];
 
 	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
@@ -875,8 +877,103 @@ void carry(creature_type *cr_ptr, bool pickup)
 
 		/* Count non-gold objects */
 		floor_num++;
+	}
+
+	if(floor_num >= 2)
+	{
+		for (i = 0, n = 0; i < floor_num; i++)
+		{
+			object_desc(o_name, &o_list[i], 0);
+			strcpy(se[n].cap, o_name);
+			se[n].code = 0;
+			se[n].key = '\0';
+			se[n].d_color = TERM_L_DARK;
+			se[n].l_color = TERM_WHITE;
+		}
+#if JP
+		put_str("拾うアイテムを選択して下さい:", 0, 0);
+#else
+		put_str("Select which items take up:", 0, 0);
+#endif
+
+		i = get_selection(se, n, 5, 2, 18, 20, NULL);
 
 	}
+
+
+/*
+	int     n, i;
+
+	if(species_ptr->race_idx1 != INDEX_VARIABLE)
+	{
+		creature_ptr->race_idx1 = species_ptr->race_idx1;
+		return 0;
+	}
+
+
+	if(npc)
+	{
+		creature_ptr->race_idx1 = se[randint0(n)].code;
+		return 0;
+	}
+
+#if JP
+	strcpy(se[n].cap, "ランダム");
+#else
+	strcpy(se[n].cap, "Random");
+#endif
+	se[n].code = -1;
+	se[n].key = '*';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "最初に戻る");
+#else
+	strcpy(se[n].cap, "Back to start");
+#endif
+	se[n].code = -2;
+	se[n].key = 'S';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	strcpy(se[n].cap, "終了する");
+#else
+	strcpy(se[n].cap, "Quit game");
+#endif
+	se[n].code = -3;
+	se[n].key = 'Q';
+	se[n].d_color = TERM_UMBER;
+	se[n].l_color = TERM_L_UMBER;
+	n++;
+
+#if JP
+	put_str("種族を選択して下さい:", 0, 0);
+#else
+	put_str("Select a race:", 0, 0);
+#endif
+
+	i = get_selection(se, n, 5, 2, 18, 20, race_detail);
+
+	if(i >= 0)
+	{
+		creature_ptr->race_idx1 = i;
+		return 0;
+	}
+	else if(i == -1)
+	{
+		creature_ptr->race_idx1 = se[randint0(n - 3)].code;
+		return 0;
+	}
+	else
+	{
+		return i;
+	}
+*/
+
 	/* Message */
 
 	if(floor_num >= 3)
@@ -887,7 +984,6 @@ void carry(creature_type *cr_ptr, bool pickup)
 			msg_format("You see %d items.", floor_num);
 #endif
 	}
-
 
 
 	/* Scan the pile of objects */

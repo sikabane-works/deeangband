@@ -3530,7 +3530,7 @@ void deal_item(creature_type *creature_ptr)
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(q_ptr, 0, 0, object_level);
+		make_object(q_ptr, AM_UNCURSED, 0, object_level);
 		add_outfit(creature_ptr, q_ptr, FALSE);
 	}
 
