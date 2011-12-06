@@ -3411,6 +3411,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	char *s, *t;
 	char tmp[20000], nt[80];
 	int b, ub;
+	u32b flags;
 
 	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
 		return (1);
@@ -3770,8 +3771,21 @@ errr parse_species_info_csv(char *buf, header *head)
 				k = 0;
 				while(tmp[offset]) {
 					id = tval = sval = prob = 0;
+					flags = 0;
 					if (4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
 					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
+					else if(3 == sscanf(tmp + offset, "NORMAL:%d:%d:%d%%", &tval, &sval, &prob))
+					{
+						flags = AM_UNCURSED;
+					}
+					else if(3 == sscanf(tmp + offset, "GOOD:%d:%d:%d%%", &tval, &sval, &prob))
+					{
+						flags = AM_GOOD;
+					}
+					else if(3 == sscanf(tmp + offset, "GREAT:%d:%d:%d%%", &tval, &sval, &prob))
+					{
+						flags = AM_GREAT;
+					}
 					else return(1);		
 
 					if (k == MAX_UNDERLINGS) return (1);
