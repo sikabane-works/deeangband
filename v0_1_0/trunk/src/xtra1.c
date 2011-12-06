@@ -728,9 +728,9 @@ static void prt_level(creature_type *cr_ptr)
 	if (cr_ptr->lev >= cr_ptr->max_plv)
 	{
 		if(cr_ptr->lev >= cr_ptr->max_lev)
-			put_str("LV!", ROW_LEVEL, 0);
+			put_str("LEV", ROW_LEVEL, 0);
 		else
-			put_str("LV ", ROW_LEVEL, 0);
+			put_str("Lev", ROW_LEVEL, 0);
 				
 		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 3);
 	}
@@ -768,14 +768,14 @@ static void prt_exp(creature_type *cr_ptr)
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
 		if (IS_RACE(cr_ptr, RACE_ANDROID)) put_str("Cst ", ROW_EXP, 0);
-		else put_str("EXP ", ROW_EXP, COL_EXP);
-		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 4);
+		else put_str("EXP", ROW_EXP, COL_EXP);
+		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 3);
 
 	}
 	else
 	{
-		put_str("Exp ", ROW_EXP, 0);
-		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 4);
+		put_str("Exp", ROW_EXP, 0);
+		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 3);
 	}
 }
 
@@ -5924,12 +5924,6 @@ void redraw_stuff(creature_type *cr_ptr)
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
 		prt_time();
 		prt_dungeon();
-	}
-
-	if (play_redraw & (PR_EQUIPPY))
-	{
-		play_redraw &= ~(PR_EQUIPPY);
-		print_equippy(cr_ptr); /* To draw / delete equippy chars */
 	}
 
 	if (play_redraw & (PR_MISC))

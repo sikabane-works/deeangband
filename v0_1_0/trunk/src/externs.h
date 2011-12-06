@@ -1138,7 +1138,6 @@ extern cptr process_pref_file_expr(char **sp, char *fp);
 extern errr process_pref_file(cptr name);
 extern errr process_autopick_file(cptr name);
 extern errr process_histpref_file(cptr name);
-extern void print_equippy(creature_type *cr_ptr);
 extern errr check_time_init(void);
 extern errr check_load_init(void);
 extern errr check_time(void);

@@ -2854,12 +2854,6 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *cr_pt
 	}
 }
 
-
-void print_equippy(creature_type *cr_ptr)
-{
-	display_player_equippy(ROW_EQUIPPY, COL_EQUIPPY, DP_TWO_LINES, cr_ptr);
-}
-
 /*
  *
  */

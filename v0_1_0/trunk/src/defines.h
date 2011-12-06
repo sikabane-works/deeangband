@@ -1022,9 +1022,6 @@
 #define ROW_GOLD                3
 #define COL_GOLD                0       /* "AU xxxxxxxxx" */
 
-#define ROW_EQUIPPY             4
-#define COL_EQUIPPY             0       /* equippy chars */
-
 #define ROW_STAT                6
 #define COL_STAT                0       /* "xxx   xxxxxx" */
 
