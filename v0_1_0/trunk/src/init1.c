@@ -3769,7 +3769,10 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
-					if (4 != sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) return(1);		
+					id = tval = sval = prob = 0;
+					if (4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
+					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
+					else return(1);		
 
 					if (k == MAX_UNDERLINGS) return (1);
 
