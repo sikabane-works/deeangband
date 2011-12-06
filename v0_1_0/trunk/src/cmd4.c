@@ -6656,7 +6656,7 @@ static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 /*
  * Check the status of "artifacts"
  */
-static void do_cmd_knowledge_artifacts(void)
+static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 {
 	int i, k, z, x, y, n = 0;
 	u16b why = 3;
@@ -6739,10 +6739,10 @@ static void do_cmd_knowledge_artifacts(void)
 		}
 	}
 
-	/* Check the p_ptr->inventory and equipment */
+	/* Check the owner_ptr->inventory and equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		object_type *o_ptr = &p_ptr->inventory[i];
+		object_type *o_ptr = &owner_ptr->inventory[i];
 
 		/* Ignore non-objects */
 		if (!o_ptr->k_idx) continue;
@@ -10254,7 +10254,7 @@ void do_cmd_knowledge(creature_type *cr_ptr)
 			p = 1 - p;
 			break;
 		case '1': /* Artifacts */
-			do_cmd_knowledge_artifacts();
+			do_cmd_knowledge_artifacts(cr_ptr);
 			break;
 		case '2': /* Objects */
 			do_cmd_knowledge_objects(&need_redraw, FALSE, -1);
