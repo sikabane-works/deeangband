@@ -4312,7 +4312,7 @@ void update_smell(creature_type *cr_ptr)
 /*
  * Hack -- map the current panel (plus some) ala "magic mapping"
  */
-void map_area(int range)
+void map_area(creature_type *creature_ptr, int range)
 {
 	int             i, x, y;
 	cave_type       *c_ptr;
@@ -4326,7 +4326,7 @@ void map_area(int range)
 	{
 		for (x = 1; x < cur_wid - 1; x++)
 		{
-			if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+			if (distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 			c_ptr = &cave[y][x];
 

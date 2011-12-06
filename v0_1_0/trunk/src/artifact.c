@@ -2813,7 +2813,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("It shines brightly...");
 #endif
 
-			map_area(DETECT_RAD_MAP);
+			map_area(cr_ptr, DETECT_RAD_MAP);
 			lite_area(cr_ptr, damroll(2, 15), 3);
 			o_ptr->timeout = (s16b)randint0(50) + 50;
 			break;

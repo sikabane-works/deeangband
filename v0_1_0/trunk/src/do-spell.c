@@ -1470,7 +1470,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				map_area(rad);
+				map_area(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2081,7 +2081,7 @@ static cptr do_sorcery_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				map_area(rad);
+				map_area(cr_ptr, rad);
 			}
 		}
 		break;
@@ -2872,7 +2872,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				map_area(rad1);
+				map_area(cr_ptr, rad1);
 				detect_traps(cr_ptr, rad2, TRUE);
 				detect_doors(cr_ptr, rad2);
 				detect_stairs(cr_ptr, rad2);
@@ -7592,7 +7592,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				map_area(rad);
+				map_area(cr_ptr, rad);
 			}
 		}
 		break;
@@ -9264,7 +9264,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 				if (count >= 19) wiz_lite(cr_ptr, FALSE);
 				if (count >= 11)
 				{
-					map_area(rad);
+					map_area(cr_ptr, rad);
 					if (plev > 39 && count < 19)
 						cr_ptr->magic_num1[2] = count + 1;
 				}

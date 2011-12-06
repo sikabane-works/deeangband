@@ -1802,7 +1802,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_MAPPING:
 		{
-			map_area(DETECT_RAD_MAP);
+			map_area(cr_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
@@ -2385,7 +2385,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_MAPPING:
 		{
-			map_area(DETECT_RAD_MAP);
+			map_area(cr_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
@@ -3359,7 +3359,7 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_MAPPING:
 		{
-			map_area(DETECT_RAD_MAP);
+			map_area(cr_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
@@ -4125,7 +4125,7 @@ static void do_cmd_activate_aux(creature_type *cr_ptr, int item)
 				msg_print("The star shines brightly...");
 #endif
 
-				map_area(DETECT_RAD_MAP);
+				map_area(cr_ptr, DETECT_RAD_MAP);
 				lite_area(cr_ptr, damroll(2, 15), 3);
 				o_ptr->timeout = randint0(50) + 50;
 				break;

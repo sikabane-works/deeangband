@@ -2016,7 +2016,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 
 	/* Magic Mapping */
 	case 'm':
-		map_area(DETECT_RAD_ALL * 3);
+		map_area(cr_ptr, DETECT_RAD_ALL * 3);
 		break;
 
 	/* Mutation */
