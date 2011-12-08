@@ -1330,7 +1330,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* seal of mirror */
 	case 11:
-	  seal_of_mirror(plev*4+100);
+	  seal_of_mirror(cr_ptr, plev * 4 + 100);
 	  break;
 	/* shield of water */
 	case 12:

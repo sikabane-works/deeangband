@@ -1381,7 +1381,7 @@ extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
 extern bool project(creature_type *user_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell);
 extern int project_length;
 extern bool binding_field(int dam);
-extern void seal_of_mirror(int dam);
+extern void seal_of_mirror(creature_type *user_ptr, int dam);
 
 /* spells2.c */
 extern void message_pain(int m_idx, int dam);

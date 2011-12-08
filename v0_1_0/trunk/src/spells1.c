@@ -8917,7 +8917,7 @@ bool binding_field( int dam )
 	return TRUE;
 }
 
-void seal_of_mirror( int dam )
+void seal_of_mirror(creature_type *user_ptr, int dam)
 {
 	int x,y;
 
@@ -8927,7 +8927,7 @@ void seal_of_mirror( int dam )
 		{
 			if( is_mirror_grid(&cave[y][x]))
 			{
-				if(project_m(p_ptr, p_ptr,0,y,x,dam,GF_GENOCIDE,
+				if(project_m(user_ptr, user_ptr,0,y,x,dam,GF_GENOCIDE,
 							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE))
 				{
 					if( !cave[y][x].m_idx )
