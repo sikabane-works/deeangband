@@ -7621,7 +7621,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 				}
 			}
 			if (!player_ptr->wait_report_score)
-				(void)top_twenty();
+				(void)top_twenty(player_ptr);
 		}
 		else if (highscore_fd >= 0)
 		{

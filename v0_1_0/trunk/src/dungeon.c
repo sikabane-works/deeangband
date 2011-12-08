@@ -6711,7 +6711,7 @@ quit("セーブファイルが壊れています");
 		else
 		{
 			cr_ptr->wait_report_score = FALSE;
-			top_twenty();
+			top_twenty(cr_ptr);
 #ifdef JP
 			if (!save_player()) msg_print("セーブ失敗！");
 #else

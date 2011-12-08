@@ -477,7 +477,7 @@ bool send_world_score(bool do_send)
  *
  * Assumes "signals_ignore_tstp()" has been called.
  */
-errr top_twenty(void)
+errr top_twenty(creature_type *player_ptr)
 {
 	int          j;
 
