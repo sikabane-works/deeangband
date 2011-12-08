@@ -2066,7 +2066,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	if (object_is_smith(p_ptr, o_ptr))
 	{
 		if(!o_ptr->creater_idx)
-			t = object_desc_str(t,format(" of %s the Smith",p_ptr->name));
+			t = object_desc_str(t,format(" of %s the Smith", p_ptr->name));
 		else
 			t = object_desc_str(t, format(" of %s", species_name + species_info[o_ptr->creater_idx].name));
 	}

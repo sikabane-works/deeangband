@@ -1269,7 +1269,7 @@ static void build_battle(creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void battle_gen(void)
+static void battle_gen(creature_type *player_ptr)
 {
 	int y, x, i;
 	int qy = 0;
@@ -1298,13 +1298,13 @@ static void battle_gen(void)
 		}
 	}
 
-	build_battle(p_ptr);
+	build_battle(player_ptr);
 
 	for(i=0;i<4;i++)
 	{
-		place_monster_aux(p_ptr, p_ptr->fy + 8 + (i/2)*4, p_ptr->fx - 2 + (i%2)*4, battle_mon[i],
+		place_monster_aux(player_ptr, player_ptr->fy + 8 + (i/2)*4, player_ptr->fx - 2 + (i%2)*4, battle_mon[i],
 				  (PM_NO_KAGE | PM_NO_PET));
-		set_friendly(&creature_list[cave[p_ptr->fy+8+(i/2)*4][p_ptr->fx-2+(i%2)*4].m_idx]);
+		set_friendly(&creature_list[cave[player_ptr->fy+8+(i/2)*4][player_ptr->fx-2+(i%2)*4].m_idx]);
 	}
 	for(i = 1; i < m_max; i++)
 	{
@@ -1316,7 +1316,7 @@ static void battle_gen(void)
 		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
 
 		/* Update the monster */
-		update_mon(p_ptr, i, FALSE);
+		update_mon(player_ptr, i, FALSE);
 	}
 }
 
@@ -1616,7 +1616,7 @@ void generate_cave(creature_type *player_ptr)
 		else if (inside_battle)
 		{
 			/* Small arena */
-			battle_gen();
+			battle_gen(player_ptr);
 		}
 
 		else if (inside_quest)
