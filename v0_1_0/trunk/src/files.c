@@ -7572,7 +7572,7 @@ void close_game(creature_type *player_ptr)
 	if (player_ptr->is_dead)
 	{
 		/* Handle retirement */
-		if (total_winner) kingly();
+		if (total_winner) kingly(player_ptr);
 
 		/* Save memories */
 #ifdef JP

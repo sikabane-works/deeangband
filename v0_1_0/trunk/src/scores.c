@@ -894,11 +894,12 @@ msg_print("何かキーを押すとゲームに戻ります");
 /*
  * Change the player into a King!			-RAK-
  */
-void kingly(void)
+// TODO Change GOD
+void kingly(creature_type *player_ptr)
 {
 	int wid, hgt;
 	int cx, cy;
-	bool seppuku = streq(p_ptr->died_from, "Seppuku");
+	bool seppuku = streq(player_ptr->died_from, "Seppuku");
 
 	/* Hack -- retire in town */
 	dun_level = 0;
@@ -907,24 +908,24 @@ void kingly(void)
 	if (!seppuku)
 #ifdef JP
 		/* 引退したときの識別文字 */
-		(void)strcpy(p_ptr->died_from, "ripe");
+		(void)strcpy(player_ptr->died_from, "ripe");
 #else
-		(void)strcpy(p_ptr->died_from, "Ripe Old Age");
+		(void)strcpy(player_ptr->died_from, "Ripe Old Age");
 #endif
 
 
 	/* Restore the experience */
-	p_ptr->exp = p_ptr->max_exp;
+	player_ptr->exp = player_ptr->max_exp;
 
 	/* Restore the level */
-	p_ptr->lev = p_ptr->max_plv;
+	player_ptr->lev = player_ptr->max_plv;
 
 	Term_get_size(&wid, &hgt);
 	cy = hgt / 2;
 	cx = wid / 2;
 
 	/* Hack -- Instant Gold */
-	p_ptr->au += 10000000L;
+	player_ptr->au += 10000000L;
 
 	/* Clear screen */
 	Term_clear();
@@ -947,11 +948,11 @@ void kingly(void)
 #ifdef JP
 	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
 	put_str("来た、見た、勝った！", cy + 4, cx - 10);
-	put_str(format("偉大なる%s万歳！", sex_info[p_ptr->sex].winner), cy + 5, cx - 11);
+	put_str(format("偉大なる%s万歳！", sex_info[player_ptr->sex].winner), cy + 5, cx - 11);
 #else
 	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
 	put_str("I came, I saw, I conquered!", cy + 4, cx - 14);
-	put_str(format("All Hail the Mighty %s!", sex_info[p_ptr->sex].winner), cy + 5, cx - 13);
+	put_str(format("All Hail the Mighty %s!", sex_info[player_ptr->sex].winner), cy + 5, cx - 13);
 #endif
 
 	/* If player did Seppuku, that is already written in playrecord */
