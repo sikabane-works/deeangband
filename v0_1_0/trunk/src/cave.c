@@ -3398,8 +3398,8 @@ void forget_view(void)
  *
  * This function assumes that (y,x) is legal (i.e. on the map).
  *
- * Grid (y1,x1) is on the "diagonal" between (p_ptr->fy,p_ptr->fx) and (y,x)
- * Grid (y2,x2) is "adjacent", also between (p_ptr->fy,p_ptr->fx) and (y,x).
+ * Grid (y1,x1) is on the "diagonal" between (fy,fx) and (y,x)
+ * Grid (y2,x2) is "adjacent", also between (fy,fx) and (y,x).
  *
  * Note that we are using the "CAVE_XTRA" field for marking grids as
  * "easily viewable".  This bit is cleared at the end of "update_view()".

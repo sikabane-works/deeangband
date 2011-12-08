@@ -4391,7 +4391,7 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 /*
  * Return a string describing how a given item is being worn.
- * Currently, only used for items in the equipment, not p_ptr->inventory.
+ * Currently, only used for items in the equipment, not inventory.
  */
 cptr describe_use(creature_type *cr_ptr, int i)
 {
@@ -5640,14 +5640,14 @@ bool can_get_item(creature_type *cr_ptr)
  *
  * If no item is selected, we do nothing to "cp", and return FALSE.
  *
- * Global "p_ptr->command_new" is used when viewing the inventory or equipment
+ * Global "command_new" is used when viewing the inventory or equipment
  * to allow the user to enter a command while viewing those screens, and
  * also to induce "auto-enter" of stores, and other such stuff.
  *
- * Global "p_ptr->command_see" may be set before calling this function to start
+ * Global "command_see" may be set before calling this function to start
  * out in "browse" mode.  It is cleared before this function returns.
  *
- * Global "p_ptr->command_wrk" is used to choose between equip/inven listings.
+ * Global "command_wrk" is used to choose between equip/inven listings.
  * If it is TRUE then we are viewing inventory, else equipment.
  *
  * We always erase the prompt when we are done, leaving a blank line,

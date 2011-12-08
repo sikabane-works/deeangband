@@ -5886,9 +5886,9 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
 /*
  * Add an item to the players inventory, and return the slot used.
  *
- * If the new item can combine with an existing item in the p_ptr->inventory,
+ * If the new item can combine with an existing item in the inventory,
  * it will do so, using "object_similar()" and "object_absorb()", else,
- * the item will be placed into the "proper" location in the p_ptr->inventory.
+ * the item will be placed into the "proper" location in the inventory.
  *
  * This function can be used to "over-fill" the player's pack, but only
  * once, and such an action must trigger the "overflow" code immediately.
@@ -5898,7 +5898,7 @@ bool object_sort_comp(object_type *o_ptr, s32b o_value, object_type *j_ptr)
  * combined.  This may be tricky.  See "dungeon.c" for info.
  *
  * Note that this code must remove any location/stack information
- * from the object once it is placed into the p_ptr->inventory.
+ * from the object once it is placed into the inventory.
  */
 s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
 {
@@ -6029,7 +6029,7 @@ s16b inven_carry(creature_type *cr_ptr, object_type *o_ptr)
  * Note that taking off an item when "full" may cause that item
  * to fall to the ground.
  *
- * Return the p_ptr->inventory slot into which the item is placed.
+ * Return the inventory slot into which the item is placed.
  */
 s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 {

@@ -6194,7 +6194,7 @@ bool heavy_armor(creature_type *cr_ptr)
 	monk_arm_wgt += cr_ptr->inventory[INVEN_1STHANDS].weight;
 	monk_arm_wgt += cr_ptr->inventory[INVEN_FEET].weight;
 
-	return (monk_arm_wgt > (100 + (cr_ptr->lev * 4)));
+	return (monk_arm_wgt > (100 + (cr_ptr->lev * 4)) * cr_ptr->size / 10 * cr_ptr->size / 10);
 }
 
 
