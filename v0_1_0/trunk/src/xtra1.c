@@ -1673,7 +1673,7 @@ static void fix_inven(creature_type *cr_ptr)
 /*
  * Hack -- display equipment in sub-windows
  */
-static void fix_equip(void)
+static void fix_equip(creature_type *player_ptr)
 {
 	int j;
 
@@ -1692,7 +1692,7 @@ static void fix_equip(void)
 		Term_activate(angband_term[j]);
 
 		/* Display equipment */
-		display_equip(p_ptr);
+		display_equip(player_ptr);
 
 		/* Fresh */
 		Term_fresh();
@@ -1739,7 +1739,7 @@ static void fix_spell(void)
 /*
  * Hack -- display character in sub-windows
  */
-static void fix_player(void)
+static void fix_player(creature_type *player_ptr)
 {
 	int j;
 
@@ -1760,7 +1760,7 @@ static void fix_player(void)
 		update_playtime();
 
 		/* Display player */
-		display_creature_status(0, p_ptr);
+		display_creature_status(0, player_ptr);
 
 		/* Fresh */
 		Term_fresh();
@@ -6092,7 +6092,7 @@ void window_stuff(void)
 	if (play_window & (PW_EQUIP))
 	{
 		play_window &= ~(PW_EQUIP);
-		fix_equip();
+		fix_equip(p_ptr);
 	}
 
 	/* Display spell list */
@@ -6106,7 +6106,7 @@ void window_stuff(void)
 	if (play_window & (PW_PLAYER))
 	{
 		play_window &= ~(PW_PLAYER);
-		fix_player();
+		fix_player(p_ptr);
 	}
 
 	/* Display overhead view */
