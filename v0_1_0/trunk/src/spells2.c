@@ -5371,7 +5371,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
  * for a single turn, unless that monster can pass_walls or kill_walls.
  * This has allowed massive simplification of the "monster" code.
  */
-bool earthquake_aux(int cy, int cx, int r, int m_idx)
+bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 {
 	int             i, t, y, x, yy, xx, dy, dx;
 	int             damage = 0;
@@ -5433,19 +5433,19 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			map[16+yy-cy][16+xx-cx] = TRUE;
 
 			/* Hack -- Take note of player damage */
-			if (creature_bold(p_ptr, yy, xx)) hurt = TRUE;
+			if (creature_bold(target_ptr, yy, xx)) hurt = TRUE;
 		}
 	}
 
 	/* First, affect the player (if necessary) */
-	if (hurt && !p_ptr->pass_wall && !p_ptr->kill_wall)
+	if (hurt && !target_ptr->pass_wall && !target_ptr->kill_wall)
 	{
 		/* Check around the player */
 		for (i = 0; i < 8; i++)
 		{
 			/* Access the location */
-			y = p_ptr->fy + ddy_ddd[i];
-			x = p_ptr->fx + ddx_ddd[i];
+			y = target_ptr->fy + ddy_ddd[i];
+			x = target_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
 			if (!cave_empty_bold(y, x)) continue;
@@ -5533,7 +5533,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					msg_print("You are bashed by rubble!");
 #endif
 					damage = damroll(10, 4);
-					(void)set_stun(p_ptr, p_ptr->stun + randint1(50));
+					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
 					break;
 				}
 				case 3:
@@ -5544,17 +5544,17 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
 					damage = damroll(10, 4);
-					(void)set_stun(p_ptr, p_ptr->stun + randint1(50));
+					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
 					break;
 				}
 			}
 
 			/* Move the player to the safe location */
-			(void)move_creature_effect(p_ptr, sy, sx, MPE_DONT_PICKUP);
+			(void)move_creature_effect(target_ptr, sy, sx, MPE_DONT_PICKUP);
 		}
 
 		/* Important -- no wall on player */
-		map[16+p_ptr->fy-cy][16+p_ptr->fx-cx] = FALSE;
+		map[16+target_ptr->fy-cy][16+target_ptr->fx-cx] = FALSE;
 
 		/* Take some damage */
 		if (damage)
@@ -5584,7 +5584,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 #endif
 			}
 
-			take_hit(NULL, p_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
+			take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
 		}
 	}
 
@@ -5603,7 +5603,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			/* Access the grid */
 			c_ptr = &cave[yy][xx];
 
-			if (c_ptr->m_idx == p_ptr->riding) continue;
+			if (c_ptr->m_idx == target_ptr->riding) continue;
 
 			/* Process monsters */
 			if (c_ptr->m_idx)
@@ -5653,7 +5653,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 							if (map[16+y-cy][16+x-cx]) continue;
 
 							if (cave[y][x].m_idx) continue;
-							if (creature_bold(p_ptr, y, x)) continue;
+							if (creature_bold(target_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
 							sn++;
@@ -5671,9 +5671,9 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 					/* Scream in pain */
 #ifdef JP
-					if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
+					if (!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
 #else
-					if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
+					if (!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
 #endif
 
 					/* Take damage from the quake */
@@ -5690,9 +5690,9 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 					{
 						/* Message */
 #ifdef JP
-						if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
+						if (!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
 #else
-						if (!ignore_unview || is_seen(p_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
+						if (!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
 #endif
 
 						if (c_ptr->m_idx)
@@ -5729,13 +5729,13 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 						m_ptr->fx = sx;
 
 						/* Update the monster (new location) */
-						update_mon(p_ptr, m_idx, TRUE);
+						update_mon(target_ptr, m_idx, TRUE);
 
 						/* Redraw the old grid */
-						lite_spot(p_ptr, yy, xx);
+						lite_spot(target_ptr, yy, xx);
 
 						/* Redraw the new grid */
-						lite_spot(p_ptr, sy, sx);
+						lite_spot(target_ptr, sy, sx);
 					}
 				}
 			}
@@ -5761,7 +5761,7 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 			c_ptr = &cave[yy][xx];
 
 			/* Paranoia -- never affect player */
-			if (creature_bold(p_ptr, yy, xx)) continue;
+			if (creature_bold(target_ptr, yy, xx)) continue;
 
 			/* Destroy location (if valid) */
 			if (cave_valid_bold(yy, xx))
@@ -5776,28 +5776,28 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 				if (t < 20)
 				{
 					/* Create granite wall */
-					cave_set_feat(p_ptr, yy, xx, feat_granite);
+					cave_set_feat(target_ptr, yy, xx, feat_granite);
 				}
 
 				/* Quartz */
 				else if (t < 70)
 				{
 					/* Create quartz vein */
-					cave_set_feat(p_ptr, yy, xx, feat_quartz_vein);
+					cave_set_feat(target_ptr, yy, xx, feat_quartz_vein);
 				}
 
 				/* Magma */
 				else if (t < 100)
 				{
 					/* Create magma vein */
-					cave_set_feat(p_ptr, yy, xx, feat_magma_vein);
+					cave_set_feat(target_ptr, yy, xx, feat_magma_vein);
 				}
 
 				/* Floor */
 				else
 				{
 					/* Create floor */
-					cave_set_feat(p_ptr, yy, xx, floor_type[randint0(100)]);
+					cave_set_feat(target_ptr, yy, xx, floor_type[randint0(100)]);
 				}
 			}
 		}
@@ -5846,10 +5846,10 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 
 
 	/* Mega-Hack -- Forget the view and lite */
-	p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+	target_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+	target_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
@@ -5860,18 +5860,18 @@ bool earthquake_aux(int cy, int cx, int r, int m_idx)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (target_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
 	}
 
 	/* Success */
 	return (TRUE);
 }
 
-bool earthquake(int cy, int cx, int r)
+bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
 {
-	return earthquake_aux(cy, cx, r, 0);
+	return earthquake_aux(target_ptr, cy, cx, r, 0);
 }
 
 
@@ -6992,7 +6992,7 @@ msg_print("地面が揺れた...");
 				msg_print("The ground trembles...");
 #endif
 
-				earthquake(cr_ptr->fy, cr_ptr->fx, 5 + randint0(10));
+				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5 + randint0(10));
 				if (!one_in_(6)) break;
 			}
 		case 30: case 31:
@@ -7251,7 +7251,7 @@ void wall_breaker(creature_type *cr_ptr)
 	}
 	else if (randint1(100) > 30)
 	{
-		earthquake(cr_ptr->fy, cr_ptr->fx, 1);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 1);
 	}
 	else
 	{

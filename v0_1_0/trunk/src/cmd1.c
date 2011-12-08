@@ -3136,7 +3136,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	/* Mega-Hack -- apply earthquake brand */
 	if (do_quake)
 	{
-		earthquake(atk_ptr->fy, atk_ptr->fx, 10);
+		earthquake(tar_ptr, atk_ptr->fy, atk_ptr->fx, 10);
 		if (!cave[y][x].m_idx) *mdeath = TRUE;
 	}
 }

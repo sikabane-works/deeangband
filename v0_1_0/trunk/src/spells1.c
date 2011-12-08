@@ -5622,7 +5622,7 @@ msg_print("’n–Ê‚ª—h‚ê‚½...");
 					msg_print("The ground trembles...");
 #endif
 
-					earthquake(ty, tx, 4 + randint0(4));
+					earthquake(aimer_ptr, ty, tx, 4 + randint0(4));
 					if (!one_in_(6)) break;
 				}
 			case 3: case 4: case 5: case 6:

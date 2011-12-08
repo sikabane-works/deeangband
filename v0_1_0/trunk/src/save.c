@@ -1364,7 +1364,7 @@ static bool wr_savefile_new(void)
 	}
 
 
-	/* Write the p_ptr->inventory */
+	/* Write the inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *o_ptr = &p_ptr->inventory[i];

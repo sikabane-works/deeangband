@@ -499,11 +499,11 @@ errr top_twenty(creature_type *player_ptr)
 	the_score.pts[9] = '\0';
 
 	/* Save the current gold */
-	sprintf(the_score.gold, "%9lu", (long)p_ptr->au);
+	sprintf(the_score.gold, "%9lu", (long)player_ptr->au);
 	the_score.gold[9] = '\0';
 
 	/* Save the current turn */
-	sprintf(the_score.turns, "%9lu", (long)turn_real(p_ptr, turn));
+	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
 	the_score.turns[9] = '\0';
 
 #ifdef HIGHSCORE_DATE_HACK
@@ -517,35 +517,35 @@ errr top_twenty(creature_type *player_ptr)
 #endif
 
 	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", p_ptr->name);
+	sprintf(the_score.who, "%-.15s", player_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
-	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
-	sprintf(the_score.p_r, "%2d", p_ptr->race_idx1);
-	sprintf(the_score.p_c, "%2d", p_ptr->cls_idx);
-	sprintf(the_score.p_a, "%2d", p_ptr->chara_idx);
+	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
+	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);
+	sprintf(the_score.p_c, "%2d", player_ptr->cls_idx);
+	sprintf(the_score.p_a, "%2d", player_ptr->chara_idx);
 
 	/* Save the level and such */
-	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);
+	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
 	sprintf(the_score.cur_dun, "%3d", dun_level);
-	sprintf(the_score.max_lev, "%3d", p_ptr->max_plv);
+	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
 	/* Save the cause of death (31 chars) */
-	if (strlen(p_ptr->died_from) >= sizeof(the_score.how))
+	if (strlen(player_ptr->died_from) >= sizeof(the_score.how))
 	{
 #ifdef JP
-		my_strcpy(the_score.how, p_ptr->died_from, sizeof(the_score.how) - 2);
+		my_strcpy(the_score.how, player_ptr->died_from, sizeof(the_score.how) - 2);
 		strcat(the_score.how, "c");
 #else
-		my_strcpy(the_score.how, p_ptr->died_from, sizeof(the_score.how) - 3);
+		my_strcpy(the_score.how, player_ptr->died_from, sizeof(the_score.how) - 3);
 		strcat(the_score.how, "...");
 #endif
 	}
 	else
 	{
-		strcpy(the_score.how, p_ptr->died_from);
+		strcpy(the_score.how, player_ptr->died_from);
 	}
 
 	/* Grab permissions */

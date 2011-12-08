@@ -2537,7 +2537,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if (earthquake(cr_ptr->fy, cr_ptr->fx, 10))
+			if (earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -5771,7 +5771,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			return;
 
 		case TR_IMPACT:
-			earthquake(cr_ptr->fy, cr_ptr->fx, 5);
+			earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
 			o_ptr->timeout = 100 + randint1(100);
 			
 			/* Window stuff */
@@ -5820,7 +5820,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 	if (o_ptr->name2 == EGO_EARTHQUAKES)
 	{
-		earthquake(cr_ptr->fy, cr_ptr->fx, 5);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
 		o_ptr->timeout = 100 + randint1(100);
 
 		/* Window stuff */

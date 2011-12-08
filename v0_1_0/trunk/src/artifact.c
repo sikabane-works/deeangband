@@ -2355,7 +2355,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 		case ACT_QUAKE:
 		{
-			earthquake(cr_ptr->fy, cr_ptr->fx, 10);
+			earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
 			o_ptr->timeout = 50;
 			break;
 		}

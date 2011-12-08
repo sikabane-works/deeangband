@@ -304,7 +304,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	else if (die < 101) drain_life(dir, 100 + plev);
 	else if (die < 104)
 	{
-		earthquake(cr_ptr->fy, cr_ptr->fx, 12);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
@@ -457,7 +457,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 104)
 	{
-		earthquake(cr_ptr->fy, cr_ptr->fx, 12);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 12);
 	}
 	else if (die < 106)
 	{
@@ -546,7 +546,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 		aggravate_monsters(NULL);
 		break;
 	case 26:
-		earthquake(cr_ptr->fy, cr_ptr->fx, 5);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
 		break;
 	case 27:
 	case 28:
@@ -778,7 +778,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Tower.");
 #endif
 
-		earthquake(cr_ptr->fy, cr_ptr->fx, 5);
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 5);
 	}
 	else if (die < 82)
 	{
@@ -3172,7 +3172,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				earthquake(cr_ptr->fy, cr_ptr->fx, rad);
+				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, rad);
 			}
 		}
 		break;
@@ -3356,7 +3356,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				dispel_monsters(d_dam);
-				earthquake(cr_ptr->fy, cr_ptr->fx, q_rad);
+				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, q_rad);
 				project(cr_ptr, b_rad, cr_ptr->fy, cr_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
@@ -9874,7 +9874,7 @@ static cptr do_music_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				earthquake(cr_ptr->fy, cr_ptr->fx, 10);
+				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
 			}
 		}
 
@@ -10882,7 +10882,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cave[y][x].m_idx)
 				creature_attack(cr_ptr, y, x, HISSATSU_QUAKE);
 			else
-				earthquake(cr_ptr->fy, cr_ptr->fx, 10);
+				earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
 		}
 		break;
 

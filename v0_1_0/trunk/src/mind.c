@@ -1477,7 +1477,7 @@ static bool cast_berserk_spell(creature_type *cr_ptr, int spell)
 		break;
 	}
 	case 3:
-		earthquake(cr_ptr->fy, cr_ptr->fx, 8+randint0(5));
+		earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 8+randint0(5));
 		break;
 	case 4:
 	{

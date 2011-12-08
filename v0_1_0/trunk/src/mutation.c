@@ -3657,7 +3657,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			break;
 
 		case CF_EARTHQUAKE:
-			(void)earthquake(cr_ptr->fy, cr_ptr->fx, 10);
+			(void)earthquake(cr_ptr, cr_ptr->fy, cr_ptr->fx, 10);
 			break;
 
 		case CF_EAT_MAGIC:
