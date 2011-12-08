@@ -628,11 +628,6 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u32b(cr_ptr->flags12);
 	wr_u32b(cr_ptr->flags13);
 	wr_u32b(cr_ptr->flags14);
-	wr_u32b(cr_ptr->flags15);
-	wr_u32b(cr_ptr->flags16);
-	wr_u32b(cr_ptr->flags17);
-	wr_u32b(cr_ptr->flags18);
-	wr_u32b(cr_ptr->flags19);
 
 	for (i = 0; i < MAX_KARMA; i++)
 		wr_s32b(cr_ptr->karmas[i]);

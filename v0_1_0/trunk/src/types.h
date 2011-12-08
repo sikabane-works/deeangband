@@ -1298,11 +1298,6 @@ struct creature_type
 	u32b flags12;
 	u32b flags13;
 	u32b flags14;
-	u32b flags15;
-	u32b flags16;
-	u32b flags17;
-	u32b flags18;
-	u32b flags19;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
