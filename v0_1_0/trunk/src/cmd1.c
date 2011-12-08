@@ -4392,7 +4392,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 
 		if (cr_ptr->warning)
 		{
-			if (!process_warning(x, y))
+			if (!process_warning(cr_ptr, x, y))
 			{
 				energy_use = 25;
 				return;

@@ -6760,7 +6760,7 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 }
 
 /* Examine the grid (xx,yy) and warn the player if there are any danger */
-bool process_warning(int xx, int yy)
+bool process_warning(creature_type *player_ptr, int xx, int yy)
 {
 	int mx, my;
 	cave_type *c_ptr;
@@ -6808,36 +6808,36 @@ bool process_warning(int xx, int yy)
 					int storm_dam = rlev * 4 + 150;
 					bool powerful = (bool)(is_powerful_species(r_ptr));
 
-					if (has_cf_creature(m_ptr, CF_BA_CHAO)) spell_dam_estimation(m_ptr, p_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
-					if (has_cf_creature(m_ptr, CF_BA_MANA)) spell_dam_estimation(m_ptr, p_ptr, GF_MANA, storm_dam, 0, &dam_max0);
-					if (has_cf_creature(m_ptr, CF_BA_DARK)) spell_dam_estimation(m_ptr, p_ptr, GF_DARK, storm_dam, 0, &dam_max0);
-					if (has_cf_creature(m_ptr, CF_BA_LITE)) spell_dam_estimation(m_ptr, p_ptr, GF_LITE, storm_dam, 0, &dam_max0);
-					if (has_cf_creature(m_ptr, CF_HAND_DOOM)) spell_dam_estimation(m_ptr, p_ptr, GF_HAND_DOOM, p_ptr->chp * 6 / 10, 0, &dam_max0);
-					if (has_cf_creature(m_ptr, CF_PSY_SPEAR)) spell_dam_estimation(m_ptr, p_ptr, GF_PSY_SPEAR, powerful ? (rlev * 2 + 150) : (rlev * 3 / 2 + 100), 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_BA_CHAO)) spell_dam_estimation(m_ptr, player_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_BA_MANA)) spell_dam_estimation(m_ptr, player_ptr, GF_MANA, storm_dam, 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_BA_DARK)) spell_dam_estimation(m_ptr, player_ptr, GF_DARK, storm_dam, 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_BA_LITE)) spell_dam_estimation(m_ptr, player_ptr, GF_LITE, storm_dam, 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_HAND_DOOM)) spell_dam_estimation(m_ptr, player_ptr, GF_HAND_DOOM, player_ptr->chp * 6 / 10, 0, &dam_max0);
+					if (has_cf_creature(m_ptr, CF_PSY_SPEAR)) spell_dam_estimation(m_ptr, player_ptr, GF_PSY_SPEAR, powerful ? (rlev * 2 + 150) : (rlev * 3 / 2 + 100), 0, &dam_max0);
 				}
-				if (has_cf_creature(m_ptr, CF_ROCKET)) spell_dam_estimation(m_ptr, p_ptr, GF_ROCKET, m_ptr->chp / 4, 800, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_ACID)) spell_dam_estimation(m_ptr, p_ptr, GF_ACID, breath_dam_div3, 1600, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_ELEC)) spell_dam_estimation(m_ptr, p_ptr, GF_ELEC, breath_dam_div3, 1600, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_FIRE)) spell_dam_estimation(m_ptr, p_ptr, GF_FIRE, breath_dam_div3, 1600, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_COLD)) spell_dam_estimation(m_ptr, p_ptr, GF_COLD, breath_dam_div3, 1600, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_POIS)) spell_dam_estimation(m_ptr, p_ptr, GF_POIS, breath_dam_div3, 800, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_NETH)) spell_dam_estimation(m_ptr, p_ptr, GF_NETHER, breath_dam_div6, 550, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_LITE)) spell_dam_estimation(m_ptr, p_ptr, GF_LITE, breath_dam_div6, 400, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_DARK)) spell_dam_estimation(m_ptr, p_ptr, GF_DARK, breath_dam_div6, 400, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_CONF)) spell_dam_estimation(m_ptr, p_ptr, GF_CONFUSION, breath_dam_div6, 450, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_SOUN)) spell_dam_estimation(m_ptr, p_ptr, GF_SOUND, breath_dam_div6, 450, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_CHAO)) spell_dam_estimation(m_ptr, p_ptr, GF_CHAOS, breath_dam_div6, 600, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_DISE)) spell_dam_estimation(m_ptr, p_ptr, GF_DISENCHANT, breath_dam_div6, 500, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_NEXU)) spell_dam_estimation(m_ptr, p_ptr, GF_NEXUS, breath_dam_div3, 250, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_TIME)) spell_dam_estimation(m_ptr, p_ptr, GF_TIME, breath_dam_div3, 150, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_INER)) spell_dam_estimation(m_ptr, p_ptr, GF_INERTIA, breath_dam_div6, 200, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_GRAV)) spell_dam_estimation(m_ptr, p_ptr, GF_GRAVITY, breath_dam_div3, 200, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_SHAR)) spell_dam_estimation(m_ptr, p_ptr, GF_SHARDS, breath_dam_div6, 500, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_PLAS)) spell_dam_estimation(m_ptr, p_ptr, GF_PLASMA, breath_dam_div6, 150, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_WALL)) spell_dam_estimation(m_ptr, p_ptr, GF_FORCE, breath_dam_div6, 200, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_MANA)) spell_dam_estimation(m_ptr, p_ptr, GF_MANA, breath_dam_div3, 250, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_NUKE)) spell_dam_estimation(m_ptr, p_ptr, GF_NUKE, breath_dam_div3, 800, &dam_max0);
-				if (has_cf_creature(m_ptr, CF_BR_DISI)) spell_dam_estimation(m_ptr, p_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_ROCKET)) spell_dam_estimation(m_ptr, player_ptr, GF_ROCKET, m_ptr->chp / 4, 800, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_ACID)) spell_dam_estimation(m_ptr, player_ptr, GF_ACID, breath_dam_div3, 1600, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_ELEC)) spell_dam_estimation(m_ptr, player_ptr, GF_ELEC, breath_dam_div3, 1600, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_FIRE)) spell_dam_estimation(m_ptr, player_ptr, GF_FIRE, breath_dam_div3, 1600, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_COLD)) spell_dam_estimation(m_ptr, player_ptr, GF_COLD, breath_dam_div3, 1600, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_POIS)) spell_dam_estimation(m_ptr, player_ptr, GF_POIS, breath_dam_div3, 800, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_NETH)) spell_dam_estimation(m_ptr, player_ptr, GF_NETHER, breath_dam_div6, 550, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_LITE)) spell_dam_estimation(m_ptr, player_ptr, GF_LITE, breath_dam_div6, 400, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_DARK)) spell_dam_estimation(m_ptr, player_ptr, GF_DARK, breath_dam_div6, 400, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_CONF)) spell_dam_estimation(m_ptr, player_ptr, GF_CONFUSION, breath_dam_div6, 450, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_SOUN)) spell_dam_estimation(m_ptr, player_ptr, GF_SOUND, breath_dam_div6, 450, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_CHAO)) spell_dam_estimation(m_ptr, player_ptr, GF_CHAOS, breath_dam_div6, 600, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_DISE)) spell_dam_estimation(m_ptr, player_ptr, GF_DISENCHANT, breath_dam_div6, 500, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_NEXU)) spell_dam_estimation(m_ptr, player_ptr, GF_NEXUS, breath_dam_div3, 250, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_TIME)) spell_dam_estimation(m_ptr, player_ptr, GF_TIME, breath_dam_div3, 150, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_INER)) spell_dam_estimation(m_ptr, player_ptr, GF_INERTIA, breath_dam_div6, 200, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_GRAV)) spell_dam_estimation(m_ptr, player_ptr, GF_GRAVITY, breath_dam_div3, 200, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_SHAR)) spell_dam_estimation(m_ptr, player_ptr, GF_SHARDS, breath_dam_div6, 500, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_PLAS)) spell_dam_estimation(m_ptr, player_ptr, GF_PLASMA, breath_dam_div6, 150, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_WALL)) spell_dam_estimation(m_ptr, player_ptr, GF_FORCE, breath_dam_div6, 200, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_MANA)) spell_dam_estimation(m_ptr, player_ptr, GF_MANA, breath_dam_div3, 250, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_NUKE)) spell_dam_estimation(m_ptr, player_ptr, GF_NUKE, breath_dam_div3, 800, &dam_max0);
+				if (has_cf_creature(m_ptr, CF_BR_DISI)) spell_dam_estimation(m_ptr, player_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
 			}
 
 			/* Monster melee attacks */
@@ -6853,7 +6853,7 @@ bool process_warning(int xx, int yy)
 						if (!m_ptr->blow[m].method || (m_ptr->blow[m].method == RBM_SHOOT)) continue;
 
 						/* Extract the attack info */
-						dam_melee += blow_damcalc(m_ptr, p_ptr, &m_ptr->blow[m]);
+						dam_melee += blow_damcalc(m_ptr, player_ptr, &m_ptr->blow[m]);
 						if (m_ptr->blow[m].method == RBM_EXPLODE) break;
 					}
 					if (dam_melee > dam_max0) dam_max0 = dam_melee;
@@ -6870,7 +6870,7 @@ bool process_warning(int xx, int yy)
 	{
 		old_damage = dam_max * 3 / 2;
 
-		if (dam_max > p_ptr->chp / 2)
+		if (dam_max > player_ptr->chp / 2)
 		{
 			object_type *o_ptr = choose_warning_item(player_ptr);
 
