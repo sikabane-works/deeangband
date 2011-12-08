@@ -4697,7 +4697,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Obtain the "hold" value */
-	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]];
+	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size / 10;
 
 
 	/* Examine the "current bow" */
