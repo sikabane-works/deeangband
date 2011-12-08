@@ -4207,34 +4207,34 @@ cptr mention_use(creature_type *cr_ptr, int i)
 
 #ifdef JP
 		case INVEN_3RDARM:
-			p = cr_ptr->heavy_wield[1] ? "‰^”À’†" : "‘æ‚RŽè"; break;
+			p = cr_ptr->heavy_wield[2] ? "‰^”À’†" : "‘æ‚RŽè"; break;
 #else
 		case INVEN_3RDARM:
-			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
+			p = cr_ptr->heavy_wield[2] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
 		case INVEN_4THARM:
-			p = cr_ptr->heavy_wield[1] ? "‰^”À’†" : "‘æ‚SŽè"; break;
+			p = cr_ptr->heavy_wield[3] ? "‰^”À’†" : "‘æ‚SŽè"; break;
 #else
 		case INVEN_4THARM:
-			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
+			p = cr_ptr->heavy_wield[3] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
 		case INVEN_5THARM:
-			p = cr_ptr->heavy_wield[1] ? "‰^”À’†" : "‘æ‚TŽè"; break;
+			p = cr_ptr->heavy_wield[4] ? "‰^”À’†" : "‘æ‚TŽè"; break;
 #else
 		case INVEN_5THARM:
-			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
+			p = cr_ptr->heavy_wield[4] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP
 		case INVEN_6THARM:
-			p = cr_ptr->heavy_wield[1] ? "‰^”À’†" : "‘æ‚UŽè"; break;
+			p = cr_ptr->heavy_wield[5] ? "‰^”À’†" : "‘æ‚UŽè"; break;
 #else
 		case INVEN_6THARM:
-			p = cr_ptr->heavy_wield[1] ? "Just lifting" : "On arm"; break;
+			p = cr_ptr->heavy_wield[5] ? "Just lifting" : "On arm"; break;
 #endif
 
 #ifdef JP

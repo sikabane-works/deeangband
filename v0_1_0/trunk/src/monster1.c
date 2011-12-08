@@ -124,7 +124,7 @@ static void hooked_roff(cptr str)
  * left edge of the screen, on a cleared line, in which the recall is
  * to take place.  One extra blank line is left after the recall.
  */
-static void roff_aux(creature_type *pl_ptr, species_type *species_ptr, int mode)
+static void roff_aux(species_type *species_ptr, int mode)
 {
 	bool            old = FALSE;
 
@@ -300,7 +300,7 @@ void display_roff(int species_idx)
 	hook_c_roff = c_roff;
 
 	/* Recall monster */
-	roff_aux(p_ptr, &species_info[species_idx], 0);
+	roff_aux(&species_info[species_idx], 0);
 
 	/* Describe monster */
 	roff_top(species_idx);
@@ -316,7 +316,7 @@ void output_monster_spoiler(int species_idx, void (*roff_func)(byte attr, cptr s
 	hook_c_roff = roff_func;
 
 	/* Recall monster */
-	roff_aux(p_ptr, &species_info[species_idx], 0x03);
+	roff_aux(&species_info[species_idx], 0x03);
 }
 
 
