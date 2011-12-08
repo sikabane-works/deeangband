@@ -657,6 +657,17 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_s32b(cr_ptr->visit);
 	wr_u32b(cr_ptr->count);
 
+	/* Write spell data */
+	wr_u32b(cr_ptr->spell_learned1);
+	wr_u32b(cr_ptr->spell_learned2);
+	wr_u32b(cr_ptr->spell_worked1);
+	wr_u32b(cr_ptr->spell_worked2);
+	wr_u32b(cr_ptr->spell_forgotten1);
+	wr_u32b(cr_ptr->spell_forgotten2);
+	wr_s16b(cr_ptr->learned_spells);
+	wr_s16b(cr_ptr->add_spells);
+
+
 }
 
 /*
@@ -1345,18 +1356,6 @@ static bool wr_savefile_new(void)
 	{
 		wr_s16b(p_ptr->player_hp[i]);
 	}
-
-
-	/* Write spell data */
-	wr_u32b(p_ptr->spell_learned1);
-	wr_u32b(p_ptr->spell_learned2);
-	wr_u32b(p_ptr->spell_worked1);
-	wr_u32b(p_ptr->spell_worked2);
-	wr_u32b(p_ptr->spell_forgotten1);
-	wr_u32b(p_ptr->spell_forgotten2);
-
-	wr_s16b(p_ptr->learned_spells);
-	wr_s16b(p_ptr->add_spells);
 
 	/* Dump the ordered spells */
 	for (i = 0; i < 64; i++)

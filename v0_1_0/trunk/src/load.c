@@ -1251,6 +1251,17 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s32b(&cr_ptr->visit);
 	rd_u32b(&cr_ptr->count);
 
+	/* Read spell info */
+	rd_u32b(&cr_ptr->spell_learned1);
+	rd_u32b(&cr_ptr->spell_learned2);
+	rd_u32b(&cr_ptr->spell_worked1);
+	rd_u32b(&cr_ptr->spell_worked2);
+	rd_u32b(&cr_ptr->spell_forgotten1);
+	rd_u32b(&cr_ptr->spell_forgotten2);
+	rd_s16b(&cr_ptr->learned_spells);
+	rd_s16b(&cr_ptr->add_spells);
+
+
 	/* Update */
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
@@ -2226,17 +2237,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	{
 		rd_s16b(&cr_ptr->player_hp[i]);
 	}
-
-
-	/* Read spell info */
-	rd_u32b(&cr_ptr->spell_learned1);
-	rd_u32b(&cr_ptr->spell_learned2);
-	rd_u32b(&cr_ptr->spell_worked1);
-	rd_u32b(&cr_ptr->spell_worked2);
-	rd_u32b(&cr_ptr->spell_forgotten1);
-	rd_u32b(&cr_ptr->spell_forgotten2);
-	rd_s16b(&cr_ptr->learned_spells);
-	rd_s16b(&cr_ptr->add_spells);
 
 	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;
 
