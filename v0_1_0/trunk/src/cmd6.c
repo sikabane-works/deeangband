@@ -2286,7 +2286,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_HASTE_MONSTERS:
 		{
-			if (speed_monsters()) ident = TRUE;
+			if (speed_monsters(cr_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -2480,13 +2480,13 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if (sleep_monsters()) ident = TRUE;
+			if (sleep_monsters(cr_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if (slow_monsters()) ident = TRUE;
+			if (slow_monsters(cr_ptr)) ident = TRUE;
 			break;
 		}
 

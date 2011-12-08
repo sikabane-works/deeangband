@@ -4501,25 +4501,25 @@ bool project_hack(int typ, int dam)
 /*
  * Speed monsters
  */
-bool speed_monsters(void)
+bool speed_monsters(creature_type *user_ptr)
 {
-	return (project_hack(GF_OLD_SPEED, p_ptr->lev));
+	return (project_hack(GF_OLD_SPEED, user_ptr->lev));
 }
 
 /*
  * Slow monsters
  */
-bool slow_monsters(void)
+bool slow_monsters(creature_type *user_ptr)
 {
-	return (project_hack(GF_OLD_SLOW, p_ptr->lev));
+	return (project_hack(GF_OLD_SLOW, user_ptr->lev));
 }
 
 /*
  * Sleep monsters
  */
-bool sleep_monsters(void)
+bool sleep_monsters(creature_type *user_ptr)
 {
-	return (project_hack(GF_OLD_SLEEP, p_ptr->lev));
+	return (project_hack(GF_OLD_SLEEP, user_ptr->lev));
 }
 
 

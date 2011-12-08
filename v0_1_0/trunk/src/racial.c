@@ -1047,7 +1047,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 			msg_print("You glare nearby monsters...");
 #endif
-			slow_monsters();
+			slow_monsters(cr_ptr);
 			stun_monsters(cr_ptr->lev * 4);
 			confuse_monsters(cr_ptr->lev * 4);
 			turn_monsters(cr_ptr->lev * 4);
@@ -2086,7 +2086,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 			if (plev < 25) sleep_monsters_touch(cr_ptr);
-			else (void)sleep_monsters();
+			else (void)sleep_monsters(cr_ptr);
 			break;
 
 		case RACE_DEMON:
