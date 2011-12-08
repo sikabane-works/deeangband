@@ -485,20 +485,20 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
  * Stop if we hit a monster
  * Affect monsters and the player
  */
-static void bolt(creature_type *cr_ptr, int typ, int dam_hp, int monspell, bool learnable)
+static void bolt(creature_type *user_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;
 
 	/* Target the player with a bolt attack */
-	(void)project(cr_ptr, 0, p_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(user_ptr, 0, target_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
-static void beam(creature_type *cr_ptr, int typ, int dam_hp, int monspell, bool learnable)
+static void beam(creature_type *user_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU | PROJECT_PLAYER;
 
 	/* Target the player with a bolt attack */
-	(void)project(cr_ptr, 0, p_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(user_ptr, 0, target_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
@@ -1748,7 +1748,7 @@ else msg_format("%^sが矢を放った。", m_name);
 #endif
 
 			dam = damroll(r_ptr->blow[0].d_dice, r_ptr->blow[0].d_side);
-			bolt(user_ptr, GF_ARROW, dam, MS_SHOOT, learnable);
+			bolt(user_ptr, target_ptr, GF_ARROW, dam, MS_SHOOT, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
 		}
@@ -2659,7 +2659,7 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = (damroll(7, 8) + (rlev / 3)) * (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 1);
-			bolt(user_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
+			bolt(user_ptr, target_ptr, GF_ACID, dam, MS_BOLT_ACID, learnable);
 			update_smart_learn(user_ptr, DRS_ACID);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2682,7 +2682,7 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = (damroll(4, 8) + (rlev / 3)) * (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 1);
-			bolt(user_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
+			bolt(user_ptr, target_ptr, GF_ELEC, dam, MS_BOLT_ELEC, learnable);
 			update_smart_learn(user_ptr, DRS_ELEC);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2705,7 +2705,7 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = (damroll(9, 8) + (rlev / 3)) * (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 1);
-			bolt(user_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
+			bolt(user_ptr, target_ptr, GF_FIRE, dam, MS_BOLT_FIRE, learnable);
 			update_smart_learn(user_ptr, DRS_FIRE);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2728,7 +2728,7 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = (damroll(6, 8) + (rlev / 3)) * (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 1);
-			bolt(user_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
+			bolt(user_ptr, target_ptr, GF_COLD, dam, MS_BOLT_COLD, learnable);
 			update_smart_learn(user_ptr, DRS_COLD);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2772,7 +2772,7 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 #endif
 
 			dam = 30 + damroll(5, 5) + (rlev * 4) / (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 3);
-			bolt(user_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
+			bolt(user_ptr, target_ptr, GF_NETHER, dam, MS_BOLT_NETHER, learnable);
 			update_smart_learn(user_ptr, DRS_NETH);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2795,7 +2795,7 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = damroll(10, 10) + (rlev * 3 / (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 3));
-			bolt(user_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
+			bolt(user_ptr, target_ptr, GF_WATER, dam, MS_BOLT_WATER, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
 		}
@@ -2817,7 +2817,7 @@ else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 #endif
 
 			dam = randint1(rlev * 7 / 2) + 50;
-			bolt(user_ptr, GF_MANA, dam, MS_BOLT_MANA, learnable);
+			bolt(user_ptr, target_ptr, GF_MANA, dam, MS_BOLT_MANA, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
 		}
@@ -2839,7 +2839,7 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 #endif
 
 			dam = 10 + damroll(8, 7) + (rlev * 3 / (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 3));
-			bolt(user_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
+			bolt(user_ptr, target_ptr, GF_PLASMA, dam, MS_BOLT_PLASMA, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
 		}
@@ -2861,7 +2861,7 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 #endif
 
 			dam = damroll(6, 6) + (rlev * 3 / (has_cf_creature(user_ptr, CF_POWERFUL) ? 2 : 3));
-			bolt(user_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
+			bolt(user_ptr, target_ptr, GF_ICE, dam, MS_BOLT_ICE, learnable);
 			update_smart_learn(user_ptr, DRS_COLD);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
@@ -2884,7 +2884,7 @@ else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 #endif
 
 			dam = damroll(2, 6) + (rlev / 3);
-			bolt(user_ptr, GF_MISSILE, dam, MS_MAGIC_MISSILE, learnable);
+			bolt(user_ptr, target_ptr, GF_MISSILE, dam, MS_MAGIC_MISSILE, learnable);
 			update_smart_learn(user_ptr, DRS_REFLECT);
 			break;
 		}
@@ -3599,7 +3599,7 @@ else msg_format("%^sが光の剣を放った。", m_name);
 #endif
 
 			dam = has_cf_creature(user_ptr, CF_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
-			beam(user_ptr, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
+			beam(user_ptr, target_ptr, GF_PSY_SPEAR, dam, MS_PSY_SPEAR, learnable);
 			break;
 		}
 
