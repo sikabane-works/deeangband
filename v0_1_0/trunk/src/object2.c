@@ -6688,15 +6688,16 @@ static void spell_dam_estimation(creature_type *user_ptr, creature_type *target_
 }
 
 /* Calculate blow damages */
-static int blow_damcalc(creature_type *m_ptr, species_blow *blow_ptr)
+static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, species_blow *blow_ptr)
 {
+	//TODO: apply New Feature
 	int  dam = blow_ptr->d_dice * blow_ptr->d_side;
 	int  dummy_max = 0;
 	bool check_wraith_form = TRUE;
 
 	if (blow_ptr->method != RBM_EXPLODE)
 	{
-		int ac = p_ptr->ac + p_ptr->to_a;
+		int ac = target_ptr->ac + target_ptr->to_a;
 
 		switch (blow_ptr->effect)
 		{
@@ -6713,25 +6714,25 @@ static int blow_damcalc(creature_type *m_ptr, species_blow *blow_ptr)
 			break;
 
 		case RBE_ACID:
-			spell_dam_estimation(m_ptr, p_ptr, GF_ACID, dam, 0, &dummy_max);
+			spell_dam_estimation(attacker_ptr, target_ptr, GF_ACID, dam, 0, &dummy_max);
 			dam = dummy_max;
 			check_wraith_form = FALSE;
 			break;
 
 		case RBE_ELEC:
-			spell_dam_estimation(m_ptr, p_ptr, GF_ELEC, dam, 0, &dummy_max);
+			spell_dam_estimation(attacker_ptr, target_ptr, GF_ELEC, dam, 0, &dummy_max);
 			dam = dummy_max;
 			check_wraith_form = FALSE;
 			break;
 
 		case RBE_FIRE:
-			spell_dam_estimation(m_ptr, p_ptr, GF_FIRE, dam, 0, &dummy_max);
+			spell_dam_estimation(attacker_ptr, target_ptr, GF_FIRE, dam, 0, &dummy_max);
 			dam = dummy_max;
 			check_wraith_form = FALSE;
 			break;
 
 		case RBE_COLD:
-			spell_dam_estimation(m_ptr, p_ptr, GF_COLD, dam, 0, &dummy_max);
+			spell_dam_estimation(attacker_ptr, target_ptr, GF_COLD, dam, 0, &dummy_max);
 			dam = dummy_max;
 			check_wraith_form = FALSE;
 			break;
@@ -6742,7 +6743,7 @@ static int blow_damcalc(creature_type *m_ptr, species_blow *blow_ptr)
 			break;
 		}
 
-		if (check_wraith_form && p_ptr->wraith_form)
+		if (check_wraith_form && target_ptr->wraith_form)
 		{
 			dam /= 2;
 			if (!dam) dam = 1;
@@ -6751,7 +6752,7 @@ static int blow_damcalc(creature_type *m_ptr, species_blow *blow_ptr)
 	else
 	{
 		dam = (dam + 1) / 2;
-		spell_dam_estimation(m_ptr, p_ptr, mbe_info[blow_ptr->effect].explode_type, dam, 0, &dummy_max);
+		spell_dam_estimation(attacker_ptr, target_ptr, mbe_info[blow_ptr->effect].explode_type, dam, 0, &dummy_max);
 		dam = dummy_max;
 	}
 
@@ -6852,7 +6853,7 @@ bool process_warning(int xx, int yy)
 						if (!m_ptr->blow[m].method || (m_ptr->blow[m].method == RBM_SHOOT)) continue;
 
 						/* Extract the attack info */
-						dam_melee += blow_damcalc(m_ptr, &m_ptr->blow[m]);
+						dam_melee += blow_damcalc(m_ptr, p_ptr, &m_ptr->blow[m]);
 						if (m_ptr->blow[m].method == RBM_EXPLODE) break;
 					}
 					if (dam_melee > dam_max0) dam_max0 = dam_melee;
