@@ -413,7 +413,7 @@ bool raise_possible(creature_type *m_ptr)
 				/* Known to be worthless? */
 				if (o_ptr->tval == TV_CORPSE)
 				{
-					if (!monster_has_hostile_align(m_ptr, 0, 0, &species_info[o_ptr->pval])) return TRUE;
+					if (!creature_has_hostile_align(m_ptr, p_ptr, 0, 0, &species_info[o_ptr->pval])) return TRUE;
 				}
 			}
 		}

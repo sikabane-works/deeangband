@@ -1738,7 +1738,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, nonplayer_ptr) &&
 	    (((is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) &&
-	      monster_has_hostile_align(NULL, 10, -10, r_ptr))
+	      creature_has_hostile_align(NULL, player_ptr, 10, -10, r_ptr))
 	     || (nonplayer_ptr->resist_ultimate)))
 	{
 		gets_angry = TRUE;

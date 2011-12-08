@@ -5180,6 +5180,9 @@ extern int PlayerUID;
 #define SUB_ALIGN_NEUTRAL 0x0000
 #define SUB_ALIGN_EVIL    0x0001
 #define SUB_ALIGN_GOOD    0x0002
+#define SUB_ALIGN_LAW     0x0004
+#define SUB_ALIGN_CHAOS   0x0008
+#define SUB_ALIGN_BALANCE 0x0010
 
 /* Temporary flags macro */
 #define IS_FAST(C) (C->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))

@@ -2215,7 +2215,7 @@ static bool build_type5(void)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
+			if (creature_has_hostile_align(&align, p_ptr, 0, 0, r_ptr)) continue;
 
 			/* Accept this monster */
 			break;
@@ -2436,7 +2436,7 @@ static bool build_type6(void)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
+			if (creature_has_hostile_align(&align, p_ptr, 0, 0, r_ptr)) continue;
 
 			/* Accept this monster */
 			break;
@@ -5713,7 +5713,7 @@ static bool build_type13(void)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (monster_has_hostile_align(&align, 0, 0, r_ptr)) continue;
+			if (creature_has_hostile_align(&align, p_ptr, 0, 0, r_ptr)) continue;
 
 			/* Accept this monster */
 			break;
