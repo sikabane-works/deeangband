@@ -684,12 +684,12 @@ put_str("MP 失率 効果", y, x + 33);
  * do_cmd_cast calls this function if the player's class
  * is 'imitator'.
  */
-static bool cast_learned_spell(creature_type *user_ptr, int spell, bool success)
+static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool success)
 {
 	int            dir;
-	int           plev = pseudo_plev(user_ptr);
-	int     summon_lev = user_ptr->lev * 2 / 3 + randint1(user_ptr->lev/2);
-	int             hp = user_ptr->chp;
+	int           plev = pseudo_plev(caster_ptr);
+	int     summon_lev = caster_ptr->lev * 2 / 3 + randint1(caster_ptr->lev/2);
+	int             hp = caster_ptr->chp;
 	int             damage = 0;
 	bool   pet = success;
 	bool   no_trump = FALSE;
@@ -726,16 +726,16 @@ msg_print("かん高い金切り声をあげた。");
 	{
 		int m_idx;
 
-		if (!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 		m_idx = cave[target_row][target_col].m_idx;
 		if (!m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 		dispel_creature(&creature_list[m_idx]);
 		break;
 	}
 	case MS_ROCKET:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 #ifdef JP
 msg_print("ロケットを発射した。");
@@ -743,13 +743,13 @@ msg_print("ロケットを発射した。");
 			msg_print("You fire a rocket.");
 #endif
 		damage = hp / 4;
-			fire_rocket(user_ptr, GF_ROCKET, dir, damage, 2);
+			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 		break;
 	case MS_SHOOT:
 	{
 		object_type *o_ptr = NULL;
 
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 		{
 #ifdef JP
@@ -757,8 +757,8 @@ msg_print("矢を放った。");
 #else
 			msg_print("You fire an arrow.");
 #endif
-			if (have_weapon(user_ptr, INVEN_1STARM)) o_ptr = &user_ptr->inventory[INVEN_1STARM];
-			else if (have_weapon(user_ptr, INVEN_2NDARM)) o_ptr = &user_ptr->inventory[INVEN_2NDARM];
+			if (have_weapon(caster_ptr, INVEN_1STARM)) o_ptr = &caster_ptr->inventory[INVEN_1STARM];
+			else if (have_weapon(caster_ptr, INVEN_2NDARM)) o_ptr = &caster_ptr->inventory[INVEN_2NDARM];
 			else
 			damage = 1;
 			if (o_ptr)
@@ -777,7 +777,7 @@ msg_print("矢を放った。");
 	case MS_XXX4:
 		break;
 	case MS_BR_ACID:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("酸のブレスを吐いた。");
 #else
@@ -787,7 +787,7 @@ else msg_print("酸のブレスを吐いた。");
 		fire_ball(GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_ELEC:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("稲妻のブレスを吐いた。");
 #else
@@ -797,7 +797,7 @@ else msg_print("稲妻のブレスを吐いた。");
 		fire_ball(GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_FIRE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("火炎のブレスを吐いた。");
 #else
@@ -807,7 +807,7 @@ else msg_print("火炎のブレスを吐いた。");
 		fire_ball(GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_COLD:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("冷気のブレスを吐いた。");
 #else
@@ -817,7 +817,7 @@ else msg_print("冷気のブレスを吐いた。");
 		fire_ball(GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_POIS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ガスのブレスを吐いた。");
 #else
@@ -827,7 +827,7 @@ else msg_print("ガスのブレスを吐いた。");
 		fire_ball(GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_NETHER:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄のブレスを吐いた。");
 #else
@@ -837,7 +837,7 @@ else msg_print("地獄のブレスを吐いた。");
 		fire_ball(GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_LITE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("閃光のブレスを吐いた。");
 #else
@@ -847,7 +847,7 @@ else msg_print("閃光のブレスを吐いた。");
 		fire_ball(GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_DARK:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒のブレスを吐いた。");
 #else
@@ -857,7 +857,7 @@ else msg_print("暗黒のブレスを吐いた。");
 		fire_ball(GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_CONF:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("混乱のブレスを吐いた。");
 #else
@@ -867,7 +867,7 @@ else msg_print("混乱のブレスを吐いた。");
 		fire_ball(GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_SOUND:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("轟音のブレスを吐いた。");
 #else
@@ -877,7 +877,7 @@ else msg_print("轟音のブレスを吐いた。");
 		fire_ball(GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_CHAOS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("カオスのブレスを吐いた。");
 #else
@@ -887,7 +887,7 @@ else msg_print("カオスのブレスを吐いた。");
 		fire_ball(GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_DISEN:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("劣化のブレスを吐いた。");
 #else
@@ -897,7 +897,7 @@ else msg_print("劣化のブレスを吐いた。");
 		fire_ball(GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_NEXUS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("因果混乱のブレスを吐いた。");
 #else
@@ -907,7 +907,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 		fire_ball(GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_TIME:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("時間逆転のブレスを吐いた。");
 #else
@@ -917,7 +917,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 		fire_ball(GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_INERTIA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("遅鈍のブレスを吐いた。");
 #else
@@ -927,7 +927,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 		fire_ball(GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_GRAVITY:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("重力のブレスを吐いた。");
 #else
@@ -937,7 +937,7 @@ else msg_print("重力のブレスを吐いた。");
 		fire_ball(GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_SHARDS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("破片のブレスを吐いた。");
 #else
@@ -947,7 +947,7 @@ else msg_print("破片のブレスを吐いた。");
 		fire_ball(GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_PLASMA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマのブレスを吐いた。");
 #else
@@ -957,7 +957,7 @@ else msg_print("プラズマのブレスを吐いた。");
 		fire_ball(GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_FORCE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("フォースのブレスを吐いた。");
 #else
@@ -967,7 +967,7 @@ else msg_print("フォースのブレスを吐いた。");
 		fire_ball(GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BR_MANA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力のブレスを吐いた。");
 #else
@@ -978,7 +978,7 @@ else msg_print("魔力のブレスを吐いた。");
 		fire_ball(GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BALL_NUKE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射能球を放った。");
 #else
@@ -988,7 +988,7 @@ else msg_print("放射能球を放った。");
 		fire_ball(GF_NUKE, dir, damage, 2);
 		break;
 	case MS_BR_NUKE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射性廃棄物のブレスを吐いた。");
 #else
@@ -998,7 +998,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 		fire_ball(GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BALL_CHAOS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
 #else
@@ -1008,7 +1008,7 @@ else msg_print("純ログルスを放った。");
 		fire_ball(GF_CHAOS, dir, damage, 4);
 		break;
 	case MS_BR_DISI:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("分解のブレスを吐いた。");
 #else
@@ -1018,7 +1018,7 @@ else msg_print("分解のブレスを吐いた。");
 		fire_ball(GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case MS_BALL_ACID:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボールの呪文を唱えた。");
 #else
@@ -1028,7 +1028,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 		fire_ball(GF_ACID, dir, damage, 2);
 		break;
 	case MS_BALL_ELEC:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボールの呪文を唱えた。");
 #else
@@ -1038,7 +1038,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 		fire_ball(GF_ELEC, dir, damage, 2);
 		break;
 	case MS_BALL_FIRE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボールの呪文を唱えた。");
 #else
@@ -1048,7 +1048,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 		fire_ball(GF_FIRE, dir, damage, 2);
 		break;
 	case MS_BALL_COLD:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボールの呪文を唱えた。");
 #else
@@ -1058,7 +1058,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 		fire_ball(GF_COLD, dir, damage, 2);
 		break;
 	case MS_BALL_POIS:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("悪臭雲の呪文を唱えた。");
 #else
@@ -1068,7 +1068,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 		fire_ball(GF_POIS, dir, damage, 2);
 		break;
 	case MS_BALL_NETHER:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
 #else
@@ -1078,7 +1078,7 @@ else msg_print("地獄球の呪文を唱えた。");
 		fire_ball(GF_NETHER, dir, damage, 2);
 		break;
 	case MS_BALL_WATER:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
 #else
@@ -1088,7 +1088,7 @@ else msg_print("流れるような身振りをした。");
 		fire_ball(GF_WATER, dir, damage, 4);
 		break;
 	case MS_BALL_MANA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の嵐の呪文を念じた。");
 #else
@@ -1098,7 +1098,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 		fire_ball(GF_MANA, dir, damage, 4);
 		break;
 	case MS_BALL_DARK:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒の嵐の呪文を念じた。");
 #else
@@ -1108,41 +1108,41 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 		fire_ball(GF_DARK, dir, damage, 4);
 		break;
 	case MS_DRAIN_MANA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		fire_ball_hide(GF_DRAIN_MANA, dir, randint1(plev)+plev, 0);
 		break;
 	case MS_MIND_BLAST:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(7, 7);
 		fire_ball_hide(GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case MS_BRAIN_SMASH:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(12, 12);
 		fire_ball_hide(GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 	case MS_CAUSE_1:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(3, 8);
 		fire_ball_hide(GF_CAUSE_1, dir, damage, 0);
 		break;
 	case MS_CAUSE_2:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(8, 8);
 		fire_ball_hide(GF_CAUSE_2, dir, damage, 0);
 		break;
 	case MS_CAUSE_3:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(10, 15);
 		fire_ball_hide(GF_CAUSE_3, dir, damage, 0);
 		break;
 	case MS_CAUSE_4:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = damroll(15, 15);
 		fire_ball_hide(GF_CAUSE_4, dir, damage, 0);
 		break;
 	case MS_BOLT_ACID:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
@@ -1152,7 +1152,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 		fire_bolt(GF_ACID, dir, damage);
 		break;
 	case MS_BOLT_ELEC:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
@@ -1162,7 +1162,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 		fire_bolt(GF_ELEC, dir, damage);
 		break;
 	case MS_BOLT_FIRE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
@@ -1172,7 +1172,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 		fire_bolt(GF_FIRE, dir, damage);
 		break;
 	case MS_BOLT_COLD:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
@@ -1182,7 +1182,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 		fire_bolt(GF_COLD, dir, damage);
 		break;
 	case MS_STARBURST:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 #ifdef JP
 msg_print("スターバーストの呪文を念じた。");
@@ -1193,7 +1193,7 @@ msg_print("スターバーストの呪文を念じた。");
 		fire_ball(GF_LITE, dir, damage, 4);
 		break;
 	case MS_BOLT_NETHER:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄の矢の呪文を唱えた。");
 #else
@@ -1203,7 +1203,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 		fire_bolt(GF_NETHER, dir, damage);
 		break;
 	case MS_BOLT_WATER:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
@@ -1213,7 +1213,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 		fire_bolt(GF_WATER, dir, damage);
 		break;
 	case MS_BOLT_MANA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の矢の呪文を唱えた。");
 #else
@@ -1223,7 +1223,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 		fire_bolt(GF_MANA, dir, damage);
 		break;
 	case MS_BOLT_PLASMA:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
@@ -1233,7 +1233,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 		fire_bolt(GF_PLASMA, dir, damage);
 		break;
 	case MS_BOLT_ICE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("極寒の矢の呪文を唱えた。");
 #else
@@ -1243,7 +1243,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 		fire_bolt(GF_ICE, dir, damage);
 		break;
 	case MS_MAGIC_MISSILE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
@@ -1253,7 +1253,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 		fire_bolt(GF_MISSILE, dir, damage);
 		break;
 	case MS_SCARE:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("恐ろしげな幻覚を作り出した。");
 #else
@@ -1262,11 +1262,11 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 		fear_monster(dir, plev+10);
 		break;
 	case MS_BLIND:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_monster(dir, plev * 2);
 		break;
 	case MS_CONF:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("誘惑的な幻覚をつくり出した。");
 #else
@@ -1275,19 +1275,19 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		confuse_monster(dir, plev * 2);
 		break;
 	case MS_SLOW:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		slow_monster(dir);
 		break;
 	case MS_SLEEP:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_monster(dir);
 		break;
 	case MS_SPEED:
-		(void)set_fast(user_ptr, randint1(20 + plev) + plev, FALSE);
+		(void)set_fast(caster_ptr, randint1(20 + plev) + plev, FALSE);
 		break;
 	case MS_HAND_DOOM:
 	{
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("<破滅の手>を放った！");
 #else
@@ -1303,9 +1303,9 @@ msg_print("自分の傷に念を集中した。");
 #else
 			msg_print("You concentrate on your wounds!");
 #endif
-		(void)hp_player(user_ptr, plev*4);
-		(void)set_stun(user_ptr, 0);
-		(void)set_cut(user_ptr, 0);
+		(void)hp_player(caster_ptr, plev*4);
+		(void)set_stun(caster_ptr, 0);
+		(void)set_cut(caster_ptr, 0);
 		break;
 	case MS_INVULNER:
 #ifdef JP
@@ -1313,13 +1313,13 @@ msg_print("無傷の球の呪文を唱えた。");
 #else
 			msg_print("You cast a Globe of Invulnerability.");
 #endif
-		(void)set_invuln(user_ptr, randint1(4) + 4, FALSE);
+		(void)set_invuln(caster_ptr, randint1(4) + 4, FALSE);
 		break;
 	case MS_BLINK:
-		teleport_player(user_ptr, 10, 0L);
+		teleport_player(caster_ptr, 10, 0L);
 		break;
 	case MS_TELEPORT:
-		teleport_player(user_ptr, plev * 5, 0L);
+		teleport_player(caster_ptr, plev * 5, 0L);
 		break;
 	case MS_WORLD:
 		world_player = TRUE;
@@ -1331,18 +1331,18 @@ msg_print("無傷の球の呪文を唱えた。");
 		msg_print(NULL);
 
 		/* Hack */
-		user_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
+		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		/* Update monsters */
-		user_ptr->update |= (PU_MONSTERS);
+		caster_ptr->update |= (PU_MONSTERS);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		handle_stuff(user_ptr);
+		handle_stuff(caster_ptr);
 		break;
 	case MS_SPECIAL:
 		break;
@@ -1352,10 +1352,10 @@ msg_print("無傷の球の呪文を唱えた。");
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 		if (!cave[target_row][target_col].m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
@@ -1390,11 +1390,11 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You command %s to return.", m_name);
 #endif
 
-		teleport_monster_to(cave[target_row][target_col].m_idx, user_ptr->fy, user_ptr->fx, 100, TELEPORT_PASSIVE);
+		teleport_monster_to(cave[target_row][target_col].m_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 		break;
 	}
 	case MS_TELE_AWAY:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 		(void)fire_beam(GF_AWAY_ALL, dir, 100);
 		break;
@@ -1405,11 +1405,11 @@ msg_format("%sを引き戻した。", m_name);
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 		target_m_idx = cave[target_row][target_col].m_idx;
 		if (!target_m_idx) break;
 		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		if (!projectable(caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[target_m_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
@@ -1428,11 +1428,11 @@ msg_format("%sを引き戻した。", m_name);
 			msg_format("%^s is unaffected!", m_name);
 #endif
 		}
-		else teleport_level(user_ptr, target_m_idx);
+		else teleport_level(caster_ptr, target_m_idx);
 		break;
 	}
 	case MS_PSY_SPEAR:
-		if (!get_aim_dir(user_ptr, &dir)) return FALSE;
+		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 #ifdef JP
 else msg_print("光の剣を放った。");
@@ -1451,7 +1451,7 @@ msg_print("暗闇の中で手を振った。");
 		(void)unlite_area(10, 3);
 		break;
 	case MS_MAKE_TRAP:
-		if (!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else
@@ -1472,7 +1472,7 @@ msg_print("死者復活の呪文を唱えた。");
 #else
 		msg_print("You cast a animate dead.");
 #endif
-		(void)animate_dead(NULL, user_ptr->fy, user_ptr->fx);
+		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
 	case MS_S_KIN:
 	{
@@ -1484,7 +1484,7 @@ msg_print("援軍を召喚した。");
 #endif
 		for (k = 0;k < 1; k++)
 		{
-			if (summon_kin_player(user_ptr, summon_lev, user_ptr->fy, user_ptr->fx, (pet ? PM_FORCE_PET : 0L)))
+			if (summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PM_FORCE_PET : 0L)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1509,7 +1509,7 @@ msg_print("サイバーデーモンを召喚した！");
 			msg_print("You summon a Cyberdemon!");
 #endif
 		for (k = 0 ;k < 1 ; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
 			{
 				if (!pet)
 #ifdef JP
@@ -1533,7 +1533,7 @@ msg_print("仲間を召喚した。");
 			msg_print("You summon help.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, 0, p_mode))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
 			{
 				if (!pet)
 #ifdef JP
@@ -1557,7 +1557,7 @@ msg_print("モンスターを召喚した！");
 			msg_print("You summon monsters!");
 #endif
 		for (k = 0;k < plev / 15 + 2; k++)
-			if(summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1581,7 +1581,7 @@ msg_print("アリを召喚した。");
 			msg_print("You summon ants.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_ANT, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PM_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1605,7 +1605,7 @@ msg_print("蜘蛛を召喚した。");
 			msg_print("You summon spiders.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_SPIDER, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PM_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1629,7 +1629,7 @@ msg_print("ハウンドを召喚した。");
 			msg_print("You summon hounds.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_HOUND, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PM_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1653,7 +1653,7 @@ msg_print("ヒドラを召喚した。");
 			msg_print("You summon a hydras.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1677,7 +1677,7 @@ msg_print("天使を召喚した！");
 			msg_print("You summon an angel!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1701,7 +1701,7 @@ msg_print("混沌の宮廷から悪魔を召喚した！");
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1725,7 +1725,7 @@ msg_print("アンデッドの強敵を召喚した！");
 			msg_print("You summon an undead adversary!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1749,7 +1749,7 @@ msg_print("ドラゴンを召喚した！");
 			msg_print("You summon a dragon!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1773,7 +1773,7 @@ msg_print("強力なアンデッドを召喚した！");
 			msg_print("You summon a greater undead!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1797,7 +1797,7 @@ msg_print("古代ドラゴンを召喚した！");
 			msg_print("You summon an ancient dragon!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1821,7 +1821,7 @@ msg_print("アンバーの王族を召喚した！");
 			msg_print("You summon a Lord of Amber!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1845,7 +1845,7 @@ msg_print("特別な強敵を召喚した！");
 			msg_print("You summon a special opponent!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
 			{
 				count++;
 				if (!pet)
@@ -1856,7 +1856,7 @@ msg_print("Summoned special opponents are angry!");
 #endif
 			}
 		for (k = count;k < 1; k++)
-			if (summon_specific((pet ? user_ptr : NULL), user_ptr->fy, user_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
 			{
 				count++;
 				if (!pet)

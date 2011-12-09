@@ -1357,7 +1357,7 @@ extern void inven_drop(creature_type *cr_ptr, int item, int amt);
 extern void combine_pack(creature_type *creature_ptr);
 extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(creature_type *creature_ptr, int k_idx);
-extern object_type *choose_warning_item(creature_type *user_ptr);
+extern object_type *choose_warning_item(creature_type *caster_ptr);
 extern bool process_warning(creature_type *player_ptr, int xx, int yy);
 extern void do_cmd_kaji(creature_type *creature_ptr, bool only_browse);
 
@@ -1378,10 +1378,10 @@ extern int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_t
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg);
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
-extern bool project(creature_type *user_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell);
+extern bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell);
 extern int project_length;
 extern bool binding_field(int dam);
-extern void seal_of_mirror(creature_type *user_ptr, int dam);
+extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
 /* spells2.c */
 extern void message_pain(int m_idx, int dam);
@@ -1402,9 +1402,9 @@ extern bool detect_monsters_nonliving(creature_type *cr_ptr, int range);
 extern bool detect_monsters_mind(creature_type *cr_ptr, int range);
 extern bool detect_all(creature_type *cr_ptr, int range);
 extern bool wall_stone(void);
-extern bool speed_monsters(creature_type *user_ptr);
-extern bool slow_monsters(creature_type *user_ptr);
-extern bool sleep_monsters(creature_type *user_ptr);
+extern bool speed_monsters(creature_type *caster_ptr);
+extern bool slow_monsters(creature_type *caster_ptr);
+extern bool sleep_monsters(creature_type *caster_ptr);
 extern void aggravate_monsters(creature_type *cr_ptr);
 extern bool genocide_aux(int m_idx, int power, bool player_cast, int dam_side, cptr spell_name);
 extern bool symbol_genocide(int power, bool player_cast);
@@ -1428,7 +1428,7 @@ extern void unlite_room(int y1, int x1);
 extern bool lite_area(creature_type *cr_ptr, int dam, int rad);
 extern bool unlite_area(int dam, int rad);
 extern bool fire_ball(int typ, int dir, int dam, int rad);
-extern bool fire_rocket(creature_type *user_ptr, int typ, int dir, int dam, int rad);
+extern bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_ball_hide(int typ, int dir, int dam, int rad);
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
 extern bool fire_bolt(int typ, int dir, int dam);
@@ -1524,7 +1524,7 @@ extern bool remove_all_curse(creature_type *cr_ptr);
 extern bool alchemy(creature_type *cr_ptr);
 extern bool enchant(creature_type *cr_ptr, object_type *o_ptr, int n, int eflag);
 extern bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac);
-extern bool artifact_scroll(creature_type *user_ptr);
+extern bool artifact_scroll(creature_type *caster_ptr);
 extern bool ident_spell(creature_type *cr_ptr, bool only_equip);
 extern bool mundane_spell(creature_type *cr_ptr, bool only_equip);
 extern bool identify_item(creature_type *cr_ptr, object_type *o_ptr);
@@ -1797,8 +1797,8 @@ extern void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_p
 /* mspells1.c */
 extern bool clean_shot(int y1, int x1, int y2, int x2, bool friend);
 extern bool summon_possible(int y1, int x1);
-extern bool raise_possible(creature_type *m_ptr);
-extern bool dispel_check(creature_type *user_ptr, creature_type *target_ptr);
+extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
+extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool make_attack_spell(creature_type *cr_ptr, creature_type *target_ptr);
 
 /* mspells2.c */

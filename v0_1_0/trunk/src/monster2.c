@@ -1917,7 +1917,7 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 	else name = (species_name + r_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
-	if (p_ptr->image && !(mode & MD_IGNORE_HALLU))
+	if (player_ptr->image && !(mode & MD_IGNORE_HALLU))
 	{
 		if (one_in_(2))
 		{

@@ -4501,25 +4501,25 @@ bool project_hack(int typ, int dam)
 /*
  * Speed monsters
  */
-bool speed_monsters(creature_type *user_ptr)
+bool speed_monsters(creature_type *caster_ptr)
 {
-	return (project_hack(GF_OLD_SPEED, user_ptr->lev));
+	return (project_hack(GF_OLD_SPEED, caster_ptr->lev));
 }
 
 /*
  * Slow monsters
  */
-bool slow_monsters(creature_type *user_ptr)
+bool slow_monsters(creature_type *caster_ptr)
 {
-	return (project_hack(GF_OLD_SLOW, user_ptr->lev));
+	return (project_hack(GF_OLD_SLOW, caster_ptr->lev));
 }
 
 /*
  * Sleep monsters
  */
-bool sleep_monsters(creature_type *user_ptr)
+bool sleep_monsters(creature_type *caster_ptr)
 {
-	return (project_hack(GF_OLD_SLEEP, user_ptr->lev));
+	return (project_hack(GF_OLD_SLEEP, caster_ptr->lev));
 }
 
 
@@ -6442,15 +6442,15 @@ bool fire_ball(int typ, int dir, int dam, int rad)
  * Allow "target" mode to pass over monsters
  * Affect grids, objects, and monsters
  */
-bool fire_rocket(creature_type *user_ptr, int typ, int dir, int dam, int rad)
+bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 
 	/* Use the given direction */
-	tx = user_ptr->fx + 99 * ddx[dir];
-	ty = user_ptr->fy + 99 * ddy[dir];
+	tx = caster_ptr->fx + 99 * ddx[dir];
+	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())

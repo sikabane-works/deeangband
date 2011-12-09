@@ -246,7 +246,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 		spell = spells[i];
 
 		/* Require "okay" spells */
-		if (!spell_okay(p_ptr, spell, learned, FALSE, use_realm))
+		if (!spell_okay(cr_ptr, spell, learned, FALSE, use_realm))
 		{
 			bell();
 #ifdef JP

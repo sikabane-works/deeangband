@@ -6465,20 +6465,20 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 }
 
 /* Choose one of items that have warning flag */
-object_type *choose_warning_item(creature_type *user_ptr)
+object_type *choose_warning_item(creature_type *caster_ptr)
 {
 	int i;
 	int choices[INVEN_TOTAL - INVEN_1STARM];
 	int number = 0;
 
 	/* Paranoia -- Player has no warning ability */
-	if (!user_ptr->warning) return NULL;
+	if (!caster_ptr->warning) return NULL;
 
 	/* Search inventory */
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
 		u32b flgs[TR_FLAG_SIZE];
-		object_type *o_ptr = &user_ptr->inventory[i];
+		object_type *o_ptr = &caster_ptr->inventory[i];
 
 		object_flags(o_ptr, flgs);
 		if (have_flag(flgs, TR_WARNING))
@@ -6489,13 +6489,13 @@ object_type *choose_warning_item(creature_type *user_ptr)
 	}
 
 	/* Choice one of them */
-	return number ? &user_ptr->inventory[choices[randint0(number)]] : NULL;
+	return number ? &caster_ptr->inventory[choices[randint0(number)]] : NULL;
 }
 
 /* Calculate spell damages */
-static void spell_dam_estimation(creature_type *user_ptr, creature_type *target_ptr, int typ, int dam, int limit, int *max)
+static void spell_dam_estimation(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int limit, int *max)
 {
-	species_type *r_ptr = &species_info[user_ptr->species_idx];
+	species_type *r_ptr = &species_info[caster_ptr->species_idx];
 	int          rlev = r_ptr->level;
 	bool         ignore_wraith_form = FALSE;
 
@@ -6631,7 +6631,7 @@ static void spell_dam_estimation(creature_type *user_ptr, creature_type *target_
 		}
 		else
 		{
-			if(has_cf_creature(user_ptr, CF_NONLIVING) && is_undead_creature(user_ptr))
+			if(has_cf_creature(caster_ptr, CF_NONLIVING) && is_undead_creature(caster_ptr))
 			{
 				dam = 0;
 				ignore_wraith_form = TRUE;
@@ -6670,7 +6670,7 @@ static void spell_dam_estimation(creature_type *user_ptr, creature_type *target_
 		break;
 
 	case GF_CAUSE_4:
-		if ((100 + rlev / 2 <= target_ptr->skill_rob) && (user_ptr->species_idx != MON_KENSHIROU))
+		if ((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != MON_KENSHIROU))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;

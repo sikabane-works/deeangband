@@ -865,7 +865,7 @@ static void wiz_tweak_item(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Apply magic to an item or turn it into an artifact. -Bernd-
  */
-static void wiz_reroll_item(creature_type *user_ptr, object_type *o_ptr)
+static void wiz_reroll_item(creature_type *caster_ptr, object_type *o_ptr)
 {
 	object_type forge;
 	object_type *q_ptr;
@@ -926,45 +926,45 @@ static void wiz_reroll_item(creature_type *user_ptr, object_type *o_ptr)
 			case 'w': case 'W':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_NO_FIXED_ART);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
 				object_prep(q_ptr, o_ptr->k_idx, ITEM_FREE_SIZE);
-				apply_magic(user_ptr, q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL);
+				apply_magic(caster_ptr, q_ptr, dun_level, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(q_ptr)) create_artifact(user_ptr, q_ptr, FALSE);
+				if (!object_is_artifact(q_ptr)) create_artifact(caster_ptr, q_ptr, FALSE);
 				break;
 			}
 		}
@@ -982,10 +982,10 @@ static void wiz_reroll_item(creature_type *user_ptr, object_type *o_ptr)
 		object_copy(o_ptr, q_ptr);
 
 		/* Recalculate bonuses */
-		user_ptr->update |= (PU_BONUS);
+		caster_ptr->update |= (PU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		user_ptr->notice |= (PN_COMBINE | PN_REORDER);
+		caster_ptr->notice |= (PN_COMBINE | PN_REORDER);
 
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
