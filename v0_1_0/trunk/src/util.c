@@ -5725,18 +5725,18 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 			put_str("|" ,y+i, x+w);
 			if(offset >= num) continue; 
 
-			sprintf(buf, "%c[%c]", (ret[offset/32] & (0x01 << offset)) ? '*' : ' ', se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
+			sprintf(buf, "%c[%c]", (ret[offset/32] & (0x01 << offset%32)) ? '*' : ' ', se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
 
 			if(offset == se)
 			{
 				c_put_str(TERM_WHITE, ">>", y+i, x);
 				c_put_str(TERM_WHITE, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+6);
 			}
 			else
 			{
 				c_put_str(TERM_L_DARK, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+5);
+				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+6);
 			}
 		}
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
@@ -5754,14 +5754,14 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 
 		if (c == '\r')
 		{
-			if(ret[offset/32] & (0x01 << offset))
+			if(ret[se/32] & (0x01 << se%32))
 			{
-				ret[offset/32] &= ~(0x01 << offset);
+				ret[se/32] &= ~(0x01 << se%32);
 				selected_num--;
 			}
 			else
 			{
-				ret[offset/32] |= (0x01 << offset);
+				ret[se/32] |= (0x01 << se%32);
 				selected_num++;
 			}
 		}

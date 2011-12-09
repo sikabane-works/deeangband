@@ -831,6 +831,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	int i, n;
 	selection se[100];
 	int max_len = 0;
+	u32b get[8];
 
 	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
@@ -901,7 +902,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 #endif
 
 		screen_save();
-		n = get_selection(se, i, 2, 23, 20, max_len + 10, NULL);
+		n = get_multi_selection(se, i, 2, 23, 20, max_len + 10, NULL, get);
 		screen_load();
 
 	}
