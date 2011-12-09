@@ -8769,7 +8769,7 @@ msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", m_name);
 	return (notice);
 }
 
-bool binding_field( int dam )
+bool binding_field(creature_type *caster_ptr, int dam)
 {
 	int mirror_x[10],mirror_y[10]; /* ‹¾‚Í‚à‚Á‚Æ­‚È‚¢ */
 	int mirror_num=0;              /* ‹¾‚Ì” */
