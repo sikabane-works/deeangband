@@ -828,11 +828,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 void carry(creature_type *cr_ptr, bool pickup)
 {
 	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
-	int i, n;
-	selection se[100];
-	object_type *o_ptr_list[100];
 	int max_len = 0;
-	u32b get[8];
 
 	s16b this_o_idx, floor_num = 0, next_o_idx = 0;
 
@@ -872,7 +868,6 @@ void carry(creature_type *cr_ptr, bool pickup)
 		object_type *o_ptr;
 		/* Access the object */
 		o_ptr = &o_list[this_o_idx];
-		o_ptr_list[floor_num] = o_ptr;
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
@@ -881,106 +876,6 @@ void carry(creature_type *cr_ptr, bool pickup)
 		/* Count non-gold objects */
 		floor_num++;
 	}
-
-	if(floor_num >= 2)
-	{
-		for (i = 0; i < floor_num; i++)
-		{
-			object_desc(o_name, o_ptr_list[i], 0);
-			n = strlen(o_name);
-			max_len = max_len > n ? max_len : n;
-			strcpy(se[i].cap, o_name);
-			se[i].code = 0;
-			se[i].key = '\0';
-			se[i].d_color = TERM_L_DARK;
-			se[i].l_color = TERM_WHITE;
-		}
-
-#if JP
-		msg_print("拾うアイテムを選択して下さい。");
-#else
-		msg_print("Select which items take up.");
-#endif
-
-		screen_save();
-		n = get_multi_selection(se, i, 2, 23, 20, max_len + 10, NULL, get);
-		screen_load();
-
-	}
-
-
-/*
-	int     n, i;
-
-	if(species_ptr->race_idx1 != INDEX_VARIABLE)
-	{
-		creature_ptr->race_idx1 = species_ptr->race_idx1;
-		return 0;
-	}
-
-
-	if(npc)
-	{
-		creature_ptr->race_idx1 = se[randint0(n)].code;
-		return 0;
-	}
-
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
-	se[n].code = -1;
-	se[n].key = '*';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
-
-#if JP
-	strcpy(se[n].cap, "最初に戻る");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
-	se[n].code = -2;
-	se[n].key = 'S';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
-
-#if JP
-	strcpy(se[n].cap, "終了する");
-#else
-	strcpy(se[n].cap, "Quit game");
-#endif
-	se[n].code = -3;
-	se[n].key = 'Q';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
-
-#if JP
-	put_str("種族を選択して下さい:", 0, 0);
-#else
-	put_str("Select a race:", 0, 0);
-#endif
-
-	i = get_selection(se, n, 5, 2, 18, 20, race_detail);
-
-	if(i >= 0)
-	{
-		creature_ptr->race_idx1 = i;
-		return 0;
-	}
-	else if(i == -1)
-	{
-		creature_ptr->race_idx1 = se[randint0(n - 3)].code;
-		return 0;
-	}
-	else
-	{
-		return i;
-	}
-*/
 
 	/* Message */
 
