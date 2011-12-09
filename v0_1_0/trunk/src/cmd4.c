@@ -1060,7 +1060,7 @@ static void do_cmd_erase_nikki(void)
 }
 
 
-void do_cmd_nikki(void)
+void do_cmd_nikki(creature_type *player_ptr)
 {
 	int i;
 
@@ -1119,7 +1119,7 @@ void do_cmd_nikki(void)
 		switch (i)
 		{
 		case '1':
-			do_cmd_disp_nikki(p_ptr);
+			do_cmd_disp_nikki(player_ptr);
 			break;
 		case '2':
 			do_cmd_bunshou();

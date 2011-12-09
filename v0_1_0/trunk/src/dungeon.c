@@ -5321,7 +5321,7 @@ msg_print("アリーナが魔法を吸収した！");
 
 		case '|':
 		{
-			do_cmd_nikki();
+			do_cmd_nikki(cr_ptr);
 			break;
 		}
 

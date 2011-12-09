@@ -665,7 +665,7 @@ extern void get_max_stats(creature_type *cr_ptr);
 extern void determine_random_questor(quest_type *q_ptr);
 extern bool creature_hook_human(int species_idx);
 extern void dump_yourself(creature_type *cr_ptr, FILE *fff);
-extern void add_outfit(creature_type *cr_ptr, object_type *o_ptr, bool equip);
+extern void add_outfit(creature_type *cr_ptr, object_type *o_ptr, u32b flags);
 extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);
@@ -795,7 +795,7 @@ extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 extern cptr get_ordinal_number_suffix(int num);
 #endif
 extern errr do_cmd_write_nikki(int type, int num, cptr note);
-extern void do_cmd_nikki(void);
+extern void do_cmd_nikki(creature_type *player_ptr);
 extern void do_cmd_redraw(creature_type *cr_ptr);
 extern void do_cmd_change_name(creature_type *cr_ptr);
 extern void do_cmd_message_one(void);

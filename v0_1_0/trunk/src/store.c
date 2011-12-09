@@ -5198,7 +5198,7 @@ static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
 
 		case '|':
 		{
-			do_cmd_nikki();
+			do_cmd_nikki(p_ptr);
 			break;
 		}
 

@@ -3068,7 +3068,7 @@ static void init_turn(creature_type *creature_ptr)
  * Try to wield everything wieldable in the inventory. 
  * Code taken from Angband 3.1.0 under Angband license
  */ 
-static void wield_all(creature_type *creature_ptr) 
+static void wield_all(creature_type *creature_ptr, u32b flags) 
 { 
 	object_type *o_ptr; 
 	object_type *i_ptr; 
@@ -3086,7 +3086,9 @@ static void wield_all(creature_type *creature_ptr)
 		if (!o_ptr->k_idx) continue; 
  
 		/* Make sure we can wield it and that there's nothing else in that slot */ 
-		slot = wield_slot(creature_ptr, o_ptr); 
+		slot = wield_slot(creature_ptr, o_ptr);
+
+		//if ((slot > INVEN_1STARM || slot <= INVEN_6THARM) && !(flags & ADD_OUTFIT_MULTIPLE_FENCING)) continue;
 		if (slot < INVEN_1STARM) continue; 
 		if (slot == INVEN_LITE) continue; /* Does not wield toaches because buys a lantern soon */
 		if (creature_ptr->inventory[slot].k_idx) continue; 
@@ -3159,12 +3161,11 @@ void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags)
 	}
 	slot = inven_carry(creature_ptr, o_ptr);
 
-
 	/* Auto-inscription */
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
 	/* Now try wielding everything */ 
-	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr); 
+	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr, flags); 
 }
 
 
