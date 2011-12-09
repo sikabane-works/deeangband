@@ -830,6 +830,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
 	int i, n;
 	selection se[100];
+	object_type *o_ptr_list[100];
 	int max_len = 0;
 	u32b get[8];
 
@@ -871,7 +872,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 		object_type *o_ptr;
 		/* Access the object */
 		o_ptr = &o_list[this_o_idx];
-
+		o_ptr_list[floor_num] = o_ptr;
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Hack -- disturb */
@@ -885,7 +886,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 	{
 		for (i = 0; i < floor_num; i++)
 		{
-			object_desc(o_name, &o_list[i], 0);
+			object_desc(o_name, o_ptr_list[i], 0);
 			n = strlen(o_name);
 			max_len = max_len > n ? max_len : n;
 			strcpy(se[i].cap, o_name);

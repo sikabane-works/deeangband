@@ -5695,7 +5695,7 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 	char line[80];
 	int selected_num = 0;
 
-	for(i = 0; i < num / 32; i++) ret[i] = 0;
+	for(i = 0; i <= num / 32; i++) ret[i] = 0;
 
 	if (num <= 0) return -1;
 	
