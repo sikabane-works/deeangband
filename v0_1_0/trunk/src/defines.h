@@ -5940,3 +5940,8 @@ extern int PlayerUID;
 
 #define CAMP_PLAYER   0
 #define CAMP_DUNGEON  1
+
+
+// use add_outfit()
+#define ADD_OUTFIT_EQUIP     0x00000001
+

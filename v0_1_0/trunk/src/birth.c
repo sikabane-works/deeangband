@@ -3148,7 +3148,7 @@ bool creature_hook_human(int species_idx)
 /*
  * Add an outfit object
  */
-void add_outfit(creature_type *creature_ptr, object_type *o_ptr, bool equip)
+void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags)
 {
 	s16b slot;
 
@@ -3164,7 +3164,7 @@ void add_outfit(creature_type *creature_ptr, object_type *o_ptr, bool equip)
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
 	/* Now try wielding everything */ 
-	if(equip) wield_all(creature_ptr); 
+	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr); 
 }
 
 
