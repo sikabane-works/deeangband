@@ -1995,16 +1995,16 @@ bool do_riding(creature_type *cr_ptr, bool force)
 	return TRUE;
 }
 
-static void do_name_pet(void)
+static void do_name_pet(creature_type *master_ptr)
 {
-	creature_type *m_ptr;
+	creature_type *pet_ptr;
 	char out_val[20];
 	char m_name[80];
 	bool old_name = FALSE;
 	bool old_target_pet = target_pet;
 
 	target_pet = TRUE;
-	if (!target_set(p_ptr, TARGET_KILL))
+	if (!target_set(master_ptr, TARGET_KILL))
 	{
 		target_pet = old_target_pet;
 		return;
@@ -2013,9 +2013,9 @@ static void do_name_pet(void)
 
 	if (cave[target_row][target_col].m_idx)
 	{
-		m_ptr = &creature_list[cave[target_row][target_col].m_idx];
+		pet_ptr = &creature_list[cave[target_row][target_col].m_idx];
 
-		if (!is_pet(player_ptr, m_ptr))
+		if (!is_pet(player_ptr, pet_ptr))
 		{
 			/* Message */
 #ifdef JP
@@ -2025,7 +2025,7 @@ static void do_name_pet(void)
 #endif
 			return;
 		}
-		if (is_unique_species(&species_info[m_ptr->species_idx]))
+		if (is_unique_species(&species_info[pet_ptr->species_idx]))
 		{
 #ifdef JP
 			msg_print("そのモンスターの名前は変えられない！");
@@ -2034,7 +2034,7 @@ static void do_name_pet(void)
 #endif
 			return;
 		}
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, pet_ptr, 0);
 
 		/* Message */
 #ifdef JP
@@ -2049,10 +2049,10 @@ static void do_name_pet(void)
 		strcpy(out_val, "");
 
 		/* Use old inscription */
-		if (m_ptr->nickname)
+		if (pet_ptr->nickname)
 		{
 			/* Start with the old inscription */
-			strcpy(out_val, quark_str(m_ptr->nickname));
+			strcpy(out_val, quark_str(pet_ptr->nickname));
 			old_name = TRUE;
 		}
 
@@ -2067,12 +2067,12 @@ static void do_name_pet(void)
 			if (out_val[0])
 			{
 				/* Save the inscription */
-				m_ptr->nickname = quark_add(out_val);
+				pet_ptr->nickname = quark_add(out_val);
 				if (record_named_pet)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
 					do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
 				}
 			}
@@ -2082,10 +2082,10 @@ static void do_name_pet(void)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
 					do_cmd_write_nikki(NIKKI_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);
 				}
-				m_ptr->nickname = 0;
+				pet_ptr->nickname = 0;
 			}
 		}
 	}
@@ -2721,7 +2721,7 @@ void do_cmd_pet(creature_type *cr_ptr)
 
 		case PET_NAME:
 		{
-			do_name_pet();
+			do_name_pet(cr_ptr);
 			break;
 		}
 
