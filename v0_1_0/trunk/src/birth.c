@@ -3063,6 +3063,63 @@ static void init_turn(creature_type *creature_ptr)
 	dungeon_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 }
 
+static int wield_one(creature_type *creature_ptr, int item, u32b flags)
+{
+	object_type *o_ptr; 
+	object_type *i_ptr; 
+	object_type object_type_body; 
+ 
+	int slot; 
+
+	o_ptr = &creature_ptr->inventory[item]; 
+ 
+	/* Skip non-objects */ 
+	if (!o_ptr->k_idx) return -1; 
+ 
+	/* Make sure we can wield it and that there's nothing else in that slot */ 
+	slot = wield_slot(creature_ptr, o_ptr);
+
+	//if ((slot > INVEN_1STARM || slot <= INVEN_6THARM) && !(flags & ADD_OUTFIT_MULTIPLE_FENCING)) return -1;
+	if (slot < INVEN_1STARM) return -1; 
+	if (slot == INVEN_LITE) return -1; /* Does not wield toaches because buys a lantern soon */
+	if (creature_ptr->inventory[slot].k_idx) return -1; 
+ 
+	/* Get local object */ 
+	i_ptr = &object_type_body; 
+	object_copy(i_ptr, o_ptr); 
+ 
+	/* Modify quantity */ 
+	i_ptr->number = 1; 
+ 
+	/* Decrease the item (from the pack) */ 
+	if (item >= 0) 
+	{ 
+		inven_item_increase(creature_ptr, item, -1); 
+		inven_item_optimize(creature_ptr, item); 
+	} 
+ 
+	/* Decrease the item (from the floor) */ 
+	else 
+	{ 
+		floor_item_increase(0 - item, -1); 
+		floor_item_optimize(0 - item); 
+	} 
+ 
+	/* Get the wield slot */ 
+	o_ptr = &creature_ptr->inventory[slot]; 
+ 
+	/* Wear the new stuff */ 
+	object_copy(o_ptr, i_ptr); 
+ 
+	/* Increase the weight */ 
+	creature_ptr->total_weight += i_ptr->weight; 
+ 
+	/* Increment the equip counter by hand */ 
+	creature_ptr->equip_cnt++;
+
+	return slot; 
+}
+
 
 /* 
  * Try to wield everything wieldable in the inventory. 
@@ -3070,62 +3127,11 @@ static void init_turn(creature_type *creature_ptr)
  */ 
 static void wield_all(creature_type *creature_ptr, u32b flags) 
 { 
-	object_type *o_ptr; 
-	object_type *i_ptr; 
-	object_type object_type_body; 
- 
-	int slot; 
-	int item; 
- 
+	int item;
 	/* Scan through the slots backwards */ 
 	for (item = INVEN_PACK - 1; item >= 0; item--) 
-	{ 
-		o_ptr = &creature_ptr->inventory[item]; 
- 
-		/* Skip non-objects */ 
-		if (!o_ptr->k_idx) continue; 
- 
-		/* Make sure we can wield it and that there's nothing else in that slot */ 
-		slot = wield_slot(creature_ptr, o_ptr);
-
-		//if ((slot > INVEN_1STARM || slot <= INVEN_6THARM) && !(flags & ADD_OUTFIT_MULTIPLE_FENCING)) continue;
-		if (slot < INVEN_1STARM) continue; 
-		if (slot == INVEN_LITE) continue; /* Does not wield toaches because buys a lantern soon */
-		if (creature_ptr->inventory[slot].k_idx) continue; 
- 
-		/* Get local object */ 
-		i_ptr = &object_type_body; 
-		object_copy(i_ptr, o_ptr); 
- 
-		/* Modify quantity */ 
-		i_ptr->number = 1; 
- 
-		/* Decrease the item (from the pack) */ 
-		if (item >= 0) 
-		{ 
-			inven_item_increase(creature_ptr, item, -1); 
-			inven_item_optimize(creature_ptr, item); 
-		} 
- 
-		/* Decrease the item (from the floor) */ 
-		else 
-		{ 
-			floor_item_increase(0 - item, -1); 
-			floor_item_optimize(0 - item); 
-		} 
- 
-		/* Get the wield slot */ 
-		o_ptr = &creature_ptr->inventory[slot]; 
- 
-		/* Wear the new stuff */ 
-		object_copy(o_ptr, i_ptr); 
- 
-		/* Increase the weight */ 
-		creature_ptr->total_weight += i_ptr->weight; 
- 
-		/* Increment the equip counter by hand */ 
-		creature_ptr->equip_cnt++;
-
+	{
+		wield_one(creature_ptr, item, flags);
  	} 
 	return; 
 } 
