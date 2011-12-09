@@ -5685,3 +5685,102 @@ int get_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*
 
 }
 
+int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*detail)(int), u32b *ret)
+{
+	int i, se = 0, page = 1, offset;
+	int page_num = num / h + 1;
+	char buf[80];
+	char c;
+	char eraser[80];
+	char line[80];
+	int selected_num = 0;
+
+	for(i = 0; i < num / 32; i++) ret[i] = 0;
+
+	if (num <= 0) return -1;
+	
+	for(i = 0; i < w; i++)
+	{
+		eraser[i] = ' ';
+		line[i] = '-';
+	}
+	eraser[i] = '\0';
+	line[i] = '\0';
+
+	while(TRUE)
+	{
+		put_str("+", y-1, x-1);
+		put_str("+", y+h, x-1);
+		put_str("+", y-1, x+w);
+		put_str("+", y+h, x+w);
+		put_str(line, y-1, x);
+		put_str(line, y+h, x);
+
+
+		for(i = 0; i < h; i++)
+		{
+			offset = h*(page-1)+i;
+			put_str(eraser ,y+i, x);
+			put_str("|" ,y+i, x-1);
+			put_str("|" ,y+i, x+w);
+			if(offset >= num) continue; 
+
+			sprintf(buf, "%c[%c]", (ret[offset/32] & (0x01 << offset)) ? '*' : ' ', se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
+
+			if(offset == se)
+			{
+				c_put_str(TERM_WHITE, ">>", y+i, x);
+				c_put_str(TERM_WHITE, buf, y+i, x+2);
+				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+5);
+			}
+			else
+			{
+				c_put_str(TERM_L_DARK, buf, y+i, x+2);
+				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+5);
+			}
+		}
+		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
+		c_put_str(TERM_L_BLUE, buf, y+h, x);
+
+		if (detail) detail(se_ptr[se].code);
+
+		c = inkey();
+		if (c == '2') se++;
+		if (c == '8') se--;
+		if (c == '6') se+=h;
+		if (c == '4') se-=h;
+		if (se < 0) se = 0;
+		if (se >= num) se = num - 1;
+
+		if (c == '\r')
+		{
+			if(ret[offset/32] & (0x01 << offset))
+			{
+				ret[offset/32] &= ~(0x01 << offset);
+				selected_num--;
+			}
+			else
+			{
+				ret[offset/32] |= (0x01 << offset);
+				selected_num++;
+			}
+		}
+		if (c == ESCAPE)
+		{
+			return selected_num;
+		}
+
+		if (c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
+		for (i = 0; i < num; i++)
+		{
+			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
+		}
+
+		page = se / h + 1;
+
+	}
+
+}
+
+
+
