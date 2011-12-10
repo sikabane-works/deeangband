@@ -226,9 +226,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Mage */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
-		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
 		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -241,9 +241,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Priest */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: for Life / Death book */
-		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
 		{ TV_HAFTED, SV_MACE },
+		{ 0, 0},
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -255,9 +255,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Rogue */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
 		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -269,9 +269,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Ranger */
-		{ TV_NATURE_BOOK, 0 },
-		{ TV_DEATH_BOOK, 0 },		/* Hack: for realm2 book */
 		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -283,9 +283,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Paladin */
-		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SCROLL, SV_SCROLL_PROTECTION_FROM_EVIL },
 		{ TV_SWORD, SV_BROAD_SWORD },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -297,9 +297,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Warrior-Mage */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
-		{ TV_DEATH_BOOK, 0 }, /* Hack: for realm2 book */
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -311,9 +311,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Chaos Warrior */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: For realm1 book */
 		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
 		{ TV_SWORD, SV_BROAD_SWORD },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -325,9 +325,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Monk */
-		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
 		{ TV_POTION, SV_POTION_HEROISM },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -353,9 +353,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* High Mage */
-		{ TV_SORCERY_BOOK, 0 }, /* Hack: for realm1 book */
 		{ TV_RING, SV_RING_SUSTAIN_INT},
 		{ TV_SWORD, SV_DAGGER },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -395,9 +395,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Beastmaster */
-		{ TV_TRUMP_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
 		{ TV_POLEARM, SV_SPEAR},
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -451,9 +451,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Bard */
-		{ TV_MUSIC_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -465,9 +465,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Red Mage */
-		{ TV_ARCANE_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR},
 		{ TV_SWORD, SV_SHORT_SWORD },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -479,9 +479,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* Samurai */
-		{ TV_HISSATSU_BOOK, 0 },
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
 		{ TV_SWORD, SV_KATANA },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
@@ -493,9 +493,9 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 
 	{
 		/* ForceTrainer */
-		{ TV_SORCERY_BOOK, 0 },
 		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
 		{ TV_POTION, SV_POTION_RESTORE_MANA },
+		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
