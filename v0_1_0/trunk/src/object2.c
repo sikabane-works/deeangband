@@ -2378,14 +2378,8 @@ static byte get_random_ego(byte slot, bool good)
 	return (byte)i;
 }
 
-
-/*
- * Apply magic to an item known to be a "weapon"
- *
- * Hack -- note special base damage dice boosting
- * Hack -- note special processing for weapon/digger
- */
-static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, int power)
+// Weapon boost by power
+void weapon_boost(object_type *o_ptr, int level, int power)
 {
 	int tohit1 = randint1(5) + m_bonus(5, level);
 	int todam1 = randint1(5) + m_bonus(5, level);
@@ -2433,6 +2427,17 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		/* Cursed (if "bad") */
 		if (o_ptr->to_h + o_ptr->to_d < 0) o_ptr->curse_flags |= TRC_CURSED;
 	}
+}
+
+/*
+ * Apply magic to an item known to be a "weapon"
+ *
+ * Hack -- note special base damage dice boosting
+ * Hack -- note special processing for weapon/digger
+ */
+static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, int power)
+{
+	weapon_boost(o_ptr, level, power);
 
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
 
