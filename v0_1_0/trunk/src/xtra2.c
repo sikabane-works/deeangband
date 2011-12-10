@@ -1980,7 +1980,7 @@ void ang_sort(vptr u, vptr v, int n)
  * Future versions may restrict the ability to target "trappers"
  * and "mimics", but the semantics is a little bit weird.
  */
-bool target_able(int m_idx)
+bool target_able(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
@@ -1988,15 +1988,15 @@ bool target_able(int m_idx)
 	if (!m_ptr->species_idx) return (FALSE);
 
 	/* Hack -- no targeting hallucinations */
-	if (p_ptr->image) return (FALSE);
+	if (creature_ptr->image) return (FALSE);
 
 	/* Monster must be visible */
 	if (!m_ptr->ml) return (FALSE);
 
-	if (p_ptr->riding && (p_ptr->riding == m_idx)) return (TRUE);
+	if (creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
 
 	/* Monster must be projectable */
-	if (!projectable(p_ptr->fy, p_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
+	if (!projectable(creature_ptr->fy, creature_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
 
 	/* XXX XXX XXX Hack -- Never target trappers */
 	/* if (CLEAR_ATTR && (CLEAR_CHAR)) return (FALSE); */
@@ -2022,7 +2022,7 @@ bool target_okay(void)
 	if (target_who > 0)
 	{
 		/* Accept reasonable targets */
-		if (target_able(target_who))
+		if (target_able(p_ptr, target_who))
 		{
 			creature_type *m_ptr = &creature_list[target_who];
 
@@ -2307,7 +2307,7 @@ static void target_set_prepare(creature_type *cr_ptr, int mode)
 			c_ptr = &cave[y][x];
 
 			/* Require target_able monsters for "TARGET_KILL" */
-			if ((mode & (TARGET_KILL)) && !target_able(c_ptr->m_idx)) continue;
+			if ((mode & (TARGET_KILL)) && !target_able(p_ptr, c_ptr->m_idx)) continue;
 
 			if ((mode & (TARGET_KILL)) && !target_pet && is_pet(player_ptr, &creature_list[c_ptr->m_idx])) continue;
 
@@ -3136,7 +3136,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			c_ptr = &cave[y][x];
 
 			/* Allow target */
-			if (target_able(c_ptr->m_idx))
+			if (target_able(aimer_ptr, c_ptr->m_idx))
 			{
 #ifdef JP
 strcpy(info, "qŽ~ tŒˆ pŽ© oŒ» +ŽŸ -‘O");
@@ -3186,7 +3186,7 @@ strcpy(info, "qŽ~ pŽ© oŒ» +ŽŸ -‘O");
 				case '5':
 				case '0':
 				{
-					if (target_able(c_ptr->m_idx))
+					if (target_able(aimer_ptr, c_ptr->m_idx))
 					{
 						health_track(c_ptr->m_idx);
 						target_who = c_ptr->m_idx;
