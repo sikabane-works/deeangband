@@ -4805,8 +4805,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	if (cr_ptr->ryoute)
-		hold *= 2;
+	if (cr_ptr->ryoute) hold *= 2;
 
 	for(i = 0 ; i < 2 ; i++)
 	{

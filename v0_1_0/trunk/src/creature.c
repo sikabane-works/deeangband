@@ -2519,3 +2519,10 @@ creature_type *search_creature_info(int species_idx)
 
 
 }
+
+int calc_weapon_weight_limit(creature_type *cr_ptr)
+{
+	int hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size;
+	if (cr_ptr->ryoute) hold *= 2;
+	return hold;
+}
