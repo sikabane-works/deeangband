@@ -165,11 +165,15 @@ bool object_is_rare(creature_type *creature_ptr, object_type *o_ptr)
 /*
  * Check if an object is weapon (including bows and ammo)
  */
-bool object_is_weapon(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_weapon(object_type *o_ptr)
 {
 	if (TV_WEAPON_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
 
 	return FALSE;
+}
+bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)
+{
+	return object_is_weapon(o_ptr);
 }
 
 

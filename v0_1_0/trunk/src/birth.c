@@ -3170,6 +3170,11 @@ void add_outfit(creature_type *creature_ptr, object_type *o_ptr, u32b flags)
 	/* Auto-inscription */
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
+	if(object_is_weapon(o_ptr))
+	{
+	}
+
+
 	/* Now try wielding everything */ 
 	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr, flags); 
 }

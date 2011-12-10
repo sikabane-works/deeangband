@@ -1302,7 +1302,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Items ***/
 	if (IS_FLG(FLG_WEAPONS))
 	{
-		if (!object_is_weapon(cr_ptr, o_ptr))
+		if (!object_is_weapon(o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_FAVORITE_WEAPONS))

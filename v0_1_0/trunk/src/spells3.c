@@ -3482,7 +3482,7 @@ s = "j•Ÿ‚Å‚«‚é•Ší‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have weapon to bless.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon))
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2))
 		return FALSE;
 
 	/* Get the item (in the pack) */
