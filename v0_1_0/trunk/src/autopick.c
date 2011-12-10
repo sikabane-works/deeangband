@@ -623,7 +623,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 	if (o_ptr->tval >= TV_LIFE_BOOK && 3 == o_ptr->sval)
 		ADD_FLG(FLG_FOURTH);
 
-	if (object_is_ammo(cr_ptr, o_ptr))
+	if (object_is_ammo(o_ptr))
 		ADD_FLG(FLG_MISSILES);
 	else if (o_ptr->tval == TV_SCROLL || o_ptr->tval == TV_STAFF
 		 || o_ptr->tval == TV_WAND || o_ptr->tval == TV_ROD)
@@ -1317,7 +1317,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	}
 	else if (IS_FLG(FLG_MISSILES))
 	{
-		if (!object_is_ammo(cr_ptr, o_ptr)) return FALSE;
+		if (!object_is_ammo(o_ptr)) return FALSE;
 	}
 	else if (IS_FLG(FLG_DEVICES))
 	{

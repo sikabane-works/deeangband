@@ -168,7 +168,6 @@ bool object_is_rare(creature_type *creature_ptr, object_type *o_ptr)
 bool object_is_weapon(object_type *o_ptr)
 {
 	if (TV_WEAPON_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
-
 	return FALSE;
 }
 bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)
@@ -183,19 +182,20 @@ bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)
 bool object_is_weapon_ammo(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
-
 	return FALSE;
 }
-
 
 /*
  * Check if an object is ammo
  */
-bool object_is_ammo(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_ammo(object_type *o_ptr)
 {
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_MISSILE_END) return TRUE;
-
 	return FALSE;
+}
+bool object_is_ammo2(creature_type *cr_ptr, object_type *o_ptr)
+{
+	return object_is_ammo(o_ptr);
 }
 
 
