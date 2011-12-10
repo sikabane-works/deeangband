@@ -4259,21 +4259,21 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	}
 
 	/* Assume normal */
-	power = 0;
+	power = ITEM_RANK_NORMAL;
 
 	/* Roll for "good" */
 	if ((mode & AM_GOOD) || magik(f1))
 	{
 		/* Assume "good" */
-		power = 1;
+		power = ITEM_RANK_GOOD;
 
 		/* Roll for "great" */
 		if ((mode & AM_GREAT) || magik(f2))
 		{
-			power = 2;
+			power = ITEM_RANK_GREAT;
 
 			/* Roll for "special" */
-			if (mode & AM_SPECIAL) power = 3;
+			if (mode & AM_SPECIAL) power = ITEM_RANK_SPECIAL;
 		}
 	}
 
@@ -4281,10 +4281,10 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	else if (magik(f1) && !(mode & AM_UNCURSED))
 	{
 		/* Assume "cursed" */
-		power = -1;
+		power = ITEM_RANK_CURSED;
 
 		/* Roll for "broken" */
-		if (magik(f2)) power = -2;
+		if (magik(f2)) power = ITEM_RANK_BROKEN;
 	}
 
 	/* Apply curse */
@@ -4306,7 +4306,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	rolls = 0;
 
 	/* Get one roll if excellent */
-	if (power >= 2) rolls = 1;
+	if (power >= ITEM_RANK_GREAT) rolls = 1;
 
 	/* Hack -- Get four rolls if forced great or special */
 	if (mode & (AM_GREAT | AM_SPECIAL)) rolls = 4;

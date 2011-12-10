@@ -3550,6 +3550,17 @@
 #define AM_UNCURSED     0x00000020 /* Generate valued items */
 
 /*
+ * Item rank for apply_magic() (etc)
+ */
+#define ITEM_RANK_SPECIAL  3
+#define ITEM_RANK_GREAT    2
+#define ITEM_RANK_GOOD     1
+#define ITEM_RANK_NORMAL   0
+#define ITEM_RANK_CURSED   -1
+#define ITEM_RANK_BROKEN   -2
+
+
+/*
  *  Bit flags for get_obj_num()
  */
 #define GON_ARMS     0x00000001  /* Select in hand weapons */
