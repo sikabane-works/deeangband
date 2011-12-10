@@ -2526,3 +2526,11 @@ int calc_weapon_weight_limit(creature_type *cr_ptr)
 	if (cr_ptr->ryoute) hold *= 2;
 	return hold;
 }
+
+int get_equip_weapon_num(creature_type *cr_ptr)
+{
+	int i, n = 0;
+	for(i = INVEN_1STARM; i <= INVEN_6THARM; i++)
+		if(object_is_weapon(&cr_ptr->inventory[i])) n++;
+	return n++;
+}
