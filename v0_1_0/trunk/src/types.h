@@ -381,6 +381,7 @@ struct species_type
 	u16b artifact_sval[INVEN_TOTAL];
 	u16b artifact_prob[INVEN_TOTAL];
 	u32b artifact_flag[INVEN_TOTAL];
+	u16b artifact_ego[INVEN_TOTAL];
 
 	s32b exp;				/* Exp value for kill */
 

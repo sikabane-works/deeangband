@@ -3404,7 +3404,7 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 
 errr parse_species_info_csv(char *buf, header *head)
 {
-	int id, tval, sval, prob, num, side, offset;
+	int id, tval, sval, prob, ego, num, side, offset;
 	int n1, n2;
 	int split[80], size[80];
 	int i, j, k;
@@ -3770,7 +3770,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
-					id = tval = sval = prob = 0;
+					id = tval = sval = prob = ego = 0;
 					flags = 0;
 					if (4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
 					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
@@ -3786,11 +3786,17 @@ errr parse_species_info_csv(char *buf, header *head)
 					{
 						flags = AM_GREAT;
 					}
+					else if(3 == sscanf(tmp + offset, "EGO:%d:%d:%d:%d%%", &ego, &tval, &sval, &prob))
+					{
+						flags = AM_GREAT;
+					}
 					else return(1);		
 
 					if (k == MAX_UNDERLINGS) return (1);
 
 					species_info[n].artifact_id[k] = id;
+					species_info[n].artifact_ego[k] = ego;
+					species_info[n].artifact_flag[k] = flags;
 					species_info[n].artifact_tval[k] = tval;
 					species_info[n].artifact_sval[k] = sval;
 					species_info[n].artifact_prob[k] = prob;
