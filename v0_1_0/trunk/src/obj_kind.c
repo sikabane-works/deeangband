@@ -214,7 +214,7 @@ bool object_is_armour2(creature_type *creature_ptr, object_type *o_ptr)
  */
 bool object_is_weapon_armour_ammo(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (object_is_weapon_ammo(cr_ptr, o_ptr) || object_is_armour(cr_ptr, o_ptr)) return TRUE;
+	if (object_is_weapon_ammo(cr_ptr, o_ptr) || object_is_armour(o_ptr)) return TRUE;
 
 	return FALSE;
 }

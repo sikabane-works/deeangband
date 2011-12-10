@@ -215,7 +215,7 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
 		{ TV_SWORD, SV_BROAD_SWORD },
-		{ 0, 0},
+		{ TV_SHIELD, SV_SMALL_METAL_SHIELD},
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},

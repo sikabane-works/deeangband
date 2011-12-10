@@ -2001,8 +2001,6 @@
 #define TV_ARMOR_BEGIN    TV_BOOTS
 #define TV_ARMOR_END      TV_DRAG_ARMOR
 
-/* Any subvalue */
-#define SV_ANY 					255
 
 #define ARMOR_SIZE_FREE		0 /* Zero size is valiable. */
 #define ITEM_FREE_SIZE			0
@@ -2642,6 +2640,12 @@
  * Special "sval" limit -- first "good" magic/prayer book
  */
 #define SV_BOOK_MIN_GOOD    2
+
+
+// Special "sval" --- generate by level
+#define SV_ANY 255
+
+
 
 
 #define OBJ_GOLD_LIST   480     /* First "gold" entry */
