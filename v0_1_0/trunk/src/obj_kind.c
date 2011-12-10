@@ -193,20 +193,19 @@ bool object_is_ammo(object_type *o_ptr)
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_MISSILE_END) return TRUE;
 	return FALSE;
 }
-bool object_is_ammo2(creature_type *cr_ptr, object_type *o_ptr)
-{
-	return object_is_ammo(o_ptr);
-}
 
 
 /*
  * Check if an object is armour
  */
-bool object_is_armour(creature_type *creature_ptr, object_type *o_ptr)
+bool object_is_armour(object_type *o_ptr)
 {
 	if (TV_ARMOR_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_ARMOR_END) return TRUE;
-
 	return FALSE;
+}
+bool object_is_armour2(creature_type *creature_ptr, object_type *o_ptr)
+{
+	return object_is_armour(o_ptr);
 }
 
 

@@ -2524,7 +2524,7 @@ bool enchant_spell(creature_type *cr_ptr, int num_hit, int num_dam, int num_ac)
 	item_tester_no_ryoute = TRUE;
 
 	/* Enchant armor if requested */
-	if (num_ac) item_tester_hook = object_is_armour;
+	if (num_ac) item_tester_hook = object_is_armour2;
 	else item_tester_hook = object_allow_enchant_weapon;
 
 	/* Get an item */
@@ -4911,7 +4911,7 @@ static int minus_ac(creature_type *cr_ptr)
 	/* Nothing to damage */
 	if (!o_ptr->k_idx) return (FALSE);
 
-	if (!object_is_armour(cr_ptr, o_ptr)) return (FALSE);
+	if (!object_is_armour(o_ptr)) return (FALSE);
 
 	/* No damage left to be done */
 	if (o_ptr->ac + o_ptr->to_a <= 0) return (FALSE);
@@ -5113,7 +5113,7 @@ s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	s = "You have nothing to rustproof.";
 #endif
 
-	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour)) return FALSE;
+	if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2)) return FALSE;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

@@ -1312,7 +1312,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	}
 	else if (IS_FLG(FLG_ARMORS))
 	{
-		if (!object_is_armour(cr_ptr, o_ptr))
+		if (!object_is_armour(o_ptr))
 			return FALSE;
 	}
 	else if (IS_FLG(FLG_MISSILES))

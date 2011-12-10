@@ -12023,7 +12023,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_is_armour)) return FALSE;
+			if (!get_item(cr_ptr, &item, q, s, (USE_EQUIP), object_is_armour2)) return FALSE;
 
 			o_ptr = &cr_ptr->inventory[item];
 			object_desc(o_name, o_ptr, OD_NAME_ONLY);

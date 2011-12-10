@@ -4253,7 +4253,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 			int ac = 0;
 			o_ptr = &cr_ptr->inventory[i];
 			if (!o_ptr->k_idx) continue;
-			if (!object_is_armour(cr_ptr, o_ptr)) continue;
+			if (!object_is_armour(o_ptr)) continue;
 			if (!object_is_cursed(o_ptr)) continue;
 			ac += 5;
 			if (o_ptr->curse_flags & TRC_HEAVY_CURSE) ac += 7;

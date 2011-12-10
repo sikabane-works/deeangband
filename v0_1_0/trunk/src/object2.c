@@ -8075,7 +8075,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	else if (es_ptr->add == ESSENCE_ATTACK)
 		item_tester_hook = object_allow_enchant_weapon;
 	else if (es_ptr->add == ESSENCE_AC)
-		item_tester_hook = object_is_armour;
+		item_tester_hook = object_is_armour2;
 	else
 		item_tester_hook = object_is_weapon_armour_ammo;
 	item_tester_no_ryoute = TRUE;

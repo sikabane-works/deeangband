@@ -1207,7 +1207,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 		/* HACK : Add the line to message buffer */
 		message_add(out_val);
 		play_window |= (PW_MESSAGE);
-		window_stuff(cr_ptr);
+		window_stuff();
 
 		/* Get an acceptable answer */
 		while (TRUE)

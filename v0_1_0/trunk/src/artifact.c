@@ -886,7 +886,7 @@ static void random_misc(creature_type *cr_ptr, object_type * o_ptr, int artifact
 		case 24:
 		case 25:
 		case 26:
-			if (object_is_armour(cr_ptr, o_ptr))
+			if (object_is_armour(o_ptr))
 				random_misc(cr_ptr, o_ptr, artifact_bias);
 			else
 			{
@@ -1806,7 +1806,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	}
 
 	/* give it some plusses... */
-	if (object_is_armour(owner_ptr, o_ptr))
+	if (object_is_armour(o_ptr))
 		o_ptr->to_a += (s16b)randint1(o_ptr->to_a > 19 ? 1 : 20 - o_ptr->to_a);
 	else if (object_is_weapon_ammo(owner_ptr, o_ptr))
 	{
@@ -1827,13 +1827,13 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	if (a_cursed) curse_artifact(owner_ptr, o_ptr);
 
 	if (!a_cursed &&
-	    one_in_(object_is_armour(owner_ptr, o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
+	    one_in_(object_is_armour(o_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
 	{
 		o_ptr->xtra2 = 0;
 		give_activation_power(o_ptr, artifact_bias);
 	}
 
-	if (object_is_armour(owner_ptr, o_ptr))
+	if (object_is_armour(o_ptr))
 	{
 		while ((o_ptr->to_d+o_ptr->to_h) > 20)
 		{
@@ -1934,7 +1934,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	}
 	else
 	{
-		get_random_name(new_name, object_is_armour(owner_ptr, o_ptr), power_level, artifact_bias);
+		get_random_name(new_name, object_is_armour(o_ptr), power_level, artifact_bias);
 	}
 
 	if (cheat_xtra)

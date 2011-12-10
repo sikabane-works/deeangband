@@ -2166,7 +2166,7 @@ msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", atk_name);
 							for (j = 0; j < 4; j++)
 							{
 								o_ptr = &tar_ptr->inventory[typ[j][0]];
-								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(tar_ptr, o_ptr))
+								if ((o_ptr->k_idx) && object_is_cursed(o_ptr) && object_is_armour(o_ptr))
 									project(atk_ptr, 0, atk_ptr->fy, atk_ptr->fx, (tar_ptr->lev * 2), typ[j][1], flg, -1);
 							}
 						}
