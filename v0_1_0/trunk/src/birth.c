@@ -2439,54 +2439,64 @@ static int adjust_stat(int value, int amount)
  *
  * For efficiency, we include a chunk of "calc_bonuses()".
  */
-static void get_stats(creature_type *creature_ptr)
+static void get_stats(creature_type *creature_ptr, species_type *species_ptr)
 {
-	/* Roll and verify some stats */
-	while (TRUE)
+	int i;
+	if(species_ptr->stat_max[0])
 	{
-		int i;
-		int sum = 0;
+		for(i = 0; i < STAT_MAX; i++)
+			creature_ptr->stat_cur[i] = species_ptr->stat_max[i];
 
-		/* Roll some dice */
-		for (i = 0; i < 2; i++)
+	}
+	else
+	{
+
+	/* Roll and verify some stats */
+		while (TRUE)
 		{
-			s32b tmp = randint0(60*60*60);
-			int val;
+			int sum = 0;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp % 5; tmp /= 5;
+			/* Roll some dice */
+			for (i = 0; i < 2; i++)
+			{
+				s32b tmp = randint0(60*60*60);
+				int val;
 
-			/* Save that value */
-			sum += val;
-			creature_ptr->stat_cur[3*i] = creature_ptr->stat_max[3*i] = val;
+				/* Extract 5 + 1d3 + 1d4 + 1d5 */
+				val = 5 + 3;
+				val += tmp % 3; tmp /= 3;
+				val += tmp % 4; tmp /= 4;
+				val += tmp % 5; tmp /= 5;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp % 5; tmp /= 5;
+				/* Save that value */
+				sum += val;
+				creature_ptr->stat_cur[3*i] = creature_ptr->stat_max[3*i] = val;
 
-			/* Save that value */
-			sum += val;
-			creature_ptr->stat_cur[3*i+1] = creature_ptr->stat_max[3*i+1] = val;
+				/* Extract 5 + 1d3 + 1d4 + 1d5 */
+				val = 5 + 3;
+				val += tmp % 3; tmp /= 3;
+				val += tmp % 4; tmp /= 4;
+				val += tmp % 5; tmp /= 5;
 
-			/* Extract 5 + 1d3 + 1d4 + 1d5 */
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp;
+				/* Save that value */
+				sum += val;
+				creature_ptr->stat_cur[3*i+1] = creature_ptr->stat_max[3*i+1] = val;
 
-			/* Save that value */
-			sum += val;
-			creature_ptr->stat_cur[3*i+2] = creature_ptr->stat_max[3*i+2] = val;
+				/* Extract 5 + 1d3 + 1d4 + 1d5 */
+				val = 5 + 3;
+				val += tmp % 3; tmp /= 3;
+				val += tmp % 4; tmp /= 4;
+				val += tmp;
+
+				/* Save that value */
+				sum += val;
+				creature_ptr->stat_cur[3*i+2] = creature_ptr->stat_max[3*i+2] = val;
+			}
+
+			/* Verify totals */
+			if ((sum > 42+5*6) && (sum < 57+5*6)) break;
+			/* 57 was 54... I hate 'magic numbers' :< TY */
 		}
-
-		/* Verify totals */
-		if ((sum > 42+5*6) && (sum < 57+5*6)) break;
-		/* 57 was 54... I hate 'magic numbers' :< TY */
 	}
 }
 
@@ -5486,17 +5496,12 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 #endif
 		}
 
-		/* Otherwise just get a character */
+		// Otherwise just get a character
 		else
 		{
-			/* Get a new character */
-			get_stats(creature_ptr);
-
-			/* Roll for age/height/weight */
-			get_ahw(creature_ptr);
-
-			/* Roll for social class */
-			get_history(creature_ptr);
+			get_stats(creature_ptr, species_ptr);   // Get a new character
+			get_ahw(creature_ptr);     // Roll for age/height/weight
+			get_history(creature_ptr); // Roll for social class
 		}
 
 		/* Feedback */
@@ -5535,7 +5540,16 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				put_str(stat_names[i], 3+i, col);
 
 				/* Race/Class bonus */
-				j = race_info[creature_ptr->race_idx1].r_adj[i] + class_info[creature_ptr->cls_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
+				if(IS_PURE(creature_ptr))
+					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
+						class_info[creature_ptr->cls_idx].c_adj[i] +
+						chara_info[creature_ptr->chara_idx].a_adj[i];
+				else
+					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
+						race_info[creature_ptr->race_idx2].r_s_adj[i] +
+						class_info[creature_ptr->cls_idx].c_adj[i] +
+						chara_info[creature_ptr->chara_idx].a_adj[i];
+
 
 				/* Obtain the current stat */
 				m = adjust_stat(stat_limit[i], j);
@@ -5546,13 +5560,13 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			}
 		}
 
-		/* Auto-roll */
+		// Auto-roll
 		while (!auto_generate && (autoroller || autochara))
 		{
 			bool accept = TRUE;
 
 			/* Get a new character */
-			get_stats(creature_ptr);
+			get_stats(creature_ptr, species_ptr);
 
 			/* Advance the round */
 			auto_round++;
