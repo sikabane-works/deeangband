@@ -2332,6 +2332,9 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	creature_ptr->ht = species_ptr->m_b_ht;
 	creature_ptr->wt = species_ptr->m_b_wt;
 
+	creature_ptr->exp = species_ptr->exp;
+	creature_ptr->max_exp = species_ptr->exp;
+
 	wilderness_x = species_ptr->start_wx;
 	wilderness_y = species_ptr->start_wy;
 
@@ -2856,18 +2859,6 @@ void creature_wipe(creature_type *creature_ptr)
 	cheat_know = FALSE;
 	cheat_live = FALSE;
 	cheat_save = FALSE;
-
-	/* Assume no winning game */
-	total_winner = FALSE;
-
-	world_player = FALSE;
-
-	/* Assume no panic save */
-	panic_save = 0;
-
-	/* Assume no cheating */
-	noscore = 0;
-	wizard = FALSE;
 
 	/* Not waiting to report score */
 	creature_ptr->wait_report_score = FALSE;

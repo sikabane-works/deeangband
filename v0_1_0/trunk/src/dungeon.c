@@ -7433,6 +7433,18 @@ void world_wipe()
 	// Set the recall dungeon accordingly
 	dungeon_type = 0;
 
+	/* Assume no winning game */
+	total_winner = FALSE;
+
+	world_player = FALSE;
+
+	/* Assume no panic save */
+	panic_save = 0;
+
+	/* Assume no cheating */
+	noscore = 0;
+	wizard = FALSE;
+
 	// Reset monster arena
 	battle_monsters();
 
