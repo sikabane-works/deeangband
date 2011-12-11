@@ -19,6 +19,32 @@ static bool load = TRUE;
 static int wild_regen = 20;
 
 
+static int select_unique_species(void)
+{
+	int i, j;
+	selection se[1000];
+	int unique_num;
+	int t = sizeof(creature_type);
+	char buf[100];
+
+	/* Init Unique Count */
+	unique_num = 0;
+	for(i = 0; i < max_species_idx; i++)
+	{
+		if(is_unique_species(&species_info[i]))
+		{
+			strcpy(se[unique_num].cap, species_name + species_info[i].name);
+			se[unique_num].d_color = TERM_L_DARK;
+			se[unique_num].l_color = TERM_WHITE;
+			se[unique_num].key = '\0';
+			se[unique_num].code = i;
+			unique_num++;
+		}
+	}
+
+	return get_selection(se, unique_num, 2, 2, 20, 76, NULL);
+}
+
 static void k_info_reset(void)
 {
 	int i;
@@ -6826,8 +6852,9 @@ quit("セーブファイルが壊れています");
 		if (!ask_quick_start(cr_ptr))
 		{
 		/* No, normal start */
+			int species = select_unique_species();
 			/* Roll up a new character */
-			generate_creature(cr_ptr, MON_LEGORAS, &settled_player_species, GC_PLAYER);
+			generate_creature(cr_ptr, species, &settled_player_species, GC_PLAYER);
 			wilderness_x = settled_player_species.start_wx;
 			wilderness_y = settled_player_species.start_wy;
 		}
