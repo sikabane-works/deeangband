@@ -18,14 +18,41 @@
 static bool load = TRUE;
 static int wild_regen = 20;
 
+static int select_mode(void)
+{
+	selection se[1000];
+	int t = sizeof(creature_type);
+
+	/* Init Unique Count */
+#if JP
+	strcpy(se[0].cap, "〈烙印〉の者");
+#else
+	strcpy(se[0].cap, "Stigmatic One");
+#endif
+	se[0].d_color = TERM_L_DARK;
+	se[0].l_color = TERM_WHITE;
+	se[0].key = '\0';
+	se[0].code = 0;
+
+#if JP
+	strcpy(se[1].cap, "ユニーク");
+#else
+	strcpy(se[1].cap, "Unique");
+#endif
+	se[1].d_color = TERM_L_DARK;
+	se[1].l_color = TERM_WHITE;
+	se[1].key = '\0';
+	se[1].code = 1;
+
+	return get_selection(se, 2, 19, 5, 2, 20, NULL);
+}
 
 static int select_unique_species(void)
 {
-	int i, j;
+	int i;
 	selection se[1000];
 	int unique_num;
 	int t = sizeof(creature_type);
-	char buf[100];
 
 	/* Init Unique Count */
 	unique_num = 0;
@@ -6851,8 +6878,18 @@ quit("セーブファイルが壊れています");
 		/* Quick start? */
 		if (!ask_quick_start(cr_ptr))
 		{
-		/* No, normal start */
-			int species = select_unique_species();
+			/* No, initial start */
+			int mode, species;
+			Term_clear();
+			mode = select_mode();
+			if(mode == 0)
+				species = MON_STIGMATIC_ONE;
+			else
+			{
+				Term_clear();
+				species = select_unique_species();
+			}
+
 			/* Roll up a new character */
 			generate_creature(cr_ptr, species, &settled_player_species, GC_PLAYER);
 			wilderness_x = settled_player_species.start_wx;
