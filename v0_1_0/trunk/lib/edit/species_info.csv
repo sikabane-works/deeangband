@@ -671,7 +671,7 @@ them here!
 
 I","JZ#
 JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,,
-39,"ƒOƒŒ[ƒ^[Eƒwƒ‹=ƒr[ƒXƒg","Greater Hell-Beast","U","s","DEMON","DEMON","0x01","WARRIOR","NONE",11,0,0,1,15,0,250,0,0,0,0,"NONE","NONE",-1,115,10,300,99,30,30,30,30,30,30,480,2,1700,1,480,2,1700,1,"GAZE
+39,"ƒOƒŒ[ƒ^[Eƒwƒ‹=ƒr[ƒXƒg","Greater Hell-Beast","U","s","DEMON","DEMON","0x01","WARRIOR","NONE",11,0,0,1,15,0,250,0,0,0,0,"NONE","NONE",-1,115,10,300,99,26,24,23,22,25,24,480,2,1700,1,480,2,1700,1,"GAZE
 GAZE
 CRUSH",,"ART:192:100%","RES_ALL|KILL_WALL|FORCE_MAXHP|CAN_SWIM|DROP_CORPSE","1_IN_9|TPORT|BLINK|TELE_AWAY",,"‚±‚Ì•sò‚ÈÐ‚¢‚Í‚ ‚È‚½‚ð‰Ÿ‚µ’×‚·‚¾‚ë‚¤B‚¢‚Ü‚Ì‚¤‚¿‚É“¦‚°‚ëI","This unholy abomination will crush you. Flee while you can! 
 I","JZ#",,,,,
@@ -890,7 +890,7 @@ JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,,
 BITE:HURT:2d7",,,"AQUATIC|WILD_ALL|RES_WATE",,,"‚»‚ê‚Í‚«‚í‚Ç‚­‰s‚¢Ž•‚ðŽ‚Á‚½“÷H‚Ì‹›‚¾B","A predatory fish with razor-sharp teeth.
 ","JZ#
 JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,,
-98,"ƒ]ƒbƒO","Zog","h","b","HUMAN","HUMAN","0x01","BLUE_MAGE","NONE",0,0,0,5,2,0,58,0,0,0,0,"NONE","NONE",-1,110,20,20,20,10,10,10,10,10,10,165,10,55,3,165,10,55,3,"HIT:HURT:2d5
+98,"ƒ]ƒbƒO","Zog","h","b","KLACKON","KLACKON","0x01","BLUE_MAGE","NONE",0,0,0,5,2,0,98,0,0,18,1,"NONE","NONE",-1,110,20,20,20,13,10,10,14,13,11,165,10,55,3,165,10,55,3,"HIT:HURT:2d5
 HIT:HURT:2d5
 DROOL",,,"OPEN_DOOR|BASH_DOOR|DROP_90|DROP_SKELETON",,,"‚æ‚¾‚ê‚ð‚‚ç‚µ‚Ä‚¢‚é©’ŽŒ^‚ÌƒGƒCƒŠƒAƒ“‚ÅA‹CŽ‚¿ˆ«‚¢K«‚ðŽ‚Á‚Ä‚¢‚éB","Drooling, insectoid aliens with disgusting habits.
 ","JZ#",,,,,
@@ -973,7 +973,7 @@ to frighten its prey.
 BITE:ACID:2d7",,,"WEIRD_MIND|KILL_ITEM|KILL_BODY|CAN_SWIM|WILD_ALL|DROP_CORPSE|EAT_ACIDIC","1_IN_10|BR_ACID",,"‚»‚ê‚Í‚ä‚Á‚­‚è‚Æ‚ ‚È‚½‚É‹ß•t‚¢‚Ä‚­‚éB“r’†‚É‚ ‚é‚à‚Ì‚ð‘S‚ÄH‚×‚È‚ª‚ç...","It is slowly making its way towards you, eating everything in 
 its path...
 ...","JZ#",,,,,
-1089,"ƒWƒ…ƒ‰ƒ‹‚Ìw–‚‰¤x","the Maoh of Jural","h","v","HUMAN","HUMAN","0x02","WARRIOR","NONE",6,0,0,6,3,0,187,0,0,0,75,"NONE","NONE",-1,110,20,25,25,11,11,11,11,11,11,230,0,205,0,0,0,0,0,"HIT:HURT:2d6
+1089,"ƒWƒ…ƒ‰ƒ‹‚Ìw–‚‰¤x","the Maoh of Jural","h","v","HUMAN","HUMAN","0x02","WARRIOR","NONE",6,0,0,6,3,0,187,0,0,0,75,"NONE","NONE",-1,110,20,25,25,14,13,10,12,16,14,230,0,205,0,0,0,0,0,"HIT:HURT:2d6
 HIT:HURT:2d6",,,"UNIQUE|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|ESCORT|RES_TELE","1_IN_5|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS",,"’n“¹‚Èìí‚Ì”X‚Å’n‹…N—ª‚ðŠé‚ÞƒWƒ…ƒ‰ƒ‹¯l‚Ì’·‚¾Bu”ŒNI¡‚©‚ç–½—ß‚ð‚·‚è‚ãIv","II",,,,,,
 121,"‹‘åƒsƒ“ƒNEƒKƒGƒ‹","Giant pink frog","R","R","REPTILIA","REPTILIA","0x01","BLUE_MAGE","NONE",0,0,0,7,1,0,16,0,0,0,0,"NONE","NONE",-1,110,12,16,50,10,10,10,10,10,10,172,10,100,10,178,10,110,10,"BITE:LOSE_STR:2d5",,,"RAND_50|WILD_ONLY|WILD_SHORE|WILD_SWAMP|BASH_DOOR|DROP_CORPSE|EAT_POISONOUS|EAT_LOSE_STR",,,"‚»‚ê‚Í“Å‚ðŽ‚Á‚Ä‚¢‚é‚æ‚¤‚¾B","It looks poisonous.
 ","J0#",,,,,
@@ -1169,20 +1169,19 @@ JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,,
 STING:LOSE_STR:1d4",,,"WEIRD_MIND|FRIENDS|CAN_FLY|WILD_ALL",,,"‚»‚ê‚Í“Å‚ðŽ‚Á‚Ä‚¢‚éã‚ÉUŒ‚“I‚¾B","It is poisonous and aggressive.
 ","JZ#
 JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,,
-217,"ƒXƒPƒCƒ”ƒ“EƒVƒƒ[ƒ}ƒ“","Skaven shaman","r","g","SKAVEN","SKAVEN","0x01","PRIEST","NONE",0,0,0,9,1,0,36,0,0,0,0,"NONE","NONE",-1,110,20,15,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d7
-HIT:HURT:1d7",,,"WILD_SWAMP|WILD_WASTE|FORCE_SLEEP|DROP_90|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE","1_IN_8|BLINK|CAUSE_1|MISSILE|CONF|SCARE",,"ƒXƒPƒCƒ”ƒ“‘°‚ÌƒVƒƒ[ƒ}ƒ“‚ÍAƒ[ƒvƒXƒg[ƒ“‚Æ‚¢‚¤
-¬“×‚Ì—Í‚É‚æ‚Á‚ÄŽ×ˆ«‚É‚³‚ê‚½“ä‚ÌÎ‚©‚ç—Í‚ð“¾‚Ä‚¢‚éB","The shaman of a skaven tribe gets his powers from a mystic 
+217,"ƒXƒPƒCƒ”ƒ“EƒVƒƒ[ƒ}ƒ“","Skaven shaman","r","g","SKAVEN","SKAVEN","0x01","PRIEST","NONE",0,"CHAOS",0,9,1,0,341,0,0,26,54,"NONE","NONE",-1,110,20,15,20,12,14,16,12,15,10,165,10,55,3,165,10,55,3,"HIT:HURT:1d7
+HIT:HURT:1d7",,,"WILD_SWAMP|WILD_WASTE|FORCE_SLEEP|DROP_90|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE","1_IN_8|BLINK|CAUSE_1|MISSILE|CONF|SCARE",,"@ƒXƒPƒCƒ”ƒ“‘°‚ÌƒVƒƒ[ƒ}ƒ“‚ÍAƒ[ƒvƒXƒg[ƒ“‚Æ‚¢‚¤ ¬“×‚Ì—Í‚É‚æ‚Á‚ÄŽ×ˆ«‚É‚³‚ê‚½“ä‚ÌÎ‚©‚ç—Í‚ð“¾‚Ä‚¢‚éB","The shaman of a skaven tribe gets his powers from a mystic 
 stone corrupted by chaos, called a Warp Stone.
 
 ","JZ#",,,,,
-957,"‚ ‚Î‚ê”n","Unruly horse","q","G","QUADRUPED","QUADRUPED","0x01","BLUE_MAGE","NONE",0,0,0,9,2,0,35,0,0,0,0,"NONE","NONE",-1,110,20,30,0,12,12,12,12,12,12,230,10,450,3,230,10,450,3,"BITE:HURT:1d8
+957,"‚ ‚Î‚ê”n","Unruly horse","q","G","QUADRUPED","QUADRUPED","0x01","BLUE_MAGE","NONE",0,0,0,9,2,0,318,0,0,0,0,"NONE","NONE",-1,110,20,30,0,12,12,12,12,12,12,230,10,450,3,230,10,450,3,"BITE:HURT:1d8
 KICK:HURT:2d4
 KICK:HURT:2d4",,,"WILD_WASTE|BASH_DOOR|RAND_25|DROP_SKELETON|DROP_CORPSE|RIDING",,,"”n‚Í•’i‚Í]‡‚Å‘ål‚µ‚¢¶‚«•¨‚Å‚ ‚é‚ªA
 ˆê’U–\‘–‚µ‚¾‚·‚ÆŽè‚ª‚Â‚¯‚ç‚ê‚È‚­‚È‚éB","This creature is gentle and submissive until you try to ride it.  
 Watch out for it's reckless kicking.
 
 "," Description in English by Nick Keulmann",,,,,
-1063,"‹‘å”’ƒVƒ‰ƒ~‚Ì‰¤wlousyx","Lousy, the King of Louses","I","W","HUMAN","HUMAN","0x02","HIGH_MAGE","NONE",0,"TRUMP",0,9,18,0,651,0,0,32,40,"NONE","NONE",0,130,12,10,10,12,12,12,12,12,12,173,0,62,0,173,0,62,0,"STING:HURT:1d5
+1063,"‹‘å”’ƒVƒ‰ƒ~‚Ì‰¤wlousyx","Lousy, the King of Louses","I","W","HUMAN","INSECT","0x02","HIGH_MAGE","NONE",0,"TRUMP",0,9,18,0,651,0,0,32,40,"NONE","NONE",0,130,12,10,10,15,18,17,15,16,12,173,0,62,0,0,0,0,0,"STING:HURT:1d5
 STING:HURT:1d5
 BITE:HURT:1d5
 BITE:LOSE_CHR:1d5",,,"UNIQUE|CAN_SPEAK|RAND_50|RAND_25|FORCE_MAXHP|DROP_CORPSE|CAN_FLY|WEIRD_MIND|ONLY_ITEM|DROP_1D2|DROP_GOOD","1_IN_6|S_KIN",,"‚±‚Ì‹‘å‚ÈƒVƒ‰ƒ~‚ÍƒVƒ‰ƒ~‚ðˆ¤‚·‚é‚ ‚Ü‚èƒVƒ‰ƒ~‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚½
@@ -1190,26 +1189,17 @@ BITE:LOSE_CHR:1d5",,,"UNIQUE|CAN_SPEAK|RAND_50|RAND_25|FORCE_MAXHP|DROP_CORPSE|C
 who had become a louse just because he loves louses.
 
 ",,,,,,
-175,"‘å’wå","Giant spider","S","s","SPIDER","SPIDER","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,298,120,275,0,0,"NONE","NONE",-1,110,8,16,80,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"BITE:HURT:1d10
+175,"‘å’wå","Giant spider","S","s","SPIDER","SPIDER","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,298,120,275,0,0,"NONE","NONE",-1,110,8,16,80,13,10,11,14,16,9,202,10,78,3,214,10,84,3,"BITE:HURT:1d10
 BITE:POISON:1d7
 BITE:POISON:1d7
 BITE:HURT:1d10",,,"WEIRD_MIND|BASH_DOOR|WILD_ALL|DROP_SKELETON|IM_POIS",,,"‚»‚ê‚Í‹‘å‚È•‚¢’wå‚ÅA‚»‚Ì–c‚ê‚½• ‚É‚Í“Å‚ª[–ž‚µ‚Ä‚¢‚éB","It is a vast black spider whose bulbous body is bloated with poison.
 ","J0#",,,,,
 176,"‹‘å”’ƒ_ƒj","Giant white tick","S","w","SPIDER","SPIDER","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,27,500,411,0,0,"NONE","NONE",-1,100,12,40,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"BITE:POISON:2d6",,,"WEIRD_MIND|BASH_DOOR|CAN_FLY|IM_POIS",,,"‚»‚ê‚Í‚ä‚Á‚­‚è‚Æ–`Œ¯ŽÒ‚Ì•û‚ÉŒü‚©‚Á‚Ä‚­‚éB","It is moving slowly towards you.
 ","J0#",,,,,
-177,"wƒ{[ƒVƒ“x","The Borshin","g","w","IMP","IMP","0x00","BLUE_MAGE","NONE",0,0,0,10,2,0,45,0,0,0,0,"NONE","NONE",-1,110,40,30,0,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:2d13
+177,"wƒ{[ƒVƒ“x","The Borshin","g","w","IMP","IMP","0x02","WARRIOR","NONE",0,0,0,35,2,0,23441,0,0,782,1,"NONE","NONE",-1,119,40,30,0,21,14,13,22,23,9,198,0,99,0,0,0,0,0,"HIT:HURT:2d13
 CRUSH:HURT:2d15
-TOUCH:TERRIFY",,,"UNIQUE|DROP_CORPSE|BASH_DOOR|FORCE_MAXHP|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR",,,"Â”’‚­”P‹È‚ª‚Á‚½‚±‚Ì¶•¨‚ÍA‚ ‚È‚½‚ÌŽp‚»‚Ì‚à‚Ì‚ð‘ž‚ñ‚Å‚¢‚éB
-u‚»‚ê‚Í‚Ü‚é‚ÅAlŠÔ‚ÌŠç‚É‚È‚é‚±‚Æ‚ð‚ß‚´‚µ‚Äì‚è‚Í‚¶‚ß‚È‚ª‚ç‚Â‚¢‚É–Ú•W
-‚É‚Æ‚Ç‚©‚È‚©‚Á‚½‚©‚Ì‚æ‚¤‚È–e‚¾‚Á‚½B“¥‚Ý‚µ‚¾‚©‚êA”P‚¶‹È‚°‚ç‚êA
-“ª•”‚Ì‚Ó‚­‚ç‚Ý‚ðŒ`¬‚·‚éX‚¢“÷‰ò‚ðŒŠ‚¾‚ç‚¯‚É‚³‚ê‚Ä‚¢‚½B‚»‚Ì“·‘Ì‚ð
-•ï‚Þ“§–¾‚È“÷‚ð’Ê‚µ‚ÄAœ‚ªŒ©‚¦‚é‚µA’Z‚¢‹r‚ÍŽ÷‚ÌŠ²‚Ý‚½‚¢‚É‘¾‚­A
-‚»‚Ìæ’[‚É‰~”Õó‚Ì•½‚½‚¢‘«‚ª•t‚¢‚Ä‚¢‚ÄA‚»‚±‚©‚çª‚Á‚±‚©åv’Ž‚Ý‚½‚¢‚È
-’·‚¢Žw‚ª‰½\–{‚Æ‚È‚­
-“Ë‚«‚¾‚µ‚Ä‚¢‚½B˜r‚Í‘Ì‚º‚ñ‚½‚¢‚æ‚è‚à‚Í‚é‚©‚É’·‚©‚Á‚½B‚Â‚Ô‚µ‚½
-ƒiƒƒNƒW‚Æ‚¢‚¨‚¤‚©A‚·‚Á‚©‚èÄ‚«‚ ‚ª‚é‘O‚É“€‚ç‚µ‚Ä‚»‚ê‚ð‚Ü‚½‰ð“€
-‚³‚¹‚½‚æ‚¤‚È•¨‘Ì‚¾‚Á‚½B‚»‚ê‚Í---u‚±‚ê‚ªƒ{[ƒVƒ“‚¾v
- <‚±‚¤‚à‚è‰¤>‚ª‚»‚¤Œ¾‚Á‚½Bv
+TOUCH:TERRIFY",,,"UNIQUE|DROP_CORPSE|BASH_DOOR|FORCE_MAXHP|NO_CONF|NO_SLEEP|IM_POIS|IM_COLD|NO_FEAR",,,"@Â”’‚­”P‹È‚ª‚Á‚½‚±‚Ì¶•¨‚ÍA‚ ‚È‚½‚ÌŽp‚»‚Ì‚à‚Ì‚ð‘ž‚ñ‚Å‚¢‚éB
+u‚»‚ê‚Í‚Ü‚é‚ÅAlŠÔ‚ÌŠç‚É‚È‚é‚±‚Æ‚ð‚ß‚´‚µ‚Äì‚è‚Í‚¶‚ß‚È‚ª‚ç‚Â‚¢‚É–Ú•W‚É‚Æ‚Ç‚©‚È‚©‚Á‚½‚©‚Ì‚æ‚¤‚È–e‚¾‚Á‚½B“¥‚Ý‚µ‚¾‚©‚êA”P‚¶‹È‚°‚ç‚êA“ª•”‚Ì‚Ó‚­‚ç‚Ý‚ðŒ`¬‚·‚éX‚¢“÷‰ò‚ðŒŠ‚¾‚ç‚¯‚É‚³‚ê‚Ä‚¢‚½B‚»‚Ì“·‘Ì‚ð•ï‚Þ“§–¾‚È“÷‚ð’Ê‚µ‚ÄAœ‚ªŒ©‚¦‚é‚µA’Z‚¢‹r‚ÍŽ÷‚ÌŠ²‚Ý‚½‚¢‚É‘¾‚­A‚»‚Ìæ’[‚É‰~”Õó‚Ì•½‚½‚¢‘«‚ª•t‚¢‚Ä‚¢‚ÄA‚»‚±‚©‚çª‚Á‚±‚©åv’Ž‚Ý‚½‚¢‚È’·‚¢Žw‚ª‰½\–{‚Æ‚È‚­“Ë‚«‚¾‚µ‚Ä‚¢‚½B˜r‚Í‘Ì‚º‚ñ‚½‚¢‚æ‚è‚à‚Í‚é‚©‚É’·‚©‚Á‚½B‚Â‚Ô‚µ‚½ƒiƒƒNƒW‚Æ‚¢‚¨‚¤‚©A‚·‚Á‚©‚èÄ‚«‚ ‚ª‚é‘O‚É“€‚ç‚µ‚Ä‚»‚ê‚ð‚Ü‚½‰ð“€‚³‚¹‚½‚æ‚¤‚È•¨‘Ì‚¾‚Á‚½B‚»‚ê‚Í---u‚±‚ê‚ªƒ{[ƒVƒ“‚¾v <‚±‚¤‚à‚è‰¤>‚ª‚»‚¤Œ¾‚Á‚½Bv
 (ƒƒWƒƒ[Eƒ[ƒ‰ƒYƒjƒCAr–“G–ów‰e‚ÌƒWƒƒƒbƒNx
 ƒTƒ“ƒŠƒI‚r‚e•¶ŒÉAp81-82)","Pallid and twisted, this creature hates the very sight of you.
 ""It looked like something that had started out to be a man but had never 
@@ -1233,12 +1223,12 @@ that had been frozen and thawed before it was fully baked. It was -
  <>
 (
 ‚r‚ep81-82)","JZ#",,,,,
-178,"ƒ_[ƒNƒGƒ‹ƒtEƒƒCƒW","Dark elven mage","h","v","DARK_ELF","DARK_ELF","0x01","PRIEST","NONE",0,0,0,10,1,0,50,700,375,0,0,"NONE","NONE",-1,120,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d6
+178,"ƒ_[ƒNƒGƒ‹ƒtEƒƒCƒW","Dark elven mage","h","v","DARK_ELF","DARK_ELF","0x01","HIGH_MAGE","NONE",0,"VARIABLE",0,10,1,0,50,700,375,0,0,"NONE","NONE",-1,120,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d6
 HIT:HURT:1d6",,,"FORCE_SLEEP|ONLY_ITEM|DROP_1D2|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|EAT_MANA|EAT_LOSE_STR|EAT_LOSE_CON|IM_POIS|RES_DARK|HURT_LITE","1_IN_5|BLIND|CONF|MISSILE|DARKNESS|BA_POIS",,"•‚¢•ž‚ð‘Sg‚É‚Ü‚Æ‚Á‚½ƒ_[ƒNƒGƒ‹ƒt‚ÅAŽô•¶‚ð¥‚¦‚Ä‚­‚éB","A dark elven figure, dressed all in black, hurling spells at you.
 ","J0#",,,,,
-179,"ƒJƒ~ƒJƒ[EƒC[ƒN","Kamikaze yeek","y","o","YEEK","YEEK","0x01","WARRIOR","NONE",0,0,0,10,1,0,10,0,0,0,0,"NONE","NONE",-1,113,18,18,10,11,6,7,7,12,5,160,8,45,1,140,8,25,1,"EXPLODE:HURT:15d2",,,"OPEN_DOOR|BASH_DOOR|HAS_LITE_1|IM_ACID|NO_FEAR",,,"ˆ«‚Ì–‚pŽmwƒuƒ‹[ƒXx‚ª”Þ‚ç‚ð¶‚¯‚é•Ší‚É‹³ˆç‚µ‚½B","The evil wizard Bruce has trained them to be living weapons.
+179,"ƒJƒ~ƒJƒ[EƒC[ƒN","Kamikaze yeek","y","o","YEEK","YEEK","0x01","WARRIOR","NONE",0,0,0,10,1,0,10,0,0,0,0,"NONE","NONE",-1,113,18,18,10,17,11,10,9,15,9,160,8,45,1,140,8,25,1,"EXPLODE:HURT:15d2",,,"OPEN_DOOR|BASH_DOOR|HAS_LITE_1|IM_ACID|NO_FEAR",,,"ˆ«‚Ì–‚pŽmwƒuƒ‹[ƒXx‚ª”Þ‚ç‚ð¶‚¯‚é•Ší‚É‹³ˆç‚µ‚½B","The evil wizard Bruce has trained them to be living weapons.
 ","JZ#",,,,,
-180,"ƒ{ƒ‹ƒh[ƒ‹‚Ì‘§ŽqwƒIƒ‹ƒtƒ@ƒbƒNƒXx","Orfax, Son of Boldor","y","B","YEEK","YEEK","0x02","MAGE","NONE",0,0,0,10,3,0,80,0,0,0,0,"NONE","NONE",-1,120,18,20,10,16,13,12,11,13,10,167,0,52,0,0,0,0,0,"HIT:HURT:1d9
+180,"ƒ{ƒ‹ƒh[ƒ‹‚Ì‘§ŽqwƒIƒ‹ƒtƒ@ƒbƒNƒXx","Orfax, Son of Boldor","y","B","YEEK","YEEK","0x02","MAGE","NONE",0,"TRUMP","CHAOS",10,3,0,761,0,0,22,67,"NONE","NONE",-1,120,18,20,10,16,13,19,11,13,10,167,0,52,0,0,0,0,0,"HIT:HURT:1d9
 HIT:HURT:1d8",,,"UNIQUE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|HAS_LITE_2|ONLY_ITEM|DROP_90|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|IM_ACID","1_IN_4|HEAL|BLINK|TELE_TO|SLOW|CONF|S_MONSTER",,"”Þ‚Í•ƒe‚É‚»‚Á‚­‚è‚¾I”Þ‚Í‚¢‚­‚Â‚©‚Ì‹­—Í‚ÈŽô•¶‚ðŽg‚¢‚±‚È‚·B","He's just like daddy!  He knows some mighty spells.
 I","J0#",,,,,
 181,"ƒOƒ‰[ƒL‚Ì“z—ê","Servant of Glaaki","z","G","HUMAN","HUMAN","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,104,0,0,0,0,"NONE","NONE",-1,110,20,20,20,12,12,12,12,12,12,170,10,60,2,170,10,60,2,"CRUSH:HURT:1d8
@@ -1270,7 +1260,7 @@ impossibly long, cracked nails.""
 (‚i
 p.11)","JZ#
 JZ#ˆø—p‚Í‹v—¯‚³‚ñA‰ðà‚Í NeSYS ‚³‚ñ‚É‚æ‚é",,,,,
-182,"ƒ_[ƒNƒGƒ‹ƒtíŽm","Dark elven warrior","h","D","DARK_ELF","DARK_ELF","0x01","WARRIOR",0,0,0,0,10,1,0,461,700,348,0,0,"NONE","NONE",-1,110,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
+182,"ƒ_[ƒNƒGƒ‹ƒtíŽm","Dark elven warrior","h","D","DARK_ELF","DARK_ELF","0x01","WARRIOR","NONE",0,0,0,10,1,0,461,700,348,0,0,"NONE","NONE",-1,110,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
 HIT:HURT:1d8",,,"DROP_1D2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|HURT_LITE|RES_DARK|EAT_BERSERKER","1_IN_12|MISSILE",,"ŠZ‚ðg‚É‚Ü‚Æ‚Á‚½ƒ_[ƒNƒGƒ‹ƒt‚ÅAí‚Éƒ\[ƒh‚ð‚©‚Ü‚¦‚Ä‚¢‚éB","A dark elven figure in armour and ready with his sword.
 ","J0#",,,,,
 183,"»‚É±‚Þ‚à‚Ì","Sand-dweller","u","U","IMP","IMP","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,30,0,0,0,0,"NONE","NONE",-1,110,20,20,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:HURT:1d6
@@ -1299,30 +1289,30 @@ BITE:HURT:9d1",,,"NO_SLEEP|WILD_ALL|RES_WATE|FRIENDS|AQUATIC",,,"”ñí‚É‘åŒ^‚ÅŒŒ‚
 CLAW:HURT:1d3
 CRUSH:HURT:1d10",,,"OPEN_DOOR|BASH_DOOR|DROP_CORPSE",,,"Šï‰ö‚ÈŒFŒ^‚Ìƒ‚ƒ“ƒXƒ^[‚ÅAƒtƒNƒƒE‚Ì’Ü‚ÆŠç‚ðŽ‚Á‚Ä‚¢‚éB","A bizarre bear-creature with the claws and the face of an owl.
 ","JZ#",,,,,
-189,"ƒuƒ‹[ƒzƒ‰[","Blue horror","u","B","IMP","IMP","0x01","BLUE_MAGE",1137,0,0,0,10,3,0,778,200,242,0,0,"NONE","NONE",-1,110,20,35,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:TERRIFY:1d8
+189,"ƒuƒ‹[ƒzƒ‰[","Blue horror","u","B","IMP","IMP","0x01","WARRIOR",1137,0,0,0,10,3,0,576,200,242,0,0,"NONE","NONE",-1,110,20,35,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:TERRIFY:1d8
 CLAW:TERRIFY:1d8",,,"FRIENDS|OPEN_DOOR|BASH_DOOR|IM_FIRE|NO_FEAR|NO_CONF",,,"ƒeƒB[ƒ“ƒ`‚Ì‚µ‚à‚×‚ÌA‹©‚ÔX‚¢¬Œ^‚Ìˆ«–‚‚¾B","An ugly screaming little demon servant of Tzeentch.
 ","JZ#",,,,,
-190,"–Ñ‚Þ‚­‚¶‚á‚çƒ‚ƒ‹ƒh","Hairy mold","m","U","MOLD","MOLD","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,32,80,192,0,0,"NONE","NONE",-1,110,2,15,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"SPORE:POISON:1d3",,,"NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR",,,"‚»‚ê‚Íƒ_ƒ“ƒWƒ‡ƒ“‚Ì°‚É¶‚¦‚Ä‚¢‚éŠï–­‚ÈƒJƒr‚Å–Ñ‚ª¶‚¦‚Ä‚¢‚éB","It is a strange hairy growth on the dungeon floor.
+190,"–Ñ‚Þ‚­‚¶‚á‚çƒ‚ƒ‹ƒh","Hairy mold","m","U","MOLD","MOLD","0x01","WARRIOR","NONE",0,0,0,10,2,0,32,80,192,0,0,"NONE","NONE",-1,110,2,15,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"SPORE:POISON:1d3",,,"NEVER_MOVE|CAN_SWIM|STUPID|EMPTY_MIND|IM_POIS|NO_CONF|NO_SLEEP|NO_FEAR",,,"‚»‚ê‚Íƒ_ƒ“ƒWƒ‡ƒ“‚Ì°‚É¶‚¦‚Ä‚¢‚éŠï–­‚ÈƒJƒr‚Å–Ñ‚ª¶‚¦‚Ä‚¢‚éB","It is a strange hairy growth on the dungeon floor.
 ","J0#",,,,,
-191,"ƒOƒŠƒYƒŠ[","Grizzly bear","q","u","QUADRUPED","QUADRUPED","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,289,300,1028,0,0,"NONE","NONE",-1,110,10,35,10,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:HURT:1d5
+191,"ƒOƒŠƒYƒŠ[","Grizzly bear","q","u","QUADRUPED","QUADRUPED","0x01","WARRIOR","NONE",0,0,0,10,1,0,651,300,1028,0,0,"NONE","NONE",-1,110,10,35,10,23,9,13,19,18,11,290,15,491,10,287,15,485,10,"CLAW:HURT:1d5
 CLAW:HURT:1d5
 BITE:HURT:1d10",,,"BASH_DOOR|WILD_WOOD|WILD_MOUNTAIN|DROP_CORPSE|WILD_ONLY",,,"‘å‚«‚­‚ÄàÖ–Ò‚ÈŒF‚¾B","A huge, beastly bear.
 ","JZ#",,,,,
-192,"—ò‰»ƒ‚ƒ‹ƒh","Disenchanter mold","m","v","MOLD","MOLD","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,40,500,324,0,0,"NONE","NONE",-1,110,2,20,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"SPORE:UN_BONUS:1d6",,,"NEVER_MOVE|STUPID|EMPTY_MIND|RES_DISE|IM_POIS|ATTR_MULTI|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1","1_IN_11|DRAIN_MANA",,"‚»‚ê‚Íƒ_ƒ“ƒWƒ‡ƒ“‚Ì°‚É¶‚¦‚Ä‚¢‚éŠï–­‚È‹P‚­ƒJƒr‚¾B","It is a strange glowing growth on the dungeon floor.
+192,"—ò‰»ƒ‚ƒ‹ƒh","Disenchanter mold","m","v","MOLD","MOLD","0x01","WARRIOR","NONE",0,0,0,10,2,0,40,500,324,0,0,"NONE","NONE",-1,110,2,20,70,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"SPORE:UN_BONUS:1d6",,,"NEVER_MOVE|STUPID|EMPTY_MIND|RES_DISE|IM_POIS|ATTR_MULTI|CAN_SWIM|NO_CONF|NO_SLEEP|NO_FEAR|SELF_LITE_1","1_IN_11|DRAIN_MANA",,"‚»‚ê‚Íƒ_ƒ“ƒWƒ‡ƒ“‚Ì°‚É¶‚¦‚Ä‚¢‚éŠï–­‚È‹P‚­ƒJƒr‚¾B","It is a strange glowing growth on the dungeon floor.
 ","J0#",,,,,
 193,"ƒjƒZƒhƒ‰ƒSƒ“","Pseudo dragon","d","v","DRAGON","DRAGON","0x01","BLUE_MAGE","NONE",0,0,0,10,2,0,150,1200,504,0,0,"NONE","NONE",-1,110,20,30,40,14,14,14,14,14,14,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|CAN_FLY|DROP_CORPSE|DROP_60|BASH_DOOR|EAT_BLIND|RES_LITE|RES_DARK","1_IN_11|CONF|SCARE|BR_LITE|BR_DARK",,"ˆÃ‚¢“´ŒA‚É¶‘§‚·‚éƒhƒ‰ƒSƒ“‚Ì¬Œ^‚Ì‹ß—×Ží‚¾B","A small relative of the dragon that inhabits dark caves.
 ","J0#",,,,,
-194,"ƒeƒ“ƒO","Tengu","u","b","IMP","IMP","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,40,0,0,0,0,"NONE","NONE",-1,120,20,32,30,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8",,,"OPEN_DOOR|BASH_DOOR|IM_FIRE|NO_FEAR|RES_TELE|CAN_FLY","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TPORT",,"‚»‚ê‚Í“®‚«‚Ì‘f‘‚¢ƒf[ƒ‚ƒ“‚ÅAuŽž‚ÉÁ‚¦‚½‚èŒ»‚ê‚½‚è‚·‚éB‚±‚ÌƒeƒŒƒ|[ƒg
+194,"ƒeƒ“ƒO","Tengu","u","b","IMP","IMP","0x01","ROGUE","NONE",0,"SORCERY",0,10,1,0,40,0,0,0,0,"NONE","NONE",-1,120,20,32,30,12,12,12,12,12,12,174,10,57,3,172,10,52,3,"HIT:HURT:1d8",,,"OPEN_DOOR|BASH_DOOR|IM_FIRE|NO_FEAR|RES_TELE|CAN_FLY","1_IN_3|BLINK|TELE_TO|TELE_AWAY|TPORT",,"‚»‚ê‚Í“®‚«‚Ì‘f‘‚¢ƒf[ƒ‚ƒ“‚ÅAuŽž‚ÉÁ‚¦‚½‚èŒ»‚ê‚½‚è‚·‚éB‚±‚ÌƒeƒŒƒ|[ƒg
 ‚Ì‹Zp‚Íƒf[ƒ‚ƒ“‚Ì’†‚Å‚àG‚Å‚Ä‚¢‚éB","It is a fast-moving demon that blinks quickly in and out of existence; no 
 other demon matches its teleporting mastery.
 
 ","J0#",,,,,
-195,"‹à‚ÌƒNƒŠ[ƒsƒ“ƒOƒRƒCƒ“","Creeping gold coins",,"y","MIMIC","MIMIC","0x01","BLUE_MAGE","NONE",0,0,0,10,3,0,32,150,239,0,0,"NONE","NONE",-1,100,5,36,10,12,12,12,12,12,12,165,10,55,3,0,0,0,3,"HIT:HURT:2d5
+195,"‹à‚ÌƒNƒŠ[ƒsƒ“ƒOƒRƒCƒ“","Creeping gold coins",,"y","MIMIC","MIMIC","0x01","BLUE_MAGE","NONE",0,0,0,10,3,0,32,150,239,0,0,"NONE","NONE",-1,100,5,36,10,12,12,12,12,12,12,82,10,28,3,0,0,0,3,"HIT:HURT:2d5
 TOUCH:POISON:3d5",,,"ONLY_GOLD|DROP_90|DROP_1D2|COLD_BLOOD|BASH_DOOR|IM_POIS|NO_CONF|NO_SLEEP",,,"‚»‚ê‚ÍƒRƒCƒ“‚Ì‰ò‚ÅA‰½ç‚à‚Ì¬‚³‚È‘«‚Å‘O‚Éi‚ÞB","It is a pile of coins, crawling forward on thousands of tiny legs.
 ","J0#",,,,,
-196,"˜T","Wolf","C","u","CANINE","CANINE","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,30,100,211,0,0,"NONE","NONE",-1,120,30,30,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"BITE:HURT:1d7",,,"RAND_25|FRIENDS|BASH_DOOR|WILD_WOOD|WILD_WASTE|WILD_MOUNTAIN|DROP_CORPSE",,,"‚»‚ê‚Í–`Œ¯ŽÒ‚É–i‚¦‚½‚Ä‚Ä‚ÍA”ò‚Ñ‚©‚©‚Á‚Ä‚­‚éB","It howls and snaps at you.
+196,"˜T","Wolf","C","u","CANINE","CANINE","0x01","BLUE_MAGE","NONE",0,0,0,10,1,0,30,100,211,8,0,"NONE","NONE",-1,120,30,30,20,17,8,8,10,15,14,145,10,42,3,145,10,42,3,"BITE:HURT:1d7",,,"RAND_25|FRIENDS|BASH_DOOR|WILD_WOOD|WILD_WASTE|WILD_MOUNTAIN|DROP_CORPSE",,,"‚»‚ê‚Í–`Œ¯ŽÒ‚É–i‚¦‚½‚Ä‚Ä‚ÍA”ò‚Ñ‚©‚©‚Á‚Ä‚­‚éB","It howls and snaps at you.
 ","J0#",,,,,
 197,"‹‘åƒtƒ‹[ƒcEƒoƒG","Giant fruit fly","I","U","INSECT","INSECT","0x01","BLUE_MAGE","NONE",0,0,0,10,6,0,4,70,289,0,0,"NONE","NONE",-1,120,8,14,10,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"BITE:HURT:1d2",,,"RAND_50|RAND_25|CAN_FLY|MULTIPLY|WEIRD_MIND",,,"‘f‘‚­‘B‚·‚é‚â‚Á‚©‚¢‚È“z‚¾B","A fast-breeding, annoying pest.
 ","J0#",,,,,

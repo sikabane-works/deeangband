@@ -31,7 +31,7 @@ static void game_mode_detail(int code)
 	case 1:
 		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 10, 25);
 		prt("テスト的なプレイモードです。                        ", 11, 25);
-		prt("*勝利* 条件はなく、スコア登録などはできません。     ", 12, 25);
+		prt("*勝利* 条件はなく、スコア登録などもできません。     ", 12, 25);
 		break;
 	}
 }
@@ -42,9 +42,9 @@ static int select_mode(void)
 	int t = sizeof(creature_type);
 
 #if JP
-	prt("プレイモードを選択して下さい。", 8, 2);
+	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい:", 9, 25);
 #else
-	prt("Select play mode.", 9, 4);
+	prt("Select play mode:", 9, 25);
 #endif
 
 	/* Init Unique Count */
@@ -68,7 +68,7 @@ static int select_mode(void)
 	se[1].key = '\0';
 	se[1].code = 1;
 
-	return get_selection(se, 2, 10, 5, 2, 18, game_mode_detail);
+	return get_selection(se, 2, 10, 2, 2, 18, game_mode_detail);
 }
 
 static int select_unique_species(void)
