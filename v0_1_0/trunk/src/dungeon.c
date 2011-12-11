@@ -74,9 +74,12 @@ static int select_mode(void)
 static int select_unique_species(void)
 {
 	int i;
+	char dr[4];
 	selection se[1000];
 	int unique_num;
 	int t = sizeof(creature_type);
+
+	prt("ユニークを選択して下さい", 0, 0);
 
 	/* Init Unique Count */
 	unique_num = 0;
@@ -84,7 +87,12 @@ static int select_unique_species(void)
 	{
 		if(is_unique_species(&species_info[i]))
 		{
-			strcpy(se[unique_num].cap, species_name + species_info[i].name);
+			if(species_info[i].dr >= 0) sprintf(dr, "%2d", species_info[i].dr);
+			else strcpy(dr, "--");
+
+			sprintf(se[unique_num].cap, "%-56s Lev:%2d Dr:%2s",
+				species_name + species_info[i].name,
+				estimate_level(&species_info[i]), dr);
 			se[unique_num].d_color = TERM_L_DARK;
 			se[unique_num].l_color = TERM_WHITE;
 			se[unique_num].key = '\0';

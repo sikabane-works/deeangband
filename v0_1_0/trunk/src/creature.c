@@ -1,6 +1,27 @@
+//
+// D'angband Creature Functions
+// 2011 - Deskull
+//
 
 #include "angband.h"
 
+int estimate_level(species_type *species_ptr)
+{
+	int i;
+	int exp = species_ptr->exp;
+	int factor = calc_expfact_sp(species_ptr);
+	int *table;
+
+	if(IS_RACE(species_ptr, RACE_ANDROID)) table = creature_exp_a;
+	else table = creature_exp;
+
+	for(i = 1; i < PY_MAX_LEVEL; i++)
+	{
+		if(exp <= table[i-1] * factor / 100) break;
+	}
+	i = i > PY_MORTAL_LIMIT_LEVEL + species_ptr->dr ? PY_MORTAL_LIMIT_LEVEL + species_ptr->dr : i;
+	return i;
+}
 
 bool can_equip(creature_type *creature_ptr, int i)
 {
@@ -185,6 +206,36 @@ void set_height_weight(creature_type *creature_ptr)
 			creature_ptr->wt = tmp2;
 
 
+}
+
+//
+// Calc exp rate for some factors (race and class) at creature_type
+//
+// TODO :: merge to expfact.
+int calc_expfact_sp(species_type *species_ptr)
+{
+	int expfact;
+
+	if (IS_RACE(species_ptr, RACE_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
+	else 
+	{
+		if(IS_PURE(species_ptr))
+		{
+			expfact = race_info[species_ptr->race_idx1].r_exp + class_info[species_ptr->cls_idx].c_exp;
+		}
+		else
+		{
+			expfact = race_info[species_ptr->race_idx1].r_s_exp +
+					  race_info[species_ptr->race_idx2].r_s_exp +
+					  class_info[species_ptr->cls_idx].c_exp;
+		}
+
+	}
+
+	if (((species_ptr->cls_idx == CLASS_MONK) || (species_ptr->cls_idx == CLASS_FORCETRAINER) || (species_ptr->cls_idx == CLASS_NINJA)) && ((species_ptr->race_idx1 == RACE_KLACKON) || (species_ptr->race_idx1 == RACE_SPRITE)))
+		expfact -= 15;
+
+	return expfact;
 }
 
 // Experience factor
