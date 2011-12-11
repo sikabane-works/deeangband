@@ -1672,7 +1672,7 @@
 #define EGO_SLAYING             49
 #define EGO_AGILITY             50
 #define EGO_POWER               51
-#define EGO_2WEAPON             52
+#define EGO_TWO_WEAPON             52
 #define EGO_MAGIC_MASTERY       53
 #define EGO_WEAKNESS            54
 #define EGO_CLUMSINESS          55
@@ -1691,6 +1691,7 @@
 #define EGO_HA                  64
 #define EGO_DF                  65
 #define EGO_BLESS_BLADE         66
+
 /* xxx */
 #define EGO_WEST                68
 #define EGO_ATTACKS             69
@@ -4751,6 +4752,7 @@ extern int PlayerUID;
 #define MON_COLOSSUS      558
 #define MON_NIGHTBLADE    564
 #define MON_ELDER_THING   569
+#define MON_LEGORAS       575
 #define MON_CRYPT_THING   577
 #define MON_NEXUS_VOR     587
 #define MON_PLASMA_VOR    588
@@ -4910,6 +4912,7 @@ extern int PlayerUID;
 #define MON_TANUKI        1067
 #define MON_LION_HEART    1097
 #define MON_ARIOCH        1142
+
 
 
 #define MONEGO_NONE       0

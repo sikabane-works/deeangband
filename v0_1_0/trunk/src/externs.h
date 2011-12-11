@@ -1336,6 +1336,7 @@ extern void object_wipe(object_type *o_ptr);
 extern void object_prep(object_type *o_ptr, int k_idx, int size);
 extern void object_copy(object_type *o_ptr, object_type *j_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode);
+extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *o_ptr, int lev, int ego);
 
 extern void weapon_boost(object_type *o_ptr, int level, int power);
 extern bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level);

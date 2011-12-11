@@ -3906,7 +3906,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if (have_flag(flgs, TR_SUST_CHR)) cr_ptr->sustain_chr = TRUE;
 
 		if (o_ptr->name2 == EGO_YOIYAMI) yoiyami = TRUE;
-		if (o_ptr->name2 == EGO_2WEAPON) easy_2weapon = TRUE;
+		if (o_ptr->name2 == EGO_TWO_WEAPON) easy_2weapon = TRUE;
 
 
 		if (o_ptr->name2 == EGO_RING_THROW) cr_ptr->mighty_throw = TRUE;

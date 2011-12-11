@@ -3786,7 +3786,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					{
 						flags = AM_GREAT;
 					}
-					else if(3 == sscanf(tmp + offset, "EGO:%d:%d:%d:%d%%", &ego, &tval, &sval, &prob))
+					else if(4 == sscanf(tmp + offset, "EGO:%d:%d:%d:%d%%", &ego, &tval, &sval, &prob))
 					{
 						flags = AM_GREAT;
 					}

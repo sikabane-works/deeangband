@@ -2378,6 +2378,8 @@ static byte get_random_ego(byte slot, bool good)
 	return (byte)i;
 }
 
+
+
 // Weapon boost by power
 void weapon_boost(object_type *o_ptr, int level, int power)
 {
@@ -2518,9 +2520,9 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		case TV_SWORD:
 		{
 			/* Very Good */
-			if (power > 1)
+			if (power >= ITEM_RANK_GREAT)
 			{
-				if (one_in_(40) || (power > 2)) /* power > 2 is debug only */
+				if (one_in_(40) || (power >= ITEM_RANK_SPECIAL))
 				{
 					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
@@ -2623,7 +2625,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 			}
 
 			/* Very cursed */
-			else if (power < -1)
+			else if (power <= ITEM_RANK_BROKEN)
 			{
 				/* Roll for ego-item */
 				if (randint0(MAX_DEPTH) < level)
@@ -4296,7 +4298,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	if (mode & AM_CURSED)
 	{
 		/* Assume 'cursed' */
-		if (power > 0)
+		if (power > ITEM_RANK_NORMAL)
 		{
 			power = 0 - power;
 		}
@@ -4572,6 +4574,22 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
 	}
+}
+
+// Apply magic at specified ego.
+void apply_magic_specified_ego(creature_type *owner_ptr, object_type *o_ptr, int lev, int ego)
+{
+	if(object_is_weapon(o_ptr))
+	{
+		weapon_boost(o_ptr, lev, ITEM_RANK_GREAT);
+	}
+
+	if(object_is_armour(o_ptr))
+	{
+		armour_boost(o_ptr, lev, ITEM_RANK_GREAT);
+	}
+
+	o_ptr->name2 = ego;
 }
 
 
@@ -7597,7 +7615,7 @@ static void drain_essence(creature_type *creature_ptr)
 	{
 		drain_value[TR_DEX] += 10;
 	}
-	if (old_name2 == EGO_2WEAPON)
+	if (old_name2 == EGO_TWO_WEAPON)
 	{
 		drain_value[TR_DEX] += 20;
 	}

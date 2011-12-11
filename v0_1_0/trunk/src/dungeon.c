@@ -6827,7 +6827,7 @@ quit("セーブファイルが壊れています");
 		{
 		/* No, normal start */
 			/* Roll up a new character */
-			generate_creature(cr_ptr, MON_STIGMATIC_ONE, &settled_player_species, GC_PLAYER);
+			generate_creature(cr_ptr, MON_LEGORAS, &settled_player_species, GC_PLAYER);
 			wilderness_x = settled_player_species.start_wx;
 			wilderness_y = settled_player_species.start_wy;
 		}

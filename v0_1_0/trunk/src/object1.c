@@ -2453,7 +2453,7 @@ info[i++] = "それは無敵のバリアを切り裂く。";
 #endif
 	}
 
-	if (o_ptr->name2 == EGO_2WEAPON)
+	if (o_ptr->name2 == EGO_TWO_WEAPON)
 	{
 #ifdef JP
 info[i++] = "それは二刀流での命中率を向上させる。";

@@ -5299,6 +5299,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(flags & GC_PLAYER) creature_ptr->player = TRUE;
 
+	strcpy(creature_ptr->name, species_name + species_ptr->name);
+
+
 	// Race Select
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE)
@@ -5849,8 +5852,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(!auto_generate)
 	{
-	/* Clear prompt *
-		clear_from(23);
 
 	/* Get a name, recolor it, prepare savefile */
 		get_name(creature_ptr);
@@ -5862,10 +5863,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		edit_history(creature_ptr);
 
 	/*** Finish up ***/
-	}
-	else
-	{
-		strcpy(creature_ptr->name, species_name + species_ptr->name);
 	}
 
 	get_max_stats(creature_ptr);
