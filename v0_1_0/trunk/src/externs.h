@@ -460,7 +460,7 @@ extern creature_type *player_ptr; /* New Reference Pointer */
 extern u32b play_redraw;		/* Normal Redraws (bit flags) */
 extern u32b play_window;		/* Window Redraws (bit flags) */
 extern bool wizard;		      /* (Player Only) wizard mode */
-
+extern bool unique_play;      /* Unique play mode*/
 
 extern species_type settled_player_species;
 extern vault_type *v_info;

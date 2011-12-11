@@ -309,6 +309,7 @@ static void wr_options(void)
 	c = 0;
 
 	if (wizard) c |= 0x0002;
+	if (unique_play) c |= 0x0004;
 
 	if (cheat_peek) c |= 0x0100;
 	if (cheat_hear) c |= 0x0200;

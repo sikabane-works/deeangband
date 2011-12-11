@@ -18,10 +18,34 @@
 static bool load = TRUE;
 static int wild_regen = 20;
 
+static void game_mode_detail(int code)
+{
+	switch(code)
+	{
+		//TODO English
+	case 0:
+		prt("*band ローグライク従来のプレイモードです。          ", 10, 25);
+		prt("'＠'のルーンを背負う〈烙印〉の者として、            ", 11, 25);
+		prt("神々の座へと登りつめることが *勝利* 条件となります。", 12, 25);
+		break;
+	case 1:
+		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 10, 25);
+		prt("テスト的なプレイモードです。                        ", 11, 25);
+		prt("*勝利* 条件はなく、スコア登録などはできません。     ", 12, 25);
+		break;
+	}
+}
+
 static int select_mode(void)
 {
 	selection se[1000];
 	int t = sizeof(creature_type);
+
+#if JP
+	prt("プレイモードを選択して下さい。", 8, 2);
+#else
+	prt("Select play mode.", 9, 4);
+#endif
 
 	/* Init Unique Count */
 #if JP
@@ -44,7 +68,7 @@ static int select_mode(void)
 	se[1].key = '\0';
 	se[1].code = 1;
 
-	return get_selection(se, 2, 19, 5, 2, 20, NULL);
+	return get_selection(se, 2, 10, 5, 2, 18, game_mode_detail);
 }
 
 static int select_unique_species(void)
@@ -6883,11 +6907,27 @@ quit("セーブファイルが壊れています");
 			Term_clear();
 			mode = select_mode();
 			if(mode == 0)
+			{
 				species = MON_STIGMATIC_ONE;
+				unique_play = FALSE;
+#ifdef JP
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印〉の者モードを選択した");
+#else
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select Stigmatic One mode.");
+#endif
+			}
 			else
 			{
 				Term_clear();
 				species = select_unique_species();
+				unique_play = TRUE;
+#ifdef JP
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "ユニークモードを選択した");
+#else
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select unique mode.");
+#endif
+		/* Mark savefile */
+		noscore |= 0x0010;
 			}
 
 			/* Roll up a new character */

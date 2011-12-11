@@ -7451,11 +7451,24 @@ msg_print("スコア・ファイルが使用できません。");
 	if (noscore & 0x000F)
 	{
 #ifdef JP
-msg_print("ウィザード・モードではスコアが記録されません。");
+		msg_print("ウィザード・モードではスコアが記録されません。");
 #else
 		msg_print("Score not registered for wizards.");
 #endif
+		msg_print(NULL);
+		return FALSE;
+	}
+#endif
 
+#ifndef SCORE_WIZARDS
+	/* Wizard-mode pre-empts scoring */
+	if (noscore & 0x0004)
+	{
+#ifdef JP
+		msg_print("ユニーク・モードではスコアが記録されません。");
+#else
+		msg_print("Score not registered for uniques.");
+#endif
 		msg_print(NULL);
 		return FALSE;
 	}
