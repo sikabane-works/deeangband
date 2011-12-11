@@ -3900,8 +3900,6 @@ void update_view(creature_type *cr_ptr)
 			/* Maximum distance */
 			m = MIN(z, x_max - xpn);
 
-			//TODO
-
 			/* South side */
 			if ((ypn <= y_max) && (n < es))
 			{
