@@ -349,7 +349,9 @@
  * must also be large enough to allow "good enough" use as a circular queue,
  * to calculate monster flow, but note that the flow code is "paranoid".
  */
-#define TEMP_MAX 2298
+//TODO::
+//#define TEMP_MAX 2298
+#define TEMP_MAX 5000
 
 /*
  * Maximum size of the "redraw" array (see "cave.c")
@@ -357,7 +359,9 @@
  * We must also be as large as two times of the largest view area.
  * Note that maximum view grids are 1149 entries.
  */
-#define REDRAW_MAX 2298
+//TODO::
+//#define REDRAW_MAX 2298
+#define REDRAW_MAX 5000
 
 
 /*

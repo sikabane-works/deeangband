@@ -5,6 +5,7 @@
 
 #include "angband.h"
 
+
 int estimate_level(species_type *species_ptr)
 {
 	int i;

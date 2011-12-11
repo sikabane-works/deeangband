@@ -914,7 +914,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  * "x_ptr->xxx", is quicker than "x_info[x].xxx", if this is incorrect
  * then a whole lot of code should be changed...  XXX XXX
  */
-void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
+void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 {
 	/* Get the cave */
 	cave_type *c_ptr = &cave[y][x];
@@ -944,9 +944,9 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 		 *   (Such grids also have CAVE_VIEW)
 		 * - Can see grids with CAVE_VIEW unless darkened by monsters.
 		 */
-		if (!cr_ptr->blind &&
+		if (!watcher_ptr->blind &&
 		    ((c_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
-		     ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || cr_ptr->see_nocto))))
+		     ((c_ptr->info & CAVE_VIEW) && (((c_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || watcher_ptr->see_nocto))))
 		{
 			/* Normal attr/char */
 			a = f_ptr->x_attr[F_LIT_STANDARD];
@@ -966,7 +966,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(cr_ptr, c_ptr))
+			else if (darkened_grid(watcher_ptr, c_ptr))
 			{
 				/* Unsafe cave grid -- idea borrowed from Unangband */
 				feat = (view_unsafe_grids && (c_ptr->info & CAVE_UNSAFE)) ? feat_undetected : feat_none;
@@ -1047,7 +1047,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
-				if (view_granite_lite && (cr_ptr->blind || !is_daytime()))
+				if (view_granite_lite && (watcher_ptr->blind || !is_daytime()))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1057,7 +1057,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if (darkened_grid(cr_ptr, c_ptr) && !cr_ptr->blind)
+			else if (darkened_grid(watcher_ptr, c_ptr) && !watcher_ptr->blind)
 			{
 				if (have_flag(f_ptr->flags, FF_LOS) && have_flag(f_ptr->flags, FF_PROJECT))
 				{
@@ -1084,7 +1084,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			else if (view_granite_lite)
 			{
 				/* Handle "blind" */
-				if (cr_ptr->blind)
+				if (watcher_ptr->blind)
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1126,7 +1126,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 					}
 
 					/* Not glowing correctly */
-					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(cr_ptr, y, x))
+					else if (!have_flag(f_ptr->flags, FF_LOS) && !check_local_illumination(watcher_ptr, y, x))
 					{
 						/* Use a darkened colour/tile */
 						a = f_ptr->x_attr[F_LIT_DARK];
@@ -1163,7 +1163,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 	(*cp) = c;
 
 	/* Hack -- rare random hallucination, except on outer dungeon walls */
-	if (cr_ptr->image)
+	if (watcher_ptr->image)
 	{
 		if (one_in_(256))
 		{
@@ -1190,7 +1190,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			{
 				byte act;
 
-				match_autopick = is_autopick(cr_ptr, o_ptr);
+				match_autopick = is_autopick(watcher_ptr, o_ptr);
 				if(match_autopick == -1)
 					continue;
 
@@ -1215,7 +1215,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			feat_priority = 20;
 
 			/* Hack -- hallucination */
-			if (cr_ptr->image) image_object(ap, cp);
+			if (watcher_ptr->image) image_object(ap, cp);
 
 			/* Done */
 			break;
@@ -1236,7 +1236,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 			feat_priority = 30;
 
 			/* Hallucination */
-			if (cr_ptr->image)
+			if (watcher_ptr->image)
 			{
 				/*
 				 * Monsters with both CHAR_CLEAR and ATTR_CLEAR
@@ -1343,7 +1343,7 @@ void map_info(creature_type *cr_ptr, int y, int x, byte *ap, char *cp, byte *tap
 	}
 
 	/* Handle "player" */
-	if (creature_bold(cr_ptr, y, x))
+	if (creature_bold(watcher_ptr, y, x))
 	{
 		species_type *r_ptr = &species_info[0];
 
@@ -3900,8 +3900,10 @@ void update_view(creature_type *cr_ptr)
 			/* Maximum distance */
 			m = MIN(z, x_max - xpn);
 
+			//TODO
+
 			/* South side */
-			if ((ypn <= x_max) && (n < es))
+			if ((ypn <= y_max) && (n < es))
 			{
 				/* Scan */
 				for (k = n, d = 1; d <= m; d++)
@@ -3948,34 +3950,35 @@ void update_view(creature_type *cr_ptr)
 		}
 
 
-		/* West strip */
+		// West strip
 		if (xmn > 0)
 		{
-			/* Maximum distance */
+			// Maximum distance
 			m = MIN(z, xmn);
-
-			/* South side */
+			
+			// South side
 			if ((ypn <= y_max) && (n < ws))
 			{
-				/* Scan */
+				// Scan
 				for (k = n, d = 1; d <= m; d++)
 				{
-					/* Check grid "d" in strip "n", notice "blockage" */
+					// Check grid "d" in strip "n", notice "blockage"
 					if (update_view_aux(cr_ptr, ypn, xmn-d, ypn-1, xmn-d+1, ypn, xmn-d+1))
 					{
 						if (n + d >= ws) break;
 					}
 
-					/* Track most distant "non-blockage" */
+					// Track most distant "non-blockage"
 					else
 					{
 						k = n + d;
 					}
 				}
 
-				/* Limit the next strip */
+				// Limit the next strip
 				ws = k + 1;
 			}
+			
 
 			/* North side */
 			if ((ymn >= 0) && (n < wn))
