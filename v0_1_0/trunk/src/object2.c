@@ -2429,6 +2429,45 @@ void weapon_boost(object_type *o_ptr, int level, int power)
 	}
 }
 
+
+void armour_boost(object_type *o_ptr, int level, int power)
+{
+	int toac1 = randint1(5) + m_bonus(5, level);
+	int toac2 = m_bonus(10, level);
+
+	/* Good */
+	if (power > 0)
+	{
+		/* Enchant */
+		o_ptr->to_a += toac1;
+
+		/* Very good */
+		if (power > 1)
+		{
+			/* Enchant again */
+			o_ptr->to_a += toac2;
+		}
+	}
+
+	/* Cursed */
+	else if (power < 0)
+	{
+		/* Penalize */
+		o_ptr->to_a -= toac1;
+
+		/* Very cursed */
+		if (power < -1)
+		{
+			/* Penalize again */
+			o_ptr->to_a -= toac2;
+		}
+
+		/* Cursed (if "bad") */
+		if (o_ptr->to_a < 0) o_ptr->curse_flags |= TRC_CURSED;
+	}
+}
+
+
 /*
  * Apply magic to an item known to be a "weapon"
  *
@@ -2740,41 +2779,7 @@ static void add_esp_weak(object_type *o_ptr, bool extra)
  */
 static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
-	int toac1 = randint1(5) + m_bonus(5, level);
-
-	int toac2 = m_bonus(10, level);
-
-	/* Good */
-	if (power > 0)
-	{
-		/* Enchant */
-		o_ptr->to_a += toac1;
-
-		/* Very good */
-		if (power > 1)
-		{
-			/* Enchant again */
-			o_ptr->to_a += toac2;
-		}
-	}
-
-	/* Cursed */
-	else if (power < 0)
-	{
-		/* Penalize */
-		o_ptr->to_a -= toac1;
-
-		/* Very cursed */
-		if (power < -1)
-		{
-			/* Penalize again */
-			o_ptr->to_a -= toac2;
-		}
-
-		/* Cursed (if "bad") */
-		if (o_ptr->to_a < 0) o_ptr->curse_flags |= TRC_CURSED;
-	}
-
+	armour_boost(o_ptr, level, power);
 
 	/* Analyze type */
 	switch (o_ptr->tval)
