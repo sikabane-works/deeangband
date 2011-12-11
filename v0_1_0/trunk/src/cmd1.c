@@ -2794,7 +2794,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 								drain_msg = FALSE;
 							}
 
-							drain_heal = (drain_heal * mutant_regenerate_mod) / 100;
+							drain_heal = (drain_heal * atk_ptr->mutant_regenerate_mod) / 100;
 
 							hp_player(atk_ptr, drain_heal);
 							/* We get to keep some of it! */

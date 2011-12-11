@@ -1332,7 +1332,7 @@ msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ª¡‚Á‚½B");
 				cr_ptr->flags12 = cr_ptr->flags13 = cr_ptr->flags14 = 0;
 				cr_ptr->update |= PU_BONUS;
 				handle_stuff(cr_ptr);
-				mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
+				cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 			}
 			ident = TRUE;
 			break;

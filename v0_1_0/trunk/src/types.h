@@ -1189,6 +1189,7 @@ struct creature_type
 	s16b sc;			/* Social Class */
 	s16b dr;			/* Divine Rank */
 	s16b size;			/* Body Size */
+	s16b mutant_regenerate_mod;
 
 	s16b inven_cnt;			/* Number of items in inventory */
 	s16b equip_cnt;			/* Number of items in equipment */

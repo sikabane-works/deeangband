@@ -2023,7 +2023,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if (cave_no_regen) regen_amount = 0;
 
-	regen_amount = (regen_amount * mutant_regenerate_mod) / 100;
+	regen_amount = (regen_amount * cr_ptr->mutant_regenerate_mod) / 100;
 
 	/* Regenerate Hit Points if needed */
 	if ((cr_ptr->chp < cr_ptr->mhp) && !cave_no_regen)
@@ -7435,7 +7435,6 @@ void world_wipe()
 
 	/* Assume no winning game */
 	total_winner = FALSE;
-
 	world_player = FALSE;
 
 	/* Assume no panic save */
@@ -7444,9 +7443,48 @@ void world_wipe()
 	/* Assume no cheating */
 	noscore = 0;
 	wizard = FALSE;
+	cheat_peek = FALSE;
+	cheat_hear = FALSE;
+	cheat_room = FALSE;
+	cheat_xtra = FALSE;
+	cheat_know = FALSE;
+	cheat_live = FALSE;
+	cheat_save = FALSE;
 
 	// Reset monster arena
 	battle_monsters();
+
+	// Start with no artifacts made yet
+	for (i = 0; i < max_a_idx; i++)
+	{
+		artifact_type *a_ptr = &a_info[i];
+		a_ptr->cur_num = 0;
+	}
+
+	// Reset the "monsters"
+	for (i = 1; i < max_species_idx; i++)
+	{
+		species_type *r_ptr = &species_info[i];
+
+		/* Hack -- Reset the counter */
+		r_ptr->cur_num = 0;
+
+		/* Hack -- Reset the max counter */
+		r_ptr->max_num = 100;
+
+		/* Hack -- Reset the max counter */
+		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
+
+		/* Hack -- Non-unique Nazguls are semi-unique */
+		else if (IS_RACE(r_ptr, RACE_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
+
+		/* Clear visible kills in this life */
+		r_ptr->r_pkills = 0;
+
+		/* Clear all kills in this life */
+		r_ptr->r_akills = 0;
+	}
+
 
 	// Wipe the quests
 	for (i = 0; i < max_quests; i++)

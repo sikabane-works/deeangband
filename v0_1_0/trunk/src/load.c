@@ -1209,7 +1209,7 @@ static void rd_creature(creature_type *cr_ptr)
 		rd_s32b(&cr_ptr->karmas[i]);
 
 	/* Calc the regeneration modifier for mutations */
-	mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
+	cr_ptr->mutant_regenerate_mod = calc_mutant_regenerate_mod(cr_ptr);
 
 	rd_s16b(&cr_ptr->ele_attack);
 	rd_u32b(&cr_ptr->special_attack);

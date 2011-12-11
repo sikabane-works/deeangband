@@ -2373,6 +2373,10 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	{
 		COPY(species_ptr, &temp, species_type);
 	}
+
+	creature_ptr->blessed = 0;
+	creature_ptr->blind = 0;
+	creature_ptr->afraid = 0;
 }
 
 
@@ -2795,41 +2799,8 @@ void creature_wipe(creature_type *creature_ptr)
 	}
 
 
-	/* Start with no artifacts made yet */
-	for (i = 0; i < max_a_idx; i++)
-	{
-		artifact_type *a_ptr = &a_info[i];
-		a_ptr->cur_num = 0;
-	}
-
-	/* Reset the "monsters" */
-	for (i = 1; i < max_species_idx; i++)
-	{
-		species_type *r_ptr = &species_info[i];
-
-		/* Hack -- Reset the counter */
-		r_ptr->cur_num = 0;
-
-		/* Hack -- Reset the max counter */
-		r_ptr->max_num = 100;
-
-		/* Hack -- Reset the max counter */
-		if (is_unique_species(r_ptr)) r_ptr->max_num = 1;
-
-		/* Hack -- Non-unique Nazguls are semi-unique */
-		else if (IS_RACE(r_ptr, RACE_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM;
-
-		/* Clear visible kills in this life */
-		r_ptr->r_pkills = 0;
-
-		/* Clear all kills in this life */
-		r_ptr->r_akills = 0;
-	}
-
-
 	/* Hack -- Well fed player */
 	creature_ptr->food = PY_FOOD_FULL - 1;
-
 
 	/* Wipe the spells */
 	if (creature_ptr->cls_idx == CLASS_SORCERER)
@@ -2849,16 +2820,8 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->knowledge = 0;
 
 	/* Clean the mutation count */
-	mutant_regenerate_mod = 100;
+	creature_ptr->mutant_regenerate_mod = 100;
 
-	/* Clear "cheat" options */
-	cheat_peek = FALSE;
-	cheat_hear = FALSE;
-	cheat_room = FALSE;
-	cheat_xtra = FALSE;
-	cheat_know = FALSE;
-	cheat_live = FALSE;
-	cheat_save = FALSE;
 
 	/* Not waiting to report score */
 	creature_ptr->wait_report_score = FALSE;
