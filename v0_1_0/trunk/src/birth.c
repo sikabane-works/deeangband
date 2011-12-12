@@ -2439,7 +2439,7 @@ static int adjust_stat(int value, int amount)
  *
  * For efficiency, we include a chunk of "calc_bonuses()".
  */
-static void get_stats(creature_type *creature_ptr)
+static void get_stats(creature_type *creature_ptr, species_type *species_ptr)
 {
 	int i;
 
@@ -2486,7 +2486,17 @@ static void get_stats(creature_type *creature_ptr)
 		}
 
 		/* Verify totals */
-		if ((sum > 42+5*6) && (sum < 57+5*6)) break;
+		if ((sum > 42+5*6) && (sum < 57+5*6))
+		{
+			for(i = 0; i < STAT_MAX; i++)
+			{
+				creature_ptr->stat_cur[i] += species_ptr->stat_max[i] / 10 - 10;
+				if(creature_ptr->stat_cur[i] < 3) creature_ptr->stat_cur[i] = 3;
+				if(creature_ptr->stat_cur[i] > 18) creature_ptr->stat_cur[i] = 18 + (creature_ptr->stat_cur[i] - 18) * 10;
+				creature_ptr->stat_max[i] = creature_ptr->stat_cur[i];
+			}
+			break;
+		}
 		/* 57 was 54... I hate 'magic numbers' :< TY */
 	}
 }
@@ -5490,7 +5500,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		// Otherwise just get a character
 		else
 		{
-			get_stats(creature_ptr);   // Get a new character
+			get_stats(creature_ptr, species_ptr);   // Get a new character
 			get_ahw(creature_ptr);     // Roll for age/height/weight
 			get_history(creature_ptr); // Roll for social class
 		}
@@ -5530,16 +5540,18 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				/* Label stats */
 				put_str(stat_names[i], 3+i, col);
 
-				/* Race/Class bonus */
+				/* Race/Class/Species bonus */
 				if(IS_PURE(creature_ptr))
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
 						class_info[creature_ptr->cls_idx].c_adj[i] +
-						chara_info[creature_ptr->chara_idx].a_adj[i];
+						chara_info[creature_ptr->chara_idx].a_adj[i] +
+						species_ptr->stat_max[i] / 10 - 10;
 				else
 					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
 						race_info[creature_ptr->race_idx2].r_s_adj[i] +
 						class_info[creature_ptr->cls_idx].c_adj[i] +
-						chara_info[creature_ptr->chara_idx].a_adj[i];
+						chara_info[creature_ptr->chara_idx].a_adj[i] +
+						species_ptr->stat_max[i] / 10 - 10;
 
 
 				/* Obtain the current stat */
@@ -5557,7 +5569,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			bool accept = TRUE;
 
 			/* Get a new character */
-			get_stats(creature_ptr);
+			get_stats(creature_ptr, species_ptr);
 
 			/* Advance the round */
 			auto_round++;
