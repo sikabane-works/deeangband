@@ -245,7 +245,7 @@ static void prt_stat(creature_type *cr_ptr, int stat)
 	}
 
 	/* Indicate natural maximum */
-	if (cr_ptr->stat_max[stat] == cr_ptr->stat_max_max[stat])
+	if (cr_ptr->stat_max[stat] == cr_ptr->stat_mod_max_max[stat])
 	{
 #ifdef JP
 		/* 日本語にかぶらないように表示位置を変更 */
@@ -3070,6 +3070,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->hidarite = FALSE;
 	cr_ptr->no_flowed = FALSE;
 
+	for(i = 0; i < STAT_MAX; i++)
+		cr_ptr->stat_mod_max_max[i] = cr_ptr->stat_max_max[i];
+
 	if (cr_ptr->mimic_form) tmp_rcr_ptr = &mimic_info[cr_ptr->mimic_form];
 	else tmp_rcr_ptr = &race_info[cr_ptr->race_idx1];
 	tmp_rcr_ptr2 = &race_info[cr_ptr->race_idx2];
@@ -3209,6 +3212,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		cr_ptr->skill_rob += adj_dr_saving[cr_ptr->dr];
 		cr_ptr->skill_eva += adj_dr_saving[cr_ptr->dr];
 		cr_ptr->skill_vol += adj_dr_saving[cr_ptr->dr];
+
+		for(i = 0; i < STAT_MAX; i++)
+			cr_ptr->stat_mod_max_max[i] += cr_ptr->dr / 4 * 10;
 	}
 
 	cr_ptr->see_infra = (cr_ptr->see_infra + j) / k;

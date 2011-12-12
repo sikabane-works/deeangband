@@ -4783,7 +4783,7 @@ bool inc_stat(creature_type *cr_ptr, int stat)
 	value = cr_ptr->stat_cur[stat];
 
 	/* Cannot go above 18/100 */
-	if (value < cr_ptr->stat_max_max[stat])
+	if (value < cr_ptr->stat_mod_max_max[stat])
 	{
 		/* Gain one (sometimes two) points */
 		if (value < 18)
@@ -4793,10 +4793,10 @@ bool inc_stat(creature_type *cr_ptr, int stat)
 		}
 
 		/* Gain 1/6 to 1/3 of distance to 18/100 */
-		else if (value < (cr_ptr->stat_max_max[stat]-2))
+		else if (value < (cr_ptr->stat_mod_max_max[stat]-2))
 		{
 			/* Approximate gain value */
-			gain = (((cr_ptr->stat_max_max[stat]) - value) / 2 + 3) / 2;
+			gain = (((cr_ptr->stat_mod_max_max[stat]) - value) / 2 + 3) / 2;
 
 			/* Paranoia */
 			if (gain < 1) gain = 1;
@@ -4805,7 +4805,7 @@ bool inc_stat(creature_type *cr_ptr, int stat)
 			value += randint1(gain) + gain / 2;
 
 			/* Maximal value */
-			if (value > (cr_ptr->stat_max_max[stat]-1)) value = cr_ptr->stat_max_max[stat]-1;
+			if (value > (cr_ptr->stat_mod_max_max[stat]-1)) value = cr_ptr->stat_mod_max_max[stat]-1;
 		}
 
 		/* Gain one point at a time */

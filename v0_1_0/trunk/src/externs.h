@@ -853,7 +853,6 @@ extern bool can_equip(creature_type *cr_ptr, int i);
 extern bool is_player(creature_type *cr_ptr);
 extern void set_sex(creature_type *cr_ptr);
 extern void set_height_weight(creature_type *cr_ptr);
-extern void set_status(creature_type *cr_ptr);
 extern int calc_expfact_sp(species_type *species_ptr);
 extern void set_expfact(creature_type *cr_ptr);
 extern void set_bodysize(creature_type *cr_ptr);

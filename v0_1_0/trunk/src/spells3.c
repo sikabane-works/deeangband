@@ -1186,8 +1186,8 @@ void mutate_creature(creature_type *cr_ptr)
 
 	for (i=0;i<6;i++)
 	{
-		if(cr_ptr->stat_max[i] > cr_ptr->stat_max_max[i]) cr_ptr->stat_max[i] = cr_ptr->stat_max_max[i];
-		if(cr_ptr->stat_cur[i] > cr_ptr->stat_max_max[i]) cr_ptr->stat_cur[i] = cr_ptr->stat_max_max[i];
+		if(cr_ptr->stat_max[i] > cr_ptr->stat_mod_max_max[i]) cr_ptr->stat_max[i] = cr_ptr->stat_mod_max_max[i];
+		if(cr_ptr->stat_cur[i] > cr_ptr->stat_mod_max_max[i]) cr_ptr->stat_cur[i] = cr_ptr->stat_mod_max_max[i];
 	}
 
 	cr_ptr->update |= (PU_BONUS);

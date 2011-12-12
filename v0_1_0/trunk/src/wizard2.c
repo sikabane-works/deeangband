@@ -360,7 +360,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 	for (i = 0; i < 6; i++)
 	{
 		/* Prompt */
-		sprintf(ppp, "%s (3-%d): ", stat_names[i], cr_ptr->stat_max_max[i]);
+		sprintf(ppp, "%s (3-%d): ", stat_names[i], cr_ptr->stat_mod_max_max[i]);
 
 		/* Default */
 		sprintf(tmp_val, "%d", cr_ptr->stat_max[i]);
@@ -372,7 +372,7 @@ static void do_cmd_wiz_change_aux(creature_type *cr_ptr)
 		tmp_int = atoi(tmp_val);
 
 		/* Verify */
-		if (tmp_int > cr_ptr->stat_max_max[i]) tmp_int = cr_ptr->stat_max_max[i];
+		if (tmp_int > cr_ptr->stat_mod_max_max[i]) tmp_int = cr_ptr->stat_mod_max_max[i];
 		else if (tmp_int < 3) tmp_int = 3;
 
 		/* Save it */

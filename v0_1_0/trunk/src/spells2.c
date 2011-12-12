@@ -100,8 +100,8 @@ void creature_knowledge(creature_type *creature_ptr)
 	for (v_nr = 0; v_nr < 6; v_nr++)
 	{
 		char stat_desc[80];
-
-		sprintf(stat_desc, "%s 18/%d", stat_names[v_nr], creature_ptr->stat_max_max[v_nr]-18);
+		int n = 180 + (creature_ptr->stat_mod_max_max[v_nr] - 18);
+		sprintf(stat_desc, "%s %2d.%d", stat_names[v_nr], n / 10, n % 10 );
 
 		strcpy(s_string[v_nr], stat_desc);
 

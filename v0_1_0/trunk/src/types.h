@@ -341,8 +341,8 @@ struct species_type
 
 	s32b au;
 
-	s16b stat_max[6];		/* Current modified stats */
-	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
+	s16b stat_max[6];			/* Current modified stats */
+	s16b stat_max_max[6];		/* Maximal "maximal" stat values */
 	s16b player_hp[PY_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];
@@ -1223,6 +1223,7 @@ struct creature_type
 
 	s16b stat_max[6];	/* Current "maximal" stat values */
 	s16b stat_max_max[6];	/* Maximal "maximal" stat values */
+	s16b stat_mod_max_max[6];	/* modified Maximal "maximal" stat values by divine rank*/
 	s16b stat_cur[6];	/* Current "natural" stat values */
 
 	s16b learned_spells;

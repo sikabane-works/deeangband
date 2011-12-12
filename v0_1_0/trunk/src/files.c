@@ -3646,7 +3646,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		/* Internal "natural" max value.  Maxes at 18/100 */
 		/* This is useful to see if you are maxed out */
 		cnv_stat(cr_ptr->stat_max[i], buf);
-		if (cr_ptr->stat_max[i] == cr_ptr->stat_max_max[i])
+		if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
 		{
 #ifdef JP
 			c_put_str(TERM_WHITE, "!", row + i+1, stat_col + 6);
@@ -3657,7 +3657,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
 
-		cnv_stat(cr_ptr->stat_max_max[i], buf);
+		cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 19 - strlen(buf));
 
 
@@ -4164,7 +4164,7 @@ void display_creature_status(int mode, creature_type *cr_ptr)
 				c_put_str(TERM_L_GREEN, buf, 3 + i, 62);
 			}
 
-			if (cr_ptr->stat_max[i] == cr_ptr->stat_max_max[i])
+			if (cr_ptr->stat_max[i] == cr_ptr->stat_mod_max_max[i])
 			{
 #ifdef JP
 				c_put_str(TERM_WHITE, "!", 3 + i, 60);
