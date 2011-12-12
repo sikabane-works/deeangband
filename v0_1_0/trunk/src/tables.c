@@ -2398,7 +2398,7 @@ player_class class_info[MAX_CLASS] =
 #endif
 		"Berserker",
 
-		{ 8, -20, -20, 4, 4, -5},
+		{ 8, -10, -8, 4, 4, -5},
 		{ 0, 0, 0, 2, 2, 0},
 		CLASS_RARELITY_UNCOMMON,
 		-100, -1000, -200, -100,  -100, -100, 120, -2000,
