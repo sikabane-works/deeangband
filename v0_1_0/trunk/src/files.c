@@ -3657,7 +3657,8 @@ static void display_player_stat_info(creature_type *cr_ptr)
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 
 
-		cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
+		if(cr_ptr->knowledge & KNOW_HPRATE) cnv_stat(cr_ptr->stat_mod_max_max[i], buf);
+		else strcpy(buf, "????");
 		c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 19 - strlen(buf));
 
 
