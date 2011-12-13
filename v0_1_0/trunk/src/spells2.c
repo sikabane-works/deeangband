@@ -6564,9 +6564,9 @@ bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
 
 
 /*
- * Switch position with a monster.
+ * Switch position with a creature.
  */
-bool teleport_swap(int dir)
+bool teleport_swap(creature_type *creature_ptr, int dir)
 {
 	int tx, ty;
 	cave_type * c_ptr;

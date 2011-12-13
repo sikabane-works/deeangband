@@ -5457,7 +5457,7 @@ static cptr do_trump_spell(creature_type *cr_ptr, int spell, int mode)
 
 				if (!result) return NULL;
 
-				teleport_swap(dir);
+				teleport_swap(cr_ptr, dir);
 			}
 		}
 		break;

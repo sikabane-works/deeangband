@@ -1738,7 +1738,7 @@ msg_print("その方向にはモンスターはいません。");
 		}
 		project_length = 0;
 
-		(void)teleport_swap(dir);
+		(void)teleport_swap(cr_ptr, dir);
 		break;
 	case 15:
 		explosive_rune(cr_ptr);

@@ -3563,7 +3563,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				project_length = 0;
 				return FALSE;
 			}
-			(void)teleport_swap(dir);
+			(void)teleport_swap(cr_ptr, dir);
 			project_length = 0;
 			break;
 
