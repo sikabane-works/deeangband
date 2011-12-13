@@ -1128,7 +1128,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(y, x))
+					if (cave_empty_bold(cr_ptr, y, x))
 					{
 						ty = y;
 						tx = x;
@@ -1681,7 +1681,7 @@ msg_print("その方向にはモンスターはいません。");
 			int nx = GRID_X(path_g[i]);
 			cave_type *c_ptr = &cave[ny][nx];
 
-			if (in_bounds(ny, nx) && cave_empty_bold(ny, nx) &&
+			if (in_bounds(ny, nx) && cave_empty_bold(cr_ptr, ny, nx) &&
 			    !(c_ptr->info & CAVE_OBJECT) &&
 				!pattern_tile(ny, nx))
 			{

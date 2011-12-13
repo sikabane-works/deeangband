@@ -4041,10 +4041,10 @@
  * Line 2 -- forbid normal monsters
  * Line 3 -- forbid the player
  */
-#define cave_empty_bold(Y,X) \
+#define cave_empty_bold(CR, Y,X) \
 	(cave_have_flag_bold((Y), (X), FF_PLACE) && \
 	 !(cave[Y][X].m_idx) && \
-	 !creature_bold(p_ptr, Y,X))
+	 !creature_bold(CR, Y,X))
 
 
 /*
@@ -4055,7 +4055,7 @@
  * Line 2 -- forbid trees while dungeon generation
  */
 #define cave_empty_bold2(Y,X) \
-	(cave_empty_bold(Y,X) && \
+	(cave_empty_bold(p_ptr, Y,X) && \
 	 (character_dungeon || !cave_have_flag_bold((Y), (X), FF_TREE)))
 
 
@@ -4082,7 +4082,7 @@
 
 
 /*
- * Grid based version of "cave_empty_bold()"
+ * Grid based version of "cave_empty_bold(cr_ptr, )"
  */
 #define cave_empty_grid(C) \
 	(cave_have_flag_grid((C), FF_PLACE) && \

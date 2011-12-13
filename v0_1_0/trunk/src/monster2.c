@@ -4844,7 +4844,7 @@ bool alloc_monster(int dis, u32b mode)
 		}
 		else
 		{
-			if (!cave_empty_bold(y, x)) continue;
+			if (!cave_empty_bold(p_ptr, y, x)) continue;
 		}
 
 		/* Accept far away grids */

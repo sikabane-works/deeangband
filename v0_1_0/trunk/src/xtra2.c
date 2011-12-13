@@ -4804,7 +4804,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
 
-			(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 25, FALSE);
+			(void)destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 25, FALSE);
 #ifdef JP
 			reward = "ダンジョンが*破壊*された。";
 #else

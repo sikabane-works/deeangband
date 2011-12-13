@@ -5073,7 +5073,7 @@ msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
  * Later we may use one function for both "destruction" and
  * "earthquake" by using the "full" to select "destruction".
  */
-bool destroy_area(int y1, int x1, int r, bool in_generate)
+bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate)
 {
 	int       y, x, k, t;
 	cave_type *c_ptr;
@@ -5117,7 +5117,7 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
 				/* Hack -- Notice player affect */
-				if (creature_bold(p_ptr, y, x))
+				if (creature_bold(caster_ptr, y, x))
 				{
 					/* Hurt the player later */
 					flag = TRUE;
@@ -5221,22 +5221,22 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 					if (t < 20)
 					{
 						/* Create granite wall */
-						cave_set_feat(p_ptr, y, x, feat_granite);
+						cave_set_feat(caster_ptr, y, x, feat_granite);
 					}
 					else if (t < 70)
 					{
 						/* Create quartz vein */
-						cave_set_feat(p_ptr, y, x, feat_quartz_vein);
+						cave_set_feat(caster_ptr, y, x, feat_quartz_vein);
 					}
 					else if (t < 100)
 					{
 						/* Create magma vein */
-						cave_set_feat(p_ptr, y, x, feat_magma_vein);
+						cave_set_feat(caster_ptr, y, x, feat_magma_vein);
 					}
 					else
 					{
 						/* Create floor */
-						cave_set_feat(p_ptr, y, x, floor_type[randint0(100)]);
+						cave_set_feat(caster_ptr, y, x, floor_type[randint0(100)]);
 					}
 				}
 				else /* In generation */
@@ -5321,20 +5321,20 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 #endif
 
 			/* Blind the player */
-			if (!p_ptr->resist_blind && !p_ptr->resist_lite)
+			if (!caster_ptr->resist_blind && !caster_ptr->resist_lite)
 			{
 				/* Become blind */
-				(void)set_blind(p_ptr, p_ptr->blind + 10 + randint1(10));
+				(void)set_blind(caster_ptr, caster_ptr->blind + 10 + randint1(10));
 			}
 		}
 
 		forget_flow();
 
 		/* Mega-Hack -- Forget the view and lite */
-		p_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
+		caster_ptr->update |= (PU_UN_VIEW | PU_UN_LITE);
 
 		/* Update stuff */
-		p_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+		caster_ptr->update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -5342,9 +5342,9 @@ bool destroy_area(int y1, int x1, int r, bool in_generate)
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		if (p_ptr->special_defense & NINJA_S_STEALTH)
+		if (caster_ptr->special_defense & NINJA_S_STEALTH)
 		{
-			if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+			if (cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
 		}
 	}
 
@@ -5448,7 +5448,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			x = target_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
-			if (!cave_empty_bold(y, x)) continue;
+			if (!cave_empty_bold(target_ptr, y, x)) continue;
 
 			/* Important -- Skip "quake" grids */
 			if (map[16+y-cy][16+x-cx]) continue;
@@ -5640,7 +5640,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							x = xx + ddx_ddd[i];
 
 							/* Skip non-empty grids */
-							if (!cave_empty_bold(y, x)) continue;
+							if (!cave_empty_bold(target_ptr, y, x)) continue;
 
 							/* Hack -- no safety on glyph of warding */
 							if (is_glyph_grid(&cave[y][x])) continue;
@@ -7500,7 +7500,7 @@ bool rush_attack(creature_type *cr_ptr, bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
+		if (cave_empty_bold(cr_ptr, ny, nx) && player_can_enter(cr_ptr, cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;

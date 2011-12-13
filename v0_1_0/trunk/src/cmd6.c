@@ -1902,11 +1902,11 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 
 		case SV_SCROLL_STAR_DESTRUCTION:
 		{
-			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
 #ifdef JP
-msg_print("ダンジョンが揺れた...");
+				msg_print("ダンジョンが揺れた...");
 #else
 				msg_print("The dungeon trembles...");
 #endif
@@ -2552,7 +2552,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_DESTRUCTION:
 		{
-			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
+			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 
 			break;

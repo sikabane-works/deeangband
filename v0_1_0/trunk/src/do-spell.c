@@ -308,7 +308,7 @@ static void cast_wonder(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -461,7 +461,7 @@ static void cast_invoke_spirits(creature_type *cr_ptr, int dir)
 	}
 	else if (die < 106)
 	{
-		(void)destroy_area(cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
+		(void)destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 13 + randint0(5), FALSE);
 	}
 	else if (die < 108)
 	{
@@ -3752,7 +3752,7 @@ static cptr do_chaos_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -8794,7 +8794,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				destroy_area(cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
+				destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, base + randint1(sides), FALSE);
 			}
 		}
 		break;
@@ -10545,7 +10545,7 @@ static cptr do_hissatsu_spell(creature_type *cr_ptr, int spell, int mode)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(y, x))
+					if (cave_empty_bold(cr_ptr, y, x))
 					{
 						ty = y;
 						tx = x;
@@ -12428,7 +12428,7 @@ static cptr do_hex_spell(creature_type *cr_ptr, int spell, int mode)
 					if(cave[dy][dx].m_idx) flag = TRUE;
 				}
 
-				if (!cave_empty_bold(y, x) || (cave[y][x].info & CAVE_ICKY) ||
+				if (!cave_empty_bold(cr_ptr, y, x) || (cave[y][x].info & CAVE_ICKY) ||
 					(distance(y, x, cr_ptr->fy, cr_ptr->fx) > plev + 2))
 				{
 #ifdef JP

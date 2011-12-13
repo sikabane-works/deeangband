@@ -1808,7 +1808,7 @@ void call_the_void(creature_type *cr_ptr)
 		}
 		else
 		{
-			if (destroy_area(cr_ptr->fy, cr_ptr->fx, 15 + cr_ptr->lev + randint0(11), FALSE))
+			if (destroy_area(cr_ptr, cr_ptr->fy, cr_ptr->fx, 15 + cr_ptr->lev + randint0(11), FALSE))
 #ifdef JP
 				msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ª•ö‰ó‚µ‚½...");
 #else
