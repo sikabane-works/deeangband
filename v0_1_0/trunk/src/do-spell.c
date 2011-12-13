@@ -8291,7 +8291,7 @@ static cptr do_crusade_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_blast(GF_LITE, dir, dice, sides, 10, 3);
+				fire_blast(cr_ptr, GF_LITE, dir, dice, sides, 10, 3);
 			}
 		}
 		break;

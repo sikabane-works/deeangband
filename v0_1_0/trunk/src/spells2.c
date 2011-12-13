@@ -6510,7 +6510,7 @@ bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 }
 
 
-bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
+bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev)
 {
 	int ly, lx, ld;
 	int ty, tx, y, x;
@@ -6524,8 +6524,8 @@ bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
 	/* Use the given direction */
 	if (dir != 5)
 	{
-		ly = ty = p_ptr->fy + 20 * ddy[dir];
-		lx = tx = p_ptr->fx + 20 * ddx[dir];
+		ly = ty = caster_ptr->fy + 20 * ddy[dir];
+		lx = tx = caster_ptr->fx + 20 * ddx[dir];
 	}
 
 	/* Use an actual "target" */
@@ -6534,11 +6534,11 @@ bool fire_blast(int typ, int dir, int dd, int ds, int num, int dev)
 		tx = target_col;
 		ty = target_row;
 
-		lx = 20 * (tx - p_ptr->fx) + p_ptr->fx;
-		ly = 20 * (ty - p_ptr->fy) + p_ptr->fy;
+		lx = 20 * (tx - caster_ptr->fx) + caster_ptr->fx;
+		ly = 20 * (ty - caster_ptr->fy) + caster_ptr->fy;
 	}
 
-	ld = distance(p_ptr->fy, p_ptr->fx, ly, lx);
+	ld = distance(caster_ptr->fy, caster_ptr->fx, ly, lx);
 
 	/* Blast */
 	for (i = 0; i < num; i++)
