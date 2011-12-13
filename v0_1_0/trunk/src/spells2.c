@@ -3533,7 +3533,7 @@ info[i++] = "‚ ‚È‚½‚Í—â‹C‚Ö‚Ì‘Ï«‚ğ‚Á‚Ä‚¢‚éB";
 }
 
 
-static bool detect_feat_flag(int range, int flag, bool known)
+static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, bool known)
 {
 	int       x, y;
 	bool      detect = FALSE;
@@ -3546,7 +3546,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 	{
 		for (x = 1; x <= cur_wid - 1; x++)
 		{
-			int dist = distance(p_ptr->fy, p_ptr->fx, y, x);
+			int dist = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 			if (dist > range) continue;
 
 			/* Access the grid */
@@ -3563,7 +3563,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 					c_ptr->info &= ~(CAVE_UNSAFE);
 
 					/* Redraw */
-					lite_spot(p_ptr, y, x);
+					lite_spot(creature_ptr, y, x);
 				}
 			}
 
@@ -3577,7 +3577,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
 				c_ptr->info |= (CAVE_MARK);
 
 				/* Redraw */
-				lite_spot(p_ptr, y, x);
+				lite_spot(creature_ptr, y, x);
 
 				/* Obvious */
 				detect = TRUE;
@@ -3595,7 +3595,7 @@ static bool detect_feat_flag(int range, int flag, bool known)
  */
 bool detect_traps(creature_type *cr_ptr, int range, bool known)
 {
-	bool detect = detect_feat_flag(range, FF_TRAP, known);
+	bool detect = detect_feat_flag(cr_ptr, range, FF_TRAP, known);
 
 	if (known) cr_ptr->dtrap = TRUE;
 
@@ -3621,7 +3621,7 @@ bool detect_traps(creature_type *cr_ptr, int range, bool known)
  */
 bool detect_doors(creature_type *cr_ptr, int range)
 {
-	bool detect = detect_feat_flag(range, FF_DOOR, TRUE);
+	bool detect = detect_feat_flag(cr_ptr, range, FF_DOOR, TRUE);
 
 	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 
@@ -3645,7 +3645,7 @@ bool detect_doors(creature_type *cr_ptr, int range)
  */
 bool detect_stairs(creature_type *cr_ptr, int range)
 {
-	bool detect = detect_feat_flag(range, FF_STAIRS, TRUE);
+	bool detect = detect_feat_flag(cr_ptr, range, FF_STAIRS, TRUE);
 
 	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 0) detect = FALSE;
 
@@ -3669,7 +3669,7 @@ bool detect_stairs(creature_type *cr_ptr, int range)
  */
 bool detect_treasure(creature_type *cr_ptr, int range)
 {
-	bool detect = detect_feat_flag(range, FF_HAS_GOLD, TRUE);
+	bool detect = detect_feat_flag(cr_ptr, range, FF_HAS_GOLD, TRUE);
 
 	if (music_singing(cr_ptr, MUSIC_DETECT) && cr_ptr->magic_num1[2] > 6) detect = FALSE;
 
