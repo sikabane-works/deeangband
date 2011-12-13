@@ -6867,10 +6867,10 @@ bool trap_creation(int y, int x)
 }
 
 
-bool tree_creation(void)
+bool tree_creation(creature_type *caster_ptr)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, p_ptr->fy, p_ptr->fx, 0, GF_MAKE_TREE, flg, -1));
+	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, flg, -1));
 }
 
 

@@ -3079,7 +3079,7 @@ static cptr do_nature_spell(creature_type *cr_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				tree_creation();
+				tree_creation(cr_ptr);
 			}
 		}
 		break;
