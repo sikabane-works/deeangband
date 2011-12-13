@@ -517,7 +517,7 @@ void wild_magic(creature_type *cr_ptr, int spell)
 	case 9:
 	case 10:
 	case 11:
-		unlite_area(10, 3);
+		unlite_area(cr_ptr, 10, 3);
 		break;
 	case 12:
 	case 13:
@@ -698,7 +698,7 @@ static void cast_shuffle(creature_type *cr_ptr)
 		msg_print("It's the Moon.");
 #endif
 
-		unlite_area(10, 3);
+		unlite_area(cr_ptr, 10, 3);
 	}
 	else if (die < 38)
 	{

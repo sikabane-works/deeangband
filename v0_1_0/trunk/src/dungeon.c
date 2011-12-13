@@ -2660,7 +2660,7 @@ static void process_world_aux_mutation(creature_type *cr_ptr)
 		 * Unlite the area (radius 10) around player and
 		 * do 50 points damage to every affected monster
 		 */
-		unlite_area(50, 10);
+		unlite_area(cr_ptr, 50, 10);
 	}
 
 	if (has_cf_creature(cr_ptr, CF_ATT_ANIMAL) &&

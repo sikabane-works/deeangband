@@ -1590,7 +1590,7 @@ static void do_cmd_read_scroll_aux(creature_type *cr_ptr, int item, bool known)
 			{
 				(void)set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5));
 			}
-			if (unlite_area(10, 3)) ident = TRUE;
+			if (unlite_area(cr_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 
@@ -2274,7 +2274,7 @@ static int staff_effect(creature_type *cr_ptr, int sval, bool *use_charge, bool 
 			{
 				if (set_blind(cr_ptr, cr_ptr->blind + 3 + randint1(5))) ident = TRUE;
 			}
-			if (unlite_area(10, 3)) ident = TRUE;
+			if (unlite_area(cr_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 

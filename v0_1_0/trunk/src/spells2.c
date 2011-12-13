@@ -6354,7 +6354,7 @@ bool lite_area(creature_type *cr_ptr, int dam, int rad)
 	}
 
 	/* Hack -- Message */
-	if (!p_ptr->blind)
+	if (!player_ptr->blind)
 	{
 #ifdef JP
 msg_print("白い光が辺りを覆った。");
@@ -6379,12 +6379,12 @@ msg_print("白い光が辺りを覆った。");
  * Hack -- call darkness around the player
  * Affect all monsters in the projection radius
  */
-bool unlite_area(int dam, int rad)
+bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	/* Hack -- Message */
-	if (!p_ptr->blind)
+	if (!player_ptr->blind)
 	{
 #ifdef JP
 msg_print("暗闇が辺りを覆った。");
@@ -6395,10 +6395,10 @@ msg_print("暗闇が辺りを覆った。");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, p_ptr->fy, p_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
+	(void)project(0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
 
 	/* Lite up the room */
-	unlite_room(p_ptr->fy, p_ptr->fx);
+	unlite_room(caster_ptr->fy, caster_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);

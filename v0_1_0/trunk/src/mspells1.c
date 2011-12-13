@@ -3625,7 +3625,7 @@ else msg_format("%^s‚ªŒõ‚ÌŒ•‚ğ•ú‚Á‚½B", m_name);
 			else
 			{
 				learn_spell(target_ptr, MS_DARKNESS);
-				(void)unlite_area(0, 3);
+				(void)unlite_area(caster_ptr, 0, 3);
 			}
 			break;
 		}

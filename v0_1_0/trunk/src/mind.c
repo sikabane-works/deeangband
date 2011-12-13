@@ -1526,7 +1526,7 @@ static bool cast_ninja_spell(creature_type *cr_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		(void)unlite_area(0, 3);
+		(void)unlite_area(cr_ptr, 0, 3);
 		break;
 	case 1:
 		if (plev > 44)

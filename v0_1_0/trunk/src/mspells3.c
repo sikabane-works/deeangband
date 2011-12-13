@@ -1448,7 +1448,7 @@ msg_print("ˆÃˆÅ‚Ì’†‚Åè‚ğU‚Á‚½B");
 #else
 			msg_print("You gesture in shadow.");
 #endif
-		(void)unlite_area(10, 3);
+		(void)unlite_area(caster_ptr, 10, 3);
 		break;
 	case MS_MAKE_TRAP:
 		if (!target_set(caster_ptr, TARGET_KILL)) return FALSE;
