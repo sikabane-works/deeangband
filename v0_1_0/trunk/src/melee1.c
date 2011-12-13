@@ -201,7 +201,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && (randint0(55) < (tar_ptr->lev*3/5+20)))
 	{
-		if (kawarimi(TRUE)) return TRUE;
+		if (kawarimi(tar_ptr, TRUE)) return TRUE;
 	}
 
 	/* Assume no blink */
@@ -2257,7 +2257,7 @@ msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", atk_name);
 
 		if (tar_ptr->special_defense & NINJA_KAWARIMI)
 		{
-			if (kawarimi(FALSE)) return TRUE;
+			if (kawarimi(tar_ptr, FALSE)) return TRUE;
 		}
 	}
 

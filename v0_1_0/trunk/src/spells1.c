@@ -5840,7 +5840,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (tar_ptr->lev*3/5+20)) && !is_player(atk_ptr) && (atk_ptr != &creature_list[tar_ptr->riding]))
 	{
-		if (kawarimi(TRUE)) return FALSE;
+		if (kawarimi(tar_ptr, TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
@@ -7204,7 +7204,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 
 	if ((tar_ptr->special_defense & NINJA_KAWARIMI) && dam && atk_ptr && (atk_ptr != &creature_list[tar_ptr->riding]))
 	{
-		(void)kawarimi(FALSE);
+		(void)kawarimi(tar_ptr, FALSE);
 	}
 
 	/* Return "Anything seen?" */

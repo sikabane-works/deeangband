@@ -7398,15 +7398,15 @@ bool charm_living(int dir, int plev)
 }
 
 
-bool kawarimi(bool success)
+bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;
 	object_type *q_ptr = &forge;
 	int y, x;
 
-	if (p_ptr->is_dead) return FALSE;
-	if (p_ptr->confused || p_ptr->blind || p_ptr->paralyzed || p_ptr->image) return FALSE;
-	if (randint0(200) < p_ptr->stun) return FALSE;
+	if (user_ptr->is_dead) return FALSE;
+	if (user_ptr->confused || user_ptr->blind || user_ptr->paralyzed || user_ptr->image) return FALSE;
+	if (randint0(200) < user_ptr->stun) return FALSE;
 
 	if (!success && one_in_(3))
 	{
@@ -7415,15 +7415,15 @@ bool kawarimi(bool success)
 #else
 		msg_print("Failed! You couldn't run away.");
 #endif
-		p_ptr->special_defense &= ~(NINJA_KAWARIMI);
+		user_ptr->special_defense &= ~(NINJA_KAWARIMI);
 		play_redraw |= (PR_STATUS);
 		return FALSE;
 	}
 
-	y = p_ptr->fy;
-	x = p_ptr->fx;
+	y = user_ptr->fy;
+	x = user_ptr->fx;
 
-	teleport_player(p_ptr, 10 + randint1(90), 0L);
+	teleport_player(user_ptr, 10 + randint1(90), 0L);
 
 	object_wipe(q_ptr);
 
@@ -7442,7 +7442,7 @@ bool kawarimi(bool success)
 	else msg_print("Failed! You are hit by the attack.");
 #endif
 
-	p_ptr->special_defense &= ~(NINJA_KAWARIMI);
+	user_ptr->special_defense &= ~(NINJA_KAWARIMI);
 	play_redraw |= (PR_STATUS);
 
 	/* Teleported */
