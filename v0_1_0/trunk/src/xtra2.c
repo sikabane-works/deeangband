@@ -4582,7 +4582,7 @@ msg_print("「苦しむがよい、無能な愚か者よ！」");
 			msg_print("'Suffer, pathetic fool!'");
 #endif
 
-			fire_ball(GF_DISINTEGRATE, 0, cr_ptr->lev * 4, 4);
+			fire_ball(cr_ptr, GF_DISINTEGRATE, 0, cr_ptr->lev * 4, 4);
 			take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, cr_ptr->lev * 4, wrath_reason, NULL, -1);
 #ifdef JP
 			reward = "分解の球が発生した。";

@@ -1961,7 +1961,7 @@ msg_print("ダンジョンが揺れた...");
 		/* New D'angband scrolls */
 		case SV_SCROLL_FIRE:
 		{
-			fire_ball(GF_FIRE, 0, 666, 4);
+			fire_ball(cr_ptr, GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
 			if (!(IS_OPPOSE_FIRE(cr_ptr) || cr_ptr->resist_fire || cr_ptr->immune_fire))
 #ifdef JP
@@ -1977,7 +1977,7 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_ICE:
 		{
-			fire_ball(GF_ICE, 0, 777, 4);
+			fire_ball(cr_ptr, GF_ICE, 0, 777, 4);
 			if (!(IS_OPPOSE_COLD(cr_ptr) || cr_ptr->resist_cold || cr_ptr->immune_cold))
 #ifdef JP
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
@@ -1991,7 +1991,7 @@ msg_print("ダンジョンが揺れた...");
 
 		case SV_SCROLL_CHAOS:
 		{
-			fire_ball(GF_CHAOS, 0, 1000, 4);
+			fire_ball(cr_ptr, GF_CHAOS, 0, 1000, 4);
 			if (!cr_ptr->resist_chaos)
 #ifdef JP
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
@@ -2946,7 +2946,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_STINKING_CLOUD:
 		{
-			fire_ball(GF_POIS, dir, 12 + cr_ptr->lev / 4, 2);
+			fire_ball(cr_ptr, GF_POIS, dir, 12 + cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
@@ -2988,28 +2988,28 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_ACID_BALL:
 		{
-			fire_ball(GF_ACID, dir, 60 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(cr_ptr, GF_ACID, dir, 60 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ELEC_BALL:
 		{
-			fire_ball(GF_ELEC, dir, 40 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(cr_ptr, GF_ELEC, dir, 40 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BALL:
 		{
-			fire_ball(GF_FIRE, dir, 70 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(cr_ptr, GF_FIRE, dir, 70 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BALL:
 		{
-			fire_ball(GF_COLD, dir, 50 + 3 * cr_ptr->lev / 4, 2);
+			fire_ball(cr_ptr, GF_COLD, dir, 50 + 3 * cr_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3027,14 +3027,14 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_DRAGON_FIRE:
 		{
-			fire_ball(GF_FIRE, dir, 200, -3);
+			fire_ball(cr_ptr, GF_FIRE, dir, 200, -3);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAGON_COLD:
 		{
-			fire_ball(GF_COLD, dir, 180, -3);
+			fire_ball(cr_ptr, GF_COLD, dir, 180, -3);
 			ident = TRUE;
 			break;
 		}
@@ -3045,31 +3045,31 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 			{
 				case 1:
 				{
-					fire_ball(GF_ACID, dir, 240, -3);
+					fire_ball(cr_ptr, GF_ACID, dir, 240, -3);
 					break;
 				}
 
 				case 2:
 				{
-					fire_ball(GF_ELEC, dir, 210, -3);
+					fire_ball(cr_ptr, GF_ELEC, dir, 210, -3);
 					break;
 				}
 
 				case 3:
 				{
-					fire_ball(GF_FIRE, dir, 240, -3);
+					fire_ball(cr_ptr, GF_FIRE, dir, 240, -3);
 					break;
 				}
 
 				case 4:
 				{
-					fire_ball(GF_COLD, dir, 210, -3);
+					fire_ball(cr_ptr, GF_COLD, dir, 210, -3);
 					break;
 				}
 
 				default:
 				{
-					fire_ball(GF_POIS, dir, 180, -3);
+					fire_ball(cr_ptr, GF_POIS, dir, 180, -3);
 					break;
 				}
 			}
@@ -3080,7 +3080,7 @@ static int wand_effect(creature_type *cr_ptr, int sval, int dir, bool magic)
 
 		case SV_WAND_DISINTEGRATE:
 		{
-			fire_ball(GF_DISINTEGRATE, dir, 200 + randint1(cr_ptr->lev * 2), 2);
+			fire_ball(cr_ptr, GF_DISINTEGRATE, dir, 200 + randint1(cr_ptr->lev * 2), 2);
 			ident = TRUE;
 			break;
 		}
@@ -3502,28 +3502,28 @@ static int rod_effect(creature_type *cr_ptr, int sval, int dir, bool *use_charge
 
 		case SV_ROD_ACID_BALL:
 		{
-			fire_ball(GF_ACID, dir, 60 + cr_ptr->lev, 2);
+			fire_ball(cr_ptr, GF_ACID, dir, 60 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BALL:
 		{
-			fire_ball(GF_ELEC, dir, 40 + cr_ptr->lev, 2);
+			fire_ball(cr_ptr, GF_ELEC, dir, 40 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BALL:
 		{
-			fire_ball(GF_FIRE, dir, 70 + cr_ptr->lev, 2);
+			fire_ball(cr_ptr, GF_FIRE, dir, 70 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BALL:
 		{
-			fire_ball(GF_COLD, dir, 50 + cr_ptr->lev, 2);
+			fire_ball(cr_ptr, GF_COLD, dir, 50 + cr_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3825,7 +3825,7 @@ void ring_of_power(creature_type *cr_ptr, int dir)
 		case 6:
 		{
 			/* Mana Ball */
-			fire_ball(GF_MANA, dir, 600, 3);
+			fire_ball(cr_ptr, GF_MANA, dir, 600, 3);
 
 			break;
 		}
@@ -4242,7 +4242,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 300, 3);
+				fire_ball(cr_ptr, GF_FIRE, dir, 300, 3);
 				o_ptr->timeout = randint0(225) + 225;
 				break;
 			}
@@ -4256,7 +4256,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 400, 3);
+				fire_ball(cr_ptr, GF_COLD, dir, 400, 3);
 				o_ptr->timeout = randint0(325) + 325;
 				break;
 			}
@@ -4271,7 +4271,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_ELEC, dir, 500, 3);
+				fire_ball(cr_ptr, GF_ELEC, dir, 500, 3);
 				o_ptr->timeout = randint0(425) + 425;
 				break;
 			}
@@ -4334,7 +4334,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("You breathe the elements.");
 #endif
 
-				fire_ball(GF_MISSILE, dir, 300, 4);
+				fire_ball(cr_ptr, GF_MISSILE, dir, 300, 4);
 #ifdef JP
 				msg_print("鎧が様々な色に輝いた...");
 #else
@@ -4701,7 +4701,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_POIS, dir, 12, 3);
+				fire_ball(cr_ptr, GF_POIS, dir, 12, 3);
 				o_ptr->timeout = randint0(4) + 4;
 				break;
 			}
@@ -4715,7 +4715,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_WATER, dir, 200, 3);
+				fire_ball(cr_ptr, GF_WATER, dir, 200, 3);
 				o_ptr->timeout = 250;
 				break;
 			}
@@ -4729,7 +4729,7 @@ msg_print("天国の歌が聞こえる...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 48, 2);
+				fire_ball(cr_ptr, GF_COLD, dir, 48, 2);
 				o_ptr->timeout = randint0(5) + 5;
 				break;
 			}
@@ -4782,7 +4782,7 @@ if (get_check("この階を去りますか？"))
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 100, 2);
+				fire_ball(cr_ptr, GF_COLD, dir, 100, 2);
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -4809,7 +4809,7 @@ msg_print("暁の師団を召喚した。");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 72, 2);
+				fire_ball(cr_ptr, GF_FIRE, dir, 72, 2);
 				o_ptr->timeout = 400;
 				break;
 			}
@@ -4837,7 +4837,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_ELEC, dir, 100, 3);
+				fire_ball(cr_ptr, GF_ELEC, dir, 100, 3);
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -4851,7 +4851,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 100, 3);
+				fire_ball(cr_ptr, GF_COLD, dir, 100, 3);
 				o_ptr->timeout = 200;
 				break;
 			}
@@ -4972,7 +4972,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 72, 3);
+				fire_ball(cr_ptr, GF_FIRE, dir, 72, 3);
 				o_ptr->timeout = 100;
 				break;
 			}
@@ -4986,7 +4986,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 120, 3);
+				fire_ball(cr_ptr, GF_FIRE, dir, 120, 3);
 				o_ptr->timeout = 15;
 				break;
 			}
@@ -5271,7 +5271,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #else
 				msg_print("Your shield gleams with blinding light...");
 #endif
-				fire_ball(GF_LITE, 0, 300, 6);
+				fire_ball(cr_ptr, GF_LITE, 0, 300, 6);
 				confuse_monsters(3 * cr_ptr->lev / 2);
 				o_ptr->timeout = 250;
 				break;
@@ -5322,7 +5322,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_MANA, dir, 400, 4);
+				fire_ball(cr_ptr, GF_MANA, dir, 400, 4);
 				o_ptr->timeout = randint0(250) + 250;
 				break;
 			}
@@ -5411,7 +5411,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_LITE, dir, 200, 3);
+				fire_ball(cr_ptr, GF_LITE, dir, 200, 3);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -5658,7 +5658,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your amulet is coverd in pitch-darkness...");
 #endif
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_DARK, dir, 250, 4);
+				fire_ball(cr_ptr, GF_DARK, dir, 250, 4);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -5670,7 +5670,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your collar harness is coverd in pitch-darkness...");
 #endif
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_DARK, dir, 250, 4);
+				fire_ball(cr_ptr, GF_DARK, dir, 250, 4);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -5864,7 +5864,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe lightning.");
 #endif
 
-				fire_ball(GF_ELEC, dir, 100, -2);
+				fire_ball(cr_ptr, GF_ELEC, dir, 100, -2);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -5877,7 +5877,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe frost.");
 #endif
 
-				fire_ball(GF_COLD, dir, 110, -2);
+				fire_ball(cr_ptr, GF_COLD, dir, 110, -2);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -5890,7 +5890,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe acid.");
 #endif
 
-				fire_ball(GF_ACID, dir, 130, -2);
+				fire_ball(cr_ptr, GF_ACID, dir, 130, -2);
 				o_ptr->timeout = randint0(150) + 150;
 				break;
 			}
@@ -5903,7 +5903,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe poison gas.");
 #endif
 
-				fire_ball(GF_POIS, dir, 150, -2);
+				fire_ball(cr_ptr, GF_POIS, dir, 150, -2);
 				o_ptr->timeout = randint0(180) + 180;
 				break;
 			}
@@ -5916,7 +5916,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe fire.");
 #endif
 
-				fire_ball(GF_FIRE, dir, 200, -2);
+				fire_ball(cr_ptr, GF_FIRE, dir, 200, -2);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -5938,7 +5938,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					      ((chance == 4) ? "poison gas" : "fire")))));
 #endif
 
-				fire_ball(((chance == 1) ? GF_ELEC :
+				fire_ball(cr_ptr, ((chance == 1) ? GF_ELEC :
 					   ((chance == 2) ? GF_COLD :
 					    ((chance == 3) ? GF_ACID :
 					     ((chance == 4) ? GF_POIS : GF_FIRE)))),
@@ -5955,7 +5955,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe confusion.");
 #endif
 
-				fire_ball(GF_CONFUSION, dir, 120, -2);
+				fire_ball(cr_ptr, GF_CONFUSION, dir, 120, -2);
 				o_ptr->timeout = randint0(180) + 180;
 				break;
 			}
@@ -5968,7 +5968,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("You breathe sound.");
 #endif
 
-				fire_ball(GF_SOUND, dir, 130, -2);
+				fire_ball(cr_ptr, GF_SOUND, dir, 130, -2);
 				o_ptr->timeout = randint0(180) + 180;
 				break;
 			}
@@ -5984,7 +5984,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					   ((chance == 1 ? "chaos" : "disenchantment")));
 #endif
 
-				fire_ball((chance == 1 ? GF_CHAOS : GF_DISENCHANT),
+				fire_ball(cr_ptr, (chance == 1 ? GF_CHAOS : GF_DISENCHANT),
 					  dir, 220, -2);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
@@ -6001,7 +6001,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					   ((chance == 1 ? "sound" : "shards")));
 #endif
 
-				fire_ball((chance == 1 ? GF_SOUND : GF_SHARDS),
+				fire_ball(cr_ptr, (chance == 1 ? GF_SOUND : GF_SHARDS),
 					  dir, 230, -2);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
@@ -6022,7 +6022,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					     ((chance == 3) ? "sound" : "shards"))));
 #endif
 
-				fire_ball(((chance == 1) ? GF_CHAOS :
+				fire_ball(cr_ptr, ((chance == 1) ? GF_CHAOS :
 					   ((chance == 2) ? GF_DISENCHANT :
 					    ((chance == 3) ? GF_SOUND : GF_SHARDS))),
 					  dir, 250, -2);
@@ -6041,7 +6041,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					   ((chance == 0 ? "light" : "darkness")));
 #endif
 
-				fire_ball((chance == 0 ? GF_LITE : GF_DARK), dir, 200, -2);
+				fire_ball(cr_ptr, (chance == 0 ? GF_LITE : GF_DARK), dir, 200, -2);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -6054,7 +6054,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				msg_print("You breathe the elements.");
 #endif
 
-				fire_ball(GF_MISSILE, dir, 300, -3);
+				fire_ball(cr_ptr, GF_MISSILE, dir, 300, -3);
 				o_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -6113,32 +6113,32 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_RING_FIRE_BALL:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 100, 2);
+				fire_ball(cr_ptr, GF_FIRE, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_COLD_BALL:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 100, 2);
+				fire_ball(cr_ptr, GF_COLD, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ELEC_BALL:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_ELEC, dir, 100, 2);
+				fire_ball(cr_ptr, GF_ELEC, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_ACID_BALL:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_ACID, dir, 100, 2);
+				fire_ball(cr_ptr, GF_ACID, dir, 100, 2);
 				o_ptr->timeout = randint0(80) + 80;
 				break;
 			case EGO_RING_MANA_BALL:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_MANA, dir, 250, 2);
+				fire_ball(cr_ptr, GF_MANA, dir, 250, 2);
 				o_ptr->timeout = 300;
 				break;
 			case EGO_RING_DRAGON_F:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_FIRE, dir, 200, -2);
+				fire_ball(cr_ptr, GF_FIRE, dir, 200, -2);
 				if (o_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_oppose_fire(cr_ptr, randint1(20) + 20, FALSE);
@@ -6148,7 +6148,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 			case EGO_RING_DRAGON_C:
 				if (!get_aim_dir(cr_ptr, &dir)) return;
-				fire_ball(GF_COLD, dir, 200, -2);
+				fire_ball(cr_ptr, GF_COLD, dir, 200, -2);
 				if (o_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_oppose_cold(cr_ptr, randint1(20) + 20, FALSE);
@@ -6205,7 +6205,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			case SV_RING_ACID:
 			{
-				fire_ball(GF_ACID, dir, 100, 2);
+				fire_ball(cr_ptr, GF_ACID, dir, 100, 2);
 				(void)set_oppose_acid(cr_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
@@ -6213,7 +6213,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			case SV_RING_ICE:
 			{
-				fire_ball(GF_COLD, dir, 100, 2);
+				fire_ball(cr_ptr, GF_COLD, dir, 100, 2);
 				(void)set_oppose_cold(cr_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
@@ -6221,7 +6221,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			case SV_RING_FLAMES:
 			{
-				fire_ball(GF_FIRE, dir, 100, 2);
+				fire_ball(cr_ptr, GF_FIRE, dir, 100, 2);
 				(void)set_oppose_fire(cr_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
@@ -6229,7 +6229,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			case SV_RING_ELEC:
 			{
-				fire_ball(GF_ELEC, dir, 100, 2);
+				fire_ball(cr_ptr, GF_ELEC, dir, 100, 2);
 				(void)set_oppose_elec(cr_ptr, randint1(20) + 20, FALSE);
 				o_ptr->timeout = randint0(50) + 50;
 				break;
@@ -6360,7 +6360,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			}
 			target_pet = old_target_pet;
 
-			if(fire_ball(GF_CAPTURE, dir, 0, 0))
+			if(fire_ball(cr_ptr, GF_CAPTURE, dir, 0, 0))
 			{
 				o_ptr->pval = cap_mon;
 				o_ptr->xtra3 = cap_speed;

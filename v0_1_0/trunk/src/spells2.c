@@ -6412,7 +6412,7 @@ msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
  * Allow "target" mode to pass over monsters
  * Affect grids, objects, and monsters
  */
-bool fire_ball(int typ, int dir, int dam, int rad)
+bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
@@ -6420,8 +6420,8 @@ bool fire_ball(int typ, int dir, int dam, int rad)
 
 	if (typ == GF_CONTROL_LIVING) flg|= PROJECT_HIDE;
 	/* Use the given direction */
-	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = p_ptr->fy + 99 * ddy[dir];
+	tx = caster_ptr->fx + 99 * ddx[dir];
+	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -6432,7 +6432,7 @@ bool fire_ball(int typ, int dir, int dam, int rad)
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(p_ptr, rad, ty, tx, dam, typ, flg, -1));
+	return (project(caster_ptr, rad, ty, tx, dam, typ, flg, -1));
 }
 
 
@@ -6948,13 +6948,13 @@ void call_chaos(creature_type *cr_ptr)
 				if (line_chaos)
 					fire_beam(Chaos_type, dummy, 150);
 				else
-					fire_ball(Chaos_type, dummy, 150, 2);
+					fire_ball(cr_ptr, Chaos_type, dummy, 150, 2);
 			}
 		}
 	}
 	else if (one_in_(3))
 	{
-		fire_ball(Chaos_type, 0, 500, 8);
+		fire_ball(cr_ptr, Chaos_type, 0, 500, 8);
 	}
 	else
 	{
@@ -6962,7 +6962,7 @@ void call_chaos(creature_type *cr_ptr)
 		if (line_chaos)
 			fire_beam(Chaos_type, dir, 250);
 		else
-			fire_ball(Chaos_type, dir, 250, 3 + (plev / 35));
+			fire_ball(cr_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
 	}
 }
 

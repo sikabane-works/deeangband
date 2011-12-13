@@ -3322,7 +3322,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("You spit acid...");
 #endif
 
-			fire_ball(GF_ACID, dir, lvl, 1 + (lvl / 30));
+			fire_ball(cr_ptr, GF_ACID, dir, lvl, 1 + (lvl / 30));
 			break;
 
 		case CF_BR_FIRE:
@@ -3334,7 +3334,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("You breathe fire...");
 #endif
 
-			fire_ball(GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
+			fire_ball(cr_ptr, GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
 			break;
 
 		case CF_HYPN_GAZE:
@@ -3387,7 +3387,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 			msg_print("Radiation flows from your body!");
 #endif
 
-			fire_ball(GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
+			fire_ball(cr_ptr, GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
 			break;
 
 		case CF_VAMPIRISM:
@@ -3569,7 +3569,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 
 		case CF_SHRIEK:
 			mutation_stop_mouth(cr_ptr);
-			(void)fire_ball(GF_SOUND, 0, 2 * lvl, 8);
+			(void)fire_ball(cr_ptr, GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_monsters(NULL);
 			break;
 

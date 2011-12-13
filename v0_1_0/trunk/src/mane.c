@@ -354,7 +354,7 @@ else msg_print("酸のブレスを吐いた。");
 			else msg_print("You breathe acid.");
 #endif
 		
-			fire_ball(GF_ACID, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_ACID, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_ELEC:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -364,7 +364,7 @@ else msg_print("稲妻のブレスを吐いた。");
 			else msg_print("You breathe lightning.");
 #endif
 		
-			fire_ball(GF_ELEC, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_ELEC, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_FIRE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -374,7 +374,7 @@ else msg_print("火炎のブレスを吐いた。");
 			else msg_print("You breathe fire.");
 #endif
 		
-			fire_ball(GF_FIRE, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_FIRE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_COLD:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -384,7 +384,7 @@ else msg_print("冷気のブレスを吐いた。");
 			else msg_print("You breathe frost.");
 #endif
 		
-			fire_ball(GF_COLD, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_COLD, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_POIS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -394,7 +394,7 @@ else msg_print("ガスのブレスを吐いた。");
 			else msg_print("You breathe gas.");
 #endif
 		
-			fire_ball(GF_POIS, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_POIS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_NETHER:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -404,7 +404,7 @@ else msg_print("地獄のブレスを吐いた。");
 			else msg_print("You breathe nether.");
 #endif
 		
-			fire_ball(GF_NETHER, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_NETHER, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_LITE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -414,7 +414,7 @@ else msg_print("閃光のブレスを吐いた。");
 			else msg_print("You breathe light.");
 #endif
 		
-			fire_ball(GF_LITE, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_LITE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_DARK:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -424,7 +424,7 @@ else msg_print("暗黒のブレスを吐いた。");
 			else msg_print("You breathe darkness.");
 #endif
 		
-			fire_ball(GF_DARK, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_DARK, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_CONF:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -434,7 +434,7 @@ else msg_print("混乱のブレスを吐いた。");
 			else msg_print("You breathe confusion.");
 #endif
 		
-			fire_ball(GF_CONFUSION, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_CONFUSION, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_SOUND:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -444,7 +444,7 @@ else msg_print("轟音のブレスを吐いた。");
 			else msg_print("You breathe sound.");
 #endif
 		
-			fire_ball(GF_SOUND, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_SOUND, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_CHAOS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -454,7 +454,7 @@ else msg_print("カオスのブレスを吐いた。");
 			else msg_print("You breathe chaos.");
 #endif
 		
-			fire_ball(GF_CHAOS, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_CHAOS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_DISEN:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -464,7 +464,7 @@ else msg_print("劣化のブレスを吐いた。");
 			else msg_print("You breathe disenchantment.");
 #endif
 		
-			fire_ball(GF_DISENCHANT, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_DISENCHANT, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_NEXUS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -474,7 +474,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 			else msg_print("You breathe nexus.");
 #endif
 		
-			fire_ball(GF_NEXUS, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_NEXUS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_TIME:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -484,7 +484,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 			else msg_print("You breathe time.");
 #endif
 		
-			fire_ball(GF_TIME, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_TIME, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_INERTIA:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -494,7 +494,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 			else msg_print("You breathe inertia.");
 #endif
 		
-			fire_ball(GF_INERTIA, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_INERTIA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_GRAVITY:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -504,7 +504,7 @@ else msg_print("重力のブレスを吐いた。");
 			else msg_print("You breathe gravity.");
 #endif
 		
-			fire_ball(GF_GRAVITY, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_GRAVITY, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_SHARDS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -514,7 +514,7 @@ else msg_print("破片のブレスを吐いた。");
 			else msg_print("You breathe shards.");
 #endif
 		
-			fire_ball(GF_SHARDS, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_SHARDS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_PLASMA:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -524,7 +524,7 @@ else msg_print("プラズマのブレスを吐いた。");
 			else msg_print("You breathe plasma.");
 #endif
 		
-			fire_ball(GF_PLASMA, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_PLASMA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_FORCE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -534,7 +534,7 @@ else msg_print("フォースのブレスを吐いた。");
 			else msg_print("You breathe force.");
 #endif
 		
-			fire_ball(GF_FORCE, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_FORCE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BR_MANA:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -544,7 +544,7 @@ else msg_print("魔力のブレスを吐いた。");
 			else msg_print("You breathe mana.");
 #endif
 		
-			fire_ball(GF_MANA, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_MANA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_NUKE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -554,7 +554,7 @@ else msg_print("放射能球を放った。");
 			else msg_print("You cast a ball of radiation.");
 #endif
 		
-			fire_ball(GF_NUKE, dir, damage, 2);
+			fire_ball(cr_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case MS_BR_NUKE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -564,7 +564,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 			else msg_print("You breathe toxic waste.");
 #endif
 		
-			fire_ball(GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_CHAOS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -574,7 +574,7 @@ else msg_print("純ログルスを放った。");
 			else msg_print("You invoke a raw Logrus.");
 #endif
 		
-			fire_ball(GF_CHAOS, dir, damage, 4);
+			fire_ball(cr_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case MS_BR_DISI:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -584,7 +584,7 @@ else msg_print("分解のブレスを吐いた。");
 			else msg_print("You breathe disintegration.");
 #endif
 		
-			fire_ball(GF_DISINTEGRATE, dir, damage, (plev > 35 ? -3 : -2));
+			fire_ball(cr_ptr, GF_DISINTEGRATE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case MS_BALL_ACID:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -594,7 +594,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 			else msg_print("You cast an acid ball.");
 #endif
 		
-			fire_ball(GF_ACID, dir, damage, 2);
+			fire_ball(cr_ptr, GF_ACID, dir, damage, 2);
 		break;
 	case MS_BALL_ELEC:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -604,7 +604,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 			else msg_print("You cast a lightning ball.");
 #endif
 		
-			fire_ball(GF_ELEC, dir, damage, 2);
+			fire_ball(cr_ptr, GF_ELEC, dir, damage, 2);
 		break;
 	case MS_BALL_FIRE:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -614,7 +614,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 			else msg_print("You cast a fire ball.");
 #endif
 		
-			fire_ball(GF_FIRE, dir, damage, 2);
+			fire_ball(cr_ptr, GF_FIRE, dir, damage, 2);
 		break;
 	case MS_BALL_COLD:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -624,7 +624,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 			else msg_print("You cast a frost ball.");
 #endif
 		
-			fire_ball(GF_COLD, dir, damage, 2);
+			fire_ball(cr_ptr, GF_COLD, dir, damage, 2);
 		break;
 	case MS_BALL_POIS:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -634,7 +634,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 			else msg_print("You cast a stinking cloud.");
 #endif
 		
-			fire_ball(GF_POIS, dir, damage, 2);
+			fire_ball(cr_ptr, GF_POIS, dir, damage, 2);
 		break;
 	case MS_BALL_NETHER:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -644,7 +644,7 @@ else msg_print("地獄球の呪文を唱えた。");
 			else msg_print("You cast a nether ball.");
 #endif
 		
-			fire_ball(GF_NETHER, dir, damage, 2);
+			fire_ball(cr_ptr, GF_NETHER, dir, damage, 2);
 		break;
 	case MS_BALL_WATER:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -654,7 +654,7 @@ else msg_print("流れるような身振りをした。");
 			else msg_print("You gesture fluidly.");
 #endif
 		
-			fire_ball(GF_WATER, dir, damage, 4);
+			fire_ball(cr_ptr, GF_WATER, dir, damage, 4);
 		break;
 	case MS_BALL_MANA:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -664,7 +664,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 			else msg_print("You invoke a mana storm.");
 #endif
 		
-			fire_ball(GF_MANA, dir, damage, 4);
+			fire_ball(cr_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case MS_BALL_DARK:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -674,7 +674,7 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 			else msg_print("You invoke a darkness storm.");
 #endif
 		
-			fire_ball(GF_DARK, dir, damage, 4);
+			fire_ball(cr_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case MS_DRAIN_MANA:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -752,7 +752,7 @@ else msg_print("スターバーストの呪文を念じた。");
 			else msg_print("You invoke a starburst.");
 #endif
 		
-			fire_ball(GF_LITE, dir, damage, 4);
+			fire_ball(cr_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case MS_BOLT_NETHER:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;

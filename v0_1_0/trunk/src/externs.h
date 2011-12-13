@@ -1435,7 +1435,7 @@ extern void lite_room(int y1, int x1);
 extern void unlite_room(int y1, int x1);
 extern bool lite_area(creature_type *cr_ptr, int dam, int rad);
 extern bool unlite_area(creature_type *caster_ptr, int dam, int rad);
-extern bool fire_ball(int typ, int dir, int dam, int rad);
+extern bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_ball_hide(int typ, int dir, int dam, int rad);
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);

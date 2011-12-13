@@ -2005,7 +2005,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_POIS, dir, 12, 3);
+			fire_ball(cr_ptr, GF_POIS, dir, 12, 3);
 			o_ptr->timeout = (s16b)randint0(4) + 4;
 			break;
 		}
@@ -2075,7 +2075,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_COLD, dir, 48, 2);
+			fire_ball(cr_ptr, GF_COLD, dir, 48, 2);
 			o_ptr->timeout = 400;
 			break;
 		}
@@ -2089,7 +2089,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_FIRE, dir, 72, 2);
+			fire_ball(cr_ptr, GF_FIRE, dir, 72, 2);
 			o_ptr->timeout = 400;
 			break;
 		}
@@ -2117,7 +2117,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_COLD, dir, 100, 2);
+			fire_ball(cr_ptr, GF_COLD, dir, 100, 2);
 			o_ptr->timeout = 300;
 			break;
 		}
@@ -2131,7 +2131,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_ELEC, dir, 100, 3);
+			fire_ball(cr_ptr, GF_ELEC, dir, 100, 3);
 			o_ptr->timeout = 500;
 			break;
 		}
@@ -2185,7 +2185,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_FIRE, dir, 120, 3);
+			fire_ball(cr_ptr, GF_FIRE, dir, 120, 3);
 			o_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
 		}
@@ -2199,7 +2199,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_COLD, dir, 200, 3);
+			fire_ball(cr_ptr, GF_COLD, dir, 200, 3);
 			o_ptr->timeout = (s16b)randint0(325) + 325;
 			break;
 		}
@@ -2213,7 +2213,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 #endif
 
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-			fire_ball(GF_ELEC, dir, 250, 3);
+			fire_ball(cr_ptr, GF_ELEC, dir, 250, 3);
 			o_ptr->timeout = (s16b)randint0(425) + 425;
 			break;
 		}
@@ -2279,7 +2279,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("You launch a rocket!");
 #endif
 
-			fire_ball(GF_ROCKET, dir, 250 + plev*3, 2);
+			fire_ball(cr_ptr, GF_ROCKET, dir, 250 + plev*3, 2);
 			o_ptr->timeout = 400;
 			break;
 		}
@@ -2319,7 +2319,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 			msg_print("You breathe the elements.");
 #endif
 
-			fire_ball(GF_MISSILE, dir, 300, 4);
+			fire_ball(cr_ptr, GF_MISSILE, dir, 300, 4);
 			o_ptr->timeout = 500;
 			break;
 		}

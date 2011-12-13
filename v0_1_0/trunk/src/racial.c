@@ -1444,7 +1444,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-			fire_ball(type, dir, plev * 3, -(plev / 15) - 1);
+			fire_ball(cr_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			break;
 		}
 		case MIMIC_VAMPIRE:
@@ -1695,7 +1695,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #endif
 
 			if (plev < 25) fire_bolt(GF_ACID, dir, plev);
-			else fire_ball(GF_ACID, dir, plev, 2);
+			else fire_ball(cr_ptr, GF_ACID, dir, plev, 2);
 			break;
 
 		case RACE_KOBOLD:
@@ -1936,7 +1936,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_format("You breathe %s.", Type_desc);
 #endif
 
-				fire_ball(Type, dir, plev * 2,
+				fire_ball(cr_ptr, Type, dir, plev * 2,
 				    -(plev / 15) - 1);
 			}
 			break;
@@ -1962,7 +1962,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_print("You cast a ball of fire.");
 #endif
 
-				fire_ball(GF_FIRE, dir, plev, 2);
+				fire_ball(cr_ptr, GF_FIRE, dir, plev, 2);
 			}
 			else
 			{
@@ -2101,7 +2101,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-				fire_ball(type, dir, plev * 3, -(plev / 15) - 1);
+				fire_ball(cr_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			}
 			break;
 
@@ -2136,7 +2136,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 #else
 				msg_print("You fire your bazooka.");
 #endif
-				fire_ball(GF_MISSILE, dir, plev * 2, 2);
+				fire_ball(cr_ptr, GF_MISSILE, dir, plev * 2, 2);
 			}
 			else if (plev < 45)
 			{

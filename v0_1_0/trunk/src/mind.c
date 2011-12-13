@@ -883,7 +883,7 @@ if (!b) msg_print("安全な気がする。");
 		if (randint1(100) < plev * 2)
 			fire_beam(GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)));
 		else
-			fire_ball(GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
+			fire_ball(cr_ptr, GF_PSI, dir, damroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		break;
 	case 2:
 		/* Minor displace */
@@ -899,7 +899,7 @@ if (!b) msg_print("安全な気がする。");
 		{
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
-			fire_ball(GF_DOMINATION, dir, plev, 0);
+			fire_ball(cr_ptr, GF_DOMINATION, dir, plev, 0);
 		}
 		else
 		{
@@ -910,7 +910,7 @@ if (!b) msg_print("安全な気がする。");
 		/* Fist of Force  ---  not 'true' TK  */
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 
-		fire_ball(GF_TELEKINESIS, dir, damroll(8 + ((plev - 5) / 4), 8),
+		fire_ball(cr_ptr, GF_TELEKINESIS, dir, damroll(8 + ((plev - 5) / 4), 8),
 			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 	case 6:
@@ -975,7 +975,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		b = damroll(plev / 2, 6);
 
 		/* This is always a radius-0 ball now */
-		if (fire_ball(GF_PSI_DRAIN, dir, b, 0))
+		if (fire_ball(cr_ptr, GF_PSI_DRAIN, dir, b, 0))
 			cr_ptr->energy_need += (s16b)randint1(150);
 		break;
 	case 12:
@@ -1048,7 +1048,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 	{
 	case 0:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(GF_MISSILE, dir, damroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
+		fire_ball(cr_ptr, GF_MISSILE, dir, damroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
 		(void)lite_area(cr_ptr, damroll(2, (plev / 2)), (plev / 10) + 1);
@@ -1080,7 +1080,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 #else
 			msg_print("The Force exploded!");
 #endif
-			fire_ball(GF_MANA, 0, cr_ptr->magic_num1[0] / 2, 10);
+			fire_ball(cr_ptr, GF_MANA, 0, cr_ptr->magic_num1[0] / 2, 10);
 #ifdef JP
 			take_hit(NULL, cr_ptr, DAMAGE_LOSELIFE, cr_ptr->magic_num1[0] / 2, "気の暴走", NULL, -1);
 #else
@@ -1160,7 +1160,7 @@ static bool cast_force_spell(creature_type *cr_ptr, int spell)
 	}
 	case 8:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(GF_MISSILE, dir, damroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
+		fire_ball(cr_ptr, GF_MISSILE, dir, damroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
 		break;
 	case 9:
 	{
@@ -1201,7 +1201,7 @@ msg_print("御用でございますが、御主人様？");
 		break;
 	}
 	case 11:
-		fire_ball(GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
+		fire_ball(cr_ptr, GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
 		break;
 	case 12:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
@@ -1310,7 +1310,7 @@ msg_format("There are too many mirrors to control!");
 	/* mirror clashing */
 	case 8:
 	  if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-	  fire_ball(GF_SHARDS, dir, damroll(8 + ((plev - 5) / 4), 8),
+	  fire_ball(cr_ptr, GF_SHARDS, dir, damroll(8 + ((plev - 5) / 4), 8),
 		    (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 	  break;
 	/* mirror sleeping */
@@ -1613,7 +1613,7 @@ msg_print("その方向にはモンスターはいません。");
 		set_tim_levitation(cr_ptr, randint1(20) + 20, FALSE);
 		break;
 	case 9:
-		fire_ball(GF_FIRE, 0, 50+plev, plev/10+2);
+		fire_ball(cr_ptr, GF_FIRE, 0, 50+plev, plev/10+2);
 		teleport_player(cr_ptr, 30, 0L);
 		set_oppose_fire(cr_ptr, plev, FALSE);
 		break;
@@ -1727,7 +1727,7 @@ msg_print("その方向にはモンスターはいません。");
 	}
 	case 13:
 		if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-		fire_ball(GF_OLD_CONF, dir, plev*3, 3);
+		fire_ball(cr_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
 		project_length = -1;
@@ -1748,9 +1748,9 @@ msg_print("その方向にはモンスターはいません。");
 		set_oppose_acid(cr_ptr, plev, FALSE);
 		break;
 	case 17:
-		fire_ball(GF_POIS, 0, 75+plev*2/3, plev/5+2);
-		fire_ball(GF_OLD_DRAIN, 0, 75+plev*2/3, plev/5+2);
-		fire_ball(GF_CONFUSION, 0, 75+plev*2/3, plev/5+2);
+		fire_ball(cr_ptr, GF_POIS, 0, 75+plev*2/3, plev/5+2);
+		fire_ball(cr_ptr, GF_OLD_DRAIN, 0, 75+plev*2/3, plev/5+2);
+		fire_ball(cr_ptr, GF_CONFUSION, 0, 75+plev*2/3, plev/5+2);
 		teleport_player(cr_ptr, 30, 0L);
 		break;
 	case 18:
