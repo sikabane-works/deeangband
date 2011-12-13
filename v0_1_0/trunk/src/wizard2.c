@@ -2104,6 +2104,26 @@ void do_cmd_debug(creature_type *cr_ptr)
 		acquirement(cr_ptr->fy, cr_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
+	/* Very Good Objects 2*/
+	case 'V':
+		if (command_arg <= 0) command_arg = 1;
+				/* Default */
+		{
+			char tmp_val[10];
+			int tmp_int;
+			object_type ob;
+			sprintf(tmp_val, "9");
+			/* Query */
+			if (!get_string("Ego Num:", tmp_val, 3)) return;
+
+			tmp_int = atoi(tmp_val);
+
+			object_wipe(&ob);
+			object_prep(&ob, 32, cr_ptr->size);
+			apply_magic_specified_ego(cr_ptr, &ob, cr_ptr->lev * 2, tmp_int);
+		}
+		break;
+
 	/* Wizard Light the Level */
 	case 'w':
 		wiz_lite(cr_ptr, (bool)(cr_ptr->cls_idx == CLASS_NINJA));

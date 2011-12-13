@@ -4212,7 +4212,7 @@ bool detect_monsters_mind(creature_type *cr_ptr, int range)
 		x = m_ptr->fx;
 
 		/* Only detect nearby monsters */
-		if (distance(p_ptr->fy, p_ptr->fx, y, x) > range) continue;
+		if (distance(cr_ptr->fy, cr_ptr->fx, y, x) > range) continue;
 
 		/* Detect non-living monsters */
 		if (!has_cf_creature(m_ptr, CF_EMPTY_MIND))
