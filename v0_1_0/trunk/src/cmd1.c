@@ -1667,7 +1667,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			fire_ball_hide(GF_WATER_FLOW, 0, 1, 10);
+			fire_ball_hide(cr_ptr, GF_WATER_FLOW, 0, 1, 10);
 
 			/* Summon Piranhas */
 			num = 1 + dun_level/20;
@@ -1687,7 +1687,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			fire_ball_hide(GF_ACID_FLOW, 0, 1, 10);
+			fire_ball_hide(cr_ptr, GF_ACID_FLOW, 0, 1, 10);
 			break;
 
 		}
@@ -1701,7 +1701,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			fire_ball_hide(GF_POISON_FLOW, 0, 1, 10);
+			fire_ball_hide(cr_ptr, GF_POISON_FLOW, 0, 1, 10);
 			break;
 		}
 

@@ -1253,7 +1253,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(GF_WOUNDS, dir, damroll(dice, sides), 0);
+				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -1403,7 +1403,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(GF_WOUNDS, dir, damroll(sides, dice), 0);
+				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(sides, dice), 0);
 			}
 		}
 		break;
@@ -1634,7 +1634,7 @@ static cptr do_life_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
-				fire_ball_hide(GF_WOUNDS, dir, damroll(dice, sides), 0);
+				fire_ball_hide(cr_ptr, GF_WOUNDS, dir, damroll(dice, sides), 0);
 			}
 		}
 		break;
@@ -4247,13 +4247,13 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 					int effect = randint1(1000);
 
 					if (effect == 666)
-						fire_ball_hide(GF_DEATH_RAY, dir, plev * 200, 0);
+						fire_ball_hide(cr_ptr, GF_DEATH_RAY, dir, plev * 200, 0);
 					else if (effect < 500)
-						fire_ball_hide(GF_TURN_ALL, dir, plev, 0);
+						fire_ball_hide(cr_ptr, GF_TURN_ALL, dir, plev, 0);
 					else if (effect < 800)
-						fire_ball_hide(GF_OLD_CONF, dir, plev, 0);
+						fire_ball_hide(cr_ptr, GF_OLD_CONF, dir, plev, 0);
 					else
-						fire_ball_hide(GF_STUN, dir, plev, 0);
+						fire_ball_hide(cr_ptr, GF_STUN, dir, plev, 0);
 				}
 			}
 		}
@@ -4493,7 +4493,7 @@ static cptr do_death_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_ball_hide(GF_GENOCIDE, dir, power, 0);
+				fire_ball_hide(cr_ptr, GF_GENOCIDE, dir, power, 0);
 			}
 		}
 		break;
@@ -7832,7 +7832,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			if (cast)
 			{
 				fire_ball(cr_ptr, GF_FIRE, 0, dam, rad);
-				fire_ball_hide(GF_LAVA_FLOW, 0, 2 + randint1(2), rad);
+				fire_ball_hide(cr_ptr, GF_LAVA_FLOW, 0, 2 + randint1(2), rad);
 			}
 		}
 		break;
@@ -7947,7 +7947,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 				else msg_print("You invoke the Hand of Doom!");
 #endif
 
-				fire_ball_hide(GF_HAND_DOOM, dir, plev * 2, 0);
+				fire_ball_hide(cr_ptr, GF_HAND_DOOM, dir, plev * 2, 0);
 			}
 		}
 		break;
@@ -8098,7 +8098,7 @@ static cptr do_daemon_spell(creature_type *cr_ptr, int spell, int mode)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return NULL;
 
-				fire_ball_hide(GF_BLOOD_CURSE, dir, dam, rad);
+				fire_ball_hide(cr_ptr, GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
 				take_hit(NULL, cr_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", NULL, -1);
 #else

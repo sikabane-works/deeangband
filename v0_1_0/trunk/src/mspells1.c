@@ -3775,7 +3775,7 @@ else msg_format("%^s‚ª€Ò•œŠˆ‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 #else
 						msg_print("Water blew off from the ground!");
 #endif
-						fire_ball_hide(GF_WATER_FLOW, 0, 3, 8);
+						fire_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
 					}
 
 					for (k = 0; k < num; k++)

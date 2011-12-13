@@ -6470,15 +6470,15 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
  * Allow "target" mode to pass over monsters
  * Affect grids, objects, and monsters
  */
-bool fire_ball_hide(int typ, int dir, int dam, int rad)
+bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE;
 
 	/* Use the given direction */
-	tx = p_ptr->fx + 99 * ddx[dir];
-	ty = p_ptr->fy + 99 * ddy[dir];
+	tx = caster_ptr->fx + 99 * ddx[dir];
+	ty = caster_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if ((dir == 5) && target_okay())
@@ -6791,13 +6791,13 @@ bool sleep_monster(int dir)
 
 bool stasis_monster(int dir)
 {
-	return (fire_ball_hide(GF_STASIS, dir, p_ptr->lev*2, 0));
+	return (fire_ball_hide(p_ptr, GF_STASIS, dir, p_ptr->lev*2, 0));
 }
 
 
 bool stasis_evil(int dir)
 {
-	return (fire_ball_hide(GF_STASIS_EVIL, dir, p_ptr->lev*2, 0));
+	return (fire_ball_hide(p_ptr, GF_STASIS_EVIL, dir, p_ptr->lev*2, 0));
 }
 
 

@@ -1174,7 +1174,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			if (command == -3)
 			{
 				if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
-				(void)fire_ball_hide(GF_CONTROL_LIVING, dir, cr_ptr->lev, 0);
+				(void)fire_ball_hide(cr_ptr, GF_CONTROL_LIVING, dir, cr_ptr->lev, 0);
 			}
 			else if (command == -4)
 			{

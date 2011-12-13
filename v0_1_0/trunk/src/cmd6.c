@@ -3107,7 +3107,7 @@ msg_print("ロケットを発射した！");
 
 		case SV_WAND_GENOCIDE:
 		{
-			fire_ball_hide(GF_GENOCIDE, dir, magic ? cr_ptr->lev + 50 : 250, 0);
+			fire_ball_hide(cr_ptr, GF_GENOCIDE, dir, magic ? cr_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 		}
