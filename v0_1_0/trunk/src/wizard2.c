@@ -2121,6 +2121,7 @@ void do_cmd_debug(creature_type *cr_ptr)
 			object_wipe(&ob);
 			object_prep(&ob, 32, cr_ptr->size);
 			apply_magic_specified_ego(cr_ptr, &ob, cr_ptr->lev * 2, tmp_int);
+			(void)drop_near(&ob, -1, cr_ptr->fy, cr_ptr->fx);
 		}
 		break;
 

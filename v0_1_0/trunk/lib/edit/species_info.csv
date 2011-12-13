@@ -2564,29 +2564,22 @@ TOUCH:ACID:3d3",,,"NEVER_MOVE|COLD_BLOOD|CAN_SWIM|IM_ELEC|IM_ACID|IM_POIS|NO_FEA
 CLAW:HURT:2d5
 BITE:HURT:3d6",,,"WEIRD_MIND|BASH_DOOR|FRIENDS|DROP_SKELETON|DROP_CORPSE|WILD_WOOD|WILD_MOUNTAIN",,,"『赤カブト』の配下の熊だ。","These bears are followers of Red Helm.
 ",,,,,,
-186,"オークの傭兵隊長『グリシュナッハ』","Grishnakh, the Orc's Mercenary Captain","o","u","ORC","ORC","0x02","WARRIOR","NONE",2,0,0,24,3,0,900,0,0,0,0,"NONE","NONE",-1,110,20,0,20,20,13,13,18,19,11,193,0,88,0,0,0,0,0,"HIT:HURT:1d12
+186,"オークの傭兵隊長『グリシュナッハ』","Grishnakh, the Orc's Mercenary Captain","o","u","ORC","ORC","0x02","WARRIOR","NONE",2,0,0,24,3,0,7981,0,0,34,45,"NONE","NONE",-1,110,20,0,20,20,13,13,18,13,11,193,0,88,0,0,0,0,0,"HIT:HURT:1d12
 HIT:HURT:1d10
 HIT:HURT:1d12
-HIT:HURT:1d10",,,"UNIQUE|CAN_SPEAK|FORCE_MAXHP|ESCORT|WILD_ALL|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS",,,"オークの粗暴な隊長の一人だ。ウルクに対して深い嫉妬と憧れを抱いており、
-その名と功績がモルドールに届くようにと躍起になっている。
-「グリシュナッハというのは背の低い脚の曲がったオークで、肩幅が広く、
-地面まで届くほどの長い手を持っていました。」
-（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語） ","
+HIT:HURT:1d10",,,"UNIQUE|CAN_SPEAK|FORCE_MAXHP|ESCORT|WILD_ALL|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS",,,"　オークの粗暴な隊長の一人だ。己の祖先たる偉大なウルクに対して深い嫉妬と憧れを抱いており、西方の民を皆殺しにすることで名と功績がモルドールに届くようにと躍起になっている。 「グリシュナッハというのは背の低い脚の曲がったオークで、肩幅が広く、 地面まで届くほどの長い手を持っていました。」 （J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語） ","
 
 
 
 （J.R.R. ） ","J0#
-J0# (コメント)
-J0#
-J0# (都々目)
-J0# 丘オーク『グリシュナハ』 -> 丘オーク『グリシュナッハ』
-J0# ＊これも新版での表記変更。
-J0#",,,,,
-380,"ウンバールの『アンガマイテ』","Angamaite of Umbar","p","u","DUNADAN","DUNADAN","0x02","ROGUE","NONE",0,0,0,24,2,0,400,0,0,0,0,"NONE","NONE",-1,110,25,0,25,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
+(コメント)
+(都々目)
+丘オーク『グリシュナハ』 -> 丘オーク『グリシュナッハ』
+＊これも新版での表記変更。",,,,,
+380,"ウンバールの『アンガマイテ』","Angamaite of Umbar","p","u","DUNADAN","DUNADAN","0x02","ROGUE","NONE",0,"SORCERY",0,24,2,0,8016,0,0,54,65,"NONE","NONE",-1,110,25,0,25,15,15,14,17,14,13,201,0,112,0,0,0,0,0,"HIT:HURT:4d6
 HIT:HURT:4d6
 HIT:HURT:4d6
-HIT:HURT:4d6",,,"UNIQUE|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_4|SLOW|FORGET",,"西方国の人間を忌み嫌っている黒きヌメノール人だ。","A Black Numenorean who hates the men of the west.
-","J0#",,,,,
+HIT:HURT:4d6",,,"UNIQUE|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_4|SLOW|FORGET",,"ゴンドールの権力抗争に破れて簒奪者とされたカスタミア王の曾孫の一人だ。サンガハイアンドと共に一族の存続と現王家への復讐に燃えている。",,"J0#",,,,,
 381,"コウコ","Kouko","W","G","WRAITH","WRAITH","0x01","BLUE_MAGE","NONE",0,0,0,24,1,0,140,1000,416,0,0,"NONE","NONE",-1,110,20,30,30,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:1d6
 HIT:HURT:1d6
 TOUCH:EXP_20",,,"FORCE_SLEEP|RAND_25|DROP_60|DROP_90|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|RES_DARK|HURT_LITE|NO_CONF|NO_SLEEP","1_IN_10|SCARE|DRAIN_MANA",,"それは人間のような姿をした幽霊だ。","It is a ghostly apparition with a humanoid form.
@@ -2642,11 +2635,10 @@ HIT:HURT:2d4",,,"ZOMBIE|ONLY_ITEM|DROP_90|WEIRD_MIND|COLD_BLOOD|OPEN_DOOR|BASH_D
 391,"バンパイア・バット","Vampire bat","b","D","BAT","BAT","0x01","BLUE_MAGE","NONE",0,0,0,24,2,0,3210,0,0,0,0,"NONE","NONE",-1,120,12,40,50,14,14,14,14,14,14,35,2,6,1,35,2,6,1,"BITE:EXP_40:1d4
 BITE:EXP_40:1d4",,,"RAND_50|COLD_BLOOD|REGENERATE|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|NO_FEAR",,,"アンデッドのコウモリで、冒険者の首筋に吸い付こうと飛びかかってくる。","An undead bat that flies at your neck hungrily.
 ","J0#",,,,,
-392,"ウンバールの『サンガハイアンド』","Sangahyando of Umbar","p","o","DUNADAN","DUNADAN","0x02","WARRIOR","NONE",0,0,0,24,2,0,400,0,0,0,0,"NONE","NONE",-1,110,25,0,25,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:4d6
+392,"ウンバールの『サンガハイアンド』","Sangahyando of Umbar","p","o","DUNADAN","DUNADAN","0x02","WARRIOR","NONE",0,0,0,24,2,0,8710,0,0,71,82,"NONE","NONE",-1,110,25,0,25,17,14,15,13,18,14,198,0,87,0,0,0,0,0,"HIT:HURT:4d6
 HIT:HURT:4d6
 HIT:HURT:4d6
-HIT:HURT:4d6",,,"UNIQUE|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|HAS_LITE_1|ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_4|SLOW|FORGET",,"暗黒の心を持った黒きヌメノール人だ。","A Black Numenorean with a blacker heart.
-","J0#",,,,,
+HIT:HURT:4d6",,,"UNIQUE|CAN_SPEAK|DROP_SKELETON|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|HAS_LITE_1|ONLY_ITEM|DROP_90|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP","1_IN_4|SLOW|FORGET",,"ゴンドールの権力抗争に破れて簒奪者とされたカスタミア王の曾孫の一人だ。アンガマイテと共に一族の存続と現王家への復讐に燃えている。",,"J0#",,,,,
 393,"それ","It",0,"W","ELEMENTAL","ELEMENTAL","0x01","BLUE_MAGE","NONE",0,0,0,24,3,0,23245,0,0,0,0,"NONE","NONE",0,110,25,80,25,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"GAZE:BLIND:8d8
 TOUCH:TERRIFY
 GAZE:EXP_40
@@ -2809,7 +2801,7 @@ evil wizard trying to make forest trolls immune to
 fire.
 
 ",,,,,,
-900,"エルフ・ロード","Elf lord","h","g","ELF","ELF","0x01","RANGER","NONE",0,"NATURE",0,25,2,0,555,0,0,0,0,"NONE","NONE",-1,121,15,50,10,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"SHOOT:HURT:7d6
+900,"エルフ・ロード","Elf lord","h","g","ELF","ELF","0x01","RANGER","NONE",0,"NATURE",0,25,2,0,555,0,0,0,0,"NONE","NONE",-1,121,15,50,10,15,15,15,15,15,15,0,0,0,0,0,0,0,0,"SHOOT:HURT:7d6
 HIT:HURT:1d9
 HIT:HURT:1d9
 HIT:HURT:4d8",,,"ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR|NO_SLEEP|FRIENDLY","1_IN_3|HEAL|BLINK|TPORT|BA_FIRE|SHOOT|BA_COLD",,"強力な力を持つエルフの指導者だ。魔法も使う事ができる。","A powerful elven leader who knows some magic as well.
@@ -2830,7 +2822,7 @@ TOUCH:PARALYZE:3d3",,,"NEVER_MOVE|MULTIPLY|ONLY_GOLD|DROP_60|DROP_90|EMPTY_MIND|
 903,"クラーケンの子","Small kraken","l","g","AQUARIC_MONSTER","AQUARIC_MONSTER","0x01","BLUE_MAGE","NONE",0,0,0,25,1,0,23418,70000,740,0,0,"NONE","NONE",-1,110,60,50,80,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"ENGULF:HURT:5d6
 ENGULF:POISON:5d6",,,"AQUATIC|SMART|WEIRD_MIND|IM_POIS|RES_WATE|NO_CONF|NO_SLEEP|NO_FEAR|DROP_CORPSE","1_IN_4|DARKNESS|BO_ACID|HOLD",,"うろこ状の皮膚を持った頑丈なクラーケンだ。","A kraken with a tough, scaly hide.
 ",,,,,,
-947,"盗賊『プアー』","Poor, the Thief","p","b","HUMAN","HUMAN","0x02","ROGUE","NONE",0,"SORCERY",0,25,3,0,500,0,0,0,0,"NONE","NONE",-1,105,20,0,50,15,15,15,15,15,15,170,0,60,0,160,0,50,0,"HIT:HURT:5d10
+947,"盗賊『プアー』","Poor, the Thief","p","b","HUMAN","HUMAN","0x02","ROGUE","NONE",0,"SORCERY",0,25,3,0,4531,0,0,32,12,"NONE","NONE",-1,105,20,0,50,14,15,14,18,16,12,165,0,46,0,0,0,0,0,"HIT:HURT:5d10
 HIT:HURT:5d10
 CRUSH:SUPERHURT:30d2",,,"UNIQUE|DROP_CORPSE|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_60|DROP_GOOD|NO_SLEEP|NO_CONF|BASH_DOOR",,,,,,,,,,
 958,"赤ぷよ","Red puyo","j","r","JELLY","JELLY","0x01","BLUE_MAGE","NONE",0,0,0,25,8,0,50,0,0,0,0,"NONE","NONE",-1,120,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,"EXPLODE:FIRE:10d2",,,"IM_ACID|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO",,,"赤くてぷよぷよした謎の生物だ。","A mysterious red jelly thing.  It looks ready to explode.
@@ -2841,13 +2833,13 @@ CRUSH:SUPERHURT:30d2",,,"UNIQUE|DROP_CORPSE|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP
 ",,,,,,
 961,"緑ぷよ","Green puyo","j","g","JELLY","JELLY","0x01","BLUE_MAGE","NONE",0,0,0,25,8,0,50,0,0,0,0,"NONE","NONE",-1,120,15,20,50,15,15,15,15,15,15,200,30,100,3,200,30,100,3,"EXPLODE:ACID:10d2",,,"IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NEVER_MOVE|MULTIPLY|EMPTY_MIND|NO_FEAR|NO_CONF|NO_SLEEP|VARIABLE_SIZE_EGO",,,"緑色でぷよぷよした謎の生物だ。","A mysterious green jelly thing.  It looks ready to explode.
 ",,,,,,
-998,"黒チォコヴォ","Black Chiokovo","B","D","BIRD","BIRD","0x01","WARRIOR","NONE",0,0,0,25,9,0,250,0,0,0,0,"NONE","NONE",-1,115,20,45,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"CLAW:HURT:2d6
+998,"黒チォコヴォ","Black Chiokovo","B","D","BIRD","BIRD","0x01","WARRIOR","NONE",0,0,0,25,9,0,5087,0,0,19,1,"NONE","NONE",-1,115,20,45,20,20,14,9,18,19,14,378,14,631,5,356,14,587,5,"CLAW:HURT:2d6
 CLAW:HURT:2d6
 BITE:HURT:2d6",,,"CAN_FLY|DROP_CORPSE|DROP_SKELETON|RIDING",,,,,,,,,,
-1072,"オークの傭兵隊長『マウフル』","Mauhur, the Orc's Mercenary Captain","o","u","ORC","ORC","0x02","WARRIOR","NONE",3,0,0,25,3,0,900,0,0,0,35,"NONE","NONE",-1,110,20,0,20,22,12,16,19,18,12,203,0,103,0,0,0,0,0,"HIT:HURT:1d12
+1072,"オークの傭兵隊長『マウフル』","Mauhur, the Orc's Mercenary Captain","o","u","ORC","ORC","0x02","WARRIOR","NONE",3,0,0,25,3,0,6712,0,0,76,45,"NONE","NONE",-1,110,20,0,20,22,12,16,19,22,12,204,0,113,0,0,0,0,0,"HIT:HURT:1d12
 HIT:HURT:1d12
 HIT:HURT:1d10
-HIT:HURT:1d10",,,"UNIQUE|FORCE_MAXHP|WILD_ALL|ESCORT|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_1D2|DROP_GOOD|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_POIS|RES_DARK",,,"　彼はウルクの将ウグルクな忠実な配下の一人で、ウルクに対して深い畏敬を抱いている。",,,,,,,
+HIT:HURT:1d10",,,"UNIQUE|FORCE_MAXHP|WILD_ALL|ESCORT|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_1D2|DROP_GOOD|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_POIS|RES_DARK",,,"　彼はウルクの将ウグルクな忠実な配下の一人で、今を生きる偉大な祖先であるウルクに対して深い畏敬を抱いている。憎き自称・自由の民を血祭りに上げることを通じて多くの武勲を神々に認められ、いずれ自分自身も偉大な祖先達の列に加わることを念願としているのだ。",,,,,,,
 406,"吸血イクシツザチトル","Vampiric ixitxachitl","l","D","AQUARIC_MONSTER","AQUARIC_MONSTER","0x01","BLUE_MAGE","NONE",0,0,0,26,1,0,5411,0,0,0,0,"NONE","NONE",-1,110,20,50,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"STING:POISON:2d8
 STING:EXP_VAMP:2d8",,,"AQUATIC|RES_NETH|IM_POIS|RES_WATE|WILD_ALL","1_IN_6|HEAL|SCARE|CAUSE_3|BLIND|FORGET|HASTE",,"深海の悪魔のエイで、吸血鬼のような能力を持っている。","A devil ray of the depths, with vampiric powers.
 ","JZ#",,,,,
@@ -2867,7 +2859,7 @@ JZ#グノフ＝ケー（ノフ＝ケー）
 JZ#Ｈ・Ｐ・ラヴクラフトの「北極星」に登場。
 JZ#毛深く、尖った角と６本の手足を持った種族で、人肉を食います。
 JZ#太古の北極に栄えたロマール王国を滅ぼしました。 by 久留さん",,,,,
-409,"力の亡者『カリス』","Kharis the Powerslave","z","u","HUMAN","HUMAN","0x02","MAGE","NONE",0,0,0,26,4,0,49981,0,0,0,0,"NONE","NONE",0,110,20,40,40,16,16,16,16,16,16,201,0,83,0,0,0,0,0,"GAZE:TERRIFY
+409,"力の亡者『カリス』","Kharis the Powerslave","z","u","HUMAN","HUMAN","0x02","WARRIOR_MAGE","NONE",0,"ARCANE","CRAFT",26,4,0,9810,0,0,0,0,"NONE","NONE",0,110,20,40,40,13,17,14,13,17,15,201,0,83,0,0,0,0,0,"GAZE:TERRIFY
 HIT:DISEASE:6d6
 CLAW:LOSE_CON:2d6
 CLAW:LOSE_CON:2d6",,,"UNIQUE|ZOMBIE|CAN_SPEAK|ESCORTS|ESCORT|FORCE_MAXHP|COLD_BLOOD|IM_POIS|IM_COLD|RES_NETH|NO_FEAR|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|RES_TELE","1_IN_5|TRAPS|CAUSE_3|DARKNESS|S_UNDEAD|SCARE|SLOW|S_KIN|ANIM_DEAD",,"彼は自分の墓を汚したあなたに復讐するため甦った。","He is out to have a revenge on you who have desecrated his tomb.
@@ -3132,7 +3124,7 @@ HIT:HURT:5d5
 HIT:HURT:5d5",,,"FORCE_SLEEP|DROP_1D2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE","1_IN_8|BLIND|SCARE|CAUSE_3|DARKNESS",,"彼は漆黒のプレートアーマーに身を包み、威嚇的に冒険者を見つめる。","He is a figure encased in deep black plate armour; he looks at you 
 menacingly.
 ","J0#",,,,,
-444,"サイクロプス","Cyclops","P","u","CYCLOPS","CYCLOPS","0x01","BLUE_MAGE","NONE",0,0,0,28,2,0,350,2000,490,0,0,"NONE","NONE",-1,120,20,90,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"SHOOT:HURT:7d6
+444,"サイクロプス","Cyclops","P","u","CYCLOPS","CYCLOPS","0x01","WARRIOR","NONE",0,0,0,28,2,0,9987,2000,490,0,0,"NONE","NONE",-1,120,20,90,20,16,16,16,16,16,16,170,0,60,0,160,0,50,0,"SHOOT:HURT:7d6
 HIT:HURT:9d8
 HIT:HURT:9d8",,,"FORCE_SLEEP|DROP_1D2|TAKE_ITEM|WILD_SHORE|WILD_MOUNTAIN|BASH_DOOR|OPEN_DOOR|MOVE_BODY|DROP_CORPSE|EAT_GIVE_STR|IM_POIS|IM_ACID","1_IN_8|SHOOT",,"一つ目の巨人だ。","A gigantic humanoid with but one eye.
 ","JZ#",,,,,
@@ -6292,7 +6284,7 @@ wild if need be.
 
 
 ",,,,,,
-1100,"ドゥリンの禍『ランデルドゥン』","Randeludun, the Durin's Bane","U","R","BALROG","BALROG","0x02","BLUE_MAGE","NONE",0,0,0,50,1,0,1500000,0,0,0,0,"NONE","NONE",3,120,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
+1100,"ドゥリンの禍『ランデルドゥン』","Randeludun, the Durin's Bane","U","R","BALROG","BALROG","0x02","WARRIOR","NONE",0,0,0,50,1,0,987161,0,0,0,0,"NONE","NONE",3,120,20,80,80,23,23,23,23,23,23,170,0,60,0,160,0,50,0,"HIT:FIRE:2d6
 HIT:HURT:5d6
 HIT:FIRE:6d2
 HIT:HURT:6d5",,,"FORCE_SLEEP|FORCE_MAXHP|AURA_FIRE|CAN_FLY|SELF_LITE_1|UNIQUE|ONLY_ITEM|DROP_2D2|DROP_GOOD|NONLIVING|QUESTOR|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SMART|IM_FIRE|NO_CONF|NO_SLEEP|KILL_WALL","1_IN_4|BLIND|CONF|BRAIN_SMASH|BR_FIRE|BO_PLAS|BA_NETH|S_HI_UNDEAD|S_UNDEAD|S_DEMON",,"それは全身が炎で覆われた屈強な人間型のモンスターだ。","It is a massive humanoid demon wreathed in flames.
