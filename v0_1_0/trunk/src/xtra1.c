@@ -6233,11 +6233,49 @@ void set_subrace(creature_type *cr_ptr, int n, bool b)
 /* Return Race Name */
 cptr desc_race_name(creature_type *cr_ptr){
 	char name[80];
+	char subname[80];
 	race_type *rcr_ptr = &race_info[cr_ptr->race_idx1];
 	name[0] = '\0';
+	subname[0] = '\0';
 
 	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
 	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
+
+		if(has_cf_creature(cr_ptr, CF_VAMPIRE))
+	{
+#if JP
+		strcat(subname, "‚Ì‹zŒŒ‹S");
+#else
+		strcat(subname, " Vampire");
+#endif
+	}
+
+	if(has_cf_creature(cr_ptr, CF_ZOMBIE))
+	{
+#if JP
+		strcat(subname, "‚Ìƒ]ƒ“ƒr");
+#else
+		strcat(subname, "Zombie");
+#endif
+	}
+
+	if(has_cf_creature(cr_ptr, CF_SKELETON))
+	{
+#if JP
+		strcat(subname, "‚ÌƒXƒPƒ‹ƒgƒ“");
+#else
+		strcat(subname, "Skeleton");
+#endif
+	}
+
+	if(subname[0])
+	{
+#if JP
+		strcat(name, "Œ³");
+#else
+		strcat(name, "Ex-");
+#endif
+	}
 
 	if(IS_PURE(cr_ptr))
 	{
@@ -6265,9 +6303,12 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 		strcat(name, race_info[cr_ptr->race_idx2].title);
 #if JP
-		strcat(name, "‚Ì¬ŒŒŽ™");
+		strcat(name, "‚Ì¬ŒŒ");
 #endif
 	}
+
+	strcat(name, subname);
+
 
 #if JP
 	if(cr_ptr->sex != SEX_UNDEFINED)
@@ -6287,6 +6328,16 @@ cptr get_class_desc(creature_type *cr_ptr){
 	name[0] = '\0';
 
 	strcat(name, class_info[cr_ptr->cls_idx].title);
+
+	if(has_cf_creature(cr_ptr, CF_PUELLA_MAGI))
+	{
+#if JP
+		strcat(name, "/–‚–@­—");
+#else
+		strcat(name, "/Puella-Magi");
+#endif
+	}
+
 	if(cr_ptr->realm1 != REALM_NONE && cr_ptr->realm1 < MAX_REALM)
 	{
 		strcat(name, " (");
@@ -6299,6 +6350,8 @@ cptr get_class_desc(creature_type *cr_ptr){
 		strcat(name, ")");
 	}
 
+
 	return format("%s", name);
+
 }
 
