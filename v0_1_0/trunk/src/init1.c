@@ -500,11 +500,11 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"KILL_ITEM",
 
 	"IGNORE_SIZE",
-	"SEX_F50",
-	"SEX_F25",
-	"SEX_F15",
-	"SEX_F10",
-	"SEX_F3",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
 	"XXX",
 	"QUANTUM",
 //CF3

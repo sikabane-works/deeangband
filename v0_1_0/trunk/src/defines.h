@@ -5419,11 +5419,11 @@ extern int PlayerUID;
 #define CF_TAKE_ITEM		54
 #define CF_KILL_ITEM		55
 #define CF_IGNORE_SIZE		56
-#define CF_SEX_F50			57
-#define CF_SEX_F25			58
-#define CF_SEX_F15			59
-#define CF_SEX_F10			60
-#define CF_SEX_F3			61
+#define CF_2_XXX25			57
+#define CF_2_XXX26			58
+#define CF_2_XXX27			59
+#define CF_2_XXX28			60
+#define CF_2_XXX29			61
 #define CF_2_XXX30			62
 #define CF_QUANTUM			63
 

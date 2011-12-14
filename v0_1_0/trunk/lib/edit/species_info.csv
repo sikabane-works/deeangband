@@ -13,7 +13,7 @@ D'and#
 訳は 紫月閑丸さん",,,,,
 5,"野うさぎ","Wild rabbit","r","U","RODENT","RODENT","0x01","BLUE_MAGE","NONE",0,0,0,0,3,0,3,200,205,0,1,"NONE","NONE",-1,110,30,1,10,3,4,4,4,4,5,40,1,1,0,40,1,1,0,"BITE:HURT:1d3",,,"RAND_50|WILD_ONLY|WILD_GRASS|WILD_WOOD|DROP_SKELETON|DROP_CORPSE",,,"肉食ではないが、近付き過ぎると身を守るため攻撃してくる。","It is not a carnivore, but will defend itself if you stray too close. ","JZ#",,,,,
 6,"きこり","Woodsman","p","g","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,18,100,83,0,1,"NONE","NONE",-1,110,10,0,255,12,7,9,12,13,9,165,10,54,2,155,10,44,2,"HIT:HURT:1d6
-HIT:HURT:1d6",,,"SEX_F3|WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,"鋭く頑丈な斧を持っている。","He has an axe with a sharp and strong edge. ","JZ#",,,,,
+HIT:HURT:1d6",,,"WILD_ONLY|WILD_WOOD|RAND_25|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR",,,"鋭く頑丈な斧を持っている。","He has an axe with a sharp and strong edge. ","JZ#",,,,,
 7,"みすぼらしい子犬","Scruffy little dog","C","U","CANINE","CANINE","0x01","BLUE_MAGE","NONE",0,0,0,0,3,0,0,6,35,0,1,"NONE","NONE",-1,110,20,1,5,5,5,4,4,4,4,45,2,3,0,45,2,3,0,"BITE:HURT:1d3",,,"RAND_25|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY",,,"ノミの住みかのようなやせた犬で、人が近づくとうなる。","A thin flea-ridden mutt, growling as you get close. ","J0#",,,,,
 8,"農夫『マゴット』","Farmer Maggot","h","w","HOBBIT","HOBBIT","0x02","ROGUE","NONE",3,"SORCERY",0,0,3,0,24,0,0,101,29,"NONE","NONE",-1,110,40,10,3,12,9,8,12,12,11,92,0,21,0,92,0,21,0,"MOAN
 MOAN
@@ -21,38 +21,38 @@ HIT:HURT:1d5","53:1d1
 54:1d1
 55:1d1","ART:232:100%","UNIQUE|CAN_SPEAK|DROP_CORPSE|FRIENDLY|FORCE_MAXHP|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|DROP_GREAT|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP",,,"　丸い赤ら顔のずんぐりしたホビットが、姿を現しました「マゴットじいさんがどうしたっていうんです？」と、ピピンがたずねました。「あのひとはブランディバック一族のだれとでも仲良くやってますよ。むろん、 黙ってじいさんの土地に入ってくるやつらには、ひどく怖い存在だし、獰猛な犬も 飼ってるけど---だけど、このあたりに住んでいれば,庄境にも近いし、よそより 用心してかからなきゃならないわけですよ。」（J.R.R.トールキン、瀬田貞二・田中明子訳 新版指輪物語）","Before you appears a broad thick-set hobbit with a round red face. ""What's wrong with old Maggot?"" asked Pippin. ""He's a good friend to  $all the Brandybucks. Of course he's a terror to trespassers, and keeps ferocious dogs -- but after all, folk down here are near the border and have to be more on their guard.""","J0#
 J0#",,,,,
-9,"泣きじゃくる白痴","Blubbering idiot","t","W","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO",,,"彼らはいつも泣いてばかりいる。","They tend to blubber a lot. ","J0#",,,,,
-10,"浮浪者","Hippie","t","g","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,5,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,"DROOL",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"
+9,"泣きじゃくる白痴","Blubbering idiot","t","W","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,3,3,8,7,7,151,15,40,2,151,15,40,2,"DROOL",,,"DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_INT|TAKE_ITEM|FORCE_LESSER_EGO",,,"彼らはいつも泣いてばかりいる。","They tend to blubber a lot. ","J0#",,,,,
+10,"浮浪者","Hippie","t","g","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,5,0,0,0,1,"NONE","NONE",-1,110,6,1,0,8,8,8,8,8,8,155,15,39,2,155,15,39,2,"DROOL",,,"DROP_SKELETON|DROP_CORPSE|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_CHR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"
 醜い奴等だが、一番の特徴はその醜さではない。","Ugly doesn't begin to describe them.","http://www.hobo.org を参照。日本人にはよく分からない。
 D'ang#
 上のは2011年現在消滅、最近のWikipediaにホーボーの解説が出ている。
 http://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%BC%E3%83%9C%E3%83%BC
 個人的意向から英訳をHippieに変えた。",,,,,
-11,"わめくキチガイ","Raving lunatic","t","G","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,120,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,"DROOL",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO",,,"よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？","Drooling and comical, but then, what do you expect? ","JZ#",,,,,
-12,"乞食","Beggar","t","U","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,3,10,14,0,1,"NONE","NONE",-1,110,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,"BEG",,,"SEX_F50|DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO",,,"
+11,"わめくキチガイ","Raving lunatic","t","G","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,120,6,1,0,11,4,4,8,11,4,155,15,42,2,152,15,39,2,"DROOL",,,"DROP_CORPSE|DROP_SKELETON|WILD_TOWN|WILD_ONLY|RAND_25|EAT_LOSE_WIS|TAKE_ITEM|FORCE_LESSER_EGO",,,"よだれを垂らして楽しそうにしているが、それ以上の何を期待するのだろうか？","Drooling and comical, but then, what do you expect? ","JZ#",,,,,
+12,"乞食","Beggar","t","U","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,3,10,14,0,1,"NONE","NONE",-1,110,10,1,40,8,7,9,8,11,8,153,15,40,2,153,15,40,2,"BEG",,,"DROP_SKELETON|DROP_CORPSE|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|FORCE_LESSER_EGO",,,"
 彼らを見ると、どうしても哀れだという思いを禁じ得ない。","You just can't help feeling sorry for them.","JO#
 D'ang#
 名称を短縮",,,,,
 13,"うろつく病人","Prowling leper","t","u","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,50,8,7,8,7,6,6,156,10,42,2,151,10,39,2,"BEG
-TOUCH:DISEASE",,,"SEX_F50|DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER_EGO",,,"彼に触るのは危険な気がする。","You feel it isn't safe to touch him. ","J0#(コメント)
+TOUCH:DISEASE",,,"DROP_CORPSE|DROP_SKELETON|RAND_25|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|EAT_LOSE_CON|EAT_POISONOUS|FORCE_LESSER_EGO",,,"彼に触るのは危険な気がする。","You feel it isn't safe to touch him. ","J0#(コメント)
 「ライ病」という言葉は問題がある、という指摘を受けた。
 私は知識不足でそのことに関しては判断しかねるが、気になる人がいるのならあえて、「ライ病」とする必要もないであろうと思い「病人」にした。
 J0# * leper = ライ病患者
 D'ang#
 名称を短縮",,,,,
 14,"闇市の仕入れ人","Agent of black market","t","D","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,3,10,44,0,1,"NONE","NONE",-1,110,10,8,99,12,9,9,11,11,10,158,10,47,2,152,10,40,2,"HIT:HURT:1d6
-TOUCH:EAT_ITEM",,,"SEX_F25|DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼はブラックマーケットの商品を「拾って」来る。油断した冒険者から...","He 'finds' new wares for the Black Market. From unwary adventurers... 
+TOUCH:EAT_ITEM",,,"DROP_CORPSE|DROP_SKELETON|DROP_60|WILD_TOWN|WILD_SWAMP|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼はブラックマーケットの商品を「拾って」来る。油断した冒険者から...","He 'finds' new wares for the Black Market. From unwary adventurers... 
 ...","JZ#",,,,,
-15,"鬱陶しい酔っぱらい","Singing, happy drunk","t","y","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,110,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,"BEG",,,"SEX_F10|HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"誰でも彼に会えば、酔いを覚ましてあげたいような気になる。","He makes you glad to be sober.
+15,"鬱陶しい酔っぱらい","Singing, happy drunk","t","y","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,4,0,0,0,1,"NONE","NONE",-1,110,10,1,0,10,10,10,10,10,10,157,10,50,2,152,10,45,2,"BEG",,,"HAS_LITE_1|RAND_50|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_60|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"誰でも彼に会えば、酔いを覚ましてあげたいような気になる。","He makes you glad to be sober.
 ","J0#",,,,,
-16,"あてどない商人","Aimless merchant","t","o","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,255,9,8,7,8,8,11,160,10,53,2,152,10,47,2,"HIT:HURT:1d5",,,"SEX_F10|HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO",,,"町をふらつく典型的なクズで、財布をじゃらじゃらさせて、魅力のアミュレット
+16,"あてどない商人","Aimless merchant","t","o","HUMAN","HUMAN","0x01","TOURIST","NONE",0,0,0,0,1,0,2,0,0,0,1,"NONE","NONE",-1,110,10,1,255,9,8,7,8,8,11,160,10,53,2,152,10,47,2,"HIT:HURT:1d5",,,"HAS_LITE_1|RAND_50|ONLY_GOLD|DROP_60|DROP_SKELETON|DROP_CORPSE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|WILD_TOWN|WILD_ONLY|FORCE_LESSER_EGO",,,"町をふらつく典型的なクズで、財布をじゃらじゃらさせて、魅力のアミュレット
 を買おうと町を探し回っている。","The typical ponce around town, with purse jingling, and looking for more 
 amulets of adornment to buy.
 
 ","J0#",,,,,
-17,"貧乏傭兵","Mean mercenary","t","R","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,13,8,43,0,1,"NONE","NONE",-1,110,10,20,250,13,8,7,11,10,6,161,10,53,2,156,10,44,2,"HIT:HURT:1d10",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"仕事が見つからないことが彼をいっそう貧しくしている。","No job is too low for him.
+17,"貧乏傭兵","Mean mercenary","t","R","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,13,8,43,0,1,"NONE","NONE",-1,110,10,20,250,13,8,7,11,10,6,161,10,53,2,156,10,44,2,"HIT:HURT:1d10",,,"DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_GRASS|WILD_TOWN|WILD_WOOD|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"仕事が見つからないことが彼をいっそう貧しくしている。","No job is too low for him.
 ","J0#",,,,,
-18,"戦傷兵","Battle scarred veteran","t","r","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,17,8,43,0,1,"NONE","NONE",-1,110,10,30,250,14,8,8,9,12,5,163,10,48,2,155,10,44,2,"HIT:HURT:2d6",,,"SEX_F3|DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼は見知らぬ人に優しく接したりはしない。","He doesn't take to strangers kindly.
+18,"戦傷兵","Battle scarred veteran","t","r","HUMAN","HUMAN","0x01","WARRIOR","NONE",0,0,0,0,1,0,17,8,43,0,1,"NONE","NONE",-1,110,10,30,250,14,8,8,9,12,5,163,10,48,2,155,10,44,2,"HIT:HURT:2d6",,,"DROP_SKELETON|DROP_CORPSE|HAS_LITE_1|RAND_50|DROP_90|WILD_TOWN|WILD_ONLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|FORCE_LESSER_EGO",,,"彼は見知らぬ人に優しく接したりはしない。","He doesn't take to strangers kindly.
 ","J0# 
 訳は都々目さんによる",,,,,
 19,"鳩『ポッポ』","Hato Poppo","B","s","WAREFOLK","WAREFOLK","0x02","TOURIST","NONE",3,0,0,0,4,0,24,0,0,0,95,"NONE","NONE",-1,111,50,15,4,11,6,6,10,12,5,178,0,72,0,178,0,72,0,"HIT:HURT:1d3",,,"UNIQUE|CAN_SPEAK|FRIENDLY|FORCE_MAXHP|DROP_CORPSE|WILD_TOWN|WILD_ONLY|ONLY_ITEM|DROP_90|DROP_GOOD|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|NO_CONF|NO_SLEEP|EMPTY_MIND",,,,,"#D'ang
@@ -940,7 +940,7 @@ TOUCH:EAT_GOLD",,,"FRIENDS|DROP_60|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_D
 ","J0#",,,,,
 114,"巨大茶コウモリ","Giant brown bat","b","u","BAT","BAT","0x01","BLUE_MAGE","NONE",0,0,0,6,1,0,68,0,0,0,0,"NONE","NONE",-1,130,10,15,30,11,11,11,11,11,11,35,2,6,1,35,2,6,1,"BITE:HURT:1d4",,,"RAND_50|CAN_FLY|WILD_MOUNTAIN|WILD_WOOD|DROP_CORPSE",,,"それは攻撃をするときにキーキーと鳴く。","It screeches as it attacks.
 ","J0#",,,,,
-115,"ネズミ怪物","Rat-thing","r","R","RODENT","RODENT","0x01","BLUE_MAGE","NONE",0,0,0,6,1,0,10,0,0,0,0,"NONE","NONE",-1,120,12,20,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"BITE:HURT:3d3
+115,"ネズミ怪物","Rat-thing","r","R","RODENT","RODENT","0x01","BLUE_MAGE","NONE",0,0,0,6,1,0,54,0,0,0,0,"NONE","NONE",-1,120,12,20,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"BITE:HURT:3d3
 BITE:HURT:3d2",,,"DROP_CORPSE","1_IN_9|SCARE",,"遠目に見ると普通のネズミのようだが、頭部は邪悪な人間の顔である。
 足先も人間の手のようになっており、非常に強くて鋭い牙を持っている。
 死んだ信者を怪物に変え、死後も仕えさせようとして創造されたものと思われる。
@@ -956,11 +956,11 @@ monstrously degrade parody of a human skull.""
 
 
 （）","JZ# 解説は NeSYS さん",,,,,
-116,"見習アーチャー","Novice archer","p","G","HUMAN","HUMAN","0x01","ARCHER","NONE",0,0,0,6,2,0,20,140,219,0,0,"NONE","NONE",-1,120,20,0,5,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"SHOOT:HURT:2d5
+116,"見習アーチャー","Novice archer","p","G","HUMAN","HUMAN","0x01","ARCHER","NONE",0,0,0,6,2,0,75,140,219,0,0,"NONE","NONE",-1,120,20,0,5,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"SHOOT:HURT:2d5
 HIT:HURT:1d5
 HIT:HURT:1d5",,,"HAS_LITE_1|FORCE_SLEEP|WILD_ALL|DROP_SKELETON|DROP_CORPSE|ONLY_GOLD|DROP_1D2|EAT_GIVE_DEX|EAT_LOSE_INT|EAT_LOSE_WIS|OPEN_DOOR|BASH_DOOR","1_IN_3|SHOOT",,"弓と矢を持った、背の低いやっかいな奴だ。","A nasty little fellow with a bow and arrow.
 ","J0#",,,,,
-117,"銀のクリーピングコイン","Creeping silver coins",,"s","MIMIC","MIMIC","0x01","BLUE_MAGE","NONE",0,0,0,6,2,0,18,50,195,0,0,"NONE","NONE",-1,100,4,30,10,11,11,11,11,11,11,165,10,55,3,0,0,0,3,"HIT:HURT:1d7
+117,"銀のクリーピングコイン","Creeping silver coins",,"s","MIMIC","MIMIC","0x01","BLUE_MAGE","NONE",0,0,0,6,2,0,66,50,195,0,0,"NONE","NONE",-1,100,4,30,10,11,11,11,11,11,11,165,10,55,3,0,0,0,3,"HIT:HURT:1d7
 TOUCH:POISON:2d7",,,"ONLY_GOLD|DROP_60|DROP_1D2|COLD_BLOOD|BASH_DOOR|IM_POIS|NO_CONF|NO_SLEEP",,,"それはコインの塊で、何千もの小さな足で前に進む。","It is a pile of coins, crawling forward on thousands of tiny legs.
 ","J0#",,,,,
 118,"スナガ","Snaga","o","G","ORC","ORC","0x01","VARIABLE","NONE",0,0,0,6,1,0,15,0,0,0,0,"NONE","NONE",-1,110,20,0,30,11,11,11,11,11,11,160,13,60,5,150,13,48,5,"HIT:HURT:1d9",,,"FRIENDS|DROP_60|WILD_ALL|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK",,,"彼らはオークの惰弱な奴隷階級で、しばしば間違ってゴブリンという名前
@@ -1582,7 +1582,7 @@ HIT:HURT:1d15",,,"UNIQUE|HAS_LITE_2|FORCE_MAXHP|CAN_SPEAK|WILD_ALL|DROP_SKELETON
 234,"ドリダー","Drider","S","b","SPIDER","SPIDER","0x01","BLUE_MAGE","NONE",0,0,0,13,2,0,55,0,0,0,0,"NONE","NONE",-1,110,8,30,80,13,13,13,13,13,13,190,20,65,10,201,20,72,10,"SHOOT:HURT:3d6
 HIT:HURT:1d12
 HIT:HURT:1d12
-BITE:POISON:1d6",,,"FORCE_SLEEP|SEX_F50|SEX_F25|BASH_DOOR|DROP_SKELETON|IM_POIS","1_IN_8|CONF|CAUSE_1|DARKNESS|MISSILE|SHOOT",,"それは上半身がエルフで、下半身には巨大蜘蛛の様な膨れた腹を持っている。","A dark elven torso merged with the bloated form of a giant spider.
+BITE:POISON:1d6",,,"FORCE_SLEEP|BASH_DOOR|DROP_SKELETON|IM_POIS","1_IN_8|CONF|CAUSE_1|DARKNESS|MISSILE|SHOOT",,"それは上半身がエルフで、下半身には巨大蜘蛛の様な膨れた腹を持っている。","A dark elven torso merged with the bloated form of a giant spider.
 ","J0#",,,,,
 235,"モングバット","Mongbat","b","U","BAT","BAT","0x01","BLUE_MAGE","NONE",0,0,0,13,3,0,1887,700,877,0,0,"NONE","NONE",-1,113,20,50,8,13,13,13,13,13,13,35,2,6,1,35,2,6,1,"CLAW:HURT:1d4
 CLAW:HURT:1d4
@@ -2495,11 +2495,11 @@ HIT:HURT:1d15
 HIT:HURT:1d15
 HIT:HURT:1d15",,,"UNIQUE|HAS_LITE_2|FORCE_MAXHP|CAN_SPEAK|WILD_ALL|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_2D2|DROP_GOOD|ESCORT|OPEN_DOOR|BASH_DOOR","1_IN_10|S_KIN",,"南蛮の王。諸葛亮に七度擒にされる。","He is the king of Nanman. He was arrested by Zhuge Liang 7 times.
 ",,,,,,
-1055,"超能力者","Mindcrafter","p","y","HUMAN","HUMAN","0x01","MINDCRAFTER","NONE",0,0,0,22,2,0,50,5000,1056,0,0,"NONE","NONE",-1,110,20,0,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
+1055,"超能力者","Mindcrafter","p","y","HUMAN","HUMAN","0x01","MINDCRAFTER","NONE",0,0,0,22,2,0,1900,5000,1056,0,0,"NONE","NONE",-1,110,20,0,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
 HIT:HURT:3d4",,,"FORCE_SLEEP|DROP_90|WILD_ALL|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2","1_IN_4|CONF|BLIND|HOLD|SLOW|MIND_BLAST|S_MONSTER|BLINK",,"精神の技の達人だ。他者の精神を傷つけ、操ることができる。","A master of the mental arts, able to damage or dominate the 
 minds of others. 
 ",,,,,,
-1153,"魔法少女","Puella magi","z","y","HUMAN","HUMAN","0x01","BLUE_MAGE",1160,0,0,0,22,2,0,1700,0,1153,14,0,"NONE","NONE",-1,110,20,0,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
+1153,"魔法少女","Puella magi","z","y","HUMAN","HUMAN","0x01","BLUE_MAGE",1160,0,0,0,22,2,0,1800,0,1153,14,0,"NONE","NONE",-1,110,20,0,20,14,14,14,14,14,14,170,0,60,0,160,0,50,0,"HIT:HURT:3d4
 HIT:HURT:3d4",,,"FORCE_SLEEP|DROP_90|WILD_ALL|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|HAS_LITE_2|PUELLA_MAGI","1_IN_4|CONF|BLIND|HOLD|SLOW|MIND_BLAST|S_MONSTER|BLINK",,,,,,,,,
 136,"道化の犯罪王『ジョーカー』","Joker, the Clown Prince of Crime ","p","D","HUMAN","HUMAN","0x02","ROGUE","NONE",2,"SORCERY",0,23,15,0,450,0,0,0,0,"NONE","NONE",0,118,20,0,20,14,14,14,14,14,14,175,0,66,0,0,0,0,0,"HIT:HURT:1d6
 HIT:HURT:1d6
@@ -5401,7 +5401,7 @@ BITE:HURT:5d12",,,"ONLY_ITEM|DROP_1D2|DROP_GOOD|POWERFUL|FORCE_MAXHP|OPEN_DOOR|B
 1024,"盗賊の頭領","Grand master thief","p","B","HUMAN","HUMAN","0x01","ROGUE","NONE",0,"SORCERY",0,42,2,0,1500,0,0,0,0,"NONE","NONE",-1,130,50,0,40,19,19,19,19,19,19,179,0,69,0,0,0,0,0,"HIT:EAT_ITEM:5d5
 HIT:EAT_ITEM:5d5
 HIT:EAT_GOLD:5d5
-HIT:EAT_GOLD:5d5",,,"SEX_F25|DROP_2D2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR","1_IN_2|BLINK|TPORT|TELE_TO|CONF|TRAPS",,"その技、だれにも真似はできない。今さら財産を守っても手遅れだ。
+HIT:EAT_GOLD:5d5",,,"DROP_2D2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR","1_IN_2|BLINK|TPORT|TELE_TO|CONF|TRAPS",,"その技、だれにも真似はできない。今さら財産を守っても手遅れだ。
 彼は魔法を学び、罠を仕掛けることを覚えているのだ。","A class of its own: you are already too late to protect your possessions 
 and he seems to have studied magic too, and is a master of setting traps.
 
