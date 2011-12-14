@@ -7727,7 +7727,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	bool breath = FALSE;
 
 	/* Is the player blind? */
-	bool blind = (p_ptr->blind ? TRUE : FALSE);
+	bool blind = (caster_ptr->blind ? TRUE : FALSE);
 
 	bool old_hide = FALSE;
 
@@ -7764,8 +7764,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	rakubadam_m = 0;
 
 	/* Default target of monsterspell is player */
-	monster_target_y=p_ptr->fy;
-	monster_target_x=p_ptr->fx;
+	monster_target_y=caster_ptr->fy;
+	monster_target_x=caster_ptr->fx;
 
 	/* Hack -- Jump to target */
 	if (flg & (PROJECT_JUMP))
@@ -7851,10 +7851,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	/* Calculate the projection path */
 
-	path_n = project_path(p_ptr, path_g, (project_length ? project_length : MAX_RANGE(caster_ptr)), y1, x1, y2, x2, flg);
+	path_n = project_path(caster_ptr, path_g, (project_length ? project_length : MAX_RANGE(caster_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
-	handle_stuff(p_ptr);
+	handle_stuff(caster_ptr);
 
 	/* Giga-Hack SEEKER & SUPER_RAY */
 
@@ -7904,11 +7904,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(p_ptr, c, a, y, x);
+					print_rel(caster_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
-					lite_spot(p_ptr, y, x);
+					lite_spot(caster_ptr, y, x);
 					/*if (fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
@@ -7922,7 +7922,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						c = PICT_C(p);
 
 						/* Visual effects */
-						print_rel(p_ptr, c, a, y, x);
+						print_rel(caster_ptr, c, a, y, x);
 					}
 
 					/* Hack -- Activate delay */
@@ -7936,7 +7936,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(p_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
+			if(project_o(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&cave[y][x]))
 			{
 			  /* The target of monsterspell becomes tha mirror(broken) */
@@ -7946,12 +7946,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				remove_mirror(player_ptr, y,x);
 				next_mirror( &oy,&ox,y,x );
 
-				path_n = i+project_path(p_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, oy, ox, flg);
+				path_n = i+project_path(caster_ptr, &(path_g[i+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, oy, ox, flg);
 				for( j = last_i; j <=i ; j++ )
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_m(p_ptr, caster_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
+					if(project_m(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))notice=TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 					  if(cave[project_m_y][project_m_x].m_idx >0 ){
 					    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
@@ -7959,14 +7959,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					    if (m_ptr->ml)
 					    {
 					      /* Hack -- auto-recall */
-					      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+					      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
 					      health_track(cave[project_m_y][project_m_x].m_idx);
 					    }
 					  }
 					}
-					(void)project_f(p_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+					(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 				}
 				last_i = i;
 			}
@@ -7976,7 +7976,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_m(p_ptr, caster_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
+			if(project_m(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER,flg,TRUE))
 			  notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
@@ -7985,14 +7985,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
 			    }
 			  }
 			}
-			(void)project_f(p_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 		}
 		return notice;
 	}
@@ -8041,11 +8041,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(p_ptr, c, a, y, x);
+					print_rel(caster_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
 					/*if (fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
-					lite_spot(p_ptr, y, x);
+					lite_spot(caster_ptr, y, x);
 					/*if (fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
@@ -8059,7 +8059,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						c = PICT_C(p);
 
 						/* Visual effects */
-						print_rel(p_ptr, c, a, y, x);
+						print_rel(caster_ptr, c, a, y, x);
 					}
 
 					/* Hack -- Activate delay */
@@ -8073,7 +8073,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(p_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
+			if(project_o(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
 			if (!cave_have_flag_bold(y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
@@ -8090,18 +8090,18 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_f(p_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x  , flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x+1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y  , x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y  , x+1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x-1, flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x  , flg);
-				path_n += project_path(p_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x+1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x-1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x  , flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y-1, x+1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y  , x-1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y  , x+1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x-1, flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x  , flg);
+				path_n += project_path(caster_ptr, &(path_g[path_n+1]), (project_length ? project_length : MAX_RANGE(caster_ptr)), y, x, y+1, x+1, flg);
 			}
 		}
 		for( i = 0; i < path_n ; i++ )
@@ -8109,7 +8109,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_m(p_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
+			(void)project_m(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY,flg,TRUE);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 			  if(cave[project_m_y][project_m_x].m_idx >0 ){
 			    creature_type *m_ptr = &creature_list[cave[project_m_y][project_m_x].m_idx];
@@ -8117,14 +8117,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			    if (m_ptr->ml)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(cave[project_m_y][project_m_x].m_idx);
 			    }
 			  }
 			}
-			(void)project_f(p_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -8185,11 +8185,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				c = PICT_C(p);
 
 				/* Visual effects */
-				print_rel(p_ptr, c, a, y, x);
+				print_rel(caster_ptr, c, a, y, x);
 				move_cursor_relative(y, x);
 				/*if (fresh_before)*/ Term_fresh();
 				Term_xtra(TERM_XTRA_DELAY, msec);
-				lite_spot(p_ptr, y, x);
+				lite_spot(caster_ptr, y, x);
 				/*if (fresh_before)*/ Term_fresh();
 
 				/* Display "beam" grids */
@@ -8203,7 +8203,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					c = PICT_C(p);
 
 					/* Visual effects */
-					print_rel(p_ptr, c, a, y, x);
+					print_rel(caster_ptr, c, a, y, x);
 				}
 
 				/* Hack -- Activate delay */
@@ -8349,7 +8349,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					c = PICT_C(p);
 
 					/* Visual effects -- Display */
-					print_rel(p_ptr, c, a, y, x);
+					print_rel(caster_ptr, c, a, y, x);
 				}
 			}
 
@@ -8379,7 +8379,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				/* Hack -- Erase if needed */
 				if (panel_contains(y, x) && player_has_los_bold(y, x))
 				{
-					lite_spot(p_ptr, y, x);
+					lite_spot(caster_ptr, y, x);
 				}
 			}
 
@@ -8393,13 +8393,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Update stuff if needed */
-	if (p_ptr->update) update_stuff(p_ptr, TRUE);
+	if (caster_ptr->update) update_stuff(caster_ptr, TRUE);
 
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (!is_player(caster_ptr)) ? is_seen(p_ptr, caster_ptr) :
-			(is_player(caster_ptr) ? TRUE : (player_can_see_bold(p_ptr, y1, x1) && projectable(p_ptr->fy, p_ptr->fx, y1, x1)));
+		see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
+			(is_player(caster_ptr) ? TRUE : (player_can_see_bold(caster_ptr, y1, x1) && projectable(caster_ptr->fy, caster_ptr->fx, y1, x1)));
 	}
 
 
@@ -8425,18 +8425,18 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if (project_f(p_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if (project_f(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if (project_f(p_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_f(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
 
 	/* Update stuff if needed */
-	if (p_ptr->update) update_stuff(p_ptr, TRUE);
+	if (caster_ptr->update) update_stuff(caster_ptr, TRUE);
 
 	/* Check objects */
 	if (flg & (PROJECT_ITEM))
@@ -8460,12 +8460,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the object in the grid */
-				if (project_o(p_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if (project_o(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the object in the grid */
-				if (project_o(p_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if (project_o(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -8501,7 +8501,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
-				    ((cave[y][x].m_idx != p_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+				    ((cave[y][x].m_idx != caster_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    (is_player(caster_ptr) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
@@ -8522,7 +8522,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						t_x = x_saver;
 					}
 
-					if (is_seen(p_ptr, m_ptr))
+					if (is_seen(caster_ptr, m_ptr))
 					{
 #ifdef JP
 						if ((m_ptr->species_idx == MON_KENSHIROU) || (m_ptr->species_idx == MON_RAOU))
@@ -8536,7 +8536,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					if (is_original_ap_and_seen(caster_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
-					if (creature_bold(p_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
+					if (creature_bold(caster_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
@@ -8560,7 +8560,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* There is the riding player on this monster */
-			if (p_ptr->riding && creature_bold(p_ptr, y, x))
+			if (caster_ptr->riding && creature_bold(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
 				if (flg & PROJECT_PLAYER)
@@ -8631,7 +8631,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Affect the monster in the grid */
-			if (project_m(p_ptr, caster_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
+			if (project_m(caster_ptr, caster_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg)) notice = TRUE;
 		}
 
 
@@ -8650,7 +8650,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				if (m_ptr->ml)
 				{
 					/* Hack -- auto-recall */
-					if (!p_ptr->image) species_type_track(m_ptr->ap_species_idx);
+					if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
 					if (m_ptr->ml) health_track(cave[y][x].m_idx);
@@ -8679,7 +8679,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			x = gx[i];
 
 			/* Affect the player? */
-			if (!creature_bold(p_ptr, y, x)) continue;
+			if (!creature_bold(caster_ptr, y, x)) continue;
 
 			/* Find the closest point in the blast */
 			if (breath)
@@ -8692,7 +8692,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Target may be your horse */
-			if (p_ptr->riding)
+			if (caster_ptr->riding)
 			{
 				/* Aimed on the player */
 				if (flg & PROJECT_PLAYER)
@@ -8731,19 +8731,19 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Affect the player */
-			if (project_p(caster_ptr, p_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
+			if (project_p(caster_ptr, caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, monspell)) notice = TRUE;
 		}
 	}
 
-	if (p_ptr->riding)
+	if (caster_ptr->riding)
 	{
 		char m_name[80];
 
-		creature_desc(m_name, &creature_list[p_ptr->riding], 0);
+		creature_desc(m_name, &creature_list[caster_ptr->riding], 0);
 
 		if (rakubadam_m > 0)
 		{
-			if (rakuba(p_ptr, rakubadam_m, FALSE))
+			if (rakuba(caster_ptr, rakubadam_m, FALSE))
 			{
 #ifdef JP
 msg_format("%^sÇ…êUÇËóéÇ∆Ç≥ÇÍÇΩÅI", m_name);
@@ -8752,9 +8752,9 @@ msg_format("%^sÇ…êUÇËóéÇ∆Ç≥ÇÍÇΩÅI", m_name);
 #endif
 			}
 		}
-		if (p_ptr->riding && rakubadam_p > 0)
+		if (caster_ptr->riding && rakubadam_p > 0)
 		{
-			if(rakuba(p_ptr, rakubadam_p, FALSE))
+			if(rakuba(caster_ptr, rakubadam_p, FALSE))
 			{
 #ifdef JP
 msg_format("%^sÇ©ÇÁóéÇøÇƒÇµÇ‹Ç¡ÇΩÅI", m_name);

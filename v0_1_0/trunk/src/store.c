@@ -6012,16 +6012,16 @@ static void store_set_table(store_type *st_ptr)
 
 }
 
-void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
+void store_create(store_type *st_ptr, store_pre_type *st_pre_ptr)
 {
 	int k;
 
-	st_ptr->name = stp_ptr->name;
+	st_ptr->name = st_pre_ptr->name;
 
 	st_ptr->type = 0;
-	st_ptr->owner_id = stp_ptr->owner_id;
-	st_ptr->wealth = stp_ptr->wealth;
-	st_ptr->level = stp_ptr->level;
+	st_ptr->owner_id = st_pre_ptr->owner_id;
+	st_ptr->wealth = st_pre_ptr->wealth;
+	st_ptr->level = st_pre_ptr->level;
 
 	/* Initialize the store */
 	st_ptr->store_open = 0;
@@ -6037,8 +6037,8 @@ void store_create(store_type *st_ptr, store_pre_type *stp_ptr)
 	 * BEFORE player birth to enable store restocking
 	 */
 	st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
-	st_ptr->stock_size = stp_ptr->size;
-	st_ptr->flags = stp_ptr->flags;
+	st_ptr->stock_size = st_pre_ptr->size;
+	st_ptr->flags = st_pre_ptr->flags;
 
 	/* Set Table*/
 	store_set_table(st_ptr);
