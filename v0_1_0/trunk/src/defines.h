@@ -202,10 +202,6 @@
  */
 #define MAX_SEXES            4
 
-/*
- * Maximum number of creature "class" types (see "table.c", etc)
- */
-#define MAX_CLASS            28
 
 /*
  * Maximum number of creature hands.
@@ -809,6 +805,7 @@
 #define CLASS_RARELITY_UNCOMMON     1
 #define CLASS_RARELITY_RARE         2
 #define CLASS_RARELITY_LEGENDARY    3
+#define CLASS_RARELITY_UNSELECTED   4
 
 
 
@@ -944,8 +941,10 @@
 #define CLASS_MIRROR_MASTER     25
 #define CLASS_NINJA             26
 #define CLASS_SNIPER            27
+#define CLASS_COMMONER          28
 
-#define MAX_CLASS               28
+// Maximum number of creature "class" types (see "table.c", etc)
+#define MAX_CLASS               29
 
 
 #define CHARA_FUTUU	  0

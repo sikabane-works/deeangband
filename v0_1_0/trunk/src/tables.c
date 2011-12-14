@@ -2459,6 +2459,21 @@ player_class class_info[MAX_CLASS] =
 		12, 10, 10, 0,  0,  0, 12,  28,
 		2, 20, 40,
 	},
+
+	{
+#ifdef JP
+		"•½–¯",
+#endif
+		"Commoner",
+		{ 0, 0, 0, 0, 0, 0},
+		{ 0, 0, 0, 0, 0, 0},
+		CLASS_RARELITY_UNSELECTED,
+		15, 18, 28, 1, 12, 2, 40, 20,
+		5, 7, 9, 0,  0,  0,  11, 11,
+		0, -30, 40
+
+	},
+
 };
 
 player_chara chara_info[MAX_CHARA] =

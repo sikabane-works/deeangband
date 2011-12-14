@@ -200,6 +200,7 @@ static cptr class_flags[MAX_CLASS]=
 	"MIRROR_MASTER",
 	"NINJA",
 	"SNIPER",
+	"COMMONER",
 };
 
 static cptr chara_flags[MAX_CHARA]=
