@@ -549,7 +549,7 @@ put_str("MP ¸—¦ Œø‰Ê", y, x + 33);
 
 					chance = mod_spell_chance_1(cr_ptr, chance);
 
-					need_mana = mod_need_mana(monster_powers[spellnum[i]].smana, 0, REALM_NONE);
+					need_mana = mod_need_mana(cr_ptr, monster_powers[spellnum[i]].smana, 0, REALM_NONE);
 
 					/* Not enough mana to cast */
 					if (need_mana > cr_ptr->csp)
@@ -1920,7 +1920,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 
 	spell = monster_powers[n];
 
-	need_mana = mod_need_mana(spell.smana, 0, REALM_NONE);
+	need_mana = mod_need_mana(cr_ptr, spell.smana, 0, REALM_NONE);
 
 	/* Verify "dangerous" spells */
 	if (need_mana > cr_ptr->csp)

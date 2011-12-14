@@ -1495,7 +1495,7 @@ static void check_music(creature_type *cr_ptr)
 	spell = cr_ptr->magic_num2[0];
 	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
 
-	need_mana = mod_need_mana(s_ptr->smana, spell, REALM_MUSIC);
+	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, REALM_MUSIC);
 	need_mana_frac = 0;
 
 	/* Divide by 2 */

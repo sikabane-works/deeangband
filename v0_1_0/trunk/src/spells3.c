@@ -3100,7 +3100,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 
 
 /*
- * Hook for "get_item(p_ptr, )".  Determine if something is rechargable.
+ * Hook for "get_item()".  Determine if something is rechargable.
  */
 bool item_tester_hook_recharge(creature_type *cr_ptr, object_type *o_ptr)
 {
@@ -4133,9 +4133,9 @@ s16b experience_of_spell(creature_type *cr_ptr, int spell, int use_realm)
 
 
 /*
- * Modify mana consumption rate using spell exp and p_ptr->dec_mana
+ * Modify mana consumption rate using spell exp and dec_mana
  */
-int mod_need_mana(int need_mana, int spell, int realm)
+int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int realm)
 {
 #define MANSTAT_CONST   2400
 #define MANA_DIV        4
@@ -4145,11 +4145,11 @@ int mod_need_mana(int need_mana, int spell, int realm)
 	if ((realm > REALM_NONE) && (realm <= MAX_REALM))
 	{
 		/*
-		 * need_mana defaults if spell exp equals SPELL_EXP_EXPERT and !p_ptr->dec_mana.
+		 * need_mana defaults if spell exp equals SPELL_EXP_EXPERT and !creature_ptr->dec_mana.
 		 * MANSTAT_CONST is used to calculate need_mana effected from spell proficiency.
 		 */
-		need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(p_ptr, spell, realm)) + (MANSTAT_CONST - 1);
-		need_mana *= p_ptr->dec_mana ? DEC_MANA_DIV : MANA_DIV;
+		need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(creature_ptr, spell, realm)) + (MANSTAT_CONST - 1);
+		need_mana *= creature_ptr->dec_mana ? DEC_MANA_DIV : MANA_DIV;
 		need_mana /= MANSTAT_CONST * MANA_DIV;
 		if (need_mana < 1) need_mana = 1;
 	}
@@ -4157,7 +4157,7 @@ int mod_need_mana(int need_mana, int spell, int realm)
 	/* Non-realm magic */
 	else
 	{
-		if (p_ptr->dec_mana) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
+		if (creature_ptr->dec_mana) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
 	}
 
 #undef DEC_MANA_DIV
@@ -4240,7 +4240,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
-	need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
+	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);
 
 	/* Not enough mana to cast */
 	if (need_mana > cr_ptr->csp)
@@ -4429,7 +4429,7 @@ put_str(buf, y, x + 29);
 			s16b exp = experience_of_spell(cr_ptr, spell, use_realm);
 
 			/* Extract mana consumption rate */
-			need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
+			need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);
 
 			if ((increment == 64) || (s_ptr->slevel >= 99)) exp_level = EXP_LEVEL_UNSKILLED;
 			else exp_level = spell_exp_level(exp);

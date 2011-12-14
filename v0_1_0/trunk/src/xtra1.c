@@ -6274,7 +6274,7 @@ cptr desc_race_name(creature_type *cr_ptr){
 #if JP
 		strcat(subname, "のゾンビ");
 #else
-		strcat(subname, "Zombie");
+		strcat(subname, " Zombie");
 #endif
 	}
 
@@ -6283,7 +6283,16 @@ cptr desc_race_name(creature_type *cr_ptr){
 #if JP
 		strcat(subname, "のスケルトン");
 #else
-		strcat(subname, "Skeleton");
+		strcat(subname, " Skeleton");
+#endif
+	}
+
+	if(has_cf_creature(cr_ptr, CF_LICH))
+	{
+#if JP
+		strcat(subname, "のリッチ");
+#else
+		strcat(subname, " LICH");
 #endif
 	}
 

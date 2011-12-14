@@ -156,7 +156,7 @@ void check_hex(creature_type *cr_ptr)
 		if (hex_spelling(cr_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
-			need_mana += mod_need_mana(s_ptr->smana, spell, REALM_HEX);
+			need_mana += mod_need_mana(cr_ptr, s_ptr->smana, spell, REALM_HEX);
 		}
 	}
 

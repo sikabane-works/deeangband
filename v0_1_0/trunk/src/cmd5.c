@@ -280,7 +280,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			}
 			else
 			{
-				need_mana = mod_need_mana(s_ptr->smana, spell, use_realm);
+				need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, use_realm);
 			}
 
 			/* Prompt */
@@ -1157,7 +1157,7 @@ void do_cmd_cast(creature_type *cr_ptr)
 	}
 
 	/* Extract mana consumption rate */
-	need_mana = mod_need_mana(s_ptr->smana, spell, realm);
+	need_mana = mod_need_mana(cr_ptr, s_ptr->smana, spell, realm);
 
 	/* Verify "dangerous" spells */
 	if (need_mana > cr_ptr->csp)
