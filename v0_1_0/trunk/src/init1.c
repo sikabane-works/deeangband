@@ -202,6 +202,29 @@ static cptr class_flags[MAX_CLASS]=
 	"SNIPER",
 };
 
+static cptr chara_flags[MAX_CHARA]=
+{
+	"ORDINARY",
+	"MIGHTY",
+	"SHREWD",
+	"PIOUS",
+	"NIMBLE",
+	"FEARLESS",
+	"COMBAT",
+	"LAZY",
+	"SEXY",
+	"LUCKY",
+	"PATIENT",
+	"MUNCHIKIN",
+	"CHARGEMAN",
+	"POWERLESS",
+	"IGNORANT",
+	"IMBECILE",
+	"SLOW-WITTED",
+	"WEAK",
+	"UGLY",
+};
+
 static cptr realm_flags[MAX_REALM]=
 {
 	"NONE",
@@ -3526,7 +3549,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].chara_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp)) return (1);
+					if(grab_one_index(&b, chara_flags, tmp)) return (1);
 				species_info[n].chara_idx = (s16b)b;
 				break;
 
