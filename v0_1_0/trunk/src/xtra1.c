@@ -3105,9 +3105,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_dis);
 		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_sav);
-		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_sav);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_sav);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_rob);
+		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_eva);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_vol);
 		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_stl;
 		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_srh);
 		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_fos);
@@ -3119,9 +3119,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	{
 		cr_ptr->skill_dis += (-5 + race_info[cr_ptr->race_idx1].r_s_dis);
 		cr_ptr->skill_dev += (-5 + race_info[cr_ptr->race_idx1].r_s_dev);
-		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
-		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
-		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_s_sav);
+		cr_ptr->skill_rob += (-5 + race_info[cr_ptr->race_idx1].r_s_rob);
+		cr_ptr->skill_eva += (-5 + race_info[cr_ptr->race_idx1].r_s_eva);
+		cr_ptr->skill_vol += (-5 + race_info[cr_ptr->race_idx1].r_s_vol);
 		cr_ptr->skill_stl += race_info[cr_ptr->race_idx1].r_s_stl;
 		cr_ptr->skill_srh += (-10 + race_info[cr_ptr->race_idx1].r_s_srh);
 		cr_ptr->skill_fos += (-10 + race_info[cr_ptr->race_idx1].r_s_fos);
@@ -3131,9 +3131,9 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 		cr_ptr->skill_dis += race_info[cr_ptr->race_idx2].r_s_dis;
 		cr_ptr->skill_dev += race_info[cr_ptr->race_idx2].r_s_dev;
-		cr_ptr->skill_rob += race_info[cr_ptr->race_idx2].r_s_sav;
-		cr_ptr->skill_eva += race_info[cr_ptr->race_idx2].r_s_sav;
-		cr_ptr->skill_vol += race_info[cr_ptr->race_idx2].r_s_sav;
+		cr_ptr->skill_rob += race_info[cr_ptr->race_idx2].r_s_rob;
+		cr_ptr->skill_eva += race_info[cr_ptr->race_idx2].r_s_eva;
+		cr_ptr->skill_vol += race_info[cr_ptr->race_idx2].r_s_vol;
 		cr_ptr->skill_stl += race_info[cr_ptr->race_idx2].r_s_stl;
 		cr_ptr->skill_srh += race_info[cr_ptr->race_idx2].r_s_srh;
 		cr_ptr->skill_fos += race_info[cr_ptr->race_idx2].r_s_fos;

@@ -961,7 +961,9 @@ struct race_type
 	s16b r_adj[6];		/* Racial stat bonuses(on main-race) */
 	s16b r_dis;			/* disarming */
 	s16b r_dev;			/* magic devices */
-	s16b r_sav;			/* saving throw */
+	s16b r_rob;			/* saving throw */
+	s16b r_eva;			/* saving throw */
+	s16b r_vol;			/* saving throw */
 	s16b r_stl;			/* stealth */
 	s16b r_srh;			/* search ability */
 	s16b r_fos;			/* search frequency */
@@ -971,7 +973,9 @@ struct race_type
 	s16b r_s_adj[6];		/* Racial stat bonuses(on sub-race) */
 	s16b r_s_dis;			/* disarming */
 	s16b r_s_dev;			/* magic devices */
-	s16b r_s_sav;			/* saving throw */
+	s16b r_s_rob;			/* saving throw */
+	s16b r_s_eva;			/* saving throw */
+	s16b r_s_vol;			/* saving throw */
 	s16b r_s_stl;			/* stealth */
 	s16b r_s_srh;			/* search ability */
 	s16b r_s_fos;			/* search frequency */

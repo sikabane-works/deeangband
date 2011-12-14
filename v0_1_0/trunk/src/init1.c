@@ -4148,7 +4148,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define RC_INFO_CSV_COLUMNS 57
+#define RC_INFO_CSV_COLUMNS 61
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4174,7 +4174,9 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_DIS",
 
 	"P_DEV",
-	"P_SAV",
+	"P_ROB",
+	"P_EVA",
+	"P_VOL",
 	"P_STL",
 	"P_SRH",
 	"P_FOS",
@@ -4184,7 +4186,9 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_DIS",
 	"H_DEV",
 
-	"H_SAV",
+	"H_ROB",
+	"H_EVA",
+	"H_VOL",
 	"H_STL",
 	"H_SRH",
 	"H_FOS",
@@ -4240,45 +4244,49 @@ static int rc_info_csv_code[RC_INFO_CSV_COLUMNS];
 #define RC_INFO_P_DIS		19
 
 #define RC_INFO_P_DEV		20
-#define RC_INFO_P_SAV		21
-#define RC_INFO_P_STL		22
-#define RC_INFO_P_SRH		23
-#define RC_INFO_P_FOS		24
-#define RC_INFO_P_THN		25
-#define RC_INFO_P_THB		26
-#define RC_INFO_P_INFRA		27
-#define RC_INFO_H_DIS		28
-#define RC_INFO_H_DEV		29
+#define RC_INFO_P_ROB		21
+#define RC_INFO_P_EVA		22
+#define RC_INFO_P_VOL		23
+#define RC_INFO_P_STL		24
+#define RC_INFO_P_SRH		25
+#define RC_INFO_P_FOS		26
+#define RC_INFO_P_THN		27
+#define RC_INFO_P_THB		28
+#define RC_INFO_P_INFRA		29
+#define RC_INFO_H_DIS		30
+#define RC_INFO_H_DEV		31
 
-#define RC_INFO_H_SAV		30
-#define RC_INFO_H_STL		31
-#define RC_INFO_H_SRH		32
-#define RC_INFO_H_FOS		33
-#define RC_INFO_H_THN		34
-#define RC_INFO_H_THB		35
-#define RC_INFO_H_INFRA		36
-#define RC_INFO_M_HB		37
-#define RC_INFO_M_HM		38
-#define RC_INFO_M_WB		39
+#define RC_INFO_H_ROB		32
+#define RC_INFO_H_EVA		33
+#define RC_INFO_H_VOL		34
+#define RC_INFO_H_STL		35
+#define RC_INFO_H_SRH		36
+#define RC_INFO_H_FOS		37
+#define RC_INFO_H_THN		38
+#define RC_INFO_H_THB		39
+#define RC_INFO_H_INFRA		40
+#define RC_INFO_M_HB		41
+#define RC_INFO_M_HM		42
+#define RC_INFO_M_WB		43
 
-#define RC_INFO_M_WM		40
-#define RC_INFO_F_HB		41
-#define RC_INFO_F_HM		42
-#define RC_INFO_F_WB		43
-#define RC_INFO_F_WM		44
-#define RC_INFO_P_HITD_M	45
-#define RC_INFO_H_HITD_M	46
-#define RC_INFO_P_EXP		47
-#define RC_INFO_H_EXP		48
-#define RC_INFO_SYM			49
+#define RC_INFO_M_WM		44
+#define RC_INFO_F_HB		45
+#define RC_INFO_F_HM		46
+#define RC_INFO_F_WB		47
+#define RC_INFO_F_WM		48
+#define RC_INFO_P_HITD_M	49
+#define RC_INFO_H_HITD_M	50
+#define RC_INFO_P_EXP		51
+#define RC_INFO_H_EXP		52
+#define RC_INFO_SYM			53
 
-#define RC_INFO_AGE			50
-#define RC_INFO_AGE_ADD		51
-#define RC_INFO_P_FLAGS		52
-#define RC_INFO_H_FLAGS		53
-#define RC_INFO_SUIT_CLASS	54
-#define RC_INFO_DESCRIPTION		55
-#define RC_INFO_E_DESCRIPTION	56
+#define RC_INFO_AGE			54
+#define RC_INFO_AGE_ADD		55
+#define RC_INFO_P_FLAGS		56
+#define RC_INFO_H_FLAGS		57
+#define RC_INFO_SUIT_CLASS	58
+#define RC_INFO_DESCRIPTION		59
+#define RC_INFO_E_DESCRIPTION	60
 
 errr parse_race_info_csv(char *buf, header *head)
 {
@@ -4439,9 +4447,19 @@ errr parse_race_info_csv(char *buf, header *head)
 				race_info[n].r_dev = (s16b)b;
 				break;
 
-			case RC_INFO_P_SAV:
+			case RC_INFO_P_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_sav = (s16b)b;
+				race_info[n].r_rob = (s16b)b;
+				break;
+
+			case RC_INFO_P_EVA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_eva = (s16b)b;
+				break;
+
+			case RC_INFO_P_VOL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_vol = (s16b)b;
 				break;
 
 			case RC_INFO_P_STL:
@@ -4484,9 +4502,19 @@ errr parse_race_info_csv(char *buf, header *head)
 				race_info[n].r_s_dev = (s16b)b;
 				break;
 
-			case RC_INFO_H_SAV:
+			case RC_INFO_H_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_sav = (s16b)b;
+				race_info[n].r_s_rob = (s16b)b;
+				break;
+
+			case RC_INFO_H_EVA:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_eva = (s16b)b;
+				break;
+
+			case RC_INFO_H_VOL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				race_info[n].r_s_vol = (s16b)b;
 				break;
 
 			case RC_INFO_H_STL:
