@@ -6241,7 +6241,26 @@ cptr desc_race_name(creature_type *cr_ptr){
 	if(cr_ptr->race_idx1 == INDEX_NONE) return format("");
 	else if(cr_ptr->race_idx2 == INDEX_NONE) return format("%s", race_info[cr_ptr->race_idx1].title);
 
-		if(has_cf_creature(cr_ptr, CF_VAMPIRE))
+	if(has_cf_creature(cr_ptr, CF_GOLEM))
+	{
+#if JP
+		strcat(subname, "Œ^ƒS[ƒŒƒ€");
+#else
+		strcat(subname, "-type Golem");
+#endif
+	}
+
+	if(has_cf_creature(cr_ptr, CF_ANDROID))
+	{
+#if JP
+		strcat(subname, "Œ^ƒAƒ“ƒhƒƒCƒh");
+#else
+		strcat(subname, "-type Android");
+#endif
+	}
+
+
+	if(has_cf_creature(cr_ptr, CF_VAMPIRE))
 	{
 #if JP
 		strcat(subname, "‚Ì‹zŒŒ‹S");

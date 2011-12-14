@@ -510,8 +510,8 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 //CF3
 	"HUMANOID",
 	"XXX",
-	"XXX",
-	"XXX",
+	"GOLEM",
+	"ANDROID",
 	"ZOMBIE",
 	"SKELETON",
 	"VAMPIRE",

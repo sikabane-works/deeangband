@@ -5430,8 +5430,8 @@ extern int PlayerUID;
 // Flags 3
 #define CF_HUMANOID			64
 #define CF_3_XXX2			65
-#define CF_3_XXX3			66
-#define CF_3_XXX4			67
+#define CF_GOLEM			66
+#define CF_ANDROID			67
 #define CF_ZOMBIE			68
 #define CF_SKELETON			69
 #define CF_VAMPIRE			70
