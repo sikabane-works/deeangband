@@ -6292,9 +6292,19 @@ cptr desc_race_name(creature_type *cr_ptr){
 #if JP
 		strcat(subname, "‚ÌƒŠƒbƒ`");
 #else
-		strcat(subname, " LICH");
+		strcat(subname, " Lich");
 #endif
 	}
+
+	if(has_cf_creature(cr_ptr, CF_PUELLA_MAGI))
+	{
+#if JP
+		strcat(subname, "‚Ì–‚–@­—");
+#else
+		strcat(subname, " Puella Magi");
+#endif
+	}
+
 
 	if(subname[0])
 	{
@@ -6307,13 +6317,16 @@ cptr desc_race_name(creature_type *cr_ptr){
 
 	if(IS_PURE(cr_ptr))
 	{
+		if(!name[0])
+		{
 #if JP
-		strcat(name, "ƒŒŒŽí‚Ì");
+			strcat(name, "ƒŒŒŽí‚Ì");
 #else
-		strcat(name, "Pure-blooded ");
-		strcat(name, sex_info[cr_ptr->sex].title);
-		strcat(name, " ");
+			strcat(name, "Pure-blooded ");
+			strcat(name, sex_info[cr_ptr->sex].title);
+			strcat(name, " ");
 #endif
+		}
 		strcat(name, race_info[cr_ptr->race_idx1].title);
 	}
 	else
