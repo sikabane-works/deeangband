@@ -2426,8 +2426,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 			break;
 		}
 	}
-	else if(cr_ptr->race_idx1 != INDEX_NONE)
-	{		
+	else if(cr_ptr->race_idx1 != INDEX_NONE) 
+	{	
 		race_type *ir_ptr = &race_info[cr_ptr->race_idx1];
 		if(ir_ptr->main_resist.resist_acid != 0 && cr_ptr->lev >= ir_ptr->main_resist.resist_acid)
 			add_flag(flgs, TR_RES_ACID);
@@ -3597,8 +3597,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 				r_adj = race_info[cr_ptr->race_idx1].r_adj[i];
 			else
 			{
-				r_adj = race_info[cr_ptr->race_idx1].r_s_adj[i];
-				r_adj = race_info[cr_ptr->race_idx2].r_s_adj[i];
+				r_adj = race_info[cr_ptr->race_idx1].r_s_adj[i] + race_info[cr_ptr->race_idx2].r_s_adj[i];
 			}
 			for(j = 0; j < MAX_RACES; j++){
 				if(get_subrace(cr_ptr, j))
@@ -3669,6 +3668,7 @@ static void display_player_stat_info(creature_type *cr_ptr)
 			if(r_adj > 0) c_put_str(TERM_L_BLUE, buf, row + i+1, stat_col + 20);
 			else if(r_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 20);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 20);
+
 		}
 		else
 		{
