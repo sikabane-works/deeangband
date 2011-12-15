@@ -977,7 +977,7 @@ its path...
 HIT:HURT:2d6",,,"UNIQUE|HAS_LITE_2|FORCE_SLEEP|FORCE_MAXHP|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_CORPSE|ESCORT|RES_TELE","1_IN_5|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS",,"地道な作戦の数々で地球侵略を企むジュラル星人の長だ。「諸君！今から命令をすりゅ！」","！！",,,,,,
 121,"巨大ピンク・ガエル","Giant pink frog","R","R","REPTILIA","REPTILIA","0x01","NONE","NONE","ORDINARY",0,0,7,1,0,16,0,0,0,0,"NONE","NONE",-1,110,12,16,50,10,10,10,10,10,10,172,10,100,10,178,10,110,10,"BITE:LOSE_STR:2d5",,,"RAND_50|WILD_ONLY|WILD_SHORE|WILD_SWAMP|BASH_DOOR|DROP_CORPSE|EAT_POISONOUS|EAT_LOSE_STR",,,"それは毒を持っているようだ。","It looks poisonous.
 ","J0#",,,,,
-122,"ダークエルフ","Dark elf","h","D","DARK_ELF","DARK_ELF","0x01","VARIABLE","NONE","ORDINARY",0,0,7,2,0,25,700,348,0,0,"NONE","NONE",-1,110,20,16,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
+122,"ダークエルフ","Dark elf","h","D","DARK_ELF","DARK_ELF","0x01","VARIABLE","NONE","VARIABLE",0,0,7,2,0,25,700,348,0,0,"NONE","NONE",-1,110,20,16,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
 HIT:HURT:1d8",,,"FORCE_SLEEP|DROP_90|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|HURT_LITE|RES_DARK","1_IN_10|CONF|DARKNESS|MISSILE",,"漆黒の肌と白い髪の毛を持ったエルフで、その大きな目は邪悪にゆがんでいる。","An elven figure with jet black skin and white hair, his eyes are large and 
 twisted with evil.
 ","J0#",,,,,
@@ -990,7 +990,7 @@ BITE:POISON",,,"SKELETON|RAND_25|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|FRIENDS|IM_POIS|
 125,"腐った死体","Rotting corpse","z","R","HUMAN","HUMAN","0x01","NONE","NONE","ORDINARY",0,0,7,1,0,87,50,229,0,0,"NONE","NONE",-1,110,20,20,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:POISON:1d4
 CLAW:POISON:1d4",,,"ZOMBIE|OPEN_DOOR|BASH_DOOR|FRIENDS|NO_CONF|NO_SLEEP|NO_FEAR|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD|WEIRD_MIND",,,"暗黒魔術により眠りを覚まされた死体だ。","Corpses awakened from their sleep by dark sorceries. 
 ","JZ#",,,,,
-126,"洞窟オーク","Cave orc","o","U","ORC","ORC","0x01","VARIABLE","NONE","ORDINARY",0,0,7,1,0,20,0,0,0,0,"NONE","NONE",-1,110,20,0,30,12,10,10,12,12,10,180,13,75,5,170,13,65,5,"HIT:HURT:1d9",,,"FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK",,,"彼らはしばしば洞窟の深層に大集団で見受けられる、西の地では最も典型的に見受けられるオークだ。",,"J0#",,,,,
+126,"洞窟オーク","Cave orc","o","U","ORC","ORC","0x01","VARIABLE","NONE","VARIABLE",0,0,7,1,0,20,0,0,0,0,"NONE","NONE",-1,110,20,0,30,12,10,10,12,12,10,180,13,75,5,170,13,65,5,"HIT:HURT:1d9",,,"FRIENDS|DROP_60|DROP_SKELETON|DROP_CORPSE|OPEN_DOOR|BASH_DOOR|HURT_LITE|RES_DARK",,,"彼らはしばしば洞窟の深層に大集団で見受けられる、西の地では最も典型的に見受けられるオークだ。",,"J0#",,,,,
 127,"森蜘蛛","Wood spider","S","U","SPIDER","SPIDER","0x01","NONE","NONE","ORDINARY",0,0,7,3,0,15,100,277,0,0,"NONE","NONE",-1,120,8,16,80,11,11,11,11,11,11,180,20,53,10,180,20,53,10,"BITE:HURT:1d4
 STING:POISON:1d5",,,"FRIENDS|DROP_SKELETON|WEIRD_MIND|BASH_DOOR|WILD_WOOD|IM_POIS",,,"それは一目散に冒険者に向かってくる。","It scuttles towards you.
 ","J0#",,,,,
@@ -1027,7 +1027,7 @@ HIT:HURT:2d6
 TOUCH:EAT_GOLD
 TOUCH:EAT_ITEM",,"ART:221:10%","UNIQUE|FORCE_SLEEP|FORCE_MAXHP|CAN_SPEAK|ONLY_ITEM|DROP_1D2|DROP_GOOD|DROP_GREAT|WILD_WOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|EAT_GIVE_DEX|EAT_LOSE_WIS","1_IN_5|SHOOT|HEAL|TRAPS",,"この伝説の射手は金持ち（あなたは合格）から金を盗む","The legendary archer steals from the rich (you qualify).
 （）","JZ#",,,,,
-139,"ナーグリング","Nurgling","u","U","IMP","IMP","0x01","NONE",14,"ORDINARY",0,0,8,2,0,19,0,0,0,0,"NONE","NONE",-1,110,20,32,30,11,11,11,11,11,11,182,0,83,0,0,0,0,0,"BITE:DISEASE:1d9",,,"FRIENDS|OPEN_DOOR|BASH_DOOR|IM_POIS|IM_FIRE|NO_FEAR",,,"それは<ナーグル>の配下の低級悪魔だ。毛のないテディベアのようで、
+139,"ナーグリング","Nurgling","u","U","IMP","IMP","0x01","NONE",1139,"ORDINARY",0,0,8,2,0,19,0,0,0,0,"NONE","NONE",-1,110,20,32,30,11,11,11,11,11,11,182,0,83,0,0,0,0,0,"BITE:DISEASE:1d9",,,"FRIENDS|OPEN_DOOR|BASH_DOOR|IM_POIS|IM_FIRE|NO_FEAR",,,"それは<ナーグル>の配下の低級悪魔だ。毛のないテディベアのようで、
 目は歪み、肌は腐敗して死鬼のようだ。","It is a minor demon servitor of Nurgle. It looks like a hairless 
 teddy bear, with twisted eyes and rotting, ghoulish skin.
 <>
@@ -1055,7 +1055,7 @@ CLAW:HURT:1d4
 BITE:HURT:1d5",,,"NO_FEAR|CAN_FLY|WILD_WOOD|DROP_CORPSE",,,"それは恐れる事なしに狩る事を訓練された鷹だ。","Trained to hunt and kill without fear.
 ","JZ#
 JZ#Z (コメント)訳は 紫月閑丸さん",,,,,
-152,"幽体戦士","Phantom warrior","G","B","WRAITH","WRAITH","0x01","WARRIOR","NONE","ORDINARY",0,0,8,1,0,15,0,0,0,0,"NONE","NONE",-1,110,20,10,40,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d12
+152,"幽体戦士","Phantom warrior","G","B","WRAITH","WRAITH","0x01","WARRIOR","NONE","VARIABLE",0,0,8,1,0,15,0,0,0,0,"NONE","NONE",-1,110,20,10,40,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"HIT:HURT:1d12
 HIT:HURT:1d12",,,"PASS_WALL|NO_SLEEP|FRIENDS|COLD_BLOOD|NONLIVING|NO_FEAR|CAN_FLY",,,"半分物質で、半分幻影のモンスターだ。","Creatures that are half real, half illusion.
 ","JZ#",,,,,
 153,"グレムリン","Gremlin","u","u","IMP","IMP","0x01","NONE","NONE","ORDINARY",0,0,8,3,0,6,0,0,0,0,"NONE","NONE",-1,110,30,30,20,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:EAT_FOOD:1d2
@@ -1113,7 +1113,7 @@ serves chaos fervently and is greatly feared by others.
 
 
 ","JZ#",,,,,
-159,"『手負いの熊』","The Wounded Bear","q","r","QUADRUPED","QUADRUPED","0x02","NONE","NONE","ORDINARY",0,0,9,1,0,589,0,0,0,0,"NONE","NONE",-1,110,10,35,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:HURT:1d7
+159,"『手負いの熊』","The Wounded Bear","q","r","QUADRUPED","QUADRUPED","0x02","NONE","NONE","FEARLESS",0,0,9,1,0,589,0,0,0,0,"NONE","NONE",-1,110,10,35,10,11,11,11,11,11,11,165,10,55,3,165,10,55,3,"CLAW:HURT:1d7
 CLAW:HURT:1d7
 BITE:HURT:1d10",,,"BASH_DOOR|FORCE_MAXHP|FORCE_SLEEP|UNIQUE|DROP_CORPSE|WILD_ONLY|WILD_WOOD|WILD_GRASS|WILD_MOUNTAIN",,,"傷ついた熊で、人間を襲うこともある。","A wounded bear, who has occasionally attacked humans.
 ","JZ#",,,,,
@@ -1228,7 +1228,7 @@ HIT:HURT:1d6",,,"FORCE_SLEEP|ONLY_ITEM|DROP_1D2|DROP_SKELETON|DROP_CORPSE|OPEN_D
 ","J0#",,,,,
 179,"カミカゼ・イーク","Kamikaze yeek","y","o","YEEK","YEEK","0x01","WARRIOR","NONE","ORDINARY",0,0,10,1,0,10,0,0,0,0,"NONE","NONE",-1,113,18,18,10,17,11,10,9,15,9,160,8,45,1,140,8,25,1,"EXPLODE:HURT:15d2",,,"OPEN_DOOR|BASH_DOOR|HAS_LITE_1|IM_ACID|NO_FEAR",,,"悪の魔術士『ブルース』が彼らを生ける武器に教育した。","The evil wizard Bruce has trained them to be living weapons.
 ","JZ#",,,,,
-180,"ボルドールの息子『オルファックス』","Orfax, Son of Boldor","y","B","YEEK","YEEK","0x02","MAGE","NONE","ORDINARY","TRUMP","CHAOS",10,3,0,761,0,0,22,67,"NONE","NONE",-1,120,18,20,10,16,13,19,11,13,10,167,0,52,0,0,0,0,0,"HIT:HURT:1d9
+180,"ボルドールの息子『オルファックス』","Orfax, Son of Boldor","y","B","YEEK","YEEK","0x02","MAGE","NONE","NIMBLE","TRUMP","CHAOS",10,3,0,761,0,0,22,67,"NONE","NONE",-1,120,18,20,10,16,13,19,11,13,10,167,0,52,0,0,0,0,0,"HIT:HURT:1d9
 HIT:HURT:1d8",,,"UNIQUE|CAN_SPEAK|DROP_CORPSE|FORCE_SLEEP|FORCE_MAXHP|ESCORT|ESCORTS|HAS_LITE_2|ONLY_ITEM|DROP_90|DROP_GOOD|SMART|OPEN_DOOR|BASH_DOOR|IM_ACID","1_IN_4|HEAL|BLINK|TELE_TO|SLOW|CONF|S_MONSTER",,"彼は父親にそっくりだ！彼はいくつかの強力な呪文を使いこなす。","He's just like daddy!  He knows some mighty spells.
 ！","J0#",,,,,
 181,"グラーキの奴隷","Servant of Glaaki","z","G","HUMAN","HUMAN","0x01","NONE","NONE","ORDINARY",0,0,10,1,0,104,0,0,0,0,"NONE","NONE",-1,110,20,20,20,12,12,12,12,12,12,170,10,60,2,170,10,60,2,"CRUSH:HURT:1d8
@@ -1260,7 +1260,7 @@ impossibly long, cracked nails.""
 (Ｊ
 p.11)","JZ#
 JZ#引用は久留さん、解説は NeSYS さんによる",,,,,
-182,"ダークエルフ戦士","Dark elven warrior","h","D","DARK_ELF","DARK_ELF","0x01","WARRIOR","NONE","ORDINARY",0,0,10,1,0,461,700,348,0,0,"NONE","NONE",-1,110,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
+182,"ダークエルフ戦士","Dark elven warrior","h","D","DARK_ELF","DARK_ELF","0x01","WARRIOR","NONE","VARIABLE",0,0,10,1,0,461,700,348,0,0,"NONE","NONE",-1,110,20,16,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"HIT:HURT:1d8
 HIT:HURT:1d8",,,"DROP_1D2|OPEN_DOOR|BASH_DOOR|DROP_SKELETON|DROP_CORPSE|HURT_LITE|RES_DARK|EAT_BERSERKER","1_IN_12|MISSILE",,"鎧を身にまとったダークエルフで、常にソードをかまえている。","A dark elven figure in armour and ready with his sword.
 ","J0#",,,,,
 183,"砂に棲むもの","Sand-dweller","u","U","IMP","IMP","0x01","NONE","NONE","ORDINARY",0,0,10,1,0,30,0,0,0,0,"NONE","NONE",-1,110,20,20,20,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:HURT:1d6
@@ -1325,7 +1325,7 @@ meal.
 199,"徴税官","Tax collector","p","D","HUMAN","HUMAN","0x01","ROGUE","NONE","ORDINARY",0,0,10,3,0,35,500,376,0,0,"NONE","NONE",-1,110,20,0,10,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"TOUCH:EAT_GOLD
 TOUCH:EAT_ITEM",,,"DROP_1D2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|DROP_SKELETON",,,"彼はあなたの財布を疑いの目で見つめている。","He is eyeing your purse suspiciously.
 ","JZ#",,,,,
-200,"『トラのホッブス』","Hobbes the Tiger","f","y","FELINE","FELINE","0x02","NONE","NONE","ORDINARY",0,0,10,2,0,562,0,0,0,0,"NONE","NONE",-1,120,40,30,0,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:HURT:1d11
+200,"『トラのホッブス』","Hobbes the Tiger","f","y","FELINE","FELINE","0x02","NONE","NONE","FEARLESS",0,0,10,2,0,562,0,0,0,0,"NONE","NONE",-1,120,40,30,0,12,12,12,12,12,12,165,10,55,3,165,10,55,3,"CLAW:HURT:1d11
 CLAW:HURT:1d11
 BITE:HURT:1d4",,,"BASH_DOOR|UNIQUE|FORCE_MAXHP|NO_CONF|NO_SLEEP|CAN_SPEAK|DROP_CORPSE|EAT_SPEED",,,"素早く動く。ツナサンドが大好き。","Fast-moving, with a taste for tuna sandwiches.
 ","JZ#",,,,,
@@ -1374,36 +1374,36 @@ HIT:HURT:1d10
 HIT:HURT:1d10",,,"UNIQUE|HAS_LITE_2|FORCE_MAXHP|CAN_SPEAK|WILD_ALL|DROP_SKELETON|DROP_CORPSE|ONLY_ITEM|DROP_1D2|DROP_GOOD|OPEN_DOOR|BASH_DOOR","1_IN_5|SHOOT",,"　南蛮王孟獲の援軍として現れた南蛮の将だ。孟獲の義理の弟にあたる。","He is one of the captains of Nanman.
 He comes to help his sister and her husband Meng Huo.
 ",,,,,,
-93,"レッド・イーク","Red Yeek","y","R","YEEK","YEEK","0x01","NONE","NONE","ORDINARY",0,0,11,1,0,24,120,224,0,0,"NONE","NONE",-1,110,18,18,10,15,8,9,12,13,11,165,8,45,1,150,8,34,1,"HIT:HURT:2d5",,,"DROP_90|DROP_CORPSE|HAS_LITE_1|OPEN_DOOR|BASH_DOOR|IM_ACID",,,"それは奇妙な人間型のモンスターだ。かなり血の気が多く、常に全力で殴りかかってくる。",,"J0#",,,,,
-163,"ベビー・ブルー・ドラゴン","Baby blue dragon","d","B","DRAGON","DRAGON","0x01","NONE","NONE","ORDINARY",0,0,11,2,0,35,700,459,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
+93,"レッド・イーク","Red Yeek","y","R","YEEK","YEEK","0x01","WARRIOR","NONE","ORDINARY",0,0,11,1,0,24,120,224,0,0,"NONE","NONE",-1,110,18,18,10,15,8,9,12,13,11,165,8,45,1,150,8,34,1,"HIT:HURT:2d5",,,"DROP_90|DROP_CORPSE|HAS_LITE_1|OPEN_DOOR|BASH_DOOR|IM_ACID",,,"それは奇妙な人間型のモンスターだ。かなり血の気が多く、常に全力で殴りかかってくる。",,"J0#",,,,,
+163,"ベビー・ブルー・ドラゴン","Baby blue dragon","d","B","DRAGON","DRAGON","0x01","VARIABLE","NONE","ORDINARY",0,0,11,2,0,35,700,459,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|DROP_CORPSE|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|CAN_FLY|IM_ELEC|EAT_ELEC_RES","1_IN_11|BR_ELEC",,"このドラゴンは生まれたばかりなので、まだそれほど凶暴ではない。その目は
 光に慣れていず、うろこは薄い青色をしてる。","This hatchling dragon is still soft, its eyes unaccustomed to light and 
 its scales a pale blue.
 
 ","J0#",,,,,
-164,"ベビー・ホワイト・ドラゴン","Baby white dragon","d","W","DRAGON","DRAGON","0x01","NONE","NONE","ORDINARY",0,0,11,2,0,35,700,460,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
+164,"ベビー・ホワイト・ドラゴン","Baby white dragon","d","W","DRAGON","DRAGON","0x01","VARIABLE","NONE","ORDINARY",0,0,11,2,0,35,700,460,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|CAN_FLY|DROP_CORPSE|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|IM_COLD|EAT_COLD_RES","1_IN_11|BR_COLD",,"このドラゴンは生まれたばかりなので、まだそれほど凶暴ではない。その目は
 光に慣れていず、うろこは薄い白色をしている。","This hatchling dragon is still soft, its eyes unaccustomed to light and 
 its scales a pale white.
 
 ","J0#",,,,,
-165,"ベビー・グリーン・ドラゴン","Baby green dragon","d","G","DRAGON","DRAGON","0x01","NONE","NONE","ORDINARY",0,0,11,2,0,35,700,461,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
+165,"ベビー・グリーン・ドラゴン","Baby green dragon","d","G","DRAGON","DRAGON","0x01","VARIABLE","NONE","ORDINARY",0,0,11,2,0,35,700,461,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|CAN_FLY|DROP_CORPSE|IM_POIS|EAT_POIS_RES","1_IN_11|BR_POIS",,"このドラゴンは生まれたばかりなので、まだそれほど凶暴ではない。その目は
 光に慣れていず、うろこは病的な緑色をしている。","This hatchling dragon is still soft, its eyes unaccustomed to light and 
 its scales a sickly green.
 
 ","J0#",,,,,
-166,"ベビー・ブラック・ドラゴン","Baby black dragon","d","s","DRAGON","DRAGON","0x01","NONE","NONE","ORDINARY",0,0,11,2,0,35,750,546,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
+166,"ベビー・ブラック・ドラゴン","Baby black dragon","d","s","DRAGON","DRAGON","0x01","VARIABLE","NONE","ORDINARY",0,0,11,2,0,35,750,546,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|CAN_FLY|DROP_CORPSE|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|EAT_ACID_RES|IM_ACID","1_IN_11|BR_ACID",,"このドラゴンは生まれたばかりなので、まだそれほど凶暴ではない。その目は
 光に慣れていず、うろこは鈍い黒色をしている。","This hatchling dragon is still soft, its eyes unaccustomed to light and 
 its scales a dull black.
 
 ","J0#",,,,,
-167,"ベビー・レッド・ドラゴン","Baby red dragon","d","R","DRAGON","DRAGON","0x01","NONE","NONE","ORDINARY",0,0,11,2,0,35,850,563,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
+167,"ベビー・レッド・ドラゴン","Baby red dragon","d","R","DRAGON","DRAGON","0x01","VARIABLE","NONE","ORDINARY",0,0,11,2,0,35,850,563,0,0,"NONE","NONE",-1,110,20,30,70,15,15,15,15,15,15,227,30,324,10,227,30,324,10,"CLAW:HURT:1d4
 CLAW:HURT:1d4
 BITE:HURT:1d5",,,"FORCE_MAXHP|FORCE_SLEEP|CAN_FLY|DROP_CORPSE|ONLY_GOLD|DROP_60|DROP_1D2|OPEN_DOOR|BASH_DOOR|EAT_FIRE_RES|IM_FIRE","1_IN_11|BR_FIRE",,"このドラゴンは生まれたばかりなので、まだそれほど凶暴ではない。その目は
 光に慣れていず、うろこは薄い赤色をしている。","This hatchling dragon is still soft, its eyes unaccustomed to light and 
