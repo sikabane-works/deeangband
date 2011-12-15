@@ -172,6 +172,7 @@ static cptr race_flags[MAX_RACES] =
 
 static cptr class_flags[MAX_CLASS]=
 {
+	"NONE",
 	"WARRIOR",
 	"MAGE",
 	"PRIEST",

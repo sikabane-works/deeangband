@@ -1616,6 +1616,8 @@ static hist_type bg[] =
 static cptr class_jouhou[MAX_CLASS] =
 {
 #ifdef JP
+"このクリーチャーは種族的な特性から職業の分化を持っていません。",
+
 "戦士は、直面する問題のほとんどを細切れに叩き切ることで解決するキャラクタです。が、時折退却して魔法の道具の世話になることもあります。不運にも、高レベルなアイテムの多くは彼らが扱える範囲を越えています。",
   
 "メイジは魔法使いであり、その機知によって生き延びなければなりません。戦士のように、単純に切りまくることで道を開くことは望めません。呪文書に加えて、メイジは助けになる魔法の道具を持ち運ぶべきです。これは他の何よりも遥かに簡単にマスターできます。魔法に必要な能力値は知能です。",
@@ -1675,6 +1677,8 @@ static cptr class_jouhou[MAX_CLASS] =
 "平民はその種族の社会の中で、取り分けて戦闘で扱える技能を持たない職業についている者を指します。"
 
 #else
+
+"This creature doesn't have classical feature."
 
 "A Warrior is a hack-and-slash character, who solves most of his problems by cutting them to pieces, but will occasionally fall back on the help of a magical device.  Unfortunately, many high-level devices may be forever beyond their use.",
 
@@ -3949,23 +3953,26 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
-		strcpy(ce[i].cap, class_info[i].title);
-		ce[i].code = i;
-		ce[i].key = '\0';
-		ce[i].d_color = TERM_L_DARK;
-		ce[i].l_color = TERM_WHITE;
-		if(race_info[creature_ptr->race_idx1].choice & (0x01 << i) ||
-		   race_info[creature_ptr->race_idx2].choice & (0x01 << i))
+		if(class_info[i].rarelity != CLASS_RARELITY_UNSELECTED)
 		{
-			ce[n].d_color = TERM_GREEN;
-			ce[n].l_color = TERM_L_GREEN;
-		}
-		else
-		{
+			strcpy(ce[n].cap, class_info[i].title);
+			ce[n].code = i;
+			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
 			ce[n].l_color = TERM_WHITE;
+			if(race_info[creature_ptr->race_idx1].choice & (0x01 << i) ||
+			   race_info[creature_ptr->race_idx2].choice & (0x01 << i))
+			{
+				ce[n].d_color = TERM_GREEN;
+				ce[n].l_color = TERM_L_GREEN;
+			}
+			else
+			{
+				ce[n].d_color = TERM_L_DARK;
+				ce[n].l_color = TERM_WHITE;
+			}
+			n++;
 		}
-		n++;
 	}
 
 	if(npc)

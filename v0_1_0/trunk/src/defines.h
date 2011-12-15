@@ -913,38 +913,39 @@
 /*
  * Player class constants (hard-coded by save-files, arrays, etc)
  */
-#define CLASS_WARRIOR            0
-#define CLASS_MAGE               1
-#define CLASS_PRIEST             2
-#define CLASS_ROGUE              3
-#define CLASS_RANGER             4
-#define CLASS_PALADIN            5
-#define CLASS_WARRIOR_MAGE       6
-#define CLASS_CHAOS_WARRIOR      7
-#define CLASS_MONK               8
-#define CLASS_MINDCRAFTER        9
-#define CLASS_HIGH_MAGE         10
-#define CLASS_TOURIST           11
-#define CLASS_IMITATOR          12
-#define CLASS_BEASTMASTER       13
-#define CLASS_SORCERER          14
-#define CLASS_ARCHER            15
-#define CLASS_MAGIC_EATER       16
-#define CLASS_BARD              17
-#define CLASS_RED_MAGE          18
-#define CLASS_SAMURAI           19
-#define CLASS_FORCETRAINER      20
-#define CLASS_BLUE_MAGE         21
-#define CLASS_CAVALRY           22
-#define CLASS_BERSERKER         23
-#define CLASS_SMITH             24
-#define CLASS_MIRROR_MASTER     25
-#define CLASS_NINJA             26
-#define CLASS_SNIPER            27
-#define CLASS_COMMONER          28
+#define CLASS_NONE               0
+#define CLASS_WARRIOR            1
+#define CLASS_MAGE               2
+#define CLASS_PRIEST             3
+#define CLASS_ROGUE              4
+#define CLASS_RANGER             5
+#define CLASS_PALADIN            6
+#define CLASS_WARRIOR_MAGE       7
+#define CLASS_CHAOS_WARRIOR      8
+#define CLASS_MONK               9
+#define CLASS_MINDCRAFTER       10
+#define CLASS_HIGH_MAGE         11
+#define CLASS_TOURIST           12
+#define CLASS_IMITATOR          13
+#define CLASS_BEASTMASTER       14
+#define CLASS_SORCERER          15
+#define CLASS_ARCHER            16
+#define CLASS_MAGIC_EATER       17
+#define CLASS_BARD              18
+#define CLASS_RED_MAGE          19
+#define CLASS_SAMURAI           20
+#define CLASS_FORCETRAINER      21
+#define CLASS_BLUE_MAGE         22
+#define CLASS_CAVALRY           23
+#define CLASS_BERSERKER         24
+#define CLASS_SMITH             25
+#define CLASS_MIRROR_MASTER     26
+#define CLASS_NINJA             27
+#define CLASS_SNIPER            28
+#define CLASS_COMMONER          29
 
 // Maximum number of creature "class" types (see "table.c", etc)
-#define MAX_CLASS               29
+#define MAX_CLASS               30
 
 
 #define CHARA_FUTUU	  0

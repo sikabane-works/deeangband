@@ -211,6 +211,20 @@ cptr funny_comments[MAX_SAN_COMMENT] =
 static byte class_equipment_init[MAX_CLASS][10][2] =
 {
 	{
+		// None
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+	},
+
+	{
 		/* Warrior */
 		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
 		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
@@ -602,6 +616,21 @@ static byte class_equipment_init[MAX_CLASS][10][2] =
 		{ 0, 0},
 		{ 0, 0},
 	},
+
+	{
+		// Commoner
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+		{ 0, 0},
+	},
+
 };
 
 

@@ -2073,8 +2073,21 @@ player_sex sex_info[MAX_SEXES] =
  *      x_dis, x_dev, x_sav, x_stl, x_srh, x_fos, x_thn, x_thb,
  *      HD, Exp, pet_upkeep_div
  */
-player_class class_info[MAX_CLASS] =
+class_type class_info[MAX_CLASS] =
 {
+	{
+#ifdef JP
+		"[Ç»Çµ]",
+#endif
+		"[None]",
+
+		{ 0, 0, 0, 0, 0, 0},
+		{ 0, 0, 0, 0, 0, 0},
+		CLASS_RARELITY_UNSELECTED,
+		20, 20, 20, 25, 25, 25, 60, 60,
+		 8,  8,  8, 0,  0,  0,  25, 25,
+		9,  0, 40
+	},
 	{
 #ifdef JP
 		"êÌém",
@@ -2084,7 +2097,7 @@ player_class class_info[MAX_CLASS] =
 		{ 4, -2, -2, 2, 2, -1},
 		{ 2, 0, 0, 0, 1, 0},
 		CLASS_RARELITY_COMMON,
-		25, 18, 31, 1,  14, 2, 70, 55,
+		25, 25, 31, 1,  14, 2, 70, 55,
 		12, 7,  10, 0,  0,  0,  30, 30,
 		9,  0, 40
 	},
@@ -2154,7 +2167,7 @@ player_class class_info[MAX_CLASS] =
 		{ 3, -3, 1, 0, 2, 2},
 		{ 0, 0, 1, 0, 2, 0},
 		CLASS_RARELITY_COMMON,
-		20, 24, 34, 1,  12, 2, 68, 40,
+		20, 24, 34, 1,  12, 2,  68, 40,
 		7,  10, 11, 0,  0,  0,  21, 18,
 		6, 35, 40
 	},
@@ -2884,6 +2897,7 @@ u32b fake_spell_flags[4]=
 
 s32b realm_choices1[MAX_CLASS] =
 {
+	(CH_NONE),				// None
 	(CH_NONE),				/* Warrior */
 	(CH_LIFE | CH_SORCERY | CH_NATURE |
 	 CH_CHAOS | CH_DEATH | CH_TRUMP |
@@ -2922,11 +2936,13 @@ s32b realm_choices1[MAX_CLASS] =
 	(CH_NONE),				/* Mirror-master */
 	(CH_NONE),				/* Ninja */
 	(CH_NONE),				/* Sniper */
+	(CH_NONE),				// Commoner
 };
 
 
 s32b realm_choices2[MAX_CLASS] =
 {
+	(CH_NONE),				// None
 	(CH_NONE),                              /* Warrior */
 	(CH_LIFE | CH_SORCERY | CH_NATURE |
 	 CH_CHAOS | CH_DEATH | CH_TRUMP |
@@ -2965,6 +2981,7 @@ s32b realm_choices2[MAX_CLASS] =
 	(CH_NONE),				/* Mirror-master */
 	(CH_NONE),				/* Ninja */
 	(CH_NONE),				/* Sniper */
+	(CH_NONE),				// Commoner
 };
 
 

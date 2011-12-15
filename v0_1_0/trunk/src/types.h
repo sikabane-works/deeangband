@@ -1033,9 +1033,9 @@ struct race_type
  * Player class info
  */
 
-typedef struct player_class player_class;
+typedef struct class_type class_type;
 
-struct player_class
+struct class_type
 {
 	cptr title;			/* Type of class */
 
