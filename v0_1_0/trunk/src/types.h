@@ -2046,3 +2046,9 @@ typedef struct starting_type {
 	s16b px;
 } starting_type;
 
+typedef struct half_race_description {
+	int race1;
+	int race2;
+	char title[80];
+} half_race_description;
+

@@ -2098,3 +2098,4 @@ extern bool multiply_barrier(creature_type *cr_ptr, int m_idx);
 
 
 extern starting_type starting_point[STARTING_MAX];
+extern half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION];

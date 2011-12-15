@@ -908,6 +908,7 @@
  * Maximum number of player "race" types (see "table.c", etc)
  */
 #define MAX_RACES              88
+#define MAX_HALF_RACE_DESCRIPTION 10
 
 
 /*

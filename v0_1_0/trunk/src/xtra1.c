@@ -6331,25 +6331,38 @@ cptr desc_race_name(creature_type *cr_ptr){
 	}
 	else
 	{
+		int i;
+		for(i = 0; i < MAX_HALF_RACE_DESCRIPTION; i++)
+		{
+			if((cr_ptr->race_idx1 == half_race_desc[i].race1 && cr_ptr->race_idx2 == half_race_desc[i].race2) ||
+			   (cr_ptr->race_idx2 == half_race_desc[i].race1 && cr_ptr->race_idx1 == half_race_desc[i].race2))
+			{
+				strcat(name, half_race_desc[i].title);
+				break;
+			}
+		}
 
+		if(!name[0])
+		{
 #if !JP
-		strcat(name, sex_info[cr_ptr->sex].title);
-		strcat(name, "Mixed ");
+			strcat(name, sex_info[cr_ptr->sex].title);
+			strcat(name, "Mixed ");
 #endif
-		strcat(name, race_info[cr_ptr->race_idx1].title);
+			strcat(name, race_info[cr_ptr->race_idx1].title);
 #if JP
-		strcat(name, "‚Æ");
+			strcat(name, "‚Æ");
 #else
-		strcat(name, "and ");
+			strcat(name, "and ");
 #endif
-		strcat(name, race_info[cr_ptr->race_idx2].title);
+			strcat(name, race_info[cr_ptr->race_idx2].title);
 #if JP
-		strcat(name, "‚Ì¬ŒŒ");
+			strcat(name, "‚Ì¬ŒŒ");
 #endif
+		}
 	}
 
-	strcat(name, subname);
 
+	strcat(name, subname);
 
 #if JP
 	if(cr_ptr->sex != SEX_UNDEFINED)

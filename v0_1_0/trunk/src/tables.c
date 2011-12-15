@@ -5621,5 +5621,48 @@ starting_type starting_point[STARTING_MAX] =
 	},
 };
 
+half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
+{
+	{
+		RACE_HUMAN,
+		RACE_ELF,
+#if JP
+		"ハーフエルフ",
+#else
+		"Half-Elf",
+#endif
+	},
 
+	{
+		RACE_HUMAN,
+		RACE_DWARF,
+#if JP
+		"ハーフドワーフ",
+#else
+		"Half-Dwarf",
+#endif
+	},
+
+	{
+		RACE_HUMAN,
+		RACE_HOBBIT,
+#if JP
+		"ハーフホビット",
+#else
+		"Half-Hobbit",
+#endif
+	},
+
+	{
+		RACE_HUMAN,
+		RACE_GNOME,
+#if JP
+		"ハーフノーム",
+#else
+		"Half-Gnome",
+#endif
+	},
+
+
+};
 
