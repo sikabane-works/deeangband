@@ -201,7 +201,7 @@ static void curse_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 static void random_plus(creature_type *owner_ptr, object_type * o_ptr, int artifact_bias)
 {
-	int this_type = (object_is_weapon_ammo(owner_ptr, o_ptr) ? 23 : 19);
+	int this_type = (object_is_weapon_ammo(o_ptr) ? 23 : 19);
 
 	switch (artifact_bias)
 	{
@@ -1626,7 +1626,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	char    new_name[1024];
 	int     has_pval = 0;
 	int     powers = randint1(5) + 1;
-	int     max_type = (object_is_weapon_ammo(owner_ptr, o_ptr) ? 7 : 5);
+	int     max_type = (object_is_weapon_ammo(o_ptr) ? 7 : 5);
 	int     power_level;
 	s32b    total_flags;
 	bool    a_cursed = FALSE;
@@ -1749,7 +1749,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 				has_pval = TRUE;
 				break;
 			case 3: case 4:
-				if (one_in_(2) && object_is_weapon_ammo(owner_ptr, o_ptr) && (o_ptr->tval != TV_BOW))
+				if (one_in_(2) && object_is_weapon_ammo(o_ptr) && (o_ptr->tval != TV_BOW))
 				{
 					if (a_cursed && !one_in_(13)) break;
 					if (one_in_(13))
@@ -1808,7 +1808,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 	/* give it some plusses... */
 	if (object_is_armour(o_ptr))
 		o_ptr->to_a += (s16b)randint1(o_ptr->to_a > 19 ? 1 : 20 - o_ptr->to_a);
-	else if (object_is_weapon_ammo(owner_ptr, o_ptr))
+	else if (object_is_weapon_ammo(o_ptr))
 	{
 		o_ptr->to_h += (s16b)randint1(o_ptr->to_h > 19 ? 1 : 20 - o_ptr->to_h);
 		o_ptr->to_d += (s16b)randint1(o_ptr->to_d > 19 ? 1 : 20 - o_ptr->to_d);
@@ -1875,7 +1875,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *o_ptr, bool a_scroll
 		remove_flag(o_ptr->art_flags, TR_BRAND_COLD);
 	}
 
-	if (!object_is_weapon_ammo(owner_ptr, o_ptr))
+	if (!object_is_weapon_ammo(o_ptr))
 	{
 		/* For armors */
 		if (a_cursed) power_level = 0;

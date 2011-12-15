@@ -7619,7 +7619,7 @@ static void drain_essence(creature_type *creature_ptr)
 	{
 		drain_value[TR_DEX] += 20;
 	}
-	if (object_is_weapon_ammo(creature_ptr, o_ptr))
+	if (object_is_weapon_ammo(o_ptr))
 	{
 		if (old_ds > o_ptr->ds) drain_value[TR_ES_ATTACK] += (old_ds-o_ptr->ds)*10;
 

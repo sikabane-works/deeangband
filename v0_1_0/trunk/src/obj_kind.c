@@ -179,7 +179,12 @@ bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Check if an object is weapon (including bows and ammo)
  */
-bool object_is_weapon_ammo(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_weapon_ammo(object_type *o_ptr)
+{
+	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
+	return FALSE;
+}
+bool object_is_weapon_ammo2(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (TV_MISSILE_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_WEAPON_END) return TRUE;
 	return FALSE;
@@ -214,7 +219,7 @@ bool object_is_armour2(creature_type *creature_ptr, object_type *o_ptr)
  */
 bool object_is_weapon_armour_ammo(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (object_is_weapon_ammo(cr_ptr, o_ptr) || object_is_armour(o_ptr)) return TRUE;
+	if (object_is_weapon_ammo(o_ptr) || object_is_armour(o_ptr)) return TRUE;
 
 	return FALSE;
 }
@@ -269,7 +274,7 @@ bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
  */
 bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (object_is_weapon_ammo(cr_ptr, o_ptr) && !object_refuse_enchant_weapon(cr_ptr, o_ptr)) return TRUE;
+	if (object_is_weapon_ammo(o_ptr) && !object_refuse_enchant_weapon(cr_ptr, o_ptr)) return TRUE;
 
 	return FALSE;
 }

@@ -6661,7 +6661,7 @@ void calc_android_exp(creature_type *cr_ptr)
 			s32b total_flags = flag_cost(o_ptr, o_ptr->pval);
 			int fake_level;
 
-			if (!object_is_weapon_ammo(cr_ptr, o_ptr))
+			if (!object_is_weapon_ammo(o_ptr))
 			{
 				/* For armors */
 				if (total_flags < 15000) fake_level = 10;

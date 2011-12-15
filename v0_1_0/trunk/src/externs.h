@@ -1978,7 +1978,8 @@ extern bool object_is_rare(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_is_weapon(object_type *o_ptr);
 extern bool object_is_weapon2(creature_type *cr_ptr, object_type *o_ptr);
 
-extern bool object_is_weapon_ammo(creature_type *cr_ptr, object_type *o_ptr);
+extern bool object_is_weapon_ammo(object_type *o_ptr);
+extern bool object_is_weapon_ammo2(creature_type *cr_ptr, object_type *o_ptr);
 
 extern bool object_is_ammo(object_type *o_ptr);
 

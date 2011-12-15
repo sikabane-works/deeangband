@@ -6580,12 +6580,12 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	}
 	else
 	{
-		tx = p_ptr->fx + ddx[dir];
-		ty = p_ptr->fy + ddy[dir];
+		tx = creature_ptr->fx + ddx[dir];
+		ty = creature_ptr->fy + ddy[dir];
 	}
 	c_ptr = &cave[ty][tx];
 
-	if (p_ptr->anti_tele)
+	if (creature_ptr->anti_tele)
 	{
 #ifdef JP
 msg_print("不思議な力がテレポートを防いだ！");
@@ -6596,7 +6596,7 @@ msg_print("不思議な力がテレポートを防いだ！");
 		return FALSE;
 	}
 
-	if (!c_ptr->m_idx || (c_ptr->m_idx == p_ptr->riding))
+	if (!c_ptr->m_idx || (c_ptr->m_idx == creature_ptr->riding))
 	{
 #ifdef JP
 msg_print("それとは場所を交換できません。");
@@ -6609,7 +6609,7 @@ msg_print("それとは場所を交換できません。");
 		return FALSE;
 	}
 
-	if ((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, p_ptr->fy, p_ptr->fx) > p_ptr->lev * 3 / 2 + 10))
+	if ((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, creature_ptr->fy, creature_ptr->fx) > creature_ptr->lev * 3 / 2 + 10))
 	{
 #ifdef JP
 msg_print("失敗した。");
@@ -6643,7 +6643,7 @@ msg_print("失敗した。");
 	sound(SOUND_TELEPORT);
 
 	/* Swap the player and monster */
-	(void)move_creature_effect(p_ptr, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(creature_ptr, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
 	/* Success */
 	return TRUE;
