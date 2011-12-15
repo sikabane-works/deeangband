@@ -6260,7 +6260,7 @@ static void cave_temp_unlite_room_aux(int y, int x)
 /*
  * Illuminate any room containing the given location.
  */
-void lite_room(int y1, int x1)
+void lite_room(creature_type *creature_ptr, int y1, int x1)
 {
 	int i, x, y;
 
@@ -6291,9 +6291,9 @@ void lite_room(int y1, int x1)
 	/* Now, lite them all up at once */
 	cave_temp_room_lite();
 
-	if (p_ptr->special_defense & NINJA_S_STEALTH)
+	if (creature_ptr->special_defense & NINJA_S_STEALTH)
 	{
-		if (cave[p_ptr->fy][p_ptr->fx].info & CAVE_GLOW) set_superstealth(p_ptr, FALSE);
+		if (cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
 }
 
@@ -6368,7 +6368,7 @@ msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 	(void)project(0, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
 
 	/* Lite up the room */
-	lite_room(cr_ptr->fy, cr_ptr->fx);
+	lite_room(cr_ptr, cr_ptr->fy, cr_ptr->fx);
 
 	/* Assume seen */
 	return (TRUE);
