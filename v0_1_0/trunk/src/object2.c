@@ -7476,7 +7476,7 @@ static void drain_essence(creature_type *creature_ptr)
 	s = "You have nothing you can extract from.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo2)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)
@@ -8105,7 +8105,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	else if (es_ptr->add == ESSENCE_AC)
 		item_tester_hook = object_is_armour2;
 	else
-		item_tester_hook = object_is_weapon_armour_ammo;
+		item_tester_hook = object_is_weapon_armour_ammo2;
 	item_tester_no_ryoute = TRUE;
 
 	/* Get an item */

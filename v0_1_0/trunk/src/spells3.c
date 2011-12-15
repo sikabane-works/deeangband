@@ -1084,7 +1084,7 @@ bool apply_disenchant(creature_type *cr_ptr, int mode)
 	if (!o_ptr->k_idx) return (FALSE);
 
 	/* Disenchant equipments only -- No disenchant on monster ball */
-	if (!object_is_weapon_armour_ammo(cr_ptr, o_ptr))
+	if (!object_is_weapon_armour_ammo(o_ptr))
 		return FALSE;
 
 	/* Nothing to disenchant */
@@ -2598,7 +2598,7 @@ msg_print("ã≠âªÇ…é∏îsÇµÇΩÅB");
 static bool item_tester_hook_nameless_weapon_armour(creature_type *cr_ptr, object_type *o_ptr)
 {
 	/* Require weapon or armour */
-	if (!object_is_weapon_armour_ammo(cr_ptr, o_ptr)) return FALSE;
+	if (!object_is_weapon_armour_ammo(o_ptr)) return FALSE;
 	
 	/* Require nameless object if the object is well known */
 	if (object_is_known(o_ptr) && !object_is_nameless(cr_ptr, o_ptr))
@@ -2792,7 +2792,7 @@ static bool item_tester_hook_identify_weapon_armour(creature_type *cr_ptr, objec
 {
 	if (object_is_known(o_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(cr_ptr, o_ptr);
+	return object_is_weapon_armour_ammo(o_ptr);
 }
 
 /*
@@ -2827,7 +2827,7 @@ bool ident_spell(creature_type *cr_ptr, bool only_equip)
 	else
 	{
 		if (only_equip)
-			item_tester_hook = object_is_weapon_armour_ammo;
+			item_tester_hook = object_is_weapon_armour_ammo2;
 		else
 			item_tester_hook = NULL;
 
@@ -2911,7 +2911,7 @@ bool mundane_spell(creature_type *cr_ptr, bool only_equip)
 	cptr            q, s;
 	bool (*item_tester_hook)(creature_type *cr_ptr, object_type *o_ptr);
 
-	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo;
+	if (only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
 
 	item_tester_no_ryoute = TRUE;
@@ -2980,7 +2980,7 @@ static bool item_tester_hook_identify_fully_weapon_armour(creature_type *cr_ptr,
 {
 	if (!item_tester_hook_identify_fully(cr_ptr, o_ptr))
 		return FALSE;
-	return object_is_weapon_armour_ammo(cr_ptr, o_ptr);
+	return object_is_weapon_armour_ammo(o_ptr);
 }
 
 /*
@@ -3014,7 +3014,7 @@ bool identify_fully(creature_type *cr_ptr, bool only_equip)
 	else
 	{
 		if (only_equip)
-			item_tester_hook = object_is_weapon_armour_ammo;
+			item_tester_hook = object_is_weapon_armour_ammo2;
 		else
 			item_tester_hook = NULL;
 
