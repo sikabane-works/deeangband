@@ -5746,7 +5746,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 		return;
 	}
 
-	if (object_is_smith(cr_ptr, o_ptr))
+	if (object_is_smith(o_ptr))
 	{
 		switch (o_ptr->xtra3-1)
 		{

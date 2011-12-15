@@ -1894,7 +1894,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	/* while (*s == '~') s++; */
 
 #ifdef JP
-	if (object_is_smith(p_ptr, o_ptr))
+	if (object_is_smith(o_ptr))
 	{
 		if(!o_ptr->creater_idx)
 			t = object_desc_str(t, format("’b–èŽt%s‚Ì", p_ptr->name));
@@ -2266,7 +2266,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	if (have_flag(flgs, TR_SHOW_MODS)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if (object_is_smith(p_ptr, o_ptr) && (o_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
+	if (object_is_smith(o_ptr) && (o_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
 		show_weapon = TRUE;
 
 	/* Display the item like a weapon */

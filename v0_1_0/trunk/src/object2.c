@@ -8131,7 +8131,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		o_ptr = &o_list[0 - item];
 	}
 
-	if ((mode != 10) && (object_is_artifact(o_ptr) || object_is_smith(creature_ptr, o_ptr)))
+	if ((mode != 10) && (object_is_artifact(o_ptr) || object_is_smith(o_ptr)))
 	{
 #ifdef JP
 		msg_print("そのアイテムはこれ以上改良できない。");
@@ -8420,7 +8420,7 @@ static void erase_essence(creature_type *creature_ptr)
 	s = "You have nothing to remove essence.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith)) return;
+	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith2)) return;
 
 	/* Get the item (in the pack) */
 	if (item >= 0)

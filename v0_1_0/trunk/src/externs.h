@@ -1995,7 +1995,10 @@ extern bool object_is_equipment(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_smith(creature_type *cr_ptr, object_type *o_ptr);
+
+extern bool object_is_smith(object_type *o_ptr);
+extern bool object_is_smith2(creature_type *cr_ptr, object_type *o_ptr);
+
 extern bool object_is_artifact(object_type *o_ptr);
 extern bool object_is_artifact_aux(object_type *o_ptr);
 extern bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr);

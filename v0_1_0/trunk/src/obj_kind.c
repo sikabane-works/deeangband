@@ -300,7 +300,12 @@ bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr
 /*
  * Check if an object is made by a smith's special ability
  */
-bool object_is_smith(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_smith(object_type *o_ptr)
+{
+	if (object_is_weapon_armour_ammo(o_ptr) && o_ptr->xtra3) return TRUE;
+	return FALSE;
+}
+bool object_is_smith2(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (object_is_weapon_armour_ammo(o_ptr) && o_ptr->xtra3) return TRUE;
 
@@ -331,7 +336,7 @@ bool object_is_artifact_aux(object_type *o_ptr)
  */
 bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if (!object_is_artifact(o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(cr_ptr, o_ptr))
+	if (!object_is_artifact(o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(o_ptr))
 		return TRUE;
 
 	return FALSE;
