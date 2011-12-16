@@ -847,7 +847,7 @@ void object_aware(object_type *o_ptr)
 		object_copy(q_ptr, o_ptr);
 
 		q_ptr->number = 1;
-		object_desc(o_name, q_ptr, OD_NAME_ONLY);
+		object_desc(p_ptr, o_name, q_ptr, OD_NAME_ONLY);
 		
 		do_cmd_write_nikki(NIKKI_HANMEI, 0, o_name);
 	}
@@ -2138,7 +2138,7 @@ static void object_mention(object_type *o_ptr)
 	char o_name[MAX_NLEN];
 
 	/* Describe */
-	object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+	object_desc(p_ptr, o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
 
 	/* Artifact */
 	if (object_is_fixed_artifact(o_ptr))
@@ -5002,7 +5002,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 #endif
 
 	/* Describe object */
-	object_desc(o_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(p_ptr, o_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 
 	/* Handle normal "breakage" */
@@ -5555,7 +5555,7 @@ void inven_item_describe(creature_type *cr_ptr, int item)
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
@@ -5743,7 +5743,7 @@ void floor_item_describe(int item)
 	char        o_name[MAX_NLEN];
 
 	/* Get a description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(p_ptr, o_name, o_ptr, 0);
 
 	/* Print a message */
 #ifdef JP
@@ -5811,12 +5811,12 @@ bool inven_carry_okay(creature_type *cr_ptr, object_type *o_ptr)
 	int j;
 
 	/* Empty slot? */
-	if (p_ptr->inven_cnt < INVEN_PACK) return (TRUE);
+	if (cr_ptr->inven_cnt < INVEN_PACK) return (TRUE);
 
 	/* Similar slot? */
 	for (j = 0; j < INVEN_PACK; j++)
 	{
-		object_type *j_ptr = &p_ptr->inventory[j];
+		object_type *j_ptr = &cr_ptr->inventory[j];
 
 		/* Skip non-objects */
 		if (!j_ptr->k_idx) continue;
@@ -6092,7 +6092,7 @@ s16b inven_takeoff(creature_type *cr_ptr, int item, int amt)
 	q_ptr->number = amt;
 
 	/* Describe the object */
-	object_desc(o_name, q_ptr, 0);
+	object_desc(cr_ptr, o_name, q_ptr, 0);
 
 	/* Took off weapon */
 	if (((item == INVEN_1STARM) || (item == INVEN_2NDARM)) &&
@@ -6208,7 +6208,7 @@ void inven_drop(creature_type *cr_ptr, int item, int amt)
 	q_ptr->number = amt;
 
 	/* Describe local object */
-	object_desc(o_name, q_ptr, 0);
+	object_desc(cr_ptr, o_name, q_ptr, 0);
 
 	/* Message */
 #ifdef JP
@@ -6449,7 +6449,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Describe */
-	object_desc(o_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
+	object_desc(creature_ptr, o_name, q_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
 	Term_putstr(0, 0, -1, TERM_WHITE, o_name);
@@ -6902,7 +6902,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 		{
 			object_type *o_ptr = choose_warning_item(player_ptr);
 
-			if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			if (o_ptr) object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			else strcpy(o_name, "‘Ì"); /* Warning ability without item */
 			msg_format("%s‚ª‰s‚­k‚¦‚½I", o_name);
@@ -6926,7 +6926,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	{
 		object_type *o_ptr = choose_warning_item(player_ptr);
 
-		if (o_ptr) object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		if (o_ptr) object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		else strcpy(o_name, "‘Ì"); /* Warning ability without item */
 		msg_format("%s‚ªk‚¦‚½I", o_name);
@@ -7493,7 +7493,7 @@ static void drain_essence(creature_type *creature_ptr)
 	if (object_is_known(o_ptr) && !object_is_nameless(creature_ptr, o_ptr))
 	{
 		char o_name[MAX_NLEN];
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		if (!get_check(format("–{“–‚É%s‚©‚ç’Šo‚µ‚Ä‚æ‚ë‚µ‚¢‚Å‚·‚©H", o_name))) return;
 #else
@@ -8141,7 +8141,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		return;
 	}
 
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	use_essence = es_ptr->value;
 	if ((o_ptr->tval >= TV_SHOT) && (o_ptr->tval <= TV_BOLT)) use_essence = (use_essence+9)/10;
@@ -8434,7 +8434,7 @@ static void erase_essence(creature_type *creature_ptr)
 		o_ptr = &o_list[0 - item];
 	}
 
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(creature_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 	if (!get_check(format("‚æ‚ë‚µ‚¢‚Å‚·‚©H [%s]", o_name))) return;
 #else

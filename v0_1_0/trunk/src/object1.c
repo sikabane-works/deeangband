@@ -3919,9 +3919,9 @@ info[i++] = "‚»‚ê‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹z‚¢Žæ‚éB";
 
 	/* Display Item name */
 	if (!(mode & SCROBJ_FAKE_OBJECT))
-		object_desc(o_name, o_ptr, 0);
+		object_desc(p_ptr, o_name, o_ptr, 0);
 	else
-		object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+		object_desc(p_ptr, o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
 
 	prt(o_name, 0, 0);
 
@@ -4595,7 +4595,7 @@ void display_inven(creature_type *cr_ptr)
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
 
 		/* Obtain an item description */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		/* Obtain the length of the description */
 		n = strlen(o_name);
@@ -4689,7 +4689,7 @@ void display_equip(creature_type *cr_ptr)
 		}
 		else
 		{
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 			attr = tval_to_attr[o_ptr->tval % 128];
 		}
 
@@ -5064,7 +5064,7 @@ int show_inven(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		if (!item_tester_okay(cr_ptr, o_ptr, hook)) continue;
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		/* Save the object index, color, and description */
 		out_index[k] = i;
@@ -5245,7 +5245,7 @@ int show_equip(int target_item, creature_type *cr_ptr, bool right_set, bool (*ho
 		     item_tester_no_ryoute)) continue;
 
 		/* Description */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 		{
@@ -5494,7 +5494,7 @@ static bool verify(creature_type *cr_ptr, cptr prompt, int item)
 	}
 
 	/* Describe */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 
 	/* Prompt */
 #ifdef JP
@@ -6623,7 +6623,7 @@ int show_floor(int target_item, int y, int x, int *min_width)
 		o_ptr = &o_list[floor_list[i]];
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(p_ptr, o_name, o_ptr, 0);
 
 		/* Save the index */
 		out_index[k] = i;
@@ -8066,7 +8066,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 		o_ptr = &o_list[this_o_idx];
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		/* Access the next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -8152,7 +8152,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -8200,7 +8200,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			/* Message */
 #ifdef JP
@@ -8250,7 +8250,7 @@ void py_pickup_floor(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			/* Build a prompt */
 #ifdef JP

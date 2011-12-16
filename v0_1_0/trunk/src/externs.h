@@ -1175,7 +1175,7 @@ extern void get_table_sindarin_aux(char *out_string);
 extern void get_table_sindarin(char *out_string);
 extern void flavor_init(void);
 extern char *object_desc_kosuu(char *t, object_type *o_ptr);
-extern void object_desc(char *buf, object_type *o_ptr, u32b mode);
+extern void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b mode);
 
 /* floors.c */
 extern void init_saved_floors(bool force);

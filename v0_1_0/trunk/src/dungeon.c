@@ -266,7 +266,7 @@ static void sense_inventory_aux(creature_type *cr_ptr, int slot, bool heavy)
 	if (disturb_minor) disturb(player_ptr, 0, 0);
 
 	/* Get an object description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Message (equipment) */
 	if (slot >= INVEN_1STARM)
@@ -1352,7 +1352,7 @@ msg_print("何も新しいことは判らなかった。");
 	feel = value_check_aux1(cr_ptr, o_ptr);
 
 	/* Get an object description */
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Skip non-feelings */
 	if (!feel)
@@ -1451,7 +1451,7 @@ static void recharged_notice(object_type *o_ptr)
 		if (s[1] == '!')
 		{
 			/* Describe (briefly) */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(p_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 			/* Notify the player */
 #ifdef JP
@@ -1685,7 +1685,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 			char ouch [MAX_NLEN+40];
 
 			/* Get an object description */
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
@@ -1695,7 +1695,7 @@ msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
 			cave_no_regen = TRUE;
 
 			/* Get an object description */
-			object_desc(o_name, o_ptr, OD_NAME_ONLY);
+			object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
 
 #ifdef JP
 			sprintf(ouch, "%sを装備したダメージ", o_name);
@@ -3044,7 +3044,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			}
 
 			o_ptr = &cr_ptr->inventory[i_keep];
-			object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 			msg_format("%sがテレポートの能力を発動させようとしている。", o_name);
@@ -3112,7 +3112,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 				o_ptr->curse_flags |= new_curse;
 #ifdef JP
@@ -3139,7 +3139,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 				o_ptr->curse_flags |= new_curse;
 #ifdef JP
@@ -3161,7 +3161,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(cr_ptr, o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sが動物を引き寄せた！", o_name);
 #else
@@ -3178,7 +3178,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(cr_ptr, o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sが悪魔を引き寄せた！", o_name);
 #else
@@ -3196,7 +3196,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			{
 				char o_name[MAX_NLEN];
 
-				object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(cr_ptr, o_name, choose_cursed_obj_name(cr_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%sがドラゴンを引き寄せた！", o_name);
 #else
@@ -3233,7 +3233,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(cr_ptr, o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sはあなたの体力を吸収した！", o_name);
 #else
@@ -3246,7 +3246,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 		{
 			char o_name[MAX_NLEN];
 
-			object_desc(o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(cr_ptr, o_name, choose_cursed_obj_name(cr_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sはあなたの魔力を吸収した！", o_name);
 #else
@@ -5523,7 +5523,7 @@ static void pack_overflow(creature_type *cr_ptr)
 #endif
 
 		/* Describe */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		/* Message */
 #ifdef JP

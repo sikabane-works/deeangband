@@ -580,7 +580,7 @@ void curse_equipment(creature_type *cr_ptr, int chance, int heavy_chance)
 
 	object_flags(o_ptr, oflgs);
 
-	object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extra, biased saving throw for blessed items */
 	if (have_flag(oflgs, TR_BLESSED) && (randint1(888) > chance))

@@ -4322,7 +4322,7 @@ msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 			o_ptr = choose_warning_item(watcher_ptr);
 			if (o_ptr)
 			{
-				object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%s‚Í%sŒõ‚Á‚½B", o_name, color);
 #else

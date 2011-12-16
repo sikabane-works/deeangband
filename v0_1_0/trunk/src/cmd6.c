@@ -523,7 +523,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 		/* Drain vitality of humanoids */
 		char o_name[MAX_NLEN];
 
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 		msg_format("%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ð‹zŽû‚µ‚½‹C‚ª‚·‚éB", o_name);
@@ -2131,7 +2131,7 @@ msg_print("Šª•¨‚Í‰Œ‚ð—§‚Ä‚ÄÁ‚¦‹Ž‚Á‚½I");
 		q=format("book-%d_jp.txt",o_ptr->sval);
 
 		/* Display object description */
-		object_desc(o_name, o_ptr, OD_NAME_ONLY);
+		object_desc(cr_ptr, o_name, o_ptr, OD_NAME_ONLY);
 
 		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, q);

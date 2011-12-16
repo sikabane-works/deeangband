@@ -389,7 +389,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 	if (object_is_cursed(&cr_ptr->inventory[slot]))
 	{
 		/* Describe it */
-		object_desc(o_name, &cr_ptr->inventory[slot], (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(cr_ptr, o_name, &cr_ptr->inventory[slot], (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		/* Message */
 #ifdef JP
@@ -412,7 +412,7 @@ void do_cmd_wield(creature_type *cr_ptr)
 		char dummy[MAX_NLEN+80];
 
 		/* Describe it */
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
@@ -430,7 +430,7 @@ sprintf(dummy, "本当に%s{呪われている}を使いますか？", o_name);
 		char dummy[MAX_NLEN+80];
 
 		/* Describe it */
-		object_desc(o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name);
@@ -450,7 +450,7 @@ sprintf(dummy, "%sを装備すると真性の吸血鬼になります。よろしいですか？", o_name)
 		object_type *otmcr_ptr = &object_tmp;
 		char switch_name[MAX_NLEN];
 
-		object_desc(switch_name, switch_o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(cr_ptr, switch_name, switch_o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		object_copy(otmcr_ptr, switch_o_ptr);
 		object_copy(switch_o_ptr, slot_o_ptr);
@@ -776,7 +776,7 @@ msg_print("クエストを達成した！");
 	}
 
 	/* Describe the result */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 
 	/* Message */
 	msg_format(act, o_name, index_to_label(cr_ptr, slot));
@@ -832,7 +832,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 		if (have_weapon(cr_ptr, INVEN_2NDARM))
 		{
 			o_ptr = &cr_ptr->inventory[INVEN_2NDARM];
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			if (!object_is_cursed(o_ptr))
 			{
@@ -868,7 +868,7 @@ void kamaenaoshi(creature_type *cr_ptr, int item)
 	else if (item == INVEN_2NDARM)
 	{
 		o_ptr = &cr_ptr->inventory[INVEN_1STARM];
-		if (o_ptr->k_idx) object_desc(o_name, o_ptr, 0);
+		if (o_ptr->k_idx) object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		if (have_weapon(cr_ptr, INVEN_1STARM))
 		{
@@ -1191,7 +1191,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	/* Verify unless quantity given beforehand */
 	if (!force && (confirm_destroy || (object_value(o_ptr) > 0)))
 	{
-		object_desc(o_name, o_ptr, OD_OMIT_PREFIX);
+		object_desc(cr_ptr, o_name, o_ptr, OD_OMIT_PREFIX);
 
 		/* Make a verification */
 		sprintf(out_val, 
@@ -1261,7 +1261,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	/* Describe the object */
 	old_number = o_ptr->number;
 	o_ptr->number = amt;
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 	o_ptr->number = old_number;
 
 	/* Take a turn */
@@ -1409,7 +1409,7 @@ void do_cmd_observe(creature_type *cr_ptr)
 
 
 	/* Description */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 
 	/* Describe */
 #ifdef JP
@@ -1540,7 +1540,7 @@ void do_cmd_inscribe(creature_type *cr_ptr)
 	}
 
 	/* Describe the activity */
-	object_desc(o_name, o_ptr, OD_OMIT_INSCRIPTION);
+	object_desc(cr_ptr, o_name, o_ptr, OD_OMIT_INSCRIPTION);
 
 	/* Message */
 #ifdef JP

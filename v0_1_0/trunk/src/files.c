@@ -5368,7 +5368,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 
 		for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 		{
-			object_desc(o_name, &cr_ptr->inventory[i], 0);
+			object_desc(cr_ptr, o_name, &cr_ptr->inventory[i], 0);
 			if ((((i == INVEN_1STARM) && cr_ptr->hidarite) || ((i == INVEN_2NDARM) && cr_ptr->migite)) && cr_ptr->ryoute)
 #ifdef JP
 				strcpy(o_name, "(武器を両手持ち)");
@@ -5395,7 +5395,7 @@ static void dump_aux_equipment_inventory(creature_type *cr_ptr, FILE *fff)
 		if (!cr_ptr->inventory[i].k_idx) break;
 
 		/* Dump the inventory slots */
-		object_desc(o_name, &cr_ptr->inventory[i], 0);
+		object_desc(cr_ptr, o_name, &cr_ptr->inventory[i], 0);
 		fprintf(fff, "%c) %s\n", index_to_label(cr_ptr, i), o_name);
 	}
 
@@ -5442,7 +5442,7 @@ static void dump_aux_home_museum(FILE *fff)
 #else
 				fprintf(fff, "\n ( page %d )\n", x++);
 #endif
-			object_desc(o_name, &st_ptr->stock[i], 0);
+			object_desc(cr_ptr, o_name, &st_ptr->stock[i], 0);
 			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
 		}
 
@@ -5471,11 +5471,11 @@ static void dump_aux_home_museum(FILE *fff)
 		{
 #ifdef JP
 		if ((i % 12) == 0) fprintf(fff, "\n ( %d ページ )\n", x++);
-			object_desc(o_name, &st_ptr->stock[i], 0);
+			object_desc(cr_ptr, o_name, &st_ptr->stock[i], 0);
 			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
 #else
 		if ((i % 12) == 0) fprintf(fff, "\n ( page %d )\n", x++);
-			object_desc(o_name, &st_ptr->stock[i], 0);
+			object_desc(cr_ptr, o_name, &st_ptr->stock[i], 0);
 			fprintf(fff, "%c) %s\n", I2A(i%12), o_name);
 #endif
 
@@ -7408,7 +7408,7 @@ prt("持っていたアイテム: -続く-", 0, 0);
 					prt(tmp_val, j+2, 4);
 
 					// Display object description
-					object_desc(o_name, o_ptr, 0);
+					object_desc(cr_ptr, o_name, o_ptr, 0);
 					c_put_str(tval_to_attr[o_ptr->tval], o_name, j+2, 7);
 				}
 

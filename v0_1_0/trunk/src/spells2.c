@@ -5188,7 +5188,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						if (in_generate && cheat_peek)
 						{
 							char o_name[MAX_NLEN];
-							object_desc(o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
+							object_desc(caster_ptr, o_name, o_ptr, (OD_NAME_ONLY | OD_STORE));
 #ifdef JP
 							msg_format("伝説のアイテム (%s) は生成中に*破壊*された。", o_name);
 #else

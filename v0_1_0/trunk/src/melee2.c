@@ -2612,7 +2612,7 @@ msg_format("%^s%s", m_name, monmessage);
 					}
 
 					/* Acquire the object name */
-					object_desc(o_name, o_ptr, 0);
+					object_desc(player_ptr, o_name, o_ptr, 0);
 
 					/* Acquire the monster name */
 					creature_desc(m_name, nonplayer_ptr, MD_INDEF_HIDDEN);

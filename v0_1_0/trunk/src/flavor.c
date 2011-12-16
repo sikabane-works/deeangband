@@ -1201,7 +1201,7 @@ static void get_inscription(char *buff, object_type *o_ptr)
  *   OD_NO_FLAVOR        : Allow to hidden flavor
  *   OD_FORCE_FLAVOR     : Get un-shuffled flavor name
  */
-void object_desc(char *buf, object_type *o_ptr, u32b mode)
+void object_desc(creature_type *owner_ptr, char *buf, object_type *o_ptr, u32b mode)
 {
 	/* Extract object kind name */
 	cptr            kindname = k_name + k_info[o_ptr->k_idx].name;
@@ -1819,7 +1819,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 
 		/* Hack -- The only one of its kind */
-		else if ((known && object_is_artifact(p_ptr, o_ptr)) ||
+		else if ((known && object_is_artifact(owner_ptr, o_ptr)) ||
 		         ((o_ptr->tval == TV_CORPSE) &&
 		          (is_unique_species(species_info[o_ptr->pval]))))
 		{
@@ -1877,7 +1877,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 
 		/* Hack -- The only one of its kind */
-		else if (known && object_is_artifact(p_ptr, o_ptr))
+		else if (known && object_is_artifact(owner_ptr, o_ptr))
 		{
 			t = object_desc_str(t, "The ");
 		}
@@ -1897,7 +1897,7 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 	if (object_is_smith(o_ptr))
 	{
 		if(!o_ptr->creater_idx)
-			t = object_desc_str(t, format("’b–èŽt%s‚Ì", p_ptr->name));
+			t = object_desc_str(t, format("’b–èŽt%s‚Ì", owner_ptr->name));
 		else
 			t = object_desc_str(t, format("%s‚Ì", species_name + species_info[o_ptr->creater_idx].name));
 	}
@@ -2063,10 +2063,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 #else
-	if (object_is_smith(p_ptr, o_ptr))
+	if (object_is_smith(owner_ptr, o_ptr))
 	{
 		if(!o_ptr->creater_idx)
-			t = object_desc_str(t,format(" of %s the Smith", p_ptr->name));
+			t = object_desc_str(t,format(" of %s the Smith", owner_ptr->name));
 		else
 			t = object_desc_str(t, format(" of %s", species_name + species_info[o_ptr->creater_idx].name));
 	}
@@ -2370,10 +2370,10 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		}
 	}
 
-	bow_ptr = &p_ptr->inventory[INVEN_BOW];
+	bow_ptr = &owner_ptr->inventory[INVEN_BOW];
 
 	/* If have a firing weapon + ammo matches bow */
-	if (bow_ptr->k_idx && (o_ptr->tval == p_ptr->tval_ammo))
+	if (bow_ptr->k_idx && (o_ptr->tval == owner_ptr->tval_ammo))
 	{
 		int avgdam = o_ptr->dd * (o_ptr->ds + 1) * 10 / 2;
 		int tmul = bow_tmul(bow_ptr->sval);
@@ -2386,16 +2386,16 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		if (known) avgdam += (o_ptr->to_d * 10);
 
 		/* Get extra "power" from "extra might" */
-		if (p_ptr->xtra_might) tmul++;
+		if (owner_ptr->xtra_might) tmul++;
 
-		tmul = tmul * (100 + (int)(adj_str_td[p_ptr->stat_ind[STAT_STR]]) - 128);
+		tmul = tmul * (100 + (int)(adj_str_td[owner_ptr->stat_ind[STAT_STR]]) - 128);
 
 		/* Launcher multiplier */
 		avgdam *= tmul;
 		avgdam /= (100 * 10);
 
 		/* Get extra damage from concentration */
-		if (p_ptr->concent) avgdam = boost_concentration_damage(p_ptr, avgdam);
+		if (owner_ptr->concent) avgdam = boost_concentration_damage(owner_ptr, avgdam);
 
 		if (avgdam < 0) avgdam = 0;
 
@@ -2405,26 +2405,26 @@ void object_desc(char *buf, object_type *o_ptr, u32b mode)
 		t = object_desc_num(t, avgdam);
 		t = object_desc_chr(t, '/');
 
-		if (p_ptr->num_fire == 0)
+		if (owner_ptr->num_fire == 0)
 		{
 			t = object_desc_chr(t, '0');
 		}
 		else
 		{
 			/* Calc effects of energy */
-			avgdam *= (p_ptr->num_fire * 100);
+			avgdam *= (owner_ptr->num_fire * 100);
 			avgdam /= energy_fire;
 			t = object_desc_num(t, avgdam);
 		}
 
 		t = object_desc_chr(t, p2);
 	}
-	else if ((p_ptr->cls_idx == CLASS_NINJA) && (o_ptr->tval == TV_SPIKE))
+	else if ((owner_ptr->cls_idx == CLASS_NINJA) && (o_ptr->tval == TV_SPIKE))
 	{
-		int avgdam = p_ptr->mighty_throw ? (1 + 3) : 1;
-		s16b energy_fire = 100 - p_ptr->lev;
+		int avgdam = owner_ptr->mighty_throw ? (1 + 3) : 1;
+		s16b energy_fire = 100 - owner_ptr->lev;
 
-		avgdam += ((p_ptr->lev + 30) * (p_ptr->lev + 30) - 900) / 55;
+		avgdam += ((owner_ptr->lev + 30) * (owner_ptr->lev + 30) - 900) / 55;
 
 		/* Display (shot damage/ avg damage) */
 		t = object_desc_chr(t, ' ');

@@ -2649,7 +2649,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			next_o_idx = o_ptr->next_o_idx;
 
 			/* Obtain an object description */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			/* Describe the object */
 #ifdef JP
@@ -2703,7 +2703,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 				o_ptr = &o_list[floor_list[0]];
 
 				/* Describe the object */
-				object_desc(o_name, o_ptr, 0);
+				object_desc(cr_ptr, o_name, o_ptr, 0);
 
 				/* Message */
 #ifdef JP
@@ -2831,7 +2831,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 			boring = FALSE;
 
 			/* Obtain an object description */
-			object_desc(o_name, o_ptr, 0);
+			object_desc(cr_ptr, o_name, o_ptr, 0);
 
 			/* Describe the object */
 #ifdef JP
@@ -4645,7 +4645,7 @@ msg_print("「汝、武器に頼ることなかれ。」");
 				dummy = INVEN_2NDARM;
 				if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 			}
-			object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
+			object_desc(cr_ptr, o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -4669,7 +4669,7 @@ msg_print("「汝、防具に頼ることなかれ。」");
 			msg_print("'Thou reliest too much on thine equipment.'");
 #endif
 
-			object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+			object_desc(cr_ptr, o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 			(void)curse_armor(cr_ptr);
 #ifdef JP
 			reward = format("%sが破壊された。", o_name);
@@ -4720,7 +4720,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 							dummy = INVEN_2NDARM;
 							if (have_weapon(cr_ptr, INVEN_1STARM) && one_in_(2)) dummy = INVEN_1STARM;
 						}
-						object_desc(o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
+						object_desc(cr_ptr, o_name, &cr_ptr->inventory[dummy], OD_NAME_ONLY);
 						(void)curse_weapon(FALSE, dummy);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);
@@ -4731,7 +4731,7 @@ msg_print("「我を怒りしめた罪を償うべし。」");
 					else
 					{
 						if (!cr_ptr->inventory[INVEN_BODY].k_idx) break;
-						object_desc(o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
+						object_desc(cr_ptr, o_name, &cr_ptr->inventory[INVEN_BODY], OD_NAME_ONLY);
 						(void)curse_armor(cr_ptr);
 #ifdef JP
 						reward = format("%sが破壊された。", o_name);

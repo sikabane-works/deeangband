@@ -739,7 +739,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 
 #ifdef JP
 	/* Describe the object */
-	object_desc(old_name, o_ptr, OD_NAME_ONLY);
+	object_desc(cr_ptr, old_name, o_ptr, OD_NAME_ONLY);
 	object_desc_kosuu(kazu_str, o_ptr);
 	hirottakazu = o_ptr->number;
 #endif
@@ -764,7 +764,7 @@ void py_pickup_aux(creature_type *cr_ptr, int o_idx)
 	}
 
 	/* Describe the object */
-	object_desc(o_name, o_ptr, 0);
+	object_desc(cr_ptr, o_name, o_ptr, 0);
 
 	/* Message */
 #ifdef JP
@@ -909,7 +909,7 @@ void carry(creature_type *cr_ptr, bool pickup)
 #endif /* ALLOW_EASY_SENSE -- TNB */
 
 		/* Describe the object */
-		object_desc(o_name, o_ptr, 0);
+		object_desc(cr_ptr, o_name, o_ptr, 0);
 
 		/* Acquire next object */
 		next_o_idx = o_ptr->next_o_idx;
@@ -2950,7 +2950,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 					object_type *q_ptr = &o_list[tar_ptr->hold_o_idx];
 					char o_name[MAX_NLEN];
 
-					object_desc(o_name, q_ptr, OD_NAME_ONLY);
+					object_desc(tar_ptr, o_name, q_ptr, OD_NAME_ONLY);
 					q_ptr->held_m_idx = 0;
 					q_ptr->marked = OM_TOUCHED;
 					tar_ptr->hold_o_idx = q_ptr->next_o_idx;
