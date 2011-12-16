@@ -357,7 +357,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
  * Determine if there is a space near the player in which
  * a summoned creature can appear
  */
-bool summon_possible(int y1, int x1)
+bool summon_possible(creature_type *target_ptr, int y1, int x1)
 {
 	int y, x;
 
@@ -376,7 +376,7 @@ bool summon_possible(int y1, int x1)
 			if (pattern_tile(y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
-			if (cave_empty_bold(p_ptr, y, x) && projectable(y1, x1, y, x) && projectable(y, x, y1, x1)) return (TRUE);
+			if (cave_empty_bold(target_ptr, y, x) && projectable(y1, x1, y, x) && projectable(y, x, y1, x1)) return (TRUE);
 		}
 	}
 
@@ -1548,7 +1548,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		/* Special moves restriction */
 		if (has_cf_creature(caster_ptr, CF_SPECIAL))
 		{
-			if ((caster_ptr->species_idx == MON_ROLENTO) && !summon_possible(y, x))
+			if ((caster_ptr->species_idx == MON_ROLENTO) && !summon_possible(target_ptr, y, x))
 			{
 				//TODO f6 &= ~(RF6_SPECIAL);
 			}
@@ -3348,7 +3348,7 @@ msg_format("%s‚Í–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B", m_name);
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if (inside_arena || inside_battle || !summon_possible(caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					if (inside_arena || inside_battle || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[cave[caster_ptr->fy][caster_ptr->fx].m_idx]);
 					summon_named_creature(0, dummy_y, dummy_x, MON_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
@@ -4171,7 +4171,7 @@ else msg_format("%^s‚ª–‚–@‚Å—H‹Sí‘à‚ğ¢Š«‚µ‚½I", m_name);
 
 				for (k = 0; k < 30; k++)
 				{
-					if (!summon_possible(cy, cx) || !cave_empty_bold(target_ptr, cy, cx))
+					if (!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(target_ptr, cy, cx))
 					{
 						int j;
 						for (j = 100; j > 0; j--)
