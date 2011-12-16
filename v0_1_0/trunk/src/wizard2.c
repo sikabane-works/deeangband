@@ -2109,17 +2109,22 @@ void do_cmd_debug(creature_type *cr_ptr)
 		if (command_arg <= 0) command_arg = 1;
 				/* Default */
 		{
-			char tmp_val[10];
-			int tmp_int;
+			char tmp_val[10], tmp_val2[10];
+			int tmp_int, tmp_int2;
 			object_type ob;
-			sprintf(tmp_val, "9");
+
+			tmp_val[0] = '\0';
+			tmp_val2[0] = '\0';
+
 			/* Query */
 			if (!get_string("Ego Num:", tmp_val, 3)) return;
+			if (!get_string("Kind Num:", tmp_val2, 3)) return;
 
 			tmp_int = atoi(tmp_val);
+			tmp_int2 = atoi(tmp_val2);
 
 			object_wipe(&ob);
-			object_prep(&ob, 32, cr_ptr->size);
+			object_prep(&ob, tmp_int2, cr_ptr->size);
 			apply_magic_specified_ego(cr_ptr, &ob, cr_ptr->lev * 2, tmp_int);
 			(void)drop_near(&ob, -1, cr_ptr->fy, cr_ptr->fx);
 		}
