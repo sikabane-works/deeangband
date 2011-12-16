@@ -7665,7 +7665,7 @@ prt("リターンキーか ESC キーを押して下さい。", 0, 40);
 
 
 		/* Predict score (or ESCAPE) */
-		if (inkey() != ESCAPE) predict_score();
+		if (inkey() != ESCAPE) predict_score(player_ptr);
 	}
 
 

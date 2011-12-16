@@ -596,7 +596,7 @@ errr top_twenty(creature_type *player_ptr)
 /*
  * Predict the players location, and display it.
  */
-errr predict_score(void)
+errr predict_score(creature_type *player_ptr)
 {
 	int          j;
 
@@ -625,10 +625,10 @@ msg_print("スコア・ファイルが使用できません。");
 	sprintf(the_score.pts, "%9ld", (long)total_points());
 
 	/* Save the current gold */
-	sprintf(the_score.gold, "%9lu", (long)p_ptr->au);
+	sprintf(the_score.gold, "%9lu", (long)player_ptr->au);
 
 	/* Save the current turn */
-	sprintf(the_score.turns, "%9lu", (long)turn_real(p_ptr, turn));
+	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
 
 	/* Hack -- no time needed */
 #ifdef JP
@@ -639,19 +639,19 @@ msg_print("スコア・ファイルが使用できません。");
 
 
 	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", p_ptr->name);
+	sprintf(the_score.who, "%-.15s", player_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
-	sprintf(the_score.sex, "%c", (p_ptr->sex ? 'm' : 'f'));
-	sprintf(the_score.p_r, "%2d", p_ptr->race_idx1);
-	sprintf(the_score.p_c, "%2d", p_ptr->cls_idx);
-	sprintf(the_score.p_a, "%2d", p_ptr->chara_idx);
+	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
+	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);
+	sprintf(the_score.p_c, "%2d", player_ptr->cls_idx);
+	sprintf(the_score.p_a, "%2d", player_ptr->chara_idx);
 
 	/* Save the level and such */
-	sprintf(the_score.cur_lev, "%3d", p_ptr->lev);
+	sprintf(the_score.cur_lev, "%3d", player_ptr->lev);
 	sprintf(the_score.cur_dun, "%3d", dun_level);
-	sprintf(the_score.max_lev, "%3d", p_ptr->max_plv);
+	sprintf(the_score.max_lev, "%3d", player_ptr->max_plv);
 	sprintf(the_score.max_dun, "%3d", max_dlv[dungeon_type]);
 
 	/* Hack -- no cause of death */

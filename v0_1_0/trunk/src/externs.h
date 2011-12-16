@@ -1835,7 +1835,7 @@ extern void display_scores(int from, int to);
 extern void kingly(creature_type *player_ptr);
 extern bool send_world_score(bool do_send);
 extern errr top_twenty(creature_type *player_ptr);
-extern errr predict_score(void);
+extern errr predict_score(creature_type *player_ptr);
 extern void race_legends(void);
 extern void race_score(int race_num);
 extern void show_highclass(creature_type *cr_ptr);
