@@ -3601,7 +3601,7 @@ void deal_item(creature_type *creature_ptr)
 			}
 			else
 			{
-				apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_flag[i]);
+				apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_ego[i]);
 			}
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
