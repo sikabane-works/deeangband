@@ -1804,7 +1804,7 @@ extern void display_creature_dump(creature_type *cr_ptr);
 extern void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *m_ptr);
 
 /* mspells1.c */
-extern bool clean_shot(int y1, int x1, int y2, int x2, bool friend);
+extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);

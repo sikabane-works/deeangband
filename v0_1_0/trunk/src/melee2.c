@@ -1027,7 +1027,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			if (!monster_can_enter(y, x, r_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
-			if (!projectable(player_ptr->fy, player_ptr->fx, y, x) && clean_shot(fy, fx, y, x, FALSE))
+			if (!projectable(player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, player_ptr->fy, player_ptr->fx);

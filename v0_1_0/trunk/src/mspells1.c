@@ -435,7 +435,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  * no equally friendly monster is
  * between the attacker and target.
  */
-bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
+bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
 {
 	/* Must be the same as projectable() */
 
@@ -445,7 +445,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(p_ptr, grid_g, MAX_RANGE(p_ptr), y1, x1, y2, x2, 0);
+	grid_n = project_path(target_ptr, grid_g, MAX_RANGE(target_ptr), y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
 	if (!grid_n) return (FALSE);
@@ -471,7 +471,7 @@ bool clean_shot(int y1, int x1, int y2, int x2, bool friend)
 			}
 		}
 		/* Pets may not shoot through the character - TNB */
-		if (creature_bold(p_ptr, y, x))
+		if (creature_bold(target_ptr, y, x))
 		{
 			if (friend) return (FALSE);
 		}
@@ -490,7 +490,7 @@ static void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;
 
 	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, target_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
@@ -498,7 +498,7 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU | PROJECT_PLAYER;
 
 	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, target_ptr->fy, p_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
