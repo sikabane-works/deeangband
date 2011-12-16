@@ -2005,7 +2005,7 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 /*
  * Grab index from a textual string
  */
-static errr grab_one_index(int *n, cptr names[], cptr what)
+static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 {
 	int i = 0;
 
@@ -2014,7 +2014,7 @@ static errr grab_one_index(int *n, cptr names[], cptr what)
 		*n = INDEX_VARIABLE;
 		return 0;
 	}
-	else if(streq(what, "NONE"))
+	else if(streq(what, "NONE") && common_none)
 	{
 		*n = INDEX_NONE;
 		return 0;
@@ -3519,7 +3519,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].race_idx1 = (s16b)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					if(grab_one_index(&b, race_flags, tmp, TRUE)) return (1);
 				species_info[n].race_idx1 = (s16b)b;
 				break;
 
@@ -3527,7 +3527,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].race_idx2 = (s16b)b;
 				else 
-					if(grab_one_index(&b, race_flags, tmp)) return (1);
+					if(grab_one_index(&b, race_flags, tmp, TRUE)) return (1);
 				species_info[n].race_idx2 = (s16b)b;
 				break;
 
@@ -3535,7 +3535,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].cls_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, class_flags, tmp)) return (1);
+					if(grab_one_index(&b, class_flags, tmp, FALSE)) return (1);
 				species_info[n].cls_idx = (s16b)b;
 				break;
 
@@ -3543,7 +3543,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].patron_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
 				species_info[n].patron_idx = (s16b)b;
 				break;
 
@@ -3551,7 +3551,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].chara_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, chara_flags, tmp)) return (1);
+					if(grab_one_index(&b, chara_flags, tmp, TRUE)) return (1);
 				species_info[n].chara_idx = (s16b)b;
 				break;
 
@@ -3559,7 +3559,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, TRUE)) return (1);
 				species_info[n].realm1 = (s16b)b;
 				break;
 
@@ -3567,7 +3567,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm2 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, TRUE)) return (1);
 				species_info[n].realm2 = (s16b)b;
 				break;
 
@@ -3875,7 +3875,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_SEX:
-				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp)) return (1);
+				if((sscanf(tmp, "0x%x", &b) != 1) && grab_one_index(&b, NULL, tmp, TRUE)) return (1);
 				species_info[n].sex = (s16b)b;
 				break;
 
@@ -3883,7 +3883,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].father_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
 				species_info[n].father_idx = (s16b)b;
 				break;
 
@@ -3892,7 +3892,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].mother_idx = (s16b)b;
 				else 
-					if(grab_one_index(&b, NULL, tmp)) return (1);
+					if(grab_one_index(&b, NULL, tmp, TRUE)) return (1);
 				species_info[n].mother_idx = (s16b)b;
 				break;
 
