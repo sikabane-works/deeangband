@@ -5697,7 +5697,7 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		expdam = (tar_ptr->chp > damage) ? damage : tar_ptr->chp;
 		if (has_cf_creature(tar_ptr, CF_HEAL)) expdam = (expdam+1) * 2 / 3;
 
-		get_exp_from_mon(atk_ptr, expdam, tar_ptr);
+		if(atk_ptr) get_exp_from_mon(atk_ptr, expdam, tar_ptr);
 
 		/* Genocided by chaos patron */
 		//TODO check
