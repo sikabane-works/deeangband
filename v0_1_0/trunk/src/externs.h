@@ -1991,7 +1991,10 @@ extern bool object_is_weapon_armour_ammo2(creature_type *cr_ptr, object_type *o_
 
 extern bool object_is_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_is_wearable(creature_type *cr_ptr, object_type *o_ptr);
-extern bool object_is_equipment(creature_type *cr_ptr, object_type *o_ptr);
+
+extern bool object_is_equipment(object_type *o_ptr);
+extern bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr);
+
 extern bool object_refuse_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_enchant_weapon(creature_type *cr_ptr, object_type *o_ptr);
 extern bool object_allow_enchant_melee_weapon(creature_type *cr_ptr, object_type *o_ptr);

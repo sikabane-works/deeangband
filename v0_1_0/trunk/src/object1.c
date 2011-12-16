@@ -2382,7 +2382,7 @@ bool screen_object(object_type *o_ptr, u32b mode)
 		{ info[i] = &temp[j]; i++;}
 	}
 
-	if (object_is_equipment(p_ptr, o_ptr))
+	if (object_is_equipment(o_ptr))
 	{
 		/* Descriptions of a basic equipment is just a flavor */
 		trivial_info = i;

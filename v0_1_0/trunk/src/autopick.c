@@ -556,7 +556,7 @@ static void autopick_entry_from_object(creature_type *cr_ptr, autopick_type *ent
 		else
 		{
 			/* Wearable nameless object */
-			if (object_is_equipment(cr_ptr, o_ptr))
+			if (object_is_equipment(o_ptr))
 				ADD_FLG(FLG_NAMELESS);
 
 			bol_mark = TRUE;
@@ -1115,7 +1115,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Good ***/
 	if (IS_FLG(FLG_GOOD))
 	{
-		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
@@ -1155,7 +1155,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Nameless ***/
 	if (IS_FLG(FLG_NAMELESS))
 	{
-		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))
@@ -1194,7 +1194,7 @@ static bool is_autopick_aux(creature_type *cr_ptr, object_type *o_ptr, autopick_
 	/*** Average ***/
 	if (IS_FLG(FLG_AVERAGE))
 	{
-		if (!object_is_equipment(cr_ptr, o_ptr)) return FALSE;
+		if (!object_is_equipment(o_ptr)) return FALSE;
 
 		/* Identified */
 		if (object_is_known(o_ptr))

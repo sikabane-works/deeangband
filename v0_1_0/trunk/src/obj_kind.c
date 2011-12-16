@@ -256,7 +256,13 @@ bool object_is_wearable(creature_type *cr_ptr, object_type *o_ptr)
 /*
  * Equipment including all wearable objects and ammo
  */
-bool object_is_equipment(creature_type *cr_ptr, object_type *o_ptr)
+bool object_is_equipment(object_type *o_ptr)
+{
+	if (TV_EQUIP_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_EQUIP_END) return TRUE;
+
+	return FALSE;
+}
+bool object_is_equipment2(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (TV_EQUIP_BEGIN <= o_ptr->tval && o_ptr->tval <= TV_EQUIP_END) return TRUE;
 
