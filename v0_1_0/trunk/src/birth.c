@@ -2661,7 +2661,7 @@ static void get_ahw(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	if(!species_ptr->age) // not zero
+	if(species_ptr->age <= 0)
 	{
 		/* Get character's age */
 		creature_ptr->age = race_info[creature_ptr->race_idx1].b_age + race_info[creature_ptr->race_idx2].b_age;

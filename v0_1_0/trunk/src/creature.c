@@ -77,19 +77,17 @@ void set_sex(creature_type *creature_ptr)
 void set_height_weight(creature_type *creature_ptr)
 {
 	int h_percent;  /* ‘S’·‚ª•½‹Ï‚É‚­‚ç‚×‚Ä‚Ç‚Ì‚­‚ç‚¢ˆá‚¤‚©. */
-	int ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt, tmp2;
+	int ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt;
+	int male_ave_b_ht, male_ave_m_ht, male_ave_b_wt, male_ave_m_wt;
+	int female_ave_b_ht, female_ave_m_ht, female_ave_b_wt, female_ave_m_wt;
+	int tmp2;
 	double tmp;
-	race_type *ir_ptr;
+	race_type *race1_ptr, *race2_ptr;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx]; 
 
-	if(!species_ptr->m_b_ht && !species_ptr->m_b_wt && !species_ptr->m_m_ht && !species_ptr->m_m_wt &&
-	   !species_ptr->f_b_ht && !species_ptr->f_b_wt && !species_ptr->f_m_ht && !species_ptr->f_m_wt)
+	if((IS_MALE(creature_ptr) && !species_ptr->m_b_ht && !species_ptr->m_b_wt) ||
+	   (IS_FEMALE(creature_ptr) && !species_ptr->f_b_ht && !species_ptr->f_b_wt))
 	{
-	}
-
-	if(creature_ptr->species_idx != MON_STIGMATIC_ONE)
-	{
-
 		if (creature_ptr->sex == SEX_MALE)
 		{
 			ave_b_ht = (int)(species_ptr->m_b_ht);
@@ -107,36 +105,47 @@ void set_height_weight(creature_type *creature_ptr)
 		else
 		{
 			ave_b_ht = (int)(species_ptr->m_b_ht + species_ptr->f_b_ht) / 2;
-			ave_m_ht = (int)(species_ptr->m_m_ht + species_ptr->f_m_ht) / 2;
+			ave_m_ht = (int)(species_ptr->m_m_ht + species_ptr->f_m_ht);
 			ave_b_wt = (int)(species_ptr->m_b_wt + species_ptr->f_b_wt) / 2;
-			ave_m_wt = (int)(species_ptr->m_m_wt + species_ptr->f_m_wt) / 2;
+			ave_m_wt = (int)(species_ptr->m_m_wt + species_ptr->f_m_wt);
 		}
 
 	}
-	else if(creature_ptr->race_idx1 != INDEX_NONE)
+	else
 	{
-		ir_ptr = &race_info[creature_ptr->race_idx1]; 
+		race1_ptr = &race_info[creature_ptr->race_idx1];
+		race2_ptr = &race_info[creature_ptr->race_idx2];
 
-		if (creature_ptr->sex == SEX_MALE)
+		male_ave_b_ht = (int)(IS_PURE(creature_ptr) ? race1_ptr->m_b_ht : (race1_ptr->m_b_ht + race2_ptr->m_b_ht) / 2);
+		male_ave_m_ht = (int)(IS_PURE(creature_ptr) ? race1_ptr->m_m_ht : race1_ptr->m_m_ht + race2_ptr->m_m_ht);
+		male_ave_b_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->m_b_wt : (race1_ptr->m_b_wt + race2_ptr->m_b_wt) / 2);
+		male_ave_m_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->m_m_wt : race1_ptr->m_m_wt + race2_ptr->m_m_wt);
+
+		female_ave_b_ht = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_b_ht : (race1_ptr->f_b_ht + race2_ptr->f_b_ht) / 2);
+		female_ave_m_ht = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_m_ht : race1_ptr->f_m_ht + race2_ptr->f_m_ht);
+		female_ave_b_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_b_wt : (race1_ptr->f_b_wt + race2_ptr->f_b_wt) / 2);
+		female_ave_m_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_m_wt : race1_ptr->f_m_wt + race2_ptr->f_m_wt);
+
+		if (IS_MALE(creature_ptr))
 		{
-			ave_b_ht = (int)(ir_ptr->m_b_ht);
-			ave_m_ht = (int)(ir_ptr->m_m_ht);
-			ave_b_wt = (int)(ir_ptr->m_b_wt);
-			ave_m_wt = (int)(ir_ptr->m_m_wt);
+			ave_b_ht = male_ave_b_ht;
+			ave_m_ht = male_ave_m_ht;
+			ave_b_wt = male_ave_b_wt;
+			ave_m_wt = male_ave_m_wt;
 		}
-		else if (creature_ptr->sex == SEX_FEMALE)
+		else if (IS_FEMALE(creature_ptr))
 		{
-			ave_b_ht = (int)(ir_ptr->f_b_ht);
-			ave_m_ht = (int)(ir_ptr->f_m_ht);
-			ave_b_wt = (int)(ir_ptr->f_b_wt);
-			ave_m_wt = (int)(ir_ptr->f_m_wt);
+			ave_b_ht = female_ave_b_ht;
+			ave_m_ht = female_ave_m_ht;
+			ave_b_wt = female_ave_b_wt;
+			ave_m_wt = female_ave_m_wt;
 		}
 		else
 		{
-			ave_b_ht = (int)(ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2;
-			ave_m_ht = (int)(ir_ptr->m_m_ht + ir_ptr->f_m_ht) / 2;
-			ave_b_wt = (int)(ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2;
-			ave_m_wt = (int)(ir_ptr->m_m_wt + ir_ptr->f_m_wt) / 2;
+			ave_b_ht = (male_ave_b_ht + female_ave_b_ht) / 2;
+			ave_m_ht = male_ave_m_ht + female_ave_m_ht;
+			ave_b_wt = (male_ave_b_wt + female_ave_b_ht) / 2;
+			ave_m_wt = male_ave_m_wt + female_ave_m_wt;
 		}
 	}
 
