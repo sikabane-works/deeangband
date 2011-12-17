@@ -2346,8 +2346,7 @@ static byte get_random_ego(byte slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if (e_ptr->slot == slot
-		    && ((good && e_ptr->rating) || (!good && !e_ptr->rating)) )
+		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
 			if (e_ptr->rarity)
 				total += (255 / e_ptr->rarity);
@@ -2360,8 +2359,7 @@ static byte get_random_ego(byte slot, bool good)
 	{
 		e_ptr = &e_info[i];
 		
-		if (e_ptr->slot == slot
-		    && ((good && e_ptr->rating) || (!good && !e_ptr->rating)) )
+		if (e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)) )
 		{
 			if (e_ptr->rarity)
 				value -= (255 / e_ptr->rarity);
@@ -2375,6 +2373,7 @@ static byte get_random_ego(byte slot, bool good)
 		i = 0;
 		if(cheat_hear) msg_print("WARING: Ego Selection Failed.\n");
 	}
+
 	return (byte)i;
 }
 
@@ -2592,10 +2591,19 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 			break;
 		case EGO_ANNOYANCE:
 			break;
+
 		case EGO_HA:
+			if (one_in_(4) && (level > 40))
+				add_flag(o_ptr->art_flags, TR_BLOWS);
 			break;
+
 		case EGO_DF:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_WARNING);
 			break;
+
 		case EGO_BLESS_BLADE:
 			break;
 		case EGO_WEST:
@@ -2653,6 +2661,8 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 		case EGO_KILL_GIANT:
 			break;
 		case EGO_KILL_DRAGON:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
 			break;
 		case EGO_VAMPIRIC:
 			break;
@@ -2874,11 +2884,11 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
-					o_ptr->name2 = EGO_DIGGING;
+					apply_ego_aux(o_ptr, level, EGO_DIGGING);
 			}
 
 			/* Very bad */
-			else if (power < -1)
+			else if (power <= ITEM_RANK_BROKEN)
 			{
 				/* Hack -- Horrible digging bonus */
 				o_ptr->pval = 0 - (5 + (s16b)randint1(5));
@@ -2920,20 +2930,10 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 				switch (o_ptr->name2)
 				{
+
 				case EGO_HA:
-					if (one_in_(4) && (level > 40))
-						add_flag(o_ptr->art_flags, TR_BLOWS);
-					break;
 				case EGO_DF:
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_RES_POIS);
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_WARNING);
-					break;
 				case EGO_KILL_DRAGON:
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_RES_POIS);
-					break;
 				case EGO_WEST:
 					if (one_in_(3))
 						add_flag(o_ptr->art_flags, TR_RES_FEAR);
