@@ -2483,16 +2483,33 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 			break;
 		case EGO_RESIST_COLD:
 			break;
+
 		case EGO_RESISTANCE:
+			if (one_in_(4))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
 			break;
+
 		case EGO_ELVENKIND:
 			break;
+
 		case EGO_DWARVEN:
+			o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
+			o_ptr->ac = k_info[o_ptr->k_idx].ac + 5;
+			if (one_in_(4))
+				add_flag(o_ptr->art_flags, TR_CON);
 			break;
+
 		case EGO_PERMANENCE:
 			break;
+
 		case EGO_YOIYAMI:
+			o_ptr->name2 = EGO_YOIYAMI;
+			o_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
+			o_ptr->sval = SV_YOIYAMI_ROBE;
+			o_ptr->ac = 0;
+			o_ptr->to_a = 0;
 			break;
+
 		case EGO_ENDURE_ACID:
 			break;
 		case EGO_ENDURE_ELEC:
@@ -2755,8 +2772,11 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 			break;
 		case EGO_HURT_DRAGON:
 			break;
+
 		case EGO_SLAYING_BOLT:
+			o_ptr->dd++;
 			break;
+
 		case EGO_LIGHTNING_BOLT:
 			break;
 		case EGO_FLAME:
@@ -2918,6 +2938,23 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 		case EGO_AMU_NAIVETY:
 			break;
 	}
+
+	// Weapon Boost
+	if(object_is_weapon_ammo(o_ptr))
+	{
+		weapon_boost(o_ptr, level, ITEM_RANK_GREAT);
+		while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
+	}
+
+	// Armour_Boost
+	{
+		armour_boost(o_ptr, level, ITEM_RANK_GREAT);
+	}
+
+
+	// Limitation
+	if (o_ptr->dd > 9) o_ptr->dd = 9;
+
 }
 
 
@@ -2929,7 +2966,6 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
  */
 static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, int power)
 {
-	weapon_boost(o_ptr, level, power);
 
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
 
@@ -3039,18 +3075,6 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 				o_ptr->name2 = get_random_ego(INVEN_AMMO, TRUE);
 
-				switch (o_ptr->name2)
-				{
-				case EGO_SLAYING_BOLT:
-					o_ptr->dd++;
-					break;
-				}
-
-				/* Hack -- super-charge the damage dice */
-				while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
-
-				/* Hack -- restrict the damage dice */
-				if (o_ptr->dd > 9) o_ptr->dd = 9;
 			}
 
 			/* Very cursed */
