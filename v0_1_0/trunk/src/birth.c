@@ -2653,11 +2653,11 @@ static void get_history(creature_type *creature_ptr)
 
 
 /*
- * Computes character's age, height, and weight
- * by henkma
+ * Computes character's age
+ * by henkma (get_ahw)
  * Modified by deskull in D'angband.
  */
-static void get_ahw(creature_type *creature_ptr)
+static void set_age(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
@@ -2671,9 +2671,6 @@ static void get_ahw(creature_type *creature_ptr)
 	{
 		creature_ptr->age = species_ptr->age;
 	}
-
-	/* Get character's height and weight */
-	set_height_weight(creature_ptr);
 }
 
 
@@ -5511,8 +5508,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		else
 		{
 			get_stats(creature_ptr, species_ptr);   // Get a new character
-			get_ahw(creature_ptr);     // Roll for age/height/weight
-			get_history(creature_ptr); // Roll for social class
+			set_age(creature_ptr);                  // Roll for age
+			set_height_weight(creature_ptr);        // Roll height and weight
+
+			get_history(creature_ptr);              // Roll for social class
 		}
 
 		/* Feedback */
@@ -5620,8 +5619,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			/* Break if "happy" */
 			if (accept)
 			{
-				/* Roll for age/height/weight */
-				get_ahw(creature_ptr);
+				set_age(creature_ptr);            // Roll for age
+				set_height_weight(creature_ptr);  // Roll for height and weight
 
 				/* Roll for social class */
 				get_history(creature_ptr);
@@ -5662,12 +5661,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				/* Check for a keypress */
 				if (inkey())
 				{
-					/* Roll for age/height/weight */
-					get_ahw(creature_ptr);
-
-					/* Roll for social class */
-					get_history(creature_ptr);
-
+					set_age(creature_ptr);            // Roll for age
+					set_height_weight(creature_ptr);  // Roll for height and weight
+					get_history(creature_ptr);        // Roll for social class
 					break;
 				}
 			}
