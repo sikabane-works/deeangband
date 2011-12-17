@@ -3507,7 +3507,7 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
  * Hack -- note special "pval boost" code for ring of speed
  * Hack -- note that some items must be cursed (or blessed)
  */
-static void a_m_aux_3(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
+static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
 	/* Apply magic (good or bad) according to type */
 	switch (o_ptr->tval)
@@ -4318,7 +4318,7 @@ static bool item_monster_okay(int species_idx)
  *
  * Hack -- note the special code for various items
  */
-static void a_m_aux_4(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
+static void generate_other_magic_item(creature_type *creature_ptr, object_type *o_ptr, int level, int power)
 {
 	object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
@@ -4823,13 +4823,13 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		case TV_AMULET:
 		{
 			if (!power && (randint0(100) < 50)) power = -1;
-			a_m_aux_3(owner_ptr, o_ptr, lev, power);
+			generate_process_ring_amulet(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 
 		default:
 		{
-			a_m_aux_4(owner_ptr, o_ptr, lev, power);
+			generate_other_magic_item(owner_ptr, o_ptr, lev, power);
 			break;
 		}
 	}
