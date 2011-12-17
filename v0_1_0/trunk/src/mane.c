@@ -1,4 +1,4 @@
-/* File: mind.c */
+/* File: mane.c */
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke

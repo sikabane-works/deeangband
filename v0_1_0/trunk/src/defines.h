@@ -210,10 +210,10 @@
 
 
 /* Number of entries in the sanity-blast descriptions */
-#define MAX_SAN_HORROR 20
-#define MAX_SAN_DELIGHT 20
-#define MAX_SAN_FUNNY 22
-#define MAX_SAN_COMMENT 5
+#define MAX_SAN_HORROR   20
+#define MAX_SAN_DELIGHT  20
+#define MAX_SAN_FUNNY    22
+#define MAX_SAN_COMMENT  5
 
 /* Chaos Warrior: Reward types: */
 #define REW_POLY_SLF    1
@@ -773,10 +773,10 @@
 #define SEX_INTERSEX            0x03 // (SEX_MALE || SEX_FEMALE)
 #define SEX_UNDEFINED           0xFF
 
-#define IS_NOSEX(PTR) ((PTR)->sex == SEX_NONE)
-#define IS_MALE(PTR) ((PTR)->sex & SEX_MALE)
-#define IS_FEMALE(PTR) ((PTR)->sex & SEX_FEMALE)
-#define IS_INTERSEX(PTR) ((PTR)->sex & SEX_INTERSEX)
+#define IS_NOSEX(PTR)          ((PTR)->sex == SEX_NONE)
+#define IS_MALE(PTR)           ((PTR)->sex & SEX_MALE)
+#define IS_FEMALE(PTR)         ((PTR)->sex & SEX_FEMALE)
+#define IS_INTERSEX(PTR)       ((PTR)->sex & SEX_INTERSEX)
 
 
 /*

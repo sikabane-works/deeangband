@@ -2378,586 +2378,6 @@ static byte get_random_ego(byte slot, bool good)
 }
 
 
-
-// Weapon boost by power
-void weapon_boost(object_type *o_ptr, int level, int power)
-{
-	int tohit1 = randint1(5) + m_bonus(5, level);
-	int todam1 = randint1(5) + m_bonus(5, level);
-
-	int tohit2 = m_bonus(10, level);
-	int todam2 = m_bonus(10, level);
-
-	if ((o_ptr->tval == TV_BOLT) || (o_ptr->tval == TV_ARROW) || (o_ptr->tval == TV_SHOT))
-	{
-		tohit2 = (tohit2+1)/2;
-		todam2 = (todam2+1)/2;
-	}
-
-	/* Good */
-	if (power > 0)
-	{
-		/* Enchant */
-		o_ptr->to_h += tohit1;
-		o_ptr->to_d += todam1;
-
-		/* Very good */
-		if (power > 1)
-		{
-			/* Enchant again */
-			o_ptr->to_h += tohit2;
-			o_ptr->to_d += todam2;
-		}
-	}
-
-	/* Cursed */
-	else if (power < 0)
-	{
-		/* Penalize */
-		o_ptr->to_h -= tohit1;
-		o_ptr->to_d -= todam1;
-
-		/* Very cursed */
-		if (power < -1)
-		{
-			/* Penalize again */
-			o_ptr->to_h -= tohit2;
-			o_ptr->to_d -= todam2;
-		}
-
-		/* Cursed (if "bad") */
-		if (o_ptr->to_h + o_ptr->to_d < 0) o_ptr->curse_flags |= TRC_CURSED;
-	}
-}
-
-
-void armour_boost(object_type *o_ptr, int level, int power)
-{
-	int toac1 = randint1(5) + m_bonus(5, level);
-	int toac2 = m_bonus(10, level);
-
-	/* Good */
-	if (power > 0)
-	{
-		/* Enchant */
-		o_ptr->to_a += toac1;
-
-		/* Very good */
-		if (power > 1)
-		{
-			/* Enchant again */
-			o_ptr->to_a += toac2;
-		}
-	}
-
-	/* Cursed */
-	else if (power < 0)
-	{
-		/* Penalize */
-		o_ptr->to_a -= toac1;
-
-		/* Very cursed */
-		if (power < -1)
-		{
-			/* Penalize again */
-			o_ptr->to_a -= toac2;
-		}
-
-		/* Cursed (if "bad") */
-		if (o_ptr->to_a < 0) o_ptr->curse_flags |= TRC_CURSED;
-	}
-}
-
-
-static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
-{
-	o_ptr->name2 = ego_id;
-
-	switch(ego_id)
-	{
-		case EGO_RESIST_ACID:
-			break;
-		case EGO_RESIST_ELEC:
-			break;
-		case EGO_RESIST_FIRE:
-			break;
-		case EGO_RESIST_COLD:
-			break;
-
-		case EGO_RESISTANCE:
-			if (one_in_(4))
-				add_flag(o_ptr->art_flags, TR_RES_POIS);
-			break;
-
-		case EGO_ELVENKIND:
-			break;
-
-		case EGO_DWARVEN:
-			o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
-			o_ptr->ac = k_info[o_ptr->k_idx].ac + 5;
-			if (one_in_(4))
-				add_flag(o_ptr->art_flags, TR_CON);
-			break;
-
-		case EGO_PERMANENCE:
-			break;
-
-		case EGO_YOIYAMI:
-			o_ptr->name2 = EGO_YOIYAMI;
-			o_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
-			o_ptr->sval = SV_YOIYAMI_ROBE;
-			o_ptr->ac = 0;
-			o_ptr->to_a = 0;
-			break;
-
-		case EGO_ENDURE_ACID:
-			break;
-		case EGO_ENDURE_ELEC:
-			break;
-		case EGO_ENDURE_FIRE:
-			break;
-		case EGO_ENDURE_COLD:
-			break;
-		case EGO_ENDURANCE:
-			break;
-		case EGO_REFLECTION:
-			break;
-		case EGO_NIGHT_DAY:
-			break;
-		case EGO_DARK:
-			break;
-		case EGO_INTELLIGENCE:
-			break;
-		case EGO_WISDOM:
-			break;
-		case EGO_BEAUTY:
-			break;
-		case EGO_MAGI:
-			break;
-		case EGO_MIGHT:
-			break;
-		case EGO_LORDLINESS:
-			break;
-		case EGO_SEEING:
-			break;
-		case EGO_INFRAVISION:
-			break;
-		case EGO_LITE:
-			break;
-		case EGO_TELEPATHY:
-			break;
-		case EGO_REGENERATION:
-			break;
-		case EGO_TELEPORTATION:
-			break;
-		case EGO_STUPIDITY:
-			break;
-		case EGO_NAIVETY:
-			break;
-		case EGO_UGLINESS:
-			break;
-		case EGO_SICKLINESS:
-			break;
-		case EGO_PROTECTION:
-			break;
-		case EGO_STEALTH:
-			break;
-		case EGO_AMAN:
-			break;
-		case EGO_AURA_FIRE:
-			break;
-		case EGO_ENVELOPING:
-			break;
-		case EGO_VULNERABILITY:
-			break;
-		case EGO_IRRITATION:
-			break;
-		case EGO_AURA_ELEC:
-			break;
-		case EGO_AURA_COLD:
-			break;
-		case EGO_BAT:
-			break;
-		case EGO_FREE_ACTION:
-			break;
-		case EGO_SLAYING:
-			break;
-		case EGO_AGILITY:
-			break;
-		case EGO_POWER:
-			break;
-		case EGO_TWO_WEAPON:
-			break;
-		case EGO_MAGIC_MASTERY:
-			break;
-		case EGO_WEAKNESS:
-			break;
-		case EGO_CLUMSINESS:
-			break;
-		case EGO_SLOW_DESCENT:
-			break;
-		case EGO_QUIET:
-			break;
-		case EGO_MOTION:
-			break;
-		case EGO_SPEED:
-			break;
-		case EGO_JUMP:
-			break;
-		case EGO_NOISE:
-			break;
-		case EGO_SLOWNESS:
-			break;
-		case EGO_ANNOYANCE:
-			break;
-
-		case EGO_HA:
-			if (one_in_(4) && (level > 40))
-				add_flag(o_ptr->art_flags, TR_BLOWS);
-			break;
-
-		case EGO_DF:
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_RES_POIS);
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_WARNING);
-			break;
-
-		case EGO_BLESS_BLADE:
-			break;
-		case EGO_WEST:
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_RES_FEAR);
-			break;
-		case EGO_ATTACKS:
-			break;
-		case EGO_SLAYING_WEAPON:
-			if (one_in_(3)) /* double damage */
-				o_ptr->dd *= 2;
-			else
-			{
-				do
-				{
-					o_ptr->dd++;
-				}
-				while (one_in_(o_ptr->dd));
-						
-				do
-				{
-					o_ptr->ds++;
-				}
-				while (one_in_(o_ptr->ds));
-			}
-					
-			if (one_in_(5))
-			{
-				add_flag(o_ptr->art_flags, TR_BRAND_POIS);
-			}
-			if (o_ptr->tval == TV_SWORD && one_in_(3))
-			{
-				add_flag(o_ptr->art_flags, TR_VORPAL);
-			}
-			break;
-
-		case EGO_FORCE_WEAPON:
-			break;
-		case EGO_BRAND_ACID:
-			break;
-		case EGO_BRAND_ELEC:
-			break;
-		case EGO_BRAND_FIRE:
-			break;
-		case EGO_BRAND_COLD:
-			break;
-		case EGO_BRAND_POIS:
-			break;
-		case EGO_CHAOTIC:
-			break;
-
-		case EGO_SHARPNESS:
-			o_ptr->pval = m_bonus(5, level) + 1;
-			break;
-
-		case EGO_EARTHQUAKES:
-			if (one_in_(3) && (level > 60))
-				add_flag(o_ptr->art_flags, TR_BLOWS);
-			else
-				o_ptr->pval = m_bonus(3, level);
-			break;
-
-		case EGO_SLAY_ANIMAL:
-			break;
-		case EGO_SLAY_EVIL:
-			break;
-		case EGO_SLAY_UNDEAD:
-			break;
-		case EGO_SLAY_DEMON:
-			break;
-		case EGO_SLAY_ORC:
-			break;
-		case EGO_SLAY_TROLL:
-			break;
-		case EGO_SLAY_GIANT:
-			break;
-		case EGO_SLAY_DRAGON:
-			break;
-		case EGO_KILL_ANIMAL:
-			break;
-		case EGO_KILL_EVIL:
-			break;
-		case EGO_KILL_UNDEAD:
-			break;
-		case EGO_KILL_DEMON:
-			break;
-		case EGO_KILL_ORC:
-			break;
-		case EGO_KILL_TROLL:
-			break;
-		case EGO_KILL_GIANT:
-			break;
-
-		case EGO_KILL_DRAGON:
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_RES_POIS);
-			break;
-
-		case EGO_VAMPIRIC:
-			if (one_in_(5))
-				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
-			break;
-
-		case EGO_PRISM:
-			break;
-
-		case EGO_TRUMP:
-			if (one_in_(5))
-				add_flag(o_ptr->art_flags, TR_SLAY_DEMON);
-			if (one_in_(7))
-				one_ability(o_ptr);
-			break;
-
-		case EGO_PATTERN:
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
-			if (one_in_(3))
-				add_flag(o_ptr->art_flags, TR_DEX);
-			if (one_in_(5))
-				add_flag(o_ptr->art_flags, TR_RES_FEAR);
-			break;
-
-		case EGO_DIGGING:
-			break;
-
-		case EGO_SLAY_HUMAN:
-			if (one_in_(2))
-				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
-			break;
-
-		case EGO_MORGUL:
-			break;
-
-		case EGO_KILL_HUMAN:
-			break;
-		case EGO_ACCURACY:
-			break;
-		case EGO_VELOCITY:
-			break;
-		case EGO_EXTRA_MIGHT:
-			break;
-		case EGO_EXTRA_SHOTS:
-			break;
-		case EGO_HURT_ANIMAL:
-			break;
-		case EGO_HURT_EVIL:
-			break;
-		case EGO_HURT_DRAGON:
-			break;
-
-		case EGO_SLAYING_BOLT:
-			o_ptr->dd++;
-			break;
-
-		case EGO_LIGHTNING_BOLT:
-			break;
-		case EGO_FLAME:
-			break;
-		case EGO_FROST:
-			break;
-		case EGO_WOUNDING:
-			break;
-		case EGO_BACKBITING:
-			break;
-		case EGO_SHATTERED:
-			break;
-		case EGO_BLASTED:
-			break;
-		case EGO_LITE_SHINE:
-			break;
-		case EGO_LITE_ILLUMINATION:
-			break;
-		case EGO_LITE_AURA_FIRE:
-			break;
-		case EGO_LITE_INFRA:
-			break;
-		case EGO_LITE_LONG:
-			break;
-		case EGO_LITE_DARKNESS:
-			break;
-		case EGO_LITE_EYE:
-			break;
-		case EGO_RING_HERO:
-			break;
-		case EGO_RING_SLAY:
-			break;
-		case EGO_RING_SUPER_AC:
-			break;
-		case EGO_RING_MAGIC_MIS:
-			break;
-		case EGO_RING_FIRE_BOLT:
-			break;
-		case EGO_RING_COLD_BOLT:
-			break;
-		case EGO_RING_ELEC_BOLT:
-			break;
-		case EGO_RING_ACID_BOLT:
-			break;
-		case EGO_RING_MANA_BOLT:
-			break;
-		case EGO_RING_FIRE_BALL:
-			break;
-		case EGO_RING_COLD_BALL:
-			break;
-		case EGO_RING_ELEC_BALL:
-			break;
-		case EGO_RING_ACID_BALL:
-			break;
-		case EGO_RING_MANA_BALL:
-			break;
-		case EGO_RING_DRAGON_F:
-			break;
-		case EGO_RING_DRAGON_C:
-			break;
-		case EGO_RING_D_SPEED:
-			break;
-		case EGO_RING_BERSERKER:
-			break;
-		case EGO_RING_HUNTER:
-			break;
-		case EGO_RING_THROW:
-			break;
-		case EGO_RING_REGEN:
-			break;
-		case EGO_RING_LITE:
-			break;
-		case EGO_RING_M_DETECT:
-			break;
-		case EGO_RING_STEALTH:
-			break;
-		case EGO_RING_TELE_AWAY:
-			break;
-		case EGO_RING_TO_H:
-			break;
-		case EGO_RING_TO_D:
-			break;
-		case EGO_RING_RES_LITE:
-			break;
-		case EGO_RING_RES_DARK:
-			break;
-		case EGO_RING_WIZARD:
-			break;
-		case EGO_RING_TRUE:
-			break;
-		case EGO_RING_DRAIN_EXP:
-			break;
-		case EGO_RING_NO_MELEE:
-			break;
-		case EGO_RING_AGGRAVATE:
-			break;
-		case EGO_RING_TY_CURSE:
-			break;
-		case EGO_RING_RES_TIME:
-			break;
-		case EGO_RING_TELEPORT:
-			break;
-		case EGO_RING_ALBINO:
-			break;
-		case EGO_AMU_SLOW_D:
-			break;
-		case EGO_AMU_INFRA:
-			break;
-		case EGO_AMU_SEE_INVIS:
-			break;
-		case EGO_AMU_HOLD_LIFE:
-			break;
-		case EGO_AMU_DRAIN_EXP:
-			break;
-		case EGO_AMU_FOOL:
-			break;
-		case EGO_AMU_AGGRAVATE:
-			break;
-		case EGO_AMU_TY_CURSE:
-			break;
-		case EGO_AMU_AC:
-			break;
-		case EGO_AMU_IDENT:
-			break;
-		case EGO_AMU_CHARM:
-			break;
-		case EGO_AMU_STEALTH:
-			break;
-		case EGO_AMU_JUMP:
-			break;
-		case EGO_AMU_TELEPORT:
-			break;
-		case EGO_AMU_D_DOOR:
-			break;
-		case EGO_AMU_DEFENDER:
-			break;
-		case EGO_AMU_RES_FIRE:
-			break;
-		case EGO_AMU_RES_FIRE_:
-			break;
-		case EGO_AMU_RES_COLD:
-			break;
-		case EGO_AMU_RES_COLD_:
-			break;
-		case EGO_AMU_RES_ELEC:
-			break;
-		case EGO_AMU_RES_ELEC_:
-			break;
-		case EGO_AMU_RES_ACID:
-			break;
-		case EGO_AMU_RES_ACID_:
-			break;
-		case EGO_AMU_LEVITATION:
-			break;
-		case EGO_AMU_GREAT:
-			break;
-		case EGO_AMU_DETECTION:
-			break;
-		case EGO_AMU_NAIVETY:
-			break;
-	}
-
-	// Weapon Boost
-	if(object_is_weapon_ammo(o_ptr))
-	{
-		weapon_boost(o_ptr, level, ITEM_RANK_GREAT);
-		while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
-	}
-
-	// Armour_Boost
-	{
-		armour_boost(o_ptr, level, ITEM_RANK_GREAT);
-	}
-
-
-	// Limitation
-	if (o_ptr->dd > 9) o_ptr->dd = 9;
-
-}
-
-
 /*
  * Apply magic to an item known to be a "weapon"
  *
@@ -2981,7 +2401,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
-					apply_ego_aux(o_ptr, level, EGO_DIGGING);
+					apply_ego(o_ptr, level, EGO_DIGGING);
 			}
 
 			/* Very bad */
@@ -3027,7 +2447,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					break;
 				}
 
-				apply_ego_aux(o_ptr, level, o_ptr->name2);
+				apply_ego(o_ptr, level, o_ptr->name2);
 
 				if (!o_ptr->art_name)
 				{
@@ -3300,6 +2720,7 @@ static void a_m_aux_2(creature_type *creature_ptr, object_type *o_ptr, int level
 				dragon_resist(o_ptr);
 				if (!one_in_(3)) break;
 			}
+
 			if (power > 1)
 			{
 				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
@@ -9043,3 +8464,608 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 		case 5: add_essence(creature_ptr, 10);break;
 	}
 }
+
+// Weapon boost by power
+void weapon_boost(object_type *o_ptr, int level, int power)
+{
+	int tohit1 = randint1(5) + m_bonus(5, level);
+	int todam1 = randint1(5) + m_bonus(5, level);
+
+	int tohit2 = m_bonus(10, level);
+	int todam2 = m_bonus(10, level);
+
+	if ((o_ptr->tval == TV_BOLT) || (o_ptr->tval == TV_ARROW) || (o_ptr->tval == TV_SHOT))
+	{
+		tohit2 = (tohit2+1)/2;
+		todam2 = (todam2+1)/2;
+	}
+
+	/* Good */
+	if (power > 0)
+	{
+		/* Enchant */
+		o_ptr->to_h += tohit1;
+		o_ptr->to_d += todam1;
+
+		/* Very good */
+		if (power > 1)
+		{
+			/* Enchant again */
+			o_ptr->to_h += tohit2;
+			o_ptr->to_d += todam2;
+		}
+	}
+
+	/* Cursed */
+	else if (power < 0)
+	{
+		/* Penalize */
+		o_ptr->to_h -= tohit1;
+		o_ptr->to_d -= todam1;
+
+		/* Very cursed */
+		if (power < -1)
+		{
+			/* Penalize again */
+			o_ptr->to_h -= tohit2;
+			o_ptr->to_d -= todam2;
+		}
+
+		/* Cursed (if "bad") */
+		if (o_ptr->to_h + o_ptr->to_d < 0) o_ptr->curse_flags |= TRC_CURSED;
+	}
+}
+
+
+void armour_boost(object_type *o_ptr, int level, int power)
+{
+	int toac1 = randint1(5) + m_bonus(5, level);
+	int toac2 = m_bonus(10, level);
+
+	/* Good */
+	if (power > 0)
+	{
+		/* Enchant */
+		o_ptr->to_a += toac1;
+
+		/* Very good */
+		if (power > 1)
+		{
+			/* Enchant again */
+			o_ptr->to_a += toac2;
+		}
+	}
+
+	/* Cursed */
+	else if (power < 0)
+	{
+		/* Penalize */
+		o_ptr->to_a -= toac1;
+
+		/* Very cursed */
+		if (power < -1)
+		{
+			/* Penalize again */
+			o_ptr->to_a -= toac2;
+		}
+
+		/* Cursed (if "bad") */
+		if (o_ptr->to_a < 0) o_ptr->curse_flags |= TRC_CURSED;
+	}
+}
+
+
+void apply_ego(object_type *o_ptr, int level, int ego_id)
+{
+	o_ptr->name2 = ego_id;
+
+	switch(ego_id)
+	{
+		case EGO_RESIST_ACID:
+			break;
+		case EGO_RESIST_ELEC:
+			break;
+		case EGO_RESIST_FIRE:
+			break;
+		case EGO_RESIST_COLD:
+			break;
+
+		case EGO_RESISTANCE:
+			if (one_in_(4))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
+			break;
+
+		case EGO_ELVENKIND:
+			break;
+
+		case EGO_DWARVEN:
+			o_ptr->weight = (2 * k_info[o_ptr->k_idx].weight / 3);
+			o_ptr->ac = k_info[o_ptr->k_idx].ac + 5;
+			if (one_in_(4))
+				add_flag(o_ptr->art_flags, TR_CON);
+			break;
+
+		case EGO_PERMANENCE:
+			break;
+
+		case EGO_YOIYAMI:
+			o_ptr->name2 = EGO_YOIYAMI;
+			o_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
+			o_ptr->sval = SV_YOIYAMI_ROBE;
+			o_ptr->ac = 0;
+			o_ptr->to_a = 0;
+			break;
+
+		case EGO_ENDURE_ACID:
+			break;
+		case EGO_ENDURE_ELEC:
+			break;
+		case EGO_ENDURE_FIRE:
+			break;
+		case EGO_ENDURE_COLD:
+			break;
+
+		case EGO_ENDURANCE:
+			if (!one_in_(3)) one_high_resistance(o_ptr);
+			if (one_in_(4)) add_flag(o_ptr->art_flags, TR_RES_POIS);
+			break;
+
+		case EGO_REFLECTION:
+			if (o_ptr->sval == SV_MIRROR_SHIELD)
+				o_ptr->name2 = 0;
+			break;
+
+		case EGO_NIGHT_DAY:
+			break;
+		case EGO_DARK:
+			break;
+		case EGO_INTELLIGENCE:
+			break;
+		case EGO_WISDOM:
+			break;
+		case EGO_BEAUTY:
+			break;
+		case EGO_MAGI:
+			break;
+		case EGO_MIGHT:
+			break;
+		case EGO_LORDLINESS:
+			break;
+
+		case EGO_SEEING:
+			if (one_in_(3))
+			{
+				if (one_in_(2)) add_esp_strong(o_ptr);
+					else add_esp_weak(o_ptr, FALSE);
+			}
+
+		case EGO_INFRAVISION:
+			break;
+		case EGO_LITE:
+			break;
+
+		case EGO_TELEPATHY:
+			if (add_esp_strong(o_ptr)) add_esp_weak(o_ptr, TRUE);
+				else add_esp_weak(o_ptr, FALSE);
+			break;
+
+		case EGO_REGENERATION:
+			break;
+		case EGO_TELEPORTATION:
+			break;
+		case EGO_STUPIDITY:
+			break;
+		case EGO_NAIVETY:
+			break;
+		case EGO_UGLINESS:
+			break;
+		case EGO_SICKLINESS:
+			break;
+		case EGO_PROTECTION:
+			break;
+		case EGO_STEALTH:
+			break;
+		case EGO_AMAN:
+			break;
+		case EGO_AURA_FIRE:
+			break;
+		case EGO_ENVELOPING:
+			break;
+		case EGO_VULNERABILITY:
+			break;
+		case EGO_IRRITATION:
+			break;
+		case EGO_AURA_ELEC:
+			break;
+		case EGO_AURA_COLD:
+			break;
+		case EGO_BAT:
+			o_ptr->to_d -= 6;
+			o_ptr->to_h -= 6;
+			break;
+		case EGO_FREE_ACTION:
+			break;
+		case EGO_SLAYING:
+			break;
+		case EGO_AGILITY:
+			break;
+		case EGO_POWER:
+			break;
+		case EGO_TWO_WEAPON:
+			break;
+		case EGO_MAGIC_MASTERY:
+			break;
+		case EGO_WEAKNESS:
+			break;
+		case EGO_CLUMSINESS:
+			break;
+
+		case EGO_SLOW_DESCENT:
+			if (one_in_(2))
+			{
+				one_high_resistance(o_ptr);
+			}
+			break;
+
+		case EGO_QUIET:
+			break;
+		case EGO_MOTION:
+			break;
+		case EGO_SPEED:
+			break;
+		case EGO_JUMP:
+			break;
+		case EGO_NOISE:
+			break;
+		case EGO_SLOWNESS:
+			break;
+		case EGO_ANNOYANCE:
+			break;
+
+		case EGO_HA:
+			if (one_in_(4) && (level > 40))
+				add_flag(o_ptr->art_flags, TR_BLOWS);
+			break;
+
+		case EGO_DF:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_WARNING);
+			break;
+
+		case EGO_BLESS_BLADE:
+			break;
+		case EGO_WEST:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_FEAR);
+			break;
+		case EGO_ATTACKS:
+			break;
+		case EGO_SLAYING_WEAPON:
+			if (one_in_(3)) /* double damage */
+				o_ptr->dd *= 2;
+			else
+			{
+				do
+				{
+					o_ptr->dd++;
+				}
+				while (one_in_(o_ptr->dd));
+						
+				do
+				{
+					o_ptr->ds++;
+				}
+				while (one_in_(o_ptr->ds));
+			}
+					
+			if (one_in_(5))
+			{
+				add_flag(o_ptr->art_flags, TR_BRAND_POIS);
+			}
+			if (o_ptr->tval == TV_SWORD && one_in_(3))
+			{
+				add_flag(o_ptr->art_flags, TR_VORPAL);
+			}
+			break;
+
+		case EGO_FORCE_WEAPON:
+			break;
+		case EGO_BRAND_ACID:
+			break;
+		case EGO_BRAND_ELEC:
+			break;
+		case EGO_BRAND_FIRE:
+			break;
+		case EGO_BRAND_COLD:
+			break;
+		case EGO_BRAND_POIS:
+			break;
+		case EGO_CHAOTIC:
+			break;
+
+		case EGO_SHARPNESS:
+			o_ptr->pval = m_bonus(5, level) + 1;
+			break;
+
+		case EGO_EARTHQUAKES:
+			if (one_in_(3) && (level > 60))
+				add_flag(o_ptr->art_flags, TR_BLOWS);
+			else
+				o_ptr->pval = m_bonus(3, level);
+			break;
+
+		case EGO_SLAY_ANIMAL:
+			break;
+		case EGO_SLAY_EVIL:
+			break;
+		case EGO_SLAY_UNDEAD:
+			break;
+		case EGO_SLAY_DEMON:
+			break;
+		case EGO_SLAY_ORC:
+			break;
+		case EGO_SLAY_TROLL:
+			break;
+		case EGO_SLAY_GIANT:
+			break;
+		case EGO_SLAY_DRAGON:
+			break;
+		case EGO_KILL_ANIMAL:
+			break;
+		case EGO_KILL_EVIL:
+			break;
+		case EGO_KILL_UNDEAD:
+			break;
+		case EGO_KILL_DEMON:
+			break;
+		case EGO_KILL_ORC:
+			break;
+		case EGO_KILL_TROLL:
+			break;
+		case EGO_KILL_GIANT:
+			break;
+
+		case EGO_KILL_DRAGON:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_POIS);
+			break;
+
+		case EGO_VAMPIRIC:
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
+			break;
+
+		case EGO_PRISM:
+			break;
+
+		case EGO_TRUMP:
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_SLAY_DEMON);
+			if (one_in_(7))
+				one_ability(o_ptr);
+			break;
+
+		case EGO_PATTERN:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_DEX);
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_RES_FEAR);
+			break;
+
+		case EGO_DIGGING:
+			break;
+
+		case EGO_SLAY_HUMAN:
+			if (one_in_(2))
+				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
+			break;
+
+		case EGO_MORGUL:
+			break;
+
+		case EGO_KILL_HUMAN:
+			break;
+		case EGO_ACCURACY:
+			break;
+		case EGO_VELOCITY:
+			break;
+		case EGO_EXTRA_MIGHT:
+			break;
+		case EGO_EXTRA_SHOTS:
+			break;
+		case EGO_HURT_ANIMAL:
+			break;
+		case EGO_HURT_EVIL:
+			break;
+		case EGO_HURT_DRAGON:
+			break;
+
+		case EGO_SLAYING_BOLT:
+			o_ptr->dd++;
+			break;
+
+		case EGO_LIGHTNING_BOLT:
+			break;
+		case EGO_FLAME:
+			break;
+		case EGO_FROST:
+			break;
+		case EGO_WOUNDING:
+			break;
+		case EGO_BACKBITING:
+			break;
+		case EGO_SHATTERED:
+			break;
+		case EGO_BLASTED:
+			break;
+		case EGO_LITE_SHINE:
+			break;
+		case EGO_LITE_ILLUMINATION:
+			break;
+		case EGO_LITE_AURA_FIRE:
+			break;
+		case EGO_LITE_INFRA:
+			break;
+		case EGO_LITE_LONG:
+			break;
+		case EGO_LITE_DARKNESS:
+			break;
+		case EGO_LITE_EYE:
+			break;
+		case EGO_RING_HERO:
+			break;
+		case EGO_RING_SLAY:
+			break;
+		case EGO_RING_SUPER_AC:
+			break;
+		case EGO_RING_MAGIC_MIS:
+			break;
+		case EGO_RING_FIRE_BOLT:
+			break;
+		case EGO_RING_COLD_BOLT:
+			break;
+		case EGO_RING_ELEC_BOLT:
+			break;
+		case EGO_RING_ACID_BOLT:
+			break;
+		case EGO_RING_MANA_BOLT:
+			break;
+		case EGO_RING_FIRE_BALL:
+			break;
+		case EGO_RING_COLD_BALL:
+			break;
+		case EGO_RING_ELEC_BALL:
+			break;
+		case EGO_RING_ACID_BALL:
+			break;
+		case EGO_RING_MANA_BALL:
+			break;
+		case EGO_RING_DRAGON_F:
+			break;
+		case EGO_RING_DRAGON_C:
+			break;
+		case EGO_RING_D_SPEED:
+			break;
+		case EGO_RING_BERSERKER:
+			break;
+		case EGO_RING_HUNTER:
+			break;
+		case EGO_RING_THROW:
+			break;
+		case EGO_RING_REGEN:
+			break;
+		case EGO_RING_LITE:
+			break;
+		case EGO_RING_M_DETECT:
+			break;
+		case EGO_RING_STEALTH:
+			break;
+		case EGO_RING_TELE_AWAY:
+			break;
+		case EGO_RING_TO_H:
+			break;
+		case EGO_RING_TO_D:
+			break;
+		case EGO_RING_RES_LITE:
+			break;
+		case EGO_RING_RES_DARK:
+			break;
+		case EGO_RING_WIZARD:
+			break;
+		case EGO_RING_TRUE:
+			break;
+		case EGO_RING_DRAIN_EXP:
+			break;
+		case EGO_RING_NO_MELEE:
+			break;
+		case EGO_RING_AGGRAVATE:
+			break;
+		case EGO_RING_TY_CURSE:
+			break;
+		case EGO_RING_RES_TIME:
+			break;
+		case EGO_RING_TELEPORT:
+			break;
+		case EGO_RING_ALBINO:
+			break;
+		case EGO_AMU_SLOW_D:
+			break;
+		case EGO_AMU_INFRA:
+			break;
+		case EGO_AMU_SEE_INVIS:
+			break;
+		case EGO_AMU_HOLD_LIFE:
+			break;
+		case EGO_AMU_DRAIN_EXP:
+			break;
+		case EGO_AMU_FOOL:
+			break;
+		case EGO_AMU_AGGRAVATE:
+			break;
+		case EGO_AMU_TY_CURSE:
+			break;
+		case EGO_AMU_AC:
+			break;
+		case EGO_AMU_IDENT:
+			break;
+		case EGO_AMU_CHARM:
+			break;
+		case EGO_AMU_STEALTH:
+			break;
+		case EGO_AMU_JUMP:
+			break;
+		case EGO_AMU_TELEPORT:
+			break;
+		case EGO_AMU_D_DOOR:
+			break;
+		case EGO_AMU_DEFENDER:
+			break;
+		case EGO_AMU_RES_FIRE:
+			break;
+		case EGO_AMU_RES_FIRE_:
+			break;
+		case EGO_AMU_RES_COLD:
+			break;
+		case EGO_AMU_RES_COLD_:
+			break;
+		case EGO_AMU_RES_ELEC:
+			break;
+		case EGO_AMU_RES_ELEC_:
+			break;
+		case EGO_AMU_RES_ACID:
+			break;
+		case EGO_AMU_RES_ACID_:
+			break;
+		case EGO_AMU_LEVITATION:
+			break;
+		case EGO_AMU_GREAT:
+			break;
+		case EGO_AMU_DETECTION:
+			break;
+		case EGO_AMU_NAIVETY:
+			break;
+	}
+
+	// Weapon Boost
+	if(object_is_weapon_ammo(o_ptr))
+	{
+		weapon_boost(o_ptr, level, ITEM_RANK_GREAT);
+		while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
+	}
+
+	// Armour_Boost
+	{
+		armour_boost(o_ptr, level, ITEM_RANK_GREAT);
+	}
+
+
+	// Limitation
+	if (o_ptr->dd > 9) o_ptr->dd = 9;
+
+}
+
+

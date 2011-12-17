@@ -1307,7 +1307,10 @@ extern void toggle_inven_equip(void);
 extern bool can_get_item(creature_type *cr_ptr);
 extern bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *cr_ptr, object_type *o_ptr));
 
-/* object2.c */
+// object2.c
+extern void weapon_boost(object_type *o_ptr, int level, int power);
+extern void armour_boost(object_type *o_ptr, int level, int power);
+extern void apply_ego(object_type *o_ptr, int level, int ego_id);
 extern void excise_object_idx(int o_idx);
 extern void delete_object_idx(int o_idx);
 extern void delete_object(int y, int x);
