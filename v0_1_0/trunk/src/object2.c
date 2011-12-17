@@ -2471,6 +2471,8 @@ void armour_boost(object_type *o_ptr, int level, int power)
 
 static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 {
+	o_ptr->name2 = ego_id;
+
 	switch(ego_id)
 	{
 		case EGO_RESIST_ACID:
@@ -2607,11 +2609,39 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 		case EGO_BLESS_BLADE:
 			break;
 		case EGO_WEST:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_RES_FEAR);
 			break;
 		case EGO_ATTACKS:
 			break;
 		case EGO_SLAYING_WEAPON:
+			if (one_in_(3)) /* double damage */
+				o_ptr->dd *= 2;
+			else
+			{
+				do
+				{
+					o_ptr->dd++;
+				}
+				while (one_in_(o_ptr->dd));
+						
+				do
+				{
+					o_ptr->ds++;
+				}
+				while (one_in_(o_ptr->ds));
+			}
+					
+			if (one_in_(5))
+			{
+				add_flag(o_ptr->art_flags, TR_BRAND_POIS);
+			}
+			if (o_ptr->tval == TV_SWORD && one_in_(3))
+			{
+				add_flag(o_ptr->art_flags, TR_VORPAL);
+			}
 			break;
+
 		case EGO_FORCE_WEAPON:
 			break;
 		case EGO_BRAND_ACID:
@@ -2626,10 +2656,18 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 			break;
 		case EGO_CHAOTIC:
 			break;
+
 		case EGO_SHARPNESS:
+			o_ptr->pval = m_bonus(5, level) + 1;
 			break;
+
 		case EGO_EARTHQUAKES:
+			if (one_in_(3) && (level > 60))
+				add_flag(o_ptr->art_flags, TR_BLOWS);
+			else
+				o_ptr->pval = m_bonus(3, level);
 			break;
+
 		case EGO_SLAY_ANIMAL:
 			break;
 		case EGO_SLAY_EVIL:
@@ -2660,24 +2698,47 @@ static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
 			break;
 		case EGO_KILL_GIANT:
 			break;
+
 		case EGO_KILL_DRAGON:
 			if (one_in_(3))
 				add_flag(o_ptr->art_flags, TR_RES_POIS);
 			break;
+
 		case EGO_VAMPIRIC:
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
 			break;
+
 		case EGO_PRISM:
 			break;
+
 		case EGO_TRUMP:
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_SLAY_DEMON);
+			if (one_in_(7))
+				one_ability(o_ptr);
 			break;
+
 		case EGO_PATTERN:
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
+			if (one_in_(3))
+				add_flag(o_ptr->art_flags, TR_DEX);
+			if (one_in_(5))
+				add_flag(o_ptr->art_flags, TR_RES_FEAR);
 			break;
+
 		case EGO_DIGGING:
 			break;
+
 		case EGO_SLAY_HUMAN:
+			if (one_in_(2))
+				add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
 			break;
+
 		case EGO_MORGUL:
 			break;
+
 		case EGO_KILL_HUMAN:
 			break;
 		case EGO_ACCURACY:
@@ -2895,7 +2956,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 			}
 
 			/* Bad */
-			else if (power < 0)
+			else if (power <= ITEM_RANK_CURSED)
 			{
 				/* Hack -- Reverse digging bonus */
 				o_ptr->pval = 0 - (o_ptr->pval);
@@ -2917,10 +2978,12 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
 				}
+
 				while (1)
 				{
 					/* Roll for an ego-item */
 					o_ptr->name2 = get_random_ego(INVEN_1STARM, TRUE);
+
 					if (o_ptr->name2 == EGO_SHARPNESS && o_ptr->tval != TV_SWORD)
 						continue;
 					if (o_ptr->name2 == EGO_EARTHQUAKES && o_ptr->tval != TV_HAFTED)
@@ -2928,71 +2991,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					break;
 				}
 
-				switch (o_ptr->name2)
-				{
-
-				case EGO_HA:
-				case EGO_DF:
-				case EGO_KILL_DRAGON:
-				case EGO_WEST:
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_RES_FEAR);
-					break;
-				case EGO_SLAYING_WEAPON:
-					if (one_in_(3)) /* double damage */
-						o_ptr->dd *= 2;
-					else
-					{
-						do
-						{
-							o_ptr->dd++;
-						}
-						while (one_in_(o_ptr->dd));
-						
-						do
-						{
-							o_ptr->ds++;
-						}
-						while (one_in_(o_ptr->ds));
-					}
-					
-					if (one_in_(5))
-					{
-						add_flag(o_ptr->art_flags, TR_BRAND_POIS);
-					}
-					if (o_ptr->tval == TV_SWORD && one_in_(3))
-					{
-						add_flag(o_ptr->art_flags, TR_VORPAL);
-					}
-					break;
-				case EGO_TRUMP:
-					if (one_in_(5))
-						add_flag(o_ptr->art_flags, TR_SLAY_DEMON);
-					if (one_in_(7))
-						one_ability(o_ptr);
-					break;
-				case EGO_PATTERN:
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_HOLD_LIFE);
-					if (one_in_(3))
-						add_flag(o_ptr->art_flags, TR_DEX);
-					if (one_in_(5))
-						add_flag(o_ptr->art_flags, TR_RES_FEAR);
-					break;
-				case EGO_SHARPNESS:
-					o_ptr->pval = m_bonus(5, level) + 1;
-					break;
-				case EGO_EARTHQUAKES:
-					if (one_in_(3) && (level > 60))
-						add_flag(o_ptr->art_flags, TR_BLOWS);
-					else
-						o_ptr->pval = m_bonus(3, level);
-					break;
-				case EGO_VAMPIRIC:
-					if (one_in_(5))
-						add_flag(o_ptr->art_flags, TR_SLAY_HUMAN);
-					break;
-				}
+				apply_ego_aux(o_ptr, level, o_ptr->name2);
 
 				if (!o_ptr->art_name)
 				{
@@ -3001,21 +3000,6 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 					/* Hack -- Lower the damage dice */
 					if (o_ptr->dd > 9) o_ptr->dd = 9;
-				}
-			}
-
-			/* Very cursed */
-			else if (power <= ITEM_RANK_BROKEN)
-			{
-				/* Roll for ego-item */
-				if (randint0(MAX_DEPTH) < level)
-				{
-					o_ptr->name2 = get_random_ego(INVEN_1STARM, FALSE);
-					switch (o_ptr->name2)
-					{
-					case EGO_MORGUL:
-						if (one_in_(6)) add_flag(o_ptr->art_flags, TR_TY_CURSE);
-					}
 				}
 			}
 
