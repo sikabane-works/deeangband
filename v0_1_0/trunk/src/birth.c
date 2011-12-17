@@ -2661,17 +2661,16 @@ static void get_ahw(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	if(!species_ptr->age)
+	if(!species_ptr->age) // not zero
 	{
 		/* Get character's age */
 		creature_ptr->age = race_info[creature_ptr->race_idx1].b_age + race_info[creature_ptr->race_idx2].b_age;
-		creature_ptr->age += randint1((race_info[creature_ptr->race_idx1].m_age + race_info[creature_ptr->race_idx2].m_age)/2);
+		creature_ptr->age += randint0((race_info[creature_ptr->race_idx1].m_age + race_info[creature_ptr->race_idx2].m_age)/2);
 	}
 	else
 	{
 		creature_ptr->age = species_ptr->age;
 	}
-
 
 	/* Get character's height and weight */
 	set_height_weight(creature_ptr);

@@ -3559,7 +3559,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm1 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return (1);
 				species_info[n].realm1 = (s16b)b;
 				break;
 
@@ -3567,7 +3567,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) == 1)
 					species_info[n].realm2 = (s16b)b;
 				else 
-					if(grab_one_index(&b, realm_flags, tmp, TRUE)) return (1);
+					if(grab_one_index(&b, realm_flags, tmp, FALSE)) return (1);
 				species_info[n].realm2 = (s16b)b;
 				break;
 

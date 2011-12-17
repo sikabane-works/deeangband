@@ -2614,15 +2614,15 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 		/* Hack -- take account of gender */
 #ifdef JP
-		if (is_female_creature(cr_ptr)) s1 = "”Ş—‚Í";
+		if (IS_FEMALE(cr_ptr)) s1 = "”Ş—‚Í";
 #else
-		if (is_female_creature(cr_ptr)) s1 = "She is ";
+		if (IS_FEMALE(cr_ptr)) s1 = "She is ";
 #endif
 
 #ifdef JP
-		else if (is_male_creature(cr_ptr)) s1 = "”Ş‚Í";
+		else if (IS_MALE(cr_ptr)) s1 = "”Ş‚Í";
 #else
-		else if (is_male_creature(cr_ptr)) s1 = "He is ";
+		else if (IS_MALE(cr_ptr)) s1 = "He is ";
 #endif
 
 

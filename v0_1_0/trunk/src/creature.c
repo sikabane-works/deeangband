@@ -80,32 +80,36 @@ void set_height_weight(creature_type *creature_ptr)
 	int ave_b_ht, ave_m_ht, ave_b_wt, ave_m_wt, tmp2;
 	double tmp;
 	race_type *ir_ptr;
-	species_type *mr_ptr;
+	species_type *species_ptr = &species_info[creature_ptr->species_idx]; 
+
+	if(!species_ptr->m_b_ht && !species_ptr->m_b_wt && !species_ptr->m_m_ht && !species_ptr->m_m_wt &&
+	   !species_ptr->f_b_ht && !species_ptr->f_b_wt && !species_ptr->f_m_ht && !species_ptr->f_m_wt)
+	{
+	}
 
 	if(creature_ptr->species_idx != MON_STIGMATIC_ONE)
 	{
-		mr_ptr = &species_info[creature_ptr->species_idx]; 
 
 		if (creature_ptr->sex == SEX_MALE)
 		{
-			ave_b_ht = (int)(mr_ptr->m_b_ht);
-			ave_m_ht = (int)(mr_ptr->m_m_ht);
-			ave_b_wt = (int)(mr_ptr->m_b_wt);
-			ave_m_wt = (int)(mr_ptr->m_m_wt);
+			ave_b_ht = (int)(species_ptr->m_b_ht);
+			ave_m_ht = (int)(species_ptr->m_m_ht);
+			ave_b_wt = (int)(species_ptr->m_b_wt);
+			ave_m_wt = (int)(species_ptr->m_m_wt);
 		}
 		else if (creature_ptr->sex == SEX_FEMALE)
 		{
-			ave_b_ht = (int)(mr_ptr->f_b_ht);
-			ave_m_ht = (int)(mr_ptr->f_m_ht);
-			ave_b_wt = (int)(mr_ptr->f_b_wt);
-			ave_m_wt = (int)(mr_ptr->f_m_wt);
+			ave_b_ht = (int)(species_ptr->f_b_ht);
+			ave_m_ht = (int)(species_ptr->f_m_ht);
+			ave_b_wt = (int)(species_ptr->f_b_wt);
+			ave_m_wt = (int)(species_ptr->f_m_wt);
 		}
 		else
 		{
-			ave_b_ht = (int)(mr_ptr->m_b_ht + mr_ptr->f_b_ht) / 2;
-			ave_m_ht = (int)(mr_ptr->m_m_ht + mr_ptr->f_m_ht) / 2;
-			ave_b_wt = (int)(mr_ptr->m_b_wt + mr_ptr->f_b_wt) / 2;
-			ave_m_wt = (int)(mr_ptr->m_m_wt + mr_ptr->f_m_wt) / 2;
+			ave_b_ht = (int)(species_ptr->m_b_ht + species_ptr->f_b_ht) / 2;
+			ave_m_ht = (int)(species_ptr->m_m_ht + species_ptr->f_m_ht) / 2;
+			ave_b_wt = (int)(species_ptr->m_b_wt + species_ptr->f_b_wt) / 2;
+			ave_m_wt = (int)(species_ptr->m_m_wt + species_ptr->f_m_wt) / 2;
 		}
 
 	}
@@ -319,12 +323,12 @@ s16b calc_race_standard_size(race_type * ir_ptr){
 s16b calc_monster_standard_size(species_type * mr_ptr){
 	int tmpht, tmpwt;
 
-	if(is_male_species(mr_ptr))
+	if(IS_MALE(mr_ptr))
 	{
 		tmpht = mr_ptr->m_b_ht;
 		tmpwt = mr_ptr->m_b_wt;
 	}
-	else if (is_female_species(mr_ptr))
+	else if (IS_FEMALE(mr_ptr))
 	{
 		tmpht = mr_ptr->f_b_ht;
 		tmpwt = mr_ptr->f_b_wt;
@@ -1552,25 +1556,37 @@ bool is_human_creature(creature_type *creature_ptr)
 	return (creature_ptr->race_idx1 == RACE_HUMAN || creature_ptr->race_idx1 == RACE_BARBARIAN || creature_ptr->race_idx1 == RACE_DUNADAN);
 }
 
-bool is_male_species(species_type *species_ptr)
+/*
+bool IS_MALE(species_type *species_ptr)
 {
 	return species_ptr->sex & SEX_MALE;
 }
 
-bool is_male_creature(creature_type *creature_ptr)
+bool IS_MALE(creature_type *creature_ptr)
 {
 	return creature_ptr->sex & SEX_MALE;
 }
 
-bool is_female_species(species_type *species_ptr)
+bool IS_FEMALE(species_type *species_ptr)
 {
 	return species_ptr->sex & SEX_FEMALE;
 }
 
-bool is_female_creature(creature_type *creature_ptr)
+bool IS_FEMALE(creature_type *creature_ptr)
 {
 	return creature_ptr->sex & SEX_FEMALE;
 }
+
+bool is_intersex_species(species_type *species_ptr)
+{
+	return species_ptr->sex & (SEX_MALE | SEX_FEMALE);
+}
+
+bool is_intersex_creature(creature_type *creature_ptr)
+{
+	return creature_ptr->sex & (SEX_MALE | SEX_FEMALE);
+}
+*/
 
 bool is_drop_corpse_creature(creature_type *creature_ptr)
 {

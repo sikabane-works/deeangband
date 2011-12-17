@@ -1909,12 +1909,12 @@ static void spoil_mon_desc(cptr fname)
 
 		/* height & weight & size */
 
-		if(is_male_species(species_ptr))
+		if(IS_MALE(species_ptr))
 		{
 			tmpht = species_ptr->m_b_ht;
 			tmpwt = species_ptr->m_b_wt;
 		}
-		else if (is_female_species(species_ptr))
+		else if (IS_FEMALE(species_ptr))
 		{
 			tmpht = species_ptr->f_b_ht;
 			tmpwt = species_ptr->f_b_wt;

@@ -1991,8 +1991,8 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 		int kind = 0x00;
 
 		/* Extract the gender (if applicable) */
-		if (is_female_creature(m_ptr)) kind = 0x20;
-		else if (is_male_creature(m_ptr)) kind = 0x10;
+		if (IS_FEMALE(m_ptr)) kind = 0x20;
+		else if (IS_MALE(m_ptr)) kind = 0x10;
 
 		/* Ignore the gender (if desired) */
 		if (!m_ptr || !pron) kind = 0x00;
@@ -2085,12 +2085,12 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 	{
 		/* The monster is visible, so use its gender */
 #ifdef JP
-		if (is_female_creature(m_ptr)) strcpy(desc, "彼女自身");
-		else if (is_male_creature(m_ptr)) strcpy(desc, "彼自身");
+		if (IS_FEMALE(m_ptr)) strcpy(desc, "彼女自身");
+		else if (IS_MALE(m_ptr)) strcpy(desc, "彼自身");
 		else strcpy(desc, "それ自身");
 #else
-		if (is_female_creature(m_ptr)) strcpy(desc, "herself");
-		else if (is_male_creature(m_ptr)) strcpy(desc, "himself");
+		if (IS_FEMALE(m_ptr)) strcpy(desc, "herself");
+		else if (IS_MALE(m_ptr)) strcpy(desc, "himself");
 		else strcpy(desc, "itself");
 #endif
 	}

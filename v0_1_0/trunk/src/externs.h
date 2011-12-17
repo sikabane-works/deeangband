@@ -972,11 +972,6 @@ extern bool is_resist_all_species(species_type *species_ptr);
 extern bool is_resist_tele_creature(creature_type *creature_ptr);
 extern bool is_resist_tele_species(species_type *species_ptr);
 
-extern bool is_male_creature(creature_type *cr_ptr);
-extern bool is_male_species(species_type *species_ptr);
-extern bool is_female_creature(creature_type *cr_ptr);
-extern bool is_female_species(species_type *species_ptr);
-
 extern bool is_drop_corpse_species(species_type *species_ptr);
 extern bool is_drop_skeleton_species(species_type *species_ptr);
 
