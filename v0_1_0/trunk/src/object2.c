@@ -2470,6 +2470,386 @@ void armour_boost(object_type *o_ptr, int level, int power)
 }
 
 
+static void apply_ego_aux(object_type *o_ptr, int level, int ego_id)
+{
+	switch(ego_id)
+	{
+		case EGO_RESIST_ACID:
+			break;
+		case EGO_RESIST_ELEC:
+			break;
+		case EGO_RESIST_FIRE:
+			break;
+		case EGO_RESIST_COLD:
+			break;
+		case EGO_RESISTANCE:
+			break;
+		case EGO_ELVENKIND:
+			break;
+		case EGO_DWARVEN:
+			break;
+		case EGO_PERMANENCE:
+			break;
+		case EGO_YOIYAMI:
+			break;
+		case EGO_ENDURE_ACID:
+			break;
+		case EGO_ENDURE_ELEC:
+			break;
+		case EGO_ENDURE_FIRE:
+			break;
+		case EGO_ENDURE_COLD:
+			break;
+		case EGO_ENDURANCE:
+			break;
+		case EGO_REFLECTION:
+			break;
+		case EGO_NIGHT_DAY:
+			break;
+		case EGO_DARK:
+			break;
+		case EGO_INTELLIGENCE:
+			break;
+		case EGO_WISDOM:
+			break;
+		case EGO_BEAUTY:
+			break;
+		case EGO_MAGI:
+			break;
+		case EGO_MIGHT:
+			break;
+		case EGO_LORDLINESS:
+			break;
+		case EGO_SEEING:
+			break;
+		case EGO_INFRAVISION:
+			break;
+		case EGO_LITE:
+			break;
+		case EGO_TELEPATHY:
+			break;
+		case EGO_REGENERATION:
+			break;
+		case EGO_TELEPORTATION:
+			break;
+		case EGO_STUPIDITY:
+			break;
+		case EGO_NAIVETY:
+			break;
+		case EGO_UGLINESS:
+			break;
+		case EGO_SICKLINESS:
+			break;
+		case EGO_PROTECTION:
+			break;
+		case EGO_STEALTH:
+			break;
+		case EGO_AMAN:
+			break;
+		case EGO_AURA_FIRE:
+			break;
+		case EGO_ENVELOPING:
+			break;
+		case EGO_VULNERABILITY:
+			break;
+		case EGO_IRRITATION:
+			break;
+		case EGO_AURA_ELEC:
+			break;
+		case EGO_AURA_COLD:
+			break;
+		case EGO_BAT:
+			break;
+		case EGO_FREE_ACTION:
+			break;
+		case EGO_SLAYING:
+			break;
+		case EGO_AGILITY:
+			break;
+		case EGO_POWER:
+			break;
+		case EGO_TWO_WEAPON:
+			break;
+		case EGO_MAGIC_MASTERY:
+			break;
+		case EGO_WEAKNESS:
+			break;
+		case EGO_CLUMSINESS:
+			break;
+		case EGO_SLOW_DESCENT:
+			break;
+		case EGO_QUIET:
+			break;
+		case EGO_MOTION:
+			break;
+		case EGO_SPEED:
+			break;
+		case EGO_JUMP:
+			break;
+		case EGO_NOISE:
+			break;
+		case EGO_SLOWNESS:
+			break;
+		case EGO_ANNOYANCE:
+			break;
+		case EGO_HA:
+			break;
+		case EGO_DF:
+			break;
+		case EGO_BLESS_BLADE:
+			break;
+		case EGO_WEST:
+			break;
+		case EGO_ATTACKS:
+			break;
+		case EGO_SLAYING_WEAPON:
+			break;
+		case EGO_FORCE_WEAPON:
+			break;
+		case EGO_BRAND_ACID:
+			break;
+		case EGO_BRAND_ELEC:
+			break;
+		case EGO_BRAND_FIRE:
+			break;
+		case EGO_BRAND_COLD:
+			break;
+		case EGO_BRAND_POIS:
+			break;
+		case EGO_CHAOTIC:
+			break;
+		case EGO_SHARPNESS:
+			break;
+		case EGO_EARTHQUAKES:
+			break;
+		case EGO_SLAY_ANIMAL:
+			break;
+		case EGO_SLAY_EVIL:
+			break;
+		case EGO_SLAY_UNDEAD:
+			break;
+		case EGO_SLAY_DEMON:
+			break;
+		case EGO_SLAY_ORC:
+			break;
+		case EGO_SLAY_TROLL:
+			break;
+		case EGO_SLAY_GIANT:
+			break;
+		case EGO_SLAY_DRAGON:
+			break;
+		case EGO_KILL_ANIMAL:
+			break;
+		case EGO_KILL_EVIL:
+			break;
+		case EGO_KILL_UNDEAD:
+			break;
+		case EGO_KILL_DEMON:
+			break;
+		case EGO_KILL_ORC:
+			break;
+		case EGO_KILL_TROLL:
+			break;
+		case EGO_KILL_GIANT:
+			break;
+		case EGO_KILL_DRAGON:
+			break;
+		case EGO_VAMPIRIC:
+			break;
+		case EGO_PRISM:
+			break;
+		case EGO_TRUMP:
+			break;
+		case EGO_PATTERN:
+			break;
+		case EGO_DIGGING:
+			break;
+		case EGO_SLAY_HUMAN:
+			break;
+		case EGO_MORGUL:
+			break;
+		case EGO_KILL_HUMAN:
+			break;
+		case EGO_ACCURACY:
+			break;
+		case EGO_VELOCITY:
+			break;
+		case EGO_EXTRA_MIGHT:
+			break;
+		case EGO_EXTRA_SHOTS:
+			break;
+		case EGO_HURT_ANIMAL:
+			break;
+		case EGO_HURT_EVIL:
+			break;
+		case EGO_HURT_DRAGON:
+			break;
+		case EGO_SLAYING_BOLT:
+			break;
+		case EGO_LIGHTNING_BOLT:
+			break;
+		case EGO_FLAME:
+			break;
+		case EGO_FROST:
+			break;
+		case EGO_WOUNDING:
+			break;
+		case EGO_BACKBITING:
+			break;
+		case EGO_SHATTERED:
+			break;
+		case EGO_BLASTED:
+			break;
+		case EGO_LITE_SHINE:
+			break;
+		case EGO_LITE_ILLUMINATION:
+			break;
+		case EGO_LITE_AURA_FIRE:
+			break;
+		case EGO_LITE_INFRA:
+			break;
+		case EGO_LITE_LONG:
+			break;
+		case EGO_LITE_DARKNESS:
+			break;
+		case EGO_LITE_EYE:
+			break;
+		case EGO_RING_HERO:
+			break;
+		case EGO_RING_SLAY:
+			break;
+		case EGO_RING_SUPER_AC:
+			break;
+		case EGO_RING_MAGIC_MIS:
+			break;
+		case EGO_RING_FIRE_BOLT:
+			break;
+		case EGO_RING_COLD_BOLT:
+			break;
+		case EGO_RING_ELEC_BOLT:
+			break;
+		case EGO_RING_ACID_BOLT:
+			break;
+		case EGO_RING_MANA_BOLT:
+			break;
+		case EGO_RING_FIRE_BALL:
+			break;
+		case EGO_RING_COLD_BALL:
+			break;
+		case EGO_RING_ELEC_BALL:
+			break;
+		case EGO_RING_ACID_BALL:
+			break;
+		case EGO_RING_MANA_BALL:
+			break;
+		case EGO_RING_DRAGON_F:
+			break;
+		case EGO_RING_DRAGON_C:
+			break;
+		case EGO_RING_D_SPEED:
+			break;
+		case EGO_RING_BERSERKER:
+			break;
+		case EGO_RING_HUNTER:
+			break;
+		case EGO_RING_THROW:
+			break;
+		case EGO_RING_REGEN:
+			break;
+		case EGO_RING_LITE:
+			break;
+		case EGO_RING_M_DETECT:
+			break;
+		case EGO_RING_STEALTH:
+			break;
+		case EGO_RING_TELE_AWAY:
+			break;
+		case EGO_RING_TO_H:
+			break;
+		case EGO_RING_TO_D:
+			break;
+		case EGO_RING_RES_LITE:
+			break;
+		case EGO_RING_RES_DARK:
+			break;
+		case EGO_RING_WIZARD:
+			break;
+		case EGO_RING_TRUE:
+			break;
+		case EGO_RING_DRAIN_EXP:
+			break;
+		case EGO_RING_NO_MELEE:
+			break;
+		case EGO_RING_AGGRAVATE:
+			break;
+		case EGO_RING_TY_CURSE:
+			break;
+		case EGO_RING_RES_TIME:
+			break;
+		case EGO_RING_TELEPORT:
+			break;
+		case EGO_RING_ALBINO:
+			break;
+		case EGO_AMU_SLOW_D:
+			break;
+		case EGO_AMU_INFRA:
+			break;
+		case EGO_AMU_SEE_INVIS:
+			break;
+		case EGO_AMU_HOLD_LIFE:
+			break;
+		case EGO_AMU_DRAIN_EXP:
+			break;
+		case EGO_AMU_FOOL:
+			break;
+		case EGO_AMU_AGGRAVATE:
+			break;
+		case EGO_AMU_TY_CURSE:
+			break;
+		case EGO_AMU_AC:
+			break;
+		case EGO_AMU_IDENT:
+			break;
+		case EGO_AMU_CHARM:
+			break;
+		case EGO_AMU_STEALTH:
+			break;
+		case EGO_AMU_JUMP:
+			break;
+		case EGO_AMU_TELEPORT:
+			break;
+		case EGO_AMU_D_DOOR:
+			break;
+		case EGO_AMU_DEFENDER:
+			break;
+		case EGO_AMU_RES_FIRE:
+			break;
+		case EGO_AMU_RES_FIRE_:
+			break;
+		case EGO_AMU_RES_COLD:
+			break;
+		case EGO_AMU_RES_COLD_:
+			break;
+		case EGO_AMU_RES_ELEC:
+			break;
+		case EGO_AMU_RES_ELEC_:
+			break;
+		case EGO_AMU_RES_ACID:
+			break;
+		case EGO_AMU_RES_ACID_:
+			break;
+		case EGO_AMU_LEVITATION:
+			break;
+		case EGO_AMU_GREAT:
+			break;
+		case EGO_AMU_DETECTION:
+			break;
+		case EGO_AMU_NAIVETY:
+			break;
+	}
+}
+
+
 /*
  * Apply magic to an item known to be a "weapon"
  *
@@ -2488,9 +2868,9 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		case TV_DIGGING:
 		{
 			/* Very good */
-			if (power > 1)
+			if (power >= ITEM_RANK_GREAT)
 			{
-				if (one_in_(30) || (power > 2)) /* power > 2 is debug only */
+				if (one_in_(30) || (power >= ITEM_RANK_SPECIAL)) /* power > 2 is debug only */
 					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
