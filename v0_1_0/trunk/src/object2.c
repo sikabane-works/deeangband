@@ -4141,7 +4141,6 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		}
 	}
 
-
 	/* Hack -- analyze artifacts */
 	if (object_is_fixed_artifact(o_ptr))
 	{
@@ -4185,8 +4184,14 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		return;
 	}
 
+	if (((o_ptr->tval == TV_CLOAK) && (o_ptr->sval == SV_ELVEN_CLOAK)) ||
+	    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
+		  o_ptr->pval = (s16b)randint1(4);
 
-	/* Apply magic */
+	apply_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
+
+	// Apply magic
+	/*
 	switch (o_ptr->tval)
 	{
 		case TV_DIGGING:
@@ -4222,10 +4227,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		case TV_GLOVES:
 		case TV_BOOTS:
 		{
-			/* Elven Cloak and Black Clothes ... */
-			if (((o_ptr->tval == TV_CLOAK) && (o_ptr->sval == SV_ELVEN_CLOAK)) ||
-			    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
-				o_ptr->pval = (s16b)randint1(4);
+			// Elven Cloak and Black Clothes
 
 #if 1
 			if (power ||
@@ -4254,6 +4256,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 			break;
 		}
 	}
+	*/
 
 	if ((o_ptr->tval == TV_SOFT_ARMOR) &&
 	    (o_ptr->sval == SV_ABUNAI_MIZUGI) &&
@@ -4268,7 +4271,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		add_flag(o_ptr->art_flags, TR_CHR);
 	}
 
-	/* Hack -- analyze ego-items */
+	// Hack -- analyze ego-items
 	if (object_is_ego(o_ptr))
 	{
 		ego_item_type *e_ptr = &e_info[o_ptr->name2];
@@ -4304,10 +4307,10 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 			if (e_ptr->max_pval) o_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
 		}
 
-		/* Hack -- apply extra bonuses if needed */
+		// Hack -- apply extra bonuses if needed
 		else
 		{
-			/* Hack -- obtain bonuses */
+			// Hack -- obtain bonuses
 			if (e_ptr->max_to_h)
 			{
 				if (e_ptr->max_to_h > 127)
@@ -4327,7 +4330,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 				else o_ptr->to_a += (s16b)randint1(e_ptr->max_to_a);
 			}
 
-			/* Hack -- obtain pval */
+			// Hack -- obtain pval
 			if (e_ptr->max_pval)
 			{
 				if ((o_ptr->name2 == EGO_HA) && (have_flag(o_ptr->art_flags, TR_BLOWS)))
@@ -4360,22 +4363,22 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 				o_ptr->pval = 2;
 		}
 
-		/* Cheat -- describe the item */
+		// Cheat -- describe the item
 		if (cheat_peek) object_mention(o_ptr);
 
-		/* Done */
+		// Done
 		return;
 	}
 
-	/* Examine real objects */
+	// Examine real objects
 	if (o_ptr->k_idx)
 	{
 		object_kind *k_ptr = &k_info[o_ptr->k_idx];
 
-		/* Hack -- acquire "broken" flag */
+		// Hack -- acquire "broken" flag
 		if (!k_info[o_ptr->k_idx].cost) o_ptr->ident |= (IDENT_BROKEN);
 
-		/* Hack -- acquire "cursed" flag */
+		// Hack -- acquire "cursed" flag
 		if (k_ptr->gen_flags & (TRG_CURSED)) o_ptr->curse_flags |= (TRC_CURSED);
 		if (k_ptr->gen_flags & (TRG_HEAVY_CURSE)) o_ptr->curse_flags |= TRC_HEAVY_CURSE;
 		if (k_ptr->gen_flags & (TRG_DIVINE_CURSE)) o_ptr->curse_flags |= TRC_DIVINE_CURSE;
@@ -4383,6 +4386,8 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 		if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
 	}
+
+
 }
 
 // Apply magic at specified ego.
@@ -8557,7 +8562,9 @@ void armour_boost(object_type *o_ptr, int level, int power)
 
 void apply_ego(object_type *o_ptr, int level, int ego_id)
 {
+
 	o_ptr->name2 = ego_id;
+	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
 
 	switch(ego_id)
 	{
@@ -9051,7 +9058,7 @@ void apply_ego(object_type *o_ptr, int level, int ego_id)
 	}
 
 	// Weapon Boost
-	if(object_is_weapon_ammo(o_ptr))
+	if(object_is_weapon_ammo(o_ptr) && o_ptr->ds && o_ptr->dd)
 	{
 		weapon_boost(o_ptr, level, ITEM_RANK_GREAT);
 		while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
