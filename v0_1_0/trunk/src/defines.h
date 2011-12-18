@@ -813,6 +813,7 @@
 #define CLASS_RARELITY_UNSELECTED   4
 
 
+#define RATE_OF_HALF_RACE       80
 
 /*
  * Player race constants (hard-coded by save-files, arrays, etc)

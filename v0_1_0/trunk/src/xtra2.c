@@ -851,7 +851,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 			/* Prepare to make a prize */
 			object_prep(q_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -925,7 +925,7 @@ msg_print("地面に落とされた。");
 		/* Prepare to make an object */
 		object_prep(q_ptr, lookup_kind(TV_CORPSE, (corpse ? SV_CORPSE : SV_SKELETON)), ITEM_FREE_SIZE);
 
-		apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+		apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
 
 		q_ptr->pval = killed_ptr->species_idx;
 
@@ -983,7 +983,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Blade of Chaos */
 			object_prep(q_ptr, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | mo_mode);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | mo_mode, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1119,7 +1119,7 @@ msg_print("地面に落とされた。");
 		q_ptr->name1 = ART_GROND;
 
 		/* Mega-Hack -- Actually create "Grond" */
-		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
+		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT, 0);
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
@@ -1134,7 +1134,7 @@ msg_print("地面に落とされた。");
 		q_ptr->name1 = ART_CHAOS;
 
 		/* Mega-Hack -- Actually create "Chaos" */
-		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT);
+		apply_magic(killed_ptr, q_ptr, -1, AM_GOOD | AM_GREAT, 0);
 
 		/* Drop it in the dungeon */
 		(void)drop_near(q_ptr, -1, y, x);
@@ -1165,7 +1165,7 @@ msg_print("地面に落とされた。");
 			/* Prepare to make a Can of Toys */
 			object_prep(q_ptr, lookup_kind(TV_CHEST, SV_CHEST_KANDUME), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART);
+			apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(q_ptr, -1, y, x);
@@ -1330,7 +1330,7 @@ msg_print("地面に落とされた。");
 				/* Prepare to make a reward */
 				object_prep(q_ptr, k_idx, ITEM_FREE_SIZE);
 
-				apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | AM_GOOD);
+				apply_magic(killed_ptr, q_ptr, object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(q_ptr, -1, y, x);

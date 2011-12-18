@@ -2335,7 +2335,7 @@ static bool make_artifact(object_type *o_ptr)
 /*
  *  Choose random ego type
  */
-static byte get_random_ego(byte slot, bool good)
+static s16b get_random_ego(byte slot, bool good)
 {
 	int i, value;
 	ego_item_type *e_ptr;
@@ -2401,7 +2401,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
 					/* Special Ego-item */
-					apply_ego(o_ptr, level, EGO_DIGGING);
+					create_ego(o_ptr, level, EGO_DIGGING);
 			}
 
 			/* Very bad */
@@ -2447,7 +2447,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 					break;
 				}
 
-				apply_ego(o_ptr, level, o_ptr->name2);
+				create_ego(o_ptr, level, o_ptr->name2);
 
 				if (!o_ptr->art_name)
 				{
@@ -4041,7 +4041,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
  * "good" and "great" arguments are false.  As a total hack, if "great" is
  * true, then the item gets 3 extra "attempts" to become an artifact.
  */
-void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode)
+void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode, int specified_idx)
 {
 	int i, rolls, f1, f2, power;
 
@@ -4188,7 +4188,11 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
 		  o_ptr->pval = (s16b)randint1(4);
 
-	if(power >= ITEM_RANK_GREAT) apply_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
+	if(power >= ITEM_RANK_GREAT){
+		if(specified_idx) create_ego(o_ptr, lev, specified_idx);
+		else create_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
+	}
+	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, o_ptr, FALSE);
 
 	// Apply magic
 	/*
@@ -4548,7 +4552,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 	}
 
 	/* Apply magic (allow artifacts) */
-	apply_magic(p_ptr, j_ptr, object_level, mode);
+	apply_magic(p_ptr, j_ptr, object_level, mode, 0);
 
 	/* Hack -- generate multiple spikes/missiles */
 	switch (j_ptr->tval)
@@ -8560,7 +8564,7 @@ void armour_boost(object_type *o_ptr, int level, int power)
 }
 
 
-void apply_ego(object_type *o_ptr, int level, int ego_id)
+void create_ego(object_type *o_ptr, int level, int ego_id)
 {
 
 	o_ptr->name2 = ego_id;

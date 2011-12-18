@@ -1310,7 +1310,7 @@ extern bool get_item(creature_type *cr_ptr, int *cp, cptr pmt, cptr str, int mod
 // object2.c
 extern void weapon_boost(object_type *o_ptr, int level, int power);
 extern void armour_boost(object_type *o_ptr, int level, int power);
-extern void apply_ego(object_type *o_ptr, int level, int ego_id);
+extern void create_ego(object_type *o_ptr, int level, int ego_id);
 extern void excise_object_idx(int o_idx);
 extern void delete_object_idx(int o_idx);
 extern void delete_object(int y, int x);
@@ -1333,7 +1333,7 @@ extern s16b lookup_kind(int tval, int sval);
 extern void object_wipe(object_type *o_ptr);
 extern void object_prep(object_type *o_ptr, int k_idx, int size);
 extern void object_copy(object_type *o_ptr, object_type *j_ptr);
-extern void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode);
+extern void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *o_ptr, int lev, int ego);
 
 extern void weapon_boost(object_type *o_ptr, int level, int power);

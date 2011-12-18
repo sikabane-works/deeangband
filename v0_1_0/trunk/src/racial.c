@@ -144,7 +144,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 			q_ptr->number = (byte)rand_range(15,30);
 			object_aware(q_ptr);
 			object_known(q_ptr);
-			apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
+			apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
 			q_ptr->discount = 99;
 
 			slot = inven_carry(cr_ptr, q_ptr);
@@ -202,7 +202,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q_ptr->number = (byte)rand_range(5, 10);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
+		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
 
 		q_ptr->discount = 99;
 
@@ -268,7 +268,7 @@ static bool do_cmd_archer(creature_type *cr_ptr)
 		q_ptr->number = (byte)rand_range(4, 8);
 		object_aware(q_ptr);
 		object_known(q_ptr);
-		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART);
+		apply_magic(cr_ptr, q_ptr, cr_ptr->lev, AM_NO_FIXED_ART, 0);
 
 		q_ptr->discount = 99;
 

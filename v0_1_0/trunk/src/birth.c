@@ -3584,8 +3584,16 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 
 	if(npc)
 	{
-		creature_ptr->race_idx2 = se[randint0(n)].code;
-		return 0;
+		if(one_in_(RATE_OF_HALF_RACE))
+		{
+			creature_ptr->race_idx2 = se[randint0(n-3)].code;
+			return 0;
+		}
+		else
+		{
+			creature_ptr->race_idx2 = creature_ptr->race_idx1;
+			return 0;
+		}
 	}
 
 #if JP

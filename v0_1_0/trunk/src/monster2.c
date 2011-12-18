@@ -3595,14 +3595,7 @@ void deal_item(creature_type *creature_ptr)
 		{
 			object_type ob;
 			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
-			if(!species_ptr->artifact_ego[i])
-			{
-				apply_magic(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_flag[i]);
-			}
-			else
-			{
-				apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_ego[i]);
-			}
+			apply_magic(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_flag[i], species_ptr->artifact_ego[i]);
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
 	}
@@ -3650,7 +3643,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
 
 		/* Fuel with oil (move pval to xtra4) */
-		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART);
+		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART, 0);
 		q_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
@@ -3861,7 +3854,7 @@ void deal_item(creature_type *creature_ptr)
 		if(creature_ptr->inventory[i].k_idx)
 		{
 			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
-				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]));
+				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}
 	}
 
