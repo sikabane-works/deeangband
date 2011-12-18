@@ -615,7 +615,7 @@ struct object_type
 	s16b weight;		/* Item weight */
 
 	byte name1;			/* Artifact type, if any */
-	byte name2;			/* Ego-Item type, if any */
+	u16b name2;			/* Ego-Item type, if any */
 
 	byte xtra1;			/* Extra info type (now unused) */
 	byte xtra2;			/* Extra info index */

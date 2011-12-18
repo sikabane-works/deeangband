@@ -292,7 +292,7 @@ static void rd_item(object_type *o_ptr)
 
 	if (flags & SAVE_ITEM_NAME1) rd_byte(&o_ptr->name1);
 	else o_ptr->name1 = 0;
-	if (flags & SAVE_ITEM_NAME2) rd_byte(&o_ptr->name2);
+	if (flags & SAVE_ITEM_NAME2) rd_s16b(&o_ptr->name2);
 	else o_ptr->name2 = 0;
 	if (flags & SAVE_ITEM_TIMEOUT) rd_s32b(&o_ptr->timeout);
 	else o_ptr->timeout = 0;

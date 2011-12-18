@@ -141,7 +141,7 @@ static void wr_item(object_type *o_ptr)
 	wr_s16b(o_ptr->weight);
 
 	if (flags & SAVE_ITEM_NAME1) wr_byte(o_ptr->name1);
-	if (flags & SAVE_ITEM_NAME2) wr_byte(o_ptr->name2);
+	if (flags & SAVE_ITEM_NAME2) wr_u16b(o_ptr->name2);
 	if (flags & SAVE_ITEM_TIMEOUT) wr_s32b(o_ptr->timeout);
 
 	if (flags & SAVE_ITEM_TO_H) wr_s16b(o_ptr->to_h);

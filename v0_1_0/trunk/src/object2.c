@@ -2335,7 +2335,7 @@ static bool make_artifact(object_type *o_ptr)
 /*
  *  Choose random ego type
  */
-static s16b get_random_ego(byte slot, bool good)
+static s16b get_random_ego(u16b slot, bool good)
 {
 	int i, value;
 	ego_item_type *e_ptr;
@@ -2384,37 +2384,38 @@ static s16b get_random_ego(byte slot, bool good)
  * Hack -- note special base damage dice boosting
  * Hack -- note special processing for weapon/digger
  */
+/*
 static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, int power)
 {
 
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
 
-	/* Analyze type */
+	// Analyze type
 	switch (o_ptr->tval)
 	{
 		case TV_DIGGING:
 		{
-			/* Very good */
+			// Very good
 			if (power >= ITEM_RANK_GREAT)
 			{
-				if (one_in_(30) || (power >= ITEM_RANK_SPECIAL)) /* power > 2 is debug only */
+				if (one_in_(30) || (power >= ITEM_RANK_SPECIAL)) // power > 2 is debug only
 					create_artifact(owner_ptr, o_ptr, FALSE);
 				else
-					/* Special Ego-item */
+					// Special Ego-item
 					create_ego(o_ptr, level, EGO_DIGGING);
 			}
 
-			/* Very bad */
+			// Very bad
 			else if (power <= ITEM_RANK_BROKEN)
 			{
-				/* Hack -- Horrible digging bonus */
+				// Hack -- Horrible digging bonus
 				o_ptr->pval = 0 - (5 + (s16b)randint1(5));
 			}
 
-			/* Bad */
+			// Bad
 			else if (power <= ITEM_RANK_CURSED)
 			{
-				/* Hack -- Reverse digging bonus */
+				// Hack -- Reverse digging bonus
 				o_ptr->pval = 0 - (o_ptr->pval);
 			}
 
@@ -2426,7 +2427,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		case TV_POLEARM:
 		case TV_SWORD:
 		{
-			/* Very Good */
+			// Very Good
 			if (power >= ITEM_RANK_GREAT)
 			{
 				if (one_in_(40) || (power >= ITEM_RANK_SPECIAL))
@@ -2437,7 +2438,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 				while (1)
 				{
-					/* Roll for an ego-item */
+					// Roll for an ego-item
 					o_ptr->name2 = get_random_ego(INVEN_1STARM, TRUE);
 
 					if (o_ptr->name2 == EGO_SHARPNESS && o_ptr->tval != TV_SWORD)
@@ -2451,10 +2452,10 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 				if (!o_ptr->art_name)
 				{
-					/* Hack -- Super-charge the damage dice */
+					// Hack -- Super-charge the damage dice
 					while (one_in_(10L * o_ptr->dd * o_ptr->ds)) o_ptr->dd++;
 
-					/* Hack -- Lower the damage dice */
+					// Hack -- Lower the damage dice
 					if (o_ptr->dd > 9) o_ptr->dd = 9;
 				}
 			}
@@ -2465,10 +2466,10 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 		case TV_BOW:
 		{
-			/* Very good */
+			// Very good
 			if (power > 1)
 			{
-				if (one_in_(20) || (power > 2)) /* power > 2 is debug only */
+				if (one_in_(20) || (power > 2)) // power > 2 is debug only
 				{
 					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
@@ -2484,10 +2485,10 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		case TV_ARROW:
 		case TV_SHOT:
 		{
-			/* Very good */
+			// Very good
 			if (power > 1)
 			{
-				if (power > 2) /* power > 2 is debug only */
+				if (power > 2) // power > 2 is debug only
 				{
 					create_artifact(owner_ptr, o_ptr, FALSE);
 					break;
@@ -2497,10 +2498,10 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 
 			}
 
-			/* Very cursed */
+			// Very cursed
 			else if (power < -1)
 			{
-				/* Roll for ego-item */
+				// Roll for ego-item
 				if (randint0(MAX_DEPTH) < level)
 				{
 					o_ptr->name2 = get_random_ego(INVEN_AMMO, FALSE);
@@ -2511,7 +2512,7 @@ static void a_m_aux_1(creature_type *owner_ptr, object_type *o_ptr, int level, i
 		}
 	}
 }
-
+*/
 
 static void dragon_resist(object_type * o_ptr)
 {
