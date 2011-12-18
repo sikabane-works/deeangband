@@ -2044,6 +2044,9 @@ void object_prep(object_type *o_ptr, int k_idx, int size)
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) o_ptr->curse_flags |= get_curse(1, o_ptr);
 	if (k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) o_ptr->curse_flags |= get_curse(2, o_ptr);
 
+	if (((o_ptr->tval == TV_CLOAK)      && (o_ptr->sval == SV_ELVEN_CLOAK)) ||
+	    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
+		  o_ptr->pval = (s16b)randint1(4);
 
 }
 
@@ -4185,10 +4188,6 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 		return;
 	}
 
-	if (((o_ptr->tval == TV_CLOAK) && (o_ptr->sval == SV_ELVEN_CLOAK)) ||
-	    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
-		  o_ptr->pval = (s16b)randint1(4);
-
 	if(power >= ITEM_RANK_GREAT){
 		if(specified_idx) create_ego(o_ptr, lev, specified_idx);
 		else create_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
@@ -4310,62 +4309,6 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 
 			/* Hack -- obtain pval */
 			if (e_ptr->max_pval) o_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
-		}
-
-		// Hack -- apply extra bonuses if needed
-		else
-		{
-			// Hack -- obtain bonuses
-			if (e_ptr->max_to_h)
-			{
-				if (e_ptr->max_to_h > 127)
-					o_ptr->to_h -= (s16b)randint1(256-e_ptr->max_to_h);
-				else o_ptr->to_h += (s16b)randint1(e_ptr->max_to_h);
-			}
-			if (e_ptr->max_to_d)
-			{
-				if (e_ptr->max_to_d > 127)
-					o_ptr->to_d -= (s16b)randint1(256-e_ptr->max_to_d);
-				else o_ptr->to_d += (s16b)randint1(e_ptr->max_to_d);
-			}
-			if (e_ptr->max_to_a)
-			{
-				if (e_ptr->max_to_a > 127)
-					o_ptr->to_a -= (s16b)randint1(256-e_ptr->max_to_a);
-				else o_ptr->to_a += (s16b)randint1(e_ptr->max_to_a);
-			}
-
-			// Hack -- obtain pval
-			if (e_ptr->max_pval)
-			{
-				if ((o_ptr->name2 == EGO_HA) && (have_flag(o_ptr->art_flags, TR_BLOWS)))
-				{
-					o_ptr->pval++;
-					if ((lev > 60) && one_in_(3) && ((o_ptr->dd*(o_ptr->ds+1)) < 15)) o_ptr->pval++;
-				}
-				else if (o_ptr->name2 == EGO_ATTACKS)
-				{
-					o_ptr->pval = (s16b)randint1(e_ptr->max_pval*lev/100+1);
-					if (o_ptr->pval > 3) o_ptr->pval = 3;
-					if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA))
-						o_ptr->pval += (s16b)randint1(2);
-				}
-				else if (o_ptr->name2 == EGO_BAT)
-				{
-					o_ptr->pval = (s16b)randint1(e_ptr->max_pval);
-					if (o_ptr->sval == SV_ELVEN_CLOAK) o_ptr->pval += (s16b)randint1(2);
-				}
-				else
-				{
-					o_ptr->pval += (s16b)randint1(e_ptr->max_pval);
-				}
-			}
-			if ((o_ptr->name2 == EGO_SPEED) && (lev < 50))
-			{
-				o_ptr->pval = (s16b)randint1(o_ptr->pval);
-			}
-			if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2) && (o_ptr->name2 != EGO_ATTACKS))
-				o_ptr->pval = 2;
 		}
 
 		// Cheat -- describe the item
@@ -8567,9 +8510,66 @@ void armour_boost(object_type *o_ptr, int level, int power)
 
 void create_ego(object_type *o_ptr, int level, int ego_id)
 {
+	ego_item_type *e_ptr = &e_info[ego_id];
 
 	o_ptr->name2 = ego_id;
 	if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_DIAMOND_EDGE)) return;
+
+	// Hack -- obtain bonuses
+	if (e_ptr->max_to_h)
+	{
+		if (e_ptr->max_to_h > 127)
+			o_ptr->to_h -= (s16b)randint1(256-e_ptr->max_to_h);
+		else o_ptr->to_h += (s16b)randint1(e_ptr->max_to_h);
+	}
+
+	if (e_ptr->max_to_d)
+	{
+		if (e_ptr->max_to_d > 127)
+			o_ptr->to_d -= (s16b)randint1(256-e_ptr->max_to_d);
+			else o_ptr->to_d += (s16b)randint1(e_ptr->max_to_d);
+	}
+
+	if (e_ptr->max_to_a)
+	{
+		if (e_ptr->max_to_a > 127)
+			o_ptr->to_a -= (s16b)randint1(256-e_ptr->max_to_a);
+		else o_ptr->to_a += (s16b)randint1(e_ptr->max_to_a);
+	}
+
+	// Hack -- obtain pval
+	if (e_ptr->max_pval)
+	{
+		if ((o_ptr->name2 == EGO_HA) && (have_flag(o_ptr->art_flags, TR_BLOWS)))
+		{
+			o_ptr->pval++;
+			if ((level > 60) && one_in_(3) && ((o_ptr->dd*(o_ptr->ds+1)) < 15)) o_ptr->pval++;
+		}
+		else if (o_ptr->name2 == EGO_ATTACKS)
+		{
+			o_ptr->pval = (s16b)randint1(e_ptr->max_pval*level/100+1);
+			if (o_ptr->pval > 3) o_ptr->pval = 3;
+			if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA))
+				o_ptr->pval += (s16b)randint1(2);
+		}
+		else if (o_ptr->name2 == EGO_BAT)
+		{
+			o_ptr->pval = (s16b)randint1(e_ptr->max_pval);
+			if (o_ptr->sval == SV_ELVEN_CLOAK) o_ptr->pval += (s16b)randint1(2);
+		}
+		else
+		{
+			o_ptr->pval += (s16b)randint1(e_ptr->max_pval);
+		}
+
+		if ((o_ptr->name2 == EGO_SPEED) && (level < 50))
+		{
+			o_ptr->pval = (s16b)randint1(o_ptr->pval);
+		}
+
+		if ((o_ptr->tval == TV_SWORD) && (o_ptr->sval == SV_HAYABUSA) && (o_ptr->pval > 2) && (o_ptr->name2 != EGO_ATTACKS))
+			o_ptr->pval = 2;
+	}
 
 	switch(ego_id)
 	{

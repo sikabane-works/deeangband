@@ -3561,11 +3561,13 @@ void deal_item(creature_type *creature_ptr)
 	/* Get local object */
 	q_ptr = &forge;
 
+	/*
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
 		make_object(q_ptr, AM_UNCURSED, 0, object_level);
 		add_outfit(creature_ptr, q_ptr, 0);
 	}
+	*/
 
 	//
 	// Item depend on species_info
@@ -3595,10 +3597,11 @@ void deal_item(creature_type *creature_ptr)
 		{
 			object_type ob;
 			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
-			apply_magic(creature_ptr, &ob, creature_ptr->lev * 2, species_ptr->artifact_flag[i], species_ptr->artifact_ego[i]);
+			create_ego(&ob, object_level, species_ptr->artifact_ego[i]);
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
 	}
+	return;
 
 	// Dealing MagicBook
 	deal_magic_book(creature_ptr);
