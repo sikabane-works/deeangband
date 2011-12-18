@@ -203,6 +203,9 @@
 #define MAX_SEXES            4
 
 
+
+#define MAX_EQUIP_SLOT       12
+
 /*
  * Maximum number of creature hands.
  */

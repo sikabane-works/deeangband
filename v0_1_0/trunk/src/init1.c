@@ -58,9 +58,9 @@ static void note(cptr str)
 /*** Monster CSV List ***/
 
 
-/*
- * Race Flags
- */
+//
+// Race Flags
+//
 static cptr race_flags[MAX_RACES] =
 {
 	"HUMAN",
@@ -250,6 +250,26 @@ static cptr realm_flags[MAX_REALM]=
 	"HISSATSU",
 	"HEX",
 };
+
+//
+// Equip Slot Flags
+//
+static cptr equip_slot_flags[MAX_EQUIP_SLOT] =
+{
+	"WEAPON",
+	"SHIELD",
+	"BOW",
+	"AMMO",
+	"RING",
+	"AMULET",
+	"BODY",
+	"OUTER",
+	"ARMS",
+	"FEET",
+	"INSTRUMENT",
+	"LITE",
+};
+
 
 
 /*
