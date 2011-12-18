@@ -4188,7 +4188,7 @@ void apply_magic(creature_type *owner_ptr, object_type *o_ptr, int lev, u32b mod
 	    ((o_ptr->tval == TV_SOFT_ARMOR) && (o_ptr->sval == SV_KUROSHOUZOKU)))
 		  o_ptr->pval = (s16b)randint1(4);
 
-	apply_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
+	if(power >= ITEM_RANK_GREAT) apply_ego(o_ptr, lev, get_random_ego(wield_slot(owner_ptr, o_ptr), TRUE));
 
 	// Apply magic
 	/*
