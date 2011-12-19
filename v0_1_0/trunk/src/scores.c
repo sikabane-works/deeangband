@@ -293,9 +293,9 @@ if (mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 			/* Another line of info */
 #ifdef JP
 			if (mdun != 0)
-				sprintf(out_val, "%s%s(レベル%d)  最高%3d階", race_info[pr].title, class_info[pc].title, clev, mdun);
+				sprintf(out_val, "             %s%s(レベル%d)  最高%3d階", race_info[pr].title, class_info[pc].title, clev, mdun);
 			else
-				sprintf(out_val, "%s%s(レベル%d)           ", race_info[pr].title, class_info[pc].title, clev);
+				sprintf(out_val, "             %s%s(レベル%d)           ", race_info[pr].title, class_info[pc].title, clev);
 
 
 			/* 死亡原因をオリジナルより細かく表示 */
@@ -491,7 +491,7 @@ errr top_twenty(creature_type *player_ptr)
 		VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
-	sprintf(the_score.pts, "%9ld", (long)total_points());
+	sprintf(the_score.pts, "%9ld", (long)total_points(player_ptr));
 	the_score.pts[9] = '\0';
 
 	/* Save the current gold */
@@ -618,7 +618,7 @@ msg_print("スコア・ファイルが使用できません。");
 		VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
-	sprintf(the_score.pts, "%9ld", (long)total_points());
+	sprintf(the_score.pts, "%9ld", (long)total_points(player_ptr));
 
 	/* Save the current gold */
 	sprintf(the_score.gold, "%9lu", (long)player_ptr->au);

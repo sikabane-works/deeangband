@@ -1149,7 +1149,7 @@ extern void get_name(creature_type *cr_ptr);
 extern void do_cmd_suicide(creature_type *cr_ptr);
 extern void do_cmd_save_game(creature_type *creature_ptr, int is_autosave);
 extern void do_cmd_save_and_exit(creature_type *creature_ptr);
-extern long total_points(void);
+extern long total_points(creature_type *player_ptr);
 extern void close_game(creature_type *cr_ptr);
 extern void exit_game_panic(void);
 extern void signals_ignore_tstp(void);

@@ -6855,7 +6855,7 @@ void do_cmd_save_and_exit(creature_type *creature_ptr)
 /*
  * Hack -- Calculates the total number of points earned		-JWT-
  */
-long total_points(void)
+long total_points(creature_type *player_ptr)
 {
 	int i, mult = 100;
 	s16b max_dl = 0;
@@ -6878,7 +6878,7 @@ long total_points(void)
 		if(max_dlv[i] > max_dl)
 			max_dl = max_dlv[i];
 
-	point_l = (p_ptr->max_max_exp + (100 * max_dl));
+	point_l = (player_ptr->max_exp + (100 * max_dl));
 	point_h = point_l / 0x10000L;
 	point_l = point_l % 0x10000L;
 	point_h *= mult;
@@ -6896,7 +6896,7 @@ long total_points(void)
 
 	if (ironman_downward) point *= 2;
 
-	if ((p_ptr->chara_idx == CHARA_MUNCHKIN) && point)
+	if ((player_ptr->chara_idx == CHARA_MUNCHKIN) && point)
 	{
 		point = 1;
 		if (total_winner) point = 2;
