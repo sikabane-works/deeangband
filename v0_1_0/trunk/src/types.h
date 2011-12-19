@@ -1797,7 +1797,7 @@ struct high_score
 
 	char day[10];		/* Time stamp (string) */
 
-	char who[16];		/* Player Name (string) */
+	char who[100];		/* Player Name (string) */
 
 	char uid[8];		/* Player UID (number) */
 

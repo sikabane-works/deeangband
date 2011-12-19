@@ -267,19 +267,15 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 			/* Dump some info */
 #ifdef JP
 /*sprintf(out_val, "%3d.%9s  %s%s%sという名の%sの%s (レベル %d)", */
-			sprintf(out_val, "%3d.%9s  %s%s%s - %s%s (レベル %d)",
+			sprintf(out_val, "%3d.%9s  %s%s%s",
 				place, the_score.pts,
-				chara_info[pa].title, (chara_info[pa].no ? "の" : ""),
-				the_score.who,
-				race_info[pr].title, class_info[pc].title,
-				clev);
+				chara_info[pa].title, (chara_info[pa].no ? "の" : ""), the_score.who);
 
 #else
 			sprintf(out_val, "%3d.%9s  %s %s the %s %s, Level %d",
 				place, the_score.pts,
 				chara_info[pa].title,
-				the_score.who, race_info[pr].title, class_info[pc].title,
-				clev);
+				the_score.who, race_info[pr].title, class_info[pc].title, clev);
 #endif
 
 
@@ -297,9 +293,9 @@ if (mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 			/* Another line of info */
 #ifdef JP
 			if (mdun != 0)
-				sprintf(out_val, "    最高%3d階", mdun);
+				sprintf(out_val, "%s%s(レベル%d)  最高%3d階", race_info[pr].title, class_info[pc].title, clev, mdun);
 			else
-				sprintf(out_val, "             ");
+				sprintf(out_val, "%s%s(レベル%d)           ", race_info[pr].title, class_info[pc].title, clev);
 
 
 			/* 死亡原因をオリジナルより細かく表示 */
@@ -516,8 +512,8 @@ errr top_twenty(creature_type *player_ptr)
 	strftime(the_score.day, 10, "@%Y%m%d", localtime(&ct));
 #endif
 
-	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", player_ptr->name);
+	/* Save the player name (80 chars) */
+	sprintf(the_score.who, "%-.80s", player_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
@@ -638,8 +634,8 @@ msg_print("スコア・ファイルが使用できません。");
 #endif
 
 
-	/* Save the player name (15 chars) */
-	sprintf(the_score.who, "%-.15s", player_ptr->name);
+	/* Save the player name (80 chars) */
+	sprintf(the_score.who, "%-.80s", player_ptr->name);
 
 	/* Save the player info XXX XXX XXX */
 	sprintf(the_score.uid, "%7u", player_uid);
