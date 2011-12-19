@@ -4671,7 +4671,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* XXX XXX XXX Apply "encumbrance" from weight */
-	if (j > i) new_speed -= ((j - i) / (i / 5));
+	//TODO CHECK
+	if (j > i) new_speed -= ((j - i) / (i / 5 + 1));
 
 	/* Searching slows the player down */
 	if (cr_ptr->action == ACTION_SEARCH) new_speed -= 10;

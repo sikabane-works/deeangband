@@ -3601,7 +3601,6 @@ void deal_item(creature_type *creature_ptr)
 			add_outfit(creature_ptr, &ob, TRUE);
 		}
 	}
-	return;
 
 	// Dealing MagicBook
 	deal_magic_book(creature_ptr);

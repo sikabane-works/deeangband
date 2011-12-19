@@ -3231,8 +3231,16 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	}
 
 	riding_t_m_idx = c_ptr->m_idx;
-	if (atk_ptr->migite) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-	if (atk_ptr->hidarite && !mdeath) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+
+	if(has_cf_creature(atk_ptr, CF_HUMANOID))
+	{
+		if (atk_ptr->migite) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+		if (atk_ptr->hidarite && !mdeath) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+	}
+	else
+	{
+		special_melee(atk_ptr, tar_ptr);
+	}
 
 
 	/* Tranmpling Attack */
@@ -3267,11 +3275,6 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 			}
 		}
 
-	}
-
-	if(!mdeath)
-	{
-		special_melee(atk_ptr, tar_ptr);
 	}
 
 	/* Mutations which yield extra 'natural' attacks */
