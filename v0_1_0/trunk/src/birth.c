@@ -5436,9 +5436,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	}
 
 	creature_ptr->lev = 1;
-	creature_ptr->exp = species_ptr->exp;
-	creature_ptr->max_exp = species_ptr->exp;
-	creature_ptr->max_max_exp = CREATURE_MAX_EXP;
+	creature_ptr->exp = creature_ptr->max_exp = creature_ptr->max_max_exp = species_ptr->exp;
 	creature_ptr->dr = species_ptr->dr;
 
 	if(player)

@@ -911,7 +911,7 @@ void kingly(creature_type *player_ptr)
 
 
 	/* Restore the experience */
-	player_ptr->exp = player_ptr->max_exp;
+	player_ptr->exp = player_ptr->max_max_exp;
 
 	/* Restore the level */
 	player_ptr->lev = player_ptr->max_plv;
