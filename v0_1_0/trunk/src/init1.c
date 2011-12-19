@@ -264,6 +264,7 @@ static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 	"AMULET",
 	"BODY",
 	"OUTER",
+	"HEAD",
 	"ARMS",
 	"FEET",
 	"INSTRUMENT",
@@ -3153,13 +3154,14 @@ errr parse_e_info(char *buf, header *head)
 			e_ptr->slot = slot;
 			e_ptr->rating = rating;
 		}
-		else if(2 == sscanf(buf+2, "%s:%d", slot_str, &rating))
+		else if(2 == sscanf(buf+2, "%[^:]:%d", slot_str, &rating))
 		{
 			for(i = 0; i < MAX_EQUIP_TYPE; i++)
 			{
 				if(streq(equip_slot_flags[i], slot_str))
 				{
 					e_ptr->slot = i;
+					break;
 				}
 			}
 			if(i == MAX_EQUIP_TYPE) return 1;
