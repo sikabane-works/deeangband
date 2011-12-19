@@ -4851,7 +4851,7 @@ G:!:y
 I:39:4:0
 W:30:0:10:10000
 P:0:1d1:0:0:0
-F:INSTA_ART
+F:INSTA_ART | NO_LIMIT_LITE
 
 # The Star of Elendil -- see artifact list
 
@@ -4861,7 +4861,7 @@ G:*:y
 I:39:5:0
 W:50:0:5:25000
 P:0:1d1:0:0:0
-F:INSTA_ART
+F:INSTA_ART | NO_LIMIT_LITE
 
 # The Arkenstone of Thrain -- replaced with Jewel of Judgement
 
@@ -4872,7 +4872,7 @@ G:*:R
 I:39:6:0
 W:70:0:5:60000
 P:0:1d1:0:0:0
-F:INSTA_ART
+F:INSTA_ART | NO_LIMIT_LITE
 
 
 # The Amulet of Carlammas -- see artifact list
