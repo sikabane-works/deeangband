@@ -138,6 +138,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 
 	char	out_val[256];
 	char	tmp_val[160];
+	char	tmp_val2[160];
 
 	int wid, hgt, per_screen;
 
@@ -293,26 +294,28 @@ if (mlev > clev) strcat(out_val, format(" (Å‚%d)", mlev));
 			/* Another line of info */
 #ifdef JP
 			if (mdun != 0)
-				sprintf(out_val, "             %s%s(ƒŒƒxƒ‹%d)  Å‚%3dŠK", race_info[pr].title, class_info[pc].title, clev, mdun);
+				sprintf(tmp_val2, "               %s/%s(ƒŒƒxƒ‹%d/Å‚%3dŠK) ", race_info[pr].title, class_info[pc].title, clev, mdun);
 			else
-				sprintf(out_val, "             %s%s(ƒŒƒxƒ‹%d)           ", race_info[pr].title, class_info[pc].title, clev);
+				sprintf(tmp_val2, "               %s/%s(ƒŒƒxƒ‹%d) ", race_info[pr].title, class_info[pc].title, clev);
 
+			/* Dump the info */
+			c_put_str(attr, tmp_val2, n*4 + 3, 0);
 
 			/* €–SŒ´ˆö‚ğƒIƒŠƒWƒiƒ‹‚æ‚è×‚©‚­•\¦ */
 			if (streq(the_score.how, "yet"))
 			{
-				sprintf(out_val+13, "  ‚Ü‚¾¶‚«‚Ä‚¢‚é (%d%s)",
+				sprintf(out_val, "              ‚Ü‚¾¶‚«‚Ä‚¢‚é (%d%s)",
 				       cdun, "ŠK");
 			}
 			else
 			if (streq(the_score.how, "ripe"))
 			{
-				sprintf(out_val+13, "  Ÿ—˜‚ÌŒã‚Éˆø‘Ş (%d%s)",
+				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚Éˆø‘Ş (%d%s)",
 					cdun, "ŠK");
 			}
 			else if (streq(the_score.how, "Seppuku"))
 			{
-				sprintf(out_val+13, "  Ÿ—˜‚ÌŒã‚ÉØ•  (%d%s)",
+				sprintf(out_val, "              Ÿ—˜‚ÌŒã‚ÉØ•  (%d%s)",
 					cdun, "ŠK");
 			}
 			else
@@ -321,10 +324,9 @@ if (mlev > clev) strcat(out_val, format(" (Å‚%d)", mlev));
 
 				/* Some people die outside of the dungeon */
 				if (!cdun)
-					sprintf(out_val+13, "  ’nã‚Å%s‚ÉE‚³‚ê‚½", the_score.how);
+					sprintf(out_val, "              ’nã‚Å%s‚ÉE‚³‚ê‚½", the_score.how);
 				else
-					sprintf(out_val+13, "  %dŠK‚Å%s‚ÉE‚³‚ê‚½",
-						cdun, the_score.how);
+					sprintf(out_val, "              %dŠK‚Å%s‚ÉE‚³‚ê‚½", cdun, the_score.how);
 			}
 
 #else
@@ -343,7 +345,7 @@ if (mlev > clev) strcat(out_val, format(" (Å‚%d)", mlev));
 #endif
 
 			/* Dump the info */
-			c_put_str(attr, out_val, n*4 + 3, 0);
+			c_put_str(attr, out_val, n*4 + 4, 0);
 
 			/* And still another line of info */
 #ifdef JP
@@ -356,7 +358,7 @@ if (mlev > clev) strcat(out_val, format(" (Å‚%d)", mlev));
 					when = buf;
 				}
 				sprintf(out_val,
-						"        (ƒ†[ƒU[:%s, “ú•t:%s, Š‹à:%s, ƒ^[ƒ“:%s)",
+						"              (ƒ†[ƒU[:%s, “ú•t:%s, ‹à:%s, ƒ^[ƒ“:%s)",
 						user, when, gold, aged);
 			}
 
@@ -366,7 +368,7 @@ if (mlev > clev) strcat(out_val, format(" (Å‚%d)", mlev));
 				user, when, gold, aged);
 #endif
 
-			c_put_str(attr, out_val, n*4 + 4, 0);
+			c_put_str(attr, out_val, n*4 + 5, 0);
 		}
 
 
