@@ -5105,6 +5105,9 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			/* Access the grid */
 			c_ptr = &cave[y][x];
 
+			// Erase Message
+			c_ptr->message[0] = '\0';
+
 			/* Lose room and vault */
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
 
