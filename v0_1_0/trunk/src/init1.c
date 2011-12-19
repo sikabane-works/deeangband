@@ -4170,6 +4170,129 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
+#define CF_INFO_CSV_COLUMNS 24
+static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
+{
+	"ID",
+	"ID2",
+	"NAME",
+	"E_NAME",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
+	"DIS",
+	"DEV",
+	"ROB",
+	"EVA",
+	"VOL",
+	"STL",
+	"SRH",
+	"FOS",
+	"THN",
+	"THB",
+	"INFRA",
+	"HITD_M",
+	"EXP",
+	"FLAGS",
+};
+
+static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
+
+#define CF_INFO_ID		0
+#define CF_INFO_ID2	1
+#define CF_INFO_NAME	2
+#define CF_INFO_E_NAME	3
+#define CF_INFO_STR	4
+#define CF_INFO_INT	5
+#define CF_INFO_WIS	6
+#define CF_INFO_DEX	7
+#define CF_INFO_CON	8
+#define CF_INFO_CHA	9
+#define CF_INFO_DIS	10
+#define CF_INFO_DEV	11
+#define CF_INFO_ROB	12
+#define CF_INFO_EVA	13
+#define CF_INFO_VOL	14
+#define CF_INFO_STL	15
+#define CF_INFO_SRH	16
+#define CF_INFO_FOS	17
+#define CF_INFO_THN	18
+#define CF_INFO_THB	19
+#define CF_INFO_INFRA	20
+#define CF_INFO_HITD_M	21
+#define CF_INFO_EXP	22
+#define CF_INFO_FLAGS	23
+
+errr parse_creature_flag_csv(char *buf, header *head)
+{
+	int split[80], size[80];
+	int i, j, b;
+	char tmp[10000], nt[80];
+
+	if(get_split_offset(split, size, buf, CF_INFO_CSV_COLUMNS, ',', '"')){
+		return (1);
+	}
+
+	strncpy(tmp, buf + split[0], size[0]);
+	tmp[size[0]] = '\0';
+
+	if(!strcmp(tmp, cf_info_csv_list[0]))
+	{
+		cf_info_csv_code[0] = CF_INFO_ID;
+		for(i = 1; i < CF_INFO_CSV_COLUMNS; i++)
+		{
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			for(j = 1; j < CF_INFO_CSV_COLUMNS; j++)
+			{
+				if(!strcmp(tmp, cf_info_csv_list[j]))
+				{
+					cf_info_csv_code[i] = j;
+					break;
+				}
+			}
+			if(j == CF_INFO_CSV_COLUMNS) return (11); /* ERROR */
+		}
+		return 0;
+	}
+	else
+	{
+		int n;
+		strncpy(tmp, buf + split[0], size[0]);
+		tmp[size[0]] = '\0';
+		sscanf(tmp, "%d", &n);
+		sprintf(nt, "[Initialize CF:%d]", n);
+
+
+		note(nt);
+
+		for(i = 1; i < CF_INFO_CSV_COLUMNS; i++)
+		{
+			
+			strncpy(tmp, buf + split[i], size[i]);
+			tmp[size[i]] = '\0';
+			
+
+			switch(cf_info_csv_code[i])
+			{
+
+			default:
+				return (1);
+
+			}
+		}
+		
+	}
+	return (0);
+}
+
+
+
+
+
 #define RC_INFO_CSV_COLUMNS 61
 static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 {
@@ -4676,452 +4799,6 @@ errr parse_race_info_csv(char *buf, header *head)
 	}
 	return (0);
 }
-
-
-
-
-#define CF_INFO_CSV_COLUMNS 30
-static cptr sf_info_csv_list[CF_INFO_CSV_COLUMNS] =
-{
-	"ID",
-	"CM",
-	"NAME",
-	"E_NAME",
-	"SEX",
-
-	"LEV",
-	"DR",
-	"STR",
-	"INT",
-	"WIS",
-
-	"DEX",
-	"CON",
-	"CHA",
-	"DIS",
-	"DEV",
-
-	"ROB",
-	"EVA",
-	"VOL",
-	"STL",
-	"SRH",
-
-	"FOS",
-	"THN",
-	"THB",
-	"INFRA",
-	"HITD_M",
-
-	"EXP",
-	"FLAGS",
-	"DESCRIPTION",
-	"E_DESCRIPTION",
-};
-
-
-static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
-
-#define CF_INFO_ID			0
-#define CF_INFO_COMMON		1
-#define CF_INFO_NAME		2
-#define CF_INFO_E_NAME		3
-#define CF_INFO_SEX			4
-#define CF_INFO_LEV			5
-#define CF_INFO_DR			6
-#define CF_INFO_STR			7
-#define CF_INFO_INT			8
-#define CF_INFO_WIS			9
-
-#define CF_INFO_DEX		10
-#define CF_INFO_CON		11
-#define CF_INFO_CHA		12
-#define CF_INFO_DIS		13
-#define CF_INFO_DEV		14
-#define CF_INFO_ROB		15
-#define CF_INFO_EVA		16
-#define CF_INFO_VOL		17
-#define CF_INFO_STL		18
-#define CF_INFO_SRH		19
-
-#define CF_INFO_FOS		20
-#define CF_INFO_THN		21
-#define CF_INFO_THB		22
-#define CF_INFO_INFRA	23
-#define CF_INFO_HITD_M	24
-#define CF_INFO_EXP		25
-#define CF_INFO_SYM			26
-#define CF_INFO_FLAGS		27
-#define CF_INFO_DESCRIPTION		28
-#define CF_INFO_E_DESCRIPTION	29
-
-errr parse_creature_flag_csv(char *buf, header *head)
-{
-	int split[80], size[80];
-	int i, j, b;
-	char tmp[10000], nt[80];
-
-	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"')){
-		return (1);
-	}
-
-	strncpy(tmp, buf + split[0], size[0]);
-	tmp[size[0]] = '\0';
-
-	if(!strcmp(tmp, rc_info_csv_list[0]))
-	{
-		rc_info_csv_code[0] = RC_INFO_ID;
-		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
-		{
-			strncpy(tmp, buf + split[i], size[i]);
-			tmp[size[i]] = '\0';
-			for(j = 1; j < RC_INFO_CSV_COLUMNS; j++)
-			{
-				if(!strcmp(tmp, rc_info_csv_list[j]))
-				{
-					rc_info_csv_code[i] = j;
-					break;
-				}
-			}
-			if(j == RC_INFO_CSV_COLUMNS) return (11); /* ERROR */
-		}
-		return 0;
-	}
-	else
-	{
-		int n;
-		strncpy(tmp, buf + split[0], size[0]);
-		tmp[size[0]] = '\0';
-		sscanf(tmp, "%d", &n);
-		sprintf(nt, "[Initialize RC:%d]", n);
-
-
-		note(nt);
-
-		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
-		{
-			
-			strncpy(tmp, buf + split[i], size[i]);
-			tmp[size[i]] = '\0';
-			
-
-			switch(rc_info_csv_code[i])
-			{
-
-			case RC_INFO_COMMON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].race_category = (byte)b;
-				break;
-
-			case RC_INFO_NAME:
-
-				if (!add_name(&race_info[n].name, head, tmp))
-					return (7);
-				break;
-
-			case RC_INFO_E_NAME:
-#if JP
-				if (!add_name(&race_info[n].E_name, head, tmp))
-					return (7);
-#else
-				if (!add_name(&race_info[n].name, head, tmp))
-					return (7);
-#endif
-				break;
-
-			case RC_INFO_SEX:
-				if(sscanf(tmp, "0x%x", &b) != 1) return (1);
-				race_info[n].sex_flag = (byte)b;
-				break;
-
-			case RC_INFO_LEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].lev = (s16b)b;
-				break;
-
-			case RC_INFO_DR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].dr = (s16b)b;
-				break;
-
-			case RC_INFO_P_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_STR] = (s16b)b;
-				break;
-
-			case RC_INFO_P_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_INT] = (s16b)b;
-				break;
-
-			case RC_INFO_P_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_WIS] = (s16b)b;
-				break;
-
-			case RC_INFO_P_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_DEX] = (s16b)b;
-				break;
-
-			case RC_INFO_P_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_CON] = (s16b)b;
-				break;
-
-			case RC_INFO_P_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_adj[STAT_CHR] = (s16b)b;
-				break;
-
-			case RC_INFO_H_STR:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_STR] = (s16b)b;
-				break;
-
-			case RC_INFO_H_INT:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_INT] = (s16b)b;
-				break;
-
-			case RC_INFO_H_WIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_WIS] = (s16b)b;
-				break;
-
-			case RC_INFO_H_DEX:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_DEX] = (s16b)b;
-				break;
-
-			case RC_INFO_H_CON:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_CON] = (s16b)b;
-				break;
-
-			case RC_INFO_H_CHA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_adj[STAT_CHR] = (s16b)b;
-				break;
-
-			case RC_INFO_P_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_dis = (s16b)b;
-				break;
-
-			case RC_INFO_P_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_dev = (s16b)b;
-				break;
-
-			case RC_INFO_P_ROB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_rob = (s16b)b;
-				break;
-
-			case RC_INFO_P_EVA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_eva = (s16b)b;
-				break;
-
-			case RC_INFO_P_VOL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_vol = (s16b)b;
-				break;
-
-			case RC_INFO_P_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_stl = (s16b)b;
-				break;
-
-			case RC_INFO_P_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_srh = (s16b)b;
-				break;
-
-			case RC_INFO_P_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_fos = (s16b)b;
-				break;
-
-			case RC_INFO_P_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_thn = (s16b)b;
-				break;
-
-			case RC_INFO_P_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_thb = (s16b)b;
-				break;
-
-			case RC_INFO_P_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].infra = (byte)b;
-				break;
-
-			case RC_INFO_H_DIS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_dis = (s16b)b;
-				break;
-
-			case RC_INFO_H_DEV:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_dev = (s16b)b;
-				break;
-
-			case RC_INFO_H_ROB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_rob = (s16b)b;
-				break;
-
-			case RC_INFO_H_EVA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_eva = (s16b)b;
-				break;
-
-			case RC_INFO_H_VOL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_vol = (s16b)b;
-				break;
-
-			case RC_INFO_H_STL:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_stl = (s16b)b;
-				break;
-
-			case RC_INFO_H_SRH:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_srh = (s16b)b;
-				break;
-
-			case RC_INFO_H_FOS:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_fos = (s16b)b;
-				break;
-
-			case RC_INFO_H_THN:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_thn = (s16b)b;
-				break;
-
-			case RC_INFO_H_THB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_thb = (s16b)b;
-				break;
-
-			case RC_INFO_H_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].infra = (byte)b;
-				break;
-
-			case RC_INFO_M_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].m_b_ht = (s32b)b;
-				break;
-
-			case RC_INFO_M_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].m_m_ht = (s32b)b;
-				break;
-
-			case RC_INFO_M_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].m_b_wt = (s32b)b;
-				break;
-
-			case RC_INFO_M_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].m_m_wt = (s32b)b;
-				break;
-
-			case RC_INFO_F_HB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].f_b_ht = (s32b)b;
-				break;
-
-			case RC_INFO_F_HM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].f_m_ht = (s32b)b;
-				break;
-
-			case RC_INFO_F_WB:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].f_b_wt = (s32b)b;
-				break;
-
-			case RC_INFO_F_WM:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].f_m_wt = (s32b)b;
-				break;
-
-			case RC_INFO_P_HITD_M:
-				break;
-
-			case RC_INFO_H_HITD_M:
-				break;
-
-			case RC_INFO_P_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_exp = (s16b)b;
-				break;
-
-			case RC_INFO_H_EXP:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].r_s_exp = (s16b)b;
-				break;
-
-			case RC_INFO_SYM:
-				break;
-
-			case RC_INFO_AGE:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].b_age = (s32b)b;
-				break;
-
-			case RC_INFO_AGE_ADD:
-				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				race_info[n].m_age = (s32b)b;
-				break;
-
-			case RC_INFO_P_FLAGS:
-				if(0 != creature_flags_splits(&race_info[n].p_flags, tmp))
-					return (1);
-				break;
-
-			case RC_INFO_H_FLAGS:
-				if(0 != creature_flags_splits(&race_info[n].h_flags, tmp))
-					return (1);
-				break;
-
-			case RC_INFO_SUIT_CLASS:
-				break;
-
-			case RC_INFO_DESCRIPTION:
-				if (!add_text(&race_info[n].text, head, tmp, TRUE))
-					return (7);
-				break;
-
-
-			case RC_INFO_E_DESCRIPTION:
-#if JP
-				if (!add_text(&race_info[n].E_text, head, tmp, TRUE))
-					return (7);
-#else
-				if (!add_text(&race_info[n].text, head, tmp, TRUE))
-					return (7);
-#endif
-				break;
-
-			default:
-				return (1);
-
-			}
-		}
-		
-	}
-	return (0);
-}
-
 
 
 
