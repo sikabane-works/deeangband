@@ -204,7 +204,7 @@
 
 
 
-#define MAX_EQUIP_SLOT       12
+#define MAX_EQUIP_TYPE       12
 
 /*
  * Maximum number of creature hands.

@@ -254,7 +254,7 @@ static cptr realm_flags[MAX_REALM]=
 //
 // Equip Slot Flags
 //
-static cptr equip_slot_flags[MAX_EQUIP_SLOT] =
+static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 {
 	"WEAPON",
 	"SHIELD",
@@ -3143,15 +3143,30 @@ errr parse_e_info(char *buf, header *head)
 	/* Process 'X' for "Xtra" (one line only) */
 	else if (buf[0] == 'X')
 	{
-		int slot, rating;
+		int slot, rating, i;
+		char slot_str[20];
 
-		/* Scan for the values */
-		if (2 != sscanf(buf+2, "%d:%d",
-				&slot, &rating)) return (1);
+		// Scan for the values
+		if (2 == sscanf(buf+2, "%d:%d", &slot, &rating))
+		{
+			// Save the values
+			e_ptr->slot = slot;
+			e_ptr->rating = rating;
+		}
+		else if(2 == sscanf(buf+2, "%s:%d", slot_str, &rating))
+		{
+			for(i = 0; i < MAX_EQUIP_TYPE; i++)
+			{
+				if(streq(equip_slot_flags[i], slot_str))
+				{
+					e_ptr->slot = i;
+				}
+			}
+			if(i == MAX_EQUIP_TYPE) return 1;
+			e_ptr->rating = rating;
+		}
+		else return 1;
 
-		/* Save the values */
-		e_ptr->slot = slot;
-		e_ptr->rating = rating;
 	}
 
 	/* Process 'W' for "More Info" (one line only) */
