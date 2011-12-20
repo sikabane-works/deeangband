@@ -5928,7 +5928,7 @@ extern int PlayerUID;
 
 
 
-#define CF_FLAG_MAX 608
+#define CF_FLAG_MAX 1000
 
 
 #define INFO_TYPE_RACE            1000

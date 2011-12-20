@@ -479,7 +479,7 @@ static cptr f_info_flags[] =
 	"ACID_SWAMP",
 };
 
-
+/*
 static cptr creature_info_flags[CF_FLAG_MAX] =
 {
 //CF1
@@ -1142,7 +1142,7 @@ static cptr creature_info_flags[CF_FLAG_MAX] =
 	"XXX",
 	"XXX",
 };
-
+*/
 
 
 /*
@@ -4297,10 +4297,13 @@ errr parse_creature_flag_csv(char *buf, header *head)
 			switch(cf_info_csv_code[i])
 			{
 				case CF_INFO_ID2:
+					strcpy(creature_info_flags[n], tmp);
 				break;
 				case CF_INFO_NAME:
+					strcpy(creature_flag_info[n].title, tmp);
 				break;
 				case CF_INFO_E_NAME:
+					strcpy(creature_flag_info[n].e_title, tmp);
 				break;
 				case CF_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
