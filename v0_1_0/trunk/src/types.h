@@ -1619,9 +1619,9 @@ struct creature_type
 };
 
 // creature_flags_type
-typedef struct creature_flags_type creature_flags_type;
+typedef struct creature_flag_type creature_flag_type;
 
-struct creature_flags_type
+struct creature_flag_type
 {
 	char title[50];
 	char e_title[50];

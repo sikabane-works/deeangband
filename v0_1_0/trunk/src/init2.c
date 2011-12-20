@@ -298,6 +298,7 @@ header f_head;
 header k_head;
 header a_head;
 header e_head;
+header creature_flag_head;
 header species_head;
 header race_head;
 header re_head;
@@ -1009,6 +1010,26 @@ static errr init_e_info(void)
 			 (void*)&e_info, &e_name, &e_text, NULL);
 }
 
+
+/*
+ * Initialize the "species_info" array
+ */
+static errr init_creature_flags_csv(void)
+{
+
+	/* Init the header */
+	init_header(&species_head, max_species_idx, sizeof(species_type));
+
+#ifdef ALLOW_TEMPLATES
+
+	/* Save a pointer to the parsing function */
+	species_head.parse_info_txt = parse_creature_flag_csv;
+
+#endif /* ALLOW_TEMPLATES */
+
+	return init_info2("creature_flag_info", &creature_flag_head, (void*)&creature_flag_info, &creature_flag_name, &creature_flag_text, NULL);
+
+}
 
 
 /*
@@ -2076,6 +2097,10 @@ void init_angband(void)
 	/* Initialize misc. values */
 	note("[Initializing values... (misc)]");
 	if (init_misc()) quit("Cannot initialize misc. values");
+
+	// Initialize creature flags
+	note("[Initializing values... (creature flags)]");
+	if (init_misc()) quit("Cannot creature flags");
 
 	/* Initialize feature info */
 	note("[Initializing arrays... (features)]");
