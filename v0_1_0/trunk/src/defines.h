@@ -204,7 +204,22 @@
 
 
 
-#define MAX_EQUIP_TYPE       12
+#define MAX_EQUIP_TYPE       14
+
+#define INVEN_EQUIP_INVENTORY  0
+#define INVEN_EQUIP_HAND       1
+#define INVEN_EQUIP_BOW        2
+#define INVEN_EQUIP_AMMO       3
+#define INVEN_EQUIP_RING       4
+#define INVEN_EQUIP_AMULET     5
+#define INVEN_EQUIP_BODY       6
+#define INVEN_EQUIP_OUTER      7
+#define INVEN_EQUIP_HEAD       8
+#define INVEN_EQUIP_ARMS       9
+#define INVEN_EQUIP_FEET       10
+#define INVEN_EQUIP_INSTRUMENT 11
+#define INVEN_EQUIP_LITE       12
+#define INVEN_EQUIP_TAIL       13
 
 /*
  * Maximum number of creature hands.
@@ -718,6 +733,8 @@
 /*
  * Indexes used for various "equipment" slots (hard-coded by savefiles, etc).
  */
+
+
 #define INVEN_1STARM     24
 #define INVEN_2NDARM     25
 #define INVEN_3RDARM     26

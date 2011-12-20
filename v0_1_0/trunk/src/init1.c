@@ -256,6 +256,7 @@ static cptr realm_flags[MAX_REALM]=
 //
 static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 {
+	"INVENTORY",
 	"HAND",
 	"BOW",
 	"AMMO",
@@ -268,6 +269,7 @@ static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 	"FEET",
 	"INSTRUMENT",
 	"LITE",
+	"TAIL",
 };
 
 

@@ -1199,6 +1199,7 @@ struct creature_type
 	s16b equip_cnt;			/* Number of items in equipment */
 	object_type inventory[INVEN_TOTAL];  /* Inventory */
 	s16b iven_fitting_rate[INVEN_TOTAL]; /* Inventory Fitting Rate */
+	s16b iven_slot_type[INVEN_TOTAL];
 	s16b num_hand;
 	s16b num_head;
 	s16b num_tail;
