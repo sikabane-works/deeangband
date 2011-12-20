@@ -1625,12 +1625,7 @@ struct creature_flag_type
 {
 	char title[50];
 	char e_title[50];
-	s16b s_str;
-	s16b s_int;
-	s16b s_wis;
-	s16b s_dex;
-	s16b s_con;
-	s16b s_cha;
+	s16b adj[STAT_MAX];
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
 	s16b rob;		/* Skill: Saving throw(Robustness) */

@@ -4296,8 +4296,6 @@ errr parse_creature_flag_csv(char *buf, header *head)
 
 			switch(cf_info_csv_code[i])
 			{
-				case CF_INFO_ID:
-				break;
 				case CF_INFO_ID2:
 				break;
 				case CF_INFO_NAME:
@@ -4305,42 +4303,80 @@ errr parse_creature_flag_csv(char *buf, header *head)
 				case CF_INFO_E_NAME:
 				break;
 				case CF_INFO_STR:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_STR] = (s16b)b;
 				break;
 				case CF_INFO_INT:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_INT] = (s16b)b;
 				break;
 				case CF_INFO_WIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_WIS] = (s16b)b;
 				break;
 				case CF_INFO_DEX:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_DEX] = (s16b)b;
 				break;
 				case CF_INFO_CON:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_CON] = (s16b)b;
 				break;
 				case CF_INFO_CHA:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].adj[STAT_CHR] = (s16b)b;
 				break;
 				case CF_INFO_DIS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].dis = (s16b)b;
 				break;
 				case CF_INFO_DEV:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].dev = (s16b)b;
 				break;
 				case CF_INFO_ROB:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].rob = (s16b)b;
 				break;
 				case CF_INFO_EVA:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].eva = (s16b)b;
 				break;
 				case CF_INFO_VOL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].vol = (s16b)b;
 				break;
 				case CF_INFO_STL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].stl = (s16b)b;
 				break;
 				case CF_INFO_SRH:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].srh = (s16b)b;
 				break;
 				case CF_INFO_FOS:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].fos = (s16b)b;
 				break;
 				case CF_INFO_THN:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].thn = (s16b)b;
 				break;
 				case CF_INFO_THB:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].thb = (s16b)b;
 				break;
 				case CF_INFO_INFRA:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].infra = (s16b)b;
 				break;
 				case CF_INFO_HITD_M:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].hitd_m = (s16b)b;
 				break;
 				case CF_INFO_EXP:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].exp = (s16b)b;
 				break;
 				case CF_INFO_FLAGS:
 				break;
