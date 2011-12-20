@@ -1154,7 +1154,7 @@ u16b max_o_idx;
 
 
 // Maximum number of creature_flags
-u16b max_creature_idx;
+u16b max_creature_flag_idx;
 
 /*
  * Maximum number of monsters in the level

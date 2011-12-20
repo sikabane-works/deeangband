@@ -1014,16 +1014,16 @@ static errr init_e_info(void)
 /*
  * Initialize the "species_info" array
  */
-static errr init_creature_flags_csv(void)
+static errr init_creature_flag_csv(void)
 {
 
 	/* Init the header */
-	init_header(&species_head, max_species_idx, sizeof(species_type));
+	init_header(&creature_flag_head, max_creature_flag_idx, sizeof(creature_flag_type));
 
 #ifdef ALLOW_TEMPLATES
 
 	/* Save a pointer to the parsing function */
-	species_head.parse_info_txt = parse_creature_flag_csv;
+	creature_flag_head.parse_info_txt = parse_creature_flag_csv;
 
 #endif /* ALLOW_TEMPLATES */
 
@@ -2100,7 +2100,7 @@ void init_angband(void)
 
 	// Initialize creature flags
 	note("[Initializing values... (creature flags)]");
-	if (init_misc()) quit("Cannot creature flags");
+	if (init_creature_flag_csv()) quit("Cannot creature flags");
 
 	/* Initialize feature info */
 	note("[Initializing arrays... (features)]");

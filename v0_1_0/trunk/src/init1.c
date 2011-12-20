@@ -6027,7 +6027,7 @@ static errr process_dungeon_file_aux(char *buf, int ymin, int xmin, int ymax, in
 			/* Maximum m_idx */
 			else if (zz[0][0] == 'C')
 			{
-				max_creature_idx = atoi(zz[1]);
+				max_creature_flag_idx = atoi(zz[1]);
 			}
 
 			/* Wilderness size */
