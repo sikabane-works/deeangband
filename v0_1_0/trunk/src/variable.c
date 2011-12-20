@@ -852,6 +852,13 @@ char *species_name;
 char *species_text;
 
 /*
+ * The creature flags arrays
+ */
+creature_flags_type *creature_flags_info;
+char *creature_flags_name;
+char *creature_flags_text;
+
+/*
  * The race arrays
  */
 race_type *race_info;

@@ -1618,6 +1618,39 @@ struct creature_type
 
 };
 
+// creature_flags_type
+typedef struct creature_flags_type creature_flags_type;
+
+struct creature_flags_type
+{
+	char title[50];
+	char e_title[50];
+	s16b s_str;
+	s16b s_int;
+	s16b s_wis;
+	s16b s_dex;
+	s16b s_con;
+	s16b s_cha;
+	s16b dis;		/* Skill: Disarming */
+	s16b dev;		/* Skill: Magic Devices */
+	s16b rob;		/* Skill: Saving throw(Robustness) */
+	s16b eva;		/* Skill: Saving throw(Evasion) */
+	s16b vol;		/* Skill: Saving throw(Volition) */
+	s16b stl;		/* Skill: Stealth factor */
+	s16b srh;		/* Skill: Searching ability */
+	s16b fos;		/* Skill: Searching frequency */
+	s16b thn;		/* Skill: To hit (normal) */
+	s16b thb;		/* Skill: To hit (shooting) */
+	s16b tht;		/* Skill: To hit (throwing) */
+	s16b dig;		/* Skill: Digging */
+	s16b infra;
+	s16b hitd_m;
+	s16b exp;
+};
+
+
+
+
 
 /* For Monk martial arts */
 

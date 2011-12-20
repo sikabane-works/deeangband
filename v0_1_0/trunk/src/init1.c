@@ -4220,7 +4220,7 @@ static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
 
 #define CF_INFO_ID		0
-#define CF_INFO_ID2	1
+#define CF_INFO_ID2	    1
 #define CF_INFO_NAME	2
 #define CF_INFO_E_NAME	3
 #define CF_INFO_STR	4
@@ -4296,7 +4296,54 @@ errr parse_creature_flag_csv(char *buf, header *head)
 
 			switch(cf_info_csv_code[i])
 			{
-
+				case CF_INFO_ID:
+				break;
+				case CF_INFO_ID2:
+				break;
+				case CF_INFO_NAME:
+				break;
+				case CF_INFO_E_NAME:
+				break;
+				case CF_INFO_STR:
+				break;
+				case CF_INFO_INT:
+				break;
+				case CF_INFO_WIS:
+				break;
+				case CF_INFO_DEX:
+				break;
+				case CF_INFO_CON:
+				break;
+				case CF_INFO_CHA:
+				break;
+				case CF_INFO_DIS:
+				break;
+				case CF_INFO_DEV:
+				break;
+				case CF_INFO_ROB:
+				break;
+				case CF_INFO_EVA:
+				break;
+				case CF_INFO_VOL:
+				break;
+				case CF_INFO_STL:
+				break;
+				case CF_INFO_SRH:
+				break;
+				case CF_INFO_FOS:
+				break;
+				case CF_INFO_THN:
+				break;
+				case CF_INFO_THB:
+				break;
+				case CF_INFO_INFRA:
+				break;
+				case CF_INFO_HITD_M:
+				break;
+				case CF_INFO_EXP:
+				break;
+				case CF_INFO_FLAGS:
+				break;
 			default:
 				return (1);
 
