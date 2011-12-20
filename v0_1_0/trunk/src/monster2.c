@@ -3855,10 +3855,12 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if(creature_ptr->inventory[i].k_idx)
 		{
+			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].name2)
 			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
 				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}
 	}
+
 
 	return;
 
