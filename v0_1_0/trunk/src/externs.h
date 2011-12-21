@@ -483,7 +483,6 @@ extern char *e_text;
 extern species_type *species_info;
 extern char *species_name;
 extern char *species_text;
-extern char creature_info_flags[CF_FLAG_MAX][50];
 
 extern creature_flag_type *creature_flag_info;
 extern char *creature_flag_name;

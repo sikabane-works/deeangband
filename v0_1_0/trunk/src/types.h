@@ -1623,6 +1623,7 @@ typedef struct creature_flag_type creature_flag_type;
 
 struct creature_flag_type
 {
+	char id2[50];
 	char title[50];
 	char e_title[50];
 	s16b adj[STAT_MAX];

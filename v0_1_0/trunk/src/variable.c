@@ -850,7 +850,6 @@ char *e_text;
 species_type *species_info;
 char *species_name;
 char *species_text;
-char creature_info_flags[CF_FLAG_MAX][50];
 
 
 /*
