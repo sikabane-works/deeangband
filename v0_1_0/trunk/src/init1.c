@@ -4188,7 +4188,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define CF_INFO_CSV_COLUMNS 24
+#define CF_INFO_CSV_COLUMNS 25
 static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -4215,6 +4215,7 @@ static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"HITD_M",
 	"EXP",
 	"FLAGS",
+	"SPEED",
 };
 
 static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
@@ -4243,6 +4244,7 @@ static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_HITD_M	21
 #define CF_INFO_EXP	22
 #define CF_INFO_FLAGS	23
+#define CF_INFO_SPEED	24
 
 errr parse_creature_flag_csv(char *buf, header *head)
 {
@@ -4382,7 +4384,13 @@ errr parse_creature_flag_csv(char *buf, header *head)
 					creature_flag_info[n].exp = (s16b)b;
 				break;
 				case CF_INFO_FLAGS:
+					//TODO
 				break;
+				case CF_INFO_SPEED:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].speed = (s16b)b;
+				break;
+
 			default:
 				return (1);
 

@@ -1641,6 +1641,7 @@ struct creature_flag_type
 	s16b infra;
 	s16b hitd_m;
 	s16b exp;
+	s16b speed;
 };
 
 
