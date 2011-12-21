@@ -3535,10 +3535,38 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		if(cr_ptr->patron_idx != INDEX_NONE)
 			cr_ptr->stat_add[i] += player_patrons[cr_ptr->patron_idx].p_adj[i];
 */
-
 	}
 
 
+
+	for(i = 0; i < max_creature_flag_idx; i++)
+	{
+		if(has_cf_creature(cr_ptr, i))
+		{
+			cr_ptr->stat_add[STAT_STR] += creature_flag_info[i].adj[STAT_STR];
+			cr_ptr->stat_add[STAT_INT] += creature_flag_info[i].adj[STAT_INT];
+			cr_ptr->stat_add[STAT_WIS] += creature_flag_info[i].adj[STAT_WIS];
+			cr_ptr->stat_add[STAT_DEX] += creature_flag_info[i].adj[STAT_DEX];
+			cr_ptr->stat_add[STAT_CON] += creature_flag_info[i].adj[STAT_CON];
+			cr_ptr->stat_add[STAT_CHR] += creature_flag_info[i].adj[STAT_CHR];
+
+			cr_ptr->skill_dis += creature_flag_info[i].dis;
+			cr_ptr->skill_dev += creature_flag_info[i].dev;
+			cr_ptr->skill_stl += creature_flag_info[i].stl;
+			cr_ptr->skill_srh += creature_flag_info[i].srh;
+			cr_ptr->skill_dig += creature_flag_info[i].dig;
+			cr_ptr->skill_thb += creature_flag_info[i].thb;
+			cr_ptr->skill_thn += creature_flag_info[i].thn;
+			cr_ptr->skill_tht += creature_flag_info[i].tht;
+
+			cr_ptr->skill_rob += creature_flag_info[i].rob;
+			cr_ptr->skill_eva += creature_flag_info[i].eva;
+			cr_ptr->skill_vol += creature_flag_info[i].vol;
+
+			cr_ptr->see_infra += creature_flag_info[i].infra;
+
+		}
+	}
 
 	/* I'm adding the mutations here for the lack of a better place... */
 	if (cr_ptr->flags14)
