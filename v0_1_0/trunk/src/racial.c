@@ -1976,10 +1976,6 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			}
 			break;
 
-		case RACE_GOLEM:
-			(void)set_shield(cr_ptr, randint1(20) + 30, FALSE);
-			break;
-
 			/*
 		case RACE_SKELETON:
 		case RACE_ZOMBIE:
@@ -2109,6 +2105,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 			(void)set_tsubureru(cr_ptr, randint1(20) + 30, FALSE);
 			break;
 
+/*TODO
 		case RACE_ANDROID:
 			if (!get_aim_dir(cr_ptr, &dir)) return FALSE;
 			if (plev < 10)
@@ -2157,6 +2154,7 @@ static bool cmd_racial_power_aux(creature_type *cr_ptr, s32b command)
 				fire_rocket(cr_ptr, GF_ROCKET, dir, plev * 5, 2);
 			}
 			break;
+			*/
 
 		default:
 #ifdef JP

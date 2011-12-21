@@ -21,7 +21,7 @@
  */
 void set_experience(creature_type *cr_ptr)
 {
-	bool android = (IS_RACE(cr_ptr, RACE_ANDROID) ? TRUE : FALSE);
+	bool android = (has_cf_creature(cr_ptr, CF_ANDROID) ? TRUE : FALSE);
 
 	cr_ptr->lev = 1;
 
@@ -63,7 +63,7 @@ void check_experience(creature_type *cr_ptr)
 	bool level_reward = FALSE;
 	bool level_mutation = FALSE;
 	bool level_inc_stat = FALSE;
-	bool android = (IS_RACE(cr_ptr, RACE_ANDROID) ? TRUE : FALSE);
+	bool android = (has_cf_creature(cr_ptr, CF_ANDROID) ? TRUE : FALSE);
 	int  old_lev = cr_ptr->lev;
 
 	if(cr_ptr->max_lev > PY_MAX_LEVEL) cr_ptr->max_lev = PY_MAX_LEVEL;
@@ -2361,7 +2361,7 @@ static void evaluate_monster_exp(creature_type *player_ptr, char *buf, creature_
 	s32b exp_mon, exp_adv;
 	u32b exp_mon_frac, exp_adv_frac;
 
-	if ((player_ptr->lev >= player_ptr->max_plv) || IS_RACE(player_ptr, RACE_ANDROID))
+	if ((player_ptr->lev >= player_ptr->max_plv) || has_cf_creature(player_ptr, CF_ANDROID))
 	{
 		sprintf(buf,"**");
 		return;
@@ -4091,7 +4091,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 			msg_print("'Well done, mortal! Lead on!'");
 #endif
 
-			if (IS_RACE(cr_ptr, RACE_ANDROID))
+			if (has_cf_creature(cr_ptr, CF_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");
@@ -4132,7 +4132,7 @@ msg_print("「下僕よ、汝それに値せず。」");
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
 
-			if (IS_RACE(cr_ptr, RACE_ANDROID))
+			if (has_cf_creature(cr_ptr, CF_ANDROID))
 			{
 #ifdef JP
 				msg_print("しかし何も起こらなかった。");

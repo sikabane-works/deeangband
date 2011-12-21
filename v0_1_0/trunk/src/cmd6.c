@@ -1277,7 +1277,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_EXPERIENCE:
-			if (IS_RACE(cr_ptr, RACE_ANDROID)) break;
+			if (has_cf_creature(cr_ptr, CF_ANDROID)) break;
 			if (cr_ptr->exp < CREATURE_MAX_EXP)
 			{
 				s32b ee = (cr_ptr->exp / 2) + 10;
@@ -1414,6 +1414,24 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
+
+	if(has_cf_creature(cr_ptr, CF_FLASK_DRINKER))
+	{
+		if (q_ptr->tval == TV_FLASK)
+		{
+#ifdef JP
+			msg_print("オイルを補給した。");
+#else
+			msg_print("You replenish yourself with the oil.");
+#endif
+			set_food(cr_ptr, cr_ptr->food + 5000);
+		}
+		else
+		{
+			set_food(cr_ptr, cr_ptr->food + ((q_ptr->pval) / 20));
+		}
+	}
+
 	/* Potions can feed the player */
 	switch (cr_ptr->mimic_form)
 	{
@@ -1423,21 +1441,6 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 		{
 			case RACE_DEMON:
 			case RACE_BALROG:
-				break;
-			case RACE_ANDROID:
-				if (q_ptr->tval == TV_FLASK)
-				{
-#ifdef JP
-					msg_print("オイルを補給した。");
-#else
-					msg_print("You replenish yourself with the oil.");
-#endif
-					set_food(cr_ptr, cr_ptr->food + 5000);
-				}
-				else
-				{
-					set_food(cr_ptr, cr_ptr->food + ((q_ptr->pval) / 20));
-				}
 				break;
 			case RACE_ENT:
 #ifdef JP
@@ -1473,7 +1476,7 @@ static bool item_tester_hook_quaff(creature_type *cr_ptr, object_type *o_ptr)
 {
 	if (o_ptr->tval == TV_POTION) return TRUE;
 
-	if (race_is_(cr_ptr, RACE_ANDROID))
+	if (has_cf_creature(cr_ptr, CF_FLASK_DRINKER))
 	{
 		if (o_ptr->tval == TV_FLASK && o_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
@@ -5549,7 +5552,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 				get_bloody_moon_flags(o_ptr);
 				o_ptr->timeout = 3333;
-				if (IS_RACE(cr_ptr, RACE_ANDROID)) calc_android_exp(cr_ptr);
+				if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
 				cr_ptr->update |= (PU_BONUS | PU_HP);
 				break;
 			}

@@ -6575,7 +6575,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 				{
 					case 1: case 2: case 3: case 4: case 5:
 					{
-						if (tar_ptr->race_idx1 == RACE_ANDROID) break;
+						if (has_cf_creature(tar_ptr, CF_ANDROID)) break;
 #ifdef JP
 						msg_print("l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB");
 #else

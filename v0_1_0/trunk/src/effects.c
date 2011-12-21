@@ -433,7 +433,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (IS_RACE(cr_ptr, RACE_ANDROID))
+				if (has_cf_creature(cr_ptr, CF_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが不能に陥った。", name);
@@ -462,7 +462,7 @@ bool set_blind(creature_type *cr_ptr, int v)
 		{
 			if(is_seen(player_ptr, cr_ptr))
 			{
-				if (IS_RACE(cr_ptr, RACE_ANDROID))
+				if (has_cf_creature(cr_ptr, CF_ANDROID))
 				{
 #ifdef JP
 					msg_format("%sのセンサーが復旧した。", name);
@@ -3987,7 +3987,7 @@ bool set_stun(creature_type *cr_ptr, int v)
 	//TODO
 	if(is_player(cr_ptr))
 	{
-	if (race_is_(cr_ptr, RACE_GOLEM) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
+	if (has_cf_creature(cr_ptr, CF_NO_STUN) || ((cr_ptr->cls_idx == CLASS_BERSERKER) && (cr_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
 	if (cr_ptr->stun > 100)
@@ -4452,7 +4452,7 @@ bool set_cut(creature_type *cr_ptr, int v)
 			if(is_seen(player_ptr, cr_ptr))
 			{
 #ifdef JP
-				msg_format("やっと%s。", IS_RACE(cr_ptr, RACE_ANDROID) ? "怪我が直った" : "出血が止まった");
+				msg_format("やっと%s。", has_cf_creature(cr_ptr, CF_ANDROID) ? "怪我が直った" : "出血が止まった");
 #else
 				msg_print("You are no longer bleeding.");
 #endif
@@ -5477,7 +5477,7 @@ void do_poly_self(creature_type *cr_ptr)
 #endif
 	}
 
-	if ((power > randint0(20)) && one_in_(3) && (!IS_RACE(cr_ptr, RACE_ANDROID)))
+	if ((power > randint0(20)) && one_in_(3) && (!has_cf_creature(cr_ptr, CF_ANDROID)))
 	{
 		char effect_msg[80] = "";
 		int new_race, expfact, goalexpfact;
@@ -5585,7 +5585,7 @@ void do_poly_self(creature_type *cr_ptr)
 				new_race = randint0(MAX_RACES);
 				expfact = race_info[new_race].r_exp;
 			}
-			while (((new_race == cr_ptr->race_idx1) && (expfact > goalexpfact)) || (new_race == RACE_ANDROID) || race_info[new_race].dr != -1);
+			while (((new_race == cr_ptr->race_idx1) && (expfact > goalexpfact)) || race_info[new_race].dr != -1);
 
 			change_race(cr_ptr, new_race, effect_msg);
 		}
@@ -5602,7 +5602,7 @@ void do_poly_self(creature_type *cr_ptr)
 		if(is_seen(player_ptr, cr_ptr))
 		{
 #ifdef JP
-			msg_format("%sの構成が変化した！", IS_RACE(cr_ptr, RACE_ANDROID) ? "機械" : "内臓");
+			msg_format("%sの構成が変化した！", has_cf_creature(cr_ptr, CF_ANDROID) ? "機械" : "内臓");
 #else
 			msg_print("Your internal organs are rearranged!");
 #endif
@@ -5866,12 +5866,14 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		/* Dead player */
 		if (tar_ptr->chp < 0)
 		{
-			bool android = (tar_ptr->race_idx1 == RACE_ANDROID ? TRUE : FALSE);
+			bool android = has_cf_creature(tar_ptr, CF_ANDROID);
 	
-	#ifdef JP       /* 死んだ時に強制終了して死を回避できなくしてみた by Habu */
+	/*
+	#ifdef JP       // 死んだ時に強制終了して死を回避できなくしてみた by Habu
 			if (!cheat_save)
 				if(!save_player()) msg_print("セーブ失敗！");
 	#endif
+	*/
 	
 			/* Sound */
 			sound(SOUND_DEATH);
@@ -6516,7 +6518,7 @@ void gain_exp_64(creature_type *cr_ptr, s32b amount, u32b amount_frac)
 {
 	if (cr_ptr->is_dead) return;
 
-	if (IS_PURE_RACE(cr_ptr, RACE_ANDROID)) return;
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
 	/* Gain some experience */
 	s64b_add(&(cr_ptr->exp), &(cr_ptr->exp_frac), amount, amount_frac);
@@ -6627,7 +6629,7 @@ void calc_android_exp(creature_type *cr_ptr)
 	u32b total_exp = 0;
 	if (cr_ptr->is_dead) return;
 
-	if (!IS_RACE(cr_ptr, RACE_ANDROID)) return;
+	if (!has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
 	for (i = INVEN_1STARM; i < INVEN_TOTAL; i++)
 	{
@@ -6723,7 +6725,7 @@ void calc_android_exp(creature_type *cr_ptr)
  */
 void lose_exp(creature_type *cr_ptr, s32b amount)
 {
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) return;
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) return;
 
 	/* Never drop below zero experience */
 	if (amount > cr_ptr->exp) amount = cr_ptr->exp;
@@ -6743,7 +6745,7 @@ void lose_exp(creature_type *cr_ptr, s32b amount)
 bool drain_exp(creature_type *cr_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) return FALSE;
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) return FALSE;
 
 	if (cr_ptr->hold_life && (randint0(100) < hold_life_prob))
 	{

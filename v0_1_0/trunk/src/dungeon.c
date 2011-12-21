@@ -3090,7 +3090,7 @@ static void process_world_aux_curse(creature_type *cr_ptr)
 			(void)activate_ty_curse(cr_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
-		if (!IS_RACE(cr_ptr, RACE_ANDROID) && 
+		if (!has_cf_creature(cr_ptr, CF_ANDROID) && 
 			((cr_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
 		{
 			cr_ptr->exp -= (cr_ptr->lev+1)/2;
@@ -7146,7 +7146,7 @@ quit("セーブファイルが壊れています");
 	/* Hack -- Enforce "delayed death" */
 	if (cr_ptr->chp < 0) cr_ptr->is_dead = TRUE;
 
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) calc_android_exp(cr_ptr);
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
 
 	if (new_game && ((cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{

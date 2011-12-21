@@ -1317,7 +1317,7 @@ void do_cmd_destroy(creature_type *cr_ptr)
 	{
 		bool gain_expr = FALSE;
 
-		if (IS_RACE(cr_ptr, RACE_ANDROID))
+		if (has_cf_creature(cr_ptr, CF_ANDROID))
 		{
 		}
 		else if ((cr_ptr->cls_idx == CLASS_WARRIOR) || (cr_ptr->cls_idx == CLASS_BERSERKER))

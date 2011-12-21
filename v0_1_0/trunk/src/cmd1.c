@@ -1786,7 +1786,7 @@ static void touch_zap_player(creature_type *atk_ptr, creature_type *tar_ptr)
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, tar_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 
-			if (race_is_(atk_ptr, RACE_ANDROID)) aura_damage += aura_damage / 3;
+			if (has_cf_creature(atk_ptr, CF_ANDROID)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_ELEC(atk_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if (atk_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 

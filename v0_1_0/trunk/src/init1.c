@@ -111,8 +111,8 @@ static cptr race_flags[MAX_RACES] =
 	"SAIYAN",
 	"KUTAR",
 
-	"GOLEM",
-	"ANDROID",
+	"JURAL",
+	"EWOK",
 	"ANGEL",
 	"IMP",
 	"DEMON",

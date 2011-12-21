@@ -5020,7 +5020,7 @@ int elec_dam(creature_type *cr_ptr, int dam, cptr kb_str, int monspell)
 	}
 
 	/* Vulnerability (Ouch!) */
-	if (race_is_(cr_ptr, RACE_ANDROID)) dam += dam / 3;
+	if (has_cf_creature(cr_ptr, CF_HURT_ELEC)) dam += dam / 3;
 
 	/* Resist the damage */
 	if (cr_ptr->resist_elec) dam = (dam + 2) / 3;
@@ -5983,10 +5983,6 @@ bool summon_kin_player(creature_type *cr_ptr, int level, int y, int x, u32b mode
 				break;
 			case RACE_DRACONIAN:
 				summon_kin_type = 'd';
-				break;
-			case RACE_GOLEM:
-			case RACE_ANDROID:
-				summon_kin_type = 'g';
 				break;
 			/*
 			case SKELETON:

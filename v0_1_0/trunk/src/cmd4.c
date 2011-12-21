@@ -1201,7 +1201,7 @@ void do_cmd_redraw(creature_type *cr_ptr)
 	/* Hack -- update */
 	handle_stuff(cr_ptr);
 
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) calc_android_exp(cr_ptr);
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) calc_android_exp(cr_ptr);
 
 
 	/* Redraw every window */

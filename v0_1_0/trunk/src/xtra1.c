@@ -745,7 +745,7 @@ static void prt_exp(creature_type *cr_ptr)
 {
 	char out_val[32];
 
-	if ((!exp_need)||(IS_RACE(cr_ptr, RACE_ANDROID)))
+	if ((!exp_need)||(has_cf_creature(cr_ptr, CF_ANDROID)))
 	{
 		(void)sprintf(out_val, "%9ld", (long)cr_ptr->exp);
 	}
@@ -763,7 +763,7 @@ static void prt_exp(creature_type *cr_ptr)
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
 	{
-		if (IS_RACE(cr_ptr, RACE_ANDROID)) put_str("Cst ", ROW_EXP, 0);
+		if (has_cf_creature(cr_ptr, CF_ANDROID)) put_str("Cst ", ROW_EXP, 0);
 		else put_str("EXP", ROW_EXP, COL_EXP);
 		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 3);
 

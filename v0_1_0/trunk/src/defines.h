@@ -882,8 +882,8 @@
 #define RACE_DRACONIAN         37
 #define RACE_SAIYAN            38
 #define RACE_KUTAR             39
-#define RACE_GOLEM             40
-#define RACE_ANDROID           41
+#define RACE_JURAL             40
+#define RACE_EWOK              41
 #define RACE_ANGEL             42
 #define RACE_IMP               43
 #define RACE_DEMON             44

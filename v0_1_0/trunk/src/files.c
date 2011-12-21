@@ -1985,7 +1985,7 @@ static void display_player_middle(creature_type *cr_ptr)
 	}
 
 	/* Dump experience */
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) e = ENTRY_EXP_ANDR;
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
 
 	if (cr_ptr->exp >= cr_ptr->max_exp)
@@ -1994,18 +1994,18 @@ static void display_player_middle(creature_type *cr_ptr)
 		display_player_one_line(e, format("%ld", cr_ptr->exp), TERM_YELLOW);
 
 	/* Dump max experience */
-	if (IS_RACE(cr_ptr, RACE_ANDROID))
+	if (has_cf_creature(cr_ptr, CF_ANDROID))
 		/* Nothing */;
 	else
 		display_player_one_line(ENTRY_MAX_EXP, format("%ld", cr_ptr->max_exp), TERM_L_GREEN);
 
 	/* Dump exp to advance */
-	if (IS_RACE(cr_ptr, RACE_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
+	if (has_cf_creature(cr_ptr, CF_ANDROID)) e = ENTRY_EXP_TO_ADV_ANDR;
 	else e = ENTRY_EXP_TO_ADV;
 
 	if (cr_ptr->lev >= cr_ptr->max_lev)
 		display_player_one_line(e, "*****", TERM_L_GREEN);
-	else if (IS_RACE(cr_ptr, RACE_ANDROID))
+	else if (has_cf_creature(cr_ptr, CF_ANDROID))
 		display_player_one_line(e, format("%ld", (s32b)(creature_exp_a[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
 	else
 		display_player_one_line(e, format("%ld", (s32b)(creature_exp[cr_ptr->lev - 1] * cr_ptr->expfact / 100L)), TERM_L_GREEN);
@@ -2946,7 +2946,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *cr_ptr)
 		add_flag(flgs, TR_RES_FIRE);
 		add_flag(flgs, TR_RES_COLD);
 	}
-	if (race_is_(cr_ptr, RACE_ANDROID))
+	if (has_cf_creature(cr_ptr, CF_ANDROID))
 		add_flag(flgs, TR_RES_ELEC);
 	if (race_is_(cr_ptr, RACE_ENT))
 		add_flag(flgs, TR_RES_FIRE);

@@ -13,7 +13,7 @@ int estimate_level(species_type *species_ptr)
 	int factor = calc_expfact_sp(species_ptr);
 	int *table;
 
-	if(IS_RACE(species_ptr, RACE_ANDROID)) table = creature_exp_a;
+	if(has_cf(&species_ptr->flags, CF_ANDROID)) table = creature_exp_a;
 	else table = creature_exp;
 
 	for(i = 1; i < PY_MAX_LEVEL; i++)
@@ -198,7 +198,7 @@ int calc_expfact_sp(species_type *species_ptr)
 {
 	int expfact;
 
-	if (IS_RACE(species_ptr, RACE_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
+	if (has_cf(&species_ptr->flags, CF_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
 	else 
 	{
 		if(IS_PURE(species_ptr))
@@ -223,7 +223,7 @@ int calc_expfact_sp(species_type *species_ptr)
 // Experience factor
 void set_expfact(creature_type *creature_ptr)
 {
-	if (IS_RACE(creature_ptr,RACE_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
+	if (has_cf_creature(creature_ptr, CF_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
 	else {
 		if(IS_PURE(creature_ptr))
 		{

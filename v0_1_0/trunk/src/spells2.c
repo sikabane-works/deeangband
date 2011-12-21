@@ -468,15 +468,6 @@ sprintf(Dummy, "あなたは %d ダメージのファイア・ボルトの呪文を使える。(15 MP)", 
 				info[i++] = Dummy;
 			}
 			break;
-		case RACE_GOLEM:
-			if (plev > 19)
-#ifdef JP
-info[i++] = "あなたは d20+30 ターンの間肌を石に変化させられる。(15 MP)";
-#else
-				info[i++] = "You can turn your skin to stone, dur d20+30 (cost 15).";
-#endif
-
-			break;
 /* TODO
 		case ZOMBIE:
 		case SKELETON:
@@ -543,6 +534,7 @@ info[i++] = "あなたは d20+30 ターンの間横に伸びることができる。(15 MP)";
 #endif
 
 			break;
+/*TODO
 		case RACE_ANDROID:
 			if (plev < 10)
 #ifdef JP
@@ -577,6 +569,7 @@ sprintf(Dummy, "あなたは %d ダメージのロケットを撃つことができる。(60 MP)", plev
 
 			info[i++] = Dummy;
 			break;
+*/
 		default:
 			break;
 	}
@@ -2445,6 +2438,7 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 
 	}
 
+	/*TODO
 	if (race_is_(creature_ptr, RACE_ANDROID) && !creature_ptr->immune_elec)
 	{
 #ifdef JP
@@ -2454,6 +2448,7 @@ info[i++] = "あなたは電撃に弱い。";
 #endif
 
 	}
+	*/
 
 	if (creature_ptr->immune_fire)
 	{
