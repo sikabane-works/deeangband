@@ -2333,7 +2333,6 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	creature_ptr->chara_idx = species_ptr->chara_idx;
 	creature_ptr->realm1 = species_ptr->realm1;
 	creature_ptr->realm2 = species_ptr->realm2;
-	creature_ptr->exp = species_ptr->exp;
 	creature_ptr->age = species_ptr->age;
 	creature_ptr->sc = species_ptr->sc;
 	creature_ptr->au = species_ptr->au;
@@ -2651,6 +2650,23 @@ static void get_history(creature_type *creature_ptr)
 
 }
 
+
+static void set_exp(creature_type *creature_ptr, species_type *species_ptr)
+{
+	s32b exp1, exp2, rate1, rate2;
+
+	exp1 = 0;
+	exp2 = species_ptr->exp;
+	rate1 = 0;
+	rate2 = randnor(10000, EXP_STAND_RATE);
+
+	s64b_mul(&exp1, &exp2, rate1, rate2);
+	s64b_div(&exp1, &exp2, 0, 10000);
+
+	exp2 = (exp2 >= 0) ? exp2 : 0;
+
+	creature_ptr->exp = creature_ptr->max_exp = creature_ptr->max_max_exp = exp2;
+}
 
 /*
  * Computes character's age
@@ -5436,7 +5452,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	}
 
 	creature_ptr->lev = 1;
-	creature_ptr->exp = creature_ptr->max_exp = creature_ptr->max_max_exp = species_ptr->exp;
+
 	creature_ptr->dr = species_ptr->dr;
 
 	if(player)
@@ -5513,9 +5529,11 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		// Otherwise just get a character
 		else
 		{
+
 			get_stats(creature_ptr, species_ptr);   // Get a new character
 			set_age(creature_ptr);                  // Roll for age
-			set_height_weight(creature_ptr);        // Roll height and weight
+			set_exp(creature_ptr, species_ptr);                  // Roll for exp
+			set_height_weight(creature_ptr);        // Roll for height and weight
 
 			get_history(creature_ptr);              // Roll for social class
 		}
@@ -5626,6 +5644,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			if (accept)
 			{
 				set_age(creature_ptr);            // Roll for age
+				set_exp(creature_ptr, species_ptr);                  // Roll for exp
 				set_height_weight(creature_ptr);  // Roll for height and weight
 
 				/* Roll for social class */
@@ -5668,6 +5687,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				if (inkey())
 				{
 					set_age(creature_ptr);            // Roll for age
+					set_exp(creature_ptr, species_ptr);  // Roll for exp
 					set_height_weight(creature_ptr);  // Roll for height and weight
 					get_history(creature_ptr);        // Roll for social class
 					break;
@@ -5691,6 +5711,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		// Deal Item
 		calc_bonuses(creature_ptr, FALSE);
 		set_experience(creature_ptr);
+
 		deal_item(creature_ptr);
 
 		/* Roll for gold */

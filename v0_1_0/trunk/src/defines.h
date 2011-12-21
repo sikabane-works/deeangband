@@ -460,6 +460,10 @@
  */
 #define ENERGY_NEED() (randnor(100, 25))
 
+// on creature generating
+
+#define EXP_STAND_RATE 3700
+
 
 /*
  * Extract energy from speed (Assumes that SPEED is unsigned)
