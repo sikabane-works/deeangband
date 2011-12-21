@@ -462,7 +462,7 @@
 
 // on creature generating
 
-#define EXP_STAND_RATE 3700
+#define EXP_STAND_RATE 1500
 
 
 /*

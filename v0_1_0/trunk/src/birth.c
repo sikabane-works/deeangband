@@ -2446,7 +2446,7 @@ static int adjust_stat(int value, int amount)
  *
  * For efficiency, we include a chunk of "calc_bonuses()".
  */
-static void get_stats(creature_type *creature_ptr, species_type *species_ptr)
+static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 {
 	int i;
 
@@ -2506,6 +2506,12 @@ static void get_stats(creature_type *creature_ptr, species_type *species_ptr)
 		}
 		/* 57 was 54... I hate 'magic numbers' :< TY */
 	}
+
+	for(i = 0; i < STAT_MAX; i++)
+	{
+		if(creature_ptr->stat_cur[i] < 3) msg_print("Warning: Out Range Status Point.");
+	}
+
 }
 
 void get_max_stats(creature_type *creature_ptr)
@@ -5530,7 +5536,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		else
 		{
 
-			get_stats(creature_ptr, species_ptr);   // Get a new character
+			set_stats(creature_ptr, species_ptr);   // Get a new character
 			set_age(creature_ptr);                  // Roll for age
 			set_exp(creature_ptr, species_ptr);                  // Roll for exp
 			set_height_weight(creature_ptr);        // Roll for height and weight
@@ -5602,7 +5608,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			bool accept = TRUE;
 
 			/* Get a new character */
-			get_stats(creature_ptr, species_ptr);
+			set_stats(creature_ptr, species_ptr);
 
 			/* Advance the round */
 			auto_round++;
