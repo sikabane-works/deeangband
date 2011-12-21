@@ -3568,100 +3568,18 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		}
 	}
 
-	/* I'm adding the mutations here for the lack of a better place... */
-	if (cr_ptr->flags14)
 	{
-		/* Hyper Strength */
-		if (has_cf_creature(cr_ptr, CF_HYPER_STR))
-		{
-			cr_ptr->stat_add[STAT_STR] += 4;
-		}
-
-		/* Puny */
-		if (has_cf_creature(cr_ptr, CF_PUNY))
-		{
-			cr_ptr->stat_add[STAT_STR] -= 4;
-		}
-
-		/* Living computer */
-		if (has_cf_creature(cr_ptr, CF_HYPER_INT))
-		{
-			cr_ptr->stat_add[STAT_INT] += 4;
-			cr_ptr->stat_add[STAT_WIS] += 4;
-		}
-
-		/* Moronic */
-		if (has_cf_creature(cr_ptr, CF_MORONIC))
-		{
-			cr_ptr->stat_add[STAT_INT] -= 4;
-			cr_ptr->stat_add[STAT_WIS] -= 4;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_RESILIENT))
-		{
-			cr_ptr->stat_add[STAT_CON] += 4;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_XTRA_FAT))
-		{
-			cr_ptr->stat_add[STAT_CON] += 2;
-			new_speed -= 2;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_ALBINO))
-		{
-			cr_ptr->stat_add[STAT_CON] -= 4;
-		}
-
 		if (has_cf_creature(cr_ptr, CF_FLESH_ROT))
 		{
-			cr_ptr->stat_add[STAT_CON] -= 2;
-			cr_ptr->stat_add[STAT_CHR] -= 1;
 			cr_ptr->regenerate = FALSE;
 			/* Cancel innate regeneration */
 		}
 
-		if (has_cf_creature(cr_ptr, CF_SILLY_VOI))
-		{
-			cr_ptr->stat_add[STAT_CHR] -= 4;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_BLANK_FAC))
-		{
-			cr_ptr->stat_add[STAT_CHR] -= 1;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_XTRA_EYES))
-		{
-			cr_ptr->skill_fos += 15;
-			cr_ptr->skill_srh += 15;
-		}
-
 		if (has_cf_creature(cr_ptr, CF_MAGIC_RES))
 		{
-			cr_ptr->skill_rob += (15 + (cr_ptr->lev / 5));
-			cr_ptr->skill_eva += (15 + (cr_ptr->lev / 5));
-			cr_ptr->skill_vol += (15 + (cr_ptr->lev / 5));
-		}
-
-		if (has_cf_creature(cr_ptr, CF_XTRA_NOIS))
-		{
-			cr_ptr->skill_stl -= 3;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_INFRAVIS))
-		{
-			cr_ptr->see_infra += 3;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_XTRA_LEGS))
-		{
-			new_speed += 3;
-		}
-
-		if (has_cf_creature(cr_ptr, CF_SHORT_LEG))
-		{
-			new_speed -= 3;
+			cr_ptr->skill_rob += cr_ptr->lev / 5;
+			cr_ptr->skill_eva += cr_ptr->lev / 5;
+			cr_ptr->skill_vol += cr_ptr->lev / 5;
 		}
 
 		if (has_cf_creature(cr_ptr, CF_ELEC_TOUC))
