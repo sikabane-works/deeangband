@@ -85,8 +85,9 @@ void set_height_weight(creature_type *creature_ptr)
 	race_type *race1_ptr, *race2_ptr;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx]; 
 
-	if((IS_MALE(creature_ptr) && !species_ptr->m_b_ht && !species_ptr->m_b_wt) ||
-	   (IS_FEMALE(creature_ptr) && !species_ptr->f_b_ht && !species_ptr->f_b_wt))
+	if((IS_MALE(creature_ptr) && species_ptr->m_b_ht && species_ptr->m_b_wt) ||
+	   (IS_FEMALE(creature_ptr) && species_ptr->f_b_ht && species_ptr->f_b_wt) ||
+	   (species_ptr->m_b_ht && species_ptr->m_b_wt && species_ptr->f_b_ht && species_ptr->f_b_wt))
 	{
 		if (creature_ptr->sex == SEX_MALE)
 		{
