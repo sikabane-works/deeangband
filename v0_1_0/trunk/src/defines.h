@@ -5494,7 +5494,7 @@ extern int PlayerUID;
 
 // Flags 4
 #define CF_SHRIEK			96
-#define CF_N4_XXX1			97
+#define CF_BLUFF			97
 #define CF_DISPEL			98
 #define CF_ROCKET			99
 #define CF_SHOOT			100

@@ -808,7 +808,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 						tmp_damage = MAX(damage, tmp_damage*2);
 
 						/* Take damage */
-						get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
+						get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
 						break;
 					}
 				}
@@ -821,7 +821,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					damage -= (damage * ((ac < 150) ? ac : 150) / 250);
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					break;
 				}
@@ -840,7 +840,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_POIS);
@@ -865,7 +865,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					}
 
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Learn about the player */
 					//TODO update_smart_learn(m_idx, DRS_DISEN);
@@ -876,7 +876,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_UN_POWER:
 				{
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -943,7 +943,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_GOLD:
 				{
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
 					if (atk_ptr->confused) break;
@@ -1024,7 +1024,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_ITEM:
 				{
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Confused monsters cannot steal successfully. -LM-*/
 					if (atk_ptr->confused) break;
@@ -1145,7 +1145,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_EAT_FOOD:
 				{
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1199,7 +1199,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					o_ptr = &tar_ptr->inventory[INVEN_LITE];
 
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1355,7 +1355,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				{
 					if (explode) break;
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead) break;
 
@@ -1377,7 +1377,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_TERRIFY:
 				{
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead) break;
 
@@ -1423,7 +1423,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_PARALYZE:
 				{
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead) break;
 
@@ -1472,7 +1472,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_STR:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1485,7 +1485,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_INT:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1498,7 +1498,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_WIS:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1511,7 +1511,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_DEX:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1524,7 +1524,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_CON:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1537,7 +1537,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_CHR:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1550,7 +1550,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_LOSE_ALL:
 				{
 					/* Damage (physical) */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1574,7 +1574,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					damage -= (damage * ((ac < 150) ? ac : 150) / 250);
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					/* Radius 8 earthquake centered at the monster */
 					if (damage > 23 || explode)
@@ -1593,7 +1593,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1609,7 +1609,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1625,7 +1625,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1641,7 +1641,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1652,7 +1652,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 				case RBE_DISEASE:
 				{
 					/* Take some damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 
@@ -1760,7 +1760,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 							}
 						}
 					}
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					break;
 				}
@@ -1773,7 +1773,7 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 					obvious = TRUE;
 
 					/* Take damage */
-					get_damage += take_hit(NULL, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+					get_damage += take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 					if (tar_ptr->is_dead || (tar_ptr->multishadow && (turn & 1))) break;
 

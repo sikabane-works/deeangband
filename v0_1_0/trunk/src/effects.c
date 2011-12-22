@@ -5720,6 +5720,12 @@ int take_hit(creature_type *atk_ptr, creature_type *tar_ptr, int damage_type, in
 		if (&creature_list[atk_ptr->riding] == tar_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
+	if(atk_ptr && has_cf_creature(atk_ptr, CF_BLUFF))
+	{
+		return 0;
+	}
+
+
 	/* Genocided by chaos patron */
 	//TODO CHECK
 	//if (!m_idx) return TRUE;
