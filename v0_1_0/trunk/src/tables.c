@@ -1889,19 +1889,20 @@ byte extract_energy[200] =
 /*
  * Base experience levels, may be adjusted up for race and/or class
  */
+
 s32b creature_exp[PY_MAX_LEVEL] =
 {
-	25,
-	55,
-	90,
+	20,
+	45,
+	75,
+	100,
 	130,
 	180,
-	240,
-	320,
-	420,
-	540,/*10*/
-	680,
-	980,
+	260,
+	360,
+	480,/*10*/
+	630,
+	880,
 	1280,
 	1700,
 	2200,

@@ -2944,6 +2944,8 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	bool old_dis_ac = (bool)cr_ptr->dis_ac;
 	bool old_dis_to_a = (bool)cr_ptr->dis_to_a;
 
+	species_type *species_ptr = &species_info[cr_ptr->species_idx];
+
 
 	/* Clear extra blows/shots */
 	extra_blows[0] = extra_blows[1] = extra_shots = 0;
@@ -3114,6 +3116,11 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	cr_ptr->skill_thb = 10;
 	cr_ptr->skill_tht = 10;
 	cr_ptr->skill_dig = (body_size - 10) * 2;
+
+
+	// species adjust
+	cr_ptr->ac += species_ptr->ac;
+	cr_ptr->dis_ac += species_ptr->ac;
 
 
 
@@ -4165,10 +4172,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	}
 
 	/* Set Species Blow. */
-	cr_ptr->blow[0] = species_info[cr_ptr->species_idx].blow[0];
-	cr_ptr->blow[1] = species_info[cr_ptr->species_idx].blow[1];
-	cr_ptr->blow[2] = species_info[cr_ptr->species_idx].blow[2];
-	cr_ptr->blow[3] = species_info[cr_ptr->species_idx].blow[3];
+	cr_ptr->blow[0] = species_ptr->blow[0];
+	cr_ptr->blow[1] = species_ptr->blow[1];
+	cr_ptr->blow[2] = species_ptr->blow[2];
+	cr_ptr->blow[3] = species_ptr->blow[3];
 
 
 	/* Hack -- aura of fire also provides light */
