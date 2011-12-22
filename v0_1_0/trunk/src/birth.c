@@ -2497,7 +2497,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 		{
 			for(i = 0; i < STAT_MAX; i++)
 			{
-				creature_ptr->stat_cur[i] += species_ptr->stat_max[i] / 10 - 10;
+				creature_ptr->stat_cur[i] += (species_ptr->stat_max[i] / 10 - 10);
 				if(creature_ptr->stat_cur[i] < 3) creature_ptr->stat_cur[i] = 3;
 				if(creature_ptr->stat_cur[i] > 18) creature_ptr->stat_cur[i] = 18 + (creature_ptr->stat_cur[i] - 18) * 10;
 				creature_ptr->stat_max[i] = creature_ptr->stat_cur[i];

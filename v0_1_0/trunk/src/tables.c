@@ -1412,14 +1412,14 @@ byte adj_con_fix[] =
  */
 byte adj_con_mhp[] =
 {
-	128 + -8 /* 3.0 */,
-	128 + -6 /* 4.0 */,
-	128 + -4 /* 5.0 */,
-	128 + -2 /* 6.0 */,
-	128 + -1 /* 7.0 */,
-	128 + 0 /* 8.0 */,
-	128 + 0 /* 9.0 */,
-	128 + 0 /* 10.0 */,
+	128 + -16 /* 3.0 */,
+	128 + -14 /* 4.0 */,
+	128 + -12 /* 5.0 */,
+	128 + -10/* 6.0 */,
+	128 + -8 /* 7.0 */,
+	128 + -6 /* 8.0 */,
+	128 + -4 /* 9.0 */,
+	128 + -2 /* 10.0 */,
 	128 + 0 /* 11.0 */,
 	128 + 0 /* 12.0 */,
 	128 + 0 /* 13.0 */,
@@ -2067,7 +2067,7 @@ player_sex sex_info[MAX_SEXES] =
  * Player Classes
  *
  *      Title,
- *      {STR,INT,WIS,DEX,CON,CHR},
+ *      {STR,INT,WIS,DEX,CON,CHR}
  *      {STR,INT,WIS,DEX,CON,CHR},
  *      c_dis, c_dev, c_sav, c_stl, c_srh, c_fos, c_thn, c_thb,
  *      x_dis, x_dev, x_sav, x_stl, x_srh, x_fos, x_thn, x_thb,
@@ -2081,12 +2081,14 @@ class_type class_info[MAX_CLASS] =
 #endif
 		"[None]",
 
+
 		{ 0, 0, 0, 0, 0, 0},
 		{ 0, 0, 0, 0, 0, 0},
 		CLASS_RARELITY_UNSELECTED,
 		20, 20, 20, 25, 25, 25, 60, 60,
 		 8,  8,  8, 0,  0,  0,  25, 25,
-		9,  0, 40
+		
+		 0,  0, 40
 	},
 	{
 #ifdef JP

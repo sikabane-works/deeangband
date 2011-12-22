@@ -1468,6 +1468,7 @@ void get_exp_from_mon(creature_type *atk_ptr, int dam, creature_type *tar_ptr)
 	u32b div_l;
 	int exp_limit;
 
+	if (has_cf_creature(tar_ptr, CF_BLUFF)) return;
 	if (!tar_ptr->species_idx) return;
 	if (is_pet(player_ptr, tar_ptr) || inside_battle) return;
 
@@ -2814,6 +2815,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 
 
 	/* Scan all objects in the grid */
+
 	for (this_o_idx = c_ptr->o_idx; this_o_idx; this_o_idx = next_o_idx)
 	{
 		object_type *o_ptr;
@@ -2822,6 +2824,7 @@ static int target_set_aux(creature_type *cr_ptr, int y, int x, int mode, cptr in
 		o_ptr = &o_list[this_o_idx];
 
 		/* Acquire next object */
+
 		next_o_idx = o_ptr->next_o_idx;
 
 		/* Describe it */
