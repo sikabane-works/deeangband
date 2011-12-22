@@ -1487,11 +1487,14 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 {
 	int row, col;
 	creature_type *m_ptr;
+	species_type *species_ptr;
+	char k[2];
 
 	if (riding)
 	{
 		health_who = cr_ptr->riding;
 		row = ROW_RIDING_INFO;
+
 		col = COL_RIDING_INFO;
 	}
 	else
@@ -1501,33 +1504,36 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 	}
 
 	m_ptr = &creature_list[health_who];
+	species_ptr = &species_info[m_ptr->species_idx];
 
 	/* Not tracking */
+
 	if (!health_who)
 	{
-		/* Erase the health bar */
-		Term_erase(col, row, 12);
+		// Erase the health bar
+		Term_erase(col, row, 20);
 	}
 
+
 	/* Tracking an unseen monster */
-	else if (!m_ptr->ml)
+	if (!m_ptr->ml)
 	{
 		/* Indicate that the monster health is "unknown" */
-		Term_putstr(col, row, 12, TERM_WHITE, "[----------]");
+		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
 	/* Tracking a hallucinatory monster */
 	else if (cr_ptr->image)
 	{
 		/* Indicate that the monster health is "unknown" */
-		Term_putstr(col, row, 12, TERM_WHITE, "[----------]");
+		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
 	/* Tracking a dead monster (???) */
 	else if (m_ptr->chp < 0)
 	{
 		/* Indicate that the monster health is "unknown" */
-		Term_putstr(col, row, 12, TERM_WHITE, "[----------]");
+		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
 	/* Tracking a visible monster */
@@ -1565,11 +1571,21 @@ static void health_redraw(creature_type *cr_ptr, bool riding)
 		else if (pct >= 10) attr = TERM_L_RED;
 
 		/* Default to "unknown" */
-		Term_putstr(col, row, 12, TERM_WHITE, "[----------]");
+		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 
 		/* Dump the current "health" (use '*' symbols) */
-		Term_putstr(col + 1, row, len, attr, "**********");
+		Term_putstr(col + 5, row, len, attr, "**********");
+
+		if(health_who)
+		{
+			k[0] = species_ptr->x_char;
+			k[1] = 0;
+			Term_putstr(col, row, 1, species_ptr->x_attr, k);
+		}
+
 	}
+
+
 }
 
 
@@ -1605,7 +1621,7 @@ static void prt_frame_basic(creature_type *cr_ptr)
 
 	/* Special */
 	health_redraw(cr_ptr, FALSE);
-	health_redraw(cr_ptr, TRUE);
+//TODO	health_redraw(cr_ptr, TRUE);
 }
 
 
@@ -6107,7 +6123,7 @@ void handle_stuff(creature_type *cr_ptr)
 	if (cr_ptr->update) update_stuff(cr_ptr, is_player(cr_ptr));
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff(player_ptr);
+	if (play_redraw) redraw_stuff(cr_ptr);
 
 	/* Window stuff */
 	if (play_window) window_stuff();

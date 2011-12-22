@@ -5717,7 +5717,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 
 	if (inside_battle)
 	{
-		health_who = c_ptr->m_idx;
+		health_track(c_ptr->m_idx);
 		play_redraw |= (PR_HEALTH);
 		redraw_stuff(player_ptr);
 	}
