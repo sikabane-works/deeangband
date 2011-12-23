@@ -232,8 +232,8 @@ void set_expfact(creature_type *creature_ptr)
 		else
 		{
 			creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_s_exp +
-									race_info[creature_ptr->race_idx2].r_s_exp - 100 +
-									class_info[creature_ptr->cls_idx].c_exp;
+									race_info[creature_ptr->race_idx2].r_s_exp +
+									class_info[creature_ptr->cls_idx].c_exp - 100;
 		}
 
 	}

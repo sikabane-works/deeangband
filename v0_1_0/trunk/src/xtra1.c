@@ -2064,6 +2064,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 	cr_ptr->new_spells = num_allowed + cr_ptr->add_spells + num_boukyaku - cr_ptr->learned_spells;
 
 	/* Forget spells which are too hard */
+
 	for (i = 63; i >= 0; i--)
 	{
 		/* Efficiency -- all done */
@@ -2072,7 +2073,7 @@ static void calc_spells(creature_type *cr_ptr, bool message)
 		/* Access the spell */
 		j = cr_ptr->spell_order[i];
 
-		/* Skip non-spells */
+	/* Skip non-spells */
 		if (j >= 99) continue;
 
 

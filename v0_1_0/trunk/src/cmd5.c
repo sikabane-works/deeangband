@@ -38,6 +38,7 @@ cptr spell_category_name(int tval)
 	}
 }
 
+
 /*
  * Allow user to choose a spell/prayer from the given book.
  *

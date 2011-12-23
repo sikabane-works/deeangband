@@ -4419,7 +4419,7 @@ put_str(buf, y, x + 29);
 		}
 		else
 		{
-			s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
+			s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
 		}
 
 		if (use_realm == REALM_HISSATSU)

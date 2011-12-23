@@ -345,6 +345,8 @@ bool object_is_nameless(creature_type *cr_ptr, object_type *o_ptr)
 	if (!object_is_artifact(o_ptr) && !object_is_ego(o_ptr) && !object_is_smith(o_ptr))
 		return TRUE;
 
+
+
 	return FALSE;
 }
 
@@ -365,7 +367,8 @@ bool object_allow_two_hands_wielding(creature_type *cr_ptr, object_type *o_ptr)
  */
 bool item_tester_hook_readable(creature_type *cr_ptr, object_type *o_ptr)
 {
-	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);
+	if ((o_ptr->tval==TV_SCROLL) || (o_ptr->tval==
+		TV_PARCHMENT) || (o_ptr->name1 == ART_GHB) || (o_ptr->name1 == ART_POWER)) return (TRUE);
 
 	/* Assume not */
 	return (FALSE);
