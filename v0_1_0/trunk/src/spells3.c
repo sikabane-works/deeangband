@@ -4224,7 +4224,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	}
 	else
 	{
-		s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
+		s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
 	}
 
 	/* Extract the base spell failure rate */
@@ -4322,7 +4322,7 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 	}
 	else
 	{
-		s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
+		s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
 	}
 
 	/* Spell is illegal */

@@ -271,7 +271,7 @@ static int get_spell(creature_type *cr_ptr, int *sn, cptr prompt, int sval, bool
 			}
 			else
 			{
-				s_ptr = &m_info[cr_ptr->realm1].info[use_realm - 1][spell];
+				s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
 			}
 
 			/* Extract mana consumption rate */
