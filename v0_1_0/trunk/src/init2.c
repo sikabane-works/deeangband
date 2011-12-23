@@ -1185,7 +1185,7 @@ static errr init_s_info(void)
 static errr init_m_info(void)
 {
 	/* Init the header */
-	init_header(&m_head, MAX_CLASS, sizeof(player_magic));
+	init_header(&m_head, MAX_CLASS, sizeof(magic_table_type));
 
 #ifdef ALLOW_TEMPLATES
 

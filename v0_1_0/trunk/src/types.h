@@ -842,9 +842,9 @@ struct magic_type
  * Note that a player with a "spell_book" of "zero" is illiterate.
  */
 
-typedef struct player_magic player_magic;
+typedef struct magic_table_type magic_table_type;
 
-struct player_magic
+struct magic_table_type
 {
 	int spell_book;		/* Tval of spell books (if any) */
 	int spell_xtra;		/* Something for later */

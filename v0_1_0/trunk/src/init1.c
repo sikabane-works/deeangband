@@ -1221,7 +1221,7 @@ errr parse_m_info(char *buf, header *head)
 	char *s;
 
 	/* Current entry */
-	static player_magic *m_ptr = NULL;
+	static magic_table_type *m_ptr = NULL;
 
 	/* ---Hack--- */
 	static int realm, magic_idx = 0, readable = 0;

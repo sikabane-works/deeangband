@@ -1789,12 +1789,12 @@ void call_the_void(creature_type *cr_ptr)
 	{
 #ifdef JP
 		msg_format("‚ ‚È‚½‚Í%s‚ð•Ç‚É‹ß‚·‚¬‚éêŠ‚Å¥‚¦‚Ä‚µ‚Ü‚Á‚½I",
-			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "‹F‚è" : "Žô•¶"));
+			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "‹F‚è" : "Žô•¶"));
 		msg_print("‘å‚«‚È”š”­‰¹‚ª‚ ‚Á‚½I");
 #else
 		msg_format("You %s the %s too close to a wall!",
-			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			((m_info[cr_ptr->realm1].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
+			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
+			((m_info[cr_ptr->cls_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
 		msg_print("There is a loud explosion!");
 #endif
 
@@ -3977,7 +3977,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 			chance -= 3 * (cr_ptr->lev - spell.min_lev);
 
 			/* Reduce failure rate by INT/WIS adjustment */
-			chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] - 1);
+			chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
 
 			if (!use_hp)
 			{
@@ -3999,7 +3999,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 			}
 
 			/* Extract the minimum failure rate */
-			minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]];
+			minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]];
 
 			/* Minimum failure rate */
 			if (chance < minfail) chance = minfail;
@@ -4055,7 +4055,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 			}
 			else
 			{
-				s_ptr = &m_info[cr_ptr->realm1].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
+				s_ptr = &m_info[cr_ptr->cls_idx].info[((j < 1) ? cr_ptr->realm1 : cr_ptr->realm2) - 1][i % 32];
 			}
 
 			strcpy(name, do_spell(cr_ptr, (j < 1) ? cr_ptr->realm1 : cr_ptr->realm2, i % 32, SPELL_NAME));
@@ -4209,11 +4209,11 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	int             chance, minfail;
 	magic_type      *s_ptr;
 	int             need_mana;
-	int penalty = (m_info[cr_ptr->realm1].spell_stat == STAT_WIS) ? 10 : 4;
+	int penalty = (m_info[cr_ptr->cls_idx].spell_stat == STAT_WIS) ? 10 : 4;
 
 
 	/* Paranoia -- must be literate */
-	if (!m_info[cr_ptr->realm1].spell_book) return (100);
+	if (!m_info[cr_ptr->cls_idx].spell_book) return (100);
 
 	if (use_realm == REALM_HISSATSU) return 0;
 
@@ -4224,7 +4224,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	}
 	else
 	{
-		s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
+		s_ptr = &m_info[cr_ptr->cls_idx].info[use_realm][spell];
 	}
 
 	/* Extract the base spell failure rate */
@@ -4234,7 +4234,7 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	chance -= 3 * (cr_ptr->lev - s_ptr->slevel);
 
 	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]] - 1);
+	chance -= 3 * (adj_mag_stat[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]] - 1);
 
 	if (cr_ptr->riding)
 		chance += (MAX(species_info[creature_list[cr_ptr->riding].species_idx].level - cr_ptr->skill_exp[GINOU_RIDING] / 100 - 10, 0));
@@ -4251,13 +4251,13 @@ s16b spell_chance(creature_type *cr_ptr, int spell, int use_realm)
 	if ((use_realm != cr_ptr->realm1) && ((cr_ptr->cls_idx == CLASS_MAGE) || (cr_ptr->cls_idx == CLASS_PRIEST))) chance += 5;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->realm1].spell_stat]];
+	minfail = adj_mag_fail[cr_ptr->stat_ind[m_info[cr_ptr->cls_idx].spell_stat]];
 
 	/*
 	 * Non mage/priest characters never get too good
 	 * (added high mage, mindcrafter)
 	 */
-	if (m_info[cr_ptr->realm1].spell_xtra & MAGIC_FAIL_5PERCENT)
+	if (m_info[cr_ptr->cls_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
 	{
 		if (minfail < 5) minfail = 5;
 	}
@@ -4322,7 +4322,7 @@ bool spell_okay(creature_type *cr_ptr, int spell, bool learned, bool study_pray,
 	}
 	else
 	{
-		s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
+		s_ptr = &m_info[cr_ptr->cls_idx].info[use_realm][spell];
 	}
 
 	/* Spell is illegal */
@@ -4419,7 +4419,7 @@ put_str(buf, y, x + 29);
 		}
 		else
 		{
-			s_ptr = &m_info[cr_ptr->realm1].info[use_realm][spell];
+			s_ptr = &m_info[cr_ptr->cls_idx].info[use_realm][spell];
 		}
 
 		if (use_realm == REALM_HISSATSU)
