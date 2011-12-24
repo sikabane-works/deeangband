@@ -290,9 +290,7 @@ static errr path_temp(char *buf, int max)
 	s = tmpnam(NULL);
 
 	/* Oops */
-	if (!s) return (-1);
 
-	/* Format to length */
 #ifndef WIN32
 	(void)strnfmt(buf, max, "%s", s);
 #else

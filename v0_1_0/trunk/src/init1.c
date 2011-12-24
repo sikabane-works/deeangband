@@ -2990,7 +2990,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_SP:
 				if(sscanf(tmp, "%d", &b) != 1) return (1);
-				species_info[n].speed = (byte)b;
+				species_info[n].speed = (s16b)b;
 				break;
 
 			case SPECIES_INFO_IS:

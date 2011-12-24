@@ -3122,6 +3122,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 	// species adjust
 	cr_ptr->ac += species_ptr->ac;
 	cr_ptr->dis_ac += species_ptr->ac;
+	new_speed += species_ptr->speed;
 
 
 

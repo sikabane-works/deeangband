@@ -1770,9 +1770,9 @@ void battle_monsters(void)
 
 			power[i] = 3;
 
-			if (r_ptr->speed > 110)
-				power[i] = power[i] * (r_ptr->speed * 2 - 110) / 100;
-			if (r_ptr->speed < 110)
+			if (r_ptr->speed > 0)
+				power[i] = power[i] * (r_ptr->speed * 2) / 100;
+			if (r_ptr->speed < 0)
 				power[i] = power[i] * (r_ptr->speed - 20) / 100;
 			if (num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;

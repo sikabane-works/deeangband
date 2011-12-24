@@ -1818,13 +1818,13 @@ static void spoil_mon_desc(cptr fname)
 		sprintf(rar, "%d", species_ptr->rarity);
 
 		/* Speed */
-		if (species_ptr->speed >= 110)
+		if (species_ptr->speed >= 0)
 		{
-			sprintf(spd, "+%d", (species_ptr->speed - 110));
+			sprintf(spd, "+%d", (species_ptr->speed));
 		}
 		else
 		{
-			sprintf(spd, "-%d", (110 - species_ptr->speed));
+			sprintf(spd, "-%d", (species_ptr->speed));
 		}
 		
 
@@ -2371,13 +2371,13 @@ static void spoil_mon_info(cptr fname)
 		spoil_out(buf);
 
 		/* Speed */
-		if (species_ptr->speed >= 110)
+		if (species_ptr->speed >= 0)
 		{
-			sprintf(buf, "Spd:+%d  ", (species_ptr->speed - 110));
+			sprintf(buf, "Spd:+%d  ", (species_ptr->speed));
 		}
 		else
 		{
-			sprintf(buf, "Spd:-%d  ", (110 - species_ptr->speed));
+			sprintf(buf, "Spd:-%d  ", (species_ptr->speed));
 		}
 		spoil_out(buf);
 
