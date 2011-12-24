@@ -2577,7 +2577,7 @@ static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
 	set_hitdice(creature_ptr);
 
 	/* Roll for hit point unless quick-start */
-	if (roll_hitdice) do_cmd_rerate_aux(creature_ptr);
+	if (roll_hitdice) set_base_hp(creature_ptr);
 
 
 }
