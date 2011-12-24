@@ -4675,7 +4675,7 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 
 
 	/* Obtain the "hold" value */
-	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size / 10;
+	hold = adj_str_hold[cr_ptr->stat_ind[STAT_STR]] * cr_ptr->size / 10 * cr_ptr->size / 10;
 
 
 	/* Examine the "current bow" */
@@ -5703,6 +5703,10 @@ void calc_bonuses(creature_type *cr_ptr, bool message)
 		magic_type *s_ptr = &m_info[cr_ptr->cls_idx].info[REALM_CRAFT-1][SPELL_KABE];
 		if (cr_ptr->lev >= s_ptr->slevel) cr_ptr->no_flowed = TRUE;
 	}
+
+	// TODO: Evasion was adjusted by speed and size.
+	// cr_ptr->skill_eva += (cr_ptr->speed * cr_ptr->size / 5);
+
 
 }
 

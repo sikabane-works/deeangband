@@ -3193,7 +3193,7 @@ void race_detail(int code)
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
 
-	sprintf(buf, "%+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+2d=>%+-3d %+4d%% ",
+	sprintf(buf, "%+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d  %+4d%% ",
 		race_info[code].r_adj[0] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_STR), race_info[code].r_adj[0],
 		race_info[code].r_adj[1] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_INT), race_info[code].r_adj[1],
 		race_info[code].r_adj[2] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_WIS), race_info[code].r_adj[2],
@@ -3201,13 +3201,13 @@ void race_detail(int code)
 		race_info[code].r_adj[4] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_CON), race_info[code].r_adj[4],
 		race_info[code].r_adj[5] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_CHR), race_info[code].r_adj[5],
 		(race_info[code].r_exp - 100));
-	c_put_str(TERM_L_BLUE, buf, base+2, 24);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 26);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 34);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 42);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 50);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 58);
-	c_put_str(TERM_L_WHITE, "=>", base+2, 66);
+	c_put_str(TERM_L_BLUE, buf, base+2, 23);
+	c_put_str(TERM_L_WHITE, ">", base+2, 26);
+	c_put_str(TERM_L_WHITE, ">", base+2, 34);
+	c_put_str(TERM_L_WHITE, ">", base+2, 42);
+	c_put_str(TERM_L_WHITE, ">", base+2, 50);
+	c_put_str(TERM_L_WHITE, ">", base+2, 58);
+	c_put_str(TERM_L_WHITE, ">", base+2, 66);
 
 #ifdef JP
 	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);

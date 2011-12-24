@@ -6180,6 +6180,7 @@ prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
 					back = line;
 					line = line + 1;
 
+
 					/* Make finder lowercase */
 					str_tolower(finder_str);
 

@@ -2306,13 +2306,13 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 int calc_base_level(creature_type *creature_ptr)
 {
 	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
-	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
+	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
 }
 
 int calc_base_divine_rank(creature_type *creature_ptr)
 {
 	if(IS_RACE(creature_ptr, INDEX_NONE)) return 0;
-	return (race_info[creature_ptr->race_idx1].lev + race_info[creature_ptr->race_idx2].lev) / 2;
+	return (race_info[creature_ptr->race_idx1].dr + race_info[creature_ptr->race_idx2].dr) / 2;
 }
 
 int calc_unreached_race_level_penalty(int shortage_lev, int type)
@@ -2321,6 +2321,7 @@ int calc_unreached_race_level_penalty(int shortage_lev, int type)
 	byte race_unreached_level_penalty[STAT_MAX][10] = 
 	{
 		{2,  7, 12, 17, 22, 27, 32, 37, 42, 47},
+
 		{4,  6,  9, 14, 16, 18, 23, 27, 30, 32},
 		{5,  7, 11, 13, 15, 19, 21, 26, 29, 31},
 		{1,  6, 11, 16, 21, 26, 31, 36, 41, 46},
