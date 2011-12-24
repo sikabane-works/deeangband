@@ -830,6 +830,7 @@ s = "読める本がない。";
 	{
 		/* Message */
 #ifdef JP
+
 		msg_format("その本には学ぶべき%sがない。", p);
 #else
 		msg_format("You cannot learn any %ss in that book.", p);
@@ -926,6 +927,7 @@ s = "読める本がない。";
 			msg_format("%sを学んだ。",
 				    do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 		}
+
 		else
 		{
 			msg_format("%sの%sを学んだ。",
@@ -935,6 +937,7 @@ s = "読める本がない。";
 		msg_format("You have learned the %s of %s.", p, do_spell(cr_ptr, increment ? cr_ptr->realm2 : cr_ptr->realm1, spell % 32, SPELL_NAME));
 #endif
 	}
+
 
 	/* Take a turn */
 	energy_use = 100;

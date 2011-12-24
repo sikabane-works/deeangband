@@ -2261,7 +2261,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 				note = " resists a little.";
 #endif
 		}
-		else
+		else if(t >= 1200)
 		{
 #ifdef JP
 				note = "‚Í‚Ğ‚Ç‚¢’Éè‚ğó‚¯‚½B";
@@ -2270,7 +2270,8 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 #endif
 		}
 
-		msg_format("%d%s", creature_ptr, note);
+		if(t < 800 && t >= 1200)
+			msg_format("%s%s", creature_ptr->name, note);
 	}
 
 	return damage * t / 1000;
