@@ -5892,7 +5892,7 @@ sprintf(caption, "スポイラー・ファイル'%s'", name);
 
 		/* Caption */
 #ifdef JP
-sprintf(caption, "スポイラー・ファイル'%s'", name);
+		sprintf(caption, "スポイラー・ファイル'%s'", name);
 #else
 		sprintf(caption, "Info file '%s'", name);
 #endif
@@ -5906,7 +5906,7 @@ sprintf(caption, "スポイラー・ファイル'%s'", name);
 	{
 		/* Message */
 #ifdef JP
-msg_format("'%s'をオープンできません。", name);
+		msg_format("'%s'をオープンできません。", name);
 #else
 		msg_format("Cannot open '%s'.", name);
 #endif

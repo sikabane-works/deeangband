@@ -3231,7 +3231,7 @@ void do_cmd_knowledge_mutations(creature_type *cr_ptr)
 
 	/* Display the file contents */
 #ifdef JP
-show_file(TRUE, file_name, "“Ë‘R•ÏˆÙ", 0, 0);
+    show_file(TRUE, file_name, "“Ë‘R•ÏˆÙ", 0, 0);
 #else
 	show_file(TRUE, file_name, "Mutations", 0, 0);
 #endif

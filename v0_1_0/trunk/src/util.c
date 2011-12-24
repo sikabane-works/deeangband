@@ -359,6 +359,8 @@ errr path_build(char *buf, int max, cptr path, cptr file)
 FILE *my_fopen(cptr file, cptr mode)
 {
 	char buf[1024];
+	FILE *tmp;
+	cptr p;
 
 #if defined(MAC_MPW) || defined(MACH_O_CARBON)
 	FILE *tempfff;
@@ -378,7 +380,9 @@ FILE *my_fopen(cptr file, cptr mode)
 #endif
 
 	/* Attempt to fopen the file anyway */
-	return (fopen(buf, mode));
+	tmp = fopen(buf, mode);
+	p = _strerror(NULL);
+	return tmp;
 }
 
 
