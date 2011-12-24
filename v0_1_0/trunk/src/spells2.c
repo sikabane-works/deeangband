@@ -59,7 +59,7 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	strcpy(Dummy, "");
 
-	percent = (int)(((long)creature_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
+	percent = (int)(((long)creature_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
 		(2 * creature_ptr->hitdice +
 		((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 

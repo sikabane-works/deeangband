@@ -9402,7 +9402,7 @@ static void do_cmd_knowledge_stat(creature_type *cr_ptr)
 	
 	if (fff)
 	{
-		percent = (int)(((long)cr_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
+		percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
 			(2 * cr_ptr->hitdice +
 			((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 

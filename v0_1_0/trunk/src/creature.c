@@ -265,20 +265,6 @@ void set_hitdice(creature_type * creature_ptr)
 	return;	
 }
 
-void set_enemy_maxhp(creature_type *creature_ptr)
-{
-	int i;
-	species_type *r_ptr;
-
-	r_ptr = &species_info[creature_ptr->species_idx];
-
-	creature_ptr->player_hp[0] = damroll(3, creature_ptr->hitdice);
-	for(i = 1; i < PY_MAX_LEVEL - 1; i++)
-		creature_ptr->player_hp[i] += (creature_ptr->player_hp[i-1] + damroll(1, creature_ptr->hitdice));
-
-	return;
-}
-
 void set_creature_hp_percent(creature_type *creature_ptr, int percentage)
 {
 	creature_ptr->chp = creature_ptr->mhp * percentage / 100;

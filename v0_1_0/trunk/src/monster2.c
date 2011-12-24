@@ -3398,8 +3398,7 @@ void choose_new_monster(int m_idx, bool born, int species_idx, int monster_ego_i
 		m_ptr->stat_use[5] += re_info[monster_ego_idx].stat[5];
 	}
 
-	set_enemy_maxhp(m_ptr);
-
+	//TODO Reset Status
 }
 
 

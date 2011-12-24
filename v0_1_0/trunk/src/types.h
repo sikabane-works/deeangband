@@ -343,7 +343,7 @@ struct species_type
 
 	s16b stat_max[6];			/* Current modified stats */
 	s16b stat_max_max[6];		/* Maximal "maximal" stat values */
-	s16b player_hp[PY_MAX_LEVEL];
+	s16b base_hp[PY_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];
 
@@ -1344,7 +1344,7 @@ struct creature_type
 
 	s16b concent;      /* Sniper's concentration level */
 
-	s16b player_hp[PY_MAX_LEVEL];
+	s16b base_hp[PY_MAX_LEVEL];
 	char died_from[80];   	  /* What killed the player */
 	cptr last_message;        /* Last message on death or retirement */
 	char history[HISTORY_ROW][HISTORY_COL];  	  /* Textual "history" for the Player */

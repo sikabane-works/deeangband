@@ -2289,7 +2289,7 @@ void save_prev_data(creature_type *creature_ptr, species_type *species_ptr)
 	/* Save the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		species_ptr->player_hp[i] = creature_ptr->player_hp[i];
+		species_ptr->base_hp[i] = creature_ptr->base_hp[i];
 	}
 
 	species_ptr->patron_idx = creature_ptr->patron_idx;
@@ -2355,10 +2355,10 @@ void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool
 	/* Load the hp */
 	for (i = 0; i < PY_MAX_LEVEL; i++)
 	{
-		creature_ptr->player_hp[i] = species_ptr->player_hp[i];
+		creature_ptr->base_hp[i] = species_ptr->base_hp[i];
 	}
-	creature_ptr->mhp = creature_ptr->player_hp[0];
-	creature_ptr->chp = creature_ptr->player_hp[0];
+	creature_ptr->mhp = creature_ptr->base_hp[0];
+	creature_ptr->chp = creature_ptr->base_hp[0];
 
 	creature_ptr->csp = creature_ptr->msp;
 

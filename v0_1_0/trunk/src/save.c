@@ -426,7 +426,7 @@ static void save_quick_start(species_type *species_ptr)
 	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(species_ptr->player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
 
 	wr_s16b(species_ptr->patron_idx);
 	wr_s16b(species_ptr->father_idx);
@@ -510,7 +510,7 @@ static void wr_creature(creature_type *cr_ptr)
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{
-		wr_s16b(cr_ptr->player_hp[i]);
+		wr_s16b(cr_ptr->base_hp[i]);
 	}
 
 	for (i = 0; i < 8; i++) wr_s32b(cr_ptr->authority[i]);
@@ -1355,7 +1355,7 @@ static bool wr_savefile_new(void)
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{
-		wr_s16b(p_ptr->player_hp[i]);
+		wr_s16b(p_ptr->base_hp[i]);
 	}
 
 	/* Dump the ordered spells */

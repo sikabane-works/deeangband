@@ -30,22 +30,22 @@ void do_cmd_rerate_aux(creature_type *cr_ptr)
 	while (1)
 	{
 		/* Pre-calculate level 1 hitdice */
-		cr_ptr->player_hp[0] = cr_ptr->hitdice;
+		cr_ptr->base_hp[0] = cr_ptr->hitdice;
 
 		for (i = 1; i < 4; i++)
 		{
-			cr_ptr->player_hp[0] += (s16b)randint1(cr_ptr->hitdice);
+			cr_ptr->base_hp[0] += (s16b)randint1(cr_ptr->hitdice);
 		}
 
 		/* Roll the hitpoint values */
 		for (i = 1; i < PY_MAX_LEVEL; i++)
 		{
-			cr_ptr->player_hp[i] = cr_ptr->player_hp[i - 1] + (s16b)randint1(cr_ptr->hitdice);
+			cr_ptr->base_hp[i] = cr_ptr->base_hp[i - 1] + (s16b)randint1(cr_ptr->hitdice);
 		}
 
 		/* Require "valid" hitpoints at highest level */
-		if ((cr_ptr->player_hp[PY_MAX_LEVEL - 1] >= min_value) &&
-		    (cr_ptr->player_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
+		if ((cr_ptr->base_hp[PY_MAX_LEVEL - 1] >= min_value) &&
+		    (cr_ptr->base_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
 	}
 }
 
@@ -60,7 +60,7 @@ void do_cmd_rerate(creature_type *cr_ptr, bool display)
 	/* Rerate */
 	do_cmd_rerate_aux(cr_ptr);
 
-	percent = (int)(((long)cr_ptr->player_hp[PY_MAX_LEVEL - 1] * 200L) /
+	percent = (int)(((long)cr_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
 		(2 * cr_ptr->hitdice +
 		((PY_MAX_LEVEL - 1+3) * (cr_ptr->hitdice + 1))));
 

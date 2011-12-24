@@ -7150,22 +7150,10 @@ quit("セーブファイルが壊れています");
 
 	if (new_game && ((cr_ptr->cls_idx == CLASS_CAVALRY) || (cr_ptr->cls_idx == CLASS_BEASTMASTER)))
 	{
-		creature_type *m_ptr;
 		int pet_species_idx = ((cr_ptr->cls_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
 		species_type *r_ptr = &species_info[pet_species_idx];
-		place_monster_aux(cr_ptr, cr_ptr->fy, cr_ptr->fx - 1, pet_species_idx,
-				  (PM_FORCE_PET | PM_NO_KAGE));
-		m_ptr = &creature_list[hack_m_idx_ii];
-		m_ptr->speed = r_ptr->speed;
-
-		set_enemy_maxhp(m_ptr);
-		set_creature_hp_percent(m_ptr, 100);
-
-		m_ptr->energy_need = ENERGY_NEED() + ENERGY_NEED();
+		place_monster_aux(cr_ptr, cr_ptr->fy, cr_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
-
-	//TODO (void)combine_and_reorder_home(st_ptr, STORE_HOME);
-	//TODO (void)combine_and_reorder_home(st_ptr, STORE_MUSEUM);
 
 	/* Process */
 	while (TRUE)

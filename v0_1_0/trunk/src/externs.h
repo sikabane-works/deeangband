@@ -862,7 +862,6 @@ extern int calc_expfact_sp(species_type *species_ptr);
 extern void set_expfact(creature_type *cr_ptr);
 extern void set_bodysize(creature_type *cr_ptr);
 extern void set_hitdice(creature_type *cr_ptr);
-extern void set_enemy_maxhp(creature_type *cr_ptr);
 extern void set_creature_hp_percent(creature_type *cr_ptr, int percentage);
 extern void set_creature_sp_percent(creature_type *cr_ptr, int percentage);
 extern s16b calc_bodysize(s32b ht, s32b wt);

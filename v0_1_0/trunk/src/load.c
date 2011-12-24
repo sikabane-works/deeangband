@@ -987,7 +987,7 @@ static void load_quick_start(species_type *species_ptr)
 	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&species_ptr->player_hp[i]);
+	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&species_ptr->base_hp[i]);
 
 	rd_s16b(&species_ptr->patron_idx);
 	rd_s16b(&species_ptr->father_idx);
@@ -1081,7 +1081,7 @@ static void rd_creature(creature_type *cr_ptr)
 
 	for (i = 0; i < tmp16u; i++)
 	{
-		rd_s16b(&cr_ptr->player_hp[i]);
+		rd_s16b(&cr_ptr->base_hp[i]);
 	}
 
 
@@ -2218,7 +2218,7 @@ note("特別情報をロードしました");
 #endif
 
 
-	/* Read the player_hp array */
+	/* Read the base_hp array */
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
@@ -2233,10 +2233,10 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 		return (25);
 	}
 
-	/* Read the player_hp array */
+	/* Read the base_hp array */
 	for (i = 0; i < tmp16u; i++)
 	{
-		rd_s16b(&cr_ptr->player_hp[i]);
+		rd_s16b(&cr_ptr->base_hp[i]);
 	}
 
 	if (cr_ptr->cls_idx == CLASS_MINDCRAFTER) cr_ptr->add_spells = 0;

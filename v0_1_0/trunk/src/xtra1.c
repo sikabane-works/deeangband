@@ -2664,7 +2664,7 @@ static void calc_hitpoints(creature_type *cr_ptr, bool message)
 	}
 
 	/* Calculate hitpoints */
-	mhp = cr_ptr->player_hp[cr_ptr->lev - 1];
+	mhp = cr_ptr->base_hp[cr_ptr->lev - 1];
 
 	if (cr_ptr->mimic_form)
 	{
