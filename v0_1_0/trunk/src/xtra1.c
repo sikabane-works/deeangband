@@ -6272,6 +6272,15 @@ cptr desc_race_name(creature_type *cr_ptr){
 #endif
 	}
 
+	if(has_cf_creature(cr_ptr, CF_NAZGUL))
+	{
+#if JP
+		strcat(subname, "‚ÌƒiƒYƒOƒ‹");
+#else
+		strcat(subname, " Nazgul");
+#endif
+	}
+
 	if(has_cf_creature(cr_ptr, CF_PUELLA_MAGI))
 	{
 #if JP

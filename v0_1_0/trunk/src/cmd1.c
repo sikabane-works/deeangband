@@ -2994,20 +2994,21 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				sound(SOUND_HIT);
 
 				/* Message */
+				if(is_seen(player_ptr, atk_ptr) || is_seen(player_ptr, tar_ptr))
+				{
 #ifdef JP
-				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", tar_name, atk_name);
+					msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", tar_name, atk_name);
 #else
-				msg_format("%^s misses %s.", tar_name, atk_name);
+					msg_format("%^s misses %s.", tar_name, atk_name);
 #endif
-				/* Message */
 #ifdef JP
-				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
+					msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
 #else
-				msg_print("Your scythe returns to you!");
+					msg_print("Your scythe returns to you!");
 #endif
+				}
 
 				//TODO Death Scythe damage.
-
 				k = 0;
 
 #ifdef JP
