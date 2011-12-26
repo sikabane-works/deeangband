@@ -7086,24 +7086,24 @@ quit("セーブファイルが壊れています");
 		/* HACK -- Restore from panic-save */
 		if (panic_save)
 		{
-			/* No player?  -- Try to regenerate floor */
-			if (!cr_ptr->fy || !cr_ptr->fx)
-			{
-#ifdef JP
-				msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
-#else
-				msg_print("What a strange player location.  Regenerate the dungeon floor.");
-#endif
-				change_floor(cr_ptr);
-			}
-
-			/* Still no player?  -- Try to locate random place */
-			if (!cr_ptr->fy || !cr_ptr->fx) cr_ptr->fy = cr_ptr->fx = 10;
-
 			/* No longer in panic */
 			panic_save = 0;
 		}
 	}
+
+	/* No player?  -- Try to regenerate floor */
+	if (!cr_ptr->fy || !cr_ptr->fx)
+	{
+#ifdef JP
+		msg_print("プレイヤーの位置がおかしい。フロアを再生成します。");
+#else
+		msg_print("What a strange player location.  Regenerate the dungeon floor.");
+#endif
+		change_floor(cr_ptr);
+	}
+
+	/* Still no player?  -- Try to locate random place */
+	if (!cr_ptr->fy || !cr_ptr->fx) cr_ptr->fy = cr_ptr->fx = 10;
 
 	/* Character is now "complete" */
 	character_generated = TRUE;
