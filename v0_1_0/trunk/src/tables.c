@@ -5670,3 +5670,8 @@ half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
 
 };
 
+
+int town_store_id[20][10] =
+{
+	{1, 4, 1, 1, 7, 6, 8, 2, 0, 9},
+};

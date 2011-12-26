@@ -4744,7 +4744,9 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
-			msg_print("Old Store System was disabled...");
+			screen_save();
+			store_process(cr_ptr, &st_list[town_store_id[town_num][2]]);
+			screen_load();
 			break;
 		}
 
