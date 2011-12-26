@@ -4744,8 +4744,10 @@ msg_print("ウィザードモード突入。");
 		/* Enter store */
 		case SPECIAL_KEY_STORE:
 		{
+			cave_type *c_ptr = &cave[cr_ptr->fy][cr_ptr->fx];
+			int which = town_store_id[town_num][f_info[c_ptr->feat].subtype];
 			screen_save();
-			store_process(cr_ptr, &st_list[town_store_id[town_num][2]]);
+			store_process(cr_ptr, &st_list[which]);
 			screen_load();
 			break;
 		}

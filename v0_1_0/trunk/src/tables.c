@@ -5657,6 +5657,7 @@ half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
 #endif
 	},
 
+
 	{
 		RACE_HUMAN,
 		RACE_GNOME,
@@ -5673,5 +5674,9 @@ half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
 
 int town_store_id[20][10] =
 {
-	{1, 4, 1, 1, 7, 6, 8, 2, 0, 9},
+	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
+	{4, 0, 0, 7, 6, 8, 3, 0, 9, 0},
+	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
+	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
+	{1, 2, 3, 4, 5, 6, 7, 8, 9, 0},
 };

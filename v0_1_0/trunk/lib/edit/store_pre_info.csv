@@ -1,12 +1,12 @@
 ID,NAME,E_NAME,OWNER,SIZE,WEALTH,LEVEL,FLAGS
 0,我が家,Your home,0,200,0,0,YOUR_HOME
 1,博物館,Museum,0,2000,0,0,MUSEUM
-2,イーク氏族会交易所,Trading place of Yeek Clans,1391,60,15400,30,BLACK_MARKET
-3,イェーキン寺院酒保,Canteen of Yeekin's ruined temple,1392,24,19800,80,BLACK_MARKET
-4,八本矢亭雑貨,General store of the Eight Arrow Inn,1393,24,1230,5,GENERAL
-5,部屋住みの絵師,Staying artist,1393,24,2200,20,PAINT
+2,イーク氏族会交易所,Trading place of Yeek Clans,1394,60,15400,30,BLACK_MARKET
+3,イェーキン寺院酒保,Canteen of Yeekin's ruined temple,1395,24,19800,80,BLACK_MARKET
+4,八本矢亭雑貨,General store of the Eight Arrow Inn,1396,24,1230,5,GENERAL
+5,部屋住みの絵師,Staying artist,1365,24,2200,20,PAINT
 6,イェーキンの錬金研究棟,Alchemy research facility of Yeekin,1331,24,17800,5,BLACK_MARKET
-7,聖印の削り取られた寺院,Ruined temple of Yeekin,1392,24,23400,5,BLACK_MARKET
+7,聖印の削り取られた寺院,Ruined temple of Yeekin,1395,24,23400,5,BLACK_MARKET
 8,虹色石の洞窟,Cave of rainbow stone,1272,24,15400,5,BLACK_MARKET
 9,伝承窟,Folklore cave,1304,24,18000,5,BLACK_MARKET
 10,DAMMY,DAMMY,0,24,10000,5,BLACK_MARKET
