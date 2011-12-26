@@ -4082,7 +4082,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 	for (i = 0; i < max_species_idx; i++)
 	{
 		if(!is_unique_species(&species_info[i])) continue;		
-		if(species_info[i].dr < 5 && species_info[i].dr < calc_base_divine_rank(creature_ptr)) continue;
+		if(species_info[i].dr < 5 || species_info[i].dr < calc_base_divine_rank(creature_ptr)) continue;
 		
 		if(IS_PURE_RACE(creature_ptr, RACE_MELNIBONE))
 		{
