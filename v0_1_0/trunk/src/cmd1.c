@@ -1990,6 +1990,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 	char            atk_name[80];
 	char            tar_name[80];
+	char			weapon_name[80];
 
 	bool            success_hit = FALSE;
 	bool            backstab = FALSE;
@@ -2046,6 +2047,12 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 
 	if (!o_ptr->k_idx) /* Empty hand */
 	{
+#if JP
+		strcpy(weapon_name, "‘fŽè");
+#else
+		strcpy(weapon_name, "bare hand");
+#endif
+
 		if ((r_ptr->level + 10) > atk_ptr->lev)
 		{
 			// Matrial arts skill mastering
@@ -2065,6 +2072,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	}
 	else if (object_is_melee_weapon(atk_ptr, o_ptr))
 	{
+		object_desc(atk_ptr, weapon_name, o_ptr, OD_NAME_ONLY);
 		// Weapon skill mastering
 		if ((r_ptr->level + 10) > atk_ptr->lev && atk_ptr->cls_idx != INDEX_NONE)
 		{
@@ -2082,6 +2090,14 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				atk_ptr->update |= (PU_BONUS);
 			}
 		}
+	}
+	else
+	{
+#if JP
+		strcpy(weapon_name, "‰½‚©");
+#else
+		strcpy(weapon_name, "someone");
+#endif
 	}
 
 	/* Disturb the monster */
@@ -2164,7 +2180,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				}
 				else if (!monk_attack)
 				{
-					msg_format("%s‚Í%s‚ðUŒ‚‚µ‚½B", atk_name, tar_name);
+					msg_format("%s‚Í%s‚Å%s‚ðUŒ‚‚µ‚½B", atk_name, weapon_name, tar_name);
 				}
 #else
 				if (backstab)
@@ -2185,7 +2201,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 				else if (!monk_attack)
 				{
 					//TODO
-					msg_format("%s hit %s.", atk_name, tar_name);
+					msg_format("%s hit %s by %s.", atk_name, tar_name, weapon_name);
 				}
 #endif
 			}
@@ -3049,6 +3065,7 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	species_type    *r_ptr;
 	char			atk_name[80];
 	char            target_name[80];
+	char			weapon_name[80];
 
 	/* Player or Enemy */
 	if(player_ptr->fx == x && player_ptr->fy == y && c_ptr->m_idx)
@@ -3128,14 +3145,22 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 	    !(atk_ptr->stun || atk_ptr->confused || atk_ptr->image ||
 	    atk_ptr->shero || !tar_ptr->ml))
 	{
-		if (atk_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-		if (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER) stormbringer = TRUE;
+		if (atk_ptr->inventory[INVEN_1STARM].name1 == ART_STORMBRINGER)
+		{
+			object_desc(atk_ptr, weapon_name, &atk_ptr->inventory[INVEN_1STARM], (OD_NAME_ONLY));
+			stormbringer = TRUE;
+		}
+		if (atk_ptr->inventory[INVEN_2NDARM].name1 == ART_STORMBRINGER)
+		{
+			object_desc(atk_ptr, weapon_name, &atk_ptr->inventory[INVEN_2NDARM], (OD_NAME_ONLY));
+			stormbringer = TRUE;
+		}
 		if (stormbringer)
 		{
 #ifdef JP
-			msg_format("•‚¢n‚Í‹­—~‚É%s‚ðUŒ‚‚µ‚½I", target_name);
+			msg_format("%s‚Í‹­—~‚É%s‚ðUŒ‚‚µ‚½I", weapon_name, target_name);
 #else
-			msg_format("Your black blade greedily attacks %s!", target_name);
+			msg_format("%s greedily attacks %s!", weapon_name, target_name);
 #endif
 		}
 		else if (atk_ptr->cls_idx != CLASS_BERSERKER && is_player(atk_ptr))
