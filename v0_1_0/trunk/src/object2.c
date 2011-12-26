@@ -4884,6 +4884,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			bx = tx;
 
 			/* Okay */
+
 			flag = TRUE;
 		}
 	}
