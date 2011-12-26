@@ -4773,12 +4773,14 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 		/* Message */
 		if(player_can_see_bold(player_ptr, y, x))
 		{
+/* TODO
 #ifdef JP
 		msg_format("%s‚Í‰ó‚ê‚ÄŽg‚¢•¨‚É‚È‚ç‚È‚­‚È‚Á‚½", o_name);
 #else
 		msg_format("The %s was broken and become%s useless.",
 			   o_name, (plural ? "" : "s"));
 #endif
+*/
 		}
 
 
@@ -4863,7 +4865,7 @@ s16b drop_near(object_type *j_ptr, int chance, int y, int x)
 			if (k > 99) continue;
 
 			/* Calculate score */
-			s = 1000 - (d * 5 + k + randint0(10));
+			s = 1000 - (d * 5 + k);
 
 			/* Skip bad values */
 			if (s < bs) continue;
