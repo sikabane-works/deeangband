@@ -186,7 +186,7 @@ static bool get_enemy_dir(creature_type *cr_ptr, int m_idx, int *mm)
  * Hack, based on mon_take_hit... perhaps all monster attacks on
  * other monsters should use this?
  */
-// TODO Import some process to creature_attack
+// TODO Import some process to weapon_attack
 void mon_take_hit_mon(creature_type *player_ptr, creature_type *cr_ptr, int dam, bool *fear, cptr note, int who)
 {
 	species_type	*r_ptr = &species_info[cr_ptr->species_idx];
@@ -1601,7 +1601,7 @@ static void process_monster(creature_type *player_ptr, int m_idx)
 
 		//TODO SYURYUUDAN's Process
 //	if (nonplayer_ptr->species_idx == MON_SHURYUUDAN)
-//		creature_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
+//		weapon_attack(nonplayer_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 	if ((is_pet(player_ptr, nonplayer_ptr) || is_friendly(nonplayer_ptr)) && (is_unique_creature(nonplayer_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL)) && !inside_battle)
 	{
@@ -2360,7 +2360,7 @@ msg_format("%^s%s", m_name, monmessage);
 			/* The player is in the way.  Attack him. */
 			if (do_move)
 			{
-				creature_attack(nonplayer_ptr, ny, nx, 0);
+				weapon_attack(nonplayer_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
@@ -2403,7 +2403,7 @@ msg_format("%^s%s", m_name, monmessage);
 					/* attack */
 					if (y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if (creature_attack(nonplayer_ptr, ny, nx, 0)) return;
+						if (weapon_attack(nonplayer_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused monster takes useless turn */
 						else if (d_info[dungeon_type].flags1 & DF1_NO_MELEE)

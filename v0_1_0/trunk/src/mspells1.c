@@ -3492,7 +3492,7 @@ msg_format("%s‚Í–³‚Ì‹…‚ÌŽô•¶‚ð¥‚¦‚½B", m_name);
 							set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 						}
 
-						if (target_ptr->riding) creature_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+						if (target_ptr->riding) weapon_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
 					}
 					break;
 				}

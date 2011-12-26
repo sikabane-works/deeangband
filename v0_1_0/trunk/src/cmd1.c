@@ -1977,7 +1977,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
  *
  * If no "weapon" is available, then "punch" the monster one time.
  */
-static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void weapon_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
@@ -3055,7 +3055,7 @@ static void creature_attack_aux(creature_type *atk_ptr, creature_type *tar_ptr, 
 	}
 }
 
-bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
+bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 {
 	bool            fear = FALSE;
 	bool            mdeath = FALSE;
@@ -3260,8 +3260,8 @@ bool creature_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if(has_cf_creature(atk_ptr, CF_HUMANOID))
 	{
-		if (atk_ptr->migite) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
-		if (atk_ptr->hidarite && !mdeath) creature_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
+		if (atk_ptr->migite) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
+		if (atk_ptr->hidarite && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
 	else
 	{
@@ -4035,7 +4035,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 			/* displace? */
 			if ((stormbringer && (randint1(1000) > 666)) || (cr_ptr->cls_idx == CLASS_BERSERKER))
 			{
-				creature_attack(cr_ptr, y, x, 0);
+				weapon_attack(cr_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
 			else if (monster_can_cross_terrain(cave[cr_ptr->fy][cr_ptr->fx].feat, r_ptr, 0))
@@ -4058,7 +4058,7 @@ void move_creature(creature_type *cr_ptr, int dir, bool do_pickup, bool break_tr
 		}
 		else
 		{
-			creature_attack(cr_ptr, y, x, 0);
+			weapon_attack(cr_ptr, y, x, 0);
 			oktomove = FALSE;
 		}
 	}

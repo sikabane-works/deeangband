@@ -2236,7 +2236,7 @@ bool activate_random_artifact(creature_type *cr_ptr, object_type * o_ptr)
 
 					/* Hack -- attack monsters */
 					if (c_ptr->m_idx && (m_ptr->ml || cave_have_flag_bold(y, x, FF_PROJECT)))
-						creature_attack(cr_ptr, y, x, 0);
+						weapon_attack(cr_ptr, y, x, 0);
 				}
 			}
 			o_ptr->timeout = 250;

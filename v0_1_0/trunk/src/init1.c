@@ -2707,7 +2707,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"RELM2",
 	"LEV",
 	"RARE",
-	"Z",
+	"SPELL",
 	"EXP",
 	"N_EXP",
 	"N_MIN",
@@ -2762,7 +2762,7 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 #define SPECIES_INFO_RELM2		11
 #define SPECIES_INFO_LEV			12
 #define SPECIES_INFO_RARE			13
-#define SPECIES_INFO_Z			14
+#define SPECIES_INFO_SPELL			14
 #define SPECIES_INFO_EXP			15
 #define SPECIES_INFO_N_EXP		16
 #define SPECIES_INFO_N_MIN		17
@@ -2954,8 +2954,9 @@ errr parse_species_info_csv(char *buf, header *head)
 				species_info[n].rarity = (byte)b;
 				break;
 
-			case SPECIES_INFO_Z:
-				/* Nothing */
+			case SPECIES_INFO_SPELL:
+				if(sscanf(tmp, "%d", &b) != 1) return (1);
+				species_info[n].freq_spell = (byte)b;
 				break;
 
 			case SPECIES_INFO_EXP:

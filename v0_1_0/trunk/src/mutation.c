@@ -3509,7 +3509,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 					msg_print("There's something in the way!");
 #endif
 
-					if (!m_ptr->ml || !is_pet(player_ptr, m_ptr)) creature_attack(cr_ptr, y, x, 0);
+					if (!m_ptr->ml || !is_pet(player_ptr, m_ptr)) weapon_attack(cr_ptr, y, x, 0);
 					break;
 				}
 				else if (have_flag(f_ptr->flags, FF_TREE))
@@ -3690,7 +3690,7 @@ bool mutation_power_aux(creature_type *cr_ptr, u32b power)
 				x = cr_ptr->fx + ddx[dir];
 				if (cave[y][x].m_idx)
 				{
-					creature_attack(cr_ptr, y, x, 0);
+					weapon_attack(cr_ptr, y, x, 0);
 					if (randint0(cr_ptr->skill_dis) < 7)
 #ifdef JP
 						msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
