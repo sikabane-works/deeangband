@@ -4247,7 +4247,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	put_str("Select a personality:", 0, 0);
 #endif
 	put_initial_status(creature_ptr);
-	i = get_selection(ce, n, 5, 2, 18, 20, NULL);
+	i = get_selection(ce, n, 5, 2, 18, 20, chara_detail);
 
 	if(i >= 0)
 	{
