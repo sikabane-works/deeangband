@@ -3517,6 +3517,82 @@ static void deal_potion(creature_type *creature_ptr)
 
 }
 
+static void deal_food(creature_type *creature_ptr)
+{
+	object_type *q_ptr;
+	object_type forge;
+	int i;
+	q_ptr = &forge;
+
+	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
+	{
+		/* Food rations */
+		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(3, 7);
+
+		add_outfit(creature_ptr, q_ptr, 0);
+	}
+
+	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
+	{
+		/* Prepare allocation table */
+		get_mon_num_prep(creature_hook_human, NULL);
+
+		for (i = rand_range(3,4); i > 0; i--)
+		{
+			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
+			q_ptr->pval = get_mon_num(2);
+			q_ptr->number = 1;
+			add_outfit(creature_ptr, q_ptr, 0);
+		}
+	}
+	else if(has_cf_creature(creature_ptr, CF_WATER_DRINKER))
+	{
+		/* Potions of Water */
+		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
+		q_ptr->number = (byte)rand_range(15, 23);
+		add_outfit(creature_ptr, q_ptr, 0);
+	}
+	else if(has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
+	{
+		/* Flasks of oil */
+		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
+
+		/* Fuel with oil (move pval to xtra4) */
+		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART, 0);
+		q_ptr->number = (byte)rand_range(7, 12);
+		add_outfit(creature_ptr, q_ptr, 0);
+	}
+
+}
+
+static void deal_lite(creature_type *creature_ptr)
+{
+	object_type *q_ptr;
+	object_type forge;
+	q_ptr = &forge;
+
+	if (has_cf_creature(creature_ptr, CF_HUMANOID))
+	{
+		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
+		{
+			// Hack -- Give the player scrolls of DARKNESS!
+			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
+			q_ptr->number = (byte)rand_range(2, 5);
+			add_outfit(creature_ptr, q_ptr, 0);
+		}
+
+		else if (creature_ptr->cls_idx != CLASS_NINJA)
+		{
+			// Hack -- Give the player some torches
+			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
+			q_ptr->number = (byte)rand_range(3, 7);
+			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
+			add_outfit(creature_ptr, q_ptr, 0);
+		}
+	}
+}
+
 static u32b calc_deal_item_rank(creature_type *creature_ptr, object_type *object_ptr)
 {
 	u32b ret = AM_UNCURSED;
@@ -3604,70 +3680,15 @@ void deal_item(creature_type *creature_ptr)
 	// Dealing MagicBook
 	deal_magic_book(creature_ptr);
 
+	//TODO
 	// Dealing Potion
-	deal_potion(creature_ptr);
+	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
-
+	//TODO
 	// Food depend on creature_flags
-	if(has_cf_creature(creature_ptr, CF_FOOD_EATER))
-	{
-		/* Food rations */
-		object_prep(q_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(3, 7);
+	if(is_player(creature_ptr)) deal_food(creature_ptr);
 
-		add_outfit(creature_ptr, q_ptr, 0);
-	}
-
-	else if(has_cf_creature(creature_ptr, CF_CORPSE_EATER))
-	{
-		/* Prepare allocation table */
-		get_mon_num_prep(creature_hook_human, NULL);
-
-		for (i = rand_range(3,4); i > 0; i--)
-		{
-			object_prep(q_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
-			q_ptr->pval = get_mon_num(2);
-			q_ptr->number = 1;
-			add_outfit(creature_ptr, q_ptr, 0);
-		}
-	}
-	else if(has_cf_creature(creature_ptr, CF_WATER_DRINKER))
-	{
-		/* Potions of Water */
-		object_prep(q_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
-		q_ptr->number = (byte)rand_range(15, 23);
-		add_outfit(creature_ptr, q_ptr, 0);
-	}
-	else if(has_cf_creature(creature_ptr, CF_FLASK_DRINKER))
-	{
-		/* Flasks of oil */
-		object_prep(q_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
-
-		/* Fuel with oil (move pval to xtra4) */
-		apply_magic(creature_ptr, q_ptr, 1, AM_NO_FIXED_ART, 0);
-		q_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(creature_ptr, q_ptr, 0);
-	}
-
-	if (has_cf_creature(creature_ptr, CF_HUMANOID))
-	{
-		if (has_cf_creature(creature_ptr, CF_VAMPIRE) && (creature_ptr->cls_idx != CLASS_NINJA))
-		{
-			// Hack -- Give the player scrolls of DARKNESS!
-			object_prep(q_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(2, 5);
-			add_outfit(creature_ptr, q_ptr, 0);
-		}
-
-		else if (creature_ptr->cls_idx != CLASS_NINJA)
-		{
-			// Hack -- Give the player some torches
-			object_prep(q_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
-			q_ptr->number = (byte)rand_range(3, 7);
-			q_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
-			add_outfit(creature_ptr, q_ptr, 0);
-		}
-	}
+	if(is_player(creature_ptr)) deal_lite(creature_ptr);
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
