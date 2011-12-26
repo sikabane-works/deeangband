@@ -462,6 +462,60 @@ static byte morgue_table[STABLE_MORGUE_MAX][2] =
 
 };
 
+#define STABLE_BOOK_MAX 40
+static byte book_table[STABLE_BOOK_MAX][2] =
+{
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SORCERY_BOOK, 0 },
+		{ TV_SORCERY_BOOK, 1 },
+		{ TV_SORCERY_BOOK, 1 },
+
+		{ TV_NATURE_BOOK, 0 },
+		{ TV_NATURE_BOOK, 0 },
+		{ TV_NATURE_BOOK, 1 },
+		{ TV_NATURE_BOOK, 1 },
+
+		{ TV_CHAOS_BOOK, 0 },
+		{ TV_CHAOS_BOOK, 0 },
+		{ TV_CHAOS_BOOK, 1 },
+		{ TV_CHAOS_BOOK, 1 },
+
+		{ TV_DEATH_BOOK, 0 },
+		{ TV_DEATH_BOOK, 0 },
+		{ TV_DEATH_BOOK, 1 },
+		{ TV_DEATH_BOOK, 1 },
+
+		{ TV_TRUMP_BOOK, 0 },		/* +16 */
+		{ TV_TRUMP_BOOK, 0 },
+		{ TV_TRUMP_BOOK, 1 },
+		{ TV_TRUMP_BOOK, 1 },
+
+		{ TV_ARCANE_BOOK, 0 },
+		{ TV_ARCANE_BOOK, 1 },
+		{ TV_ARCANE_BOOK, 2 },
+		{ TV_ARCANE_BOOK, 3 },
+
+		{ TV_CRAFT_BOOK, 0 },
+		{ TV_CRAFT_BOOK, 0 },
+		{ TV_CRAFT_BOOK, 1 },
+		{ TV_CRAFT_BOOK, 1 },
+
+		{ TV_DAEMON_BOOK, 0 },
+		{ TV_DAEMON_BOOK, 0 },
+		{ TV_DAEMON_BOOK, 1 },
+		{ TV_DAEMON_BOOK, 1 },
+
+		{ TV_MUSIC_BOOK, 0 },
+		{ TV_MUSIC_BOOK, 0 },
+		{ TV_MUSIC_BOOK, 1 },
+		{ TV_MUSIC_BOOK, 1 },
+
+		{ TV_HEX_BOOK, 0 },
+		{ TV_HEX_BOOK, 0 },
+		{ TV_HEX_BOOK, 1 },
+		{ TV_HEX_BOOK, 1 },
+};
+
 #define STABLE_TEMPLE_MAX 48
 static byte temple_table[STABLE_TEMPLE_MAX][2] =
 {
@@ -5742,6 +5796,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_TEMPLE)
 		st_ptr->table_size += STABLE_TEMPLE_MAX;
 
+	if(st_ptr->flags & ST1_BOOK)
+		st_ptr->table_size += STABLE_BOOK_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -6014,6 +6071,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = temple_table[k][0];
 			int sv = temple_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_BOOK)
+	{
+		for (k = 0; k < STABLE_BOOK_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = book_table[k][0];
+			int sv = book_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
