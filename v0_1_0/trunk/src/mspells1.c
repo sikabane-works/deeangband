@@ -943,7 +943,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *tar_ptr)
  *
  * This function may well be an efficiency bottleneck.
  */
-static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_ptr, byte spells[], byte num)
+static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_ptr, int spells[], byte num)
 {
 	species_type *r_ptr = &species_info[caster_ptr->species_idx];
 
@@ -1270,7 +1270,7 @@ static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	int             k, thrown_spell = 0, rlev, failrate;
-	bool            racial_spell[CF_FLAG_MAX], num = 0;
+	int             racial_spell[CF_FLAG_MAX], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP
@@ -1558,28 +1558,12 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO if (!f4 && !f5 && !f6) return (FALSE);
 	}
 
-
-
 	/* Extract the "inate" spells */
-	//TODO for (k = 0; k < 32; k++)
-	//TODO {
-	//TODO	if (f4 & (1L << k)) spell[num++] = k + 32 * 3;
-	//TODO}
-
-	/* Extract the "normal" spells */
-	//TODOfor (k = 0; k < 32; k++)
-	//TODO{
-	//TODO	if (f5 & (1L << k)) spell[num++] = k + 32 * 4;
-	//TODO}
-
-	/* Extract the "bizarre" spells */
-	//TODOfor (k = 0; k < 32; k++)
-	//TODO{
-	//TODO	if (f6 & (1L << k)) spell[num++] = k + 32 * 5;
-	//TODO}
+	for(k = 0; k < CF_FLAG_MAX; k++)
+		if (creature_flag_info[k].is_spell && has_cf_creature(caster_ptr, k)) racial_spell[num++] = k;
 
 	/* No spells left */
-	//if (!num) return (FALSE);
+	if (!num) return (FALSE);
 
 	/* Stop if player is dead or gone */
 	if (!target_ptr->playing || target_ptr->is_dead) return (FALSE);
