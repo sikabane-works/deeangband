@@ -1626,6 +1626,7 @@ struct creature_flag_type
 	char id2[50];
 	char title[50];
 	char e_title[50];
+	byte is_spell;
 	s16b adj[STAT_MAX];
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */

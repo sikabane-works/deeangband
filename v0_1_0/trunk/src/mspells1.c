@@ -1270,7 +1270,7 @@ static bool adjacent_grid_check(creature_type *m_ptr, int *yp, int *xp,
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	int             k, thrown_spell = 0, rlev, failrate;
-	byte            spell[96], num = 0;
+	bool            racial_spell[CF_FLAG_MAX], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[80];
 #ifndef JP
@@ -1558,6 +1558,8 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO if (!f4 && !f5 && !f6) return (FALSE);
 	}
 
+
+
 	/* Extract the "inate" spells */
 	//TODO for (k = 0; k < 32; k++)
 	//TODO {
@@ -1577,7 +1579,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	//TODO}
 
 	/* No spells left */
-	if (!num) return (FALSE);
+	//if (!num) return (FALSE);
 
 	/* Stop if player is dead or gone */
 	if (!target_ptr->playing || target_ptr->is_dead) return (FALSE);
@@ -1600,7 +1602,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			int attempt = 10;
 			while (attempt--)
 			{
-				thrown_spell = choose_attack_spell(caster_ptr, target_ptr, spell, num);
+				thrown_spell = choose_attack_spell(caster_ptr, target_ptr, racial_spell, num);
 				if (thrown_spell) break;
 			}
 		}

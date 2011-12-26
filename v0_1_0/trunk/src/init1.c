@@ -3524,7 +3524,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 }
 
 
-#define CF_INFO_CSV_COLUMNS 27
+#define CF_INFO_CSV_COLUMNS 28
 static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 {
 	"ID",
@@ -3554,6 +3554,7 @@ static cptr cf_info_csv_list[CF_INFO_CSV_COLUMNS] =
 	"SPEED",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
+	"SPELL",
 };
 
 static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
@@ -3585,6 +3586,7 @@ static int cf_info_csv_code[CF_INFO_CSV_COLUMNS];
 #define CF_INFO_SPEED	24
 #define CF_INFO_DESCRIPTION	25
 #define CF_INFO_E_DESCRIPTION	26
+#define CF_INFO_SPELL	27
 
 errr parse_creature_flag_csv(char *buf, header *head)
 {
@@ -3734,8 +3736,6 @@ errr parse_creature_flag_csv(char *buf, header *head)
 					if (!add_text(&creature_flag_info[n].text, head, tmp, TRUE))
 						return (7);
 					break;
-
-
 				case CF_INFO_E_DESCRIPTION:
 #if JP
 					if (!add_text(&creature_flag_info[n].E_text, head, tmp, TRUE))
@@ -3744,6 +3744,10 @@ errr parse_creature_flag_csv(char *buf, header *head)
 					if (!add_text(&creature_flag_info[n].text, head, tmp, TRUE))
 						return (7);
 #endif
+				break;
+				case CF_INFO_SPELL:
+					if(sscanf(tmp, "%d", &b) != 1) return (1);
+					creature_flag_info[n].is_spell = (byte)b;
 				break;
 
 			default:
