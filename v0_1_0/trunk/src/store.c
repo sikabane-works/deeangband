@@ -428,7 +428,7 @@ static byte otaku_table[STABLE_OTAKU_MAX][2] =
 };
 
 #define STABLE_MORGUE_MAX 30
-static byte morgue_table[STABLE_OTAKU_MAX][2] =
+static byte morgue_table[STABLE_MORGUE_MAX][2] =
 {
 	{TV_SKELETON, SV_SKELETON},
 	{TV_SKELETON, SV_SKELETON},
@@ -462,13 +462,9 @@ static byte morgue_table[STABLE_OTAKU_MAX][2] =
 
 };
 
-
-/*
-
-
-	{
-		// Temple
-
+#define STABLE_TEMPLE_MAX 48
+static byte temple_table[STABLE_TEMPLE_MAX][2] =
+{
 		{ TV_HAFTED, SV_NUNCHAKU },
 		{ TV_HAFTED, SV_QUARTERSTAFF },
 		{ TV_HAFTED, SV_MACE },
@@ -521,7 +517,6 @@ static byte morgue_table[STABLE_OTAKU_MAX][2] =
 
 		{ TV_POTION, SV_POTION_CURE_CRITICAL },
 		{ TV_POTION, SV_POTION_RESTORE_EXP },
-
 		{ TV_FIGURINE, 0 },
 		{ TV_STATUE, SV_ANY },
 
@@ -529,12 +524,9 @@ static byte morgue_table[STABLE_OTAKU_MAX][2] =
 		{ TV_SCROLL, SV_SCROLL_REMOVE_CURSE },
 		{ TV_SCROLL, SV_SCROLL_STAR_REMOVE_CURSE },
 		{ TV_SCROLL, SV_SCROLL_STAR_REMOVE_CURSE }
-	},
-
-
-
 };
-*/
+
+
 
 
 #define RUMOR_CHANCE 8
@@ -5747,6 +5739,9 @@ static void store_set_table(store_type *st_ptr)
 	if(st_ptr->flags & ST1_MORGUE)
 		st_ptr->table_size += STABLE_MORGUE_MAX;
 
+	if(st_ptr->flags & ST1_TEMPLE)
+		st_ptr->table_size += STABLE_TEMPLE_MAX;
+
 	/* Allocate the stock */
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
 
@@ -5993,6 +5988,32 @@ static void store_set_table(store_type *st_ptr)
 			// Extract the tval/sval codes
 			int tv = morgue_table[k][0];
 			int sv = morgue_table[k][1];
+
+			// Look for it
+			for (k_idx = 1; k_idx < max_k_idx; k_idx++)
+			{
+				object_kind *k_ptr = &k_info[k_idx];
+				// Found a match
+				if ((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+			}
+
+			// Catch errors
+			if (k_idx == max_k_idx) continue;
+
+			// Add that item index to the table
+			st_ptr->table[st_ptr->table_num++] = k_idx;
+		}
+	}
+
+	if(st_ptr->flags & ST1_TEMPLE)
+	{
+		for (k = 0; k < STABLE_TEMPLE_MAX; k++)
+		{
+			int k_idx;
+
+			// Extract the tval/sval codes
+			int tv = temple_table[k][0];
+			int sv = temple_table[k][1];
 
 			// Look for it
 			for (k_idx = 1; k_idx < max_k_idx; k_idx++)

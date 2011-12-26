@@ -5,12 +5,12 @@ ID,NAME,E_NAME,OWNER,SIZE,WEALTH,LEVEL,FLAGS
 3,イェーキン寺院酒保,Canteen of Yeekin's ruined temple,1395,24,19800,80,BLACK_MARKET
 4,八本矢亭雑貨,General store of the Eight Arrow Inn,1396,24,1230,5,GENERAL
 5,部屋住みの絵師,Staying artist,1365,24,2200,20,PAINT
-6,イェーキンの錬金研究棟,Alchemy research facility of Yeekin,1331,24,17800,5,BLACK_MARKET
-7,聖印の削り取られた寺院,Ruined temple of Yeekin,1395,24,23400,5,BLACK_MARKET
-8,虹色石の洞窟,Cave of rainbow stone,1272,24,15400,5,BLACK_MARKET
+6,イェーキンの錬金研究棟,Alchemy research facility of Yeekin,1331,24,17800,5,ALCHEMY
+7,聖印の削り取られた寺院,Ruined temple of Yeekin,1395,24,23400,5,TEMPLE
+8,虹色石の洞窟,Cave of rainbow stone,1272,24,15400,5,MAGIC_ITEM
 9,伝承窟,Folklore cave,1304,24,18000,5,BLACK_MARKET
 10,DAMMY,DAMMY,0,24,10000,5,BLACK_MARKET
-11,エリ'ズ'の雑貨屋,Elli'z' s store,1169,16,10000,5,BLACK_MARKET
+11,エリ'ズ'の雑貨屋,Elli'z' s store,1169,16,10000,5,GENERAL
 12,DAMMY,DAMMY,0,24,10000,5,BLACK_MARKET
 13,DAMMY,DAMMY,0,24,10000,5,BLACK_MARKET
 14,DAMMY,DAMMY,0,24,10000,5,BLACK_MARKET
