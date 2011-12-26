@@ -5470,7 +5470,7 @@ extern int PlayerUID;
 #define CF_VAMPIRE			70
 #define CF_LICH				71
 #define CF_PUELLA_MAGI		72
-#define CF_3_XXX10			73
+#define CF_NAZGUL			73
 #define CF_AURA_COLD		74
 #define CF_NONLIVING		75
 #define CF_HURT_LITE		76

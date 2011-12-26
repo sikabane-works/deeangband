@@ -131,7 +131,7 @@ static cptr race_flags[MAX_RACES] =
 
 	"GIANT_APE",
 	"SUPER_SAIYAN",
-	"NAZGUL",
+	"HORSE",
 	"ANT",
 	"BAT",
 //60
