@@ -2491,6 +2491,20 @@ class_type class_info[MAX_CLASS] =
 
 	},
 
+	{
+#ifdef JP
+		"•ºŽm",
+#endif
+		"Soldier",
+		{ 1, 0, -1, 1, 1, -1},
+		{ 1, 0, 0, 1, 1, 0},
+		CLASS_RARELITY_UNSELECTED,
+		35, 25, 28, 1, 12, 2, 40, 20,
+		5, 7, 9, 0,  0,  0,  11, 11,
+		0, -30, 40
+
+	},
+
 };
 
 player_chara chara_info[MAX_CHARA] =
@@ -2941,6 +2955,7 @@ s32b realm_choices1[MAX_CLASS] =
 	(CH_NONE),				/* Ninja */
 	(CH_NONE),				/* Sniper */
 	(CH_NONE),				// Commoner
+	(CH_NONE),				// Soldier
 };
 
 
@@ -2986,6 +3001,7 @@ s32b realm_choices2[MAX_CLASS] =
 	(CH_NONE),				/* Ninja */
 	(CH_NONE),				/* Sniper */
 	(CH_NONE),				// Commoner
+	(CH_NONE),				// Soldier
 };
 
 

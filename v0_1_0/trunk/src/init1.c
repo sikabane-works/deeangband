@@ -202,6 +202,7 @@ static cptr class_flags[MAX_CLASS]=
 	"NINJA",
 	"SNIPER",
 	"COMMONER",
+	"SOLDIER",
 };
 
 static cptr chara_flags[MAX_CHARA]=

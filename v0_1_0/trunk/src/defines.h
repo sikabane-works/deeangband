@@ -976,9 +976,10 @@
 #define CLASS_NINJA             27
 #define CLASS_SNIPER            28
 #define CLASS_COMMONER          29
+#define CLASS_SOLDIER           30
 
 // Maximum number of creature "class" types (see "table.c", etc)
-#define MAX_CLASS               30
+#define MAX_CLASS               31
 
 
 #define CHARA_FUTUU	  0
