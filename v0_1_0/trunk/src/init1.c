@@ -4878,18 +4878,19 @@ static errr parse_line_building(char *buf)
 		/* Building Classes */
 		case 'C':
 		{
-			if (tokenize(s + 2, MAX_CLASS, zz, 0) == MAX_CLASS)
+			char *zz[MAX_CLASS];
+			int n;
+
+			n = tokenize(buf+2, MAX_CLASS, zz, 0);
+			for (i = 0; i < n; i++)
 			{
-				for (i = 0; i < MAX_CLASS; i++)
-				{
-					building[index].member_class[i] = atoi(zz[i]);
-				}
-
-				break;
+				building[index].member_class[i] = atoi(zz[i]);
 			}
-
-
-			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
+			if(n < MAX_RACES)
+			{
+				for (i = n; i < MAX_CLASS ; i++)
+				building[index].member_class[i] = 0;
+			}
 		}
 
 		/* Building Races */

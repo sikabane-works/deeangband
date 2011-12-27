@@ -95,8 +95,8 @@ W:E:d:1:0:13:1:Doodrine
 W:J:d:1:0:13:1:ドゥードリン
 
 # Town 14
-W:E:e:20:0:14:1:Utumno
-W:J:e:20:0:14:1:ウトゥムノ
+W:E:e:20:0:14:1:Virya-Utumno
+W:J:e:20:0:14:1:小ウトゥムノ
 
 # Town 15
 W:E:f:20:0:15:1:Yendor

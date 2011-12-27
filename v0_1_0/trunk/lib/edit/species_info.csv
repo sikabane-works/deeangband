@@ -69,7 +69,7 @@ F:ONLY_ITEM | DROP_90 | DROP_GOOD | FRIENDLY |",,,,
 1099,レッサー不潔で醜い哀れな身なりのわめきふらつくキチガイ人間,Lesser mangy-ugry-pitiful looking and aimless raving lunatic human,t,D,HUMAN,HUMAN,0x01,COMMONER,NONE,ORDINARY,ARCANE,NONE,0,30,50,13,0,0,0,1,NONE,NONE,-1,15,4,1,40,3,3,3,3,3,3,140,17,30,4,130,20,24,4,"DROOL
 BEG
 INSULT
-INSULT",,,BLUFF|ATTR_MULTI|WILD_TOWN|WILD_ONLY|RAND_25|FRIENDS|MULTIPLY|POWERFUL|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON,,,　この恐るべき社会退廃の権化は容赦なく＊あなた＊を押しつぶすだろう。 今のうちに逃げろ！,"This terrible avatar of social decadence will crush *you* unsparingly!
+INSULT",,,BLUFF|ATTR_MULTI|WILD_TOWN|WILD_ONLY|RAND_25|RAND_50|FRIENDS|MULTIPLY|POWERFUL|TAKE_ITEM|OPEN_DOOR|DROP_CORPSE|DROP_SKELETON,,,　この恐るべき社会退廃の権化は容赦なく＊あなた＊を押しつぶすだろう。 今のうちに逃げろ！,"This terrible avatar of social decadence will crush *you* unsparingly!
 Flee while you can!
 ＊＊
 ！",,,,,

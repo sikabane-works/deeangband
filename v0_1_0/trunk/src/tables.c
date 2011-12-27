@@ -5639,6 +5639,64 @@ starting_type starting_point[STARTING_MAX] =
 		"Duanhai",
 		0, 0, 100, 137, 0, 0
 	},
+
+	{
+#if JP
+		"ズル",
+#endif
+		"Zul",
+		0, 0, 82, 146, 0, 0
+	},
+
+	{
+#if JP
+		"小ウトゥムノ",
+#endif
+		"Virya-Utumno",
+		0, 0, 33, 95, 0, 0
+	},
+
+	{
+#if JP
+		"モリバンド",
+#endif
+		"Morivant",
+		0, 0, 64, 86, 0, 0
+	},
+
+	{
+#if JP
+		"テルモラ",
+#endif
+		"Telmora",
+		0, 0, 68, 62, 0, 0
+	},
+
+	{
+#if JP
+		"テキソラミ",
+#endif
+		"Texorami",
+		0, 0, 37, 169, 0, 0
+	},
+
+	{
+#if JP
+		"ルグブルズ",
+#endif
+		"Lugburz",
+		0, 0, 62, 76, 0, 0
+	},
+
+	{
+#if JP
+		"ルルイエ",
+#endif
+		"R'lyeh",
+		0, 0, 118, 97, 0, 0
+	},
+
+
 };
 
 half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =

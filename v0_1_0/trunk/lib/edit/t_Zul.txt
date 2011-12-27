@@ -413,7 +413,7 @@ D:##############################################################################
 
 # Starting position
 ?:[EQU $LEAVING_QUEST 0]
-P:64:99
+P:155:168
 
 # Starting position when coming from quest 10
 ?:[EQU $LEAVING_QUEST 10]
