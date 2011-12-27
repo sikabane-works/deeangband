@@ -55,7 +55,7 @@
 
 # Town 13
 ?:[EQU $TOWN 13]
-%:t_Doodline.txt
+%:t_Doodrine.txt
 
 # Town 14
 ?:[EQU $TOWN 14]

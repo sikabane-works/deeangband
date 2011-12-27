@@ -275,6 +275,7 @@ static cptr equip_slot_flags[MAX_EQUIP_TYPE] =
 
 
 
+
 /*
  * Character Blow Methods
  */
@@ -4886,6 +4887,7 @@ static errr parse_line_building(char *buf)
 
 				break;
 			}
+
 
 			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 		}
