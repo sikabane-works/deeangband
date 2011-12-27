@@ -1665,12 +1665,6 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case 97:
-		{
-			/* XXX XXX XXX */
-			break;
-		}
-
 		case CF_DISPEL:
 		{
 			if (!direct) return (FALSE);
@@ -1699,13 +1693,13 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かを射った。", m_name);
+			if (blind) msg_format("%^sが何かを射った。", m_name);
 #else
 			if (blind) msg_format("%^s shoots something.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがロケットを発射した。", m_name);
+			else msg_format("%^sがロケットを発射した。", m_name);
 #else
 			else msg_format("%^s fires a rocket.", m_name);
 #endif
@@ -1722,13 +1716,13 @@ else msg_format("%^sがロケットを発射した。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが奇妙な音を発した。", m_name);
+			if (blind) msg_format("%^sが奇妙な音を発した。", m_name);
 #else
 			if (blind) msg_format("%^s makes a strange noise.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが矢を放った。", m_name);
+			else msg_format("%^sが矢を放った。", m_name);
 #else
 			else msg_format("%^s fires an arrow.", m_name);
 #endif
@@ -1739,35 +1733,17 @@ else msg_format("%^sが矢を放った。", m_name);
 			break;
 		}
 
-		case 101:
-		{
-			/* XXX XXX XXX */
-			break;
-		}
-
-		case 102:
-		{
-			/* XXX XXX XXX */
-			break;
-		}
-
-		case 103:
-		{
-			/* XXX XXX XXX */
-			break;
-		}
-
 		case CF_BR_ACID:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが酸のブレスを吐いた。", m_name);
+			else msg_format("%^sが酸のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes acid.", m_name);
 #endif
@@ -1782,13 +1758,13 @@ else msg_format("%^sが酸のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
+			else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes lightning.", m_name);
 #endif
@@ -1803,13 +1779,13 @@ else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが火炎のブレスを吐いた。", m_name);
+			else msg_format("%^sが火炎のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes fire.", m_name);
 #endif
@@ -1824,13 +1800,13 @@ else msg_format("%^sが火炎のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが冷気のブレスを吐いた。", m_name);
+			else msg_format("%^sが冷気のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes frost.", m_name);
 #endif
@@ -1845,13 +1821,13 @@ else msg_format("%^sが冷気のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがガスのブレスを吐いた。", m_name);
+			else msg_format("%^sがガスのブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes gas.", m_name);
 #endif
@@ -1866,13 +1842,13 @@ else msg_format("%^sがガスのブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが地獄のブレスを吐いた。", m_name);
+			else msg_format("%^sが地獄のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes nether.", m_name);
 #endif
@@ -1887,13 +1863,13 @@ else msg_format("%^sが地獄のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが閃光のブレスを吐いた。", m_name);
+			else msg_format("%^sが閃光のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes light.", m_name);
 #endif
@@ -1908,13 +1884,13 @@ else msg_format("%^sが閃光のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
+			else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes darkness.", m_name);
 #endif
@@ -1929,13 +1905,13 @@ else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが混乱のブレスを吐いた。", m_name);
+			else msg_format("%^sが混乱のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes confusion.", m_name);
 #endif
@@ -1956,13 +1932,13 @@ else msg_format("%^sが混乱のブレスを吐いた。", m_name);
 				msg_format("'Booooeeeeee'");
 #endif
 #ifdef JP
-else if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+				else if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
-			else if (blind) msg_format("%^s breathes.", m_name);
+				else if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが轟音のブレスを吐いた。", m_name);
+			else msg_format("%^sが轟音のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes sound.", m_name);
 #endif
@@ -1977,13 +1953,13 @@ else msg_format("%^sが轟音のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがカオスのブレスを吐いた。", m_name);
+			else msg_format("%^sがカオスのブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes chaos.", m_name);
 #endif
@@ -1998,13 +1974,13 @@ else msg_format("%^sがカオスのブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが劣化のブレスを吐いた。", m_name);
+			else msg_format("%^sが劣化のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes disenchantment.", m_name);
 #endif
@@ -2019,13 +1995,13 @@ else msg_format("%^sが劣化のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
+			else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes nexus.", m_name);
 #endif
@@ -2040,13 +2016,13 @@ else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
+			else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes time.", m_name);
 #endif
@@ -2060,13 +2036,13 @@ else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
+			else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes inertia.", m_name);
 #endif
@@ -2080,13 +2056,13 @@ else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが重力のブレスを吐いた。", m_name);
+			else msg_format("%^sが重力のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes gravity.", m_name);
 #endif
@@ -2106,13 +2082,13 @@ else msg_format("%^sが重力のブレスを吐いた。", m_name);
 				msg_format("'Boty-Build cutter!!!'");
 #endif
 #ifdef JP
-else if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			else if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			else if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが破片のブレスを吐いた。", m_name);
+			else msg_format("%^sが破片のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes shards.", m_name);
 #endif
@@ -2127,13 +2103,13 @@ else msg_format("%^sが破片のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
+			else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes plasma.", m_name);
 #endif
@@ -2147,13 +2123,13 @@ else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがフォースのブレスを吐いた。", m_name);
+			else msg_format("%^sがフォースのブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes force.", m_name);
 #endif
@@ -2167,13 +2143,13 @@ else msg_format("%^sがフォースのブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔力のブレスを吐いた。", m_name);
+			else msg_format("%^sが魔力のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes mana.", m_name);
 #endif
@@ -2186,13 +2162,13 @@ else msg_format("%^sが魔力のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが放射能球を放った。", m_name);
+			else msg_format("%^sが放射能球を放った。", m_name);
 #else
 			else msg_format("%^s casts a ball of radiation.", m_name);
 #endif
@@ -2207,13 +2183,13 @@ else msg_format("%^sが放射能球を放った。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
+			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes toxic waste.", m_name);
 #endif
@@ -2228,13 +2204,13 @@ else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが恐ろしげにつぶやいた。", m_name);
+			if (blind) msg_format("%^sが恐ろしげにつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles frighteningly.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
+			else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
 #else
 			else msg_format("%^s invokes a raw Logrus.", m_name);
 #endif
@@ -2249,13 +2225,13 @@ else msg_format("%^sが純ログルスを放った。", m_name);/*nuke me*/
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if (blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
 #else
 			if (blind) msg_format("%^s breathes.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが分解のブレスを吐いた。", m_name);
+			else msg_format("%^sが分解のブレスを吐いた。", m_name);
 #else
 			else msg_format("%^s breathes disintegration.", m_name);
 #endif
@@ -2329,13 +2305,13 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else
 			{
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 				if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
+				else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 #else
 				else msg_format("%^s casts a fire ball.", m_name);
 #endif
@@ -2351,13 +2327,13 @@ else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
+			else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a frost ball.", m_name);
 #endif
@@ -2372,13 +2348,13 @@ else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
+			else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a stinking cloud.", m_name);
 #endif
@@ -2393,13 +2369,13 @@ else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
+			else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a nether ball.", m_name);
 #endif
@@ -2414,19 +2390,19 @@ else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが流れるような身振りをした。", m_name);
+			else msg_format("%^sが流れるような身振りをした。", m_name);
 #else
 			else msg_format("%^s gestures fluidly.", m_name);
 #endif
 
 #ifdef JP
-msg_print("あなたは渦巻きに飲み込まれた。");
+			msg_print("あなたは渦巻きに飲み込まれた。");
 #else
 			msg_print("You are engulfed in a whirlpool.");
 #endif
@@ -2440,13 +2416,13 @@ msg_print("あなたは渦巻きに飲み込まれた。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
+			else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
 #else
 			else msg_format("%^s invokes a mana storm.", m_name);
 #endif
@@ -2460,13 +2436,13 @@ else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
+			else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 #else
 			else msg_format("%^s invokes a darkness storm.", m_name);
 #endif
@@ -2495,7 +2471,7 @@ else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
 			if (!seen)
 			{
 #ifdef JP
-msg_print("何かがあなたの精神に念を放っているようだ。");
+				msg_print("何かがあなたの精神に念を放っているようだ。");
 #else
 				msg_print("You feel something focusing on your mind.");
 #endif
@@ -2504,7 +2480,7 @@ msg_print("何かがあなたの精神に念を放っているようだ。");
 			else
 			{
 #ifdef JP
-msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
+				msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
 #else
 				msg_format("%^s gazes deep into your eyes.", m_name);
 #endif
@@ -2523,7 +2499,7 @@ msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
 			if (!seen)
 			{
 #ifdef JP
-msg_print("何かがあなたの精神に念を放っているようだ。");
+				msg_print("何かがあなたの精神に念を放っているようだ。");
 #else
 				msg_print("You feel something focusing on your mind.");
 #endif
@@ -2532,7 +2508,7 @@ msg_print("何かがあなたの精神に念を放っているようだ。");
 			else
 			{
 #ifdef JP
-msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
+				msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 #else
 				msg_format("%^s looks deep into your eyes.", m_name);
 #endif
@@ -2570,13 +2546,13 @@ msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
+			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
 #else
 			else msg_format("%^s points at you and curses horribly.", m_name);
 #endif
@@ -2591,13 +2567,13 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かを大声で叫んだ。", m_name);
+			if (blind) msg_format("%^sが何かを大声で叫んだ。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles loudly.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
+			else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
 #else
 			else msg_format("%^s points at you, incanting terribly!", m_name);
 #endif
@@ -2612,13 +2588,13 @@ else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", m_name);
+			if (blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", m_name);
 #else
 			if (blind) msg_format("%^s screams the word 'DIE!'", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m_name);
+			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m_name);
 #else
 			else msg_format("%^s points at you, screaming the word DIE!", m_name);
 #endif
@@ -2633,13 +2609,13 @@ else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a acid bolt.", m_name);
 #endif
@@ -2656,13 +2632,13 @@ else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a lightning bolt.", m_name);
 #endif
@@ -2679,13 +2655,13 @@ else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a fire bolt.", m_name);
 #endif
@@ -2702,13 +2678,13 @@ else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a frost bolt.", m_name);
 #endif
@@ -2724,13 +2700,13 @@ else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles powerfully.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
+			else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
 #else
 			else msg_format("%^s invokes a starburst.", m_name);
 #endif
@@ -2746,13 +2722,13 @@ else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a nether bolt.", m_name);
 #endif
@@ -2769,13 +2745,13 @@ else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a water bolt.", m_name);
 #endif
@@ -2791,13 +2767,13 @@ else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a mana bolt.", m_name);
 #endif
@@ -2813,13 +2789,13 @@ else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a plasma bolt.", m_name);
 #endif
@@ -2835,13 +2811,13 @@ else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts an ice bolt.", m_name);
 #endif
@@ -2858,13 +2834,13 @@ else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
+			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a magic missile.", m_name);
 #endif
@@ -2880,13 +2856,13 @@ else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles, and you hear scary noises.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
+			else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
 #else
 			else msg_format("%^s casts a fearful illusion.", m_name);
 #endif
@@ -2894,7 +2870,7 @@ else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
 			if (target_ptr->resist_fear)
 			{
 #ifdef JP
-msg_print("しかし恐怖に侵されなかった。");
+				msg_print("しかし恐怖に侵されなかった。");
 #else
 				msg_print("You refuse to be frightened.");
 #endif
@@ -2903,7 +2879,7 @@ msg_print("しかし恐怖に侵されなかった。");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし恐怖に侵されなかった。");
+				msg_print("しかし恐怖に侵されなかった。");
 #else
 				msg_print("You refuse to be frightened.");
 #endif
@@ -2923,13 +2899,13 @@ msg_print("しかし恐怖に侵されなかった。");
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが呪文を唱えてあなたの目をくらました！", m_name);
+			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", m_name);
 #else
 			else msg_format("%^s casts a spell, burning your eyes!", m_name);
 #endif
@@ -2937,7 +2913,7 @@ else msg_format("%^sが呪文を唱えてあなたの目をくらました！", m_name);
 			if (target_ptr->resist_blind)
 			{
 #ifdef JP
-msg_print("しかし効果がなかった！");
+				msg_print("しかし効果がなかった！");
 #else
 				msg_print("You are unaffected!");
 #endif
@@ -2946,7 +2922,7 @@ msg_print("しかし効果がなかった！");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし効力を跳ね返した！");
+				msg_print("しかし効力を跳ね返した！");
 #else
 				msg_print("You resist the effects!");
 #endif
@@ -2966,13 +2942,13 @@ msg_print("しかし効力を跳ね返した！");
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles, and you hear puzzling noises.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが誘惑的な幻覚を作り出した。", m_name);
+			else msg_format("%^sが誘惑的な幻覚を作り出した。", m_name);
 #else
 			else msg_format("%^s creates a mesmerising illusion.", m_name);
 #endif
@@ -2980,7 +2956,7 @@ else msg_format("%^sが誘惑的な幻覚を作り出した。", m_name);
 			if (target_ptr->resist_conf)
 			{
 #ifdef JP
-msg_print("しかし幻覚にはだまされなかった。");
+				msg_print("しかし幻覚にはだまされなかった。");
 #else
 				msg_print("You disbelieve the feeble spell.");
 #endif
@@ -2989,7 +2965,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし幻覚にはだまされなかった。");
+				msg_print("しかし幻覚にはだまされなかった。");
 #else
 				msg_print("You disbelieve the feeble spell.");
 #endif
@@ -3009,7 +2985,7 @@ msg_print("しかし幻覚にはだまされなかった。");
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-msg_format("%^sがあなたの筋力を吸い取ろうとした！", m_name);
+			msg_format("%^sがあなたの筋力を吸い取ろうとした！", m_name);
 #else
 			msg_format("%^s drains power from your muscles!", m_name);
 #endif
@@ -3017,7 +2993,7 @@ msg_format("%^sがあなたの筋力を吸い取ろうとした！", m_name);
 			if (target_ptr->free_act)
 			{
 #ifdef JP
-msg_print("しかし効果がなかった！");
+				msg_print("しかし効果がなかった！");
 #else
 				msg_print("You are unaffected!");
 #endif
@@ -3026,7 +3002,7 @@ msg_print("しかし効果がなかった！");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし効力を跳ね返した！");
+				msg_print("しかし効力を跳ね返した！");
 #else
 				msg_print("You resist the effects!");
 #endif
@@ -3046,13 +3022,13 @@ msg_print("しかし効力を跳ね返した！");
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたの目をじっと見つめた！", m_name);
+			else msg_format("%^sがあなたの目をじっと見つめた！", m_name);
 #else
 			else msg_format("%^s stares deep into your eyes!", m_name);
 #endif
@@ -3060,7 +3036,7 @@ else msg_format("%^sがあなたの目をじっと見つめた！", m_name);
 			if (target_ptr->free_act)
 			{
 #ifdef JP
-msg_print("しかし効果がなかった！");
+				msg_print("しかし効果がなかった！");
 #else
 				msg_print("You are unaffected!");
 #endif
@@ -3069,7 +3045,7 @@ msg_print("しかし効果がなかった！");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_format("しかし効力を跳ね返した！");
+				msg_format("しかし効力を跳ね返した！");
 #else
 				msg_format("You resist the effects!");
 #endif
@@ -3090,7 +3066,7 @@ msg_format("しかし効力を跳ね返した！");
 			if (blind)
 			{
 #ifdef JP
-msg_format("%^sが何かをつぶやいた。", m_name);
+				msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 				msg_format("%^s mumbles.", m_name);
 #endif
@@ -3099,7 +3075,7 @@ msg_format("%^sが何かをつぶやいた。", m_name);
 			else
 			{
 #ifdef JP
-msg_format("%^sが自分の体に念を送った。", m_name);
+				msg_format("%^sが自分の体に念を送った。", m_name);
 #else
 				msg_format("%^s concentrates on %s body.", m_name, m_poss);
 #endif
@@ -3123,7 +3099,7 @@ msg_format("%^sが自分の体に念を送った。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-msg_format("%^sが<破滅の手>を放った！", m_name);
+			msg_format("%^sが<破滅の手>を放った！", m_name);
 #else
 			msg_format("%^s invokes the Hand of Doom!", m_name);
 #endif
@@ -3140,7 +3116,7 @@ msg_format("%^sが<破滅の手>を放った！", m_name);
 			if (blind)
 			{
 #ifdef JP
-msg_format("%^sが何かをつぶやいた。", m_name);
+				msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 				msg_format("%^s mumbles.", m_name);
 #endif
@@ -3149,7 +3125,7 @@ msg_format("%^sが何かをつぶやいた。", m_name);
 			else
 			{
 #ifdef JP
-msg_format("%^sが自分の傷に集中した。", m_name);
+				msg_format("%^sが自分の傷に集中した。", m_name);
 #else
 				msg_format("%^s concentrates on %s wounds.", m_name, m_poss);
 #endif
@@ -3169,7 +3145,7 @@ msg_format("%^sが自分の傷に集中した。", m_name);
 				if (seen)
 				{
 #ifdef JP
-msg_format("%^sは完全に治った！", m_name);
+					msg_format("%^sは完全に治った！", m_name);
 #else
 					msg_format("%^s looks completely healed!", m_name);
 #endif
@@ -3178,7 +3154,7 @@ msg_format("%^sは完全に治った！", m_name);
 				else
 				{
 #ifdef JP
-msg_format("%^sは完全に治ったようだ！", m_name);
+					msg_format("%^sは完全に治ったようだ！", m_name);
 #else
 					msg_format("%^s sounds completely healed!", m_name);
 #endif
@@ -3193,7 +3169,7 @@ msg_format("%^sは完全に治ったようだ！", m_name);
 				if (seen)
 				{
 #ifdef JP
-msg_format("%^sは体力を回復したようだ。", m_name);
+					msg_format("%^sは体力を回復したようだ。", m_name);
 #else
 					msg_format("%^s looks healthier.", m_name);
 #endif
@@ -3202,7 +3178,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 				else
 				{
 #ifdef JP
-msg_format("%^sは体力を回復したようだ。", m_name);
+					msg_format("%^sは体力を回復したようだ。", m_name);
 #else
 					msg_format("%^s sounds healthier.", m_name);
 #endif
@@ -3238,7 +3214,7 @@ msg_format("%^sは体力を回復したようだ。", m_name);
 			if (!seen)
 			{
 #ifdef JP
-msg_format("%^sが何かを力強くつぶやいた。", m_name);
+				msg_format("%^sが何かを力強くつぶやいた。", m_name);
 #else
 				msg_format("%^s mumbles powerfully.", m_name);
 #endif
@@ -3247,7 +3223,7 @@ msg_format("%^sが何かを力強くつぶやいた。", m_name);
 			else
 			{
 #ifdef JP
-msg_format("%sは無傷の球の呪文を唱えた。", m_name);
+				msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 #else
 				msg_format("%^s casts a Globe of Invulnerability.", m_name);
 #endif
@@ -3494,7 +3470,7 @@ msg_format("%sは無傷の球の呪文を唱えた。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-msg_format("%^sがあなたを引き戻した。", m_name);
+			msg_format("%^sがあなたを引き戻した。", m_name);
 #else
 			msg_format("%^s commands you to return.", m_name);
 #endif
@@ -3530,13 +3506,13 @@ msg_format("%^sがあなたを引き戻した。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles strangely.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがあなたの足を指さした。", m_name);
+			else msg_format("%^sがあなたの足を指さした。", m_name);
 #else
 			else msg_format("%^s gestures at your feet.", m_name);
 #endif
@@ -3544,7 +3520,7 @@ else msg_format("%^sがあなたの足を指さした。", m_name);
 			if (target_ptr->resist_nexus)
 			{
 #ifdef JP
-msg_print("しかし効果がなかった！");
+				msg_print("しかし効果がなかった！");
 #else
 				msg_print("You are unaffected!");
 #endif
@@ -3553,7 +3529,7 @@ msg_print("しかし効果がなかった！");
 			else if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし効力を跳ね返した！");
+				msg_print("しかし効力を跳ね返した！");
 #else
 				msg_print("You resist the effects!");
 #endif
@@ -3573,13 +3549,13 @@ msg_print("しかし効力を跳ね返した！");
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが光の剣を放った。", m_name);
+			else msg_format("%^sが光の剣を放った。", m_name);
 #else
 			else msg_format("%^s throw a Psycho-Spear.", m_name);
 #endif
@@ -3620,13 +3596,13 @@ else msg_format("%^sが光の剣を放った。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles, and then cackles evilly.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
+			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 #else
 			else msg_format("%^s casts a spell and cackles evilly.", m_name);
 #endif
@@ -3641,7 +3617,7 @@ else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
 			if (!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
+			msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
 #else
 			msg_format("%^s tries to blank your mind.", m_name);
 #endif
@@ -3650,7 +3626,7 @@ msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
 			if (randint0(100 + rlev/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし効力を跳ね返した！");
+				msg_print("しかし効力を跳ね返した！");
 #else
 				msg_print("You resist the effects!");
 #endif
@@ -3659,7 +3635,7 @@ msg_print("しかし効力を跳ね返した！");
 			else if (lose_all_info(target_ptr))
 			{
 #ifdef JP
-msg_print("記憶が薄れてしまった。");
+				msg_print("記憶が薄れてしまった。");
 #else
 				msg_print("Your memories fade away.");
 #endif
@@ -3673,13 +3649,13 @@ msg_print("記憶が薄れてしまった。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
+			else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 #else
 			else msg_format("%^s casts a spell to revive corpses.", m_name);
 #endif
@@ -3813,19 +3789,19 @@ else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがサイバーデーモンを召喚した！", m_name);
+			else msg_format("%^sがサイバーデーモンを召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons Cyberdemons!", m_name);
 #endif
 
 #ifdef JP
-if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
+			if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
 #else
 			if (blind && count) msg_print("You hear heavy steps nearby.");
 #endif
@@ -3838,13 +3814,13 @@ if (blind && count) msg_print("重厚な足音が近くで聞こえる。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で仲間を召喚した！", m_name);
+			else msg_format("%^sが魔法で仲間を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons help!", m_name);
 #endif
@@ -3854,7 +3830,7 @@ else msg_format("%^sが魔法で仲間を召喚した！", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 			}
 #ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
+			if (blind && count) msg_print("何かが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear something appear nearby.");
 #endif
@@ -3866,13 +3842,13 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でモンスターを召喚した！", m_name);
+			else msg_format("%^sが魔法でモンスターを召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons monsters!", m_name);
 #endif
@@ -3882,7 +3858,7 @@ else msg_format("%^sが魔法でモンスターを召喚した！", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
 			}
 #ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
+			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear many things appear nearby.");
 #endif
@@ -3894,13 +3870,13 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でアリを召喚した。", m_name);
+			else msg_format("%^sが魔法でアリを召喚した。", m_name);
 #else
 			else msg_format("%^s magically summons ants.", m_name);
 #endif
@@ -3910,7 +3886,7 @@ else msg_format("%^sが魔法でアリを召喚した。", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANT, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
+			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear many things appear nearby.");
 #endif
@@ -3922,13 +3898,13 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でクモを召喚した。", m_name);
+			else msg_format("%^sが魔法でクモを召喚した。", m_name);
 #else
 			else msg_format("%^s magically summons spiders.", m_name);
 #endif
@@ -3938,7 +3914,7 @@ else msg_format("%^sが魔法でクモを召喚した。", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_SPIDER, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
+			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear many things appear nearby.");
 #endif
@@ -3950,13 +3926,13 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でハウンドを召喚した。", m_name);
+			else msg_format("%^sが魔法でハウンドを召喚した。", m_name);
 #else
 			else msg_format("%^s magically summons hounds.", m_name);
 #endif
@@ -3966,7 +3942,7 @@ else msg_format("%^sが魔法でハウンドを召喚した。", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HOUND, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
+			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear many things appear nearby.");
 #endif
@@ -3978,13 +3954,13 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でヒドラを召喚した。", m_name);
+			else msg_format("%^sが魔法でヒドラを召喚した。", m_name);
 #else
 			else msg_format("%^s magically summons hydras.", m_name);
 #endif
@@ -3994,7 +3970,7 @@ else msg_format("%^sが魔法でヒドラを召喚した。", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HYDRA, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("多くのものが間近に現れた音がする。");
+			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear many things appear nearby.");
 #endif
@@ -4008,13 +3984,13 @@ if (blind && count) msg_print("多くのものが間近に現れた音がする。");
 
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で天使を召喚した！", m_name);
+			else msg_format("%^sが魔法で天使を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons an angel!", m_name);
 #endif
@@ -4032,7 +4008,7 @@ else msg_format("%^sが魔法で天使を召喚した！", m_name);
 			if (count < 2)
 			{
 #ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
+				if (blind && count) msg_print("何かが間近に現れた音がする。");
 #else
 				if (blind && count) msg_print("You hear something appear nearby.");
 #endif
@@ -4040,7 +4016,7 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 			else
 			{
 #ifdef JP
-if (blind) msg_print("多くのものが間近に現れた音がする。");
+				if (blind) msg_print("多くのものが間近に現れた音がする。");
 #else
 				if (blind) msg_print("You hear many things appear nearby.");
 #endif
@@ -4053,13 +4029,13 @@ if (blind) msg_print("多くのものが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", m_name);
+			else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons a demon from the Courts of Chaos!", m_name);
 #endif
@@ -4069,7 +4045,7 @@ else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DEMON, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
+			if (blind && count) msg_print("何かが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear something appear nearby.");
 #endif
@@ -4081,13 +4057,13 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", m_name);
+			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons an undead adversary!", m_name);
 #endif
@@ -4097,7 +4073,7 @@ else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
+			if (blind && count) msg_print("何かが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear something appear nearby.");
 #endif
@@ -4109,13 +4085,13 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法でドラゴンを召喚した！", m_name);
+			else msg_format("%^sが魔法でドラゴンを召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons a dragon!", m_name);
 #endif
@@ -4125,7 +4101,7 @@ else msg_format("%^sが魔法でドラゴンを召喚した！", m_name);
 				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DRAGON, PM_ALLOW_GROUP);
 			}
 #ifdef JP
-if (blind && count) msg_print("何かが間近に現れた音がする。");
+			if (blind && count) msg_print("何かが間近に現れた音がする。");
 #else
 			if (blind && count) msg_print("You hear something appear nearby.");
 #endif
@@ -4143,13 +4119,13 @@ if (blind && count) msg_print("何かが間近に現れた音がする。");
 				int cx = x;
 
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 				if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
+				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
 #else
 				else msg_format("%^s magically summons rangers of Nazgul!", m_name);
 #endif
@@ -4176,13 +4152,13 @@ else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
 						count++;
 						if (count == 1)
 #ifdef JP
-msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
+							msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
 #else
 							msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
 #endif
 						else
 #ifdef JP
-msg_format("「同じく%d号、ナズグル・ブラック！」", count);
+							msg_format("「同じく%d号、ナズグル・ブラック！」", count);
 #else
 							msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
 #endif
@@ -4190,22 +4166,22 @@ msg_format("「同じく%d号、ナズグル・ブラック！」", count);
 					}
 				}
 #ifdef JP
-msg_format("「%d人そろって、リングレンジャー！」", count);
+				msg_format("「%d人そろって、リングレンジャー！」", count);
 #else
-msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
+				msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
 #endif
 				msg_print(NULL);
 			}
 			else
 			{
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 				if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
+				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
 #else
 				else msg_format("%^s magically summons greater undead!", m_name);
 #endif
@@ -4218,7 +4194,7 @@ else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
 			if (blind && count)
 			{
 #ifdef JP
-msg_print("間近で何か多くのものが這い回る音が聞こえる。");
+				msg_print("間近で何か多くのものが這い回る音が聞こえる。");
 #else
 				msg_print("You hear many creepy things appear nearby.");
 #endif
@@ -4231,13 +4207,13 @@ msg_print("間近で何か多くのものが這い回る音が聞こえる。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
+			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons ancient dragons!", m_name);
 #endif
@@ -4249,7 +4225,7 @@ else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
 			if (blind && count)
 			{
 #ifdef JP
-msg_print("多くの力強いものが間近に現れた音が聞こえる。");
+				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 #else
 				msg_print("You hear many powerful things appear nearby.");
 #endif
@@ -4262,13 +4238,13 @@ msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがアンバーの王族を召喚した！", m_name);
+			else msg_format("%^sがアンバーの王族を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons Lords of Amber!", m_name);
 #endif
@@ -4282,7 +4258,7 @@ else msg_format("%^sがアンバーの王族を召喚した！", m_name);
 			if (blind && count)
 			{
 #ifdef JP
-msg_print("不死の者が近くに現れるのが聞こえた。");
+				msg_print("不死の者が近くに現れるのが聞こえた。");
 #else
 				msg_print("You hear immortal beings appear nearby.");
 #endif
@@ -4298,13 +4274,13 @@ msg_print("不死の者が近くに現れるのが聞こえた。");
 
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if (blind) msg_format("%^sが何かをつぶやいた。", m_name);
 #else
 			if (blind) msg_format("%^s mumbles.", m_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
+			else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
 #else
 			else msg_format("%^s magically summons special opponents!", m_name);
 #endif
