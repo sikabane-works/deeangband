@@ -1582,6 +1582,7 @@ static object_type *choose_cursed_obj_name(creature_type *cr_ptr, u32b flag)
 static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 {
 	feature_type *f_ptr = &f_info[cave[cr_ptr->fy][cr_ptr->fx].feat];
+	char creature_name[80];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
@@ -1591,6 +1592,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 
 
 	/*** Damage over Time ***/
+	creature_desc(creature_name, cr_ptr, 0);
 
 	/* Take damage from poison */
 	if (cr_ptr->poisoned && !IS_INVULN(cr_ptr))
@@ -1666,7 +1668,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 			{
 				/* Take damage */
 #ifdef JP
-				msg_print("日光があなたのアンデッドの肉体を焼き焦がした！");
+				msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
 				take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
@@ -1688,7 +1690,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 			object_desc(cr_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-msg_format("%sがあなたのアンデッドの肉体を焼き焦がした！", o_name);
+msg_format("%sがあなたの肉体を焼き焦がした！", o_name);
 #else
 			msg_format("The %s scorches your undead flesh!", o_name);
 #endif
