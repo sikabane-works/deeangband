@@ -5824,7 +5824,8 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 	bool fuzzy = FALSE;
 
 	/* Monster name (for attacks) */
-	char m_name[80];
+	char atk_name[80];
+	char tar_name[80];
 
 	/* Monster name (for damage) */
 	char killer[80];
@@ -5833,6 +5834,9 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 	cptr act = NULL;
 
 	int get_damage = 0;
+
+	creature_desc(atk_name, atk_ptr, 0);
+	creature_desc(tar_name, tar_ptr, 0);
 
 
 	/* Player is not here */
@@ -5910,7 +5914,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 		rlev = (((&species_info[atk_ptr->species_idx])->level >= 1) ? (&species_info[atk_ptr->species_idx])->level : 1);
 
 		/* Get the monster name */
-		creature_desc(m_name, atk_ptr, 0);
+		creature_desc(atk_name, atk_ptr, 0);
 
 		/* Get the monster's real name (gotten before polymorph!) */
 		strcpy(killer, who_name);
@@ -5953,7 +5957,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 #endif
 
 		/* Paranoia */
-		strcpy(m_name, killer);
+		strcpy(atk_name, killer);
 	}
 
 	/* Analyze the damage */
@@ -6563,11 +6567,14 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 			{
 				dam *= 4;
 				dam /= (randint1(4) + 7);
+				if(is_player(tar_ptr))
+				{
 #ifdef JP
-				msg_print("時間が通り過ぎていく気がする。");
+					msg_format("%sは時間が通り過ぎていく様子を感じた。", tar_name);
 #else
-				msg_print("You feel as if time is passing you by.");
+					msg_format("You feel as if time is passing you by.");
 #endif
+				}
 			}
 			else if (!(tar_ptr->multishadow && (turn & 1)))
 			{
@@ -6577,8 +6584,9 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 					{
 						if (has_cf_creature(tar_ptr, CF_ANDROID)) break;
 #ifdef JP
-						msg_print("人生が逆戻りした気がする。");
+						msg_format("%sの時の流れが逆戻りしたようだ。", tar_name);
 #else
+						//TODO
 						msg_print("You feel life has clocked back.");
 #endif
 
@@ -6591,12 +6599,12 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						switch (randint1(6))
 						{
 #ifdef JP
-							case 1: k = STAT_STR; act = "強く"; break;
-							case 2: k = STAT_INT; act = "聡明で"; break;
-							case 3: k = STAT_WIS; act = "賢明で"; break;
-							case 4: k = STAT_DEX; act = "器用で"; break;
-							case 5: k = STAT_CON; act = "健康で"; break;
-							case 6: k = STAT_CHR; act = "美しく"; break;
+							case 1: k = STAT_STR; act = "力強さ"; break;
+							case 2: k = STAT_INT; act = "聡明さ"; break;
+							case 3: k = STAT_WIS; act = "賢明さ"; break;
+							case 4: k = STAT_DEX; act = "器用さ"; break;
+							case 5: k = STAT_CON; act = "頑丈さ"; break;
+							case 6: k = STAT_CHR; act = "美しさ"; break;
 #else
 							case 1: k = STAT_STR; act = "strong"; break;
 							case 2: k = STAT_INT; act = "bright"; break;
@@ -6608,9 +6616,10 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						}
 
 #ifdef JP
-						msg_format("あなたは以前ほど%sなくなってしまった...。", act);
+						msg_format("%sの%sが大きく損なわれた。", tar_name, act);
 #else
-						msg_format("You're not as %s as you used to be...", act);
+						//TODO
+						msg_format("You're not as %s as you used to be.", act);
 #endif
 
 						tar_ptr->stat_cur[k] = (tar_ptr->stat_cur[k] * 3) / 4;
@@ -6622,9 +6631,10 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 					case 10:
 					{
 #ifdef JP
-						msg_print("あなたは以前ほど力強くなくなってしまった...。");
+						msg_format("%sの能力が大きく衰えた。", tar_name);
 #else
-						msg_print("You're not as powerful as you used to be...");
+						//TODO
+						msg_format("You're not as powerful as you used to be...");
 #endif
 
 						for (k = 0; k < 6; k++)
@@ -6882,10 +6892,10 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 			{
 				/* Basic message */
 #ifdef JP
-				if (atk_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", m_name);
+				if (atk_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", atk_name);
 				else msg_print("精神エネルギーを吸い取られてしまった！");
 #else
-				if (atk_ptr != NULL) msg_format("%^s draws psychic energy from you!", m_name);
+				if (atk_ptr != NULL) msg_format("%^s draws psychic energy from you!", atk_name);
 				else msg_print("Your psychic energy is drawn!");
 #endif
 
@@ -6929,9 +6939,9 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 						if (atk_ptr->ml)
 						{
 #ifdef JP
-							msg_format("%^sは気分が良さそうだ。", m_name);
+							msg_format("%^sは気分が良さそうだ。", atk_name);
 #else
-							msg_format("%^s appears healthier.", m_name);
+							msg_format("%^s appears healthier.", atk_name);
 #endif
 						}
 					}
@@ -7155,7 +7165,7 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 					curse_equipment(tar_ptr, 40, 20);
 				}
 
-				get_damage = take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, dam, m_name, NULL, monspell);
+				get_damage = take_hit(atk_ptr, tar_ptr, DAMAGE_ATTACK, dam, atk_name, NULL, monspell);
 
 				if (tar_ptr->chp < 1) tar_ptr->chp = 1; /* Paranoia */
 			}
@@ -7179,14 +7189,14 @@ static bool project_p(creature_type *atk_ptr, creature_type *tar_ptr, cptr who_n
 		&& (get_damage > 0) && !tar_ptr->is_dead && (atk_ptr != NULL))
 	{
 #ifdef JP
-		msg_format("攻撃が%s自身を傷つけた！", m_name);
+		msg_format("攻撃が%s自身を傷つけた！", atk_name);
 #else
-		char m_name_self[80];
+		char atk_name_self[80];
 
 		/* hisself */
-		creature_desc(m_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(atk_name_self, atk_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
 
-		msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
+		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, atk_ptr->fy, atk_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if (tar_ptr->tim_eyeeye) set_tim_eyeeye(tar_ptr, tar_ptr->tim_eyeeye-5, TRUE);
