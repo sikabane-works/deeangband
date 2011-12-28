@@ -2072,6 +2072,7 @@ typedef struct starting_type {
 #ifdef JP
 	char E_name[80];
 #endif
+	byte enable;
 	s16b dungeon;
 	s16b floor;
 	s16b wilderness_y;

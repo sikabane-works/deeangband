@@ -4328,12 +4328,15 @@ static bool get_starting_point(species_type *species_ptr, bool npc)
 
 	for (i = 0, n = 0; i < STARTING_MAX; i++)
 	{
-		strcpy(se[n].cap, starting_point[i].name);
-		se[n].code = i;
-		se[n].key = '\0';
-		se[n].d_color = TERM_L_DARK;
-		se[n].l_color = TERM_WHITE;
-		n++;
+		if(starting_point[i].enable)
+		{
+			strcpy(se[n].cap, starting_point[i].name);
+			se[n].code = i;
+			se[n].key = '\0';
+			se[n].d_color = TERM_L_DARK;
+			se[n].l_color = TERM_WHITE;
+			n++;
+		}
 	}
 
 #if JP

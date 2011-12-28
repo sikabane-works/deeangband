@@ -5588,6 +5588,7 @@ starting_type starting_point[STARTING_MAX] =
 		"イェンダー",
 #endif
 		"Yender",
+		TRUE,
 		0, 0,  52, 97, 0, 0
 	},
 	{
@@ -5595,6 +5596,7 @@ starting_type starting_point[STARTING_MAX] =
 		"イェーキン",
 #endif
 		"Yiyeeken",
+		TRUE,
 		0, 0,  71, 134, 0, 0
 	},
 	{
@@ -5602,6 +5604,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ドゥードリン",
 #endif
 		"Doodrine",
+		TRUE,
 		0, 0,  25,  27, 0, 0
 	},
 	{
@@ -5609,6 +5612,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ウルウリスト",
 #endif
 		"Ulurlist",
+		TRUE,
 		0, 0, 123,  53, 0, 0
 	},
 	{
@@ -5616,6 +5620,7 @@ starting_type starting_point[STARTING_MAX] =
 		"アングウィル",
 #endif
 		"Angwil",
+		FALSE,
 		0, 0,  93,  67, 0, 0
 	},
 	{
@@ -5623,6 +5628,7 @@ starting_type starting_point[STARTING_MAX] =
 		"シラ",
 #endif
 		"Sila",
+		TRUE,
 		0, 0, 118,  68, 0, 0
 	},
 	{
@@ -5630,6 +5636,7 @@ starting_type starting_point[STARTING_MAX] =
 		"キセダラバジ",
 #endif
 		"Cixedarbazi",
+		TRUE,
 		0, 0, 135, 134, 0, 0
 	},
 	{
@@ -5637,6 +5644,7 @@ starting_type starting_point[STARTING_MAX] =
 		"端海",
 #endif
 		"Duanhai",
+		TRUE,
 		0, 0, 100, 137, 0, 0
 	},
 
@@ -5645,6 +5653,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ズル",
 #endif
 		"Zul",
+		FALSE,
 		0, 0, 82, 146, 0, 0
 	},
 
@@ -5653,6 +5662,7 @@ starting_type starting_point[STARTING_MAX] =
 		"小ウトゥムノ",
 #endif
 		"Virya-Utumno",
+		FALSE,
 		0, 0, 33, 95, 0, 0
 	},
 
@@ -5661,6 +5671,7 @@ starting_type starting_point[STARTING_MAX] =
 		"モリバンド",
 #endif
 		"Morivant",
+		FALSE,
 		0, 0, 64, 86, 0, 0
 	},
 
@@ -5669,6 +5680,7 @@ starting_type starting_point[STARTING_MAX] =
 		"テルモラ",
 #endif
 		"Telmora",
+		FALSE,
 		0, 0, 68, 62, 0, 0
 	},
 
@@ -5677,6 +5689,7 @@ starting_type starting_point[STARTING_MAX] =
 		"テキソラミ",
 #endif
 		"Texorami",
+		FALSE,
 		0, 0, 37, 169, 0, 0
 	},
 
@@ -5685,6 +5698,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ルグブルズ",
 #endif
 		"Lugburz",
+		FALSE,
 		0, 0, 62, 76, 0, 0
 	},
 
@@ -5693,6 +5707,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ルルイエ",
 #endif
 		"R'lyeh",
+		FALSE,
 		0, 0, 118, 97, 0, 0
 	},
 
