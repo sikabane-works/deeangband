@@ -8359,7 +8359,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					c = PICT_C(p);
 
 					/* Visual effects -- Display */
-					print_rel(caster_ptr, c, a, y, x);
+					print_rel(player_ptr, c, a, y, x);
 				}
 			}
 
@@ -8389,7 +8389,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				/* Hack -- Erase if needed */
 				if (panel_contains(y, x) && player_has_los_bold(y, x))
 				{
-					lite_spot(caster_ptr, y, x);
+					//TODO!
+					lite_spot(player_ptr, y, x);
 				}
 			}
 
@@ -8403,7 +8404,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Update stuff if needed */
-	if (caster_ptr->update) update_stuff(caster_ptr, TRUE);
+	if (player_ptr->update) update_stuff(player_ptr, TRUE);
 
 
 	if (flg & PROJECT_KILL)
@@ -8446,7 +8447,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	}
 
 	/* Update stuff if needed */
-	if (caster_ptr->update) update_stuff(caster_ptr, TRUE);
+	if (player_ptr->update) update_stuff(player_ptr, TRUE);
 
 	/* Check objects */
 	if (flg & (PROJECT_ITEM))

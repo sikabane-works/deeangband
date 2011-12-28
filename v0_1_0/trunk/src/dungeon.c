@@ -25,7 +25,7 @@ static void game_mode_detail(int code)
 		//TODO English
 	case 0:
 		prt("*band ローグライク従来のプレイモードです。          ", 10, 25);
-		prt("'＠'のルーンを背負う〈烙印〉の者として、            ", 11, 25);
+		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 11, 25);
 		prt("神々の座へと登りつめることが *勝利* 条件となります。", 12, 25);
 		break;
 	case 1:
@@ -49,7 +49,7 @@ static int select_mode(void)
 
 	/* Init Unique Count */
 #if JP
-	strcpy(se[0].cap, "〈烙印〉の者");
+	strcpy(se[0].cap, "〈烙印者〉");
 #else
 	strcpy(se[0].cap, "Stigmatic One");
 #endif
@@ -6923,7 +6923,7 @@ quit("セーブファイルが壊れています");
 				species = MON_STIGMATIC_ONE;
 				unique_play = FALSE;
 #ifdef JP
-				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印〉の者モードを選択した");
+				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "〈烙印者〉モードを選択した");
 #else
 				do_cmd_write_nikki(NIKKI_BUNSHOU, 0, "select Stigmatic One mode.");
 #endif

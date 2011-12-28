@@ -770,7 +770,7 @@ static void prt_exp(creature_type *cr_ptr)
 	}
 	else
 	{
-		put_str("Exp", ROW_EXP, 0);
+		put_str("Exp", ROW_EXP, COL_EXP);
 		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 3);
 	}
 }
