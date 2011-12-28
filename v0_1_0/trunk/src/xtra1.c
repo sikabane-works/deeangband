@@ -6136,7 +6136,7 @@ void handle_stuff(creature_type *cr_ptr)
 	if (cr_ptr->update) update_stuff(cr_ptr, is_player(cr_ptr));
 
 	/* Redraw stuff */
-	if (play_redraw) redraw_stuff(cr_ptr);
+	if (play_redraw) redraw_stuff(player_ptr);
 
 	/* Window stuff */
 	if (play_window) window_stuff();
