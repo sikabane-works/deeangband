@@ -1238,7 +1238,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *who_ptr, int r, i
 
 	}
 
-	lite_spot(aimer_ptr, y, x);
+	lite_spot(player_ptr, y, x);
 	/* Return "Anything seen?" */
 	return (obvious);
 }
@@ -8199,7 +8199,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				move_cursor_relative(y, x);
 				/*if (fresh_before)*/ Term_fresh();
 				Term_xtra(TERM_XTRA_DELAY, msec);
-				lite_spot(caster_ptr, y, x);
+				lite_spot(player_ptr, y, x);
 				/*if (fresh_before)*/ Term_fresh();
 
 				/* Display "beam" grids */
