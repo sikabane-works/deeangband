@@ -3063,7 +3063,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	cave_type       *c_ptr = &cave[y][x];
 	creature_type   *tar_ptr;
-	species_type    *r_ptr;
+	species_type    *atk_species_ptr;
+	species_type    *tar_species_ptr;
 	char			atk_name[80];
 	char            target_name[80];
 	char			weapon_name[80];
@@ -3085,7 +3086,8 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		tar_ptr = &creature_list[c_ptr->m_idx];
 	}
 
-	r_ptr = &species_info[tar_ptr->species_idx];
+	atk_species_ptr = &species_info[atk_ptr->species_idx];
+	tar_species_ptr = &species_info[tar_ptr->species_idx];
 
 
 	/* Disturb the player */
@@ -3212,7 +3214,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 
 	if (atk_ptr->migite && atk_ptr->hidarite)
 	{
-		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < s_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < r_ptr->level))
+		if ((atk_ptr->skill_exp[GINOU_NITOURYU] < s_info[atk_ptr->cls_idx].s_max[GINOU_NITOURYU]) && ((atk_ptr->skill_exp[GINOU_NITOURYU] - 1000) / 200 < tar_species_ptr->level))
 		{
 			if (atk_ptr->skill_exp[GINOU_NITOURYU] < WEAPON_EXP_BEGINNER)
 				atk_ptr->skill_exp[GINOU_NITOURYU] += 80;
@@ -3235,7 +3237,7 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if (cur < max)
 		{
 			int ridinglevel = species_info[creature_list[atk_ptr->riding].species_idx].level;
-			int targetlevel = r_ptr->level;
+			int targetlevel = tar_species_ptr->level;
 			int inc = 0;
 
 			if ((cur / 200 - 5) < targetlevel)
@@ -3263,9 +3265,13 @@ bool weapon_attack(creature_type *atk_ptr, int y, int x, int mode)
 		if (atk_ptr->migite) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
 		if (atk_ptr->hidarite && !mdeath) weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 1, mode);
 	}
-	else
+	else if(atk_species_ptr->blow[0].method)
 	{
 		special_melee(atk_ptr, tar_ptr);
+	}
+	else
+	{
+		weapon_attack_aux(atk_ptr, tar_ptr, y, x, &fear, &mdeath, 0, mode);
 	}
 
 

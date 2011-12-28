@@ -103,7 +103,7 @@ BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",ケンタウロスは人間の上半身と主に馬な
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",エントは非常に強く、賢い〈善〉の種族ですが、その巨大さゆえに罠の解除やこっそりと歩くことは苦手です。成長するにつれて腕力や耐久力が上がりますが、器用さは下がっていきます。彼らには大きな欠点があり、炎によって通常よりも大きなダメージを受けてしまいます。彼らは食物からほとんど栄養を摂取できませんが、代わりに薬等から水分を摂取する事で活動できます。,TODO
-26 ,0 ,オーク,Orc,0x6,1 ,-1 ,2 ,1 ,0 ,0 ,2 ,-2 ,1 ,0 ,0 ,0 ,1 ,-1 ,3 ,4 ,2 ,2 ,2 ,-1 ,0 ,7 ,19 ,12 ,3 ,-1 ,0 ,-2 ,-2 ,-2 ,0 ,0 ,-1 ,4 ,1 ,1 ,180 ,10 ,75 ,1 ,172 ,10 ,65 ,2 ,0 ,110 ,0 ,110 ,o,12 ,20 ,HUMANOID|RES_LITE:1:20|FOOD_EATER,HUMANOID|FOOD_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
+26 ,0 ,オーク,Orc,0x6,1 ,-1 ,2 ,1 ,0 ,0 ,2 ,-2 ,1 ,0 ,0 ,0 ,1 ,-1 ,3 ,4 ,2 ,2 ,2 ,-1 ,0 ,7 ,19 ,12 ,3 ,-1 ,0 ,-2 ,-2 ,-2 ,0 ,0 ,-1 ,4 ,1 ,1 ,180 ,10 ,75 ,1 ,172 ,10 ,65 ,2 ,0 ,110 ,0 ,110 ,o,12 ,20 ,HUMANOID|HURT_LITE:1:20|FOOD_EATER,HUMANOID|FOOD_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",オークは極めて好戦的な性格で、常に他種族を脅かす〈悪〉の傾向が強い種族です。お世辞にも知的とは言い難く、他種族に嫌悪されがちな姿をしていますが、戦士として生きるために必要であろう多くの資質を備えています。彼らは光に弱く、日光はまだしも不快なだけに留まるものの、強力な閃光は命を脅かす存在として常に警戒しなければなりません。一方彼らはその誕生の由来から暗黒に対する耐性を生まれもっています。,TODO
@@ -111,7 +111,7 @@ BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",オークは極めて好戦的な性格で、常に他
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",ウルクはオークの上位種の総称であり、その創造主や誕生の神話、評判については複数の通説がD'angbandの世界に存在します。ここで選択できるウルクは自らをメルコールの正嫡と称し、主君をアンナタール（サウロン）と定めるモルドールの神秘的な民です。彼等は〈悪〉と〈秩序〉に属する粗野でいかめしい野心家ですが、極めて逞しく、異種族の支配者となるには遜色ない知性と威厳を備えています。彼等の寿命は非常に長いか、全くの不死であると言われ、その分さらなる成長を果たすには多くの経験を必要とします。ウルクはメルコールの子として暗黒の力に対する耐性を生まれ持ち、オークのように光に脅かされることはありません。またどのような敵にも怯むこと無く戦うことができ、生命力吸収に対する耐性、急回復と遅消化を併せ持っています。,TODO
-28 ,1 ,トロル,Troll,0xE,10 ,-1 ,4 ,-2 ,0 ,-2 ,3 ,-2 ,2 ,-1 ,0 ,0 ,2 ,-1 ,2 ,2 ,3 ,3 ,3 ,-2 ,2 ,2 ,22 ,1 ,3 ,-2 ,-2 ,-1 ,-1 ,-1 ,-1 ,-3 ,-3 ,6 ,-3 ,1 ,345 ,21 ,569 ,4 ,340 ,21 ,548 ,4 ,0 ,125 ,0 ,125 ,T,12 ,20 ,HUMANOID|RES_LITE:1:15|FOOD_EATER,HUMANOID|FOOD_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
+28 ,1 ,トロル,Troll,0xE,10 ,-1 ,4 ,-2 ,0 ,-2 ,3 ,-2 ,2 ,-1 ,0 ,0 ,2 ,-1 ,2 ,2 ,3 ,3 ,3 ,-2 ,2 ,2 ,22 ,1 ,3 ,-2 ,-2 ,-1 ,-1 ,-1 ,-1 ,-3 ,-3 ,6 ,-3 ,1 ,345 ,21 ,569 ,4 ,340 ,21 ,548 ,4 ,0 ,125 ,0 ,125 ,T,12 ,20 ,HUMANOID|HURT_LITE:1:15|FOOD_EATER,HUMANOID|FOOD_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",トロルは極めて大きな体格と打たれ強さを備えた屈強な種族で、〈混沌〉にして〈悪〉の性情から常に他種族を脅かし敵対しています。彼らの知性は著しく退化しており、知覚や隠密行動にも難があります。さらにオークと同様、強い光は彼らの命を脅かす危険なものです。トロルは腕力が下がることがなく、狂気じみた闘志に自ら身を委ねて戦う能力を備えています。さらにレベルが上がると、素早く傷を癒す再生能力を手にいれ、わずかな食物でも生き抜ける遅消化能力をも体得するでしょう。,TODO
@@ -211,7 +211,7 @@ BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",ミ＝ゴウは甲殻類のような姿に菌類的な
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",イスタリは、至福の地の神々がアルダの『自由の民』を助けるために派遣した元マイア達です。彼らは本来持っている強大な霊的な力がしばしば善なる者すら傷つけることを危惧したため、人間に近しい肉の体をまとって労苦までも彼らと共にすることを選びました。イスタリの象徴である魔法使いの杖は、彼らの力の制約そのものでもあり、許された権限でもあります。従ってプレイヤーキャラクタとしてこの種族を選んだ場合には、本来種族がマイアでありながら『永遠の呪い』のついたイスタリの杖を強制装備した状態で始めなければなりません。マイアに戻るには一定のレベルと神格を獲得することで、永遠の呪いを解除する必要があります。,TODO
-53 ,2 ,バルログ,Balrog,0xF,32 ,2 ,6 ,6 ,0 ,5 ,6 ,0 ,3 ,3 ,0 ,2 ,3 ,0 ,3 ,15 ,22 ,22 ,22 ,-3 ,12 ,15 ,35 ,10 ,5 ,-1 ,5 ,10 ,10 ,10 ,-2 ,1 ,2 ,10 ,0 ,3 ,620 ,30 ,3800 ,10 ,620 ,30 ,3800 ,10 ,0 ,280 ,0 ,280 ,U,1 ,100 ,HUMANOID|OPP_FIRE:26:60|CORPSE_EATER,HUMANOID|OPP_FIRE:44:60|CORPSE_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
+53 ,2 ,バルログ,Balrog,0xF,32 ,2 ,6 ,6 ,0 ,5 ,6 ,0 ,3 ,3 ,0 ,2 ,3 ,0 ,3 ,15 ,22 ,22 ,22 ,-3 ,12 ,15 ,35 ,10 ,5 ,-1 ,5 ,10 ,10 ,10 ,-2 ,1 ,2 ,10 ,0 ,3 ,620 ,30 ,3800 ,10 ,620 ,30 ,3800 ,10 ,0 ,280 ,0 ,280 ,U,1 ,100 ,HUMANOID|OPP_FIRE:26:60|CORPSE_EATER,HUMANOID|OPP_FIRE:44|CORPSE_EATER,"WARRIOR|MAGE|PRIEST|ROGUE|RANGER|PALADIN|WARRIOR_MAGE|CHAOS_WARRIOR|MONK|
 MINDCRAFTER|HIGH_MAGE|TOURIST|IMITATOR|BEASTMASTER|SORCERER|ARCHER|
 MAGIC_EATER|BARD|RED_MAGE|SAMURAI|FORCETRAINER|BLUE_MAGE|CAVALRY|
 BERSERKER|SMITH|MIRROR_MASTER|NINJA|SNIPER",バルログはアルダの神話の時代に冥王の反逆に付き従ったマイア達が、彼の近衛として破壊と殺戮を繰り広げるために取った〈力の悪鬼〉の姿です。その力の源はしばしばウドゥンの焔と呼ばれました。この邪悪な力はかつての彼らの目的に大いに貢献しましたが、神話の時代が終わって久しく、その制御を失った今にあっては忌まわしい呪縛となって彼らを縛り付けています。従ってプレイヤーキャラクタとしてこの種族を選んだ場合には、本来種族がマイアでありながら『永遠の呪い』のついたウドゥンの焔を枷として装備した状態で始めなければなりません。マイアに戻るには一定のレベルと神格を獲得することで、永遠の呪いを解除する必要があります。,TODO

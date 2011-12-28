@@ -2645,12 +2645,12 @@ static errr creature_flags_splits(creature_flags *flags_ptr, char *tmp)
 		{
 			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
 			{
-				c = PY_MAX_LEVEL;
+				c = PY_MAX_LEVEL + 1;
 			}
 			else if(sscanf(s, "%s", &flag_aux) == 1)
 			{
 				b = 1;
-				c = PY_MAX_LEVEL;
+				c = PY_MAX_LEVEL + 1;
 			}
 			else return(1);
 		}

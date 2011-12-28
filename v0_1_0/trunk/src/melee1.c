@@ -223,9 +223,6 @@ bool special_melee(creature_type *atk_ptr, creature_type *tar_ptr)
 		int d_dice = r_ptr->blow[ap_cnt].d_dice;
 		int d_side = r_ptr->blow[ap_cnt].d_side;
 
-
-		if (!atk_ptr->species_idx) break;
-
 		/* Hack -- no more attacks */
 		if (!method) break;
 
