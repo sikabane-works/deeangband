@@ -12,65 +12,6 @@
 
 #include "angband.h"
 
-
-/*
- * Monster casts a breath (or ball) attack at another monster.
- * Pass over any monsters that may be in the way
- * Affect grids, objects, monsters, and the player
- */
-static void monst_breath_monst(int m_idx, int y, int x, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
-{
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
-
-	/* Determine the radius of the blast */
-	if (rad < 1 && breath) rad = (is_powerful_species(r_ptr)) ? 3 : 2;
-
-	/* Handle breath attacks */
-	if (breath) rad = 0 - rad;
-
-	switch (typ)
-	{
-	case GF_ROCKET:
-		flg |= PROJECT_STOP;
-		break;
-	case GF_DRAIN_MANA:
-	case GF_MIND_BLAST:
-	case GF_BRAIN_SMASH:
-	case GF_CAUSE_1:
-	case GF_CAUSE_2:
-	case GF_CAUSE_3:
-	case GF_CAUSE_4:
-	case GF_HAND_DOOM:
-		flg |= (PROJECT_HIDE | PROJECT_AIMED);
-		break;
-	}
-
-	(void)project(&creature_list[m_idx], rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
-}
-
-
-/*
- * Monster casts a bolt at another monster
- * Stop if we hit a monster
- * Affect monsters and the player
- */
-static void monst_bolt_monst(int m_idx, int y, int x, int typ, int dam_hp, int monspell, bool learnable)
-{
-	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE;
-
-	(void)project(&creature_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
-}
-
-static void monst_beam_monst(int m_idx, int y, int x, int typ, int dam_hp, int monspell, bool learnable)
-{
-	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU;
-
-	(void)project(&creature_list[m_idx], 0, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
-}
-
 /*
  * Determine if a beam spell will hit the target.
  */
