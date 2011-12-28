@@ -1600,9 +1600,9 @@ msg_print("Ç‹ÇŒÇ‰Ç¢ëMåıÇ™ëñÇ¡ÇΩÅI");
 #else
 			msg_print("Suddenly, surrounding walls are opened!");
 #endif
-			(void)project(0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			aggravate_monsters(NULL);
 
 			break;

@@ -507,12 +507,12 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
  * Pass over any monsters that may be in the way
  * Affect grids, objects, monsters, and the player
  */
-static void breath(int y, int x, creature_type *cr_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
+static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
 	/* Determine the radius of the blast */
-	if ((rad < 1) && breath) rad = has_cf_creature(cr_ptr, CF_POWERFUL) ? 3 : 2;
+	if ((rad < 1) && breath) rad = has_cf_creature(caster_ptr, CF_POWERFUL) ? 3 : 2;
 
 	/* Handle breath attacks */
 	if (breath) rad = 0 - rad;
@@ -535,7 +535,7 @@ static void breath(int y, int x, creature_type *cr_ptr, int typ, int dam_hp, int
 	}
 
 	/* Target the player with a ball attack */
-	(void)project(cr_ptr, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 
