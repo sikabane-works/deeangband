@@ -1051,6 +1051,17 @@ static void rd_creature(creature_type *cr_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 		rd_s16b(&cr_ptr->iven_fitting_rate[i]);
 
+	/* Read the inventory */
+	if (rd_inventory(cr_ptr))
+	{
+#ifdef JP
+note("持ち物情報を読み込むことができません");
+#else
+		note("Unable to read inventory");
+#endif
+		return;
+	}
+
 	/* Read the stat info */
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&cr_ptr->stat_max_max[i]);
@@ -2246,19 +2257,6 @@ note(format("ヒットポイント配列が大きすぎる(%u)！", tmp16u));
 	for (i = 0; i < 64; i++)
 	{
 		rd_byte(&cr_ptr->spell_order[i]);
-	}
-
-
-	/* Read the inventory */
-	if (rd_inventory(cr_ptr))
-	{
-#ifdef JP
-note("持ち物情報を読み込むことができません");
-#else
-		note("Unable to read inventory");
-#endif
-
-		return (21);
 	}
 
 	/* Read number of towns */

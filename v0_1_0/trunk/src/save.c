@@ -483,6 +483,25 @@ static void wr_creature(creature_type *cr_ptr)
 	for(i = 0; i < INVEN_TOTAL; i++)
 		wr_s16b(cr_ptr->iven_fitting_rate[i]);
 
+	/* Write the inventory */
+	for (i = 0; i < INVEN_TOTAL; i++)
+	{
+		object_type *o_ptr = &cr_ptr->inventory[i];
+
+		/* Skip non-objects */
+		if (!o_ptr->k_idx) continue;
+
+		/* Dump index */
+		wr_u16b((u16b)i);
+
+		/* Dump object */
+		wr_item(o_ptr);
+	}
+
+	/* Add a sentinel */
+	wr_u16b(0xFFFF);
+
+
 	/* Dump the stats (maximum and current) */
 	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max[i]);
 	for (i = 0; i < 6; ++i) wr_s16b(cr_ptr->stat_max_max[i]);
@@ -1361,25 +1380,6 @@ static bool wr_savefile_new(void)
 	{
 		wr_byte(p_ptr->spell_order[i]);
 	}
-
-
-	/* Write the inventory */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		object_type *o_ptr = &p_ptr->inventory[i];
-
-		/* Skip non-objects */
-		if (!o_ptr->k_idx) continue;
-
-		/* Dump index */
-		wr_u16b((u16b)i);
-
-		/* Dump object */
-		wr_item(o_ptr);
-	}
-
-	/* Add a sentinel */
-	wr_u16b(0xFFFF);
 
 	/* Note the towns */
 	tmp16u = max_towns;
