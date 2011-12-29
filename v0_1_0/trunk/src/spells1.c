@@ -268,7 +268,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
  */
-sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
+sint project_path(creature_type *caster_ptr, u16b *gp, int range, int y1, int x1, int y2, int x2, int flg)
 {
 	int y, x;
 
@@ -382,7 +382,7 @@ sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1,
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -471,7 +471,7 @@ sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1,
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -542,7 +542,7 @@ sint project_path(creature_type *aimer_ptr, u16b *gp, int range, int y1, int x1,
 			if (flg & (PROJECT_STOP))
 			{
 				if ((n > 0) &&
-				    (creature_bold(aimer_ptr, y, x) || cave[y][x].m_idx != 0))
+				    (creature_bold(caster_ptr, y, x) || cave[y][x].m_idx != 0))
 					break;
 			}
 
@@ -7737,7 +7737,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	bool breath = FALSE;
 
 	/* Is the player blind? */
-	bool blind = (caster_ptr->blind ? TRUE : FALSE);
+	bool blind = (player_ptr->blind ? TRUE : FALSE);
 
 	bool old_hide = FALSE;
 
@@ -7864,7 +7864,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	path_n = project_path(caster_ptr, path_g, (project_length ? project_length : MAX_RANGE(caster_ptr)), y1, x1, y2, x2, flg);
 
 	/* Hack -- Handle stuff */
-	handle_stuff(caster_ptr);
+	if(caster_ptr) handle_stuff(caster_ptr);
 
 	/* Giga-Hack SEEKER & SUPER_RAY */
 

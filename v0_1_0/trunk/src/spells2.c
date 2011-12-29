@@ -6355,7 +6355,7 @@ bool lite_area(creature_type *cr_ptr, int dam, int rad)
 	if (!player_ptr->blind)
 	{
 #ifdef JP
-msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
+		msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 #else
 		msg_print("You are surrounded by a white light.");
 #endif
@@ -6363,7 +6363,7 @@ msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(0, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
+	(void)project(cr_ptr, rad, cr_ptr->fy, cr_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
 
 	/* Lite up the room */
 	lite_room(cr_ptr, cr_ptr->fy, cr_ptr->fx);

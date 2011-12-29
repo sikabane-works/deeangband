@@ -1318,7 +1318,7 @@ msg_format("There are too many mirrors to control!");
 	  for(x=0;x<cur_wid;x++){
 	    for(y=0;y<cur_hgt;y++){
 	      if (is_mirror_grid(&cave[y][x])) {
-		project(0,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+				project(cr_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 	      }
 	    }
 	  }
