@@ -8409,8 +8409,16 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	if (flg & PROJECT_KILL)
 	{
-		see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
-			(is_player(caster_ptr) ? TRUE : (player_can_see_bold(caster_ptr, y1, x1) && projectable(caster_ptr->fy, caster_ptr->fx, y1, x1)));
+		//TODO
+		if(caster_ptr)
+		{
+			see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
+				(is_player(caster_ptr) ? TRUE : (player_can_see_bold(caster_ptr, y1, x1) && projectable(caster_ptr->fy, caster_ptr->fx, y1, x1)));
+		}
+		else
+		{
+			see_s_msg = TRUE;
+		}
 	}
 
 

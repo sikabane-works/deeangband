@@ -53,7 +53,7 @@ bool can_equip(creature_type *creature_ptr, int i)
 
 bool is_player(creature_type *creature_ptr)
 {
-	return (creature_ptr == player_ptr && creature_ptr->player); 
+	return (creature_ptr && creature_ptr == player_ptr && creature_ptr->player); 
 }
 
 

@@ -4193,7 +4193,7 @@ msg_print("守りのルーンが壊れた！");
 	m_ptr->nickname = 0;
 
 	/* Your pet summons its pet. */
-	if (!is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
+	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
 		mode |= PM_FORCE_PET;
 		//TODO Parent Set
@@ -4211,7 +4211,7 @@ msg_print("守りのルーンが壊れた！");
 		m_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if ((is_unique_species(r_ptr)) && is_player(summoner_ptr))
+		if (summoner_ptr && (is_unique_species(r_ptr)) && is_player(summoner_ptr))
 			m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
