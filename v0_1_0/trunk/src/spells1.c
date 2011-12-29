@@ -1562,7 +1562,7 @@ msg_print("カチッと音がした！");
 					int i;
 					u32b mode = 0L;
 
-					if (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr))
+					if ((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
 						mode |= PM_FORCE_PET;
 
 					for (i = 0; i < o_ptr->number ; i++)
@@ -1614,7 +1614,7 @@ note_kill = "灰になった。";
 			if (known && (o_ptr->marked & OM_FOUND))
 			{
 				obvious = TRUE;
-				object_desc(caster_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(player_ptr, o_name, o_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			}
 
 			/* Artifacts, and other objects, get to resist */
@@ -1804,7 +1804,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 	/* Never affect projector */
 	if (tar_ptr == caster_ptr) return (FALSE);
 
-	if ((c_ptr->m_idx == caster_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
+	if ((c_ptr->m_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((tar_ptr->species_idx == MON_SUKE) || (tar_ptr->species_idx == MON_KAKU))) return FALSE;
 
 	/* Don't affect already death monsters */
@@ -1824,7 +1824,7 @@ static bool project_m(creature_type *caster_ptr, int r, int y, int x, int dam, i
 #endif
 
 
-	if (caster_ptr->riding && (c_ptr->m_idx == caster_ptr->riding)) disturb(player_ptr, 1, 0);
+	if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 
 	/* Analyze the damage type */
 	switch (typ)
@@ -2161,7 +2161,7 @@ note = "には耐性がある！";
 
 			if (!resist_tele) do_dist = 10;
 			else do_dist = 0;
-			if (caster_ptr->riding && (c_ptr->m_idx == caster_ptr->riding)) do_dist = 0;
+			if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
 
 			if (tar_ptr->resist_gravity)
 			{
@@ -2552,7 +2552,7 @@ note_dies = "は蒸発した！";
 			}
 			if (one_in_(4))
 			{
-				if (caster_ptr->riding && (c_ptr->m_idx == caster_ptr->riding)) do_dist = 0;
+				if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_dist = 0;
 				else do_dist = 7;
 			}
 
@@ -2965,7 +2965,7 @@ note = "が分裂した！";
 			{
 				/* Redraw (later) if needed */
 				if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-				if (caster_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+				if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 				break;
 			}
 
@@ -3013,7 +3013,7 @@ note = "が分裂した！";
 
 			/* Redraw (later) if needed */
 			if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-			if (caster_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+			if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Message */
 #ifdef JP
@@ -4450,7 +4450,7 @@ note_dies = "はドロドロに溶けた！";
 
 						/* Redraw (later) if needed */
 						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-						if (&creature_list[caster_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+						if (&creature_list[player_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
 						if (see_s_msg)
@@ -4886,7 +4886,7 @@ note_dies = "はドロドロに溶けた！";
 				cap_hp = tar_ptr->chp;
 				cap_mhp = tar_ptr->mmhp;
 				cap_nickname = tar_ptr->nickname; /* Quark transfer */
-				if (c_ptr->m_idx == caster_ptr->riding)
+				if (c_ptr->m_idx == player_ptr->riding)
 				{
 					if (rakuba(player_ptr, -1, FALSE))
 					{
@@ -5279,7 +5279,7 @@ note = "には効果がなかった。";
 	/* Quest monsters cannot be polymorphed */
 	if (is_quest_creature(tar_ptr)) do_poly = FALSE;
 
-	if (caster_ptr->riding && (c_ptr->m_idx == caster_ptr->riding)) do_poly = FALSE;
+	if (player_ptr->riding && (c_ptr->m_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" monsters can only be "killed" by the player. */
 	if ((is_quest_creature(tar_ptr)) || is_unique_species(r_ptr) || (r_ptr->race_idx1 == RACE_NAZGUL) && !inside_battle)
@@ -5478,7 +5478,7 @@ note = "には効果がなかった。";
 	{
 		/* Redraw (later) if needed */
 		if (health_who == c_ptr->m_idx) play_redraw |= (PR_HEALTH);
-		if (caster_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
+		if (player_ptr->riding == c_ptr->m_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the monster up */
 		(void)set_paralyzed(tar_ptr, 0);
@@ -5753,7 +5753,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		}
 	}
 
-	if (caster_ptr->riding && (caster_ptr->riding == c_ptr->m_idx) && (dam > 0))
+	if (player_ptr->riding && (player_ptr->riding == c_ptr->m_idx) && (dam > 0))
 	{
 		if (tar_ptr->chp > tar_ptr->mhp/3) dam = (dam + 1) / 2;
 		rakubadam_m = (dam > 200) ? 200 : dam;
@@ -8512,8 +8512,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
 				if ((flg & PROJECT_REFLECTABLE) && cave[y][x].m_idx && has_cf_creature(m_ptr, CF_REFLECTING) &&
-				    ((cave[y][x].m_idx != caster_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
-				    (is_player(caster_ptr) || dist_hack > 1) && !one_in_(10))
+				    ((cave[y][x].m_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
 					int max_attempts = 10;
@@ -8533,7 +8533,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						t_x = x_saver;
 					}
 
-					if (is_seen(caster_ptr, m_ptr))
+					if (is_seen(player_ptr, m_ptr))
 					{
 #ifdef JP
 						if ((m_ptr->species_idx == MON_KENSHIROU) || (m_ptr->species_idx == MON_RAOU))
@@ -8544,10 +8544,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 						msg_print("The attack bounces!");
 #endif
 					}
-					if (is_original_ap_and_seen(caster_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
+					if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, CF_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
-					if (creature_bold(caster_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
+					if (creature_bold(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
@@ -8571,7 +8571,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* There is the riding player on this monster */
-			if (caster_ptr->riding && creature_bold(caster_ptr, y, x))
+			if (caster_ptr && player_ptr->riding && creature_bold(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
 				if (flg & PROJECT_PLAYER)
@@ -8703,7 +8703,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Target may be your horse */
-			if (caster_ptr->riding)
+			if (player_ptr->riding)
 			{
 				/* Aimed on the player */
 				if (flg & PROJECT_PLAYER)
@@ -8746,11 +8746,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		}
 	}
 
-	if (caster_ptr->riding)
+	if (player_ptr->riding)
 	{
 		char m_name[80];
 
-		creature_desc(m_name, &creature_list[caster_ptr->riding], 0);
+		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 
 		if (rakubadam_m > 0)
 		{
@@ -8763,7 +8763,7 @@ msg_format("%^sに振り落とされた！", m_name);
 #endif
 			}
 		}
-		if (caster_ptr->riding && rakubadam_p > 0)
+		if (player_ptr->riding && rakubadam_p > 0)
 		{
 			if(rakuba(caster_ptr, rakubadam_p, FALSE))
 			{
