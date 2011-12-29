@@ -103,8 +103,8 @@
 /*
  * Number of min screen.
  */
-#define MIN_SCREEN_WID 3
-#define MIN_SCREEN_HGT 3
+#define MIN_SCREEN_WID 2
+#define MIN_SCREEN_HGT 2
 
 
 /*

@@ -1425,13 +1425,13 @@ static bool level_gen(cptr *why)
 		}
 		else if (d_info[dungeon_type].flags1 & DF1_BEGINNER)
 		{
-			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/3);
-			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/3);;
+			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT/SCREEN_HGT/4);
+			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/4);;
 		}
 		else
 		{
-			level_height = rand_range(MIN_SCREEN_HGT,MAX_HGT/SCREEN_HGT/2);
-			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/2);
+			level_height = rand_range(MIN_SCREEN_HGT,MAX_HGT/SCREEN_HGT/3);
+			level_width = rand_range(MIN_SCREEN_WID, MAX_WID/SCREEN_WID/3);
 		}
 
 		cur_hgt = level_height * SCREEN_HGT;
