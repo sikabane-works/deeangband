@@ -980,9 +980,6 @@ static void load_quick_start(species_type *species_ptr)
 	rd_s32b(&species_ptr->f_m_wt);
 	rd_s16b(&species_ptr->sc);
 	rd_s32b(&species_ptr->au);
-	rd_s16b(&species_ptr->start_wx);
-	rd_s16b(&species_ptr->start_wy);
-
 
 	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max[i]);
 	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max_max[i]);
@@ -998,8 +995,6 @@ static void load_quick_start(species_type *species_ptr)
 	/* UNUSED : Was number of random quests */
 	rd_byte(&tmp8u);
 
-	rd_byte(&tmp8u);
-	species_ptr->quick_ok = (bool)tmp8u;
 }
 
 static void rd_creature(creature_type *cr_ptr)
@@ -1262,10 +1257,16 @@ static void rd_creature(creature_type *cr_ptr)
 	rd_s16b(&cr_ptr->learned_spells);
 	rd_s16b(&cr_ptr->add_spells);
 
+	rd_s16b(&cr_ptr->start_wx);
+	rd_s16b(&cr_ptr->start_wy);
+
+	rd_byte(&tmp8u);
+	cr_ptr->quick_ok = (bool)tmp8u;
 
 	/* Update */
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
+
 }
 
 /*
@@ -1279,7 +1280,8 @@ static void rd_extra(void)
 	s16b tmp16s;
 	byte max;
 
-	load_quick_start(&settled_player_species);
+	rd_creature(&player_prev);
+	//load_quick_start(&settled_player_species);
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{

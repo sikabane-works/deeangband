@@ -2584,9 +2584,9 @@ creature_type *search_creature_info(int species_idx)
 	}
 	else
 	{
-		species_type sp;
+		creature_type cr;
 		C_WIPE(&tmp_cr, 1, creature_type);
-		generate_creature(&tmp_cr, species_idx, &sp, GC_AUTO | GC_AVERAGE);
+		generate_creature(&tmp_cr, species_idx, &cr, GC_AUTO | GC_AVERAGE);
 		return &tmp_cr;
 	}
 

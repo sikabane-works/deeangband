@@ -2270,147 +2270,6 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 	return (TRUE);
 }
 
-
-/*
- * Save the current data for later
- */
-void save_prev_data(creature_type *creature_ptr, species_type *species_ptr)
-{
-	int i;
-
-	/* Save the data */
-	species_ptr->sex = creature_ptr->sex;
-	species_ptr->race_idx1 = creature_ptr->race_idx1;
-	species_ptr->race_idx2 = creature_ptr->race_idx2;
-	species_ptr->species_idx = creature_ptr->species_idx;
-	species_ptr->ap_species_idx = creature_ptr->ap_species_idx;
-	species_ptr->cls_idx = creature_ptr->cls_idx;
-	species_ptr->chara_idx = creature_ptr->chara_idx;
-	species_ptr->realm1 = creature_ptr->realm1;
-	species_ptr->realm2 = creature_ptr->realm2;
-	species_ptr->exp = creature_ptr->exp;
-	species_ptr->age = creature_ptr->age;
-	species_ptr->sc = creature_ptr->sc;
-	species_ptr->au = creature_ptr->au;
-	species_ptr->m_b_ht = creature_ptr->ht;
-	species_ptr->m_m_ht = 0;
-	species_ptr->f_b_ht = creature_ptr->ht;
-	species_ptr->f_m_ht = 0;
-	species_ptr->m_b_wt = creature_ptr->wt;
-	species_ptr->m_m_wt = 0;
-	species_ptr->f_b_wt = creature_ptr->wt;
-	species_ptr->f_m_wt = 0;
-
-	/* Save the stats */
-	for (i = 0; i < 6; i++)
-	{
-		species_ptr->stat_max[i] = creature_ptr->stat_max[i];
-		species_ptr->stat_max_max[i] = creature_ptr->stat_max_max[i];
-	}
-
-	/* Save the hp */
-	for (i = 0; i < PY_MAX_LEVEL; i++)
-	{
-		species_ptr->base_hp[i] = creature_ptr->base_hp[i];
-	}
-
-	species_ptr->patron_idx = creature_ptr->patron_idx;
-
-	/* Save the history */
-	for (i = 0; i < HISTORY_ROW; i++)
-	{
-		strcpy(species_ptr->history[i], creature_ptr->history[i]);
-	}
-
-	for (i = 0; i < 8; i++)
-	{
-		species_ptr->authority[i] = creature_ptr->authority[i];
-	}
-
-}
-
-
-/*
- * Load the previous data
- */
-void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap)
-{
-	int i;
-
-	species_type temp;
-
-	/*** Save the current data ***/
-	if (swap) save_prev_data(creature_ptr, &temp);
-
-
-	/*** Load the previous data ***/
-
-	/* Load the data */
-	creature_ptr->sex = species_ptr->sex;
-	creature_ptr->race_idx1 = species_ptr->race_idx1;
-	creature_ptr->race_idx2 = species_ptr->race_idx2;
-	creature_ptr->species_idx = species_ptr->species_idx;
-	creature_ptr->ap_species_idx = species_ptr->ap_species_idx;
-	creature_ptr->cls_idx = species_ptr->cls_idx;
-	creature_ptr->chara_idx = species_ptr->chara_idx;
-	creature_ptr->realm1 = species_ptr->realm1;
-	creature_ptr->realm2 = species_ptr->realm2;
-	creature_ptr->age = species_ptr->age;
-	creature_ptr->sc = species_ptr->sc;
-	creature_ptr->au = species_ptr->au;
-	creature_ptr->ht = species_ptr->m_b_ht;
-	creature_ptr->wt = species_ptr->m_b_wt;
-
-	creature_ptr->exp = species_ptr->exp;
-	creature_ptr->max_exp = species_ptr->exp;
-
-	wilderness_x = species_ptr->start_wx;
-	wilderness_y = species_ptr->start_wy;
-
-	/* Load the stats */
-	for (i = 0; i < 6; i++)
-	{
-		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = species_ptr->stat_max[i];
-		creature_ptr->stat_max_max[i] = species_ptr->stat_max_max[i];
-	}
-
-	/* Load the hp */
-	for (i = 0; i < PY_MAX_LEVEL; i++)
-	{
-		creature_ptr->base_hp[i] = species_ptr->base_hp[i];
-	}
-	creature_ptr->mhp = creature_ptr->base_hp[0];
-	creature_ptr->chp = creature_ptr->base_hp[0];
-
-	creature_ptr->csp = creature_ptr->msp;
-
-	creature_ptr->patron_idx = species_ptr->patron_idx;
-
-	/* Load the history */
-	for (i = 0; i < HISTORY_ROW; i++)
-	{
-		strcpy(creature_ptr->history[i], species_ptr->history[i]);
-	}
-
-	for (i = 0; i < 8; i++)
-	{
-		creature_ptr->authority[i] = species_ptr->authority[i];
-	}
-
-	/*** Save the previous data ***/
-	if (swap)
-	{
-		COPY(species_ptr, &temp, species_type);
-	}
-
-	creature_ptr->blessed = 0;
-	creature_ptr->blind = 0;
-	creature_ptr->afraid = 0;
-}
-
-
-
-
 /*
  * Returns adjusted stat -JK-  Algorithm by -JWT-
  */
@@ -4321,7 +4180,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 /*
  * Player Starting Point
  */
-static bool get_starting_point(species_type *species_ptr, bool npc)
+static bool get_starting_point(creature_type *creature_ptr, bool npc)
 {
 	int i, j, n;
 	selection se[STARTING_MAX + 3];
@@ -4384,22 +4243,22 @@ static bool get_starting_point(species_type *species_ptr, bool npc)
 	else
 	{
 		j = se[randint0(n - 3)].code;
-		species_ptr->start_wy = starting_point[j].wilderness_y;
-		species_ptr->start_wx = starting_point[j].wilderness_x;
+		creature_ptr->start_wy = starting_point[j].wilderness_y;
+		creature_ptr->start_wx = starting_point[j].wilderness_x;
 		return 0;
 	}
 
 	if(i >= 0)
 	{
-		species_ptr->start_wy = starting_point[i].wilderness_y;
-		species_ptr->start_wx = starting_point[i].wilderness_x;
+		creature_ptr->start_wy = starting_point[i].wilderness_y;
+		creature_ptr->start_wx = starting_point[i].wilderness_x;
 		return 0;
 	}
 	else if(i == -1)
 	{
 		j = se[randint0(n - 3)].code;
-		species_ptr->start_wy = starting_point[j].wilderness_y;
-		species_ptr->start_wx = starting_point[j].wilderness_x;
+		creature_ptr->start_wy = starting_point[j].wilderness_y;
+		creature_ptr->start_wx = starting_point[j].wilderness_x;
 		return 0;
 	}
 	else
@@ -5315,13 +5174,13 @@ static void edit_history(creature_type *creature_ptr)
 
 
 /*
- * Helper function for 'generate_creature()'
+ * Helper function for 'generate_creature'
  *
  * The delay may be reduced, but is recommended to keep players
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, species_type *sp_res_ptr, u32b flags)
+static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
 {
 	int i;
 	int mode = 0;
@@ -5504,7 +5363,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	}
 	if(player)
 	{
-		i = get_starting_point(&settled_player_species, auto_generate);
+		i = get_starting_point(creature_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
 	}
@@ -5858,7 +5717,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			/* Previous character */
 			if (prev && (c == 'p'))
 			{
-				load_prev_data(creature_ptr, &settled_player_species, TRUE);
+				*creature_ptr = player_prev;
 				continue;
 			}
 
@@ -5905,8 +5764,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if (auto_generate || c == '\r' || c == '\n' || c == ESCAPE) break;
 
 		/* Save this for the "previous" character */
-		save_prev_data(creature_ptr, &settled_player_species);
-		settled_player_species.quick_ok = FALSE;
+		player_prev = *creature_ptr;
+		player_prev.quick_ok = FALSE;
 
 		/* Note that a previous roll exists */
 		prev = TRUE;
@@ -5960,7 +5819,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 {
 
 	/* Doesn't have previous data */
-	if (!settled_player_species.quick_ok) return FALSE;
+	if (!player_prev.quick_ok) return FALSE;
 
 
 	/* Clear screen */
@@ -6007,12 +5866,12 @@ bool ask_quick_start(creature_type *creature_ptr)
 		}
 	}
 
-	load_prev_data(creature_ptr, &settled_player_species, FALSE);
+	*creature_ptr = player_prev;
 	init_dungeon_quests();
 	init_turn(creature_ptr);
 
-	wilderness_y = settled_player_species.start_wy;
-	wilderness_x = settled_player_species.start_wx;
+	wilderness_y = creature_ptr->start_wy;
+	wilderness_x = creature_ptr->start_wx;
 
 	/* Calc hitdice, but don't roll */
 	get_extra(creature_ptr, FALSE);
@@ -6041,14 +5900,14 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-int generate_creature(creature_type *creature_ptr, int species_idx, species_type *settled_species_ptr, u32b flags)
+int generate_creature(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
 {
 	char buf[80];
 
 	playtime = 0;
 
 	/* Create a new character */
-	while (!generate_creature_aux(creature_ptr, species_idx, settled_species_ptr, flags));
+	while (!generate_creature_aux(creature_ptr, species_idx, save_ptr, flags));
 
 	if(flags & GC_PLAYER)
 	{

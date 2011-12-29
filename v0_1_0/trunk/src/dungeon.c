@@ -1596,7 +1596,7 @@ static void process_world_aux_hp_and_sp(creature_type *cr_ptr)
 
 	/* Take damage from poison */
 	if (cr_ptr->poisoned && !IS_INVULN(cr_ptr))
-	{
+{
 		/* Take damage */
 #ifdef JP
 		take_hit(NULL, cr_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
@@ -6945,17 +6945,17 @@ quit("セーブファイルが壊れています");
 			}
 
 			/* Roll up a new character */
-			generate_creature(cr_ptr, species, &settled_player_species, GC_PLAYER);
-			wilderness_x = settled_player_species.start_wx;
-			wilderness_y = settled_player_species.start_wy;
+			generate_creature(cr_ptr, species, &player_prev, GC_PLAYER);
+			wilderness_x = cr_ptr->start_wx;
+			wilderness_y = cr_ptr->start_wy;
 		}
 
 		/* Initialize random quests */
 		init_dungeon_quests();
 
 		/* Save character data for quick start */
-		save_prev_data(cr_ptr, &settled_player_species);
-		settled_player_species.quick_ok = TRUE;
+		player_prev = *cr_ptr; 
+		player_prev.quick_ok = TRUE;
 
 		/* Init Stores */
 		init_stores();
@@ -7336,8 +7336,8 @@ quit("セーブファイルが壊れています");
 					dungeon_type = 0;
 
 					// Start Point Set
-					wilderness_y = settled_player_species.start_wy;
-					wilderness_x = settled_player_species.start_wx;
+					wilderness_y = cr_ptr->start_wy;
+					wilderness_x = cr_ptr->start_wx;
 
 					cr_ptr->oldpy = 95;
 					cr_ptr->oldpx = 95;

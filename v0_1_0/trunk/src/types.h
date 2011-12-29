@@ -349,8 +349,6 @@ struct species_type
 
 	char history[HISTORY_ROW][HISTORY_COL];
 
-	bool quick_ok;
-
 	u32b m_b_ht;		/* base height (males) */
 	u32b m_m_ht;		/* mod height (males) */
 	u32b m_b_wt;		/* base weight (males) */
@@ -440,10 +438,6 @@ struct species_type
 	u32b r_flags6;			/* Observed racial flags */
 	/* u32b r_flags7; */			/* Observed racial flags */
 	u32b r_flags10;			/* Observed racial resistance flags */
-
-	u16b start_wx;			// Starting Wilderness_X
-	u16b start_wy;			// Statring Wilderness_Y
-
 };
 
 
@@ -1615,6 +1609,10 @@ struct creature_type
 	u32b possible_equipment;     /* Possible Equipment*/
 
 	species_blow blow[4];	/* Up to four blows per round */
+
+	u16b start_wx;			// Starting Wilderness_X
+	u16b start_wy;			// Statring Wilderness_Y
+	bool quick_ok;
 
 };
 

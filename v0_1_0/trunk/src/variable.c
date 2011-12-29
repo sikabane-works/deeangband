@@ -796,8 +796,7 @@ s16b species_window_idx;	/* Species info trackee */
  * The last character rolled,
  * holded for quick start
  */
-species_type settled_player_species;
-
+creature_type player_prev;
 
 /*
  * The vault generation arrays
