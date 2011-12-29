@@ -5765,7 +5765,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		/* Save this for the "previous" character */
 		player_prev = *creature_ptr;
-		player_prev.quick_ok = FALSE;
+		quick_ok = FALSE;
 
 		/* Note that a previous roll exists */
 		prev = TRUE;
@@ -5819,7 +5819,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 {
 
 	/* Doesn't have previous data */
-	if (!player_prev.quick_ok) return FALSE;
+	if (!quick_ok) return FALSE;
 
 
 	/* Clear screen */

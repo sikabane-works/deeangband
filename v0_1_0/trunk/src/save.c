@@ -682,10 +682,6 @@ static void wr_creature(creature_type *cr_ptr)
 
 	wr_s16b(cr_ptr->start_wx);
 	wr_s16b(cr_ptr->start_wy);
-
-	/* No quick start after using debug mode or cheat options */
-	if (noscore) cr_ptr->quick_ok = FALSE;
-	wr_byte((byte) cr_ptr->quick_ok);
 }
 
 /*
@@ -697,8 +693,8 @@ static void wr_extra(void)
 	byte tmp8u;
 
 	wr_creature(&player_prev);
-	//save_quick_start(&settled_player_species);
-
+	if (noscore) quick_ok = FALSE;
+	wr_byte((byte) quick_ok);
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{

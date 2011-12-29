@@ -797,6 +797,7 @@ s16b species_window_idx;	/* Species info trackee */
  * holded for quick start
  */
 creature_type player_prev;
+bool quick_ok;
 
 /*
  * The vault generation arrays

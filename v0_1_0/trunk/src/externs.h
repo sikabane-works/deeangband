@@ -463,6 +463,7 @@ extern bool wizard;		      /* (Player Only) wizard mode */
 extern bool unique_play;      /* Unique play mode*/
 
 extern creature_type player_prev;
+extern bool quick_ok;
 extern vault_type *v_info;
 extern char *v_name;
 extern char *v_text;

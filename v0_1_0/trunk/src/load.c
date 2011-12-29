@@ -1178,9 +1178,6 @@ note("Ž‚¿•¨î•ñ‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
 	rd_s16b(&cr_ptr->start_wx);
 	rd_s16b(&cr_ptr->start_wy);
 
-	rd_byte(&tmp8u);
-	cr_ptr->quick_ok = (bool)tmp8u;
-
 	/* Update */
 	set_experience(cr_ptr);
 	calc_bonuses(cr_ptr, FALSE);
@@ -1199,7 +1196,8 @@ static void rd_extra(void)
 	byte max;
 
 	rd_creature(&player_prev);
-	//load_quick_start(&settled_player_species);
+	rd_byte(&tmp8u);
+	quick_ok = (bool)tmp8u;
 
 	for (i = 0; i < MAX_KUBI; i++)
 	{

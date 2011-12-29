@@ -6955,7 +6955,7 @@ quit("セーブファイルが壊れています");
 
 		/* Save character data for quick start */
 		player_prev = *cr_ptr; 
-		player_prev.quick_ok = TRUE;
+		quick_ok = TRUE;
 
 		/* Init Stores */
 		init_stores();
