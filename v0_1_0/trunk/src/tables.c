@@ -5604,7 +5604,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ドゥードリン",
 #endif
 		"Doodrine",
-		TRUE,
+		FALSE,
 		0, 0,  25,  27, 0, 0
 	},
 	{
@@ -5612,7 +5612,7 @@ starting_type starting_point[STARTING_MAX] =
 		"ウルウリスト",
 #endif
 		"Ulurlist",
-		TRUE,
+		FALSE,
 		0, 0, 123,  53, 0, 0
 	},
 	{
@@ -5628,7 +5628,7 @@ starting_type starting_point[STARTING_MAX] =
 		"シラ",
 #endif
 		"Sila",
-		TRUE,
+		FALSE,
 		0, 0, 118,  68, 0, 0
 	},
 	{
@@ -5636,7 +5636,7 @@ starting_type starting_point[STARTING_MAX] =
 		"キセダラバジ",
 #endif
 		"Cixedarbazi",
-		TRUE,
+		FALSE,
 		0, 0, 135, 134, 0, 0
 	},
 	{
@@ -5644,7 +5644,7 @@ starting_type starting_point[STARTING_MAX] =
 		"端海",
 #endif
 		"Duanhai",
-		TRUE,
+		FALSE,
 		0, 0, 100, 137, 0, 0
 	},
 
