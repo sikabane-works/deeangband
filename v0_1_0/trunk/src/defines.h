@@ -2334,7 +2334,7 @@
 #define SV_RING_STUPIDITY                3
 #define SV_RING_TELEPORTATION            4
 #define SV_RING_SLOW_DIGESTION           6
-#define SV_RING_LEVITATION_FALL             7
+#define SV_RING_LEVITATION_FALL          7
 #define SV_RING_RESIST_FIRE              8
 #define SV_RING_RESIST_COLD              9
 #define SV_RING_SUSTAIN_STR             10
