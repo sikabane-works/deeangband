@@ -1,0 +1,274 @@
+# File: w_info.txt
+
+# Defines the layout of the wilderness
+
+# W:F:letter:wilderness_type:level:town_number:road:name
+
+# Road Flags: Sum of NORTH 1, SOUTH 2, EAST 4, WEST 8
+
+# Edge of the world
+W:F:#:0
+
+# Grass
+W:F:.:6:5
+
+# Dirt
+W:F:,:5:15
+
+# Desert
+W:F:D:8:30
+
+# Forest
+W:F:T:7:25
+
+# Shallow Water
+W:F:_:3:40
+
+# Deep Water
+W:F:~:2:60
+
+# Mountain
+W:F:^:11:50
+
+# Volcano
+W:F:&:10:60
+
+# Shallow Volcano
+W:F:$:9:40
+
+# Swanp
+W:F:=:4:35
+
+# Chaos Tainted Field
+W:F:C:12:80
+
+# Town 1
+W:E:1:1:0:1:1:Yiyeekin
+W:J:1:1:0:1:1:イェーキン
+
+# Town 2
+W:E:2:1:0:2:1:Telmora
+W:J:2:1:0:2:1:テルモラ
+
+# Town 3
+W:E:3:1:0:3:1:Morivant
+W:J:3:1:0:3:1:モリバント
+
+# Town 4
+W:E:4:7:4:4:1:Angwil
+W:J:4:7:4:4:1:アングウィル
+
+# Town 5
+W:E:5:11:20:5:0:Zul
+W:J:5:11:30:5:0:ズル
+
+# Town 6
+W:E:6:11:90:6:0:R'lyeh
+W:J:6:11:90:6:0:ルルイエ
+
+# Town 7
+W:E:7:2:30:7:1:Lugburz
+W:J:7:2:30:7:1:ルグブルズ
+
+# Town 8
+W:E:8:1:0:8:1:Duanhai
+W:J:8:1:0:8:1:端海
+
+# Town 9
+W:E:9:1:0:9:1:Texorami
+W:J:9:1:0:9:1:テキソラミ
+
+# Town 10
+W:E:a:1:0:10:1:Uluriust
+W:J:a:1:0:10:1:ウルリウスト
+
+# Town 11
+W:E:b:1:0:11:1:Sila
+W:J:b:1:0:11:1:シラ
+
+# Town 12
+W:E:c:1:0:12:1:Cixedarbazi
+W:J:c:1:0:12:1:キセダラバジ
+
+# Town 13
+W:E:d:1:0:13:1:Doodrine
+W:J:d:1:0:13:1:ドゥードリン
+
+# Town 14
+W:E:e:20:0:14:1:Virya-Utumno
+W:J:e:20:0:14:1:小ウトゥムノ
+
+# Town 15
+W:E:f:20:0:15:1:Yendor
+W:J:f:20:0:15:1:イェンダー
+
+# Grassland with road 
+W:F:*:6:3:0:1
+
+# Dirt with road
+W:F:!:5:8:0:1
+
+# Forest with road
+W:F:+:7:15:0:1
+
+W:D:################################################################################################################################################################################################################################################
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCC~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~CCC~~~CCCCCCCC~~~~~~~~~~~~~~~CC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~~~~~~~~~CCCCCC~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCC~C~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~~~~~~~~~~CCCCC~~~_~~_~__~__~~~~C~CCCCCCCCCCCCCCCCCCCCC~CC~~~_~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCC~~~~____~_~~~CC~___~~______~~_~~~C~~CCCCCCCCCCCCCCCCCC_~~_C~_~~~CCCCCCCCCCCCCCCCCCCCCCCC~~CCC~~CCCCCCCCC~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCC~~~~_~____~~~_CC__~~_~__..______~~~~~C~CCCCCCCCCCCCCCCC~~__CCC_~~CCCCCCCCCCCCCCCCCCCCCCC~~~CC~C~~CCCCCCC~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCC~~~_~___..____~~~~~~____...___~_~~~~~CCCC~CCCCCCCCCC~~C_CC__CCC_~CCCCC__C____CCCCCC~CC~~~~~~~C~~~~~~CCC~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCC~~____..^^..._~~_____...TT.__~__~~~~~C~CC~CCCCCCCCC~~~CCCCC_CC~_~CCCCC_....._CCCC~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~~~~~~~~~~CCCCCCCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCC~~~~_______..__~~___....TTT..__~~~~C~~CCC~C~C~~CCCC~~~CCCCCCCC_~CCCCCC_......CCCC~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~C~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~C~~~~~~~~~~~~~~~~~~~~~CCCCC~~CC~~CCCCC~CCCCCCCCCCCCCCCCCCC#
+W:D:#C~~~~~~__.._~_____~__..........___~~~~C~CCCCCCC~CC~CCCC~_~_CCCCCC_~~~~~__..___CCCCCCCCC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~C~~CCC~~CCCCCCCCCCCCCCCCCCC#
+W:D:#C~~~~~~____~__.^__~__...T..^.___~~~~~~C~CCCCCC~~C~CCCCCCC~__CCC_CC__~~~___CCCCCCC__CC~C~~~~~~~~~~~~~~~~~__~~~~~~~~~~~~~~~~~~~~~~CC~~~C~CCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~~C~~~~~~~~~~~~~~~~~~~~~~~~~~~~C~~~~~~C~C~~CCCCCCCCCCCCCCC#
+W:D:#C~C~~~~~~__~~_..____^^T~T^^^^__._~~~CCCCCC~CC~~~~~~~~CC~_~~~CCC_CCC_C~___C__C_C_CCCC__C~~~~~~~~~~~~~~~~_~__~~~~~~~~~~~~~~~~~~~~~C~~~~CC~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCCCCC~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~C~~CCCCCCCCCCC~~CCCCCCCCCCCCC#
+W:D:#CCC~~~~~~~~~~_.___^^^^TTT^^^._.T_~~~~CCCCCCCCC~C~~~~~~~~~~C_~CC_CCCCC__CCCCCCCC_C_C__C_~_~~~~~~~~~~~_~~~__~__~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCC~~C~~CCCCCCCC~~~C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCC~C~~CCCCCCCCC#
+W:D:#CC~~~~~~~~~~______^^.^T..^..__..__~~~~CCCCC~~CC~~~C~__~~~~C_CCC__CC_C_CCC_C__CCCC___CC_~~~~~~~~~_~~_~~_____~__~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~CCC~~C~CCCCC~~~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCC~C~CCCCCCCCCCC#
+W:D:#CC~~~~~~~~~~_~_.__^...TT..______CCC~CCCCCCC~CC~~~~~~~~_~~~C___C~_CC.CCCCCCC__CC_C__C___~__~~~_~~~~~~~_~________~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCC~~~CCC~~~C~~CCC~~~~~C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~CCCCCCCCCCC#
+W:D:#CC~C~C~~~~~~~~_.....T....__~_C_~C~CCCCCCCCCC~CCC~__~___CC~C_C__C..CC.CCC_CCC.CC.C_CC_____~_~~~__~__~_______.,___~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCC~~~~~~~C~~~CC~~~~C~~~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCC~CCCCC~CCCCCCCC#
+W:D:#CCCC~~~~~~~~~~_T.TTTT..CC_~C~~CCCCCCCC~CCCCCCC~CCCCCC__CCCCCC_.C^CC.CCCCCCCCC.C,,C________________~________..__~__~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~C~~CC~~~~~~~C~C~~~~~~~~~~~~~~~~~__~~~~~~~~~~~~~~~~~~~~~C~CCCCCCCC~CC~~~~CCCCCCCC#
+W:D:#CCCC~~C~~~~~___.TTT..CCCCCCCCCCCCCCCCCCCCC~CCCC~~_C_CC____CCC.^CCCCCCCCCCCC...C,,,.._________________,,,,,...____~_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~_______~~~~~~~~~~~~~~~~~CCC~~CCCCCCCCCC~~~~~CCCCCCCC#
+W:D:#CCCCC~CC~~~~__.T....CCCCCCCCCCCCCCCCCCC~CC~~CCC~~_____~C__CCCCCCCCCCCCCCCCCCCCC,,,,,,______,,,,....,,,,,,...,,______~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~__________________~~~~~~~~CCCCCCCCCCCC~~~___~~CCCCCCC#
+W:D:#CCC~~C~CC~C~__T.__..CCCCCCCCCCCCCCCCC~~~CC~~~~CCC___CC_CC_CCCCCCCCCCCCCCCCCCCC..,,,,,,,,,,,,,,,,....,,,,,,,..,,____~~~~~~~~~~~~~~~~~~~~~~~~~~~~___~~~~_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~______________________~~~~~~~~~~~CCCCCCCC~~~_._~~CCCCCCC#
+W:D:#CCCC~~CCC~~_C.._____CCCCCTTCCCCCC~C~~~~~CCC~~~_CCC______CCCCCCCCCCCCCCCCCCCCCCC..,,,,,,,,,,,,,,,,...,,,,,.,,,,...__~_~~~~~~~~~~~~~~~~~~~~~~~~~_~~__~_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~_________________________~~~~~~~~~~CCCCCCCCCC~___~~CCCCCCC#
+W:D:#CCCCCC~CCC~_____~~~CCCCCTTTT.CC_C~~~~~~~CCC_____CCCC__CC_CCCCCCCCCCCCCCCCCCCCCCCCC,,,..,,,CCCCC,.,,,,,,,,...,,,..____~~~~~~~~~~~~~~~~~~~~~~~~_____~_~__~~~_~~~~~_~~~~~~~~~~~~________________________..._____~~~~~~~~~~C~CCCC~~CC~~~~~~~CCCCCC#
+W:D:#CCCCCCCCCCCC~_C__C~CCCCTTTd...._~~~___C__CCC_______C_____C_CCCCCCCCCCCCCCCCCCCCCCC.,,..,,,,CCC,,,,,,^,,,,,....,,.___~_~~~~~~~~~~~~~~~~~~~~~~~_~______~~_~_~~~~~~~~~~~~~~~~~~________________________...._____~~~~~~~~~CCCCCC~~CCC~~~~~~~~CCCCC#
+W:D:#CCCCCCCCCCCCCC_~_CCCCCTTTT.....______CC__C_.CC._____CC._CCCCCCCCCCCCCCCCCCCCCC.CCCCC..,.,^,,CC^,,,^^^,.,,,....,,,_____~~~~~~~~~~~~~~~~~~~~~~~_______~__~_~~~~~~~~~~~~~~~~~~________________________....._____~~~~~~~~~C~CCCCCCCCC~~~~~~~~CCCCC#
+W:D:#CCCCC~~____CCCC~~_CCCCTTT..._..____CCC__.C,,.CCC_CC__CC_C_CC.CCCCCCCCCCCCCCCCCCC......,,,^^^^^^^^^^^,...,,,....,,____~~~~~~~~~~~~~_~_~_~~~~~~___,,_______~~_~_~~~~~~~~~~~________________________......._____~~~~~~~~~C~C~CCCCCCC~~~~~CCCCCCCC#
+W:D:#CCCCC__....__CCC~CCCCCT....___.._..CCC...C.,,.....__.C.CCCCCCCCCCCCCCCCCCCCCCCCC...CCCC,..^^^^^^^^^,,...,,,,.,,,,,,__~_~~~~~~~~~~~___~_~~~~_____,.,____~___~_~~_~~~~~~~~______________________.........._____~~~~~~~~~CCC~CC~C~CC~~~~~CCCCCCCC#
+W:D:#CCCC~_.....C.__CCCCCCCC.._____....,CCC.^..,.,,..........,CC..CCCCCCCCCCCCCCCCCCC....CCCCCC^,^,^^^^^,,,,.,,,,,..,,,,,____~~~~~~~~_~______~~~~_~__,.,,___________~_~~~~~~~____,__________,,_,,,,......,,...____~~~~~~~~~CCCCCCCCCCCCCCCCCC~CCCCC#
+W:D:#CCCC__..TT...__CCCCCCCC.._____....C^^^^.^^,.^^^.,C,.,,TT.CCCCCCCCCCCCCCCCCCCC.CC......,CCC^^^,^^CC,,,,,,,,,,,,,,,,,.,_~__~~~~~~~~_~_____~~_______,.,,,,,,,____~_~_~~~~~~___,,____,,_,,,,,,,,,,.....,,,...___~~~~~~~~~~CCCCCCCCCC~CC~CCCCCCCCCC#
+W:D:#CCC~_..TT^^..C__CCCCCC________..,^^CC,,^^^^^^..C..,,,.,C,CC,CCCCCCCCCCCCCCCCCC..C......,C.C^,^^,CCCCCC,,,,,,,,,,,,,,.___~__~~~_~~~_________~____,,...,,,,,,,_______~~~~____,,___,,,,_,,,,,,,,,,,,,.,,...___~~~~~~~~~CCC~~CCCCCCCCCC~CCCCCCCCCC#
+W:D:#CC~__TCT^^^.....CCCCCC_______....C^,_..,^,,CC____CC..,.,C.CCC..CCCCCCCCCCCC..C...C.....,,,..^,,^CC,..C,,,,,,,,.,,,,,._____~_~~~~~_~__________,,,,,....,,,,,,,,,,___~~~_____,,__,,,,,,,,,,,,,,,,T,,,,.....__~_~~~~~~~CCCC~CCCCCCCCCCCCCCCCCCCCC#
+W:D:#CC___..T^^C^.C...CCCC_~~___....CC^,,_.,,.C,..___...C,,,.,CCCCCC.CCCCCCCCCCC.CCCC..C.C..,,,.,,,e,,CCCCC.,,,,,,,,.,,...______~__~~~~___,,____,,,,,,,,,.,,,,,,,.,,,,__~_~~____,,,,,,,,,,,,,,,,,,TTTT..,.....__~__~~~~~~~~CCCCCCCCCCCCCCCC~CC~CCCC#
+W:D:#C~___C.^^^^^TT.C.CCCC____....,,^^C,____..,..__C_..C,CC,,,..CCC.CCCCCCCCCCC..CCCC...CC.......,,,,,.CCCCC.,,,,,,,,,..,,..______~~~____,,,___,,,,,,,,,,,,,,,,,,.,.,,____~___._,,,,,,,,,,,,,,,,,TTTTT........___~~~~~~~~~~~~~C~CC~~CCCCCCC~CCCCCCC#
+W:D:#C____^^^^^^TTT..CCCCCC__...,^^^^,,___C___C___,,,.,,,C,C,..CCCC..CCCCCCCCCCCCCCCCC.........CC,,..,,,,CCC..,,,,,,.,.,T....._____~~____,,,,,,,,,,,,,,,,,,..,,,,,,,..,______.._,,,,.,,,,,,,,,,,TTTT.......^...____~~~~~~~~~~~~CC~~C~CCCCCCCCCCCCCC#
+W:D:#C_~__^.^^T^T...CCCCCCC_...C^^^,,,,CCCC_____,,,,.,CCTCC.C..CC.C..C..CCCC.CCCCCTTTCCC.......CCCCC.,,,..,CCCC,,,,,.,,,TT,,...._________,,,,,,,,,.,,,.,,..^^,,,,,,__,.,.____...,,,,,,,,,,,,,,,,TTT....^...^....____~~~~~~~~~~~~CC~C~CCCCCCCCCCCCCC#
+W:D:#~~C_^^^..C.....CCCCCCC....,^^^CCCC_CCC__.,,,,C,.,,..C,,.,CC..C..CCCCCCCCCCTTTTTTTTTCC.......CCCC....,.,.,CC,,,,..,,TT.,,,..._______,,,,,,,,,,,,.,,,..^^^,,,,,____,...___9..,,,.,,,,,,..,,.TTT.....^..^.^..._____~~~~~~~~~~~~CC~CCCC~~CCCCCCCCC#
+W:D:#C~_^....__C_CC.CCCCCCC...^^^^^.,,CC__C..,TTCC,,,,,^CC,,C,,...C..CC.CCCCCCC..TC.TTCTCCCCC.......C..,.,....,,.,,...,,TTTT....,,_______.,,,,,,,,....,,,,.^^,,.,,,___________,.,,,,.,,,,.,,,,..TT.....^^.^^....____~~~~~~~~~~~~~~C~~CCCC~CCCCCCCCC#
+W:D:#C~__CC~C._C_CCCCCCCCCC..^^^^C,,,CC__CC.,,TCCC^^,^C^^.,,.C,..TTCCCC.^^CCCCC^.TCCCC.TTCCCC.....CC...........,,..,,..,TTTT.,.,,,,_____.....,,......,,,.,.^^^.,,,,,,,_______,,..,,.,,.,.............^^^^^^^.^...____~~~~~~~~~~~~~CCCCCCCC~CCCCCCCC#
+W:D:#CC_C_C_C__CCCCCCCCCCCC...C^C.,,,C___..T..CCT^^^^^^^,....,,C,..,,,.C^CCCC^^^.T.CCCCTCCCCCC..................,,......T.TTT,...,,.__..........TTTT..,...,.^^^,,,,,,,,_____,,,,,,.,.,............^^^^^...^.^...._______~~~~~~~~~~~~~~~CCCCCCCCCCCC#
+W:D:#CC~~___CCCCCCCCCCCCCCC.^.^^C,,..____C....CC^^^^^^^C,,CC..,.,..,C,,C.C^CC^^^.......TTTTC.CC.C......CCCC......,^.....,.TTT,..,,,..............TTTT.T..,,,,^^.,.,,,,,____,,,,,,,..,.........^^^^^^^^^^^..........__~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC#
+W:D:#CCCC~~CCCCCCC~CCCCCCCCC.......CCC__C_...CC^^^^,.^.TTT,,..C,,,C,C,.C..CCC^^CC...C.TTT.TTC...CCC.C..._.CC......^^^^^....TT,...................TTTT.T.,,,,,,^^,..,,,,,__,,,,,,,,,........^^^^C^^^^^^^.^^^..^.....__~~~~~~~~~~~~~~~~~~~CCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCC~CCCCC.^.._..__~~__C__CCC^.,,C,.,,CT,.T,C,,,,CT,..CCCC^^^CC..CCCTTTCT....CC.CCCC.__C.........^^^T...........^^...........TTT......,,,,.,^,...,,,,,_,,,,,,,.......^^^^^^^^^^^^^^^^^^^.^.......___~_~~~~~~~~~~~~~~CCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCC..._C____~~~____CCC......,.,TT,^,CCCTT,CCT,..C.CCC^^^CC.C.TC.T.TTC.TT..CCCCCCC___........^^^^^........^^..C........................^,,,.,,,,,,,,,,,,.......^^^^C^CC^CC^^^^^^^^^^.........___~~~~~~~~~~~~~~~CCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCC~CCCCC..__.__~~~~~~~CCCCC__....TCCT,,^,,,C,,^^C,C^C..CCC^^.TT.CTC.CTT.TTTTT....CCCCCCC__.......^^^^^...^..^^^^..CCC.CCC..............^..,,,,,,,,,,,,,,,,,....^^^^^^CCCCCC^^^^^.^.^^^...........___~~~~~~~~~~~~~~CCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCC.C_._C__~~~~CC~~CC~C______,,T,,,,^^C^,^^^,^CC....CCC^^...CT..CCCTTTC.TC....CCCCC_CCC_C......^^^^^..^^^^^....CCCCCCCCCCCCCC.......^^,..,,,,..,,,,,,,,.^^^^^^^^^^^^CCCCCC^^^^^^^^^.CCC.......____~~~~~~~~~~~~~CCCCCCCCCCCCC#
+W:D:#CCCCCCCC~C~CCCCCCCCCCC__.___~~~~~CCCCCCCC~~___.,,T,,C,^C^^^^,,,CCC....CC^^^...C.CC.C.CCTTTT.....CC..CCCCCCCCCCCCC....^^^^^^^^..CCCCCCCCC.CCCC.CCC...^^.^^..........,,,.,..^^^^^^^^^^^^CCCCC^.^^..^.^^.CCCCCC....____~~~~~~~~~~~~CCCCCCCCCCCCCC#
+W:D:#CCCCCCC~~C~CCCCCCCCCCC____~~~~~~~CCCCC~C_____,,C..TT,,^^^^,,,.,CC,...^CCC^^^..CCC.....C.TCCTT....CCC.___CCCCCCCC.........^^^..CC.CCCCCCCCCCCC...CC.....^^^....TT...,,.,.....^^^^^^^^^CCC^^^...^^...^^..C.CCCC...___~~~~~~~~~~~~~CCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCC__C~~~~C~CCC~CC~CC__CC,,CCC,TCT^^,,,,..TCCTT,...^C^^^.^^.C.^^^^.....CTTT.....CCC_____CCCCC.CC..CCCC.CCCCCCCCC.C...CCCCCCCC..C...........TT....,,...^^^^^^^^^^^^CC^..C.....^...^^..CC.CCCCC___~~~~~~~~~CC~~CCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCC~~~~~~~CC~~CC~~~~_____CCCCTTTTT.,,CCCC,CT,T.T..^CC^...^...^^.^....C.TTT.......CDC___~CCC__CCCCC.CCC.CCCCCCC.CC..DDDDCCCCCCC.CCC......TTTT....,....^^^^^^^^^^^^..CTTT..............CCCCCCCCCCCCC~~~CCCC~CCCCCCCCCCCCCCCC#
+W:D:#CCCC~CCCCCCCCCCCCCCC~CC~~~~~~CCCCCC~~~~~~__CCC_TTTTTT...,TCCCCTTTC...^^^^^^^^....^^^^^^.C^^.T,........DDCCC~~CCCCC_CCC...CCCCCCD..CCDDD.DDDDCDCC.CCC..C.......DD.........^^^^^^^^^,,...CTTTT..T.............CCCC_CCCCCCCCC~CCCCCCCCCCCCCCCCCCC#
+W:D:#CCC~CCC~CC~~CCCCCCCCCCC~~~~C~C~CCCC~~~~~~~~C~_..TTTTCTTTTCCCCCTTTT...^^^^^....C..^^^^^^^^^..,,,.f.D..DDD__~CCCCCCC_CCCCCCCCCDDDDD.D....DDDDDDDDDCCCCCCCC..DDDDDD.^^^^.^...^^^^^^^^,,....TTTTTT......T.......C.CCCCC~~CCC~~CC~CCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~CC~CCC~C~C~C~~~C~CCCCCC~~~C~~~~~~__..TTTTTTTTCTTC,TC,,..^^^.......C^.^.^^^^^^^^.,,,,..DD.DDD__~~~~~__CCCDDCCCCCCCCDD.....D.DDDDDDCDDDDDCCCDDDDDDDDD.^.^^^^^..^^^^^^^,,,,..TTTTTTTT.....TTT......CCC_CC~CC~~C~CC~~CCCCCCCCCCCCCCCCC#
+W:D:#CCCCC~~C~~~~CCCCCCCCC~~~~~C~CCCC~CC~~CC~~~~~~__..TTCTTTCC,T,,,.....^^^C..,,..CC....^^^^^^^^^^.,,...D...D.___~~____DDDDDDDDDDDDCD.D.D.D.DDDDDDCDDDDDCCDCDCCDDDD^^^^^^^.^...^^^.^^,,,,,.TTTTTTTT.....TTT......CCC__CCCCC~C~CCCC~CCCCCCCCCCCCCCCC#
+W:D:#CCCC~~~~~~C~~CCCCCCCC~CCCCCCCC~~~~CC~C~~~~~~~___,T,TTTTCT^^^......^C^^^...,..C.....^^^C^^^^^^^.,.......DD____~~__DDDD^DDDDDDDDDDD.DD__.DDDDDDDDDDDDDDDCCCCDDD^^^^^^^DDDDD..^..^,,,,.,..TTTTT.T.T...TT.......C____~CCCCC~~CCCCC~CCCCCCCCCCCCCCC#
+W:D:#CCCC~~C~~C~~CCCCC~CCCCCCC~CCC~~~~~~~~C~~C~~~~_,,,,TTT^^^^^C^^^..C.^^..^...,.C............^^^^^,,^.^^^.CCDD____~__DDDDDDDDDDDDDDDD,D..__DDDDDDD,DDDDCDCDDCCC^CC^.DDDDDDD..^^^...,,,,,,,..TTTTTTTT...T........____~~~~CCC~~CC~~CCCCCCCCCCCCCCCCC#
+W:D:#CCC__~~~~~~~CCCCCC~CC~~CC~CC~~~~C~CCCC~~C~~~CC,,,,C^^^^^^^^^^^^^..^...^..,,...............^..,.....^^^^^.DDDD____DDDDD^^DDDDDDDDD..,DDDDDDDDDD,,DDDDDDD^^.CCCCDDDDDDDD...^......,,,,.,.,TTT...TT...........____~~~~~~CCCCC~~~~~~~CCCCCCCCCCCCC#
+W:D:#CC_~~~~~~~~~C~~CCCCC~CCCC~CCC~~CCCCC~~~CC~~C~__,,,^^T,.T.,.C^^C,,.^......,.....T.....,,...^........,,^^^^DD______DDDD^DDDDDDDDDDDD,,DDDDDDDDD.D,DDDC^D^^^..CCCCCC...CC..........,,,.,,,,...__..TT........._____~~~~~CCCC~~~~~~~~~~~CCCCCCCCCCC#
+W:D:#CC_~C~~~~~~~~C~~C~CCCCCC~~C~~C~CCCCCCCCCCCC~__C_,,^TC,,C,,,,.,,.,,CC,,,,,,._.T.....,,,,,......_...,,.,^^^^DDDD____DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD^^^^^^CCCCCCCCC...CCCC........,,..,.,.____..TT.........____~~~~CCCCCCC~~~~~~~~~~~CCCCCCCCCC#
+W:D:#CC__~_~~~~~~~~~~CCCCCCC~CC~~CCCCC~~CCCCC~~~~____,,^CC,,,C,,C.C,,,,.,,....C._..TT..C.,,,,.^^^^^.....,,...^^^^DD.___DDDDDD^D^^DDDDDDDDDDDDDDDDDDDDDD^^^^^^^C.CCCCCCCCC...CC...,,..,,.,.,,,______...........____~~~~~C~CCCC~~~~~~~~~~~~~CCCCCCCCC#
+W:D:#CC_____~~C~~~~~~~CCC~CCCCC~CCC~C~~~~CCC~~~~~____.,,.C.,,_,CC.C....,,......__T.TT....,,,,.^^^^^^....,,,,...^^^DDD...D^DDDDD^^DDDDDDDDDDDDDDDDCDDD^^^^^^^^^.DDDCCCCCCCC....CCC,,,,,,...,,._______..........___~~~~~CCCC~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CC_.___~~~~~~~CC~CCCCCCCCCC~CC~~~~C~~~~~~~~~__C_.,__C._____.C^^...,,.....C_7TTTTTT..,.,,...^^.^.....,,..........^^^D^DD^^DD^^^^DDDDDDDDDDDDDDDDD^^^^^^^^.DD.D....CCCCC......,,,,,,.,,,.________.........____~~~~CCCC~~~~~~~~~~~_~_~~~~CCCCCCCC#
+W:D:#C._.._C_____C~~~CC~C~C~~CCC~~~~~~~CC~~~~~~~~_C__,,________,.^^^^.^^,......_TTTTTTTT,.T.,...._.....,,.,,,.,.,,,,.^^^^^DD^^^^^^^^DDDDCDDDDDDDDDDDD^^^^.D..DDDDDD....CCCC.....,,,,,,..,..__________....CC..____~~~~CCC~~~~~~~~~~~____~~~~CCCCCCCC#
+W:D:#C....__________~~~~CCCCCCCC~~C~~~~~C~~~~~~~~_C_____________,^^^^^^^^...TTT_TTTTTTTT..3...._._.__...,,..,,..,.,,,,^^^^^^^^^^^^^^^DDDDDDDDDDDDDDDDD^^.DDD.D.DDDDC....CCCC....,,,,,,...________~____...C.C____~~CCCCC~~~~~~~~________~~~~~CCCCCCC#
+W:D:#C...C.__.....__~CC~CCCCC~CCCCC~~~~~CC~~~~~~~_C_____~~~~~__,,^^^^C^.....T.T_..TTTTTT..T..._____..TT.,.,.,.....,,,,,^DDD^^^^^^^^^^^DDDDDDDDDDDDDDDD^^DDDDDDDDDDD..CC.CCCCC...,,,,,....______~~~~____..CC.CC_CCCC~C~~~~~~~~~___...__~~~~~CCCCCCCC#
+W:D:#C^^^.C......C_~~C~~CCC~CCCC~CCC~~~~~C~~~~~~_______~~~~____,..^^^^.......T._..TTTTTTTT...____.....T....,,...........DDDDD^^^^^^^^^^DDD.DDDDDDDDDDDDDDDDDDDDDD.D..CCCCC.CC..,.,,,,....____~~~~~~~___.._CCCCCCC~CCC~~~~~~~_____...__~~~~CCCCCCCCC#
+W:D:#C^C^^^CC^...__~C~~~C~~C~CCCCCCCC~~CCC~~~~~~~___~~~~~~~~___....^^..__.....,_...TTTT.T....__~__.....TT,,,......T......DDDD.^^^^^^^^^DDDDDDDDDDDDDDDDDDDDDDDDDDDD...CCCC.....,.,,,....____~~~~~~~~___.___CCCCCC~CCC~~~~~______....__~~~~CCCCCCCCC#
+W:D:#C^^^^^^^^^..__~~~~CCCCCCCCCCCCCC~~C~C~~~~~_~__~~~~~~~______..2.._____.,,,__...TTTT.....__~~__.....TTT......T.........DD...^,^^^^^^^^DDDDDDDDDDD^DDDDDDDD,,_D.D...CCC......,,.,...T._.__~~~~~~~~__C_____CCCCC~CCC~~~__...__...___~~~~~CCCCCCCCC#
+W:D:#C^^C^.C....__~~~CCCCCC~CCCCCCC~C~~~~~CCC~_~~_~~_~~~~~_______..._______.,___....TTT....._~_~~__.....TTT..T.T.TTTT.T.TT.....T.^^^^^^^^^.D.DDD^...DDD,,,DD,,_,DDDC.CCCC.CCCCC..........___~_~~~~~~CC_____C~CCCCCCCC~~__...._..._______~~CCCCCCCCC#
+W:D:#^^.^^.....___~C~~CCCCC~~CCCCCCCC~~~~~~~~~~~~~~~~~~~~________________________....TT.TT..__~~~~_.......T.TT...TTTTTTTTT.....T...^^^^^^^^D.DD^^^^^DDDD,,DD,DC,,D.CCCCCC..CCCCC..,,.,....____~~~CC~C___CCCCCC~CCCC~~___.._____....____~CCCCCCCCCCC#
+W:D:#^^..._______~~~~CCCCCCC~CC~CCCCC~~~~~~~~~~~~~__~~~~~______~_____CC__~_______....TT..T..___~~~__......TTTT..TT.TTTT.T....TT...T..^^^^^1..DD.^^^^^^.DDDDDDD..DCD.DCCCCC..CCCC.,,,,,....~__~~CCC~~~~____~~~C~CCC~~~_____~~~_....._~~~CCCCCCCCCCCC#
+W:D:#...._C__C~~_~~~~CCCCCCCC~CCCCCCC~~~~~~~~~~~~~_~~~_~~_CC__~~~____C__~~___~~~__.......TT.___~~~__.....TTTTTT.....TT.TT..T..TTTTT....^^....DD.^^^^.^.DDDDDDD._DDDCDD.CCC..CCCC.,.,,,..._~__CC~~~~~~~~~~~~~~~CCC~~~~__~~~~~_.._____~~~CCCC~CCCCCCC#
+W:D:#C.______~~~~~~C~CCCCCCCCCCC~CCCC~~~~~~~~~_~~~~~~__~~CC___~~~________~__~~~~__.....T.T...__~~~__.._...TTTTTT...T.T......T.TTTTT........T.D..^.^^^^.DD.DD.DDDDDD.DD..CCCCCCCC...,,....___~~~~~~~~~~~~~~~~CCCCC~~~~~~~~~~_____~__~~~CCCCCCCCCCCCC#
+W:D:#C._~_CC~~~~~~CC~CCCCCC~CCCC~CCCCCCC~~~~~~~~~~~~___~~_____~~CC______~~_~~~~____.TT........__~~___._....TTTTT.TTTTTT...T.TTTTTTT.._....TTT....^^^^^^DD^.D.DDDDDDDDDD..CCCCCCC..,,.....___~~~~~~~~~~~~~~~CCCCC~~~~~~~~~~_____~~~~~~~CC~CCCCCCCCCC#
+W:D:#CC_~~C~~~~~~C~CCCCC~C~CCCCCC~CCC~~C~~~~~~~~~~__.___C_____~_C___~~~~~~~~~______........T..__~~~_____...TTTTTTTTTTTTTT..T..TTTTT.._...TTTT....^.^^^^.^^DDDDDDDDDDDDD...CCCC.C..,,....._~~~~~~~~~~~~~~~~~~~CCC~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCC#
+W:D:#CCC~~~~~CC~~CC~CCCCCCCC~~CCCCCCCC~~C~~~~~~~~~~___CC___~_~~______~~~~~~~_______....._.TT..___~~_~___T..TTTTTTTTTTTTTTTTTTTTTTTTT.__...TTT...^^^^^^^^^CDDDD.DDDDDDDDD..CCCCCC...,,..___~~_~~~~~~~~~~~~C~~~CCCCC~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCC#
+W:D:#CCC~~~~C~CCCCCCCCCCCCC~~~~CCCCCCC~~CC~~~~~~_~____CC___~_______~~~~~_~~~___..__._____..T..____~~~_._TT.TTTTTTTTTTTTTTTTTTTTTTTT..__...TTT...^^^^^^^^^^^.DDDDDDDDDDDDDC.CCCC....,,...__C_.__~~~~~~~~~~~~~~C~~~CC~~~~~~~~~~~~~~~C~CCCCCCCCCCCCCCC#
+W:D:#CCC~~~~~~~CCCCCCCCCCCCCCCCC~CCCCC~~~~~~~~~~__CC____~~~~~_____~~~~~~~~~____..._______.....___~_~__._TTTTTTTTTTTTTTTTTTT.T..TTTT..__....TTTT...^^^^^^^^^..D.DDDDDDDDDDC.C.CCC..,,.....CC___~~~~~~~~~~~~~~~CC~C~C~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCC#
+W:D:#CCC~~~~C~~CCCCCCCCCCCCCCCCC~CCCCCC~~C~~~CCCCCC___~~~~_~~___~~~~~~__~~____....._______....~~_~____..TTTTTTTTTT.TTT.TTTTT........____....TTT.....^^^^^^^^.DD.DDDDDDDDDCCCCC.C....TT...C..___~~~~~~~~~~~~~~~CC~~CC~~~~~~~~~~~C~C~CCCCCCCCCCCCCCCC#
+W:D:#CC~~CC~~~CCCCCCCCCCCCCCCCC~C~CCCCCC~~C~~~~~~~___~~~___~_~~~~~~~~~~~~~____..._____~__..__.~~_~____..TTT.TTTTTT.TT..TTTT.........__~__...TTT....^^^^^^^^.C.DD.DDDDD.DDCCCCC.C..TTTT.....____~~~~~~~~~~~~~~~~CCCCCCC~~~~~~~~~~~CCCCCCCCCCC~CCCCCC#
+W:D:#CC~C~C~CCCCCCCCCCCCCCCC~~~_C__CCCCC~~C~~~~~~~___~~____~~~~~~~~~~~~~~~_____.___~_~_~______~_~__.__.,..TTTTTTTTTTT.........._______~~_....T.....^^^^^^^^.^..DDDDDDDDDDCCC.C.C....T......____~~~~~~~~~~~~~~~~C~CC~CCCCCC~~~C~~CCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCC_____C___CCCCC~C~~~~~~~__~~_~~~~~~~~~~~~~~~~~~__~______~~~~~~~_.___~__...__,,..TTTTTTT.TTT.T...._..._____~~____.........^^^5^^^^^^^^^^DD^D.D...CCCCCC.........C..__~~~~~~~~~~~~~~~~~~~~CC~CC~~~CC~~CCCCCCCC~CCCCCCCCCCCC#
+W:D:#CCCCCCC~CCCCCCCCCCCCCCCC__C__CCCCCCCCC~~~~~~~~~~_~~~~~~~~~~~~~~~~~~~__~~__~~~~~_~__~~~~~~~__...__,,...TT.TTTT..TTT....._..__~_~~~__.........^^.^^^^^^^^^^^^^^^^^...CCCCCCCC.........C...__~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCC~CC~~C~CCCCCCCCCCCCC#
+W:D:#CC~CCCCCCC~C~CCCCCCCCCCC__C_______CCCC~~~~~~~~__~~~~~~CC~~~~~~~CC~~~~____~_~~~~~~~__~~~~~~_...._.,,...T...TTT...T......__.._~~~~__............^^^^.^^^^^^^^^^^^^...CCCCCCCC...TTT...C....._~~~~~~~~~~~~~~~~~~~~~CCC~~~CCC~CC~~~C~CCCCCCCCCCCCC#
+W:D:#C~~C~CCCC~CCCCCCCCCCCC_C_C._..____CCCCC~~~~~~~_~~~~~~~CCC~~~CC~~~~~~_~__~_~~~_~~~~_~~~~~____..._..,.,....TT............__._~~~~___............^^^^..^^^^^^^^^^^^..C.CC.CC.C...T.T..CC.....__~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCC~CCCCCCCCC#
+W:D:#C~CC~~~~~~CC~C_CCCCCCCCCC....TT.__C_CCCC~~~~~~~~~~~~~CC~~~~~~~~~~~~~~_____~C~~~~~~~~~~~_~~_______.,,,....TT............___~~~~_._........^^^^^^^^.....^^^^^$$^^^..CCCCCCC.C..TTTTT..C.....__~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCC~CCCCCC~~CCCCCCCCC#
+W:D:#CCC_~~~~~~~~_CC_CCCCCCCCTT...T..___C_C_CC~~~~~~~~~CC~CC~~~~~~~~~~~~~~_~__~~~~~~~~~~~~~~~~~~~_____.,,,,.TT.........__..___~~~_____.......^^^^^C^^.....C.^^^$$&&$^^^CCCCCCC.C..TTTTT..C...______~~~~~~__~~~~~~~~~~~~~~~CCCCCCCCCCCCCC~~CCCCCCCCC#
+W:D:#CC~~~~~~_~~__CC__CCCCCTCTTTT..._____C_CCC~~~~~~~~CCCC~~~~~~~~~~~~~~___~~~~~~~~~~~~~~~~~~~~~__~___..,,,,.........._______~~~____.....C..^^^^^^^........^^.^^$&&^^^^CCCCCCC....TTTTTT.C...._______~______~~~~~~~~~~~~~~~~~~~~~~~CCCCC~~CCCCCCCCC#
+W:D:#CC~~~~~__~_~~___CCCCCCTCTTT.________C__CCC~~~~~CCCCCC~~~~~~~~~~~~___.__~~~~~~~C~~~~~~~~~~~~_~___....,,,.,,,,,._____~_~_~~~~~__..........^^^..........^^^.^$$$&^^^CCCCC..C....T.TTTT.C......_______________~~~~~~~~~~~~~~~~~~~~~CCCCC~CCCCCCCCC#
+W:D:#CC~~~~~~~_~~_~__CCCCCCCTTTT.___~_____C_CC~C~~~~CCCC~~C~~~~~~~~~~___..._~~~~~~~~~~~~~~~~~~~~~~~___......,,,,,,_____~__~~~~~~~__.....C.....^^..........^,^.^^^^^^^^CCCC...C...TTTTTTT..........____..____..__~~~~~~~~~~~~~~~~~~~~~CCCCC~CCCCCCCC#
+W:D:#CC~~~~~~~~~____.....CCTTTTT____~_~__~_CC~CCC~~CC~~C~CC~~~~~~~~~___T...___~~~~~~~~~~~~~~~~~~~_~~__.....,,,,,,.____~~_~__~~~~~_.....C...............,,.,,^....^^^^^CCCCC..CC....TT..T..............._____...__~~~~~~~~~~~~~~~~~~~~CCC~C~CCCCCCCC#
+W:D:#CC~~~~~~~~~~__......CC..T.._____~~_~~~CCCCC~~CCC~CCCCC~~~~~~~~___.TTT.___~~~~~~~~~~~~~~~~~~~~~____..,.,,,,,.___~_~~~~_~~~~~__....C.................,,,,.....^^.^^CCCCCCCCCC...TTTTT...............______...__~~~~~~~~~~~~~~~~~~~CCC~~~~CCCCCCC#
+W:D:#CCC~~~~~~~___...^^^......._____~_~_~CCCCCCCCCCCCCC~~~~~~~~~~~_~_..4TTT.__~~~~~~C~~~~~~C~~~~~~__~__..,,,,,,.._~__~~~~~~~~~~__.....CCC............,,,,,,...C.C^^.^CCCCC^^.......TTTTT..TTT.........______.....___~~~~~~~~~~~~~~~~CCC~~~~~CCCCCCC#
+W:D:#CC~~~~~~~~___...^^^......______~~~~CCCCCCCCCCCCC~~~~~~~~~~~~____..TTT.__~~~~~~~CC~~~~~~~~~~~~~~~__.,,,._...__~_~_~~~~_~~~~__....CCCC..,,,.......,,,,,,.......CCCCCCC^^^^..^...TTTTT.TTTT............___......___~~~~~~~~~~~~~CCCCC~~~~CCCCCCCC#
+W:D:#CCC~~~~~~~___.,^^^^,....._______~~~~CCCCCCCCCCCC~~~~~~~~~~~_____.....__~~~~~~~~~~~~~~~~~~~~~~~__~_.,,,.______~~~~~~~~~~~~~_.....CCCC..,,,.......,,,,,,.......CCCCCCC^^^^.T^...TTTTTTTTTTTT.T........._..TTT..___~~~~~~~~~~~~~~CCCC~~~CCCCCCCCC#
+W:D:#CCC~~~~~~~__..,^^^,,....______~~~~~CCCCCCCCC~~~C~~~~~~~~~~_____.....__~~~~~~~~~~~~~~~~~~~~~~~~~_~_..,,___~__~~~~~~~~~~~~~~_..........,,,,.......,,,,,,...C...C.CCCC..^^^^T^.TTTTTTTTTTTTTTTT.............TTT.___~~~~~~~~~~~~~~CCC~~~~C~CCCCCCC#
+W:D:#CCC~~~~~~___..^^^^,,..._______~~_~~CCCCCCCCC~~~C~~~~__~~____.T_.,,,___~~~~~~~~~~~~~~~~~~~~~~~~~~__..,.__~__~~~~~~C~~~~~~~~_.........,,,,,.....^^,,,^.........CCCCCCCC^^^^TT^T.^TTT..TTTTTTT.T......T......TT.__C~~~~~~~~~~~~CCCC~~~~~~~CCCCCCC#
+W:D:#CCC~_~_____,,,^^,,^,.._______~~~~CCCCCCCCC~~~~~C~~~~_~~____.TTT.,...____~~~~~~~~~C~~~~~~~~~~~~~~~_..,____~~~~~~~~~~~~~~~~__........,,,,,.,....^^^,,^.......C....CCCCCCC^^^^^T^^......CTTTTTT.......TTT.......___~~~~~~~~~~CCCC~~~~~~~~~CCCCCCC#
+W:D:#CCCC~~____.,,,,,,,^..._____~~~~_~CCCCCCCC~~~~~~C~~~~~_..TTTTTT...T..___~~~~~~~~~~~~~~~~~~~~~~~~~~__..____~~~~~~~~~~~~~~~~~___....,,,,,,,.,...^^^^^^^^^^.,.........CCCCC.^.^^^T^...CCCCTTTTTTTTT...TTTTT.....C____~~~~~~~~~C~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCC~~____.....,,^,..______~__~~~CC~CCC~~~~~~~~C~~~___.TTTTTTT..TT.___~_~~~~__~~_~~~~~~~~~C~~~~~~~__._~_~~~~~~~~~~~~~~~~~~CC__...,,,,,,,8__..^^^^^^...,,...........CC.CC.^^^^T^...CC....TT.TTTT..TTTTTT...C.._____~~~~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCCC~~~_____...,,.....____~__~~CCCCCC~~~~~~~~C~~~__..TTTTTTTTT.TT..__~~~~~~~~~~~~~~~~~~~~~~~~~~~~_____~~~~~~~~~~~~C~~~~~C~~__...,,,,,.,,__...^^^^...,.,............CCC.C^^^......CC......TTTTTTTTTTTTT..CCT._____C~~~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCCC~~~_~____...,,,....___~_~~CCCCCCC~~~~~~~_~~~~_..TTTTTTTTT..T..___~~~~~~~~__~~~~~~C~~~~~CCC~~~~~__~~~~~~~~~~~~CC~~~C~~C~~__.._,,,._,,_....^........,,...^^.^^....CCCC.^....,..C.....TTTT.TTTTTTTTTT....T.__C__~~~~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCCC~~~~_______..^,,^..___~__CCCCCCC~~~~_~~~~~~~~____T.TTTT^T......___~~~_~_~__~_~_~~CCC~~~C~~~~~~__~~~~~~~~~~~~CC~~~CCCC~~~~_____,_____.....,,.......,.....^^^^^.......................TTTTTTTTTTTT...TTT.CC____~~~~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCCC~~~~_~_____..,,,^..__~~__CCCCCCC~~~~~~_~~~~_~~_~_TT.TTT^TTT....____~~~_____~~~~~~~CCCC~C~~~~~__~~~~~~~~~~~~CC~~~~CCC~~~~_~___~__~~__..,,.,,,.....__......^^.^.......................TT.TTTTTT.....CCTTC_CCC_C~~~~~~~~~~~~~~~~~~~~CCCCCCCC#
+W:D:#CCCCC~~~~~~~~____.,,,,__~~_~~CCCCCCC~~~~~~~~~~~___~~~~_.TTTT^TTT....___~__~_~_~__~~~~~~CCCC~~~~~~~~_~~~~~~~~~~CC~~~~~~~CC~~~~~______~___..,.,,,,,,,______........^^........^^^^...........T..TTTTT...CCCTT.___~CCC~~~~~~~~~~~~~~~~~~~CCCCCCCCC#
+W:D:#CCCCCC~~~~~~~_~___,,____~_~~~CCCCCC~~~~~~~~~~~~~~~_~~~_..TT.^^^TTT.._________~~_~_~~~~~~CCC~~~~~~~~_~~~~~~~~~CC~~~~~~~~~C~~~~~~_________..,,,,,,,__~~~~~__.........CC......CC^^^....,,.......T.TT......CT._CCCCCCC~~~~~~~~~~~~~~~~~~~CCCCCCCCC#
+W:D:#CCCCCC~~~~~~~~_________~~~~~CCCCC~~~~~_~~_~__~~~~_~~~~_...TT^^^^.T..________~_~~~~~~~~~~~CCCC~CCC~~~~~~~~~~~CC~~~~~~~~~C~~~~~~__~~_____....,,,,_~~~~~~~~~~___.......C....CC.C........,,,,,...TT.,......C.CCC__~~CC~~~~~~~~~~~~~~~~~~CCCCCCCCCC#
+W:D:#CCCCCC~~~~~~~~~_~_____~~~~~~CCCC~~~~~~_~~~____~~_~~~~__..TTT.^^^.T.._________~~~~~~~~~~~~CC~CC~~~C~~~~~~~~~C~~~~~~~~~CCC~~~~~~~~~~___~~_...,,_~~~~~~~~~~~~~__....,,..C...CCCC.CCCCC.....,,,,....,........C_~CCCC~CC~~~~~~~~~~~~~~~~~CCCCCCCCCC#
+W:D:#CCCCCC~~~~~~~~~__~~__~~~~~~~CCC~_~~~~~~~_____~__~~_~~___.TTT.^^^^T.D_______~~~~~~~~~~~~~~C~CC~~~~C~~~~~~~~CC~~~~~~~~~CCC~~~~~~~~~~~~~~~__..__~~~~~~~~~~~~~__._._,,,,..C...CCCCC....C.CC....,,..,,.......___C~_~CC~C~~~~~~C~~~~~~~~~~CCCCCCCCCC#
+W:D:#CCCCCCC~~~~~~~~__~~~~~~~~~~CCCC~~~~~~______~~___~_~~____.....^^^^..D________~~~~~~~~~~~~~CCC~~~~~~C~~~~~~~CCC~~~~~~~~CC~~~~~~~~~~~~~~~~~______~~~~~~~~~~~~______,,,,,,,.C..CC....CCC..CC..,,,,.,,......______~~~~CCC~~~~~~~~~C~~~~~~CCCCCCCCCC#
+W:D:#CCCCCCC~~~~~~~~~__~~~~~~CCCCCCC~~~~~_~____________~~_~__.....^^^^^.DD______~~~~~~~~~~~~~~CC~~CC~~CCCCC~~~CCCC~~~~~~C~CC~~~~~~~~~~~~~~~~~~______~~~~~~~~~~~~~_~~~__,,,,,..C.CC....CCCCC.CC.,,,,,,,...________~~~~~~C~C~~~~~~~~~~~~~~C~CCCCCCCCC#
+W:D:#CCCCCCC~~~~__~~~~_~~~~CCC~C~CCC~~~_~__~~_________~_~~___......^^^^DDD____~_~_~~~~~~~~~~CCCCCCC~CCCC~~CC~C~CCC~~~~~CC~C~~~~~~~~~~~~~~~~~~~___~~_~~~~~~~~~~~~~~~~~~__..,,...C.CC...CCCCCC.CC.,,,,...___C__C_~~~~~~~~~CC~~~~~~~~~~C~~CCCCCCCCCCCC#
+W:D:#CCCCCCC~~~~___~~_~~~~CC~CCCCC~~~~~~~______________~~_~____...^^^^^DDD_____~~~~~~~~~~~~CCCCCC~CCCCCCCCCC~CCCC~~~~CCC~~~~~~~~~~~~~~~~~~~~~~_~~~~~~~~~~~~~~~~~~~~~~~~______...CC.CCCCCCCCC..C.,,,,,.__~______~~~~~~~~~C~C~~~CC~~~~~~~CCCCCCCCCCCC#
+W:D:#CCCCCCC~~~~__.__~_~~~C~CCC~~C~_~~~______._..______~______....^^^^^DD_____~~~~_~~~~~~~CC~CC~C~CC~~CCC~~C~~CCC~~~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~___.CCCCCCC..C.CC.CC,,,,.._~~~~___~~~~~~~CCC~~CC~C~~~~CC~~CCCCCCCCCCCCC#
+W:D:#CCCCCCC~_~~...__~~~~~~CCC~~C~~~_~______..,,...._________....^^^^D^DDD___~_~_~~~~~~~~~C~~CCC~CCCC~CCC~~C~~C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~__..CCCCC.CC..C_CC,,,..__~~~~__~~~~~~~~C~~~~CC~C~~C~~~CCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~___...__~~~~~~CC~~~CC____~~____.,,,...._________....^^^^D^DDD_____~~~~~~~~~~~~~CC~~CC~~CCCCCC~C~~C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~__CCCC.CCCC..__..,,..__~~~~~~~~~~~~~~_____CCCC~CC~~~~CCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~_....__~~~~~~CCC_~C~~~_~_~~~___.,,,,,..________....^^^DDDDDDD_____~~~~_~~~~~~~CC~~CCCCCCCCCCC~CC~CC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCC.C.CCC____,.,..._~~~~~~~~~~~~~___..__C~C~C~~C~~CCCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~_..._~_~~~~~~C~CC~__~__~______.,,,,,...__.____.....^^^DDDDDbDD____~~~~~_~~~~~~CC~CCC~CCC6CCCC~CCCCC~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCC...C~~___...CCCC~~~~~~~~~~~____..._~C~CCC~CCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCC~~~____~~~~~~~CCCC~~~~_~___~___.........___.____.....^^DDDDDDDDDD___~~~~~~_~~~~~~C~CC~CCCCCC~CCCCC~C~~~~~~~~~~~~~~~~~~~___~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCC__C.CC_~~~~_____~~~C~~~~~~~~___......._~CCCCC~CCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCC~~~~___~~~~C~~CCC~~_~_~~~_________...______.__....^^.^^DDDDDDDDDDD_~~~_~~~~CCC~~~C~CC~~C~CCCC~CCCCCC~~~~~~~~~~_~~~~__~______~~~~~~~~~~~~~~~~~~~~~~~~~C~~~~~~~~~~~~~~CCCCCCCC_~~~~~~~~~~C~CC~CCC~~~__.....___._CCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCC~~~~_~~~~~CCCCCC~~~____~__~_______.._____._._....^^^^^^^DDDDDDDD____~~_~~CCCC~~~~C~CC~~C~CC~~CCCCCC~~~~~~~~~~~_____.________~~~~~~~~~~~~~~~~~~~~~~~~~C~~~~~~~~~~~~~CCC~~_CC.__~~CC~~~~~~~CC~CCCC~CCC...T..._.___CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCC~~~~~~~~~CCCCCCC~~~~_____~~~_____________.......^^^^^^^^DDDDDDDD____~~_CCCC~~~C~~CC~CC~CCC~CCCCCCCCC~~~~~~____DDDD_........_~____~~~~~~~~~~~~~~~~~~~~~C~~~~~~~~~~~~CCC~_CCCC._~CC~~~C~~~C~~CCC~CC_CTTTTTT......_CCCCC~CCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCC~~~~~~~~~CCCCCC~~~______~~____________.,,....a.^^^^^^^^DDDDDDD______~CC_~~~~~~~CC~~C~C~CCC~CCCC~~~C~~~~__DDDDDDDDD.....T..___..__~~~~~~~~~~~~~~~~~~~CC~~~~~~~~~~~CCC~~CC..C.__~~~~C~~~~~~CCCCCCC_.TTTTTT.....CCCC~CC~CCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCC~~~~~~C~CCCCC~_~_~_~________________.,,,.....^^^^^^^^DDDDDDDDD___~~__~~~~~~~~~~~~~~~C~~~~CCCC~~CCCC____DDDDDDDD..^^^T.T..__....__~~~~~~~~~~~~~~~~~~CCC~~~~~~~~~CCCC~~C___CCC__~~~~~~CCCCCCCCCCCC..TTT.T.....CCCCCCC~CCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~~C~CCCC~~~~___________________.,,,,,.....^^^^^^DDDDDDDDDDD__CC~_~_~~~~~~~~~~~~~~~~~CCCC~~C~CCCCC...DDDDDDD..^^^.TTT.__..T..__~~~~~~~~~~~~~~~~~~CCC~~~~~~~~~CCCC~~C~~_CC.._~~~~CCCCCCCC~CCCCCCCC....T......CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCC~~~CCCCCC~~~~~_________________,,,,,,,....^^^^^^^^^DDDDDDDDDDCCCC~~__~~~~~~~~~~~~~~CC~~~~~CCCCC~~~_.DDDDDD^^.^^^^TTTTT...TTT.__~~~~~~~~~~~~~~~~~~~~~CC~~~~~~CCC~~CCC~~~C__._~~CCCC~CCCCCCCCCCCCCC.C.........CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCC~CCC~CCC~~~_________________.,,,.,,,....^.^^^^^^^^DDDDDDD.DDC_CC~~~~~~~~~~~~~~~~~~~~~~~~~CCCCC____...D^^^^^^^^^^^TT.T..TTT..__~~~~~~~~~~~~~~~~~~~~~CCC~~~~~CCCCCC~~CCCC~___~C~C~C~C~~~CCCCCCCCCC..CC.._..._CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCC~CC~~~~________..______..,,,,,,,....^^^^^^^D^^^DDDDD...DD__C~~~~~_~~~~~~~~~~~~~~~C~~~~~CCC__...........^^^^^^^^TTTTTT.TT.__~~~~~~~~~~~~~~~~~~~~~CCCC~~~~CCCCC~~~CC~~~~~~~CC~~~~~CCCCCCCCCCCCCC.CCC___._.CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCC~C~C~~~______C__T.____..,,,,,,,,....^^^^^^^DD^^DDDDDD...DDC___~__~~~~_~~~~~~~~~~~~C~~~~~~CC~_______.....^^^.^^^^^^^^....T.__~~~~~~~~~~~~~~~~~~~~~C~CCC~~CCCC~~~~CCC~CC~~~~~~~CCCCCCCCCCCCCCCCCC__C______CCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCC~~~_______C__...__...,,.,,,,.....^^^^DDDDDDDDDDDDD..DCD.__~____~~~~~~~~~~~~~~CCC~~~~~CCC~~~~~~~__........^^^^^^^^^^^...._~~~~~~~~~~~~~~~~~~~~~CCCCC~~CCC~~~~CC~CCC~~~~~C~~CC~CC~CCCCCCCCCCCC~CCCCC~_~~CCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCC~~___~~__C___.T.......,,,.,....^^^^DDDDDDDDDDDDDDDT.DCD.__~~__~~~_~_~~~~~~~~CCC~~~~~~CCC~~~~~~~~_...........^^^^^.^^^..._~~~~~~~~~~~~~~~~~~~~~~CCCCC~CCCC~~~CCCCCC~~~~~C~CCC~CCCCCCCCCCCCCCCCCCCCC~~~CCCCCC~CCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCC~C~~~__~~~~____.TT.........,,,.^^^^^^^DDD.DDDDDDDDD.DDDDDDD___~~_~~~~~__~~~~~~~~CC~~~~~CCCC~~~~~~~~__.......T....^.....^..___~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~C~CCCC~~~~~~CCCCC~CCCCCCCCCCCCCCCCCCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCC~~~~_~~~~~~____..TTT.T.......^.^^^^^^^..DDDDDDDDDDC.DDTD.DD____~~~~_~~~~~~~~~~~~CC~~~~~C~~CCC~~~~~~~____....TTT.......^^..___~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~CCCCCCC~~~~~~C~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCC~~~~_~~_~~_~~____..TTTTT..T...^^^^^^.^^..DDDDDDDD^D.C..D.DDDDD___~~~~~~_~~~~~~~CC~C~~~~~~CCCCCC~~~~~~~~~~~_...TTT...........__~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCC~CCC~CCC~~~~~~CC~CCCCCCCCCCCCCCCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCC~~~____~~~~~~~___..TTTTT.T.....^^^.^^.^.....DDDDDDDD.C.CDDDDDDD___~__~~~~~~~~~~~C~~C~~~~~~~CCCCCC~~~~~~~~~~___.............c.__~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCC~~~CCC~~~~~CCCC~CCCCCCCCCCCCCCCCCCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~~_______~_~~___..TTTTTT.......^.^.........DD.DD^D..C...DD.DDDD__~~~~__~~~~~~~~~~~~~~~~~~~~~CCCCC~~~~~~~~~~~~______..........____~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCC~~~~C~C~~~~~CCC~CC~CCCCCCCCCCCCCCCC~CCCCC~CCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~__._______~~___.TTTTTT.......^^^...............^...C.C..DDDD_D__~~~~__~~~~~~~~C~~~~~~~~~~~~~~CCCC~~~~~~~~~~~~~~~~_____.........____~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCC~~CC~~~~~C~CCCCCCCCCCCCCCCCCCCCCCCCCCC~~CCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~___.______~_~___.TTTTT..T.T.^^^.....T.T.........^^^CC..T.DDDDDD__~~~~_~_~~~~~~~C~~~~~~~~~~~~~~~CCCC~~~~~~~C~~~~~~~~~~____.........____~~~~~~~~~~~~CCCCCCCCCCCCCCCCCC~~~CCC~~~~~~CCCCCCCCCCCCCCCCCCCCCCCCC~~CCCCCCCC~CCCCCCCCCCCCCCC#
+W:D:#CCCCCCCC~~___..._~___~___...TTTTTT.T...^^....TTT..TT......^^^CCC....DDD.____~_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCC~~~~~~~~CCCC~~~~~~~~~_.......______~~~~~~~~~~~~CCCCCCCCCCCCCCCCCC~~~CCCC~~~~~~CCCCCCCCCCCCCCCCCCCCCC~~~~~CCCCCCCC~~~CCCCCCCCCCCC#
+W:D:#CCCCCCCC~___...._~__~____.T.TTTTTTT.T.......TTTTTTTTT...^^^^^^CC..T...._____~~~~_~~~~~~~~~~~~~~~~~~~~~~~~~CC~C~~~~~~~~~CCCCC~~~~~~~__......___~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCC~~~~~~~CC~CCCCCCCCCCCCCCCCCCC~~CCC~~~~CCCCCCCCC~C~~CCCCCCCCCCCC#
+W:D:#CCCCCCC~~___...._~~______...TT.TTTTT.TTT...TTTTTT.T....^^^^^CCCC..TT...______~~~~~~~~~~~~~C~~~~~~~~~~~~~~~CCCCCC~~~~~CCCCC~~~~~~~~~~_.......__~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCC~CC~~~~~~~~~C~CCC~CCCC~~CC~CCCCCCCCC~~~CCCCC~CCCCCC~~~~CCCCCCCCCC#
+W:D:#CCCCCCCC~____..__________.T.TTTTTTTTTTTT..TTTTTTTT....^^^^^^^CC..TT...._____~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCC~~~~~CCC~~~~~~~~~~~_....___._~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCC~CC~~~C~~~~~C~~C~~~CCCCCCCCCCCCCC~CC~CCCCCCCCC~CC~~~~~CCCCCCCCCCC#
+W:D:#CCCCCCCC~~~~___________...CTTTTT.TTTTTTTTTTTTTT.T....^^^^^^^^CC...TT...______~~~~~~~~~~~~CC~~~~~~~~~~~~~~CCCCCCCCC~~~~~~C~~~~~~~~~~~_.....____~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCC~CC~~CC~~~~C~~CC~CC~C~CC~CC~CCCCCCCCCCCC~CCCCCC~CCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~____CCC___..CCTT.TTT.TTTTTTTTTTTTT.....^^^^^^^^^^^CC..TTT...___~~~~~~~~~~~~~C~~~~~~~~~~~~~~~C~CCCCC~CC~~~~~~~~~~~~~~~~~~_......_~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCC~CCCC~~C~~~~~CCC~C~~~~~~~~~~~C~~~C~~C~~CCCCCCCCCCCCCC~CCCCCCCCCCC#
+W:D:#CCCCCCCCC~~~~__CC____..CCTTT.TT..TTTT.TTTTTTT....^.^^^^^^^^^^.C...TTT...___~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCC~~~C~~~~~~~~~~~~~~~~~__.....__~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCC~~CCCC~~~CC~~~CC~C~C~CC~CC~CCC~~CC~CC~~CCCCCCCCCCCC~~CCC~CCCCCCCC#
+W:D:#CCCCCCCCCC~~_CCC__....CCTTT...TT.TTTTTTTTTTT......^^^^^^.^^CC.C.TT.T.TT.______~~~~~~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCC~~~~~~~~~~~~~~~~__....^..__~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~C~~~CCCC~~~~C~CCCC~C~CCCC~~CC~CC~CCC~~C~CCCCCC~CCC~CCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCC~_CC_C...C.C..TT.T..CC..T.TTTTTTTT...^..^^^...^^.CCCC..TTTT.TT______~~__~~~~~~~~~~~~~~~~~~~~~CCCCCCCC~~~~~~~~~~~~~~~~~~~__....^C..._~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~C~~~C~~CCCCC~C~CCCCC~C~C~CC~~~C~CCC~~~CCC~CC~~CC~~C~CCCCCCCCCCCC#
+W:D:#CCCCCCCCCCC_CCC_.CCCCC......TCCC..TTTTTTTTT....^^.^...^^^^^CCCC...TTT.T..______~~_~~~~~~~~~~~~~~~~~~~~CCCCCCCCCC~~~~~~~~~~~~~~~~___...^^^.CC._~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCC~CC~~CC~C~~CCC~~C~CCCCCCC~C~~~CC~CCC~CC~CC~~~~CC~CCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCC_CCCC.C...T...C.C.TTTTTTTT....^^^......^^^^CCCCC..TTTT...._CCCC__~~~_~~~~~~~~~~~~~~~~~CCCCCCCCCCCC~~~~~~~~~~~~~~~__....^^^^..._~~~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCC~~C~~CCC~~~~CCCCCCCCCC~~~C~~CCCCCCC~C~~C~~~C~~C~CCC~CCCCCCCCCCC#
+W:D:#CCCCCCCCCCCC__CCCCC.C.......CCC..TTTTTTTT....^......C.^^^^CCCC.TT..TT....CCCCCC__~_~_~~~~~~~~~~~~~~~CCCCCCCCCCCCC~~~~~~~~~~~~~~___...^^^^^CC.__~~~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCC~~~~~~~~~CCC~~~~CCC~CC~C~~CCCCC~~~~C~~~~~CCCCCC~CCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCC_CCCCCCC.....CCCCC..TTTTTTTTTT.........CC^^^CCCCC....CT....CCCCCCC_______~~~~~~~~~~~~CCCCCCCCCCCCCCC~~~~~~~~~~~~~C__....^^^^^C..._~~~~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCC~C~~~~~~~C~C~~~~~C~~~C~CCCCCC~~~~~~~C~~CCCCCC~C~CCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCC......CCCC..TTTT.TTTTTTTTT...C.CCC.^.CCCCC..T.CT.C.TCCCCCCCC_______~~~~~CC~~CCCCCCCCCCCCCCCCC~~~~~~~~~~~CCCCCCCC^^^^^.C...___~~~~~~~~~~~~~CCCCCCCCCCCCCCCCCCCCCCC~~~~~~C~~C~~~~~CCC~CCCCCC~~~~CC~CCCCCCCCCCC~CCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCC.CC.CCCCCCCC.TTTTTTTTTTTTTTT...CCCCC.^CCCCCCC.......T.TCCCCCCCCCC_____~~~~CCCCCCCCCCCCCCCCCCCCCCCC~CCCCCCCCCCCCCCC^^^^CCC.C...__~~~~~~~~~C~CCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~C~~C~CCCC~CCC~~~~~CCCCCCCCC~CCCCCC~~CCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCC..TT.TTTTTT.TTTTTTCCCCCCCC^CCCCCC.......CTTCCCCCCCCCCCCC_CCCCCCC~~CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC^^^^^CC.......__..CC~~~~C~CCCCCCCCCCCCCCCCCCCCCCC~CCCC~~~~~C~C~CC~~~~~~~~~CCCCC~~C~~C~CCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCC.CCCCCTTTCCCCCTTTTCCCCCCCCCCCCCCCCCCC....CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC^CCCCCCCCCCCC~CC...CC~~CCCCCCCCCCCCCCCCCCCCCCCCCC~~~CCC~~~~~~~~~~~~~~~~CCCCCC~CCCCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.CCC.C.C...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~CCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~CCCC~~~~~~C~C~~C~~CCCCCCC~CCCCC~CCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC^CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~~~~CC~~~C~C~C~~~C~~~CCC~CCCCCCCCCCCCCCCCCCCCCCCCCCC#
+W:D:#CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC~~~CCCC~~C~C~CCC~CC~CCCCCCCCCCCCCCCCCCCCCC#
+W:D:################################################################################################################################################################################################################################################
+
