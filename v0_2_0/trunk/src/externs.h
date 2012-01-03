@@ -1269,7 +1269,7 @@ extern s16b m_pop(void);
 extern errr get_mon_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2);
 extern s16b get_mon_num(int level);
 extern void creature_desc(char *desc, creature_type *m_ptr, int mode);
-extern void monster_desc_ego(char *desc, creature_type *m_ptr, species_type *r_ptr);
+extern void monster_desc_ego(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *cr_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro);

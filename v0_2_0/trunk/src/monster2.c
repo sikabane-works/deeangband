@@ -2275,52 +2275,50 @@ void creature_desc(char *desc, creature_type *m_ptr, int mode)
 }
 
 
-void monster_desc_ego(char* desc, creature_type *m_ptr, species_type *r_ptr)
+void monster_desc_ego(char* desc, creature_type *creature_ptr, species_type *species_ptr)
 {
-
-	if(r_ptr->chara_idx == INDEX_VARIABLE){
+	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
-		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
-		if(chara_info[m_ptr->chara_idx].no)
+		(void)strcat(desc, chara_info[creature_ptr->chara_idx].title);
+		if(chara_info[creature_ptr->chara_idx].no)
 			(void)strcat(desc, "な");
 #else
-		(void)strcat(desc, chara_info[m_ptr->chara_idx].title);
+		(void)strcat(desc, chara_info[creature_ptr->chara_idx].title);
 #endif
 	}
 
-	if(m_ptr->race_idx1 == INDEX_VARIABLE){
+	if(species_ptr->race_idx1 == INDEX_VARIABLE || species_ptr->race_idx2 == INDEX_VARIABLE){
+		(void)strcat(desc, desc_race_name(creature_ptr));
 #ifdef JP
-		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "の");
 #else
-		(void)strcat(desc, race_info[m_ptr->race_idx1].title);
 		(void)strcat(desc, "'s ");
 #endif
 	}
 
-	if(m_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE){
+	if(creature_ptr->monster_ego_idx == MONEGO_VARIABLE_SIZE){
 		char tmp[80];
 		tmp[0] = '\0';
 #ifdef JP
-		sprintf(tmp, "サイズ%dの", m_ptr->size);
+		sprintf(tmp, "サイズ%dの", creature_ptr->size);
 #else
-		sprintf(tmp, "Size:%d ", m_ptr->size);
+		sprintf(tmp, "Size:%d ", creature_ptr->size);
 #endif
 		(void)strcat(desc, tmp);
 	}
 
-	else if(m_ptr->monster_ego_idx != MONEGO_NONE){
-		(void)strcat(desc, re_name + re_info[m_ptr->monster_ego_idx].name);
+	else if(creature_ptr->monster_ego_idx != MONEGO_NONE){
+		(void)strcat(desc, re_name + re_info[creature_ptr->monster_ego_idx].name);
 	}
 
-	(void)strcat(desc, species_name + r_ptr->name);
+	(void)strcat(desc, species_name + species_ptr->name);
 
-	if(m_ptr->cls_idx == INDEX_VARIABLE){
+	if(creature_ptr->cls_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, "の");
-		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[creature_ptr->cls_idx].title);
 #else
-		(void)strcat(desc, class_info[m_ptr->cls_idx].title);
+		(void)strcat(desc, class_info[creature_ptr->cls_idx].title);
 #endif
 	}
 
