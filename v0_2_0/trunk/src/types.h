@@ -1642,6 +1642,7 @@ struct creature_flag_type
 	s16b speed;
 	s32b text;
 	s32b E_text;
+	creature_flags flags;
 };
 
 

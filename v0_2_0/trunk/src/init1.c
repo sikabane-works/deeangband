@@ -3728,7 +3728,8 @@ errr parse_creature_flag_csv(char *buf, header *head)
 					creature_flag_info[n].exp = (s16b)b;
 				break;
 				case CF_INFO_FLAGS:
-					//TODO
+					if(0 != creature_flags_splits(&creature_flag_info[n].flags, tmp))
+						return (1);
 				break;
 				case CF_INFO_SPEED:
 					if(sscanf(tmp, "%d", &b) != 1) return (1);
