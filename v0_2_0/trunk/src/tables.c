@@ -5746,14 +5746,43 @@ half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION] =
 #endif
 	},
 
+	{
+		RACE_HUMAN,
+		RACE_ORC,
+#if JP
+		"ハーフオーク",
+#else
+		"Half-Orc",
+#endif
+	},
 
 	{
 		RACE_HUMAN,
-		RACE_GNOME,
+		RACE_TROLL,
 #if JP
-		"ハーフノーム",
+		"ハーフトロル",
 #else
-		"Half-Gnome",
+		"Half-Troll",
+#endif
+	},
+
+	{
+		RACE_HUMAN,
+		RACE_OGRE,
+#if JP
+		"ハーフオーガ",
+#else
+		"Half-Ogre",
+#endif
+	},
+
+	{
+		RACE_ORC,
+		RACE_OGRE,
+#if JP
+		"オグリロン",
+#else
+		"Ogrillon",
 #endif
 	},
 
